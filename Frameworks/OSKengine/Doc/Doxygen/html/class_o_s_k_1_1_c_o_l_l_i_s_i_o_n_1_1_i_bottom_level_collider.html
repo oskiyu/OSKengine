@@ -102,6 +102,8 @@ Métodos públicos</h2></td></tr>
 <tr class="separator:a6eda8ff8ca88b4247601e9d1b13a7939"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac741ed7befd12b1fcc254ad9f9ac0c97"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_detailed_collision_info.html">DetailedCollisionInfo</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_i_bottom_level_collider.html#ac741ed7befd12b1fcc254ad9f9ac0c97">GetCollisionInfo</a> (const <a class="el" href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_i_bottom_level_collider.html">IBottomLevelCollider</a> &amp;other, const <a class="el" href="class_o_s_k_1_1_e_c_s_1_1_transform3_d.html">ECS::Transform3D</a> &amp;transformA, const <a class="el" href="class_o_s_k_1_1_e_c_s_1_1_transform3_d.html">ECS::Transform3D</a> &amp;transformB) const =0</td></tr>
 <tr class="separator:ac741ed7befd12b1fcc254ad9f9ac0c97"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af5b82cbd1e0ddbf6ea28f829d3f3bd2c"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="namespace_o_s_k.html#a5e479af2ede269150542d90384ce3ee2">Vector3f</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_i_bottom_level_collider.html#af5b82cbd1e0ddbf6ea28f829d3f3bd2c">GetFurthestPoint</a> (<a class="el" href="namespace_o_s_k.html#a5e479af2ede269150542d90384ce3ee2">Vector3f</a> direction) const =0</td></tr>
+<tr class="separator:af5b82cbd1e0ddbf6ea28f829d3f3bd2c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0ee7950a95b070687dc8960436f1b7c6"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_i_bottom_level_collider.html#a0ee7950a95b070687dc8960436f1b7c6">ContainsPoint</a> (const <a class="el" href="namespace_o_s_k.html#a5e479af2ede269150542d90384ce3ee2">Vector3f</a> &amp;point) const =0</td></tr>
 <tr class="separator:a0ee7950a95b070687dc8960436f1b7c6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
@@ -219,6 +221,43 @@ Métodos públicos</h2></td></tr>
 
 </div>
 </div>
+<a id="af5b82cbd1e0ddbf6ea28f829d3f3bd2c" name="af5b82cbd1e0ddbf6ea28f829d3f3bd2c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af5b82cbd1e0ddbf6ea28f829d3f3bd2c">&#9670;&nbsp;</a></span>GetFurthestPoint()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual <a class="el" href="namespace_o_s_k.html#a5e479af2ede269150542d90384ce3ee2">Vector3f</a> OSK::COLLISION::IBottomLevelCollider::GetFurthestPoint </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="namespace_o_s_k.html#a5e479af2ede269150542d90384ce3ee2">Vector3f</a>&#160;</td>
+          <td class="paramname"><em>direction</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Obtiene el punto más lejano del collider en la dirección dada. </p>
+<dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">direction</td><td>Dirección. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Devuelve</dt><dd>Punto del collider más lejano respecto al centro en esa dirección. </dd></dl>
+
+<p>Implementado en <a class="el" href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_convex_volume.html#ad7e6c677ad8ad238a85508d7941e080d">OSK::COLLISION::ConvexVolume</a>.</p>
+
+</div>
+</div>
 <a id="a6eda8ff8ca88b4247601e9d1b13a7939" name="a6eda8ff8ca88b4247601e9d1b13a7939"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a6eda8ff8ca88b4247601e9d1b13a7939">&#9670;&nbsp;</a></span>OSK_DEFINE_AS()</h2>
 
@@ -246,7 +285,7 @@ Métodos públicos</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="namespace_o_s_k.html">OSK</a></li><li class="navelem"><a class="el" href="namespace_o_s_k_1_1_c_o_l_l_i_s_i_o_n.html">COLLISION</a></li><li class="navelem"><a class="el" href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_i_bottom_level_collider.html">IBottomLevelCollider</a></li>
-    <li class="footer">Generado el Lunes, 6 de Febrero de 2023 17:42:41 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4 </li>
+    <li class="footer">Generado el Sábado, 18 de Febrero de 2023 20:35:10 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4 </li>
   </ul>
 </div>
 </body>

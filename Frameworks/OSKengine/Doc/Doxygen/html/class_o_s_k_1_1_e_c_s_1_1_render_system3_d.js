@@ -12,7 +12,7 @@ var class_o_s_k_1_1_e_c_s_1_1_render_system3_d =
     [ "GetRenderTarget", "class_o_s_k_1_1_e_c_s_1_1_render_system3_d.html#a7ead258d11d094f960bed0b7da407d85", null ],
     [ "GetShadowMap", "class_o_s_k_1_1_e_c_s_1_1_render_system3_d.html#a6b8811a0612a96336cca1402e1004d97", null ],
     [ "GetSignature", "class_o_s_k_1_1_e_c_s_1_1_render_system3_d.html#ae112bd30755ef771c25dc2d620fb6295", null ],
-    [ "Initialize", "class_o_s_k_1_1_e_c_s_1_1_render_system3_d.html#adfff58ade8d8264a127811bc05fc5e3c", null ],
+    [ "Initialize", "class_o_s_k_1_1_e_c_s_1_1_render_system3_d.html#a41ced97ec5141bd203c6d407fc00b6fe", null ],
     [ "InitializeTerrain", "class_o_s_k_1_1_e_c_s_1_1_render_system3_d.html#a890108dd7d405eb602d0d80fefefdada", null ],
     [ "IsActive", "class_o_s_k_1_1_e_c_s_1_1_render_system3_d.html#acdd2816796e17bd727d7ee4d10e11aed", null ],
     [ "OnCreate", "class_o_s_k_1_1_e_c_s_1_1_render_system3_d.html#ab99fd447d1c640bcc003dc5713768b6c", null ],

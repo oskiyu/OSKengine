@@ -18,6 +18,7 @@ var _pipeline_create_info_8h =
     [ "PolygonMode", "_pipeline_create_info_8h.html#a9bf4af2a8108b7a3939f60c4efafcfd8", [
       [ "TRIANGLE_FILL", "_pipeline_create_info_8h.html#a9bf4af2a8108b7a3939f60c4efafcfd8a37a03466f46f1fb13dadb80faea6b24c", null ],
       [ "TRIANGLE_WIDEFRAME", "_pipeline_create_info_8h.html#a9bf4af2a8108b7a3939f60c4efafcfd8a38b916d2838bbcd3eb17dde43c251b83", null ],
-      [ "LINE", "_pipeline_create_info_8h.html#a9bf4af2a8108b7a3939f60c4efafcfd8a17b8ef2c330f1430e00c9de5469fc7e7", null ]
+      [ "LINE", "_pipeline_create_info_8h.html#a9bf4af2a8108b7a3939f60c4efafcfd8a17b8ef2c330f1430e00c9de5469fc7e7", null ],
+      [ "POINT", "_pipeline_create_info_8h.html#a9bf4af2a8108b7a3939f60c4efafcfd8aaebdbcb765394d25d6a604589a890f82", null ]
     ] ]
 ];

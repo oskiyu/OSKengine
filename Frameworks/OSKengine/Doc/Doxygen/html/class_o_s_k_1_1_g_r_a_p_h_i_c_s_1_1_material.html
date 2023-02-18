@@ -118,6 +118,8 @@ Métodos públicos</h2></td></tr>
 <tr class="separator:acf1dacea3b45a53ca86d96e30af22af1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af145277bed3af0474a0e1abbd2a12fac"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#aad769de4b6a68624571ab3ae7ec13f97">MaterialType</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material.html#af145277bed3af0474a0e1abbd2a12fac">GetMaterialType</a> () const</td></tr>
 <tr class="separator:af145277bed3af0474a0e1abbd2a12fac"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac4210d67d6c1f61a3a8b11d56777f714"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material.html#ac4210d67d6c1f61a3a8b11d56777f714">_Reload</a> ()</td></tr>
+<tr class="separator:ac4210d67d6c1f61a3a8b11d56777f714"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Descripción detallada</h2>
 <div class="textblock"><p >Un material define el comportamiento del renderizador con un objeto en concreto. Debe definirse el layout del material, indicando qué slots (y bindings) serán usados en los shaders, además de los propios shaders. </p>
@@ -195,6 +197,28 @@ Métodos públicos</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Documentación de las funciones miembro</h2>
+<a id="ac4210d67d6c1f61a3a8b11d56777f714" name="ac4210d67d6c1f61a3a8b11d56777f714"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac4210d67d6c1f61a3a8b11d56777f714">&#9670;&nbsp;</a></span>_Reload()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Material::_Reload </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Recarga los shaders del material. </p>
+<dl class="section warning"><dt>Atención</dt><dd>No usar directamente, hacerlo mediante <a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_system.html" title="Clase que se encarga de cargar y manejar los materiales. Un material define el comportamiento del ren...">MaterialSystem</a>. </dd></dl>
+
+<p class="definition">Definición en la línea <a class="el" href="_material_8cpp_source.html#l00096">96</a> del archivo <a class="el" href="_material_8cpp_source.html">Material.cpp</a>.</p>
+
+</div>
+</div>
 <a id="acf1dacea3b45a53ca86d96e30af22af1" name="acf1dacea3b45a53ca86d96e30af22af1"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#acf1dacea3b45a53ca86d96e30af22af1">&#9670;&nbsp;</a></span>CreateInstance()</h2>
 
@@ -213,7 +237,7 @@ Métodos públicos</h2></td></tr>
 <p>Crea y devuelve una nueva instancia de este material. </p>
 <dl class="section return"><dt>Devuelve</dt><dd>Nueva instancia del material. </dd></dl>
 
-<p class="definition">Definición en la línea <a class="el" href="_material_8cpp_source.html#l00035">35</a> del archivo <a class="el" href="_material_8cpp_source.html">Material.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_material_8cpp_source.html#l00024">24</a> del archivo <a class="el" href="_material_8cpp_source.html">Material.cpp</a>.</p>
 
 </div>
 </div>
@@ -236,7 +260,7 @@ Métodos públicos</h2></td></tr>
 <dl class="section return"><dt>Devuelve</dt><dd>Pipeline de trazado de rayos. Será null si el material no es de tipo computación.</dd></dl>
 <dl class="section pre"><dt>Precondición</dt><dd>El material debe ser un material de computación. </dd></dl>
 
-<p class="definition">Definición en la línea <a class="el" href="_material_8cpp_source.html#l00091">91</a> del archivo <a class="el" href="_material_8cpp_source.html">Material.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_material_8cpp_source.html#l00080">80</a> del archivo <a class="el" href="_material_8cpp_source.html">Material.cpp</a>.</p>
 
 </div>
 </div>
@@ -266,7 +290,7 @@ Métodos públicos</h2></td></tr>
 <dl class="section return"><dt>Devuelve</dt><dd>Pipeline.</dd></dl>
 <dl class="section pre"><dt>Precondición</dt><dd>El material debe ser un material gráfico. </dd></dl>
 
-<p class="definition">Definición en la línea <a class="el" href="_material_8cpp_source.html#l00052">52</a> del archivo <a class="el" href="_material_8cpp_source.html">Material.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_material_8cpp_source.html#l00041">41</a> del archivo <a class="el" href="_material_8cpp_source.html">Material.cpp</a>.</p>
 
 </div>
 </div>
@@ -288,7 +312,7 @@ Métodos públicos</h2></td></tr>
 <p>Devuelve el layout del material. </p>
 <dl class="section return"><dt>Devuelve</dt><dd>Layout del material. </dd></dl>
 
-<p class="definition">Definición en la línea <a class="el" href="_material_8cpp_source.html#l00048">48</a> del archivo <a class="el" href="_material_8cpp_source.html">Material.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_material_8cpp_source.html#l00037">37</a> del archivo <a class="el" href="_material_8cpp_source.html">Material.cpp</a>.</p>
 
 </div>
 </div>
@@ -310,7 +334,7 @@ Métodos públicos</h2></td></tr>
 <p>Devuelve el tipo de material. </p>
 <dl class="section return"><dt>Devuelve</dt><dd>Tipo de material. </dd></dl>
 
-<p class="definition">Definición en la línea <a class="el" href="_material_8cpp_source.html#l00044">44</a> del archivo <a class="el" href="_material_8cpp_source.html">Material.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_material_8cpp_source.html#l00033">33</a> del archivo <a class="el" href="_material_8cpp_source.html">Material.cpp</a>.</p>
 
 </div>
 </div>
@@ -333,7 +357,7 @@ Métodos públicos</h2></td></tr>
 <dl class="section return"><dt>Devuelve</dt><dd>Pipeline de trazado de rayos. Será null si el material no es de tipo trazado de rayos.</dd></dl>
 <dl class="section pre"><dt>Precondición</dt><dd>El material debe ser un material de trazado de rayos. </dd></dl>
 
-<p class="definition">Definición en la línea <a class="el" href="_material_8cpp_source.html#l00087">87</a> del archivo <a class="el" href="_material_8cpp_source.html">Material.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_material_8cpp_source.html#l00076">76</a> del archivo <a class="el" href="_material_8cpp_source.html">Material.cpp</a>.</p>
 
 </div>
 </div>
@@ -361,7 +385,7 @@ Métodos públicos</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definición en la línea <a class="el" href="_material_8cpp_source.html#l00031">31</a> del archivo <a class="el" href="_material_8cpp_source.html">Material.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_material_8cpp_source.html#l00020">20</a> del archivo <a class="el" href="_material_8cpp_source.html">Material.cpp</a>.</p>
 
 </div>
 </div>
@@ -375,7 +399,7 @@ Métodos públicos</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="namespace_o_s_k.html">OSK</a></li><li class="navelem"><a class="el" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html">GRAPHICS</a></li><li class="navelem"><a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material.html">Material</a></li>
-    <li class="footer">Generado el Lunes, 6 de Febrero de 2023 17:42:41 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4 </li>
+    <li class="footer">Generado el Sábado, 18 de Febrero de 2023 20:35:10 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4 </li>
   </ul>
 </div>
 </body>

@@ -20,6 +20,7 @@ var searchData=
   ['osk_5fshadows_5fcustom_17',['OSK_SHADOWS_CUSTOM',['../_shadow_map_8cpp.html#a2047cf0e8dfd816e4a1ec5b1a8a3fc29',1,'ShadowMap.cpp']]],
   ['osk_5fstd_5fup_5fdelete_18',['OSK_STD_UP_DELETE',['../_unique_ptr_8hpp.html#a39380e99c3ed7ce667fc96eb6d18b6f4',1,'UniquePtr.hpp']]],
   ['osk_5fsystem_19',['OSK_SYSTEM',['../_i_system_8h.html#a8f8e44bc705ee82b3070d63d8d702148',1,'ISystem.h']]],
-  ['osk_5fvertex_5ftype_5freg_20',['OSK_VERTEX_TYPE_REG',['../_vertex_8h.html#a2d42dd56efd9f0344ccb4d46c42f4138',1,'Vertex.h']]],
-  ['oskapi_5fcall_21',['OSKAPI_CALL',['../_o_s_kmacros_8h.html#a09ec5b46ece998ad096bceff312bb36c',1,'OSKmacros.h']]]
+  ['osk_5fuse_5fforward_5frenderer_20',['OSK_USE_FORWARD_RENDERER',['../_o_s_kengine_8h.html#a0b99d6e7e4dab9d8b5b2e952edd7962e',1,'OSKengine.h']]],
+  ['osk_5fvertex_5ftype_5freg_21',['OSK_VERTEX_TYPE_REG',['../_vertex_8h.html#a2d42dd56efd9f0344ccb4d46c42f4138',1,'Vertex.h']]],
+  ['oskapi_5fcall_22',['OSKAPI_CALL',['../_o_s_kmacros_8h.html#a09ec5b46ece998ad096bceff312bb36c',1,'OSKmacros.h']]]
 ];

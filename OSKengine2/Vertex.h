@@ -3,7 +3,7 @@
 #include <string>
 #include "VertexInfo.h"
 
-namespace OSK::GRAPHICS{
+namespace OSK::GRAPHICS {
 	using TIndexSize = uint32_t;
 }
 

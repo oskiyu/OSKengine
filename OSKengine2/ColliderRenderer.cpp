@@ -41,7 +41,11 @@ ColliderRenderSystem::ColliderRenderSystem() {
 		->LoadMaterial("Resources/Materials/Collision/collision_material.json");
 	lowLevelMaterial = Engine::GetRenderer()->GetMaterialSystem()
 		->LoadMaterial("Resources/Materials/Collision/lowlevel_collision_material.json");
+	pointMaterial = Engine::GetRenderer()->GetMaterialSystem()
+		->LoadMaterial("Resources/Materials/Collision/collision_point_material.json");
+
 	materialInstance = material->CreateInstance().GetPointer();
+	pointsMaterialInstance = pointMaterial->CreateInstance().GetPointer();
 
 	// Asset load
 	cubeModel = Engine::GetAssetManager()->Load<Model3D>("Resources/Assets/Models/Colliders/cube.json", "ColliderRenderSystem");
@@ -58,6 +62,9 @@ ColliderRenderSystem::ColliderRenderSystem() {
 
 	materialInstance->GetSlot("global")->SetUniformBuffers("camera", _cameraUbos);
 	materialInstance->GetSlot("global")->FlushUpdate();
+
+	pointsMaterialInstance->GetSlot("global")->SetUniformBuffers("camera", _cameraUbos);
+	pointsMaterialInstance->GetSlot("global")->FlushUpdate();
 }
 
 void ColliderRenderSystem::Initialize(GameObjectIndex camera) {
@@ -104,10 +111,14 @@ void ColliderRenderSystem::Render(GRAPHICS::ICommandList* commandList) {
 	// Obtenemos todas las entidades que están colisionando,
 	// para poder cambiarles de color.
 	const auto& eventQueue = Engine::GetEcs()->GetEventQueue<CollisionEvent>();
+	DynamicArray<Vector3f> contactPoints;
+	DynamicArray<Vector3f> singleContactPoints;
 	std::set<GameObjectIndex> collisionObjects;
 	for (const CollisionEvent& ev : eventQueue) {
 		collisionObjects.insert(ev.firstEntity);
 		collisionObjects.insert(ev.secondEntity);
+		contactPoints.InsertAll(ev.collisionInfo.GetContactPoints());
+		singleContactPoints.Insert(ev.collisionInfo.GetSingleContactPoint());
 	}
 
 	for (GameObjectIndex gameObject : GetObjects()) {
@@ -164,6 +175,30 @@ void ColliderRenderSystem::Render(GRAPHICS::ICommandList* commandList) {
 				commandList->DrawSingleInstance(indexBuffers[i]->GetNumIndices());
 			}
 		}
+	}
+
+	commandList->BindVertexBuffer(cubeModel->GetVertexBuffer());
+	commandList->BindIndexBuffer(cubeModel->GetIndexBuffer());
+
+	commandList->BindMaterial(pointMaterial);
+	commandList->BindMaterialSlot(pointsMaterialInstance->GetSlot("global"));
+
+	struct {
+		Vector4f point;
+		Color color = Color::RED();
+	} pushConstant;
+
+	for (const Vector3f point : contactPoints) {
+		pushConstant.point = Vector4f(point.X, point.Y, point.Z, 1.0f);
+		commandList->PushMaterialConstants("pushConstants", pushConstant);
+		commandList->DrawSingleInstance(1);
+	}
+
+	pushConstant.color = Color::PURPLE();
+	for (const Vector3f point : singleContactPoints) {
+		pushConstant.point = Vector4f(point.X, point.Y, point.Z, 1.0f);
+		commandList->PushMaterialConstants("pushConstants", pushConstant);
+		commandList->DrawSingleInstance(1);
 	}
 
 	commandList->EndDebugSection();

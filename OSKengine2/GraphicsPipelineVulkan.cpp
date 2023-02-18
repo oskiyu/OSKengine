@@ -49,6 +49,8 @@ void GraphicsPipelineVulkan::Create(const MaterialLayout* materialLayout, IGpu* 
 	if (info.tesselationControlPath == "") {
 		if (info.polygonMode == PolygonMode::LINE)
 			inputAssemblyInfo.topology = VK_PRIMITIVE_TOPOLOGY_LINE_STRIP;
+		else if (info.polygonMode == PolygonMode::POINT)
+			inputAssemblyInfo.topology = VK_PRIMITIVE_TOPOLOGY_POINT_LIST;
 		else
 			inputAssemblyInfo.topology = VK_PRIMITIVE_TOPOLOGY_TRIANGLE_LIST;
 	}

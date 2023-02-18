@@ -267,7 +267,8 @@ var namespace_o_s_k_1_1_g_r_a_p_h_i_c_s =
     [ "PolygonMode", "namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a9bf4af2a8108b7a3939f60c4efafcfd8", [
       [ "TRIANGLE_FILL", "namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a9bf4af2a8108b7a3939f60c4efafcfd8a37a03466f46f1fb13dadb80faea6b24c", null ],
       [ "TRIANGLE_WIDEFRAME", "namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a9bf4af2a8108b7a3939f60c4efafcfd8a38b916d2838bbcd3eb17dde43c251b83", null ],
-      [ "LINE", "namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a9bf4af2a8108b7a3939f60c4efafcfd8a17b8ef2c330f1430e00c9de5469fc7e7", null ]
+      [ "LINE", "namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a9bf4af2a8108b7a3939f60c4efafcfd8a17b8ef2c330f1430e00c9de5469fc7e7", null ],
+      [ "POINT", "namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a9bf4af2a8108b7a3939f60c4efafcfd8aaebdbcb765394d25d6a604589a890f82", null ]
     ] ],
     [ "PresentMode", "namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a47a7b3817b8aca438c20b7674fad28ab", [
       [ "VSYNC_OFF", "namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a47a7b3817b8aca438c20b7674fad28aba61f5be3d7713d75f23e81b12d369f7b2", null ],

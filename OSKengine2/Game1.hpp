@@ -293,6 +293,11 @@ protected:
 				carSpeedDiff -= 0.5f * deltaTime;
 
 			carSpeedDiff = glm::clamp(carSpeedDiff, -1.0f, 7.0f);
+
+			if (keyboard->IsKeyDown(IO::Key::SPACE)) {
+				currentCarSpeed = 0.0f;
+				carSpeedDiff = 0.0f;
+			}
 		}
 		
 
@@ -559,53 +564,8 @@ private:
 		// Setup de colisiones
 		Collider collider{};
 
-		OwnedPtr<ConvexVolume> convexVolume = new ConvexVolume;
-		{
-			const float width = 0.15f;
-			const float length = 0.35f;
-			const float height = 0.17f;
-			{convexVolume->AddFace({
-				{ -width, height, -length },
-				{ -width, height, length },
-				{ width, height, length },
-				{ width, height, -length }
-				});
-			convexVolume->AddFace({
-				{ -width, 0, -length },
-				{ -width, 0, length },
-				{ width, 0, length },
-				{ width, 0, -length }
-				});
-
-			// Lateral
-			convexVolume->AddFace({
-				{ -width, height, -length },
-				{ -width, height, length },
-				{ -width, 0, length },
-				{ -width, 0, -length }
-				});
-			convexVolume->AddFace({
-				{ width, height, -length },
-				{ width, height, length },
-				{ width, 0, length },
-				{ width, 0, -length }
-				});
-
-			// Front/back
-			convexVolume->AddFace({
-				{ -width, height, length },
-				{ width, height, length },
-				{ width, 0, length },
-				{ -width, 0, length }
-				});
-			convexVolume->AddFace({
-				{ -width, height, -length },
-				{ width, height, -length },
-				{ width, 0, -length },
-				{ -width, 0, -length }
-				}); }
-		}
-
+		OwnedPtr<ConvexVolume> convexVolume = new ConvexVolume(ConvexVolume::CreateObb({ 0.15f * 2, 0.17f, 0.35f * 2 }, 0));
+		
 		collider.SetTopLevelCollider(new SphereCollider(0.45f));
 		collider.AddBottomLevelCollider(convexVolume.GetPointer());
 
@@ -651,50 +611,7 @@ private:
 		// Collider
 		Collider collider{};
 
-		OwnedPtr<ConvexVolume> convexVolume = new ConvexVolume;
-		{
-			const float volume2size = 0.2f;
-			convexVolume->AddFace({
-				{ -volume2size, volume2size * 2, -volume2size },
-				{ -volume2size, volume2size * 2, volume2size },
-				{ volume2size, volume2size * 2, volume2size },
-				{ volume2size, volume2size * 2, -volume2size }
-				});
-			convexVolume->AddFace({
-				{ -volume2size, 0, -volume2size },
-				{ -volume2size, 0, volume2size },
-				{ volume2size, 0, volume2size },
-				{ volume2size, 0, -volume2size }
-				});
-
-		// Lateral
-			convexVolume->AddFace({
-				{ -volume2size, volume2size * 2, -volume2size },
-				{ -volume2size, volume2size * 2, volume2size },
-				{ -volume2size, 0, volume2size },
-				{ -volume2size, 0, -volume2size }
-				});
-			convexVolume->AddFace({
-				{ volume2size, volume2size * 2, -volume2size },
-				{ volume2size, volume2size * 2, volume2size },
-				{ volume2size, 0, volume2size },
-				{ volume2size, 0, -volume2size }
-				});
-
-		// Front/back
-			convexVolume->AddFace({
-				{ -volume2size, volume2size * 2.0f, volume2size },
-				{ volume2size, volume2size * 2.0f, volume2size },
-				{ volume2size, 0, volume2size },
-				{ -volume2size, 0, volume2size }
-				});
-			convexVolume->AddFace({
-				{ -volume2size, volume2size * 2.0f, -volume2size },
-				{ volume2size, volume2size * 2.0f, -volume2size },
-				{ volume2size, 0, -volume2size },
-				{ -volume2size, 0, -volume2size }
-				}); 
-		}
+		OwnedPtr<ConvexVolume> convexVolume = new ConvexVolume(ConvexVolume::CreateObb({ 0.2f * 2, 0.2f * 2, 0.2f * 2 }, 0));
 
 		collider.SetTopLevelCollider(new AxisAlignedBoundingBox(0.95f));
 		collider.AddBottomLevelCollider(convexVolume.GetPointer());

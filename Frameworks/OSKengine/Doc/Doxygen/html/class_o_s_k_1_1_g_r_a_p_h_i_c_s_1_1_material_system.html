@@ -100,9 +100,17 @@ Métodos públicos</h2></td></tr>
 <tr class="separator:ae77b69200e4337042f7da24bc4d93c71"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad39c519e3a5f58cc2a7622ba9b39687a"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material.html">Material</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_system.html#ad39c519e3a5f58cc2a7622ba9b39687a">LoadMaterial</a> (const std::string &amp;path)</td></tr>
 <tr class="separator:ad39c519e3a5f58cc2a7622ba9b39687a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7e418f4052d6b5ab98de40f76d75eced"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material.html">Material</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_system.html#a7e418f4052d6b5ab98de40f76d75eced">GetMaterialByName</a> (const std::string &amp;name) const</td></tr>
+<tr class="separator:a7e418f4052d6b5ab98de40f76d75eced"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0309d0dd9882446fb273f11528a277d6"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
 <tr class="memitem:a0309d0dd9882446fb273f11528a277d6"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_system.html#a0309d0dd9882446fb273f11528a277d6">RegisterVertexType</a> ()</td></tr>
 <tr class="separator:a0309d0dd9882446fb273f11528a277d6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adad258d15364bc494da82d0baacbf937"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_system.html#adad258d15364bc494da82d0baacbf937">ReloadMaterialByPath</a> (const std::string &amp;path)</td></tr>
+<tr class="separator:adad258d15364bc494da82d0baacbf937"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a516e25c2defbd08da791906e9219617c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_system.html#a516e25c2defbd08da791906e9219617c">ReloadMaterialByName</a> (const std::string &amp;name)</td></tr>
+<tr class="separator:a516e25c2defbd08da791906e9219617c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab10195c7b144fcd1e139179dc8f5a137"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_system.html#ab10195c7b144fcd1e139179dc8f5a137">ReloadAllMaterials</a> ()</td></tr>
+<tr class="separator:ab10195c7b144fcd1e139179dc8f5a137"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Descripción detallada</h2>
 <div class="textblock"><p >Clase que se encarga de cargar y manejar los materiales. Un material define el comportamiento del renderizador con un objeto en concreto. </p>
@@ -124,11 +132,41 @@ Métodos públicos</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definición en la línea <a class="el" href="_material_system_8cpp_source.html#l00053">53</a> del archivo <a class="el" href="_material_system_8cpp_source.html">MaterialSystem.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_material_system_8cpp_source.html#l00057">57</a> del archivo <a class="el" href="_material_system_8cpp_source.html">MaterialSystem.cpp</a>.</p>
 
 </div>
 </div>
 <h2 class="groupheader">Documentación de las funciones miembro</h2>
+<a id="a7e418f4052d6b5ab98de40f76d75eced" name="a7e418f4052d6b5ab98de40f76d75eced"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7e418f4052d6b5ab98de40f76d75eced">&#9670;&nbsp;</a></span>GetMaterialByName()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material.html">Material</a> * MaterialSystem::GetMaterialByName </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>name</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Devuelve el material cargado con el nombre dado. </p>
+<dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">name</td><td>Nombre del material. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Devuelve</dt><dd><a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material.html" title="Un material define el comportamiento del renderizador con un objeto en concreto. Debe definirse el la...">Material</a>.</dd></dl>
+<dl class="section pre"><dt>Precondición</dt><dd>El material debe haber sido previamente cargado con LoadMaterial. </dd></dl>
+
+<p class="definition">Definición en la línea <a class="el" href="_material_system_8cpp_source.html#l00533">533</a> del archivo <a class="el" href="_material_system_8cpp_source.html">MaterialSystem.cpp</a>.</p>
+
+</div>
+</div>
 <a id="ad39c519e3a5f58cc2a7622ba9b39687a" name="ad39c519e3a5f58cc2a7622ba9b39687a"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ad39c519e3a5f58cc2a7622ba9b39687a">&#9670;&nbsp;</a></span>LoadMaterial()</h2>
 
@@ -154,7 +192,7 @@ Métodos públicos</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Devuelve</dt><dd><a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material.html" title="Un material define el comportamiento del renderizador con un objeto en concreto. Debe definirse el la...">Material</a> definido por el archivo. </dd></dl>
 
-<p class="definition">Definición en la línea <a class="el" href="_material_system_8cpp_source.html#l00446">446</a> del archivo <a class="el" href="_material_system_8cpp_source.html">MaterialSystem.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_material_system_8cpp_source.html#l00450">450</a> del archivo <a class="el" href="_material_system_8cpp_source.html">MaterialSystem.cpp</a>.</p>
 
 </div>
 </div>
@@ -192,7 +230,86 @@ template&lt;typename T &gt; </div>
 </dl>
 <dl class="section pre"><dt>Precondición</dt><dd>La clase 'T' debe tener implementado OSK_REG_VERTEX_TYPE de manera correcta. </dd></dl>
 
-<p class="definition">Definición en la línea <a class="el" href="_material_system_8h_source.html#l00045">45</a> del archivo <a class="el" href="_material_system_8h_source.html">MaterialSystem.h</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_material_system_8h_source.html#l00053">53</a> del archivo <a class="el" href="_material_system_8h_source.html">MaterialSystem.h</a>.</p>
+
+</div>
+</div>
+<a id="ab10195c7b144fcd1e139179dc8f5a137" name="ab10195c7b144fcd1e139179dc8f5a137"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab10195c7b144fcd1e139179dc8f5a137">&#9670;&nbsp;</a></span>ReloadAllMaterials()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void MaterialSystem::ReloadAllMaterials </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Recarga todos los materiales. </p>
+
+<p class="definition">Definición en la línea <a class="el" href="_material_system_8cpp_source.html#l00550">550</a> del archivo <a class="el" href="_material_system_8cpp_source.html">MaterialSystem.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a516e25c2defbd08da791906e9219617c" name="a516e25c2defbd08da791906e9219617c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a516e25c2defbd08da791906e9219617c">&#9670;&nbsp;</a></span>ReloadMaterialByName()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void MaterialSystem::ReloadMaterialByName </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>name</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Recarga el material indicado. </p>
+<dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">name</td><td>Nombre del material.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section pre"><dt>Precondición</dt><dd>El material indicado debe haber sido previamente cargado. </dd></dl>
+
+<p class="definition">Definición en la línea <a class="el" href="_material_system_8cpp_source.html#l00544">544</a> del archivo <a class="el" href="_material_system_8cpp_source.html">MaterialSystem.cpp</a>.</p>
+
+</div>
+</div>
+<a id="adad258d15364bc494da82d0baacbf937" name="adad258d15364bc494da82d0baacbf937"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adad258d15364bc494da82d0baacbf937">&#9670;&nbsp;</a></span>ReloadMaterialByPath()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void MaterialSystem::ReloadMaterialByPath </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>path</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Recarga el material indicado. </p>
+<dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">path</td><td>Ruta del material.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section pre"><dt>Precondición</dt><dd>El material indicado debe haber sido previamente cargado. </dd></dl>
+
+<p class="definition">Definición en la línea <a class="el" href="_material_system_8cpp_source.html#l00538">538</a> del archivo <a class="el" href="_material_system_8cpp_source.html">MaterialSystem.cpp</a>.</p>
 
 </div>
 </div>
@@ -206,7 +323,7 @@ template&lt;typename T &gt; </div>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="namespace_o_s_k.html">OSK</a></li><li class="navelem"><a class="el" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html">GRAPHICS</a></li><li class="navelem"><a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_system.html">MaterialSystem</a></li>
-    <li class="footer">Generado el Lunes, 6 de Febrero de 2023 17:42:41 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4 </li>
+    <li class="footer">Generado el Sábado, 18 de Febrero de 2023 20:35:10 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4 </li>
   </ul>
 </div>
 </body>

@@ -66,8 +66,18 @@ namespace OSK::ECS {
 		/// Usa líneas en vez de triángulos.
 		GRAPHICS::Material* lowLevelMaterial = nullptr;
 
-		/// @brief Instancia válida para cualquiera de los dos materiales.
+		/// @brief Material usado para el renderizado de puntos
+		/// de colisión.
+		GRAPHICS::Material* pointMaterial = nullptr;
+
+
+		/// @brief Instancia válida para cualquiera de los dos materiales (menos
+		/// el de puntos de colisión).
 		UniquePtr<GRAPHICS::MaterialInstance> materialInstance;
+
+		/// @brief Instancia para el renderizado de puntos.
+		UniquePtr<GRAPHICS::MaterialInstance> pointsMaterialInstance;
+
 
 		/// @brief Contiene los buffers de vértices de los colliders que 
 		/// NO tienen modelo 3D (SAT).

@@ -47,6 +47,8 @@ PolygonMode GetPolygonMode(const std::string& type) {
 		return PolygonMode::TRIANGLE_WIDEFRAME;
 	else if (type == "LINE")
 		return PolygonMode::LINE;
+	else if (type == "POINT")
+		return PolygonMode::POINT;
 	else
 		return PolygonMode::TRIANGLE_FILL;
 }

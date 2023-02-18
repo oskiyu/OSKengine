@@ -190,3 +190,304 @@ DynamicArray<GltfMaterialInfo> IMeshLoader::LoadMaterials() {
 
 	return output;
 }
+
+bool IMeshLoader::HasAttribute(const tinygltf::Primitive& primitive, const std::string& name) const {
+	return primitive.attributes.find(name) != primitive.attributes.end();
+}
+
+bool IMeshLoader::HasPositions(const tinygltf::Primitive& primitive) const {
+	return HasAttribute(primitive, "POSITION");
+}
+
+bool IMeshLoader::HasNormals(const tinygltf::Primitive& primitive) const {
+	return HasAttribute(primitive, "NORMAL");
+}
+
+bool IMeshLoader::HasTextureCoords(const tinygltf::Primitive& primitive) const {
+	return HasAttribute(primitive, "TEXCOORD_0");
+}
+
+bool IMeshLoader::HasColors(const tinygltf::Primitive& primitive) const {
+	return HasAttribute(primitive, "COLOR_0");
+}
+
+bool IMeshLoader::HasJoints(const tinygltf::Primitive& primitive) const {
+	return HasAttribute(primitive, "JOINTS_0");
+}
+
+bool IMeshLoader::HasBoneWeights(const tinygltf::Primitive& primitive) const {
+	return HasAttribute(primitive, "WEIGHTS_0");
+}
+
+DynamicArray<Vector3f> IMeshLoader::GetVertexPositions(const tinygltf::Primitive& primitive, const glm::mat4& nodeMatrix) const {
+	// Comprobamos que tiene almacenado info de posición.
+	OSK_ASSERT(HasPositions(primitive), "No se encontraron posiciones de vértices.");
+
+	// Para poder acceder a la información en forma de buffer.
+	const tinygltf::Accessor& accessor = gltfModel.accessors[primitive.attributes.find("POSITION")->second];
+	const tinygltf::BufferView& view = gltfModel.bufferViews[accessor.bufferView];
+
+	// Leemos el buffer.
+	const float* positionsBuffer = reinterpret_cast<const float*>(&(gltfModel.buffers[view.buffer].data[accessor.byteOffset + view.byteOffset]));
+	const TSize numVertices = static_cast<TSize>(accessor.count);
+	
+
+	// Transformamos a vértices
+	DynamicArray<Vector3f> output = DynamicArray<Vector3f>::CreateResizedArray(numVertices);
+
+	for (TIndex v = 0; v < numVertices; v++) {
+		const glm::vec4 vertexPosition = glm::vec4(
+			positionsBuffer[v * 3 + 0],
+			positionsBuffer[v * 3 + 1],
+			positionsBuffer[v * 3 + 2],
+			globalScale
+		);
+
+		output[v] = glm::vec3(nodeMatrix * vertexPosition);
+	}
+
+	return output;
+}
+
+DynamicArray<Vector3f> IMeshLoader::GetVertexNormals(const tinygltf::Primitive& primitive) const {
+	// Comprobamos que tiene almacenado info de normales.
+	OSK_ASSERT(HasNormals(primitive), "No se encontraron normales de vértices.");
+
+	// Para poder acceder a la información en forma de buffer.
+	const tinygltf::Accessor& accessor = gltfModel.accessors[primitive.attributes.find("NORMAL")->second];
+	const tinygltf::BufferView& view = gltfModel.bufferViews[accessor.bufferView];
+
+	// Leemos el buffer.
+	const float* normalsBuffer = reinterpret_cast<const float*>(&(gltfModel.buffers[view.buffer].data[accessor.byteOffset + view.byteOffset]));
+	const TSize numVertices = static_cast<TSize>(accessor.count);
+	
+	DynamicArray<Vector3f> output = DynamicArray<Vector3f>::CreateResizedArray(numVertices);
+
+	for (TIndex v = 0; v < numVertices; v++) {
+		output[v] = Vector3f(
+			normalsBuffer[v * 3 + 0],
+			normalsBuffer[v * 3 + 1],
+			normalsBuffer[v * 3 + 2]
+		).GetNormalized();
+	}
+
+	return output;
+}
+
+DynamicArray<Vector2f> IMeshLoader::GetTextureCoords(const tinygltf::Primitive& primitive) const {
+	// Comprobamos que tiene almacenado info de coordenadas de texturas.
+	OSK_ASSERT(HasTextureCoords(primitive), "No se encontraron coordenadas de texturas de vértices.");
+
+	// Para poder acceder a la información en forma de buffer.
+	const tinygltf::Accessor& accessor = gltfModel.accessors[primitive.attributes.find("TEXCOORD_0")->second];
+	const tinygltf::BufferView& view = gltfModel.bufferViews[accessor.bufferView];
+
+	// Leemos el buffer.
+	const float* texCoordsBuffer = reinterpret_cast<const float*>(&(gltfModel.buffers[view.buffer].data[accessor.byteOffset + view.byteOffset]));
+	const TSize numVertices = static_cast<TSize>(accessor.count);
+
+	DynamicArray<Vector2f> output = DynamicArray<Vector2f>::CreateResizedArray(numVertices);
+
+	for (TIndex v = 0; v < numVertices; v++) {
+		output[v] = Vector2f(
+			texCoordsBuffer[v * 2 + 0],
+			texCoordsBuffer[v * 2 + 1]
+		);
+	}
+
+	return output;
+}
+
+DynamicArray<Color> IMeshLoader::GetVertexColors(const tinygltf::Primitive& primitive) const {
+	if (!HasColors(primitive))
+		return DynamicArray<Color>{};
+
+	// Para poder acceder a la información en forma de buffer.
+	const tinygltf::Accessor& accessor = gltfModel.accessors[primitive.attributes.find("COLOR_0")->second];
+	const tinygltf::BufferView& view = gltfModel.bufferViews[accessor.bufferView];
+
+	// Leemos el buffer.
+	const void* colorBuffer = &(gltfModel.buffers[view.buffer].data[accessor.byteOffset + view.byteOffset]);
+	const TSize numVertices = static_cast<TSize>(accessor.count);
+
+	const auto colorVectorType = accessor.type;
+	const auto colorDataType = accessor.componentType;
+
+	const int stride = colorVectorType;
+
+	DynamicArray<Color> output = DynamicArray<Color>::CreateResizedArray(numVertices);
+
+	for (TIndex v = 0; v < numVertices; v++) {
+
+		switch (colorDataType) {
+
+		case TINYGLTF_PARAMETER_TYPE_UNSIGNED_BYTE: {
+			constexpr float denom = std::numeric_limits<uint8_t>::max();
+			output[v] = {
+				static_cast<float>(static_cast<const uint8_t*>(colorBuffer)[v * stride + 0] / denom),
+				static_cast<float>(static_cast<const uint8_t*>(colorBuffer)[v * stride + 1] / denom),
+				static_cast<float>(static_cast<const uint8_t*>(colorBuffer)[v * stride + 2] / denom),
+				1.0f
+			};
+
+			break;
+		}
+
+		case TINYGLTF_PARAMETER_TYPE_UNSIGNED_SHORT: {
+			constexpr float denom = std::numeric_limits<uint16_t>::max();
+			output[v] = {
+				static_cast<float>(static_cast<const uint16_t*>(colorBuffer)[v * stride + 0] / denom),
+				static_cast<float>(static_cast<const uint16_t*>(colorBuffer)[v * stride + 1] / denom),
+				static_cast<float>(static_cast<const uint16_t*>(colorBuffer)[v * stride + 2] / denom),
+				1.0f
+			};
+
+			break;
+		}
+
+		case TINYGLTF_PARAMETER_TYPE_FLOAT: {
+			output[v] = Color{
+				static_cast<float>(static_cast<const float*>(colorBuffer)[v * stride + 0]),
+				static_cast<float>(static_cast<const float*>(colorBuffer)[v * stride + 1]),
+				static_cast<float>(static_cast<const float*>(colorBuffer)[v * stride + 2]),
+				1.0f
+			};
+
+			break;
+		}
+		}
+	}
+}
+
+DynamicArray<TIndexSize> IMeshLoader::GetIndices(const tinygltf::Primitive& primitive, TIndexSize startOffset) const {
+	// Índices
+	const tinygltf::Accessor& indicesAccesor = gltfModel.accessors[primitive.indices];
+	const tinygltf::BufferView& indicesView = gltfModel.bufferViews[indicesAccesor.bufferView];
+	const tinygltf::Buffer& indicesBuffer = gltfModel.buffers[indicesView.buffer];
+
+	const TSize numIndices = indicesAccesor.count;
+
+	DynamicArray<TIndexSize> output = DynamicArray<TIndexSize>::CreateResizedArray(numIndices);
+
+	// Los índices tambien se guardan en buffers.
+	// Necesitamos saber su tipo para procesar el buffer.
+	// El índice es el ID del vértice dentro de la primitiva.
+	// Para obtener el ID real, debemos tener en cuenta todos los vértices anteriormente procesados.
+	switch (indicesAccesor.componentType) {
+	case TINYGLTF_PARAMETER_TYPE_UNSIGNED_INT: {
+		const uint32_t* indBuffer = (const uint32_t*)(&indicesBuffer.data[indicesAccesor.byteOffset + indicesView.byteOffset]);
+		for (TSize index = 0; index < indicesAccesor.count; index++)
+			output.Insert((TIndexSize)indBuffer[index] + startOffset);
+
+		break;
+	}
+
+	case TINYGLTF_PARAMETER_TYPE_UNSIGNED_SHORT: {
+		const uint16_t* indBuffer = (const uint16_t*)(&indicesBuffer.data[indicesAccesor.byteOffset + indicesView.byteOffset]);
+		for (size_t index = 0; index < indicesAccesor.count; index++)
+			output.Insert((TIndexSize)indBuffer[index] + startOffset);
+
+		break;
+	}
+
+	case TINYGLTF_PARAMETER_TYPE_UNSIGNED_BYTE: {
+		const uint8_t* indBuffer = (const uint8_t*)(&indicesBuffer.data[indicesAccesor.byteOffset + indicesView.byteOffset]);
+		for (size_t index = 0; index < indicesAccesor.count; index++)
+			output.Insert((TIndexSize)indBuffer[index] + startOffset);
+
+		break;
+	}
+
+	}
+
+	return output;
+}
+
+DynamicArray<Vector4f> IMeshLoader::GetJoints(const tinygltf::Primitive& primitive) const {
+	if (!HasJoints(primitive))
+		return DynamicArray<Vector4f>();
+
+	// Para poder acceder a la información en forma de buffer.
+	const tinygltf::Accessor& accessor = gltfModel.accessors[primitive.attributes.find("JOINTS_0")->second];
+	const tinygltf::BufferView& view = gltfModel.bufferViews[accessor.bufferView];
+
+	// Leemos el buffer.
+	const void* boneIds = &(gltfModel.buffers[view.buffer].data[accessor.byteOffset + view.byteOffset]);
+	const int jointsDataType = accessor.componentType;
+
+	const TSize numVertices = static_cast<TSize>(accessor.count);
+
+	DynamicArray<Vector4f> output = DynamicArray<Vector4f>::CreateResizedArray(numVertices);
+
+	for (TIndex v = 0; v < numVertices; v++) {
+		switch (jointsDataType) {
+
+		case TINYGLTF_PARAMETER_TYPE_UNSIGNED_INT: {
+			output[v] = {
+				static_cast<float>(static_cast<const uint32_t*>(boneIds)[v * 4 + 0]),
+				static_cast<float>(static_cast<const uint32_t*>(boneIds)[v * 4 + 1]),
+				static_cast<float>(static_cast<const uint32_t*>(boneIds)[v * 4 + 2]),
+				static_cast<float>(static_cast<const uint32_t*>(boneIds)[v * 4 + 3])
+			};
+
+			break;
+		}
+
+		case TINYGLTF_PARAMETER_TYPE_UNSIGNED_SHORT: {
+			output[v] = {
+				static_cast<float>(static_cast<const uint16_t*>(boneIds)[v * 4 + 0]),
+				static_cast<float>(static_cast<const uint16_t*>(boneIds)[v * 4 + 1]),
+				static_cast<float>(static_cast<const uint16_t*>(boneIds)[v * 4 + 2]),
+				static_cast<float>(static_cast<const uint16_t*>(boneIds)[v * 4 + 3])
+			};
+
+			break;
+		}
+
+		case TINYGLTF_PARAMETER_TYPE_UNSIGNED_BYTE: {
+			output[v] = {
+				static_cast<float>(static_cast<const uint8_t*>(boneIds)[v * 4 + 0]),
+				static_cast<float>(static_cast<const uint8_t*>(boneIds)[v * 4 + 1]),
+				static_cast<float>(static_cast<const uint8_t*>(boneIds)[v * 4 + 2]),
+				static_cast<float>(static_cast<const uint8_t*>(boneIds)[v * 4 + 3])
+			};
+
+			break;
+		}
+
+		default:
+			OSK_ASSERT(false, "Tipo de JOINT no soportado: " + std::to_string(jointsDataType) + ".");
+			break;
+
+		}
+	}
+
+	return output;
+}
+
+DynamicArray<Vector4f> IMeshLoader::GetBoneWeights(const tinygltf::Primitive& primitive) const {
+	if (!HasBoneWeights(primitive))
+		return DynamicArray<Vector4f>();
+
+	// Para poder acceder a la información en forma de buffer.
+	const tinygltf::Accessor& accessor = gltfModel.accessors[primitive.attributes.find("WEIGHTS_0")->second];
+	const tinygltf::BufferView& view = gltfModel.bufferViews[accessor.bufferView];
+
+	// Leemos el buffer.
+	const float* boneWeights = reinterpret_cast<const float*>(&(gltfModel.buffers[view.buffer].data[accessor.byteOffset + view.byteOffset]));
+
+	const TSize numVertices = static_cast<TSize>(accessor.count);
+
+	DynamicArray<Vector4f> output = DynamicArray<Vector4f>::CreateResizedArray(numVertices);
+
+	for (TIndex v = 0; v < numVertices; v++) {
+		output[v] = Vector4f(
+			boneWeights[v * 4 + 0],
+			boneWeights[v * 4 + 1],
+			boneWeights[v * 4 + 2],
+			boneWeights[v * 4 + 3]
+		);
+	}
+
+	return output;
+}

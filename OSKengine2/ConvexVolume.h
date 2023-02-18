@@ -12,6 +12,9 @@ namespace OSK::COLLISION {
 
 	/// @brief Clase que representa un volúmen convexo para la detección de
 	/// colisiones detallada.
+	/// 
+	/// @note A la hora de construir el volumen, todas las caras deben tener sus vértices
+	/// en sentido horiario (si se observa desde fuera del collider).
 	class OSKAPI_CALL ConvexVolume final : public IBottomLevelCollider {
 
 	public:
@@ -31,9 +34,22 @@ namespace OSK::COLLISION {
 		ConvexVolume() = default;
 		~ConvexVolume() = default;
 
+		/// @brief Crea un volúmen convexo que implementa una caja delimitadora.
+		/// @param size Tamaño de la caja, expresado como: { halfWidth, height, halfLenght }.
+		/// @param bottomHeight Posición más baja de la caja.
+		/// @return Volúmen convexo en modo de caja.
+		/// 
+		/// La caja final tendrá las dimensiones: { @p size.X / 2, @p size.Y, @p size.Z / 2 }
+		/// en la posición { 0, @p bottomHeight, 0 }.
+		static ConvexVolume CreateObb(const Vector3f& size, float bottomHeight);
+
+
 		/// @brief Añade una cara al poliedro.
 		/// @param vertices Vértices de la cara.
 		/// @pre vertices.GetSize() >= 3.
+		/// 
+		/// @note A la hora de construir el volumen, todas las caras deben tener sus vértices
+		/// en sentido horiario (si se observa desde fuera del collider).
 		void AddFace(const DynamicArray<Vector3f>& vertices);
 
 		/// @brief Optimiza el proceso de detección de colisiones
@@ -46,6 +62,8 @@ namespace OSK::COLLISION {
 			const ECS::Transform3D& thisOffset, const ECS::Transform3D& otherOffset) const override;
 
 		bool ContainsPoint(const Vector3f& point) const override;
+
+		Vector3f GetFurthestPoint(Vector3f direction) const override;
 				
 
 		/// @brief Devuelve una lista con todos los vértices del collider.
@@ -92,6 +110,15 @@ namespace OSK::COLLISION {
 		/// @param transform Transform de este collider.
 		/// @return Lista con los vértices en world-space.
 		DynamicArray<Vector3f> GetWorldSpaceVertices(const ECS::Transform3D& transform) const;
+
+		/// @brief Obtiene los índices de todas las caras que contienen el vértice dado.
+		/// @param vertex Vértice buscado.
+		/// @return Lista con los índices de las caras que contienen el vértice.
+		/// 
+		/// @pre El vértice debe estar presente en el collider.
+		/// 
+		/// @note Si se incumple la precondición, devuelve una lista vacía.
+		DynamicArray<TIndex> GetFaceIndicesWithVertex(const Vector3f& vertex) const;
 
 
 		DynamicArray<FaceIndices> faces;

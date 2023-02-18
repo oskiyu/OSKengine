@@ -23,7 +23,10 @@ namespace OSK::GRAPHICS {
 		TRIANGLE_WIDEFRAME,
 
 		/// @brief Se renderizan líneas rectas.
-		LINE
+		LINE,
+
+		/// @brief Se renderizan puntos.
+		POINT
 
 	};
 

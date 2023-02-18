@@ -1,7 +1,8 @@
 #pragma once
 
 #include <glm.hpp>
-#include <string>
+
+#include "ToString.h"
 
 namespace OSK {
 
@@ -195,6 +196,21 @@ namespace OSK {
 			return *this;
 		}
 
+		/// @brief Comprueba si dos vectores son iguales, de
+		/// acuerdo a un épsilon para manejar casos de error
+		/// de redondeo.
+		/// @param other Otro vector. 
+		/// @param epsilon Distancia mínima en cada eje que se considera error
+		/// de redondeo, por lo que dos puntos a una distancia menor se consideran
+		/// idénticos.
+		/// @return True si son iguales, false en caso contrario.
+		constexpr bool Equals(const Vector3_t& other, float epsilon) const {
+			return
+				glm::abs(X - other.X) < epsilon &&
+				glm::abs(Y - other.Y) < epsilon &&
+				glm::abs(Z - other.Z) < epsilon;
+		}
+
 		/// <summary>
 		/// Comparación.
 		/// True si todos los componentes son iguales.
@@ -246,6 +262,7 @@ namespace OSK {
 		/// Obtiene el producto escalar entre este vector y el vector 'vec'.
 		/// </summary>
 		T Dot(const Vector3_t& vec) const {
+			// return glm::dot(this->ToGLM(), vec.ToGLM());
 			return X * vec.X + Y * vec.Y + Z * vec.Z;
 		}
 
@@ -389,5 +406,9 @@ namespace OSK {
 	/// Precisión = uint32.
 	/// </summary>
 	typedef Vector3_t<uint32_t> Vector3ui;
+
+	template <> inline std::string ToString<Vector3f>(const Vector3f& value) {
+		return "{ " + std::to_string(value.X) + ", " + std::to_string(value.Y) + ", " + std::to_string(value.Z) + " }";
+	}
 
 }

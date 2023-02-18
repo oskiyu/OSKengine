@@ -6,6 +6,7 @@ var class_o_s_k_1_1_vector3__t =
     [ "Vector3_t", "class_o_s_k_1_1_vector3__t.html#a407922927a52d3a2bc0a547f66b7fb23", null ],
     [ "Cross", "class_o_s_k_1_1_vector3__t.html#a11968baed38c50bb37083845b41efd72", null ],
     [ "Dot", "class_o_s_k_1_1_vector3__t.html#a79f857bd13e3e7b131fb1c171e38b069", null ],
+    [ "Equals", "class_o_s_k_1_1_vector3__t.html#a86cad4462fc1a095a86b43b81a57e42f", null ],
     [ "GetAngle", "class_o_s_k_1_1_vector3__t.html#ae5d96539c377e3710621779b99c45496", null ],
     [ "GetDistanceTo", "class_o_s_k_1_1_vector3__t.html#a4c2665dd5ae8075c0aafd687608b6d64", null ],
     [ "GetDistanceTo2", "class_o_s_k_1_1_vector3__t.html#a7ec7d40bc7e1dc4c9a5becfe3f29f5ff", null ],

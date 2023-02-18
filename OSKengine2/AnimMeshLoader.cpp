@@ -75,255 +75,53 @@ void AnimMeshLoader::ProcessNode(const tinygltf::Node& node, TSize nodeId, TSize
 
 			OSK_ASSERT(primitive.mode == TINYGLTF_MODE_TRIANGLES, "El modelo no está en modo TRIÁNGULOS.");
 
-			TSize numVertices = 0;
 			const TSize firstVertexId = vertices.GetSize();
 			const TSize firstIndexId = indices.GetSize();
 
-			// Los datos se almacenan en forma de buffers.
-			const float* positionsBuffer = nullptr;
-			const float* normalsBuffer = nullptr;
-			const float* texCoordsBuffer = nullptr;
-			const void* colorBuffer = nullptr;
+			const auto positions = GetVertexPositions(primitive, nodeMatrix);
+			const auto normals = GetVertexNormals(primitive);
+			const auto texCoords = GetTextureCoords(primitive);
+			const auto colors = GetVertexColors(primitive);
+			const auto joints = GetJoints(primitive);
+			const auto boneWeights = GetBoneWeights(primitive);
 
-			int colorDataType = 0;
-			int colorVectorType = 0;
+			const TSize numVertices = positions.GetSize();
 
+			const bool hasColors = !colors.IsEmpty();
+			const bool hasJoints= !joints.IsEmpty();
+			const bool hasBoneWeights = !boneWeights.IsEmpty();
 
-			const void* boneIds = nullptr; // Puede ser de varios tipos
-			const float* boneWeights = nullptr;
-			int jointsDataType = 0;
-
-			// Comprobamos que tiene almacenado info de posición.
-			if (primitive.attributes.find("POSITION") != primitive.attributes.end()) {
-				// Para poder acceder a la información en forma de buffer.
-				const tinygltf::Accessor& accessor = gltfModel.accessors[primitive.attributes.find("POSITION")->second];
-				const tinygltf::BufferView& view = gltfModel.bufferViews[accessor.bufferView];
-
-				// Leemos el buffer.
-				positionsBuffer = reinterpret_cast<const float*>(&(gltfModel.buffers[view.buffer].data[accessor.byteOffset + view.byteOffset]));
-				numVertices = static_cast<TSize>(accessor.count);
-			}
-
-			// Comprobamos que tiene almacenado info de normales.
-			if (primitive.attributes.find("NORMAL") != primitive.attributes.end()) {
-				// Para poder acceder a la información en forma de buffer.
-				const tinygltf::Accessor& accessor = gltfModel.accessors[primitive.attributes.find("NORMAL")->second];
-				const tinygltf::BufferView& view = gltfModel.bufferViews[accessor.bufferView];
-
-				// Leemos el buffer.
-				normalsBuffer = reinterpret_cast<const float*>(&(gltfModel.buffers[view.buffer].data[accessor.byteOffset + view.byteOffset]));
-			}
-
-			// Comprobamos que tiene almacenado info de coordenadas de texturas.
-			if (primitive.attributes.find("TEXCOORD_0") != primitive.attributes.end()) {
-				// Para poder acceder a la información en forma de buffer.
-				const tinygltf::Accessor& accessor = gltfModel.accessors[primitive.attributes.find("TEXCOORD_0")->second];
-				const tinygltf::BufferView& view = gltfModel.bufferViews[accessor.bufferView];
-
-				// Leemos el buffer.
-				texCoordsBuffer = reinterpret_cast<const float*>(&(gltfModel.buffers[view.buffer].data[accessor.byteOffset + view.byteOffset]));
-			}
-
-			// Comprobamos que tiene almacenado info de animación.
-			if (primitive.attributes.find("JOINTS_0") != primitive.attributes.end()) {
-				// Para poder acceder a la información en forma de buffer.
-				const tinygltf::Accessor& accessor = gltfModel.accessors[primitive.attributes.find("JOINTS_0")->second];
-				const tinygltf::BufferView& view = gltfModel.bufferViews[accessor.bufferView];
-
-				// Leemos el buffer.
-				boneIds = &(gltfModel.buffers[view.buffer].data[accessor.byteOffset + view.byteOffset]);
-				jointsDataType = accessor.componentType;
-			}
-
-			if (primitive.attributes.find("WEIGHTS_0") != primitive.attributes.end()) {
-				// Para poder acceder a la información en forma de buffer.
-				const tinygltf::Accessor& accessor = gltfModel.accessors[primitive.attributes.find("WEIGHTS_0")->second];
-				const tinygltf::BufferView& view = gltfModel.bufferViews[accessor.bufferView];
-
-				// Leemos el buffer.
-				boneWeights = reinterpret_cast<const float*>(&(gltfModel.buffers[view.buffer].data[accessor.byteOffset + view.byteOffset]));
-			}
-
-			// Comprobamos que tiene almacenado el color del vértice.
-			if (primitive.attributes.find("COLOR_0") != primitive.attributes.end()) {
-				// Para poder acceder a la información en forma de buffer.
-				const tinygltf::Accessor& accessor = gltfModel.accessors[primitive.attributes.find("COLOR_0")->second];
-				const tinygltf::BufferView& view = gltfModel.bufferViews[accessor.bufferView];
-
-				// Leemos el buffer.
-				colorBuffer = &(gltfModel.buffers[view.buffer].data[accessor.byteOffset + view.byteOffset]);
-
-				colorVectorType = accessor.type;
-				colorDataType = accessor.componentType;
-			}
-
-			OSK_ASSERT(positionsBuffer != nullptr, "No se encontraron posiciones.");
-			OSK_ASSERT(normalsBuffer != nullptr, "No se encontraron normales.");
-			OSK_ASSERT(texCoordsBuffer != nullptr, "No se encontraron coordenadas de texturas.");
 
 			// Procesamos los buffers y generamos nuevos vértices.
 			for (TSize v = 0; v < numVertices; v++) {
-				glm::vec4 vertexPosition = glm::vec4(
-					positionsBuffer[v * 3 + 0],
-					positionsBuffer[v * 3 + 1],
-					positionsBuffer[v * 3 + 2],
-					globalScale
-				);
-
+				
 				VertexAnim3D vertex{};
-				vertex.position = glm::vec3(nodeMatrix * vertexPosition);
 
-				vertex.normal = Vector3f{
-					normalsBuffer[v * 3 + 0],
-					normalsBuffer[v * 3 + 1],
-					normalsBuffer[v * 3 + 2]
-				}.GetNormalized();
+				vertex.position = positions[v];
+				vertex.normal = normals[v];
+				vertex.texCoords = texCoords[v];
+				vertex.color = Color::WHITE();
 
-				// Las normales se calculan aparte.
+				if (hasJoints)
+					vertex.boneIndices = joints[v];
 
-				vertex.texCoords = {
-					texCoordsBuffer[v * 2 + 0],
-					texCoordsBuffer[v * 2 + 1]
-				};
+				if (hasBoneWeights)
+					vertex.boneWeights = boneWeights[v];
 
 				if (primitive.material > -1)
 					vertex.color = modelInfo.materialInfos[primitive.material].baseColor;
-				else {
-					if (colorBuffer) {
-						const int stride = colorVectorType;
 
-						switch (colorDataType) {
-
-						case TINYGLTF_PARAMETER_TYPE_UNSIGNED_BYTE: {
-							const float denom = std::numeric_limits<uint8_t>::max();
-							vertex.color = {
-								static_cast<float>(static_cast<const uint8_t*>(colorBuffer)[v * stride + 0] / denom),
-								static_cast<float>(static_cast<const uint8_t*>(colorBuffer)[v * stride + 1] / denom),
-								static_cast<float>(static_cast<const uint8_t*>(colorBuffer)[v * stride + 2] / denom),
-								1.0f
-							};
-
-							break;
-						}
-
-						case TINYGLTF_PARAMETER_TYPE_UNSIGNED_SHORT: {
-							const float denom = std::numeric_limits<uint16_t>::max();
-							vertex.color = {
-								static_cast<float>(static_cast<const uint16_t*>(colorBuffer)[v * stride + 0] / denom),
-								static_cast<float>(static_cast<const uint16_t*>(colorBuffer)[v * stride + 1] / denom),
-								static_cast<float>(static_cast<const uint16_t*>(colorBuffer)[v * stride + 2] / denom),
-								1.0f
-							};
-
-							break;
-						}
-
-						case TINYGLTF_PARAMETER_TYPE_FLOAT: {
-							vertex.color = {
-								static_cast<float>(static_cast<const uint8_t*>(colorBuffer)[v * stride + 0]),
-								static_cast<float>(static_cast<const uint8_t*>(colorBuffer)[v * stride + 1]),
-								static_cast<float>(static_cast<const uint8_t*>(colorBuffer)[v * stride + 2]),
-								1.0f
-							};
-
-							break;
-						}
-
-						}
-					}
-
-					else
-						vertex.color = Color::WHITE();
-				}
-
-				switch (jointsDataType) {
-				
-				case TINYGLTF_PARAMETER_TYPE_UNSIGNED_INT: {
-					vertex.boneIndices = {
-						static_cast<float>(static_cast<const uint32_t*>(boneIds)[v * 4 + 0]),
-						static_cast<float>(static_cast<const uint32_t*>(boneIds)[v * 4 + 1]),
-						static_cast<float>(static_cast<const uint32_t*>(boneIds)[v * 4 + 2]),
-						static_cast<float>(static_cast<const uint32_t*>(boneIds)[v * 4 + 3])
-					};
-
-					break;
-				}
-
-				case TINYGLTF_PARAMETER_TYPE_UNSIGNED_SHORT: {
-					vertex.boneIndices = {
-						static_cast<float>(static_cast<const uint16_t*>(boneIds)[v * 4 + 0]),
-						static_cast<float>(static_cast<const uint16_t*>(boneIds)[v * 4 + 1]),
-						static_cast<float>(static_cast<const uint16_t*>(boneIds)[v * 4 + 2]),
-						static_cast<float>(static_cast<const uint16_t*>(boneIds)[v * 4 + 3])
-					};
-
-					break;
-				}
-
-				case TINYGLTF_PARAMETER_TYPE_UNSIGNED_BYTE: {
-					vertex.boneIndices = {
-						static_cast<float>(static_cast<const uint8_t*>(boneIds)[v * 4 + 0]),
-						static_cast<float>(static_cast<const uint8_t*>(boneIds)[v * 4 + 1]),
-						static_cast<float>(static_cast<const uint8_t*>(boneIds)[v * 4 + 2]),
-						static_cast<float>(static_cast<const uint8_t*>(boneIds)[v * 4 + 3])
-					};
-
-					break;
-				}
-
-				default:
-					OSK_ASSERT(false, "Tipo de JOINT no soportado: " + std::to_string(jointsDataType) + ".");
-					break;
-
-				}
-
-				vertex.boneWeights = {
-					boneWeights[v * 4 + 0],
-					boneWeights[v * 4 + 1],
-					boneWeights[v * 4 + 2],
-					boneWeights[v * 4 + 3]
-				};
+				if (hasColors)
+					vertex.color = colors[v];
 
 				vertices.Insert(vertex);
 			}
 
-			// Índices
-			const tinygltf::Accessor& indicesAccesor = gltfModel.accessors[primitive.indices];
-			const tinygltf::BufferView& indicesView = gltfModel.bufferViews[indicesAccesor.bufferView];
-			const tinygltf::Buffer& indicesBuffer = gltfModel.buffers[indicesView.buffer];
 
-			// Los índices tambien se guardan en buffers.
-			// Necesitamos saber su tipo para procesar el buffer.
-			// El índice es el ID del vértice dentro de la primitiva.
-			// Para obtener el ID real, debemos tener en cuenta todos los vértices anteriormente procesados.
-			switch (indicesAccesor.componentType) {
-			case TINYGLTF_PARAMETER_TYPE_UNSIGNED_INT: {
-				const uint32_t* indBuffer = (const uint32_t*)(&indicesBuffer.data[indicesAccesor.byteOffset + indicesView.byteOffset]);
-				for (TSize index = 0; index < indicesAccesor.count; index++)
-					indices.Insert(static_cast<TIndexSize>(indBuffer[index]) + firstVertexId);
+			const auto primitiveIndices = GetIndices(primitive, firstVertexId);
+			indices.InsertAll(primitiveIndices);
 
-				break;
-			}
-
-			case TINYGLTF_PARAMETER_TYPE_UNSIGNED_SHORT: {
-				const uint16_t* indBuffer = (const uint16_t*)(&indicesBuffer.data[indicesAccesor.byteOffset + indicesView.byteOffset]);
-				for (size_t index = 0; index < indicesAccesor.count; index++)
-					indices.Insert(static_cast<TIndexSize>(indBuffer[index]) + firstVertexId);
-
-				break;
-			}
-
-			case TINYGLTF_PARAMETER_TYPE_UNSIGNED_BYTE: {
-				const uint8_t* indBuffer = (const uint8_t*)(&indicesBuffer.data[indicesAccesor.byteOffset + indicesView.byteOffset]);
-				for (size_t index = 0; index < indicesAccesor.count; index++)
-					indices.Insert(static_cast<TIndexSize>(indBuffer[index]) + firstVertexId);
-
-				break;
-			}
-
-			}
-
-			meshes.Insert({ (TSize)indicesAccesor.count, firstIndexId });
+			meshes.Insert(Mesh3D(primitiveIndices.GetSize(), firstIndexId));
 		}
 	}
 

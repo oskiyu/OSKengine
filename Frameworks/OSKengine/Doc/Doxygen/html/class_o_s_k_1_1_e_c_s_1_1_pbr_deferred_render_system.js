@@ -10,7 +10,7 @@ var class_o_s_k_1_1_e_c_s_1_1_pbr_deferred_render_system =
     [ "GetObjects", "class_o_s_k_1_1_e_c_s_1_1_pbr_deferred_render_system.html#a4f8bb0d589c4a77154d11eef16e2e79f", null ],
     [ "GetRenderTarget", "class_o_s_k_1_1_e_c_s_1_1_pbr_deferred_render_system.html#a7ead258d11d094f960bed0b7da407d85", null ],
     [ "GetSignature", "class_o_s_k_1_1_e_c_s_1_1_pbr_deferred_render_system.html#ae112bd30755ef771c25dc2d620fb6295", null ],
-    [ "Initialize", "class_o_s_k_1_1_e_c_s_1_1_pbr_deferred_render_system.html#a1ab3cd6d093fd8c7e5db00bc3f491ae1", null ],
+    [ "Initialize", "class_o_s_k_1_1_e_c_s_1_1_pbr_deferred_render_system.html#a0f3d74570047764e30f11af2947868cc", null ],
     [ "IsActive", "class_o_s_k_1_1_e_c_s_1_1_pbr_deferred_render_system.html#acdd2816796e17bd727d7ee4d10e11aed", null ],
     [ "OnCreate", "class_o_s_k_1_1_e_c_s_1_1_pbr_deferred_render_system.html#ab99fd447d1c640bcc003dc5713768b6c", null ],
     [ "OnObjectAdded", "class_o_s_k_1_1_e_c_s_1_1_pbr_deferred_render_system.html#af380b55facabf814ca48fef44cae116b", null ],

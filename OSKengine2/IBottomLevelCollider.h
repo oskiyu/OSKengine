@@ -35,6 +35,11 @@ namespace OSK::COLLISION {
 		virtual DetailedCollisionInfo GetCollisionInfo(const IBottomLevelCollider& other,
 			const ECS::Transform3D& transformA, const ECS::Transform3D& transformB) const = 0;
 
+		/// @brief Obtiene el punto más lejano del collider en la dirección dada.
+		/// @param direction Dirección.
+		/// @return Punto del collider más lejano respecto al centro en esa dirección.
+		virtual Vector3f GetFurthestPoint(Vector3f direction) const = 0;
+
 		virtual bool ContainsPoint(const Vector3f& point) const = 0;
 
 	};

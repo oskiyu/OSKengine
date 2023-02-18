@@ -8,6 +8,7 @@ var class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_convex_volume =
     [ "ContainsPoint", "class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_convex_volume.html#a0367c0e40c455bd81fc6fc54243f3051", null ],
     [ "GetCollisionInfo", "class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_convex_volume.html#a3e37261185215968c74a849422c1d622", null ],
     [ "GetFaceIndices", "class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_convex_volume.html#ae37e505b0ebe2af3e29f60fece864d55", null ],
+    [ "GetFurthestPoint", "class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_convex_volume.html#ad7e6c677ad8ad238a85508d7941e080d", null ],
     [ "GetLocalSpaceVertices", "class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_convex_volume.html#aa1586ce5c05049f9534a0c46275956f1", null ],
     [ "OptimizeAxes", "class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_convex_volume.html#aea33f81c4c0d15dffa19f104428faf7d", null ],
     [ "OSK_DEFINE_AS", "class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_convex_volume.html#a6eda8ff8ca88b4247601e9d1b13a7939", null ]

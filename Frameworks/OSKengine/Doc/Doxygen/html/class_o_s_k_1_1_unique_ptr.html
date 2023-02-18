@@ -137,18 +137,18 @@ Métodos públicos</h2></td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Descripción detallada</h2>
 <div class="textblock"><div class="compoundTemplParams">template&lt;typename T&gt;<br />
-class OSK::UniquePtr&lt; T &gt;</div><p >Es dueño de un puntero. El puntero original es eliminado al destruirse el <a class="el" href="class_o_s_k_1_1_unique_ptr.html" title="Es dueño de un puntero. El puntero original es eliminado al destruirse el UniquePtr.">UniquePtr</a>. </p>
-<dl class="section note"><dt>Nota</dt><dd>Usarse como miembro deshabilita el constructor de copia.</dd></dl>
-<dl class="section pre"><dt>Precondición</dt><dd>Debe incluirse el tipo que se vaya a usar dentro del <a class="el" href="class_o_s_k_1_1_unique_ptr.html" title="Es dueño de un puntero. El puntero original es eliminado al destruirse el UniquePtr.">UniquePtr</a>. <div class="fragment"><div class="line"><span class="preprocessor">#include &quot;T.h&quot;</span> </div>
-</div><!-- fragment --> De lo contrario, no se llamará al destructor al eliminarse. </dd></dl>
+class OSK::UniquePtr&lt; T &gt;</div><p >Estructura que es dueña de un objeto almacenado en heap. Al destruirse el <a class="el" href="class_o_s_k_1_1_unique_ptr.html" title="Estructura que es dueña de un objeto almacenado en heap. Al destruirse el UniquePtr,...">UniquePtr</a>, también se destruirá el objeto y se liberará la memoria asociada. </p>
 <dl class="tparams"><dt>Parámetros del template</dt><dd>
   <table class="tparams">
-    <tr><td class="paramname">T</td><td>Tipo del puntero.</td></tr>
+    <tr><td class="paramname">T</td><td>Tipo de dato del objeto.</td></tr>
   </table>
   </dd>
 </dl>
+<dl class="section note"><dt>Nota</dt><dd>Usarse como miembro de una clase deshabilitará su constructor y su operador de copia.</dd></dl>
+<dl class="section warning"><dt>Atención</dt><dd>Debe incluirse el tipo que se vaya a usar dentro del <a class="el" href="class_o_s_k_1_1_unique_ptr.html" title="Estructura que es dueña de un objeto almacenado en heap. Al destruirse el UniquePtr,...">UniquePtr</a>. <div class="fragment"><div class="line"><span class="preprocessor">#include &quot;T.h&quot;</span> </div>
+</div><!-- fragment --> De lo contrario, no se llamará al destructor al eliminarse. </dd></dl>
 
-<p class="definition">Definición en la línea <a class="el" href="_unique_ptr_8hpp_source.html#l00020">20</a> del archivo <a class="el" href="_unique_ptr_8hpp_source.html">UniquePtr.hpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_unique_ptr_8hpp_source.html#l00022">22</a> del archivo <a class="el" href="_unique_ptr_8hpp_source.html">UniquePtr.hpp</a>.</p>
 </div><h2 class="groupheader">Documentación del constructor y destructor</h2>
 <a id="a4678a9a65f48ff77f1c751010d6c870c" name="a4678a9a65f48ff77f1c751010d6c870c"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a4678a9a65f48ff77f1c751010d6c870c">&#9670;&nbsp;</a></span>UniquePtr() <span class="overload">[1/4]</span></h2>
@@ -175,7 +175,7 @@ template&lt;typename T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p>Crea un <a class="el" href="class_o_s_k_1_1_unique_ptr.html" title="Es dueño de un puntero. El puntero original es eliminado al destruirse el UniquePtr.">UniquePtr</a> vacío. </p>
+<p>Crea un <a class="el" href="class_o_s_k_1_1_unique_ptr.html" title="Estructura que es dueña de un objeto almacenado en heap. Al destruirse el UniquePtr,...">UniquePtr</a> vacío. </p>
 
 <p class="definition">Definición en la línea <a class="el" href="_unique_ptr_8hpp_source.html#l00027">27</a> del archivo <a class="el" href="_unique_ptr_8hpp_source.html">UniquePtr.hpp</a>.</p>
 
@@ -207,7 +207,17 @@ template&lt;typename T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definición en la línea <a class="el" href="_unique_ptr_8hpp_source.html#l00031">31</a> del archivo <a class="el" href="_unique_ptr_8hpp_source.html">UniquePtr.hpp</a>.</p>
+<p>Crea un <a class="el" href="class_o_s_k_1_1_unique_ptr.html" title="Estructura que es dueña de un objeto almacenado en heap. Al destruirse el UniquePtr,...">UniquePtr</a> a partir del objeto almacenado en la dirección de memoria dada. </p>
+<dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">data</td><td>Puntero al objeto almacenado en memoria heap.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section pre"><dt>Precondición</dt><dd><code>data</code> debe haber sido creado con el operador new.</dd></dl>
+<dl class="section post"><dt>Postcondición</dt><dd>Esta instancia de <a class="el" href="class_o_s_k_1_1_unique_ptr.html" title="Estructura que es dueña de un objeto almacenado en heap. Al destruirse el UniquePtr,...">UniquePtr</a> se convierte en dueña del objeto apuntado por <code>data</code>. </dd></dl>
+
+<p class="definition">Definición en la línea <a class="el" href="_unique_ptr_8hpp_source.html#l00039">39</a> del archivo <a class="el" href="_unique_ptr_8hpp_source.html">UniquePtr.hpp</a>.</p>
 
 </div>
 </div>
@@ -236,9 +246,9 @@ template&lt;typename T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p>Destruye el puntero, eliminándolo. </p>
+<p>Destruye el objeto, eliminándolo. Si no tenía ningún objeto, no ocurre nada. </p>
 
-<p class="definition">Definición en la línea <a class="el" href="_unique_ptr_8hpp_source.html#l00049">49</a> del archivo <a class="el" href="_unique_ptr_8hpp_source.html">UniquePtr.hpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_unique_ptr_8hpp_source.html#l00063">63</a> del archivo <a class="el" href="_unique_ptr_8hpp_source.html">UniquePtr.hpp</a>.</p>
 
 </div>
 </div>
@@ -296,15 +306,20 @@ template&lt;typename T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p>Este puntero será dueño del puntero de other. </p>
+<p>Crea un <a class="el" href="class_o_s_k_1_1_unique_ptr.html" title="Estructura que es dueña de un objeto almacenado en heap. Al destruirse el UniquePtr,...">UniquePtr</a> que pasa a poseer el objeto de otro <a class="el" href="class_o_s_k_1_1_unique_ptr.html" title="Estructura que es dueña de un objeto almacenado en heap. Al destruirse el UniquePtr,...">UniquePtr</a>. El otr <a class="el" href="class_o_s_k_1_1_unique_ptr.html" title="Estructura que es dueña de un objeto almacenado en heap. Al destruirse el UniquePtr,...">UniquePtr</a> se convierte en un <a class="el" href="class_o_s_k_1_1_unique_ptr.html" title="Estructura que es dueña de un objeto almacenado en heap. Al destruirse el UniquePtr,...">UniquePtr</a> vacío. </p>
 <dl class="params"><dt>Parámetros</dt><dd>
   <table class="params">
-    <tr><td class="paramname">other</td><td>Otro puntero.</td></tr>
+    <tr><td class="paramname">other</td><td>El otro puntero.</td></tr>
   </table>
   </dd>
 </dl>
+<dl class="section post"><dt>Postcondición</dt><dd>Este <a class="el" href="class_o_s_k_1_1_unique_ptr.html" title="Estructura que es dueña de un objeto almacenado en heap. Al destruirse el UniquePtr,...">UniquePtr</a> pasa a poseer el objeto de <code>other</code>. </dd>
+<dd>
+El <a class="el" href="class_o_s_k_1_1_unique_ptr.html" title="Estructura que es dueña de un objeto almacenado en heap. Al destruirse el UniquePtr,...">UniquePtr</a> <code>other</code> pasa a estar vacío.</dd></dl>
+<dl class="section note"><dt>Nota</dt><dd>Si <code>other</code> está vacío, entonces este <a class="el" href="class_o_s_k_1_1_unique_ptr.html" title="Estructura que es dueña de un objeto almacenado en heap. Al destruirse el UniquePtr,...">UniquePtr</a> pasa a estar vacío.</dd></dl>
+<dl class="section see"><dt>Ver también</dt><dd><a class="el" href="class_o_s_k_1_1_unique_ptr.html#a3c6725a56406ebbce68e3eac61ac14b2" title="Intercambia el objeto de este UniquePtr por el objeto del UniquePtr other.">Swap()</a>. </dd></dl>
 
-<p class="definition">Definición en la línea <a class="el" href="_unique_ptr_8hpp_source.html#l00063">63</a> del archivo <a class="el" href="_unique_ptr_8hpp_source.html">UniquePtr.hpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_unique_ptr_8hpp_source.html#l00084">84</a> del archivo <a class="el" href="_unique_ptr_8hpp_source.html">UniquePtr.hpp</a>.</p>
 
 </div>
 </div>
@@ -336,7 +351,7 @@ template&lt;typename T &gt; </div>
 
 <p>Elimina el puntero. </p>
 
-<p class="definition">Definición en la línea <a class="el" href="_unique_ptr_8hpp_source.html#l00142">142</a> del archivo <a class="el" href="_unique_ptr_8hpp_source.html">UniquePtr.hpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_unique_ptr_8hpp_source.html#l00163">163</a> del archivo <a class="el" href="_unique_ptr_8hpp_source.html">UniquePtr.hpp</a>.</p>
 
 </div>
 </div>
@@ -368,7 +383,7 @@ template&lt;typename T &gt; </div>
 <p>Devuelve el puntero nativo. </p>
 <dl class="section return"><dt>Devuelve</dt><dd>Puntero.</dd></dl>
 
-<p class="definition">Definición en la línea <a class="el" href="_unique_ptr_8hpp_source.html#l00103">103</a> del archivo <a class="el" href="_unique_ptr_8hpp_source.html">UniquePtr.hpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_unique_ptr_8hpp_source.html#l00124">124</a> del archivo <a class="el" href="_unique_ptr_8hpp_source.html">UniquePtr.hpp</a>.</p>
 
 </div>
 </div>
@@ -400,7 +415,7 @@ template&lt;typename T &gt; </div>
 <p>Devuelve el valor apuntado por el puntero. </p>
 <dl class="section return"><dt>Devuelve</dt><dd>Valor.</dd></dl>
 
-<p class="definition">Definición en la línea <a class="el" href="_unique_ptr_8hpp_source.html#l00111">111</a> del archivo <a class="el" href="_unique_ptr_8hpp_source.html">UniquePtr.hpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_unique_ptr_8hpp_source.html#l00132">132</a> del archivo <a class="el" href="_unique_ptr_8hpp_source.html">UniquePtr.hpp</a>.</p>
 
 </div>
 </div>
@@ -432,7 +447,7 @@ template&lt;typename T &gt; </div>
 <p>Devuelve true si el puntero no es null. </p>
 <dl class="section return"><dt>Devuelve</dt><dd>Estado del puntero.</dd></dl>
 
-<p class="definition">Definición en la línea <a class="el" href="_unique_ptr_8hpp_source.html#l00135">135</a> del archivo <a class="el" href="_unique_ptr_8hpp_source.html">UniquePtr.hpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_unique_ptr_8hpp_source.html#l00156">156</a> del archivo <a class="el" href="_unique_ptr_8hpp_source.html">UniquePtr.hpp</a>.</p>
 
 </div>
 </div>
@@ -462,7 +477,7 @@ template&lt;typename T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definición en la línea <a class="el" href="_unique_ptr_8hpp_source.html#l00161">161</a> del archivo <a class="el" href="_unique_ptr_8hpp_source.html">UniquePtr.hpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_unique_ptr_8hpp_source.html#l00190">190</a> del archivo <a class="el" href="_unique_ptr_8hpp_source.html">UniquePtr.hpp</a>.</p>
 
 </div>
 </div>
@@ -494,7 +509,7 @@ template&lt;typename T &gt; </div>
 <p>Devuelve el valor apuntado por el puntero. </p>
 <dl class="section return"><dt>Devuelve</dt><dd>Valor.</dd></dl>
 
-<p class="definition">Definición en la línea <a class="el" href="_unique_ptr_8hpp_source.html#l00127">127</a> del archivo <a class="el" href="_unique_ptr_8hpp_source.html">UniquePtr.hpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_unique_ptr_8hpp_source.html#l00148">148</a> del archivo <a class="el" href="_unique_ptr_8hpp_source.html">UniquePtr.hpp</a>.</p>
 
 </div>
 </div>
@@ -526,7 +541,7 @@ template&lt;typename T &gt; </div>
 <p>Devuelve el puntero nativo. </p>
 <dl class="section return"><dt>Devuelve</dt><dd>Puntero.</dd></dl>
 
-<p class="definition">Definición en la línea <a class="el" href="_unique_ptr_8hpp_source.html#l00119">119</a> del archivo <a class="el" href="_unique_ptr_8hpp_source.html">UniquePtr.hpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_unique_ptr_8hpp_source.html#l00140">140</a> del archivo <a class="el" href="_unique_ptr_8hpp_source.html">UniquePtr.hpp</a>.</p>
 
 </div>
 </div>
@@ -584,15 +599,18 @@ template&lt;typename T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p>Crea un <a class="el" href="class_o_s_k_1_1_unique_ptr.html" title="Es dueño de un puntero. El puntero original es eliminado al destruirse el UniquePtr.">UniquePtr</a> que será dueño de 'data'. </p>
+<p>Crea un <a class="el" href="class_o_s_k_1_1_unique_ptr.html" title="Estructura que es dueña de un objeto almacenado en heap. Al destruirse el UniquePtr,...">UniquePtr</a> a partir del objeto almacenado en la dirección de memoria dada. </p>
 <dl class="params"><dt>Parámetros</dt><dd>
   <table class="params">
-    <tr><td class="paramname">data</td><td>Puntero original.</td></tr>
+    <tr><td class="paramname">data</td><td>Puntero al objeto almacenado en memoria heap.</td></tr>
   </table>
   </dd>
 </dl>
+<dl class="section note"><dt>Nota</dt><dd>Si este <a class="el" href="class_o_s_k_1_1_unique_ptr.html" title="Estructura que es dueña de un objeto almacenado en heap. Al destruirse el UniquePtr,...">UniquePtr</a> ya tenía un objeto, dicho objeto se destruirá y se liberará su memoria antes de obtener la propiedad de <code>data</code>.</dd></dl>
+<dl class="section pre"><dt>Precondición</dt><dd><code>data</code> debe haber sido creado con el operador new.</dd></dl>
+<dl class="section post"><dt>Postcondición</dt><dd>Esta instancia de <a class="el" href="class_o_s_k_1_1_unique_ptr.html" title="Estructura que es dueña de un objeto almacenado en heap. Al destruirse el UniquePtr,...">UniquePtr</a> se convierte en dueña del objeto apuntado por <code>data</code>. </dd></dl>
 
-<p class="definition">Definición en la línea <a class="el" href="_unique_ptr_8hpp_source.html#l00039">39</a> del archivo <a class="el" href="_unique_ptr_8hpp_source.html">UniquePtr.hpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_unique_ptr_8hpp_source.html#l00054">54</a> del archivo <a class="el" href="_unique_ptr_8hpp_source.html">UniquePtr.hpp</a>.</p>
 
 </div>
 </div>
@@ -631,7 +649,7 @@ template&lt;typename T &gt; </div>
 </dl>
 <dl class="section return"><dt>Devuelve</dt><dd>Self.</dd></dl>
 
-<p class="definition">Definición en la línea <a class="el" href="_unique_ptr_8hpp_source.html#l00072">72</a> del archivo <a class="el" href="_unique_ptr_8hpp_source.html">UniquePtr.hpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_unique_ptr_8hpp_source.html#l00093">93</a> del archivo <a class="el" href="_unique_ptr_8hpp_source.html">UniquePtr.hpp</a>.</p>
 
 </div>
 </div>
@@ -661,7 +679,7 @@ template&lt;typename T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definición en la línea <a class="el" href="_unique_ptr_8hpp_source.html#l00158">158</a> del archivo <a class="el" href="_unique_ptr_8hpp_source.html">UniquePtr.hpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_unique_ptr_8hpp_source.html#l00187">187</a> del archivo <a class="el" href="_unique_ptr_8hpp_source.html">UniquePtr.hpp</a>.</p>
 
 </div>
 </div>
@@ -692,7 +710,7 @@ template&lt;typename T &gt; </div>
 
 <p></p>
 
-<p class="definition">Definición en la línea <a class="el" href="_unique_ptr_8hpp_source.html#l00081">81</a> del archivo <a class="el" href="_unique_ptr_8hpp_source.html">UniquePtr.hpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_unique_ptr_8hpp_source.html#l00102">102</a> del archivo <a class="el" href="_unique_ptr_8hpp_source.html">UniquePtr.hpp</a>.</p>
 
 </div>
 </div>
@@ -722,7 +740,7 @@ template&lt;typename T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p>Cambia el puntero de este <a class="el" href="class_o_s_k_1_1_unique_ptr.html" title="Es dueño de un puntero. El puntero original es eliminado al destruirse el UniquePtr.">UniquePtr</a> (eliminando el anterior). </p>
+<p>Cambia el puntero de este <a class="el" href="class_o_s_k_1_1_unique_ptr.html" title="Estructura que es dueña de un objeto almacenado en heap. Al destruirse el UniquePtr,...">UniquePtr</a> (eliminando el anterior). </p>
 <dl class="params"><dt>Parámetros</dt><dd>
   <table class="params">
     <tr><td class="paramname">newValue</td><td>Nuevo valor.</td></tr>
@@ -730,7 +748,7 @@ template&lt;typename T &gt; </div>
   </dd>
 </dl>
 
-<p class="definition">Definición en la línea <a class="el" href="_unique_ptr_8hpp_source.html#l00092">92</a> del archivo <a class="el" href="_unique_ptr_8hpp_source.html">UniquePtr.hpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_unique_ptr_8hpp_source.html#l00113">113</a> del archivo <a class="el" href="_unique_ptr_8hpp_source.html">UniquePtr.hpp</a>.</p>
 
 </div>
 </div>
@@ -760,9 +778,21 @@ template&lt;typename T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p>Intercambia el puntero con el otro <a class="el" href="class_o_s_k_1_1_unique_ptr.html" title="Es dueño de un puntero. El puntero original es eliminado al destruirse el UniquePtr.">UniquePtr</a>. </p>
+<p>Intercambia el objeto de este <a class="el" href="class_o_s_k_1_1_unique_ptr.html" title="Estructura que es dueña de un objeto almacenado en heap. Al destruirse el UniquePtr,...">UniquePtr</a> por el objeto del <a class="el" href="class_o_s_k_1_1_unique_ptr.html" title="Estructura que es dueña de un objeto almacenado en heap. Al destruirse el UniquePtr,...">UniquePtr</a> <code>other</code>. </p>
+<dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">other</td><td>Otro <a class="el" href="class_o_s_k_1_1_unique_ptr.html" title="Estructura que es dueña de un objeto almacenado en heap. Al destruirse el UniquePtr,...">UniquePtr</a>, con el que se va a intercambiar el objeto.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section post"><dt>Postcondición</dt><dd>Este <a class="el" href="class_o_s_k_1_1_unique_ptr.html" title="Estructura que es dueña de un objeto almacenado en heap. Al destruirse el UniquePtr,...">UniquePtr</a> almacena (y es dueño) del objeto que antes tenía <code>other</code>. </dd>
+<dd>
+El <a class="el" href="class_o_s_k_1_1_unique_ptr.html" title="Estructura que es dueña de un objeto almacenado en heap. Al destruirse el UniquePtr,...">UniquePtr</a> <code>other</code> almacena (y es dueño) del objeto que antes tenía este <a class="el" href="class_o_s_k_1_1_unique_ptr.html" title="Estructura que es dueña de un objeto almacenado en heap. Al destruirse el UniquePtr,...">UniquePtr</a>.</dd></dl>
+<dl class="section note"><dt>Nota</dt><dd>Si <code>other</code> no tiene objeto, este <a class="el" href="class_o_s_k_1_1_unique_ptr.html" title="Estructura que es dueña de un objeto almacenado en heap. Al destruirse el UniquePtr,...">UniquePtr</a> se convierte en un <a class="el" href="class_o_s_k_1_1_unique_ptr.html" title="Estructura que es dueña de un objeto almacenado en heap. Al destruirse el UniquePtr,...">UniquePtr</a> vacío. </dd>
+<dd>
+Si este <a class="el" href="class_o_s_k_1_1_unique_ptr.html" title="Estructura que es dueña de un objeto almacenado en heap. Al destruirse el UniquePtr,...">UniquePtr</a> no tiene objeto, <code>other</code> se convierte en un <a class="el" href="class_o_s_k_1_1_unique_ptr.html" title="Estructura que es dueña de un objeto almacenado en heap. Al destruirse el UniquePtr,...">UniquePtr</a> vacío. </dd></dl>
 
-<p class="definition">Definición en la línea <a class="el" href="_unique_ptr_8hpp_source.html#l00152">152</a> del archivo <a class="el" href="_unique_ptr_8hpp_source.html">UniquePtr.hpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_unique_ptr_8hpp_source.html#l00181">181</a> del archivo <a class="el" href="_unique_ptr_8hpp_source.html">UniquePtr.hpp</a>.</p>
 
 </div>
 </div>
@@ -775,7 +805,7 @@ template&lt;typename T &gt; </div>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="namespace_o_s_k.html">OSK</a></li><li class="navelem"><a class="el" href="class_o_s_k_1_1_unique_ptr.html">UniquePtr</a></li>
-    <li class="footer">Generado el Lunes, 6 de Febrero de 2023 17:42:41 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4 </li>
+    <li class="footer">Generado el Sábado, 18 de Febrero de 2023 20:35:10 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4 </li>
   </ul>
 </div>
 </body>
