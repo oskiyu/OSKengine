@@ -7,7 +7,6 @@ using namespace OSK;
 
 Quaternion::Quaternion() {
 	quaternion = glm::quat(1.0f, 0.0f, 0.0f, 0.0f);
-	glm::normalize(quaternion);
 }
 
 void Quaternion::Rotate_WorldSpace(float angle, const Vector3f& axis) {

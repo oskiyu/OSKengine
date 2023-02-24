@@ -553,6 +553,7 @@ private:
 		// Setup de físicas
 		auto& physicsComponent = Engine::GetEcs()->AddComponent<PhysicsComponent>(carObject, {});
 		physicsComponent.mass = 4.0f;
+		physicsComponent.centerOfMassOffset = Vector3f(0.0f, 0.17f * 0.5f, 0.0f);
 
 		// Setup de colisiones
 		Collider collider{};
@@ -604,6 +605,7 @@ private:
 		// Setup de físicas
 		auto& physicsComponent = Engine::GetEcs()->AddComponent<PhysicsComponent>(secondObject, {});
 		physicsComponent.mass = 3.5f;
+		physicsComponent.centerOfMassOffset = Vector3f(0.0f, 0.2f, 0.0f);
 
 		// Collider
 		Collider collider{};

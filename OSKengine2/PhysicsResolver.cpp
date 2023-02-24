@@ -42,7 +42,14 @@ void PhysicsResolver::OnTick(TDeltaTime deltaTime) {
 		const Vector3f impulseA = -aToB * physicsB.GetMomentum().GetLenght();
 		const Vector3f impulseB =  aToB * physicsA.GetMomentum().GetLenght();
 
-		physicsA.ApplyImpulse(impulseA);
-		physicsB.ApplyImpulse(impulseB);
+		physicsA.ApplyLinealImpulse(impulseA);
+		physicsB.ApplyLinealImpulse(impulseB);
+
+		const Vector3f worldSpaceContactPoint = collisionInfo.GetSingleContactPoint();
+		const Vector3f contactPointA = worldSpaceContactPoint - (transformA.GetPosition() + physicsA.centerOfMassOffset);
+		const Vector3f contactPointB = worldSpaceContactPoint - (transformB.GetPosition() + physicsB.centerOfMassOffset);
+
+		physicsA.ApplyAngularImpulse(impulseA, contactPointA);
+		physicsB.ApplyAngularImpulse(impulseB, contactPointB);
 	}
 }

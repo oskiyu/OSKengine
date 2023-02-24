@@ -191,7 +191,7 @@ Version Engine::GetVersion() {
 }
 
 const std::string& Engine::GetBuild() {
-	static std::string build = "2023.02.07a";
+	static std::string build = "2023.02.24b";
 
 	return build;
 }
