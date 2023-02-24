@@ -99,6 +99,12 @@ $(document).ready(function(){initNavTree('class_o_s_k_1_1_e_c_s_1_1_physics_comp
 Métodos públicos</h2></td></tr>
 <tr class="memitem:ac8f99a444d1502275bcc12b370eac652"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_e_c_s_1_1_physics_component.html#ac8f99a444d1502275bcc12b370eac652">OSK_COMPONENT</a> (&quot;OSK::PhysicsComponent&quot;)</td></tr>
 <tr class="separator:ac8f99a444d1502275bcc12b370eac652"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1cbc609910bc3743fdb9e8b454d3ef20"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_e_c_s_1_1_physics_component.html#a1cbc609910bc3743fdb9e8b454d3ef20">ApplyForce</a> (const <a class="el" href="namespace_o_s_k.html#a5e479af2ede269150542d90384ce3ee2">Vector3f</a> &amp;force)</td></tr>
+<tr class="separator:a1cbc609910bc3743fdb9e8b454d3ef20"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a725f4777556bd8b5453f73c5175b8da5"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_e_c_s_1_1_physics_component.html#a725f4777556bd8b5453f73c5175b8da5">ApplyImpulse</a> (const <a class="el" href="namespace_o_s_k.html#a5e479af2ede269150542d90384ce3ee2">Vector3f</a> &amp;impulse)</td></tr>
+<tr class="separator:a725f4777556bd8b5453f73c5175b8da5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a737d182beb4a3cccf9bce510d5edbf41"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespace_o_s_k.html#a5e479af2ede269150542d90384ce3ee2">Vector3f</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_e_c_s_1_1_physics_component.html#a737d182beb4a3cccf9bce510d5edbf41">GetMomentum</a> () const</td></tr>
+<tr class="separator:a737d182beb4a3cccf9bce510d5edbf41"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
 Atributos públicos</h2></td></tr>
@@ -106,14 +112,92 @@ Atributos públicos</h2></td></tr>
 <tr class="separator:a71965448602ee2785642d2c180804140"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a40dee2c0319e1507963d0c1875e77091"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespace_o_s_k.html#a5e479af2ede269150542d90384ce3ee2">Vector3f</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_e_c_s_1_1_physics_component.html#a40dee2c0319e1507963d0c1875e77091">acceleration</a> = 0.0f</td></tr>
 <tr class="separator:a40dee2c0319e1507963d0c1875e77091"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a84ba9951955b5672762fbcaac47ea5f6"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_e_c_s_1_1_physics_component.html#a84ba9951955b5672762fbcaac47ea5f6">weight</a> = 0.0f</td></tr>
-<tr class="separator:a84ba9951955b5672762fbcaac47ea5f6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac65d64a996700d6daf1180bc205c1efc"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_e_c_s_1_1_physics_component.html#ac65d64a996700d6daf1180bc205c1efc">mass</a> = 0.0f</td></tr>
+<tr class="separator:ac65d64a996700d6daf1180bc205c1efc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Descripción detallada</h2>
 <div class="textblock"><p >Componente que permite simular las físicas de la entidad. </p>
 
 <p class="definition">Definición en la línea <a class="el" href="_physics_component_8h_source.html#l00009">9</a> del archivo <a class="el" href="_physics_component_8h_source.html">PhysicsComponent.h</a>.</p>
 </div><h2 class="groupheader">Documentación de las funciones miembro</h2>
+<a id="a1cbc609910bc3743fdb9e8b454d3ef20" name="a1cbc609910bc3743fdb9e8b454d3ef20"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1cbc609910bc3743fdb9e8b454d3ef20">&#9670;&nbsp;</a></span>ApplyForce()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void PhysicsComponent::ApplyForce </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="namespace_o_s_k.html#a5e479af2ede269150542d90384ce3ee2">Vector3f</a> &amp;&#160;</td>
+          <td class="paramname"><em>force</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Ejerce una fuerza sobre el centro de masa del objeto. </p>
+<dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">force</td><td>Fuerza (en Newtons: kg*m/s2). </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definición en la línea <a class="el" href="_physics_component_8cpp_source.html#l00006">6</a> del archivo <a class="el" href="_physics_component_8cpp_source.html">PhysicsComponent.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a725f4777556bd8b5453f73c5175b8da5" name="a725f4777556bd8b5453f73c5175b8da5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a725f4777556bd8b5453f73c5175b8da5">&#9670;&nbsp;</a></span>ApplyImpulse()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void PhysicsComponent::ApplyImpulse </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="namespace_o_s_k.html#a5e479af2ede269150542d90384ce3ee2">Vector3f</a> &amp;&#160;</td>
+          <td class="paramname"><em>impulse</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Aplica una fuerza de manera instantánea (en un tiempo infinitesimal). </p>
+<dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">impulse</td><td>Fuerza. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definición en la línea <a class="el" href="_physics_component_8cpp_source.html#l00011">11</a> del archivo <a class="el" href="_physics_component_8cpp_source.html">PhysicsComponent.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a737d182beb4a3cccf9bce510d5edbf41" name="a737d182beb4a3cccf9bce510d5edbf41"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a737d182beb4a3cccf9bce510d5edbf41">&#9670;&nbsp;</a></span>GetMomentum()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="namespace_o_s_k.html#a5e479af2ede269150542d90384ce3ee2">Vector3f</a> PhysicsComponent::GetMomentum </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Obtiene el momento (velocidad * masa) del centro de masa del objeto. </p>
+<dl class="section return"><dt>Devuelve</dt><dd>Momento del objeto. </dd></dl>
+
+<p class="definition">Definición en la línea <a class="el" href="_physics_component_8cpp_source.html#l00015">15</a> del archivo <a class="el" href="_physics_component_8cpp_source.html">PhysicsComponent.cpp</a>.</p>
+
+</div>
+</div>
 <a id="ac8f99a444d1502275bcc12b370eac652" name="ac8f99a444d1502275bcc12b370eac652"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ac8f99a444d1502275bcc12b370eac652">&#9670;&nbsp;</a></span>OSK_COMPONENT()</h2>
 
@@ -151,6 +235,24 @@ Atributos públicos</h2></td></tr>
 
 </div>
 </div>
+<a id="ac65d64a996700d6daf1180bc205c1efc" name="ac65d64a996700d6daf1180bc205c1efc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac65d64a996700d6daf1180bc205c1efc">&#9670;&nbsp;</a></span>mass</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">float OSK::ECS::PhysicsComponent::mass = 0.0f</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Peso de la entidad, en kilogramos. </p>
+
+<p class="definition">Definición en la línea <a class="el" href="_physics_component_8h_source.html#l00021">21</a> del archivo <a class="el" href="_physics_component_8h_source.html">PhysicsComponent.h</a>.</p>
+
+</div>
+</div>
 <a id="a71965448602ee2785642d2c180804140" name="a71965448602ee2785642d2c180804140"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a71965448602ee2785642d2c180804140">&#9670;&nbsp;</a></span>velocity</h2>
 
@@ -169,26 +271,9 @@ Atributos públicos</h2></td></tr>
 
 </div>
 </div>
-<a id="a84ba9951955b5672762fbcaac47ea5f6" name="a84ba9951955b5672762fbcaac47ea5f6"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a84ba9951955b5672762fbcaac47ea5f6">&#9670;&nbsp;</a></span>weight</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">float OSK::ECS::PhysicsComponent::weight = 0.0f</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Peso de la entidad, en kilogramos. </p>
-
-<p class="definition">Definición en la línea <a class="el" href="_physics_component_8h_source.html#l00021">21</a> del archivo <a class="el" href="_physics_component_8h_source.html">PhysicsComponent.h</a>.</p>
-
-</div>
-</div>
-<hr/>La documentación para esta clase fue generada a partir del siguiente fichero:<ul>
+<hr/>La documentación para esta clase fue generada a partir de los siguientes ficheros:<ul>
 <li>OSKengine2/<a class="el" href="_physics_component_8h_source.html">PhysicsComponent.h</a></li>
+<li>OSKengine2/<a class="el" href="_physics_component_8cpp_source.html">PhysicsComponent.cpp</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->
@@ -196,7 +281,7 @@ Atributos públicos</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="namespace_o_s_k.html">OSK</a></li><li class="navelem"><a class="el" href="namespace_o_s_k_1_1_e_c_s.html">ECS</a></li><li class="navelem"><a class="el" href="class_o_s_k_1_1_e_c_s_1_1_physics_component.html">PhysicsComponent</a></li>
-    <li class="footer">Generado el Sábado, 18 de Febrero de 2023 20:35:10 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4 </li>
+    <li class="footer">Generado el Viernes, 24 de Febrero de 2023 13:13:17 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4 </li>
   </ul>
 </div>
 </body>

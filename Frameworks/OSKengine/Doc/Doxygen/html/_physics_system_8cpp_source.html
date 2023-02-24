@@ -110,12 +110,13 @@ $(document).ready(function(){initNavTree('_physics_system_8cpp_source.html','');
 <div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>        <a class="code hl_class" href="class_o_s_k_1_1_e_c_s_1_1_transform3_d.html">Transform3D</a>&amp; transform = <a class="code hl_function" href="class_o_s_k_1_1_engine.html#a2e36571452395c924ab2211ad380298f">Engine::GetEcs</a>()-&gt;<a class="code hl_function" href="class_o_s_k_1_1_e_c_s_1_1_entity_component_system.html#ae9aed1c83a9b5304f0183fb7176b81c7">GetComponent</a>&lt;<a class="code hl_class" href="class_o_s_k_1_1_e_c_s_1_1_transform3_d.html">Transform3D</a>&gt;(obj);</div>
 <div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>        <a class="code hl_class" href="class_o_s_k_1_1_e_c_s_1_1_physics_component.html">PhysicsComponent</a>&amp; physicsComponent = <a class="code hl_function" href="class_o_s_k_1_1_engine.html#a2e36571452395c924ab2211ad380298f">Engine::GetEcs</a>()-&gt;<a class="code hl_function" href="class_o_s_k_1_1_e_c_s_1_1_entity_component_system.html#ae9aed1c83a9b5304f0183fb7176b81c7">GetComponent</a>&lt;<a class="code hl_class" href="class_o_s_k_1_1_e_c_s_1_1_physics_component.html">PhysicsComponent</a>&gt;(obj);</div>
 <div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span> </div>
-<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>        <span class="comment">// physicsComponent.acceleration += gravityAccel * deltaTime * 0.0001f;</span></div>
-<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>        physicsComponent.<a class="code hl_variable" href="class_o_s_k_1_1_e_c_s_1_1_physics_component.html#a71965448602ee2785642d2c180804140">velocity</a> += physicsComponent.acceleration * deltaTime;</div>
-<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>        </div>
-<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>        transform.<a class="code hl_function" href="class_o_s_k_1_1_e_c_s_1_1_transform3_d.html#a84e7319dbca0666f6194bd7da931644a">AddPosition</a>(physicsComponent.velocity * deltaTime);</div>
-<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>    }</div>
-<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>}</div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>        physicsComponent.<a class="code hl_variable" href="class_o_s_k_1_1_e_c_s_1_1_physics_component.html#a71965448602ee2785642d2c180804140">velocity</a> += physicsComponent.acceleration * deltaTime;</div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>        </div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>        transform.<a class="code hl_function" href="class_o_s_k_1_1_e_c_s_1_1_transform3_d.html#a84e7319dbca0666f6194bd7da931644a">AddPosition</a>(physicsComponent.velocity * deltaTime);</div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span> </div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>        physicsComponent.velocity -= physicsComponent.velocity * 0.1f * deltaTime;</div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>    }</div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>}</div>
 <div class="ttc" id="a_entity_component_system_8h_html"><div class="ttname"><a href="_entity_component_system_8h.html">EntityComponentSystem.h</a></div></div>
 <div class="ttc" id="a_o_s_kengine_8h_html"><div class="ttname"><a href="_o_s_kengine_8h.html">OSKengine.h</a></div></div>
 <div class="ttc" id="a_o_s_kmacros_8h_html_ad05d5eacc527d5b61240124daf13b33b"><div class="ttname"><a href="_o_s_kmacros_8h.html#ad05d5eacc527d5b61240124daf13b33b">TDeltaTime</a></div><div class="ttdeci">float TDeltaTime</div><div class="ttdef"><b>Definition:</b> <a href="_o_s_kmacros_8h_source.html#l00025">OSKmacros.h:25</a></div></div>
@@ -142,7 +143,7 @@ $(document).ready(function(){initNavTree('_physics_system_8cpp_source.html','');
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_fde17fe5c09f5d2327636debe0843594.html">OSKengine2</a></li><li class="navelem"><a class="el" href="_physics_system_8cpp.html">PhysicsSystem.cpp</a></li>
-    <li class="footer">Generado el Sábado, 18 de Febrero de 2023 20:35:10 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4 </li>
+    <li class="footer">Generado el Viernes, 24 de Febrero de 2023 13:13:17 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4 </li>
   </ul>
 </div>
 </body>

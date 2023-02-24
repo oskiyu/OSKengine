@@ -396,7 +396,7 @@ DetailedCollisionInfo ConvexVolume::GetCollisionInfo(const IBottomLevelCollider&
 
 	// Número de vértices en la cara de referencia.
 	const TSize numReferenceVertices = referenceFace.GetSize();
-
+	
 	// Obtenemos los pares de vértices consecutivos de la cara de referencia.
 	for (TIndex v = 0; v < numReferenceVertices; v++) {
 		const TIndex firstReferenceVertexIndex = referenceFace[v];

@@ -3,6 +3,10 @@
 #include "OSKengine.h"
 #include "EntityComponentSystem.h"
 #include "Transform3D.h"
+#include "PhysicsComponent.h"
+
+#include "OSKengine.h"
+#include "Logger.h"
 
 using namespace OSK;
 using namespace OSK::ECS;
@@ -15,6 +19,10 @@ void PhysicsResolver::OnTick(TDeltaTime deltaTime) {
 		const GameObjectIndex first = event.firstEntity;
 		const GameObjectIndex second = event.secondEntity;
 
+		// Check.
+		if (!(ecs->ObjectHasComponent<PhysicsComponent>(first) && ecs->ObjectHasComponent<PhysicsComponent>(second)))
+			continue;
+
 		const auto& collisionInfo = event.collisionInfo;
 		const Vector3f mtv = collisionInfo.GetMinimumTranslationVector();
 		const Vector3f halfMtv = mtv * 0.5f;
@@ -22,7 +30,19 @@ void PhysicsResolver::OnTick(TDeltaTime deltaTime) {
 		auto& transformA = ecs->GetComponent<Transform3D>(first);
 		auto& transformB = ecs->GetComponent<Transform3D>(second);
 
+		auto& physicsA = ecs->GetComponent<PhysicsComponent>(first);
+		auto& physicsB = ecs->GetComponent<PhysicsComponent>(second);
+
 		transformA.AddPosition(-halfMtv);
-		transformB.AddPosition(halfMtv);
+		transformB.AddPosition( halfMtv);
+
+
+		const Vector3f aToB = mtv.GetNormalized();
+
+		const Vector3f impulseA = -aToB * physicsB.GetMomentum().GetLenght();
+		const Vector3f impulseB =  aToB * physicsA.GetMomentum().GetLenght();
+
+		physicsA.ApplyImpulse(impulseA);
+		physicsB.ApplyImpulse(impulseB);
 	}
 }

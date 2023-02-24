@@ -18,7 +18,22 @@ namespace OSK::ECS {
 		Vector3f acceleration = 0.0f;
 
 		/// @brief Peso de la entidad, en kilogramos.
-		float weight = 0.0f;
+		float mass = 0.0f;
+
+
+		/// @brief Ejerce una fuerza sobre el centro de masa del objeto.
+		/// @param force Fuerza (en Newtons: kg*m/s2).
+		void ApplyForce(const Vector3f& force);
+
+		/// @brief Aplica una fuerza de manera instantánea (en un tiempo
+		/// infinitesimal).
+		/// @param impulse Fuerza.
+		void ApplyImpulse(const Vector3f& impulse);
+
+
+		/// @brief Obtiene el momento (velocidad * masa) del centro de masa del objeto.
+		/// @return Momento del objeto.
+		Vector3f GetMomentum() const;
 
 	};
 

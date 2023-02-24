@@ -325,6 +325,7 @@ var dir_fde17fe5c09f5d2327636debe0843594 =
     [ "PbrDeferredRenderSystem.h", "_pbr_deferred_render_system_8h.html", "_pbr_deferred_render_system_8h" ],
     [ "PcUserInput.cpp", "_pc_user_input_8cpp.html", null ],
     [ "PcUserInput.h", "_pc_user_input_8h.html", "_pc_user_input_8h" ],
+    [ "PhysicsComponent.cpp", "_physics_component_8cpp.html", null ],
     [ "PhysicsComponent.h", "_physics_component_8h.html", "_physics_component_8h" ],
     [ "PhysicsResolver.cpp", "_physics_resolver_8cpp.html", null ],
     [ "PhysicsResolver.h", "_physics_resolver_8h.html", "_physics_resolver_8h" ],

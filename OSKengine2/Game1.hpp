@@ -189,11 +189,6 @@ protected:
 		float cameraRightMovement = 0.0f;
 		Vector2f cameraRotation = 0.0f;
 
-		// Velocidad actual del coche
-		static float currentCarSpeed = 0.0f;
-		// Cambio de velocidad en este frame
-		float carSpeedDiff = 0.0f;
-
 
 		// Si disponemos de teclado...
 		if (keyboard) {
@@ -286,17 +281,22 @@ protected:
 			if (keyboard->IsKeyDown(IO::Key::RIGHT))
 				carTransform.RotateWorldSpace(deltaTime * 2, { 0, -1, 0 });
 
-			// Aceleración / deceleración
-			if (keyboard->IsKeyDown(IO::Key::UP))
-				carSpeedDiff += 0.5f * deltaTime;
-			if (keyboard->IsKeyDown(IO::Key::DOWN))
-				carSpeedDiff -= 0.5f * deltaTime;
+			PhysicsComponent& carPhysics = Engine::GetEcs()->GetComponent<PhysicsComponent>(carObject);
 
-			carSpeedDiff = glm::clamp(carSpeedDiff, -1.0f, 7.0f);
+			// Aceleración / deceleración
+			carPhysics.acceleration = 0.0f;
+
+			const float projection = carPhysics.velocity.Dot(carTransform.GetForwardVector());
+			carPhysics.velocity = carTransform.GetForwardVector() * projection;
+
+			if (keyboard->IsKeyDown(IO::Key::UP))
+				carPhysics.acceleration =  carTransform.GetForwardVector() * 7.f * deltaTime;
+			if (keyboard->IsKeyDown(IO::Key::DOWN))
+				carPhysics.acceleration = -carTransform.GetForwardVector() * 7.f * deltaTime;
 
 			if (keyboard->IsKeyDown(IO::Key::SPACE)) {
-				currentCarSpeed = 0.0f;
-				carSpeedDiff = 0.0f;
+				carPhysics.acceleration = 0.0f;
+				carPhysics.velocity = 0.0f;
 			}
 		}
 		
@@ -320,15 +320,7 @@ protected:
 				cameraRotation.Y += gamepadState.GetAxisState(IO::GamepadAxis::RIGHT_Y);
 			}
 		}
-		
-
-		// Aplicación de movimiento y rotación del coche
-		currentCarSpeed += carSpeedDiff;
-
-		Transform3D& carTransform = Engine::GetEcs()->GetComponent<Transform3D>(carObject);
-		carTransform.AddPosition(carTransform.GetForwardVector() * deltaTime * currentCarSpeed);
-		
-		
+						
 		// Aplicación de movimiento y rotación de la cámara
 		camera.Rotate(cameraRotation.X, cameraRotation.Y);
 
@@ -559,7 +551,8 @@ private:
 		Transform3D& transform = Engine::GetEcs()->AddComponent<Transform3D>(carObject, ECS::Transform3D(carObject));
 
 		// Setup de físicas
-		Engine::GetEcs()->AddComponent<PhysicsComponent>(carObject, {});
+		auto& physicsComponent = Engine::GetEcs()->AddComponent<PhysicsComponent>(carObject, {});
+		physicsComponent.mass = 4.0f;
 
 		// Setup de colisiones
 		Collider collider{};
@@ -607,6 +600,10 @@ private:
 		// Transform
 		Transform3D* transform = &Engine::GetEcs()->AddComponent<Transform3D>(secondObject, Transform3D(secondObject));
 		transform->AddPosition({ 0.5f, 0.0f, 0.0f });
+
+		// Setup de físicas
+		auto& physicsComponent = Engine::GetEcs()->AddComponent<PhysicsComponent>(secondObject, {});
+		physicsComponent.mass = 3.5f;
 
 		// Collider
 		Collider collider{};

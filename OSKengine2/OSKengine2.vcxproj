@@ -160,6 +160,7 @@
     <ClCompile Include="ModelLoader3D.cpp" />
     <ClCompile Include="PbrDeferredRenderSystem.cpp" />
     <ClCompile Include="PcUserInput.cpp" />
+    <ClCompile Include="PhysicsComponent.cpp" />
     <ClCompile Include="PhysicsResolver.cpp" />
     <ClCompile Include="PhysicsSystem.cpp" />
     <ClCompile Include="PipelineLayoutDx12.cpp" />

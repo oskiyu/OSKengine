@@ -20,9 +20,10 @@ void PhysicsSystem::OnTick(TDeltaTime deltaTime) {
 		Transform3D& transform = Engine::GetEcs()->GetComponent<Transform3D>(obj);
 		PhysicsComponent& physicsComponent = Engine::GetEcs()->GetComponent<PhysicsComponent>(obj);
 
-		// physicsComponent.acceleration += gravityAccel * deltaTime * 0.0001f;
 		physicsComponent.velocity += physicsComponent.acceleration * deltaTime;
 		
 		transform.AddPosition(physicsComponent.velocity * deltaTime);
+
+		physicsComponent.velocity -= physicsComponent.velocity * 0.1f * deltaTime;
 	}
 }
