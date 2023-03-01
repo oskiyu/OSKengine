@@ -7,8 +7,6 @@
     "raw_asset_path": "Resources/Assets/Models/circuit.glb",
     "raw_asset_path1": "Resources/Assets/Models/sponza.glb",
 
-    "scale": 1.0,
-    "load_textures": false,
-    "load_materials": false,
+    "scale": 0.9,
     "rotation_offset": [0, 180, 0]
 }

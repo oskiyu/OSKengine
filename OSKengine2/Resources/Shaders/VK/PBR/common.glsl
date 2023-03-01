@@ -1,6 +1,6 @@
 
 const float PI = 3.14159265359;
-const float DEFAULT_F0 = 0.04;
+const float DEFAULT_F0 = 0.004;
 
 vec3 GetShadowmapCascade(vec3 cameraSpacePosition, vec4 shadowSplits);
 int GetShadowmapIndex(vec3 cameraSpacePosition, vec4 shadowSplits);

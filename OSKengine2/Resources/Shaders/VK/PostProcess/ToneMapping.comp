@@ -26,7 +26,7 @@ const float ShoulderLength = 0.5;
 const float ShoulderAngle = 1.0;
 
 vec3 LearnOpenGLColor(vec3 color) {
-    return vec3(1.0) - exp(-color);
+    return vec3(1.0, 1.0, 1.0) - exp(-color);
 }
 
 vec3 Unreal3Color(vec3 color) {
@@ -132,7 +132,7 @@ void main() {
     const vec3 hdrColor = texelFetch(sceneImage, ivec2(gl_GlobalInvocationID), 0).rgb * gamma.exposure;
 
     // const vec3 toneMapped = vec3(1.0) - exp(-hdrColor * gamma.exposure);
-    const vec3 toneMapped = LearnOpenGLColor(hdrColor);
+    vec3 toneMapped = LearnOpenGLColor(hdrColor);
 
     const vec3 ldrColor = pow(toneMapped, vec3(1.0 / gamma.gamma));
 

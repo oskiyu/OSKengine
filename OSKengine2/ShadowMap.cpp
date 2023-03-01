@@ -136,7 +136,8 @@ void ShadowMap::UpdateLightMatrixBuffer() {
 		CameraComponent3D clipCamera = camera;
 		clipCamera.SetPlanes(lastClip, cascadeSplits[i]);
 		// Obtiene las esquinas en el espacio del mundo.
-		DynamicArray<Vector3f> worldSpaceFrustumCorners = GetFrustumCorners(clipCamera.GetProjectionMatrix() * clipCamera.GetViewMatrix(cameraTransform));
+		const DynamicArray<Vector3f> worldSpaceFrustumCorners = 
+			GetFrustumCorners(clipCamera.GetProjectionMatrix() * clipCamera.GetViewMatrix(cameraTransform));
 
 		// Calculamos el centro del frustum.
 		Vector3f frustumCenter = 0.0f;
@@ -159,8 +160,8 @@ void ShadowMap::UpdateLightMatrixBuffer() {
 		// planos near y far del frustum final.
 		const float yPerUnit = 1.0f / glm::radians(90.0f - lightDirection.GetAngle({ 0.0f, -1.0f, 0.0f }));
 
-		float minCornerHeight = -yPerUnit * radius;
-		float maxCornerHeight = yPerUnit * radius;
+		const float minCornerHeight = -yPerUnit * radius;
+		const float maxCornerHeight = yPerUnit * radius;
 
 		const float shadowNearClip = (minCornerHeight) / yPerUnit;
 		const float shadowFarClip = maxCornerHeight / yPerUnit;
@@ -170,7 +171,7 @@ void ShadowMap::UpdateLightMatrixBuffer() {
 		const Vector2f minExtent = -maxExtent;
 
 		// 'Cámara' virtual para renderizar el mapa de sombras.
-		const glm::mat4 lightProjection = glm::ortho(minExtent.X, maxExtent.X, maxExtent.Y, minExtent.Y, nearPlane, farPlane);
+		const glm::mat4 lightProjection = glm::ortho(minExtent.X, maxExtent.X, maxExtent.Y, minExtent.Y, -radius, radius);
 		const glm::mat4 lightView = glm::lookAt((frustumCenter - lightDirection).ToGLM(), frustumCenter.ToGLM(), glm::vec3(0.0f, 1.0f, 0.0f));
 
 		bufferContent.matrices[i] = lightProjection * lightView;

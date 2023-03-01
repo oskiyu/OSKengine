@@ -33,6 +33,8 @@ void PhysicsResolver::OnTick(TDeltaTime deltaTime) {
 		auto& physicsA = ecs->GetComponent<PhysicsComponent>(first);
 		auto& physicsB = ecs->GetComponent<PhysicsComponent>(second);
 
+		return;
+
 		transformA.AddPosition(-halfMtv);
 		transformB.AddPosition( halfMtv);
 

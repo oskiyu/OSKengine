@@ -45,8 +45,8 @@ void main() {
     const vec3 view = normalize(inCameraPos - inPosition);
     const vec3 reflectVec = reflect(-view, normal);
 
-    const float metallicFactor = clamp(pushConstants.materialInfos.x, 0.1, 1); // TODO: texture
-    const float roughnessFactor = clamp(pushConstants.materialInfos.y, 0.1, 1); // TODO: texture
+    const float metallicFactor = clamp(pushConstants.materialInfos.x, 0.001, 1); // TODO: texture
+    const float roughnessFactor = clamp(pushConstants.materialInfos.y, 0.001, 1); // TODO: texture
 
     vec3 albedo = inColor.rgb * texture(albedoTexture, inTexCoords).xyz;
 
@@ -76,19 +76,19 @@ void main() {
     // vec3 color = ambient * (dirLight.directionAndIntensity.w * 0.5) + accummulatedRadiance * 1.25 + specular * 0.5;
     // vec3 color = ambient + accummulatedRadiance + specular;
     
-//#define NATURAL
+// #define NATURAL
 
 #ifdef NATURAL
-    const float ambientRatio = 0.25;
+    const float ambientRatio = 1.0;
     const float radianceRatio = 1.0;
-    const float specularRatio = 0.65;
+    const float specularRatio = 1.0;
 #elif CUSTOM
     const float ambientRatio = 0.25;
     const float radianceRatio = 1.25;
     const float specularRatio = 0.45;
 #else
-    const float ambientRatio = 0.25;
-    const float radianceRatio = 1.25;
+    const float ambientRatio = 0.45;
+    const float radianceRatio = 1.0;
     const float specularRatio = 0.45;
 #endif
 
@@ -99,10 +99,12 @@ void main() {
     // vec3 color = vec3(lut.y);
 
     color = vec3(
-        max(color.r, 0.01),
-        max(color.g, 0.01),
-        max(color.b, 0.01)
+        max(color.r, 0.001),
+        max(color.g, 0.001),
+        max(color.b, 0.001)
     );
+
+    // color = GetShadowmapCascade(inFragPosInCameraViewSpace, dirLightShadowMat.splits);
 
     outColor = vec4(color, 1.0);
 }

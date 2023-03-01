@@ -42,7 +42,7 @@ RenderSystem3D::RenderSystem3D() {// Signature del sistema
 	// Directional light por defecto
 	const Vector3f direction = Vector3f(1.0f, -3.f, 0.0f).GetNormalized();
 	dirLight.directionAndIntensity = Vector4f(direction.X, direction.Y, direction.Z, 1.0f);
-	dirLight.color = Color(255 / 255.f, 253 / 255.f, 225 / 255.f);
+	dirLight.color = Color(255 / 255.f, 255 / 255.f, 205 / 255.f);
 
 	// Material del terreno
 	terrainMaterial = Engine::GetRenderer()->GetMaterialSystem()->LoadMaterial("Resources/PbrMaterials/terrain.json");

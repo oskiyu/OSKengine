@@ -290,9 +290,9 @@ protected:
 			carPhysics.velocity = carTransform.GetForwardVector() * projection;
 
 			if (keyboard->IsKeyDown(IO::Key::UP))
-				carPhysics.acceleration =  carTransform.GetForwardVector() * 7.f * deltaTime;
+				carPhysics.acceleration =  carTransform.GetForwardVector() * 21.f * deltaTime;
 			if (keyboard->IsKeyDown(IO::Key::DOWN))
-				carPhysics.acceleration = -carTransform.GetForwardVector() * 7.f * deltaTime;
+				carPhysics.acceleration = -carTransform.GetForwardVector() * 30.f * deltaTime;
 
 			if (keyboard->IsKeyDown(IO::Key::SPACE)) {
 				carPhysics.acceleration = 0.0f;
@@ -549,6 +549,7 @@ private:
 
 		// Setup del transform
 		Transform3D& transform = Engine::GetEcs()->AddComponent<Transform3D>(carObject, ECS::Transform3D(carObject));
+		Engine::GetEcs()->GetComponent<Transform3D>(cameraObject).AttachToObject(carObject);
 
 		// Setup de físicas
 		auto& physicsComponent = Engine::GetEcs()->AddComponent<PhysicsComponent>(carObject, {});
