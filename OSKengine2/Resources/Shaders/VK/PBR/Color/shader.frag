@@ -77,15 +77,16 @@ void main() {
     // vec3 color = ambient + accummulatedRadiance + specular;
     
 // #define NATURAL
+// #define CUSTOM
 
 #ifdef NATURAL
     const float ambientRatio = 1.0;
     const float radianceRatio = 1.0;
     const float specularRatio = 1.0;
-#elif CUSTOM
+#elif defined(CUSTOM)
     const float ambientRatio = 0.25;
-    const float radianceRatio = 1.25;
-    const float specularRatio = 0.45;
+    const float radianceRatio = 1.0;
+    const float specularRatio = 0.25;
 #else
     const float ambientRatio = 0.45;
     const float radianceRatio = 1.0;

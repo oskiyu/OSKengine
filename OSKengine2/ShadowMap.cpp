@@ -171,7 +171,7 @@ void ShadowMap::UpdateLightMatrixBuffer() {
 		const Vector2f minExtent = -maxExtent;
 
 		// 'Cámara' virtual para renderizar el mapa de sombras.
-		const glm::mat4 lightProjection = glm::ortho(minExtent.X, maxExtent.X, maxExtent.Y, minExtent.Y, -radius, radius);
+		const glm::mat4 lightProjection = glm::ortho(minExtent.X, maxExtent.X, maxExtent.Y, minExtent.Y, nearPlane * (i + 1), farPlane * (i + 1));
 		const glm::mat4 lightView = glm::lookAt((frustumCenter - lightDirection).ToGLM(), frustumCenter.ToGLM(), glm::vec3(0.0f, 1.0f, 0.0f));
 
 		bufferContent.matrices[i] = lightProjection * lightView;

@@ -163,8 +163,8 @@ DynamicArray<GltfMaterialInfo> IMeshLoader::LoadMaterials() {
 		info.metallicFactor = static_cast<float>(gltfModel.materials[i].pbrMetallicRoughness.metallicFactor);
 		info.roughnessFactor = static_cast<float>(gltfModel.materials[i].pbrMetallicRoughness.roughnessFactor);
 
-		if (info.roughnessFactor == 1.0f)
-			info.roughnessFactor = 0.7f;
+		if (info.roughnessFactor >= 1.0f)
+			info.roughnessFactor = 1.0f;
 
 		if (gltfModel.materials[i].pbrMetallicRoughness.baseColorTexture.index != -1) {
 			info.hasBaseTexture = true;

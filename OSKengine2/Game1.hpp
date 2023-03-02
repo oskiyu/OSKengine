@@ -290,9 +290,9 @@ protected:
 			carPhysics.velocity = carTransform.GetForwardVector() * projection;
 
 			if (keyboard->IsKeyDown(IO::Key::UP))
-				carPhysics.acceleration =  carTransform.GetForwardVector() * 21.f * deltaTime;
+				carPhysics.acceleration =  carTransform.GetForwardVector() * 35.f * deltaTime;
 			if (keyboard->IsKeyDown(IO::Key::DOWN))
-				carPhysics.acceleration = -carTransform.GetForwardVector() * 30.f * deltaTime;
+				carPhysics.acceleration = carTransform.GetForwardVector() * -(projection * 2.0f + 85.0f) * deltaTime;
 
 			if (keyboard->IsKeyDown(IO::Key::SPACE)) {
 				carPhysics.acceleration = 0.0f;
@@ -360,6 +360,9 @@ protected:
 		spriteRenderer.Begin();
 		spriteRenderer.DrawString(*font, 30, "OSKengine build " + Engine::GetBuild(), Vector2f{ 20.0f, 30.0f }, Vector2f{ 1.0f }, 0.0f, Color::WHITE());
 		spriteRenderer.DrawString(*font, 30, "FPS " + std::to_string(GetFps()), Vector2f{ 20.0f, 60.0f }, Vector2f{ 1.0f }, 0.0f, Color::WHITE());
+
+		const auto& carPhysics = Engine::GetEcs()->GetComponent<PhysicsComponent>(carObject);
+		spriteRenderer.DrawString(*font, 30, std::format("{:0.0f} km/h", (carPhysics.velocity.GetLenght() * 0.001f * 3600.0f * 6.66f)), Vector2f(520.0f, 30.0f), Vector2f{ 1.0f }, 0.0f, Color::WHITE());
 
 		spriteRenderer.End();
 		graphicsCommandList->EndGraphicsRenderpass();
