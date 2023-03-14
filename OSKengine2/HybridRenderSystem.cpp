@@ -10,6 +10,7 @@
 #include "Material.h"
 #include "GpuImageLayout.h"
 #include "IrradianceMap.h"
+#include "SpecularMap.h"
 
 using namespace OSK;
 using namespace OSK::ECS;
@@ -186,10 +187,12 @@ void HybridRenderSystem::SetupResolveInstance() {
 	resolveMaterialInstance->GetSlot("scene")->FlushUpdate();
 }
 
-void HybridRenderSystem::Initialize(ECS::GameObjectIndex cameraObject, const ASSETS::IrradianceMap& irradianceMap) {
+void HybridRenderSystem::Initialize(GameObjectIndex cameraObject, const IrradianceMap& irradianceMap, const SpecularMap& specularMap) {
 	this->cameraObject = cameraObject;
 
 	resolveMaterialInstance->GetSlot("scene")->SetGpuImage("irradianceMap", irradianceMap.GetGpuImage());
+	resolveMaterialInstance->GetSlot("scene")->SetGpuImage("specularMap", specularMap.GetCubemapImage());
+	resolveMaterialInstance->GetSlot("scene")->SetGpuImage("specularLut", specularMap.GetLookUpTable());
 	resolveMaterialInstance->GetSlot("scene")->FlushUpdate();
 }
 

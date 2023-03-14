@@ -253,8 +253,8 @@ $(document).ready(function(){initNavTree('_i_mesh_loader_8cpp_source.html',''); 
 <div class="line"><a id="l00163" name="l00163"></a><span class="lineno">  163</span>        info.metallicFactor = <span class="keyword">static_cast&lt;</span><span class="keywordtype">float</span><span class="keyword">&gt;</span>(<a class="code hl_variable" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_i_mesh_loader.html#ac02152fadbf30086cbf54730604ce915">gltfModel</a>.materials[i].pbrMetallicRoughness.metallicFactor);</div>
 <div class="line"><a id="l00164" name="l00164"></a><span class="lineno">  164</span>        info.roughnessFactor = <span class="keyword">static_cast&lt;</span><span class="keywordtype">float</span><span class="keyword">&gt;</span>(<a class="code hl_variable" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_i_mesh_loader.html#ac02152fadbf30086cbf54730604ce915">gltfModel</a>.materials[i].pbrMetallicRoughness.roughnessFactor);</div>
 <div class="line"><a id="l00165" name="l00165"></a><span class="lineno">  165</span> </div>
-<div class="line"><a id="l00166" name="l00166"></a><span class="lineno">  166</span>        <span class="keywordflow">if</span> (info.roughnessFactor == 1.0f)</div>
-<div class="line"><a id="l00167" name="l00167"></a><span class="lineno">  167</span>            info.roughnessFactor = 0.7f;</div>
+<div class="line"><a id="l00166" name="l00166"></a><span class="lineno">  166</span>        <span class="keywordflow">if</span> (info.roughnessFactor &gt;= 1.0f)</div>
+<div class="line"><a id="l00167" name="l00167"></a><span class="lineno">  167</span>            info.roughnessFactor = 1.0f;</div>
 <div class="line"><a id="l00168" name="l00168"></a><span class="lineno">  168</span> </div>
 <div class="line"><a id="l00169" name="l00169"></a><span class="lineno">  169</span>        <span class="keywordflow">if</span> (<a class="code hl_variable" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_i_mesh_loader.html#ac02152fadbf30086cbf54730604ce915">gltfModel</a>.materials[i].pbrMetallicRoughness.baseColorTexture.index != -1) {</div>
 <div class="line"><a id="l00170" name="l00170"></a><span class="lineno">  170</span>            info.hasBaseTexture = <span class="keyword">true</span>;</div>
@@ -668,7 +668,7 @@ $(document).ready(function(){initNavTree('_i_mesh_loader_8cpp_source.html',''); 
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_fde17fe5c09f5d2327636debe0843594.html">OSKengine2</a></li><li class="navelem"><a class="el" href="_i_mesh_loader_8cpp.html">IMeshLoader.cpp</a></li>
-    <li class="footer">Generado el Viernes, 24 de Febrero de 2023 13:13:17 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4 </li>
+    <li class="footer">Generado el Martes, 14 de Marzo de 2023 14:08:58 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4 </li>
   </ul>
 </div>
 </body>

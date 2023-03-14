@@ -122,6 +122,12 @@ void CommandListDx12::CopyImageToImage(const GpuImage* source, GpuImage* destina
 	commandList->CopyTextureRegion(&copyDest, copyInfo.destinationOffset.X, copyInfo.destinationOffset.Y, copyInfo.destinationOffset.Z, &copySource, &copyRegion);
 }
 
+void CommandListDx12::CopyBufferToBuffer(const GpuDataBuffer* source, GpuDataBuffer* dest, TSize size, TSize sourceOffset, TSize destOffset) {
+	commandList->CopyBufferRegion(
+		dest->GetMemorySubblock()->As<GpuMemorySubblockDx12>()->GetResource(), destOffset,
+		source->GetMemorySubblock()->As<GpuMemorySubblockDx12>()->GetResource(), sourceOffset, size);
+}
+
 void CommandListDx12::BeginGraphicsRenderpass(DynamicArray<RenderPassImageInfo> colorImages, RenderPassImageInfo depthImage, const Color& color) {
 	DynamicArray<D3D12_CPU_DESCRIPTOR_HANDLE> colorAttachments{};
 	D3D12_CPU_DESCRIPTOR_HANDLE depthStencilDesc{};

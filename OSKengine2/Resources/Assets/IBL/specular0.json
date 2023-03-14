@@ -4,5 +4,6 @@
 
     "name": "SpecularMap0",
     "asset_type": "SpecularMap",
-    "raw_asset_path": "Resources/Assets/IBL/Road_to_MonumentValley_Ref.hdr"
+    "raw_asset_path": "Resources/Assets/IBL/Ridgecrest_Road_Ref.hdr",
+    "raw_asset_path2": "Resources/Assets/IBL/Road_to_MonumentValley_Ref.hdr"
 }

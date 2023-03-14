@@ -46,7 +46,21 @@ namespace OSK::GRAPHICS {
 
 		virtual ~IGpuImageView() = default;
 
-		IGpuImageView(SampledChannel channel, SampledArrayType arrayType, TSize baseArrayLevel, TSize layerCount, ViewUsage usage);
+		/// @brief Crea un image view.
+		/// @param channel Canal de la imagen accedido por el view.
+		/// @param arrayType Configura si es una única imagen o si el view afecta a todo un array.
+		/// @param baseArrayLevel Capa base representada.
+		/// @param layerCount Número de capas representadas (si @p arrayType es SampledArrayType::ARRAY).
+		/// @param usage Uso del view.
+		/// 
+		/// @pre Si @p layerCount > 1, entonces @p arrayType debe ser SampledArrayType::ARRAY
+		/// @pre @p layerCount != 0.
+		IGpuImageView(
+			SampledChannel channel, 
+			SampledArrayType arrayType, 
+			TSize baseArrayLevel, 
+			TSize layerCount, 
+			ViewUsage usage);
 
 		OSK_DEFINE_AS(IGpuImageView);
 

@@ -1,19 +1,19 @@
-#include "GpuImageViewVulkan.h"
+#include "GpuImageViewVk.h"
 
 #include "OSKengine.h"
 #include "IRenderer.h"
-#include "GpuVulkan.h"
+#include "GpuVk.h"
 
 using namespace OSK;
 using namespace OSK::GRAPHICS;
 
-GpuImageViewVulkan::GpuImageViewVulkan(VkImageView view, SampledChannel channel, SampledArrayType arrayType, TSize baseArrayLevel, TSize layerCount, ViewUsage usage)
+GpuImageViewVk::GpuImageViewVk(VkImageView view, SampledChannel channel, SampledArrayType arrayType, TSize baseArrayLevel, TSize layerCount, ViewUsage usage)
 	: IGpuImageView(channel, arrayType, baseArrayLevel, layerCount, usage), view(view) {
 
 }
 
-GpuImageViewVulkan::~GpuImageViewVulkan() {
-	const VkDevice logicalDevice = Engine::GetRenderer()->GetGpu()->As<GpuVulkan>()->GetLogicalDevice();
+GpuImageViewVk::~GpuImageViewVk() {
+	const VkDevice logicalDevice = Engine::GetRenderer()->GetGpu()->As<GpuVk>()->GetLogicalDevice();
 
 	if (view != VK_NULL_HANDLE) {
 		vkDestroyImageView(logicalDevice, view, nullptr);
@@ -21,6 +21,6 @@ GpuImageViewVulkan::~GpuImageViewVulkan() {
 	}
 }
 
-VkImageView GpuImageViewVulkan::GetVkView() const {
+VkImageView GpuImageViewVk::GetVkView() const {
 	return view;
 }

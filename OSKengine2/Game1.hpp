@@ -53,7 +53,7 @@
 #include "Vertex3D.h"
 #include "TerrainComponent.h"
 #include "TerrainRenderSystem.h"
-#include "TopLevelAccelerationStructureVulkan.h"
+#include "TopLevelAccelerationStructureVk.h"
 #include "IGpuMemorySubblock.h"
 #include "UiElement.h"
 #include "UiRenderer.h"

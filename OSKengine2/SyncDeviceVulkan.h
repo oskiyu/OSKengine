@@ -11,10 +11,10 @@ typedef VkSemaphore_T* VkSemaphore;
 
 namespace OSK::GRAPHICS {
 
-	class GpuVulkan;
-	class SwapchainVulkan;
-	class CommandQueueVulkan;
-	class CommandListVulkan;
+	class GpuVk;
+	class SwapchainVk;
+	class CommandQueueVk;
+	class CommandListVk;
 
 	class OSKAPI_CALL SyncDeviceVulkan : public ISyncDevice {
 
@@ -29,12 +29,12 @@ namespace OSK::GRAPHICS {
 		void SetInFlightFences(const DynamicArray<VkFence>& fences);
 		void SetImagesInFlightFences(const DynamicArray<VkFence>& fences);
 
-		void SetDevice(const GpuVulkan& device);
-		void SetSwapchain(const SwapchainVulkan& swapchain);
+		void SetDevice(const GpuVk& device);
+		void SetSwapchain(const SwapchainVk& swapchain);
 
 		void FirstAwait();
 		bool UpdateCurrentFrameIndex();
-		void Flush(const CommandQueueVulkan& graphicsQueue, const CommandQueueVulkan& presentQueue, const CommandListVulkan& commandList);
+		void Flush(const CommandQueueVk& graphicsQueue, const CommandQueueVk& presentQueue, const CommandListVk& commandList);
 
 		TSize GetCurrentFrameIndex() const;
 		TSize GetCurrentCommandListIndex() const;
@@ -50,8 +50,8 @@ namespace OSK::GRAPHICS {
 		TSize framebufferIndex = 0;
 		TSize currentFrame = 0;
 
-		const GpuVulkan* device = nullptr;
-		SwapchainVulkan* swapchain = nullptr;
+		const GpuVk* device = nullptr;
+		SwapchainVk* swapchain = nullptr;
 
 	};
 

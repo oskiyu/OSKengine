@@ -567,16 +567,16 @@
     <ClCompile Include="RendererDx12.cpp">
       <Filter>Archivos de origen\OSKengine\RenderAPI\LowLevel\Renderer</Filter>
     </ClCompile>
-    <ClCompile Include="GpuVulkan.cpp">
+    <ClCompile Include="GpuVk.cpp">
       <Filter>Archivos de origen\OSKengine\RenderAPI\LowLevel\Gpu</Filter>
     </ClCompile>
-    <ClCompile Include="CommandQueueVulkan.cpp">
+    <ClCompile Include="CommandQueueVk.cpp">
       <Filter>Archivos de origen\OSKengine\RenderAPI\LowLevel\Commands\Queues</Filter>
     </ClCompile>
     <ClCompile Include="QueueFamilyIndices.cpp">
       <Filter>Archivos de origen\OSKengine\RenderAPI\LowLevel\Commands\Queues</Filter>
     </ClCompile>
-    <ClCompile Include="RendererVulkan.cpp">
+    <ClCompile Include="RendererVk.cpp">
       <Filter>Archivos de origen\OSKengine\RenderAPI\LowLevel\Renderer</Filter>
     </ClCompile>
     <ClCompile Include="CommandPoolDx12.cpp">
@@ -588,10 +588,10 @@
     <ClCompile Include="Renderer.cpp">
       <Filter>Archivos de origen\OSKengine\RenderAPI\LowLevel\Renderer</Filter>
     </ClCompile>
-    <ClCompile Include="CommandPoolVulkan.cpp">
+    <ClCompile Include="CommandPoolVk.cpp">
       <Filter>Archivos de origen\OSKengine\RenderAPI\LowLevel\Commands\Pool</Filter>
     </ClCompile>
-    <ClCompile Include="CommandListVulkan.cpp">
+    <ClCompile Include="CommandListVk.cpp">
       <Filter>Archivos de origen\OSKengine\RenderAPI\LowLevel\Commands\List</Filter>
     </ClCompile>
     <ClCompile Include="SwapchainDx12.cpp">
@@ -600,7 +600,7 @@
     <ClCompile Include="ISwapchain.cpp">
       <Filter>Archivos de origen\OSKengine\RenderAPI\LowLevel\Swapchain</Filter>
     </ClCompile>
-    <ClCompile Include="SwapchainVulkan.cpp">
+    <ClCompile Include="SwapchainVk.cpp">
       <Filter>Archivos de origen\OSKengine\RenderAPI\LowLevel\Swapchain</Filter>
     </ClCompile>
     <ClCompile Include="SyncDeviceDx12.cpp">
@@ -618,7 +618,7 @@
     <ClCompile Include="IGpuMemorySubblock.cpp">
       <Filter>Archivos de origen\OSKengine\RenderAPI\LowLevel\Memory\Subblock</Filter>
     </ClCompile>
-    <ClCompile Include="GpuMemoryTypeVulkan.cpp">
+    <ClCompile Include="GpuMemoryTypeVk.cpp">
       <Filter>Archivos de origen\OSKengine\RenderAPI\LowLevel\Memory\Enums</Filter>
     </ClCompile>
     <ClCompile Include="GpuMemoryTypeDx12.cpp">
@@ -630,16 +630,16 @@
     <ClCompile Include="GpuMemoryBlockDx12.cpp">
       <Filter>Archivos de origen\OSKengine\RenderAPI\LowLevel\Memory\Block</Filter>
     </ClCompile>
-    <ClCompile Include="GpuMemoryBlockVulkan.cpp">
+    <ClCompile Include="GpuMemoryBlockVk.cpp">
       <Filter>Archivos de origen\OSKengine\RenderAPI\LowLevel\Memory\Block</Filter>
     </ClCompile>
     <ClCompile Include="IGpuDataBuffer.cpp">
       <Filter>Archivos de origen\OSKengine\RenderAPI\LowLevel\Resources\Buffer</Filter>
     </ClCompile>
-    <ClCompile Include="GpuMemoryAllocatorVulkan.cpp">
+    <ClCompile Include="GpuMemoryAllocatorVk.cpp">
       <Filter>Archivos de origen\OSKengine\RenderAPI\LowLevel\Memory\Allocator</Filter>
     </ClCompile>
-    <ClCompile Include="GpuMemorySubblockVulkan.cpp">
+    <ClCompile Include="GpuMemorySubblockVk.cpp">
       <Filter>Archivos de origen\OSKengine\RenderAPI\LowLevel\Memory\Subblock</Filter>
     </ClCompile>
     <ClCompile Include="GpuMemorySubblockDx12.cpp">
@@ -678,13 +678,13 @@
     <ClCompile Include="ICommandList.cpp">
       <Filter>Archivos de origen\OSKengine\RenderAPI\LowLevel\Commands\List</Filter>
     </ClCompile>
-    <ClCompile Include="GpuVertexBufferVulkan.cpp">
+    <ClCompile Include="GpuVertexBufferVk.cpp">
       <Filter>Archivos de origen\OSKengine\RenderAPI\LowLevel\Resources\Buffer\Vertex</Filter>
     </ClCompile>
     <ClCompile Include="IGpuIndexBuffer.cpp">
       <Filter>Archivos de origen\OSKengine\RenderAPI\LowLevel\Resources\Buffer\Index</Filter>
     </ClCompile>
-    <ClCompile Include="GpuIndexBufferVulkan.cpp">
+    <ClCompile Include="GpuIndexBufferVk.cpp">
       <Filter>Archivos de origen\OSKengine\RenderAPI\LowLevel\Resources\Buffer\Index</Filter>
     </ClCompile>
     <ClCompile Include="IGpuUniformBuffer.cpp">
@@ -696,13 +696,13 @@
     <ClCompile Include="GraphicsPipelineDx12.cpp">
       <Filter>Archivos de origen\OSKengine\RenderAPI\LowLevel\Pipeline\Graphics</Filter>
     </ClCompile>
-    <ClCompile Include="GraphicsPipelineVulkan.cpp">
+    <ClCompile Include="GraphicsPipelineVk.cpp">
       <Filter>Archivos de origen\OSKengine\RenderAPI\LowLevel\Pipeline\Graphics</Filter>
     </ClCompile>
     <ClCompile Include="IGraphicsPipeline.cpp">
       <Filter>Archivos de origen\OSKengine\RenderAPI\LowLevel\Pipeline\Graphics</Filter>
     </ClCompile>
-    <ClCompile Include="GpuUniformBufferVulkan.cpp">
+    <ClCompile Include="GpuUniformBufferVk.cpp">
       <Filter>Archivos de origen\OSKengine\RenderAPI\LowLevel\Resources\Buffer\Uniform</Filter>
     </ClCompile>
     <ClCompile Include="MaterialSystem.cpp">
@@ -723,16 +723,16 @@
     <ClCompile Include="MaterialInstance.cpp">
       <Filter>Archivos de origen\OSKengine\RenderAPI\HighLevel\Material</Filter>
     </ClCompile>
-    <ClCompile Include="MaterialSlotVulkan.cpp">
+    <ClCompile Include="MaterialSlotVk.cpp">
       <Filter>Archivos de origen\OSKengine\RenderAPI\LowLevel\Material\Slot</Filter>
     </ClCompile>
-    <ClCompile Include="ShaderBindingTypeVulkan.cpp">
+    <ClCompile Include="ShaderBindingTypeVk.cpp">
       <Filter>Archivos de origen\OSKengine\RenderAPI\LowLevel\Pipeline\Shader</Filter>
     </ClCompile>
-    <ClCompile Include="DescriptorLayoutVulkan.cpp">
+    <ClCompile Include="DescriptorLayoutVk.cpp">
       <Filter>Archivos de origen\OSKengine\RenderAPI\LowLevel\Material\Slot\Desc</Filter>
     </ClCompile>
-    <ClCompile Include="DescriptorPoolVulkan.cpp">
+    <ClCompile Include="DescriptorPoolVk.cpp">
       <Filter>Archivos de origen\OSKengine\RenderAPI\LowLevel\Material\Slot\Desc</Filter>
     </ClCompile>
     <ClCompile Include="IAsset.cpp">
@@ -870,22 +870,22 @@
     <ClCompile Include="GpuMemoryTypes.cpp">
       <Filter>Archivos de origen\OSKengine\RenderAPI\LowLevel\Memory\Enums</Filter>
     </ClCompile>
-    <ClCompile Include="RtShaderTableVulkan.cpp">
+    <ClCompile Include="RtShaderTableVk.cpp">
       <Filter>Archivos de origen\OSKengine\RenderAPI\LowLevel\RT\ShaderTable</Filter>
     </ClCompile>
-    <ClCompile Include="IPipelineVulkan.cpp">
+    <ClCompile Include="IPipelineVk.cpp">
       <Filter>Archivos de origen\OSKengine\RenderAPI\LowLevel\Pipeline\Pipeline</Filter>
     </ClCompile>
     <ClCompile Include="ShaderStages.cpp">
       <Filter>Archivos de origen\OSKengine\RenderAPI\LowLevel\Pipeline\Shader</Filter>
     </ClCompile>
-    <ClCompile Include="RaytracingPipelineVulkan.cpp">
+    <ClCompile Include="RaytracingPipelineVk.cpp">
       <Filter>Archivos de origen\OSKengine\RenderAPI\LowLevel\Pipeline\Raytracing</Filter>
     </ClCompile>
     <ClCompile Include="IRaytracingPipeline.cpp">
       <Filter>Archivos de origen\OSKengine\RenderAPI\LowLevel\Pipeline\Raytracing</Filter>
     </ClCompile>
-    <ClCompile Include="BottomLevelAccelerationStructureVulkan.cpp">
+    <ClCompile Include="BottomLevelAccelerationStructureVk.cpp">
       <Filter>Archivos de origen\OSKengine\RenderAPI\LowLevel\RT\AS\BLAS</Filter>
     </ClCompile>
     <ClCompile Include="IBottomLevelAccelerationStructure.cpp">
@@ -897,7 +897,7 @@
     <ClCompile Include="PresentMode.cpp">
       <Filter>Archivos de origen\OSKengine\RenderAPI\HighLevel</Filter>
     </ClCompile>
-    <ClCompile Include="TopLevelAccelerationStructureVulkan.cpp">
+    <ClCompile Include="TopLevelAccelerationStructureVk.cpp">
       <Filter>Archivos de origen\OSKengine\RenderAPI\LowLevel\RT\AS\TLAS</Filter>
     </ClCompile>
     <ClCompile Include="IrradianceMap.cpp">
@@ -912,7 +912,7 @@
     <ClCompile Include="IComputePipeline.cpp">
       <Filter>Archivos de origen\OSKengine\RenderAPI\LowLevel\Pipeline\Compute</Filter>
     </ClCompile>
-    <ClCompile Include="ComputePipelineVulkan.cpp">
+    <ClCompile Include="ComputePipelineVk.cpp">
       <Filter>Archivos de origen\OSKengine\RenderAPI\LowLevel\Pipeline\Compute</Filter>
     </ClCompile>
     <ClCompile Include="GpuImageViewVulkan.cpp">
@@ -948,7 +948,7 @@
     <ClCompile Include="PipelineLayoutDx12.cpp">
       <Filter>Archivos de origen\OSKengine\RenderAPI\LowLevel\Pipeline\Layout</Filter>
     </ClCompile>
-    <ClCompile Include="PipelineLayoutVulkan.cpp">
+    <ClCompile Include="PipelineLayoutVk.cpp">
       <Filter>Archivos de origen\OSKengine\RenderAPI\LowLevel\Pipeline\Layout</Filter>
     </ClCompile>
     <ClCompile Include="FxaaPass.cpp">
@@ -1154,13 +1154,13 @@
     <ClInclude Include="RendererDx12.h">
       <Filter>Archivos de encabezado\OSKengine\RenderAPI\LowLevel\Renderer</Filter>
     </ClInclude>
-    <ClInclude Include="GpuVulkan.h">
+    <ClInclude Include="GpuVk.h">
       <Filter>Archivos de encabezado\OSKengine\RenderAPI\LowLevel\Gpu</Filter>
     </ClInclude>
-    <ClInclude Include="CommandQueueVulkan.h">
+    <ClInclude Include="CommandQueueVk.h">
       <Filter>Archivos de encabezado\OSKengine\RenderAPI\LowLevel\Commands\Queue</Filter>
     </ClInclude>
-    <ClInclude Include="RendererVulkan.h">
+    <ClInclude Include="RendererVk.h">
       <Filter>Archivos de encabezado\OSKengine\RenderAPI\LowLevel\Renderer</Filter>
     </ClInclude>
     <ClInclude Include="QueueFamilyIndices.h">
@@ -1178,10 +1178,10 @@
     <ClInclude Include="CommandListDx12.h">
       <Filter>Archivos de encabezado\OSKengine\RenderAPI\LowLevel\Commands\List</Filter>
     </ClInclude>
-    <ClInclude Include="CommandPoolVulkan.h">
+    <ClInclude Include="CommandPoolVk.h">
       <Filter>Archivos de encabezado\OSKengine\RenderAPI\LowLevel\Commands\Pool</Filter>
     </ClInclude>
-    <ClInclude Include="CommandListVulkan.h">
+    <ClInclude Include="CommandListVk.h">
       <Filter>Archivos de encabezado\OSKengine\RenderAPI\LowLevel\Commands\List</Filter>
     </ClInclude>
     <ClInclude Include="ISwapchain.h">
@@ -1190,7 +1190,7 @@
     <ClInclude Include="SwapchainDx12.h">
       <Filter>Archivos de encabezado\OSKengine\RenderAPI\LowLevel\Swapchain</Filter>
     </ClInclude>
-    <ClInclude Include="SwapchainVulkan.h">
+    <ClInclude Include="SwapchainVk.h">
       <Filter>Archivos de encabezado\OSKengine\RenderAPI\LowLevel\Swapchain</Filter>
     </ClInclude>
     <ClInclude Include="ISyncDevice.h">
@@ -1220,7 +1220,7 @@
     <ClInclude Include="GpuMemoryTypes.h">
       <Filter>Archivos de encabezado\OSKengine\RenderAPI\LowLevel\Memory\Enums</Filter>
     </ClInclude>
-    <ClInclude Include="GpuMemoryTypeVulkan.h">
+    <ClInclude Include="GpuMemoryTypeVk.h">
       <Filter>Archivos de encabezado\OSKengine\RenderAPI\LowLevel\Memory\Enums</Filter>
     </ClInclude>
     <ClInclude Include="GpuMemoryTypesDx12.h">
@@ -1232,10 +1232,10 @@
     <ClInclude Include="GpuMemoryBlockDx12.h">
       <Filter>Archivos de encabezado\OSKengine\RenderAPI\LowLevel\Memory\Block</Filter>
     </ClInclude>
-    <ClInclude Include="GpuMemoryAllocatorVulkan.h">
+    <ClInclude Include="GpuMemoryAllocatorVk.h">
       <Filter>Archivos de encabezado\OSKengine\RenderAPI\LowLevel\Memory\Allocator</Filter>
     </ClInclude>
-    <ClInclude Include="GpuMemoryBlockVulkan.h">
+    <ClInclude Include="GpuMemoryBlockVk.h">
       <Filter>Archivos de encabezado\OSKengine\RenderAPI\LowLevel\Memory\Block</Filter>
     </ClInclude>
     <ClInclude Include="HashMap.hpp">
@@ -1247,7 +1247,7 @@
     <ClInclude Include="BitSet.hpp">
       <Filter>Archivos de encabezado\OSKengine\STD</Filter>
     </ClInclude>
-    <ClInclude Include="GpuMemorySubblockVulkan.h">
+    <ClInclude Include="GpuMemorySubblockVk.h">
       <Filter>Archivos de encabezado\OSKengine\RenderAPI\LowLevel\Memory\Subblock</Filter>
     </ClInclude>
     <ClInclude Include="IGpuDataBuffer.h">
@@ -1262,13 +1262,13 @@
     <ClInclude Include="FormatDx12.h">
       <Filter>Archivos de encabezado\OSKengine\RenderAPI\LowLevel\Resources\Image\Format</Filter>
     </ClInclude>
-    <ClInclude Include="FormatVulkan.h">
+    <ClInclude Include="FormatVk.h">
       <Filter>Archivos de encabezado\OSKengine\RenderAPI\LowLevel\Resources\Image\Format</Filter>
     </ClInclude>
     <ClInclude Include="GpuImageLayout.h">
       <Filter>Archivos de encabezado\OSKengine\RenderAPI\LowLevel\Resources\Image\Layout</Filter>
     </ClInclude>
-    <ClInclude Include="GpuImageLayoutVulkan.h">
+    <ClInclude Include="GpuImageLayoutVk.h">
       <Filter>Archivos de encabezado\OSKengine\RenderAPI\LowLevel\Resources\Image\Layout</Filter>
     </ClInclude>
     <ClInclude Include="GpuImageLayoutDx12.h">
@@ -1295,10 +1295,10 @@
     <ClInclude Include="GpuIndexBufferDx12.h">
       <Filter>Archivos de encabezado\OSKengine\RenderAPI\LowLevel\Resources\Buffer\Index</Filter>
     </ClInclude>
-    <ClInclude Include="GpuImageVulkan.h">
+    <ClInclude Include="GpuImageVk.h">
       <Filter>Archivos de encabezado\OSKengine\RenderAPI\LowLevel\Resources\Image\Image</Filter>
     </ClInclude>
-    <ClInclude Include="GpuIndexBufferVulkan.h">
+    <ClInclude Include="GpuIndexBufferVk.h">
       <Filter>Archivos de encabezado\OSKengine\RenderAPI\LowLevel\Resources\Buffer\Index</Filter>
     </ClInclude>
     <ClInclude Include="RenderApiType.h">
@@ -1307,13 +1307,13 @@
     <ClInclude Include="RenderpassType.h">
       <Filter>Archivos de encabezado\OSKengine\RenderAPI\LowLevel\Renderpass</Filter>
     </ClInclude>
-    <ClInclude Include="GpuVertexBufferVulkan.h">
+    <ClInclude Include="GpuVertexBufferVk.h">
       <Filter>Archivos de encabezado\OSKengine\RenderAPI\LowLevel\Resources\Buffer\Vertex</Filter>
     </ClInclude>
     <ClInclude Include="GraphicsPipelineDx12.h">
       <Filter>Archivos de encabezado\OSKengine\RenderAPI\LowLevel\Pipeline\Graphics</Filter>
     </ClInclude>
-    <ClInclude Include="GraphicsPipelineVulkan.h">
+    <ClInclude Include="GraphicsPipelineVk.h">
       <Filter>Archivos de encabezado\OSKengine\RenderAPI\LowLevel\Pipeline\Graphics</Filter>
     </ClInclude>
     <ClInclude Include="IGraphicsPipeline.h">
@@ -1334,7 +1334,7 @@
     <ClInclude Include="GpuUniformBufferDx12.h">
       <Filter>Archivos de encabezado\OSKengine\RenderAPI\LowLevel\Resources\Buffer\Uniform</Filter>
     </ClInclude>
-    <ClInclude Include="GpuUniformBufferVulkan.h">
+    <ClInclude Include="GpuUniformBufferVk.h">
       <Filter>Archivos de encabezado\OSKengine\RenderAPI\LowLevel\Resources\Buffer\Uniform</Filter>
     </ClInclude>
     <ClInclude Include="IPipelineLayout.h">
@@ -1343,7 +1343,7 @@
     <ClInclude Include="PipelineLayoutDx12.h">
       <Filter>Archivos de encabezado\OSKengine\RenderAPI\LowLevel\Pipeline\Layout\Pipeline</Filter>
     </ClInclude>
-    <ClInclude Include="PipelineLayoutVulkan.h">
+    <ClInclude Include="PipelineLayoutVk.h">
       <Filter>Archivos de encabezado\OSKengine\RenderAPI\LowLevel\Pipeline\Layout\Pipeline</Filter>
     </ClInclude>
     <ClInclude Include="ShaderBindingType.h">
@@ -1370,19 +1370,19 @@
     <ClInclude Include="Material.h">
       <Filter>Archivos de encabezado\OSKengine\RenderAPI\HighLevel\Material</Filter>
     </ClInclude>
-    <ClInclude Include="MaterialSlotVulkan.h">
+    <ClInclude Include="MaterialSlotVk.h">
       <Filter>Archivos de encabezado\OSKengine\RenderAPI\LowLevel\Material\Slot</Filter>
     </ClInclude>
     <ClInclude Include="MaterialInstance.h">
       <Filter>Archivos de encabezado\OSKengine\RenderAPI\HighLevel\Material</Filter>
     </ClInclude>
-    <ClInclude Include="DescriptorLayoutVulkan.h">
+    <ClInclude Include="DescriptorLayoutVk.h">
       <Filter>Archivos de encabezado\OSKengine\RenderAPI\LowLevel\Material\Slot\Desc</Filter>
     </ClInclude>
-    <ClInclude Include="ShaderBindingTypeVulkan.h">
+    <ClInclude Include="ShaderBindingTypeVk.h">
       <Filter>Archivos de encabezado\OSKengine\RenderAPI\LowLevel\Pipeline\Layout\Shader</Filter>
     </ClInclude>
-    <ClInclude Include="DescriptorPoolVulkan.h">
+    <ClInclude Include="DescriptorPoolVk.h">
       <Filter>Archivos de encabezado\OSKengine\RenderAPI\LowLevel\Material\Slot\Desc</Filter>
     </ClInclude>
     <ClInclude Include="IAsset.h">
@@ -1499,7 +1499,7 @@
     <ClInclude Include="VertexInfo.h">
       <Filter>Archivos de encabezado\OSKengine\RenderAPI\LowLevel\Vertex\Description</Filter>
     </ClInclude>
-    <ClInclude Include="GpuVertexDescriptionVulkan.h">
+    <ClInclude Include="GpuVertexDescriptionVk.h">
       <Filter>Archivos de encabezado\OSKengine\RenderAPI\LowLevel\Vertex\Description</Filter>
     </ClInclude>
     <ClInclude Include="Vertex.h">
@@ -1583,28 +1583,28 @@
     <ClInclude Include="IRtShaderTable.h">
       <Filter>Archivos de encabezado\OSKengine\RenderAPI\LowLevel\RT\ShaderTable</Filter>
     </ClInclude>
-    <ClInclude Include="RtShaderTableVulkan.h">
+    <ClInclude Include="RtShaderTableVk.h">
       <Filter>Archivos de encabezado\OSKengine\RenderAPI\LowLevel\RT\ShaderTable</Filter>
     </ClInclude>
-    <ClInclude Include="IPipelineVulkan.h">
+    <ClInclude Include="IPipelineVk.h">
       <Filter>Archivos de encabezado\OSKengine\RenderAPI\LowLevel\Pipeline\Pipeline</Filter>
     </ClInclude>
     <ClInclude Include="IRaytracingPipeline.h">
       <Filter>Archivos de encabezado\OSKengine\RenderAPI\LowLevel\Pipeline\Raytracing</Filter>
     </ClInclude>
-    <ClInclude Include="RaytracingPipelineVulkan.h">
+    <ClInclude Include="RaytracingPipelineVk.h">
       <Filter>Archivos de encabezado\OSKengine\RenderAPI\LowLevel\Pipeline\Raytracing</Filter>
     </ClInclude>
     <ClInclude Include="IBottomLevelAccelerationStructure.h">
       <Filter>Archivos de encabezado\OSKengine\RenderAPI\LowLevel\RT\AS\BLAS</Filter>
     </ClInclude>
-    <ClInclude Include="BottomLevelAccelerationStructureVulkan.h">
+    <ClInclude Include="BottomLevelAccelerationStructureVk.h">
       <Filter>Archivos de encabezado\OSKengine\RenderAPI\LowLevel\RT\AS\BLAS</Filter>
     </ClInclude>
     <ClInclude Include="ITopLevelAccelerationStructure.h">
       <Filter>Archivos de encabezado\OSKengine\RenderAPI\LowLevel\RT\AS\TLAS</Filter>
     </ClInclude>
-    <ClInclude Include="TopLevelAccelerationStructureVulkan.h">
+    <ClInclude Include="TopLevelAccelerationStructureVk.h">
       <Filter>Archivos de encabezado\OSKengine\RenderAPI\LowLevel\RT\AS\TLAS</Filter>
     </ClInclude>
     <ClInclude Include="PresentMode.h">
@@ -1625,7 +1625,7 @@
     <ClInclude Include="IComputePipeline.h">
       <Filter>Archivos de encabezado\OSKengine\RenderAPI\LowLevel\Pipeline\Compute</Filter>
     </ClInclude>
-    <ClInclude Include="ComputePipelineVulkan.h">
+    <ClInclude Include="ComputePipelineVk.h">
       <Filter>Archivos de encabezado\OSKengine\RenderAPI\LowLevel\Pipeline\Compute</Filter>
     </ClInclude>
     <ClInclude Include="IGpuObject.h">
@@ -1640,7 +1640,7 @@
     <ClInclude Include="IGpuImageView.h">
       <Filter>Archivos de encabezado\OSKengine\RenderAPI\LowLevel\Resources\Image\View</Filter>
     </ClInclude>
-    <ClInclude Include="GpuImageViewVulkan.h">
+    <ClInclude Include="GpuImageViewVk.h">
       <Filter>Archivos de encabezado\OSKengine\RenderAPI\LowLevel\Resources\Image\View</Filter>
     </ClInclude>
     <ClInclude Include="GpuImageViewDx12.h">

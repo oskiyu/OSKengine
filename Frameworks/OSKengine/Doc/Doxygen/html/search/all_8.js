@@ -1,7 +1,7 @@
 var searchData=
 [
   ['h_0',['H',['../namespace_o_s_k_1_1_i_o.html#a0b92714a4a778072d4824502589bd39eac1d9f50f86825a1a2302ec2449c17196',1,'OSK::IO']]],
-  ['handleresize_1',['HandleResize',['../class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer.html#a5222eda186e06692ee1e591a085473eb',1,'OSK::GRAPHICS::IRenderer::HandleResize()'],['../class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderer_dx12.html#ac2032b9e4dee210d952aa51081408525',1,'OSK::GRAPHICS::RendererDx12::HandleResize()'],['../class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderer_vulkan.html#ab881f4230ac3ee122182e6cb2b39f77b',1,'OSK::GRAPHICS::RendererVulkan::HandleResize()']]],
+  ['handleresize_1',['HandleResize',['../class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer.html#a5222eda186e06692ee1e591a085473eb',1,'OSK::GRAPHICS::IRenderer::HandleResize()'],['../class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderer_dx12.html#ac2032b9e4dee210d952aa51081408525',1,'OSK::GRAPHICS::RendererDx12::HandleResize()'],['../class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderer_vk.html#a9ad5837a4f3f6ee262f51b4e86b52b28',1,'OSK::GRAPHICS::RendererVk::HandleResize()']]],
   ['hasattribute_2',['HasAttribute',['../class_o_s_k_1_1_a_s_s_e_t_s_1_1_i_mesh_loader.html#a3c53c3ac96ffd3448ec2128faf186cfe',1,'OSK::ASSETS::IMeshLoader']]],
   ['hasbasetexture_3',['hasBaseTexture',['../struct_o_s_k_1_1_a_s_s_e_t_s_1_1_gltf_material_info.html#aa99a2297d353569f54f408df0b592656',1,'OSK::ASSETS::GltfMaterialInfo']]],
   ['hasbeeninitialized_4',['HasBeenInitialized',['../class_o_s_k_1_1_dynamic_array.html#a24b36038b685ea5f33b2b9b279035cef',1,'OSK::DynamicArray']]],

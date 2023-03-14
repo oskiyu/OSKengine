@@ -137,8 +137,8 @@ Métodos públicos</h2></td></tr>
 <tr class="separator:af8d183b4f6ba4658afb4ff5aaf75572e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5acd3a3c6006cdae8c23a77d582aa39a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_list_vulkan.html#a5acd3a3c6006cdae8c23a77d582aa39a">CopyImageToImage</a> (const <a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image.html">GpuImage</a> *source, <a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image.html">GpuImage</a> *destination, const <a class="el" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_copy_image_info.html">CopyImageInfo</a> &amp;copyInfo) override</td></tr>
 <tr class="separator:a5acd3a3c6006cdae8c23a77d582aa39a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a355ea57e028efa6a22e2d52b54701c86"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_list_vulkan.html#a355ea57e028efa6a22e2d52b54701c86">CopyBuffer</a> (const <a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_data_buffer.html">GpuDataBuffer</a> *source, <a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_data_buffer.html">GpuDataBuffer</a> *dest, <a class="el" href="_o_s_kmacros_8h.html#a1acaf9dff8b00604e55d38b35a744a9a">TSize</a> size, <a class="el" href="_o_s_kmacros_8h.html#a1acaf9dff8b00604e55d38b35a744a9a">TSize</a> sourceOffset, <a class="el" href="_o_s_kmacros_8h.html#a1acaf9dff8b00604e55d38b35a744a9a">TSize</a> destOffset)</td></tr>
-<tr class="separator:a355ea57e028efa6a22e2d52b54701c86"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab079cfd23915aef2ab8d1b7c6e046e8b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_list_vulkan.html#ab079cfd23915aef2ab8d1b7c6e046e8b">CopyBufferToBuffer</a> (const <a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_data_buffer.html">GpuDataBuffer</a> *source, <a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_data_buffer.html">GpuDataBuffer</a> *dest, <a class="el" href="_o_s_kmacros_8h.html#a1acaf9dff8b00604e55d38b35a744a9a">TSize</a> size, <a class="el" href="_o_s_kmacros_8h.html#a1acaf9dff8b00604e55d38b35a744a9a">TSize</a> sourceOffset, <a class="el" href="_o_s_kmacros_8h.html#a1acaf9dff8b00604e55d38b35a744a9a">TSize</a> destOffset) override</td></tr>
+<tr class="separator:ab079cfd23915aef2ab8d1b7c6e046e8b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af3f4a2ed06a7939d6de69a834e688416"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_list_vulkan.html#af3f4a2ed06a7939d6de69a834e688416">SetViewport</a> (const <a class="el" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_viewport.html">Viewport</a> &amp;viewport) override</td></tr>
 <tr class="separator:af3f4a2ed06a7939d6de69a834e688416"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a82ca90db1cc8623fbc779933b7579f85"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_list_vulkan.html#a82ca90db1cc8623fbc779933b7579f85">SetScissor</a> (const <a class="el" href="namespace_o_s_k.html#a388745491b9a70d4760a7b979ef3fe19">Vector4ui</a> &amp;scissor) override</td></tr>
@@ -610,14 +610,17 @@ La lista de comandos debe estar abierta. </dd></dl>
 
 </div>
 </div>
-<a id="a355ea57e028efa6a22e2d52b54701c86" name="a355ea57e028efa6a22e2d52b54701c86"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a355ea57e028efa6a22e2d52b54701c86">&#9670;&nbsp;</a></span>CopyBuffer()</h2>
+<a id="ab079cfd23915aef2ab8d1b7c6e046e8b" name="ab079cfd23915aef2ab8d1b7c6e046e8b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab079cfd23915aef2ab8d1b7c6e046e8b">&#9670;&nbsp;</a></span>CopyBufferToBuffer()</h2>
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">void CommandListVulkan::CopyBuffer </td>
+          <td class="memname">void CommandListVulkan::CopyBufferToBuffer </td>
           <td>(</td>
           <td class="paramtype">const <a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_data_buffer.html">GpuDataBuffer</a> *&#160;</td>
           <td class="paramname"><em>source</em>, </td>
@@ -652,19 +655,26 @@ La lista de comandos debe estar abierta. </dd></dl>
           <td></td><td></td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
 <p>Copia los contenidos del primer buffer al segundo. </p>
 <dl class="params"><dt>Parámetros</dt><dd>
   <table class="params">
-    <tr><td class="paramname">source</td><td>Buffer donde están el contenido que se quiere copiar.</td></tr>
-    <tr><td class="paramname">dest</td><td>Buffer en el que se va a poner el contenido copiado.</td></tr>
-    <tr><td class="paramname">size</td><td>Tamaño, en bytes, del área de memoria que se va a copiar.</td></tr>
-    <tr><td class="paramname">sourceOffset</td><td>Offset del área de memoria en el origen.</td></tr>
-    <tr><td class="paramname">destOffset</td><td>Offset del área de memoria en el destino.</td></tr>
+    <tr><td class="paramname">source</td><td>Buffer donde están el contenido que se quiere copiar. </td></tr>
+    <tr><td class="paramname">dest</td><td>Buffer en el que se va a poner el contenido copiado. </td></tr>
+    <tr><td class="paramname">size</td><td>Tamaño, en bytes, del área de memoria que se va a copiar. </td></tr>
+    <tr><td class="paramname">sourceOffset</td><td>Offset del área de memoria en el origen. </td></tr>
+    <tr><td class="paramname">destOffset</td><td>Offset del área de memoria en el destino. </td></tr>
   </table>
   </dd>
 </dl>
+
+<p>Implementa <a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list.html#a487fc497e747aab741121ba819aa101d">OSK::GRAPHICS::ICommandList</a>.</p>
 
 <p class="definition">Definición en la línea <a class="el" href="_command_list_vulkan_8cpp_source.html#l00201">201</a> del archivo <a class="el" href="_command_list_vulkan_8cpp_source.html">CommandListVulkan.cpp</a>.</p>
 
@@ -1796,7 +1806,7 @@ La lista de comandos debe estar abierta. </dd>
 Debe ejecutarse en un equipo compatible con trazado de rayos. </dd>
 <dd>
 Debe haberse activado la opción de trazado de rayos de OSKengine.</dd></dl>
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000010">Tareas pendientes:</a></b></dt><dd>Implementación en DX12. </dd></dl>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000009">Tareas pendientes:</a></b></dt><dd>Implementación en DX12. </dd></dl>
 
 <p>Implementa <a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list.html#a6a335bc609cb8cb3d3e81005902f7545">OSK::GRAPHICS::ICommandList</a>.</p>
 
@@ -1825,7 +1835,7 @@ Debe haberse activado la opción de trazado de rayos de OSKengine.</dd></dl>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definición en la línea <a class="el" href="_i_command_list_8h_source.html#l00448">448</a> del archivo <a class="el" href="_i_command_list_8h_source.html">ICommandList.h</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_i_command_list_8h_source.html#l00472">472</a> del archivo <a class="el" href="_i_command_list_8h_source.html">ICommandList.h</a>.</p>
 
 </div>
 </div>
@@ -1849,7 +1859,7 @@ Debe haberse activado la opción de trazado de rayos de OSKengine.</dd></dl>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definición en la línea <a class="el" href="_i_command_list_8h_source.html#l00456">456</a> del archivo <a class="el" href="_i_command_list_8h_source.html">ICommandList.h</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_i_command_list_8h_source.html#l00480">480</a> del archivo <a class="el" href="_i_command_list_8h_source.html">ICommandList.h</a>.</p>
 
 </div>
 </div>
@@ -1873,7 +1883,7 @@ Debe haberse activado la opción de trazado de rayos de OSKengine.</dd></dl>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definición en la línea <a class="el" href="_i_command_list_8h_source.html#l00457">457</a> del archivo <a class="el" href="_i_command_list_8h_source.html">ICommandList.h</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_i_command_list_8h_source.html#l00481">481</a> del archivo <a class="el" href="_i_command_list_8h_source.html">ICommandList.h</a>.</p>
 
 </div>
 </div>
@@ -1899,7 +1909,7 @@ Debe haberse activado la opción de trazado de rayos de OSKengine.</dd></dl>
 
 <p><a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material.html" title="Un material define el comportamiento del renderizador con un objeto en concreto. Debe definirse el la...">Material</a> que está siendo usado en un instante determinado. </p>
 
-<p class="definition">Definición en la línea <a class="el" href="_i_command_list_8h_source.html#l00454">454</a> del archivo <a class="el" href="_i_command_list_8h_source.html">ICommandList.h</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_i_command_list_8h_source.html#l00478">478</a> del archivo <a class="el" href="_i_command_list_8h_source.html">ICommandList.h</a>.</p>
 
 </div>
 </div>
@@ -1939,7 +1949,7 @@ Debe haberse activado la opción de trazado de rayos de OSKengine.</dd></dl>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definición en la línea <a class="el" href="_i_command_list_8h_source.html#l00458">458</a> del archivo <a class="el" href="_i_command_list_8h_source.html">ICommandList.h</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_i_command_list_8h_source.html#l00482">482</a> del archivo <a class="el" href="_i_command_list_8h_source.html">ICommandList.h</a>.</p>
 
 </div>
 </div>
@@ -1963,7 +1973,7 @@ Debe haberse activado la opción de trazado de rayos de OSKengine.</dd></dl>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definición en la línea <a class="el" href="_i_command_list_8h_source.html#l00446">446</a> del archivo <a class="el" href="_i_command_list_8h_source.html">ICommandList.h</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_i_command_list_8h_source.html#l00470">470</a> del archivo <a class="el" href="_i_command_list_8h_source.html">ICommandList.h</a>.</p>
 
 </div>
 </div>
@@ -1987,7 +1997,7 @@ Debe haberse activado la opción de trazado de rayos de OSKengine.</dd></dl>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definición en la línea <a class="el" href="_i_command_list_8h_source.html#l00460">460</a> del archivo <a class="el" href="_i_command_list_8h_source.html">ICommandList.h</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_i_command_list_8h_source.html#l00484">484</a> del archivo <a class="el" href="_i_command_list_8h_source.html">ICommandList.h</a>.</p>
 
 </div>
 </div>
@@ -2011,7 +2021,7 @@ Debe haberse activado la opción de trazado de rayos de OSKengine.</dd></dl>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definición en la línea <a class="el" href="_i_command_list_8h_source.html#l00447">447</a> del archivo <a class="el" href="_i_command_list_8h_source.html">ICommandList.h</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_i_command_list_8h_source.html#l00471">471</a> del archivo <a class="el" href="_i_command_list_8h_source.html">ICommandList.h</a>.</p>
 
 </div>
 </div>
@@ -2025,7 +2035,7 @@ Debe haberse activado la opción de trazado de rayos de OSKengine.</dd></dl>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="namespace_o_s_k.html">OSK</a></li><li class="navelem"><a class="el" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html">GRAPHICS</a></li><li class="navelem"><a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_list_vulkan.html">CommandListVulkan</a></li>
-    <li class="footer">Generado el Viernes, 24 de Febrero de 2023 13:13:18 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4 </li>
+    <li class="footer">Generado el Lunes, 13 de Marzo de 2023 19:19:38 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4 </li>
   </ul>
 </div>
 </body>

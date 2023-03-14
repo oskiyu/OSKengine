@@ -11,6 +11,7 @@ var class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_list_dx12 =
     [ "BindUniformBufferDx12", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_list_dx12.html#a42c61c7eb0f7ceb3a143b1a1a6ab870b", null ],
     [ "BindVertexBuffer", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_list_dx12.html#a78c3c7ff04b7f73da8f0e555f4d7da2c", null ],
     [ "Close", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_list_dx12.html#af236e3ff5d3bf1b8ced471a2fd9c4ed7", null ],
+    [ "CopyBufferToBuffer", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_list_dx12.html#ac500c817dade1bca5200d9cb53ea0c7a", null ],
     [ "CopyBufferToImage", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_list_dx12.html#a4b89d32326161602a638dd6e80d79fef", null ],
     [ "CopyImageToImage", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_list_dx12.html#a489d566616ee4dc5d01572bcbaa1c319", null ],
     [ "DeleteAllStagingBuffers", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_list_dx12.html#ab7109911a37fcb344856f013eab554da", null ],

@@ -11,6 +11,7 @@ var class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list =
     [ "BindMaterialSlot", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list.html#aebccacb95627e6c8c9da33367ca14368", null ],
     [ "BindVertexBuffer", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list.html#a5e41e7a449345ecc167ea9bc5a857211", null ],
     [ "Close", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list.html#acbdde9b678e5db46d82b162c2a0f9730", null ],
+    [ "CopyBufferToBuffer", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list.html#a487fc497e747aab741121ba819aa101d", null ],
     [ "CopyBufferToImage", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list.html#a9676cdfe4a2411cb5993f9509a24e3c5", null ],
     [ "CopyImageToImage", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list.html#a802fca7b556943136095636d87716866", null ],
     [ "DeleteAllStagingBuffers", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list.html#ab7109911a37fcb344856f013eab554da", null ],

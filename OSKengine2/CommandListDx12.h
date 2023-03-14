@@ -23,7 +23,7 @@ namespace OSK::GRAPHICS {
 	/// Esta es la implementación de la lista de comandos para el 
 	/// renderizador de DirectX 12.
 	/// </summary>
-	class OSKAPI_CALL CommandListDx12 : public ICommandList {
+	class OSKAPI_CALL CommandListDx12 final : public ICommandList {
 
 	public:
 
@@ -56,6 +56,7 @@ namespace OSK::GRAPHICS {
 
 		void CopyBufferToImage(const GpuDataBuffer* source, GpuImage* dest, TSize layer, TSize offset) override;
 		void CopyImageToImage(const GpuImage* source, GpuImage* destination, const CopyImageInfo& copyInfo) override;
+		void CopyBufferToBuffer(const GpuDataBuffer* source, GpuDataBuffer* dest, TSize size, TSize sourceOffset, TSize destOffset) override;
 
 		void BindUniformBufferDx12(TSize index, const GpuUniformBufferDx12* buffer);
 

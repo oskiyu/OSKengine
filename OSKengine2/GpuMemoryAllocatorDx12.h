@@ -5,25 +5,44 @@
 
 namespace OSK::GRAPHICS {
 
-	class OSKAPI_CALL GpuMemoryAllocatorDx12 : public IGpuMemoryAllocator {
+	class OSKAPI_CALL GpuMemoryAllocatorDx12 final : public IGpuMemoryAllocator {
 
 	public:
 
 		GpuMemoryAllocatorDx12(IGpu* device);
 
-		OwnedPtr<IGpuVertexBuffer> CreateVertexBuffer(const void* data, TSize vertexSize, TSize numVertices, const VertexInfo& vertexInfo) override;
-		OwnedPtr<IGpuIndexBuffer> CreateIndexBuffer(const DynamicArray<TIndexSize>& vertices) override;
-		OwnedPtr<IGpuUniformBuffer> CreateUniformBuffer(TSize size) override;
-		OwnedPtr<IGpuStorageBuffer> CreateStorageBuffer(TSize size) override;
 		OwnedPtr<GpuImage> CreateImage(const GpuImageCreateInfo& info) override;
-		OwnedPtr<GpuDataBuffer> CreateStagingBuffer(TSize size) override;
-		OwnedPtr<GpuDataBuffer> CreateBuffer(TSize size, TSize alignment, GpuBufferUsage usage, GpuSharedMemoryType sharedType) override;
-		OwnedPtr<IBottomLevelAccelerationStructure> CreateBottomAccelerationStructure(const IGpuVertexBuffer& vertexBuffer, const IGpuIndexBuffer& indexBuffer) override;
-		OwnedPtr<ITopLevelAccelerationStructure> CreateTopAccelerationStructure(DynamicArray<const IBottomLevelAccelerationStructure*> bottomStructures) override;
 
 		DescriptorDx12 GetDescriptor(D3D12_DESCRIPTOR_HEAP_TYPE type);
 
 	protected:
+
+		OwnedPtr<IGpuVertexBuffer> _CreateVertexBuffer(
+			OwnedPtr<IGpuMemorySubblock> subblock,
+			TSize bufferSize,
+			TSize alignment,
+			TSize numVertices,
+			const VertexInfo& vertexInfo) override;
+
+		OwnedPtr<IGpuIndexBuffer> _CreateIndexBuffer(
+			OwnedPtr<IGpuMemorySubblock> subblock,
+			TSize bufferSize,
+			TSize alignment,
+			TSize numIndices) override;
+
+		OwnedPtr<IGpuUniformBuffer> _CreateUniformBuffer(
+			OwnedPtr<IGpuMemorySubblock> subblock,
+			TSize bufferSize,
+			TSize alignment) override;
+
+		OwnedPtr<IGpuStorageBuffer> _CreateStorageBuffer(
+			OwnedPtr<IGpuMemorySubblock> subblock,
+			TSize bufferSize,
+			TSize alignment) override;
+
+
+		OwnedPtr<IBottomLevelAccelerationStructure> _CreateBottomAccelerationStructure() override;
+		OwnedPtr<ITopLevelAccelerationStructure> _CreateTopAccelerationStructure() override;
 
 		OwnedPtr<IGpuMemoryBlock> CreateNewBufferBlock(TSize size, GpuBufferUsage usage, GpuSharedMemoryType sharedType) override;
 		OwnedPtr<IGpuMemoryBlock> CreateNewImageBlock(GpuImage* image, GpuImageUsage usage, GpuSharedMemoryType sharedType) override;

@@ -90,10 +90,10 @@ $(document).ready(function(){initNavTree('_gpu_image_layout_vulkan_8cpp_source.h
 <div class="contents">
 <a href="_gpu_image_layout_vulkan_8cpp.html">Ir a la documentación de este archivo.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#include &quot;<a class="code" href="_gpu_image_layout_8h.html">GpuImageLayout.h</a>&quot;</span></div>
 <div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span> </div>
-<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="preprocessor">#include &quot;<a class="code" href="_gpu_image_layout_vulkan_8h.html">GpuImageLayoutVulkan.h</a>&quot;</span></div>
+<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="preprocessor">#include &quot;<a class="code" href="_gpu_image_layout_vk_8h.html">GpuImageLayoutVk.h</a>&quot;</span></div>
 <div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &lt;vulkan/vulkan.h&gt;</span></div>
 <div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span> </div>
-<div class="line"><a id="l00006" name="l00006"></a><span class="lineno"><a class="line" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#aee2527c482821230e085e377aa731fde">    6</a></span>VkImageLayout <a class="code hl_function" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#aee2527c482821230e085e377aa731fde">OSK::GRAPHICS::GetGpuImageLayoutVulkan</a>(<a class="code hl_enumeration" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a20f40e3d3e967090ee1884e0c77b9df9">GpuImageLayout</a> layout) {</div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno"><a class="line" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a7395d4f6cb2f929a575b7d4092fd695a">    6</a></span>VkImageLayout <a class="code hl_function" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a7395d4f6cb2f929a575b7d4092fd695a">OSK::GRAPHICS::GetGpuImageLayoutVk</a>(<a class="code hl_enumeration" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a20f40e3d3e967090ee1884e0c77b9df9">GpuImageLayout</a> layout) {</div>
 <div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span>    <span class="keywordflow">switch</span> (layout) {</div>
 <div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span>        <span class="keywordflow">case</span> GpuImageLayout::UNDEFINED:</div>
 <div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span>            <span class="keywordflow">return</span> VK_IMAGE_LAYOUT_UNDEFINED;</div>
@@ -127,16 +127,16 @@ $(document).ready(function(){initNavTree('_gpu_image_layout_vulkan_8cpp_source.h
 <div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>    }</div>
 <div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>}</div>
 <div class="ttc" id="a_gpu_image_layout_8h_html"><div class="ttname"><a href="_gpu_image_layout_8h.html">GpuImageLayout.h</a></div></div>
-<div class="ttc" id="a_gpu_image_layout_vulkan_8h_html"><div class="ttname"><a href="_gpu_image_layout_vulkan_8h.html">GpuImageLayoutVulkan.h</a></div></div>
+<div class="ttc" id="a_gpu_image_layout_vk_8h_html"><div class="ttname"><a href="_gpu_image_layout_vk_8h.html">GpuImageLayoutVk.h</a></div></div>
 <div class="ttc" id="anamespace_o_s_k_1_1_g_r_a_p_h_i_c_s_html_a20f40e3d3e967090ee1884e0c77b9df9"><div class="ttname"><a href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a20f40e3d3e967090ee1884e0c77b9df9">OSK::GRAPHICS::GpuImageLayout</a></div><div class="ttdeci">GpuImageLayout</div><div class="ttdoc">Define el layout actual de una imagen.</div><div class="ttdef"><b>Definition:</b> <a href="_gpu_image_layout_8h_source.html#l00015">GpuImageLayout.h:15</a></div></div>
-<div class="ttc" id="anamespace_o_s_k_1_1_g_r_a_p_h_i_c_s_html_aee2527c482821230e085e377aa731fde"><div class="ttname"><a href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#aee2527c482821230e085e377aa731fde">OSK::GRAPHICS::GetGpuImageLayoutVulkan</a></div><div class="ttdeci">VkImageLayout OSKAPI_CALL GetGpuImageLayoutVulkan(GpuImageLayout layout)</div><div class="ttdef"><b>Definition:</b> <a href="_gpu_image_layout_vulkan_8cpp_source.html#l00006">GpuImageLayoutVulkan.cpp:6</a></div></div>
+<div class="ttc" id="anamespace_o_s_k_1_1_g_r_a_p_h_i_c_s_html_a7395d4f6cb2f929a575b7d4092fd695a"><div class="ttname"><a href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a7395d4f6cb2f929a575b7d4092fd695a">OSK::GRAPHICS::GetGpuImageLayoutVk</a></div><div class="ttdeci">VkImageLayout OSKAPI_CALL GetGpuImageLayoutVk(GpuImageLayout layout)</div><div class="ttdef"><b>Definition:</b> <a href="_gpu_image_layout_vulkan_8cpp_source.html#l00006">GpuImageLayoutVulkan.cpp:6</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_fde17fe5c09f5d2327636debe0843594.html">OSKengine2</a></li><li class="navelem"><a class="el" href="_gpu_image_layout_vulkan_8cpp.html">GpuImageLayoutVulkan.cpp</a></li>
-    <li class="footer">Generado el Viernes, 24 de Febrero de 2023 13:13:17 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4 </li>
+    <li class="footer">Generado el Martes, 14 de Marzo de 2023 14:08:58 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4 </li>
   </ul>
 </div>
 </body>

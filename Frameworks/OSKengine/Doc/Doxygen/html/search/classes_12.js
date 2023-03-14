@@ -6,7 +6,7 @@ var searchData=
   ['texturecoordinates2d_3',['TextureCoordinates2D',['../struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_texture_coordinates2_d.html',1,'OSK::GRAPHICS']]],
   ['textureloader_4',['TextureLoader',['../class_o_s_k_1_1_a_s_s_e_t_s_1_1_texture_loader.html',1,'OSK::ASSETS']]],
   ['tonemappingpass_5',['ToneMappingPass',['../class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_tone_mapping_pass.html',1,'OSK::GRAPHICS']]],
-  ['toplevelaccelerationstructurevulkan_6',['TopLevelAccelerationStructureVulkan',['../class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_top_level_acceleration_structure_vulkan.html',1,'OSK::GRAPHICS']]],
+  ['toplevelaccelerationstructurevk_6',['TopLevelAccelerationStructureVk',['../class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_top_level_acceleration_structure_vk.html',1,'OSK::GRAPHICS']]],
   ['transform2d_7',['Transform2D',['../class_o_s_k_1_1_e_c_s_1_1_transform2_d.html',1,'OSK::ECS']]],
   ['transform3d_8',['Transform3D',['../class_o_s_k_1_1_e_c_s_1_1_transform3_d.html',1,'OSK::ECS']]]
 ];

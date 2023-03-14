@@ -30,24 +30,24 @@ public:
 		Assert::IsTrue(result);
 	}
 
-	/// @brief Dos esferas de radio 1 separadas por 1.01m.
+	/// @brief Dos esferas de radio 1 separadas por 2.01m.
 	TEST_METHOD(SphereCollidersFalse) {
 		const SphereCollider a = SphereCollider(1.0f);
 		const SphereCollider b = SphereCollider(1.0f);
 
 		const Vector3f aPos = Vector3f(0.0f, 0.0f, 0.0f);
-		const Vector3f bPos = Vector3f(0.0f, 0.0f, 1.01f);
+		const Vector3f bPos = Vector3f(0.0f, 0.0f, 2.01f);
 
 		Assert::IsFalse(a.IsColliding(b, aPos, bPos), L"Debería ser false");
 	}
 
-	/// @brief Dos cajas de radio 1 separadas por 0.9m.
+	/// @brief Dos cajas de radio 0.5 separadas por 0.9m.
 	TEST_METHOD(AabbCollidersTrue) {
 		const AabbCollider a = AabbCollider(Vector3f(1.0f));
 		const AabbCollider b = AabbCollider(Vector3f(1.0f));
 
 		const Vector3f aPos = Vector3f(0.0f, 0.0f, 0.0f);
-		const Vector3f bPos = Vector3f(0.0f, 0.0f, 1.9f);
+		const Vector3f bPos = Vector3f(0.0f, 0.0f, 0.4f);
 
 		Assert::IsTrue(a.IsColliding(b, aPos, bPos));
 	}
@@ -58,7 +58,7 @@ public:
 		const AabbCollider b = AabbCollider(Vector3f(1.0f));
 
 		const Vector3f aPos = Vector3f(0.0f, 0.0f, 0.0f);
-		const Vector3f bPos = Vector3f(0.0f, 0.0f, 2.01f);
+		const Vector3f bPos = Vector3f(0.0f, 0.0f, 1.01f);
 
 		Assert::IsFalse(a.IsColliding(b, aPos, bPos), L"Debería ser false");
 	}

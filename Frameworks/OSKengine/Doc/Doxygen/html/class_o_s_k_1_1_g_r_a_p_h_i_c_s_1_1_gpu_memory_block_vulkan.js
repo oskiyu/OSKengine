@@ -13,6 +13,7 @@ var class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_memory_block_vulkan =
     [ "OSK_DEFINE_AS", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_memory_block_vulkan.html#a458632dd6887cb1b943ef1962f407042", null ],
     [ "RemoveSubblock", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_memory_block_vulkan.html#adfe42ab34135cb8dcf5adc7cffb44d96", null ],
     [ "availableSpace", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_memory_block_vulkan.html#a71872852ab858a95c9af96ab49e1ec2a", null ],
+    [ "bufferUsage", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_memory_block_vulkan.html#a29e425423138eea520b859cab15c2235", null ],
     [ "currentOffset", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_memory_block_vulkan.html#acabc1fbe85c9cda983e9d7306e3f03da", null ],
     [ "device", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_memory_block_vulkan.html#ac75aa44cce34a964dfe1d6026d4d3c5f", null ],
     [ "reusableSubblocks", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_memory_block_vulkan.html#afb0a469af9d65724ffe513423dd32482", null ],

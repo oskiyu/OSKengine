@@ -7,7 +7,7 @@ var searchData=
   ['materiallayoutpushconstant_4',['MaterialLayoutPushConstant',['../struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_layout_push_constant.html',1,'OSK::GRAPHICS']]],
   ['materiallayoutslot_5',['MaterialLayoutSlot',['../struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_layout_slot.html',1,'OSK::GRAPHICS']]],
   ['materialslotdx12_6',['MaterialSlotDx12',['../class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_slot_dx12.html',1,'OSK::GRAPHICS']]],
-  ['materialslotvulkan_7',['MaterialSlotVulkan',['../class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_slot_vulkan.html',1,'OSK::GRAPHICS']]],
+  ['materialslotvk_7',['MaterialSlotVk',['../class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_slot_vk.html',1,'OSK::GRAPHICS']]],
   ['materialsystem_8',['MaterialSystem',['../class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_system.html',1,'OSK::GRAPHICS']]],
   ['mesh3d_9',['Mesh3D',['../class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_mesh3_d.html',1,'OSK::GRAPHICS']]],
   ['meshmetadata_10',['MeshMetadata',['../struct_o_s_k_1_1_a_s_s_e_t_s_1_1_mesh_metadata.html',1,'OSK::ASSETS']]],

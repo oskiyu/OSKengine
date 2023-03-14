@@ -32,7 +32,15 @@ namespace OSK::GRAPHICS {
 
 	public:
 
-		GpuImage(const Vector3ui& size, GpuImageDimension dimension, GpuImageUsage usage, TSize numLayers, Format format, TSize numSamples, GpuImageSamplerDesc samplerDesc);
+		GpuImage(
+			const Vector3ui& size, 
+			GpuImageDimension dimension, 
+			GpuImageUsage usage, 
+			TSize numLayers, 
+			Format format, 
+			TSize numSamples, 
+			GpuImageSamplerDesc samplerDesc);
+
 		virtual ~GpuImage() override;
 
 		void _SetPhysicalSize(const Vector3ui& size);
@@ -107,11 +115,38 @@ namespace OSK::GRAPHICS {
 		/// </summary>
 		TSize GetNumSamples() const;
 
-		IGpuImageView* GetView(SampledChannel channel, SampledArrayType arrayType, TSize baseArrayLevel, TSize layerCount, ViewUsage usage) const;
+		/// @brief Obtiene un image view con las características dadas.
+		/// @param channel Canal de la imagen accedido por el view.
+		/// @param arrayType Configura si es una única imagen o si el view afecta a todo un array.
+		/// @param baseArrayLevel Capa base representada.
+		/// @param layerCount Número de capas representadas (si @p arrayType es SampledArrayType::ARRAY).
+		/// @param usage Uso del view.
+		/// @return View con las características dadas.
+		/// 
+		/// @pre Si @p layerCount > 1, entonces @p arrayType debe ser SampledArrayType::ARRAY
+		/// @pre @p layerCount != 0.
+		IGpuImageView* GetView(
+			SampledChannel channel, 
+			SampledArrayType arrayType, 
+			TSize baseArrayLevel, 
+			TSize layerCount, 
+			ViewUsage usage) const;
 
 	protected:
 
-		virtual OwnedPtr<IGpuImageView> CreateView(SampledChannel channel, SampledArrayType arrayType, TSize baseArrayLevel, TSize layerCount, ViewUsage usage) const = 0;
+		/// @brief Crea u view con las características dadas.
+		/// @param channel Canal de la imagen accedido por el view.
+		/// @param arrayType Configura si es una única imagen o si el view afecta a todo un array.
+		/// @param baseArrayLevel Capa base representada.
+		/// @param layerCount Número de capas representadas (si @p arrayType es SampledArrayType::ARRAY).
+		/// @param usage Uso del view.
+		/// @return View con las características dadas.
+		virtual OwnedPtr<IGpuImageView> CreateView(
+			SampledChannel channel, 
+			SampledArrayType arrayType, 
+			TSize baseArrayLevel, 
+			TSize layerCount, 
+			ViewUsage usage) const = 0;
 
 	private:
 

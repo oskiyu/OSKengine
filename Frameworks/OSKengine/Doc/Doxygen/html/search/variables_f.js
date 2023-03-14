@@ -18,12 +18,12 @@ var searchData=
   ['rotation_15',['rotation',['../struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_mesh_node.html#a9b72d3ea552bae1e2d4c36e18c788cbe',1,'OSK::GRAPHICS::MeshNode']]],
   ['roughnessfactor_16',['roughnessFactor',['../struct_o_s_k_1_1_a_s_s_e_t_s_1_1_gltf_material_info.html#a1ae21f4c1ea7f1467316d148e5aa8508',1,'OSK::ASSETS::GltfMaterialInfo::roughnessFactor()'],['../struct_o_s_k_1_1_a_s_s_e_t_s_1_1_mesh_metadata.html#adf1f5296d70e715244afe02580fee46e',1,'OSK::ASSETS::MeshMetadata::roughnessFactor()']]],
   ['roughnesstextureindex_17',['roughnessTextureIndex',['../struct_o_s_k_1_1_a_s_s_e_t_s_1_1_gltf_material_info.html#a4b8f58cd645ab6105410e4f7c2a21765',1,'OSK::ASSETS::GltfMaterialInfo']]],
-  ['rtaccelerationstructuresfeatures_18',['rtAccelerationStructuresFeatures',['../struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_vulkan_1_1_info.html#a63271f2a20aba12d50ad99aa9881b124',1,'OSK::GRAPHICS::GpuVulkan::Info']]],
-  ['rtaccelerationstructuresproperites_19',['rtAccelerationStructuresProperites',['../struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_vulkan_1_1_info.html#aeb425aee2e3336849746a2eca48e8db5',1,'OSK::GRAPHICS::GpuVulkan::Info']]],
+  ['rtaccelerationstructuresfeatures_18',['rtAccelerationStructuresFeatures',['../struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_vk_1_1_info.html#a0b6b1105fa6857571f650e3924e60edf',1,'OSK::GRAPHICS::GpuVk::Info']]],
+  ['rtaccelerationstructuresproperites_19',['rtAccelerationStructuresProperites',['../struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_vk_1_1_info.html#a9e8e8382d4c3b4b1be43ad2eec02cb8d',1,'OSK::GRAPHICS::GpuVk::Info']]],
   ['rtclosesthitshaderpath_20',['rtClosestHitShaderPath',['../struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_pipeline_create_info.html#a09c9b9c025bb3dbc32b69dff04ff980d',1,'OSK::GRAPHICS::PipelineCreateInfo']]],
-  ['rtdeviceaddressfeatures_21',['rtDeviceAddressFeatures',['../struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_vulkan_1_1_info.html#ac757e22132902c0a2fd489be4f439ffa',1,'OSK::GRAPHICS::GpuVulkan::Info']]],
+  ['rtdeviceaddressfeatures_21',['rtDeviceAddressFeatures',['../struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_vk_1_1_info.html#af5b5feef31da8cc08b971224d63d4ef4',1,'OSK::GRAPHICS::GpuVk::Info']]],
   ['rtmissshaderpath_22',['rtMissShaderPath',['../struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_pipeline_create_info.html#a757c6a25f8fa8ec656d053decf470524',1,'OSK::GRAPHICS::PipelineCreateInfo']]],
-  ['rtpipelinefeatures_23',['rtPipelineFeatures',['../struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_vulkan_1_1_info.html#a5c58bb1872672211be3da7233d865a8b',1,'OSK::GRAPHICS::GpuVulkan::Info']]],
-  ['rtpipelineproperties_24',['rtPipelineProperties',['../struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_vulkan_1_1_info.html#a609fc8205d62efa53d1cc5e7fa9d5689',1,'OSK::GRAPHICS::GpuVulkan::Info']]],
+  ['rtpipelinefeatures_23',['rtPipelineFeatures',['../struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_vk_1_1_info.html#aea5abcee04a7e89ab9ff001bca28e31e',1,'OSK::GRAPHICS::GpuVk::Info']]],
+  ['rtpipelineproperties_24',['rtPipelineProperties',['../struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_vk_1_1_info.html#acc1cc8f4009ce1fb8fd7bc6e5197b7f9',1,'OSK::GRAPHICS::GpuVk::Info']]],
   ['rtraygenshaderpath_25',['rtRaygenShaderPath',['../struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_pipeline_create_info.html#a0bfe9ca2ed2bf52a85df106765ed64e9',1,'OSK::GRAPHICS::PipelineCreateInfo']]]
 ];

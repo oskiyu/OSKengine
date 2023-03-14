@@ -141,7 +141,13 @@ namespace OSK::GRAPHICS {
 		/// @pre previousLayout debe ser el layout de la imagen antes de este comando.
 		/// 
 		/// @post Los subrecursos especificados por imageInfo estarán en el nuevo layout.
-		virtual void SetGpuImageBarrier(GpuImage* image, GpuImageLayout previousLayout, GpuImageLayout nextLayout, GpuBarrierInfo previous, GpuBarrierInfo next, const GpuImageBarrierInfo& prevImageInfo = {}) = 0;
+		virtual void SetGpuImageBarrier(
+			GpuImage* image, 
+			GpuImageLayout previousLayout, 
+			GpuImageLayout nextLayout, 
+			GpuBarrierInfo previous, 
+			GpuBarrierInfo next, 
+			const GpuImageBarrierInfo& prevImageInfo = {}) = 0;
 
 		/// @brief Establece un barrier que sincroniza la ejecución de comandos.
 		/// Cambia el layout de la imagen.
@@ -158,7 +164,12 @@ namespace OSK::GRAPHICS {
 		/// @pre La lista de comandos debe estar abierta.
 		/// 
 		/// @post Los subrecursos especificados por imageInfo estarán en el nuevo layout.
-		void SetGpuImageBarrier(GpuImage* image, GpuImageLayout nextLayout, GpuBarrierInfo previous, GpuBarrierInfo next, const GpuImageBarrierInfo& prevImageInfo = {});
+		void SetGpuImageBarrier(
+			GpuImage* image, 
+			GpuImageLayout nextLayout, 
+			GpuBarrierInfo previous, 
+			GpuBarrierInfo next, 
+			const GpuImageBarrierInfo& prevImageInfo = {});
 
 
 		/// @brief Comienza el renderizado a un render target.
@@ -173,7 +184,9 @@ namespace OSK::GRAPHICS {
 		/// 
 		/// @post Las imágenes de color se encontrarán en GpuImageLayout::COLOR_ATTACHMENT.
 		/// @post La imagen de prfundidad se encontrarán en GpuImageLayout::DEPTH_STENCIL_TARGET.
-		void BeginGraphicsRenderpass(RenderTarget* renderTarget, const Color& color = Color::BLACK());
+		void BeginGraphicsRenderpass(
+			RenderTarget* renderTarget, 
+			const Color& color = Color::BLACK());
 
 		/// @brief Comienza el renderizado a las imágenes dadas.
 		/// @param colorImages Imágenes de color sobre las que se renderizará.
@@ -188,7 +201,10 @@ namespace OSK::GRAPHICS {
 		/// 
 		/// @post Las imágenes de color se encontrarán en GpuImageLayout::COLOR_ATTACHMENT.
 		/// @post La imagen de prfundidad se encontrarán en GpuImageLayout::DEPTH_STENCIL_TARGET.
-		virtual void BeginGraphicsRenderpass(DynamicArray<RenderPassImageInfo> colorImages, RenderPassImageInfo depthImage, const Color& color = Color::BLACK()) = 0;
+		virtual void BeginGraphicsRenderpass(
+			DynamicArray<RenderPassImageInfo> colorImages, 
+			RenderPassImageInfo depthImage, 
+			const Color& color = Color::BLACK()) = 0;
 
 		/// @brief Finaliza el renderizado a un render target.
 		/// 
@@ -252,7 +268,10 @@ namespace OSK::GRAPHICS {
 		/// @pre Debe haber un material enlazado.
 		/// @pre El push constant debe ser compatible con el material enlazado.
 		/// @pre La lista de comandos debe estar abierta.
-		void PushMaterialConstants(const std::string& pushConstName, const void* data, TSize size);
+		void PushMaterialConstants(
+			const std::string& pushConstName, 
+			const void* data, 
+			TSize size);
 
 		/// <summary>
 		/// Envía datos push constant al shader.
@@ -280,7 +299,11 @@ namespace OSK::GRAPHICS {
 		/// @pre Debe haber un material enlazado.
 		/// @pre El push constant debe ser compatible con el material enlazado.
 		/// @pre La lista de comandos debe estar abierta.
-		virtual void PushMaterialConstants(const std::string& pushConstName, const void* data, TSize size, TSize offset) = 0;
+		virtual void PushMaterialConstants(
+			const std::string& pushConstName, 
+			const void* data, 
+			TSize size, 
+			TSize offset) = 0;
 		
 
 		/// <summary>
@@ -337,7 +360,11 @@ namespace OSK::GRAPHICS {
 		/// @pre Debe haberse activado la opción de trazado de rayos de OSKengine.
 		/// 
 		/// @todo Implementación en DX12.
-		virtual void TraceRays(TSize raygenEntry, TSize closestHitEntry, TSize missEntry, const Vector2ui& resolution) = 0;
+		virtual void TraceRays(
+			TSize raygenEntry, 
+			TSize closestHitEntry, 
+			TSize missEntry, 
+			const Vector2ui& resolution) = 0;
 
 
 		virtual void DispatchCompute(const Vector3ui& groupCount) = 0;
@@ -379,7 +406,11 @@ namespace OSK::GRAPHICS {
 		/// @pre La lista de comandos debe estar abierta.
 		/// 
 		/// @post El layout de la imagen después de efectuarse la copia segirá siendo GpuImageLayout::TRANSFER_DESTINATION.
-		virtual void CopyBufferToImage(const GpuDataBuffer* source, GpuImage* dest, TSize layer = 0, TSize offset = 0) = 0;
+		virtual void CopyBufferToImage(
+			const GpuDataBuffer* source, 
+			GpuImage* dest, 
+			TSize layer = 0, 
+			TSize offset = 0) = 0;
 
 		/// @brief Copia el contenido de una imagen a otra.
 		/// @param source Imagen con los contenidos a copiar.
@@ -393,7 +424,23 @@ namespace OSK::GRAPHICS {
 		/// @pre La lista de comandos debe estar abierta.
 		/// 
 		/// @post El layout de la imagen después de efectuarse la copia segirá siendo GpuImageLayout::TRANSFER_DESTINATION.
-		virtual void CopyImageToImage(const GpuImage* source, GpuImage* destination, const CopyImageInfo& copyInfo) = 0;
+		virtual void CopyImageToImage(
+			const GpuImage* source, 
+			GpuImage* destination, 
+			const CopyImageInfo& copyInfo) = 0;
+
+		/// @brief Copia los contenidos del primer buffer al segundo.
+		/// @param source Buffer donde están el contenido que se quiere copiar.
+		/// @param dest Buffer en el que se va a poner el contenido copiado.
+		/// @param size Tamaño, en bytes, del área de memoria que se va a copiar.
+		/// @param sourceOffset Offset del área de memoria en el origen.
+		/// @param destOffset Offset del área de memoria en el destino.
+		virtual void CopyBufferToBuffer(
+			const GpuDataBuffer* source,
+			GpuDataBuffer* dest,
+			TSize size,
+			TSize sourceOffset,
+			TSize destOffset) = 0;
 
 
 		/// <summary>

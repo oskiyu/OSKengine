@@ -1,9 +1,9 @@
 #include "GpuImageLayout.h"
 
-#include "GpuImageLayoutVulkan.h"
+#include "GpuImageLayoutVk.h"
 #include <vulkan/vulkan.h>
 
-VkImageLayout OSK::GRAPHICS::GetGpuImageLayoutVulkan(GpuImageLayout layout) {
+VkImageLayout OSK::GRAPHICS::GetGpuImageLayoutVk(GpuImageLayout layout) {
 	switch (layout) {
 		case GpuImageLayout::UNDEFINED:
 			return VK_IMAGE_LAYOUT_UNDEFINED;

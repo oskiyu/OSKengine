@@ -24,7 +24,11 @@ using namespace OSK::GRAPHICS;
 
 GpuMemoryAllocatorDx12::GpuMemoryAllocatorDx12(IGpu* device)
 	: IGpuMemoryAllocator(device) { 
-	
+
+	minVertexBufferAlignment = D3D12_DEFAULT_RESOURCE_PLACEMENT_ALIGNMENT;
+	minIndexBufferAlignment = D3D12_DEFAULT_RESOURCE_PLACEMENT_ALIGNMENT;
+	minUniformBufferAlignment = D3D12_DEFAULT_RESOURCE_PLACEMENT_ALIGNMENT;
+	minStorageBufferAlignment = D3D12_DEFAULT_RESOURCE_PLACEMENT_ALIGNMENT;
 }
 
 OwnedPtr<IGpuMemoryBlock> GpuMemoryAllocatorDx12::CreateNewBufferBlock(TSize size, GpuBufferUsage usage, GpuSharedMemoryType sharedType) {
@@ -35,102 +39,6 @@ OwnedPtr<IGpuMemoryBlock> GpuMemoryAllocatorDx12::CreateNewImageBlock(GpuImage* 
 	return GpuMemoryBlockDx12::CreateNewImageBlock(image, device, sharedType, usage, image->GetNumLayers()).GetPointer();
 }
 
-OwnedPtr<GpuDataBuffer> GpuMemoryAllocatorDx12::CreateStagingBuffer(TSize size) {
-	return new GpuDataBuffer(GetNextBufferMemoryBlock(size, 
-		GpuBufferUsage::TRANSFER_SOURCE, GpuSharedMemoryType::GPU_AND_CPU)->GetNextMemorySubblock(size, D3D12_DEFAULT_RESOURCE_PLACEMENT_ALIGNMENT), size, 0);
-}
-
-OwnedPtr<IGpuVertexBuffer> GpuMemoryAllocatorDx12::CreateVertexBuffer(const void* data, TSize vertexSize, TSize numVertices, const VertexInfo& vertexInfo) {
-	const TSize bufferSize = numVertices * vertexSize;
-	auto block = GetNextBufferMemoryBlock(bufferSize, GpuBufferUsage::VERTEX_BUFFER, GpuSharedMemoryType::GPU_ONLY);
-
-	GpuDataBuffer* stagingBuffer = CreateStagingBuffer(bufferSize).GetPointer();
-	stagingBuffer->MapMemory();
-	stagingBuffer->Write(data, bufferSize);
-	stagingBuffer->Unmap();
-
-	GpuVertexBufferDx12* output = new GpuVertexBufferDx12(block->GetNextMemorySubblock(bufferSize, D3D12_DEFAULT_RESOURCE_PLACEMENT_ALIGNMENT), bufferSize, 0, numVertices, vertexInfo);
-
-	auto singleTimeCommandList = Engine::GetRenderer()->CreateSingleUseCommandList()->As<CommandListDx12>();
-	singleTimeCommandList->Reset();
-	singleTimeCommandList->Start();
-	
-	singleTimeCommandList->ResourceBarrier(
-		output->GetMemorySubblock()->As<GpuMemorySubblockDx12>()->GetResource(),
-		D3D12_RESOURCE_STATE_GENERIC_READ,
-		D3D12_RESOURCE_STATE_COPY_DEST);
-
-	singleTimeCommandList->GetCommandList()->CopyResource(
-		output->GetMemorySubblock()->As<GpuMemorySubblockDx12>()->GetResource(),
-		stagingBuffer->GetMemorySubblock()->As<GpuMemorySubblockDx12>()->GetResource());
-
-	singleTimeCommandList->ResourceBarrier(
-		output->GetMemorySubblock()->As<GpuMemorySubblockDx12>()->GetResource(),
-		D3D12_RESOURCE_STATE_COPY_DEST,
-		D3D12_RESOURCE_STATE_VERTEX_AND_CONSTANT_BUFFER);
-
-	singleTimeCommandList->Close();
-
-	Engine::GetRenderer()->SubmitSingleUseCommandList(singleTimeCommandList);
-
-	singleTimeCommandList->RegisterStagingBuffer(stagingBuffer);
-
-	output->SetView(vertexSize, numVertices);
-
-	return output;
-}
-
-OwnedPtr<IGpuIndexBuffer> GpuMemoryAllocatorDx12::CreateIndexBuffer(const DynamicArray<TIndexSize>& indices) {
-	const TSize bufferSize = sizeof(TIndexSize) * indices.GetSize();
-	auto block = GetNextBufferMemoryBlock(bufferSize, GpuBufferUsage::INDEX_BUFFER, GpuSharedMemoryType::GPU_ONLY);
-
-	GpuDataBuffer* stagingBuffer = CreateStagingBuffer(bufferSize).GetPointer();
-	stagingBuffer->MapMemory();
-	stagingBuffer->Write(indices.GetData(), bufferSize);
-	stagingBuffer->Unmap();
-
-	GpuIndexBufferDx12* output = new GpuIndexBufferDx12(block->GetNextMemorySubblock(bufferSize, D3D12_DEFAULT_RESOURCE_PLACEMENT_ALIGNMENT), bufferSize, 0, indices.GetSize());
-
-	auto singleTimeCommandList = Engine::GetRenderer()->CreateSingleUseCommandList()->As<CommandListDx12>();
-	singleTimeCommandList->Reset();
-	singleTimeCommandList->Start();
-
-	singleTimeCommandList->ResourceBarrier(
-		output->GetMemorySubblock()->As<GpuMemorySubblockDx12>()->GetResource(),
-		D3D12_RESOURCE_STATE_GENERIC_READ,
-		D3D12_RESOURCE_STATE_COPY_DEST);
-
-	singleTimeCommandList->GetCommandList()->CopyResource(
-		output->GetMemorySubblock()->As<GpuMemorySubblockDx12>()->GetResource(),
-		stagingBuffer->GetMemorySubblock()->As<GpuMemorySubblockDx12>()->GetResource());
-
-	singleTimeCommandList->ResourceBarrier(
-		output->GetMemorySubblock()->As<GpuMemorySubblockDx12>()->GetResource(),
-		D3D12_RESOURCE_STATE_COPY_DEST,
-		D3D12_RESOURCE_STATE_INDEX_BUFFER);
-
-	singleTimeCommandList->Close();
-
-	Engine::GetRenderer()->SubmitSingleUseCommandList(singleTimeCommandList);
-
-	singleTimeCommandList->RegisterStagingBuffer(stagingBuffer);
-
-	output->SetView(indices.GetSize());
-
-	return output;
-}
-
-OwnedPtr<IGpuUniformBuffer> GpuMemoryAllocatorDx12::CreateUniformBuffer(TSize size) {
-	auto block = GetNextBufferMemoryBlock(size, GpuBufferUsage::UNIFORM_BUFFER, GpuSharedMemoryType::GPU_AND_CPU);
-
-	return new GpuUniformBufferDx12(block->GetNextMemorySubblock(size, D3D12_DEFAULT_RESOURCE_PLACEMENT_ALIGNMENT), size, 0);
-}
-
-OwnedPtr<IGpuStorageBuffer> OSK::GRAPHICS::GpuMemoryAllocatorDx12::CreateStorageBuffer(TSize size) {
-	auto block = GetNextBufferMemoryBlock(size, GpuBufferUsage::STORAGE_BUFFER, GpuSharedMemoryType::GPU_AND_CPU);
-
-	return new GpuStorageBufferDx12(block->GetNextMemorySubblock(size, D3D12_DEFAULT_RESOURCE_PLACEMENT_ALIGNMENT), size, 0);
-}
 
 OwnedPtr<GpuImage> GpuMemoryAllocatorDx12::CreateImage(const GpuImageCreateInfo& info) {
 	auto output = new GpuImageDx12(info.resolution, info.dimension, info.usage, info.numLayers, info.format, info.msaaSamples, info.samplerDesc);
@@ -157,19 +65,32 @@ OwnedPtr<IGpuMemoryBlock> GpuMemoryAllocatorDx12::CreateNewBufferMemoryBlock(TSi
 	return GpuMemoryBlockDx12::CreateNewBufferBlock(bSize, device, sharedType, usage).GetPointer();
 }
 
-OwnedPtr<GpuDataBuffer> GpuMemoryAllocatorDx12::CreateBuffer(TSize size, TSize alignment, GpuBufferUsage usage, GpuSharedMemoryType sharedType) {
+
+OwnedPtr<IGpuVertexBuffer> GpuMemoryAllocatorDx12::_CreateVertexBuffer(
+	OwnedPtr<IGpuMemorySubblock> subblock, TSize bufferSize, TSize alignment, TSize numVertices, const VertexInfo& vertexInfo) {
+	return new GpuVertexBufferDx12(subblock, bufferSize, alignment, numVertices, vertexInfo);
+}
+
+OwnedPtr<IGpuIndexBuffer> GpuMemoryAllocatorDx12::_CreateIndexBuffer(
+	OwnedPtr<IGpuMemorySubblock> subblock, TSize bufferSize, TSize alignment, TSize numIndices) {
+	return new GpuIndexBufferDx12(subblock, bufferSize, alignment, numIndices);
+}
+
+OwnedPtr<IGpuUniformBuffer> GpuMemoryAllocatorDx12::_CreateUniformBuffer(OwnedPtr<IGpuMemorySubblock> subblock, TSize bufferSize, TSize alignment) {
+	return new GpuUniformBufferDx12(subblock, bufferSize, alignment);
+}
+
+OwnedPtr<IGpuStorageBuffer> GpuMemoryAllocatorDx12::_CreateStorageBuffer(OwnedPtr<IGpuMemorySubblock> subblock, TSize bufferSize, TSize alignment) {
+	return new GpuStorageBufferDx12(subblock, bufferSize, alignment);
+}
+
+OwnedPtr<IBottomLevelAccelerationStructure> GpuMemoryAllocatorDx12::_CreateBottomAccelerationStructure() {
 	OSK_ASSERT(false, "No implementado.");
 
 	return nullptr;
 }
 
-OwnedPtr<IBottomLevelAccelerationStructure> GpuMemoryAllocatorDx12::CreateBottomAccelerationStructure(const IGpuVertexBuffer& vertexBuffer, const IGpuIndexBuffer& indexBuffer) {
-	OSK_ASSERT(false, "No implementado.");
-
-	return nullptr;
-}
-
-OwnedPtr<ITopLevelAccelerationStructure> GpuMemoryAllocatorDx12::CreateTopAccelerationStructure(DynamicArray<const IBottomLevelAccelerationStructure*> bottomStructures) {
+OwnedPtr<ITopLevelAccelerationStructure> GpuMemoryAllocatorDx12::_CreateTopAccelerationStructure() {
 	OSK_ASSERT(false, "No implementado.");
 
 	return nullptr;

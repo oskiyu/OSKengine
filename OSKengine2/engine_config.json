@@ -1,4 +1,4 @@
 {
     "graphics_backend": "VULKAN",
-    "use_rt": 0
+    "use_rt": 1
 }

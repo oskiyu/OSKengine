@@ -24,6 +24,8 @@ layout (set = 1, binding = 1) uniform DirLight {
 } dirLight;
 
 layout (set = 1, binding = 2) uniform samplerCube irradianceMap;
+layout (set = 1, binding = 3) uniform samplerCube specularMap;
+layout (set = 1, binding = 4) uniform sampler2D specularLut;
 
 void main() {
     const ivec2 coords = ivec2(gl_GlobalInvocationID);
@@ -51,8 +53,17 @@ void main() {
     F0 = mix(F0, color.rgb, metallicFactor);
 
     // Directional Light
-    const vec3 accummulatedRadiance = shadow 
-                    * GetRadiance(F0, dirLight.directionAndIntensity.xyz, view, normal, dirLight.color.rgb * dirLight.directionAndIntensity.w, color.rgb, roughnessFactor, metallicFactor);
+    const vec3 accummulatedRadiance = 
+        shadow * 
+        GetRadiance(
+            F0, 
+            dirLight.directionAndIntensity.xyz, 
+            view, 
+            normal, 
+            dirLight.color.rgb * dirLight.directionAndIntensity.w, 
+            color.rgb, 
+            roughnessFactor, 
+            metallicFactor);
 
     // Irradiance Map
     vec3 kS = FreshnelShlick(max(dot(normal, view), 0.0), F0);
@@ -62,7 +73,51 @@ void main() {
     const vec3 irradiance = texture(irradianceMap, normal).rgb;
     const vec3 ambient = color.rgb * kD * irradiance;
     
-    const vec4 outColor = vec4(ambient * (dirLight.directionAndIntensity.w * 0.25) + accummulatedRadiance * 1.25, colorImageInfo.a);
+    // Specular map
+    const float maxSpecularLod = 5 - 1;
+    const vec3 F = FresnelSchlickRoughness(
+        max(dot(normal, view), 0.0), 
+        F0, 
+        roughnessFactor);
+    const vec3 prefilteredSpecularColor = textureLod(
+        specularMap, 
+        reflectDirection, 
+        roughnessFactor * maxSpecularLod).rgb;
+    const vec2 lut = textureLod(
+        specularLut, 
+        vec2(max(dot(normal, view), roughnessFactor)), 
+        0).rg;
+    const vec3 specular = prefilteredSpecularColor * (F * lut.x + lut.y);
 
-    imageStore(finalImg, coords, outColor);
+    // #define NATURAL
+    // #define CUSTOM
+
+    #ifdef NATURAL
+        const float ambientRatio = 1.0;
+        const float radianceRatio = 1.0;
+        const float specularRatio = 1.0;
+    #elif defined(CUSTOM)
+        const float ambientRatio = 0.25;
+        const float radianceRatio = 1.0;
+        const float specularRatio = 0.25;
+    #else
+        const float ambientRatio = 0.45;
+        const float radianceRatio = 1.0;
+        const float specularRatio = 0.45;
+    #endif
+
+    vec3 outColor = ambient * (
+                    dirLight.directionAndIntensity.w * ambientRatio) 
+                + accummulatedRadiance * radianceRatio 
+                + specular * specularRatio;
+
+    // vec3 color = vec3(lut.y);
+
+    outColor = vec3(
+        max(color.r, 0.001),
+        max(color.g, 0.001),
+        max(color.b, 0.001)
+    );
+
+    imageStore(finalImg, coords, vec4(outColor, 1.0));
 }

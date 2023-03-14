@@ -9,7 +9,7 @@ var searchData=
   ['loadimages_6',['LoadImages',['../class_o_s_k_1_1_a_s_s_e_t_s_1_1_i_mesh_loader.html#a7274124723c8b2aa1fe15f61462eaa07',1,'OSK::ASSETS::IMeshLoader']]],
   ['loadmaterial_7',['LoadMaterial',['../class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_system.html#ad39c519e3a5f58cc2a7622ba9b39687a',1,'OSK::GRAPHICS::MaterialSystem']]],
   ['loadmaterials_8',['LoadMaterials',['../class_o_s_k_1_1_a_s_s_e_t_s_1_1_i_mesh_loader.html#ab3c7e5438ddddb499468728a83a54ca8',1,'OSK::ASSETS::IMeshLoader']]],
-  ['loadshader_9',['LoadShader',['../class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_pipeline_dx12.html#a5bc7a9722e29f569c95325ccb0124852',1,'OSK::GRAPHICS::IPipelineDx12::LoadShader()'],['../class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_pipeline_vulkan.html#a4b808c2d306123a3873ed5ae703b5d92',1,'OSK::GRAPHICS::IPipelineVulkan::LoadShader()']]],
+  ['loadshader_9',['LoadShader',['../class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_pipeline_dx12.html#a5bc7a9722e29f569c95325ccb0124852',1,'OSK::GRAPHICS::IPipelineDx12::LoadShader()'],['../class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_pipeline_vk.html#a140d959e49a3e5490be491db09c13df1',1,'OSK::GRAPHICS::IPipelineVk::LoadShader()']]],
   ['loadsizedfont_10',['LoadSizedFont',['../class_o_s_k_1_1_a_s_s_e_t_s_1_1_font.html#a5db23936cef420c1ba8253b95d78b2fc',1,'OSK::ASSETS::Font']]],
   ['loadspirvcrossshader_11',['LoadSpirvCrossShader',['../_material_system_8cpp.html#a7402745b903a52e8deb0e6652fc5daa5',1,'MaterialSystem.cpp']]],
   ['log_12',['Log',['../class_o_s_k_1_1_i_o_1_1_logger.html#ac2af30faaa120261990f4deb1b566e7b',1,'OSK::IO::Logger']]]

@@ -1,0 +1,85 @@
+#pragma once
+
+#include "ICommandList.h"
+#include "DynamicArray.hpp"
+
+#include <vulkan/vulkan.h>
+
+namespace OSK::GRAPHICS {
+
+	class GpuDataBuffer;
+	class GraphicsPipelineVk;
+
+	/// <summary>
+	/// Una lista de comandos contiene una serie de comandos que serán
+	/// enviados a la GPU para su ejecución.
+	/// La lista es creada por una pool de comandos, y se introduce
+	/// en una cola de comandos para su ejecución.
+	/// 
+	/// Esta es la implementación de la lista de comandos para el 
+	/// renderizador de Vulkan.
+	/// 
+	/// El número de listas de comandos nativas dependerá del número de
+	/// imágenes en el swapchain.
+	/// Esta clase representa una abstracción de una lista de comandos:
+	/// cada comando grabado en la clase se grabará en cada una de las
+	/// listas nativas.
+	/// </summary>
+	class OSKAPI_CALL CommandListVk final : public ICommandList {
+
+	public:
+
+		const DynamicArray<VkCommandBuffer>& GetCommandBuffers() const;
+		DynamicArray<VkCommandBuffer>* GetCommandBuffers();
+
+		void Reset() override;
+		void Start() override;
+		void Close() override;
+
+		void BeginGraphicsRenderpass(
+			DynamicArray<RenderPassImageInfo> colorImages, 
+			RenderPassImageInfo depthImage, 
+			const Color& color);
+		void EndGraphicsRenderpass() override;
+
+		void BindMaterial(Material* material) override;
+		void BindVertexBuffer(const IGpuVertexBuffer* buffer) override;
+		void BindIndexBuffer(const IGpuIndexBuffer* buffer) override;
+		void BindMaterialSlot(const IMaterialSlot* slot) override;
+		void PushMaterialConstants(const std::string& pushConstName, const void* data, TSize size, TSize offset) override;
+
+		void DrawSingleInstance(TSize numIndices) override;
+		void DrawSingleMesh(TSize firstIndex, TSize numIndices) override;
+		void TraceRays(TSize raygenEntry, TSize closestHitEntry, TSize missEntry, const Vector2ui& resolution) override;
+
+		void BindComputePipeline(const IComputePipeline& computePipeline);
+		void DispatchCompute(const Vector3ui& groupCount);
+
+		void SetGpuImageBarrier(GpuImage* image, GpuImageLayout previousLayout, GpuImageLayout nextLayout, GpuBarrierInfo previous, GpuBarrierInfo next, const GpuImageBarrierInfo& prevImageInfo) override;
+
+		void CopyBufferToImage(const GpuDataBuffer* source, GpuImage* dest, TSize layer, TSize offset) override;
+		void CopyImageToImage(const GpuImage* source, GpuImage* destination, const CopyImageInfo& copyInfo) override;
+		void CopyBufferToBuffer(const GpuDataBuffer* source, GpuDataBuffer* dest, TSize size, TSize sourceOffset, TSize destOffset) override;
+
+		void SetViewport(const Viewport& viewport) override;
+		void SetScissor(const Vector4ui& scissor) override;
+
+		void SetDebugName(const std::string& name) override;
+
+		void AddDebugMarker(const std::string& mark, const Color& color) override;
+		void StartDebugSection(const std::string& mark, const Color& color) override;
+		void EndDebugSection() override;
+
+	private:
+
+		VkPipelineStageFlagBits GetPipelineStage(GpuBarrierStage stage) const;
+		VkAccessFlags GetPipelineAccess(GpuBarrierAccessStage stage) const;
+
+		/// <summary>
+		/// Varias listas nativas, una por cada imagen en el swapchain.
+		/// </summary>
+		DynamicArray<VkCommandBuffer> commandBuffers;
+
+	};
+
+}

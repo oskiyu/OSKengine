@@ -172,7 +172,7 @@ $(document).ready(function(){initNavTree('_graphics_pipeline_dx12_8cpp_source.ht
 <div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span> </div>
 <div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span>    createInfo.pRootSignature = <a class="code hl_variable" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_graphics_pipeline.html#afeebc6144c3cf7852837a5f08b3a6444">layout</a>-&gt;As&lt;<a class="code hl_class" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_pipeline_layout_dx12.html">PipelineLayoutDx12</a>&gt;()-&gt;GetSignature();</div>
 <div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span> </div>
-<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span>    HRESULT result = device-&gt;<a class="code hl_function" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu.html#a1b0e5d22fed49696034d38442892121c">As</a>&lt;<a class="code hl_class" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_dx12.html">GpuDx12</a>&gt;()-&gt;<a class="code hl_function" href="_material_slot_vulkan_8cpp.html#adead74bea72029d218144e2a94a1eb1e">GetDevice</a>()-&gt;CreateGraphicsPipelineState(&amp;createInfo, IID_PPV_ARGS(&amp;<a class="code hl_variable" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_pipeline_dx12.html#a1a1833badaf5367685c6c9d743185342">dxPipeline</a>));</div>
+<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span>    HRESULT result = device-&gt;<a class="code hl_function" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu.html#a1b0e5d22fed49696034d38442892121c">As</a>&lt;<a class="code hl_class" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_dx12.html">GpuDx12</a>&gt;()-&gt;<a class="code hl_function" href="_material_slot_vk_8cpp.html#adead74bea72029d218144e2a94a1eb1e">GetDevice</a>()-&gt;CreateGraphicsPipelineState(&amp;createInfo, IID_PPV_ARGS(&amp;<a class="code hl_variable" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_pipeline_dx12.html#a1a1833badaf5367685c6c9d743185342">dxPipeline</a>));</div>
 <div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span>    <a class="code hl_define" href="_assert_8h.html#adfbccaec84df99b8277f9d877554170c">OSK_ASSERT</a>(SUCCEEDED(result), <span class="stringliteral">&quot;Error al crear el pipeline. Code: &quot;</span> + std::to_string(result));</div>
 <div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span>}</div>
 <div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span> </div>
@@ -328,7 +328,7 @@ $(document).ready(function(){initNavTree('_graphics_pipeline_dx12_8cpp_source.ht
 <div class="ttc" id="a_linked_list_8hpp_html"><div class="ttname"><a href="_linked_list_8hpp.html">LinkedList.hpp</a></div></div>
 <div class="ttc" id="a_logger_8h_html"><div class="ttname"><a href="_logger_8h.html">Logger.h</a></div></div>
 <div class="ttc" id="a_material_layout_8h_html"><div class="ttname"><a href="_material_layout_8h.html">MaterialLayout.h</a></div></div>
-<div class="ttc" id="a_material_slot_vulkan_8cpp_html_adead74bea72029d218144e2a94a1eb1e"><div class="ttname"><a href="_material_slot_vulkan_8cpp.html#adead74bea72029d218144e2a94a1eb1e">GetDevice</a></div><div class="ttdeci">VkDevice GetDevice()</div><div class="ttdef"><b>Definition:</b> <a href="_material_slot_vulkan_8cpp_source.html#l00022">MaterialSlotVulkan.cpp:22</a></div></div>
+<div class="ttc" id="a_material_slot_vk_8cpp_html_adead74bea72029d218144e2a94a1eb1e"><div class="ttname"><a href="_material_slot_vk_8cpp.html#adead74bea72029d218144e2a94a1eb1e">GetDevice</a></div><div class="ttdeci">VkDevice GetDevice()</div><div class="ttdef"><b>Definition:</b> <a href="_material_slot_vk_8cpp_source.html#l00022">MaterialSlotVk.cpp:22</a></div></div>
 <div class="ttc" id="a_o_s_kengine_8h_html"><div class="ttname"><a href="_o_s_kengine_8h.html">OSKengine.h</a></div></div>
 <div class="ttc" id="a_o_s_kmacros_8h_html_a1acaf9dff8b00604e55d38b35a744a9a"><div class="ttname"><a href="_o_s_kmacros_8h.html#a1acaf9dff8b00604e55d38b35a744a9a">TSize</a></div><div class="ttdeci">unsigned int TSize</div><div class="ttdef"><b>Definition:</b> <a href="_o_s_kmacros_8h_source.html#l00023">OSKmacros.h:23</a></div></div>
 <div class="ttc" id="a_pipeline_create_info_8h_html"><div class="ttname"><a href="_pipeline_create_info_8h.html">PipelineCreateInfo.h</a></div></div>
@@ -393,7 +393,7 @@ $(document).ready(function(){initNavTree('_graphics_pipeline_dx12_8cpp_source.ht
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_fde17fe5c09f5d2327636debe0843594.html">OSKengine2</a></li><li class="navelem"><a class="el" href="_graphics_pipeline_dx12_8cpp.html">GraphicsPipelineDx12.cpp</a></li>
-    <li class="footer">Generado el Viernes, 24 de Febrero de 2023 13:13:17 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4 </li>
+    <li class="footer">Generado el Martes, 14 de Marzo de 2023 14:08:58 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4 </li>
   </ul>
 </div>
 </body>

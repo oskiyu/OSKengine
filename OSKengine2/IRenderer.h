@@ -62,12 +62,16 @@ namespace OSK::GRAPHICS {
 
 		virtual ~IRenderer() = default;
 
-		/// <summary> Inicializa todo el sistema de renderizado. </summary>
-		/// 
-		/// <param name="appName">Nombre de la aplicación / juego.</param>
-		/// <param name="version">Versión de la aplicación / juego.</param>
-		/// <param name="window">Ventana enlazada.</param>
-		virtual void Initialize(const std::string& appName, const Version& version, const IO::IDisplay& display, PresentMode mode) = 0;
+		/// @brief Inicializa todo el sistema de renderizado.
+		/// @param appName Nombre de la aplicación / juego.
+		/// @param version Versión de la aplicación / juego.
+		/// @param display Ventana enlazada (sobre la que se renderizará el juego).
+		/// @param mode Modo de sincronización vertical.
+		virtual void Initialize(
+			const std::string& appName, 
+			const Version& version, 
+			const IO::IDisplay& display, 
+			PresentMode mode) = 0;
 
 		/// <summary> Cierra el renderizador. </summary>
 		/// 
@@ -190,13 +194,22 @@ namespace OSK::GRAPHICS {
 		/// 
 		/// @pre La imagen de destino debe haber sido creada con GpuImageUsage::TRANSFER_DESTINATION.
 		/// @pre La imagen de destino debe tener el layout GpuImageLayout::TRANSFER_DESTINATION.
-		void UploadLayeredImageToGpu(GpuImage* destination, const TByte* data, TSize numBytes, TSize numLayers, ICommandList* cmdList);
+		void UploadLayeredImageToGpu(
+			GpuImage* destination, 
+			const TByte* data, 
+			TSize numBytes, 
+			TSize numLayers, 
+			ICommandList* cmdList);
 
 		/// <summary> Rellena la imagen en la GPU con los datos dados. </summary>
 		/// 
 		/// @pre La imagen de destino debe haber sido creada con GpuImageUsage::TRANSFER_DESTINATION.
 		/// @pre La imagen de destino debe tener el layout GpuImageLayout::TRANSFER_DESTINATION.
-		void UploadImageToGpu(GpuImage* destination, const TByte* data, TSize numBytes, ICommandList* cmdList);
+		void UploadImageToGpu(
+			GpuImage* destination, 
+			const TByte* data, 
+			TSize numBytes, 
+			ICommandList* cmdList);
 
 		/// <summary>
 		/// Rellena la imagen en la GPU con los datos dados.
@@ -204,17 +217,33 @@ namespace OSK::GRAPHICS {
 		/// 
 		/// @pre La imagen de destino debe haber sido creada con GpuImageUsage::TRANSFER_DESTINATION.
 		/// @pre La imagen de destino debe tener el layout GpuImageLayout::TRANSFER_DESTINATION.
-		void UploadCubemapImageToGpu(GpuImage* destination, const TByte* data, TSize numBytes, ICommandList* cmdList);
+		void UploadCubemapImageToGpu(
+			GpuImage* destination, 
+			const TByte* data, 
+			TSize numBytes, 
+			ICommandList* cmdList);
 
 #pragma endregion
 
 #pragma region Factory methods
 
-		virtual OwnedPtr<IGraphicsPipeline> _CreateGraphicsPipeline(const PipelineCreateInfo& pipelineInfo, const MaterialLayout& layout, const VertexInfo& vertexTypeName) = 0;
-		virtual OwnedPtr<IRaytracingPipeline> _CreateRaytracingPipeline(const PipelineCreateInfo& pipelineInfo, const MaterialLayout& layout, const VertexInfo& vertexTypeName) = 0;
-		virtual OwnedPtr<IComputePipeline> _CreateComputePipeline(const PipelineCreateInfo& pipelineInfo, const MaterialLayout& layout) = 0;
+		virtual OwnedPtr<IGraphicsPipeline> _CreateGraphicsPipeline(
+			const PipelineCreateInfo& pipelineInfo, 
+			const MaterialLayout& layout, 
+			const VertexInfo& vertexTypeName) = 0;
 
-		virtual OwnedPtr<IMaterialSlot> _CreateMaterialSlot(const std::string& name, const MaterialLayout& layout) const = 0;
+		virtual OwnedPtr<IRaytracingPipeline> _CreateRaytracingPipeline(
+			const PipelineCreateInfo& pipelineInfo, 
+			const MaterialLayout& layout, 
+			const VertexInfo& vertexTypeName) = 0;
+
+		virtual OwnedPtr<IComputePipeline> _CreateComputePipeline(
+			const PipelineCreateInfo& pipelineInfo, 
+			const MaterialLayout& layout) = 0;
+
+		virtual OwnedPtr<IMaterialSlot> _CreateMaterialSlot(
+			const std::string& name, 
+			const MaterialLayout& layout) const = 0;
 
 		/// <summary> Crea una lista de comandos para un único uso. </summary>
 		OwnedPtr<ICommandList> CreateSingleUseCommandList();

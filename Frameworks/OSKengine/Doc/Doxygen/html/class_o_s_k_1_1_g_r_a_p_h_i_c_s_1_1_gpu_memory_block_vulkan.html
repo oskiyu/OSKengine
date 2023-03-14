@@ -146,6 +146,8 @@ Atributos protegidos</h2></td></tr>
 <tr class="separator:a49883b25223e08eefef3da606eacf367"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2e98cccefbc350a426c8d10d66f58769"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#ae5e58e16d9268fde60c3eae698b225ec">GpuMemoryUsage</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_block.html#a2e98cccefbc350a426c8d10d66f58769">usage</a></td></tr>
 <tr class="separator:a2e98cccefbc350a426c8d10d66f58769"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a29e425423138eea520b859cab15c2235"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#ad8b871b506bab7c4021326a1a10bbc7f">GpuBufferUsage</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_block.html#a29e425423138eea520b859cab15c2235">bufferUsage</a></td></tr>
+<tr class="separator:a29e425423138eea520b859cab15c2235"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac75aa44cce34a964dfe1d6026d4d3c5f"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu.html">IGpu</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_block.html#ac75aa44cce34a964dfe1d6026d4d3c5f">device</a> = nullptr</td></tr>
 <tr class="separator:ac75aa44cce34a964dfe1d6026d4d3c5f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
@@ -538,7 +540,10 @@ Atributos protegidos</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definición en la línea <a class="el" href="_i_gpu_memory_block_8h_source.html#l00071">71</a> del archivo <a class="el" href="_i_gpu_memory_block_8h_source.html">IGpuMemoryBlock.h</a>.</p>
+<p>Comporueba si hay alguna parte del bloque en uso. </p>
+<dl class="section return"><dt>Devuelve</dt><dd>True si no hay ningún subbloque de este bloque en uso. </dd></dl>
+
+<p class="definition">Definición en la línea <a class="el" href="_i_gpu_memory_block_8h_source.html#l00073">73</a> del archivo <a class="el" href="_i_gpu_memory_block_8h_source.html">IGpuMemoryBlock.h</a>.</p>
 
 </div>
 </div>
@@ -626,7 +631,31 @@ Atributos protegidos</h2></td></tr>
 
 <p>Espacio que aún no ha sido usado. </p>
 
-<p class="definition">Definición en la línea <a class="el" href="_i_gpu_memory_block_8h_source.html#l00113">113</a> del archivo <a class="el" href="_i_gpu_memory_block_8h_source.html">IGpuMemoryBlock.h</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_i_gpu_memory_block_8h_source.html#l00115">115</a> del archivo <a class="el" href="_i_gpu_memory_block_8h_source.html">IGpuMemoryBlock.h</a>.</p>
+
+</div>
+</div>
+<a id="a29e425423138eea520b859cab15c2235" name="a29e425423138eea520b859cab15c2235"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a29e425423138eea520b859cab15c2235">&#9670;&nbsp;</a></span>bufferUsage</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#ad8b871b506bab7c4021326a1a10bbc7f">GpuBufferUsage</a> OSK::GRAPHICS::IGpuMemoryBlock::bufferUsage</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definición en la línea <a class="el" href="_i_gpu_memory_block_8h_source.html#l00121">121</a> del archivo <a class="el" href="_i_gpu_memory_block_8h_source.html">IGpuMemoryBlock.h</a>.</p>
 
 </div>
 </div>
@@ -652,7 +681,7 @@ Atributos protegidos</h2></td></tr>
 
 <p>Offset para el próximo subbloque de la zona aún no usada. </p>
 
-<p class="definition">Definición en la línea <a class="el" href="_i_gpu_memory_block_8h_source.html#l00115">115</a> del archivo <a class="el" href="_i_gpu_memory_block_8h_source.html">IGpuMemoryBlock.h</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_i_gpu_memory_block_8h_source.html#l00117">117</a> del archivo <a class="el" href="_i_gpu_memory_block_8h_source.html">IGpuMemoryBlock.h</a>.</p>
 
 </div>
 </div>
@@ -678,7 +707,7 @@ Atributos protegidos</h2></td></tr>
 
 <p>GPU donde reside este bloque. </p>
 
-<p class="definition">Definición en la línea <a class="el" href="_i_gpu_memory_block_8h_source.html#l00121">121</a> del archivo <a class="el" href="_i_gpu_memory_block_8h_source.html">IGpuMemoryBlock.h</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_i_gpu_memory_block_8h_source.html#l00124">124</a> del archivo <a class="el" href="_i_gpu_memory_block_8h_source.html">IGpuMemoryBlock.h</a>.</p>
 
 </div>
 </div>
@@ -704,7 +733,7 @@ Atributos protegidos</h2></td></tr>
 
 <p>Lista con los subbloques reutilizables. </p>
 
-<p class="definition">Definición en la línea <a class="el" href="_i_gpu_memory_block_8h_source.html#l00107">107</a> del archivo <a class="el" href="_i_gpu_memory_block_8h_source.html">IGpuMemoryBlock.h</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_i_gpu_memory_block_8h_source.html#l00109">109</a> del archivo <a class="el" href="_i_gpu_memory_block_8h_source.html">IGpuMemoryBlock.h</a>.</p>
 
 </div>
 </div>
@@ -730,7 +759,7 @@ Atributos protegidos</h2></td></tr>
 
 <p>Referencia a los subbloques activos (en uso). Sirve para poder destruirlos al destruir el bloque. </p>
 
-<p class="definition">Definición en la línea <a class="el" href="_i_gpu_memory_block_8h_source.html#l00104">104</a> del archivo <a class="el" href="_i_gpu_memory_block_8h_source.html">IGpuMemoryBlock.h</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_i_gpu_memory_block_8h_source.html#l00106">106</a> del archivo <a class="el" href="_i_gpu_memory_block_8h_source.html">IGpuMemoryBlock.h</a>.</p>
 
 </div>
 </div>
@@ -756,7 +785,7 @@ Atributos protegidos</h2></td></tr>
 
 <p>Tamaño total del bloque. </p>
 
-<p class="definition">Definición en la línea <a class="el" href="_i_gpu_memory_block_8h_source.html#l00111">111</a> del archivo <a class="el" href="_i_gpu_memory_block_8h_source.html">IGpuMemoryBlock.h</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_i_gpu_memory_block_8h_source.html#l00113">113</a> del archivo <a class="el" href="_i_gpu_memory_block_8h_source.html">IGpuMemoryBlock.h</a>.</p>
 
 </div>
 </div>
@@ -780,7 +809,7 @@ Atributos protegidos</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definición en la línea <a class="el" href="_i_gpu_memory_block_8h_source.html#l00117">117</a> del archivo <a class="el" href="_i_gpu_memory_block_8h_source.html">IGpuMemoryBlock.h</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_i_gpu_memory_block_8h_source.html#l00119">119</a> del archivo <a class="el" href="_i_gpu_memory_block_8h_source.html">IGpuMemoryBlock.h</a>.</p>
 
 </div>
 </div>
@@ -804,7 +833,7 @@ Atributos protegidos</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definición en la línea <a class="el" href="_i_gpu_memory_block_8h_source.html#l00118">118</a> del archivo <a class="el" href="_i_gpu_memory_block_8h_source.html">IGpuMemoryBlock.h</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_i_gpu_memory_block_8h_source.html#l00120">120</a> del archivo <a class="el" href="_i_gpu_memory_block_8h_source.html">IGpuMemoryBlock.h</a>.</p>
 
 </div>
 </div>
@@ -818,7 +847,7 @@ Atributos protegidos</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="namespace_o_s_k.html">OSK</a></li><li class="navelem"><a class="el" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html">GRAPHICS</a></li><li class="navelem"><a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_memory_block_vulkan.html">GpuMemoryBlockVulkan</a></li>
-    <li class="footer">Generado el Viernes, 24 de Febrero de 2023 13:13:18 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4 </li>
+    <li class="footer">Generado el Lunes, 13 de Marzo de 2023 19:19:38 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4 </li>
   </ul>
 </div>
 </body>

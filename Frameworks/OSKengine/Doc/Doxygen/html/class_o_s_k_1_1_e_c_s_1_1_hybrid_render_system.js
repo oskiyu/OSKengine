@@ -14,7 +14,7 @@ var class_o_s_k_1_1_e_c_s_1_1_hybrid_render_system =
     [ "GetShadowsImage", "class_o_s_k_1_1_e_c_s_1_1_hybrid_render_system.html#aeb942906f37e6d82ce04cee37791c43a", null ],
     [ "GetShadowsIntermediateImage", "class_o_s_k_1_1_e_c_s_1_1_hybrid_render_system.html#a00c041464f16c94049662bcb31262cb9", null ],
     [ "GetSignature", "class_o_s_k_1_1_e_c_s_1_1_hybrid_render_system.html#ae112bd30755ef771c25dc2d620fb6295", null ],
-    [ "Initialize", "class_o_s_k_1_1_e_c_s_1_1_hybrid_render_system.html#a608e18b53af3217d9b04d6502e4a3b8d", null ],
+    [ "Initialize", "class_o_s_k_1_1_e_c_s_1_1_hybrid_render_system.html#ae595a72003803e3490283026ce556cf7", null ],
     [ "IsActive", "class_o_s_k_1_1_e_c_s_1_1_hybrid_render_system.html#acdd2816796e17bd727d7ee4d10e11aed", null ],
     [ "OnCreate", "class_o_s_k_1_1_e_c_s_1_1_hybrid_render_system.html#ab99fd447d1c640bcc003dc5713768b6c", null ],
     [ "OnObjectAdded", "class_o_s_k_1_1_e_c_s_1_1_hybrid_render_system.html#af380b55facabf814ca48fef44cae116b", null ],

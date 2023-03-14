@@ -3,7 +3,7 @@
 #include "Logger.h"
 #include "Window.h"
 #include "RendererDx12.h"
-#include "RendererVulkan.h"
+#include "RendererVk.h"
 #include "RenderApiType.h"
 #include "Assert.h"
 #include "AssetManager.h"
@@ -76,7 +76,7 @@ void Engine::Create(GRAPHICS::RenderApiType type) {
 	switch (type) {
 
 	case OSK::GRAPHICS::RenderApiType::VULKAN:
-		renderer = new GRAPHICS::RendererVulkan(requestRayTracing);
+		renderer = new GRAPHICS::RendererVk(requestRayTracing);
 
 		break;
 

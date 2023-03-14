@@ -89,7 +89,7 @@ void main() {
     const float specularRatio = 0.25;
 #else
     const float ambientRatio = 0.45;
-    const float radianceRatio = 1.0;
+    const float radianceRatio = 1.2;
     const float specularRatio = 0.45;
 #endif
 

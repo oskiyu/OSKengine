@@ -1,14 +1,14 @@
 #include "SyncDeviceVulkan.h"
 
 #include <vulkan/vulkan.h>
-#include "GpuVulkan.h"
-#include "SwapchainVulkan.h"
-#include "CommandQueueVulkan.h"
-#include "CommandListVulkan.h"
+#include "GpuVk.h"
+#include "SwapchainVk.h"
+#include "CommandQueueVk.h"
+#include "CommandListVk.h"
 #include "Assert.h"
 #include "OSKengine.h"
-#include "RendererVulkan.h"
-#include "GpuVulkan.h"
+#include "RendererVk.h"
+#include "GpuVk.h"
 
 #include "Logger.h"
 
@@ -22,7 +22,7 @@ SyncDeviceVulkan::SyncDeviceVulkan() {
 SyncDeviceVulkan::~SyncDeviceVulkan() {
 	for (TSize i = 0; i < imageAvailableSemaphores.GetSize(); i++) {
 		if (imageAvailableSemaphores[i] != VK_NULL_HANDLE) {
-			vkDestroySemaphore(Engine::GetRenderer()->As<RendererVulkan>()->GetGpu()->As<GpuVulkan>()->GetLogicalDevice(),
+			vkDestroySemaphore(Engine::GetRenderer()->As<RendererVk>()->GetGpu()->As<GpuVk>()->GetLogicalDevice(),
 				imageAvailableSemaphores[i], nullptr);
 			imageAvailableSemaphores[i] = VK_NULL_HANDLE;
 		}
@@ -30,7 +30,7 @@ SyncDeviceVulkan::~SyncDeviceVulkan() {
 
 	for (TSize i = 0; i < renderFinishedSemaphores.GetSize(); i++) {
 		if (renderFinishedSemaphores[i] != VK_NULL_HANDLE) {
-			vkDestroySemaphore(Engine::GetRenderer()->As<RendererVulkan>()->GetGpu()->As<GpuVulkan>()->GetLogicalDevice(),
+			vkDestroySemaphore(Engine::GetRenderer()->As<RendererVk>()->GetGpu()->As<GpuVk>()->GetLogicalDevice(),
 				renderFinishedSemaphores[i], nullptr);
 			renderFinishedSemaphores[i] = VK_NULL_HANDLE;
 		}
@@ -38,7 +38,7 @@ SyncDeviceVulkan::~SyncDeviceVulkan() {
 
 	for (TSize i = 0; i < inFlightFences.GetSize(); i++) {
 		if (inFlightFences[i] != VK_NULL_HANDLE) {
-			vkDestroyFence(Engine::GetRenderer()->As<RendererVulkan>()->GetGpu()->As<GpuVulkan>()->GetLogicalDevice(),
+			vkDestroyFence(Engine::GetRenderer()->As<RendererVk>()->GetGpu()->As<GpuVk>()->GetLogicalDevice(),
 				inFlightFences[i], nullptr);
 			inFlightFences[i] = VK_NULL_HANDLE;
 		}
@@ -67,12 +67,12 @@ void SyncDeviceVulkan::SetImagesInFlightFences(const DynamicArray<VkFence>& fenc
 	imagesInFlight = { 0, 0, 0 };
 }
 
-void SyncDeviceVulkan::SetDevice(const GpuVulkan& device) {
+void SyncDeviceVulkan::SetDevice(const GpuVk& device) {
 	this->device = &device;
 }
 
-void SyncDeviceVulkan::SetSwapchain(const SwapchainVulkan& swapchain) {
-	this->swapchain = const_cast<SwapchainVulkan*>(&swapchain);
+void SyncDeviceVulkan::SetSwapchain(const SwapchainVk& swapchain) {
+	this->swapchain = const_cast<SwapchainVk*>(&swapchain);
 }
 
 void SyncDeviceVulkan::FirstAwait() {
@@ -95,7 +95,7 @@ bool SyncDeviceVulkan::UpdateCurrentFrameIndex() {
 	return false;
 }
 
-void SyncDeviceVulkan::Flush(const CommandQueueVulkan& graphicsQueue, const CommandQueueVulkan& presentQueue, const CommandListVulkan& commandList) {
+void SyncDeviceVulkan::Flush(const CommandQueueVk& graphicsQueue, const CommandQueueVk& presentQueue, const CommandListVk& commandList) {
 
 	//Esperar a que la imagen esté disponible antes de renderizar.
 	const VkPipelineStageFlags waitStages[] = { VK_PIPELINE_STAGE_COLOR_ATTACHMENT_OUTPUT_BIT };
@@ -150,7 +150,7 @@ void SyncDeviceVulkan::Flush(const CommandQueueVulkan& graphicsQueue, const Comm
 		/// @todo vkWaitForSemaphores
 
 		swapchain->Resize();
-		Engine::GetRenderer()->As<RendererVulkan>()->HandleResize();
+		Engine::GetRenderer()->As<RendererVk>()->HandleResize();
 	}
 
 	currentFrame = (currentFrame + 1) % swapchain->GetImageCount();

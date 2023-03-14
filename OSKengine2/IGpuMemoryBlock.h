@@ -68,7 +68,9 @@ namespace OSK::GRAPHICS {
 		/// @return Gpu en la que reside el bloque.
 		inline IGpu* GetGpu() const { return device; }
 
-		bool IsUnused() const { return subblocks .IsEmpty(); }
+		/// @brief Comporueba si hay alguna parte del bloque en uso.
+		/// @return True si no hay ningún subbloque de este bloque en uso.
+		inline bool IsUnused() const { return subblocks.IsEmpty(); }
 
 	protected:
 
@@ -116,6 +118,7 @@ namespace OSK::GRAPHICS {
 
 		GpuSharedMemoryType type;
 		GpuMemoryUsage usage;
+		GpuBufferUsage bufferUsage;
 
 		/// @brief GPU donde reside este bloque.
 		IGpu* device = nullptr;

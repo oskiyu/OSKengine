@@ -1,6 +1,6 @@
 #include "Format.h"
 #include "FormatDx12.h"
-#include "FormatVulkan.h"
+#include "FormatVk.h"
 
 #include "Assert.h"
 
@@ -45,7 +45,7 @@ DXGI_FORMAT OSK::GRAPHICS::GetFormatDx12(Format format) {
 	return DXGI_FORMAT_UNKNOWN;
 }
 
-VkFormat OSK::GRAPHICS::GetFormatVulkan(Format format) {
+VkFormat OSK::GRAPHICS::GetFormatVk(Format format) {
 	switch (format) {
 
 	case Format::RGBA8_UNORM:
@@ -79,7 +79,7 @@ VkFormat OSK::GRAPHICS::GetFormatVulkan(Format format) {
 		return VK_FORMAT_D24_UNORM_S8_UINT;
 	}
 
-	OSK_ASSERT(false, "El formato " + ToString<Format>(format) + " no está registrado en OSK::GRAPHICS::GetFormatVulkan.");
+	OSK_ASSERT(false, "El formato " + ToString<Format>(format) + " no está registrado en OSK::GRAPHICS::GetFormatVk.");
 	return VK_FORMAT_UNDEFINED;
 }
 

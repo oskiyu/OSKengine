@@ -5,6 +5,6 @@ var searchData=
   ['bloompass_2eh_2',['BloomPass.h',['../_bloom_pass_8h.html',1,'']]],
   ['bone_2ecpp_3',['Bone.cpp',['../_bone_8cpp.html',1,'']]],
   ['bone_2eh_4',['Bone.h',['../_bone_8h.html',1,'']]],
-  ['bottomlevelaccelerationstructurevulkan_2ecpp_5',['BottomLevelAccelerationStructureVulkan.cpp',['../_bottom_level_acceleration_structure_vulkan_8cpp.html',1,'']]],
-  ['bottomlevelaccelerationstructurevulkan_2eh_6',['BottomLevelAccelerationStructureVulkan.h',['../_bottom_level_acceleration_structure_vulkan_8h.html',1,'']]]
+  ['bottomlevelaccelerationstructurevk_2ecpp_5',['BottomLevelAccelerationStructureVk.cpp',['../_bottom_level_acceleration_structure_vk_8cpp.html',1,'']]],
+  ['bottomlevelaccelerationstructurevk_2eh_6',['BottomLevelAccelerationStructureVk.h',['../_bottom_level_acceleration_structure_vk_8h.html',1,'']]]
 ];

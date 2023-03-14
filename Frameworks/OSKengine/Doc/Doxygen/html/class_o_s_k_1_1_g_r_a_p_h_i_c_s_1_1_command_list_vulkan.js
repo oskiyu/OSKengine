@@ -10,7 +10,7 @@ var class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_list_vulkan =
     [ "BindMaterialSlot", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_list_vulkan.html#a678648c82c2ff474e674a99adc63dc8d", null ],
     [ "BindVertexBuffer", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_list_vulkan.html#a603b57e9ec577b635dbc812145f65077", null ],
     [ "Close", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_list_vulkan.html#ae5c82554679405d3fa3c0548ba6b756a", null ],
-    [ "CopyBuffer", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_list_vulkan.html#a355ea57e028efa6a22e2d52b54701c86", null ],
+    [ "CopyBufferToBuffer", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_list_vulkan.html#ab079cfd23915aef2ab8d1b7c6e046e8b", null ],
     [ "CopyBufferToImage", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_list_vulkan.html#af8d183b4f6ba4658afb4ff5aaf75572e", null ],
     [ "CopyImageToImage", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_list_vulkan.html#a5acd3a3c6006cdae8c23a77d582aa39a", null ],
     [ "DeleteAllStagingBuffers", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_list_vulkan.html#ab7109911a37fcb344856f013eab554da", null ],
