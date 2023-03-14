@@ -7,7 +7,6 @@
 
 # Main features & design philosophy
 
-The main features can be checked in [my website](https://oskiyu.github.io/). Some key features include:
 - ECS architecture.
 - Low-level, API agnostic rendering access.
 - *Forward* & *deferred* PBR render systems, with:
