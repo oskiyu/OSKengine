@@ -2,44 +2,15 @@
 
 #include "OSKmacros.h"
 #include "GpuImageUsage.h"
+#include "GpuImageViewConfig.h"
 
 namespace OSK::GRAPHICS {
 
-	/// <summary>
-	/// Representa el uso que se le va a dar a la imagen
-	/// al acceder a traves de un view dado.
-	/// </summary>
-	enum class ViewUsage {
+	class GpuImage;
+	
 
-		/// <summary>
-		/// Read-only en el fragment shader.
-		/// </summary>
-		SAMPLED,
-
-		/// <summary>
-		/// Se renderizará una imagen al canal de color
-		/// usando un graphics pipeline.
-		/// </summary>
-		COLOR_TARGET,
-
-		/// <summary>Se renderizará una imagen al canal de profundidad
-		/// usando un graphics pipeline.
-		/// </summary>
-		DEPTH_STENCIL_TARGET,
-
-		/// <summary>
-		/// Uso como read-write en shaders de computación y
-		/// ray-tracing.
-		/// </summary>
-		STORAGE
-
-	};
-
-
-	/// <summary>
-	/// Un image view describe cómo y a qúe parte de una imagen
+	/// @brief Un image view describe cómo y a qúe parte de una imagen
 	/// se va a acceder al usarla.
-	/// </summary>
 	class OSKAPI_CALL IGpuImageView {
 
 	public:
@@ -47,33 +18,32 @@ namespace OSK::GRAPHICS {
 		virtual ~IGpuImageView() = default;
 
 		/// @brief Crea un image view.
-		/// @param channel Canal de la imagen accedido por el view.
-		/// @param arrayType Configura si es una única imagen o si el view afecta a todo un array.
-		/// @param baseArrayLevel Capa base representada.
-		/// @param layerCount Número de capas representadas (si @p arrayType es SampledArrayType::ARRAY).
-		/// @param usage Uso del view.
+		/// @param originalImage Imagen a partir de la que se obtuvo el view.
+		/// @param config Configuración del view.
 		/// 
-		/// @pre Si @p layerCount > 1, entonces @p arrayType debe ser SampledArrayType::ARRAY
-		/// @pre @p layerCount != 0.
+		/// @pre Si @p config.arrayLayerCount > 1, entonces @p arrayType debe ser SampledArrayType::ARRAY
+		/// @pre @p config.arrayLayerCount != 0.
 		IGpuImageView(
-			SampledChannel channel, 
-			SampledArrayType arrayType, 
-			TSize baseArrayLevel, 
-			TSize layerCount, 
-			ViewUsage usage);
+			const GpuImage& originalImage,
+			const GpuImageViewConfig& config);
 
 		OSK_DEFINE_AS(IGpuImageView);
 
-		/// <summary>
-		/// Devuelve el canal al que se va a acceder a través
+		
+		/// @brief Devuelve el canal al que se va a acceder a través
 		/// de este view.
-		/// </summary>
+		/// Puede incluir varios canales al mismo tiempo.
+		/// @return Canal(es) de la imagen accedidos.
+		/// 
+		/// @deprecated Acceder a través de GetConfig().
 		SampledChannel GetChannel() const;
 
 		/// <summary>
 		/// Permite saber si este view consiste en una única capa
 		/// o referencia varias capas en un array.
 		/// </summary>
+		/// 
+		/// @deprecated Acceder a través de GetConfig().
 		SampledArrayType GetArrayType() const;
 
 		/// <summary>
@@ -81,6 +51,8 @@ namespace OSK::GRAPHICS {
 		/// (o de la única capa si GetArrayType() es
 		/// SampledArrayType::SINGLE_LAYER.
 		/// </summary>
+		/// 
+		/// @deprecated Acceder a través de GetConfig().
 		TSize GetBaseArrayLevel() const;
 
 		/// <summary>
@@ -90,32 +62,42 @@ namespace OSK::GRAPHICS {
 		/// @note Si GetArrayType() es
 		/// SampledArrayType::SINGLE_LAYER,
 		/// devolverá 1.
+		/// 
+		/// @deprecated Acceder a través de GetConfig().
 		TSize GetLayerCount() const;
 
 		/// <summary>
 		/// Contexto en el que se va a usar la imagen.
 		/// </summary>
+		/// 
+		/// @deprecated Acceder a través de GetConfig().
 		ViewUsage GetViewUsage() const;
 
-		bool operator==(const IGpuImageView& other) const;
+		/// @return Mip level más detallado.
+		/// 
+		/// @deprecated Acceder a través de GetConfig().
+		inline TIndex GetBaseMipLevel() const { return config.baseMipLevel; }
+
+		/// @return Mip level menos detallado.
+		/// 
+		/// @deprecated Acceder a través de GetConfig().
+		inline TIndex GetTopMipLevel() const { return config.topMipLevel; }
+
+		/// @return Configuración completa del view.
+		inline const GpuImageViewConfig& GetConfig() const { return config; }
+
+		/// @brief Devuelve la imagen a partir de la que se creó el view.
+		/// @return Imagen accedida por el view.
+		/// 
+		/// @pre La imagen a partir de la que se creó el view debe tener estabilidad de puntero.
+		inline const GpuImage& GetImage() const { return *originalImage;  }
 
 	private:
 
-		SampledChannel channel = SampledChannel::COLOR;
-		SampledArrayType arrayType = SampledArrayType::ARRAY;
+		GpuImageViewConfig config{};
 
-		TSize baseArrayLevel = 0;
-		TSize layerCount = 0;
-
-		ViewUsage usage = ViewUsage::SAMPLED;
+		const GpuImage* originalImage;
 
 	};
 
 }
-
-template<> struct std::hash<OSK::GRAPHICS::IGpuImageView> {
-	std::size_t operator()(const OSK::GRAPHICS::IGpuImageView& view) const {
-		return std::hash<std::size_t>()((std::size_t)(view.GetArrayType()));
-		// @todo improve
-	}
-};

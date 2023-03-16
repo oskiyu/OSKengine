@@ -1,5 +1,7 @@
 #include "Data.h"
 
+#include "Assert.h"
+
 using namespace OSK;
 using namespace OSK::PERSISTENCE;
 

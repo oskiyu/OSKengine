@@ -3,8 +3,8 @@
 
 layout(location = 0) in vec3 inPosition;
 
-layout(location = 4) in vec4 inBoneIndices;
-layout(location = 5) in vec4 inBoneWeights;
+layout(location = 5) in vec4 inBoneIndices;
+layout(location = 6) in vec4 inBoneWeights;
 
 layout (set = 0, binding = 0) uniform DirLight {
     mat4[4] matrix;

@@ -13,7 +13,7 @@
 namespace OSK::GRAPHICS {
 
 	class Skeleton;
-	class AnimationSkin;
+	struct AnimationSkin;
 
 	/// <summary> Hueso de la animación. </summary>
 	typedef struct MeshNode {

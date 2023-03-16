@@ -56,7 +56,11 @@ RenderSystem3D::RenderSystem3D() {// Signature del sistema
 	const IGpuUniformBuffer* _cameraUbos[NUM_RESOURCES_IN_FLIGHT]{};
 	const IGpuUniformBuffer* _dirLightUbos[NUM_RESOURCES_IN_FLIGHT]{};
 	const IGpuUniformBuffer* _shadowsMatricesUbos[NUM_RESOURCES_IN_FLIGHT]{};
-	const GpuImage* _shadowsMaps[NUM_RESOURCES_IN_FLIGHT]{};
+	const IGpuImageView* _shadowsMaps[NUM_RESOURCES_IN_FLIGHT]{};
+
+	GpuImageViewConfig shadowsViewConfig = GpuImageViewConfig::CreateSampled_Array(0, shadowMap.GetNumCascades());
+	shadowsViewConfig.channel = SampledChannel::DEPTH;
+
 	for (TSize i = 0; i < NUM_RESOURCES_IN_FLIGHT; i++) {
 		cameraUbos[i] = Engine::GetRenderer()->GetAllocator()->CreateUniformBuffer(sizeof(glm::mat4) * 2 + sizeof(glm::vec4)).GetPointer();
 		_cameraUbos[i] = cameraUbos[i].GetPointer();
@@ -65,24 +69,27 @@ RenderSystem3D::RenderSystem3D() {// Signature del sistema
 		_dirLightUbos[i] = dirLightUbos[i].GetPointer();
 
 		_shadowsMatricesUbos[i] = shadowMap.GetDirLightMatrixUniformBuffers()[i];
-		_shadowsMaps[i] = shadowMap.GetShadowImage(i);
+		_shadowsMaps[i] = shadowMap.GetShadowImage(i)->GetView(shadowsViewConfig);
 	}
 
 	sceneMaterialInstance->GetSlot("global")->SetUniformBuffers("camera", _cameraUbos);
 	sceneMaterialInstance->GetSlot("global")->SetUniformBuffers("dirLight", _dirLightUbos);
 	sceneMaterialInstance->GetSlot("global")->SetUniformBuffers("dirLightShadowMat", _shadowsMatricesUbos);
-	sceneMaterialInstance->GetSlot("global")->SetGpuImages("dirLightShadowMap", _shadowsMaps, SampledChannel::DEPTH, SampledArrayType::ARRAY);
+	sceneMaterialInstance->GetSlot("global")->SetGpuImages("dirLightShadowMap", _shadowsMaps);
 }
 
 void RenderSystem3D::Initialize(GameObjectIndex camera, const IrradianceMap& irradianceMap, const SpecularMap& specularMap) {
 	cameraObject = camera;
 
-	sceneMaterialInstance->GetSlot("global")->SetGpuImage("irradianceMap", irradianceMap.GetGpuImage());
-	sceneMaterialInstance->GetSlot("global")->SetGpuImage("specularMap", specularMap.GetCubemapImage());
-	sceneMaterialInstance->GetSlot("global")->SetGpuImage("specularLut", specularMap.GetLookUpTable());
+	const GpuImageViewConfig viewConfig = GpuImageViewConfig::CreateSampled_Default();
+	const GpuImageViewConfig cubemapView = GpuImageViewConfig::CreateSampled_Cubemap();
+
+	sceneMaterialInstance->GetSlot("global")->SetGpuImage("irradianceMap", irradianceMap.GetGpuImage()->GetView(cubemapView));
+	sceneMaterialInstance->GetSlot("global")->SetGpuImage("specularMap", specularMap.GetCubemapImage()->GetView(cubemapView));
+	sceneMaterialInstance->GetSlot("global")->SetGpuImage("specularLut", specularMap.GetLookUpTable()->GetView(viewConfig));
 	sceneMaterialInstance->GetSlot("global")->FlushUpdate();
 
-	terrain.GetMaterialInstance()->GetSlot("global")->SetGpuImage("irradianceMap", irradianceMap.GetGpuImage());
+	terrain.GetMaterialInstance()->GetSlot("global")->SetGpuImage("irradianceMap", irradianceMap.GetGpuImage()->GetView(cubemapView));
 	//terrain.GetMaterialInstance()->GetSlot("global")->SetGpuImage("specularMap", specularMap.GetGpuImage());
 	terrain.GetMaterialInstance()->GetSlot("global")->FlushUpdate();
 
@@ -92,7 +99,8 @@ void RenderSystem3D::Initialize(GameObjectIndex camera, const IrradianceMap& irr
 void RenderSystem3D::InitializeTerrain(const Vector2ui& resolution, const Texture& heightMap, const Texture& texture) {
 	terrain.Generate(resolution);
 
-	terrain.GetMaterialInstance()->GetSlot("global")->SetGpuImage("heightmap", heightMap.GetGpuImage());
+	const GpuImageViewConfig viewConfig = GpuImageViewConfig::CreateSampled_MipLevelRanged(0, 0);
+	terrain.GetMaterialInstance()->GetSlot("global")->SetGpuImage("heightmap", heightMap.GetGpuImage()->GetView(viewConfig));
 
 	const IGpuUniformBuffer* ubos[3]{};
 	for (TSize i = 0; i < 3; i++) ubos[i] = cameraUbos[i].GetPointer();
@@ -104,12 +112,20 @@ void RenderSystem3D::InitializeTerrain(const Vector2ui& resolution, const Textur
 	for (TSize i = 0; i < 3; i++) ubos[i] = shadowMap.GetDirLightMatrixUniformBuffers()[i];
 	terrain.GetMaterialInstance()->GetSlot("global")->SetUniformBuffers("dirLightShadowMat", ubos);
 
-	const GpuImage* shadowMaps[3]{ shadowMap.GetShadowImage(0), shadowMap.GetShadowImage(1), shadowMap.GetShadowImage(2) };
-	terrain.GetMaterialInstance()->GetSlot("global")->SetGpuImages("dirLightShadowMap", shadowMaps, SampledChannel::DEPTH, SampledArrayType::ARRAY);
+	GpuImageViewConfig shadowsViewConfig = GpuImageViewConfig::CreateSampled_Array(0, shadowMap.GetNumCascades());
+	shadowsViewConfig.channel = SampledChannel::DEPTH;
+
+	const IGpuImageView* shadowMaps[3] { 
+		shadowMap.GetShadowImage(0)->GetView(shadowsViewConfig), 
+		shadowMap.GetShadowImage(1)->GetView(shadowsViewConfig), 
+		shadowMap.GetShadowImage(2)->GetView(shadowsViewConfig) 
+	};
+
+	terrain.GetMaterialInstance()->GetSlot("global")->SetGpuImages("dirLightShadowMap", shadowMaps);
 	terrain.GetMaterialInstance()->GetSlot("global")->FlushUpdate();
 
 	// Albedo
-	terrain.GetMaterialInstance()->GetSlot("texture")->SetGpuImage("albedoTexture", texture.GetGpuImage());
+	terrain.GetMaterialInstance()->GetSlot("texture")->SetGpuImage("albedoTexture", texture.GetGpuImage()->GetView(GpuImageViewConfig::CreateSampled_Default()));
 	terrain.GetMaterialInstance()->GetSlot("texture")->FlushUpdate();
 }
 
@@ -130,7 +146,7 @@ ShadowMap* RenderSystem3D::GetShadowMap() {
 void RenderSystem3D::GenerateShadows(ICommandList* commandList, ModelType modelType) {
 	const TSize resourceIndex = Engine::GetRenderer()->GetCurrentResourceIndex();
 	const Viewport viewport {
-		.rectangle = { 0u, 0u, shadowMap.GetColorImage(0)->GetSize().X, shadowMap.GetColorImage(0)->GetSize().Y }
+		.rectangle = { 0u, 0u, shadowMap.GetColorImage(0)->GetSize2D().X, shadowMap.GetColorImage(0)->GetSize2D().Y }
 	};
 
 	commandList->StartDebugSection("Shadows", Color::BLACK());

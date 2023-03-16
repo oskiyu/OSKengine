@@ -133,8 +133,8 @@ void SwapchainDx12::CreateImages(const IO::IDisplay& display) {
             D3D12_RESOURCE_DESC depthResourceDesc{};
             depthResourceDesc.Dimension = D3D12_RESOURCE_DIMENSION_TEXTURE2D;
             depthResourceDesc.Alignment = 0;
-            depthResourceDesc.Width = depthImages[i]->GetSize().X;
-            depthResourceDesc.Height = depthImages[i]->GetSize().Y;
+            depthResourceDesc.Width = depthImages[i]->GetSize2D().X;
+            depthResourceDesc.Height = depthImages[i]->GetSize2D().Y;
             depthResourceDesc.DepthOrArraySize = 1;
             depthResourceDesc.SampleDesc.Count = 1;
             depthResourceDesc.SampleDesc.Quality = 0;

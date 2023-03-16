@@ -28,6 +28,7 @@
 #include "GpuImageViewDx12.h"
 #include "PipelineLayoutDx12.h"
 #include "GpuStorageBufferDx12.h"
+#include "IGpuImageView.h"
 
 using namespace OSK;
 using namespace OSK::GRAPHICS;
@@ -92,7 +93,7 @@ void CommandListDx12::CopyBufferToImage(const GpuDataBuffer* source, GpuImage* d
 	copySource.pResource = source->GetMemorySubblock()->As<GpuMemorySubblockDx12>()->GetResource();
 	copySource.PlacedFootprint.Footprint.Depth = 1;
 	copySource.PlacedFootprint.Footprint.Format = GetFormatDx12(dest->GetFormat());
-	copySource.PlacedFootprint.Footprint.Width = dest->GetSize().X;
+	copySource.PlacedFootprint.Footprint.Width = dest->GetSize3D().X;
 	copySource.PlacedFootprint.Footprint.Height = dest->GetPhysicalSize().Y;
 	copySource.PlacedFootprint.Footprint.RowPitch = dest->GetPhysicalSize().X * GetFormatNumberOfBytes(dest->GetFormat());
 	copySource.PlacedFootprint.Offset = offset;
@@ -144,11 +145,17 @@ void CommandListDx12::BeginGraphicsRenderpass(DynamicArray<RenderPassImageInfo> 
 			Engine::GetRenderer()->As<RendererDx12>()->GetGpu()->As<GpuDx12>()->GetDevice()->GetDescriptorHandleIncrementSize(D3D12_DESCRIPTOR_HEAP_TYPE_DSV);
 	}
 	else {
-		for (const auto& [image, layer] : colorImages)
-			colorAttachments.Insert(image->GetView(SampledChannel::COLOR, SampledArrayType::SINGLE_LAYER, layer, 1, ViewUsage::COLOR_TARGET)
-				->As<GpuImageViewDx12>()->GetCpuAddress());
+		GpuImageViewConfig colorView = GpuImageViewConfig::CreateTarget_Color();
+		GpuImageViewConfig depthView = GpuImageViewConfig::CreateTarget_DepthStencil();
+		depthView.baseArrayLevel = depthImage.arrayLevel;
 
-		depthStencilDesc = depthImage.targetImage->GetView(SampledChannel::DEPTH | SampledChannel::STENCIL, SampledArrayType::SINGLE_LAYER, depthImage.arrayLevel, 1, ViewUsage::DEPTH_STENCIL_TARGET)
+		for (const auto& [image, layer] : colorImages) {
+			colorView.baseArrayLevel = layer;
+			colorAttachments.Insert(image->GetView(colorView)
+				->As<GpuImageViewDx12>()->GetCpuAddress());
+		}
+
+		depthStencilDesc = depthImage.targetImage->GetView(depthView)
 			->As<GpuImageViewDx12>()->GetCpuAddress();
 	}
 
@@ -294,7 +301,8 @@ void CommandListDx12::BindMaterialSlot(const IMaterialSlot* slot) {
 
 	for (const auto& [index, image] : slot->As<MaterialSlotDx12>()->GetGpuImages()) {
 		if (image != nullptr) {
-			const GpuImageViewDx12* view = image->GetView(SampledChannel::COLOR, SampledArrayType::SINGLE_LAYER, 0, 1, ViewUsage::SAMPLED)->As<GpuImageViewDx12>();
+			const auto viewConfig = GpuImageViewConfig::CreateSampled_SingleMipLevel(0);
+			const GpuImageViewDx12* view = image->GetView(viewConfig)->As<GpuImageViewDx12>();
 
 			ID3D12DescriptorHeap* heaps[] = { view->GetDescriptorHeap() };
 

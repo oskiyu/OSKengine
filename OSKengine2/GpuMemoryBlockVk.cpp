@@ -76,7 +76,9 @@ OwnedPtr<IGpuMemorySubblock> GpuMemoryBlockVk::CreateNewMemorySubblock(TSize siz
 }
 
 GpuMemoryBlockVk::GpuMemoryBlockVk(GpuImage* image, IGpu* device, GpuImageUsage imageUsage, GpuSharedMemoryType type)
-	: IGpuMemoryBlock(GetFormatNumberOfBytes(image->GetFormat()) * image->GetSize().X * image->GetSize().Y, device, type, GpuMemoryUsage::IMAGE) {
+	: IGpuMemoryBlock(
+		GetFormatNumberOfBytes(image->GetFormat()) * image->GetSize2D().X * image->GetSize2D().Y, 
+		device, type, GpuMemoryUsage::IMAGE) {
 	
 	VkMemoryRequirements memRequirements{};
 	vkGetImageMemoryRequirements(device->As<GpuVk>()->GetLogicalDevice(), image->As<GpuImageVk>()->GetVkImage(), &memRequirements);

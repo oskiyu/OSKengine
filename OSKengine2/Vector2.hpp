@@ -15,9 +15,8 @@ namespace OSK {
 		/// <summary>
 		/// Crea un vector 2D nulo { 0, 0 }.
 		/// </summary>
-		Vector2_t() {
-			X = 0;
-			Y = 0;
+		Vector2_t() : X(0), Y(0) {
+
 		}
 
 		/// <summary>
@@ -25,27 +24,24 @@ namespace OSK {
 		/// </summary>
 		/// <param name="x">X.</param>
 		/// <param name="y">Y.</param>
-		Vector2_t(const T& x, const T& y) {
-			X = x;
-			Y = y;
+		Vector2_t(const T& x, const T& y) : X(x), Y(y)  {
+
 		}
 
 		/// <summary>
 		/// Crea una instancia del Vector2 en la que X e Y tienen en mismo valor.
 		/// </summary>
 		/// <param name="value">X e Y.</param>
-		Vector2_t(const T& value) {
-			X = value;
-			Y = value;
+		Vector2_t(const T& value) : X(value), Y(value) {
+
 		}
 
 		/// <summary>
 		/// Crea un vector 2D con los parámetros de vec.
 		/// </summary>
 		/// <param name="vec">Copia el vetor.</param>
-		Vector2_t(const glm::vec2& vec) {
-			X = vec.x;
-			Y = vec.y;
+		Vector2_t(const glm::vec2& vec) : X(vec.x), Y(vec.y) {
+
 		}
 
 		/// <summary>

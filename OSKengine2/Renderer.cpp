@@ -50,6 +50,12 @@ IGpu* IRenderer::GetGpu() const {
 }
 
 void IRenderer::UploadLayeredImageToGpu(GpuImage* destination, const TByte* data, TSize numBytes, TSize numLayers, ICommandList* cmdList) {
+	OSK_ASSERT(numLayers > 0, "El número de capas debe ser > 0.");
+	OSK_ASSUME(numLayers > 0);
+
+	OSK_ASSERT(numBytes > 0, "El número de bytes debe ser > 0.");
+	OSK_ASSUME(numLayers > 0);
+
 	TSize gpuNumBytes = destination->GetPhysicalNumberOfBytes() * numLayers;
 
 	const TByte* uploadableData = data;
@@ -114,7 +120,7 @@ void IRenderer::CreateMainRenderpass() {
 	RenderTargetAttachmentInfo colorInfo{ .format = swapchain->GetColorFormat(), .name = "Final Color Target" };
 	RenderTargetAttachmentInfo depthInfo{ .format = Format::D32S8_SFLOAT_SUINT, .name = "Final Depth Target" };
 	finalRenderTarget = new RenderTarget;
-	finalRenderTarget->CreateAsFinal({ swapchain->GetImage(0)->GetSize().X, swapchain->GetImage(0)->GetSize().Y },
+	finalRenderTarget->CreateAsFinal(swapchain->GetImage(0)->GetSize2D(),
 		{ colorInfo }, depthInfo);
 }
 

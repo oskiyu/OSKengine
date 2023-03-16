@@ -3,8 +3,8 @@
 using namespace OSK;
 using namespace OSK::GRAPHICS;
 
-GpuImageViewDx12::GpuImageViewDx12(DescriptorDx12 descriptor, SampledChannel channel, SampledArrayType arrayType, TSize baseArrayLevel, TSize layerCount, ViewUsage usage)
-	: IGpuImageView(channel, arrayType, baseArrayLevel, layerCount, usage), descriptor(descriptor) {
+GpuImageViewDx12::GpuImageViewDx12(const GpuImage* img, DescriptorDx12 descriptor, const GpuImageViewConfig& config)
+	: IGpuImageView(*img, config), descriptor(descriptor) {
 
 }
 

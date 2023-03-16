@@ -43,17 +43,28 @@ void GpuImage::SetBlock(OwnedPtr<IGpuMemoryBlock> block) {
 	buffer = block->GetNextMemorySubblock(block->GetAllocatedSize(), 0);
 }
 
-void GpuImage::SetData(const void* data, TSize size) {
-	buffer->MapMemory();
-	buffer->Write(data, size);
-	buffer->Unmap();
-}
-
 void GpuImage::_SetPhysicalSize(const Vector3ui& size) {
 	physicalSize = size;
 }
 
-Vector3ui GpuImage::GetSize() const {
+Vector3ui GpuImage::GetSize3D() const {
+	return size;
+}
+
+Vector2ui GpuImage::GetSize2D() const {
+	return { size.X, size.Y };
+}
+
+TSize GpuImage::GetSize1D() const {
+	return size.X;
+}
+
+Vector2ui GpuImage::GetMipLevelSize2D(TIndex mipLevel) const {
+	Vector2ui size = GetSize2D();
+
+	for (TIndex i = 0; i < mipLevel; i++)
+		size /= 2;
+
 	return size;
 }
 
@@ -117,13 +128,12 @@ TSize GpuImage::GetNumSamples() const {
 	return numSamples;
 }
 
-IGpuImageView* GpuImage::GetView(SampledChannel channel, SampledArrayType arrayType, TSize baseArrayLevel, TSize layerCount, ViewUsage usage) const {
-	
-	if (views.HasValue(IGpuImageView(channel, arrayType, baseArrayLevel, layerCount, usage)))
-		return views.Get(IGpuImageView(channel, arrayType, baseArrayLevel, layerCount, usage)).GetPointer();
+IGpuImageView* GpuImage::GetView(const GpuImageViewConfig& viewConfig) const {
+	if (views.HasValue(viewConfig))
+		return views.Get(viewConfig).GetPointer();
 
-	OwnedPtr<IGpuImageView> view = CreateView(channel, arrayType, baseArrayLevel, layerCount, usage);
-	views.Insert(IGpuImageView(channel, arrayType, baseArrayLevel, layerCount, usage), view.GetPointer());
+	OwnedPtr<IGpuImageView> view = CreateView(viewConfig);
+	views.Insert(viewConfig, view.GetPointer());
 
 	return view.GetPointer();
 }

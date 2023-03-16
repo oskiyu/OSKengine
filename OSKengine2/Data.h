@@ -6,6 +6,8 @@
 #include "UniquePtr.hpp"
 #include "HashMap.hpp"
 
+#include <string>
+
 namespace OSK::PERSISTENCE {
 
 	/// @brief Nodo del árbol de persistencia.

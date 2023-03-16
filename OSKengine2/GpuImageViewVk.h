@@ -11,12 +11,9 @@ namespace OSK::GRAPHICS {
 	public:
 
 		GpuImageViewVk(
-			VkImageView view, 
-			SampledChannel channel, 
-			SampledArrayType arrayType, 
-			TSize baseArrayLevel, 
-			TSize layerCount, 
-			ViewUsage usage);
+			VkImageView view,
+			const GpuImage& image,
+			const GpuImageViewConfig& config);
 
 		~GpuImageViewVk();
 

@@ -7,9 +7,6 @@ layout (local_size_x = LOCAL_SIZE_X, local_size_y = LOCAL_SIZE_Y, local_size_z =
 layout (set = 0, binding = 0) uniform sampler2D inputImg;
 layout (set = 0, binding = 1, FORMAT) uniform image2D outputImg;
 
-layout (push_constant) uniform Info {
-    vec4 infos;
-} info;
 
 shared vec4 sharedMemory[LOCAL_SIZE_X + 2 + 2][LOCAL_SIZE_Y + 2 + 2];
 // A B C
@@ -18,7 +15,8 @@ shared vec4 sharedMemory[LOCAL_SIZE_X + 2 + 2][LOCAL_SIZE_Y + 2 + 2];
 void main() {
     vec4 color = vec4(0);
 
-    const vec2 nextResolution = info.infos.zw;
+    const vec2 previousResolution = textureSize(inputImg, 0); // ?
+    const vec2 nextResolution = imageSize(outputImg);
 
     const vec2 currentCoords = vec2(gl_GlobalInvocationID.xy);
     
@@ -84,5 +82,7 @@ void main() {
     color /= 16.0;
 #endif
 
-    imageStore(outputImg, ivec2(currentCoords.xy), color);
+    vec4 originalColor = imageLoad(outputImg, ivec2(currentCoords));
+
+    imageStore(outputImg, ivec2(currentCoords.xy), color + originalColor);
 }

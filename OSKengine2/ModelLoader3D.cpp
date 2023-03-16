@@ -85,12 +85,13 @@ void ModelLoader3D::Load(const std::string& assetFilePath, IAsset** asset) {
 }
 
 void ModelLoader3D::SetupPbrModel(const Model3D& model, ECS::ModelComponent3D* component) {
+	const GpuImageViewConfig view = GpuImageViewConfig::CreateSampled_Default();
 	for (TSize i = 0; i < model.GetMeshes().GetSize(); i++) {
 		auto& meshMetadata = model.GetMetadata().meshesMetadata[i];
 
 		if (meshMetadata.materialTextures.GetSize() > 0)
 			for (auto& [_, texture] : meshMetadata.materialTextures)
-				component->GetMeshMaterialInstance(i)->GetSlot("texture")->SetGpuImage("albedoTexture", model.GetImage(texture));
+				component->GetMeshMaterialInstance(i)->GetSlot("texture")->SetGpuImage("albedoTexture", model.GetImage(texture)->GetView(view));
 
 		component->GetMeshMaterialInstance(i)->GetSlot("texture")->FlushUpdate();
 	}

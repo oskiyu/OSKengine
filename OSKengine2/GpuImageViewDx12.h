@@ -11,7 +11,7 @@ namespace OSK::GRAPHICS {
 
 	public:
 
-		GpuImageViewDx12(DescriptorDx12 descriptor, SampledChannel channel, SampledArrayType arrayType, TSize baseArrayLevel, TSize layerCount, ViewUsage usage);
+		GpuImageViewDx12(const GpuImage* img, DescriptorDx12 descriptor, const GpuImageViewConfig& config);
 
 		D3D12_CPU_DESCRIPTOR_HANDLE GetCpuAddress() const;
 		D3D12_GPU_DESCRIPTOR_HANDLE GetGpuAddress() const;

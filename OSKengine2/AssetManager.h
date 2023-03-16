@@ -36,7 +36,8 @@ namespace OSK::ASSETS {
 		/// <summary> Carga un asset. </summary>
 		/// 
 		/// @note Esta función debe ser sobreescrita por todos los loaders.
-		template <typename T> T* Load(const std::string& assetFilePath, const std::string lifetimePool) {
+		template <typename T> T* 
+		Load(const std::string& assetFilePath, const std::string& lifetimePool) {
 			if (assetsTable.ContainsKey(assetFilePath))
 				return (T*)assetsTable.Get(assetFilePath);
 
@@ -64,7 +65,8 @@ namespace OSK::ASSETS {
 		/// 
 		/// @warning T debe ser el tipo de asset, NO el loader.
 		/// @warning Todo loader debe ser registrado para poder usarse.
-		template <typename T> void RegisterLoader() {
+		template <typename T> 
+		void RegisterLoader() {
 			loaders.Insert(T::GetAssetType(), new T);
 		}
 

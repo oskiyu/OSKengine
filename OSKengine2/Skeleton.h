@@ -7,7 +7,7 @@
 
 namespace OSK::GRAPHICS {
 
-	class AnimationSkin;
+	struct AnimationSkin;
 
 	class OSKAPI_CALL Skeleton {
 

@@ -24,35 +24,32 @@ void IPostProcessPass::Resize(const Vector2ui& size) {
 	SetupDefaultMaterialInstances();
 }
 
-void IPostProcessPass::SetInput(GpuImage* images[3], InputType type) {
-	const GpuImage* imgs[3]{};
+void IPostProcessPass::SetInput(GpuImage* images[3], const GpuImageViewConfig& viewConfig) {
+	const IGpuImageView* imgs[3]{};
 	for (TSize i = 0; i < NUM_RESOURCES_IN_FLIGHT; i++) {
-		imgs[i] = images[i];
+		imgs[i] = images[i]->GetView(viewConfig);
 		inputImages[i] = images[i];
+		inputViews[i] = imgs[i];
 	}
 
-	if (postProcessingMaterialInstance.HasValue()) {
-		if (type == InputType::STORAGE_IMAGE)
-			postProcessingMaterialInstance->GetSlot("texture")->SetStorageImages("sceneImage", imgs);
-		else
-			postProcessingMaterialInstance->GetSlot("texture")->SetGpuImages("sceneImage", imgs);
-	}
+	if (postProcessingMaterialInstance.HasValue())
+		postProcessingMaterialInstance->GetSlot("texture")->SetGpuImages("sceneImage", imgs);
 }
 
-void IPostProcessPass::SetInput(const RenderTarget& target, InputType type) {
+void IPostProcessPass::SetInput(const RenderTarget& target, const GpuImageViewConfig & viewConfig, InputType type) {
 	GpuImage* images[3]{};
 	for (TSize i = 0; i < 3; i++)
 		images[i] = target.GetMainColorImage(i);
 
-	SetInput(images, type);
+	SetInput(images, viewConfig);
 }
 
-void IPostProcessPass::SetInput(const RtRenderTarget& target, InputType type) {
+void IPostProcessPass::SetInput(const RtRenderTarget& target, const GpuImageViewConfig& viewConfig, InputType type) {
 	GpuImage* images[3]{};
 	for (TSize i = 0; i < 3; i++)
 		images[i] = target.GetTargetImage(i);
 
-	SetInput(images, type);
+	SetInput(images, viewConfig);
 }
 
 const ComputeRenderTarget& IPostProcessPass::GetOutput() const {
@@ -60,9 +57,10 @@ const ComputeRenderTarget& IPostProcessPass::GetOutput() const {
 }
 
 void IPostProcessPass::SetupDefaultMaterialInstances() {
-	const GpuImage* images[NUM_RESOURCES_IN_FLIGHT]{};
+	const GpuImageViewConfig viewConfig = GpuImageViewConfig::CreateStorage_Default();
+	const IGpuImageView* images[NUM_RESOURCES_IN_FLIGHT]{};
 	for (TSize i = 0; i < NUM_RESOURCES_IN_FLIGHT; i++)
-		images[i] = resolveRenderTarget.GetTargetImage(i);
+		images[i] = resolveRenderTarget.GetTargetImage(i)->GetView(viewConfig);
 
 	if (postProcessingMaterialInstance.HasValue())
 		postProcessingMaterialInstance->GetSlot("texture")->SetStorageImages("finalImage", images);

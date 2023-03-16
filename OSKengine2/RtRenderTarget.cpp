@@ -26,7 +26,7 @@ GpuImage* RtRenderTarget::GetTargetImage(TSize index) const {
 }
 
 Vector2ui RtRenderTarget::GetSize() const {
-	return { GetTargetImage(0)->GetSize().X, GetTargetImage(0)->GetSize().Y };
+	return GetTargetImage(0)->GetSize2D();
 }
 
 MaterialInstance* RtRenderTarget::GetFullscreenSpriteMaterialInstance() const {
@@ -38,9 +38,11 @@ IMaterialSlot* RtRenderTarget::GetFullscreenSpriteMaterialSlot() const {
 }
 
 void RtRenderTarget::SetupSpriteMaterial() {
-	const GpuImage* images[NUM_RESOURCES_IN_FLIGHT]{};
+	const GpuImageViewConfig view = GpuImageViewConfig::CreateSampled_MipLevelRanged(0, 0);
+
+	const IGpuImageView* images[NUM_RESOURCES_IN_FLIGHT]{};
 	for (TIndex i = 0; i < NUM_RESOURCES_IN_FLIGHT; i++)
-		images[i] = GetTargetImage(i);
+		images[i] = GetTargetImage(i)->GetView(view);
 
 	fullscreenSpriteMaterialInstance->GetSlot("texture")->SetGpuImages("spriteTexture", images);
 	fullscreenSpriteMaterialInstance->GetSlot("texture")->FlushUpdate();

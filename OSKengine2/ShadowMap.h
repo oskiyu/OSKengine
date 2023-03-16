@@ -12,7 +12,7 @@ namespace OSK::ASSETS {
 
 namespace OSK::GRAPHICS {
 
-	class DirectionalLight;
+	struct DirectionalLight;
 
 	/// @brief 
 	/// Renderiza un mapa de profundidad de la escena desde el punto de

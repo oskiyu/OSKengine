@@ -17,6 +17,8 @@ void ModelComponent3D::SetModel(Model3D* model) {
 	TSize prevSize = meshesMaterialInstances.GetSize();
 	meshesMaterialInstances.Resize(model->GetMeshes().GetSize(), nullptr);
 
+	const GpuImageViewConfig viewConfig = GpuImageViewConfig::CreateSampled_Default();
+
 	if (material != nullptr) {
 		for (TSize i = prevSize; i < meshesMaterialInstances.GetSize(); i++) {
 			meshesMaterialInstances.At(i) = material->CreateInstance().GetPointer();
@@ -38,6 +40,8 @@ void ModelComponent3D::SetModel(Model3D* model) {
 
 void ModelComponent3D::SetMaterial(Material* material) {
 	this->material = material;
+
+	const GpuImageViewConfig viewConfig = GpuImageViewConfig::CreateSampled_Default();
 
 	for (auto& i : meshesMaterialInstances) {
 		if (i.GetPointer() == nullptr) {
@@ -78,7 +82,7 @@ void ModelComponent3D::BindTextureForAllMeshes(const std::string& slot, const st
 	texturesBound.Get(slot).Insert(binding, texture);
 }
 
-void ModelComponent3D::BindGpuImageForAllMeshes(const std::string& slot, const std::string& binding, const GRAPHICS::GpuImage* image) {
+void ModelComponent3D::BindGpuImageForAllMeshes(const std::string& slot, const std::string& binding, const IGpuImageView* image) {
 	for (auto& i : meshesMaterialInstances) {
 		i->GetSlot(slot)->SetGpuImage(binding, image);
 		i->GetSlot(slot)->FlushUpdate();

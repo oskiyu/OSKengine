@@ -44,7 +44,7 @@ void SkyboxRenderSystem::SetCamera(GameObjectIndex cameraObject) {
 }
 
 void SkyboxRenderSystem::SetCubemap(const CubemapTexture& texture) {
-	skyboxMaterialInstance->GetSlot("texture")->SetGpuImage("skybox", texture.GetGpuImage());
+	skyboxMaterialInstance->GetSlot("texture")->SetGpuImage("skybox", texture.GetGpuImage()->GetView(GpuImageViewConfig::CreateSampled_Cubemap()));
 	skyboxMaterialInstance->GetSlot("texture")->FlushUpdate();
 }
 
@@ -70,7 +70,7 @@ void SkyboxRenderSystem::Render(ICommandList* commandList) {
 	commandList->BindMaterialSlot(skyboxMaterialInstance->GetSlot("texture"));
 	commandList->BindVertexBuffer(cubemapModel->GetVertexBuffer());
 	commandList->BindIndexBuffer(cubemapModel->GetIndexBuffer());
-	commandList->PushMaterialConstants("brightness", 1.0f);
+	commandList->PushMaterialConstants("brightness", 1.15f);
 	commandList->DrawSingleInstance(cubemapModel->GetIndexCount());
 	commandList->EndGraphicsRenderpass();
 

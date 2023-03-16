@@ -23,10 +23,38 @@ void main() {
     vec2 currentCoords = gl_GlobalInvocationID.xy;
 
     const vec4 originalColor = texelFetch(sceneImg, ivec2(currentCoords.xy), 0);
-    const vec4 bloomColor = texelFetch(bloomImg, ivec2(currentCoords.xy), 0);
     
-    const float ratio = 0.085; // 0.055
-    const vec4 color = mix(originalColor, bloomColor, ratio);
+    // ------ FINAL UPSCALE ------ //
+    const vec2 previousCoordinates = currentCoords * 0.5 + 0.5; //(previousResolution / nextResolution) * currentCoords;
+
+    const int radius = 2;
+    const vec2 sourcePixelSize = 1.0 / textureSize(bloomImg, 0);
+
+    vec4 bloomColor = vec4(0);
+
+    bloomColor += texture(bloomImg, (previousCoordinates + vec2( 0,  0) * radius) * sourcePixelSize) * 4;
     
-    imageStore(outputImg, ivec2(currentCoords.xy), vec4(color.rgb, 1.0));
+    bloomColor += texture(bloomImg, (previousCoordinates + vec2(-1,  0) * radius) * sourcePixelSize) * 2;
+    bloomColor += texture(bloomImg, (previousCoordinates + vec2( 1,  0) * radius) * sourcePixelSize) * 2;
+    bloomColor += texture(bloomImg, (previousCoordinates + vec2( 0, -1) * radius) * sourcePixelSize) * 2;
+    bloomColor += texture(bloomImg, (previousCoordinates + vec2( 0,  1) * radius) * sourcePixelSize) * 2;
+
+
+    bloomColor += texture(bloomImg, (previousCoordinates + vec2( 1,  1) * radius) * sourcePixelSize) * 1;
+    bloomColor += texture(bloomImg, (previousCoordinates + vec2(-1,  1) * radius) * sourcePixelSize) * 1;
+    bloomColor += texture(bloomImg, (previousCoordinates + vec2(-1, -1) * radius) * sourcePixelSize) * 1;
+    bloomColor += texture(bloomImg, (previousCoordinates + vec2( 1, -1) * radius) * sourcePixelSize) * 1;
+
+    bloomColor /= 16.0;
+
+    const vec4 originalBloom = imageLoad(outputImg, ivec2(currentCoords));
+
+    bloomColor += originalBloom;
+
+    // ------ RESOLVE ------ //
+
+    const float ratio = 0.022; // 0.055
+    const vec4 finalColor = mix(originalColor, bloomColor, ratio);
+    
+    imageStore(outputImg, ivec2(currentCoords.xy), vec4(finalColor.rgb, 1.0));
 }

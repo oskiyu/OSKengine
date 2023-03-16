@@ -21,7 +21,10 @@ using namespace OSK;
 using namespace OSK::GRAPHICS;
 
 GpuMemoryBlockDx12::GpuMemoryBlockDx12(GpuImage* image, IGpu* device, GpuSharedMemoryType type, GpuImageUsage imageUSage, TSize numLayers)
-	: IGpuMemoryBlock(image->GetPhysicalSize().X * image->GetPhysicalSize().Y * image->GetPhysicalSize().Z * GetFormatNumberOfBytes(image->GetFormat()), device, type, GpuMemoryUsage::IMAGE), sizeX(image->GetSize().X), sizeY(image->GetPhysicalSize().Y), format(image->GetFormat()) {
+	: IGpuMemoryBlock(
+		image->GetPhysicalSize().X * image->GetPhysicalSize().Y * image->GetPhysicalSize().Z * GetFormatNumberOfBytes(image->GetFormat()), 
+		device, type, GpuMemoryUsage::IMAGE), 
+	sizeX(image->GetSize3D().X), sizeY(image->GetPhysicalSize().Y), format(image->GetFormat()) {
 
 	image->As<GpuImageDx12>()->FillResourceDesc();
 	const D3D12_RESOURCE_DESC& resourceDesc = image->As<GpuImageDx12>()->GetResourceDesc();

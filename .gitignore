@@ -344,3 +344,4 @@ healthchecksdb
 /enet/Encoder.hpp
 /enet/StructReg.h
 /CarGame
+/StaticAnalysis/CppCheck

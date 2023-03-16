@@ -25,6 +25,11 @@ const VertexInfo Vertex3D::GetVertexInfo() {
 		VertexInfo::Entry::Type::FLOAT,
 		"TEXCOORD" });
 
+	info.entries.Insert({
+		sizeof(Vertex3D::tangent),
+		VertexInfo::Entry::Type::FLOAT,
+		"TANGENT" });
+
 	return info;
 }
 
@@ -51,6 +56,11 @@ const VertexInfo VertexAnim3D::GetVertexInfo() {
 		sizeof(VertexAnim3D::texCoords),
 		VertexInfo::Entry::Type::FLOAT,
 		"TEXCOORD" });
+
+	info.entries.Insert({
+		sizeof(VertexAnim3D::tangent),
+		VertexInfo::Entry::Type::FLOAT,
+		"TANGENT" });
 
 	info.entries.Insert({
 		sizeof(VertexAnim3D::boneIndices),

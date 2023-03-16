@@ -53,12 +53,7 @@ namespace OSK::GRAPHICS {
 
 	protected:
 
-		OwnedPtr<IGpuImageView> CreateView(
-			SampledChannel channel, 
-			SampledArrayType arrayType, 
-			TSize baseArrayLevel, 
-			TSize layerCount, 
-			ViewUsage usage) const override;
+		OwnedPtr<IGpuImageView> CreateView(const GpuImageViewConfig& viewConfig) const override;
 
 	private:
 

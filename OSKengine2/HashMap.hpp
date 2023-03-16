@@ -1,6 +1,6 @@
 #pragma once
 
-#define OSK_CUSTOM_HASHMAP
+// #define OSK_CUSTOM_HASHMAP
 #ifdef OSK_CUSTOM_HASHMAP
 #include "DynamicArray.hpp"
 #include "Pair.hpp"

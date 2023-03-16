@@ -116,10 +116,10 @@ void IrradianceMapLoader::Load(const std::string& assetFilePath, IAsset** asset)
 	OwnedPtr<GpuImage> finalImage = Engine::GetRenderer()->GetAllocator()->CreateCubemapImage(irradianceLayerSize, Format::RGBA32_SFLOAT, GpuImageUsage::TRANSFER_DESTINATION | GpuImageUsage::SAMPLED | GpuImageUsage::CUBEMAP, GpuSharedMemoryType::GPU_ONLY);
 
 	// Material
-	cubemapGenMaterialInstance->GetSlot("global")->SetGpuImage("image", originalImage.GetPointer());
+	cubemapGenMaterialInstance->GetSlot("global")->SetGpuImage("image", originalImage->GetView(GpuImageViewConfig::CreateSampled_Default()));
 	cubemapGenMaterialInstance->GetSlot("global")->FlushUpdate();
 
-	cubemapConvolutionMaterialInstance->GetSlot("global")->SetGpuImage("image", intermediateCubemap.GetPointer());
+	cubemapConvolutionMaterialInstance->GetSlot("global")->SetGpuImage("image", intermediateCubemap->GetView(GpuImageViewConfig::CreateSampled_Cubemap()));
 	cubemapConvolutionMaterialInstance->GetSlot("global")->FlushUpdate();
 
 	// Renderizado

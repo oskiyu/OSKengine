@@ -16,6 +16,7 @@ namespace OSK::GRAPHICS {
 		Vector3f normal;
 		Color color;
 		Vector2f texCoords;
+		Vector3f tangent;
 
 	};
 
@@ -26,6 +27,7 @@ namespace OSK::GRAPHICS {
 		Vector3f normal;
 		Color color;
 		Vector2f texCoords;
+		Vector3f tangent;
 
 		Vector4f boneIndices;
 		Vector4f boneWeights;

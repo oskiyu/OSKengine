@@ -7,10 +7,9 @@ layout (local_size_x = LOCAL_SIZE_X, local_size_y = LOCAL_SIZE_Y) in;
 layout (set = 0, binding = 0) uniform sampler2D inputImg;
 layout (set = 0, binding = 1, FORMAT) uniform image2D outputImg;
 
-layout (push_constant) uniform Info{
-    vec4 infos;
+layout(push_constant) uniform Info{
+    bool first;
 } info;
-
 
 /*
 
@@ -23,9 +22,29 @@ K   L   M
 */
 shared vec4 sharedMemory[LOCAL_SIZE_X + 2 + 2][LOCAL_SIZE_Y + 2 + 2];
 
+vec3 PowVec3(vec3 v, float p)
+{
+    return vec3(pow(v.x, p), pow(v.y, p), pow(v.z, p));
+}
+
+const float invGamma = 1.0 / 2.2;
+vec3 ToSRGB(vec3 v) { return PowVec3(v, invGamma); }
+
+float RGBToLuminance(vec3 col)
+{
+    return dot(col, vec3(0.2126f, 0.7152f, 0.0722f));
+}
+
+float KarisAverage(vec3 col)
+{
+    // Formula is 1 / (1 + luma)
+    float luma = RGBToLuminance(ToSRGB(col)) * 0.25f;
+    return 1.0f / (1.0f + luma);
+}
+
 void main() {
-    const vec2 previousResolution = info.infos.xy;
-    const vec2 nextResolution = info.infos.zw;
+    const vec2 previousResolution = textureSize(inputImg, 0); // ?
+    const vec2 nextResolution = imageSize(outputImg);
 
     const vec2 currentCoords = vec2(gl_GlobalInvocationID.xy);
     
@@ -100,11 +119,26 @@ void main() {
     
 #endif
 
-    const vec4 color = (A + B + F + G) * 0.25 * 0.125
-                     + (B + C + G + H) * 0.25 * 0.125
-                     + (F + G + K + L) * 0.25 * 0.125
-                     + (G + H + L + M) * 0.25 * 0.125
-                     + (D + E + I + J) * 0.25 * 0.5;
+
+    vec4 groupA = (A + B + F + G) * 0.25 * 0.125;
+    vec4 groupB = (B + C + G + H) * 0.25 * 0.125;
+    vec4 groupC = (F + G + K + L) * 0.25 * 0.125;
+    vec4 groupD = (G + H + L + M) * 0.25 * 0.125;
+    vec4 groupE = (D + E + I + J) * 0.25 * 0.5;
+
+    if (info.first) {
+        groupA *= KarisAverage(groupA.rgb);
+        groupB *= KarisAverage(groupB.rgb);
+        groupC *= KarisAverage(groupC.rgb);
+        groupD *= KarisAverage(groupD.rgb);
+        groupE *= KarisAverage(groupE.rgb);
+    }
+
+    const vec4 color = groupA
+                     + groupB
+                     + groupC
+                     + groupD
+                     + groupE;
 
     imageStore(outputImg, ivec2(currentCoords.xy), color);
 }

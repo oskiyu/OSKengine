@@ -152,7 +152,9 @@ const TByte* RendererDx12::FormatImageDataForGpu(const GpuImage* image, const TB
 		const TSize layerOffset = numBytesPerLayer * i;
 
 		for (TSize y = 0; y < image->GetPhysicalSize().Y; y++)
-			memcpy(&output[layerOffset + y * image->GetPhysicalSize().X * numBytesPerPixel], &data[layerOffset + y * image->GetSize().X * numBytesPerPixel], image->GetSize().X * numBytesPerPixel);
+			memcpy(&output[layerOffset + y * image->GetPhysicalSize().X * numBytesPerPixel], 
+				&data[layerOffset + y * image->GetSize2D().X * numBytesPerPixel], 
+				image->GetSize2D().X * numBytesPerPixel);
 	}
 
 	return output;

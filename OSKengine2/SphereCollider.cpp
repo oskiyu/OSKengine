@@ -56,4 +56,6 @@ bool SphereCollider::IsColliding(const ITopLevelCollider& other,
 	if (auto sphere = dynamic_cast<const SphereCollider*>(&other))
 		return ITopLevelCollider::SphereSphereCollision(*this, *sphere,
 			thisOffset, otherOffset);
+
+	OSK_UNREACHABLE;
 }

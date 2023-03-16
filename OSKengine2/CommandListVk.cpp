@@ -107,8 +107,8 @@ void CommandListVk::CopyBufferToImage(const GpuDataBuffer* source, GpuImage* des
 
 	region.imageOffset = { 0, 0, 0 };
 	region.imageExtent = {
-		dest->GetSize().X,
-		dest->GetSize().Y,
+		dest->GetSize2D().X,
+		dest->GetSize2D().Y,
 		1
 	};
 
@@ -118,7 +118,7 @@ void CommandListVk::CopyBufferToImage(const GpuDataBuffer* source, GpuImage* des
 		dest->As<GpuImageVk>()->GetVkImage(), VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL, 1, &region);
 
 	// Mip levels
-	Vector2i mipSize = { static_cast<int>(dest->GetSize().X), static_cast<int>(dest->GetSize().Y) };
+	Vector2i mipSize = dest->GetSize2D().ToVector2i();
 	// El nivel 0 ya está lleno.
 	for (TSize mipLevel = 1; mipLevel < dest->GetMipLevels(); mipLevel++) {
 
@@ -212,22 +212,31 @@ void CommandListVk::CopyBufferToBuffer(const GpuDataBuffer* source, GpuDataBuffe
 }
 
 void CommandListVk::BeginGraphicsRenderpass(DynamicArray<RenderPassImageInfo> colorImages, RenderPassImageInfo depthImage, const Color& color) {
-	const Vector2ui targetSize = { colorImages[0].targetImage->GetSize().X, colorImages[0].targetImage->GetSize().Y };
+	const Vector2ui targetSize = colorImages[0].targetImage->GetSize2D();
 
 	for (const auto& img : colorImages) {
-		SetGpuImageBarrier(img.targetImage, GpuImageLayout::UNDEFINED, GpuImageLayout::COLOR_ATTACHMENT, 
-			GpuBarrierInfo(GpuBarrierStage::DEFAULT, GpuBarrierAccessStage::DEFAULT), GpuBarrierInfo(GpuBarrierStage::COLOR_ATTACHMENT_OUTPUT, GpuBarrierAccessStage::COLOR_ATTACHMENT_WRITE), 
-			{ .baseLayer = img.arrayLevel, .numLayers = 1, .baseMipLevel = 0, .numMipLevels = ALL_MIP_LEVELS, });
+		SetGpuImageBarrier(
+			img.targetImage, 
+			GpuImageLayout::UNDEFINED, GpuImageLayout::COLOR_ATTACHMENT, 
+			GpuBarrierInfo(GpuBarrierStage::DEFAULT, GpuBarrierAccessStage::DEFAULT),
+			GpuBarrierInfo(GpuBarrierStage::COLOR_ATTACHMENT_OUTPUT, GpuBarrierAccessStage::COLOR_ATTACHMENT_WRITE), 
+			{	.baseLayer = img.arrayLevel, 
+				.numLayers = 1, 
+				.baseMipLevel = 0, 
+				.numMipLevels = ALL_MIP_LEVELS, });
 	}
 
+	GpuImageViewConfig colorAttachmentConfig = GpuImageViewConfig::CreateTarget_Color();
 	DynamicArray<VkRenderingAttachmentInfo> colorAttachments = DynamicArray<VkRenderingAttachmentInfo>::CreateResizedArray(colorImages.GetSize());
 	for (TSize i = 0; i < colorImages.GetSize(); i++) {
+		colorAttachmentConfig.baseArrayLevel = colorImages[i].arrayLevel;
+
 		colorAttachments[i] = {};
 		colorAttachments[i].sType = VK_STRUCTURE_TYPE_RENDERING_ATTACHMENT_INFO_KHR;
 		colorAttachments[i].loadOp = VK_ATTACHMENT_LOAD_OP_CLEAR;
 		colorAttachments[i].storeOp = VK_ATTACHMENT_STORE_OP_STORE;
 		colorAttachments[i].imageLayout = VK_IMAGE_LAYOUT_COLOR_ATTACHMENT_OPTIMAL;
-		colorAttachments[i].imageView = colorImages[i].targetImage->GetView(SampledChannel::COLOR, SampledArrayType::SINGLE_LAYER, colorImages[i].arrayLevel, 1, ViewUsage::COLOR_TARGET)->As<GpuImageViewVk>()->GetVkView();
+		colorAttachments[i].imageView = colorImages[i].targetImage->GetView(colorAttachmentConfig)->As<GpuImageViewVk>()->GetVkView();
 		colorAttachments[i].resolveMode = VK_RESOLVE_MODE_NONE;
 		colorAttachments[i].resolveImageLayout = VK_IMAGE_LAYOUT_UNDEFINED;
 		colorAttachments[i].resolveImageView = VK_NULL_HANDLE;
@@ -236,13 +245,15 @@ void CommandListVk::BeginGraphicsRenderpass(DynamicArray<RenderPassImageInfo> co
 
 	OSK_ASSERT(colorAttachments.GetSize() == colorImages.GetSize(), "Error al iniciar el renderpass.");
 
+	GpuImageViewConfig dephtAttachmentConfig = GpuImageViewConfig::CreateTarget_DepthStencil();
+	dephtAttachmentConfig.baseArrayLevel = depthImage.arrayLevel;
+
 	VkRenderingAttachmentInfo depthAttachment{};
 	depthAttachment.sType = VK_STRUCTURE_TYPE_RENDERING_ATTACHMENT_INFO_KHR;
 	depthAttachment.loadOp = VK_ATTACHMENT_LOAD_OP_CLEAR;
 	depthAttachment.storeOp = VK_ATTACHMENT_STORE_OP_STORE;
 	depthAttachment.imageLayout = VK_IMAGE_LAYOUT_DEPTH_STENCIL_ATTACHMENT_OPTIMAL;
-	depthAttachment.imageView = depthImage.targetImage->GetView(SampledChannel::DEPTH | SampledChannel::STENCIL, SampledArrayType::SINGLE_LAYER, depthImage.arrayLevel, 1, ViewUsage::DEPTH_STENCIL_TARGET)
-		->As<GpuImageViewVk>()->GetVkView();
+	depthAttachment.imageView = depthImage.targetImage->GetView(dephtAttachmentConfig)->As<GpuImageViewVk>()->GetVkView();
 	depthAttachment.resolveMode = VK_RESOLVE_MODE_NONE;
 	depthAttachment.resolveImageLayout = VK_IMAGE_LAYOUT_UNDEFINED;
 	depthAttachment.resolveImageView = VK_NULL_HANDLE;

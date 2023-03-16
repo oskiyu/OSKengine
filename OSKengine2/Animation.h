@@ -14,7 +14,7 @@
 namespace OSK::GRAPHICS {
 
 	class Animator;
-	class AnimationSkin;
+	struct AnimationSkin;
 
 	/// <summary>
 	/// Animación para un modelo 3D.

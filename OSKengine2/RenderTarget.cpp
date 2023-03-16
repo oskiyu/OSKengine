@@ -44,9 +44,11 @@ void RenderTarget::CreateAsFinal(const Vector2ui& targetSize, RenderTargetAttach
 }
 
 void RenderTarget::SetupSpriteMaterial() {
-	const GpuImage* images[NUM_RESOURCES_IN_FLIGHT]{};
+	const GpuImageViewConfig view = GpuImageViewConfig::CreateSampled_MipLevelRanged(0, 0);
+
+	const IGpuImageView* images[NUM_RESOURCES_IN_FLIGHT]{};
 	for (TIndex i = 0; i < NUM_RESOURCES_IN_FLIGHT; i++)
-		images[i] = GetColorImage(0, i);
+		images[i] = GetColorImage(0, i)->GetView(view);
 
 	fullscreenSpriteMaterialInstance->GetSlot("texture")->SetGpuImages("spriteTexture", images);
 	fullscreenSpriteMaterialInstance->GetSlot("texture")->FlushUpdate();
@@ -81,7 +83,7 @@ GpuImage* RenderTarget::GetDepthImage(TIndex index) const {
 }
 
 Vector2ui RenderTarget::GetSize() const {
-	return { depthAttachment.GetImage(0)->GetSize().X, depthAttachment.GetImage(0)->GetSize().Y };
+	return depthAttachment.GetImage(0)->GetSize2D();
 }
 
 RenderpassType RenderTarget::GetRenderTargetType() const {

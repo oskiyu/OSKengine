@@ -648,7 +648,7 @@
     <ClCompile Include="Format.cpp">
       <Filter>Archivos de origen\OSKengine\RenderAPI\LowLevel\Resources\Image</Filter>
     </ClCompile>
-    <ClCompile Include="GpuImageLayoutVulkan.cpp">
+    <ClCompile Include="GpuImageLayoutVk.cpp">
       <Filter>Archivos de origen\OSKengine\RenderAPI\LowLevel\Resources\Image</Filter>
     </ClCompile>
     <ClCompile Include="GpuImageLayoutDx12.cpp">
@@ -663,7 +663,7 @@
     <ClCompile Include="GpuIndexBufferDx12.cpp">
       <Filter>Archivos de origen\OSKengine\RenderAPI\LowLevel\Resources\Buffer\Index</Filter>
     </ClCompile>
-    <ClCompile Include="GpuImageVulkan.cpp">
+    <ClCompile Include="GpuImageVk.cpp">
       <Filter>Archivos de origen\OSKengine\RenderAPI\LowLevel\Resources\Image</Filter>
     </ClCompile>
     <ClCompile Include="Color.cpp">
@@ -915,7 +915,7 @@
     <ClCompile Include="ComputePipelineVk.cpp">
       <Filter>Archivos de origen\OSKengine\RenderAPI\LowLevel\Pipeline\Compute</Filter>
     </ClCompile>
-    <ClCompile Include="GpuImageViewVulkan.cpp">
+    <ClCompile Include="GpuImageViewVk.cpp">
       <Filter>Archivos de origen\OSKengine\RenderAPI\LowLevel\Resources\Image\View</Filter>
     </ClCompile>
     <ClCompile Include="GpuImageViewDx12.cpp">
@@ -1103,6 +1103,9 @@
     </ClCompile>
     <ClCompile Include="PhysicsComponent.cpp">
       <Filter>Archivos de origen\OSKengine\ECS\Builtin\Physics</Filter>
+    </ClCompile>
+    <ClCompile Include="GpuImageViewConfig.cpp">
+      <Filter>Archivos de origen\OSKengine\RenderAPI\LowLevel\Resources\Image\View</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -1885,6 +1888,9 @@
     </ClInclude>
     <ClInclude Include="DetailedCollisionInfo.h">
       <Filter>Archivos de encabezado\OSKengine\Collision</Filter>
+    </ClInclude>
+    <ClInclude Include="GpuImageViewConfig.h">
+      <Filter>Archivos de encabezado\OSKengine\RenderAPI\LowLevel\Resources\Image\View</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -240,7 +240,7 @@ namespace OSK {
 		/// </summary>
 		/// 
 		/// @warning Deja a 'arr' en un estado inválido.
-		DynamicArray& operator=(DynamicArray&& arr) {
+		DynamicArray& operator=(DynamicArray&& arr) noexcept {
 			if (&arr == this)
 				return *this;
 
@@ -340,6 +340,7 @@ namespace OSK {
 		void Allocate(TSize size) {
 			capacity = size;
 
+			T* previousData = data;
 			data = (T*)realloc(data, sizeof(T) * size);
 
 			if (size > 0)

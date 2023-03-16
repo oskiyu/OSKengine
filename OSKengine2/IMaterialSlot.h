@@ -16,6 +16,7 @@ namespace OSK::GRAPHICS {
 	class MaterialLayout;
 	class ITopLevelAccelerationStructure;
 	class GpuDataBuffer;
+	class IGpuImageView;
 
 
 	/// <summary>
@@ -90,12 +91,11 @@ namespace OSK::GRAPHICS {
 		/// <param name="binding">Nombre del binding al que se asignará la imagen.</param>
 		/// 
 		/// @warning No actualizará el recurso que realmente se usará en el shader, se debe llamar a FlushUpdate().
+		
+		
 		virtual void SetGpuImage(
 			const std::string& binding, 
-			const GpuImage* image, 
-			SampledChannel channel = SampledChannel::COLOR, 
-			SampledArrayType arrayType = SampledArrayType::SINGLE_LAYER, 
-			TSize arrayLevel = 0) = 0;
+			const IGpuImageView* image) = 0;
 
 		/// <summary>
 		/// Establece la imagen que será asignada al binding con el nombre dado.
@@ -106,12 +106,11 @@ namespace OSK::GRAPHICS {
 		/// 
 		/// @note Habrá una imagen por cada frame in flight.
 		/// @warning No actualizará el recurso que realmente se usará en el shader, se debe llamar a FlushUpdate().
+		
+		
 		virtual void SetGpuImages(
 			const std::string& binding, 
-			const GpuImage* images[NUM_RESOURCES_IN_FLIGHT], 
-			SampledChannel channel = SampledChannel::COLOR, 
-			SampledArrayType arrayType = SampledArrayType::SINGLE_LAYER, 
-			TSize arrayLevel = 0) = 0;
+			const IGpuImageView* images[NUM_RESOURCES_IN_FLIGHT]) = 0;
 
 
 		/// <summary>
@@ -146,9 +145,7 @@ namespace OSK::GRAPHICS {
 		/// @warning No actualizará el recurso que realmente se usará en el shader, se debe llamar a FlushUpdate().
 		virtual void SetStorageImage(
 			const std::string& binding, 
-			const GpuImage* image, 
-			SampledArrayType arrayType = SampledArrayType::SINGLE_LAYER, 
-			TSize arrayLayer = 0) = 0;
+			const IGpuImageView* image) = 0;
 
 		/// <summary>
 		/// Establece la imagen que será usada como storage image asignada al binding con el nombre dado.
@@ -161,9 +158,7 @@ namespace OSK::GRAPHICS {
 		/// @warning No actualizará el recurso que realmente se usará en el shader, se debe llamar a FlushUpdate().
 		virtual void SetStorageImages(
 			const std::string& binding, 
-			const GpuImage* images[NUM_RESOURCES_IN_FLIGHT], 
-			SampledArrayType arrayType = SampledArrayType::SINGLE_LAYER,
-			TSize arrayLayer = 0) = 0;
+			const IGpuImageView* images[NUM_RESOURCES_IN_FLIGHT]) = 0;
 
 
 		/// <summary>

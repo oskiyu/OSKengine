@@ -66,8 +66,9 @@
     <ClCompile Include="Field.cpp" />
     <ClCompile Include="FxaaPass.cpp" />
     <ClCompile Include="GBuffer.cpp" />
+    <ClCompile Include="GpuImageViewConfig.cpp" />
     <ClCompile Include="GpuImageViewDx12.cpp" />
-    <ClCompile Include="GpuImageViewVulkan.cpp" />
+    <ClCompile Include="GpuImageViewVk.cpp" />
     <ClCompile Include="GpuStorageBufferDx12.cpp" />
     <ClCompile Include="GpuStorageBufferVk.cpp" />
     <ClCompile Include="HybridRenderSystem.cpp" />
@@ -99,8 +100,8 @@
     <ClCompile Include="GpuDx12.cpp" />
     <ClCompile Include="GpuImageDx12.cpp" />
     <ClCompile Include="GpuImageLayoutDx12.cpp" />
-    <ClCompile Include="GpuImageLayoutVulkan.cpp" />
-    <ClCompile Include="GpuImageVulkan.cpp" />
+    <ClCompile Include="GpuImageLayoutVk.cpp" />
+    <ClCompile Include="GpuImageVk.cpp" />
     <ClCompile Include="GpuIndexBufferVk.cpp" />
     <ClCompile Include="GpuMemoryAllocatorVk.cpp" />
     <ClCompile Include="GpuMemoryAllocatorDx12.cpp" />
@@ -283,6 +284,7 @@
     <ClInclude Include="FxaaPass.h" />
     <ClInclude Include="GBuffer.h" />
     <ClInclude Include="GpuBarrierInfo.h" />
+    <ClInclude Include="GpuImageViewConfig.h" />
     <ClInclude Include="GpuImageViewDx12.h" />
     <ClInclude Include="GpuImageViewVk.h" />
     <ClInclude Include="GpuStorageBufferDx12.h" />

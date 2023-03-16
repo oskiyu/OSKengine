@@ -39,26 +39,16 @@ namespace OSK::GRAPHICS {
 		void SetupMaterialInstances();
 
 
-		/// <summary>
-		/// Ejecuta un escalado o desescalado de una imagen intermedia a otra.
-		/// </summary>
-		/// <param name="computeCmdList">Lista de comandos donde se ejecutará.</param>
-		/// <param name="oldRes">Resolución del pase anterior.</param>
-		/// <param name="newRes">Resolución de este pase.</param>
-		/// <param name="inputIndex">Índice de la imagen anterior. 
-		/// Si es 2, es la imagen de entrada original.</param>
-		/// <param name="outputIndex">Índice de la imagen donde se ejecutará este pase.</param>
+		/// @brief Ejecuta un escalado o desescalado de un nivel de mip a otro.
+		/// @param computeCmdList Lista de comandos donde se ejecutará.
+		/// @param sourceMipLevel Nivel de mip de origen.
+		/// @param destMipLevel Nivel de mip que se escribirá.
 		/// 
 		/// @pre computeCmdList debe ser una lista de comandos de computación. 
-		/// 
-		/// @pre oldRes es menor o igual que la resolución del bloom.
-		/// @pre newRes es menor o igual que la resolución del bloom.
-		/// 
-		/// @pre inputIndex está entre 0 y 2, ambos incluidos.
-		/// @pre outputIndex está entre 0 y 1, ambos incluidos.
-		/// 
-		/// @note Si inputIndex es 2, es la imagen de entrada original.
-		void ExecuteSinglePass(ICommandList* computeCmdList, const Vector2f& oldRes, const Vector2f& newRes, TSize inputIndex, TSize outputIndex);
+		void ExecuteSinglePass(
+			ICommandList* computeCmdList, 
+			TIndex sourceMipLevel,
+			TIndex destMipLevel);
 		
 		/// <summary>
 		/// Procesa el proceso de desescalado completo.
@@ -69,7 +59,7 @@ namespace OSK::GRAPHICS {
 		/// @pre computeCmdList debe ser una lista de comandos de computación. 
 		/// 
 		/// @post *res será la resolución después de haberse realizado todo el desescalado.
-		void DownscaleBloom(ICommandList* computeCmdList, Vector2f* res);
+		void DownscaleBloom(ICommandList* computeCmdList);
 
 		/// <summary>
 		/// Procesa el proceso de escalado completo.
@@ -80,31 +70,36 @@ namespace OSK::GRAPHICS {
 		/// @pre computeCmdList debe ser una lista de comandos de computación. 
 		/// 
 		/// @post *res será la resolución después de haberse realizado todo el escalado.
-		void UpscaleBloom(ICommandList* computeCmdList, Vector2f* res);
+		void UpscaleBloom(ICommandList* computeCmdList);
 
-		RtRenderTarget bloomIntermediateTargets[2]{};
-		UniquePtr<MaterialInstance> intermediateInstances[2]{};
+		/// @brief Número máximo de pases de downscale/upscale.
+		const static TSize maxNumPasses = 8;
+
+
+		/// @brief Instancias de los materiales de downscale.
+		/// Hay una instancia por cada paso de downscale, configurada
+		/// con los mip-maps necesistados por cada paso.
+		UniquePtr<MaterialInstance> downscalingMaterialInstance[maxNumPasses]{};
+
+		/// @brief Instancias de los materiales de upscale.
+		/// Hay una instancia por cada paso de upscale, configurada
+		/// con los mip-maps necesistados por cada paso.
+		/// 
+		/// @note Aunque tiene una instancia para el nivel 0, esta no se debe usar:
+		/// se debe usar @p resolveInstance.
+		UniquePtr<MaterialInstance> upscalingMaterialInstance[maxNumPasses]{};
+
+		/// @brief Instancia del material final.
 		UniquePtr<MaterialInstance> resolveInstance;
 
 		Material* downscaleMaterial = nullptr;
 		Material* upscaleMaterial = nullptr;
 		Material* resolveMaterial = nullptr;
 
-		const static TSize numPasses = 4;
-
-		const static TIndex firstSource = 0;
-		const static TIndex firstDestination = 1;
-
-		const static TIndex lastDestination = (firstDestination + numPasses - 1) % 2;
-		const static TIndex lastSource = (lastDestination + 1) % 2;
-		// 0 1 <- FULL
-		// 1 0 <- FULL / 2
-		// 0 1 <- FULL / 4
-		// 1 0 <- FULL / 8
-
-		// 0 1 <- FULL / 4
-		// 1 0 <- FULL / 2
-		// 0 1 <- FULL
+		/// @brief Calcula el número de pases, de acuerdo al número
+		/// de mip-levels del render target.
+		/// @return Número de pases de downscale/upscale.
+		TSize GetNumPasses() const;
 
 	};
 

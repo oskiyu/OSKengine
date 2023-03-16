@@ -7,8 +7,11 @@
 using namespace OSK;
 using namespace OSK::GRAPHICS;
 
-GpuImageViewVk::GpuImageViewVk(VkImageView view, SampledChannel channel, SampledArrayType arrayType, TSize baseArrayLevel, TSize layerCount, ViewUsage usage)
-	: IGpuImageView(channel, arrayType, baseArrayLevel, layerCount, usage), view(view) {
+GpuImageViewVk::GpuImageViewVk(
+	VkImageView view,
+	const GpuImage& image,
+	const GpuImageViewConfig& config)
+	: IGpuImageView(image, config), view(view) {
 
 }
 

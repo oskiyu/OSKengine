@@ -494,13 +494,15 @@ private:
 			toneMappingPass->SetExposureBuffers(epxBuffers);
 		}
 
-		fxaaPass->SetInput(preEffectsRenderTarget.GetValue(), IPostProcessPass::InputType::SAMPLER);
+		const GpuImageViewConfig viewConfig = GpuImageViewConfig::CreateSampled_SingleMipLevel(0);
+
+		fxaaPass->SetInput(preEffectsRenderTarget.GetValue(), viewConfig);
 		if (config.useBloom) {
-			toneMappingPass->SetInput(bloomPass->GetOutput(), IPostProcessPass::InputType::SAMPLER);
-			bloomPass->SetInput(fxaaPass->GetOutput(), IPostProcessPass::InputType::SAMPLER);
+			toneMappingPass->SetInput(bloomPass->GetOutput(), viewConfig);
+			bloomPass->SetInput(fxaaPass->GetOutput(), viewConfig);
 		}
 		else {
-			toneMappingPass->SetInput(fxaaPass->GetOutput(), IPostProcessPass::InputType::SAMPLER);
+			toneMappingPass->SetInput(fxaaPass->GetOutput(), viewConfig);
 		}
 
 		Engine::GetRenderer()->WaitForCompletion();

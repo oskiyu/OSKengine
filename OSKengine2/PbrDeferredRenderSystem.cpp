@@ -54,7 +54,11 @@ PbrDeferredRenderSystem::PbrDeferredRenderSystem() {
 	const IGpuUniformBuffer* _cameraUbos[3]{};
 	const IGpuUniformBuffer* _dirLightUbos[3]{};
 	const IGpuUniformBuffer* _shadowsMatricesUbos[3]{};
-	const GpuImage* _shadowsMaps[3]{};
+	const IGpuImageView* _shadowsMaps[3]{};
+
+	GpuImageViewConfig shadowsViewConfig = GpuImageViewConfig::CreateSampled_Array(0, shadowMap.GetNumCascades());
+	shadowsViewConfig.channel = SampledChannel::DEPTH;
+
 	for (TSize i = 0; i < 3; i++) {
 		cameraUbos[i] = Engine::GetRenderer()->GetAllocator()->CreateUniformBuffer(sizeof(glm::mat4) * 2 + sizeof(glm::vec4)).GetPointer();
 		_cameraUbos[i] = cameraUbos[i].GetPointer();
@@ -63,13 +67,13 @@ PbrDeferredRenderSystem::PbrDeferredRenderSystem() {
 		_dirLightUbos[i] = dirLightUbos[i].GetPointer();
 
 		_shadowsMatricesUbos[i] = shadowMap.GetDirLightMatrixUniformBuffers()[i];
-		_shadowsMaps[i] = shadowMap.GetShadowImage(i);
+		_shadowsMaps[i] = shadowMap.GetShadowImage(i)->GetView(shadowsViewConfig);
 	}
 
 	resolveMaterialInstance->GetSlot("global")->SetUniformBuffers("camera", _cameraUbos);
 	resolveMaterialInstance->GetSlot("global")->SetUniformBuffers("dirLight", _dirLightUbos);
 	resolveMaterialInstance->GetSlot("global")->SetUniformBuffers("dirLightShadowMat", _shadowsMatricesUbos);
-	resolveMaterialInstance->GetSlot("global")->SetGpuImages("dirLightShadowMap", _shadowsMaps, SampledChannel::DEPTH, SampledArrayType::ARRAY);
+	resolveMaterialInstance->GetSlot("global")->SetGpuImages("dirLightShadowMap", _shadowsMaps);
 	
 
 	// Material del renderizado del gbuffer.
@@ -85,9 +89,11 @@ PbrDeferredRenderSystem::PbrDeferredRenderSystem() {
 void PbrDeferredRenderSystem::Initialize(GameObjectIndex camera, const ASSETS::IrradianceMap& irradianceMap, const ASSETS::SpecularMap& specularMap) {
 	cameraObject = camera;
 
-	resolveMaterialInstance->GetSlot("global")->SetGpuImage("irradianceMap", irradianceMap.GetGpuImage());
-	resolveMaterialInstance->GetSlot("global")->SetGpuImage("specularMap", specularMap.GetCubemapImage());
-	resolveMaterialInstance->GetSlot("global")->SetGpuImage("specularLut", specularMap.GetLookUpTable());
+	const GpuImageViewConfig viewConfig = GpuImageViewConfig::CreateSampled_Default();
+
+	resolveMaterialInstance->GetSlot("global")->SetGpuImage("irradianceMap", irradianceMap.GetGpuImage()->GetView(viewConfig));
+	resolveMaterialInstance->GetSlot("global")->SetGpuImage("specularMap", specularMap.GetCubemapImage()->GetView(viewConfig));
+	resolveMaterialInstance->GetSlot("global")->SetGpuImage("specularLut", specularMap.GetLookUpTable()->GetView(viewConfig));
 	resolveMaterialInstance->GetSlot("global")->FlushUpdate();
 
 	shadowMap.SetSceneCamera(camera);
@@ -96,14 +102,15 @@ void PbrDeferredRenderSystem::Initialize(GameObjectIndex camera, const ASSETS::I
 }
 
 void PbrDeferredRenderSystem::UpdateResolveMaterial() {
-	const GpuImage* images[3]{};
-	for (TSize i = 0; i < 3; i++) images[i] = gBuffer.GetImage(i, GBuffer::Target::POSITION);
+	const GpuImageViewConfig viewConfig = GpuImageViewConfig::CreateSampled_MipLevelRanged(0, 0);
+	const IGpuImageView* images[3]{};
+	for (TSize i = 0; i < 3; i++) images[i] = gBuffer.GetImage(i, GBuffer::Target::POSITION)->GetView(viewConfig);
 	resolveMaterialInstance->GetSlot("gbuffer")->SetGpuImages("positionTexture", images);
 
-	for (TSize i = 0; i < 3; i++) images[i] = gBuffer.GetImage(i, GBuffer::Target::COLOR);
+	for (TSize i = 0; i < 3; i++) images[i] = gBuffer.GetImage(i, GBuffer::Target::COLOR)->GetView(viewConfig);
 	resolveMaterialInstance->GetSlot("gbuffer")->SetGpuImages("colorTexture", images);
 
-	for (TSize i = 0; i < 3; i++) images[i] = gBuffer.GetImage(i, GBuffer::Target::NORMAL);
+	for (TSize i = 0; i < 3; i++) images[i] = gBuffer.GetImage(i, GBuffer::Target::NORMAL)->GetView(viewConfig);
 	resolveMaterialInstance->GetSlot("gbuffer")->SetGpuImages("normalTexture", images);
 
 	resolveMaterialInstance->GetSlot("gbuffer")->FlushUpdate();
@@ -160,7 +167,7 @@ void PbrDeferredRenderSystem::Render(ICommandList* commandList) {
 void PbrDeferredRenderSystem::GenerateShadows(ICommandList* commandList) {
 	const TSize resourceIndex = Engine::GetRenderer()->GetCurrentResourceIndex();
 	const Viewport viewport{
-		.rectangle = { 0u, 0u, shadowMap.GetColorImage(0)->GetSize().X, shadowMap.GetColorImage(0)->GetSize().Y }
+		.rectangle = { 0u, 0u, shadowMap.GetColorImage(0)->GetSize3D().X, shadowMap.GetColorImage(0)->GetSize3D().Y }
 	};
 
 	commandList->StartDebugSection("Shadows", Color::BLACK());

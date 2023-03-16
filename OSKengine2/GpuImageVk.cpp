@@ -41,9 +41,9 @@ void GpuImageVk::CreateVkImage() {
 	imageInfo.sType = VK_STRUCTURE_TYPE_IMAGE_CREATE_INFO;
 	imageInfo.imageType = GetVkImageType();
 
-	imageInfo.extent.width = GetSize().X;
-	imageInfo.extent.height = GetSize().Y;
-	imageInfo.extent.depth = GetSize().Z;
+	imageInfo.extent.width = GetSize3D().X;
+	imageInfo.extent.height = GetSize3D().Y;
+	imageInfo.extent.depth = GetSize3D().Z;
 
 	imageInfo.mipLevels = GetMipLevels();
 	imageInfo.arrayLayers = GetNumLayers();
@@ -153,37 +153,43 @@ VkImageView GpuImageVk::GetSwapchainView() const {
 	return swapchainView;
 }
 
-OwnedPtr<IGpuImageView> GpuImageVk::CreateView(SampledChannel channel, SampledArrayType arrayType, TSize baseArrayLevel, TSize layerCount, ViewUsage usage) const {
+OwnedPtr<IGpuImageView> GpuImageVk::CreateView(const GpuImageViewConfig& viewConfig) const {
 	VkImageView view = VK_NULL_HANDLE;
 	
 	VkImageViewCreateInfo viewInfo{};
 
 	viewInfo.sType = VK_STRUCTURE_TYPE_IMAGE_VIEW_CREATE_INFO;
 	viewInfo.image = image;
-	viewInfo.viewType = arrayType == SampledArrayType::SINGLE_LAYER ? GetVkImageViewType() : GetVkImageArrayViewType();
+	viewInfo.viewType = viewConfig.arrayType == SampledArrayType::SINGLE_LAYER ? GetVkImageViewType() : GetVkImageArrayViewType();
 	viewInfo.format = GetFormatVk(GetFormat());
 	
 	VkImageAspectFlags aspectMask = 0;
-	if (EFTraits::HasFlag(channel, SampledChannel::COLOR))
+	if (EFTraits::HasFlag(viewConfig.channel, SampledChannel::COLOR))
 		aspectMask |= VK_IMAGE_ASPECT_COLOR_BIT;
-	if (EFTraits::HasFlag(channel, SampledChannel::DEPTH))
+	if (EFTraits::HasFlag(viewConfig.channel, SampledChannel::DEPTH))
 		aspectMask |= VK_IMAGE_ASPECT_DEPTH_BIT;
-	if (EFTraits::HasFlag(channel, SampledChannel::STENCIL))
+	if (EFTraits::HasFlag(viewConfig.channel, SampledChannel::STENCIL))
 		aspectMask |= VK_IMAGE_ASPECT_STENCIL_BIT;
 
 	viewInfo.subresourceRange.aspectMask = aspectMask;
 
-	viewInfo.subresourceRange.baseMipLevel = 0;
-	viewInfo.subresourceRange.levelCount = usage == ViewUsage::COLOR_TARGET ? 1 : GetMipLevels();
+	viewInfo.subresourceRange.baseMipLevel = 
+		viewConfig.mipMapMode == GpuImageViewConfig::MipMapMode::ALL_LEVELS
+			? 0
+			: viewConfig.baseMipLevel;
+	viewInfo.subresourceRange.levelCount =
+		viewConfig.mipMapMode == GpuImageViewConfig::MipMapMode::ALL_LEVELS
+			? GetMipLevels()
+			: viewConfig.topMipLevel - viewConfig.baseMipLevel + 1;
 
-	viewInfo.subresourceRange.baseArrayLayer = baseArrayLevel;
-	viewInfo.subresourceRange.layerCount = layerCount;
+	viewInfo.subresourceRange.baseArrayLayer = viewConfig.baseArrayLevel;
+	viewInfo.subresourceRange.layerCount = viewConfig.arrayLevelCount;
 
 	const VkDevice device = Engine::GetRenderer()->GetGpu()->As<GpuVk>()->GetLogicalDevice();
 	VkResult result = vkCreateImageView(device, &viewInfo, nullptr, &view);
 	OSK_ASSERT(result == VK_SUCCESS, "No se pudo crear el view de stencil.");
 
-	return new GpuImageViewVk(view, channel, arrayType, baseArrayLevel, layerCount, usage);
+	return new GpuImageViewVk(view, *this, viewConfig);
 }
 
 void GpuImageVk::SetDebugName(const std::string& name) {
@@ -210,6 +216,8 @@ VkImageType GpuImageVk::GetVkImageType() const {
 		return VK_IMAGE_TYPE_2D;
 	case GpuImageDimension::d3D:
 		return VK_IMAGE_TYPE_3D;
+	default:
+		OSK_UNREACHABLE;
 	}
 }
 
@@ -225,7 +233,8 @@ VkImageViewType GpuImageVk::GetVkImageViewType() const {
 		return VK_IMAGE_VIEW_TYPE_2D;
 	case GpuImageDimension::d3D:
 		return VK_IMAGE_VIEW_TYPE_3D;
-
+	default:
+		OSK_UNREACHABLE;
 	}
 }
 
@@ -235,6 +244,8 @@ VkImageViewType GpuImageVk::GetVkImageArrayViewType() const {
 		return VK_IMAGE_VIEW_TYPE_1D_ARRAY;
 	case GpuImageDimension::d2D:
 		return VK_IMAGE_VIEW_TYPE_2D_ARRAY;
+	default:
+		OSK_UNREACHABLE;
 	}
 }
 
@@ -247,7 +258,7 @@ VkFilter GpuImageVk::GetFilterTypeVulkan(GpuImageFilteringType type) {
 	case OSK::GRAPHICS::GpuImageFilteringType::CUBIC:
 		return VK_FILTER_CUBIC_IMG;
 	default:
-		return VK_FILTER_LINEAR;
+		OSK_UNREACHABLE;
 	}
 }
 
@@ -264,6 +275,6 @@ VkSamplerAddressMode GpuImageVk::GetAddressModeVulkan(GpuImageAddressMode mode) 
 	case OSK::GRAPHICS::GpuImageAddressMode::BACKGROUND_WHITE:
 		return VK_SAMPLER_ADDRESS_MODE_CLAMP_TO_BORDER;
 	default:
-		return VK_SAMPLER_ADDRESS_MODE_REPEAT;
+		OSK_UNREACHABLE;
 	}
 }

@@ -52,7 +52,7 @@ void SpriteRenderer::Draw(const Sprite& sprite, const TextureCoordinates2D& texC
 	if (texCoords.type == TextureCoordsType::NORMALIZED)
 		pushConst.texCoords = texCoords.texCoords;
 	else
-		pushConst.texCoords = texCoords.GetNormalized({ (float)sprite.GetGpuImage()->GetSize().X, (float)sprite.GetGpuImage()->GetSize().Y });
+		pushConst.texCoords = texCoords.GetNormalized(sprite.GetGpuImage()->GetSize2D().ToVector2f());
 
 	if (lastBoundMaterial != sprite.GetMaterialInstance()->GetMaterial()) {
 		targetCommandList->BindMaterial(sprite.GetMaterialInstance()->GetMaterial());

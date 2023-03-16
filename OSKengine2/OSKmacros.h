@@ -18,6 +18,9 @@ className& operator=(const className&) = delete;
 	
 #define OSK_NODISCARD [[nodiscard]]
 
+#define OSK_ASSUME(x) __assume(x)
+#define OSK_UNREACHABLE OSK_ASSUME(0)
+
 #include <stdint.h>
 
 using TSize = unsigned int;

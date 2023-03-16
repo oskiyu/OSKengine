@@ -139,23 +139,22 @@ void MaterialSlotVk::SetStorageBuffers(const std::string& binding, const GpuData
 		bindingsLocations.Insert(binding, bindings.At(0).GetSize() - 1);
 }
 
-void MaterialSlotVk::SetGpuImage(const std::string& binding, const GpuImage* image, SampledChannel channel, SampledArrayType arrayType, TSize arrayLevel) {
-	const GpuImage* images[NUM_RESOURCES_IN_FLIGHT]{};
+void MaterialSlotVk::SetGpuImage(const std::string& binding, const IGpuImageView* image) {
+	const IGpuImageView* images[NUM_RESOURCES_IN_FLIGHT]{};
 	for (TSize i = 0; i < NUM_RESOURCES_IN_FLIGHT; i++)
 		images[i] = image;
 
-	SetGpuImages(binding, images, channel, arrayType, arrayLevel);
+	SetGpuImages(binding, images);
 }
 
-void MaterialSlotVk::SetGpuImages(const std::string& binding, const GpuImage* image[NUM_RESOURCES_IN_FLIGHT], SampledChannel channel, SampledArrayType arrayType, TSize arrayLevel) {
+void MaterialSlotVk::SetGpuImages(const std::string& binding, const IGpuImageView* images[NUM_RESOURCES_IN_FLIGHT]) {
 	const bool containsBinding = bindingsLocations.ContainsKey(binding);
 
 	for (TSize i = 0; i < descriptorSets.GetSize(); i++) {
 		OwnedPtr<VkDescriptorImageInfo> imageInfo = new VkDescriptorImageInfo();
 		imageInfo->imageLayout = VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL;
-		imageInfo->sampler = image[i]->As<GpuImageVk>()->GetVkSampler();
-		imageInfo->imageView = image[i]->GetView(channel, arrayType, arrayLevel, image[i]->GetNumLayers(), ViewUsage::SAMPLED)
-			->As<GpuImageViewVk>()->GetVkView();
+		imageInfo->sampler = images[i]->GetImage().As<GpuImageVk>()->GetVkSampler();
+		imageInfo->imageView = images[i]->As<GpuImageViewVk>()->GetVkView();
 
 		VkWriteDescriptorSet descriptorWrite{};
 		descriptorWrite.sType = VK_STRUCTURE_TYPE_WRITE_DESCRIPTOR_SET;
@@ -180,23 +179,22 @@ void MaterialSlotVk::SetGpuImages(const std::string& binding, const GpuImage* im
 		bindingsLocations.Insert(binding, bindings.At(0).GetSize() - 1);
 }
 
-void MaterialSlotVk::SetStorageImage(const std::string& binding, const GpuImage* image, SampledArrayType arrayType, TSize arrayLevel) {
-	const GpuImage* images[NUM_RESOURCES_IN_FLIGHT]{};
+void MaterialSlotVk::SetStorageImage(const std::string& binding, const IGpuImageView* image) {
+	const IGpuImageView* images[NUM_RESOURCES_IN_FLIGHT]{};
 	for (TSize i = 0; i < NUM_RESOURCES_IN_FLIGHT; i++)
 		images[i] = image;
 
-	SetStorageImages(binding, images, arrayType, arrayLevel);
+	SetStorageImages(binding, images);
 }
 
-void MaterialSlotVk::SetStorageImages(const std::string& binding, const GpuImage* image[NUM_RESOURCES_IN_FLIGHT], SampledArrayType arrayType, TSize arrayLevel) {
+void MaterialSlotVk::SetStorageImages(const std::string& binding, const IGpuImageView* images[NUM_RESOURCES_IN_FLIGHT]) {
 	const bool containsBinding = bindingsLocations.ContainsKey(binding);
 
 	for (TSize i = 0; i < descriptorSets.GetSize(); i++) {
 		OwnedPtr<VkDescriptorImageInfo> imageInfo = new VkDescriptorImageInfo();
 		imageInfo->imageLayout = VK_IMAGE_LAYOUT_GENERAL;
-		imageInfo->sampler = image[i]->As<GpuImageVk>()->GetVkSampler();
-		imageInfo->imageView = image[i]->GetView(SampledChannel::COLOR, arrayType, arrayLevel, image[i]->GetNumLayers(), ViewUsage::STORAGE)
-			->As<GpuImageViewVk>()->GetVkView();
+		imageInfo->sampler = images[i]->GetImage().As<GpuImageVk>()->GetVkSampler();
+		imageInfo->imageView = images[i]->As<GpuImageViewVk>()->GetVkView();
 		
 		VkWriteDescriptorSet descriptorWrite{};
 		descriptorWrite.sType = VK_STRUCTURE_TYPE_WRITE_DESCRIPTOR_SET;

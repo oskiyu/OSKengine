@@ -30,30 +30,30 @@ void MaterialSlotDx12::SetUniformBuffers(const std::string& binding, const IGpuU
 	SetUniformBuffer(binding, buffer[0]);
 }
 
-void MaterialSlotDx12::SetGpuImage(const std::string& binding, const GpuImage* image, SampledChannel channel, SampledArrayType arrayType, TSize arrayLevel) {
+void MaterialSlotDx12::SetGpuImage(const std::string& binding, const IGpuImageView* image) {
 	TSize index = layout->GetSlot(name).bindings.Get(binding).hlslDescriptorIndex;
 
 	if (index >= images.GetSize())
 		images.Resize(index + 1, Pair<TSize, const GpuImageDx12*>{ UINT32_MAX, nullptr });
 
-	images.At(index) = { index, image->As<GpuImageDx12>() };
+	images.At(index) = { index, image->GetImage().As<GpuImageDx12>()};
 }
 
-void MaterialSlotDx12::SetGpuImages(const std::string& binding, const GpuImage* image[NUM_RESOURCES_IN_FLIGHT], SampledChannel channel, SampledArrayType arrayType, TSize arrayLevel) {
-	SetGpuImage(binding, image[0], channel, arrayType, arrayLevel);
+void MaterialSlotDx12::SetGpuImages(const std::string& binding, const IGpuImageView* image[NUM_RESOURCES_IN_FLIGHT]) {
+	SetGpuImage(binding, image[0]);
 }
 
 void MaterialSlotDx12::SetStorageBuffer(const std::string& binding, const GpuDataBuffer* buffer) {
 	OSK_ASSERT(false, "No implementado.");
 }
 
-void MaterialSlotDx12::SetStorageImage(const std::string& binding, const GpuImage* image, SampledArrayType arrayType, TSize arrayLayer) {
+void MaterialSlotDx12::SetStorageImage(const std::string& binding, const IGpuImageView* image) {
 	TSize index = layout->GetSlot(name).bindings.Get(binding).hlslDescriptorIndex;
 
 	if (index >= images.GetSize())
 		storageImages.Resize(index + 1, Pair<TSize, const GpuImageDx12*>{ UINT32_MAX, nullptr });
 
-	storageImages.At(index) = { index, image->As<GpuImageDx12>() };
+	// storageImages.At(index) = { index, image->As<GpuImageDx12>() };
 }
 
 void MaterialSlotDx12::SetAccelerationStructure(const std::string& binding, const ITopLevelAccelerationStructure* image) {
@@ -64,8 +64,8 @@ void MaterialSlotDx12::SetStorageBuffers(const std::string& binding, const GpuDa
 	OSK_ASSERT(false, "No implementado.");
 }
 
-void MaterialSlotDx12::SetStorageImages(const std::string& binding, const GpuImage* image[NUM_RESOURCES_IN_FLIGHT], SampledArrayType arrayType, TSize arrayLayer) {
-	SetStorageImage(binding, image[0], arrayType, arrayLayer);
+void MaterialSlotDx12::SetStorageImages(const std::string& binding, const IGpuImageView* image[NUM_RESOURCES_IN_FLIGHT]) {
+	SetStorageImage(binding, image[0]);
 }
 
 void MaterialSlotDx12::SetAccelerationStructures(const std::string& binding, const ITopLevelAccelerationStructure* image[NUM_RESOURCES_IN_FLIGHT]) {

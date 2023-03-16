@@ -11,15 +11,16 @@ IMaterialSlot::IMaterialSlot(const MaterialLayout* layout, const std::string& na
 }
 
 void IMaterialSlot::SetTexture(const std::string& binding, const ASSETS::Texture* texture, SampledChannel channel) {
-	SetGpuImage(binding, texture->GetGpuImage(), channel);
+	SetGpuImage(binding, texture->GetGpuImage()->GetView(GpuImageViewConfig::CreateSampled_Default()));
 }
 
 void IMaterialSlot::SetTextures(const std::string& binding, const ASSETS::Texture* texture[NUM_RESOURCES_IN_FLIGHT], SampledChannel channel) {
-	const GpuImage* images[NUM_RESOURCES_IN_FLIGHT]{};
+	const auto viewConfig = GpuImageViewConfig::CreateSampled_Default();
+	const IGpuImageView* images[NUM_RESOURCES_IN_FLIGHT]{};
 	for (TSize i = 0; i < NUM_RESOURCES_IN_FLIGHT; i++)
-		images[i] = texture[i]->GetGpuImage();
+		images[i] = texture[i]->GetGpuImage()->GetView(viewConfig);
 
-	SetGpuImages(binding, images, channel);
+	SetGpuImages(binding, images);
 }
 
 std::string IMaterialSlot::GetName() const {

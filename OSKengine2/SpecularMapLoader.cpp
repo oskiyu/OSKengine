@@ -39,10 +39,11 @@ SpecularMapLoader::SpecularMapLoader() {
 	RenderTargetAttachmentInfo lutInfo{ .format = Format::RG16_SFLOAT, .usage = GpuImageUsage::TRANSFER_SOURCE, .name = "Specular Look-Up Table Generation" };
 	lookUpTable.Create(maxResolution, lutInfo);
 
-	const GpuImage* lutGenImages[3] = {
-		lookUpTable.GetTargetImage(0),
-		lookUpTable.GetTargetImage(1),
-		lookUpTable.GetTargetImage(2)
+	const GpuImageViewConfig viewConfig = GpuImageViewConfig::CreateStorage_Default();
+	const IGpuImageView* lutGenImages[3] = {
+		lookUpTable.GetTargetImage(0)->GetView(viewConfig),
+		lookUpTable.GetTargetImage(1)->GetView(viewConfig),
+		lookUpTable.GetTargetImage(2)->GetView(viewConfig)
 	};
 	lutGenerationMaterialInstance->GetSlot("global")->SetStorageImages("finalImage", lutGenImages);
 	lutGenerationMaterialInstance->GetSlot("global")->FlushUpdate();
@@ -103,18 +104,25 @@ void SpecularMapLoader::Load(const std::string& assetFilePath, IAsset** asset) {
 	prefilterSampler.maxMipLevel = maxMipLevel;
 	prefilterSampler.filteringType = GpuImageFilteringType::LIENAR;
 
-	UniquePtr<GpuImage> originalCubemap = Engine::GetRenderer()->GetAllocator()->CreateCubemapImage(maxResolution,
-		Format::RGBA32_SFLOAT, GpuImageUsage::COLOR | GpuImageUsage::SAMPLED | GpuImageUsage::CUBEMAP | GpuImageUsage::TRANSFER_DESTINATION,
-		GpuSharedMemoryType::GPU_ONLY, origianlSampler).GetPointer();
-	OwnedPtr<GpuImage> targetCubemap = Engine::GetRenderer()->GetAllocator()->CreateCubemapImage(maxResolution,
-		Format::RGBA32_SFLOAT, GpuImageUsage::COLOR | GpuImageUsage::SAMPLED | GpuImageUsage::CUBEMAP | GpuImageUsage::TRANSFER_DESTINATION,
-		GpuSharedMemoryType::GPU_ONLY, prefilterSampler);
+	UniquePtr<GpuImage> originalCubemap = Engine::GetRenderer()->GetAllocator()->CreateCubemapImage(
+		maxResolution,
+		Format::RGBA32_SFLOAT, 
+		GpuImageUsage::COLOR | GpuImageUsage::SAMPLED | GpuImageUsage::CUBEMAP | GpuImageUsage::TRANSFER_DESTINATION,
+		GpuSharedMemoryType::GPU_ONLY, 
+		origianlSampler).GetPointer();
+
+	OwnedPtr<GpuImage> targetCubemap = Engine::GetRenderer()->GetAllocator()->CreateCubemapImage(
+		maxResolution,
+		Format::RGBA32_SFLOAT, 
+		GpuImageUsage::COLOR | GpuImageUsage::SAMPLED | GpuImageUsage::CUBEMAP | GpuImageUsage::TRANSFER_DESTINATION,
+		GpuSharedMemoryType::GPU_ONLY, 
+		prefilterSampler);
 
 	originalCubemap->SetDebugName("Original Specular Cubemap");
 	targetCubemap->SetDebugName("Prefiltered Specular Cubemap");
 
-	generationMaterialInstance->GetSlot("global")->SetGpuImage("image", originalImage.GetPointer());
-	prefilterMaterialInstance->GetSlot("global")->SetGpuImage("image", originalCubemap.GetPointer());
+	generationMaterialInstance->GetSlot("global")->SetGpuImage("image", originalImage->GetView(GpuImageViewConfig::CreateSampled_SingleMipLevel(0)));
+	prefilterMaterialInstance->GetSlot("global")->SetGpuImage("image", originalCubemap->GetView(GpuImageViewConfig::CreateSampled_Cubemap()));
 
 	generationMaterialInstance->GetSlot("global")->FlushUpdate();
 	prefilterMaterialInstance->GetSlot("global")->FlushUpdate();
@@ -244,7 +252,7 @@ void SpecularMapLoader::DrawPreFilter(GpuImage* cubemap, ICommandList* cmdList, 
 	for (TIndex faceId = 0; faceId < 6; faceId++) {
 		cmdList->BeginGraphicsRenderpass(&cubemapRenderTarget);
 
-		const float sizeRatio = glm::pow(0.5f, mipLevel);
+		const float sizeRatio = (float)glm::pow(0.5f, mipLevel);
 		const Viewport viewport{
 			.rectangle = {
 				0, 0,

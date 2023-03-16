@@ -27,19 +27,14 @@ namespace OSK::GRAPHICS {
 		void SetUniformBuffers(
 			const std::string& binding, 
 			const IGpuUniformBuffer* buffers[NUM_RESOURCES_IN_FLIGHT]);
+
 		void SetGpuImage(
-			const std::string& binding, 
-			const GpuImage* image, 
-			SampledChannel channel, 
-			SampledArrayType arrayType, 
-			TSize arrayLevel) override;
+			const std::string& binding,
+			const IGpuImageView* image) override;
 
 		void SetGpuImages(
 			const std::string& binding, 
-			const GpuImage* images[NUM_RESOURCES_IN_FLIGHT], 
-			SampledChannel channel, 
-			SampledArrayType arrayType, 
-			TSize arrayLevel) override;
+			const IGpuImageView* images[NUM_RESOURCES_IN_FLIGHT]) override;
 
 		void SetStorageBuffer(
 			const std::string& binding, 
@@ -51,15 +46,11 @@ namespace OSK::GRAPHICS {
 
 		void SetStorageImage(
 			const std::string& binding, 
-			const GpuImage* image, 
-			SampledArrayType arrayType, 
-			TSize arrayLevel) override;
+			const IGpuImageView* image) override;
 
 		void SetStorageImages(
 			const std::string& binding, 
-			const GpuImage* images[NUM_RESOURCES_IN_FLIGHT], 
-			SampledArrayType arrayType, 
-			TSize arrayLevel) override;
+			const IGpuImageView* images[NUM_RESOURCES_IN_FLIGHT]) override;
 
 		void SetAccelerationStructure(
 			const std::string& binding, 

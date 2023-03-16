@@ -45,6 +45,9 @@ bool AxisAlignedBoundingBox::IsColliding(const ITopLevelCollider& other,
 	if (auto sphere = dynamic_cast<const SphereCollider*>(&other))
 		return ITopLevelCollider::AabbSphereCollision(*this, *sphere,
 			thisOffset, otherOffset);
+
+	OSK_ASSERT(false, "Registrar nuevo tipo.");
+	OSK_ASSUME(0);
 }
 
 Vector3f AxisAlignedBoundingBox::GetMin(const Vector3f& position) const {
