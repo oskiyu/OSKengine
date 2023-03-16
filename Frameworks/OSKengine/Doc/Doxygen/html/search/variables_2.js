@@ -1,7 +1,7 @@
 var searchData=
 [
   ['centerofmassoffset_0',['centerOfMassOffset',['../class_o_s_k_1_1_e_c_s_1_1_physics_component.html#a139ede070b866acdb153120c51b5e8b7',1,'OSK::ECS::PhysicsComponent']]],
-  ['channel_1',['channel',['../struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_barrier_info.html#a84bce929941ec5fda9af186cb2a62c8c',1,'OSK::GRAPHICS::GpuImageBarrierInfo']]],
+  ['channel_1',['channel',['../struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_barrier_info.html#a84bce929941ec5fda9af186cb2a62c8c',1,'OSK::GRAPHICS::GpuImageBarrierInfo::channel()'],['../struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_view_config.html#a17df0b8be3e96e062f080e184665e862',1,'OSK::GRAPHICS::GpuImageViewConfig::channel()']]],
   ['channels_2',['channels',['../class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_animation.html#a2afaa19d75a97d1fa99ac8b627885b71',1,'OSK::GRAPHICS::Animation']]],
   ['characters_3',['characters',['../struct_o_s_k_1_1_a_s_s_e_t_s_1_1_font_instance.html#a080de74a5027833e0966af431ccfac22',1,'OSK::ASSETS::FontInstance']]],
   ['childindices_4',['childIndices',['../struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_mesh_node.html#a81f33bd635ca9a5523be469043fbfce4',1,'OSK::GRAPHICS::MeshNode']]],

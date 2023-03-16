@@ -6,5 +6,6 @@ var struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_vertex_anim3_d =
     [ "color", "struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_vertex_anim3_d.html#ab0900616fc7762f5b2d593d82f767a46", null ],
     [ "normal", "struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_vertex_anim3_d.html#af05c522441145e9542c28e25e4b82d95", null ],
     [ "position", "struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_vertex_anim3_d.html#a87163d548c9cc71e2cbacb8befcdd66c", null ],
+    [ "tangent", "struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_vertex_anim3_d.html#a27019df8214479c5c776cf9ea290ee78", null ],
     [ "texCoords", "struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_vertex_anim3_d.html#adcc4c77750e74b32cf7a5680d1edf2e3", null ]
 ];

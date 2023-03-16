@@ -161,6 +161,8 @@ Clases</h2></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_sampler_desc.html">GpuImageSamplerDesc</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_view_config.html">GpuImageViewConfig</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_view_dx12.html">GpuImageViewDx12</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_view_vk.html">GpuImageViewVk</a></td></tr>
@@ -495,6 +497,12 @@ Enumeraciones</h2></td></tr>
 , <a class="el" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a55e114ba828198c2146f5233e462ba39acb4fb1757fb37c43cded35d3eb857c43">ARRAY</a>
  }</td></tr>
 <tr class="separator:a55e114ba828198c2146f5233e462ba39"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ade40ecf1619c14b53344301c1eca1bca"><td class="memItemLeft" align="right" valign="top">enum class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#ade40ecf1619c14b53344301c1eca1bca">ViewUsage</a> { <a class="el" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#ade40ecf1619c14b53344301c1eca1bcaa5d0791856a3081df75c6093017a61a36">SAMPLED</a>
+, <a class="el" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#ade40ecf1619c14b53344301c1eca1bcaadf45780d7dc144f8c73766fae316d606">COLOR_TARGET</a>
+, <a class="el" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#ade40ecf1619c14b53344301c1eca1bcaaad449a013a6d7a34d5ea38b6263ff6d8">DEPTH_STENCIL_TARGET</a>
+, <a class="el" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#ade40ecf1619c14b53344301c1eca1bcaa754a5d433173b5ddc7debc2110ac575f">STORAGE</a>
+ }</td></tr>
+<tr class="separator:ade40ecf1619c14b53344301c1eca1bca"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a85a830e82585f3a565d1f097491042ce"><td class="memItemLeft" align="right" valign="top">enum class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a85a830e82585f3a565d1f097491042ce">GpuSharedMemoryType</a> { <a class="el" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a85a830e82585f3a565d1f097491042cea096f8c31942629a91cc086cbda5f5465">GPU_AND_CPU</a>
 , <a class="el" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a85a830e82585f3a565d1f097491042cea95c8166e4f408834884bbe57fef928f6">GPU_ONLY</a>
  }</td></tr>
@@ -519,12 +527,6 @@ Enumeraciones</h2></td></tr>
 <br />
  }</td></tr>
 <tr class="separator:ad8b871b506bab7c4021326a1a10bbc7f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ade40ecf1619c14b53344301c1eca1bca"><td class="memItemLeft" align="right" valign="top">enum class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#ade40ecf1619c14b53344301c1eca1bca">ViewUsage</a> { <a class="el" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#ade40ecf1619c14b53344301c1eca1bcaa5d0791856a3081df75c6093017a61a36">SAMPLED</a>
-, <a class="el" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#ade40ecf1619c14b53344301c1eca1bcaadf45780d7dc144f8c73766fae316d606">COLOR_TARGET</a>
-, <a class="el" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#ade40ecf1619c14b53344301c1eca1bcaaad449a013a6d7a34d5ea38b6263ff6d8">DEPTH_STENCIL_TARGET</a>
-, <a class="el" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#ade40ecf1619c14b53344301c1eca1bcaa754a5d433173b5ddc7debc2110ac575f">STORAGE</a>
- }</td></tr>
-<tr class="separator:ade40ecf1619c14b53344301c1eca1bca"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aad769de4b6a68624571ab3ae7ec13f97"><td class="memItemLeft" align="right" valign="top">enum class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#aad769de4b6a68624571ab3ae7ec13f97">MaterialType</a> { <a class="el" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#aad769de4b6a68624571ab3ae7ec13f97a6f49448c79d7d58c6e60cf7129b84d1c">GRAPHICS</a>
 , <a class="el" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#aad769de4b6a68624571ab3ae7ec13f97aaeeda410acf56610eb5dc54402a952d9">RAYTRACING</a>
 , <a class="el" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#aad769de4b6a68624571ab3ae7ec13f97aac404d7ce6ca5862e9b8a2641fbafd90">COMPUTE</a>
@@ -1770,7 +1772,7 @@ Variables</h2></td></tr>
 </td></tr>
 </table>
 
-<p class="definition">Definición en la línea <a class="el" href="_i_gpu_image_view_8h_source.html#l00012">12</a> del archivo <a class="el" href="_i_gpu_image_view_8h_source.html">IGpuImageView.h</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_gpu_image_view_config_8h_source.html#l00015">15</a> del archivo <a class="el" href="_gpu_image_view_config_8h_source.html">GpuImageViewConfig.h</a>.</p>
 
 </div>
 </div>
@@ -2022,7 +2024,7 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definición en la línea <a class="el" href="_gpu_image_layout_vulkan_8cpp_source.html#l00006">6</a> del archivo <a class="el" href="_gpu_image_layout_vulkan_8cpp_source.html">GpuImageLayoutVulkan.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_gpu_image_layout_vk_8cpp_source.html#l00006">6</a> del archivo <a class="el" href="_gpu_image_layout_vk_8cpp_source.html">GpuImageLayoutVk.cpp</a>.</p>
 
 </div>
 </div>
@@ -2161,7 +2163,7 @@ Variables</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="namespace_o_s_k.html">OSK</a></li><li class="navelem"><a class="el" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html">GRAPHICS</a></li>
-    <li class="footer">Generado el Martes, 14 de Marzo de 2023 14:08:58 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4 </li>
+    <li class="footer">Generado el Jueves, 16 de Marzo de 2023 13:36:19 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4 </li>
   </ul>
 </div>
 </body>

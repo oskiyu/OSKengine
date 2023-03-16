@@ -29,7 +29,7 @@ var searchData=
   ['minstoragebufferalignment_26',['minStorageBufferAlignment',['../class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_allocator.html#aaff6118faa9fb28654f07980cc41d199',1,'OSK::GRAPHICS::IGpuMemoryAllocator']]],
   ['minuniformbufferalignment_27',['minUniformBufferAlignment',['../class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_allocator.html#a04cd4dc070d00652754854026fac08c3',1,'OSK::GRAPHICS::IGpuMemoryAllocator']]],
   ['minvertexbufferalignment_28',['minVertexBufferAlignment',['../class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_allocator.html#a66cb48bd4d95aeecbdcfd92cb2c8d561',1,'OSK::GRAPHICS::IGpuMemoryAllocator']]],
-  ['mipmapmode_29',['mipMapMode',['../struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_sampler_desc.html#a741e70e94808535310cd680c4c4fcded',1,'OSK::GRAPHICS::GpuImageSamplerDesc']]],
+  ['mipmapmode_29',['mipMapMode',['../struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_sampler_desc.html#a741e70e94808535310cd680c4c4fcded',1,'OSK::GRAPHICS::GpuImageSamplerDesc::mipMapMode()'],['../struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_view_config.html#ad3a4ed2cd23d9f751c72d0865dcd6036',1,'OSK::GRAPHICS::GpuImageViewConfig::mipMapMode()']]],
   ['mode_30',['mode',['../class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_swapchain.html#a6a55d056d46f623dcbbb911b0b07b2af',1,'OSK::GRAPHICS::ISwapchain']]],
   ['modelinfo_31',['modelInfo',['../class_o_s_k_1_1_a_s_s_e_t_s_1_1_i_mesh_loader.html#a349edf8e41b582ca8f20d8a646bdda2b',1,'OSK::ASSETS::IMeshLoader']]],
   ['modeltransform_32',['modelTransform',['../class_o_s_k_1_1_a_s_s_e_t_s_1_1_i_mesh_loader.html#a1602e5b71a5b3726803bd3f059b20e77',1,'OSK::ASSETS::IMeshLoader']]],

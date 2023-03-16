@@ -108,8 +108,8 @@ Métodos públicos</h2></td></tr>
 <tr class="separator:ad9162b7e1cb7978be75adda96e17ab79"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a39b08772aa749621a912984e310e0301"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_e_c_s_1_1_model_component3_d.html#a39b08772aa749621a912984e310e0301">BindTextureForAllMeshes</a> (const std::string &amp;slot, const std::string &amp;binding, const <a class="el" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_texture.html">ASSETS::Texture</a> *texture)</td></tr>
 <tr class="separator:a39b08772aa749621a912984e310e0301"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aceb61878442196ac8c64cb657bd5bdbd"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_e_c_s_1_1_model_component3_d.html#aceb61878442196ac8c64cb657bd5bdbd">BindGpuImageForAllMeshes</a> (const std::string &amp;slot, const std::string &amp;binding, const <a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image.html">GRAPHICS::GpuImage</a> *image)</td></tr>
-<tr class="separator:aceb61878442196ac8c64cb657bd5bdbd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac7dca721f24c4e91cb766eac332200b4"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_e_c_s_1_1_model_component3_d.html#ac7dca721f24c4e91cb766eac332200b4">BindGpuImageForAllMeshes</a> (const std::string &amp;slot, const std::string &amp;binding, const <a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_image_view.html">GRAPHICS::IGpuImageView</a> *image)</td></tr>
+<tr class="separator:ac7dca721f24c4e91cb766eac332200b4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:adb7f2b5e8d92e77b8dc920c34442bc3b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_e_c_s_1_1_model_component3_d.html#adb7f2b5e8d92e77b8dc920c34442bc3b">BindUniformBufferForAllMeshes</a> (const std::string &amp;slot, const std::string &amp;binding, const <a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_uniform_buffer.html">GRAPHICS::IGpuUniformBuffer</a> *buffer)</td></tr>
 <tr class="separator:adb7f2b5e8d92e77b8dc920c34442bc3b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
@@ -121,10 +121,10 @@ Métodos públicos</h2></td></tr>
 <li>Instancias de los materiales de los meshes del modelo. </li>
 </ul>
 
-<p class="definition">Definición en la línea <a class="el" href="_model_component3_d_8h_source.html#l00034">34</a> del archivo <a class="el" href="_model_component3_d_8h_source.html">ModelComponent3D.h</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_model_component3_d_8h_source.html#l00035">35</a> del archivo <a class="el" href="_model_component3_d_8h_source.html">ModelComponent3D.h</a>.</p>
 </div><h2 class="groupheader">Documentación de las funciones miembro</h2>
-<a id="aceb61878442196ac8c64cb657bd5bdbd" name="aceb61878442196ac8c64cb657bd5bdbd"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aceb61878442196ac8c64cb657bd5bdbd">&#9670;&nbsp;</a></span>BindGpuImageForAllMeshes()</h2>
+<a id="ac7dca721f24c4e91cb766eac332200b4" name="ac7dca721f24c4e91cb766eac332200b4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac7dca721f24c4e91cb766eac332200b4">&#9670;&nbsp;</a></span>BindGpuImageForAllMeshes()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -144,7 +144,7 @@ Métodos públicos</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const <a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image.html">GRAPHICS::GpuImage</a> *&#160;</td>
+          <td class="paramtype">const <a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_image_view.html">GRAPHICS::IGpuImageView</a> *&#160;</td>
           <td class="paramname"><em>image</em>&#160;</td>
         </tr>
         <tr>
@@ -167,7 +167,7 @@ Métodos públicos</h2></td></tr>
 <dl class="section note"><dt>Nota</dt><dd>Se guardará información, de tal manera que si se añaden más meshes después de haber llamado a la función, se bindearán a ellos también.</dd></dl>
 <dl class="section warning"><dt>Atención</dt><dd>No comprueba que el slot / textura existan en el material. </dd></dl>
 
-<p class="definition">Definición en la línea <a class="el" href="_model_component3_d_8cpp_source.html#l00081">81</a> del archivo <a class="el" href="_model_component3_d_8cpp_source.html">ModelComponent3D.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_model_component3_d_8cpp_source.html#l00085">85</a> del archivo <a class="el" href="_model_component3_d_8cpp_source.html">ModelComponent3D.cpp</a>.</p>
 
 </div>
 </div>
@@ -215,7 +215,7 @@ Métodos públicos</h2></td></tr>
 <dl class="section note"><dt>Nota</dt><dd>Se guardará información, de tal manera que si se añaden más meshes después de haber llamado a la función, se bindearán a ellos también.</dd></dl>
 <dl class="section warning"><dt>Atención</dt><dd>No comprueba que el slot / textura existan en el material. </dd></dl>
 
-<p class="definition">Definición en la línea <a class="el" href="_model_component3_d_8cpp_source.html#l00069">69</a> del archivo <a class="el" href="_model_component3_d_8cpp_source.html">ModelComponent3D.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_model_component3_d_8cpp_source.html#l00073">73</a> del archivo <a class="el" href="_model_component3_d_8cpp_source.html">ModelComponent3D.cpp</a>.</p>
 
 </div>
 </div>
@@ -263,7 +263,7 @@ Métodos públicos</h2></td></tr>
 <dl class="section note"><dt>Nota</dt><dd>Se guardará información, de tal manera que si se añaden más meshes después de haber llamado a la función, se bindearán a ellos también.</dd></dl>
 <dl class="section warning"><dt>Atención</dt><dd>No comprueba que el slot / buffer existan en el material. </dd></dl>
 
-<p class="definition">Definición en la línea <a class="el" href="_model_component3_d_8cpp_source.html#l00093">93</a> del archivo <a class="el" href="_model_component3_d_8cpp_source.html">ModelComponent3D.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_model_component3_d_8cpp_source.html#l00097">97</a> del archivo <a class="el" href="_model_component3_d_8cpp_source.html">ModelComponent3D.cpp</a>.</p>
 
 </div>
 </div>
@@ -293,7 +293,7 @@ Métodos públicos</h2></td></tr>
 <dl class="section pre"><dt>Precondición</dt><dd>El id debe corresponder a un mesh existente dentro del modelo 3D. </dd></dl>
 <dl class="section warning"><dt>Atención</dt><dd>No comprueba que esté dentro de los límites. </dd></dl>
 
-<p class="definition">Definición en la línea <a class="el" href="_model_component3_d_8cpp_source.html#l00065">65</a> del archivo <a class="el" href="_model_component3_d_8cpp_source.html">ModelComponent3D.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_model_component3_d_8cpp_source.html#l00069">69</a> del archivo <a class="el" href="_model_component3_d_8cpp_source.html">ModelComponent3D.cpp</a>.</p>
 
 </div>
 </div>
@@ -316,7 +316,7 @@ Métodos públicos</h2></td></tr>
 <dl class="section return"><dt>Devuelve</dt><dd>No null.</dd></dl>
 <dl class="section pre"><dt>Precondición</dt><dd>Debe haberse establecido el modelo con <a class="el" href="class_o_s_k_1_1_e_c_s_1_1_model_component3_d.html#af7f59fbb8292ffa10abf7effb21f10c8" title="Establece el modelo 3D que se renderizará.">ModelComponent3D::SetModel</a>. </dd></dl>
 
-<p class="definition">Definición en la línea <a class="el" href="_model_component3_d_8cpp_source.html#l00061">61</a> del archivo <a class="el" href="_model_component3_d_8cpp_source.html">ModelComponent3D.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_model_component3_d_8cpp_source.html#l00065">65</a> del archivo <a class="el" href="_model_component3_d_8cpp_source.html">ModelComponent3D.cpp</a>.</p>
 
 </div>
 </div>
@@ -358,7 +358,7 @@ Métodos públicos</h2></td></tr>
 <dl class="section note"><dt>Nota</dt><dd>Los meshes tendrán instancias de este material. </dd></dl>
 <dl class="section warning"><dt>Atención</dt><dd>Debe ser establecido para poder ser usado. </dd></dl>
 
-<p class="definition">Definición en la línea <a class="el" href="_model_component3_d_8cpp_source.html#l00039">39</a> del archivo <a class="el" href="_model_component3_d_8cpp_source.html">ModelComponent3D.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_model_component3_d_8cpp_source.html#l00041">41</a> del archivo <a class="el" href="_model_component3_d_8cpp_source.html">ModelComponent3D.cpp</a>.</p>
 
 </div>
 </div>
@@ -402,7 +402,7 @@ Métodos públicos</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="namespace_o_s_k.html">OSK</a></li><li class="navelem"><a class="el" href="namespace_o_s_k_1_1_e_c_s.html">ECS</a></li><li class="navelem"><a class="el" href="class_o_s_k_1_1_e_c_s_1_1_model_component3_d.html">ModelComponent3D</a></li>
-    <li class="footer">Generado el Martes, 14 de Marzo de 2023 14:08:58 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4 </li>
+    <li class="footer">Generado el Jueves, 16 de Marzo de 2023 13:36:19 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4 </li>
   </ul>
 </div>
 </body>

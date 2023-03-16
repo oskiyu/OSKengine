@@ -110,6 +110,7 @@ var annotated_dup =
         [ "GpuImageCreateInfo", "struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_create_info.html", "struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_create_info" ],
         [ "GpuImageDx12", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_dx12.html", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_dx12" ],
         [ "GpuImageSamplerDesc", "struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_sampler_desc.html", "struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_sampler_desc" ],
+        [ "GpuImageViewConfig", "struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_view_config.html", "struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_view_config" ],
         [ "GpuImageViewDx12", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_view_dx12.html", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_view_dx12" ],
         [ "GpuImageViewVk", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_view_vk.html", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_view_vk" ],
         [ "GpuImageVk", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_vk.html", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_vk" ],
@@ -263,7 +264,7 @@ var annotated_dup =
       [ "Version", "struct_o_s_k_1_1_version.html", "struct_o_s_k_1_1_version" ]
     ] ],
     [ "std", null, [
-      [ "hash< OSK::GRAPHICS::IGpuImageView >", "structstd_1_1hash_3_01_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_image_view_01_4.html", "structstd_1_1hash_3_01_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_image_view_01_4" ]
+      [ "hash< OSK::GRAPHICS::GpuImageViewConfig >", "structstd_1_1hash_3_01_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_view_config_01_4.html", "structstd_1_1hash_3_01_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_view_config_01_4" ]
     ] ],
     [ "SharedPtr", "class_shared_ptr.html", "class_shared_ptr" ]
 ];

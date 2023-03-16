@@ -7,7 +7,7 @@ var searchData=
   ['ifieldwrapper_4',['IFieldWrapper',['../class_o_s_k_1_1_p_e_r_s_i_s_t_e_n_c_e_1_1_i_field_wrapper.html#ad41ee8257ecdc0ac13ce03d0c4957906',1,'OSK::PERSISTENCE::IFieldWrapper']]],
   ['igamepadinput_5',['IGamepadInput',['../class_o_s_k_1_1_i_o_1_1_i_gamepad_input.html#a0972fc5ed9e9efcdd81932ca69264119',1,'OSK::IO::IGamepadInput']]],
   ['igpu_6',['IGpu',['../class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu.html#a658cc229d1e2c989b2d5eda1190f1064',1,'OSK::GRAPHICS::IGpu']]],
-  ['igpuimageview_7',['IGpuImageView',['../class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_image_view.html#a60b45c3d1ab311918e6e99a8762efd6c',1,'OSK::GRAPHICS::IGpuImageView']]],
+  ['igpuimageview_7',['IGpuImageView',['../class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_image_view.html#afbb5d4b054f5bf6855ebd9035edfa4f1',1,'OSK::GRAPHICS::IGpuImageView']]],
   ['igpuindexbuffer_8',['IGpuIndexBuffer',['../class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_index_buffer.html#a9c6a69cbc8af92b66651a27305373385',1,'OSK::GRAPHICS::IGpuIndexBuffer']]],
   ['igpumemoryallocator_9',['IGpuMemoryAllocator',['../class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_allocator.html#a5eb4af797b1cd9c31aa51233fcdf7af1',1,'OSK::GRAPHICS::IGpuMemoryAllocator']]],
   ['igpumemoryblock_10',['IGpuMemoryBlock',['../class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_block.html#ab4f41f6ec47b71266572279f815908f7',1,'OSK::GRAPHICS::IGpuMemoryBlock']]],
@@ -42,7 +42,7 @@ var searchData=
   ['iscomplete_39',['IsComplete',['../struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_queue_familes.html#a7f5cde38f26c96de11c0c2167c90f85d',1,'OSK::GRAPHICS::QueueFamiles']]],
   ['isconnected_40',['IsConnected',['../class_o_s_k_1_1_i_o_1_1_gamepad_state.html#aa359f7b60c5bf64d787e1c2b4a7617d6',1,'OSK::IO::GamepadState']]],
   ['isdirty_41',['IsDirty',['../class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_bottom_level_acceleration_structure.html#aa8a9c840623a5e8b836647cf8b79f582',1,'OSK::GRAPHICS::IBottomLevelAccelerationStructure']]],
-  ['isempty_42',['IsEmpty',['../class_o_s_k_1_1_dynamic_array_1_1_iterator.html#accd4c0e3f34241a659952c5a7d4928bf',1,'OSK::DynamicArray::Iterator::IsEmpty()'],['../class_o_s_k_1_1_dynamic_array.html#ab772cd3a1f2c189505ea17d604dfc164',1,'OSK::DynamicArray::IsEmpty()'],['../class_o_s_k_1_1_hash_map_1_1_iterator.html#a3037797bf10b2b242209e1401155217f',1,'OSK::HashMap::Iterator::IsEmpty()'],['../class_o_s_k_1_1_linked_list.html#aa50c2cb81a7674bea9ec0387e47f2e5d',1,'OSK::LinkedList::IsEmpty()']]],
+  ['isempty_42',['IsEmpty',['../class_o_s_k_1_1_dynamic_array_1_1_iterator.html#accd4c0e3f34241a659952c5a7d4928bf',1,'OSK::DynamicArray::Iterator::IsEmpty()'],['../class_o_s_k_1_1_dynamic_array.html#ab772cd3a1f2c189505ea17d604dfc164',1,'OSK::DynamicArray::IsEmpty()'],['../class_o_s_k_1_1_linked_list.html#aa50c2cb81a7674bea9ec0387e47f2e5d',1,'OSK::LinkedList::IsEmpty()']]],
   ['isenumflag_43',['IsEnumFlag',['../namespace_o_s_k_1_1_e_f_traits.html#a0ff8b6034acc94d42d63922fcf45cb07',1,'OSK::EFTraits']]],
   ['isfirst_44',['IsFirst',['../class_o_s_k_1_1_linked_list_1_1_node.html#aaab1de597c3262d0fa690893c1f21b99',1,'OSK::LinkedList::Node']]],
   ['isfull_45',['IsFull',['../class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_descriptor_block_dx12.html#a5f7ebc46ce9cb40c6a5e69cea3974d64',1,'OSK::GRAPHICS::DescriptorBlockDx12']]],
@@ -54,12 +54,12 @@ var searchData=
   ['iskeystroked_51',['IsKeyStroked',['../class_o_s_k_1_1_i_o_1_1_i_keyboard_input.html#a115f2d31971eed50226ba211d03c64eb',1,'OSK::IO::IKeyboardInput']]],
   ['iskeyup_52',['IsKeyUp',['../class_o_s_k_1_1_i_o_1_1_i_keyboard_input.html#a51cb4d13fc492dd6c6db831de6a0bc17',1,'OSK::IO::IKeyboardInput::IsKeyUp()'],['../class_o_s_k_1_1_i_o_1_1_keyboard_state.html#a13ac7fab7db9af7320e82a60bef49354',1,'OSK::IO::KeyboardState::IsKeyUp()']]],
   ['islast_53',['IsLast',['../class_o_s_k_1_1_linked_list_1_1_node.html#a765a815ea81023e7fcb1844fbd689a1a',1,'OSK::LinkedList::Node']]],
-  ['isopen_54',['IsOpen',['../class_o_s_k_1_1_i_o_1_1_i_display.html#ada449806c6ae56f875feba2d89d6c49a',1,'OSK::IO::IDisplay::IsOpen()'],['../class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer.html#a6c686e7448f5b58d4a82bd65a7edd525',1,'OSK::GRAPHICS::IRenderer::IsOpen() const']]],
+  ['isopen_54',['IsOpen',['../class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer.html#a6c686e7448f5b58d4a82bd65a7edd525',1,'OSK::GRAPHICS::IRenderer::IsOpen()'],['../class_o_s_k_1_1_i_o_1_1_i_display.html#ada449806c6ae56f875feba2d89d6c49a',1,'OSK::IO::IDisplay::IsOpen()']]],
   ['isrtactive_55',['IsRtActive',['../class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer.html#a39cec2c1506cbde7b9da2b75cdebddf8',1,'OSK::GRAPHICS::IRenderer']]],
   ['isrtcompatible_56',['IsRtCompatible',['../struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_vk_1_1_info.html#a0ef41ab6fd8ce95010d07658bb3a1dcd',1,'OSK::GRAPHICS::GpuVk::Info']]],
   ['isrtrequested_57',['IsRtRequested',['../class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer.html#acf22c29d74bcd9d7e992d5f59becb681',1,'OSK::GRAPHICS::IRenderer']]],
   ['istoplevelcolliding_58',['IsTopLevelColliding',['../class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_collision_info.html#a1d9355b6bb52a321645dab22e569f477',1,'OSK::COLLISION::CollisionInfo']]],
   ['isunused_59',['IsUnused',['../class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_block.html#ade0f4cfb99ac4d5653f80064e83a78e2',1,'OSK::GRAPHICS::IGpuMemoryBlock']]],
   ['isystem_60',['ISystem',['../class_o_s_k_1_1_e_c_s_1_1_i_system.html#a3d80dfebab196c8a8f334ae5b89e7f1d',1,'OSK::ECS::ISystem']]],
-  ['iterator_61',['Iterator',['../class_o_s_k_1_1_dynamic_array_1_1_iterator.html#af6dbde2440dcf0f854067e7a2c8ea848',1,'OSK::DynamicArray::Iterator::Iterator()'],['../class_o_s_k_1_1_hash_map_1_1_iterator.html#a99ccc3a8c006db8b4c62f64d7c60d18c',1,'OSK::HashMap::Iterator::Iterator()'],['../class_o_s_k_1_1_linked_list_1_1_iterator.html#a3fd72950643840c7e21bc577785adbe8',1,'OSK::LinkedList::Iterator::Iterator()']]]
+  ['iterator_61',['Iterator',['../class_o_s_k_1_1_dynamic_array_1_1_iterator.html#af6dbde2440dcf0f854067e7a2c8ea848',1,'OSK::DynamicArray::Iterator::Iterator()'],['../class_o_s_k_1_1_linked_list_1_1_iterator.html#a3fd72950643840c7e21bc577785adbe8',1,'OSK::LinkedList::Iterator::Iterator()']]]
 ];

@@ -96,9 +96,9 @@ $(document).ready(function(){initNavTree('class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Métodos públicos</h2></td></tr>
-<tr class="memitem:ac0ee74e39c90d597beb90338a31bdae3"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
-<tr class="memitem:ac0ee74e39c90d597beb90338a31bdae3"><td class="memTemplItemLeft" align="right" valign="top">T *&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_manager.html#ac0ee74e39c90d597beb90338a31bdae3">Load</a> (const std::string &amp;assetFilePath, const std::string lifetimePool)</td></tr>
-<tr class="separator:ac0ee74e39c90d597beb90338a31bdae3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4685a818f315cd0efab031483ad7b44d"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:a4685a818f315cd0efab031483ad7b44d"><td class="memTemplItemLeft" align="right" valign="top">T *&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_manager.html#a4685a818f315cd0efab031483ad7b44d">Load</a> (const std::string &amp;assetFilePath, const std::string &amp;lifetimePool)</td></tr>
+<tr class="separator:a4685a818f315cd0efab031483ad7b44d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a032603cd4ddeedebe56ec8c9516469f5"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_manager.html#a032603cd4ddeedebe56ec8c9516469f5">DeleteLifetime</a> (const std::string &amp;lifetime)</td></tr>
 <tr class="separator:a032603cd4ddeedebe56ec8c9516469f5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a37f73c3a4d17bb495b38eb65f7073d67"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
@@ -109,7 +109,7 @@ Métodos públicos</h2></td></tr>
 <div class="textblock"><p >El <a class="el" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_manager.html" title="El AssetManager se encarga de manejar los loaders de los assets y los lifetimes de los assets.">AssetManager</a> se encarga de manejar los loaders de los assets y los lifetimes de los assets. </p>
 <dl class="section note"><dt>Nota</dt><dd>Se deben registrar todos los loaders mediante <a class="el" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_manager.html#a37f73c3a4d17bb495b38eb65f7073d67" title="Registra un loader, para poder cargar assets de un tipo determinado.">RegisterLoader()</a>.</dd>
 <dd>
-Al cargar un asset mediante <a class="el" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_manager.html#ac0ee74e39c90d597beb90338a31bdae3" title="Carga un asset.">Load()</a>, debemos especificar a qué lifetime corresponde. Un lifetime agrupa assets que tienen un ciclo de vida común. Al terminar el ciclo de vida, todos los assets del lifetime son eliminados.</dd>
+Al cargar un asset mediante <a class="el" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_manager.html#a4685a818f315cd0efab031483ad7b44d" title="Carga un asset.">Load()</a>, debemos especificar a qué lifetime corresponde. Un lifetime agrupa assets que tienen un ciclo de vida común. Al terminar el ciclo de vida, todos los assets del lifetime son eliminados.</dd>
 <dd>
 Esta clase es dueña de los assets.</dd>
 <dd>
@@ -141,8 +141,8 @@ Usa un sistema de cacheado, por lo que los assets se cargan una única vez.</dd>
 
 </div>
 </div>
-<a id="ac0ee74e39c90d597beb90338a31bdae3" name="ac0ee74e39c90d597beb90338a31bdae3"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac0ee74e39c90d597beb90338a31bdae3">&#9670;&nbsp;</a></span>Load()</h2>
+<a id="a4685a818f315cd0efab031483ad7b44d" name="a4685a818f315cd0efab031483ad7b44d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4685a818f315cd0efab031483ad7b44d">&#9670;&nbsp;</a></span>Load()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -161,7 +161,7 @@ template&lt;typename T &gt; </div>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const std::string&#160;</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
           <td class="paramname"><em>lifetimePool</em>&#160;</td>
         </tr>
         <tr>
@@ -180,7 +180,7 @@ template&lt;typename T &gt; </div>
 <p>Carga un asset. </p>
 <dl class="section note"><dt>Nota</dt><dd>Esta función debe ser sobreescrita por todos los loaders. </dd></dl>
 
-<p class="definition">Definición en la línea <a class="el" href="_asset_manager_8h_source.html#l00039">39</a> del archivo <a class="el" href="_asset_manager_8h_source.html">AssetManager.h</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_asset_manager_8h_source.html#l00040">40</a> del archivo <a class="el" href="_asset_manager_8h_source.html">AssetManager.h</a>.</p>
 
 </div>
 </div>
@@ -215,7 +215,7 @@ template&lt;typename T &gt; </div>
 <dd>
 Todo loader debe ser registrado para poder usarse. </dd></dl>
 
-<p class="definition">Definición en la línea <a class="el" href="_asset_manager_8h_source.html#l00067">67</a> del archivo <a class="el" href="_asset_manager_8h_source.html">AssetManager.h</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_asset_manager_8h_source.html#l00069">69</a> del archivo <a class="el" href="_asset_manager_8h_source.html">AssetManager.h</a>.</p>
 
 </div>
 </div>
@@ -229,7 +229,7 @@ Todo loader debe ser registrado para poder usarse. </dd></dl>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="namespace_o_s_k.html">OSK</a></li><li class="navelem"><a class="el" href="namespace_o_s_k_1_1_a_s_s_e_t_s.html">ASSETS</a></li><li class="navelem"><a class="el" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_manager.html">AssetManager</a></li>
-    <li class="footer">Generado el Martes, 14 de Marzo de 2023 14:08:58 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4 </li>
+    <li class="footer">Generado el Jueves, 16 de Marzo de 2023 13:36:19 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4 </li>
   </ul>
 </div>
 </body>
