@@ -48,7 +48,7 @@ SpecularMapLoader::SpecularMapLoader() {
 	lutGenerationMaterialInstance->GetSlot("global")->SetStorageImages("finalImage", lutGenImages);
 	lutGenerationMaterialInstance->GetSlot("global")->FlushUpdate();
 
-	cubemapModel = Engine::GetAssetManager()->Load<ASSETS::Model3D>("Resources/Assets/cube.json", "OSK::SpecularMapLoader");
+	cubemapModel = Engine::GetAssetManager()->Load<ASSETS::Model3D>("Resources/Assets/Models/cube.json", "OSK::SpecularMapLoader");
 }
 
 SpecularMapLoader::~SpecularMapLoader() {

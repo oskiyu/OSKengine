@@ -55,7 +55,7 @@ IrradianceMapLoader::IrradianceMapLoader() {
 	RenderTargetAttachmentInfo depthInfo{ .format = Format::D16_UNORM , .name = "Irradiance Map Depth Target" };
 	cubemapGenRenderTarget.Create(irradianceLayerSize, { colorInfo }, depthInfo);
 
-	cubemapModel = Engine::GetAssetManager()->Load<ASSETS::Model3D>("Resources/Assets/cube.json", "OSK::IrradianceMapLoader");
+	cubemapModel = Engine::GetAssetManager()->Load<ASSETS::Model3D>("Resources/Assets/Models/cube.json", "OSK::IrradianceMapLoader");
 }
 
 IrradianceMapLoader::~IrradianceMapLoader() {

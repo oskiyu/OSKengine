@@ -21,7 +21,7 @@ SkyboxRenderSystem::SkyboxRenderSystem() {
 	skyboxMaterial = Engine::GetRenderer()->GetMaterialSystem()->LoadMaterial("Resources/Materials/Skybox/material.json");
 	skyboxMaterialInstance = skyboxMaterial->CreateInstance().GetPointer();
 
-	cubemapModel = Engine::GetAssetManager()->Load<Model3D>("Resources/Assets/cube.json", "GLOBAL");
+	cubemapModel = Engine::GetAssetManager()->Load<Model3D>("Resources/Assets/Models/cube.json", "GLOBAL");
 
 	const IGpuUniformBuffer* buffers[3]{};
 	for (TSize i = 0; i < NUM_RESOURCES_IN_FLIGHT; i++) {

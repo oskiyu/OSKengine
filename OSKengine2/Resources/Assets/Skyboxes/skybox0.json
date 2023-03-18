@@ -1,0 +1,16 @@
+{
+    "file_type": "ASSET",
+    "spec_ver": 0,
+
+    "name": "Texture0",
+    "asset_type": "CubemapTexture",
+    
+    "faces_files": {
+        "right": "Resources/RawAssets/Skyboxes/sky/right.jpg",
+        "left": "Resources/RawAssets/Skyboxes/sky/left.jpg",
+        "top": "Resources/RawAssets/Skyboxes/sky/top.jpg",
+        "back": "Resources/RawAssets/Skyboxes/sky/back.jpg",
+        "bottom": "Resources/RawAssets/Skyboxes/sky/bottom.jpg",
+        "front": "Resources/RawAssets/Skyboxes/sky/front.jpg"
+    }
+}

@@ -1,0 +1,12 @@
+{
+    "file_type": "ASSET",
+    "spec_ver": 0,
+
+    "name": "Circuit0",
+    "asset_type": "Model3D",
+    "raw_asset_path": "Resources/RawAssets/Models/circuit.glb",
+    "raw_asset_path1": "Resources/RawAssets/Models/sponza.glb",
+
+    "scale": 1.0,
+    "rotation_offset": [0, 180, 0]
+}

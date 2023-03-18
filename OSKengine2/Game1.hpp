@@ -133,7 +133,7 @@ protected:
 	}
 
 	void OnCreate() override {
-		auto animModel = Engine::GetAssetManager()->Load<ASSETS::Model3D>("Resources/Assets/animmodel.json", "GLOBAL");
+		auto animModel = Engine::GetAssetManager()->Load<ASSETS::Model3D>("Resources/Assets/Models/animmodel.json", "GLOBAL");
 
 		// Material load
 		material = Engine::GetRenderer()->GetMaterialSystem()->LoadMaterial("Resources/Materials/PBR/direct_pbr.json"); //Resources/PbrMaterials/deferred_gbuffer.json
@@ -155,7 +155,7 @@ protected:
 		spriteRenderer.SetCommandList(Engine::GetRenderer()->GetGraphicsCommandList());
 
 		// Font loading
-		font = Engine::GetAssetManager()->Load<ASSETS::Font>("Resources/Assets/font0.json", "GLOBAL");
+		font = Engine::GetAssetManager()->Load<ASSETS::Font>("Resources/Assets/Fonts/font0.json", "GLOBAL");
 		font->LoadSizedFont(22);
 		font->SetMaterial(material2d);
 
@@ -555,7 +555,7 @@ private:
 	}
 
 	void SetupRenderSystems() {
-		const CubemapTexture* skyboxTexture = Engine::GetAssetManager()->Load<CubemapTexture>("Resources/Assets/skybox0.json", "GLOBAL");
+		const CubemapTexture* skyboxTexture = Engine::GetAssetManager()->Load<CubemapTexture>("Resources/Assets/Skyboxes/skybox0.json", "GLOBAL");
 		const SpecularMap* specularMap = Engine::GetAssetManager()->Load<SpecularMap>("Resources/Assets/IBL/irradiance0.json", "GLOBAL");
 		const IrradianceMap* irradianceMap = Engine::GetAssetManager()->Load<IrradianceMap>("Resources/Assets/IBL/specular0.json", "GLOBAL");
 
@@ -617,8 +617,8 @@ private:
 		Engine::GetEcs()->AddComponent<Collider>(carObject, std::move(collider));
 
 		// Setup del modelo 3D
-		Model3D* carModel = Engine::GetAssetManager()->Load<Model3D>("Resources/Assets/mclaren.json", "GLOBAL");
-		const Texture* defaultTexture = Engine::GetAssetManager()->Load<Texture>("Resources/Assets/texture0.json", "GLOBAL");
+		Model3D* carModel = Engine::GetAssetManager()->Load<Model3D>("Resources/Assets/Models/mclaren.json", "GLOBAL");
+		const Texture* defaultTexture = Engine::GetAssetManager()->Load<Texture>("Resources/Assets/Textures/texture0.json", "GLOBAL");
 
 		ModelComponent3D* modelComponent = &Engine::GetEcs()->AddComponent<ModelComponent3D>(carObject, {});
 
@@ -635,8 +635,8 @@ private:
 		Transform3D* transform = &Engine::GetEcs()->AddComponent<Transform3D>(circuitObject, Transform3D(circuitObject));
 
 		// Modelo 3D
-		Model3D* circuitModel = Engine::GetAssetManager()->Load<Model3D>("Resources/Assets/circuit0.json", "GLOBAL");
-		const Texture* defaultTexture = Engine::GetAssetManager()->Load<Texture>("Resources/Assets/texture0.json", "GLOBAL");
+		Model3D* circuitModel = Engine::GetAssetManager()->Load<Model3D>("Resources/Assets/Models/circuit0.json", "GLOBAL");
+		const Texture* defaultTexture = Engine::GetAssetManager()->Load<Texture>("Resources/Assets/Textures/texture0.json", "GLOBAL");
 
 		ModelComponent3D* modelComponent = &Engine::GetEcs()->AddComponent<ModelComponent3D>(circuitObject, {});
 
