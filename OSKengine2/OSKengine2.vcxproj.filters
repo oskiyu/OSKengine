@@ -1945,5 +1945,6 @@
     <None Include="Doc\mainpage.dox">
       <Filter>Doc</Filter>
     </None>
+    <None Include="vcpkg.json" />
   </ItemGroup>
 </Project>

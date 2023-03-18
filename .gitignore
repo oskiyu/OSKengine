@@ -348,5 +348,14 @@ healthchecksdb
 
 # Bin
 *.exe
+*.dll
+*.lib
 
 # Large files
+/OSKengine2/vcpkg_installed/x64-windows
+/OSKengine2/*.dll
+/OSKengine2/*.lib
+/OSKengine2/dxcompiler.dll
+/OSKengine2/freetype.dll
+/OSKengine2/freetype.dll
+/OSKengine2/vcpkg_installed

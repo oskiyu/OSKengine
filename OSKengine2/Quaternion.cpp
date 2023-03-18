@@ -1,7 +1,7 @@
 #include "Quaternion.h"
 
 #define GLM_ENABLE_EXPERIMENTAL
-#include <gtx/quaternion.hpp>
+#include <glm/gtx/quaternion.hpp>
 
 using namespace OSK;
 

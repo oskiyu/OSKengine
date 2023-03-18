@@ -22,8 +22,8 @@
 #include "ModelComponent3D.h"
 
 #define GLM_ENABLE_EXPERIMENTAL
-#include <gtx/matrix_decompose.hpp>
-#include <gtc/type_ptr.hpp>
+#include <glm/gtx/matrix_decompose.hpp>
+#include <glm/gtc/type_ptr.hpp>
 #include <json.hpp>
 
 #define TINYGLTF_IMPLEMENTATION

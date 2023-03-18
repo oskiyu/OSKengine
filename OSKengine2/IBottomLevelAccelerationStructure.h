@@ -6,7 +6,7 @@
 #include "IGpuDataBuffer.h"
 #include "RtAccelerationStructureFlags.h"
 
-#include <glm.hpp>
+#include <glm/glm.hpp>
 
 namespace OSK::GRAPHICS {
 

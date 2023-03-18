@@ -48,7 +48,7 @@ PbrDeferredRenderSystem::PbrDeferredRenderSystem() {
 
 
 	// Material del resolve final.
-	resolveMaterial = Engine::GetRenderer()->GetMaterialSystem()->LoadMaterial("Resources/PbrMaterials/deferred_resolve.json");
+	resolveMaterial = Engine::GetRenderer()->GetMaterialSystem()->LoadMaterial("Resources/Materials/PBR/Deferred/deferred_resolve.json");
 	resolveMaterialInstance = resolveMaterial->CreateInstance().GetPointer();
 
 	const IGpuUniformBuffer* _cameraUbos[3]{};
@@ -77,8 +77,8 @@ PbrDeferredRenderSystem::PbrDeferredRenderSystem() {
 	
 
 	// Material del renderizado del gbuffer.
-	gbufferMaterial = Engine::GetRenderer()->GetMaterialSystem()->LoadMaterial("Resources/PbrMaterials/deferred_gbuffer.json");
-	animatedGbufferMaterial = Engine::GetRenderer()->GetMaterialSystem()->LoadMaterial("Resources/PbrMaterials/deferred_gbuffer_anim.json");
+	gbufferMaterial = Engine::GetRenderer()->GetMaterialSystem()->LoadMaterial("Resources/Materials/PBR/Deferred/deferred_gbuffer.json");
+	animatedGbufferMaterial = Engine::GetRenderer()->GetMaterialSystem()->LoadMaterial("Resources/Materials/PBR/Deferred/deferred_gbuffer_anim.json");
 	globalGbufferMaterialInstance = gbufferMaterial->CreateInstance().GetPointer();
 
 	globalGbufferMaterialInstance->GetSlot("global")->SetUniformBuffers("camera", _cameraUbos);

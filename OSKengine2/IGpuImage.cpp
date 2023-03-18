@@ -2,7 +2,7 @@
 
 #include "IGpuMemoryBlock.h"
 #include "IGpuMemorySubblock.h"
-#include <glm.hpp>
+#include <glm/glm.hpp>
 #include "OSKengine.h"
 #include "IGpuMemoryAllocator.h"
 #include "Logger.h"

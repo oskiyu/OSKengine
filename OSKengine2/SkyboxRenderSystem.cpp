@@ -18,7 +18,7 @@ using namespace OSK::GRAPHICS;
 SkyboxRenderSystem::SkyboxRenderSystem() {
 	_SetSignature({});
 
-	skyboxMaterial = Engine::GetRenderer()->GetMaterialSystem()->LoadMaterial("Resources/skybox_material.json");
+	skyboxMaterial = Engine::GetRenderer()->GetMaterialSystem()->LoadMaterial("Resources/Materials/Skybox/material.json");
 	skyboxMaterialInstance = skyboxMaterial->CreateInstance().GetPointer();
 
 	cubemapModel = Engine::GetAssetManager()->Load<Model3D>("Resources/Assets/cube.json", "GLOBAL");

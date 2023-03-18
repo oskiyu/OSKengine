@@ -4,8 +4,8 @@
 #include "OSKengine.h"
 
 #define GLM_ENABLE_EXPERIMENTAL
-#include <gtx/quaternion.hpp>
-#include <gtx/string_cast.hpp>
+#include <glm/gtx/quaternion.hpp>
+#include <glm/gtx/string_cast.hpp>
 
 using namespace OSK;
 using namespace OSK::ECS;

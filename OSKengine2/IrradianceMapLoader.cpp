@@ -23,9 +23,9 @@
 
 #include <json.hpp>
 #include <stbi_image.h>
-#include <glm.hpp>
-#include <ext/matrix_clip_space.hpp>
-#include <gtc/matrix_transform.hpp>
+#include <glm/glm.hpp>
+#include <glm/ext/matrix_clip_space.hpp>
+#include <glm/gtc/matrix_transform.hpp>
 
 using namespace OSK;
 using namespace OSK::IO;
@@ -45,8 +45,8 @@ glm::mat4 IrradianceMapLoader::cameraViews[6] = {
 
 
 IrradianceMapLoader::IrradianceMapLoader() {
-	cubemapGenMaterial = Engine::GetRenderer()->GetMaterialSystem()->LoadMaterial("Resources/material_irradiance_gen.json");
-	cubemapConvolutionMaterial = Engine::GetRenderer()->GetMaterialSystem()->LoadMaterial("Resources/material_irradiance_convolution.json");
+	cubemapGenMaterial = Engine::GetRenderer()->GetMaterialSystem()->LoadMaterial("Resources/Materials/AssetsGen/material_irradiance_gen.json");
+	cubemapConvolutionMaterial = Engine::GetRenderer()->GetMaterialSystem()->LoadMaterial("Resources/Materials/AssetsGen/material_irradiance_convolution.json");
 
 	cubemapGenMaterialInstance = cubemapGenMaterial->CreateInstance().GetPointer();
 	cubemapConvolutionMaterialInstance = cubemapConvolutionMaterial->CreateInstance().GetPointer();

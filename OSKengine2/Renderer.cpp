@@ -157,7 +157,7 @@ bool IRenderer::_HasImplicitResizeHandling() const {
 }
 
 Material* IRenderer::GetFullscreenRenderingMaterial() const {
-	return materialSystem->LoadMaterial("Resources/material_rendertarget.json");
+	return materialSystem->LoadMaterial("Resources/Materials/2D/material_rendertarget.json");
 }
 
 void IRenderer::RegisterRenderTarget(RenderTarget* renderTarget) {

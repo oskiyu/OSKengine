@@ -6,7 +6,6 @@
 
 #include <dxgi1_6.h>
 #include <vulkan/vulkan.h>
-#include <glad/glad.h>
 
 DXGI_FORMAT OSK::GRAPHICS::GetFormatDx12(Format format) {
 	switch (format) {

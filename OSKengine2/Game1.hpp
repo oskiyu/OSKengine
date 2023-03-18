@@ -45,7 +45,7 @@
 #include "Vertex2D.h"
 #include "Sprite.h"
 #include "PushConst2D.h"
-#include <ext\matrix_clip_space.hpp>
+#include <glm\ext\matrix_clip_space.hpp>
 #include "Font.h"
 #include "FontLoader.h"
 #include "SpriteRenderer.h"
@@ -136,9 +136,9 @@ protected:
 		auto animModel = Engine::GetAssetManager()->Load<ASSETS::Model3D>("Resources/Assets/animmodel.json", "GLOBAL");
 
 		// Material load
-		material = Engine::GetRenderer()->GetMaterialSystem()->LoadMaterial("Resources/material_pbr.json"); //Resources/PbrMaterials/deferred_gbuffer.json
-		material2d = Engine::GetRenderer()->GetMaterialSystem()->LoadMaterial("Resources/material_2d.json");
-		materialRenderTarget = Engine::GetRenderer()->GetMaterialSystem()->LoadMaterial("Resources/material_rendertarget.json");
+		material = Engine::GetRenderer()->GetMaterialSystem()->LoadMaterial("Resources/Materials/PBR/direct_pbr.json"); //Resources/PbrMaterials/deferred_gbuffer.json
+		material2d = Engine::GetRenderer()->GetMaterialSystem()->LoadMaterial("Resources/Materials/2D/material_2d.json");
+		materialRenderTarget = Engine::GetRenderer()->GetMaterialSystem()->LoadMaterial("Resources/Materials/2D/material_rendertarget.json");
 
 		SpawnCamera();
 		SpawnCamera2D();

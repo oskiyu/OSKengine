@@ -24,9 +24,9 @@ using namespace OSK::ASSETS;
 using namespace OSK::GRAPHICS;
 
 SpecularMapLoader::SpecularMapLoader() {
-	generationMaterial = Engine::GetRenderer()->GetMaterialSystem()->LoadMaterial("Resources/material_specular_gen.json");
-	prefilterMaterial = Engine::GetRenderer()->GetMaterialSystem()->LoadMaterial("Resources/material_specular_prefilter.json");
-	lutGenerationMaterial = Engine::GetRenderer()->GetMaterialSystem()->LoadMaterial("Resources/material_specular_lut_gen.json");
+	generationMaterial = Engine::GetRenderer()->GetMaterialSystem()->LoadMaterial("Resources/Materials/AssetsGen/material_specular_gen.json");
+	prefilterMaterial = Engine::GetRenderer()->GetMaterialSystem()->LoadMaterial("Resources/Materials/AssetsGen/material_specular_prefilter.json");
+	lutGenerationMaterial = Engine::GetRenderer()->GetMaterialSystem()->LoadMaterial("Resources/Materials/AssetsGen/material_specular_lut_gen.json");
 
 	generationMaterialInstance = generationMaterial->CreateInstance().GetPointer();
 	prefilterMaterialInstance = prefilterMaterial->CreateInstance().GetPointer();

@@ -9,10 +9,10 @@
 #include "Material.h"
 
 #define GLM_ENABLE_EXPERIMENTAL
-#include <gtc/matrix_transform.hpp>
-#include <gtx/projection.hpp>
-#include <glm.hpp>
-#include <ext/matrix_clip_space.hpp>
+#include <glm/gtc/matrix_transform.hpp>
+#include <glm/gtx/projection.hpp>
+#include <glm/glm.hpp>
+#include <glm/ext/matrix_clip_space.hpp>
 
 #include "CameraComponent3D.h"
 #include "Transform3D.h"
@@ -50,8 +50,8 @@ void ShadowMap::Create(const Vector2ui& imageSize) {
 		depthArrayAttachment[i]->SetDebugName("Shadow Map [" + std::to_string(i) + "] Depth");
 	}
 
-	shadowsGenMaterial = Engine::GetRenderer()->GetMaterialSystem()->LoadMaterial("Resources/material_shadows.json");
-	shadowsGenAnimMaterial = Engine::GetRenderer()->GetMaterialSystem()->LoadMaterial("Resources/material_shadows_anim.json");
+	shadowsGenMaterial = Engine::GetRenderer()->GetMaterialSystem()->LoadMaterial("Resources/Materials/ShadowMapping/material_shadows.json");
+	shadowsGenAnimMaterial = Engine::GetRenderer()->GetMaterialSystem()->LoadMaterial("Resources/Materials/ShadowMapping/material_shadows_anim.json");
 	shadowsGenMaterialInstance = shadowsGenMaterial->CreateInstance().GetPointer();
 
 	const IGpuUniformBuffer* lightUbos[3]{};

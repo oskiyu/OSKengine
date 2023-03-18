@@ -6,7 +6,7 @@
 #include "Component.h"
 #include "UniquePtr.hpp"
 #include "IGpuUniformBuffer.h"
-#include <glm.hpp>
+#include <glm/glm.hpp>
 
 namespace OSK::IO {
 	class IDisplay;

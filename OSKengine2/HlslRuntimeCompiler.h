@@ -2,7 +2,7 @@
 
 #include <wrl.h>
 using Microsoft::WRL::ComPtr;
-#include "../Dependencies/OSKengine/dxc/include/dxc/dxcapi.h"
+#include <dxc/dxcapi.h>
 
 #include <string>
 

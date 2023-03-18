@@ -6,8 +6,8 @@ INFO: GPU elegida: NVIDIA GeForce RTX 2060
 INFO: Creado correctamente el swapchain.
 INFO: Creado el swapchain.
 INFO: BeforeShadowmap
-INFO: 281
+INFO: 280
 INFO: AfterShadowmap
-INFO: 1491
+INFO: 1490
 INFO: Cerrado el log.
 

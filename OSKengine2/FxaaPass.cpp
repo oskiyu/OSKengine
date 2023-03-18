@@ -10,7 +10,7 @@ using namespace OSK;
 using namespace OSK::GRAPHICS;
 
 void FxaaPass::Create(const Vector2ui& size) {
-	postProcessingMaterial = Engine::GetRenderer()->GetMaterialSystem()->LoadMaterial("Resources/PbrMaterials/PostProcess/fxaa.json");
+	postProcessingMaterial = Engine::GetRenderer()->GetMaterialSystem()->LoadMaterial("Resources/Materials/PostProcess/fxaa.json");
 	postProcessingMaterialInstance = postProcessingMaterial->CreateInstance().GetPointer();
 
 	IPostProcessPass::Create(size);

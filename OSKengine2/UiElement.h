@@ -10,7 +10,7 @@
 #include "Color.hpp"
 #include "Vector4.hpp"
 
-#include <glm.hpp>
+#include <glm/glm.hpp>
 #include <string>
 
 namespace OSK::UI {

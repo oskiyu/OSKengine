@@ -8,8 +8,8 @@
 #include "GpuMemoryTypes.h"
 #include "GpuImageLayout.h"
 
-#include <ext/matrix_transform.hpp>
-#include <gtc/type_ptr.hpp>
+#include <glm/ext/matrix_transform.hpp>
+#include <glm/gtc/type_ptr.hpp>
 
 #include "Animation.h"
 #include "AnimationSampler.h"

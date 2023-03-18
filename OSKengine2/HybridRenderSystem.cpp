@@ -33,23 +33,23 @@ HybridRenderSystem::HybridRenderSystem() {
 	SetupGBufferResources();
 
 	// Shadows
-	shadowsMaterial = Engine::GetRenderer()->GetMaterialSystem()->LoadMaterial("Resources/PbrMaterials/Hybrid/shadows.json");
+	shadowsMaterial = Engine::GetRenderer()->GetMaterialSystem()->LoadMaterial("Resources/Materials/HybridRT/shadows.json");
 	shadowsMaterialInstance = shadowsMaterial->CreateInstance().GetPointer();
 
-	shadowsReprojectionMaterial = Engine::GetRenderer()->GetMaterialSystem()->LoadMaterial("Resources/PbrMaterials/Hybrid/shadows_reprojection.json");
+	shadowsReprojectionMaterial = Engine::GetRenderer()->GetMaterialSystem()->LoadMaterial("Resources/Materials/HybridRT/shadows_reprojection.json");
 	shadowsReprojectionMaterialInstance = shadowsReprojectionMaterial->CreateInstance().GetPointer();
 
-	shadowsAtrousMaterial = Engine::GetRenderer()->GetMaterialSystem()->LoadMaterial("Resources/PbrMaterials/Hybrid/shadows_denoise.json");
+	shadowsAtrousMaterial = Engine::GetRenderer()->GetMaterialSystem()->LoadMaterial("Resources/Materials/HybridRT/shadows_denoise.json");
 	shadowsAtrousMaterialInstance = shadowsAtrousMaterial->CreateInstance().GetPointer();
 
 	// Resolve
-	resolveMaterial = Engine::GetRenderer()->GetMaterialSystem()->LoadMaterial("Resources/PbrMaterials/Hybrid/resolve.json");
+	resolveMaterial = Engine::GetRenderer()->GetMaterialSystem()->LoadMaterial("Resources/Materials/HybridRT/resolve.json");
 	resolveMaterialInstance = resolveMaterial->CreateInstance().GetPointer();
 }
 
 void HybridRenderSystem::SetupGBufferResources() {
-	gbufferMaterial = Engine::GetRenderer()->GetMaterialSystem()->LoadMaterial("Resources/PbrMaterials/deferred_gbuffer.json");
-	animatedGbufferMaterial = Engine::GetRenderer()->GetMaterialSystem()->LoadMaterial("Resources/PbrMaterials/deferred_gbuffer_anim.json");
+	gbufferMaterial = Engine::GetRenderer()->GetMaterialSystem()->LoadMaterial("Resources/Materials/PBR/Deferred/deferred_gbuffer.json");
+	animatedGbufferMaterial = Engine::GetRenderer()->GetMaterialSystem()->LoadMaterial("Resources/Materials/PBR/Deferred/deferred_gbuffer_anim.json");
 	globalGbufferMaterialInstance = gbufferMaterial->CreateInstance().GetPointer();
 
 	for (TIndex i = 0; i < NUM_RESOURCES_IN_FLIGHT; i++) {

@@ -57,13 +57,13 @@ RenderSystem3D::RenderSystem3D() {// Signature del sistema
 	dirLight.color = Color(255 / 255.f, 255 / 255.f, 255 / 255.f);
 
 	// Material del terreno
-	terrainMaterial = Engine::GetRenderer()->GetMaterialSystem()->LoadMaterial("Resources/PbrMaterials/terrain.json");
+	terrainMaterial = Engine::GetRenderer()->GetMaterialSystem()->LoadMaterial("Resources/Materials/PBR/terrain_direct_pbr.json");
 	terrain.SetMaterialInstance(terrainMaterial->CreateInstance());
 
 	// Material de la escena
-	sceneMaterial = Engine::GetRenderer()->GetMaterialSystem()->LoadMaterial("Resources/material_pbr.json");
+	sceneMaterial = Engine::GetRenderer()->GetMaterialSystem()->LoadMaterial("Resources/Materials/PBR/direct_pbr.json");
 	sceneMaterialInstance = sceneMaterial->CreateInstance().GetPointer();
-	animatedSceneMaterial = Engine::GetRenderer()->GetMaterialSystem()->LoadMaterial("Resources/PbrMaterials/Animated/material_pbr.json");
+	animatedSceneMaterial = Engine::GetRenderer()->GetMaterialSystem()->LoadMaterial("Resources/Materials/PBR/animated_direct_pbr.json");
 
 	const IGpuUniformBuffer* _cameraUbos[NUM_RESOURCES_IN_FLIGHT]{};
 	const IGpuUniformBuffer* _dirLightUbos[NUM_RESOURCES_IN_FLIGHT]{};

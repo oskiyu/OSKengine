@@ -1,3 +1,4 @@
+#include "SpirvToHlsl.h"
 #include "IPipelineDx12.h"
 
 #include <d3dcompiler.h>
@@ -5,7 +6,6 @@
 #undef min
 
 #include "FileIO.h"
-#include "SpirvToHlsl.h"
 #include "WindowsUtils.h"
 
 using namespace OSK;

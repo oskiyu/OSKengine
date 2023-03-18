@@ -10,7 +10,7 @@
 #include "RtRenderTarget.h"
 #include "RenderTarget.h"
 
-#include <glm.hpp>
+#include <glm/glm.hpp>
 
 namespace OSK::GRAPHICS {
 	class ICommandList;

@@ -14,7 +14,7 @@ using namespace OSK;
 using namespace OSK::GRAPHICS;
 
 void SmaaPass::Create(const Vector2ui& size) {
-	postProcessingMaterial = Engine::GetRenderer()->GetMaterialSystem()->LoadMaterial("Resources/PbrMaterials/PostProcess/SMAA/edge_detection.json");
+	postProcessingMaterial = Engine::GetRenderer()->GetMaterialSystem()->LoadMaterial("Resources/Materials/PostProcess/SMAA/edge_detection.json");
 	postProcessingMaterialInstance = postProcessingMaterial->CreateInstance().GetPointer();
 
 	IPostProcessPass::Create(size);

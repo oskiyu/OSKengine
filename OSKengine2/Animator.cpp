@@ -11,7 +11,7 @@ using namespace OSK::GRAPHICS;
 void Animator::Setup(const glm::mat4& initialTransform) {
 	this->initialTransform = initialTransform;
 
-	materialInstance = Engine::GetRenderer()->GetMaterialSystem()->LoadMaterial("Resources/PbrMaterials/Animated/material_pbr.json")->CreateInstance().GetPointer();
+	materialInstance = Engine::GetRenderer()->GetMaterialSystem()->LoadMaterial("Resources/Materials/PBR/animated_direct_pbr.json")->CreateInstance().GetPointer();
 
 	for (TSize i = 0; i < _countof(boneBuffers); i++) {
 		boneBuffers[i] = Engine::GetRenderer()->GetAllocator()->CreateStorageBuffer(sizeof(glm::mat4) * boneMatrices.GetSize()).GetPointer();

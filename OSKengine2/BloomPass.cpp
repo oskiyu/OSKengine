@@ -12,8 +12,8 @@
 #include "ICommandList.h"
 #include "Viewport.h"
 
-#include <ext/matrix_clip_space.hpp>
-#include <ext/matrix_transform.hpp>
+#include <glm/ext/matrix_clip_space.hpp>
+#include <glm/ext/matrix_transform.hpp>
 
 using namespace OSK;
 using namespace OSK::GRAPHICS;
@@ -22,9 +22,9 @@ constexpr float BLOCK_SIZE = 8.0f;
 
 void BloomPass::Create(const Vector2ui& size) {
 	// Carga de materiales.
-	downscaleMaterial = Engine::GetRenderer()->GetMaterialSystem()->LoadMaterial("Resources/PbrMaterials/Bloom/downscale.json");
-	upscaleMaterial = Engine::GetRenderer()->GetMaterialSystem()->LoadMaterial("Resources/PbrMaterials/Bloom/upscale.json");
-	resolveMaterial = Engine::GetRenderer()->GetMaterialSystem()->LoadMaterial("Resources/PbrMaterials/Bloom/final.json");
+	downscaleMaterial = Engine::GetRenderer()->GetMaterialSystem()->LoadMaterial("Resources/Materials/PostProcess/Bloom/downscale.json");
+	upscaleMaterial = Engine::GetRenderer()->GetMaterialSystem()->LoadMaterial("Resources/Materials/PostProcess/Bloom/upscale.json");
+	resolveMaterial = Engine::GetRenderer()->GetMaterialSystem()->LoadMaterial("Resources/Materials/PostProcess/Bloom/final.json");
 
 	// Final render target
 	GpuImageSamplerDesc renderTargetSampler{};

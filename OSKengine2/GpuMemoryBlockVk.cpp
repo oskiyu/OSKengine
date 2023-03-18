@@ -4,7 +4,7 @@
 #include "GpuMemoryTypes.h"
 #include "GpuVk.h"
 #include <vulkan/vulkan.h>
-#include <glm.hpp>
+#include <glm/glm.hpp>
 #include "FormatVk.h"
 #include "Format.h"
 #include "IGpuMemorySubblock.h"

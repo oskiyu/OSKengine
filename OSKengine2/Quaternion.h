@@ -3,7 +3,7 @@
 #include "OSKmacros.h"
 #include "Vector3.hpp"
 
-#include <gtc/quaternion.hpp>
+#include <glm/gtc/quaternion.hpp>
 
 namespace OSK {
 
