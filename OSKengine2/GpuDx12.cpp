@@ -14,6 +14,11 @@ void GpuDx12::Close() {
 
 }
 
+GpuMemoryUsageInfo GpuDx12::GetMemoryUsageInfo() const {
+	OSK_ASSERT(false, "No implementado");
+	return {};
+}
+
 OwnedPtr<ICommandPool> GpuDx12::CreateGraphicsCommandPool() {
 	auto output = new CommandPoolDx12;
 

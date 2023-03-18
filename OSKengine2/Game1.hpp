@@ -134,7 +134,7 @@ protected:
 
 	void OnCreate() override {
 		auto animModel = Engine::GetAssetManager()->Load<ASSETS::Model3D>("Resources/Assets/animmodel.json", "GLOBAL");
-		
+
 		// Material load
 		material = Engine::GetRenderer()->GetMaterialSystem()->LoadMaterial("Resources/material_pbr.json"); //Resources/PbrMaterials/deferred_gbuffer.json
 		material2d = Engine::GetRenderer()->GetMaterialSystem()->LoadMaterial("Resources/material_2d.json");
@@ -183,6 +183,7 @@ protected:
 
 		CameraComponent3D& camera = Engine::GetEcs()->GetComponent<ECS::CameraComponent3D>(cameraObject);
 		Transform3D& cameraTransform = Engine::GetEcs()->GetComponent<ECS::Transform3D>(cameraObject);
+		Transform3D& cameraArmTransform = Engine::GetEcs()->GetComponent<ECS::Transform3D>(cameraArmObject);
 
 		// Movimiento de la cámara en este frame
 		float cameraForwardMovement = 0.0f;
@@ -245,7 +246,7 @@ protected:
 				config.useBloom = !config.useBloom;
 				SetupPostProcessingChain();
 			}
-			
+
 			// Activar / desactivar renderizado de colliders
 			if (keyboard->IsKeyReleased(IO::Key::C))
 				Engine::GetEcs()->GetSystem<ECS::ColliderRenderSystem>()->ToggleActivationStatus();
@@ -270,16 +271,31 @@ protected:
 				cameraRightMovement *= 0.3f;
 			}
 
+			if (mouse) {
+				cameraRotation = {
+					(float)(mouse->GetMouseState().GetPosition().X - mouse->GetPreviousMouseState().GetPosition().X),
+					(float)(mouse->GetMouseState().GetPosition().Y - mouse->GetPreviousMouseState().GetPosition().Y)
+				};
+			}
+
+
+			
+			}
+
 
 			// Movimiento del coche
-			
+
 			Transform3D& carTransform = Engine::GetEcs()->GetComponent<Transform3D>(carObject);
 
 			// Rotación
-			if (keyboard->IsKeyDown(IO::Key::LEFT))
+			if (keyboard->IsKeyDown(IO::Key::LEFT)) {
 				carTransform.RotateWorldSpace(deltaTime * 2, { 0, 1, 0 });
-			if (keyboard->IsKeyDown(IO::Key::RIGHT))
+				cameraRotation.X += deltaTime * 250;
+			}
+			if (keyboard->IsKeyDown(IO::Key::RIGHT)) {
 				carTransform.RotateWorldSpace(deltaTime * 2, { 0, -1, 0 });
+				cameraRotation.X -= deltaTime * 250;
+			}
 
 			PhysicsComponent& carPhysics = Engine::GetEcs()->GetComponent<PhysicsComponent>(carObject);
 
@@ -290,7 +306,7 @@ protected:
 			carPhysics.velocity = carTransform.GetForwardVector() * projection;
 
 			if (keyboard->IsKeyDown(IO::Key::UP))
-				carPhysics.acceleration =  carTransform.GetForwardVector() * 35.f * deltaTime;
+				carPhysics.acceleration = carTransform.GetForwardVector() * 35.f * deltaTime;
 			if (keyboard->IsKeyDown(IO::Key::DOWN))
 				carPhysics.acceleration = carTransform.GetForwardVector() * -(projection * 2.0f + 85.0f) * deltaTime;
 
@@ -298,34 +314,59 @@ protected:
 				carPhysics.acceleration = 0.0f;
 				carPhysics.velocity = 0.0f;
 			}
+
+			if (gamepad) {
+				const IO::GamepadState& gamepadState = gamepad->GetGamepadState(0);
+				if (gamepadState.IsConnected()) {
+					// cameraForwardMovement -= gamepadState.GetAxisState(IO::GamepadAxis::LEFT_Y);
+
+					// cameraRightMovement += gamepadState.GetAxisState(IO::GamepadAxis::LEFT_X);
+
+					cameraRotation.X += gamepadState.GetAxisState(IO::GamepadAxis::RIGHT_X);
+					cameraRotation.Y += gamepadState.GetAxisState(IO::GamepadAxis::RIGHT_Y);
+
+					carPhysics.acceleration += carTransform.GetForwardVector() * 35.f * deltaTime
+						* gamepadState.GetAxisState(IO::GamepadAxis::R2);
+					carPhysics.acceleration += carTransform.GetForwardVector() * -(projection * 2.0f + 85.0f) * deltaTime
+						* gamepadState.GetAxisState(IO::GamepadAxis::L2);
+
+					if (gamepadState.GetAxisState(IO::GamepadAxis::LEFT_X) > 0.1f) {
+						carTransform.RotateWorldSpace(deltaTime * 2 * gamepadState.GetAxisState(IO::GamepadAxis::LEFT_X), { 0, 1, 0 });
+						cameraRotation.X += deltaTime * 250 * gamepadState.GetAxisState(IO::GamepadAxis::LEFT_X);
+					}
+					if (gamepadState.GetAxisState(IO::GamepadAxis::LEFT_X) < -0.1f) {
+						carTransform.RotateWorldSpace(deltaTime * 2 * gamepadState.GetAxisState(IO::GamepadAxis::LEFT_X), { 0, 1, 0 });
+						cameraRotation.X += deltaTime * 250 * gamepadState.GetAxisState(IO::GamepadAxis::LEFT_X);
+					}
+				}
 		}
-		
-
-		if (mouse) {
-			cameraRotation = {
-				(float)(mouse->GetMouseState().GetPosition().X - mouse->GetPreviousMouseState().GetPosition().X),
-				(float)(mouse->GetMouseState().GetPosition().Y - mouse->GetPreviousMouseState().GetPosition().Y)
-			};
-		}
 
 
-		if (gamepad) {
-			const IO::GamepadState& gamepadState = gamepad->GetGamepadState(0);
-			if (gamepadState.IsConnected()) {
-				cameraForwardMovement -= gamepadState.GetAxisState(IO::GamepadAxis::LEFT_Y);
-
-				cameraRightMovement += gamepadState.GetAxisState(IO::GamepadAxis::LEFT_X);
-
-				cameraRotation.X += gamepadState.GetAxisState(IO::GamepadAxis::RIGHT_X);
-				cameraRotation.Y += gamepadState.GetAxisState(IO::GamepadAxis::RIGHT_Y);
-			}
-		}
-						
 		// Aplicación de movimiento y rotación de la cámara
-		camera.Rotate(cameraRotation.X, cameraRotation.Y);
+		// camera.Rotate(-cameraRotation.X, cameraRotation.Y);
 
-		cameraTransform.AddPosition(cameraTransform.GetForwardVector().GetNormalized() * cameraForwardMovement * deltaTime);
-		cameraTransform.AddPosition(cameraTransform.GetRightVector().GetNormalized() * cameraRightMovement * deltaTime);
+		cameraTransform.AddPosition(Vector3f(0, 0, 1) * cameraForwardMovement * deltaTime);
+		// cameraTransform.AddPosition(cameraArmTransform.GetRightVector().GetNormalized() * cameraRightMovement * deltaTime);
+
+		if (Engine::GetEcs()->GetComponent<PhysicsComponent>(carObject).acceleration.GetLenght() > 0.5f * deltaTime || 
+			Engine::GetEcs()->GetComponent<PhysicsComponent>(carObject).velocity.GetLenght() > 1.5f * deltaTime) {
+			const Vector2f flatCarVec = {
+				Engine::GetEcs()->GetComponent<Transform3D>(carObject).GetRightVector().X,
+				Engine::GetEcs()->GetComponent<Transform3D>(carObject).GetRightVector().Z
+			};
+
+			const Vector2f flatArmVec = {
+				cameraArmTransform.GetForwardVector().X,
+				cameraArmTransform.GetForwardVector().Z
+			};
+
+			const float angle = -flatArmVec.Dot(flatCarVec);
+			cameraRotation.X += angle * 750 * deltaTime;
+		}
+
+		cameraArmTransform.RotateWorldSpace(glm::radians(-cameraRotation.X * 0.25f), { 0, 1, 0 });
+		cameraArmTransform.RotateLocalSpace(glm::radians(cameraRotation.Y * 0.25f), { 1, 0, 0 });
+
 		camera.UpdateTransform(&cameraTransform);
 
 		Engine::GetEcs()->GetComponent<CameraComponent2D>(cameraObject2d).UpdateUniformBuffer(
@@ -533,11 +574,15 @@ private:
 
 	void SpawnCamera() {
 		cameraObject = Engine::GetEcs()->SpawnObject();
+		cameraArmObject = Engine::GetEcs()->SpawnObject();
+
+		Transform3D* cameraArmTransform = &Engine::GetEcs()->AddComponent<Transform3D>(cameraArmObject, Transform3D(cameraArmObject));
 
 		Transform3D* cameraTransform = &Engine::GetEcs()->AddComponent<Transform3D>(cameraObject, Transform3D(cameraObject));
-		cameraTransform->AddPosition({ 0.0f, 0.3f, 0.0f });
-
+		cameraTransform->AddPosition({ 0.0f, 0.1f, -1.1f });
 		Engine::GetEcs()->AddComponent<CameraComponent3D>(cameraObject, {});
+
+		cameraTransform->AttachToObject(cameraArmObject);
 	}
 
 	void SpawnCamera2D() {
@@ -554,7 +599,7 @@ private:
 
 		// Setup del transform
 		Transform3D& transform = Engine::GetEcs()->AddComponent<Transform3D>(carObject, ECS::Transform3D(carObject));
-		Engine::GetEcs()->GetComponent<Transform3D>(cameraObject).AttachToObject(carObject);
+		Engine::GetEcs()->GetComponent<Transform3D>(cameraArmObject).AttachToObject(carObject);
 
 		// Setup de físicas
 		auto& physicsComponent = Engine::GetEcs()->AddComponent<PhysicsComponent>(carObject, {});
@@ -641,6 +686,7 @@ private:
 	ECS::GameObjectIndex carObject = ECS::EMPTY_GAME_OBJECT;
 	ECS::GameObjectIndex circuitObject = ECS::EMPTY_GAME_OBJECT;
 	ECS::GameObjectIndex cameraObject = ECS::EMPTY_GAME_OBJECT;
+	ECS::GameObjectIndex cameraArmObject = ECS::EMPTY_GAME_OBJECT;
 	ECS::GameObjectIndex cameraObject2d = ECS::EMPTY_GAME_OBJECT;
 
 	ASSETS::Font* font = nullptr;

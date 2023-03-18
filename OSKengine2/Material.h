@@ -14,12 +14,35 @@
 
 #include "MaterialType.h"
 
+#include <compare>
+
 namespace OSK::GRAPHICS {
 
 	class MaterialInstance;
 	struct PipelineCreateInfo;
 	class IRenderpass;
 
+
+	struct PipelineKey {
+
+		bool operator==(const PipelineKey& other) const {
+			if (other.colorFormats.GetSize() != colorFormats.GetSize())
+				return false;
+
+			if (other.depthFormat != depthFormat)
+				return false;
+
+			for (TIndex i = 0; i < colorFormats.GetSize(); i++)
+				if (other.colorFormats[i] != colorFormats[i])
+					return false;
+
+			return true;
+		}
+
+		DynamicArray<Format> colorFormats;
+		Format depthFormat{};
+
+	};
 	
 	/// @brief Un material define el comportamiento del renderizador con un objeto en concreto.
 	/// Debe definirse el layout del material, indicando qué slots (y bindings) serán usados en los shaders,
@@ -27,9 +50,6 @@ namespace OSK::GRAPHICS {
 	class OSKAPI_CALL Material {
 
 	public:
-
-		using PipelineKey = DynamicArray<Format>;
-
 
 		/// @brief Crea un nuevo material.
 		/// @param pipelineInfo Configuración de los shaders.

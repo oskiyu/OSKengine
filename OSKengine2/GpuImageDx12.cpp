@@ -32,7 +32,9 @@ void GpuImageDx12::FillResourceDesc() {
 	D3D12_RESOURCE_FLAGS flags = D3D12_RESOURCE_FLAG_NONE;
 	if (EFTraits::HasFlag(GetUsage(), GpuImageUsage::COLOR))
 		flags |= D3D12_RESOURCE_FLAG_ALLOW_RENDER_TARGET;
-	if (EFTraits::HasFlag(GetUsage(), GpuImageUsage::DEPTH_STENCIL))
+	if (EFTraits::HasFlag(GetUsage(), GpuImageUsage::STENCIL))
+		flags |= D3D12_RESOURCE_FLAG_ALLOW_DEPTH_STENCIL;
+	if (EFTraits::HasFlag(GetUsage(), GpuImageUsage::DEPTH))
 		flags |= D3D12_RESOURCE_FLAG_ALLOW_DEPTH_STENCIL;
 	if (EFTraits::HasFlag(GetUsage(), GpuImageUsage::COMPUTE))
 		flags |= D3D12_RESOURCE_FLAG_ALLOW_UNORDERED_ACCESS;

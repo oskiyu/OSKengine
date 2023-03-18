@@ -116,6 +116,8 @@ namespace OSK::GRAPHICS {
 		GpuVk(VkPhysicalDevice gpu, VkSurfaceKHR surface);
 		~GpuVk();
 
+		GpuMemoryUsageInfo GetMemoryUsageInfo() const override;
+
 		/// @brief Devuelve la información de esta GPU.
 		/// @return Información de esta GPU.
 		const Info& GetInfo() const;

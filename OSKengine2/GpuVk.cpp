@@ -24,6 +24,47 @@ GpuVk::~GpuVk() {
 	Close();
 }
 
+GpuMemoryUsageInfo GpuVk::GetMemoryUsageInfo() const {
+	VkPhysicalDeviceProperties properties{};
+	vkGetPhysicalDeviceProperties(physicalDevice, &properties);
+
+	VkPhysicalDeviceMemoryBudgetPropertiesEXT memoryBudget{};
+	memoryBudget.sType = VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_MEMORY_BUDGET_PROPERTIES_EXT;
+	memoryBudget.pNext = NULL;
+
+	VkPhysicalDeviceMemoryProperties2 memoryProperties{};
+	memoryProperties.sType = VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_MEMORY_PROPERTIES_2;
+	memoryProperties.pNext = &memoryBudget;
+
+	vkGetPhysicalDeviceMemoryProperties2(physicalDevice, &memoryProperties);
+
+	GpuMemoryUsageInfo output{};
+
+	for (TIndex i = 0; i < memoryProperties.memoryProperties.memoryHeapCount; i++) {
+		const GpuSharedMemoryType memoryType = memoryProperties.memoryProperties.memoryHeaps[i].flags & VK_MEMORY_HEAP_DEVICE_LOCAL_BIT
+			? GpuSharedMemoryType::GPU_ONLY
+			: GpuSharedMemoryType::GPU_AND_CPU;
+
+		GpuHeapMemoryUsageInfo heapInfo{};
+		heapInfo.maxCapacity = memoryBudget.heapBudget[i];
+		heapInfo.usedSpace = memoryBudget.heapUsage[i];
+		heapInfo.memoryType = memoryType;
+
+		output.heapsInfo.Insert(heapInfo);
+
+		if (memoryType == GpuSharedMemoryType::GPU_ONLY) {
+			output.gpuOnlyMemoryInfo.maxCapacity += heapInfo.maxCapacity;
+			output.gpuOnlyMemoryInfo.usedSpace += heapInfo.usedSpace;
+		}
+		else {
+			output.gpuAndCpuMemoryInfo.maxCapacity += heapInfo.maxCapacity;
+			output.gpuAndCpuMemoryInfo.usedSpace += heapInfo.usedSpace;
+		}
+	}
+
+	return output;
+}
+
 OwnedPtr<ICommandPool> GpuVk::CreateGraphicsCommandPool() {
 	const QueueFamiles families = GetQueueFamilyIndices();
 	const QueueFamily family = families.GetFamilies(CommandQueueSupport::GRAPHICS | CommandQueueSupport::COMPUTE | CommandQueueSupport::PRESENTATION).At(0);
@@ -112,8 +153,11 @@ void GpuVk::CreateLogicalDevice() {
 	features.tessellationShader = VK_TRUE; /// \todo check
 	features.fillModeNonSolid = VK_TRUE; /// \todo check
 
-	DynamicArray<VkExtensionProperties> extensionProperties = GetAvailableExtensions(physicalDevice);
+	DynamicArray<VkExtensionProperties> availableExtensions = GetAvailableExtensions(physicalDevice);
 	
+	// if (IsExtensionPresent(VK_EXT_MEMORY_BUDGET_EXTENSION_NAME, availableExtensions))
+	gpuExtensions.Insert(VK_EXT_MEMORY_BUDGET_EXTENSION_NAME);
+
 	// RT
 	if (info.IsRtCompatible()) {
 		gpuExtensions.Insert(VK_KHR_ACCELERATION_STRUCTURE_EXTENSION_NAME);

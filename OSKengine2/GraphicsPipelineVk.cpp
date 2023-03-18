@@ -129,8 +129,9 @@ void GraphicsPipelineVk::Create(const MaterialLayout* materialLayout, IGpu* devi
 	renderingCreateInfo.sType = VK_STRUCTURE_TYPE_PIPELINE_RENDERING_CREATE_INFO_KHR;
 	renderingCreateInfo.colorAttachmentCount = colorFormats.GetSize();
 	renderingCreateInfo.pColorAttachmentFormats = colorFormats.GetData();
-	renderingCreateInfo.depthAttachmentFormat = GetFormatVk(Format::D32S8_SFLOAT_SUINT);
-	renderingCreateInfo.stencilAttachmentFormat = GetFormatVk(Format::D32S8_SFLOAT_SUINT);
+	renderingCreateInfo.depthAttachmentFormat = GetFormatVk(info.depthFormat);
+	if (FormatSupportsStencil(info.depthFormat))
+		renderingCreateInfo.stencilAttachmentFormat = GetFormatVk(info.depthFormat);
 
 	// Pipeline
 	VkGraphicsPipelineCreateInfo pipelineCreateInfo{};

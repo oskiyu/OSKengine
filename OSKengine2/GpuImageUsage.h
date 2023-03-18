@@ -20,7 +20,7 @@ namespace OSK::GRAPHICS {
 		/// <summary>
 		/// Se usará como imagen de profundidad para el renderizado 3D.
 		/// </summary>
-		DEPTH_STENCIL = 2,
+		DEPTH = 2,
 
 		/// <summary>
 		/// Se usará como read-only desde los shaders.
@@ -57,7 +57,12 @@ namespace OSK::GRAPHICS {
 		/// <summary>
 		/// Usado en shaders de computación.
 		/// </summary>
-		COMPUTE = 256
+		COMPUTE = 256,
+
+		/// <summary>
+		/// Se usará como imagen de stencil para el renderizado 3D.
+		/// </summary>
+		STENCIL = 512,
 
 	};
 

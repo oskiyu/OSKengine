@@ -83,19 +83,19 @@ void Transform3D::UnAttach() {
 	if (owner && parent)
 		GetEcs()->GetComponent<Transform3D>(parent).childTransforms.Remove(owner);
 
-	owner = 0;
+	owner = EMPTY_GAME_OBJECT;
 }
 
 void Transform3D::UpdateModel() {
 	matrix = glm::mat4(1.0f);
 
 	if (parent) {
-		const Transform3D& parentTr = GetEcs()->GetComponent<Transform3D>(parent);
+		const Transform3D& parentTransform = GetEcs()->GetComponent<Transform3D>(parent);
 
-		globalRotation = parentTr.globalRotation * localRotation.ToMat4();
+		globalRotation = parentTransform.globalRotation * localRotation.ToMat4();
 
-		matrix = glm::translate(matrix, parentTr.GetPosition().ToGLM());
-		matrix *= parentTr.globalRotation;
+		matrix = glm::translate(matrix, parentTransform.GetPosition().ToGLM());
+		matrix = matrix * parentTransform.globalRotation;
 	}
 	else {
 		globalRotation = localRotation.ToMat4();
@@ -109,7 +109,7 @@ void Transform3D::UpdateModel() {
 
 	// Rotación local.
 	matrix = matrix * localRotation.ToMat4();
-
+	
 	// Obtener posición final.
 	globalPosition = Vector3f(matrix * glm::vec4(0, 0, 0, 1));
 
@@ -170,13 +170,16 @@ ECS::GameObjectIndex Transform3D::GetParentObject() const {
 }
 
 Vector3f Transform3D::GetForwardVector() const {
+	return GetRotation().RotateVector(Vector3f(0, 0, 1));
 	return Vector3f(GetRotation().ToGlm() * OSK::Vector3f(0, 0, 1).ToGLM()).GetNormalized();
 }
 
 Vector3f Transform3D::GetRightVector() const {
+	return GetRotation().RotateVector(Vector3f(-1, 0, 0));
 	return Vector3f(GetRotation().ToGlm() * OSK::Vector3f(-1, 0, 0).ToGLM()).GetNormalized();
 }
 
 Vector3f Transform3D::GetTopVector() const {
+	return GetRotation().RotateVector(Vector3f(0, 1, 0));
 	return Vector3f(GetRotation().ToGlm() * OSK::Vector3f(0, 1, 0).ToGLM()).GetNormalized();
 }

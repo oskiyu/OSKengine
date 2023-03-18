@@ -32,15 +32,19 @@ void ShadowMap::Create(const Vector2ui& imageSize) {
 	IGpuMemoryAllocator* memAllocator = Engine::GetRenderer()->GetAllocator();
 
 	for (TSize i = 0; i < NUM_RESOURCES_IN_FLIGHT; i++) {
-		GpuImageCreateInfo imageInfo = GpuImageCreateInfo::CreateDefault2D(imageSize, Format::RGBA8_UNORM, GpuImageUsage::COLOR | GpuImageUsage::SAMPLED);
+		GpuImageCreateInfo imageInfo = GpuImageCreateInfo::CreateDefault2D(
+			imageSize, 
+			Format::RGBA8_UNORM, 
+			GpuImageUsage::COLOR | GpuImageUsage::SAMPLED);
+
 		imageInfo.numLayers = 4;
 		imageInfo.samplerDesc = depthSampler;
 
 		unusedColorArrayAttachment[i] = memAllocator->CreateImage(imageInfo).GetPointer();
 		unusedColorArrayAttachment[i]->SetDebugName("Shadow Map [" + std::to_string(i) + "] Unused Attachment");
 
-		imageInfo.format = Format::D32S8_SFLOAT_SUINT;
-		imageInfo.usage = GpuImageUsage::DEPTH_STENCIL | GpuImageUsage::SAMPLED | GpuImageUsage::SAMPLED_ARRAY;
+		imageInfo.format = Format::D16_UNORM;
+		imageInfo.usage = GpuImageUsage::DEPTH | GpuImageUsage::SAMPLED | GpuImageUsage::SAMPLED_ARRAY;
 
 		depthArrayAttachment[i] = memAllocator->CreateImage(imageInfo).GetPointer();
 		depthArrayAttachment[i]->SetDebugName("Shadow Map [" + std::to_string(i) + "] Depth");

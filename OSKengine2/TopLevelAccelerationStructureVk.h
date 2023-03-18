@@ -13,6 +13,8 @@ namespace OSK::GRAPHICS {
 
 	public:
 
+		~TopLevelAccelerationStructureVk();
+
 		void Setup() override;
 		void Update(ICommandList* cmdList) override;
 

@@ -2,6 +2,8 @@
 
 #include <vulkan/vulkan.h>
 
+#include "Logger.h"
+
 #include "GpuMemoryBlockVk.h"
 #include "GpuMemorySubblockVk.h"
 
@@ -89,7 +91,14 @@ OwnedPtr<GpuImage> GpuMemoryAllocatorVk::CreateImage(const GpuImageCreateInfo& i
 
 	VkSampler sampler = VK_NULL_HANDLE;
 
-	GpuImageVk* output = new GpuImageVk(info.resolution, info.dimension, info.usage, info.numLayers, info.format, info.msaaSamples, info.samplerDesc);
+	GpuImageVk* output = new GpuImageVk(
+		info.resolution, 
+		info.dimension, 
+		info.usage, 
+		info.numLayers, 
+		info.format, 
+		info.msaaSamples, 
+		info.samplerDesc);
 
 	TSize numMipLevels = 0;
 	switch (info.samplerDesc.mipMapMode) {

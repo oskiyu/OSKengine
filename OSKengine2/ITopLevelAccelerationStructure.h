@@ -16,6 +16,8 @@ namespace OSK::GRAPHICS {
 
 	public:
 
+		virtual ~ITopLevelAccelerationStructure() = default;
+
 		OSK_DEFINE_AS(ITopLevelAccelerationStructure);
 
 		/// <summary>

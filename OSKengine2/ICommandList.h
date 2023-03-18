@@ -175,6 +175,8 @@ namespace OSK::GRAPHICS {
 		/// @brief Comienza el renderizado a un render target.
 		/// @param renderTarget Render target sobre el que se renderizará.
 		/// @param color Color con el que limpiará la imagen.
+		/// @param autoSync True para introducir barriers automáticamente,
+		/// false en caso contrario.
 		/// 
 		/// @note Por defecto, se limpiará la imagen con color negro.
 		/// @note Se encarga de establecer el layout de las imágenes de color y de profundidad.
@@ -186,12 +188,15 @@ namespace OSK::GRAPHICS {
 		/// @post La imagen de prfundidad se encontrarán en GpuImageLayout::DEPTH_STENCIL_TARGET.
 		void BeginGraphicsRenderpass(
 			RenderTarget* renderTarget, 
-			const Color& color = Color::BLACK());
+			const Color& color = Color::BLACK(),
+			bool autoSync = true);
 
 		/// @brief Comienza el renderizado a las imágenes dadas.
 		/// @param colorImages Imágenes de color sobre las que se renderizará.
 		/// @param depthImage Imagen de profundidad.
 		/// @param color Color con el que limpiará la imagen.
+		/// @param autoSync True para introducir barriers automáticamente,
+		/// false en caso contrario.
 		/// 
 		/// @note Por defecto, se limpiará la imagen con color negro.
 		/// @note Se encarga de establecer el layout de las imágenes de color y de profundidad.
@@ -204,15 +209,18 @@ namespace OSK::GRAPHICS {
 		virtual void BeginGraphicsRenderpass(
 			DynamicArray<RenderPassImageInfo> colorImages, 
 			RenderPassImageInfo depthImage, 
-			const Color& color = Color::BLACK()) = 0;
+			const Color& color = Color::BLACK(),
+			bool autoSync = true) = 0;
 
 		/// @brief Finaliza el renderizado a un render target.
+		/// @param autoSync True para introducir barriers automáticamente,
+		/// false en caso contrario.
 		/// 
 		/// @pre Debe haber un renderpass activo.
 		/// @pre La lista de comandos debe estar abierta.
 		/// @post Aplica a los color targets un GpuImageBarrier con nuevo layout = SHADER_READ_ONLY para 
 		/// fragment shader.
-		virtual void EndGraphicsRenderpass() = 0;
+		virtual void EndGraphicsRenderpass(bool autoSync = true) = 0;
 
 
 		/// @brief Establece el material que se va a usar a la hora de renderizar los próximos comandos.

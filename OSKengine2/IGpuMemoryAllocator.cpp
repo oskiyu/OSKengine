@@ -37,6 +37,10 @@ IGpuMemoryAllocator::~IGpuMemoryAllocator() {
 	imageMemoryBlocks.Free();
 }
 
+GpuMemoryUsageInfo IGpuMemoryAllocator::GetMemoryUsageInfo() const {
+	return device->GetMemoryUsageInfo();
+}
+
 OwnedPtr<IGpuVertexBuffer> IGpuMemoryAllocator::CreateVertexBuffer(const void* data, TSize vertexSize, TSize numVertices, const VertexInfo& vertexInfo, GpuBufferUsage usage) {
 	const TSize bufferSize = numVertices * vertexSize;
 	IGpuMemoryBlock* block = GetNextBufferMemoryBlock(

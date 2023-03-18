@@ -70,7 +70,6 @@ namespace OSK::GRAPHICS {
 		static PFN_vkCmdBeginDebugUtilsLabelEXT pvkCmdBeginDebugUtilsLabelEXT;
 		static PFN_vkCmdEndDebugUtilsLabelEXT pvkCmdEndDebugUtilsLabelEXT;
 
-
 		// Sin renderpasses
 		static PFN_vkCmdBeginRendering pvkCmdBeginRendering;
 		static PFN_vkCmdEndRendering pvkCmdEndRendering;

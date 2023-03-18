@@ -33,7 +33,7 @@ SpecularMapLoader::SpecularMapLoader() {
 	lutGenerationMaterialInstance = lutGenerationMaterial->CreateInstance().GetPointer();
 
 	RenderTargetAttachmentInfo colorInfo{ .format = Format::RGBA32_SFLOAT, .usage = GpuImageUsage::TRANSFER_SOURCE, .name = "Cubemap Render Color" };
-	RenderTargetAttachmentInfo depthInfo{ .format = Format::D32S8_SFLOAT_SUINT, .name = "Cubemap Depth Color" };
+	RenderTargetAttachmentInfo depthInfo{ .format = Format::D16_UNORM, .name = "Cubemap Depth Color" };
 	cubemapRenderTarget.Create(maxResolution, { colorInfo }, depthInfo);
 
 	RenderTargetAttachmentInfo lutInfo{ .format = Format::RG16_SFLOAT, .usage = GpuImageUsage::TRANSFER_SOURCE, .name = "Specular Look-Up Table Generation" };
@@ -187,13 +187,13 @@ void SpecularMapLoader::DrawOriginal(GRAPHICS::GpuImage* cubemap, GRAPHICS::ICom
 		glm::mat4 cameraView = glm::mat4(1.0f);
 	} renderInfo;
 
-	cmdList->BindMaterial(generationMaterial);
-	cmdList->BindMaterialSlot(generationMaterialInstance->GetSlot("global"));
-
 	for (TIndex faceId = 0; faceId < 6; faceId++) {
 		const TIndex resourceIndex = Engine::GetRenderer()->GetCurrentResourceIndex();
 
 		cmdList->BeginGraphicsRenderpass(&cubemapRenderTarget);
+
+		cmdList->BindMaterial(generationMaterial);
+		cmdList->BindMaterialSlot(generationMaterialInstance->GetSlot("global"));
 
 		const Viewport viewport{
 			.rectangle = {
@@ -246,11 +246,11 @@ void SpecularMapLoader::DrawPreFilter(GpuImage* cubemap, ICommandList* cmdList, 
 		float roughness;
 	} renderInfo { .roughness = roughness };
 
-	cmdList->BindMaterial(prefilterMaterial);
-	cmdList->BindMaterialSlot(prefilterMaterialInstance->GetSlot("global"));
-
 	for (TIndex faceId = 0; faceId < 6; faceId++) {
 		cmdList->BeginGraphicsRenderpass(&cubemapRenderTarget);
+
+		cmdList->BindMaterial(prefilterMaterial);
+		cmdList->BindMaterialSlot(prefilterMaterialInstance->GetSlot("global"));
 
 		const float sizeRatio = (float)glm::pow(0.5f, mipLevel);
 		const Viewport viewport{

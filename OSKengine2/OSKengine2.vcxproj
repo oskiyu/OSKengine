@@ -287,8 +287,10 @@
     <ClInclude Include="GpuImageViewConfig.h" />
     <ClInclude Include="GpuImageViewDx12.h" />
     <ClInclude Include="GpuImageViewVk.h" />
+    <ClInclude Include="GpuMemoryUsageInfo.h" />
     <ClInclude Include="GpuStorageBufferDx12.h" />
     <ClInclude Include="GpuStorageBufferVk.h" />
+    <ClInclude Include="GpuHeapMemoryUsageInfo.h" />
     <ClInclude Include="HybridRenderSystem.h" />
     <ClInclude Include="IBottomLevelCollider.h" />
     <ClInclude Include="IComputePipeline.h" />

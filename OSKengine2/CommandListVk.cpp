@@ -211,19 +211,21 @@ void CommandListVk::CopyBufferToBuffer(const GpuDataBuffer* source, GpuDataBuffe
 		1, &copyRegion);
 }
 
-void CommandListVk::BeginGraphicsRenderpass(DynamicArray<RenderPassImageInfo> colorImages, RenderPassImageInfo depthImage, const Color& color) {
+void CommandListVk::BeginGraphicsRenderpass(DynamicArray<RenderPassImageInfo> colorImages, RenderPassImageInfo depthImage, const Color& color, bool autoSync) {
 	const Vector2ui targetSize = colorImages[0].targetImage->GetSize2D();
 
-	for (const auto& img : colorImages) {
-		SetGpuImageBarrier(
-			img.targetImage, 
-			GpuImageLayout::UNDEFINED, GpuImageLayout::COLOR_ATTACHMENT, 
-			GpuBarrierInfo(GpuBarrierStage::DEFAULT, GpuBarrierAccessStage::DEFAULT),
-			GpuBarrierInfo(GpuBarrierStage::COLOR_ATTACHMENT_OUTPUT, GpuBarrierAccessStage::COLOR_ATTACHMENT_WRITE), 
-			{	.baseLayer = img.arrayLevel, 
-				.numLayers = 1, 
-				.baseMipLevel = 0, 
-				.numMipLevels = ALL_MIP_LEVELS, });
+	if (autoSync) {
+		for (const auto& img : colorImages) {
+			SetGpuImageBarrier(
+				img.targetImage,
+				GpuImageLayout::UNDEFINED, GpuImageLayout::COLOR_ATTACHMENT,
+				GpuBarrierInfo(GpuBarrierStage::DEFAULT, GpuBarrierAccessStage::DEFAULT),
+				GpuBarrierInfo(GpuBarrierStage::COLOR_ATTACHMENT_OUTPUT, GpuBarrierAccessStage::COLOR_ATTACHMENT_WRITE),
+				{ .baseLayer = img.arrayLevel,
+					.numLayers = 1,
+					.baseMipLevel = 0,
+					.numMipLevels = ALL_MIP_LEVELS, });
+		}
 	}
 
 	GpuImageViewConfig colorAttachmentConfig = GpuImageViewConfig::CreateTarget_Color();
@@ -245,14 +247,18 @@ void CommandListVk::BeginGraphicsRenderpass(DynamicArray<RenderPassImageInfo> co
 
 	OSK_ASSERT(colorAttachments.GetSize() == colorImages.GetSize(), "Error al iniciar el renderpass.");
 
-	GpuImageViewConfig dephtAttachmentConfig = GpuImageViewConfig::CreateTarget_DepthStencil();
+	GpuImageViewConfig dephtAttachmentConfig = FormatSupportsStencil(depthImage.targetImage->GetFormat())
+		? GpuImageViewConfig::CreateTarget_DepthStencil()
+		: GpuImageViewConfig::CreateTarget_Depth();
 	dephtAttachmentConfig.baseArrayLevel = depthImage.arrayLevel;
 
 	VkRenderingAttachmentInfo depthAttachment{};
 	depthAttachment.sType = VK_STRUCTURE_TYPE_RENDERING_ATTACHMENT_INFO_KHR;
 	depthAttachment.loadOp = VK_ATTACHMENT_LOAD_OP_CLEAR;
 	depthAttachment.storeOp = VK_ATTACHMENT_STORE_OP_STORE;
-	depthAttachment.imageLayout = VK_IMAGE_LAYOUT_DEPTH_STENCIL_ATTACHMENT_OPTIMAL;
+	depthAttachment.imageLayout = FormatSupportsStencil(depthImage.targetImage->GetFormat()) 
+		? VK_IMAGE_LAYOUT_DEPTH_STENCIL_ATTACHMENT_OPTIMAL
+		: VK_IMAGE_LAYOUT_DEPTH_ATTACHMENT_OPTIMAL;
 	depthAttachment.imageView = depthImage.targetImage->GetView(dephtAttachmentConfig)->As<GpuImageViewVk>()->GetVkView();
 	depthAttachment.resolveMode = VK_RESOLVE_MODE_NONE;
 	depthAttachment.resolveImageLayout = VK_IMAGE_LAYOUT_UNDEFINED;
@@ -266,7 +272,9 @@ void CommandListVk::BeginGraphicsRenderpass(DynamicArray<RenderPassImageInfo> co
 	renderpassInfo.colorAttachmentCount = colorAttachments.GetSize();
 	renderpassInfo.pColorAttachments = colorAttachments.GetData();
 	renderpassInfo.pDepthAttachment = &depthAttachment;
-	renderpassInfo.pStencilAttachment = &depthAttachment;
+	renderpassInfo.pStencilAttachment = FormatSupportsStencil(depthImage.targetImage->GetFormat()) 
+		? &depthAttachment
+		: VK_NULL_HANDLE;
 
 	RendererVk::pvkCmdBeginRendering(commandBuffers.At(GetCommandListIndex()), &renderpassInfo);
 
@@ -274,7 +282,7 @@ void CommandListVk::BeginGraphicsRenderpass(DynamicArray<RenderPassImageInfo> co
 	currentDepthImage = depthImage;
 }
 
-void CommandListVk::EndGraphicsRenderpass() {
+void CommandListVk::EndGraphicsRenderpass(bool autoSync) {
 	RendererVk::pvkCmdEndRendering(commandBuffers[GetCommandListIndex()]);
 
 	const bool isFinal = currentRenderpassType == RenderpassType::FINAL;
@@ -283,10 +291,14 @@ void CommandListVk::EndGraphicsRenderpass() {
 		? GpuImageLayout::PRESENT
 		: GpuImageLayout::SAMPLED;
 
-	for (const auto& img : currentColorImages) {
-		SetGpuImageBarrier(img.targetImage, GpuImageLayout::COLOR_ATTACHMENT, finalLayout,
-			GpuBarrierInfo(GpuBarrierStage::COLOR_ATTACHMENT_OUTPUT, GpuBarrierAccessStage::COLOR_ATTACHMENT_WRITE), GpuBarrierInfo(GpuBarrierStage::FRAGMENT_SHADER, GpuBarrierAccessStage::SHADER_READ),
-			{ .baseLayer = img.arrayLevel, .numLayers = 1, .baseMipLevel = 0, .numMipLevels = ALL_MIP_LEVELS, });
+	if (autoSync) {
+		for (const auto& img : currentColorImages) {
+			SetGpuImageBarrier(img.targetImage,
+				GpuImageLayout::COLOR_ATTACHMENT, finalLayout,
+				GpuBarrierInfo(GpuBarrierStage::COLOR_ATTACHMENT_OUTPUT, GpuBarrierAccessStage::COLOR_ATTACHMENT_WRITE),
+				GpuBarrierInfo(GpuBarrierStage::FRAGMENT_SHADER, GpuBarrierAccessStage::SHADER_READ),
+				{ .baseLayer = img.arrayLevel, .numLayers = 1, .baseMipLevel = 0, .numMipLevels = ALL_MIP_LEVELS, });
+		}
 	}
 
 	if (currentRenderpassType != RenderpassType::INTERMEDIATE)
@@ -298,11 +310,13 @@ void CommandListVk::BindMaterial(Material* material) {
 
 	switch (material->GetMaterialType()) {
 	case MaterialType::GRAPHICS: {
-		DynamicArray<Format> colorFormats{};
-		for (const auto& colorImg : currentColorImages)
-			colorFormats.Insert(colorImg.targetImage->GetFormat());
+		PipelineKey pipelineKey{};
+		pipelineKey.depthFormat = currentDepthImage.targetImage->GetFormat();
 
-		currentPipeline.graphics = material->GetGraphicsPipeline(colorFormats);
+		for (const auto& colorImg : currentColorImages)
+			pipelineKey.colorFormats.Insert(colorImg.targetImage->GetFormat());
+
+		currentPipeline.graphics = material->GetGraphicsPipeline(pipelineKey);
 
 		vkCmdBindPipeline(commandBuffers[GetCommandListIndex()], VK_PIPELINE_BIND_POINT_GRAPHICS, currentPipeline.graphics->As<GraphicsPipelineVk>()->GetPipeline());
 	}

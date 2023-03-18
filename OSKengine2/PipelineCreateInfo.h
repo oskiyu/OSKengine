@@ -188,6 +188,9 @@ namespace OSK::GRAPHICS {
 		/// </summary>
 		DynamicArray<Format> formats;
 
+		/// @brief Formato de la imagen de profundidad.
+		Format depthFormat;
+
 		bool useAlphaBlending = true;
 
 	};

@@ -24,7 +24,8 @@ namespace OSK::GRAPHICS {
 		D24S8_SFLOAT_SUINT,
 
 		// DEPTH
-		D32_SFLOAT
+		D32_SFLOAT,
+		D16_UNORM
 
 	};
 
@@ -51,6 +52,8 @@ namespace OSK::GRAPHICS {
 	/// 
 	/// @throws std::runtime_exception si no corresponde a ningún formato.
 	Format GetFormatFromString(const std::string& formatStr);
+
+	bool FormatSupportsStencil(Format format);
 
 }
 

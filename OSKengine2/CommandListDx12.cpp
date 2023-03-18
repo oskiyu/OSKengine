@@ -129,7 +129,7 @@ void CommandListDx12::CopyBufferToBuffer(const GpuDataBuffer* source, GpuDataBuf
 		source->GetMemorySubblock()->As<GpuMemorySubblockDx12>()->GetResource(), sourceOffset, size);
 }
 
-void CommandListDx12::BeginGraphicsRenderpass(DynamicArray<RenderPassImageInfo> colorImages, RenderPassImageInfo depthImage, const Color& color) {
+void CommandListDx12::BeginGraphicsRenderpass(DynamicArray<RenderPassImageInfo> colorImages, RenderPassImageInfo depthImage, const Color& color, bool autoSync) {
 	DynamicArray<D3D12_CPU_DESCRIPTOR_HANDLE> colorAttachments{};
 	D3D12_CPU_DESCRIPTOR_HANDLE depthStencilDesc{};
 
@@ -169,6 +169,7 @@ void CommandListDx12::BeginGraphicsRenderpass(DynamicArray<RenderPassImageInfo> 
 			.numMipLevels = 1,
 		};
 
+		if (autoSync)
 		SetGpuImageBarrier(img.targetImage, GpuImageLayout::UNDEFINED, GpuImageLayout::COLOR_ATTACHMENT, prev, next, imgInfo);
 	}
 
@@ -184,7 +185,7 @@ void CommandListDx12::BeginGraphicsRenderpass(DynamicArray<RenderPassImageInfo> 
 	currentDepthImage = depthImage;
 }
 
-void CommandListDx12::EndGraphicsRenderpass() {
+void CommandListDx12::EndGraphicsRenderpass(bool autoSync) {
 	GpuImageLayout finalLayout = GpuImageLayout::SAMPLED;
 	if (currentRenderpassType == RenderpassType::FINAL)
 		finalLayout = GpuImageLayout::PRESENT;
@@ -204,7 +205,8 @@ void CommandListDx12::EndGraphicsRenderpass() {
 		imgBarrier.baseMipLevel = 0;
 		imgBarrier.numMipLevels = ALL_MIP_LEVELS;
 
-		SetGpuImageBarrier(img.targetImage, GpuImageLayout::COLOR_ATTACHMENT, finalLayout, prevBarrier, nextBarrier, imgBarrier);
+		if (autoSync)
+			SetGpuImageBarrier(img.targetImage, GpuImageLayout::COLOR_ATTACHMENT, finalLayout, prevBarrier, nextBarrier, imgBarrier);
 	}
 
 	if (currentRenderpassType != RenderpassType::INTERMEDIATE)
@@ -228,11 +230,13 @@ void CommandListDx12::BindMaterial(Material* material) {
 
 	switch (material->GetMaterialType()) {
 	case MaterialType::GRAPHICS: {
-		DynamicArray<Format> colorFormats{};
-		for (const auto& colorImg : currentColorImages)
-			colorFormats.Insert(colorImg.targetImage->GetFormat());
+		PipelineKey pipelineKey{};
+		pipelineKey.depthFormat = currentDepthImage.targetImage->GetFormat();
 
-		currentPipeline.graphics = material->GetGraphicsPipeline(colorFormats);
+		for (const auto& colorImg : currentColorImages)
+			pipelineKey.colorFormats.Insert(colorImg.targetImage->GetFormat());
+
+		currentPipeline.graphics = material->GetGraphicsPipeline(pipelineKey);
 
 		commandList->SetGraphicsRootSignature(currentPipeline.graphics->GetLayout()->As<PipelineLayoutDx12>()->GetSignature());
 		commandList->SetPipelineState(currentPipeline.graphics->As<GraphicsPipelineDx12>()->GetPipeline());

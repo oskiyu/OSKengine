@@ -103,7 +103,7 @@ GpuImageViewConfig GpuImageViewConfig::CreateTarget_Depth() {
 	output.mipMapMode = MipMapMode::LEVEL_RANGE;
 	output.baseMipLevel = 0;
 	output.topMipLevel = 0;
-	output.usage = ViewUsage::DEPTH_STENCIL_TARGET;
+	output.usage = ViewUsage::DEPTH_ONLY_TARGET;
 
 	return output;
 }

@@ -107,7 +107,11 @@ void SwapchainDx12::CreateImages(const IO::IDisplay& display) {
     const Vector3ui imageSize = Vector3ui(display.GetResolution().X, display.GetResolution().Y, 1);
     for (TSize i = 0; i < imageCount; i++) {
         images[i] = new GpuImageDx12(imageSize, GpuImageDimension::d2D, GpuImageUsage::COLOR, 1, colorFormat, 1, {});
-        depthImages[i] = new GpuImageDx12(imageSize, GpuImageDimension::d2D, GpuImageUsage::DEPTH_STENCIL, 1, colorFormat, 1, {});
+        depthImages[i] = new GpuImageDx12(
+            imageSize, 
+            GpuImageDimension::d2D, 
+            GpuImageUsage::DEPTH | GpuImageUsage::STENCIL, 
+            1, colorFormat, 1, {});
 
         {
             ComPtr<ID3D12Resource> rTarget;

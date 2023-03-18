@@ -19,6 +19,10 @@ void Quaternion::Rotate_LocalSpace(float angle, const Vector3f& axis) {
 	quaternion = quaternion * glm::normalize(glm::angleAxis(angle, axis.ToGLM()));
 }
 
+Vector3f Quaternion::RotateVector(const Vector3f& vec) const {
+	return glm::rotate(quaternion, vec.ToGLM());
+}
+
 Vector3f Quaternion::ToEulerAngles() const {
 	return glm::eulerAngles(quaternion);
 }

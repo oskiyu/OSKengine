@@ -11,6 +11,7 @@
 #include "Vertex2D.h"
 #include "Vertex.h"
 #include "IGpuMemoryAllocator.h"
+#include "GpuMemoryAllocatorVk.h"
 #include "IGpuVertexBuffer.h"
 #include "Sprite.h"
 #include "IGpuIndexBuffer.h"
@@ -65,6 +66,7 @@ void IGame::Run() {
 	Engine::RegisterBuiltinComponents();
 	Engine::RegisterBuiltinSystems();
 	Engine::RegisterBuiltinEvents();
+
 
 	OSK::DynamicArray<OSK::GRAPHICS::Vertex2D> vertices2d = {
 		{ { 0, 0 }, { 0, 0 } },

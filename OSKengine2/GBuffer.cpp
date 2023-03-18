@@ -13,7 +13,10 @@ void GBuffer::Create(const Vector2ui& resolution, GpuImageSamplerDesc sampler, G
 	colorAttachments.Insert({ .format = Format::RGBA16_SFLOAT, .usage = usage, .sampler = sampler, .name = "GBuffer Normal" });
 	colorAttachments.Insert({ .format = Format::RGBA16_SFLOAT, .usage = usage, .sampler = sampler, .name = "GBuffer Motion" });
 	
-	renderTarget.Create(resolution, colorAttachments, { .format = Format::D32S8_SFLOAT_SUINT, .usage = GpuImageUsage::DEPTH_STENCIL, .sampler = sampler });
+	renderTarget.Create(
+		resolution, 
+		colorAttachments, 
+		{ .format = Format::D32_SFLOAT, .usage = GpuImageUsage::DEPTH, .sampler = sampler });
 }
 
 void GBuffer::Resize(const Vector2ui& resolution) {

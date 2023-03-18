@@ -35,7 +35,7 @@ SkyboxRenderSystem::SkyboxRenderSystem() {
 
 void SkyboxRenderSystem::CreateTargetImage(const Vector2ui& size) {
 	RenderTargetAttachmentInfo colorInfo{ .format = Format::RGBA16_SFLOAT , .name = "Skybox Render Target" };
-	RenderTargetAttachmentInfo depthInfo{ .format = Format::D32S8_SFLOAT_SUINT , .name = "Skybox Depth" };
+	RenderTargetAttachmentInfo depthInfo{ .format = Format::D16_UNORM , .name = "Skybox Depth" };
 	renderTarget.Create(size, { colorInfo }, depthInfo);
 }
 

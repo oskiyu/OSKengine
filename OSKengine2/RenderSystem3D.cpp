@@ -34,13 +34,25 @@ RenderSystem3D::RenderSystem3D() {// Signature del sistema
 	signature.SetTrue(Engine::GetEcs()->GetComponentType<ModelComponent3D>());
 	_SetSignature(signature);
 
+
+	Engine::GetLogger()->InfoLog("BeforeShadowmap");
+	Engine::GetLogger()->InfoLog(std::to_string(
+		Engine::GetRenderer()->GetAllocator()->GetMemoryUsageInfo().gpuOnlyMemoryInfo.usedSpace / 1000000));
+
+
 	// Mapa de sombras
+	// Before: 2048MB -> 2.048 GB, 0.78ms
+	// After: 1210MB -> 1.21 GB, 0.63ms
 	shadowMap.Create({ 4096u });
 	// shadowMap.SetNearPlane(-100);
 	// shadowMap.SetFarPlane(100);
+	
+	Engine::GetLogger()->InfoLog("AfterShadowmap");
+	Engine::GetLogger()->InfoLog(std::to_string(
+		Engine::GetRenderer()->GetAllocator()->GetMemoryUsageInfo().gpuOnlyMemoryInfo.usedSpace / 1000000));
 
 	// Directional light por defecto
-	const Vector3f direction = Vector3f(1.0f, -3.f, 0.0f).GetNormalized();
+	const Vector3f direction = Vector3f(1.0f, -1.9f, 0.0f).GetNormalized();
 	dirLight.directionAndIntensity = Vector4f(direction.X, direction.Y, direction.Z, 2.0f);
 	dirLight.color = Color(255 / 255.f, 255 / 255.f, 255 / 255.f);
 
@@ -146,14 +158,19 @@ ShadowMap* RenderSystem3D::GetShadowMap() {
 void RenderSystem3D::GenerateShadows(ICommandList* commandList, ModelType modelType) {
 	const TSize resourceIndex = Engine::GetRenderer()->GetCurrentResourceIndex();
 	const Viewport viewport {
-		.rectangle = { 0u, 0u, shadowMap.GetColorImage(0)->GetSize2D().X, shadowMap.GetColorImage(0)->GetSize2D().Y }
+		.rectangle = { 0u, 0u, 
+		shadowMap.GetColorImage(0)->GetSize2D().X, 
+		shadowMap.GetColorImage(0)->GetSize2D().Y }
 	};
 
 	commandList->StartDebugSection("Shadows", Color::BLACK());
 
-	commandList->SetGpuImageBarrier(shadowMap.GetShadowImage(resourceIndex), GpuImageLayout::DEPTH_STENCIL_TARGET,
-		GpuBarrierInfo(GpuBarrierStage::FRAGMENT_SHADER, GpuBarrierAccessStage::SHADER_READ), GpuBarrierInfo(GpuBarrierStage::DEPTH_STENCIL_START, GpuBarrierAccessStage::DEPTH_STENCIL_READ | GpuBarrierAccessStage::DEPTH_STENCIL_WRITE),
-		GpuImageBarrierInfo{ .baseLayer = 0, .numLayers = shadowMap.GetNumCascades(), .baseMipLevel = 0, .numMipLevels = ALL_MIP_LEVELS, .channel = SampledChannel::DEPTH | SampledChannel::STENCIL });
+	commandList->SetGpuImageBarrier(
+		shadowMap.GetShadowImage(resourceIndex), 
+		GpuImageLayout::DEPTH_STENCIL_TARGET,
+		GpuBarrierInfo(GpuBarrierStage::FRAGMENT_SHADER, GpuBarrierAccessStage::SHADER_READ), 
+		GpuBarrierInfo(GpuBarrierStage::DEPTH_STENCIL_START, GpuBarrierAccessStage::DEPTH_STENCIL_READ | GpuBarrierAccessStage::DEPTH_STENCIL_WRITE),
+		GpuImageBarrierInfo{ .baseLayer = 0, .numLayers = shadowMap.GetNumCascades(), .baseMipLevel = 0, .numMipLevels = ALL_MIP_LEVELS, .channel = SampledChannel::DEPTH });
 
 	commandList->SetViewport(viewport);
 	commandList->SetScissor(viewport.rectangle);
@@ -170,7 +187,7 @@ void RenderSystem3D::GenerateShadows(ICommandList* commandList, ModelType modelT
 		depthInfo.arrayLevel = i;
 		depthInfo.targetImage = shadowMap.GetShadowImage(resourceIndex);
 
-		commandList->BeginGraphicsRenderpass({ colorInfo }, depthInfo, { 1.0f, 1.0f, 1.0f, 1.0f });
+		commandList->BeginGraphicsRenderpass({ colorInfo }, depthInfo, { 1.0f, 1.0f, 1.0f, 1.0f }, false);
 
 		commandList->StartDebugSection("Static Meshes", Color::BLACK());
 
@@ -189,14 +206,16 @@ void RenderSystem3D::GenerateShadows(ICommandList* commandList, ModelType modelT
 
 		commandList->EndDebugSection();
 
-		commandList->EndGraphicsRenderpass();
+		commandList->EndGraphicsRenderpass(false);
 
 		commandList->EndDebugSection();
 	}
 
-	commandList->SetGpuImageBarrier(shadowMap.GetShadowImage(resourceIndex), GpuImageLayout::SAMPLED,
-		GpuBarrierInfo(GpuBarrierStage::DEPTH_STENCIL_END, GpuBarrierAccessStage::DEPTH_STENCIL_READ | GpuBarrierAccessStage::DEPTH_STENCIL_WRITE), GpuBarrierInfo(GpuBarrierStage::FRAGMENT_SHADER, GpuBarrierAccessStage::SHADER_READ),
-		GpuImageBarrierInfo{ .baseLayer = 0, .numLayers = shadowMap.GetNumCascades(), .baseMipLevel = 0, .numMipLevels = ALL_MIP_LEVELS, .channel = SampledChannel::DEPTH |SampledChannel::STENCIL });
+	commandList->SetGpuImageBarrier(shadowMap.GetShadowImage(resourceIndex), 
+		GpuImageLayout::SAMPLED,
+		GpuBarrierInfo(GpuBarrierStage::DEPTH_STENCIL_END, GpuBarrierAccessStage::DEPTH_STENCIL_READ | GpuBarrierAccessStage::DEPTH_STENCIL_WRITE), 
+		GpuBarrierInfo(GpuBarrierStage::FRAGMENT_SHADER, GpuBarrierAccessStage::SHADER_READ),
+		GpuImageBarrierInfo{ .baseLayer = 0, .numLayers = shadowMap.GetNumCascades(), .baseMipLevel = 0, .numMipLevels = ALL_MIP_LEVELS, .channel = SampledChannel::DEPTH });
 
 	commandList->EndDebugSection();
 }
@@ -205,10 +224,6 @@ void RenderSystem3D::RenderScene(ICommandList* commandList) {
 	const TSize resourceIndex = Engine::GetRenderer()->GetCurrentResourceIndex();
 	
 	commandList->StartDebugSection("PBR Direct", Color::RED());
-
-	commandList->SetGpuImageBarrier(renderTarget.GetMainColorImage(resourceIndex), GpuImageLayout::SAMPLED,
-		GpuBarrierInfo(GpuBarrierStage::FRAGMENT_SHADER, GpuBarrierAccessStage::SHADER_READ), GpuBarrierInfo(GpuBarrierStage::COLOR_ATTACHMENT_OUTPUT, GpuBarrierAccessStage::COLOR_ATTACHMENT_WRITE),
-		GpuImageBarrierInfo{ .baseLayer = 0, .numLayers = ALL_IMAGE_LAYERS, .baseMipLevel = 0, .numMipLevels = ALL_MIP_LEVELS });
 
 	commandList->BeginGraphicsRenderpass(&renderTarget, Color::BLACK() * 0.0f);
 	SetupViewport(commandList);

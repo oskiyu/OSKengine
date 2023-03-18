@@ -72,6 +72,9 @@ VkFormat OSK::GRAPHICS::GetFormatVk(Format format) {
 	case Format::D32_SFLOAT:
 		return VK_FORMAT_D32_SFLOAT;
 
+	case Format::D16_UNORM:
+		return VK_FORMAT_D16_UNORM;
+
 	case Format::D32S8_SFLOAT_SUINT:
 		return VK_FORMAT_D32_SFLOAT_S8_UINT;
 
@@ -107,6 +110,9 @@ unsigned int OSK::GRAPHICS::GetFormatNumberOfBytes(Format format) {
 		case Format::D24S8_SFLOAT_SUINT:
 			return 32 / 8;
 
+		case Format::D16_UNORM:
+			return 16 / 8;
+
 		case Format::D32S8_SFLOAT_SUINT:
 			return (32 + 8) / 8;
 
@@ -130,6 +136,8 @@ template <> std::string OSK::ToString<OSK::GRAPHICS::Format>(const OSK::GRAPHICS
 		return "D32S8_SFLOAT_SUINT";
 	case OSK::GRAPHICS::Format::D32_SFLOAT:
 		return "D32_SFLOAT";
+	case OSK::GRAPHICS::Format::D16_UNORM:
+		return "D16_UNORM";
 	case OSK::GRAPHICS::Format::RGBA8_UNORM:
 		return "RGBA8_UNORM";
 	case OSK::GRAPHICS::Format::RGBA8_SRGB:
@@ -157,6 +165,7 @@ OSK::GRAPHICS::Format OSK::GRAPHICS::GetFormatFromString(const std::string& form
 		Format::D32S8_SFLOAT_SUINT,
 		Format::D24S8_SFLOAT_SUINT,
 		Format::D32_SFLOAT,
+		Format::D16_UNORM,
 		Format::RG16_SFLOAT,
 		Format::RG32_SFLOAT,
 	};
@@ -168,4 +177,10 @@ OSK::GRAPHICS::Format OSK::GRAPHICS::GetFormatFromString(const std::string& form
 	OSK_ASSERT(false, "No se encuentra el formato " + formatStr + ".");
 
 	return Format::RGBA8_UNORM;
+}
+
+bool OSK::GRAPHICS::FormatSupportsStencil(Format format) {
+	return
+		format == Format::D32S8_SFLOAT_SUINT ||
+		format == Format::D24S8_SFLOAT_SUINT;
 }

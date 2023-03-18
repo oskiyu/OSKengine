@@ -20,7 +20,14 @@ F   G   H
 K   L   M
 
 */
-shared vec4 sharedMemory[LOCAL_SIZE_X + 2 + 2][LOCAL_SIZE_Y + 2 + 2];
+#ifdef USE_SHARED_MEMORY
+const int SHARED_MEMORY_SIZE_X = LOCAL_SIZE_X + 2 + 2;
+const int SHARED_MEMORY_SIZE_Y = LOCAL_SIZE_Y + 2 + 2;
+shared vec3 sharedMemory[SHARED_MEMORY_SIZE_X][SHARED_MEMORY_SIZE_Y];
+
+const int NUM_FULL_WAVES = (SHARED_MEMORY_SIZE_X * SHARED_MEMORY_SIZE_Y) /
+                            (LOCAL_SIZE_X * LOCAL_SIZE_Y);
+#endif
 
 vec3 PowVec3(vec3 v, float p)
 {
@@ -48,54 +55,76 @@ void main() {
 
     const vec2 currentCoords = vec2(gl_GlobalInvocationID.xy);
     
-    if (currentCoords.x > nextResolution.x || currentCoords.y > nextResolution.y)
-        return;
-    
-    const vec2 previousCoordinates = currentCoords * 2.0 + 0.5; //(previousResolution / nextResolution) * currentCoords;
+    const vec2 previousCoordinates = (currentCoords + 0.5) * 2.0;
 
     const vec2 sourcePixelSize = 1.0 / textureSize(inputImg, 0);
 
 #ifdef USE_SHARED_MEMORY
 
-    const int numSquaresAxisX = (LOCAL_SIZE_X + 2 + 2) / 2;
-    const int numSquaresAxisY = (LOCAL_SIZE_Y + 2 + 2) / 2;
+    // Coordenadas base del grupo de hilos.
+    const ivec2 workgroupCoordinates = ivec2(gl_WorkGroupID.xy) * ivec2(LOCAL_SIZE_X, LOCAL_SIZE_Y);
+    // Coordenadas del hilo dentro del grupo.
+    const ivec2 threadCoordinates = ivec2(gl_LocalInvocationID.xy);
+    // Índice lineal del hilo dentro del grupo.
+    const int threadId = threadCoordinates.x + threadCoordinates.y * LOCAL_SIZE_X;
 
-	if (gl_LocalInvocationID.x < numSquaresAxisX && gl_LocalInvocationID.y < numSquaresAxisY) {
-        const ivec2 workgroupCoordinates = ivec2(gl_WorkGroupID.xy) * ivec2(LOCAL_SIZE_X, LOCAL_SIZE_Y);
-        const ivec2 threadCoordinates = ivec2(gl_LocalInvocationID.xy);
-        
-        const ivec2 previousCoordinates = workgroupCoordinates + threadCoordinates * ivec2(2, 2) - ivec2(2, 2);
-        const ivec2 squareCoordinates = threadCoordinates * ivec2(2, 2) - ivec2(2, 2);
+    // Offset lineal del grupo entero de hilos (64).
+    const int waveOffset = LOCAL_SIZE_X * LOCAL_SIZE_Y;
 
-        for (int x = 0; x < 2; x++) {
-            for (int y = 0; y < 2; y++) {
-                const vec2 previousCoordinates = (vec2(previousCoordinates) + vec2(x, y)) * 2 + 0.5;
-                sharedMemory[squareCoordinates.x + x + 2][squareCoordinates.y + y + 2] = texture(inputImg, previousCoordinates * sourcePixelSize);
-            }
-        }
+    for (int i = 0; i < NUM_FULL_WAVES; i++) {
+        // ID lineal del porceso.
+        const int newThreadId = threadId + waveOffset * i;
+
+        const ivec2 sharedMemoryCoordinates = ivec2(
+            newThreadId % SHARED_MEMORY_SIZE_X,
+            newThreadId / SHARED_MEMORY_SIZE_X
+        );
+
+        // Coordenadas del píxel de la imagen que corresponde al hilo.
+        const vec2 imageCoordinates = (sharedMemoryCoordinates + workgroupCoordinates) * 2.0 + 0.5;
+
+        sharedMemory[sharedMemoryCoordinates.x][sharedMemoryCoordinates.y] 
+            = texture(inputImg, imageCoordinates * sourcePixelSize).rgb;
+    }
+
+    const int newThreadId = threadId + waveOffset * NUM_FULL_WAVES;
+    if (newThreadId < SHARED_MEMORY_SIZE_X * SHARED_MEMORY_SIZE_Y) {
+        const ivec2 sharedMemoryCoordinates = ivec2(
+            newThreadId % SHARED_MEMORY_SIZE_X,
+            newThreadId / SHARED_MEMORY_SIZE_X
+        );
+
+            // Coordenadas del píxel de la imagen que corresponde al hilo.
+        const vec2 imageCoordinates = (sharedMemoryCoordinates + workgroupCoordinates) * 2.0 + 0.5;
+
+        sharedMemory[sharedMemoryCoordinates.x][sharedMemoryCoordinates.y] 
+            = texture(inputImg, imageCoordinates * sourcePixelSize).rgb;
     }
 
     barrier();
 
+    if (currentCoords.x > nextResolution.x || currentCoords.y > nextResolution.y)
+        return;
+    
     const ivec2 sharedCoords = ivec2(gl_LocalInvocationID.xy) + ivec2(2, 2);
 
-    const vec4 A = sharedMemory[sharedCoords.x - 2][sharedCoords.y - 2];
-    const vec4 B = sharedMemory[sharedCoords.x + 0][sharedCoords.y - 2];
-    const vec4 C = sharedMemory[sharedCoords.x + 2][sharedCoords.y - 2];
+    const vec4 A = vec4(sharedMemory[sharedCoords.x - 2][sharedCoords.y - 2], 1.0);
+    const vec4 B = vec4(sharedMemory[sharedCoords.x + 0][sharedCoords.y - 2], 1.0);
+    const vec4 C = vec4(sharedMemory[sharedCoords.x + 2][sharedCoords.y - 2], 1.0);
     
-    const vec4 D = sharedMemory[sharedCoords.x - 1][sharedCoords.y - 1];
-    const vec4 E = sharedMemory[sharedCoords.x + 1][sharedCoords.y - 1];
+    const vec4 D = vec4(sharedMemory[sharedCoords.x - 1][sharedCoords.y - 1], 1.0);
+    const vec4 E = vec4(sharedMemory[sharedCoords.x + 1][sharedCoords.y - 1], 1.0);
 
-    const vec4 F = sharedMemory[sharedCoords.x - 2][sharedCoords.y + 0];
-    const vec4 G = sharedMemory[sharedCoords.x + 0][sharedCoords.y + 0];
-    const vec4 H = sharedMemory[sharedCoords.x + 2][sharedCoords.y + 0];
+    const vec4 F = vec4(sharedMemory[sharedCoords.x - 2][sharedCoords.y + 0], 1.0);
+    const vec4 G = vec4(sharedMemory[sharedCoords.x + 0][sharedCoords.y + 0], 1.0);
+    const vec4 H = vec4(sharedMemory[sharedCoords.x + 2][sharedCoords.y + 0], 1.0);
 
-    const vec4 I = sharedMemory[sharedCoords.x - 1][sharedCoords.y + 1];
-    const vec4 J = sharedMemory[sharedCoords.x + 1][sharedCoords.y + 1];
+    const vec4 I = vec4(sharedMemory[sharedCoords.x - 1][sharedCoords.y + 1], 1.0);
+    const vec4 J = vec4(sharedMemory[sharedCoords.x + 1][sharedCoords.y + 1], 1.0);
 
-    const vec4 K = sharedMemory[sharedCoords.x - 2][sharedCoords.y + 2];
-    const vec4 L = sharedMemory[sharedCoords.x + 0][sharedCoords.y + 2];
-    const vec4 M = sharedMemory[sharedCoords.x + 2][sharedCoords.y + 2];
+    const vec4 K = vec4(sharedMemory[sharedCoords.x - 2][sharedCoords.y + 2], 1.0);
+    const vec4 L = vec4(sharedMemory[sharedCoords.x + 0][sharedCoords.y + 2], 1.0);
+    const vec4 M = vec4(sharedMemory[sharedCoords.x + 2][sharedCoords.y + 2], 1.0);
 
 #else
 

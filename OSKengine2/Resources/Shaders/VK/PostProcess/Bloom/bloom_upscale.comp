@@ -8,7 +8,10 @@ layout (set = 0, binding = 0) uniform sampler2D inputImg;
 layout (set = 0, binding = 1, FORMAT) uniform image2D outputImg;
 
 
+#ifdef USE_SHARED_MEMORY
 shared vec4 sharedMemory[LOCAL_SIZE_X + 2 + 2][LOCAL_SIZE_Y + 2 + 2];
+#endif
+
 // A B C
 // D E F
 // G H I
@@ -23,7 +26,7 @@ void main() {
     if (currentCoords.x > nextResolution.x || currentCoords.y > nextResolution.y)
         return;
     
-    const int radius = 2;
+    const float radius = 2.0;
     const vec2 sourcePixelSize = 1.0 / textureSize(inputImg, 0);
 
 #ifdef USE_SHARED_MEMORY
@@ -64,7 +67,7 @@ void main() {
 
     color /= 16.0;
 #else
-    const vec2 previousCoordinates = currentCoords * 0.5 + 0.5; //(previousResolution / nextResolution) * currentCoords;
+    const vec2 previousCoordinates = (currentCoords + 0.5) * 0.5;
 
     color += texture(inputImg, (previousCoordinates + vec2( 0,  0) * radius) * sourcePixelSize) * 4;
     

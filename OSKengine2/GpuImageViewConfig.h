@@ -30,6 +30,10 @@ namespace OSK::GRAPHICS {
 		/// </summary>
 		DEPTH_STENCIL_TARGET,
 
+		/// @brief Se renderizará una imagen al canal de profundidad
+		/// usando un graphics pipeline.
+		DEPTH_ONLY_TARGET,
+
 		/// <summary>
 		/// Uso como read-write en shaders de computación y
 		/// ray-tracing.

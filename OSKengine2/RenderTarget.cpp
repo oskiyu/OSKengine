@@ -19,7 +19,10 @@ void RenderTarget::Create(const Vector2ui& targetSize, DynamicArray<RenderTarget
 		attachmentInfo.usage |= GpuImageUsage::COLOR | GpuImageUsage::SAMPLED;
 		colorAttachments.Insert(RenderTargetAttachment::Create(attachmentInfo, targetSize));
 	}
-	depthInfo.usage |= GpuImageUsage::DEPTH_STENCIL;
+	depthInfo.usage |= GpuImageUsage::DEPTH;
+	if (FormatSupportsStencil(depthInfo.format))
+		depthInfo.usage |= GpuImageUsage::STENCIL;
+
 	depthAttachment.Initialize(depthInfo, targetSize);
 
 	targetType = RenderpassType::INTERMEDIATE;
@@ -33,7 +36,7 @@ void RenderTarget::CreateAsFinal(const Vector2ui& targetSize, RenderTargetAttach
 	colorInfo.usage |= GpuImageUsage::COLOR | GpuImageUsage::SAMPLED;
 	colorAttachments.Insert(RenderTargetAttachment::Create(colorInfo, targetSize));
 	
-	depthInfo.usage |= GpuImageUsage::DEPTH_STENCIL;
+	depthInfo.usage |= GpuImageUsage::DEPTH | GpuImageUsage::STENCIL;
 	depthAttachment.Initialize(depthInfo, targetSize);
 
 	targetType = RenderpassType::FINAL;

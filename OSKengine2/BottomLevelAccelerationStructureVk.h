@@ -13,6 +13,8 @@ namespace OSK::GRAPHICS {
 
 	public:
 
+		~BottomLevelAccelerationStructureVk();
+
 		void Setup(const IGpuVertexBuffer& vertexBuffer, const IGpuIndexBuffer& indexBuffer, RtAccelerationStructureFlags flags) override;
 		void Update(ICommandList* cmdList) override;
 

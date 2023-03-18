@@ -73,7 +73,7 @@ void ColliderRenderSystem::Initialize(GameObjectIndex camera) {
 
 void ColliderRenderSystem::CreateTargetImage(const Vector2ui& size) {
 	RenderTargetAttachmentInfo colorInfo{ .format = Format::RGBA8_SRGB, .name = "Collider Render System Target" };
-	RenderTargetAttachmentInfo depthInfo{ .format = Format::D32S8_SFLOAT_SUINT, .name = "Collider Render System Depth" };
+	RenderTargetAttachmentInfo depthInfo{ .format = Format::D16_UNORM, .name = "Collider Render System Depth" };
 	renderTarget.Create(size, { colorInfo }, depthInfo);
 }
 

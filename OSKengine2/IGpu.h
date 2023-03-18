@@ -2,6 +2,8 @@
 
 #include "OSKmacros.h"
 #include "OwnedPtr.h"
+#include "GpuMemoryUsageInfo.h"
+
 #include <type_traits>
 
 namespace OSK::GRAPHICS {
@@ -40,6 +42,11 @@ namespace OSK::GRAPHICS {
 		/// Elimina los recursos asociados a la GPU.
 		/// </summary>
 		virtual void Close() = 0;
+
+		/// @brief Obtiene la información sobre el uso de memoria de esta GPU,
+		/// incluyendo espacio usado y espacio disponible.
+		/// @return Información sobre el uso de memoria de esta GPU.
+		virtual GpuMemoryUsageInfo GetMemoryUsageInfo() const = 0;
 
 		/// <summary>
 		/// Castea la clase al tipo dado.

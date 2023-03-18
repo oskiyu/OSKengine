@@ -74,7 +74,10 @@ unsigned int OSK::GRAPHICS::GetGpuImageUsageVk(GpuImageUsage usage) {
 	if (EFTraits::HasFlag(usage, GpuImageUsage::COLOR))
 		flags = flags | VK_IMAGE_USAGE_COLOR_ATTACHMENT_BIT;
 
-	if (OSK_CONTAINS_FLAG(usage, GpuImageUsage::DEPTH_STENCIL))
+	if (OSK_CONTAINS_FLAG(usage, GpuImageUsage::DEPTH))
+		flags = flags | VK_IMAGE_USAGE_DEPTH_STENCIL_ATTACHMENT_BIT;
+
+	if (OSK_CONTAINS_FLAG(usage, GpuImageUsage::STENCIL))
 		flags = flags | VK_IMAGE_USAGE_DEPTH_STENCIL_ATTACHMENT_BIT;
 
 	if (OSK_CONTAINS_FLAG(usage, GpuImageUsage::SAMPLED))
@@ -102,15 +105,20 @@ unsigned int OSK::GRAPHICS::GetGpuImageUsageVk(GpuImageUsage usage) {
 unsigned int OSK::GRAPHICS::GetGpuImageAspectVk(GpuImageUsage usage) {
 	unsigned int flags = 0;
 
-	if (EFTraits::HasFlag(usage, GpuImageUsage::COLOR)
-		|| EFTraits::HasFlag(usage, GpuImageUsage::RT_TARGET_IMAGE))
+	if (EFTraits::HasFlag(usage, GpuImageUsage::COLOR) || 
+		EFTraits::HasFlag(usage, GpuImageUsage::RT_TARGET_IMAGE))
 		flags = flags | VK_IMAGE_ASPECT_COLOR_BIT;
 
-	if (EFTraits::HasFlag(usage, GpuImageUsage::SAMPLED) && !EFTraits::HasFlag(usage, GpuImageUsage::DEPTH_STENCIL))
+	if (EFTraits::HasFlag(usage, GpuImageUsage::SAMPLED) && 
+		!EFTraits::HasFlag(usage, GpuImageUsage::DEPTH) && 
+		!EFTraits::HasFlag(usage, GpuImageUsage::STENCIL))
 		flags = flags | VK_IMAGE_ASPECT_COLOR_BIT;
 
-	if (OSK_CONTAINS_FLAG(usage, GpuImageUsage::DEPTH_STENCIL))
-		flags = flags | (VK_IMAGE_ASPECT_DEPTH_BIT | VK_IMAGE_ASPECT_STENCIL_BIT);
+	if (OSK_CONTAINS_FLAG(usage, GpuImageUsage::DEPTH))
+		flags = flags | (VK_IMAGE_ASPECT_DEPTH_BIT);
+
+	if (OSK_CONTAINS_FLAG(usage, GpuImageUsage::STENCIL))
+		flags = flags | (VK_IMAGE_ASPECT_STENCIL_BIT);
 
 	return flags;
 }

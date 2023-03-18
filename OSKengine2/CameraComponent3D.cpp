@@ -52,7 +52,7 @@ void CameraComponent3D::SetFovLimits(float min, float max) {
 }
 
 void CameraComponent3D::Rotate(float angleX, float angleY) {
-	auto prevAccumAngles = accumulatedAngles;
+	const Vector2f prevAccumAngles = accumulatedAngles;
 	angles = Vector2f(angleX, angleY) * 0.25f;
 	accumulatedAngles += angles;
 
@@ -69,16 +69,23 @@ void CameraComponent3D::Rotate(float angleX, float angleY) {
 }
 
 void CameraComponent3D::UpdateTransform(Transform3D* transform) {
-	transform->RotateWorldSpace(glm::radians(-angles.Y), transform->GetRightVector());
+	transform->RotateLocalSpace(glm::radians(-angles.Y), { 1, 0, 0 });
 	transform->RotateWorldSpace(glm::radians(-angles.X), worldUpVector);
 
 	angles = 0.0f;
 }
 
 glm::mat4 CameraComponent3D::GetProjectionMatrix() const {
-	return glm::perspective<float>(glm::radians(fov), Engine::GetDisplay()->GetScreenRatio(), nearPlane, farPlane);
+	return glm::perspective<float>(
+		glm::radians(fov), 
+		Engine::GetDisplay()->GetScreenRatio(), 
+		nearPlane, 
+		farPlane);
 }
 
 glm::mat4 CameraComponent3D::GetViewMatrix(const Transform3D& transform) const {
-	return glm::lookAt<float>(transform.GetPosition().ToGLM(), (transform.GetPosition() + transform.GetForwardVector()).ToGLM(), transform.GetTopVector().ToGLM());
+	return glm::lookAt<float>(
+		transform.GetPosition().ToGLM(), 
+		(transform.GetPosition() + transform.GetForwardVector()).ToGLM(), 
+		transform.GetTopVector().ToGLM());
 }

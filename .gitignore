@@ -345,3 +345,8 @@ healthchecksdb
 /enet/StructReg.h
 /CarGame
 /StaticAnalysis/CppCheck
+
+# Bin
+*.exe
+
+# Large files

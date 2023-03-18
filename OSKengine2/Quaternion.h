@@ -33,6 +33,11 @@ namespace OSK {
 		/// <param name="axis">Eje, en coordenadas del cuaternión, sobre el que se va a rotar.</param>
 		void Rotate_LocalSpace(float angle, const Vector3f& axis);
 
+		/// @brief Rota un vector con la orientación de este quaternión.
+		/// @param vec Vector a rotar.
+		/// @return Vector rotado.
+		Vector3f RotateVector(const Vector3f& vec) const;
+
 		/// <summary>
 		/// Devuelve la rotación del cuaternión como coordenadas de Euler.
 		/// </summary>

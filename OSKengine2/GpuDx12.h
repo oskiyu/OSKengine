@@ -12,12 +12,14 @@ using namespace Microsoft::WRL;
 
 namespace OSK::GRAPHICS {
 
-	class OSKAPI_CALL GpuDx12 : public IGpu {
+	class OSKAPI_CALL GpuDx12 final : public IGpu {
 
 	public:
 
 		~GpuDx12();
 		void Close() override;
+
+		GpuMemoryUsageInfo GetMemoryUsageInfo() const override;
 
 		OwnedPtr<ICommandPool> CreateGraphicsCommandPool() override;
 		OwnedPtr<ICommandPool> CreateComputeCommandPool() override;

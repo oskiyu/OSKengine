@@ -14,6 +14,13 @@
 using namespace OSK;
 using namespace OSK::GRAPHICS;
 
+BottomLevelAccelerationStructureVk::~BottomLevelAccelerationStructureVk() {
+	RendererVk::pvkDestroyAccelerationStructureKHR(
+		Engine::GetRenderer()->GetGpu()->As<GpuVk>()->GetLogicalDevice(),
+		accelerationStructureHandle,
+		VK_NULL_HANDLE);
+}
+
 void BottomLevelAccelerationStructureVk::Setup(const IGpuVertexBuffer& vertexBuffer, const IGpuIndexBuffer& indexBuffer, RtAccelerationStructureFlags flags) {
 	const VkDevice logicalDevice = Engine::GetRenderer()->GetGpu()->As<GpuVk>()->GetLogicalDevice();
 	IGpuMemoryAllocator* memoryAllocator = Engine::GetRenderer()->GetAllocator();

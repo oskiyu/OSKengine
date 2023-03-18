@@ -42,27 +42,14 @@ const IGraphicsPipeline* Material::GetGraphicsPipeline(const PipelineKey& key) c
 	for (TSize i = 0; i < graphicsPipelines.GetSize(); i++) {
 		const PipelineKey& iKey = graphicsPipelinesKeys[i];
 
-		if (key.GetSize() != iKey.GetSize())
-			continue;
-
-		bool compatible = true;
-		for (TSize j = 0; j < key.GetSize(); j++){
-			if (key[j] != iKey[j]) {
-				compatible = false;
-				continue;
-			}
-		}
-		
-		if (!compatible)
-			continue;
-		
-		// Compatible
-		return graphicsPipelines[i].GetPointer();
+		if (key == iKey)
+			return graphicsPipelines[i].GetPointer();
 	}
 
 	// Crear nuevo pipeline compatible.
 	PipelineCreateInfo newInfo = pipelineInfo; 
-	newInfo.formats = key;
+	newInfo.formats = key.colorFormats;
+	newInfo.depthFormat = key.depthFormat;
 
 	OwnedPtr<IGraphicsPipeline> output = Engine::GetRenderer()->_CreateGraphicsPipeline(newInfo, *GetLayout(), vertexInfo);
 	output->SetDebugName(name);

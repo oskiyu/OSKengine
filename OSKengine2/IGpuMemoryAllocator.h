@@ -17,6 +17,8 @@
 #include "GpuImageLayout.h"
 #include "Format.h"
 
+#include "GpuMemoryUsageInfo.h"
+
 namespace OSK::GRAPHICS {
 
 	class IGpuMemoryBlock;
@@ -110,6 +112,11 @@ namespace OSK::GRAPHICS {
 
 		OSK_DEFINE_AS(IGpuMemoryAllocator);
 
+
+		/// @brief Obtiene la información sobre el uso de memoria de esta GPU,
+		/// incluyendo espacio usado y espacio disponible.
+		/// @return Información sobre el uso de memoria de esta GPU.
+		GpuMemoryUsageInfo GetMemoryUsageInfo() const;
 		
 		/// @brief Crea una nueva imagen en la GPU.
 		/// @param info Información para la creación de la imagen.

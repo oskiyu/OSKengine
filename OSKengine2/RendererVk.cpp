@@ -60,7 +60,9 @@ const DynamicArray<const char*> validationLayers = {
 const DynamicArray<uint32_t> ignoredValidationLayersMessages = {
 	0x609a13b, // Shader attachmentt not used
 
-	0xd6d77e1e, // Dynamic Rendering
+	0xd6d77e1e, // Dynamic Rendering Color
+	0x151f5e5a, // Dynamic Rendering Depth
+	0x11b37e31, 
 	0x6c16bfb4
 };
 
@@ -283,6 +285,8 @@ void RendererVk::CreateInstance(const std::string& appName, const Version& versi
 	auto extensions = DynamicArray<const char*>::CreateReservedArray(glfwExtensionCount);
 	for (size_t i = 0; i < glfwExtensionCount; i++)
 		extensions.Insert(glfwExtensions[i]);
+
+	extensions.Insert(VK_KHR_GET_PHYSICAL_DEVICE_PROPERTIES_2_EXTENSION_NAME);
 
 #ifdef OSK_DEBUG
 	extensions.Insert(VK_EXT_DEBUG_UTILS_EXTENSION_NAME);

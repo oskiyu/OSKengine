@@ -27,7 +27,7 @@ void main() {
     // ------ FINAL UPSCALE ------ //
     const vec2 previousCoordinates = currentCoords * 0.5 + 0.5; //(previousResolution / nextResolution) * currentCoords;
 
-    const int radius = 2;
+    const float radius = 2.0;
     const vec2 sourcePixelSize = 1.0 / textureSize(bloomImg, 0);
 
     vec4 bloomColor = vec4(0);
@@ -49,12 +49,13 @@ void main() {
 
     const vec4 originalBloom = imageLoad(outputImg, ivec2(currentCoords));
 
-    bloomColor += originalBloom;
+    // bloomColor += originalBloom;
 
     // ------ RESOLVE ------ //
 
-    const float ratio = 0.022; // 0.055
-    const vec4 finalColor = mix(originalColor, bloomColor, ratio);
+    const float ratio = 0.032; // 0.055
+    const vec4 finalColor = 
+        originalColor + bloomColor * ratio;// mix(originalColor, bloomColor, ratio);
     
     imageStore(outputImg, ivec2(currentCoords.xy), vec4(finalColor.rgb, 1.0));
 }

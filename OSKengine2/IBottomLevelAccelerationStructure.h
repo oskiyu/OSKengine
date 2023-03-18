@@ -24,6 +24,8 @@ namespace OSK::GRAPHICS {
 
 	public:
 
+		virtual ~IBottomLevelAccelerationStructure() = default;
+
 		OSK_DEFINE_AS(IBottomLevelAccelerationStructure);
 
 		/// @brief Crea la estructura de aceleración con los triangulos definidos

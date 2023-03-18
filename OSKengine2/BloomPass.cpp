@@ -18,7 +18,7 @@
 using namespace OSK;
 using namespace OSK::GRAPHICS;
 
-constexpr float BLOCK_SIZE = 8.f;
+constexpr float BLOCK_SIZE = 8.0f;
 
 void BloomPass::Create(const Vector2ui& size) {
 	// Carga de materiales.

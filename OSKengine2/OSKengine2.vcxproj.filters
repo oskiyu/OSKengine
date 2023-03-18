@@ -1892,6 +1892,12 @@
     <ClInclude Include="GpuImageViewConfig.h">
       <Filter>Archivos de encabezado\OSKengine\RenderAPI\LowLevel\Resources\Image\View</Filter>
     </ClInclude>
+    <ClInclude Include="GpuHeapMemoryUsageInfo.h">
+      <Filter>Archivos de encabezado\OSKengine\RenderAPI\LowLevel\Memory</Filter>
+    </ClInclude>
+    <ClInclude Include="GpuMemoryUsageInfo.h">
+      <Filter>Archivos de encabezado\OSKengine\RenderAPI\LowLevel\Memory</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="..\OSKengine\OSKengine.rc">
