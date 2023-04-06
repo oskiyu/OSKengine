@@ -1,11 +1,8 @@
 #version 460
-#extension GL_ARB_separate_shader_objects : enable
+
+layout (local_size_x = 8, local_size_y = 8) in;
 
 #include "../../common.glsl"
-
-layout(location = 0) in vec2 inTexCoords;
-
-layout (location = 0) out vec4 outColor;
 
 layout (set = 0, binding = 0) uniform Camera {
     mat4 projection;
@@ -36,11 +33,16 @@ layout (set = 1, binding = 0) uniform sampler2D positionTexture;
 layout (set = 1, binding = 1) uniform sampler2D colorTexture;
 layout (set = 1, binding = 2) uniform sampler2D normalTexture;
 
-void main() {
-    const vec4 colorInfo = texture(colorTexture, inTexCoords);
-    const vec4 normalInfo = texture(normalTexture, inTexCoords);
+layout (set = 2, binding = 0, rgba16f) uniform writeonly image2D finalImage;
 
-    const vec3 worlPosition = texture(positionTexture, inTexCoords).xyz;
+void main() {
+    const ivec2 coords = ivec2(gl_GlobalInvocationID);
+
+    const vec4 colorInfo = texelFetch(colorTexture, coords, 0);
+    const vec4 normalInfo = texelFetch(normalTexture, coords, 0);
+
+    const vec3 worlPosition = texelFetch(positionTexture, coords, 0).xyz;
+
     const vec4 albedo = vec4(colorInfo.rgb, 1.0);
     const vec3 normal = normalInfo.xyz;
 
@@ -60,8 +62,22 @@ void main() {
     const vec3 cameraSpacePosition = (temp / temp.w).xyz;
     
     // Directional Light
-    accummulatedRadiance += CalculateShadowStrength(cameraSpacePosition, dirLightShadowMat.matrix, dirLightShadowMat.splits, dirLightShadowMap, worlPosition) 
-        * GetRadiance(F0, dirLight.directionAndIntensity.xyz, view, normal, dirLight.color.rgb * dirLight.directionAndIntensity.w, albedo.rgb, roughnessFactor, metallicFactor);
+    accummulatedRadiance += 
+    CalculateShadowStrength(
+        cameraSpacePosition, 
+        dirLightShadowMat.matrix, 
+        dirLightShadowMat.splits, 
+        dirLightShadowMap, 
+        worlPosition) 
+    * GetRadiance(
+        F0, 
+        dirLight.directionAndIntensity.xyz, 
+        view, 
+        normal, 
+        dirLight.color.rgb * dirLight.directionAndIntensity.w, 
+        albedo.rgb, 
+        roughnessFactor, 
+        metallicFactor);
 
     // Irradiance Map
     vec3 kS = FreshnelShlick(max(dot(normal, view), 0.0), F0);
@@ -99,11 +115,17 @@ void main() {
                 + accummulatedRadiance * radianceRatio 
                 + specular * specularRatio;
 
+    /*color = GetShadowmapCascade(
+        cameraSpacePosition, 
+        dirLightShadowMat.splits,
+        dirLightShadowMat.matrix,
+        worlPosition);/**/
+
     color = vec3(
         max(color.r, 0.01),
         max(color.g, 0.01),
         max(color.b, 0.01)
     );
 
-    outColor = vec4(color, colorInfo.a);
+    imageStore(finalImage, coords, vec4(color, colorInfo.a));
 }

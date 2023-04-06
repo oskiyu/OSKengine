@@ -410,10 +410,12 @@ namespace OSK::GRAPHICS {
 		/// 
 		/// @pre El buffer de origen debe haber sido creado con GpuBufferUsage::TRANSFER_SOURCE.
 		/// @pre La imagen de destino debe haber sido creada con GpuImageUsage::TRANSFER_DESTINATION.
+		/// @pre Si la imagen de destino tiene niveles de mip-map, entonces debe haber sido creada con GpuImageUsage::TRANSFER_SOURCE.
 		/// @pre La imagen de destino debe tener el layout GpuImageLayout::TRANSFER_DESTINATION.
 		/// @pre La lista de comandos debe estar abierta.
 		/// 
 		/// @post El layout de la imagen después de efectuarse la copia segirá siendo GpuImageLayout::TRANSFER_DESTINATION.
+		/// @post Si la imagen de destino tiene niveles de mip-map, estos estarán correctamente generados.
 		virtual void CopyBufferToImage(
 			const GpuDataBuffer* source, 
 			GpuImage* dest, 

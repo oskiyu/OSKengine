@@ -1,0 +1,34 @@
+#version 460
+
+layout (local_size_x = 8, local_size_y = 8) in;
+
+layout (set = 0, binding = 0) uniform sampler2D taaImage;
+layout (set = 0, binding = 1, rgba16f) uniform writeonly image2D finalImg;
+
+void main() {
+    const ivec2 coords = ivec2(gl_GlobalInvocationID);
+
+    const vec4 originalColor = texelFetch(taaImage, coords, 0);
+
+    const float kernel[3][3] = {
+        { 0,  -.25, 0 },
+        { -.25, 2, -.25 },
+        { 0,  -.25, 0 }
+    };
+
+    vec3 kernelColor = vec3(0);
+    for (int x = -1; x <= 1; x++) {
+        for (int y = -1; y <= 1; y++) {
+            kernelColor += texelFetch(taaImage, coords + ivec2(x, y), 0).rgb 
+            * kernel[x + 1][y + 1];
+        }
+    }
+    
+    kernelColor = max(kernelColor, vec3(0));
+
+    const float sharpenStrength = 0.3;
+    
+    const vec3 color = mix(originalColor.rgb, kernelColor, sharpenStrength);
+
+    imageStore(finalImg, coords, vec4(color, originalColor.a));
+}

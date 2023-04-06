@@ -140,12 +140,13 @@ protected:
 		material2d = Engine::GetRenderer()->GetMaterialSystem()->LoadMaterial("Resources/Materials/2D/material_2d.json");
 		materialRenderTarget = Engine::GetRenderer()->GetMaterialSystem()->LoadMaterial("Resources/Materials/2D/material_rendertarget.json");
 
+		SpawnCar();
+
 		SpawnCamera();
 		SpawnCamera2D();
 
 		SetupRenderSystems();
 				
-		SpawnCar();
 		SpawnCircuit();
 		SpawnSecondCollider();
 
@@ -247,6 +248,21 @@ protected:
 				SetupPostProcessingChain();
 			}
 
+			// FXAA
+			if (keyboard->IsKeyReleased(IO::Key::F)) {
+				config.useFxaa = !config.useFxaa;
+				SetupPostProcessingChain();
+			}
+
+// #ifdef OSK_USE_DEFERRED_RENDERER  
+			// TAA
+			if (keyboard->IsKeyReleased(IO::Key::T)) {
+				auto renderSystem = Engine::GetEcs()->GetSystem<OSK_CURRENT_RSYSTEM>();
+				renderSystem->ToggleTaa();
+			}
+// #endif // OSK_USE_DEFERRED_RENDERER
+						
+
 			// Activar / desactivar renderizado de colliders
 			if (keyboard->IsKeyReleased(IO::Key::C))
 				Engine::GetEcs()->GetSystem<ECS::ColliderRenderSystem>()->ToggleActivationStatus();
@@ -290,11 +306,11 @@ protected:
 			// Rotación
 			if (keyboard->IsKeyDown(IO::Key::LEFT)) {
 				carTransform.RotateWorldSpace(deltaTime * 2, { 0, 1, 0 });
-				cameraRotation.X += deltaTime * 250;
+				if (cameraAttachedToCar) cameraRotation.X += deltaTime * 250;
 			}
 			if (keyboard->IsKeyDown(IO::Key::RIGHT)) {
 				carTransform.RotateWorldSpace(deltaTime * 2, { 0, -1, 0 });
-				cameraRotation.X -= deltaTime * 250;
+				if (cameraAttachedToCar) cameraRotation.X -= deltaTime * 250;
 			}
 
 			PhysicsComponent& carPhysics = Engine::GetEcs()->GetComponent<PhysicsComponent>(carObject);
@@ -303,7 +319,7 @@ protected:
 			carPhysics.acceleration = 0.0f;
 
 			const float projection = carPhysics.velocity.Dot(carTransform.GetForwardVector());
-			carPhysics.velocity = carTransform.GetForwardVector() * projection;
+			carPhysics.velocity = carTransform.GetForwardVector().GetNormalized() * projection;
 
 			if (keyboard->IsKeyDown(IO::Key::UP))
 				carPhysics.acceleration = carTransform.GetForwardVector() * 35.f * deltaTime;
@@ -331,11 +347,11 @@ protected:
 						* gamepadState.GetAxisState(IO::GamepadAxis::L2);
 
 					if (gamepadState.GetAxisState(IO::GamepadAxis::LEFT_X) > 0.1f) {
-						carTransform.RotateWorldSpace(deltaTime * 2 * gamepadState.GetAxisState(IO::GamepadAxis::LEFT_X), { 0, 1, 0 });
+						carTransform.RotateWorldSpace(deltaTime * 2 * gamepadState.GetAxisState(IO::GamepadAxis::LEFT_X), { 0, 1.0f, 0 });
 						cameraRotation.X += deltaTime * 250 * gamepadState.GetAxisState(IO::GamepadAxis::LEFT_X);
 					}
 					if (gamepadState.GetAxisState(IO::GamepadAxis::LEFT_X) < -0.1f) {
-						carTransform.RotateWorldSpace(deltaTime * 2 * gamepadState.GetAxisState(IO::GamepadAxis::LEFT_X), { 0, 1, 0 });
+						carTransform.RotateWorldSpace(deltaTime * 2 * gamepadState.GetAxisState(IO::GamepadAxis::LEFT_X), { 0, 1.0f, 0 });
 						cameraRotation.X += deltaTime * 250 * gamepadState.GetAxisState(IO::GamepadAxis::LEFT_X);
 					}
 				}
@@ -361,7 +377,7 @@ protected:
 			};
 
 			const float angle = -flatArmVec.Dot(flatCarVec);
-			cameraRotation.X += angle * 750 * deltaTime;
+			if (cameraAttachedToCar) cameraRotation.X += angle * 750 * deltaTime;
 		}
 
 		cameraArmTransform.RotateWorldSpace(glm::radians(-cameraRotation.X * 0.25f), { 0, 1, 0 });
@@ -431,7 +447,8 @@ protected:
 		frameBuildCommandList->EndDebugSection();
 
 		// Post-processing effects:
-		fxaaPass->Execute(Engine::GetRenderer()->GetPostComputeCommandList());
+		if (config.useFxaa)
+			fxaaPass->Execute(Engine::GetRenderer()->GetPostComputeCommandList());
 		if (config.useBloom)
 			bloomPass->Execute(Engine::GetRenderer()->GetPostComputeCommandList());
 		toneMappingPass->Execute(Engine::GetRenderer()->GetPostComputeCommandList());
@@ -538,12 +555,21 @@ private:
 		const GpuImageViewConfig viewConfig = GpuImageViewConfig::CreateSampled_SingleMipLevel(0);
 
 		fxaaPass->SetInput(preEffectsRenderTarget.GetValue(), viewConfig);
-		if (config.useBloom) {
-			toneMappingPass->SetInput(bloomPass->GetOutput(), viewConfig);
+
+		if (config.useBloom && config.useFxaa) {
 			bloomPass->SetInput(fxaaPass->GetOutput(), viewConfig);
+			toneMappingPass->SetInput(bloomPass->GetOutput(), viewConfig);
+		} else
+		if (config.useBloom) {
+			bloomPass->SetInput(preEffectsRenderTarget.GetValue(), viewConfig);
+			toneMappingPass->SetInput(bloomPass->GetOutput(), viewConfig);
+		}
+		else 
+		if (config.useFxaa) {
+			toneMappingPass->SetInput(fxaaPass->GetOutput(), viewConfig);
 		}
 		else {
-			toneMappingPass->SetInput(fxaaPass->GetOutput(), viewConfig);
+			toneMappingPass->SetInput(preEffectsRenderTarget.GetValue(), viewConfig);
 		}
 
 		Engine::GetRenderer()->WaitForCompletion();
@@ -583,6 +609,7 @@ private:
 		Engine::GetEcs()->AddComponent<CameraComponent3D>(cameraObject, {});
 
 		cameraTransform->AttachToObject(cameraArmObject);
+		Engine::GetEcs()->GetComponent<Transform3D>(cameraArmObject).AttachToObject(carObject); cameraAttachedToCar = true;
 	}
 
 	void SpawnCamera2D() {
@@ -599,7 +626,6 @@ private:
 
 		// Setup del transform
 		Transform3D& transform = Engine::GetEcs()->AddComponent<Transform3D>(carObject, ECS::Transform3D(carObject));
-		Engine::GetEcs()->GetComponent<Transform3D>(cameraArmObject).AttachToObject(carObject);
 
 		// Setup de físicas
 		auto& physicsComponent = Engine::GetEcs()->AddComponent<PhysicsComponent>(carObject, {});
@@ -618,13 +644,11 @@ private:
 
 		// Setup del modelo 3D
 		Model3D* carModel = Engine::GetAssetManager()->Load<Model3D>("Resources/Assets/Models/mclaren.json", "GLOBAL");
-		const Texture* defaultTexture = Engine::GetAssetManager()->Load<Texture>("Resources/Assets/Textures/texture0.json", "GLOBAL");
 
 		ModelComponent3D* modelComponent = &Engine::GetEcs()->AddComponent<ModelComponent3D>(carObject, {});
 
 		modelComponent->SetModel(carModel);
 		modelComponent->SetMaterial(material);
-		modelComponent->BindTextureForAllMeshes("texture", "albedoTexture", defaultTexture);
 		ModelLoader3D::SetupPbrModel(*carModel, modelComponent);
 	}
 
@@ -636,13 +660,11 @@ private:
 
 		// Modelo 3D
 		Model3D* circuitModel = Engine::GetAssetManager()->Load<Model3D>("Resources/Assets/Models/circuit0.json", "GLOBAL");
-		const Texture* defaultTexture = Engine::GetAssetManager()->Load<Texture>("Resources/Assets/Textures/texture0.json", "GLOBAL");
 
 		ModelComponent3D* modelComponent = &Engine::GetEcs()->AddComponent<ModelComponent3D>(circuitObject, {});
 
 		modelComponent->SetModel(circuitModel); // animModel
 		modelComponent->SetMaterial(material);
-		modelComponent->BindTextureForAllMeshes("texture", "albedoTexture", defaultTexture);
 		ModelLoader3D::SetupPbrModel(*circuitModel, modelComponent);
 	}
 
@@ -690,6 +712,8 @@ private:
 	ECS::GameObjectIndex cameraObject2d = ECS::EMPTY_GAME_OBJECT;
 
 	ASSETS::Font* font = nullptr;
+
+	bool cameraAttachedToCar = false;
 
 };
 

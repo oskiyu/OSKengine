@@ -78,12 +78,18 @@ void AnimMeshLoader::ProcessNode(const tinygltf::Node& node, TSize nodeId, TSize
 			const TSize firstVertexId = vertices.GetSize();
 			const TSize firstIndexId = indices.GetSize();
 
+			const auto primitiveIndices = GetIndices(primitive, firstVertexId);
+
 			const auto positions = GetVertexPositions(primitive, nodeMatrix);
 			const auto normals = GetVertexNormals(primitive);
 			const auto texCoords = GetTextureCoords(primitive);
 			const auto colors = GetVertexColors(primitive);
 			const auto joints = GetJoints(primitive);
 			const auto boneWeights = GetBoneWeights(primitive);
+
+			const auto tangents = HasTangets(primitive)
+				? GetTangentVectors(primitive)
+				: GenerateTangetVectors(texCoords, positions, primitiveIndices, firstVertexId);
 
 			const TSize numVertices = positions.GetSize();
 
@@ -101,6 +107,7 @@ void AnimMeshLoader::ProcessNode(const tinygltf::Node& node, TSize nodeId, TSize
 				vertex.normal = normals[v];
 				vertex.texCoords = texCoords[v];
 				vertex.color = Color::WHITE();
+				vertex.tangent = tangents[v];
 
 				if (hasJoints)
 					vertex.boneIndices = joints[v];
@@ -118,7 +125,6 @@ void AnimMeshLoader::ProcessNode(const tinygltf::Node& node, TSize nodeId, TSize
 			}
 
 
-			const auto primitiveIndices = GetIndices(primitive, firstVertexId);
 			indices.InsertAll(primitiveIndices);
 
 			meshes.Insert(Mesh3D(primitiveIndices.GetSize(), firstIndexId));

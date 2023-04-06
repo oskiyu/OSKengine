@@ -61,10 +61,16 @@ void StaticMeshLoader::ProcessNode(const tinygltf::Node& node, TSize nodeId, TSi
 			const TSize firstVertexId = vertices.GetSize();
 			const TSize firstIndexId = indices.GetSize();
 
+			const auto primitiveIndices = GetIndices(primitive, firstVertexId);
+
 			const auto positions = GetVertexPositions(primitive, nodeMatrix);
 			const auto normals = GetVertexNormals(primitive);
 			const auto texCoords = GetTextureCoords(primitive);
 			const auto colors = GetVertexColors(primitive);
+
+			const auto tangents = HasTangets(primitive)
+				? GetTangentVectors(primitive)
+				: GenerateTangetVectors(texCoords, positions, primitiveIndices, firstVertexId);
 
 			const TSize numVertices = positions.GetSize();
 
@@ -79,6 +85,9 @@ void StaticMeshLoader::ProcessNode(const tinygltf::Node& node, TSize nodeId, TSi
 				vertex.texCoords = texCoords[v];
 				vertex.color = Color::WHITE();
 
+				if (HasTangets(primitive))
+					vertex.tangent = tangents[v];
+
 				if (primitive.material > -1)
 					vertex.color = modelInfo.materialInfos[primitive.material].baseColor;
 				
@@ -88,7 +97,6 @@ void StaticMeshLoader::ProcessNode(const tinygltf::Node& node, TSize nodeId, TSi
 				vertices.Insert(vertex);
 			}
 
-			const auto primitiveIndices = GetIndices(primitive, firstVertexId);
 			indices.InsertAll(primitiveIndices);
 
 			meshes.Insert(Mesh3D(primitiveIndices.GetSize(), firstIndexId));

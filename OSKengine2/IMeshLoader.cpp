@@ -48,6 +48,8 @@ void IMeshLoader::SetupModel(Model3D* model) {
 			GltfMaterialInfo& materialInfo = modelInfo.materialInfos.At(meshIdToMaterialId.Get(i));
 			if (materialInfo.hasBaseTexture)
 				meshMetadata.materialTextures.Insert("baseTexture", materialInfo.baseTextureIndex);
+			if (materialInfo.hasNormalTexture)
+				meshMetadata.materialTextures.Insert("normalTexture", materialInfo.normalTextureIndex);
 
 			meshMetadata.metallicFactor = materialInfo.metallicFactor;
 			meshMetadata.roughnessFactor = materialInfo.roughnessFactor;
@@ -217,6 +219,11 @@ DynamicArray<GltfMaterialInfo> IMeshLoader::LoadMaterials() {
 			Engine::GetLogger()->InfoLog("El material tiene textura de rugosidad.");
 		}
 
+		if (gltfModel.materials[i].normalTexture.index != -1) {
+			info.hasNormalTexture = true;
+			info.normalTextureIndex = gltfModel.textures[gltfModel.materials[i].normalTexture.index].source;
+		}
+
 		output[i] = info;
 	}
 
@@ -233,6 +240,10 @@ bool IMeshLoader::HasPositions(const tinygltf::Primitive& primitive) const {
 
 bool IMeshLoader::HasNormals(const tinygltf::Primitive& primitive) const {
 	return HasAttribute(primitive, "NORMAL");
+}
+
+bool IMeshLoader::HasTangets(const tinygltf::Primitive& primitive) const {
+	return HasAttribute(primitive, "TANGENT");
 }
 
 bool IMeshLoader::HasTextureCoords(const tinygltf::Primitive& primitive) const {
@@ -301,6 +312,76 @@ DynamicArray<Vector3f> IMeshLoader::GetVertexNormals(const tinygltf::Primitive& 
 			normalsBuffer[v * 3 + 1],
 			normalsBuffer[v * 3 + 2]
 		).GetNormalized();
+	}
+
+	return output;
+}
+
+DynamicArray<Vector3f> IMeshLoader::GetTangentVectors(const tinygltf::Primitive& primitive) const {
+	// Comprobamos que tiene almacenado info de tangentes.
+	OSK_ASSERT(HasTangets(primitive), "No se encontraron normales de vértices.");
+
+	// Para poder acceder a la información en forma de buffer.
+	const tinygltf::Accessor& accessor = gltfModel.accessors[primitive.attributes.find("TANGENT")->second];
+	const tinygltf::BufferView& view = gltfModel.bufferViews[accessor.bufferView];
+
+	// Leemos el buffer.
+	const float* tangentsBuffer = reinterpret_cast<const float*>(&(gltfModel.buffers[view.buffer].data[accessor.byteOffset + view.byteOffset]));
+	const TSize numVertices = static_cast<TSize>(accessor.count);
+
+	DynamicArray<Vector3f> output = DynamicArray<Vector3f>::CreateResizedArray(numVertices);
+
+	for (TIndex v = 0; v < numVertices; v++) {
+		output[v] = Vector3f(
+			tangentsBuffer[v * 4 + 0],
+			tangentsBuffer[v * 4 + 1],
+			tangentsBuffer[v * 4 + 2]
+		);
+
+		if (tangentsBuffer[v * 4 + 3] < 0.0f) 
+			output[v] *= -1.0f;
+	}
+
+	return output;
+
+}
+
+DynamicArray<Vector3f> IMeshLoader::GenerateTangetVectors(const DynamicArray<Vector2f>& texCoords, const DynamicArray<Vector3f>& _positions, const DynamicArray<TIndexSize>& indices, TIndex indicesStartOffset) const {
+	DynamicArray<Vector3f> output = DynamicArray<Vector3f>::CreateResizedArray(texCoords.GetSize());
+
+	for (TIndex i = 0; i < indices.GetSize(); i += 3) {
+		const GRAPHICS::TIndexSize indexA = indices[i + 0] - indicesStartOffset;
+		const GRAPHICS::TIndexSize indexB = indices[i + 1] - indicesStartOffset;
+		const GRAPHICS::TIndexSize indexC = indices[i + 2] - indicesStartOffset;
+
+		const Vector2f tCoords[3] = {
+			texCoords[indexA],
+			texCoords[indexB],
+			texCoords[indexC]
+		};
+		const Vector3f positions[3] = {
+			_positions[indexA],
+			_positions[indexB],
+			_positions[indexC]
+		};
+
+		const Vector3f edge1 = positions[1] - positions[0];
+		const Vector3f edge2 = positions[2] - positions[0];
+
+		const Vector2f uvDelta1 = tCoords[1] - tCoords[0];
+		const Vector2f uvDelta2 = tCoords[2] - tCoords[0];
+
+		const float f = 1.0f / (uvDelta1.X * uvDelta2.Y - uvDelta2.X * uvDelta1.Y);
+
+		const Vector3f tangent = Vector3f(
+			f * (uvDelta2.Y * edge1.X - uvDelta1.Y * edge2.X),
+			f * (uvDelta2.Y * edge1.Y - uvDelta1.Y * edge2.Y),
+			f * (uvDelta2.Y * edge1.Z - uvDelta1.Y * edge2.Z)
+		).GetNormalized();
+
+		output[indexA] = tangent;
+		output[indexB] = tangent;
+		output[indexC] = tangent;
 	}
 
 	return output;
@@ -401,7 +482,7 @@ DynamicArray<TIndexSize> IMeshLoader::GetIndices(const tinygltf::Primitive& prim
 
 	DynamicArray<TIndexSize> output = DynamicArray<TIndexSize>::CreateResizedArray(numIndices);
 
-	// Los índices tambien se guardan en buffers.
+	// Los índices también se guardan en buffers.
 	// Necesitamos saber su tipo para procesar el buffer.
 	// El índice es el ID del vértice dentro de la primitiva.
 	// Para obtener el ID real, debemos tener en cuenta todos los vértices anteriormente procesados.
@@ -409,7 +490,7 @@ DynamicArray<TIndexSize> IMeshLoader::GetIndices(const tinygltf::Primitive& prim
 	case TINYGLTF_PARAMETER_TYPE_UNSIGNED_INT: {
 		const uint32_t* indBuffer = (const uint32_t*)(&indicesBuffer.data[indicesAccesor.byteOffset + indicesView.byteOffset]);
 		for (TSize index = 0; index < indicesAccesor.count; index++)
-			output.Insert((TIndexSize)indBuffer[index] + startOffset);
+			output[index] = ((TIndexSize)indBuffer[index] + startOffset);
 
 		break;
 	}
@@ -417,7 +498,7 @@ DynamicArray<TIndexSize> IMeshLoader::GetIndices(const tinygltf::Primitive& prim
 	case TINYGLTF_PARAMETER_TYPE_UNSIGNED_SHORT: {
 		const uint16_t* indBuffer = (const uint16_t*)(&indicesBuffer.data[indicesAccesor.byteOffset + indicesView.byteOffset]);
 		for (size_t index = 0; index < indicesAccesor.count; index++)
-			output.Insert((TIndexSize)indBuffer[index] + startOffset);
+			output[index] = ((TIndexSize)indBuffer[index] + startOffset);
 
 		break;
 	}
@@ -425,7 +506,7 @@ DynamicArray<TIndexSize> IMeshLoader::GetIndices(const tinygltf::Primitive& prim
 	case TINYGLTF_PARAMETER_TYPE_UNSIGNED_BYTE: {
 		const uint8_t* indBuffer = (const uint8_t*)(&indicesBuffer.data[indicesAccesor.byteOffset + indicesView.byteOffset]);
 		for (size_t index = 0; index < indicesAccesor.count; index++)
-			output.Insert((TIndexSize)indBuffer[index] + startOffset);
+			output[index] = ((TIndexSize)indBuffer[index] + startOffset);
 
 		break;
 	}

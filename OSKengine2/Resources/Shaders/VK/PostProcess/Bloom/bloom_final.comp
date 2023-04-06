@@ -47,15 +47,11 @@ void main() {
 
     bloomColor /= 16.0;
 
-    const vec4 originalBloom = imageLoad(outputImg, ivec2(currentCoords));
-
-    // bloomColor += originalBloom;
-
     // ------ RESOLVE ------ //
 
-    const float ratio = 0.032; // 0.055
+    const float ratio = 0.016; // 0.032
     const vec4 finalColor = 
-        originalColor + bloomColor * ratio;// mix(originalColor, bloomColor, ratio);
+        originalColor + pow(bloomColor, vec4(1.5)) * ratio;// mix(originalColor, bloomColor, ratio);
     
     imageStore(outputImg, ivec2(currentCoords.xy), vec4(finalColor.rgb, 1.0));
 }

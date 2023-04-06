@@ -46,7 +46,8 @@ float GeometrySmith(vec3 normal, vec3 view, vec3 L, float roughness) {
 }
 
 vec3 FresnelSchlickRoughness(float cosTheta, vec3 F0, float roughness) {
-    return F0 + (max(vec3(1.1 - roughness), F0) - F0) * pow(clamp(1.0 - cosTheta, 0.01, 1.0), 5.0);
+    return F0 + (max(vec3(1.0 - roughness), F0) - F0) 
+            * pow(clamp(1.0 - cosTheta, 0.01, 1.0), 5.0);
 }   
 
 vec3 GetRadiance(vec3 F0, vec3 direction, vec3 view, vec3 normal, vec3 lightColor, vec3 albedoColor, float roughnessFactor, float metallicFactor) {
@@ -64,7 +65,7 @@ vec3 GetRadiance(vec3 F0, vec3 direction, vec3 view, vec3 normal, vec3 lightColo
     kD *= 1.0 - metallicFactor;
 
     vec3 num = NDF * G * F;
-    float denom = 4.0 * max(dot(normal, view), 0.0) * max(dot(normal, L), 0.0) + 0.0001;
+    float denom = 4.0 * max(dot(normal, view), 0.0) * max(dot(normal, L), 0.0) + 0.001;
     vec3 specular = num / denom;
 
     return (kD * albedoColor / PI + specular) * radiance * max(dot(normal, L), 0.0);
@@ -88,13 +89,16 @@ float CalculateShadowStrength(vec3 cameraSpacePosition, mat4[4] shadowMatrices, 
     const vec4 fragPosInLightSpace = shadowMatrices[shadowMapIndex] * vec4(fragPosition, 1.0);
    
     const vec4 projCoords = GetShadowCoordinates(shadowMatrices, shadowMapIndex, fragPosition);
-    const float currentDepth = projCoords.z - 0.001;
+    const float currentDepth = projCoords.z - 0.00025;
 
     float accumulatedShadow = 0.0;
     const vec2 texelSize = 1.0 / textureSize(dirLightShadowMap, 0).xy;
+    
+    const float radius = 0.0;
+    const int iRadius = int(radius);
 
-    for (int x = -1; x < 1; x++) {
-        for (int y = -1; y < 1; y++) {
+    for (int x = -iRadius; x <= iRadius; x++) {
+        for (int y = -iRadius; y <= iRadius; y++) {
             const vec2 finalCoords = projCoords.xy + vec2(x, y) * texelSize;
             const float pointDepth = texture(dirLightShadowMap, vec3(projCoords.xy + vec2(x, y) * texelSize, shadowMapIndex)).r;
 
@@ -102,7 +106,8 @@ float CalculateShadowStrength(vec3 cameraSpacePosition, mat4[4] shadowMatrices, 
         }
     }
 
-    return accumulatedShadow / 9.0;
+    const float diameter = (radius * 2) + 1;
+    return accumulatedShadow / (diameter * diameter);
 }
 
 int GetShadowmapIndex(vec3 cameraSpacePosition, vec4 shadowSplits) {
@@ -115,12 +120,19 @@ int GetShadowmapIndex(vec3 cameraSpacePosition, vec4 shadowSplits) {
     return index;
 }
 
-vec3 GetShadowmapCascade(vec3 cameraSpacePosition, vec4 shadowSplits) {
-    switch (GetShadowmapIndex(cameraSpacePosition, shadowSplits)) {
-        case 0: return vec3(1.0, 1.0, 1.0);
-        case 1: return vec3(1.0, 0.0, 0.0);
-        case 2: return vec3(0.0, 1.0, 0.0);
-        case 3: return vec3(0.0, 0.0, 1.0);
+vec3 GetShadowmapCascade(vec3 cameraSpacePosition, vec4 shadowSplits, mat4[4] shadowMatrices, vec3 fragPosition) {
+    const int shadowMapIndex = GetShadowmapIndex(cameraSpacePosition, shadowSplits);
+    const vec4 coords = GetShadowCoordinates(shadowMatrices, shadowMapIndex, fragPosition);
+
+    const float strength = (coords.x > 1 || coords.x < 0 || coords.y > 1 || coords.y < 0)
+        ? 0.5
+        : 1.0;
+
+    switch (shadowMapIndex) {
+        case 0: return vec3(1.0, 1.0, 1.0) * strength;
+        case 1: return vec3(1.0, 0.0, 0.0) * strength;
+        case 2: return vec3(0.0, 1.0, 0.0) * strength;
+        case 3: return vec3(0.0, 0.0, 1.0) * strength;
 
         default: return vec3(0.5);
     }

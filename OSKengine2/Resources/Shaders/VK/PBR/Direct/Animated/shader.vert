@@ -18,6 +18,8 @@ layout(location = 3) out vec2 outTexCoords;
 layout(location = 4) out vec3 outCameraPos;
 layout(location = 5) out vec3 fragPosInCameraViewSpace;
 
+layout(location = 6) out vec3[3] outTangentMatrix;
+
 layout (set = 0, binding = 0) uniform Camera {
     mat4 projection;
     mat4 view;
@@ -35,11 +37,32 @@ layout (set = 2, binding = 0) buffer Animation {
     mat4 boneMatrices[];
 } animation;
 
+layout (set = 0, binding = 4) uniform PreviousCamera {
+    mat4 projection;
+    mat4 view;
+} previousCamera;
+
+layout (set = 0, binding = 3) uniform Res {
+    vec2 resolution;
+} res;
+
 void main() {
     outColor = inColor;
+
+    const mat3 normalMatrix = mat3(pushConstants.transposedInverseModelMatrix);
+    
     outNormal = normalize(mat3(pushConstants.transposedInverseModelMatrix) * inNormal);
     outTexCoords = inTexCoords;
     outCameraPos = camera.cameraPos;
+
+    // Normal mapping
+    const vec3 tangent = normalize(normalMatrix * inTangent);
+    const vec3 bitangent = cross(outNormal, tangent);
+    const mat3 tangentMatrix = mat3(tangent, bitangent, outNormal);
+
+    outTangentMatrix[0] = tangentMatrix[0];
+    outTangentMatrix[1] = tangentMatrix[2];
+    outTangentMatrix[2] = tangentMatrix[2];
 
     const bool hasAnimation = inBoneWeights[0] + inBoneWeights[1] + inBoneWeights[2] + inBoneWeights[3] > 0;
     const mat4 animationMatrix = hasAnimation

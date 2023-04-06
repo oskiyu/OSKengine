@@ -16,7 +16,7 @@ void GBuffer::Create(const Vector2ui& resolution, GpuImageSamplerDesc sampler, G
 	renderTarget.Create(
 		resolution, 
 		colorAttachments, 
-		{ .format = Format::D32_SFLOAT, .usage = GpuImageUsage::DEPTH, .sampler = sampler });
+		{ .format = Format::D32_SFLOAT, .usage = GpuImageUsage::DEPTH | GpuImageUsage::SAMPLED, .sampler = sampler });
 }
 
 void GBuffer::Resize(const Vector2ui& resolution) {

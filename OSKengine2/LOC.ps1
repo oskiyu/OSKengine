@@ -1,1 +1,1 @@
-((gci -include *.json,*.cs,*.cpp,*.h,*.hpp,*.vert,*.frag,*.hlsl -recurse | select-string .).Count - (gci -include stbi_image.h,stbi_image_write.h -recurse | select-string .).Count);
+(gci -exclude ./vcpkg_installed/. -include *.json,*.cs,*.cpp,*.h,*.hpp,*.vert,*.frag,*.hlsl,*.comp -recurse | select-string "^(\s*)//" -notMatch).Count;

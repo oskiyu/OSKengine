@@ -113,61 +113,77 @@ void CommandListVk::CopyBufferToImage(const GpuDataBuffer* source, GpuImage* des
 	};
 
 	// Layout[0] = TRANSFER_DEST
-	vkCmdCopyBufferToImage(commandBuffers[GetCommandListIndex()],
+	vkCmdCopyBufferToImage(
+		commandBuffers[GetCommandListIndex()],
 		source->GetMemoryBlock()->As<GpuMemoryBlockVk>()->GetVulkanBuffer(), 
-		dest->As<GpuImageVk>()->GetVkImage(), VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL, 1, &region);
+		dest->As<GpuImageVk>()->GetVkImage(), 
+		VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL, 1, &region);
 
-	// Mip levels
-	Vector2i mipSize = dest->GetSize2D().ToVector2i();
-	// El nivel 0 ya está lleno.
-	for (TSize mipLevel = 1; mipLevel < dest->GetMipLevels(); mipLevel++) {
+	if (dest->GetMipLevels() > 1) {
+		// Mip levels
+		Vector2i mipSize = dest->GetSize2D().ToVector2i();
+		// El nivel 0 ya está lleno.
+		for (TSize mipLevel = 1; mipLevel < dest->GetMipLevels(); mipLevel++) {
 
-		// Mip anterior: layout DESTINATION -> SOURCE
-		SetGpuImageBarrier(dest, GpuImageLayout::TRANSFER_DESTINATION, GpuImageLayout::TRANSFER_SOURCE, 
-			GpuBarrierInfo(GpuBarrierStage::TRANSFER, GpuBarrierAccessStage::TRANSFER_WRITE), GpuBarrierInfo(GpuBarrierStage::TRANSFER, GpuBarrierAccessStage::TRANSFER_READ), 
-			{ .baseLayer = layer, .numLayers = 1, .baseMipLevel = mipLevel - 1, .numMipLevels = 1 });
+			// Mip anterior: layout DESTINATION -> SOURCE
+			SetGpuImageBarrier(
+				dest,
+				GpuImageLayout::TRANSFER_DESTINATION,
+				GpuImageLayout::TRANSFER_SOURCE,
+				GpuBarrierInfo(GpuBarrierStage::TRANSFER, GpuBarrierAccessStage::TRANSFER_WRITE),
+				GpuBarrierInfo(GpuBarrierStage::TRANSFER, GpuBarrierAccessStage::TRANSFER_READ),
+				{ .baseLayer = layer, .numLayers = 1, .baseMipLevel = mipLevel - 1, .numMipLevels = 1 });
 
-		VkImageBlit blit{};
+			VkImageBlit blit{};
 
-		blit.srcOffsets[0] = { 0, 0, 0 };
-		blit.srcOffsets[1] = { mipSize.X, mipSize.Y, 1 };
+			blit.srcOffsets[0] = { 0, 0, 0 };
+			blit.srcOffsets[1] = { mipSize.X, mipSize.Y, 1 };
 
-		// Origen: mip level anterior.
-		blit.srcSubresource.aspectMask = VK_IMAGE_ASPECT_COLOR_BIT;
-		blit.srcSubresource.mipLevel = mipLevel - 1;
-		blit.srcSubresource.baseArrayLayer = layer;
-		blit.srcSubresource.layerCount = 1;
-		
-		blit.dstOffsets[0] = { 0, 0, 0 };
-		blit.dstOffsets[1] = { mipSize.X > 1 ? mipSize.X / 2 : 1, mipSize.Y > 1 ? mipSize.Y / 2 : 1, 1 };
+			// Origen: mip level anterior.
+			blit.srcSubresource.aspectMask = VK_IMAGE_ASPECT_COLOR_BIT;
+			blit.srcSubresource.mipLevel = mipLevel - 1;
+			blit.srcSubresource.baseArrayLayer = layer;
+			blit.srcSubresource.layerCount = 1;
 
-		// Destino.
-		blit.dstSubresource.aspectMask = VK_IMAGE_ASPECT_COLOR_BIT;
-		blit.dstSubresource.mipLevel = mipLevel;
-		blit.dstSubresource.baseArrayLayer = layer;
-		blit.dstSubresource.layerCount = 1;
+			blit.dstOffsets[0] = { 0, 0, 0 };
+			blit.dstOffsets[1] = { mipSize.X > 1 ? mipSize.X / 2 : 1, mipSize.Y > 1 ? mipSize.Y / 2 : 1, 1 };
 
-		// Mip actual: layout DESTINATION
-		vkCmdBlitImage(commandBuffers[GetCommandListIndex()],
-			dest->As<GpuImageVk>()->GetVkImage(), VK_IMAGE_LAYOUT_TRANSFER_SRC_OPTIMAL,
-			dest->As<GpuImageVk>()->GetVkImage(), VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL,
-			1, &blit, VK_FILTER_LINEAR);
+			// Destino.
+			blit.dstSubresource.aspectMask = VK_IMAGE_ASPECT_COLOR_BIT;
+			blit.dstSubresource.mipLevel = mipLevel;
+			blit.dstSubresource.baseArrayLayer = layer;
+			blit.dstSubresource.layerCount = 1;
 
-		if (mipSize.X > 1) 
-			mipSize.X /= 2;
-		if (mipSize.Y > 1)
-			mipSize.Y /= 2;
+			// Mip actual: layout DESTINATION
+			vkCmdBlitImage(commandBuffers[GetCommandListIndex()],
+				dest->As<GpuImageVk>()->GetVkImage(), VK_IMAGE_LAYOUT_TRANSFER_SRC_OPTIMAL,
+				dest->As<GpuImageVk>()->GetVkImage(), VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL,
+				1, &blit, VK_FILTER_LINEAR);
+
+			if (mipSize.X > 1)
+				mipSize.X /= 2;
+			if (mipSize.Y > 1)
+				mipSize.Y /= 2;
+		}
+
+		// Establecer layout del último nivel = TRANSFER_SOURCE
+		SetGpuImageBarrier(
+			dest,
+			GpuImageLayout::TRANSFER_DESTINATION,
+			GpuImageLayout::TRANSFER_SOURCE,
+			GpuBarrierInfo(GpuBarrierStage::TRANSFER, GpuBarrierAccessStage::TRANSFER_WRITE),
+			GpuBarrierInfo(GpuBarrierStage::TRANSFER, GpuBarrierAccessStage::TRANSFER_READ),
+			{ .baseLayer = layer, .numLayers = 1, .baseMipLevel = dest->GetMipLevels() - 1, .numMipLevels = 1 });
+
+		// Establecer todo TRANSFER_SOURCE -> TRANSFER_DESTINATION
+		SetGpuImageBarrier(
+			dest,
+			GpuImageLayout::TRANSFER_SOURCE,
+			GpuImageLayout::TRANSFER_DESTINATION,
+			GpuBarrierInfo(GpuBarrierStage::TRANSFER, GpuBarrierAccessStage::TRANSFER_READ),
+			GpuBarrierInfo(GpuBarrierStage::TRANSFER, GpuBarrierAccessStage::TRANSFER_WRITE),
+			{ .baseLayer = layer, .numLayers = 1, .baseMipLevel = 0, .numMipLevels = ALL_MIP_LEVELS });
 	}
-
-	// Establecer layout del último nivel = TRANSFER_SOURCE
-	SetGpuImageBarrier(dest, GpuImageLayout::TRANSFER_DESTINATION, GpuImageLayout::TRANSFER_SOURCE, 
-		GpuBarrierInfo(GpuBarrierStage::TRANSFER, GpuBarrierAccessStage::TRANSFER_WRITE), GpuBarrierInfo(GpuBarrierStage::TRANSFER, GpuBarrierAccessStage::TRANSFER_READ),
-		{ .baseLayer = layer, .numLayers = 1, .baseMipLevel = dest->GetMipLevels() - 1, .numMipLevels = 1 });
-
-	// Establecer todo TRANSFER_SOURCE -> TRANSFER_DESTINATION
-	SetGpuImageBarrier(dest, GpuImageLayout::TRANSFER_SOURCE, GpuImageLayout::TRANSFER_DESTINATION, 
-		GpuBarrierInfo(GpuBarrierStage::TRANSFER, GpuBarrierAccessStage::TRANSFER_READ), GpuBarrierInfo(GpuBarrierStage::TRANSFER, GpuBarrierAccessStage::TRANSFER_WRITE),
-		{ .baseLayer = layer, .numLayers = 1, .baseMipLevel = 0, .numMipLevels = ALL_MIP_LEVELS });
 }
 
 void CommandListVk::CopyImageToImage(const GpuImage* source, GpuImage* destination, const CopyImageInfo& copyInfo) {

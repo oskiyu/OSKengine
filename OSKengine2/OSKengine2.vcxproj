@@ -160,6 +160,7 @@
     <ClCompile Include="ModelComponent3D.cpp" />
     <ClCompile Include="ModelLoader3D.cpp" />
     <ClCompile Include="PbrDeferredRenderSystem.cpp" />
+    <ClCompile Include="TaaProvider.cpp" />
     <ClCompile Include="PcUserInput.cpp" />
     <ClCompile Include="PhysicsComponent.cpp" />
     <ClCompile Include="PhysicsResolver.cpp" />
@@ -394,6 +395,7 @@
     <ClInclude Include="ModelLoader3D.h" />
     <ClInclude Include="MouseModes.h" />
     <ClInclude Include="IPipelineVk.h" />
+    <ClInclude Include="TaaProvider.h" />
     <ClInclude Include="PbrDeferredRenderSystem.h" />
     <ClInclude Include="PcUserInput.h" />
     <ClInclude Include="PhysicsComponent.h" />

@@ -154,9 +154,10 @@ void main() {
     /**/
 
     /**/// NEW:
-    /*const vec4 targetColor = imageLoad(sceneImage, uv);
-    const vec4 topColor = imageLoad(sceneImage, uv + ivec2(0, -1));
-    const vec4 leftColor = imageLoad(sceneImage, uv + ivec2(-1, 0));
+    /*
+    const vec4 targetColor = texelFetch(sceneImage, uv, 0);
+    const vec4 topColor = texelFetch(sceneImage, uv + ivec2(0, -1), 0);
+    const vec4 leftColor = texelFetch(sceneImage, uv + ivec2(-1, 0), 0);
 
     const float targetLuminosity = GetLuminosity(targetColor);
     const float topLuminosity = GetLuminosity(topColor);
@@ -193,8 +194,8 @@ void main() {
             if (!reached[0]) {
                 end1 -= iterationOffset;
 
-                const float luminosity0 = GetLuminosity(imageLoad(sceneImage, ivec2(floor(end1 + uvOffset))).rgb);
-                const float luminosity1 = GetLuminosity(imageLoad(sceneImage, ivec2(ceil(end1 + uvOffset))).rgb);
+                const float luminosity0 = GetLuminosity(texelFetch(sceneImage, ivec2(floor(end1 + uvOffset)), 0).rgb);
+                const float luminosity1 = GetLuminosity(texelFetch(sceneImage, ivec2(ceil(end1 + uvOffset)), 0).rgb);
 
                 luminositiesDiff[0] = abs(luminosity0 - luminosity1);
 
@@ -204,8 +205,8 @@ void main() {
             if (!reached[1]) {
                 end2 += iterationOffset;
                 
-                const float luminosity0 = GetLuminosity(imageLoad(sceneImage, ivec2(floor(end2 + uvOffset))).rgb);
-                const float luminosity1 = GetLuminosity(imageLoad(sceneImage, ivec2(ceil(end2 + uvOffset))).rgb);
+                const float luminosity0 = GetLuminosity(texelFetch(sceneImage, ivec2(floor(end2 + uvOffset)), 0).rgb);
+                const float luminosity1 = GetLuminosity(texelFetch(sceneImage, ivec2(ceil(end2 + uvOffset)), 0).rgb);
 
                 luminositiesDiff[1] = abs(luminosity0 - luminosity1);
 
@@ -227,11 +228,17 @@ void main() {
     const float closestDistance = min(distance1, distance2);
     const float edgeLenght = distance1 + distance2;
     const float minDistance = edgeLenght * 0.5;
-    float pixelOffset = closestDistance / minDistance;
+    float pixelOffset =closestDistance / minDistance;
+
+    const vec4 otherColor = borderIndex == DIRECTION_HORIZONTAL
+        ? topColor
+        : leftColor;
+
+    imageStore(finalImage, uv, mix(targetColor, otherColor, pixelOffset));
     /**/
 
     // OLD: 
-
+/**/
 #ifndef FXAA_REDUCE_MIN
     #define FXAA_REDUCE_MIN   (1.0/ 128.0)
 #endif
@@ -290,5 +297,5 @@ void main() {
     else
         color = vec4(rgbB, texColor.a);
 
-    imageStore(finalImage, uv, color);
+    imageStore(finalImage, uv, color);/**/
 }

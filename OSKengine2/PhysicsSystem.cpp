@@ -25,8 +25,5 @@ void PhysicsSystem::OnTick(TDeltaTime deltaTime) {
 		transform.AddPosition(physicsComponent.velocity * deltaTime);
 		if (physicsComponent.angularVelocity.GetLenght() > 0.0001f)
 			transform.RotateWorldSpace(physicsComponent.angularVelocity.GetLenght() * deltaTime, physicsComponent.angularVelocity.GetNormalized());
-
-		physicsComponent.velocity -= physicsComponent.velocity * 0.001f * deltaTime;
-		physicsComponent.angularVelocity -= physicsComponent.angularVelocity * 0.1f * deltaTime;
 	}
 }

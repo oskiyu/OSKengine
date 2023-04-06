@@ -159,7 +159,6 @@ namespace OSK::GRAPHICS {
 		/// @pre Los mip levels indicados por el rango @p topMipLevel y @p baseMipLevel deben existir en la imagen original.
 		IGpuImageView* GetView(const GpuImageViewConfig& viewConfig) const;
 
-
 	protected:
 
 		virtual OwnedPtr<IGpuImageView> CreateView(const GpuImageViewConfig& viewConfig) const = 0;

@@ -1,0 +1,83 @@
+#version 460
+
+layout (local_size_x = 8, local_size_y = 8) in;
+
+layout (set = 0, binding = 0) uniform sampler2D sceneImage;
+layout (set = 0, binding = 1) uniform sampler2D historicalImage;
+layout (set = 0, binding = 2) uniform sampler2D velocityImage;
+
+layout (set = 0, binding = 5, rgba16f) uniform writeonly image2D finalImg;
+
+float GetLuminosity(vec3 color) {
+    return dot(color, vec3(0.299, 0.587, 0.114));
+}
+
+float GetLuminosity(vec4 color) {
+    return GetLuminosity(color.rgb);
+}
+
+void main() {
+    const vec2 ndcInverseRatio = textureSize(velocityImage, 0).xy;
+    const vec2 ndcRatio = 1.0 / ndcInverseRatio;
+
+    const ivec2 coords = ivec2(gl_GlobalInvocationID.xy);
+    const vec2 ndcCoords = (coords + 0.5) * ndcRatio;
+
+    const vec2 ndcMotion = texelFetch(velocityImage, coords, 0).xy;
+    const vec4 currentColor = texelFetch(sceneImage, coords, 0);
+
+    const vec2 previousNdcCoords = ndcCoords + ndcMotion;
+    const ivec2 previousCoords = ivec2(floor(previousNdcCoords * ndcInverseRatio));
+
+    vec3 previousColor = texture(historicalImage, (previousCoords + 0.5) * ndcRatio).rgb;
+
+    vec3 boxMin = vec3( 1000);
+    vec3 boxMax = vec3(-1000);
+
+    vec3 crossMin = vec3( 1000);
+    vec3 crossMax = vec3(-1000);
+
+    for (int x = -1; x <= 1; x++) {
+        for (int y = -1; y <= 1; y++) {
+            const vec3 nColor = texelFetch(sceneImage, coords + ivec2(x, y), 0).rgb;
+
+            boxMin = min(boxMin, nColor);
+            boxMax = max(boxMax, nColor);
+
+            if (x == 0 || y == 0) {
+                crossMin = min(crossMin, nColor);
+                crossMax = max(crossMax, nColor);
+            }
+        }
+    }
+
+    const vec3 colorDiscardMin = mix(boxMin, crossMin, 0.5);
+    const vec3 colorDiscardMax = mix(boxMax, crossMax, 0.5);
+
+    /**/
+    previousColor = clamp(previousColor, colorDiscardMin, colorDiscardMax);
+    /**/
+
+    vec2 pixelsMotion = 
+        sqrt(abs(1.0 - abs(fract(ndcMotion * ndcInverseRatio)) * 2));
+    // pixelsMotion = abs(fract(ndcMotion * ndcInverseRatio));
+
+    float ratio = min(pixelsMotion.x, pixelsMotion.y);
+
+    const float maxRatio = 0.8;
+    ratio = mix(0.2, maxRatio, ratio);
+
+    vec3 colorDiff = abs(previousColor.rgb - currentColor.rgb);
+    float colorDiffRatio = length(colorDiff) * 0.1;
+
+    ratio -= colorDiffRatio * max(
+        0, pow(
+            max(length(ndcMotion * ndcInverseRatio) * 0.45, 1), 4));
+
+    ratio = clamp(ratio, 0.1, maxRatio);
+    vec3 color = mix(currentColor.rgb, previousColor, ratio);
+
+    // if (ratio < 0.5) color = mix(color, vec3(1, ratio, ratio), ratio * 2); // length(ndcMotion * ndcInverseRatio) - 1.0)
+
+    imageStore(finalImg, coords, vec4(color, currentColor.a));
+}

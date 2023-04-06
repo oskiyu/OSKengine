@@ -53,6 +53,8 @@ void main() {
     vec3 color = vec3(0.0);
     float sumWeight = 0.0;
 
+    const float maxHdrRange = 2.5;
+
     for (uint i = 0; i < numSamples; i++) {
         const vec2 random = Hammersley(i, numSamples);
         const vec3 H = ImportanceSampleGGX(random, normal, info.roughness);
@@ -65,7 +67,7 @@ void main() {
         }
     }
 
-    const vec3 totalColor = color / sumWeight;
+    const vec3 totalColor = clamp(color / sumWeight, vec3(0), vec3(maxHdrRange));
     outColor = vec4(totalColor, 1.0);
 }
 

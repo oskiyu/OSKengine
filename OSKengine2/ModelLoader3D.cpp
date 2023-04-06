@@ -20,6 +20,7 @@
 #include "Color.hpp"
 #include "Vertex3D.h"
 #include "ModelComponent3D.h"
+#include "Texture.h"
 
 #define GLM_ENABLE_EXPERIMENTAL
 #include <glm/gtx/matrix_decompose.hpp>
@@ -40,6 +41,57 @@
 using namespace OSK;
 using namespace OSK::ASSETS;
 using namespace OSK::GRAPHICS;
+
+ModelLoader3D::ModelLoader3D() {
+	SetupDefaultNormalTexture();
+}
+
+ModelLoader3D::~ModelLoader3D() {
+	defaultNormalTexture.Delete();
+}
+
+void ModelLoader3D::SetupDefaultNormalTexture() {
+	IRenderer* renderer = Engine::GetRenderer();
+	IGpuMemoryAllocator* mAllocator = renderer->GetAllocator();
+	OwnedPtr<ICommandList> uploadCmdList = renderer->CreateSingleUseCommandList();
+	uploadCmdList->Start();
+
+	TByte data[4] = {
+		127, // R: x
+		127, // G: y
+		255, // B: z
+		255	 // A
+	};
+
+	OwnedPtr<GpuDataBuffer> stagingBuffer = mAllocator->CreateStagingBuffer(sizeof(data), GpuBufferUsage::TRANSFER_SOURCE);
+	stagingBuffer->MapMemory();
+	stagingBuffer->Write(data, sizeof(data));
+	stagingBuffer->Unmap();
+
+	GpuImageCreateInfo imageInfo = GpuImageCreateInfo::CreateDefault2D(
+		Vector2ui(1, 1),
+		Format::RGBA8_UNORM,
+		GpuImageUsage::SAMPLED | GpuImageUsage::TRANSFER_DESTINATION);
+	imageInfo.samplerDesc.mipMapMode = GpuImageMipmapMode::NONE;
+	imageInfo.samplerDesc.addressMode = GpuImageAddressMode::REPEAT;
+	defaultNormalTexture = mAllocator->CreateImage(imageInfo).GetPointer();
+
+	uploadCmdList->SetGpuImageBarrier(
+		defaultNormalTexture.GetPointer(),
+		GpuImageLayout::TRANSFER_DESTINATION,
+		GpuBarrierInfo(GpuBarrierStage::DEFAULT, GpuBarrierAccessStage::DEFAULT),
+		GpuBarrierInfo(GpuBarrierStage::TRANSFER, GpuBarrierAccessStage::TRANSFER_WRITE));
+	uploadCmdList->CopyBufferToImage(stagingBuffer.GetPointer(), defaultNormalTexture.GetPointer());
+	uploadCmdList->SetGpuImageBarrier(
+		defaultNormalTexture.GetPointer(),
+		GpuImageLayout::SAMPLED,
+		GpuBarrierInfo(GpuBarrierStage::TRANSFER, GpuBarrierAccessStage::TRANSFER_WRITE),
+		GpuBarrierInfo(GpuBarrierStage::FRAGMENT_SHADER, GpuBarrierAccessStage::SHADER_READ));
+	
+	uploadCmdList->Close();
+
+	renderer->SubmitSingleUseCommandList(uploadCmdList);
+}
 
 void ModelLoader3D::Load(const std::string& assetFilePath, IAsset** asset) {
 	Model3D* output = (Model3D*)*asset;
@@ -86,13 +138,31 @@ void ModelLoader3D::Load(const std::string& assetFilePath, IAsset** asset) {
 
 void ModelLoader3D::SetupPbrModel(const Model3D& model, ECS::ModelComponent3D* component) {
 	const GpuImageViewConfig view = GpuImageViewConfig::CreateSampled_Default();
+
+	const auto defaultNormalTextureView = defaultNormalTexture->GetView(view);
+	const auto defaultTextureView = Engine::GetAssetManager()->Load<Texture>("Resources/Assets/Textures/texture0.json", "GLOBAL")
+		->GetGpuImage()->GetView(view);
+	
+	// Texturas por defecto
+	for (TSize i = 0; i < model.GetMeshes().GetSize(); i++) {
+		component->GetMeshMaterialInstance(i)->GetSlot("texture")->SetGpuImage("albedoTexture", defaultTextureView);
+		component->GetMeshMaterialInstance(i)->GetSlot("texture")->SetGpuImage("normalTexture", defaultNormalTextureView);
+	}
+
 	for (TSize i = 0; i < model.GetMeshes().GetSize(); i++) {
 		auto& meshMetadata = model.GetMetadata().meshesMetadata[i];
-
-		if (meshMetadata.materialTextures.GetSize() > 0)
-			for (auto& [_, texture] : meshMetadata.materialTextures)
-				component->GetMeshMaterialInstance(i)->GetSlot("texture")->SetGpuImage("albedoTexture", model.GetImage(texture)->GetView(view));
+		
+		if (meshMetadata.materialTextures.GetSize() > 0) {
+			for (auto& [name, texture] : meshMetadata.materialTextures) {
+				if (name == "baseTexture")
+					component->GetMeshMaterialInstance(i)->GetSlot("texture")->SetGpuImage("albedoTexture", model.GetImage(texture)->GetView(view));
+				else if (name == "normalTexture")
+					component->GetMeshMaterialInstance(i)->GetSlot("texture")->SetGpuImage("normalTexture", model.GetImage(texture)->GetView(view));
+			}
+		}
 
 		component->GetMeshMaterialInstance(i)->GetSlot("texture")->FlushUpdate();
 	}
 }
+
+UniquePtr<GpuImage> ModelLoader3D::defaultNormalTexture = nullptr;

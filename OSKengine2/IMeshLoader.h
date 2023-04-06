@@ -64,6 +64,9 @@ namespace OSK::ASSETS {
 		/// <summary> True si tiene textura de rugosidad. </summary>
 		bool hasRoughnessTexture = false;
 
+		bool hasNormalTexture = false;
+		TIndex normalTextureIndex = 0;
+
 	};
 
 
@@ -159,6 +162,11 @@ namespace OSK::ASSETS {
 		/// @return True si tiene normales, false en caso contrario.
 		bool HasNormals(const tinygltf::Primitive& primitive) const;
 
+		/// @brief Comrpueba si la primitiva contiene los vectores tangenciales de sus vértices.
+		/// @param primitive Primitiva GLTF.
+		/// @return True si tiene tangentes, false en caso contrario.
+		bool HasTangets(const tinygltf::Primitive& primitive) const;
+
 		/// @brief Comrpueba si la primitiva contiene las coordenadas de texturas de sus vértices.
 		/// @param primitive Primitiva GLTF.
 		/// @return True si tiene coordenadas de texturas, false en caso contrario.
@@ -252,6 +260,13 @@ namespace OSK::ASSETS {
 
 		DynamicArray<GRAPHICS::TIndexSize> GetIndices(const tinygltf::Primitive& primitive, GRAPHICS::TIndexSize startOffset) const;
 
+		DynamicArray<Vector3f> GetTangentVectors(const tinygltf::Primitive& primitive) const;
+
+		DynamicArray<Vector3f> GenerateTangetVectors(
+			const DynamicArray<Vector2f>& texCoords,
+			const DynamicArray<Vector3f>& positions,
+			const DynamicArray<GRAPHICS::TIndexSize>& indices,
+			TIndex indicesStartOffset) const;
 
 		/// <summary> Carga todas las texturas usadas en el modelo 3D. </summary>
 		DynamicArray<OwnedPtr<GRAPHICS::GpuImage>> LoadImages();

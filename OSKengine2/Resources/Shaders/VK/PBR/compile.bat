@@ -15,4 +15,9 @@
 %VULKAN_SDK%/Bin/glslc.exe ./Terrain/shader.vert -o ./Terrain/vert.spv
 %VULKAN_SDK%/Bin/glslc.exe ./Terrain/shader.frag -o ./Terrain/frag.spv
 
+%VULKAN_SDK%/Bin/glslc.exe ./TAA/taa.comp -o ./TAA/taa.spv
+%VULKAN_SDK%/Bin/glslc.exe ./TAA/sharpen.comp -o ./TAA/sharpen.spv
+
+%VULKAN_SDK%/Bin/glslc.exe ./Deferred/CompResolve/shader.comp -o ./Deferred/CompResolve/shader.spv
+
 PAUSE

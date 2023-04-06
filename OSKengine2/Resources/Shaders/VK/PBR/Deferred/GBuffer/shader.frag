@@ -8,6 +8,9 @@ layout(location = 3) in vec2 inTexCoords;
 
 layout(location = 4) in vec4 inPreviousCameraPosition;
 layout(location = 5) in vec4 inCurrentCameraPosition;
+layout(location = 6) in vec4 inUnjitteredCurrentCameraPosition;
+
+layout(location = 7) in mat3 inTangentMatrix;
 
 layout (location = 0) out vec4 outWorldPosition;
 layout (location = 1) out vec4 outColor;
@@ -15,11 +18,13 @@ layout (location = 2) out vec4 outNormal;
 layout (location = 3) out vec4 outVelocity;
 
 layout (set = 1, binding = 0) uniform sampler2D albedoTexture;
+layout (set = 1, binding = 1) uniform sampler2D normalTexture;
 
 layout (push_constant) uniform Model {
     mat4 modelMatrix;
     mat4 previousModelMatrix;
     vec4 infos;
+    vec2 resolution;
 } model;
 
 // x = r
@@ -30,13 +35,17 @@ void main() {
     outColor = inColor * vec4(texture(albedoTexture, inTexCoords).rgb, 1.0);
 
     const vec2 cameraSpacePreviousPosition = (inPreviousCameraPosition.xy / inPreviousCameraPosition.w) * 0.5 + 0.5;
-    const vec2 cameraSpaceCurrentPosition = (inCurrentCameraPosition.xy / inCurrentCameraPosition.w) * 0.5 + 0.5;
+    const vec2 cameraSpaceCurrentPosition = (inUnjitteredCurrentCameraPosition.xy / inUnjitteredCurrentCameraPosition.w) * 0.5 + 0.5;
 
     vec2 diff = cameraSpacePreviousPosition - cameraSpaceCurrentPosition;
     diff.y *= -1.0;
 
     outVelocity = vec4(diff, 0.0 ,1.0);
 
+    vec3 normal = texture(normalTexture, inTexCoords).xyz;
+    normal = normal * 2.0 - 1.0;
+    normal = normalize(inTangentMatrix * normal);
+
     // Info packaging: (x.xxx) . (y.yyy)
-    outNormal = vec4(inNormal, (model.infos.x * 1000) + (model.infos.y * 0.1));
+    outNormal = vec4(normal, float(int(model.infos.x * 1000)) + (model.infos.y * 0.1));
 }

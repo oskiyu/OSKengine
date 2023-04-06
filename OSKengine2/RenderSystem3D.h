@@ -6,6 +6,8 @@
 #include "Lights.h"
 #include "IGpuUniformBuffer.h"
 #include "TerrainComponent.h"
+#include "RtRenderTarget.h"
+#include "TaaProvider.h"
 
 namespace OSK::GRAPHICS {
 	class ICommandList;
@@ -49,20 +51,39 @@ namespace OSK::ECS {
 		GRAPHICS::ShadowMap* GetShadowMap();
 		
 		const GRAPHICS::IGpuUniformBuffer* GetCameraBuffer(TIndex index) const {
-			return cameraUbos[index].GetPointer();
+			return cameraBuffers[index].GetPointer();
 		}
+
+		inline void ToggleTaa() { taaProvider.ToggleActivation(); }
+
+		constexpr static TIndex COLOR_IMAGE_INDEX = 0;
+		constexpr static TIndex MOTION_IMAGE_INDEX = 1;
 
 	private:
 		
+		void CreateBuffers();
+		void LoadMaterials();
+		void SetupMaterials();
+
 		void GenerateShadows(GRAPHICS::ICommandList* commandList, ASSETS::ModelType modelType);
 		void RenderScene(GRAPHICS::ICommandList* commandList);
+
+		void ExecuteTaa(GRAPHICS::ICommandList* commandList);
+		void CopyTaaResult(GRAPHICS::ICommandList* commandList);
 
 		void SceneRenderLoop(ASSETS::ModelType modelType, GRAPHICS::ICommandList* commandList);
 		void ShadowsRenderLoop(ASSETS::ModelType modelType, GRAPHICS::ICommandList* commandList, TSize cascadeIndex);
 
 		void RenderTerrain(GRAPHICS::ICommandList* commandList);
 
-		UniquePtr<GRAPHICS::IGpuUniformBuffer> cameraUbos[NUM_RESOURCES_IN_FLIGHT]{};
+		/// @brief Buffer que contendrá la resolución del sistema.
+		UniquePtr<GRAPHICS::IGpuUniformBuffer> resolutionBuffer = nullptr;
+
+		/// @brief Buffers con la información de la cámara en un frame en concreto.
+		UniquePtr<GRAPHICS::IGpuUniformBuffer> cameraBuffers[NUM_RESOURCES_IN_FLIGHT]{};
+		/// @brief Buffers con la información de la cámara en el frame anterior.
+		UniquePtr<GRAPHICS::IGpuUniformBuffer> previousCameraBuffers[NUM_RESOURCES_IN_FLIGHT]{};
+
 		UniquePtr<GRAPHICS::IGpuUniformBuffer> dirLightUbos[NUM_RESOURCES_IN_FLIGHT]{};
 		GRAPHICS::DirectionalLight dirLight{};
 
@@ -76,6 +97,14 @@ namespace OSK::ECS {
 
 		TerrainComponent terrain{};
 		GRAPHICS::Material* terrainMaterial = nullptr;
+
+		// TAA
+		GRAPHICS::TaaProvider taaProvider{};
+
+		HashMap<GameObjectIndex, glm::mat4> previousModelMatrices;
+
+		glm::mat4 previousCameraProjection = glm::mat4(1.0f);
+		glm::mat4 previousCameraView = glm::mat4(1.0f);
 
 	};
 
