@@ -17,29 +17,6 @@ namespace OSK::GRAPHICS {
 
 	protected:
 
-		OwnedPtr<IGpuVertexBuffer> _CreateVertexBuffer(
-			OwnedPtr<IGpuMemorySubblock> subblock,
-			TSize bufferSize,
-			TSize alignment,
-			TSize numVertices,
-			const VertexInfo& vertexInfo) override;
-
-		OwnedPtr<IGpuIndexBuffer> _CreateIndexBuffer(
-			OwnedPtr<IGpuMemorySubblock> subblock,
-			TSize bufferSize,
-			TSize alignment,
-			TSize numIndices) override;
-
-		OwnedPtr<IGpuUniformBuffer> _CreateUniformBuffer(
-			OwnedPtr<IGpuMemorySubblock> subblock,
-			TSize bufferSize,
-			TSize alignment) override;
-
-		OwnedPtr<IGpuStorageBuffer> _CreateStorageBuffer(
-			OwnedPtr<IGpuMemorySubblock> subblock,
-			TSize bufferSize,
-			TSize alignment) override;
-
 
 		OwnedPtr<IBottomLevelAccelerationStructure> _CreateBottomAccelerationStructure() override;
 		OwnedPtr<ITopLevelAccelerationStructure> _CreateTopAccelerationStructure() override;

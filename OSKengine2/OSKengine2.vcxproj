@@ -64,13 +64,13 @@
     <ClCompile Include="DetailedCollisionInfo.cpp" />
     <ClCompile Include="FaceProjection.cpp" />
     <ClCompile Include="Field.cpp" />
+    <ClCompile Include="FrameCombiner.cpp" />
+    <ClCompile Include="UiFreeContainer.cpp" />
     <ClCompile Include="FxaaPass.cpp" />
     <ClCompile Include="GBuffer.cpp" />
     <ClCompile Include="GpuImageViewConfig.cpp" />
     <ClCompile Include="GpuImageViewDx12.cpp" />
     <ClCompile Include="GpuImageViewVk.cpp" />
-    <ClCompile Include="GpuStorageBufferDx12.cpp" />
-    <ClCompile Include="GpuStorageBufferVk.cpp" />
     <ClCompile Include="HybridRenderSystem.cpp" />
     <ClCompile Include="IBottomLevelAccelerationStructure.cpp" />
     <ClCompile Include="BottomLevelAccelerationStructureVk.cpp" />
@@ -102,7 +102,6 @@
     <ClCompile Include="GpuImageLayoutDx12.cpp" />
     <ClCompile Include="GpuImageLayoutVk.cpp" />
     <ClCompile Include="GpuImageVk.cpp" />
-    <ClCompile Include="GpuIndexBufferVk.cpp" />
     <ClCompile Include="GpuMemoryAllocatorVk.cpp" />
     <ClCompile Include="GpuMemoryAllocatorDx12.cpp" />
     <ClCompile Include="GpuMemoryBlockDx12.cpp" />
@@ -112,10 +111,6 @@
     <ClCompile Include="GpuMemoryTypeDx12.cpp" />
     <ClCompile Include="GpuMemoryTypes.cpp" />
     <ClCompile Include="GpuMemoryTypeVk.cpp" />
-    <ClCompile Include="GpuUniformBufferDx12.cpp" />
-    <ClCompile Include="GpuUniformBufferVk.cpp" />
-    <ClCompile Include="GpuVertexBufferDx12.cpp" />
-    <ClCompile Include="GpuVertexBufferVk.cpp" />
     <ClCompile Include="GpuVk.cpp" />
     <ClCompile Include="GraphicsPipelineDx12.cpp" />
     <ClCompile Include="HlslRuntimeCompiler.cpp" />
@@ -127,7 +122,6 @@
     <ClCompile Include="IFullscreenableDisplay.cpp" />
     <ClCompile Include="IGamepadInput.cpp" />
     <ClCompile Include="IGpuImageView.cpp" />
-    <ClCompile Include="IGpuStorageBuffer.cpp" />
     <ClCompile Include="IGraphicsPipeline.cpp" />
     <ClCompile Include="IInputListener.cpp" />
     <ClCompile Include="IIteratorSystem.cpp" />
@@ -148,6 +142,7 @@
     <ClCompile Include="IrradianceMapLoader.cpp" />
     <ClCompile Include="ITopLevelAccelerationStructure.cpp" />
     <ClCompile Include="ITopLevelCollider.cpp" />
+    <ClCompile Include="IUiContainer.cpp" />
     <ClCompile Include="Material.cpp" />
     <ClCompile Include="MaterialInstance.cpp" />
     <ClCompile Include="MaterialLayout.cpp" />
@@ -160,6 +155,7 @@
     <ClCompile Include="ModelComponent3D.cpp" />
     <ClCompile Include="ModelLoader3D.cpp" />
     <ClCompile Include="PbrDeferredRenderSystem.cpp" />
+    <ClCompile Include="SpriteBatch.cpp" />
     <ClCompile Include="TaaProvider.cpp" />
     <ClCompile Include="PcUserInput.cpp" />
     <ClCompile Include="PhysicsComponent.cpp" />
@@ -169,15 +165,11 @@
     <ClCompile Include="PipelineLayoutVk.cpp" />
     <ClCompile Include="GraphicsPipelineVk.cpp" />
     <ClCompile Include="ICommandList.cpp" />
-    <ClCompile Include="IGpuDataBuffer.cpp" />
+    <ClCompile Include="GpuBuffer.cpp" />
     <ClCompile Include="IGpuImage.cpp" />
-    <ClCompile Include="IGpuIndexBuffer.cpp" />
     <ClCompile Include="IGpuMemoryAllocator.cpp" />
     <ClCompile Include="IGpuMemoryBlock.cpp" />
     <ClCompile Include="IGpuMemorySubblock.cpp" />
-    <ClCompile Include="GpuIndexBufferDx12.cpp" />
-    <ClCompile Include="IGpuUniformBuffer.cpp" />
-    <ClCompile Include="IGpuVertexBuffer.cpp" />
     <ClCompile Include="ISwapchain.cpp" />
     <ClCompile Include="KeyboardState.cpp" />
     <ClCompile Include="Logger.cpp" />
@@ -227,10 +219,16 @@
     <ClCompile Include="TopLevelAccelerationStructureVk.cpp" />
     <ClCompile Include="Transform2D.cpp" />
     <ClCompile Include="Transform3D.cpp" />
+    <ClCompile Include="UiButton.cpp" />
     <ClCompile Include="UiElement.cpp" />
+    <ClCompile Include="UiHorizontalContainer.cpp" />
+    <ClCompile Include="UiImageView.cpp" />
     <ClCompile Include="UiRenderer.cpp" />
+    <ClCompile Include="UiTextView.cpp" />
+    <ClCompile Include="UiVerticalContainer.cpp" />
     <ClCompile Include="Vertex2D.cpp" />
     <ClCompile Include="Vertex3D.cpp" />
+    <ClCompile Include="VertexInfo.cpp" />
     <ClCompile Include="Window.cpp" />
     <ClCompile Include="WindowsUtils.cpp" />
   </ItemGroup>
@@ -282,6 +280,7 @@
     <ClInclude Include="EventContainer.h" />
     <ClInclude Include="EventManager.h" />
     <ClInclude Include="Field.h" />
+    <ClInclude Include="FrameCombiner.h" />
     <ClInclude Include="FxaaPass.h" />
     <ClInclude Include="GBuffer.h" />
     <ClInclude Include="GpuBarrierInfo.h" />
@@ -289,8 +288,6 @@
     <ClInclude Include="GpuImageViewDx12.h" />
     <ClInclude Include="GpuImageViewVk.h" />
     <ClInclude Include="GpuMemoryUsageInfo.h" />
-    <ClInclude Include="GpuStorageBufferDx12.h" />
-    <ClInclude Include="GpuStorageBufferVk.h" />
     <ClInclude Include="GpuHeapMemoryUsageInfo.h" />
     <ClInclude Include="HybridRenderSystem.h" />
     <ClInclude Include="IBottomLevelCollider.h" />
@@ -308,6 +305,7 @@
     <ClInclude Include="IKeyboardInput.h" />
     <ClInclude Include="IMeshLoader.h" />
     <ClInclude Include="IMouseInput.h" />
+    <ClInclude Include="IndexBufferView.h" />
     <ClInclude Include="IPipelineDx12.h" />
     <ClInclude Include="IPostProcessPass.h" />
     <ClInclude Include="IProducerSystem.h" />
@@ -315,10 +313,10 @@
     <ClInclude Include="IRayCollider.h" />
     <ClInclude Include="IrradianceMap.h" />
     <ClInclude Include="IrradianceMapLoader.h" />
-    <ClInclude Include="IGpuStorageBuffer.h" />
     <ClInclude Include="ISerializable.h" />
     <ClInclude Include="ISerializer.h" />
     <ClInclude Include="ITopLevelCollider.h" />
+    <ClInclude Include="IUiContainer.h" />
     <ClInclude Include="IUserInput.h" />
     <ClInclude Include="Lights.h" />
     <ClInclude Include="DynamicArray.hpp" />
@@ -346,7 +344,6 @@
     <ClInclude Include="GpuImageSamplerDesc.h" />
     <ClInclude Include="GpuImageUsage.h" />
     <ClInclude Include="GpuImageVk.h" />
-    <ClInclude Include="GpuIndexBufferDx12.h" />
     <ClInclude Include="GpuMemoryAllocatorDx12.h" />
     <ClInclude Include="GpuMemoryAllocatorVk.h" />
     <ClInclude Include="GpuMemoryBlockDx12.h" />
@@ -356,10 +353,6 @@
     <ClInclude Include="GpuMemoryTypes.h" />
     <ClInclude Include="GpuMemoryTypesDx12.h" />
     <ClInclude Include="GpuMemoryTypeVk.h" />
-    <ClInclude Include="GpuUniformBufferDx12.h" />
-    <ClInclude Include="GpuUniformBufferVk.h" />
-    <ClInclude Include="GpuVertexBufferDx12.h" />
-    <ClInclude Include="GpuVertexBufferVk.h" />
     <ClInclude Include="GpuVertexDescriptionVk.h" />
     <ClInclude Include="GpuVk.h" />
     <ClInclude Include="GraphicsPipelineDx12.h" />
@@ -395,6 +388,7 @@
     <ClInclude Include="ModelLoader3D.h" />
     <ClInclude Include="MouseModes.h" />
     <ClInclude Include="IPipelineVk.h" />
+    <ClInclude Include="SpriteBatch.h" />
     <ClInclude Include="TaaProvider.h" />
     <ClInclude Include="PbrDeferredRenderSystem.h" />
     <ClInclude Include="PcUserInput.h" />
@@ -409,19 +403,15 @@
     <ClInclude Include="ICommandPool.h" />
     <ClInclude Include="ICommandQueue.h" />
     <ClInclude Include="IGpu.h" />
-    <ClInclude Include="IGpuDataBuffer.h" />
+    <ClInclude Include="GpuBuffer.h" />
     <ClInclude Include="IGpuImage.h" />
-    <ClInclude Include="IGpuIndexBuffer.h" />
     <ClInclude Include="IGpuMemoryAllocator.h" />
     <ClInclude Include="IGpuMemoryBlock.h" />
     <ClInclude Include="IGpuMemorySubblock.h" />
-    <ClInclude Include="IGpuVertexBuffer.h" />
-    <ClInclude Include="GpuIndexBufferVk.h" />
     <ClInclude Include="IGraphicsPipeline.h" />
     <ClInclude Include="IRenderer.h" />
     <ClInclude Include="ISwapchain.h" />
     <ClInclude Include="ISyncDevice.h" />
-    <ClInclude Include="IGpuUniformBuffer.h" />
     <ClInclude Include="KeyboardState.h" />
     <ClInclude Include="LinkedList.hpp" />
     <ClInclude Include="Logger.h" />
@@ -484,8 +474,14 @@
     <ClInclude Include="ToString.h" />
     <ClInclude Include="Transform2D.h" />
     <ClInclude Include="Transform3D.h" />
+    <ClInclude Include="UiAnchor.h" />
+    <ClInclude Include="UiButton.h" />
     <ClInclude Include="UiElement.h" />
-    <ClInclude Include="UiRenderer.h" />
+    <ClInclude Include="UiFreeContainer.h" />
+    <ClInclude Include="UiHorizontalContainer.h" />
+    <ClInclude Include="UiImageView.h" />
+    <ClInclude Include="UiTextView.h" />
+    <ClInclude Include="UiVerticalContainer.h" />
     <ClInclude Include="UniquePtr.hpp" />
     <ClInclude Include="Units.hpp" />
     <ClInclude Include="Vector2.hpp" />
@@ -495,6 +491,7 @@
     <ClInclude Include="Vertex.h" />
     <ClInclude Include="Vertex3D.h" />
     <ClInclude Include="Vertex2D.h" />
+    <ClInclude Include="VertexBufferView.h" />
     <ClInclude Include="VertexInfo.h" />
     <ClInclude Include="Viewport.h" />
     <ClInclude Include="Window.h" />
@@ -521,6 +518,7 @@
     <None Include="OSKengine2.licenseheader" />
     <None Include="OSKengine22.licenseheader" />
     <None Include="vcpkg.json" />
+    <None Include="VersionHistory.md" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>

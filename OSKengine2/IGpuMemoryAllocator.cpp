@@ -2,16 +2,11 @@
 
 #include "IGpuMemoryBlock.h"
 #include "IGpuMemorySubblock.h"
-#include "IGpuDataBuffer.h"
+#include "GpuBuffer.h"
 #include "IGpuImage.h"
 #include "GpuImageUsage.h"
 #include "GpuImageDimensions.h"
 #include "Format.h"
-
-#include "IGpuVertexBuffer.h"
-#include "IGpuIndexBuffer.h"
-#include "IGpuStorageBuffer.h"
-#include "IGpuUniformBuffer.h"
 
 #include "ITopLevelAccelerationStructure.h"
 #include "IBottomLevelAccelerationStructure.h"
@@ -41,34 +36,32 @@ GpuMemoryUsageInfo IGpuMemoryAllocator::GetMemoryUsageInfo() const {
 	return device->GetMemoryUsageInfo();
 }
 
-OwnedPtr<IGpuVertexBuffer> IGpuMemoryAllocator::CreateVertexBuffer(const void* data, TSize vertexSize, TSize numVertices, const VertexInfo& vertexInfo, GpuBufferUsage usage) {
+OwnedPtr<GpuBuffer> IGpuMemoryAllocator::CreateVertexBuffer(const void* data, TSize vertexSize, TSize numVertices, const VertexInfo& vertexInfo, GpuBufferUsage usage) {
 	const TSize bufferSize = numVertices * vertexSize;
-	IGpuMemoryBlock* block = GetNextBufferMemoryBlock(
-		bufferSize, 
-		usage | GpuBufferUsage::VERTEX_BUFFER | GpuBufferUsage::TRANSFER_DESTINATION,
-		GpuSharedMemoryType::GPU_ONLY);
+	const GpuBufferUsage finalUsage = usage | GpuBufferUsage::VERTEX_BUFFER | GpuBufferUsage::TRANSFER_DESTINATION;
 
 	// Buffer temporal sobre el que escribimos los vértices.
-	GpuDataBuffer* stagingBuffer = CreateStagingBuffer(bufferSize).GetPointer();
+	GpuBuffer* stagingBuffer = CreateStagingBuffer(bufferSize).GetPointer();
 	stagingBuffer->MapMemory();
 	stagingBuffer->Write(data, bufferSize);
 	stagingBuffer->Unmap();
 
-	OwnedPtr<IGpuVertexBuffer> output = _CreateVertexBuffer(
-		block->GetNextMemorySubblock(bufferSize, 0),
-		bufferSize, 
-		0, 
-		numVertices, 
-		vertexInfo);
+	OwnedPtr<GpuBuffer> output = CreateBuffer(bufferSize, 0, finalUsage, GpuSharedMemoryType::GPU_ONLY);
 
+	// Establecemos el vertex view.
+	VertexBufferView vertexView{};
+	vertexView.numVertices = numVertices;
+	vertexView.offsetInBytes = 0;
+	vertexView.vertexInfo = vertexInfo;
+
+	output->SetVertexView(vertexView);
 
 	// Debemos copiar el buffer temporal al buffer final.
-
 	OwnedPtr<ICommandList> singleTimeCommandList = Engine::GetRenderer()->CreateSingleUseCommandList();
 	singleTimeCommandList->Reset();
 	singleTimeCommandList->Start();
 
-	singleTimeCommandList->CopyBufferToBuffer(stagingBuffer, output.GetPointer(), bufferSize, 0, 0);
+	singleTimeCommandList->CopyBufferToBuffer(*stagingBuffer, output.GetPointer(), bufferSize, 0, 0);
 
 	singleTimeCommandList->Close();
 
@@ -79,25 +72,30 @@ OwnedPtr<IGpuVertexBuffer> IGpuMemoryAllocator::CreateVertexBuffer(const void* d
 	return output;
 }
 
-OwnedPtr<IGpuIndexBuffer> IGpuMemoryAllocator::CreateIndexBuffer(const DynamicArray<TIndexSize>& indices, GpuBufferUsage usage) {
+OwnedPtr<GpuBuffer> IGpuMemoryAllocator::CreateIndexBuffer(const DynamicArray<TIndexSize>& indices, GpuBufferUsage usage) {
 	const TSize bufferSize = sizeof(TIndexSize) * indices.GetSize();
-	IGpuMemoryBlock* block = GetNextBufferMemoryBlock(
-		bufferSize, 
-		usage | GpuBufferUsage::INDEX_BUFFER | GpuBufferUsage::TRANSFER_DESTINATION,
-		GpuSharedMemoryType::GPU_ONLY);
+	const GpuBufferUsage finalUsage = usage | GpuBufferUsage::INDEX_BUFFER | GpuBufferUsage::TRANSFER_DESTINATION;
 
-	GpuDataBuffer* stagingBuffer = CreateStagingBuffer(bufferSize).GetPointer();
+	GpuBuffer* stagingBuffer = CreateStagingBuffer(bufferSize).GetPointer();
 	stagingBuffer->MapMemory();
 	stagingBuffer->Write(indices.GetData(), bufferSize);
 	stagingBuffer->Unmap();
 
-	OwnedPtr<IGpuIndexBuffer> output = _CreateIndexBuffer(block->GetNextMemorySubblock(bufferSize, 0), bufferSize, 0, indices.GetSize());
+	OwnedPtr<GpuBuffer> output = CreateBuffer(bufferSize, 0, finalUsage, GpuSharedMemoryType::GPU_ONLY);
+
+	// Establecemos el index view.
+	IndexBufferView view{};
+	view.numIndices = indices.GetSize();
+	view.offsetInBytes = 0;
+	view.type = IndexType::U32;
+
+	output->SetIndexView(view);
 
 	auto singleTimeCommandList = Engine::GetRenderer()->CreateSingleUseCommandList();
 	singleTimeCommandList->Reset();
 	singleTimeCommandList->Start();
 
-	singleTimeCommandList->CopyBufferToBuffer(stagingBuffer, output.GetPointer(), bufferSize, 0, 0);
+	singleTimeCommandList->CopyBufferToBuffer(*stagingBuffer, output.GetPointer(), bufferSize, 0, 0);
 
 	singleTimeCommandList->Close();
 
@@ -172,41 +170,30 @@ OwnedPtr<GpuImage> IGpuMemoryAllocator::CreateCubemapImage(const Vector2ui& face
 	return CreateImage(info);
 }
 
-OwnedPtr<IGpuUniformBuffer> IGpuMemoryAllocator::CreateUniformBuffer(TSize size, GpuBufferUsage usage) {
+OwnedPtr<GpuBuffer> IGpuMemoryAllocator::CreateUniformBuffer(TSize size, GpuBufferUsage usage) {
 	const GpuBufferUsage finalUsage = usage | GpuBufferUsage::UNIFORM_BUFFER;
 
-	IGpuMemoryBlock* block = GetNextBufferMemoryBlock(size, finalUsage, GpuSharedMemoryType::GPU_AND_CPU);
-	const TSize alignment = GetAlignment(0, finalUsage);
-
-	return _CreateUniformBuffer(
-		block->GetNextMemorySubblock(size, alignment), size, alignment);
+	return CreateBuffer(size, 0, finalUsage, GpuSharedMemoryType::GPU_AND_CPU);
 }
 
-OwnedPtr<IGpuStorageBuffer> IGpuMemoryAllocator::CreateStorageBuffer(TSize size, GpuBufferUsage usage) {
+OwnedPtr<GpuBuffer> IGpuMemoryAllocator::CreateStorageBuffer(TSize size, GpuBufferUsage usage) {
 	const GpuBufferUsage finalUsage = usage | GpuBufferUsage::STORAGE_BUFFER;
-	const TSize alignment = GetAlignment(0, finalUsage);
 
-	IGpuMemoryBlock* block = GetNextBufferMemoryBlock(size, finalUsage, GpuSharedMemoryType::GPU_AND_CPU);
-
-	return _CreateStorageBuffer(
-		block->GetNextMemorySubblock(size, alignment), size, alignment);
+	return CreateBuffer(size, 0, finalUsage, GpuSharedMemoryType::GPU_AND_CPU);
 }
 
-OwnedPtr<GpuDataBuffer> IGpuMemoryAllocator::CreateStagingBuffer(TSize size, GpuBufferUsage usage) {
+OwnedPtr<GpuBuffer> IGpuMemoryAllocator::CreateStagingBuffer(TSize size, GpuBufferUsage usage) {
 	const GpuBufferUsage finalUsage = usage | GpuBufferUsage::TRANSFER_SOURCE | GpuBufferUsage::UPLOAD_ONLY;
-	const TSize alignment = GetAlignment(0, finalUsage);
-
-	IGpuMemoryBlock* block = GetNextBufferMemoryBlock(
-		size,
-		finalUsage,
-		GpuSharedMemoryType::GPU_AND_CPU);
-
-	return new GpuDataBuffer(block->GetNextMemorySubblock(size, 0), size, 0);
+	
+	return CreateBuffer(size, 0, finalUsage, GpuSharedMemoryType::GPU_AND_CPU);
 }
 
-OwnedPtr<GpuDataBuffer> IGpuMemoryAllocator::CreateBuffer(TSize size, TSize alignment, GpuBufferUsage usage, GpuSharedMemoryType memoryType) {
+OwnedPtr<GpuBuffer> IGpuMemoryAllocator::CreateBuffer(TSize size, TSize alignment, GpuBufferUsage usage, GpuSharedMemoryType memoryType) {
 	const TSize finalAlignment = GetAlignment(alignment, usage);
-	return new GpuDataBuffer(GetNextBufferMemoryBlock(size, usage, memoryType)->GetNextMemorySubblock(size, finalAlignment), size, finalAlignment);
+	IGpuMemoryBlock* block = GetNextBufferMemoryBlock(size, usage, memoryType);
+	OwnedPtr<IGpuMemorySubblock> subblock = block->GetNextMemorySubblock(size, finalAlignment);
+
+	return new GpuBuffer(subblock, size, finalAlignment);
 }
 
 OwnedPtr<ITopLevelAccelerationStructure> IGpuMemoryAllocator::CreateTopAccelerationStructure(DynamicArray<IBottomLevelAccelerationStructure*> bottomStructures) {
@@ -220,12 +207,21 @@ OwnedPtr<ITopLevelAccelerationStructure> IGpuMemoryAllocator::CreateTopAccelerat
 	return output;
 }
 
-OwnedPtr<IBottomLevelAccelerationStructure> IGpuMemoryAllocator::CreateBottomAccelerationStructure(const IGpuVertexBuffer& vertexBuffer, const IGpuIndexBuffer& indexBuffer) {
+OwnedPtr<IBottomLevelAccelerationStructure> IGpuMemoryAllocator::CreateBottomAccelerationStructure(
+	const GpuBuffer& vertexBuffer,
+	const VertexBufferView& vertexView,
+	const GpuBuffer& indexBuffer,
+	const IndexBufferView& indexView) 
+{
 	OwnedPtr<IBottomLevelAccelerationStructure> output = _CreateBottomAccelerationStructure();
-	output->Setup(vertexBuffer, indexBuffer, RtAccelerationStructureFlags::FAST_TRACE);
+	output->Setup(vertexBuffer, vertexView, indexBuffer, indexView, RtAccelerationStructureFlags::FAST_TRACE);
 	output->SetMatrix(glm::mat4(1.0f));
 
 	return output;
+}
+
+OwnedPtr<IBottomLevelAccelerationStructure> IGpuMemoryAllocator::CreateBottomAccelerationStructure(const GpuBuffer& vertexBuffer, const GpuBuffer& indexBuffer) {
+	return CreateBottomAccelerationStructure(vertexBuffer, vertexBuffer.GetVertexView(), indexBuffer, indexBuffer.GetIndexView());
 }
 
 IGpuMemoryBlock* IGpuMemoryAllocator::GetNextBufferMemoryBlock(TSize size, GpuBufferUsage usage, GpuSharedMemoryType sharedType) {

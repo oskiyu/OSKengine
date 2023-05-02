@@ -52,7 +52,7 @@ ColliderRenderSystem::ColliderRenderSystem() {
 	sphereModel = Engine::GetAssetManager()->Load<Model3D>("Resources/Assets/Models/Colliders/sphere.json", "ColliderRenderSystem");
 
 	// Material setup
-	const IGpuUniformBuffer* _cameraUbos[NUM_RESOURCES_IN_FLIGHT]{};
+	const GpuBuffer* _cameraUbos[NUM_RESOURCES_IN_FLIGHT]{};
 	for (TIndex i = 0; i < NUM_RESOURCES_IN_FLIGHT; i++) {
 		cameraUbos[i] = Engine::GetRenderer()->GetAllocator()
 			->CreateUniformBuffer(sizeof(glm::mat4) * 2 + sizeof(glm::vec4))
@@ -98,15 +98,11 @@ void ColliderRenderSystem::Render(GRAPHICS::ICommandList* commandList) {
 		Color color;
 	} renderInfo {};
 
-	commandList->SetGpuImageBarrier(renderTarget.GetMainColorImage(resourceIndex), 
-		GpuImageLayout::SAMPLED,
-		GpuBarrierInfo(GpuBarrierStage::FRAGMENT_SHADER, GpuBarrierAccessStage::SHADER_READ), 
-		GpuBarrierInfo(GpuBarrierStage::COLOR_ATTACHMENT_OUTPUT, GpuBarrierAccessStage::COLOR_ATTACHMENT_WRITE));
+	commandList->StartDebugSection("Collision Render", Color::RED());
 
 	commandList->BeginGraphicsRenderpass(&renderTarget, Color::BLACK() * 0.0f);
 	SetupViewport(commandList);
 
-	commandList->StartDebugSection("Collision Render", Color::RED());
 
 	// Obtenemos todas las entidades que están colisionando,
 	// para poder cambiarles de color.
@@ -122,8 +118,8 @@ void ColliderRenderSystem::Render(GRAPHICS::ICommandList* commandList) {
 	}
 
 	for (GameObjectIndex gameObject : GetObjects()) {
-		commandList->BindMaterial(material);
-		commandList->BindMaterialSlot(materialInstance->GetSlot("global"));
+		commandList->BindMaterial(*material);
+		commandList->BindMaterialSlot(*materialInstance->GetSlot("global"));
 
 		const Transform3D& originalTransform = Engine::GetEcs()->GetComponent<Transform3D>(gameObject);
 		Transform3D topLevelTransform = originalTransform;
@@ -142,8 +138,8 @@ void ColliderRenderSystem::Render(GRAPHICS::ICommandList* commandList) {
 			renderInfo.modelMatrix = topLevelTransform.GetAsMatrix();
 			commandList->PushMaterialConstants("pushConstants", renderInfo);
 
-			commandList->BindVertexBuffer(cubeModel->GetVertexBuffer());
-			commandList->BindIndexBuffer(cubeModel->GetIndexBuffer());
+			commandList->BindVertexBuffer(*cubeModel->GetVertexBuffer());
+			commandList->BindIndexBuffer(*cubeModel->GetIndexBuffer());
 			commandList->DrawSingleInstance(cubeModel->GetIndexCount());
 		} else
 		if (auto* sphere = dynamic_cast<const SphereCollider*>(topLevelCollider)) {
@@ -151,8 +147,8 @@ void ColliderRenderSystem::Render(GRAPHICS::ICommandList* commandList) {
 			renderInfo.modelMatrix = topLevelTransform.GetAsMatrix();
 			commandList->PushMaterialConstants("pushConstants", renderInfo);
 
-			commandList->BindVertexBuffer(sphereModel->GetVertexBuffer());
-			commandList->BindIndexBuffer(sphereModel->GetIndexBuffer());
+			commandList->BindVertexBuffer(*sphereModel->GetVertexBuffer());
+			commandList->BindIndexBuffer(*sphereModel->GetIndexBuffer());
 			commandList->DrawSingleInstance(sphereModel->GetIndexCount());
 		}
 
@@ -168,20 +164,20 @@ void ColliderRenderSystem::Render(GRAPHICS::ICommandList* commandList) {
 			renderInfo.modelMatrix = originalTransform.GetAsMatrix();
 			commandList->PushMaterialConstants("pushConstants", renderInfo);
 
-			commandList->BindMaterial(lowLevelMaterial);
+			commandList->BindMaterial(*lowLevelMaterial);
 			for (TIndex i = 0; i < vertexBuffers.GetSize(); i++) {
-				commandList->BindVertexBuffer(vertexBuffers[i].GetPointer());
-				commandList->BindIndexBuffer(indexBuffers[i].GetPointer());
-				commandList->DrawSingleInstance(indexBuffers[i]->GetNumIndices());
+				commandList->BindVertexBuffer(*vertexBuffers[i].GetPointer());
+				commandList->BindIndexBuffer(*indexBuffers[i].GetPointer());
+				commandList->DrawSingleInstance(indexBuffers[i]->GetIndexView().numIndices);
 			}
 		}
 	}
 
-	commandList->BindVertexBuffer(cubeModel->GetVertexBuffer());
-	commandList->BindIndexBuffer(cubeModel->GetIndexBuffer());
+	commandList->BindVertexBuffer(*cubeModel->GetVertexBuffer());
+	commandList->BindIndexBuffer(*cubeModel->GetIndexBuffer());
 
-	commandList->BindMaterial(pointMaterial);
-	commandList->BindMaterialSlot(pointsMaterialInstance->GetSlot("global"));
+	commandList->BindMaterial(*pointMaterial);
+	commandList->BindMaterialSlot(*pointsMaterialInstance->GetSlot("global"));
 
 	struct {
 		Vector4f point;
@@ -201,9 +197,9 @@ void ColliderRenderSystem::Render(GRAPHICS::ICommandList* commandList) {
 		commandList->DrawSingleInstance(1);
 	}
 
-	commandList->EndDebugSection();
-
 	commandList->EndGraphicsRenderpass();
+
+	commandList->EndDebugSection();
 }
 
 void ColliderRenderSystem::OnObjectAdded(GameObjectIndex obj) {
@@ -227,8 +223,8 @@ void ColliderRenderSystem::SetupBottomLevelModel(GameObjectIndex obj) {
 
 	// Listas con los vertex e index buffers de la entidad.
 	// Cada ConvexVolume tendrá uno.
-	DynamicArray<OwnedPtr<IGpuVertexBuffer>> vertexBuffers;
-	DynamicArray<OwnedPtr<IGpuIndexBuffer>> indexBuffers;
+	DynamicArray<OwnedPtr<GpuBuffer>> vertexBuffers;
+	DynamicArray<OwnedPtr<GpuBuffer>> indexBuffers;
 
 	
 	for (TIndex c = 0; c < collider.GetBottomLevelCollidersCount(); c++) {

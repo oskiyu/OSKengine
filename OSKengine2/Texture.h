@@ -6,6 +6,10 @@
 #include "Vector2.hpp"
 #include "IGpuImage.h"
 
+namespace OSK::GRAPHICS {
+	class IGpuImageView;
+}
+
 namespace OSK::ASSETS {
 
 	/// <summary>
@@ -35,6 +39,12 @@ namespace OSK::ASSETS {
 		/// 
 		/// @note No puede ser null.
 		GRAPHICS::GpuImage* GetGpuImage() const;
+
+		/// @return Image view para renderizado 2D, con un único nivel de mip.
+		const GRAPHICS::IGpuImageView& GetTextureView2D() const;
+
+		/// @return Image view para renderizado 3D, con varios niveles de mip.
+		const GRAPHICS::IGpuImageView& GetTextureView() const;
 
 		/// <summary> Establece el tamaño de la textura. </summary>
 		/// 

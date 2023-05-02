@@ -3,7 +3,7 @@
 #include "IRtShaderTable.h"
 
 #include "UniquePtr.hpp"
-#include "IGpuDataBuffer.h"
+#include "GpuBuffer.h"
 
 #include <vulkan/vulkan.h>
 
@@ -25,9 +25,9 @@ namespace OSK::GRAPHICS {
 		VkStridedDeviceAddressRegionKHR hitTableAddressRegion{};
 		VkStridedDeviceAddressRegionKHR missTableAddressRegion{};
 
-		UniquePtr<GpuDataBuffer> raygenShaderTable;
-		UniquePtr<GpuDataBuffer> hitShaderTable;
-		UniquePtr<GpuDataBuffer> missShaderTable;
+		UniquePtr<GpuBuffer> raygenShaderTable;
+		UniquePtr<GpuBuffer> hitShaderTable;
+		UniquePtr<GpuBuffer> missShaderTable;
 
 	};
 

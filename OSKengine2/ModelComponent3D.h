@@ -18,7 +18,7 @@ namespace OSK {
 		class MaterialInstance;
 		class GpuImage;
 		class IGpuImageView;
-		class IGpuUniformBuffer;
+		class GpuBuffer;
 	}
 }
 
@@ -99,7 +99,7 @@ namespace OSK::ECS {
 		/// después de haber llamado a la función, se bindearán a ellos también.
 		/// 
 		/// @warning No comprueba que el slot / buffer existan en el material.
-		void BindUniformBufferForAllMeshes(const std::string& slot, const std::string& binding, const GRAPHICS::IGpuUniformBuffer* buffer);
+		void BindUniformBufferForAllMeshes(const std::string& slot, const std::string& binding, const GRAPHICS::GpuBuffer* buffer);
 
 	private:
 
@@ -113,7 +113,7 @@ namespace OSK::ECS {
 		/// <summary> Texturas enlazadas para todos los meshes. </summary>
 		HashMap<std::string, HashMap<std::string, const GRAPHICS::IGpuImageView*>> imagesBound;
 		/// <summary> Buffers enlazados para todos los meshes. </summary>
-		HashMap<std::string, HashMap<std::string, const GRAPHICS::IGpuUniformBuffer*>> uniformBuffersBound;
+		HashMap<std::string, HashMap<std::string, const GRAPHICS::GpuBuffer*>> uniformBuffersBound;
 
 	};
 

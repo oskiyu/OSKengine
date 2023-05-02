@@ -5,8 +5,7 @@
 #include "Vertex.h"
 #include "OSKengine.h"
 #include "IRenderer.h"
-#include "IGpuVertexBuffer.h"
-#include "IGpuIndexBuffer.h"
+#include "GpuBuffer.h"
 #include "IGpuMemoryAllocator.h"
 #include "FileIO.h"
 #include "Mesh3D.h"
@@ -63,7 +62,7 @@ void ModelLoader3D::SetupDefaultNormalTexture() {
 		255	 // A
 	};
 
-	OwnedPtr<GpuDataBuffer> stagingBuffer = mAllocator->CreateStagingBuffer(sizeof(data), GpuBufferUsage::TRANSFER_SOURCE);
+	OwnedPtr<GpuBuffer> stagingBuffer = mAllocator->CreateStagingBuffer(sizeof(data), GpuBufferUsage::TRANSFER_SOURCE);
 	stagingBuffer->MapMemory();
 	stagingBuffer->Write(data, sizeof(data));
 	stagingBuffer->Unmap();
@@ -79,14 +78,14 @@ void ModelLoader3D::SetupDefaultNormalTexture() {
 	uploadCmdList->SetGpuImageBarrier(
 		defaultNormalTexture.GetPointer(),
 		GpuImageLayout::TRANSFER_DESTINATION,
-		GpuBarrierInfo(GpuBarrierStage::DEFAULT, GpuBarrierAccessStage::DEFAULT),
-		GpuBarrierInfo(GpuBarrierStage::TRANSFER, GpuBarrierAccessStage::TRANSFER_WRITE));
-	uploadCmdList->CopyBufferToImage(stagingBuffer.GetPointer(), defaultNormalTexture.GetPointer());
+		GpuBarrierInfo(GpuCommandStage::TRANSFER, GpuAccessStage::TRANSFER_WRITE));
+
+	uploadCmdList->CopyBufferToImage(stagingBuffer.GetValue(), defaultNormalTexture.GetPointer());
+
 	uploadCmdList->SetGpuImageBarrier(
 		defaultNormalTexture.GetPointer(),
 		GpuImageLayout::SAMPLED,
-		GpuBarrierInfo(GpuBarrierStage::TRANSFER, GpuBarrierAccessStage::TRANSFER_WRITE),
-		GpuBarrierInfo(GpuBarrierStage::FRAGMENT_SHADER, GpuBarrierAccessStage::SHADER_READ));
+		GpuBarrierInfo(GpuCommandStage::FRAGMENT_SHADER, GpuAccessStage::SHADER_READ));
 	
 	uploadCmdList->Close();
 

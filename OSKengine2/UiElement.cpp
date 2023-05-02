@@ -7,47 +7,90 @@ using namespace OSK::UI;
 using namespace OSK::ASSETS;
 using namespace OSK::GRAPHICS;
 
-void UiElement::AddChildElement(OwnedPtr<UiElement> element) {
-	childElements.InsertMove(std::move(UniquePtr<UiElement>(element.GetPointer())));
+IElement::IElement(const Vector2f& size) :size(size) {
+
 }
 
-void UiElement::AddChildElement(OwnedPtr<UiElement> element, const std::string& key) {
-	AddChildElement(element);
-	childElementsTable.InsertMove(key, element.GetPointer());
+
+void IElement::Render(SpriteRenderer* renderer, Vector2f parentPosition) const {
+	
 }
 
-void UiElement::SetPosition(const Vector2f& pos) {
-	rectangle.X = pos.X;
-	rectangle.Y = pos.Y;
+void IElement::UpdateByCursor(Vector2f cursorPosition, bool isPressed, Vector2f parentPosition) {
+
 }
 
-void UiElement::SetSize(const Vector2f& size) {
-	rectangle.Z = size.X;
-	rectangle.W = size.Y;
+void IElement::_SetRelativePosition(const Vector2f& relativePosition) {
+	this->relativePosition = relativePosition;
 }
 
-Vector2f UiElement::GetPosition() const {
-	return rectangle.GetRectanglePosition();
+void IElement::SetPadding(const Vector2f& padding) {
+	SetPadding(Vector4f(padding.X, padding.Y, padding.X, padding.Y));
 }
 
-Vector2f UiElement::GetSize() const {
-	return rectangle.GetRectangleSize();
+void IElement::SetPadding(const Vector4f& padding) {
+	this->padding = padding;
 }
 
-Vector4f UiElement::GetRectangle() const {
-	return rectangle;
+void IElement::SetMargin(const Vector2f& margin) {
+	SetMargin(Vector4f(margin.X, margin.Y, margin.X, margin.Y));
 }
 
-UiElement* UiElement::GetChildElement(const std::string& name) {
-	return childElementsTable.Get(name);
+void IElement::SetMargin(const Vector4f& margin) {
+	this->margin = margin;
 }
 
-glm::mat4 UiElement::GetMatrix() const {
-	return glm::scale(
-		glm::translate(glm::mat4(1.0f), { GetPosition().X, GetPosition().Y, 0.0f }),
-		{ GetSize().X, GetSize().Y, 0.0f });
+Vector2f IElement::GetRelativePosition() const {
+	return relativePosition;
 }
 
-const LinkedList<UniquePtr<UiElement>>& UiElement::GetChildElements() const {
-	return childElements;
+void IElement::SetSize(Vector2f newSize) {
+	size = newSize;
+}
+
+Vector2f IElement::GetSize() const {
+	return size;
+}
+
+Vector2f IElement::GetContentSize() const {
+	return size - GetPadding2D();
+}
+
+Vector2f IElement::GetContentTopLeftPosition() const {
+	return relativePosition + Vector2f(padding.X, padding.Y);
+}
+
+Vector4f IElement::GetRectangle(Vector2f parentPosition) const {
+	return Vector4f(
+		relativePosition.X + parentPosition.X,
+		relativePosition.Y + parentPosition.Y,
+		size.X,
+		size.Y
+	);
+}
+
+void IElement::SetAnchor(Anchor anchor) {
+	this->anchor = anchor;
+}
+
+Vector4f IElement::GetPadding() const {
+	return padding;
+}
+
+Vector4f IElement::GetMarging() const {
+	return margin;
+}
+
+Vector2f IElement::GetPadding2D() const {
+	return Vector2f(
+		padding.X + padding.Z,
+		padding.Y + padding.W
+	);
+}
+
+Vector2f IElement::GetMarging2D() const {
+	return Vector2f(
+		margin.X + margin.Z,
+		margin.Y + margin.W
+	);
 }

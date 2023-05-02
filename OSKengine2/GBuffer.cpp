@@ -7,16 +7,24 @@ using namespace OSK;
 using namespace OSK::GRAPHICS;
 
 void GBuffer::Create(const Vector2ui& resolution, GpuImageSamplerDesc sampler, GpuImageUsage usage) {
+	sampler.mipMapMode = GpuImageMipmapMode::NONE;
+
 	DynamicArray<RenderTargetAttachmentInfo> colorAttachments{};
-	colorAttachments.Insert({ .format = Format::RGBA16_SFLOAT, .usage = usage, .sampler = sampler, .name = "GBuffer Position" });
 	colorAttachments.Insert({ .format = Format::RGBA8_UNORM,   .usage = usage, .sampler = sampler, .name = "GBuffer Color" });
-	colorAttachments.Insert({ .format = Format::RGBA16_SFLOAT, .usage = usage, .sampler = sampler, .name = "GBuffer Normal" });
-	colorAttachments.Insert({ .format = Format::RGBA16_SFLOAT, .usage = usage, .sampler = sampler, .name = "GBuffer Motion" });
+	colorAttachments.Insert({ .format = Format::RGB10A2_UNORM, .usage = usage, .sampler = sampler, .name = "GBuffer Normal" });
+	colorAttachments.Insert({ .format = Format::RG16_SFLOAT, .usage = usage, .sampler = sampler, .name = "GBuffer MetallicRoughness" });
+	colorAttachments.Insert({ .format = Format::RG16_SFLOAT, .usage = usage, .sampler = sampler, .name = "GBuffer Motion" });
 	
+	RenderTargetAttachmentInfo depthInfo{};
+	depthInfo.format = Format::D32_SFLOAT;
+	depthInfo.usage = GpuImageUsage::DEPTH | GpuImageUsage::STENCIL | GpuImageUsage::SAMPLED;
+	depthInfo.name = "GBuffer Depth";
+	depthInfo.sampler = sampler;
+
 	renderTarget.Create(
 		resolution, 
 		colorAttachments, 
-		{ .format = Format::D32_SFLOAT, .usage = GpuImageUsage::DEPTH | GpuImageUsage::SAMPLED, .sampler = sampler });
+		depthInfo);
 }
 
 void GBuffer::Resize(const Vector2ui& resolution) {
@@ -33,4 +41,4 @@ void GBuffer::BeginRenderpass(ICommandList* cmdList, Color color) {
 	cmdList->BeginGraphicsRenderpass(&renderTarget, color);
 }
 
-const GBuffer::Target GBuffer::ColorTargetTypes[4] = { Target::POSITION, Target::COLOR, Target::NORMAL, Target::MOTION };
+const GBuffer::Target GBuffer::ColorTargetTypes[4] = { Target::COLOR, Target::NORMAL, Target::METALLIC_ROUGHNESS, Target::MOTION };

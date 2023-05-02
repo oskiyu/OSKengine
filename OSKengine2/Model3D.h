@@ -8,8 +8,7 @@
 #include "IGpuImage.h"
 #include "Mesh3D.h"
 
-#include "IGpuVertexBuffer.h"
-#include "IGpuIndexBuffer.h"
+#include "GpuBuffer.h"
 #include "IBottomLevelAccelerationStructure.h"
 
 #include "Animator.h"
@@ -107,12 +106,12 @@ namespace OSK::ASSETS {
 		/// <summary> Establece el buffer con todos los vértices del modelo 3D. </summary>
 		/// 
 		/// @warning Función interna: no llamar.
-		void _SetVertexBuffer(const OwnedPtr<GRAPHICS::IGpuVertexBuffer>& vertexBuffer);
+		void _SetVertexBuffer(const OwnedPtr<GRAPHICS::GpuBuffer>& vertexBuffer);
 
 		/// <summary> Establece el buffer con todos los índices del modelo. </summary>
 		/// 
 		/// @warning Función interna: no llamar.
-		void _SetIndexBuffer(const OwnedPtr<GRAPHICS::IGpuIndexBuffer>& indexBuffer);
+		void _SetIndexBuffer(const OwnedPtr<GRAPHICS::GpuBuffer>& indexBuffer);
 
 		/// <summary> Establece la estructura de aceleración de nivel bajo. </summary>
 		/// 
@@ -131,12 +130,12 @@ namespace OSK::ASSETS {
 		/// <summary> Devuelve el buffer de la GPU con los vértices del modelo. </summary>
 		/// 
 		/// @note No es null.
-		GRAPHICS::IGpuVertexBuffer* GetVertexBuffer() const;
+		GRAPHICS::GpuBuffer* GetVertexBuffer() const;
 
 		/// <summary> Devuelve el buffer de la GPU con los índices del modelo. </summary>
 		/// 
 		/// @note No puede ser null.
-		GRAPHICS::IGpuIndexBuffer* GetIndexBuffer() const;
+		GRAPHICS::GpuBuffer* GetIndexBuffer() const;
 
 		/// <summary>
 		/// Devuelve la estructura de aceleración de nivel bajo del modelo.
@@ -188,8 +187,8 @@ namespace OSK::ASSETS {
 
 	private:
 
-		UniquePtr<GRAPHICS::IGpuVertexBuffer> vertexBuffer;
-		UniquePtr<GRAPHICS::IGpuIndexBuffer> indexBuffer;
+		UniquePtr<GRAPHICS::GpuBuffer> vertexBuffer;
+		UniquePtr<GRAPHICS::GpuBuffer> indexBuffer;
 		/// @pre El renderizador debe tener el modo de trazado de rayos activado.
 		UniquePtr<GRAPHICS::IBottomLevelAccelerationStructure> accelerationStructure;
 

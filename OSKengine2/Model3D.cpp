@@ -21,11 +21,11 @@ void Model3D::AddMesh(const Mesh3D& mesh, const MeshMetadata& meshMetadata) {
 	metadata.meshesMetadata.Insert(meshMetadata);
 }
 
-void Model3D::_SetVertexBuffer(const OwnedPtr<GRAPHICS::IGpuVertexBuffer>& vertexBuffer) {
+void Model3D::_SetVertexBuffer(const OwnedPtr<GRAPHICS::GpuBuffer>& vertexBuffer) {
 	this->vertexBuffer = vertexBuffer.GetPointer();
 }
 
-void Model3D::_SetIndexBuffer(const OwnedPtr<GRAPHICS::IGpuIndexBuffer>& indexBuffer) {
+void Model3D::_SetIndexBuffer(const OwnedPtr<GRAPHICS::GpuBuffer>& indexBuffer) {
 	this->indexBuffer = indexBuffer.GetPointer();
 }
 
@@ -37,11 +37,11 @@ void Model3D::_SetIndexCount(TSize count) {
 	numIndices = count;
 }
 
-IGpuVertexBuffer* Model3D::GetVertexBuffer() const {
+GpuBuffer* Model3D::GetVertexBuffer() const {
 	return vertexBuffer.GetPointer();
 }
 
-IGpuIndexBuffer* Model3D::GetIndexBuffer() const {
+GpuBuffer* Model3D::GetIndexBuffer() const {
 	return indexBuffer.GetPointer();
 }
 

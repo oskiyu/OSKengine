@@ -12,9 +12,8 @@
 #include "Vertex.h"
 #include "IGpuMemoryAllocator.h"
 #include "GpuMemoryAllocatorVk.h"
-#include "IGpuVertexBuffer.h"
+#include "GpuBuffer.h"
 #include "Sprite.h"
-#include "IGpuIndexBuffer.h"
 #include "InputManager.h"
 
 #include "FileIO.h"

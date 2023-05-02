@@ -3,15 +3,14 @@
 #include "OSKmacros.h"
 
 #include "UniquePtr.hpp"
-#include "IGpuDataBuffer.h"
+#include "GpuBuffer.h"
 #include "RtAccelerationStructureFlags.h"
 
 #include <glm/glm.hpp>
+#include "VertexBufferView.h"
+#include "IndexBufferView.h"
 
 namespace OSK::GRAPHICS {
-
-	class IGpuVertexBuffer;
-	class IGpuIndexBuffer;
 
 	class ICommandList;
 
@@ -37,7 +36,12 @@ namespace OSK::GRAPHICS {
 		/// 
 		/// @todo Permitir determinar qué vértices y qué indices a usar, en vez de usar
 		/// todos los vértices y todos los índices dados.
-		virtual void Setup(const IGpuVertexBuffer& vertexBuffer, const IGpuIndexBuffer& indexBuffer, RtAccelerationStructureFlags flags) = 0;
+		virtual void Setup(
+			const GpuBuffer& vertexBuffer, 
+			const VertexBufferView& vertexView,
+			const GpuBuffer& indexBuffer, 
+			const IndexBufferView& indexView,
+			RtAccelerationStructureFlags flags) = 0;
 
 		/// <summary>
 		/// Actualiza la estructura de aceleración, para reflejar los cambios realizados en
@@ -64,7 +68,7 @@ namespace OSK::GRAPHICS {
 
 	protected:
 
-		UniquePtr<GpuDataBuffer> matrixBuffer;
+		UniquePtr<GpuBuffer> matrixBuffer;
 		bool isDirty = false;
 
 	};

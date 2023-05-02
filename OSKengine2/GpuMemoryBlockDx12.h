@@ -13,7 +13,7 @@ namespace OSK::GRAPHICS {
 	enum class Format;
 	enum class GpuImageUsage;
 	class GpuImage;
-	class GpuDataBuffer;
+	class GpuBuffer;
 
 	class OSKAPI_CALL GpuMemoryBlockDx12 : public IGpuMemoryBlock {
 
@@ -48,7 +48,7 @@ namespace OSK::GRAPHICS {
 
 		union {
 			GpuImage* image = nullptr;
-			GpuDataBuffer* buffer;
+			GpuBuffer* buffer;
 		} resource;
 
 	};

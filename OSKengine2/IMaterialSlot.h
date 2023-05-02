@@ -11,11 +11,10 @@ namespace OSK::ASSETS {
 
 namespace OSK::GRAPHICS {
 
-	class IGpuUniformBuffer;
 	class GpuImage;
 	class MaterialLayout;
 	class ITopLevelAccelerationStructure;
-	class GpuDataBuffer;
+	class GpuBuffer;
 	class IGpuImageView;
 
 
@@ -40,9 +39,9 @@ namespace OSK::GRAPHICS {
 		/// @warning No actualizará el recurso que realmente se usará en el shader, se debe llamar a FlushUpdate().
 		/// </summary>
 		/// <param name="binding">Nombre del binding al que se asignará el UNIFORM BUFFER.</param>
-		virtual void SetUniformBuffer(
+		void SetUniformBuffer(
 			const std::string& binding, 
-			const IGpuUniformBuffer* buffer) = 0;
+			const GpuBuffer& buffer);
 
 		/// <summary>
 		/// Establece el UNIFORM BUFFER que será asignado al binding con el nombre dado.
@@ -55,7 +54,7 @@ namespace OSK::GRAPHICS {
 		/// @warning No actualizará el recurso que realmente se usará en el shader, se debe llamar a FlushUpdate().
 		virtual void SetUniformBuffers(
 			const std::string& binding, 
-			const IGpuUniformBuffer* buffers[NUM_RESOURCES_IN_FLIGHT]) = 0;
+			const GpuBuffer* buffers[NUM_RESOURCES_IN_FLIGHT]) = 0;
 
 
 		/// <summary>
@@ -91,11 +90,9 @@ namespace OSK::GRAPHICS {
 		/// <param name="binding">Nombre del binding al que se asignará la imagen.</param>
 		/// 
 		/// @warning No actualizará el recurso que realmente se usará en el shader, se debe llamar a FlushUpdate().
-		
-		
-		virtual void SetGpuImage(
+		void SetGpuImage(
 			const std::string& binding, 
-			const IGpuImageView* image) = 0;
+			const IGpuImageView* image);
 
 		/// <summary>
 		/// Establece la imagen que será asignada al binding con el nombre dado.
@@ -106,8 +103,6 @@ namespace OSK::GRAPHICS {
 		/// 
 		/// @note Habrá una imagen por cada frame in flight.
 		/// @warning No actualizará el recurso que realmente se usará en el shader, se debe llamar a FlushUpdate().
-		
-		
 		virtual void SetGpuImages(
 			const std::string& binding, 
 			const IGpuImageView* images[NUM_RESOURCES_IN_FLIGHT]) = 0;
@@ -119,9 +114,9 @@ namespace OSK::GRAPHICS {
 		/// </summary>
 		/// 
 		/// @warning No actualizará el recurso que realmente se usará en el shader, se debe llamar a FlushUpdate().
-		virtual void SetStorageBuffer(
+		void SetStorageBuffer(
 			const std::string& binding, 
-			const GpuDataBuffer* buffer) = 0;
+			const GpuBuffer* buffer);
 
 		/// <summary>
 		/// Establece el buffer que será usado como storage buffer asignado al binding con el nombre dado.
@@ -134,7 +129,7 @@ namespace OSK::GRAPHICS {
 		/// @warning No actualizará el recurso que realmente se usará en el shader, se debe llamar a FlushUpdate().
 		virtual void SetStorageBuffers(
 			const std::string& binding, 
-			const GpuDataBuffer* buffers[NUM_RESOURCES_IN_FLIGHT]) = 0;
+			const GpuBuffer* buffers[NUM_RESOURCES_IN_FLIGHT]) = 0;
 
 
 		/// <summary>
@@ -143,9 +138,9 @@ namespace OSK::GRAPHICS {
 		/// </summary>
 		/// 
 		/// @warning No actualizará el recurso que realmente se usará en el shader, se debe llamar a FlushUpdate().
-		virtual void SetStorageImage(
+		void SetStorageImage(
 			const std::string& binding, 
-			const IGpuImageView* image) = 0;
+			const IGpuImageView* image);
 
 		/// <summary>
 		/// Establece la imagen que será usada como storage image asignada al binding con el nombre dado.
@@ -167,9 +162,9 @@ namespace OSK::GRAPHICS {
 		/// </summary>
 		/// 
 		/// @warning No actualizará el recurso que realmente se usará en el shader, se debe llamar a FlushUpdate().
-		virtual void SetAccelerationStructure(
+		void SetAccelerationStructure(
 			const std::string& binding, 
-			const ITopLevelAccelerationStructure* accelerationStructure) = 0;
+			const ITopLevelAccelerationStructure* accelerationStructure);
 
 		/// <summary>
 		/// Establece la estructura de aceleración para trazado de rayos que será asignado al binding con el nombre dado.
@@ -190,7 +185,7 @@ namespace OSK::GRAPHICS {
 		/// </summary>
 		virtual void FlushUpdate() = 0;
 
-		std::string GetName() const;
+		std::string_view GetName() const;
 		
 	protected:
 

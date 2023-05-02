@@ -5,7 +5,7 @@
 #include "Vector4.hpp"
 #include "Component.h"
 #include "UniquePtr.hpp"
-#include "IGpuUniformBuffer.h"
+#include "GpuBuffer.h"
 #include <glm/glm.hpp>
 
 namespace OSK::IO {
@@ -51,7 +51,7 @@ namespace OSK::ECS {
 		/// @note Debe llamarse cada frame que se haya modificado la cámara.
 		void UpdateUniformBuffer(const Transform2D& cameraTransform);
 
-		GRAPHICS::IGpuUniformBuffer* GetUniformBuffer() const;
+		GRAPHICS::GpuBuffer* GetUniformBuffer() const;
 
 		/// <summary> Transforma un punto 2D en la ventana al punto 2D al que apunta la cámara en el mundo 2D. </summary>
 		/// <param name="point">Punto en coordenadas de la ventana.</param>
@@ -66,7 +66,7 @@ namespace OSK::ECS {
 
 		Vector2f targetSize;
 
-		UniquePtr<GRAPHICS::IGpuUniformBuffer> uniformBuffer;
+		UniquePtr<GRAPHICS::GpuBuffer> uniformBuffer;
 
 	};
 

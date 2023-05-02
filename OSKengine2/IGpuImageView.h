@@ -4,6 +4,9 @@
 #include "GpuImageUsage.h"
 #include "GpuImageViewConfig.h"
 
+#include "Vector3.hpp"
+#include "Vector2.hpp"
+
 namespace OSK::GRAPHICS {
 
 	class GpuImage;
@@ -92,9 +95,23 @@ namespace OSK::GRAPHICS {
 		/// @pre La imagen a partir de la que se creó el view debe tener estabilidad de puntero.
 		inline const GpuImage& GetImage() const { return *originalImage;  }
 
+
+		/// @return Tamaño de la imagen, en 3 dimensiones.
+		/// @see GpuImage.
+		inline const Vector3ui GetSize3D() const { return size; }
+
+		/// @return Tamaño de la imagen, en 2 dimensiones.
+		/// @see GpuImage.
+		inline const Vector2ui GetSize2D() const { return { size.X, size.Y }; }
+
+		/// @return Tamaño de la imagen, en 1 dimensión.
+		/// @see GpuImage.
+		inline const TSize GetSize1D() const { return size.X; };
+
 	private:
 
 		GpuImageViewConfig config{};
+		Vector3ui size = 0;
 
 		const GpuImage* originalImage;
 

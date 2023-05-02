@@ -5,7 +5,7 @@
 layout (local_size_x = LOCAL_SIZE_X, local_size_y = LOCAL_SIZE_Y) in;
 
 layout (set = 0, binding = 0) uniform sampler2D inputImg;
-layout (set = 0, binding = 1, FORMAT) uniform image2D outputImg;
+layout (set = 0, binding = 1, FORMAT) uniform writeonly image2D outputImg;
 
 layout(push_constant) uniform Info{
     bool first;

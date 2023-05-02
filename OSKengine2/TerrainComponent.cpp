@@ -42,11 +42,11 @@ void TerrainComponent::SetMaterialInstance(OwnedPtr<MaterialInstance> materialIn
 	this->materialInstance = materialInstance.GetPointer();
 }
 
-const IGpuVertexBuffer* TerrainComponent::GetVertexBuffer() const {
+const GpuBuffer* TerrainComponent::GetVertexBuffer() const {
 	return vertexBuffer.GetPointer();
 }
 
-const IGpuIndexBuffer* TerrainComponent::GetIndexBuffer() const {
+const GpuBuffer* TerrainComponent::GetIndexBuffer() const {
 	return indexBuffer.GetPointer();
 }
 

@@ -39,6 +39,11 @@ namespace OSK::GRAPHICS {
 		void SetupMaterialInstances();
 
 
+		/// @brief Copia la imagen de la escena a la cadena de mip-maps
+		/// para poder comenzar la ejecución del bloom.
+		/// @param computeCmdList Lista de comandos usada.
+		void InitialCopy(ICommandList* computeCmdList);
+
 		/// @brief Ejecuta un escalado o desescalado de un nivel de mip a otro.
 		/// @param computeCmdList Lista de comandos donde se ejecutará.
 		/// @param sourceMipLevel Nivel de mip de origen.
@@ -71,6 +76,10 @@ namespace OSK::GRAPHICS {
 		/// 
 		/// @post *res será la resolución después de haberse realizado todo el escalado.
 		void UpscaleBloom(ICommandList* computeCmdList);
+
+		/// @brief Ejecuta el paso final de la ejecución.
+		/// @param computeCmdList Lista de comandos.
+		void Resolve(ICommandList* computeCmdList);
 
 		/// @brief Número máximo de pases de downscale/upscale.
 		const static TSize maxNumPasses = 8;

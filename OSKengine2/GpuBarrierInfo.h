@@ -10,137 +10,123 @@ namespace OSK::GRAPHICS {
 	constexpr TSize ALL_IMAGE_LAYERS = (~0);
 
 
+	/// @brief Un command stage permite diferenciar los distintos
+	/// tipos de comandos ejecutables por la GPU.
+	/// Se usan en una barrera para sincronizar los comandos de distintos
+	/// tipos.
+	enum class GpuCommandStage {
 
-	enum class GpuBarrierStage {
-
-		/// <summary>
-		/// Procesado de los vértices en el vertex shader.
-		/// </summary>
+		/// @brief Procesado de los vértices en el vertex shader.
 		VERTEX_SHADER,
 
-		/// <summary>
-		/// Procesado de los píxeles en el fragment/pixel shader.
-		/// </summary>
+		/// @brief Procesado de los píxeles en el fragment/pixel shader.
 		FRAGMENT_SHADER,
 
-		/// <summary>
-		/// Ejecución del shader de control del teselado.
-		/// </summary>
+		/// @brief Ejecución del shader de control del teselado.
 		TESSELATION_CONTROL,
 
-		/// <summary>
-		/// Ejecución del shader de evaluación del teselado.
-		/// </summary>
+		/// @brief Ejecución del shader de evaluación del teselado.
 		TESSELATION_EVALUATION,
 
-		/// <summary>
-		/// Shaders de trazado de rayos.
-		/// </summary>
+		/// @brief Shaders de trazado de rayos.
 		RAYTRACING_SHADER,
 
-		/// <summary>
-		/// Uso de la imagen como render target.
-		/// </summary>
+
+		/// @brief Uso de la imagen como render target del pipeline gráfico.
 		COLOR_ATTACHMENT_OUTPUT,
 
-		/// <summary>
-		/// Uso como depth/stencil.
-		/// </summary>
+		/// @brief Uso como depth/stencil.
 		DEPTH_STENCIL_START,
 
-		/// <summary>
-		/// Uso como depth/stencil.
-		/// </summary>
+		/// @brief Uso como depth/stencil.
 		DEPTH_STENCIL_END,
 
-		/// <summary>
-		/// Transferencia de datos.
-		/// </summary>
+
+		/// @brief Transferencia / copia de datos.
 		TRANSFER,
 
-		/// <summary>
-		/// Shader de computación.
-		/// </summary>
+
+		/// @brief Shader de computación.
 		COMPUTE_SHADER,
 
-		/// <summary>
-		/// Construcción de estructuras de aceleración.
-		/// </summary>
+		/// @brief Construcción de estructuras de aceleración de trazado de rayos.
 		RT_AS_BUILD,
 
-		/// <summary>
-		/// @todo Documentación.
-		/// </summary>
-		DEFAULT
+
+		/// @brief Ningún comando será afectado.
+		NONE,
+
+		/// @brief Todos los comandos serán afectados.
+		ALL
 
 	};
 
-	/// <summary>
-	/// Operación en concreto que queremos esperar/bloquear.
-	/// </summary>
-	enum class GpuBarrierAccessStage {
+	/// @brief Tipos de acceso de memoria que puede realizar la GPU.
+	/// En un barrier, sirven para asegurarse de que los niveles
+	/// de chaché sobn coherentes.
+	enum class GpuAccessStage : uint32_t {
 
-		/// <summary>
-		/// Lectura de los datos en cualquier shader.
-		/// </summary>
-		SHADER_READ = 1,
+		
+		/// @brief Lectura de cualquier tipo en shaders.
+		/// Combinación de SAMPLED_READ, UNIFORM_BUFFER_READ, STORAGE_BUFFER_READ
+		/// y STORAGE_IMAGE_READ.
+		SHADER_READ = 1 << 0,
 
-		/// <summary>
-		/// Escritrura de los datos en cualquier shader.
-		/// </summary>
-		SHADER_WRITE = 2,
+		/// @brief Lectura de una imagen sampled.
+		SAMPLED_READ = 1 << 1,
 
-		/// <summary>
-		/// Lectura de los datos de color de la imagen.
-		/// </summary>
-		COLOR_ATTACHMENT_READ = 4,
+		/// @brief Lectura de un uniform buffer.
+		UNIFORM_BUFFER_READ = 1 << 2,
 
-		/// <summary>
-		/// Escritura a un render target.
-		/// </summary>
-		COLOR_ATTACHMENT_WRITE = 8,
+		/// @brief Lectura de un storage buffer.
+		STORAGE_BUFFER_READ = 1 << 3,
 
-		/// <summary>
-		/// Lectura de depth/stencil.
-		/// </summary>
-		DEPTH_STENCIL_READ = 16,
+		/// @brief Lectura de un storage image.
+		STORAGE_IMAGE_READ = 1 << 4,
 
-		/// <summary>
-		/// Escritura de depth/stencil.
-		/// </summary>
-		DEPTH_STENCIL_WRITE = 32,
 
-		/// <summary>
-		/// Lectura de los datos en una operación de transferencia.
-		/// </summary>
-		TRANSFER_READ = 64,
+		/// @brief Escritrura de los datos en cualquier shader.
+		SHADER_WRITE = 1 << 5,
 
-		/// <summary>
-		/// Escritura de los datos en una operación de transferencia.
-		/// </summary>
-		TRANSFER_WRITE = 128,
 
-		/// <summary>
-		/// Lectura de la memoria.
-		/// </summary>
-		MEMORY_READ = 256,
+		/// @brief Lectura de los datos de color durante shaders de rasterizado.
+		COLOR_ATTACHMENT_READ = 1 << 6,
 
-		/// <summary>
-		/// Escritura de la memoria.
-		/// </summary>
-		MEMORY_WRITE = 512,
+		/// @brief Escritura a un render target durante shaders de rasterizado
+		COLOR_ATTACHMENT_WRITE = 1 << 7,
 
-		/// <summary>
-		/// Lectura de la estructura de aceleración.
-		/// </summary>
-		RT_AS_READ = 1024,
 
-		/// <summary>
-		/// Escritura de la estructura de aceleración.
-		/// </summary>
-		RT_AS_WRITE = 2048,
+		/// @brief Lectura de depth/stencil.
+		DEPTH_STENCIL_READ = 1 << 8,
 
-		DEFAULT = 4096
+		/// @brief Escritura de depth/stencil.
+		DEPTH_STENCIL_WRITE = 1 << 9,
+
+
+		/// @brief Lectura de los datos en una operación de transferencia / copia.
+		TRANSFER_READ = 1 << 10,
+
+		/// @brief Escritura de los datos en una operación de transferencia / copia.
+		TRANSFER_WRITE = 1 << 11,
+
+
+		/// @brief Lectura de cualquier tipo de la memoria.
+		MEMORY_READ = 1 << 12,
+
+		/// @brief Escritura de cualquier tipo de la memoria.
+		MEMORY_WRITE = 1 << 13,
+
+
+		/// @brief Lectura de la estructura de aceleración.
+		RT_AS_READ = 1 << 14,
+
+		/// @brief Escritura de la estructura de aceleración.
+		RT_AS_WRITE = 1 << 15,
+
+
+		/// @brief No representa ningún acceso a memoria.
+		NONE = 0
+
 	};
 
 
@@ -156,43 +142,12 @@ namespace OSK::GRAPHICS {
 	/// </summary>
 	struct GpuBarrierInfo {
 		GpuBarrierInfo() {}
-		GpuBarrierInfo(GpuBarrierStage stage, GpuBarrierAccessStage accessStage) : stage(stage), accessStage(accessStage) {}
+		GpuBarrierInfo(GpuCommandStage stage, GpuAccessStage accessStage) : stage(stage), accessStage(accessStage) {}
 
-		GpuBarrierStage stage = GpuBarrierStage::DEFAULT;
-		GpuBarrierAccessStage accessStage = GpuBarrierAccessStage::DEFAULT;
+		GpuCommandStage stage = GpuCommandStage::NONE;
+		GpuAccessStage accessStage = GpuAccessStage::NONE;
 	};
-
-
-	/// <summary>
-	/// Al establecer un gpu barrier, dividimos todos
-	/// los comandos en la lista de comandos en dos grupos.
-	/// 
-	/// Al establecer el barrier, la GPU esperará hasta que se
-	/// hayan completado todos los comandos en el stage sourceStage.
-	/// 
-	/// Todos los comandos enviados después del gpu barrier deben esperar
-	/// a que finalicen todos los comandos en el stage destinationStage.
-	/// </summary>
-	struct GpuImageBarrierInfo {
-
-		/// @brief Índice de la primera capa que será afectada por el barrier.
-		/// @pre Si la imagen NO es array, debe ser 0.
-		TSize baseLayer = 0;
 		
-		/// @brief Número de capas del array afectadas por el barrier.
-		TSize numLayers = ALL_IMAGE_LAYERS;
-
-		/// @brief Nivel más bajo de mip que será afectado por el barrier.
-		TSize baseMipLevel = 0;
-		/// @brief Número de niveles de mip que serán afectados por el barrier.
-		TSize numMipLevels = ALL_MIP_LEVELS;
-
-
-		/// @brief Canal(es) afectados por el barrier.
-		SampledChannel channel = SampledChannel::COLOR;
-
-	};
-
 }
 
-OSK_FLAGS(OSK::GRAPHICS::GpuBarrierAccessStage);
+OSK_FLAGS(OSK::GRAPHICS::GpuAccessStage);

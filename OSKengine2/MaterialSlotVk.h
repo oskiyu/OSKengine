@@ -13,48 +13,28 @@
 
 namespace OSK::GRAPHICS {
 
-	class OSKAPI_CALL MaterialSlotVk : public IMaterialSlot {
+	class OSKAPI_CALL MaterialSlotVk final : public IMaterialSlot {
 
 	public:
 
 		MaterialSlotVk(const std::string& name, const MaterialLayout* layout);
 		~MaterialSlotVk();
 
-		void SetUniformBuffer(
-			const std::string& binding, 
-			const IGpuUniformBuffer* buffer) override;
-
 		void SetUniformBuffers(
 			const std::string& binding, 
-			const IGpuUniformBuffer* buffers[NUM_RESOURCES_IN_FLIGHT]);
-
-		void SetGpuImage(
-			const std::string& binding,
-			const IGpuImageView* image) override;
+			const GpuBuffer* buffers[NUM_RESOURCES_IN_FLIGHT]);
 
 		void SetGpuImages(
 			const std::string& binding, 
 			const IGpuImageView* images[NUM_RESOURCES_IN_FLIGHT]) override;
 
-		void SetStorageBuffer(
-			const std::string& binding, 
-			const GpuDataBuffer* buffer) override;
-
 		void SetStorageBuffers(
 			const std::string& binding, 
-			const GpuDataBuffer* buffers[NUM_RESOURCES_IN_FLIGHT]) override;
-
-		void SetStorageImage(
-			const std::string& binding, 
-			const IGpuImageView* image) override;
+			const GpuBuffer* buffers[NUM_RESOURCES_IN_FLIGHT]) override;
 
 		void SetStorageImages(
 			const std::string& binding, 
 			const IGpuImageView* images[NUM_RESOURCES_IN_FLIGHT]) override;
-
-		void SetAccelerationStructure(
-			const std::string& binding, 
-			const ITopLevelAccelerationStructure* accelerationStructure) override;
 
 		void SetAccelerationStructures(
 			const std::string& binding, 

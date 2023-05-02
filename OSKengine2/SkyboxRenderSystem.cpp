@@ -23,7 +23,7 @@ SkyboxRenderSystem::SkyboxRenderSystem() {
 
 	cubemapModel = Engine::GetAssetManager()->Load<Model3D>("Resources/Assets/Models/cube.json", "GLOBAL");
 
-	const IGpuUniformBuffer* buffers[3]{};
+	const GpuBuffer* buffers[3]{};
 	for (TSize i = 0; i < NUM_RESOURCES_IN_FLIGHT; i++) {
 		cameraUbos[i] = Engine::GetRenderer()->GetAllocator()->CreateUniformBuffer(sizeof(glm::mat4) * 2).GetPointer();
 		buffers[i] = cameraUbos[i].GetPointer();
@@ -65,11 +65,10 @@ void SkyboxRenderSystem::Render(ICommandList* commandList) {
 	commandList->StartDebugSection("Skybox Rendering", Color::RED());
 
 	commandList->BeginGraphicsRenderpass(&renderTarget, Color::BLACK() * 0.0f);
-	commandList->BindMaterial(skyboxMaterial);
-	commandList->BindMaterialSlot(skyboxMaterialInstance->GetSlot("camera"));
-	commandList->BindMaterialSlot(skyboxMaterialInstance->GetSlot("texture"));
-	commandList->BindVertexBuffer(cubemapModel->GetVertexBuffer());
-	commandList->BindIndexBuffer(cubemapModel->GetIndexBuffer());
+	commandList->BindMaterial(*skyboxMaterial);
+	commandList->BindMaterialInstance(*skyboxMaterialInstance);
+	commandList->BindVertexBuffer(*cubemapModel->GetVertexBuffer());
+	commandList->BindIndexBuffer(*cubemapModel->GetIndexBuffer());
 	commandList->PushMaterialConstants("brightness", 1.15f);
 	commandList->DrawSingleInstance(cubemapModel->GetIndexCount());
 	commandList->EndGraphicsRenderpass();

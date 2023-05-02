@@ -22,16 +22,14 @@
 #include "Color.hpp"
 #include "GraphicsPipelineVk.h"
 #include "PipelineCreateInfo.h"
-#include "IGpuVertexBuffer.h"
+#include "GpuBuffer.h"
 #include "Vertex.h"
 #include "Viewport.h"
-#include "GpuIndexBufferVk.h"
 #include "RenderApiType.h"
 #include "MaterialSystem.h"
 #include "Material.h"
 #include "MaterialInstance.h"
 #include "MaterialSlotVk.h"
-#include "IGpuUniformBuffer.h"
 #include "RaytracingPipelineVk.h"
 #include "ComputePipelineVk.h"
 #include "GpuImageDimensions.h"
@@ -227,7 +225,7 @@ void RendererVk::HandleResize() {
 }
 
 void RendererVk::SubmitSingleUseCommandList(OwnedPtr<ICommandList> commandList) {
-	const TSize cmdIndex = commandList->GetCommandListIndex();
+	const TSize cmdIndex = commandList->_GetCommandListIndex();
 	const VkQueue graphicsQ = graphicsQueue->As<CommandQueueVk>()->GetQueue();
 	const VkCommandBuffer cmdBuffer = commandList->As<CommandListVk>()->GetCommandBuffers()->At(cmdIndex);
 
@@ -683,7 +681,7 @@ void RendererVk::SubmitPostComputeCommands() {
 
 void RendererVk::SubmitGraphicsAndComputeCommands() {
 	// Esperar a que la imagen esté disponible antes de renderizar.
-	const VkPipelineStageFlags waitStages[] = { VK_PIPELINE_STAGE_COLOR_ATTACHMENT_OUTPUT_BIT };
+	const VkPipelineStageFlags waitStages[] = { VK_PIPELINE_STAGE_ALL_COMMANDS_BIT };
 
 	VkSubmitInfo submitInfo{};
 	submitInfo.sType = VK_STRUCTURE_TYPE_SUBMIT_INFO;
@@ -758,9 +756,18 @@ void RendererVk::SubmitFrame() {
 }
 
 void RendererVk::AcquireNextFrame() {
+	const static uint64_t OSK_NO_TIMEOUT = UINT64_MAX;
+
 	// Adquirimos el índice de la próxima imagen a procesar.
 	// NOTA: puede que tengamos que esperar a que esta imagen quede disponible.
-	VkResult result = vkAcquireNextImageKHR(currentGpu->As<GpuVk>()->GetLogicalDevice(), swapchain->As<SwapchainVk>()->GetSwapchain(), UINT64_MAX, imageAvailableSemaphores[currentCommandBufferIndex], VK_NULL_HANDLE, &currentFrameIndex);
+	VkResult result = vkAcquireNextImageKHR(
+		currentGpu->As<GpuVk>()->GetLogicalDevice(), 
+		swapchain->As<SwapchainVk>()->GetSwapchain(), 
+		OSK_NO_TIMEOUT,
+		imageAvailableSemaphores[currentCommandBufferIndex], 
+		VK_NULL_HANDLE, 
+		&currentFrameIndex);
+
 	OSK_CHECK(result == VK_SUCCESS, "vkAcquireNextImageKHR code: " + std::to_string(result));
 }
 

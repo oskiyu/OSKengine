@@ -7,24 +7,10 @@
 
 namespace OSK::GRAPHICS {
 
-	class GpuDataBuffer;
+	class GpuBuffer;
 	class GraphicsPipelineVk;
 
-	/// <summary>
-	/// Una lista de comandos contiene una serie de comandos que serán
-	/// enviados a la GPU para su ejecución.
-	/// La lista es creada por una pool de comandos, y se introduce
-	/// en una cola de comandos para su ejecución.
-	/// 
-	/// Esta es la implementación de la lista de comandos para el 
-	/// renderizador de Vulkan.
-	/// 
-	/// El número de listas de comandos nativas dependerá del número de
-	/// imágenes en el swapchain.
-	/// Esta clase representa una abstracción de una lista de comandos:
-	/// cada comando grabado en la clase se grabará en cada una de las
-	/// listas nativas.
-	/// </summary>
+
 	class OSKAPI_CALL CommandListVk final : public ICommandList {
 
 	public:
@@ -36,6 +22,11 @@ namespace OSK::GRAPHICS {
 		void Start() override;
 		void Close() override;
 
+		void ClearImage(
+			GpuImage* image,
+			const GpuImageRange& range,
+			const Color& color) override;
+
 		void BeginGraphicsRenderpass(
 			DynamicArray<RenderPassImageInfo> colorImages, 
 			RenderPassImageInfo depthImage, 
@@ -43,24 +34,22 @@ namespace OSK::GRAPHICS {
 			bool autoSync) override;
 		void EndGraphicsRenderpass(bool autoSync) override;
 
-		void BindMaterial(Material* material) override;
-		void BindVertexBuffer(const IGpuVertexBuffer* buffer) override;
-		void BindIndexBuffer(const IGpuIndexBuffer* buffer) override;
-		void BindMaterialSlot(const IMaterialSlot* slot) override;
+		void BindVertexBufferRange(const GpuBuffer& buffer, const VertexBufferView& view) override;
+		void BindIndexBufferRange(const GpuBuffer& buffer, const IndexBufferView& view) override;
+		void BindMaterialSlot(const IMaterialSlot& slot) override;
 		void PushMaterialConstants(const std::string& pushConstName, const void* data, TSize size, TSize offset) override;
 
 		void DrawSingleInstance(TSize numIndices) override;
 		void DrawSingleMesh(TSize firstIndex, TSize numIndices) override;
 		void TraceRays(TSize raygenEntry, TSize closestHitEntry, TSize missEntry, const Vector2ui& resolution) override;
 
-		void BindComputePipeline(const IComputePipeline& computePipeline);
 		void DispatchCompute(const Vector3ui& groupCount);
 
-		void SetGpuImageBarrier(GpuImage* image, GpuImageLayout previousLayout, GpuImageLayout nextLayout, GpuBarrierInfo previous, GpuBarrierInfo next, const GpuImageBarrierInfo& prevImageInfo) override;
+		void SetGpuImageBarrier(GpuImage* image, GpuImageLayout previousLayout, GpuImageLayout nextLayout, GpuBarrierInfo previous, GpuBarrierInfo next, const GpuImageRange& range) override;
 
-		void CopyBufferToImage(const GpuDataBuffer* source, GpuImage* dest, TSize layer, TSize offset) override;
-		void CopyImageToImage(const GpuImage* source, GpuImage* destination, const CopyImageInfo& copyInfo) override;
-		void CopyBufferToBuffer(const GpuDataBuffer* source, GpuDataBuffer* dest, TSize size, TSize sourceOffset, TSize destOffset) override;
+		void CopyBufferToImage(const GpuBuffer& source, GpuImage* dest, TSize layer, TSize offset) override;
+		void RawCopyImageToImage(const GpuImage& source, GpuImage* destination, const CopyImageInfo& copyInfo) override;
+		void CopyBufferToBuffer(const GpuBuffer& source, GpuBuffer* dest, TSize size, TSize sourceOffset, TSize destOffset) override;
 
 		void SetViewport(const Viewport& viewport) override;
 		void SetScissor(const Vector4ui& scissor) override;
@@ -73,8 +62,14 @@ namespace OSK::GRAPHICS {
 
 	private:
 
-		VkPipelineStageFlagBits GetPipelineStage(GpuBarrierStage stage) const;
-		VkAccessFlags GetPipelineAccess(GpuBarrierAccessStage stage) const;
+		static VkIndexType GetIndexType(IndexType type);
+
+		void BindGraphicsPipeline(const IGraphicsPipeline& computePipeline) override;
+		void BindComputePipeline(const IComputePipeline& computePipeline) override;
+		void BindRayTracingPipeline(const IRaytracingPipeline& computePipeline) override;
+
+		VkPipelineStageFlagBits2 GetPipelineStage(GpuCommandStage stage) const;
+		VkAccessFlags2 GetPipelineAccess(GpuAccessStage stage) const;
 
 		/// <summary>
 		/// Varias listas nativas, una por cada imagen en el swapchain.

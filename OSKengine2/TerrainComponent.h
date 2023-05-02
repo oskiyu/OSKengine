@@ -2,8 +2,7 @@
 
 #include "Component.h"
 #include "UniquePtr.hpp"
-#include "IGpuVertexBuffer.h"
-#include "IGpuIndexBuffer.h"
+#include "GpuBuffer.h"
 #include "Vector2.hpp"
 #include "MaterialInstance.h"
 
@@ -38,8 +37,8 @@ namespace OSK::ECS {
 		/// </summary>
 		void SetMaterialInstance(OwnedPtr<GRAPHICS::MaterialInstance> materialInstance);
 
-		const GRAPHICS::IGpuVertexBuffer* GetVertexBuffer() const;
-		const GRAPHICS::IGpuIndexBuffer* GetIndexBuffer() const;
+		const GRAPHICS::GpuBuffer* GetVertexBuffer() const;
+		const GRAPHICS::GpuBuffer* GetIndexBuffer() const;
 
 		GRAPHICS::MaterialInstance* GetMaterialInstance() const;
 
@@ -47,8 +46,8 @@ namespace OSK::ECS {
 
 	private:
 
-		UniquePtr<GRAPHICS::IGpuVertexBuffer> vertexBuffer;
-		UniquePtr<GRAPHICS::IGpuIndexBuffer> indexBuffer;
+		UniquePtr<GRAPHICS::GpuBuffer> vertexBuffer;
+		UniquePtr<GRAPHICS::GpuBuffer> indexBuffer;
 
 		UniquePtr<GRAPHICS::MaterialInstance> materialInstance;
 

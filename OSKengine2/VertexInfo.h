@@ -58,6 +58,8 @@ namespace OSK::GRAPHICS {
 		/// </summary>
 		DynamicArray<Entry> entries;
 
+		TSize GetSize() const;
+
 	};
 
 }

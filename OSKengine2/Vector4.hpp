@@ -262,6 +262,13 @@ namespace OSK {
 			return X < vec.X + vec.Z && X + Z > vec.X && Y < vec.Y + vec.W && W + Y > vec.Y;
 		}
 
+		/// @brief Comrpueba si un punto está dentro del rectángulo.
+		/// @param point Posición del punto.
+		/// @return True si está contenido dentro del rectángulo.
+		inline constexpr bool ContainsPoint(const Vector2_t<T>& point) const {
+			return X <= point.X && Y <= point.Y && X + Z >= point.X && Y + W >= point.Y;
+		}
+
 		/// <summary>
 		/// OSK::Vector4 a glm::vec4.
 		/// </summary>

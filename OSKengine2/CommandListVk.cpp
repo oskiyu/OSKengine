@@ -8,11 +8,10 @@
 #include "GpuImageVk.h"
 #include "Color.hpp"
 #include "RenderpassType.h"
-#include "IGpuDataBuffer.h"
+#include "GpuBuffer.h"
 #include "Viewport.h"
 #include "GraphicsPipelineVk.h"
-#include "GpuVertexBufferVk.h"
-#include "GpuIndexBufferVk.h"
+#include "GpuBuffer.h"
 #include "MaterialSlotVk.h"
 #include "GraphicsPipelineVk.h"
 #include "RaytracingPipelineVk.h"
@@ -42,7 +41,7 @@ DynamicArray<VkCommandBuffer>* CommandListVk::GetCommandBuffers() {
 }
 
 void CommandListVk::Reset() {
-	VkResult result = vkResetCommandBuffer(commandBuffers[GetCommandListIndex()], 0);
+	VkResult result = vkResetCommandBuffer(commandBuffers[_GetCommandListIndex()], 0);
 	OSK_ASSERT(result == VK_SUCCESS, "No se pudo resetear la lista de comandos.");
 }
 
@@ -54,49 +53,68 @@ void CommandListVk::Start() {
 		NULL
 	};
 
-	VkResult result = vkBeginCommandBuffer(commandBuffers[GetCommandListIndex()], &beginInfo);
+	VkResult result = vkBeginCommandBuffer(commandBuffers[_GetCommandListIndex()], &beginInfo);
 	OSK_ASSERT(result == VK_SUCCESS, "No se pudo iniciar la lista de comandos.");
 }
 
 void CommandListVk::Close() {
-	VkResult result = vkEndCommandBuffer(commandBuffers[GetCommandListIndex()]);
+	VkResult result = vkEndCommandBuffer(commandBuffers[_GetCommandListIndex()]);
 	OSK_ASSERT(result == VK_SUCCESS, "No se pudo finalizar la lista de comandos.");
 }
 
-void CommandListVk::SetGpuImageBarrier(GpuImage* image, GpuImageLayout previousLayout, GpuImageLayout nextLayout, GpuBarrierInfo previous, GpuBarrierInfo next, const GpuImageBarrierInfo& prevImageInfo) {
-	VkImageMemoryBarrier barrier{};
-	barrier.sType = VK_STRUCTURE_TYPE_IMAGE_MEMORY_BARRIER;
+void CommandListVk::SetGpuImageBarrier(GpuImage* image, GpuImageLayout previousLayout, GpuImageLayout nextLayout, GpuBarrierInfo previous, GpuBarrierInfo next, const GpuImageRange& imageInfo) {
+	VkImageMemoryBarrier2 barrier{};
+	barrier.sType = VK_STRUCTURE_TYPE_IMAGE_MEMORY_BARRIER_2;
+
 	barrier.oldLayout = GetGpuImageLayoutVk(previousLayout);
 	barrier.newLayout = GetGpuImageLayoutVk(nextLayout);
+
 	barrier.srcQueueFamilyIndex = VK_QUEUE_FAMILY_IGNORED;
 	barrier.dstQueueFamilyIndex = VK_QUEUE_FAMILY_IGNORED;
-	barrier.image = image->As<GpuImageVk>()->GetVkImage();
-	barrier.subresourceRange.aspectMask = 0;
-	barrier.subresourceRange.baseMipLevel = prevImageInfo.baseMipLevel;
-	barrier.subresourceRange.levelCount = prevImageInfo.numMipLevels;
-	barrier.subresourceRange.baseArrayLayer = prevImageInfo.baseLayer;
-	barrier.subresourceRange.layerCount = prevImageInfo.numLayers;
 
-	if (EFTraits::HasFlag(prevImageInfo.channel, SampledChannel::COLOR))
+	barrier.image = image->As<GpuImageVk>()->GetVkImage();
+
+	barrier.subresourceRange.baseMipLevel = imageInfo.baseMipLevel;
+	barrier.subresourceRange.levelCount = imageInfo.numMipLevels;
+	barrier.subresourceRange.baseArrayLayer = imageInfo.baseLayer;
+	barrier.subresourceRange.layerCount = imageInfo.numLayers;
+
+	barrier.subresourceRange.aspectMask = 0;
+	if (EFTraits::HasFlag(imageInfo.channel, SampledChannel::COLOR))
 		barrier.subresourceRange.aspectMask = barrier.subresourceRange.aspectMask | VK_IMAGE_ASPECT_COLOR_BIT;
-	if (EFTraits::HasFlag(prevImageInfo.channel, SampledChannel::DEPTH))
+	if (EFTraits::HasFlag(imageInfo.channel, SampledChannel::DEPTH))
 		barrier.subresourceRange.aspectMask = barrier.subresourceRange.aspectMask | VK_IMAGE_ASPECT_DEPTH_BIT;
-	if (EFTraits::HasFlag(prevImageInfo.channel, SampledChannel::STENCIL))
+	if (EFTraits::HasFlag(imageInfo.channel, SampledChannel::STENCIL))
 		barrier.subresourceRange.aspectMask = barrier.subresourceRange.aspectMask | VK_IMAGE_ASPECT_STENCIL_BIT;
 
 	barrier.srcAccessMask = GetPipelineAccess(previous.accessStage);
 	barrier.dstAccessMask = GetPipelineAccess(next.accessStage);
 
-	const VkPipelineStageFlags sourceStage = GetPipelineStage(previous.stage);
-	const VkPipelineStageFlags destinationStage = GetPipelineStage(next.stage);
+	barrier.srcStageMask = GetPipelineStage(previous.stage);
+	barrier.dstStageMask = GetPipelineStage(next.stage);
+	
+	VkDependencyInfo info{};
+	info.sType = VK_STRUCTURE_TYPE_DEPENDENCY_INFO;
 
-	vkCmdPipelineBarrier(commandBuffers[GetCommandListIndex()], sourceStage, destinationStage, 0, 0, nullptr, 0, nullptr, 1, &barrier);
+	info.imageMemoryBarrierCount = 1;
+	info.pImageMemoryBarriers = &barrier;
+	info.dependencyFlags = 0;
+
+	vkCmdPipelineBarrier2(commandBuffers[_GetCommandListIndex()], &info);
+
+	image->SetCurrentBarrier(next);
+	image->_SetLayout(
+		imageInfo.baseLayer,
+		imageInfo.numLayers,
+		imageInfo.baseMipLevel,
+		imageInfo.numMipLevels,
+		nextLayout);
 }
 
-void CommandListVk::CopyBufferToImage(const GpuDataBuffer* source, GpuImage* dest, TSize layer, TSize offset) {
+void CommandListVk::CopyBufferToImage(const GpuBuffer& source, GpuImage* dest, TSize layer, TSize offset) {
 	VkBufferImageCopy region{};
 
-	region.bufferOffset = source->GetMemorySubblock()->GetOffsetFromBlock() + offset;
+	region.bufferOffset = source.GetMemorySubblock()->GetOffsetFromBlock() + offset;
 	region.bufferRowLength = 0;
 	region.bufferImageHeight = 0;
 
@@ -114,8 +132,8 @@ void CommandListVk::CopyBufferToImage(const GpuDataBuffer* source, GpuImage* des
 
 	// Layout[0] = TRANSFER_DEST
 	vkCmdCopyBufferToImage(
-		commandBuffers[GetCommandListIndex()],
-		source->GetMemoryBlock()->As<GpuMemoryBlockVk>()->GetVulkanBuffer(), 
+		commandBuffers[_GetCommandListIndex()],
+		source.GetMemoryBlock()->As<GpuMemoryBlockVk>()->GetVulkanBuffer(), 
 		dest->As<GpuImageVk>()->GetVkImage(), 
 		VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL, 1, &region);
 
@@ -130,8 +148,8 @@ void CommandListVk::CopyBufferToImage(const GpuDataBuffer* source, GpuImage* des
 				dest,
 				GpuImageLayout::TRANSFER_DESTINATION,
 				GpuImageLayout::TRANSFER_SOURCE,
-				GpuBarrierInfo(GpuBarrierStage::TRANSFER, GpuBarrierAccessStage::TRANSFER_WRITE),
-				GpuBarrierInfo(GpuBarrierStage::TRANSFER, GpuBarrierAccessStage::TRANSFER_READ),
+				GpuBarrierInfo(GpuCommandStage::TRANSFER, GpuAccessStage::TRANSFER_WRITE),
+				GpuBarrierInfo(GpuCommandStage::TRANSFER, GpuAccessStage::TRANSFER_READ),
 				{ .baseLayer = layer, .numLayers = 1, .baseMipLevel = mipLevel - 1, .numMipLevels = 1 });
 
 			VkImageBlit blit{};
@@ -155,7 +173,7 @@ void CommandListVk::CopyBufferToImage(const GpuDataBuffer* source, GpuImage* des
 			blit.dstSubresource.layerCount = 1;
 
 			// Mip actual: layout DESTINATION
-			vkCmdBlitImage(commandBuffers[GetCommandListIndex()],
+			vkCmdBlitImage(commandBuffers[_GetCommandListIndex()],
 				dest->As<GpuImageVk>()->GetVkImage(), VK_IMAGE_LAYOUT_TRANSFER_SRC_OPTIMAL,
 				dest->As<GpuImageVk>()->GetVkImage(), VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL,
 				1, &blit, VK_FILTER_LINEAR);
@@ -171,8 +189,8 @@ void CommandListVk::CopyBufferToImage(const GpuDataBuffer* source, GpuImage* des
 			dest,
 			GpuImageLayout::TRANSFER_DESTINATION,
 			GpuImageLayout::TRANSFER_SOURCE,
-			GpuBarrierInfo(GpuBarrierStage::TRANSFER, GpuBarrierAccessStage::TRANSFER_WRITE),
-			GpuBarrierInfo(GpuBarrierStage::TRANSFER, GpuBarrierAccessStage::TRANSFER_READ),
+			GpuBarrierInfo(GpuCommandStage::TRANSFER, GpuAccessStage::TRANSFER_WRITE),
+			GpuBarrierInfo(GpuCommandStage::TRANSFER, GpuAccessStage::TRANSFER_READ),
 			{ .baseLayer = layer, .numLayers = 1, .baseMipLevel = dest->GetMipLevels() - 1, .numMipLevels = 1 });
 
 		// Establecer todo TRANSFER_SOURCE -> TRANSFER_DESTINATION
@@ -180,19 +198,19 @@ void CommandListVk::CopyBufferToImage(const GpuDataBuffer* source, GpuImage* des
 			dest,
 			GpuImageLayout::TRANSFER_SOURCE,
 			GpuImageLayout::TRANSFER_DESTINATION,
-			GpuBarrierInfo(GpuBarrierStage::TRANSFER, GpuBarrierAccessStage::TRANSFER_READ),
-			GpuBarrierInfo(GpuBarrierStage::TRANSFER, GpuBarrierAccessStage::TRANSFER_WRITE),
+			GpuBarrierInfo(GpuCommandStage::TRANSFER, GpuAccessStage::TRANSFER_READ),
+			GpuBarrierInfo(GpuCommandStage::TRANSFER, GpuAccessStage::TRANSFER_WRITE),
 			{ .baseLayer = layer, .numLayers = 1, .baseMipLevel = 0, .numMipLevels = ALL_MIP_LEVELS });
 	}
 }
 
-void CommandListVk::CopyImageToImage(const GpuImage* source, GpuImage* destination, const CopyImageInfo& copyInfo) {
+void CommandListVk::RawCopyImageToImage(const GpuImage& source, GpuImage* destination, const CopyImageInfo& copyInfo) {
 	VkImageCopy region{};
 
 	region.srcOffset = { 0, 0, 0 };
 	region.dstOffset = { 0, 0, 0 };
 
-	const TSize numLayers = copyInfo.numArrayLevels == CopyImageInfo::ALL_ARRAY_LEVELS ? source->GetNumLayers() : copyInfo.numArrayLevels;
+	const TSize numLayers = copyInfo.numArrayLevels == CopyImageInfo::ALL_ARRAY_LEVELS ? source.GetNumLayers() : copyInfo.numArrayLevels;
 
 	region.srcSubresource.aspectMask = VK_IMAGE_ASPECT_COLOR_BIT;
 	region.srcSubresource.mipLevel = copyInfo.sourceMipLevel;
@@ -208,23 +226,51 @@ void CommandListVk::CopyImageToImage(const GpuImage* source, GpuImage* destinati
 	region.extent.height= copyInfo.copySize.Y;
 	region.extent.depth = copyInfo.copySize.Z;
 
-	vkCmdCopyImage(commandBuffers[GetCommandListIndex()],
-		source->As<GpuImageVk>()->GetVkImage(), VK_IMAGE_LAYOUT_TRANSFER_SRC_OPTIMAL,
+	vkCmdCopyImage(commandBuffers[_GetCommandListIndex()],
+		source.As<GpuImageVk>()->GetVkImage(), VK_IMAGE_LAYOUT_TRANSFER_SRC_OPTIMAL,
 		destination->As<GpuImageVk>()->GetVkImage(), VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL,
 		1, &region);
 }
 
-void CommandListVk::CopyBufferToBuffer(const GpuDataBuffer* source, GpuDataBuffer* dest, TSize size, TSize sourceOffset, TSize destOffset) {
+void CommandListVk::CopyBufferToBuffer(const GpuBuffer& source, GpuBuffer* dest, TSize size, TSize sourceOffset, TSize destOffset) {
 	VkBufferCopy copyRegion{};
 
-	copyRegion.srcOffset = sourceOffset + source->GetMemorySubblock()->GetOffsetFromBlock();
+	copyRegion.srcOffset = sourceOffset + source.GetMemorySubblock()->GetOffsetFromBlock();
 	copyRegion.dstOffset = destOffset + dest->GetMemorySubblock()->GetOffsetFromBlock();
 	copyRegion.size = size;
 
-	vkCmdCopyBuffer(commandBuffers[GetCommandListIndex()],
-		source->GetMemorySubblock()->GetOwnerBlock()->As<GpuMemoryBlockVk>()->GetVulkanBuffer(),
+	vkCmdCopyBuffer(commandBuffers[_GetCommandListIndex()],
+		source.GetMemorySubblock()->GetOwnerBlock()->As<GpuMemoryBlockVk>()->GetVulkanBuffer(),
 		dest->GetMemorySubblock()->GetOwnerBlock()->As<GpuMemoryBlockVk>()->GetVulkanBuffer(), 
 		1, &copyRegion);
+}
+
+void CommandListVk::ClearImage(GpuImage* image, const GpuImageRange& range, const Color& color) {
+	VkClearColorValue vkColor{};
+	vkColor.float32[0] = color.Red;
+	vkColor.float32[1] = color.Green;
+	vkColor.float32[2] = color.Blue;
+	vkColor.float32[3] = color.Alpha;
+
+	VkImageSubresourceRange vkRange{};
+	vkRange.baseArrayLayer = range.baseLayer;
+	vkRange.layerCount = range.numLayers;
+	vkRange.baseMipLevel = range.baseMipLevel;
+	vkRange.levelCount = range.numMipLevels;
+
+	vkRange.aspectMask = 0;
+	if (EFTraits::HasFlag(range.channel, SampledChannel::COLOR))
+		vkRange.aspectMask = vkRange.aspectMask | VK_IMAGE_ASPECT_COLOR_BIT;
+	if (EFTraits::HasFlag(range.channel, SampledChannel::DEPTH))
+		vkRange.aspectMask = vkRange.aspectMask | VK_IMAGE_ASPECT_DEPTH_BIT;
+	if (EFTraits::HasFlag(range.channel, SampledChannel::STENCIL))
+		vkRange.aspectMask = vkRange.aspectMask | VK_IMAGE_ASPECT_STENCIL_BIT;
+
+	vkCmdClearColorImage(
+		commandBuffers[_GetCommandListIndex()], 
+		image->As<GpuImageVk>()->GetVkImage(), 
+		VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL, 
+		&vkColor, 1, &vkRange);
 }
 
 void CommandListVk::BeginGraphicsRenderpass(DynamicArray<RenderPassImageInfo> colorImages, RenderPassImageInfo depthImage, const Color& color, bool autoSync) {
@@ -234,14 +280,31 @@ void CommandListVk::BeginGraphicsRenderpass(DynamicArray<RenderPassImageInfo> co
 		for (const auto& img : colorImages) {
 			SetGpuImageBarrier(
 				img.targetImage,
-				GpuImageLayout::UNDEFINED, GpuImageLayout::COLOR_ATTACHMENT,
-				GpuBarrierInfo(GpuBarrierStage::DEFAULT, GpuBarrierAccessStage::DEFAULT),
-				GpuBarrierInfo(GpuBarrierStage::COLOR_ATTACHMENT_OUTPUT, GpuBarrierAccessStage::COLOR_ATTACHMENT_WRITE),
+				GpuImageLayout::UNDEFINED, 
+				GpuImageLayout::COLOR_ATTACHMENT,
+				GpuBarrierInfo(GpuCommandStage::NONE, GpuAccessStage::NONE),
+				GpuBarrierInfo(GpuCommandStage::COLOR_ATTACHMENT_OUTPUT, GpuAccessStage::COLOR_ATTACHMENT_WRITE),
 				{ .baseLayer = img.arrayLevel,
 					.numLayers = 1,
 					.baseMipLevel = 0,
 					.numMipLevels = ALL_MIP_LEVELS, });
 		}
+
+		SampledChannel depthChannel = SampledChannel::DEPTH;
+		if (FormatSupportsStencil(depthImage.targetImage->GetFormat()))
+			depthChannel |= SampledChannel::STENCIL;
+
+		SetGpuImageBarrier(
+			depthImage.targetImage,
+			GpuImageLayout::UNDEFINED,
+			GpuImageLayout::DEPTH_STENCIL_TARGET,
+			GpuBarrierInfo(GpuCommandStage::NONE, GpuAccessStage::NONE),
+			GpuBarrierInfo(GpuCommandStage::DEPTH_STENCIL_START, GpuAccessStage::DEPTH_STENCIL_READ | GpuAccessStage::DEPTH_STENCIL_WRITE),
+			{ .baseLayer = depthImage.arrayLevel,
+				.numLayers = 1,
+				.baseMipLevel = 0,
+				.numMipLevels = ALL_MIP_LEVELS,
+				.channel = depthChannel });
 	}
 
 	GpuImageViewConfig colorAttachmentConfig = GpuImageViewConfig::CreateTarget_Color();
@@ -292,83 +355,38 @@ void CommandListVk::BeginGraphicsRenderpass(DynamicArray<RenderPassImageInfo> co
 		? &depthAttachment
 		: VK_NULL_HANDLE;
 
-	RendererVk::pvkCmdBeginRendering(commandBuffers.At(GetCommandListIndex()), &renderpassInfo);
+	RendererVk::pvkCmdBeginRendering(commandBuffers.At(_GetCommandListIndex()), &renderpassInfo);
 
 	currentColorImages = colorImages;
 	currentDepthImage = depthImage;
 }
 
 void CommandListVk::EndGraphicsRenderpass(bool autoSync) {
-	RendererVk::pvkCmdEndRendering(commandBuffers[GetCommandListIndex()]);
+	RendererVk::pvkCmdEndRendering(commandBuffers[_GetCommandListIndex()]);
 
 	const bool isFinal = currentRenderpassType == RenderpassType::FINAL;
-
-	const GpuImageLayout finalLayout = isFinal
-		? GpuImageLayout::PRESENT
-		: GpuImageLayout::SAMPLED;
-
-	if (autoSync) {
-		for (const auto& img : currentColorImages) {
-			SetGpuImageBarrier(img.targetImage,
-				GpuImageLayout::COLOR_ATTACHMENT, finalLayout,
-				GpuBarrierInfo(GpuBarrierStage::COLOR_ATTACHMENT_OUTPUT, GpuBarrierAccessStage::COLOR_ATTACHMENT_WRITE),
-				GpuBarrierInfo(GpuBarrierStage::FRAGMENT_SHADER, GpuBarrierAccessStage::SHADER_READ),
-				{ .baseLayer = img.arrayLevel, .numLayers = 1, .baseMipLevel = 0, .numMipLevels = ALL_MIP_LEVELS, });
-		}
-	}
 
 	if (currentRenderpassType != RenderpassType::INTERMEDIATE)
 		currentRenderpassType = RenderpassType::INTERMEDIATE;
 }
 
-void CommandListVk::BindMaterial(Material* material) {
-	currentMaterial = material;
+void CommandListVk::BindVertexBufferRange(const GpuBuffer& buffer, const VertexBufferView& view) {
+	VkBuffer vertexBuffer = buffer.GetMemorySubblock()->GetOwnerBlock()->As<GpuMemoryBlockVk>()->GetVulkanBuffer();
+	VkDeviceSize offset = buffer.GetMemorySubblock()->GetOffsetFromBlock() + view.offsetInBytes;
 
-	switch (material->GetMaterialType()) {
-	case MaterialType::GRAPHICS: {
-		PipelineKey pipelineKey{};
-		pipelineKey.depthFormat = currentDepthImage.targetImage->GetFormat();
-
-		for (const auto& colorImg : currentColorImages)
-			pipelineKey.colorFormats.Insert(colorImg.targetImage->GetFormat());
-
-		currentPipeline.graphics = material->GetGraphicsPipeline(pipelineKey);
-
-		vkCmdBindPipeline(commandBuffers[GetCommandListIndex()], VK_PIPELINE_BIND_POINT_GRAPHICS, currentPipeline.graphics->As<GraphicsPipelineVk>()->GetPipeline());
-	}
-		break;
-
-	case MaterialType::RAYTRACING:
-		currentPipeline.raytracing = material->GetRaytracingPipeline();
-		vkCmdBindPipeline(commandBuffers[GetCommandListIndex()], VK_PIPELINE_BIND_POINT_RAY_TRACING_KHR, currentPipeline.raytracing->As<RaytracingPipelineVk>()->GetPipeline());
-
-		break;
-
-	case MaterialType::COMPUTE:
-		currentPipeline.compute = material->GetComputePipeline();
-		vkCmdBindPipeline(commandBuffers[GetCommandListIndex()], VK_PIPELINE_BIND_POINT_COMPUTE, currentPipeline.compute->As<ComputePipelineVk>()->GetPipeline());
-
-		break;
-	}
+	vkCmdBindVertexBuffers(commandBuffers[_GetCommandListIndex()], 0, 1, &vertexBuffer, &offset);
 }
 
-void CommandListVk::BindVertexBuffer(const IGpuVertexBuffer* buffer) {
-	VkBuffer vertexBuffers[] = { 
-		buffer->GetMemorySubblock()->GetOwnerBlock()->As<GpuMemoryBlockVk>()->GetVulkanBuffer()
-	};
-	VkDeviceSize offsets[] = { buffer->GetMemorySubblock()->GetOffsetFromBlock() };
-
-	vkCmdBindVertexBuffers(commandBuffers[GetCommandListIndex()], 0, 1, vertexBuffers, offsets);
+void CommandListVk::BindIndexBufferRange(const GpuBuffer& buffer, const IndexBufferView& view) {
+	vkCmdBindIndexBuffer(
+		commandBuffers[_GetCommandListIndex()],
+		buffer.GetMemorySubblock()->GetOwnerBlock()->As<GpuMemoryBlockVk>()->GetVulkanBuffer(), 
+		buffer.GetMemorySubblock()->GetOffsetFromBlock() + view.offsetInBytes, 
+		GetIndexType(view.type));
 }
 
-void CommandListVk::BindIndexBuffer(const IGpuIndexBuffer* buffer) {
-	vkCmdBindIndexBuffer(commandBuffers[GetCommandListIndex()],
-		buffer->GetMemorySubblock()->GetOwnerBlock()->As<GpuMemoryBlockVk>()->GetVulkanBuffer(), 
-		buffer->GetMemorySubblock()->GetOffsetFromBlock(), VK_INDEX_TYPE_UINT32);
-}
-
-void CommandListVk::BindMaterialSlot(const IMaterialSlot* slot) {
-	VkDescriptorSet sets[] = { slot->As<MaterialSlotVk>()->GetDescriptorSet(Engine::GetRenderer()->GetCurrentResourceIndex()) };
+void CommandListVk::BindMaterialSlot(const IMaterialSlot& slot) {
+	VkDescriptorSet sets[] = { slot.As<MaterialSlotVk>()->GetDescriptorSet(Engine::GetRenderer()->GetCurrentResourceIndex()) };
 
 	VkPipelineBindPoint bindPoint{};
 	switch (currentMaterial->GetMaterialType()) {
@@ -384,8 +402,8 @@ void CommandListVk::BindMaterialSlot(const IMaterialSlot* slot) {
 		case MaterialType::RAYTRACING: layout = currentPipeline.raytracing->GetLayout()->As<PipelineLayoutVk>()->GetLayout(); break;
 	}
 
-	const TIndex glslSetIndex = currentMaterial->GetLayout()->GetSlot(slot->GetName()).glslSetIndex;
-	vkCmdBindDescriptorSets(commandBuffers[GetCommandListIndex()], bindPoint, layout, glslSetIndex, 1, sets, 0, nullptr);
+	const TIndex glslSetIndex = currentMaterial->GetLayout()->GetSlot(slot.GetName()).glslSetIndex;
+	vkCmdBindDescriptorSets(commandBuffers[_GetCommandListIndex()], bindPoint, layout, glslSetIndex, 1, sets, 0, nullptr);
 }
 
 void CommandListVk::PushMaterialConstants(const std::string& pushConstName, const void* data, TSize size, TSize offset) {
@@ -397,15 +415,15 @@ void CommandListVk::PushMaterialConstants(const std::string& pushConstName, cons
 	}
 	auto& pushConstInfo = currentMaterial->GetLayout()->GetPushConstant(pushConstName);
 
-	vkCmdPushConstants(commandBuffers[GetCommandListIndex()], layout, GetShaderStageVk(pushConstInfo.stage), 0 + offset, size, data);
+	vkCmdPushConstants(commandBuffers[_GetCommandListIndex()], layout, GetShaderStageVk(pushConstInfo.stage), 0 + offset, size, data);
 }
 
 void CommandListVk::DrawSingleInstance(TSize numIndices) {
-	vkCmdDrawIndexed(commandBuffers[GetCommandListIndex()], numIndices, 1, 0, 0, 0);
+	vkCmdDrawIndexed(commandBuffers[_GetCommandListIndex()], numIndices, 1, 0, 0, 0);
 }
 
 void CommandListVk::DrawSingleMesh(TSize firstIndex, TSize numIndices) {
-	vkCmdDrawIndexed(commandBuffers[GetCommandListIndex()], numIndices, 1, firstIndex, 0, 0);
+	vkCmdDrawIndexed(commandBuffers[_GetCommandListIndex()], numIndices, 1, firstIndex, 0, 0);
 }
 
 void CommandListVk::TraceRays(TSize raygenEntry, TSize closestHitEntry, TSize missEntry, const Vector2ui& resolution) {
@@ -416,17 +434,25 @@ void CommandListVk::TraceRays(TSize raygenEntry, TSize closestHitEntry, TSize mi
 	const VkStridedDeviceAddressRegionKHR missTable = shaderTable->GetMissTableAddressRegion();
 	const VkStridedDeviceAddressRegionKHR emptyTable{};
 
-	RendererVk::pvkCmdTraceRaysKHR(commandBuffers[GetCommandListIndex()],
+	RendererVk::pvkCmdTraceRaysKHR(commandBuffers[_GetCommandListIndex()],
 						&raygenTable, &missTable, &closestHitTable, &emptyTable, 
 						resolution.X, resolution.Y, 1);
 }
 
 void CommandListVk::DispatchCompute(const Vector3ui& groupCount) {
-	vkCmdDispatch(commandBuffers[GetCommandListIndex()], groupCount.X, groupCount.Y, groupCount.Z);
+	vkCmdDispatch(commandBuffers[_GetCommandListIndex()], groupCount.X, groupCount.Y, groupCount.Z);
 }
 
-void CommandListVk::BindComputePipeline(const IComputePipeline& computePipeline) {
-	vkCmdBindPipeline(commandBuffers[GetCommandListIndex()], VK_PIPELINE_BIND_POINT_COMPUTE, computePipeline.As<ComputePipelineVk>()->GetPipeline());
+void CommandListVk::BindGraphicsPipeline(const IGraphicsPipeline& pipeline) {
+	vkCmdBindPipeline(commandBuffers[_GetCommandListIndex()], VK_PIPELINE_BIND_POINT_GRAPHICS, pipeline.As<GraphicsPipelineVk>()->GetPipeline());
+}
+
+void CommandListVk::BindComputePipeline(const IComputePipeline& pipeline) {
+	vkCmdBindPipeline(commandBuffers[_GetCommandListIndex()], VK_PIPELINE_BIND_POINT_COMPUTE, pipeline.As<ComputePipelineVk>()->GetPipeline());
+}
+
+void CommandListVk::BindRayTracingPipeline(const IRaytracingPipeline& pipeline) {
+	vkCmdBindPipeline(commandBuffers[_GetCommandListIndex()], VK_PIPELINE_BIND_POINT_RAY_TRACING_KHR, pipeline.As<RaytracingPipelineVk>()->GetPipeline());
 }
 
 void CommandListVk::SetViewport(const Viewport& vp) {
@@ -440,7 +466,7 @@ void CommandListVk::SetViewport(const Viewport& vp) {
 	viewport.minDepth = vp.minDepth;
 	viewport.maxDepth = vp.maxDepth;
 
-	vkCmdSetViewport(commandBuffers[GetCommandListIndex()], 0, 1, &viewport);
+	vkCmdSetViewport(commandBuffers[_GetCommandListIndex()], 0, 1, &viewport);
 }
 
 void CommandListVk::SetScissor(const Vector4ui& scissorRect) {
@@ -456,7 +482,7 @@ void CommandListVk::SetScissor(const Vector4ui& scissorRect) {
 		scissorRect.GetRectangleSize().Y
 	};
 	
-	vkCmdSetScissor(commandBuffers[GetCommandListIndex()], 0, 1, &scissor);
+	vkCmdSetScissor(commandBuffers[_GetCommandListIndex()], 0, 1, &scissor);
 }
 
 void CommandListVk::SetDebugName(const std::string& name) {
@@ -487,7 +513,7 @@ void CommandListVk::AddDebugMarker(const std::string& mark, const Color& color) 
 	label.color[3] = color.Alpha;
 	label.pNext = nullptr;
 
-	RendererVk::pvkCmdInsertDebugUtilsLabelEXT(commandBuffers[GetCommandListIndex()], &label);
+	RendererVk::pvkCmdInsertDebugUtilsLabelEXT(commandBuffers[_GetCommandListIndex()], &label);
 }
 
 void CommandListVk::StartDebugSection(const std::string& mark, const Color& color) {
@@ -500,79 +526,115 @@ void CommandListVk::StartDebugSection(const std::string& mark, const Color& colo
 	label.color[3] = color.Alpha;
 	label.pNext = nullptr;
 
-	RendererVk::pvkCmdBeginDebugUtilsLabelEXT(commandBuffers[GetCommandListIndex()], &label);
+	RendererVk::pvkCmdBeginDebugUtilsLabelEXT(commandBuffers[_GetCommandListIndex()], &label);
 }
 
 void CommandListVk::EndDebugSection() {
-	RendererVk::pvkCmdEndDebugUtilsLabelEXT(commandBuffers[GetCommandListIndex()]);
+	RendererVk::pvkCmdEndDebugUtilsLabelEXT(commandBuffers[_GetCommandListIndex()]);
 }
 
 
-VkPipelineStageFlagBits CommandListVk::GetPipelineStage(GpuBarrierStage stage) const {
+VkPipelineStageFlagBits2 CommandListVk::GetPipelineStage(GpuCommandStage stage) const {
+
 	switch (stage) {
-	case OSK::GRAPHICS::GpuBarrierStage::VERTEX_SHADER:
-		return VK_PIPELINE_STAGE_VERTEX_SHADER_BIT;
-	case OSK::GRAPHICS::GpuBarrierStage::FRAGMENT_SHADER:
-		return VK_PIPELINE_STAGE_FRAGMENT_SHADER_BIT;
-	case OSK::GRAPHICS::GpuBarrierStage::TESSELATION_CONTROL:
-		return VK_PIPELINE_STAGE_TESSELLATION_CONTROL_SHADER_BIT;
-	case OSK::GRAPHICS::GpuBarrierStage::TESSELATION_EVALUATION:
-		return VK_PIPELINE_STAGE_TESSELLATION_EVALUATION_SHADER_BIT;
-	case OSK::GRAPHICS::GpuBarrierStage::RAYTRACING_SHADER:
-		return VK_PIPELINE_STAGE_RAY_TRACING_SHADER_BIT_KHR;
-	case OSK::GRAPHICS::GpuBarrierStage::COLOR_ATTACHMENT_OUTPUT:
-		return VK_PIPELINE_STAGE_COLOR_ATTACHMENT_OUTPUT_BIT;
-	case OSK::GRAPHICS::GpuBarrierStage::TRANSFER:
-		return VK_PIPELINE_STAGE_TRANSFER_BIT;
-	case OSK::GRAPHICS::GpuBarrierStage::COMPUTE_SHADER:
-		return VK_PIPELINE_STAGE_COMPUTE_SHADER_BIT;
-	case OSK::GRAPHICS::GpuBarrierStage::RT_AS_BUILD:
-		return VK_PIPELINE_STAGE_ACCELERATION_STRUCTURE_BUILD_BIT_KHR;
-	case OSK::GRAPHICS::GpuBarrierStage::DEPTH_STENCIL_START:
-		return VK_PIPELINE_STAGE_EARLY_FRAGMENT_TESTS_BIT;
-	case OSK::GRAPHICS::GpuBarrierStage::DEPTH_STENCIL_END:
-		return VK_PIPELINE_STAGE_LATE_FRAGMENT_TESTS_BIT;
-	case OSK::GRAPHICS::GpuBarrierStage::DEFAULT:
-		return VK_PIPELINE_STAGE_TOP_OF_PIPE_BIT;
+	case GpuCommandStage::VERTEX_SHADER:
+		return VK_PIPELINE_STAGE_2_VERTEX_SHADER_BIT;
+	case GpuCommandStage::FRAGMENT_SHADER:
+		return VK_PIPELINE_STAGE_2_FRAGMENT_SHADER_BIT;
+
+	case GpuCommandStage::TESSELATION_CONTROL:
+		return VK_PIPELINE_STAGE_2_TESSELLATION_CONTROL_SHADER_BIT;
+	case GpuCommandStage::TESSELATION_EVALUATION:
+		return VK_PIPELINE_STAGE_2_TESSELLATION_EVALUATION_SHADER_BIT;
+
+	case GpuCommandStage::RAYTRACING_SHADER:
+		return VK_PIPELINE_STAGE_2_RAY_TRACING_SHADER_BIT_KHR;
+	case GpuCommandStage::RT_AS_BUILD:
+		return VK_PIPELINE_STAGE_2_ACCELERATION_STRUCTURE_BUILD_BIT_KHR;
+
+	case GpuCommandStage::COLOR_ATTACHMENT_OUTPUT:
+		return VK_PIPELINE_STAGE_2_COLOR_ATTACHMENT_OUTPUT_BIT;
+	case GpuCommandStage::DEPTH_STENCIL_START:
+		return VK_PIPELINE_STAGE_2_EARLY_FRAGMENT_TESTS_BIT;
+	case GpuCommandStage::DEPTH_STENCIL_END:
+		return VK_PIPELINE_STAGE_2_LATE_FRAGMENT_TESTS_BIT;
+
+	case GpuCommandStage::TRANSFER:
+		return VK_PIPELINE_STAGE_2_ALL_TRANSFER_BIT;
+
+	case GpuCommandStage::COMPUTE_SHADER:
+		return VK_PIPELINE_STAGE_2_COMPUTE_SHADER_BIT;
+
+	case GpuCommandStage::NONE:
+		return VK_PIPELINE_STAGE_2_NONE;
+	case GpuCommandStage::ALL:
+		return VK_PIPELINE_STAGE_2_ALL_COMMANDS_BIT;
 
 	default:
-		OSK_ASSERT(false, "No se reconoce el GpuBarrierStage.");
-		return VK_PIPELINE_STAGE_TOP_OF_PIPE_BIT;
+		OSK_ASSERT(false, "No se reconoce el GpuCommandStage.");
+		return VK_PIPELINE_STAGE_2_NONE;
 	}
 }
 
-VkAccessFlags CommandListVk::GetPipelineAccess(GpuBarrierAccessStage stage) const {
-	VkAccessFlags output = 0;
+VkAccessFlags2 CommandListVk::GetPipelineAccess(GpuAccessStage stage) const {
+	VkAccessFlags2 output = 0;
 
-	if (EFTraits::HasFlag(stage, GpuBarrierAccessStage::SHADER_READ))
-		output |= VK_ACCESS_SHADER_READ_BIT;
-	if (EFTraits::HasFlag(stage, GpuBarrierAccessStage::SHADER_WRITE))
-		output |= VK_ACCESS_SHADER_WRITE_BIT;
-	if (EFTraits::HasFlag(stage, GpuBarrierAccessStage::COLOR_ATTACHMENT_READ))
-		output |= VK_ACCESS_COLOR_ATTACHMENT_READ_BIT;
-	if (EFTraits::HasFlag(stage, GpuBarrierAccessStage::COLOR_ATTACHMENT_WRITE))
-		output |= VK_ACCESS_COLOR_ATTACHMENT_WRITE_BIT;
-	if (EFTraits::HasFlag(stage, GpuBarrierAccessStage::DEPTH_STENCIL_READ))
-		output |= VK_ACCESS_DEPTH_STENCIL_ATTACHMENT_READ_BIT;
-	if (EFTraits::HasFlag(stage, GpuBarrierAccessStage::DEPTH_STENCIL_WRITE))
-		output |= VK_ACCESS_DEPTH_STENCIL_ATTACHMENT_WRITE_BIT;
-	if (EFTraits::HasFlag(stage, GpuBarrierAccessStage::TRANSFER_READ))
-		output |= VK_ACCESS_TRANSFER_READ_BIT;
-	if (EFTraits::HasFlag(stage, GpuBarrierAccessStage::TRANSFER_WRITE))
-		output |= VK_ACCESS_TRANSFER_WRITE_BIT;
-	if (EFTraits::HasFlag(stage, GpuBarrierAccessStage::MEMORY_READ))
-		output |= VK_ACCESS_MEMORY_READ_BIT;
-	if (EFTraits::HasFlag(stage, GpuBarrierAccessStage::MEMORY_WRITE))
-		output |= VK_ACCESS_MEMORY_WRITE_BIT;
-	if (EFTraits::HasFlag(stage, GpuBarrierAccessStage::RT_AS_READ))
-		output |= VK_ACCESS_ACCELERATION_STRUCTURE_READ_BIT_KHR;
-	if (EFTraits::HasFlag(stage, GpuBarrierAccessStage::RT_AS_WRITE))
-		output |= VK_ACCESS_ACCELERATION_STRUCTURE_WRITE_BIT_KHR;
-	if (EFTraits::HasFlag(stage, GpuBarrierAccessStage::DEFAULT))
-		return 0;
+	if (EFTraits::HasFlag(stage, GpuAccessStage::SHADER_READ))
+		output |= VK_ACCESS_2_SHADER_READ_BIT;
+	if (EFTraits::HasFlag(stage, GpuAccessStage::SHADER_WRITE))
+		output |= VK_ACCESS_2_SHADER_WRITE_BIT;
 
-	if (output == 0)
-		OSK_ASSERT(false, "No se reconoce el GpuBarrierAccessStage.");
+	if (EFTraits::HasFlag(stage, GpuAccessStage::SAMPLED_READ))
+		output |= VK_ACCESS_2_SHADER_SAMPLED_READ_BIT;
+	if (EFTraits::HasFlag(stage, GpuAccessStage::STORAGE_BUFFER_READ))
+		output |= VK_ACCESS_2_SHADER_STORAGE_READ_BIT;
+	if (EFTraits::HasFlag(stage, GpuAccessStage::STORAGE_IMAGE_READ))
+		output |= VK_ACCESS_2_SHADER_STORAGE_READ_BIT;
+	if (EFTraits::HasFlag(stage, GpuAccessStage::UNIFORM_BUFFER_READ))
+		output |= VK_ACCESS_2_UNIFORM_READ_BIT;
+
+	if (EFTraits::HasFlag(stage, GpuAccessStage::COLOR_ATTACHMENT_READ))
+		output |= VK_ACCESS_2_COLOR_ATTACHMENT_READ_BIT;
+	if (EFTraits::HasFlag(stage, GpuAccessStage::COLOR_ATTACHMENT_WRITE))
+		output |= VK_ACCESS_2_COLOR_ATTACHMENT_WRITE_BIT;
+
+	if (EFTraits::HasFlag(stage, GpuAccessStage::DEPTH_STENCIL_READ))
+		output |= VK_ACCESS_2_DEPTH_STENCIL_ATTACHMENT_READ_BIT;
+	if (EFTraits::HasFlag(stage, GpuAccessStage::DEPTH_STENCIL_WRITE))
+		output |= VK_ACCESS_2_DEPTH_STENCIL_ATTACHMENT_WRITE_BIT;
+
+	if (EFTraits::HasFlag(stage, GpuAccessStage::TRANSFER_READ))
+		output |= VK_ACCESS_2_TRANSFER_READ_BIT;
+	if (EFTraits::HasFlag(stage, GpuAccessStage::TRANSFER_WRITE))
+		output |= VK_ACCESS_2_TRANSFER_WRITE_BIT;
+
+	if (EFTraits::HasFlag(stage, GpuAccessStage::MEMORY_READ))
+		output |= VK_ACCESS_2_MEMORY_READ_BIT;
+	if (EFTraits::HasFlag(stage, GpuAccessStage::MEMORY_WRITE))
+		output |= VK_ACCESS_2_MEMORY_WRITE_BIT;
+
+	if (EFTraits::HasFlag(stage, GpuAccessStage::RT_AS_READ))
+		output |= VK_ACCESS_2_ACCELERATION_STRUCTURE_READ_BIT_KHR;
+	if (EFTraits::HasFlag(stage, GpuAccessStage::RT_AS_WRITE))
+		output |= VK_ACCESS_2_ACCELERATION_STRUCTURE_WRITE_BIT_KHR;
+
+	if (EFTraits::HasFlag(stage, GpuAccessStage::NONE))
+		output |= VK_ACCESS_2_NONE;
 
 	return output;
+}
+
+VkIndexType CommandListVk::GetIndexType(IndexType type) {
+	switch (type)
+	{
+	case OSK::GRAPHICS::IndexType::U8:
+		return VK_INDEX_TYPE_UINT8_EXT;
+	case OSK::GRAPHICS::IndexType::U16:
+		return VK_INDEX_TYPE_UINT16;
+	case OSK::GRAPHICS::IndexType::U32:
+		return VK_INDEX_TYPE_UINT32;
+	default:
+		OSK_UNREACHABLE;
+		break;
+	}
 }

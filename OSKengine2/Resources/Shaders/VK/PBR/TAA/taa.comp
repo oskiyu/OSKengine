@@ -64,7 +64,7 @@ void main() {
 
     float ratio = min(pixelsMotion.x, pixelsMotion.y);
 
-    const float maxRatio = 0.8;
+    const float maxRatio = 0.99;
     ratio = mix(0.2, maxRatio, ratio);
 
     vec3 colorDiff = abs(previousColor.rgb - currentColor.rgb);

@@ -3,7 +3,7 @@
 #include "IRenderSystem.h"
 
 #include "MaterialInstance.h"
-#include "IGpuUniformBuffer.h"
+#include "GpuBuffer.h"
 
 namespace OSK::ASSETS {
 	class CubemapTexture;
@@ -34,7 +34,7 @@ namespace OSK::ECS {
 
 		GameObjectIndex cameraObject = EMPTY_GAME_OBJECT;
 
-		UniquePtr<GRAPHICS::IGpuUniformBuffer> cameraUbos[3]{};
+		UniquePtr<GRAPHICS::GpuBuffer> cameraUbos[3]{};
 
 		ASSETS::Model3D* cubemapModel = nullptr;
 

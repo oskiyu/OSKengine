@@ -3,12 +3,8 @@
 #pragma once
 
 #include "IRenderSystem.h"
-
-#include "IGpuUniformBuffer.h"
-
+#include "GpuBuffer.h"
 #include "HashMap.hpp"
-#include "IGpuVertexBuffer.h"
-#include "IGpuIndexBuffer.h"
 
 namespace OSK::ASSETS {
 	class Model3D;
@@ -55,7 +51,7 @@ namespace OSK::ECS {
 	private:
 
 		GameObjectIndex cameraObject = EMPTY_GAME_OBJECT;
-		UniquePtr<GRAPHICS::IGpuUniformBuffer> cameraUbos[NUM_RESOURCES_IN_FLIGHT]{};
+		UniquePtr<GRAPHICS::GpuBuffer> cameraUbos[NUM_RESOURCES_IN_FLIGHT]{};
 
 		/// @brief Material usado para el renderizado de colliders
 		/// para los que se tiene un modelo 3D (cubo o esfera).
@@ -82,12 +78,12 @@ namespace OSK::ECS {
 		/// @brief Contiene los buffers de vértices de los colliders que 
 		/// NO tienen modelo 3D (SAT).
 		/// Cada buffer representa una cara.
-		HashMap<GameObjectIndex, DynamicArray<UniquePtr<GRAPHICS::IGpuVertexBuffer>>> bottomLevelVertexBuffers;
+		HashMap<GameObjectIndex, DynamicArray<UniquePtr<GRAPHICS::GpuBuffer>>> bottomLevelVertexBuffers;
 
 		/// @brief Contiene los buffers de índices de los colliders que 
 		/// NO tienen modelo 3D (SAT).
 		/// Cada buffer representa una cara.
-		HashMap<GameObjectIndex, DynamicArray<UniquePtr<GRAPHICS::IGpuIndexBuffer>>> bottomLevelIndexBuffers;
+		HashMap<GameObjectIndex, DynamicArray<UniquePtr<GRAPHICS::GpuBuffer>>> bottomLevelIndexBuffers;
 
 
 		const ASSETS::Model3D* cubeModel = nullptr;

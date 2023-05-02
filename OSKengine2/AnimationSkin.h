@@ -1,8 +1,6 @@
 #pragma once
 
 #include "DynamicArray.hpp"
-#include "MaterialInstance.h"
-#include "IGpuStorageBuffer.h"
 
 #include <string>
 #include <glm/glm.hpp>

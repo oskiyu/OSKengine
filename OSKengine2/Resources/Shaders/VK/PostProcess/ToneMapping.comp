@@ -134,7 +134,8 @@ void main() {
     // const vec3 toneMapped = vec3(1.0) - exp(-hdrColor * gamma.exposure);
     vec3 toneMapped = LearnOpenGLColor(hdrColor);
 
-    const vec3 ldrColor = pow(toneMapped, vec3(1.0 / gamma.gamma));
+    vec3 ldrColor = pow(toneMapped, vec3(1.0 / gamma.gamma));
+    ldrColor.b *= 0.95;
 
     imageStore(finalImage, ivec2(gl_GlobalInvocationID), vec4(ldrColor, 1.0));
 }

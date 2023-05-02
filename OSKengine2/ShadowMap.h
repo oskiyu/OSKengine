@@ -1,7 +1,7 @@
 #pragma once
 
 #include "RenderTarget.h"
-#include "IGpuUniformBuffer.h"
+#include "GpuBuffer.h"
 #include "MaterialInstance.h"
 #include "Vector4.hpp"
 #include "GameObject.h"
@@ -93,7 +93,7 @@ namespace OSK::GRAPHICS {
 		/// 
 		/// @pre Se ha llamado a ShadowMap::Create.
 		/// @warning Devuelve nullptr si no se cumple las precondiciones.
-		DynamicArray<GRAPHICS::IGpuUniformBuffer*> GetDirLightMatrixUniformBuffers() const;
+		DynamicArray<GRAPHICS::GpuBuffer*> GetDirLightMatrixUniformBuffers() const;
 
 
 		/// @brief Establece la cámara de la escena, para poder configurar
@@ -127,7 +127,7 @@ namespace OSK::GRAPHICS {
 		Material* shadowsGenAnimMaterial = nullptr;
 		UniquePtr<MaterialInstance> shadowsGenMaterialInstance = nullptr;
 
-		UniquePtr<IGpuUniformBuffer> lightUniformBuffer[NUM_RESOURCES_IN_FLIGHT]{};
+		UniquePtr<GpuBuffer> lightUniformBuffer[NUM_RESOURCES_IN_FLIGHT]{};
 
 		const static TSize numMaps = 4;
 

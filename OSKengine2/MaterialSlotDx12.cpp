@@ -1,7 +1,6 @@
 #include "MaterialSlotDx12.h"
 
 #include "MaterialLayout.h"
-#include "GpuUniformBufferDx12.h"
 #include "GpuImageDx12.h"
 #include "MaterialLayoutSlot.h"
 
@@ -11,25 +10,25 @@ using namespace OSK::GRAPHICS;
 MaterialSlotDx12::MaterialSlotDx12(const std::string& name, const MaterialLayout* layout)
 	: IMaterialSlot(layout, name) {
 
-	buffers.Resize(layout->GetSlot(name).bindings.GetSize(), Pair<TSize, const GpuUniformBufferDx12*>{ UINT32_MAX, nullptr });
+	buffers.Resize(layout->GetSlot(name).bindings.GetSize(), Pair<TSize, const GpuBuffer*>{ UINT32_MAX, nullptr });
 	images.Resize(layout->GetSlot(name).bindings.GetSize(), Pair<TSize, const GpuImageDx12*>{ UINT32_MAX, nullptr });
-	storageBuffers.Resize(layout->GetSlot(name).bindings.GetSize(), Pair<TSize, const IGpuStorageBuffer*>{ UINT32_MAX, nullptr });
+	storageBuffers.Resize(layout->GetSlot(name).bindings.GetSize(), Pair<TSize, const GpuBuffer*>{ UINT32_MAX, nullptr });
 	storageImages.Resize(layout->GetSlot(name).bindings.GetSize(), Pair<TSize, const GpuImageDx12*>{ UINT32_MAX, nullptr });
 }
-
-void MaterialSlotDx12::SetUniformBuffer(const std::string& binding, const IGpuUniformBuffer* buffer) {
+/*
+void MaterialSlotDx12::SetUniformBuffers(const std::string& binding, const GpuBuffer* buffer) {
 	TSize index = layout->GetSlot(name).bindings.Get(binding).hlslDescriptorIndex;
 
 	if (index >= buffers.GetSize())
-		buffers.Resize(index + 1, Pair<TSize, const GpuUniformBufferDx12*>{ UINT32_MAX, nullptr });
+		buffers.Resize(index + 1, Pair<TSize, const GpuBuffer*>{ UINT32_MAX, nullptr });
 
-	buffers.At(index) = { index, buffer->As<GpuUniformBufferDx12>() };
+	buffers.At(index) = { index, buffer };
+}*/
+
+void MaterialSlotDx12::SetUniformBuffers(const std::string& binding, const GpuBuffer* buffer[NUM_RESOURCES_IN_FLIGHT]) {
+	SetUniformBuffer(binding, *buffer[0]);
 }
-
-void MaterialSlotDx12::SetUniformBuffers(const std::string& binding, const IGpuUniformBuffer* buffer[NUM_RESOURCES_IN_FLIGHT]) {
-	SetUniformBuffer(binding, buffer[0]);
-}
-
+/*
 void MaterialSlotDx12::SetGpuImage(const std::string& binding, const IGpuImageView* image) {
 	TSize index = layout->GetSlot(name).bindings.Get(binding).hlslDescriptorIndex;
 
@@ -38,15 +37,11 @@ void MaterialSlotDx12::SetGpuImage(const std::string& binding, const IGpuImageVi
 
 	images.At(index) = { index, image->GetImage().As<GpuImageDx12>()};
 }
-
+*/
 void MaterialSlotDx12::SetGpuImages(const std::string& binding, const IGpuImageView* image[NUM_RESOURCES_IN_FLIGHT]) {
 	SetGpuImage(binding, image[0]);
 }
-
-void MaterialSlotDx12::SetStorageBuffer(const std::string& binding, const GpuDataBuffer* buffer) {
-	OSK_ASSERT(false, "No implementado.");
-}
-
+/*
 void MaterialSlotDx12::SetStorageImage(const std::string& binding, const IGpuImageView* image) {
 	TSize index = layout->GetSlot(name).bindings.Get(binding).hlslDescriptorIndex;
 
@@ -55,12 +50,8 @@ void MaterialSlotDx12::SetStorageImage(const std::string& binding, const IGpuIma
 
 	// storageImages.At(index) = { index, image->As<GpuImageDx12>() };
 }
-
-void MaterialSlotDx12::SetAccelerationStructure(const std::string& binding, const ITopLevelAccelerationStructure* image) {
-	OSK_ASSERT(false, "No implementado.");
-}
-
-void MaterialSlotDx12::SetStorageBuffers(const std::string& binding, const GpuDataBuffer* buffer[NUM_RESOURCES_IN_FLIGHT]) {
+*/
+void MaterialSlotDx12::SetStorageBuffers(const std::string& binding, const GpuBuffer* buffer[NUM_RESOURCES_IN_FLIGHT]) {
 	OSK_ASSERT(false, "No implementado.");
 }
 
@@ -76,7 +67,7 @@ void MaterialSlotDx12::FlushUpdate() {
 
 }
 
-const DynamicArray<Pair<TSize, const GpuUniformBufferDx12*>>& MaterialSlotDx12::GetUniformBuffers() const {
+const DynamicArray<Pair<TSize, const GpuBuffer*>>& MaterialSlotDx12::GetUniformBuffers() const {
 	return buffers;
 }
 
@@ -84,7 +75,7 @@ const DynamicArray<Pair<TSize, const GpuImageDx12*>>& MaterialSlotDx12::GetGpuIm
 	return images;
 }
 
-const DynamicArray<Pair<TSize, const IGpuStorageBuffer*>>& MaterialSlotDx12::GetStorageBuffers() const {
+const DynamicArray<Pair<TSize, const GpuBuffer*>>& MaterialSlotDx12::GetStorageBuffers() const {
 	return storageBuffers;
 }
 

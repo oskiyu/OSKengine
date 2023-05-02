@@ -5,7 +5,7 @@
 #include "RendererVk.h"
 #include "GpuVk.h"
 #include "OwnedPtr.h"
-#include "IGpuUniformBuffer.h"
+#include "GpuBuffer.h"
 #include "GpuMemoryBlockVk.h"
 #include "GpuMemorySubblockVk.h"
 #include "MaterialLayout.h"
@@ -14,7 +14,6 @@
 #include "GpuImageVk.h"
 #include "TopLevelAccelerationStructureVk.h"
 #include "GpuImageViewVk.h"
-#include "IGpuStorageBuffer.h"
 
 using namespace OSK;
 using namespace OSK::GRAPHICS;
@@ -29,17 +28,24 @@ MaterialSlotVk::MaterialSlotVk(const std::string& name, const MaterialLayout* la
 	const TSize swapchainCount = Engine::GetRenderer()->GetSwapchainImagesCount();
 
 	descriptorSets.Resize(swapchainCount);
-	bindings.Resize(3);
+	bindings.Resize(swapchainCount);
 
 	descLayout = new DescriptorLayoutVk(&layout->GetSlot(name));
 	pool = new DescriptorPoolVk(descLayout.GetValue(), swapchainCount);
+	
+	VkDescriptorSetVariableDescriptorCountAllocateInfo variableSizeDescriptorInfo{};
+	variableSizeDescriptorInfo.sType = VK_STRUCTURE_TYPE_DESCRIPTOR_SET_VARIABLE_DESCRIPTOR_COUNT_ALLOCATE_INFO;
+	variableSizeDescriptorInfo.descriptorSetCount = static_cast<uint32_t>(swapchainCount);
+	//variableSizeDescriptorInfo.pDescriptorCounts = ;
+	variableSizeDescriptorInfo.pNext = VK_NULL_HANDLE;
 
 	VkDescriptorSetAllocateInfo allocInfo{};
 	allocInfo.sType = VK_STRUCTURE_TYPE_DESCRIPTOR_SET_ALLOCATE_INFO;
 	allocInfo.descriptorPool = pool->GetPool();
 	allocInfo.descriptorSetCount = static_cast<uint32_t>(swapchainCount);
+	//allocInfo.pNext = &variableSizeDescriptorInfo;
 
-	VkDescriptorSetLayout layouts[] = { descLayout->GetLayout(), descLayout->GetLayout(), descLayout->GetLayout() };
+	const VkDescriptorSetLayout layouts[] = { descLayout->GetLayout(), descLayout->GetLayout(), descLayout->GetLayout() };
 	allocInfo.pSetLayouts = layouts;
 
 	VkResult result = vkAllocateDescriptorSets(GetDevice(), &allocInfo, descriptorSets.GetData());
@@ -53,15 +59,7 @@ MaterialSlotVk::~MaterialSlotVk() {
 	descLayout.Delete();
 }
 
-void MaterialSlotVk::SetUniformBuffer(const std::string& binding, const IGpuUniformBuffer* buffer) {
-	const IGpuUniformBuffer* buffers[NUM_RESOURCES_IN_FLIGHT]{};
-	for (TSize i = 0; i < NUM_RESOURCES_IN_FLIGHT; i++)
-		buffers[i] = buffer;
-
-	SetUniformBuffers(binding, buffers);
-}
-
-void MaterialSlotVk::SetUniformBuffers(const std::string& binding, const IGpuUniformBuffer* buffer[NUM_RESOURCES_IN_FLIGHT]) {
+void MaterialSlotVk::SetUniformBuffers(const std::string& binding, const GpuBuffer* buffer[NUM_RESOURCES_IN_FLIGHT]) {
 	const bool containsBinding = bindingsLocations.ContainsKey(binding);
 
 	for (TSize i = 0; i < descriptorSets.GetSize(); i++) {
@@ -96,15 +94,7 @@ void MaterialSlotVk::SetUniformBuffers(const std::string& binding, const IGpuUni
 		bindingsLocations.Insert(binding, bindings.At(0).GetSize() - 1);
 }
 
-void MaterialSlotVk::SetStorageBuffer(const std::string& binding, const GpuDataBuffer* buffer) {
-	const GpuDataBuffer* buffers[NUM_RESOURCES_IN_FLIGHT]{};
-	for (TSize i = 0; i < NUM_RESOURCES_IN_FLIGHT; i++)
-		buffers[i] = buffer;
-
-	SetStorageBuffers(binding, buffers);
-}
-
-void MaterialSlotVk::SetStorageBuffers(const std::string& binding, const GpuDataBuffer* buffer[NUM_RESOURCES_IN_FLIGHT]) {
+void MaterialSlotVk::SetStorageBuffers(const std::string& binding, const GpuBuffer* buffer[NUM_RESOURCES_IN_FLIGHT]) {
 	const bool containsBinding = bindingsLocations.ContainsKey(binding);
 
 	for (TSize i = 0; i < descriptorSets.GetSize(); i++) {
@@ -139,14 +129,6 @@ void MaterialSlotVk::SetStorageBuffers(const std::string& binding, const GpuData
 		bindingsLocations.Insert(binding, bindings.At(0).GetSize() - 1);
 }
 
-void MaterialSlotVk::SetGpuImage(const std::string& binding, const IGpuImageView* image) {
-	const IGpuImageView* images[NUM_RESOURCES_IN_FLIGHT]{};
-	for (TSize i = 0; i < NUM_RESOURCES_IN_FLIGHT; i++)
-		images[i] = image;
-
-	SetGpuImages(binding, images);
-}
-
 void MaterialSlotVk::SetGpuImages(const std::string& binding, const IGpuImageView* images[NUM_RESOURCES_IN_FLIGHT]) {
 	const bool containsBinding = bindingsLocations.ContainsKey(binding);
 
@@ -179,14 +161,6 @@ void MaterialSlotVk::SetGpuImages(const std::string& binding, const IGpuImageVie
 		bindingsLocations.Insert(binding, bindings.At(0).GetSize() - 1);
 }
 
-void MaterialSlotVk::SetStorageImage(const std::string& binding, const IGpuImageView* image) {
-	const IGpuImageView* images[NUM_RESOURCES_IN_FLIGHT]{};
-	for (TSize i = 0; i < NUM_RESOURCES_IN_FLIGHT; i++)
-		images[i] = image;
-
-	SetStorageImages(binding, images);
-}
-
 void MaterialSlotVk::SetStorageImages(const std::string& binding, const IGpuImageView* images[NUM_RESOURCES_IN_FLIGHT]) {
 	const bool containsBinding = bindingsLocations.ContainsKey(binding);
 
@@ -217,14 +191,6 @@ void MaterialSlotVk::SetStorageImages(const std::string& binding, const IGpuImag
 
 	if (!containsBinding)
 		bindingsLocations.Insert(binding, bindings.At(0).GetSize() - 1);
-}
-
-void MaterialSlotVk::SetAccelerationStructure(const std::string& binding, const ITopLevelAccelerationStructure* accelerationStructure) {
-	const ITopLevelAccelerationStructure* accelerationStructures[NUM_RESOURCES_IN_FLIGHT]{};
-	for (TSize i = 0; i < NUM_RESOURCES_IN_FLIGHT; i++)
-		accelerationStructures[i] = accelerationStructure;
-
-	SetAccelerationStructures(binding, accelerationStructures);
 }
 
 void MaterialSlotVk::SetAccelerationStructures(const std::string& binding, const ITopLevelAccelerationStructure* accelerationStructure[NUM_RESOURCES_IN_FLIGHT]) {

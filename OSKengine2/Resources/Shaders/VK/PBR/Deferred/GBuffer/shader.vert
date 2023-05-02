@@ -21,6 +21,7 @@ layout(location = 7) out mat3 outTangentMatrix;
 layout (set = 0, binding = 0) uniform Camera {
     mat4 projection;
     mat4 view;
+    mat4 projectionView;
 
     vec3 cameraPos;
 } camera;
@@ -28,6 +29,7 @@ layout (set = 0, binding = 0) uniform Camera {
 layout (set = 0, binding = 1) uniform PreviousCamera {
     mat4 projection;
     mat4 view;
+    mat4 projectionView;
 } previousCamera;
 
 layout (push_constant) uniform Model {
@@ -100,9 +102,9 @@ void main() {
 
     outTangentMatrix = tangentMatrix;
 
-    outPreviousCameraPosition = previousCamera.projection * previousCamera.view * model.previousModelMatrix * vec4(inPosition, 1.0);
-    outCurrentCameraPosition = jitterMatrix * camera.projection * camera.view * model.modelMatrix * vec4(inPosition, 1.0);
-    outUnjitteredCurrentCameraPosition = camera.projection * camera.view * model.modelMatrix * vec4(inPosition, 1.0);
+    outPreviousCameraPosition = previousCamera.projectionView * model.previousModelMatrix * vec4(inPosition, 1.0);
+    outCurrentCameraPosition = jitterMatrix * camera.projectionView * model.modelMatrix * vec4(inPosition, 1.0);
+    outUnjitteredCurrentCameraPosition = camera.projectionView * model.modelMatrix * vec4(inPosition, 1.0);
 
     gl_Position = outCurrentCameraPosition;
 }

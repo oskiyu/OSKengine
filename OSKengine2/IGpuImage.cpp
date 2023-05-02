@@ -29,6 +29,7 @@ GpuImage::GpuImage(const Vector3ui& size, GpuImageDimension dimension, GpuImageU
 	}
 
 	_SetPhysicalSize(size);
+	_InitDefaultLayout();
 }
 
 GpuImage::~GpuImage() {
@@ -108,14 +109,6 @@ TSize GpuImage::GetMipLevels(uint32_t sizeX, uint32_t sizeY) {
 	return static_cast<TSize>(glm::floor(glm::log2(glm::max((float)sizeX, (float)sizeY)))) + 1;
 }
 
-void GpuImage::SetLayout(GpuImageLayout layout) {
-	currentLayout = layout;
-}
-
-GpuImageLayout GpuImage::GetLayout() const {
-	return currentLayout;
-}
-
 TSize GpuImage::GetNumberOfBytes() const {
 	return size.X * size.Y * size.Z * GetFormatNumberOfBytes(GetFormat());
 }
@@ -136,4 +129,39 @@ IGpuImageView* GpuImage::GetView(const GpuImageViewConfig& viewConfig) const {
 	views.Insert(viewConfig, view.GetPointer());
 
 	return view.GetPointer();
+}
+void GpuImage::SetCurrentBarrier(const GpuBarrierInfo& barrier) {
+	currentBarrier = barrier;
+}
+
+const GpuBarrierInfo& GpuImage::GetCurrentBarrier() const {
+	return currentBarrier;
+}
+
+void GpuImage::_InitDefaultLayout() {
+	const TSize arrayLevelCount = numLayers;
+	const TSize mipLevelCount = mipLevels;
+
+	for (ArrayLevelIndex a = 0; a < arrayLevelCount; a++) {
+		layouts.Insert(a, {});
+		auto& arrayLevel = layouts.Get(a);
+
+		for (MipLevelIndex m = 0; m < mipLevelCount; m++)
+			arrayLevel.Insert(m, GpuImageLayout::UNDEFINED);
+	}
+}
+
+void GpuImage::_SetLayout(ArrayLevelIndex baseArrayLevel, TSize arrayLevelCount, MipLevelIndex baseMipLevel, TSize mipLevelCount, GpuImageLayout layout) {
+	arrayLevelCount = glm::min(arrayLevelCount, numLayers);
+	mipLevelCount = glm::min(mipLevelCount, mipLevels);
+	
+	for (ArrayLevelIndex a = baseArrayLevel; a < baseArrayLevel + arrayLevelCount; a++) {
+		auto& arrayLevel = layouts.Get(a);
+
+		for (MipLevelIndex m = baseMipLevel; m < baseMipLevel + mipLevelCount; m++)
+			arrayLevel.Insert(m, layout);
+	}
+}
+GpuImageLayout GpuImage::_GetLayout(ArrayLevelIndex arrayLevel, MipLevelIndex mipLevel) const {
+	return layouts.Get(arrayLevel).Get(mipLevel);
 }

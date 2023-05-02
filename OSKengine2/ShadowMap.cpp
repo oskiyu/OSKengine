@@ -55,7 +55,7 @@ void ShadowMap::Create(const Vector2ui& imageSize) {
 	shadowsGenAnimMaterial = Engine::GetRenderer()->GetMaterialSystem()->LoadMaterial("Resources/Materials/ShadowMapping/material_shadows_anim.json");
 	shadowsGenMaterialInstance = shadowsGenMaterial->CreateInstance().GetPointer();
 
-	const IGpuUniformBuffer* lightUbos[3]{};
+	const GpuBuffer* lightUbos[3]{};
 	for (TSize i = 0; i < NUM_RESOURCES_IN_FLIGHT; i++) {
 		lightUniformBuffer[i] = Engine::GetRenderer()->GetAllocator()->CreateUniformBuffer(sizeof(glm::mat4) * 4 + sizeof(Vector4f)).GetPointer();
 		lightUbos[i] = lightUniformBuffer[i].GetPointer();
@@ -224,8 +224,8 @@ MaterialInstance* ShadowMap::GetShadowsMaterialInstance() const {
 	return shadowsGenMaterialInstance.GetPointer();
 }
 
-DynamicArray<IGpuUniformBuffer*> ShadowMap::GetDirLightMatrixUniformBuffers() const {
-	auto output = DynamicArray<IGpuUniformBuffer*>::CreateResizedArray(NUM_RESOURCES_IN_FLIGHT);
+DynamicArray<GpuBuffer*> ShadowMap::GetDirLightMatrixUniformBuffers() const {
+	auto output = DynamicArray<GpuBuffer*>::CreateResizedArray(NUM_RESOURCES_IN_FLIGHT);
 	for (TSize i = 0; i < NUM_RESOURCES_IN_FLIGHT; i++)
 		output[i] = (lightUniformBuffer[i].GetPointer());
 

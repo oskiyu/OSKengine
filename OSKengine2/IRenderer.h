@@ -18,7 +18,7 @@
 #include "PresentMode.h"
 
 #include "IGpuImage.h"
-#include "IGpuDataBuffer.h"
+#include "GpuBuffer.h"
 
 // Camera 2D para renderizar a la pantalla
 #include "CameraComponent2D.h"

@@ -132,9 +132,8 @@ DynamicArray<OwnedPtr<GpuImage>> IMeshLoader::LoadImages() {
 
 			uploadCmdList->SetGpuImageBarrier(
 				image.GetPointer(), 
-				GpuImageLayout::UNDEFINED, GpuImageLayout::TRANSFER_DESTINATION,
-				GpuBarrierInfo(GpuBarrierStage::DEFAULT, GpuBarrierAccessStage::DEFAULT), 
-				GpuBarrierInfo(GpuBarrierStage::TRANSFER, GpuBarrierAccessStage::TRANSFER_WRITE));
+				GpuImageLayout::TRANSFER_DESTINATION,
+				GpuBarrierInfo(GpuCommandStage::TRANSFER, GpuAccessStage::TRANSFER_WRITE));
 
 			Engine::GetRenderer()->UploadImageToGpu(
 				image.GetPointer(), 
@@ -144,18 +143,16 @@ DynamicArray<OwnedPtr<GpuImage>> IMeshLoader::LoadImages() {
 
 			uploadCmdList->SetGpuImageBarrier(
 				image.GetPointer(), 
-				GpuImageLayout::TRANSFER_DESTINATION, GpuImageLayout::SAMPLED,
-				GpuBarrierInfo(GpuBarrierStage::TRANSFER, GpuBarrierAccessStage::TRANSFER_WRITE),
-				GpuBarrierInfo(GpuBarrierStage::FRAGMENT_SHADER, GpuBarrierAccessStage::SHADER_READ));
+				GpuImageLayout::SAMPLED,
+				GpuBarrierInfo(GpuCommandStage::FRAGMENT_SHADER, GpuAccessStage::SHADER_READ));
 
 			free(data);
 		}
 		else if (originalImage.component == 4) {
 			uploadCmdList->SetGpuImageBarrier(
 				image.GetPointer(), 
-				GpuImageLayout::UNDEFINED, GpuImageLayout::TRANSFER_DESTINATION,
-				GpuBarrierInfo(GpuBarrierStage::DEFAULT, GpuBarrierAccessStage::DEFAULT), 
-				GpuBarrierInfo(GpuBarrierStage::TRANSFER, GpuBarrierAccessStage::TRANSFER_WRITE));
+				GpuImageLayout::TRANSFER_DESTINATION,
+				GpuBarrierInfo(GpuCommandStage::TRANSFER, GpuAccessStage::TRANSFER_WRITE));
 
 			Engine::GetRenderer()->UploadImageToGpu(
 				image.GetPointer(), 
@@ -165,9 +162,8 @@ DynamicArray<OwnedPtr<GpuImage>> IMeshLoader::LoadImages() {
 			
 			uploadCmdList->SetGpuImageBarrier(
 				image.GetPointer(), 
-				GpuImageLayout::TRANSFER_DESTINATION, GpuImageLayout::SAMPLED,
-				GpuBarrierInfo(GpuBarrierStage::TRANSFER, GpuBarrierAccessStage::TRANSFER_WRITE), 
-				GpuBarrierInfo(GpuBarrierStage::FRAGMENT_SHADER, GpuBarrierAccessStage::SHADER_READ));
+				GpuImageLayout::SAMPLED,
+				GpuBarrierInfo(GpuCommandStage::FRAGMENT_SHADER, GpuAccessStage::SHADER_READ));
 		}
 		else {
 			OSK_ASSERT(false, "Formato de imagen no soportado en gltf2.0.");

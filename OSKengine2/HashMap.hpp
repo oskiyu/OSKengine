@@ -443,6 +443,7 @@ namespace OSK {
 #include <unordered_map>
 
 #include "Pair.hpp"
+#include <string_view>
 
 namespace OSK {
 
@@ -591,13 +592,15 @@ namespace OSK {
 			return stdmap.begin();
 		}
 
-
-
 		/// <summary>
 		/// Devuelve un iterador vacío.
 		/// </summary>
 		std::unordered_map<TKey, TValue>::iterator end() {
 			return stdmap.end();
+		}
+
+		void Clear() {
+			stdmap.clear();
 		}
 
 	private:

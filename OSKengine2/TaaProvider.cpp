@@ -97,25 +97,28 @@ void TaaProvider::ExecuteTaaFirstPass(ICommandList* commandList) {
 	GpuImage* historicalImage = taaRenderTarget.GetTargetImage(previousIndex);
 	GpuImage* finalImage = taaRenderTarget.GetTargetImage(resourceIndex);
 
+	const GpuImageLayout previousLayout = historicalImage->_GetLayout(0, 0);
+	commandList->SetGpuImageBarrier(
+		historicalImage,
+		previousLayout,
+		GpuImageLayout::SAMPLED, 
+		GpuBarrierInfo(GpuCommandStage::NONE, GpuAccessStage::NONE),
+		GpuBarrierInfo(GpuCommandStage::COMPUTE_SHADER, GpuAccessStage::SAMPLED_READ));
+
 	commandList->SetGpuImageBarrier(
 		finalImage,
+		GpuImageLayout::UNDEFINED,
 		GpuImageLayout::GENERAL,
-		GpuBarrierInfo(GpuBarrierStage::COMPUTE_SHADER, GpuBarrierAccessStage::SHADER_READ),
-		GpuBarrierInfo(GpuBarrierStage::COMPUTE_SHADER, GpuBarrierAccessStage::SHADER_WRITE));
+		GpuBarrierInfo(GpuCommandStage::NONE, GpuAccessStage::NONE),
+		GpuBarrierInfo(GpuCommandStage::COMPUTE_SHADER, GpuAccessStage::SHADER_WRITE));
 
 	const Vector2ui resoulution = taaRenderTarget.GetSize();
 	const Vector2ui threadGroupSize = { 8u, 8u };
 	const Vector2ui dispatchRes = resoulution / threadGroupSize + Vector2ui(1u, 1u);
 
-	commandList->BindMaterial(taaMaterialInstance->GetMaterial());
-	commandList->BindMaterialSlot(taaMaterialInstance->GetSlot("global"));
+	commandList->BindMaterial(*taaMaterialInstance->GetMaterial());
+	commandList->BindMaterialSlot(*taaMaterialInstance->GetSlot("global"));
 	commandList->DispatchCompute({ dispatchRes.X, dispatchRes.Y, 1 });
-
-	commandList->SetGpuImageBarrier(
-		finalImage,
-		GpuImageLayout::SAMPLED,
-		GpuBarrierInfo(GpuBarrierStage::COMPUTE_SHADER, GpuBarrierAccessStage::SHADER_WRITE),
-		GpuBarrierInfo(GpuBarrierStage::COMPUTE_SHADER, GpuBarrierAccessStage::SHADER_READ));
 
 	commandList->EndDebugSection();
 }
@@ -125,20 +128,27 @@ void TaaProvider::ExecuteTaaSharpening(ICommandList* commandList) {
 
 	const TIndex resourceIndex = Engine::GetRenderer()->GetCurrentResourceIndex();
 
+	GpuImage* sourceImage = taaRenderTarget.GetTargetImage(resourceIndex);
 	GpuImage* sharpenedImage = taaSharpenedRenderTarget.GetTargetImage(resourceIndex);
 
 	commandList->SetGpuImageBarrier(
+		sourceImage,
+		GpuImageLayout::SAMPLED,
+		GpuBarrierInfo(GpuCommandStage::COMPUTE_SHADER, GpuAccessStage::SAMPLED_READ));
+
+	commandList->SetGpuImageBarrier(
 		sharpenedImage,
+		GpuImageLayout::UNDEFINED,
 		GpuImageLayout::GENERAL,
-		GpuBarrierInfo(GpuBarrierStage::DEFAULT, GpuBarrierAccessStage::DEFAULT),
-		GpuBarrierInfo(GpuBarrierStage::COMPUTE_SHADER, GpuBarrierAccessStage::SHADER_WRITE));
+		GpuBarrierInfo(GpuCommandStage::NONE, GpuAccessStage::NONE),
+		GpuBarrierInfo(GpuCommandStage::COMPUTE_SHADER, GpuAccessStage::SHADER_WRITE));
 
 	const Vector2ui resoulution = taaRenderTarget.GetSize();
 	const Vector2ui threadGroupSize = { 8u, 8u };
 	const Vector2ui dispatchRes = resoulution / threadGroupSize + Vector2ui(1u, 1u);
 
-	commandList->BindMaterial(taaSharpenMaterialInstance->GetMaterial());
-	commandList->BindMaterialSlot(taaSharpenMaterialInstance->GetSlot("global"));
+	commandList->BindMaterial(*taaSharpenMaterialInstance->GetMaterial());
+	commandList->BindMaterialSlot(*taaSharpenMaterialInstance->GetSlot("global"));
 	commandList->DispatchCompute({ dispatchRes.X, dispatchRes.Y, 1 });
 
 	commandList->EndDebugSection();

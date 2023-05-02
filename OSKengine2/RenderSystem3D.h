@@ -4,7 +4,7 @@
 
 #include "ShadowMap.h"
 #include "Lights.h"
-#include "IGpuUniformBuffer.h"
+#include "GpuBuffer.h"
 #include "TerrainComponent.h"
 #include "RtRenderTarget.h"
 #include "TaaProvider.h"
@@ -50,7 +50,7 @@ namespace OSK::ECS {
 		
 		GRAPHICS::ShadowMap* GetShadowMap();
 		
-		const GRAPHICS::IGpuUniformBuffer* GetCameraBuffer(TIndex index) const {
+		const GRAPHICS::GpuBuffer* GetCameraBuffer(TIndex index) const {
 			return cameraBuffers[index].GetPointer();
 		}
 
@@ -77,14 +77,14 @@ namespace OSK::ECS {
 		void RenderTerrain(GRAPHICS::ICommandList* commandList);
 
 		/// @brief Buffer que contendrá la resolución del sistema.
-		UniquePtr<GRAPHICS::IGpuUniformBuffer> resolutionBuffer = nullptr;
+		UniquePtr<GRAPHICS::GpuBuffer> resolutionBuffer = nullptr;
 
 		/// @brief Buffers con la información de la cámara en un frame en concreto.
-		UniquePtr<GRAPHICS::IGpuUniformBuffer> cameraBuffers[NUM_RESOURCES_IN_FLIGHT]{};
+		UniquePtr<GRAPHICS::GpuBuffer> cameraBuffers[NUM_RESOURCES_IN_FLIGHT]{};
 		/// @brief Buffers con la información de la cámara en el frame anterior.
-		UniquePtr<GRAPHICS::IGpuUniformBuffer> previousCameraBuffers[NUM_RESOURCES_IN_FLIGHT]{};
+		UniquePtr<GRAPHICS::GpuBuffer> previousCameraBuffers[NUM_RESOURCES_IN_FLIGHT]{};
 
-		UniquePtr<GRAPHICS::IGpuUniformBuffer> dirLightUbos[NUM_RESOURCES_IN_FLIGHT]{};
+		UniquePtr<GRAPHICS::GpuBuffer> dirLightUbos[NUM_RESOURCES_IN_FLIGHT]{};
 		GRAPHICS::DirectionalLight dirLight{};
 
 		GRAPHICS::ShadowMap shadowMap;

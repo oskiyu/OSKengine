@@ -163,15 +163,13 @@ void SpecularMapLoader::Load(const std::string& assetFilePath, IAsset** asset) {
 	lut->SetDebugName("Specular Look-Up Table");
 
 	prefilterCmdList->SetGpuImageBarrier(lut.GetPointer(), GpuImageLayout::TRANSFER_DESTINATION,
-		GpuBarrierInfo(GpuBarrierStage::DEFAULT, GpuBarrierAccessStage::DEFAULT),
-		GpuBarrierInfo(GpuBarrierStage::TRANSFER, GpuBarrierAccessStage::TRANSFER_WRITE));
+		GpuBarrierInfo(GpuCommandStage::TRANSFER, GpuAccessStage::TRANSFER_WRITE));
 
 	CopyImageInfo copyInfo = CopyImageInfo::CreateDefault2D(lookUpTable.GetSize());
-	prefilterCmdList->CopyImageToImage(lookUpTable.GetTargetImage(Engine::GetRenderer()->GetCurrentResourceIndex()), lut.GetPointer(), copyInfo);
+	prefilterCmdList->RawCopyImageToImage(*lookUpTable.GetTargetImage(Engine::GetRenderer()->GetCurrentResourceIndex()), lut.GetPointer(), copyInfo);
 
 	prefilterCmdList->SetGpuImageBarrier(lut.GetPointer(), GpuImageLayout::SAMPLED,
-		GpuBarrierInfo(GpuBarrierStage::TRANSFER, GpuBarrierAccessStage::TRANSFER_WRITE),
-		GpuBarrierInfo(GpuBarrierStage::FRAGMENT_SHADER, GpuBarrierAccessStage::SHADER_READ));
+		GpuBarrierInfo(GpuCommandStage::FRAGMENT_SHADER, GpuAccessStage::SAMPLED_READ));
 
 	prefilterCmdList->Close();
 
@@ -192,8 +190,8 @@ void SpecularMapLoader::DrawOriginal(GRAPHICS::GpuImage* cubemap, GRAPHICS::ICom
 
 		cmdList->BeginGraphicsRenderpass(&cubemapRenderTarget);
 
-		cmdList->BindMaterial(generationMaterial);
-		cmdList->BindMaterialSlot(generationMaterialInstance->GetSlot("global"));
+		cmdList->BindMaterial(*generationMaterial);
+		cmdList->BindMaterialSlot(*generationMaterialInstance->GetSlot("global"));
 
 		const Viewport viewport{
 			.rectangle = {
@@ -209,33 +207,30 @@ void SpecularMapLoader::DrawOriginal(GRAPHICS::GpuImage* cubemap, GRAPHICS::ICom
 		renderInfo.cameraView = cameraViews[faceId];
 		cmdList->PushMaterialConstants("info", renderInfo);
 
-		cmdList->BindVertexBuffer(cubemapModel->GetVertexBuffer());
-		cmdList->BindIndexBuffer(cubemapModel->GetIndexBuffer());
+		cmdList->BindVertexBuffer(*cubemapModel->GetVertexBuffer());
+		cmdList->BindIndexBuffer(*cubemapModel->GetIndexBuffer());
 		cmdList->DrawSingleInstance(cubemapModel->GetIndexCount());
 
 		cmdList->EndGraphicsRenderpass();
 
 		cmdList->SetGpuImageBarrier(cubemapRenderTarget.GetMainColorImage(resourceIndex),
 			GpuImageLayout::TRANSFER_SOURCE,
-			GpuBarrierInfo(GpuBarrierStage::FRAGMENT_SHADER, GpuBarrierAccessStage::SHADER_READ),
-			GpuBarrierInfo(GpuBarrierStage::TRANSFER, GpuBarrierAccessStage::TRANSFER_READ),
-			GpuImageBarrierInfo{ .baseLayer = 0, .numLayers = 1, .baseMipLevel = 0, .numMipLevels = ALL_MIP_LEVELS });
+			GpuBarrierInfo(GpuCommandStage::TRANSFER, GpuAccessStage::TRANSFER_READ),
+			GpuImageRange{ .baseLayer = 0, .numLayers = 1, .baseMipLevel = 0, .numMipLevels = ALL_MIP_LEVELS });
 
 		cmdList->SetGpuImageBarrier(cubemap,
 			GpuImageLayout::TRANSFER_DESTINATION,
-			GpuBarrierInfo(GpuBarrierStage::DEFAULT, GpuBarrierAccessStage::DEFAULT),
-			GpuBarrierInfo(GpuBarrierStage::TRANSFER, GpuBarrierAccessStage::TRANSFER_WRITE),
-			GpuImageBarrierInfo{ .baseLayer = faceId, .numLayers = 1, .baseMipLevel = 0, .numMipLevels = ALL_MIP_LEVELS });
+			GpuBarrierInfo(GpuCommandStage::TRANSFER, GpuAccessStage::TRANSFER_WRITE),
+			GpuImageRange{ .baseLayer = faceId, .numLayers = 1, .baseMipLevel = 0, .numMipLevels = ALL_MIP_LEVELS });
 
 		CopyImageInfo copyInfo = CopyImageInfo::CreateDefault2D(viewport.rectangle.GetRectangleSize());
 		copyInfo.destinationArrayLevel = faceId;
-		cmdList->CopyImageToImage(cubemapRenderTarget.GetMainColorImage(resourceIndex), cubemap, copyInfo);
+		cmdList->RawCopyImageToImage(*cubemapRenderTarget.GetMainColorImage(resourceIndex), cubemap, copyInfo);
 
 		cmdList->SetGpuImageBarrier(cubemap,
 			GpuImageLayout::SAMPLED,
-			GpuBarrierInfo(GpuBarrierStage::TRANSFER, GpuBarrierAccessStage::TRANSFER_WRITE),
-			GpuBarrierInfo(GpuBarrierStage::FRAGMENT_SHADER, GpuBarrierAccessStage::SHADER_READ),
-			GpuImageBarrierInfo{ .baseLayer = faceId, .numLayers = 1, .baseMipLevel = 0, .numMipLevels = ALL_MIP_LEVELS });
+			GpuBarrierInfo(GpuCommandStage::FRAGMENT_SHADER, GpuAccessStage::SHADER_READ),
+			GpuImageRange{ .baseLayer = faceId, .numLayers = 1, .baseMipLevel = 0, .numMipLevels = ALL_MIP_LEVELS });
 	}
 }
 
@@ -249,8 +244,8 @@ void SpecularMapLoader::DrawPreFilter(GpuImage* cubemap, ICommandList* cmdList, 
 	for (TIndex faceId = 0; faceId < 6; faceId++) {
 		cmdList->BeginGraphicsRenderpass(&cubemapRenderTarget);
 
-		cmdList->BindMaterial(prefilterMaterial);
-		cmdList->BindMaterialSlot(prefilterMaterialInstance->GetSlot("global"));
+		cmdList->BindMaterial(*prefilterMaterial);
+		cmdList->BindMaterialSlot(*prefilterMaterialInstance->GetSlot("global"));
 
 		const float sizeRatio = (float)glm::pow(0.5f, mipLevel);
 		const Viewport viewport{
@@ -267,8 +262,8 @@ void SpecularMapLoader::DrawPreFilter(GpuImage* cubemap, ICommandList* cmdList, 
 		renderInfo.cameraView = cameraViews[faceId];
 		cmdList->PushMaterialConstants("info", renderInfo);
 
-		cmdList->BindVertexBuffer(cubemapModel->GetVertexBuffer());
-		cmdList->BindIndexBuffer(cubemapModel->GetIndexBuffer());
+		cmdList->BindVertexBuffer(*cubemapModel->GetVertexBuffer());
+		cmdList->BindIndexBuffer(*cubemapModel->GetIndexBuffer());
 		cmdList->DrawSingleInstance(cubemapModel->GetIndexCount());
 
 		cmdList->EndGraphicsRenderpass();
@@ -277,26 +272,23 @@ void SpecularMapLoader::DrawPreFilter(GpuImage* cubemap, ICommandList* cmdList, 
 
 		cmdList->SetGpuImageBarrier(cubemapRenderTarget.GetMainColorImage(resourceIndex),
 			GpuImageLayout::TRANSFER_SOURCE,
-			GpuBarrierInfo(GpuBarrierStage::FRAGMENT_SHADER, GpuBarrierAccessStage::SHADER_READ),
-			GpuBarrierInfo(GpuBarrierStage::TRANSFER, GpuBarrierAccessStage::TRANSFER_READ),
-			GpuImageBarrierInfo{ .baseLayer = 0, .numLayers = 1, .baseMipLevel = 0, .numMipLevels = ALL_MIP_LEVELS });
+			GpuBarrierInfo(GpuCommandStage::TRANSFER, GpuAccessStage::TRANSFER_READ),
+			GpuImageRange{ .baseLayer = 0, .numLayers = 1, .baseMipLevel = 0, .numMipLevels = ALL_MIP_LEVELS });
 
 		cmdList->SetGpuImageBarrier(cubemap,
 			GpuImageLayout::TRANSFER_DESTINATION,
-			GpuBarrierInfo(GpuBarrierStage::DEFAULT, GpuBarrierAccessStage::DEFAULT),
-			GpuBarrierInfo(GpuBarrierStage::TRANSFER, GpuBarrierAccessStage::TRANSFER_WRITE),
-			GpuImageBarrierInfo{ .baseLayer = faceId, .numLayers = 1, .baseMipLevel = 0, .numMipLevels = ALL_MIP_LEVELS });
+			GpuBarrierInfo(GpuCommandStage::TRANSFER, GpuAccessStage::TRANSFER_WRITE),
+			GpuImageRange{ .baseLayer = faceId, .numLayers = 1, .baseMipLevel = 0, .numMipLevels = ALL_MIP_LEVELS });
 
 		CopyImageInfo copyInfo = CopyImageInfo::CreateDefault2D(viewport.rectangle.GetRectangleSize());
 		copyInfo.destinationArrayLevel = faceId;
 		copyInfo.destinationMipLevel = mipLevel;
-		cmdList->CopyImageToImage(cubemapRenderTarget.GetMainColorImage(resourceIndex), cubemap, copyInfo);
+		cmdList->RawCopyImageToImage(*cubemapRenderTarget.GetMainColorImage(resourceIndex), cubemap, copyInfo);
 
 		cmdList->SetGpuImageBarrier(cubemap,
 			GpuImageLayout::SAMPLED,
-			GpuBarrierInfo(GpuBarrierStage::TRANSFER, GpuBarrierAccessStage::TRANSFER_WRITE),
-			GpuBarrierInfo(GpuBarrierStage::FRAGMENT_SHADER, GpuBarrierAccessStage::SHADER_READ),
-			GpuImageBarrierInfo{ .baseLayer = faceId, .numLayers = 1, .baseMipLevel = 0, .numMipLevels = ALL_MIP_LEVELS });
+			GpuBarrierInfo(GpuCommandStage::FRAGMENT_SHADER, GpuAccessStage::SHADER_READ),
+			GpuImageRange{ .baseLayer = faceId, .numLayers = 1, .baseMipLevel = 0, .numMipLevels = ALL_MIP_LEVELS });
 	}
 }
 
@@ -305,11 +297,10 @@ void SpecularMapLoader::GenerateLut(ICommandList* cmdList) {
 	GpuImage* img = lookUpTable.GetTargetImage(resourceIndex);
 
 	cmdList->SetGpuImageBarrier(img, GpuImageLayout::GENERAL,
-		GpuBarrierInfo(GpuBarrierStage::DEFAULT, GpuBarrierAccessStage::DEFAULT),
-		GpuBarrierInfo(GpuBarrierStage::COMPUTE_SHADER, GpuBarrierAccessStage::SHADER_WRITE));
+		GpuBarrierInfo(GpuCommandStage::COMPUTE_SHADER, GpuAccessStage::SHADER_WRITE));
 
-	cmdList->BindMaterial(lutGenerationMaterial);
-	cmdList->BindMaterialSlot(lutGenerationMaterialInstance->GetSlot("global"));
+	cmdList->BindMaterial(*lutGenerationMaterial);
+	cmdList->BindMaterialSlot(*lutGenerationMaterialInstance->GetSlot("global"));
 
 	const Vector2ui imageResolution = lookUpTable.GetSize();
 	const Vector2ui threadBlockSize = { 8u, 8u };
@@ -318,8 +309,7 @@ void SpecularMapLoader::GenerateLut(ICommandList* cmdList) {
 	cmdList->DispatchCompute({ dispatchResolution.X, dispatchResolution.Y, 1 });
 
 	cmdList->SetGpuImageBarrier(img, GpuImageLayout::TRANSFER_SOURCE,
-		GpuBarrierInfo(GpuBarrierStage::COMPUTE_SHADER, GpuBarrierAccessStage::SHADER_WRITE),
-		GpuBarrierInfo(GpuBarrierStage::TRANSFER, GpuBarrierAccessStage::TRANSFER_READ));
+		GpuBarrierInfo(GpuCommandStage::TRANSFER, GpuAccessStage::TRANSFER_READ));
 }
 
 void SpecularMapLoader::UploadImage(GpuImage* img, const float* pixels, const Vector3ui& size) const {
@@ -327,15 +317,19 @@ void SpecularMapLoader::UploadImage(GpuImage* img, const float* pixels, const Ve
 	uploadCmdList->Reset();
 	uploadCmdList->Start();
 
-	uploadCmdList->SetGpuImageBarrier(img, GpuImageLayout::UNDEFINED, GpuImageLayout::TRANSFER_DESTINATION,
-		GpuBarrierInfo(GpuBarrierStage::DEFAULT, GpuBarrierAccessStage::DEFAULT), GpuBarrierInfo(GpuBarrierStage::TRANSFER, GpuBarrierAccessStage::TRANSFER_WRITE),
-		GpuImageBarrierInfo{ .baseLayer = 0, .numLayers = ALL_IMAGE_LAYERS, .baseMipLevel = 0, .numMipLevels = ALL_MIP_LEVELS });
+	uploadCmdList->SetGpuImageBarrier(
+		img, 
+		GpuImageLayout::TRANSFER_DESTINATION,
+		GpuBarrierInfo(GpuCommandStage::TRANSFER, GpuAccessStage::TRANSFER_WRITE),
+		GpuImageRange{ .baseLayer = 0, .numLayers = ALL_IMAGE_LAYERS, .baseMipLevel = 0, .numMipLevels = ALL_MIP_LEVELS });
 
 	Engine::GetRenderer()->UploadImageToGpu(img, (TByte*)pixels, size.X * size.Y * size.Z * GetFormatNumberOfBytes(Format::RGBA32_SFLOAT), uploadCmdList.GetPointer());
 
-	uploadCmdList->SetGpuImageBarrier(img, GpuImageLayout::TRANSFER_DESTINATION, GpuImageLayout::SAMPLED,
-		GpuBarrierInfo(GpuBarrierStage::TRANSFER, GpuBarrierAccessStage::TRANSFER_WRITE), GpuBarrierInfo(GpuBarrierStage::FRAGMENT_SHADER, GpuBarrierAccessStage::SHADER_READ),
-		GpuImageBarrierInfo{ .baseLayer = 0, .numLayers = ALL_IMAGE_LAYERS, .baseMipLevel = 0, .numMipLevels = ALL_MIP_LEVELS });
+	uploadCmdList->SetGpuImageBarrier(
+		img, 
+		GpuImageLayout::SAMPLED,
+		GpuBarrierInfo(GpuCommandStage::FRAGMENT_SHADER, GpuAccessStage::SHADER_READ),
+		GpuImageRange{ .baseLayer = 0, .numLayers = ALL_IMAGE_LAYERS, .baseMipLevel = 0, .numMipLevels = ALL_MIP_LEVELS });
 
 	uploadCmdList->Close();
 	Engine::GetRenderer()->SubmitSingleUseCommandList(uploadCmdList);

@@ -4,7 +4,7 @@
 #include "Vector4.hpp"
 #include "DynamicArray.hpp"
 #include "UniquePtr.hpp"
-#include "IGpuDataBuffer.h"
+#include "GpuBuffer.h"
 #include "Color.hpp"
 #include "RenderpassType.h"
 #include "Vector3.hpp"
@@ -14,16 +14,18 @@
 
 #include <string>
 #include <type_traits>
+#include "VertexBufferView.h"
+#include "IndexBufferView.h"
+#include "IGpuImage.h"
 
 namespace OSK::GRAPHICS {
 
 	class Material;
 	class IMaterialSlot;
+	class MaterialInstance;
 	class GpuImage;
 	enum class GpuImageLayout;
 	class RenderTarget;
-	class IGpuVertexBuffer;
-	class IGpuIndexBuffer;
 	struct Viewport;
 	class IGraphicsPipeline;
 	class IRaytracingPipeline;
@@ -89,6 +91,12 @@ namespace OSK::GRAPHICS {
 
 	};
 
+	enum class RenderpassAutoSync {
+		ON,
+		OFF
+	};
+
+
 	/// @brief Una lista de comandos contiene una serie de comandos que serán
 	/// enviados a la GPU para su ejecución.
 	/// La lista es creada por una pool de comandos, y se introduce
@@ -132,7 +140,7 @@ namespace OSK::GRAPHICS {
 		/// @param nextLayout Nuevo layout.
 		/// @param previous Stage previo.
 		/// @param next Stage siguiente.
-		/// @param prevImageInfo Información sobre que subrecursos de la imagen serán afectados.
+		/// @param range Información sobre que subrecursos de la imagen serán afectados.
 		///
 		/// @note Se debe cambiar el layout de la imagen antes de ejecutar un comando sobre ella,
 		/// si su layout actual no coincide con el necesario.
@@ -147,7 +155,7 @@ namespace OSK::GRAPHICS {
 			GpuImageLayout nextLayout, 
 			GpuBarrierInfo previous, 
 			GpuBarrierInfo next, 
-			const GpuImageBarrierInfo& prevImageInfo = {}) = 0;
+			const GpuImageRange& range = {}) = 0;
 
 		/// @brief Establece un barrier que sincroniza la ejecución de comandos.
 		/// Cambia el layout de la imagen.
@@ -156,7 +164,7 @@ namespace OSK::GRAPHICS {
 		/// @param nextLayout Nuevo layout.
 		/// @param previous Stage previo.
 		/// @param next Stage siguiente.
-		/// @param prevImageInfo Información sobre que subrecursos de la imagen serán afectados.
+		/// @param range Información sobre que subrecursos de la imagen serán afectados.
 		/// 
 		/// @note Se debe cambiar el layout de la imagen antes de ejecutar un comando sobre ella,
 		/// si su layout actual no coincide con el necesario.
@@ -165,12 +173,47 @@ namespace OSK::GRAPHICS {
 		/// 
 		/// @post Los subrecursos especificados por imageInfo estarán en el nuevo layout.
 		void SetGpuImageBarrier(
-			GpuImage* image, 
-			GpuImageLayout nextLayout, 
-			GpuBarrierInfo previous, 
-			GpuBarrierInfo next, 
-			const GpuImageBarrierInfo& prevImageInfo = {});
+			GpuImage* image,
+			GpuImageLayout nextLayout,
+			GpuBarrierInfo previous,
+			GpuBarrierInfo next,
+			const GpuImageRange& range = {});
 
+		/// @brief Establece un barrier que sincroniza la ejecución de comandos.
+		/// Cambia el layout de la imagen.
+		/// 
+		/// @param image Imagen a la que se le cambiará el layout.
+		/// @param nextLayout Nuevo layout.
+		/// @param next Stage siguiente.
+		/// @param range Información sobre que subrecursos de la imagen serán afectados.
+		/// 
+		/// @note Se debe cambiar el layout de la imagen antes de ejecutar un comando sobre ella,
+		/// si su layout actual no coincide con el necesario.
+		/// 
+		/// @pre La lista de comandos debe estar abierta.
+		/// 
+		/// @post Los subrecursos especificados por imageInfo estarán en el nuevo layout.
+		void SetGpuImageBarrier(
+			GpuImage* image,
+			GpuImageLayout nextLayout,
+			GpuBarrierInfo next,
+			const GpuImageRange& range = {});
+
+
+		/// @brief Limpia el contenido de una imagen fuera de un renderpass.
+		/// @param image Imagen a limpiar.
+		/// @param range Rango de la imagen que será limpiada.
+		/// @param color Color con el que se limpiará (por defecto, negro).
+		/// 
+		/// @pre La lista de comandos debe estar abierta.
+		/// @pre La lista de comandos no debe tener ningún renderpass activo.
+		/// @pre @p range.channel debe ser SampledChannel::COLOR.
+		/// 
+		/// @post El layout de la imagen después de limpiarse será TRANSFER_DESTINATION.
+		virtual void ClearImage(
+			GpuImage* image, 
+			const GpuImageRange& range = {},
+			const Color& color = Color::BLACK()) = 0;
 
 		/// @brief Comienza el renderizado a un render target.
 		/// @param renderTarget Render target sobre el que se renderizará.
@@ -236,22 +279,55 @@ namespace OSK::GRAPHICS {
 		/// 
 		/// @warning Para materiales de rasterizado, debe estar activo el renderpass
 		/// con el que se vaya a renderizar usando este material.
-		virtual void BindMaterial(Material* material) = 0;
+		void BindMaterial(const Material& material);
 
+				
 		/// @brief Establece el vertex buffer que se va a usar en los próximos renderizados.
+		/// @param buffer Buffer con los vértices.
+		/// @param view View que representa el rango a enlazar.
+		/// 
+		/// @pre Debe haber un renderpass activo.
+		/// @pre La lista de comandos debe estar abierta.
 		/// 
 		/// @note Los materiales que se usen después de este comando deben tener
 		/// el mismo tipo de vértice.
+		virtual void BindVertexBufferRange(const GpuBuffer& buffer, const VertexBufferView& view) = 0;
+
+		/// @brief Establece el vertex buffer que se va a usar en los próximos renderizados.
+		/// @param buffer Buffer con los vértices.
 		/// 
 		/// @pre Debe haber un renderpass activo.
 		/// @pre La lista de comandos debe estar abierta.
-		virtual void BindVertexBuffer(const IGpuVertexBuffer* buffer) = 0;
+		/// @pre El buffer debe tener inicializado su view de vértices.
+		/// 
+		/// @note Los materiales que se usen después de este comando deben tener
+		/// el mismo tipo de vértice.
+		void BindVertexBuffer(const GpuBuffer& buffer);
 
 		/// @brief Establece el index buffer que se va a usar en los próximos renderizados.
+		/// @param buffer Buffer con los índices.
+		/// @param view View que representa el rango a enlazar.
 		/// 
 		/// @pre Debe haber un renderpass activo.
 		/// @pre La lista de comandos debe estar abierta.
-		virtual void BindIndexBuffer(const IGpuIndexBuffer* buffer) = 0;
+		virtual void BindIndexBufferRange(const GpuBuffer& buffer, const IndexBufferView& view) = 0;
+
+		/// @brief Establece el index buffer que se va a usar en los próximos renderizados.
+		/// @param buffer Buffer con los índices.
+		/// 
+		/// @pre El buffer debe tener inicializado su view de índices.
+		/// @pre Debe haber un renderpass activo.
+		/// @pre La lista de comandos debe estar abierta.
+		void BindIndexBuffer(const GpuBuffer& buffer);
+
+
+		/// @brief Establece todos los material slots de la instancia de material.
+		/// @param instance Instancia del material.
+		/// 
+		/// @pre Debe haber un material enlazado.
+		/// @pre El slot debe ser compatible con el material enlazado.
+		/// @pre La lista de comandos debe estar abierta.
+		virtual void BindMaterialInstance(const MaterialInstance& instance);
 
 		/// <summary>
 		/// Establece un material slot que estará asignado en los próximos comandos de renderizado.
@@ -259,11 +335,11 @@ namespace OSK::GRAPHICS {
 		/// siempre que no tengan el mismo id.
 		/// </summary>
 		/// 
-		/// @pre Debe haber un renderpass activo.
+		/// @pre Debe haber un renderpass activo, en caso de que sea un material gráfico.
 		/// @pre Debe haber un material enlazado.
 		/// @pre El slot debe ser compatible con el material enlazado.
 		/// @pre La lista de comandos debe estar abierta.
-		virtual void BindMaterialSlot(const IMaterialSlot* slot) = 0;
+		virtual void BindMaterialSlot(const IMaterialSlot& slot) = 0;
 
 		/// <summary>
 		/// Envía datos push constant al shader.
@@ -291,7 +367,8 @@ namespace OSK::GRAPHICS {
 		/// @pre Debe haber un material enlazado.
 		/// @pre El push constant debe ser compatible con el material enlazado.
 		/// @pre La lista de comandos debe estar abierta.
-		template <typename T> void PushMaterialConstants(const std::string& pushConstName, const T& data) {
+		template <typename T> 
+		void PushMaterialConstants(const std::string& pushConstName, const T& data) {
 			PushMaterialConstants(pushConstName, &data, sizeof(T));
 		}
 
@@ -376,7 +453,6 @@ namespace OSK::GRAPHICS {
 
 
 		virtual void DispatchCompute(const Vector3ui& groupCount) = 0;
-		virtual void BindComputePipeline(const IComputePipeline& computePipeline) = 0;
 
 
 		/// <summary>
@@ -417,7 +493,7 @@ namespace OSK::GRAPHICS {
 		/// @post El layout de la imagen después de efectuarse la copia segirá siendo GpuImageLayout::TRANSFER_DESTINATION.
 		/// @post Si la imagen de destino tiene niveles de mip-map, estos estarán correctamente generados.
 		virtual void CopyBufferToImage(
-			const GpuDataBuffer* source, 
+			const GpuBuffer& source, 
 			GpuImage* dest, 
 			TSize layer = 0, 
 			TSize offset = 0) = 0;
@@ -427,6 +503,7 @@ namespace OSK::GRAPHICS {
 		/// @param destination Destino de la copia.
 		/// @param copyInfo Configuracióon de la copia.
 		///
+		/// @pre Ambas imágenes deben tener el mismo formato.
 		/// @pre La imagen de origen debe haber sido creado con GpuImageUsage::TRANSFER_SOURCE.
 		/// @pre La imagen de origen debe tener el layout GpuImageLayout::TRANSFER_SOURCE.
 		/// @pre La imagen de destino debe haber sido creada con GpuImageUsage::TRANSFER_DESTINATION.
@@ -434,8 +511,8 @@ namespace OSK::GRAPHICS {
 		/// @pre La lista de comandos debe estar abierta.
 		/// 
 		/// @post El layout de la imagen después de efectuarse la copia segirá siendo GpuImageLayout::TRANSFER_DESTINATION.
-		virtual void CopyImageToImage(
-			const GpuImage* source, 
+		virtual void RawCopyImageToImage(
+			const GpuImage& source, 
 			GpuImage* destination, 
 			const CopyImageInfo& copyInfo) = 0;
 
@@ -446,8 +523,8 @@ namespace OSK::GRAPHICS {
 		/// @param sourceOffset Offset del área de memoria en el origen.
 		/// @param destOffset Offset del área de memoria en el destino.
 		virtual void CopyBufferToBuffer(
-			const GpuDataBuffer* source,
-			GpuDataBuffer* dest,
+			const GpuBuffer& source,
+			GpuBuffer* dest,
 			TSize size,
 			TSize sourceOffset,
 			TSize destOffset) = 0;
@@ -464,7 +541,7 @@ namespace OSK::GRAPHICS {
 		/// @pre El buffer debe haber sido creado con GpuBufferUsage::TRANSFER_SOURCE.
 		/// @pre El buffer debe haber sido creado con GpuSharedMemoryType::GPU_AND_CPU.
 		/// @pre La lista de comandos debe estar abierta.
-		void RegisterStagingBuffer(OwnedPtr<GpuDataBuffer> stagingBuffer);
+		void RegisterStagingBuffer(OwnedPtr<GpuBuffer> stagingBuffer);
 
 		/// <summary>
 		/// Elimina todos los buffers intermedios que ya no son necesarios.
@@ -492,9 +569,13 @@ namespace OSK::GRAPHICS {
 		virtual void EndDebugSection() = 0;
 
 
-		TSize GetCommandListIndex() const;
+		TSize _GetCommandListIndex() const;
 
 	protected:
+
+		virtual void BindGraphicsPipeline(const IGraphicsPipeline& computePipeline) = 0;
+		virtual void BindComputePipeline(const IComputePipeline& computePipeline) = 0;
+		virtual void BindRayTracingPipeline(const IRaytracingPipeline& computePipeline) = 0;
 
 		/// <summary>
 		/// Pipeline que está siendo grabada en un instante determinado.
@@ -518,7 +599,7 @@ namespace OSK::GRAPHICS {
 
 	private:
 
-		DynamicArray<UniquePtr<GpuDataBuffer>> stagingBuffersToDelete{};
+		DynamicArray<UniquePtr<GpuBuffer>> stagingBuffersToDelete{};
 
 	};
 

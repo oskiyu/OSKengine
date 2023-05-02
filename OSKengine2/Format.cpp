@@ -53,6 +53,12 @@ VkFormat OSK::GRAPHICS::GetFormatVk(Format format) {
 	case Format::RGBA8_SRGB:
 		return VK_FORMAT_R8G8B8A8_SRGB;
 
+	case Format::RGBA8_UINT:
+		return VK_FORMAT_R8G8B8A8_UINT;
+
+	case Format::RGB10A2_UNORM:
+		return VK_FORMAT_A2R10G10B10_UNORM_PACK32;
+
 	case Format::RGBA16_SFLOAT:
 		return VK_FORMAT_R16G16B16A16_SFLOAT;
 
@@ -89,8 +95,10 @@ unsigned int OSK::GRAPHICS::GetFormatNumberOfBytes(Format format) {
 	switch (format) {
 
 		case Format::RGBA8_UNORM:
+		case Format::RGBA8_UINT:
 		case Format::RGBA8_SRGB:
 		case Format::BGRA8_SRGB:
+		case Format::RGB10A2_UNORM:
 			return 8 * 4 / 8;
 
 		case Format::RGBA16_SFLOAT:
@@ -141,6 +149,10 @@ template <> std::string OSK::ToString<OSK::GRAPHICS::Format>(const OSK::GRAPHICS
 		return "RGBA8_UNORM";
 	case OSK::GRAPHICS::Format::RGBA8_SRGB:
 		return "RGBA8_SRGB";
+	case OSK::GRAPHICS::Format::RGBA8_UINT:
+		return "RGBA8_UINT";
+	case OSK::GRAPHICS::Format::RGB10A2_UNORM:
+		return "RGB10A2_UNORM";
 	case OSK::GRAPHICS::Format::RGBA16_SFLOAT:
 		return "RGBA16_SFLOAT";
 	case OSK::GRAPHICS::Format::RGBA32_SFLOAT:

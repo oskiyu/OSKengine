@@ -1,7 +1,5 @@
 #include "BottomLevelAccelerationStructureVk.h"
 
-#include "GpuVertexBufferVk.h"
-#include "GpuIndexBufferVk.h"
 #include "OSKengine.h"
 #include "RendererVk.h"
 #include "IGpuMemoryAllocator.h"
@@ -21,7 +19,11 @@ BottomLevelAccelerationStructureVk::~BottomLevelAccelerationStructureVk() {
 		VK_NULL_HANDLE);
 }
 
-void BottomLevelAccelerationStructureVk::Setup(const IGpuVertexBuffer& vertexBuffer, const IGpuIndexBuffer& indexBuffer, RtAccelerationStructureFlags flags) {
+void BottomLevelAccelerationStructureVk::Setup(
+	const GpuBuffer& vertexBuffer, const VertexBufferView& vertexView,
+	const GpuBuffer& indexBuffer, const IndexBufferView& indexView,
+	RtAccelerationStructureFlags flags) {
+
 	const VkDevice logicalDevice = Engine::GetRenderer()->GetGpu()->As<GpuVk>()->GetLogicalDevice();
 	IGpuMemoryAllocator* memoryAllocator = Engine::GetRenderer()->GetAllocator();
 
@@ -46,9 +48,7 @@ void BottomLevelAccelerationStructureVk::Setup(const IGpuVertexBuffer& vertexBuf
 
 
 	// Tamaño del vértice
-	TSize vertexStride = 0;
-	for (const auto& i : vertexBuffer.GetVertexInfo().entries)
-		vertexStride += i.size;
+	TSize vertexStride = vertexView.vertexInfo.GetSize();
 
 	// Info de la geometría
 	geometryInfo = VkAccelerationStructureGeometryKHR{};
@@ -59,7 +59,7 @@ void BottomLevelAccelerationStructureVk::Setup(const IGpuVertexBuffer& vertexBuf
 	geometryInfo.geometry.triangles.sType = VK_STRUCTURE_TYPE_ACCELERATION_STRUCTURE_GEOMETRY_TRIANGLES_DATA_KHR;
 	geometryInfo.geometry.triangles.vertexFormat = VK_FORMAT_R32G32B32_SFLOAT;
 	geometryInfo.geometry.triangles.vertexData = vertexBufferGpuAddress;
-	geometryInfo.geometry.triangles.maxVertex = vertexBuffer.GetNumVertices();
+	geometryInfo.geometry.triangles.maxVertex = vertexView.numVertices;
 	geometryInfo.geometry.triangles.vertexStride = vertexStride;
 	geometryInfo.geometry.triangles.indexType = VK_INDEX_TYPE_UINT32;
 	geometryInfo.geometry.triangles.indexData = indexBufferGpuAddress;
@@ -67,7 +67,7 @@ void BottomLevelAccelerationStructureVk::Setup(const IGpuVertexBuffer& vertexBuf
 	geometryInfo.geometry.triangles.transformData.hostAddress = nullptr;
 	geometryInfo.geometry.triangles.transformData = matrixBufferGpuAddress;
 
-	numTriangles = indexBuffer.GetNumTriangles();
+	numTriangles = indexView.numIndices / 3;
 
 	// Rango único para toda la geometría
 	VkAccelerationStructureBuildRangeInfoKHR blasBuildRangeInfo{};
@@ -145,7 +145,7 @@ void BottomLevelAccelerationStructureVk::Setup(const IGpuVertexBuffer& vertexBuf
 
 	auto blasCommandList = Engine::GetRenderer()->CreateSingleUseCommandList();
 	blasCommandList->Start();
-	RendererVk::pvkCmdBuildAccelerationStructuresKHR(blasCommandList->As<CommandListVk>()->GetCommandBuffers()->At(blasCommandList->GetCommandListIndex()), 1, &accelerationBuildGeometryInfo, ranges);
+	RendererVk::pvkCmdBuildAccelerationStructuresKHR(blasCommandList->As<CommandListVk>()->GetCommandBuffers()->At(blasCommandList->_GetCommandListIndex()), 1, &accelerationBuildGeometryInfo, ranges);
 	blasCommandList->Close();
 	Engine::GetRenderer()->SubmitSingleUseCommandList(blasCommandList.GetPointer());
 
@@ -182,7 +182,7 @@ void BottomLevelAccelerationStructureVk::Update(ICommandList* cmdList) {
 	// Construcción final
 	const VkAccelerationStructureBuildRangeInfoKHR* ranges[] = { &blasBuildRangeInfo };
 
-	const VkCommandBuffer vkCmdList = cmdList->As<CommandListVk>()->GetCommandBuffers()->At(cmdList->GetCommandListIndex());
+	const VkCommandBuffer vkCmdList = cmdList->As<CommandListVk>()->GetCommandBuffers()->At(cmdList->_GetCommandListIndex());
 	RendererVk::pvkCmdBuildAccelerationStructuresKHR(vkCmdList, 1, &accelerationBuildGeometryInfo, ranges);
 
 	// Sincronización para que no se pueda usar el blas hasta que haya sido reconstruido correctamente.

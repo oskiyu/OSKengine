@@ -4,7 +4,7 @@
 layout(location = 0) in vec4 color;
 layout(location = 1) in vec2 texCoords;
 
-layout (set = 1, binding = 0) uniform sampler2D stexture;
+layout (set = 0, binding = 0) uniform sampler2D stexture;
 
 layout (location = 0) out vec4 outColor;
 

@@ -6,7 +6,7 @@
 #include "MaterialSystem.h"
 #include "IGpuImage.h"
 #include "IGpuMemoryAllocator.h"
-#include "IGpuDataBuffer.h"
+#include "GpuBuffer.h"
 #include "GpuImageLayout.h"
 #include "ICommandList.h"
 #include "Window.h"
@@ -67,7 +67,7 @@ void IRenderer::UploadLayeredImageToGpu(GpuImage* destination, const TByte* data
 
 	TSize offsetPerIteration = gpuNumBytes / numLayers;
 	for (TSize i = 0; i < numLayers; i++)
-		cmdList->CopyBufferToImage(stagingBuffer.GetPointer(), destination, i, offsetPerIteration * i);
+		cmdList->CopyBufferToImage(stagingBuffer.GetValue(), destination, i, offsetPerIteration * i);
 
 	cmdList->RegisterStagingBuffer(stagingBuffer);
 }

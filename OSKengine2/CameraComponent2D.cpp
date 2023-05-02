@@ -38,7 +38,7 @@ void CameraComponent2D::UpdateUniformBuffer(const Transform2D& cameraTransform) 
 	uniformBuffer->Unmap();
 }
 
-IGpuUniformBuffer* CameraComponent2D::GetUniformBuffer() const {
+GpuBuffer* CameraComponent2D::GetUniformBuffer() const {
 	return uniformBuffer.GetPointer();
 }
 

@@ -7,6 +7,8 @@
 #include "Color.hpp"
 #include "TextureCoordinates.h"
 
+#include "GameObject.h"
+
 namespace OSK::ASSETS {
 	class Texture;
 	class Font;
@@ -44,135 +46,161 @@ namespace OSK::GRAPHICS {
 
 	public:
 
-		/// <summary>
-		/// Establece la cola de comandos sobre la que se grabarán
+		/// @brief Establece la cola de comandos sobre la que se grabarán
 		/// los comandos de renderizado.
-		/// </summary>
+		/// @param commandList Lista de comandos gráficos.
 		void SetCommandList(ICommandList* commandList) noexcept;
 
 
-		/// <summary>
-		/// Inicializa el renderizado 2D, estableciendo la cámara
-		/// 2D que se usará durante el renderizado.
-		/// </summary>
-		/// 
-		/// @pre Si esta no es la primera vez que se ejecuta,
-		/// se debe haber llamado a End antes de llamar a Begin.
-		/// 
-		/// @throws std::runtime_error Si se incumple la segunda precondición.
+		/// @brief Establece el material que se usará sobre los siguientes sprites.
+		/// @param material Material a usar.
+		void SetMaterial(const Material& material);
+
+		/// @brief Establece un material slot que se usará sobre los siguientes sprites.
+		/// @param material Material slot a usar.
+		void SetMaterialSlot(const IMaterialSlot& materialSlot);
+
+
+		/// @brief Establece la cámara 2D con la que se renderizarán los próximos sprites.
+		/// @param camera Cámara 2D.
+		/// @param cameraTransform Transform de la cámara.
+		void SetCamera(const ECS::CameraComponent2D& camera, const ECS::Transform2D& cameraTransform);
+
+		/// @brief Establece la cámara 2D con la que se renderizarán los próximos sprites.
+		/// @param gameObject ID de un objeto con una cámara 2D.
+		/// @pre @p gameObject debe tener un componente del tipo CameraComponent2D.
+		/// @pre @p gameObject debe tener un componente del tipo Transform2D.
+		void SetCamera(ECS::GameObjectIndex gameObject);
+
+		
+		/// @brief Inicializa el renderizado 2D, estableciendo los recursos necesarios.
 		void Begin();
 
-		/// <summary>
-		/// Renderiza un sprite 2D.
-		/// </summary>
-		/// <param name="sprite">Sprite que se va a renderizar.</param>
-		/// <param name="transform">Transformación 2D que se aplicará al 
-		/// renderizar el sprite.</param>
+
+		/// @brief Renderiza un sprite 2D.
+		/// @param sprite Sprite que se va a renderizar.
+		/// @param transform Transformación 2D del sprite.
+		/// @param color Color del sprite (se usará en vez del color de @p sprite).
 		/// 
 		/// @pre La cola de comandos debe estar iniciada.
 		/// @pre La cola de comandos debe tener asociado un renderpass.
-		/// 
-		/// @throws std::runtime_error Si se incumple alguna de las precondiciones.
-		void Draw(const Sprite& sprite, const ECS::Transform2D& transform, const Color& color);
+		/// @pre Se debe haber establecido un material.
+		void Draw(
+			const Sprite& sprite, 
+			const ECS::Transform2D& transform, 
+			const Color& color);
 
-		/// <summary>
 		/// Renderiza un sprite 2D.
-		/// </summary>
-		/// <param name="sprite">Sprite que se va a renderizar.</param>
-		/// <param name="transform">Transformación 2D que se aplicará al 
-		/// renderizar el sprite.</param>
-		/// <param name="texCoords">Coordenadas de texturas.</param>
+		/// @param sprite Sprite que se va a renderizar.
+		/// @param texCoords Coordenadas de texturas (se usará en vez de las coordenadas de @p sprite).
+		/// @param transform Transform del sprite.
+		/// @param color Color del sprite (se usará en vez del color de @p sprite).
 		/// 
 		/// @pre La cola de comandos debe estar iniciada.
 		/// @pre La cola de comandos debe tener asociado un renderpass.
-		/// 
-		/// @throws std::runtime_error Si se incumple alguna de las precondiciones.
-		void Draw(const Sprite& sprite, const TextureCoordinates2D& texCoords, const ECS::Transform2D& transform, const Color& color);
+		/// @pre Se debe haber establecido un material.
+		void Draw(
+			const Sprite& sprite, 
+			const TextureCoordinates2D& texCoords, 
+			const ECS::Transform2D& transform, 
+			const Color& color);
 
-		/// <summary>
-		/// Renderiza una imagen 2D.
-		/// </summary>
-		/// <param name="sprite">Sprite a renderizar.</param>
-		/// <param name="texCoords">Coordenadas de texturas del sprite.</param>
-		/// <param name="position">Posición, en píxeles, en el mundo 2D.</param>
-		/// <param name="size">Tamaño, en píxeles.</param>
-		/// <param name="rotation">Rotación. En grados y en sentido horario.</param>
-		/// <param name="color">Tinte de la imagen.</param>
-		/// 
-		/// @throws std::runtime_error Si se incumple alguna de las precondiciones.
-		void Draw(const Sprite& sprite, const TextureCoordinates2D& texCoords, const Vector2f position, const Vector2f size, float rotation, const Color& color);
-
-		/// <summary>
-		/// Renderiza un sprite 2D.
-		/// </summary>
-		/// <param name="sprite">Sprite que se va a renderizar.</param>
-		/// <param name="transform">Transformación 2D que se aplicará al 
-		/// renderizar el sprite.</param>
+		/// @brief Renderiza un sprite.
+		/// @param sprite Sprite que se va a renderizar.
+		/// @param texCoords Coordenadas de texturas (se usará en vez de las coordenadas de @p sprite).
+		/// @param position Posición del sprite en el mundo 2D.
+		/// @param size Tamaño del sprite en el mundo 2D.
+		/// @param rotation Rotación del sprite en el mundo 2D.
+		/// @param color Color del sprite (se usará en vez del color de @p sprite).
 		/// 
 		/// @pre La cola de comandos debe estar iniciada.
 		/// @pre La cola de comandos debe tener asociado un renderpass.
-		/// 
-		/// @throws std::runtime_error Si se incumple alguna de las precondiciones.
-		void Draw(const Sprite& sprite, const ECS::Transform2D& transform);
+		/// @pre Se debe haber establecido un material.
+		void Draw(
+			const Sprite& sprite,
+			const TextureCoordinates2D& texCoords, 
+			const Vector2f position, 
+			const Vector2f size, 
+			float rotation, 
+			const Color& color);
 
-		/// <summary>
-		/// Renderiza un sprite 2D.
-		/// </summary>
-		/// <param name="sprite">Sprite que se va a renderizar.</param>
-		/// <param name="transform">Transformación 2D que se aplicará al 
-		/// renderizar el sprite.</param>
-		/// <param name="texCoords">Coordenadas de texturas.</param>
+		/// @brief Renderiza un sprite 2D.
+		/// @param sprite Sprite a renderizar.
+		/// @param transform Transform del sprite.
 		/// 
 		/// @pre La cola de comandos debe estar iniciada.
 		/// @pre La cola de comandos debe tener asociado un renderpass.
-		/// 
-		/// @throws std::runtime_error Si se incumple alguna de las precondiciones.
-		void Draw(const Sprite& sprite, const TextureCoordinates2D& texCoords, const ECS::Transform2D& transform);
+		/// @pre Se debe haber establecido un material.
+		void Draw(
+			const Sprite& sprite, 
+			const ECS::Transform2D& transform);
 
-		/// <summary>
-		/// Renderiza una imagen 2D.
-		/// </summary>
-		/// <param name="sprite">Sprite a renderizar.</param>
-		/// <param name="texCoords">Coordenadas de texturas del sprite.</param>
-		/// <param name="position">Posición, en píxeles, en el mundo 2D.</param>
-		/// <param name="size">Tamaño, en píxeles.</param>
-		/// <param name="rotation">Rotación. En grados y en sentido horario.</param>
+		/// @brief Renderiza un sprite 2D.
+		/// @param sprite Sprite que se va a renderizar.
+		/// @param texCoords Coordenadas de texturas (se usará en vez de las coordenadas de @p sprite).
+		/// @param transform Transform del sprite.
 		/// 
-		/// @throws std::runtime_error Si se incumple alguna de las precondiciones.
-		void Draw(const Sprite& sprite, const TextureCoordinates2D& texCoords, const Vector2f position, const Vector2f size, float rotation);
+		/// @pre La cola de comandos debe estar iniciada.
+		/// @pre La cola de comandos debe tener asociado un renderpass.
+		/// @pre Se debe haber establecido un material.
+		void Draw(
+			const Sprite& sprite, 
+			const TextureCoordinates2D& texCoords, 
+			const ECS::Transform2D& transform);
 
-		/// <summary>
-		/// Renderiza el texto con la fuente indicada.
-		/// </summary>
-		/// <param name="font">Fuente del texto.</param>
-		/// <param name="fontSize">Tamaño de la fuente, en píxeles.</param>
-		/// <param name="text">Texto a renderizar.</param>
-		/// <param name="transform">Transform del texto.</param>
-		/// <param name="color">Color del texto.</param>
+		/// @brief Renderiza un sprite.
+		/// @param sprite Sprite que se va a renderizar.
+		/// @param texCoords Coordenadas de texturas (se usará en vez de las coordenadas de @p sprite).
+		/// @param position Posición del sprite en el mundo 2D.
+		/// @param size Tamaño del sprite en el mundo 2D.
+		/// @param rotation Rotación del sprite en el mundo 2D.
 		/// 
-		/// @note La escala del transform representará la proporción del tamaño de cada
-		/// letra respecto al tamaño de la fuente (= 1 para el tamaño original de la fuente).
-		/// 
-		/// @bug La rotación del transform no se aplica correctamente.
-		void DrawString(ASSETS::Font& font, TSize fontSize, const std::string& text, const ECS::Transform2D& transform, const Color& color);
+		/// @pre La cola de comandos debe estar iniciada.
+		/// @pre La cola de comandos debe tener asociado un renderpass.
+		/// @pre Se debe haber establecido un material.
+		void Draw(
+			const Sprite& sprite, 
+			const TextureCoordinates2D& texCoords, 
+			const Vector2f position, 
+			const Vector2f size, 
+			float rotation);
 
-		/// <summary>
-		/// Renderiza el texto con la fuente indicada.
-		/// </summary>
-		/// <param name="font">Fuente del texto.</param>
-		/// <param name="fontSize">Tamaño de la fuente, en píxeles.</param>
-		/// <param name="text">Texto a renderizar.</param>
-		/// <param name="position">Posición de inicio (esquina inferior izquierda).</param>
-		/// <param name="size">Tamaño de cada letra, multiplicador respecto al tamaño de fuente.</param>
-		/// <param name="rotation">Rotación de cada letra.</param>
-		/// <param name="color">Color del texto.</param>
-		/// 
-		/// @bug La rotación no se aplica correctamente.
-		void DrawString(ASSETS::Font& font, TSize fontSize, const std::string& text, const Vector2f position, const Vector2f size, float rotation, const Color& color);
 
-		/// <summary>
-		/// Finaliza el renderizado 2D.
-		/// </summary>
+		/// @brief Renderiza el texto con la fuente indicada.
+		/// @param font Fuente del texto.
+		/// @param fontSize Tamaño de la fuente (en píxeles).
+		/// @param text Texto a renderizar.
+		/// @param transform Transform del texto.
+		/// @param color Color del texto.
+		/// 
+		/// @pre La cola de comandos debe estar iniciada.
+		/// @pre La cola de comandos debe tener asociado un renderpass.
+		/// @pre Se debe haber establecido un material.
+		void DrawString(
+			ASSETS::Font& font, 
+			TSize fontSize, 
+			std::string_view text, 
+			const ECS::Transform2D& transform, 
+			const Color& color);
+
+		/// @brief Renderiza el texto con la fuente indicada.
+		/// @param font Fuente a usar.
+		/// @param fontSize Tamaño de la fuente, en píxeles.
+		/// @param text Texto a renderizar.
+		/// @param position Posición del texto.
+		/// @param size Tamaño de cada letra, multiplicador respecto al tamaño de fuente (1.0 para tamaño original).
+		/// @param rotation Rotación del texto.
+		/// @param color Color del texto.
+		void DrawString(
+			ASSETS::Font& font, 
+			TSize fontSize, 
+			std::string_view text, 
+			const Vector2f position, 
+			const Vector2f size, 
+			float rotation, const 
+			Color& color);
+
+		/// @brief Finaliza el renderizado 2D.
 		void End() noexcept;
 
 	private:
@@ -180,9 +208,11 @@ namespace OSK::GRAPHICS {
 		ICommandList* targetCommandList = nullptr;
 
 		bool isStarted = false;
-		MaterialInstance* previousMaterialInstance = nullptr;
-		const GpuImage* previousImage = nullptr;
-		const Material* lastBoundMaterial = nullptr;
+
+		glm::mat4 currentCameraMatrix = glm::mat4(1.0f);
+
+		const IGpuImageView* previousImage = nullptr;
+		const Material* currentlyBoundMaterial = nullptr;
 
 	};
 

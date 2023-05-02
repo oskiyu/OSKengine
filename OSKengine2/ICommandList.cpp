@@ -4,6 +4,10 @@
 #include "OSKengine.h"
 #include "IRenderer.h"
 
+#include "Material.h"
+#include "MaterialLayout.h"
+#include "MaterialInstance.h"
+
 using namespace OSK;
 using namespace OSK::GRAPHICS;
 
@@ -11,11 +15,17 @@ ICommandList::~ICommandList() {
 	DeleteAllStagingBuffers();
 }
 
-void ICommandList::SetGpuImageBarrier(GpuImage* image, GpuImageLayout nextLayout, GpuBarrierInfo previous, GpuBarrierInfo next, const GpuImageBarrierInfo& prevImageInfo) {
-	SetGpuImageBarrier(image, image->GetLayout(), nextLayout, previous, next, prevImageInfo);
+void ICommandList::SetGpuImageBarrier(GpuImage* image, GpuImageLayout nextLayout, GpuBarrierInfo previous, GpuBarrierInfo next, const GpuImageRange& range) {
+	const GpuImageLayout previousLayout = image->_GetLayout(range.baseLayer, range.baseMipLevel);
+	SetGpuImageBarrier(image, previousLayout, nextLayout, previous, next, range);
 }
 
-void ICommandList::RegisterStagingBuffer(OwnedPtr<GpuDataBuffer> stagingBuffer) {
+void ICommandList::SetGpuImageBarrier(GpuImage* image, GpuImageLayout nextLayout, GpuBarrierInfo next, const GpuImageRange& range) {
+	const GpuImageLayout previousLayout = image->_GetLayout(range.baseLayer, range.baseMipLevel);
+	SetGpuImageBarrier(image, previousLayout, nextLayout, image->GetCurrentBarrier(), next, range);
+}
+
+void ICommandList::RegisterStagingBuffer(OwnedPtr<GpuBuffer> stagingBuffer) {
 	stagingBuffersToDelete.Insert(stagingBuffer.GetPointer());
 }
 
@@ -40,6 +50,49 @@ void ICommandList::BeginGraphicsRenderpass(RenderTarget* renderpass, const Color
 	BeginGraphicsRenderpass(colorImages, { renderpass->GetDepthImage(resourceIndex), 0 }, color, autoSync);
 }
 
+void ICommandList::BindVertexBuffer(const GpuBuffer& buffer) {
+	OSK_ASSERT(buffer.HasVertexView(), "El buffer no tiene vertex view.");
+	BindVertexBufferRange(buffer, buffer.GetVertexView());
+}
+
+void ICommandList::BindIndexBuffer(const GpuBuffer& buffer) {
+	OSK_ASSERT(buffer.HasIndexView(), "El buffer no tiene index view.");
+	BindIndexBufferRange(buffer, buffer.GetIndexView());
+}
+
+void ICommandList::BindMaterial(const Material& material) {
+	currentMaterial = &material;
+
+	switch (material.GetMaterialType()) {
+		case MaterialType::GRAPHICS: {
+			PipelineKey pipelineKey{};
+			pipelineKey.depthFormat = currentDepthImage.targetImage->GetFormat();
+
+			for (const auto& colorImg : currentColorImages)
+				pipelineKey.colorFormats.Insert(colorImg.targetImage->GetFormat());
+
+			currentPipeline.graphics = material.GetGraphicsPipeline(pipelineKey);
+
+			BindGraphicsPipeline(*material.GetGraphicsPipeline(pipelineKey));
+			break;
+		}
+
+		case MaterialType::RAYTRACING: 
+			BindRayTracingPipeline(*material.GetRaytracingPipeline());
+			currentPipeline.raytracing = material.GetRaytracingPipeline();
+			break;
+
+		case MaterialType::COMPUTE: BindComputePipeline(*material.GetComputePipeline());
+			currentPipeline.compute = material.GetComputePipeline();
+			break;
+	}
+}
+
+void ICommandList::BindMaterialInstance(const MaterialInstance& instance) {
+	for (const auto& [name, _] : instance.GetLayout()->GetAllSlots())
+		BindMaterialSlot(*instance.GetSlot(name));
+}
+
 void ICommandList::PushMaterialConstants(const std::string& pushConstName, const void* data, TSize size) {
 	PushMaterialConstants(pushConstName, data, size, 0);
 }
@@ -52,7 +105,7 @@ void ICommandList::_SetSingleTimeUse() {
 	isSingleUse = true;
 }
 
-TSize ICommandList::GetCommandListIndex() const {
+TSize ICommandList::_GetCommandListIndex() const {
 	return isSingleUse ? 0 : Engine::GetRenderer()->GetCurrentCommandListIndex();
 }
 

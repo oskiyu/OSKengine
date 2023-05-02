@@ -38,14 +38,14 @@ namespace OSK::GRAPHICS {
 		/// 
 		/// @warning No se hace comprobación de que el slot existe.
 		/// </summary>
-		MaterialLayoutSlot& GetSlot(const std::string& name) const;
+		MaterialLayoutSlot& GetSlot(std::string_view name) const;
 
 		/// <summary>
 		/// Devuelve el slot push constant con el nombre dado.
 		/// 
 		/// @warning No se hace comprobación de que el slot existe.
 		/// </summary>
-		MaterialLayoutPushConstant& GetPushConstant(const std::string& name) const;
+		MaterialLayoutPushConstant& GetPushConstant(std::string_view name) const;
 
 		/// <summary>
 		/// Obtiene los slots.

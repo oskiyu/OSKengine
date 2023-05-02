@@ -68,33 +68,7 @@ namespace OSK::GRAPHICS {
 		/// 
 		/// @pre Debe haberse inicializado correctamente el sistema TAA mediante
 		/// InitializeTaa.
-		/// 
-		/// @pre La imagen de entrada debe tener el layout devuelto por GetTaaSourceLayout().
-		/// @pre La imagen de entrada debe ser sincronizada usando el GpuBarrierInfo devuelto
-		/// por GetTaaSourceBarrierInfo() como barrier @p next.
 		void ExecuteTaa(ICommandList* commandList);
-
-		/// @return Layout que debe tener la imagen de entrada del sistema TAA antes de su ejecución.
-		inline constexpr static 
-		GpuImageLayout GetTaaSourceLayout() { return GpuImageLayout::SAMPLED; }
-
-		/// @return GpuBarrierInfo que se debe usarse como @p next en la sincronización de
-		/// la imagen de entrada del sistema TAA.
-		inline static 
-		GpuBarrierInfo GetTaaSourceBarrierInfo() {
-			return GpuBarrierInfo(
-				GpuBarrierStage::COMPUTE_SHADER,
-				GpuBarrierAccessStage::SHADER_WRITE);
-		}
-
-		/// @return GpuBarrierInfo que se debe usarse como @p previous en la sincronización de
-		/// la imagen de salida del sistema TAA.
-		inline static 
-		GpuBarrierInfo GetTaaOutputBarrierInfo() {
-			return GpuBarrierInfo(
-				GpuBarrierStage::COMPUTE_SHADER,
-				GpuBarrierAccessStage::SHADER_WRITE);
-		}
 
 		/// @return Render target sobre el que se ejecuta el TAA.
 		inline const ComputeRenderTarget& GetTaaOutput() const { return taaSharpenedRenderTarget; }

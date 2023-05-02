@@ -53,7 +53,7 @@ namespace OSK {
 		static float GetCurrentTime();
 
 
-		/// <summary> Devuelve un puntero al logger del motor. </summary>
+		/// @return Puntero al logger del motor.
 		/// @note El puntero es estable.
 		/// @warning Será nullptr hasta que no se llame a Engine::Create.
 		static IO::Logger* GetLogger();

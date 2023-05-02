@@ -17,6 +17,9 @@
 #include "GpuImageLayout.h"
 #include "Format.h"
 
+#include "VertexBufferView.h"
+#include "IndexBufferView.h"
+
 #include "GpuMemoryUsageInfo.h"
 
 namespace OSK::GRAPHICS {
@@ -28,12 +31,8 @@ namespace OSK::GRAPHICS {
 
 	class IBottomLevelAccelerationStructure;
 	class ITopLevelAccelerationStructure;
-	class GpuDataBuffer;
+	class GpuBuffer;
 	class GpuImage;
-	class IGpuVertexBuffer;
-	class IGpuIndexBuffer;
-	class IGpuUniformBuffer;
-	class IGpuStorageBuffer;
 	struct Vertex3D;
 	class VertexInfo;
 
@@ -148,7 +147,7 @@ namespace OSK::GRAPHICS {
 		/// 
 		/// @note El buffer se colocará preferentemente en un bloque con GpuSharedMemoryType::GPU_ONLY.
 		/// @post El buffer siempre tendrá al menos los usos GpuBufferUsage::VERTEX_BUFFER y GpuBufferUsage::TRANSFER_DESTINATION.
-		OwnedPtr<IGpuVertexBuffer> CreateVertexBuffer(
+		OwnedPtr<GpuBuffer> CreateVertexBuffer(
 			const void* data, 
 			TSize vertexSize, 
 			TSize numVertices, 
@@ -165,7 +164,7 @@ namespace OSK::GRAPHICS {
 		/// @note El buffer se colocará preferentemente en un bloque con GpuSharedMemoryType::GPU_ONLY.
 		/// @post El buffer siempre tendrá al menos los usos GpuBufferUsage::VERTEX_BUFFER y GpuBufferUsage::TRANSFER_DESTINATION.
 		template <typename T> 
-		inline OwnedPtr<IGpuVertexBuffer> CreateVertexBuffer(
+		inline OwnedPtr<GpuBuffer> CreateVertexBuffer(
 			const DynamicArray<T>& vertices, 
 			const VertexInfo& vertexInfo,
 			GpuBufferUsage usage = GpuBufferUsage::VERTEX_BUFFER) {
@@ -179,7 +178,7 @@ namespace OSK::GRAPHICS {
 		/// 
 		/// @note El buffer se colocará preferentemente en un bloque con GpuSharedMemoryType::GPU_ONLY.
 		/// @post El buffer siempre tendrá al menos los usos GpuBufferUsage::INDEX_BUFFER y GpuBufferUsage::TRANSFER_DESTINATION.
-		OwnedPtr<IGpuIndexBuffer> CreateIndexBuffer(
+		OwnedPtr<GpuBuffer> CreateIndexBuffer(
 			const DynamicArray<TIndexSize>& indices,
 			GpuBufferUsage usage = GpuBufferUsage::INDEX_BUFFER);
 
@@ -190,7 +189,7 @@ namespace OSK::GRAPHICS {
 		/// 
 		/// @note El buffer se colocará en un bloque con GpuSharedMemoryType::GPU_AND_CPU.
 		/// @post El buffer siempre tendrá al menos el uso GpuBufferUsage::UNIFORM_BUFFER.
-		OwnedPtr<IGpuUniformBuffer> CreateUniformBuffer(
+		OwnedPtr<GpuBuffer> CreateUniformBuffer(
 			TSize size,
 			GpuBufferUsage usage = GpuBufferUsage::UNIFORM_BUFFER);
 
@@ -201,7 +200,7 @@ namespace OSK::GRAPHICS {
 		/// 
 		/// @note El buffer se colocará en un bloque con GpuSharedMemoryType::GPU_AND_CPU.
 		/// @post El buffer siempre tendrá al menos el uso GpuBufferUsage::STORAGE_BUFFER.
-		OwnedPtr<IGpuStorageBuffer> CreateStorageBuffer(
+		OwnedPtr<GpuBuffer> CreateStorageBuffer(
 			TSize size,
 			GpuBufferUsage usage = GpuBufferUsage::STORAGE_BUFFER);
 
@@ -217,7 +216,7 @@ namespace OSK::GRAPHICS {
 		/// 
 		/// @note El buffer se colocará en un bloque con GpuSharedMemoryType::GPU_AND_CPU.
 		/// @post El buffer siempre tendrá al menos los usos GpuBufferUsage::TRANSFER_SOURCE | GpuBufferUsage::UPLOAD_ONLY.
-		OwnedPtr<GpuDataBuffer> CreateStagingBuffer(
+		OwnedPtr<GpuBuffer> CreateStagingBuffer(
 			TSize size,
 			GpuBufferUsage usage = GpuBufferUsage::UPLOAD_ONLY);
 
@@ -227,7 +226,7 @@ namespace OSK::GRAPHICS {
 		/// @param usage Uso que se le dará al buffer.
 		/// @param memoryType Tipo de memoria que se alojará.
 		/// @return Buffer en la GPU.
-		OwnedPtr<GpuDataBuffer> CreateBuffer(
+		OwnedPtr<GpuBuffer> CreateBuffer(
 			TSize size, 
 			TSize alignment, 
 			GpuBufferUsage usage, 
@@ -242,8 +241,23 @@ namespace OSK::GRAPHICS {
 		/// @param indexBuffer Índices del modelo 3D a partir del que se va a crear la estructura.
 		/// @return Estructura de bajo nivel.
 		OwnedPtr<IBottomLevelAccelerationStructure> CreateBottomAccelerationStructure(
-			const IGpuVertexBuffer& vertexBuffer, 
-			const IGpuIndexBuffer& indexBuffer);
+			const GpuBuffer& vertexBuffer,
+			const GpuBuffer& indexBuffer);
+
+		/// @brief Crea una estructura de aceleración espacial para el trazado de rayos.
+		/// 
+		/// La estructura será de bajo nivel y contendrá la geometría definida
+		/// por los vértices e índices dados.
+		/// @param vertexBuffer Vértices del modelo 3D a partir del que se va a crear la estructura.
+		/// @param vertexView View de los vértices.
+		/// @param indexBuffer Índices del modelo 3D a partir del que se va a crear la estructura.
+		/// @param indexView View de los índices.
+		/// @return Estructura de bajo nivel.
+		OwnedPtr<IBottomLevelAccelerationStructure> CreateBottomAccelerationStructure(
+			const GpuBuffer& vertexBuffer,
+			const VertexBufferView& vertexView,
+			const GpuBuffer& indexBuffer,
+			const IndexBufferView& indexView);
 
 		/// @brief Crea una estructura de aceleración espacial para el trazado de rayos.
 		/// 
@@ -275,32 +289,6 @@ namespace OSK::GRAPHICS {
 		//
 		
 		
-		virtual OwnedPtr<IGpuVertexBuffer> _CreateVertexBuffer(
-			OwnedPtr<IGpuMemorySubblock> subblock, 
-			TSize bufferSize,
-			TSize alignment,
-			TSize numVertices,
-			const VertexInfo& vertexInfo) = 0;
-
-
-		virtual OwnedPtr<IGpuIndexBuffer> _CreateIndexBuffer(
-			OwnedPtr<IGpuMemorySubblock> subblock,
-			TSize bufferSize,
-			TSize alignment, 
-			TSize numIndices) = 0;
-
-
-		virtual OwnedPtr<IGpuUniformBuffer> _CreateUniformBuffer(
-			OwnedPtr<IGpuMemorySubblock> subblock,
-			TSize bufferSize,
-			TSize alignment) = 0;
-
-
-		virtual OwnedPtr<IGpuStorageBuffer> _CreateStorageBuffer(
-			OwnedPtr<IGpuMemorySubblock> subblock,
-			TSize bufferSize,
-			TSize alignment) = 0;
-
 		virtual OwnedPtr<IBottomLevelAccelerationStructure> _CreateBottomAccelerationStructure() = 0;
 
 

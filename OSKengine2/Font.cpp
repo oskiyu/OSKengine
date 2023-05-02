@@ -61,6 +61,7 @@ void Font::LoadSizedFont(TSize fontSize) {
 	// Cargamos todos los caracteres.
 	// Actualizamos el tamaño de la imagen.
 	for (TSize i = 0; i < 255; i++) {
+		// Carga / renderizado del char.
 		result = FT_Load_Char(face, i, FT_LOAD_RENDER);
 		OSK_ASSERT_FALSE(result, "No se pudo cargar el caracter " + std::to_string((char)i) + ". Código: " + std::to_string(result));
 
@@ -74,7 +75,12 @@ void Font::LoadSizedFont(TSize fontSize) {
 
 		ftCharacters[i].data = new TByte[ftCharacters[i].sizeX * ftCharacters[i].sizeY];
 
-		memcpy(ftCharacters[i].data.GetPointer(), face->glyph->bitmap.buffer, ftCharacters[i].sizeX* ftCharacters[i].sizeY);
+		// Copiamos los datos al buffer de la imagen de la GPU.
+		const size_t bitmapSize = ftCharacters[i].sizeX * ftCharacters[i].sizeY * sizeof(TByte);
+		memcpy(
+			ftCharacters[i].data.GetPointer(), 
+			face->glyph->bitmap.buffer, 
+			bitmapSize);
 
 		// Tamaño de la imagen.
 		gpuImageSize.X += ftCharacters[i].sizeX;
@@ -83,9 +89,11 @@ void Font::LoadSizedFont(TSize fontSize) {
 	}
 
 	// Creación de la imagen.
-	GpuImageCreateInfo imageInfo = GpuImageCreateInfo::CreateDefault2D(gpuImageSize, Format::RGBA8_SRGB, 
+	GpuImageCreateInfo imageInfo = GpuImageCreateInfo::CreateDefault2D(
+		gpuImageSize, Format::RGBA8_SRGB, 
 		GpuImageUsage::SAMPLED | GpuImageUsage::TRANSFER_SOURCE | GpuImageUsage::TRANSFER_DESTINATION);
-	OwnedPtr<GpuImage> gpuImage = Engine::GetRenderer()->GetAllocator() ->CreateImage(imageInfo);
+
+	OwnedPtr<GpuImage> gpuImage = Engine::GetRenderer()->GetAllocator()->CreateImage(imageInfo);
 	gpuImage->SetDebugName("Font " + GetName() + "size: " + std::to_string(fontSize));
 
 	instances.InsertMove(fontSize, std::move(FontInstance{}));
@@ -127,25 +135,25 @@ void Font::LoadSizedFont(TSize fontSize) {
 	copyCmdList->Reset();
 	copyCmdList->Start();
 
-	copyCmdList->SetGpuImageBarrier(gpuImage.GetPointer(), GpuImageLayout::UNDEFINED, GpuImageLayout::TRANSFER_DESTINATION,
-		GpuBarrierInfo(GpuBarrierStage::DEFAULT, GpuBarrierAccessStage::DEFAULT), GpuBarrierInfo(GpuBarrierStage::TRANSFER, GpuBarrierAccessStage::TRANSFER_WRITE),
-		GpuImageBarrierInfo{ .baseLayer = 0, .numLayers = ALL_IMAGE_LAYERS, .baseMipLevel = 0, .numMipLevels = ALL_MIP_LEVELS });
+	copyCmdList->SetGpuImageBarrier(
+		gpuImage.GetPointer(),
+		GpuImageLayout::TRANSFER_DESTINATION,
+		GpuBarrierInfo(GpuCommandStage::TRANSFER, GpuAccessStage::TRANSFER_WRITE));
 
 	Engine::GetRenderer()->UploadImageToGpu(gpuImage.GetPointer(), finalPixels.GetData(), numBytes, copyCmdList.GetPointer());
 
-	copyCmdList->SetGpuImageBarrier(gpuImage.GetPointer(), GpuImageLayout::TRANSFER_DESTINATION, GpuImageLayout::SAMPLED,
-		GpuBarrierInfo(GpuBarrierStage::TRANSFER, GpuBarrierAccessStage::TRANSFER_WRITE), GpuBarrierInfo(GpuBarrierStage::FRAGMENT_SHADER, GpuBarrierAccessStage::SHADER_READ),
-		GpuImageBarrierInfo{ .baseLayer = 0, .numLayers = ALL_IMAGE_LAYERS, .baseMipLevel = 0, .numMipLevels = ALL_MIP_LEVELS });
+	copyCmdList->SetGpuImageBarrier(
+		gpuImage.GetPointer(), 
+		GpuImageLayout::SAMPLED,
+		GpuBarrierInfo(GpuCommandStage::FRAGMENT_SHADER, GpuAccessStage::SHADER_READ));
 	copyCmdList->Close();
 	Engine::GetRenderer()->SubmitSingleUseCommandList(copyCmdList.GetPointer());
 
+	const GpuImageViewConfig viewConfig = GpuImageViewConfig::CreateSampled_SingleMipLevel(0);
 
-	if (material) {
-		instance.sprite = new Sprite;
-		instance.sprite->SetMaterialInstance(material->CreateInstance());
-		instance.sprite->SetGpuImage(gpuImage.GetPointer());
-	}
-
+	instance.sprite = new Sprite;
+	instance.sprite->SetImageView(gpuImage->GetView(viewConfig));
+	
 	// Memory free
 	FT_Done_Face(face);
 }

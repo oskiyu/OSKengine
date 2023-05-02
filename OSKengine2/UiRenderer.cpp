@@ -11,7 +11,7 @@ using namespace OSK::ECS;
 using namespace OSK::GRAPHICS;
 
 void UiRenderer::RenderElement(const UiElement* element, const Transform2D &transform) {
-	spriteRenderer.Draw(element->sprite, transform);
+	/*spriteRenderer.Draw(element->sprite, transform);
 
 	for (auto& i : element->GetChildElements()) {
 		Transform2D newTransform = transform;
@@ -19,11 +19,11 @@ void UiRenderer::RenderElement(const UiElement* element, const Transform2D &tran
 		newTransform.AddScale(i->GetSize());
 
 		RenderElement(i.GetPointer(), newTransform);
-	}
+	}*/
 }
 
 void UiRenderer::Render(ICommandList* commandList, const UiElement* element) {
-	spriteRenderer.SetCommandList(commandList);
+	/*spriteRenderer.SetCommandList(commandList);
 	spriteRenderer.Begin();
 
 	Transform2D transform(0);
@@ -32,5 +32,5 @@ void UiRenderer::Render(ICommandList* commandList, const UiElement* element) {
 
 	RenderElement(element, transform);
 
-	spriteRenderer.End();
+	spriteRenderer.End();*/
 }

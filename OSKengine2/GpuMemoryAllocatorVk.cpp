@@ -21,11 +21,7 @@
 #include "GpuImageUsage.h"
 #include "GpuMemoryTypes.h"
 
-#include "IGpuDataBuffer.h"
-#include "GpuVertexBufferVk.h"
-#include "GpuIndexBufferVk.h"
-#include "GpuStorageBufferVk.h"
-#include "GpuUniformBufferVk.h"
+#include "GpuBuffer.h"
 
 #include "BottomLevelAccelerationStructureVk.h"
 #include "TopLevelAccelerationStructureVk.h"
@@ -48,24 +44,6 @@ OwnedPtr<IGpuMemoryBlock> GpuMemoryAllocatorVk::CreateNewBufferBlock(TSize size,
 
 OwnedPtr<IGpuMemoryBlock> GpuMemoryAllocatorVk::CreateNewImageBlock(GpuImage* image, GpuImageUsage usage, GpuSharedMemoryType sharedType) {
 	return GpuMemoryBlockVk::CreateNewImageBlock(image, device, sharedType, usage).GetPointer();
-}
-
-OwnedPtr<IGpuVertexBuffer> GpuMemoryAllocatorVk::_CreateVertexBuffer(
-	OwnedPtr<IGpuMemorySubblock> subblock, TSize bufferSize, TSize alignment, TSize numVertices, const VertexInfo& vertexInfo) {
-	return new GpuVertexBufferVk(subblock, bufferSize, alignment, numVertices, vertexInfo);
-}
-
-OwnedPtr<IGpuIndexBuffer> GpuMemoryAllocatorVk::_CreateIndexBuffer(
-	OwnedPtr<IGpuMemorySubblock> subblock, TSize bufferSize, TSize alignment, TSize numIndices) {
-	return new GpuIndexBufferVk(subblock, bufferSize, alignment, numIndices);
-}
-
-OwnedPtr<IGpuUniformBuffer> GpuMemoryAllocatorVk::_CreateUniformBuffer(OwnedPtr<IGpuMemorySubblock> subblock, TSize bufferSize, TSize alignment) {
-	return new GpuUniformBufferVk(subblock, bufferSize, alignment);
-}
-
-OwnedPtr<IGpuStorageBuffer> GpuMemoryAllocatorVk::_CreateStorageBuffer(OwnedPtr<IGpuMemorySubblock> subblock, TSize bufferSize, TSize alignment) {
-	return new GpuStorageBufferVk(subblock, bufferSize, alignment);
 }
 
 OwnedPtr<GpuImage> GpuMemoryAllocatorVk::CreateImage(const GpuImageCreateInfo& info) {

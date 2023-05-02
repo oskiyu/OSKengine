@@ -21,7 +21,7 @@ void Animator::Setup(const glm::mat4& initialTransform) {
 		boneBuffers[i]->Unmap();
 	}
 
-	const GpuDataBuffer* buffers[3] = {
+	const GpuBuffer* buffers[3] = {
 		boneBuffers[0].GetPointer(),
 		boneBuffers[1].GetPointer(),
 		boneBuffers[2].GetPointer()

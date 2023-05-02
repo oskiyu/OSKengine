@@ -14,12 +14,12 @@ void MaterialLayout::AddPushConstant(MaterialLayoutPushConstant pushConstant) {
 	accumulatedPushConstOffset += pushConstant.size;
 }
 
-MaterialLayoutSlot& MaterialLayout::GetSlot(const std::string& name) const {
-	return slots.Get(name);
+MaterialLayoutSlot& MaterialLayout::GetSlot(std::string_view name) const {
+	return slots.Get(static_cast<std::string>(name));
 }
 
-MaterialLayoutPushConstant& MaterialLayout::GetPushConstant(const std::string& name) const {
-	return pushConstants.Get(name);
+MaterialLayoutPushConstant& MaterialLayout::GetPushConstant(std::string_view name) const {
+	return pushConstants.Get(static_cast<std::string>(name));
 }
 
 const MaterialLayout::MaterialSlotsIterable& MaterialLayout::GetAllSlots() const {

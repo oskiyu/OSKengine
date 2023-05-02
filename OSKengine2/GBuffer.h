@@ -19,12 +19,14 @@ namespace OSK::GRAPHICS {
 		/// @brief Identifica cada una de las imágenes
 		/// del GBuffer.
 		enum class Target : TIndex {
-			/// @brief posición = xyz
-			POSITION = 0,
-			/// @brief color = rgb
-			COLOR = 1,
-			/// @brief normal = xy
-			NORMAL = 2,
+			/// @brief Color = rgb uint.
+			/// Stencil = a uint.
+			COLOR = 0,
+			/// @brief Normal = xyz.
+			/// Alpha = a.
+			NORMAL = 1,
+			/// @brief Metallic = x, roughness = y.
+			METALLIC_ROUGHNESS = 2,
 			/// @brief Movimiento = xy
 			MOTION = 3,
 

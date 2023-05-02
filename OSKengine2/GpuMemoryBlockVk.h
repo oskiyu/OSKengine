@@ -11,14 +11,23 @@ namespace OSK::GRAPHICS {
 	class GpuImage;
 	class GpuVk;
 
-	class OSKAPI_CALL GpuMemoryBlockVk : public IGpuMemoryBlock {
+	class OSKAPI_CALL GpuMemoryBlockVk final : public IGpuMemoryBlock {
 
 	public:
 
 		~GpuMemoryBlockVk();
 
-		static OwnedPtr<GpuMemoryBlockVk> CreateNewBufferBlock(TSize reservedSize, IGpu* device, GpuSharedMemoryType type, GpuBufferUsage bufferUSage);
-		static OwnedPtr<GpuMemoryBlockVk> CreateNewImageBlock(GpuImage* image, IGpu* device, GpuSharedMemoryType type, GpuImageUsage imageUSage);
+		static OwnedPtr<GpuMemoryBlockVk> CreateNewBufferBlock(
+			TSize reservedSize, 
+			IGpu* device, 
+			GpuSharedMemoryType type, 
+			GpuBufferUsage bufferUSage);
+
+		static OwnedPtr<GpuMemoryBlockVk> CreateNewImageBlock(
+			GpuImage* image, 
+			IGpu* device, 
+			GpuSharedMemoryType type, 
+			GpuImageUsage imageUSage);
 
 		VkDeviceMemory GetVulkanMemory() const;
 		VkBuffer GetVulkanBuffer() const;
@@ -27,8 +36,17 @@ namespace OSK::GRAPHICS {
 
 		OwnedPtr<IGpuMemorySubblock> CreateNewMemorySubblock(TSize size, TSize offset) override;
 
-		GpuMemoryBlockVk(TSize reservedSize, IGpu* device, GpuSharedMemoryType type, GpuBufferUsage bufferUSage);
-		GpuMemoryBlockVk(GpuImage*, IGpu* device, GpuImageUsage imageUsage, GpuSharedMemoryType type);
+		GpuMemoryBlockVk(
+			TSize reservedSize, 
+			IGpu* device, 
+			GpuSharedMemoryType type, 
+			GpuBufferUsage bufferUSage);
+
+		GpuMemoryBlockVk(
+			GpuImage*, 
+			IGpu* device, 
+			GpuImageUsage imageUsage, 
+			GpuSharedMemoryType type);
 
 		static VkMemoryAllocateFlags GetMemoryAllocateFlags(GpuBufferUsage usage);
 		static uint32_t GetMemoryType(uint32_t memoryTypeFilter, GpuVk* device, GpuSharedMemoryType type);

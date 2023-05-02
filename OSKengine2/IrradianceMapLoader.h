@@ -35,18 +35,18 @@ namespace OSK::ASSETS {
 
 	private:
 
-		/// <summary>
-		/// Para poder generar el irradiance map, será necesario
+	private:
+
+		/// @brief Para poder generar el irradiance map, será necesario
 		/// hacer varios renderizados a cubemaps.
 		/// 
 		/// Esta función auxiliar permite realizar un renderizado a
 		/// un cubemap con los parámetros dados.
-		/// </summary>
 		/// 
-		/// <param name="targetCubemap">Cubemap sobre el que se va a renderizar.</param>
-		/// <param name="cmdList">Lista de comandos usada.</param>
-		/// <param name="material">Pipeline usado para el renderizado.</param>
-		/// <param name="materialSlot">Material slot usado durante el renderizado (con la imagen de entrada).</param>
+		/// @param targetCubemap Cubemap sobre el que se va a renderizar (copiar).
+		/// @param cmdList Lista de comandos usada.
+		/// @param material Pipeline usado para el renderizado.
+		/// @param materialSlot Material slot usado durante el renderizado (con la imagen de entrada).
 		/// 
 		/// @pre targetCubemap no debe ser nulo.
 		/// @pre cmdList no debe ser nulo.

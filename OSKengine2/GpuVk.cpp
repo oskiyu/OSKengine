@@ -187,10 +187,14 @@ void GpuVk::CreateLogicalDevice() {
 
 	info.dynamicRenderingFeatures.sType = VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_DYNAMIC_RENDERING_FEATURES;
 	info.dynamicRenderingFeatures.dynamicRendering = VK_TRUE;
-	info.dynamicRenderingFeatures.pNext = nullptr;
+	info.dynamicRenderingFeatures.pNext = &info.syncFeatures;
+
+	info.syncFeatures.sType = VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SYNCHRONIZATION_2_FEATURES;
+	info.syncFeatures.synchronization2 = VK_TRUE;
+	info.syncFeatures.pNext = nullptr;
 
 	if (info.IsRtCompatible()) {
-		info.dynamicRenderingFeatures.pNext = &info.rtAccelerationStructuresFeatures;
+		info.syncFeatures.pNext = &info.rtAccelerationStructuresFeatures;
 
 		info.rtAccelerationStructuresFeatures = {};
 		info.rtAccelerationStructuresFeatures.sType = VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_ACCELERATION_STRUCTURE_FEATURES_KHR,
@@ -210,6 +214,7 @@ void GpuVk::CreateLogicalDevice() {
 		info.bindlessTexturesSets.shaderSampledImageArrayNonUniformIndexing = VK_TRUE;
 		info.bindlessTexturesSets.runtimeDescriptorArray = VK_TRUE;
 		info.bindlessTexturesSets.descriptorBindingVariableDescriptorCount = VK_TRUE;
+		info.bindlessTexturesSets.pNext = nullptr;
 	}
 
 	// Crear el logical device.
@@ -324,6 +329,12 @@ GpuVk::Info GpuVk::Info::Get(VkPhysicalDevice gpu, VkSurfaceKHR surface) {
 	info.bindlessTexturesSets.sType = VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_DESCRIPTOR_INDEXING_FEATURES;
 	info.bindlessTexturesSets.runtimeDescriptorArray = VK_TRUE;
 	info.bindlessTexturesSets.descriptorBindingPartiallyBound = VK_TRUE;
+	info.bindlessTexturesSets.pNext = &info.syncFeatures;
+
+	// Permitir sincronización avanzada.
+	info.syncFeatures.sType = VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SYNCHRONIZATION_2_FEATURES;
+	info.syncFeatures.synchronization2 = VK_TRUE;
+	info.syncFeatures.pNext = nullptr;
 
 	vkGetPhysicalDeviceFeatures2(gpu, &info.extendedFeatures);
 

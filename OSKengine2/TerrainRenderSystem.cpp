@@ -26,14 +26,14 @@ void TerrainRenderSystem::Render(ICommandList* commandList) {
 		const TerrainComponent& model = Engine::GetEcs()->GetComponent<TerrainComponent>(obj);
 		const Transform3D& transform = Engine::GetEcs()->GetComponent<Transform3D>(obj);
 
-		commandList->BindMaterial(model.GetMaterialInstance()->GetMaterial());
+		commandList->BindMaterial(*model.GetMaterialInstance()->GetMaterial());
 
-		commandList->BindVertexBuffer(model.GetVertexBuffer());
-		commandList->BindIndexBuffer(model.GetIndexBuffer());
+		commandList->BindVertexBuffer(*model.GetVertexBuffer());
+		commandList->BindIndexBuffer(*model.GetIndexBuffer());
 		commandList->PushMaterialConstants("model", transform.GetAsMatrix());
 
 		for (const auto& [slotName, slot] : model.GetMaterialInstance()->GetLayout()->GetAllSlots())
-			commandList->BindMaterialSlot(model.GetMaterialInstance()->GetSlot(slotName));
+			commandList->BindMaterialSlot(*model.GetMaterialInstance()->GetSlot(slotName));
 
 		commandList->DrawSingleMesh(0, model.GetNumIndices());
 	}

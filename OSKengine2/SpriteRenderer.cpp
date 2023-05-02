@@ -14,6 +14,9 @@
 #include "FontInstance.h"
 #include "FontCharacter.h"
 
+#include "OSKengine.h"
+#include "EntityComponentSystem.h"
+
 using namespace OSK;
 using namespace OSK::ECS;
 using namespace OSK::ASSETS;
@@ -23,13 +26,29 @@ void SpriteRenderer::SetCommandList(ICommandList* commandList) noexcept {
 	targetCommandList = commandList;
 }
 
+void SpriteRenderer::SetMaterial(const Material& material) {
+	targetCommandList->BindMaterial(material);
+}
+
+void SpriteRenderer::SetMaterialSlot(const IMaterialSlot& materialSlot) {
+	targetCommandList->BindMaterialSlot(materialSlot);
+}
+
+void SpriteRenderer::SetCamera(const CameraComponent2D& camera, const Transform2D& cameraTransform) {
+	currentCameraMatrix = camera.GetProjection(cameraTransform);
+}
+
+void SpriteRenderer::SetCamera(GameObjectIndex gameObject) {
+	SetCamera(
+		Engine::GetEcs()->GetComponent<CameraComponent2D>(gameObject),
+		Engine::GetEcs()->GetComponent<Transform2D>(gameObject));
+}
+
 void SpriteRenderer::Begin() {
-	OSK_ASSERT(lastBoundMaterial == nullptr, "Se debe llamar antes a End.");
-	OSK_ASSERT(!isStarted, "Se debe llamar antes a End.");
 	OSK_ASSERT(targetCommandList, "No se ha establecido la lista de comandos. Véase: SpriteRenderer::SetCommandList().");
 
-	targetCommandList->BindVertexBuffer(Sprite::globalVertexBuffer);
-	targetCommandList->BindIndexBuffer(Sprite::globalIndexBuffer);
+	targetCommandList->BindVertexBuffer(*Sprite::globalVertexBuffer);
+	targetCommandList->BindIndexBuffer(*Sprite::globalIndexBuffer);
 
 	isStarted = true;
 }
@@ -42,35 +61,23 @@ void SpriteRenderer::Draw(const Sprite& sprite, const TextureCoordinates2D& texC
 	OSK_ASSERT(targetCommandList, "No se ha establecido la lista de comandos. Véase: SpriteRenderer::SetCommandList().");
 	OSK_ASSERT(isStarted, "No se ha llamado a SpriteRenderer::Begin().");
 
-	bool rebind = false;
+	// Optimización: comrpobamos si la imagen del sprite actual es la misma que la del sprite anterior.
+	// Si es la misma, no necesitamos volver a establecer el material slot.
+	// De lo contrario, debemos establecerlo.
+	if (sprite.GetView() != previousImage) {
+		targetCommandList->BindMaterialSlot(*sprite.GetTextureSlot());
+		previousImage = sprite.GetView();
+	}
 
 	PushConst2D pushConst{};
 
 	pushConst.color = sprite.color;
-	pushConst.matrix = transform.GetAsMatrix();
-
-	if (texCoords.type == TextureCoordsType::NORMALIZED)
-		pushConst.texCoords = texCoords.texCoords;
-	else
-		pushConst.texCoords = texCoords.GetNormalized(sprite.GetGpuImage()->GetSize2D().ToVector2f());
-
-	if (lastBoundMaterial != sprite.GetMaterialInstance()->GetMaterial()) {
-		targetCommandList->BindMaterial(sprite.GetMaterialInstance()->GetMaterial());
-		lastBoundMaterial = sprite.GetMaterialInstance()->GetMaterial();
-
-		rebind = true;
-	}
+	pushConst.matrix = currentCameraMatrix * transform.GetAsMatrix();
+	pushConst.texCoords = texCoords.type == TextureCoordsType::NORMALIZED
+		? texCoords.texCoords
+		: texCoords.GetNormalized(sprite.GetView()->GetSize2D().ToVector2f());
 
 	targetCommandList->PushMaterialConstants("sprite", pushConst);
-
-	if (previousMaterialInstance != sprite.GetMaterialInstance()) {
-		previousMaterialInstance = sprite.GetMaterialInstance();
-		rebind = true;
-	}
-
-	if (rebind)
-		for (const auto& [slotName, slot] : previousMaterialInstance->GetLayout()->GetAllSlots())
-			targetCommandList->BindMaterialSlot(previousMaterialInstance->GetSlot(slotName));
 
 	targetCommandList->DrawSingleInstance(6);
 }
@@ -96,11 +103,10 @@ void SpriteRenderer::Draw(const Sprite& sprite, const TextureCoordinates2D& texC
 	Draw(sprite, texCoords, position, size, rotation, sprite.color);
 }
 
-void SpriteRenderer::DrawString(ASSETS::Font& font, TSize fontSize, const std::string& text, const ECS::Transform2D& transform, const Color& color) {
+void SpriteRenderer::DrawString(Font& font, TSize fontSize, std::string_view text, const ECS::Transform2D& transform, const Color& color) {
 	const auto& fontInstance = font.GetInstance(fontSize);
 
 	OSK_ASSERT(fontInstance.sprite.GetPointer() != nullptr, "La fuente no tiene configurado su sprite.");
-	OSK_ASSERT(fontInstance.sprite->GetMaterialInstance() != nullptr, "La fuente no tiene configurado su sprite.");
 
 	const Vector2f& position = transform.GetPosition();
 	float x = transform.GetPosition().X;
@@ -134,13 +140,18 @@ void SpriteRenderer::DrawString(ASSETS::Font& font, TSize fontSize, const std::s
 		float posX = x + character.bearing.X;
 		float posY = y - (character.bearing.Y);
 
-		Draw(*fontInstance.sprite.GetPointer(), TextureCoordinates2D::Pixels(character.texCoords.ToVector4f()), Vector2f(posX, posY), Vector2f(sizeX, sizeY) * transform.GetScale(), transform.GetRotation(), color);
+		Draw(
+			*fontInstance.sprite.GetPointer(), 
+			TextureCoordinates2D::Pixels(character.texCoords.ToVector4f()), 
+			Vector2f(posX, posY), 
+			Vector2f(sizeX, sizeY) * transform.GetScale(), 
+			transform.GetRotation(), color);
 
 		x += character.advance >> 6;
 	}
 }
 
-void SpriteRenderer::DrawString(ASSETS::Font& font, TSize fontSize, const std::string& text, const Vector2f position, const Vector2f size, float rotation, const Color& color) {
+void SpriteRenderer::DrawString(ASSETS::Font& font, TSize fontSize, std::string_view text, const Vector2f position, const Vector2f size, float rotation, const Color& color) {
 	Transform2D transform(EMPTY_GAME_OBJECT);
 	transform.SetPosition(position);
 	transform.SetRotation(rotation);
@@ -150,7 +161,8 @@ void SpriteRenderer::DrawString(ASSETS::Font& font, TSize fontSize, const std::s
 }
 
 void SpriteRenderer::End() noexcept {
-	lastBoundMaterial = nullptr;
+	currentlyBoundMaterial = nullptr;
+	previousImage = nullptr;
 
 	isStarted = false;
 }

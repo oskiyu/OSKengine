@@ -1,6 +1,8 @@
 #version 460
 #extension GL_ARB_separate_shader_objects : enable
 
+// Vertex Info
+
 layout(location = 0) in vec3 inPosition;
 layout(location = 1) in vec3 inNormal;
 layout(location = 2) in vec4 inColor;
@@ -9,6 +11,8 @@ layout(location = 4) in vec3 inTangent;
 
 layout(location = 5) in vec4 inBoneIndices;
 layout(location = 6) in vec4 inBoneWeights;
+
+// Output
 
 layout(location = 0) out vec3 outPosition;
 layout(location = 1) out vec3 outNormal;

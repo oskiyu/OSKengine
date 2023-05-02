@@ -15,7 +15,7 @@ namespace OSK::GRAPHICS {
 
 		void Execute(ICommandList* computeCmdList) override;
 
-		void SetExposureBuffers(const IGpuStorageBuffer*[3]);
+		void SetExposureBuffers(const GpuBuffer*[3]);
 
 		void SetExposure(float exposure);
 		float GetExposure() const;

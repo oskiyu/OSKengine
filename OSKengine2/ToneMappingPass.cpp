@@ -5,7 +5,7 @@
 #include "MaterialSystem.h"
 #include "Material.h"
 #include "GpuImageLayout.h"
-#include "IGpuStorageBuffer.h"
+#include "GpuBuffer.h"
 
 using namespace OSK;
 using namespace OSK::GRAPHICS;
@@ -23,14 +23,21 @@ void ToneMappingPass::Execute(ICommandList* computeCmdList) {
 	computeCmdList->StartDebugSection("Tone Mapping", Color::PURPLE());
 
 	computeCmdList->SetGpuImageBarrier(
-		resolveRenderTarget.GetTargetImage(resourceIndex), 
-		GpuImageLayout::GENERAL,
-		GpuBarrierInfo(GpuBarrierStage::FRAGMENT_SHADER, GpuBarrierAccessStage::SHADER_READ), 
-		GpuBarrierInfo(GpuBarrierStage::COMPUTE_SHADER, GpuBarrierAccessStage::SHADER_WRITE));
+		inputImages[resourceIndex],
+		GpuImageLayout::SAMPLED,
+		GpuBarrierInfo(GpuCommandStage::COMPUTE_SHADER, GpuAccessStage::SAMPLED_READ),
+		{ .baseLayer = 0, .numLayers = 1, .baseMipLevel = 0, .numMipLevels = 1 });
 
-	computeCmdList->BindMaterial(postProcessingMaterial);
-	computeCmdList->BindMaterialSlot(postProcessingMaterialInstance->GetSlot("texture"));
-	computeCmdList->BindMaterialSlot(postProcessingMaterialInstance->GetSlot("exposure"));
+	computeCmdList->SetGpuImageBarrier(
+		resolveRenderTarget.GetTargetImage(resourceIndex),
+		GpuImageLayout::UNDEFINED,
+		GpuImageLayout::GENERAL,
+		GpuBarrierInfo(GpuCommandStage::NONE, GpuAccessStage::NONE),
+		GpuBarrierInfo(GpuCommandStage::COMPUTE_SHADER, GpuAccessStage::SHADER_WRITE));
+
+	computeCmdList->BindMaterial(*postProcessingMaterial);
+	computeCmdList->BindMaterialSlot(*postProcessingMaterialInstance->GetSlot("texture"));
+	computeCmdList->BindMaterialSlot(*postProcessingMaterialInstance->GetSlot("exposure"));
 
 	const Vector3ui dispatchRes = {
 		static_cast<TSize>(glm::ceil(resolveRenderTarget.GetSize().X / 8.0f)),
@@ -41,12 +48,6 @@ void ToneMappingPass::Execute(ICommandList* computeCmdList) {
 	struct { float exposure; float gamma; } const pushConstants{ exposure, gamma - 1.2f };
 	computeCmdList->PushMaterialConstants("gamma", pushConstants);
 	computeCmdList->DispatchCompute(dispatchRes);
-
-	computeCmdList->SetGpuImageBarrier(
-		resolveRenderTarget.GetTargetImage(resourceIndex), 
-		GpuImageLayout::SAMPLED,
-		GpuBarrierInfo(GpuBarrierStage::COMPUTE_SHADER, GpuBarrierAccessStage::SHADER_WRITE), 
-		GpuBarrierInfo(GpuBarrierStage::FRAGMENT_SHADER, GpuBarrierAccessStage::SHADER_READ));
 
 	computeCmdList->EndDebugSection();
 }
@@ -67,7 +68,7 @@ float ToneMappingPass::GetGamma() const {
 	return gamma;
 }
 
-void ToneMappingPass::SetExposureBuffers(const IGpuStorageBuffer* buffers[3]) {
-	postProcessingMaterialInstance->GetSlot("exposure")->SetStorageBuffers("exposure", (const GpuDataBuffer**)buffers);
+void ToneMappingPass::SetExposureBuffers(const GpuBuffer* buffers[3]) {
+	postProcessingMaterialInstance->GetSlot("exposure")->SetStorageBuffers("exposure", (const GpuBuffer**)buffers);
 	postProcessingMaterialInstance->GetSlot("exposure")->FlushUpdate();
 }

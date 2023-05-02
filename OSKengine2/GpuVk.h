@@ -58,7 +58,7 @@ namespace OSK::GRAPHICS {
 
 
 			/// @brief Estructura que contiene las propiedades básicas de la GPU.
-			/// TYambién funciona como el primer nodo de una lista enlazada con
+			/// También funciona como el primer nodo de una lista enlazada con
 			/// más propiedades específicas de la GPU.
 			VkPhysicalDeviceFeatures2 extendedFeatures{};
 
@@ -85,6 +85,8 @@ namespace OSK::GRAPHICS {
 			/// render passes.
 			VkPhysicalDeviceDynamicRenderingFeatures dynamicRenderingFeatures{};
 
+			/// @brief Contiene información sobre el soporte de sincronización avanzada.
+			VkPhysicalDeviceSynchronization2Features syncFeatures{};
 
 			/// @brief Comprueba si esta GPU puede renderizar trazado de rayos.
 			/// @return True si soporta trazado de rayos.

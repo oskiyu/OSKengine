@@ -137,29 +137,17 @@ void BloomPass::ExecuteSinglePass(ICommandList* computeCmdList, TIndex sourceMip
 		glm::max(sourceResolution.Y, destResolution.Y) / static_cast<TSize>(BLOCK_SIZE)
 	};
 
-	computeCmdList->SetGpuImageBarrier(
-		resolveRenderTarget.GetTargetImage(resourceIndex), 
-		GpuImageLayout::SAMPLED,
-		GpuBarrierInfo(GpuBarrierStage::COMPUTE_SHADER, GpuBarrierAccessStage::SHADER_WRITE), 
-		GpuBarrierInfo(GpuBarrierStage::COMPUTE_SHADER, GpuBarrierAccessStage::SHADER_READ),
-		{ .baseLayer = 0, .numLayers = 1, .baseMipLevel = sourceMipLevel, .numMipLevels = 1 });
-
-	computeCmdList->SetGpuImageBarrier(
-		resolveRenderTarget.GetTargetImage(resourceIndex),
-		GpuImageLayout::GENERAL,
-		GpuBarrierInfo(GpuBarrierStage::COMPUTE_SHADER, GpuBarrierAccessStage::SHADER_READ), 
-		GpuBarrierInfo(GpuBarrierStage::COMPUTE_SHADER, GpuBarrierAccessStage::SHADER_WRITE),
-		{ .baseLayer = 0, .numLayers = 1, .baseMipLevel = destMipLevel, .numMipLevels = 1 });
-
 	computeCmdList->DispatchCompute({ dispatchRes.X, dispatchRes.Y, 1 });
 }
 
 void BloomPass::DownscaleBloom(GRAPHICS::ICommandList* computeCmdList) {
-	computeCmdList->BindMaterial(downscaleMaterial);
+	computeCmdList->StartDebugSection("Downscale", Color::PURPLE());
+
+	computeCmdList->BindMaterial(*downscaleMaterial);
 	const TIndex resourceIndex = Engine::GetRenderer()->GetCurrentResourceIndex();
 
 	for (TIndex i = 0; i < GetNumPasses() - 1; i++) {
-		computeCmdList->BindMaterialSlot(downscalingMaterialInstance[i]->GetSlot("texture"));
+		computeCmdList->BindMaterialSlot(*downscalingMaterialInstance[i]->GetSlot("texture"));
 
 		if (i == 0)
 			computeCmdList->PushMaterialConstants("info", 1);
@@ -169,111 +157,142 @@ void BloomPass::DownscaleBloom(GRAPHICS::ICommandList* computeCmdList) {
 		const TIndex sourceMipLevel = i;
 		const TIndex destinationMipLevel = sourceMipLevel + 1;
 
+		// Nivel anterior debe ser SAMPLED.
+		computeCmdList->SetGpuImageBarrier(
+			resolveRenderTarget.GetTargetImage(resourceIndex),
+			GpuImageLayout::SAMPLED,
+			GpuBarrierInfo(GpuCommandStage::COMPUTE_SHADER, GpuAccessStage::SHADER_READ),
+			{ .baseLayer = 0, .numLayers = 1, .baseMipLevel = sourceMipLevel, .numMipLevels = 1 });
+
+		// Nivel siguiente será escrito.
+		// Al no haber sido usado previamente en este frame,
+		// layout inicial es UNDEFINED y barrier es NONE.
+		computeCmdList->SetGpuImageBarrier(
+			resolveRenderTarget.GetTargetImage(resourceIndex),
+			GpuImageLayout::UNDEFINED,
+			GpuImageLayout::GENERAL,
+			GpuBarrierInfo(GpuCommandStage::NONE, GpuAccessStage::NONE),
+			GpuBarrierInfo(GpuCommandStage::COMPUTE_SHADER, GpuAccessStage::SHADER_WRITE),
+			{ .baseLayer = 0, .numLayers = 1, .baseMipLevel = destinationMipLevel, .numMipLevels = 1 });
+
 		ExecuteSinglePass(computeCmdList, sourceMipLevel, destinationMipLevel);
 	}
+
+	computeCmdList->EndDebugSection();
 }
 
 void BloomPass::UpscaleBloom(GRAPHICS::ICommandList* computeCmdList) {
-	computeCmdList->BindMaterial(upscaleMaterial);
+	computeCmdList->StartDebugSection("Upscale", Color::PURPLE());
+
+	computeCmdList->BindMaterial(*upscaleMaterial);
 	const TIndex resourceIndex = Engine::GetRenderer()->GetCurrentResourceIndex();
 
 	for (TSize i = GetNumPasses() - 2; i > 0; i--) {
-		computeCmdList->BindMaterialSlot(upscalingMaterialInstance[i]->GetSlot("texture"));
+		computeCmdList->BindMaterialSlot(*upscalingMaterialInstance[i]->GetSlot("texture"));
 
 		const TIndex sourceMipLevel = i + 1;
 		const TIndex destinationMipLevel = i;
 
+		// Nivel anterior debe ser SAMPLED.
+		computeCmdList->SetGpuImageBarrier(
+			resolveRenderTarget.GetTargetImage(resourceIndex),
+			GpuImageLayout::SAMPLED,
+			GpuBarrierInfo(GpuCommandStage::COMPUTE_SHADER, GpuAccessStage::SHADER_READ),
+			{ .baseLayer = 0, .numLayers = 1, .baseMipLevel = sourceMipLevel, .numMipLevels = 1 });
+
+		// Nivel siguiente será escrito (y leído).
+		computeCmdList->SetGpuImageBarrier(
+			resolveRenderTarget.GetTargetImage(resourceIndex),
+			GpuImageLayout::GENERAL,
+			GpuBarrierInfo(GpuCommandStage::COMPUTE_SHADER, GpuAccessStage::SHADER_READ | GpuAccessStage::SHADER_WRITE),
+			{ .baseLayer = 0, .numLayers = 1, .baseMipLevel = destinationMipLevel, .numMipLevels = 1 });
+
 		ExecuteSinglePass(computeCmdList, sourceMipLevel, destinationMipLevel);
 	}
+
+	computeCmdList->EndDebugSection();
 }
 
-void BloomPass::Execute(ICommandList* computeCmdList) {
+void BloomPass::InitialCopy(ICommandList* computeCmdList) {
 	const TSize resourceIndex = Engine::GetRenderer()->GetCurrentResourceIndex();
-
-	// Copiamos la imagen de la escena a la primera imagen de source
-
-	computeCmdList->StartDebugSection("Bloom", Color::PURPLE());
 
 	computeCmdList->AddDebugMarker("Source Copy", Color::YELLOW());
 
+	// La imagen de la escena se copia a la cadena de mipmaps:
+	// debe estar en transfer source.
 	computeCmdList->SetGpuImageBarrier(
-		inputImages[resourceIndex], 
+		inputImages[resourceIndex],
 		GpuImageLayout::TRANSFER_SOURCE,
-		GpuBarrierInfo(GpuBarrierStage::COMPUTE_SHADER, GpuBarrierAccessStage::SHADER_READ), 
-		GpuBarrierInfo(GpuBarrierStage::TRANSFER, GpuBarrierAccessStage::TRANSFER_READ));
+		GpuBarrierInfo(GpuCommandStage::TRANSFER, GpuAccessStage::TRANSFER_READ));
 
+	// La imagen de destino (mip 0) debe ser transfer dest. para efectuar la copia.
+	// Al no haber sido usada previamente, el layout original es UNDEFINED y
+	// barrier info es NONE.
 	computeCmdList->SetGpuImageBarrier(
-		resolveRenderTarget.GetTargetImage(resourceIndex), 
+		resolveRenderTarget.GetTargetImage(resourceIndex),
+		GpuImageLayout::UNDEFINED,
 		GpuImageLayout::TRANSFER_DESTINATION,
-		GpuBarrierInfo(GpuBarrierStage::COMPUTE_SHADER, GpuBarrierAccessStage::SHADER_READ), 
-		GpuBarrierInfo(GpuBarrierStage::TRANSFER, GpuBarrierAccessStage::TRANSFER_WRITE),
-		{ .baseLayer = 0, .numLayers = 1, .baseMipLevel = 0, .numMipLevels = ALL_MIP_LEVELS });
+		GpuBarrierInfo(GpuCommandStage::NONE, GpuAccessStage::NONE),
+		GpuBarrierInfo(GpuCommandStage::TRANSFER, GpuAccessStage::TRANSFER_WRITE),
+		{ .baseLayer = 0, .numLayers = 1, .baseMipLevel = 0, .numMipLevels = 1 });
 
 	const Vector2ui imgSize = inputImages[resourceIndex]->GetSize2D();
 	CopyImageInfo copyInfo = CopyImageInfo::CreateDefault2D(imgSize);
-	computeCmdList->CopyImageToImage(
-		inputImages[resourceIndex], 
+	copyInfo.destinationMipLevel = 0;
+
+	computeCmdList->RawCopyImageToImage(
+		*inputImages[resourceIndex],
 		resolveRenderTarget.GetTargetImage(resourceIndex),
 		copyInfo);
+}
 
+void BloomPass::Resolve(ICommandList* computeCmdList) {
+	const TSize resourceIndex = Engine::GetRenderer()->GetCurrentResourceIndex();
 
-	computeCmdList->SetGpuImageBarrier(
-		inputImages[resourceIndex],
-		GpuImageLayout::SAMPLED,
-		GpuBarrierInfo(GpuBarrierStage::TRANSFER, GpuBarrierAccessStage::TRANSFER_READ),
-		GpuBarrierInfo(GpuBarrierStage::COMPUTE_SHADER, GpuBarrierAccessStage::SHADER_READ));
-
-	computeCmdList->SetGpuImageBarrier(
-		resolveRenderTarget.GetTargetImage(resourceIndex),
-		GpuImageLayout::SAMPLED,
-		GpuBarrierInfo(GpuBarrierStage::TRANSFER, GpuBarrierAccessStage::TRANSFER_READ),
-		GpuBarrierInfo(GpuBarrierStage::COMPUTE_SHADER, GpuBarrierAccessStage::SHADER_READ));
-
-
-
-	// Procesado
-	computeCmdList->StartDebugSection("Downscale", Color::PURPLE());
-	DownscaleBloom(computeCmdList);
-	computeCmdList->EndDebugSection();
-
-	computeCmdList->StartDebugSection("Upscale", Color::PURPLE());
-	UpscaleBloom(computeCmdList);
-	computeCmdList->EndDebugSection();
-
-	// Resolve
 	computeCmdList->StartDebugSection("Resolve", Color::PURPLE());
 
+	// Source = nivel 1
 	computeCmdList->SetGpuImageBarrier(
 		resolveRenderTarget.GetTargetImage(resourceIndex),
 		GpuImageLayout::SAMPLED,
-		GpuBarrierInfo(GpuBarrierStage::COMPUTE_SHADER, GpuBarrierAccessStage::SHADER_WRITE), 
-		GpuBarrierInfo(GpuBarrierStage::COMPUTE_SHADER, GpuBarrierAccessStage::SHADER_READ),
+		GpuBarrierInfo(GpuCommandStage::COMPUTE_SHADER, GpuAccessStage::SHADER_READ),
 		{ .baseLayer = 0, .numLayers = 1, .baseMipLevel = 1, .numMipLevels = 1 });
 
+	// Dest = nivel 0
 	computeCmdList->SetGpuImageBarrier(
 		resolveRenderTarget.GetTargetImage(resourceIndex),
 		GpuImageLayout::GENERAL,
-		GpuBarrierInfo(GpuBarrierStage::COMPUTE_SHADER, GpuBarrierAccessStage::SHADER_READ), 
-		GpuBarrierInfo(GpuBarrierStage::COMPUTE_SHADER, GpuBarrierAccessStage::SHADER_WRITE),
+		GpuBarrierInfo(GpuCommandStage::COMPUTE_SHADER, GpuAccessStage::SHADER_READ | GpuAccessStage::SHADER_WRITE),
 		{ .baseLayer = 0, .numLayers = 1, .baseMipLevel = 0, .numMipLevels = 1 });
+
+	// La imagen de la escena se vuelve a usar.
+	computeCmdList->SetGpuImageBarrier(
+		inputImages[resourceIndex],
+		GpuImageLayout::SAMPLED,
+		GpuBarrierInfo(GpuCommandStage::COMPUTE_SHADER, GpuAccessStage::SAMPLED_READ));
 
 	const Vector2ui dispatchRes = {
 		static_cast<TSize>(glm::ceil(resolveRenderTarget.GetSize().X / BLOCK_SIZE)),
 		static_cast<TSize>(glm::ceil(resolveRenderTarget.GetSize().Y / BLOCK_SIZE))
 	};
 
-	computeCmdList->BindMaterial(resolveMaterial);
-	computeCmdList->BindMaterialSlot(resolveInstance->GetSlot("texture"));
+	computeCmdList->BindMaterial(*resolveMaterial);
+	computeCmdList->BindMaterialSlot(*resolveInstance->GetSlot("texture"));
 	computeCmdList->DispatchCompute({ dispatchRes.X, dispatchRes.Y, 1 });
 
-	computeCmdList->SetGpuImageBarrier(
-		resolveRenderTarget.GetTargetImage(resourceIndex), 
-		GpuImageLayout::SAMPLED,
-		GpuBarrierInfo(GpuBarrierStage::COMPUTE_SHADER, GpuBarrierAccessStage::SHADER_WRITE), 
-		GpuBarrierInfo(GpuBarrierStage::COMPUTE_SHADER, GpuBarrierAccessStage::SHADER_READ),
-		{ .baseLayer = 0, .numLayers = 1, .baseMipLevel = 0, .numMipLevels = ALL_MIP_LEVELS });
-
 	computeCmdList->EndDebugSection();
+}
+
+void BloomPass::Execute(ICommandList* computeCmdList) {
+	const TSize resourceIndex = Engine::GetRenderer()->GetCurrentResourceIndex();
+
+	computeCmdList->StartDebugSection("Bloom", Color::PURPLE());
+
+	InitialCopy(computeCmdList);
+	DownscaleBloom(computeCmdList);
+	UpscaleBloom(computeCmdList);
+	Resolve(computeCmdList);
+
 	computeCmdList->EndDebugSection();
 }
 

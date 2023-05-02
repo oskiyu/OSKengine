@@ -126,7 +126,7 @@ void TopLevelAccelerationStructureVk::Setup() {
 
 	auto tlasCommandList = Engine::GetRenderer()->CreateSingleUseCommandList();
 	tlasCommandList->Start();
-	RendererVk::pvkCmdBuildAccelerationStructuresKHR(tlasCommandList->As<CommandListVk>()->GetCommandBuffers()->At(tlasCommandList->GetCommandListIndex()), 1, &tlasBuildGeometryInfo, tlasRanges.GetData());
+	RendererVk::pvkCmdBuildAccelerationStructuresKHR(tlasCommandList->As<CommandListVk>()->GetCommandBuffers()->At(tlasCommandList->_GetCommandListIndex()), 1, &tlasBuildGeometryInfo, tlasRanges.GetData());
 	tlasCommandList->Close();
 	Engine::GetRenderer()->SubmitSingleUseCommandList(tlasCommandList.GetPointer());
 
@@ -198,7 +198,7 @@ void TopLevelAccelerationStructureVk::Update(ICommandList* cmdList) {
 		&tlasBuildRangeInfo
 	};
 
-	const VkCommandBuffer vkCmdList = cmdList->As<CommandListVk>()->GetCommandBuffers()->At(cmdList->GetCommandListIndex());
+	const VkCommandBuffer vkCmdList = cmdList->As<CommandListVk>()->GetCommandBuffers()->At(cmdList->_GetCommandListIndex());
 	RendererVk::pvkCmdBuildAccelerationStructuresKHR(vkCmdList, 1, &tlasBuildGeometryInfo, tlasRanges.GetData());
 
 	// Sincronización para que no se pueda usar el blas hasta que haya sido reconstruido correctamente.

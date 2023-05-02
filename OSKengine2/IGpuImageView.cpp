@@ -1,6 +1,7 @@
 #include "IGpuImageView.h"
 
 #include "Assert.h"
+#include "IGpuImage.h"
 
 using namespace OSK;
 using namespace OSK::GRAPHICS;
@@ -10,7 +11,7 @@ IGpuImageView::IGpuImageView(
 	const GpuImageViewConfig& config)
 
 	: originalImage(&originalImage), config(config) {
-
+	size = originalImage.GetSize3D();
 }
 
 SampledChannel IGpuImageView::GetChannel() const {

@@ -93,10 +93,10 @@ void RenderSystem3D::LoadMaterials() {
 }
 
 void RenderSystem3D::SetupMaterials() {
-	const IGpuUniformBuffer* _cameraUbos[NUM_RESOURCES_IN_FLIGHT]{};
-	const IGpuUniformBuffer* _previousCameraUbos[NUM_RESOURCES_IN_FLIGHT]{};
-	const IGpuUniformBuffer* _dirLightUbos[NUM_RESOURCES_IN_FLIGHT]{};
-	const IGpuUniformBuffer* _shadowsMatricesUbos[NUM_RESOURCES_IN_FLIGHT]{};
+	const GpuBuffer* _cameraUbos[NUM_RESOURCES_IN_FLIGHT]{};
+	const GpuBuffer* _previousCameraUbos[NUM_RESOURCES_IN_FLIGHT]{};
+	const GpuBuffer* _dirLightUbos[NUM_RESOURCES_IN_FLIGHT]{};
+	const GpuBuffer* _shadowsMatricesUbos[NUM_RESOURCES_IN_FLIGHT]{};
 	const IGpuImageView* _shadowsMaps[NUM_RESOURCES_IN_FLIGHT]{};
 
 	GpuImageViewConfig shadowsViewConfig = GpuImageViewConfig::CreateSampled_Array(0, shadowMap.GetNumCascades());
@@ -112,7 +112,7 @@ void RenderSystem3D::SetupMaterials() {
 
 	sceneMaterialInstance->GetSlot("global")->SetUniformBuffers("camera", _cameraUbos);
 	sceneMaterialInstance->GetSlot("global")->SetUniformBuffers("previousCamera", _previousCameraUbos);
-	sceneMaterialInstance->GetSlot("global")->SetUniformBuffer("res", resolutionBuffer.GetPointer());
+	sceneMaterialInstance->GetSlot("global")->SetUniformBuffer("res", resolutionBuffer.GetValue());
 
 	sceneMaterialInstance->GetSlot("global")->SetUniformBuffers("dirLight", _dirLightUbos);
 	sceneMaterialInstance->GetSlot("global")->SetUniformBuffers("dirLightShadowMat", _shadowsMatricesUbos);
@@ -129,7 +129,7 @@ void RenderSystem3D::InitializeTerrain(const Vector2ui& resolution, const Textur
 	const GpuImageViewConfig viewConfig = GpuImageViewConfig::CreateSampled_MipLevelRanged(0, 0);
 	terrain.GetMaterialInstance()->GetSlot("global")->SetGpuImage("heightmap", heightMap.GetGpuImage()->GetView(viewConfig));
 
-	const IGpuUniformBuffer* ubos[3]{};
+	const GpuBuffer* ubos[3]{};
 	for (TSize i = 0; i < 3; i++) ubos[i] = cameraBuffers[i].GetPointer();
 	terrain.GetMaterialInstance()->GetSlot("global")->SetUniformBuffers("camera", ubos);
 
@@ -219,10 +219,11 @@ void RenderSystem3D::GenerateShadows(ICommandList* commandList, ModelType modelT
 
 	commandList->SetGpuImageBarrier(
 		shadowMap.GetShadowImage(resourceIndex), 
+		GpuImageLayout::UNDEFINED,
 		GpuImageLayout::DEPTH_STENCIL_TARGET,
-		GpuBarrierInfo(GpuBarrierStage::FRAGMENT_SHADER, GpuBarrierAccessStage::SHADER_READ), 
-		GpuBarrierInfo(GpuBarrierStage::DEPTH_STENCIL_START, GpuBarrierAccessStage::DEPTH_STENCIL_READ | GpuBarrierAccessStage::DEPTH_STENCIL_WRITE),
-		GpuImageBarrierInfo{ .baseLayer = 0, .numLayers = shadowMap.GetNumCascades(), .baseMipLevel = 0, .numMipLevels = ALL_MIP_LEVELS, .channel = SampledChannel::DEPTH });
+		GpuBarrierInfo(GpuCommandStage::NONE, GpuAccessStage::NONE),
+		GpuBarrierInfo(GpuCommandStage::DEPTH_STENCIL_START, GpuAccessStage::DEPTH_STENCIL_READ | GpuAccessStage::DEPTH_STENCIL_WRITE),
+		GpuImageRange{ .baseLayer = 0, .numLayers = shadowMap.GetNumCascades(), .baseMipLevel = 0, .numMipLevels = ALL_MIP_LEVELS, .channel = SampledChannel::DEPTH });
 
 	commandList->SetViewport(viewport);
 	commandList->SetScissor(viewport.rectangle);
@@ -243,8 +244,8 @@ void RenderSystem3D::GenerateShadows(ICommandList* commandList, ModelType modelT
 
 		commandList->StartDebugSection("Static Meshes", Color::BLACK());
 
-		commandList->BindMaterial(shadowMap.GetShadowsMaterial(ModelType::STATIC_MESH));
-		commandList->BindMaterialSlot(shadowMap.GetShadowsMaterialInstance()->GetSlot("global"));
+		commandList->BindMaterial(*shadowMap.GetShadowsMaterial(ModelType::STATIC_MESH));
+		commandList->BindMaterialSlot(*shadowMap.GetShadowsMaterialInstance()->GetSlot("global"));
 
 		ShadowsRenderLoop(ModelType::STATIC_MESH, commandList, i);
 
@@ -252,8 +253,8 @@ void RenderSystem3D::GenerateShadows(ICommandList* commandList, ModelType modelT
 
 		commandList->StartDebugSection("Animated Models", Color::BLACK());
 
-		commandList->BindMaterial(shadowMap.GetShadowsMaterial(ModelType::ANIMATED_MODEL));
-		commandList->BindMaterialSlot(shadowMap.GetShadowsMaterialInstance()->GetSlot("global"));
+		commandList->BindMaterial(*shadowMap.GetShadowsMaterial(ModelType::ANIMATED_MODEL));
+		commandList->BindMaterialSlot(*shadowMap.GetShadowsMaterialInstance()->GetSlot("global"));
 		ShadowsRenderLoop(ModelType::ANIMATED_MODEL, commandList, i);
 
 		commandList->EndDebugSection();
@@ -263,12 +264,6 @@ void RenderSystem3D::GenerateShadows(ICommandList* commandList, ModelType modelT
 		commandList->EndDebugSection();
 	}
 
-	commandList->SetGpuImageBarrier(shadowMap.GetShadowImage(resourceIndex), 
-		GpuImageLayout::SAMPLED,
-		GpuBarrierInfo(GpuBarrierStage::DEPTH_STENCIL_END, GpuBarrierAccessStage::DEPTH_STENCIL_READ | GpuBarrierAccessStage::DEPTH_STENCIL_WRITE), 
-		GpuBarrierInfo(GpuBarrierStage::FRAGMENT_SHADER, GpuBarrierAccessStage::SHADER_READ),
-		GpuImageBarrierInfo{ .baseLayer = 0, .numLayers = shadowMap.GetNumCascades(), .baseMipLevel = 0, .numMipLevels = ALL_MIP_LEVELS, .channel = SampledChannel::DEPTH });
-
 	commandList->EndDebugSection();
 }
 
@@ -276,6 +271,16 @@ void RenderSystem3D::RenderScene(ICommandList* commandList) {
 	const TSize resourceIndex = Engine::GetRenderer()->GetCurrentResourceIndex();
 	
 	commandList->StartDebugSection("PBR Direct", Color::RED());
+
+	commandList->SetGpuImageBarrier(shadowMap.GetShadowImage(resourceIndex),
+		GpuImageLayout::SAMPLED,
+		GpuBarrierInfo(GpuCommandStage::FRAGMENT_SHADER, GpuAccessStage::SAMPLED_READ),
+		GpuImageRange{
+			.baseLayer = 0, 
+			.numLayers = shadowMap.GetNumCascades(), 
+			.baseMipLevel = 0, 
+			.numMipLevels = ALL_MIP_LEVELS, 
+			.channel = SampledChannel::DEPTH });
 
 	commandList->BeginGraphicsRenderpass(&renderTarget, Color::BLACK() * 0.0f);
 	SetupViewport(commandList);
@@ -296,11 +301,11 @@ void RenderSystem3D::RenderScene(ICommandList* commandList) {
 }
 
 void RenderSystem3D::SceneRenderLoop(ModelType modelType, ICommandList* commandList) {
-	IGpuVertexBuffer* previousVertexBuffer = nullptr;
-	IGpuIndexBuffer* previousIndexBuffer = nullptr;
+	GpuBuffer* previousVertexBuffer = nullptr;
+	GpuBuffer* previousIndexBuffer = nullptr;
 
-	commandList->BindMaterial(modelType == ModelType::STATIC_MESH ? sceneMaterial : animatedSceneMaterial);
-	commandList->BindMaterialSlot(sceneMaterialInstance->GetSlot("global"));
+	commandList->BindMaterial(modelType == ModelType::STATIC_MESH ? *sceneMaterial : *animatedSceneMaterial);
+	commandList->BindMaterialSlot(*sceneMaterialInstance->GetSlot("global"));
 	
 	for (GameObjectIndex obj : GetObjects()) {
 		const ModelComponent3D& model = Engine::GetEcs()->GetComponent<ModelComponent3D>(obj);
@@ -310,11 +315,11 @@ void RenderSystem3D::SceneRenderLoop(ModelType modelType, ICommandList* commandL
 			continue;
 
 		if (previousVertexBuffer != model.GetModel()->GetVertexBuffer()) {
-			commandList->BindVertexBuffer(model.GetModel()->GetVertexBuffer());
+			commandList->BindVertexBuffer(*model.GetModel()->GetVertexBuffer());
 			previousVertexBuffer = model.GetModel()->GetVertexBuffer();
 		}
 		if (previousIndexBuffer != model.GetModel()->GetIndexBuffer()) {
-			commandList->BindIndexBuffer(model.GetModel()->GetIndexBuffer());
+			commandList->BindIndexBuffer(*model.GetModel()->GetIndexBuffer());
 			previousIndexBuffer = model.GetModel()->GetIndexBuffer();
 		}
 
@@ -328,10 +333,10 @@ void RenderSystem3D::SceneRenderLoop(ModelType modelType, ICommandList* commandL
 		};
 
 		if (modelType == ModelType::ANIMATED_MODEL)
-			commandList->BindMaterialSlot(model.GetModel()->GetAnimator()->GetMaterialInstance()->GetSlot("animation"));
+			commandList->BindMaterialSlot(*model.GetModel()->GetAnimator()->GetMaterialInstance()->GetSlot("animation"));
 
 		for (TSize i = 0; i < model.GetModel()->GetMeshes().GetSize(); i++) {
-			commandList->BindMaterialSlot(model.GetMeshMaterialInstance(i)->GetSlot("texture"));
+			commandList->BindMaterialSlot(*model.GetMeshMaterialInstance(i)->GetSlot("texture"));
 
 			pushConsts.materialInfos.x = model.GetModel()->GetMetadata().meshesMetadata[i].metallicFactor;
 			pushConsts.materialInfos.y = model.GetModel()->GetMetadata().meshesMetadata[i].roughnessFactor;
@@ -352,11 +357,11 @@ void RenderSystem3D::ShadowsRenderLoop(ModelType modelType, ICommandList* comman
 		if (model.GetModel()->GetType() != modelType)
 			continue;
 
-		commandList->BindVertexBuffer(model.GetModel()->GetVertexBuffer());
-		commandList->BindIndexBuffer(model.GetModel()->GetIndexBuffer());
+		commandList->BindVertexBuffer(*model.GetModel()->GetVertexBuffer());
+		commandList->BindIndexBuffer(*model.GetModel()->GetIndexBuffer());
 
 		if (modelType == ModelType::ANIMATED_MODEL)
-			commandList->BindMaterialSlot(model.GetModel()->GetAnimator()->GetMaterialInstance()->GetSlot("animation"));
+			commandList->BindMaterialSlot(*model.GetModel()->GetAnimator()->GetMaterialInstance()->GetSlot("animation"));
 
 		struct {
 			glm::mat4 model;
@@ -373,12 +378,11 @@ void RenderSystem3D::ShadowsRenderLoop(ModelType modelType, ICommandList* comman
 }
 
 void RenderSystem3D::RenderTerrain(ICommandList* commandList) {
-	commandList->BindMaterial(terrainMaterial);
-	commandList->BindMaterialSlot(terrain.GetMaterialInstance()->GetSlot("global"));
-	commandList->BindMaterialSlot(terrain.GetMaterialInstance()->GetSlot("texture"));
+	commandList->BindMaterial(*terrainMaterial);
+	commandList->BindMaterialInstance(*terrain.GetMaterialInstance());
 
-	commandList->BindVertexBuffer(terrain.GetVertexBuffer());
-	commandList->BindIndexBuffer(terrain.GetIndexBuffer());
+	commandList->BindVertexBuffer(*terrain.GetVertexBuffer());
+	commandList->BindIndexBuffer(*terrain.GetIndexBuffer());
 	
 	glm::mat4 model = glm::scale(glm::mat4(1.0f), { 100.f, 5.f, 100.f });
 
@@ -401,27 +405,21 @@ void RenderSystem3D::ExecuteTaa(ICommandList* commandList) {
 
 	const TIndex resourceIndex = Engine::GetRenderer()->GetCurrentResourceIndex();
 
-	GpuImage* sourceImage = renderTarget.GetColorImage(COLOR_IMAGE_INDEX, resourceIndex);
+	commandList->SetGpuImageBarrier(
+		renderTarget.GetColorImage(MOTION_IMAGE_INDEX, resourceIndex),
+		GpuImageLayout::SAMPLED,
+		GpuBarrierInfo(GpuCommandStage::COMPUTE_SHADER, GpuAccessStage::SAMPLED_READ));
 
 	commandList->SetGpuImageBarrier(
-		sourceImage,
-		TaaProvider::GetTaaSourceLayout(),
-		GpuBarrierInfo(GpuBarrierStage::COLOR_ATTACHMENT_OUTPUT, GpuBarrierAccessStage::SHADER_WRITE),
-		TaaProvider::GetTaaSourceBarrierInfo());
+		renderTarget.GetColorImage(COLOR_IMAGE_INDEX, resourceIndex),
+		GpuImageLayout::SAMPLED,
+		GpuBarrierInfo(GpuCommandStage::COMPUTE_SHADER, GpuAccessStage::SAMPLED_READ));
 
 	taaProvider.ExecuteTaa(commandList);
 
-	if (taaProvider.IsActive()) {
+	if (taaProvider.IsActive())
 		CopyTaaResult(commandList);
-	}
-	else {
-		commandList->SetGpuImageBarrier(
-			sourceImage,
-			GpuImageLayout::SAMPLED,
-			TaaProvider::GetTaaSourceBarrierInfo(),
-			GpuBarrierInfo(GpuBarrierStage::FRAGMENT_SHADER, GpuBarrierAccessStage::SHADER_READ));
-	}
-
+	
 	commandList->EndDebugSection();
 }
 
@@ -434,27 +432,18 @@ void RenderSystem3D::CopyTaaResult(GRAPHICS::ICommandList* commandList) {
 	commandList->SetGpuImageBarrier(
 		sourceImage,
 		GpuImageLayout::TRANSFER_SOURCE,
-		TaaProvider::GetTaaOutputBarrierInfo(),
-		GpuBarrierInfo(GpuBarrierStage::TRANSFER, GpuBarrierAccessStage::TRANSFER_READ));
+		GpuBarrierInfo(GpuCommandStage::TRANSFER, GpuAccessStage::TRANSFER_READ));
 
 	// Imagen del render target final: transfer destination.
 	commandList->SetGpuImageBarrier(
 		destinationImage,
 		GpuImageLayout::TRANSFER_DESTINATION,
-		TaaProvider::GetTaaSourceBarrierInfo(),
-		GpuBarrierInfo(GpuBarrierStage::TRANSFER, GpuBarrierAccessStage::TRANSFER_WRITE));
+		GpuBarrierInfo(GpuCommandStage::TRANSFER, GpuAccessStage::TRANSFER_WRITE));
 
-	commandList->CopyImageToImage(
-		sourceImage,
+	commandList->RawCopyImageToImage(
+		*sourceImage,
 		destinationImage,
 		CopyImageInfo::CreateDefault2D(renderTarget.GetSize()));
-
-	// Imagen del render target final: sampled.
-	commandList->SetGpuImageBarrier(
-		destinationImage,
-		GpuImageLayout::SAMPLED,
-		GpuBarrierInfo(GpuBarrierStage::TRANSFER, GpuBarrierAccessStage::TRANSFER_WRITE),
-		GpuBarrierInfo(GpuBarrierStage::FRAGMENT_SHADER, GpuBarrierAccessStage::SHADER_READ));
 }
 
 void RenderSystem3D::Render(GRAPHICS::ICommandList* commandList) {

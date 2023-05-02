@@ -33,7 +33,7 @@ void ModelComponent3D::SetModel(Model3D* model) {
 
 			for (auto& [slotName, bindings] : uniformBuffersBound)
 				for (auto& [bindingName, binding] : bindings)
-					meshesMaterialInstances.At(i)->GetSlot(slotName)->SetUniformBuffer(bindingName, binding);
+					meshesMaterialInstances.At(i)->GetSlot(slotName)->SetUniformBuffer(bindingName, *binding);
 		}
 	}
 }
@@ -57,7 +57,7 @@ void ModelComponent3D::SetMaterial(Material* material) {
 
 			for (auto& [slotName, bindings] : uniformBuffersBound)
 				for (auto& [bindingName, binding] : bindings)
-					i->GetSlot(slotName)->SetUniformBuffer(bindingName, binding);
+					i->GetSlot(slotName)->SetUniformBuffer(bindingName, *binding);
 		}
 	}
 }
@@ -94,9 +94,9 @@ void ModelComponent3D::BindGpuImageForAllMeshes(const std::string& slot, const s
 	imagesBound.Get(slot).Insert(binding, image);
 }
 
-void ModelComponent3D::BindUniformBufferForAllMeshes(const std::string& slot, const std::string& binding, const GRAPHICS::IGpuUniformBuffer* buffer) {
+void ModelComponent3D::BindUniformBufferForAllMeshes(const std::string& slot, const std::string& binding, const GRAPHICS::GpuBuffer* buffer) {
 	for (auto& i : meshesMaterialInstances) {
-		i->GetSlot(slot)->SetUniformBuffer(binding, buffer);
+		i->GetSlot(slot)->SetUniformBuffer(binding, *buffer);
 		i->GetSlot(slot)->FlushUpdate();
 	}
 

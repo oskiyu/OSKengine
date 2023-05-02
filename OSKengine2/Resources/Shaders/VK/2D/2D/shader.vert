@@ -3,10 +3,6 @@
 
 layout(location = 0) in vec2 inPos;
 
-layout (set = 0, binding = 0) uniform Camera {
-    mat4 cameraMatrix;
-} camera;
-
 layout (push_constant) uniform Sprite {
     mat4 model;
     vec4 color;
@@ -20,5 +16,5 @@ void main() {
     outColor = sprite.color;
     outTexCoords = sprite.texCoords.xy + inPos.xy * sprite.texCoords.zw;
 
-    gl_Position = camera.cameraMatrix * sprite.model * vec4(inPos, 0.0, 1.0);
+    gl_Position = sprite.model * vec4(inPos, 0.0, 1.0);
 }

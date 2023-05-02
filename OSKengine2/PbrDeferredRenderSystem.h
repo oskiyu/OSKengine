@@ -17,9 +17,8 @@ namespace OSK::ECS {
 
 	class CameraComponent3D;
 
-	/// <summary>
-	/// Sistema de renderizado PBR en diferido.
-	/// </summary>
+
+	/// @brief 
 	class OSKAPI_CALL PbrDeferredRenderSystem : public IRenderSystem {
 
 	public:
@@ -28,7 +27,10 @@ namespace OSK::ECS {
 
 		PbrDeferredRenderSystem();
 
-		void Initialize(ECS::GameObjectIndex cameraObject, const ASSETS::IrradianceMap& irradianceMap, const ASSETS::SpecularMap& specularMap);
+		void Initialize(
+			ECS::GameObjectIndex cameraObject, 
+			const ASSETS::IrradianceMap& irradianceMap, 
+			const ASSETS::SpecularMap& specularMap);
 
 		void CreateTargetImage(const Vector2ui& size) override;
 		void Resize(const Vector2ui& size) override;
@@ -37,16 +39,40 @@ namespace OSK::ECS {
 
 		void OnTick(TDeltaTime deltaTime) override;
 
-		const static TSize GBUFFER_POSITION_TARGET_INDEX = 0;
-		const static TSize GBUFFER_COLOR_TARGET_INDEX = 1;
-		const static TSize GBUFFER_NORMAL_TARGET_INDEX = 2;
-
 		void ToggleTaa();
 
 	private:
 
+		/// @brief Estructura con la información almacenada
+		/// en los uniform buffers de la cámara.
+		struct CameraInfo {
+			alignas(16) glm::mat4 projectionMatrix;
+			alignas(16) glm::mat4 viewMatrix;
+			alignas(16) glm::mat4 projectionViewMatrix;
+
+			alignas(16) Vector4f position;
+
+			alignas(16) Vector2f nearFarPlanes;
+		};
+
+		/// @brief Estructura con la información almacenada
+		/// en los uniform buffers de la cámara del frame
+		/// anterior.
+		struct PreviousCameraInfo {
+			alignas(16) glm::mat4 projectionMatrix;
+			alignas(16) glm::mat4 viewMatrix;
+			alignas(16) glm::mat4 projectionViewMatrix;
+		};
+
+	private:
+
+		void LoadMaterials();
+		void CreateBuffers();
+
+		void SetupGBufferMaterial();
+		void SetupResolveMaterial();
+
 		void UpdateResolveMaterial();
-		void UpdateTaaMaterial();
 
 		void GenerateShadows(GRAPHICS::ICommandList* commandList);
 		void RenderGBuffer(GRAPHICS::ICommandList* commandList);
@@ -58,16 +84,18 @@ namespace OSK::ECS {
 		void GBufferRenderLoop(GRAPHICS::ICommandList* commandList, ASSETS::ModelType modelType, TIndex jitterIndex);
 		void ShadowsRenderLoop(ASSETS::ModelType modelType, GRAPHICS::ICommandList* commandList, TSize cascadeIndex);
 
+	private:
+
 		GRAPHICS::ComputeRenderTarget resolveRenderTarget;
 		GRAPHICS::GBuffer gBuffer;
 
-		UniquePtr<GRAPHICS::IGpuUniformBuffer> cameraUbos[3]{};
-		UniquePtr<GRAPHICS::IGpuUniformBuffer> previousCameraUbos[NUM_RESOURCES_IN_FLIGHT]{};
+		UniquePtr<GRAPHICS::GpuBuffer> cameraUbos[NUM_RESOURCES_IN_FLIGHT]{};
+		UniquePtr<GRAPHICS::GpuBuffer> previousCameraUbos[NUM_RESOURCES_IN_FLIGHT]{};
 
 		glm::mat4 previousCameraProjection = glm::mat4(1.0f);
 		glm::mat4 previousCameraView = glm::mat4(1.0f);
 
-		UniquePtr<GRAPHICS::IGpuUniformBuffer> dirLightUbos[3]{};
+		UniquePtr<GRAPHICS::GpuBuffer> dirLightUbos[3]{};
 		GRAPHICS::DirectionalLight dirLight{};
 
 		GRAPHICS::ShadowMap shadowMap;

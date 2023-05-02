@@ -42,7 +42,7 @@ namespace OSK::ECS {
 
 		void AddBlas(GRAPHICS::IBottomLevelAccelerationStructure* blas);
 
-		const GRAPHICS::IGpuUniformBuffer* GetCameraBuffer(TIndex index) const {
+		const GRAPHICS::GpuBuffer* GetCameraBuffer(TIndex index) const {
 			return cameraUbos[index].GetPointer();
 		}
 
@@ -113,9 +113,9 @@ namespace OSK::ECS {
 		UniquePtr<GRAPHICS::MaterialInstance> resolveMaterialInstance;
 
 		// Resources
-		UniquePtr<GRAPHICS::IGpuUniformBuffer> cameraUbos[NUM_RESOURCES_IN_FLIGHT]{};
-		UniquePtr<GRAPHICS::IGpuUniformBuffer> previousCameraUbos[NUM_RESOURCES_IN_FLIGHT]{};
-		UniquePtr<GRAPHICS::IGpuUniformBuffer> dirLightUbos[NUM_RESOURCES_IN_FLIGHT]{};
+		UniquePtr<GRAPHICS::GpuBuffer> cameraUbos[NUM_RESOURCES_IN_FLIGHT]{};
+		UniquePtr<GRAPHICS::GpuBuffer> previousCameraUbos[NUM_RESOURCES_IN_FLIGHT]{};
+		UniquePtr<GRAPHICS::GpuBuffer> dirLightUbos[NUM_RESOURCES_IN_FLIGHT]{};
 
 		// Materiales
 		GRAPHICS::Material* gbufferMaterial = nullptr;

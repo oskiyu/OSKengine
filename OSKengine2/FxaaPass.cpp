@@ -23,13 +23,20 @@ void FxaaPass::Execute(ICommandList* computeCmdList) {
 
 	computeCmdList->StartDebugSection("FXAA", Color::PURPLE());
 
-	computeCmdList->SetGpuImageBarrier(inputImages[resourceIndex], GpuImageLayout::SAMPLED,
-		GpuBarrierInfo(GpuBarrierStage::FRAGMENT_SHADER, GpuBarrierAccessStage::SHADER_READ), GpuBarrierInfo(GpuBarrierStage::COMPUTE_SHADER, GpuBarrierAccessStage::SHADER_READ));
-	computeCmdList->SetGpuImageBarrier(resolveRenderTarget.GetTargetImage(resourceIndex), GpuImageLayout::GENERAL,
-		GpuBarrierInfo(GpuBarrierStage::COMPUTE_SHADER, GpuBarrierAccessStage::SHADER_READ), GpuBarrierInfo(GpuBarrierStage::COMPUTE_SHADER, GpuBarrierAccessStage::SHADER_WRITE));
+	computeCmdList->SetGpuImageBarrier(
+		inputImages[resourceIndex], 
+		GpuImageLayout::SAMPLED,
+		GpuBarrierInfo(GpuCommandStage::COMPUTE_SHADER, GpuAccessStage::SAMPLED_READ));
 
-	computeCmdList->BindMaterial(postProcessingMaterial);
-	computeCmdList->BindMaterialSlot(postProcessingMaterialInstance->GetSlot("texture"));
+	computeCmdList->SetGpuImageBarrier(
+		resolveRenderTarget.GetTargetImage(resourceIndex), 
+		GpuImageLayout::UNDEFINED,
+		GpuImageLayout::GENERAL,
+		GpuBarrierInfo(GpuCommandStage::NONE, GpuAccessStage::NONE),
+		GpuBarrierInfo(GpuCommandStage::COMPUTE_SHADER, GpuAccessStage::SHADER_WRITE));
+
+	computeCmdList->BindMaterial(*postProcessingMaterial);
+	computeCmdList->BindMaterialSlot(*postProcessingMaterialInstance->GetSlot("texture"));
 
 	const Vector3ui dispatchRes = {
 		static_cast<TSize>(glm::ceil(resolveRenderTarget.GetSize().X / 8.0f)),
@@ -38,11 +45,6 @@ void FxaaPass::Execute(ICommandList* computeCmdList) {
 	};
 
 	computeCmdList->DispatchCompute(dispatchRes);
-
-	computeCmdList->SetGpuImageBarrier(inputImages[resourceIndex], GpuImageLayout::SAMPLED,
-		GpuBarrierInfo(GpuBarrierStage::COMPUTE_SHADER, GpuBarrierAccessStage::SHADER_READ), GpuBarrierInfo(GpuBarrierStage::FRAGMENT_SHADER, GpuBarrierAccessStage::SHADER_READ));
-	computeCmdList->SetGpuImageBarrier(resolveRenderTarget.GetTargetImage(resourceIndex), GpuImageLayout::SAMPLED,
-		GpuBarrierInfo(GpuBarrierStage::COMPUTE_SHADER, GpuBarrierAccessStage::SHADER_WRITE), GpuBarrierInfo(GpuBarrierStage::COMPUTE_SHADER, GpuBarrierAccessStage::SHADER_READ));
 
 	computeCmdList->EndDebugSection();
 }

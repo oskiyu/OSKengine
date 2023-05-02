@@ -23,6 +23,46 @@ void IMaterialSlot::SetTextures(const std::string& binding, const ASSETS::Textur
 	SetGpuImages(binding, images);
 }
 
-std::string IMaterialSlot::GetName() const {
+void IMaterialSlot::SetUniformBuffer(const std::string& binding, const GpuBuffer& buffer) {
+	const GpuBuffer* buffers[NUM_RESOURCES_IN_FLIGHT]{};
+	for (TSize i = 0; i < NUM_RESOURCES_IN_FLIGHT; i++)
+		buffers[i] = &buffer;
+
+	SetUniformBuffers(binding, buffers);
+}
+
+void IMaterialSlot::SetGpuImage(const std::string& binding, const IGpuImageView* image) {
+	const IGpuImageView* images[NUM_RESOURCES_IN_FLIGHT]{};
+	for (TSize i = 0; i < NUM_RESOURCES_IN_FLIGHT; i++)
+		images[i] = image;
+
+	SetGpuImages(binding, images);
+}
+
+void IMaterialSlot::SetStorageBuffer(const std::string& binding, const GpuBuffer* buffer) {
+	const GpuBuffer* buffers[NUM_RESOURCES_IN_FLIGHT]{};
+	for (TSize i = 0; i < NUM_RESOURCES_IN_FLIGHT; i++)
+		buffers[i] = buffer;
+
+	SetStorageBuffers(binding, buffers);
+}
+
+void IMaterialSlot::SetStorageImage(const std::string& binding, const IGpuImageView* image) {
+	const IGpuImageView* images[NUM_RESOURCES_IN_FLIGHT]{};
+	for (TSize i = 0; i < NUM_RESOURCES_IN_FLIGHT; i++)
+		images[i] = image;
+
+	SetStorageImages(binding, images);
+}
+
+void IMaterialSlot::SetAccelerationStructure(const std::string& binding, const ITopLevelAccelerationStructure* accelerationStructure) {
+	const ITopLevelAccelerationStructure* accelerationStructures[NUM_RESOURCES_IN_FLIGHT]{};
+	for (TSize i = 0; i < NUM_RESOURCES_IN_FLIGHT; i++)
+		accelerationStructures[i] = accelerationStructure;
+
+	SetAccelerationStructures(binding, accelerationStructures);
+}
+
+std::string_view IMaterialSlot::GetName() const {
 	return name;
 }

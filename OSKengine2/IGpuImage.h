@@ -15,6 +15,8 @@
 #include "DynamicArray.hpp"
 #include "HashMap.hpp"
 
+#include "GpuBarrierInfo.h"
+
 namespace OSK::GRAPHICS {
 
 	enum class Format;
@@ -24,12 +26,41 @@ namespace OSK::GRAPHICS {
 	enum class GpuImageUsage;
 	class IGpu;
 
+
+	/// @brief Describe un rango de una imagen,
+	/// incluyendo capas, niveles de mip y canales.
+	struct GpuImageRange {
+
+		/// @brief Índice de la primera capa que será afectada por el barrier.
+		/// @pre Si la imagen NO es array, debe ser 0.
+		TSize baseLayer = 0;
+
+		/// @brief Número de capas del array afectadas por el barrier.
+		TSize numLayers = ALL_IMAGE_LAYERS;
+
+		/// @brief Nivel más bajo de mip que será afectado por el barrier.
+		TSize baseMipLevel = 0;
+		/// @brief Número de niveles de mip que serán afectados por el barrier.
+		TSize numMipLevels = ALL_MIP_LEVELS;
+
+
+		/// @brief Canal(es) afectados por el barrier.
+		SampledChannel channel = SampledChannel::COLOR;
+
+	};
+
+
 	/// <summary>
 	/// Representación interna de una imagen en la GPU.
 	/// 
 	/// Puede referirse a la imagend e una textura, imágenes del swapchain, etc...
 	/// </summary>
 	class OSKAPI_CALL GpuImage : public IGpuObject {
+
+	public:
+
+		using ArrayLevelIndex = TIndex;
+		using MipLevelIndex = TIndex;
 
 	public:
 
@@ -121,25 +152,6 @@ namespace OSK::GRAPHICS {
 		TSize GetPhysicalNumberOfBytes() const;
 
 		/// <summary>
-		/// Actualiza el layout de la imagen, para que represente el layout actual.
-		/// </summary>
-		/// @warning Función interna: no llamar.
-		/// 
-		/// @warning Función puramente informativa: no cambia el layout real de la imagen. Para ello, debe usarse 
-		/// ICommandList::TransitionImageLayout.
-		void SetLayout(GpuImageLayout layout);
-
-		/// <summary>
-		/// Devuelve el layout actual de la imagen.
-		/// </summary>
-		/// 
-		/// @warning Al ser una variable informativa (no vinculante), puede no devolver el layout real actual.
-		/// 
-		/// @warning Únicamente mostrará el valor real cuando se ejecute la lista de comandos con la cual
-		/// se ha realizado la transición de layout.
-		GpuImageLayout GetLayout() const;
-
-		/// <summary>
 		/// Devuelve el número de muestras que esta imagen puede tener en un renderizado con MSAA.
 		/// </summary>
 		TSize GetNumSamples() const;
@@ -159,13 +171,49 @@ namespace OSK::GRAPHICS {
 		/// @pre Los mip levels indicados por el rango @p topMipLevel y @p baseMipLevel deben existir en la imagen original.
 		IGpuImageView* GetView(const GpuImageViewConfig& viewConfig) const;
 
+
+		/// @brief Establece el barrier actualmente aplicado, para facilitar la sincronización
+		/// en futuras llamadas.
+		/// @param barrier Barrier aplicado.
+		void SetCurrentBarrier(const GpuBarrierInfo& barrier);
+
+		/// @return Barrier actualmente aplicado.
+		const GpuBarrierInfo& GetCurrentBarrier() const;
+
+
+		/// @brief Establece información sobre el layout de la imagen.
+		/// @param baseArrayLevel Nivel de array base.
+		/// @param arrayLevelCount Número de niveles de array.
+		/// @param baseMipLevel Nivel base de mip.
+		/// @param mipLevelCount Número de niveles de mip.
+		/// @param layout Layout del rango.
+		void _SetLayout(
+			ArrayLevelIndex baseArrayLevel,
+			TSize arrayLevelCount,
+			MipLevelIndex baseMipLevel,
+			TSize mipLevelCount,
+			GpuImageLayout layout);
+
+		/// @brief Establece el layout de toda la imagen a UNDEFINED.
+		void _InitDefaultLayout();
+
+		/// @brief Obtiene el layout de la imagen (en tiempo de comando).
+		/// @param arrayLevel Nivel de array.
+		/// @param mipLevel Nivel de mip.
+		/// @return Layout.
+		GpuImageLayout _GetLayout(ArrayLevelIndex arrayLevel, MipLevelIndex mipLevel) const;
+
 	protected:
 
 		virtual OwnedPtr<IGpuImageView> CreateView(const GpuImageViewConfig& viewConfig) const = 0;
 
 	private:
 
+		GpuBarrierInfo currentBarrier{};
+
 		mutable HashMap<GpuImageViewConfig, UniquePtr<IGpuImageView>> views;
+
+		HashMap<ArrayLevelIndex, HashMap<MipLevelIndex, GpuImageLayout>> layouts;
 
 		IGpuMemoryBlock* block = nullptr;
 		IGpuMemorySubblock* buffer = nullptr;

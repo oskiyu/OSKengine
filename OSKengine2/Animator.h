@@ -5,7 +5,7 @@
 
 #include "UniquePtr.hpp"
 #include "MaterialInstance.h"
-#include "IGpuStorageBuffer.h"
+#include "GpuBuffer.h"
 
 #include "HashMap.hpp"
 
@@ -90,7 +90,7 @@ namespace OSK::GRAPHICS {
 		DynamicArray<MeshNode> nodes;
 				
 		/// <summary> Buffers que almacenan las matrices de los huesos que se envían al vertex shader. </summary>
-		UniquePtr<IGpuStorageBuffer> boneBuffers[NUM_RESOURCES_IN_FLIGHT]{};
+		UniquePtr<GpuBuffer> boneBuffers[NUM_RESOURCES_IN_FLIGHT]{};
 
 		/// <summary> Contiene un único material slot: "animation". </summary>
 		UniquePtr<MaterialInstance> materialInstance;

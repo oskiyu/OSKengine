@@ -15,9 +15,8 @@
 #include "OSKengine.h"
 #include "RendererDx12.h"
 #include "GpuDx12.h"
-#include "GpuVertexBufferDx12.h"
+#include "GpuBuffer.h"
 #include "Viewport.h"
-#include "GpuIndexBufferDx12.h"
 #include "MaterialSlotDx12.h"
 #include "Material.h"
 #include "FormatDx12.h"
@@ -27,8 +26,8 @@
 #include "WindowsUtils.h"
 #include "GpuImageViewDx12.h"
 #include "PipelineLayoutDx12.h"
-#include "GpuStorageBufferDx12.h"
 #include "IGpuImageView.h"
+#include "ComputePipelineDx12.h"
 
 using namespace OSK;
 using namespace OSK::GRAPHICS;
@@ -65,8 +64,10 @@ void CommandListDx12::Start() {
 void CommandListDx12::Close() {
 	commandList->Close();
 }
-
-void CommandListDx12::SetGpuImageBarrier(GpuImage* image, GpuImageLayout previousLayout, GpuImageLayout nextLayout, GpuBarrierInfo previous, GpuBarrierInfo next, const GpuImageBarrierInfo& prevImageInfo) {
+void CommandListDx12::ClearImage(GpuImage* image, const GpuImageRange& range, const Color& color) {
+	// commandList->ClearRenderTargetView();
+}
+void CommandListDx12::SetGpuImageBarrier(GpuImage* image, GpuImageLayout previousLayout, GpuImageLayout nextLayout, GpuBarrierInfo previous, GpuBarrierInfo next, const GpuImageRange& prevImageInfo) {
 	ID3D12Resource* resource = image->As<GpuImageDx12>()->GetResource();
 	
 	D3D12_RESOURCE_BARRIER barrierInfo{};
@@ -79,10 +80,15 @@ void CommandListDx12::SetGpuImageBarrier(GpuImage* image, GpuImageLayout previou
 
 	commandList->ResourceBarrier(1, &barrierInfo);
 
-	image->SetLayout(nextLayout);
+	image->_SetLayout(
+		prevImageInfo.baseLayer,
+		prevImageInfo.numLayers,
+		prevImageInfo.baseMipLevel,
+		prevImageInfo.numLayers,
+		nextLayout);
 }
 
-void CommandListDx12::CopyBufferToImage(const GpuDataBuffer* source, GpuImage* dest, TSize layer, TSize offset) {
+void CommandListDx12::CopyBufferToImage(const GpuBuffer& source, GpuImage* dest, TSize layer, TSize offset) {
 	D3D12_TEXTURE_COPY_LOCATION copyDest{};
 	copyDest.Type = D3D12_TEXTURE_COPY_TYPE_SUBRESOURCE_INDEX;
 	copyDest.SubresourceIndex = layer;
@@ -90,7 +96,7 @@ void CommandListDx12::CopyBufferToImage(const GpuDataBuffer* source, GpuImage* d
 
 	D3D12_TEXTURE_COPY_LOCATION copySource{};
 	copySource.Type = D3D12_TEXTURE_COPY_TYPE_PLACED_FOOTPRINT;
-	copySource.pResource = source->GetMemorySubblock()->As<GpuMemorySubblockDx12>()->GetResource();
+	copySource.pResource = source.GetMemorySubblock()->As<GpuMemorySubblockDx12>()->GetResource();
 	copySource.PlacedFootprint.Footprint.Depth = 1;
 	copySource.PlacedFootprint.Footprint.Format = GetFormatDx12(dest->GetFormat());
 	copySource.PlacedFootprint.Footprint.Width = dest->GetSize3D().X;
@@ -101,7 +107,7 @@ void CommandListDx12::CopyBufferToImage(const GpuDataBuffer* source, GpuImage* d
 	commandList->CopyTextureRegion(&copyDest, 0, 0, 0, &copySource, nullptr);
 }
 
-void CommandListDx12::CopyImageToImage(const GpuImage* source, GpuImage* destination, const CopyImageInfo& copyInfo) {
+void CommandListDx12::RawCopyImageToImage(const GpuImage& source, GpuImage* destination, const CopyImageInfo& copyInfo) {
 	D3D12_TEXTURE_COPY_LOCATION copyDest{};
 	copyDest.Type = D3D12_TEXTURE_COPY_TYPE_SUBRESOURCE_INDEX;
 	copyDest.SubresourceIndex = copyInfo.destinationArrayLevel;
@@ -110,7 +116,7 @@ void CommandListDx12::CopyImageToImage(const GpuImage* source, GpuImage* destina
 	D3D12_TEXTURE_COPY_LOCATION copySource{};
 	copySource.Type = D3D12_TEXTURE_COPY_TYPE_SUBRESOURCE_INDEX;
 	copySource.SubresourceIndex = copyInfo.sourceArrayLevel;
-	copySource.pResource = source->GetBuffer()->As<GpuMemorySubblockDx12>()->GetResource();
+	copySource.pResource = source.GetBuffer()->As<GpuMemorySubblockDx12>()->GetResource();
 	
 	D3D12_BOX copyRegion{};
 	copyRegion.left = 0;
@@ -123,10 +129,10 @@ void CommandListDx12::CopyImageToImage(const GpuImage* source, GpuImage* destina
 	commandList->CopyTextureRegion(&copyDest, copyInfo.destinationOffset.X, copyInfo.destinationOffset.Y, copyInfo.destinationOffset.Z, &copySource, &copyRegion);
 }
 
-void CommandListDx12::CopyBufferToBuffer(const GpuDataBuffer* source, GpuDataBuffer* dest, TSize size, TSize sourceOffset, TSize destOffset) {
+void CommandListDx12::CopyBufferToBuffer(const GpuBuffer& source, GpuBuffer* dest, TSize size, TSize sourceOffset, TSize destOffset) {
 	commandList->CopyBufferRegion(
 		dest->GetMemorySubblock()->As<GpuMemorySubblockDx12>()->GetResource(), destOffset,
-		source->GetMemorySubblock()->As<GpuMemorySubblockDx12>()->GetResource(), sourceOffset, size);
+		source.GetMemorySubblock()->As<GpuMemorySubblockDx12>()->GetResource(), sourceOffset, size);
 }
 
 void CommandListDx12::BeginGraphicsRenderpass(DynamicArray<RenderPassImageInfo> colorImages, RenderPassImageInfo depthImage, const Color& color, bool autoSync) {
@@ -160,9 +166,9 @@ void CommandListDx12::BeginGraphicsRenderpass(DynamicArray<RenderPassImageInfo> 
 	}
 
 	for (const auto& img : colorImages) {
-		const GpuBarrierInfo prev(GpuBarrierStage::DEFAULT, GpuBarrierAccessStage::DEFAULT);
-		const GpuBarrierInfo next(GpuBarrierStage::COLOR_ATTACHMENT_OUTPUT, GpuBarrierAccessStage::COLOR_ATTACHMENT_WRITE);
-		const GpuImageBarrierInfo imgInfo = {
+		const GpuBarrierInfo prev(GpuCommandStage::NONE, GpuAccessStage::NONE);
+		const GpuBarrierInfo next(GpuCommandStage::COLOR_ATTACHMENT_OUTPUT, GpuAccessStage::COLOR_ATTACHMENT_WRITE);
+		const GpuImageRange imgInfo = {
 			.baseLayer = img.arrayLevel,
 			.numLayers = 1,
 			.baseMipLevel = 0,
@@ -192,14 +198,14 @@ void CommandListDx12::EndGraphicsRenderpass(bool autoSync) {
 
 	for (const auto& img : currentColorImages) {
 		GpuBarrierInfo prevBarrier{};
-		prevBarrier.stage = GpuBarrierStage::COLOR_ATTACHMENT_OUTPUT;
-		prevBarrier.accessStage = GpuBarrierAccessStage::COLOR_ATTACHMENT_WRITE;
+		prevBarrier.stage = GpuCommandStage::COLOR_ATTACHMENT_OUTPUT;
+		prevBarrier.accessStage = GpuAccessStage::COLOR_ATTACHMENT_WRITE;
 
 		GpuBarrierInfo nextBarrier{};
-		nextBarrier.stage = GpuBarrierStage::COLOR_ATTACHMENT_OUTPUT;
-		nextBarrier.accessStage = GpuBarrierAccessStage::SHADER_READ;
+		nextBarrier.stage = GpuCommandStage::COLOR_ATTACHMENT_OUTPUT;
+		nextBarrier.accessStage = GpuAccessStage::SHADER_READ;
 
-		GpuImageBarrierInfo imgBarrier{};
+		GpuImageRange imgBarrier{};
 		imgBarrier.baseLayer = img.arrayLevel;
 		imgBarrier.numLayers = 1;
 		imgBarrier.baseMipLevel = 0;
@@ -225,55 +231,43 @@ void CommandListDx12::ResourceBarrier(ID3D12Resource* resource, D3D12_RESOURCE_S
 	commandList->ResourceBarrier(1, &barrier);
 }
 
-void CommandListDx12::BindMaterial(Material* material) {
-	currentMaterial = material;
+void CommandListDx12::BindGraphicsPipeline(const IGraphicsPipeline& graphicsPipeline) {
+	commandList->SetGraphicsRootSignature(graphicsPipeline.GetLayout()->As<PipelineLayoutDx12>()->GetSignature());
+	commandList->SetPipelineState(graphicsPipeline.As<GraphicsPipelineDx12>()->GetPipeline());
 
-	switch (material->GetMaterialType()) {
-	case MaterialType::GRAPHICS: {
-		PipelineKey pipelineKey{};
-		pipelineKey.depthFormat = currentDepthImage.targetImage->GetFormat();
-
-		for (const auto& colorImg : currentColorImages)
-			pipelineKey.colorFormats.Insert(colorImg.targetImage->GetFormat());
-
-		currentPipeline.graphics = material->GetGraphicsPipeline(pipelineKey);
-
-		commandList->SetGraphicsRootSignature(currentPipeline.graphics->GetLayout()->As<PipelineLayoutDx12>()->GetSignature());
-		commandList->SetPipelineState(currentPipeline.graphics->As<GraphicsPipelineDx12>()->GetPipeline());
-
-		commandList->IASetPrimitiveTopology(currentPipeline.graphics->As<GraphicsPipelineDx12>()->GetTopologyType());
-	}
-		break;
-
-	case MaterialType::RAYTRACING:
-		OSK_ASSERT(false, "Raytracing no soportado.");
-
-		break;
-
-	case MaterialType::COMPUTE:
-		currentPipeline.compute = material->GetComputePipeline();
-		
-		commandList->SetComputeRootSignature(currentPipeline.graphics->GetLayout()->As<PipelineLayoutDx12>()->GetSignature());
-		commandList->SetPipelineState(currentPipeline.graphics->As<GraphicsPipelineDx12>()->GetPipeline());
-
-		break;
-	}
+	commandList->IASetPrimitiveTopology(currentPipeline.graphics->As<GraphicsPipelineDx12>()->GetTopologyType());
 }
 
-void CommandListDx12::BindVertexBuffer(const IGpuVertexBuffer* buffer) {
-	D3D12_VERTEX_BUFFER_VIEW views[] = {
-		buffer->As<GpuVertexBufferDx12>()->GetView()
+void CommandListDx12::BindComputePipeline(const IComputePipeline& computePipeline) {
+	commandList->SetComputeRootSignature(computePipeline.GetLayout()->As<PipelineLayoutDx12>()->GetSignature());
+	commandList->SetPipelineState(computePipeline.As<ComputePipelineDx12>()->GetPipeline());
+}
+
+void CommandListDx12::BindRayTracingPipeline(const IRaytracingPipeline& computePipeline) {
+	OSK_ASSERT(false, "No implementado.");
+}
+
+void CommandListDx12::BindVertexBufferRange(const GpuBuffer& buffer, const VertexBufferView& view) {
+	const D3D12_VERTEX_BUFFER_VIEW dxview {
+		.BufferLocation = buffer.GetMemorySubblock()->As<GpuMemorySubblockDx12>()->GetResource()->GetGPUVirtualAddress() + view.offsetInBytes,
+		.SizeInBytes = buffer.GetSize() - view.offsetInBytes,
+		.StrideInBytes = view.vertexInfo.GetSize()
 	};
 
-	commandList->IASetVertexBuffers(0, 1, views);
+	commandList->IASetVertexBuffers(0, 1, &dxview);
 }
 
-void CommandListDx12::BindIndexBuffer(const IGpuIndexBuffer* buffer) {
-	commandList->IASetIndexBuffer(buffer->As<GpuIndexBufferDx12>()->GetView());
+void CommandListDx12::BindIndexBufferRange(const GpuBuffer& buffer, const IndexBufferView& view) {
+	const D3D12_INDEX_BUFFER_VIEW dxview = {
+		.BufferLocation = buffer.GetMemorySubblock()->As<GpuMemorySubblockDx12>()->GetResource()->GetGPUVirtualAddress() + view.offsetInBytes,
+		.SizeInBytes = buffer.GetSize() - view.offsetInBytes,
+		.Format = GetIndexFormat(view.type)
+	};
+	commandList->IASetIndexBuffer(&dxview);
 }
 
-void CommandListDx12::BindMaterialSlot(const IMaterialSlot* slot) {
-	for (const auto& [index, buffer] : slot->As<MaterialSlotDx12>()->GetUniformBuffers()) {
+void CommandListDx12::BindMaterialSlot(const IMaterialSlot& slot) {
+	for (const auto& [index, buffer] : slot.As<MaterialSlotDx12>()->GetUniformBuffers()) {
 		if (buffer != nullptr) {
 			switch (currentMaterial->GetMaterialType())	{
 			case MaterialType::GRAPHICS:
@@ -288,7 +282,7 @@ void CommandListDx12::BindMaterialSlot(const IMaterialSlot* slot) {
 		}
 	}
 
-	for (const auto& [index, buffer] : slot->As<MaterialSlotDx12>()->GetStorageBuffers()) {
+	for (const auto& [index, buffer] : slot.As<MaterialSlotDx12>()->GetStorageBuffers()) {
 		if (buffer != nullptr) {
 			switch (currentMaterial->GetMaterialType()) {
 			case MaterialType::GRAPHICS:
@@ -303,7 +297,7 @@ void CommandListDx12::BindMaterialSlot(const IMaterialSlot* slot) {
 		}
 	}
 
-	for (const auto& [index, image] : slot->As<MaterialSlotDx12>()->GetGpuImages()) {
+	for (const auto& [index, image] : slot.As<MaterialSlotDx12>()->GetGpuImages()) {
 		if (image != nullptr) {
 			const auto viewConfig = GpuImageViewConfig::CreateSampled_SingleMipLevel(0);
 			const GpuImageViewDx12* view = image->GetView(viewConfig)->As<GpuImageViewDx12>();
@@ -323,7 +317,7 @@ void CommandListDx12::BindMaterialSlot(const IMaterialSlot* slot) {
 		}
 	}
 
-	for (const auto& [index, image] : slot->As<MaterialSlotDx12>()->GetStorageBuffers()) {
+	for (const auto& [index, image] : slot.As<MaterialSlotDx12>()->GetStorageBuffers()) {
 		if (image != nullptr) {
 			switch (currentMaterial->GetMaterialType()) {
 			case MaterialType::GRAPHICS:
@@ -349,7 +343,7 @@ void CommandListDx12::PushMaterialConstants(const std::string& pushConstName, co
 	commandList->SetGraphicsRoot32BitConstants(pushConst.hlslBindingIndex, nSize, data, pushConst.offset + offset);
 }
 
-void CommandListDx12::BindUniformBufferDx12(TSize index, const GpuUniformBufferDx12* buffer) {
+void CommandListDx12::BindUniformBufferDx12(TSize index, const GpuBuffer* buffer) {
 	commandList->SetGraphicsRootConstantBufferView(index,
 		buffer->GetMemorySubblock()->As<GpuMemorySubblockDx12>()->GetResource()->GetGPUVirtualAddress());
 }
@@ -367,10 +361,6 @@ void CommandListDx12::TraceRays(TSize raygenEntry, TSize closestHitEntry, TSize 
 }
 
 void CommandListDx12::DispatchCompute(const Vector3ui& groupCount) {
-	OSK_ASSERT(false, "No implementado.");
-}
-
-void CommandListDx12::BindComputePipeline(const IComputePipeline& pipeline) {
 	OSK_ASSERT(false, "No implementado.");
 }
 
@@ -406,3 +396,19 @@ void CommandListDx12::SetDebugName(const std::string& name) {
 void CommandListDx12::AddDebugMarker(const std::string& mark, const Color& color) {}
 void CommandListDx12::StartDebugSection(const std::string& mark, const Color& color) {}
 void CommandListDx12::EndDebugSection() {}
+
+
+DXGI_FORMAT CommandListDx12::GetIndexFormat(IndexType type) {
+	switch (type)
+	{
+	case OSK::GRAPHICS::IndexType::U8:
+		return DXGI_FORMAT_R8_UINT;
+	case OSK::GRAPHICS::IndexType::U16:
+		return DXGI_FORMAT_R16_UINT;
+	case OSK::GRAPHICS::IndexType::U32:
+		return DXGI_FORMAT_R32_UINT;
+	default:
+		OSK_ASSERT(false, "Tipo de índice no reconocido.");
+		return DXGI_FORMAT_UNKNOWN;
+	}
+}

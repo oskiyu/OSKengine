@@ -270,7 +270,7 @@ VkPipelineRasterizationStateCreateInfo GraphicsPipelineVk::GetResterizerInfo(con
 	VkPipelineRasterizationStateCreateInfo output{};
 
 	output.sType = VK_STRUCTURE_TYPE_PIPELINE_RASTERIZATION_STATE_CREATE_INFO;
-	output.depthClampEnable = VK_FALSE; //FALSE: si el objeto está fuera de los límites no se renderiza.
+	output.depthClampEnable = VK_FALSE; // FALSE: si el objeto está fuera de los límites no se renderiza.
 	output.rasterizerDiscardEnable = VK_FALSE;
 	//Modo de polígonos:
 	//	VK_POLYGON_MODE_FILL
@@ -293,16 +293,8 @@ VkPipelineDepthStencilStateCreateInfo GraphicsPipelineVk::GetDepthInfo(const Pip
 
 	output.sType = VK_STRUCTURE_TYPE_PIPELINE_DEPTH_STENCIL_STATE_CREATE_INFO;
 
-	if (info.depthTestingType == DepthTestingType::NONE)
-		output.depthTestEnable = VK_FALSE;
-	else
-		output.depthTestEnable = VK_TRUE;
-
-	if (info.depthTestingType == DepthTestingType::READ_WRITE)
-		output.depthWriteEnable = VK_TRUE;
-	else
-		output.depthWriteEnable = VK_FALSE;
-
+	output.depthTestEnable = info.depthTestingType != DepthTestingType::NONE;
+	output.depthWriteEnable = info.depthTestingType == DepthTestingType::READ_WRITE;
 	output.depthCompareOp = VK_COMPARE_OP_LESS;
 	output.depthBoundsTestEnable = VK_FALSE;
 	output.minDepthBounds = 0.0f;
@@ -319,7 +311,7 @@ VkPipelineMultisampleStateCreateInfo GraphicsPipelineVk::GetMsaaInfo(const Pipel
 
 	output.sType = VK_STRUCTURE_TYPE_PIPELINE_MULTISAMPLE_STATE_CREATE_INFO;
 	output.sampleShadingEnable = VK_FALSE;
-	output.rasterizationSamples = VK_SAMPLE_COUNT_1_BIT;//(VkSampleCountFlagBits)gpu.GetInfo().maxMsaaSamples; TODO: change?
+	output.rasterizationSamples = VK_SAMPLE_COUNT_1_BIT;//(VkSampleCountFlagBits)gpu.GetInfo().maxMsaaSamples;
 	output.minSampleShading = 1.0f;
 	output.pSampleMask = nullptr;
 	output.alphaToCoverageEnable = VK_FALSE;

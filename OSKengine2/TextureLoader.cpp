@@ -6,7 +6,7 @@
 #include "IGpuMemoryAllocator.h"
 #include "Format.h"
 #include "GpuMemoryTypes.h"
-#include "IGpuDataBuffer.h"
+#include "GpuBuffer.h"
 #include "ICommandList.h"
 #include "FileIO.h"
 #include "GpuImageLayout.h"
@@ -69,11 +69,21 @@ void TextureLoader::Load(const std::string& assetFilePath, IAsset** asset) {
 	uploadCmdList->Reset();
 	uploadCmdList->Start();
 
-	uploadCmdList->SetGpuImageBarrier(image.GetPointer(), GpuImageLayout::UNDEFINED, GpuImageLayout::TRANSFER_DESTINATION,
-		GpuBarrierInfo(GpuBarrierStage::DEFAULT, GpuBarrierAccessStage::DEFAULT), GpuBarrierInfo(GpuBarrierStage::TRANSFER, GpuBarrierAccessStage::TRANSFER_WRITE));
-	Engine::GetRenderer()->UploadImageToGpu(image.GetPointer(), pixels, image->GetNumberOfBytes(), uploadCmdList.GetPointer());
-	uploadCmdList->SetGpuImageBarrier(image.GetPointer(), GpuImageLayout::TRANSFER_DESTINATION, GpuImageLayout::SAMPLED,
-		GpuBarrierInfo(GpuBarrierStage::TRANSFER, GpuBarrierAccessStage::TRANSFER_WRITE), GpuBarrierInfo(GpuBarrierStage::FRAGMENT_SHADER, GpuBarrierAccessStage::SHADER_READ));
+	uploadCmdList->SetGpuImageBarrier(
+		image.GetPointer(), 
+		GpuImageLayout::TRANSFER_DESTINATION,
+		GpuBarrierInfo(GpuCommandStage::TRANSFER, GpuAccessStage::TRANSFER_WRITE));
+
+	Engine::GetRenderer()->UploadImageToGpu(
+		image.GetPointer(), 
+		pixels, 
+		image->GetNumberOfBytes(), 
+		uploadCmdList.GetPointer());
+
+	uploadCmdList->SetGpuImageBarrier(
+		image.GetPointer(), 
+		GpuImageLayout::SAMPLED,
+		GpuBarrierInfo(GpuCommandStage::FRAGMENT_SHADER, GpuAccessStage::SHADER_READ));
 
 	uploadCmdList->Close();
 	Engine::GetRenderer()->SubmitSingleUseCommandList(uploadCmdList.GetPointer());

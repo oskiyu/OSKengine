@@ -3,7 +3,7 @@
 #include "GpuMemoryBlockDx12.h"
 #include "GpuMemorySubblockDx12.h"
 #include "GpuImageDx12.h"
-#include "GpuVertexBufferDx12.h"
+#include "GpuBuffer.h"
 #include "GpuDx12.h"
 #include "GpuMemoryTypesDx12.h"
 #include "Vertex.h"
@@ -11,13 +11,10 @@
 #include "OSKengine.h"
 #include "RendererDx12.h"
 #include "CommandListDx12.h"
-#include "GpuIndexBufferDx12.h"
-#include "GpuUniformBufferDx12.h"
 #include "GpuImageUsage.h"
 #include "FormatDx12.h"
 #include "GpuImageDimensions.h"
 #include "Math.h"
-#include "GpuStorageBufferDx12.h"
 
 using namespace OSK;
 using namespace OSK::GRAPHICS;
@@ -65,24 +62,6 @@ OwnedPtr<IGpuMemoryBlock> GpuMemoryAllocatorDx12::CreateNewBufferMemoryBlock(TSi
 	return GpuMemoryBlockDx12::CreateNewBufferBlock(bSize, device, sharedType, usage).GetPointer();
 }
 
-
-OwnedPtr<IGpuVertexBuffer> GpuMemoryAllocatorDx12::_CreateVertexBuffer(
-	OwnedPtr<IGpuMemorySubblock> subblock, TSize bufferSize, TSize alignment, TSize numVertices, const VertexInfo& vertexInfo) {
-	return new GpuVertexBufferDx12(subblock, bufferSize, alignment, numVertices, vertexInfo);
-}
-
-OwnedPtr<IGpuIndexBuffer> GpuMemoryAllocatorDx12::_CreateIndexBuffer(
-	OwnedPtr<IGpuMemorySubblock> subblock, TSize bufferSize, TSize alignment, TSize numIndices) {
-	return new GpuIndexBufferDx12(subblock, bufferSize, alignment, numIndices);
-}
-
-OwnedPtr<IGpuUniformBuffer> GpuMemoryAllocatorDx12::_CreateUniformBuffer(OwnedPtr<IGpuMemorySubblock> subblock, TSize bufferSize, TSize alignment) {
-	return new GpuUniformBufferDx12(subblock, bufferSize, alignment);
-}
-
-OwnedPtr<IGpuStorageBuffer> GpuMemoryAllocatorDx12::_CreateStorageBuffer(OwnedPtr<IGpuMemorySubblock> subblock, TSize bufferSize, TSize alignment) {
-	return new GpuStorageBufferDx12(subblock, bufferSize, alignment);
-}
 
 OwnedPtr<IBottomLevelAccelerationStructure> GpuMemoryAllocatorDx12::_CreateBottomAccelerationStructure() {
 	OSK_ASSERT(false, "No implementado.");
