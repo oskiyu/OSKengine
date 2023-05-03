@@ -182,7 +182,7 @@ Normal mapping y TAA.
 - **Bug**: `ShadowMap` genera sombras incoherentes en el renderizador deferred.
 
 
-## WIP
+## 2023.05.03a
 
 ### UI
 
