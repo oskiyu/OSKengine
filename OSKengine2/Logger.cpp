@@ -1,5 +1,7 @@
 #include "Logger.h"
 
+#include "LoggerExceptions.h"
+
 #include <stdexcept>
 #include <iostream>
 #include <fstream>
@@ -18,7 +20,7 @@ void Logger::Start(const std::string& path) {
 
 void Logger::Log(LogLevel level, const std::string& msg) {
 	if (!hasBeenStarted)
-		throw std::runtime_error("OSK::Logger no ha sido inicializado. Usa Logger::Start() antes.");
+		throw LoggerNotInitializedException();
 
 	std::string start = "";
 
@@ -64,7 +66,7 @@ void Logger::Save() {
 
 void Logger::Save(const std::string& filename) {
 	if (!hasBeenStarted)
-		throw std::runtime_error("OSK::Logger no ha sido inicializado. Usa Logger::Start() antes.");
+		throw LoggerNotInitializedException();
 
 //#ifdef OSK_RELEASE
 	std::ofstream outputLog(path + filename);
@@ -78,14 +80,14 @@ void Logger::Save(const std::string& filename) {
 
 void Logger::Clear() {
 	if (!hasBeenStarted)
-		throw std::runtime_error("OSK::Logger no ha sido inicializado. Usa Logger::Start() antes.");
+		throw LoggerNotInitializedException();
 
 	output.clear();
 }
 
 void Logger::Close() {
 	if (!hasBeenStarted)
-		throw std::runtime_error("OSK::Logger no ha sido inicializado. Usa Logger::Start() antes.");
+		throw LoggerNotInitializedException();
 
 	InfoLog("Cerrado el log.");
 

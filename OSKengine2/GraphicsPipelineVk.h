@@ -28,9 +28,13 @@ namespace OSK::GRAPHICS {
 		VkPipelineMultisampleStateCreateInfo GetMsaaInfo(const PipelineCreateInfo& info, const GpuVk& gpu) const;
 		VkPipelineTessellationStateCreateInfo GetTesselationInfo(const PipelineCreateInfo& info) const;
 
+		/// @throws FileNotFoundException si no se encuentra el archivo del shader.
 		void LoadVertexShader(const std::string& path);
+		/// @throws FileNotFoundException si no se encuentra el archivo del shader.
 		void LoadFragmentShader(const std::string& path);
+		/// @throws FileNotFoundException si no se encuentra el archivo del shader.
 		void LoadTesselationControlShader(const std::string& path);
+		/// @throws FileNotFoundException si no se encuentra el archivo del shader.
 		void LoadTesselationEvaluationShader(const std::string& path);
 
 		IGpu* gpu = nullptr;

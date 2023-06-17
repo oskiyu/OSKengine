@@ -24,7 +24,7 @@ namespace OSK::COLLISION {
 		/// 
 		/// Cada índice representa un vértice almacenado en la lista de vértices
 		/// del collider.
-		using FaceIndices = DynamicArray<TIndex>;
+		using FaceIndices = DynamicArray<UIndex32>;
 
 		/// @brief Eje.
 		using Axis = Vector3f;
@@ -91,7 +91,7 @@ namespace OSK::COLLISION {
 		/// 
 		/// @pre El índice debe apuntar a una cara válida que no haya sido purgada
 		/// por el proceso de optimización.
-		Axis GetLocalSpaceAxis(TIndex faceId) const;
+		Axis GetLocalSpaceAxis(UIndex32 faceId) const;
 
 		/// @brief Obtiene un eje transformado definido por los puntos de la cara indicada.
 		/// Se usa para la comprobación de colisiones.
@@ -103,7 +103,7 @@ namespace OSK::COLLISION {
 		/// 
 		/// @pre El índice debe apuntar a una cara válida que no haya sido purgada
 		/// por el proceso de optimización.
-		Axis GetWorldSpaceAxis(TIndex faceId, const ECS::Transform3D& transform) const;
+		Axis GetWorldSpaceAxis(UIndex32 faceId, const ECS::Transform3D& transform) const;
 
 		/// @brief Obtiene una lista con todos los vértices del collider transformados
 		/// a world-space.
@@ -118,7 +118,7 @@ namespace OSK::COLLISION {
 		/// @pre El vértice debe estar presente en el collider.
 		/// 
 		/// @note Si se incumple la precondición, devuelve una lista vacía.
-		DynamicArray<TIndex> GetFaceIndicesWithVertex(const Vector3f& vertex) const;
+		DynamicArray<UIndex32> GetFaceIndicesWithVertex(const Vector3f& vertex) const;
 
 
 		DynamicArray<FaceIndices> faces;

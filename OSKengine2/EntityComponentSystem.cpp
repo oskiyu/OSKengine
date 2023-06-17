@@ -7,7 +7,7 @@
 using namespace OSK;
 using namespace OSK::ECS;
 
-EntityComponentSystem::EntityComponentSystem() {
+EntityComponentSystem::EntityComponentSystem(IO::ILogger* logger) : logger(logger){
 	systemManager = new SystemManager;
 	componentManager = new ComponentManager;
 	gameObjectManager = new GameObjectManager;

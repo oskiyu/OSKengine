@@ -12,10 +12,12 @@
 #include "CommandQueueVk.h"
 #include "GpuImageViewVk.h"
 
+#include "RendererExceptions.h"
+
 using namespace OSK;
 using namespace OSK::GRAPHICS;
 
-GpuImageVk::GpuImageVk(const Vector3ui& size, GpuImageDimension dimension, GpuImageUsage usage, TSize numLayers, Format format, TSize numSamples, GpuImageSamplerDesc samplerDesc)
+GpuImageVk::GpuImageVk(const Vector3ui& size, GpuImageDimension dimension, GpuImageUsage usage, USize32 numLayers, Format format, USize32 numSamples, GpuImageSamplerDesc samplerDesc)
 	: GpuImage(size, dimension, usage, numLayers, format, numSamples, samplerDesc) {
 
 }
@@ -41,8 +43,8 @@ void GpuImageVk::CreateVkImage() {
 	imageInfo.sType = VK_STRUCTURE_TYPE_IMAGE_CREATE_INFO;
 	imageInfo.imageType = GetVkImageType();
 
-	imageInfo.extent.width = GetSize3D().X;
-	imageInfo.extent.height = GetSize3D().Y;
+	imageInfo.extent.width = GetSize3D().x;
+	imageInfo.extent.height = GetSize3D().y;
 	imageInfo.extent.depth = GetSize3D().Z;
 
 	imageInfo.mipLevels = GetMipLevels();
@@ -79,8 +81,9 @@ void GpuImageVk::CreateVkImage() {
 	imageInfo.flags = EFTraits::HasFlag(GetUsage(), GpuImageUsage::CUBEMAP) ? VK_IMAGE_CREATE_CUBE_COMPATIBLE_BIT : 0;
 	
 	const VkDevice device = Engine::GetRenderer()->GetGpu()->As<GpuVk>()->GetLogicalDevice();
-	VkResult result = vkCreateImage(device,	&imageInfo, nullptr, &image);
-	OSK_ASSERT(result == VK_SUCCESS, "No se pudo crear la imagen en la GPU.");
+	const VkResult result = vkCreateImage(device,	&imageInfo, nullptr, &image);
+
+	OSK_ASSERT(result == VK_SUCCESS, ImageCreationException(result));
 }
 
 VkImage GpuImageVk::GetVkImage() const {
@@ -186,8 +189,9 @@ OwnedPtr<IGpuImageView> GpuImageVk::CreateView(const GpuImageViewConfig& viewCon
 	viewInfo.subresourceRange.layerCount = viewConfig.arrayLevelCount;
 
 	const VkDevice device = Engine::GetRenderer()->GetGpu()->As<GpuVk>()->GetLogicalDevice();
-	VkResult result = vkCreateImageView(device, &viewInfo, nullptr, &view);
-	OSK_ASSERT(result == VK_SUCCESS, "No se pudo crear el view de stencil.");
+	const VkResult result = vkCreateImageView(device, &viewInfo, nullptr, &view);
+
+	OSK_ASSERT(result == VK_SUCCESS, ImageViewCreationException(result));
 
 	return new GpuImageViewVk(view, *this, viewConfig);
 }

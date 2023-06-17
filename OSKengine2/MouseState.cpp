@@ -25,28 +25,28 @@ Vector2i MouseState::GetPosition() const {
 	return position;
 }
 
-Vector2 MouseState::GetRelativePosition() const {
+Vector2f MouseState::GetRelativePosition() const {
 	return relativePosition;
 }
 
 int MouseState::GetScroll() const {
-	return scroll.Y;
+	return scroll.y;
 }
 
 int MouseState::GetHorizontalScroll() const {
-	return scroll.X;
+	return scroll.x;
 }
 
 void MouseState::_SetScrollX(int x) {
-	scroll.X = x;
+	scroll.x = x;
 }
 void MouseState::_SetScrollY(int y) {
-	scroll.Y = y;
+	scroll.y = y;
 }
 void MouseState::_SetPosition(const Vector2i& pos) {
 	position = pos;
 }
-void MouseState::_SetRelativePosition(const Vector2& pos) {
+void MouseState::_SetRelativePosition(const Vector2f& pos) {
 	relativePosition = pos;
 }
 void MouseState::_SetButtonState(MouseButton button, ButtonState state) {

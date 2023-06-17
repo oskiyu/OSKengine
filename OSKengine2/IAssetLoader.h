@@ -2,6 +2,8 @@
 
 #include "OSKmacros.h"
 
+#include <json.hpp>
+
 #include <string>
 
 #ifndef OSK_ASSET_TYPE_REG
@@ -27,14 +29,27 @@ namespace OSK::ASSETS {
 
 		virtual ~IAssetLoader() = default;
 
-		/// <summary> Carga el asset. </summary>
-		/// <param name="assetFilePath">Ruta del archivo .json que describe el asset.</param>
-		/// <param name="asset">Puntero al puntero del asset a cargar.</param>
+		/// @brief Carga el asset-
+		/// @param assetFilePath Ruta del archivo de descripción que describe el asset.
+		/// @param asset Puntero al puntero del asset a cargar.
 		/// 
 		/// @pre IAsset** asset debe apuntar a un asset ya creado (no puede ser null).
 		/// 
-		/// @throws std::runtime_exception Si el archivo '.json' no existe.
+		/// @throws AssetDescriptionFileNotFoundException Si el archivo de descripción '.json' no existe.
+		/// @throws InvalidDescriptionFileException Si el archivo de descripción es inválido.
+		/// @throws RawAssetFileNotFoundException Si el archivo del asset original no se encuentra.
 		virtual void Load(const std::string& assetFilePath, IAsset** asset) = 0;
+
+	protected:
+
+		/// @brief Valida el contenido del archivo de descripción.
+		/// @param filePath Ruta al archivo completo de descripción.
+		/// @return Archivo de desscripción, si fue validado.
+		/// 
+		/// @throws AssetDescriptionFileNotFoundException Si el archivo de descripción '.json' no existe.
+		/// @throws InvalidDescriptionFileException Si el archivo de descripción es inválido.
+		/// @throws RawAssetFileNotFoundException Si el archivo del asset original no se encuentra.
+		nlohmann::json ValidateDescriptionFile(std::string_view filePath) const;
 
 	};
 

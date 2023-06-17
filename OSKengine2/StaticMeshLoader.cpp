@@ -8,6 +8,8 @@
 #include "GpuMemoryTypes.h"
 #include "GpuImageLayout.h"
 
+#include "ModelLoadingExceptions.h"
+
 #include <glm/ext/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
 
@@ -17,7 +19,7 @@ using namespace OSK::GRAPHICS;
 
 
 void StaticMeshLoader::SmoothNormals() {
-	for (TSize i = 0; i < indices.GetSize(); i += 3) {
+	for (UIndex32 i = 0; i < indices.GetSize(); i += 3) {
 		const TIndexSize localIndices[3] = {
 			indices.At(i + 0),
 			indices.At(i + 1),
@@ -35,31 +37,31 @@ void StaticMeshLoader::SmoothNormals() {
 
 		const Vector3f faceNormal = v0.Cross(v1).GetNormalized();
 
-		for (TSize li = 0; li < 3; li++)
+		for (UIndex32 li = 0; li < 3; li++)
 			vertices.At(localIndices[li]).normal += faceNormal;
 	}
 
-	for (TSize v = 0; v < vertices.GetSize(); v++)
+	for (UIndex32 v = 0; v < vertices.GetSize(); v++)
 		vertices.At(v).normal.Normalize();
 }
 
-void StaticMeshLoader::ProcessNode(const tinygltf::Node& node, TSize nodeId, TSize parentId) {
+void StaticMeshLoader::ProcessNode(const tinygltf::Node& node, UIndex32 nodeId, UIndex32 parentId) {
 	const glm::mat4 nodeMatrix = modelTransform * GetNodeMatrix(node);
 
 	// Proceso del polígono.
 	if (node.mesh > -1) {
 		const tinygltf::Mesh& mesh = gltfModel.meshes[node.mesh];
 
-		for (TSize i = 0; i < mesh.primitives.size(); i++) {
+		for (UIndex32 i = 0; i < mesh.primitives.size(); i++) {
 			const tinygltf::Primitive& primitive = mesh.primitives[i];
 
 			if (primitive.material > -1)
 				meshIdToMaterialId.Insert(meshes.GetSize(), primitive.material);
 
-			OSK_ASSERT(primitive.mode == TINYGLTF_MODE_TRIANGLES, "El modelo no está en modo TRIÁNGULOS.");
+			OSK_ASSERT(primitive.mode == TINYGLTF_MODE_TRIANGLES, UnsupportedPolygonModeException(std::to_string(primitive.mode)));
 
-			const TSize firstVertexId = vertices.GetSize();
-			const TSize firstIndexId = indices.GetSize();
+			const UIndex32 firstVertexId = vertices.GetSize();
+			const UIndex32 firstIndexId = indices.GetSize();
 
 			const auto primitiveIndices = GetIndices(primitive, firstVertexId);
 
@@ -72,18 +74,18 @@ void StaticMeshLoader::ProcessNode(const tinygltf::Node& node, TSize nodeId, TSi
 				? GetTangentVectors(primitive)
 				: GenerateTangetVectors(texCoords, positions, primitiveIndices, firstVertexId);
 
-			const TSize numVertices = positions.GetSize();
+			const USize32 numVertices = positions.GetSize();
 
 			const bool hasColors = !colors.IsEmpty();
 
 			// Procesamos los buffers y generamos nuevos vértices.
-			for (TSize v = 0; v < numVertices; v++) {
+			for (UIndex32 v = 0; v < numVertices; v++) {
 
 				Vertex3D vertex{};
 				vertex.position = positions[v];
 				vertex.normal = normals[v];
 				vertex.texCoords = texCoords[v];
-				vertex.color = Color::WHITE();
+				vertex.color = Color::White;
 
 				if (HasTangets(primitive))
 					vertex.tangent = tangents[v];
@@ -103,7 +105,7 @@ void StaticMeshLoader::ProcessNode(const tinygltf::Node& node, TSize nodeId, TSi
 		}
 	}
 
-	for (TSize i = 0; i < node.children.size(); i++)
+	for (UIndex32 i = 0; i < node.children.size(); i++)
 		ProcessNode(gltfModel.nodes[node.children[i]], node.children[i], parentId);
 }
 

@@ -6,7 +6,7 @@
 using namespace OSK;
 using namespace OSK::GRAPHICS;
 
-GpuBuffer::GpuBuffer(OwnedPtr<IGpuMemorySubblock> buffer, TSize size, TSize alignment) 
+GpuBuffer::GpuBuffer(OwnedPtr<IGpuMemorySubblock> buffer, USize64 size, USize64 alignment)
 	: buffer(buffer.GetPointer()), size(size), alignment(alignment) {
 
 }
@@ -52,15 +52,15 @@ void GpuBuffer::MapMemory() {
 	buffer->MapMemory();
 }
 
-void GpuBuffer::MapMemory(TSize size, TSize offset) {
+void GpuBuffer::MapMemory(USize64 size, USize64 offset) {
 	buffer->MapMemory(size, offset);
 }
 
-void GpuBuffer::Write(const void* data, TSize size) {
+void GpuBuffer::Write(const void* data, USize64 size) {
 	buffer->Write(data, size);
 }
 
-void GpuBuffer::WriteOffset(const void* data, TSize size, TSize offset) {
+void GpuBuffer::WriteOffset(const void* data, USize64 size, USize64 offset) {
 	buffer->WriteOffset(data, size, offset);
 }
 
@@ -68,15 +68,15 @@ void GpuBuffer::Unmap() {
 	buffer->Unmap();
 }
 
-TSize GpuBuffer::GetSize() const {
+USize64 GpuBuffer::GetSize() const {
 	return size;
 }
 
-TSize GpuBuffer::GetAlignment() const {
+USize64 GpuBuffer::GetAlignment() const {
 	return alignment;
 }
 
-void GpuBuffer::SetCursor(TSize position) {
+void GpuBuffer::SetCursor(UIndex64 position) {
 	buffer->SetCursor(position);
 }
 

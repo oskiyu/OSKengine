@@ -33,19 +33,21 @@ namespace OSK::UI {
 
 	public:
 
+		virtual ~IElement() = default;
+
 		OSK_DEFINE_AS(IElement);
 
 		/// @brief Renderiza el elemento.
 		/// @param renderer Renderizador de sprites.
 		/// @param parentPosition Posición del elemento padre.
-		virtual void Render(GRAPHICS::SpriteRenderer* renderer, Vector2f parentPosition = 0.0f) const;
+		virtual void Render(GRAPHICS::SpriteRenderer* renderer, Vector2f parentPosition = Vector2f::Zero) const;
 
 		/// @brief Actualiza el estado o cualquier otra característica del
 		/// elemento de acuerdo a la posición del cursor (ratón).
 		/// @param cursorPosition Posición del cursor.
 		/// @param isPressed True si se está pulsando el cursor.
 		/// @param parentPosition Posición del contenedor padre.
-		virtual void UpdateByCursor(Vector2f cursorPosition, bool isPressed, Vector2f parentPosition = 0.0f);
+		virtual void UpdateByCursor(Vector2f cursorPosition, bool isPressed, Vector2f parentPosition = Vector2f::Zero);
 
 	public:
 
@@ -146,13 +148,13 @@ namespace OSK::UI {
 
 	protected:
 
-		Vector2f size = 0;
+		Vector2f size = Vector2f::Zero;
 
 	private:
 
 		Anchor anchor = Anchor::DEFAULT;
 
-		Vector2f relativePosition = 0;
+		Vector2f relativePosition = Vector2f::Zero;
 
 		Vector4f padding = 0;
 		Vector4f margin = 2.0f;

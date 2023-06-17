@@ -5,7 +5,7 @@
 using namespace OSK;
 using namespace OSK::GRAPHICS;
 
-DescriptorBlockDx12::DescriptorBlockDx12(D3D12_DESCRIPTOR_HEAP_TYPE type, TSize numDescriptors, GpuDx12* gpu) : gpu(gpu) {
+DescriptorBlockDx12::DescriptorBlockDx12(D3D12_DESCRIPTOR_HEAP_TYPE type, USize32 numDescriptors, GpuDx12* gpu) : gpu(gpu) {
 	D3D12_DESCRIPTOR_HEAP_DESC descriptorHeapDesc{};
 	descriptorHeapDesc.NumDescriptors = numDescriptors;
 	descriptorHeapDesc.Type = type;
@@ -38,7 +38,7 @@ ID3D12DescriptorHeap* DescriptorBlockDx12::GetHeap() const {
 	return heap.Get();
 }
 
-TSize DescriptorBlockDx12::GetNumRemainingDescriptors() const {
+USize32 DescriptorBlockDx12::GetNumRemainingDescriptors() const {
 	return remainingDescriptors;
 }
 

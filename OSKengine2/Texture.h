@@ -29,7 +29,7 @@ namespace OSK::ASSETS {
 		Vector2ui GetSize() const;
 
 		/// <summary> Número de canales (red green blue, etc...). </summary>
-		TSize GetNumberOfChannels() const;
+		USize32 GetNumberOfChannels() const;
 
 
 		/// <summary>
@@ -55,7 +55,7 @@ namespace OSK::ASSETS {
 		/// <summary> Establece el número de canales (red green blue, etc...). </summary>
 		/// 
 		/// @warning Función interna: no llamar.
-		void _SetNumberOfChannels(TSize numChannels);
+		void _SetNumberOfChannels(USize32 numChannels);
 
 		/// <summary> Establece la imagen GPU de la textura. </summary> </param>
 		/// 
@@ -66,7 +66,7 @@ namespace OSK::ASSETS {
 
 		/// <summary> @note En píxeles. </summary>
 		Vector2ui size;
-		TSize numChannels = 0;
+		USize32 numChannels = 0;
 
 		UniquePtr<GRAPHICS::GpuImage> image;
 

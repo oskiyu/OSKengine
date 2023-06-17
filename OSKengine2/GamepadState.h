@@ -2,6 +2,7 @@
 
 #include "OSKmacros.h"
 
+#include <array>
 #include <GLFW/glfw3.h>
 
 namespace OSK::IO {
@@ -72,8 +73,8 @@ namespace OSK::IO {
 	/// usado con cualquier mando compatible con la plataforma de destino.
 	enum class GamepadButton {
 
-		X = GLFW_GAMEPAD_BUTTON_X,
-		Y = GLFW_GAMEPAD_BUTTON_Y,
+		x = GLFW_GAMEPAD_BUTTON_X,
+		y = GLFW_GAMEPAD_BUTTON_Y,
 		A = GLFW_GAMEPAD_BUTTON_A,
 		B = GLFW_GAMEPAD_BUTTON_B,
 
@@ -122,7 +123,7 @@ namespace OSK::IO {
 	public:
 
 		GamepadState() { }
-		GamepadState(TSize identifier);
+		GamepadState(UIndex32 identifier);
 
 		GamepadButtonState GetButtonState(GamepadButton button) const;
 
@@ -146,7 +147,7 @@ namespace OSK::IO {
 		/// </summary>
 		/// 
 		/// @note El mando principal tendrá el identificador 0.
-		TSize GetIdentifier() const;
+		UIndex32 GetIdentifier() const;
 
 		/// <summary>
 		/// Comrpueba si el mando está conectado. SI no o etá
@@ -160,10 +161,10 @@ namespace OSK::IO {
 
 	private:
 
-		GamepadButtonState buttonState[4]{};
+		std::array<GamepadButtonState, 4> buttonState{};
 		float axesStates[6]{};
 
-		TSize identifier = 0;
+		UIndex32 identifier = 0;
 
 		bool isConnected = false;
 

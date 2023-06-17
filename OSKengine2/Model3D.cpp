@@ -33,7 +33,7 @@ void Model3D::_SetAccelerationStructure(OwnedPtr<GRAPHICS::IBottomLevelAccelerat
 	this->accelerationStructure = accelerationStructure.GetPointer();
 }
 
-void Model3D::_SetIndexCount(TSize count) {
+void Model3D::_SetIndexCount(USize32 count) {
 	numIndices = count;
 }
 
@@ -49,7 +49,7 @@ IBottomLevelAccelerationStructure* Model3D::GetAccelerationStructure() const {
 	return accelerationStructure.GetPointer();
 }
 
-TSize Model3D::GetIndexCount() const {
+USize32 Model3D::GetIndexCount() const {
 	return numIndices;
 }
 
@@ -57,7 +57,7 @@ void Model3D::AddGpuImage(OwnedPtr<GRAPHICS::GpuImage> image) {
 	metadata.textures.Insert(image.GetPointer());
 }
 
-const GpuImage* Model3D::GetImage(TSize index) const {
+const GpuImage* Model3D::GetImage(UIndex32 index) const {
 	return metadata.textures.At(index).GetPointer();
 }
 

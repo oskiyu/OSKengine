@@ -26,7 +26,7 @@ namespace OSK::GRAPHICS {
 		/// <summary>
 		/// Índice del descriptor set del shader .glsl (Vulkan/OpenGL) al que se asocia este slot.
 		/// </summary>
-		TSize glslSetIndex;
+		UIndex32 glslSetIndex;
 
 		/// <summary>
 		/// Stage del shader desde el que se accede al slot (VERTEX/FRAGMENT).

@@ -11,6 +11,8 @@
 #include "OSKengine.h"
 #include "MaterialSystem.h"
 
+#include "MaterialExceptions.h"
+
 using namespace OSK;
 using namespace OSK::ECS;
 using namespace OSK::ASSETS;
@@ -25,7 +27,7 @@ Sprite::Sprite() {
 }
 
 void Sprite::SetupMaterial(Material* material) {
-	OSK_ASSERT(material->GetLayout()->GetAllSlots().ContainsKey("texture"), "El material no es compatible para Sprite.");
+	OSK_ASSERT(material->GetLayout()->GetAllSlots().ContainsKey("texture"), InvalidMaterialException());
 	textureMaterialInstance = material->CreateInstance().GetPointer();
 }
 

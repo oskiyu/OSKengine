@@ -6,136 +6,103 @@
 
 namespace OSK {
 
-	/// <summary>
-	/// Representa un color en formato RGBA.
-	/// </summary>
+	/// @brief Representa un color en formato RGBA float.
 	class OSKAPI_CALL Color {
 
 	public:
 
-		/// <summary>
-		/// Crea una instancia vacía del color.
-		/// </summary>
-		Color();
+		/// @brief Color vacío (negro y transparente).
+		constexpr Color() = default;
 
-		/// <summary>
-		/// Crea una instancia del color con los siguiente parámetros:
-		/// </summary>
-		/// <param name="r">Red.</param>
-		/// <param name="g">Green.</param>
-		/// <param name="b">Blue.</param>
-		Color(float r, float g, float b);
+		/// @brief Crea una instancia del color con los siguiente parámetros:
+		/// @param r Intensidad del color rojo.
+		/// @param g Intensidad del color verde.
+		/// @param b Intensidad del color azul.
+		constexpr Color(float r, float g, float b) :
+			red(r),
+			green(g),
+			blue(b),
+			alpha(1.0f) { }
 
-		/// <summary>
-		/// Crea una instancia del color con los siguiente parámetros:
-		/// </summary>
-		/// <param name="r">Red.</param>
-		/// <param name="g">Green.</param>
-		/// <param name="b">Blue.</param>
-		/// <param name="a">Alpha.</param>
-		Color(float r, float g, float b, float a);
+		/// @brief Crea una instancia del color con los siguiente parámetros:
+		/// @param r Intensidad del color rojo.
+		/// @param g Intensidad del color verde.
+		/// @param b Intensidad del color azul.
+		/// @param a Opacidad.
+		constexpr Color(float r, float g, float b, float a) :
+			red(r),
+			green(g),
+			blue(b),
+			alpha(a) { }
 
-		/// <summary>
-		/// Crea una instancia del color con los siguiente parámetros:
-		/// 
+		/// @brief Crea una instancia del color.
+		/// @param value Intensidad del rojo verde y azul.
 		/// @note Alpha = 1.0f.
-		/// </summary>
-		/// <param name="value">valor para Red, Green y Blue.</param>
-		Color(float value);
+		constexpr explicit Color(float value) :
+			red(value),
+			green(value),
+			blue(value),
+			alpha(1.0f) { }
 
-		/// <summary>
-		/// Operación Color * float.
-		/// 
-		/// @note Sólo se modifica el Alpha.
-		/// </summary>
-		/// <param name="value">Nuevo valor de alfa.</param>
-		/// <returns>Color.</returns>
-		Color operator*(float value) const;
+		/// @brief Multiplica el valor de opacidad por el valor dado.
+		/// @param value Valor multiplicador..
+		/// @return Color(red, green, blue, alpha * @p value).
+		constexpr Color operator*(float value) const {
+			return Color(red, green, blue, alpha * value);
+		}
 
 		/// @brief Suma aditiva del color.
 		/// @param other Otro color.
 		/// @return Color + Color.
-		Color operator+(const Color& other) const;
+		constexpr Color operator+(const Color& other) const {
+			return Color(
+				red + other.red * other.alpha,
+				green + other.green * other.alpha,
+				blue + other.blue * other.alpha,
+				alpha + other.alpha);
+		}
 
 		/// @brief Suma aditiva del color.
 		/// @param other Otro color.
-		void operator+=(const Color& other) {
+		constexpr void operator+=(const Color& other) {
 			*this = *this + other;
 		}
 
-		/// <summary>
-		/// Devuelve un glm::vec4 con los valores de este color.
-		/// </summary>
-		/// <returns>Devuelve el color en GLM.</returns>
-		glm::vec4 ToGlm() const;
+		/// @return Devuelve un glm::vec4 con los valores de este color.
+		constexpr glm::vec4 ToGlm() const {
+			return glm::vec4(red, green, blue, alpha);
+		}
 
-		/// <summary>
-		/// Cambia los valores del color, sin cambiar Alpha.
-		/// </summary>
-		/// <param name="r">Red.</param>
-		/// <param name="g">Green.</param>
-		/// <param name="b">Blue.</param>
-		void Update(float r, float g, float b);
 
-		/// <summary>
-		/// Representa la intensidad del color rojo.
-		/// </summary>
-		float Red;
+		/// @brief Representa la intensidad del color rojo.
+		float red = 0.0f;
 
-		/// <summary>
-		/// Representa la intensidad del color verde.
-		/// </summary>
-		float Green;
+		/// @brief Representa la intensidad del color verde.
+		float green = 0.0f;
 
-		/// <summary>
-		/// Representa la intensidad del color azul.
-		/// </summary>
-		float Blue;
+		/// @brief Representa la intensidad del color azul.
+		float blue = 0.0f;
 
-		/// <summary>
-		/// Representa la opacidad del color.
-		/// </summary>
-		float Alpha;
+		/// @brief Representa la opacidad del color.
+		float alpha = 0.0f;
 
-		/// <summary>
-		/// Color negro. (0.0f, 0.0f, 0.0f)
-		/// </summary>
-		/// <returns>Color negro.</returns>
-		static Color BLACK();
 
-		/// <summary>
-		/// Color blanco. (1.0f).
-		/// </summary>
-		/// <returns>Color blanco.</returns>
-		static Color WHITE();
-
-		/// <summary>
-		/// Color azul. (0.0f, 1.0f, 1.0f).
-		/// </summary>
-		/// <returns>Color azul.</returns>
-		static Color BLUE();
-
-		/// <summary>
-		/// Color morado. (1.0f, 0.0f, 1.0f).
-		/// </summary>
-		/// <returns>Color morado.</returns>
-		static Color PURPLE();
-
-		/// <summary>
-		/// Color rojo. (1.0f, 0.0f, 0.0f).
-		/// </summary>
-		/// <returns>Color rojo.</returns>
-		static Color RED();
-
-		/// <summary>
-		/// Color amarillo. (1.0f, 1.0f, 0.0f).
-		/// </summary>
-		/// <returns>Color amarillo.</returns>
-		static Color YELLOW();
-
-		/// @brief Color verde. (0.0f, 1.0f, 0.0f).
-		/// @return Color verde. (0.0f, 1.0f, 0.0f).
-		static Color GREEN();
+		/// @brief Color vacío (0, 0, 0, 0).
+		static Color const Empty;
+		/// @brief Color negro (0, 0, 0, 1).
+		static Color const Black;
+		/// @brief Color blanco (1, 1, 1, 1).
+		static Color const White;
+		/// @brief Color azul (0, 0, 1, 1).
+		static Color const Blue;
+		/// @brief Color morado (1, 0, 1, 1).
+		static Color const Purple;
+		/// @brief Color rojo (1, 0, 0, 1).
+		static Color const Red;
+		/// @brief Color amarillo (1, 1, 0, 1).
+		static Color const Yellow;
+		/// @brief Color verde (0, 1, 0, 1).
+		static Color const Green;
 
 	};
 

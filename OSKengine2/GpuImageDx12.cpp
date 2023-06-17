@@ -9,19 +9,21 @@
 #include "GpuImageViewDx12.h"
 #include "GpuMemoryAllocatorDx12.h"
 
+#include "RendererExceptions.h"
+
 using namespace OSK;
 using namespace OSK::GRAPHICS;
 
-GpuImageDx12::GpuImageDx12(const Vector3ui& size, GpuImageDimension dimension, GpuImageUsage usage, TSize numLayers, Format format, TSize numSamples, GpuImageSamplerDesc samplerDesc)
+GpuImageDx12::GpuImageDx12(const Vector3ui& size, GpuImageDimension dimension, GpuImageUsage usage, USize32 numLayers, Format format, USize32 numSamples, GpuImageSamplerDesc samplerDesc)
 	: GpuImage(size, dimension, usage, numLayers, format, numSamples, samplerDesc) {
 
 }
 
 void GpuImageDx12::FillResourceDesc() {
-	resourceDesc.Width = GetSize2D().X;
-	resourceDesc.Height = GetSize2D().Y;
+	resourceDesc.Width = GetSize2D().x;
+	resourceDesc.Height = GetSize2D().y;
 	resourceDesc.DepthOrArraySize = GetNumLayers() == 1 ? GetPhysicalSize().Z : GetNumLayers();
-	resourceDesc.Dimension = (D3D12_RESOURCE_DIMENSION)((TSize)GetDimension() + 1);
+	resourceDesc.Dimension = (D3D12_RESOURCE_DIMENSION)((USize64)GetDimension() + 1);
 	resourceDesc.Alignment = D3D12_DEFAULT_RESOURCE_PLACEMENT_ALIGNMENT;
 	resourceDesc.Layout = D3D12_TEXTURE_LAYOUT_UNKNOWN;
 	resourceDesc.MipLevels = GetMipLevels();
@@ -50,7 +52,7 @@ void GpuImageDx12::_SetResource(ComPtr<ID3D12Resource> resource) {
 	this->resource = resource;
 }
 
-void GpuImageDx12::CreateResource(ID3D12Heap* memory, TSize memoryOffset) {
+void GpuImageDx12::CreateResource(ID3D12Heap* memory, USize64 memoryOffset) {
 	Engine::GetRenderer()->GetGpu()->As<GpuDx12>()->GetDevice()->CreatePlacedResource(memory, memoryOffset, &resourceDesc, D3D12_RESOURCE_STATE_GENERIC_READ, nullptr, IID_PPV_ARGS(&resource));
 }
 
@@ -217,6 +219,6 @@ OwnedPtr<IGpuImageView> GpuImageDx12::CreateView(const GpuImageViewConfig& confi
 		break;
 	}
 	
-	OSK_ASSERT(false, "View no disponible.");
+	OSK_ASSERT(false, ImageViewCreationException(0));
 	return nullptr;
 }

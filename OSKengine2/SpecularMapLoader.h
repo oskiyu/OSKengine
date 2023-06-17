@@ -37,13 +37,13 @@ namespace OSK::ASSETS {
 		void UploadImage(GRAPHICS::GpuImage* img, const float* pixels, const Vector3ui& size) const;
 
 		void DrawOriginal(GRAPHICS::GpuImage* cubemap, GRAPHICS::ICommandList* cmdList);
-		void DrawPreFilter(GRAPHICS::GpuImage* cubemap, GRAPHICS::ICommandList* cmdList, TIndex mipLevel, float roughness);
+		void DrawPreFilter(GRAPHICS::GpuImage* cubemap, GRAPHICS::ICommandList* cmdList, UIndex32 mipLevel, float roughness);
 		void GenerateLut(GRAPHICS::ICommandList* cmdList);
 
 		ASSETS::Model3D* cubemapModel = nullptr;
 
 		// Resolución del nivel de detalle más alto del specular map.
-		const Vector2ui maxResolution = { 1024u };
+		const Vector2ui maxResolution = Vector2ui(1024u);
 
 		// Material para renderizar cubemap a partir de una imagen 2D
 		// 2D -> cubemap

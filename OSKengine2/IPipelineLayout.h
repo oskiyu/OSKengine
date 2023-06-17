@@ -19,6 +19,10 @@ namespace OSK::GRAPHICS {
 
 	public:
 
+		/// @brief 
+		/// @param layout 
+		/// 
+		/// @throws PipelineLayoutCreationException Si hay algún problema con el API nativo.
 		IPipelineLayout(const MaterialLayout* layout);
 		virtual ~IPipelineLayout() = default;
 

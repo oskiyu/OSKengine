@@ -40,6 +40,7 @@ namespace OSK::GRAPHICS {
 		/// @param material Material 2D.
 		/// 
 		/// @pre El layout de @p material debe tener registrado un slot llamado "textura".
+		/// @throws InvalidMaterialException Si no se cumple la precondición.
 		void SetupMaterial(Material* material);
 
 		
@@ -59,7 +60,7 @@ namespace OSK::GRAPHICS {
 
 		/// @brief Color de la imagen (incluyendo transparencia).
 		/// Por defecto, blanco.
-		Color color = Color::WHITE();
+		Color color = Color::White;
 
 
 		/// @return Slot "texture", que contiene un sampler con la imagen

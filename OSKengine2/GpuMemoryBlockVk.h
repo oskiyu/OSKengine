@@ -15,14 +15,33 @@ namespace OSK::GRAPHICS {
 
 	public:
 
-		~GpuMemoryBlockVk();
+		~GpuMemoryBlockVk() override;
 
+		/// @brief Crea y aloja un nuevo bloque de memoria para buffers.
+		/// @param reservedSize Tamaño reservado, en bytes.
+		/// @param device GPU en la que se alojará.
+		/// @param type Tipo de memoria.
+		/// @param bufferUSage Uso de los buffers.
+		/// @return Bloque con las características dadas.
+		/// 
+		/// @throws GpuBufferCreationException Si no se pudo crear el buffer.
+		/// @throws NoCompatibleGpuMemoryException Si no se encuentra memoria compatible.
+		/// @throws GpuMemoryAllocException Si no se pudo alojar memoria en la GPU.
 		static OwnedPtr<GpuMemoryBlockVk> CreateNewBufferBlock(
-			TSize reservedSize, 
+			USize64 reservedSize,
 			IGpu* device, 
 			GpuSharedMemoryType type, 
 			GpuBufferUsage bufferUSage);
 
+		/// @brief Crea y aloja un nuevo bloque de memoria para una imagen.
+		/// @param image Imagen que se alojará en el bloque.
+		/// @param device GPU en la que se alojará.
+		/// @param type Tipo de memoria.
+		/// @param imageUSage Uso de la imagen.
+		/// @return Bloque de memoria con las características dadas.
+		/// 
+		/// @throws NoCompatibleGpuMemoryException Si no se encuentra memoria compatible.
+		/// @throws GpuMemoryAllocException Si no se pudo alojar memoria en la GPU.
 		static OwnedPtr<GpuMemoryBlockVk> CreateNewImageBlock(
 			GpuImage* image, 
 			IGpu* device, 
@@ -34,14 +53,23 @@ namespace OSK::GRAPHICS {
 
 	private:
 
-		OwnedPtr<IGpuMemorySubblock> CreateNewMemorySubblock(TSize size, TSize offset) override;
+		OwnedPtr<IGpuMemorySubblock> CreateNewMemorySubblock(USize64 size, USize64 offset) override;
 
+		/// @brief Crea un bloque de memoria para buffer.
+		/// @see CreateNewBufferBlock.
+		/// @throws GpuBufferCreationException Si no se pudo crear el buffer.
+		/// @throws NoCompatibleGpuMemoryException Si no se encuentra memoria compatible.
+		/// @throws GpuMemoryAllocException Si no se pudo alojar memoria en la GPU.
 		GpuMemoryBlockVk(
-			TSize reservedSize, 
+			USize64 reservedSize, 
 			IGpu* device, 
 			GpuSharedMemoryType type, 
 			GpuBufferUsage bufferUSage);
 
+		/// @brief Crea un bloque de memoria para imágenes.
+		/// @see CreateNewImageBlock.
+		/// @throws NoCompatibleGpuMemoryException Si no se encuentra memoria compatible.
+		/// @throws GpuMemoryAllocException Si no se pudo alojar memoria en la GPU.
 		GpuMemoryBlockVk(
 			GpuImage*, 
 			IGpu* device, 
@@ -49,6 +77,8 @@ namespace OSK::GRAPHICS {
 			GpuSharedMemoryType type);
 
 		static VkMemoryAllocateFlags GetMemoryAllocateFlags(GpuBufferUsage usage);
+
+		/// @throws NoCompatibleGpuMemoryException Si no se encontró memoria compatible.
 		static uint32_t GetMemoryType(uint32_t memoryTypeFilter, GpuVk* device, GpuSharedMemoryType type);
 
 		

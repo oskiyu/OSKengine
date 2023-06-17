@@ -103,8 +103,8 @@ namespace OSK::ECS {
 		float nearPlane = 0.001f;
 		float farPlane = 50.0f;
 
-		Vector2f angles = 0.0f;
-		Vector2f accumulatedAngles = 0.0f;
+		Vector2f angles = Vector2f::Zero;
+		Vector2f accumulatedAngles = Vector2f::Zero;
 
 		/// <summary>  Vector 'arriba' del mundo. { 0, 1, 0 }. </summary>
 		const static Vector3f worldUpVector;

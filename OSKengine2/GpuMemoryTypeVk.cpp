@@ -71,7 +71,7 @@ unsigned int OSK::GRAPHICS::GetGpuBufferUsageVk(GpuBufferUsage usage) {
 			VK_BUFFER_USAGE_ACCELERATION_STRUCTURE_BUILD_INPUT_READ_ONLY_BIT_KHR | 
 			VK_BUFFER_USAGE_STORAGE_BUFFER_BIT;
 
-	OSK_ASSERT(flags != 0, "Flags indebidas. " + ToString<GpuBufferUsage>(usage));
+	OSK_ASSERT(flags != 0, NotImplementedException());
 
 	return flags;
 }

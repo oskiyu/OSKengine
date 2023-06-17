@@ -36,19 +36,19 @@ namespace OSK::GRAPHICS {
 		/// Índice del binding en el shader .glsl (Vulkan, OpenGL).
 		/// Es un índice local respecto al slot (al descriptor set).
 		/// </summary>
-		TSize glslIndex;
+		UIndex32 glslIndex;
 
 		/// <summary>
 		/// Índice del binding en el shader .hlsl (DirectX 12).
 		/// Es un índice global, independiente del slot al que pertenezca.
 		/// </summary>
-		TSize hlslIndex;
+		UIndex32 hlslIndex;
 
 		/// <summary>
 		/// Índice del descriptor del shader .hlsl.
 		/// Interno.
 		/// </summary>
-		TSize hlslDescriptorIndex;
+		UIndex32 hlslDescriptorIndex;
 
 		/// <summary>
 		/// True si el recurso en el shader corresponde a una array
@@ -61,7 +61,7 @@ namespace OSK::GRAPHICS {
 		/// <summary> Número de capas del array. </summary>
 		/// 
 		/// @note Si no es un array, será 1.
-		TSize numArrayLayers = 1;
+		USize32 numArrayLayers = 1;
 
 	};
 

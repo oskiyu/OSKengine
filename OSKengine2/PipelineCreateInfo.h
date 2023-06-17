@@ -145,7 +145,7 @@ namespace OSK::GRAPHICS {
 		/// <summary>
 		/// Número de vértices que tendrá cada patch del teselado.
 		/// </summary>
-		TSize tesselationPatchControlPoints = 3;
+		USize32 tesselationPatchControlPoints = 3;
 
 		/// <summary>
 		/// Tipo de polígono (línea, triángulo...).

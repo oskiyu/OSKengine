@@ -22,14 +22,16 @@ namespace OSK::GRAPHICS {
 		/// </summary>
 		/// <param name="layout">Layout del slot.</param>
 		/// <param name="maxSets">Número máximo de sets creables con este pool.</param>
-		DescriptorPoolVk(const DescriptorLayoutVk& layout, TSize maxSets);
+		/// 
+		/// @throws DescriptorPoolCreationException Si hay algún problema nativo.
+		DescriptorPoolVk(const DescriptorLayoutVk& layout, USize32 maxSets);
 		~DescriptorPoolVk();
 
 		VkDescriptorPool GetPool() const;
 
 	private:
 
-		VkDescriptorPool pool = NULL;
+		VkDescriptorPool pool = nullptr;
 
 	};
 

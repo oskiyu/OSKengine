@@ -64,7 +64,7 @@ namespace OSK::ECS {
 		/// 
 		/// @pre El id debe corresponder a un mesh existente dentro del modelo 3D.
 		/// @warning No comprueba que esté dentro de los límites.
-		GRAPHICS::MaterialInstance* GetMeshMaterialInstance(TSize meshId) const;
+		GRAPHICS::MaterialInstance* GetMeshMaterialInstance(UIndex32 meshId) const;
 
 		/// <summary> Bindea la textura a todos los meshes. </summary>
 		/// <param name="slot">Slot de la textura.</param>

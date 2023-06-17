@@ -8,12 +8,12 @@ namespace OSK::GRAPHICS {
 
 	public:
 
-		GpuMemorySubblockVk(IGpuMemoryBlock* owner, TSize size, TSize offset);
+		GpuMemorySubblockVk(IGpuMemoryBlock* owner, UIndex64 size, UIndex64 offset);
 
 		void MapMemory() override;
-		void MapMemory(TSize size, TSize offset) override;
-		void Write(const void* data, TSize size) override;
-		void WriteOffset(const void* data, TSize size, TSize offset) override;
+		void MapMemory(UIndex64 size, UIndex64 offset) override;
+		void Write(const void* data, UIndex64 size) override;
+		void WriteOffset(const void* data, UIndex64 size, UIndex64 offset) override;
 		void Unmap() override;
 
 	};

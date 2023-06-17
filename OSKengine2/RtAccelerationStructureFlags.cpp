@@ -12,5 +12,5 @@ OSK::GRAPHICS::RtAccelerationStructureFlags OSK::GRAPHICS::GetAsBuildFlags(OSK::
 			return RtAccelerationStructureFlags::FAST_BUILD | RtAccelerationStructureFlags::ALLOW_UPDATE;
 	}
 
-	OSK_ASSERT(false, "El tipo de movilidad del modelo no está registrado.");
+	OSK_ASSERT(false, NotImplementedException());
 }

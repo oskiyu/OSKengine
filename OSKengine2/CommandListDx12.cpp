@@ -32,8 +32,8 @@
 using namespace OSK;
 using namespace OSK::GRAPHICS;
 
-TSize Multiplo256(TSize original) {
-	TSize output = original / 256;
+USize64 Multiplo256(USize64 original) {
+	USize64 output = original / 256;
 	if (original % 256 != 0)
 		output++;
 
@@ -88,7 +88,7 @@ void CommandListDx12::SetGpuImageBarrier(GpuImage* image, GpuImageLayout previou
 		nextLayout);
 }
 
-void CommandListDx12::CopyBufferToImage(const GpuBuffer& source, GpuImage* dest, TSize layer, TSize offset) {
+void CommandListDx12::CopyBufferToImage(const GpuBuffer& source, GpuImage* dest, UIndex32 layer, USize64 offset) {
 	D3D12_TEXTURE_COPY_LOCATION copyDest{};
 	copyDest.Type = D3D12_TEXTURE_COPY_TYPE_SUBRESOURCE_INDEX;
 	copyDest.SubresourceIndex = layer;
@@ -99,9 +99,9 @@ void CommandListDx12::CopyBufferToImage(const GpuBuffer& source, GpuImage* dest,
 	copySource.pResource = source.GetMemorySubblock()->As<GpuMemorySubblockDx12>()->GetResource();
 	copySource.PlacedFootprint.Footprint.Depth = 1;
 	copySource.PlacedFootprint.Footprint.Format = GetFormatDx12(dest->GetFormat());
-	copySource.PlacedFootprint.Footprint.Width = dest->GetSize3D().X;
-	copySource.PlacedFootprint.Footprint.Height = dest->GetPhysicalSize().Y;
-	copySource.PlacedFootprint.Footprint.RowPitch = dest->GetPhysicalSize().X * GetFormatNumberOfBytes(dest->GetFormat());
+	copySource.PlacedFootprint.Footprint.Width = dest->GetSize3D().x;
+	copySource.PlacedFootprint.Footprint.Height = dest->GetPhysicalSize().y;
+	copySource.PlacedFootprint.Footprint.RowPitch = dest->GetPhysicalSize().x * GetFormatNumberOfBytes(dest->GetFormat());
 	copySource.PlacedFootprint.Offset = offset;
 
 	commandList->CopyTextureRegion(&copyDest, 0, 0, 0, &copySource, nullptr);
@@ -120,16 +120,16 @@ void CommandListDx12::RawCopyImageToImage(const GpuImage& source, GpuImage* dest
 	
 	D3D12_BOX copyRegion{};
 	copyRegion.left = 0;
-	copyRegion.right = copyInfo.copySize.X;
+	copyRegion.right = copyInfo.copySize.x;
 	copyRegion.top = 0;
-	copyRegion.bottom = copyInfo.copySize.Y;
+	copyRegion.bottom = copyInfo.copySize.y;
 	copyRegion.back = 1;
 	copyRegion.front = 0;
 
-	commandList->CopyTextureRegion(&copyDest, copyInfo.destinationOffset.X, copyInfo.destinationOffset.Y, copyInfo.destinationOffset.Z, &copySource, &copyRegion);
+	commandList->CopyTextureRegion(&copyDest, copyInfo.destinationOffset.x, copyInfo.destinationOffset.y, copyInfo.destinationOffset.Z, &copySource, &copyRegion);
 }
 
-void CommandListDx12::CopyBufferToBuffer(const GpuBuffer& source, GpuBuffer* dest, TSize size, TSize sourceOffset, TSize destOffset) {
+void CommandListDx12::CopyBufferToBuffer(const GpuBuffer& source, GpuBuffer* dest, USize64 size, USize64 sourceOffset, USize64 destOffset) {
 	commandList->CopyBufferRegion(
 		dest->GetMemorySubblock()->As<GpuMemorySubblockDx12>()->GetResource(), destOffset,
 		source.GetMemorySubblock()->As<GpuMemorySubblockDx12>()->GetResource(), sourceOffset, size);
@@ -179,7 +179,7 @@ void CommandListDx12::BeginGraphicsRenderpass(DynamicArray<RenderPassImageInfo> 
 		SetGpuImageBarrier(img.targetImage, GpuImageLayout::UNDEFINED, GpuImageLayout::COLOR_ATTACHMENT, prev, next, imgInfo);
 	}
 
-	const FLOAT clearValue[] = { color.Red, color.Green, color.Blue, color.Alpha };
+	const FLOAT clearValue[] = { color.red, color.green, color.blue, color.alpha };
 	
 	for (auto colorAttachment : colorAttachments)
 		commandList->ClearRenderTargetView(colorAttachment, clearValue, 0, nullptr);
@@ -244,13 +244,13 @@ void CommandListDx12::BindComputePipeline(const IComputePipeline& computePipelin
 }
 
 void CommandListDx12::BindRayTracingPipeline(const IRaytracingPipeline& computePipeline) {
-	OSK_ASSERT(false, "No implementado.");
+	OSK_ASSERT(false, NotImplementedException());
 }
 
 void CommandListDx12::BindVertexBufferRange(const GpuBuffer& buffer, const VertexBufferView& view) {
 	const D3D12_VERTEX_BUFFER_VIEW dxview {
 		.BufferLocation = buffer.GetMemorySubblock()->As<GpuMemorySubblockDx12>()->GetResource()->GetGPUVirtualAddress() + view.offsetInBytes,
-		.SizeInBytes = buffer.GetSize() - view.offsetInBytes,
+		.SizeInBytes = static_cast<UINT>(buffer.GetSize() - view.offsetInBytes),
 		.StrideInBytes = view.vertexInfo.GetSize()
 	};
 
@@ -260,7 +260,7 @@ void CommandListDx12::BindVertexBufferRange(const GpuBuffer& buffer, const Verte
 void CommandListDx12::BindIndexBufferRange(const GpuBuffer& buffer, const IndexBufferView& view) {
 	const D3D12_INDEX_BUFFER_VIEW dxview = {
 		.BufferLocation = buffer.GetMemorySubblock()->As<GpuMemorySubblockDx12>()->GetResource()->GetGPUVirtualAddress() + view.offsetInBytes,
-		.SizeInBytes = buffer.GetSize() - view.offsetInBytes,
+		.SizeInBytes = static_cast<UINT>(buffer.GetSize() - view.offsetInBytes),
 		.Format = GetIndexFormat(view.type)
 	};
 	commandList->IASetIndexBuffer(&dxview);
@@ -333,44 +333,44 @@ void CommandListDx12::BindMaterialSlot(const IMaterialSlot& slot) {
 	}
 }
 
-void CommandListDx12::PushMaterialConstants(const std::string& pushConstName, const void* data, TSize size, TSize offset) {
+void CommandListDx12::PushMaterialConstants(const std::string& pushConstName, const void* data, USize32 size, USize32 offset) {
 	auto& pushConst = currentMaterial->GetLayout()->GetPushConstant(pushConstName);
 
-	TSize nSize = size / 4;
+	USize32 nSize = size / 4;
 	if (size % 4)
 		nSize++;
 
 	commandList->SetGraphicsRoot32BitConstants(pushConst.hlslBindingIndex, nSize, data, pushConst.offset + offset);
 }
 
-void CommandListDx12::BindUniformBufferDx12(TSize index, const GpuBuffer* buffer) {
+void CommandListDx12::BindUniformBufferDx12(UIndex32 index, const GpuBuffer* buffer) {
 	commandList->SetGraphicsRootConstantBufferView(index,
 		buffer->GetMemorySubblock()->As<GpuMemorySubblockDx12>()->GetResource()->GetGPUVirtualAddress());
 }
 
-void CommandListDx12::DrawSingleInstance(TSize numIndices) {
+void CommandListDx12::DrawSingleInstance(USize32 numIndices) {
 	commandList->DrawIndexedInstanced(numIndices, 1, 0, 0, 0);
 }
 
-void CommandListDx12::DrawSingleMesh(TSize firstIndex, TSize numIndices) {
+void CommandListDx12::DrawSingleMesh(UIndex32 firstIndex, USize32 numIndices) {
 	commandList->DrawIndexedInstanced(numIndices, 1, firstIndex, 0, 0);
 }
 
-void CommandListDx12::TraceRays(TSize raygenEntry, TSize closestHitEntry, TSize missEntry, const Vector2ui& resolution) {
-	OSK_ASSERT(false, "No implementado.");
+void CommandListDx12::TraceRays(UIndex32 raygenEntry, UIndex32 closestHitEntry, UIndex32 missEntry, const Vector2ui& resolution) {
+	OSK_ASSERT(false, NotImplementedException());
 }
 
 void CommandListDx12::DispatchCompute(const Vector3ui& groupCount) {
-	OSK_ASSERT(false, "No implementado.");
+	OSK_ASSERT(false, NotImplementedException());
 }
 
 void CommandListDx12::SetViewport(const Viewport& vp) {
 	D3D12_VIEWPORT viewport{};
 
-	viewport.TopLeftX = (FLOAT)vp.rectangle.GetRectanglePosition().X;
-	viewport.TopLeftY = (FLOAT)vp.rectangle.GetRectanglePosition().Y;
-	viewport.Width = (FLOAT)vp.rectangle.GetRectangleSize().X;
-	viewport.Height = (FLOAT)vp.rectangle.GetRectangleSize().Y;
+	viewport.TopLeftX = (FLOAT)vp.rectangle.GetRectanglePosition().x;
+	viewport.TopLeftY = (FLOAT)vp.rectangle.GetRectanglePosition().y;
+	viewport.Width = (FLOAT)vp.rectangle.GetRectangleSize().x;
+	viewport.Height = (FLOAT)vp.rectangle.GetRectangleSize().y;
 
 	viewport.MinDepth = vp.minDepth;
 	viewport.MaxDepth = vp.maxDepth;
@@ -381,10 +381,10 @@ void CommandListDx12::SetViewport(const Viewport& vp) {
 void CommandListDx12::SetScissor(const Vector4ui& scissor) {
 	D3D12_RECT scissorRect{};
 
-	scissorRect.left = scissor.GetRectanglePosition().X;
-	scissorRect.top = scissor.GetRectanglePosition().Y;
-	scissorRect.right = scissor.GetRectangleSize().X;
-	scissorRect.bottom = scissor.GetRectangleSize().Y;
+	scissorRect.left = scissor.GetRectanglePosition().x;
+	scissorRect.top = scissor.GetRectanglePosition().y;
+	scissorRect.right = scissor.GetRectangleSize().x;
+	scissorRect.bottom = scissor.GetRectangleSize().y;
 
 	commandList->RSSetScissorRects(1, &scissorRect);
 }
@@ -408,7 +408,7 @@ DXGI_FORMAT CommandListDx12::GetIndexFormat(IndexType type) {
 	case OSK::GRAPHICS::IndexType::U32:
 		return DXGI_FORMAT_R32_UINT;
 	default:
-		OSK_ASSERT(false, "Tipo de índice no reconocido.");
+		OSK_ASSERT(false, NotImplementedException());
 		return DXGI_FORMAT_UNKNOWN;
 	}
 }

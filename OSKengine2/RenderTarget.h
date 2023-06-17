@@ -35,6 +35,8 @@ namespace OSK::GRAPHICS {
 		/// @note Pueden incluirse varias imágenes de color objetivo.
 		/// @note Cada imagen objetivo de color es independiente y puede tener formatos y usos distintos al resto
 		/// de imágenes objetivo.
+		/// 
+		/// @throws InvalidArgumentException Si no se cumple la primera precondición.
 		void Create(const Vector2ui& targetSize, DynamicArray<RenderTargetAttachmentInfo> colorInfos, RenderTargetAttachmentInfo depthInfo);
 
 		/// @brief Crea el render target con la información dada, para su uso como imagen final de presentación.
@@ -71,8 +73,8 @@ namespace OSK::GRAPHICS {
 		/// @pre resourceIndex debe estar entre 0 y NUM_RESOURCES_IN_FLIGHT 
 		/// (0 <= resourceIndex < NUM_RESOURCES_IN_FLIGHT).
 		/// 
-		/// @throws std::runtime_error si se incumple la precondición.
-		GpuImage* GetColorImage(TIndex colorImageIndex, TIndex resourceIndex) const;
+		/// @throws InvalidArgumentException si se incumple alguna precondición.
+		GpuImage* GetColorImage(UIndex32 colorImageIndex, UIndex32 resourceIndex) const;
 
 		/// @brief Devuelve la imagen de renderizado principal (índice 0).
 		/// @param resourceIndex Índice del frame.
@@ -81,7 +83,7 @@ namespace OSK::GRAPHICS {
 		/// @pre Debe de haberse inicializado con RenderTarget::Create o RenderTarget::CreateAsFinal.
 		/// 
 		/// @throws std::runtime_error si se incumple la precondición.
-		GpuImage* GetMainColorImage(TIndex resourceIndex) const;
+		GpuImage* GetMainColorImage(UIndex32 resourceIndex) const;
 
 		/// @brief Devuelve la imagen de profundidad.
 		/// @param resourceIndex Índice del frame.
@@ -90,7 +92,9 @@ namespace OSK::GRAPHICS {
 		/// @pre Debe de haberse inicializado con RenderTarget::Create o RenderTarget::CreateAsFinal.
 		/// @pre resourceIndex debe estar entre 0 y NUM_RESOURCES_IN_FLIGHT 
 		/// (0 <= resourceIndex < NUM_RESOURCES_IN_FLIGHT).
-		GpuImage* GetDepthImage(TIndex resourceIndex) const;
+		/// 
+		/// @throws InvalidArgumentException Si se incumple alguna de las precondiciones.
+		GpuImage* GetDepthImage(UIndex32 resourceIndex) const;
 
 
 		/// @brief Número de targets de color.
@@ -98,7 +102,7 @@ namespace OSK::GRAPHICS {
 		/// 
 		/// @remark Será 0 si no se ha inicializado.
 		/// @remark Será al menos 1 si se ha inicializado.
-		TSize GetNumColorTargets() const;
+		USize32 GetNumColorTargets() const;
 
 		/// @brief Devuelve la resolución de todas las imágenes, en píxeles.
 		/// @return Resolución del render target.

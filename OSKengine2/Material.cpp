@@ -39,7 +39,7 @@ const MaterialLayout* Material::GetLayout() const {
 }
 
 const IGraphicsPipeline* Material::GetGraphicsPipeline(const PipelineKey& key) const {
-	for (TSize i = 0; i < graphicsPipelines.GetSize(); i++) {
+	for (UIndex64 i = 0; i < graphicsPipelines.GetSize(); i++) {
 		const PipelineKey& iKey = graphicsPipelinesKeys[i];
 
 		if (key == iKey)

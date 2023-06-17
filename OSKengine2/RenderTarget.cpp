@@ -9,11 +9,13 @@
 #include "GpuMemoryTypes.h"
 #include "Material.h"
 
+#include "InvalidArgumentException.h"
+
 using namespace OSK;
 using namespace OSK::GRAPHICS;
 
 void RenderTarget::Create(const Vector2ui& targetSize, DynamicArray<RenderTargetAttachmentInfo> colorInfos, RenderTargetAttachmentInfo depthInfo) {
-	OSK_ASSERT(colorInfos.GetSize() > 0, "Debe haber al menos un attachment");
+	OSK_ASSERT(colorInfos.GetSize() > 0, InvalidArgumentException("Debe haber al menos un color attachment"));
 
 	for (auto& attachmentInfo : colorInfos) {
 		attachmentInfo.usage |= GpuImageUsage::COLOR | GpuImageUsage::SAMPLED;
@@ -49,8 +51,8 @@ void RenderTarget::CreateAsFinal(const Vector2ui& targetSize, RenderTargetAttach
 void RenderTarget::SetupSpriteMaterial() {
 	const GpuImageViewConfig view = GpuImageViewConfig::CreateSampled_MipLevelRanged(0, 0);
 
-	const IGpuImageView* images[NUM_RESOURCES_IN_FLIGHT]{};
-	for (TIndex i = 0; i < NUM_RESOURCES_IN_FLIGHT; i++)
+	std::array<const IGpuImageView*, NUM_RESOURCES_IN_FLIGHT> images{};
+	for (UIndex32 i = 0; i < NUM_RESOURCES_IN_FLIGHT; i++)
 		images[i] = GetColorImage(0, i)->GetView(view);
 
 	fullscreenSpriteMaterialInstance->GetSlot("texture")->SetGpuImages("spriteTexture", images);
@@ -65,22 +67,22 @@ void RenderTarget::Resize(const Vector2ui& targetSize) {
 	SetupSpriteMaterial();
 }
 
-GpuImage* RenderTarget::GetColorImage(TIndex colorImageIndex, TIndex resourceIndex) const {
-	OSK_ASSERT(resourceIndex < NUM_RESOURCES_IN_FLIGHT, 
-		"El índice de la imagen debe estar entre 0 y " + std::to_string(NUM_RESOURCES_IN_FLIGHT - 1));
-	OSK_ASSERT(colorImageIndex < colorAttachments.GetSize(), 
-		"Sólo hay " + std::to_string(colorAttachments.GetSize()) + " imágenes de color.");
+GpuImage* RenderTarget::GetColorImage(UIndex32 colorImageIndex, UIndex32 resourceIndex) const {
+	OSK_ASSERT(resourceIndex < NUM_RESOURCES_IN_FLIGHT,
+		InvalidArgumentException(std::format("El índice de la imagen debe estar entre 0 y {}", NUM_RESOURCES_IN_FLIGHT - 1)));
+	OSK_ASSERT(colorImageIndex < colorAttachments.GetSize(),
+		InvalidArgumentException(std::format("Sólo hay {}  imágenes de color.", colorAttachments.GetSize())));
 
 	return colorAttachments[colorImageIndex].GetImage(resourceIndex);
 }
 
-GpuImage* RenderTarget::GetMainColorImage(TIndex resourceIndex) const {
+GpuImage* RenderTarget::GetMainColorImage(UIndex32 resourceIndex) const {
 	return GetColorImage(0, resourceIndex);
 }
 
-GpuImage* RenderTarget::GetDepthImage(TIndex index) const {
+GpuImage* RenderTarget::GetDepthImage(UIndex32 index) const {
 	OSK_ASSERT(index < NUM_RESOURCES_IN_FLIGHT, 
-		"El índice de la imagen debe estar entre 0 y " + std::to_string(NUM_RESOURCES_IN_FLIGHT - 1));
+		InvalidArgumentException(std::format("El índice de la imagen debe estar entre 0 y {}", NUM_RESOURCES_IN_FLIGHT - 1)));
 
 	return depthAttachment.GetImage(index);
 }
@@ -93,7 +95,7 @@ RenderpassType RenderTarget::GetRenderTargetType() const {
 	return targetType;
 }
 
-TSize RenderTarget::GetNumColorTargets() const {
+USize32 RenderTarget::GetNumColorTargets() const {
 	return colorAttachments.GetSize();
 }
 

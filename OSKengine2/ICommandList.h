@@ -33,7 +33,7 @@ namespace OSK::GRAPHICS {
 
 	struct RenderPassImageInfo {
 		GpuImage* targetImage = nullptr;
-		TSize arrayLevel = 0;
+		UIndex32 arrayLevel = 0;
 	};
 
 	/// @brief Parámetros para la copia de una imagen a otra
@@ -71,23 +71,23 @@ namespace OSK::GRAPHICS {
 
 
 		/// @brief Capa de origen a partir de la cual se copiará.
-		TIndex sourceArrayLevel = 0;
+		UIndex32 sourceArrayLevel = 0;
 
 		/// @brief Capa de destino a partir de la cual se escribirá.
-		TIndex destinationArrayLevel = 0;
+		UIndex32 destinationArrayLevel = 0;
 
 		/// @brief Número de capas que se van a copiar.
 		/// Para copiar todas las capas, establecer como ALL_ARRAY_LEVELS.
-		TSize numArrayLevels = 1;
+		UIndex32 numArrayLevels = 1;
 
 
 		/// @brief Mip level de la imagen de origen desde el cual se copiará.
-		TIndex sourceMipLevel = 0;
+		UIndex32 sourceMipLevel = 0;
 
 		/// @brief Mip level de la imagen de destino al que se copiará.
-		TIndex destinationMipLevel = 0;
+		UIndex32 destinationMipLevel = 0;
 
-		const static TIndex ALL_ARRAY_LEVELS = 0;
+		const static UIndex32 ALL_ARRAY_LEVELS = 0;
 
 	};
 
@@ -116,17 +116,22 @@ namespace OSK::GRAPHICS {
 		/// 
 		/// @pre Debe estar cerrado.
 		/// @note Debe llamarse antes de comenzar a grabar comandos.
+		/// 
+		/// @throws CommandListResetException Si hubo algún error en el API de bajo nivel.
 		virtual void Reset() = 0;
 
 		/// @brief Comienza a grabar comandos en la lista.
-		/// 
 		/// @pre Debe estar cerrado.
+		/// 
+		/// @throws CommandListStartException Si hubo algún error en el API de bajo nivel.
 		virtual void Start() = 0;
 
 		/// @brief Cierra la lista de comandos, y la deja lista para ser enviada
 		/// a la GPU.
 		/// 
 		/// @pre Debe estar abierto.
+		/// 
+		/// @throws CommandListEndException Si hubo algún error en el API de bajo nivel.
 		virtual void Close() = 0;
 
 
@@ -213,7 +218,7 @@ namespace OSK::GRAPHICS {
 		virtual void ClearImage(
 			GpuImage* image, 
 			const GpuImageRange& range = {},
-			const Color& color = Color::BLACK()) = 0;
+			const Color& color = Color::Black) = 0;
 
 		/// @brief Comienza el renderizado a un render target.
 		/// @param renderTarget Render target sobre el que se renderizará.
@@ -231,7 +236,7 @@ namespace OSK::GRAPHICS {
 		/// @post La imagen de prfundidad se encontrarán en GpuImageLayout::DEPTH_STENCIL_TARGET.
 		void BeginGraphicsRenderpass(
 			RenderTarget* renderTarget, 
-			const Color& color = Color::BLACK(),
+			const Color& color = Color::Black,
 			bool autoSync = true);
 
 		/// @brief Comienza el renderizado a las imágenes dadas.
@@ -252,7 +257,7 @@ namespace OSK::GRAPHICS {
 		virtual void BeginGraphicsRenderpass(
 			DynamicArray<RenderPassImageInfo> colorImages, 
 			RenderPassImageInfo depthImage, 
-			const Color& color = Color::BLACK(),
+			const Color& color = Color::Black,
 			bool autoSync = true) = 0;
 
 		/// @brief Finaliza el renderizado a un render target.
@@ -302,6 +307,8 @@ namespace OSK::GRAPHICS {
 		/// 
 		/// @note Los materiales que se usen después de este comando deben tener
 		/// el mismo tipo de vértice.
+		/// 
+		/// @throws InvalidVertexBufferException Si el buffer no tiene inicializado su view de vértices.
 		void BindVertexBuffer(const GpuBuffer& buffer);
 
 		/// @brief Establece el index buffer que se va a usar en los próximos renderizados.
@@ -318,6 +325,8 @@ namespace OSK::GRAPHICS {
 		/// @pre El buffer debe tener inicializado su view de índices.
 		/// @pre Debe haber un renderpass activo.
 		/// @pre La lista de comandos debe estar abierta.
+		/// 
+		/// @throws InvalidIndexBufferException Si el buffer no tiene inicializado su view de índices.
 		void BindIndexBuffer(const GpuBuffer& buffer);
 
 
@@ -355,7 +364,7 @@ namespace OSK::GRAPHICS {
 		void PushMaterialConstants(
 			const std::string& pushConstName, 
 			const void* data, 
-			TSize size);
+			USize32 size);
 
 		/// <summary>
 		/// Envía datos push constant al shader.
@@ -387,8 +396,8 @@ namespace OSK::GRAPHICS {
 		virtual void PushMaterialConstants(
 			const std::string& pushConstName, 
 			const void* data, 
-			TSize size, 
-			TSize offset) = 0;
+			USize32 size, 
+			USize32 offset) = 0;
 		
 
 		/// <summary>
@@ -405,7 +414,7 @@ namespace OSK::GRAPHICS {
 		/// @pre Deben estar enlazados los slots y los push constants necesarios
 		/// para rellenar el material.
 		/// @pre La lista de comandos debe estar abierta.
-		virtual void DrawSingleInstance(TSize numIndices) = 0;		
+		virtual void DrawSingleInstance(USize32 numIndices) = 0;
 		
 		/// <summary>
 		/// Renderiza los triángulos del mesh,
@@ -422,7 +431,7 @@ namespace OSK::GRAPHICS {
 		/// @pre Deben estar enlazados los slots y los push constants necesarios
 		/// para rellenar el material.
 		/// @pre La lista de comandos debe estar abierta.
-		virtual void DrawSingleMesh(TSize firstIndex, TSize numIndices) = 0;
+		virtual void DrawSingleMesh(UIndex32 firstIndex, USize32 numIndices) = 0;
 
 
 		/// <summary>
@@ -446,9 +455,9 @@ namespace OSK::GRAPHICS {
 		/// 
 		/// @todo Implementación en DX12.
 		virtual void TraceRays(
-			TSize raygenEntry, 
-			TSize closestHitEntry, 
-			TSize missEntry, 
+			UIndex32 raygenEntry, 
+			UIndex32 closestHitEntry,
+			UIndex32 missEntry,
 			const Vector2ui& resolution) = 0;
 
 
@@ -495,8 +504,8 @@ namespace OSK::GRAPHICS {
 		virtual void CopyBufferToImage(
 			const GpuBuffer& source, 
 			GpuImage* dest, 
-			TSize layer = 0, 
-			TSize offset = 0) = 0;
+			UIndex32 layer = 0,
+			USize64 offset = 0) = 0;
 
 		/// @brief Copia el contenido de una imagen a otra.
 		/// @param source Imagen con los contenidos a copiar.
@@ -525,9 +534,9 @@ namespace OSK::GRAPHICS {
 		virtual void CopyBufferToBuffer(
 			const GpuBuffer& source,
 			GpuBuffer* dest,
-			TSize size,
-			TSize sourceOffset,
-			TSize destOffset) = 0;
+			USize64 size,
+			USize64 sourceOffset,
+			USize64 destOffset) = 0;
 
 
 		/// <summary>
@@ -569,7 +578,7 @@ namespace OSK::GRAPHICS {
 		virtual void EndDebugSection() = 0;
 
 
-		TSize _GetCommandListIndex() const;
+		UIndex32 _GetCommandListIndex() const;
 
 	protected:
 

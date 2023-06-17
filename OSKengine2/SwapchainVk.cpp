@@ -15,6 +15,8 @@
 #include "PresentMode.h"
 #include "CommandQueueVk.h"
 
+#include "RendererExceptions.h"
+
 using namespace OSK;
 using namespace OSK::GRAPHICS;
 
@@ -63,8 +65,8 @@ void SwapchainVk::Create(PresentMode mode, Format format, const GpuVk& device, c
 
 	//tamaño.
 	VkExtent2D extent{};
-	extent.width = display.GetResolution().X;
-	extent.height = display.GetResolution().Y;
+	extent.width = display.GetResolution().x;
+	extent.height = display.GetResolution().y;
 
 	//Número de imágenes en el swapchain.
 	imageCount = info.swapchainSupportDetails.surfaceCapabilities.minImageCount + 1;
@@ -107,26 +109,24 @@ void SwapchainVk::Create(PresentMode mode, Format format, const GpuVk& device, c
 
 	// Crearlo y error-handling.
 	VkResult result = vkCreateSwapchainKHR(device.GetLogicalDevice(), &createInfo, nullptr, &swapchain);
-	OSK_ASSERT(result == VK_SUCCESS, "No se ha podido crear el swapchain. Code: " + std::to_string(result));
+	OSK_ASSERT(result == VK_SUCCESS, SwapchainCreationException("No se ha podido crear el swapchain", result));
 
-	for (TSize i = 0; i < imageCount; i++)		
+	for (UIndex32 i = 0; i < imageCount; i++)
 		images[i] = new GpuImageVk({ extent.width, extent.height, 1 }, GpuImageDimension::d2D, GpuImageUsage::COLOR, 1, format, 1, {});
 
 	AcquireImages(extent.width, extent.height);
 	AcquireViews();
-
-	Engine::GetLogger()->InfoLog("Creado correctamente el swapchain.");
 }
 
 void SwapchainVk::AcquireImages(unsigned int sizeX, unsigned int sizeY) {
 	VkResult result = vkGetSwapchainImagesKHR(device->GetLogicalDevice(), swapchain, &imageCount, nullptr);
-	OSK_ASSERT(result == VK_SUCCESS, "Error al adquirir imagenes del swapchain. Code: " + std::to_string(result));
+	OSK_ASSERT(result == VK_SUCCESS, SwapchainCreationException("Error al adquirir imagenes del swapchain", result));
 
 	VkImage* tempImages = new VkImage[imageCount];
 	vkGetSwapchainImagesKHR(device->GetLogicalDevice(), swapchain, &imageCount, tempImages);
-	OSK_ASSERT(result == VK_SUCCESS, "Error al adquirir imagenes del swapchain. Code: " + std::to_string(result));
+	OSK_ASSERT(result == VK_SUCCESS, SwapchainCreationException("Error al adquirir imagenes del swapchain", result));
 
-	for (TSize i = 0; i < imageCount; i++)
+	for (UIndex32 i = 0; i < imageCount; i++)
 		images[i]->As<GpuImageVk>()->_SetVkImage(tempImages[i]);
 
 	delete[] tempImages;
@@ -135,7 +135,7 @@ void SwapchainVk::AcquireImages(unsigned int sizeX, unsigned int sizeY) {
 void SwapchainVk::AcquireViews() {
 	auto tempViews = new VkImageView[imageCount];
 
-	for (TSize i = 0; i < imageCount; i++) {
+	for (UIndex32 i = 0; i < imageCount; i++) {
 		VkImageViewCreateInfo createInfo{};
 		createInfo.sType = VK_STRUCTURE_TYPE_IMAGE_VIEW_CREATE_INFO;
 		createInfo.image = images[i]->As<GpuImageVk>()->GetVkImage();
@@ -152,7 +152,7 @@ void SwapchainVk::AcquireViews() {
 		createInfo.subresourceRange.layerCount = 1;
 
 		VkResult result = vkCreateImageView(device->GetLogicalDevice(), &createInfo, nullptr, &tempViews[i]);
-		OSK_ASSERT(result == VK_SUCCESS, "Error al crear view de imagen del swapchain. Code: " + std::to_string(result));
+		OSK_ASSERT(result == VK_SUCCESS, SwapchainCreationException("Error al crear view de imagen del swapchain", result));
 
 		if (images[i]->As<GpuImageVk>()->GetSwapchainView() != VK_NULL_HANDLE)
 			vkDestroyImageView(Engine::GetRenderer()->GetGpu()->As<GpuVk>()->GetLogicalDevice(), images[i]->As<GpuImageVk>()->GetSwapchainView(), 0);

@@ -42,7 +42,7 @@ namespace OSK::ECS {
 
 		GRAPHICS::MaterialInstance* GetMaterialInstance() const;
 
-		TSize GetNumIndices() const;
+		USize32 GetNumIndices() const;
 
 	private:
 
@@ -51,7 +51,7 @@ namespace OSK::ECS {
 
 		UniquePtr<GRAPHICS::MaterialInstance> materialInstance;
 
-		TSize numIndices = 0;
+		UIndex32 numIndices = 0;
 
 	};
 

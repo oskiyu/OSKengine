@@ -34,6 +34,7 @@ namespace OSK::IO {
 
 
 		void QueryInterface(TInterfaceUuid uuid, void** ptr) const override;
+		void QueryConstInterface(TInterfaceUuid uuid, const void** ptr) const override;
 
 
 		void Create(Vector2ui size, const std::string& title) override;
@@ -53,6 +54,8 @@ namespace OSK::IO {
 		/// @return GLFW
 		GLFWwindow* _GetGlfw() const;
 
+
+		static void ShowMessageBox(std::string_view message);
 
 	private:
 

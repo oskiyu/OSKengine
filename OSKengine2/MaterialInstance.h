@@ -36,6 +36,10 @@ namespace OSK::GRAPHICS {
 		/// @note TODOS los slots del Material (presentes en su layout) deben registrarse.
 		/// </summary>
 		/// <param name="name"></param>
+		/// 
+		/// @throws DescriptorPoolCreationException Si hay algún error nativo durante la creación del material slot.
+		/// @throws DescriptorLayoutCreationException Si hay algún error nativo durante la creación del material slot.
+		/// @throws MaterialSlotCreationException Si hay algún error durante la creación del material slot.
 		void RegisterSlot(const std::string& name);
 
 		/// <summary>

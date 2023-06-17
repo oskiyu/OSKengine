@@ -17,8 +17,8 @@ bool ITopLevelCollider::AabbAabbCollision(const AxisAlignedBoundingBox& first, c
 	const Vector3f secondMin = other.GetMin(positionA);
 	const Vector3f secondMax = other.GetMax(positionA);
 
-	return positionA.X <= other.GetMax(positionB).X && first.GetMax(positionA).X >= positionB.X
-		&& positionA.Y <= other.GetMax(positionB).Y && first.GetMax(positionA).Y >= positionB.Y
+	return positionA.x <= other.GetMax(positionB).x && first.GetMax(positionA).x >= positionB.x
+		&& positionA.y <= other.GetMax(positionB).y && first.GetMax(positionA).y >= positionB.y
 		&& positionA.Z <= other.GetMax(positionB).Z && first.GetMax(positionA).Z >= positionB.Z;
 }
 
@@ -27,8 +27,8 @@ bool ITopLevelCollider::AabbSphereCollision(const AxisAlignedBoundingBox& box, c
 
 	// Punto de la caja más cercano a la esfera.
 	const Vector3f point = {
-		glm::max(box.GetMin(boxPos).X, glm::min(spherePos.X, box.GetMax(boxPos).X)),
-		glm::max(box.GetMin(boxPos).Y, glm::min(spherePos.Y, box.GetMax(boxPos).Y)),
+		glm::max(box.GetMin(boxPos).x, glm::min(spherePos.x, box.GetMax(boxPos).x)),
+		glm::max(box.GetMin(boxPos).y, glm::min(spherePos.y, box.GetMax(boxPos).y)),
 		glm::max(box.GetMin(boxPos).Z, glm::min(spherePos.Z, box.GetMax(boxPos).Z))
 	};
 

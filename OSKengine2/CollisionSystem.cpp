@@ -21,15 +21,15 @@ void CollisionSystem::OnTick(TDeltaTime deltaTime) {
 	if (GetObjects().IsEmpty())
 		return;
 
-	const TSize numObjects = GetObjects().GetSize();
+	const UIndex32 numObjects = GetObjects().GetSize();
 
-	for (TIndex a = 0; a < numObjects - 1; a++) {
+	for (UIndex32 a = 0; a < numObjects - 1; a++) {
 		const GameObjectIndex firstObject = GetObjects()[a];
 
 		const auto& firstCollider = Engine::GetEcs()->GetComponent<COLLISION::Collider>(firstObject);
 		const auto& firstTransform = Engine::GetEcs()->GetComponent<Transform3D>(firstObject);
 
-		for (TIndex b = a + 1; b < numObjects; b++) {
+		for (UIndex32 b = a + 1; b < numObjects; b++) {
 			const GameObjectIndex secondObject = GetObjects()[b];
 
 			if (firstObject == secondObject) continue;

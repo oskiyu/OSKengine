@@ -33,15 +33,15 @@ namespace OSK::GRAPHICS {
 
 		/// @brief Índice de la primera capa que será afectada por el barrier.
 		/// @pre Si la imagen NO es array, debe ser 0.
-		TSize baseLayer = 0;
+		UIndex32 baseLayer = 0;
 
 		/// @brief Número de capas del array afectadas por el barrier.
-		TSize numLayers = ALL_IMAGE_LAYERS;
+		USize32 numLayers = ALL_IMAGE_LAYERS;
 
 		/// @brief Nivel más bajo de mip que será afectado por el barrier.
-		TSize baseMipLevel = 0;
+		UIndex32 baseMipLevel = 0;
 		/// @brief Número de niveles de mip que serán afectados por el barrier.
-		TSize numMipLevels = ALL_MIP_LEVELS;
+		USize32 numMipLevels = ALL_MIP_LEVELS;
 
 
 		/// @brief Canal(es) afectados por el barrier.
@@ -59,8 +59,8 @@ namespace OSK::GRAPHICS {
 
 	public:
 
-		using ArrayLevelIndex = TIndex;
-		using MipLevelIndex = TIndex;
+		using ArrayLevelIndex = UIndex32;
+		using MipLevelIndex = UIndex32;
 
 	public:
 
@@ -68,9 +68,9 @@ namespace OSK::GRAPHICS {
 			const Vector3ui& size, 
 			GpuImageDimension dimension, 
 			GpuImageUsage usage, 
-			TSize numLayers, 
+			USize32 numLayers, 
 			Format format, 
-			TSize numSamples, 
+			USize32 numSamples,
 			GpuImageSamplerDesc samplerDesc);
 
 		virtual ~GpuImage() override;
@@ -94,7 +94,7 @@ namespace OSK::GRAPHICS {
 		Vector2ui GetSize2D() const;
 
 		/// @return Resolución de la imagen, en píxeles.
-		TSize GetSize1D() const;
+		USize32 GetSize1D() const;
 
 		Vector3ui GetPhysicalSize() const;
 
@@ -110,7 +110,7 @@ namespace OSK::GRAPHICS {
 		/// @return Número de capas de array.
 		/// Para una imagen simple, 1.
 		/// @note Será siempre >= 1.
-		TSize GetNumLayers() const;
+		USize32 GetNumLayers() const;
 
 		/// @brief Devuelve la resolución del mip-level indicado.
 		/// @param mipLevel Mip-level.
@@ -119,7 +119,7 @@ namespace OSK::GRAPHICS {
 		/// @pre El mip level indicado debe existir en la imagen, 
 		/// de lo contrario devolverá un valor incorrecto.
 		/// @pre La imagen debe ser 2D o cubemap.
-		Vector2ui GetMipLevelSize2D(TIndex mipLevel) const;
+		Vector2ui GetMipLevelSize2D(UIndex32 mipLevel) const;
 
 		/// @return Sampler por defecto de la imagen.
 		GpuImageSamplerDesc GetImageSampler() const;
@@ -134,7 +134,7 @@ namespace OSK::GRAPHICS {
 		/// </summary>
 		/// <param name="sizeX">Ancho de la imagen.</param>
 		/// <param name="sizeY">Alto de la imagen.</param>
-		static TSize GetMipLevels(uint32_t sizeX, uint32_t sizeY);
+		static USize32 GetMipLevels(uint32_t sizeX, uint32_t sizeY);
 
 		/// <summary>
 		/// Devuelve el número de bytes que ocupa esta imagen en la memoria de la GPU.
@@ -143,18 +143,18 @@ namespace OSK::GRAPHICS {
 		/// 
 		/// @note Debido a cuestiones de alineamiento y demás, puede ocupar más
 		/// espacio del esperado.
-		TSize GetNumberOfBytes() const;
+		USize64 GetNumberOfBytes() const;
 
 		/// <summary>
 		/// Devuelve el número de bytes reales que ocupa esta imagen en la memoria de la GPU
 		/// </summary>
 		/// <returns>Espacio ocupado en la GPU.</returns>
-		TSize GetPhysicalNumberOfBytes() const;
+		USize64 GetPhysicalNumberOfBytes() const;
 
 		/// <summary>
 		/// Devuelve el número de muestras que esta imagen puede tener en un renderizado con MSAA.
 		/// </summary>
-		TSize GetNumSamples() const;
+		USize32 GetNumSamples() const;
 
 		/// @brief Obtiene un image view con las características dadas.
 		/// @param channel Canal de la imagen accedido por el view.
@@ -169,6 +169,8 @@ namespace OSK::GRAPHICS {
 		/// @pre Si @p layerCount > 1, entonces @p arrayType debe ser SampledArrayType::ARRAY.
 		/// @pre @p topMipLevel >= @p baseMipLevel.
 		/// @pre Los mip levels indicados por el rango @p topMipLevel y @p baseMipLevel deben existir en la imagen original.
+		/// 
+		/// @throws ImageViewCreationException Si hay algún error al crear el view.
 		IGpuImageView* GetView(const GpuImageViewConfig& viewConfig) const;
 
 
@@ -189,9 +191,9 @@ namespace OSK::GRAPHICS {
 		/// @param layout Layout del rango.
 		void _SetLayout(
 			ArrayLevelIndex baseArrayLevel,
-			TSize arrayLevelCount,
+			USize32 arrayLevelCount,
 			MipLevelIndex baseMipLevel,
-			TSize mipLevelCount,
+			USize32 mipLevelCount,
 			GpuImageLayout layout);
 
 		/// @brief Establece el layout de toda la imagen a UNDEFINED.
@@ -205,6 +207,10 @@ namespace OSK::GRAPHICS {
 
 	protected:
 
+		/// @brief Crea un image view con la configuración indicada.
+		/// @param viewConfig Configuración del view.
+		/// @return View.
+		/// @throws ImageViewCreationException Si hay algún error al crear el view.
 		virtual OwnedPtr<IGpuImageView> CreateView(const GpuImageViewConfig& viewConfig) const = 0;
 
 	private:
@@ -223,13 +229,13 @@ namespace OSK::GRAPHICS {
 
 		GpuImageSamplerDesc samplerDesc{};
 
-		TSize mipLevels = 0;
-		TSize numSamples = 0;
+		USize32 mipLevels = 0;
+		USize32 numSamples = 0;
 		Format format;
 		GpuImageLayout currentLayout;
 		GpuImageDimension dimension;
 		GpuImageUsage usage;
-		TSize numLayers = 0;
+		USize32 numLayers = 0;
 
 	};
 

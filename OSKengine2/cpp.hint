@@ -1,0 +1,8 @@
+// Los archivos de sugerencia ayudan al IDE de Visual Studio a interpretar los identificadores de Visual C++
+// por ejemplo, los nombres de funciones y macros.
+// Para obtener más información, consulte https://go.microsoft.com/fwlink/?linkid=865984
+#define OSK_DEFINE_AS(className) template <typename T> constexpr T* As() const requires std::is_base_of_v<className, T> { return (T*)this; }
+#define OSK_DEFINE_IUUID(uuid) static TInterfaceUuid GetInterfaceUuid() { return uuid; }
+#define OSK_EXCEPTION_CONSTRUCTORS(exceptionName) exceptionName(const Error& error) : EngineException(error) {} exceptionName(const std::initializer_list<Error>& errors) : EngineException(errors) {}
+#define OSK_DEFAULT_MOVE_OPERATOR(className) className(className&&) = default; className& operator=(className&&) = default;
+#define OSK_DISABLE_COPY(className) className(const className&) = delete; className& operator=(const className&) = delete;

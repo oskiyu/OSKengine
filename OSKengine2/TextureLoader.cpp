@@ -18,6 +18,8 @@
 #include <stbi_image.h>
 #include <json.hpp>
 
+#include "InvalidDescriptionFileException.h"
+
 using namespace OSK::ASSETS;
 using namespace OSK::GRAPHICS;
 
@@ -29,13 +31,7 @@ void TextureLoader::Load(const std::string& assetFilePath, IAsset** asset) {
 	Texture* output = (Texture*)*asset;
 
 	// Asset file.
-	nlohmann::json assetInfo = nlohmann::json::parse(IO::FileIO::ReadFromFile(assetFilePath));
-
-	OSK_ASSERT(assetInfo.contains("file_type"), "Archivo de textura incorrecto: no se encuentra 'file_type'.");
-	OSK_ASSERT(assetInfo.contains("spec_ver"), "Archivo de textura incorrecto: no se encuentra 'spec_ver'.");
-	OSK_ASSERT(assetInfo.contains("name"), "Archivo de textura incorrecto: no se encuentra 'name'.");
-	OSK_ASSERT(assetInfo.contains("asset_type"), "Archivo de textura incorrecto: no se encuentra 'asset_type'.");
-	OSK_ASSERT(assetInfo.contains("raw_asset_path"), "Archivo de textura incorrecto: no se encuentra 'raw_asset_path'.");
+	const nlohmann::json assetInfo = ValidateDescriptionFile(assetFilePath);
 
 	std::string texturePath = assetInfo["raw_asset_path"];
 	output->SetName(assetInfo["name"]);

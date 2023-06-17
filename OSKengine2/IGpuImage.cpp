@@ -13,12 +13,12 @@
 using namespace OSK;
 using namespace OSK::GRAPHICS;
 
-GpuImage::GpuImage(const Vector3ui& size, GpuImageDimension dimension, GpuImageUsage usage, TSize numLayers, Format format, TSize numSamples, GpuImageSamplerDesc samplerDesc)
-	: format(format), dimension(dimension), usage(usage), numLayers(numLayers), currentLayout(GpuImageLayout::UNDEFINED), size(size), numSamples(numSamples), samplerDesc(samplerDesc) {
+GpuImage::GpuImage(const Vector3ui& size, GpuImageDimension dimension, GpuImageUsage usage, USize32 numLayers, Format format, USize32 numSamples, GpuImageSamplerDesc samplerDesc)
+	: size(size), samplerDesc(samplerDesc), numSamples(numSamples), format(format), currentLayout(GpuImageLayout::UNDEFINED), dimension(dimension), usage(usage), numLayers(numLayers) {
 	
 	switch (samplerDesc.mipMapMode) {
 	case GpuImageMipmapMode::AUTO:
-		mipLevels = GetMipLevels(size.X, size.Y);
+		mipLevels = GetMipLevels(size.x, size.y);
 		break;
 	case GpuImageMipmapMode::CUSTOM:
 		mipLevels = samplerDesc.maxMipLevel;
@@ -53,17 +53,17 @@ Vector3ui GpuImage::GetSize3D() const {
 }
 
 Vector2ui GpuImage::GetSize2D() const {
-	return { size.X, size.Y };
+	return { size.x, size.y };
 }
 
-TSize GpuImage::GetSize1D() const {
-	return size.X;
+USize32 GpuImage::GetSize1D() const {
+	return size.x;
 }
 
-Vector2ui GpuImage::GetMipLevelSize2D(TIndex mipLevel) const {
+Vector2ui GpuImage::GetMipLevelSize2D(UIndex32 mipLevel) const {
 	Vector2ui size = GetSize2D();
 
-	for (TIndex i = 0; i < mipLevel; i++)
+	for (UIndex32 i = 0; i < mipLevel; i++)
 		size /= 2;
 
 	return size;
@@ -81,7 +81,7 @@ GpuImageUsage GpuImage::GetUsage() const {
 	return usage;
 }
 
-TSize GpuImage::GetNumLayers() const {
+USize32 GpuImage::GetNumLayers() const {
 	return numLayers;
 }
 
@@ -105,19 +105,19 @@ unsigned int GpuImage::GetMipLevels() const {
 	return mipLevels;
 }
 
-TSize GpuImage::GetMipLevels(uint32_t sizeX, uint32_t sizeY) {
-	return static_cast<TSize>(glm::floor(glm::log2(glm::max((float)sizeX, (float)sizeY)))) + 1;
+USize32 GpuImage::GetMipLevels(uint32_t sizeX, uint32_t sizeY) {
+	return static_cast<USize32>(glm::floor(glm::log2(glm::max((float)sizeX, (float)sizeY)))) + 1;
 }
 
-TSize GpuImage::GetNumberOfBytes() const {
-	return size.X * size.Y * size.Z * GetFormatNumberOfBytes(GetFormat());
+USize64 GpuImage::GetNumberOfBytes() const {
+	return size.x * size.y * size.Z * GetFormatNumberOfBytes(GetFormat());
 }
 
-TSize GpuImage::GetPhysicalNumberOfBytes() const {
-	return physicalSize.X * physicalSize.Y * physicalSize.Z * GetFormatNumberOfBytes(GetFormat());
+USize64 GpuImage::GetPhysicalNumberOfBytes() const {
+	return physicalSize.x * physicalSize.y * physicalSize.Z * GetFormatNumberOfBytes(GetFormat());
 }
 
-TSize GpuImage::GetNumSamples() const {
+USize32 GpuImage::GetNumSamples() const {
 	return numSamples;
 }
 
@@ -139,8 +139,8 @@ const GpuBarrierInfo& GpuImage::GetCurrentBarrier() const {
 }
 
 void GpuImage::_InitDefaultLayout() {
-	const TSize arrayLevelCount = numLayers;
-	const TSize mipLevelCount = mipLevels;
+	const USize32 arrayLevelCount = numLayers;
+	const USize32 mipLevelCount = mipLevels;
 
 	for (ArrayLevelIndex a = 0; a < arrayLevelCount; a++) {
 		layouts.Insert(a, {});
@@ -151,7 +151,7 @@ void GpuImage::_InitDefaultLayout() {
 	}
 }
 
-void GpuImage::_SetLayout(ArrayLevelIndex baseArrayLevel, TSize arrayLevelCount, MipLevelIndex baseMipLevel, TSize mipLevelCount, GpuImageLayout layout) {
+void GpuImage::_SetLayout(ArrayLevelIndex baseArrayLevel, USize32 arrayLevelCount, MipLevelIndex baseMipLevel, USize32 mipLevelCount, GpuImageLayout layout) {
 	arrayLevelCount = glm::min(arrayLevelCount, numLayers);
 	mipLevelCount = glm::min(mipLevelCount, mipLevels);
 	

@@ -6,6 +6,10 @@
 #include "HashMap.hpp"
 #include "UniquePtr.hpp"
 
+#include "EventNotRegisteredException.h"
+
+#include <format>
+
 namespace OSK::ECS {
 
 	/// @brief Se encarga de gestionar las colas de eventos.
@@ -19,13 +23,11 @@ namespace OSK::ECS {
 		/// @tparam TEvent Tipo de evento.
 		/// 
 		/// @pre TEvent debe cumplir IsEcsEvent<TEvent>.
-		template <typename TEvent> 
-			requires IsEcsEvent<TEvent>
+		template <typename TEvent>  requires IsEcsEvent<TEvent>
 		void RegisterEventType() {
-			const std::string key = TEvent::GetEventName();
+			const auto key = static_cast<std::string>(TEvent::GetEventName());
 
-			containers.Insert(key,
-				new EventContainer<TEvent>);
+			containers.Insert(key, new EventContainer<TEvent>());
 		}
 
 
@@ -36,14 +38,12 @@ namespace OSK::ECS {
 		/// 
 		/// @pre TEvent debe cumplir IsEcsEvent<TEvent>.
 		/// @pre TEvent debe haber sido registrado con RegisterEventType.
-		template <typename TEvent>
-			requires IsEcsEvent<TEvent>
+		template <typename TEvent> requires IsEcsEvent<TEvent>
 		void PublishEvent(const TEvent& event) {
-			EventContainer<TEvent>* container =
-				(EventContainer<TEvent>*)(
-					containers.Get(TEvent::GetEventName()).GetPointer());
+			const auto name = static_cast<std::string>(TEvent::GetEventName());
+			auto& container = static_cast<EventContainer<TEvent>&>(containers.Get(name).GetValue());
 
-			container->PublishEvent(event);
+			container.PublishEvent(event);
 		}
 
 		/// @brief Obtiene la cola con todos los eventos de un tipo
@@ -54,22 +54,34 @@ namespace OSK::ECS {
 		/// 
 		/// @pre TEvent debe cumplir IsEcsEvent<TEvent>.
 		/// @pre TEvent debe haber sido registrado con RegisterEventType.
-		template <typename TEvent>
-			requires IsEcsEvent<TEvent>
+		/// 
+		/// @throws EventNotRegisteredException Si se trata de obtener una cola a un tipo de evento
+		/// que no ha sido previamente registrado.
+		template <typename TEvent> requires IsEcsEvent<TEvent>
 		const DynamicArray<TEvent>& GetEventQueue() const {
-			OSK_ASSERT(containers.ContainsKey(TEvent::GetEventName()), "El evento " + TEvent::GetEventName() + " no está registrado.");
+			const auto name = static_cast<std::string>(TEvent::GetEventName());
 
-			const EventContainer<TEvent>* container =
-				(const EventContainer<TEvent>*)containers.Get(TEvent::GetEventName()).GetPointer();
+			if (!containers.ContainsKey(name))
+				throw EventNotRegisteredException(TEvent::GetEventName());
 
-			return container->GetEventQueue();
+			const auto& container = static_cast<const EventContainer<TEvent>&>(
+				containers.Get(name).GetValue());
+
+			return container.GetEventQueue();
 		}
 
 		/// @brief Elimina los contenidos de todas las colas.
 		/// Debe llamarse al final de cada frame.
 		void _ClearQueues() {
-			for (auto& [name, queue] : containers)
+			for (const auto& [name, queue] : containers)
 				queue->_ClearQueue();
+		}
+
+		/// @tparam TEvent Tipo del evento.
+		/// @return True si el evento fue registrado.
+		template <typename TEvent> requires IsEcsEvent<TEvent>
+		bool EventHasBeenRegistered() const {
+			return containers.ContainsKey((std::string)TEvent::GetEventName());
 		}
 
 	private:

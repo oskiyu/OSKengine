@@ -9,6 +9,6 @@ namespace OSK::MEMORY {
 	/// 
 	/// @pre Las regiones no deben solaparse.
 	/// </summary>
-	OSKAPI_CALL void MemorySwap(void* a, void* b, TSize numBytes);
+	OSKAPI_CALL void MemorySwap(void* a, void* b, USize64 numBytes);
 
 }

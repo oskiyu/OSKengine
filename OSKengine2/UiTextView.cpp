@@ -35,7 +35,7 @@ void TextView::AdjustSizeToText() {
 
 			currentSizeX = 0.0f;
 			currentLineStartY = totalSizeY;
-			totalSizeY += referenceChar.size.Y + referenceChar.bearing.Y;
+			totalSizeY += referenceChar.size.y + referenceChar.bearing.y;
 
 			continue;
 		}
@@ -47,8 +47,8 @@ void TextView::AdjustSizeToText() {
 
 		const FontCharacter& character = fontInstance.characters.Get(c);
 
-		const float characterTop = -character.bearing.Y;
-		const float characterBottom = characterTop + character.size.Y;
+		const float characterTop = -character.bearing.y;
+		const float characterBottom = characterTop + character.size.y;
 		
 		currentLineTop = glm::min(currentLineTop, characterTop);
 		currentLineBottom = glm::max(currentLineBottom, characterBottom);
@@ -65,12 +65,12 @@ void TextView::AdjustSizeToText() {
 	);
 
 	size = newSize + Vector2f(
-		GetPadding().X + GetPadding().Z,
-		GetPadding().Y + GetPadding().W
+		GetPadding().x + GetPadding().Z,
+		GetPadding().y + GetPadding().W
 	);
 }
 
-void TextView::SetFontSize(TSize size) {
+void TextView::SetFontSize(USize32 size) {
 	fontSize = size;
 }
 
@@ -91,11 +91,11 @@ void TextView::Render(SpriteRenderer* renderer, Vector2f parentPosition) const {
 		return;
 	
 	Vector2f globalPosition = GetContentTopLeftPosition() + parentPosition;
-	globalPosition.Y += GetContentSize().Y;
+	globalPosition.y += GetContentSize().y;
 	globalPosition = globalPosition.ToVector2i().ToVector2f();
 
 	Transform2D transform(EMPTY_GAME_OBJECT);
 	transform.SetPosition(globalPosition);
 
-	renderer->DrawString(*font, fontSize, text, transform, Color::WHITE());
+	renderer->DrawString(*font, fontSize, text, transform, Color::White);
 }

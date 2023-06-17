@@ -9,6 +9,9 @@
 #include "RtRenderTarget.h"
 #include "TaaProvider.h"
 
+#include <array>
+#include <span>
+
 namespace OSK::GRAPHICS {
 	class ICommandList;
 }
@@ -50,14 +53,14 @@ namespace OSK::ECS {
 		
 		GRAPHICS::ShadowMap* GetShadowMap();
 		
-		const GRAPHICS::GpuBuffer* GetCameraBuffer(TIndex index) const {
+		const GRAPHICS::GpuBuffer* GetCameraBuffer(UIndex32 index) const {
 			return cameraBuffers[index].GetPointer();
 		}
 
 		inline void ToggleTaa() { taaProvider.ToggleActivation(); }
 
-		constexpr static TIndex COLOR_IMAGE_INDEX = 0;
-		constexpr static TIndex MOTION_IMAGE_INDEX = 1;
+		constexpr static UIndex32 COLOR_IMAGE_INDEX = 0;
+		constexpr static UIndex32 MOTION_IMAGE_INDEX = 1;
 
 	private:
 		
@@ -72,7 +75,7 @@ namespace OSK::ECS {
 		void CopyTaaResult(GRAPHICS::ICommandList* commandList);
 
 		void SceneRenderLoop(ASSETS::ModelType modelType, GRAPHICS::ICommandList* commandList);
-		void ShadowsRenderLoop(ASSETS::ModelType modelType, GRAPHICS::ICommandList* commandList, TSize cascadeIndex);
+		void ShadowsRenderLoop(ASSETS::ModelType modelType, GRAPHICS::ICommandList* commandList, UIndex32 cascadeIndex);
 
 		void RenderTerrain(GRAPHICS::ICommandList* commandList);
 
@@ -80,11 +83,11 @@ namespace OSK::ECS {
 		UniquePtr<GRAPHICS::GpuBuffer> resolutionBuffer = nullptr;
 
 		/// @brief Buffers con la información de la cámara en un frame en concreto.
-		UniquePtr<GRAPHICS::GpuBuffer> cameraBuffers[NUM_RESOURCES_IN_FLIGHT]{};
+		std::array<UniquePtr<GRAPHICS::GpuBuffer>, NUM_RESOURCES_IN_FLIGHT> cameraBuffers{};
 		/// @brief Buffers con la información de la cámara en el frame anterior.
-		UniquePtr<GRAPHICS::GpuBuffer> previousCameraBuffers[NUM_RESOURCES_IN_FLIGHT]{};
+		std::array<UniquePtr<GRAPHICS::GpuBuffer>, NUM_RESOURCES_IN_FLIGHT> previousCameraBuffers{};
 
-		UniquePtr<GRAPHICS::GpuBuffer> dirLightUbos[NUM_RESOURCES_IN_FLIGHT]{};
+		std::array<UniquePtr<GRAPHICS::GpuBuffer>, NUM_RESOURCES_IN_FLIGHT> dirLightUbos{};
 		GRAPHICS::DirectionalLight dirLight{};
 
 		GRAPHICS::ShadowMap shadowMap;

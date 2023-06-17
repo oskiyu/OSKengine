@@ -42,7 +42,7 @@ namespace OSK::ECS {
 
 		void AddBlas(GRAPHICS::IBottomLevelAccelerationStructure* blas);
 
-		const GRAPHICS::GpuBuffer* GetCameraBuffer(TIndex index) const {
+		const GRAPHICS::GpuBuffer* GetCameraBuffer(UIndex32 index) const {
 			return cameraUbos[index].GetPointer();
 		}
 

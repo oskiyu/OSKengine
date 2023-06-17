@@ -51,7 +51,7 @@ namespace OSK::GRAPHICS {
 		/// <returns>Null si no se inicializó previamente.</returns>
 		/// 
 		/// @pre 0 <= resourceIndex < NUM_RESOURCES_IN_FLIGHT.
-		GpuImage* GetImage(TIndex resourceIndex) const;
+		GpuImage* GetImage(UIndex32 resourceIndex) const;
 
 	private:
 

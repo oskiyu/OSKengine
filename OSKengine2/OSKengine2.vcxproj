@@ -47,8 +47,13 @@
     <ClCompile Include="AnimationSkin.cpp" />
     <ClCompile Include="Animator.cpp" />
     <ClCompile Include="AnimMeshLoader.cpp" />
-    <ClCompile Include="Assert.cpp" />
     <ClCompile Include="AssetManager.cpp" />
+    <ClCompile Include="AudioApi.cpp" />
+    <ClCompile Include="AudioAsset.cpp" />
+    <ClCompile Include="AudioBuffer.cpp" />
+    <ClCompile Include="AudioDevice.cpp" />
+    <ClCompile Include="AudioLoader.cpp" />
+    <ClCompile Include="AudioSource.cpp" />
     <ClCompile Include="BloomPass.cpp" />
     <ClCompile Include="Bone.cpp" />
     <ClCompile Include="AxisAlignedBoundingBox.cpp" />
@@ -206,8 +211,6 @@
     <ClCompile Include="StaticMeshLoader.cpp" />
     <ClCompile Include="SwapchainDx12.cpp" />
     <ClCompile Include="SwapchainVk.cpp" />
-    <ClCompile Include="SyncDeviceDx12.cpp" />
-    <ClCompile Include="SyncDeviceVulkan.cpp" />
     <ClCompile Include="ISystem.cpp" />
     <ClCompile Include="SystemManager.cpp" />
     <ClCompile Include="TerrainComponent.cpp" />
@@ -226,6 +229,7 @@
     <ClCompile Include="UiRenderer.cpp" />
     <ClCompile Include="UiTextView.cpp" />
     <ClCompile Include="UiVerticalContainer.cpp" />
+    <ClCompile Include="Vector2.cpp" />
     <ClCompile Include="Vertex2D.cpp" />
     <ClCompile Include="Vertex3D.cpp" />
     <ClCompile Include="VertexInfo.cpp" />
@@ -234,13 +238,26 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\OSKengine\resource.h" />
+    <ClInclude Include="AccelerationStructuresExceptions.h" />
     <ClInclude Include="Animation.h" />
     <ClInclude Include="AnimationChannel.h" />
+    <ClInclude Include="AnimationExceptions.h" />
     <ClInclude Include="AnimationSampler.h" />
     <ClInclude Include="Animator.h" />
     <ClInclude Include="AnimMeshLoader.h" />
     <ClInclude Include="Assert.h" />
+    <ClInclude Include="AssetDescriptionFileNotFoundException.h" />
+    <ClInclude Include="AssetLoaderNotFoundException.h" />
     <ClInclude Include="AssetManager.h" />
+    <ClInclude Include="AudioApi.h" />
+    <ClInclude Include="AudioAsset.h" />
+    <ClInclude Include="AudioBuffer.h" />
+    <ClInclude Include="AudioDevice.h" />
+    <ClInclude Include="AudioExceptions.h" />
+    <ClInclude Include="AudioFormat.h" />
+    <ClInclude Include="AudioLoader.h" />
+    <ClInclude Include="AudioSource.h" />
+    <ClInclude Include="BadAllocException.h" />
     <ClInclude Include="BitSet.hpp" />
     <ClInclude Include="BloomPass.h" />
     <ClInclude Include="Bone.h" />
@@ -255,6 +272,7 @@
     <ClInclude Include="CollisionSystem.h" />
     <ClInclude Include="Color.hpp" />
     <ClInclude Include="CommandListDx12.h" />
+    <ClInclude Include="CommandListExceptions.h" />
     <ClInclude Include="CommandListVk.h" />
     <ClInclude Include="CommandPoolDx12.h" />
     <ClInclude Include="CommandPoolVk.h" />
@@ -276,13 +294,23 @@
     <ClInclude Include="DescriptorLayoutVk.h" />
     <ClInclude Include="DescriptorPoolVk.h" />
     <ClInclude Include="DetailedCollisionInfo.h" />
+    <ClInclude Include="EcsExceptions.h" />
+    <ClInclude Include="EngineException.h" />
     <ClInclude Include="Event.h" />
     <ClInclude Include="EventContainer.h" />
     <ClInclude Include="EventManager.h" />
+    <ClInclude Include="EventNotRegisteredException.h" />
     <ClInclude Include="Field.h" />
+    <ClInclude Include="FileNotFoundException.h" />
+    <ClInclude Include="FontLoadingExceptions.h" />
     <ClInclude Include="FrameCombiner.h" />
     <ClInclude Include="FxaaPass.h" />
+    <ClInclude Include="GameExceptions.h" />
     <ClInclude Include="GBuffer.h" />
+    <ClInclude Include="GpuMemoryExceptions.h" />
+    <ClInclude Include="InvalidArgumentException.h" />
+    <ClInclude Include="InvalidObjectStateException.h" />
+    <ClInclude Include="RendererExceptions.h" />
     <ClInclude Include="GpuBarrierInfo.h" />
     <ClInclude Include="GpuImageViewConfig.h" />
     <ClInclude Include="GpuImageViewDx12.h" />
@@ -306,6 +334,8 @@
     <ClInclude Include="IMeshLoader.h" />
     <ClInclude Include="IMouseInput.h" />
     <ClInclude Include="IndexBufferView.h" />
+    <ClInclude Include="InitializeWindowException.h" />
+    <ClInclude Include="InvalidDescriptionFileException.h" />
     <ClInclude Include="IPipelineDx12.h" />
     <ClInclude Include="IPostProcessPass.h" />
     <ClInclude Include="IProducerSystem.h" />
@@ -369,8 +399,10 @@
     <ClInclude Include="IRenderSystem.h" />
     <ClInclude Include="IRtShaderTable.h" />
     <ClInclude Include="ITopLevelAccelerationStructure.h" />
+    <ClInclude Include="LoggerExceptions.h" />
     <ClInclude Include="Material.h" />
     <ClInclude Include="IMaterialSlot.h" />
+    <ClInclude Include="MaterialExceptions.h" />
     <ClInclude Include="MaterialInstance.h" />
     <ClInclude Include="MaterialLayout.h" />
     <ClInclude Include="MaterialLayoutBinding.h" />
@@ -386,9 +418,14 @@
     <ClInclude Include="Model3D.h" />
     <ClInclude Include="ModelComponent3D.h" />
     <ClInclude Include="ModelLoader3D.h" />
+    <ClInclude Include="ModelLoadingExceptions.h" />
     <ClInclude Include="MouseModes.h" />
     <ClInclude Include="IPipelineVk.h" />
+    <ClInclude Include="NotImplementedException.h" />
+    <ClInclude Include="PipelinesExceptions.h" />
+    <ClInclude Include="RawAssetFileNotFoundException.h" />
     <ClInclude Include="SpriteBatch.h" />
+    <ClInclude Include="SystemAlreadyRegisteredException.h" />
     <ClInclude Include="TaaProvider.h" />
     <ClInclude Include="PbrDeferredRenderSystem.h" />
     <ClInclude Include="PcUserInput.h" />
@@ -411,7 +448,6 @@
     <ClInclude Include="IGraphicsPipeline.h" />
     <ClInclude Include="IRenderer.h" />
     <ClInclude Include="ISwapchain.h" />
-    <ClInclude Include="ISyncDevice.h" />
     <ClInclude Include="KeyboardState.h" />
     <ClInclude Include="LinkedList.hpp" />
     <ClInclude Include="Logger.h" />
@@ -460,8 +496,6 @@
     <ClInclude Include="StaticMeshLoader.h" />
     <ClInclude Include="SwapchainDx12.h" />
     <ClInclude Include="SwapchainVk.h" />
-    <ClInclude Include="SyncDeviceDx12.h" />
-    <ClInclude Include="SyncDeviceVulkan.h" />
     <ClInclude Include="ISystem.h" />
     <ClInclude Include="SystemManager.h" />
     <ClInclude Include="TerrainComponent.h" />
@@ -513,6 +547,7 @@
     <Image Include="Resources\OSKengine_icon_lowres_64.png" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="cpp.hint" />
     <None Include="Doc\json files.dox" />
     <None Include="Doc\mainpage.dox" />
     <None Include="OSKengine2.licenseheader" />

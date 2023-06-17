@@ -21,10 +21,10 @@ namespace OSK::GRAPHICS {
 		OwnedPtr<IBottomLevelAccelerationStructure> _CreateBottomAccelerationStructure() override;
 		OwnedPtr<ITopLevelAccelerationStructure> _CreateTopAccelerationStructure() override;
 
-		OwnedPtr<IGpuMemoryBlock> CreateNewBufferBlock(TSize size, GpuBufferUsage usage, GpuSharedMemoryType sharedType) override;
+		OwnedPtr<IGpuMemoryBlock> CreateNewBufferBlock(USize64 size, GpuBufferUsage usage, GpuSharedMemoryType sharedType) override;
 		OwnedPtr<IGpuMemoryBlock> CreateNewImageBlock(GpuImage* image, GpuImageUsage usage, GpuSharedMemoryType sharedType) override;
 
-		OwnedPtr<IGpuMemoryBlock> CreateNewBufferMemoryBlock(TSize size, GpuBufferUsage usage, GpuSharedMemoryType sharedType);
+		OwnedPtr<IGpuMemoryBlock> CreateNewBufferMemoryBlock(USize64 size, GpuBufferUsage usage, GpuSharedMemoryType sharedType);
 		//OwnedPtr<IGpuMemoryBlock> CreateNewImageMemoryBlock(GpuImage* image, IGpu* device, GpuSharedMemoryType type, GpuImageUsage imageUSage) override;
 
 		HashMap<D3D12_DESCRIPTOR_HEAP_TYPE, DynamicArray<DescriptorBlockDx12>> descriptorBlocks;

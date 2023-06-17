@@ -18,18 +18,18 @@ namespace OSK {
 		/// Crea un vector 3D nulo { 0, 0, 0 }.
 		/// </summary>
 		Vector3_t() {
-			X = 0;
-			Y = 0;
-			Z = 0;
+			this->x = 0;
+			this->y = 0;
+			this->Z = 0;
 		}
 
 		/// <summary>
 		/// Crea un vector 3D.
 		/// </summary>
 		Vector3_t(const T& x, const T& y, const T& z) {
-			X = x;
-			Y = y;
-			Z = z;
+			this->x = x;
+			this->y = y;
+			this->Z = z;
 		}
 
 		/// <summary>
@@ -37,18 +37,18 @@ namespace OSK {
 		/// </summary>
 		/// <param name="value">Valor para X, Y y Z.</param>
 		Vector3_t(const T& value) {
-			X = value;
-			Y = value;
-			Z = value;
+			this->x = value;
+			this->y = value;
+			this->Z = value;
 		}
 
 		/// <summary>
 		/// Crea un vector 3D con los parámetros de vec.
 		/// </summary>
 		Vector3_t(const glm::vec3& vec) {
-			X = vec.x;
-			Y = vec.y;
-			Z = vec.z;
+			this->x = vec.x;
+			this->y = vec.y;
+			this->Z = vec.z;
 		}
 
 		/// <summary>
@@ -57,7 +57,7 @@ namespace OSK {
 		/// @note X1 + X2; Y1 + Y2, Z1 + Z2.
 		/// </summary>
 		Vector3_t operator+(const Vector3_t& vec) const {
-			return Vector3_t(X + vec.X, Y + vec.Y, Z + vec.Z);
+			return Vector3_t(x + vec.x, y + vec.y, Z + vec.Z);
 		}
 
 		/// <summary>
@@ -67,8 +67,8 @@ namespace OSK {
 		/// @note Modifica este vector.
 		/// </summary>
 		Vector3_t& operator+=(const Vector3_t& vec) {
-			X += vec.X;
-			Y += vec.Y;
+			x += vec.x;
+			y += vec.y;
 			Z += vec.Z;
 			return *this;
 		}
@@ -79,7 +79,7 @@ namespace OSK {
 		/// @note -X; -Y; -Z.
 		/// </summary>
 		Vector3_t operator-() const {
-			return Vector3_t(-X, -Y, -Z);
+			return Vector3_t(-x, -y, -Z);
 		}
 
 		/// <summary>
@@ -88,7 +88,7 @@ namespace OSK {
 		/// @note X1 - X2; Y1 - Y2; Z1 - Z2.
 		/// </summary>
 		Vector3_t operator-(const Vector3_t& vec) const {
-			return Vector3_t(X - vec.X, Y - vec.Y, Z - vec.Z);
+			return Vector3_t(x - vec.x, y - vec.y, Z - vec.Z);
 		}
 
 		/// <summary>
@@ -98,8 +98,8 @@ namespace OSK {
 		/// @note Modifica este vector.
 		/// </summary>
 		Vector3_t& operator-=(const Vector3_t& vec) {
-			X -= vec.X;
-			Y -= vec.Y;
+			x -= vec.x;
+			y -= vec.y;
 			Z -= vec.Z;
 
 			return *this;
@@ -111,7 +111,7 @@ namespace OSK {
 		/// @note X1 * X2; Y1 * Y2; Z1 * Z2.
 		/// </summary>
 		Vector3_t operator*(const Vector3_t& vec) const {
-			return Vector3_t(X * vec.X, Y * vec.Y, Z * vec.Z);
+			return Vector3_t(x * vec.x, y * vec.y, Z * vec.Z);
 		}
 
 		/// <summary>
@@ -121,8 +121,8 @@ namespace OSK {
 		/// @note Modifica este vector.
 		/// </summary>
 		Vector3_t& operator*=(const Vector3_t& vec) {
-			X *= vec.X;
-			Y *= vec.Y;
+			x *= vec.x;
+			y *= vec.y;
 			Z *= vec.Z;
 
 			return *this;
@@ -134,7 +134,7 @@ namespace OSK {
 		/// @note X * value; Y * value; Z * value.
 		/// </summary>
 		Vector3_t operator*(const T& value) const {
-			return Vector3_t(X * value, Y * value, Z * value);
+			return Vector3_t(x * value, y * value, Z * value);
 		}
 
 		/// <summary>
@@ -144,8 +144,8 @@ namespace OSK {
 		/// @note Modifica este vector.
 		/// </summary>
 		Vector3_t& operator*=(const T& value) {
-			X *= value;
-			Y *= value;
+			x *= value;
+			y *= value;
 			Z *= value;
 			return *this;
 		}
@@ -156,7 +156,7 @@ namespace OSK {
 		/// @note X / vec.X; Y / vec.Y, Z / vec.Z.
 		/// </summary>
 		Vector3_t operator/(const Vector3_t& vec) const {
-			return Vector3_t(X / vec.X, Y / vec.Y, Z / vec.Z);
+			return Vector3_t(x / vec.x, y / vec.y, Z / vec.Z);
 		}
 
 		/// <summary>
@@ -166,8 +166,8 @@ namespace OSK {
 		/// @note Modifica este vector.
 		/// </summary>
 		Vector3_t& operator/=(const Vector3_t& vec) {
-			X /= vec;
-			Y /= vec;
+			x /= vec;
+			y /= vec;
 			Z /= vec;
 
 			return *this;
@@ -179,7 +179,7 @@ namespace OSK {
 		/// @note X / value; Y / value; Z / value.
 		/// </summary>
 		Vector3_t operator/(const T& value) const {
-			return Vector3_t(X / value, Y / value, Z / value);
+			return Vector3_t(x / value, y / value, Z / value);
 		}
 
 		/// <summary>
@@ -189,8 +189,8 @@ namespace OSK {
 		/// @note Modifica este vector.
 		/// </summary>
 		Vector3_t& operator/=(const T& value) {
-			X /= value;
-			Y /= value;
+			x /= value;
+			y /= value;
 			Z /= value;
 
 			return *this;
@@ -206,8 +206,8 @@ namespace OSK {
 		/// @return True si son iguales, false en caso contrario.
 		constexpr bool Equals(const Vector3_t& other, float epsilon) const {
 			return
-				glm::abs(X - other.X) < epsilon &&
-				glm::abs(Y - other.Y) < epsilon &&
+				glm::abs(x - other.x) < epsilon &&
+				glm::abs(y - other.y) < epsilon &&
 				glm::abs(Z - other.Z) < epsilon;
 		}
 
@@ -216,7 +216,7 @@ namespace OSK {
 		/// True si todos los componentes son iguales.
 		/// </summary>
 		bool operator==(const Vector3_t& vec) const {
-			return X == vec.X && Y == vec.Y && Z == vec.Z;
+			return x == vec.x && y == vec.y && Z == vec.Z;
 		}
 
 		/// <summary>
@@ -232,15 +232,15 @@ namespace OSK {
 		/// Obtiene la longitud del vector.
 		/// </summary>
 		T GetLenght() const {
-			return glm::sqrt(X * X + Y * Y + Z * Z);
+			return glm::sqrt(x * x + y * y + Z * Z);
 		}
 
 		/// <summary>
 		/// Obtiene la distancia entre la posición representada por este vector y por el vector 'vec'.
 		/// </summary>
 		T GetDistanceTo(const Vector3_t& vec) const {
-			const T dx = X - vec.X;
-			const T dy = Y - vec.Y;
+			const T dx = x - vec.x;
+			const T dy = y - vec.y;
 			const T dz = Z - vec.Z;
 
 			return glm::sqrt(dx * dx + dy * dy + dz * dz);
@@ -251,8 +251,8 @@ namespace OSK {
 		/// Al cuadrado.
 		/// </summary>
 		T GetDistanceTo2(const Vector3_t& vec) const {
-			T dx = X - vec.X;
-			T dy = Y - vec.Y;
+			T dx = x - vec.x;
+			T dy = y - vec.y;
 			T dz = Z - vec.Z;
 
 			return dx * dx + dy * dy + dz * dz;
@@ -263,7 +263,7 @@ namespace OSK {
 		/// </summary>
 		T Dot(const Vector3_t& vec) const {
 			// return glm::dot(this->ToGLM(), vec.ToGLM());
-			return X * vec.X + Y * vec.Y + Z * vec.Z;
+			return x * vec.x + y * vec.y + Z * vec.Z;
 		}
 
 		/// <summary>
@@ -286,7 +286,7 @@ namespace OSK {
 		/// Obtiene el producto vectorial entre este vector y el vector 'vec'.
 		/// </summary>
 		Vector3_t Cross(const Vector3_t& vec) const {
-			return Vector3_t(Y * vec.Z - Z * vec.Y, Z * vec.X - X * vec.Z, X * vec.Y - Y * vec.X);
+			return Vector3_t(y * vec.Z - Z * vec.y, Z * vec.x - x * vec.Z, x * vec.y - y * vec.x);
 		}
 
 		/// <summary>
@@ -295,7 +295,7 @@ namespace OSK {
 		Vector3_t GetNormalized() const {
 			T length = GetLenght();
 
-			return Vector3_t(X / length, Y / length, Z / length);
+			return Vector3_t(x / length, y / length, Z / length);
 		}
 
 		/// <summary>
@@ -304,8 +304,8 @@ namespace OSK {
 		void Normalize() {
 			T length = GetLenght();
 
-			X /= length;
-			Y /= length;
+			x /= length;
+			y /= length;
 			Z /= length;
 		}
 
@@ -313,14 +313,14 @@ namespace OSK {
 		/// OSK::Vector2 a glm::vec3.
 		/// </summary>
 		glm::vec3 ToGLM() const {
-			return glm::vec3(X, Y, Z);
+			return glm::vec3(x, y, Z);
 		}
 
 		/// <summary>
 		/// OSK::Vector2 a glm::vec.
 		/// </summary>
 		inline glm::vec<3, T> ToGLM_T() const {
-			return glm::vec<3, T>(X, Y, Z);
+			return glm::vec<3, T>(x, y, Z);
 		}
 
 		/// <summary>
@@ -328,7 +328,7 @@ namespace OSK {
 		/// P = nuevo tipo de las variables.
 		/// </summary>
 		template <typename P> inline Vector3_t<P> ToVec3() const {
-			return Vector3_t<P>(X, Y, Z);
+			return Vector3_t<P>(x, y, Z);
 		}
 
 		/// <summary>
@@ -360,18 +360,18 @@ namespace OSK {
 		}
 
 		inline std::string ToString() const {
-			return "{ " + std::to_string(X) + " " + std::to_string(Y) + " " + std::to_string(Z) + " }";
+			return "{ " + std::to_string(x) + " " + std::to_string(y) + " " + std::to_string(Z) + " }";
 		}
 
 		/// <summary>
 		/// Representa la primera coordenada.
 		/// </summary>
-		T X;
+		T x;
 
 		/// <summary>
 		/// Representa la segunda coordenada.
 		/// </summary>
-		T Y;
+		T y;
 
 		/// <summary>
 		/// Representa la tercera coordenada.
@@ -408,7 +408,7 @@ namespace OSK {
 	typedef Vector3_t<uint32_t> Vector3ui;
 
 	template <> inline std::string ToString<Vector3f>(const Vector3f& value) {
-		return "{ " + std::to_string(value.X) + ", " + std::to_string(value.Y) + ", " + std::to_string(value.Z) + " }";
+		return "{ " + std::to_string(value.x) + ", " + std::to_string(value.y) + ", " + std::to_string(value.Z) + " }";
 	}
 
 }

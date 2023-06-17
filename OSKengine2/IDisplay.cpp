@@ -15,11 +15,11 @@ Vector2ui IDisplay::GetResolution() const {
 }
 
 float IDisplay::GetScreenRatio() const {
-	return resolution.Y != 0
-		? static_cast<float>(resolution.X) / static_cast<float>(resolution.Y)
+	return resolution.y != 0
+		? static_cast<float>(resolution.x) / static_cast<float>(resolution.y)
 		: 1.0f;
 }
 
-TSize IDisplay::GetRefreshRate() const {
+USize32 IDisplay::GetRefreshRate() const {
 
 }

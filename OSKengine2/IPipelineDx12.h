@@ -81,9 +81,12 @@ namespace OSK::GRAPHICS {
 		/// @pre El archivo apuntado por spirvPath debe ser un archivo
 		/// SPIR-V válido.
 		/// @pre Si el shader stage es ShaderStage::VERTEX, vertexInfo debe ser una estructura válida.
+		/// 
+		/// @throws ShaderCompilingException Si ocurre algún error.
 		static ComPtr<IDxcBlob> CompileBlob(const std::string& spirvPath, const VertexInfo& vertexInfo, const std::string& hlslProfile, const MaterialLayout& layout);
 
-		ShaderStageDx12 LoadShader(const PipelineCreateInfo& info, const VertexInfo& vertexInfo, const std::string& path, ShaderStage stage, const MaterialLayout& mLayout);
+		/// @throws ShaderCompilingException Si ocurre algún error.
+		ShaderStageDx12 LoadShader(const PipelineCreateInfo& info, const VertexInfo& vertexInfo, const std::string& path, ShaderStage stage, const MaterialLayout& mLayout) const;
 
 		ComPtr<ID3D12PipelineState> dxPipeline;
 

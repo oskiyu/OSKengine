@@ -8,13 +8,13 @@ using namespace OSK::ECS;
 using namespace OSK::GRAPHICS;
 
 void IContainer::AdjustSizeToChildren() {
-	Vector2f newSize = 0.0f;
+	Vector2f newSize = Vector2f::Zero;
 
 	for (const auto& child : children) {
 		const Vector2f furthestPoint =
 			child->GetSize() + child->GetRelativePosition() + Vector2f(child->GetMarging().Z, child->GetMarging().W);
 
-		newSize = glm::max(newSize.ToGLM(), furthestPoint.ToGLM());
+		newSize = Vector2f(glm::max(newSize.ToGlm(), furthestPoint.ToGlm()));
 	}
 
 	size = newSize + GetPadding2D();

@@ -464,16 +464,9 @@ namespace OSK {
 	/// <typeparam name="TValue">Tipo de valor enlazado.</typeparam>
 	/// <typeparam name="numBuckets">Número de cubos.</typeparam>
 	/// <typeparam name="TCollection">Tipo de colección de cada cubo.</typeparam>
-	template <typename TKey, typename TValue, TSize numBuckets = 512> class HashMap {
+	template <typename TKey, typename TValue, USize64 numBuckets = 512u> class HashMap {
 
 	public:
-
-		/// <summary>
-		/// Construye un hashmap vacío.
-		/// </summary>
-		HashMap() {
-
-		}
 
 		/// <summary>
 		/// Inserta una nueva pareja.
@@ -530,7 +523,7 @@ namespace OSK {
 		}
 
 		bool HasValue(const TKey& key) const {
-			return stdmap.find(key) != stdmap.end();
+			return stdmap.contains(key);
 		}
 
 		/// <summary>
@@ -555,13 +548,13 @@ namespace OSK {
 		/// Comprueba si existe una apreja con el valor llave dado.
 		/// </summary>
 		bool ContainsKey(const TKey& key) const {
-			return stdmap.find(key) != stdmap.end();
+			return stdmap.contains(key);
 		}
 
 		/// <summary>
 		/// Devuelve el número de parejas almacenadas.
 		/// </summary>
-		TSize GetSize() const {
+		USize64 GetSize() const {
 			return stdmap.size();
 		}
 

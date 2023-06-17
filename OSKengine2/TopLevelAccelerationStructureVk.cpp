@@ -10,6 +10,8 @@
 #include "GpuVk.h"
 #include "CommandListVk.h"
 
+#include "AccelerationStructuresExceptions.h"
+
 using namespace OSK;
 using namespace OSK::GRAPHICS;
 
@@ -31,7 +33,7 @@ void TopLevelAccelerationStructureVk::Setup() {
 	};
 
 	DynamicArray<VkAccelerationStructureInstanceKHR> instances = DynamicArray<VkAccelerationStructureInstanceKHR>::CreateResizedArray(blass.GetSize());
-	for (TSize i = 0; i < blass.GetSize(); i++) {
+	for (UIndex32 i = 0; i < blass.GetSize(); i++) {
 		instances[i].transform = transform;
 		instances[i].instanceCustomIndex = static_cast<uint32_t>(i);
 		instances[i].mask = 0xFF;
@@ -69,7 +71,7 @@ void TopLevelAccelerationStructureVk::Setup() {
 	accelerationStructureBuildGeometryInfo.geometryCount = 1;
 	accelerationStructureBuildGeometryInfo.pGeometries = &geometryInfo;
 
-	const TSize one = 1;
+	const UIndex32 one = 1;
 	VkAccelerationStructureBuildSizesInfoKHR tlasSizeInfo{};
 	tlasSizeInfo.sType = VK_STRUCTURE_TYPE_ACCELERATION_STRUCTURE_BUILD_SIZES_INFO_KHR;
 	RendererVk::pvkGetAccelerationStructureBuildSizesKHR(
@@ -89,7 +91,7 @@ void TopLevelAccelerationStructureVk::Setup() {
 	asCreateInfo.offset = accelerationStructureBuffer->GetMemorySubblock()->GetOffsetFromBlock();
 	asCreateInfo.type = VK_ACCELERATION_STRUCTURE_TYPE_TOP_LEVEL_KHR;
 	VkResult result = RendererVk::pvkCreateAccelerationStructureKHR(logicalDevice, &asCreateInfo, nullptr, &tlasHandle);
-	OSK_ASSERT(result == VK_SUCCESS, "Error al crear TLAS. Code: " + std::to_string(result));
+	OSK_ASSERT(result == VK_SUCCESS, AccelerationStructureCreationException(result));
 
 	// Address
 	VkAccelerationStructureDeviceAddressInfoKHR tlasGpuAddressInfo{};
@@ -97,7 +99,11 @@ void TopLevelAccelerationStructureVk::Setup() {
 	tlasGpuAddressInfo.accelerationStructure = tlasHandle;
 
 	// Construcción
-	buildBuffer = memoryAllocator->CreateBuffer(tlasSizeInfo.buildScratchSize, 0, GpuBufferUsage::RT_ACCELERATION_STRUCTURE_BUILDING, GpuSharedMemoryType::GPU_AND_CPU).GetPointer();
+	buildBuffer = memoryAllocator->CreateBuffer(
+		tlasSizeInfo.buildScratchSize, 
+		0, 
+		GpuBufferUsage::RT_ACCELERATION_STRUCTURE_BUILDING, 
+		GpuSharedMemoryType::GPU_AND_CPU).GetPointer();
 
 	const VkDeviceOrHostAddressConstKHR tlasBuildAddress {
 		.deviceAddress = GetBufferDeviceAddress(buildBuffer->GetMemoryBlock()->As<GpuMemoryBlockVk>()->GetVulkanBuffer(), logicalDevice)
@@ -145,9 +151,9 @@ void TopLevelAccelerationStructureVk::Update(ICommandList* cmdList) {
 		};
 
 		DynamicArray<VkAccelerationStructureInstanceKHR> instances = DynamicArray<VkAccelerationStructureInstanceKHR>::CreateResizedArray(blass.GetSize());
-		for (TSize i = 0; i < blass.GetSize(); i++) {
+		for (UIndex32 i = 0; i < blass.GetSize(); i++) {
 			instances[i].transform = transform;
-			instances[i].instanceCustomIndex = static_cast<uint32_t>(i);
+			instances[i].instanceCustomIndex = i;
 			instances[i].mask = 0xFF;
 			instances[i].instanceShaderBindingTableRecordOffset = 0;
 			instances[i].flags = VK_GEOMETRY_INSTANCE_TRIANGLE_FACING_CULL_DISABLE_BIT_KHR | VK_GEOMETRY_INSTANCE_FORCE_OPAQUE_BIT_KHR;

@@ -14,26 +14,28 @@
 #include <json.hpp>
 #include <stbi_image.h>
 
+#include "RawAssetFileNotFoundException.h"
+#include "InvalidDescriptionFileException.h"
+
 using namespace OSK;
 using namespace OSK::ASSETS;
 using namespace OSK::GRAPHICS;
+
 
 void CubemapTextureLoader::Load(const std::string& assetFilePath, IAsset** asset) {
 	CubemapTexture* output = (CubemapTexture*)*asset;
 
 	// Asset file.
-
-	nlohmann::json assetInfo = nlohmann::json::parse(IO::FileIO::ReadFromFile(assetFilePath));
-
-	OSK_ASSERT(assetInfo.contains("file_type"), "Archivo de cubemap incorrecto: no se encuentra 'file_type'.");
-	OSK_ASSERT(assetInfo.contains("spec_ver"), "Archivo de cubemap incorrecto: no se encuentra 'spec_ver'.");
-	OSK_ASSERT(assetInfo.contains("name"), "Archivo de cubemap incorrecto: no se encuentra 'name'.");
-	OSK_ASSERT(assetInfo.contains("asset_type"), "Archivo de cubemap incorrecto: no se encuentra 'asset_type'.");
-	OSK_ASSERT(assetInfo.contains("faces_files"), "Archivo de cubemap incorrecto: no se encuentra 'faces_files'.");
+	const nlohmann::json assetInfo = nlohmann::json::parse(IO::FileIO::ReadFromFile(assetFilePath));
+	
+	OSK_ASSERT(assetInfo.contains("file_type"), InvalidDescriptionFileException("No se encuentra file_type", assetFilePath));
+	OSK_ASSERT(assetInfo.contains("spec_ver"), InvalidDescriptionFileException("No se encuentra spec_ver", assetFilePath));
+	OSK_ASSERT(assetInfo.contains("name"), InvalidDescriptionFileException("No se encuentra name", assetFilePath));
+	OSK_ASSERT(assetInfo.contains("asset_type"), InvalidDescriptionFileException("No se encuentra asset_type", assetFilePath));
 
 	output->SetName(assetInfo["name"]);
 
-	const static std::string facesNames[] = {
+	const std::array<std::string, 6> facesNames = {
 		"right",
 		"left",
 		"top",
@@ -42,16 +44,16 @@ void CubemapTextureLoader::Load(const std::string& assetFilePath, IAsset** asset
 		"back"
 	};
 
-	for (const auto& i : facesNames) {
-		OSK_ASSERT(assetInfo["faces_files"].contains(i), "Archivo de cubemap incorrecto: no existe '" + i + "'.");
-	}
+	for (const auto& faceName : facesNames)
+		OSK_ASSERT(assetInfo["faces_files"].contains(faceName), RawAssetFileNotFoundException(faceName));
 
 	// Texture.
 
 	int width = 0;
 	int height = 0;
 	int numChannels = 0;
-	stbi_info(((std::string)assetInfo["faces_files"][facesNames[0]]).c_str(), &width, &height, &numChannels);
+	const auto& faceName = assetInfo["faces_files"][facesNames[0]];
+	stbi_info(((std::string)faceName).c_str(), &width, &height, &numChannels);
 
 	// Las gráficas no soportan imágenes de 24 bits de manera nativa.
 	if (numChannels == 3)
@@ -59,12 +61,17 @@ void CubemapTextureLoader::Load(const std::string& assetFilePath, IAsset** asset
 
 	TByte* data = new TByte[width * height * 4 * 6];
 
-	for (TSize i = 0; i < 6; i++) {
+	for (USize32 i = 0; i < 6; i++) {
 		std::string facePath = assetInfo["faces_files"][facesNames[i]];
-		OSK_ASSERT(IO::FileIO::FileExists(facePath), "No existe la textura " + facePath + ".");
+		OSK_ASSERT(IO::FileIO::FileExists(facePath), RawAssetFileNotFoundException(facePath));
 
 		stbi_uc* pixels = stbi_load(facePath.c_str(), &width, &height, nullptr, 4);
-		memcpy(data + i * width * height * 4, pixels, width * height * 4);
+
+		const USize64 faceSize = width * height * numChannels;
+		const USize64 offsetPerFace = faceSize;
+		const USize64 offset = i * offsetPerFace;
+		memcpy(data + offset, pixels, faceSize);
+		
 		stbi_image_free(pixels);
 	}
 

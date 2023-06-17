@@ -58,13 +58,15 @@ void main() {
     previousColor = clamp(previousColor, colorDiscardMin, colorDiscardMax);
     /**/
 
+    // fract = parte decimal
+    const vec2 decimalPixelMotion = abs(0.5 - abs(fract(ndcMotion * ndcInverseRatio)));
     vec2 pixelsMotion = 
-        sqrt(abs(1.0 - abs(fract(ndcMotion * ndcInverseRatio)) * 2));
+        abs(sqrt(decimalPixelMotion * 1));
     // pixelsMotion = abs(fract(ndcMotion * ndcInverseRatio));
 
     float ratio = min(pixelsMotion.x, pixelsMotion.y);
 
-    const float maxRatio = 0.99;
+    const float maxRatio = 0.95;
     ratio = mix(0.2, maxRatio, ratio);
 
     vec3 colorDiff = abs(previousColor.rgb - currentColor.rgb);
@@ -74,7 +76,7 @@ void main() {
         0, pow(
             max(length(ndcMotion * ndcInverseRatio) * 0.45, 1), 4));
 
-    ratio = clamp(ratio, 0.1, maxRatio);
+    ratio = clamp(ratio, 0.0, maxRatio);
     vec3 color = mix(currentColor.rgb, previousColor, ratio);
 
     // if (ratio < 0.5) color = mix(color, vec3(1, ratio, ratio), ratio * 2); // length(ndcMotion * ndcInverseRatio) - 1.0)

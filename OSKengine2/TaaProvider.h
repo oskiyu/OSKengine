@@ -26,8 +26,8 @@ namespace OSK::GRAPHICS {
 		/// @pre Las imágenes @p motionImages deben producir los vectores de movimiento normalizados (NDC).
 		void InitializeTaa(
 			const Vector2ui& resolution,
-			const GpuImage* inputImages[NUM_RESOURCES_IN_FLIGHT],
-			const GpuImage* motionImages[NUM_RESOURCES_IN_FLIGHT]);
+			std::span<const GpuImage*, NUM_RESOURCES_IN_FLIGHT> inputImages,
+			std::span<const GpuImage*, NUM_RESOURCES_IN_FLIGHT> motionImages);
 
 		/// @brief Cambia de resolución el sistema de Temporal Anti-Aliasing.
 		/// Además, reestablece las imágenes de entrada.
@@ -39,19 +39,19 @@ namespace OSK::GRAPHICS {
 		/// @pre Las imágenes @p motionImages deben tener la misma resolución que @p resolution.
 		void ResizeTaa(
 			const Vector2ui& resolution,
-			const GpuImage* inputImages[NUM_RESOURCES_IN_FLIGHT],
-			const GpuImage* motionImages[NUM_RESOURCES_IN_FLIGHT]);
+			std::span<const GpuImage*, NUM_RESOURCES_IN_FLIGHT> inputImages,
+			std::span<const GpuImage*, NUM_RESOURCES_IN_FLIGHT> motionImages);
 
 
 		/// @brief Establace el índice máximo de jitter.
 		/// EL jitter en cada frame estará entre 1 y maxJitter (ambos incluidos).
 		/// Si TAA está desactivado, el jitter será 0.
 		/// @param maxJitterIndex Ínidice máximo de jitter.
-		inline void SetMaxJitter(TIndex maxJitterIndex) { this->maxJitterIndex = maxJitterIndex; }
+		inline void SetMaxJitter(UIndex32 maxJitterIndex) { this->maxJitterIndex = maxJitterIndex; }
 
 		/// @return Índice de jitter de este frame.
 		/// Si está desactivado, será 0.
-		inline TIndex GetCurrentFrameJitterIndex() const { 
+		inline UIndex32 GetCurrentFrameJitterIndex() const {
 			return isActive ? currentFrameJitterIndex : 0; 
 		}
 
@@ -76,16 +76,16 @@ namespace OSK::GRAPHICS {
 	private:
 
 		static std::array<const IGpuImageView*, NUM_RESOURCES_IN_FLIGHT> GetViews(
-			const GpuImage* image[NUM_RESOURCES_IN_FLIGHT],
+			std::span<const GpuImage*, NUM_RESOURCES_IN_FLIGHT> image,
 			GpuImageViewConfig config);
 
 		/// @brief True si se usa TAA, falso en caso contrario.
 		bool isActive = true;
 
 		/// @brief Número máximo del índice de jitter.
-		TIndex maxJitterIndex = 4;
+		UIndex32 maxJitterIndex = 4;
 		/// @brief Índice del jitter en el frame actual.
-		TIndex currentFrameJitterIndex = 0;
+		UIndex32 currentFrameJitterIndex = 0;
 
 		/// @brief Carga los materiales de TAA (tanto del pase de acumulación
 		/// temporal como el pase de afilado de imagen).
@@ -95,8 +95,8 @@ namespace OSK::GRAPHICS {
 		/// @param inputImages Imágenes de entrada de TAA.
 		/// @param motionImages Imágenes de vectores de movimiento.
 		void SetupTaaMaterials(
-			const GpuImage* inputImages[NUM_RESOURCES_IN_FLIGHT],
-			const GpuImage* motionImages[NUM_RESOURCES_IN_FLIGHT]);
+			std::span<const GpuImage*, NUM_RESOURCES_IN_FLIGHT> inputImages,
+			std::span<const GpuImage*, NUM_RESOURCES_IN_FLIGHT> motionImages);
 
 		/// @brief Ejecuta el pase de acumulación temporal.
 		/// @param commandList Lista de comandos.

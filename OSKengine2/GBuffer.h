@@ -1,6 +1,7 @@
 #pragma once
 
 #include "RenderTarget.h"
+#include <array>
 
 namespace OSK::GRAPHICS {
 
@@ -18,7 +19,7 @@ namespace OSK::GRAPHICS {
 
 		/// @brief Identifica cada una de las imágenes
 		/// del GBuffer.
-		enum class Target : TIndex {
+		enum class Target : UIndex32 {
 			/// @brief Color = rgb uint.
 			/// Stencil = a uint.
 			COLOR = 0,
@@ -30,11 +31,11 @@ namespace OSK::GRAPHICS {
 			/// @brief Movimiento = xy
 			MOTION = 3,
 
-			DEPTH = std::numeric_limits<TIndex>::max()
+			DEPTH = std::numeric_limits<UIndex32>::max()
 		};
 
 		/// @brief Contiene todos los tipos de imágenes, excluyendo la de profundidad.
-		const static Target ColorTargetTypes[4];
+		const static std::array<Target, 4> ColorTargetTypes;
 
 
 		/// @brief Crea el GBuffer con la información dada.
@@ -57,7 +58,7 @@ namespace OSK::GRAPHICS {
 		/// @param targetType Identificador de la imagen deseada.
 		/// 
 		/// @pre frameIndex < NUM_RESOURCES_IN_FLIGHT
-		GpuImage* GetImage(TIndex frameIndex, Target targetType);
+		GpuImage* GetImage(UIndex32 frameIndex, Target targetType);
 
 
 		/// @brief Inicia un renderpass de rasterización sobre el GBuffer.

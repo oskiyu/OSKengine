@@ -1,5 +1,5 @@
 #include "Transform2D.h"
-#include <glm/ext\matrix_transform.hpp>
+#include <glm/ext/matrix_transform.hpp>
 #include "OSKengine.h"
 #include "EntityComponentSystem.h"
 
@@ -7,43 +7,43 @@ using namespace OSK;
 using namespace OSK::ECS;
 
 Transform2D::Transform2D(ECS::GameObjectIndex owner) : owner(owner) {
-	localPosition = Vector2(0);
-	localScale = Vector2(1);
+	localPosition = Vector2f::Zero;
+	localScale = Vector2f::One;
 	localRotation = 0;
 
-	globalPosition = Vector2(0);
-	globalScale = Vector2(0);
+	globalPosition = Vector2f::Zero;
+	globalScale = Vector2f::Zero;
 	globalRotation = 0;
 
-	positionOffset = Vector2(0);
-	scaleOffset = Vector2(0);
+	positionOffset = Vector2f::Zero;
+	scaleOffset = Vector2f::Zero;
 	rotationOffset = 0;
 
 	UpdateModel();
 }
 
-Transform2D::Transform2D(ECS::GameObjectIndex owner, const Vector2& position, const Vector2& scale, float rotation) : owner(owner) {
+Transform2D::Transform2D(ECS::GameObjectIndex owner, const Vector2f& position, const Vector2f& scale, float rotation) : owner(owner) {
 	this->localPosition = position;
 	this->localScale = scale;
 	this->localRotation = rotation;
 
-	globalPosition = Vector2(0);
-	globalScale = Vector2(0);
-	globalRotation = 0;
+	globalPosition = Vector2f::Zero;
+	globalScale = Vector2f::Zero;
+	globalRotation = 0.0f;
 
-	positionOffset = Vector2(0);
-	scaleOffset = Vector2(0);
-	rotationOffset = 0;
+	positionOffset = Vector2f::Zero;
+	scaleOffset = Vector2f::Zero;
+	rotationOffset = 0.0f;
 
 	UpdateModel();
 }
 
-void Transform2D::SetPosition(const Vector2& position) {
+void Transform2D::SetPosition(const Vector2f& position) {
 	localPosition = position;
 	UpdateModel();
 }
 
-void Transform2D::SetScale(const Vector2& scale) {
+void Transform2D::SetScale(const Vector2f& scale) {
 	localScale = scale;
 	UpdateModel();
 }
@@ -53,11 +53,11 @@ void Transform2D::SetRotation(float rotation) {
 	UpdateModel();
 }
 
-void Transform2D::AddPosition(const Vector2& positionDelta) {
+void Transform2D::AddPosition(const Vector2f& positionDelta) {
 	SetPosition(localPosition + positionDelta);
 }
 
-void Transform2D::AddScale(const Vector2& scaleDelta) {
+void Transform2D::AddScale(const Vector2f& scaleDelta) {
 	SetScale(localScale + scaleDelta);
 }
 
@@ -72,16 +72,16 @@ void Transform2D::UpdateModel() {
 
 	modelMatrix = glm::mat4(1.0f);
 
-	modelMatrix = glm::translate(modelMatrix, glm::vec3(globalPosition.X, globalPosition.Y, 0.0f));
+	modelMatrix = glm::translate(modelMatrix, glm::vec3(globalPosition.x, globalPosition.y, 0.0f));
 
-	modelMatrix = glm::translate(modelMatrix, glm::vec3(0.5f * globalScale.X, 0.5f * globalScale.Y, 0.0f));
+	modelMatrix = glm::translate(modelMatrix, glm::vec3(0.5f * globalScale.x, 0.5f * globalScale.y, 0.0f));
 	modelMatrix = glm::rotate(modelMatrix, glm::radians(globalRotation), glm::vec3(0.0f, 0.0f, 1.0f));
-	modelMatrix = glm::translate(modelMatrix, glm::vec3(-0.5f * globalScale.X, -0.5f * globalScale.Y, 0.0f));
+	modelMatrix = glm::translate(modelMatrix, glm::vec3(-0.5f * globalScale.x, -0.5f * globalScale.y, 0.0f));
 
-	modelMatrix = glm::scale(modelMatrix, glm::vec3(globalScale.X, globalScale.Y, 1.0f));
+	modelMatrix = glm::scale(modelMatrix, glm::vec3(globalScale.x, globalScale.y, 1.0f));
 
 	DynamicArray<GameObjectIndex> childrenToRemove;
-	for (TSize i = 0; i < childTransforms.GetSize(); i++) {
+	for (UIndex32 i = 0; i < childTransforms.GetSize(); i++) {
 		Transform2D& child = Engine::GetEcs()->GetComponent<Transform2D>(childTransforms.At(i));
 		if (child.parent == owner) {
 			child.rotationOffset = globalRotation;
@@ -115,14 +115,14 @@ void Transform2D::UnAttach() {
 }
 
 Vector4 Transform2D::GetRectangle() const {
-	return Vector4(globalPosition.X, globalPosition.Y, globalScale.X, globalScale.Y);
+	return Vector4(globalPosition.x, globalPosition.y, globalScale.x, globalScale.y);
 }
 
-Vector2 Transform2D::GetPosition() const {
+Vector2f Transform2D::GetPosition() const {
 	return globalPosition;
 }
 
-Vector2 Transform2D::GetScale() const {
+Vector2f Transform2D::GetScale() const {
 	return globalScale;
 }
 
@@ -130,11 +130,11 @@ float Transform2D::GetRotation() const {
 	return globalRotation;
 }
 
-Vector2 Transform2D::GetLocalPosition() const {
+Vector2f Transform2D::GetLocalPosition() const {
 	return localPosition;
 }
 
-Vector2 Transform2D::GetLocalScale() const {
+Vector2f Transform2D::GetLocalScale() const {
 	return localScale;
 }
 
@@ -146,15 +146,15 @@ glm::mat4 Transform2D::GetAsMatrix() const {
 	return modelMatrix;
 }
 
-GameObjectIndex Transform2D::GetParentObject() {
+GameObjectIndex Transform2D::GetParentObject() const {
 	return parent;
 }
 
-Vector2 Transform2D::GetPositionOffset() const {
+Vector2f Transform2D::GetPositionOffset() const {
 	return positionOffset;
 }
 
-Vector2 Transform2D::GetScaleOffset() const {
+Vector2f Transform2D::GetScaleOffset() const {
 	return scaleOffset;
 }
 

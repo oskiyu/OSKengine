@@ -24,7 +24,7 @@ namespace OSK::GRAPHICS {
 		/// 
 		/// @pre El número de índices debe ser múltipo de 3.
 		/// @pre El número de índices debe ser mayor que 0.
-		Mesh3D(TSize numIndices, TSize firstIndex);
+		Mesh3D(USize32 numIndices, USize32 firstIndex);
 
 
 		/// <summary>
@@ -33,18 +33,18 @@ namespace OSK::GRAPHICS {
 		/// </summary>
 		/// 
 		/// @note Mútliplo de 3.
-		TSize GetNumberOfIndices() const;
+		USize32 GetNumberOfIndices() const;
 
 		/// <summary>
 		/// Offset del primer índice respecto al buffer de índices
 		/// del modelo 3D al que pertenece este mesh.
 		/// </summary>
-		TSize GetFirstIndexId() const;
+		UIndex32 GetFirstIndexId() const;
 
 	private:
 
-		TSize numIndices = 0;
-		TSize firstIndex = 0;
+		USize32 numIndices = 0;
+		UIndex32 firstIndex = 0;
 
 	};
 

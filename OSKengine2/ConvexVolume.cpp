@@ -6,7 +6,7 @@
 #include "FaceProjection.h"
 
 #include <optional>
-
+#include "NotImplementedException.h"
 #include "OSKengine.h"
 #include "Logger.h"
 
@@ -18,8 +18,8 @@ using namespace OSK::COLLISION;
 ConvexVolume ConvexVolume::CreateObb(const Vector3f& size, float bottomHeight) {
 	ConvexVolume output;
 
-	const float width = size.X * 0.5f;
-	const float height = size.Y;
+	const float width = size.x * 0.5f;
+	const float height = size.y;
 	const float length = size.Z * 0.5f;
 
 	const float top = bottomHeight + height;
@@ -79,8 +79,8 @@ ConvexVolume ConvexVolume::CreateObb(const Vector3f& size, float bottomHeight) {
 }
 
 void ConvexVolume::AddFace(const DynamicArray<Vector3f>& points) {
-	const TSize numOldVertices = vertices.GetSize();
-	const TSize numNewVertices = points.GetSize();
+	const USize32 numOldVertices = vertices.GetSize();
+	const USize32 numNewVertices = points.GetSize();
 
 	/* 
 	// Primero, comprobamos si alguno de los vértices
@@ -110,7 +110,7 @@ void ConvexVolume::AddFace(const DynamicArray<Vector3f>& points) {
 	*/
 
 	FaceIndices indices = FaceIndices::CreateReservedArray(numNewVertices);
-	for (TIndex i = 0; i < numNewVertices; i++) {
+	for (UIndex64 i = 0; i < numNewVertices; i++) {
 		indices.Insert(numOldVertices + i);
 		vertices.Insert(points[i]);
 	}
@@ -123,14 +123,14 @@ void ConvexVolume::OptimizeAxes() {
 		return;
 
 	DynamicArray<FaceIndices> optimizedFaces = {};
-	DynamicArray<TIndex> duplicatedIds = {};
+	DynamicArray<UIndex32> duplicatedIds = {};
 
-	for (TIndex i = 0; i < faces.GetSize() - 1; i++) {
+	for (UIndex32 i = 0; i < faces.GetSize() - 1; i++) {
 
 		// Por cada eje original, comprobamos si hay otros
 		// ejes equivalentes.
 
-		for (TIndex j = i + 1; j < faces.GetSize(); j++) {
+		for (UIndex32 j = i + 1; j < faces.GetSize(); j++) {
 
 			const Axis axis1 = GetLocalSpaceAxis(i);
 			const Axis axis2 = GetLocalSpaceAxis(j);
@@ -146,14 +146,14 @@ void ConvexVolume::OptimizeAxes() {
 	}
 
 	// Añadimos las caras que no hayan sido marcadas.
-	for (TIndex i = 0; i < faces.GetSize(); i++)
+	for (UIndex32 i = 0; i < faces.GetSize(); i++)
 		if (!duplicatedIds.ContainsElement(i))
 			optimizedFaces.Insert(faces[i]);
 
 	faces = optimizedFaces;
 }
 
-ConvexVolume::Axis ConvexVolume::GetLocalSpaceAxis(TIndex faceId) const {
+ConvexVolume::Axis ConvexVolume::GetLocalSpaceAxis(UIndex32 faceId) const {
 	const FaceIndices& faceIndices = faces[faceId];
 
 	const Vector3f pointA = vertices.At(faceIndices.At(0));
@@ -166,7 +166,7 @@ ConvexVolume::Axis ConvexVolume::GetLocalSpaceAxis(TIndex faceId) const {
 	return vec1.Cross(vec2).GetNormalized();
 }
 
-ConvexVolume::Axis ConvexVolume::GetWorldSpaceAxis(TIndex faceId, const Transform3D& transform) const {
+ConvexVolume::Axis ConvexVolume::GetWorldSpaceAxis(UIndex32 faceId, const Transform3D& transform) const {
 	const FaceIndices& faceIndices = faces[faceId];
 
 	const Vector3f pointA = vertices[faceIndices[0]];
@@ -189,8 +189,8 @@ DetailedCollisionInfo ConvexVolume::GetCollisionInfo(const IBottomLevelCollider&
 	const ConvexVolume& otherVolume = (const ConvexVolume&)other;
 
 	// Número de caras (y por lo tanto, de ejes) de ambos colliders.
-	const TSize thisFaceCount = this->faces.GetSize();
-	const TSize otherFaceCount = otherVolume.faces.GetSize();
+	const UIndex32 thisFaceCount = this->faces.GetSize();
+	const UIndex32 otherFaceCount = otherVolume.faces.GetSize();
 
 	// Vértices en world-space de cada collider.
 	const auto transformedVerticesA = this->GetWorldSpaceVertices(thisTransform);
@@ -202,13 +202,13 @@ DetailedCollisionInfo ConvexVolume::GetCollisionInfo(const IBottomLevelCollider&
 	Vector3f currentAxis = 0.0f;
 	bool isAxisA = false;
 	bool isAxisB = false;
-	TIndex mtvFaceIndex = 0;
+	UIndex32 mtvFaceIndex = 0;
 
 	// Overlap del mtv.
 	float minimumOverlap = std::numeric_limits<float>::max();
 
 	// Comprobamos los ejes de este collider.
-	for (TIndex i = 0; i < thisFaceCount; i++) {
+	for (UIndex32 i = 0; i < thisFaceCount; i++) {
 		const Axis axis = this->GetWorldSpaceAxis(i, thisTransform);
 
 		const FaceProjection projA = FaceProjection(transformedVerticesA, axis);
@@ -230,7 +230,7 @@ DetailedCollisionInfo ConvexVolume::GetCollisionInfo(const IBottomLevelCollider&
 	}
 
 	// Comprobamos los ejes del otro collider.
-	for (TIndex i = 0; i < otherFaceCount; i++) {
+	for (UIndex32 i = 0; i < otherFaceCount; i++) {
 		const Axis axis = otherVolume.GetWorldSpaceAxis(i, otherTransform);
 
 		const FaceProjection projA = FaceProjection(transformedVerticesA, axis);
@@ -305,9 +305,9 @@ DetailedCollisionInfo ConvexVolume::GetCollisionInfo(const IBottomLevelCollider&
 	
 	// Debemos obtener el punto del collider de referencia que está
 	// más hacia el collider incidente.
-	TIndex referenceFurthestPointIndex = 0;
+	UIndex32 referenceFurthestPointIndex = 0;
 	float referenceFurthestPointMaxDot = std::numeric_limits<float>::lowest();
-	for (TIndex i = 0; i < primaryVertices.GetSize(); i++) {
+	for (UIndex32 i = 0; i < primaryVertices.GetSize(); i++) {
 		const auto& vertex = primaryVertices[i];
 
 		const float dot = vertex.Dot(normalizedDirectedMtv);
@@ -319,9 +319,9 @@ DetailedCollisionInfo ConvexVolume::GetCollisionInfo(const IBottomLevelCollider&
 
 	// Debemos obtener el punto del collider incidente que está
 	// más hacia el collider de referencia.
-	TIndex secondaryFurthestPointIndex = 0;
+	UIndex32 secondaryFurthestPointIndex = 0;
 	float secondaryFurthestPointMaxDot = std::numeric_limits<float>::lowest();
-	for (TIndex i = 0; i < secondaryVertices.GetSize(); i++) {
+	for (UIndex32 i = 0; i < secondaryVertices.GetSize(); i++) {
 		const auto& vertex = secondaryVertices[i];
 
 		const float dot = vertex.Dot(-normalizedDirectedMtv);
@@ -334,20 +334,20 @@ DetailedCollisionInfo ConvexVolume::GetCollisionInfo(const IBottomLevelCollider&
 
 	// Índices de las caras del collider de referencia que contienen
 	// el vértice más alejado.
-	const DynamicArray<TIndex> primaryFacesIndices = primaryCollider.GetFaceIndicesWithVertex(primaryCollider.vertices[referenceFurthestPointIndex]);
+	const DynamicArray<UIndex32> primaryFacesIndices = primaryCollider.GetFaceIndicesWithVertex(primaryCollider.vertices[referenceFurthestPointIndex]);
 
 	// Índices de las caras del segundo collider que contienen
 	// el vértice más alejado.
-	const DynamicArray<TIndex> secondaryFacesIndices = secondaryCollider.GetFaceIndicesWithVertex(secondaryCollider.vertices[secondaryFurthestPointIndex]);
+	const DynamicArray<UIndex32> secondaryFacesIndices = secondaryCollider.GetFaceIndicesWithVertex(secondaryCollider.vertices[secondaryFurthestPointIndex]);
 
 
 	// Obtenemos la cara del collider incidente que está más paralela a
 	// la cara del MTV.
-	TIndex mostParallelFaceIndex = 0;
+	UIndex32 mostParallelFaceIndex = 0;
 
 	{
 		float mostParallelDot = std::numeric_limits<float>::lowest();
-		for (const TIndex faceId : secondaryFacesIndices) {
+		for (const UIndex32 faceId : secondaryFacesIndices) {
 			const Vector3f faceNormal = secondaryCollider.GetWorldSpaceAxis(faceId, secondaryTransform);
 			const float dot = glm::abs(faceNormal.Dot(normalizedDirectedMtv));
 
@@ -359,18 +359,18 @@ DetailedCollisionInfo ConvexVolume::GetCollisionInfo(const IBottomLevelCollider&
 	}
 
 	// Índice de la cara incidente.
-	const TIndex incidentFaceIndex = mostParallelFaceIndex;
+	const UIndex32 incidentFaceIndex = mostParallelFaceIndex;
 
 	// Índice de la cara del collider de referencia a partir
 	// del que hemos sacado el MTV.
-	TIndex referenceFaceIndex = 0;
+	UIndex32 referenceFaceIndex = 0;
 
 	if (false or primaryFacesIndices.ContainsElement(mtvFaceIndex)) {
 		referenceFaceIndex = mtvFaceIndex;
 	}
 	else {
 		float mostParallelDot = std::numeric_limits<float>::lowest();
-		for (const TIndex faceId : primaryFacesIndices) {
+		for (const UIndex32 faceId : primaryFacesIndices) {
 			const Vector3f faceNormal = primaryCollider.GetWorldSpaceAxis(faceId, primaryTransform);
 			const float dot = faceNormal.Dot(normalizedDirectedMtv);
 
@@ -385,7 +385,7 @@ DetailedCollisionInfo ConvexVolume::GetCollisionInfo(const IBottomLevelCollider&
 	// Se inicializan a los puntos de la cara incidente, y después
 	// se van ajustando para representar el área de colisión.
 	DynamicArray<Vector3f> contactPoints = DynamicArray<Vector3f>::CreateReservedArray(secondaryCollider.faces[incidentFaceIndex].GetSize());
-	for (const TIndex index : secondaryCollider.faces[incidentFaceIndex])
+	for (const UIndex32 index : secondaryCollider.faces[incidentFaceIndex])
 		contactPoints.Insert(secondaryVertices[index]);
 
 
@@ -395,12 +395,12 @@ DetailedCollisionInfo ConvexVolume::GetCollisionInfo(const IBottomLevelCollider&
 	const FaceIndices& referenceFace = primaryCollider.faces[referenceFaceIndex];
 
 	// Número de vértices en la cara de referencia.
-	const TSize numReferenceVertices = referenceFace.GetSize();
+	const UIndex32 numReferenceVertices = referenceFace.GetSize();
 	
 	// Obtenemos los pares de vértices consecutivos de la cara de referencia.
-	for (TIndex v = 0; v < numReferenceVertices; v++) {
-		const TIndex firstReferenceVertexIndex = referenceFace[v];
-		const TIndex secondReferenceVertexIndex = referenceFace[(v + 1) % numReferenceVertices];
+	for (UIndex32 v = 0; v < numReferenceVertices; v++) {
+		const UIndex32 firstReferenceVertexIndex = referenceFace[v];
+		const UIndex32 secondReferenceVertexIndex = referenceFace[(v + 1) % numReferenceVertices];
 
 		// Definimos un plano a partir de una línea (definida por dos vértices consecutivos)
 		// en dirección al centro.
@@ -412,7 +412,7 @@ DetailedCollisionInfo ConvexVolume::GetCollisionInfo(const IBottomLevelCollider&
 		// Dirección a la que deben estár los puntos.
 		const Vector3f direction = -normalizedDirectedMtv.Cross(lineDirection).GetNormalized();
 
-		for (TIndex j = 0; j < contactPoints.GetSize(); j++) {
+		for (UIndex32 j = 0; j < contactPoints.GetSize(); j++) {
 			Vector3f& point = contactPoints[j];
 
 			const Vector3f relativePosition = point - referenceVertex1;
@@ -460,14 +460,14 @@ DetailedCollisionInfo ConvexVolume::GetCollisionInfo(const IBottomLevelCollider&
 	return DetailedCollisionInfo::True(mtv, finalContactPoints);
 }
 
-DynamicArray<TIndex> ConvexVolume::GetFaceIndicesWithVertex(const Vector3f& vertex) const {
-	DynamicArray<TIndex> output = DynamicArray<TIndex>::CreateReservedArray(faces.GetSize());
+DynamicArray<UIndex32> ConvexVolume::GetFaceIndicesWithVertex(const Vector3f& vertex) const {
+	DynamicArray<UIndex32> output = DynamicArray<UIndex32>::CreateReservedArray(faces.GetSize());
 
-	for (TIndex i = 0; i < faces.GetSize(); i++) {
+	for (UIndex32 i = 0; i < faces.GetSize(); i++) {
 		const auto& face = faces[i];
 
 		bool containstVertex = false;
-		for (TIndex v = 0; v < face.GetSize(); v++) {
+		for (UIndex32 v = 0; v < face.GetSize(); v++) {
 			const Vector3f thisVertex = vertices[face[v]];
 			if (thisVertex.Equals(vertex, 0.2f)) {
 				containstVertex = true;
@@ -483,7 +483,7 @@ DynamicArray<TIndex> ConvexVolume::GetFaceIndicesWithVertex(const Vector3f& vert
 }
 
 bool ConvexVolume::ContainsPoint(const Vector3f& point) const {
-	OSK_ASSERT(false, "No implementado");
+	OSK_ASSERT(false, NotImplementedException());
 	return false;
 }
 

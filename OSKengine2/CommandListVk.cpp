@@ -29,6 +29,9 @@
 #include "GpuImageVk.h"
 #include "IGpuImage.h"
 
+#include "CommandListExceptions.h"
+#include "NotImplementedException.h"
+
 using namespace OSK;
 using namespace OSK::GRAPHICS;
 
@@ -42,7 +45,7 @@ DynamicArray<VkCommandBuffer>* CommandListVk::GetCommandBuffers() {
 
 void CommandListVk::Reset() {
 	VkResult result = vkResetCommandBuffer(commandBuffers[_GetCommandListIndex()], 0);
-	OSK_ASSERT(result == VK_SUCCESS, "No se pudo resetear la lista de comandos.");
+	OSK_ASSERT(result == VK_SUCCESS, CommandListResetException(result));
 }
 
 void CommandListVk::Start() {
@@ -54,12 +57,12 @@ void CommandListVk::Start() {
 	};
 
 	VkResult result = vkBeginCommandBuffer(commandBuffers[_GetCommandListIndex()], &beginInfo);
-	OSK_ASSERT(result == VK_SUCCESS, "No se pudo iniciar la lista de comandos.");
+	OSK_ASSERT(result == VK_SUCCESS, CommandListStartException(result));
 }
 
 void CommandListVk::Close() {
 	VkResult result = vkEndCommandBuffer(commandBuffers[_GetCommandListIndex()]);
-	OSK_ASSERT(result == VK_SUCCESS, "No se pudo finalizar la lista de comandos.");
+	OSK_ASSERT(result == VK_SUCCESS, CommandListEndException(result));
 }
 
 void CommandListVk::SetGpuImageBarrier(GpuImage* image, GpuImageLayout previousLayout, GpuImageLayout nextLayout, GpuBarrierInfo previous, GpuBarrierInfo next, const GpuImageRange& imageInfo) {
@@ -111,7 +114,7 @@ void CommandListVk::SetGpuImageBarrier(GpuImage* image, GpuImageLayout previousL
 		nextLayout);
 }
 
-void CommandListVk::CopyBufferToImage(const GpuBuffer& source, GpuImage* dest, TSize layer, TSize offset) {
+void CommandListVk::CopyBufferToImage(const GpuBuffer& source, GpuImage* dest, UIndex32 layer, USize64 offset) {
 	VkBufferImageCopy region{};
 
 	region.bufferOffset = source.GetMemorySubblock()->GetOffsetFromBlock() + offset;
@@ -125,8 +128,8 @@ void CommandListVk::CopyBufferToImage(const GpuBuffer& source, GpuImage* dest, T
 
 	region.imageOffset = { 0, 0, 0 };
 	region.imageExtent = {
-		dest->GetSize2D().X,
-		dest->GetSize2D().Y,
+		dest->GetSize2D().x,
+		dest->GetSize2D().y,
 		1
 	};
 
@@ -141,7 +144,7 @@ void CommandListVk::CopyBufferToImage(const GpuBuffer& source, GpuImage* dest, T
 		// Mip levels
 		Vector2i mipSize = dest->GetSize2D().ToVector2i();
 		// El nivel 0 ya está lleno.
-		for (TSize mipLevel = 1; mipLevel < dest->GetMipLevels(); mipLevel++) {
+		for (UIndex32 mipLevel = 1; mipLevel < dest->GetMipLevels(); mipLevel++) {
 
 			// Mip anterior: layout DESTINATION -> SOURCE
 			SetGpuImageBarrier(
@@ -155,7 +158,7 @@ void CommandListVk::CopyBufferToImage(const GpuBuffer& source, GpuImage* dest, T
 			VkImageBlit blit{};
 
 			blit.srcOffsets[0] = { 0, 0, 0 };
-			blit.srcOffsets[1] = { mipSize.X, mipSize.Y, 1 };
+			blit.srcOffsets[1] = { mipSize.x, mipSize.y, 1 };
 
 			// Origen: mip level anterior.
 			blit.srcSubresource.aspectMask = VK_IMAGE_ASPECT_COLOR_BIT;
@@ -164,7 +167,7 @@ void CommandListVk::CopyBufferToImage(const GpuBuffer& source, GpuImage* dest, T
 			blit.srcSubresource.layerCount = 1;
 
 			blit.dstOffsets[0] = { 0, 0, 0 };
-			blit.dstOffsets[1] = { mipSize.X > 1 ? mipSize.X / 2 : 1, mipSize.Y > 1 ? mipSize.Y / 2 : 1, 1 };
+			blit.dstOffsets[1] = { mipSize.x > 1 ? mipSize.x / 2 : 1, mipSize.y > 1 ? mipSize.y / 2 : 1, 1 };
 
 			// Destino.
 			blit.dstSubresource.aspectMask = VK_IMAGE_ASPECT_COLOR_BIT;
@@ -178,10 +181,10 @@ void CommandListVk::CopyBufferToImage(const GpuBuffer& source, GpuImage* dest, T
 				dest->As<GpuImageVk>()->GetVkImage(), VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL,
 				1, &blit, VK_FILTER_LINEAR);
 
-			if (mipSize.X > 1)
-				mipSize.X /= 2;
-			if (mipSize.Y > 1)
-				mipSize.Y /= 2;
+			if (mipSize.x > 1)
+				mipSize.x /= 2;
+			if (mipSize.y > 1)
+				mipSize.y /= 2;
 		}
 
 		// Establecer layout del último nivel = TRANSFER_SOURCE
@@ -210,7 +213,7 @@ void CommandListVk::RawCopyImageToImage(const GpuImage& source, GpuImage* destin
 	region.srcOffset = { 0, 0, 0 };
 	region.dstOffset = { 0, 0, 0 };
 
-	const TSize numLayers = copyInfo.numArrayLevels == CopyImageInfo::ALL_ARRAY_LEVELS ? source.GetNumLayers() : copyInfo.numArrayLevels;
+	const USize64 numLayers = copyInfo.numArrayLevels == CopyImageInfo::ALL_ARRAY_LEVELS ? source.GetNumLayers() : copyInfo.numArrayLevels;
 
 	region.srcSubresource.aspectMask = VK_IMAGE_ASPECT_COLOR_BIT;
 	region.srcSubresource.mipLevel = copyInfo.sourceMipLevel;
@@ -222,8 +225,8 @@ void CommandListVk::RawCopyImageToImage(const GpuImage& source, GpuImage* destin
 	region.dstSubresource.baseArrayLayer = copyInfo.destinationArrayLevel;
 	region.dstSubresource.layerCount = numLayers;
 
-	region.extent.width = copyInfo.copySize.X;
-	region.extent.height= copyInfo.copySize.Y;
+	region.extent.width = copyInfo.copySize.x;
+	region.extent.height= copyInfo.copySize.y;
 	region.extent.depth = copyInfo.copySize.Z;
 
 	vkCmdCopyImage(commandBuffers[_GetCommandListIndex()],
@@ -232,7 +235,7 @@ void CommandListVk::RawCopyImageToImage(const GpuImage& source, GpuImage* destin
 		1, &region);
 }
 
-void CommandListVk::CopyBufferToBuffer(const GpuBuffer& source, GpuBuffer* dest, TSize size, TSize sourceOffset, TSize destOffset) {
+void CommandListVk::CopyBufferToBuffer(const GpuBuffer& source, GpuBuffer* dest, USize64 size, USize64 sourceOffset, USize64 destOffset) {
 	VkBufferCopy copyRegion{};
 
 	copyRegion.srcOffset = sourceOffset + source.GetMemorySubblock()->GetOffsetFromBlock();
@@ -247,10 +250,10 @@ void CommandListVk::CopyBufferToBuffer(const GpuBuffer& source, GpuBuffer* dest,
 
 void CommandListVk::ClearImage(GpuImage* image, const GpuImageRange& range, const Color& color) {
 	VkClearColorValue vkColor{};
-	vkColor.float32[0] = color.Red;
-	vkColor.float32[1] = color.Green;
-	vkColor.float32[2] = color.Blue;
-	vkColor.float32[3] = color.Alpha;
+	vkColor.float32[0] = color.red;
+	vkColor.float32[1] = color.green;
+	vkColor.float32[2] = color.blue;
+	vkColor.float32[3] = color.alpha;
 
 	VkImageSubresourceRange vkRange{};
 	vkRange.baseArrayLayer = range.baseLayer;
@@ -309,7 +312,7 @@ void CommandListVk::BeginGraphicsRenderpass(DynamicArray<RenderPassImageInfo> co
 
 	GpuImageViewConfig colorAttachmentConfig = GpuImageViewConfig::CreateTarget_Color();
 	DynamicArray<VkRenderingAttachmentInfo> colorAttachments = DynamicArray<VkRenderingAttachmentInfo>::CreateResizedArray(colorImages.GetSize());
-	for (TSize i = 0; i < colorImages.GetSize(); i++) {
+	for (UIndex64 i = 0; i < colorImages.GetSize(); i++) {
 		colorAttachmentConfig.baseArrayLevel = colorImages[i].arrayLevel;
 
 		colorAttachments[i] = {};
@@ -321,10 +324,8 @@ void CommandListVk::BeginGraphicsRenderpass(DynamicArray<RenderPassImageInfo> co
 		colorAttachments[i].resolveMode = VK_RESOLVE_MODE_NONE;
 		colorAttachments[i].resolveImageLayout = VK_IMAGE_LAYOUT_UNDEFINED;
 		colorAttachments[i].resolveImageView = VK_NULL_HANDLE;
-		colorAttachments[i].clearValue.color = { color.Red, color.Green, color.Blue, color.Alpha };
+		colorAttachments[i].clearValue.color = { color.red, color.green, color.blue, color.alpha };
 	}
-
-	OSK_ASSERT(colorAttachments.GetSize() == colorImages.GetSize(), "Error al iniciar el renderpass.");
 
 	GpuImageViewConfig dephtAttachmentConfig = FormatSupportsStencil(depthImage.targetImage->GetFormat())
 		? GpuImageViewConfig::CreateTarget_DepthStencil()
@@ -346,7 +347,7 @@ void CommandListVk::BeginGraphicsRenderpass(DynamicArray<RenderPassImageInfo> co
 
 	VkRenderingInfo renderpassInfo{};
 	renderpassInfo.sType = VK_STRUCTURE_TYPE_RENDERING_INFO;
-	renderpassInfo.renderArea = { 0, 0, targetSize.X, targetSize.Y };
+	renderpassInfo.renderArea = { 0, 0, targetSize.x, targetSize.y };
 	renderpassInfo.layerCount = 1;
 	renderpassInfo.colorAttachmentCount = colorAttachments.GetSize();
 	renderpassInfo.pColorAttachments = colorAttachments.GetData();
@@ -402,11 +403,11 @@ void CommandListVk::BindMaterialSlot(const IMaterialSlot& slot) {
 		case MaterialType::RAYTRACING: layout = currentPipeline.raytracing->GetLayout()->As<PipelineLayoutVk>()->GetLayout(); break;
 	}
 
-	const TIndex glslSetIndex = currentMaterial->GetLayout()->GetSlot(slot.GetName()).glslSetIndex;
+	const auto glslSetIndex = currentMaterial->GetLayout()->GetSlot(slot.GetName()).glslSetIndex;
 	vkCmdBindDescriptorSets(commandBuffers[_GetCommandListIndex()], bindPoint, layout, glslSetIndex, 1, sets, 0, nullptr);
 }
 
-void CommandListVk::PushMaterialConstants(const std::string& pushConstName, const void* data, TSize size, TSize offset) {
+void CommandListVk::PushMaterialConstants(const std::string& pushConstName, const void* data, USize32 size, USize32 offset) {
 	VkPipelineLayout layout = VK_NULL_HANDLE;
 	switch (currentMaterial->GetMaterialType()) {
 		case MaterialType::COMPUTE: layout = currentPipeline.compute->GetLayout()->As<PipelineLayoutVk>()->GetLayout(); break;
@@ -418,15 +419,15 @@ void CommandListVk::PushMaterialConstants(const std::string& pushConstName, cons
 	vkCmdPushConstants(commandBuffers[_GetCommandListIndex()], layout, GetShaderStageVk(pushConstInfo.stage), 0 + offset, size, data);
 }
 
-void CommandListVk::DrawSingleInstance(TSize numIndices) {
+void CommandListVk::DrawSingleInstance(USize32 numIndices) {
 	vkCmdDrawIndexed(commandBuffers[_GetCommandListIndex()], numIndices, 1, 0, 0, 0);
 }
 
-void CommandListVk::DrawSingleMesh(TSize firstIndex, TSize numIndices) {
+void CommandListVk::DrawSingleMesh(UIndex32 firstIndex, USize32 numIndices) {
 	vkCmdDrawIndexed(commandBuffers[_GetCommandListIndex()], numIndices, 1, firstIndex, 0, 0);
 }
 
-void CommandListVk::TraceRays(TSize raygenEntry, TSize closestHitEntry, TSize missEntry, const Vector2ui& resolution) {
+void CommandListVk::TraceRays(UIndex32 raygenEntry, UIndex32 closestHitEntry, UIndex32 missEntry, const Vector2ui& resolution) {
 	const RtShaderTableVk* shaderTable = currentPipeline.raytracing->GetShaderTable()->As<RtShaderTableVk>();
 
 	const VkStridedDeviceAddressRegionKHR raygenTable = shaderTable->GetRaygenTableAddressRegion();
@@ -436,11 +437,11 @@ void CommandListVk::TraceRays(TSize raygenEntry, TSize closestHitEntry, TSize mi
 
 	RendererVk::pvkCmdTraceRaysKHR(commandBuffers[_GetCommandListIndex()],
 						&raygenTable, &missTable, &closestHitTable, &emptyTable, 
-						resolution.X, resolution.Y, 1);
+						resolution.x, resolution.y, 1);
 }
 
 void CommandListVk::DispatchCompute(const Vector3ui& groupCount) {
-	vkCmdDispatch(commandBuffers[_GetCommandListIndex()], groupCount.X, groupCount.Y, groupCount.Z);
+	vkCmdDispatch(commandBuffers[_GetCommandListIndex()], groupCount.x, groupCount.y, groupCount.Z);
 }
 
 void CommandListVk::BindGraphicsPipeline(const IGraphicsPipeline& pipeline) {
@@ -458,10 +459,10 @@ void CommandListVk::BindRayTracingPipeline(const IRaytracingPipeline& pipeline) 
 void CommandListVk::SetViewport(const Viewport& vp) {
 	VkViewport viewport{};
 
-	viewport.x = static_cast<float>(vp.rectangle.GetRectanglePosition().X);
-	viewport.y = static_cast<float>(vp.rectangle.GetRectanglePosition().Y + vp.rectangle.GetRectangleSize().Y);
-	viewport.width = static_cast<float>(vp.rectangle.GetRectangleSize().X);
-	viewport.height = -static_cast<float>(vp.rectangle.GetRectangleSize().Y);
+	viewport.x = static_cast<float>(vp.rectangle.GetRectanglePosition().x);
+	viewport.y = static_cast<float>(vp.rectangle.GetRectanglePosition().y + vp.rectangle.GetRectangleSize().y);
+	viewport.width = static_cast<float>(vp.rectangle.GetRectangleSize().x);
+	viewport.height = -static_cast<float>(vp.rectangle.GetRectangleSize().y);
 
 	viewport.minDepth = vp.minDepth;
 	viewport.maxDepth = vp.maxDepth;
@@ -473,13 +474,13 @@ void CommandListVk::SetScissor(const Vector4ui& scissorRect) {
 	VkRect2D scissor{};
 
 	scissor.offset = {
-		(int32_t)scissorRect.GetRectanglePosition().X,
-		(int32_t)scissorRect.GetRectanglePosition().Y
+		(int32_t)scissorRect.GetRectanglePosition().x,
+		(int32_t)scissorRect.GetRectanglePosition().y
 	};
 
 	scissor.extent = {
-		scissorRect.GetRectangleSize().X,
-		scissorRect.GetRectangleSize().Y
+		scissorRect.GetRectangleSize().x,
+		scissorRect.GetRectangleSize().y
 	};
 	
 	vkCmdSetScissor(commandBuffers[_GetCommandListIndex()], 0, 1, &scissor);
@@ -493,7 +494,7 @@ void CommandListVk::SetDebugName(const std::string& name) {
 
 	const VkDevice logicalDevice = Engine::GetRenderer()->GetGpu()->As<GpuVk>()->GetLogicalDevice();
 
-	for (TSize i = 0; i < commandBuffers.GetSize(); i++) {
+	for (UIndex64 i = 0; i < commandBuffers.GetSize(); i++) {
 		std::string nname = name + "[" + std::to_string(i) + "]";
 		nameInfo.pObjectName = nname.c_str();
 		nameInfo.objectHandle = (uint64_t)commandBuffers.At(i);
@@ -507,10 +508,10 @@ void CommandListVk::AddDebugMarker(const std::string& mark, const Color& color) 
 	VkDebugUtilsLabelEXT label{};
 	label.sType = VK_STRUCTURE_TYPE_DEBUG_UTILS_LABEL_EXT;
 	label.pLabelName = mark.c_str();
-	label.color[0] = color.Red;
-	label.color[1] = color.Green;
-	label.color[2] = color.Blue;
-	label.color[3] = color.Alpha;
+	label.color[0] = color.red;
+	label.color[1] = color.green;
+	label.color[2] = color.blue;
+	label.color[3] = color.alpha;
 	label.pNext = nullptr;
 
 	RendererVk::pvkCmdInsertDebugUtilsLabelEXT(commandBuffers[_GetCommandListIndex()], &label);
@@ -520,10 +521,10 @@ void CommandListVk::StartDebugSection(const std::string& mark, const Color& colo
 	VkDebugUtilsLabelEXT label{};
 	label.sType = VK_STRUCTURE_TYPE_DEBUG_UTILS_LABEL_EXT;
 	label.pLabelName = mark.c_str();
-	label.color[0] = color.Red;
-	label.color[1] = color.Green;
-	label.color[2] = color.Blue;
-	label.color[3] = color.Alpha;
+	label.color[0] = color.red;
+	label.color[1] = color.green;
+	label.color[2] = color.blue;
+	label.color[3] = color.alpha;
 	label.pNext = nullptr;
 
 	RendererVk::pvkCmdBeginDebugUtilsLabelEXT(commandBuffers[_GetCommandListIndex()], &label);
@@ -571,7 +572,7 @@ VkPipelineStageFlagBits2 CommandListVk::GetPipelineStage(GpuCommandStage stage) 
 		return VK_PIPELINE_STAGE_2_ALL_COMMANDS_BIT;
 
 	default:
-		OSK_ASSERT(false, "No se reconoce el GpuCommandStage.");
+		OSK_ASSERT(false, NotImplementedException());
 		return VK_PIPELINE_STAGE_2_NONE;
 	}
 }

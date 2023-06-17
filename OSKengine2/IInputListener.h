@@ -88,7 +88,7 @@ namespace OSK::IO {
 		/// PreviousState = RELEASED && CurrentState = PRESSED.
 		/// </summary>
 		/// <param name="gamepadId">Id del mando (0 - 3)</param>
-		virtual void OnGamepadButtonStroke(GamepadButton button, TSize gamepadId) { }
+		virtual void OnGamepadButtonStroke(GamepadButton button, UIndex32 gamepadId) { }
 
 		/// <summary>
 		/// Es llamada cuando un botón del mando está siendo presionado.
@@ -96,7 +96,7 @@ namespace OSK::IO {
 		/// CurrentState = PRESSED.
 		/// </summary>
 		/// <param name="gamepadId">Id del mando (0 - 3)</param>
-		virtual void OnGamepadButtonBeingPressed(GamepadButton button, TSize gamepadId) { }
+		virtual void OnGamepadButtonBeingPressed(GamepadButton button, UIndex32 gamepadId) { }
 
 		/// <summary>
 		/// Es llamada cuando un botón del mando deja de estar presionado.
@@ -104,7 +104,7 @@ namespace OSK::IO {
 		/// PreviousState = PRESSED && CurrentState = RELEASED.
 		/// </summary>
 		/// <param name="gamepadId">Id del mando (0 - 3)</param>
-		virtual void OnGamepadButtonReleased(GamepadButton button, TSize gamepadId) { }
+		virtual void OnGamepadButtonReleased(GamepadButton button, UIndex32 gamepadId) { }
 
 		/// <summary>
 		/// Llamado cuando uno de los ejes se manteien con un valor > 0 en valor absoluto.
@@ -114,7 +114,7 @@ namespace OSK::IO {
 		/// <param name="axis">Eje.</param>
 		/// <param name="value">Valor actual.</param>
 		/// <param name="gamepadId"></param>
-		virtual void OnGamepadAxisValue(GamepadAxis axis, float value, TSize gamepadId) { }
+		virtual void OnGamepadAxisValue(GamepadAxis axis, float value, UIndex32 gamepadId) { }
 
 		/// <summary>
 		/// Establece el valor mínimo, en valor absoluto, que debe tener el eje

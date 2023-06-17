@@ -8,6 +8,7 @@
 #include "DynamicArray.hpp"
 #include "GpuVk.h"
 
+#include "MaterialExceptions.h"
 #include <vulkan/vulkan.h>
 
 using namespace OSK;
@@ -43,7 +44,7 @@ DescriptorLayoutVk::DescriptorLayoutVk(const MaterialLayoutSlot* slotLayout)
 
 	VkResult result = vkCreateDescriptorSetLayout(Engine::GetRenderer()->GetGpu()->As<GpuVk>()->GetLogicalDevice(), 
 		&layoutInfo, nullptr, &layout);
-	OSK_ASSERT(result == VK_SUCCESS, "No se pudo crear el descriptor set layout.");
+	OSK_ASSERT(result == VK_SUCCESS, DescriptorLayoutCreationException(result));
 }
 
 DescriptorLayoutVk::~DescriptorLayoutVk() {

@@ -40,7 +40,7 @@ namespace OSK::ECS {
 		/// @param component Componente a añadir.
 		/// @return Referencia no estable al componente añadido.
 		TComponent& AddComponentMove(GameObjectIndex obj, TComponent&& component) {
-			ComponentIndex componentId = components.GetSize();
+			const ComponentIndex componentId = components.GetSize();
 
 			objectToComponent.Insert(obj, componentId);
 			componentToObject.Insert(componentId, obj);
@@ -56,7 +56,7 @@ namespace OSK::ECS {
 		/// @pre El objeto debe tener el componente.
 		void RemoveComponent(GameObjectIndex obj) {
 			ComponentIndex compIndex = objectToComponent.Get(obj);
-			TSize indexOfLast = components.GetSize() - 1;
+			const UIndex64 indexOfLast = components.GetSize() - 1;
 
 			// Hacemos que el componente a eliminar esté en la última posición.
 			// El último componente se coloca en el hueco del componente eliminado,

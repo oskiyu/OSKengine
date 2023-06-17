@@ -59,6 +59,8 @@ namespace OSK::GRAPHICS {
 		/// </summary>
 		/// 
 		/// @note Para poder aplicarse, se debe llamar después a IBottomLevelAccelerationStructure::Update.
+		/// 
+		/// @throws MatrixBufferNotCreatedException Si no se creó correctamente el buffer de matriz.
 		void SetMatrix(const glm::mat4& matrix);
 
 		/// <summary>

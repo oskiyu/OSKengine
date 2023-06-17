@@ -13,10 +13,10 @@ namespace OSK::GRAPHICS {
 		struct {
 
 			/// @brief Capacidad máxima del tipo de memoria, en bytes.
-			TSize maxCapacity = 0;
+			USize64 maxCapacity = 0;
 
 			/// @brief Espacio usado del tipo de memoria, en bytes.
-			TSize usedSpace = 0;
+			USize64 usedSpace = 0;
 
 		}
 		/// @brief Información sobre la memoria GPU-only.

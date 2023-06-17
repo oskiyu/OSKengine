@@ -129,7 +129,7 @@ namespace OSK::IO {
 		/// 0.0 = borde izquierdo.
 		/// 1.0 = borde derecho.
 		/// </summary>
-		Vector2 GetRelativePosition() const;
+		Vector2f GetRelativePosition() const;
 
 		/// <summary>
 		/// Rueda del ratón vertical (la normal).
@@ -144,14 +144,14 @@ namespace OSK::IO {
 		void _SetScrollX(int x);
 		void _SetScrollY(int y);
 		void _SetPosition(const Vector2i& pos);
-		void _SetRelativePosition(const Vector2& pos);
+		void _SetRelativePosition(const Vector2f& pos);
 		void _SetButtonState(MouseButton button, ButtonState state);
 
 	private:
 
-		Vector2i position = 0;
-		Vector2 relativePosition = 0.0f;
-		Vector2i scroll = 0;
+		Vector2i position = Vector2i::Zero;
+		Vector2f relativePosition = Vector2f::Zero;
+		Vector2i scroll = Vector2i::Zero;
 
 		ButtonState buttonStates[MouseNumberOfButtons];
 

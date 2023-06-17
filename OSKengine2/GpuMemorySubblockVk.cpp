@@ -5,10 +5,13 @@
 #include "GpuVk.h"
 #include "Memory.h"
 
+#include "Assert.h"
+#include "GpuMemoryExceptions.h"
+
 using namespace OSK;
 using namespace OSK::GRAPHICS;
 
-GpuMemorySubblockVk::GpuMemorySubblockVk(IGpuMemoryBlock* owner, TSize size, TSize offset)
+GpuMemorySubblockVk::GpuMemorySubblockVk(IGpuMemoryBlock* owner, UIndex64 size, UIndex64 offset)
 	: IGpuMemorySubblock(owner, size, offset) {
 
 }
@@ -17,7 +20,7 @@ void GpuMemorySubblockVk::MapMemory() {
 	MapMemory(reservedSize, 0);
 }
 
-void GpuMemorySubblockVk::MapMemory(TSize size, TSize offset) {
+void GpuMemorySubblockVk::MapMemory(UIndex64 size, UIndex64 offset) {
 	vkMapMemory(ownerBlock->GetGpu()->As<GpuVk>()->GetLogicalDevice(),
 		ownerBlock->As<GpuMemoryBlockVk>()->GetVulkanMemory(),
 		totalOffsetFromBlock + offset,
@@ -28,13 +31,13 @@ void GpuMemorySubblockVk::MapMemory(TSize size, TSize offset) {
 	isMapped = true;
 }
 
-void GpuMemorySubblockVk::Write(const void* data, TSize size) {
+void GpuMemorySubblockVk::Write(const void* data, UIndex64 size) {
 	WriteOffset(data, size, cursor);
 	cursor += size;
 }
 
-void GpuMemorySubblockVk::WriteOffset(const void* data, TSize size, TSize offset) {
-	OSK_ASSERT(isMapped, "El buffer no está mapeado.");
+void GpuMemorySubblockVk::WriteOffset(const void* data, UIndex64 size, UIndex64 offset) {
+	OSK_ASSERT(isMapped, GpuMemoryNotMappedException());
 
 	memcpy((char*)mappedData + offset, data, size);
 }

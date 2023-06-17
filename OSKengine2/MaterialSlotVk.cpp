@@ -14,6 +14,7 @@
 #include "GpuImageVk.h"
 #include "TopLevelAccelerationStructureVk.h"
 #include "GpuImageViewVk.h"
+#include "MaterialExceptions.h"
 
 using namespace OSK;
 using namespace OSK::GRAPHICS;
@@ -25,7 +26,7 @@ inline VkDevice GetDevice() {
 MaterialSlotVk::MaterialSlotVk(const std::string& name, const MaterialLayout* layout)
 	: IMaterialSlot(layout, name) {
 
-	const TSize swapchainCount = Engine::GetRenderer()->GetSwapchainImagesCount();
+	const auto swapchainCount = Engine::GetRenderer()->GetSwapchainImagesCount();
 
 	descriptorSets.Resize(swapchainCount);
 	bindings.Resize(swapchainCount);
@@ -49,7 +50,7 @@ MaterialSlotVk::MaterialSlotVk(const std::string& name, const MaterialLayout* la
 	allocInfo.pSetLayouts = layouts;
 
 	VkResult result = vkAllocateDescriptorSets(GetDevice(), &allocInfo, descriptorSets.GetData());
-	OSK_ASSERT(result == VK_SUCCESS, "Error al crear descriptor sets.");
+	OSK_ASSERT(result == VK_SUCCESS, MaterialSlotCreationException(result));
 
 	SetDebugName(name);
 }
@@ -59,10 +60,10 @@ MaterialSlotVk::~MaterialSlotVk() {
 	descLayout.Delete();
 }
 
-void MaterialSlotVk::SetUniformBuffers(const std::string& binding, const GpuBuffer* buffer[NUM_RESOURCES_IN_FLIGHT]) {
+void MaterialSlotVk::SetUniformBuffers(const std::string& binding, std::span<const GpuBuffer*, NUM_RESOURCES_IN_FLIGHT> buffer) {
 	const bool containsBinding = bindingsLocations.ContainsKey(binding);
 
-	for (TSize i = 0; i < descriptorSets.GetSize(); i++) {
+	for (UIndex32 i = 0; i < descriptorSets.GetSize(); i++) {
 		const GpuMemorySubblockVk* vulkanBuffer = buffer[i]->GetMemorySubblock()->As<GpuMemorySubblockVk>();
 		const GpuMemoryBlockVk* vulkanBlock = vulkanBuffer->GetOwnerBlock()->As<GpuMemoryBlockVk>();
 
@@ -94,10 +95,10 @@ void MaterialSlotVk::SetUniformBuffers(const std::string& binding, const GpuBuff
 		bindingsLocations.Insert(binding, bindings.At(0).GetSize() - 1);
 }
 
-void MaterialSlotVk::SetStorageBuffers(const std::string& binding, const GpuBuffer* buffer[NUM_RESOURCES_IN_FLIGHT]) {
+void MaterialSlotVk::SetStorageBuffers(const std::string& binding, std::span<const GpuBuffer*, NUM_RESOURCES_IN_FLIGHT> buffer) {
 	const bool containsBinding = bindingsLocations.ContainsKey(binding);
 
-	for (TSize i = 0; i < descriptorSets.GetSize(); i++) {
+	for (UIndex32 i = 0; i < descriptorSets.GetSize(); i++) {
 		const GpuMemorySubblockVk* vulkanBuffer = buffer[i]->GetMemorySubblock()->As<GpuMemorySubblockVk>();
 		const GpuMemoryBlockVk* vulkanBlock = vulkanBuffer->GetOwnerBlock()->As<GpuMemoryBlockVk>();
 
@@ -129,10 +130,10 @@ void MaterialSlotVk::SetStorageBuffers(const std::string& binding, const GpuBuff
 		bindingsLocations.Insert(binding, bindings.At(0).GetSize() - 1);
 }
 
-void MaterialSlotVk::SetGpuImages(const std::string& binding, const IGpuImageView* images[NUM_RESOURCES_IN_FLIGHT]) {
+void MaterialSlotVk::SetGpuImages(const std::string& binding, std::span<const IGpuImageView*, NUM_RESOURCES_IN_FLIGHT> images) {
 	const bool containsBinding = bindingsLocations.ContainsKey(binding);
 
-	for (TSize i = 0; i < descriptorSets.GetSize(); i++) {
+	for (UIndex32 i = 0; i < descriptorSets.GetSize(); i++) {
 		OwnedPtr<VkDescriptorImageInfo> imageInfo = new VkDescriptorImageInfo();
 		imageInfo->imageLayout = VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL;
 		imageInfo->sampler = images[i]->GetImage().As<GpuImageVk>()->GetVkSampler();
@@ -161,10 +162,10 @@ void MaterialSlotVk::SetGpuImages(const std::string& binding, const IGpuImageVie
 		bindingsLocations.Insert(binding, bindings.At(0).GetSize() - 1);
 }
 
-void MaterialSlotVk::SetStorageImages(const std::string& binding, const IGpuImageView* images[NUM_RESOURCES_IN_FLIGHT]) {
+void MaterialSlotVk::SetStorageImages(const std::string& binding, std::span<const IGpuImageView*, NUM_RESOURCES_IN_FLIGHT> images) {
 	const bool containsBinding = bindingsLocations.ContainsKey(binding);
 
-	for (TSize i = 0; i < descriptorSets.GetSize(); i++) {
+	for (UIndex32 i = 0; i < descriptorSets.GetSize(); i++) {
 		OwnedPtr<VkDescriptorImageInfo> imageInfo = new VkDescriptorImageInfo();
 		imageInfo->imageLayout = VK_IMAGE_LAYOUT_GENERAL;
 		imageInfo->sampler = images[i]->GetImage().As<GpuImageVk>()->GetVkSampler();
@@ -193,10 +194,13 @@ void MaterialSlotVk::SetStorageImages(const std::string& binding, const IGpuImag
 		bindingsLocations.Insert(binding, bindings.At(0).GetSize() - 1);
 }
 
-void MaterialSlotVk::SetAccelerationStructures(const std::string& binding, const ITopLevelAccelerationStructure* accelerationStructure[NUM_RESOURCES_IN_FLIGHT]) {
+void MaterialSlotVk::SetAccelerationStructures(
+	const std::string& binding, 
+	std::span<const ITopLevelAccelerationStructure*, NUM_RESOURCES_IN_FLIGHT> accelerationStructure) 
+{
 	const bool containsBinding = bindingsLocations.ContainsKey(binding);
 
-	for (TSize i = 0; i < descriptorSets.GetSize(); i++) {
+	for (UIndex32 i = 0; i < descriptorSets.GetSize(); i++) {
 		accelerationStructures.Insert(accelerationStructure[i]->As<TopLevelAccelerationStructureVk>()->GetAccelerationStructure());
 
 		OwnedPtr<VkWriteDescriptorSetAccelerationStructureKHR> descriptorAccelerationStructureInfo = new VkWriteDescriptorSetAccelerationStructureKHR{};
@@ -225,11 +229,11 @@ void MaterialSlotVk::SetAccelerationStructures(const std::string& binding, const
 }
 
 void MaterialSlotVk::FlushUpdate() {
-	for (TSize i = 0; i < bindings.GetSize(); i++)
-		vkUpdateDescriptorSets(GetDevice(), (uint32_t)bindings[i].GetSize(), bindings[i].GetData(), 0, nullptr);
+	for (const auto& binding : bindings)
+		vkUpdateDescriptorSets(GetDevice(), (uint32_t)binding.GetSize(), binding.GetData(), 0, nullptr);
 }
 
-VkDescriptorSet MaterialSlotVk::GetDescriptorSet(TSize index) const {
+VkDescriptorSet MaterialSlotVk::GetDescriptorSet(UIndex32 index) const {
 	return descriptorSets[index];
 }
 
@@ -243,8 +247,8 @@ void MaterialSlotVk::SetDebugName(const std::string& name) {
 
 	nameInfo.pObjectName = name.c_str();
 
-	for (TIndex i = 0; i < descriptorSets.GetSize(); i++) {
-		nameInfo.objectHandle = (uint64_t)descriptorSets[i];
+	for (const auto& descSet : descriptorSets) {
+		nameInfo.objectHandle = (uint64_t)descSet;
 
 		if (RendererVk::pvkSetDebugUtilsObjectNameEXT != nullptr)
 			RendererVk::pvkSetDebugUtilsObjectNameEXT(logicalDevice, &nameInfo);

@@ -6,6 +6,7 @@
 #include "GpuVk.h"
 #include "PipelineLayoutVk.h"
 #include "RtShaderTableVk.h"
+#include "PipelinesExceptions.h"
 
 using namespace OSK;
 using namespace OSK::GRAPHICS;
@@ -18,12 +19,12 @@ void RaytracingPipelineVk::Create(const MaterialLayout& materialLayout, const Pi
 	VkSpecializationMapEntry specializationMapEntry{};
 	specializationMapEntry.constantID = 0;
 	specializationMapEntry.offset = 0;
-	specializationMapEntry.size = sizeof(TSize);
+	specializationMapEntry.size = sizeof(USize32);
 
-	const TSize maxRecursion = 1; ///@todo Permitir su modificación.
+	const USize32 maxRecursion = 1; ///@todo Permitir su modificación.
 
 	VkSpecializationInfo specializationInfo{};
-	specializationInfo.dataSize = sizeof(TSize);
+	specializationInfo.dataSize = sizeof(USize32);
 	specializationInfo.pData = &maxRecursion;
 	specializationInfo.pMapEntries = &specializationMapEntry;
 	specializationInfo.mapEntryCount = 1;
@@ -77,7 +78,7 @@ void RaytracingPipelineVk::Create(const MaterialLayout& materialLayout, const Pi
 
 	VkResult result = RendererVk::pvkCreateRayTracingPipelinesKHR(Engine::GetRenderer()->GetGpu()->As<GpuVk>()->GetLogicalDevice(),
 		VK_NULL_HANDLE, VK_NULL_HANDLE, 1, &createInfo, nullptr, &pipeline);
-	OSK_ASSERT(result == VK_SUCCESS, "No se pudo crear el pipeline de trazado de rayos. Code: " + std::to_string(result));
+	OSK_ASSERT(result == VK_SUCCESS, PipelineCreationException(result));
 
 	shaderTable = new RtShaderTableVk(shaderGroupCreateInfos.GetSize(), pipeline);
 }

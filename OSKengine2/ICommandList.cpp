@@ -8,6 +8,8 @@
 #include "MaterialLayout.h"
 #include "MaterialInstance.h"
 
+#include "CommandListExceptions.h"
+
 using namespace OSK;
 using namespace OSK::GRAPHICS;
 
@@ -33,7 +35,7 @@ void ICommandList::BeginGraphicsRenderpass(RenderTarget* renderpass, const Color
 	currentRenderpassType = renderpass->GetRenderTargetType();
 
 	const bool isFinal = currentRenderpassType == RenderpassType::FINAL;
-	const TSize resourceIndex = isFinal 
+	const UIndex32 resourceIndex = isFinal
 		? Engine::GetRenderer()->GetCurrentFrameIndex()
 		: Engine::GetRenderer()->GetCurrentResourceIndex();
 
@@ -43,7 +45,7 @@ void ICommandList::BeginGraphicsRenderpass(RenderTarget* renderpass, const Color
 		colorImages.Insert({ Engine::GetRenderer()->_GetSwapchain()->GetImage(resourceIndex), 0 });
 	}
 	else {
-		for (TIndex i = 0; i < renderpass->GetNumColorTargets(); i++)
+		for (UIndex32 i = 0; i < renderpass->GetNumColorTargets(); i++)
 			colorImages.Insert({ renderpass->GetColorImage(i, resourceIndex), 0});
 	}
 
@@ -51,12 +53,12 @@ void ICommandList::BeginGraphicsRenderpass(RenderTarget* renderpass, const Color
 }
 
 void ICommandList::BindVertexBuffer(const GpuBuffer& buffer) {
-	OSK_ASSERT(buffer.HasVertexView(), "El buffer no tiene vertex view.");
+	OSK_ASSERT(buffer.HasVertexView(), InvalidVertexBufferException());
 	BindVertexBufferRange(buffer, buffer.GetVertexView());
 }
 
 void ICommandList::BindIndexBuffer(const GpuBuffer& buffer) {
-	OSK_ASSERT(buffer.HasIndexView(), "El buffer no tiene index view.");
+	OSK_ASSERT(buffer.HasIndexView(), InvalidIndexBufferException());
 	BindIndexBufferRange(buffer, buffer.GetIndexView());
 }
 
@@ -93,7 +95,7 @@ void ICommandList::BindMaterialInstance(const MaterialInstance& instance) {
 		BindMaterialSlot(*instance.GetSlot(name));
 }
 
-void ICommandList::PushMaterialConstants(const std::string& pushConstName, const void* data, TSize size) {
+void ICommandList::PushMaterialConstants(const std::string& pushConstName, const void* data, USize32 size) {
 	PushMaterialConstants(pushConstName, data, size, 0);
 }
 
@@ -105,7 +107,7 @@ void ICommandList::_SetSingleTimeUse() {
 	isSingleUse = true;
 }
 
-TSize ICommandList::_GetCommandListIndex() const {
+UIndex32 ICommandList::_GetCommandListIndex() const {
 	return isSingleUse ? 0 : Engine::GetRenderer()->GetCurrentCommandListIndex();
 }
 
@@ -136,7 +138,7 @@ void CopyImageInfo::SetCopySize(uint32_t size) {
 }
 
 void CopyImageInfo::SetCopySize(Vector2ui size) {
-	copySize = { size.X, size.Y, 1u };
+	copySize = { size.x, size.y, 1u };
 }
 
 void CopyImageInfo::SetCopySize(Vector3ui size) {
@@ -148,7 +150,7 @@ void CopyImageInfo::SetSourceOffset(uint32_t offset) {
 }
 
 void CopyImageInfo::SetSourceOffset(Vector2ui offset) {
-	sourceOffset = { offset.X, offset.Y, 0 };
+	sourceOffset = { offset.x, offset.y, 0 };
 }
 
 void CopyImageInfo::SetSourceOffset(Vector3ui offset) {
@@ -160,7 +162,7 @@ void CopyImageInfo::SetDestinationOffset(uint32_t offset) {
 }
 
 void CopyImageInfo::SetDestinationOffset(Vector2ui offset) {
-	destinationOffset = { offset.X, offset.Y, 0 };
+	destinationOffset = { offset.x, offset.y, 0 };
 }
 
 void CopyImageInfo::SetDestinationOffset(Vector3ui offset) {

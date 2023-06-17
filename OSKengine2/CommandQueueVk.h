@@ -15,19 +15,19 @@ namespace OSK::GRAPHICS {
 
 		CommandQueueVk(
 			CommandQueueSupport support, 
-			TIndex familyIndex, 
-			TIndex inFamilyIndex, 
+			UIndex32 familyIndex,
+			UIndex32 inFamilyIndex,
 			const GpuVk& gpu);
 
 		VkQueue GetQueue() const;
-		TIndex GetQueueIndex() const;
-		TIndex GetFamilyIndex() const;
+		UIndex32 GetQueueIndex() const;
+		UIndex32 GetFamilyIndex() const;
 
 	private:
 
-		VkQueue queue = 0;
-		TIndex familyIndex = 0;
-		TIndex inFamilyIndex = 0;
+		VkQueue queue = nullptr;
+		UIndex32 familyIndex = 0;
+		UIndex32 inFamilyIndex = 0;
 
 	};
 

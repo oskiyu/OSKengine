@@ -9,30 +9,31 @@ HorizontalContainer::HorizontalContainer(const Vector2f& size) : IContainer(size
 }
 
 void HorizontalContainer::EmplaceChild(IElement* child) {
-	if (relativeNextPosition < GetPadding().X)
-		relativeNextPosition = GetPadding().X;
+	if (relativeNextPosition < GetPadding().x)
+		relativeNextPosition = GetPadding().x;
 
 	// Offset vertical desde arriba.
 	float verticalPositionOffset = 0.0f;
 
-	if (EFTraits::HasFlag(child->GetAnchor(), Anchor::TOP)) {
-		verticalPositionOffset = child->GetMarging().Y + GetPadding().Y;
+	if (EFTraits::HasFlag(child->GetAnchor(), Anchor::TOP)) 
+	{
+		verticalPositionOffset = child->GetMarging().y + GetPadding().y;
 	} 
-	else
-	if (EFTraits::HasFlag(child->GetAnchor(), Anchor::CENTER_Y)) {
-		verticalPositionOffset = GetSize().Y * 0.5f - (child->GetSize().Y + child->GetMarging().Y) * 0.5;
+	else if (EFTraits::HasFlag(child->GetAnchor(), Anchor::CENTER_Y)) 
+	{
+		verticalPositionOffset = GetSize().y * 0.5f - (child->GetSize().y + child->GetMarging().y) * 0.5f;
 	} 
-	else
-	if (EFTraits::HasFlag(child->GetAnchor(), Anchor::BOTTOM)) {
-		verticalPositionOffset = GetContentSize().Y - child->GetSize().Y - child->GetMarging().W;
+	else if (EFTraits::HasFlag(child->GetAnchor(), Anchor::BOTTOM)) 
+	{
+		verticalPositionOffset = GetContentSize().y - child->GetSize().y - child->GetMarging().W;
 	}
 
 	child->_SetRelativePosition(Vector2f(
-		relativeNextPosition + child->GetMarging().X,
+		relativeNextPosition + child->GetMarging().x,
 		verticalPositionOffset
 	).ToVector2i().ToVector2f());
 
-	relativeNextPosition += child->GetSize().X + child->GetMarging().X + child->GetMarging().Z;
+	relativeNextPosition += child->GetSize().x + child->GetMarging().x + child->GetMarging().Z;
 }
 
 void HorizontalContainer::ResetLayout() {

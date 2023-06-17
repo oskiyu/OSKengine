@@ -2,7 +2,8 @@
 #include "IPipelineDx12.h"
 
 #include <d3dcompiler.h>
-
+#include "PipelinesExceptions.h"
+#include "NotImplementedException.h"
 #undef min
 
 #include "FileIO.h"
@@ -21,7 +22,7 @@ ComPtr<ID3DBlob> IPipelineDx12::LoadBlob(LPCWSTR filename) {
 	const HRESULT hr = D3DReadFileToBlob(filename, &shaderBlob);
 
 	if (FAILED(hr))
-		OSK_ASSERT(false, "No se pudo compilar el shader. Code: " + std::to_string(hr));
+		OSK_ASSERT(false, PipelineCreationException(hr));
 
 	return shaderBlob;
 }
@@ -30,7 +31,7 @@ ComPtr<IDxcBlob> IPipelineDx12::CompileBlob(const std::string& spirvPath, const 
 	const auto bytecode = FileIO::ReadBinaryFromFile(spirvPath);
 
 	// Generación del código HLSL.
-	SpirvToHlsl compilerToHlsl = SpirvToHlsl(bytecode);
+	auto compilerToHlsl = SpirvToHlsl(bytecode);
 	compilerToHlsl.SetHlslTargetProfile(6, 1);
 	compilerToHlsl.SetVertexAttributesMapping(vertexInfo);
 	compilerToHlsl.SetLayoutMapping(layout);
@@ -44,7 +45,7 @@ ComPtr<IDxcBlob> IPipelineDx12::CompileBlob(const std::string& spirvPath, const 
 	return compiler.CompileFromFile("./temp_shader", hlslProfile);
 }
 
-ShaderStageDx12 IPipelineDx12::LoadShader(const PipelineCreateInfo& info, const VertexInfo& vertexInfo, const std::string& path, ShaderStage stage, const MaterialLayout& mLayout) {
+ShaderStageDx12 IPipelineDx12::LoadShader(const PipelineCreateInfo& info, const VertexInfo& vertexInfo, const std::string& path, ShaderStage stage, const MaterialLayout& mLayout) const {
 	ShaderStageDx12 output{};
 
 	if (info.precompiledHlslShaders) {
@@ -86,7 +87,7 @@ std::string IPipelineDx12::GetHlslProfile(ShaderStage stage) {
 		return "cs_6_1";
 
 	default:
-		OSK_ASSERT(false, "Shader stage " + ToString(stage) + " no soportado en DX12.");
+		OSK_ASSERT(false, OSK::NotImplementedException());
 		break;
 	}
 }

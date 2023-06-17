@@ -39,11 +39,11 @@ PbrDeferredRenderSystem::PbrDeferredRenderSystem() {
 	_SetSignature(signature);
 
 	// Mapa de sombras
-	shadowMap.Create({ 4096u });
+	shadowMap.Create(Vector2ui(4096u));
 
 	// Directional light por defecto
 	const Vector3f direction = Vector3f(1.0f, -1.9f, 0.0f).GetNormalized();
-	dirLight.directionAndIntensity = Vector4f(direction.X, direction.Y, direction.Z, 1.4f);
+	dirLight.directionAndIntensity = Vector4f(direction.x, direction.y, direction.Z, 1.4f);
 	dirLight.color = Color(255 / 255.f, 255 / 255.f, 255 / 255.f);
 	
 	CreateBuffers();
@@ -56,7 +56,7 @@ PbrDeferredRenderSystem::PbrDeferredRenderSystem() {
 void PbrDeferredRenderSystem::CreateBuffers() {
 	IGpuMemoryAllocator* memAllocator = Engine::GetRenderer()->GetAllocator();
 
-	for (TSize i = 0; i < NUM_RESOURCES_IN_FLIGHT; i++) {
+	for (UIndex32 i = 0; i < NUM_RESOURCES_IN_FLIGHT; i++) {
 		cameraUbos[i] = memAllocator->CreateUniformBuffer(sizeof(CameraInfo)).GetPointer();
 		previousCameraUbos[i] = memAllocator->CreateUniformBuffer(sizeof(PreviousCameraInfo)).GetPointer();
 		dirLightUbos[i] = memAllocator->CreateUniformBuffer(sizeof(DirectionalLight)).GetPointer();
@@ -77,10 +77,10 @@ void PbrDeferredRenderSystem::LoadMaterials() {
 }
 
 void PbrDeferredRenderSystem::SetupGBufferMaterial() {
-	const GpuBuffer* _cameraUbos[NUM_RESOURCES_IN_FLIGHT]{};
-	const GpuBuffer* _previousCameraUbos[NUM_RESOURCES_IN_FLIGHT]{};
+	std::array<const GpuBuffer*, NUM_RESOURCES_IN_FLIGHT> _cameraUbos{};
+	std::array<const GpuBuffer*, NUM_RESOURCES_IN_FLIGHT> _previousCameraUbos{};
 
-	for (TSize i = 0; i < NUM_RESOURCES_IN_FLIGHT; i++) {
+	for (UIndex32 i = 0; i < NUM_RESOURCES_IN_FLIGHT; i++) {
 		_cameraUbos[i] = cameraUbos[i].GetPointer();
 		_previousCameraUbos[i] = previousCameraUbos[i].GetPointer();
 	}
@@ -107,15 +107,15 @@ void PbrDeferredRenderSystem::Initialize(GameObjectIndex camera, const ASSETS::I
 }
 
 void PbrDeferredRenderSystem::SetupResolveMaterial() {
-	const GpuBuffer* _cameraUbos[NUM_RESOURCES_IN_FLIGHT]{};
-	const GpuBuffer* _dirLightUbos[NUM_RESOURCES_IN_FLIGHT]{};
-	const GpuBuffer* _shadowsMatricesUbos[NUM_RESOURCES_IN_FLIGHT]{};
-	const IGpuImageView* _shadowsMaps[NUM_RESOURCES_IN_FLIGHT]{};
+	std::array<const GpuBuffer*, NUM_RESOURCES_IN_FLIGHT> _cameraUbos{};
+	std::array<const GpuBuffer*, NUM_RESOURCES_IN_FLIGHT> _dirLightUbos{};
+	std::array<const GpuBuffer*, NUM_RESOURCES_IN_FLIGHT> _shadowsMatricesUbos{};
+	std::array<const IGpuImageView*, NUM_RESOURCES_IN_FLIGHT> _shadowsMaps{};
 
 	GpuImageViewConfig shadowsViewConfig = GpuImageViewConfig::CreateSampled_Array(0, shadowMap.GetNumCascades());
 	shadowsViewConfig.channel = SampledChannel::DEPTH;
 
-	for (TSize i = 0; i < NUM_RESOURCES_IN_FLIGHT; i++) {
+	for (UIndex32 i = 0; i < NUM_RESOURCES_IN_FLIGHT; i++) {
 		_cameraUbos[i] = cameraUbos[i].GetPointer();
 		_dirLightUbos[i] = dirLightUbos[i].GetPointer();
 		_shadowsMatricesUbos[i] = shadowMap.GetDirLightMatrixUniformBuffers()[i];
@@ -131,29 +131,29 @@ void PbrDeferredRenderSystem::SetupResolveMaterial() {
 
 void PbrDeferredRenderSystem::UpdateResolveMaterial() {
 	const GpuImageViewConfig viewConfig = GpuImageViewConfig::CreateSampled_MipLevelRanged(0, 0);
-	const IGpuImageView* images[3]{};
+	std::array<const IGpuImageView*, NUM_RESOURCES_IN_FLIGHT> images{};
 
 	GpuImageViewConfig depthView = viewConfig;
 	depthView.channel = SampledChannel::DEPTH;
 
-	for (TSize i = 0; i < 3; i++) images[i] = gBuffer.GetImage(i, GBuffer::Target::DEPTH)->GetView(depthView);
+	for (UIndex32 i = 0; i < NUM_RESOURCES_IN_FLIGHT; i++) images[i] = gBuffer.GetImage(i, GBuffer::Target::DEPTH)->GetView(depthView);
 	resolveMaterialInstance->GetSlot("gbuffer")->SetGpuImages("depthTexture", images);
 
-	for (TSize i = 0; i < 3; i++) images[i] = gBuffer.GetImage(i, GBuffer::Target::COLOR)->GetView(viewConfig);
+	for (UIndex32 i = 0; i < NUM_RESOURCES_IN_FLIGHT; i++) images[i] = gBuffer.GetImage(i, GBuffer::Target::COLOR)->GetView(viewConfig);
 	resolveMaterialInstance->GetSlot("gbuffer")->SetGpuImages("colorTexture", images);
 
-	for (TSize i = 0; i < 3; i++) images[i] = gBuffer.GetImage(i, GBuffer::Target::NORMAL)->GetView(viewConfig);
+	for (UIndex32 i = 0; i < NUM_RESOURCES_IN_FLIGHT; i++) images[i] = gBuffer.GetImage(i, GBuffer::Target::NORMAL)->GetView(viewConfig);
 	resolveMaterialInstance->GetSlot("gbuffer")->SetGpuImages("normalTexture", images);
 
-	for (TSize i = 0; i < 3; i++) images[i] = gBuffer.GetImage(i, GBuffer::Target::METALLIC_ROUGHNESS)->GetView(viewConfig);
+	for (UIndex32 i = 0; i < NUM_RESOURCES_IN_FLIGHT; i++) images[i] = gBuffer.GetImage(i, GBuffer::Target::METALLIC_ROUGHNESS)->GetView(viewConfig);
 	resolveMaterialInstance->GetSlot("gbuffer")->SetGpuImages("metallicRoughnessTexture", images);
 
 	resolveMaterialInstance->GetSlot("gbuffer")->FlushUpdate();
 
 	GpuImageViewConfig computeOutputConfig = GpuImageViewConfig::CreateStorage_Default();
 
-	const IGpuImageView* _resolveImages[3]{};
-	for (TSize i = 0; i < 3; i++) _resolveImages[i] = resolveRenderTarget.GetTargetImage(i)->GetView(computeOutputConfig);
+	std::array<const IGpuImageView*, NUM_RESOURCES_IN_FLIGHT> _resolveImages{};
+	for (UIndex32 i = 0; i < NUM_RESOURCES_IN_FLIGHT; i++) _resolveImages[i] = resolveRenderTarget.GetTargetImage(i)->GetView(computeOutputConfig);
 
 	resolveMaterialInstance->GetSlot("output")->SetStorageImages("finalImage", _resolveImages);
 	resolveMaterialInstance->GetSlot("output")->FlushUpdate();
@@ -184,10 +184,10 @@ void PbrDeferredRenderSystem::CreateTargetImage(const Vector2ui& size) {
 	renderTarget.Create(size, { colorAttachment }, depthAttachment);
 
 	// TAA
-	const GpuImage* sourceImages[NUM_RESOURCES_IN_FLIGHT]{};
-	const GpuImage* motionImages[NUM_RESOURCES_IN_FLIGHT]{};
+	std::array<const GpuImage*, NUM_RESOURCES_IN_FLIGHT> sourceImages{};
+	std::array<const GpuImage*, NUM_RESOURCES_IN_FLIGHT> motionImages{};
 
-	for (TIndex i = 0; i < NUM_RESOURCES_IN_FLIGHT; i++) {
+	for (UIndex32 i = 0; i < NUM_RESOURCES_IN_FLIGHT; i++) {
 		sourceImages[i] = resolveRenderTarget.GetTargetImage(i);
 		motionImages[i] = gBuffer.GetImage(i, GBuffer::Target::MOTION);
 	}
@@ -205,10 +205,10 @@ void PbrDeferredRenderSystem::Resize(const Vector2ui& windowSize) {
 	resolveRenderTarget.Resize(windowSize);
 
 	// TAA
-	const GpuImage* sourceImages[NUM_RESOURCES_IN_FLIGHT]{};
-	const GpuImage* motionImages[NUM_RESOURCES_IN_FLIGHT]{};
+	std::array<const GpuImage*, NUM_RESOURCES_IN_FLIGHT> sourceImages{};
+	std::array<const GpuImage*, NUM_RESOURCES_IN_FLIGHT> motionImages{};
 
-	for (TIndex i = 0; i < NUM_RESOURCES_IN_FLIGHT; i++) {
+	for (UIndex32 i = 0; i < NUM_RESOURCES_IN_FLIGHT; i++) {
 		sourceImages[i] = resolveRenderTarget.GetTargetImage(i);
 		motionImages[i] = gBuffer.GetImage(i, GBuffer::Target::MOTION);
 	}
@@ -224,7 +224,7 @@ void PbrDeferredRenderSystem::Resize(const Vector2ui& windowSize) {
 }
 
 void PbrDeferredRenderSystem::Render(ICommandList* commandList) {
-	const TSize resourceIndex = Engine::GetRenderer()->GetCurrentResourceIndex();
+	const UIndex32 resourceIndex = Engine::GetRenderer()->GetCurrentResourceIndex();
 
 	const CameraComponent3D& camera = Engine::GetEcs()->GetComponent<CameraComponent3D>(cameraObject);
 	const Transform3D& cameraTransform = Engine::GetEcs()->GetComponent<Transform3D>(cameraObject);
@@ -260,7 +260,7 @@ void PbrDeferredRenderSystem::Render(ICommandList* commandList) {
 		
 	GenerateShadows(commandList);
 
-	commandList->StartDebugSection("PBR Deferred", Color::RED());
+	commandList->StartDebugSection("PBR Deferred", Color::Red);
 	
 	RenderGBuffer(commandList);
 	ResolveGBuffer(commandList);
@@ -277,14 +277,14 @@ void PbrDeferredRenderSystem::Render(ICommandList* commandList) {
 }
 
 void PbrDeferredRenderSystem::GenerateShadows(ICommandList* commandList) {
-	const TSize resourceIndex = Engine::GetRenderer()->GetCurrentResourceIndex();
+	const UIndex32 resourceIndex = Engine::GetRenderer()->GetCurrentResourceIndex();
 	const Viewport viewport{
 		.rectangle = { 0u, 0u,
-		shadowMap.GetColorImage(0)->GetSize2D().X,
-		shadowMap.GetColorImage(0)->GetSize2D().Y }
+		shadowMap.GetColorImage(0)->GetSize2D().x,
+		shadowMap.GetColorImage(0)->GetSize2D().y }
 	};
 
-	commandList->StartDebugSection("Shadows", Color::BLACK());
+	commandList->StartDebugSection("Shadows", Color::Black);
 
 	commandList->SetGpuImageBarrier(
 		shadowMap.GetShadowImage(resourceIndex),
@@ -302,8 +302,8 @@ void PbrDeferredRenderSystem::GenerateShadows(ICommandList* commandList) {
 	commandList->SetViewport(viewport);
 	commandList->SetScissor(viewport.rectangle);
 
-	for (TSize i = 0; i < shadowMap.GetNumCascades(); i++) {
-		commandList->StartDebugSection("Cascade " + std::to_string(i), Color::BLACK());
+	for (UIndex32 i = 0; i < shadowMap.GetNumCascades(); i++) {
+		commandList->StartDebugSection("Cascade " + std::to_string(i), Color::Black);
 
 		RenderPassImageInfo colorInfo{};
 		colorInfo.arrayLevel = i;
@@ -333,7 +333,7 @@ void PbrDeferredRenderSystem::GenerateShadows(ICommandList* commandList) {
 	commandList->EndDebugSection();
 }
 
-void PbrDeferredRenderSystem::GBufferRenderLoop(ICommandList* commandList, ModelType modelType, TIndex jitterIndex) {
+void PbrDeferredRenderSystem::GBufferRenderLoop(ICommandList* commandList, ModelType modelType, UIndex32 jitterIndex) {
 	GpuBuffer* previousVertexBuffer = nullptr;
 	GpuBuffer* previousIndexBuffer = nullptr;
 
@@ -362,7 +362,7 @@ void PbrDeferredRenderSystem::GBufferRenderLoop(ICommandList* commandList, Model
 		if (modelType == ModelType::ANIMATED_MODEL)
 			commandList->BindMaterialSlot(*model.GetModel()->GetAnimator()->GetMaterialInstance()->GetSlot("animation"));
 
-		for (TSize i = 0; i < model.GetModel()->GetMeshes().GetSize(); i++) {
+		for (UIndex32 i = 0; i < model.GetModel()->GetMeshes().GetSize(); i++) {
 			commandList->BindMaterialSlot(*model.GetMeshMaterialInstance(i)->GetSlot("texture"));
 
 			const Vector4f materialInfo {
@@ -382,8 +382,7 @@ void PbrDeferredRenderSystem::GBufferRenderLoop(ICommandList* commandList, Model
 				.materialInfo = materialInfo,
 				.resolution = gBuffer.GetImage(0, GBuffer::Target::COLOR)->GetSize2D().ToVector2f()
 			};
-			const glm::mat4 previousModelMatrix = previousModelMatrices.ContainsKey(obj)
-				? previousModelMatrices.Get(obj) : glm::mat4(1.0f);
+
 			commandList->PushMaterialConstants("model", modelConsts);
 
 			commandList->DrawSingleMesh(model.GetModel()->GetMeshes()[i].GetFirstIndexId(), model.GetModel()->GetMeshes()[i].GetNumberOfIndices());
@@ -391,7 +390,7 @@ void PbrDeferredRenderSystem::GBufferRenderLoop(ICommandList* commandList, Model
 	}
 }
 
-void PbrDeferredRenderSystem::ShadowsRenderLoop(ModelType modelType, ICommandList* commandList, TSize cascadeIndex) {
+void PbrDeferredRenderSystem::ShadowsRenderLoop(ModelType modelType, ICommandList* commandList, UIndex32 cascadeIndex) {
 	for (const GameObjectIndex obj : GetObjects()) {
 		const ModelComponent3D& model = Engine::GetEcs()->GetComponent<ModelComponent3D>(obj);
 		const Transform3D& transform = Engine::GetEcs()->GetComponent<Transform3D>(obj);
@@ -414,7 +413,7 @@ void PbrDeferredRenderSystem::ShadowsRenderLoop(ModelType modelType, ICommandLis
 		};
 		commandList->PushMaterialConstants("model", pushConstant);
 
-		for (TSize i = 0; i < model.GetModel()->GetMeshes().GetSize(); i++)
+		for (UIndex32 i = 0; i < model.GetModel()->GetMeshes().GetSize(); i++)
 			commandList->DrawSingleMesh(
 				model.GetModel()->GetMeshes()[i].GetFirstIndexId(), 
 				model.GetModel()->GetMeshes()[i].GetNumberOfIndices());
@@ -422,18 +421,18 @@ void PbrDeferredRenderSystem::ShadowsRenderLoop(ModelType modelType, ICommandLis
 }
 
 void PbrDeferredRenderSystem::RenderGBuffer(ICommandList* commandList) {
-	const TSize resourceIndex = Engine::GetRenderer()->GetCurrentResourceIndex();
+	const UIndex32 resourceIndex = Engine::GetRenderer()->GetCurrentResourceIndex();
 
-	commandList->StartDebugSection("PBR GBuffer", Color::RED());
+	commandList->StartDebugSection("PBR GBuffer", Color::Red);
 
-	gBuffer.BeginRenderpass(commandList, Color::BLACK() * 0.0f);
+	gBuffer.BeginRenderpass(commandList, Color::Black * 0.0f);
 
 	SetupViewport(commandList);
 	commandList->BindMaterial(*gbufferMaterial);
 	commandList->BindMaterialSlot(*globalGbufferMaterialInstance->GetSlot("global"));
 
-	static TIndex jitterIndex = 0;
-	constexpr TIndex maxJitter = 4;
+	static UIndex32 jitterIndex = 0;
+	constexpr UIndex32 maxJitter = 4;
 
 	jitterIndex = taaProvider.GetCurrentFrameJitterIndex();
 
@@ -446,9 +445,9 @@ void PbrDeferredRenderSystem::RenderGBuffer(ICommandList* commandList) {
 }
 
 void PbrDeferredRenderSystem::ResolveGBuffer(ICommandList* commandList) {
-	const TIndex resourceIndex = Engine::GetRenderer()->GetCurrentResourceIndex();
+	const UIndex32 resourceIndex = Engine::GetRenderer()->GetCurrentResourceIndex();
 
-	commandList->StartDebugSection("PBR Resolve", Color::PURPLE());
+	commandList->StartDebugSection("PBR Resolve", Color::Purple);
 
 	// Sincronización de mapa de sombras.
 	commandList->SetGpuImageBarrier(
@@ -472,9 +471,9 @@ void PbrDeferredRenderSystem::ResolveGBuffer(ICommandList* commandList) {
 
 
 	// Sincronización con todos los targets de color.
-	for (TIndex t = 0; t < _countof(GBuffer::ColorTargetTypes); t++)
+	for (const auto type : GBuffer::ColorTargetTypes)
 		commandList->SetGpuImageBarrier(
-			gBuffer.GetImage(resourceIndex, GBuffer::ColorTargetTypes[t]),
+			gBuffer.GetImage(resourceIndex, type),
 			GpuImageLayout::SAMPLED,
 			GpuBarrierInfo(GpuCommandStage::COMPUTE_SHADER, GpuAccessStage::SAMPLED_READ));
 
@@ -493,15 +492,15 @@ void PbrDeferredRenderSystem::ResolveGBuffer(ICommandList* commandList) {
 	commandList->BindMaterial(*resolveMaterial);
 	commandList->BindMaterialInstance(*resolveMaterialInstance);
 	commandList->PushMaterialConstants("taa", static_cast<int>(taaProvider.GetCurrentFrameJitterIndex()));
-	commandList->DispatchCompute({ dispatchRes.X, dispatchRes.Y, 1 });
+	commandList->DispatchCompute({ dispatchRes.x, dispatchRes.y, 1 });
 
 	commandList->EndDebugSection();
 }
 
 void PbrDeferredRenderSystem::ExecuteTaa(ICommandList* commandList) {
-	commandList->StartDebugSection("TAA", Color::YELLOW());
+	commandList->StartDebugSection("TAA", Color::Yellow);
 
-	const TIndex resourceIndex = Engine::GetRenderer()->GetCurrentResourceIndex();
+	const UIndex32 resourceIndex = Engine::GetRenderer()->GetCurrentResourceIndex();
 
 	GpuImage* sourceImage = resolveRenderTarget.GetTargetImage(resourceIndex);
 
@@ -521,9 +520,9 @@ void PbrDeferredRenderSystem::ExecuteTaa(ICommandList* commandList) {
 }
 
 void PbrDeferredRenderSystem::CopyFinalImages(ICommandList* cmdList) {
-	cmdList->StartDebugSection("Final Image Copy", Color::BLUE());
+	cmdList->StartDebugSection("Final Image Copy", Color::Blue);
 
-	const TIndex resourceIndex = Engine::GetRenderer()->GetCurrentResourceIndex();
+	const UIndex32 resourceIndex = Engine::GetRenderer()->GetCurrentResourceIndex();
 
 	GpuImage* sourceImage = taaProvider.IsActive()
 		? taaProvider.GetTaaOutput().GetTargetImage(resourceIndex)

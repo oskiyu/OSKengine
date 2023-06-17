@@ -9,7 +9,11 @@
 #include "IRenderer.h"
 #include "RenderApiType.h"
 
+#include "MaterialExceptions.h"
 #include "IRenderer.h"
+
+#include "InvalidDescriptionFileException.h"
+#include "RendererExceptions.h"
 
 #include <spirv_cross/spirv_glsl.hpp>
 
@@ -37,7 +41,7 @@ ShaderStage GetShaderStage(const std::string& type) {
 	if (type == "TESSELATION")
 		return ShaderStage::TESSELATION_ALL;
 
-	OSK_ASSERT(false, type + " no es un shader stage válido.");
+	OSK_ASSERT(false, NotImplementedException());
 
 	return ShaderStage::FRAGMENT;
 }
@@ -59,8 +63,8 @@ MaterialSystem::~MaterialSystem() {
 }
 
 void MaterialSystem::LoadMaterialV0(MaterialLayout* layout, const nlohmann::json& materialInfo, PipelineCreateInfo* info) {
-	OSK_ASSERT(materialInfo.contains("shader_file"), "Archivo de material incorrecto: no se encuentra 'shader_file'.");
-	OSK_ASSERT(materialInfo.contains("layout"), "Archivo de material incorrecto: no se encuentra 'layout'.");
+	OSK_ASSERT(materialInfo.contains("shader_file"), ASSETS::InvalidDescriptionFileException("Archivo de material incorrecto: no se encuentra 'shader_file'.", ""));
+	OSK_ASSERT(materialInfo.contains("layout"), ASSETS::InvalidDescriptionFileException("Archivo de material incorrecto: no se encuentra 'layout'.", ""));
 
 	info->precompiledHlslShaders = true;
 
@@ -146,7 +150,7 @@ void MaterialSystem::LoadMaterialV0(MaterialLayout* layout, const nlohmann::json
 		}
 	}
 
-	TSize hlslDescIndex = 0;
+	UIndex32 hlslDescIndex = 0;
 	for (auto& [name, slot] : layout->GetAllSlots()) {
 		for (auto& binding : slot.bindings) {
 			binding.second.hlslDescriptorIndex = hlslDescIndex;
@@ -162,12 +166,12 @@ void MaterialSystem::LoadMaterialV0(MaterialLayout* layout, const nlohmann::json
 
 }
 
-void LoadSpirvCrossShader(MaterialLayout* layout, const nlohmann::json& materialInfo, const DynamicArray<char>& bytecode, ShaderStage stage, TSize* pushConstantsOffset, TSize* numBuffers, TSize* numImages, TSize* numBindings) {
+void LoadSpirvCrossShader(MaterialLayout* layout, const nlohmann::json& materialInfo, const DynamicArray<char>& bytecode, ShaderStage stage, USize32* pushConstantsOffset, USize32* numBuffers, USize32* numImages, USize32* numBindings) {
 	spirv_cross::Compiler compiler((const uint32_t*)bytecode.GetData(), bytecode.GetSize() / 4);
 	spirv_cross::ShaderResources resources = compiler.get_shader_resources();
 
 	// Imágenes
-	for (auto& i : resources.sampled_images) {
+	for (const auto& i : resources.sampled_images) {
 		// Obtenemos el nombre del set (slot).
 		// Si no tiene nombre registrado en el archivo, su nombre será su número.
 		std::string setName = std::to_string(compiler.get_decoration(i.id, spv::DecorationDescriptorSet));
@@ -212,7 +216,7 @@ void LoadSpirvCrossShader(MaterialLayout* layout, const nlohmann::json& material
 	}
 
 	// Buffers
-	for (auto& i : resources.uniform_buffers) {
+	for (const auto& i : resources.uniform_buffers) {
 		// Obtenemos el nombre del set (slot).
 		// Si no tiene nombre registrado en el archivo, su nombre será su número.
 		std::string setName = std::to_string(compiler.get_decoration(i.id, spv::DecorationDescriptorSet));
@@ -252,7 +256,7 @@ void LoadSpirvCrossShader(MaterialLayout* layout, const nlohmann::json& material
 		layout->GetSlot(setName).bindings.Insert(binding.name, binding);
 	}
 
-	for (auto& i : resources.acceleration_structures) {
+	for (const auto& i : resources.acceleration_structures) {
 		// Obtenemos el nombre del set (slot).
 		// Si no tiene nombre registrado en el archivo, su nombre será su número.
 		std::string setName = std::to_string(compiler.get_decoration(i.id, spv::DecorationDescriptorSet));
@@ -289,7 +293,7 @@ void LoadSpirvCrossShader(MaterialLayout* layout, const nlohmann::json& material
 		layout->GetSlot(setName).bindings.Insert(binding.name, binding);
 	}
 
-	for (auto& i : resources.storage_images) {
+	for (const auto& i : resources.storage_images) {
 		// Obtenemos el nombre del set (slot).
 		// Si no tiene nombre registrado en el archivo, su nombre será su número.
 		std::string setName = std::to_string(compiler.get_decoration(i.id, spv::DecorationDescriptorSet));
@@ -381,7 +385,7 @@ void LoadSpirvCrossShader(MaterialLayout* layout, const nlohmann::json& material
 		MaterialLayoutPushConstant pushConstantInfo{};
 		pushConstantInfo.name = compiler.get_name(i.id);
 		pushConstantInfo.stage = stage;
-		pushConstantInfo.size = static_cast<TSize>(compiler.get_declared_struct_size(compiler.get_type(i.type_id)));
+		pushConstantInfo.size = static_cast<USize32>(compiler.get_declared_struct_size(compiler.get_type(i.type_id)));
 		pushConstantInfo.offset = *pushConstantsOffset;
 		pushConstantInfo.hlslIndex = *numBuffers;
 		pushConstantInfo.hlslBindingIndex = *numBindings;
@@ -396,15 +400,19 @@ void LoadSpirvCrossShader(MaterialLayout* layout, const nlohmann::json& material
 }
 
 void MaterialSystem::LoadMaterialV1(MaterialLayout* layout, const nlohmann::json& materialInfo, PipelineCreateInfo* info, MaterialType type) {
-	TSize pushConstantsOffset = 0;
+	USize32 pushConstantsOffset = 0;
 
-	TSize numHlslBuffers = 0;
-	TSize numHlslImages = 0;
-	TSize numHlslBindings = 0;
+	USize32 numHlslBuffers = 0;
+	USize32 numHlslImages = 0;
+	USize32 numHlslBindings = 0;
 
 	info->precompiledHlslShaders = false;
 
 	if (type == MaterialType::RAYTRACING) {
+		OSK_ASSERT(materialInfo.contains("rt_raygen_shader"), ASSETS::InvalidDescriptionFileException("Archivo de material incorrecto: no se encuentra 'rt_raygen_shader'.", ""));
+		OSK_ASSERT(materialInfo.contains("rt_closesthit_shader"), ASSETS::InvalidDescriptionFileException("Archivo de material incorrecto: no se encuentra 'rt_closesthit_shader'.", ""));
+		OSK_ASSERT(materialInfo.contains("rt_miss_shader"), ASSETS::InvalidDescriptionFileException("Archivo de material incorrecto: no se encuentra 'rt_miss_shader'.", ""));
+
 		info->rtRaygenShaderPath = materialInfo["rt_raygen_shader"];
 		info->rtClosestHitShaderPath = materialInfo["rt_closesthit_shader"];
 		info->rtMissShaderPath = materialInfo["rt_miss_shader"];
@@ -414,6 +422,9 @@ void MaterialSystem::LoadMaterialV1(MaterialLayout* layout, const nlohmann::json
 		LoadSpirvCrossShader(layout, materialInfo, FileIO::ReadBinaryFromFile(materialInfo["rt_miss_shader"]), ShaderStage::RT_MISS, &pushConstantsOffset, &numHlslBuffers, &numHlslImages, &numHlslBindings);
 	}
 	else if (type == MaterialType::GRAPHICS) {
+		OSK_ASSERT(materialInfo.contains("vertex_shader"), ASSETS::InvalidDescriptionFileException("Archivo de material incorrecto: no se encuentra 'vertex_shader'.", ""));
+		OSK_ASSERT(materialInfo.contains("fragment_shader"), ASSETS::InvalidDescriptionFileException("Archivo de material incorrecto: no se encuentra 'fragment_shader'.", ""));
+		
 		info->vertexPath = materialInfo["vertex_shader"];
 		info->fragmentPath = materialInfo["fragment_shader"];
 
@@ -429,11 +440,14 @@ void MaterialSystem::LoadMaterialV1(MaterialLayout* layout, const nlohmann::json
 		LoadSpirvCrossShader(layout, materialInfo, FileIO::ReadBinaryFromFile(materialInfo["fragment_shader"]), ShaderStage::FRAGMENT, &pushConstantsOffset, &numHlslBuffers, &numHlslImages, &numHlslBindings);
 	}
 	else if (type == MaterialType::COMPUTE) {
+		OSK_ASSERT(materialInfo.contains("compute_shader"), ASSETS::InvalidDescriptionFileException("Archivo de material incorrecto: no se encuentra 'compute_shader'.", ""));
+
 		info->computeShaderPath = materialInfo["compute_shader"];
+
 		LoadSpirvCrossShader(layout, materialInfo, FileIO::ReadBinaryFromFile(materialInfo["compute_shader"]), ShaderStage::COMPUTE, &pushConstantsOffset, &numHlslBuffers, &numHlslImages, &numHlslBindings);
 	}
 
-	TSize nextHlslBinding = 0;
+	UIndex32 nextHlslBinding = 0;
 	for (auto& [slotName, slot] : layout->GetAllSlots()) {
 		for (auto& [_, binding] : slot.bindings) {
 			binding.hlslDescriptorIndex = nextHlslBinding;
@@ -456,12 +470,12 @@ Material* MaterialSystem::LoadMaterial(const std::string& path) {
 	// Material file.
 	nlohmann::json materialInfo = nlohmann::json::parse(IO::FileIO::ReadFromFile(path));
 
-	OSK_ASSERT(materialInfo.contains("file_type"), "Archivo de material incorrecto: no se encuentra 'file_type'.");
-	OSK_ASSERT(materialInfo.contains("name"), "Archivo de material incorrecto: no se encuentra 'name'.");
+	OSK_ASSERT(materialInfo.contains("file_type"), ASSETS::InvalidDescriptionFileException("Archivo de material incorrecto: no se encuentra 'file_type'.", ""));
+	OSK_ASSERT(materialInfo.contains("name"), ASSETS::InvalidDescriptionFileException("Archivo de material incorrecto: no se encuentra 'name'.", ""));
 
 	MaterialType type = MaterialType::GRAPHICS;
 	if (materialInfo["file_type"] == "MATERIAL_RT") {
-		OSK_ASSERT(Engine::GetRenderer()->SupportsRaytracing(), "No se puede cargar un material de raytracing.");
+		OSK_ASSERT(Engine::GetRenderer()->SupportsRaytracing(), RayTracingNotSupportedException());
 		type = MaterialType::RAYTRACING;
 	}
 	else if (materialInfo["file_type"] == "MATERIAL_COMPUTE") {
@@ -471,7 +485,7 @@ Material* MaterialSystem::LoadMaterial(const std::string& path) {
 	VertexInfo vertexType = {};
 	
 	if (type == MaterialType::GRAPHICS) {
-		OSK_ASSERT(materialInfo.contains("vertex_type"), "Archivo de material incorrecto: no se encuentra 'vertex_type'.");
+		OSK_ASSERT(materialInfo.contains("vertex_type"), ASSETS::InvalidDescriptionFileException("Archivo de material incorrecto: no se encuentra 'vertex_type'.", path));
 		vertexType = vertexTypesTable.Get(materialInfo["vertex_type"]);
 	}
 
@@ -487,7 +501,7 @@ Material* MaterialSystem::LoadMaterial(const std::string& path) {
 	else if (fileVersion == 1)
 		LoadMaterialV1(layout, materialInfo, &info, type);
 	else
-		OSK_ASSERT(false, "La versión del archivo de material json no está soportada (" + std::to_string(fileVersion) + ").");
+		OSK_ASSERT(false, ASSETS::InvalidDescriptionFileException("La versión del archivo de material no está soportada.", path))
 
 	if (materialInfo.find("config") != materialInfo.end()) {
 		if (materialInfo["config"].contains("depth_testing")) {
@@ -498,7 +512,7 @@ Material* MaterialSystem::LoadMaterial(const std::string& path) {
 			else if (materialInfo["config"]["depth_testing"] == "read/write")
 				info.depthTestingType = DepthTestingType::READ_WRITE;
 			else
-				OSK_ASSERT(false, "Error en el archivo de material" + path + ": config depth_testing inválido.");
+				OSK_ASSERT(false, ASSETS::InvalidDescriptionFileException("Error en el archivo de material: config depth_testing inválido.", path));
 		}
 
 		if (materialInfo["config"].contains("cull_mode")) {
@@ -509,7 +523,7 @@ Material* MaterialSystem::LoadMaterial(const std::string& path) {
 			else if (materialInfo["config"]["cull_mode"] == "back")
 				info.cullMode = PolygonCullMode::BACK;
 			else
-				OSK_ASSERT(false, "Error en el archivo de material" + path + ": config cull_mode inválido.");
+				OSK_ASSERT(false, ASSETS::InvalidDescriptionFileException("Error en el archivo de material: config cull_mode inválido.", path));
 		}
 
 		if (materialInfo["config"].contains("disable_alpha_blending"))
@@ -531,18 +545,18 @@ Material* MaterialSystem::LoadMaterial(const std::string& path) {
 }
 
 Material* MaterialSystem::GetMaterialByName(const std::string& name) const {
-	OSK_ASSERT(materialsNameTable.ContainsKey(name), "El material " + name + " no está cargado.");
+	OSK_ASSERT(materialsNameTable.ContainsKey(name), MaterialNotFoundException(name));
 	return materialsNameTable.Get(name);
 }
 
 void MaterialSystem::ReloadMaterialByPath(const std::string& path) {
-	OSK_ASSERT(materialsPathTable.ContainsKey(path), "El material " + path + " no está cargado.");
+	OSK_ASSERT(materialsPathTable.ContainsKey(path), MaterialNotFoundException(path));
 	Engine::GetRenderer()->WaitForCompletion();
 	LoadMaterial(path)->_Reload();
 }
 
 void MaterialSystem::ReloadMaterialByName(const std::string& name) {
-	OSK_ASSERT(materialsNameTable.ContainsKey(name), "El material " + name + " no está cargado.");
+	OSK_ASSERT(materialsNameTable.ContainsKey(name), MaterialNotFoundException(name));
 	Engine::GetRenderer()->WaitForCompletion();
 	GetMaterialByName(name)->_Reload();
 }

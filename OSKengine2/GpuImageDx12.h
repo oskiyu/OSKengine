@@ -14,11 +14,11 @@ namespace OSK::GRAPHICS {
 
 	public:
 
-		GpuImageDx12(const Vector3ui& size, GpuImageDimension dimension, GpuImageUsage usage, TSize numLayers, Format format, TSize numSamples, GpuImageSamplerDesc samplerDesc);
+		GpuImageDx12(const Vector3ui& size, GpuImageDimension dimension, GpuImageUsage usage, USize32 numLayers, Format format, USize32 numSamples, GpuImageSamplerDesc samplerDesc);
 
 		void FillResourceDesc();
 		const D3D12_RESOURCE_DESC& GetResourceDesc();
-		void CreateResource(ID3D12Heap* memory, TSize memoryOffset);
+		void CreateResource(ID3D12Heap* memory, USize64 memoryOffset);
 
 		// Swapchain
 		void _SetResource(ComPtr<ID3D12Resource> resource);

@@ -5,20 +5,23 @@
 #include "Material.h"
 #include "Math.h"
 
+#include "AnimationExceptions.h"
+
 using namespace OSK;
 using namespace OSK::GRAPHICS;
 
 void Animator::Setup(const glm::mat4& initialTransform) {
 	this->initialTransform = initialTransform;
 
-	materialInstance = Engine::GetRenderer()->GetMaterialSystem()->LoadMaterial("Resources/Materials/PBR/animated_direct_pbr.json")->CreateInstance().GetPointer();
+	materialInstance = Engine::GetRenderer()->GetMaterialSystem()
+		->LoadMaterial("Resources/Materials/PBR/animated_direct_pbr.json")->CreateInstance().GetPointer();
 
-	for (TSize i = 0; i < _countof(boneBuffers); i++) {
-		boneBuffers[i] = Engine::GetRenderer()->GetAllocator()->CreateStorageBuffer(sizeof(glm::mat4) * boneMatrices.GetSize()).GetPointer();
+	for (auto& buffer : boneBuffers) {
+		buffer = Engine::GetRenderer()->GetAllocator()->CreateStorageBuffer(sizeof(glm::mat4) * boneMatrices.GetSize()).GetPointer();
 
-		boneBuffers[i]->MapMemory();
-		boneBuffers[i]->Write(boneMatrices.GetData(), boneMatrices.GetSize() * sizeof(glm::mat4));
-		boneBuffers[i]->Unmap();
+		buffer->MapMemory();
+		buffer->Write(boneMatrices.GetData(), boneMatrices.GetSize() * sizeof(glm::mat4));
+		buffer->Unmap();
 	}
 
 	const GpuBuffer* buffers[3] = {
@@ -41,7 +44,7 @@ void Animator::Update(TDeltaTime deltaTime) {
 	for (const std::string& animationName : activeAnimations) {
 		const Animation& animation = availableAnimations.Get(animationName);
 
-		for (TIndex boneIndex = 0; boneIndex < GetActiveSkin()->bonesIds.GetSize(); boneIndex++) {
+		for (UIndex32 boneIndex = 0; boneIndex < GetActiveSkin()->bonesIds.GetSize(); boneIndex++) {
 			const float ratio = 1.0f;// / activeAnimations.GetSize();
 
 			// Transforma de espacio local a espacio de joint.
@@ -61,9 +64,7 @@ void Animator::Update(TDeltaTime deltaTime) {
 }
 
 void Animator::AddActiveAnimation(const std::string& name) {
-	OSK_ASSERT(availableAnimations.ContainsKey(name),
-		"Se ha intentado acceder a la animación "
-		+ name + " pero no existe.");
+	OSK_ASSERT(availableAnimations.ContainsKey(name), ModelAnimationNotFoundException(name));
 
 	activeAnimations.Insert(name);
 }
@@ -73,10 +74,6 @@ void Animator::RemoveActiveAnimation(const std::string& name) {
 }
 
 void Animator::_AddAnimation(const Animation& animation) {
-	OSK_ASSERT(!availableAnimations.ContainsKey(animation.name),
-		"Se ha intentado añadir a la animación "
-		+ animation.name + " pero ya existe.");
-
 	availableAnimations.Insert(animation.name, animation);
 
 	for (const auto& node : nodes)
@@ -89,26 +86,26 @@ void Animator::_AddNode(const MeshNode& node) {
 }
 
 void Animator::_AddSkin(AnimationSkin&& skin) {
-	const TIndex skinIndex = availableSkins.GetSize();
+	const UIndex32 skinIndex = availableSkins.GetSize();
 
 	availableSkins.Insert(skin);
 	availableSkinsByName.Insert(skin.name, skinIndex);
 }
 
 void Animator::SetActiveSkin(const std::string& name) {
-	OSK_ASSERT(availableSkinsByName.ContainsKey(name),
-		"Se ha intentado acceder a la skin "
-		+ name + " pero no existe.");
+	OSK_ASSERT(availableSkinsByName.ContainsKey(name), ModelSkinNotFoundException(name));
 
 	activeSkin = name;
 }
 
 const AnimationSkin* Animator::GetActiveSkin() const {
-	return activeSkin == "" ? nullptr : &availableSkins.At(availableSkinsByName.Get(activeSkin));
+	return activeSkin == "" 
+		? nullptr 
+		: &availableSkins.At(availableSkinsByName.Get(activeSkin));
 }
 
-const AnimationSkin& Animator::GetSkin(TIndex index) const {
-	OSK_ASSERT(index < availableSkins.GetSize(), "No existe la skin con el índice " + std::to_string(index));
+const AnimationSkin& Animator::GetSkin(UIndex32 index) const {
+	OSK_ASSERT(index < availableSkins.GetSize(), ModelSkinNotFoundException(std::format("índice {}", index)));
 
 	return availableSkins[index];
 }

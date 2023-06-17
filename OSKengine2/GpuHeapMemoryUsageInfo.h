@@ -12,10 +12,10 @@ namespace OSK::GRAPHICS {
 	struct GpuHeapMemoryUsageInfo {
 
 		/// @brief Capacidad máxima del heap, en bytes.
-		TSize maxCapacity;
+		USize64 maxCapacity;
 
 		/// @brief Espacio usado, en bytes.
-		TSize usedSpace;
+		USize64 usedSpace;
 
 		/// @brief Tipo de memoria.
 		GpuSharedMemoryType memoryType;

@@ -4,6 +4,8 @@
 #include "UniquePtr.hpp"
 #include "IGpuImage.h"
 
+#include <array>
+
 namespace OSK::GRAPHICS {
 
 	enum class PresentMode;
@@ -21,7 +23,12 @@ namespace OSK::GRAPHICS {
 
 	public:
 
+		OSK_DEFINE_AS(ISwapchain);
+
 		virtual ~ISwapchain() = default;
+
+
+		void TakeScreenshot();
 
 		/// <summary>
 		/// Devuelve el número de imágenes del swapchain.
@@ -37,10 +44,6 @@ namespace OSK::GRAPHICS {
 		/// Envía la imagen renderizada al monitor.
 		/// </summary>
 		virtual void Present() = 0;
-
-		template <typename T> T* As() const requires std::is_base_of_v<ISwapchain, T> {
-			return (T*)this;
-		}
 
 		/// <summary>
 		/// Devuelve la imagen con el índice dado.
@@ -64,7 +67,7 @@ namespace OSK::GRAPHICS {
 		IGpu* device = nullptr;
 		unsigned int imageCount = 3;
 
-		UniquePtr<GpuImage> images[3];
+		std::array<UniquePtr<GpuImage>, 3> images{};
 		unsigned int currentFrameIndex = 0;
 
 	};

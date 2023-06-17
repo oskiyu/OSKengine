@@ -38,6 +38,12 @@ namespace OSK {
 			QueryInterface((TInterfaceUuid)uuid, ptr);
 		}
 
+		virtual void QueryConstInterface(TInterfaceUuid uuid, const void** ptr) const = 0;
+
+		inline void QueryConstInterface(IUUID uuid, const void** ptr) const {
+			QueryConstInterface((TInterfaceUuid)uuid, ptr);
+		}
+
 	};
 
 }

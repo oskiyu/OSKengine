@@ -65,10 +65,10 @@ vec3 GetRadiance(vec3 F0, vec3 direction, vec3 view, vec3 normal, vec3 lightColo
     kD *= 1.0 - metallicFactor;
 
     vec3 num = NDF * G * F;
-    float denom = 4.0 * max(dot(normal, view), 0.0) * max(dot(normal, L), 0.0) + 0.001;
+    float denom = 6.0 * max(dot(normal, view), 0.0) * max(dot(normal, L), 0.0) + 0.0001;
     vec3 specular = num / denom;
 
-    return (kD * albedoColor / PI + specular) * radiance * max(dot(normal, L), 0.0);
+    return (kD * albedoColor / (PI * 0.5) + specular) * radiance * max(dot(normal, L), 0.0);
 }
 
 vec4 GetShadowCoordinates(mat4[4] shadowMatrices, int cascadeIndex, vec3 fragPosition) {

@@ -53,7 +53,7 @@ ColliderRenderSystem::ColliderRenderSystem() {
 
 	// Material setup
 	const GpuBuffer* _cameraUbos[NUM_RESOURCES_IN_FLIGHT]{};
-	for (TIndex i = 0; i < NUM_RESOURCES_IN_FLIGHT; i++) {
+	for (UIndex32 i = 0; i < NUM_RESOURCES_IN_FLIGHT; i++) {
 		cameraUbos[i] = Engine::GetRenderer()->GetAllocator()
 			->CreateUniformBuffer(sizeof(glm::mat4) * 2 + sizeof(glm::vec4))
 			.GetPointer();
@@ -81,7 +81,7 @@ void ColliderRenderSystem::Render(GRAPHICS::ICommandList* commandList) {
 	if (cameraObject == EMPTY_GAME_OBJECT)
 		return;
 
-	const TSize resourceIndex = Engine::GetRenderer()->GetCurrentResourceIndex();
+	const UIndex32 resourceIndex = Engine::GetRenderer()->GetCurrentResourceIndex();
 
 	const CameraComponent3D& camera = Engine::GetEcs()->GetComponent<CameraComponent3D>(cameraObject);
 	const Transform3D& cameraTransform = Engine::GetEcs()->GetComponent<Transform3D>(cameraObject);
@@ -98,9 +98,9 @@ void ColliderRenderSystem::Render(GRAPHICS::ICommandList* commandList) {
 		Color color;
 	} renderInfo {};
 
-	commandList->StartDebugSection("Collision Render", Color::RED());
+	commandList->StartDebugSection("Collision Render", Color::Red);
 
-	commandList->BeginGraphicsRenderpass(&renderTarget, Color::BLACK() * 0.0f);
+	commandList->BeginGraphicsRenderpass(&renderTarget, Color::Black * 0.0f);
 	SetupViewport(commandList);
 
 
@@ -129,9 +129,9 @@ void ColliderRenderSystem::Render(GRAPHICS::ICommandList* commandList) {
 		const ITopLevelCollider* topLevelCollider = collider.GetTopLevelCollider();
 
 		if (collisionObjects.contains(gameObject))
-			renderInfo.color = Color::RED() * 0.75f;
+			renderInfo.color = Color::Red * 0.75f;
 		else
-			renderInfo.color = Color::YELLOW() * 0.75f;
+			renderInfo.color = Color::Yellow * 0.75f;
 
 		if (auto* box = dynamic_cast<const AxisAlignedBoundingBox*>(topLevelCollider)) {
 			topLevelTransform.SetScale(box->GetSize());
@@ -157,15 +157,15 @@ void ColliderRenderSystem::Render(GRAPHICS::ICommandList* commandList) {
 			const auto& indexBuffers = bottomLevelIndexBuffers.Get(gameObject);
 
 			if (collisionObjects.contains(gameObject))
-				renderInfo.color = Color::RED();
+				renderInfo.color = Color::Red;
 			else
-				renderInfo.color = Color::YELLOW();
+				renderInfo.color = Color::Yellow;
 
 			renderInfo.modelMatrix = originalTransform.GetAsMatrix();
 			commandList->PushMaterialConstants("pushConstants", renderInfo);
 
 			commandList->BindMaterial(*lowLevelMaterial);
-			for (TIndex i = 0; i < vertexBuffers.GetSize(); i++) {
+			for (UIndex64 i = 0; i < vertexBuffers.GetSize(); i++) {
 				commandList->BindVertexBuffer(*vertexBuffers[i].GetPointer());
 				commandList->BindIndexBuffer(*indexBuffers[i].GetPointer());
 				commandList->DrawSingleInstance(indexBuffers[i]->GetIndexView().numIndices);
@@ -181,18 +181,18 @@ void ColliderRenderSystem::Render(GRAPHICS::ICommandList* commandList) {
 
 	struct {
 		Vector4f point;
-		Color color = Color::RED();
+		Color color = Color::Red;
 	} pushConstant;
 
 	for (const Vector3f point : contactPoints) {
-		pushConstant.point = Vector4f(point.X, point.Y, point.Z, 1.0f);
+		pushConstant.point = Vector4f(point.x, point.y, point.Z, 1.0f);
 		commandList->PushMaterialConstants("pushConstants", pushConstant);
 		commandList->DrawSingleInstance(1);
 	}
 
-	pushConstant.color = Color::PURPLE();
+	pushConstant.color = Color::Purple;
 	for (const Vector3f point : singleContactPoints) {
-		pushConstant.point = Vector4f(point.X, point.Y, point.Z, 1.0f);
+		pushConstant.point = Vector4f(point.x, point.y, point.Z, 1.0f);
 		commandList->PushMaterialConstants("pushConstants", pushConstant);
 		commandList->DrawSingleInstance(1);
 	}
@@ -227,7 +227,7 @@ void ColliderRenderSystem::SetupBottomLevelModel(GameObjectIndex obj) {
 	DynamicArray<OwnedPtr<GpuBuffer>> indexBuffers;
 
 	
-	for (TIndex c = 0; c < collider.GetBottomLevelCollidersCount(); c++) {
+	for (UIndex64 c = 0; c < collider.GetBottomLevelCollidersCount(); c++) {
 		const auto& blc = *collider.GetBottomLevelCollider(c)->As<ConvexVolume>();
 
 		// "Convertimos" los vértices del collider
@@ -238,8 +238,8 @@ void ColliderRenderSystem::SetupBottomLevelModel(GameObjectIndex obj) {
 
 			vertex.position = cVertex;
 			vertex.normal = 0.0f;
-			vertex.color = Color::WHITE();
-			vertex.texCoords = 0.0f;
+			vertex.color = Color::White;
+			vertex.texCoords = Vector2f::Zero;
 
 			vertices.Insert(vertex);
 		}

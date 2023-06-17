@@ -13,6 +13,8 @@
 #include "OSKengine.h"
 #include "IRenderer.h"
 
+#include "GpuMemoryExceptions.h"
+
 using namespace OSK;
 using namespace OSK::GRAPHICS;
 
@@ -32,14 +34,14 @@ GpuMemoryBlockVk::~GpuMemoryBlockVk() {
 	}
 }
 
-OwnedPtr<GpuMemoryBlockVk> GpuMemoryBlockVk::CreateNewBufferBlock(TSize reservedSize, IGpu* device, GpuSharedMemoryType type, GpuBufferUsage bufferUSage) {
+OwnedPtr<GpuMemoryBlockVk> GpuMemoryBlockVk::CreateNewBufferBlock(USize64 reservedSize, IGpu* device, GpuSharedMemoryType type, GpuBufferUsage bufferUSage) {
 	return new GpuMemoryBlockVk(reservedSize, device, type, bufferUSage);
 }
 OwnedPtr<GpuMemoryBlockVk> GpuMemoryBlockVk::CreateNewImageBlock(GpuImage* image, IGpu* device, GpuSharedMemoryType type, GpuImageUsage imageUSage) {
 	return new GpuMemoryBlockVk(image, device, imageUSage, type);
 }
 
-GpuMemoryBlockVk::GpuMemoryBlockVk(TSize reservedSize, IGpu* device, GpuSharedMemoryType type, GpuBufferUsage bufferUSage)
+GpuMemoryBlockVk::GpuMemoryBlockVk(USize64 reservedSize, IGpu* device, GpuSharedMemoryType type, GpuBufferUsage bufferUSage)
 	: IGpuMemoryBlock(reservedSize, device, type, GpuMemoryUsage::BUFFER) {
 
 	VkBufferCreateInfo bufferInfo{};
@@ -49,7 +51,7 @@ GpuMemoryBlockVk::GpuMemoryBlockVk(TSize reservedSize, IGpu* device, GpuSharedMe
 	bufferInfo.sharingMode = VK_SHARING_MODE_EXCLUSIVE;
 
 	VkResult result = vkCreateBuffer(device->As<GpuVk>()->GetLogicalDevice(), &bufferInfo, nullptr, &buffer);
-	OSK_ASSERT(result == VK_SUCCESS, "Error al crear buffer en la GPU.");
+	OSK_ASSERT(result == VK_SUCCESS, GpuBufferCreationException(result));
 		
 	VkMemoryRequirements memRequirements;
 	vkGetBufferMemoryRequirements(device->As<GpuVk>()->GetLogicalDevice(), buffer, &memRequirements);
@@ -66,18 +68,18 @@ GpuMemoryBlockVk::GpuMemoryBlockVk(TSize reservedSize, IGpu* device, GpuSharedMe
 	allocInfo.pNext = &memoryAllocateFlagsInfo;
 
 	result = vkAllocateMemory(device->As<GpuVk>()->GetLogicalDevice(), &allocInfo, nullptr, &memory);
-	OSK_ASSERT(result == VK_SUCCESS, "Error al asignar memoria en la GPU.");
+	OSK_ASSERT(result == VK_SUCCESS, GpuMemoryAllocException(result));
 
 	vkBindBufferMemory(device->As<GpuVk>()->GetLogicalDevice(), buffer, memory, 0);
 }
 
-OwnedPtr<IGpuMemorySubblock> GpuMemoryBlockVk::CreateNewMemorySubblock(TSize size, TSize offset) {
+OwnedPtr<IGpuMemorySubblock> GpuMemoryBlockVk::CreateNewMemorySubblock(USize64 size, USize64 offset) {
 	return new GpuMemorySubblockVk(this, size, offset);
 }
 
 GpuMemoryBlockVk::GpuMemoryBlockVk(GpuImage* image, IGpu* device, GpuImageUsage imageUsage, GpuSharedMemoryType type)
 	: IGpuMemoryBlock(
-		GetFormatNumberOfBytes(image->GetFormat()) * image->GetSize2D().X * image->GetSize2D().Y, 
+		GetFormatNumberOfBytes(image->GetFormat()) * image->GetSize2D().x * image->GetSize2D().y, 
 		device, type, GpuMemoryUsage::IMAGE) {
 	
 	VkMemoryRequirements memRequirements{};
@@ -89,7 +91,7 @@ GpuMemoryBlockVk::GpuMemoryBlockVk(GpuImage* image, IGpu* device, GpuImageUsage 
 	allocInfo.memoryTypeIndex = GetMemoryType(memRequirements.memoryTypeBits, device->As<GpuVk>(), type);
 
 	VkResult result = vkAllocateMemory(device->As<GpuVk>()->GetLogicalDevice(), &allocInfo, nullptr, &memory);
-	OSK_ASSERT(result == VK_SUCCESS, "No se pudo reservar memoria para la imagen");
+	OSK_ASSERT(result == VK_SUCCESS, GpuMemoryAllocException(result));
 
 	vkBindImageMemory(device->As<GpuVk>()->GetLogicalDevice(), image->As<GpuImageVk>()->GetVkImage(), memory, 0);
 }
@@ -128,7 +130,7 @@ uint32_t GpuMemoryBlockVk::GetMemoryType(uint32_t memoryTypeFilter, GpuVk* devic
 		if ((memoryTypeFilter & (1 << i)) && ((device->GetInfo().memoryProperties.memoryTypes[i].propertyFlags & nativeSharedMode) == nativeSharedMode))
 			return i;
 
-	OSK_ASSERT(false, "No se encontró memoria en la GPU comptible");
+	OSK_ASSERT(false, GpuMemoryAllocException(0));
 
 	return -1;
 }

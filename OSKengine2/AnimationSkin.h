@@ -19,18 +19,18 @@ namespace OSK::GRAPHICS {
 
 
 		/// @brief Índice de este nodo.
-		TIndex thisIndex = std::numeric_limits<TIndex>::max();
+		UIndex32 thisIndex = std::numeric_limits<UIndex32>::max();
 
 		/// @brief Índice del nodo  root de la skin.
 		/// @note opcional.
-		TIndex rootIndex = std::numeric_limits<TIndex>::max();
+		UIndex32 rootIndex = std::numeric_limits<UIndex32>::max();
 
 		/// @brief Matrices inversas de la transformación global de los huesos en el estado inicial.
 		DynamicArray<glm::mat4> inverseMatrices;
 
 		/// @brief Huesos a los que se aplica la Skin. 
 		/// También funciona como un mapa boneID -> nodeID.
-		DynamicArray<TIndex> bonesIds;
+		DynamicArray<UIndex32> bonesIds;
 
 	};
 

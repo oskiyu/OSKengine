@@ -14,21 +14,21 @@ void TerrainComponent::Generate(const Vector2ui& resolution) {
 	DynamicArray<Vertex3D> terrainVertices;
 	DynamicArray<TIndexSize> terrainIndices;
 
-	for (TSize posX = 0; posX < resolution.X; posX++) {
-		for (TSize posY = 0; posY < resolution.Y; posY++) {
+	for (UIndex32 posX = 0; posX < resolution.x; posX++) {
+		for (UIndex32 posY = 0; posY < resolution.y; posY++) {
 			terrainVertices.Insert(Vertex3D{
-				(Vector3f(static_cast<float>(posX), 0, static_cast<float>(posY)) / Vector3f((float)resolution.X, 1, (float)resolution.Y)),
+				(Vector3f(static_cast<float>(posX), 0, static_cast<float>(posY)) / Vector3f((float)resolution.x, 1, (float)resolution.y)),
 				 Vector3f(0),
-				 Color::WHITE(),
+				 Color::White,
 				 Vector2f(static_cast<float>(posX), static_cast<float>(posY)) / resolution.ToVector2f()
 				});
 		}
 	}
 
-	for (TSize y = 0; y < resolution.Y - 1; y++) {
-		for (TSize x = 0; x < resolution.X - 1; x++) {
-			terrainIndices.InsertAll({ x + y * resolution.X, x + 1 + y * resolution.X, x + (y + 1) * resolution.X,
-									   x + 1 + (y + 1) * resolution.X, x + 1 + y * resolution.X, x + (y + 1) * resolution.X });
+	for (UIndex32 y = 0; y < resolution.y - 1; y++) {
+		for (UIndex32 x = 0; x < resolution.x - 1; x++) {
+			terrainIndices.InsertAll({ x + y * resolution.x, x + 1 + y * resolution.x, x + (y + 1) * resolution.x,
+									   x + 1 + (y + 1) * resolution.x, x + 1 + y * resolution.x, x + (y + 1) * resolution.x });
 		}
 	}
 
@@ -55,6 +55,6 @@ MaterialInstance* TerrainComponent::GetMaterialInstance() const {
 	return materialInstance.GetPointer();
  }
 
-TSize TerrainComponent::GetNumIndices() const {
+USize32 TerrainComponent::GetNumIndices() const {
 	return numIndices;
 }

@@ -3,15 +3,15 @@
 using namespace OSK::GRAPHICS;
 
 
-Mesh3D::Mesh3D(TSize numIndices, TSize firstIndex) 
+Mesh3D::Mesh3D(USize32 numIndices, UIndex32 firstIndex)
 	: numIndices(numIndices), firstIndex(firstIndex) {
 
 }
 
-TSize Mesh3D::GetNumberOfIndices() const {
+USize32 Mesh3D::GetNumberOfIndices() const {
 	return numIndices;
 }
 
-TSize Mesh3D::GetFirstIndexId() const {
+UIndex32 Mesh3D::GetFirstIndexId() const {
 	return firstIndex;
 }

@@ -45,8 +45,8 @@ namespace OSK::GRAPHICS {
 			const std::string& name, 
 			const MaterialLayout& layout) const override;
 
-		TSize GetCurrentFrameIndex() const override;
-		TSize GetCurrentCommandListIndex() const override;
+		UIndex32 GetCurrentFrameIndex() const override;
+		UIndex32 GetCurrentCommandListIndex() const override;
 
 		bool SupportsRaytracing() const override;
 
@@ -78,7 +78,6 @@ namespace OSK::GRAPHICS {
 
 		void CreateCommandQueues() override;
 		void CreateSwapchain(PresentMode mode) override;
-		void CreateSyncDevice() override;
 		void CreateGpuMemoryAllocator() override;
 
 	private:
@@ -86,9 +85,12 @@ namespace OSK::GRAPHICS {
 		void CreateInstance(const std::string& appName, const Version& version);
 		void SetupDebugLogging();
 		void CreateSurface(const IO::IDisplay& display);
+		/// @throws GpuNotFoundException Si no se encuentra ninguna GPU compatible.
+		/// @throws LogicalDeviceCreationException Si ocurre algún error al establecer la conexión lógica.
 		void ChooseGpu();
 
 		// Sync
+		void CreateSyncPrimitives();
 		void SubmitPreComputeCommands();
 		void SubmitGraphicsCommands();
 		void SubmitPostComputeCommands();
@@ -119,10 +121,10 @@ namespace OSK::GRAPHICS {
 
 		DynamicArray<VkFence> fullyRenderedFences;
 
-		TSize currentCommandBufferIndex = 0;
-		TSize currentFrameIndex = 0;
+		USize32 currentCommandBufferIndex = 0;
+		USize32 currentFrameIndex = 0;
 
-		TSize vulkanVersion = VK_API_VERSION_1_3;
+		USize32 vulkanVersion = VK_API_VERSION_1_3;
 
 	};
 

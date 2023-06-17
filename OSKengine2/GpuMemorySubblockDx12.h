@@ -13,12 +13,12 @@ namespace OSK::GRAPHICS {
 
 	public:
 
-		GpuMemorySubblockDx12(IGpuMemoryBlock* owner, TSize size, TSize offset, ComPtr<ID3D12Resource> resource);
+		GpuMemorySubblockDx12(IGpuMemoryBlock* owner, USize64 size, USize64 offset, ComPtr<ID3D12Resource> resource);
 
 		void MapMemory() override;
-		void MapMemory(TSize size, TSize offset) override;
-		void Write(const void* data, TSize size) override;
-		void WriteOffset(const void* data, TSize size, TSize offset) override;
+		void MapMemory(USize64 size, USize64 offset) override;
+		void Write(const void* data, USize64 size) override;
+		void WriteOffset(const void* data, USize64 size, USize64 offset) override;
 		void Unmap() override;
 
 		ID3D12Resource* GetResource() const;

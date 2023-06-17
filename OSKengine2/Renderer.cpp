@@ -16,6 +16,8 @@
 #include "Format.h"
 #include "IPostProcessPass.h"
 
+#include "InvalidArgumentException.h"
+
 using namespace OSK;
 using namespace OSK::IO;
 using namespace OSK::ECS;
@@ -49,14 +51,11 @@ IGpu* IRenderer::GetGpu() const {
 	return currentGpu.GetPointer();
 }
 
-void IRenderer::UploadLayeredImageToGpu(GpuImage* destination, const TByte* data, TSize numBytes, TSize numLayers, ICommandList* cmdList) {
-	OSK_ASSERT(numLayers > 0, "El número de capas debe ser > 0.");
-	OSK_ASSUME(numLayers > 0);
+void IRenderer::UploadLayeredImageToGpu(GpuImage* destination, const TByte* data, USize64 numBytes, USize32 numLayers, ICommandList* cmdList) const {
+	OSK_ASSERT(numLayers > 0, InvalidArgumentException("El número de capas debe ser > 0."));
+	OSK_ASSERT(numBytes > 0, InvalidArgumentException("El número de bytes debe ser > 0."));
 
-	OSK_ASSERT(numBytes > 0, "El número de bytes debe ser > 0.");
-	OSK_ASSUME(numLayers > 0);
-
-	TSize gpuNumBytes = destination->GetPhysicalNumberOfBytes() * numLayers;
+	USize64 gpuNumBytes = destination->GetPhysicalNumberOfBytes() * numLayers;
 
 	const TByte* uploadableData = data;
 
@@ -65,8 +64,8 @@ void IRenderer::UploadLayeredImageToGpu(GpuImage* destination, const TByte* data
 	stagingBuffer->Write(uploadableData, gpuNumBytes);
 	stagingBuffer->Unmap();
 
-	TSize offsetPerIteration = gpuNumBytes / numLayers;
-	for (TSize i = 0; i < numLayers; i++)
+	USize64 offsetPerIteration = gpuNumBytes / numLayers;
+	for (UIndex32 i = 0; i < numLayers; i++)
 		cmdList->CopyBufferToImage(stagingBuffer.GetValue(), destination, i, offsetPerIteration * i);
 
 	cmdList->RegisterStagingBuffer(stagingBuffer);
@@ -81,27 +80,20 @@ void IRenderer::HandleResize() {
 		for (auto i : Engine::GetEcs()->GetRenderSystems())
 			i->Resize(windowSize);
 
-	for (auto i : resizableRenderTargets)
-		i->Resize(windowSize);
-
-	for (auto i : resizablePostProcessingPasses)
-		i->Resize(windowSize);
-
-	for (auto& i : resizeCallbacks)
-		i(windowSize);
-
 	finalRenderTarget->Resize(windowSize);
+
+	Engine::GetEcs()->PublishEvent<IDisplay::ResolutionChangedEvent>({ windowSize });
 }
 
-const TByte* IRenderer::FormatImageDataForGpu(const GpuImage* image, const TByte* data, TSize numLayers) {
+const TByte* IRenderer::FormatImageDataForGpu(const GpuImage* image, const TByte* data, USize32 numLayers) {
 	return data;
 }
 
-void IRenderer::UploadImageToGpu(GpuImage* destination, const TByte* data, TSize numBytes, ICommandList* cmdList) {
+void IRenderer::UploadImageToGpu(GpuImage* destination, const TByte* data, USize64 numBytes, ICommandList* cmdList) const {
 	UploadLayeredImageToGpu(destination, data, numBytes, 1, cmdList);
 }
 
-void IRenderer::UploadCubemapImageToGpu(GpuImage* destination, const TByte* data, TSize numBytes, ICommandList* cmdList) {
+void IRenderer::UploadCubemapImageToGpu(GpuImage* destination, const TByte* data, USize64 numBytes, ICommandList* cmdList) const {
 	UploadLayeredImageToGpu(destination, data, numBytes, 6, cmdList);
 }
 
@@ -128,7 +120,7 @@ RenderApiType IRenderer::GetRenderApi() const {
 	return renderApiType;
 }
 
-TSize IRenderer::GetSwapchainImagesCount() const {
+USize32 IRenderer::GetSwapchainImagesCount() const {
 	return swapchain->GetImageCount();
 }
 
@@ -140,7 +132,7 @@ RenderTarget* IRenderer::GetFinalRenderTarget() const {
 	return finalRenderTarget.GetPointer();
 }
 
-TIndex IRenderer::GetCurrentResourceIndex() const {
+UIndex32 IRenderer::GetCurrentResourceIndex() const {
 	return this->GetCurrentCommandListIndex();
 }
 
@@ -160,32 +152,10 @@ Material* IRenderer::GetFullscreenRenderingMaterial() const {
 	return materialSystem->LoadMaterial("Resources/Materials/2D/material_rendertarget.json");
 }
 
-void IRenderer::RegisterRenderTarget(RenderTarget* renderTarget) {
-	if (!resizableRenderTargets.ContainsElement(renderTarget))
-		resizableRenderTargets.Insert(renderTarget);
-}
-
-void IRenderer::UnregisterRenderTarget(RenderTarget* renderTarget) {
-	resizableRenderTargets.Remove(renderTarget);
-}
-
-void IRenderer::RegisterPostProcessingPass(IPostProcessPass* pass) {
-	if (!resizablePostProcessingPasses.ContainsElement(pass))
-		resizablePostProcessingPasses.Insert(pass);
-}
-
-void IRenderer::UnregisterPostProcessingPass(IPostProcessPass* pass) {
-	resizablePostProcessingPasses.Remove(pass);
-}
-
 bool IRenderer::IsRtActive() const {
 	return isRtActive;
 }
 
 bool IRenderer::IsRtRequested() const {
 	return isRtRequested;
-}
-
-void IRenderer::AddResizeCallback(std::function<void(const Vector2ui&)> callback) {
-	resizeCallbacks.Insert(callback);
 }

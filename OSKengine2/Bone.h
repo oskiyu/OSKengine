@@ -16,7 +16,7 @@ namespace OSK::GRAPHICS {
 	struct AnimationSkin;
 
 	/// <summary> Hueso de la animación. </summary>
-	typedef struct MeshNode {
+	using Bone = struct MeshNode {
 
 		/// <summary> Actualiza la matriz propia y la de los huesos hijos. </summary>
 		/// <param name="prevMatrix">Matriz del hueso padre.</param>
@@ -34,13 +34,13 @@ namespace OSK::GRAPHICS {
 		Vector3f scale = 1.0f;
 
 		/// <summary> Índice del hueso. </summary>
-		TIndex thisIndex = 0;
+		UIndex32 thisIndex = 0;
 		/// <summary> Índice del nodo padre. </summary>
-		TIndex parentIndex = std::numeric_limits<TIndex>::max();
+		UIndex32 parentIndex = std::numeric_limits<UIndex32>::max();
 		/// <summary> Índices de los nodos hijos. </summary>
-		DynamicArray<TIndex> childIndices;
+		DynamicArray<UIndex32> childIndices;
 
-		TIndex skinIndex = std::numeric_limits<TIndex>::max();
+		UIndex32 skinIndex = std::numeric_limits<UIndex32>::max();
 
 		/// <summary> Devuelve la matriz de modelo del hueso. </summary>
 		inline glm::mat4 GetLocalMatrix() const {
@@ -49,6 +49,6 @@ namespace OSK::GRAPHICS {
 
 		glm::mat4 globalMatrix = glm::mat4(1.0f);
 
-	} Bone;
+	};
 
 }

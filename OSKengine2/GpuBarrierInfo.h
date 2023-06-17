@@ -6,8 +6,8 @@
 
 namespace OSK::GRAPHICS {
 
-	constexpr TSize ALL_MIP_LEVELS = (~0);
-	constexpr TSize ALL_IMAGE_LAYERS = (~0);
+	constexpr USize32 ALL_MIP_LEVELS = (~0);
+	constexpr USize32 ALL_IMAGE_LAYERS = (~0);
 
 
 	/// @brief Un command stage permite diferenciar los distintos

@@ -105,7 +105,7 @@ namespace OSK::GRAPHICS {
 		/// 
 		/// @note El valor 0 identifica a la imagen original.
 		/// @warning Únicamente se usa este valor si mipMapMode == GpuImageMipmapMode::CUSTOM.
-		TSize minMipLevel = 0;
+		UIndex32 minMipLevel = 0;
 
 		/// <summary>
 		/// Divel de mipmap más alto.
@@ -113,7 +113,7 @@ namespace OSK::GRAPHICS {
 		/// 
 		/// @note El valor 0 identifica a la imagen original.
 		/// @warning Únicamente se usa este valor si mipMapMode == GpuImageMipmapMode::CUSTOM.
-		TSize maxMipLevel = 0;
+		UIndex32 maxMipLevel = 0;
 
 		static GpuImageSamplerDesc CreateDefault() {
 			return GpuImageSamplerDesc{ .mipMapMode = GpuImageMipmapMode::NONE };

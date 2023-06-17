@@ -108,7 +108,7 @@ namespace OSK::UI {
 		/// @param fontSize Tamaño, en píxeles.
 		/// 
 		/// @see TextView.SetFontSize() para precondiciones y postcondiciones.
-		void SetTextFontSize(TSize fontSize);
+		void SetTextFontSize(USize32 fontSize);
 
 		/// @brief Establece el texto a renderizar.
 		/// El texto será renderizado centrado.

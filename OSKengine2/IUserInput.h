@@ -22,7 +22,7 @@ namespace OSK::IO {
 
 	public:
 
-		virtual ~IUserInput() = default;
+		virtual ~IUserInput() override = default;
 
 		/// @brief Actualiza los estados internos del input.
 		virtual void Update() = 0;

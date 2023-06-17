@@ -5,22 +5,24 @@
 #include <string>
 
 #include "Assert.h"
+#include "FileNotFoundException.h"
+#include "OSKengine.h"
 
 using namespace OSK;
 using namespace OSK::IO;
 
-void FileIO::WriteFile(const std::string& path, const std::string& text) {
-	std::ofstream stream(path);
+void FileIO::WriteFile(std::string_view path, const std::string& text) {
+	std::ofstream stream(path.data());
 	stream << text << std::endl;
 
 	stream.close();
 }
 
 
-std::string FileIO::ReadFromFile(const std::string& path) {
-	OSK_ASSERT(FileExists(path), std::string("Se ha intentado leer el archivo ") + path + std::string(" pero no existe."));
+std::string FileIO::ReadFromFile(std::string_view path) {
+	OSK_ASSERT(FileExists(path), FileNotFoundException(path));
 
-	std::ifstream stream(path);
+	std::ifstream stream(path.data());
 	std::string line;
 	std::string ret = "";
 
@@ -35,13 +37,13 @@ std::string FileIO::ReadFromFile(const std::string& path) {
 }
 
 
-DynamicArray<char> FileIO::ReadBinaryFromFile(const std::string& filename) {
-	OSK_ASSERT(FileExists(filename), std::string("El archivo binario ") + filename + std::string(" no existe."));
+DynamicArray<char> FileIO::ReadBinaryFromFile(std::string_view filename) {
+	OSK_ASSERT(FileExists(filename), FileNotFoundException(filename));
 
-	std::ifstream file(filename, std::ios::ate | std::ios::binary); //Abre el archivo; ate -> al final del archivo
+	std::ifstream file(filename.data(), std::ios::ate | std::ios::binary); //Abre el archivo; ate -> al final del archivo
 
 	//Tamaño del std::vector
-	const TSize fileSize = static_cast<TSize>(file.tellg());
+	const auto fileSize = static_cast<USize64>(file.tellg());
 
 	//Inicializar el std::vector
 	DynamicArray<char> buffer = DynamicArray<char>::CreateResizedArray(fileSize);
@@ -55,8 +57,8 @@ DynamicArray<char> FileIO::ReadBinaryFromFile(const std::string& filename) {
 	return buffer;
 }
 
-bool FileIO::FileExists(const std::string& path) {
-	std::ifstream stream(path);
+bool FileIO::FileExists(std::string_view path) {
+	std::ifstream stream(path.data());
 
 	bool output = stream.good();
 

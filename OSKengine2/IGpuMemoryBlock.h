@@ -40,21 +40,21 @@ namespace OSK::GRAPHICS {
 		/// @param alignment Alineamiento de la memoria necesario.
 		/// @return Subbloque con las características dadas.
 		/// 
-		/// @throws std::runtime_exception si no se logra obtener un bloque con
+		/// @throws GpuMemoryBlockNotEnoughSpaceException si no se logra obtener un bloque con
 		/// las características dadas. Esto puede ocurrir aunque en principio el bloque
 		/// tenga suficiente memoria debido a fragmentación.
-		IGpuMemorySubblock* GetNextMemorySubblock(TSize size, TSize alignment);
+		IGpuMemorySubblock* GetNextMemorySubblock(USize64 size, USize64 alignment);
 
 		
 		/// @brief Devuelve el tamaño total del bloque, ya esté siendo usado o no.
 		/// @return Tamaño del bloque, en bytes.
-		TSize GetAllocatedSize() const;
+		USize64 GetAllocatedSize() const;
 				
 		/// @brief Devuelve la cantidad de memoria disponible que nunca ha sido
 		/// reclamada.
 		/// No tiene en cuenta los subbloques reutilizables.
 		/// @return Tamaño libre no usado previamente, en bytes.
-		TSize GetAvailableSpace() const;
+		USize64 GetAvailableSpace() const;
 
 		/// @brief Devuelve el tipo de memoria.
 		/// @return Tipo de memoria.
@@ -79,7 +79,7 @@ namespace OSK::GRAPHICS {
 		/// @param device GPU en el que se almacena.
 		/// @param type Tipo de memoria.
 		/// @param usage Uso (BUFFER o IMAGEN).
-		IGpuMemoryBlock(TSize reservedSize, IGpu* device, GpuSharedMemoryType type, GpuMemoryUsage usage);
+		IGpuMemoryBlock(USize64 reservedSize, IGpu* device, GpuSharedMemoryType type, GpuMemoryUsage usage);
 
 		/// @brief Crea un nuevo subbloque a partir de la memoria de este bloque.
 		/// @param size Tamaño del subbloque, en bytes.
@@ -87,15 +87,15 @@ namespace OSK::GRAPHICS {
 		/// @return Nuevo subbloque.
 		/// 
 		/// @pre La región de memoria definida por offset y size no debe estar en uso.
-		virtual OwnedPtr<IGpuMemorySubblock> CreateNewMemorySubblock(TSize size, TSize offset) = 0;
+		virtual OwnedPtr<IGpuMemorySubblock> CreateNewMemorySubblock(USize64 size, USize64 offset) = 0;
 
 
 		/// @brief Estructura que se usa cuando un subbloque ya no está en uso:
 		/// una región de memoria entre dos subbloques en uso, pero que
 		/// puede ser reutilizada.
 		struct ReusableMemorySubblock {
-			TSize size;
-			TSize offset;
+			USize64 size;
+			USize64 offset;
 
 			bool operator==(const ReusableMemorySubblock& other) const;
 		};
@@ -110,11 +110,11 @@ namespace OSK::GRAPHICS {
 
 
 		/// @brief Tamaño total del bloque.
-		TSize totalSize = 0;
+		USize64 totalSize = 0;
 		/// @brief Espacio que aún no ha sido usado.
-		TSize availableSpace = 0;
+		USize64 availableSpace = 0;
 		/// @brief Offset para el próximo subbloque de la zona aún no usada.
-		TSize currentOffset = 0;
+		USize64 currentOffset = 0;
 
 		GpuSharedMemoryType type;
 		GpuMemoryUsage usage;

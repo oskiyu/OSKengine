@@ -114,7 +114,7 @@ void Transform3D::UpdateModel() {
 	globalPosition = Vector3f(matrix * glm::vec4(0, 0, 0, 1));
 
 	DynamicArray<GameObjectIndex> childrenToRemove;
-	for (TSize i = 0; i < childTransforms.GetSize(); i++) {
+	for (UIndex32 i = 0; i < childTransforms.GetSize(); i++) {
 		Transform3D& child = GetEcs()->GetComponent<Transform3D>(childTransforms[i]);
 		if (child.parent == owner)
 			child.UpdateModel();
@@ -127,7 +127,7 @@ void Transform3D::UpdateModel() {
 }
 
 Vector3f Transform3D::TransformPoint(const Vector3f& point) const {
-	const glm::vec4 p = { point.X, point.Y, point.Z, 1.0f };
+	const glm::vec4 p = { point.x, point.y, point.Z, 1.0f };
 	const glm::vec4 transformedPoint = matrix * p;
 
 	return Vector3f(glm::vec3(transformedPoint));

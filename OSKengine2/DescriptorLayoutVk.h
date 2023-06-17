@@ -17,6 +17,7 @@ namespace OSK::GRAPHICS {
 
 	public:
 
+		/// @throws DescriptorLayoutCreationException Si hay algún problema nativo.
 		DescriptorLayoutVk(const MaterialLayoutSlot* slotLayout);
 		~DescriptorLayoutVk();
 

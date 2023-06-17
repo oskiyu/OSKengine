@@ -1,6 +1,7 @@
 #pragma once
 
 #include "OSKmacros.h"
+#include "NotImplementedException.h"
 
 namespace OSK::GRAPHICS {
 
@@ -25,7 +26,7 @@ namespace OSK::GRAPHICS {
 		case 1: return IndexType::U8;
 		case 2: return IndexType::U16;
 		case 4: return IndexType::U32;
-		default: OSK_ASSERT(false, "Tipo de índice no reconocido"); return (IndexType)0;
+		default: throw NotImplementedException();
 		}
 	}
 
@@ -37,11 +38,11 @@ namespace OSK::GRAPHICS {
 		IndexType type;
 
 		/// @brief Número de índices.
-		TSize numIndices = 0;
+		USize32 numIndices = 0;
 
 		/// @brief Offset del primer índice respecto al inicio
 		/// del buffer.
-		TSize offsetInBytes = 0;
+		USize32 offsetInBytes = 0;
 	};
 
 }

@@ -10,7 +10,7 @@ DataNode::DataNode() : IDataElement(DataType::UNKNOWN) {
 }
 
 const IDataElement& DataNode::GetField(const std::string& key) const {
-	OSK_ASSERT(HasElement(key), "No existe el dato " + key + ".");
+	// OSK_ASSERT(HasElement(key), "No existe el dato " + key + ".");
 	return fields.Get(key).GetValue();
 }
 

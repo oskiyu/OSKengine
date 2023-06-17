@@ -32,7 +32,7 @@ namespace OSK::IO {
 		void Update() override;
 
 		void QueryInterface(TInterfaceUuid uuid, void** ptr) const override final;
-		// void QueryConstInterface(TInterfaceUuid uuid, void** ptr) const override final;
+		void QueryConstInterface(TInterfaceUuid uuid, const void** ptr) const override;
 
 	private:
 

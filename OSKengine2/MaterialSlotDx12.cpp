@@ -4,16 +4,18 @@
 #include "GpuImageDx12.h"
 #include "MaterialLayoutSlot.h"
 
+#include "NotImplementedException.h"
+
 using namespace OSK;
 using namespace OSK::GRAPHICS;
 
 MaterialSlotDx12::MaterialSlotDx12(const std::string& name, const MaterialLayout* layout)
 	: IMaterialSlot(layout, name) {
 
-	buffers.Resize(layout->GetSlot(name).bindings.GetSize(), Pair<TSize, const GpuBuffer*>{ UINT32_MAX, nullptr });
-	images.Resize(layout->GetSlot(name).bindings.GetSize(), Pair<TSize, const GpuImageDx12*>{ UINT32_MAX, nullptr });
-	storageBuffers.Resize(layout->GetSlot(name).bindings.GetSize(), Pair<TSize, const GpuBuffer*>{ UINT32_MAX, nullptr });
-	storageImages.Resize(layout->GetSlot(name).bindings.GetSize(), Pair<TSize, const GpuImageDx12*>{ UINT32_MAX, nullptr });
+	buffers.Resize(layout->GetSlot(name).bindings.GetSize(), Pair<USize32, const GpuBuffer*>{ UINT32_MAX, nullptr });
+	images.Resize(layout->GetSlot(name).bindings.GetSize(), Pair<USize32, const GpuImageDx12*>{ UINT32_MAX, nullptr });
+	storageBuffers.Resize(layout->GetSlot(name).bindings.GetSize(), Pair<USize32, const GpuBuffer*>{ UINT32_MAX, nullptr });
+	storageImages.Resize(layout->GetSlot(name).bindings.GetSize(), Pair<USize32, const GpuImageDx12*>{ UINT32_MAX, nullptr });
 }
 /*
 void MaterialSlotDx12::SetUniformBuffers(const std::string& binding, const GpuBuffer* buffer) {
@@ -25,8 +27,8 @@ void MaterialSlotDx12::SetUniformBuffers(const std::string& binding, const GpuBu
 	buffers.At(index) = { index, buffer };
 }*/
 
-void MaterialSlotDx12::SetUniformBuffers(const std::string& binding, const GpuBuffer* buffer[NUM_RESOURCES_IN_FLIGHT]) {
-	SetUniformBuffer(binding, *buffer[0]);
+void MaterialSlotDx12::SetUniformBuffers(const std::string& binding, std::span<const GpuBuffer*, NUM_RESOURCES_IN_FLIGHT> buffers) {
+	SetUniformBuffer(binding, *buffers[0]);
 }
 /*
 void MaterialSlotDx12::SetGpuImage(const std::string& binding, const IGpuImageView* image) {
@@ -38,8 +40,8 @@ void MaterialSlotDx12::SetGpuImage(const std::string& binding, const IGpuImageVi
 	images.At(index) = { index, image->GetImage().As<GpuImageDx12>()};
 }
 */
-void MaterialSlotDx12::SetGpuImages(const std::string& binding, const IGpuImageView* image[NUM_RESOURCES_IN_FLIGHT]) {
-	SetGpuImage(binding, image[0]);
+void MaterialSlotDx12::SetGpuImages(const std::string& binding, std::span<const IGpuImageView*, NUM_RESOURCES_IN_FLIGHT> images) {
+	SetGpuImage(binding, images[0]);
 }
 /*
 void MaterialSlotDx12::SetStorageImage(const std::string& binding, const IGpuImageView* image) {
@@ -51,38 +53,38 @@ void MaterialSlotDx12::SetStorageImage(const std::string& binding, const IGpuIma
 	// storageImages.At(index) = { index, image->As<GpuImageDx12>() };
 }
 */
-void MaterialSlotDx12::SetStorageBuffers(const std::string& binding, const GpuBuffer* buffer[NUM_RESOURCES_IN_FLIGHT]) {
-	OSK_ASSERT(false, "No implementado.");
+void MaterialSlotDx12::SetStorageBuffers(const std::string& binding, std::span<const GpuBuffer*, NUM_RESOURCES_IN_FLIGHT> buffer) {
+	OSK_ASSERT(false, NotImplementedException());
 }
 
-void MaterialSlotDx12::SetStorageImages(const std::string& binding, const IGpuImageView* image[NUM_RESOURCES_IN_FLIGHT]) {
-	SetStorageImage(binding, image[0]);
+void MaterialSlotDx12::SetStorageImages(const std::string& binding, std::span<const IGpuImageView*, NUM_RESOURCES_IN_FLIGHT> images) {
+	SetStorageImage(binding, images[0]);
 }
 
-void MaterialSlotDx12::SetAccelerationStructures(const std::string& binding, const ITopLevelAccelerationStructure* image[NUM_RESOURCES_IN_FLIGHT]) {
-	OSK_ASSERT(false, "No implementado.");
+void MaterialSlotDx12::SetAccelerationStructures(const std::string& binding, std::span<const ITopLevelAccelerationStructure*, NUM_RESOURCES_IN_FLIGHT> images) {
+	OSK_ASSERT(false, NotImplementedException());
 }
 
 void MaterialSlotDx12::FlushUpdate() {
 
 }
 
-const DynamicArray<Pair<TSize, const GpuBuffer*>>& MaterialSlotDx12::GetUniformBuffers() const {
+const DynamicArray<Pair<UIndex32, const GpuBuffer*>>& MaterialSlotDx12::GetUniformBuffers() const {
 	return buffers;
 }
 
-const DynamicArray<Pair<TSize, const GpuImageDx12*>>& MaterialSlotDx12::GetGpuImages() const {
+const DynamicArray<Pair<UIndex32, const GpuImageDx12*>>& MaterialSlotDx12::GetGpuImages() const {
 	return images;
 }
 
-const DynamicArray<Pair<TSize, const GpuBuffer*>>& MaterialSlotDx12::GetStorageBuffers() const {
+const DynamicArray<Pair<UIndex32, const GpuBuffer*>>& MaterialSlotDx12::GetStorageBuffers() const {
 	return storageBuffers;
 }
 
-const DynamicArray<Pair<TSize, const GpuImageDx12*>>& MaterialSlotDx12::GetStorageImages() const {
+const DynamicArray<Pair<UIndex32, const GpuImageDx12*>>& MaterialSlotDx12::GetStorageImages() const {
 	return storageImages;
 }
 
 void MaterialSlotDx12::SetDebugName(const std::string& name) {
-	OSK_ASSERT(false, "No implementado.");
+	OSK_ASSERT(false, NotImplementedException());
 }

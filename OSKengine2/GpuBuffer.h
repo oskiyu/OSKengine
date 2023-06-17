@@ -26,7 +26,7 @@ namespace OSK::GRAPHICS {
 		/// @param alignment Alineamiento del contenido del buffer.
 		/// 
 		/// @note No crea el buffer, el buffer es creado por IGpuMemoryAllocator.
-		explicit GpuBuffer(OwnedPtr<IGpuMemorySubblock> buffer, TSize size, TSize alignment);
+		explicit GpuBuffer(OwnedPtr<IGpuMemorySubblock> buffer, USize64 size, USize64 alignment);
 		virtual ~GpuBuffer();
 
 		OSK_DISABLE_COPY(GpuBuffer);
@@ -77,7 +77,7 @@ namespace OSK::GRAPHICS {
 		/// @pre Debe haber sido creado con GpuSharedMemoryType::GPU_AND_CPU.
 		/// @pre No debe haber ninguna región de memoria del buffer previamente mapeada.
 		/// @pre @p size + @p offset < GetSize().
-		void MapMemory(TSize size, TSize offset);
+		void MapMemory(USize64 size, USize64 offset);
 
 		/// @brief Escribe la información en el buffer, a partir de la posición actual
 		/// del cursor. También hace avanzar el cursor.
@@ -87,7 +87,7 @@ namespace OSK::GRAPHICS {
 		/// 
 		/// @pre La memoria debe estar mapeada.
 		/// @pre @p size <= GetSize() - cursor.
-		void Write(const void* data, TSize size);
+		void Write(const void* data, USize64 size);
 
 		/// @brief Escribe la información del elemento dado en el buffer, usando
 		/// el cursor. También hace avanzar el cursor.
@@ -110,7 +110,7 @@ namespace OSK::GRAPHICS {
 		/// @pre La memoria debe estar mapeada.
 		/// @pre La información a escribir debe estar contenida dentro
 		/// de la zona de memoria mapeada.
-		void WriteOffset(const void* data, TSize size, TSize offset);
+		void WriteOffset(const void* data, USize64 size, USize64 offset);
 
 		/// @brief Desmapea la memoria.
 		/// @pre La memoria debe estar mapeada.
@@ -120,17 +120,17 @@ namespace OSK::GRAPHICS {
 		/// @brief Establece la posición del cursor.
 		/// @param position Posición, en bytes, respecto al inicio del buffer.
 		/// @pre La posición debe estar dentro de los límites del buffer.
-		void SetCursor(TSize position);
+		void SetCursor(UIndex64 position);
 
 		/// @brief Establece la posición del cursor a 0.
 		void ResetCursor();
 
 
 		/// @return Devuelve el tamaño del buffer, en bytes.
-		TSize GetSize() const;
+		USize64 GetSize() const;
 
 		/// @return Devuelve la alineación del buffer, en bytes.
-		TSize GetAlignment() const;
+		USize64 GetAlignment() const;
 
 
 		IGpuMemorySubblock* GetMemorySubblock() const;
@@ -145,8 +145,8 @@ namespace OSK::GRAPHICS {
 		std::optional<VertexBufferView> vertexView;
 		std::optional<IndexBufferView> indexView;
 
-		TSize size = 0;
-		TSize alignment = 0;
+		USize64 size = 0;
+		USize64 alignment = 0;
 
 	};
 

@@ -14,7 +14,13 @@
 className(const className&) = delete; \
 className& operator=(const className&) = delete;
 
-#define OSK_DEFINE_AS(className) template <typename T> constexpr T* As() const requires std::is_base_of_v<className, T> { return (T*)this; }
+#define OSK_DEFAULT_MOVE_OPERATOR(className) \
+className(className&&) = default; \
+className& operator=(className&&) = default;
+
+#define OSK_DEFINE_AS(className) \
+template <typename T> constexpr const T* As() const requires std::is_base_of_v<className, T> { return (const T*)this; } \
+template <typename T> constexpr T* As() requires std::is_base_of_v<className, T> { return (T*)this; } \
 	
 #define OSK_NODISCARD [[nodiscard]]
 
@@ -23,17 +29,19 @@ className& operator=(const className&) = delete;
 
 #include <stdint.h>
 
-using TSize = unsigned int;
-using TIndex = TSize;
+using UIndex32 = uint32_t;
+using UIndex64 = uint64_t;
+
+using USize32 = uint32_t;
+using USize64 = uint64_t;
+
 using TDeltaTime = float;
 using TByte = uint8_t;
-using TInterfaceUuid = TIndex;
-
-#define OKS_ARR_FUNC(num) *
+using TInterfaceUuid = UIndex32;
 
 #include <type_traits>
 
 #define OSK_DEFINE_IUUID(uuid) static TInterfaceUuid GetInterfaceUuid() { return uuid; }
 #define OSK_IUUID(interfaceClass) (interfaceClass ::GetInterfaceUuid())
 
-inline constexpr TSize NUM_RESOURCES_IN_FLIGHT = 3;
+inline constexpr USize32 NUM_RESOURCES_IN_FLIGHT = 3;

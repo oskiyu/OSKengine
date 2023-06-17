@@ -52,8 +52,8 @@ namespace OSK::GRAPHICS {
 		/// @pre computeCmdList debe ser una lista de comandos de computación. 
 		void ExecuteSinglePass(
 			ICommandList* computeCmdList, 
-			TIndex sourceMipLevel,
-			TIndex destMipLevel);
+			UIndex32 sourceMipLevel,
+			UIndex32 destMipLevel);
 		
 		/// <summary>
 		/// Procesa el proceso de desescalado completo.
@@ -82,7 +82,7 @@ namespace OSK::GRAPHICS {
 		void Resolve(ICommandList* computeCmdList);
 
 		/// @brief Número máximo de pases de downscale/upscale.
-		const static TSize maxNumPasses = 8;
+		const static UIndex32 maxNumPasses = 8;
 
 
 		/// @brief Instancias de los materiales de downscale.
@@ -108,7 +108,7 @@ namespace OSK::GRAPHICS {
 		/// @brief Calcula el número de pases, de acuerdo al número
 		/// de mip-levels del render target.
 		/// @return Número de pases de downscale/upscale.
-		TSize GetNumPasses() const;
+		UIndex32 GetNumPasses() const;
 
 	};
 

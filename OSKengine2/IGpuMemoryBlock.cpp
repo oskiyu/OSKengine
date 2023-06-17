@@ -5,10 +5,12 @@
 #include "OSKengine.h"
 #include "Logger.h"
 
+#include "GpuMemoryExceptions.h"
+
 using namespace OSK;
 using namespace OSK::GRAPHICS;
 
-IGpuMemoryBlock::IGpuMemoryBlock(TSize reservedSize, IGpu* device, GpuSharedMemoryType type, GpuMemoryUsage usage)
+IGpuMemoryBlock::IGpuMemoryBlock(USize64 reservedSize, IGpu* device, GpuSharedMemoryType type, GpuMemoryUsage usage)
 	: totalSize(reservedSize), availableSpace(reservedSize), type(type), usage(usage), device(device) { }
 
 void IGpuMemoryBlock::RemoveSubblock(IGpuMemorySubblock* subblock) {
@@ -16,11 +18,11 @@ void IGpuMemoryBlock::RemoveSubblock(IGpuMemorySubblock* subblock) {
 	// Engine::GetLogger()->InfoLog("Subbloque quitado.");
 }
 
-TSize IGpuMemoryBlock::GetAllocatedSize() const {
+USize64 IGpuMemoryBlock::GetAllocatedSize() const {
 	return totalSize;
 }
 
-TSize IGpuMemoryBlock::GetAvailableSpace() const {
+USize64 IGpuMemoryBlock::GetAvailableSpace() const {
 	return availableSpace;
 }
 
@@ -36,7 +38,7 @@ GpuMemoryUsage IGpuMemoryBlock::GetUsageType() const {
 	return usage;
 }
 
-IGpuMemorySubblock* IGpuMemoryBlock::GetNextMemorySubblock(TSize size, TSize alignment) {
+IGpuMemorySubblock* IGpuMemoryBlock::GetNextMemorySubblock(USize64 size, USize64 alignment) {
 	IGpuMemorySubblock* output = nullptr;
 
 	bool isReused = false;
@@ -53,12 +55,12 @@ IGpuMemorySubblock* IGpuMemoryBlock::GetNextMemorySubblock(TSize size, TSize ali
 		}
 	}
 
-	OSK_ASSERT(size <= GetAvailableSpace(), "No se ha escogido un bloque de memoria con suficiente espacio libre.");
+	OSK_ASSERT(size <= GetAvailableSpace(), GpuMemoryBlockNotEnoughSpaceException());
 	
-	TSize finalOffset = currentOffset;
-	TSize extraOffset = 0;
+	USize64 finalOffset = currentOffset;
+	USize64 extraOffset = 0;
 	if (alignment != 0 && currentOffset != 0) {
-		const TSize base = currentOffset / alignment;
+		const USize64 base = currentOffset / alignment;
 		finalOffset = (base + 1) * alignment;
 		extraOffset = finalOffset - currentOffset;
 	}

@@ -23,8 +23,8 @@ SkyboxRenderSystem::SkyboxRenderSystem() {
 
 	cubemapModel = Engine::GetAssetManager()->Load<Model3D>("Resources/Assets/Models/cube.json", "GLOBAL");
 
-	const GpuBuffer* buffers[3]{};
-	for (TSize i = 0; i < NUM_RESOURCES_IN_FLIGHT; i++) {
+	std::array<const GpuBuffer*, NUM_RESOURCES_IN_FLIGHT> buffers{};
+	for (UIndex32 i = 0; i < NUM_RESOURCES_IN_FLIGHT; i++) {
 		cameraUbos[i] = Engine::GetRenderer()->GetAllocator()->CreateUniformBuffer(sizeof(glm::mat4) * 2).GetPointer();
 		buffers[i] = cameraUbos[i].GetPointer();
 	}
@@ -52,19 +52,19 @@ void SkyboxRenderSystem::Render(ICommandList* commandList) {
 	if (cameraObject == EMPTY_GAME_OBJECT)
 		return;
 
-	const TSize resourceIndex = Engine::GetRenderer()->GetCurrentResourceIndex();
+	const auto resourceIndex = Engine::GetRenderer()->GetCurrentResourceIndex();
 
-	CameraComponent3D& camera = Engine::GetEcs()->GetComponent<CameraComponent3D>(cameraObject);
-	Transform3D& cameraTransform = Engine::GetEcs()->GetComponent<Transform3D>(cameraObject);
+	const auto& camera			= Engine::GetEcs()->GetComponent<CameraComponent3D>(cameraObject);
+	const auto& cameraTransform = Engine::GetEcs()->GetComponent<Transform3D>(cameraObject);
 
 	cameraUbos[resourceIndex]->MapMemory();
 	cameraUbos[resourceIndex]->Write(camera.GetProjectionMatrix());
 	cameraUbos[resourceIndex]->Write(camera.GetViewMatrix(cameraTransform));
 	cameraUbos[resourceIndex]->Unmap();
 
-	commandList->StartDebugSection("Skybox Rendering", Color::RED());
+	commandList->StartDebugSection("Skybox Rendering", Color::Red);
 
-	commandList->BeginGraphicsRenderpass(&renderTarget, Color::BLACK() * 0.0f);
+	commandList->BeginGraphicsRenderpass(&renderTarget, Color::Black * 0.0f);
 	commandList->BindMaterial(*skyboxMaterial);
 	commandList->BindMaterialInstance(*skyboxMaterialInstance);
 	commandList->BindVertexBuffer(*cubemapModel->GetVertexBuffer());

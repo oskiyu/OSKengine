@@ -41,8 +41,8 @@ void IRenderSystem::SetupViewport(GRAPHICS::ICommandList* commandList) {
 	Vector4ui windowRec = {
 		0,
 		0,
-		renderTarget.GetSize().X,
-		renderTarget.GetSize().Y
+		renderTarget.GetSize().x,
+		renderTarget.GetSize().y
 	};
 
 	Viewport viewport{};

@@ -25,7 +25,7 @@ namespace OSK::ASSETS {
 
 	protected:
 
-		void ProcessNode(const tinygltf::Node& node, TSize nodeId, TSize parentId) override;
+		void ProcessNode(const tinygltf::Node& node, UIndex32 nodeId, UIndex32 parentId) override;
 		void SmoothNormals() override;
 
 		DynamicArray<GRAPHICS::VertexAnim3D> vertices;

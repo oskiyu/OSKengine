@@ -2,88 +2,52 @@
 
 #include "OSKmacros.h"
 
-#include <string>
+#include <format>
 
-namespace OSK {
 
-	/// <summary>
-	/// Comprueba si la condición se cumple.
-	/// Si no se cumple, muestra un mensaje de error 
-	/// y throwea un error.
-	/// </summary>
-	/// <param name="condition">Condición que debe ser verdadera.</param>
-	/// <param name="message">Mensaje a mostrar, si la condición es falsa.</param>
-	/// <param name="functionName">Nombre de la función en la que se hace el assert.</param>
-	/// <param name="line">Línea del archivo en la que se hace el assert.</param>
-	/// <param name="file">Archivo en el que se hace el assert.</param>
-	void OSKAPI_CALL RuntimeAssertIsTrueFunction(bool condition, const std::string& message, const std::string& functionName, uint32_t line, const std::string& file);
+#ifndef OSK_ASSERT_2
 
-	/// <summary>
-	/// Comprueba si la condición se cumple.
-	/// Si no se cumple, muestra un mensaje de aviso.
-	/// </summary>
-	/// <param name="condition">Condición que debe ser verdadera.</param>
-	/// <param name="message">Mensaje a mostrar, si la condición es falsa.</param>
-	/// <param name="functionName">Nombre de la función en la que se hace el check.</param>
-	/// <param name="line">Línea del archivo en la que se hace el check.</param>
-	/// <param name="file">Archivo en el que se hace el check.</param>
-	void OSKAPI_CALL RuntimeCheckIsTrueFunction(bool condition, const std::string& message, const std::string& functionName, uint32_t line, const std::string& file);
+/// @brief Comrpueba si una condición se cumple.
+/// En caso de no cumplirse, lanza la excepción indicada,
+/// muestra un mensaje por el logger indicado y
+/// muestra una ventana con el mensaje de la excepción.
+/// @param condition Condición que debe cumplirse (debe ser verdadera).
+/// @param exception Excepción que se lanzará si la condición no se cumple.
+/// @param logger Logger por el que se escribirá el mensaje de la excepción.
+/// Si es `nullptr`, no loggeará ningún mensaje.
+#define OSK_ASSERT_2(condition, exception, logger)		\
+if (!(condition)) {										\
+	const auto exceptionInstance = (exception);\
+	const std::string msg = std::format("Excepción producida:\n{}", exceptionInstance.what());	\
+	if ((logger))											\
+		logger->Log(OSK::IO::LogLevel::L_ERROR, msg);	\
+	throw exceptionInstance;	\
+}						\
+//OSK::IO::Window::ShowMessageBox(msg);
 
-	/// <summary>
-	/// Comprueba si la condición NO se cumple.
-	/// Si se cumple, muestra un mensaje de error 
-	/// y throwea un error.
-	/// </summary>
-	/// <param name="condition">Condición que debe ser falsa.</param>
-	/// <param name="message">Mensaje a mostrar, si la condición es verdadera.</param>
-	/// <param name="functionName">Nombre de la función en la que se hace el assert.</param>
-	/// <param name="line">Línea del archivo en la que se hace el assert.</param>
-	/// <param name="file">Archivo en el que se hace el assert.</param>
-	void OSKAPI_CALL RuntimeAssertIsFalseFunction(bool condition, const std::string& message, const std::string& functionName, uint32_t line, const std::string& file);
+#endif
 
-	/// <summary>
-	/// Comprueba si la condición NO se cumple.
-	/// Si se cumple, muestra un mensaje de aviso.
-	/// </summary>
-	/// <param name="condition">Condición que debe ser falsa.</param>
-	/// <param name="message">Mensaje a mostrar, si la condición es verdadera.</param>
-	/// <param name="functionName">Nombre de la función en la que se hace el check.</param>
-	/// <param name="line">Línea del archivo en la que se hace el check.</param>
-	/// <param name="file">Archivo en el que se hace el check.</param>
-	void OSKAPI_CALL RuntimeCheckIsFalseFunction(bool condition, const std::string& message, const std::string& functionName, uint32_t line, const std::string& file);
 
-}
+#ifndef OSK_ASSERT
 
-/// <summary>
-/// Comprueba si la condición se cumple.
-/// Si no se cumple, muestra un mensaje de error 
-/// y throwea un error.
-/// </summary>
-/// <param name="condition">Condición que debe ser verdadera.</param>
-/// <param name="msg">Mensaje a mostrar, si la condición es falsa.</param>
-#define OSK_ASSERT(condition, msg) OSK::RuntimeAssertIsTrueFunction(condition, (msg), __FUNCTION__, __LINE__, __FILE__)
+/// @brief Comrpueba si una condición se cumple.
+/// En caso de no cumplirse, lanza la excepción indicada,
+/// muestra un mensaje por el logger global y
+/// muestra una ventana con el mensaje de la excepción.
+/// @param condition Condición que debe cumplirse (debe ser verdadera).
+/// @param exception Excepción que se lanzará si la condición no se cumple.
+/// 
+/// @note Si @code Engine::GetLogger() @endcode es `nullptr`, no loggeará ningún mensaje.
+#define OSK_ASSERT(condition, exception) 	\
+if (!(condition)) {										\
+	const auto exceptionInstance = (exception);\
+	throw exceptionInstance;	\
+}						\
 
-/// <summary>
-/// Comprueba si la condición se cumple.
-/// Si no se cumple, muestra un mensaje de aviso.
-/// </summary>
-/// <param name="condition">Condición que debe ser verdadera.</param>
-/// <param name="msg">Mensaje a mostrar, si la condición es falsa.</param>
-#define OSK_CHECK(condition, msg) OSK::RuntimeCheckIsTrueFunction(condition, msg, __FUNCTION__, __LINE__, __FILE__)
+/*
+	if ((OSK::Engine::GetLogger()))											\
+		OSK::Engine::GetLogger()->Log(OSK::IO::LogLevel::L_ERROR, msg);	\
+	OSK::IO::Window::ShowMessageBox(msg);	\
+*/
 
-/// <summary>
-/// Comprueba si la condición NO se cumple.
-/// Si se cumple, muestra un mensaje de error 
-/// y throwea un error.
-/// </summary>
-/// <param name="condition">Condición que debe ser falsa.</param>
-/// <param name="msg">Mensaje a mostrar, si la condición es verdadera.</param>
-#define OSK_ASSERT_FALSE(condition, msg) OSK::RuntimeAssertIsFalseFunction(condition, msg, __FUNCTION__, __LINE__, __FILE__)
-
-/// <summary>
-/// Comprueba si la condición NO se cumple.
-/// Si se cumple, muestra un mensaje de aviso.
-/// </summary>
-/// <param name="condition">Condición que debe ser falsa.</param>
-/// <param name="msg">Mensaje a mostrar, si la condición es verdadera.</param>
-#define OSK_CHECK_FALSE(condition, msg) OSK::RuntimeCheckIsFalseFunction(condition, msg, __FUNCTION__, __LINE__, __FILE__)
+#endif

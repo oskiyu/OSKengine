@@ -14,8 +14,8 @@ using namespace OSK::IO;
 
 // Gamepad buttons
 const static GamepadButton gamepadButtons[] = {
-	GamepadButton::X,
-	GamepadButton::Y,
+	GamepadButton::x,
+	GamepadButton::y,
 	GamepadButton::A,
 	GamepadButton::B,
 
@@ -46,14 +46,14 @@ void InputManager::_Update(const IUserInput& input) {
 	const IMouseInput* mouse = nullptr;
 	const IGamepadInput* gamepad = nullptr;
 
-	input.QueryInterface(IUUID::IKeyboardInput, (void**)&keyboard);
-	input.QueryInterface(IUUID::IMouseInput, (void**)&mouse);
-	input.QueryInterface(IUUID::IGamepadInput, (void**)&gamepad);
+	input.QueryConstInterface(IUUID::IKeyboardInput, (const void**)&keyboard);
+	input.QueryConstInterface(IUUID::IMouseInput, (const void**)&mouse);
+	input.QueryConstInterface(IUUID::IGamepadInput, (const void**)&gamepad);
 
 	if (keyboard) {
 		// Key states
-		for (TSize ikey = 0; ikey < (TSize)Key::__END; ikey++) {
-			const Key key = (Key)ikey;
+		for (UIndex32 ikey = 0; ikey < (UIndex32)Key::__END; ikey++) {
+			const auto key = (Key)ikey;
 
 			// Pressed
 			if (keyboard->IsKeyDown(key)) {
@@ -77,7 +77,7 @@ void InputManager::_Update(const IUserInput& input) {
 
 	if (mouse) {
 		// Mouse states
-		for (TSize ikey = 0; ikey < (TSize)MouseButton::__END; ikey++) {
+		for (UIndex32 ikey = 0; ikey < (UIndex32)MouseButton::__END; ikey++) {
 			const MouseButton button = (MouseButton)ikey;
 
 			// Pressed
@@ -117,12 +117,12 @@ void InputManager::_Update(const IUserInput& input) {
 
 	if (gamepad) {
 	// Gamepads
-		for (TSize gamepadId = 0; gamepadId < 3; gamepadId++) {
+		for (UIndex32 gamepadId = 0; gamepadId < 3; gamepadId++) {
 			if (!gamepad->GetGamepadState(gamepadId).IsConnected())
 				continue;
 
 			// Buttons
-			for (TSize i = 0; i < _countof(gamepadButtons); i++) {
+			for (UIndex32 i = 0; i < _countof(gamepadButtons); i++) {
 				const GamepadButton button = gamepadButtons[i];
 
 				// Pressed
@@ -147,7 +147,7 @@ void InputManager::_Update(const IUserInput& input) {
 			if (!gamepad->GetGamepadState(gamepadId).IsConnected())
 				return;
 
-			for (TSize i = 0; i < (TSize)GamepadAxis::__END; i++) {
+			for (UIndex32 i = 0; i < (UIndex32)GamepadAxis::__END; i++) {
 				const GamepadAxis axis = (GamepadAxis)i;
 
 				const float originalValue = gamepad->GetGamepadState(gamepadId).GetAxisState(axis);

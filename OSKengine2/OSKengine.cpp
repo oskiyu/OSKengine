@@ -6,15 +6,23 @@
 #include "RendererVk.h"
 #include "RenderApiType.h"
 #include "Assert.h"
+
 #include "AssetManager.h"
 #include "TextureLoader.h"
 #include "ModelLoader3D.h"
+#include "CubemapTextureLoader.h"
+#include "Font.h"
+#include "FontLoader.h"
+#include "SpecularMapLoader.h"
+#include "AudioAsset.h"
+#include "AudioLoader.h"
+#include "IrradianceMapLoader.h"
+
 #include "Transform3D.h"
 #include "ModelComponent3D.h"
 #include "RenderSystem3D.h"
 #include "CameraComponent3D.h"
 #include "EntityComponentSystem.h"
-#include "CubemapTextureLoader.h"
 #include "Vertex2D.h"
 #include "Vertex3D.h"
 #include "MaterialSystem.h"
@@ -23,16 +31,12 @@
 #include "IGpuMemoryAllocator.h"
 #include "CameraComponent2D.h"
 #include "Sprite.h"
-#include "Font.h"
-#include "FontLoader.h"
 #include "TerrainComponent.h"
 #include "TerrainRenderSystem.h"
 #include "InputManager.h"
-#include "IrradianceMapLoader.h"
 #include "PbrDeferredRenderSystem.h"
 #include "SkyboxRenderSystem.h"
 #include "PcUserInput.h"
-#include "SpecularMapLoader.h"
 #include "Collider.h"
 #include "CollisionEvent.h"
 #include "CollisionSystem.h"
@@ -53,22 +57,24 @@ UniquePtr<ASSETS::AssetManager> Engine::assetManager;
 UniquePtr<ECS::EntityComponentSystem> Engine::entityComponentSystem;
 UniquePtr<IO::IUserInput> Engine::input;
 UniquePtr<IO::InputManager> Engine::inputManager;
+UniquePtr<AUDIO::AudioApi> Engine::audioApi;
 
 void Engine::Create(GRAPHICS::RenderApiType type) {
 	logger = new IO::Logger;
-	display = new IO::Window;
-	entityComponentSystem = new ECS::EntityComponentSystem;
-	input = new IO::PcUserInput;
-	inputManager = new IO::InputManager;
-
 	logger->Start("LOG_LAST.txt");
 
+	display = new IO::Window;
+	entityComponentSystem = new ECS::EntityComponentSystem(logger.GetPointer());
+	input = new IO::PcUserInput;
+	inputManager = new IO::InputManager;
+	audioApi = new AUDIO::AudioApi;
+
 	logger->InfoLog("Iniciando OSKengine.");
-	logger->InfoLog("	Version: " 
-		+ std::to_string(GetVersion().mayor) + "."
-		+ std::to_string(GetVersion().menor) + "."
-		+ std::to_string(GetVersion().parche) + ".");
-	logger->InfoLog("	Build " + GetBuild() + ".");
+	logger->InfoLog(std::format("\tVersion: {}.{}.{}", 
+		GetVersion().mayor,
+		GetVersion().menor,
+		GetVersion().parche));
+	logger->InfoLog(std::format("\tBuild {}.",GetBuild()));
 
 	const nlohmann::json engineConfig = nlohmann::json::parse(OSK::IO::FileIO::ReadFromFile("engine_config.json"));
 	const bool requestRayTracing = engineConfig.contains("use_rt") && engineConfig["use_rt"] == 1;
@@ -97,6 +103,7 @@ void Engine::Close() {
 	display.Delete();
 	inputManager.Delete();
 	renderer.Delete();
+	audioApi.Delete();
 	logger.Delete();
 }
 
@@ -107,6 +114,7 @@ void Engine::RegisterBuiltinAssets() {
 	assetManager->RegisterLoader<ASSETS::FontLoader>();
 	assetManager->RegisterLoader<ASSETS::IrradianceMapLoader>();
 	assetManager->RegisterLoader<ASSETS::SpecularMapLoader>();
+	assetManager->RegisterLoader<ASSETS::AudioLoader>();
 }
 
 void Engine::RegisterBuiltinComponents() {
@@ -143,6 +151,7 @@ void Engine::RegisterBuiltinSystems() {
 
 void Engine::RegisterBuiltinEvents() {
 	entityComponentSystem->RegisterEventType<ECS::CollisionEvent>();
+	entityComponentSystem->RegisterEventType<IO::IDisplay::ResolutionChangedEvent>();
 }
 
 void Engine::RegisterBuiltinVertices() {
@@ -151,6 +160,7 @@ void Engine::RegisterBuiltinVertices() {
 	renderer->GetMaterialSystem()->RegisterVertexType<GRAPHICS::VertexAnim3D>();
 	renderer->GetMaterialSystem()->RegisterVertexType<GRAPHICS::VertexCollisionDebug3D>();
 }
+
 
 IO::Logger* Engine::GetLogger() {
 	return logger.GetPointer();
@@ -180,6 +190,10 @@ IO::InputManager* Engine::GetInputManager() {
 	return inputManager.GetPointer();
 }
 
+AUDIO::AudioApi* Engine::GetAudioApi() {
+	return audioApi.GetPointer();
+}
+
 float Engine::GetCurrentTime() {
 	return static_cast<float>(glfwGetTime());
 }
@@ -190,8 +204,6 @@ Version Engine::GetVersion() {
 	return version;
 }
 
-const std::string& Engine::GetBuild() {
-	static std::string build = "2023.05.03a";
-
-	return build;
+std::string_view Engine::GetBuild() {
+	return "2023.06.17a";
 }

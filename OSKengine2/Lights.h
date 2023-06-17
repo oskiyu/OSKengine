@@ -68,7 +68,7 @@ namespace OSK::GRAPHICS {
 	/// @todo Implementación.
 	struct LightsBufferStruct {
 
-		alignas(16) TSize numPointLights = 0;
+		alignas(16) USize32 numPointLights = 0;
 
 		DynamicArray<PointLight> pointLights;
 

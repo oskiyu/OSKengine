@@ -38,11 +38,11 @@ RenderSystem3D::RenderSystem3D() {// Signature del sistema
 	// Mapa de sombras
 	// Before: 2048MB -> 2.048 GB, 0.78ms
 	// After: 1210MB -> 1.21 GB, 0.63ms
-	shadowMap.Create({ 4096u });
+	shadowMap.Create(Vector2ui(4096u));
 
 	// Directional light por defecto
 	const Vector3f direction = Vector3f(1.0f, -1.9f, 0.0f).GetNormalized();
-	dirLight.directionAndIntensity = Vector4f(direction.X, direction.Y, direction.Z, 1.4f);
+	dirLight.directionAndIntensity = Vector4f(direction.x, direction.y, direction.Z, 1.0f);
 	dirLight.color = Color(255 / 255.f, 255 / 255.f, 255 / 255.f);
 
 	CreateBuffers();
@@ -55,7 +55,7 @@ RenderSystem3D::RenderSystem3D() {// Signature del sistema
 void RenderSystem3D::Initialize(GameObjectIndex camera, const IrradianceMap& irradianceMap, const SpecularMap& specularMap) {
 	cameraObject = camera;
 
-	const GpuImageViewConfig viewConfig = GpuImageViewConfig::CreateSampled_Default();
+	const GpuImageViewConfig viewConfig  = GpuImageViewConfig::CreateSampled_Default();
 	const GpuImageViewConfig cubemapView = GpuImageViewConfig::CreateSampled_Cubemap();
 
 	sceneMaterialInstance->GetSlot("global")->SetGpuImage("irradianceMap", irradianceMap.GetGpuImage()->GetView(cubemapView));
@@ -71,7 +71,7 @@ void RenderSystem3D::Initialize(GameObjectIndex camera, const IrradianceMap& irr
 }
 
 void RenderSystem3D::CreateBuffers() {
-	for (TIndex i = 0; i < 3; i++) {
+	for (UIndex32 i = 0; i < NUM_RESOURCES_IN_FLIGHT; i++) {
 		cameraBuffers[i] = Engine::GetRenderer()->GetAllocator()->CreateUniformBuffer(sizeof(glm::mat4) * 2 + sizeof(glm::vec4)).GetPointer();
 		previousCameraBuffers[i] = Engine::GetRenderer()->GetAllocator()->CreateUniformBuffer(sizeof(glm::mat4) * 2).GetPointer();
 
@@ -93,16 +93,16 @@ void RenderSystem3D::LoadMaterials() {
 }
 
 void RenderSystem3D::SetupMaterials() {
-	const GpuBuffer* _cameraUbos[NUM_RESOURCES_IN_FLIGHT]{};
-	const GpuBuffer* _previousCameraUbos[NUM_RESOURCES_IN_FLIGHT]{};
-	const GpuBuffer* _dirLightUbos[NUM_RESOURCES_IN_FLIGHT]{};
-	const GpuBuffer* _shadowsMatricesUbos[NUM_RESOURCES_IN_FLIGHT]{};
-	const IGpuImageView* _shadowsMaps[NUM_RESOURCES_IN_FLIGHT]{};
+	std::array<const GpuBuffer*, NUM_RESOURCES_IN_FLIGHT> _cameraUbos{};
+	std::array<const GpuBuffer*, NUM_RESOURCES_IN_FLIGHT> _previousCameraUbos{};
+	std::array<const GpuBuffer*, NUM_RESOURCES_IN_FLIGHT> _dirLightUbos{};
+	std::array<const GpuBuffer*, NUM_RESOURCES_IN_FLIGHT> _shadowsMatricesUbos{};
+	std::array<const IGpuImageView*, NUM_RESOURCES_IN_FLIGHT> _shadowsMaps{};
 
 	GpuImageViewConfig shadowsViewConfig = GpuImageViewConfig::CreateSampled_Array(0, shadowMap.GetNumCascades());
 	shadowsViewConfig.channel = SampledChannel::DEPTH;
 
-	for (TSize i = 0; i < NUM_RESOURCES_IN_FLIGHT; i++) {
+	for (UIndex32 i = 0; i < NUM_RESOURCES_IN_FLIGHT; i++) {
 		_cameraUbos[i] = cameraBuffers[i].GetPointer();
 		_previousCameraUbos[i] = previousCameraBuffers[i].GetPointer();
 		_dirLightUbos[i] = dirLightUbos[i].GetPointer();
@@ -129,14 +129,14 @@ void RenderSystem3D::InitializeTerrain(const Vector2ui& resolution, const Textur
 	const GpuImageViewConfig viewConfig = GpuImageViewConfig::CreateSampled_MipLevelRanged(0, 0);
 	terrain.GetMaterialInstance()->GetSlot("global")->SetGpuImage("heightmap", heightMap.GetGpuImage()->GetView(viewConfig));
 
-	const GpuBuffer* ubos[3]{};
-	for (TSize i = 0; i < 3; i++) ubos[i] = cameraBuffers[i].GetPointer();
+	std::array<const GpuBuffer*, NUM_RESOURCES_IN_FLIGHT> ubos{};
+	for (UIndex32 i = 0; i < 3; i++) ubos[i] = cameraBuffers[i].GetPointer();
 	terrain.GetMaterialInstance()->GetSlot("global")->SetUniformBuffers("camera", ubos);
 
-	for (TSize i = 0; i < 3; i++) ubos[i] = dirLightUbos[i].GetPointer();
+	for (UIndex32 i = 0; i < 3; i++) ubos[i] = dirLightUbos[i].GetPointer();
 	terrain.GetMaterialInstance()->GetSlot("global")->SetUniformBuffers("dirLight", ubos);
 
-	for (TSize i = 0; i < 3; i++) ubos[i] = shadowMap.GetDirLightMatrixUniformBuffers()[i];
+	for (UIndex32 i = 0; i < 3; i++) ubos[i] = shadowMap.GetDirLightMatrixUniformBuffers()[i];
 	terrain.GetMaterialInstance()->GetSlot("global")->SetUniformBuffers("dirLightShadowMat", ubos);
 
 	GpuImageViewConfig shadowsViewConfig = GpuImageViewConfig::CreateSampled_Array(0, shadowMap.GetNumCascades());
@@ -157,16 +157,29 @@ void RenderSystem3D::InitializeTerrain(const Vector2ui& resolution, const Textur
 }
 
 void RenderSystem3D::CreateTargetImage(const Vector2ui& size) {
-	RenderTargetAttachmentInfo colorInfo{ .format = Format::RGBA16_SFLOAT, .usage = GpuImageUsage::TRANSFER_DESTINATION, .name = "RenderSystem3D Target" };
-	RenderTargetAttachmentInfo motionInfo{ .format = Format::RG16_SFLOAT, .name = "RenderSystem3D Motion" };
-	RenderTargetAttachmentInfo depthInfo{ .format = Format::D32S8_SFLOAT_SUINT, .name = "RenderSystem3D Depth" };
+	const RenderTargetAttachmentInfo colorInfo { 
+		.format = Format::RGBA16_SFLOAT, 
+		.usage = GpuImageUsage::TRANSFER_DESTINATION, 
+		.name = "RenderSystem3D Target" 
+	};
+
+	const RenderTargetAttachmentInfo motionInfo { 
+		.format = Format::RG16_SFLOAT, 
+		.name = "RenderSystem3D Motion"
+	};
+
+	const RenderTargetAttachmentInfo depthInfo { 
+		.format = Format::D32S8_SFLOAT_SUINT, 
+		.name = "RenderSystem3D Depth"
+	};
+
 	renderTarget.Create(size, { colorInfo, motionInfo }, depthInfo);
 
 	// TAA
-	const GpuImage* sourceImages[NUM_RESOURCES_IN_FLIGHT]{};
-	const GpuImage* motionImages[NUM_RESOURCES_IN_FLIGHT]{};
+	std::array<const GpuImage*, NUM_RESOURCES_IN_FLIGHT> sourceImages{};
+	std::array<const GpuImage*, NUM_RESOURCES_IN_FLIGHT> motionImages{};
 
-	for (TIndex i = 0; i < NUM_RESOURCES_IN_FLIGHT; i++) {
+	for (UIndex32 i = 0; i < NUM_RESOURCES_IN_FLIGHT; i++) {
 		sourceImages[i] = renderTarget.GetColorImage(COLOR_IMAGE_INDEX, i);
 		motionImages[i] = renderTarget.GetColorImage(MOTION_IMAGE_INDEX, i);
 	}
@@ -185,10 +198,10 @@ void RenderSystem3D::Resize(const Vector2ui& size) {
 	IRenderSystem::Resize(size);
 
 	// TAA
-	const GpuImage* sourceImages[NUM_RESOURCES_IN_FLIGHT]{};
-	const GpuImage* motionImages[NUM_RESOURCES_IN_FLIGHT]{};
+	std::array<const GpuImage*, NUM_RESOURCES_IN_FLIGHT> sourceImages{};
+	std::array<const GpuImage*, NUM_RESOURCES_IN_FLIGHT> motionImages{};
 
-	for (TIndex i = 0; i < NUM_RESOURCES_IN_FLIGHT; i++) {
+	for (UIndex32 i = 0; i < NUM_RESOURCES_IN_FLIGHT; i++) {
 		sourceImages[i] = renderTarget.GetColorImage(COLOR_IMAGE_INDEX, i);
 		motionImages[i] = renderTarget.GetColorImage(MOTION_IMAGE_INDEX, i);
 	}
@@ -208,14 +221,14 @@ ShadowMap* RenderSystem3D::GetShadowMap() {
 }
 
 void RenderSystem3D::GenerateShadows(ICommandList* commandList, ModelType modelType) {
-	const TSize resourceIndex = Engine::GetRenderer()->GetCurrentResourceIndex();
+	const UIndex32 resourceIndex = Engine::GetRenderer()->GetCurrentResourceIndex();
 	const Viewport viewport {
 		.rectangle = { 0u, 0u, 
-		shadowMap.GetColorImage(0)->GetSize2D().X, 
-		shadowMap.GetColorImage(0)->GetSize2D().Y }
+		shadowMap.GetColorImage(0)->GetSize2D().x, 
+		shadowMap.GetColorImage(0)->GetSize2D().y }
 	};
 
-	commandList->StartDebugSection("Shadows", Color::BLACK());
+	commandList->StartDebugSection("Shadows", Color::Black);
 
 	commandList->SetGpuImageBarrier(
 		shadowMap.GetShadowImage(resourceIndex), 
@@ -223,14 +236,20 @@ void RenderSystem3D::GenerateShadows(ICommandList* commandList, ModelType modelT
 		GpuImageLayout::DEPTH_STENCIL_TARGET,
 		GpuBarrierInfo(GpuCommandStage::NONE, GpuAccessStage::NONE),
 		GpuBarrierInfo(GpuCommandStage::DEPTH_STENCIL_START, GpuAccessStage::DEPTH_STENCIL_READ | GpuAccessStage::DEPTH_STENCIL_WRITE),
-		GpuImageRange{ .baseLayer = 0, .numLayers = shadowMap.GetNumCascades(), .baseMipLevel = 0, .numMipLevels = ALL_MIP_LEVELS, .channel = SampledChannel::DEPTH });
+		GpuImageRange { 
+			.baseLayer = 0, 
+			.numLayers = shadowMap.GetNumCascades(), 
+			.baseMipLevel = 0, 
+			.numMipLevels = ALL_MIP_LEVELS, 
+			.channel = SampledChannel::DEPTH 
+		});
 
 	commandList->SetViewport(viewport);
 	commandList->SetScissor(viewport.rectangle);
 
-	for (TSize i = 0; i < shadowMap.GetNumCascades(); i++) {
+	for (UIndex32 i = 0; i < shadowMap.GetNumCascades(); i++) {
 
-		commandList->StartDebugSection("Cascade " + std::to_string(i), Color::BLACK());
+		commandList->StartDebugSection(std::format("Cascade {}", i), Color::Black);
 
 		RenderPassImageInfo colorInfo{};
 		colorInfo.arrayLevel = i;
@@ -242,7 +261,7 @@ void RenderSystem3D::GenerateShadows(ICommandList* commandList, ModelType modelT
 
 		commandList->BeginGraphicsRenderpass({ colorInfo }, depthInfo, { 1.0f, 1.0f, 1.0f, 1.0f }, false);
 
-		commandList->StartDebugSection("Static Meshes", Color::BLACK());
+		commandList->StartDebugSection("Static Meshes", Color::Black);
 
 		commandList->BindMaterial(*shadowMap.GetShadowsMaterial(ModelType::STATIC_MESH));
 		commandList->BindMaterialSlot(*shadowMap.GetShadowsMaterialInstance()->GetSlot("global"));
@@ -251,7 +270,7 @@ void RenderSystem3D::GenerateShadows(ICommandList* commandList, ModelType modelT
 
 		commandList->EndDebugSection();
 
-		commandList->StartDebugSection("Animated Models", Color::BLACK());
+		commandList->StartDebugSection("Animated Models", Color::Black);
 
 		commandList->BindMaterial(*shadowMap.GetShadowsMaterial(ModelType::ANIMATED_MODEL));
 		commandList->BindMaterialSlot(*shadowMap.GetShadowsMaterialInstance()->GetSlot("global"));
@@ -268,9 +287,9 @@ void RenderSystem3D::GenerateShadows(ICommandList* commandList, ModelType modelT
 }
 
 void RenderSystem3D::RenderScene(ICommandList* commandList) {
-	const TSize resourceIndex = Engine::GetRenderer()->GetCurrentResourceIndex();
+	const UIndex32 resourceIndex = Engine::GetRenderer()->GetCurrentResourceIndex();
 	
-	commandList->StartDebugSection("PBR Direct", Color::RED());
+	commandList->StartDebugSection("PBR Direct", Color::Red);
 
 	commandList->SetGpuImageBarrier(shadowMap.GetShadowImage(resourceIndex),
 		GpuImageLayout::SAMPLED,
@@ -282,14 +301,14 @@ void RenderSystem3D::RenderScene(ICommandList* commandList) {
 			.numMipLevels = ALL_MIP_LEVELS, 
 			.channel = SampledChannel::DEPTH });
 
-	commandList->BeginGraphicsRenderpass(&renderTarget, Color::BLACK() * 0.0f);
+	commandList->BeginGraphicsRenderpass(&renderTarget, Color::Black * 0.0f);
 	SetupViewport(commandList);
 
-	commandList->StartDebugSection("Static Meshes", Color::RED());
+	commandList->StartDebugSection("Static Meshes", Color::Red);
 	SceneRenderLoop(ModelType::STATIC_MESH, commandList);
 	commandList->EndDebugSection();
 
-	commandList->StartDebugSection("Animated Models", Color::RED());
+	commandList->StartDebugSection("Animated Models", Color::Red);
 	// SceneRenderLoop(ModelType::ANIMATED_MODEL, commandList);
 	commandList->EndDebugSection();
 
@@ -301,8 +320,8 @@ void RenderSystem3D::RenderScene(ICommandList* commandList) {
 }
 
 void RenderSystem3D::SceneRenderLoop(ModelType modelType, ICommandList* commandList) {
-	GpuBuffer* previousVertexBuffer = nullptr;
-	GpuBuffer* previousIndexBuffer = nullptr;
+	const GpuBuffer* previousVertexBuffer = nullptr;
+	const GpuBuffer* previousIndexBuffer = nullptr;
 
 	commandList->BindMaterial(modelType == ModelType::STATIC_MESH ? *sceneMaterial : *animatedSceneMaterial);
 	commandList->BindMaterialSlot(*sceneMaterialInstance->GetSlot("global"));
@@ -318,6 +337,7 @@ void RenderSystem3D::SceneRenderLoop(ModelType modelType, ICommandList* commandL
 			commandList->BindVertexBuffer(*model.GetModel()->GetVertexBuffer());
 			previousVertexBuffer = model.GetModel()->GetVertexBuffer();
 		}
+
 		if (previousIndexBuffer != model.GetModel()->GetIndexBuffer()) {
 			commandList->BindIndexBuffer(*model.GetModel()->GetIndexBuffer());
 			previousIndexBuffer = model.GetModel()->GetIndexBuffer();
@@ -327,32 +347,37 @@ void RenderSystem3D::SceneRenderLoop(ModelType modelType, ICommandList* commandL
 			glm::mat4 model;
 			glm::mat4 previousModel;
 			glm::vec4 materialInfos;
-		} pushConsts{
+		} pushConsts {
 			.model = transform.GetAsMatrix(),
-			.previousModel = previousModelMatrices.ContainsKey(obj) ? previousModelMatrices.Get(obj) : glm::mat4(1.0f)
+			.previousModel = previousModelMatrices.ContainsKey(obj) 
+				? previousModelMatrices.Get(obj) 
+				: glm::mat4(1.0f)
 		};
 
 		if (modelType == ModelType::ANIMATED_MODEL)
 			commandList->BindMaterialSlot(*model.GetModel()->GetAnimator()->GetMaterialInstance()->GetSlot("animation"));
 
-		for (TSize i = 0; i < model.GetModel()->GetMeshes().GetSize(); i++) {
-			commandList->BindMaterialSlot(*model.GetMeshMaterialInstance(i)->GetSlot("texture"));
+		for (UIndex32 meshIndex = 0; meshIndex < model.GetModel()->GetMeshes().GetSize(); meshIndex++) {
+			commandList->BindMaterialSlot(*model.GetMeshMaterialInstance(meshIndex)->GetSlot("texture"));
 
-			pushConsts.materialInfos.x = model.GetModel()->GetMetadata().meshesMetadata[i].metallicFactor;
-			pushConsts.materialInfos.y = model.GetModel()->GetMetadata().meshesMetadata[i].roughnessFactor;
+			const auto& mesh = model.GetModel()->GetMeshes()[meshIndex];
+			const auto& meshMetadata = model.GetModel()->GetMetadata().meshesMetadata[meshIndex];
+
+			pushConsts.materialInfos.x = meshMetadata.metallicFactor;
+			pushConsts.materialInfos.y = meshMetadata.roughnessFactor;
 			pushConsts.materialInfos.z = (float)taaProvider.GetCurrentFrameJitterIndex();
 
 			commandList->PushMaterialConstants("pushConstants", pushConsts);
 
-			commandList->DrawSingleMesh(model.GetModel()->GetMeshes()[i].GetFirstIndexId(), model.GetModel()->GetMeshes()[i].GetNumberOfIndices());
+			commandList->DrawSingleMesh(mesh.GetFirstIndexId(), mesh.GetNumberOfIndices());
 		}
 	}
 }
 
-void RenderSystem3D::ShadowsRenderLoop(ModelType modelType, ICommandList* commandList, TSize cascadeIndex) {
+void RenderSystem3D::ShadowsRenderLoop(ModelType modelType, ICommandList* commandList, UIndex32 cascadeIndex) {
 	for (const GameObjectIndex obj : GetObjects()) {
-		const ModelComponent3D& model = Engine::GetEcs()->GetComponent<ModelComponent3D>(obj);
-		const Transform3D& transform = Engine::GetEcs()->GetComponent<Transform3D>(obj);
+		const auto& model = Engine::GetEcs()->GetComponent<ModelComponent3D>(obj);
+		const auto& transform = Engine::GetEcs()->GetComponent<Transform3D>(obj);
 
 		if (model.GetModel()->GetType() != modelType)
 			continue;
@@ -372,8 +397,8 @@ void RenderSystem3D::ShadowsRenderLoop(ModelType modelType, ICommandList* comman
 		};
 		commandList->PushMaterialConstants("model", pushConstant);
 
-		for (TSize i = 0; i < model.GetModel()->GetMeshes().GetSize(); i++)
-			commandList->DrawSingleMesh(model.GetModel()->GetMeshes()[i].GetFirstIndexId(), model.GetModel()->GetMeshes()[i].GetNumberOfIndices());
+		for (const auto& mesh : model.GetModel()->GetMeshes())
+			commandList->DrawSingleMesh(mesh.GetFirstIndexId(), mesh.GetNumberOfIndices());
 	}
 }
 
@@ -401,9 +426,9 @@ void RenderSystem3D::RenderTerrain(ICommandList* commandList) {
 }
 
 void RenderSystem3D::ExecuteTaa(ICommandList* commandList) {
-	commandList->StartDebugSection("TAA", Color::YELLOW());
+	commandList->StartDebugSection("TAA", Color::Yellow);
 
-	const TIndex resourceIndex = Engine::GetRenderer()->GetCurrentResourceIndex();
+	const UIndex32 resourceIndex = Engine::GetRenderer()->GetCurrentResourceIndex();
 
 	commandList->SetGpuImageBarrier(
 		renderTarget.GetColorImage(MOTION_IMAGE_INDEX, resourceIndex),
@@ -424,7 +449,7 @@ void RenderSystem3D::ExecuteTaa(ICommandList* commandList) {
 }
 
 void RenderSystem3D::CopyTaaResult(GRAPHICS::ICommandList* commandList) {
-	const TIndex resourceIndex = Engine::GetRenderer()->GetCurrentResourceIndex();
+	const UIndex32 resourceIndex = Engine::GetRenderer()->GetCurrentResourceIndex();
 	GpuImage* sourceImage = taaProvider.GetTaaOutput().GetTargetImage(resourceIndex);
 	GpuImage* destinationImage = renderTarget.GetColorImage(COLOR_IMAGE_INDEX, resourceIndex);
 
@@ -447,10 +472,10 @@ void RenderSystem3D::CopyTaaResult(GRAPHICS::ICommandList* commandList) {
 }
 
 void RenderSystem3D::Render(GRAPHICS::ICommandList* commandList) {
-	const TSize resourceIndex = Engine::GetRenderer()->GetCurrentResourceIndex();
+	const UIndex32 resourceIndex = Engine::GetRenderer()->GetCurrentResourceIndex();
 
-	const CameraComponent3D& camera = Engine::GetEcs()->GetComponent<CameraComponent3D>(cameraObject);
-	const Transform3D& cameraTransform = Engine::GetEcs()->GetComponent<Transform3D>(cameraObject);
+	const auto& camera = Engine::GetEcs()->GetComponent<CameraComponent3D>(cameraObject);
+	const auto& cameraTransform = Engine::GetEcs()->GetComponent<Transform3D>(cameraObject);
 
 	const glm::mat4 currentProjection = camera.GetProjectionMatrix();
 	const glm::mat4 currentView = camera.GetViewMatrix(cameraTransform);
@@ -471,7 +496,7 @@ void RenderSystem3D::Render(GRAPHICS::ICommandList* commandList) {
 	dirLightUbos[resourceIndex]->Unmap();
 
 	previousCameraProjection = currentProjection;
-	previousCameraView= currentView;
+	previousCameraView = currentView;
 
 	shadowMap.SetDirectionalLight(dirLight);
 	

@@ -6,6 +6,8 @@
 #include "GpuImageDimensions.h"
 #include "GpuMemoryTypes.h"
 
+#include "InvalidArgumentException.h"
+
 using namespace OSK;
 using namespace OSK::GRAPHICS;
 
@@ -23,7 +25,7 @@ RenderTargetAttachment RenderTargetAttachment::Create(const RenderTargetAttachme
 void RenderTargetAttachment::Initialize(const RenderTargetAttachmentInfo& info, const Vector2ui& resolution) {
 	this->info = info;
 	
-	for (TSize i = 0; i < NUM_RESOURCES_IN_FLIGHT; i++) {
+	for (UIndex32 i = 0; i < NUM_RESOURCES_IN_FLIGHT; i++) {
 		GpuImageCreateInfo imageInfo = GpuImageCreateInfo::CreateDefault2D(resolution, info.format, info.usage);
 		imageInfo.samplerDesc = info.sampler;
 
@@ -41,7 +43,8 @@ const RenderTargetAttachmentInfo& RenderTargetAttachment::GetInfo() const {
 	return info;
 }
 
-GpuImage* RenderTargetAttachment::GetImage(TIndex resourceIndex) const {
-	OSK_ASSERT(resourceIndex < NUM_RESOURCES_IN_FLIGHT, "No existe imagen en el índice " + std::to_string(resourceIndex));
+GpuImage* RenderTargetAttachment::GetImage(UIndex32 resourceIndex) const {
+	OSK_ASSERT(resourceIndex < NUM_RESOURCES_IN_FLIGHT, 
+		InvalidArgumentException("No existe imagen en el índice " + std::to_string(resourceIndex)));
 	return images[resourceIndex].GetPointer();
 }

@@ -27,16 +27,22 @@ namespace OSK::ECS {
 		/// indicar que es un identificador inválido.
 		/// </summary>
 		/// <param name="obj"></param>
+		/// 
+		/// @throws InvalidObjectException Si el objeto indicado no existe.
 		void DestroyGameObject(GameObjectIndex* obj);
 
 		/// <summary>
 		/// Establece el signature del objeto.
 		/// </summary>
+		/// 
+		/// @throws InvalidObjectException Si el objeto indicado no existe.
 		void SetSignature(GameObjectIndex obj, const Signature& signature);
 
 		/// <summary>
 		/// Devuelve el signature del objeto.
 		/// </summary>
+		/// 
+		/// @throws InvalidObjectException Si el objeto indicado no existe.
 		Signature GetSignature(GameObjectIndex obj);
 
 		/// @brief Comprueba si un objeto está activo.
@@ -63,7 +69,7 @@ namespace OSK::ECS {
 		/// Identificador del próximo objeto (si no hay identificadores
 		/// libres que se puedan reutilizar).
 		/// </summary>
-		TSize nextIndex = 1;
+		GameObjectIndex nextIndex = 1;
 
 	};
 

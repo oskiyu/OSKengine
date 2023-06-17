@@ -49,7 +49,7 @@ namespace OSK::ASSETS {
 		/// </summary>
 		/// 
 		/// @note Nombre de la textura -> ID de la textura dentro de las texturas almacenadas por el modelo.
-		HashMap<std::string, TSize> materialTextures;
+		HashMap<std::string, USize32> materialTextures;
 
 		/// <summary> Factor metálico del material del mesh. </summary>
 		///
@@ -125,7 +125,7 @@ namespace OSK::ASSETS {
 		/// @pre Debe ser mayor que 0.
 		/// 
 		/// @warning Función interna: no llamar.
-		void _SetIndexCount(TSize count);
+		void _SetIndexCount(USize32 count);
 
 		/// <summary> Devuelve el buffer de la GPU con los vértices del modelo. </summary>
 		/// 
@@ -152,7 +152,7 @@ namespace OSK::ASSETS {
 		/// 
 		/// @note Múltiplo de 3.
 		/// @note Mayor que 0.
-		TSize GetIndexCount() const;
+		USize32 GetIndexCount() const;
 
 		/// <summary> Añade una imagen a la lista de imágenes de los meshes. </summary>
 		/// 
@@ -162,7 +162,7 @@ namespace OSK::ASSETS {
 		/// <summary> Devuelve la imagen de mesh con el índice dado. </summary>
 		/// <param name="index">Índice de la imagen.</param>
 		/// @warning No comprueba que esté dentro de los límites.
-		const GRAPHICS::GpuImage* GetImage(TSize index) const;
+		const GRAPHICS::GpuImage* GetImage(UIndex32 index) const;
 
 		/// <summary> Devuelve los metadatos para proseguir el procesado del modelo. </summary>
 		const ModelMetadata& GetMetadata() const;
@@ -199,7 +199,7 @@ namespace OSK::ASSETS {
 
 		ModelMetadata metadata;
 
-		TSize numIndices = 0;
+		USize32 numIndices = 0;
 
 	};
 

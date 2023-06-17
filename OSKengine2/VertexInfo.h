@@ -28,7 +28,7 @@ namespace OSK::GRAPHICS {
 				FLOAT
 			};
 
-			Entry(TSize size, Type type, const std::string& name) 
+			Entry(USize32 size, Type type, const std::string& name) 
 				: size(size), type(type), name(name) {
 
 			}
@@ -36,7 +36,7 @@ namespace OSK::GRAPHICS {
 			/// <summary>
 			/// Tamaño (en número de bytes).
 			/// </summary>
-			TSize size = 0;
+			USize32 size = 0;
 			Type type = Type::FLOAT;
 			
 			void SetName(const std::string& name) {
@@ -58,7 +58,7 @@ namespace OSK::GRAPHICS {
 		/// </summary>
 		DynamicArray<Entry> entries;
 
-		TSize GetSize() const;
+		USize32 GetSize() const;
 
 	};
 

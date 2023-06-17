@@ -4,7 +4,7 @@
 
     "name": "Model0",
     "asset_type": "Model3D",
-    "raw_asset_path": "Resources/RawAssets/Models/chas gt.glb",
+    "raw_asset_path": "Resources/RawAssets/Models/chass.glb",
 
     "scale": 0.15,
     "load_textures": false,

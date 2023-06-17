@@ -62,7 +62,7 @@ namespace OSK::GRAPHICS {
 		/// @param mipLevel Mip level usado.
 		/// 
 		/// @pre @p mipLevel debe existir en la imagen original.
-		static GpuImageViewConfig CreateSampled_SingleMipLevel(TIndex mipLevel);
+		static GpuImageViewConfig CreateSampled_SingleMipLevel(UIndex32 mipLevel);
 
 		/// @brief Crea una configuración para un uso normal de una textura,
 		/// en la que se usan los mip-levels del rango indicado.
@@ -74,7 +74,7 @@ namespace OSK::GRAPHICS {
 		/// 
 		/// @pre Todos los niveles de mip indicados dentro del rango deben existir en la imagen original.
 		/// @pre @p baseMipLevel <= @p topMipLevel.
-		static GpuImageViewConfig CreateSampled_MipLevelRanged(TIndex baseMipLevel, TIndex topMipLevel);
+		static GpuImageViewConfig CreateSampled_MipLevelRanged(UIndex32 baseMipLevel, UIndex32 topMipLevel);
 
 		/// @brief Crea una configuración para un uso normal de una textura, que es un array.
 		/// Usa todos los mip-levels.
@@ -84,7 +84,7 @@ namespace OSK::GRAPHICS {
 		/// @param layerCount Número de capas.
 		/// 
 		/// @pre @p layerCount >= 1.
-		static GpuImageViewConfig CreateSampled_Array(TIndex baseLayer, TSize layerCount);
+		static GpuImageViewConfig CreateSampled_Array(UIndex32 baseLayer, USize32 layerCount);
 
 		/// @brief Crea una configuración para un uso normal de un cubemap.
 		/// Usa todos los mip-levels.
@@ -140,7 +140,7 @@ namespace OSK::GRAPHICS {
 		/// Para imágenes simples, debe ser 0.
 		/// 
 		/// @pre Para cubemaps, debe ser múltiplo de 6.
-		TIndex baseArrayLevel = 0;
+		UIndex32 baseArrayLevel = 0;
 
 		/// @brief Número de capas del array.
 		/// 
@@ -148,20 +148,20 @@ namespace OSK::GRAPHICS {
 		/// @pre Para arrays, debe ser > 1.
 		/// @pre Para un único cubemap, debe ser 6 y @p arrayType debe ser SampledArrayType::SINGLE_LAYER.
 		/// @pre Para array de cubemaps, debe ser múltiplo de 6 y @p arrayType debe ser SampledArrayType::ARRAY.
-		TSize arrayLevelCount = 1;
+		USize32 arrayLevelCount = 1;
 
 		/// @brief Detalle máximo de mip-level.
 		/// Por defecto, 0 (más alto).
 		/// 
 		/// @pre Debe ser menor o igual que @p topMipLevel.
 		/// @pre Para usar un único mip-level, debe ser igual a @p topMipLevel.
-		TIndex baseMipLevel = 0;
+		UIndex32 baseMipLevel = 0;
 
 		/// @brief Detalle mínimo del mip-level.
 		/// 
 		/// @pre Debe ser mayor o igual que @p baseMipLevel.
 		/// @pre Para usar un único mip-level, debe ser igual a @p baseMipLevel.
-		TIndex topMipLevel = 0;
+		UIndex32 topMipLevel = 0;
 
 		/// @brief Uso que se le va a dar.
 		/// Por defecto, SAMPLED.

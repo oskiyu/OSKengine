@@ -38,7 +38,7 @@ GpuMemoryAllocatorVk::GpuMemoryAllocatorVk(IGpu* device)
 	minStorageBufferAlignment = device->As<GpuVk>()->GetInfo().properties.limits.minStorageBufferOffsetAlignment;
 }
 
-OwnedPtr<IGpuMemoryBlock> GpuMemoryAllocatorVk::CreateNewBufferBlock(TSize size, GpuBufferUsage usage, GpuSharedMemoryType sharedType) {
+OwnedPtr<IGpuMemoryBlock> GpuMemoryAllocatorVk::CreateNewBufferBlock(USize64 size, GpuBufferUsage usage, GpuSharedMemoryType sharedType) {
 	return GpuMemoryBlockVk::CreateNewBufferBlock(size, device, sharedType, usage).GetPointer();
 }
 
@@ -47,29 +47,27 @@ OwnedPtr<IGpuMemoryBlock> GpuMemoryAllocatorVk::CreateNewImageBlock(GpuImage* im
 }
 
 OwnedPtr<GpuImage> GpuMemoryAllocatorVk::CreateImage(const GpuImageCreateInfo& info) {
-	TSize numBytes = GetFormatNumberOfBytes(info.format);
+	USize64 numBytes = GetFormatNumberOfBytes(info.format);
 
 	switch (info.dimension) {
-		case OSK::GRAPHICS::GpuImageDimension::d1D: numBytes *= info.resolution.X; break;
-		case OSK::GRAPHICS::GpuImageDimension::d2D: numBytes *= info.resolution.X * info.resolution.Y; break;
-		case OSK::GRAPHICS::GpuImageDimension::d3D: numBytes *= info.resolution.X * info.resolution.Y * info.resolution.Z; break;
+		case OSK::GRAPHICS::GpuImageDimension::d1D: numBytes *= info.resolution.x; break;
+		case OSK::GRAPHICS::GpuImageDimension::d2D: numBytes *= info.resolution.x * info.resolution.y; break;
+		case OSK::GRAPHICS::GpuImageDimension::d3D: numBytes *= info.resolution.x * info.resolution.y * info.resolution.Z; break;
 	}
 
 	Vector3ui finalImageSize = info.resolution;
 
 	switch (info.dimension) {
-		case OSK::GRAPHICS::GpuImageDimension::d1D: finalImageSize = { info.resolution.X , 1, 1 }; break;
-		case OSK::GRAPHICS::GpuImageDimension::d2D: finalImageSize = { info.resolution.X , info.resolution.Y, 1 }; break;
+		case OSK::GRAPHICS::GpuImageDimension::d1D: finalImageSize = { info.resolution.x , 1, 1 }; break;
+		case OSK::GRAPHICS::GpuImageDimension::d2D: finalImageSize = { info.resolution.x , info.resolution.y, 1 }; break;
 	}
 
-	if (finalImageSize.X == 0)
-		finalImageSize.X = 1;
-	if (finalImageSize.Y == 0)
-		finalImageSize.Y = 1;
+	if (finalImageSize.x == 0)
+		finalImageSize.x = 1;
+	if (finalImageSize.y == 0)
+		finalImageSize.y = 1;
 
-	VkSampler sampler = VK_NULL_HANDLE;
-
-	GpuImageVk* output = new GpuImageVk(
+	OwnedPtr<GpuImageVk> output = new GpuImageVk(
 		info.resolution, 
 		info.dimension, 
 		info.usage, 
@@ -78,21 +76,8 @@ OwnedPtr<GpuImage> GpuMemoryAllocatorVk::CreateImage(const GpuImageCreateInfo& i
 		info.msaaSamples, 
 		info.samplerDesc);
 
-	TSize numMipLevels = 0;
-	switch (info.samplerDesc.mipMapMode) {
-	case GpuImageMipmapMode::AUTO:
-		numMipLevels = output->GetMipLevels();
-		break;
-	case GpuImageMipmapMode::CUSTOM:
-		numMipLevels = info.samplerDesc.maxMipLevel;
-		break;
-	case GpuImageMipmapMode::NONE:
-		numMipLevels = 1;
-		break;
-	}
-
 	output->CreateVkImage();
-	auto block = GpuMemoryBlockVk::CreateNewImageBlock(output, device, info.memoryType, info.usage);
+	auto block = GpuMemoryBlockVk::CreateNewImageBlock(output.GetPointer(), device, info.memoryType, info.usage);
 	output->SetBlock(block.GetPointer());
 
 	imageMemoryBlocks.Insert(block.GetPointer());
@@ -100,7 +85,7 @@ OwnedPtr<GpuImage> GpuMemoryAllocatorVk::CreateImage(const GpuImageCreateInfo& i
 	// ------ IMAGE ---------- //
 	output->CreateVkSampler(info.samplerDesc);
 
-	return output;
+	return output.GetPointer();
 }
 
 

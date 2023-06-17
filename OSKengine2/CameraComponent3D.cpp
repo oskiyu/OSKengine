@@ -38,15 +38,11 @@ float CameraComponent3D::GetFarPlane() const {
 }
 
 void CameraComponent3D::SetPlanes(float near, float far) {
-	OSK_ASSERT(near < far, "Se han intentado introducir valores del plano de cámara inválidos.");
-
 	nearPlane = near;
 	farPlane = far;
 }
 
 void CameraComponent3D::SetFovLimits(float min, float max) {
-	OSK_ASSERT(min < max, "Se han intentado introducir valores del plano de cámara inválidos.");
-
 	fovLimitDown = min;
 	fovLimitUp = max;
 }
@@ -60,19 +56,19 @@ void CameraComponent3D::Rotate(float angleX, float angleY) {
 	const static float middleAngle = 0.0f;
 	const static float diffAngle = 180.0f / 2;
 
-	if (accumulatedAngles.Y > middleAngle + diffAngle)
-		angles.Y = middleAngle + diffAngle - prevAccumAngles.Y;
-	if (accumulatedAngles.Y < middleAngle - diffAngle)
-		angles.Y = middleAngle - diffAngle - prevAccumAngles.Y;
+	if (accumulatedAngles.y > middleAngle + diffAngle)
+		angles.y = middleAngle + diffAngle - prevAccumAngles.y;
+	if (accumulatedAngles.y < middleAngle - diffAngle)
+		angles.y = middleAngle - diffAngle - prevAccumAngles.y;
 
-	accumulatedAngles = prevAccumAngles + Vector2f(angles.X, angles.Y);
+	accumulatedAngles = prevAccumAngles + Vector2f(angles.x, angles.y);
 }
 
 void CameraComponent3D::UpdateTransform(Transform3D* transform) {
-	transform->RotateLocalSpace(glm::radians(-angles.Y), { 1, 0, 0 });
-	transform->RotateWorldSpace(glm::radians(-angles.X), worldUpVector);
+	transform->RotateLocalSpace(glm::radians(-angles.y), { 1, 0, 0 });
+	transform->RotateWorldSpace(glm::radians(-angles.x), worldUpVector);
 
-	angles = 0.0f;
+	angles = Vector2f::Zero;
 }
 
 glm::mat4 CameraComponent3D::GetProjectionMatrix() const {

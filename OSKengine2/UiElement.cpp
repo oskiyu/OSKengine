@@ -25,7 +25,7 @@ void IElement::_SetRelativePosition(const Vector2f& relativePosition) {
 }
 
 void IElement::SetPadding(const Vector2f& padding) {
-	SetPadding(Vector4f(padding.X, padding.Y, padding.X, padding.Y));
+	SetPadding(Vector4f(padding.x, padding.y, padding.x, padding.y));
 }
 
 void IElement::SetPadding(const Vector4f& padding) {
@@ -33,7 +33,7 @@ void IElement::SetPadding(const Vector4f& padding) {
 }
 
 void IElement::SetMargin(const Vector2f& margin) {
-	SetMargin(Vector4f(margin.X, margin.Y, margin.X, margin.Y));
+	SetMargin(Vector4f(margin.x, margin.y, margin.x, margin.y));
 }
 
 void IElement::SetMargin(const Vector4f& margin) {
@@ -57,15 +57,15 @@ Vector2f IElement::GetContentSize() const {
 }
 
 Vector2f IElement::GetContentTopLeftPosition() const {
-	return relativePosition + Vector2f(padding.X, padding.Y);
+	return relativePosition + Vector2f(padding.x, padding.y);
 }
 
 Vector4f IElement::GetRectangle(Vector2f parentPosition) const {
 	return Vector4f(
-		relativePosition.X + parentPosition.X,
-		relativePosition.Y + parentPosition.Y,
-		size.X,
-		size.Y
+		relativePosition.x + parentPosition.x,
+		relativePosition.y + parentPosition.y,
+		size.x,
+		size.y
 	);
 }
 
@@ -83,14 +83,14 @@ Vector4f IElement::GetMarging() const {
 
 Vector2f IElement::GetPadding2D() const {
 	return Vector2f(
-		padding.X + padding.Z,
-		padding.Y + padding.W
+		padding.x + padding.Z,
+		padding.y + padding.W
 	);
 }
 
 Vector2f IElement::GetMarging2D() const {
 	return Vector2f(
-		margin.X + margin.Z,
-		margin.Y + margin.W
+		margin.x + margin.Z,
+		margin.y + margin.W
 	);
 }

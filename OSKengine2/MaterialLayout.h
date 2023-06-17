@@ -72,7 +72,7 @@ namespace OSK::GRAPHICS {
 		std::string name;
 		HashMap<std::string, MaterialLayoutSlot> slots;
 		HashMap<std::string, MaterialLayoutPushConstant> pushConstants;
-		TSize accumulatedPushConstOffset = 0;
+		USize32 accumulatedPushConstOffset = 0;
 
 	};
 

@@ -7,7 +7,7 @@
 using namespace OSK;
 using namespace OSK::GRAPHICS;
 
-IGpuMemorySubblock::IGpuMemorySubblock(IGpuMemoryBlock* block, TSize size, TSize offset) 
+IGpuMemorySubblock::IGpuMemorySubblock(IGpuMemoryBlock* block, USize64 size, USize64 offset)
 	: ownerBlock(block), reservedSize(size), totalOffsetFromBlock(offset) {
 	
 }
@@ -16,11 +16,11 @@ IGpuMemorySubblock::~IGpuMemorySubblock() {
 	ownerBlock->RemoveSubblock(this);
 }
 
-TSize IGpuMemorySubblock::GetAllocatedSize() const {
+USize64 IGpuMemorySubblock::GetAllocatedSize() const {
 	return reservedSize;
 }
 
-TSize IGpuMemorySubblock::GetOffsetFromBlock() const {
+USize64 IGpuMemorySubblock::GetOffsetFromBlock() const {
 	return totalOffsetFromBlock;
 }
 
@@ -28,7 +28,7 @@ IGpuMemoryBlock* IGpuMemorySubblock::GetOwnerBlock() const {
 	return ownerBlock;
 }
 
-void IGpuMemorySubblock::SetCursor(TSize position) {
+void IGpuMemorySubblock::SetCursor(UIndex64 position) {
 	cursor = position;
 }
 

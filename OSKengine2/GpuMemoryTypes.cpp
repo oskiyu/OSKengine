@@ -24,7 +24,7 @@ template <> std::string OSK::ToString<OSK::GRAPHICS::GpuMemoryUsage>(const OSK::
 }
 
 template <> std::string OSK::ToString<OSK::GRAPHICS::GpuBufferUsage>(const OSK::GRAPHICS::GpuBufferUsage& usage) {
-	TSize numFlags = 0;
+	USize32 numFlags = 0;
 	
 	std::string output = "";
 

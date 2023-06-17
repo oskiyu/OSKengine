@@ -23,7 +23,6 @@
 #include "Window.h"
 #include "Format.h"
 #include "Version.h"
-#include "SyncDeviceDx12.h"
 #include "GpuMemoryAllocatorDx12.h"
 #include "GpuImageLayout.h"
 #include "RenderpassType.h"
@@ -49,6 +48,8 @@
 #include "Texture.h"
 #include "Model3D.h"
 #include "AssetManager.h"
+
+#include "RendererExceptions.h"
 
 #include <glm/ext/matrix_transform.hpp>
 
@@ -79,7 +80,8 @@ void RendererDx12::Initialize(const std::string& appName, const Version& version
 		debugConsole->SetEnableGPUBasedValidation(true);
 
 		auto result = CreateDXGIFactory2(DXGI_CREATE_FACTORY_DEBUG, IID_PPV_ARGS(&factory));
-		OSK_CHECK(SUCCEEDED(result), "No se ha podido crear las capas de validación.");
+		if(!SUCCEEDED(result))
+			Engine::GetLogger()->InfoLog("No se ha podido crear las capas de validación.");
 		
 		Engine::GetLogger()->InfoLog("Capas de validación activas.");
 	}
@@ -92,12 +94,11 @@ void RendererDx12::Initialize(const std::string& appName, const Version& version
 	ChooseGpu();
 	CreateCommandQueues();
 	CreateSwapchain(mode);
-	CreateSyncDevice();
 	CreateGpuMemoryAllocator();
 
 	renderTargetsCamera = new ECS::CameraComponent2D;
 	renderTargetsCamera->LinkToDisplay(&display);
-	renderTargetsCameraTransform.SetScale({ display.GetResolution().X / 2.0f, display.GetResolution().Y / 2.0f });
+	renderTargetsCameraTransform.SetScale({ display.GetResolution().x / 2.0f, display.GetResolution().y / 2.0f });
 	renderTargetsCamera->UpdateUniformBuffer(renderTargetsCameraTransform);
 
 	CreateMainRenderpass();
@@ -126,7 +127,7 @@ void RendererDx12::HandleResize() {
 }
 
 void RendererDx12::Resize() {
-	if (display->GetResolution().X == 0 && display->GetResolution().Y == 0)
+	if (display->GetResolution().x == 0 && display->GetResolution().y == 0)
 		return;
 
 	Format format = swapchain->GetImage(0)->GetFormat();
@@ -134,25 +135,25 @@ void RendererDx12::Resize() {
 	swapchain->As<SwapchainDx12>()->DeleteImages();
 
 	swapchain->As<SwapchainDx12>()->GetSwapchain()->ResizeBuffers(swapchain->GetImageCount(),
-		display->GetResolution().X, display->GetResolution().Y, GetFormatDx12(format), 0);
+		display->GetResolution().x, display->GetResolution().y, GetFormatDx12(format), 0);
 
 	swapchain->As<SwapchainDx12>()->CreateImages(*display);
 	//finalRenderpass->SetImages(swapchain->GetImage(0), swapchain->GetImage(1), swapchain->GetImage(2));
 }
 
-const TByte* RendererDx12::FormatImageDataForGpu(const GpuImage* image, const TByte* data, TSize numLayers) {
+const TByte* RendererDx12::FormatImageDataForGpu(const GpuImage* image, const TByte* data, USize32 numLayers) {
 	TByte* output = new TByte[image->GetPhysicalNumberOfBytes() * numLayers];
 
-	const TSize numBytesPerPixel = GetFormatNumberOfBytes(image->GetFormat());
-	const TSize numBytesPerLayer = image->GetPhysicalNumberOfBytes();
+	const USize32 numBytesPerPixel = GetFormatNumberOfBytes(image->GetFormat());
+	const USize32 numBytesPerLayer = image->GetPhysicalNumberOfBytes();
 
-	for (TSize i = 0; i < numLayers + 0; i++) {
-		const TSize layerOffset = numBytesPerLayer * i;
+	for (UIndex32 i = 0; i < numLayers + 0; i++) {
+		const USize32 layerOffset = numBytesPerLayer * i;
 
-		for (TSize y = 0; y < image->GetPhysicalSize().Y; y++)
-			memcpy(&output[layerOffset + y * image->GetPhysicalSize().X * numBytesPerPixel], 
-				&data[layerOffset + y * image->GetSize2D().X * numBytesPerPixel], 
-				image->GetSize2D().X * numBytesPerPixel);
+		for (UIndex32 y = 0; y < image->GetPhysicalSize().y; y++)
+			memcpy(&output[layerOffset + y * image->GetPhysicalSize().x * numBytesPerPixel], 
+				&data[layerOffset + y * image->GetSize2D().x * numBytesPerPixel], 
+				image->GetSize2D().x * numBytesPerPixel);
 	}
 
 	return output;
@@ -167,7 +168,7 @@ OwnedPtr<IGraphicsPipeline> RendererDx12::_CreateGraphicsPipeline(const Pipeline
 }
 
 OwnedPtr<IRaytracingPipeline> RendererDx12::_CreateRaytracingPipeline(const PipelineCreateInfo& pipelineInfo, const MaterialLayout& layout, const VertexInfo& vertexTypeName) {
-	OSK_ASSERT(false, "No implementado.");
+	OSK_ASSERT(false, NotImplementedException());
 	return nullptr;
 }
 
@@ -202,7 +203,7 @@ void RendererDx12::ChooseGpu() {
 		}
 	}
 
-	OSK_ASSERT(found, "No se ha encontrado ninguna GPU compatible con DirectX 12");
+	OSK_ASSERT(found, GpuNotFoundException());
 
 	ComPtr<ID3D12Device5> device;
 	D3D12CreateDevice(adapter.Get(), D3D_FEATURE_LEVEL_12_1, IID_PPV_ARGS(&device));
@@ -268,10 +269,6 @@ void RendererDx12::CreateSwapchain(PresentMode mode) {
 	Engine::GetLogger()->InfoLog("Creado el swapchain.");
 }
 
-void RendererDx12::CreateSyncDevice() {
-	syncDevice = currentGpu->As<GpuDx12>()->CreateSyncDevice().GetPointer();
-}
-
 void RendererDx12::CreateGpuMemoryAllocator() {
 	gpuMemoryAllocator = new GpuMemoryAllocatorDx12(currentGpu.GetPointer());
 
@@ -296,16 +293,16 @@ void RendererDx12::PresentFrame() {
 	preComputeCommandList->Close();
 	postComputeCommandList->Close();
 
-	for (TSize i = 0; i < singleTimeCommandLists.GetSize(); i++)
-		singleTimeCommandLists.At(i)->DeleteAllStagingBuffers();
+	for (auto const& cmdList : singleTimeCommandLists)
+		cmdList->DeleteAllStagingBuffers();
 
 	ID3D12CommandList* commandLists[] = { graphicsCommandList->As<CommandListDx12>()->GetCommandList() };
 	graphicsQueue->As<CommandQueueDx12>()->GetCommandQueue()->ExecuteCommandLists(1, commandLists);
 
 	swapchain->Present();
 
-	syncDevice->As<SyncDeviceDx12>()->Flush(*graphicsQueue->As<CommandQueueDx12>());
-	syncDevice->As<SyncDeviceDx12>()->Await();
+	// syncDevice->As<SyncDeviceDx12>()->Flush(*graphicsQueue->As<CommandQueueDx12>());
+	// syncDevice->As<SyncDeviceDx12>()->Await();
 
 	graphicsCommandList->Reset();
 	preComputeCommandList->Reset();
@@ -316,8 +313,8 @@ void RendererDx12::PresentFrame() {
 		Resize();
 		mustResize = false;
 
-		syncDevice->As<SyncDeviceDx12>()->Flush(*graphicsQueue->As<CommandQueueDx12>());
-		syncDevice->As<SyncDeviceDx12>()->Await();
+		// syncDevice->As<SyncDeviceDx12>()->Flush(*graphicsQueue->As<CommandQueueDx12>());
+		// syncDevice->As<SyncDeviceDx12>()->Await();
 		swapchain->As<SwapchainDx12>()->UpdateFrameIndex();
 	}
 
@@ -330,17 +327,17 @@ void RendererDx12::SubmitSingleUseCommandList(OwnedPtr<ICommandList> commandList
 	ID3D12CommandList* commandLists[] = { commandList->As<CommandListDx12>()->GetCommandList() };
 	graphicsQueue->As<CommandQueueDx12>()->GetCommandQueue()->ExecuteCommandLists(1, commandLists);
 
-	syncDevice->As<SyncDeviceDx12>()->Flush(*graphicsQueue->As<CommandQueueDx12>());
-	syncDevice->As<SyncDeviceDx12>()->Await();
+	// syncDevice->As<SyncDeviceDx12>()->Flush(*graphicsQueue->As<CommandQueueDx12>());
+	// syncDevice->As<SyncDeviceDx12>()->Await();
 
 	singleTimeCommandLists.Insert(commandList.GetPointer());
 }
 
-TSize RendererDx12::GetCurrentFrameIndex() const {
+USize32 RendererDx12::GetCurrentFrameIndex() const {
 	return 0;
 }
 
-TSize RendererDx12::GetCurrentCommandListIndex() const {
+UIndex32 RendererDx12::GetCurrentCommandListIndex() const {
 	return 0;
 }
 

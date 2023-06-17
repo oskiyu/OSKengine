@@ -17,6 +17,7 @@
 #include "VertexInfo.h"
 #include "LinkedList.hpp"
 #include "MaterialLayout.h"
+#include "PipelinesExceptions.h"
 
 #include "FileIO.h"
 
@@ -38,7 +39,7 @@ void GraphicsPipelineDx12::Create(const MaterialLayout* materialLayout, IGpu* de
 
 	auto layoutDesc = GetInputLayoutDescDx12(vertexInfo);
 
-	for (TSize i = 0; i < layoutDesc.GetSize(); i++)
+	for (UIndex32 i = 0; i < layoutDesc.GetSize(); i++)
 		layoutDesc.At(i).SemanticName = vertexInfo.entries[i].GetName().c_str();
 
 	D3D12_INPUT_LAYOUT_DESC inputLayout{};
@@ -74,7 +75,7 @@ void GraphicsPipelineDx12::Create(const MaterialLayout* materialLayout, IGpu* de
 		createInfo.PrimitiveTopologyType = D3D12_PRIMITIVE_TOPOLOGY_TYPE_TRIANGLE;
 
 	createInfo.NumRenderTargets = info.formats.GetSize();
-	for (TSize i = 0; i < info.formats.GetSize(); i++)
+	for (UIndex32 i = 0; i < info.formats.GetSize(); i++)
 		createInfo.RTVFormats[i] = GetFormatDx12(info.formats[i]);
 
 	createInfo.DSVFormat = GetFormatDx12(Format::D32S8_SFLOAT_SUINT);
@@ -83,7 +84,7 @@ void GraphicsPipelineDx12::Create(const MaterialLayout* materialLayout, IGpu* de
 	createInfo.pRootSignature = layout->As<PipelineLayoutDx12>()->GetSignature();
 
 	HRESULT result = device->As<GpuDx12>()->GetDevice()->CreateGraphicsPipelineState(&createInfo, IID_PPV_ARGS(&dxPipeline));
-	OSK_ASSERT(SUCCEEDED(result), "Error al crear el pipeline. Code: " + std::to_string(result));
+	OSK_ASSERT(SUCCEEDED(result), PipelineCreationException(result));
 }
 
 void GraphicsPipelineDx12::SetDebugName(const std::string& name) {
@@ -153,7 +154,7 @@ D3D12_BLEND_DESC GraphicsPipelineDx12::GetBlendDesc(const PipelineCreateInfo& in
 	  D3D12_COLOR_WRITE_ENABLE_ALL,
 	};
 
-	for (TSize i = 0; i < D3D12_SIMULTANEOUS_RENDER_TARGET_COUNT; i++)
+	for (UIndex32 i = 0; i < D3D12_SIMULTANEOUS_RENDER_TARGET_COUNT; i++)
 		desc.RenderTarget[i] = DefaultRenderTargetBlendDesc;
 
 	return desc;
@@ -173,15 +174,15 @@ DXGI_FORMAT GraphicsPipelineDx12::GetVertexAttribFormatDx12(const VertexInfo::En
 		if (entry.size == 4 * sizeof(float)) return DXGI_FORMAT_R32G32B32A32_FLOAT;
 	}
 
-	OSK_ASSERT(false, "Formato de vértice incorecto.");
+	OSK_ASSERT(false, NotImplementedException());
 	return DXGI_FORMAT_UNKNOWN;
 }
 
 DynamicArray<D3D12_INPUT_ELEMENT_DESC> GraphicsPipelineDx12::GetInputLayoutDescDx12(const VertexInfo& info) const {
 	DynamicArray<D3D12_INPUT_ELEMENT_DESC> output{};
 
-	TSize offset = 0;
-	for (TSize i = 0; i < info.entries.GetSize(); i++) {
+	USize64 offset = 0;
+	for (UIndex32 i = 0; i < info.entries.GetSize(); i++) {
 		const VertexInfo::Entry& entry = info.entries.At(i);
 
 		D3D12_INPUT_ELEMENT_DESC desc = {

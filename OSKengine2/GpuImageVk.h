@@ -16,9 +16,9 @@ namespace OSK::GRAPHICS {
 			const Vector3ui& size, 
 			GpuImageDimension dimension, 
 			GpuImageUsage usage, 
-			TSize numLayers, 
+			USize32 numLayers, 
 			Format format, 
-			TSize numSamples, 
+			USize32 numSamples,
 			GpuImageSamplerDesc samplerDesc);
 
 		~GpuImageVk();
@@ -29,7 +29,7 @@ namespace OSK::GRAPHICS {
 		/// Crea la imagen con los parámetros pasados por el constructor.
 		/// </summary>
 		/// 
-		/// @throws std::runtime_exception si no se puede crear la imagen en la GPU.
+		/// @throws ImageCreationException si no se puede crear la imagen en la GPU.
 		void CreateVkImage();
 		VkImage GetVkImage() const;
 

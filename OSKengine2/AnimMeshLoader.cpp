@@ -16,13 +16,15 @@
 #include "Material.h"
 #include "AnimationSkin.h"
 
+#include "ModelLoadingExceptions.h"
+
 using namespace OSK;
 using namespace OSK::ASSETS;
 using namespace OSK::GRAPHICS;
 
 
 void AnimMeshLoader::SmoothNormals() {
-	for (TSize i = 0; i < indices.GetSize(); i += 3) {
+	for (UIndex32 i = 0; i < indices.GetSize(); i += 3) {
 		const TIndexSize localIndices[3] = {
 			indices.At(i + 0),
 			indices.At(i + 1),
@@ -40,15 +42,15 @@ void AnimMeshLoader::SmoothNormals() {
 
 		const Vector3f faceNormal = v0.Cross(v1).GetNormalized();
 
-		for (TSize li = 0; li < 3; li++)
+		for (UIndex32 li = 0; li < 3; li++)
 			vertices.At(localIndices[li]).normal += faceNormal;
 	}
 
-	for (TSize v = 0; v < vertices.GetSize(); v++)
+	for (UIndex32 v = 0; v < vertices.GetSize(); v++)
 		vertices.At(v).normal.Normalize();
 }
 
-void AnimMeshLoader::ProcessNode(const tinygltf::Node& node, TSize nodeId, TSize parentId) {
+void AnimMeshLoader::ProcessNode(const tinygltf::Node& node, UIndex32 nodeId, UIndex32 parentId) {
 	if (tempAnimator.GetActiveSkin() == nullptr)
 		LoadSkins();
 
@@ -70,13 +72,13 @@ void AnimMeshLoader::ProcessNode(const tinygltf::Node& node, TSize nodeId, TSize
 		if (mesh.primitives[0].material > -1)
 			meshIdToMaterialId.Insert(meshes.GetSize(), mesh.primitives[0].material);
 
-		for (TSize i = 0; i < mesh.primitives.size(); i++) {
+		for (UIndex32 i = 0; i < mesh.primitives.size(); i++) {
 			const tinygltf::Primitive& primitive = mesh.primitives[i];
 
-			OSK_ASSERT(primitive.mode == TINYGLTF_MODE_TRIANGLES, "El modelo no está en modo TRIÁNGULOS.");
+			OSK_ASSERT(primitive.mode == TINYGLTF_MODE_TRIANGLES, UnsupportedPolygonModeException(std::to_string(primitive.mode)));
 
-			const TSize firstVertexId = vertices.GetSize();
-			const TSize firstIndexId = indices.GetSize();
+			const UIndex32 firstVertexId = vertices.GetSize();
+			const UIndex32 firstIndexId = indices.GetSize();
 
 			const auto primitiveIndices = GetIndices(primitive, firstVertexId);
 
@@ -91,7 +93,7 @@ void AnimMeshLoader::ProcessNode(const tinygltf::Node& node, TSize nodeId, TSize
 				? GetTangentVectors(primitive)
 				: GenerateTangetVectors(texCoords, positions, primitiveIndices, firstVertexId);
 
-			const TSize numVertices = positions.GetSize();
+			const USize32 numVertices = positions.GetSize();
 
 			const bool hasColors = !colors.IsEmpty();
 			const bool hasJoints= !joints.IsEmpty();
@@ -99,14 +101,14 @@ void AnimMeshLoader::ProcessNode(const tinygltf::Node& node, TSize nodeId, TSize
 
 
 			// Procesamos los buffers y generamos nuevos vértices.
-			for (TSize v = 0; v < numVertices; v++) {
+			for (UIndex32 v = 0; v < numVertices; v++) {
 				
 				VertexAnim3D vertex{};
 
 				vertex.position = positions[v];
 				vertex.normal = normals[v];
 				vertex.texCoords = texCoords[v];
-				vertex.color = Color::WHITE();
+				vertex.color = Color::White;
 				vertex.tangent = tangents[v];
 
 				if (hasJoints)
@@ -133,7 +135,7 @@ void AnimMeshLoader::ProcessNode(const tinygltf::Node& node, TSize nodeId, TSize
 
 	// Engine::GetLogger()->InfoLog("Nodo cargado: " + animNode.name + " índice: " + std::to_string(animNode.thisIndex) + " parent: " + std::to_string(animNode.parentIndex));
 
-	for (TSize i = 0; i < node.children.size(); i++) {
+	for (UIndex32 i = 0; i < node.children.size(); i++) {
 		ProcessNode(gltfModel.nodes[node.children[i]], node.children[i], nodeId);
 		animNode.childIndices.Insert(node.children[i]);
 	}
@@ -142,9 +144,9 @@ void AnimMeshLoader::ProcessNode(const tinygltf::Node& node, TSize nodeId, TSize
 }
 
 void AnimMeshLoader::LoadAnimations() {
-	const TSize numAnimations = gltfModel.animations.size();
+	const USize32 numAnimations = gltfModel.animations.size();
 
-	for (TSize animationId = 0; animationId < numAnimations; animationId++) {
+	for (UIndex32 animationId = 0; animationId < numAnimations; animationId++) {
 		tinygltf::Animation gltfAnimation = gltfModel.animations[animationId];
 		Animation animation{};
 
@@ -153,7 +155,7 @@ void AnimMeshLoader::LoadAnimations() {
 		animation.channels.Resize(gltfAnimation.channels.size());
 
 		// Samplers
-		for (TSize samplerId = 0; samplerId < gltfAnimation.samplers.size(); samplerId++) {
+		for (UIndex32 samplerId = 0; samplerId < gltfAnimation.samplers.size(); samplerId++) {
 			tinygltf::AnimationSampler gltfSampler = gltfAnimation.samplers[samplerId];
 
 			AnimationSampler& sampler = animation.samplers[samplerId];
@@ -169,7 +171,7 @@ void AnimMeshLoader::LoadAnimations() {
 				const void* data = &buffer.data[accessor.byteOffset + bufferView.byteOffset];
 				const float* timestampsBuffer = static_cast<const float*>(data);
 
-				for (TSize i = 0; i < accessor.count; i++)
+				for (UIndex32 i = 0; i < accessor.count; i++)
 					sampler.timestamps.Insert(timestampsBuffer[i]);
 
 				// Timestamps de inicio y fin de la animación.
@@ -191,14 +193,14 @@ void AnimMeshLoader::LoadAnimations() {
 
 				case TINYGLTF_TYPE_VEC3: {
 					const glm::vec3* vecBuffer = static_cast<const glm::vec3*>(data);
-					for (TSize i = 0; i < accessor.count; i++)
+					for (UIndex32 i = 0; i < accessor.count; i++)
 						sampler.outputs.Insert(glm::vec4(vecBuffer[i], 0.0));
 				}
 					break;
 
 				case TINYGLTF_TYPE_VEC4: {
 					const glm::vec4* vecBuffer = static_cast<const glm::vec4*>(data);
-					for (TSize i = 0; i < accessor.count; i++)
+					for (UIndex32 i = 0; i < accessor.count; i++)
 						sampler.outputs.Insert(vecBuffer[i]);
 				}
 					break;
@@ -208,7 +210,7 @@ void AnimMeshLoader::LoadAnimations() {
 		}
 
 		// Channels
-		for (TSize channelId = 0; channelId < gltfAnimation.channels.size(); channelId++) {
+		for (UIndex32 channelId = 0; channelId < gltfAnimation.channels.size(); channelId++) {
 			tinygltf::AnimationChannel gltfChannel = gltfAnimation.channels[channelId];
 
 			AnimationChannel& channel = animation.channels[channelId];
@@ -225,7 +227,7 @@ void AnimMeshLoader::LoadAnimations() {
 				channel.type = AnimationChannel::ChannelType::SCALE;
 			}
 			else {
-				OSK_CHECK(false, "El canal de animación " + gltfChannel.target_path + " no está soportado.");
+				// OSK_CHECK(false, "El canal de animación " + gltfChannel.target_path + " no está soportado.");
 			}
 		}
 
@@ -236,9 +238,9 @@ void AnimMeshLoader::LoadAnimations() {
 }
 
 void AnimMeshLoader::LoadSkins() {
-	const TSize numSkins = gltfModel.skins.size();
+	const USize32 numSkins = gltfModel.skins.size();
 	
-	for (TSize skinId = 0; skinId < gltfModel.skins.size(); skinId++) {
+	for (UIndex32 skinId = 0; skinId < gltfModel.skins.size(); skinId++) {
 		tinygltf::Skin& gltfSkin = gltfModel.skins[skinId];
 
 		AnimationSkin skin;
@@ -246,9 +248,9 @@ void AnimMeshLoader::LoadSkins() {
 		skin.thisIndex = skinId;
 
 		if (gltfSkin.skeleton > -1)
-			skin.rootIndex = static_cast<TIndex>(gltfSkin.skeleton);
+			skin.rootIndex = static_cast<UIndex32>(gltfSkin.skeleton);
 		
-		for (const TSize bone : gltfSkin.joints)
+		for (const auto bone : gltfSkin.joints)
 			skin.bonesIds.Insert(bone);
 
 		if (gltfSkin.inverseBindMatrices > -1) {
@@ -256,7 +258,7 @@ void AnimMeshLoader::LoadSkins() {
 			const tinygltf::BufferView& bufferView = gltfModel.bufferViews[accessor.bufferView];
 			const tinygltf::Buffer& buffer = gltfModel.buffers[bufferView.buffer];
 
-			const TSize matricesSize = accessor.count * sizeof(glm::mat4);
+			const UIndex32 matricesSize = accessor.count * sizeof(glm::mat4);
 
 			skin.inverseMatrices.Resize(accessor.count);
 			memcpy(skin.inverseMatrices.GetData(), &buffer.data[accessor.byteOffset + bufferView.byteOffset], matricesSize);

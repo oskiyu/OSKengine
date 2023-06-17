@@ -3,8 +3,8 @@
 using namespace OSK;
 using namespace OSK::GRAPHICS;
 
-TIndex VertexInfo::GetSize() const {
-	TIndex size = 0;
+USize32 VertexInfo::GetSize() const {
+	USize32 size = 0;
 
 	for (const auto& entry : entries)
 		size += entry.size;

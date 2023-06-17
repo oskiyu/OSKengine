@@ -15,6 +15,7 @@ namespace OSK::GRAPHICS {
 
 	public:
 
+		/// @throws PipelineLayoutCreationException Si hay algún error con el API nativo.
 		PipelineLayoutVk(const MaterialLayout* layout);
 		~PipelineLayoutVk();
 

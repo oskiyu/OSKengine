@@ -402,3 +402,179 @@ Se ha modernizado el renderizado de sprites, simplificando el material del sprit
 - **Bugfix**: `PbrDeferredRenderSystem3D` ya no genera sombras incoherentes.
 - **Bugfix**: `PbrDeferredRenderSystem3D` ya no genera normales de menos precisión cuando un objeto se aleja del origen de coordenadas.
 - **Bugfix**: BeginRenderpass ahora por defecto sincroniza correctamente las imágenes de profundidad.
+
+
+## 2023.06.17a
+
+### ***Nuevo***: Audio
+
+###### Implementación inicial
+
+Implementación inicial de un sistema de carga y reproducción de audio usando *OpenAL Soft*.
+Carga de archivos *wav*.
+
+- ***Nuevo***: `AudioApi`
+    - Clase principal del sistema.
+    - Contiene las instancias de *AUDIO::Device* disponibles.
+    - Permite establecer un *AUDIO::Device* como dispositivo de salida activo.
+    - Permite establecer la posición, orientación y velocidad del escuchador.
+
+- ***Nuevo***: `AUDIO::Device`
+    - Representa un dispositivo de salida de audio.
+    - Permite establecerse como dispositivo de salida activo.
+
+- ***Nuevo***: `AUDIO::Buffer`
+    - Representa un buffer alojado en un dispositivo de salida.
+    - Contiene la información de un sonido / música.
+
+- ***Nuevo***: `AUDIO::Source`
+    - Representa un "reproductor" de audio.
+    - Reproduce un sonido / música almacenado en un *AUDIO::Buffer*.
+    - Permite establecer la posición, velocidad, tono y volumen.
+    - Permite reproducción en bucle.
+
+- ***Nuevo***: `AUDIO::Format`:
+    - Indica un formato de audio.
+    - Disponibles.
+        - `MONO8`.
+        - `MONO16`.
+        - `STEREO8`.
+        - `STEREO16`.
+
+### Assets
+
+###### Assets de audio
+
+- ***Nuevo***: `AudioAsset`
+    - Asset que representa un sonido o música.
+    - Contiene un buffer con los datos del sonido.
+
+- ***Nuevo***: `AudioAssetLoader`
+    - Permite cargar archivos de audio en formato *wav*.
+
+
+### Error Handling
+
+Reformado el sistema de manejo de errores, usando excepciones específicas para cada tipo de error.
+
+- `EngineException`:
+    - Clase base para todas las excepciones del motor y del juego.
+    - Contiene una descripción de la excepción y la localización en la que se lanzó.
+
+- Excepciones añadidas:
+    - `FontLibraryInitializationException`
+    - `FontLodaingException`
+    - `NoVertexPositionsFoundException`
+    - `NoVertexNormalsFoundException`
+    - `NoVertexTangentsFoundException`
+    - `NoVertexTexCoordsFoundException`
+    - `UnsupportedIndexTypeException`
+    - `UnsupportedJointTypeException`
+    - `UnsupportedModelImageFormatException`
+    - `UnsupportedPolygonModeException`
+    - `AssetDescriptionFileNotFoundException`
+    - `AssetLoaderNotFoundException`
+    - `InvalidDescriptionFileException`
+    - `RawAssetFileNotFoundException`
+    - `AudioDeviceCreationException`
+    - `EventNotRegisteredException`
+    - `SystemAlreadyRegisteredException`
+    - `InvalidObjectException`
+    - `ComponentNotFoundException`
+    - `ComponentNotRegisteredException`
+    - `ObjectAlreadyHasComponentException`
+    - `ComponentAlreadyRegisteredException`
+    - `SystemNotFoundException`
+    - `WindowNotCreatedException`
+    - `RenderedNotCreatedException`
+    - `InvalidArgumentException`
+    - `InvalidObjectStateException`
+    - `NotImplementedException`
+    - `FileNotFoundException`
+    - `InitializeWindowException`
+    - `LoggerNotInitializedException`
+    - `BadAllocException`
+    - `MatrixBufferNotCreatedException`
+    - `AccelerationStructureCreationException`
+    - `RtShaderBindingTableCreationException`
+    - `CommandListResetException`
+    - `CommandListStartException`
+    - `CommandListEndException`
+    - `CommandListCreationException`
+    - `InvalidVertexBufferException`
+    - `InvalidIndexBufferException`
+    - `GpuBufferCreationException`
+    - `GpuMemoryAllocException`
+    - `NoCompatibleGpuMemoryException`
+    - `GpuMemoryBlockNotEnoughSpaceException`
+    - `GpuMemoryNotMappedException`
+    - `MaterialNotFoundException`
+    - `DescriptorPoolCreationException`
+    - `DescriptorLayoutCreationException`
+    - `MaterialSlotCreationException`
+    - `InvalidMaterialException`
+    - `PipelineCreationException`
+    - `ShaderLoadingException`
+    - `ShaderCompilingException`
+    - `PipelineLayoutCreationException`
+    - `RayTracingNotSupportedException`
+    - `RendererCreationException`
+    - `GpuNotCompatibleException`
+    - `GpuNotFoundException`
+    - `CommandListSubmitException`
+    - `CommandQueueSubmitException`
+    - `CommandPoolCreationException`
+    - `LogicalDeviceCreationException`
+    - `ImageCreationException`
+    - `ImageViewCreationException`
+    - `SwapchainCreationException`
+
+### Rendering
+
+###### Ecuación de renderizado mini rework
+
+- PBR Rendering
+    - Se ha normalizado la ecuación de renderizado para que los pesos de las distintas fuentes de color (ambiente y cubemaps) sean iguales.
+    - Se ha modificado la ecuación de renderizado para ofrecer colores más intensos.
+
+###### Cleanup
+
+Eliminadas las clases SyncDevice, ya que la sincornización se realiza en las clases principales `IRenderer`.
+
+- ***Eliminado***: `ISyncDevice`, `SyncDeviceDx12`, `SyncDeviceVk`.
+
+### Types
+
+Se han introducido nuevos tipos de datos básicos y renombrado otros para que queden más clara su intención y su tamaño.
+
+- `USize32`: renombrado (antes `TSize`).
+- `UIndex32`: renombrado (antes `TIndex`).
+- ***Nuevo***: `USize64`.
+- ***Nuevo***: `UIndex64`.
+
+###### Memoria de 64 bits
+
+Debido a los cambios en los tipos de datos básicos, numerosas clases y funciones (sobre todo aquellas que tienen que ver con memoria, ahora soportan tamaños y direcciones de 64 bits. Incluyendo:
+
+- `DynamicArray`.
+- `MemorySwap()`.
+- `GpuMemoryBlock` y todos los recursos derivados, como buffers o texturas.
+- Otras.
+
+### Otros
+
+- `OSK_DEFINE_AS(x)`: ahora genera dos funciones en vez de una:
+    - ***Eliminado***: *`constexpr T* As() const`*.
+    - ***Nuevo***: *`constexpr const T* As() const`*.
+    - ***Nuevo***: *`constexpr T* As()`*.
+
+- ***Nuevo***: `OSK_DEFAULT_MOVE_OPERATOR(x)`.
+   - Genera el constructor y el operador de movimiento por defecto.
+
+##### Bugfixes
+
+- **Bugfix**: `OSK_DEFINE_AS` ahora no genera *undefined behaviour*.
+- **Bugfix**: `OwnedPtr` ahora se comporta correctamente al moverse.
+- **Bugfix**: `Color::Blue` ahora devuelve un color azul en vez de un color turquesa.
+- **Bugfix**: `Color::*` ahora multiplica correctamente el valor alpha.
+- **Bugfix**: `IMaterialSlot::SetTexture` ahora usa correctamente el canal indicado.

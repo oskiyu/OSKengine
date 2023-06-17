@@ -61,7 +61,7 @@ namespace OSK::GRAPHICS {
 
 		/// @param imageIndex Índice del frame.
 		/// @return Imagen de renderizado del frame.
-		GpuImage* GetTargetImage(TIndex imageIndex) const;
+		GpuImage* GetTargetImage(UIndex32 imageIndex) const;
 
 		/// @return Render target sobre el que se construye la imagen final.
 		const ComputeRenderTarget& GetRenderTarget() const;

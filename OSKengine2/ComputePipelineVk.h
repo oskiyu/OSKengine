@@ -9,6 +9,7 @@ namespace OSK::GRAPHICS {
 
 	public:
 
+		/// @throws PipelineCreationException Si hay un error con Vulkan.
 		void Create(const MaterialLayout& materialLayout, const PipelineCreateInfo& info);
 
 	private:

@@ -6,6 +6,7 @@
 
 #include <dxgi1_6.h>
 #include <vulkan/vulkan.h>
+#include "NotImplementedException.h"
 
 DXGI_FORMAT OSK::GRAPHICS::GetFormatDx12(Format format) {
 	switch (format) {
@@ -40,7 +41,7 @@ DXGI_FORMAT OSK::GRAPHICS::GetFormatDx12(Format format) {
 			return DXGI_FORMAT_D32_FLOAT_S8X24_UINT;
 	}
 
-	OSK_ASSERT(false, "El formato " + ToString<Format>(format) + " no está registrado en OSK::GRAPHICS::GetFormatDx12.");
+	OSK_ASSERT(false, NotImplementedException());
 	return DXGI_FORMAT_UNKNOWN;
 }
 
@@ -87,7 +88,7 @@ VkFormat OSK::GRAPHICS::GetFormatVk(Format format) {
 		return VK_FORMAT_D24_UNORM_S8_UINT;
 	}
 
-	OSK_ASSERT(false, "El formato " + ToString<Format>(format) + " no está registrado en OSK::GRAPHICS::GetFormatVk.");
+	OSK_ASSERT(false, NotImplementedException());
 	return VK_FORMAT_UNDEFINED;
 }
 
@@ -125,7 +126,7 @@ unsigned int OSK::GRAPHICS::GetFormatNumberOfBytes(Format format) {
 
 	}
 
-	OSK_ASSERT(false, "El formato " + ToString<Format>(format) + " no está registrado en OSK::GRAPHICS::GetFormatNumberOfBytes.");
+	OSK_ASSERT(false, NotImplementedException());
 	return 0;
 }
 
@@ -181,11 +182,11 @@ OSK::GRAPHICS::Format OSK::GRAPHICS::GetFormatFromString(const std::string& form
 		Format::RG32_SFLOAT,
 	};
 
-	for (TSize i = 0; i < _countof(formats); i++)
-		if (ToString<Format>(formats[i]) == formatStr)
-			return formats[i];
+	for (const auto format : formats)
+		if (ToString<Format>(format) == formatStr)
+			return format;
 
-	OSK_ASSERT(false, "No se encuentra el formato " + formatStr + ".");
+	OSK_ASSERT(false, NotImplementedException());
 
 	return Format::RGBA8_UNORM;
 }

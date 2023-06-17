@@ -9,18 +9,20 @@
 #include "IRenderer.h"
 #include "GpuVk.h"
 
+#include "MaterialExceptions.h"
+
 #include <vulkan/vulkan.h>
 
 using namespace OSK;
 using namespace OSK::GRAPHICS;
 
-DescriptorPoolVk::DescriptorPoolVk(const DescriptorLayoutVk& layout, TSize maxSets) {
+DescriptorPoolVk::DescriptorPoolVk(const DescriptorLayoutVk& layout, USize32 maxSets) {
 	DynamicArray<VkDescriptorPoolSize> sizes;
 
 	// Información por cada set del layout.
-	for (auto& i : layout.GetMaterialSlotLayout()->bindings) {
+	for (auto& [name, binding] : layout.GetMaterialSlotLayout()->bindings) {
 		VkDescriptorPoolSize size{};
-		size.type = GetDescriptorTypeVk(i.second.type);
+		size.type = GetDescriptorTypeVk(binding.type);
 
 		// Número de descriptores en total.
 		// Al tener varios recursos in-flight, debe haber un descriptor por cada frame in-flight.
@@ -40,7 +42,7 @@ DescriptorPoolVk::DescriptorPoolVk(const DescriptorLayoutVk& layout, TSize maxSe
 
 	VkResult result = vkCreateDescriptorPool(Engine::GetRenderer()->GetGpu()->As<GpuVk>()->GetLogicalDevice(), 
 		&poolInfo, nullptr, &pool);
-	OSK_ASSERT(result == VK_SUCCESS, "No se ha podido crear el descriptor pool.");
+	OSK_ASSERT(result == VK_SUCCESS, DescriptorPoolCreationException(result));
 }
 
 DescriptorPoolVk::~DescriptorPoolVk() {

@@ -3,7 +3,7 @@
 #include "OSKmacros.h"
 
 template <> std::string OSK::ToString<OSK::GRAPHICS::ShaderBindingType>(const OSK::GRAPHICS::ShaderBindingType& type) {
-	TSize numFlags = 0;
+	USize32 numFlags = 0;
 
 	std::string output = "";
 
@@ -63,7 +63,7 @@ template <> std::string OSK::ToString<OSK::GRAPHICS::ShaderBindingType>(const OS
 
 
 template <> std::string OSK::ToString<OSK::GRAPHICS::ShaderStage>(const OSK::GRAPHICS::ShaderStage& stage) {
-	TSize numFlags = 0;
+	USize32 numFlags = 0;
 
 	std::string output = "";
 

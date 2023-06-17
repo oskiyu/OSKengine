@@ -9,6 +9,8 @@
 #include "RendererVk.h"
 #include "GpuVk.h"
 
+#include "CommandListExceptions.h"
+
 using namespace OSK;
 using namespace OSK::GRAPHICS;
 
@@ -25,7 +27,7 @@ OwnedPtr<ICommandList> CommandPoolVk::CreateSingleTimeCommandList(const IGpu& de
 	return CreateList(device, 1);
 }
 
-OwnedPtr<ICommandList> CommandPoolVk::CreateList(const IGpu& device, TSize numNativeLists) {
+OwnedPtr<ICommandList> CommandPoolVk::CreateList(const IGpu& device, USize32 numNativeLists) {
 	auto list = new CommandListVk;
 
 	list->GetCommandBuffers()->Reserve(numNativeLists);
@@ -39,7 +41,7 @@ OwnedPtr<ICommandList> CommandPoolVk::CreateList(const IGpu& device, TSize numNa
 	allocInfo.commandBufferCount = static_cast<uint32_t>(list->GetCommandBuffers()->GetSize());
 
 	VkResult result = vkAllocateCommandBuffers(device.As<GpuVk>()->GetLogicalDevice(), &allocInfo, list->GetCommandBuffers()->GetData());
-	OSK_ASSERT(result == VK_SUCCESS, "No se ha podido crear la lista de comandos.");
+	OSK_ASSERT(result == VK_SUCCESS, CommandListCreationException(result));
 
 	return list;
 }

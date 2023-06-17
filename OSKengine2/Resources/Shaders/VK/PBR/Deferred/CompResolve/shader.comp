@@ -152,7 +152,7 @@ void main() {
         normal, 
         dirLight.color.rgb * dirLight.directionAndIntensity.w, 
         albedo.rgb, 
-        max(0.15, roughnessFactor), 
+        max(0.05, roughnessFactor), 
         metallicFactor);
 
     // Irradiance Map

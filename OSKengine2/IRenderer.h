@@ -9,12 +9,12 @@
 #include "IGpu.h"
 #include "ICommandQueue.h"
 #include "ISwapchain.h"
-#include "ISyncDevice.h"
 #include "ICommandList.h"
 #include "ICommandPool.h"
 #include "IGpuMemoryAllocator.h"
 #include "RenderTarget.h"
 #include "MaterialSystem.h"
+#include "Material.h"
 #include "PresentMode.h"
 
 #include "IGpuImage.h"
@@ -67,6 +67,11 @@ namespace OSK::GRAPHICS {
 		/// @param version Versión de la aplicación / juego.
 		/// @param display Ventana enlazada (sobre la que se renderizará el juego).
 		/// @param mode Modo de sincronización vertical.
+		/// 
+		/// @throws GpuNotFoundException Si no se encuentra ninguna GPU compatible.
+		/// @throws LogicalDeviceCreationException Si ocurre algún error al establecer la conexión lógica con la GPU elegida.
+		/// @throws CommandPoolCreationException Si ocurre algún error al crear las pools de comandos.
+		/// @throws RendererCreationException Si ocurre algún otro error.
 		virtual void Initialize(
 			const std::string& appName, 
 			const Version& version, 
@@ -81,10 +86,11 @@ namespace OSK::GRAPHICS {
 		/// <summary> Reconfigura el swapchain al cambiar de tamaño la ventana. </summary>
 		virtual void HandleResize();
 
-		/// <summary>
-		/// Una vez se han grabado todos los comandos, se debe iniciar su
+		/// @brief Una vez se han grabado todos los comandos, se debe iniciar su
 		/// ejecución en la GPU para ser renderizados.
-		/// </summary>
+		/// 
+		/// @throws CommandListSubmitException Si ocurre algún error al mandar las listas.
+		/// @throws CommandQueueSubmitException Si ocurre algún error al ejecutar las colas.
 		virtual void PresentFrame() = 0;
 
 		/// @brief Hace que el hilo actual espere a que se hayan ejecutado
@@ -167,16 +173,16 @@ namespace OSK::GRAPHICS {
 		/// Devuelve el número de imágenes del swapchain.
 		/// Para recursos que necesiten tener una copia por imagen del swapchain.
 		/// </summary>
-		TSize GetSwapchainImagesCount() const;
+		USize32 GetSwapchainImagesCount() const;
 
 		/// <summary> Devuelve el índidce del próximo fotograma que será presentado. </summary>
-		virtual TSize GetCurrentFrameIndex() const = 0;
+		virtual USize32 GetCurrentFrameIndex() const = 0;
 
 		/// <summary> Devuelve el índidce de la lista de comandos que será usada en el prximo fotograma. </summary>
-		virtual TSize GetCurrentCommandListIndex() const = 0;
+		virtual USize32 GetCurrentCommandListIndex() const = 0;
 
 		/// <summary> Devuelve el índidce de los recursos procesados en el fotograma actual. </summary>
-		TIndex GetCurrentResourceIndex() const;
+		USize32 GetCurrentResourceIndex() const;
 
 
 		/// <summary>
@@ -197,9 +203,9 @@ namespace OSK::GRAPHICS {
 		void UploadLayeredImageToGpu(
 			GpuImage* destination, 
 			const TByte* data, 
-			TSize numBytes, 
-			TSize numLayers, 
-			ICommandList* cmdList);
+			USize64 numBytes, 
+			USize32 numLayers, 
+			ICommandList* cmdList) const;
 
 		/// <summary> Rellena la imagen en la GPU con los datos dados. </summary>
 		/// 
@@ -208,8 +214,8 @@ namespace OSK::GRAPHICS {
 		void UploadImageToGpu(
 			GpuImage* destination, 
 			const TByte* data, 
-			TSize numBytes, 
-			ICommandList* cmdList);
+			USize64 numBytes,
+			ICommandList* cmdList) const;
 
 		/// <summary>
 		/// Rellena la imagen en la GPU con los datos dados.
@@ -220,27 +226,42 @@ namespace OSK::GRAPHICS {
 		void UploadCubemapImageToGpu(
 			GpuImage* destination, 
 			const TByte* data, 
-			TSize numBytes, 
-			ICommandList* cmdList);
+			USize64 numBytes,
+			ICommandList* cmdList) const;
 
 #pragma endregion
 
 #pragma region Factory methods
 
+		/// @throws FileNotFoundException si no se encuentra los archivo de shader necesarios.
+		/// @throws ShaderLoadingException si no se consigue cargar / compilar los shaders.
+		/// @throws PipelineCreationException si no se consigue crear el pipeline.
+		/// @throws ShaderCompilingException Si ocurre algún error durante la compilación de los shaders.
 		virtual OwnedPtr<IGraphicsPipeline> _CreateGraphicsPipeline(
 			const PipelineCreateInfo& pipelineInfo, 
 			const MaterialLayout& layout, 
 			const VertexInfo& vertexTypeName) = 0;
 
+		/// @throws FileNotFoundException si no se encuentra los archivo de shader necesarios.
+		/// @throws ShaderLoadingException si no se consigue cargar / compilar los shaders.
+		/// @throws PipelineCreationException si no se consigue crear el pipeline.
+		/// @throws ShaderCompilingException Si ocurre algún error durante la compilación de los shaders.
 		virtual OwnedPtr<IRaytracingPipeline> _CreateRaytracingPipeline(
 			const PipelineCreateInfo& pipelineInfo, 
 			const MaterialLayout& layout, 
 			const VertexInfo& vertexTypeName) = 0;
 
+		/// @throws FileNotFoundException si no se encuentra los archivo de shader necesarios.
+		/// @throws ShaderLoadingException si no se consigue cargar / compilar los shaders.
+		/// @throws PipelineCreationException si no se consigue crear el pipeline.
+		/// @throws ShaderCompilingException Si ocurre algún error durante la compilación de los shaders.
 		virtual OwnedPtr<IComputePipeline> _CreateComputePipeline(
 			const PipelineCreateInfo& pipelineInfo, 
 			const MaterialLayout& layout) = 0;
 
+		/// @throws DescriptorPoolCreationException Si hay algún error nativo durante la creación del material slot.
+		/// @throws DescriptorLayoutCreationException Si hay algún error nativo durante la creación del material slot.
+		/// @throws MaterialSlotCreationException Si hay algún error durante la creación del material slot. 
 		virtual OwnedPtr<IMaterialSlot> _CreateMaterialSlot(
 			const std::string& name, 
 			const MaterialLayout& layout) const = 0;
@@ -248,54 +269,24 @@ namespace OSK::GRAPHICS {
 		/// <summary> Crea una lista de comandos para un único uso. </summary>
 		OwnedPtr<ICommandList> CreateSingleUseCommandList();
 		/// <summary> Ejecuta el contenido de la lista de comandos. </summary>
+		
+		/// @brief Ejecuta el contenido de la lista de comandos.
+		/// @param commandList Lista de comandos a ejecutar.
+		/// Su posesoón pasa a ser del renderizador.
+		/// 
+		/// @throws	CommandQueueSubmitException Si hay un error en la ejecución
+		/// de la lista.
+		/// 
+		/// @note La lista de comandos será eliminada al finalizar el frame.
 		virtual void SubmitSingleUseCommandList(OwnedPtr<ICommandList> commandList) = 0;
 
 #pragma endregion
 
 
 		/// <summary>
-		/// Registra un render target que debe cambiar de tamaño cuando la ventana
-		/// cambie de tamaño.
-		/// </summary>
-		/// 
-		/// @note El render target debe tener estabilidad de puntero.
-		void RegisterRenderTarget(RenderTarget* renderTarget);
-
-		/// <summary>
-		/// Quita un render target de la lista de render targers que deben cambiar
-		/// de tamaño cuando la ventana cambie de tamaño.
-		/// </summary>
-		/// 
-		/// @note Si el render target no estaba registrado, no ocurrirá nada.
-		void UnregisterRenderTarget(RenderTarget* renderTarget);
-
-
-		/// <summary>
-		/// Registra un efecto de postprocesamiento que debe cambiar de tamaño cuando la ventana
-		/// cambie de tamaño.
-		/// </summary>
-		/// 
-		/// @note El render target debe tener estabilidad de puntero.
-		void RegisterPostProcessingPass(IPostProcessPass* renderTarget);
-
-		/// <summary>
-		/// Quita un efecto de postprocesamiento de la lista de efectos de postprocesamiento que deben cambiar
-		/// de tamaño cuando la ventana cambie de tamaño.
-		/// </summary>
-		/// 
-		/// @note Si el efecto de postprocesamiento no estaba registrado, no ocurrirá nada.
-		void UnregisterPostProcessingPass(IPostProcessPass* renderTarget);
-
-
-		/// <summary>
 		/// True si la funcionalidad de raytracing está activa.
 		/// </summary>
 		bool IsRtActive() const;
-
-		/// <summary>
-		/// Añade una función que se ejecutará cuando cambie de tamaño la ventana.
-		/// </summary>
-		void AddResizeCallback(std::function<void(const Vector2ui&)> callback);
 
 		/// <summary>
 		/// True si el cambio de tamaño de la ventana se maneja implícitamente
@@ -322,11 +313,11 @@ namespace OSK::GRAPHICS {
 		/// 
 		/// @warning Si se sobreescribe, devolverá un puntero distinto al original, el cual deberá ser
 		/// eliminado tras llamar a esta función.</returns>
-		virtual const TByte* FormatImageDataForGpu(const GpuImage* image, const TByte* data, TSize numLayers);
+		virtual const TByte* FormatImageDataForGpu(const GpuImage* image, const TByte* data, USize32 numLayers);
 
+		/// @throws CommandPoolCreationException Si ocurre algún error.
 		virtual void CreateCommandQueues() = 0;
 		virtual void CreateSwapchain(PresentMode mode) = 0;
-		virtual void CreateSyncDevice() = 0;
 		virtual void CreateGpuMemoryAllocator() = 0;
 		
 		void CreateMainRenderpass();
@@ -338,7 +329,6 @@ namespace OSK::GRAPHICS {
 		UniquePtr<ICommandQueue> presentQueue;
 
 		UniquePtr<ISwapchain> swapchain;
-		UniquePtr<ISyncDevice> syncDevice;
 
 		UniquePtr<ICommandPool> graphicsCommandPool;
 		UniquePtr<ICommandList> graphicsCommandList;
@@ -357,8 +347,6 @@ namespace OSK::GRAPHICS {
 
 		DynamicArray<UniquePtr<ICommandList>> singleTimeCommandLists;
 
-		LinkedList<std::function<void(const Vector2ui&)>> resizeCallbacks;
-
 		bool isFirstRender = true;
 
 		const IO::IDisplay* display = nullptr;
@@ -369,13 +357,6 @@ namespace OSK::GRAPHICS {
 		ECS::Transform2D renderTargetsCameraTransform{ ECS::EMPTY_GAME_OBJECT };
 
 		bool implicitResizeHandling = false;
-
-		/// <summary>
-		/// Contiene render targets que deben cambiar de tamaño cuando la ventana
-		/// cambie de tamaño.
-		/// </summary>
-		DynamicArray<RenderTarget*> resizableRenderTargets;
-		DynamicArray<IPostProcessPass*> resizablePostProcessingPasses;
 
 		bool isRtActive = false;
 

@@ -15,6 +15,9 @@
 #include "Material.h"
 #include "UniquePtr.hpp"
 
+#include "FontLoadingExceptions.h"
+
+
 using namespace OSK;
 using namespace OSK::ASSETS;
 using namespace OSK::GRAPHICS;
@@ -27,18 +30,20 @@ void Font::_SetFontFilePath(const std::string& rawFile) {
 	this->fontFile = rawFile;
 }
 
-void Font::LoadSizedFont(TSize fontSize) {
+void Font::LoadSizedFont(USize32 fontSize) {
 	// Carga de la librería.
 	static FT_Library freeType = nullptr;
-	if (freeType == nullptr)
-		OSK_ASSERT_FALSE(FT_Init_FreeType(&freeType), "No se ha podido cargar FreeType.");
+	if (freeType == nullptr) {
+		const auto result = FT_Init_FreeType(&freeType);
+		OSK_ASSERT(result == 0, FontLibraryInitializationException(result));
+	}
 
 	// Un FT_Face describe la tipografía de la fuente.
 	FT_Face face = nullptr;
 
 	// Carga de la fuente.
 	FT_Error result = FT_New_Face(freeType, fontFile.c_str(), 0, &face);
-	OSK_ASSERT_FALSE(result, "No se ha podido cargar la fuente. Código: " + std::to_string(result));
+	OSK_ASSERT(result == 0, FontLodaingException(result));
 
 	// Establece el tamaño de esta instancia en concreto.
 	FT_Set_Pixel_Sizes(face, 0, fontSize);
@@ -47,11 +52,11 @@ void Font::LoadSizedFont(TSize fontSize) {
 	// Definirá cada uno de los caracteres.
 	struct FtChar {
 		UniquePtr<TByte> data;
-		TSize sizeX = 0;
-		TSize sizeY = 0;
-		TSize left = 0;
-		TSize top = 0;
-		TSize advanceX = 0;
+		USize32 sizeX = 0;
+		USize32 sizeY = 0;
+		USize32 left = 0;
+		USize32 top = 0;
+		USize32 advanceX = 0;
 	};
 
 	FtChar ftCharacters[255];
@@ -60,10 +65,10 @@ void Font::LoadSizedFont(TSize fontSize) {
 
 	// Cargamos todos los caracteres.
 	// Actualizamos el tamaño de la imagen.
-	for (TSize i = 0; i < 255; i++) {
+	for (USize32 i = 0; i < 255; i++) {
 		// Carga / renderizado del char.
 		result = FT_Load_Char(face, i, FT_LOAD_RENDER);
-		OSK_ASSERT_FALSE(result, "No se pudo cargar el caracter " + std::to_string((char)i) + ". Código: " + std::to_string(result));
+		OSK_ASSERT(!result, FontCharacterLodaingException(i, result));
 
 		ftCharacters[i].sizeX = face->glyph->bitmap.width;
 		ftCharacters[i].sizeY = face->glyph->bitmap.rows;
@@ -83,9 +88,9 @@ void Font::LoadSizedFont(TSize fontSize) {
 			bitmapSize);
 
 		// Tamaño de la imagen.
-		gpuImageSize.X += ftCharacters[i].sizeX;
-		if (ftCharacters[i].sizeY > gpuImageSize.Y)
-			gpuImageSize.Y = ftCharacters[i].sizeY;
+		gpuImageSize.x += ftCharacters[i].sizeX;
+		if (ftCharacters[i].sizeY > gpuImageSize.y)
+			gpuImageSize.y = ftCharacters[i].sizeY;
 	}
 
 	// Creación de la imagen.
@@ -94,20 +99,20 @@ void Font::LoadSizedFont(TSize fontSize) {
 		GpuImageUsage::SAMPLED | GpuImageUsage::TRANSFER_SOURCE | GpuImageUsage::TRANSFER_DESTINATION);
 
 	OwnedPtr<GpuImage> gpuImage = Engine::GetRenderer()->GetAllocator()->CreateImage(imageInfo);
-	gpuImage->SetDebugName("Font " + GetName() + "size: " + std::to_string(fontSize));
+	gpuImage->SetDebugName(std::format("Font {} size {}", GetName(), fontSize));
 
 	instances.InsertMove(fontSize, std::move(FontInstance{}));
 	FontInstance& instance = instances.Get(fontSize);
 
 	instance.image = gpuImage.GetPointer();
 
-	const TSize numBytes = gpuImage->GetNumberOfBytes();
+	const auto numBytes = gpuImage->GetNumberOfBytes();
 	UniquePtr<TByte[]> data(new TByte[numBytes]);
 
-	TSize currentX = 0;
-	for (TSize c = 0; c < 255; c++) {
-		for (TSize i = 0; i < ftCharacters[c].sizeY; i++) {
-			memcpy(&data[currentX + gpuImageSize.X * i],
+	USize32 currentX = 0;
+	for (USize32 c = 0; c < 255; c++) {
+		for (USize32 i = 0; i < ftCharacters[c].sizeY; i++) {
+			memcpy(&data[currentX + gpuImageSize.x * i],
 				&ftCharacters[c].data.GetPointer()[ftCharacters[c].sizeX * i],
 				ftCharacters[c].sizeX);
 		}
@@ -116,7 +121,7 @@ void Font::LoadSizedFont(TSize fontSize) {
 		fontChar.size = { (float)ftCharacters[c].sizeX, (float)ftCharacters[c].sizeY };
 		fontChar.bearing = { (float)ftCharacters[c].left, (float)ftCharacters[c].top };
 		fontChar.advance = ftCharacters[c].advanceX;
-		fontChar.texCoords = { (int)currentX, 0, (int)fontChar.size.X, (int)fontChar.size.Y };
+		fontChar.texCoords = { (int)currentX, 0, (int)fontChar.size.x, (int)fontChar.size.y };
 
 		instance.characters.Insert((char)c, fontChar);
 
@@ -124,7 +129,7 @@ void Font::LoadSizedFont(TSize fontSize) {
 	}
 
 	auto finalPixels = DynamicArray<TByte>::CreateReservedArray(numBytes);
-	for (TSize i = 0; i < numBytes / 4; i++) {
+	for (USize32 i = 0; i < numBytes / 4; i++) {
 		finalPixels.Insert(255);
 		finalPixels.Insert(255);
 		finalPixels.Insert(255);
@@ -158,11 +163,11 @@ void Font::LoadSizedFont(TSize fontSize) {
 	FT_Done_Face(face);
 }
 
-void Font::UnloadSizedFont(TSize size) {
+void Font::UnloadSizedFont(USize32 size) {
 	instances.Remove(size);
 }
 
-const FontInstance& Font::GetInstance(TSize fontSize) {
+const FontInstance& Font::GetInstance(USize32 fontSize) {
 	if (instances.HasValue(fontSize))
 		return instances.Get(fontSize);
 
@@ -171,12 +176,12 @@ const FontInstance& Font::GetInstance(TSize fontSize) {
 	return instances.Get(fontSize);
 }
 
-GpuImage* Font::GetGpuImage(TSize fontSize) {
+GpuImage* Font::GetGpuImage(USize32 fontSize) {
 
 	return GetInstance(fontSize).image.GetPointer();
 }
 
-const FontCharacter& Font::GetCharacterInfo(TSize fontSize, char character) {
+const FontCharacter& Font::GetCharacterInfo(USize32 fontSize, char character) {
 	return GetInstance(fontSize).characters.Get(character);
 }
 

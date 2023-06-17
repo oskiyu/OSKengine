@@ -11,7 +11,7 @@ namespace OSK {
 	/// 
 	/// El número de bits está establecido en tiempo de compilación.
 	/// </summary>
-	template <TSize size> class ConstexprBitSet {
+	template <USize64 size> class ConstexprBitSet {
 
 	public:
 
@@ -21,7 +21,7 @@ namespace OSK {
 		/// 
 		/// @note El valor de los bits será 0.
 		ConstexprBitSet() {
-			TSize numBytes = size / 8;
+			USize64 numBytes = size / 8;
 			if (size % 8)
 				numBytes++;
 
@@ -33,7 +33,7 @@ namespace OSK {
 		/// </summary>
 		/// 
 		/// @pre Debe ser un índice válido (< size).
-		void SetTrue(TSize index) {
+		void SetTrue(UIndex64 index) {
 			SetValue(index, true);
 		}
 		/// <summary>
@@ -41,7 +41,7 @@ namespace OSK {
 		/// </summary>
 		/// 
 		/// @pre Debe ser un índice válido (< size).
-		void SetFalse(TSize index) {
+		void SetFalse(UIndex64 index) {
 			SetValue(index, false);
 		}
 		/// <summary>
@@ -51,9 +51,9 @@ namespace OSK {
 		/// <param name="value">Valor (1 ó 0).</param>
 		/// 
 		/// @pre Debe ser un índice válido (< size).
-		void SetValue(TSize index, bool value) {
-			const TSize byteIndex = index / 8;
-			const TSize inByteOffset = index % 8;
+		void SetValue(UIndex64 index, bool value) {
+			const UIndex64 byteIndex = index / 8;
+			const USize64 inByteOffset = index % 8;
 
 			value
 				? bytes[byteIndex] |=   1U << inByteOffset
@@ -65,11 +65,11 @@ namespace OSK {
 		/// </summary>
 		/// 
 		/// @pre Debe ser un índice válido (< size).
-		bool Get(TSize index) const {
-			TSize id = index / 8;
-			TSize offset = index % 8;
+		bool Get(UIndex64 index) const {
+			const UIndex64 id = index / 8;
+			const USize64 offset = index % 8;
 
-			return (bytes[id] & (1U << (offset))) != 0;
+			return (bytes[id] & (1U << offset)) != 0;
 		}
 
 		/// <summary>
@@ -79,9 +79,9 @@ namespace OSK {
 		/// Incluido en la búsqueda.</param>
 		/// 
 		/// @note Si no encuentra ningún bit después del dado, devuelve 0.
-		TSize GetNextTrueIndex(TSize initialIndex = 0) const {
-			TSize index = initialIndex / 8;
-			TSize offset = initialIndex % 8;
+		UIndex64 GetNextTrueIndex(UIndex64 initialIndex = 0) const {
+			UIndex64 index = initialIndex / 8;
+			const USize64 offset = initialIndex % 8;
 
 			for (; index < size; index++) {
 				TByte value = bytes[index];
@@ -103,7 +103,7 @@ namespace OSK {
 		/// Comprueba si todos los bits valen 0.
 		/// </summary>
 		bool IsAllFalse() const {
-			for (TSize i = 0; i < size; i++)
+			for (UIndex64 i = 0; i < size; i++)
 				if (bytes[i] > 0)
 					return false;
 
@@ -122,7 +122,7 @@ namespace OSK {
 		/// bits que este tiene en 1.
 		/// </summary>
 		bool IsCompatible(const ConstexprBitSet& other) const {
-			for (TSize i = 0; i < size; i++)
+			for (UIndex64 i = 0; i < size; i++)
 				if ((bytes[i] & other.bytes[i]) != bytes[i])
 					return false;
 
@@ -132,7 +132,7 @@ namespace OSK {
 		/// <summary>
 		/// Número de bits.
 		/// </summary>
-		TSize GetLength() const {
+		USize64 GetLength() const {
 			return size;
 		}
 

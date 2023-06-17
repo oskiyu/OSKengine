@@ -34,6 +34,23 @@ namespace OSK::IO {
 		L_ERROR
 	};
 
+	class OSKAPI_CALL ILogger {
+
+	public:
+
+		virtual ~ILogger() = default;
+
+		virtual void Start(const std::string& path) = 0;
+		virtual void Log(LogLevel level, const std::string& msg) = 0;
+		virtual void DebugLog(const std::string& msg) = 0;
+		virtual void InfoLog(const std::string& msg) = 0;
+		virtual void Save() = 0;
+		virtual void Save(const std::string& path) = 0;
+		virtual void Clear() = 0;
+		virtual void Close() = 0;
+
+	};
+
 	/// <summary>
 	/// Clase que permite enviar mensajes por consola, o por
 	/// donde se defina su salida.
@@ -42,14 +59,14 @@ namespace OSK::IO {
 	/// 
 	/// Puede usarse el logger del motor desde Engine::GetLogger().
 	/// </summary>
-	class OSKAPI_CALL Logger {
+	class OSKAPI_CALL Logger : public ILogger {
 
 	public:
 
 		/// <summary>
 		/// Cierra el logger, guardando el archivo.
 		/// </summary>
-		~Logger();
+		~Logger() override;
 
 		/// <summary>
 		/// Inicializa el logger.

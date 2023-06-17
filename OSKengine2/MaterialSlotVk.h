@@ -17,38 +17,41 @@ namespace OSK::GRAPHICS {
 
 	public:
 
+		/// @throws DescriptorPoolCreationException Si hay algún error nativo durante la creación del material slot.
+		/// @throws DescriptorLayoutCreationException Si hay algún error nativo durante la creación del material slot.
+		/// @throws MaterialSlotCreationException Si hay algún error durante la creación del material slot.
 		MaterialSlotVk(const std::string& name, const MaterialLayout* layout);
 		~MaterialSlotVk();
 
 		void SetUniformBuffers(
 			const std::string& binding, 
-			const GpuBuffer* buffers[NUM_RESOURCES_IN_FLIGHT]);
+			std::span<const GpuBuffer*, NUM_RESOURCES_IN_FLIGHT>);
 
 		void SetGpuImages(
 			const std::string& binding, 
-			const IGpuImageView* images[NUM_RESOURCES_IN_FLIGHT]) override;
+			std::span<const IGpuImageView*, NUM_RESOURCES_IN_FLIGHT>) override;
 
 		void SetStorageBuffers(
 			const std::string& binding, 
-			const GpuBuffer* buffers[NUM_RESOURCES_IN_FLIGHT]) override;
+			std::span<const GpuBuffer*, NUM_RESOURCES_IN_FLIGHT>) override;
 
 		void SetStorageImages(
 			const std::string& binding, 
-			const IGpuImageView* images[NUM_RESOURCES_IN_FLIGHT]) override;
+			std::span<const IGpuImageView*, NUM_RESOURCES_IN_FLIGHT>) override;
 
 		void SetAccelerationStructures(
 			const std::string& binding, 
-			const ITopLevelAccelerationStructure* accelerationStructure[NUM_RESOURCES_IN_FLIGHT]) override;
+			std::span<const ITopLevelAccelerationStructure*, NUM_RESOURCES_IN_FLIGHT>) override;
 
 		void FlushUpdate() override;
 
-		VkDescriptorSet GetDescriptorSet(TSize index) const;
+		VkDescriptorSet GetDescriptorSet(UIndex32 index) const;
 
 		void SetDebugName(const std::string& name) override;
 
 	private:
 
-		HashMap<std::string, TSize> bindingsLocations;
+		HashMap<std::string, UIndex32> bindingsLocations;
 
 		DynamicArray<VkDescriptorSet> descriptorSets;
 		DynamicArray<DynamicArray<VkWriteDescriptorSet>> bindings;

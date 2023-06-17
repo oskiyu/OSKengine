@@ -31,7 +31,7 @@ namespace OSK::ECS {
 		/// @param position Posición en el mundo.
 		/// @param scale Escala en el mundo.
 		/// @param rotation Rotación en el mundo.
-		Transform2D(ECS::GameObjectIndex owner, const Vector2& position, const Vector2& scale, float rotation);
+		Transform2D(ECS::GameObjectIndex owner, const Vector2f& position, const Vector2f& scale, float rotation);
 
 
 		/// <summary>
@@ -40,7 +40,7 @@ namespace OSK::ECS {
 		/// @note También actualiza la matriz modelo, y la de sus hijos.
 		/// </summary>
 		/// <param name="position">Nueva posición respecto al padre.</param>
-		void SetPosition(const Vector2& position);
+		void SetPosition(const Vector2f& position);
 
 		/// <summary>
 		/// Establece la escala.
@@ -48,7 +48,7 @@ namespace OSK::ECS {
 		/// @note También actualiza la matriz modelo, y la de sus hijos.
 		/// </summary>
 		/// <param name="scale">Nueva escala respecto al padre.</param>
-		void SetScale(const Vector2& scale);
+		void SetScale(const Vector2f& scale);
 
 		/// <summary>
 		/// Establece la rotación del transform.
@@ -64,7 +64,7 @@ namespace OSK::ECS {
 		/// @note También actualiza la matriz modelo, y la de sus hijos.
 		/// </summary>
 		/// <param name="positionDelta">Posición a añadir.</param>
-		void AddPosition(const Vector2& positionDelta);
+		void AddPosition(const Vector2f& positionDelta);
 
 		/// <summary>
 		/// Suma un vector 3D a la escala.
@@ -72,7 +72,7 @@ namespace OSK::ECS {
 		/// @note También actualiza la matriz modelo, y la de sus hijos.
 		/// </summary>
 		/// <param name="scaleDelta">Escala a añadir.</param>
-		void AddScale(const Vector2& scaleDelta);
+		void AddScale(const Vector2f& scaleDelta);
 
 		/// <summary>
 		/// Cambia la rotación del transform.
@@ -107,12 +107,12 @@ namespace OSK::ECS {
 		/// <summary>
 		/// Vector posición en el mundo 2D.
 		/// </summary>
-		Vector2 GetPosition() const;
+		Vector2f GetPosition() const;
 
 		/// <summary>
 		/// Vector escala en el mundo 2D.
 		/// </summary>
-		Vector2 GetScale() const;
+		Vector2f GetScale() const;
 
 		/// <summary>
 		/// Rotación en el mundo 2D.
@@ -122,12 +122,12 @@ namespace OSK::ECS {
 		/// <summary>
 		/// Posición local.
 		/// </summary>
-		Vector2 GetLocalPosition() const;
+		Vector2f GetLocalPosition() const;
 
 		/// <summary>
 		/// Escala local.
 		/// </summary>
-		Vector2 GetLocalScale() const;
+		Vector2f GetLocalScale() const;
 
 		/// <summary>
 		/// Rotación local.
@@ -142,17 +142,17 @@ namespace OSK::ECS {
 		/// <summary>
 		/// Transform padre.
 		/// </summary>
-		ECS::GameObjectIndex GetParentObject();
+		ECS::GameObjectIndex GetParentObject() const;
 
 		/// <summary>
 		/// Posición respecto al padre.
 		/// </summary>
-		Vector2 GetPositionOffset() const;
+		Vector2f GetPositionOffset() const;
 
 		/// <summary>
 		/// Escala respecto al padre.
 		/// </summary>
-		Vector2 GetScaleOffset() const;
+		Vector2f GetScaleOffset() const;
 
 		/// <summary>
 		/// Rotación respecto al padre.
@@ -164,12 +164,12 @@ namespace OSK::ECS {
 		/// <summary>
 		/// Vector posición en el mundo 2D.
 		/// </summary>
-		Vector2 globalPosition;
+		Vector2f globalPosition;
 
 		/// <summary>
 		/// Vector escala en el mundo 2D.
 		/// </summary>
-		Vector2 globalScale;
+		Vector2f globalScale;
 
 		/// <summary>
 		/// Rotación en el mundo 2D.
@@ -179,12 +179,12 @@ namespace OSK::ECS {
 		/// <summary>
 		/// Posición local.
 		/// </summary>
-		Vector2 localPosition;
+		Vector2f localPosition;
 
 		/// <summary>
 		/// Escala local.
 		/// </summary>
-		Vector2 localScale;
+		Vector2f localScale;
 
 		/// <summary>
 		/// Rotación local.
@@ -199,12 +199,12 @@ namespace OSK::ECS {
 		/// <summary>
 		/// Posición respecto al padre.
 		/// </summary>
-		Vector2 positionOffset;
+		Vector2f positionOffset;
 
 		/// <summary>
 		/// Escala respecto al padre.
 		/// </summary>
-		Vector2 scaleOffset;
+		Vector2f scaleOffset;
 
 		/// <summary>
 		/// Rotación respecto al padre.

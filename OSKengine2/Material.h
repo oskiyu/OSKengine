@@ -32,7 +32,7 @@ namespace OSK::GRAPHICS {
 			if (other.depthFormat != depthFormat)
 				return false;
 
-			for (TIndex i = 0; i < colorFormats.GetSize(); i++)
+			for (UIndex64 i = 0; i < colorFormats.GetSize(); i++)
 				if (other.colorFormats[i] != colorFormats[i])
 					return false;
 
@@ -56,6 +56,11 @@ namespace OSK::GRAPHICS {
 		/// @param layout Layout de los slots y bindings.
 		/// @param vertexInfo Información del tipo de vértice usado, en caso de que se trate de un material gráfico.
 		/// @param type Tipo de material.
+		/// 
+		/// @throws FileNotFoundException si no se encuentra los archivo de shader necesarios.
+		/// @throws ShaderLoadingException si no se consigue cargar / compilar los shaders.
+		/// @throws PipelineCreationException si no se consigue crear el pipeline.
+		/// @throws ShaderCompilingException Si ocurre algún error durante la compilación de los shaders.
 		Material(const GRAPHICS::PipelineCreateInfo& pipelineInfo, OwnedPtr<MaterialLayout> layout, const VertexInfo& vertexInfo, MaterialType type);
 
 		/// @brief Establece el nombre del material-
@@ -73,6 +78,11 @@ namespace OSK::GRAPHICS {
 		/// @return Pipeline.
 		/// 
 		/// @pre El material debe ser un material gráfico.
+		/// 
+		/// @throws FileNotFoundException si no se encuentra los archivo de shader necesarios.
+		/// @throws ShaderLoadingException si no se consigue cargar / compilar los shaders.
+		/// @throws PipelineCreationException si no se consigue crear el pipeline.
+		/// @throws ShaderCompilingException Si ocurre algún error durante la compilación de los shaders.
 		const IGraphicsPipeline* GetGraphicsPipeline(const PipelineKey& properties) const;
 
 		/// @brief Obtiene el raytracing pipeline.
@@ -101,11 +111,21 @@ namespace OSK::GRAPHICS {
 
 		/// @brief Recarga los shaders del material.
 		/// @warning No usar directamente, hacerlo mediante MaterialSystem.
+		/// 
+		/// @throws FileNotFoundException si no se encuentra los archivo de shader necesarios.
+		/// @throws ShaderLoadingException si no se consigue cargar / compilar los shaders.
+		/// @throws PipelineCreationException si no se consigue crear el pipeline.
+		/// @throws ShaderCompilingException Si ocurre algún error durante la compilación de los shaders.
 		void _Reload();
 
 	private:
 
 		/// @brief Inicializa los pipelines.
+		/// 
+		/// @throws FileNotFoundException si no se encuentra los archivo de shader necesarios.
+		/// @throws ShaderLoadingException si no se consigue cargar / compilar los shaders.
+		/// @throws PipelineCreationException si no se consigue crear el pipeline.
+		/// @throws ShaderCompilingException Si ocurre algún error durante la compilación de los shaders.
 		void InitializePipelines();
 
 		/// @brief Información para la generación de los graphics pipelines.

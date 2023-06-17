@@ -28,7 +28,7 @@ GpuMemoryAllocatorDx12::GpuMemoryAllocatorDx12(IGpu* device)
 	minStorageBufferAlignment = D3D12_DEFAULT_RESOURCE_PLACEMENT_ALIGNMENT;
 }
 
-OwnedPtr<IGpuMemoryBlock> GpuMemoryAllocatorDx12::CreateNewBufferBlock(TSize size, GpuBufferUsage usage, GpuSharedMemoryType sharedType) {
+OwnedPtr<IGpuMemoryBlock> GpuMemoryAllocatorDx12::CreateNewBufferBlock(USize64 size, GpuBufferUsage usage, GpuSharedMemoryType sharedType) {
 	return GpuMemoryBlockDx12::CreateNewBufferBlock(size, device, sharedType, usage).GetPointer();
 }
 
@@ -40,8 +40,8 @@ OwnedPtr<IGpuMemoryBlock> GpuMemoryAllocatorDx12::CreateNewImageBlock(GpuImage* 
 OwnedPtr<GpuImage> GpuMemoryAllocatorDx12::CreateImage(const GpuImageCreateInfo& info) {
 	auto output = new GpuImageDx12(info.resolution, info.dimension, info.usage, info.numLayers, info.format, info.msaaSamples, info.samplerDesc);
 	output->_SetPhysicalSize({
-		MATH::PrimerMultiploSuperior<uint32_t>(info.resolution.X, D3D12_TEXTURE_DATA_PITCH_ALIGNMENT),
-		info.resolution.Y,
+		MATH::PrimerMultiploSuperior<uint32_t>(info.resolution.x, D3D12_TEXTURE_DATA_PITCH_ALIGNMENT),
+		info.resolution.y,
 		info.resolution.Z
 		});
 
@@ -53,8 +53,8 @@ OwnedPtr<GpuImage> GpuMemoryAllocatorDx12::CreateImage(const GpuImageCreateInfo&
 }
 
 
-OwnedPtr<IGpuMemoryBlock> GpuMemoryAllocatorDx12::CreateNewBufferMemoryBlock(TSize size, GpuBufferUsage usage, GpuSharedMemoryType sharedType) {
-	TSize bSize = IGpuMemoryAllocator::SizeOfMemoryBlockInMb * 1000;
+OwnedPtr<IGpuMemoryBlock> GpuMemoryAllocatorDx12::CreateNewBufferMemoryBlock(USize64 size, GpuBufferUsage usage, GpuSharedMemoryType sharedType) {
+	USize64 bSize = IGpuMemoryAllocator::SizeOfMemoryBlockInMb * 1000;
 
 	if (size > bSize)
 		bSize = size;
@@ -64,13 +64,13 @@ OwnedPtr<IGpuMemoryBlock> GpuMemoryAllocatorDx12::CreateNewBufferMemoryBlock(TSi
 
 
 OwnedPtr<IBottomLevelAccelerationStructure> GpuMemoryAllocatorDx12::_CreateBottomAccelerationStructure() {
-	OSK_ASSERT(false, "No implementado.");
+	OSK_ASSERT(false, NotImplementedException());
 
 	return nullptr;
 }
 
 OwnedPtr<ITopLevelAccelerationStructure> GpuMemoryAllocatorDx12::_CreateTopAccelerationStructure() {
-	OSK_ASSERT(false, "No implementado.");
+	OSK_ASSERT(false, NotImplementedException());
 
 	return nullptr;
 }

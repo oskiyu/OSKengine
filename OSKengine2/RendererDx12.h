@@ -38,22 +38,22 @@ namespace OSK::GRAPHICS {
 
 		bool SupportsRaytracing() const override;
 
-		TSize GetCurrentFrameIndex() const override;
-		TSize GetCurrentCommandListIndex() const override;
+		USize32 GetCurrentFrameIndex() const override;
+		USize32 GetCurrentCommandListIndex() const override;
 
 	protected:
 
-		const TByte* FormatImageDataForGpu(const GpuImage* image, const TByte* data, TSize numLayers) override;
+		const TByte* FormatImageDataForGpu(const GpuImage* image, const TByte* data, USize32 numLayers) override;
 
 		void CreateCommandQueues() override;
 		void CreateSwapchain(PresentMode mode) override;
-		void CreateSyncDevice() override;
 		void CreateGpuMemoryAllocator() override;
 
 	private:
 
 		static void DebugCallback(D3D12_MESSAGE_CATEGORY category, D3D12_MESSAGE_SEVERITY severity, D3D12_MESSAGE_ID id, LPCSTR description, void* context);
 
+		/// @throws GpuNotFoundException Si no se encuentra ninguna GPU compatible.
 		void ChooseGpu();
 
 		void Resize();

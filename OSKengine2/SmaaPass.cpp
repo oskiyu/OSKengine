@@ -19,7 +19,7 @@ void SmaaPass::Create(const Vector2ui& size) {
 
 	IPostProcessPass::Create(size);
 
-	for (TSize i = 0; i < NUM_RESOURCES_IN_FLIGHT; i++) {
+	for (UIndex32 i = 0; i < NUM_RESOURCES_IN_FLIGHT; i++) {
 		GpuImageSamplerDesc sampler{};
 		sampler.mipMapMode = GpuImageMipmapMode::NONE;
 		sampler.addressMode = GpuImageAddressMode::EDGE;
@@ -34,7 +34,7 @@ void SmaaPass::Create(const Vector2ui& size) {
 void SmaaPass::Resize(const Vector2ui& size) {
 	IPostProcessPass::Resize(size);
 
-	for (TSize i = 0; i < NUM_RESOURCES_IN_FLIGHT; i++) {
+	for (UIndex32 i = 0; i < NUM_RESOURCES_IN_FLIGHT; i++) {
 		GpuImageSamplerDesc sampler{};
 		sampler.mipMapMode = GpuImageMipmapMode::NONE;
 		sampler.addressMode = GpuImageAddressMode::EDGE;
@@ -49,7 +49,7 @@ void SmaaPass::SetupMaterials() {
 }
 
 void SmaaPass::Execute(ICommandList* computeCmdList) {
-	const TSize resourceIndex = Engine::GetRenderer()->GetCurrentResourceIndex();
+	const UIndex32 resourceIndex = Engine::GetRenderer()->GetCurrentResourceIndex();
 
 	computeCmdList->SetGpuImageBarrier(inputImages[resourceIndex], GpuImageLayout::GENERAL,
 		GpuBarrierInfo(GpuCommandStage::FRAGMENT_SHADER, GpuAccessStage::SHADER_READ), GpuBarrierInfo(GpuCommandStage::COMPUTE_SHADER, GpuAccessStage::SHADER_READ),
@@ -62,8 +62,8 @@ void SmaaPass::Execute(ICommandList* computeCmdList) {
 	computeCmdList->BindMaterialSlot(*postProcessingMaterialInstance->GetSlot("texture"));
 
 	const Vector3ui dispatchRes = {
-		static_cast<TSize>(glm::ceil(resolveRenderTarget.GetSize().X / 8.0f)),
-		static_cast<TSize>(glm::ceil(resolveRenderTarget.GetSize().Y / 8.0f)),
+		static_cast<USize32>(glm::ceil(resolveRenderTarget.GetSize().x / 8.0f)),
+		static_cast<USize32>(glm::ceil(resolveRenderTarget.GetSize().y / 8.0f)),
 		1
 	};
 

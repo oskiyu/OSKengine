@@ -20,11 +20,11 @@
 using namespace OSK;
 using namespace OSK::GRAPHICS;
 
-GpuMemoryBlockDx12::GpuMemoryBlockDx12(GpuImage* image, IGpu* device, GpuSharedMemoryType type, GpuImageUsage imageUSage, TSize numLayers)
+GpuMemoryBlockDx12::GpuMemoryBlockDx12(GpuImage* image, IGpu* device, GpuSharedMemoryType type, GpuImageUsage imageUSage, USize32 numLayers)
 	: IGpuMemoryBlock(
-		image->GetPhysicalSize().X * image->GetPhysicalSize().Y * image->GetPhysicalSize().Z * GetFormatNumberOfBytes(image->GetFormat()), 
+		image->GetPhysicalSize().x * image->GetPhysicalSize().y * image->GetPhysicalSize().Z * GetFormatNumberOfBytes(image->GetFormat()), 
 		device, type, GpuMemoryUsage::IMAGE), 
-	sizeX(image->GetSize3D().X), sizeY(image->GetPhysicalSize().Y), format(image->GetFormat()) {
+	sizeX(image->GetSize3D().x), sizeY(image->GetPhysicalSize().y), format(image->GetFormat()) {
 
 	image->As<GpuImageDx12>()->FillResourceDesc();
 	const D3D12_RESOURCE_DESC& resourceDesc = image->As<GpuImageDx12>()->GetResourceDesc();
@@ -40,9 +40,9 @@ GpuMemoryBlockDx12::GpuMemoryBlockDx12(GpuImage* image, IGpu* device, GpuSharedM
 	resource.image = image;
 }
 
-GpuMemoryBlockDx12::GpuMemoryBlockDx12(TSize reservedSize, IGpu* device, GpuSharedMemoryType type, GpuBufferUsage bufferUSage) 
+GpuMemoryBlockDx12::GpuMemoryBlockDx12(USize64 reservedSize, IGpu* device, GpuSharedMemoryType type, GpuBufferUsage bufferUSage)
 	: IGpuMemoryBlock(reservedSize, device, type, GpuMemoryUsage::BUFFER) {
-	this->totalSize = MATH::PrimerMultiploSuperior<TSize>(reservedSize, D3D12_TEXTURE_DATA_PITCH_ALIGNMENT);
+	this->totalSize = MATH::PrimerMultiploSuperior<USize64>(reservedSize, D3D12_TEXTURE_DATA_PITCH_ALIGNMENT);
 
 	D3D12_HEAP_DESC memoryCreateInfo{};
 	memoryCreateInfo.SizeInBytes = totalSize;
@@ -51,15 +51,15 @@ GpuMemoryBlockDx12::GpuMemoryBlockDx12(TSize reservedSize, IGpu* device, GpuShar
 	device->As<GpuDx12>()->GetDevice()->CreateHeap(&memoryCreateInfo, IID_PPV_ARGS(&memory));
 }
 
-OwnedPtr<GpuMemoryBlockDx12> GpuMemoryBlockDx12::CreateNewBufferBlock(TSize reservedSize, IGpu* device, GpuSharedMemoryType type, GpuBufferUsage bufferUSage) {
+OwnedPtr<GpuMemoryBlockDx12> GpuMemoryBlockDx12::CreateNewBufferBlock(USize64 reservedSize, IGpu* device, GpuSharedMemoryType type, GpuBufferUsage bufferUSage) {
 	return new GpuMemoryBlockDx12(reservedSize, device, type, bufferUSage);
 }
 
-OwnedPtr<GpuMemoryBlockDx12> GpuMemoryBlockDx12::CreateNewImageBlock(GpuImage* image, IGpu* device, GpuSharedMemoryType type, GpuImageUsage imageUSage, TSize numLayers) {
+OwnedPtr<GpuMemoryBlockDx12> GpuMemoryBlockDx12::CreateNewImageBlock(GpuImage* image, IGpu* device, GpuSharedMemoryType type, GpuImageUsage imageUSage, USize32 numLayers) {
 	return new GpuMemoryBlockDx12(image, device, type, imageUSage, numLayers);
 }
 
-OwnedPtr<IGpuMemorySubblock> GpuMemoryBlockDx12::CreateNewMemorySubblock(TSize size, TSize offset) {
+OwnedPtr<IGpuMemorySubblock> GpuMemoryBlockDx12::CreateNewMemorySubblock(USize64 size, USize64 offset) {
 	if (usage == GpuMemoryUsage::BUFFER) {
 		ComPtr<ID3D12Resource> resource;
 	
@@ -85,6 +85,6 @@ OwnedPtr<IGpuMemorySubblock> GpuMemoryBlockDx12::CreateNewMemorySubblock(TSize s
 		return new GpuMemorySubblockDx12(this, size, offset, resource.image->As<GpuImageDx12>()->GetResource());
 	}
 
-	OSK_ASSERT(false, "No se puede crear subbloque para el uso de memoria dado.");
+	OSK_ASSERT(false, NotImplementedException());
 	return nullptr;
 }

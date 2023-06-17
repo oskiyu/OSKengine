@@ -46,19 +46,23 @@ namespace OSK::ASSETS {
 
 		/// <summary> Genera la imagen de la fuente para el tamaño de letra dado. </summary>
 		/// <param name="size">Tamaño de letra, en píxeles.</param>
-		void LoadSizedFont(TSize size);
+		/// 
+		/// @throws FontLibraryInitializationException Si ocurre un error al cargar la librería de generación de fuentes.
+		/// @throws FontLodaingException Si ocurre un error al cargar la fuente.
+		/// @throws FontCharacterLodaingException Si ocurre un error al cargar un carácter en concreto.
+		void LoadSizedFont(USize32 size);
 
 		/// <summary> Descarga la instancia de la funente con el tamaño dado. </summary>
 		/// <param name="size">Tamaño de letra, en píxeles.</param>
 		/// 
 		/// @note Si la instancia no existe, no ocurre nada.
-		void UnloadSizedFont(TSize size);
+		void UnloadSizedFont(USize32 size);
 
 		/// <summary> Devuelve la imagen de GPU correspondiente a la fuente del tamaño dado. </summary>
 		/// <param name="fontSize">Tamaño de la fuente, en píxeles.</param>
 		/// 
 		/// @note Si la fuente no está cargada, se cargará automáticamente.
-		GRAPHICS::GpuImage* GetGpuImage(TSize fontSize);
+		GRAPHICS::GpuImage* GetGpuImage(USize32 fontSize);
 
 		/// <summary> Devuelve la información de un carácter para un tamaño de fuente dado. </summary>
 		/// 
@@ -66,14 +70,18 @@ namespace OSK::ASSETS {
 		/// 
 		/// <param name="size">Tamaño de la fuente, en píxeles.</param>
 		/// <param name="character">Caracter.</param>
-		const FontCharacter& GetCharacterInfo(TSize size, char character);
+		const FontCharacter& GetCharacterInfo(USize32 size, char character);
 
 		/// <summary> Devuelve la información de una instancia de la fuente con el tamaño dado. </summary>
 		/// 
 		/// @note Si la fuente no está cargada, se cargará automáticamente.
 		/// 
 		/// <param name="fontSize">Tamaño de la fuente.</param>
-		const FontInstance& GetInstance(TSize fontSize);
+		/// 
+		/// @throws FontLibraryInitializationException Si ocurre un error al cargar la librería de generación de fuentes.
+		/// @throws FontLodaingException Si ocurre un error al cargar la fuente.
+		/// @throws FontCharacterLodaingException Si ocurre un error al cargar un carácter en concreto.
+		const FontInstance& GetInstance(USize32 fontSize);
 
 		/// <summary>
 		/// Establece el material a partir del que se van a crear
@@ -91,7 +99,7 @@ namespace OSK::ASSETS {
 
 	private:
 
-		HashMap<TSize, FontInstance> instances;
+		HashMap<USize32, FontInstance> instances;
 		std::string fontFile;
 		GRAPHICS::Material* material = nullptr;
 

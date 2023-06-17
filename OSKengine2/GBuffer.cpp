@@ -31,14 +31,14 @@ void GBuffer::Resize(const Vector2ui& resolution) {
 	renderTarget.Resize(resolution);
 }
 
-GpuImage* GBuffer::GetImage(TIndex frameIndex, Target targetType) {
+GpuImage* GBuffer::GetImage(USize32 frameIndex, Target targetType) {
 	return targetType == Target::DEPTH
 		? renderTarget.GetDepthImage(frameIndex)
-		: renderTarget.GetColorImage(static_cast<TIndex>(targetType), frameIndex);
+		: renderTarget.GetColorImage(static_cast<UIndex32>(targetType), frameIndex);
 }
 
 void GBuffer::BeginRenderpass(ICommandList* cmdList, Color color) {
 	cmdList->BeginGraphicsRenderpass(&renderTarget, color);
 }
 
-const GBuffer::Target GBuffer::ColorTargetTypes[4] = { Target::COLOR, Target::NORMAL, Target::METALLIC_ROUGHNESS, Target::MOTION };
+const std::array<GBuffer::Target, 4> GBuffer::ColorTargetTypes = { Target::COLOR, Target::NORMAL, Target::METALLIC_ROUGHNESS, Target::MOTION };

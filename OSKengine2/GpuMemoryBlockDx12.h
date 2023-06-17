@@ -23,8 +23,8 @@ namespace OSK::GRAPHICS {
 			memory->Release();
 		}
 
-		static OwnedPtr<GpuMemoryBlockDx12> CreateNewBufferBlock(TSize reservedSize, IGpu* device, GpuSharedMemoryType type, GpuBufferUsage bufferUSage);
-		static OwnedPtr<GpuMemoryBlockDx12> CreateNewImageBlock(GpuImage* image, IGpu* device, GpuSharedMemoryType type, GpuImageUsage imageUSage, TSize numLayers);
+		static OwnedPtr<GpuMemoryBlockDx12> CreateNewBufferBlock(USize64 reservedSize, IGpu* device, GpuSharedMemoryType type, GpuBufferUsage bufferUSage);
+		static OwnedPtr<GpuMemoryBlockDx12> CreateNewImageBlock(GpuImage* image, IGpu* device, GpuSharedMemoryType type, GpuImageUsage imageUSage, USize32 numLayers);
 
 		ComPtr<ID3D12Heap>& GetMemory() {
 			return memory;
@@ -32,10 +32,10 @@ namespace OSK::GRAPHICS {
 
 	private:
 
-		OwnedPtr<IGpuMemorySubblock> CreateNewMemorySubblock(TSize size, TSize offset) override;
+		OwnedPtr<IGpuMemorySubblock> CreateNewMemorySubblock(USize64 size, USize64 offset) override;
 
-		GpuMemoryBlockDx12(TSize reservedSize, IGpu* device, GpuSharedMemoryType type, GpuBufferUsage bufferUSage);
-		GpuMemoryBlockDx12(GpuImage* image, IGpu* device, GpuSharedMemoryType type, GpuImageUsage imageUSage, TSize numLayers);
+		GpuMemoryBlockDx12(USize64 reservedSize, IGpu* device, GpuSharedMemoryType type, GpuBufferUsage bufferUSage);
+		GpuMemoryBlockDx12(GpuImage* image, IGpu* device, GpuSharedMemoryType type, GpuImageUsage imageUSage, USize32 numLayers);
 
 		ComPtr<ID3D12Heap> memory;
 

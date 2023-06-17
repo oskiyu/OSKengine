@@ -12,7 +12,8 @@
 /// @note La propiedad del puntero está compartida.
 /// </summary>
 /// <typeparam name="T">Tipo del puntero almacenado.</typeparam>
-template <typename T> class SharedPtr {
+template <typename T> 
+class SharedPtr {
 
 public:
 
@@ -20,7 +21,7 @@ public:
 	/// Crea un SharedPtr vacío.
 	/// </summary>
 	SharedPtr() {
-		instanceCount = new TSize;
+		instanceCount = new USize64;
 		*instanceCount = 0;
 	}
 
@@ -32,7 +33,7 @@ public:
 	SharedPtr(T* data) {
 		pointer = data;
 
-		instanceCount = new TSize;
+		instanceCount = new USize64;
 		*instanceCount = 1;
 	}
 
@@ -99,7 +100,7 @@ public:
 	/// Devuelve el número de SharedPtr que comparten el mismo puntero que este.
 	/// </summary>
 	/// <returns>Número de instancias.</returns>
-	TSize GetInstanceCount() const {
+	USize64 GetInstanceCount() const {
 		return *instanceCount;
 	}
 
@@ -210,7 +211,7 @@ private:
 	/// <summary>
 	/// Número de SharedPtr con este puntero.
 	/// </summary>
-	TSize* instanceCount = nullptr;
+	USize64* instanceCount = nullptr;
 
 };
 

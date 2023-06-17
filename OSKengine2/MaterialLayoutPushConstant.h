@@ -26,7 +26,7 @@ namespace OSK::GRAPHICS {
 		/// <summary>
 		/// Tamaño de la estructura que se enviará a la GPU.
 		/// </summary>
-		TSize size;
+		USize32 size;
 
 		/// <summary>
 		/// Offset desde el primer push constant.
@@ -34,19 +34,19 @@ namespace OSK::GRAPHICS {
 		/// @note Cada push constant se colocará después del fin del
 		/// anterior push constant.
 		/// </summary>
-		TSize offset = 0;
+		USize32 offset = 0;
 
 		/// <summary>
 		/// Índice del buffer constante donde los shaders
 		/// .hlsl recibirán la información.
 		/// </summary>
-		TSize hlslIndex;
+		UIndex32 hlslIndex;
 
 		/// <summary>
 		/// Índice interno de DX12, a la hora de bindear.
 		/// Interno.
 		/// </summary>
-		TSize hlslBindingIndex;
+		UIndex32 hlslBindingIndex;
 
 	};
 

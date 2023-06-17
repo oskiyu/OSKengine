@@ -4,6 +4,8 @@
 
 #include "SphereCollider.h"
 #include "Assert.h"
+#include "NotImplementedException.h"
+#include "OSKengine.h"
 
 using namespace OSK;
 using namespace OSK::COLLISION;
@@ -25,13 +27,13 @@ bool AxisAlignedBoundingBox::ContainsPoint(const Vector3f& thisOffset, const Vec
 	const Vector3f max = GetMax(thisOffset);
 
 	return
-		point.X > min.X && point.X < max.X &&
-		point.Y > min.Y && point.Y < max.Y &&
+		point.x > min.x && point.x < max.x &&
+		point.y > min.y && point.y < max.y &&
 		point.Z > min.Z && point.Z < max.Z;
 }
 
 RayCastResult AxisAlignedBoundingBox::CastRay(const Ray& ray, const Vector3f& position) const {
-	OSK_ASSERT(false, "No implementado.");
+	OSK_ASSERT(false, NotImplementedException());
 	return RayCastResult::False();
 }
 
@@ -46,8 +48,7 @@ bool AxisAlignedBoundingBox::IsColliding(const ITopLevelCollider& other,
 		return ITopLevelCollider::AabbSphereCollision(*this, *sphere,
 			thisOffset, otherOffset);
 
-	OSK_ASSERT(false, "Registrar nuevo tipo.");
-	OSK_ASSUME(0);
+	OSK_ASSERT(false, NotImplementedException());
 }
 
 Vector3f AxisAlignedBoundingBox::GetMin(const Vector3f& position) const {

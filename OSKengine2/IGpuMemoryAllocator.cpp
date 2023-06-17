@@ -17,7 +17,7 @@
 using namespace OSK;
 using namespace OSK::GRAPHICS;
 
-TSize IGpuMemoryAllocator::SizeOfMemoryBlockInMb = 16;
+USize64 const IGpuMemoryAllocator::SizeOfMemoryBlockInMb = 16u;
 
 bool GpuBufferMemoryBlockInfo::operator==(const GpuBufferMemoryBlockInfo& other) const {
 	return size == other.size && usage == other.usage && sharedType == other.sharedType;
@@ -36,8 +36,8 @@ GpuMemoryUsageInfo IGpuMemoryAllocator::GetMemoryUsageInfo() const {
 	return device->GetMemoryUsageInfo();
 }
 
-OwnedPtr<GpuBuffer> IGpuMemoryAllocator::CreateVertexBuffer(const void* data, TSize vertexSize, TSize numVertices, const VertexInfo& vertexInfo, GpuBufferUsage usage) {
-	const TSize bufferSize = numVertices * vertexSize;
+OwnedPtr<GpuBuffer> IGpuMemoryAllocator::CreateVertexBuffer(const void* data, USize32 vertexSize, USize32 numVertices, const VertexInfo& vertexInfo, GpuBufferUsage usage) {
+	const USize64 bufferSize = numVertices * vertexSize;
 	const GpuBufferUsage finalUsage = usage | GpuBufferUsage::VERTEX_BUFFER | GpuBufferUsage::TRANSFER_DESTINATION;
 
 	// Buffer temporal sobre el que escribimos los vértices.
@@ -73,7 +73,7 @@ OwnedPtr<GpuBuffer> IGpuMemoryAllocator::CreateVertexBuffer(const void* data, TS
 }
 
 OwnedPtr<GpuBuffer> IGpuMemoryAllocator::CreateIndexBuffer(const DynamicArray<TIndexSize>& indices, GpuBufferUsage usage) {
-	const TSize bufferSize = sizeof(TIndexSize) * indices.GetSize();
+	const USize64 bufferSize = sizeof(TIndexSize) * indices.GetSize();
 	const GpuBufferUsage finalUsage = usage | GpuBufferUsage::INDEX_BUFFER | GpuBufferUsage::TRANSFER_DESTINATION;
 
 	GpuBuffer* stagingBuffer = CreateStagingBuffer(bufferSize).GetPointer();
@@ -107,8 +107,8 @@ OwnedPtr<GpuBuffer> IGpuMemoryAllocator::CreateIndexBuffer(const DynamicArray<TI
 }
 
 void IGpuMemoryAllocator::RemoveMemoryBlock(IGpuMemoryBlock* iblock) {
-	std::optional<TIndex> index;
-	for (TIndex i = 0; i < imageMemoryBlocks.GetSize(); i++) {
+	std::optional<UIndex64> index;
+	for (UIndex64 i = 0; i < imageMemoryBlocks.GetSize(); i++) {
 		if (imageMemoryBlocks[i].GetPointer() == iblock) {
 			index = i;
 			break;
@@ -121,7 +121,7 @@ void IGpuMemoryAllocator::RemoveMemoryBlock(IGpuMemoryBlock* iblock) {
 	}
 
 	for (auto& list : bufferMemoryBlocks) {
-		for (TIndex i = 0; i < list.GetSize(); i++) {
+		for (UIndex64 i = 0; i < list.GetSize(); i++) {
 			if (list[i].GetPointer() == iblock) {
 				index = i;
 				break;
@@ -136,15 +136,15 @@ void IGpuMemoryAllocator::RemoveMemoryBlock(IGpuMemoryBlock* iblock) {
 }
 
 void IGpuMemoryAllocator::FreeStagingMemory() {
-	for (TIndex i = 0; i < bufferMemoryBlocksInfo.GetSize(); i++) {
+	for (UIndex64 i = 0; i < bufferMemoryBlocksInfo.GetSize(); i++) {
 		const auto& info = bufferMemoryBlocksInfo[i];
 
 		if (info.sharedType == GpuSharedMemoryType::GPU_AND_CPU
 			&& EFTraits::HasFlag(info.usage, GpuBufferUsage::UPLOAD_ONLY)) {
 			
-			DynamicArray<TIndex> freeableIndices{};
+			DynamicArray<UIndex64> freeableIndices{};
 
-			for (TIndex b = 0; b < bufferMemoryBlocks[i].GetSize(); b++) {
+			for (UIndex64 b = 0; b < bufferMemoryBlocks[i].GetSize(); b++) {
 				const auto block = bufferMemoryBlocks[i][b].GetPointer();
 
 				if (block->IsUnused())
@@ -152,7 +152,7 @@ void IGpuMemoryAllocator::FreeStagingMemory() {
 			}
 
 			if (freeableIndices.GetSize() > 0)
-				for (TIndex b = freeableIndices.GetSize() - 1; b > 0; b--)
+				for (UIndex64 b = freeableIndices.GetSize() - 1; b > 0; b--)
 					bufferMemoryBlocks[i].RemoveAt(b);
 		}
 	}
@@ -170,26 +170,26 @@ OwnedPtr<GpuImage> IGpuMemoryAllocator::CreateCubemapImage(const Vector2ui& face
 	return CreateImage(info);
 }
 
-OwnedPtr<GpuBuffer> IGpuMemoryAllocator::CreateUniformBuffer(TSize size, GpuBufferUsage usage) {
+OwnedPtr<GpuBuffer> IGpuMemoryAllocator::CreateUniformBuffer(USize64 size, GpuBufferUsage usage) {
 	const GpuBufferUsage finalUsage = usage | GpuBufferUsage::UNIFORM_BUFFER;
 
 	return CreateBuffer(size, 0, finalUsage, GpuSharedMemoryType::GPU_AND_CPU);
 }
 
-OwnedPtr<GpuBuffer> IGpuMemoryAllocator::CreateStorageBuffer(TSize size, GpuBufferUsage usage) {
+OwnedPtr<GpuBuffer> IGpuMemoryAllocator::CreateStorageBuffer(USize64 size, GpuBufferUsage usage) {
 	const GpuBufferUsage finalUsage = usage | GpuBufferUsage::STORAGE_BUFFER;
 
 	return CreateBuffer(size, 0, finalUsage, GpuSharedMemoryType::GPU_AND_CPU);
 }
 
-OwnedPtr<GpuBuffer> IGpuMemoryAllocator::CreateStagingBuffer(TSize size, GpuBufferUsage usage) {
+OwnedPtr<GpuBuffer> IGpuMemoryAllocator::CreateStagingBuffer(USize64 size, GpuBufferUsage usage) {
 	const GpuBufferUsage finalUsage = usage | GpuBufferUsage::TRANSFER_SOURCE | GpuBufferUsage::UPLOAD_ONLY;
 	
 	return CreateBuffer(size, 0, finalUsage, GpuSharedMemoryType::GPU_AND_CPU);
 }
 
-OwnedPtr<GpuBuffer> IGpuMemoryAllocator::CreateBuffer(TSize size, TSize alignment, GpuBufferUsage usage, GpuSharedMemoryType memoryType) {
-	const TSize finalAlignment = GetAlignment(alignment, usage);
+OwnedPtr<GpuBuffer> IGpuMemoryAllocator::CreateBuffer(USize64 size, USize64 alignment, GpuBufferUsage usage, GpuSharedMemoryType memoryType) {
+	const USize64 finalAlignment = GetAlignment(alignment, usage);
 	IGpuMemoryBlock* block = GetNextBufferMemoryBlock(size, usage, memoryType);
 	OwnedPtr<IGpuMemorySubblock> subblock = block->GetNextMemorySubblock(size, finalAlignment);
 
@@ -224,10 +224,10 @@ OwnedPtr<IBottomLevelAccelerationStructure> IGpuMemoryAllocator::CreateBottomAcc
 	return CreateBottomAccelerationStructure(vertexBuffer, vertexBuffer.GetVertexView(), indexBuffer, indexBuffer.GetIndexView());
 }
 
-IGpuMemoryBlock* IGpuMemoryAllocator::GetNextBufferMemoryBlock(TSize size, GpuBufferUsage usage, GpuSharedMemoryType sharedType) {
+IGpuMemoryBlock* IGpuMemoryAllocator::GetNextBufferMemoryBlock(USize64 size, GpuBufferUsage usage, GpuSharedMemoryType sharedType) {
 	// Miramos todas las listas de bloques para comprobar si hay alguna que
 	// tiene bloques con las características necesarias.
-	for (TIndex i = 0; i < bufferMemoryBlocksInfo.GetSize(); i++) {
+	for (UIndex64 i = 0; i < bufferMemoryBlocksInfo.GetSize(); i++) {
 		const auto& blockInfo = bufferMemoryBlocksInfo[i];
 
 		// TODO: permitir reutilización.
@@ -258,12 +258,12 @@ IGpuMemoryBlock* IGpuMemoryAllocator::GetNextBufferMemoryBlock(TSize size, GpuBu
 	return newBlock.GetPointer();
 }
 
-IGpuMemorySubblock* IGpuMemoryAllocator::GetNextBufferMemorySubblock(TSize size, GpuBufferUsage usage, GpuSharedMemoryType sharedType) {
+IGpuMemorySubblock* IGpuMemoryAllocator::GetNextBufferMemorySubblock(USize64 size, GpuBufferUsage usage, GpuSharedMemoryType sharedType) {
 	return GetNextBufferMemoryBlock(size, usage, sharedType)->GetNextMemorySubblock(size, 0);
 }
 
-TSize IGpuMemoryAllocator::GetAlignment(TSize originalAlignment, GpuBufferUsage usage) const {
-	TSize output = originalAlignment;
+USize64 IGpuMemoryAllocator::GetAlignment(USize64 originalAlignment, GpuBufferUsage usage) const {
+	USize64 output = originalAlignment;
 
 	// @todo Combinación correcta de alignments.
 
@@ -294,7 +294,7 @@ GpuImageCreateInfo GpuImageCreateInfo::CreateDefault1D(uint32_t resolution, Form
 
 GpuImageCreateInfo GpuImageCreateInfo::CreateDefault2D(const Vector2ui& resolution, Format format, GpuImageUsage usage) {
 	GpuImageCreateInfo output{};
-	output.resolution = Vector3ui{ resolution.X, resolution.Y, 1 };
+	output.resolution = Vector3ui{ resolution.x, resolution.y, 1 };
 	output.format = format;
 	output.usage = usage;
 	output.dimension = GpuImageDimension::d2D;
@@ -312,7 +312,7 @@ GpuImageCreateInfo GpuImageCreateInfo::CreateDefault3D(const Vector3ui& resoluti
 	return output;
 }
 
-void GpuImageCreateInfo::SetMsaaSamples(TSize msaaSamples) {
+void GpuImageCreateInfo::SetMsaaSamples(USize32 msaaSamples) {
 	this->msaaSamples = msaaSamples;
 }
 

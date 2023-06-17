@@ -16,6 +16,8 @@
 #include "Material.h"
 #include "MaterialInstance.h"
 
+#include "Assert.h"
+
 #include <stbi_image.h>
 
 using namespace OSK;
@@ -59,13 +61,12 @@ void SpecularMapLoader::Load(const std::string& assetFilePath, IAsset** asset) {
 	SpecularMap* output = (SpecularMap*)*asset;
 
 	// Asset file.
-	nlohmann::json assetInfo = nlohmann::json::parse(FileIO::ReadFromFile(assetFilePath));
+	nlohmann::json assetInfo;
+	try {
+		assetInfo = ValidateDescriptionFile(assetFilePath);
+	}
+	catch (const EngineException& e) { throw e; }
 
-	OSK_ASSERT(assetInfo.contains("file_type"), "Archivo de textura incorrecto: no se encuentra 'file_type'.");
-	OSK_ASSERT(assetInfo.contains("spec_ver"), "Archivo de textura incorrecto: no se encuentra 'spec_ver'.");
-	OSK_ASSERT(assetInfo.contains("name"), "Archivo de textura incorrecto: no se encuentra 'name'.");
-	OSK_ASSERT(assetInfo.contains("asset_type"), "Archivo de textura incorrecto: no se encuentra 'asset_type'.");
-	OSK_ASSERT(assetInfo.contains("raw_asset_path"), "Archivo de textura incorrecto: no se encuentra 'raw_asset_path'.");
 
 	std::string texturePath = assetInfo["raw_asset_path"];
 	output->SetName(assetInfo["name"]);
@@ -89,11 +90,11 @@ void SpecularMapLoader::Load(const std::string& assetFilePath, IAsset** asset) {
 	UniquePtr<GpuImage> originalImage = Engine::GetRenderer()->GetAllocator()->CreateImage(imageInfo).GetPointer();
 	originalImage->SetDebugName("Original Specular 2D");
 
-	UploadImage(originalImage.GetPointer(), pixels, { originalImageSize.X, originalImageSize.Y, 1 });
+	UploadImage(originalImage.GetPointer(), pixels, { originalImageSize.x, originalImageSize.y, 1 });
 
 	// Creación del cubemap.
 	// Cada mip level representa el reflejo para una rugosidad específica.
-	const TSize maxMipLevel = 5;
+	const UIndex32 maxMipLevel = 5;
 
 	GpuImageSamplerDesc origianlSampler{};
 	origianlSampler.mipMapMode = GpuImageMipmapMode::NONE;
@@ -148,7 +149,7 @@ void SpecularMapLoader::Load(const std::string& assetFilePath, IAsset** asset) {
 	prefilterCmdList->Reset();
 	prefilterCmdList->Start();
 
-	for (TIndex mipLevel = 0; mipLevel < maxMipLevel; mipLevel++) {
+	for (UIndex32 mipLevel = 0; mipLevel < maxMipLevel; mipLevel++) {
 		const float roughness = (float)mipLevel / (maxMipLevel - 1.0f);
 		DrawPreFilter(targetCubemap.GetPointer(), prefilterCmdList.GetPointer(), mipLevel, roughness);
 	}
@@ -185,8 +186,8 @@ void SpecularMapLoader::DrawOriginal(GRAPHICS::GpuImage* cubemap, GRAPHICS::ICom
 		glm::mat4 cameraView = glm::mat4(1.0f);
 	} renderInfo;
 
-	for (TIndex faceId = 0; faceId < 6; faceId++) {
-		const TIndex resourceIndex = Engine::GetRenderer()->GetCurrentResourceIndex();
+	for (UIndex32 faceId = 0; faceId < 6; faceId++) {
+		const auto resourceIndex = Engine::GetRenderer()->GetCurrentResourceIndex();
 
 		cmdList->BeginGraphicsRenderpass(&cubemapRenderTarget);
 
@@ -196,8 +197,8 @@ void SpecularMapLoader::DrawOriginal(GRAPHICS::GpuImage* cubemap, GRAPHICS::ICom
 		const Viewport viewport{
 			.rectangle = {
 				0, 0,
-				(uint32_t)(cubemapRenderTarget.GetSize().X),
-				(uint32_t)(cubemapRenderTarget.GetSize().Y)
+				(uint32_t)(cubemapRenderTarget.GetSize().x),
+				(uint32_t)(cubemapRenderTarget.GetSize().y)
 			}
 		};
 
@@ -234,14 +235,14 @@ void SpecularMapLoader::DrawOriginal(GRAPHICS::GpuImage* cubemap, GRAPHICS::ICom
 	}
 }
 
-void SpecularMapLoader::DrawPreFilter(GpuImage* cubemap, ICommandList* cmdList, TIndex mipLevel, float roughness) {
+void SpecularMapLoader::DrawPreFilter(GpuImage* cubemap, ICommandList* cmdList, UIndex32 mipLevel, float roughness) {
 	struct {
 		glm::mat4 cameraProjection = SpecularMapLoader::cameraProjection;
 		glm::mat4 cameraView = glm::mat4(1.0f);
 		float roughness;
 	} renderInfo { .roughness = roughness };
 
-	for (TIndex faceId = 0; faceId < 6; faceId++) {
+	for (UIndex32 faceId = 0; faceId < 6; faceId++) {
 		cmdList->BeginGraphicsRenderpass(&cubemapRenderTarget);
 
 		cmdList->BindMaterial(*prefilterMaterial);
@@ -251,8 +252,8 @@ void SpecularMapLoader::DrawPreFilter(GpuImage* cubemap, ICommandList* cmdList, 
 		const Viewport viewport{
 			.rectangle = {
 				0, 0,
-				(uint32_t)(cubemapRenderTarget.GetSize().X * sizeRatio),
-				(uint32_t)(cubemapRenderTarget.GetSize().Y * sizeRatio)
+				(uint32_t)(cubemapRenderTarget.GetSize().x * sizeRatio),
+				(uint32_t)(cubemapRenderTarget.GetSize().y * sizeRatio)
 			}
 		};
 
@@ -268,7 +269,7 @@ void SpecularMapLoader::DrawPreFilter(GpuImage* cubemap, ICommandList* cmdList, 
 
 		cmdList->EndGraphicsRenderpass();
 
-		const TIndex resourceIndex = Engine::GetRenderer()->GetCurrentResourceIndex();
+		const auto resourceIndex = Engine::GetRenderer()->GetCurrentResourceIndex();
 
 		cmdList->SetGpuImageBarrier(cubemapRenderTarget.GetMainColorImage(resourceIndex),
 			GpuImageLayout::TRANSFER_SOURCE,
@@ -293,7 +294,7 @@ void SpecularMapLoader::DrawPreFilter(GpuImage* cubemap, ICommandList* cmdList, 
 }
 
 void SpecularMapLoader::GenerateLut(ICommandList* cmdList) {
-	const TIndex resourceIndex = Engine::GetRenderer()->GetCurrentResourceIndex();
+	const auto resourceIndex = Engine::GetRenderer()->GetCurrentResourceIndex();
 	GpuImage* img = lookUpTable.GetTargetImage(resourceIndex);
 
 	cmdList->SetGpuImageBarrier(img, GpuImageLayout::GENERAL,
@@ -306,7 +307,7 @@ void SpecularMapLoader::GenerateLut(ICommandList* cmdList) {
 	const Vector2ui threadBlockSize = { 8u, 8u };
 	const Vector2ui dispatchResolution = imageResolution / threadBlockSize;
 	
-	cmdList->DispatchCompute({ dispatchResolution.X, dispatchResolution.Y, 1 });
+	cmdList->DispatchCompute({ dispatchResolution.x, dispatchResolution.y, 1 });
 
 	cmdList->SetGpuImageBarrier(img, GpuImageLayout::TRANSFER_SOURCE,
 		GpuBarrierInfo(GpuCommandStage::TRANSFER, GpuAccessStage::TRANSFER_READ));
@@ -323,7 +324,7 @@ void SpecularMapLoader::UploadImage(GpuImage* img, const float* pixels, const Ve
 		GpuBarrierInfo(GpuCommandStage::TRANSFER, GpuAccessStage::TRANSFER_WRITE),
 		GpuImageRange{ .baseLayer = 0, .numLayers = ALL_IMAGE_LAYERS, .baseMipLevel = 0, .numMipLevels = ALL_MIP_LEVELS });
 
-	Engine::GetRenderer()->UploadImageToGpu(img, (TByte*)pixels, size.X * size.Y * size.Z * GetFormatNumberOfBytes(Format::RGBA32_SFLOAT), uploadCmdList.GetPointer());
+	Engine::GetRenderer()->UploadImageToGpu(img, (TByte*)pixels, size.x * size.y * size.Z * GetFormatNumberOfBytes(Format::RGBA32_SFLOAT), uploadCmdList.GetPointer());
 
 	uploadCmdList->SetGpuImageBarrier(
 		img, 

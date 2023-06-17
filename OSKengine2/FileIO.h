@@ -19,7 +19,7 @@ namespace OSK::IO {
 		/// </summary>
 		/// <param name="path">Ruta del archivo (con extensión).</param>
 		/// <param name="text">Texto que se va a escribir.</param>
-		static void WriteFile(const std::string& path, const std::string& text);
+		static void WriteFile(std::string_view path, const std::string& text);
 
 		/// <summary>
 		/// Lee un archivo de texto.
@@ -28,7 +28,7 @@ namespace OSK::IO {
 		/// <returns>String con el contenido del archivo.</returns>
 		/// 
 		/// @throws std::runtime_error Si el archivo no existe.
-		static std::string ReadFromFile(const std::string& path);
+		static std::string ReadFromFile(std::string_view path);
 
 		/// <summary>
 		/// Lee un archivo binario.
@@ -37,14 +37,14 @@ namespace OSK::IO {
 		/// <returns>Vector de bytes.</returns>
 		/// 
 		/// @throws std::runtime_error Si el archivo no existe.
-		static DynamicArray<char> ReadBinaryFromFile(const std::string& filename);
+		static DynamicArray<char> ReadBinaryFromFile(std::string_view filename);
 
 		/// <summary>
 		/// Comprueba si un archivo existe.
 		/// </summary>
 		/// <param name="path">Ruta del archivo (con extensión).</param>
 		/// <returns>True si existe.</returns>
-		static bool FileExists(const std::string& path);
+		static bool FileExists(std::string_view path);
 
 	};
 

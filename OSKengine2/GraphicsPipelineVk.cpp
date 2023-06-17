@@ -10,6 +10,8 @@
 #include "FormatVk.h"
 #include "RendererVk.h"
 
+#include "PipelinesExceptions.h"
+
 using namespace OSK;
 using namespace OSK::GRAPHICS;
 
@@ -73,7 +75,7 @@ void GraphicsPipelineVk::Create(const MaterialLayout* materialLayout, IGpu* devi
 	const VkPipelineColorBlendAttachmentState colorBlendAttachment = GetColorBlendInfo(info);
 
 	DynamicArray<VkPipelineColorBlendAttachmentState> colorBlends;
-	for (TSize i = 0; i < info.formats.GetSize(); i++)
+	for (UIndex32 i = 0; i < info.formats.GetSize(); i++)
 		colorBlends.Insert(colorBlendAttachment);
 
 	VkPipelineColorBlendStateCreateInfo colorBlendCreateInfo{};
@@ -159,7 +161,7 @@ void GraphicsPipelineVk::Create(const MaterialLayout* materialLayout, IGpu* devi
 
 	VkResult result = vkCreateGraphicsPipelines(gpu->As<GpuVk>()->GetLogicalDevice(),
 		nullptr, 1, &pipelineCreateInfo, nullptr, &pipeline);
-	OSK_ASSERT(result == VK_SUCCESS, "Error al crear el pipeline.");
+	OSK_ASSERT(result == VK_SUCCESS, PipelineCreationException(result));
 }
 
 void GraphicsPipelineVk::LoadVertexShader(const std::string& path) {
@@ -175,7 +177,7 @@ void GraphicsPipelineVk::LoadVertexShader(const std::string& path) {
 
 	VkResult result = vkCreateShaderModule(gpu->As<GpuVk>()->GetLogicalDevice(),
 		&createInfo, nullptr, &shaderModule);
-	OSK_ASSERT(result == VK_SUCCESS, "No se ha podido cargar el vertex shader.");
+	OSK_ASSERT(result == VK_SUCCESS, ShaderLoadingException(result));
 
 	// Insertar el stage en el array, para poder insertarlo al crear el pipeline.
 	VkPipelineShaderStageCreateInfo vertexShaderStageInfo{};
@@ -201,7 +203,7 @@ void GraphicsPipelineVk::LoadFragmentShader(const std::string& path) {
 
 	VkResult result = vkCreateShaderModule(gpu->As<GpuVk>()->GetLogicalDevice(),
 		&createInfo, nullptr, &shaderModule);
-	OSK_ASSERT(result == VK_SUCCESS, "No se ha podido cargar el vertex shader.");
+	OSK_ASSERT(result == VK_SUCCESS, ShaderLoadingException(result));
 
 	// Insertar el stage en el array, para poder insertarlo al crear el pipeline.
 	VkPipelineShaderStageCreateInfo fragmentShaderStageInfo{};
@@ -227,7 +229,7 @@ void GraphicsPipelineVk::LoadTesselationControlShader(const std::string& path) {
 
 	VkResult result = vkCreateShaderModule(gpu->As<GpuVk>()->GetLogicalDevice(),
 		&createInfo, nullptr, &shaderModule);
-	OSK_ASSERT(result == VK_SUCCESS, "No se ha podido cargar el tesselation control shader.");
+	OSK_ASSERT(result == VK_SUCCESS, ShaderLoadingException(result));
 
 	// Insertar el stage en el array, para poder insertarlo al crear el pipeline.
 	VkPipelineShaderStageCreateInfo shaderStageInfo{};
@@ -253,7 +255,7 @@ void GraphicsPipelineVk::LoadTesselationEvaluationShader(const std::string& path
 
 	VkResult result = vkCreateShaderModule(gpu->As<GpuVk>()->GetLogicalDevice(),
 		&createInfo, nullptr, &shaderModule);
-	OSK_ASSERT(result == VK_SUCCESS, "No se ha podido cargar el tesselation evaluation shader.");
+	OSK_ASSERT(result == VK_SUCCESS, ShaderLoadingException(result));
 
 	// Insertar el stage en el array, para poder insertarlo al crear el pipeline.
 	VkPipelineShaderStageCreateInfo shaderStageInfo{};

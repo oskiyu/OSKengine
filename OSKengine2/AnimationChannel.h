@@ -16,9 +16,9 @@ namespace OSK::GRAPHICS {
 		/// <summary> Posición / rotación / escala. </summary>
 		ChannelType type;
 		/// <summary> Hueso al que se aplica. </summary>
-		TIndex nodeId = 0;
+		UIndex32 nodeId = 0;
 		/// <summary> Sampler usado. </summary>
-		TIndex samplerIndex = 0;
+		UIndex32 samplerIndex = 0;
 
 	};
 

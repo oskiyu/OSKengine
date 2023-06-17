@@ -66,14 +66,8 @@ void IrradianceMapLoader::Load(const std::string& assetFilePath, IAsset** asset)
 	IrradianceMap* output = (IrradianceMap*)*asset;
 
 	// Asset file.
-	nlohmann::json assetInfo = nlohmann::json::parse(FileIO::ReadFromFile(assetFilePath));
+	const nlohmann::json assetInfo = ValidateDescriptionFile(assetFilePath);
 
-	OSK_ASSERT(assetInfo.contains("file_type"), "Archivo de textura incorrecto: no se encuentra 'file_type'.");
-	OSK_ASSERT(assetInfo.contains("spec_ver"), "Archivo de textura incorrecto: no se encuentra 'spec_ver'.");
-	OSK_ASSERT(assetInfo.contains("name"), "Archivo de textura incorrecto: no se encuentra 'name'.");
-	OSK_ASSERT(assetInfo.contains("asset_type"), "Archivo de textura incorrecto: no se encuentra 'asset_type'.");
-	OSK_ASSERT(assetInfo.contains("raw_asset_path"), "Archivo de textura incorrecto: no se encuentra 'raw_asset_path'.");
-	
 	std::string texturePath = assetInfo["raw_asset_path"];
 	output->SetName(assetInfo["name"]);
 
@@ -104,7 +98,7 @@ void IrradianceMapLoader::Load(const std::string& assetFilePath, IAsset** asset)
 		GpuImageLayout::TRANSFER_DESTINATION,
 		GpuBarrierInfo(GpuCommandStage::TRANSFER, GpuAccessStage::TRANSFER_WRITE));
 
-	Engine::GetRenderer()->UploadImageToGpu(originalImage.GetPointer(), (TByte*)pixels, size.X * size.Y * size.Z * GetFormatNumberOfBytes(Format::RGBA32_SFLOAT), uploadCmdList.GetPointer());
+	Engine::GetRenderer()->UploadImageToGpu(originalImage.GetPointer(), (TByte*)pixels, size.x * size.y * size.Z * GetFormatNumberOfBytes(Format::RGBA32_SFLOAT), uploadCmdList.GetPointer());
 
 	uploadCmdList->SetGpuImageBarrier(
 		originalImage.GetPointer(), 
@@ -165,8 +159,8 @@ void IrradianceMapLoader::DrawCubemap(GpuImage* targetCubemap, ICommandList* cmd
 		glm::mat4 cameraView = glm::mat4(1.0f);
 	} renderInfo;
 
-	for (TSize i = 0; i < 6; i++) {
-		for (TSize mipLevel = 0; mipLevel < targetCubemap->GetMipLevels(); mipLevel++) {
+	for (UIndex32 i = 0; i < 6; i++) {
+		for (UIndex32 mipLevel = 0; mipLevel < targetCubemap->GetMipLevels(); mipLevel++) {
 			cmdList->BeginGraphicsRenderpass(&cubemapGenRenderTarget);
 
 			cmdList->BindMaterial(*material);
@@ -176,8 +170,8 @@ void IrradianceMapLoader::DrawCubemap(GpuImage* targetCubemap, ICommandList* cmd
 			viewport.rectangle = {
 				0,
 				0,
-				static_cast<uint32_t>(static_cast<float>(irradianceLayerSize.X) * glm::pow(0.5f, mipLevel)),
-				static_cast<uint32_t>(static_cast<float>(irradianceLayerSize.Y) * glm::pow(0.5f, mipLevel))
+				static_cast<uint32_t>(static_cast<float>(irradianceLayerSize.x) * glm::pow(0.5f, mipLevel)),
+				static_cast<uint32_t>(static_cast<float>(irradianceLayerSize.y) * glm::pow(0.5f, mipLevel))
 			};
 
 			cmdList->SetViewport(viewport);
@@ -212,7 +206,7 @@ void IrradianceMapLoader::GenCubemap(GpuImage* targetCubemap, ICommandList* cmdL
 		GpuImageLayout::TRANSFER_DESTINATION,
 		GpuBarrierInfo(GpuCommandStage::TRANSFER, GpuAccessStage::TRANSFER_WRITE));
 
-	cmdList->SetScissor({ 0, 0, irradianceLayerSize.X, irradianceLayerSize.Y });
+	cmdList->SetScissor({ 0, 0, irradianceLayerSize.x, irradianceLayerSize.y });
 
 	DrawCubemap(targetCubemap, cmdList, cubemapGenMaterial, cubemapGenMaterialInstance->GetSlot("global"));
 }
@@ -224,7 +218,7 @@ void IrradianceMapLoader::ConvoluteCubemap(GpuImage* targetCubemap, ICommandList
 		GpuImageLayout::TRANSFER_DESTINATION,
 		GpuBarrierInfo(GpuCommandStage::TRANSFER, GpuAccessStage::TRANSFER_WRITE));
 
-	cmdList->SetScissor({ 0, 0, irradianceLayerSize.X, irradianceLayerSize.Y });
+	cmdList->SetScissor({ 0, 0, irradianceLayerSize.x, irradianceLayerSize.y });
 
 	DrawCubemap(targetCubemap, cmdList, cubemapConvolutionMaterial, cubemapConvolutionMaterialInstance->GetSlot("global"));
 }

@@ -27,7 +27,7 @@ RenderSystem2D::RenderSystem2D() {
 void RenderSystem2D::Render(ICommandList* commandList) {
 	spriteRenderer.SetCommandList(commandList);
 
-	commandList->StartDebugSection("2D Rendering", Color::BLUE());
+	commandList->StartDebugSection("2D Rendering", Color::Blue);
 
 	commandList->BeginGraphicsRenderpass(&renderTarget, { 1.0f, 1.0f, 1.0f, 0.0f });
 

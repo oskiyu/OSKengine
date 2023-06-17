@@ -5,7 +5,7 @@
 #include <string>
 
 #include <initializer_list>
-#include "Assert.h"
+#include "BadAllocException.h"
 
 namespace OSK {
 
@@ -87,7 +87,7 @@ namespace OSK {
 			/// </summary>
 			/// <param name="i">Índice del elemento.</param>
 			/// <param name="arr">Puntero al array.</param>
-			Iterator(TSize i, const DynamicArray* arr) : index(i), collection(arr) {
+			Iterator(UIndex64 i, const DynamicArray* arr) : index(i), collection(arr) {
 
 			}
 
@@ -174,7 +174,7 @@ namespace OSK {
 			/// <summary>
 			/// Elemento al que apunta.
 			/// </summary>
-			TSize index = 0;
+			UIndex64 index = 0;
 
 			/// <summary>
 			/// True si el iterator es vacío.
@@ -201,7 +201,7 @@ namespace OSK {
 		/// Crea el dynamic array con los elementos dados.
 		/// </summary>
 		DynamicArray(const std::initializer_list<T>& list) {
-			InitialAllocate(static_cast<TSize>(list.size()));
+			InitialAllocate(static_cast<USize64>(list.size()));
 
 			for (auto& i : list)
 				Insert(i);
@@ -268,7 +268,7 @@ namespace OSK {
 
 			growthFactorType = arr.growthFactorType;
 
-			for (TSize i = 0; i < arr.GetSize(); i++) {
+			for (UIndex64 i = 0; i < arr.GetSize(); i++) {
 				if constexpr (std::is_copy_constructible_v<T>)
 					Insert(arr.At(i));
 				else
@@ -286,7 +286,7 @@ namespace OSK {
 
 			growthFactorType = arr.growthFactorType;
 
-			for (TSize i = 0; i < arr.GetSize(); i++)
+			for (UIndex64 i = 0; i < arr.GetSize(); i++)
 				Insert(arr.At(i));
 		}
 
@@ -295,7 +295,7 @@ namespace OSK {
 		/// de elementos dado.
 		/// </summary>
 		/// <param name="reservedSize">Número de espacios reservados.</param>
-		static DynamicArray CreateReservedArray(TSize reservedSize) {
+		static DynamicArray CreateReservedArray(USize64 reservedSize) {
 			DynamicArray output;
 			output.Reserve(reservedSize);
 
@@ -308,7 +308,7 @@ namespace OSK {
 		/// <typeparam name="...TArgs">Argumentos para el constructor de los elementos.</typeparam>
 		/// <param name="size">Número de elementos.</param>
 		/// <param name="...args">Argumentos para el constructor de los elementos.</param>
-		template <typename... TArgs> static DynamicArray CreateResizedArray(TSize size, TArgs... args) {
+		template <typename... TArgs> static DynamicArray CreateResizedArray(USize64 size, TArgs... args) {
 			DynamicArray output;
 			output.Resize(size, args...);
 
@@ -321,7 +321,7 @@ namespace OSK {
 		/// <typeparam name="...TArgs">Argumentos para el constructor de los elementos.</typeparam>
 		/// <param name="size">Número de elementos.</param>
 		/// <param name="...args">Argumentos para el constructor de los elementos.</param>
-		template <typename... TArgs> static DynamicArray CreateResizedArrayMove(TSize size, TArgs&&... args) {
+		template <typename... TArgs> static DynamicArray CreateResizedArrayMove(USize64 size, TArgs&&... args) {
 			DynamicArray output;
 			output.ResizeMove(size, args...);
 
@@ -337,14 +337,17 @@ namespace OSK {
 		/// Preserva los elementos anteriores.
 		/// </summary>
 		/// <param name="size">Número de elementos.</param>
-		void Allocate(TSize size) {
+		/// 
+		/// @throws BadAllocException Si no se puede reservar memoria.
+		void Allocate(USize64 size) {
 			capacity = size;
 
 			T* previousData = data;
 			data = (T*)realloc(data, sizeof(T) * size);
 
 			if (size > 0)
-				OSK_ASSERT(data != NULL, "DynamicArray: no se pudo reservar memoria para " + std::to_string(size) + " elementos en el dynamic array.");
+				if(data == NULL)
+					throw BadAllocException();
 		}
 
 		/// <summary>
@@ -417,12 +420,12 @@ namespace OSK {
 		/// 
 		/// @throws std::runtime_error Si el índice es inválido.
 		/// @throws std::runtime_error Si no ha sido correctamente inicializado.
-		T& At(TSize index) const {
+		T& At(UIndex64 index) const {
 #ifdef OSK_SAFE
-			OSK_ASSERT(index < capacity, "DynamicArray: tried to access element number " + std::to_string(index) + ", but there are only " + std::to_string(capacity) + " reserved elements.");
-			OSK_ASSERT(index < size, "DynamicArray: tried to access element number " + std::to_string(index) + ", but there are only " + std::to_string(size) + " elements.");
-			OSK_ASSERT(index >= 0, "DynamicArray: tried to access element number " + std::to_string(index) + ", but there are only " + std::to_string(capacity) + " reserved elements.");
-			OSK_ASSERT(HasBeenInitialized(), "DynamicArray: tried to access element from an uninitialized array.");
+			// OSK_ASSERT(index < capacity, "DynamicArray: tried to access element number " + std::to_string(index) + ", but there are only " + std::to_string(capacity) + " reserved elements.");
+			// OSK_ASSERT(index < size, "DynamicArray: tried to access element number " + std::to_string(index) + ", but there are only " + std::to_string(size) + " elements.");
+			// OSK_ASSERT(index >= 0, "DynamicArray: tried to access element number " + std::to_string(index) + ", but there are only " + std::to_string(capacity) + " reserved elements.");
+			// OSK_ASSERT(HasBeenInitialized(), "DynamicArray: tried to access element from an uninitialized array.");
 #endif
 
 			return data[index];
@@ -434,12 +437,12 @@ namespace OSK {
 		/// 
 		/// @throws std::runtime_error Si el índice es inválido.
 		/// @throws std::runtime_error Si no ha sido correctamente inicializado.
-		T&& AtRvalue(TSize index) const {
+		T&& AtRvalue(USize64 index) const {
 #ifdef OSK_SAFE
-			OSK_ASSERT(index < capacity, "DynamicArray: tried to access element number " + std::to_string(index) + ", but there are only " + std::to_string(capacity) + " reserved elements.");
-			OSK_ASSERT(index < size, "DynamicArray: tried to access element number " + std::to_string(index) + ", but there are only " + std::to_string(size) + " elements.");
-			OSK_ASSERT(index >= 0, "DynamicArray: tried to access element number " + std::to_string(index) + ", but there are only " + std::to_string(capacity) + " reserved elements.");
-			OSK_ASSERT(HasBeenInitialized(), "DynamicArray: tried to access element from an uninitialized array.");
+			// OSK_ASSERT(index < capacity, "DynamicArray: tried to access element number " + std::to_string(index) + ", but there are only " + std::to_string(capacity) + " reserved elements.");
+			// OSK_ASSERT(index < size, "DynamicArray: tried to access element number " + std::to_string(index) + ", but there are only " + std::to_string(size) + " elements.");
+			// OSK_ASSERT(index >= 0, "DynamicArray: tried to access element number " + std::to_string(index) + ", but there are only " + std::to_string(capacity) + " reserved elements.");
+			// OSK_ASSERT(HasBeenInitialized(), "DynamicArray: tried to access element from an uninitialized array.");
 #endif
 
 			return std::move(data[index]);
@@ -488,7 +491,7 @@ namespace OSK {
 		/// 
 		/// @bug No llama a los constructores de copia.
 		void InsertAll(const DynamicArray& arr) {
-			TSize originalSize = size;
+			USize64 originalSize = size;
 
 			if (size + arr.GetSize() > capacity)
 				Allocate(size + arr.GetSize());
@@ -502,7 +505,7 @@ namespace OSK {
 		/// Cambia el tamaño del array.
 		/// Los datos se conservan, siempre que se pueda.
 		/// </summary>
-		inline void Reserve(TSize size) {
+		inline void Reserve(USize64 size) {
 			Allocate(size);
 		}
 
@@ -511,11 +514,11 @@ namespace OSK {
 		/// Los datos se conservan, siempre que se pueda.
 		/// Se añaden elementos hasta que haya 'size' elementos.
 		/// </summary>
-		template <typename... TArgs> inline void Resize(TSize size, const TArgs&... args) {
-			TSize oldSize = this->size;
+		template <typename... TArgs> inline void Resize(USize64 size, const TArgs&... args) {
+			const auto oldSize = this->size;
 			Reserve(size);
 
-			for (TSize i = oldSize; i < size; i++)
+			for (UIndex64 i = oldSize; i < size; i++)
 				new (&data[i]) T(args...);
 
 			this->size = size;
@@ -526,11 +529,11 @@ namespace OSK {
 		/// Los datos se conservan, siempre que se pueda.
 		/// Se añaden elementos hasta que haya 'size' elementos.
 		/// </summary>
-		template <typename... TArgs> inline void ResizeMove(TSize size, TArgs&&... args) {
-			TSize oldSize = this->size;
+		template <typename... TArgs> inline void ResizeMove(USize64 size, TArgs&&... args) {
+			const auto oldSize = this->size;
 			Reserve(size);
 
-			for (TSize i = oldSize; i < size; i++)
+			for (const auto i = oldSize; i < size; i++)
 				new (&data[i]) T(args...);
 
 			this->size = size;
@@ -543,12 +546,12 @@ namespace OSK {
 		/// 
 		/// @throws std::runtime_error Si el índice es inválido.
 		/// @throws std::runtime_error Si no ha sido correctamente inicializado.
-		void RemoveAt(TSize index) {
+		void RemoveAt(UIndex64 index) {
 #ifdef OSK_SAFE
-			OSK_ASSERT(index < capacity, "DynamicArray: tried to remove element number " + std::to_string(index) + ", but there are only " + std::to_string(capacity) + " reserved elements.");
-			OSK_ASSERT(index < size, "DynamicArray: tried to remove element number " + std::to_string(index) + ", but there are only " + std::to_string(capacity) + " reserved elements.");
-			OSK_ASSERT(index >= 0, "DynamicArray: tried to remove element number " + std::to_string(index) + ", but there are only " + std::to_string(capacity) + " reserved elements.");
-			OSK_ASSERT(HasBeenInitialized(), "DynamicArray: tried to remove element from an uninitialized array.");
+			// OSK_ASSERT(index < capacity, "DynamicArray: tried to remove element number " + std::to_string(index) + ", but there are only " + std::to_string(capacity) + " reserved elements.");
+			// OSK_ASSERT(index < size, "DynamicArray: tried to remove element number " + std::to_string(index) + ", but there are only " + std::to_string(capacity) + " reserved elements.");
+			// OSK_ASSERT(index >= 0, "DynamicArray: tried to remove element number " + std::to_string(index) + ", but there are only " + std::to_string(capacity) + " reserved elements.");
+			// OSK_ASSERT(HasBeenInitialized(), "DynamicArray: tried to remove element from an uninitialized array.");
 #endif // _DEBUG
 
 			data[index].~T();
@@ -580,7 +583,7 @@ namespace OSK {
 		/// @throws std::runtime_error Si el array está vacío.
 		void RemoveLast() {
 #ifdef OSK_SAFE
-			OSK_ASSERT(HasBeenInitialized(), "DynamicArray: tried to remove element from an uninitialized array.");
+			// OSK_ASSERT(HasBeenInitialized(), "DynamicArray: tried to remove element from an uninitialized array.");
 #endif // _DEBUG
 			At(size - 1).~T();
 
@@ -604,7 +607,7 @@ namespace OSK {
 		/// @pre El tipo del elemento debe tener definido el operador de comparación '=='.
 		/// 
 		/// @note Si no se encuentra, devuelve 0.
-		TSize GetIndexOf(const T& elem) const {
+		UIndex64 GetIndexOf(const T& elem) const {
 			auto it = Find(elem);
 
 			return it.index;
@@ -619,7 +622,7 @@ namespace OSK {
 		/// 
 		/// @pre El tipo del elemento debe tener definido el operador de comparación '=='.
 		Iterator Find(const T& elem) const {
-			for (TSize i = 0; i < size; i++)
+			for (USize64 i = 0; i < size; i++)
 				if (elem == data[i])
 					return Iterator(i, this);
 
@@ -648,7 +651,7 @@ namespace OSK {
 		/// Elimina los elementos, sin liberar memoria.
 		/// </summary>
 		void Empty() {
-			for (TSize i = 0; i < size; i++)
+			for (USize64 i = 0; i < size; i++)
 				data[i].~T();
 
 			size = 0;
@@ -662,7 +665,7 @@ namespace OSK {
 		/// 
 		/// @throws std::runtime_error Si el índice es inválido.
 		/// @throws std::runtime_error Si no ha sido correctamente inicializado.
-		T& operator[] (TSize i) const {
+		T& operator[] (UIndex64 i) const {
 			return At(i);
 		}
 
@@ -688,14 +691,14 @@ namespace OSK {
 		/// <summary>
 		/// Devuelve el número de elementos almacenados.
 		/// </summary>
-		TSize GetSize() const noexcept {
+		USize64 GetSize() const noexcept {
 			return size;
 		}
 
 		/// <summary>
 		/// Devuelve el número de elementos reservados.
 		/// </summary>
-		TSize GetReservedSize() const noexcept {
+		USize64 GetReservedSize() const noexcept {
 			return capacity;
 		}
 
@@ -730,7 +733,7 @@ namespace OSK {
 		/// </summary>
 		/// 
 		/// @note Puede no apuntar a un element válido.
-		Iterator GetIterator(TSize index) const noexcept {
+		Iterator GetIterator(UIndex64 index) const noexcept {
 			return Iterator(index, this);
 		}
 
@@ -748,21 +751,21 @@ namespace OSK {
 		/// Primer allocate del array..
 		/// </summary>
 		/// <param name="size">Número de elementos.</param>
-		void InitialAllocate(TSize size) {
+		void InitialAllocate(USize64 size) {
 			capacity = size;
 			this->size = 0;
 
 			data = (T*)malloc(sizeof(T) * size);
 
 #ifdef OSK_SAFE
-			OSK_ASSERT(data != NULL, "DynamicArray: no se pudo reservar memoria para " + std::to_string(size) + " elementos en el dynamic array.");
+			// OSK_ASSERT(data != NULL, "DynamicArray: no se pudo reservar memoria para " + std::to_string(size) + " elementos en el dynamic array.");
 #endif
 		}
 
 		void InitialCopyFrom(const DynamicArray& arr) {
 			InitialAllocate(arr.capacity);
 
-			for (TSize i = 0; i < arr.GetSize(); i++)
+			for (USize64 i = 0; i < arr.GetSize(); i++)
 				InsertCopy(arr.data[i]);
 
 			growthFactorType = arr.growthFactorType;
@@ -771,7 +774,7 @@ namespace OSK {
 		void InitialMoveFrom(DynamicArray&& arr) {
 			InitialAllocate(arr.capacity);
 
-			for (TSize i = 0; i < arr.GetSize(); i++)
+			for (USize64 i = 0; i < arr.GetSize(); i++)
 				InsertMove(std::move(arr.data[i]));
 
 			growthFactorType = arr.growthFactorType;
@@ -785,12 +788,12 @@ namespace OSK {
 		/// <summary>
 		/// Número de espacios reservados.
 		/// </summary>
-		TSize capacity = 0;
+		USize64 capacity = 0;
 
 		/// <summary>
 		/// Elementos guardados.
 		/// </summary>
-		TSize size = 0;
+		USize64 size = 0;
 
 	};
 

@@ -31,7 +31,7 @@ namespace OSK::ASSETS {
 		/// <summary> Espaciado horizontal del carácter. </summary>
 		///
 		/// @note En píxeles.
-		TSize advance = 0;
+		USize32 advance = 0;
 
 	};
 

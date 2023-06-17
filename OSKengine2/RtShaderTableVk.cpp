@@ -10,27 +10,28 @@
 #include "IGpuMemorySubblock.h"
 
 #include <vulkan/vulkan.h>
+#include "AccelerationStructuresExceptions.h"
 
 using namespace OSK;
 using namespace OSK::GRAPHICS;
 
-RtShaderTableVk::RtShaderTableVk(TSize numShaderGroups, VkPipeline pipeline) {
+RtShaderTableVk::RtShaderTableVk(USize32 numShaderGroups, VkPipeline pipeline) {
 	const auto& info = Engine::GetRenderer()->GetGpu()->As<GpuVk>()->GetInfo();
 
-	const TSize handleSize = info.rtPipelineProperties.shaderGroupHandleSize;
-	const TSize handleSizeWithAlignment = (info.rtPipelineProperties.shaderGroupHandleSize + info.rtPipelineProperties.shaderGroupHandleAlignment - 1) & ~(info.rtPipelineProperties.shaderGroupHandleAlignment - 1);
-	const TSize numGroups = numShaderGroups;
+	const USize64 handleSize = info.rtPipelineProperties.shaderGroupHandleSize;
+	const USize64 handleSizeWithAlignment = (info.rtPipelineProperties.shaderGroupHandleSize + info.rtPipelineProperties.shaderGroupHandleAlignment - 1) & ~(info.rtPipelineProperties.shaderGroupHandleAlignment - 1);
+	const USize32 numGroups = numShaderGroups;
 
-	const TSize tableSize = numGroups * handleSizeWithAlignment;
+	const USize64 tableSize = numGroups * handleSizeWithAlignment;
 
 	DynamicArray<TByte> temporalStorage = DynamicArray<TByte>::CreateResizedArray(tableSize);
 
 	// Obtiene los handles para los grupos y los almacena en temporalStorage.
 	VkResult result = RendererVk::pvkGetRayTracingShaderGroupHandlesKHR(Engine::GetRenderer()->GetGpu()->As<GpuVk>()->GetLogicalDevice(), pipeline,
 		0, numGroups, tableSize, temporalStorage.GetData());
-	OSK_ASSERT(result == VK_SUCCESS, "No se pudo crear la tabla de shaders RT. Code: " + std::to_string(result));
+	OSK_ASSERT(result == VK_SUCCESS, RtShaderBindingTableCreationException(result));
 
-	const TSize alignment = Engine::GetRenderer()->GetGpu()->As<GpuVk>()->GetInfo().rtPipelineProperties.shaderGroupHandleAlignment;
+	const USize64 alignment = Engine::GetRenderer()->GetGpu()->As<GpuVk>()->GetInfo().rtPipelineProperties.shaderGroupHandleAlignment;
 	raygenShaderTable = Engine::GetRenderer()->GetAllocator()->CreateBuffer(handleSize, alignment, GpuBufferUsage::RT_SHADER_BINDING_TABLE, GpuSharedMemoryType::GPU_AND_CPU).GetPointer();
 	hitShaderTable = Engine::GetRenderer()->GetAllocator()->CreateBuffer(handleSize, alignment, GpuBufferUsage::RT_SHADER_BINDING_TABLE, GpuSharedMemoryType::GPU_AND_CPU).GetPointer();
 	missShaderTable = Engine::GetRenderer()->GetAllocator()->CreateBuffer(handleSize, alignment, GpuBufferUsage::RT_SHADER_BINDING_TABLE, GpuSharedMemoryType::GPU_AND_CPU).GetPointer();

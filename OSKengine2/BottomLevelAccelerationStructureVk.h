@@ -23,7 +23,7 @@ namespace OSK::GRAPHICS {
 			RtAccelerationStructureFlags flags) override;
 		void Update(ICommandList* cmdList) override;
 
-		TSize GetNumTriangles() const;
+		USize32 GetNumTriangles() const;
 		VkAccelerationStructureGeometryKHR GetGeometryInfo() const;
 
 		VkAccelerationStructureKHR GetHandle() const;
@@ -41,7 +41,7 @@ namespace OSK::GRAPHICS {
 		VkAccelerationStructureGeometryKHR geometryInfo{};
 		VkDeviceOrHostAddressConstKHR accelerationStructureGpuAddress{};
 
-		TSize numTriangles = 0;
+		USize32 numTriangles = 0;
 
 	};
 

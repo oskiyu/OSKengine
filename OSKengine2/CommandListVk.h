@@ -37,19 +37,19 @@ namespace OSK::GRAPHICS {
 		void BindVertexBufferRange(const GpuBuffer& buffer, const VertexBufferView& view) override;
 		void BindIndexBufferRange(const GpuBuffer& buffer, const IndexBufferView& view) override;
 		void BindMaterialSlot(const IMaterialSlot& slot) override;
-		void PushMaterialConstants(const std::string& pushConstName, const void* data, TSize size, TSize offset) override;
+		void PushMaterialConstants(const std::string& pushConstName, const void* data, USize32 size, USize32 offset) override;
 
-		void DrawSingleInstance(TSize numIndices) override;
-		void DrawSingleMesh(TSize firstIndex, TSize numIndices) override;
-		void TraceRays(TSize raygenEntry, TSize closestHitEntry, TSize missEntry, const Vector2ui& resolution) override;
+		void DrawSingleInstance(USize32 numIndices) override;
+		void DrawSingleMesh(UIndex32 firstIndex, USize32 numIndices) override;
+		void TraceRays(UIndex32 raygenEntry, UIndex32 closestHitEntry, UIndex32 missEntry, const Vector2ui& resolution) override;
 
 		void DispatchCompute(const Vector3ui& groupCount);
 
 		void SetGpuImageBarrier(GpuImage* image, GpuImageLayout previousLayout, GpuImageLayout nextLayout, GpuBarrierInfo previous, GpuBarrierInfo next, const GpuImageRange& range) override;
 
-		void CopyBufferToImage(const GpuBuffer& source, GpuImage* dest, TSize layer, TSize offset) override;
+		void CopyBufferToImage(const GpuBuffer& source, GpuImage* dest, UIndex32 layer, USize64 offset) override;
 		void RawCopyImageToImage(const GpuImage& source, GpuImage* destination, const CopyImageInfo& copyInfo) override;
-		void CopyBufferToBuffer(const GpuBuffer& source, GpuBuffer* dest, TSize size, TSize sourceOffset, TSize destOffset) override;
+		void CopyBufferToBuffer(const GpuBuffer& source, GpuBuffer* dest, USize64 size, USize64 sourceOffset, USize64 destOffset) override;
 
 		void SetViewport(const Viewport& viewport) override;
 		void SetScissor(const Vector4ui& scissor) override;

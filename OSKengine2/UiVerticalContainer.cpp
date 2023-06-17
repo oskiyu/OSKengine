@@ -5,12 +5,12 @@ using namespace OSK::UI;
 using namespace OSK;
 
 VerticalContainer::VerticalContainer(const Vector2f& size) : IContainer(size) {
-	relativeNextPosition = GetPadding().Y;
+	relativeNextPosition = GetPadding().y;
 }
 
 void VerticalContainer::EmplaceChild(IElement* child) {
-	if (relativeNextPosition < GetPadding().Y)
-		relativeNextPosition = GetPadding().Y;
+	if (relativeNextPosition < GetPadding().y)
+		relativeNextPosition = GetPadding().y;
 
 	float xDiff = 0.0f;
 	if (EFTraits::HasFlag(child->GetAnchor(), Anchor::LEFT))
@@ -21,11 +21,11 @@ void VerticalContainer::EmplaceChild(IElement* child) {
 		xDiff = 0;
 
 	child->_SetRelativePosition(Vector2f(
-		child->GetMarging().X + GetPadding().X,
-		relativeNextPosition + child->GetMarging().Y
+		child->GetMarging().x + GetPadding().x,
+		relativeNextPosition + child->GetMarging().y
 	));
 
-	relativeNextPosition += child->GetSize().Y + child->GetMarging().Y + child->GetMarging().W;
+	relativeNextPosition += child->GetSize().y + child->GetMarging().y + child->GetMarging().W;
 }
 
 void VerticalContainer::ResetLayout() {

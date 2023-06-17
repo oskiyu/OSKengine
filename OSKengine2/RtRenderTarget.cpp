@@ -21,7 +21,7 @@ void RtRenderTarget::Resize(const Vector2ui& targetSize) {
 	SetupSpriteMaterial();
 }
 
-GpuImage* RtRenderTarget::GetTargetImage(TSize index) const {
+GpuImage* RtRenderTarget::GetTargetImage(UIndex32 index) const {
 	return attachment.GetImage(index);
 }
 
@@ -40,8 +40,8 @@ IMaterialSlot* RtRenderTarget::GetFullscreenSpriteMaterialSlot() const {
 void RtRenderTarget::SetupSpriteMaterial() {
 	const GpuImageViewConfig view = GpuImageViewConfig::CreateSampled_MipLevelRanged(0, 0);
 
-	const IGpuImageView* images[NUM_RESOURCES_IN_FLIGHT]{};
-	for (TIndex i = 0; i < NUM_RESOURCES_IN_FLIGHT; i++)
+	std::array<const IGpuImageView*, NUM_RESOURCES_IN_FLIGHT> images{};
+	for (UIndex32 i = 0; i < NUM_RESOURCES_IN_FLIGHT; i++)
 		images[i] = GetTargetImage(i)->GetView(view);
 
 	fullscreenSpriteMaterialInstance->GetSlot("texture")->SetGpuImages("spriteTexture", images);

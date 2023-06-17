@@ -27,14 +27,14 @@ namespace OSK::GRAPHICS {
 
 	public:
 
-		GpuMemoryAllocatorVk(IGpu* device);
+		explicit GpuMemoryAllocatorVk(IGpu* device);
 
 		OwnedPtr<GpuImage> CreateImage(const GpuImageCreateInfo& info) override;
 
 	protected:
 
 		OwnedPtr<IGpuMemoryBlock> CreateNewBufferBlock(
-			TSize size, 
+			USize64 size, 
 			GpuBufferUsage usage, 
 			GpuSharedMemoryType sharedType) override;
 

@@ -12,6 +12,8 @@
 #include "DescriptorLayoutVk.h"
 #include "ShaderBindingTypeVk.h"
 
+#include "PipelinesExceptions.h"
+
 using namespace OSK;
 using namespace OSK::GRAPHICS;
 
@@ -28,8 +30,8 @@ PipelineLayoutVk::PipelineLayoutVk(const MaterialLayout* materialLayout)
 	for (auto const& [name, slot] : materialLayout->GetAllSlots())
 		orderedSlots.Insert(slot);
 
-	for (TSize i = 0; i < orderedSlots.GetSize() - 1; i++) {
-		for (TSize j = 0; j < orderedSlots.GetSize() - 1; j++) {
+	for (UIndex32 i = 0; i < orderedSlots.GetSize() - 1; i++) {
+		for (UIndex32 j = 0; j < orderedSlots.GetSize() - 1; j++) {
 			const auto& slot1 = orderedSlots[j + 1].glslSetIndex;
 			const auto& slot2 = orderedSlots[j].glslSetIndex;
 
@@ -66,9 +68,9 @@ PipelineLayoutVk::PipelineLayoutVk(const MaterialLayout* materialLayout)
 	pipelineLayoutInfo.pPushConstantRanges = pushConstantRanges.GetData();
 	
 	VkResult result = vkCreatePipelineLayout(device, &pipelineLayoutInfo, nullptr, &layout);
-	OSK_ASSERT(result == VK_SUCCESS, "No se ha podido crear el pipeline layout.");
+	OSK_ASSERT(result == VK_SUCCESS, PipelineLayoutCreationException(result));
 
-	for (TSize i = 0; i < descLayouts.GetSize(); i++)
+	for (UIndex32 i = 0; i < descLayouts.GetSize(); i++)
 		delete descLayouts.At(i).GetPointer();
 }
 

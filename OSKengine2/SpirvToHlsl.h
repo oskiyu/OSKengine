@@ -47,7 +47,7 @@ namespace OSK::GRAPHICS {
 		/// </summary>
 		/// 
 		/// @warning No comprueba si es un perfil válido.
-		void SetHlslTargetProfile(TSize mayor, TSize minor);
+		void SetHlslTargetProfile(USize64 mayor, USize64 minor);
 
 		/// <summary>
 		/// Devuelve el código HLSL.

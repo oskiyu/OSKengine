@@ -80,7 +80,7 @@ void Button::SetTextFont(Font* font) {
 	buttonText.AdjustSizeToText();
 }
 
-void Button::SetTextFontSize(TSize fontSize) {
+void Button::SetTextFontSize(USize32 fontSize) {
 	buttonText.SetFontSize(fontSize);
 	buttonText.AdjustSizeToText();
 }

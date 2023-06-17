@@ -16,11 +16,11 @@ GpuImageViewConfig GpuImageViewConfig::CreateSampled_Default() {
 	return output;
 }
 
-GpuImageViewConfig GpuImageViewConfig::CreateSampled_SingleMipLevel(TIndex mipLevel) {
+GpuImageViewConfig GpuImageViewConfig::CreateSampled_SingleMipLevel(UIndex32 mipLevel) {
 	return CreateSampled_MipLevelRanged(mipLevel, mipLevel);
 }
 
-GpuImageViewConfig GpuImageViewConfig::CreateSampled_MipLevelRanged(TIndex baseMipLevel, TIndex topMipLevel) {
+GpuImageViewConfig GpuImageViewConfig::CreateSampled_MipLevelRanged(UIndex32 baseMipLevel, UIndex32 topMipLevel) {
 	GpuImageViewConfig output{};
 
 	output.channel = SampledChannel::COLOR;
@@ -35,7 +35,7 @@ GpuImageViewConfig GpuImageViewConfig::CreateSampled_MipLevelRanged(TIndex baseM
 	return output;
 }
 
-GpuImageViewConfig GpuImageViewConfig::CreateSampled_Array(TIndex baseLayer, TSize layerCount) {
+GpuImageViewConfig GpuImageViewConfig::CreateSampled_Array(UIndex32 baseLayer, USize32 layerCount) {
 	GpuImageViewConfig output{};
 
 	output.channel = SampledChannel::COLOR;

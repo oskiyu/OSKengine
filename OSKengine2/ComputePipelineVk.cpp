@@ -6,6 +6,8 @@
 #include "IRenderer.h"
 #include "GpuVk.h"
 
+#include "PipelinesExceptions.h"
+
 using namespace OSK;
 using namespace OSK::GRAPHICS;
 
@@ -22,5 +24,5 @@ void ComputePipelineVk::Create(const MaterialLayout& materialLayout, const Pipel
 
 	const VkDevice logicalDevice = Engine::GetRenderer()->GetGpu()->As<GpuVk>()->GetLogicalDevice();
 	VkResult result = vkCreateComputePipelines(logicalDevice, VK_NULL_HANDLE, 1, &createInfo, nullptr, &pipeline);
-	OSK_ASSERT(result == VK_SUCCESS, "Error al crear el compute pipeline.");
+	OSK_ASSERT(result == VK_SUCCESS, PipelineCreationException(result));
 }

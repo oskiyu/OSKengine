@@ -74,6 +74,8 @@ namespace OSK::GRAPHICS {
 
 		
 		/// @brief Inicializa el renderizado 2D, estableciendo los recursos necesarios.
+		/// @pre Se debe haber establecido correctamente la lista de comandos.
+		/// @throws InvalidObjectStateException Si se incumple la precondición.
 		void Begin();
 
 
@@ -85,6 +87,8 @@ namespace OSK::GRAPHICS {
 		/// @pre La cola de comandos debe estar iniciada.
 		/// @pre La cola de comandos debe tener asociado un renderpass.
 		/// @pre Se debe haber establecido un material.
+		/// 
+		/// @throws InvalidObjectStateException Si se incumple alguna precondición.
 		void Draw(
 			const Sprite& sprite, 
 			const ECS::Transform2D& transform, 
@@ -119,7 +123,7 @@ namespace OSK::GRAPHICS {
 		void Draw(
 			const Sprite& sprite,
 			const TextureCoordinates2D& texCoords, 
-			const Vector2f position, 
+			const Vector2f position,  
 			const Vector2f size, 
 			float rotation, 
 			const Color& color);
@@ -178,7 +182,7 @@ namespace OSK::GRAPHICS {
 		/// @pre Se debe haber establecido un material.
 		void DrawString(
 			ASSETS::Font& font, 
-			TSize fontSize, 
+			USize32 fontSize,
 			std::string_view text, 
 			const ECS::Transform2D& transform, 
 			const Color& color);
@@ -193,7 +197,7 @@ namespace OSK::GRAPHICS {
 		/// @param color Color del texto.
 		void DrawString(
 			ASSETS::Font& font, 
-			TSize fontSize, 
+			USize32 fontSize, 
 			std::string_view text, 
 			const Vector2f position, 
 			const Vector2f size, 

@@ -116,7 +116,7 @@ void main() {
     // vec3 color = ambient * (dirLight.directionAndIntensity.w * 0.5) + accummulatedRadiance * 1.25 + specular * 0.5;
     // vec3 color = ambient + accummulatedRadiance + specular;
     
-// #define NATURAL
+#define NATURAL
 // #define CUSTOM
 
 #ifdef NATURAL

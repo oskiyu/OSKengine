@@ -35,6 +35,9 @@ namespace OSK::GRAPHICS {
 		/// Los materiales son cacheados: sólo se cargan una vez.
 		/// @param path Ruta al archivo del material (.json).
 		/// @return Material definido por el archivo.
+		/// 
+		/// @throws ASSETS::InvalidDescriptionFileException Si el archivo del material tiene información
+		/// faltante o incorrecta.
 		Material* LoadMaterial(const std::string& path);
 
 		/// @brief Devuelve el material cargado con el nombre dado.
@@ -42,6 +45,7 @@ namespace OSK::GRAPHICS {
 		/// @return Material.
 		/// 
 		/// @pre El material debe haber sido previamente cargado con LoadMaterial.
+		/// @throws MaterialNotFoundException si el material no ha sido previamente cargado.
 		Material* GetMaterialByName(const std::string& name) const;
 
 
@@ -59,12 +63,14 @@ namespace OSK::GRAPHICS {
 		/// @param path Ruta del material.
 		/// 
 		/// @pre El material indicado debe haber sido previamente cargado.
+		/// @throws MaterialNotFoundException si el material no ha sido previamente cargado.
 		void ReloadMaterialByPath(const std::string& path);
 
 		/// @brief Recarga el material indicado. 
 		/// @param name Nombre del material.
 		/// 
 		/// @pre El material indicado debe haber sido previamente cargado.
+		/// @throws MaterialNotFoundException si el material no ha sido previamente cargado.
 		void ReloadMaterialByName(const std::string& name);
 
 		/// @brief Recarga todos los materiales.
@@ -72,7 +78,9 @@ namespace OSK::GRAPHICS {
 
 	private:
 
+		/// @throws ASSETS::InvalidDescriptionFileException Si el archivo de material es incorrecto.
 		void LoadMaterialV0(MaterialLayout* layout, const nlohmann::json& materialInfo, PipelineCreateInfo* info);
+		/// @throws ASSETS::InvalidDescriptionFileException Si el archivo de material es incorrecto.
 		void LoadMaterialV1(MaterialLayout* layout, const nlohmann::json& materialInfo, PipelineCreateInfo* info, MaterialType type);
 
 		DynamicArray<UniquePtr<Material>> materials;

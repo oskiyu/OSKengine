@@ -44,10 +44,10 @@ ITopLevelCollider* Collider::GetTopLevelCollider() const {
 	return topLevelCollider.GetPointer();
 }
 
-IBottomLevelCollider* Collider::GetBottomLevelCollider(TIndex id) const {
+IBottomLevelCollider* Collider::GetBottomLevelCollider(UIndex32 id) const {
 	return bottomLevelColliders[id].GetPointer();
 }
 
-TSize Collider::GetBottomLevelCollidersCount() const {
-	return bottomLevelColliders.GetSize();
+USize32 Collider::GetBottomLevelCollidersCount() const {
+	return static_cast<USize32>(bottomLevelColliders.GetSize());
 }

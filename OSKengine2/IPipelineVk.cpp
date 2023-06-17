@@ -6,12 +6,13 @@
 #include "GpuVk.h"
 
 #include "ShaderBindingType.h"
+#include "PipelinesExceptions.h"
 
 using namespace OSK;
 using namespace OSK::GRAPHICS;
 
 IPipelineVk::~IPipelineVk() {
-	for (TSize i = 0; i < shaderModulesToDelete.GetSize(); i++)
+	for (UIndex32 i = 0; i < shaderModulesToDelete.GetSize(); i++)
 		vkDestroyShaderModule(Engine::GetRenderer()->GetGpu()->As<GpuVk>()->GetLogicalDevice(),
 			shaderModulesToDelete.At(i), nullptr);
 
@@ -26,7 +27,7 @@ VkPipeline IPipelineVk::GetPipeline() const {
 VkVertexInputBindingDescription IPipelineVk::GetBindingDescription(const VertexInfo& info) const {
 	VkVertexInputBindingDescription bindingDescription{};
 
-	TSize size = 0;
+	USize32 size = 0;
 	for (const auto& i : info.entries)
 		size += i.size;
 
@@ -51,15 +52,15 @@ VkFormat IPipelineVk::GetVertexAttribFormat(const VertexInfo::Entry& entry) cons
 		if (entry.size == 4 * sizeof(float)) return VK_FORMAT_R32G32B32A32_SFLOAT;
 	}
 
-	OSK_ASSERT(false, "Formato de vértice incorecto.");
+	OSK_ASSERT(false, NotImplementedException());
 	return VK_FORMAT_MAX_ENUM;
 }
 
 DynamicArray<VkVertexInputAttributeDescription> IPipelineVk::GetAttributeDescription(const VertexInfo& info) const {
 	DynamicArray<VkVertexInputAttributeDescription> output;
 
-	TSize offset = 0;
-	for (TSize i = 0; i < info.entries.GetSize(); i++) {
+	USize32 offset = 0;
+	for (UIndex32 i = 0; i < info.entries.GetSize(); i++) {
 		VkVertexInputAttributeDescription desc{};
 
 		desc.binding = 0;
@@ -149,7 +150,7 @@ VkShaderStageFlagBits IPipelineVk::GetShaderStageVk(ShaderStage stage) const {
 	if (EFTraits::HasFlag(stage, ShaderStage::COMPUTE))
 		return VK_SHADER_STAGE_COMPUTE_BIT;
 	
-	OSK_ASSERT(false, "No se reconoce el shader stage " + ToString<ShaderStage>(stage));
+	OSK_ASSERT(false, NotImplementedException());
 	return VK_SHADER_STAGE_ALL;
 }
 
@@ -166,7 +167,7 @@ ShaderStageVk IPipelineVk::LoadShader(const std::string& path, ShaderStage stage
 
 	VkResult result = vkCreateShaderModule(Engine::GetRenderer()->GetGpu()->As<GpuVk>()->GetLogicalDevice(),
 		&createInfo, nullptr, &output.shaderModule);
-	OSK_ASSERT(result == VK_SUCCESS, "No se ha podido cargar el tesselation control shader.");
+	OSK_ASSERT(result == VK_SUCCESS, ShaderLoadingException(result));
 
 	// Insertar el stage en el array, para poder insertarlo al crear el pipeline.
 	output.shaderCreateInfo.sType = VK_STRUCTURE_TYPE_PIPELINE_SHADER_STAGE_CREATE_INFO;

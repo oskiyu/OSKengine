@@ -50,7 +50,7 @@ namespace OSK::ASSETS {
 
 	protected:
 
-		IAsset(const std::string& assetFile);
+		explicit IAsset(const std::string& assetFile);
 
 	private:
 

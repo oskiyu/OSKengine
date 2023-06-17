@@ -2,6 +2,7 @@
 
 #include "OSKmacros.h"
 #include "UniquePtr.hpp"
+
 #include "ComponentManager.h"
 #include "GameObjectManager.h"
 #include "SystemManager.h"
@@ -10,8 +11,12 @@
 #include "IRenderSystem.h"
 #include "Assert.h"
 
-#include "OSKengine.h"
-#include "Window.h"
+#include "SystemAlreadyRegisteredException.h"
+#include "EcsExceptions.h"
+
+namespace OSK::IO {
+	class ILogger;
+}
 
 namespace OSK::ECS {
 
@@ -39,7 +44,7 @@ namespace OSK::ECS {
 	public:
 
 		/// @brief Inicializa todos los managers.
-		EntityComponentSystem();
+		explicit EntityComponentSystem(IO::ILogger* logger);
 
 		/// @brief Ejecuta la lógica OnTick de todos los sistemas registrados.
 		/// @param deltaTime Tiempo, en segundos, que ha pasado desde la
@@ -51,10 +56,16 @@ namespace OSK::ECS {
 		/// @brief Registra un tipo de componente.
 		/// @tparam TComponent Tipo del componente.
 		/// 
-		/// @warning Todo componente que se quiera usar debe ser primero registrado.
 		/// @pre TComponent debe validar IsEcsComponent.
+		/// @pre El componente no debe haber sido previamente registrado.
+		/// 
+		/// @throws ComponentAlreadyRegisteredException si el componente ya fue previamente registrado.
 		template <typename TComponent> requires IsEcsComponent<TComponent>
 		void RegisterComponent() {
+			OSK_ASSERT(
+				!componentManager->ComponentHasBeenRegistered<TComponent>(), 
+				ComponentAlreadyRegisteredException(TComponent::GetComponentTypeName()))
+
 			componentManager->RegisterComponent<TComponent>();
 		}
 
@@ -64,11 +75,15 @@ namespace OSK::ECS {
 		/// @param component Componente a añadir.
 		/// @return Referencia no estable al componente recién añadido.
 		/// 
-		/// @throws std::runtime_exception si el objeto ya tiene un componente del tipo.
 		/// @pre TComponent debe validar IsEcsComponent.
+		/// @pre El objeto no debe tener previamente un componente del tipo dado.
+		/// 
+		/// @throws ObjectAlreadyHasComponentException si el objeto ya tiene un componente del tipo.
 		template <typename TComponent> requires IsEcsComponent<TComponent>
 		TComponent& AddComponent(GameObjectIndex obj, const TComponent& component) {
-			OSK_ASSERT(!ObjectHasComponent<TComponent>(obj), "El objeto " + std::to_string(obj) + " ya tiene el componente " + TComponent::GetComponentTypeName() + ".");
+			EnsureRegistered<TComponent>();
+
+			OSK_ASSERT(ObjectHasComponent<TComponent>(obj), ObjectAlreadyHasComponentException(obj, TComponent::GetComponentTypeName()))
 
 			TComponent& oComponent = componentManager->AddComponent(obj, component);
 
@@ -88,12 +103,16 @@ namespace OSK::ECS {
 		/// @param component Componente a añadir.
 		/// @return Referencia no estable al componente recién añadido.
 		/// 
-		/// @throws std::runtime_exception si el objeto ya tiene un componente del tipo.
-		/// @pre TComponent debe validar IsEcsComponent.
+		/// @pre El objeto no debe tener previamente un componente del tipo dado.
+		/// 
+		/// @throws ObjectAlreadyHasComponentException si el objeto ya tiene un componente del tipo.
 		template <typename TComponent> requires IsEcsComponent<TComponent>
 		TComponent& AddComponent(GameObjectIndex obj, TComponent&& component) {
-			OSK_ASSERT(!ObjectHasComponent<TComponent>(obj), "El objeto " + std::to_string(obj) + " ya tiene el componente " + TComponent::GetComponentTypeName() + ".");
+			EnsureRegistered<TComponent>();
 
+			const bool objectHasComponent = ObjectHasComponent<TComponent>(obj);
+			OSK_ASSERT(!objectHasComponent, ObjectAlreadyHasComponentException(TComponent::GetComponentTypeName(), obj))
+			
 			auto& oComponent = componentManager->AddComponentMove<TComponent>(obj, std::move(component));
 
 			// Cambio de signature del objeto.
@@ -113,6 +132,8 @@ namespace OSK::ECS {
 		/// @pre TComponent debe validar IsEcsComponent.
 		template <typename TComponent> requires IsEcsComponent<TComponent>
 		bool ObjectHasComponent(GameObjectIndex obj) const {
+			OSK_ASSERT(componentManager->ComponentHasBeenRegistered<TComponent>(), ComponentNotRegisteredException(TComponent::GetComponentTypeName()));
+
 			return gameObjectManager->GetSignature(obj).Get(
 				componentManager->GetComponentType<TComponent>()
 			);
@@ -122,11 +143,15 @@ namespace OSK::ECS {
 		/// @tparam TComponent Tipo del componente.
 		/// @param obj Objeto al que se va a quitar el componente.
 		/// 
-		/// @throws std::runtime_exception Si el objeto no tiene el componente del tipo dado.
 		/// @pre TComponent debe validar IsEcsComponent.
+		/// @pre El objeto debe tener previamente un componente del tipo dado.
+		/// 
+		/// @throws ComponentNotFoundException Si el objeto no tiene el componente del tipo dado.
 		template <typename TComponent> requires IsEcsComponent<TComponent>
 		void RemoveComponent(GameObjectIndex obj) {
-			OSK_ASSERT(ObjectHasComponent<TComponent>(obj), "El objeto " + std::to_string(obj) + " no tiene el componente " + TComponent::GetComponentTypeName() + ".");
+			EnsureRegistered<TComponent>();
+
+			OSK_ASSERT(ObjectHasComponent<TComponent>(obj), ComponentNotFoundException(TComponent::GetComponentTypeName(), obj))
 			
 			componentManager->RemoveComponent<TComponent>(obj);
 
@@ -142,21 +167,28 @@ namespace OSK::ECS {
 		/// @param obj Objeto poseedor del componente.
 		/// @return Referencia no estable al componente del tipo dado del objeto.
 		/// 
-		/// @throws std::runtime_exception Si el objeto no tiene el componente.
 		/// @pre TComponent debe validar IsEcsComponent.
+		/// @pre El objeto debe tener previamente un componente del tipo dado.
+		/// 
+		/// @throws ComponentNotRegisteredException Si el tipo de componente no ha sido registrado.
+		/// @throws ComponentNotFoundException Si el objeto no tiene el componente del tipo dado.
 		template <typename TComponent> requires IsEcsComponent<TComponent>
 		TComponent& GetComponent(GameObjectIndex obj) const {
-			OSK_ASSERT(ObjectHasComponent<TComponent>(obj), "El objeto " + std::to_string(obj) + " no tiene el componente " + TComponent::GetComponentTypeName() + ".");
+			OSK_ASSERT(componentManager->ComponentHasBeenRegistered<TComponent>(), ComponentNotRegisteredException(TComponent::GetComponentTypeName()));
+			OSK_ASSERT(ObjectHasComponent<TComponent>(obj), ComponentNotFoundException(TComponent::GetComponentTypeName(), obj))
+
 			return componentManager->GetComponent<TComponent>(obj);
 		}
 
 		/// @tparam TComponent Tipo del componente.
 		/// @return Código identificativo del componente dado.
 		/// 
-		/// @warning El componente tiene que haber sido registrado.
 		/// @pre TComponent debe validar IsEcsComponent.
+		/// 
+		/// @throws ComponentNotRegisteredException Si el tipo de componente no ha sido previamente registrado.
 		template <typename TComponent> requires IsEcsComponent<TComponent>
 		ComponentType GetComponentType() const {
+			OSK_ASSERT(componentManager->ComponentHasBeenRegistered<TComponent>(), ComponentNotRegisteredException(TComponent::GetComponentTypeName()));
 			return componentManager->GetComponentType<TComponent>();
 		}
 
@@ -167,7 +199,15 @@ namespace OSK::ECS {
 		/// @brief Registra y almacena un nuevo sistema del tipo dado.
 		/// @tparam TSystem Tipo de sistema.
 		/// @return Sistema creado.
-		template <typename TSystem> TSystem* RegisterSystem() {
+		/// 
+		/// @pre @p TSystem debe cumplir con IsEcsSystem<TSystem>.
+		/// @pre El sistema no debe haber sido previamente registrado.
+		/// 
+		/// @throws SystemAlreadyRegisteredException si el sistema ya habia sido previamente registrado.
+		template <typename TSystem> requires IsEcsSystem<TSystem>
+		TSystem* RegisterSystem() {
+			OSK_ASSERT(!systemManager->ContainsSystem<TSystem>(), SystemAlreadyRegisteredException(TSystem::GetSystemName()))
+
 			TSystem* output = systemManager->RegisterSystem<TSystem>();
 
 			((ISystem*)output)->OnCreate();
@@ -179,11 +219,15 @@ namespace OSK::ECS {
 			return output;
 		}
 
-		/// @brief Elimina un sistema.
+		/// @brief Elimina un sistema, si está registrado.
 		/// @tparam TSystem Tipo de sistema.
 		/// 
-		/// @note Si el sistema no está registrado, no ocurre nada.
+		/// @throws SystemNotFoundException Si el sistema no está registrado.
 		template <typename TSystem> void RemoveSystem() {
+			OSK_ASSERT(
+				HasSystem<TSystem>(),
+				SystemNotFoundException(TSystem::GetSystemName()))
+
 			if constexpr (std::is_base_of_v<IRenderSystem, TSystem>) {
 				renderSystems.Remove(reinterpret_cast<IRenderSystem*>(systemManager->GetSystem<TSystem>()));
 			}
@@ -196,8 +240,22 @@ namespace OSK::ECS {
 		/// @return Sistema.
 		/// 
 		/// @pre El sistema debe haber sido previamente registrado con RegisterSystem.
-		template <typename TSystem> TSystem* GetSystem() const {
+		/// @throws SystemNotFoundException Si el sistema no está registrado.
+		template <typename TSystem> requires IsEcsSystem<TSystem>
+		TSystem* GetSystem() const {
+			OSK_ASSERT(
+				HasSystem<TSystem>(),
+				SystemNotFoundException(TSystem::GetSystemName()))
+
 			return systemManager->GetSystem<TSystem>();
+		}
+
+		/// @tparam TSystem Tipo del sistema.
+		/// @return True si el sistema está registrado y se está ejecutando.
+		/// False en caso contrario.
+		template <typename TSystem> requires IsEcsSystem<TSystem>
+		bool HasSystem() const {
+			return systemManager->ContainsSystem<TSystem>();
 		}
 
 #pragma endregion
@@ -222,8 +280,14 @@ namespace OSK::ECS {
 		/// 
 		/// @pre TEvent debe cumplir IsEcsEvent<TEvent>.
 		/// @pre TEvent debe haber sido registrado con RegisterEventType.
+		/// 
+		/// @throws EventNotRegisteredException Si el evento no ha sido previamente registrado.
 		template <typename TEvent> requires IsEcsEvent<TEvent>
 		void PublishEvent(const TEvent& event) {
+			OSK_ASSERT(
+				eventManager->EventHasBeenRegistered<TEvent>(),
+				EventNotRegisteredException(TEvent::GetEventName()));
+
 			eventManager->PublishEvent(event);
 		}
 
@@ -235,9 +299,22 @@ namespace OSK::ECS {
 		/// 
 		/// @pre TEvent debe cumplir IsEcsEvent<TEvent>.
 		/// @pre TEvent debe haber sido registrado con RegisterEventType.
+		/// 
+		/// @throws EventNotRegisteredException Si el evento no ha sido previamente registrado.
 		template <typename TEvent> requires IsEcsEvent<TEvent>
 		const DynamicArray<TEvent>& GetEventQueue() const {
+			OSK_ASSERT(
+				eventManager->EventHasBeenRegistered<TEvent>(),
+				EventNotRegisteredException(TEvent::GetEventName()));
+
 			return eventManager->GetEventQueue<TEvent>();
+		}
+		
+		/// @tparam TEvent Tipo del evento.
+		/// @return True si el evento fue registrado.
+		template <typename TEvent> requires IsEcsEvent<TEvent>
+		bool EventHasBeenRegistered() const {
+			return eventManager->EventHasBeenRegistered<TEvent>();
 		}
 
 		/// @brief Vacía todas las colas de eventos.
@@ -261,7 +338,7 @@ namespace OSK::ECS {
 		void OSKAPI_CALL DestroyObject(GameObjectIndex* obj);
 
 		/// @brief Finaliza el frame.
-		/// Debe llamarse una vez al finalizar el frame.
+		/// Debe llamarse una vez al finalizar el frame.	
 		void OSKAPI_CALL EndFrame();
 
 		/// @brief Comprueba si un objeto está activo.
@@ -274,6 +351,14 @@ namespace OSK::ECS {
 		const OSKAPI_CALL DynamicArray<IRenderSystem*>& GetRenderSystems() const;
 
 	private:
+
+		template <typename TComponent> requires IsEcsComponent<TComponent>
+		void EnsureRegistered() {
+			if (!componentManager->ComponentHasBeenRegistered<TComponent>())
+				RegisterComponent<TComponent>();
+		}
+
+		IO::ILogger* logger = nullptr;
 
 		UniquePtr<SystemManager> systemManager;
 		UniquePtr<ComponentManager> componentManager;

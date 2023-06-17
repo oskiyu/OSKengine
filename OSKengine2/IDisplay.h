@@ -3,6 +3,7 @@
 #pragma once
 
 #include "Vector2.hpp"
+#include "Event.h"
 #include "IQueryInterface.h"
 
 #include <string>
@@ -18,9 +19,19 @@ namespace OSK::IO {
 
 	public:
 
+		/// @brief Evento que se lanza cuando cambia la resolución del display.
+		struct ResolutionChangedEvent {
+			OSK_EVENT("OSK::ResolutionChangedEvent");
+
+			/// @brief Nueva resolución, en píxeles.
+			Vector2ui newResolution;
+		};
+
+	public:
+
 		virtual ~IDisplay() = default;
 
-		OSK_DEFINE_AS(IDisplay);
+		OSK_DEFINE_AS(IDisplay)
 
 
 		/// @brief Crea el display con los argumentos dados.
@@ -49,13 +60,13 @@ namespace OSK::IO {
 
 		/// @return Tasa de fotogramas por segundo soportado por
 		/// el display.
-		TSize GetRefreshRate() const;
+		USize32 GetRefreshRate() const;
 
 	protected:
 
-		Vector2ui resolution = 0;
+		Vector2ui resolution = Vector2ui::Zero;
 		bool isOpen = false;
-		TSize refreshRate = 60;
+		USize32 refreshRate = 60;
 
 	};
 

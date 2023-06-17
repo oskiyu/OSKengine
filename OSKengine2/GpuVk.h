@@ -94,7 +94,7 @@ namespace OSK::GRAPHICS {
 
 
 			/// @brief Alineamiento mínimo para dynamic ubos.
-			TSize minAlignment = 0;
+			USize32 minAlignment = 0;
 
 			/// @brief True si puede usarse en OSKengine.
 			bool isSuitable = false;
@@ -130,6 +130,7 @@ namespace OSK::GRAPHICS {
 
 		/// @brief Crea el logical device de esta GPU.
 		/// Necesario si se va a usar esta GPU.
+		/// @throws LogicalDeviceCreationException Si ocurre algún error.
 		void CreateLogicalDevice();
 
 		/// @brief Devuelve el logical device asignado a esta GPU.
@@ -149,8 +150,6 @@ namespace OSK::GRAPHICS {
 
 		OwnedPtr<ICommandPool> CreateGraphicsCommandPool() override;
 		OwnedPtr<ICommandPool> CreateComputeCommandPool() override;
-
-		OwnedPtr<ISyncDevice> CreateSyncDevice() override;
 
 	private:
 

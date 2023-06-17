@@ -2,10 +2,13 @@
 
 #include "GpuMemoryBlockDx12.h"
 
+#include "Assert.h"
+#include "GpuMemoryExceptions.h"
+
 using namespace OSK;
 using namespace OSK::GRAPHICS;
 
-GpuMemorySubblockDx12::GpuMemorySubblockDx12(IGpuMemoryBlock* owner, TSize size, TSize offset, ComPtr<ID3D12Resource> resource)
+GpuMemorySubblockDx12::GpuMemorySubblockDx12(IGpuMemoryBlock* owner, USize64 size, USize64 offset, ComPtr<ID3D12Resource> resource)
 	: IGpuMemorySubblock(owner, size, offset), resource(resource) {
 
 }
@@ -14,7 +17,7 @@ void GpuMemorySubblockDx12::MapMemory() {
 	MapMemory(GetAllocatedSize(), 0);
 }
 
-void GpuMemorySubblockDx12::MapMemory(TSize size, TSize offset) {
+void GpuMemorySubblockDx12::MapMemory(USize64 size, USize64 offset) {
 	D3D12_RANGE range{};
 	range.Begin = offset;
 	range.End = offset + size;
@@ -24,13 +27,13 @@ void GpuMemorySubblockDx12::MapMemory(TSize size, TSize offset) {
 	isMapped = true;
 }
 
-void GpuMemorySubblockDx12::Write(const void* data, TSize size) {
+void GpuMemorySubblockDx12::Write(const void* data, USize64 size) {
 	WriteOffset(data, size, cursor);
 	cursor += size;
 }
 
-void GpuMemorySubblockDx12::WriteOffset(const void* data, TSize size, TSize offset) {
-	OSK_ASSERT(isMapped, "El buffer no está mapeado.");
+void GpuMemorySubblockDx12::WriteOffset(const void* data, USize64 size, USize64 offset) {
+	OSK_ASSERT(isMapped, GpuMemoryNotMappedException());
 
 	memcpy((char*)mappedData + offset, data, size);
 }

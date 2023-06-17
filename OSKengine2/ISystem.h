@@ -71,14 +71,8 @@ namespace OSK::ECS{
 
 	};
 
-
-	template<typename TSystem>
-	concept IsEcsSystem = requires (TSystem) {
-			{TSystem::GetSystemName()};
-	};
-
 }
 
 #ifndef OSK_SYSTEM
-#define OSK_SYSTEM(className) const static inline std::string GetSystemName() { return className; }
+#define OSK_SYSTEM(className) constexpr static inline std::string_view GetSystemName() { return className; }
 #endif

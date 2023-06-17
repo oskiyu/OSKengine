@@ -3,7 +3,7 @@
 #include "ICommandPool.h"
 
 struct VkCommandPool_T;
-typedef VkCommandPool_T* VkCommandPool;
+using VkCommandPool = VkCommandPool_T*;
 
 namespace OSK::GRAPHICS {
 
@@ -45,7 +45,8 @@ namespace OSK::GRAPHICS {
 
 	private:
 
-		OwnedPtr<ICommandList> CreateList(const IGpu& device, TSize numNativeLists);
+		/// @throws CommandListCreationException si no se pudo crear la lista. 
+		OwnedPtr<ICommandList> CreateList(const IGpu& device, USize32 numNativeLists);
 
 		unsigned int numberOfImages = 0;
 		VkCommandPool commandPool;

@@ -13,7 +13,8 @@ namespace OSK::GRAPHICS {
 
 	public:
 
-		RtShaderTableVk(TSize numShaderGroups, VkPipeline pipeline);
+		/// @throws RtShaderBindingTableCreationException Si ocurre algún error.
+		RtShaderTableVk(USize32 numShaderGroups, VkPipeline pipeline);
 
 		VkStridedDeviceAddressRegionKHR GetRaygenTableAddressRegion() const;
 		VkStridedDeviceAddressRegionKHR GetClosestHitTableAddressRegion() const;

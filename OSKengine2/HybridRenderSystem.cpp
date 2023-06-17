@@ -26,7 +26,7 @@ HybridRenderSystem::HybridRenderSystem() {
 
 	// Directional light por defecto
 	const Vector3f direction = Vector3f(1.0f, -3.f, 0.0f).GetNormalized();
-	dirLight.directionAndIntensity = Vector4f(direction.X, direction.Y, direction.Z, 1.2f);
+	dirLight.directionAndIntensity = Vector4f(direction.x, direction.y, direction.Z, 1.2f);
 	dirLight.color = Color(253 / 255.f, 253 / 255.f, 225 / 255.f);
 
 	SetupRtResources();
@@ -52,7 +52,7 @@ void HybridRenderSystem::SetupGBufferResources() {
 	animatedGbufferMaterial = Engine::GetRenderer()->GetMaterialSystem()->LoadMaterial("Resources/Materials/PBR/Deferred/deferred_gbuffer_anim.json");
 	globalGbufferMaterialInstance = gbufferMaterial->CreateInstance().GetPointer();
 
-	for (TIndex i = 0; i < NUM_RESOURCES_IN_FLIGHT; i++) {
+	for (UIndex32 i = 0; i < NUM_RESOURCES_IN_FLIGHT; i++) {
 		cameraUbos[i] = Engine::GetRenderer()->GetAllocator()->CreateUniformBuffer(sizeof(glm::mat4) * 2 + sizeof(glm::vec4)).GetPointer();
 		previousCameraUbos[i] = Engine::GetRenderer()->GetAllocator()->CreateUniformBuffer(sizeof(glm::mat4) * 2).GetPointer();
 	}
@@ -61,7 +61,7 @@ void HybridRenderSystem::SetupGBufferResources() {
 }
 
 void HybridRenderSystem::SetupRtResources() {
-	for (TIndex i = 0; i < NUM_RESOURCES_IN_FLIGHT; i++) {
+	for (UIndex32 i = 0; i < NUM_RESOURCES_IN_FLIGHT; i++) {
 		topLevelAccelerationStructures[i] = Engine::GetRenderer()->GetAllocator()->CreateTopAccelerationStructure({}).GetPointer();
 		dirLightUbos[i] = Engine::GetRenderer()->GetAllocator()->CreateUniformBuffer(sizeof(DirectionalLight)).GetPointer();
 	}
@@ -71,9 +71,10 @@ void HybridRenderSystem::SetupRtResources() {
 }
 
 void HybridRenderSystem::SetupGBufferInstance() {
-	const GpuBuffer* _cameraUbos[3]{};
-	const GpuBuffer* _prevCameraUbos[3]{};
-	for (TIndex i = 0; i < NUM_RESOURCES_IN_FLIGHT; i++) {
+	std::array<const GpuBuffer*, NUM_RESOURCES_IN_FLIGHT> _cameraUbos{};
+	std::array<const GpuBuffer*, NUM_RESOURCES_IN_FLIGHT>_prevCameraUbos {};
+
+	for (UIndex32 i = 0; i < NUM_RESOURCES_IN_FLIGHT; i++) {
 		_cameraUbos[i] = cameraUbos[i].GetPointer();
 		_prevCameraUbos[i] = previousCameraUbos[i].GetPointer();
 	}
@@ -107,7 +108,7 @@ void HybridRenderSystem::SetupShadowsInstance() {
 	const GpuImageViewConfig sampledViewConfig = GpuImageViewConfig::CreateSampled_MipLevelRanged(0, 0);
 	const GpuImageViewConfig storageViewConfig = GpuImageViewConfig::CreateStorage_Default();
 
-	for (TIndex i = 0; i < NUM_RESOURCES_IN_FLIGHT; i++) {
+	for (UIndex32 i = 0; i < NUM_RESOURCES_IN_FLIGHT; i++) {
 		tlas[i] = topLevelAccelerationStructures[i].GetPointer();
 
 		raytracedStorageImgs[i] = raytracedShadowsTarget.GetTargetImage(i)->GetView(storageViewConfig);
@@ -171,7 +172,7 @@ void HybridRenderSystem::SetupResolveInstance() {
 	const GpuImageViewConfig sampledViewConfig = GpuImageViewConfig::CreateSampled_MipLevelRanged(0, 0);
 	const GpuImageViewConfig storageViewConfig = GpuImageViewConfig::CreateStorage_Default();
 
-	for (TIndex i = 0; i < NUM_RESOURCES_IN_FLIGHT; i++) {
+	for (UIndex32 i = 0; i < NUM_RESOURCES_IN_FLIGHT; i++) {
 		colorImgs[i] = gBuffer.GetImage(i, GBuffer::Target::COLOR)->GetView(sampledViewConfig);
 		normalImgs[i] = gBuffer.GetImage(i, GBuffer::Target::NORMAL)->GetView(sampledViewConfig);
 
@@ -297,7 +298,7 @@ void HybridRenderSystem::GBufferRenderLoop(GRAPHICS::ICommandList* commandList, 
 		if (modelType == ModelType::ANIMATED_MODEL)
 			commandList->BindMaterialSlot(*model.GetModel()->GetAnimator()->GetMaterialInstance()->GetSlot("animation"));
 
-		for (TSize i = 0; i < model.GetModel()->GetMeshes().GetSize(); i++) {
+		for (UIndex32 i = 0; i < model.GetModel()->GetMeshes().GetSize(); i++) {
 			commandList->BindMaterialSlot(*model.GetMeshMaterialInstance(i)->GetSlot("texture"));
 
 			const glm::mat4 previousModelMatrix = previousModelMatrices.ContainsKey(obj)
@@ -326,17 +327,17 @@ void HybridRenderSystem::GBufferRenderLoop(GRAPHICS::ICommandList* commandList, 
 }
 
 void HybridRenderSystem::RenderGBuffer(GRAPHICS::ICommandList* commandList) {
-	const TSize resourceIndex = Engine::GetRenderer()->GetCurrentResourceIndex();
+	const UIndex32 resourceIndex = Engine::GetRenderer()->GetCurrentResourceIndex();
 
 	// Sincronización con todos los targets de color sobre los que vamos a escribir.
-	for (TIndex t = 0; t < _countof(GBuffer::ColorTargetTypes); t++)
+	for (const auto type : GBuffer::ColorTargetTypes)
 		commandList->SetGpuImageBarrier(
-			gBuffer.GetImage(resourceIndex, GBuffer::ColorTargetTypes[t]), 
+			gBuffer.GetImage(resourceIndex, type),
 			GpuImageLayout::COLOR_ATTACHMENT,
 			GpuBarrierInfo(GpuCommandStage::COLOR_ATTACHMENT_OUTPUT, GpuAccessStage::COLOR_ATTACHMENT_WRITE));
 
 
-	gBuffer.BeginRenderpass(commandList, Color::BLACK() * 0.0f);
+	gBuffer.BeginRenderpass(commandList, Color::Black * 0.0f);
 
 	SetupViewport(commandList);
 	commandList->BindMaterial(*gbufferMaterial);
@@ -349,9 +350,9 @@ void HybridRenderSystem::RenderGBuffer(GRAPHICS::ICommandList* commandList) {
 
 
 	// Copia al gbuffer historico
-	for (TIndex i = 0; i < _countof(GBuffer::ColorTargetTypes); i++) {
-		GpuImage* previousImage = gBuffer.GetImage((resourceIndex + NUM_RESOURCES_IN_FLIGHT - 1) % NUM_RESOURCES_IN_FLIGHT, GBuffer::ColorTargetTypes[i]);
-		GpuImage* targetImage = historicalGBuffer.GetImage(resourceIndex, GBuffer::ColorTargetTypes[i]);
+	for (const auto type : GBuffer::ColorTargetTypes) {
+		GpuImage* previousImage = gBuffer.GetImage((resourceIndex + NUM_RESOURCES_IN_FLIGHT - 1) % NUM_RESOURCES_IN_FLIGHT, type);
+		GpuImage* targetImage = historicalGBuffer.GetImage(resourceIndex, type);
 
 		commandList->SetGpuImageBarrier(
 			previousImage, 
@@ -378,14 +379,14 @@ void HybridRenderSystem::RenderGBuffer(GRAPHICS::ICommandList* commandList) {
 	
 
 	// Sincronización con todos los targets de color sobre los que vamos a leer en la fase de trazado de rayos.
-	for (TIndex t = 0; t < _countof(GBuffer::ColorTargetTypes); t++)
-		commandList->SetGpuImageBarrier(gBuffer.GetImage(resourceIndex, GBuffer::ColorTargetTypes[t]), GpuImageLayout::SAMPLED,
+	for (const auto type : GBuffer::ColorTargetTypes)
+		commandList->SetGpuImageBarrier(gBuffer.GetImage(resourceIndex, type), GpuImageLayout::SAMPLED,
 			GpuBarrierInfo(GpuCommandStage::FRAGMENT_SHADER, GpuAccessStage::SHADER_READ), GpuBarrierInfo(GpuCommandStage::RAYTRACING_SHADER, GpuAccessStage::SHADER_READ),
 			GpuImageRange{ .baseLayer = 0, .numLayers = ALL_IMAGE_LAYERS, .baseMipLevel = 0, .numMipLevels = ALL_MIP_LEVELS });
 }
 
 void HybridRenderSystem::RenderShadows(GRAPHICS::ICommandList* cmdList) {
-	const TSize imgIndex = Engine::GetRenderer()->GetCurrentResourceIndex();
+	const UIndex32 imgIndex = Engine::GetRenderer()->GetCurrentResourceIndex();
 
 	GpuImage* rayTracedImage = raytracedShadowsTarget.GetTargetImage(imgIndex);
 	GpuImage* reprojectedImage = reprojectedShadowsTarget.GetTargetImage(imgIndex);
@@ -442,7 +443,7 @@ void HybridRenderSystem::RenderShadows(GRAPHICS::ICommandList* cmdList) {
 
 	cmdList->BindMaterial(*shadowsReprojectionMaterial);
 	cmdList->BindMaterialSlot(*shadowsReprojectionMaterialInstance->GetSlot("shadows"));
-	cmdList->DispatchCompute({ dispatchRes.X, dispatchRes.Y, 1 });
+	cmdList->DispatchCompute({ dispatchRes.x, dispatchRes.y, 1 });
 
 	cmdList->SetGpuImageBarrier(reprojectedImage, GpuImageLayout::GENERAL,
 		GpuBarrierInfo(GpuCommandStage::COMPUTE_SHADER, GpuAccessStage::SHADER_READ));
@@ -454,21 +455,21 @@ void HybridRenderSystem::RenderShadows(GRAPHICS::ICommandList* cmdList) {
 	
 	cmdList->BindMaterial(*shadowsAtrousMaterial);
 	cmdList->BindMaterialSlot(*shadowsAtrousMaterialInstance->GetSlot("shadows"));
-	cmdList->DispatchCompute({ dispatchRes.X, dispatchRes.Y, 1 });
+	cmdList->DispatchCompute({ dispatchRes.x, dispatchRes.y, 1 });
 
 	cmdList->SetGpuImageBarrier(denoisedImage, GpuImageLayout::SAMPLED,
 		GpuBarrierInfo(GpuCommandStage::COMPUTE_SHADER, GpuAccessStage::SHADER_READ));
 }
 
 void HybridRenderSystem::Resolve(GRAPHICS::ICommandList* cmdList) {
-	const TSize imgIndex = Engine::GetRenderer()->GetCurrentResourceIndex();
+	const UIndex32 imgIndex = Engine::GetRenderer()->GetCurrentResourceIndex();
 	GpuImage* targetImage = renderTarget.GetMainColorImage(imgIndex);
 
 	cmdList->SetGpuImageBarrier(targetImage, GpuImageLayout::GENERAL,
 		GpuBarrierInfo(GpuCommandStage::COMPUTE_SHADER, GpuAccessStage::SHADER_WRITE));
 
-	for (TIndex t = 0; t < _countof(GBuffer::ColorTargetTypes); t++)
-		cmdList->SetGpuImageBarrier(gBuffer.GetImage(imgIndex, GBuffer::ColorTargetTypes[t]), GpuImageLayout::SAMPLED,
+	for (const auto type : GBuffer::ColorTargetTypes)
+		cmdList->SetGpuImageBarrier(gBuffer.GetImage(imgIndex, type), GpuImageLayout::SAMPLED,
 			GpuBarrierInfo(GpuCommandStage::COMPUTE_SHADER, GpuAccessStage::SHADER_READ),
 			GpuImageRange{ .baseLayer = 0, .numLayers = ALL_IMAGE_LAYERS, .baseMipLevel = 0, .numMipLevels = ALL_MIP_LEVELS });
 
@@ -479,11 +480,11 @@ void HybridRenderSystem::Resolve(GRAPHICS::ICommandList* cmdList) {
 	cmdList->BindMaterial(*resolveMaterial);
 	cmdList->BindMaterialSlot(*resolveMaterialInstance->GetSlot("targets"));
 	cmdList->BindMaterialSlot(*resolveMaterialInstance->GetSlot("scene"));
-	cmdList->DispatchCompute({ dispatchRes.X, dispatchRes.Y, 1 });
+	cmdList->DispatchCompute({ dispatchRes.x, dispatchRes.y, 1 });
 
 	// sRGB
-	for (TIndex t = 0; t < _countof(GBuffer::ColorTargetTypes); t++)
-		cmdList->SetGpuImageBarrier(gBuffer.GetImage(imgIndex, GBuffer::ColorTargetTypes[t]), GpuImageLayout::SAMPLED,
+	for (const GBuffer::Target type : GBuffer::ColorTargetTypes)
+		cmdList->SetGpuImageBarrier(gBuffer.GetImage(imgIndex, type), GpuImageLayout::SAMPLED,
 			GpuBarrierInfo(GpuCommandStage::RAYTRACING_SHADER, GpuAccessStage::SHADER_READ),
 			GpuImageRange{ .baseLayer = 0, .numLayers = ALL_IMAGE_LAYERS, .baseMipLevel = 0, .numMipLevels = ALL_MIP_LEVELS });
 
@@ -492,7 +493,7 @@ void HybridRenderSystem::Resolve(GRAPHICS::ICommandList* cmdList) {
 }
 
 void HybridRenderSystem::Render(GRAPHICS::ICommandList* commandList) {
-	const TIndex resourceIndex = Engine::GetRenderer()->GetCurrentResourceIndex();
+	const UIndex32 resourceIndex = Engine::GetRenderer()->GetCurrentResourceIndex();
 
 	topLevelAccelerationStructures[resourceIndex]->Update(commandList);
 
@@ -532,6 +533,6 @@ void HybridRenderSystem::OnTick(TDeltaTime deltaTime) {
 
 
 void HybridRenderSystem::AddBlas(IBottomLevelAccelerationStructure* blas) {
-	for (TIndex i = 0; i < _countof(topLevelAccelerationStructures); i++)
-		topLevelAccelerationStructures[i]->AddBottomLevelAccelerationStructure(blas);
+	for (const auto& tlas : topLevelAccelerationStructures)
+		tlas->AddBottomLevelAccelerationStructure(blas);
 }

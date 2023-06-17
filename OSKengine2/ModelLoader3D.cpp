@@ -96,19 +96,10 @@ void ModelLoader3D::Load(const std::string& assetFilePath, IAsset** asset) {
 	Model3D* output = (Model3D*)*asset;
 
 	// a
-	nlohmann::json assetInfo = nlohmann::json::parse(IO::FileIO::ReadFromFile(assetFilePath));
-
-	OSK_ASSERT(assetInfo.contains("file_type"), "Archivo de modelo 3D incorrecto: no se encuentra 'file_type'.");
-	OSK_ASSERT(assetInfo.contains("spec_ver"), "Archivo de modelo 3D incorrecto: no se encuentra 'spec_ver'.");
-	OSK_ASSERT(assetInfo.contains("name"), "Archivo de modelo 3D incorrecto: no se encuentra 'name'.");
-	OSK_ASSERT(assetInfo.contains("asset_type"), "Archivo de modelo 3D incorrecto: no se encuentra 'asset_type'.");
-	OSK_ASSERT(assetInfo.contains("raw_asset_path"), "Archivo de modelo 3D incorrecto: no se encuentra 'faces_files'.");
-	OSK_ASSERT(assetInfo.contains("scale"), "Archivo de modelo 3D incorrecto: no se encuentra 'scale'.");
+	const nlohmann::json assetInfo = ValidateDescriptionFile(assetFilePath);
 
 	std::string texturePath = assetInfo["raw_asset_path"];
 	output->SetName(assetInfo["name"]);
-
-	OSK_ASSERT(IO::FileIO::FileExists(assetInfo["raw_asset_path"]), "El modelo en no existe.");
 
 	const bool isAnimated = assetInfo.contains("animated");
 
@@ -143,12 +134,12 @@ void ModelLoader3D::SetupPbrModel(const Model3D& model, ECS::ModelComponent3D* c
 		->GetGpuImage()->GetView(view);
 	
 	// Texturas por defecto
-	for (TSize i = 0; i < model.GetMeshes().GetSize(); i++) {
+	for (UIndex32 i = 0; i < model.GetMeshes().GetSize(); i++) {
 		component->GetMeshMaterialInstance(i)->GetSlot("texture")->SetGpuImage("albedoTexture", defaultTextureView);
 		component->GetMeshMaterialInstance(i)->GetSlot("texture")->SetGpuImage("normalTexture", defaultNormalTextureView);
 	}
 
-	for (TSize i = 0; i < model.GetMeshes().GetSize(); i++) {
+	for (UIndex32 i = 0; i < model.GetMeshes().GetSize(); i++) {
 		auto& meshMetadata = model.GetMetadata().meshesMetadata[i];
 		
 		if (meshMetadata.materialTextures.GetSize() > 0) {

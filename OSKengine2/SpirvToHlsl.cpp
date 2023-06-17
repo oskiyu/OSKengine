@@ -13,7 +13,7 @@ SpirvToHlsl::SpirvToHlsl(const DynamicArray<char>& spirvBytecode) :
 }
 
 void SpirvToHlsl::SetVertexAttributesMapping(const VertexInfo& vertexInfo) {
-	for (TSize i = 0; i < vertexInfo.entries.GetSize(); i++)
+	for (UIndex32 i = 0; i < vertexInfo.entries.GetSize(); i++)
 		compilerToHlsl.add_vertex_attribute_remap({ i, vertexInfo.entries[i].GetName() });
 }
 
@@ -69,7 +69,7 @@ void SpirvToHlsl::SetLayoutMapping(const MaterialLayout& layout) {
 	}
 }
 
-void SpirvToHlsl::SetHlslTargetProfile(TSize mayor, TSize minor) {
+void SpirvToHlsl::SetHlslTargetProfile(USize64 mayor, USize64 minor) {
 	auto options = compilerToHlsl.get_hlsl_options();
 	options.shader_model = mayor * 10 + minor;
 	compilerToHlsl.set_hlsl_options(options);

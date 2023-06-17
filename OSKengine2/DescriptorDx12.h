@@ -25,10 +25,10 @@ namespace OSK::GRAPHICS {
 
 	public:
 
-		DescriptorBlockDx12(D3D12_DESCRIPTOR_HEAP_TYPE type, TSize numDescriptors, GpuDx12* gpu);
+		DescriptorBlockDx12(D3D12_DESCRIPTOR_HEAP_TYPE type, USize32 numDescriptors, GpuDx12* gpu);
 
 		ID3D12DescriptorHeap* GetHeap() const;
-		TSize GetNumRemainingDescriptors() const;
+		USize32 GetNumRemainingDescriptors() const;
 
 		bool IsFull() const;
 
@@ -44,13 +44,13 @@ namespace OSK::GRAPHICS {
 		/// <summary>
 		/// Número de descriptors libres dentro de este bloque.
 		/// </summary>
-		TSize remainingDescriptors = 0;
+		USize32 remainingDescriptors = 0;
 
 		/// <summary>
 		/// Índice del próximo descriptor a crear.
 		/// Empieza en 0, y aumenta en 1 cada vez que se crea un descriptor.
 		/// </summary>
-		TSize nextDescriptorIndex = 0;
+		UIndex32 nextDescriptorIndex = 0;
 
 		GpuDx12* gpu = nullptr;
 		D3D12_DESCRIPTOR_HEAP_TYPE type{};

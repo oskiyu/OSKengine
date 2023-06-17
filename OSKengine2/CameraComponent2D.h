@@ -56,7 +56,7 @@ namespace OSK::ECS {
 		/// <summary> Transforma un punto 2D en la ventana al punto 2D al que apunta la cámara en el mundo 2D. </summary>
 		/// <param name="point">Punto en coordenadas de la ventana.</param>
 		/// <returns>Punto, en coordenadas del mundo 2D.</returns>
-		Vector2f PointInWindowToPointInWorld(const Vector2& point) const;
+		Vector2f PointInWindowToPointInWorld(const Vector2f& point) const;
 
 	private:
 

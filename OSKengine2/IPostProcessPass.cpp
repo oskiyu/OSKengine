@@ -24,9 +24,10 @@ void IPostProcessPass::Resize(const Vector2ui& size) {
 	SetupDefaultMaterialInstances();
 }
 
-void IPostProcessPass::SetInput(GpuImage* images[3], const GpuImageViewConfig& viewConfig) {
-	const IGpuImageView* imgs[3]{};
-	for (TSize i = 0; i < NUM_RESOURCES_IN_FLIGHT; i++) {
+void IPostProcessPass::SetInput(std::span<GpuImage*, NUM_RESOURCES_IN_FLIGHT> images, const GpuImageViewConfig& viewConfig) {
+	std::array<const IGpuImageView*, NUM_RESOURCES_IN_FLIGHT> imgs{};
+
+	for (UIndex32 i = 0; i < NUM_RESOURCES_IN_FLIGHT; i++) {
 		imgs[i] = images[i]->GetView(viewConfig);
 		inputImages[i] = images[i];
 		inputViews[i] = imgs[i];
@@ -37,16 +38,18 @@ void IPostProcessPass::SetInput(GpuImage* images[3], const GpuImageViewConfig& v
 }
 
 void IPostProcessPass::SetInput(const RenderTarget& target, const GpuImageViewConfig & viewConfig, InputType type) {
-	GpuImage* images[3]{};
-	for (TSize i = 0; i < 3; i++)
+	std::array<GpuImage*, NUM_RESOURCES_IN_FLIGHT> images{};
+
+	for (UIndex32 i = 0; i < images.size(); i++)
 		images[i] = target.GetMainColorImage(i);
 
 	SetInput(images, viewConfig);
 }
 
 void IPostProcessPass::SetInput(const RtRenderTarget& target, const GpuImageViewConfig& viewConfig, InputType type) {
-	GpuImage* images[3]{};
-	for (TSize i = 0; i < 3; i++)
+	std::array<GpuImage*, NUM_RESOURCES_IN_FLIGHT> images{};
+
+	for (UIndex32 i = 0; i < images.size(); i++)
 		images[i] = target.GetTargetImage(i);
 
 	SetInput(images, viewConfig);
@@ -58,8 +61,9 @@ const ComputeRenderTarget& IPostProcessPass::GetOutput() const {
 
 void IPostProcessPass::SetupDefaultMaterialInstances() {
 	const GpuImageViewConfig viewConfig = GpuImageViewConfig::CreateStorage_Default();
-	const IGpuImageView* images[NUM_RESOURCES_IN_FLIGHT]{};
-	for (TSize i = 0; i < NUM_RESOURCES_IN_FLIGHT; i++)
+	std::array<const IGpuImageView*, NUM_RESOURCES_IN_FLIGHT> images{};
+
+	for (UIndex32 i = 0; i < NUM_RESOURCES_IN_FLIGHT; i++)
 		images[i] = resolveRenderTarget.GetTargetImage(i)->GetView(viewConfig);
 
 	if (postProcessingMaterialInstance.HasValue())

@@ -16,41 +16,46 @@
 #include "Sprite.h"
 #include "InputManager.h"
 
+#include "GameExceptions.h"
+
 #include "FileIO.h"
 #include <json.hpp>
 
 using namespace OSK;
+using namespace OSK::IO;
+using namespace OSK::ASSETS;
+using namespace OSK::GRAPHICS;
 
 void IGame::RegisterAssets() {
-
+	// Sobreescrito en clase Game del juego.
 }
 
 void IGame::RegisterComponents() {
-
+	// Sobreescrito en clase Game del juego.
 }
 
 void IGame::RegisterSystems() {
-
+	// Sobreescrito en clase Game del juego.
 }
 
 void IGame::OnCreate() {
-
+	// Sobreescrito en clase Game del juego.
 }
 
-void IGame::OnTick(TDeltaTime deltaTime) {
-
+void IGame::OnTick(TDeltaTime) {
+	// Sobreescrito en clase Game del juego.
 }
 
 void IGame::OnExit() {
-
+	// Sobreescrito en clase Game del juego.
 }
 
-void IGame::Run() {
-	nlohmann::json engineConfig = nlohmann::json::parse(OSK::IO::FileIO::ReadFromFile("engine_config.json"));
+void IGame::_Run() {
+	nlohmann::json engineConfig = nlohmann::json::parse(FileIO::ReadFromFile("engine_config.json"));
 	const std::string graphicsApi = engineConfig["graphics_backend"];
 
 	if (graphicsApi == "DX12")
-		Engine::Create(GRAPHICS::RenderApiType::DX12);
+		Engine::Create(RenderApiType::DX12);
 	else if (graphicsApi == "VULKAN")
 		Engine::Create(GRAPHICS::RenderApiType::VULKAN);
 	else {
@@ -66,29 +71,29 @@ void IGame::Run() {
 	Engine::RegisterBuiltinSystems();
 	Engine::RegisterBuiltinEvents();
 
+	rootUiElement = new UI::FreeContainer(Engine::GetDisplay()->GetResolution().ToVector2f());
 
-	OSK::DynamicArray<OSK::GRAPHICS::Vertex2D> vertices2d = {
+
+	DynamicArray<Vertex2D> vertices2d = {
 		{ { 0, 0 }, { 0, 0 } },
 		{ { 0, 1 }, { 0, 1 } },
 		{ { 1, 0 }, { 1, 0 } },
 		{ { 1, 1 }, { 1, 1 } }
 	};
 
-	OSK::DynamicArray<OSK::GRAPHICS::TIndexSize> indices2d = {
+	DynamicArray<TIndexSize> indices2d = {
 		0, 1, 2, 1, 2, 3
 	};
 
-	OSK::GRAPHICS::Sprite::globalVertexBuffer = OSK::Engine::GetRenderer()->GetAllocator()->CreateVertexBuffer(vertices2d, OSK::GRAPHICS::Vertex2D::GetVertexInfo()).GetPointer();
-	OSK::GRAPHICS::Sprite::globalIndexBuffer = OSK::Engine::GetRenderer()->GetAllocator()->CreateIndexBuffer(indices2d).GetPointer();
+	Sprite::globalVertexBuffer = Engine::GetRenderer()->GetAllocator()->CreateVertexBuffer(vertices2d, Vertex2D::GetVertexInfo()).GetPointer();
+	Sprite::globalIndexBuffer = Engine::GetRenderer()->GetAllocator()->CreateIndexBuffer(indices2d).GetPointer();
 
-	OSK_ASSERT(Engine::GetDisplay()->IsOpen(), "No se ha creado correctamente la ventana en CreateWindow().");
-	OSK_ASSERT(Engine::GetRenderer()->IsOpen(), "No se ha inicializado correctamente el renderizador en SetupEngine().");
+	OSK_ASSERT(Engine::GetDisplay()->IsOpen(), WindowNotCreatedException());
+	OSK_ASSERT(Engine::GetRenderer()->IsOpen(), RenderedNotCreatedException());
 
 	RegisterAssets();
 	RegisterComponents();
 	RegisterSystems();
-
-	Engine::GetRenderer()->AddResizeCallback([this](const Vector2ui& size) { this->OnWindowResize(size); });
 
 	OnCreate();
 
@@ -103,6 +108,7 @@ void IGame::Run() {
 
 		Engine::GetEcs()->OnTick(deltaTime);
 		OnTick(deltaTime);
+
 		for (auto i : Engine::GetEcs()->GetRenderSystems())
 			if (i->IsActive())
 				i->Render(Engine::GetRenderer()->GetGraphicsCommandList());
@@ -113,17 +119,14 @@ void IGame::Run() {
 
 		Engine::GetRenderer()->PresentFrame();
 
-		framerateCountTimer += deltaTime;
-		frameCount++;
-		if (framerateCountTimer > 1.0f) {
-			currentFps = frameCount;
-			frameCount = 0;
-			framerateCountTimer = 0.0f;
-		}
+		HandleResizeEvents();
+		UpdateFps(deltaTime);
 
 		const TDeltaTime endTime = Engine::GetCurrentTime();
 		deltaTime = endTime - startTime;
 	}
+
+	rootUiElement.Delete();
 
 	Engine::GetRenderer()->WaitForCompletion();
 
@@ -132,14 +135,43 @@ void IGame::Run() {
 	Engine::Close();
 }
 
+void IGame::UpdateFps(TDeltaTime deltaTime) {
+	framerateCountTimer += deltaTime;
+	frameCount++;
+	if (framerateCountTimer > 1.0f) {
+		currentFps = frameCount;
+		frameCount = 0;
+		framerateCountTimer = 0.0f;
+	}
+}
+
 void IGame::Exit() {
 	Engine::GetDisplay()->Close();
 }
 
 void IGame::OnWindowResize(const Vector2ui& size) {
-
+	// Sobreescrito en clase Game del juego.
 }
 
-TSize IGame::GetFps() const {
+USize32 IGame::GetFps() const {
 	return currentFps;
+}
+
+const UI::IContainer& IGame::GetRootUiElement() const {
+	return *rootUiElement.GetPointer();
+}
+
+UI::IContainer& IGame::GetRootUiElement() {
+	return *rootUiElement.GetPointer();
+}
+
+void IGame::HandleResizeEvents() {
+	const auto& resizeEvents = Engine::GetEcs()->GetEventQueue<IDisplay::ResolutionChangedEvent>();
+
+	for (const auto& event : resizeEvents) {
+		rootUiElement->SetSize(event.newResolution.ToVector2f());
+		rootUiElement->Rebuild();
+
+		OnWindowResize(event.newResolution);
+	}
 }

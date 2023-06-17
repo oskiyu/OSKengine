@@ -10,7 +10,7 @@ IGpuImageView::IGpuImageView(
 	const GpuImage& originalImage,
 	const GpuImageViewConfig& config)
 
-	: originalImage(&originalImage), config(config) {
+	: config(config), originalImage(&originalImage) {
 	size = originalImage.GetSize3D();
 }
 
@@ -22,11 +22,11 @@ SampledArrayType IGpuImageView::GetArrayType() const {
 	return config.arrayType;
 }
 
-TSize IGpuImageView::GetBaseArrayLevel() const {
+UIndex32 IGpuImageView::GetBaseArrayLevel() const {
 	return config.baseArrayLevel;
 }
 
-TSize IGpuImageView::GetLayerCount() const {
+USize32 IGpuImageView::GetLayerCount() const {
 	return config.arrayLevelCount;
 }
 

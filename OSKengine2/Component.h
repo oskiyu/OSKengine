@@ -22,11 +22,11 @@ namespace OSK::ECS {
 	constexpr ComponentType MAX_COMPONENT_TYPES = 256;
 		
 	/// @brief Índice que ocupa un componente en un contenedor.
-	using ComponentIndex = TSize;
+	using ComponentIndex = UIndex32;
 
 	/// @brief Un signature permite saber qué componentes contiene un GameObject.
 	/// Es un bitset, donde el bit en la posición 'X' indicará si el
-	/// GameObject tiene un componente del tipo (ComponentType == X).
+	/// GameObject tiene un componente del tipo @code (ComponentType == X) @endcode .
 	/// 
 	/// Los sistemas también tienen su propio signature, que indica qué componentes
 	/// necesita tener un GameObject para ser procesado por ese sistema.
@@ -40,8 +40,15 @@ namespace OSK::ECS {
 		{TComponent::GetComponentTypeName()};
 	};
 
+	/// @brief Concepto que nos permite detectar si una clase cumple con las condiciones
+	/// para ser un sistema.
+	template<typename TSystem>
+	concept IsEcsSystem = requires (TSystem) {
+		{ TSystem::GetSystemName() };
+	};
+
 #ifndef OSK_COMPONENT
-#define OSK_COMPONENT(className) const static inline std::string GetComponentTypeName() { return className; }
+#define OSK_COMPONENT(className) constexpr static inline std::string_view GetComponentTypeName() { return className; }
 #endif
 
 }

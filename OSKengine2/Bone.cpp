@@ -10,6 +10,6 @@ void MeshNode::UpdateSkeletonTree(const glm::mat4& prevMatrix, const Skeleton& s
 	globalMatrix = prevMatrix * GetLocalMatrix();
 	// globalMatrix = originalMatrix * GetLocalMatrix();
 
-	for (const TIndex child : childIndices)
+	for (const UIndex32 child : childIndices)
 		skeleton.GetNode(child)->UpdateSkeletonTree(globalMatrix, skeleton);
 }

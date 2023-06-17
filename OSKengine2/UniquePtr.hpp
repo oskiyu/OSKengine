@@ -24,9 +24,7 @@ namespace OSK {
 	public:
 
 		/// @brief Crea un UniquePtr vacío.
-		UniquePtr() : pointer(nullptr) {
-
-		}
+		UniquePtr() = default;
 
 		/// @brief Crea un UniquePtr a partir del objeto almacenado en la
 		/// dirección de memoria dada.
@@ -214,9 +212,7 @@ namespace OSK {
 		/// <summary>
 		/// Crea un UniquePtr vacío.
 		/// </summary>
-		UniquePtr() : pointer(nullptr) {
-
-		}
+		UniquePtr() = default;
 
 		explicit UniquePtr(T* data) : pointer(data) {
 
@@ -235,7 +231,7 @@ namespace OSK {
 		/// Devuelve el elemento 'i' del array.
 		/// No comprueba que esté dentro de los límites.
 		/// </summary>
-		T& operator[](TSize i) const {
+		T& operator[](USize64 i) const {
 			return pointer[i];
 		}
 

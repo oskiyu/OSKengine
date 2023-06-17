@@ -6,22 +6,22 @@ using namespace OSK;
 using namespace OSK::IO;
 
 IGamepadInput::IGamepadInput() {
-	for (TIndex i = 0; i < MAX_GAMEPAD_COUNT; i++) {
+	for (UIndex32 i = 0; i < MAX_GAMEPAD_COUNT; i++) {
 		oldStates[i] = GamepadState(i);
 		newStates[i] = GamepadState(i);
 	}
 }
 
 void IGamepadInput::UpdateGamepadInput() {
-	for (TIndex i = 0; i < MAX_GAMEPAD_COUNT; i++) {
+	for (UIndex32 i = 0; i < MAX_GAMEPAD_COUNT; i++) {
 		oldStates[i] = newStates[i];
 		UpdateGamepadState(&newStates[i]);
 	}
 }
-const GamepadState& IGamepadInput::GetGamepadState(TIndex index) const {
+const GamepadState& IGamepadInput::GetGamepadState(UIndex32 index) const {
 	return newStates[index];
 }
 
-const GamepadState& IGamepadInput::GetPreviousGamepadState(TIndex index) const {
+const GamepadState& IGamepadInput::GetPreviousGamepadState(UIndex32 index) const {
 	return oldStates[index];
 }

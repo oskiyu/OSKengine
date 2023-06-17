@@ -9,9 +9,9 @@ namespace OSK::GRAPHICS {
 	/// @brief Información sobre una familia de colas de comandos.
 	struct QueueFamily {
 		/// @brief Índice de la familia.
-		TIndex familyIndex;
+		UIndex32 familyIndex;
 		/// @brief Número de colas en la familia.
-		TSize numQueues;
+		USize32 numQueues;
 		/// @brief Operaciones soportadas.
 		CommandQueueSupport support;
 	};

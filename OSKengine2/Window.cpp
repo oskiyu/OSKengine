@@ -14,6 +14,11 @@
 
 #include <stbi_image.h>
 
+#include <Windows.h>
+#include "WindowsUtils.h"
+
+#include "InitializeWindowException.h"
+
 using namespace OSK;
 using namespace OSK::IO;
 
@@ -30,8 +35,8 @@ Window::~Window() {
 void Window::Create(Vector2ui size, const std::string& title) {
 
 	// Creación de la ventana.
-	window = glfwCreateWindow(size.X, size.Y, title.c_str(), NULL, NULL);
-	OSK_ASSERT(window.HasValue(), "No se ha podido iniciar la ventana.");
+	window = glfwCreateWindow(size.x, size.y, title.c_str(), NULL, NULL);
+	OSK_ASSERT(window.HasValue(), InitializeWindowException());
 
 	resolution = size;
 
@@ -51,24 +56,32 @@ void Window::Create(Vector2ui size, const std::string& title) {
 		int nmChannels = 0;
 		stbi_uc* icon = stbi_load("Resources/Icons/engineIcon.png", &x, &y, &nmChannels, 4);
 
-		GLFWimage glfwIcon[1]{};
-		glfwIcon[0].width = x;
-		glfwIcon[0].height = y;
-		glfwIcon[0].pixels = icon;
+		GLFWimage glfwIcon{};
+		glfwIcon.width = x;
+		glfwIcon.height = y;
+		glfwIcon.pixels = icon;
 
-		glfwSetWindowIcon(window.GetPointer(), _countof(glfwIcon), glfwIcon);
+		glfwSetWindowIcon(window.GetPointer(), 1, std::addressof(glfwIcon));
 
 		stbi_image_free(icon);
 	}
 
 	isOpen = true;
 
-	reinterpret_cast<PcUserInput*>(Engine::GetInput())->Initialize(*this);
+	// Si usamos Window, entonces estamos en PC, por lo que Input es PcUserInput.
+	static_cast<PcUserInput*>(Engine::GetInput())->Initialize(*this);
 }
 
 void Window::QueryInterface(TInterfaceUuid uuid, void** ptr) const {
 	if (uuid == OSK_IUUID(IFullscreenableDisplay))
 		*ptr = (IFullscreenableDisplay*)this;
+	else
+		*ptr = nullptr;
+}
+
+void Window::QueryConstInterface(TInterfaceUuid uuid, const void** ptr) const {
+	if (uuid == OSK_IUUID(IFullscreenableDisplay))
+		*ptr = (const IFullscreenableDisplay*)this;
 	else
 		*ptr = nullptr;
 }
@@ -86,16 +99,16 @@ void Window::SetFullscreen(bool fullscreen) {
 		// Obtenemos la posición de la ventana,
 		// para poder reestablecerla después de salir de
 		// la ventana completa.
-		glfwGetWindowPos(window.GetPointer(), &previous.position.X, &previous.position.Y);
-		glfwGetWindowSize(window.GetPointer(), &previous.size.X, &previous.size.Y);
+		glfwGetWindowPos(window.GetPointer(), &previous.position.x, &previous.position.y);
+		glfwGetWindowSize(window.GetPointer(), &previous.size.x, &previous.size.y);
 
 		glfwSetWindowMonitor(window.GetPointer(), monitor.GetPointer(), 0, 0, monitorInfo->width, monitorInfo->height, monitorInfo->refreshRate);
 
-		resolution.X = monitorInfo->width;
-		resolution.Y = monitorInfo->height;
+		resolution.x = monitorInfo->width;
+		resolution.y = monitorInfo->height;
 	}
 	else {
-		glfwSetWindowMonitor(window.GetPointer(), nullptr, previous.position.X, previous.position.Y, previous.size.X, previous.size.Y, monitorInfo->refreshRate);
+		glfwSetWindowMonitor(window.GetPointer(), nullptr, previous.position.x, previous.position.y, previous.size.x, previous.size.y, monitorInfo->refreshRate);
 	}
 
 	isFullscreen = fullscreen;
@@ -110,6 +123,11 @@ GLFWwindow* Window::_GetGlfw() const {
 	return window.GetPointer();
 }
 
+void Window::ShowMessageBox(std::string_view msg) {
+	const std::wstring widestring = StringToWideString((std::string)msg);	\
+	MessageBox(NULL, widestring.c_str(), NULL, MB_OK | MB_ICONERROR);	\
+}
+
 Window* Window::GetWindowForCallback(GLFWwindow* window) {
 	return static_cast<Window*>(glfwGetWindowUserPointer(window));
 }
@@ -119,8 +137,8 @@ void Window::GlfwResizeCallback(GLFWwindow* window, int sizex, int sizey) {
 }
 
 void Window::ResizeCallback(int sizex, int sizey) {
-	resolution.X = sizex;
-	resolution.Y = sizey;
+	resolution.x = sizex;
+	resolution.y = sizey;
 
 	if (!Engine::GetRenderer()->_HasImplicitResizeHandling())
 		Engine::GetRenderer()->HandleResize();

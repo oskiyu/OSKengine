@@ -3,6 +3,8 @@
 #include "Component.h"
 #include "Assert.h"
 
+#include "EcsExceptions.h"
+
 using namespace OSK;
 using namespace OSK::ECS;
 
@@ -19,7 +21,8 @@ GameObjectIndex GameObjectManager::CreateGameObject() {
 }
 
 void GameObjectManager::DestroyGameObject(GameObjectIndex* obj) {
-	OSK_ASSERT(*obj > 0, "Se ha intentado acceder a un objeto inválido.");
+	OSK_ASSERT(*obj > 0, InvalidObjectException(*obj));
+	OSK_ASSERT(*obj < signatures.GetSize(), InvalidObjectException(*obj));
 
 	signatures[*obj - 1].Reset();
 	freeObjectIndices.Push(*obj);
@@ -28,12 +31,14 @@ void GameObjectManager::DestroyGameObject(GameObjectIndex* obj) {
 }
 
 void GameObjectManager::SetSignature(GameObjectIndex obj, const Signature& signature) {
-	OSK_ASSERT(obj > 0, "Se ha intentado acceder a un objeto inválido.");
+	OSK_ASSERT(obj > 0, InvalidObjectException(obj));
+	OSK_ASSERT(obj < signatures.GetSize() + 1, InvalidObjectException(obj));
 	signatures[obj - 1] = signature;
 }
 
 Signature GameObjectManager::GetSignature(GameObjectIndex obj) {
-	OSK_ASSERT(obj > 0, "Se ha intentado acceder a un objeto inválido.");
+	OSK_ASSERT(obj > 0, InvalidObjectException(obj));
+	OSK_ASSERT(obj < signatures.GetSize() + 1, InvalidObjectException(obj));
 	return signatures[obj - 1];
 }
 

@@ -49,7 +49,7 @@ namespace OSK::GRAPHICS {
 		/// 
 		/// @pre index debe estar entre 0 y NUM_RESOURCES_IN_FLIGHT 
 		/// (0 <= index < NUM_RESOURCES_IN_FLIGHT).
-		GpuImage* GetTargetImage(TSize index) const;
+		GpuImage* GetTargetImage(UIndex32 index) const;
 
 
 		/// @brief Devuelve el material instance para el renderizado a pantalla completa usando

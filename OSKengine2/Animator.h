@@ -35,11 +35,10 @@ namespace OSK::GRAPHICS {
 		/// @note Si no hay una animación activa, no ocurrirá nada.
 		void DeactivateAnimation();
 
-		/// <summary> Establece la animación activa del modelo. </summary>
-		/// <param name="name">Nombre de la animación.</param>
-		/// 
+		/// @brief Establece la animación activa del modelo.
+		/// @param name Nombre de la animación.
 		/// @pre Debe haber una animación disponible con el nombre dado.
-		/// @throws std::runtime_error si no se cumple la precondición.
+		/// @throws ModelAnimationNotFoundException si no se cumple la precondición.
 		void AddActiveAnimation(const std::string& name);
 
 		/// <summary> Quita una animación activa del modelo. </summary>
@@ -67,7 +66,7 @@ namespace OSK::GRAPHICS {
 		/// </summary>
 		/// 
 		/// @pre Debe existir la skin con el índice dado.
-		const AnimationSkin& GetSkin(TIndex index) const;
+		const AnimationSkin& GetSkin(UIndex32 index) const;
 		
 		/// <summary>
 		/// Devuelve un material instance que únicamente tiene 
@@ -97,7 +96,7 @@ namespace OSK::GRAPHICS {
 
 		DynamicArray<AnimationSkin> availableSkins;
 
-		HashMap<std::string, TIndex> availableSkinsByName;
+		HashMap<std::string, UIndex32> availableSkinsByName;
 		HashMap<std::string, Animation> availableAnimations;
 
 		DynamicArray<std::string> activeAnimations;

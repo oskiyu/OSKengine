@@ -4,6 +4,7 @@
 
     "name": "Texture0",
     "asset_type": "CubemapTexture",
+    "raw_asset_path": "",
     
     "faces_files": {
         "right": "Resources/RawAssets/Skyboxes/sky/right.jpg",

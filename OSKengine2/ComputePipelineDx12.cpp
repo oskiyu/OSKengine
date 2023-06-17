@@ -1,6 +1,8 @@
 #include "ComputePipelineDx12.h"
 
 #include "PipelineLayoutDx12.h"
+#include "PipelinesExceptions.h"
+#include "OSKengine.h"
 
 using namespace OSK;
 using namespace OSK::GRAPHICS;
@@ -17,5 +19,5 @@ ComputePipelineDx12::ComputePipelineDx12(const PipelineCreateInfo& info, const M
 	createInfo.Flags = D3D12_PIPELINE_STATE_FLAG_NONE;
 
 	const HRESULT result = device->As<GpuDx12>()->GetDevice()->CreateComputePipelineState(&createInfo, IID_PPV_ARGS(&dxPipeline));
-	OSK_ASSERT(SUCCEEDED(result), "Error al crear el pipeline. Code: " + std::to_string(result));
+	OSK_ASSERT(SUCCEEDED(result), PipelineCreationException(result));
 }

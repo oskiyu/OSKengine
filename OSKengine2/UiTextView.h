@@ -25,7 +25,7 @@ namespace OSK::UI {
 
 		/// @brief Establece el tamaño de fuente que se usará.
 		/// @param size Tamaño de la fuente, en píxeles.
-		void SetFontSize(TSize size);
+		void SetFontSize(USize32 size);
 
 		/// @brief Establece la fuente que se usará para el renderizado del texto.
 		/// @param font Fuente del texto.
@@ -48,7 +48,7 @@ namespace OSK::UI {
 
 		std::string text = "";
 		ASSETS::Font* font = nullptr;
-		TSize fontSize = 12;
+		USize32 fontSize = 12;
 
 	};
 

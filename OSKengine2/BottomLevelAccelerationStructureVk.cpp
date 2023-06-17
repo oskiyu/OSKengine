@@ -9,6 +9,8 @@
 #include "GpuVk.h"
 #include "CommandListVk.h"
 
+#include "AccelerationStructuresExceptions.h"
+
 using namespace OSK;
 using namespace OSK::GRAPHICS;
 
@@ -48,7 +50,7 @@ void BottomLevelAccelerationStructureVk::Setup(
 
 
 	// Tamaño del vértice
-	TSize vertexStride = vertexView.vertexInfo.GetSize();
+	USize64 vertexStride = vertexView.vertexInfo.GetSize();
 
 	// Info de la geometría
 	geometryInfo = VkAccelerationStructureGeometryKHR{};
@@ -101,8 +103,8 @@ void BottomLevelAccelerationStructureVk::Setup(
 		&numTriangles,
 		&sizeInfo);
 
-	accelerationStructureBuffer = memoryAllocator->CreateBuffer(static_cast<TSize>(sizeInfo.accelerationStructureSize), 256, GpuBufferUsage::RT_ACCELERATION_STRUCTURE, GpuSharedMemoryType::GPU_ONLY).GetPointer();
-	buildBuffer = memoryAllocator->CreateBuffer(static_cast<TSize>(sizeInfo.buildScratchSize), Engine::GetRenderer()->GetGpu()->As<GpuVk>()->GetInfo().rtAccelerationStructuresProperites.minAccelerationStructureScratchOffsetAlignment, GpuBufferUsage::RT_ACCELERATION_STRUCTURE_BUILDING, GpuSharedMemoryType::GPU_AND_CPU).GetPointer();
+	accelerationStructureBuffer = memoryAllocator->CreateBuffer(sizeInfo.accelerationStructureSize, 256, GpuBufferUsage::RT_ACCELERATION_STRUCTURE, GpuSharedMemoryType::GPU_ONLY).GetPointer();
+	buildBuffer = memoryAllocator->CreateBuffer(sizeInfo.buildScratchSize, Engine::GetRenderer()->GetGpu()->As<GpuVk>()->GetInfo().rtAccelerationStructuresProperites.minAccelerationStructureScratchOffsetAlignment, GpuBufferUsage::RT_ACCELERATION_STRUCTURE_BUILDING, GpuSharedMemoryType::GPU_AND_CPU).GetPointer();
 
 	// Creación
 	VkAccelerationStructureCreateInfoKHR accelerationStructureCreateInfo{};
@@ -113,7 +115,7 @@ void BottomLevelAccelerationStructureVk::Setup(
 	accelerationStructureCreateInfo.type = VK_ACCELERATION_STRUCTURE_TYPE_BOTTOM_LEVEL_KHR;
 	
 	VkResult result = RendererVk::pvkCreateAccelerationStructureKHR(logicalDevice, &accelerationStructureCreateInfo, nullptr, &accelerationStructureHandle);
-	OSK_ASSERT(result == VK_SUCCESS, "Error al crear BLAS. Code: " + std::to_string(result));
+	OSK_ASSERT(result == VK_SUCCESS, AccelerationStructureCreationException(result));
 	
 	// Gpu address
 	VkAccelerationStructureDeviceAddressInfoKHR blasGpuAddressInfo{};
@@ -195,7 +197,7 @@ void BottomLevelAccelerationStructureVk::Update(ICommandList* cmdList) {
 		VK_PIPELINE_STAGE_ACCELERATION_STRUCTURE_BUILD_BIT_KHR, 0, 1, &barrier, 0, nullptr, 0, nullptr);
 }
 
-TSize BottomLevelAccelerationStructureVk::GetNumTriangles() const {
+USize32 BottomLevelAccelerationStructureVk::GetNumTriangles() const {
 	return numTriangles;
 }
 

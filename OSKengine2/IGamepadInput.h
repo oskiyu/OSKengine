@@ -13,10 +13,10 @@ namespace OSK::IO {
 
 	public:
 
-		OSK_DEFINE_IUUID((TInterfaceUuid)IUUID::IGamepadInput);
+		OSK_DEFINE_IUUID((TInterfaceUuid)IUUID::IGamepadInput)
 
 		/// @brief Número máximo de gamepads que pueden estar conectados.
-		const static TSize MAX_GAMEPAD_COUNT = 4;
+		const static UIndex32 MAX_GAMEPAD_COUNT = 4;
 
 
 		IGamepadInput();
@@ -30,11 +30,11 @@ namespace OSK::IO {
 
 		/// @return Estado del gamepad en el frame actual.
 		/// @pre 0 <= index < IGamepadInput::MAX_GAMEPAD_COUNT.
-		const GamepadState& GetGamepadState(TIndex index) const;
+		const GamepadState& GetGamepadState(UIndex32 index) const;
 
 		/// @return Estado del gamepad en el frame anterior.
 		/// @pre 0 <= index < IGamepadInput::MAX_GAMEPAD_COUNT.
-		const GamepadState& GetPreviousGamepadState(TIndex index) const;
+		const GamepadState& GetPreviousGamepadState(UIndex32 index) const;
 
 	protected:
 
@@ -42,8 +42,8 @@ namespace OSK::IO {
 
 	private:
 
-		GamepadState oldStates[MAX_GAMEPAD_COUNT]{};
-		GamepadState newStates[MAX_GAMEPAD_COUNT]{};
+		std::array<GamepadState, MAX_GAMEPAD_COUNT> oldStates{};
+		std::array<GamepadState, MAX_GAMEPAD_COUNT> newStates{};
 
 	};
 

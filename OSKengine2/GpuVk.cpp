@@ -3,18 +3,16 @@
 #include "Assert.h"
 #include <set>
 #include "CommandPoolVk.h"
-#include "SyncDeviceVulkan.h"
 #include <vulkan/vulkan.h>
 #include "OSKengine.h"
 #include "Logger.h"
 
+#include "RendererExceptions.h"
+#include "CommandListExceptions.h"
+
 using namespace OSK;
 using namespace OSK::GRAPHICS;
 
-// Extensiones de la GPU que van a ser necesarias.
-static DynamicArray<const char*> gpuExtensions = {
-	VK_KHR_SWAPCHAIN_EXTENSION_NAME
-};
 
 GpuVk::GpuVk(VkPhysicalDevice gpu, VkSurfaceKHR surface) : physicalDevice(gpu), surface(surface) {
 	info = Info::Get(gpu, surface);
@@ -40,7 +38,7 @@ GpuMemoryUsageInfo GpuVk::GetMemoryUsageInfo() const {
 
 	GpuMemoryUsageInfo output{};
 
-	for (TIndex i = 0; i < memoryProperties.memoryProperties.memoryHeapCount; i++) {
+	for (UIndex32 i = 0; i < memoryProperties.memoryProperties.memoryHeapCount; i++) {
 		const GpuSharedMemoryType memoryType = memoryProperties.memoryProperties.memoryHeaps[i].flags & VK_MEMORY_HEAP_DEVICE_LOCAL_BIT
 			? GpuSharedMemoryType::GPU_ONLY
 			: GpuSharedMemoryType::GPU_AND_CPU;
@@ -77,7 +75,7 @@ OwnedPtr<ICommandPool> GpuVk::CreateGraphicsCommandPool() {
 	VkCommandPool commandPool = VK_NULL_HANDLE;
 
 	VkResult result = vkCreateCommandPool(logicalDevice, &poolInfo, nullptr, &commandPool);
-	OSK_ASSERT(result == VK_SUCCESS, "No se ha podido crear el command pool.");
+	OSK_ASSERT(result == VK_SUCCESS, CommandPoolCreationException(result));
 
 	auto output = new CommandPoolVk;
 	output->SetCommandPool(commandPool);
@@ -99,7 +97,7 @@ OwnedPtr<ICommandPool> GpuVk::CreateComputeCommandPool() {
 	VkCommandPool commandPool = VK_NULL_HANDLE;
 
 	VkResult result = vkCreateCommandPool(logicalDevice, &poolInfo, nullptr, &commandPool);
-	OSK_ASSERT(result == VK_SUCCESS, "No se ha podido crear el command pool.");
+	OSK_ASSERT(result == VK_SUCCESS, CommandPoolCreationException(result));
 
 	auto output = new CommandPoolVk;
 	output->SetCommandPool(commandPool);
@@ -154,8 +152,8 @@ void GpuVk::CreateLogicalDevice() {
 	features.fillModeNonSolid = VK_TRUE; /// \todo check
 
 	DynamicArray<VkExtensionProperties> availableExtensions = GetAvailableExtensions(physicalDevice);
-	
-	// if (IsExtensionPresent(VK_EXT_MEMORY_BUDGET_EXTENSION_NAME, availableExtensions))
+	DynamicArray<const char*> gpuExtensions = { VK_KHR_SWAPCHAIN_EXTENSION_NAME };
+
 	gpuExtensions.Insert(VK_EXT_MEMORY_BUDGET_EXTENSION_NAME);
 
 	// RT
@@ -221,7 +219,7 @@ void GpuVk::CreateLogicalDevice() {
 	VkResult result = vkCreateDevice(physicalDevice, &createInfo, nullptr, &logicalDevice);
 
 	// Error-handling.
-	OSK_ASSERT(result == VK_SUCCESS, "No se ha podido crear el logical device.");
+	OSK_ASSERT(result == VK_SUCCESS, LogicalDeviceCreationException(result));
 }
 
 VkDevice GpuVk::GetLogicalDevice() const {
@@ -275,12 +273,6 @@ QueueFamiles GpuVk::GetQueueFamilyIndices() const {
 
 		familyIndex++;
 	}
-
-	return output;
-}
-
-OwnedPtr<ISyncDevice> GpuVk::CreateSyncDevice() {
-	auto output = new SyncDeviceVulkan;
 
 	return output;
 }
@@ -345,7 +337,7 @@ GpuVk::Info GpuVk::Info::Get(VkPhysicalDevice gpu, VkSurfaceKHR surface) {
 	//swapchainSupported = !info.shapchainSupport.presentModes.empty() && !info.shapchainSupport.formats.empty();
 
 	//info.isSuitable = info.families.IsComplete() && checkGPUextensionSupport(gpu) && swapchainSupported && info.features.samplerAnisotropy;
-	info.minAlignment = static_cast<TSize>(info.properties.limits.minUniformBufferOffsetAlignment);
+	info.minAlignment = static_cast<USize64>(info.properties.limits.minUniformBufferOffsetAlignment);
 
 	// ---------- SWAPCHAIN ------------------ //
 

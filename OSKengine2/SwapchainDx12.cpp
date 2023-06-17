@@ -48,8 +48,11 @@ void SwapchainDx12::Create(PresentMode mode, IGpu* device, Format format, const 
     this->mode = mode;
 
     if (mode == PresentMode::VSYNC_ON_TRIPLE_BUFFER) {
-        OSK_CHECK(false, "El modo de presentación " + ToString<PresentMode>(mode) + " no está soportado. Se usará " + ToString<PresentMode>(PresentMode::VSYNC_ON) + ".");
-        mode = PresentMode::VSYNC_ON;
+        Engine::GetLogger()->InfoLog(
+            std::format("El modo de presentación {} no está soportado. Se usará {}.",
+                ToString<PresentMode>(mode),
+                ToString<PresentMode>(PresentMode::VSYNC_ON)));
+        this->mode = PresentMode::VSYNC_ON;
     }
 
     DXGI_SWAP_CHAIN_DESC1 swapchainDesc{};
@@ -57,8 +60,8 @@ void SwapchainDx12::Create(PresentMode mode, IGpu* device, Format format, const 
     swapchainDesc.BufferCount = imageCount;
     swapchainDesc.BufferUsage = DXGI_USAGE_RENDER_TARGET_OUTPUT;
 
-    swapchainDesc.Width = display.GetResolution().X;
-    swapchainDesc.Height = display.GetResolution().Y;
+    swapchainDesc.Width = display.GetResolution().x;
+    swapchainDesc.Height = display.GetResolution().y;
     swapchainDesc.Format = GetFormatDx12(format);
 
     swapchainDesc.SwapEffect = DXGI_SWAP_EFFECT_FLIP_DISCARD;
@@ -81,7 +84,7 @@ void SwapchainDx12::Create(PresentMode mode, IGpu* device, Format format, const 
 }
 
 void SwapchainDx12::DeleteImages() {
-    for (TSize i = 0; i < imageCount; i++)
+    for (USize32 i = 0; i < imageCount; i++)
         images[i].Delete();
 
     renderTargetsDesc->Release();
@@ -104,8 +107,8 @@ void SwapchainDx12::CreateImages(const IO::IDisplay& display) {
     device->As<GpuDx12>()->GetDevice()->CreateDescriptorHeap(&imagesMemoryCreateInfo, IID_PPV_ARGS(&renderTargetsDesc));
     auto result = device->As<GpuDx12>()->GetDevice()->CreateDescriptorHeap(&depthImagesMemoryCreateInfo, IID_PPV_ARGS(&depthTargetsDescHeap));
 
-    const Vector3ui imageSize = Vector3ui(display.GetResolution().X, display.GetResolution().Y, 1);
-    for (TSize i = 0; i < imageCount; i++) {
+    const Vector3ui imageSize = Vector3ui(display.GetResolution().x, display.GetResolution().y, 1);
+    for (UIndex32 i = 0; i < imageCount; i++) {
         images[i] = new GpuImageDx12(imageSize, GpuImageDimension::d2D, GpuImageUsage::COLOR, 1, colorFormat, 1, {});
         depthImages[i] = new GpuImageDx12(
             imageSize, 
@@ -137,8 +140,8 @@ void SwapchainDx12::CreateImages(const IO::IDisplay& display) {
             D3D12_RESOURCE_DESC depthResourceDesc{};
             depthResourceDesc.Dimension = D3D12_RESOURCE_DIMENSION_TEXTURE2D;
             depthResourceDesc.Alignment = 0;
-            depthResourceDesc.Width = depthImages[i]->GetSize2D().X;
-            depthResourceDesc.Height = depthImages[i]->GetSize2D().Y;
+            depthResourceDesc.Width = depthImages[i]->GetSize2D().x;
+            depthResourceDesc.Height = depthImages[i]->GetSize2D().y;
             depthResourceDesc.DepthOrArraySize = 1;
             depthResourceDesc.SampleDesc.Count = 1;
             depthResourceDesc.SampleDesc.Quality = 0;

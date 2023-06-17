@@ -16,7 +16,7 @@ Vector2ui Texture::GetSize() const {
 	return size;
 }
 
-TSize Texture::GetNumberOfChannels() const {
+USize32 Texture::GetNumberOfChannels() const {
 	return numChannels;
 }
 
@@ -36,7 +36,7 @@ void Texture::_SetSize(const Vector2ui size) {
 	this->size = size;
 }
 
-void Texture::_SetNumberOfChannels(TSize numChannels) {
+void Texture::_SetNumberOfChannels(USize32 numChannels) {
 	this->numChannels = numChannels;
 }
 

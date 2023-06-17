@@ -17,17 +17,20 @@ namespace OSK::GRAPHICS {
 	class GpuVk;
 	class GpuImageVk;
 	class RenderpassVulkan;
+
 	class OSKAPI_CALL SwapchainVk final : public ISwapchain {
 
 	public:
 
-		~SwapchainVk();
+		~SwapchainVk() override;
 
 		/// <summary>
 		/// Crea el swapchain.
 		/// Obtiene automáticamente el tamaño de las imágenes a partir del
 		/// tamaño de la ventana.
 		/// </summary>
+		/// 
+		/// @throws SwapchainCreationException Si ocurre algún error.
 		void Create(
 			PresentMode mode, 
 			Format format, 
@@ -46,7 +49,9 @@ namespace OSK::GRAPHICS {
 
 	private:
 
+		/// @throws SwapchainCreationException Si ocurre algún error.
 		void AcquireImages(unsigned int sizeX, unsigned int sizeY);
+		/// @throws SwapchainCreationException Si ocurre algún error.
 		void AcquireViews();
 
 		/// <summary>

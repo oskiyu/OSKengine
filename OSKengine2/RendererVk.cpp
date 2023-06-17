@@ -15,7 +15,6 @@
 #include "Format.h"
 #include "SwapchainVk.h"
 #include "Version.h"
-#include "SyncDeviceVulkan.h"
 #include "DynamicArray.hpp"
 #include "GpuMemoryAllocatorVk.h"
 #include "RenderpassType.h"
@@ -44,6 +43,8 @@
 #include "EntityComponentSystem.h"
 #include "Window.h"
 
+#include "RendererExceptions.h"
+
 #include <GLFW/glfw3.h>
 #include <set>
 #include <glm/ext/matrix_transform.hpp>
@@ -64,7 +65,7 @@ const DynamicArray<uint32_t> ignoredValidationLayersMessages = {
 	0x6c16bfb4
 };
 
-VKAPI_ATTR VkBool32 VKAPI_CALL DebugCallback(VkDebugUtilsMessageSeverityFlagBitsEXT messageSeverity, VkDebugUtilsMessageTypeFlagsEXT messageType, const VkDebugUtilsMessengerCallbackDataEXT* pCallbackData, void* pUserData) {
+VKAPI_ATTR VkBool32 VKAPI_CALL DebugCallback(VkDebugUtilsMessageSeverityFlagBitsEXT, VkDebugUtilsMessageTypeFlagsEXT messageType, const VkDebugUtilsMessengerCallbackDataEXT* pCallbackData, void*) {
 	// Message severity:
 	//	VK_DEBUG_UTILS_MESSAGE_SEVERITY_VERBOSE_BIT_EXT: "diagnostic" message.
 	//	VK_DEBUG_UTILS_MESSAGE_SEVERITY_INFO_BIT_EXT: información.
@@ -122,13 +123,12 @@ void RendererVk::Initialize(const std::string& appName, const Version& version, 
 		SetupDebugLogging();
 	CreateSurface(display);
 	ChooseGpu();
-	//if (AreValidationLayersAvailable())
-		SetupDebugFunctions(currentGpu->As<GpuVk>()->GetLogicalDevice());
+	
+	SetupDebugFunctions(currentGpu->As<GpuVk>()->GetLogicalDevice());
 
 	CreateCommandQueues();
-
+	CreateSyncPrimitives();
 	CreateSwapchain(mode);
-	CreateSyncDevice();
 	CreateGpuMemoryAllocator();
 	if (IsRtRequested() && currentGpu->As<GpuVk>()->GetInfo().IsRtCompatible())
 		SetupRtFunctions(currentGpu->As<GpuVk>()->GetLogicalDevice());
@@ -136,7 +136,7 @@ void RendererVk::Initialize(const std::string& appName, const Version& version, 
 
 	renderTargetsCamera = new ECS::CameraComponent2D;
 	renderTargetsCamera->LinkToDisplay(&display);
-	renderTargetsCameraTransform.SetScale({ display.GetResolution().X / 2.0f, display.GetResolution().Y / 2.0f});
+	renderTargetsCameraTransform.SetScale(display.GetResolution().ToVector2f() * 0.5f);
 	renderTargetsCamera->UpdateUniformBuffer(renderTargetsCameraTransform);
 
 	CreateMainRenderpass();
@@ -149,21 +149,21 @@ void RendererVk::Initialize(const std::string& appName, const Version& version, 
 }
 
 OwnedPtr<IGraphicsPipeline> RendererVk::_CreateGraphicsPipeline(const PipelineCreateInfo& pipelineInfo, const MaterialLayout& layout, const VertexInfo& vertexInfo) {
-	GraphicsPipelineVk* pipeline = new GraphicsPipelineVk;
+	auto* pipeline = new GraphicsPipelineVk;
 	pipeline->Create(&layout, currentGpu.GetPointer(), pipelineInfo, vertexInfo);
 
 	return pipeline;
 }
 
 OwnedPtr<IRaytracingPipeline> RendererVk::_CreateRaytracingPipeline(const PipelineCreateInfo& pipelineInfo, const MaterialLayout& layout, const VertexInfo& vertexTypeName) {
-	RaytracingPipelineVk* pipeline = new RaytracingPipelineVk();
+	auto* pipeline = new RaytracingPipelineVk();
 	pipeline->Create(layout, pipelineInfo);
 
 	return pipeline;
 }
 
 OwnedPtr<IComputePipeline> RendererVk::_CreateComputePipeline(const PipelineCreateInfo& pipelineInfo, const MaterialLayout& layout) {
-	ComputePipelineVk* pipeline = new ComputePipelineVk();
+	auto* pipeline = new ComputePipelineVk();
 	pipeline->Create(layout, pipelineInfo);
 
 	return pipeline;
@@ -181,7 +181,6 @@ void RendererVk::Close() {
 
 	WaitForCompletion();
 
-	syncDevice.Delete();
 	swapchain.Delete();
 
 	finalRenderTarget.Delete();
@@ -196,7 +195,7 @@ void RendererVk::Close() {
 
 	vkDestroySurfaceKHR(instance, surface, nullptr);
 
-	for (TIndex i = 0; i < NUM_RESOURCES_IN_FLIGHT; i++) {
+	for (USize32 i = 0; i < NUM_RESOURCES_IN_FLIGHT; i++) {
 		vkDestroyFence(device, fullyRenderedFences[i], nullptr);
 
 		vkDestroySemaphore(device, imageAvailableSemaphores[i], nullptr);
@@ -210,8 +209,9 @@ void RendererVk::Close() {
 
 	if (AreValidationLayersAvailable()) {
 		auto func = (PFN_vkDestroyDebugUtilsMessengerEXT)vkGetInstanceProcAddr(instance, "vkDestroyDebugUtilsMessengerEXT");
-		OSK_ASSERT(func != nullptr, "No se puede destruir la consola de capas de validación.");
-		func(instance, debugConsole, nullptr);
+		// OSK_ASSERT(func != nullptr, "No se puede destruir la consola de capas de validación.");
+		if (func)
+			func(instance, debugConsole, nullptr);
 	}
 
 	vkDestroyInstance(instance, nullptr);
@@ -225,7 +225,7 @@ void RendererVk::HandleResize() {
 }
 
 void RendererVk::SubmitSingleUseCommandList(OwnedPtr<ICommandList> commandList) {
-	const TSize cmdIndex = commandList->_GetCommandListIndex();
+	const auto cmdIndex = commandList->_GetCommandListIndex();
 	const VkQueue graphicsQ = graphicsQueue->As<CommandQueueVk>()->GetQueue();
 	const VkCommandBuffer cmdBuffer = commandList->As<CommandListVk>()->GetCommandBuffers()->At(cmdIndex);
 
@@ -235,9 +235,9 @@ void RendererVk::SubmitSingleUseCommandList(OwnedPtr<ICommandList> commandList) 
 	submitInfo.pCommandBuffers = &cmdBuffer;
 
 	VkResult result = vkQueueSubmit(graphicsQ, 1, &submitInfo, VK_NULL_HANDLE);
-	OSK_ASSERT(result == VK_SUCCESS, "Error al enviar comando de uso único. Code: " + std::to_string(result));
+	OSK_ASSERT(result == VK_SUCCESS, CommandQueueSubmitException(result));
 	result = vkQueueWaitIdle(graphicsQ);
-	OSK_ASSERT(result == VK_SUCCESS, "Error al esperar comando de uso único. Code: " + std::to_string(result));
+	OSK_ASSERT(result == VK_SUCCESS, CommandQueueSubmitException(result));
 
 	vkFreeCommandBuffers(currentGpu->As<GpuVk>()->GetLogicalDevice(), graphicsCommandPool->As<CommandPoolVk>()->GetCommandPool(), 1, &cmdBuffer);
 
@@ -246,7 +246,7 @@ void RendererVk::SubmitSingleUseCommandList(OwnedPtr<ICommandList> commandList) 
 
 void RendererVk::CreateInstance(const std::string& appName, const Version& version) {
 	// Obtenemos la versión de vulkan soportada
-	PFN_vkEnumerateInstanceVersion pvkEnumeratInstanceVersion = (PFN_vkEnumerateInstanceVersion)vkGetInstanceProcAddr(nullptr, "vkEnumerateInstanceVersion");
+	auto pvkEnumeratInstanceVersion = (PFN_vkEnumerateInstanceVersion)vkGetInstanceProcAddr(nullptr, "vkEnumerateInstanceVersion");
 	if (pvkEnumeratInstanceVersion == nullptr) {
 		vulkanVersion = VK_API_VERSION_1_0;
 	}
@@ -263,10 +263,10 @@ void RendererVk::CreateInstance(const std::string& appName, const Version& versi
 	appInfo.engineVersion = VK_MAKE_VERSION(Engine::GetVersion().mayor, Engine::GetVersion().menor, Engine::GetVersion().parche);
 	appInfo.apiVersion = vulkanVersion;
 
-	Engine::GetLogger()->InfoLog("Versión de vulkan: "
-		+ std::to_string(VK_VERSION_MAJOR(vulkanVersion)) + "."
-		+ std::to_string(VK_VERSION_MINOR(vulkanVersion)) + "."
-		+ std::to_string(VK_VERSION_PATCH(vulkanVersion)));
+	Engine::GetLogger()->InfoLog(std::format("Versión de vulkan: {}.{}.{}",
+		VK_VERSION_MAJOR(vulkanVersion),
+		VK_VERSION_MINOR(vulkanVersion),
+		VK_VERSION_PATCH(vulkanVersion)));
 
 	//Create info.
 	VkInstanceCreateInfo createInfo{};
@@ -314,7 +314,7 @@ void RendererVk::CreateInstance(const std::string& appName, const Version& versi
 	//	Engine::GetLogger()->InfoLog("	" + std::string(i));
 
 	VkResult result = vkCreateInstance(&createInfo, nullptr, &instance);
-	OSK_ASSERT(result == VK_SUCCESS, "Crear instancia de Vulkan." + std::to_string(result));
+	OSK_ASSERT(result == VK_SUCCESS, RendererCreationException("Crear instancia de Vulkan", result));
 }
 
 void RendererVk::CreateSwapchain(PresentMode mode) {
@@ -332,17 +332,17 @@ void RendererVk::SetupDebugLogging() {
 	createInfo.pfnUserCallback = DebugCallback;
 
 	auto func = (PFN_vkCreateDebugUtilsMessengerEXT)vkGetInstanceProcAddr(instance, "vkCreateDebugUtilsMessengerEXT");
-	OSK_ASSERT(func != nullptr, "No se puede iniciar la consola de capas de validación.");
+	OSK_ASSERT(func != nullptr, RendererCreationException("No se puede iniciar la consola de capas de validación", 0));
 
 	auto result = func(instance, &createInfo, nullptr, &debugConsole);
-	OSK_ASSERT(result == VK_SUCCESS, "No se puede iniciar la consola de capas de validación.");
+	OSK_ASSERT(result == VK_SUCCESS, RendererCreationException("No se puede iniciar la consola de capas de validación.", 0));
 
 	Engine::GetLogger()->InfoLog("Capas de validación activas.");
 }
 
 void RendererVk::CreateSurface(const IO::IDisplay& display) {
 	const VkResult result = glfwCreateWindowSurface(instance, display.As<IO::Window>()->_GetGlfw(), nullptr, &surface);
-	OSK_ASSERT(result == VK_SUCCESS, "No se ha podido crear la superficie. " + std::to_string(result));
+	OSK_ASSERT(result == VK_SUCCESS, RendererCreationException("No se ha podido crear la superficie", result));
 }
 
 void RendererVk::ChooseGpu() {
@@ -352,7 +352,7 @@ void RendererVk::ChooseGpu() {
 	uint32_t count = 0;
 	vkEnumeratePhysicalDevices(instance, &count, nullptr);
 
-	OSK_ASSERT(count != 0, "No hay ninguna GPU compatible con Vulkan.");
+	OSK_ASSERT(count != 0, GpuNotFoundException());
 
 	// Obtiene los handlers de las GPUs.
 	auto devices = DynamicArray<VkPhysicalDevice>::CreateResizedArray(count);
@@ -368,7 +368,7 @@ void RendererVk::ChooseGpu() {
 			gpus.Insert(info);
 	}
 
-	OSK_ASSERT(!gpus.IsEmpty(), "No hay una GPU compatible.");
+	OSK_ASSERT(!gpus.IsEmpty(), GpuNotFoundException());
 
 	VkPhysicalDevice gpu = devices[0];
 	GpuVk::Info info = gpus[0];
@@ -459,7 +459,7 @@ OwnedPtr<IMaterialSlot> RendererVk::_CreateMaterialSlot(const std::string& name,
 	return new MaterialSlotVk(name, &layout);
 }
 
-void RendererVk::CreateSyncDevice() {
+void RendererVk::CreateSyncPrimitives() {
 	const VkDevice logicalDevice = currentGpu->As<GpuVk>()->GetLogicalDevice();
 
 	imageAvailableSemaphores = DynamicArray<VkSemaphore>::CreateResizedArray(3, VK_NULL_HANDLE);
@@ -477,26 +477,26 @@ void RendererVk::CreateSyncDevice() {
 	fenceInfo.sType = VK_STRUCTURE_TYPE_FENCE_CREATE_INFO;
 	fenceInfo.flags = VK_FENCE_CREATE_SIGNALED_BIT;
 
-	for (TSize i = 0; i < 3; i++) {
+	for (UIndex32 i = 0; i < NUM_RESOURCES_IN_FLIGHT; i++) {
 		
 		VkResult result = vkCreateSemaphore(logicalDevice, &semaphoreInfo, nullptr, &imageAvailableSemaphores[i]);
-		OSK_ASSERT(result == VK_SUCCESS, "Error al crear el semáforo.");
+		OSK_ASSERT(result == VK_SUCCESS, RendererCreationException("Error al crear el semáforo.", result));
 
 		result = vkCreateSemaphore(logicalDevice, &semaphoreInfo, nullptr, &preComputeFinishedSemaphores[i]);
-		OSK_ASSERT(result == VK_SUCCESS, "Error al crear el semáforo.");
+		OSK_ASSERT(result == VK_SUCCESS, RendererCreationException("Error al crear el semáforo.", result));
 
 		result = vkCreateSemaphore(logicalDevice, &semaphoreInfo, nullptr, &renderFinishedSemaphores[i]);
-		OSK_ASSERT(result == VK_SUCCESS, "Error al crear el semáforo.");
+		OSK_ASSERT(result == VK_SUCCESS, RendererCreationException("Error al crear el semáforo.", result));
 
 		result = vkCreateSemaphore(logicalDevice, &semaphoreInfo, nullptr, &postComputeFinishedSemaphores[i]);
-		OSK_ASSERT(result == VK_SUCCESS, "Error al crear el semáforo.");
+		OSK_ASSERT(result == VK_SUCCESS, RendererCreationException("Error al crear el semáforo.", result));
 
 		result = vkCreateSemaphore(logicalDevice, &semaphoreInfo, nullptr, &frameBuildSemaphores[i]);
-		OSK_ASSERT(result == VK_SUCCESS, "Error al crear el semáforo.");
+		OSK_ASSERT(result == VK_SUCCESS, RendererCreationException("Error al crear el semáforo.", result));
 
 		// Fences
 		result = vkCreateFence(logicalDevice, &fenceInfo, nullptr, &fullyRenderedFences[i]);
-		OSK_ASSERT(result == VK_SUCCESS, "Error al crear el fence.");
+		OSK_ASSERT(result == VK_SUCCESS, RendererCreationException("Error al crear el fence.", result));
 
 		if (pvkSetDebugUtilsObjectNameEXT != nullptr) {
 			std::string name = "";
@@ -505,35 +505,35 @@ void RendererVk::CreateSyncDevice() {
 			debugName.sType = VK_STRUCTURE_TYPE_DEBUG_UTILS_OBJECT_NAME_INFO_EXT;
 			debugName.objectType = VK_OBJECT_TYPE_SEMAPHORE;
 
-			name = "Image Available Semaphore[" + std::to_string(i) + "]";
+			name = std::format("Image Available Semaphore[{}]", i);
 			debugName.pObjectName = name.c_str();
 			debugName.objectHandle = (uint64_t)imageAvailableSemaphores[i];
-			result = pvkSetDebugUtilsObjectNameEXT(logicalDevice, &debugName);
+			pvkSetDebugUtilsObjectNameEXT(logicalDevice, &debugName);
 
-			name = "Render Finished Semaphore[" + std::to_string(i) + "]";
+			name = std::format("Render Finished Semaphore[{}]", i);
 			debugName.pObjectName = name.c_str();
 			debugName.objectHandle = (uint64_t)renderFinishedSemaphores[i];
-			result = pvkSetDebugUtilsObjectNameEXT(logicalDevice, &debugName);
+			pvkSetDebugUtilsObjectNameEXT(logicalDevice, &debugName);
 
-			name = "Pre-Compute Finished Semaphore[" + std::to_string(i) + "]";
+			name = std::format("Pre-Compute Finished Semaphore[{}]", i);
 			debugName.pObjectName = name.c_str();
 			debugName.objectHandle = (uint64_t)preComputeFinishedSemaphores[i];
-			result = pvkSetDebugUtilsObjectNameEXT(logicalDevice, &debugName);
+			pvkSetDebugUtilsObjectNameEXT(logicalDevice, &debugName);
 
-			name = "Post-Compute Finished Semaphore[" + std::to_string(i) + "]";
+			name = std::format("Post-Compute Finished Semaphore[{}]", i);
 			debugName.pObjectName = name.c_str();
 			debugName.objectHandle = (uint64_t)postComputeFinishedSemaphores[i];
-			result = pvkSetDebugUtilsObjectNameEXT(logicalDevice, &debugName);
+			pvkSetDebugUtilsObjectNameEXT(logicalDevice, &debugName);
 
-			name = "Frame build Semaphore[" + std::to_string(i) + "]";
+			name = std::format("Frame build Semaphore[{}]", i);
 			debugName.pObjectName = name.c_str();
 			debugName.objectHandle = (uint64_t)frameBuildSemaphores[i];
-			result = pvkSetDebugUtilsObjectNameEXT(logicalDevice, &debugName);
+			pvkSetDebugUtilsObjectNameEXT(logicalDevice, &debugName);
 
 
 			debugName.objectType = VK_OBJECT_TYPE_FENCE;
 
-			name = "Fully Rendered Fence[" + std::to_string(i) + "]";
+			name = std::format("Fully Rendered Fence[{}]", i);
 			debugName.pObjectName = name.c_str();
 			debugName.objectHandle = (uint64_t)fullyRenderedFences[i];
 			result = pvkSetDebugUtilsObjectNameEXT(logicalDevice, &debugName);
@@ -594,9 +594,10 @@ void RendererVk::PresentFrame() {
 	SubmitFrame();
 	AcquireNextFrame();
 
-	for (TSize i = 0; i < singleTimeCommandLists.GetSize(); i++)
-		singleTimeCommandLists.At(i)->DeleteAllStagingBuffers();
+	for (auto& singleTimeCmdList : singleTimeCommandLists)
+		singleTimeCmdList->DeleteAllStagingBuffers();
 	singleTimeCommandLists.Free();
+
 	GetAllocator()->FreeStagingMemory();
 
 	//
@@ -632,7 +633,7 @@ void RendererVk::SubmitPreComputeCommands() {
 	submitInfo.pCommandBuffers = &preComputeCommandList->As<CommandListVk>()->GetCommandBuffers()->At(currentCommandBufferIndex);
 
 	VkResult result = vkQueueSubmit(computeQueue->As<CommandQueueVk>()->GetQueue(), 1, &submitInfo, VK_NULL_HANDLE /*preComputeCommandsFences[currentCommandBufferIndex]*/);
-	OSK_ASSERT(result == VK_SUCCESS, "No se ha podido enviar la cola PreCompute.");
+	OSK_ASSERT(result == VK_SUCCESS, CommandListSubmitException("PreCompute", result));
 }
 
 void RendererVk::SubmitGraphicsCommands() {
@@ -654,7 +655,7 @@ void RendererVk::SubmitGraphicsCommands() {
 	submitInfo.pCommandBuffers = &graphicsCommandList->As<CommandListVk>()->GetCommandBuffers()->At(currentCommandBufferIndex);
 
 	VkResult result = vkQueueSubmit(graphicsQueue->As<CommandQueueVk>()->GetQueue(), 1, &submitInfo, VK_NULL_HANDLE /*graphicsCommandsFences[currentCommandBufferIndex]*/);
-	OSK_ASSERT(result == VK_SUCCESS, "No se ha podido enviar la cola gráfica.");
+	OSK_ASSERT(result == VK_SUCCESS, CommandListSubmitException("Graphics", result));
 }
 
 void RendererVk::SubmitPostComputeCommands() {
@@ -676,7 +677,7 @@ void RendererVk::SubmitPostComputeCommands() {
 	submitInfo.pCommandBuffers = &postComputeCommandList->As<CommandListVk>()->GetCommandBuffers()->At(currentCommandBufferIndex);
 
 	VkResult result = vkQueueSubmit(computeQueue->As<CommandQueueVk>()->GetQueue(), 1, &submitInfo, VK_NULL_HANDLE);
-	OSK_ASSERT(result == VK_SUCCESS, "No se ha podido enviar la cola PostCompute.");
+	OSK_ASSERT(result == VK_SUCCESS, CommandListSubmitException("PostCompute", result));
 }
 
 void RendererVk::SubmitGraphicsAndComputeCommands() {
@@ -695,7 +696,7 @@ void RendererVk::SubmitGraphicsAndComputeCommands() {
 	submitInfo.pCommandBuffers = &graphicsCommandList->As<CommandListVk>()->GetCommandBuffers()->At(currentCommandBufferIndex);
 
 	VkResult result = vkQueueSubmit(graphicsQueue->As<CommandQueueVk>()->GetQueue(), 1, &submitInfo, fullyRenderedFences[currentCommandBufferIndex]);
-	OSK_ASSERT(result == VK_SUCCESS, "No se ha podido enviar la cola PreCompute.");
+	OSK_ASSERT(result == VK_SUCCESS, CommandListSubmitException("PreCompute", result));
 }
 
 void RendererVk::SubmitFrameBuildCommands() {
@@ -717,7 +718,7 @@ void RendererVk::SubmitFrameBuildCommands() {
 	submitInfo.pCommandBuffers = &frameBuildCommandList->As<CommandListVk>()->GetCommandBuffers()->At(currentCommandBufferIndex);
 
 	VkResult result = vkQueueSubmit(graphicsQueue->As<CommandQueueVk>()->GetQueue(), 1, &submitInfo, fullyRenderedFences[currentCommandBufferIndex]);
-	OSK_ASSERT(result == VK_SUCCESS, "No se ha podido enviar la cola FrameBuild.");
+	OSK_ASSERT(result == VK_SUCCESS, CommandListSubmitException("FrameBuild", result));
 }
 
 void RendererVk::SubmitFrame() {
@@ -743,7 +744,7 @@ void RendererVk::SubmitFrame() {
 
 		swapchain->As<SwapchainVk>()->Resize();
 
-		if (display->GetResolution().X > 0 && display->GetResolution().Y > 0)
+		if (display->GetResolution().x > 0 && display->GetResolution().y > 0)
 			Engine::GetRenderer()->As<RendererVk>()->HandleResize();
 	}
 
@@ -768,7 +769,7 @@ void RendererVk::AcquireNextFrame() {
 		VK_NULL_HANDLE, 
 		&currentFrameIndex);
 
-	OSK_CHECK(result == VK_SUCCESS, "vkAcquireNextImageKHR code: " + std::to_string(result));
+	// OSK_CHECK(result == VK_SUCCESS, "vkAcquireNextImageKHR code: " + std::to_string(result));
 }
 
 void RendererVk::SetupRtFunctions(VkDevice device) {
@@ -800,7 +801,7 @@ void RendererVk::SetupRenderingFunctions(VkDevice logicalDevice) {
 		pvkCmdBeginRendering = vkCmdBeginRendering;
 		pvkCmdEndRendering = vkCmdEndRendering;
 
-		if (pvkCmdBeginRendering == nullptr or pvkCmdEndRendering == nullptr) {
+		if (pvkCmdBeginRendering == nullptr || pvkCmdEndRendering == nullptr) {
 			pvkCmdBeginRendering = reinterpret_cast<PFN_vkCmdBeginRendering>(vkGetDeviceProcAddr(logicalDevice, "vkCmdBeginRendering"));
 			pvkCmdEndRendering = reinterpret_cast<PFN_vkCmdEndRendering>(vkGetDeviceProcAddr(logicalDevice, "vkCmdEndRendering"));
 		}
@@ -810,15 +811,15 @@ void RendererVk::SetupRenderingFunctions(VkDevice logicalDevice) {
 		pvkCmdEndRendering = reinterpret_cast<PFN_vkCmdEndRendering>(vkGetDeviceProcAddr(logicalDevice, "vkCmdEndRendering"));
 	}
 
-	OSK_ASSERT(pvkCmdBeginRendering != nullptr, "No se puede iniciar el renderizador, falta Dynamic Rendering.");
-	OSK_ASSERT(pvkCmdEndRendering != nullptr, "No se puede iniciar el renderizador, falta Dynamic Rendering.");
+	OSK_ASSERT(pvkCmdBeginRendering != nullptr, GpuNotCompatibleException("No se puede iniciar el renderizador, falta Dynamic Rendering."));
+	OSK_ASSERT(pvkCmdEndRendering != nullptr, GpuNotCompatibleException("No se puede iniciar el renderizador, falta Dynamic Rendering."));
 }
 
-TSize RendererVk::GetCurrentFrameIndex() const {
+UIndex32 RendererVk::GetCurrentFrameIndex() const {
 	return currentFrameIndex;
 }
 
-TSize RendererVk::GetCurrentCommandListIndex() const {
+UIndex32 RendererVk::GetCurrentCommandListIndex() const {
 	return currentCommandBufferIndex;
 }
 

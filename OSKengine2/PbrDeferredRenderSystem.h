@@ -81,21 +81,21 @@ namespace OSK::ECS {
 		void SharpenTaa(GRAPHICS::ICommandList* commandList);
 		void CopyFinalImages(GRAPHICS::ICommandList* commandList);
 
-		void GBufferRenderLoop(GRAPHICS::ICommandList* commandList, ASSETS::ModelType modelType, TIndex jitterIndex);
-		void ShadowsRenderLoop(ASSETS::ModelType modelType, GRAPHICS::ICommandList* commandList, TSize cascadeIndex);
+		void GBufferRenderLoop(GRAPHICS::ICommandList* commandList, ASSETS::ModelType modelType, UIndex32 jitterIndex);
+		void ShadowsRenderLoop(ASSETS::ModelType modelType, GRAPHICS::ICommandList* commandList, UIndex32 cascadeIndex);
 
 	private:
 
 		GRAPHICS::ComputeRenderTarget resolveRenderTarget;
 		GRAPHICS::GBuffer gBuffer;
 
-		UniquePtr<GRAPHICS::GpuBuffer> cameraUbos[NUM_RESOURCES_IN_FLIGHT]{};
-		UniquePtr<GRAPHICS::GpuBuffer> previousCameraUbos[NUM_RESOURCES_IN_FLIGHT]{};
+		std::array<UniquePtr<GRAPHICS::GpuBuffer>, NUM_RESOURCES_IN_FLIGHT> cameraUbos{};
+		std::array<UniquePtr<GRAPHICS::GpuBuffer>, NUM_RESOURCES_IN_FLIGHT> previousCameraUbos{};
 
 		glm::mat4 previousCameraProjection = glm::mat4(1.0f);
 		glm::mat4 previousCameraView = glm::mat4(1.0f);
 
-		UniquePtr<GRAPHICS::GpuBuffer> dirLightUbos[3]{};
+		std::array<UniquePtr<GRAPHICS::GpuBuffer>, NUM_RESOURCES_IN_FLIGHT> dirLightUbos{};
 		GRAPHICS::DirectionalLight dirLight{};
 
 		GRAPHICS::ShadowMap shadowMap;

@@ -46,9 +46,9 @@ namespace OSK::COLLISION {
 			const ECS::Transform3D& thisTransform, const ECS::Transform3D& otherTransform) const;
 
 		ITopLevelCollider* GetTopLevelCollider() const;
-		IBottomLevelCollider* GetBottomLevelCollider(TIndex id) const;
+		IBottomLevelCollider* GetBottomLevelCollider(UIndex32 id) const;
 
-		TSize GetBottomLevelCollidersCount() const;
+		USize32 GetBottomLevelCollidersCount() const;
 
 	private:
 

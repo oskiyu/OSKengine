@@ -4,6 +4,8 @@
 #include "DynamicArray.hpp"
 #include "WindowsUtils.h"
 
+#include "PipelinesExceptions.h"
+
 using namespace OSK;
 using namespace OSK::GRAPHICS;
 
@@ -13,13 +15,13 @@ ComPtr<IDxcIncludeHandler> HlslRuntimeCompiler::includeHandler = nullptr;
 
 void HlslRuntimeCompiler::InitializeComponents() {
 	HRESULT result = DxcCreateInstance(CLSID_DxcCompiler, IID_PPV_ARGS(&compiler));
-	OSK_ASSERT(SUCCEEDED(result), "No se pudo instanciar la libreria del compilador DX12.");
+	OSK_ASSERT(SUCCEEDED(result), ShaderCompilingException("No se pudo instanciar la libreria del compilador DX12."));
 
 	result = DxcCreateInstance(CLSID_DxcUtils, IID_PPV_ARGS(utils.GetAddressOf()));
-	OSK_ASSERT(SUCCEEDED(result), "No se pudo instanciar el compilador DX12.");
+	OSK_ASSERT(SUCCEEDED(result), ShaderCompilingException("No se pudo instanciar el compilador DX12."));
 
 	result = utils->CreateDefaultIncludeHandler(&includeHandler);
-	OSK_ASSERT(SUCCEEDED(result), "No se pudo instanciar el iclude handler compilador DX12.");
+	OSK_ASSERT(SUCCEEDED(result), ShaderCompilingException("No se pudo instanciar el iclude handler compilador DX12."));
 }
 
 ComPtr<IDxcBlob> HlslRuntimeCompiler::CompileFromFile(const std::string& path, const std::string& hlslProfile) {
@@ -28,7 +30,7 @@ ComPtr<IDxcBlob> HlslRuntimeCompiler::CompileFromFile(const std::string& path, c
 	static UINT32 encoding = CP_UTF8;
 
 	HRESULT result = utils->LoadFile(L"./temp_shader", &encoding, sourceBlob.GetAddressOf());
-	OSK_ASSERT(SUCCEEDED(result), "No se pudo prerpocesar el shader " + path + ".");
+	OSK_ASSERT(SUCCEEDED(result), ShaderCompilingException(path));
 
 	// Región del shader compilado
 	DxcBuffer sourceBuffer;
@@ -51,7 +53,7 @@ ComPtr<IDxcBlob> HlslRuntimeCompiler::CompileFromFile(const std::string& path, c
 	ComPtr<IDxcBlobUtf8> compilationErrors;
 	compiled->GetOutput(DXC_OUT_ERRORS, IID_PPV_ARGS(compilationErrors.GetAddressOf()), nullptr);
 	if (compilationErrors && compilationErrors->GetStringLength() > 0)
-		OSK_ASSERT(false, "Error al compilar shaders DX12: " + std::string((char*)compilationErrors->GetBufferPointer()));
+		OSK_ASSERT(false, ShaderCompilingException(std::string((char*)compilationErrors->GetBufferPointer())));
 
 	ComPtr<IDxcBlob> output;
 

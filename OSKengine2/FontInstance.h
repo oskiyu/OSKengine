@@ -30,14 +30,14 @@ namespace OSK::ASSETS {
 		/// <summary> Tammaño de fuente de esta instancia. </summary>
 		/// 
 		/// @note En píxeles.
-		TSize fontSize = 0;
+		USize32 fontSize = 0;
 
 		/// <summary>
 		/// Calcula el tamaño que tendrá este texto si es renderizado
 		/// con esta instancia de la fuente.
 		/// </summary>
 		/// <returns>Tamaño, en píxeles.</returns>
-		Vector2f GetTextSize(const std::string& string) const;
+		Vector2f GetTextSize(std::string_view string) const;
 
 	};
 

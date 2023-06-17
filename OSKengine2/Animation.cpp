@@ -16,51 +16,62 @@ void Animation::Update(TDeltaTime deltaTime, const AnimationSkin& skin) {
 			return;
 	}
 
-	for (auto& channel : channels) {
+	for (const auto& channel : channels) {
 		const AnimationSampler& sampler = samplers[channel.samplerIndex];
 
-		for (TSize i = 0; i < sampler.timestamps.GetSize() - 1; i++) {
+		for (UIndex64 timestampIndex = 0; timestampIndex < sampler.timestamps.GetSize() - 1; timestampIndex++) {
 			// TODO: check interpolation type
 
+			const auto timestampA = sampler.timestamps[timestampIndex];
+			const auto timestampB = sampler.timestamps[timestampIndex + 1];
+
+			const bool isCurrentTimeBetweenStamps =
+				currentTime >= timestampA &&
+				currentTime <= timestampB;
+
+			if (!isCurrentTimeBetweenStamps)
+				return;
+
 			// Si el timestamp actual está entre los dos, se hace una interpolación lineal.
-			if (currentTime >= sampler.timestamps[i] && currentTime <= sampler.timestamps[i + 1]) {
-				const float ratio = (currentTime - sampler.timestamps[i]) / (sampler.timestamps[i + 1] - sampler.timestamps[i]);
 
-				MeshNode* node = skeleton.GetNode(channel.nodeId);
+			const float ratio = (currentTime - timestampA) / (timestampB - timestampA);
 
-				switch (channel.type) {
+			MeshNode* node = skeleton.GetNode(channel.nodeId);
+
+			const auto& outputA = sampler.outputs[timestampIndex];
+			const auto& outputB = sampler.outputs[timestampIndex + 1];
+
+			switch (channel.type) {
 
 				case AnimationChannel::ChannelType::TRANSLATION: {
-					const Vector4f vec4 = MATH::LinearInterpolation_Fast(sampler.outputs[i], sampler.outputs[i + 1], ratio);
-					node->position = { vec4.X, vec4.Y, vec4.Z };
+					const Vector4f vec4 = MATH::LinearInterpolation_Fast(outputA, outputB, ratio);
+					node->position = { vec4.x, vec4.y, vec4.Z };
 				}
-					break;
+				break;
 
 				case AnimationChannel::ChannelType::ROTATION: {
 					glm::quat prev{};
-					prev.x = sampler.outputs[i].X;
-					prev.y = sampler.outputs[i].Y;
-					prev.z = sampler.outputs[i].Z;
-					prev.w = sampler.outputs[i].W;
+					prev.x = outputA.x;
+					prev.y = outputA.y;
+					prev.z = outputA.Z;
+					prev.w = outputA.W;
 
 					glm::quat next{};
-					next.x = sampler.outputs[i + 1].X;
-					next.y = sampler.outputs[i + 1].Y;
-					next.z = sampler.outputs[i + 1].Z;
-					next.w = sampler.outputs[i + 1].W;
+					next.x = outputB.x;
+					next.y = outputB.y;
+					next.z = outputB.Z;
+					next.w = outputB.W;
 
 					node->rotation = Quaternion::FromGlm(glm::normalize(glm::slerp(prev, next, ratio)));
 				}
-					break;
+				break;
 
 				case AnimationChannel::ChannelType::SCALE: {
-					const Vector4f vec4 = MATH::LinearInterpolation_Fast(sampler.outputs[i], sampler.outputs[i + 1], ratio);
-					node->scale = { vec4.X, vec4.Y, vec4.Z };
+					const Vector4f vec4 = MATH::LinearInterpolation_Fast(outputA, outputB, ratio);
+					node->scale = { vec4.x, vec4.y, vec4.Z };
 				}
-					break;
+				break;
 
-				}
-			
 			}
 		}
 	}

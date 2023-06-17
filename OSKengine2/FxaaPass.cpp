@@ -19,9 +19,9 @@ void FxaaPass::Create(const Vector2ui& size) {
 }
 
 void FxaaPass::Execute(ICommandList* computeCmdList) {
-	const TSize resourceIndex = Engine::GetRenderer()->GetCurrentResourceIndex();
+	const UIndex32 resourceIndex = Engine::GetRenderer()->GetCurrentResourceIndex();
 
-	computeCmdList->StartDebugSection("FXAA", Color::PURPLE());
+	computeCmdList->StartDebugSection("FXAA", Color::Purple);
 
 	computeCmdList->SetGpuImageBarrier(
 		inputImages[resourceIndex], 
@@ -39,8 +39,8 @@ void FxaaPass::Execute(ICommandList* computeCmdList) {
 	computeCmdList->BindMaterialSlot(*postProcessingMaterialInstance->GetSlot("texture"));
 
 	const Vector3ui dispatchRes = {
-		static_cast<TSize>(glm::ceil(resolveRenderTarget.GetSize().X / 8.0f)),
-		static_cast<TSize>(glm::ceil(resolveRenderTarget.GetSize().Y / 8.0f)),
+		static_cast<UIndex32>(glm::ceil(resolveRenderTarget.GetSize().x / 8.0f)),
+		static_cast<UIndex32>(glm::ceil(resolveRenderTarget.GetSize().y / 8.0f)),
 		1
 	};
 

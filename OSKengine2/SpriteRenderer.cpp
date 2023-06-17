@@ -17,6 +17,9 @@
 #include "OSKengine.h"
 #include "EntityComponentSystem.h"
 
+#include "InvalidObjectStateException.h"
+#include "InvalidArgumentException.h"
+
 using namespace OSK;
 using namespace OSK::ECS;
 using namespace OSK::ASSETS;
@@ -45,7 +48,7 @@ void SpriteRenderer::SetCamera(GameObjectIndex gameObject) {
 }
 
 void SpriteRenderer::Begin() {
-	OSK_ASSERT(targetCommandList, "No se ha establecido la lista de comandos. Véase: SpriteRenderer::SetCommandList().");
+	OSK_ASSERT(targetCommandList, InvalidObjectStateException("No se ha establecido la lista de comandos. Véase: SpriteRenderer::SetCommandList()."));
 
 	targetCommandList->BindVertexBuffer(*Sprite::globalVertexBuffer);
 	targetCommandList->BindIndexBuffer(*Sprite::globalIndexBuffer);
@@ -58,8 +61,8 @@ void SpriteRenderer::Draw(const GRAPHICS::Sprite& sprite, const ECS::Transform2D
 }
 
 void SpriteRenderer::Draw(const Sprite& sprite, const TextureCoordinates2D& texCoords, const ECS::Transform2D& transform, const Color& color) {
-	OSK_ASSERT(targetCommandList, "No se ha establecido la lista de comandos. Véase: SpriteRenderer::SetCommandList().");
-	OSK_ASSERT(isStarted, "No se ha llamado a SpriteRenderer::Begin().");
+	OSK_ASSERT(targetCommandList, InvalidObjectStateException("No se ha establecido la lista de comandos. Véase: SpriteRenderer::SetCommandList()."));
+	OSK_ASSERT(isStarted, InvalidObjectStateException("No se ha llamado a SpriteRenderer::Begin()."));
 
 	// Optimización: comrpobamos si la imagen del sprite actual es la misma que la del sprite anterior.
 	// Si es la misma, no necesitamos volver a establecer el material slot.
@@ -103,21 +106,21 @@ void SpriteRenderer::Draw(const Sprite& sprite, const TextureCoordinates2D& texC
 	Draw(sprite, texCoords, position, size, rotation, sprite.color);
 }
 
-void SpriteRenderer::DrawString(Font& font, TSize fontSize, std::string_view text, const ECS::Transform2D& transform, const Color& color) {
+void SpriteRenderer::DrawString(Font& font, USize32 fontSize, std::string_view text, const ECS::Transform2D& transform, const Color& color) {
 	const auto& fontInstance = font.GetInstance(fontSize);
 
-	OSK_ASSERT(fontInstance.sprite.GetPointer() != nullptr, "La fuente no tiene configurado su sprite.");
+	OSK_ASSERT(fontInstance.sprite.GetPointer() != nullptr, InvalidArgumentException("La fuente no tiene configurado su sprite."));
 
 	const Vector2f& position = transform.GetPosition();
-	float x = transform.GetPosition().X;
-	float y = transform.GetPosition().Y;
+	float x = transform.GetPosition().x;
+	float y = transform.GetPosition().y;
 	
-	for (TSize i = 0; i < text.size(); i++) {
+	for (UIndex32 i = 0; i < text.size(); i++) {
 		const FontCharacter& character = fontInstance.characters.Get(text[i]);
 
 		if (text[i] == '\n') {
-			y += character.size.Y + character.bearing.Y;
-			x = position.X;
+			y += character.size.y + character.bearing.y;
+			x = position.x;
 
 			continue;
 		}
@@ -134,11 +137,11 @@ void SpriteRenderer::DrawString(Font& font, TSize fontSize, std::string_view tex
 			continue;
 		}
 
-		float sizeX = character.size.X;
-		float sizeY = character.size.Y;
+		float sizeX = character.size.x;
+		float sizeY = character.size.y;
 
-		float posX = x + character.bearing.X;
-		float posY = y - (character.bearing.Y);
+		float posX = x + character.bearing.x;
+		float posY = y - (character.bearing.y);
 
 		Draw(
 			*fontInstance.sprite.GetPointer(), 
@@ -147,11 +150,11 @@ void SpriteRenderer::DrawString(Font& font, TSize fontSize, std::string_view tex
 			Vector2f(sizeX, sizeY) * transform.GetScale(), 
 			transform.GetRotation(), color);
 
-		x += character.advance >> 6;
+		x += static_cast<float>(character.advance >> 6);
 	}
 }
 
-void SpriteRenderer::DrawString(ASSETS::Font& font, TSize fontSize, std::string_view text, const Vector2f position, const Vector2f size, float rotation, const Color& color) {
+void SpriteRenderer::DrawString(ASSETS::Font& font, USize32 fontSize, std::string_view text, const Vector2f position, const Vector2f size, float rotation, const Color& color) {
 	Transform2D transform(EMPTY_GAME_OBJECT);
 	transform.SetPosition(position);
 	transform.SetRotation(rotation);

@@ -5,6 +5,9 @@
 #include "Vector2.hpp"
 #include "RtRenderTarget.h"
 
+#include <array>
+#include <span>
+
 namespace OSK::GRAPHICS {
 
 	class ICommandList;
@@ -58,7 +61,7 @@ namespace OSK::GRAPHICS {
 		/// @warning Si las imágenes son invalidadas (porque su dueño
 		/// original se recrean o cambian de tamaño), se debe volver a 
 		/// establecer como imágenes de entrada con IPostProcessPass::SetInput.
-		void SetInput(GpuImage* images[3], const GpuImageViewConfig& viewConfig);
+		void SetInput(std::span<GpuImage*, NUM_RESOURCES_IN_FLIGHT> images, const GpuImageViewConfig& viewConfig);
 
 		/// @brief Establece las imágenes de entrada a partir de las que
 		/// se calculará el efecto.
@@ -119,8 +122,8 @@ namespace OSK::GRAPHICS {
 
 		ComputeRenderTarget resolveRenderTarget{};
 
-		GpuImage* inputImages[NUM_RESOURCES_IN_FLIGHT]{};
-		const IGpuImageView* inputViews[NUM_RESOURCES_IN_FLIGHT]{};
+		std::array<GpuImage*, NUM_RESOURCES_IN_FLIGHT> inputImages{};
+		std::array<const IGpuImageView*, NUM_RESOURCES_IN_FLIGHT> inputViews{};
 
 	};
 

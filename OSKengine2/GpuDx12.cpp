@@ -1,7 +1,9 @@
 #include "GpuDx12.h"
 
 #include "CommandPoolDx12.h"
-#include "SyncDeviceDx12.h"
+
+#include "Assert.h"
+#include "NotImplementedException.h"
 
 using namespace OSK;
 using namespace OSK::GRAPHICS;
@@ -15,7 +17,7 @@ void GpuDx12::Close() {
 }
 
 GpuMemoryUsageInfo GpuDx12::GetMemoryUsageInfo() const {
-	OSK_ASSERT(false, "No implementado");
+	OSK_ASSERT(false, NotImplementedException());
 	return {};
 }
 
@@ -37,19 +39,6 @@ OwnedPtr<ICommandPool> GpuDx12::CreateComputeCommandPool() {
 	device->CreateCommandAllocator(D3D12_COMMAND_LIST_TYPE_COMPUTE, IID_PPV_ARGS(&commandAllocator));
 
 	output->SetCommandPool(commandAllocator);
-
-	return output;
-}
-
-OwnedPtr<ISyncDevice> GpuDx12::CreateSyncDevice() {
-	auto output = new SyncDeviceDx12;
-
-	ComPtr<ID3D12Fence> fence;
-	device->CreateFence(0, D3D12_FENCE_FLAG_NONE, IID_PPV_ARGS(&fence));
-	HANDLE fenceEvent = CreateEvent(nullptr, FALSE, FALSE, nullptr);
-
-	output->SetFence(fence);
-	output->SetFenceEvent(fenceEvent);
 
 	return output;
 }

@@ -14,25 +14,25 @@ using namespace OSK::GRAPHICS;
 void ModelComponent3D::SetModel(Model3D* model) {
 	this->model = model;
 
-	TSize prevSize = meshesMaterialInstances.GetSize();
+	USize32 prevSize = meshesMaterialInstances.GetSize();
 	meshesMaterialInstances.Resize(model->GetMeshes().GetSize(), nullptr);
 
 	const GpuImageViewConfig viewConfig = GpuImageViewConfig::CreateSampled_Default();
 
 	if (material != nullptr) {
-		for (TSize i = prevSize; i < meshesMaterialInstances.GetSize(); i++) {
+		for (UIndex32 i = prevSize; i < meshesMaterialInstances.GetSize(); i++) {
 			meshesMaterialInstances.At(i) = material->CreateInstance().GetPointer();
 
-			for (auto& [slotName, bindings] : texturesBound)
-				for (auto& [bindingName, binding] : bindings)
+			for (const auto& [slotName, bindings] : texturesBound)
+				for (const auto& [bindingName, binding] : bindings)
 					meshesMaterialInstances.At(i)->GetSlot(slotName)->SetTexture(bindingName, binding);
 
-			for (auto& [slotName, bindings] : imagesBound)
-				for (auto& [bindingName, binding] : bindings)
+			for (const auto& [slotName, bindings] : imagesBound)
+				for (const auto& [bindingName, binding] : bindings)
 					meshesMaterialInstances.At(i)->GetSlot(slotName)->SetGpuImage(bindingName, binding);
 
-			for (auto& [slotName, bindings] : uniformBuffersBound)
-				for (auto& [bindingName, binding] : bindings)
+			for (const auto& [slotName, bindings] : uniformBuffersBound)
+				for (const auto& [bindingName, binding] : bindings)
 					meshesMaterialInstances.At(i)->GetSlot(slotName)->SetUniformBuffer(bindingName, *binding);
 		}
 	}
@@ -47,16 +47,16 @@ void ModelComponent3D::SetMaterial(Material* material) {
 		if (i.GetPointer() == nullptr) {
 			i = material->CreateInstance().GetPointer();
 
-			for (auto& [slotName, bindings] : texturesBound)
-				for (auto& [bindingName, binding] : bindings)
+			for (const auto& [slotName, bindings] : texturesBound)
+				for (const auto& [bindingName, binding] : bindings)
 					i->GetSlot(slotName)->SetTexture(bindingName, binding);
 
-			for (auto& [slotName, bindings] : imagesBound)
-				for (auto& [bindingName, binding] : bindings)
+			for (const auto& [slotName, bindings] : imagesBound)
+				for (const auto& [bindingName, binding] : bindings)
 					i->GetSlot(slotName)->SetGpuImage(bindingName, binding);
 
-			for (auto& [slotName, bindings] : uniformBuffersBound)
-				for (auto& [bindingName, binding] : bindings)
+			for (const auto& [slotName, bindings] : uniformBuffersBound)
+				for (const auto& [bindingName, binding] : bindings)
 					i->GetSlot(slotName)->SetUniformBuffer(bindingName, *binding);
 		}
 	}
@@ -66,7 +66,7 @@ Model3D* ModelComponent3D::GetModel() const {
 	return model;
 }
 
-MaterialInstance* ModelComponent3D::GetMeshMaterialInstance(TSize meshId) const {
+MaterialInstance* ModelComponent3D::GetMeshMaterialInstance(UIndex32 meshId) const {
 	return meshesMaterialInstances.At(meshId).GetPointer();
 }
 

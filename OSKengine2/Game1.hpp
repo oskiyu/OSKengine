@@ -52,7 +52,7 @@
 #include "Vertex2D.h"
 #include "Sprite.h"
 #include "PushConst2D.h"
-#include <glm\ext\matrix_clip_space.hpp>
+#include <glm/ext/matrix_clip_space.hpp>
 #include "Font.h"
 #include "FontLoader.h"
 #include "SpriteRenderer.h"
@@ -92,9 +92,9 @@
 #include "PhysicsComponent.h"
 #include "FrameCombiner.h"
 
-OSK::GRAPHICS::Material* material = nullptr;
-OSK::GRAPHICS::Material* material2d = nullptr;
-OSK::GRAPHICS::Material* materialRenderTarget = nullptr;
+#include "AudioApi.h"
+#include "AudioAsset.h"
+#include "AudioSource.h"
 
 OSK::GRAPHICS::SpriteRenderer spriteRenderer;
 
@@ -151,8 +151,6 @@ protected:
 		SpawnCircuit();
 		SpawnSecondCollider();
 		
-		uiImageView = new UI::ImageView({ 256.0f });
-
 		SetupRenderTargets();
 		SetupPostProcessingChain();
 
@@ -164,37 +162,44 @@ protected:
 		font->SetMaterial(material2d);
 
 		SetupUi();
+
+		// Audio test
+		const auto sound = Engine::GetAssetManager()->Load<ASSETS::AudioAsset>("Resources/Assets/Audio/bounce_audio.json", "GLOBAL");
+		source = AUDIO::Source();
+		source.Init();
+		source.SetBuffer(sound->GetBuffer());
+		source.SetLooping(true);
+		source.SetGain(0.05f);
+		source.Play();
 	}
 
 	void SetupUi() {
-		uiContainer = new UI::FreeContainer(Engine::GetDisplay()->GetResolution().ToVector2f());
-
-		UI::HorizontalContainer* logoContainer = new UI::HorizontalContainer({ 380.0f, 80.0f });
+		auto logoContainer = new UI::HorizontalContainer({ 380.0f, 80.0f });
 
 		const auto uiView = &Engine::GetAssetManager()->Load<ASSETS::Texture>("Resources/Assets/Textures/button_texture.json", "GLOBAL")
 			->GetTextureView2D();
 		const auto iconView = &Engine::GetAssetManager()->Load<ASSETS::Texture>("Resources/Assets/Textures/engine_icon.json", "GLOBAL")
 			->GetTextureView2D();
 
-		UI::ImageView* uiIcon = new UI::ImageView({ 48.0f });
+		UI::ImageView* uiIcon = new UI::ImageView(Vector2f(48.0f));
 		uiIcon->GetSprite().SetImageView(iconView);
 		uiIcon->SetMargin(Vector4f(4.0f));
 
-		UI::TextView* uiText = new UI::TextView({ 128.0f });
+		UI::TextView* uiText = new UI::TextView(Vector2f(128.0f));
 		uiText->SetFont(font);
 		uiText->SetFontSize(35);
 		uiText->SetText("OSKengine");
 		uiText->SetAnchor(UI::Anchor::CENTER_X | UI::Anchor::CENTER_Y);
 		uiText->AdjustSizeToText();
 
-		UI::TextView* text2 = new UI::TextView({ 128.0f });
+		UI::TextView* text2 = new UI::TextView(Vector2f(128.0f));
 		text2->SetFont(font);
 		text2->SetFontSize(21);
-		text2->SetText("build " + Engine::GetBuild());
+		text2->SetText(std::format("build {}", Engine::GetBuild()));
 		text2->SetAnchor(UI::Anchor::CENTER_X | UI::Anchor::BOTTOM);
 		text2->AdjustSizeToText();
 
-		uiFpsText = new UI::TextView({ 50.0f });
+		uiFpsText = new UI::TextView(Vector2f(50.0f));
 		uiFpsText->SetFont(font);
 		uiFpsText->SetFontSize(23);
 		uiFpsText->SetText("FPS: 000");
@@ -216,17 +221,17 @@ protected:
 		logoContainer->AdjustSizeToChildren();
 		logoContainer->Rebuild();
 
-		uiContainer->AddChild("", logoContainer);
+		GetRootUiElement().AddChild("", logoContainer);
 
 		// Panel derecho
-		UI::VerticalContainer* rightPanel = new UI::VerticalContainer({ 200.0f });
+		UI::VerticalContainer* rightPanel = new UI::VerticalContainer(Vector2f(200.0f));
 
 		rightPanel->GetSprite().SetImageView(uiView);
 		rightPanel->GetSprite().color = Color(0.3f, 0.3f, 0.3f, 0.94f);
 		rightPanel->SetAnchor(UI::Anchor::RIGHT | UI::Anchor::CENTER_Y);
 		rightPanel->SetPadding(Vector2f(6.0f));
 
-		UI::TextView* rightPanelTitle = new UI::TextView({ 50.0f });
+		UI::TextView* rightPanelTitle = new UI::TextView(Vector2f(50.0f));
 		rightPanelTitle->SetFont(font);
 		rightPanelTitle->SetFontSize(27);
 		rightPanelTitle->SetText("Settings");
@@ -238,7 +243,7 @@ protected:
 		taaCheckbox = CreateCheckbox("TAA", [this](bool isActive) { SetTaaState(isActive); }).GetPointer();
 		fxaaCheckbox = CreateCheckbox("FXAA", [this](bool isActive) { SetFxaaState(isActive); }).GetPointer();
 		bloomCheckbox = CreateCheckbox("Boom", [this](bool isActive) { SetBloomState(isActive); }).GetPointer();
-		collisionCheckbox = CreateCheckbox("Show Collisions", [this](bool isActive) { Engine::GetEcs()->GetSystem<ECS::ColliderRenderSystem>()->ToggleActivationStatus(); }).GetPointer();
+		collisionCheckbox = CreateCheckbox("Show Collisions", [](bool) { Engine::GetEcs()->GetSystem<ECS::ColliderRenderSystem>()->ToggleActivationStatus(); }).GetPointer();
 
 		rightPanel->AddChild("taaCheckbox", taaCheckbox);
 		rightPanel->AddChild("fxaaCheckbox", fxaaCheckbox);
@@ -248,7 +253,7 @@ protected:
 		rightPanel->AdjustSizeToChildren();
 		rightPanel->Rebuild();
 
-		uiContainer->AddChild("rightPanel", rightPanel);
+		GetRootUiElement().AddChild("rightPanel", rightPanel);
 	}
 
 	void RegisterSystems() override {
@@ -258,9 +263,9 @@ protected:
 	}
 
 	void OnTick(TDeltaTime deltaTime) override {
-		const IO::IKeyboardInput* keyboard = nullptr;
-		const IO::IGamepadInput* gamepad = nullptr;
-		const IO::IMouseInput* mouse = nullptr;
+		IO::IKeyboardInput* keyboard = nullptr;
+		IO::IGamepadInput* gamepad = nullptr;
+		IO::IMouseInput* mouse = nullptr;
 
 		// Obtenemos las interfaces necesarias
 		Engine::GetInput()->QueryInterface(IUUID::IKeyboardInput, (void**)&keyboard);
@@ -275,7 +280,7 @@ protected:
 		// Movimiento de la cámara en este frame
 		float cameraForwardMovement = 0.0f;
 		float cameraRightMovement = 0.0f;
-		Vector2f cameraRotation = 0.0f;
+		Vector2f cameraRotation = Vector2f::Zero;
 
 
 		// Si disponemos de teclado...
@@ -294,9 +299,6 @@ protected:
 
 				if (display)
 					display->ToggleFullscreen();
-
-				uiContainer->SetSize(Engine::GetDisplay()->GetResolution().ToVector2f());
-				uiContainer->Rebuild();
 			}
 
 #pragma region Exposición y gamma
@@ -314,10 +316,10 @@ protected:
 				toneMappingPass->SetExposure(toneMappingPass->GetExposure() + deltaTime * 2);
 
 			if (exposureChanged) {
-				for (TSize i = 0; i < _countof(exposureBuffers); i++) {
-					exposureBuffers[i]->MapMemory();
-					exposureBuffers[i]->Write(toneMappingPass->GetExposure());
-					exposureBuffers[i]->Unmap();
+				for (auto& buffer : exposureBuffers) {
+					buffer->MapMemory();
+					buffer->Write(toneMappingPass->GetExposure());
+					buffer->Unmap();
 				}
 			}
 
@@ -381,38 +383,43 @@ protected:
 				cameraForwardMovement *= 0.3f;
 				cameraRightMovement *= 0.3f;
 			}
+		}
 
-			if (mouse) {
-				cameraRotation = {
-					(float)(mouse->GetMouseState().GetPosition().X - mouse->GetPreviousMouseState().GetPosition().X),
-					(float)(mouse->GetMouseState().GetPosition().Y - mouse->GetPreviousMouseState().GetPosition().Y)
-				};
-			}
+		if (mouse) {
+			cameraRotation = {
+				(float)(mouse->GetMouseState().GetPosition().x - mouse->GetPreviousMouseState().GetPosition().x),
+				(float)(mouse->GetMouseState().GetPosition().y - mouse->GetPreviousMouseState().GetPosition().y)
+			};
+		}
 			
-			}
 
 
-			// Movimiento del coche
+		// Movimiento del coche
 
-			Transform3D& carTransform = Engine::GetEcs()->GetComponent<Transform3D>(carObject);
+		Transform3D& carTransform = Engine::GetEcs()->GetComponent<Transform3D>(carObject);
+				
 
+		PhysicsComponent& carPhysics = Engine::GetEcs()->GetComponent<PhysicsComponent>(carObject);
+
+		// Aceleración / deceleración
+		carPhysics.acceleration = 0.0f;
+
+		const float projection = carPhysics.velocity.Dot(carTransform.GetForwardVector());
+		carPhysics.velocity = carTransform.GetForwardVector().GetNormalized() * projection;
+
+		source.SetPitch(carPhysics.velocity.GetLenght());
+
+		if (keyboard) {
+			
 			// Rotación
 			if (keyboard->IsKeyDown(IO::Key::LEFT)) {
 				carTransform.RotateWorldSpace(deltaTime * 2, { 0, 1, 0 });
-				if (cameraAttachedToCar) cameraRotation.X += deltaTime * 250;
+				if (cameraAttachedToCar) cameraRotation.x += deltaTime * 250;
 			}
 			if (keyboard->IsKeyDown(IO::Key::RIGHT)) {
 				carTransform.RotateWorldSpace(deltaTime * 2, { 0, -1, 0 });
-				if (cameraAttachedToCar) cameraRotation.X -= deltaTime * 250;
+				if (cameraAttachedToCar) cameraRotation.x -= deltaTime * 250;
 			}
-
-			PhysicsComponent& carPhysics = Engine::GetEcs()->GetComponent<PhysicsComponent>(carObject);
-
-			// Aceleración / deceleración
-			carPhysics.acceleration = 0.0f;
-
-			const float projection = carPhysics.velocity.Dot(carTransform.GetForwardVector());
-			carPhysics.velocity = carTransform.GetForwardVector().GetNormalized() * projection;
 
 			if (keyboard->IsKeyDown(IO::Key::UP))
 				carPhysics.acceleration = carTransform.GetForwardVector() * 35.f * deltaTime;
@@ -423,31 +430,32 @@ protected:
 				carPhysics.acceleration = 0.0f;
 				carPhysics.velocity = 0.0f;
 			}
+		}
 
-			if (gamepad) {
-				const IO::GamepadState& gamepadState = gamepad->GetGamepadState(0);
-				if (gamepadState.IsConnected()) {
-					// cameraForwardMovement -= gamepadState.GetAxisState(IO::GamepadAxis::LEFT_Y);
+		if (gamepad) {
+			const IO::GamepadState& gamepadState = gamepad->GetGamepadState(0);
+			if (gamepadState.IsConnected()) {
+				// cameraForwardMovement -= gamepadState.GetAxisState(IO::GamepadAxis::LEFT_Y);
 
-					// cameraRightMovement += gamepadState.GetAxisState(IO::GamepadAxis::LEFT_X);
+				// cameraRightMovement += gamepadState.GetAxisState(IO::GamepadAxis::LEFT_X);
 
-					cameraRotation.X += gamepadState.GetAxisState(IO::GamepadAxis::RIGHT_X);
-					cameraRotation.Y += gamepadState.GetAxisState(IO::GamepadAxis::RIGHT_Y);
+				cameraRotation.x += gamepadState.GetAxisState(IO::GamepadAxis::RIGHT_X);
+				cameraRotation.y += gamepadState.GetAxisState(IO::GamepadAxis::RIGHT_Y);
 
-					carPhysics.acceleration += carTransform.GetForwardVector() * 35.f * deltaTime
-						* gamepadState.GetAxisState(IO::GamepadAxis::R2);
-					carPhysics.acceleration += carTransform.GetForwardVector() * -(projection * 2.0f + 85.0f) * deltaTime
-						* gamepadState.GetAxisState(IO::GamepadAxis::L2);
+				carPhysics.acceleration += carTransform.GetForwardVector() * 35.f * deltaTime
+					* gamepadState.GetAxisState(IO::GamepadAxis::R2);
+				carPhysics.acceleration += carTransform.GetForwardVector() * -(projection * 2.0f + 85.0f) * deltaTime
+					* gamepadState.GetAxisState(IO::GamepadAxis::L2);
 
-					if (gamepadState.GetAxisState(IO::GamepadAxis::LEFT_X) > 0.1f) {
-						carTransform.RotateWorldSpace(deltaTime * 2 * gamepadState.GetAxisState(IO::GamepadAxis::LEFT_X), { 0, 1.0f, 0 });
-						cameraRotation.X += deltaTime * 250 * gamepadState.GetAxisState(IO::GamepadAxis::LEFT_X);
-					}
-					if (gamepadState.GetAxisState(IO::GamepadAxis::LEFT_X) < -0.1f) {
-						carTransform.RotateWorldSpace(deltaTime * 2 * gamepadState.GetAxisState(IO::GamepadAxis::LEFT_X), { 0, 1.0f, 0 });
-						cameraRotation.X += deltaTime * 250 * gamepadState.GetAxisState(IO::GamepadAxis::LEFT_X);
-					}
+				if (gamepadState.GetAxisState(IO::GamepadAxis::LEFT_X) > 0.1f) {
+					carTransform.RotateWorldSpace(deltaTime * 2 * gamepadState.GetAxisState(IO::GamepadAxis::LEFT_X), { 0, 1.0f, 0 });
+					cameraRotation.x += deltaTime * 250 * gamepadState.GetAxisState(IO::GamepadAxis::LEFT_X);
 				}
+				if (gamepadState.GetAxisState(IO::GamepadAxis::LEFT_X) < -0.1f) {
+					carTransform.RotateWorldSpace(deltaTime * 2 * gamepadState.GetAxisState(IO::GamepadAxis::LEFT_X), { 0, 1.0f, 0 });
+					cameraRotation.x += deltaTime * 250 * gamepadState.GetAxisState(IO::GamepadAxis::LEFT_X);
+				}
+			}
 		}
 
 
@@ -460,21 +468,21 @@ protected:
 		if (Engine::GetEcs()->GetComponent<PhysicsComponent>(carObject).acceleration.GetLenght() > 0.5f * deltaTime || 
 			Engine::GetEcs()->GetComponent<PhysicsComponent>(carObject).velocity.GetLenght() > 1.5f * deltaTime) {
 			const Vector2f flatCarVec = {
-				Engine::GetEcs()->GetComponent<Transform3D>(carObject).GetRightVector().X,
+				Engine::GetEcs()->GetComponent<Transform3D>(carObject).GetRightVector().x,
 				Engine::GetEcs()->GetComponent<Transform3D>(carObject).GetRightVector().Z
 			};
 
 			const Vector2f flatArmVec = {
-				cameraArmTransform.GetForwardVector().X,
+				cameraArmTransform.GetForwardVector().x,
 				cameraArmTransform.GetForwardVector().Z
 			};
 
 			const float angle = -flatArmVec.Dot(flatCarVec);
-			if (cameraAttachedToCar) cameraRotation.X += angle * 750 * deltaTime;
+			if (cameraAttachedToCar) cameraRotation.x += angle * 750 * deltaTime;
 		}
 
-		cameraArmTransform.RotateWorldSpace(glm::radians(-cameraRotation.X * 0.25f), { 0, 1, 0 });
-		cameraArmTransform.RotateLocalSpace(glm::radians(cameraRotation.Y * 0.25f), { 1, 0, 0 });
+		cameraArmTransform.RotateWorldSpace(glm::radians(-cameraRotation.x * 0.25f), { 0, 1, 0 });
+		cameraArmTransform.RotateLocalSpace(glm::radians(cameraRotation.y * 0.25f), { 1, 0, 0 });
 
 		camera.UpdateTransform(&cameraTransform);
 
@@ -485,19 +493,19 @@ protected:
 		if (false) {
 			const float targetFps = 10.0f;
 			const float targetMs = 1.0f / targetFps;
-			const long waitMiliseconds = static_cast<long>((targetMs - deltaTime) * 1000);
+			const auto waitMiliseconds = static_cast<long>((targetMs - deltaTime) * 1000);
 			std::this_thread::sleep_for(std::chrono::milliseconds(glm::max(0l, waitMiliseconds)));
 		}
 
 		// UI
 		if (mouse) {
 			const auto& state = mouse->GetMouseState();
-			uiContainer->UpdateByCursor(state.GetPosition().ToVector2f(), state.IsButtonDown(IO::MouseButton::BUTTON_LEFT), 0.0f);
+			GetRootUiElement().UpdateByCursor(state.GetPosition().ToVector2f(), state.IsButtonDown(IO::MouseButton::BUTTON_LEFT), Vector2f::Zero);
 		}
 	}
 
 	void BuildFrame() override {
-		const TIndex resourceIndex = Engine::GetRenderer()->GetCurrentResourceIndex();
+		const UIndex32 resourceIndex = Engine::GetRenderer()->GetCurrentResourceIndex();
 
 		auto graphicsCommandList = Engine::GetRenderer()->GetGraphicsCommandList();
 		auto frameBuildCommandList = Engine::GetRenderer()->GetFrameBuildCommandList();
@@ -509,8 +517,8 @@ protected:
 		const Vector4ui windowRec = {
 			0,
 			0,
-			Engine::GetDisplay()->GetResolution().X,
-			Engine::GetDisplay()->GetResolution().Y
+			Engine::GetDisplay()->GetResolution().x,
+			Engine::GetDisplay()->GetResolution().y
 		};
 
 		Viewport viewport{};
@@ -520,16 +528,16 @@ protected:
 		graphicsCommandList->SetScissor(windowRec);
 
 		// Render text
-		graphicsCommandList->StartDebugSection("Text Rendering", Color::BLUE());
-		graphicsCommandList->BeginGraphicsRenderpass(textRenderTarget.GetPointer(), Color::BLACK() * 0.0f);
+		graphicsCommandList->StartDebugSection("Text Rendering", Color::Blue);
+		graphicsCommandList->BeginGraphicsRenderpass(textRenderTarget.GetPointer(), Color::Black * 0.0f);
 
 		spriteRenderer.Begin();
 		spriteRenderer.SetCamera(cameraObject2d);
 		spriteRenderer.SetMaterial(*material2d);
 
-		uiFpsText->SetText("FPS: " + std::to_string(GetFps()));
+		uiFpsText->SetText(std::format("FPS: {}", GetFps()));
 
-		uiContainer->Render(&spriteRenderer, 0.0f);
+		GetRootUiElement().Render(&spriteRenderer, Vector2f::Zero);
 
 		spriteRenderer.End();
 
@@ -622,8 +630,9 @@ protected:
 			GpuBarrierInfo(GpuCommandStage::NONE, GpuAccessStage::NONE));
 	}
 
-	
-	void OnWindowResize(const Vector2ui& size) {
+
+	void OnWindowResize(const Vector2ui& size) override {
+		textRenderTarget->Resize(size);
 		preEffectsRenderTarget->Resize(size);
 		fxaaPass->Resize(size);
 		bloomPass->Resize(size);
@@ -639,16 +648,13 @@ protected:
 		fxaaPass.Delete();
 		toneMappingPass.Delete();
 
-		for (TIndex i = 0; i < _countof(exposureBuffers); i++)
-			exposureBuffers[i].Delete();
+		for (auto& buffer : exposureBuffers)
+			buffer.Delete();
 
 		preEffectsRenderTarget.Delete();
 		textRenderTarget.Delete();
 
 		preEffectsFrameCombiner.Delete();
-		finalFrameCombiner.Delete();
-
-		uiContainer.Delete();
 	}
 
 private:
@@ -657,22 +663,22 @@ private:
 		const static auto uiView = &Engine::GetAssetManager()->Load<ASSETS::Texture>("Resources/Assets/Textures/button_texture.json", "GLOBAL")
 			->GetTextureView2D();
 
-		UI::HorizontalContainer* checkbox = new UI::HorizontalContainer({ 50.0f });
+		UI::HorizontalContainer* checkbox = new UI::HorizontalContainer(Vector2f(50.0f));
 
-		UI::Button* button = new UI::Button(25.0f, "");
+		auto button = new UI::Button(Vector2f(25.0f), "");
 		button->GetSprite(UI::Button::State::DEFAULT).SetImageView(uiView);
-		button->GetSprite(UI::Button::State::DEFAULT).color = Color::RED();
+		button->GetSprite(UI::Button::State::DEFAULT).color = Color::Red;
 
 		button->GetSprite(UI::Button::State::PRESSED).SetImageView(uiView);
-		button->GetSprite(UI::Button::State::PRESSED).color = Color::GREEN();
+		button->GetSprite(UI::Button::State::PRESSED).color = Color::Green;
 
 		button->GetSprite(UI::Button::State::SELECTED).SetImageView(uiView);
-		button->GetSprite(UI::Button::State::SELECTED).color = Color::BLUE();
+		button->GetSprite(UI::Button::State::SELECTED).color = Color::Blue;
 
 		button->SetCallback(callback);
 		button->SetState(UI::Button::State::PRESSED);
 
-		UI::TextView* textView = new UI::TextView(25.0f);
+		auto textView = new UI::TextView(Vector2f(25.0f));
 		textView->SetText(text);
 		textView->SetFont(font);
 		textView->SetFontSize(25);
@@ -687,7 +693,7 @@ private:
 		return checkbox;
 	}
 
-	void SetTaaState(bool state) {
+	void SetTaaState(bool) {
 		auto renderSystem = Engine::GetEcs()->GetSystem<OSK_CURRENT_RSYSTEM>();
 		renderSystem->ToggleTaa();
 	}
@@ -715,14 +721,9 @@ private:
 		preEffectsRenderTarget = new RenderTarget();
 		preEffectsRenderTarget->Create(Engine::GetDisplay()->GetResolution(), { preEffectsColorInfo }, preEffectsDepthInfo);
 
-		Engine::GetRenderer()->RegisterRenderTarget(textRenderTarget.GetPointer());
-
 		// Combiners
 		preEffectsFrameCombiner = new FrameCombiner();
 		preEffectsFrameCombiner->Create(Engine::GetDisplay()->GetResolution(), preEffectsColorInfo);
-
-		finalFrameCombiner = new FrameCombiner();
-		finalFrameCombiner->Create(Engine::GetDisplay()->GetResolution(), preEffectsColorInfo);
 	}
 
 	void SetupPostProcessingChain() {
@@ -741,8 +742,8 @@ private:
 			toneMappingPass = new ToneMappingPass();
 			toneMappingPass->Create(Engine::GetDisplay()->GetResolution());
 
-			const GpuBuffer* epxBuffers[3]{};
-			for (TSize i = 0; i < _countof(exposureBuffers); i++) {
+			const GpuBuffer* epxBuffers[NUM_RESOURCES_IN_FLIGHT]{};
+			for (UIndex32 i = 0; i < exposureBuffers.size(); i++) {
 				exposureBuffers[i] = Engine::GetRenderer()->GetAllocator()->CreateStorageBuffer(sizeof(float)).GetPointer();
 				epxBuffers[i] = exposureBuffers[i].GetPointer();
 
@@ -776,8 +777,6 @@ private:
 			toneMappingPass->SetInput(preEffectsSource, viewConfig);
 		}
 
-		uiImageView->GetSprite().SetImageView(toneMappingPass->GetOutput().GetTargetImage(0)->GetView(viewConfig));
-
 		Engine::GetRenderer()->WaitForCompletion();
 
 		fxaaPass->UpdateMaterialInstance();
@@ -808,7 +807,7 @@ private:
 		cameraObject = Engine::GetEcs()->SpawnObject();
 		cameraArmObject = Engine::GetEcs()->SpawnObject();
 
-		Transform3D* cameraArmTransform = &Engine::GetEcs()->AddComponent<Transform3D>(cameraArmObject, Transform3D(cameraArmObject));
+		Engine::GetEcs()->AddComponent<Transform3D>(cameraArmObject, Transform3D(cameraArmObject));
 
 		Transform3D* cameraTransform = &Engine::GetEcs()->AddComponent<Transform3D>(cameraObject, Transform3D(cameraObject));
 		cameraTransform->AddPosition({ 0.0f, 0.1f, -1.1f });
@@ -862,7 +861,7 @@ private:
 		circuitObject = Engine::GetEcs()->SpawnObject();
 
 		// Transform
-		Transform3D* transform = &Engine::GetEcs()->AddComponent<Transform3D>(circuitObject, Transform3D(circuitObject));
+		Engine::GetEcs()->AddComponent<Transform3D>(circuitObject, Transform3D(circuitObject));
 
 		// Modelo 3D
 		Model3D* circuitModel = Engine::GetAssetManager()->Load<Model3D>("Resources/Assets/Models/circuit0.json", "GLOBAL");
@@ -903,7 +902,6 @@ private:
 	} config;
 
 	UniquePtr<FrameCombiner> preEffectsFrameCombiner;
-	UniquePtr<FrameCombiner> finalFrameCombiner;
 
 	UniquePtr<RenderTarget> preEffectsRenderTarget;
 	UniquePtr<RenderTarget> textRenderTarget;
@@ -912,11 +910,13 @@ private:
 	UniquePtr<FxaaPass> fxaaPass;
 	UniquePtr<ToneMappingPass> toneMappingPass;
 
-	UniquePtr<GpuBuffer> exposureBuffers[NUM_RESOURCES_IN_FLIGHT];
+	OSK::GRAPHICS::Material* material = nullptr;
+	OSK::GRAPHICS::Material* material2d = nullptr;
+	OSK::GRAPHICS::Material* materialRenderTarget = nullptr;
 
-	UI::ImageView* uiImageView = nullptr;
+	std::array<UniquePtr<GpuBuffer>, NUM_RESOURCES_IN_FLIGHT> exposureBuffers{};
+
 	UI::TextView* uiFpsText = nullptr;
-	UniquePtr<UI::IContainer> uiContainer;
 
 	UI::HorizontalContainer* taaCheckbox = nullptr;
 	UI::HorizontalContainer* fxaaCheckbox = nullptr;
@@ -930,6 +930,8 @@ private:
 	ECS::GameObjectIndex cameraObject2d = ECS::EMPTY_GAME_OBJECT;
 
 	ASSETS::Font* font = nullptr;
+
+	AUDIO::Source source;
 
 	bool cameraAttachedToCar = false;
 

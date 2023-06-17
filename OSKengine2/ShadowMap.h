@@ -6,6 +6,8 @@
 #include "Vector4.hpp"
 #include "GameObject.h"
 
+#include <array>
+
 namespace OSK::ASSETS {
 	enum class ModelType;
 }
@@ -41,6 +43,8 @@ namespace OSK::GRAPHICS {
 		/// sobre este mapa de sombras.
 		/// 
 		/// @pre Debe llamarse después de inicializar el mapa de sombras (ShadowMap::Create).
+		/// 
+		/// @throws InvalidObjectStateException Si se incumple alguna rpecondición.
 		void SetDirectionalLight(const DirectionalLight& dirLight);
 
 
@@ -65,13 +69,13 @@ namespace OSK::GRAPHICS {
 		/// 
 		/// @pre Se debe haber inicializado el ShadowMap con ShadowMap::Create.
 		/// @note Devolverá nullptr si no se cumple la precondición.
-		GpuImage* GetShadowImage(TSize index) const;
+		GpuImage* GetShadowImage(UIndex32 index) const;
 		
 		/// @brief Devuelve la imagen de color del mapa de sombras.
 		/// Para su renderizado.
 		/// @param index Índice de la imagen en el swapchain.
 		/// @return Mapa de profundidad.
-		GpuImage* GetColorImage(TSize index) const;
+		GpuImage* GetColorImage(UIndex32 index) const;
 
 				
 		/// @brief Devuelve el material usado para la generación de sombras.
@@ -105,7 +109,7 @@ namespace OSK::GRAPHICS {
 
 
 		/// @return Número de mapas de sobras en cascada.
-		TSize GetNumCascades() const;
+		USize32 GetNumCascades() const;
 
 	private:
 
@@ -113,8 +117,8 @@ namespace OSK::GRAPHICS {
 
 		void UpdateLightMatrixBuffer();
 
-		UniquePtr<GpuImage> unusedColorArrayAttachment[NUM_RESOURCES_IN_FLIGHT]{};
-		UniquePtr<GpuImage> depthArrayAttachment[NUM_RESOURCES_IN_FLIGHT]{};
+		std::array<UniquePtr<GpuImage>, NUM_RESOURCES_IN_FLIGHT> unusedColorArrayAttachment{};
+		std::array<UniquePtr<GpuImage>, NUM_RESOURCES_IN_FLIGHT> depthArrayAttachment{};
 
 		Vector2f lightArea = Vector2f(5.f, 5.f);
 		float nearPlane = -5.0f;
@@ -127,9 +131,9 @@ namespace OSK::GRAPHICS {
 		Material* shadowsGenAnimMaterial = nullptr;
 		UniquePtr<MaterialInstance> shadowsGenMaterialInstance = nullptr;
 
-		UniquePtr<GpuBuffer> lightUniformBuffer[NUM_RESOURCES_IN_FLIGHT]{};
+		std::array<UniquePtr<GpuBuffer>, NUM_RESOURCES_IN_FLIGHT> lightUniformBuffer{};
 
-		const static TSize numMaps = 4;
+		const static USize32 numMaps = 4;
 
 		ECS::GameObjectIndex cameraObject = ECS::EMPTY_GAME_OBJECT;
 

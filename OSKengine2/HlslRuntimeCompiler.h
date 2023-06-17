@@ -19,6 +19,8 @@ namespace OSK::GRAPHICS {
 		/// <summary>
 		/// Inicializa los componentes globales.
 		/// </summary>
+		/// 
+		/// @throws ShaderCompilingException Si ocurre algún error.
 		static void InitializeComponents();
 
 		/// <summary>
@@ -29,6 +31,8 @@ namespace OSK::GRAPHICS {
 		/// <returns>Blob con el shader compilado.</returns>
 		/// 
 		/// @pre Se debe haber llamado a HlslRuntimeCompiler::InitializeComponents.
+		/// 
+		/// @throws ShaderCompilingException Si ocurre algún error.
 		ComPtr<IDxcBlob> CompileFromFile(const std::string& path, const std::string& hlslProfile);
 
 	private:

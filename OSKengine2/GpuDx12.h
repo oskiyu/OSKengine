@@ -16,15 +16,14 @@ namespace OSK::GRAPHICS {
 
 	public:
 
-		~GpuDx12();
+		~GpuDx12() override;
+
 		void Close() override;
 
 		GpuMemoryUsageInfo GetMemoryUsageInfo() const override;
 
 		OwnedPtr<ICommandPool> CreateGraphicsCommandPool() override;
 		OwnedPtr<ICommandPool> CreateComputeCommandPool() override;
-
-		OwnedPtr<ISyncDevice> CreateSyncDevice() override;
 
 		void SetAdapter(const ComPtr<IDXGIAdapter1>& adapter);
 		void SetDevice(const ComPtr<ID3D12Device>& device);

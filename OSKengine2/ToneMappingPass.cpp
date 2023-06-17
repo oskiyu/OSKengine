@@ -18,9 +18,9 @@ void ToneMappingPass::Create(const Vector2ui& size) {
 }
 
 void ToneMappingPass::Execute(ICommandList* computeCmdList) {
-	const TSize resourceIndex = Engine::GetRenderer()->GetCurrentResourceIndex();
+	const UIndex32 resourceIndex = Engine::GetRenderer()->GetCurrentResourceIndex();
 
-	computeCmdList->StartDebugSection("Tone Mapping", Color::PURPLE());
+	computeCmdList->StartDebugSection("Tone Mapping", Color::Purple);
 
 	computeCmdList->SetGpuImageBarrier(
 		inputImages[resourceIndex],
@@ -40,8 +40,8 @@ void ToneMappingPass::Execute(ICommandList* computeCmdList) {
 	computeCmdList->BindMaterialSlot(*postProcessingMaterialInstance->GetSlot("exposure"));
 
 	const Vector3ui dispatchRes = {
-		static_cast<TSize>(glm::ceil(resolveRenderTarget.GetSize().X / 8.0f)),
-		static_cast<TSize>(glm::ceil(resolveRenderTarget.GetSize().Y / 8.0f)),
+		static_cast<USize32>(glm::ceil(resolveRenderTarget.GetSize().x / 8.0f)),
+		static_cast<USize32>(glm::ceil(resolveRenderTarget.GetSize().y / 8.0f)),
 		1
 	};
 
@@ -68,7 +68,7 @@ float ToneMappingPass::GetGamma() const {
 	return gamma;
 }
 
-void ToneMappingPass::SetExposureBuffers(const GpuBuffer* buffers[3]) {
-	postProcessingMaterialInstance->GetSlot("exposure")->SetStorageBuffers("exposure", (const GpuBuffer**)buffers);
+void ToneMappingPass::SetExposureBuffers(std::span<const GpuBuffer*, NUM_RESOURCES_IN_FLIGHT> buffers) {
+	postProcessingMaterialInstance->GetSlot("exposure")->SetStorageBuffers("exposure", buffers);
 	postProcessingMaterialInstance->GetSlot("exposure")->FlushUpdate();
 }

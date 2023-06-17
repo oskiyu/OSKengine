@@ -48,6 +48,16 @@ namespace OSK {
 			return *this;
 		}
 
+		OwnedPtr& operator=(OwnedPtr&& other) {
+			std::swap(this->pointer, other.pointer);
+			return *this;
+		}
+
+		OwnedPtr(OwnedPtr&& other) {
+			this->pointer = other.pointer;
+			other.pointer = nullptr;
+		}
+
 		/// <summary>
 		/// Accede a un elemento, considerando el puntero un array.
 		/// </summary>

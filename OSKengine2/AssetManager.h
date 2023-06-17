@@ -9,13 +9,15 @@
 #include "UniquePtr.hpp"
 #include "IAssetLoader.h"
 #include "IAsset.h"
+#include "Logger.h"
+
+#include "AssetLoaderNotFoundException.h"
 
 namespace OSK::ASSETS {
 
-	/// <summary>
+	/// @brief
 	/// El AssetManager se encarga de manejar los loaders de los assets y los lifetimes
 	/// de los assets.
-	/// </summary>
 	/// 
 	/// @note Se deben registrar todos los loaders mediante RegisterLoader().
 	/// 
@@ -42,6 +44,9 @@ namespace OSK::ASSETS {
 				return (T*)assetsTable.Get(assetFilePath);
 
 			T* output = new T(assetFilePath);
+
+			OSK_ASSERT(loaders.ContainsKey((std::string)T::GetAssetType()), AssetLoaderNotFoundException(T::GetAssetType()))
+
 			loaders.Get(T::GetAssetType())->Load(assetFilePath, (IAsset**)&output);
 
 			assetsTable.Insert(output->GetName(), output);

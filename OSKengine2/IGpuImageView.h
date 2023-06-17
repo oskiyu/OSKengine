@@ -56,7 +56,7 @@ namespace OSK::GRAPHICS {
 		/// </summary>
 		/// 
 		/// @deprecated Acceder a través de GetConfig().
-		TSize GetBaseArrayLevel() const;
+		UIndex32 GetBaseArrayLevel() const;
 
 		/// <summary>
 		/// Número de capas del array.
@@ -67,7 +67,7 @@ namespace OSK::GRAPHICS {
 		/// devolverá 1.
 		/// 
 		/// @deprecated Acceder a través de GetConfig().
-		TSize GetLayerCount() const;
+		USize32 GetLayerCount() const;
 
 		/// <summary>
 		/// Contexto en el que se va a usar la imagen.
@@ -79,12 +79,12 @@ namespace OSK::GRAPHICS {
 		/// @return Mip level más detallado.
 		/// 
 		/// @deprecated Acceder a través de GetConfig().
-		inline TIndex GetBaseMipLevel() const { return config.baseMipLevel; }
+		inline UIndex32 GetBaseMipLevel() const { return config.baseMipLevel; }
 
 		/// @return Mip level menos detallado.
 		/// 
 		/// @deprecated Acceder a través de GetConfig().
-		inline TIndex GetTopMipLevel() const { return config.topMipLevel; }
+		inline UIndex32 GetTopMipLevel() const { return config.topMipLevel; }
 
 		/// @return Configuración completa del view.
 		inline const GpuImageViewConfig& GetConfig() const { return config; }
@@ -98,15 +98,15 @@ namespace OSK::GRAPHICS {
 
 		/// @return Tamaño de la imagen, en 3 dimensiones.
 		/// @see GpuImage.
-		inline const Vector3ui GetSize3D() const { return size; }
+		inline Vector3ui GetSize3D() const { return size; }
 
 		/// @return Tamaño de la imagen, en 2 dimensiones.
 		/// @see GpuImage.
-		inline const Vector2ui GetSize2D() const { return { size.X, size.Y }; }
+		inline Vector2ui GetSize2D() const { return { size.x, size.y }; }
 
 		/// @return Tamaño de la imagen, en 1 dimensión.
 		/// @see GpuImage.
-		inline const TSize GetSize1D() const { return size.X; };
+		inline USize32 GetSize1D() const { return size.x; };
 
 	private:
 

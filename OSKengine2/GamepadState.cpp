@@ -3,39 +3,39 @@
 using namespace OSK;
 using namespace OSK::IO;
 
-GamepadState::GamepadState(TSize identifier) : identifier(identifier) {
+GamepadState::GamepadState(UIndex32 identifier) : identifier(identifier) {
 	
 }
 
 GamepadButtonState GamepadState::GetButtonState(GamepadButton button) const {
-	return buttonState[(TSize)button];
+	return buttonState[(UIndex32)button];
 }
 
 bool GamepadState::IsButtonDown(GamepadButton button) const {
-	return buttonState[(TSize)button] == GamepadButtonState::PRESSED;
+	return buttonState[(UIndex32)button] == GamepadButtonState::PRESSED;
 }
 
 bool GamepadState::IsButtonUp(GamepadButton button) const {
-	return buttonState[(TSize)button] == GamepadButtonState::RELEASED;
+	return buttonState[(UIndex32)button] == GamepadButtonState::RELEASED;
 }
 
 float GamepadState::GetAxisState(GamepadAxis axis) const {
 	if (axis == GamepadAxis::L2 || axis == GamepadAxis::R2)
-		return (axesStates[(TSize)axis] + 1.0f) / 2.0f;
+		return (axesStates[(UIndex32)axis] + 1.0f) / 2.0f;
 
-	return axesStates[(TSize)axis];
+	return axesStates[(UIndex32)axis];
 }
 
-TSize GamepadState::GetIdentifier() const {
+UIndex32 GamepadState::GetIdentifier() const {
 	return identifier;
 }
 
 void GamepadState::_SetButtonState(GamepadButton button, GamepadButtonState state) {
-	buttonState[(TSize)button] = state;
+	buttonState[(UIndex32)button] = state;
 }
 
 void GamepadState::_SetAxisState(GamepadAxis axis, float value) {
-	axesStates[(TSize)axis] = value;
+	axesStates[(UIndex32)axis] = value;
 }
 
 void GamepadState::_SetConnectionState(bool isConnected) {

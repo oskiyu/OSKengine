@@ -46,7 +46,7 @@ namespace OSK::PERSISTENCE {
 		/// 
 		/// @pre El índice debe apuntar a un índice en el que 
 		/// hay un elemento guardado.
-		inline void SetValue(TIndex index, const TDataType& data) {
+		inline void SetValue(UIndex64 index, const TDataType& data) {
 			this->data.At(index) = data;
 		}
 
@@ -55,18 +55,18 @@ namespace OSK::PERSISTENCE {
 		/// @return Valor.
 		/// 
 		/// @pre El índice debe ser < a GetFieldCount().
-		inline const TDataType& Get(TIndex index) const { return data.At(index); }
+		inline const TDataType& Get(UIndex64 index) const { return data.At(index); }
 
 		/// @brief Obtiene el valor en el índice dado.
 		/// @param index Índice dentro de la lista.
 		/// @return Valor.
 		/// 
 		/// @pre El índice debe ser < a GetFieldCount().
-		inline TDataType& GetRef(TIndex index) { return data.At(index); }
+		inline TDataType& GetRef(UIndex64 index) { return data.At(index); }
 
 		/// @brief Devuelve el número de valores en la lista.
 		/// @return Número de valores almacenados.
-		inline TSize GetFieldCount() const {
+		inline USize64 GetFieldCount() const {
 			return data.GetSize();
 		}
 

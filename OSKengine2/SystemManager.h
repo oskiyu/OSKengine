@@ -44,6 +44,98 @@ namespace OSK::ECS {
 		void GameObjectSignatureChanged(GameObjectIndex obj, const Signature& signature);
 
 
+
+		/// @brief Registra un sistema, con lo que se ejecutará
+		/// a partir de ahora. Si ya estaba registrado, no ocurre nada.
+		/// @tparam TSystem Tipo del sistema.
+		/// @return Instancia del sistema.
+		template <typename TSystem> requires IsEcsSystem<TSystem>
+		TSystem* RegisterSystem() {
+			const auto key = (std::string)TSystem::GetSystemName();
+
+			if (ContainsSystem<TSystem>())
+				return GetSystem<TSystem>();
+
+			auto sistema = new TSystem;
+
+			if constexpr (IsProducerSystem<TSystem>) {
+				producers.Insert(key, (IProducerSystem*)sistema);
+			}
+
+			if constexpr (IsConsumerSystem<TSystem>) {
+				consumers.Insert(key, (IConsumerSystem*)sistema);
+			}
+
+			if constexpr (IsPureSystem<TSystem>) {
+				systems.Insert(key, (IPureSystem*)sistema);
+			}
+
+			return sistema;
+		}
+
+		/// @brief Elimina el sistema dado, para que no sea procesado a partir de ahora.
+		/// @tparam TSystem Tipo del sistema.
+		/// @note Si el sistema no está registrado, no ocurre nada.
+		template <typename TSystem> requires IsEcsSystem<TSystem> 
+		void RemoveSystem() {
+			if constexpr (IsProducerSystem<TSystem>) {
+				producers.Remove(TSystem::GetSystemName());
+			}
+
+			if constexpr (IsConsumerSystem<TSystem>) {
+				consumers.Remove(TSystem::GetSystemName());
+			}
+
+			if constexpr (IsPureSystem<TSystem>) {
+				systems.Remove((std::string)TSystem::GetSystemName());
+			}
+		}
+
+		/// @tparam TSystem Tipo del sistema.
+		/// @return La instancia del sistema dado.
+		/// Null si no está registrado.
+		template <typename TSystem> requires IsEcsSystem<TSystem>
+		TSystem* GetSystem() const {
+			if constexpr (IsProducerSystem<TSystem>) {
+				return (TSystem*)producers.Get((std::string)TSystem::GetSystemName()).GetPointer();
+			}
+
+			if constexpr (IsConsumerSystem<TSystem>) {
+				return (TSystem*)consumers.Get((std::string)TSystem::GetSystemName()).GetPointer();
+			}
+
+			if constexpr (IsPureSystem<TSystem>) {
+				return (TSystem*)systems.Get((std::string)TSystem::GetSystemName()).GetPointer();
+			}
+
+			return nullptr;
+		}
+				
+		/// @brief Comprueba si un sistema dado está registrado, y por
+		/// lo tanto, ejecutándose.
+		/// @tparam TSystem Sistema.
+		/// @return True si está registrado, false en caso contrario.
+		template <typename TSystem> requires IsEcsSystem<TSystem> 
+		bool ContainsSystem() const {
+			const auto key = (std::string)TSystem::GetSystemName();
+			if constexpr (IsProducerSystem<TSystem>) {
+				return producers.ContainsKey(key);
+			}
+
+			if constexpr (IsConsumerSystem<TSystem>) {
+				return consumers.ContainsKey(key);
+			}
+
+			if constexpr (IsPureSystem<TSystem>) {
+				return systems.ContainsKey(key);
+			}
+
+			return false;
+		}
+
+
+	private:
+
 		template <typename TSystem> requires IsProducerSystem<TSystem>
 		TSystem* RegisterProducerSystem() {
 			TSystem* sistema = new TSystem;
@@ -70,86 +162,6 @@ namespace OSK::ECS {
 
 			return sistema;
 		}
-
-		template <typename TSystem> requires IsEcsSystem<TSystem>
-		TSystem* RegisterSystem() {
-			TSystem* sistema = new TSystem;
-			const std::string key = TSystem::GetSystemName();
-
-			if constexpr (IsProducerSystem<TSystem>) {
-				producers.Insert(key, (IProducerSystem*)sistema);
-			}
-
-			if constexpr (IsConsumerSystem<TSystem>) {
-				consumers.Insert(key, (IConsumerSystem*)sistema);
-			}
-
-			if constexpr (IsPureSystem<TSystem>) {
-				systems.Insert(key, (IPureSystem*)sistema);
-			}
-
-			return sistema;
-		}
-
-		/// <summary>
-		/// Elimina el sistema dado, para que no sea procesado a partir de ahora.
-		/// </summary>
-		/// 
-		/// @note Si el sistema no está registrado, no ocurre nada.
-		/// 
-		/// @bug No llama a ISystem::OnRemove().
-		template <typename TSystem> requires IsEcsSystem<TSystem> 
-		void RemoveSystem() {
-			if constexpr (IsProducerSystem<TSystem>) {
-				producers.Remove(TSystem::GetSystemName());
-			}
-
-			if constexpr (IsConsumerSystem<TSystem>) {
-				consumers.Remove(TSystem::GetSystemName());
-			}
-
-			if constexpr (IsPureSystem<TSystem>) {
-				systems.Remove(TSystem::GetSystemName());
-			}
-		}
-
-		/// <summary>
-		/// Devuelve la instancia del sistema dado.
-		/// </summary>
-		template <typename TSystem> requires IsEcsSystem<TSystem>
-		TSystem* GetSystem() const {
-			if constexpr (IsProducerSystem<TSystem>) {
-				return (TSystem*)producers.Get(TSystem::GetSystemName()).GetPointer();
-			}
-
-			if constexpr (IsConsumerSystem<TSystem>) {
-				return (TSystem*)consumers.Get(TSystem::GetSystemName()).GetPointer();
-			}
-
-			if constexpr (IsPureSystem<TSystem>) {
-				return (TSystem*)systems.Get(TSystem::GetSystemName()).GetPointer();
-			}
-		}
-
-		/// <summary>
-		/// Comprueba si un sistema dado está registrado.
-		/// </summary>
-		template <typename TSystem> bool ContainsSystem() const {
-			const std::string key = TSystem::GetSystemName();
-			if constexpr (IsProducerSystem<TSystem>) {
-				return producers.ContainsKey(key);
-			}
-
-			if constexpr (IsConsumerSystem<TSystem>) {
-				return consumers.ContainsKey(key);
-			}
-
-			if constexpr (IsPureSystem<TSystem>) {
-				return systems.ContainsKey(key);
-			}
-		}
-
-	private:
 
 		HashMap<std::string, UniquePtr<IProducerSystem>> producers;
 		HashMap<std::string, UniquePtr<IConsumerSystem>> consumers;

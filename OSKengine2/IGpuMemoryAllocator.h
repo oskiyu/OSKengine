@@ -37,7 +37,7 @@ namespace OSK::GRAPHICS {
 	class VertexInfo;
 
 	struct OSKAPI_CALL GpuBufferMemoryBlockInfo {
-		unsigned int size;
+		USize64 size;
 		GpuBufferUsage usage;
 		GpuSharedMemoryType sharedType;
 
@@ -50,7 +50,7 @@ namespace OSK::GRAPHICS {
 		static GpuImageCreateInfo CreateDefault2D(const Vector2ui& resolution, Format format, GpuImageUsage usage);
 		static GpuImageCreateInfo CreateDefault3D(const Vector3ui& resolution, Format format, GpuImageUsage usage);
 
-		void SetMsaaSamples(TSize msaaSamples);
+		void SetMsaaSamples(USize32 msaaSamples);
 		void SetSamplerDescription(const GpuImageSamplerDesc& description);
 		void SetMemoryType(GpuSharedMemoryType memoryType);
 
@@ -73,11 +73,11 @@ namespace OSK::GRAPHICS {
 		/// Si se trata de un array de imágenes, debe ser >= 2.
 		/// 
 		/// @pre Debe ser > 0.
-		TSize numLayers = 1;
+		USize32 numLayers = 1;
 
 		/// @brief Número de muestreos.
 		/// Para imágenes normales, 1.
-		TSize msaaSamples = 1;
+		USize32 msaaSamples = 1;
 
 		/// @brief Estructura con información sobre cómo se accederá a la imagen desde los shaders.
 		GpuImageSamplerDesc samplerDesc = {};
@@ -98,7 +98,7 @@ namespace OSK::GRAPHICS {
 
 	public:
 
-		IGpuMemoryAllocator(IGpu* device);
+		explicit IGpuMemoryAllocator(IGpu* device);
 		virtual ~IGpuMemoryAllocator();
 
 		/// <summary>
@@ -107,7 +107,7 @@ namespace OSK::GRAPHICS {
 		/// @note Un bloque puede tener más tamaño, si se usa para almacenar un
 		/// recurso que ocupe más espacio.
 		/// </summary>
-		static TSize SizeOfMemoryBlockInMb;
+		static const USize64 SizeOfMemoryBlockInMb;
 
 		OSK_DEFINE_AS(IGpuMemoryAllocator);
 
@@ -149,8 +149,8 @@ namespace OSK::GRAPHICS {
 		/// @post El buffer siempre tendrá al menos los usos GpuBufferUsage::VERTEX_BUFFER y GpuBufferUsage::TRANSFER_DESTINATION.
 		OwnedPtr<GpuBuffer> CreateVertexBuffer(
 			const void* data, 
-			TSize vertexSize, 
-			TSize numVertices, 
+			USize32 vertexSize, 
+			USize32 numVertices, 
 			const VertexInfo& vertexInfo,
 			GpuBufferUsage usage = GpuBufferUsage::VERTEX_BUFFER);
 
@@ -190,7 +190,7 @@ namespace OSK::GRAPHICS {
 		/// @note El buffer se colocará en un bloque con GpuSharedMemoryType::GPU_AND_CPU.
 		/// @post El buffer siempre tendrá al menos el uso GpuBufferUsage::UNIFORM_BUFFER.
 		OwnedPtr<GpuBuffer> CreateUniformBuffer(
-			TSize size,
+			USize64 size,
 			GpuBufferUsage usage = GpuBufferUsage::UNIFORM_BUFFER);
 
 		/// @brief Crea un storage buffer.
@@ -201,7 +201,7 @@ namespace OSK::GRAPHICS {
 		/// @note El buffer se colocará en un bloque con GpuSharedMemoryType::GPU_AND_CPU.
 		/// @post El buffer siempre tendrá al menos el uso GpuBufferUsage::STORAGE_BUFFER.
 		OwnedPtr<GpuBuffer> CreateStorageBuffer(
-			TSize size,
+			USize64 size,
 			GpuBufferUsage usage = GpuBufferUsage::STORAGE_BUFFER);
 
 		/// @brief Crea un buffer temporal con el tamaño dado.
@@ -217,7 +217,7 @@ namespace OSK::GRAPHICS {
 		/// @note El buffer se colocará en un bloque con GpuSharedMemoryType::GPU_AND_CPU.
 		/// @post El buffer siempre tendrá al menos los usos GpuBufferUsage::TRANSFER_SOURCE | GpuBufferUsage::UPLOAD_ONLY.
 		OwnedPtr<GpuBuffer> CreateStagingBuffer(
-			TSize size,
+			USize64 size,
 			GpuBufferUsage usage = GpuBufferUsage::UPLOAD_ONLY);
 
 		/// @brief Crea un buffer genérico de memoria en la GPU con las características dadas.
@@ -227,8 +227,8 @@ namespace OSK::GRAPHICS {
 		/// @param memoryType Tipo de memoria que se alojará.
 		/// @return Buffer en la GPU.
 		OwnedPtr<GpuBuffer> CreateBuffer(
-			TSize size, 
-			TSize alignment, 
+			USize64 size,
+			USize64 alignment,
 			GpuBufferUsage usage, 
 			GpuSharedMemoryType memoryType);
 
@@ -279,12 +279,12 @@ namespace OSK::GRAPHICS {
 
 	protected:
 
-		TSize GetAlignment(TSize originalAlignment, GpuBufferUsage usage) const;
+		USize64 GetAlignment(USize64 originalAlignment, GpuBufferUsage usage) const;
 
-		TSize minVertexBufferAlignment = 0;
-		TSize minIndexBufferAlignment = 0;
-		TSize minUniformBufferAlignment = 0;
-		TSize minStorageBufferAlignment = 0;
+		USize64 minVertexBufferAlignment = 0;
+		USize64 minIndexBufferAlignment = 0;
+		USize64 minUniformBufferAlignment = 0;
+		USize64 minStorageBufferAlignment = 0;
 
 		//
 		
@@ -295,7 +295,7 @@ namespace OSK::GRAPHICS {
 		virtual OwnedPtr<ITopLevelAccelerationStructure> _CreateTopAccelerationStructure() = 0;
 
 
-		virtual OwnedPtr<IGpuMemoryBlock> CreateNewBufferBlock(TSize size, GpuBufferUsage usage, GpuSharedMemoryType sharedType) = 0;
+		virtual OwnedPtr<IGpuMemoryBlock> CreateNewBufferBlock(USize64 size, GpuBufferUsage usage, GpuSharedMemoryType sharedType) = 0;
 		virtual OwnedPtr<IGpuMemoryBlock> CreateNewImageBlock(GpuImage* image, GpuImageUsage usage, GpuSharedMemoryType sharedType) = 0;
 
 		/// @brief Devuelve un bloque con las características dadas.
@@ -307,14 +307,14 @@ namespace OSK::GRAPHICS {
 		/// 
 		/// @remark Es posible que el tamaño del bloque sea mayor al indicado en size.
 		/// @remark Si no hay ningún bloque con tamaño suficiente, se crea uno nuevo.
-		IGpuMemoryBlock* GetNextBufferMemoryBlock(TSize size, GpuBufferUsage usage, GpuSharedMemoryType sharedType);
+		IGpuMemoryBlock* GetNextBufferMemoryBlock(USize64 size, GpuBufferUsage usage, GpuSharedMemoryType sharedType);
 
 		/// @brief Devuelve un subbloque con las características dadas.
 		/// @param size Tamaño del subbloque, en bytes.
 		/// @param usage Uso que se le dará a la memoria.
 		/// @param sharedType Tipo de memoria.
 		/// @return Bloque con el tamaño dado.
-		IGpuMemorySubblock* GetNextBufferMemorySubblock(TSize size, GpuBufferUsage usage, GpuSharedMemoryType sharedType);
+		IGpuMemorySubblock* GetNextBufferMemorySubblock(USize64 size, GpuBufferUsage usage, GpuSharedMemoryType sharedType);
 
 		/// @brief Información de los bloques.
 		DynamicArray<GpuBufferMemoryBlockInfo> bufferMemoryBlocksInfo;
@@ -329,5 +329,5 @@ namespace OSK::GRAPHICS {
 }
 
 template <> static size_t OSK::Hash<OSK::GRAPHICS::GpuBufferMemoryBlockInfo>(const OSK::GRAPHICS::GpuBufferMemoryBlockInfo& elem) {
-	return Hash<TSize>((TSize)elem.usage);
+	return Hash<size_t>((size_t)elem.usage);
 }

@@ -12,11 +12,11 @@ namespace OSK::GRAPHICS {
 		VertexInfo vertexInfo{};
 
 		/// @brief Número de vértices.
-		TSize numVertices = 0;
+		USize32 numVertices = 0;
 
 		/// @brief Offset del primer vértice respecto al inicio
 		/// del buffer.
-		TSize offsetInBytes= 0;
+		USize64 offsetInBytes = 0;
 
 	};
 

@@ -43,7 +43,7 @@ namespace OSK::GRAPHICS {
 		/// @pre No debe haber ninguna región de memoria mapeada.
 		/// 
 		/// @post Se podrá escribir en la zona mapeada.
-		virtual void MapMemory(TSize size, TSize offset) = 0;
+		virtual void MapMemory(USize64 size, USize64 offset) = 0;
 
 
 		/// @brief Escribe información en la región de memoria.
@@ -56,7 +56,9 @@ namespace OSK::GRAPHICS {
 		/// @pre La memoria debe haber sido mapeada antes.
 		/// @pre Toda la información escrita debe escribirse sobre una zona de memoria
 		/// completamente mapeada.
-		virtual void Write(const void* data, TSize size) = 0;
+		/// 
+		/// @throws GpuMemoryNotMappedException Si la memoria no está mapeada.
+		virtual void Write(const void* data, USize64 size) = 0;
 		
 		/// @brief Escribe información en la región de memoria.
 		/// No usa el cursor interno
@@ -68,7 +70,9 @@ namespace OSK::GRAPHICS {
 		/// @pre La memoria debe haber sido mapeada antes.
 		/// @pre Toda la información escrita debe escribirse sobre una zona de memoria
 		/// completamente mapeada.
-		virtual void WriteOffset(const void* data, TSize size, TSize offset) = 0;
+		/// 
+		/// @throws GpuMemoryNotMappedException Si la memoria no está mapeada.
+		virtual void WriteOffset(const void* data, USize64 size, USize64 offset) = 0;
 
 
 		/// @brief Desmapea el subbloque.
@@ -81,7 +85,7 @@ namespace OSK::GRAPHICS {
 
 		/// @brief Establece el cursor interno en la posición dada.
 		/// @param position Offset, en bytes, respecto al inicio del subbloque.
-		void SetCursor(TSize position);
+		void SetCursor(USize64 position);
 
 		/// @brief Establece el cursor a su posición inicial (al principio del subbloque).
 		void ResetCursor();
@@ -89,22 +93,22 @@ namespace OSK::GRAPHICS {
  
 		IGpuMemoryBlock* GetOwnerBlock() const;
 
-		TSize GetAllocatedSize() const;
-		TSize GetOffsetFromBlock() const;
+		USize64 GetAllocatedSize() const;
+		USize64 GetOffsetFromBlock() const;
 
 	protected:
 
-		IGpuMemorySubblock(IGpuMemoryBlock* owner, TSize size, TSize offset);
+		IGpuMemorySubblock(IGpuMemoryBlock* owner, USize64 size, USize64 offset);
 
 		IGpuMemoryBlock* ownerBlock = nullptr;
 
 		bool isMapped = false;
 		void* mappedData = nullptr;
 
-		TSize reservedSize = 0;
-		TSize totalOffsetFromBlock = 0;
+		USize64 reservedSize = 0;
+		USize64 totalOffsetFromBlock = 0;
 
-		TSize cursor = 0;
+		USize64 cursor = 0;
 
 	};
 

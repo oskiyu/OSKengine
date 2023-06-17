@@ -36,6 +36,21 @@ void PcUserInput::QueryInterface(TInterfaceUuid uuid, void** ptr) const {
 	}
 }
 
+void PcUserInput::QueryConstInterface(TInterfaceUuid uuid, const void** ptr) const {
+	if (uuid == OSK_IUUID(IKeyboardInput)) {
+		*ptr = (const IKeyboardInput*)this;
+	}
+	else if (uuid == OSK_IUUID(IMouseInput)) {
+		*ptr = (const IMouseInput*)this;
+	}
+	else if (uuid == OSK_IUUID(IGamepadInput)) {
+		*ptr = (const IGamepadInput*)this;
+	}
+	else {
+		*ptr = nullptr;
+	}
+}
+
 void PcUserInput::UpdateKeyboardState(KeyboardState* keyboard) {
 	GLFWwindow* window = Engine::GetDisplay()->As<Window>()->_GetGlfw();
 
@@ -113,7 +128,7 @@ void PcUserInput::SetupMotionMode() {
 		if (glfwRawMouseMotionSupported())
 			glfwSetInputMode(window, GLFW_RAW_MOUSE_MOTION, GLFW_TRUE);
 		else
-			OSK_CHECK(false, "Raw mouse mode no soportado.");
+			Engine::GetLogger()->InfoLog("Raw mouse mode no soportado.");
 	}
 }
 
@@ -127,18 +142,18 @@ void PcUserInput::SetupReturnMode() {
 }
 
 void PcUserInput::SetMousePosition(const Vector2ui& pos) {
-	glfwSetCursorPos(Engine::GetDisplay()->As<Window>()->_GetGlfw(), pos.X, pos.Y);
+	glfwSetCursorPos(Engine::GetDisplay()->As<Window>()->_GetGlfw(), pos.x, pos.y);
 }
 
-void PcUserInput::MouseInputCallback(GLFWwindow* window, double dX, double dY) {
+void PcUserInput::MouseInputCallback(GLFWwindow*, double dX, double dY) {
 	self->mouseCallbackState._SetPosition(Vector2d(dX, dY).ToVector2i());
 	self->mouseCallbackState._SetRelativePosition(Vector2d(dX, dY).ToVector2f()
 		/ Engine::GetDisplay()->GetResolution().ToVector2f());
 }
 
-void PcUserInput::MouseScrollCallback(GLFWwindow* window, double dX, double dY) {
-	self->mouseCallbackState._SetScrollX(dX);
-	self->mouseCallbackState._SetScrollY(dX);
+void PcUserInput::MouseScrollCallback(GLFWwindow*, double dX, double dY) {
+	self->mouseCallbackState._SetScrollX(static_cast<int>(dX));
+	self->mouseCallbackState._SetScrollY(static_cast<int>(dY));
 }
 
 PcUserInput* PcUserInput::self;
