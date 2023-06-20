@@ -409,15 +409,22 @@ protected:
 
 		source.SetPitch(carPhysics.velocity.GetLenght());
 
+
+		constexpr static float ANGLE_PER_KEY = 45.0f;
+		constexpr static float L = 1.5f;
+		float currentAngle = 0.0f;
+
 		if (keyboard) {
 			
 			// Rotación
 			if (keyboard->IsKeyDown(IO::Key::LEFT)) {
-				carTransform.RotateWorldSpace(deltaTime * 2, { 0, 1, 0 });
+				currentAngle += ANGLE_PER_KEY;
+				// carTransform.RotateWorldSpace(deltaTime * 2, { 0, 1, 0 });
 				if (cameraAttachedToCar) cameraRotation.x += deltaTime * 250;
 			}
 			if (keyboard->IsKeyDown(IO::Key::RIGHT)) {
-				carTransform.RotateWorldSpace(deltaTime * 2, { 0, -1, 0 });
+				currentAngle -= ANGLE_PER_KEY;
+				// carTransform.RotateWorldSpace(deltaTime * 2, { 0, -1, 0 });
 				if (cameraAttachedToCar) cameraRotation.x -= deltaTime * 250;
 			}
 
@@ -461,6 +468,34 @@ protected:
 
 		// Aplicación de movimiento y rotación de la cámara
 		// camera.Rotate(-cameraRotation.X, cameraRotation.Y);
+
+		if (glm::abs(currentAngle) > 0.01f && glm::abs(Engine::GetEcs()->GetComponent<PhysicsComponent>(carObject).velocity.GetLenght()) > 0.01f) {
+			// Slip angles
+			const Vector3f front = Engine::GetEcs()->GetComponent<ECS::Transform3D>(carObject).GetForwardVector();
+			const Vector3f right = Engine::GetEcs()->GetComponent<ECS::Transform3D>(carObject).GetForwardVector();
+			const Vector3f v = Engine::GetEcs()->GetComponent<PhysicsComponent>(carObject).velocity;
+
+			const float v_lat = v.Dot(right);
+			const float v_long = v.Dot(front);
+
+			const float angle_front = glm::atan(v_lat / v_long) - glm::radians(currentAngle) * glm::sign(v_long);
+			const float angle_rear = glm::atan(v_lat / v_long);
+
+			const float C_a = -3.0f;
+			const float f_lat_front = C_a * angle_front;
+			const float f_lat_rear = C_a * angle_rear;
+			const float torque = f_lat_front * 0.75f - f_lat_rear * 0.75f; // glm::cos(glm::radians(currentAngle)) * 
+
+			const float R = L / glm::sin(glm::radians(currentAngle));
+			const float w = v.GetLenght() / R;
+			const float finalAngleSlow = glm::radians(360.0f) * w * deltaTime;
+
+			const float finalAngleFast = torque;
+
+			const float finalAngle = glm::mix(finalAngleSlow, finalAngleFast, v.GetLenght() * 3);
+
+			carTransform.RotateWorldSpace(finalAngleFast * deltaTime, { 0.0f, 1.0f, 0.0f });
+		}
 
 		cameraTransform.AddPosition(Vector3f(0, 0, 1) * cameraForwardMovement * deltaTime);
 		// cameraTransform.AddPosition(cameraArmTransform.GetRightVector().GetNormalized() * cameraRightMovement * deltaTime);

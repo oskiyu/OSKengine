@@ -205,5 +205,5 @@ Version Engine::GetVersion() {
 }
 
 std::string_view Engine::GetBuild() {
-	return "2023.06.17a";
+	return "2023.06.20a";
 }
