@@ -14,6 +14,10 @@ namespace OSK {
 
 	public:
 
+		static Vector3_t const Zero;
+
+	public:
+
 		/// <summary>
 		/// Crea un vector 3D nulo { 0, 0, 0 }.
 		/// </summary>
@@ -385,27 +389,27 @@ namespace OSK {
 	/// </summary>
 	/// 
 	/// @deprecated Usar Vector3f.
-	typedef Vector3_t<float_t> Vector3;
+	using Vector3 = Vector3_t<float_t>;
 	
 	/// <summary>
 	/// Precisión = float.
 	/// </summary>
-	typedef Vector3_t<float_t> Vector3f;
+	using Vector3f = Vector3_t<float_t>;
 	
 	/// <summary>
 	/// Precisión = double.
 	/// </summary>
-	typedef Vector3_t<double_t> Vector3d;
+	using Vector3d = Vector3_t<double_t>;
 	
 	/// <summary>
 	/// Precisión = int32.
 	/// </summary>
-	typedef Vector3_t<int32_t> Vector3i;
+	using Vector3i = Vector3_t<int32_t>;
 	
 	/// <summary>
 	/// Precisión = uint32.
 	/// </summary>
-	typedef Vector3_t<uint32_t> Vector3ui;
+	using Vector3ui = Vector3_t<uint32_t>;
 
 	template <> inline std::string ToString<Vector3f>(const Vector3f& value) {
 		return "{ " + std::to_string(value.x) + ", " + std::to_string(value.y) + ", " + std::to_string(value.Z) + " }";

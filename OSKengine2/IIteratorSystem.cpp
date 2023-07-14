@@ -16,7 +16,8 @@ const Signature& IIteratorSystem::GetSignature() const {
 }
 
 void IIteratorSystem::_AddObject(GameObjectIndex obj) {
-	processedObjects.Insert(obj);
+	if (!processedObjects.ContainsElement(obj))
+		processedObjects.Insert(obj);
 
 	OnObjectAdded(obj);
 }

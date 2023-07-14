@@ -4,6 +4,7 @@
 
 #include "OSKmacros.h"
 #include "DetailedCollisionInfo.h"
+#include "GameObject.h"
 
 namespace OSK::COLLISION {
 

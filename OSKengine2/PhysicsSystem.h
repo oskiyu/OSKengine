@@ -20,6 +20,7 @@ namespace OSK::ECS {
 	private:
 
 		Vector3f gravityAccel = { 0.0f, -9.8f, 0.0f };
+		Vector3f gravity = { 0.0f, -9.8f, 0.0f };
 
 	};
 

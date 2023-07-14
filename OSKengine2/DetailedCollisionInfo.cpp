@@ -1,18 +1,24 @@
 #include "DetailedCollisionInfo.h"
 
 using namespace OSK;
+using namespace OSK::ECS;
 using namespace OSK::COLLISION;
 
-DetailedCollisionInfo DetailedCollisionInfo::True(Vector3f minimumTranslationVector, const DynamicArray<Vector3f>& points) {
+DetailedCollisionInfo DetailedCollisionInfo::True(
+	Vector3f minimumTranslationVector,
+	const DynamicArray<Vector3f>& points,
+	bool shouldSwaphObjects) {
+
 	DetailedCollisionInfo output{};
 	output.isColliding = true;
 	output.minimumTranslationVector = minimumTranslationVector;
 	output.contactPoints = points;
+	output.swapObjects = shouldSwaphObjects;
 
 	output.singleContactPoint = 0.0f;
 	for (const auto& point : points)
 		output.singleContactPoint += point;
-	output.singleContactPoint /= points.GetSize();
+	output.singleContactPoint /= static_cast<float>(points.GetSize());
 
 	return output;
 }
@@ -38,4 +44,8 @@ const DynamicArray<Vector3f>& DetailedCollisionInfo::GetContactPoints() const {
 
 Vector3f DetailedCollisionInfo::GetSingleContactPoint() const {
 	return singleContactPoint;
+}
+
+bool DetailedCollisionInfo::ShouldSwapObjects() const {
+	return swapObjects;
 }

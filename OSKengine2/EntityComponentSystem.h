@@ -83,7 +83,8 @@ namespace OSK::ECS {
 		TComponent& AddComponent(GameObjectIndex obj, const TComponent& component) {
 			EnsureRegistered<TComponent>();
 
-			OSK_ASSERT(ObjectHasComponent<TComponent>(obj), ObjectAlreadyHasComponentException(obj, TComponent::GetComponentTypeName()))
+			const bool objectHasComponent = ObjectHasComponent<TComponent>(obj);
+			OSK_ASSERT(!objectHasComponent, ObjectAlreadyHasComponentException(TComponent::GetComponentTypeName(), obj))
 
 			TComponent& oComponent = componentManager->AddComponent(obj, component);
 

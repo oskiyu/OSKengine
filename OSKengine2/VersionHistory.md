@@ -578,3 +578,72 @@ Debido a los cambios en los tipos de datos básicos, numerosas clases y funciones
 - **Bugfix**: `Color::Blue` ahora devuelve un color azul en vez de un color turquesa.
 - **Bugfix**: `Color::*` ahora multiplica correctamente el valor alpha.
 - **Bugfix**: `IMaterialSlot::SetTexture` ahora usa correctamente el canal indicado.
+
+## 2023.07.15a
+
+### Physics
+
+###### Rework de los sistemas de respuesta ante colisiones y de físicas.
+
+- `PhysicsComponent`
+    - Aumentada la encapsulación para evitar la corrupción de los valores por modificaciones externas que se podrían saltar las leyes de la física.
+    - Almacena el inverso de la masa.
+        - Se puede usar para representar masas infinitas, estableciendo el inverso de la masa a 0.
+    - Añadido soporte para el *momento de inercia angular*, que regula la facilidad de un objeto para rotar.
+        - Alacenados tanto el tensor de inercia como su inverso para una mayor eficiencia.
+    - Almacena el cambio de velocidad en cada frame, para una mayor estabilidad.
+    - Añadido el coeficiente de restitución, que indica cuánto rebota el objeto tras una colisión.
+    - Permite resetear las fuerzas aplicadas en cada frame, para poder recalcular su superposición.
+    - A la hora de aplicar un impulso, no se hace distinción entre impulso lineal y angular, efectuando ambos al mismo tiempo.
+    
+- `PhysicsResolver`
+    - Ahora la aplicación del MTV se reparte entre los dos objetos dependiendo de sus masas.
+        - Los objetos con menor masa que el otro objeto se mueven más.
+        - Los objetos con masa infinita no se mueven.
+    - Ahora la aplicación de los impulsos tras una colisión sigue las leyes de la física:
+        - Obtiene la velocidad de separación final y aplica los impulsos para conseguirla.
+        - Ambos impulsos aplicados son iguales en intensidad, pero en sentidos contrarios.
+    - Ahora aplica fricción a los objetos.
+
+- `PhysicsSystem`
+    - Ahora simula la resistencia del aire, ralentizando la velocidad angular de los objetos en el tiempo.
+
+- `ConvexVolume`
+    - Proceso de detección de puntos de contacto optimizado.
+    - Ahora es más permisivo al incluir nuevos puntos de contacto.
+
+- `DetailedCollisionInfo`
+    - Permite diferenciar el orden de los objetos.
+    
+### IO
+
+- ***Nuevo***: `Console`
+    - Representa una consola de output dentro del juego.
+    - Permite añadir nuevos mensajes de texto.
+    - Almacena información sobre el momento en el que se añadió el mensaje.
+    - _Prototipo_.
+
+### Engine
+
+- ***Nuevo*** `gameFrameIndex`.
+    - Indica el índice del frame actual desde el inicio de la ejecución del juego.
+- ***Nuevo*** `Update()`
+    - Actualiza el `gameFrameIndex`.
+    
+### Types
+
+- `Vector3`
+    - Añadido valor estático `Zero`, que representa un vector con todos los campos a 0.
+    
+### Error Handling
+
+- ***Nuevo***: `DivideByZeroException`.
+
+##### Bugfixes
+
+- **Bugfix**: `PhysicsSystem` ya no mueve y/o rota objetos inmovibles.
+- **Bugfix**: `COLLISION::ConvexVolume` ahora calcula correctamente los puntos de contacto en todos los casos.
+- **Bugfix**: Añadir un componente a un objeto no hace que se vuelva a registrar en los sistemas en los que ya estaba presente.
+- **Bugfix**: `ECS::AddComponent(GameObjectIndex, const TComponent&)` ahora se puede usar.
+- **Bugfix**: `FaceProjection` ahora calcula correctamente las proyecciones de los puntos.
+

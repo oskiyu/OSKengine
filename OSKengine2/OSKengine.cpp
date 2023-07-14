@@ -51,6 +51,7 @@
 using namespace OSK;
 
 UniquePtr<IO::Logger> Engine::logger;
+UniquePtr<IO::Console> Engine::console;
 UniquePtr<IO::IDisplay> Engine::display;
 UniquePtr<GRAPHICS::IRenderer> Engine::renderer;
 UniquePtr<ASSETS::AssetManager> Engine::assetManager;
@@ -58,10 +59,13 @@ UniquePtr<ECS::EntityComponentSystem> Engine::entityComponentSystem;
 UniquePtr<IO::IUserInput> Engine::input;
 UniquePtr<IO::InputManager> Engine::inputManager;
 UniquePtr<AUDIO::AudioApi> Engine::audioApi;
+UIndex64 Engine::gameFrameIndex;
 
 void Engine::Create(GRAPHICS::RenderApiType type) {
 	logger = new IO::Logger;
 	logger->Start("LOG_LAST.txt");
+
+	console = new IO::Console;
 
 	display = new IO::Window;
 	entityComponentSystem = new ECS::EntityComponentSystem(logger.GetPointer());
@@ -166,6 +170,10 @@ IO::Logger* Engine::GetLogger() {
 	return logger.GetPointer();
 }
 
+IO::Console* Engine::GetConsole() {
+	return console.GetPointer();
+}
+
 IO::IDisplay* Engine::GetDisplay() {
 	return display.GetPointer();
 }
@@ -205,5 +213,13 @@ Version Engine::GetVersion() {
 }
 
 std::string_view Engine::GetBuild() {
-	return "2023.06.20a";
+	return "2023.07.15a";
+}
+
+UIndex64 Engine::GetCurrentGameFrameIndex() {
+	return gameFrameIndex;
+}
+
+void Engine::Update() {
+	gameFrameIndex = (gameFrameIndex + 1) % std::numeric_limits<UIndex64>::max();
 }

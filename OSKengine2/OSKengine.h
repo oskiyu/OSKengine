@@ -14,6 +14,7 @@
 #include "AudioApi.h"
 #include "IUserInput.h"
 #include "InputManager.h"
+#include "Console.h"
 
 namespace OSK {
 	
@@ -58,6 +59,11 @@ namespace OSK {
 		/// @note El puntero es estable.
 		/// @warning Será nullptr hasta que no se llame a Engine::Create.
 		static IO::Logger* GetLogger();
+
+		/// @return Puntero a la consola por defecto del motor.
+		/// @note El puntero es estable.
+		/// @warning Será nullptr hasta que no se llame a Engine::Create.
+		static IO::Console* GetConsole();
 
 		/// <summary> Devuelve un puntero al display del juego. </summary>
 		/// @note El puntero es estable.
@@ -106,9 +112,16 @@ namespace OSK {
 		static void RegisterBuiltinEvents();
 		static void RegisterBuiltinVertices();
 
+		/// @return Índice del fotograma actual del juego,
+		/// medido desde que se inició el juego en esta sesión.
+		static UIndex64 GetCurrentGameFrameIndex();
+
+		static void Update();
+
 	private:
 
 		static UniquePtr<IO::Logger> logger;
+		static UniquePtr<IO::Console> console;
 		static UniquePtr<IO::IDisplay> display;
 		static UniquePtr<GRAPHICS::IRenderer> renderer;
 		static UniquePtr<ASSETS::AssetManager> assetManager;
@@ -116,6 +129,8 @@ namespace OSK {
 		static UniquePtr<IO::IUserInput> input;
 		static UniquePtr<IO::InputManager> inputManager;
 		static UniquePtr<AUDIO::AudioApi> audioApi;
+
+		static UIndex64 gameFrameIndex;
 
 	};
 

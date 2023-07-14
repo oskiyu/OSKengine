@@ -99,6 +99,8 @@ void IGame::_Run() {
 
 	Engine::GetRenderer()->PresentFrame();
 	while (Engine::GetDisplay()->IsOpen()) {
+		Engine::Update();
+
 		const TDeltaTime startTime = Engine::GetCurrentTime();
 
 		Engine::GetDisplay()->Update();

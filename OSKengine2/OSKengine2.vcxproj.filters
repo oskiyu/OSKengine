@@ -1125,6 +1125,12 @@
     <ClCompile Include="AudioLoader.cpp">
       <Filter>Archivos de origen\BuiltIn\Assets\Loaders</Filter>
     </ClCompile>
+    <ClCompile Include="Console.cpp">
+      <Filter>Archivos de origen\Core\IO</Filter>
+    </ClCompile>
+    <ClCompile Include="Vector3.cpp">
+      <Filter>Archivos de origen\Core\Types</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="KeyboardState.h">
@@ -2005,6 +2011,12 @@
     </ClInclude>
     <ClInclude Include="AudioExceptions.h">
       <Filter>Archivos de encabezado\Core\AudioAPI\Exceptions</Filter>
+    </ClInclude>
+    <ClInclude Include="Console.h">
+      <Filter>Archivos de encabezado\Core\IO</Filter>
+    </ClInclude>
+    <ClInclude Include="MathExceptions.h">
+      <Filter>Archivos de encabezado\Core\Exceptions</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

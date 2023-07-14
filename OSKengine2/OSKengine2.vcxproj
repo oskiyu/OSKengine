@@ -63,6 +63,7 @@
     <ClCompile Include="CollisionSystem.cpp" />
     <ClCompile Include="ComputePipelineDx12.cpp" />
     <ClCompile Include="ComputePipelineVk.cpp" />
+    <ClCompile Include="Console.cpp" />
     <ClCompile Include="ConvexVolume.cpp" />
     <ClCompile Include="Data.cpp" />
     <ClCompile Include="DescriptorDx12.cpp" />
@@ -230,6 +231,7 @@
     <ClCompile Include="UiTextView.cpp" />
     <ClCompile Include="UiVerticalContainer.cpp" />
     <ClCompile Include="Vector2.cpp" />
+    <ClCompile Include="Vector3.cpp" />
     <ClCompile Include="Vertex2D.cpp" />
     <ClCompile Include="Vertex3D.cpp" />
     <ClCompile Include="VertexInfo.cpp" />
@@ -284,6 +286,7 @@
     <ClInclude Include="ComponentManager.h" />
     <ClInclude Include="ComputePipelineDx12.h" />
     <ClInclude Include="ComputePipelineVk.h" />
+    <ClInclude Include="Console.h" />
     <ClInclude Include="ConstexprBitSet.hpp" />
     <ClInclude Include="ConvexVolume.h" />
     <ClInclude Include="CubemapTexture.h" />
@@ -310,6 +313,7 @@
     <ClInclude Include="GpuMemoryExceptions.h" />
     <ClInclude Include="InvalidArgumentException.h" />
     <ClInclude Include="InvalidObjectStateException.h" />
+    <ClInclude Include="MathExceptions.h" />
     <ClInclude Include="RendererExceptions.h" />
     <ClInclude Include="GpuBarrierInfo.h" />
     <ClInclude Include="GpuImageViewConfig.h" />

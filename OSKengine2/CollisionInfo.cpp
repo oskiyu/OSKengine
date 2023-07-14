@@ -3,6 +3,7 @@
 #include "CollisionInfo.h"
 
 using namespace OSK;
+using namespace OSK::ECS;
 using namespace OSK::COLLISION;
 
 CollisionInfo::CollisionInfo(bool isColliding, bool isTopLevelColliding)

@@ -5,6 +5,9 @@
 
 #include "EcsExceptions.h"
 
+#include "OSKengine.h"
+#include "Logger.h"
+
 using namespace OSK;
 using namespace OSK::ECS;
 
@@ -17,6 +20,8 @@ GameObjectIndex GameObjectManager::CreateGameObject() {
 
 	nextIndex++;
 
+	Engine::GetLogger()->InfoLog(std::format("New object: {}", output));
+
 	return output;
 }
 
@@ -24,8 +29,10 @@ void GameObjectManager::DestroyGameObject(GameObjectIndex* obj) {
 	OSK_ASSERT(*obj > 0, InvalidObjectException(*obj));
 	OSK_ASSERT(*obj < signatures.GetSize(), InvalidObjectException(*obj));
 
-	signatures[*obj - 1].Reset();
+	signatures[(*obj) - 1].Reset();
 	freeObjectIndices.Push(*obj);
+
+	Engine::GetLogger()->InfoLog(std::format("Destroyed object: {}", *obj));
 
 	*obj = 0;
 }

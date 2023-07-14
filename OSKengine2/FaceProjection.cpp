@@ -7,7 +7,7 @@ using namespace OSK::COLLISION;
 
 FaceProjection::FaceProjection(const DynamicArray<Vector3f>& vertices, Vector3f axis) {
 	for (const auto& vertex : vertices) {
-		const float vertexProjection = axis.Dot(vertex);
+		const float vertexProjection = vertex.Dot(axis);
 
 		min = glm::min(vertexProjection, min);
 		max = glm::max(vertexProjection, max);

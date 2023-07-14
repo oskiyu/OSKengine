@@ -161,6 +161,8 @@ protected:
 		font->LoadSizedFont(22);
 		font->SetMaterial(material2d);
 
+		Engine::GetConsole()->SetFont(font);
+
 		SetupUi();
 
 		// Audio test
@@ -263,6 +265,8 @@ protected:
 	}
 
 	void OnTick(TDeltaTime deltaTime) override {
+		const auto _ = Engine::GetEcs();
+
 		IO::IKeyboardInput* keyboard = nullptr;
 		IO::IGamepadInput* gamepad = nullptr;
 		IO::IMouseInput* mouse = nullptr;
@@ -334,8 +338,10 @@ protected:
 			// Configuración gráfica
 			//
 			// Bloom
-			if (keyboard->IsKeyReleased(IO::Key::B))
+			if (keyboard->IsKeyReleased(IO::Key::B)) {
 				bloomCheckbox->GetChild("button")->As<UI::Button>()->Click();
+				Engine::GetConsole()->WriteLine("Bloom");
+			}
 
 			// FXAA
 			if (keyboard->IsKeyReleased(IO::Key::F))
@@ -392,6 +398,30 @@ protected:
 			};
 		}
 			
+		// TESTING
+		if (keyboard->IsKeyStroked(IO::Key::Q)) {
+			auto& carTransform = Engine::GetEcs()->GetComponent<Transform3D>(carObject);
+			auto& carPhysics = Engine::GetEcs()->GetComponent<PhysicsComponent>(carObject);
+
+			carTransform.SetPosition({ +0.6f, 0.6f, -3.0f });
+			carTransform.SetRotation({});
+
+			carPhysics._SetVelocity(Vector3f::Zero);
+			carPhysics._SetAcceleration(Vector3f::Zero);
+		}
+		if (keyboard->IsKeyStroked(IO::Key::KEYPAD_0)) {
+			auto& carTransform = Engine::GetEcs()->GetComponent<Transform3D>(carObject);
+			auto& carPhysics = Engine::GetEcs()->GetComponent<PhysicsComponent>(carObject);
+
+			carTransform.SetPosition(Vector3f::Zero);
+			carTransform.SetRotation({});
+
+			carPhysics._SetVelocity(Vector3f::Zero);
+			carPhysics._SetAcceleration(Vector3f::Zero);
+			carPhysics._SetAngularVelocity(Vector3f::Zero);
+
+			carPhysics.ApplyImpulse(Vector3f(0.0f, 1.0f, 0.0f), Vector3f(1.0f, 0.0f, 0.0f));
+		}
 
 
 		// Movimiento del coche
@@ -401,13 +431,12 @@ protected:
 
 		PhysicsComponent& carPhysics = Engine::GetEcs()->GetComponent<PhysicsComponent>(carObject);
 
-		// Aceleración / deceleración
-		carPhysics.acceleration = 0.0f;
-
+		/*const float carVelocityY = carPhysics.velocity.y;
 		const float projection = carPhysics.velocity.Dot(carTransform.GetForwardVector());
 		carPhysics.velocity = carTransform.GetForwardVector().GetNormalized() * projection;
+		carPhysics.velocity.y = carVelocityY;/**/
 
-		source.SetPitch(carPhysics.velocity.GetLenght());
+		source.SetPitch(carPhysics.GetVelocity().GetLenght());
 
 
 		constexpr static float ANGLE_PER_KEY = 45.0f;
@@ -429,13 +458,14 @@ protected:
 			}
 
 			if (keyboard->IsKeyDown(IO::Key::UP))
-				carPhysics.acceleration = carTransform.GetForwardVector() * 35.f * deltaTime;
+				carPhysics.ApplyForce(carTransform.GetForwardVector() * 10);
 			if (keyboard->IsKeyDown(IO::Key::DOWN))
-				carPhysics.acceleration = carTransform.GetForwardVector() * -(projection * 2.0f + 85.0f) * deltaTime;
+				carPhysics.ApplyForce(carTransform.GetForwardVector() * -(2.0f + 4));
 
 			if (keyboard->IsKeyDown(IO::Key::SPACE)) {
-				carPhysics.acceleration = 0.0f;
-				carPhysics.velocity = 0.0f;
+				carPhysics._SetVelocity(Vector3f::Zero);
+				carPhysics._SetAcceleration(Vector3f::Zero);
+				carPhysics._SetAngularVelocity(Vector3f::Zero);
 			}
 		}
 
@@ -449,10 +479,10 @@ protected:
 				cameraRotation.x += gamepadState.GetAxisState(IO::GamepadAxis::RIGHT_X);
 				cameraRotation.y += gamepadState.GetAxisState(IO::GamepadAxis::RIGHT_Y);
 
-				carPhysics.acceleration += carTransform.GetForwardVector() * 35.f * deltaTime
-					* gamepadState.GetAxisState(IO::GamepadAxis::R2);
-				carPhysics.acceleration += carTransform.GetForwardVector() * -(projection * 2.0f + 85.0f) * deltaTime
-					* gamepadState.GetAxisState(IO::GamepadAxis::L2);
+				// carPhysics.acceleration += carTransform.GetForwardVector() * 35.f * deltaTime
+					// * gamepadState.GetAxisState(IO::GamepadAxis::R2);
+				// carPhysics.acceleration += carTransform.GetForwardVector() * -(2.0f + 85.0f) * deltaTime
+					// * gamepadState.GetAxisState(IO::GamepadAxis::L2);
 
 				if (gamepadState.GetAxisState(IO::GamepadAxis::LEFT_X) > 0.1f) {
 					carTransform.RotateWorldSpace(deltaTime * 2 * gamepadState.GetAxisState(IO::GamepadAxis::LEFT_X), { 0, 1.0f, 0 });
@@ -469,11 +499,11 @@ protected:
 		// Aplicación de movimiento y rotación de la cámara
 		// camera.Rotate(-cameraRotation.X, cameraRotation.Y);
 
-		if (glm::abs(currentAngle) > 0.01f && glm::abs(Engine::GetEcs()->GetComponent<PhysicsComponent>(carObject).velocity.GetLenght()) > 0.01f) {
+		if (glm::abs(currentAngle) > 0.01f && Engine::GetEcs()->GetComponent<PhysicsComponent>(carObject).GetVelocity().GetLenght() > 1.0f) {
 			// Slip angles
 			const Vector3f front = Engine::GetEcs()->GetComponent<ECS::Transform3D>(carObject).GetForwardVector();
 			const Vector3f right = Engine::GetEcs()->GetComponent<ECS::Transform3D>(carObject).GetForwardVector();
-			const Vector3f v = Engine::GetEcs()->GetComponent<PhysicsComponent>(carObject).velocity;
+			const Vector3f v = Engine::GetEcs()->GetComponent<PhysicsComponent>(carObject).GetVelocity();
 
 			const float v_lat = v.Dot(right);
 			const float v_long = v.Dot(front);
@@ -500,8 +530,8 @@ protected:
 		cameraTransform.AddPosition(Vector3f(0, 0, 1) * cameraForwardMovement * deltaTime);
 		// cameraTransform.AddPosition(cameraArmTransform.GetRightVector().GetNormalized() * cameraRightMovement * deltaTime);
 
-		if (Engine::GetEcs()->GetComponent<PhysicsComponent>(carObject).acceleration.GetLenght() > 0.5f * deltaTime || 
-			Engine::GetEcs()->GetComponent<PhysicsComponent>(carObject).velocity.GetLenght() > 1.5f * deltaTime) {
+		if (Engine::GetEcs()->GetComponent<PhysicsComponent>(carObject).GetAcceleration().GetLenght() > 0.5f * deltaTime ||
+			Engine::GetEcs()->GetComponent<PhysicsComponent>(carObject).GetVelocity().GetLenght() > 1.5f * deltaTime) {
 			const Vector2f flatCarVec = {
 				Engine::GetEcs()->GetComponent<Transform3D>(carObject).GetRightVector().x,
 				Engine::GetEcs()->GetComponent<Transform3D>(carObject).GetRightVector().Z
@@ -526,7 +556,7 @@ protected:
 		);
 
 		if (false) {
-			const float targetFps = 10.0f;
+			const float targetFps = 30.0f;
 			const float targetMs = 1.0f / targetFps;
 			const auto waitMiliseconds = static_cast<long>((targetMs - deltaTime) * 1000);
 			std::this_thread::sleep_for(std::chrono::milliseconds(glm::max(0l, waitMiliseconds)));
@@ -570,9 +600,18 @@ protected:
 		spriteRenderer.SetCamera(cameraObject2d);
 		spriteRenderer.SetMaterial(*material2d);
 
-		uiFpsText->SetText(std::format("FPS: {}", GetFps()));
+		const auto& carTransform = Engine::GetEcs()->GetComponent<Transform3D>(carObject);
+		const auto& carPhysics = Engine::GetEcs()->GetComponent<PhysicsComponent>(carObject);
+		uiFpsText->SetText(
+			std::format("Pos: {} {} {}", carTransform.GetPosition().x, carTransform.GetPosition().y, carTransform.GetPosition().Z)
+			//std::format("FPS: {}", GetFps())
+		);
 
 		GetRootUiElement().Render(&spriteRenderer, Vector2f::Zero);
+
+		Engine::GetConsole()->Draw(&spriteRenderer);
+
+		// spriteRenderer.DrawString(font, 20,, Vector2f{ 50.0f }, Color::White);
 
 		spriteRenderer.End();
 
@@ -866,10 +905,11 @@ private:
 
 		// Setup del transform
 		Transform3D& transform = Engine::GetEcs()->AddComponent<Transform3D>(carObject, ECS::Transform3D(carObject));
-
+		// transform.AddPosition({0.0f, 80.0f, 0.0f});
+		
 		// Setup de físicas
 		auto& physicsComponent = Engine::GetEcs()->AddComponent<PhysicsComponent>(carObject, {});
-		physicsComponent.mass = 4.0f;
+		physicsComponent.SetMass(4.0f);
 		physicsComponent.centerOfMassOffset = Vector3f(0.0f, 0.17f * 0.5f, 0.0f);
 
 		// Setup de colisiones
@@ -906,6 +946,17 @@ private:
 		modelComponent->SetModel(circuitModel); // animModel
 		modelComponent->SetMaterial(material);
 		ModelLoader3D::SetupPbrModel(*circuitModel, modelComponent);
+
+		Collider collider{};
+		OwnedPtr<ConvexVolume> convexVolume = new ConvexVolume(ConvexVolume::CreateObb({ 100.0f, 100.0f, 100.0f }, -100.0f));
+		
+		collider.SetTopLevelCollider(new AxisAlignedBoundingBox({ 100.0f, 5.0f, 100.0f }));
+		collider.AddBottomLevelCollider(convexVolume.GetPointer());
+		Engine::GetEcs()->AddComponent<Collider>(circuitObject, std::move(collider));
+
+		PhysicsComponent physicsComponent{};
+		physicsComponent.SetImmovable();
+		Engine::GetEcs()->AddComponent<PhysicsComponent>(circuitObject, std::move(physicsComponent));
 	}
 
 	void SpawnSecondCollider() {
@@ -917,13 +968,13 @@ private:
 
 		// Setup de físicas
 		auto& physicsComponent = Engine::GetEcs()->AddComponent<PhysicsComponent>(secondObject, {});
-		physicsComponent.mass = 3.5f;
-		physicsComponent.centerOfMassOffset = Vector3f(0.0f, 0.2f, 0.0f);
+		physicsComponent.SetMass(4.0f);
+		physicsComponent.centerOfMassOffset = Vector3f::Zero;
 
 		// Collider
 		Collider collider{};
 
-		OwnedPtr<ConvexVolume> convexVolume = new ConvexVolume(ConvexVolume::CreateObb({ 0.2f * 2, 0.2f * 2, 0.2f * 2 }, 0));
+		OwnedPtr<ConvexVolume> convexVolume = new ConvexVolume(ConvexVolume::CreateObb({ 0.2f * 2, 0.2f * 2, 0.2f * 2 }, 0.0f));
 
 		collider.SetTopLevelCollider(new AxisAlignedBoundingBox(0.95f));
 		collider.AddBottomLevelCollider(convexVolume.GetPointer());
