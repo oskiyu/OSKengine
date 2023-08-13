@@ -1,4 +1,0 @@
-<map id="OSK::GRAPHICS::ISwapchain::GetImageCount" name="OSK::GRAPHICS::ISwapchain::GetImageCount">
-<area shape="rect" id="node1" title="Devuelve el número de imágenes del swapchain." alt="" coords="255,5,453,47"/>
-<area shape="rect" id="node2" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_sync_device_vulkan.html#a372f1f09902e5735edb66cf7ed4c1a84" title=" " alt="" coords="5,5,207,47"/>
-</map>

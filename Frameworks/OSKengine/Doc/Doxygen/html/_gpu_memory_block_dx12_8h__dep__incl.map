@@ -1,8 +1,0 @@
-<map id="OSKengine2/GpuMemoryBlockDx12.h" name="OSKengine2/GpuMemoryBlockDx12.h">
-<area shape="rect" id="node1" title=" " alt="" coords="509,5,712,47"/>
-<area shape="rect" id="node2" href="$_command_list_dx12_8cpp.html" title=" " alt="" coords="5,102,240,129"/>
-<area shape="rect" id="node3" href="$_gpu_memory_allocator_dx12_8cpp.html" title=" " alt="" coords="264,95,485,136"/>
-<area shape="rect" id="node4" href="$_gpu_memory_block_dx12_8cpp.html" title=" " alt="" coords="509,95,712,136"/>
-<area shape="rect" id="node5" href="$_gpu_memory_subblock_dx12_8cpp.html" title=" " alt="" coords="736,95,960,136"/>
-<area shape="rect" id="node6" href="$_swapchain_dx12_8cpp.html" title=" " alt="" coords="985,102,1202,129"/>
-</map>

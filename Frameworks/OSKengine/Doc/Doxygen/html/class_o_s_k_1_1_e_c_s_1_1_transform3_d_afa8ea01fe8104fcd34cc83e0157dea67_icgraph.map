@@ -1,5 +1,0 @@
-<map id="OSK::ECS::Transform3D::GetRightVector" name="OSK::ECS::Transform3D::GetRightVector">
-<area shape="rect" id="node1" title="Devuelve un vector unitario 3D que apunta hacia la derecha de la entidad." alt="" coords="425,5,592,47"/>
-<area shape="rect" id="node2" href="$class_o_s_k_1_1_e_c_s_1_1_camera_component3_d.html#ae67d2d1b0d5bab6065d274cb185f08ef" title="Actualiza el transform de la cámara, para que tenga su rotación." alt="" coords="167,5,377,47"/>
-<area shape="rect" id="node3" href="$class_game1.html#a0981142b47932b4f5dfac4e1556ba00f" title="Función que se ejecuta cada frame. Para hacer actualización del estado del juego." alt="" coords="5,13,119,39"/>
-</map>

@@ -1,6 +1,0 @@
-<map id="OSK::GRAPHICS::CommandListOgl::BindMaterial" name="OSK::GRAPHICS::CommandListOgl::BindMaterial">
-<area shape="rect" id="node1" title=" " alt="" coords="5,71,219,112"/>
-<area shape="rect" id="node2" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_graphics_pipeline.html#a15c33d090a00d4bddc27a181f7f9f20c" title=" " alt="" coords="288,5,476,47"/>
-<area shape="rect" id="node3" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material.html#a7295b19f995cfb4a72a89d15cca4eebe" title="Obtiene el graphics pipeline asignado al renderpass dado." alt="" coords="293,71,471,112"/>
-<area shape="rect" id="node4" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_graphics_pipeline_ogl.html#a6bd42e8acea8c3675de25d40fc666c2b" title=" " alt="" coords="267,136,497,177"/>
-</map>

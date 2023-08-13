@@ -1,6 +1,0 @@
-<map id="OSK::GRAPHICS::GpuUniformBufferDx12" name="OSK::GRAPHICS::GpuUniformBufferDx12">
-<area shape="rect" id="node1" title=" " alt="" coords="27,839,229,945"/>
-<area shape="rect" id="node2" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_uniform_buffer.html" title="Un uniform buffer contiene información arbitraria a la que se puede acceder a la hora de renderizar." alt="" coords="26,683,230,789"/>
-<area shape="rect" id="node3" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_data_buffer.html" title="Representa un buffer genérico en la GPU." alt="" coords="19,351,237,633"/>
-<area shape="rect" id="node4" href="$class_o_s_k_1_1_owned_ptr.html" title=" " alt="" coords="5,5,251,288"/>
-</map>

@@ -1,4 +1,0 @@
-<map id="OSK::IO::Window::_GetGlfw" name="OSK::IO::Window::_GetGlfw">
-<area shape="rect" id="node1" title="Obtiene el handler de la ventana, de GLFW." alt="" coords="249,13,436,39"/>
-<area shape="rect" id="node2" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_swapchain_dx12.html#a5a782794a56d4cfea6bdf4f34f98a766" title="Crea el swapchain. Obtiene automáticamente el tamaño de las imágenes a partir del tamaño de la ventan..." alt="" coords="5,5,201,47"/>
-</map>

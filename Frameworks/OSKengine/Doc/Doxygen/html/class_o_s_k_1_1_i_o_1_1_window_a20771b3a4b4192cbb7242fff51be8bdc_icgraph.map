@@ -1,5 +1,0 @@
-<map id="OSK::IO::Window::SetFullScreen" name="OSK::IO::Window::SetFullScreen">
-<area shape="rect" id="node1" title="Establece la ventana en modo pantalla completa (o no)." alt="" coords="407,5,581,47"/>
-<area shape="rect" id="node2" href="$class_o_s_k_1_1_i_o_1_1_window.html#a65149d93f9842363f53bdc3e07f459a6" title="Cambia el estado de la pantalla completa." alt="" coords="167,5,359,47"/>
-<area shape="rect" id="node3" href="$class_game1.html#a0981142b47932b4f5dfac4e1556ba00f" title="Función que se ejecuta cada frame. Para hacer actualización del estado del juego." alt="" coords="5,13,119,39"/>
-</map>

@@ -1,8 +1,0 @@
-digraph "Representación gráfica de la clase"
-{
- // LATEX_PDF_SIZE
-  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
-  node [fontname="Helvetica",fontsize="10",shape=record];
-  rankdir="LR";
-  Node0 [label="OSK::ASSETS::GltfModelInfo",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$struct_o_s_k_1_1_a_s_s_e_t_s_1_1_gltf_model_info.html",tooltip="Información relevante de un modelo GLTF, necesario para la correcta generación de meshes."];
-}

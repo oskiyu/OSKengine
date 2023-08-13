@@ -1,4 +1,0 @@
-<map id="OSK::DynamicArray::ResizeMove" name="OSK::DynamicArray::ResizeMove">
-<area shape="rect" id="node1" title="Cambia el tamaño del array. Los datos se conservan, siempre que se pueda. Se añaden elementos hasta q..." alt="" coords="221,5,369,47"/>
-<area shape="rect" id="node2" href="$class_o_s_k_1_1_dynamic_array.html#a4b52eefe732ae09cda18292497e8b5e8" title="Crea un DynamicArray con un número de elementos ya creados e insertados." alt="" coords="5,5,173,47"/>
-</map>

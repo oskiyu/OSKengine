@@ -1,9 +1,0 @@
-<map id="OSK::HashMap::Get" name="OSK::HashMap::Get">
-<area shape="rect" id="node1" title="Devuelve el valor enlazado del valor llave dado." alt="" coords="531,110,673,137"/>
-<area shape="rect" id="node2" href="$class_o_s_k_1_1_e_c_s_1_1_component_container.html#a3b5cac3a5c7ac15f1f7bf0e24f4e0027" title="Devuelve una referencia al componente del objeto dado." alt="" coords="268,37,483,79"/>
-<area shape="rect" id="node5" href="$class_o_s_k_1_1_a_s_s_e_t_s_1_1_model_loader3_d.html#afd1dbf7d9bffbe40564bb3e2a885e04a" title="Carga el asset." alt="" coords="276,103,475,144"/>
-<area shape="rect" id="node6" href="$class_o_s_k_1_1_e_c_s_1_1_component_container.html#a9b71e06dbdfd14318e62df1352ff646d" title="Elimina el componente cuyo dueño es el dado." alt="" coords="268,168,483,209"/>
-<area shape="rect" id="node3" href="$class_o_s_k_1_1_e_c_s_1_1_component_container.html#af1fb0c5b18e59eee44e7f3dc8321140e" title="Añade un componente asignado al objeto dado." alt="" coords="5,5,220,47"/>
-<area shape="rect" id="node4" href="$class_o_s_k_1_1_e_c_s_1_1_component_container.html#aada8120359f7e0a7c7a4f93d55764f6f" title="Añade un componente asignado al objeto dado." alt="" coords="5,71,220,112"/>
-<area shape="rect" id="node7" href="$class_o_s_k_1_1_e_c_s_1_1_component_container.html#aa2ae3332ee4b0c80860b7cc3d60d5d55" title="Elimina el componente del objeto eliminado." alt="" coords="5,168,220,209"/>
-</map>

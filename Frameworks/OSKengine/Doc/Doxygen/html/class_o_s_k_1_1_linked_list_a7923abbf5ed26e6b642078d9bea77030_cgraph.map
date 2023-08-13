@@ -1,5 +1,0 @@
-<map id="OSK::LinkedList::Find" name="OSK::LinkedList::Find">
-<area shape="rect" id="node1" title="Devuelve un iterador que apunta al elemento dado. Si el elemento no está en la lista,..." alt="" coords="5,35,156,61"/>
-<area shape="rect" id="node2" href="$class_o_s_k_1_1_linked_list.html#aca2d8a70810319dcf8a082a7f5e999d7" title="Devuelve el número de elementos en el stack." alt="" coords="204,5,376,32"/>
-<area shape="rect" id="node3" href="$class_o_s_k_1_1_linked_list_1_1_node.html#a8ebd20dfa1d1861dd74e14374f5606b8" title="Crea un nodo con el elemento dado." alt="" coords="213,57,367,98"/>
-</map>

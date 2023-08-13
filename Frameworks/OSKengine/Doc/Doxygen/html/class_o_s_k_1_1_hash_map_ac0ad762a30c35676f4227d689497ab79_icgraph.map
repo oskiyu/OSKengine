@@ -1,5 +1,0 @@
-<map id="OSK::HashMap::GetBucket" name="OSK::HashMap::GetBucket">
-<area shape="rect" id="node1" title="Devuelve un puntero al cubo en el índice dado." alt="" coords="215,46,397,73"/>
-<area shape="rect" id="node2" href="$class_o_s_k_1_1_hash_map_1_1_iterator.html#a5fb61c5483a92ec5b71c1f675eba34c5" title="Devuelve un iterador que apunta a la siguiente pareja de la colección." alt="" coords="5,5,167,47"/>
-<area shape="rect" id="node3" href="$class_o_s_k_1_1_hash_map_1_1_iterator.html#a550b5916ec84ed436d44915fd5d9d376" title="Devuelve un iterador que apunta a la anterior pareja de la colección." alt="" coords="5,71,167,112"/>
-</map>

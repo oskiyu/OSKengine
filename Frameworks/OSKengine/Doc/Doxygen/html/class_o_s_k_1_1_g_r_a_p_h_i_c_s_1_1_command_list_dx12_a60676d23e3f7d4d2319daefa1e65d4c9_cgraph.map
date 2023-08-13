@@ -1,4 +1,0 @@
-<map id="OSK::GRAPHICS::CommandListDx12::BindImageDx12" name="OSK::GRAPHICS::CommandListDx12::BindImageDx12">
-<area shape="rect" id="node1" title=" " alt="" coords="5,5,219,47"/>
-<area shape="rect" id="node2" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_dx12.html#ae779d687ae5930fc0f15f80d38b7e65c" title="Devuelve la memoria del descriptor para uso como textura. Null si no será usado de esa manera." alt="" coords="267,5,489,47"/>
-</map>

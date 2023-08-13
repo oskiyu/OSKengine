@@ -1,9 +1,0 @@
-<map id="OSK::GRAPHICS::IGpuMemorySubblock::As" name="OSK::GRAPHICS::IGpuMemorySubblock::As">
-<area shape="rect" id="node1" title=" " alt="" coords="535,136,741,177"/>
-<area shape="rect" id="node2" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_list_dx12.html#a51f2257a34d6dcb2b04e17e25221e197" title=" " alt="" coords="270,5,483,47"/>
-<area shape="rect" id="node4" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_list_dx12.html#a4b89d32326161602a638dd6e80d79fef" title="Copia la imagen guardada en un buffer a una imagen en la GPU. Para poder subir una imagen a la GPU,..." alt="" coords="270,71,483,112"/>
-<area shape="rect" id="node5" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_memory_allocator_dx12.html#a9958398421f6574af4c8010899dae040" title="Crea un buffer de índices con los índices dados." alt="" coords="270,136,483,177"/>
-<area shape="rect" id="node6" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_memory_allocator_dx12.html#ac2d817d336597a7a13500f196d06199b" title="Crea un buffer de vértices con los vértices dados." alt="" coords="267,201,487,243"/>
-<area shape="rect" id="node7" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_slot_vulkan.html#a00b39c8aa8e563a5d0776edbf06cbd60" title="Establece el UNIFORM BUFFER que será asignado al binding con el nombre dado. Puede usarse esta funció..." alt="" coords="275,267,478,308"/>
-<area shape="rect" id="node3" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_list_dx12.html#a91bb2e65a00b95212c04426c942c1105" title="Establece un material slot que estará asignado en los próximos comandos de renderizado...." alt="" coords="5,5,219,47"/>
-</map>

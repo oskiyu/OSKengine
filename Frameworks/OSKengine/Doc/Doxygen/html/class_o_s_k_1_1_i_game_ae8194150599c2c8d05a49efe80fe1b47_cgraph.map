@@ -1,6 +1,0 @@
-<map id="OSK::IGame::Exit" name="OSK::IGame::Exit">
-<area shape="rect" id="node1" title="Fuerza el shutdown del juego." alt="" coords="5,31,132,57"/>
-<area shape="rect" id="node2" href="$class_o_s_k_1_1_i_o_1_1_window.html#a4ef67808752d9e9b618859e698f31362" title="Cierra la ventana." alt="" coords="183,5,350,32"/>
-<area shape="rect" id="node4" href="$class_o_s_k_1_1_engine.html#a96eab59df83d63ab65869fea551bb272" title=" " alt="" coords="180,56,353,83"/>
-<area shape="rect" id="node3" href="$class_o_s_k_1_1_owned_ptr.html#a81dfab2299056fc9858aace55fca0042" title="Devuelve el puntero nativo." alt="" coords="401,5,587,32"/>
-</map>

@@ -1,5 +1,0 @@
-<map id="OSK::GRAPHICS::GpuVertexBufferVulkan" name="OSK::GRAPHICS::GpuVertexBufferVulkan">
-<area shape="rect" id="node1" title=" " alt="" coords="17,505,211,597"/>
-<area shape="rect" id="node2" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_vertex_buffer.html" title="Un vertex buffer es un buffer de memoria en la GPU que almacena los vértices de un modelo 3D o un spr..." alt="" coords="15,336,213,457"/>
-<area shape="rect" id="node3" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_data_buffer.html" title="Representa un buffer genérico en la GPU." alt="" coords="5,5,223,288"/>
-</map>

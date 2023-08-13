@@ -1,5 +1,0 @@
-<map id="OSK::GRAPHICS::CommandListVulkan::GetCommandBuffers" name="OSK::GRAPHICS::CommandListVulkan::GetCommandBuffers">
-<area shape="rect" id="node1" title=" " alt="" coords="279,39,492,80"/>
-<area shape="rect" id="node2" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_sync_device_vulkan.html#a372f1f09902e5735edb66cf7ed4c1a84" title=" " alt="" coords="17,5,219,47"/>
-<area shape="rect" id="node3" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderer_vulkan.html#ae7fb15c3cbed5340cc112c95ff86450a" title="Ejecuta el contenido de la lista de comandos." alt="" coords="5,71,231,112"/>
-</map>

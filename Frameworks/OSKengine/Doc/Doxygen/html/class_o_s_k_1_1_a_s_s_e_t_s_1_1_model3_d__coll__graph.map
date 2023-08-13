@@ -1,4 +1,0 @@
-<map id="OSK::ASSETS::Model3D" name="OSK::ASSETS::Model3D">
-<area shape="rect" id="node1" title="Un modelo 3D, para el renderizado 3D. Está compuesto por una serie de meshes 3D." alt="" coords="5,189,201,443"/>
-<area shape="rect" id="node2" href="$class_o_s_k_1_1_a_s_s_e_t_s_1_1_i_asset.html" title="Un asset es un archivo/contenido que se usa en un juego. Incluye contenido como texturas,..." alt="" coords="26,5,181,141"/>
-</map>

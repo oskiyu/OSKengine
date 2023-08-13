@@ -1,9 +1,0 @@
-<map id="OSK::GRAPHICS::RendererVulkan::SubmitSingleUseCommandList" name="OSK::GRAPHICS::RendererVulkan::SubmitSingleUseCommandList">
-<area shape="rect" id="node1" title="Ejecuta el contenido de la lista de comandos." alt="" coords="5,129,231,171"/>
-<area shape="rect" id="node2" href="$class_o_s_k_1_1_dynamic_array.html#a9691f5eaf46654d59525c6c342d69cbb" title="Devuelve el elemento en la posición dada." alt="" coords="313,13,475,39"/>
-<area shape="rect" id="node4" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_list_vulkan.html#a222a24c9f23c317f07799ba7cb492595" title=" " alt="" coords="287,64,501,105"/>
-<area shape="rect" id="node5" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_pool_vulkan.html#a11ed750dda8616e7f42b4c81d88d1e5a" title=" " alt="" coords="285,129,503,171"/>
-<area shape="rect" id="node6" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_vulkan.html#a9f3d2735d7bb54ecb4056d5284cb686f" title=" " alt="" coords="295,195,493,236"/>
-<area shape="rect" id="node7" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_queue_vulkan.html#ab8ce61a5604b9d90ff9246da6b9b11a2" title=" " alt="" coords="279,260,509,301"/>
-<area shape="rect" id="node3" href="$class_o_s_k_1_1_dynamic_array.html#a24b36038b685ea5f33b2b9b279035cef" title="Devuelve true si el array se ha inicializado." alt="" coords="557,5,705,47"/>
-</map>

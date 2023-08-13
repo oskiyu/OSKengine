@@ -1,8 +1,0 @@
-<map id="OSK::LinkedList::Pop" name="OSK::LinkedList::Pop">
-<area shape="rect" id="node1" title=" " alt="" coords="5,42,153,69"/>
-<area shape="rect" id="node2" href="$class_o_s_k_1_1_linked_list_1_1_node.html#a8ebd20dfa1d1861dd74e14374f5606b8" title="Crea un nodo con el elemento dado." alt="" coords="222,5,377,47"/>
-<area shape="rect" id="node3" href="$class_o_s_k_1_1_linked_list.html#a73e20d9a5285cc0c3fbcd403c58ed498" title=" " alt="" coords="201,71,397,98"/>
-<area shape="rect" id="node4" href="$class_o_s_k_1_1_linked_list.html#ad9b73d40df6ea457bbbf3fe6684c1d75" title="Elimina el elemento en la posición dada." alt="" coords="445,71,629,98"/>
-<area shape="rect" id="node5" href="$class_o_s_k_1_1_linked_list.html#aca2d8a70810319dcf8a082a7f5e999d7" title="Devuelve el número de elementos en el stack." alt="" coords="678,46,850,73"/>
-<area shape="rect" id="node6" href="$class_o_s_k_1_1_linked_list.html#aa50c2cb81a7674bea9ec0387e47f2e5d" title="Devuelve true si no hay ningún elemento en el stack." alt="" coords="677,97,851,123"/>
-</map>

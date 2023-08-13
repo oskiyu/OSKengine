@@ -1,5 +1,0 @@
-<map id="OSK::GRAPHICS::MaterialLayout::AddSlot" name="OSK::GRAPHICS::MaterialLayout::AddSlot">
-<area shape="rect" id="node1" title="Añade el slot dado al layout. El nombre del slot se usará como llave." alt="" coords="5,5,224,47"/>
-<area shape="rect" id="node2" href="$class_o_s_k_1_1_linked_list.html#a1daf5ca9d77018980cdcd2bda761093b" title=" " alt="" coords="272,13,427,39"/>
-<area shape="rect" id="node3" href="$class_o_s_k_1_1_linked_list.html#a1a4872b46628b82523fc04226a10d81d" title="Añade un elemento a la lista." alt="" coords="475,13,632,39"/>
-</map>

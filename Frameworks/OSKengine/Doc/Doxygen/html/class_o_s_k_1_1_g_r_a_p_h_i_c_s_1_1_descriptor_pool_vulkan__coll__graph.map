@@ -1,3 +1,0 @@
-<map id="OSK::GRAPHICS::DescriptorPoolVulkan" name="OSK::GRAPHICS::DescriptorPoolVulkan">
-<area shape="rect" id="node1" title="Wrapper de un VkDescriptorPool. Se encarga de crear el pool a partir del MaterialLayoutSlot." alt="" coords="5,5,197,127"/>
-</map>

@@ -1,3 +1,0 @@
-<map id="OSK::UniquePtr&lt; T &gt;" name="OSK::UniquePtr&lt; T &gt;">
-<area shape="rect" id="node1" title="Es dueño de un puntero. El puntero original es eliminado al destruirse el UniquePtr." alt="" coords="5,5,152,229"/>
-</map>

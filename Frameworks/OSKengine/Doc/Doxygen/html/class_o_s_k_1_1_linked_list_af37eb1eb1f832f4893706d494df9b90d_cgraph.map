@@ -1,9 +1,0 @@
-<map id="OSK::LinkedList::operator=" name="OSK::LinkedList::operator=">
-<area shape="rect" id="node1" title="Copia los contenidos de la otra lista." alt="" coords="5,56,185,83"/>
-<area shape="rect" id="node2" href="$class_o_s_k_1_1_linked_list.html#af1ed83008428cf37ade1a19ec2987bc6" title="Copia los contenidos de la otra lista." alt="" coords="233,56,419,83"/>
-<area shape="rect" id="node3" href="$class_o_s_k_1_1_linked_list.html#a71aec68c4c15b2062c986028a97d50fa" title="Elimina todos los elementos de la lista." alt="" coords="470,31,621,57"/>
-<area shape="rect" id="node7" href="$class_o_s_k_1_1_linked_list.html#a1a4872b46628b82523fc04226a10d81d" title="Añade un elemento a la lista." alt="" coords="467,81,624,108"/>
-<area shape="rect" id="node4" href="$class_o_s_k_1_1_linked_list.html#aa50c2cb81a7674bea9ec0387e47f2e5d" title="Devuelve true si no hay ningún elemento en el stack." alt="" coords="904,5,1077,32"/>
-<area shape="rect" id="node5" href="$class_o_s_k_1_1_linked_list.html#ad9b73d40df6ea457bbbf3fe6684c1d75" title="Elimina el elemento en la posición dada." alt="" coords="672,56,856,83"/>
-<area shape="rect" id="node6" href="$class_o_s_k_1_1_linked_list.html#aca2d8a70810319dcf8a082a7f5e999d7" title="Devuelve el número de elementos en el stack." alt="" coords="905,56,1077,83"/>
-</map>

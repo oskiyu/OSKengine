@@ -1,4 +1,0 @@
-<map id="OSK::Quaternion::Rotate_WorldSpace" name="OSK::Quaternion::Rotate_WorldSpace">
-<area shape="rect" id="node1" title="Rota el cuaternión dado un eje, que se interpreta en espacio del mundo." alt="" coords="5,5,172,47"/>
-<area shape="rect" id="node2" href="$class_o_s_k_1_1_vector3__t.html#acb2737aa41e9e488c3e93a30fcedfb1c" title="OSK::Vector2 a glm::vec3." alt="" coords="220,13,384,39"/>
-</map>

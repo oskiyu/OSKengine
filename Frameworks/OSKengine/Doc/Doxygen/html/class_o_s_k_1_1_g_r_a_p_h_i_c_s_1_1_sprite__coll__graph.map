@@ -1,8 +1,0 @@
-<map id="OSK::GRAPHICS::Sprite" name="OSK::GRAPHICS::Sprite">
-<area shape="rect" id="node1" title="Representa un sprite: una textura que puede ser renderizada." alt="" coords="137,1043,315,1193"/>
-<area shape="rect" id="node2" href="$class_o_s_k_1_1_color.html" title="Representa un color en formato RGBA." alt="" coords="5,683,103,980"/>
-<area shape="rect" id="node3" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_vertex_buffer.html" title="Un vertex buffer es un buffer de memoria en la GPU que almacena los vértices de un modelo 3D o un spr..." alt="" coords="127,771,325,892"/>
-<area shape="rect" id="node4" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_data_buffer.html" title="Representa un buffer genérico en la GPU." alt="" coords="225,351,443,633"/>
-<area shape="rect" id="node6" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_index_buffer.html" title="Un index buffer contiene los índices para el renderizado de un modelo 2D o 3D." alt="" coords="349,771,540,892"/>
-<area shape="rect" id="node5" href="$class_o_s_k_1_1_owned_ptr.html" title=" " alt="" coords="211,5,457,288"/>
-</map>

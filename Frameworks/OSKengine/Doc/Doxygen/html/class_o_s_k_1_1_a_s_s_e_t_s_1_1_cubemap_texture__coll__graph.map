@@ -1,4 +1,0 @@
-<map id="OSK::ASSETS::CubemapTexture" name="OSK::ASSETS::CubemapTexture">
-<area shape="rect" id="node1" title="Representa una textura para un cubemap. Se puede usar para renderizar un skybox." alt="" coords="5,189,221,311"/>
-<area shape="rect" id="node2" href="$class_o_s_k_1_1_a_s_s_e_t_s_1_1_i_asset.html" title="Un asset es un archivo/contenido que se usa en un juego. Incluye contenido como texturas,..." alt="" coords="36,5,191,141"/>
-</map>

@@ -1,8 +1,0 @@
-<map id="OSK::GRAPHICS::GpuDataBuffer::Write" name="OSK::GRAPHICS::GpuDataBuffer::Write">
-<area shape="rect" id="node1" title="Escribe la información en el buffer." alt="" coords="273,152,491,193"/>
-<area shape="rect" id="node2" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_memory_allocator_dx12.html#a9958398421f6574af4c8010899dae040" title="Crea un buffer de índices con los índices dados." alt="" coords="9,5,222,47"/>
-<area shape="rect" id="node3" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_memory_allocator_vulkan.html#aef89e9652f13e27fa5b5940052fce007" title="Crea un buffer de índices con los índices dados." alt="" coords="13,71,217,127"/>
-<area shape="rect" id="node4" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_memory_allocator_dx12.html#ac2d817d336597a7a13500f196d06199b" title="Crea un buffer de vértices con los vértices dados." alt="" coords="5,152,225,193"/>
-<area shape="rect" id="node5" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_memory_allocator_vulkan.html#a3138abcf254278fc492bd105deba3796" title="Crea un buffer de vértices con los vértices dados." alt="" coords="13,218,217,274"/>
-<area shape="rect" id="node6" href="$class_game1.html#a0981142b47932b4f5dfac4e1556ba00f" title="Función que se ejecuta cada frame. Para hacer actualización del estado del juego." alt="" coords="59,298,172,325"/>
-</map>

@@ -1,3 +1,0 @@
-<map id="OSK::IO::Window" name="OSK::IO::Window">
-<area shape="rect" id="node1" title="Clase que representa una ventana. En esta ventana se renderizará el juego. También se encarga del inp..." alt="" coords="5,5,217,288"/>
-</map>

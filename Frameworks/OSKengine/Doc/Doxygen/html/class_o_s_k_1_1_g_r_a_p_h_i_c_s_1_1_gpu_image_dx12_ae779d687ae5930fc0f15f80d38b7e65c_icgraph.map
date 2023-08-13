@@ -1,5 +1,0 @@
-<map id="OSK::GRAPHICS::GpuImageDx12::GetSampledDescriptorHeap" name="OSK::GRAPHICS::GpuImageDx12::GetSampledDescriptorHeap">
-<area shape="rect" id="node1" title="Devuelve la memoria del descriptor para uso como textura. Null si no será usado de esa manera." alt="" coords="528,5,751,47"/>
-<area shape="rect" id="node2" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_list_dx12.html#a60676d23e3f7d4d2319daefa1e65d4c9" title=" " alt="" coords="267,5,480,47"/>
-<area shape="rect" id="node3" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_list_dx12.html#a91bb2e65a00b95212c04426c942c1105" title="Establece un material slot que estará asignado en los próximos comandos de renderizado...." alt="" coords="5,5,219,47"/>
-</map>

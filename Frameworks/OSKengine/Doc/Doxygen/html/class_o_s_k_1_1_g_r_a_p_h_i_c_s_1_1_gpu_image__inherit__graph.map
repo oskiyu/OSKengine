@@ -1,6 +1,0 @@
-<map id="OSK::GRAPHICS::GpuImage" name="OSK::GRAPHICS::GpuImage">
-<area shape="rect" id="node1" title="Representación interna de una imagen en la GPU." alt="" coords="262,5,454,303"/>
-<area shape="rect" id="node2" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_dx12.html" title=" " alt="" coords="5,351,228,575"/>
-<area shape="rect" id="node3" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_ogl.html" title=" " alt="" coords="252,402,464,523"/>
-<area shape="rect" id="node4" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_vulkan.html" title=" " alt="" coords="489,373,721,553"/>
-</map>

@@ -1,6 +1,0 @@
-<map id="Representación gráfica de la clase" name="Representación gráfica de la clase">
-<area shape="rect" id="node1" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_graphics_pipeline.html" title="El graphics pipeline es el encargado de transformar los modelos 3D en una imagen final...." alt="" coords="5,49,193,90"/>
-<area shape="rect" id="node2" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_graphics_pipeline_dx12.html" title=" " alt="" coords="241,5,503,32"/>
-<area shape="rect" id="node3" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_graphics_pipeline_ogl.html" title=" " alt="" coords="247,56,497,83"/>
-<area shape="rect" id="node4" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_graphics_pipeline_vulkan.html" title=" " alt="" coords="257,107,487,149"/>
-</map>

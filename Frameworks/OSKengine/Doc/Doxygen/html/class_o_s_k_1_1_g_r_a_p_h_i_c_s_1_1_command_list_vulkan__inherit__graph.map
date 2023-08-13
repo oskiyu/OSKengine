@@ -1,4 +1,0 @@
-<map id="OSK::GRAPHICS::CommandListVulkan" name="OSK::GRAPHICS::CommandListVulkan">
-<area shape="rect" id="node1" title="Una lista de comandos contiene una serie de comandos que serán enviados a la GPU para su ejecución...." alt="" coords="7,307,220,545"/>
-<area shape="rect" id="node2" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list.html" title="Una lista de comandos contiene una serie de comandos que serán enviados a la GPU para su ejecución." alt="" coords="5,5,221,259"/>
-</map>

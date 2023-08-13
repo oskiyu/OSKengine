@@ -1,4 +1,0 @@
-<map id="OSK::GRAPHICS::IGpuUniformBuffer::As" name="OSK::GRAPHICS::IGpuUniformBuffer::As">
-<area shape="rect" id="node1" title=" " alt="" coords="256,5,460,47"/>
-<area shape="rect" id="node2" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_slot_dx12.html#a92fd8a49ea158103e4c482e0594842a8" title="Establece el UNIFORM BUFFER que será asignado al binding con el nombre dado. Puede usarse esta funció..." alt="" coords="5,5,208,47"/>
-</map>

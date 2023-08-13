@@ -1,7 +1,0 @@
-<map id="OSK::GRAPHICS::RendererVulkan::~RendererVulkan" name="OSK::GRAPHICS::RendererVulkan::~RendererVulkan">
-<area shape="rect" id="node1" title=" " alt="" coords="5,23,231,65"/>
-<area shape="rect" id="node2" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderer_vulkan.html#a8c0aa7a8d272950bf1066f915c92f4b8" title="Cierra el renderizador. También se llama en el destructor." alt="" coords="279,23,504,65"/>
-<area shape="rect" id="node3" href="$class_o_s_k_1_1_engine.html#ac39b79a3e665381630f6c710f3772a2b" title=" " alt="" coords="552,5,719,32"/>
-<area shape="rect" id="node4" href="$class_o_s_k_1_1_i_o_1_1_logger.html#a3d2a88ffa05f6a74f9d669f1182bacca" title="Manda un mensaje de información." alt="" coords="552,56,719,83"/>
-<area shape="rect" id="node5" href="$class_o_s_k_1_1_i_o_1_1_logger.html#ac2af30faaa120261990f4deb1b566e7b" title="Manda un mensaje por el logger." alt="" coords="767,56,913,83"/>
-</map>

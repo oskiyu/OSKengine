@@ -1,4 +1,0 @@
-<map id="OSK::GRAPHICS::CommandListOgl" name="OSK::GRAPHICS::CommandListOgl">
-<area shape="rect" id="node1" title=" " alt="" coords="5,307,239,531"/>
-<area shape="rect" id="node2" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list.html" title="Una lista de comandos contiene una serie de comandos que serán enviados a la GPU para su ejecución." alt="" coords="14,5,230,259"/>
-</map>

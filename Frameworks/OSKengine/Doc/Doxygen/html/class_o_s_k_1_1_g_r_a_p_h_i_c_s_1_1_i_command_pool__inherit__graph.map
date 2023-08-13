@@ -1,5 +1,0 @@
-<map id="OSK::GRAPHICS::ICommandPool" name="OSK::GRAPHICS::ICommandPool">
-<area shape="rect" id="node1" title="Una pool de comandos se encarga de crear una serie de listas de comandos. Al mismo tiempo,..." alt="" coords="147,5,371,127"/>
-<area shape="rect" id="node2" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_pool_dx12.html" title="Una pool de comandos se encarga de crear una serie de listas de comandos." alt="" coords="5,204,253,325"/>
-<area shape="rect" id="node3" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_pool_vulkan.html" title="Una pool de comandos se encarga de crear una serie de listas de comandos." alt="" coords="277,175,501,355"/>
-</map>

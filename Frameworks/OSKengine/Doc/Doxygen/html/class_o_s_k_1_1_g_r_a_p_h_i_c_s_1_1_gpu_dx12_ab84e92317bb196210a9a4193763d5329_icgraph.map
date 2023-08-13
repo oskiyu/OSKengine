@@ -1,5 +1,0 @@
-<map id="OSK::GRAPHICS::GpuDx12::GetDevice" name="OSK::GRAPHICS::GpuDx12::GetDevice">
-<area shape="rect" id="node1" title=" " alt="" coords="272,39,459,80"/>
-<area shape="rect" id="node2" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_pipeline_layout_dx12.html#a3fd7ec2e8eb3534fd83ec384e4e1e5df" title=" " alt="" coords="5,5,224,47"/>
-<area shape="rect" id="node3" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderpass_dx12.html#a4037acfe3a5f8071b004b7f80529912c" title="Establece las imágenes del swapchain donde se va a renderizar (para pantalla)." alt="" coords="13,71,216,112"/>
-</map>

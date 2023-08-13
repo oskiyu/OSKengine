@@ -1,4 +1,0 @@
-<map id="OSK::IO::Window::SetMouseReturnMode" name="OSK::IO::Window::SetMouseReturnMode">
-<area shape="rect" id="node1" title="Establece si el ratón puede moverse libremente o si volverá siempre al centro de la pantalla,..." alt="" coords="209,5,401,47"/>
-<area shape="rect" id="node2" href="$class_game1.html#afa6bd75f3703f2da4bbe1cf654fe80cd" title="Debe crear la ventana del Engine." alt="" coords="5,13,161,39"/>
-</map>

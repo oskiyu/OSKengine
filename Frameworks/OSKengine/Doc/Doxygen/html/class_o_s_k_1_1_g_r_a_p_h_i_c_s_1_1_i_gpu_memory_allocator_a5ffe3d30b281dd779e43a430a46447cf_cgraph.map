@@ -1,6 +1,0 @@
-<map id="OSK::GRAPHICS::IGpuMemoryAllocator::CreateCubemapImage" name="OSK::GRAPHICS::IGpuMemoryAllocator::CreateCubemapImage">
-<area shape="rect" id="node1" title="Crea una imagen cubemap en la GPU." alt="" coords="5,57,215,98"/>
-<area shape="rect" id="node2" href="$namespace_o_s_k_1_1_e_f_traits.html#aaa9d8f73148fc7211f6713016bbab4aa" title="Añade un flag al enum dado." alt="" coords="285,5,447,32"/>
-<area shape="rect" id="node3" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_allocator.html#a9edc56722522b79a352ce378e1ac8595" title="Crea una nueva imagen en la GPU." alt="" coords="263,57,469,98"/>
-<area shape="rect" id="node4" href="$namespace_o_s_k_1_1_e_f_traits.html#a8b4d083d34df5ab4cc95043f91b5a24c" title="Devuelve true si el enum &#39;value&#39; tiene la flag &#39;flag&#39;." alt="" coords="285,123,447,149"/>
-</map>

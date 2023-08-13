@@ -1,7 +1,0 @@
-<map id="OSK::LinkedList::operator[]" name="OSK::LinkedList::operator[]">
-<area shape="rect" id="node1" title="Devuevle el elemento que está en la posición &#39;i&#39;, desde el primer elemento." alt="" coords="5,64,185,91"/>
-<area shape="rect" id="node2" href="$class_o_s_k_1_1_linked_list.html#aedc9d34e76f08d7e298b1f90f5f69af9" title="Devuevle el elemento que está en la posición &#39;i&#39;, desde el primer elemento." alt="" coords="233,64,372,91"/>
-<area shape="rect" id="node3" href="$class_o_s_k_1_1_linked_list.html#aca2d8a70810319dcf8a082a7f5e999d7" title="Devuelve el número de elementos en el stack." alt="" coords="421,5,593,32"/>
-<area shape="rect" id="node4" href="$class_o_s_k_1_1_linked_list_1_1_node.html#a8ebd20dfa1d1861dd74e14374f5606b8" title="Crea un nodo con el elemento dado." alt="" coords="429,57,584,98"/>
-<area shape="rect" id="node5" href="$class_o_s_k_1_1_linked_list.html#aa50c2cb81a7674bea9ec0387e47f2e5d" title="Devuelve true si no hay ningún elemento en el stack." alt="" coords="420,123,593,149"/>
-</map>

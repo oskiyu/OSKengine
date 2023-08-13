@@ -1,4 +1,0 @@
-<map id="OSK::IO::Window::Update" name="OSK::IO::Window::Update">
-<area shape="rect" id="node1" title="Actualiza la ventana, procesando todos los eventos relacionados. También actualiza sus estados intern..." alt="" coords="5,5,180,32"/>
-<area shape="rect" id="node2" href="$class_o_s_k_1_1_owned_ptr.html#a81dfab2299056fc9858aace55fca0042" title="Devuelve el puntero nativo." alt="" coords="228,5,413,32"/>
-</map>

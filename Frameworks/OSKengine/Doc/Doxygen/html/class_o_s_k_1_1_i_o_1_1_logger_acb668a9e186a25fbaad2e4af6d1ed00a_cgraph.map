@@ -1,8 +1,0 @@
-<map id="OSK::IO::Logger::~Logger" name="OSK::IO::Logger::~Logger">
-<area shape="rect" id="node1" title="Cierra el logger, guardando el archivo." alt="" coords="5,56,179,83"/>
-<area shape="rect" id="node2" href="$class_o_s_k_1_1_i_o_1_1_logger.html#ab13114d60ca5f1f69f2ba0f2f1a5bd19" title="Cierra el logger, guardando el archivo." alt="" coords="227,56,385,83"/>
-<area shape="rect" id="node3" href="$class_o_s_k_1_1_i_o_1_1_logger.html#a1191038d1044a1121e03cc267e9c681c" title="Limpia los contenidos del archivo del log." alt="" coords="439,5,595,32"/>
-<area shape="rect" id="node4" href="$class_o_s_k_1_1_i_o_1_1_logger.html#a3d2a88ffa05f6a74f9d669f1182bacca" title="Manda un mensaje de información." alt="" coords="433,56,600,83"/>
-<area shape="rect" id="node6" href="$class_o_s_k_1_1_i_o_1_1_logger.html#ab493233540e62404d594ea32de744fc3" title="Guarda el archivo del log, en la ruta especificada en Logger::Start()." alt="" coords="439,131,594,157"/>
-<area shape="rect" id="node5" href="$class_o_s_k_1_1_i_o_1_1_logger.html#ac2af30faaa120261990f4deb1b566e7b" title="Manda un mensaje por el logger." alt="" coords="648,56,795,83"/>
-</map>

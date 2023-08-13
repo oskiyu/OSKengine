@@ -1,3 +1,0 @@
-<map id="OSK::IO::Logger::Save" name="OSK::IO::Logger::Save">
-<area shape="rect" id="node1" title="Guarda el archivo del log, en la ruta especificada en Logger::Start()." alt="" coords="5,29,160,56"/>
-</map>

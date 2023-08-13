@@ -1,4 +1,0 @@
-<map id="OSK::GRAPHICS::MaterialSlotDx12" name="OSK::GRAPHICS::MaterialSlotDx12">
-<area shape="rect" id="node1" title=" " alt="" coords="5,248,237,399"/>
-<area shape="rect" id="node2" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_material_slot.html" title="Un slot contiene referencias a los recursos (UNIFORM BUFFER, TEXTURE, etc...) que se envían a la GPU." alt="" coords="19,5,224,200"/>
-</map>

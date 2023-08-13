@@ -1,6 +1,0 @@
-<map id="OSK::GRAPHICS::IGpuMemoryAllocator" name="OSK::GRAPHICS::IGpuMemoryAllocator">
-<area shape="rect" id="node1" title="El asignador de memoria se encarga de reservar grandes bloques de memoria en la GPU,..." alt="" coords="237,5,460,332"/>
-<area shape="rect" id="node2" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_memory_allocator_dx12.html" title=" " alt="" coords="5,380,223,575"/>
-<area shape="rect" id="node3" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_memory_allocator_ogl.html" title=" " alt="" coords="247,387,451,567"/>
-<area shape="rect" id="node4" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_memory_allocator_vulkan.html" title=" " alt="" coords="475,387,679,567"/>
-</map>

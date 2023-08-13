@@ -1,4 +1,0 @@
-<map id="OSK::ASSETS::Model3D::_SetVertexBuffer" name="OSK::ASSETS::Model3D::_SetVertexBuffer">
-<area shape="rect" id="node1" title="Establece el buffer con todos los vértices del modelo." alt="" coords="5,5,175,47"/>
-<area shape="rect" id="node2" href="$class_o_s_k_1_1_owned_ptr.html#a81dfab2299056fc9858aace55fca0042" title="Devuelve el puntero nativo." alt="" coords="223,13,408,39"/>
-</map>

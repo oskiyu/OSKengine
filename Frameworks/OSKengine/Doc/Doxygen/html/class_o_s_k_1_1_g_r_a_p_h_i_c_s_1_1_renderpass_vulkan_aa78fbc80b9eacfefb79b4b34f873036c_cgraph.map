@@ -1,6 +1,0 @@
-<map id="OSK::GRAPHICS::RenderpassVulkan::CreateFinalPresent" name="OSK::GRAPHICS::RenderpassVulkan::CreateFinalPresent">
-<area shape="rect" id="node1" title=" " alt="" coords="5,95,208,136"/>
-<area shape="rect" id="node2" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderpass_vulkan.html#a883119250bc6891ac0443c2773ee9839" title=" " alt="" coords="256,29,459,71"/>
-<area shape="rect" id="node3" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image.html#a7fbd0307d9e9147312004fecca6b73ba" title=" " alt="" coords="261,95,453,136"/>
-<area shape="rect" id="node4" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_swapchain.html#a5936949da83e48f3f0f337d1459e5989" title="Devuelve la imagen con el índice dado." alt="" coords="258,160,457,201"/>
-</map>

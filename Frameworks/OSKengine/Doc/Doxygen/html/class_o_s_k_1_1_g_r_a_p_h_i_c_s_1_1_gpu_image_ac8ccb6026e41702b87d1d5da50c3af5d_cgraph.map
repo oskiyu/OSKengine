@@ -1,6 +1,0 @@
-<map id="OSK::GRAPHICS::GpuImage::SetData" name="OSK::GRAPHICS::GpuImage::SetData">
-<area shape="rect" id="node1" title=" " alt="" coords="5,71,197,112"/>
-<area shape="rect" id="node2" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_subblock.html#a29f38899723247f6e8c3e2e910f35e70" title="Mapea toda la memoria del subbloque." alt="" coords="245,5,452,47"/>
-<area shape="rect" id="node3" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_subblock.html#a94d195cd88d1376227eae2ee9a69b6de" title="Desmapea el subbloque. Debe llamarse al terminar de escribir." alt="" coords="245,71,452,112"/>
-<area shape="rect" id="node4" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_subblock.html#aa2b51252dea910f22d1bb87f7e9109a3" title="Escribe información en la GPU." alt="" coords="245,136,452,177"/>
-</map>

@@ -1,8 +1,0 @@
-<map id="OSK::IO::Window::Create" name="OSK::IO::Window::Create">
-<area shape="rect" id="node1" title="Crea una ventana." alt="" coords="5,81,176,108"/>
-<area shape="rect" id="node2" href="$class_o_s_k_1_1_engine.html#ac39b79a3e665381630f6c710f3772a2b" title=" " alt="" coords="233,5,400,32"/>
-<area shape="rect" id="node3" href="$class_o_s_k_1_1_owned_ptr.html#a81dfab2299056fc9858aace55fca0042" title="Devuelve el puntero nativo." alt="" coords="224,56,409,83"/>
-<area shape="rect" id="node4" href="$class_o_s_k_1_1_owned_ptr.html#a6ff1efe3764161c4fdf7dd8e72f16fea" title="Devuelve true si el puntero no es null." alt="" coords="227,107,406,133"/>
-<area shape="rect" id="node5" href="$class_o_s_k_1_1_i_o_1_1_logger.html#a3d2a88ffa05f6a74f9d669f1182bacca" title="Manda un mensaje de información." alt="" coords="233,157,400,184"/>
-<area shape="rect" id="node6" href="$class_o_s_k_1_1_i_o_1_1_logger.html#ac2af30faaa120261990f4deb1b566e7b" title="Manda un mensaje por el logger." alt="" coords="457,157,604,184"/>
-</map>

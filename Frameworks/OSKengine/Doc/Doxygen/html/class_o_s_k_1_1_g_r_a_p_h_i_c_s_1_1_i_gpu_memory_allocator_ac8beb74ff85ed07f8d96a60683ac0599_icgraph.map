@@ -1,5 +1,0 @@
-<map id="OSK::GRAPHICS::IGpuMemoryAllocator::CreateUniformBuffer" name="OSK::GRAPHICS::IGpuMemoryAllocator::CreateUniformBuffer">
-<area shape="rect" id="node1" title="Crea un uniform buffer, con el tamaño dado en bytes." alt="" coords="264,35,471,76"/>
-<area shape="rect" id="node2" href="$class_o_s_k_1_1_e_c_s_1_1_camera_component2_d.html#a64066d153575cc59daa7af38447f529d" title=" " alt="" coords="5,5,216,47"/>
-<area shape="rect" id="node3" href="$class_game1.html#a738ffccb5910f1f15136680903ea4159" title="Función ejecutada al cargar el juego." alt="" coords="47,71,174,98"/>
-</map>

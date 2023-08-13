@@ -1,4 +1,0 @@
-<map id="OSK::ECS::CameraComponent3D::Rotate" name="OSK::ECS::CameraComponent3D::Rotate">
-<area shape="rect" id="node1" title="Rota la cámara." alt="" coords="167,5,377,47"/>
-<area shape="rect" id="node2" href="$class_game1.html#a0981142b47932b4f5dfac4e1556ba00f" title="Función que se ejecuta cada frame. Para hacer actualización del estado del juego." alt="" coords="5,13,119,39"/>
-</map>

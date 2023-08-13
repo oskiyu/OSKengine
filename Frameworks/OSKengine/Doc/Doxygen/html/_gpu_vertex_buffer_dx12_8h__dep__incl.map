@@ -1,7 +1,0 @@
-<map id="OSKengine2/GpuVertexBufferDx12.h" name="OSKengine2/GpuVertexBufferDx12.h">
-<area shape="rect" id="node1" title=" " alt="" coords="393,5,588,47"/>
-<area shape="rect" id="node2" href="$_command_list_dx12_8cpp.html" title=" " alt="" coords="5,102,240,129"/>
-<area shape="rect" id="node3" href="$_gpu_memory_allocator_dx12_8cpp.html" title=" " alt="" coords="264,95,485,136"/>
-<area shape="rect" id="node4" href="$_gpu_vertex_buffer_dx12_8cpp.html" title=" " alt="" coords="509,95,704,136"/>
-<area shape="rect" id="node5" href="$_renderer_dx12_8cpp.html" title=" " alt="" coords="729,102,935,129"/>
-</map>

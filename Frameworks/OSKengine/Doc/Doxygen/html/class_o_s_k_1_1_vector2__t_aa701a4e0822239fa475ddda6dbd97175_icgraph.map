@@ -1,5 +1,0 @@
-<map id="OSK::Vector2_t::GetLength" name="OSK::Vector2_t::GetLength">
-<area shape="rect" id="node1" title="Módulo del vector. Obtiene la longitud del vector." alt="" coords="261,31,444,57"/>
-<area shape="rect" id="node2" href="$class_o_s_k_1_1_vector2__t.html#aa04f2ff17751135271b6ee1e72ac7b38" title="Devuelve un vector 2D normalizado con la misma dirección que este." alt="" coords="5,5,213,32"/>
-<area shape="rect" id="node3" href="$class_o_s_k_1_1_vector2__t.html#a91fc3cfe54ea2d6ca8c73a988317d598" title="Normaliza este vector 2D para que su módulo (GetLength()) sea 1." alt="" coords="19,56,199,83"/>
-</map>

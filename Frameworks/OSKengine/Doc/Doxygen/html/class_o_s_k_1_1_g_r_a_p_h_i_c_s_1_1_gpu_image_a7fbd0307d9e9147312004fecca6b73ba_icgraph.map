@@ -1,8 +1,0 @@
-<map id="OSK::GRAPHICS::GpuImage::GetFormat" name="OSK::GRAPHICS::GpuImage::GetFormat">
-<area shape="rect" id="node1" title=" " alt="" coords="279,136,471,177"/>
-<area shape="rect" id="node2" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_list_dx12.html#a4b89d32326161602a638dd6e80d79fef" title="Copia la imagen guardada en un buffer a una imagen en la GPU. Para poder subir una imagen a la GPU,..." alt="" coords="11,5,225,47"/>
-<area shape="rect" id="node3" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderpass_vulkan.html#aa78fbc80b9eacfefb79b4b34f873036c" title=" " alt="" coords="17,71,219,112"/>
-<area shape="rect" id="node4" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderer_vulkan.html#a053607bca70b3f4bca00bdfd1bc581ed" title="Crea un renderpass secundario. Renderiza para una o tres imágenes. Para que una sola imagen sea rende..." alt="" coords="5,136,231,177"/>
-<area shape="rect" id="node5" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderpass_ogl.html#a34b8280061575d133dfce6acc45227d7" title="Establece las imágenes del swapchain donde se va a renderizar (para pantalla)." alt="" coords="17,201,219,243"/>
-<area shape="rect" id="node6" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderpass_vulkan.html#a8911104609904226b868013aa5ac52db" title="Establece las imágenes del swapchain donde se va a renderizar (para pantalla)." alt="" coords="17,267,219,308"/>
-</map>

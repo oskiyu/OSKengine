@@ -1,4 +1,0 @@
-<map id="OSK::Vector3_t::Normalize" name="OSK::Vector3_t::Normalize">
-<area shape="rect" id="node1" title="Normaliza el vector 3D para que su módulo (GetLength()) sea 1." alt="" coords="5,5,185,32"/>
-<area shape="rect" id="node2" href="$class_o_s_k_1_1_vector3__t.html#ad59b181161a83a239c30d692bd79982c" title="Módulo del vector. Obtiene la longitud del vector." alt="" coords="233,5,416,32"/>
-</map>

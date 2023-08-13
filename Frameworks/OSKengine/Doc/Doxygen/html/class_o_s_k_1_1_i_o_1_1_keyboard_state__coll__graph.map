@@ -1,3 +1,0 @@
-<map id="OSK::IO::KeyboardState" name="OSK::IO::KeyboardState">
-<area shape="rect" id="node1" title="Representa el estado del teclado en un instante determinado. Contiene el estado (presionado o suelto)..." alt="" coords="5,5,171,156"/>
-</map>

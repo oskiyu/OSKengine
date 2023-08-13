@@ -1,4 +1,0 @@
-<map id="OSK::GRAPHICS::GpuImage::GetLayout" name="OSK::GRAPHICS::GpuImage::GetLayout">
-<area shape="rect" id="node1" title=" " alt="" coords="269,29,461,71"/>
-<area shape="rect" id="node2" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list.html#a5991c1350838f27f6e381821b04b12be" title="Cambia el layout interno de la imagen en la memoria de la GPU." alt="" coords="5,29,221,71"/>
-</map>

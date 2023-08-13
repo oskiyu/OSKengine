@@ -1,6 +1,0 @@
-<map id="OSK::ECS::EntityComponentSystem::GetComponent" name="OSK::ECS::EntityComponentSystem::GetComponent">
-<area shape="rect" id="node1" title="Devuelve una referencia al componente del tipo dado del objeto." alt="" coords="248,57,441,98"/>
-<area shape="rect" id="node2" href="$class_game1.html#a0981142b47932b4f5dfac4e1556ba00f" title="Función que se ejecuta cada frame. Para hacer actualización del estado del juego." alt="" coords="46,5,159,32"/>
-<area shape="rect" id="node3" href="$class_o_s_k_1_1_e_c_s_1_1_render_system2_d.html#a3d6e69772dfbd5a028740fbbdbf8fd07" title="Comando específico del sistema, para ejecutar el renderizado." alt="" coords="5,57,200,98"/>
-<area shape="rect" id="node4" href="$class_o_s_k_1_1_e_c_s_1_1_render_system3_d.html#aa4852487325a5437911e65c9b4b0d68d" title="Comando específico del sistema, para ejecutar el renderizado." alt="" coords="5,122,200,163"/>
-</map>

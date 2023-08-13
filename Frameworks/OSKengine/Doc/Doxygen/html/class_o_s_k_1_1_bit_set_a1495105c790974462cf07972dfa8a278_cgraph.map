@@ -1,6 +1,0 @@
-<map id="OSK::BitSet::GetNextTrueIndex" name="OSK::BitSet::GetNextTrueIndex">
-<area shape="rect" id="node1" title="Devuelve el índice del siguiente bit en la secuencia que es 1." alt="" coords="5,35,180,76"/>
-<area shape="rect" id="node2" href="$class_o_s_k_1_1_dynamic_array.html#a9691f5eaf46654d59525c6c342d69cbb" title="Devuelve el elemento en la posición dada." alt="" coords="228,13,389,39"/>
-<area shape="rect" id="node4" href="$class_o_s_k_1_1_dynamic_array.html#a94d0cbf0543d0c976de674d31b15df90" title="Devuelve el número de elementos almacenados." alt="" coords="235,64,383,105"/>
-<area shape="rect" id="node3" href="$class_o_s_k_1_1_dynamic_array.html#a24b36038b685ea5f33b2b9b279035cef" title="Devuelve true si el array se ha inicializado." alt="" coords="437,5,585,47"/>
-</map>

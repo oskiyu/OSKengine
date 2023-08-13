@@ -1,5 +1,0 @@
-<map id="OSK::DynamicArray::Free" name="OSK::DynamicArray::Free">
-<area shape="rect" id="node1" title="Elimina el array, liberando memoria." alt="" coords="5,46,180,73"/>
-<area shape="rect" id="node2" href="$class_o_s_k_1_1_dynamic_array.html#ad544522cb3202359757c98af4d37a37b" title="Elimina los elementos, sin liberar memoria." alt="" coords="228,5,376,47"/>
-<area shape="rect" id="node3" href="$class_o_s_k_1_1_dynamic_array.html#a24b36038b685ea5f33b2b9b279035cef" title="Devuelve true si el array se ha inicializado." alt="" coords="228,71,376,112"/>
-</map>

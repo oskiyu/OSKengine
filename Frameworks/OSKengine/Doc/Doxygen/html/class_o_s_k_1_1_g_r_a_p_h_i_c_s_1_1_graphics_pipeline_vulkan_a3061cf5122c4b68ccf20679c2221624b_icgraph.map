@@ -1,4 +1,0 @@
-<map id="OSK::GRAPHICS::GraphicsPipelineVulkan::Create" name="OSK::GRAPHICS::GraphicsPipelineVulkan::Create">
-<area shape="rect" id="node1" title="Crea el pipeline con la configuración dada." alt="" coords="279,5,509,47"/>
-<area shape="rect" id="node2" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderer_vulkan.html#a3f096691d9ea9067bdb33aaedb89c21e" title="Crea un graphics pipeline." alt="" coords="5,5,231,47"/>
-</map>

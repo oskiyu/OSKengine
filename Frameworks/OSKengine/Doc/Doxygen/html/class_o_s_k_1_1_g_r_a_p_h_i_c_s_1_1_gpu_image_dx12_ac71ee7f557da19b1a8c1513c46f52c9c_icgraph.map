@@ -1,4 +1,0 @@
-<map id="OSK::GRAPHICS::GpuImageDx12::GetResource" name="OSK::GRAPHICS::GpuImageDx12::GetResource">
-<area shape="rect" id="node1" title=" " alt="" coords="256,5,479,47"/>
-<area shape="rect" id="node2" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderpass_dx12.html#a4037acfe3a5f8071b004b7f80529912c" title="Establece las imágenes del swapchain donde se va a renderizar (para pantalla)." alt="" coords="5,5,208,47"/>
-</map>

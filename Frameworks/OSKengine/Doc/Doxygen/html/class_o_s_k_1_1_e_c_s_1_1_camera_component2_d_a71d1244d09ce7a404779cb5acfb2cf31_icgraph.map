@@ -1,4 +1,0 @@
-<map id="OSK::ECS::CameraComponent2D::GetProjection" name="OSK::ECS::CameraComponent2D::GetProjection">
-<area shape="rect" id="node1" title="Devuelve la matriz proyección de la cámara." alt="" coords="264,5,475,47"/>
-<area shape="rect" id="node2" href="$class_o_s_k_1_1_e_c_s_1_1_camera_component2_d.html#a630de7348f82ab9d7b835c6c94efeca9" title="Actualiza el buffer en la GPU." alt="" coords="5,5,216,47"/>
-</map>

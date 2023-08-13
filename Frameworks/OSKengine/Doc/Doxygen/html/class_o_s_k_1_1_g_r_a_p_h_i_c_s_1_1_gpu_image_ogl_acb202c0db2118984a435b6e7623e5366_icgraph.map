@@ -1,4 +1,0 @@
-<map id="OSK::GRAPHICS::GpuImageOgl::GetHandler" name="OSK::GRAPHICS::GpuImageOgl::GetHandler">
-<area shape="rect" id="node1" title=" " alt="" coords="256,5,468,47"/>
-<area shape="rect" id="node2" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderpass_ogl.html#a34b8280061575d133dfce6acc45227d7" title="Establece las imágenes del swapchain donde se va a renderizar (para pantalla)." alt="" coords="5,5,208,47"/>
-</map>

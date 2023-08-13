@@ -1,4 +1,0 @@
-<map id="OSK::ECS::SpriteComponent::SetCamera" name="OSK::ECS::SpriteComponent::SetCamera">
-<area shape="rect" id="node1" title="Debe establecerse la cámara después de instanciar la instancia del material 2D." alt="" coords="5,5,199,47"/>
-<area shape="rect" id="node2" href="$class_o_s_k_1_1_e_c_s_1_1_camera_component2_d.html#a883c81f8df90e08fae9a726926fe958a" title=" " alt="" coords="247,5,457,47"/>
-</map>

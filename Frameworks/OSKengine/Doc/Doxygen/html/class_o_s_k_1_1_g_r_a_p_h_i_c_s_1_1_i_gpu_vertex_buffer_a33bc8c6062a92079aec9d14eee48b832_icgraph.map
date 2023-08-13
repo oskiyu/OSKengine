@@ -1,5 +1,0 @@
-<map id="OSK::GRAPHICS::IGpuVertexBuffer::As" name="OSK::GRAPHICS::IGpuVertexBuffer::As">
-<area shape="rect" id="node1" title=" " alt="" coords="267,39,465,80"/>
-<area shape="rect" id="node2" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_list_dx12.html#a60fe2675dd2731663a2f81d4a658eadb" title="Establece el vertex buffer que se va a usar en los próximos renderizados." alt="" coords="5,5,219,47"/>
-<area shape="rect" id="node3" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_list_ogl.html#a6dbee35c746095374be0166622c2ac11" title=" " alt="" coords="5,71,219,112"/>
-</map>

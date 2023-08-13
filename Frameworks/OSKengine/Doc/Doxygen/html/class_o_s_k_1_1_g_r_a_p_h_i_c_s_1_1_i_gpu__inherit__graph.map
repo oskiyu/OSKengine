@@ -1,5 +1,0 @@
-<map id="OSK::GRAPHICS::IGpu" name="OSK::GRAPHICS::IGpu">
-<area shape="rect" id="node1" title="Interfaz de una tarjeta gráfica." alt="" coords="124,5,289,156"/>
-<area shape="rect" id="node2" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_dx12.html" title=" " alt="" coords="5,233,192,413"/>
-<area shape="rect" id="node3" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_vulkan.html" title="Implementación de la interfaz para el renderizador de Vulkan." alt="" coords="216,204,413,443"/>
-</map>

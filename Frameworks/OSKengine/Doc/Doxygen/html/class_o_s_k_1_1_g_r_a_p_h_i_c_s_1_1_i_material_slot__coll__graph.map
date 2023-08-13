@@ -1,4 +1,0 @@
-<map id="OSK::GRAPHICS::IMaterialSlot" name="OSK::GRAPHICS::IMaterialSlot">
-<area shape="rect" id="node1" title="Un slot contiene referencias a los recursos (UNIFORM BUFFER, TEXTURE, etc...) que se envían a la GPU." alt="" coords="12,219,217,399"/>
-<area shape="rect" id="node2" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_layout.html" title="El layout de un material determina qué slots pertenecen a ese material." alt="" coords="5,5,224,156"/>
-</map>

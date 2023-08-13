@@ -1,8 +1,0 @@
-<map id="OSK::GRAPHICS::GraphicsPipelineDx12::Create" name="OSK::GRAPHICS::GraphicsPipelineDx12::Create">
-<area shape="rect" id="node1" title="Crea el pipeline con la configuración dada." alt="" coords="5,74,236,115"/>
-<area shape="rect" id="node2" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu.html#a1b0e5d22fed49696034d38442892121c" title="Castea la clase al tipo dado." alt="" coords="305,5,489,32"/>
-<area shape="rect" id="node3" href="$_material_slot_vulkan_8cpp.html#adead74bea72029d218144e2a94a1eb1e" title=" " alt="" coords="356,56,437,83"/>
-<area shape="rect" id="node4" href="$namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a100a7488e1eee158da65062d0b5e5277" title="Obtiene la representación nativa del formato para DirectX 12." alt="" coords="284,107,509,133"/>
-<area shape="rect" id="node5" href="$_graphics_pipeline_dx12_8cpp.html#ae92f464ea17ca3f4658d008b963cf550" title=" " alt="" coords="311,157,482,184"/>
-<area shape="rect" id="node6" href="$_graphics_pipeline_dx12_8cpp.html#a173d1850ed1c04927871f1d8f40dcb90" title=" " alt="" coords="557,157,740,184"/>
-</map>

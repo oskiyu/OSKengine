@@ -1,8 +1,0 @@
-<map id="OSK::GRAPHICS::SwapchainDx12" name="OSK::GRAPHICS::SwapchainDx12">
-<area shape="rect" id="node1" title="Un swapchain es una estructura encargada de manejar el cambio de imagenes que son representadas en el..." alt="" coords="105,852,332,1047"/>
-<area shape="rect" id="node2" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_swapchain.html" title="Un swapchain es una estructura encargada de manejar el cambio de imagenes que son representadas en el..." alt="" coords="119,608,318,803"/>
-<area shape="rect" id="node3" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu.html" title="Interfaz de una tarjeta gráfica." alt="" coords="5,387,171,538"/>
-<area shape="rect" id="node4" href="$class_o_s_k_1_1_unique_ptr.html" title=" " alt="" coords="131,35,307,273"/>
-<area shape="rect" id="node5" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderpass.html" title="Un renderpass representa una fase de renderizado. Todas las operaciones de renderizado se aplicarán s..." alt="" coords="296,380,501,545"/>
-<area shape="rect" id="node6" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image.html" title="Representación interna de una imagen en la GPU." alt="" coords="331,5,523,303"/>
-</map>

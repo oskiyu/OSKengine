@@ -1,5 +1,0 @@
-<map id="OSK::ECS::Transform3D::SetPosition" name="OSK::ECS::Transform3D::SetPosition">
-<area shape="rect" id="node1" title="Establece la posición." alt="" coords="395,5,561,47"/>
-<area shape="rect" id="node2" href="$class_o_s_k_1_1_e_c_s_1_1_transform3_d.html#a84e7319dbca0666f6194bd7da931644a" title="Suma el vector 3D a la posición." alt="" coords="180,5,347,47"/>
-<area shape="rect" id="node3" href="$class_game1.html#a738ffccb5910f1f15136680903ea4159" title="Función ejecutada al cargar el juego." alt="" coords="5,13,132,39"/>
-</map>

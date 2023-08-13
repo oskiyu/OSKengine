@@ -1,6 +1,0 @@
-<map id="OSK::ASSETS::Model3D::GetMeshes" name="OSK::ASSETS::Model3D::GetMeshes">
-<area shape="rect" id="node1" title="Devuelve todos los meshes del modelo." alt="" coords="255,57,424,98"/>
-<area shape="rect" id="node2" href="$class_game1.html#a738ffccb5910f1f15136680903ea4159" title="Función ejecutada al cargar el juego." alt="" coords="43,5,169,32"/>
-<area shape="rect" id="node3" href="$class_o_s_k_1_1_e_c_s_1_1_render_system3_d.html#aa4852487325a5437911e65c9b4b0d68d" title="Comando específico del sistema, para ejecutar el renderizado." alt="" coords="9,57,203,98"/>
-<area shape="rect" id="node4" href="$class_o_s_k_1_1_e_c_s_1_1_model_component3_d.html#af7f59fbb8292ffa10abf7effb21f10c8" title="Establece el modelo 3D que se renderizará." alt="" coords="5,122,207,163"/>
-</map>

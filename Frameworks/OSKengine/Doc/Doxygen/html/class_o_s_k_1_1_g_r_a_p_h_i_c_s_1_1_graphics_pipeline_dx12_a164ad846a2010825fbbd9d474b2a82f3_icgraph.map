@@ -1,4 +1,0 @@
-<map id="OSK::GRAPHICS::GraphicsPipelineDx12::Create" name="OSK::GRAPHICS::GraphicsPipelineDx12::Create">
-<area shape="rect" id="node1" title="Crea el pipeline con la configuración dada." alt="" coords="268,5,499,47"/>
-<area shape="rect" id="node2" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderer_dx12.html#a7c55cb71f67033b6e300fb11af68456e" title="Crea un graphics pipeline." alt="" coords="5,5,220,47"/>
-</map>

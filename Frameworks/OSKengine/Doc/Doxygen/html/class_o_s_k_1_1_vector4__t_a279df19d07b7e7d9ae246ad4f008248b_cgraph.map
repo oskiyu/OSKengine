@@ -1,5 +1,0 @@
-<map id="OSK::Vector4_t::GetRectangleMiddlePoint" name="OSK::Vector4_t::GetRectangleMiddlePoint">
-<area shape="rect" id="node1" title="Punto central del rectángulo." alt="" coords="5,39,207,80"/>
-<area shape="rect" id="node2" href="$class_o_s_k_1_1_vector4__t.html#ac802760f8b8a303a4a84c63bbf8eee3b" title="Obtiene la altura del rectángulo (W)." alt="" coords="255,5,456,47"/>
-<area shape="rect" id="node3" href="$class_o_s_k_1_1_vector4__t.html#aa5df4ea455763b5d10c98687c9449c45" title="Obtiene la anchura del rectángulo (Z)." alt="" coords="255,71,456,112"/>
-</map>

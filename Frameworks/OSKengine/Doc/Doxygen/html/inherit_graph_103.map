@@ -1,5 +1,0 @@
-<map id="Representación gráfica de la clase" name="Representación gráfica de la clase">
-<area shape="rect" id="node1" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_pipeline_layout.html" title="Un pipeline layout define el layout del pipeline, es decir: define qué recursos necesita para el rend..." alt="" coords="5,27,188,69"/>
-<area shape="rect" id="node2" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_pipeline_layout_dx12.html" title=" " alt="" coords="236,5,484,32"/>
-<area shape="rect" id="node3" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_pipeline_layout_vulkan.html" title=" " alt="" coords="251,57,469,98"/>
-</map>

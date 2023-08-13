@@ -1,5 +1,0 @@
-<map id="OSK::GRAPHICS::IGpuMemoryBlock::CreateNewMemorySubblock" name="OSK::GRAPHICS::IGpuMemoryBlock::CreateNewMemorySubblock">
-<area shape="rect" id="node1" title=" " alt="" coords="523,13,749,54"/>
-<area shape="rect" id="node2" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_block.html#a72d5d52a35130232e7608d1e34667e6d" title="Obtiene un subbloque con el tamaño dado, ya sea nuevo o reutilizado." alt="" coords="263,13,475,54"/>
-<area shape="rect" id="node3" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_allocator.html#ab409ca931f6491adc73e78ac3b5aa019" title="Devuelve un subbloque con las características dadas." alt="" coords="5,5,215,61"/>
-</map>

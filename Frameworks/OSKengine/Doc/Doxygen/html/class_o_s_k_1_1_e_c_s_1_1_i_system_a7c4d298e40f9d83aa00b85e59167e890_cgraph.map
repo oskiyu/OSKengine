@@ -1,8 +1,0 @@
-<map id="OSK::ECS::ISystem::AddObject" name="OSK::ECS::ISystem::AddObject">
-<area shape="rect" id="node1" title="Añade un objeto a la lista de objetos procesables." alt="" coords="5,72,155,113"/>
-<area shape="rect" id="node2" href="$class_o_s_k_1_1_dynamic_array.html#ae8c61261c812df8ed2a69641d49eca5b" title="Inserta un elemento al final del array." alt="" coords="203,39,351,80"/>
-<area shape="rect" id="node6" href="$class_o_s_k_1_1_e_c_s_1_1_i_system.html#a9958f3923d9872cb58b62f62f286bc01" title="Función que se ejecuta cuando un GameObject entra en la lista de objetos procesables por el sistema." alt="" coords="203,104,352,145"/>
-<area shape="rect" id="node3" href="$class_o_s_k_1_1_dynamic_array.html#a270b01e677a57b96f3f0443b3ef9e289" title="Inserta una copia del elemento al final del array." alt="" coords="400,39,548,80"/>
-<area shape="rect" id="node4" href="$class_o_s_k_1_1_dynamic_array.html#acf322bf27bf4bfd581079500c67171a6" title="Reserva espacio para &#39;size&#39; elementos. Preserva los elementos anteriores." alt="" coords="596,5,744,47"/>
-<area shape="rect" id="node5" href="$class_o_s_k_1_1_dynamic_array.html#a24b36038b685ea5f33b2b9b279035cef" title="Devuelve true si el array se ha inicializado." alt="" coords="596,71,744,112"/>
-</map>

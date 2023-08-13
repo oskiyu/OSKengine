@@ -1,8 +1,0 @@
-<map id="OSK::GRAPHICS::GpuMemorySubblockDx12" name="OSK::GRAPHICS::GpuMemorySubblockDx12">
-<area shape="rect" id="node1" title=" " alt="" coords="288,1072,492,1252"/>
-<area shape="rect" id="node2" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_subblock.html" title="Representa una región de memoria dedicada a un único recurso." alt="" coords="287,696,493,1023"/>
-<area shape="rect" id="node3" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_block.html" title="Un bloque de memoria representa una región de memoria que ha sidon reservada." alt="" coords="287,321,493,633"/>
-<area shape="rect" id="node4" href="$class_o_s_k_1_1_linked_list.html" title=" " alt="" coords="5,13,260,251"/>
-<area shape="rect" id="node5" href="$class_o_s_k_1_1_linked_list.html" title=" " alt="" coords="284,5,496,259"/>
-<area shape="rect" id="node6" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu.html" title="Interfaz de una tarjeta gráfica." alt="" coords="521,57,686,207"/>
-</map>

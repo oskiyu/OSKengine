@@ -1,4 +1,0 @@
-<map id="OSK::ECS::ModelComponent3D::GetMeshMaterialInstance" name="OSK::ECS::ModelComponent3D::GetMeshMaterialInstance">
-<area shape="rect" id="node1" title="Devuelve la instancia del material del mesh dado." alt="" coords="248,5,449,47"/>
-<area shape="rect" id="node2" href="$class_o_s_k_1_1_e_c_s_1_1_render_system3_d.html#aa4852487325a5437911e65c9b4b0d68d" title="Comando específico del sistema, para ejecutar el renderizado." alt="" coords="5,5,200,47"/>
-</map>

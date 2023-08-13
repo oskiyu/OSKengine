@@ -1,7 +1,0 @@
-<map id="OSK::GRAPHICS::GpuMemoryAllocatorVulkan::GetNextBufferMemoryBlock" name="OSK::GRAPHICS::GpuMemoryAllocatorVulkan::GetNextBufferMemoryBlock">
-<area shape="rect" id="node1" title="Devuelve un bloque con las características dadas." alt="" coords="509,91,713,147"/>
-<area shape="rect" id="node2" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_memory_allocator_vulkan.html#aef89e9652f13e27fa5b5940052fce007" title="Crea un buffer de índices con los índices dados." alt="" coords="5,5,209,61"/>
-<area shape="rect" id="node3" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_memory_allocator_vulkan.html#a3c918e33eec9f4230299a348c16d5fdf" title="Crea un buffer temporal con el tamaño dado." alt="" coords="257,57,461,113"/>
-<area shape="rect" id="node4" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_memory_allocator_vulkan.html#a3138abcf254278fc492bd105deba3796" title="Crea un buffer de vértices con los vértices dados." alt="" coords="5,97,209,153"/>
-<area shape="rect" id="node5" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_memory_allocator_vulkan.html#a053695e4a5255c4e5a682ebf06963a48" title="Crea un uniform buffer, con el tamaño dado en bytes." alt="" coords="257,188,461,244"/>
-</map>

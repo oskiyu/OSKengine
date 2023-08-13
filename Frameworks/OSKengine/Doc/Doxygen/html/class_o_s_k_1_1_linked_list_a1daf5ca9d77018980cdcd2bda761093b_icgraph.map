@@ -1,6 +1,0 @@
-<map id="OSK::LinkedList::Push" name="OSK::LinkedList::Push">
-<area shape="rect" id="node1" title=" " alt="" coords="719,13,873,39"/>
-<area shape="rect" id="node2" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_layout.html#ab5ca4f05ed6d7cea3b81d9ee94f6350a" title="Añade el slot dado al layout. El nombre del slot se usará como llave." alt="" coords="452,5,671,47"/>
-<area shape="rect" id="node3" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_system.html#ad39c519e3a5f58cc2a7622ba9b39687a" title="Carga un material." alt="" coords="180,5,404,47"/>
-<area shape="rect" id="node4" href="$class_game1.html#a738ffccb5910f1f15136680903ea4159" title="Función ejecutada al cargar el juego." alt="" coords="5,13,132,39"/>
-</map>

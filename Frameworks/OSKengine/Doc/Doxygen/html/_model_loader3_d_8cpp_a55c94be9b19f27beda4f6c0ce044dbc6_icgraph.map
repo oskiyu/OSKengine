@@ -1,4 +1,0 @@
-<map id="LoadMaterials" name="LoadMaterials">
-<area shape="rect" id="node1" title="Carga todos los materiales del modelo, y guarda la información relevante de cada uno." alt="" coords="252,13,355,39"/>
-<area shape="rect" id="node2" href="$class_o_s_k_1_1_a_s_s_e_t_s_1_1_model_loader3_d.html#afd1dbf7d9bffbe40564bb3e2a885e04a" title="Carga el asset." alt="" coords="5,5,204,47"/>
-</map>

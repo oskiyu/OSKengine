@@ -1,8 +1,0 @@
-<map id="OSK::GRAPHICS::IRenderer::GetCommandList" name="OSK::GRAPHICS::IRenderer::GetCommandList">
-<area shape="rect" id="node1" title=" " alt="" coords="367,86,555,127"/>
-<area shape="rect" id="node2" href="$class_game1.html#a7f0dcbd6b70aae8307a3c6c1d6ce2782" title=" " alt="" coords="146,5,277,32"/>
-<area shape="rect" id="node3" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderer_dx12.html#ac38d009020f9002c7c6f4e13a348361d" title="Una vez se han grabado todos los comandos, se debe iniciar su ejecución en la GPU para ser renderizad..." alt="" coords="104,57,319,98"/>
-<area shape="rect" id="node4" href="$class_o_s_k_1_1_i_game.html#a061c6604f59ca3ef9f5093b1fb78f844" title="Inicia la ejecución del juego." alt="" coords="148,123,275,149"/>
-<area shape="rect" id="node6" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderer_dx12.html#aee3fe2ba62f45e78d160fa9b96c810cb" title="Ejecuta el contenido de la lista de comandos." alt="" coords="104,174,319,215"/>
-<area shape="rect" id="node5" href="$main_8cpp.html#ae66f6b31b5ad750f1fe042a706a4e3d4" title=" " alt="" coords="5,123,56,149"/>
-</map>

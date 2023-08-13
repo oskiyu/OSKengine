@@ -1,5 +1,0 @@
-<map id="OSK::GRAPHICS::CommandPoolDx12::CreateCommandList" name="OSK::GRAPHICS::CommandPoolDx12::CreateCommandList">
-<area shape="rect" id="node1" title="Crea una nueva lista de comandos." alt="" coords="5,23,224,65"/>
-<area shape="rect" id="node2" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu.html#a1b0e5d22fed49696034d38442892121c" title="Castea la clase al tipo dado." alt="" coords="272,5,456,32"/>
-<area shape="rect" id="node3" href="$_material_slot_vulkan_8cpp.html#adead74bea72029d218144e2a94a1eb1e" title=" " alt="" coords="323,56,405,83"/>
-</map>

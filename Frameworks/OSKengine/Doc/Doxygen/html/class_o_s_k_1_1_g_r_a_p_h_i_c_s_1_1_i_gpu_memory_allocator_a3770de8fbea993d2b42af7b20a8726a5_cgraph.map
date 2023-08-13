@@ -1,5 +1,0 @@
-<map id="OSK::GRAPHICS::IGpuMemoryAllocator::CreateVertexBuffer" name="OSK::GRAPHICS::IGpuMemoryAllocator::CreateVertexBuffer">
-<area shape="rect" id="node1" title="Crea un buffer de vértices con los vértices dados." alt="" coords="5,39,212,80"/>
-<area shape="rect" id="node2" href="$class_o_s_k_1_1_dynamic_array.html#ac8a6d70f938c482e1f7aa68c7d186bb8" title="Devuelve el array original." alt="" coords="260,5,408,47"/>
-<area shape="rect" id="node3" href="$class_o_s_k_1_1_dynamic_array.html#a94d0cbf0543d0c976de674d31b15df90" title="Devuelve el número de elementos almacenados." alt="" coords="260,71,408,112"/>
-</map>

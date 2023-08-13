@@ -1,6 +1,0 @@
-<map id="OSK::GRAPHICS::GpuVulkan::Info" name="OSK::GRAPHICS::GpuVulkan::Info">
-<area shape="rect" id="node1" title="Información interna de una GPU." alt="" coords="83,213,281,255"/>
-<area shape="rect" id="node2" href="$struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_vulkan_1_1_info_1_1_swapchain_support_details.html" title="Detalles sobre el soporte de swapchain de una GPU." alt="" coords="79,109,285,151"/>
-<area shape="rect" id="node3" href="$class_o_s_k_1_1_dynamic_array.html" title=" " alt="" coords="5,5,172,47"/>
-<area shape="rect" id="node4" href="$class_o_s_k_1_1_dynamic_array.html" title=" " alt="" coords="196,5,355,47"/>
-</map>

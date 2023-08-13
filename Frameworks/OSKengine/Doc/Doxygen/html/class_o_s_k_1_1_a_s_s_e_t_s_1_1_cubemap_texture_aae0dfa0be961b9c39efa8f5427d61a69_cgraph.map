@@ -1,4 +1,0 @@
-<map id="OSK::ASSETS::CubemapTexture::_SetImage" name="OSK::ASSETS::CubemapTexture::_SetImage">
-<area shape="rect" id="node1" title="Establece la imagen que contiene el cubemap." alt="" coords="5,5,221,47"/>
-<area shape="rect" id="node2" href="$class_o_s_k_1_1_owned_ptr.html#a81dfab2299056fc9858aace55fca0042" title="Devuelve el puntero nativo." alt="" coords="269,13,455,39"/>
-</map>

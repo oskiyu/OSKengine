@@ -1,6 +1,0 @@
-<map id="Representación gráfica de la clase" name="Representación gráfica de la clase">
-<area shape="rect" id="node1" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image.html" title="Representación interna de una imagen en la GPU." alt="" coords="5,56,197,83"/>
-<area shape="rect" id="node2" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_dx12.html" title=" " alt="" coords="250,5,473,32"/>
-<area shape="rect" id="node3" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_ogl.html" title=" " alt="" coords="255,56,467,83"/>
-<area shape="rect" id="node4" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_vulkan.html" title=" " alt="" coords="245,107,477,133"/>
-</map>

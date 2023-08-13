@@ -1,8 +1,0 @@
-digraph "Representación gráfica de la clase"
-{
- // LATEX_PDF_SIZE
-  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
-  node [fontname="Helvetica",fontsize="10",shape=record];
-  rankdir="LR";
-  Node0 [label="OSK::COLLISION::RayCastResult",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_ray_cast_result.html",tooltip=" "];
-}

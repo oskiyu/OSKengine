@@ -1,4 +1,0 @@
-<map id="OSK::IO::Window::_GetGlfw" name="OSK::IO::Window::_GetGlfw">
-<area shape="rect" id="node1" title="Obtiene el handler de la ventana, de GLFW." alt="" coords="5,5,192,32"/>
-<area shape="rect" id="node2" href="$class_o_s_k_1_1_owned_ptr.html#a81dfab2299056fc9858aace55fca0042" title="Devuelve el puntero nativo." alt="" coords="240,5,425,32"/>
-</map>

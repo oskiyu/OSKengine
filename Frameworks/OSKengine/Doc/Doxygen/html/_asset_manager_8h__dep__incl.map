@@ -1,9 +1,0 @@
-<map id="OSKengine2/AssetManager.h" name="OSKengine2/AssetManager.h">
-<area shape="rect" id="node1" title=" " alt="" coords="427,5,621,32"/>
-<area shape="rect" id="node2" href="$_asset_manager_8cpp.html" title=" " alt="" coords="5,80,213,107"/>
-<area shape="rect" id="node3" href="$_game1_8hpp.html" title=" " alt="" coords="238,80,405,107"/>
-<area shape="rect" id="node5" href="$_o_s_kengine_8cpp.html" title=" " alt="" coords="429,80,619,107"/>
-<area shape="rect" id="node6" href="$_renderer_dx12_8cpp.html" title=" " alt="" coords="643,80,850,107"/>
-<area shape="rect" id="node7" href="$_renderer_vulkan_8cpp.html" title=" " alt="" coords="875,80,1091,107"/>
-<area shape="rect" id="node4" href="$main_8cpp.html" title=" " alt="" coords="245,155,397,181"/>
-</map>

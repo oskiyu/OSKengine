@@ -1,4 +1,0 @@
-<map id="OSK::LinkedList::Iterator::operator*" name="OSK::LinkedList::Iterator::operator*">
-<area shape="rect" id="node1" title="Devuelve el valor apuntado por el iterador." alt="" coords="5,5,171,47"/>
-<area shape="rect" id="node2" href="$class_o_s_k_1_1_linked_list_1_1_node.html#a8ebd20dfa1d1861dd74e14374f5606b8" title="Crea un nodo con el elemento dado." alt="" coords="219,5,373,47"/>
-</map>

@@ -1,7 +1,0 @@
-<map id="OSK::GRAPHICS::IGpuIndexBuffer" name="OSK::GRAPHICS::IGpuIndexBuffer">
-<area shape="rect" id="node1" title="Un index buffer contiene los índices para el renderizado de un modelo 2D o 3D." alt="" coords="306,336,497,457"/>
-<area shape="rect" id="node3" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_index_buffer_dx12.html" title=" " alt="" coords="5,505,256,612"/>
-<area shape="rect" id="node4" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_index_buffer_ogl.html" title=" " alt="" coords="281,505,522,612"/>
-<area shape="rect" id="node5" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_index_buffer_vulkan.html" title=" " alt="" coords="547,513,768,605"/>
-<area shape="rect" id="node2" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_data_buffer.html" title="Representa un buffer genérico en la GPU." alt="" coords="293,5,510,288"/>
-</map>

@@ -1,5 +1,0 @@
-<map id="OSK::GRAPHICS::PushConst2D" name="OSK::GRAPHICS::PushConst2D">
-<area shape="rect" id="node1" title="Información push constant usada en el sistema de renderizado 2D por defecto." alt="" coords="20,95,233,121"/>
-<area shape="rect" id="node2" href="$class_o_s_k_1_1_color.html" title="Representa un color en formato RGBA." alt="" coords="5,5,93,32"/>
-<area shape="rect" id="node3" href="$class_o_s_k_1_1_vector4__t.html" title=" " alt="" coords="117,5,291,32"/>
-</map>

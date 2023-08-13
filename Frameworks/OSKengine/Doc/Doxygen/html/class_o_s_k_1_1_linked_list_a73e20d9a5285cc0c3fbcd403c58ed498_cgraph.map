@@ -1,6 +1,0 @@
-<map id="OSK::LinkedList::RemoveLast" name="OSK::LinkedList::RemoveLast">
-<area shape="rect" id="node1" title=" " alt="" coords="5,31,201,57"/>
-<area shape="rect" id="node2" href="$class_o_s_k_1_1_linked_list.html#ad9b73d40df6ea457bbbf3fe6684c1d75" title="Elimina el elemento en la posición dada." alt="" coords="249,31,433,57"/>
-<area shape="rect" id="node3" href="$class_o_s_k_1_1_linked_list.html#aca2d8a70810319dcf8a082a7f5e999d7" title="Devuelve el número de elementos en el stack." alt="" coords="482,5,654,32"/>
-<area shape="rect" id="node4" href="$class_o_s_k_1_1_linked_list.html#aa50c2cb81a7674bea9ec0387e47f2e5d" title="Devuelve true si no hay ningún elemento en el stack." alt="" coords="481,56,655,83"/>
-</map>

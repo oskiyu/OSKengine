@@ -1,4 +1,0 @@
-<map id="OSK::IO::Window::Create" name="OSK::IO::Window::Create">
-<area shape="rect" id="node1" title="Crea una ventana." alt="" coords="209,5,380,32"/>
-<area shape="rect" id="node2" href="$class_game1.html#afa6bd75f3703f2da4bbe1cf654fe80cd" title="Debe crear la ventana del Engine." alt="" coords="5,5,161,32"/>
-</map>

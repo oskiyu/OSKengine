@@ -1,4 +1,0 @@
-<map id="OSK::ECS::ISystem::OnObjectAdded" name="OSK::ECS::ISystem::OnObjectAdded">
-<area shape="rect" id="node1" title="Función que se ejecuta cuando un GameObject entra en la lista de objetos procesables por el sistema." alt="" coords="203,5,352,47"/>
-<area shape="rect" id="node2" href="$class_o_s_k_1_1_e_c_s_1_1_i_system.html#a7c4d298e40f9d83aa00b85e59167e890" title="Añade un objeto a la lista de objetos procesables." alt="" coords="5,5,155,47"/>
-</map>

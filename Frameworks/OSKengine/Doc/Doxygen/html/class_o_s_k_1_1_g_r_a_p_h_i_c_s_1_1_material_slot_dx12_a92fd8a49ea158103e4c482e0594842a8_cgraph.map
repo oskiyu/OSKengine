@@ -1,5 +1,0 @@
-<map id="OSK::GRAPHICS::MaterialSlotDx12::SetUniformBuffer" name="OSK::GRAPHICS::MaterialSlotDx12::SetUniformBuffer">
-<area shape="rect" id="node1" title="Establece el UNIFORM BUFFER que será asignado al binding con el nombre dado. Puede usarse esta funció..." alt="" coords="5,39,208,80"/>
-<area shape="rect" id="node2" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_uniform_buffer.html#ae22c3a5613cc64c823b088e7bcf94842" title=" " alt="" coords="263,5,467,47"/>
-<area shape="rect" id="node3" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_layout.html#a7a1845df7f0113a0285adfbea469df90" title="Obtiene el slot con el nombre dado, si existe." alt="" coords="256,71,475,112"/>
-</map>

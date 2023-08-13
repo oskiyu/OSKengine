@@ -1,6 +1,0 @@
-<map id="OSK::GRAPHICS::CommandPoolDx12::GetCommandAllocator" name="OSK::GRAPHICS::CommandPoolDx12::GetCommandAllocator">
-<area shape="rect" id="node1" title=" " alt="" coords="535,39,753,80"/>
-<area shape="rect" id="node2" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_list_dx12.html#a759a7b5bafbc49c807e324cf7f21df4b" title="Vacía la lista de comandos." alt="" coords="273,39,487,80"/>
-<area shape="rect" id="node3" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_memory_allocator_dx12.html#a9958398421f6574af4c8010899dae040" title="Crea un buffer de índices con los índices dados." alt="" coords="9,5,222,47"/>
-<area shape="rect" id="node4" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_memory_allocator_dx12.html#ac2d817d336597a7a13500f196d06199b" title="Crea un buffer de vértices con los vértices dados." alt="" coords="5,71,225,112"/>
-</map>

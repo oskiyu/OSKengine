@@ -1,5 +1,0 @@
-<map id="OSK::GRAPHICS::IRenderer::GetSwapchainImagesCount" name="OSK::GRAPHICS::IRenderer::GetSwapchainImagesCount">
-<area shape="rect" id="node1" title="Devuelve el número de imágenes del swapchain. Para recursos que necesiten tener una copia por imagen ..." alt="" coords="275,39,465,80"/>
-<area shape="rect" id="node2" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_descriptor_pool_vulkan.html#ac30681f5c514cb990ff3ca0cbcdd4bd3" title="Crea el descriptor pool, usado para crear y destruir descriptor sets." alt="" coords="5,5,227,47"/>
-<area shape="rect" id="node3" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_slot_vulkan.html#a133edf4a7c17425f490e690cb9ce46a4" title=" " alt="" coords="15,71,217,112"/>
-</map>

@@ -1,5 +1,0 @@
-<map id="OSK::ASSETS::Model3D::GetIndexBuffer" name="OSK::ASSETS::Model3D::GetIndexBuffer">
-<area shape="rect" id="node1" title="Devuelve el buffer de la GPU con los índices del modelo." alt="" coords="248,27,417,69"/>
-<area shape="rect" id="node2" href="$class_game1.html#a7f0dcbd6b70aae8307a3c6c1d6ce2782" title=" " alt="" coords="37,5,168,32"/>
-<area shape="rect" id="node3" href="$class_o_s_k_1_1_e_c_s_1_1_render_system3_d.html#aa4852487325a5437911e65c9b4b0d68d" title="Comando específico del sistema, para ejecutar el renderizado." alt="" coords="5,57,200,98"/>
-</map>

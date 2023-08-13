@@ -1,8 +1,0 @@
-<map id="OSK::LinkedList::Remove" name="OSK::LinkedList::Remove">
-<area shape="rect" id="node1" title="Elimina el elemento dado, si existe." alt="" coords="5,101,176,127"/>
-<area shape="rect" id="node2" href="$class_o_s_k_1_1_linked_list_1_1_node.html#a3e895c13deda11380d421a57d6feaa99" title="Obtiene el siguiente nodo en la lista." alt="" coords="239,5,393,47"/>
-<area shape="rect" id="node3" href="$class_o_s_k_1_1_linked_list.html#aca2d8a70810319dcf8a082a7f5e999d7" title="Devuelve el número de elementos en el stack." alt="" coords="457,105,629,131"/>
-<area shape="rect" id="node4" href="$class_o_s_k_1_1_linked_list_1_1_node.html#a8ebd20dfa1d1861dd74e14374f5606b8" title="Crea un nodo con el elemento dado." alt="" coords="239,123,393,164"/>
-<area shape="rect" id="node5" href="$class_o_s_k_1_1_linked_list.html#ad9b73d40df6ea457bbbf3fe6684c1d75" title="Elimina el elemento en la posición dada." alt="" coords="224,189,408,215"/>
-<area shape="rect" id="node6" href="$class_o_s_k_1_1_linked_list.html#aa50c2cb81a7674bea9ec0387e47f2e5d" title="Devuelve true si no hay ningún elemento en el stack." alt="" coords="456,189,629,215"/>
-</map>

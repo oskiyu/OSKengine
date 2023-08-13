@@ -1,5 +1,0 @@
-<map id="OSK::GRAPHICS::ICommandList::BindMaterialSlot" name="OSK::GRAPHICS::ICommandList::BindMaterialSlot">
-<area shape="rect" id="node1" title="Establece un material slot que estará asignado en los próximos comandos de renderizado...." alt="" coords="248,39,464,80"/>
-<area shape="rect" id="node2" href="$class_o_s_k_1_1_e_c_s_1_1_render_system2_d.html#a3d6e69772dfbd5a028740fbbdbf8fd07" title="Comando específico del sistema, para ejecutar el renderizado." alt="" coords="5,5,200,47"/>
-<area shape="rect" id="node3" href="$class_o_s_k_1_1_e_c_s_1_1_render_system3_d.html#aa4852487325a5437911e65c9b4b0d68d" title="Comando específico del sistema, para ejecutar el renderizado." alt="" coords="5,71,200,112"/>
-</map>

@@ -1,9 +1,0 @@
-<map id="OSK::GRAPHICS::GpuVulkan::CreateCommandPool" name="OSK::GRAPHICS::GpuVulkan::CreateCommandPool">
-<area shape="rect" id="node1" title="Crea una pool de comandos, para poder crear listas de comandos." alt="" coords="5,39,203,80"/>
-<area shape="rect" id="node2" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_vulkan.html#aa66415743a9c4fa79891e6a1aaf11543" title="Devuelve información sobre las colas soportadas por esta GPU." alt="" coords="261,5,459,47"/>
-<area shape="rect" id="node7" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_pool_vulkan.html#aeaa066f3b693815d9a2ef346f105e990" title=" " alt="" coords="251,71,469,112"/>
-<area shape="rect" id="node3" href="$class_o_s_k_1_1_dynamic_array.html#a6560c13598111f1aa6b53357ae120116" title="Crea un DynamicArray con un número de elementos ya creados e insertados." alt="" coords="517,5,665,47"/>
-<area shape="rect" id="node4" href="$class_o_s_k_1_1_dynamic_array.html#adcbd5bb6ce88469bc9e6f65be06ceae6" title="Cambia el tamaño del array. Los datos se conservan, siempre que se pueda. Se añaden elementos hasta q..." alt="" coords="713,5,861,47"/>
-<area shape="rect" id="node5" href="$class_o_s_k_1_1_dynamic_array.html#a34323ddf4963e2097def5d8c3f80c08e" title="Cambia el tamaño del array. Los datos se conservan, siempre que se pueda." alt="" coords="909,5,1057,47"/>
-<area shape="rect" id="node6" href="$class_o_s_k_1_1_dynamic_array.html#acf322bf27bf4bfd581079500c67171a6" title="Reserva espacio para &#39;size&#39; elementos. Preserva los elementos anteriores." alt="" coords="1105,5,1253,47"/>
-</map>

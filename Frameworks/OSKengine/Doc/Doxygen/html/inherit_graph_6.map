@@ -1,7 +1,0 @@
-<map id="Representación gráfica de la clase" name="Representación gráfica de la clase">
-<area shape="rect" id="node1" href="$class_o_s_k_1_1_a_s_s_e_t_s_1_1_i_asset.html" title="Un asset es un archivo/contenido que se usa en un juego. Incluye contenido como texturas,..." alt="" coords="5,81,160,108"/>
-<area shape="rect" id="node2" href="$class_o_s_k_1_1_a_s_s_e_t_s_1_1_cubemap_texture.html" title="Representa una textura para un cubemap. Se puede usar para renderizar un skybox." alt="" coords="208,5,424,32"/>
-<area shape="rect" id="node3" href="$class_o_s_k_1_1_a_s_s_e_t_s_1_1_font.html" title="Representa una fuente: un asset que almacena una fuente que nos permite renderizar texto." alt="" coords="244,56,388,83"/>
-<area shape="rect" id="node4" href="$class_o_s_k_1_1_a_s_s_e_t_s_1_1_model3_d.html" title="Un modelo 3D, para el renderizado 3D. Está compuesto por una serie de meshes 3D." alt="" coords="231,107,401,133"/>
-<area shape="rect" id="node5" href="$class_o_s_k_1_1_a_s_s_e_t_s_1_1_texture.html" title="Una textura que será usada en renderizado 2D / 3D." alt="" coords="235,157,397,184"/>
-</map>

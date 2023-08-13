@@ -1,9 +1,0 @@
-digraph "OSK::IO::IGamepadInput"
-{
- // LATEX_PDF_SIZE
-  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
-  node [fontname="Helvetica",fontsize="10",shape=record];
-  Node1 [label="OSK::IO::IGamepadInput",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black",tooltip="Interfaz para leer la entrada del usuario a través de uno o varios mandos."];
-  Node1 -> Node2 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
-  Node2 [label="OSK::IO::PcUserInput",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_o_s_k_1_1_i_o_1_1_pc_user_input.html",tooltip="Input para PC (Windows / Linux / Mac)."];
-}

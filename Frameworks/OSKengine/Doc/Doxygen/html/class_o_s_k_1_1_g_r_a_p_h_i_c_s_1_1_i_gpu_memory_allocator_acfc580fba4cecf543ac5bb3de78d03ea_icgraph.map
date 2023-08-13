@@ -1,4 +1,0 @@
-<map id="OSK::GRAPHICS::IGpuMemoryAllocator::GetNextBufferMemoryBlock" name="OSK::GRAPHICS::IGpuMemoryAllocator::GetNextBufferMemoryBlock">
-<area shape="rect" id="node1" title="Devuelve un bloque con las características dadas." alt="" coords="263,13,505,54"/>
-<area shape="rect" id="node2" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_allocator.html#ab409ca931f6491adc73e78ac3b5aa019" title="Devuelve un subbloque con las características dadas." alt="" coords="5,5,215,61"/>
-</map>

@@ -1,7 +1,0 @@
-<map id="OSK::ECS::EntityComponentSystem::RemoveComponent" name="OSK::ECS::EntityComponentSystem::RemoveComponent">
-<area shape="rect" id="node1" title="Elimina el componente del objeto." alt="" coords="5,5,199,47"/>
-<area shape="rect" id="node2" href="$class_o_s_k_1_1_constexpr_bit_set.html#aa38919327c6e8810f8b2304a2d25ce8b" title="Establece el valor del bit dado a 0." alt="" coords="247,5,400,47"/>
-<area shape="rect" id="node3" href="$class_o_s_k_1_1_constexpr_bit_set.html#a38329a6523ad679a76be70f2c9faff16" title="Establece el valor del bit en la posición dada." alt="" coords="448,5,601,47"/>
-<area shape="rect" id="node4" href="$class_o_s_k_1_1_dynamic_array.html#a9691f5eaf46654d59525c6c342d69cbb" title="Devuelve el elemento en la posición dada." alt="" coords="649,13,811,39"/>
-<area shape="rect" id="node5" href="$class_o_s_k_1_1_dynamic_array.html#a24b36038b685ea5f33b2b9b279035cef" title="Devuelve true si el array se ha inicializado." alt="" coords="859,5,1007,47"/>
-</map>

@@ -1,4 +1,0 @@
-<map id="OSK::GRAPHICS::CommandListDx12::BindVertexBuffer" name="OSK::GRAPHICS::CommandListDx12::BindVertexBuffer">
-<area shape="rect" id="node1" title="Establece el vertex buffer que se va a usar en los próximos renderizados." alt="" coords="5,5,219,47"/>
-<area shape="rect" id="node2" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_vertex_buffer.html#a33bc8c6062a92079aec9d14eee48b832" title=" " alt="" coords="267,5,465,47"/>
-</map>

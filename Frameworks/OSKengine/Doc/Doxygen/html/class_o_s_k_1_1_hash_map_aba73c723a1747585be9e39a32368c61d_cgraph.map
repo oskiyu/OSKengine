@@ -1,8 +1,0 @@
-<map id="OSK::HashMap::HashMap" name="OSK::HashMap::HashMap">
-<area shape="rect" id="node1" title="Construye un hashmap vacío." alt="" coords="5,46,181,73"/>
-<area shape="rect" id="node2" href="$class_o_s_k_1_1_bit_set.html#a7c2fc91899f9b63d2a05331dfec22acd" title="Establece el número de bist del bitset." alt="" coords="229,46,391,73"/>
-<area shape="rect" id="node3" href="$class_o_s_k_1_1_dynamic_array.html#ae8c61261c812df8ed2a69641d49eca5b" title="Inserta un elemento al final del array." alt="" coords="439,39,587,80"/>
-<area shape="rect" id="node4" href="$class_o_s_k_1_1_dynamic_array.html#a270b01e677a57b96f3f0443b3ef9e289" title="Inserta una copia del elemento al final del array." alt="" coords="635,39,783,80"/>
-<area shape="rect" id="node5" href="$class_o_s_k_1_1_dynamic_array.html#acf322bf27bf4bfd581079500c67171a6" title="Reserva espacio para &#39;size&#39; elementos. Preserva los elementos anteriores." alt="" coords="831,5,979,47"/>
-<area shape="rect" id="node6" href="$class_o_s_k_1_1_dynamic_array.html#a24b36038b685ea5f33b2b9b279035cef" title="Devuelve true si el array se ha inicializado." alt="" coords="831,71,979,112"/>
-</map>

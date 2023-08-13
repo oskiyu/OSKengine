@@ -1,6 +1,0 @@
-<map id="OSK::GRAPHICS::GpuMemoryAllocatorOgl::CreateIndexBuffer" name="OSK::GRAPHICS::GpuMemoryAllocatorOgl::CreateIndexBuffer">
-<area shape="rect" id="node1" title="Crea un buffer de índices con los índices dados." alt="" coords="5,71,209,112"/>
-<area shape="rect" id="node2" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_index_buffer_ogl.html#a03f9a0780e59de0286e91230e663a245" title=" " alt="" coords="257,5,479,47"/>
-<area shape="rect" id="node3" href="$class_o_s_k_1_1_dynamic_array.html#ac8a6d70f938c482e1f7aa68c7d186bb8" title="Devuelve el array original." alt="" coords="294,71,442,112"/>
-<area shape="rect" id="node4" href="$class_o_s_k_1_1_dynamic_array.html#a94d0cbf0543d0c976de674d31b15df90" title="Devuelve el número de elementos almacenados." alt="" coords="294,136,442,177"/>
-</map>

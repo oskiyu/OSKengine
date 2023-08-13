@@ -1,4 +1,0 @@
-<map id="OSK::ECS::ComponentContainer::RemoveComponent" name="OSK::ECS::ComponentContainer::RemoveComponent">
-<area shape="rect" id="node1" title="Elimina el componente cuyo dueño es el dado." alt="" coords="268,5,483,47"/>
-<area shape="rect" id="node2" href="$class_o_s_k_1_1_e_c_s_1_1_component_container.html#aa2ae3332ee4b0c80860b7cc3d60d5d55" title="Elimina el componente del objeto eliminado." alt="" coords="5,5,220,47"/>
-</map>

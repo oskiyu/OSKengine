@@ -1,5 +1,0 @@
-<map id="OSK::Vector3_t::GetNormalized" name="OSK::Vector3_t::GetNormalized">
-<area shape="rect" id="node1" title="Devuelve un vector 3D normalizado con la misma dirección que este." alt="" coords="5,31,213,57"/>
-<area shape="rect" id="node2" href="$class_o_s_k_1_1_vector3__t.html#ad59b181161a83a239c30d692bd79982c" title="Módulo del vector. Obtiene la longitud del vector." alt="" coords="261,5,444,32"/>
-<area shape="rect" id="node3" href="$class_o_s_k_1_1_vector3__t.html#abfc61058c184a3320c0e6d1993b7a037" title="Crea un vector 3D nulo { 0, 0, 0 }." alt="" coords="263,56,442,83"/>
-</map>

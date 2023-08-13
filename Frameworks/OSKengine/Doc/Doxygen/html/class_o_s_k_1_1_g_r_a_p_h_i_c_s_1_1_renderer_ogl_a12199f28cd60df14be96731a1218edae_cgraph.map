@@ -1,6 +1,0 @@
-<map id="OSK::GRAPHICS::RendererOgl::_CreateGraphicsPipeline" name="OSK::GRAPHICS::RendererOgl::_CreateGraphicsPipeline">
-<area shape="rect" id="node1" title="Crea un graphics pipeline." alt="" coords="5,5,211,47"/>
-<area shape="rect" id="node2" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_graphics_pipeline_ogl.html#a586cfbdf85715242c65c2c0f258217c9" title="Crea el pipeline con la configuración dada." alt="" coords="259,5,489,47"/>
-<area shape="rect" id="node3" href="$class_o_s_k_1_1_i_o_1_1_file_i_o.html#aad968707ec7b00bce0540c804f476dc9" title="Lee un archivo de texto." alt="" coords="537,13,740,39"/>
-<area shape="rect" id="node4" href="$class_o_s_k_1_1_i_o_1_1_file_i_o.html#ac7fe213b79ce97b178a7e27f7216a2f4" title="Comprueba si un archivo existe." alt="" coords="788,13,967,39"/>
-</map>

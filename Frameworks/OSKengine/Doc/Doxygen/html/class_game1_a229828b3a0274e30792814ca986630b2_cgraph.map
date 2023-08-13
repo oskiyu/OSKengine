@@ -1,4 +1,0 @@
-<map id="Game1::OnExit" name="Game1::OnExit">
-<area shape="rect" id="node1" title="Función que se ejecuta al salir del juego." alt="" coords="5,5,117,32"/>
-<area shape="rect" id="node2" href="$class_o_s_k_1_1_unique_ptr.html#a39da2bc8dc4424258a8455eae98c4497" title="Elimina el puntero." alt="" coords="165,5,325,32"/>
-</map>

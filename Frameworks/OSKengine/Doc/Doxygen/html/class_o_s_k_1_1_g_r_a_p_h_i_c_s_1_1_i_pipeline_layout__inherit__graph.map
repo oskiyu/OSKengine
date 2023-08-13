@@ -1,5 +1,0 @@
-<map id="OSK::GRAPHICS::IPipelineLayout" name="OSK::GRAPHICS::IPipelineLayout">
-<area shape="rect" id="node1" title="Un pipeline layout define el layout del pipeline, es decir: define qué recursos necesita para el rend..." alt="" coords="166,5,349,127"/>
-<area shape="rect" id="node2" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_pipeline_layout_dx12.html" title=" " alt="" coords="5,189,253,281"/>
-<area shape="rect" id="node3" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_pipeline_layout_vulkan.html" title=" " alt="" coords="277,175,496,296"/>
-</map>

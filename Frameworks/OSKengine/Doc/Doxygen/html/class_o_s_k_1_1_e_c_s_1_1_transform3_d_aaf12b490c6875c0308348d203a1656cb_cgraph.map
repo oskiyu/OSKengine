@@ -1,4 +1,0 @@
-<map id="OSK::ECS::Transform3D::GetRotation" name="OSK::ECS::Transform3D::GetRotation">
-<area shape="rect" id="node1" title="Orientación." alt="" coords="5,5,172,47"/>
-<area shape="rect" id="node2" href="$class_o_s_k_1_1_quaternion.html#a0cbf0edcbfd33647de6fa20d641d2216" title="Crea un cuaternión a partir del dado." alt="" coords="220,13,403,39"/>
-</map>

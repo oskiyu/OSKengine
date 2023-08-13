@@ -1,5 +1,0 @@
-<map id="OSK::HashMap::GetIterator" name="OSK::HashMap::GetIterator">
-<area shape="rect" id="node1" title="Devuelve un iterador apuntando a la pareja en el cubo y en la posición dadas." alt="" coords="415,13,597,39"/>
-<area shape="rect" id="node2" href="$class_o_s_k_1_1_hash_map.html#a7bc04c6136f0184caa44d1423061cdfa" title="Devuelve un iterador que apunta a la primera pareja." alt="" coords="215,13,367,39"/>
-<area shape="rect" id="node3" href="$class_o_s_k_1_1_hash_map_1_1_iterator.html#a550b5916ec84ed436d44915fd5d9d376" title="Devuelve un iterador que apunta a la anterior pareja de la colección." alt="" coords="5,5,167,47"/>
-</map>

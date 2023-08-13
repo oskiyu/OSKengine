@@ -1,7 +1,0 @@
-<map id="OSK::GRAPHICS::IGpuMemoryAllocator::GetNextBufferMemorySubblock" name="OSK::GRAPHICS::IGpuMemoryAllocator::GetNextBufferMemorySubblock">
-<area shape="rect" id="node1" title="Devuelve un subbloque con las características dadas." alt="" coords="5,31,215,87"/>
-<area shape="rect" id="node2" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_allocator.html#acfc580fba4cecf543ac5bb3de78d03ea" title="Devuelve un bloque con las características dadas." alt="" coords="263,5,505,47"/>
-<area shape="rect" id="node3" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_block.html#a72d5d52a35130232e7608d1e34667e6d" title="Obtiene un subbloque con el tamaño dado, ya sea nuevo o reutilizado." alt="" coords="278,71,490,112"/>
-<area shape="rect" id="node4" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_block.html#a4c08a6d5973d3854c6b90ccbcf03628f" title=" " alt="" coords="553,37,780,79"/>
-<area shape="rect" id="node5" href="$class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_block.html#a5470b45782d39a27ed93ed2b52737727" title="Devuelve la cantidad de memoria disponible que nunca ha sido reclamada." alt="" coords="563,103,770,144"/>
-</map>
