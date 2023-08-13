@@ -14,4 +14,14 @@ namespace OSK {
 
 	};
 
+	class OSKAPI_CALL OverflowConversionException : public EngineException {
+
+	public:
+
+		OverflowConversionException(const std::source_location& location = std::source_location::current())
+			:
+			EngineException("OverflowConversionException: se ha intentado convertir un número, dando resultado un overflow.") { }
+
+	};
+
 }

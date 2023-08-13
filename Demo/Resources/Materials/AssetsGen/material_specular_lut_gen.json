@@ -1,0 +1,12 @@
+
+ {
+    "file_type": "MATERIAL_COMPUTE",
+    "spec_ver": 1,
+    "name": "Specular LUT Gen",
+
+    "compute_shader": "Resources/Shaders/VK/AssetsGen/SpecularGen/LutGen/shader.spv",
+    
+    "slots": {
+        "0": "global"
+    }    
+}

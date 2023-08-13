@@ -40,21 +40,21 @@ namespace OSK::ASSETS {
 		/// @note Esta función debe ser sobreescrita por todos los loaders.
 		template <typename T> T* 
 		Load(const std::string& assetFilePath, const std::string& lifetimePool) {
-			if (assetsTable.ContainsKey(assetFilePath))
-				return (T*)assetsTable.Get(assetFilePath);
+			if (assetsTable.contains(assetFilePath))
+				return (T*)assetsTable.at(assetFilePath);
 
 			T* output = new T(assetFilePath);
 
-			OSK_ASSERT(loaders.ContainsKey((std::string)T::GetAssetType()), AssetLoaderNotFoundException(T::GetAssetType()))
+			OSK_ASSERT(loaders.contains(T::GetAssetType()), AssetLoaderNotFoundException(T::GetAssetType()))
 
-			loaders.Get(T::GetAssetType())->Load(assetFilePath, (IAsset**)&output);
+			loaders.at(T::GetAssetType())->Load(assetFilePath, (IAsset**)&output);
 
-			assetsTable.Insert(output->GetName(), output);
+			assetsTable[output->GetName()] = output;
 
-			if (!assetsPerLifetime.ContainsKey(lifetimePool))
-				assetsPerLifetime.Insert(lifetimePool, {});
+			if (!assetsPerLifetime.contains(lifetimePool))
+				assetsPerLifetime[lifetimePool] = {};
 
-			assetsPerLifetime.Get(lifetimePool).Insert(output);
+			assetsPerLifetime.at(lifetimePool).Insert(output);
 
 			return output;
 		}
@@ -62,7 +62,7 @@ namespace OSK::ASSETS {
 		/// <summary> Elimina todos assets del lifetime dado. </summary>
 		/// 
 		/// @note Si el lifetime no existe (o ya fue eliminado), no ocurre nada.
-		void DeleteLifetime(const std::string& lifetime);
+		void DeleteLifetime(std::string_view lifetime);
 
 		/// <summary> Registra un loader, para poder cargar assets de un tipo determinado. </summary>
 		/// 
@@ -72,14 +72,14 @@ namespace OSK::ASSETS {
 		/// @warning Todo loader debe ser registrado para poder usarse.
 		template <typename T> 
 		void RegisterLoader() {
-			loaders.Insert(T::GetAssetType(), new T);
+			loaders[T::GetAssetType()] = new T;
 		}
 
 	private:
 
-		HashMap<std::string, IAsset*> assetsTable;
-		HashMap<std::string, DynamicArray<SharedPtr<IAsset>>> assetsPerLifetime;
-		HashMap<std::string, UniquePtr<IAssetLoader>> loaders;
+		std::unordered_map<std::string, IAsset*, StringHasher, std::equal_to<>> assetsTable;
+		std::unordered_map<std::string, DynamicArray<SharedPtr<IAsset>>, StringHasher, std::equal_to<>> assetsPerLifetime;
+		std::unordered_map<std::string, UniquePtr<IAssetLoader>, StringHasher, std::equal_to<>> loaders;
 
 	};
 

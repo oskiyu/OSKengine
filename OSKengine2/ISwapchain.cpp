@@ -48,10 +48,6 @@ unsigned int ISwapchain::GetCurrentFrameIndex() const {
 	return currentFrameIndex;
 }
 
-GpuImage* ISwapchain::GetImage(unsigned int index) const {
-	return images[index].GetPointer();
-}
-
 Format ISwapchain::GetColorFormat() const {
 	return colorFormat;
 }

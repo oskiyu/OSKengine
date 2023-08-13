@@ -101,35 +101,35 @@ namespace OSK::GRAPHICS {
 
 #pragma region Getters
 
-		ICommandList* GetPreComputeCommandList() const;
-		ICommandList* GetGraphicsCommandList() const;
-		ICommandList* GetPostComputeCommandList() const;
-		ICommandList* GetFrameBuildCommandList() const;
+		ICommandList* GetPreComputeCommandList();
+		ICommandList* GetGraphicsCommandList();
+		ICommandList* GetPostComputeCommandList();
+		ICommandList* GetFrameBuildCommandList();
 
-		inline ICommandQueue* GetGraphicsCommandQueue() const { return graphicsQueue.GetPointer(); }
-		inline ICommandQueue* GetComputeCommandQueue() const { return computeQueue.GetPointer(); }
-		inline ICommandQueue* GetPresentCommandQueue() const { return presentQueue.GetPointer(); }
+		inline ICommandQueue* GetGraphicsCommandQueue() { return graphicsQueue.GetPointer(); }
+		inline ICommandQueue* GetComputeCommandQueue() { return computeQueue.GetPointer(); }
+		inline ICommandQueue* GetPresentCommandQueue() { return presentQueue.GetPointer(); }
 
 		/// <summary> Devuelve un puntero al asignador de memoria de la GPU. </summary>
 		/// 
 		/// @pre Se ha llamado a IRenderer::Initialize.
 		/// @note Es un puntero estable.
 		/// @warning Será nulo si no se ha llamado a IRenderer::Initialize.
-		IGpuMemoryAllocator* GetAllocator() const;
+		IGpuMemoryAllocator* GetAllocator();
 
 		/// <summary> Devuelve un puntero al objeto Gpu. </summary>
 		/// 
 		/// @pre Se ha llamado a IRenderer::Initialize.
 		/// @note Es un puntero estable.
 		/// @warning Será nulo si no se ha llamado a IRenderer::Initialize.
-		IGpu* GetGpu() const;
+		IGpu* GetGpu();
 
 		/// <summary> Devuelve un puntero al sistema de materiales. </summary>
 		/// 
 		/// @pre Se ha llamado a IRenderer::Initialize.
 		/// @note Es un puntero estable.
 		/// @warning Será nulo si no se ha llamado a IRenderer::Initialize.
-		MaterialSystem* GetMaterialSystem() const;
+		MaterialSystem* GetMaterialSystem();
 
 		/// <summary> Devuelve el swapchain de la aplicación. </summary>
 		/// 
@@ -137,7 +137,7 @@ namespace OSK::GRAPHICS {
 		/// @note Es un puntero estable.
 		/// @warning Será nulo si no se ha llamado a IRenderer::Initialize.
 		/// @warning Función interna, no usar.
-		ISwapchain* _GetSwapchain() const;
+		ISwapchain* _GetSwapchain();
 
 
 		/// <summary> Devuelve el render target que renderiza sobre la imagen final del swapchain. </summary>
@@ -145,7 +145,7 @@ namespace OSK::GRAPHICS {
 		/// @pre Se ha llamado a IRenderer::Initialize.
 		/// @note Es un puntero estable.
 		/// @warning Será nulo si no se ha llamado a IRenderer::Initialize.
-		RenderTarget* GetFinalRenderTarget() const;
+		RenderTarget* GetFinalRenderTarget();
 
 		/// <summary>
 		/// Devuelve una cámara 2D que renderiza en la resolución
@@ -205,7 +205,7 @@ namespace OSK::GRAPHICS {
 			const TByte* data, 
 			USize64 numBytes, 
 			USize32 numLayers, 
-			ICommandList* cmdList) const;
+			ICommandList* cmdList);
 
 		/// <summary> Rellena la imagen en la GPU con los datos dados. </summary>
 		/// 
@@ -215,7 +215,7 @@ namespace OSK::GRAPHICS {
 			GpuImage* destination, 
 			const TByte* data, 
 			USize64 numBytes,
-			ICommandList* cmdList) const;
+			ICommandList* cmdList);
 
 		/// <summary>
 		/// Rellena la imagen en la GPU con los datos dados.
@@ -227,7 +227,7 @@ namespace OSK::GRAPHICS {
 			GpuImage* destination, 
 			const TByte* data, 
 			USize64 numBytes,
-			ICommandList* cmdList) const;
+			ICommandList* cmdList);
 
 #pragma endregion
 
@@ -295,7 +295,7 @@ namespace OSK::GRAPHICS {
 		bool _HasImplicitResizeHandling() const;
 
 
-		Material* GetFullscreenRenderingMaterial() const;
+		Material* GetFullscreenRenderingMaterial();
 
 	protected:
 

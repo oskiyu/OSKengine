@@ -1,0 +1,58 @@
+#version 460
+
+#include "config.glsl"
+
+// 4:4 = 2.80ms
+// 8:8 = 2.30ms <-
+// 16:16 = 2.69ms
+// 32:32: 3.08ms
+
+// 2.81ms / 2.75ms -> 1.2ms
+
+layout (local_size_x = LOCAL_SIZE_X, local_size_y = LOCAL_SIZE_Y) in;
+
+layout (set = 0, binding = 0) uniform sampler2D bloomImg;
+layout (set = 0, binding = 1) uniform sampler2D sceneImg;
+layout (set = 0, binding = 2, FORMAT) uniform image2D outputImg;
+
+layout (push_constant) uniform Info {
+    vec4 infos;
+} info;
+
+void main() {
+    vec2 currentCoords = gl_GlobalInvocationID.xy;
+
+    const vec4 originalColor = texelFetch(sceneImg, ivec2(currentCoords.xy), 0);
+    
+    // ------ FINAL UPSCALE ------ //
+    const vec2 previousCoordinates = currentCoords * 0.5 + 0.5; //(previousResolution / nextResolution) * currentCoords;
+
+    const float radius = 2.0;
+    const vec2 sourcePixelSize = 1.0 / textureSize(bloomImg, 0);
+
+    vec4 bloomColor = vec4(0);
+
+    bloomColor += texture(bloomImg, (previousCoordinates + vec2( 0,  0) * radius) * sourcePixelSize) * 4;
+    
+    bloomColor += texture(bloomImg, (previousCoordinates + vec2(-1,  0) * radius) * sourcePixelSize) * 2;
+    bloomColor += texture(bloomImg, (previousCoordinates + vec2( 1,  0) * radius) * sourcePixelSize) * 2;
+    bloomColor += texture(bloomImg, (previousCoordinates + vec2( 0, -1) * radius) * sourcePixelSize) * 2;
+    bloomColor += texture(bloomImg, (previousCoordinates + vec2( 0,  1) * radius) * sourcePixelSize) * 2;
+
+
+    bloomColor += texture(bloomImg, (previousCoordinates + vec2( 1,  1) * radius) * sourcePixelSize) * 1;
+    bloomColor += texture(bloomImg, (previousCoordinates + vec2(-1,  1) * radius) * sourcePixelSize) * 1;
+    bloomColor += texture(bloomImg, (previousCoordinates + vec2(-1, -1) * radius) * sourcePixelSize) * 1;
+    bloomColor += texture(bloomImg, (previousCoordinates + vec2( 1, -1) * radius) * sourcePixelSize) * 1;
+
+    bloomColor /= 16.0;
+
+    bloomColor += imageLoad(outputImg, ivec2(currentCoords));
+
+    // ------ RESOLVE ------ //
+    const float ratio = 0.019; // 0.032
+    const vec4 finalColor = 
+        originalColor + pow(bloomColor, vec4(1.25)) * ratio;// mix(originalColor, bloomColor, ratio);
+    
+    imageStore(outputImg, ivec2(currentCoords.xy), vec4(finalColor.rgb, 1.0));
+}

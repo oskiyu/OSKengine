@@ -5,17 +5,19 @@
 using namespace OSK::ECS;
 
 void SystemManager::OnTick(TDeltaTime deltaTime) {
-	for (auto& [name, system] : producers)
-		if (system->IsActive())
-			system->OnTick(deltaTime);
+	for (const auto& [key, set] : executionOrder) {
+		for (auto it = set.producers.begin(); it < set.producers.end(); ++it)
+			if ((*it)->IsActive())
+				(*it)->OnTick(deltaTime);
 
-	for (auto& [name, system] : consumers)
-		if (system->IsActive())
-			system->OnTick(deltaTime);
+		for (IConsumerSystem* system : set.consumers)
+			if (system->IsActive())
+				system->OnTick(deltaTime);
 
-	for (auto& [name, system] : systems)
-		if (system->IsActive())
-			system->OnTick(deltaTime);
+		for (IPureSystem* system : set.systems)
+			if (system->IsActive())
+				system->OnTick(deltaTime);
+	}	
 }
 
 void SystemManager::GameObjectDestroyed(GameObjectIndex obj) {

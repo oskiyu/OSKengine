@@ -135,7 +135,7 @@ void Engine::RegisterBuiltinComponents() {
 
 void Engine::RegisterBuiltinSystems() {
 #ifdef OSK_USE_FORWARD_RENDERER
-	entityComponentSystem->RegisterSystem<ECS::RenderSystem3D>();
+	entityComponentSystem->RegisterSystem<ECS::RenderSystem3D>(ECS::ISystem::DEFAULT_EXECUTION_ORDER);
 #elif defined(OSK_USE_DEFERRED_RENDERER)
 	entityComponentSystem->RegisterSystem<ECS::PbrDeferredRenderSystem>();
 #elif defined(OSK_USE_HYBRID_RENDERER)
@@ -145,12 +145,13 @@ void Engine::RegisterBuiltinSystems() {
 #error No hay un renderizador por defecto
 #endif
 
-	entityComponentSystem->RegisterSystem<ECS::SkyboxRenderSystem>();
-	entityComponentSystem->RegisterSystem<ECS::RenderSystem2D>();
-	entityComponentSystem->RegisterSystem<ECS::CollisionSystem>();
-	entityComponentSystem->RegisterSystem<ECS::PhysicsSystem>();
-	entityComponentSystem->RegisterSystem<ECS::PhysicsResolver>();
-	// entityComponentSystem->RegisterSystem<ECS::TerrainRenderSystem>();
+	entityComponentSystem->RegisterSystem<ECS::PhysicsSystem>(ECS::ISystem::DEFAULT_EXECUTION_ORDER - 2);
+
+	entityComponentSystem->RegisterSystem<ECS::CollisionSystem>(ECS::ISystem::DEFAULT_EXECUTION_ORDER - 1);
+	entityComponentSystem->RegisterSystem<ECS::PhysicsResolver>(ECS::ISystem::DEFAULT_EXECUTION_ORDER - 1);
+
+	entityComponentSystem->RegisterSystem<ECS::SkyboxRenderSystem>(ECS::ISystem::DEFAULT_EXECUTION_ORDER);
+	entityComponentSystem->RegisterSystem<ECS::RenderSystem2D>(ECS::ISystem::DEFAULT_EXECUTION_ORDER);
 }
 
 void Engine::RegisterBuiltinEvents() {
@@ -213,7 +214,7 @@ Version Engine::GetVersion() {
 }
 
 std::string_view Engine::GetBuild() {
-	return "2023.07.15a";
+	return "2023.08.13a";
 }
 
 UIndex64 Engine::GetCurrentGameFrameIndex() {

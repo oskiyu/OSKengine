@@ -23,6 +23,11 @@ namespace OSK::ECS{
 
 	public:
 
+		/// @brief Índice de ordenación por defecto.
+		static constexpr int DEFAULT_EXECUTION_ORDER = 0;
+
+	public:
+
 		virtual ~ISystem() = default;
 
 		/// @brief Función que se ejecuta al crearse el sistema.
@@ -60,6 +65,14 @@ namespace OSK::ECS{
 		/// @return True si está activo, false en caso contrario.
 		bool IsActive() const;
 
+
+		/// @return Índice de ordenación de ejecución.
+		int GetExecutionOrder() const;
+
+		/// @brief Establece el nuevo índice de ordenación de ejecución.
+		/// @param newOrder Nuevo índice.
+		void _SetExecutionOrder(int newOrder);
+
 	protected:
 
 		ISystem() = default;
@@ -69,7 +82,19 @@ namespace OSK::ECS{
 		/// @brief Representa si un sistema debe ejecutarse o no.
 		bool isActive = true;
 
+		/// @brief Índice de ordenación de ejecución.
+		int order = DEFAULT_EXECUTION_ORDER;
+
 	};
+
+
+	/// @brief Concepto que nos permite detectar si una clase cumple con las condiciones
+	/// para ser un sistema.
+	template<typename TSystem>
+	concept IsEcsSystem = requires (TSystem) {
+		{ TSystem::GetSystemName() };
+	};
+
 
 }
 

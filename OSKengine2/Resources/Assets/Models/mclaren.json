@@ -4,6 +4,7 @@
 
     "name": "Model0",
     "asset_type": "Model3D",
+    "raw_asset_path2": "Resources/RawAssets/Models/l78.glb",
     "raw_asset_path": "Resources/RawAssets/Models/chass.glb",
 
     "scale": 0.15,

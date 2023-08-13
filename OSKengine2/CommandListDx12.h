@@ -25,6 +25,8 @@ namespace OSK::GRAPHICS {
 
 	public:
 
+		CommandListDx12() = default;
+
 		void SetCommandPool(const CommandPoolDx12& commandPool);
 
 		void SetCommandList(const ComPtr<ID3D12GraphicsCommandList>& commandList);

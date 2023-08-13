@@ -16,10 +16,12 @@ namespace OSK::ASSETS {
 
 		OSK_ASSET_TYPE_REG("OSK::SpecularMap");
 
-		GRAPHICS::GpuImage* GetCubemapImage() const;
+		GRAPHICS::GpuImage* GetCubemapImage();
+		const GRAPHICS::GpuImage* GetCubemapImage() const { return iblCubemap.GetPointer(); }
 		void _SetCubemapImage(OwnedPtr<GRAPHICS::GpuImage> image);
 
-		GRAPHICS::GpuImage* GetLookUpTable() const;
+		GRAPHICS::GpuImage* GetLookUpTable();
+		const GRAPHICS::GpuImage* GetLookUpTable() const { return lookUpTable.GetPointer(); }
 		void _SetLookUpTable(OwnedPtr<GRAPHICS::GpuImage> lut);
 
 	private:

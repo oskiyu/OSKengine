@@ -45,19 +45,19 @@ void IMeshLoader::Load(const std::string& rawAssetPath, const glm::mat4& modelTr
 
 void IMeshLoader::SetupModel(Model3D* model) {
 	model->_SetIndexBuffer(Engine::GetRenderer()->GetAllocator()->CreateIndexBuffer(indices));
-	model->_SetIndexCount(indices.GetSize());
+	model->_SetIndexCount(static_cast<USize32>(indices.GetSize()));
 
 	for (UIndex32 i = 0; i < meshes.GetSize(); i++) {
 		MeshMetadata meshMetadata{};
 
-		if (meshIdToMaterialId.ContainsKey(i)) {
-			const auto& materialInfo = modelInfo.materialInfos.At(meshIdToMaterialId.Get(i));
+		if (meshIdToMaterialId.contains(i)) {
+			const auto& materialInfo = modelInfo.materialInfos.At(meshIdToMaterialId.at(i));
 
 			if (materialInfo.hasBaseTexture)
-				meshMetadata.materialTextures.Insert("baseTexture", materialInfo.baseTextureIndex);
+				meshMetadata.materialTextures["baseTexture"] = materialInfo.baseTextureIndex;
 
 			if (materialInfo.hasNormalTexture)
-				meshMetadata.materialTextures.Insert("normalTexture", materialInfo.normalTextureIndex);
+				meshMetadata.materialTextures["normalTexture"] = materialInfo.normalTextureIndex;
 
 			meshMetadata.metallicFactor = materialInfo.metallicFactor;
 			meshMetadata.roughnessFactor = materialInfo.roughnessFactor;
@@ -306,11 +306,11 @@ DynamicArray<Vector3f> IMeshLoader::GetVertexNormals(const tinygltf::Primitive& 
 
 	// Leemos el buffer.
 	const float* normalsBuffer = reinterpret_cast<const float*>(&(gltfModel.buffers[view.buffer].data[accessor.byteOffset + view.byteOffset]));
-	const USize32 numVertices = static_cast<USize32>(accessor.count);
+	const USize64 numVertices = accessor.count;
 	
 	DynamicArray<Vector3f> output = DynamicArray<Vector3f>::CreateResizedArray(numVertices);
 
-	for (UIndex32 v = 0; v < numVertices; v++) {
+	for (UIndex64 v = 0; v < numVertices; v++) {
 		output[v] = Vector3f(
 			normalsBuffer[v * 3 + 0],
 			normalsBuffer[v * 3 + 1],
@@ -331,19 +331,20 @@ DynamicArray<Vector3f> IMeshLoader::GetTangentVectors(const tinygltf::Primitive&
 
 	// Leemos el buffer.
 	const float* tangentsBuffer = reinterpret_cast<const float*>(&(gltfModel.buffers[view.buffer].data[accessor.byteOffset + view.byteOffset]));
-	const USize32 numVertices = static_cast<USize32>(accessor.count);
+	const USize64 numVertices = accessor.count;
 
 	DynamicArray<Vector3f> output = DynamicArray<Vector3f>::CreateResizedArray(numVertices);
 
-	for (UIndex32 v = 0; v < numVertices; v++) {
-		output[v] = Vector3f(
-			tangentsBuffer[v * 4 + 0],
-			tangentsBuffer[v * 4 + 1],
-			tangentsBuffer[v * 4 + 2]
-		);
+	for (UIndex64 v = 0; v < numVertices; v++) {
+		const float normalizer = tangentsBuffer[v * 4 + 3] < 0.0f
+			? -1.0f
+			:  1.0f;
 
-		if (tangentsBuffer[v * 4 + 3] < 0.0f) 
-			output[v] *= -1.0f;
+		output[v] = Vector3f(
+			tangentsBuffer[v * 4 + 0] * normalizer,
+			tangentsBuffer[v * 4 + 1] * normalizer,
+			tangentsBuffer[v * 4 + 2] * normalizer
+		);
 	}
 
 	return output;

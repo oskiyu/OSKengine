@@ -103,6 +103,8 @@ namespace OSK::ECS {
 		/// en espacio local.
 		Vector3f centerOfMassOffset = Vector3f::Zero;
 
+		Vector3f localFrictionCoefficient = Vector3f(0.5f);
+
 		/// @brief Coeficiente de resitución, que indica
 		/// la cantidad de rebote del objeto.
 		/// @pre @p coefficientOfRestitution >= 0.

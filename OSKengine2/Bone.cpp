@@ -6,10 +6,10 @@
 using namespace OSK;
 using namespace OSK::GRAPHICS;
 
-void MeshNode::UpdateSkeletonTree(const glm::mat4& prevMatrix, const Skeleton& skeleton) {
+void MeshNode::UpdateSkeletonTree(const glm::mat4& prevMatrix, Skeleton* skeleton) {
 	globalMatrix = prevMatrix * GetLocalMatrix();
 	// globalMatrix = originalMatrix * GetLocalMatrix();
 
 	for (const UIndex32 child : childIndices)
-		skeleton.GetNode(child)->UpdateSkeletonTree(globalMatrix, skeleton);
+		skeleton->GetNode(child).UpdateSkeletonTree(globalMatrix, skeleton);
 }

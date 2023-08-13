@@ -14,17 +14,17 @@ using namespace OSK;
 using namespace OSK::GRAPHICS;
 
 GpuImage::GpuImage(const Vector3ui& size, GpuImageDimension dimension, GpuImageUsage usage, USize32 numLayers, Format format, USize32 numSamples, GpuImageSamplerDesc samplerDesc)
-	: size(size), samplerDesc(samplerDesc), numSamples(numSamples), format(format), currentLayout(GpuImageLayout::UNDEFINED), dimension(dimension), usage(usage), numLayers(numLayers) {
+	: m_size(size), m_samplerDesc(samplerDesc), m_numSamples(numSamples), m_format(format), m_currentLayout(GpuImageLayout::UNDEFINED), m_dimension(dimension), m_usage(usage), m_numLayers(numLayers) {
 	
 	switch (samplerDesc.mipMapMode) {
 	case GpuImageMipmapMode::AUTO:
-		mipLevels = GetMipLevels(size.x, size.y);
+		m_mipLevels = GetMipLevels(size.x, size.y);
 		break;
 	case GpuImageMipmapMode::CUSTOM:
-		mipLevels = samplerDesc.maxMipLevel;
+		m_mipLevels = samplerDesc.maxMipLevel;
 		break;
 	case GpuImageMipmapMode::NONE:
-		mipLevels = 1;
+		m_mipLevels = 1;
 		break;
 	}
 
@@ -33,31 +33,31 @@ GpuImage::GpuImage(const Vector3ui& size, GpuImageDimension dimension, GpuImageU
 }
 
 GpuImage::~GpuImage() {
-	if (buffer)
-		block->RemoveSubblock(buffer);
+	if (m_buffer)
+		m_block->RemoveSubblock(m_buffer);
 
-	Engine::GetRenderer()->GetAllocator()->RemoveMemoryBlock(block);
+	Engine::GetRenderer()->GetAllocator()->RemoveMemoryBlock(m_block);
 }
 
 void GpuImage::SetBlock(OwnedPtr<IGpuMemoryBlock> block) {
-	this->block = block.GetPointer();
-	buffer = block->GetNextMemorySubblock(block->GetAllocatedSize(), 0);
+	m_block = block.GetPointer();
+	m_buffer = block->GetNextMemorySubblock(block->GetAllocatedSize(), 0);
 }
 
 void GpuImage::_SetPhysicalSize(const Vector3ui& size) {
-	physicalSize = size;
+	m_physicalSize = size;
 }
 
 Vector3ui GpuImage::GetSize3D() const {
-	return size;
+	return m_size;
 }
 
 Vector2ui GpuImage::GetSize2D() const {
-	return { size.x, size.y };
+	return { m_size.x, m_size.y };
 }
 
 USize32 GpuImage::GetSize1D() const {
-	return size.x;
+	return m_size.x;
 }
 
 Vector2ui GpuImage::GetMipLevelSize2D(UIndex32 mipLevel) const {
@@ -70,39 +70,39 @@ Vector2ui GpuImage::GetMipLevelSize2D(UIndex32 mipLevel) const {
 }
 
 Vector3ui GpuImage::GetPhysicalSize() const {
-	return physicalSize;
+	return m_physicalSize;
 }
 
 GpuImageDimension GpuImage::GetDimension() const {
-	return dimension;
+	return m_dimension;
 }
 
 GpuImageUsage GpuImage::GetUsage() const {
-	return usage;
+	return m_usage;
 }
 
 USize32 GpuImage::GetNumLayers() const {
-	return numLayers;
+	return m_numLayers;
 }
 
 GpuImageSamplerDesc GpuImage::GetImageSampler() const {
-	return samplerDesc;
+	return m_samplerDesc;
 }
 
 Format GpuImage::GetFormat() const {
-	return format;
+	return m_format;
 }
 
 IGpuMemoryBlock* GpuImage::GetMemory() const {
-	return block;
+	return m_block;
 }
 
 IGpuMemorySubblock* GpuImage::GetBuffer() const {
-	return buffer;
+	return m_buffer;
 }
 
 unsigned int GpuImage::GetMipLevels() const {
-	return mipLevels;
+	return m_mipLevels;
 }
 
 USize32 GpuImage::GetMipLevels(uint32_t sizeX, uint32_t sizeY) {
@@ -110,58 +110,58 @@ USize32 GpuImage::GetMipLevels(uint32_t sizeX, uint32_t sizeY) {
 }
 
 USize64 GpuImage::GetNumberOfBytes() const {
-	return size.x * size.y * size.Z * GetFormatNumberOfBytes(GetFormat());
+	return m_size.x * m_size.y * m_size.Z * GetFormatNumberOfBytes(GetFormat());
 }
 
 USize64 GpuImage::GetPhysicalNumberOfBytes() const {
-	return physicalSize.x * physicalSize.y * physicalSize.Z * GetFormatNumberOfBytes(GetFormat());
+	return m_physicalSize.x * m_physicalSize.y * m_physicalSize.Z * GetFormatNumberOfBytes(GetFormat());
 }
 
 USize32 GpuImage::GetNumSamples() const {
-	return numSamples;
+	return m_numSamples;
 }
 
-IGpuImageView* GpuImage::GetView(const GpuImageViewConfig& viewConfig) const {
-	if (views.HasValue(viewConfig))
-		return views.Get(viewConfig).GetPointer();
+const IGpuImageView* GpuImage::GetView(const GpuImageViewConfig& viewConfig) const {
+	if (m_views.contains(viewConfig))
+		return m_views.at(viewConfig).GetPointer();
 
 	OwnedPtr<IGpuImageView> view = CreateView(viewConfig);
-	views.Insert(viewConfig, view.GetPointer());
+	m_views[viewConfig] = view.GetPointer();
 
 	return view.GetPointer();
 }
 void GpuImage::SetCurrentBarrier(const GpuBarrierInfo& barrier) {
-	currentBarrier = barrier;
+	m_currentBarrier = barrier;
 }
 
 const GpuBarrierInfo& GpuImage::GetCurrentBarrier() const {
-	return currentBarrier;
+	return m_currentBarrier;
 }
 
 void GpuImage::_InitDefaultLayout() {
-	const USize32 arrayLevelCount = numLayers;
-	const USize32 mipLevelCount = mipLevels;
+	const USize32 arrayLevelCount = m_numLayers;
+	const USize32 mipLevelCount = m_mipLevels;
 
 	for (ArrayLevelIndex a = 0; a < arrayLevelCount; a++) {
-		layouts.Insert(a, {});
-		auto& arrayLevel = layouts.Get(a);
-
+		std::unordered_map<GpuImage::MipLevelIndex, GpuImageLayout> arrayLevel;
 		for (MipLevelIndex m = 0; m < mipLevelCount; m++)
-			arrayLevel.Insert(m, GpuImageLayout::UNDEFINED);
+			arrayLevel[m] = GpuImageLayout::UNDEFINED;
+
+		m_layouts[a] = arrayLevel;
 	}
 }
 
 void GpuImage::_SetLayout(ArrayLevelIndex baseArrayLevel, USize32 arrayLevelCount, MipLevelIndex baseMipLevel, USize32 mipLevelCount, GpuImageLayout layout) {
-	arrayLevelCount = glm::min(arrayLevelCount, numLayers);
-	mipLevelCount = glm::min(mipLevelCount, mipLevels);
+	arrayLevelCount = glm::min(arrayLevelCount, m_numLayers);
+	mipLevelCount = glm::min(mipLevelCount, m_mipLevels);
 	
 	for (ArrayLevelIndex a = baseArrayLevel; a < baseArrayLevel + arrayLevelCount; a++) {
-		auto& arrayLevel = layouts.Get(a);
+		auto& arrayLevel = m_layouts.at(a);
 
 		for (MipLevelIndex m = baseMipLevel; m < baseMipLevel + mipLevelCount; m++)
-			arrayLevel.Insert(m, layout);
+			arrayLevel[m] = layout;
 	}
 }
 GpuImageLayout GpuImage::_GetLayout(ArrayLevelIndex arrayLevel, MipLevelIndex mipLevel) const {
-	return layouts.Get(arrayLevel).Get(mipLevel);
+	return m_layouts.at(arrayLevel).at(mipLevel);
 }

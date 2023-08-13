@@ -65,7 +65,7 @@ GpuMemoryUsageInfo GpuVk::GetMemoryUsageInfo() const {
 
 OwnedPtr<ICommandPool> GpuVk::CreateGraphicsCommandPool() {
 	const QueueFamiles families = GetQueueFamilyIndices();
-	const QueueFamily family = families.GetFamilies(CommandQueueSupport::GRAPHICS | CommandQueueSupport::COMPUTE | CommandQueueSupport::PRESENTATION).At(0);
+	const QueueFamily family = families.GetFamilies(CommandQueueSupport::GRAPHICS | CommandQueueSupport::COMPUTE | CommandQueueSupport::PRESENTATION).AtCpy(0);
 
 	VkCommandPoolCreateInfo poolInfo{};
 	poolInfo.sType = VK_STRUCTURE_TYPE_COMMAND_POOL_CREATE_INFO;
@@ -84,8 +84,8 @@ OwnedPtr<ICommandPool> GpuVk::CreateGraphicsCommandPool() {
 }
 
 OwnedPtr<ICommandPool> GpuVk::CreateComputeCommandPool() {
-	const QueueFamiles families = GetQueueFamilyIndices();
-	const QueueFamily family = families.GetFamilies(CommandQueueSupport::GRAPHICS | CommandQueueSupport::COMPUTE | CommandQueueSupport::PRESENTATION).At(0);
+	const auto families = GetQueueFamilyIndices().GetFamilies(CommandQueueSupport::GRAPHICS | CommandQueueSupport::COMPUTE | CommandQueueSupport::PRESENTATION);
+	const QueueFamily family = families.At(0);
 
 	// @todo check por si no se puede usar una cola única.
 
@@ -121,14 +121,17 @@ VkPhysicalDevice GpuVk::GetPhysicalDevice() const {
 }
 
 void GpuVk::CreateLogicalDevice() {
-	const QueueFamiles queueFamilies = GetQueueFamilyIndices();
+	const QueueFamiles families = GetQueueFamilyIndices();
+	const auto graphicsAndComputeFamiliesList = GetQueueFamilyIndices().GetFamilies(CommandQueueSupport::GRAPHICS | CommandQueueSupport::COMPUTE);
+
 	std::set<uint32_t> uniqueQueueFamilies;
 
-	const QueueFamily graphicsAndComputeFamily = queueFamilies.GetFamilies(CommandQueueSupport::GRAPHICS | CommandQueueSupport::COMPUTE).At(0);
+	const QueueFamily graphicsAndComputeFamily = graphicsAndComputeFamiliesList.At(0);
 	uniqueQueueFamilies.insert(graphicsAndComputeFamily.familyIndex);
 
-	if (!EFTraits::HasFlag(graphicsAndComputeFamily.support, CommandQueueSupport::PRESENTATION))
-		uniqueQueueFamilies.insert(queueFamilies.GetFamilies(CommandQueueSupport::PRESENTATION)[0].familyIndex);
+	if (!EFTraits::HasFlag(graphicsAndComputeFamily.support, CommandQueueSupport::PRESENTATION)) {
+		uniqueQueueFamilies.insert(families.GetFamilies(CommandQueueSupport::PRESENTATION).AtCpy(0).familyIndex);
+	}
 	
 	// Creación de las colas.
 	DynamicArray<VkDeviceQueueCreateInfo> createInfos;
@@ -142,7 +145,7 @@ void GpuVk::CreateLogicalDevice() {
 		// Prioridades.
 		qCreateInfo.pQueuePriorities = &qPriority;
 
-		createInfos.Insert(qCreateInfo);
+		createInfos.Insert(std::move(qCreateInfo));
 	}
 
 	// Características que vamos a usar.
@@ -172,10 +175,10 @@ void GpuVk::CreateLogicalDevice() {
 	// Crear el logical device.
 	VkDeviceCreateInfo createInfo{};
 	createInfo.sType = VK_STRUCTURE_TYPE_DEVICE_CREATE_INFO;
-	createInfo.queueCreateInfoCount = createInfos.GetSize();
+	createInfo.queueCreateInfoCount = static_cast<uint32_t>(createInfos.GetSize());
 	createInfo.pQueueCreateInfos = createInfos.GetData();
 	createInfo.pEnabledFeatures = &features;
-	createInfo.enabledExtensionCount = gpuExtensions.GetSize();
+	createInfo.enabledExtensionCount = static_cast<uint32_t>(gpuExtensions.GetSize());
 	createInfo.ppEnabledExtensionNames = gpuExtensions.GetData();
 	
 	createInfo.pEnabledFeatures = nullptr;
@@ -337,7 +340,7 @@ GpuVk::Info GpuVk::Info::Get(VkPhysicalDevice gpu, VkSurfaceKHR surface) {
 	//swapchainSupported = !info.shapchainSupport.presentModes.empty() && !info.shapchainSupport.formats.empty();
 
 	//info.isSuitable = info.families.IsComplete() && checkGPUextensionSupport(gpu) && swapchainSupported && info.features.samplerAnisotropy;
-	info.minAlignment = static_cast<USize64>(info.properties.limits.minUniformBufferOffsetAlignment);
+	info.minAlignment = info.properties.limits.minUniformBufferOffsetAlignment;
 
 	// ---------- SWAPCHAIN ------------------ //
 

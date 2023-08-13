@@ -27,8 +27,10 @@ namespace OSK::GRAPHICS {
 		/// </summary>
 		/// <param name="material">Material del que se crea la instancia.</param>
 		MaterialInstance(Material* material);
-
 		~MaterialInstance();
+
+		OSK_DISABLE_COPY(MaterialInstance);
+		OSK_DEFAULT_MOVE_OPERATOR(MaterialInstance);
 
 		/// <summary>
 		/// Registra un slot.
@@ -42,10 +44,9 @@ namespace OSK::GRAPHICS {
 		/// @throws MaterialSlotCreationException Si hay algún error durante la creación del material slot.
 		void RegisterSlot(const std::string& name);
 
-		/// <summary>
 		/// Devuelve el slot con el nombre dado.
-		/// </summary>
-		IMaterialSlot* GetSlot(const std::string& name) const;
+		const IMaterialSlot* GetSlot(std::string_view name) const { return slots.find(name)->second.GetPointer(); }
+		IMaterialSlot* GetSlot(std::string_view name) { return slots.find(name)->second.GetPointer(); }
 
 		/// <summary>
 		/// Devuelve el material del que es instancia esta instancia.
@@ -60,7 +61,7 @@ namespace OSK::GRAPHICS {
 
 	private:
 
-		HashMap<std::string, UniquePtr<IMaterialSlot>> slots;
+		std::unordered_map<std::string, UniquePtr<IMaterialSlot>, StringHasher, std::equal_to<>> slots;
 		Material* ownerMaterial = nullptr;
 
 	};

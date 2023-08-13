@@ -46,6 +46,9 @@ namespace OSK::ECS {
 		/// @brief Inicializa todos los managers.
 		explicit EntityComponentSystem(IO::ILogger* logger);
 
+		OSK_DISABLE_COPY(EntityComponentSystem)
+		OSK_DISABLE_MOVE(EntityComponentSystem)
+
 		/// @brief Ejecuta la lógica OnTick de todos los sistemas registrados.
 		/// @param deltaTime Tiempo, en segundos, que ha pasado desde la
 		/// última ejecución de esta función.
@@ -206,10 +209,10 @@ namespace OSK::ECS {
 		/// 
 		/// @throws SystemAlreadyRegisteredException si el sistema ya habia sido previamente registrado.
 		template <typename TSystem> requires IsEcsSystem<TSystem>
-		TSystem* RegisterSystem() {
-			OSK_ASSERT(!systemManager->ContainsSystem<TSystem>(), SystemAlreadyRegisteredException(TSystem::GetSystemName()))
+		TSystem* RegisterSystem(int order) {
+			OSK_ASSERT(!this->systemManager->ContainsSystem<TSystem>(), SystemAlreadyRegisteredException(TSystem::GetSystemName()))
 
-			TSystem* output = systemManager->RegisterSystem<TSystem>();
+			TSystem* output = systemManager->RegisterSystem<TSystem>(order);
 
 			((ISystem*)output)->OnCreate();
 

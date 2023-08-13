@@ -79,10 +79,10 @@ ConvexVolume ConvexVolume::CreateObb(const Vector3f& size, float bottomHeight) {
 }
 
 void ConvexVolume::AddFace(const DynamicArray<Vector3f>& points) {
-	const USize64 numOldVertices = vertices.GetSize();
-	const USize64 numNewVertices = points.GetSize();
+	const USize32 numOldVertices = vertices.GetSize();
+	const USize32 numNewVertices = points.GetSize();
 
-	/* 
+#if 0
 	// Primero, comprobamos si alguno de los vértices
 	// ya existe en la lista de vértices.
 	//
@@ -107,10 +107,10 @@ void ConvexVolume::AddFace(const DynamicArray<Vector3f>& points) {
 	for (TIndex i = 0; i < numNewVertices; i++)
 		if (!existingIndices[i].has_value())
 			newVertices.Insert(points[i]);
-	*/
+#endif
 
 	FaceIndices indices = FaceIndices::CreateReservedArray(numNewVertices);
-	for (UIndex64 i = 0; i < numNewVertices; i++) {
+	for (UIndex32 i = 0; i < numNewVertices; i++) {
 		indices.Insert(numOldVertices + i);
 		vertices.Insert(points[i]);
 	}
@@ -167,20 +167,10 @@ ConvexVolume::Axis ConvexVolume::GetLocalSpaceAxis(UIndex32 faceId) const {
 }
 
 ConvexVolume::Axis ConvexVolume::GetWorldSpaceAxis(UIndex32 faceId, const Transform3D& transform) const {
-	const FaceIndices& faceIndices = faces[faceId];
+	const Vector3f localSpaceAxis = GetLocalSpaceAxis(faceId);
+	const glm::vec4 transformedAxis = transform.GetAsMatrix() * glm::vec4(localSpaceAxis.ToGLM(), 1.0f);
 
-	const Vector3f pointA = vertices[faceIndices[0]];
-	const Vector3f pointB = vertices[faceIndices[1]];
-	const Vector3f pointC = vertices[faceIndices[2]];
-
-	const Vector3f transformedA = transform.TransformPoint(pointA);
-	const Vector3f transformedB = transform.TransformPoint(pointB);
-	const Vector3f transformedC = transform.TransformPoint(pointC);
-
-	const Vector3f vec1 = transformedB - transformedA;
-	const Vector3f vec2 = transformedC - transformedB;
-
-	return vec1.Cross(vec2).GetNormalized();
+	return glm::vec3(transformedAxis) / transformedAxis.w;
 }
 
 DetailedCollisionInfo ConvexVolume::GetCollisionInfo(const IBottomLevelCollider& other,
@@ -196,14 +186,14 @@ DetailedCollisionInfo ConvexVolume::GetCollisionInfo(const IBottomLevelCollider&
 	// de tal manera que dejen de estar en colisión.
 
 	Vector3f currentAxis = 0.0f;
-	UIndex64 mtvFaceIndex = 0;
+	UIndex32 mtvFaceIndex = 0;
 
 	float minimumOverlap = std::numeric_limits<float>::max();
 
 	bool isAxisA = false;
 
 	// Comprobamos los ejes de este collider.
-	for (UIndex64 faceIndex = 0; faceIndex < (faces.GetSize() + otherVolume.faces.GetSize()); faceIndex++) {
+	for (UIndex32 faceIndex = 0; faceIndex < (faces.GetSize() + otherVolume.faces.GetSize()); faceIndex++) {
 		const bool isFirstEntity = faceIndex < faces.GetSize();
 
 		const Axis axis = isFirstEntity
@@ -292,12 +282,14 @@ DetailedCollisionInfo ConvexVolume::GetCollisionInfo(const IBottomLevelCollider&
 
 	// Índices de las caras del segundo collider que contienen
 	// el vértice más alejado.
-	const DynamicArray<UIndex32> secondaryFacesIndices = secondaryCollider.GetFaceIndicesWithVertex(secondaryCollider.vertices[furthestIncidentPointIndex]);
+	const DynamicArray<UIndex32> secondaryFacesIndices 
+		= secondaryCollider.GetFaceIndicesWithVertex(secondaryCollider.vertices[furthestIncidentPointIndex]);
 
 
 	// Obtenemos la cara del collider incidente que está más paralela a
 	// la cara del MTV.
 	UIndex32 mostParallelFaceIndex = 0;
+	Vector3f secondFaceNormal = Vector3f::Zero;
 
 	{
 		float mostParallelDot = std::numeric_limits<float>::lowest();
@@ -308,6 +300,7 @@ DetailedCollisionInfo ConvexVolume::GetCollisionInfo(const IBottomLevelCollider&
 			if (dot > mostParallelDot) {
 				mostParallelFaceIndex = faceId;
 				mostParallelDot = dot;
+				secondFaceNormal = faceNormal;
 			}
 		}
 	}
@@ -369,37 +362,30 @@ DetailedCollisionInfo ConvexVolume::GetCollisionInfo(const IBottomLevelCollider&
 
 	DynamicArray<Vector3f> finalContactPoints = DynamicArray<Vector3f>::CreateReservedArray(contactPoints.GetSize());
 	float currentFurthestDistance = -99999.9f;
+
 	for (const Vector3f& point : contactPoints) {
 		// Mayor distanca = más metido.
 		const float distance = point.Dot(normalizedDirectedMtv);
 
-		if (glm::abs(distance - currentFurthestDistance) < 0.001f) {
-			finalContactPoints.Insert(point);
-		}
-		else if (distance > currentFurthestDistance) {
+		if (distance > currentFurthestDistance)
 			currentFurthestDistance = distance;
-		
-			finalContactPoints.Empty();
-			finalContactPoints.Insert(point);
-		}
 	}
 
-	// for (auto& point : finalContactPoints)
-	//	point += directedMtv * 0.5f;
+	for (const Vector3f& point : contactPoints) {
+		// Mayor distanca = más metido.
+		const float distance = point.Dot(normalizedDirectedMtv);
 
-// #define PRIMARY_POINTS
-// #define SECONDARY_POINTS
-#ifdef PRIMARY_POINTS
-	finalContactPoints.Empty();
-	for (TIndex i = 0; i < referenceFace.GetSize(); i++)
-		finalContactPoints.Insert(primaryVertices[referenceFace[i]]);
-#elif defined(SECONDARY_POINTS)
-	finalContactPoints.Empty();
-	for (TIndex i = 0; i < secondaryCollider.faces[incidentFaceIndex].GetSize(); i++)
-		finalContactPoints.Insert(secondaryVertices[secondaryCollider.faces[incidentFaceIndex][i]]);
-#endif
+		if (glm::abs(distance - currentFurthestDistance) < 0.01f)
+			finalContactPoints.Insert(point);
+	}
 
-	return DetailedCollisionInfo::True(mtv, finalContactPoints, false);
+	return DetailedCollisionInfo::True(
+		mtv, 
+		finalContactPoints,
+		mtv,
+		secondFaceNormal,
+		false
+	);
 }
 
 DynamicArray<UIndex32> ConvexVolume::GetFaceIndicesWithVertex(const Vector3f& vertex) const {

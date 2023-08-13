@@ -109,11 +109,11 @@ namespace OSK::ECS {
 		DynamicArray<UniquePtr<GRAPHICS::MaterialInstance>> meshesMaterialInstances;
 
 		/// <summary> Texturas enlazadas para todos los meshes. </summary>
-		HashMap<std::string, HashMap<std::string, const ASSETS::Texture*>> texturesBound;
+		std::unordered_map<std::string, std::unordered_map<std::string, const ASSETS::Texture*>> texturesBound;
 		/// <summary> Texturas enlazadas para todos los meshes. </summary>
-		HashMap<std::string, HashMap<std::string, const GRAPHICS::IGpuImageView*>> imagesBound;
+		std::unordered_map<std::string, std::unordered_map<std::string, const GRAPHICS::IGpuImageView*>> imagesBound;
 		/// <summary> Buffers enlazados para todos los meshes. </summary>
-		HashMap<std::string, HashMap<std::string, const GRAPHICS::GpuBuffer*>> uniformBuffersBound;
+		std::unordered_map<std::string, std::unordered_map<std::string, const GRAPHICS::GpuBuffer*>> uniformBuffersBound;
 
 	};
 

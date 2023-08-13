@@ -40,13 +40,6 @@ namespace OSK::ECS {
 		{TComponent::GetComponentTypeName()};
 	};
 
-	/// @brief Concepto que nos permite detectar si una clase cumple con las condiciones
-	/// para ser un sistema.
-	template<typename TSystem>
-	concept IsEcsSystem = requires (TSystem) {
-		{ TSystem::GetSystemName() };
-	};
-
 #ifndef OSK_COMPONENT
 #define OSK_COMPONENT(className) constexpr static inline std::string_view GetComponentTypeName() { return className; }
 #endif

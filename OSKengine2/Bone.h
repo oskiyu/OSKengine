@@ -21,7 +21,7 @@ namespace OSK::GRAPHICS {
 		/// <summary> Actualiza la matriz propia y la de los huesos hijos. </summary>
 		/// <param name="prevMatrix">Matriz del hueso padre.</param>
 		/// <param name="animator">Animator que contiene los huesos hijos.</param>
-		void UpdateSkeletonTree(const glm::mat4& prevMatrix, const Skeleton& skeleton);
+		void UpdateSkeletonTree(const glm::mat4& prevMatrix, Skeleton* skeleton);
 
 		/// <summary> Nombre nativo. </summary>
 		std::string name;

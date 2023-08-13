@@ -1,0 +1,19 @@
+{
+    "file_type": "MATERIAL",
+    "spec_ver": 1,
+    "name": "Specular Cubemap Gen",
+
+    "vertex_shader": "Resources/Shaders/VK/AssetsGen/SpecularGen/CubeGen/vert.spv",
+    "fragment_shader": "Resources/Shaders/VK/AssetsGen/SpecularGen/CubeGen/frag.spv",
+    
+    "vertex_type": "OSK::Vertex3D",
+
+    "slots": {
+        "0": "global"
+    },
+    
+    "config": {
+        "cull_mode": "none"
+    }
+    
+}

@@ -1,0 +1,12 @@
+{
+  "name": "demo",
+  "version": "0.0",
+  "dependencies": [
+    "glm",
+    "glfw3",
+    "spirv-cross",
+    "freetype",
+    "directx-dxc",
+    "openal-soft"
+  ]
+}

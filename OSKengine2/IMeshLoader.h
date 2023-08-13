@@ -277,7 +277,7 @@ namespace OSK::ASSETS {
 		DynamicArray<GRAPHICS::TIndexSize> indices;
 		DynamicArray<GRAPHICS::Mesh3D> meshes;
 
-		HashMap<UIndex32, UIndex32> meshIdToMaterialId;
+		std::unordered_map<UIndex32, UIndex32> meshIdToMaterialId;
 
 		float globalScale = 1.0f;
 		glm::mat4 modelTransform = glm::mat4(1.0f);

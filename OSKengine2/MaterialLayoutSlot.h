@@ -21,7 +21,7 @@ namespace OSK::GRAPHICS {
 		/// <summary>
 		/// Todos los bindings que componene este slot.
 		/// </summary>
-		HashMap<std::string, MaterialLayoutBinding> bindings;
+		std::unordered_map<std::string, MaterialLayoutBinding> bindings;
 
 		/// <summary>
 		/// Índice del descriptor set del shader .glsl (Vulkan/OpenGL) al que se asocia este slot.

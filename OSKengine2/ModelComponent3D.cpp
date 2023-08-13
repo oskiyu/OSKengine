@@ -76,10 +76,10 @@ void ModelComponent3D::BindTextureForAllMeshes(const std::string& slot, const st
 		i->GetSlot(slot)->FlushUpdate();
 	}
 
-	if (!texturesBound.HasValue(slot))
-		texturesBound.Insert(slot, {});
+	if (!texturesBound.contains(slot))
+		texturesBound[slot] = {};
 
-	texturesBound.Get(slot).Insert(binding, texture);
+	texturesBound.at(slot)[binding] = texture;
 }
 
 void ModelComponent3D::BindGpuImageForAllMeshes(const std::string& slot, const std::string& binding, const IGpuImageView* image) {
@@ -88,10 +88,10 @@ void ModelComponent3D::BindGpuImageForAllMeshes(const std::string& slot, const s
 		i->GetSlot(slot)->FlushUpdate();
 	}
 
-	if (!imagesBound.HasValue(slot))
-		imagesBound.Insert(slot, {});
+	if (!imagesBound.contains(slot))
+		imagesBound[slot] = {};
 
-	imagesBound.Get(slot).Insert(binding, image);
+	imagesBound.at(slot)[binding] = image;
 }
 
 void ModelComponent3D::BindUniformBufferForAllMeshes(const std::string& slot, const std::string& binding, const GRAPHICS::GpuBuffer* buffer) {
@@ -101,10 +101,10 @@ void ModelComponent3D::BindUniformBufferForAllMeshes(const std::string& slot, co
 	}
 
 
-	if (!uniformBuffersBound.HasValue(slot))
-		uniformBuffersBound.Insert(slot, {});
+	if (!uniformBuffersBound.contains(slot))
+		uniformBuffersBound[slot] = {};
 
-	uniformBuffersBound.Get(slot).Insert(binding, buffer);
+	uniformBuffersBound.at(slot)[binding] = buffer;
 }
 
 /*template <> struct std::hash<OSK::Pair<std::string, std::string>> {

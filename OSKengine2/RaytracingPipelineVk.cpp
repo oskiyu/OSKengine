@@ -35,7 +35,7 @@ void RaytracingPipelineVk::Create(const MaterialLayout& materialLayout, const Pi
 	VkRayTracingShaderGroupCreateInfoKHR raygenShaderGroup{};
 	raygenShaderGroup.sType = VK_STRUCTURE_TYPE_RAY_TRACING_SHADER_GROUP_CREATE_INFO_KHR;
 	raygenShaderGroup.type = VK_RAY_TRACING_SHADER_GROUP_TYPE_GENERAL_KHR;
-	raygenShaderGroup.generalShader = shaderStagesInfo.GetSize() - 1;
+	raygenShaderGroup.generalShader = static_cast<uint32_t>(shaderStagesInfo.GetSize() - 1);
 	raygenShaderGroup.closestHitShader = VK_SHADER_UNUSED_KHR;
 	raygenShaderGroup.anyHitShader = VK_SHADER_UNUSED_KHR;
 	raygenShaderGroup.intersectionShader = VK_SHADER_UNUSED_KHR;
@@ -49,7 +49,7 @@ void RaytracingPipelineVk::Create(const MaterialLayout& materialLayout, const Pi
 	VkRayTracingShaderGroupCreateInfoKHR missShaderGroup{};
 	missShaderGroup.sType = VK_STRUCTURE_TYPE_RAY_TRACING_SHADER_GROUP_CREATE_INFO_KHR;
 	missShaderGroup.type = VK_RAY_TRACING_SHADER_GROUP_TYPE_GENERAL_KHR;
-	missShaderGroup.generalShader = shaderStagesInfo.GetSize() - 1;
+	missShaderGroup.generalShader = static_cast<uint32_t>(shaderStagesInfo.GetSize() - 1);
 	missShaderGroup.closestHitShader = VK_SHADER_UNUSED_KHR;
 	missShaderGroup.anyHitShader = VK_SHADER_UNUSED_KHR;
 	missShaderGroup.intersectionShader = VK_SHADER_UNUSED_KHR;
@@ -62,16 +62,16 @@ void RaytracingPipelineVk::Create(const MaterialLayout& materialLayout, const Pi
 	closestHitShaderGroup.sType = VK_STRUCTURE_TYPE_RAY_TRACING_SHADER_GROUP_CREATE_INFO_KHR;
 	closestHitShaderGroup.type = VK_RAY_TRACING_SHADER_GROUP_TYPE_TRIANGLES_HIT_GROUP_KHR;
 	closestHitShaderGroup.generalShader = VK_SHADER_UNUSED_KHR;
-	closestHitShaderGroup.closestHitShader = shaderStagesInfo.GetSize() - 1;
+	closestHitShaderGroup.closestHitShader = static_cast<uint32_t>(shaderStagesInfo.GetSize() - 1);
 	closestHitShaderGroup.anyHitShader = VK_SHADER_UNUSED_KHR;
 	closestHitShaderGroup.intersectionShader = VK_SHADER_UNUSED_KHR;
 	shaderGroupCreateInfos.Insert(closestHitShaderGroup);
 
 	VkRayTracingPipelineCreateInfoKHR createInfo{};
 	createInfo.sType = VK_STRUCTURE_TYPE_RAY_TRACING_PIPELINE_CREATE_INFO_KHR;
-	createInfo.stageCount = shaderStagesInfo.GetSize();
+	createInfo.stageCount = static_cast<uint32_t>(shaderStagesInfo.GetSize());
 	createInfo.pStages = shaderStagesInfo.GetData();
-	createInfo.groupCount = shaderGroupCreateInfos.GetSize();
+	createInfo.groupCount = static_cast<uint32_t>(shaderGroupCreateInfos.GetSize());
 	createInfo.pGroups = shaderGroupCreateInfos.GetData();
 	createInfo.maxPipelineRayRecursionDepth = 1; // @todo config
 	createInfo.layout = layout->As<PipelineLayoutVk>()->GetLayout();
@@ -80,5 +80,5 @@ void RaytracingPipelineVk::Create(const MaterialLayout& materialLayout, const Pi
 		VK_NULL_HANDLE, VK_NULL_HANDLE, 1, &createInfo, nullptr, &pipeline);
 	OSK_ASSERT(result == VK_SUCCESS, PipelineCreationException(result));
 
-	shaderTable = new RtShaderTableVk(shaderGroupCreateInfos.GetSize(), pipeline);
+	shaderTable = new RtShaderTableVk(static_cast<USize32>(shaderGroupCreateInfos.GetSize()), pipeline);
 }

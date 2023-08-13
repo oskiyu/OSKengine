@@ -9,7 +9,7 @@ namespace OSK::AUDIO {
 
 	/// @brief Buffer que se usa para almacenar total o parcialmente un
 	/// archivo de audio reproducible.
-	class Buffer {
+	class OSKAPI_CALL Buffer {
 
 	public:
 

@@ -152,7 +152,7 @@ void ShadowMap::UpdateLightMatrixBuffer() {
 		const glm::mat4 croppedProjection = clipCamera.GetProjectionMatrix();
 
 		// Obtiene las esquinas en el espacio del mundo.
-		const DynamicArray<Vector3f> worldSpaceFrustumCorners = 
+		DynamicArray<Vector3f> worldSpaceFrustumCorners = 
 			GetFrustumCorners(croppedProjection * viewMatrix);
 
 		// Calculamos el centro del frustum.
@@ -207,26 +207,26 @@ void ShadowMap::SetFarPlane(float farPlane) {
 	this->farPlane = farPlane;
 }
 
-GpuImage* ShadowMap::GetShadowImage(UIndex32 index) const {
+GpuImage* ShadowMap::GetShadowImage(UIndex32 index) {
 	return depthArrayAttachment[index].GetPointer();
 }
 
-GpuImage* ShadowMap::GetColorImage(UIndex32 index) const {
+GpuImage* ShadowMap::GetColorImage(UIndex32 index) {
 	return unusedColorArrayAttachment[index].GetPointer();
 }
 
-Material* ShadowMap::GetShadowsMaterial(ModelType modelType) const {
+Material* ShadowMap::GetShadowsMaterial(ModelType modelType) {
 	if (modelType == ModelType::STATIC_MESH)
 		return shadowsGenMaterial;
 	else
 		return shadowsGenAnimMaterial;
 }
 
-MaterialInstance* ShadowMap::GetShadowsMaterialInstance() const {
+MaterialInstance* ShadowMap::GetShadowsMaterialInstance() {
 	return shadowsGenMaterialInstance.GetPointer();
 }
 
-DynamicArray<GpuBuffer*> ShadowMap::GetDirLightMatrixUniformBuffers() const {
+DynamicArray<GpuBuffer*> ShadowMap::GetDirLightMatrixUniformBuffers() {
 	auto output = DynamicArray<GpuBuffer*>::CreateResizedArray(NUM_RESOURCES_IN_FLIGHT);
 	for (UIndex32 i = 0; i < NUM_RESOURCES_IN_FLIGHT; i++)
 		output[i] = (lightUniformBuffer[i].GetPointer());

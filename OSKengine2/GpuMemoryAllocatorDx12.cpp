@@ -76,10 +76,10 @@ OwnedPtr<ITopLevelAccelerationStructure> GpuMemoryAllocatorDx12::_CreateTopAccel
 }
 
 DescriptorDx12 GpuMemoryAllocatorDx12::GetDescriptor(D3D12_DESCRIPTOR_HEAP_TYPE type) {
-	if (!descriptorBlocks.HasValue(type))
-		descriptorBlocks.Insert(type, {});
+	if (!descriptorBlocks.contains(type))
+		descriptorBlocks[type] = {};
 
-	auto& list = descriptorBlocks.Get(type);
+	auto& list = descriptorBlocks.at(type);
 	if (list.IsEmpty() || list.Peek().IsFull())
 		list.Insert(DescriptorBlockDx12(type, 256, device->As<GpuDx12>()));
 		

@@ -28,7 +28,7 @@ namespace OSK::GRAPHICS {
 		/// 
 		/// @pre Se debe haber creado correctamente el pipeline.
 		/// @note Si no se ha creado correctamente el pipeline, devolverá null.
-		IPipelineLayout* GetLayout() const;
+		const IPipelineLayout* GetLayout() const;
 
 		/// <summary>
 		/// Devuelve la tabla de shaders que usará el trazado de rayos.
@@ -36,7 +36,7 @@ namespace OSK::GRAPHICS {
 		/// 
 		/// @pre Se debe haber creado correctamente el pipeline.
 		/// @note Si no se ha creado correctamente el pipeline, devolverá null.
-		IRtShaderTable* GetShaderTable() const;
+		const IRtShaderTable* GetShaderTable() const;
 
 	protected:
 

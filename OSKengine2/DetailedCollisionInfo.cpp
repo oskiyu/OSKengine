@@ -7,6 +7,8 @@ using namespace OSK::COLLISION;
 DetailedCollisionInfo DetailedCollisionInfo::True(
 	Vector3f minimumTranslationVector,
 	const DynamicArray<Vector3f>& points,
+	Vector3f firstFaceNormal,
+	Vector3f secondFaceNormal,
 	bool shouldSwaphObjects) {
 
 	DetailedCollisionInfo output{};
@@ -14,6 +16,8 @@ DetailedCollisionInfo DetailedCollisionInfo::True(
 	output.minimumTranslationVector = minimumTranslationVector;
 	output.contactPoints = points;
 	output.swapObjects = shouldSwaphObjects;
+	output.firstFaceNormal = firstFaceNormal.GetNormalized();
+	output.secondFaceNormal = secondFaceNormal.GetNormalized();
 
 	output.singleContactPoint = 0.0f;
 	for (const auto& point : points)
@@ -44,6 +48,14 @@ const DynamicArray<Vector3f>& DetailedCollisionInfo::GetContactPoints() const {
 
 Vector3f DetailedCollisionInfo::GetSingleContactPoint() const {
 	return singleContactPoint;
+}
+
+Vector3f DetailedCollisionInfo::GetFirstFaceNormal() const {
+	return firstFaceNormal;
+}
+
+Vector3f DetailedCollisionInfo::GetSecondFaceNormal() const {
+	return secondFaceNormal;
 }
 
 bool DetailedCollisionInfo::ShouldSwapObjects() const {

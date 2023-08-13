@@ -28,7 +28,7 @@ void PhysicsSystem::OnTick(TDeltaTime deltaTime) {
 		const auto acceleration = physicsComponent.GetAcceleration();
 
 		transform.AddPosition(velocity * deltaTime);
-		physicsComponent._SetVelocity(velocity + (acceleration + Vector3f(0, -2.6, 0)) * deltaTime);
+		physicsComponent._SetVelocity(velocity + (acceleration + Vector3f(0, -2.6f, 0)) * deltaTime);
 		
 		if (physicsComponent.GetAngularVelocity().GetLenght() > 0.00001f) {
 			transform.RotateWorldSpace(

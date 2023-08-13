@@ -1,5 +1,7 @@
 #pragma once
 
+#include "OSKmacros.h"
+
 #include <glm/glm.hpp>
 
 namespace OSK {
@@ -12,10 +14,10 @@ namespace OSK {
 	public:
 
 		/// @brief 
-		static Vector2_t const Zero;
+		static OSKAPI_CALL Vector2_t const Zero;
 
 		/// @brief 
-		static Vector2_t const One;
+		static OSKAPI_CALL Vector2_t const One;
 
 	public:
 

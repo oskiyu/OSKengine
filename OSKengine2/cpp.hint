@@ -6,3 +6,4 @@
 #define OSK_EXCEPTION_CONSTRUCTORS(exceptionName) exceptionName(const Error& error) : EngineException(error) {} exceptionName(const std::initializer_list<Error>& errors) : EngineException(errors) {}
 #define OSK_DEFAULT_MOVE_OPERATOR(className) className(className&&) = default; className& operator=(className&&) = default;
 #define OSK_DISABLE_COPY(className) className(const className&) = delete; className& operator=(const className&) = delete;
+#define OSK_DISABLE_MOVE(className) className(className&&) noexcept = delete; className& operator=(className&&) noexcept = delete;

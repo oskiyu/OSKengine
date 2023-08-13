@@ -121,7 +121,7 @@ void TopLevelAccelerationStructureVk::Setup() {
 	tlasBuildGeometryInfo.scratchData.deviceAddress = tlasBuildAddress.deviceAddress;
 
 	VkAccelerationStructureBuildRangeInfoKHR tlasBuildRangeInfo{};
-	tlasBuildRangeInfo.primitiveCount = instances.GetSize();
+	tlasBuildRangeInfo.primitiveCount = static_cast<uint32_t>(instances.GetSize());
 	tlasBuildRangeInfo.primitiveOffset = 0;
 	tlasBuildRangeInfo.firstVertex = 0;
 	tlasBuildRangeInfo.transformOffset = 0;
@@ -195,7 +195,7 @@ void TopLevelAccelerationStructureVk::Update(ICommandList* cmdList) {
 	tlasBuildGeometryInfo.scratchData.deviceAddress = GetBufferDeviceAddress(buildBuffer->GetMemoryBlock()->As<GpuMemoryBlockVk>()->GetVulkanBuffer(), logicalDevice) + buildBuffer->GetMemorySubblock()->GetOffsetFromBlock();
 
 	VkAccelerationStructureBuildRangeInfoKHR tlasBuildRangeInfo{};
-	tlasBuildRangeInfo.primitiveCount = blass.GetSize();
+	tlasBuildRangeInfo.primitiveCount = static_cast<uint32_t>(blass.GetSize());
 	tlasBuildRangeInfo.primitiveOffset = 0;
 	tlasBuildRangeInfo.firstVertex = 0;
 	tlasBuildRangeInfo.transformOffset = 0;

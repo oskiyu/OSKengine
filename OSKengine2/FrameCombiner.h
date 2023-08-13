@@ -80,9 +80,9 @@ namespace OSK::GRAPHICS {
 		ComputeRenderTarget renderTarget{};
 
 		/// @brief Cada formato tiene su propio material.
-		HashMap<ImageFormat, Material*> combinerMaterials;
+		std::unordered_map<ImageFormat, Material*> combinerMaterials;
 
-		HashMap<const IGpuImageView*, UniquePtr<MaterialInstance>> textureMaterials[NUM_RESOURCES_IN_FLIGHT]{};
+		std::unordered_map<const IGpuImageView*, UniquePtr<MaterialInstance>> textureMaterials[NUM_RESOURCES_IN_FLIGHT]{};
 		UniquePtr<MaterialInstance> outputMaterialInstance = nullptr;
 
 	};

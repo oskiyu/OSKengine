@@ -3,7 +3,8 @@
 #include <corecrt_memory.h>
 #include <malloc.h>
 #include <string>
-
+#include <memory>
+#include <limits>
 #include <initializer_list>
 #include "BadAllocException.h"
 
@@ -25,276 +26,261 @@ namespace OSK {
 #endif
 #endif
 
-	/// <summary>
-	/// Factor de crecimiento.
-	/// </summary>
-	/// 
+#ifndef OSK_CUSTOM_DARRAY
+#define OSK_CUSTOM_DARRAY
+#endif
+#ifdef OSK_CUSTOM_DARRAY
+
+	/// @brief Factor de crecimiento.
 	/// @see GrowthFactorType
 	constexpr unsigned int DynamicArrayGrowthFactor = 2;
 
-
-	/// <summary>
-	/// Comportamiento del array cuando no hay espacio:
+	/// @brief Comportamiento del array cuando no hay espacio:
 	/// -EXPONENTIAL: se amplia de manera exponencial (Capacity * Factor).
 	///	-LINEAL: se amplia de manera lineal (Capacity + Factor).
-	/// </summary>
 	enum class GrowthFactorType {
 
-		/// <summary>
-		/// Se amplia de manera exponencial (Capacity * Factor).
-		/// </summary>
+		/// @brief Se amplia de manera exponencial (Capacity * Factor).
 		EXPONENTIAL,
 
-		/// <summary>
-		/// Se amplia de manera lineal (Capacity + Factor).
-		/// </summary>
+		/// @brief Se amplia de manera lineal (Capacity + Factor).
 		LINEAL
 
 	};
 
-	/// <summary>
-	/// Tamaño inicial.
-	/// </summary>
-	constexpr unsigned int InitialDynamicArraySize = 10;
+
+	namespace _DArr {
+		template <typename T_>
+		concept IsCopyable = std::copyable<T_> || std::is_copy_assignable_v<T_>;
+
+		template <typename T_>
+		concept IsMovable = std::movable<T_> || std::is_move_assignable_v<T_>;
+	}
 
 
-	/// <summary>
-	/// Dynamic array: array que puede cambiar de tamaño.
-	/// 
+	/// @brief Dynamic array: array que puede cambiar de tamaño.
+	/// @tparam T Tipo de elementos que van a ser almacenados.
 	/// @note Usa memoria contígua.
-	/// 
 	/// @warning No ofrece estabilidad de punteros.
-	/// </summary>
-	/// <typeparam name="T">Tipo de elementos que van a ser almacenados.</typeparam>
-	template <typename T> class DynamicArray {
+	template <typename T> requires ::std::copyable<T> || ::std::movable<T>
+	class DynamicArray {
 
 	public:
 
-		/// <summary>
-		/// Clase que representa un elemento de un DynamicArray.
-		/// 
+		/// @brief Tamaño inicial.
+		static constexpr USize64 INITIAL_RESERVE_SIZE = 10uL;
+
+#ifndef OSK_DARRAY_CLASS_ITER
+#define OSK_DARRAY_CLASS_ITER
+#endif // !OSK_DARRAY_CLASS_ITER
+
+#ifdef OSK_DARRAY_CLASS_ITER
+
+		/// @brief Clase que representa un elemento de un DynamicArray.
+		/// @pre La colección generadora debe tener estabilidad de puntero mientras el iterador
+		/// siga vivo.
 		/// @warning Si se modifica el dynamic array original, queda en un estado inválido.
 		/// @warning Si se modifica la localización en memoria del dynamic array original, queda en un estado inválido.
-		/// </summary>
 		class Iterator {
 
 			friend class DynamicArray;
 
 		public:
 
-			/// <summary>
-			/// Crea el iterador.
-			/// </summary>
-			/// <param name="i">Índice del elemento.</param>
-			/// <param name="arr">Puntero al array.</param>
-			Iterator(UIndex64 i, const DynamicArray* arr) : index(i), collection(arr) {
+			/// @brief Crea el iterador.
+			/// @param i Índice del elemento.
+			/// @param arr Puntero al array.
+			constexpr Iterator(T* ptr) noexcept : m_pointer(ptr) { }
 
-			}
-
-			/// <summary>
-			/// Hace que el iterador apunte al siguiente elemento.
-			/// </summary>
-			/// <returns>Self.</returns>
-			Iterator operator++ () {
-				index++;
-
+			/// @brief Hace que el iterador apunte al elemento siguiente.
+			/// @return Self (apuntando al elemento anterior).
+			constexpr Iterator operator++ () noexcept {
+				m_pointer++;
 				return *this;
 			}
 
-			/// <summary>
-			/// Hace que el iterador apunte al elemento anterior.
-			/// </summary>
-			/// <returns>Self.</returns>
-			Iterator operator-- () {
-				index--;
-
+			/// @brief Hace que el iterador apunte al elemento anterior.
+			/// @return Self (apuntando al elemento anterior).
+			constexpr Iterator operator-- () noexcept {
+				m_pointer--;
 				return *this;
 			}
 
-			/// <summary>
-			/// Compara dos iteradores.
-			/// </summary>
-			bool operator> (const Iterator& other) const {
-				return index > other.index;
-			}
+			constexpr auto operator<=>(const Iterator&) const noexcept = default;
 
-			/// <summary>
-			/// Compara dos iteradores.
-			/// </summary>
-			bool operator< (const Iterator& other) const {
-				return index < other.index;
-			}
+			T& operator*() { return *m_pointer; }
+			T* GetPtr() { return m_pointer; }
 
-			/// <summary>
-			/// Compara dos iteradores.
-			/// </summary>
-			bool operator>= (const Iterator& other) const {
-				return index >= other.index;
-			}
-
-			/// <summary>
-			/// Compara dos iteradores.
-			/// </summary>
-			bool operator<= (const Iterator& other) const {
-				return index <= other.index;
-			}
-
-			/// <summary>
-			/// Compara dos iteradores.
-			/// </summary>
-			bool operator== (const Iterator& it) const {
-				return index == it.index;
-			}
-
-
-			/// <summary>
-			/// Compara dos iteradores.
-			/// </summary>
-			bool operator!= (const Iterator& it) const {
-				return index != it.index;
-			}
-
-			/// <summary>
-			/// Obtiene el valor al que apunta.
-			/// </summary>
-			T& operator*() const {
-				return collection->At(index);
-			}
-
-			/// <summary>
-			/// True si el iterator es vacío:
+			/// @return True si el iterator es vacío:
 			/// no apunta a un elemento válido.
-			/// </summary>
-			bool IsEmpty() const {
-				return isEmpty;
-			}
+			constexpr bool IsEmpty() const noexcept { return m_pointer == nullptr; }
 
 		private:
 
-			/// <summary>
-			/// Elemento al que apunta.
-			/// </summary>
-			UIndex64 index = 0;
-
-			/// <summary>
-			/// True si el iterator es vacío.
-			/// </summary>
-			bool isEmpty = false;
-
-			/// <summary>
-			/// Array al que pertenece.
-			/// </summary>
-			const DynamicArray* collection = nullptr;
+			/// @brief Array al que pertenece.
+			T* m_pointer = nullptr;
 
 		};
 
+		/// @brief Clase que representa un elemento de un DynamicArray.
+		/// @pre La colección generadora debe tener estabilidad de puntero mientras el iterador
+		/// siga vivo.
+		/// @warning Si se modifica el dynamic array original, queda en un estado inválido.
+		/// @warning Si se modifica la localización en memoria del dynamic array original, queda en un estado inválido.
+		class ConstIterator {
+
+			friend class DynamicArray;
+
+		public:
+
+			/// @brief Crea el iterador.
+			/// @param i Índice del elemento.
+			/// @param arr Puntero al array.
+			constexpr ConstIterator(const T* ptr) noexcept : m_pointer(ptr) { }
+
+			/// @brief Hace que el iterador apunte al elemento siguiente.
+			/// @return Self (apuntando al elemento anterior).
+			constexpr ConstIterator operator++ () noexcept {
+				m_pointer++;
+				return *this;
+			}
+
+			/// @brief Hace que el iterador apunte al elemento anterior.
+			/// @return Self (apuntando al elemento anterior).
+			constexpr ConstIterator operator-- () noexcept {
+				m_pointer--;
+				return *this;
+			}
+
+			constexpr auto operator<=>(const ConstIterator&) const noexcept = default;
+
+			constexpr const T& operator*() const { return *m_pointer; }
+			constexpr const T* GetPtr() const { return m_pointer; }
+
+			/// @return True si el iterator es vacío:
+			/// no apunta a un elemento válido.
+			constexpr bool IsEmpty() const noexcept { return m_pointer == nullptr; }
+
+		private:
+
+			/// @brief Array al que pertenece.
+			const T* m_pointer = nullptr;
+
+		};
+
+#else
+
+		using Iterator = T*;
+		using ConstIterator = const T*;
+
+#endif
+
 #pragma region Constructores y destructores.
 
-		/// <summary>
-		/// Crea el dynamic array con espacio para 'initialSize' elementos.
-		/// </summary>
-		DynamicArray() {
-			InitialAllocate(InitialDynamicArraySize);
+		/// @brief Crea el dynamic array con espacio inicial para 10 elementos.
+		DynamicArray() : m_count(0u), m_capacity(INITIAL_RESERVE_SIZE)  {
+			m_data = (T*)malloc(sizeof(T) * m_capacity);
 		}
 
-		/// <summary>
-		/// Crea el dynamic array con los elementos dados.
-		/// </summary>
-		DynamicArray(const std::initializer_list<T>& list) {
-			InitialAllocate(static_cast<USize64>(list.size()));
+		/// @brief Crea el dynamic array con los elementos dados.
+		/// @param list Elementos iniciales.
+		DynamicArray(const std::initializer_list<T>& list) requires _DArr::IsCopyable<T> : m_count(list.size()), m_capacity(list.size()) {
+			m_data = (T*)malloc(sizeof(T) * m_capacity);
 
-			for (auto& i : list)
-				Insert(i);
+			UIndex64 index = 0uL;
+			for (const auto& i : list) {
+				new(::std::addressof(m_data[index])) T(i);
+				index++;
+			}
 		}
 
-		/// <summary>
-		/// Constructor de copia.
-		/// </summary>
-		DynamicArray(const DynamicArray& arr) requires std::is_copy_constructible_v<T> {
-			InitialCopyFrom(arr);
+		/// @brief Constructor de copia.
+		/// @param arr Otro DynamicArray.
+		DynamicArray(const DynamicArray& arr) requires _DArr::IsCopyable<T> : m_count(arr.m_count), m_capacity(arr.m_count) {
+			m_data = (T*)malloc(sizeof(T) * m_capacity);
+
+			for (USize64 i = 0; i < m_count; i++) {
+				new(::std::addressof(m_data[i])) T(arr.m_data[i]);
+			}
+			
+			growthFactorType = arr.growthFactorType;
 		}
 
-		/// <summary>
-		/// Copia el array.
-		/// </summary>
-		DynamicArray& operator=(const DynamicArray& arr) {
+
+		
+		/// @brief Copia el array.
+		/// @param arr Otro DynamicArray.
+		/// @return DynamicArray copiado.
+		DynamicArray& operator=(const DynamicArray& arr) requires _DArr::IsCopyable<T> {
 			if (&arr == this)
 				return *this;
 
-			CopyFrom(arr);
+			Free();
+			Allocate(arr.m_capacity);
+
+			growthFactorType = arr.growthFactorType;
+
+			for (UIndex64 i = 0; i < arr.m_count; i++)
+				new (::std::addressof(m_data[i])) T(arr.m_data[i]);
+			m_count = arr.m_count;
 
 			return *this;
 		}
 
-		/// <summary>
-		/// Transfirere el contenido de 'arr' a este array.
-		/// </summary>
-		/// 
-		/// @warning Deja a 'arr' en un estado inválido.
-		DynamicArray(DynamicArray&& arr) noexcept {
-			InitialMoveFrom(std::move(arr));
+		/// @brief Transfirere el contenido de @p arr a este array.
+		/// @param arr Otro array.
+		/// @warning Deja a @p arr en un estado inválido.
+		DynamicArray(DynamicArray&& arr) noexcept : m_count(arr.m_count), m_capacity(arr.m_count) {
+			m_data = (T*)malloc(sizeof(T) * m_capacity);
+			
+			for (UIndex64 i = 0; i < arr.m_count; i++) {
+				if constexpr (_DArr::IsMovable<T>) {
+					new (::std::addressof(m_data[i])) T(std::move(arr.m_data[i]));
+				}
+				else {
+					new (::std::addressof(m_data[i])) T(arr.m_data[i]);
+				}
+			}
+
+			growthFactorType = arr.growthFactorType;
 		}
 
-		/// <summary>
-		/// Transfirere el contenido de 'arr' a este array.
-		/// </summary>
-		/// 
-		/// @warning Deja a 'arr' en un estado inválido.
+		/// @brief Transfirere el contenido de 'arr' a este array.
+		/// @param arr Otro array.
+		/// @warning Deja a @p arr en un estado inválido.
 		DynamicArray& operator=(DynamicArray&& arr) noexcept {
 			if (&arr == this)
 				return *this;
 
-			CopyFrom(arr);
+			Free();
+			Allocate(arr.m_capacity);
+
+			growthFactorType = arr.growthFactorType;
+
+			for (UIndex64 i = 0; i < arr.GetSize(); i++) {
+				if constexpr  (_DArr::IsMovable<T>) {
+					InsertMove(::std::move(arr.m_data[i]));
+				}
+				else if constexpr (_DArr::IsCopyable<T>) {
+					InsertCopy(arr.m_data[i]);
+				}
+			}
 
 			arr.Free();
 
 			return *this;
 		}
 
-		/// <summary>
-		/// Destruye el array.
-		/// </summary>
+		/// @brief Destruye el array.
 		~DynamicArray() {
-			Free();
+			if (m_data)
+				free(m_data);
 		}
+		
 
-		/// <summary>
-		/// Copia los contenidos del array.
-		/// </summary>
-		/// <param name="arr">Array a copiar.</param>
-		void CopyFrom(const DynamicArray& arr) {
-			Free();
-			Allocate(arr.capacity);
-
-			growthFactorType = arr.growthFactorType;
-
-			for (UIndex64 i = 0; i < arr.GetSize(); i++) {
-				if constexpr (std::is_copy_constructible_v<T>)
-					Insert(arr.At(i));
-				else
-					InsertMove(arr.AtRvalue(i));
-			}
-		}
-
-		/// <summary>
-		/// Copia los contenidos del array.
-		/// </summary>
-		/// <param name="arr">Array a copiar.</param>
-		void CopyFrom(DynamicArray&& arr) {
-			Free();
-			Allocate(arr.capacity);
-
-			growthFactorType = arr.growthFactorType;
-
-			for (UIndex64 i = 0; i < arr.GetSize(); i++)
-				Insert(arr.At(i));
-		}
-
-		/// <summary>
-		/// Crea un DynamicArray con espacio reservado para el número
+		/// @brief Crea un DynamicArray con espacio reservado para el número
 		/// de elementos dado.
-		/// </summary>
-		/// <param name="reservedSize">Número de espacios reservados.</param>
+		/// @param reservedSize Tamaño reservado.
 		static DynamicArray CreateReservedArray(USize64 reservedSize) {
 			DynamicArray output;
 			output.Reserve(reservedSize);
@@ -302,26 +288,26 @@ namespace OSK {
 			return output;
 		}
 
-		/// <summary>
-		/// Crea un DynamicArray con un número de elementos ya creados e insertados.
-		/// </summary>
-		/// <typeparam name="...TArgs">Argumentos para el constructor de los elementos.</typeparam>
-		/// <param name="size">Número de elementos.</param>
-		/// <param name="...args">Argumentos para el constructor de los elementos.</param>
-		template <typename... TArgs> static DynamicArray CreateResizedArray(USize64 size, TArgs... args) {
+		/// @brief Crea un DynamicArray con un número de elementos ya creados e insertados.
+		/// @tparam ...TArgs Argumentos para el constructor de los elementos.
+		/// @param size Número de elementos.
+		/// @param ...args Argumentos para el constructor de los elementos.
+		/// @return DynamicArray con @p size elementos iguales.
+		template <typename... TArgs> 
+		static DynamicArray CreateResizedArray(USize64 size, TArgs... args) requires _DArr::IsCopyable<T> {
 			DynamicArray output;
 			output.Resize(size, args...);
 
 			return output;
 		}
 
-		/// <summary>
-		/// Crea un DynamicArray con un número de elementos ya creados e insertados.
-		/// </summary>
-		/// <typeparam name="...TArgs">Argumentos para el constructor de los elementos.</typeparam>
-		/// <param name="size">Número de elementos.</param>
-		/// <param name="...args">Argumentos para el constructor de los elementos.</param>
-		template <typename... TArgs> static DynamicArray CreateResizedArrayMove(USize64 size, TArgs&&... args) {
+		/// @brief Crea un DynamicArray con un número de elementos ya creados e insertados.
+		/// @tparam ...TArgs Argumentos para el constructor de los elementos.
+		/// @param size Número de elementos.
+		/// @param ...args Argumentos para el constructor de los elementos.
+		/// @return DynamicArray con @p size elementos iguales.
+		template <typename... TArgs> 
+		static DynamicArray CreateResizedArrayMove(USize64 size, TArgs&&... args) requires _DArr::IsMovable<T> {
 			DynamicArray output;
 			output.ResizeMove(size, args...);
 
@@ -332,86 +318,55 @@ namespace OSK {
 
 #pragma region Funciones
 
-		/// <summary>
-		/// Reserva espacio para 'size' elementos.
+		/// @brief Reserva espacio para 'size' elementos.
 		/// Preserva los elementos anteriores.
-		/// </summary>
-		/// <param name="size">Número de elementos.</param>
-		/// 
+		/// @param size Número final de elementos.
 		/// @throws BadAllocException Si no se puede reservar memoria.
-		void Allocate(USize64 size) {
-			capacity = size;
+		void Allocate(USize64 count) {
+			m_capacity = count;
 
-			T* previousData = data;
-			data = (T*)realloc(data, sizeof(T) * size);
+			T* previousData = m_data;
+			m_data = m_data == nullptr
+				? (T*)malloc(sizeof(T) * count)
+				: (T*)realloc(m_data, sizeof(T) * count);
 
-			if (size > 0)
-				if(data == NULL)
-					throw BadAllocException();
+			if (count > 0 && !m_data)
+				throw BadAllocException();
 		}
 
-		/// <summary>
-		/// Inserta una copia del elemento al final del array.
-		/// </summary>
-		/// 
+		/// @brief Inserta una copia del elemento al final del array.
+		/// @param element Elemento a copiar.
 		/// @pre El elemento es copiable.
-		void InsertCopy(const T& element) requires std::is_copy_constructible_v<T> {
-			if (!HasBeenInitialized())
-				Allocate(InitialDynamicArraySize);
+		void InsertCopy(const T& element) requires _DArr::IsCopyable<T> {
+			EnsureSpace(m_count + 1);
 
-			if (size + 1 == capacity) {
-				if (growthFactorType == GrowthFactorType::EXPONENTIAL)
-					Allocate(capacity * DynamicArrayGrowthFactor);
-				else if (growthFactorType == GrowthFactorType::LINEAL)
-					Allocate(capacity + DynamicArrayGrowthFactor);
-			}
+			new (::std::addressof(m_data[m_count])) T(element);
 
-			new (&data[size]) T(element);
-
-			size++;
+			m_count++;
 		}
 
-		/// <summary>
-		/// Inserta un elemento al final del array.
-		/// </summary>
-		void Insert(const T& element) requires std::is_copy_constructible_v<T> {
+
+		/// @brief Inserta un elemento al final del array.
+		/// @param element Elemento añadido.
+		void Insert(const T& element) requires _DArr::IsCopyable<T> {
 			InsertCopy(element);
 		}
 
-		/// <summary>
-		/// Inserta un elemento al final del array.
-		/// </summary>
-		/// 
-		/// @pre El elemento es movible.
-		void InsertMove(T&& element) {
-			if (!HasBeenInitialized())
-				Allocate(InitialDynamicArraySize);
+		/// @brief Inserta un elemento al final del array.
+		/// @param element Elemento añadido.
+		void InsertMove(T&& element) requires _DArr::IsMovable<T> {
+			EnsureSpace(m_count + 1);
 
-			if (size + 1 >= capacity) {
-				if (growthFactorType == GrowthFactorType::EXPONENTIAL) {
-					if (capacity == 0)
-						Allocate(InitialDynamicArraySize);
-					else
-						Allocate(capacity * DynamicArrayGrowthFactor);
-				}
-				else if (growthFactorType == GrowthFactorType::LINEAL) {
-					if (capacity == 0)
-						Allocate(InitialDynamicArraySize);
-					else
-						Allocate(capacity + DynamicArrayGrowthFactor);
-				}
-			}
+			new (::std::addressof(m_data[m_count])) T(::std::move(element));
 
-			new (&data[size]) T(std::move(element));
-
-			size++;
+			m_count++;
 		}
 
 		/// <summary>
 		/// Inserta un elemento al final del array.
 		/// </summary>
-		void Insert(T&& element) {
-			InsertMove(std::move(element));
+		void Insert(T&& element) requires _DArr::IsMovable<T> {
+			InsertMove(::std::move(element));
 		}
 
 		/// <summary>
@@ -420,46 +375,55 @@ namespace OSK {
 		/// 
 		/// @throws std::runtime_error Si el índice es inválido.
 		/// @throws std::runtime_error Si no ha sido correctamente inicializado.
-		T& At(UIndex64 index) const {
+		const T& At(UIndex64 index) const {
 #ifdef OSK_SAFE
 			// OSK_ASSERT(index < capacity, "DynamicArray: tried to access element number " + std::to_string(index) + ", but there are only " + std::to_string(capacity) + " reserved elements.");
 			// OSK_ASSERT(index < size, "DynamicArray: tried to access element number " + std::to_string(index) + ", but there are only " + std::to_string(size) + " elements.");
 			// OSK_ASSERT(index >= 0, "DynamicArray: tried to access element number " + std::to_string(index) + ", but there are only " + std::to_string(capacity) + " reserved elements.");
 			// OSK_ASSERT(HasBeenInitialized(), "DynamicArray: tried to access element from an uninitialized array.");
 #endif
-
-			return data[index];
+			return m_data[index];
 		}
-
-		/// <summary>
-		/// Devuelve el elemento en la posición dada.
-		/// </summary>
-		/// 
-		/// @throws std::runtime_error Si el índice es inválido.
-		/// @throws std::runtime_error Si no ha sido correctamente inicializado.
-		T&& AtRvalue(USize64 index) const {
+		const T& ConstAt(UIndex64 index) const {
 #ifdef OSK_SAFE
 			// OSK_ASSERT(index < capacity, "DynamicArray: tried to access element number " + std::to_string(index) + ", but there are only " + std::to_string(capacity) + " reserved elements.");
 			// OSK_ASSERT(index < size, "DynamicArray: tried to access element number " + std::to_string(index) + ", but there are only " + std::to_string(size) + " elements.");
 			// OSK_ASSERT(index >= 0, "DynamicArray: tried to access element number " + std::to_string(index) + ", but there are only " + std::to_string(capacity) + " reserved elements.");
 			// OSK_ASSERT(HasBeenInitialized(), "DynamicArray: tried to access element from an uninitialized array.");
 #endif
-
-			return std::move(data[index]);
+			return m_data[index];
+		}
+		T AtCpy(UIndex64 index) const requires _DArr::IsCopyable<T> {
+#ifdef OSK_SAFE
+			// OSK_ASSERT(index < capacity, "DynamicArray: tried to access element number " + std::to_string(index) + ", but there are only " + std::to_string(capacity) + " reserved elements.");
+			// OSK_ASSERT(index < size, "DynamicArray: tried to access element number " + std::to_string(index) + ", but there are only " + std::to_string(size) + " elements.");
+			// OSK_ASSERT(index >= 0, "DynamicArray: tried to access element number " + std::to_string(index) + ", but there are only " + std::to_string(capacity) + " reserved elements.");
+			// OSK_ASSERT(HasBeenInitialized(), "DynamicArray: tried to access element from an uninitialized array.");
+#endif
+			return m_data[index];
+		}
+		T& At(UIndex64 index) {
+#ifdef OSK_SAFE
+			// OSK_ASSERT(index < capacity, "DynamicArray: tried to access element number " + std::to_string(index) + ", but there are only " + std::to_string(capacity) + " reserved elements.");
+			// OSK_ASSERT(index < size, "DynamicArray: tried to access element number " + std::to_string(index) + ", but there are only " + std::to_string(size) + " elements.");
+			// OSK_ASSERT(index >= 0, "DynamicArray: tried to access element number " + std::to_string(index) + ", but there are only " + std::to_string(capacity) + " reserved elements.");
+			// OSK_ASSERT(HasBeenInitialized(), "DynamicArray: tried to access element from an uninitialized array.");
+#endif
+			return m_data[index];
 		}
 
 		/// <summary>
 		/// Añade el elemento al final de la lista.
 		/// </summary>
-		void Push(const T& elem) {
-			Insert(elem);
+		void Push(const T& elem) requires _DArr::IsCopyable<T> {
+			InsertCopy(elem);
 		}
 
 		/// <summary>
 		/// Añade el elemento al final de la lista.
 		/// </summary>
-		void Push(T&& elem) {
-			Insert(elem);
+		void Push(T&& elem) requires _DArr::IsMovable<T> {
+			InsertMove(::std::move(elem));
 		}
 
 		/// <summary>
@@ -468,7 +432,7 @@ namespace OSK {
 		/// @note No lo quita de la lista.
 		/// </summary>
 		T& Peek() {
-			return At(size - 1);
+			return At(m_count - 1);
 		}
 
 		/// <summary>
@@ -476,8 +440,8 @@ namespace OSK {
 		/// 
 		/// @note Lo quita de la lista.
 		/// </summary>
-		T Pop() {
-			T output = At(size - 1);
+		T Pop() requires _DArr::IsMovable<T> {
+			T output = At(m_count - 1);
 
 			RemoveLast();
 
@@ -490,15 +454,13 @@ namespace OSK {
 		/// <param name="arr">Elementos a añadir.</param>
 		/// 
 		/// @bug No llama a los constructores de copia.
-		void InsertAll(const DynamicArray& arr) {
-			USize64 originalSize = size;
+		void InsertAll(const DynamicArray& arr) requires _DArr::IsCopyable<T> {
+			USize64 originalSize = m_count;
 
-			if (size + arr.GetSize() > capacity)
-				Allocate(size + arr.GetSize());
+			EnsureSpace(m_count + arr.m_count);
 
-			size += arr.size;
-
-			memcpy(&data[originalSize], arr.data, sizeof(T) * arr.GetSize());
+			for (const T& i : arr)
+				InsertCopy(i);
 		}
 
 		/// <summary>
@@ -515,13 +477,13 @@ namespace OSK {
 		/// Se añaden elementos hasta que haya 'size' elementos.
 		/// </summary>
 		template <typename... TArgs> inline void Resize(USize64 size, const TArgs&... args) {
-			const auto oldSize = this->size;
+			const auto oldCount = this->m_count;
 			Reserve(size);
 
-			for (UIndex64 i = oldSize; i < size; i++)
-				new (&data[i]) T(args...);
+			for (UIndex64 i = oldCount; i < size; i++)
+				new (::std::addressof(m_data[i])) T(args...);
 
-			this->size = size;
+			this->m_count = size;
 		}
 
 		/// <summary>
@@ -530,13 +492,13 @@ namespace OSK {
 		/// Se añaden elementos hasta que haya 'size' elementos.
 		/// </summary>
 		template <typename... TArgs> inline void ResizeMove(USize64 size, TArgs&&... args) {
-			const auto oldSize = this->size;
+			const auto oldSize = this->m_count;
 			Reserve(size);
 
-			for (const auto i = oldSize; i < size; i++)
-				new (&data[i]) T(args...);
+			for (const UIndex64 i = oldSize; i < size; i++)
+				new (::std::addressof(m_data[i])) T(args...);
 
-			this->size = size;
+			this->m_count = size;
 		}
 
 		/// <summary>
@@ -554,11 +516,18 @@ namespace OSK {
 			// OSK_ASSERT(HasBeenInitialized(), "DynamicArray: tried to remove element from an uninitialized array.");
 #endif // _DEBUG
 
-			data[index].~T();
+			m_data[index].~T();
 
-			memmove(&data[index], &data[index + 1], sizeof(T) * (size - (index + 1)));
+			for (UIndex64 i = index; i < m_count; i++) {
+				if constexpr (_DArr::IsMovable<T>) {
+					new (::std::addressof(m_data[i])) T(::std::move(m_data[i + 1]));
+				}
+				else {
+					new (::std::addressof(m_data[i])) T(m_data[i + 1]);
+				}
+			}
 
-			size--;
+			m_count--;
 		}
 
 		/// <summary>
@@ -570,12 +539,11 @@ namespace OSK {
 		/// @note Si no se encuentra ningún elemento, no ocurre nada.
 		/// @note Elimina únicamente la primera aparición.
 		void Remove(const T& elem) {
-			auto it = Find(elem);
-
-			if (!it.IsEmpty())
-				RemoveAt(it.index);
+			for (UIndex64 i = 0; i < m_count; i++)
+				if (m_data[i] == elem)
+					RemoveAt(i);
 		}
-
+			
 		/// <summary>
 		/// Elimina el último elemento del array.
 		/// </summary>
@@ -585,9 +553,9 @@ namespace OSK {
 #ifdef OSK_SAFE
 			// OSK_ASSERT(HasBeenInitialized(), "DynamicArray: tried to remove element from an uninitialized array.");
 #endif // _DEBUG
-			At(size - 1).~T();
+			m_data[m_count - 1].~T();
 
-			size--;
+			m_count--;
 		}
 
 		/// <summary>
@@ -606,11 +574,13 @@ namespace OSK {
 		/// 
 		/// @pre El tipo del elemento debe tener definido el operador de comparación '=='.
 		/// 
-		/// @note Si no se encuentra, devuelve 0.
+		/// @note Si no se encuentra, devuelve std::numeric_limits<USize64>::max().
 		UIndex64 GetIndexOf(const T& elem) const {
-			auto it = Find(elem);
+			const ConstIterator it = Find(elem);
 
-			return it.index;
+			return it
+				? static_cast<USize64>(it - m_data) / sizeof(T)
+				: ULLONG_MAX;
 		}
 
 		/// <summary>
@@ -621,40 +591,45 @@ namespace OSK {
 		/// @note Devuelve un iterador vacío si no está.
 		/// 
 		/// @pre El tipo del elemento debe tener definido el operador de comparación '=='.
-		Iterator Find(const T& elem) const {
-			for (USize64 i = 0; i < size; i++)
-				if (elem == data[i])
-					return Iterator(i, this);
+		Iterator Find(const T& elem) {
+			for (USize64 i = 0; i < m_count; i++)
+				if (elem == m_data[i])
+					return Iterator(m_data + i);
 
-			Iterator output(0, this);
-			output.isEmpty = true;
+			return Iterator(nullptr);
+		}
 
-			return output;
+		ConstIterator Find(const T& elem) const {
+			for (USize64 i = 0; i < m_count; i++)
+				if (elem == m_data[i])
+					return ConstIterator(m_data + i);
+
+			return ConstIterator(nullptr);
 		}
 
 		/// <summary>
 		/// Elimina el array, liberando memoria.
 		/// </summary>
 		void Free() {
-			if (HasBeenInitialized()) {
+			if (m_data) {
 				Empty();
 
-				free(data);
-				data = nullptr;
+				free(m_data);
+				m_data = nullptr;
 			}
 
-			capacity = 0;
-			size = 0;
+			m_capacity = 0u;
+			m_count = 0u;
 		}
 
 		/// <summary>
 		/// Elimina los elementos, sin liberar memoria.
 		/// </summary>
 		void Empty() {
-			for (USize64 i = 0; i < size; i++)
-				data[i].~T();
+			for (USize64 i = 0; i < m_count; i++)
+				m_data[i].~T();
 
-			size = 0;
+			m_count = 0;
 		}
 
 		/// <summary>
@@ -665,7 +640,10 @@ namespace OSK {
 		/// 
 		/// @throws std::runtime_error Si el índice es inválido.
 		/// @throws std::runtime_error Si no ha sido correctamente inicializado.
-		T& operator[] (UIndex64 i) const {
+		const T& operator[] (UIndex64 i) const {
+			return At(i);
+		}
+		T& operator[] (UIndex64 i) {
 			return At(i);
 		}
 
@@ -678,54 +656,56 @@ namespace OSK {
 		/// </summary>
 		/// <returns>Estado del array.</returns>
 		bool HasBeenInitialized() const noexcept {
-			return data != nullptr;
+			return m_data != nullptr;
 		}
 
 		/// <summary>
 		/// Devuelve true si el array está vacío.
 		/// </summary>
 		bool IsEmpty() const noexcept {
-			return size == 0;
+			return m_count == 0;
 		}
 
 		/// <summary>
 		/// Devuelve el número de elementos almacenados.
 		/// </summary>
 		USize64 GetSize() const noexcept {
-			return size;
+			return m_count;
 		}
 
 		/// <summary>
 		/// Devuelve el número de elementos reservados.
 		/// </summary>
 		USize64 GetReservedSize() const noexcept {
-			return capacity;
+			return m_capacity;
 		}
 
 		/// <summary>
 		/// Devuelve el array original.
 		/// </summary>
-		T* GetData() const noexcept {
-			return data;
+		const T* GetData() const noexcept {
+			return m_data;
+		}
+		T* GetData() noexcept {
+			return m_data;
 		}
 
 #pragma endregion
 
 #pragma region Iteradores
 
-		/// <summary>
-		/// Devuelve el iterador que apunta al primer elemento.
-		/// </summary>
-		Iterator begin() const noexcept {
+		Iterator begin() noexcept {
 			return GetIterator(0);
 		}
+		Iterator end() noexcept {
+			return GetIterator(m_count);
+		}
 
-		/// <summary>
-		/// Devuelve el iterador que apunta al último elemento.
-		/// </summary>
-		/// <returns>Iterador final.</returns>
-		Iterator end() const noexcept {
-			return GetIterator(size);
+		constexpr ConstIterator begin() const noexcept {
+			return GetConstIterator(0);
+		}
+		constexpr ConstIterator end() const noexcept {
+			return GetConstIterator(m_count);
 		}
 
 		/// <summary>
@@ -733,8 +713,12 @@ namespace OSK {
 		/// </summary>
 		/// 
 		/// @note Puede no apuntar a un element válido.
-		Iterator GetIterator(UIndex64 index) const noexcept {
-			return Iterator(index, this);
+		Iterator GetIterator(UIndex64 index) noexcept {
+			return Iterator(m_data + index);
+		}
+
+		constexpr ConstIterator GetConstIterator(UIndex64 index) const noexcept {
+			return ConstIterator(m_data + index);
 		}
 
 #pragma endregion
@@ -746,60 +730,37 @@ namespace OSK {
 
 	private:
 
-		/// <summary>
-		/// Reserva espacio para size elementos.
-		/// Primer allocate del array..
-		/// </summary>
-		/// <param name="size">Número de elementos.</param>
-		void InitialAllocate(USize64 size) {
-			capacity = size;
-			this->size = 0;
+		void EnsureSpace(USize64 newCount) {
+			if (!HasBeenInitialized() || m_capacity == 0)
+				Allocate(INITIAL_RESERVE_SIZE);
 
-			data = (T*)malloc(sizeof(T) * size);
+			if (newCount < m_capacity - 1)
+				return;
 
-#ifdef OSK_SAFE
-			// OSK_ASSERT(data != NULL, "DynamicArray: no se pudo reservar memoria para " + std::to_string(size) + " elementos en el dynamic array.");
-#endif
+			const USize64 newAllocSize = growthFactorType == GrowthFactorType::EXPONENTIAL
+				? m_capacity * DynamicArrayGrowthFactor
+				: m_capacity + DynamicArrayGrowthFactor;
+
+			Allocate(newAllocSize);
 		}
 
-		void InitialCopyFrom(const DynamicArray& arr) {
-			InitialAllocate(arr.capacity);
+		/// @brief Array.
+		T* m_data = nullptr;
 
-			for (USize64 i = 0; i < arr.GetSize(); i++)
-				InsertCopy(arr.data[i]);
+		/// @brief Número de espacios reservados.
+		USize64 m_capacity = 0;
 
-			growthFactorType = arr.growthFactorType;
-		}
-
-		void InitialMoveFrom(DynamicArray&& arr) {
-			InitialAllocate(arr.capacity);
-
-			for (USize64 i = 0; i < arr.GetSize(); i++)
-				InsertMove(std::move(arr.data[i]));
-
-			growthFactorType = arr.growthFactorType;
-		}
-
-		/// <summary>
-		/// Array.
-		/// </summary>
-		T* data = nullptr;
-
-		/// <summary>
-		/// Número de espacios reservados.
-		/// </summary>
-		USize64 capacity = 0;
-
-		/// <summary>
-		/// Elementos guardados.
-		/// </summary>
-		USize64 size = 0;
+		/// @brief Elementos guardados.
+		USize64 m_count = 0;
 
 	};
 
 	template <typename T> using ArrayStack = DynamicArray<T>;
 
+#endif
+
 }
+
 
 #ifdef OSK_SAFE
 #undef OSK_SAFE

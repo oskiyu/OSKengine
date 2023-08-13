@@ -15,10 +15,16 @@ namespace OSK::GRAPHICS {
 
 	public:
 
+		VertexInfo() = default;
+		OSK_DEFAULT_COPY_OPERATOR(VertexInfo);
+
 		/// <summary>
 		/// Información de un atributo.
 		/// </summary>
 		struct Entry {
+
+			Entry() = default;
+			OSK_DEFAULT_COPY_OPERATOR(Entry);
 
 			/// <summary>
 			/// Tipo de dato base del atributo.
@@ -53,9 +59,7 @@ namespace OSK::GRAPHICS {
 
 		};
 
-		/// <summary>
 		/// Una entrada por atributo.
-		/// </summary>
 		DynamicArray<Entry> entries;
 
 		USize32 GetSize() const;

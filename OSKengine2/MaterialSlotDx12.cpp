@@ -12,10 +12,10 @@ using namespace OSK::GRAPHICS;
 MaterialSlotDx12::MaterialSlotDx12(const std::string& name, const MaterialLayout* layout)
 	: IMaterialSlot(layout, name) {
 
-	buffers.Resize(layout->GetSlot(name).bindings.GetSize(), Pair<USize32, const GpuBuffer*>{ UINT32_MAX, nullptr });
-	images.Resize(layout->GetSlot(name).bindings.GetSize(), Pair<USize32, const GpuImageDx12*>{ UINT32_MAX, nullptr });
-	storageBuffers.Resize(layout->GetSlot(name).bindings.GetSize(), Pair<USize32, const GpuBuffer*>{ UINT32_MAX, nullptr });
-	storageImages.Resize(layout->GetSlot(name).bindings.GetSize(), Pair<USize32, const GpuImageDx12*>{ UINT32_MAX, nullptr });
+	buffers.Resize(layout->GetSlot(name).bindings.size(), Pair<USize32, const GpuBuffer*>{ UINT32_MAX, nullptr });
+	images.Resize(layout->GetSlot(name).bindings.size(), Pair<USize32, const GpuImageDx12*>{ UINT32_MAX, nullptr });
+	storageBuffers.Resize(layout->GetSlot(name).bindings.size(), Pair<USize32, const GpuBuffer*>{ UINT32_MAX, nullptr });
+	storageImages.Resize(layout->GetSlot(name).bindings.size(), Pair<USize32, const GpuImageDx12*>{ UINT32_MAX, nullptr });
 }
 /*
 void MaterialSlotDx12::SetUniformBuffers(const std::string& binding, const GpuBuffer* buffer) {

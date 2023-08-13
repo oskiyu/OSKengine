@@ -30,6 +30,9 @@ namespace OSK::ASSETS {
 
 		OSK_ASSET_TYPE_REG("OSK::Font");
 
+		OSK_DISABLE_COPY(Font);
+		OSK_DEFAULT_MOVE_OPERATOR(Font);
+
 		Font(const std::string& assetFile);
 
 		/// <summary>
@@ -81,7 +84,7 @@ namespace OSK::ASSETS {
 		/// @throws FontLibraryInitializationException Si ocurre un error al cargar la librería de generación de fuentes.
 		/// @throws FontLodaingException Si ocurre un error al cargar la fuente.
 		/// @throws FontCharacterLodaingException Si ocurre un error al cargar un carácter en concreto.
-		const FontInstance& GetInstance(USize32 fontSize);
+		FontInstance& GetInstance(USize32 fontSize);
 
 		/// <summary>
 		/// Establece el material a partir del que se van a crear
@@ -99,9 +102,9 @@ namespace OSK::ASSETS {
 
 	private:
 
-		HashMap<USize32, FontInstance> instances;
-		std::string fontFile;
-		GRAPHICS::Material* material = nullptr;
+		std::unordered_map<USize32, FontInstance> m_instances;
+		std::string m_fontFile;
+		GRAPHICS::Material* m_material = nullptr;
 
 	};
 

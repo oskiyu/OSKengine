@@ -272,7 +272,7 @@ void PbrDeferredRenderSystem::Render(ICommandList* commandList) {
 
 
 	for (const GameObjectIndex obj : GetObjects())
-		previousModelMatrices.Insert(obj, Engine::GetEcs()->GetComponent<Transform3D>(obj).GetAsMatrix());
+		previousModelMatrices[obj] = Engine::GetEcs()->GetComponent<Transform3D>(obj).GetAsMatrix();
 
 }
 
@@ -378,7 +378,7 @@ void PbrDeferredRenderSystem::GBufferRenderLoop(ICommandList* commandList, Model
 				Vector2f resolution;
 			} modelConsts {
 				.model = transform.GetAsMatrix(),
-				.previousModel = previousModelMatrices.ContainsKey(obj) ? previousModelMatrices.Get(obj) : glm::mat4(1.0f),
+				.previousModel = previousModelMatrices.contains(obj) ? previousModelMatrices.at(obj) : glm::mat4(1.0f),
 				.materialInfo = materialInfo,
 				.resolution = gBuffer.GetImage(0, GBuffer::Target::COLOR)->GetSize2D().ToVector2f()
 			};

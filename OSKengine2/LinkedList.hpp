@@ -432,7 +432,16 @@ namespace OSK {
 		/// <summary>
 		/// Devuevle el elemento que está en la posición 'i', desde el primer elemento.
 		/// </summary>
-		T& At(TSize i) const {
+		const T& At(TSize i) const {
+			Node* node = GetNodeFromIndex(i);
+#ifdef OSK_SAFE
+			OSK_ASSERT(!IsEmpty(), "La lista está vacía.");
+			OSK_ASSERT(node != nullptr, "Se ha intentado acceder al elemento " + std::to_string(i) + ", pero solo hay " + std::to_string(GetSize()) + " elementos.");
+#endif
+
+			return node->GetValue();
+		}
+		T& At(TSize i) {
 			Node* node = GetNodeFromIndex(i);
 #ifdef OSK_SAFE
 			OSK_ASSERT(!IsEmpty(), "La lista está vacía.");
@@ -539,7 +548,7 @@ namespace OSK {
 			Insert(elem);
 		}
 		void Push(T&& elem) {
-			Insert(elem);
+			Insert(std::move(elem));
 		}
 		T Pop() {
 			T output = last->GetValue();
@@ -559,7 +568,7 @@ namespace OSK {
 			Insert(elem);
 		}
 		void Enqueue(T&& elem) {
-			Insert(elem);
+			Insert(std::move(elem));
 		}
 		T Dequeue() {
 			T output = first->GetValue();

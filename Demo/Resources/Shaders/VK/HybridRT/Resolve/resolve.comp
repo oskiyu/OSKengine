@@ -1,0 +1,123 @@
+#version 460
+
+#include "../../PBR/common.glsl"
+
+layout (local_size_x = 8, local_size_y = 8) in;
+
+layout (set = 0, binding = 0) uniform sampler2D positionImg;
+layout (set = 0, binding = 1) uniform sampler2D colorImg;
+layout (set = 0, binding = 2) uniform sampler2D normalImg;
+layout (set = 0, binding = 3) uniform sampler2D shadowsImg;
+
+layout (set = 0, binding = 4, rgba32f) uniform writeonly image2D finalImg;
+
+layout (set = 1, binding = 0) uniform Camera {
+    mat4 projection;
+    mat4 view;
+
+    vec3 cameraPos;
+} camera;
+
+layout (set = 1, binding = 1) uniform DirLight {
+    vec4 directionAndIntensity;
+    vec4 color;
+} dirLight;
+
+layout (set = 1, binding = 2) uniform samplerCube irradianceMap;
+layout (set = 1, binding = 3) uniform samplerCube specularMap;
+layout (set = 1, binding = 4) uniform sampler2D specularLut;
+
+void main() {
+    const ivec2 coords = ivec2(gl_GlobalInvocationID);
+    if (coords.x > imageSize(finalImg).x || coords.y > imageSize(finalImg).y)
+        return;
+
+    const vec4 colorImageInfo = texelFetch(colorImg, coords, 0);
+    const vec4 normalImageInfo = texelFetch(normalImg, coords, 0);
+
+    const vec3 position = texelFetch(positionImg, coords, 0).xyz;
+    const vec3 color = colorImageInfo.rgb;
+    const vec3 normal = normalImageInfo.xyz;
+
+    const float shadow = texelFetch(shadowsImg, coords, 0).r;
+
+
+    // 
+    const vec3 view = normalize(camera.cameraPos - position);
+    const vec3 reflectDirection = reflect(-view, normal);
+    
+    const float metallicFactor = float(int(normalImageInfo.a)) * 0.001; // TODO: texture
+    const float roughnessFactor = (normalImageInfo.a - float(int(normalImageInfo.a))) * 10; // TODO: texture
+    
+    vec3 F0 = vec3(DEFAULT_F0);
+    F0 = mix(F0, color.rgb, metallicFactor);
+
+    // Directional Light
+    const vec3 accummulatedRadiance = 
+        shadow * 
+        GetRadiance(
+            F0, 
+            dirLight.directionAndIntensity.xyz, 
+            view, 
+            normal, 
+            dirLight.color.rgb * dirLight.directionAndIntensity.w, 
+            color.rgb, 
+            roughnessFactor, 
+            metallicFactor);
+
+    // Irradiance Map
+    vec3 kS = FreshnelShlick(max(dot(normal, view), 0.0), F0);
+    vec3 kD = 1.0 - kS;
+    kD *= 1.0 - metallicFactor;
+
+    const vec3 irradiance = texture(irradianceMap, normal).rgb;
+    const vec3 ambient = color.rgb * kD * irradiance;
+    
+    // Specular map
+    const float maxSpecularLod = 5 - 1;
+    const vec3 F = FresnelSchlickRoughness(
+        max(dot(normal, view), 0.0), 
+        F0, 
+        roughnessFactor);
+    const vec3 prefilteredSpecularColor = textureLod(
+        specularMap, 
+        reflectDirection, 
+        roughnessFactor * maxSpecularLod).rgb;
+    const vec2 lut = textureLod(
+        specularLut, 
+        vec2(max(dot(normal, view), roughnessFactor)), 
+        0).rg;
+    const vec3 specular = prefilteredSpecularColor * (F * lut.x + lut.y);
+
+    // #define NATURAL
+    // #define CUSTOM
+
+    #ifdef NATURAL
+        const float ambientRatio = 1.0;
+        const float radianceRatio = 1.0;
+        const float specularRatio = 1.0;
+    #elif defined(CUSTOM)
+        const float ambientRatio = 0.25;
+        const float radianceRatio = 1.0;
+        const float specularRatio = 0.25;
+    #else
+        const float ambientRatio = 0.45;
+        const float radianceRatio = 1.0;
+        const float specularRatio = 0.45;
+    #endif
+
+    vec3 outColor = ambient * (
+                    dirLight.directionAndIntensity.w * ambientRatio) 
+                + accummulatedRadiance * radianceRatio 
+                + specular * specularRatio;
+
+    // vec3 color = vec3(lut.y);
+
+    outColor = vec3(
+        max(color.r, 0.001),
+        max(color.g, 0.001),
+        max(color.b, 0.001)
+    );
+
+    imageStore(finalImg, coords, vec4(outColor, 1.0));
+}

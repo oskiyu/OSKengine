@@ -343,7 +343,6 @@ ASALocalRun/
 healthchecksdb
 /enet/Encoder.hpp
 /enet/StructReg.h
-/CarGame
 /StaticAnalysis/CppCheck
 
 # Bin
@@ -358,4 +357,13 @@ healthchecksdb
 /OSKengine2/dxcompiler.dll
 /OSKengine2/freetype.dll
 /OSKengine2/freetype.dll
-/OSKengine2/vcpkg_installed
+/OSKengine2/vcpkg_installed/**
+/Demo/vcpkg_installed/**
+
+/CarGame/**
+/Frameworks/OSKengine/Doc/Doxygen/**
+/Frameworks/OSKengine/Bin/**
+/Frameworks/OSKengine/BinLib/**
+/Frameworks/OSKengine/BinLibDebug/**
+/Frameworks/OSKengine/Lib/**
+/Frameworks/OSKengine/Includes/**

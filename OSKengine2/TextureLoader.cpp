@@ -54,7 +54,7 @@ void TextureLoader::Load(const std::string& assetFilePath, IAsset** asset) {
 
 	const GRAPHICS::Format imageFormat = assetInfo.contains("is_hdr") && assetInfo["is_hdr"] == "true"
 		? GRAPHICS::Format::RGBA32_SFLOAT
-		: GRAPHICS::Format::RGBA8_SRGB;
+		: GRAPHICS::Format::RGBA8_UNORM;
 
 	const Vector2ui size(width, height);
 	const auto imageInfo = GpuImageCreateInfo::CreateDefault2D(size, imageFormat, GRAPHICS::GpuImageUsage::SAMPLED | GRAPHICS::GpuImageUsage::TRANSFER_SOURCE | GRAPHICS::GpuImageUsage::TRANSFER_DESTINATION);

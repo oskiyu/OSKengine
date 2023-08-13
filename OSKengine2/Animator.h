@@ -39,13 +39,13 @@ namespace OSK::GRAPHICS {
 		/// @param name Nombre de la animación.
 		/// @pre Debe haber una animación disponible con el nombre dado.
 		/// @throws ModelAnimationNotFoundException si no se cumple la precondición.
-		void AddActiveAnimation(const std::string& name);
+		void AddActiveAnimation(std::string_view name);
 
 		/// <summary> Quita una animación activa del modelo. </summary>
 		/// <param name="name">Nombre de la animación.</param>
 		/// 
 		/// @note Si no hay una animación activa, no ocurrirá nada.
-		void RemoveActiveAnimation(const std::string& name);
+		void RemoveActiveAnimation(std::string_view name);
 
 		/// <summary> 
 		/// Establece la skin activa del modelo,
@@ -55,7 +55,7 @@ namespace OSK::GRAPHICS {
 		/// 
 		/// @pre Debe haber una skin disponible con el nombre dado.
 		/// @throws std::runtime_error si no se cumple la precondición.
-		void SetActiveSkin(const std::string& name);
+		void SetActiveSkin(std::string_view name);
 
 		/// <summary> Devuelve la skin activa. </summary>
 		/// <returns>Puntero nulo si no hay ninguna skin activa.</returns>
@@ -96,8 +96,8 @@ namespace OSK::GRAPHICS {
 
 		DynamicArray<AnimationSkin> availableSkins;
 
-		HashMap<std::string, UIndex32> availableSkinsByName;
-		HashMap<std::string, Animation> availableAnimations;
+		std::unordered_map<std::string, UIndex32, StringHasher, std::equal_to<>> availableSkinsByName;
+		std::unordered_map<std::string, Animation, StringHasher, std::equal_to<>> availableAnimations;
 
 		DynamicArray<std::string> activeAnimations;
 		std::string activeSkin = "";

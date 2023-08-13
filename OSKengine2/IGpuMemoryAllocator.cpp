@@ -85,7 +85,7 @@ OwnedPtr<GpuBuffer> IGpuMemoryAllocator::CreateIndexBuffer(const DynamicArray<TI
 
 	// Establecemos el index view.
 	IndexBufferView view{};
-	view.numIndices = indices.GetSize();
+	view.numIndices = static_cast<USize32>(indices.GetSize());
 	view.offsetInBytes = 0;
 	view.type = IndexType::U32;
 
@@ -232,7 +232,7 @@ IGpuMemoryBlock* IGpuMemoryAllocator::GetNextBufferMemoryBlock(USize64 size, Gpu
 
 		// TODO: permitir reutilización.
 		if (blockInfo.usage == usage && blockInfo.sharedType == sharedType) {
-			for (const auto& block : bufferMemoryBlocks[i]) {
+			for (auto& block : bufferMemoryBlocks[i]) {
 				if (block->GetAvailableSpace() >= size)
 					return block.GetPointer();
 			}

@@ -69,20 +69,20 @@ namespace OSK::GRAPHICS {
 		/// 
 		/// @pre Se debe haber inicializado el ShadowMap con ShadowMap::Create.
 		/// @note Devolverá nullptr si no se cumple la precondición.
-		GpuImage* GetShadowImage(UIndex32 index) const;
+		GpuImage* GetShadowImage(UIndex32 index);
 		
 		/// @brief Devuelve la imagen de color del mapa de sombras.
 		/// Para su renderizado.
 		/// @param index Índice de la imagen en el swapchain.
 		/// @return Mapa de profundidad.
-		GpuImage* GetColorImage(UIndex32 index) const;
+		GpuImage* GetColorImage(UIndex32 index);
 
 				
 		/// @brief Devuelve el material usado para la generación de sombras.
 		/// 
 		/// @pre Se debe haber inicializado el ShadowMap con ShadowMap::Create.
 		/// @note Devolverá nullptr si no se cumple la precondición.
-		Material* GetShadowsMaterial(ASSETS::ModelType modelType) const;
+		Material* GetShadowsMaterial(ASSETS::ModelType modelType);
 
 		/// @brief Devuelve la instancia del material para la generación de sombras.
 		///
@@ -90,14 +90,14 @@ namespace OSK::GRAPHICS {
 		/// 
 		/// @pre Se debe haber inicializado el ShadowMap con ShadowMap::Create.
 		/// @note Devolverá nullptr si no se cumple la precondición.
-		MaterialInstance* GetShadowsMaterialInstance() const;
+		MaterialInstance* GetShadowsMaterialInstance();
 
 		/// @brief Devuelve el uniform buffer que contiene la matriz de
 		/// proyección y vista de la luz que proyecta la sombra.
 		/// 
 		/// @pre Se ha llamado a ShadowMap::Create.
 		/// @warning Devuelve nullptr si no se cumple las precondiciones.
-		DynamicArray<GRAPHICS::GpuBuffer*> GetDirLightMatrixUniformBuffers() const;
+		DynamicArray<GRAPHICS::GpuBuffer*> GetDirLightMatrixUniformBuffers();
 
 
 		/// @brief Establece la cámara de la escena, para poder configurar

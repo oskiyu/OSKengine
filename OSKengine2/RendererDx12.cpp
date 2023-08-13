@@ -145,7 +145,7 @@ const TByte* RendererDx12::FormatImageDataForGpu(const GpuImage* image, const TB
 	TByte* output = new TByte[image->GetPhysicalNumberOfBytes() * numLayers];
 
 	const USize32 numBytesPerPixel = GetFormatNumberOfBytes(image->GetFormat());
-	const USize32 numBytesPerLayer = image->GetPhysicalNumberOfBytes();
+	const USize64 numBytesPerLayer = image->GetPhysicalNumberOfBytes();
 
 	for (UIndex32 i = 0; i < numLayers + 0; i++) {
 		const USize32 layerOffset = numBytesPerLayer * i;
@@ -293,7 +293,7 @@ void RendererDx12::PresentFrame() {
 	preComputeCommandList->Close();
 	postComputeCommandList->Close();
 
-	for (auto const& cmdList : singleTimeCommandLists)
+	for (auto& cmdList : singleTimeCommandLists)
 		cmdList->DeleteAllStagingBuffers();
 
 	ID3D12CommandList* commandLists[] = { graphicsCommandList->As<CommandListDx12>()->GetCommandList() };

@@ -27,6 +27,9 @@ void PhysicsResolver::OnTick(TDeltaTime deltaTime) {
 		// --- RESOLUCIÓN INICIAL --- //
 
 		const auto& collisionInfo = event.collisionInfo;
+
+		const Vector3f contactNormal = -collisionInfo.GetMinimumTranslationVector().GetNormalized();
+
 		const Vector3f mtv = collisionInfo.GetMinimumTranslationVector();
 		const Vector3f halfMtv = mtv * 0.5f;
 
@@ -58,8 +61,6 @@ void PhysicsResolver::OnTick(TDeltaTime deltaTime) {
 		if (physicsA.GetVelocity().Dot(physicsB.GetVelocity()) < 0.0f)
 			continue;
 
-		const Vector3f contactNormal = -collisionInfo.GetMinimumTranslationVector().GetNormalized();
-
 		// Velocidades sin contar la delta de este frame.
 		// Para una simulación más estable.
 		const Vector3f velocityA = physicsA.GetVelocity() - physicsA.GetCurrentFrameVelocityDelta();
@@ -69,7 +70,11 @@ void PhysicsResolver::OnTick(TDeltaTime deltaTime) {
 		const float separationVelocity = -glm::abs(contactNormal.Dot(velocityB - velocityA));
 
 		float cor = (physicsA.coefficientOfRestitution + physicsB.coefficientOfRestitution) * 0.5f;
-		cor = glm::mix(cor, 0.0f, separationVelocity * 0.15f);
+		cor = glm::clamp(
+			glm::mix(0.0f, cor, glm::abs(separationVelocity) * 2.55f - 0.5f),
+			0.0f,
+			cor
+		);
 
 		// Velocidad a la que se separan los objetos después de la colisión.
 		float deltaSeparationVelocity = -(1 + cor) * separationVelocity;
@@ -95,10 +100,49 @@ void PhysicsResolver::OnTick(TDeltaTime deltaTime) {
 
 		// --- FRICCIÓN --- //
 
-		const Vector3f movementAlongNormalA = physicsA.GetVelocity() - contactNormal * physicsA.GetVelocity().Dot(contactNormal);
-		const Vector3f movementAlongNormalB = physicsB.GetVelocity() - contactNormal * physicsB.GetVelocity().Dot(contactNormal);
+		const Vector4f transformFrictionA = transformA.GetRotation().ToMat4() * glm::vec4(physicsA.localFrictionCoefficient.ToGLM(), 1.0f);
+		const Vector4f transformFrictionB = transformB.GetRotation().ToMat4() * glm::vec4(physicsB.localFrictionCoefficient.ToGLM(), 1.0f);
 
-		physicsA.ApplyImpulse(-movementAlongNormalA * deltaTime, contactPointA);
-		physicsB.ApplyImpulse(-movementAlongNormalB * deltaTime, contactPointB);
+		const Vector3f transformedFrictionA = glm::abs(transformA.GetRotation().RotateVector(physicsA.localFrictionCoefficient).ToGLM());
+		const Vector3f transformedFrictionB = glm::abs(transformB.GetRotation().RotateVector(physicsB.localFrictionCoefficient).ToGLM());
+		/* = glm::abs(transformA.GetForwardVector().ToGLM()) * physicsA.localFrictionCoefficient.x
+			+ glm::abs(transformA.GetTopVector().ToGLM())	  * physicsA.localFrictionCoefficient.y
+			+ glm::abs(transformA.GetRightVector().ToGLM())	  * physicsA.localFrictionCoefficient.Z;
+		const Vector3f transformedFrictionB
+			= glm::abs(transformB.GetForwardVector().ToGLM()) * physicsB.localFrictionCoefficient.x
+			+ glm::abs(transformB.GetTopVector().ToGLM())	  * physicsB.localFrictionCoefficient.y
+			+ glm::abs(transformB.GetRightVector().ToGLM())   * physicsB.localFrictionCoefficient.Z; */
+
+		const Vector3f movementAlongNormalA = 
+			(physicsA.GetVelocity() - contactNormal * physicsA.GetVelocity().Dot(contactNormal));
+		const Vector3f movementAlongNormalB = 
+			(physicsB.GetVelocity() - contactNormal * physicsB.GetVelocity().Dot(contactNormal));
+
+		physicsA.ApplyImpulse(-movementAlongNormalA * transformedFrictionA * deltaTime, contactPointA);
+		physicsB.ApplyImpulse(-movementAlongNormalB * transformedFrictionB * deltaTime, contactPointB);
+
+		Engine::GetLogger()->InfoLog(std::format("Friction A: {}:{}:{}", transformedFrictionA.x, transformedFrictionA.y, transformedFrictionA.Z));
+		Engine::GetLogger()->InfoLog(std::format("Friction B: {}:{}:{}", transformedFrictionB.x, transformedFrictionB.y, transformedFrictionB.Z));
+
+
+		// ---- SNAPPING --- //
+
+		continue;
+
+		const Vector3f firstNormal = collisionInfo.GetFirstFaceNormal();
+		const Vector3f secondNormal = collisionInfo.GetSecondFaceNormal();
+		const Vector3f cross = firstNormal.Cross(-secondNormal);
+		const float angle = firstNormal.GetAngle(secondNormal);
+
+		if (glm::abs(angle) > 0.1f) {
+			transformA.RotateWorldSpace(
+				angle * multiplierA,
+				cross.GetNormalized()
+			);
+			transformB.RotateWorldSpace(
+				-angle * multiplierB,
+				cross.GetNormalized()
+			);
+		}
 	}
 }

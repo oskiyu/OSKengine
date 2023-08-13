@@ -14,10 +14,10 @@ namespace OSK::GRAPHICS {
 
 	public:
 
-		using PushConstantsContainer = HashMap<std::string, MaterialLayoutPushConstant>;
+		using PushConstantsContainer = std::unordered_map<std::string, MaterialLayoutPushConstant, StringHasher, std::equal_to<>>;
 		using PushConstantsIterable = PushConstantsContainer;
 
-		using MaterialSlotsContainer = HashMap<std::string, MaterialLayoutSlot>;
+		using MaterialSlotsContainer = std::unordered_map<std::string, MaterialLayoutSlot, StringHasher, std::equal_to<>>;
 		using MaterialSlotsIterable = MaterialSlotsContainer;
 
 		/// <summary>
@@ -38,14 +38,28 @@ namespace OSK::GRAPHICS {
 		/// 
 		/// @warning No se hace comprobación de que el slot existe.
 		/// </summary>
-		MaterialLayoutSlot& GetSlot(std::string_view name) const;
+		const MaterialLayoutSlot& GetSlot(std::string_view name) const;
+
+		/// <summary>
+		/// Obtiene el slot con el nombre dado, si existe.
+		/// 
+		/// @warning No se hace comprobación de que el slot existe.
+		/// </summary>
+		MaterialLayoutSlot& GetSlot(std::string_view name);
 
 		/// <summary>
 		/// Devuelve el slot push constant con el nombre dado.
 		/// 
 		/// @warning No se hace comprobación de que el slot existe.
 		/// </summary>
-		MaterialLayoutPushConstant& GetPushConstant(std::string_view name) const;
+		const MaterialLayoutPushConstant& GetPushConstant(std::string_view name) const;
+
+		/// <summary>
+		/// Devuelve el slot push constant con el nombre dado.
+		/// 
+		/// @warning No se hace comprobación de que el slot existe.
+		/// </summary>
+		MaterialLayoutPushConstant& GetPushConstant(std::string_view name);
 
 		/// <summary>
 		/// Obtiene los slots.
@@ -69,10 +83,10 @@ namespace OSK::GRAPHICS {
 
 	private:
 
-		std::string name;
-		HashMap<std::string, MaterialLayoutSlot> slots;
-		HashMap<std::string, MaterialLayoutPushConstant> pushConstants;
-		USize32 accumulatedPushConstOffset = 0;
+		std::string m_name;
+		std::unordered_map<std::string, MaterialLayoutSlot, StringHasher, std::equal_to<>> m_slots;
+		std::unordered_map<std::string, MaterialLayoutPushConstant, StringHasher, std::equal_to<>> m_pushConstants;
+		USize32 m_accumulatedPushConstOffset = 0;
 
 	};
 

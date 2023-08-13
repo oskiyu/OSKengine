@@ -1,0 +1,17 @@
+{
+    "file_type": "MATERIAL",
+    "spec_ver": 1,
+    "name": "Collision Rendering",
+
+    "vertex_shader": "Resources/Shaders/VK/Colliders/vert.spv",
+    "fragment_shader": "Resources/Shaders/VK/Colliders/frag.spv",
+    
+    "vertex_type": "OSK::Vertex3D",
+
+    "slots": {
+        "0": "global"
+    },
+
+    "polygon_mode": "TRIANGLE_WIDEFRAME"
+    
+}

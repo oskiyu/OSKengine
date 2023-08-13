@@ -43,7 +43,7 @@ void GameObjectManager::SetSignature(GameObjectIndex obj, const Signature& signa
 	signatures[obj - 1] = signature;
 }
 
-Signature GameObjectManager::GetSignature(GameObjectIndex obj) {
+Signature GameObjectManager::GetSignature(GameObjectIndex obj) const {
 	OSK_ASSERT(obj > 0, InvalidObjectException(obj));
 	OSK_ASSERT(obj < signatures.GetSize() + 1, InvalidObjectException(obj));
 	return signatures[obj - 1];

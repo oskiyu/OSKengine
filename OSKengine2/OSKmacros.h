@@ -11,12 +11,20 @@
 #endif
 
 #define OSK_DISABLE_COPY(className) \
-className(const className&) = delete; \
-className& operator=(const className&) = delete;
+className(const className&) noexcept = delete; \
+className& operator=(const className&) noexcept = delete;
+
+#define OSK_DISABLE_MOVE(className) \
+className(className&&) noexcept = delete; \
+className& operator=(className&&) noexcept = delete;
+
+#define OSK_DEFAULT_COPY_OPERATOR(className) \
+className(const className&) noexcept = default; \
+className& operator=(const className&) noexcept = default;
 
 #define OSK_DEFAULT_MOVE_OPERATOR(className) \
-className(className&&) = default; \
-className& operator=(className&&) = default;
+className(className&&) noexcept = default; \
+className& operator=(className&&) noexcept = default;
 
 #define OSK_DEFINE_AS(className) \
 template <typename T> constexpr const T* As() const requires std::is_base_of_v<className, T> { return (const T*)this; } \

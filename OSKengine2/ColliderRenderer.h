@@ -78,12 +78,12 @@ namespace OSK::ECS {
 		/// @brief Contiene los buffers de vértices de los colliders que 
 		/// NO tienen modelo 3D (SAT).
 		/// Cada buffer representa una cara.
-		HashMap<GameObjectIndex, DynamicArray<UniquePtr<GRAPHICS::GpuBuffer>>> bottomLevelVertexBuffers;
+		std::unordered_map<GameObjectIndex, DynamicArray<UniquePtr<GRAPHICS::GpuBuffer>>> bottomLevelVertexBuffers;
 
 		/// @brief Contiene los buffers de índices de los colliders que 
 		/// NO tienen modelo 3D (SAT).
 		/// Cada buffer representa una cara.
-		HashMap<GameObjectIndex, DynamicArray<UniquePtr<GRAPHICS::GpuBuffer>>> bottomLevelIndexBuffers;
+		std::unordered_map<GameObjectIndex, DynamicArray<UniquePtr<GRAPHICS::GpuBuffer>>> bottomLevelIndexBuffers;
 
 
 		const ASSETS::Model3D* cubeModel = nullptr;

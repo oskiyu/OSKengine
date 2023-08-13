@@ -21,7 +21,7 @@ using namespace OSK;
 using namespace OSK::IO;
 using namespace OSK::GRAPHICS;
 
-ShaderBindingType GetShaderBindingType(const std::string& type) {
+ShaderBindingType GetShaderBindingType(std::string_view type) {
 	if (type == "UNIFORM")
 		return ShaderBindingType::UNIFORM_BUFFER;
 
@@ -31,7 +31,7 @@ ShaderBindingType GetShaderBindingType(const std::string& type) {
 	return ShaderBindingType::TEXTURE;
 }
 
-ShaderStage GetShaderStage(const std::string& type) {
+ShaderStage GetShaderStage(std::string_view type) {
 	if (type == "VERTEX")
 		return ShaderStage::VERTEX;
 
@@ -46,7 +46,7 @@ ShaderStage GetShaderStage(const std::string& type) {
 	return ShaderStage::FRAGMENT;
 }
 
-PolygonMode GetPolygonMode(const std::string& type) {
+PolygonMode GetPolygonMode(std::string_view type) {
 	if (type == "TRIANGLE_WIDEFRAME")
 		return PolygonMode::TRIANGLE_WIDEFRAME;
 	else if (type == "LINE")
@@ -82,7 +82,7 @@ void MaterialSystem::LoadMaterialV0(MaterialLayout* layout, const nlohmann::json
 			binding.name = bindingInfo["name"];
 			binding.type = GetShaderBindingType(bindingInfo["type"]);
 
-			slot.bindings.Insert(binding.name, binding);
+			slot.bindings[binding.name] = binding;
 		}
 
 		layout->AddSlot(slot);
@@ -135,8 +135,8 @@ void MaterialSystem::LoadMaterialV0(MaterialLayout* layout, const nlohmann::json
 			for (auto& bindingInfo : slotInfo["bindings"]) {
 				std::string bindingName = bindingInfo["name"];
 
-				slot.bindings.Get(bindingName).glslIndex = bindingInfo["glsl_index"];
-				slot.bindings.Get(bindingName).hlslIndex = bindingInfo["hlsl_index"];
+				slot.bindings[bindingName].glslIndex = bindingInfo["glsl_index"];
+				slot.bindings[bindingName].hlslIndex = bindingInfo["hlsl_index"];
 			}
 		}
 
@@ -179,7 +179,7 @@ void LoadSpirvCrossShader(MaterialLayout* layout, const nlohmann::json& material
 			setName = materialInfo["slots"][std::to_string(compiler.get_decoration(i.id, spv::DecorationDescriptorSet))];
 
 		// Si el slot no está registrado, registrarlo
-		if (!layout->GetAllSlots().ContainsKey(setName)) {
+		if (!layout->GetAllSlots().contains(setName)) {
 			MaterialLayoutSlot slot{};
 			slot.name = setName;
 			slot.glslSetIndex = compiler.get_decoration(i.id, spv::DecorationDescriptorSet);
@@ -212,7 +212,7 @@ void LoadSpirvCrossShader(MaterialLayout* layout, const nlohmann::json& material
 		else
 			binding.type = ShaderBindingType::TEXTURE;
 
-		layout->GetSlot(setName).bindings.Insert(binding.name, binding);
+		layout->GetSlot(setName).bindings[binding.name] = binding;
 	}
 
 	// Buffers
@@ -224,7 +224,7 @@ void LoadSpirvCrossShader(MaterialLayout* layout, const nlohmann::json& material
 			setName = materialInfo["slots"][std::to_string(compiler.get_decoration(i.id, spv::DecorationDescriptorSet))];
 
 		// Si el slot no está registrado, registrarlo
-		if (!layout->GetAllSlots().ContainsKey(setName)) {
+		if (!layout->GetAllSlots().contains(setName)) {
 			MaterialLayoutSlot slot{};
 			slot.name = setName;
 			slot.glslSetIndex = compiler.get_decoration(i.id, spv::DecorationDescriptorSet);
@@ -253,7 +253,7 @@ void LoadSpirvCrossShader(MaterialLayout* layout, const nlohmann::json& material
 		// Tamaño del buffer
 		const auto& bufferSize = compiler.get_declared_struct_size(compiler.get_type(i.type_id));
 
-		layout->GetSlot(setName).bindings.Insert(binding.name, binding);
+		layout->GetSlot(setName).bindings[binding.name] = binding;
 	}
 
 	for (const auto& i : resources.acceleration_structures) {
@@ -264,7 +264,7 @@ void LoadSpirvCrossShader(MaterialLayout* layout, const nlohmann::json& material
 			setName = materialInfo["slots"][std::to_string(compiler.get_decoration(i.id, spv::DecorationDescriptorSet))];
 
 		// Si el slot no está registrado, registrarlo
-		if (!layout->GetAllSlots().ContainsKey(setName)) {
+		if (!layout->GetAllSlots().contains(setName)) {
 			MaterialLayoutSlot slot{};
 			slot.name = setName;
 			slot.glslSetIndex = compiler.get_decoration(i.id, spv::DecorationDescriptorSet);
@@ -290,7 +290,7 @@ void LoadSpirvCrossShader(MaterialLayout* layout, const nlohmann::json& material
 		binding.numArrayLayers = typeInfo.array.size() > 0 ? typeInfo.array[0] : 1;
 		binding.isUnsizedArray = (typeInfo.array.size() == 1) && (typeInfo.array[0] == 1);
 
-		layout->GetSlot(setName).bindings.Insert(binding.name, binding);
+		layout->GetSlot(setName).bindings[binding.name] = binding;
 	}
 
 	for (const auto& i : resources.storage_images) {
@@ -301,7 +301,7 @@ void LoadSpirvCrossShader(MaterialLayout* layout, const nlohmann::json& material
 			setName = materialInfo["slots"][std::to_string(compiler.get_decoration(i.id, spv::DecorationDescriptorSet))];
 
 		// Si el slot no está registrado, registrarlo
-		if (!layout->GetAllSlots().ContainsKey(setName)) {
+		if (!layout->GetAllSlots().contains(setName)) {
 			MaterialLayoutSlot slot{};
 			slot.name = setName;
 			slot.glslSetIndex = compiler.get_decoration(i.id, spv::DecorationDescriptorSet);
@@ -327,7 +327,7 @@ void LoadSpirvCrossShader(MaterialLayout* layout, const nlohmann::json& material
 		binding.numArrayLayers = typeInfo.array.size() > 0 ? typeInfo.array[0] : 1;
 		binding.isUnsizedArray = (typeInfo.array.size() == 1) && (typeInfo.array[0] == 1);
 
-		layout->GetSlot(setName).bindings.Insert(binding.name, binding);
+		layout->GetSlot(setName).bindings[binding.name] = binding;
 	}
 	for (auto& i : resources.storage_buffers) {
 		// Obtenemos el nombre del set (slot).
@@ -337,7 +337,7 @@ void LoadSpirvCrossShader(MaterialLayout* layout, const nlohmann::json& material
 			setName = materialInfo["slots"][std::to_string(compiler.get_decoration(i.id, spv::DecorationDescriptorSet))];
 
 		// Si el slot no está registrado, registrarlo
-		if (!layout->GetAllSlots().ContainsKey(setName)) {
+		if (!layout->GetAllSlots().contains(setName)) {
 			MaterialLayoutSlot slot{};
 			slot.name = setName;
 			slot.glslSetIndex = compiler.get_decoration(i.id, spv::DecorationDescriptorSet);
@@ -363,7 +363,7 @@ void LoadSpirvCrossShader(MaterialLayout* layout, const nlohmann::json& material
 		binding.numArrayLayers = typeInfo.array.size() > 0 ? typeInfo.array[0] : 1;
 		binding.isUnsizedArray = (typeInfo.array.size() == 1) && (typeInfo.array[0] == 1);
 
-		layout->GetSlot(setName).bindings.Insert(binding.name, binding);
+		layout->GetSlot(setName).bindings[binding.name] = binding;
 	}
 
 	// PushConstants
@@ -462,8 +462,8 @@ void MaterialSystem::LoadMaterialV1(MaterialLayout* layout, const nlohmann::json
 }
 
 Material* MaterialSystem::LoadMaterial(const std::string& path) {
-	if (materialsPathTable.ContainsKey(path))
-		return materialsPathTable.Get(path);
+	if (materialsPathTable.contains(path))
+		return materialsPathTable.at(path);
 
 	MaterialLayout* layout = new MaterialLayout;
 
@@ -486,7 +486,7 @@ Material* MaterialSystem::LoadMaterial(const std::string& path) {
 	
 	if (type == MaterialType::GRAPHICS) {
 		OSK_ASSERT(materialInfo.contains("vertex_type"), ASSETS::InvalidDescriptionFileException("Archivo de material incorrecto: no se encuentra 'vertex_type'.", path));
-		vertexType = vertexTypesTable.Get(materialInfo["vertex_type"]);
+		vertexType = vertexTypesTable.at(materialInfo["vertex_type"]);
 	}
 
 	int fileVersion = materialInfo["spec_ver"];
@@ -538,25 +538,25 @@ Material* MaterialSystem::LoadMaterial(const std::string& path) {
 
 	materials.Insert(output);
 
-	materialsPathTable.Insert(path, output);
-	materialsNameTable.Insert(materialInfo["name"], output);
+	materialsPathTable[path] = output;
+	materialsNameTable[materialInfo["name"]] = output;
 
 	return output;
 }
 
 Material* MaterialSystem::GetMaterialByName(const std::string& name) const {
-	OSK_ASSERT(materialsNameTable.ContainsKey(name), MaterialNotFoundException(name));
-	return materialsNameTable.Get(name);
+	OSK_ASSERT(materialsNameTable.contains(name), MaterialNotFoundException(name));
+	return materialsNameTable.at(name);
 }
 
 void MaterialSystem::ReloadMaterialByPath(const std::string& path) {
-	OSK_ASSERT(materialsPathTable.ContainsKey(path), MaterialNotFoundException(path));
+	OSK_ASSERT(materialsPathTable.contains(path), MaterialNotFoundException(path));
 	Engine::GetRenderer()->WaitForCompletion();
 	LoadMaterial(path)->_Reload();
 }
 
 void MaterialSystem::ReloadMaterialByName(const std::string& name) {
-	OSK_ASSERT(materialsNameTable.ContainsKey(name), MaterialNotFoundException(name));
+	OSK_ASSERT(materialsNameTable.contains(name), MaterialNotFoundException(name));
 	Engine::GetRenderer()->WaitForCompletion();
 	GetMaterialByName(name)->_Reload();
 }

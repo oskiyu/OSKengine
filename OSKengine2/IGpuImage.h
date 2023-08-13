@@ -75,8 +75,11 @@ namespace OSK::GRAPHICS {
 
 		virtual ~GpuImage() override;
 
-		OSK_DEFINE_AS(GpuImage);
+		OSK_DISABLE_COPY(GpuImage);
+		OSK_DEFAULT_MOVE_OPERATOR(GpuImage);
 
+		OSK_DEFINE_AS(GpuImage);
+		
 		void _SetPhysicalSize(const Vector3ui& size);
 
 		void SetBlock(OwnedPtr<IGpuMemoryBlock> buffer);
@@ -171,7 +174,7 @@ namespace OSK::GRAPHICS {
 		/// @pre Los mip levels indicados por el rango @p topMipLevel y @p baseMipLevel deben existir en la imagen original.
 		/// 
 		/// @throws ImageViewCreationException Si hay algún error al crear el view.
-		IGpuImageView* GetView(const GpuImageViewConfig& viewConfig) const;
+		const IGpuImageView* GetView(const GpuImageViewConfig& viewConfig) const;
 
 
 		/// @brief Establece el barrier actualmente aplicado, para facilitar la sincronización
@@ -215,27 +218,27 @@ namespace OSK::GRAPHICS {
 
 	private:
 
-		GpuBarrierInfo currentBarrier{};
+		GpuBarrierInfo m_currentBarrier{};
 
-		mutable HashMap<GpuImageViewConfig, UniquePtr<IGpuImageView>> views;
+		mutable std::unordered_map<GpuImageViewConfig, UniquePtr<IGpuImageView>> m_views;
 
-		HashMap<ArrayLevelIndex, HashMap<MipLevelIndex, GpuImageLayout>> layouts;
+		std::unordered_map<ArrayLevelIndex, std::unordered_map<MipLevelIndex, GpuImageLayout>> m_layouts;
 
-		IGpuMemoryBlock* block = nullptr;
-		IGpuMemorySubblock* buffer = nullptr;
+		IGpuMemoryBlock* m_block = nullptr;
+		IGpuMemorySubblock* m_buffer = nullptr;
 
-		Vector3ui size = 0;
-		Vector3ui physicalSize = 0;
+		Vector3ui m_size = 0;
+		Vector3ui m_physicalSize = 0;
 
-		GpuImageSamplerDesc samplerDesc{};
+		GpuImageSamplerDesc m_samplerDesc{};
 
-		USize32 mipLevels = 0;
-		USize32 numSamples = 0;
-		Format format;
-		GpuImageLayout currentLayout;
-		GpuImageDimension dimension;
-		GpuImageUsage usage;
-		USize32 numLayers = 0;
+		USize32 m_mipLevels = 0;
+		USize32 m_numSamples = 0;
+		Format m_format;
+		GpuImageLayout m_currentLayout;
+		GpuImageDimension m_dimension;
+		GpuImageUsage m_usage;
+		USize32 m_numLayers = 0;
 
 	};
 

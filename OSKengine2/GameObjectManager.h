@@ -43,7 +43,7 @@ namespace OSK::ECS {
 		/// </summary>
 		/// 
 		/// @throws InvalidObjectException Si el objeto indicado no existe.
-		Signature GetSignature(GameObjectIndex obj);
+		Signature GetSignature(GameObjectIndex obj) const;
 
 		/// @brief Comprueba si un objeto está activo.
 		/// @param obj ID del objeto.

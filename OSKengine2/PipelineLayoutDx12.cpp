@@ -7,6 +7,7 @@
 #include "IRenderer.h"
 #include "GpuDx12.h"
 #include "Logger.h"
+#include "MathExceptions.h"
 
 using namespace OSK;
 using namespace OSK::GRAPHICS;
@@ -141,11 +142,14 @@ PipelineLayoutDx12::PipelineLayoutDx12(const MaterialLayout* layout)
 		nativeParams.Insert(param);
 	}
 
+	OSK_ASSERT(nativeParams.GetSize() < std::numeric_limits<UINT>::max(), OverflowConversionException()); /// @todo doc error
+	OSK_ASSERT(staticSamplers.GetSize() < std::numeric_limits<UINT>::max(), OverflowConversionException()); /// @todo doc error
+
 	D3D12_ROOT_SIGNATURE_DESC description{};
 	description.Flags = D3D12_ROOT_SIGNATURE_FLAG_ALLOW_INPUT_ASSEMBLER_INPUT_LAYOUT;
-	description.NumParameters = nativeParams.GetSize();
+	description.NumParameters = static_cast<UINT>(nativeParams.GetSize());
 	description.pParameters = nativeParams.GetData();
-	description.NumStaticSamplers = staticSamplers.GetSize();
+	description.NumStaticSamplers = static_cast<UINT>(staticSamplers.GetSize());
 	description.pStaticSamplers = staticSamplers.GetData();
 
 	ComPtr<ID3DBlob> error;

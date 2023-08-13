@@ -1,5 +1,126 @@
 # OSKengine Version History.
 
+## 2023.02.18a
+
+### Rendering
+
+- `GBuffer`
+    - Ahora usa imágenes de 16 bits por canal, en vez de 32 bits por canal.
+
+- `Material`
+    - Ahora permite recargar los shaders.
+
+- `MaterialSystem`
+    - Ahora permite obtener un material previamente cargado a partir de su nombre.
+    - Ahora permite recargar los materiales.
+
+#### Bugfixes
+
+- **Bugfix**: `StaticMeshLoader` ahora carga correctamente los vectores normales.
+- **Bugfix**: `AnimMeshLoader` ahora carga correctamente los vectores normales.
+- **Bugfix**: `IMeshLoader` ahora no suaviza incorrectamente los vectores normales.
+- **Bugfix**: `PbrDeferredSystem` ahora acepta mapas de IBL especular.
+- **Bugfix**: `PbrDeferredSystem` ahora funciona correctamente.
+- **Bugfix**: `HybridRenderSystem` ahora funciona correctamente.
+
+
+## 2023.02.18a
+
+### Assets
+
+- `IMeshLoader`
+    - Ahora define la lógica para cargar todos los vértices y sus atributos.
+
+### Collision
+
+###### Detección de puntos de contacto
+
+- `ConvexVolume`
+    - Ahora detecta los puntos de contacto de una colisión.
+    - Ahora permite generar un OBB.
+
+- `DetailedCollisionInfo`
+    - Ahor permite obtener los puntos de contacto.
+    - Ahor permite obtener un punto de contacto medio.
+
+- `ColliderRenderer`
+    - Ahora renderiza los puntos de contacto.
+    - Ahora renderiza el punto de contacto medio.
+
+### Rendering
+
+###### Soporte para el renderizado de puntos
+
+- `PolygonMode`
+    - ***Nuevo***: `POINT`.
+
+- `IGraphisPipeline...`, `MaterialSystem`
+    - Añadido soporte para `PolygonMode::POINT`.
+
+### Types
+
+- `Vector3`
+    - Permite compararse con otro `Vector3`, usando un valor *epsilon*.
+
+
+## 2023.02.24a
+
+### Physics
+
+- `PhysicsComponent`
+    - ***Renombrado***: *weight* -> *mass*.
+    - Ahora permite aplicar fuerzas.
+    - Ahora permite aplicar impulsos.
+    - Ahora permite obtener el momento lineal.
+
+- `PhysicsResolver`
+    - Ahora aplica impulsos a los objetos de una colisión.
+ 
+- `PhysicsSystem`
+    - Ahora simula la resistencia del aire.
+
+### Bugfixes
+
+- `PhysicsResolver` ya no afecta a objetos que no contienen un `PhysicsComponent`.
+
+
+## 2023.02.24b
+
+### Physics
+
+- `PhysicsComponent`
+    - Ahora almacena la velocidad angular.
+    - Ahora almacena el centro de gravedad.
+    - Separada la lógica del impulso en dos:
+        - `ApplyLinealImpulse()`
+        - `ApplyAngularImpulse()`
+    - Permite obtener el torque de un punto del objeto.
+
+- `PhysicsResolver`
+    - Ahora aplica impulsos angulares a los objetos de una colisión.
+ 
+- `PhysicsSystem`
+    - Ahora tiene en cuenta la velocidad angular de los objetos.
+    - Ahora simula la resistencia del aire en la rotación.
+
+### Types
+
+- `Quaternion`
+    - Ya no se normaliza después de aplicarse una rotación.
+
+
+## 2023.03.14a
+
+### Rendering
+
+###### Refactor de las clases de Vulkan
+
+Se han renombrado las clases, enumeraciones y demás de renderizado del backend Vulkan: *[...]Vulkan* -> *[...]Vk*.
+
+###### Reorganización del asignador de memoria
+
+Ahora la lógica de asignación de bloques de memoria está implementada en `IGpuMemoryAllocator`, en vez de en las clases hijas.
+
 ## 2023.03.16a
 
 ### STD
@@ -647,3 +768,130 @@ Debido a los cambios en los tipos de datos básicos, numerosas clases y funciones
 - **Bugfix**: `ECS::AddComponent(GameObjectIndex, const TComponent&)` ahora se puede usar.
 - **Bugfix**: `FaceProjection` ahora calcula correctamente las proyecciones de los puntos.
 
+
+## 2023.08.13a
+
+### ECS
+
+###### Orden de ejecución de los sistemas
+
+- `EntityComponentSystem`, `SystemManager`
+    - Ahora se le puede asignar un índice de ejecución a cada sistema (por defecto: 0). Todos los sistemas con el mismo índice se agrupan en un conjunto.
+    - La ejecución de los sistemas se realiza de acuerdo a estos índices, ejecutándose primero los sistemas con un índice más bajo.
+    - Dentro de cada conjunto de sistemas, se ejecutan en el siguiente orden:
+        - Sistemas *productores*. 
+        - Sistemas *consumidores*. 
+        - Sistemas *puros*. 
+
+- `ISystem`
+    - Ahora almacena su índice de ejecución.
+
+- Sistemas con un índice de ejecución distinto a 0:
+    - `PhysicsSystem`: -2.
+    - `CollisionSystem`: -1.
+    - `PhysicsResolver`: -1.
+    
+### Rendering
+
+###### Rework de los shaders PBR para obtener una imagen de mayor calidad.
+
+### Memory
+
+- `Buffer`
+    - Representa un buffer con información arbitraria en memoria RAM.
+    - Puede ser copiado.
+    - No tiene un tamaño fijo: funciona como un *DynamicArray*.
+    
+### Persistencia
+
+###### Inicio del rework para mejorar el rendimiento potencial y adaptarlo mejor aun futuro sistema de networking.
+
+- ***Eliminado***: `Field`
+- ***Eliminado***: `IDataElement`
+- ***Eliminado***: `ISerializer`
+- ***Eliminado***: `ISerializable`
+
+- `DataNode`
+    - Ahora funciona escribiendo la información sobre un buffer de memoria.
+    - Permite leer datos del buffer de memoria.
+    - Contiene un schema que indica cómo interpretar los datos.
+    - Tiene mapas para facilitar la interpretación de los datos.
+
+- `DataType`
+    - Ahora se representa por un número.
+    - Los primeros 100 números están reservados para el motor.
+    
+- ***Nuevo***: `Serialize<>()`
+    - Define cómo serializar un elemento a un `DataNode`.
+    - Debe definirse para todos los tipos que se quieran usar.
+
+- ***Nuevo***: `Deserialize<>()`
+    - Define cómo deserializar un `DataNode` a un elemento.
+    - Debe definirse para todos los tipos que se quieran usar.
+
+- ***Nuevo***: `SchemaId`
+    - Define un código único para cada esquema de `DataNode`.
+
+### STD
+
+###### Corregidas incongruencias en las funciones de las clases, con lo que ahora siempre respetan la corrección de *const*.
+
+- `UniquePtr`
+    - Ahora todas sus operaciones respetan la corrección de *const*.
+    - Ahora tiene una comprobación en tiempo de compilación que se asegura de que el objeto está definido.
+    - ***Eliminado***: `UniquePtr<T[]>`.
+    - ***Eliminado***: `SetValue()`.
+    - Añadidas todas las posibles combinaciones de *const* / *not const* para:
+        - `GetPointer()`.
+        - Operador `->`.
+
+- `DynamicArray`
+    - `DynamicArray::Iterator` 
+        - Simplificado (ahora solo almacena un puntero).
+        - Ya no necesita que la colección que lo creó tenga estabilidad de puntero.
+            - Siguen necesitando que no se añadan y/o eliminen elementos.
+    - ***Nuevo***: `DynamicArray::ConstIterator`
+        - Iterador para acceso a un elemento de una colección inmutable.
+    - Ahora soporta tipos que tengan sobreescrito el operador `&`.
+    - Ahora genera código distino dependiendo de si el tipo puede ser copiado y/o movido.
+    - Añadidas todas las posibles combinaciones de *const* / *not const* para:
+        - Operador `[]`.
+        - `At()`.
+        - `Find()`.
+        - `GetData()`.
+        - `begin()`.
+        - `end()`.
+        - `GetIterator()` / `GetConstIterator()`.
+
+- `SharedPtr`
+    - Añadidas todas las posibles combinaciones de *const* / *not const* para:
+        - Operador `->`.
+        - Operador `*`.
+        - `GetPointer()`.
+        - `Get()`.
+
+- ***Eliminado***: `HashMap`
+    - Reemplazado por `std::unordered_map`.
+    - Ahora se puede usar `std::string_view` para acceder a elementos de un mapa cuya clave es del tipo `std::string`.
+    
+### Otros
+
+- ***Nuevo***: `OSK_DISABLE_MOVE(x)`.
+- ***Nuevo***: `OSK_DEFAULT_COPY_OPERATOR(x)`.
+
+##### Bugfixes
+
+- **Bugfix**: ahora se exportan correctamente el proyecto para poder usarse como DLL / LIB.
+- **Bugfix**: `UniquePtr` ya no genera *undefined behaviour* en los *getters*.
+- **Bugfix**: eliminar un elemento de un `DynamicArray` ahora ejecuta el operador de copia / movimiento para los elementos posteriores que se mueven a la izquierda.
+- **Bugfix**: `ConvexVolume::GetWorldSpaceAxis` ahora devuelve correctamente el eje en espacio del mundo.
+    - **Bugfix**: ya no se generan respuestas exageradas a colisiones.
+    - **Bugfix**: ahora se detectan correctamente las colisiones en las coordenadas (0, 0 ,0).
+- **Bugfix**: `StaticMeshLoader`, `AminMeshLoader` ahora cargan correctamente los vectores normales de los modelos 3D en todos los casos.
+- **Bugfix**: corregidos numerosos bugs en los shaders de renderizado PBR.
+- **Bugfix**: `TextureLoader` ahora carga las imágenes en el espacio de color adecuado.
+- **Bugfix**: `Transform3D::TransformPoint()` ahora devuelve el resultado correcto.
+
+TODO:
+
+fix ComponentManager::InsertCopy

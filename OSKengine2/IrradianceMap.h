@@ -21,11 +21,13 @@ namespace OSK::ASSETS {
 
 		/// @brief Devuelve la imagen con el irradiance map.
 		/// @return Es un cubemap.
-		GRAPHICS::GpuImage* GetGpuImage() const;
+		GRAPHICS::GpuImage* GetGpuImage();
+		const GRAPHICS::GpuImage* GetGpuImage() const { return gpuImage.GetPointer(); }
 
 		/// @return Devuelve el cubemap a partir del que se 
 		/// creó el irradiance map.
-		GRAPHICS::GpuImage* GetOriginalCubemap() const;
+		GRAPHICS::GpuImage* GetOriginalCubemap();
+		const GRAPHICS::GpuImage* GetOriginalCubemap() const { return originalCubemap.GetPointer(); }
 
 
 		/// @brief Establece la imagen que contiene el irradiance map.

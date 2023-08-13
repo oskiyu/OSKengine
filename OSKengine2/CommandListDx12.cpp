@@ -185,7 +185,7 @@ void CommandListDx12::BeginGraphicsRenderpass(DynamicArray<RenderPassImageInfo> 
 		commandList->ClearRenderTargetView(colorAttachment, clearValue, 0, nullptr);
 	commandList->ClearDepthStencilView(depthStencilDesc, D3D12_CLEAR_FLAG_DEPTH, 1.0f, 0, 0, nullptr);
 
-	commandList->OMSetRenderTargets(colorAttachments.GetSize(), colorAttachments.GetData(), FALSE, &depthStencilDesc);
+	commandList->OMSetRenderTargets(static_cast<UINT>(colorAttachments.GetSize()), colorAttachments.GetData(), FALSE, &depthStencilDesc);
 
 	currentColorImages = std::move(colorImages);
 	currentDepthImage = depthImage;

@@ -261,9 +261,9 @@ protected:
 	void RegisterSystems() override {
 		Engine::GetEcs()->RemoveSystem<ECS::RenderSystem2D>();
 
-		Engine::GetEcs()->RegisterSystem<ECS::ColliderRenderSystem>();
+		Engine::GetEcs()->RegisterSystem<ECS::ColliderRenderSystem>(ECS::ISystem::DEFAULT_EXECUTION_ORDER);
 	}
-
+	
 	void OnTick(TDeltaTime deltaTime) override {
 		const auto _ = Engine::GetEcs();
 
@@ -431,10 +431,11 @@ protected:
 
 		PhysicsComponent& carPhysics = Engine::GetEcs()->GetComponent<PhysicsComponent>(carObject);
 
-		/*const float carVelocityY = carPhysics.velocity.y;
-		const float projection = carPhysics.velocity.Dot(carTransform.GetForwardVector());
-		carPhysics.velocity = carTransform.GetForwardVector().GetNormalized() * projection;
-		carPhysics.velocity.y = carVelocityY;/**/
+		/**/const float carVelocityY = carPhysics.GetVelocity().y;
+		const float projection = carPhysics.GetVelocity().Dot(carTransform.GetForwardVector());
+		Vector3f finalVelocity = carTransform.GetForwardVector().GetNormalized() * projection;
+		finalVelocity.y = carVelocityY;
+		carPhysics._SetVelocity(finalVelocity);
 
 		source.SetPitch(carPhysics.GetVelocity().GetLenght());
 
@@ -531,7 +532,7 @@ protected:
 		// cameraTransform.AddPosition(cameraArmTransform.GetRightVector().GetNormalized() * cameraRightMovement * deltaTime);
 
 		if (Engine::GetEcs()->GetComponent<PhysicsComponent>(carObject).GetAcceleration().GetLenght() > 0.5f * deltaTime ||
-			Engine::GetEcs()->GetComponent<PhysicsComponent>(carObject).GetVelocity().GetLenght() > 1.5f * deltaTime) {
+			glm::abs(Engine::GetEcs()->GetComponent<PhysicsComponent>(carObject).GetVelocity().Dot(carTransform.GetForwardVector())) > 1.2f * deltaTime) {
 			const Vector2f flatCarVec = {
 				Engine::GetEcs()->GetComponent<Transform3D>(carObject).GetRightVector().x,
 				Engine::GetEcs()->GetComponent<Transform3D>(carObject).GetRightVector().Z
@@ -564,8 +565,10 @@ protected:
 
 		// UI
 		if (mouse) {
-			const auto& state = mouse->GetMouseState();
-			GetRootUiElement().UpdateByCursor(state.GetPosition().ToVector2f(), state.IsButtonDown(IO::MouseButton::BUTTON_LEFT), Vector2f::Zero);
+			const bool isPressed = mouse->GetMouseState().IsButtonDown(IO::MouseButton::BUTTON_LEFT);
+			const Vector2f position = mouse->GetMouseState().GetPosition().ToVector2f();
+
+			GetRootUiElement().UpdateByCursor(position, isPressed, Vector2f::Zero);
 		}
 	}
 
@@ -603,8 +606,8 @@ protected:
 		const auto& carTransform = Engine::GetEcs()->GetComponent<Transform3D>(carObject);
 		const auto& carPhysics = Engine::GetEcs()->GetComponent<PhysicsComponent>(carObject);
 		uiFpsText->SetText(
-			std::format("Pos: {} {} {}", carTransform.GetPosition().x, carTransform.GetPosition().y, carTransform.GetPosition().Z)
-			//std::format("FPS: {}", GetFps())
+			// std::format("Pos: {} {} {}", carTransform.GetPosition().x, carTransform.GetPosition().y, carTransform.GetPosition().Z)
+			std::format("FPS: {}", GetFps())
 		);
 
 		GetRootUiElement().Render(&spriteRenderer, Vector2f::Zero);
@@ -911,6 +914,7 @@ private:
 		auto& physicsComponent = Engine::GetEcs()->AddComponent<PhysicsComponent>(carObject, {});
 		physicsComponent.SetMass(4.0f);
 		physicsComponent.centerOfMassOffset = Vector3f(0.0f, 0.17f * 0.5f, 0.0f);
+		physicsComponent.localFrictionCoefficient = Vector3f(0.0f, 0.5f, 1.0f);
 
 		// Setup de colisiones
 		Collider collider{};

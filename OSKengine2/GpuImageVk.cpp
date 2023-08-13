@@ -71,7 +71,7 @@ void GpuImageVk::CreateVkImage() {
 		queueIndices.Insert(Engine::GetRenderer()->GetGraphicsCommandQueue()->As<CommandQueueVk>()->GetQueueIndex());
 	}
 
-	imageInfo.queueFamilyIndexCount = usesMultipleQueues ? queueIndices.GetSize() : 1;
+	imageInfo.queueFamilyIndexCount = usesMultipleQueues ? static_cast<uint32_t>(queueIndices.GetSize()) : 1;
 	imageInfo.pQueueFamilyIndices = queueIndices.GetData();
 	imageInfo.sharingMode = usesMultipleQueues
 		? VK_SHARING_MODE_CONCURRENT

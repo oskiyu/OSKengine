@@ -13,9 +13,13 @@
 namespace OSK::ECS {
 
 	/// @brief Se encarga de gestionar las colas de eventos.
-	class OSKAPI_CALL EventManager final {
+	class EventManager final {
 
 	public:
+
+		EventManager() = default;
+		OSK_DISABLE_COPY(EventManager);
+		OSK_DEFAULT_MOVE_OPERATOR(EventManager);
 
 		/// @brief Registra un tipo de evento.
 		/// Los venetos deben registrarse así para poder ser manejados
@@ -27,7 +31,7 @@ namespace OSK::ECS {
 		void RegisterEventType() {
 			const auto key = static_cast<std::string>(TEvent::GetEventName());
 
-			containers.Insert(key, new EventContainer<TEvent>());
+			containers[key] =  new EventContainer<TEvent>();
 		}
 
 
@@ -41,7 +45,7 @@ namespace OSK::ECS {
 		template <typename TEvent> requires IsEcsEvent<TEvent>
 		void PublishEvent(const TEvent& event) {
 			const auto name = static_cast<std::string>(TEvent::GetEventName());
-			auto& container = static_cast<EventContainer<TEvent>&>(containers.Get(name).GetValue());
+			auto& container = static_cast<EventContainer<TEvent>&>(containers.at(name).GetValue());
 
 			container.PublishEvent(event);
 		}
@@ -59,13 +63,11 @@ namespace OSK::ECS {
 		/// que no ha sido previamente registrado.
 		template <typename TEvent> requires IsEcsEvent<TEvent>
 		const DynamicArray<TEvent>& GetEventQueue() const {
-			const auto name = static_cast<std::string>(TEvent::GetEventName());
-
-			if (!containers.ContainsKey(name))
+			if (!containers.contains(TEvent::GetEventName()))
 				throw EventNotRegisteredException(TEvent::GetEventName());
 
 			const auto& container = static_cast<const EventContainer<TEvent>&>(
-				containers.Get(name).GetValue());
+				containers.find(TEvent::GetEventName())->second.GetValue());
 
 			return container.GetEventQueue();
 		}
@@ -73,7 +75,7 @@ namespace OSK::ECS {
 		/// @brief Elimina los contenidos de todas las colas.
 		/// Debe llamarse al final de cada frame.
 		void _ClearQueues() {
-			for (const auto& [name, queue] : containers)
+			for (auto& [name, queue] : containers)
 				queue->_ClearQueue();
 		}
 
@@ -81,13 +83,13 @@ namespace OSK::ECS {
 		/// @return True si el evento fue registrado.
 		template <typename TEvent> requires IsEcsEvent<TEvent>
 		bool EventHasBeenRegistered() const {
-			return containers.ContainsKey((std::string)TEvent::GetEventName());
+			return containers.contains(TEvent::GetEventName());
 		}
 
 	private:
 
 		/// @brief Contenedores.
-		HashMap<std::string, UniquePtr<IEventContainer>> containers;
+		std::unordered_map<std::string, UniquePtr<IEventContainer>, StringHasher, std::equal_to<>> containers;
 
 	};
 

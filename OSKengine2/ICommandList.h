@@ -608,7 +608,7 @@ namespace OSK::GRAPHICS {
 
 	private:
 
-		DynamicArray<UniquePtr<GpuBuffer>> stagingBuffersToDelete{};
+		DynamicArray<UniquePtr<GpuBuffer>> stagingBuffersToDelete;
 
 	};
 

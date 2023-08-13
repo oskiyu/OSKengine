@@ -40,14 +40,6 @@ CollisionInfo Collider::GetCollisionInfo(const Collider& other, const Transform3
 	return CollisionInfo::TopLevelOnly();
 }
 
-ITopLevelCollider* Collider::GetTopLevelCollider() const {
-	return topLevelCollider.GetPointer();
-}
-
-IBottomLevelCollider* Collider::GetBottomLevelCollider(UIndex32 id) const {
-	return bottomLevelColliders[id].GetPointer();
-}
-
 USize32 Collider::GetBottomLevelCollidersCount() const {
 	return static_cast<USize32>(bottomLevelColliders.GetSize());
 }

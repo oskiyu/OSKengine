@@ -65,6 +65,7 @@ void SkyboxRenderSystem::Render(ICommandList* commandList) {
 	commandList->StartDebugSection("Skybox Rendering", Color::Red);
 
 	commandList->BeginGraphicsRenderpass(&renderTarget, Color::Black * 0.0f);
+	this->SetupViewport(commandList);
 	commandList->BindMaterial(*skyboxMaterial);
 	commandList->BindMaterialInstance(*skyboxMaterialInstance);
 	commandList->BindVertexBuffer(*cubemapModel->GetVertexBuffer());

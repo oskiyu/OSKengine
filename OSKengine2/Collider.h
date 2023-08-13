@@ -45,8 +45,11 @@ namespace OSK::COLLISION {
 		CollisionInfo GetCollisionInfo(const Collider& other, 
 			const ECS::Transform3D& thisTransform, const ECS::Transform3D& otherTransform) const;
 
-		ITopLevelCollider* GetTopLevelCollider() const;
-		IBottomLevelCollider* GetBottomLevelCollider(UIndex32 id) const;
+		const ITopLevelCollider* GetTopLevelCollider() const { return topLevelCollider.GetPointer(); }
+		ITopLevelCollider* GetTopLevelCollider() { return topLevelCollider.GetPointer(); }
+
+		const IBottomLevelCollider* GetBottomLevelCollider(UIndex32 id) const { return bottomLevelColliders[id].GetPointer(); }
+		IBottomLevelCollider* GetBottomLevelCollider(UIndex32 id) { return bottomLevelColliders[id].GetPointer(); }
 
 		USize32 GetBottomLevelCollidersCount() const;
 

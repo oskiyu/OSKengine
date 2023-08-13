@@ -4,12 +4,12 @@
 
 using namespace OSK::ASSETS;
 
-void AssetManager::DeleteLifetime(const std::string& lifetime) {
-	if (!assetsPerLifetime.ContainsKey(lifetime))
+void AssetManager::DeleteLifetime(std::string_view lifetime) {
+	if (!assetsPerLifetime.contains(lifetime))
 		return;
 
-	for (auto& i : assetsPerLifetime.Get(lifetime))
-		assetsTable.Remove(i->GetAssetFilename());
+	for (const auto& i : assetsPerLifetime.find(lifetime)->second)
+		assetsTable.erase(i->GetAssetFilename());
 
-	assetsPerLifetime.Remove(lifetime);
+	assetsPerLifetime.erase(assetsPerLifetime.find(lifetime));
 }

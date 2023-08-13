@@ -62,9 +62,9 @@ PipelineLayoutVk::PipelineLayoutVk(const MaterialLayout* materialLayout)
 	// PIPELINE LAYOUT
 	VkPipelineLayoutCreateInfo pipelineLayoutInfo{};
 	pipelineLayoutInfo.sType = VK_STRUCTURE_TYPE_PIPELINE_LAYOUT_CREATE_INFO;
-	pipelineLayoutInfo.setLayoutCount = nativeDescLayouts.GetSize();
+	pipelineLayoutInfo.setLayoutCount = static_cast<uint32_t>(nativeDescLayouts.GetSize());
 	pipelineLayoutInfo.pSetLayouts = nativeDescLayouts.GetData();
-	pipelineLayoutInfo.pushConstantRangeCount = pushConstantRanges.GetSize();
+	pipelineLayoutInfo.pushConstantRangeCount = static_cast<uint32_t>(pushConstantRanges.GetSize());
 	pipelineLayoutInfo.pPushConstantRanges = pushConstantRanges.GetData();
 	
 	VkResult result = vkCreatePipelineLayout(device, &pipelineLayoutInfo, nullptr, &layout);

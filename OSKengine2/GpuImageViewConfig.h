@@ -46,7 +46,7 @@ namespace OSK::GRAPHICS {
 
 	/// @brief Configuración de un image view.
 	/// Desribe las características de un image view.
-	struct GpuImageViewConfig {
+	struct OSKAPI_CALL GpuImageViewConfig {
 
 		/// @brief Crea una configuración para un uso normal de una textura.
 		/// Canal = SampledChannel::COLOR.

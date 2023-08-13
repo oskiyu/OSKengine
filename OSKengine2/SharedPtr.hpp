@@ -17,81 +17,45 @@ class SharedPtr {
 
 public:
 
-	/// <summary>
-	/// Crea un SharedPtr vacío.
-	/// </summary>
-	SharedPtr() {
-		instanceCount = new USize64;
-		*instanceCount = 0;
-	}
+	constexpr SharedPtr() noexcept : m_instanceCount(new USize64(0uL)) { }
 
-	/// <summary>
-	/// Crea un SharedPtr con el puntero dado.
 	/// El puntero debe haberse creado con new.
-	/// </summary>
-	/// <param name="data">Puntero.</param>
-	SharedPtr(T* data) {
-		pointer = data;
+	constexpr SharedPtr(T* data) noexcept : m_pointer(data), m_instanceCount(new USize64(1uL)) { }
 
-		instanceCount = new USize64;
-		*instanceCount = 1;
+	SharedPtr(const SharedPtr& other) : m_pointer(other.m_pointer), m_instanceCount(other.m_instanceCount) {
+		if (m_pointer)
+			(*m_instanceCount)++;
 	}
 
-	/// <summary>
-	/// Destruye el SharedPtr.
-	/// Si es el último SharedPtr con este puntero, se eliminará el puntero.
-	/// <summary/>
 	~SharedPtr() {
 		destructor();
 	}
 
-	/// <summary>
-	/// Crea un SharedPtr que compartirá su puntero con 'other'.
-	/// </summary>
-	/// <param name="other">Puntero compartido.</param>
-	SharedPtr(const SharedPtr& other) {
-		share(other);
-	}
-
-	/// <summary>
-	/// Este SharedPtr compartirá su puntero con 'other'.
-	/// </summary>
-	/// <param name="other">Puntero compartido.</param>
-	/// <returns>Self</returns>
 	SharedPtr& operator=(const SharedPtr& other) {
 		destructor();
 
-		share(other);
+		m_pointer = other.m_pointer;
+		m_instanceCount = other.m_instanceCount;
+		
+		if (m_pointer)
+			(*m_instanceCount)++;
 
 		return *this;
 	}
 
-	/// <summary>
-	/// El puntero de 'other' pasa a ser propiedad de este SharedPtr.
-	/// </summary>
-	/// <param name="other">Otro puntero.</param>
-	SharedPtr(SharedPtr&& other) noexcept {
-		this->pointer = other.pointer;
-		this->instanceCount = other.instanceCount;
-
-		other.pointer = nullptr;
-		other.instanceCount = nullptr;
-
+	SharedPtr(SharedPtr&& other) noexcept : m_pointer(other.m_pointer), m_instanceCount(other.m_instanceCount) {
+		other.m_pointer = nullptr;
+		other.m_instanceCount = new USize64(0uL);
 	}
 
-	/// <summary>
-	/// El puntero de 'other' pasa a ser propiedad de este SharedPtr.
-	/// </summary>
-	/// <param name="other">Otro puntero.</param>
-	/// <returns>Self.</returns>
 	SharedPtr& operator=(SharedPtr&& other) noexcept {
 		destructor();
 
-		this->pointer = other.pointer;
-		this->instanceCount = other.instanceCount;
+		m_pointer = other.m_pointer;
+		m_instanceCount = other.m_instanceCount;
 
-		other.pointer = nullptr;
-		other.instanceCount = nullptr;
+		other.m_pointer = nullptr;
+		other.m_instanceCount = new USize64(0uL);
 
 		return *this;
 	}
@@ -100,118 +64,57 @@ public:
 	/// Devuelve el número de SharedPtr que comparten el mismo puntero que este.
 	/// </summary>
 	/// <returns>Número de instancias.</returns>
-	USize64 GetInstanceCount() const {
-		return *instanceCount;
+	constexpr USize64 GetInstanceCount() const noexcept {
+		return *m_instanceCount;
 	}
 
-	/// <summary>
-	/// Devuelve el puntero nativo.
-	/// </summary>
-	/// <returns>Puntero.</returns>
-	T* GetPointer() const {
-		return pointer;
+	template <typename Self>
+	auto&& GetPointer(this Self&& self) {
+		return ::std::forward<Self>(self).operator->();
 	}
 
-	/// <summary>
-	/// Devuelve el puntero nativo.
-	/// </summary>
-	/// <returns>Puntero.</returns>
-	T* operator->() const {
-		return GetPointer();
+	template <typename Self>
+	auto&& Get(this Self&& self) {
+		return ::std::forward<Self>(self).operator*();
 	}
 
-	/// <summary>
-	/// Devuelve el valor apuntado por el puntero.
-	/// </summary>
-	/// <returns>Valor.</returns>
-	T& operator*() const {
-		return Get();
+	template <typename Self>
+	auto&& operator*(this Self&& self) {
+		return *self.m_pointer;
+	}
+	template <typename Self>
+	auto&& operator->(this Self&& self) {
+		return self.m_pointer;
 	}
 
-	/// <summary>
-	/// Devuelve el valor apuntado por el puntero.
-	/// </summary>
-	/// <returns>Valor.</returns>
-	T& Get() const {
-		return *pointer;
+	constexpr bool HasValue() const {
+		return m_pointer != nullptr;
 	}
 
-	/// <summary>
-	/// Devuelve true si el puntero no es null.
-	/// </summary>
-	/// <returns>Estado del puntero.</returns>
-	bool HasValue() const {
-		return pointer != nullptr;
-	}
-
-	bool operator==(const SharedPtr& other) const {
-		return pointer == other.pointer && instanceCount == other.instanceCount;
-	}
-	bool operator!=(const SharedPtr& other) const {
-		return !operator==(other);
-	}
+	constexpr bool operator==(const SharedPtr&) const = default;
 
 private:
 
-	/// <summary>
-	/// Destruye el SharedPtr.
-	/// </summary>
 	void destructor() {
-		if (!instanceCount)
+		if (!m_instanceCount)
 			return;
 
-		(*instanceCount)--;
+		(*m_instanceCount)--;
 
-		if (*instanceCount == 0)
-			finalDelete();
+		if (*m_instanceCount == 0 && m_pointer) {
+			delete m_pointer;
+			delete m_instanceCount;
+		}
 
-		instanceCount = nullptr;
-		pointer = nullptr;
+		m_instanceCount = nullptr;
+		m_pointer = nullptr;
 	}
 
-	/// <summary>
-	/// Comparte el puntero de 'original'.
-	/// </summary>
-	/// <param name="original">Puntero compartido.</param>
-	void share(const SharedPtr& original) {
-		pointer = original.pointer;
-		instanceCount = original.instanceCount;
-
-		if (pointer != nullptr)
-			(*instanceCount)++;
-	}
-
-	/// <summary>
-	/// El puntero de 'other' pasa a ser propiedad de este SharedPtr.
-	/// </summary>
-	/// <param name="other">Otro puntero.</param>
-	void move(SharedPtr&& other) {
-		this->pointer = other.pointer;
-		this->instanceCount = other.instanceCount;
-
-		other.pointer = nullptr;
-		other.instanceCount = nullptr;
-	}
-
-	/// <summary>
-	/// Elimina los punteros.
-	/// </summary>
-	void finalDelete() {
-		if (pointer)
-			delete pointer;
-
-		delete instanceCount;
-	}
-
-	/// <summary>
 	/// Puntero compartido.
-	/// </summary>
-	T* pointer = nullptr;
+	T* m_pointer = nullptr;
 
-	/// <summary>
 	/// Número de SharedPtr con este puntero.
-	/// </summary>
-	USize64* instanceCount = nullptr;
+	USize64* m_instanceCount = nullptr;
 
 };
 

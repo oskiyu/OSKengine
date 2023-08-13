@@ -15,6 +15,8 @@ namespace OSK::GRAPHICS {
 
 	public:
 
+		CommandListVk() = default;
+
 		const DynamicArray<VkCommandBuffer>& GetCommandBuffers() const;
 		DynamicArray<VkCommandBuffer>* GetCommandBuffers();
 

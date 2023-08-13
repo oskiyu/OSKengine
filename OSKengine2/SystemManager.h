@@ -11,6 +11,7 @@
 #include "IProducerSystem.h"
 
 #include <string>
+#include <map>
 
 namespace OSK::GRAPHICS {
 	class ICommandList;
@@ -26,7 +27,25 @@ namespace OSK::ECS {
 	/// @note Dueño de los sistemas.
 	class OSKAPI_CALL SystemManager {
 
+	private:
+
+		/// @brief Conjunto con los sistemas que tienen un mismo órden
+		/// de ejecución.
+		struct SystemSet {
+			DynamicArray<IProducerSystem*> producers;
+			DynamicArray<IConsumerSystem*> consumers;
+			DynamicArray<IPureSystem*> systems;
+		};
+
+		/// @brief Indica el conjunto de sistemas que tienen
+		/// un mismo orden de ejecución.
+		std::map<int, SystemSet> executionOrder;
+
 	public:
+
+		SystemManager() = default;
+		OSK_DISABLE_COPY(SystemManager);
+		OSK_DEFAULT_MOVE_OPERATOR(SystemManager);
 
 		/// @brief Ejecuta la lógica OnTick de todos los sistemas.
 		/// @param deltaTime Tiempo, en segundos, que ha pasado desde el último frame.
@@ -50,25 +69,27 @@ namespace OSK::ECS {
 		/// @tparam TSystem Tipo del sistema.
 		/// @return Instancia del sistema.
 		template <typename TSystem> requires IsEcsSystem<TSystem>
-		TSystem* RegisterSystem() {
+		TSystem* RegisterSystem(int order) {
 			const auto key = (std::string)TSystem::GetSystemName();
 
-			if (ContainsSystem<TSystem>())
-				return GetSystem<TSystem>();
+			if (this->ContainsSystem<TSystem>())
+				return this->GetSystem<TSystem>();
 
 			auto sistema = new TSystem;
 
 			if constexpr (IsProducerSystem<TSystem>) {
-				producers.Insert(key, (IProducerSystem*)sistema);
+				producers[key] = (IProducerSystem*)sistema;
 			}
 
 			if constexpr (IsConsumerSystem<TSystem>) {
-				consumers.Insert(key, (IConsumerSystem*)sistema);
+				consumers[key] = (IConsumerSystem*)sistema;
 			}
 
 			if constexpr (IsPureSystem<TSystem>) {
-				systems.Insert(key, (IPureSystem*)sistema);
+				systems[key] = (IPureSystem*)sistema;
 			}
+
+			this->SetExecutionOrder(order, sistema);
 
 			return sistema;
 		}
@@ -78,16 +99,23 @@ namespace OSK::ECS {
 		/// @note Si el sistema no está registrado, no ocurre nada.
 		template <typename TSystem> requires IsEcsSystem<TSystem> 
 		void RemoveSystem() {
+			TSystem* system = GetSystem<TSystem>();
+
+			SystemSet& systemSet = executionOrder.at(system->GetExecutionOrder());
+
 			if constexpr (IsProducerSystem<TSystem>) {
-				producers.Remove(TSystem::GetSystemName());
+				systemSet.producers.Remove(system);
+				producers.erase(TSystem::GetSystemName());
 			}
 
 			if constexpr (IsConsumerSystem<TSystem>) {
-				consumers.Remove(TSystem::GetSystemName());
+				systemSet.consumers.Remove(system);
+				consumers.erase(TSystem::GetSystemName());
 			}
 
 			if constexpr (IsPureSystem<TSystem>) {
-				systems.Remove((std::string)TSystem::GetSystemName());
+				systemSet.systems.Remove(system);
+				systems.erase((std::string)TSystem::GetSystemName());
 			}
 		}
 
@@ -95,17 +123,37 @@ namespace OSK::ECS {
 		/// @return La instancia del sistema dado.
 		/// Null si no está registrado.
 		template <typename TSystem> requires IsEcsSystem<TSystem>
-		TSystem* GetSystem() const {
+		TSystem* GetSystem() {
 			if constexpr (IsProducerSystem<TSystem>) {
-				return (TSystem*)producers.Get((std::string)TSystem::GetSystemName()).GetPointer();
+				return (TSystem*)producers.find(TSystem::GetSystemName())->second.GetPointer();
 			}
 
 			if constexpr (IsConsumerSystem<TSystem>) {
-				return (TSystem*)consumers.Get((std::string)TSystem::GetSystemName()).GetPointer();
+				return (TSystem*)consumers.find(TSystem::GetSystemName())->second.GetPointer();
 			}
 
 			if constexpr (IsPureSystem<TSystem>) {
-				return (TSystem*)systems.Get((std::string)TSystem::GetSystemName()).GetPointer();
+				return (TSystem*)systems.find(TSystem::GetSystemName())->second.GetPointer();
+			}
+
+			return nullptr;
+		}
+
+		/// @tparam TSystem Tipo del sistema.
+		/// @return La instancia del sistema dado.
+		/// Null si no está registrado.
+		template <typename TSystem> requires IsEcsSystem<TSystem>
+		const TSystem* GetSystem() const {
+			if constexpr (IsProducerSystem<TSystem>) {
+				return (const TSystem*)producers.find(TSystem::GetSystemName())->second.GetPointer();
+			}
+
+			if constexpr (IsConsumerSystem<TSystem>) {
+				return (const TSystem*)consumers.find(TSystem::GetSystemName())->second.GetPointer();
+			}
+
+			if constexpr (IsPureSystem<TSystem>) {
+				return (const TSystem*)systems.find(TSystem::GetSystemName())->second.GetPointer();
 			}
 
 			return nullptr;
@@ -117,17 +165,16 @@ namespace OSK::ECS {
 		/// @return True si está registrado, false en caso contrario.
 		template <typename TSystem> requires IsEcsSystem<TSystem> 
 		bool ContainsSystem() const {
-			const auto key = (std::string)TSystem::GetSystemName();
 			if constexpr (IsProducerSystem<TSystem>) {
-				return producers.ContainsKey(key);
+				return producers.contains(TSystem::GetSystemName());
 			}
 
 			if constexpr (IsConsumerSystem<TSystem>) {
-				return consumers.ContainsKey(key);
+				return consumers.contains(TSystem::GetSystemName());
 			}
 
 			if constexpr (IsPureSystem<TSystem>) {
-				return systems.ContainsKey(key);
+				return systems.contains(TSystem::GetSystemName());
 			}
 
 			return false;
@@ -136,36 +183,57 @@ namespace OSK::ECS {
 
 	private:
 
-		template <typename TSystem> requires IsProducerSystem<TSystem>
-		TSystem* RegisterProducerSystem() {
-			TSystem* sistema = new TSystem;
+		/// @brief Actualiza el orden de ejecución de un sistema,
+		/// introduciéndolo en el set de ejecución indicado.
+		/// @tparam TSystem Tipo del sistema.
+		/// @param order Nuevo orden de ejecución.
+		/// @param sistema Sistema a modificar.
+		/// @post @p sistema tendrá su orden de ejecución = @p order .
+		/// @post @p sistema estará incluido en el set de ejecución @p order .
+		/// @post @p sistema no estará incluido en el set de ejecución en el que estaba antes.
+		template <typename TSystem> requires IsEcsSystem<TSystem>
+		void SetExecutionOrder(int order, TSystem* sistema) {
 
-			producers.Insert(TSystem::GetSystemName(), (IProducerSystem*)sistema);
+			// Se quita el sistema del anterior set de ejecución (si existe).
+			if (executionOrder.contains(sistema->GetExecutionOrder())) {
+				SystemSet& oldExecutionSet = executionOrder.at(sistema->GetExecutionOrder());
 
-			return sistema;
+				if constexpr (IsProducerSystem<TSystem>) {
+					oldExecutionSet.producers.Remove((IProducerSystem*)sistema);
+				}
+
+				if constexpr (IsConsumerSystem<TSystem>) {
+					oldExecutionSet.consumers.Remove((IConsumerSystem*)sistema);
+				}
+
+				if constexpr (IsPureSystem<TSystem>) {
+					oldExecutionSet.systems.Remove((IPureSystem*)sistema);
+				}
+			}
+
+			if (!executionOrder.contains(order))
+				executionOrder[order] = SystemSet();
+
+			SystemSet& executionSet = executionOrder.at(order);
+
+			if constexpr (IsProducerSystem<TSystem>) {
+				executionSet.producers.Insert((IProducerSystem*)sistema);
+			}
+
+			if constexpr (IsConsumerSystem<TSystem>) {
+				executionSet.consumers.Insert((IConsumerSystem*)sistema);
+			}
+
+			if constexpr (IsPureSystem<TSystem>) {
+				executionSet.systems.Insert((IPureSystem*)sistema);
+			}
+
+			sistema->_SetExecutionOrder(order);
 		}
 
-		template <typename TSystem> requires IsConsumerSystem<TSystem>
-		TSystem* RegisterConsumerSystem() {
-			TSystem* sistema = new TSystem;
-
-			consumers.Insert(TSystem::GetSystemName(), (IConsumerSystem*)sistema);
-
-			return sistema;
-		}
-
-		template <typename TSystem> requires IsPureSystem<TSystem>
-		TSystem* RegisterPureSystem() {
-			TSystem* sistema = new TSystem;
-
-			systems.Insert(TSystem::GetSystemName(), (IPureSystem*)sistema);
-
-			return sistema;
-		}
-
-		HashMap<std::string, UniquePtr<IProducerSystem>> producers;
-		HashMap<std::string, UniquePtr<IConsumerSystem>> consumers;
-		HashMap<std::string, UniquePtr<IPureSystem>> systems;
+		std::unordered_map<std::string, UniquePtr<IProducerSystem>, StringHasher, std::equal_to<>> producers;
+		std::unordered_map<std::string, UniquePtr<IConsumerSystem>, StringHasher, std::equal_to<>> consumers;
+		std::unordered_map<std::string, UniquePtr<IPureSystem>, StringHasher, std::equal_to<>> systems;
 
 	};
 

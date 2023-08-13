@@ -20,6 +20,7 @@
 #include "PipelinesExceptions.h"
 
 #include "FileIO.h"
+#include "MathExceptions.h"
 
 #include "OSKengine.h"
 #include "Logger.h"
@@ -42,8 +43,11 @@ void GraphicsPipelineDx12::Create(const MaterialLayout* materialLayout, IGpu* de
 	for (UIndex32 i = 0; i < layoutDesc.GetSize(); i++)
 		layoutDesc.At(i).SemanticName = vertexInfo.entries[i].GetName().c_str();
 
+	OSK_ASSERT(layoutDesc.GetSize() < std::numeric_limits<UINT>::max(), OverflowConversionException());
+	OSK_ASSERT(info.formats.GetSize() < std::numeric_limits<UINT>::max(), OverflowConversionException());
+
 	D3D12_INPUT_LAYOUT_DESC inputLayout{};
-	inputLayout.NumElements = layoutDesc.GetSize();
+	inputLayout.NumElements = static_cast<UINT>(layoutDesc.GetSize());
 	inputLayout.pInputElementDescs = layoutDesc.GetData();
 
 	createInfo.InputLayout = inputLayout;
@@ -74,7 +78,7 @@ void GraphicsPipelineDx12::Create(const MaterialLayout* materialLayout, IGpu* de
 	else
 		createInfo.PrimitiveTopologyType = D3D12_PRIMITIVE_TOPOLOGY_TYPE_TRIANGLE;
 
-	createInfo.NumRenderTargets = info.formats.GetSize();
+	createInfo.NumRenderTargets = static_cast<UINT>(info.formats.GetSize());
 	for (UIndex32 i = 0; i < info.formats.GetSize(); i++)
 		createInfo.RTVFormats[i] = GetFormatDx12(info.formats[i]);
 

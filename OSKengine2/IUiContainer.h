@@ -66,7 +66,7 @@ namespace OSK::UI {
 		GRAPHICS::Sprite sprite{};
 
 		DynamicArray<SharedPtr<IElement>> children;
-		HashMap<std::string, IElement*> childrenTable{};
+		std::unordered_map<std::string, IElement*> childrenTable{};
 
 	};
 

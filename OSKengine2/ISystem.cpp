@@ -33,3 +33,11 @@ void ISystem::ToggleActivationStatus() {
 bool ISystem::IsActive() const {
 	return isActive;
 }
+
+int ISystem::GetExecutionOrder() const {
+	return order;
+}
+
+void ISystem::_SetExecutionOrder(int newOrder) {
+	order = newOrder;
+}

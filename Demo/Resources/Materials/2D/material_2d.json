@@ -1,0 +1,21 @@
+{
+    "file_type": "MATERIAL",
+    "spec_ver": 1,
+    "name": "2D",
+
+    "vertex_shader": "Resources/Shaders/VK/2D/2D/vert.spv",
+    "fragment_shader": "Resources/Shaders/VK/2D/2D/frag.spv",
+    
+    "shader_file": "Resources/shader_2d.json",
+    
+    "vertex_type": "OSK::Vertex2D",
+    "config": {
+        "depth_testing": "none",
+        "cull_mode": "none"
+    },
+
+    "slots": {
+        "0": "texture"
+    }
+
+}

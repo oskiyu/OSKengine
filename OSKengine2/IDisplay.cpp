@@ -21,5 +21,5 @@ float IDisplay::GetScreenRatio() const {
 }
 
 USize32 IDisplay::GetRefreshRate() const {
-
+	return 0;
 }

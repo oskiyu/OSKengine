@@ -2,7 +2,7 @@
 
 using namespace OSK::GRAPHICS;
 
-const VertexInfo Vertex2D::GetVertexInfo() {
+VertexInfo Vertex2D::GetVertexInfo() {
 	VertexInfo info{};
 
 	info.entries.Insert({

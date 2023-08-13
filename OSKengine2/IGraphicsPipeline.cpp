@@ -3,6 +3,6 @@
 using namespace OSK;
 using namespace OSK::GRAPHICS;
 
-IPipelineLayout* IGraphicsPipeline::GetLayout() const {
+const IPipelineLayout* IGraphicsPipeline::GetLayout() const {
 	return layout.GetPointer();
 }

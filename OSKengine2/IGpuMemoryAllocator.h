@@ -110,7 +110,7 @@ namespace OSK::GRAPHICS {
 		static const USize64 SizeOfMemoryBlockInMb;
 
 		OSK_DEFINE_AS(IGpuMemoryAllocator);
-
+		OSK_DISABLE_COPY(IGpuMemoryAllocator);
 
 		/// @brief Obtiene la información sobre el uso de memoria de esta GPU,
 		/// incluyendo espacio usado y espacio disponible.
@@ -165,7 +165,7 @@ namespace OSK::GRAPHICS {
 		/// @post El buffer siempre tendrá al menos los usos GpuBufferUsage::VERTEX_BUFFER y GpuBufferUsage::TRANSFER_DESTINATION.
 		template <typename T> 
 		inline OwnedPtr<GpuBuffer> CreateVertexBuffer(
-			const DynamicArray<T>& vertices, 
+			const DynamicArray<T>& vertices,
 			const VertexInfo& vertexInfo,
 			GpuBufferUsage usage = GpuBufferUsage::VERTEX_BUFFER) {
 			return this->CreateVertexBuffer(vertices.GetData(), sizeof(T), vertices.GetSize(), vertexInfo);
@@ -326,8 +326,4 @@ namespace OSK::GRAPHICS {
 
 	};
 
-}
-
-template <> static size_t OSK::Hash<OSK::GRAPHICS::GpuBufferMemoryBlockInfo>(const OSK::GRAPHICS::GpuBufferMemoryBlockInfo& elem) {
-	return Hash<size_t>((size_t)elem.usage);
 }

@@ -5,6 +5,14 @@
       <Configuration>Debug</Configuration>
       <Platform>Win32</Platform>
     </ProjectConfiguration>
+    <ProjectConfiguration Include="DLL Lib|Win32">
+      <Configuration>DLL Lib</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="DLL Lib|x64">
+      <Configuration>DLL Lib</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
     <ProjectConfiguration Include="DLL Release|Win32">
       <Configuration>DLL Release</Configuration>
       <Platform>Win32</Platform>
@@ -57,6 +65,7 @@
     <ClCompile Include="BloomPass.cpp" />
     <ClCompile Include="Bone.cpp" />
     <ClCompile Include="AxisAlignedBoundingBox.cpp" />
+    <ClCompile Include="Buffer.cpp" />
     <ClCompile Include="Collider.cpp" />
     <ClCompile Include="ColliderRenderer.cpp" />
     <ClCompile Include="CollisionInfo.cpp" />
@@ -65,12 +74,12 @@
     <ClCompile Include="ComputePipelineVk.cpp" />
     <ClCompile Include="Console.cpp" />
     <ClCompile Include="ConvexVolume.cpp" />
-    <ClCompile Include="Data.cpp" />
+    <ClCompile Include="DataNode.cpp" />
     <ClCompile Include="DescriptorDx12.cpp" />
     <ClCompile Include="DetailedCollisionInfo.cpp" />
     <ClCompile Include="FaceProjection.cpp" />
-    <ClCompile Include="Field.cpp" />
     <ClCompile Include="FrameCombiner.cpp" />
+    <ClCompile Include="GameObjectTranslator.cpp" />
     <ClCompile Include="UiFreeContainer.cpp" />
     <ClCompile Include="FxaaPass.cpp" />
     <ClCompile Include="GBuffer.cpp" />
@@ -265,6 +274,7 @@
     <ClInclude Include="Bone.h" />
     <ClInclude Include="BottomLevelAccelerationStructureVk.h" />
     <ClInclude Include="AxisAlignedBoundingBox.h" />
+    <ClInclude Include="Buffer.h" />
     <ClInclude Include="CameraComponent2D.h" />
     <ClInclude Include="CameraComponent3D.h" />
     <ClInclude Include="Collider.h" />
@@ -291,7 +301,7 @@
     <ClInclude Include="ConvexVolume.h" />
     <ClInclude Include="CubemapTexture.h" />
     <ClInclude Include="CubemapTextureLoader.h" />
-    <ClInclude Include="Data.h" />
+    <ClInclude Include="DataNode.h" />
     <ClInclude Include="DataType.h" />
     <ClInclude Include="DescriptorDx12.h" />
     <ClInclude Include="DescriptorLayoutVk.h" />
@@ -303,12 +313,12 @@
     <ClInclude Include="EventContainer.h" />
     <ClInclude Include="EventManager.h" />
     <ClInclude Include="EventNotRegisteredException.h" />
-    <ClInclude Include="Field.h" />
     <ClInclude Include="FileNotFoundException.h" />
     <ClInclude Include="FontLoadingExceptions.h" />
     <ClInclude Include="FrameCombiner.h" />
     <ClInclude Include="FxaaPass.h" />
     <ClInclude Include="GameExceptions.h" />
+    <ClInclude Include="GameObjectTranslator.h" />
     <ClInclude Include="GBuffer.h" />
     <ClInclude Include="GpuMemoryExceptions.h" />
     <ClInclude Include="InvalidArgumentException.h" />
@@ -325,7 +335,6 @@
     <ClInclude Include="IBottomLevelCollider.h" />
     <ClInclude Include="IComputePipeline.h" />
     <ClInclude Include="IConsumerSystem.h" />
-    <ClInclude Include="IDataElement.h" />
     <ClInclude Include="IDisplay.h" />
     <ClInclude Include="IEventContainer.h" />
     <ClInclude Include="IFullscreenableDisplay.h" />
@@ -347,8 +356,7 @@
     <ClInclude Include="IRayCollider.h" />
     <ClInclude Include="IrradianceMap.h" />
     <ClInclude Include="IrradianceMapLoader.h" />
-    <ClInclude Include="ISerializable.h" />
-    <ClInclude Include="ISerializer.h" />
+    <ClInclude Include="Serializer.h" />
     <ClInclude Include="ITopLevelCollider.h" />
     <ClInclude Include="IUiContainer.h" />
     <ClInclude Include="IUserInput.h" />
@@ -428,6 +436,8 @@
     <ClInclude Include="NotImplementedException.h" />
     <ClInclude Include="PipelinesExceptions.h" />
     <ClInclude Include="RawAssetFileNotFoundException.h" />
+    <ClInclude Include="Scene.h" />
+    <ClInclude Include="SchemaId.h" />
     <ClInclude Include="SpriteBatch.h" />
     <ClInclude Include="SystemAlreadyRegisteredException.h" />
     <ClInclude Include="TaaProvider.h" />
@@ -587,6 +597,13 @@
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DLL Lib|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v143</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseValidationLayers|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
@@ -621,6 +638,13 @@
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DLL Lib|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v143</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseValidationLayers|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
@@ -649,6 +673,9 @@
   <ImportGroup Condition="'$(Configuration)|$(Platform)'=='DLL Release|Win32'" Label="PropertySheets">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='DLL Lib|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
   <ImportGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseValidationLayers|Win32'" Label="PropertySheets">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
@@ -662,6 +689,9 @@
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
   <ImportGroup Condition="'$(Configuration)|$(Platform)'=='DLL Release|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='DLL Lib|x64'" Label="PropertySheets">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
   <ImportGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseValidationLayers|x64'" Label="PropertySheets">
@@ -682,6 +712,11 @@
     <LibraryPath>$(VULKAN_SDK)\Lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DLL Release|Win32'">
+    <LinkIncremental>false</LinkIncremental>
+    <IncludePath>..\Dependencies\OSKengine\tiny_gltf;..\Dependencies\OSKengine\stbi_image;..\Dependencies\OSKengine\json;$(VULKAN_SDK)\Include;..\Dependencies\OSKengine\OpenAL\include;$(IncludePath)</IncludePath>
+    <LibraryPath>$(VULKAN_SDK)\Lib;$(LibraryPath)</LibraryPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DLL Lib|Win32'">
     <LinkIncremental>false</LinkIncremental>
     <IncludePath>..\Dependencies\OSKengine\tiny_gltf;..\Dependencies\OSKengine\stbi_image;..\Dependencies\OSKengine\json;$(VULKAN_SDK)\Include;..\Dependencies\OSKengine\OpenAL\include;$(IncludePath)</IncludePath>
     <LibraryPath>$(VULKAN_SDK)\Lib;$(LibraryPath)</LibraryPath>
@@ -715,7 +750,15 @@
     <LinkIncremental>false</LinkIncremental>
     <IncludePath>..\Dependencies\OSKengine\tiny_gltf;..\Dependencies\OSKengine\stbi_image;..\Dependencies\OSKengine\json;$(VULKAN_SDK)\Include;..\Dependencies\OSKengine\OpenAL\include;$(IncludePath)</IncludePath>
     <LibraryPath>$(VULKAN_SDK)\Lib;$(LibraryPath)</LibraryPath>
-    <OutDir>$(SolutionDir)Frameworks\OSKengine\BinLib\</OutDir>
+    <OutDir>$(SolutionDir)Frameworks\OSKengine\Bin\Release\</OutDir>
+    <RunCodeAnalysis>false</RunCodeAnalysis>
+    <EnableClangTidyCodeAnalysis>false</EnableClangTidyCodeAnalysis>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DLL Lib|x64'">
+    <LinkIncremental>false</LinkIncremental>
+    <IncludePath>..\Dependencies\OSKengine\tiny_gltf;..\Dependencies\OSKengine\stbi_image;..\Dependencies\OSKengine\json;$(VULKAN_SDK)\Include;..\Dependencies\OSKengine\OpenAL\include;$(IncludePath)</IncludePath>
+    <LibraryPath>$(VULKAN_SDK)\Lib;$(LibraryPath)</LibraryPath>
+    <OutDir>$(SolutionDir)Frameworks\OSKengine\Lib\</OutDir>
     <RunCodeAnalysis>false</RunCodeAnalysis>
     <EnableClangTidyCodeAnalysis>false</EnableClangTidyCodeAnalysis>
   </PropertyGroup>
@@ -731,7 +774,7 @@
     <LinkIncremental>false</LinkIncremental>
     <IncludePath>..\Dependencies\OSKengine\tiny_gltf;..\Dependencies\OSKengine\stbi_image;..\Dependencies\OSKengine\json;$(VULKAN_SDK)\Include;..\Dependencies\OSKengine\OpenAL\include;$(IncludePath)</IncludePath>
     <LibraryPath>$(VULKAN_SDK)\Lib;$(LibraryPath)</LibraryPath>
-    <OutDir>$(SolutionDir)Frameworks\OSKengine\BinLibDebug\</OutDir>
+    <OutDir>$(SolutionDir)Frameworks\OSKengine\Bin\Debug\</OutDir>
     <RunCodeAnalysis>false</RunCodeAnalysis>
     <EnableClangTidyCodeAnalysis>false</EnableClangTidyCodeAnalysis>
   </PropertyGroup>
@@ -742,6 +785,9 @@
     <VcpkgUseStatic>false</VcpkgUseStatic>
   </PropertyGroup>
   <PropertyGroup Label="Vcpkg" Condition="'$(Configuration)|$(Platform)'=='DLL Release|Win32'">
+    <VcpkgUseStatic>false</VcpkgUseStatic>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DLL Lib|Win32'" Label="Vcpkg">
     <VcpkgUseStatic>false</VcpkgUseStatic>
   </PropertyGroup>
   <PropertyGroup Label="Vcpkg" Condition="'$(Configuration)|$(Platform)'=='DLL RVL|Win32'">
@@ -757,6 +803,9 @@
     <VcpkgUseStatic>false</VcpkgUseStatic>
   </PropertyGroup>
   <PropertyGroup Label="Vcpkg" Condition="'$(Configuration)|$(Platform)'=='DLL Release|x64'">
+    <VcpkgUseStatic>false</VcpkgUseStatic>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DLL Lib|x64'" Label="Vcpkg">
     <VcpkgUseStatic>false</VcpkgUseStatic>
   </PropertyGroup>
   <PropertyGroup Label="Vcpkg" Condition="'$(Configuration)|$(Platform)'=='DLL RVL|x64'">
@@ -818,6 +867,24 @@
       <AdditionalDependencies>Dxguid.lib;dxcompiler.lib;spirv-cross-cpp.lib;spirv-cross-glsl.lib;spirv-cross-hlsl.lib;spirv-cross-core.lib;vulkan-1.lib;freetype.lib;D3d12.lib;dxgi.lib;d3dcompiler.lib;</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='DLL Lib|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <LanguageStandard>stdcpp20</LanguageStandard>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>Dxguid.lib;dxcompiler.lib;spirv-cross-cpp.lib;spirv-cross-glsl.lib;spirv-cross-hlsl.lib;spirv-cross-core.lib;vulkan-1.lib;freetype.lib;D3d12.lib;dxgi.lib;d3dcompiler.lib;</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseValidationLayers|Win32'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
@@ -860,7 +927,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>OSK_DEBUG;_DEBUG;_CONSOLE;OSK_DEVELOPMENT;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <LanguageStandard>stdcpp20</LanguageStandard>
+      <LanguageStandard>stdcpplatest</LanguageStandard>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
     <Link>
@@ -885,7 +952,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>OSK_DEVELOPMENT;NDEBUG;OSK_RELEASE;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <LanguageStandard>stdcpp20</LanguageStandard>
+      <LanguageStandard>stdcpplatest</LanguageStandard>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
     <Link>
@@ -913,7 +980,36 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>OSK_DLL_EXPORT;NDEBUG;OSK_RELEASE;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <LanguageStandard>stdcpp20</LanguageStandard>
+      <LanguageStandard>stdcpplatest</LanguageStandard>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>Dxguid.lib;dxcompiler.lib;spirv-cross-cpp.lib;spirv-cross-glsl.lib;spirv-cross-hlsl.lib;spirv-cross-core.lib;vulkan-1.lib;freetype.lib;D3d12.lib;dxgi.lib;d3dcompiler.lib;</AdditionalDependencies>
+      <EntryPointSymbol>
+      </EntryPointSymbol>
+    </Link>
+    <PostBuildEvent>
+      <Command>
+      </Command>
+    </PostBuildEvent>
+    <PreBuildEvent>
+      <Command>
+      </Command>
+    </PreBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='DLL Lib|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>OSK_DLL_EXPORT;NDEBUG;OSK_RELEASE;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <LanguageStandard>stdcpplatest</LanguageStandard>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
     <Link>
@@ -942,7 +1038,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>OSK_DEVELOPMENT;NDEBUG;OSK_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <LanguageStandard>stdcpp20</LanguageStandard>
+      <LanguageStandard>stdcpplatest</LanguageStandard>
       <Optimization>Disabled</Optimization>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
@@ -972,7 +1068,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>OSK_DLL_EXPORT;NDEBUG;OSK_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <LanguageStandard>stdcpp20</LanguageStandard>
+      <LanguageStandard>stdcpplatest</LanguageStandard>
       <Optimization>Disabled</Optimization>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>

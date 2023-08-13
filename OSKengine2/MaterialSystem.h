@@ -28,7 +28,10 @@ namespace OSK::GRAPHICS {
 
 	public:
 
+		MaterialSystem() = default;
 		~MaterialSystem();
+
+		OSK_DISABLE_COPY(MaterialSystem);
 
 		/// @brief Carga un material.
 		/// 
@@ -55,7 +58,9 @@ namespace OSK::GRAPHICS {
 		/// 
 		/// @pre La clase 'T' debe tener implementado OSK_REG_VERTEX_TYPE de manera correcta.
 		template <typename T> void RegisterVertexType() {
-			vertexTypesTable.Insert(T::GetVertexTypeName(), T::GetVertexInfo());
+			VertexInfo info = T::GetVertexInfo();
+			const std::string name = static_cast<std::string>(T::GetVertexTypeName());
+			vertexTypesTable[name] = std::move(info);
 		}
 
 
@@ -84,9 +89,9 @@ namespace OSK::GRAPHICS {
 		void LoadMaterialV1(MaterialLayout* layout, const nlohmann::json& materialInfo, PipelineCreateInfo* info, MaterialType type);
 
 		DynamicArray<UniquePtr<Material>> materials;
-		HashMap<std::string, Material*> materialsPathTable;
-		HashMap<std::string, Material*> materialsNameTable;
-		HashMap<std::string, VertexInfo> vertexTypesTable;
+		std::unordered_map<std::string, Material*, StringHasher, std::equal_to<>> materialsPathTable;
+		std::unordered_map<std::string, Material*, StringHasher, std::equal_to<>> materialsNameTable;
+		std::unordered_map<std::string, VertexInfo, StringHasher, std::equal_to<>> vertexTypesTable;
 		DynamicArray<const IRenderpass*> registeredRenderpasses;
 
 	};

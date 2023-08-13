@@ -4,36 +4,44 @@ using namespace OSK;
 using namespace OSK::GRAPHICS;
 
 void MaterialLayout::AddSlot(const MaterialLayoutSlot& slot) {
-	slots.Insert(slot.name, slot);
+	m_slots[slot.name] = slot;
 }
 
 void MaterialLayout::AddPushConstant(MaterialLayoutPushConstant pushConstant) {
-	pushConstant.offset = accumulatedPushConstOffset;
-	pushConstants.Insert(pushConstant.name, pushConstant);
+	pushConstant.offset = m_accumulatedPushConstOffset;
+	m_pushConstants[pushConstant.name] = pushConstant;
 
-	accumulatedPushConstOffset += pushConstant.size;
+	m_accumulatedPushConstOffset += pushConstant.size;
 }
 
-MaterialLayoutSlot& MaterialLayout::GetSlot(std::string_view name) const {
-	return slots.Get(static_cast<std::string>(name));
+const MaterialLayoutSlot& MaterialLayout::GetSlot(std::string_view name) const {
+	return m_slots.find(name)->second;
 }
 
-MaterialLayoutPushConstant& MaterialLayout::GetPushConstant(std::string_view name) const {
-	return pushConstants.Get(static_cast<std::string>(name));
+const MaterialLayoutPushConstant& MaterialLayout::GetPushConstant(std::string_view name) const {
+	return m_pushConstants.at(static_cast<std::string>(name));
+}
+
+MaterialLayoutSlot& MaterialLayout::GetSlot(std::string_view name) {
+	return m_slots.find(name)->second;
+}
+
+MaterialLayoutPushConstant& MaterialLayout::GetPushConstant(std::string_view name) {
+	return m_pushConstants.at(static_cast<std::string>(name));
 }
 
 const MaterialLayout::MaterialSlotsIterable& MaterialLayout::GetAllSlots() const {
-	return slots;
+	return m_slots;
 }
 
 const MaterialLayout::PushConstantsIterable& MaterialLayout::GetAllPushConstants() const {
-	return pushConstants;
+	return m_pushConstants;
 }
 
 MaterialLayout::MaterialSlotsIterable& MaterialLayout::GetAllSlots() {
-	return slots;
+	return m_slots;
 }
 
 MaterialLayout::PushConstantsIterable& MaterialLayout::GetAllPushConstants() {
-	return pushConstants;
+	return m_pushConstants;
 }

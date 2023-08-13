@@ -49,7 +49,7 @@ namespace OSK::ASSETS {
 		/// </summary>
 		/// 
 		/// @note Nombre de la textura -> ID de la textura dentro de las texturas almacenadas por el modelo.
-		HashMap<std::string, USize32> materialTextures;
+		std::unordered_map<std::string, USize32> materialTextures;
 
 		/// <summary> Factor metálico del material del mesh. </summary>
 		///
@@ -130,12 +130,14 @@ namespace OSK::ASSETS {
 		/// <summary> Devuelve el buffer de la GPU con los vértices del modelo. </summary>
 		/// 
 		/// @note No es null.
-		GRAPHICS::GpuBuffer* GetVertexBuffer() const;
+		GRAPHICS::GpuBuffer* GetVertexBuffer() { return vertexBuffer.GetPointer(); }
+		const GRAPHICS::GpuBuffer* GetVertexBuffer() const { return vertexBuffer.GetPointer(); }
 
 		/// <summary> Devuelve el buffer de la GPU con los índices del modelo. </summary>
 		/// 
 		/// @note No puede ser null.
-		GRAPHICS::GpuBuffer* GetIndexBuffer() const;
+		GRAPHICS::GpuBuffer* GetIndexBuffer() { return indexBuffer.GetPointer(); }
+		const GRAPHICS::GpuBuffer* GetIndexBuffer() const { return indexBuffer.GetPointer(); }
 
 		/// <summary>
 		/// Devuelve la estructura de aceleración de nivel bajo del modelo.
@@ -146,7 +148,8 @@ namespace OSK::ASSETS {
 		/// @pre El renderizador debe tener activado el modo de trazado de rayos.
 		/// @warning Será null si el renderizador no tiene activo el modo de trazado
 		/// de rayos.
-		GRAPHICS::IBottomLevelAccelerationStructure* GetAccelerationStructure() const;
+		GRAPHICS::IBottomLevelAccelerationStructure* GetAccelerationStructure() { return accelerationStructure.GetPointer(); }
+		const GRAPHICS::IBottomLevelAccelerationStructure* GetAccelerationStructure() const { return accelerationStructure.GetPointer(); }
 
 		/// <summary> Número de índices.  </summary>
 		/// 
@@ -180,7 +183,8 @@ namespace OSK::ASSETS {
 		/// 
 		/// @pre Debe ser un modelo animado.
 		/// @warning Será nullptr si no se cumple la precondición.
-		GRAPHICS::Animator* GetAnimator() const;
+		GRAPHICS::Animator* GetAnimator() { return animator.GetPointer(); }
+		const GRAPHICS::Animator* GetAnimator() const { return animator.GetPointer(); }
 
 
 		ModelType GetType() const;

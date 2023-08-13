@@ -37,18 +37,6 @@ void Model3D::_SetIndexCount(USize32 count) {
 	numIndices = count;
 }
 
-GpuBuffer* Model3D::GetVertexBuffer() const {
-	return vertexBuffer.GetPointer();
-}
-
-GpuBuffer* Model3D::GetIndexBuffer() const {
-	return indexBuffer.GetPointer();
-}
-
-IBottomLevelAccelerationStructure* Model3D::GetAccelerationStructure() const {
-	return accelerationStructure.GetPointer();
-}
-
 USize32 Model3D::GetIndexCount() const {
 	return numIndices;
 }
@@ -67,10 +55,6 @@ const ModelMetadata& Model3D::GetMetadata() const {
 
 void Model3D::_SetAnimator(GRAPHICS::Animator&& animator) {
 	this->animator = new Animator(std::move(animator));
-}
-
-Animator* Model3D::GetAnimator() const {
-	return animator.GetPointer();
 }
 
 ModelType Model3D::GetType() const {

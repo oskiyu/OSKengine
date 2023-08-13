@@ -1,11 +1,15 @@
 #pragma once
 
+#include "OSKmacros.h"
+#include <concepts>
+#include <string>
+#include <string_view>
 // #define OSK_CUSTOM_HASHMAP
-#ifdef OSK_CUSTOM_HASHMAP
+ //#ifdef OSK_CUSTOM_HASHMAP
 #include "DynamicArray.hpp"
 #include "Pair.hpp"
 #include "ConstexprBitSet.hpp"
-
+/*
 namespace OSK {
 
 	template <typename T> size_t Hash(const T& elem) {
@@ -438,7 +442,7 @@ namespace OSK {
 	};
 
 }
-#else
+#else */
 
 #include <unordered_map>
 
@@ -447,13 +451,28 @@ namespace OSK {
 
 namespace OSK {
 
-	template <typename T> size_t Hash(const T& elem) {
-		static std::hash<T> hasher;
+
+
+	 /* template <typename T> size_t Hash(const T& elem) {
+		static ::std::hash<T> hasher;
 
 		return hasher(elem);
-	}
+	} */
 
+	struct StringHasher {
+		using is_transparent = void;
 
+		[[nodiscard]] size_t operator()(const char* txt) const {
+			return ::std::hash<::std::string_view>{}(txt);
+		}
+		[[nodiscard]] size_t operator()(::std::string_view txt) const {
+			return ::std::hash<::std::string_view>{}(txt);
+		}
+		[[nodiscard]] size_t operator()(const ::std::string& txt) const {
+			return ::std::hash<::std::string>{}(txt);
+		}
+	};
+	/*
 	/// <summary>
 	/// Un HashMap representa una colleción que enlaza un valor a otro.
 	/// Está compuesto internamente por varias colecciones que almacenan los datos.
@@ -468,6 +487,10 @@ namespace OSK {
 
 	public:
 
+		HashMap() = default;
+		OSK_DEFAULT_COPY_OPERATOR(HashMap);
+		OSK_DEFAULT_MOVE_OPERATOR(HashMap);
+
 		/// <summary>
 		/// Inserta una nueva pareja.
 		/// 
@@ -475,7 +498,8 @@ namespace OSK {
 		/// </summary>
 		/// <param name="key">Valor llave.</param>
 		/// <param name="value">Valor enlazado.</param>
-		void InsertCopy(const TKey& key, const TValue& value) {
+		void InsertCopy(const TKey& key, const TValue& value) 
+		requires std::copyable<TValue> {
 			stdmap[key] = value;
 		}
 
@@ -486,7 +510,8 @@ namespace OSK {
 		/// </summary>
 		/// <param name="key">Valor llave.</param>
 		/// <param name="value">Valor enlazado.</param>
-		void Insert(const TKey& key, const TValue& value) {
+		void Insert(const TKey& key, const TValue& value) 
+		requires std::copyable<TValue> {
 			stdmap[key] = value;
 		}
 
@@ -497,7 +522,8 @@ namespace OSK {
 		/// </summary>
 		/// <param name="key">Valor llave.</param>
 		/// <param name="value">Valor enlazado.</param>
-		void InsertMove(const TKey& key, TValue&& value) {
+		void Insert(const TKey& key, TValue&& value) 
+		requires std::movable<TValue> {
 			stdmap[key] = std::move(value);
 		}
 
@@ -508,7 +534,8 @@ namespace OSK {
 		/// </summary>
 		/// <param name="key">Valor llave.</param>
 		/// <param name="value">Valor enlazado.</param>
-		void Insert(const TKey& key, TValue&& value) {
+		void InsertMove(const TKey& key, TValue&& value) 
+		requires std::movable<TValue> {
 			stdmap[key] = std::move(value);
 		}
 
@@ -601,6 +628,6 @@ namespace OSK {
 		std::unordered_map<TKey, TValue> stdmap;
 
 	};
-
+	*/
 }
-#endif
+// #endif

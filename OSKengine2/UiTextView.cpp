@@ -17,7 +17,7 @@ void TextView::AdjustSizeToText() {
 		return;
 
 	const FontInstance& fontInstance = font->GetInstance(fontSize);
-	const FontCharacter& referenceChar = fontInstance.characters.Get('A');
+	const FontCharacter& referenceChar = fontInstance.characters.at('A');
 
 
 	float totalSizeX = 0.0f;
@@ -40,12 +40,12 @@ void TextView::AdjustSizeToText() {
 			continue;
 		}
 		if (c == '\t') {
-			currentSizeX += (fontInstance.characters.Get(c).advance >> 6) * 4;
+			currentSizeX += (fontInstance.characters.at(c).advance >> 6) * 4;
 
 			continue;
 		}
 
-		const FontCharacter& character = fontInstance.characters.Get(c);
+		const FontCharacter& character = fontInstance.characters.at(c);
 
 		const float characterTop = -character.bearing.y;
 		const float characterBottom = characterTop + character.size.y;

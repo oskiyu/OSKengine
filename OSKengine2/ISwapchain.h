@@ -50,7 +50,12 @@ namespace OSK::GRAPHICS {
 		/// </summary>
 		/// 
 		/// @pre El índice está dentro de los límites.
-		GpuImage* GetImage(unsigned int index) const;
+		GpuImage* GetImage(unsigned int index) {
+			return images[index].GetPointer();
+		}
+		const GpuImage* GetImage(unsigned int index) const {
+			return images[index].GetPointer();
+		}
 
 		PresentMode GetCurrentPresentMode() const;
 

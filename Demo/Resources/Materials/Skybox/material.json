@@ -1,0 +1,20 @@
+{
+    "file_type": "MATERIAL",
+    "spec_ver": 1,
+    "name": "Skybox",
+
+    "vertex_shader": "Resources/Shaders/VK/Skybox/vert.spv",
+    "fragment_shader": "Resources/Shaders/VK/Skybox/frag.spv",
+        
+    "vertex_type": "OSK::Vertex3D",
+
+    "slots":{
+        "0": "camera",
+        "1": "texture"
+    },
+
+    "config": {
+        "depth_testing": "none",
+        "cull_mode": "none"
+    }
+}

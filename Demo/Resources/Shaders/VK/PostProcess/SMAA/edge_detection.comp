@@ -1,0 +1,68 @@
+#version 460
+
+layout (local_size_x = 8, local_size_y = 8) in;
+
+layout (set = 0, binding = 0, rgba32f) uniform readonly image2D sceneImage;
+layout (set = 0, binding = 1, rgba32f) uniform writeonly image2D finalImage; // edgesTexture
+
+// NOTE: Gamma-corrected colors (no SRGB).
+
+float GetLuminosity(vec3 color) {
+    return dot(color, vec3(0.299, 0.587, 0.114));
+}
+
+void main() {
+    const ivec2 uv = ivec2(gl_GlobalInvocationID);
+
+    /*const vec2 threshold = vec2(0.1);
+
+    const float luminosity = GetLuminosity(imageLoad(sceneImage, ivec2(uv)).rgb);
+    const float luminosityLeft = GetLuminosity(imageLoad(sceneImage, ivec2(uv) + ivec2(-1.0, 0.0)).rgb);
+    const float luminosityTop = GetLuminosity(imageLoad(sceneImage, ivec2(uv) + ivec2(0.0, -1.0)).rgb);
+
+    // x = delta respecto a la izquerda
+    // y = delta respecto a arriba 
+    vec4 luminosityDelta = vec4(0.0);
+    luminosityDelta.xy = abs(luminosity - vec2(luminosityLeft, luminosityTop));
+    vec2 edges = step(threshold, luminosityDelta.xy); // edges = 1 si threshold > delta
+
+    // Si no hay bordes (edges == 0.0, 0.0)
+    if (dot(edges, vec2(1.0, 1.0)) == 0){
+        imageStore(finalImage, ivec2(uv), vec4(0.0));
+        return;
+    }
+    
+    const float luminosityRight = GetLuminosity(imageLoad(sceneImage, ivec2(uv) + ivec2(1.0, 0.0)).rgb);
+    const float luminosityBottom = GetLuminosity(imageLoad(sceneImage, ivec2(uv) + ivec2(0.0, 1.0)).rgb);
+   
+    // z = delta respecto a la derecha
+    // w = delta respecto a abajo
+    luminosityDelta.zw = abs(luminosity - vec2(luminosityRight, luminosityBottom));
+
+    // Máxio delta entre (izquierda, arriba) y (abajo, derecha)
+    vec2 maxDelta = max(luminosityDelta.xy, luminosityDelta.zw);
+
+    // izquierda izquierda y arriba arriba
+    const float luminosityLeftLeft = GetLuminosity(imageLoad(sceneImage, ivec2(uv) + ivec2(-2.0, 0.0)).rgb);
+    const float luminosityTopTop = GetLuminosity(imageLoad(sceneImage, ivec2(uv) + ivec2(0.0, -2.0)).rgb);
+
+    // z = delta de izquierda respecto a la izquerda * 2
+    // w = delta de derecha respecto a arriba * 2
+    luminosityDelta.zw = abs(vec2(luminosityLeft, luminosityTop) - vec2(luminosityLeftLeft, luminosityTopTop));
+
+    // Máxio delta entre max y (izquierda * 2, arriba * 2)
+    maxDelta = max(maxDelta.xy, luminosityDelta.zw);
+
+    edges.xy *= step(max(maxDelta.x, maxDelta.y), 2.0 * luminosityDelta.xy);*/
+
+    // CUSTOM:
+    const float targetPixelLuminosity = GetLuminosity(imageLoad(sceneImage, uv).rgb);
+    
+    const float leftPixelLuminosity = GetLuminosity(imageLoad(sceneImage, uv + ivec2(-1.0, 0.0)).rgb);
+    const float topPixelLuminosity = GetLuminosity(imageLoad(sceneImage, uv + ivec2(0.0, -1.0)).rgb);
+
+    // Diferencia con { izquieda, arriba }
+    const vec2 luminosityDiffs = abs(vec2(targetPixelLuminosity) - vec2(leftPixelLuminosity, topPixelLuminosity));
+
+    imageStore(finalImage, ivec2(uv), vec4(float(bool(luminosityDiffs.x > 0.2)), float(bool(luminosityDiffs.y > 0.2)), 0.0, 1.0));
+}

@@ -51,7 +51,7 @@ namespace OSK::GRAPHICS {
 
 	private:
 
-		HashMap<std::string, UIndex32> bindingsLocations;
+		std::unordered_map<std::string, UIndex32> bindingsLocations;
 
 		DynamicArray<VkDescriptorSet> descriptorSets;
 		DynamicArray<DynamicArray<VkWriteDescriptorSet>> bindings;

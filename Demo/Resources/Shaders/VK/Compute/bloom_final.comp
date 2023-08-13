@@ -1,0 +1,132 @@
+#version 460
+
+// 4:4 = 2.80ms
+// 8:8 = 2.30ms <-
+// 16:16 = 2.69ms
+// 32:32: 3.08ms
+
+// 2.81ms / 2.75ms -> 0.72MS
+
+layout (local_size_x = 4, local_size_y = 4) in;
+
+layout (set = 0, binding = 0, rgba32f) uniform readonly image2D sceneImage;
+layout (set = 0, binding = 1, rgba32f) uniform image2DArray bloomImage;
+
+layout (set = 1, binding = 0) buffer ExposureInfo {
+    float exposure;
+} exposure;
+
+layout (push_constant) uniform Info{
+    vec4 infos;
+    ivec2 indices;
+} info;
+
+float GetBrightness(vec4 color) {
+    return dot(color.rgb, vec3(0.2126, 0.7152, 0.0722));
+}
+
+vec4 GetColor(vec2 pixelCoords, int inputIndex) {
+    return imageLoad(bloomImage, ivec3(pixelCoords, inputIndex));
+}
+
+vec4 BilinearInterpolation(vec2 pixelCoords, int inputIndex) {
+    const vec2 fractVec = vec2(fract(pixelCoords.x), fract(pixelCoords.y));
+    const vec2 topLeft = vec2(floor(pixelCoords.x), floor(pixelCoords.y));
+
+    // 0 -> TOP_LEFT
+    // 1 -> TOP_RIGHT
+    // 2 -> BOT_LEFT
+    // 3 -> BOT_RIGHT
+    vec4 colors[4];
+    
+    colors[0] = imageLoad(bloomImage, ivec3(topLeft, inputIndex));
+    colors[1] = imageLoad(bloomImage, ivec3(topLeft + ivec2(1, 0), inputIndex));
+    colors[2] = imageLoad(bloomImage, ivec3(topLeft + ivec2(0, 1), inputIndex));
+    colors[3] = imageLoad(bloomImage, ivec3(topLeft + ivec2(1, 1), inputIndex));
+    
+    const vec4 inter1 = mix(colors[0], colors[1], fractVec.x);
+    const vec4 inter2 = mix(colors[2], colors[3], fractVec.x);
+    const vec4 interFinal = mix(inter1, inter2, fractVec.y);
+
+    return interFinal;
+}
+
+vec4 BiInterpolate(vec4 A, vec4 B, vec4 C, vec4 D) {
+    vec2 coords;
+    const vec2 fractVec = vec2(fract(coords.x), fract(coords.y));
+    const vec2 topLeft = vec2(floor(coords.x), floor(coords.y));
+
+    const vec4 inter1 = mix(A, B, fractVec.x);
+    const vec4 inter2 = mix(C, D, fractVec.x);
+    const vec4 interFinal = mix(inter1, inter2, fractVec.y);
+
+    return A;
+}
+
+void main() {
+    vec4 color = vec4(0.0);
+
+    const int inputIndex = info.indices.x;
+    const int outputIndex = info.indices.y;
+
+    const vec2 previousResolution = info.infos.xy;
+    const vec2 nextResolution = info.infos.zw;
+
+    const vec2 currentCoords = vec2(gl_GlobalInvocationID.xy);
+    
+    if (currentCoords.x > nextResolution.x || currentCoords.y > nextResolution.y)
+        return;
+    
+    const vec2 previousCoordinates = vec2(previousResolution / nextResolution * currentCoords);
+    const vec2 nextCoordinates = currentCoords;
+
+#ifdef QUALITY_LOW
+    // A B C
+    // D E F
+    // G H I
+    const vec4 A = GetColor(previousCoordinates + ivec2(-1, -1), inputIndex);
+    const vec4 B = GetColor(previousCoordinates + ivec2(-1, 0), inputIndex);
+    const vec4 C = GetColor(previousCoordinates + ivec2(-1, 1), inputIndex);
+    const vec4 D = GetColor(previousCoordinates + ivec2(0, -1), inputIndex);
+    const vec4 E = GetColor(previousCoordinates + ivec2(0, 0), inputIndex);
+    const vec4 F = GetColor(previousCoordinates + ivec2(0, 1), inputIndex);
+    const vec4 G = GetColor(previousCoordinates + ivec2(1, -1), inputIndex);
+    const vec4 H = GetColor(previousCoordinates + ivec2(1, 0), inputIndex);
+    const vec4 I = GetColor(previousCoordinates + ivec2(1, 1), inputIndex);
+    
+    color += BiInterpolate(E, G, H, I) * 4;
+
+    color += BiInterpolate(B, C, E, F) * 2;
+    color += BiInterpolate(F, E, I, H) * 2;
+    color += BiInterpolate(D, E, G, H) * 2;
+    color += BiInterpolate(H, I, E, F) * 2;
+    
+    color += BiInterpolate(A, B, D, E);
+    color += BiInterpolate(C, B, F, E);
+    color += BiInterpolate(I, H, F, E);
+    color += BiInterpolate(G, H, D, E);
+
+    color /= 16.0;
+
+#else
+    color += BilinearInterpolation(previousCoordinates, inputIndex) * 4;
+
+    color += BilinearInterpolation(previousCoordinates + vec2(0, 1), inputIndex) * 2;
+    color += BilinearInterpolation(previousCoordinates + vec2(0, -1), inputIndex) * 2;
+    color += BilinearInterpolation(previousCoordinates + vec2(1, 0), inputIndex) * 2;
+    color += BilinearInterpolation(previousCoordinates + vec2(-1, 0), inputIndex) * 2;
+
+    color += BilinearInterpolation(previousCoordinates + vec2(-1, -1), inputIndex);
+    color += BilinearInterpolation(previousCoordinates + vec2(-1, +1), inputIndex);
+    color += BilinearInterpolation(previousCoordinates + vec2(+1, -1), inputIndex);
+    color += BilinearInterpolation(previousCoordinates + vec2(+1, +1), inputIndex);
+    
+    color /= 16.0;
+#endif
+
+    const vec4 originalColor = imageLoad(sceneImage, ivec2(currentCoords.xy));
+    const float ratio = 0.055;
+    color = mix(originalColor, color, ratio);
+    
+    imageStore(bloomImage, ivec3(currentCoords.xy, outputIndex), vec4(color.rgb, 1.0));
+}

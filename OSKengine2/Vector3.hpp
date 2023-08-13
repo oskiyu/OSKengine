@@ -3,6 +3,8 @@
 #include <glm/glm.hpp>
 
 #include "ToString.h"
+#include "OSKmacros.h"
+
 
 namespace OSK {
 
@@ -14,7 +16,7 @@ namespace OSK {
 
 	public:
 
-		static Vector3_t const Zero;
+		static OSKAPI_CALL Vector3_t const Zero;
 
 	public:
 

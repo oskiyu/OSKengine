@@ -36,13 +36,13 @@ void Animator::Setup(const glm::mat4& initialTransform) {
 
 void Animator::Update(TDeltaTime deltaTime) {
 	for (const std::string& animationName : activeAnimations)
-		availableAnimations.Get(animationName).Update(deltaTime, *GetActiveSkin());
+		availableAnimations.at(animationName).Update(deltaTime, *GetActiveSkin());
 	
 	for (auto& matrix : boneMatrices)
 		matrix = glm::mat4(1.0f);
 
 	for (const std::string& animationName : activeAnimations) {
-		const Animation& animation = availableAnimations.Get(animationName);
+		const Animation& animation = availableAnimations.at(animationName);
 
 		for (UIndex32 boneIndex = 0; boneIndex < GetActiveSkin()->bonesIds.GetSize(); boneIndex++) {
 			const float ratio = 1.0f;// / activeAnimations.GetSize();
@@ -50,7 +50,7 @@ void Animator::Update(TDeltaTime deltaTime) {
 			// Transforma de espacio local a espacio de joint.
 			// Contiene la inversa del transform original del hueso.
 			const glm::mat4 inverseMatrix = GetActiveSkin()->inverseMatrices[boneIndex];
-			const glm::mat4 boneMatrix = animation.skeleton.GetBone(boneIndex, *GetActiveSkin())->globalMatrix;
+			const glm::mat4 boneMatrix = animation.skeleton.GetBone(boneIndex, *GetActiveSkin()).globalMatrix;
 			
 			boneMatrices[boneIndex] *= ratio * boneMatrix * inverseMatrix;
 		}
@@ -63,21 +63,21 @@ void Animator::Update(TDeltaTime deltaTime) {
 	boneBuffers[Engine::GetRenderer()->GetCurrentResourceIndex()]->Unmap();
 }
 
-void Animator::AddActiveAnimation(const std::string& name) {
-	OSK_ASSERT(availableAnimations.ContainsKey(name), ModelAnimationNotFoundException(name));
+void Animator::AddActiveAnimation(std::string_view name) {
+	OSK_ASSERT(availableAnimations.contains(name), ModelAnimationNotFoundException(name));
 
-	activeAnimations.Insert(name);
+	activeAnimations.Insert(static_cast<std::string>(name));
 }
 
-void Animator::RemoveActiveAnimation(const std::string& name) {
-	activeAnimations.Remove(name);
+void Animator::RemoveActiveAnimation(std::string_view name) {
+	activeAnimations.Remove(static_cast<std::string>(name));
 }
 
 void Animator::_AddAnimation(const Animation& animation) {
-	availableAnimations.Insert(animation.name, animation);
+	availableAnimations[animation.name] = animation;
 
 	for (const auto& node : nodes)
-		availableAnimations.Get(animation.name).skeleton._AddNode(node);
+		availableAnimations.at(animation.name).skeleton._AddNode(node);
 }
 
 void Animator::_AddNode(const MeshNode& node) {
@@ -89,11 +89,11 @@ void Animator::_AddSkin(AnimationSkin&& skin) {
 	const UIndex32 skinIndex = availableSkins.GetSize();
 
 	availableSkins.Insert(skin);
-	availableSkinsByName.Insert(skin.name, skinIndex);
+	availableSkinsByName[skin.name] = skinIndex;
 }
 
-void Animator::SetActiveSkin(const std::string& name) {
-	OSK_ASSERT(availableSkinsByName.ContainsKey(name), ModelSkinNotFoundException(name));
+void Animator::SetActiveSkin(std::string_view name) {
+	OSK_ASSERT(availableSkinsByName.contains(name), ModelSkinNotFoundException(name));
 
 	activeSkin = name;
 }
@@ -101,7 +101,7 @@ void Animator::SetActiveSkin(const std::string& name) {
 const AnimationSkin* Animator::GetActiveSkin() const {
 	return activeSkin == "" 
 		? nullptr 
-		: &availableSkins.At(availableSkinsByName.Get(activeSkin));
+		: &availableSkins.At(availableSkinsByName.at(activeSkin));
 }
 
 const AnimationSkin& Animator::GetSkin(UIndex32 index) const {

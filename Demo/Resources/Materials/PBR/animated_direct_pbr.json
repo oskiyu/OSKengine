@@ -1,0 +1,17 @@
+{
+    "file_type": "MATERIAL",
+    "spec_ver": 1,
+    "name": "Direct Animated PBR",
+
+    "vertex_shader": "Resources/Shaders/VK/PBR/Direct/Animated/vert.spv",
+    "fragment_shader": "Resources/Shaders/VK/PBR/Direct/frag.spv",
+    
+    "vertex_type": "OSK::VertexAnim3D",
+
+    "slots": {
+        "0": "global",
+        "1": "texture",
+        "2": "animation"
+    }
+    
+}

@@ -1,0 +1,22 @@
+{
+    "file_type": "MATERIAL",
+    "spec_ver": 1,
+    "name": "PBR Terrain",
+
+    "vertex_shader": "Resources/Shaders/VK/PBR/Terrain/vert.spv",
+    "fragment_shader": "Resources/Shaders/VK/PBR/Terrain/frag.spv",
+    "tesselation_control_shader": "Resources/Shaders/VK/PBR/Terrain/tesc.spv",
+    "tesselation_evaluation_shader": "Resources/Shaders/VK/PBR/Terrain/tese.spv",
+    
+    "vertex_type": "OSK::Vertex3D",
+
+    "slots": {
+        "0": "global",
+        "1": "texture"
+    },
+
+    "polygon_mode": "FILL",
+    "config": {
+        "cull_mode": "none"
+    }
+}

@@ -1,0 +1,10 @@
+{
+    "file_type": "ASSET",
+    "spec_ver": 0,
+
+    "name": "AABB",
+    "asset_type": "Model3D",
+    "raw_asset_path": "Resources/RawAssets/Models/Colliders/cube.glb",
+    
+    "scale": 1.0
+}

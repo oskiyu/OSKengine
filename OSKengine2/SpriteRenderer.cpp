@@ -116,7 +116,7 @@ void SpriteRenderer::DrawString(Font& font, USize32 fontSize, std::string_view t
 	float y = transform.GetPosition().y;
 	
 	for (UIndex32 i = 0; i < text.size(); i++) {
-		const FontCharacter& character = fontInstance.characters.Get(text[i]);
+		const FontCharacter& character = fontInstance.characters.at(text[i]);
 
 		if (text[i] == '\n') {
 			y += character.size.y + character.bearing.y;

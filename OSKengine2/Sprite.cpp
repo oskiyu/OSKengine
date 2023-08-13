@@ -27,7 +27,7 @@ Sprite::Sprite() {
 }
 
 void Sprite::SetupMaterial(Material* material) {
-	OSK_ASSERT(material->GetLayout()->GetAllSlots().ContainsKey("texture"), InvalidMaterialException());
+	OSK_ASSERT(material->GetLayout()->GetAllSlots().contains("texture"), InvalidMaterialException());
 	textureMaterialInstance = material->CreateInstance().GetPointer();
 }
 

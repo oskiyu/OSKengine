@@ -22,7 +22,7 @@ void IContainer::AdjustSizeToChildren() {
 
 void IContainer::AddChild(const std::string& key, SharedPtr<IElement> child) {
 	children.Insert(child);
-	childrenTable.Insert(key, child.GetPointer());
+	childrenTable[key] = child.GetPointer();
 
 	EmplaceChild(child.GetPointer());
 }
@@ -48,10 +48,10 @@ void IContainer::Render(SpriteRenderer* renderer, Vector2f parentPosition) const
 }
 
 void IContainer::UpdateByCursor(Vector2f cursorPosition, bool isPressed, Vector2f parentPosition) {
-	for (const auto& child : children)
+	for (auto& child : children)
 		child->UpdateByCursor(cursorPosition, isPressed, GetRelativePosition() + parentPosition);
 }
 
 IElement* IContainer::GetChild(const std::string_view name) const {
-	return childrenTable.Get(static_cast<std::string>(name));
+	return childrenTable.at(static_cast<std::string>(name));
 }

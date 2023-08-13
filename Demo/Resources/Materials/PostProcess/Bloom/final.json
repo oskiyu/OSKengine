@@ -1,0 +1,12 @@
+{
+    "file_type": "MATERIAL_COMPUTE",
+    "spec_ver": 1,
+    "name": "Bloom",
+
+    "compute_shader": "Resources/Shaders/VK/PostProcess/Bloom/bloom_final.spv",
+    
+    "slots": {
+        "0": "texture"
+    }
+
+}

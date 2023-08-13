@@ -28,8 +28,8 @@ namespace OSK::ECS {
 		TComponent& AddComponent(GameObjectIndex obj, const TComponent& component) {
 			ComponentIndex componentId = components.GetSize();
 
-			objectToComponent.Insert(obj, componentId);
-			componentToObject.Insert(componentId, obj);
+			objectToComponent[obj] = componentId;
+			componentToObject[componentId] = obj;
 			components.Insert(component);
 
 			return GetComponent(obj);
@@ -42,8 +42,8 @@ namespace OSK::ECS {
 		TComponent& AddComponentMove(GameObjectIndex obj, TComponent&& component) {
 			const ComponentIndex componentId = components.GetSize();
 
-			objectToComponent.Insert(obj, componentId);
-			componentToObject.Insert(componentId, obj);
+			objectToComponent[obj] = componentId;
+			componentToObject[componentId] = obj;
 			components.Insert(std::move(component));
 
 			return GetComponent(obj);
@@ -55,7 +55,7 @@ namespace OSK::ECS {
 		/// @warning No comprueba que el objeto tenga el componente.
 		/// @pre El objeto debe tener el componente.
 		void RemoveComponent(GameObjectIndex obj) {
-			ComponentIndex compIndex = objectToComponent.Get(obj);
+			ComponentIndex compIndex = objectToComponent.at(obj);
 			const UIndex64 indexOfLast = components.GetSize() - 1;
 
 			// Hacemos que el componente a eliminar esté en la última posición.
@@ -66,15 +66,15 @@ namespace OSK::ECS {
 			// Obtenemos el objeto dueño del componente que acabamos de colocar
 			// donde el componente eliminado.
 			// Actualizamos las tablas para que apunten al nuevo lugar que ocupa.
-			GameObjectIndex objectOfLast = componentToObject.Get(indexOfLast);
-			objectToComponent.Get(objectOfLast) = compIndex;
-			componentToObject.Get(compIndex) = objectOfLast;
+			GameObjectIndex objectOfLast = componentToObject.at(indexOfLast);
+			objectToComponent.at(objectOfLast) = compIndex;
+			componentToObject.at(compIndex) = objectOfLast;
 
 			// Eliminación final.
 			components.RemoveLast();
 
-			objectToComponent.Remove(obj);
-			componentToObject.Remove(indexOfLast);
+			objectToComponent.erase(obj);
+			componentToObject.erase(indexOfLast);
 		}
 
 		/// @brief Devuelve una 
@@ -83,8 +83,18 @@ namespace OSK::ECS {
 		/// 
 		/// @warning No comprueba que el objeto tenga el componente.
 		/// @pre El objeto debe tener el componente.
-		TComponent& GetComponent(GameObjectIndex obj) const {
-			return components.At(objectToComponent.Get(obj));
+		TComponent& GetComponent(GameObjectIndex obj) {
+			return components.At(objectToComponent.at(obj));
+		}
+
+		/// @brief Devuelve una 
+		/// @param obj ID del objeto.
+		/// @return Referencia no estable al componente del objeto dado.
+		/// 
+		/// @warning No comprueba que el objeto tenga el componente.
+		/// @pre El objeto debe tener el componente.
+		const TComponent& GetComponent(GameObjectIndex obj) const {
+			return components.At(objectToComponent.at(obj));
 		}
 				
 		/// @brief Elimina el componente del objeto eliminado.
@@ -102,10 +112,10 @@ namespace OSK::ECS {
 		DynamicArray<TComponent> components;
 
 		/// @brief Mapa dueño -> componente.
-		HashMap<GameObjectIndex, ComponentIndex> objectToComponent;
+		std::unordered_map<GameObjectIndex, ComponentIndex> objectToComponent;
 		
 		/// @brief Mapa componente -> dueño.
-		HashMap<ComponentIndex, GameObjectIndex> componentToObject;
+		std::unordered_map<ComponentIndex, GameObjectIndex> componentToObject;
 
 	};
 

@@ -1,0 +1,22 @@
+{
+    "file_type": "MATERIAL_COMPUTE",
+    "spec_ver": 1,
+    "name": "GBuffer Resolve",
+
+    "compute_shader": "Resources/Shaders/VK/PBR/Deferred/CompResolve/shader.spv",
+    "vertex_shader": "Resources/Shaders/VK/PBR/Deferred/Resolve/vert.spv",
+    "fragment_shader": "Resources/Shaders/VK/PBR/Deferred/Resolve/frag.spv",
+    
+    "vertex_type": "OSK::Vertex2D",
+
+    "slots": {
+        "0": "global",
+        "1": "gbuffer",
+        "2": "output"
+    },
+    
+    "config": {
+        "cull_mode": "none"
+    }
+    
+}

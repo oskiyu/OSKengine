@@ -67,18 +67,18 @@ void main() {
     vec3 normal = texture(normalTexture, inTexCoords).xyz;
     normal = normal * 2.0 - 1.0;
     normal = normalize(tangentMatrix * normal);
-    
+
     const vec3 view = normalize(inCameraPos - inPosition);
     const vec3 reflectVec = reflect(-view, normal);
 
-    const float metallicFactor = clamp(pushConstants.materialInfos.x, 0.01, 1); // TODO: texture
-    const float roughnessFactor = clamp(pushConstants.materialInfos.y, 0.01, 1); // TODO: texture
+    const float metallicFactor = clamp(pushConstants.materialInfos.x, 0.02, 1.0); // TODO: texture
+    const float roughnessFactor = clamp(pushConstants.materialInfos.y, 0.02, 0.95); // TODO: texture
 
     vec3 albedo = inColor.rgb * texture(albedoTexture, inTexCoords).xyz;
 
     vec3 F0 = vec3(DEFAULT_F0);
     F0 = mix(F0, albedo, metallicFactor);
-
+    
     vec3 accummulatedRadiance = vec3(0.0);
 
     // Directional Light
@@ -96,48 +96,48 @@ void main() {
         normal, 
         dirLight.color.rgb * dirLight.directionAndIntensity.w, 
         albedo, 
-        max(0.15, roughnessFactor), 
+        max(0.085, roughnessFactor), 
         metallicFactor);
 
     // Irradiance Map
-    vec3 kS = FreshnelShlick(max(dot(normal, view), 0.0), F0);
-    vec3 kD = 1.0 - kS;
-    kD *= 1.0 - (metallicFactor); // * 0.2
+    const vec3 F = FresnelSchlickRoughness(max(dot(normal, view), 0.0), F0, roughnessFactor);
+    vec3 kSpecular = F;
+    vec3 kDiffuse = 1.0 - kSpecular;
+    kDiffuse *= 1.0 - metallicFactor;
+    kSpecular = 1.0 - kDiffuse;
 
-    const vec3 irradiance = texture(irradianceMap, normal).rgb;
-    vec3 ambient = albedo * kD * irradiance;
+    const vec3 irradianceMap = mix(texture(irradianceMap, normal).rgb, vec3(length(texture(irradianceMap, normal).rgb)), 0.85);
+    vec3 iblDiffuse = albedo * irradianceMap;
 
     const float maxSpecularLod = 5 - 1;
-    const vec3 F = FresnelSchlickRoughness(max(dot(normal, view), 0.0), F0, roughnessFactor);
     const vec3 prefilteredSpecularColor = textureLod(specularMap, reflectVec, roughnessFactor * maxSpecularLod).rgb;
     const vec2 lut = textureLod(specularLut, vec2(max(dot(normal, view), roughnessFactor)), 0).rg;
     const vec3 specular = prefilteredSpecularColor * (F * lut.x + lut.y);
 
-    // vec3 color = ambient * (dirLight.directionAndIntensity.w * 0.5) + accummulatedRadiance * 1.25 + specular * 0.5;
-    // vec3 color = ambient + accummulatedRadiance + specular;
-    
-#define NATURAL
-// #define CUSTOM
+// #define NATURAL
+#define CUSTOM
 
 #ifdef NATURAL
     const float ambientRatio = 1.0;
     const float radianceRatio = 1.0;
     const float specularRatio = 1.0;
 #elif defined(CUSTOM)
-    const float ambientRatio = 0.25;
-    const float radianceRatio = 1.0;
-    const float specularRatio = 0.25;
+    const float ambientRatio = 0.7;
+    const float radianceRatio = 1.2;
+    const float specularRatio = 0.8;
 #else
     const float ambientRatio = 0.65;
     const float radianceRatio = 1.0;
     const float specularRatio = 0.65;
 #endif
 
-    vec3 color = ambient * (dirLight.directionAndIntensity.w * ambientRatio) 
-                + accummulatedRadiance * radianceRatio 
-                + specular * specularRatio;
+    vec3 color = vec3(0);
 
-    // vec3 color = vec3(lut.y);
+    color += iblDiffuse * ambientRatio * kDiffuse * 0.2;
+    color += accummulatedRadiance * radianceRatio;
+    color += specular * specularRatio;
+
+    // vec3 
 
     color = vec3(
         max(color.r, 0.001),
@@ -146,7 +146,9 @@ void main() {
     );
 
     // color *= GetShadowmapCascade(inFragPosInCameraViewSpace, dirLightShadowMat.splits, dirLightShadowMat.matrix, inPosition);
-    // color = normalize(tangentMatrix[0]); // Tangent
+
+    // color = vec3(lut.y);
+    // color = normal;
 
     outColor = vec4(color, 1.0);
 

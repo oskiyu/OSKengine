@@ -1,0 +1,173 @@
+#version 460
+
+#include "config.glsl"
+
+layout (local_size_x = LOCAL_SIZE_X, local_size_y = LOCAL_SIZE_Y) in;
+
+layout (set = 0, binding = 0) uniform sampler2D inputImg;
+layout (set = 0, binding = 1, FORMAT) uniform writeonly image2D outputImg;
+
+layout(push_constant) uniform Info{
+    bool first;
+} info;
+
+/*
+
+A   B   C
+  D   E
+F   G   H
+  I   J
+K   L   M
+
+*/
+#ifdef USE_SHARED_MEMORY
+const int SHARED_MEMORY_SIZE_X = LOCAL_SIZE_X + 2 + 2;
+const int SHARED_MEMORY_SIZE_Y = LOCAL_SIZE_Y + 2 + 2;
+shared vec3 sharedMemory[SHARED_MEMORY_SIZE_X][SHARED_MEMORY_SIZE_Y];
+
+const int NUM_FULL_WAVES = (SHARED_MEMORY_SIZE_X * SHARED_MEMORY_SIZE_Y) /
+                            (LOCAL_SIZE_X * LOCAL_SIZE_Y);
+#endif
+
+vec3 PowVec3(vec3 v, float p)
+{
+    return vec3(pow(v.x, p), pow(v.y, p), pow(v.z, p));
+}
+
+const float invGamma = 1.0 / 2.2;
+vec3 ToSRGB(vec3 v) { return PowVec3(v, invGamma); }
+
+float RGBToLuminance(vec3 col)
+{
+    return dot(col, vec3(0.2126f, 0.7152f, 0.0722f));
+}
+
+float KarisAverage(vec3 col)
+{
+    // Formula is 1 / (1 + luma)
+    float luma = RGBToLuminance(ToSRGB(col)) * 0.25f;
+    return 1.0f / (1.0f + luma);
+}
+
+void main() {
+    const vec2 previousResolution = textureSize(inputImg, 0); // ?
+    const vec2 nextResolution = imageSize(outputImg);
+
+    const vec2 currentCoords = vec2(gl_GlobalInvocationID.xy);
+    
+    const vec2 previousCoordinates = (currentCoords + 0.5) * 2.0;
+
+    const vec2 sourcePixelSize = 1.0 / textureSize(inputImg, 0);
+
+#ifdef USE_SHARED_MEMORY
+
+    // Coordenadas base del grupo de hilos.
+    const ivec2 workgroupCoordinates = ivec2(gl_WorkGroupID.xy) * ivec2(LOCAL_SIZE_X, LOCAL_SIZE_Y);
+    // Coordenadas del hilo dentro del grupo.
+    const ivec2 threadCoordinates = ivec2(gl_LocalInvocationID.xy);
+    // Índice lineal del hilo dentro del grupo.
+    const int threadId = threadCoordinates.x + threadCoordinates.y * LOCAL_SIZE_X;
+
+    // Offset lineal del grupo entero de hilos (64).
+    const int waveOffset = LOCAL_SIZE_X * LOCAL_SIZE_Y;
+
+    for (int i = 0; i < NUM_FULL_WAVES; i++) {
+        // ID lineal del porceso.
+        const int newThreadId = threadId + waveOffset * i;
+
+        const ivec2 sharedMemoryCoordinates = ivec2(
+            newThreadId % SHARED_MEMORY_SIZE_X,
+            newThreadId / SHARED_MEMORY_SIZE_X
+        );
+
+        // Coordenadas del píxel de la imagen que corresponde al hilo.
+        const vec2 imageCoordinates = (sharedMemoryCoordinates + workgroupCoordinates) * 2.0 + 0.5;
+
+        sharedMemory[sharedMemoryCoordinates.x][sharedMemoryCoordinates.y] 
+            = texture(inputImg, imageCoordinates * sourcePixelSize).rgb;
+    }
+
+    const int newThreadId = threadId + waveOffset * NUM_FULL_WAVES;
+    if (newThreadId < SHARED_MEMORY_SIZE_X * SHARED_MEMORY_SIZE_Y) {
+        const ivec2 sharedMemoryCoordinates = ivec2(
+            newThreadId % SHARED_MEMORY_SIZE_X,
+            newThreadId / SHARED_MEMORY_SIZE_X
+        );
+
+            // Coordenadas del píxel de la imagen que corresponde al hilo.
+        const vec2 imageCoordinates = (sharedMemoryCoordinates + workgroupCoordinates) * 2.0 + 0.5;
+
+        sharedMemory[sharedMemoryCoordinates.x][sharedMemoryCoordinates.y] 
+            = texture(inputImg, imageCoordinates * sourcePixelSize).rgb;
+    }
+
+    barrier();
+
+    if (currentCoords.x > nextResolution.x || currentCoords.y > nextResolution.y)
+        return;
+    
+    const ivec2 sharedCoords = ivec2(gl_LocalInvocationID.xy) + ivec2(2, 2);
+
+    const vec4 A = vec4(sharedMemory[sharedCoords.x - 2][sharedCoords.y - 2], 1.0);
+    const vec4 B = vec4(sharedMemory[sharedCoords.x + 0][sharedCoords.y - 2], 1.0);
+    const vec4 C = vec4(sharedMemory[sharedCoords.x + 2][sharedCoords.y - 2], 1.0);
+    
+    const vec4 D = vec4(sharedMemory[sharedCoords.x - 1][sharedCoords.y - 1], 1.0);
+    const vec4 E = vec4(sharedMemory[sharedCoords.x + 1][sharedCoords.y - 1], 1.0);
+
+    const vec4 F = vec4(sharedMemory[sharedCoords.x - 2][sharedCoords.y + 0], 1.0);
+    const vec4 G = vec4(sharedMemory[sharedCoords.x + 0][sharedCoords.y + 0], 1.0);
+    const vec4 H = vec4(sharedMemory[sharedCoords.x + 2][sharedCoords.y + 0], 1.0);
+
+    const vec4 I = vec4(sharedMemory[sharedCoords.x - 1][sharedCoords.y + 1], 1.0);
+    const vec4 J = vec4(sharedMemory[sharedCoords.x + 1][sharedCoords.y + 1], 1.0);
+
+    const vec4 K = vec4(sharedMemory[sharedCoords.x - 2][sharedCoords.y + 2], 1.0);
+    const vec4 L = vec4(sharedMemory[sharedCoords.x + 0][sharedCoords.y + 2], 1.0);
+    const vec4 M = vec4(sharedMemory[sharedCoords.x + 2][sharedCoords.y + 2], 1.0);
+
+#else
+
+    const vec4 A = texture(inputImg, (previousCoordinates + vec2(-2, -2)) * sourcePixelSize);
+    const vec4 B = texture(inputImg, (previousCoordinates + vec2( 0, -2)) * sourcePixelSize);
+    const vec4 C = texture(inputImg, (previousCoordinates + vec2( 2, -2)) * sourcePixelSize);
+    
+    const vec4 D = texture(inputImg, (previousCoordinates + vec2(-1, -1)) * sourcePixelSize);
+    const vec4 E = texture(inputImg, (previousCoordinates + vec2( 1, -1)) * sourcePixelSize);
+    
+    const vec4 F = texture(inputImg, (previousCoordinates + vec2(-2,  0)) * sourcePixelSize);
+    const vec4 G = texture(inputImg, (previousCoordinates + vec2( 0,  0)) * sourcePixelSize);
+    const vec4 H = texture(inputImg, (previousCoordinates + vec2( 2,  0)) * sourcePixelSize);
+    
+    const vec4 I = texture(inputImg, (previousCoordinates + vec2(-1,  1)) * sourcePixelSize);
+    const vec4 J = texture(inputImg, (previousCoordinates + vec2( 1,  1)) * sourcePixelSize);
+    
+    const vec4 K = texture(inputImg, (previousCoordinates + vec2(-2,  2)) * sourcePixelSize);
+    const vec4 L = texture(inputImg, (previousCoordinates + vec2( 0,  2)) * sourcePixelSize);
+    const vec4 M = texture(inputImg, (previousCoordinates + vec2( 2,  2)) * sourcePixelSize);
+    
+#endif
+
+
+    vec4 groupA = (A + B + F + G) * 0.25 * 0.125;
+    vec4 groupB = (B + C + G + H) * 0.25 * 0.125;
+    vec4 groupC = (F + G + K + L) * 0.25 * 0.125;
+    vec4 groupD = (G + H + L + M) * 0.25 * 0.125;
+    vec4 groupE = (D + E + I + J) * 0.25 * 0.5;
+
+    if (info.first) {
+        groupA *= KarisAverage(groupA.rgb);
+        groupB *= KarisAverage(groupB.rgb);
+        groupC *= KarisAverage(groupC.rgb);
+        groupD *= KarisAverage(groupD.rgb);
+        groupE *= KarisAverage(groupE.rgb);
+    }
+
+    const vec4 color = groupA
+                     + groupB
+                     + groupC
+                     + groupD
+                     + groupE;
+
+    imageStore(outputImg, ivec2(currentCoords.xy), color);
+}

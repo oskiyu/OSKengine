@@ -130,7 +130,7 @@ Vector3f Transform3D::TransformPoint(const Vector3f& point) const {
 	const glm::vec4 p = { point.x, point.y, point.Z, 1.0f };
 	const glm::vec4 transformedPoint = matrix * p;
 
-	return Vector3f(glm::vec3(transformedPoint));
+	return Vector3f(glm::vec3(transformedPoint) / transformedPoint.w);
 }
 
 Vector3f Transform3D::GetPosition() const {

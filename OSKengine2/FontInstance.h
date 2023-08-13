@@ -10,33 +10,32 @@
 
 namespace OSK::ASSETS {
 
-	/// <summary>
-	/// Representa una fuente que ha sido generada con un tamaño específico.
+	/// @brief Representa una fuente que ha sido generada con un tamaño específico.
 	/// Cada tamaño de fuente tendrá su propia imagen cargada.
-	/// </summary>
 	struct FontInstance {
 
-		/// <summary> Imagen en la GPU. </summary>
-		/// 
+		FontInstance() = default;
+		OSK_DISABLE_COPY(FontInstance);
+		OSK_DEFAULT_MOVE_OPERATOR(FontInstance);
+
+		/// @brief Imagen en la GPU.
 		/// @note Nunca será null.
 		UniquePtr<GRAPHICS::GpuImage> image;
 
-		/// <summary> Sprite para el renderizado 2D. </summary>
+		/// @brief Sprite para el renderizado 2D.
 		UniquePtr<GRAPHICS::Sprite> sprite;
 
-		/// <summary> Información de los sprites del carácter. </summary>
-		HashMap<char, FontCharacter> characters;
+		/// @brief Información de los sprites del carácter.
+		std::unordered_map<char, FontCharacter> characters;
 
-		/// <summary> Tammaño de fuente de esta instancia. </summary>
-		/// 
+		/// @brief Tamaño de fuente de esta instancia.
 		/// @note En píxeles.
 		USize32 fontSize = 0;
 
-		/// <summary>
-		/// Calcula el tamaño que tendrá este texto si es renderizado
+		/// @brief Calcula el tamaño que tendrá este texto si es renderizado
 		/// con esta instancia de la fuente.
-		/// </summary>
-		/// <returns>Tamaño, en píxeles.</returns>
+		/// @param string Texto.
+		/// @return Tamaño, en píxeles.
 		Vector2f GetTextSize(std::string_view string) const;
 
 	};

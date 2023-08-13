@@ -3,10 +3,10 @@
 using namespace OSK;
 using namespace OSK::GRAPHICS;
 
-IPipelineLayout* IRaytracingPipeline::GetLayout() const {
+const IPipelineLayout* IRaytracingPipeline::GetLayout() const {
 	return layout.GetPointer();
 }
 
-IRtShaderTable* IRaytracingPipeline::GetShaderTable() const {
+const IRtShaderTable* IRaytracingPipeline::GetShaderTable() const {
 	return shaderTable.GetPointer();
 }

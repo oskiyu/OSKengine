@@ -19,6 +19,8 @@ namespace OSK::AUDIO {
 
 	public:
 
+		OSK_DEFAULT_MOVE_OPERATOR(AudioApi);
+
 		/// @brief Inicializa la API de bajo nivel y realiza una búsqueda
 		/// de los dispositivos de salida disponibles.
 		/// @throws AudioDeviceCreationException Si ocurre algún error al crear un device.
@@ -64,7 +66,7 @@ namespace OSK::AUDIO {
 		void SetCurrentDevice(std::string_view name);
 
 		/// @return Todos los dispositivos disponibles.
-		const HashMap<std::string, Device>& GetAllDevices() const;
+		const std::unordered_map<std::string, Device>& GetAllDevices() const;
 
 	private:
 
@@ -83,7 +85,7 @@ namespace OSK::AUDIO {
 		std::string defaultDeviceName;
 				
 		/// @brief Todos los dispositivos disponibles.
-		HashMap<std::string, Device> devices;
+		std::unordered_map<std::string, Device> devices;
 
 	};
 

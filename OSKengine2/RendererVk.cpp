@@ -52,11 +52,11 @@
 using namespace OSK;
 using namespace OSK::GRAPHICS; 
 
-const DynamicArray<const char*> validationLayers = {
+const static DynamicArray<const char*> validationLayers = {
 	"VK_LAYER_KHRONOS_validation"
 };
 
-const DynamicArray<uint32_t> ignoredValidationLayersMessages = {
+const static DynamicArray<uint32_t> ignoredValidationLayersMessages = {
 	0x609a13b, // Shader attachmentt not used
 
 	0xd6d77e1e, // Dynamic Rendering Color
@@ -301,7 +301,7 @@ void RendererVk::CreateInstance(const std::string& appName, const Version& versi
 	}
 #endif
 
-	createInfo.enabledExtensionCount = extensions.GetSize();
+	createInfo.enabledExtensionCount = static_cast<uint32_t>(extensions.GetSize());
 	createInfo.ppEnabledExtensionNames = extensions.GetData();
 	createInfo.pNext = nullptr;
 

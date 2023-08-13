@@ -11,7 +11,7 @@ constexpr USize32 SPACES_PER_TAB = 4;
 
 Vector2f FontInstance::GetTextSize(std::string_view string) const {
 	//Char que se tomará como referencia en cuanto al tamaño de las letras.
-	const FontCharacter& reference = characters.Get('A');
+	const FontCharacter& reference = characters.at('A');
 
 	if (string == "")
 		return Vector2f::Zero;
@@ -21,7 +21,7 @@ Vector2f FontInstance::GetTextSize(std::string_view string) const {
 	float sizeY = reference.bearing.y * fontSize + reference.size.y * fontSize;
 
 	for (auto iterador = string.begin(); iterador != string.end(); iterador++) {
-		const FontCharacter& character = characters.Get(*iterador);
+		const FontCharacter& character = characters.at(*iterador);
 
 		if (*iterador == '\n') {
 			if (temporalSizeX > sizeX) {

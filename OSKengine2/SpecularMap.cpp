@@ -11,7 +11,7 @@ SpecularMap::SpecularMap(const std::string& assetFile)
 
 }
 
-GpuImage* SpecularMap::GetCubemapImage() const {
+GpuImage* SpecularMap::GetCubemapImage() {
 	return iblCubemap.GetPointer();
 }
 
@@ -19,7 +19,7 @@ void SpecularMap::_SetCubemapImage(OwnedPtr<GpuImage> image) {
 	iblCubemap = image.GetPointer();
 }
 
-GpuImage* SpecularMap::GetLookUpTable() const {
+GpuImage* SpecularMap::GetLookUpTable() {
 	return lookUpTable.GetPointer();
 }
 

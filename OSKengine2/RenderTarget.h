@@ -114,14 +114,14 @@ namespace OSK::GRAPHICS {
 		/// @brief Devuelve el material instance para el renderizado a pantalla completa usando
 		/// el material IRenderer::GetFullscreenRenderingMaterial().
 		/// @return Nullptr si no ha sido inicializado, no nulo en caso contrario.
-		MaterialInstance* GetFullscreenSpriteMaterialInstance() const;
+		MaterialInstance* GetFullscreenSpriteMaterialInstance();
 
 		/// @brief Devuelve el material slot requerido para el renderizado a pantalla completa usando
 		/// el material IRenderer::GetFullscreenRenderingMaterial().
 		/// @return Puntero no nulo.
 		/// 
 		/// @pre Debe haberse inicializado correctamente.
-		IMaterialSlot* GetFullscreenSpriteMaterialSlot() const;
+		IMaterialSlot* GetFullscreenSpriteMaterialSlot();
 
 
 		/// @brief Devuelve el tipo de render target (intermedio para ser usado

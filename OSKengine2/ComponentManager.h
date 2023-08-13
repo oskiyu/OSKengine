@@ -16,15 +16,19 @@ namespace OSK::ECS {
 
 	public:
 
+		ComponentManager() = default;
+		OSK_DISABLE_COPY(ComponentManager);
+		OSK_DEFAULT_MOVE_OPERATOR(ComponentManager);
+
 		/// @brief Registra un componente, de tal manera que podrá ser usado
 		/// en el ECS.
 		/// @tparam TComponent Tipo del componente.
 		template <typename TComponent> 
 		void RegisterComponent() {
-			const std::string key = (std::string)TComponent::GetComponentTypeName();
+			const std::string key = static_cast<std::string>(TComponent::GetComponentTypeName());
 
-			componentTypes.Insert(key, nextComponentType);
-			componentContainers.Insert(key, new ComponentContainer<TComponent>());
+			componentTypes[key] = nextComponentType;
+			componentContainers[key] = new ComponentContainer<TComponent>();
 
 			nextComponentType++;
 		}
@@ -33,7 +37,7 @@ namespace OSK::ECS {
 		/// @return Devuelve el identificador del tipo de componente.
 		template <typename TComponent>
 		ComponentType GetComponentType() const {
-			return componentTypes.Get((std::string)TComponent::GetComponentTypeName());
+			return componentTypes.find(TComponent::GetComponentTypeName())->second;
 		}
 
 		/// @brief Añade el componente dado al GameObject dado.
@@ -71,7 +75,7 @@ namespace OSK::ECS {
 		/// <param name="obj">Dueño del componente.</param>
 		/// <returns>Referencia al componente.</returns>
 		template <typename TComponent> 
-		TComponent& GetComponent(GameObjectIndex obj) const {
+		TComponent& GetComponent(GameObjectIndex obj) {
 			return GetComponentContainer<TComponent>()->GetComponent(obj);
 		}
 
@@ -83,7 +87,7 @@ namespace OSK::ECS {
 
 		template <typename TComponent>
 		bool ComponentHasBeenRegistered() const {
-			return componentTypes.ContainsKey((std::string)TComponent::GetComponentTypeName());
+			return componentTypes.contains(TComponent::GetComponentTypeName());
 		}
 
 	private:
@@ -91,11 +95,11 @@ namespace OSK::ECS {
 		/// <summary>
 		/// Map typename del componente -> id del tipo de componente.
 		/// </summary>
-		HashMap<std::string, ComponentType> componentTypes;
+		std::unordered_map<std::string, ComponentType, StringHasher, std::equal_to<>> componentTypes;
 		/// <summary>
 		/// Map typename del componente -> contenedor del componente.
 		/// </summary>
-		HashMap<std::string, UniquePtr<IComponentContainer>> componentContainers;
+		std::unordered_map<std::string, UniquePtr<IComponentContainer>, StringHasher, std::equal_to<>> componentContainers;
 
 		/// <summary>
 		/// Identificador del próximo tipo de componente.
@@ -105,8 +109,8 @@ namespace OSK::ECS {
 		/// <summary>
 		/// Devuelve el contenedor del tipo de componente.
 		/// </summary>
-		template <typename TComponent> ComponentContainer<TComponent>* GetComponentContainer() const {
-			return (ComponentContainer<TComponent>*)componentContainers.Get((std::string)TComponent::GetComponentTypeName()).GetPointer();
+		template <typename TComponent> ComponentContainer<TComponent>* GetComponentContainer() {
+			return (ComponentContainer<TComponent>*)componentContainers.find(TComponent::GetComponentTypeName())->second.GetPointer();
 		}
 			
 	};

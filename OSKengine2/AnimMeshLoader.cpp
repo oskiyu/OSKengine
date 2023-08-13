@@ -56,6 +56,7 @@ void AnimMeshLoader::ProcessNode(const tinygltf::Node& node, UIndex32 nodeId, UI
 
 	// La matriz inicial se aplica en la animación.
 	const glm::mat4 nodeMatrix = GetNodeMatrix(node);
+	const glm::mat3 normalMatrix = glm::transpose(glm::inverse(glm::mat3(nodeMatrix)));
 
 	MeshNode animNode{};
 	animNode.name = node.name;
@@ -70,15 +71,15 @@ void AnimMeshLoader::ProcessNode(const tinygltf::Node& node, UIndex32 nodeId, UI
 		const tinygltf::Mesh& mesh = gltfModel.meshes[node.mesh];
 
 		if (mesh.primitives[0].material > -1)
-			meshIdToMaterialId.Insert(meshes.GetSize(), mesh.primitives[0].material);
+			meshIdToMaterialId[static_cast<UIndex32>(meshes.GetSize())] = mesh.primitives[0].material;
 
 		for (UIndex32 i = 0; i < mesh.primitives.size(); i++) {
 			const tinygltf::Primitive& primitive = mesh.primitives[i];
 
 			OSK_ASSERT(primitive.mode == TINYGLTF_MODE_TRIANGLES, UnsupportedPolygonModeException(std::to_string(primitive.mode)));
 
-			const UIndex32 firstVertexId = vertices.GetSize();
-			const UIndex32 firstIndexId = indices.GetSize();
+			const UIndex32 firstVertexId = static_cast<UIndex32>(vertices.GetSize());
+			const UIndex32 firstIndexId = static_cast<UIndex32>(indices.GetSize());
 
 			const auto primitiveIndices = GetIndices(primitive, firstVertexId);
 
@@ -93,7 +94,7 @@ void AnimMeshLoader::ProcessNode(const tinygltf::Node& node, UIndex32 nodeId, UI
 				? GetTangentVectors(primitive)
 				: GenerateTangetVectors(texCoords, positions, primitiveIndices, firstVertexId);
 
-			const USize32 numVertices = positions.GetSize();
+			const USize32 numVertices = static_cast<USize32>(positions.GetSize());
 
 			const bool hasColors = !colors.IsEmpty();
 			const bool hasJoints= !joints.IsEmpty();
@@ -106,10 +107,10 @@ void AnimMeshLoader::ProcessNode(const tinygltf::Node& node, UIndex32 nodeId, UI
 				VertexAnim3D vertex{};
 
 				vertex.position = positions[v];
-				vertex.normal = normals[v];
+				vertex.normal = glm::normalize(normalMatrix * normals[v].ToGLM());
 				vertex.texCoords = texCoords[v];
 				vertex.color = Color::White;
-				vertex.tangent = tangents[v];
+				vertex.tangent = glm::normalize(normalMatrix * tangents[v].ToGLM());
 
 				if (hasJoints)
 					vertex.boneIndices = joints[v];
@@ -129,7 +130,7 @@ void AnimMeshLoader::ProcessNode(const tinygltf::Node& node, UIndex32 nodeId, UI
 
 			indices.InsertAll(primitiveIndices);
 
-			meshes.Insert(Mesh3D(primitiveIndices.GetSize(), firstIndexId));
+			meshes.Insert(Mesh3D(static_cast<USize32>(primitiveIndices.GetSize()), firstIndexId));
 		}
 	}
 
@@ -144,9 +145,7 @@ void AnimMeshLoader::ProcessNode(const tinygltf::Node& node, UIndex32 nodeId, UI
 }
 
 void AnimMeshLoader::LoadAnimations() {
-	const USize32 numAnimations = gltfModel.animations.size();
-
-	for (UIndex32 animationId = 0; animationId < numAnimations; animationId++) {
+	for (UIndex32 animationId = 0; animationId < gltfModel.animations.size(); animationId++) {
 		tinygltf::Animation gltfAnimation = gltfModel.animations[animationId];
 		Animation animation{};
 
@@ -237,11 +236,9 @@ void AnimMeshLoader::LoadAnimations() {
 
 }
 
-void AnimMeshLoader::LoadSkins() {
-	const USize32 numSkins = gltfModel.skins.size();
-	
+void AnimMeshLoader::LoadSkins() {	
 	for (UIndex32 skinId = 0; skinId < gltfModel.skins.size(); skinId++) {
-		tinygltf::Skin& gltfSkin = gltfModel.skins[skinId];
+		const tinygltf::Skin& gltfSkin = gltfModel.skins[skinId];
 
 		AnimationSkin skin;
 		skin.name = gltfSkin.name;
@@ -258,7 +255,7 @@ void AnimMeshLoader::LoadSkins() {
 			const tinygltf::BufferView& bufferView = gltfModel.bufferViews[accessor.bufferView];
 			const tinygltf::Buffer& buffer = gltfModel.buffers[bufferView.buffer];
 
-			const UIndex32 matricesSize = accessor.count * sizeof(glm::mat4);
+			const UIndex32 matricesSize = static_cast<UIndex32>(accessor.count * sizeof(glm::mat4));
 
 			skin.inverseMatrices.Resize(accessor.count);
 			memcpy(skin.inverseMatrices.GetData(), &buffer.data[accessor.byteOffset + bufferView.byteOffset], matricesSize);

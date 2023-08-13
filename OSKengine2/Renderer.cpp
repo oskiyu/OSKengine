@@ -27,31 +27,31 @@ IRenderer::IRenderer(RenderApiType type, bool requestRayTracing) : renderApiType
 	materialSystem = new MaterialSystem;
 }
 
-ICommandList* IRenderer::GetPreComputeCommandList() const{
+ICommandList* IRenderer::GetPreComputeCommandList() {
 	return singleCommandQueue ? graphicsCommandList.GetPointer() : preComputeCommandList.GetPointer();
 }
 
-ICommandList* IRenderer::GetGraphicsCommandList() const {
+ICommandList* IRenderer::GetGraphicsCommandList() {
 	return graphicsCommandList.GetPointer();
 }
 
-ICommandList* IRenderer::GetPostComputeCommandList() const{
+ICommandList* IRenderer::GetPostComputeCommandList() {
 	return singleCommandQueue ? graphicsCommandList.GetPointer() : postComputeCommandList.GetPointer();
 }
 
-ICommandList* IRenderer::GetFrameBuildCommandList() const {
+ICommandList* IRenderer::GetFrameBuildCommandList() {
 	return singleCommandQueue ? graphicsCommandList.GetPointer() : frameBuildCommandList.GetPointer();
 }
 
-IGpuMemoryAllocator* IRenderer::GetAllocator() const {
+IGpuMemoryAllocator* IRenderer::GetAllocator() {
 	return gpuMemoryAllocator.GetPointer();
 }
 
-IGpu* IRenderer::GetGpu() const {
+IGpu* IRenderer::GetGpu() {
 	return currentGpu.GetPointer();
 }
 
-void IRenderer::UploadLayeredImageToGpu(GpuImage* destination, const TByte* data, USize64 numBytes, USize32 numLayers, ICommandList* cmdList) const {
+void IRenderer::UploadLayeredImageToGpu(GpuImage* destination, const TByte* data, USize64 numBytes, USize32 numLayers, ICommandList* cmdList) {
 	OSK_ASSERT(numLayers > 0, InvalidArgumentException("El número de capas debe ser > 0."));
 	OSK_ASSERT(numBytes > 0, InvalidArgumentException("El número de bytes debe ser > 0."));
 
@@ -89,11 +89,11 @@ const TByte* IRenderer::FormatImageDataForGpu(const GpuImage* image, const TByte
 	return data;
 }
 
-void IRenderer::UploadImageToGpu(GpuImage* destination, const TByte* data, USize64 numBytes, ICommandList* cmdList) const {
+void IRenderer::UploadImageToGpu(GpuImage* destination, const TByte* data, USize64 numBytes, ICommandList* cmdList) {
 	UploadLayeredImageToGpu(destination, data, numBytes, 1, cmdList);
 }
 
-void IRenderer::UploadCubemapImageToGpu(GpuImage* destination, const TByte* data, USize64 numBytes, ICommandList* cmdList) const {
+void IRenderer::UploadCubemapImageToGpu(GpuImage* destination, const TByte* data, USize64 numBytes, ICommandList* cmdList) {
 	UploadLayeredImageToGpu(destination, data, numBytes, 6, cmdList);
 }
 
@@ -104,7 +104,7 @@ OwnedPtr<ICommandList> IRenderer::CreateSingleUseCommandList() {
 	return output;
 }
 
-MaterialSystem* IRenderer::GetMaterialSystem() const {
+MaterialSystem* IRenderer::GetMaterialSystem() {
 	return materialSystem.GetPointer();
 }
 
@@ -128,7 +128,7 @@ bool IRenderer::IsOpen() const {
 	return isOpen;
 }
 
-RenderTarget* IRenderer::GetFinalRenderTarget() const {
+RenderTarget* IRenderer::GetFinalRenderTarget() {
 	return finalRenderTarget.GetPointer();
 }
 
@@ -140,7 +140,7 @@ const ECS::CameraComponent2D& IRenderer::GetRenderTargetsCamera() const {
 	return *renderTargetsCamera.GetPointer();
 }
 
-ISwapchain* IRenderer::_GetSwapchain() const {
+ISwapchain* IRenderer::_GetSwapchain() {
 	return swapchain.GetPointer();
 }
 
@@ -148,7 +148,7 @@ bool IRenderer::_HasImplicitResizeHandling() const {
 	return implicitResizeHandling;
 }
 
-Material* IRenderer::GetFullscreenRenderingMaterial() const {
+Material* IRenderer::GetFullscreenRenderingMaterial() {
 	return materialSystem->LoadMaterial("Resources/Materials/2D/material_rendertarget.json");
 }
 

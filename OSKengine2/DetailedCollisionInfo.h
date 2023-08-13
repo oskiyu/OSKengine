@@ -17,6 +17,8 @@ namespace OSK::COLLISION {
 		/// @param minimumTranslationVector Vector mínimo que se debe mover la segunda
 		/// entidad para que ambas entidades dejen de colisionar.
 		/// @param points Puntos de colisión (en espacio del mundo).
+		/// @param firstFaceNormal Vector normal de la cara de contacto del primer objeto.
+		/// @param secondFaceNormal Vector normal de la cara de contacto del segundo objeto.
 		/// @param shouldSwaphObjects True si el objeto de referencia y el incidente están en el orden equivocado.
 		/// @return Estructura en el caso de que haya colisión.
 		/// 
@@ -24,6 +26,8 @@ namespace OSK::COLLISION {
 		static DetailedCollisionInfo True(
 			Vector3f minimumTranslationVector, 
 			const DynamicArray<Vector3f>& points,
+			Vector3f firstFaceNormal,
+			Vector3f secondFaceNormal,
 			bool shouldSwaphObjects);
 
 		/// @brief Crea una estructura vacía en el caso de que NO exista colisión.
@@ -61,6 +65,12 @@ namespace OSK::COLLISION {
 		/// @pre Debe haber colisión entre ambos colliders (IsColliding() debe ser true).
 		Vector3f GetSingleContactPoint() const;
 
+		/// @return Vector normal de la cara de contacto del primer objeto.
+		Vector3f GetFirstFaceNormal() const;
+
+		/// @return Vector normal de la cara de contacto del segundo objeto.
+		Vector3f GetSecondFaceNormal() const;
+
 		/// @return True si los índices de los objetos deben intercambiarse.
 		bool ShouldSwapObjects() const;
 
@@ -73,7 +83,10 @@ namespace OSK::COLLISION {
 		/// @brief 
 		/// Este vector representa cuánto debemos mover los objetos para
 		/// que dejen de estar en colisión.
-		Vector3f minimumTranslationVector = 0.0f;
+		Vector3f minimumTranslationVector = Vector3f::Zero;
+
+		Vector3f firstFaceNormal = Vector3f::Zero;
+		Vector3f secondFaceNormal = Vector3f::Zero;
 
 		/// @brief Puntos que definen el área de contacto.
 		DynamicArray<Vector3f> contactPoints;

@@ -57,19 +57,19 @@ void AudioApi::SetListenerVelocity(const Vector3f& velocity) {
 }
 
 const Device& AudioApi::GetCurrentDevice() const {
-	return devices.Get(currentDeviceName);
+	return devices.at(currentDeviceName);
 }
 
 const Device& AudioApi::GetDevice(std::string_view name) const {
-	return devices.Get((std::string)name);
+	return devices.at((std::string)name);
 }
 
 void AudioApi::SetCurrentDevice(std::string_view name) {
 	currentDeviceName = (std::string)name;
-	devices.Get(currentDeviceName).SetCurrent();
+	devices.at(currentDeviceName).SetCurrent();
 }
 
-const HashMap<std::string, Device>& AudioApi::GetAllDevices() const {
+const std::unordered_map<std::string, Device>& AudioApi::GetAllDevices() const {
 	return devices;
 }
 
@@ -80,16 +80,13 @@ void AudioApi::FindDevices() {
 		const auto name = std::string(devicesNames);
 		devicesNames += name.size() + 1;
 
-		devices.Insert(
-			name,
-			Device(name)
-		);
+		devices[name] = Device(name);
 	} while (devicesNames[1] != NULL);
 	
 	defaultDeviceName = std::string(alcGetString(nullptr, ALC_DEFAULT_DEVICE_SPECIFIER));
 	currentDeviceName = defaultDeviceName;
 	
-	devices.Get(defaultDeviceName).SetCurrent();
+	devices.at(defaultDeviceName).SetCurrent();
 
 	OSK_ASSERT(alcGetCurrentContext() != nullptr, AudioDeviceCreationException("No se pudo establecer un contexto."))
 }

@@ -105,7 +105,7 @@ namespace OSK::ECS {
 		GRAPHICS::Material* animatedGbufferMaterial = nullptr;
 		UniquePtr<GRAPHICS::MaterialInstance> globalGbufferMaterialInstance;
 
-		HashMap<GameObjectIndex, glm::mat4> previousModelMatrices;
+		std::unordered_map<GameObjectIndex, glm::mat4> previousModelMatrices;
 
 		GRAPHICS::Material* resolveMaterial = nullptr;
 		UniquePtr<GRAPHICS::MaterialInstance> resolveMaterialInstance;

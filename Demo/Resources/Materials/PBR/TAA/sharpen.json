@@ -1,0 +1,12 @@
+{
+    "file_type": "MATERIAL_COMPUTE",
+    "spec_ver": 1,
+    "name": "TAA Sharpen",
+
+    "compute_shader": "Resources/Shaders/VK/PBR/TAA/sharpen.spv",
+    
+    "slots": {
+        "0": "global"
+    }
+    
+}

@@ -238,7 +238,7 @@ void RenderSystem3D::GenerateShadows(ICommandList* commandList, ModelType modelT
 		GpuBarrierInfo(GpuCommandStage::DEPTH_STENCIL_START, GpuAccessStage::DEPTH_STENCIL_READ | GpuAccessStage::DEPTH_STENCIL_WRITE),
 		GpuImageRange { 
 			.baseLayer = 0, 
-			.numLayers = shadowMap.GetNumCascades(), 
+			.numLayers = shadowMap.GetNumCascades(),
 			.baseMipLevel = 0, 
 			.numMipLevels = ALL_MIP_LEVELS, 
 			.channel = SampledChannel::DEPTH 
@@ -349,8 +349,8 @@ void RenderSystem3D::SceneRenderLoop(ModelType modelType, ICommandList* commandL
 			glm::vec4 materialInfos;
 		} pushConsts {
 			.model = transform.GetAsMatrix(),
-			.previousModel = previousModelMatrices.ContainsKey(obj) 
-				? previousModelMatrices.Get(obj) 
+			.previousModel = previousModelMatrices.contains(obj) 
+				? previousModelMatrices.at(obj) 
 				: glm::mat4(1.0f)
 		};
 
@@ -505,7 +505,7 @@ void RenderSystem3D::Render(GRAPHICS::ICommandList* commandList) {
 	ExecuteTaa(commandList);
 
 	for (const GameObjectIndex obj : GetObjects())
-		previousModelMatrices.Insert(obj, Engine::GetEcs()->GetComponent<Transform3D>(obj).GetAsMatrix());
+		previousModelMatrices[obj] = Engine::GetEcs()->GetComponent<Transform3D>(obj).GetAsMatrix();
 }
 
 void RenderSystem3D::OnTick(TDeltaTime deltaTime) {

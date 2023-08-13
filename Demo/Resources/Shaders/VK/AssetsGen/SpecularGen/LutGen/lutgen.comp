@@ -1,0 +1,104 @@
+#version 460
+
+layout (local_size_x = 8, local_size_y = 8) in;
+
+layout (set = 0, binding = 0, rg16f) uniform writeonly image2D finalImage;
+
+float RadicalInverse_VdC(uint bits)  {
+    bits = (bits << 16u) | (bits >> 16u);
+    bits = ((bits & 0x55555555u) << 1u) | ((bits & 0xAAAAAAAAu) >> 1u);
+    bits = ((bits & 0x33333333u) << 2u) | ((bits & 0xCCCCCCCCu) >> 2u);
+    bits = ((bits & 0x0F0F0F0Fu) << 4u) | ((bits & 0xF0F0F0F0u) >> 4u);
+    bits = ((bits & 0x00FF00FFu) << 8u) | ((bits & 0xFF00FF00u) >> 8u);
+    return float(bits) * 2.3283064365386963e-10; // / 0x100000000
+}
+// ----------------------------------------------------------------------------
+vec2 Hammersley(uint i, uint N) {
+    return vec2(float(i)/float(N), RadicalInverse_VdC(i));
+}  
+
+vec3 ImportanceSampleGGX(vec2 random, vec3 normal, float roughness) {
+    const float roughtness2 = roughness * roughness;
+    const float roughtness4 = roughtness2 * roughtness2;
+
+    // Coordenadas esféricas
+    const float phi = 2.0 * 3.14159 * random.x;
+    const float cosTheta = sqrt((1.0 - random.y) / (1.0 + (roughtness4 - 1.0) * random.y));
+    const float sinTheta = sqrt(1.0 - cosTheta * cosTheta);
+
+    // A coordenadas cartesianas
+    const vec3 H = vec3(
+        cos(phi) * sinTheta,
+        sin(phi) * sinTheta,
+        cosTheta
+    );
+
+    // A espacio del mundo
+    const vec3 up = abs(normal.z) < 0.999 ? vec3(0.0, 0.0, 1.0) : vec3(1.0, 0.0, 0.0);
+    const vec3 tangent = normalize(cross(up, normal));
+    const vec3 bitangent = cross(normal, tangent);
+
+    const vec3 sampleCoords = tangent * H.x + bitangent * H.y + normal * H.z;
+
+    return normalize(sampleCoords);
+}
+
+float GeometrySchlickGGX(float nDotV, float roughness) {
+    const float k = (roughness * roughness) / 2.0;
+
+    return nDotV / (nDotV * (1.0 - k) + k);
+}
+// ----------------------------------------------------------------------------
+float GeometrySmith(vec3 normal, vec3 view, vec3 L, float roughness) {
+    const float nDotV = max(dot(normal, view), 0.0);
+    const float nDotL = max(dot(normal, L), 0.0);
+
+    return GeometrySchlickGGX(nDotL, roughness) * GeometrySchlickGGX(nDotV, roughness);
+}  
+
+
+void main() {
+    const ivec2 coords = ivec2(gl_GlobalInvocationID.xy);
+    const vec2 normalizedCoords = (vec2(coords.xy) + vec2(0.5)) / vec2(imageSize(finalImage));
+
+    const float normalDotView = normalizedCoords.x;
+    const float roughness = 1.0 - normalizedCoords.y;
+
+    const vec3 V = vec3(
+        sqrt(1.0 - normalDotView * normalDotView),
+        0.0,
+        normalDotView
+    );
+
+    float A = 0.0;
+    float B = 0.0;
+
+    const vec3 normal = vec3(0.0, 0.0, 1.0);
+
+    const uint sampleCount = 1024u;
+
+    for (uint i = 0; i < sampleCount; i++) {
+        const vec2 random = Hammersley(i, sampleCount);
+        const vec3 H = ImportanceSampleGGX(random, normal, roughness);
+        const vec3 L = normalize(2.0 * dot(V, H) * H - V);
+
+        const float normalDotL = max(L.z, 0.0);
+        const float normalDotH = max(H.z, 0.0);
+        const float vDotH = max(dot(V, H), 0.0);
+
+        if (normalDotH > 0.0) {
+            const float G = GeometrySmith(normal, V, L, roughness);
+            const float G_ = (G * vDotH) / (normalDotH * normalDotView);
+            
+            const float fc = pow(1.0 - vDotH, 5.0);
+
+            A += (1.0 - fc) * G_;
+            B += fc * G_;
+        }
+    }
+
+    A /= float(sampleCount);
+    B /= float(sampleCount);
+
+    imageStore(finalImage, coords, vec4(A, B, 0, 0));
+}

@@ -99,10 +99,10 @@ USize32 RenderTarget::GetNumColorTargets() const {
 	return colorAttachments.GetSize();
 }
 
-MaterialInstance* RenderTarget::GetFullscreenSpriteMaterialInstance() const {
+MaterialInstance* RenderTarget::GetFullscreenSpriteMaterialInstance() {
 	return fullscreenSpriteMaterialInstance.GetPointer();
 }
 
-IMaterialSlot* RenderTarget::GetFullscreenSpriteMaterialSlot() const {
+IMaterialSlot* RenderTarget::GetFullscreenSpriteMaterialSlot() {
 	return fullscreenSpriteMaterialInstance->GetSlot("texture");
 }

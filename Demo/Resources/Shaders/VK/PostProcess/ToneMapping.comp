@@ -1,0 +1,141 @@
+// See: http://filmicworlds.com/blog/filmic-tonemapping-with-piecewise-power-curves/
+
+#version 460
+
+layout (local_size_x = 8, local_size_y = 8) in;
+
+layout (set = 0, binding = 0) uniform sampler2D sceneImage;
+layout (set = 0, binding = 1, rgba16f) uniform writeonly image2D finalImage;
+
+layout (set = 1, binding = 0) buffer ExposureInfo {
+    float exposure;
+} exposure;
+
+layout (push_constant) uniform Gamma {
+    float exposure;
+    float gamma;
+} gamma;
+
+// Curva:
+// y = scale.Y * e ^ (ln(A) + B * ln((x - offset) * scale.X)) + offset.Y;
+
+const float ToeStrength = .5;
+const float ToeLength = .5;
+const float ShoulderStrength = 2.0;
+const float ShoulderLength = 0.5;
+const float ShoulderAngle = 1.0;
+
+vec3 LearnOpenGLColor(vec3 color) {
+    return vec3(1.0) - exp(-color);
+}
+
+vec3 Unreal3Color(vec3 color) {
+    return color / (color + 0.255) * 1.25;
+}
+
+vec3 FilmicColor(vec3 color) {
+    return color;
+}
+
+// Curves
+
+float PuntoEnCurva(float x, vec2 scale, vec2 offset, float A, float B) {
+    const float processedX = (x + offset.x) * scale.x;
+
+    return offset.y + scale.y * exp(log(A) + B * log(processedX));
+}
+
+float PuntoLineal(float x) {
+    return PuntoEnCurva(x, vec2(1.0), vec2(1.0), 1.0, 1.0);
+}
+
+void ParametrosPuntoToe(float x0, float y0, out float B, out float A) {
+    const float m = 1.0;
+
+    B = (m * x0) / y0;
+    A = exp(log(y0) - B * log(x0));
+}
+
+void ParametrosPuntoShoulder(float x0, float y0, out float B, out float A) {
+    const float m = 1.0;
+
+    B = (m * x0) / y0;
+    A = exp(log(y0) - B * log(x0)); // ?? lnA = log(y0) - B * log(x0); ??
+}
+
+void ParametrosUsuario(float toeLength, float toeStrength, float shoulderAngle, float shoulderStrength, float shoulderLength,
+                        out float x0, out float y0, out float x1, out float y1, out float W, out vec2 overshoot) {
+
+    x0 = toeLength * 0.5;
+    y0 = (1 - toeStrength) * x0;
+
+    const float remainingY = 1.0 - y0;
+
+    const float initialW = x0 + remainingY;
+
+    const float y1offset = (1.0 - shoulderLength) * remainingY;
+
+    x1 = x0 + y1offset;
+    y1 = y0 + y1offset;
+
+    const float extraW = exp2(shoulderStrength) - 1.0;
+
+    W = initialW + extraW;
+
+    overshoot.x = 2 * W * shoulderAngle * shoulderStrength;
+    overshoot.y = 0.5 * shoulderAngle * shoulderStrength;
+}
+
+vec3 CustomColor(vec3 color) {
+    const float toeLength = 0.5;
+    const float toeStrength = 0.5;
+    const float shoulderAngle = 1.0;
+    const float shoulderStrength = 2.0;
+    const float shoulderLength = 0.5;
+
+    float x0 = 0.0;
+    float y0 = 0.0;
+
+    float x1 = 0.0;
+    float y1 = 0.0;
+    
+    float w = 0.0;
+
+    vec2 overshoot = vec2(0.0);
+
+    ParametrosUsuario(toeLength, toeStrength, shoulderAngle, shoulderStrength, shoulderLength, x0, y0, x1, y1, w, overshoot);
+
+    vec3 outColor = color;
+    float A = 0.0;
+    float B = 0.0;
+
+    for (int i = 0; i < 3; i++){
+
+        if (color[i]< x0) {
+            ParametrosPuntoToe(x0, y0, B, A);
+            outColor[i] = PuntoEnCurva(color[i], vec2(1.0), vec2(0.0), A, B);
+        }
+        else if (color[i] < x1)  {
+            outColor[i] = PuntoLineal(color[i]);
+        }
+        else {
+            ParametrosPuntoShoulder(x0, y0, B, A);
+            outColor[i] = PuntoEnCurva(color[i], vec2(1.0), vec2(0.0), A, B);
+        }
+
+    }
+
+    return outColor;
+}
+
+void main() {
+    const vec3 hdrColor = texelFetch(sceneImage, ivec2(gl_GlobalInvocationID), 0).rgb * gamma.exposure;
+
+    // const vec3 toneMapped = vec3(1.0) - exp(-hdrColor * gamma.exposure);
+    vec3 toneMapped = LearnOpenGLColor(hdrColor);
+
+    vec3 ldrColor = pow(toneMapped, vec3(1.0 / gamma.gamma));
+    // ldrColor.b *= 0.95;
+
+    imageStore(finalImage, ivec2(gl_GlobalInvocationID), vec4(ldrColor, 1.0));
+}

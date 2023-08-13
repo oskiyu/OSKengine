@@ -8,4 +8,4 @@ namespace OSK::GRAPHICS {
 }
 
 #define OSK_VERTEX_TYPE_REG(name) const static std::string GetVertexTypeName() { return name; } \
-const static VertexInfo GetVertexInfo();
+static VertexInfo GetVertexInfo();

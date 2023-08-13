@@ -27,7 +27,7 @@ Font::Font(const std::string& assetFile) : IAsset(assetFile) {
 }
 
 void Font::_SetFontFilePath(const std::string& rawFile) {
-	this->fontFile = rawFile;
+	m_fontFile = rawFile;
 }
 
 void Font::LoadSizedFont(USize32 fontSize) {
@@ -42,7 +42,7 @@ void Font::LoadSizedFont(USize32 fontSize) {
 	FT_Face face = nullptr;
 
 	// Carga de la fuente.
-	FT_Error result = FT_New_Face(freeType, fontFile.c_str(), 0, &face);
+	FT_Error result = FT_New_Face(freeType, m_fontFile.c_str(), 0, &face);
 	OSK_ASSERT(result == 0, FontLodaingException(result));
 
 	// Establece el tamaño de esta instancia en concreto.
@@ -101,13 +101,12 @@ void Font::LoadSizedFont(USize32 fontSize) {
 	OwnedPtr<GpuImage> gpuImage = Engine::GetRenderer()->GetAllocator()->CreateImage(imageInfo);
 	gpuImage->SetDebugName(std::format("Font {} size {}", GetName(), fontSize));
 
-	instances.InsertMove(fontSize, std::move(FontInstance{}));
-	FontInstance& instance = instances.Get(fontSize);
+	FontInstance instance = {};
 
 	instance.image = gpuImage.GetPointer();
 
 	const auto numBytes = gpuImage->GetNumberOfBytes();
-	UniquePtr<TByte[]> data(new TByte[numBytes]);
+	TByte* data = new TByte[numBytes];
 
 	USize32 currentX = 0;
 	for (USize32 c = 0; c < 255; c++) {
@@ -123,7 +122,7 @@ void Font::LoadSizedFont(USize32 fontSize) {
 		fontChar.advance = ftCharacters[c].advanceX;
 		fontChar.texCoords = { (int)currentX, 0, (int)fontChar.size.x, (int)fontChar.size.y };
 
-		instance.characters.Insert((char)c, fontChar);
+		instance.characters[(char)c] = fontChar;
 
 		currentX += ftCharacters[c].sizeX;
 	}
@@ -158,37 +157,39 @@ void Font::LoadSizedFont(USize32 fontSize) {
 
 	instance.sprite = new Sprite;
 	instance.sprite->SetImageView(gpuImage->GetView(viewConfig));
-	
+
+	m_instances[fontSize] = std::move(instance);
+
+	delete[] data;
 	// Memory free
 	FT_Done_Face(face);
 }
 
 void Font::UnloadSizedFont(USize32 size) {
-	instances.Remove(size);
+	m_instances.erase(size);
 }
 
-const FontInstance& Font::GetInstance(USize32 fontSize) {
-	if (instances.HasValue(fontSize))
-		return instances.Get(fontSize);
+FontInstance& Font::GetInstance(USize32 fontSize) {
+	if (m_instances.contains(fontSize))
+		return m_instances.at(fontSize);
 
 	LoadSizedFont(fontSize);
 
-	return instances.Get(fontSize);
+	return m_instances.at(fontSize);
 }
 
 GpuImage* Font::GetGpuImage(USize32 fontSize) {
-
 	return GetInstance(fontSize).image.GetPointer();
 }
 
 const FontCharacter& Font::GetCharacterInfo(USize32 fontSize, char character) {
-	return GetInstance(fontSize).characters.Get(character);
+	return GetInstance(fontSize).characters.at(character);
 }
 
 void Font::SetMaterial(Material* material) {
-	this->material = material;
+	m_material = material;
 }
 
 Material* Font::GetMaterial() const {
-	return material;
+	return m_material;
 }

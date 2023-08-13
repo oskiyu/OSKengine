@@ -1,0 +1,72 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Archivos de origen">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Archivos de encabezado">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="Archivos de recursos">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Archivos de encabezado\ECSE">
+      <UniqueIdentifier>{4e9bfd55-355b-4100-9a3f-b4d97fbb6b38}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de origen\ECSE">
+      <UniqueIdentifier>{aea8b17d-c1c8-4060-b975-a97dfbcba5ef}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de encabezado\Spawners">
+      <UniqueIdentifier>{f939779a-50a0-4a9f-9fec-d6dc8c1637e0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de origen\Spawners">
+      <UniqueIdentifier>{9cf0803b-e10a-4fd1-93b3-44cf60294cba}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="main.cpp">
+      <Filter>Archivos de origen</Filter>
+    </ClCompile>
+    <ClCompile Include="Game.cpp">
+      <Filter>Archivos de origen</Filter>
+    </ClCompile>
+    <ClCompile Include="CarInputSystem.cpp">
+      <Filter>Archivos de origen\ECSE</Filter>
+    </ClCompile>
+    <ClCompile Include="CarSpawner.cpp">
+      <Filter>Archivos de origen\Spawners</Filter>
+    </ClCompile>
+    <ClCompile Include="CircuitSpawner.cpp">
+      <Filter>Archivos de origen\Spawners</Filter>
+    </ClCompile>
+    <ClCompile Include="CarSystem.cpp">
+      <Filter>Archivos de origen\ECSE</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Game.h">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
+    <ClInclude Include="CarComponent.h">
+      <Filter>Archivos de encabezado\ECSE</Filter>
+    </ClInclude>
+    <ClInclude Include="CarInputSystem.h">
+      <Filter>Archivos de encabezado\ECSE</Filter>
+    </ClInclude>
+    <ClInclude Include="CarInputEvent.h">
+      <Filter>Archivos de encabezado\ECSE</Filter>
+    </ClInclude>
+    <ClInclude Include="CarSpawner.h">
+      <Filter>Archivos de encabezado\Spawners</Filter>
+    </ClInclude>
+    <ClInclude Include="CircuitSpawner.h">
+      <Filter>Archivos de encabezado\Spawners</Filter>
+    </ClInclude>
+    <ClInclude Include="CarSystem.h">
+      <Filter>Archivos de encabezado\ECSE</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>

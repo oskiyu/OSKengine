@@ -104,7 +104,7 @@ namespace OSK::ECS {
 		// TAA
 		GRAPHICS::TaaProvider taaProvider{};
 
-		HashMap<GameObjectIndex, glm::mat4> previousModelMatrices;
+		std::unordered_map<GameObjectIndex, glm::mat4> previousModelMatrices;
 
 		glm::mat4 previousCameraProjection = glm::mat4(1.0f);
 		glm::mat4 previousCameraView = glm::mat4(1.0f);

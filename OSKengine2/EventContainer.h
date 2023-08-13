@@ -11,7 +11,7 @@ namespace OSK::ECS {
 	/// 
 	/// @pre TEvent debe cumplir IsEcsEvent<TEvent>.
 	template <typename TEvent> requires IsEcsEvent<TEvent>
-	class OSKAPI_CALL EventContainer final : public IEventContainer {
+	class EventContainer final : public IEventContainer {
 
 	public:
 

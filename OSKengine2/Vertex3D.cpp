@@ -2,7 +2,7 @@
 
 using namespace OSK::GRAPHICS;
 
-const VertexInfo Vertex3D::GetVertexInfo() {
+VertexInfo Vertex3D::GetVertexInfo() {
 	VertexInfo info{};
 
 	info.entries.Insert({
@@ -34,7 +34,7 @@ const VertexInfo Vertex3D::GetVertexInfo() {
 }
 
 
-const VertexInfo VertexAnim3D::GetVertexInfo() {
+VertexInfo VertexAnim3D::GetVertexInfo() {
 	VertexInfo info{};
 
 	info.entries.Insert({
@@ -75,7 +75,7 @@ const VertexInfo VertexAnim3D::GetVertexInfo() {
 	return info;
 }
 
-const VertexInfo VertexCollisionDebug3D::GetVertexInfo() {
+VertexInfo VertexCollisionDebug3D::GetVertexInfo() {
 	VertexInfo info{};
 
 	info.entries.Insert({

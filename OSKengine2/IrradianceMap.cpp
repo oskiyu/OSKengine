@@ -9,7 +9,7 @@ IrradianceMap::IrradianceMap(const std::string& assetFile)
 
 }
 
-GRAPHICS::GpuImage* IrradianceMap::GetGpuImage() const {
+GRAPHICS::GpuImage* IrradianceMap::GetGpuImage() {
 	return gpuImage.GetPointer();
 }
 
@@ -21,6 +21,6 @@ void IrradianceMap::_SetOriginalCubemap(OwnedPtr<GRAPHICS::GpuImage> image) {
 	originalCubemap = image.GetPointer();
 }
 
-GpuImage* IrradianceMap::GetOriginalCubemap() const {
+GpuImage* IrradianceMap::GetOriginalCubemap() {
 	return originalCubemap.GetPointer();
 }

@@ -47,6 +47,7 @@ void StaticMeshLoader::SmoothNormals() {
 
 void StaticMeshLoader::ProcessNode(const tinygltf::Node& node, UIndex32 nodeId, UIndex32 parentId) {
 	const glm::mat4 nodeMatrix = modelTransform * GetNodeMatrix(node);
+	const glm::mat3 normalMatrix = glm::transpose(glm::inverse(glm::mat3(nodeMatrix)));
 
 	// Proceso del polígono.
 	if (node.mesh > -1) {
@@ -56,12 +57,12 @@ void StaticMeshLoader::ProcessNode(const tinygltf::Node& node, UIndex32 nodeId, 
 			const tinygltf::Primitive& primitive = mesh.primitives[i];
 
 			if (primitive.material > -1)
-				meshIdToMaterialId.Insert(meshes.GetSize(), primitive.material);
+				meshIdToMaterialId[static_cast<UIndex32>(meshes.GetSize())] = primitive.material;
 
 			OSK_ASSERT(primitive.mode == TINYGLTF_MODE_TRIANGLES, UnsupportedPolygonModeException(std::to_string(primitive.mode)));
 
-			const UIndex32 firstVertexId = vertices.GetSize();
-			const UIndex32 firstIndexId = indices.GetSize();
+			const UIndex64 firstVertexId = vertices.GetSize();
+			const UIndex64 firstIndexId = indices.GetSize();
 
 			const auto primitiveIndices = GetIndices(primitive, firstVertexId);
 
@@ -74,21 +75,20 @@ void StaticMeshLoader::ProcessNode(const tinygltf::Node& node, UIndex32 nodeId, 
 				? GetTangentVectors(primitive)
 				: GenerateTangetVectors(texCoords, positions, primitiveIndices, firstVertexId);
 
-			const USize32 numVertices = positions.GetSize();
+			const auto numVertices = positions.GetSize();
 
 			const bool hasColors = !colors.IsEmpty();
 
 			// Procesamos los buffers y generamos nuevos vértices.
-			for (UIndex32 v = 0; v < numVertices; v++) {
+			for (UIndex64 v = 0; v < numVertices; v++) {
 
 				Vertex3D vertex{};
 				vertex.position = positions[v];
-				vertex.normal = normals[v];
+				vertex.normal = glm::normalize(normalMatrix * normals[v].ToGLM());
 				vertex.texCoords = texCoords[v];
 				vertex.color = Color::White;
 
-				if (HasTangets(primitive))
-					vertex.tangent = tangents[v];
+				vertex.tangent = glm::normalize(normalMatrix * tangents[v].ToGLM());
 
 				if (primitive.material > -1)
 					vertex.color = modelInfo.materialInfos[primitive.material].baseColor;
@@ -101,7 +101,7 @@ void StaticMeshLoader::ProcessNode(const tinygltf::Node& node, UIndex32 nodeId, 
 
 			indices.InsertAll(primitiveIndices);
 
-			meshes.Insert(Mesh3D(primitiveIndices.GetSize(), firstIndexId));
+			meshes.Insert(Mesh3D(static_cast<USize32>(primitiveIndices.GetSize()), firstIndexId));
 		}
 	}
 

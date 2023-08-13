@@ -82,7 +82,7 @@ void GraphicsPipelineVk::Create(const MaterialLayout* materialLayout, IGpu* devi
 	colorBlendCreateInfo.sType = VK_STRUCTURE_TYPE_PIPELINE_COLOR_BLEND_STATE_CREATE_INFO;
 	colorBlendCreateInfo.logicOpEnable = VK_FALSE;
 	colorBlendCreateInfo.logicOp = VK_LOGIC_OP_COPY;
-	colorBlendCreateInfo.attachmentCount = colorBlends.GetSize();
+	colorBlendCreateInfo.attachmentCount = static_cast<uint32_t>(colorBlends.GetSize());
 	colorBlendCreateInfo.pAttachments = colorBlends.GetData();
 	colorBlendCreateInfo.blendConstants[0] = 0.0f;
 	colorBlendCreateInfo.blendConstants[1] = 0.0f;
@@ -129,7 +129,7 @@ void GraphicsPipelineVk::Create(const MaterialLayout* materialLayout, IGpu* devi
 
 	VkPipelineRenderingCreateInfoKHR renderingCreateInfo{};
 	renderingCreateInfo.sType = VK_STRUCTURE_TYPE_PIPELINE_RENDERING_CREATE_INFO_KHR;
-	renderingCreateInfo.colorAttachmentCount = colorFormats.GetSize();
+	renderingCreateInfo.colorAttachmentCount = static_cast<uint32_t>(colorFormats.GetSize());
 	renderingCreateInfo.pColorAttachmentFormats = colorFormats.GetData();
 	renderingCreateInfo.depthAttachmentFormat = GetFormatVk(info.depthFormat);
 	if (FormatSupportsStencil(info.depthFormat))
@@ -138,7 +138,7 @@ void GraphicsPipelineVk::Create(const MaterialLayout* materialLayout, IGpu* devi
 	// Pipeline
 	VkGraphicsPipelineCreateInfo pipelineCreateInfo{};
 	pipelineCreateInfo.sType = VK_STRUCTURE_TYPE_GRAPHICS_PIPELINE_CREATE_INFO;
-	pipelineCreateInfo.stageCount = shaderStagesInfo.GetSize();
+	pipelineCreateInfo.stageCount = static_cast<uint32_t>(shaderStagesInfo.GetSize());
 	pipelineCreateInfo.pStages = shaderStagesInfo.GetData();
 	pipelineCreateInfo.pVertexInputState = &vertexInputInfo;
 	pipelineCreateInfo.pInputAssemblyState = &inputAssemblyInfo;

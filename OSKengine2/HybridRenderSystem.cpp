@@ -301,8 +301,8 @@ void HybridRenderSystem::GBufferRenderLoop(GRAPHICS::ICommandList* commandList, 
 		for (UIndex32 i = 0; i < model.GetModel()->GetMeshes().GetSize(); i++) {
 			commandList->BindMaterialSlot(*model.GetMeshMaterialInstance(i)->GetSlot("texture"));
 
-			const glm::mat4 previousModelMatrix = previousModelMatrices.ContainsKey(obj)
-				? previousModelMatrices.Get(obj) : glm::mat4(1.0f);
+			const glm::mat4 previousModelMatrix = previousModelMatrices.contains(obj)
+				? previousModelMatrices.at(obj) : glm::mat4(1.0f);
 
 			const Vector4f materialInfo{
 				model.GetModel()->GetMetadata().meshesMetadata[i].metallicFactor,
@@ -523,7 +523,7 @@ void HybridRenderSystem::Render(GRAPHICS::ICommandList* commandList) {
 	Resolve(commandList);
 
 	for (const GameObjectIndex obj : GetObjects()) {
-		previousModelMatrices.Insert(obj, Engine::GetEcs()->GetComponent<Transform3D>(obj).GetAsMatrix());
+		previousModelMatrices[obj] = Engine::GetEcs()->GetComponent<Transform3D>(obj).GetAsMatrix();
 	}
 }
 
@@ -533,6 +533,6 @@ void HybridRenderSystem::OnTick(TDeltaTime deltaTime) {
 
 
 void HybridRenderSystem::AddBlas(IBottomLevelAccelerationStructure* blas) {
-	for (const auto& tlas : topLevelAccelerationStructures)
+	for (auto& tlas : topLevelAccelerationStructures)
 		tlas->AddBottomLevelAccelerationStructure(blas);
 }

@@ -11,9 +11,9 @@ using namespace OSK::GRAPHICS;
 void Skeleton::UpdateMatrices(const AnimationSkin& skin) {
 	// Actualizar matrices de los huesos
 	if (skin.rootIndex != std::numeric_limits<UIndex32>::max())
-		nodes.Get(skin.rootIndex).UpdateSkeletonTree(glm::mat4(1.0f), *this);
+		nodes.at(skin.rootIndex).UpdateSkeletonTree(glm::mat4(1.0f), this);
 	else
-		nodes.Get(GetRootNodeIndex()).UpdateSkeletonTree(glm::mat4(1.0f), *this);
+		nodes.at(GetRootNodeIndex()).UpdateSkeletonTree(glm::mat4(1.0f), this);
 }
 
 UIndex32 Skeleton::GetRootNodeIndex() const {
@@ -24,36 +24,36 @@ UIndex32 Skeleton::GetRootNodeIndex() const {
 	return 0;
 }
 
-MeshNode* Skeleton::GetNode(UIndex32 nodeIndex) const {
-	OSK_ASSERT(nodes.ContainsKey(nodeIndex), BoneNotFoundException(nodeIndex));
+MeshNode& Skeleton::GetNode(UIndex32 nodeIndex) {
+	OSK_ASSERT(nodes.contains(nodeIndex), BoneNotFoundException(nodeIndex));
 
-	return &nodes.Get(nodeIndex);
+	return nodes.at(nodeIndex);
 }
 
-Bone* Skeleton::GetBone(UIndex32 boneIndex, const AnimationSkin& skin) const {
+Bone& Skeleton::GetBone(UIndex32 boneIndex, const AnimationSkin& skin) {
 	const UIndex32 nodeIndex = skin.bonesIds.At(boneIndex);
-	OSK_ASSERT(nodes.ContainsKey(nodeIndex), BoneNotFoundException(boneIndex));
+	OSK_ASSERT(nodes.contains(nodeIndex), BoneNotFoundException(boneIndex));
 
-	return &nodes.Get(nodeIndex);
+	return nodes.at(nodeIndex);
 }
 
-MeshNode* Skeleton::GetNode(std::string_view name) const {
-	OSK_ASSERT(nodesByName.ContainsKey((std::string)name), BoneNotFoundException(name));
+MeshNode& Skeleton::GetNode(std::string_view name) {
+	OSK_ASSERT(nodesByName.contains(name), BoneNotFoundException(name));
 
-	return GetNode(nodesByName.Get((std::string)name));
+	return GetNode(nodesByName.find(name)->second);
 }
 
-Bone* Skeleton::GetBone(std::string_view name, const AnimationSkin& skin) const {
-	OSK_ASSERT(nodesByName.ContainsKey((std::string)name), BoneNotFoundException(name));
+Bone& Skeleton::GetBone(std::string_view name, const AnimationSkin& skin) {
+	OSK_ASSERT(nodesByName.contains(name), BoneNotFoundException(name));
 
-	return GetBone(nodesByName.Get((std::string)name), skin);
+	return GetBone(nodesByName.find(name)->second, skin);
 }
 
 void Skeleton::_AddNode(const MeshNode& node) {
 	const UIndex32 nodeIndex = node.thisIndex;
 
-	OSK_ASSERT(!nodes.ContainsKey(nodeIndex), BoneAlreadyAddedException(node.thisIndex));
+	OSK_ASSERT(!nodes.contains(nodeIndex), BoneAlreadyAddedException(node.thisIndex));
 
-	nodes.Insert(nodeIndex, node);
-	nodesByName.Insert(node.name, nodeIndex);
+	nodes[nodeIndex] = node;
+	nodesByName[node.name] = nodeIndex;
 }

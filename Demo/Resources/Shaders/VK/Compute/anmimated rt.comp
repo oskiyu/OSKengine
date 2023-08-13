@@ -1,0 +1,105 @@
+#version 460
+
+layout (local_size_x = 8, local_size_y = 1) in;
+
+layout (set = 0, binding = 0, rgba8) uniform image2D image;
+
+layout(set = 0, binding = 0) buffer AnimVertices { vec4 data[]; } originalVertices;
+layout(set = 0, binding = 1) buffer AnimIndices { uint data[]; } originalIndices;
+
+layout(set = 0, binding = 2) buffer FinalVertices { vec4 data[]; } finalVertices;
+layout(set = 0, binding = 3) buffer FinalIndices { uint data[]; } finalIndices;
+
+layout (set = 1, binding = 0) buffer Animation {
+    mat4 boneMatrices[];
+} animation;
+
+struct Vertex {
+    vec3 position;
+    vec3 normal;
+    vec4 color;
+    vec2 texCoords;
+};
+
+struct AnimatedVertex {
+    vec3 position;
+    vec3 normal;
+    vec4 color;
+    vec2 texCoords;
+
+    vec4 boneIndices;
+    vec4 boneWeights;
+};
+
+/*
+    Estructura de un vértice en vec4:
+    
+    Normal:
+
+    [ position  position    position    normal ]
+    [ normal    normal      color       color ]
+    [ color     color       texcoords   texcoords ]
+
+
+    Animado:
+    
+    [ position      position        position        normal ]
+    [ normal        normal          color           color ]
+    [ color         color           texcoords       texcoords ]
+    [ boneIndices   boneIndices     boneIndices     boneIndices ]
+    [ boneWeights   boneWeights     boneWeights     boneWeights ]
+    
+*/
+AnimatedVertex GetAnimatedVertex(uint index) {
+    AnimatedVertex v;
+
+    // size: 4 * 20 bytes                   vec4 size = 4 * 4 bytes
+    const uint vec4OffsetPerVertex = (4 * 20) / (4 * 4);
+
+    vec4 data0 = originalVertices.data[vec4OffsetPerVertex * index + 0];
+	vec4 data1 = originalVertices.data[vec4OffsetPerVertex * index + 1];
+	vec4 data2 = originalVertices.data[vec4OffsetPerVertex * index + 2];
+	vec4 data3 = originalVertices.data[vec4OffsetPerVertex * index + 3];
+	vec4 data4 = originalVertices.data[vec4OffsetPerVertex * index + 4];
+	vec4 data5 = originalVertices.data[vec4OffsetPerVertex * index + 5];
+
+    v.position = data0.xyz;
+    v.normal = vec3(data0.w, data1.x, data1.y);
+    v.color = vec4(data1.z, data2.x, data2.y, data2.z);
+    v.texCoords = data3.xy;
+
+    v.boneIndices = vec4(data3.zw, data4.xy);
+    v.boneWeights = vec4(data4.zw, data5.xy);
+
+    return v;
+}
+
+void BuildVertex(uint index, AnimatedVertex animVertex) {
+    // size: 4 * 16 bytes                   vec4 size = 4 * 4 bytes
+    const uint vec4OffsetPerVertex = (4 * 16) / (4 * 4);
+
+    finalVertices.data[vec4OffsetPerVertex + 0] = vec4(animVertex.position, animVertex.normal.x);
+    finalVertices.data[vec4OffsetPerVertex + 1] = vec4(animVertex.normal.yz, animVertex.color.xy);
+    finalVertices.data[vec4OffsetPerVertex + 2] = vec4(animVertex.color.yz, animVertex.texCoords.xy);
+    finalVertices.data[vec4OffsetPerVertex + 3] = vec4(animVertex.color.yz, animVertex.texCoords.xy);
+}
+
+void main() {
+    const int NUM_VERTICES_PROCESSED = 16;
+    
+    int vertexOffset = int(gl_GlobalInvocationID.x) * NUM_VERTICES_PROCESSED;
+    for (int i = 0; i < NUM_VERTICES_PROCESSED; i++) {
+        const int index = vertexOffset + i;
+
+        AnimatedVertex vertex = GetAnimatedVertex(index);
+
+        const mat4 animationMatrix = animation.boneMatrices[int(vertex.boneIndices[0])] * vertex.boneWeights[0]
+                                    + animation.boneMatrices[int(vertex.boneIndices[1])] * vertex.boneWeights[1]
+                                    + animation.boneMatrices[int(vertex.boneIndices[2])] * vertex.boneWeights[2]
+                                    + animation.boneMatrices[int(vertex.boneIndices[3])] * vertex.boneWeights[3];
+
+        vertex.position = vec3(animationMatrix * vec4(vertex.position, 1.0));
+
+        BuildVertex(index, vertex);
+    }
+}

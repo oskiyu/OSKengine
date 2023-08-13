@@ -27,7 +27,7 @@ namespace OSK::GRAPHICS {
 		OwnedPtr<IGpuMemoryBlock> CreateNewBufferMemoryBlock(USize64 size, GpuBufferUsage usage, GpuSharedMemoryType sharedType);
 		//OwnedPtr<IGpuMemoryBlock> CreateNewImageMemoryBlock(GpuImage* image, IGpu* device, GpuSharedMemoryType type, GpuImageUsage imageUSage) override;
 
-		HashMap<D3D12_DESCRIPTOR_HEAP_TYPE, DynamicArray<DescriptorBlockDx12>> descriptorBlocks;
+		std::unordered_map<D3D12_DESCRIPTOR_HEAP_TYPE, DynamicArray<DescriptorBlockDx12>> descriptorBlocks;
 
 	};
 

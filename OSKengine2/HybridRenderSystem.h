@@ -69,7 +69,7 @@ namespace OSK::ECS {
 		glm::mat4 previousView = glm::mat4(1.0f);
 		glm::mat4 previousProjection = glm::mat4(1.0f);
 
-		HashMap<GameObjectIndex, glm::mat4> previousModelMatrices;
+		std::unordered_map<GameObjectIndex, glm::mat4> previousModelMatrices;
 
 
 		// Renders

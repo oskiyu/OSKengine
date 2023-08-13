@@ -213,7 +213,7 @@ void CommandListVk::RawCopyImageToImage(const GpuImage& source, GpuImage* destin
 	region.srcOffset = { 0, 0, 0 };
 	region.dstOffset = { 0, 0, 0 };
 
-	const USize64 numLayers = copyInfo.numArrayLevels == CopyImageInfo::ALL_ARRAY_LEVELS ? source.GetNumLayers() : copyInfo.numArrayLevels;
+	const USize32 numLayers = copyInfo.numArrayLevels == CopyImageInfo::ALL_ARRAY_LEVELS ? source.GetNumLayers() : copyInfo.numArrayLevels;
 
 	region.srcSubresource.aspectMask = VK_IMAGE_ASPECT_COLOR_BIT;
 	region.srcSubresource.mipLevel = copyInfo.sourceMipLevel;
@@ -349,7 +349,7 @@ void CommandListVk::BeginGraphicsRenderpass(DynamicArray<RenderPassImageInfo> co
 	renderpassInfo.sType = VK_STRUCTURE_TYPE_RENDERING_INFO;
 	renderpassInfo.renderArea = { 0, 0, targetSize.x, targetSize.y };
 	renderpassInfo.layerCount = 1;
-	renderpassInfo.colorAttachmentCount = colorAttachments.GetSize();
+	renderpassInfo.colorAttachmentCount = static_cast<uint32_t>(colorAttachments.GetSize());
 	renderpassInfo.pColorAttachments = colorAttachments.GetData();
 	renderpassInfo.pDepthAttachment = &depthAttachment;
 	renderpassInfo.pStencilAttachment = FormatSupportsStencil(depthImage.targetImage->GetFormat()) 

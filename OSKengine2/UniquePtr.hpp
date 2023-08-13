@@ -19,150 +19,86 @@ namespace OSK {
 	/// @warning Debe incluirse el tipo que se vaya a usar dentro del UniquePtr.
 	/// @code #include "T.h" @endcode
 	/// De lo contrario, no se llamará al destructor al eliminarse.
-	template <typename T> /*requires std::is_destructible_v<T>*/ class UniquePtr {
+	template <typename T> class UniquePtr {
 
 	public:
 
 		/// @brief Crea un UniquePtr vacío.
-		UniquePtr() = default;
+		constexpr UniquePtr() noexcept = default;
 
 		/// @brief Crea un UniquePtr a partir del objeto almacenado en la
 		/// dirección de memoria dada.
 		/// @param data Puntero al objeto almacenado en memoria heap.
-		/// 
 		/// @pre @p data debe haber sido creado con el operador new.
-		/// 
-		/// @post Esta instancia de UniquePtr se convierte en dueña del
-		/// objeto apuntado por @p data.
-		UniquePtr(T* data) : pointer(data) {
+		constexpr UniquePtr(T* data) noexcept : m_pointer(data) { }
 
-		}
-
-		/// @brief Crea un UniquePtr a partir del objeto almacenado en la
-		/// dirección de memoria dada.
-		/// @param data Puntero al objeto almacenado en memoria heap.
-		/// 
-		/// @note Si este UniquePtr ya tenía un objeto, dicho objeto se destruirá y se liberará
-		/// su memoria antes de obtener la propiedad de @p data.
-		/// 
-		/// @pre @p data debe haber sido creado con el operador new.
-		/// 
-		/// @post Esta instancia de UniquePtr se convierte en dueña del
-		/// objeto apuntado por @p data.
-		void operator=(T* data) {
-			if (pointer)
-				delete pointer;
-			
-			pointer = data;
-		}
 
 		/// @brief Destruye el objeto, eliminándolo.
 		/// Si no tenía ningún objeto, no ocurre nada.
 		~UniquePtr() {
-			if (pointer) {
-				delete pointer;
-				pointer = nullptr;
-			}
+			if (m_pointer)
+				delete m_pointer;
 		}
 
-		inline UniquePtr(const UniquePtr&) = delete;
-		inline UniquePtr& operator=(const UniquePtr&) = delete;
-
+		UniquePtr(const UniquePtr&) noexcept = delete;
+		UniquePtr& operator=(const UniquePtr&) noexcept = delete;
 
 		/// @brief Crea un UniquePtr que pasa a poseer el objeto de otro UniquePtr.
-		/// El otr UniquePtr se convierte en un UniquePtr vacío.
+		/// El otro UniquePtr se convierte en un UniquePtr vacío.
 		/// @param other El otro puntero.
-		/// 
 		/// @post Este UniquePtr pasa a poseer el objeto de @p other.
 		/// @post El UniquePtr @p other pasa a estar vacío.
-		/// 
 		/// @note Si @p other está vacío, entonces este UniquePtr pasa a estar vacío.
-		/// 
-		/// @see Swap().
-		UniquePtr(UniquePtr&& other) noexcept {
-			other.Swap(*this);
-		}
-
-		/// <summary>
-		/// Este puntero será dueño del puntero de other.
-		/// </summary>
-		/// <param name="other">Otro puntero.</param>
-		/// <returns>Self.</returns>
+		UniquePtr(UniquePtr&& other) noexcept : m_pointer(other.Release()) {}
+				
+		/// @brief Este puntero será dueño del puntero de other.
+		/// @param other Otro puntero.
+		/// @post @p other queda vacío.
 		UniquePtr& operator=(UniquePtr&& other) noexcept {
-			other.Swap(*this);
-
+			Delete();
+			m_pointer = other.Release();
 			return *this;
 		}
-
-		/// <summary>
-		/// 
-		/// </summary>
+		
+		/// @brief Devuelve el puntero, y después vacía
+		/// el UniquePtr.
+		/// @return Puntero que poseía.
+		/// @post El puntero almacenado pasa a ser nulo.
 		T* Release() {
-			T* output = pointer;
-			pointer = nullptr;
+			T* output = m_pointer;
+			m_pointer = nullptr;
 
 			return output;
 		}
 
-		/// <summary>
-		/// Cambia el puntero de este UniquePtr (eliminando el anterior).
-		/// </summary>
-		/// <param name="newValue">Nuevo valor.</param>
-		void SetNewValue(T* newValue) {
-			if (pointer)
-				delete pointer;
-
-			pointer = newValue;
+		template <typename Self>
+		auto&& GetPointer(this Self&& self) {
+			return ::std::forward<Self>(self).operator->();
 		}
 
-		/// <summary>
-		/// Devuelve el puntero nativo.
-		/// </summary>
-		/// <returns>Puntero.</returns>
-		T* GetPointer() const {
-			return pointer;
+		template <typename Self>
+		auto&& GetValue(this Self&& self) {
+			return ::std::forward<Self>(self).operator*();
 		}
 
-		/// <summary>
-		/// Devuelve el valor apuntado por el puntero.
-		/// </summary>
-		/// <returns>Valor.</returns>
-		T& GetValue() {
-			return *pointer;
+		template <typename Self>
+		auto&& operator*(this Self&& self) {
+			return *self.m_pointer;
+		}
+		template <typename Self>
+		auto&& operator->(this Self&& self) {
+			return self.m_pointer;
 		}
 
-		/// <summary>
-		/// Devuelve el puntero nativo.
-		/// </summary>
-		/// <returns>Puntero.</returns>
-		T* operator->() const {
-			return GetPointer();
-		}
 
-		/// <summary>
-		/// Devuelve el valor apuntado por el puntero.
-		/// </summary>
-		/// <returns>Valor.</returns>
-		T& operator*() {
-			return GetValue();
-		}
+		constexpr bool HasValue() const { return m_pointer != nullptr; }
 
-		/// <summary>
-		/// Devuelve true si el puntero no es null.
-		/// </summary>
-		/// <returns>Estado del puntero.</returns>
-		bool HasValue() const {
-			return pointer != nullptr;
-		}
+		void Delete() {
+			static_assert(sizeof(T) > 0, "El tipo de dato no está definido.");
+			if (m_pointer)
+				delete m_pointer;
 
-		/// <summary>
-		/// Elimina el puntero.
-		/// </summary>
-		inline void Delete() {
-			if (pointer)
-				delete pointer;
-
-			pointer = nullptr;
+			m_pointer = nullptr;
 		}
 
 		
@@ -170,185 +106,19 @@ namespace OSK {
 		/// objeto del UniquePtr @p other.
 		/// @param other Otro UniquePtr, con el que se va a intercambiar
 		/// el objeto.
-		/// 
 		/// @post Este UniquePtr almacena (y es dueño) del objeto que antes tenía @p other.
 		/// @post El UniquePtr @p other almacena (y es dueño) del objeto que antes tenía este UniquePtr.
-		/// 
-		/// @note Si @p other no tiene objeto, este UniquePtr se convierte en un UniquePtr vacío.
-		/// @note Si este UniquePtr no tiene objeto, @p other se convierte en un UniquePtr vacío.
-		void Swap(UniquePtr<T>& other) {
-			T* temp = pointer;
-			pointer = other.pointer;
-			other.pointer = temp;
-		}
+		void Swap(UniquePtr<T>& other) { std::swap(m_pointer, other.m_pointer); }
 
-		bool operator==(const UniquePtr& other) const {
-			return pointer == other.pointer;
-		}
-		bool operator!=(const UniquePtr& other) const {
-			return pointer != other.pointer;
-		}
+		constexpr bool operator==(const UniquePtr&) const noexcept = default;
 
 	private:
 
-		/// <summary>
 		/// Puntero.
-		/// </summary>
-		T* pointer = nullptr;
+		T* m_pointer = nullptr;
 
 	};
 
-	/// <summary>
-	/// Es dueño de un puntero.
-	/// El puntero original es eliminado al destruirse el UniquePtr.
-	/// </summary>
-	/// <typeparam name="T">Tipo del puntero.</typeparam>
-	template <typename T> class UniquePtr<T[]> {
-
-#define OSK_STD_UP_DELETE(ptr) if (ptr) delete[](ptr);
-
-	public:
-
-		/// <summary>
-		/// Crea un UniquePtr vacío.
-		/// </summary>
-		UniquePtr() = default;
-
-		explicit UniquePtr(T* data) : pointer(data) {
-
-		}
-
-		/// <summary>
-		/// Crea un UniquePtr que será dueño de 'data'.
-		/// </summary>
-		/// <param name="data">Puntero original.</param>
-		void operator=(T* data) {
-			OSK_STD_UP_DELETE(pointer)
-				pointer = data;
-		}
-
-		/// <summary>
-		/// Devuelve el elemento 'i' del array.
-		/// No comprueba que esté dentro de los límites.
-		/// </summary>
-		T& operator[](USize64 i) const {
-			return pointer[i];
-		}
-
-		/// <summary>
-		/// Destruye el puntero, eliminándolo.
-		/// <summary/>
-		~UniquePtr() {
-			OSK_STD_UP_DELETE(pointer)
-		}
-
-		inline UniquePtr(const UniquePtr&) = delete;
-		inline UniquePtr& operator=(const UniquePtr&) = delete;
-
-		/// <summary>
-		/// Este puntero será dueño del puntero de other.
-		/// </summary>
-		/// <param name="other">Otro puntero.</param>
-		UniquePtr(UniquePtr&& other) {
-			other.Swap(*this);
-
-			return *this;
-		}
-
-		/// <summary>
-		/// Este puntero será dueño del puntero de other.
-		/// </summary>
-		/// <param name="other">Otro puntero.</param>
-		/// <returns>Self.</returns>
-		UniquePtr& operator=(UniquePtr&& other) noexcept {
-			other.Swap(*this);
-
-			return *this;
-		}
-
-		/// <summary>
-		/// 
-		/// </summary>
-		T* Release() {
-			T* output = pointer;
-			pointer = nullptr;
-
-			return output;
-		}
-
-		/// <summary>
-		/// Cambia el puntero de este UniquePtr (eliminando el anterior).
-		/// </summary>
-		/// <param name="newValue">Nuevo valor.</param>
-		void SetNewValue(T* newValue) {
-			OSK_STD_UP_DELETE(pointer)
-
-				pointer = newValue;
-		}
-
-		/// <summary>
-		/// Devuelve el puntero nativo.
-		/// </summary>
-		/// <returns>Puntero.</returns>
-		T* GetPointer() const {
-			return pointer;
-		}
-
-		/// <summary>
-		/// Devuelve el valor apuntado por el puntero.
-		/// </summary>
-		/// <returns>Valor.</returns>
-		T& GetValue() {
-			return *pointer;
-		}
-
-		/// <summary>
-		/// Devuelve el puntero nativo.
-		/// </summary>
-		/// <returns>Puntero.</returns>
-		T* operator->() const {
-			return GetPointer();
-		}
-
-		/// <summary>
-		/// Devuelve el valor apuntado por el puntero.
-		/// </summary>
-		/// <returns>Valor.</returns>
-		T& operator*() {
-			return GetValue();
-		}
-
-		/// <summary>
-		/// Devuelve true si el puntero no es null.
-		/// </summary>
-		/// <returns>Estado del puntero.</returns>
-		bool HasValue() const {
-			return pointer != nullptr;
-		}
-
-		/// <summary>
-		/// Elimina el puntero.
-		/// </summary>
-		inline void Delete() {
-			OSK_STD_UP_DELETE(pointer);
-			pointer = nullptr;
-		}
-
-		void Swap(UniquePtr<T>& other) {
-			T* temp = pointer;
-			pointer = other.pointer;
-			other.pointer = temp;
-		}
-
-	private:
-
-		/// <summary>
-		/// Puntero.
-		/// </summary>
-		T* pointer = nullptr;
-
-	};
 }
 
-#undef OSK_STD_UP_DELETE
 #endif

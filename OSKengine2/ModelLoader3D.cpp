@@ -140,9 +140,9 @@ void ModelLoader3D::SetupPbrModel(const Model3D& model, ECS::ModelComponent3D* c
 	}
 
 	for (UIndex32 i = 0; i < model.GetMeshes().GetSize(); i++) {
-		auto& meshMetadata = model.GetMetadata().meshesMetadata[i];
+		const auto& meshMetadata = model.GetMetadata().meshesMetadata[i];
 		
-		if (meshMetadata.materialTextures.GetSize() > 0) {
+		if (meshMetadata.materialTextures.size() > 0) {
 			for (auto& [name, texture] : meshMetadata.materialTextures) {
 				if (name == "baseTexture")
 					component->GetMeshMaterialInstance(i)->GetSlot("texture")->SetGpuImage("albedoTexture", model.GetImage(texture)->GetView(view));

@@ -36,7 +36,7 @@ void Animation::Update(TDeltaTime deltaTime, const AnimationSkin& skin) {
 
 			const float ratio = (currentTime - timestampA) / (timestampB - timestampA);
 
-			MeshNode* node = skeleton.GetNode(channel.nodeId);
+			MeshNode& node = skeleton.GetNode(channel.nodeId);
 
 			const auto& outputA = sampler.outputs[timestampIndex];
 			const auto& outputB = sampler.outputs[timestampIndex + 1];
@@ -45,7 +45,7 @@ void Animation::Update(TDeltaTime deltaTime, const AnimationSkin& skin) {
 
 				case AnimationChannel::ChannelType::TRANSLATION: {
 					const Vector4f vec4 = MATH::LinearInterpolation_Fast(outputA, outputB, ratio);
-					node->position = { vec4.x, vec4.y, vec4.Z };
+					node.position = { vec4.x, vec4.y, vec4.Z };
 				}
 				break;
 
@@ -62,13 +62,13 @@ void Animation::Update(TDeltaTime deltaTime, const AnimationSkin& skin) {
 					next.z = outputB.Z;
 					next.w = outputB.W;
 
-					node->rotation = Quaternion::FromGlm(glm::normalize(glm::slerp(prev, next, ratio)));
+					node.rotation = Quaternion::FromGlm(glm::normalize(glm::slerp(prev, next, ratio)));
 				}
 				break;
 
 				case AnimationChannel::ChannelType::SCALE: {
 					const Vector4f vec4 = MATH::LinearInterpolation_Fast(outputA, outputB, ratio);
-					node->scale = { vec4.x, vec4.y, vec4.Z };
+					node.scale = { vec4.x, vec4.y, vec4.Z };
 				}
 				break;
 

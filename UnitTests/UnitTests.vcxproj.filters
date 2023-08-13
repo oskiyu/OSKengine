@@ -30,6 +30,9 @@
     <ClCompile Include="EcsTests.cpp">
       <Filter>Archivos de origen\ECS</Filter>
     </ClCompile>
+    <ClCompile Include="PersistenceTests.cpp">
+      <Filter>Archivos de origen</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h">

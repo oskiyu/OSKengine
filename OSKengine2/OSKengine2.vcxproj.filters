@@ -22,171 +22,6 @@
     <Filter Include="Archivos de encabezado\Core">
       <UniqueIdentifier>{558164c6-1a3a-4be4-8d7c-de16fa4f0484}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Archivos de encabezado\Core\RenderAPI">
-      <UniqueIdentifier>{83170729-5134-41f5-bd54-8ea9910d5ec0}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Archivos de encabezado\Core\RenderAPI\LowLevel">
-      <UniqueIdentifier>{99d3bf02-df9b-44a8-9299-7c08bbfcec60}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Archivos de encabezado\Core\RenderAPI\LowLevel\Renderpass">
-      <UniqueIdentifier>{2db46cc9-b1e1-4b5d-8448-3ed0ad8342d8}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Archivos de encabezado\Core\RenderAPI\LowLevel\Renderer">
-      <UniqueIdentifier>{72fe62db-9740-435f-b0ff-453c55895781}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Archivos de encabezado\Core\RenderAPI\LowLevel\Resources">
-      <UniqueIdentifier>{1351832f-7714-425e-b22c-9a0af308174b}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Archivos de encabezado\Core\RenderAPI\LowLevel\Resources\Image">
-      <UniqueIdentifier>{5ef5e3cc-25a5-4b1c-9e9a-ba84da634676}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Archivos de encabezado\Core\RenderAPI\LowLevel\Resources\Image\Format">
-      <UniqueIdentifier>{895d923a-5f98-48c9-9e00-d64c87592467}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Archivos de encabezado\Core\RenderAPI\LowLevel\Resources\Image\Layout">
-      <UniqueIdentifier>{7daad305-aec2-4ecb-a651-fe156ce49713}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Archivos de encabezado\Core\RenderAPI\LowLevel\Resources\Image\Image">
-      <UniqueIdentifier>{54c173ef-62ec-4665-a729-5870e1dce0f1}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Archivos de encabezado\Core\RenderAPI\LowLevel\Resources\Image\Sampler">
-      <UniqueIdentifier>{72fd60d8-fc94-4ae3-b7f9-477e1e275d72}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Archivos de encabezado\Core\RenderAPI\LowLevel\Resources\Image\View">
-      <UniqueIdentifier>{150e542d-be0a-4e56-bb59-781d033d2ff4}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Archivos de encabezado\Core\RenderAPI\LowLevel\Resources\Buffer">
-      <UniqueIdentifier>{eeebfc32-7821-4d18-a161-27fe5e554067}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Archivos de encabezado\Core\RenderAPI\LowLevel\Resources\Buffer\Views">
-      <UniqueIdentifier>{55155f9e-79de-490e-a599-b1e18c069ce6}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Archivos de encabezado\Core\RenderAPI\LowLevel\Swapchain">
-      <UniqueIdentifier>{13d91e0c-c20c-4905-95cd-e419d795f47e}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Archivos de encabezado\Core\RenderAPI\LowLevel\Vertex">
-      <UniqueIdentifier>{c13f8272-ce6b-4990-8565-5cd782b778d0}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Archivos de encabezado\Core\RenderAPI\LowLevel\Vertex\Description">
-      <UniqueIdentifier>{64f408c8-a7ca-42e0-8d02-d4b4a754e4fa}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Archivos de encabezado\Core\RenderAPI\LowLevel\Commands">
-      <UniqueIdentifier>{bb0f8911-f7ab-48d4-9b70-d004d85b65a2}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Archivos de encabezado\Core\RenderAPI\LowLevel\Commands\Queue">
-      <UniqueIdentifier>{f95f27df-6b41-4319-af7f-0da4775148c2}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Archivos de encabezado\Core\RenderAPI\LowLevel\Commands\Pool">
-      <UniqueIdentifier>{9bc4858d-1b8b-4b9e-a315-4c5b6723c221}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Archivos de encabezado\Core\RenderAPI\LowLevel\Commands\List">
-      <UniqueIdentifier>{6c33079a-2a94-418a-a357-31f78a5c74df}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Archivos de encabezado\Core\RenderAPI\LowLevel\Gpu">
-      <UniqueIdentifier>{8447f629-d426-4622-b855-fe41042e9478}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Archivos de encabezado\Core\RenderAPI\LowLevel\Memory">
-      <UniqueIdentifier>{38c20a20-9205-47f6-bd05-f6ae1e9af665}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Archivos de encabezado\Core\RenderAPI\LowLevel\Memory\Allocator">
-      <UniqueIdentifier>{fec5c9ff-18a6-4cdd-b004-fbb7f9a291b0}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Archivos de encabezado\Core\RenderAPI\LowLevel\Memory\Allocator\Dx12">
-      <UniqueIdentifier>{2caf9091-7261-44a4-9230-1bcf4cb295e5}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Archivos de encabezado\Core\RenderAPI\LowLevel\Memory\Block">
-      <UniqueIdentifier>{216e1633-b043-4c17-8943-e0df33bc1ed6}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Archivos de encabezado\Core\RenderAPI\LowLevel\Memory\Subblock">
-      <UniqueIdentifier>{90fac08e-b8b5-4228-b448-0e5a1f67c228}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Archivos de encabezado\Core\RenderAPI\LowLevel\Memory\Enums">
-      <UniqueIdentifier>{50a96a1f-69b5-41ce-85d4-5df26e115f26}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Archivos de encabezado\Core\RenderAPI\LowLevel\Pipeline">
-      <UniqueIdentifier>{7dcb0c62-f988-46b9-b61e-fc5f51441c90}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Archivos de encabezado\Core\RenderAPI\LowLevel\Pipeline\Viewport">
-      <UniqueIdentifier>{31c35286-2001-4330-9cfd-26b42fee0bbb}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Archivos de encabezado\Core\RenderAPI\LowLevel\Pipeline\Layout">
-      <UniqueIdentifier>{afd8f43d-91d0-400d-bbf8-d703ee9e9aaa}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Archivos de encabezado\Core\RenderAPI\LowLevel\Pipeline\Layout\Shader">
-      <UniqueIdentifier>{b113138c-b0b5-46fe-b9c7-c472f8bc8211}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Archivos de encabezado\Core\RenderAPI\LowLevel\Pipeline\Layout\Pipeline">
-      <UniqueIdentifier>{f8a97e08-c333-4e0e-a4f0-c541224f137b}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Archivos de encabezado\Core\RenderAPI\LowLevel\Pipeline\Pipeline">
-      <UniqueIdentifier>{e3e104d9-c560-43be-9848-82f9359201f1}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Archivos de encabezado\Core\RenderAPI\LowLevel\Pipeline\Compute">
-      <UniqueIdentifier>{d4c0105c-58b4-4c69-8dc1-1b7239b11e37}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Archivos de encabezado\Core\RenderAPI\LowLevel\Pipeline\Graphics">
-      <UniqueIdentifier>{7834c91a-1d27-4f14-abb3-4085fda7717d}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Archivos de encabezado\Core\RenderAPI\LowLevel\Pipeline\Raytracing">
-      <UniqueIdentifier>{6cb258b9-07fb-4c69-897d-cbd0a0d39387}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Archivos de encabezado\Core\RenderAPI\LowLevel\Material">
-      <UniqueIdentifier>{ce8289c2-3296-4623-9e27-bd2acf6cbef9}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Archivos de encabezado\Core\RenderAPI\LowLevel\Material\Slot">
-      <UniqueIdentifier>{3c8c5d73-fc07-4fdf-8953-f740a153de1e}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Archivos de encabezado\Core\RenderAPI\LowLevel\Material\Slot\Desc">
-      <UniqueIdentifier>{6c06b96c-ebc7-475e-8434-9258ab904fc3}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Archivos de encabezado\Core\RenderAPI\LowLevel\RT">
-      <UniqueIdentifier>{529fc591-21be-4e64-830c-84aa2cd8d2c6}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Archivos de encabezado\Core\RenderAPI\LowLevel\RT\AS">
-      <UniqueIdentifier>{8e06b537-68da-496e-bf0e-04fa38b3ab40}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Archivos de encabezado\Core\RenderAPI\LowLevel\RT\AS\BLAS">
-      <UniqueIdentifier>{d9892f85-27b8-48d6-afe6-d0c45455811e}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Archivos de encabezado\Core\RenderAPI\LowLevel\RT\AS\TLAS">
-      <UniqueIdentifier>{fd8822ff-89cd-4214-83e3-846318201559}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Archivos de encabezado\Core\RenderAPI\LowLevel\RT\ShaderTable">
-      <UniqueIdentifier>{62e62b93-cb83-4b47-aee2-1698ffcf605a}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Archivos de encabezado\Core\RenderAPI\LowLevel\Object">
-      <UniqueIdentifier>{f2dad5fd-628a-4795-ac70-d0d6b355bd56}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Archivos de encabezado\Core\RenderAPI\HighLevel">
-      <UniqueIdentifier>{0f060710-faff-4407-a43c-740bccd2b83d}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Archivos de encabezado\Core\RenderAPI\HighLevel\Material">
-      <UniqueIdentifier>{0ccaa110-f30e-4d69-80ca-0f39568a0a8e}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Archivos de encabezado\Core\RenderAPI\HighLevel\Material\Layout">
-      <UniqueIdentifier>{2fcd81c1-58d2-411e-a484-070b14394cd9}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Archivos de encabezado\Core\RenderAPI\HighLevel\PBR">
-      <UniqueIdentifier>{5a7d13ac-a2fc-4067-92ef-0c98f9d9547c}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Archivos de encabezado\Core\RenderAPI\HighLevel\PostProcess">
-      <UniqueIdentifier>{2a49b4a9-99ba-41f0-bc5c-28e27f1b6228}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Archivos de encabezado\Core\RenderAPI\HighLevel\PostProcess\SMAA">
-      <UniqueIdentifier>{7c314c9d-993f-48b8-b5e1-367f437704d7}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Archivos de encabezado\Core\RenderAPI\HighLevel\AnimatedModel">
-      <UniqueIdentifier>{e9b696f5-76bc-4e3b-acec-86f3513d17af}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Archivos de encabezado\Core\RenderAPI\HighLevel\RenderTargets">
-      <UniqueIdentifier>{b78af121-6466-4a1e-bced-5b1d84d715f7}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Archivos de encabezado\Core\RenderAPI\HighLevel\2D">
-      <UniqueIdentifier>{f05e6f15-6efe-4b9b-972c-2f4b3bc8a4c5}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Archivos de encabezado\Core\RenderAPI\HighLevel\2D\SpriteRendering">
-      <UniqueIdentifier>{df10f05b-ee63-4ab0-8bca-995b548b18b3}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Archivos de encabezado\Core\STD">
       <UniqueIdentifier>{e23bcee6-9281-4c75-80c8-a463e93e92f9}</UniqueIdentifier>
     </Filter>
@@ -270,135 +105,6 @@
     </Filter>
     <Filter Include="Archivos de origen\Core">
       <UniqueIdentifier>{0d708705-372d-41b8-8ede-05547485f832}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Archivos de origen\Core\RenderAPI">
-      <UniqueIdentifier>{01f5680d-5039-431b-90b4-abd5b6698baa}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Archivos de origen\Core\RenderAPI\LowLevel">
-      <UniqueIdentifier>{9f05af95-2413-4d79-9535-f76cd2c20cc3}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Archivos de origen\Core\RenderAPI\LowLevel\Renderer">
-      <UniqueIdentifier>{3d7513f7-f14b-4f52-86bf-4b190874d8b0}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Archivos de origen\Core\RenderAPI\LowLevel\Resources">
-      <UniqueIdentifier>{0c01acaa-4918-4217-9619-dba8fa9ffc15}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Archivos de origen\Core\RenderAPI\LowLevel\Resources\Buffer">
-      <UniqueIdentifier>{99a98e5b-944a-418a-bb90-6bcd798f302c}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Archivos de origen\Core\RenderAPI\LowLevel\Resources\Image">
-      <UniqueIdentifier>{094c6554-7ba0-4a19-b7ff-3a601ba3a626}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Archivos de origen\Core\RenderAPI\LowLevel\Resources\Image\View">
-      <UniqueIdentifier>{abc13a26-e73b-4a17-a8e2-d5658d21066b}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Archivos de origen\Core\RenderAPI\LowLevel\Swapchain">
-      <UniqueIdentifier>{6fce6098-01eb-486b-93f9-a66905a08e36}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Archivos de origen\Core\RenderAPI\LowLevel\Vertex">
-      <UniqueIdentifier>{e0c71e47-f2d0-4804-93a4-cbce52ecd138}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Archivos de origen\Core\RenderAPI\LowLevel\Commands">
-      <UniqueIdentifier>{703bcaea-ed8c-4704-b274-287ddd66bd5f}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Archivos de origen\Core\RenderAPI\LowLevel\Commands\Queues">
-      <UniqueIdentifier>{777c0da3-13f3-496b-b0c6-bb3cc7016d58}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Archivos de origen\Core\RenderAPI\LowLevel\Commands\Pool">
-      <UniqueIdentifier>{5c1af065-2c95-49dd-8db8-f8d806a66ac9}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Archivos de origen\Core\RenderAPI\LowLevel\Commands\List">
-      <UniqueIdentifier>{615ae9d9-cd2d-497d-afbe-253d5abbc1b6}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Archivos de origen\Core\RenderAPI\LowLevel\Gpu">
-      <UniqueIdentifier>{4dc80e01-f306-4949-afc8-b2ca315d8aa4}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Archivos de origen\Core\RenderAPI\LowLevel\Memory">
-      <UniqueIdentifier>{4d22da90-0da6-465f-a384-e2d19aee7732}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Archivos de origen\Core\RenderAPI\LowLevel\Memory\Allocator">
-      <UniqueIdentifier>{a326600a-b174-4778-8c0c-02ecef490d7f}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Archivos de origen\Core\RenderAPI\LowLevel\Memory\Allocator\Dx12">
-      <UniqueIdentifier>{46e7f15e-f8b4-4cfb-bb43-f1f9a8995985}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Archivos de origen\Core\RenderAPI\LowLevel\Memory\Block">
-      <UniqueIdentifier>{7bfaf32b-d20a-405d-bcc3-ba5a231d320a}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Archivos de origen\Core\RenderAPI\LowLevel\Memory\Subblock">
-      <UniqueIdentifier>{eb750b23-9651-431c-a695-22befa8c2e58}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Archivos de origen\Core\RenderAPI\LowLevel\Memory\Enums">
-      <UniqueIdentifier>{d79ad29a-06e3-412f-8a8a-587c35746d1a}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Archivos de origen\Core\RenderAPI\LowLevel\Material">
-      <UniqueIdentifier>{0e3f0044-ff9a-4c47-a6ce-ebf55be1eea1}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Archivos de origen\Core\RenderAPI\LowLevel\Material\Slot">
-      <UniqueIdentifier>{6bcb0019-d1c1-441f-9a80-0cfa7ffc6c73}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Archivos de origen\Core\RenderAPI\LowLevel\Material\Slot\Desc">
-      <UniqueIdentifier>{cf8afb6f-b221-43a6-bcbb-cf8792cd23e9}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Archivos de origen\Core\RenderAPI\LowLevel\RT">
-      <UniqueIdentifier>{21f41913-222c-48aa-8f37-ddefb2890c00}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Archivos de origen\Core\RenderAPI\LowLevel\RT\AS">
-      <UniqueIdentifier>{835a3ec5-8808-431e-9386-e00b629789f9}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Archivos de origen\Core\RenderAPI\LowLevel\RT\AS\BLAS">
-      <UniqueIdentifier>{5743ce3e-6d5d-4515-baa0-2670d27ea20d}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Archivos de origen\Core\RenderAPI\LowLevel\RT\AS\TLAS">
-      <UniqueIdentifier>{8141c11d-df68-48e5-a6c1-e8de20c84236}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Archivos de origen\Core\RenderAPI\LowLevel\RT\ShaderTable">
-      <UniqueIdentifier>{59a762d1-863e-45ef-88da-385b7857f138}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Archivos de origen\Core\RenderAPI\LowLevel\Pipeline">
-      <UniqueIdentifier>{98ca4f4a-2769-474a-ab3e-0806d3a4d213}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Archivos de origen\Core\RenderAPI\LowLevel\Pipeline\Layout">
-      <UniqueIdentifier>{4991646e-9271-4a29-918e-bc31cea91894}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Archivos de origen\Core\RenderAPI\LowLevel\Pipeline\Shader">
-      <UniqueIdentifier>{f27b86fe-ff95-4a4a-bc98-b9c12dd4f73f}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Archivos de origen\Core\RenderAPI\LowLevel\Pipeline\Pipeline">
-      <UniqueIdentifier>{a6851734-b04f-4f11-a555-4059eeede51e}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Archivos de origen\Core\RenderAPI\LowLevel\Pipeline\Compute">
-      <UniqueIdentifier>{ba4beee5-eb0c-4f1d-baf7-1675e6d91a3b}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Archivos de origen\Core\RenderAPI\LowLevel\Pipeline\Raytracing">
-      <UniqueIdentifier>{064c10e9-3042-45f2-a0e1-b3b9b3971718}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Archivos de origen\Core\RenderAPI\LowLevel\Pipeline\Graphics">
-      <UniqueIdentifier>{90756499-3b15-4adf-adda-3788e01aca33}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Archivos de origen\Core\RenderAPI\HighLevel">
-      <UniqueIdentifier>{5a8f829c-fffd-4b8c-b10f-6954653eac27}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Archivos de origen\Core\RenderAPI\HighLevel\Material">
-      <UniqueIdentifier>{b4dede04-6846-4c59-9849-43c2f3686e39}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Archivos de origen\Core\RenderAPI\HighLevel\Material\Layout">
-      <UniqueIdentifier>{0fb8ea34-f058-42c8-8f29-6030e3b36d78}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Archivos de origen\Core\RenderAPI\HighLevel\PBR">
-      <UniqueIdentifier>{458b5b52-5fb4-46df-9f84-41d90643eafd}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Archivos de origen\Core\RenderAPI\HighLevel\PostProcess">
-      <UniqueIdentifier>{449125c2-7c98-438e-b23c-aee20a467488}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Archivos de origen\Core\RenderAPI\HighLevel\AnimatedModel">
-      <UniqueIdentifier>{af5b23fb-74a7-4bc1-8d79-f5b49a815a9e}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Archivos de origen\Core\RenderAPI\HighLevel\RenderTargets">
-      <UniqueIdentifier>{d42d12b5-a203-403b-b62c-35dd5c3b5d30}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Archivos de origen\Core\RenderAPI\HighLevel\2D">
-      <UniqueIdentifier>{80ae52b1-44e0-44e6-acf4-70def13a498e}</UniqueIdentifier>
     </Filter>
     <Filter Include="Archivos de origen\Core\Util">
       <UniqueIdentifier>{7c153d42-429c-407d-b325-872615be17f3}</UniqueIdentifier>
@@ -529,12 +235,6 @@
     <Filter Include="Archivos de origen\BuiltIn\ECS\Systems\Rendering">
       <UniqueIdentifier>{fc3d4efe-f277-4048-a5ee-1730af880d7e}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Archivos de encabezado\Core\RenderAPI\Exceptions">
-      <UniqueIdentifier>{7842abf8-cc6f-4f31-9fc3-8445620a6404}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Archivos de encabezado\Core\RenderAPI\HighLevel\Exceptions">
-      <UniqueIdentifier>{24b70a60-9106-4ac3-97c7-b38e7589d1b6}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Archivos de encabezado\Core\Exceptions">
       <UniqueIdentifier>{a93a6432-cfc4-4e59-8b35-bf393d5bd795}</UniqueIdentifier>
     </Filter>
@@ -546,6 +246,312 @@
     </Filter>
     <Filter Include="Archivos de encabezado\Core\AudioAPI\Exceptions">
       <UniqueIdentifier>{5e8fd77d-ee49-4578-9664-cc3c7d655dce}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de encabezado\Core\Net">
+      <UniqueIdentifier>{301ca600-2d59-438f-97e1-f14019ada373}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de origen\Core\Net">
+      <UniqueIdentifier>{17549122-cf6b-4b24-a18b-357ba6fb54cc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de encabezado\Core\Graphics">
+      <UniqueIdentifier>{83170729-5134-41f5-bd54-8ea9910d5ec0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de encabezado\Core\Graphics\LowLevel">
+      <UniqueIdentifier>{99d3bf02-df9b-44a8-9299-7c08bbfcec60}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de encabezado\Core\Graphics\LowLevel\Renderpass">
+      <UniqueIdentifier>{2db46cc9-b1e1-4b5d-8448-3ed0ad8342d8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de encabezado\Core\Graphics\LowLevel\Renderer">
+      <UniqueIdentifier>{72fe62db-9740-435f-b0ff-453c55895781}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de encabezado\Core\Graphics\LowLevel\Resources">
+      <UniqueIdentifier>{1351832f-7714-425e-b22c-9a0af308174b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de encabezado\Core\Graphics\LowLevel\Resources\Image">
+      <UniqueIdentifier>{5ef5e3cc-25a5-4b1c-9e9a-ba84da634676}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de encabezado\Core\Graphics\LowLevel\Resources\Image\Format">
+      <UniqueIdentifier>{895d923a-5f98-48c9-9e00-d64c87592467}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de encabezado\Core\Graphics\LowLevel\Resources\Image\Layout">
+      <UniqueIdentifier>{7daad305-aec2-4ecb-a651-fe156ce49713}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de encabezado\Core\Graphics\LowLevel\Resources\Image\Image">
+      <UniqueIdentifier>{54c173ef-62ec-4665-a729-5870e1dce0f1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de encabezado\Core\Graphics\LowLevel\Resources\Image\Sampler">
+      <UniqueIdentifier>{72fd60d8-fc94-4ae3-b7f9-477e1e275d72}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de encabezado\Core\Graphics\LowLevel\Resources\Image\View">
+      <UniqueIdentifier>{150e542d-be0a-4e56-bb59-781d033d2ff4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de encabezado\Core\Graphics\LowLevel\Resources\Buffer">
+      <UniqueIdentifier>{eeebfc32-7821-4d18-a161-27fe5e554067}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de encabezado\Core\Graphics\LowLevel\Resources\Buffer\Views">
+      <UniqueIdentifier>{55155f9e-79de-490e-a599-b1e18c069ce6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de encabezado\Core\Graphics\LowLevel\Swapchain">
+      <UniqueIdentifier>{13d91e0c-c20c-4905-95cd-e419d795f47e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de encabezado\Core\Graphics\LowLevel\Vertex">
+      <UniqueIdentifier>{c13f8272-ce6b-4990-8565-5cd782b778d0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de encabezado\Core\Graphics\LowLevel\Vertex\Description">
+      <UniqueIdentifier>{64f408c8-a7ca-42e0-8d02-d4b4a754e4fa}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de encabezado\Core\Graphics\LowLevel\Commands">
+      <UniqueIdentifier>{bb0f8911-f7ab-48d4-9b70-d004d85b65a2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de encabezado\Core\Graphics\LowLevel\Commands\Queue">
+      <UniqueIdentifier>{f95f27df-6b41-4319-af7f-0da4775148c2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de encabezado\Core\Graphics\LowLevel\Commands\Pool">
+      <UniqueIdentifier>{9bc4858d-1b8b-4b9e-a315-4c5b6723c221}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de encabezado\Core\Graphics\LowLevel\Commands\List">
+      <UniqueIdentifier>{6c33079a-2a94-418a-a357-31f78a5c74df}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de encabezado\Core\Graphics\LowLevel\Gpu">
+      <UniqueIdentifier>{8447f629-d426-4622-b855-fe41042e9478}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de encabezado\Core\Graphics\LowLevel\Memory">
+      <UniqueIdentifier>{38c20a20-9205-47f6-bd05-f6ae1e9af665}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de encabezado\Core\Graphics\LowLevel\Memory\Allocator">
+      <UniqueIdentifier>{fec5c9ff-18a6-4cdd-b004-fbb7f9a291b0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de encabezado\Core\Graphics\LowLevel\Memory\Allocator\Dx12">
+      <UniqueIdentifier>{2caf9091-7261-44a4-9230-1bcf4cb295e5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de encabezado\Core\Graphics\LowLevel\Memory\Block">
+      <UniqueIdentifier>{216e1633-b043-4c17-8943-e0df33bc1ed6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de encabezado\Core\Graphics\LowLevel\Memory\Subblock">
+      <UniqueIdentifier>{90fac08e-b8b5-4228-b448-0e5a1f67c228}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de encabezado\Core\Graphics\LowLevel\Memory\Enums">
+      <UniqueIdentifier>{50a96a1f-69b5-41ce-85d4-5df26e115f26}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de encabezado\Core\Graphics\LowLevel\Pipeline">
+      <UniqueIdentifier>{7dcb0c62-f988-46b9-b61e-fc5f51441c90}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de encabezado\Core\Graphics\LowLevel\Pipeline\Viewport">
+      <UniqueIdentifier>{31c35286-2001-4330-9cfd-26b42fee0bbb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de encabezado\Core\Graphics\LowLevel\Pipeline\Layout">
+      <UniqueIdentifier>{afd8f43d-91d0-400d-bbf8-d703ee9e9aaa}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de encabezado\Core\Graphics\LowLevel\Pipeline\Layout\Shader">
+      <UniqueIdentifier>{b113138c-b0b5-46fe-b9c7-c472f8bc8211}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de encabezado\Core\Graphics\LowLevel\Pipeline\Layout\Pipeline">
+      <UniqueIdentifier>{f8a97e08-c333-4e0e-a4f0-c541224f137b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de encabezado\Core\Graphics\LowLevel\Pipeline\Pipeline">
+      <UniqueIdentifier>{e3e104d9-c560-43be-9848-82f9359201f1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de encabezado\Core\Graphics\LowLevel\Pipeline\Compute">
+      <UniqueIdentifier>{d4c0105c-58b4-4c69-8dc1-1b7239b11e37}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de encabezado\Core\Graphics\LowLevel\Pipeline\Graphics">
+      <UniqueIdentifier>{7834c91a-1d27-4f14-abb3-4085fda7717d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de encabezado\Core\Graphics\LowLevel\Pipeline\Raytracing">
+      <UniqueIdentifier>{6cb258b9-07fb-4c69-897d-cbd0a0d39387}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de encabezado\Core\Graphics\LowLevel\Material">
+      <UniqueIdentifier>{ce8289c2-3296-4623-9e27-bd2acf6cbef9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de encabezado\Core\Graphics\LowLevel\Material\Slot">
+      <UniqueIdentifier>{3c8c5d73-fc07-4fdf-8953-f740a153de1e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de encabezado\Core\Graphics\LowLevel\Material\Slot\Desc">
+      <UniqueIdentifier>{6c06b96c-ebc7-475e-8434-9258ab904fc3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de encabezado\Core\Graphics\LowLevel\RT">
+      <UniqueIdentifier>{529fc591-21be-4e64-830c-84aa2cd8d2c6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de encabezado\Core\Graphics\LowLevel\RT\AS">
+      <UniqueIdentifier>{8e06b537-68da-496e-bf0e-04fa38b3ab40}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de encabezado\Core\Graphics\LowLevel\RT\AS\BLAS">
+      <UniqueIdentifier>{d9892f85-27b8-48d6-afe6-d0c45455811e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de encabezado\Core\Graphics\LowLevel\RT\AS\TLAS">
+      <UniqueIdentifier>{fd8822ff-89cd-4214-83e3-846318201559}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de encabezado\Core\Graphics\LowLevel\RT\ShaderTable">
+      <UniqueIdentifier>{62e62b93-cb83-4b47-aee2-1698ffcf605a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de encabezado\Core\Graphics\LowLevel\Object">
+      <UniqueIdentifier>{f2dad5fd-628a-4795-ac70-d0d6b355bd56}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de encabezado\Core\Graphics\HighLevel">
+      <UniqueIdentifier>{0f060710-faff-4407-a43c-740bccd2b83d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de encabezado\Core\Graphics\HighLevel\Material">
+      <UniqueIdentifier>{0ccaa110-f30e-4d69-80ca-0f39568a0a8e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de encabezado\Core\Graphics\HighLevel\Material\Layout">
+      <UniqueIdentifier>{2fcd81c1-58d2-411e-a484-070b14394cd9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de encabezado\Core\Graphics\HighLevel\PBR">
+      <UniqueIdentifier>{5a7d13ac-a2fc-4067-92ef-0c98f9d9547c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de encabezado\Core\Graphics\HighLevel\PostProcess">
+      <UniqueIdentifier>{2a49b4a9-99ba-41f0-bc5c-28e27f1b6228}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de encabezado\Core\Graphics\HighLevel\PostProcess\SMAA">
+      <UniqueIdentifier>{7c314c9d-993f-48b8-b5e1-367f437704d7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de encabezado\Core\Graphics\HighLevel\AnimatedModel">
+      <UniqueIdentifier>{e9b696f5-76bc-4e3b-acec-86f3513d17af}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de encabezado\Core\Graphics\HighLevel\RenderTargets">
+      <UniqueIdentifier>{b78af121-6466-4a1e-bced-5b1d84d715f7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de encabezado\Core\Graphics\HighLevel\2D">
+      <UniqueIdentifier>{f05e6f15-6efe-4b9b-972c-2f4b3bc8a4c5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de encabezado\Core\Graphics\HighLevel\2D\SpriteRendering">
+      <UniqueIdentifier>{df10f05b-ee63-4ab0-8bca-995b548b18b3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de encabezado\Core\Graphics\HighLevel\Exceptions">
+      <UniqueIdentifier>{24b70a60-9106-4ac3-97c7-b38e7589d1b6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de encabezado\Core\Graphics\Exceptions">
+      <UniqueIdentifier>{7842abf8-cc6f-4f31-9fc3-8445620a6404}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de origen\Core\Graphics">
+      <UniqueIdentifier>{01f5680d-5039-431b-90b4-abd5b6698baa}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de origen\Core\Graphics\LowLevel">
+      <UniqueIdentifier>{9f05af95-2413-4d79-9535-f76cd2c20cc3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de origen\Core\Graphics\LowLevel\Renderer">
+      <UniqueIdentifier>{3d7513f7-f14b-4f52-86bf-4b190874d8b0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de origen\Core\Graphics\LowLevel\Resources">
+      <UniqueIdentifier>{0c01acaa-4918-4217-9619-dba8fa9ffc15}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de origen\Core\Graphics\LowLevel\Resources\Buffer">
+      <UniqueIdentifier>{99a98e5b-944a-418a-bb90-6bcd798f302c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de origen\Core\Graphics\LowLevel\Resources\Image">
+      <UniqueIdentifier>{094c6554-7ba0-4a19-b7ff-3a601ba3a626}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de origen\Core\Graphics\LowLevel\Resources\Image\View">
+      <UniqueIdentifier>{abc13a26-e73b-4a17-a8e2-d5658d21066b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de origen\Core\Graphics\LowLevel\Swapchain">
+      <UniqueIdentifier>{6fce6098-01eb-486b-93f9-a66905a08e36}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de origen\Core\Graphics\LowLevel\Vertex">
+      <UniqueIdentifier>{e0c71e47-f2d0-4804-93a4-cbce52ecd138}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de origen\Core\Graphics\LowLevel\Commands">
+      <UniqueIdentifier>{703bcaea-ed8c-4704-b274-287ddd66bd5f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de origen\Core\Graphics\LowLevel\Commands\Queues">
+      <UniqueIdentifier>{777c0da3-13f3-496b-b0c6-bb3cc7016d58}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de origen\Core\Graphics\LowLevel\Commands\Pool">
+      <UniqueIdentifier>{5c1af065-2c95-49dd-8db8-f8d806a66ac9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de origen\Core\Graphics\LowLevel\Commands\List">
+      <UniqueIdentifier>{615ae9d9-cd2d-497d-afbe-253d5abbc1b6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de origen\Core\Graphics\LowLevel\Gpu">
+      <UniqueIdentifier>{4dc80e01-f306-4949-afc8-b2ca315d8aa4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de origen\Core\Graphics\LowLevel\Memory">
+      <UniqueIdentifier>{4d22da90-0da6-465f-a384-e2d19aee7732}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de origen\Core\Graphics\LowLevel\Memory\Allocator">
+      <UniqueIdentifier>{a326600a-b174-4778-8c0c-02ecef490d7f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de origen\Core\Graphics\LowLevel\Memory\Allocator\Dx12">
+      <UniqueIdentifier>{46e7f15e-f8b4-4cfb-bb43-f1f9a8995985}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de origen\Core\Graphics\LowLevel\Memory\Block">
+      <UniqueIdentifier>{7bfaf32b-d20a-405d-bcc3-ba5a231d320a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de origen\Core\Graphics\LowLevel\Memory\Subblock">
+      <UniqueIdentifier>{eb750b23-9651-431c-a695-22befa8c2e58}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de origen\Core\Graphics\LowLevel\Memory\Enums">
+      <UniqueIdentifier>{d79ad29a-06e3-412f-8a8a-587c35746d1a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de origen\Core\Graphics\LowLevel\Material">
+      <UniqueIdentifier>{0e3f0044-ff9a-4c47-a6ce-ebf55be1eea1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de origen\Core\Graphics\LowLevel\Material\Slot">
+      <UniqueIdentifier>{6bcb0019-d1c1-441f-9a80-0cfa7ffc6c73}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de origen\Core\Graphics\LowLevel\Material\Slot\Desc">
+      <UniqueIdentifier>{cf8afb6f-b221-43a6-bcbb-cf8792cd23e9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de origen\Core\Graphics\LowLevel\RT">
+      <UniqueIdentifier>{21f41913-222c-48aa-8f37-ddefb2890c00}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de origen\Core\Graphics\LowLevel\RT\AS">
+      <UniqueIdentifier>{835a3ec5-8808-431e-9386-e00b629789f9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de origen\Core\Graphics\LowLevel\RT\AS\BLAS">
+      <UniqueIdentifier>{5743ce3e-6d5d-4515-baa0-2670d27ea20d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de origen\Core\Graphics\LowLevel\RT\AS\TLAS">
+      <UniqueIdentifier>{8141c11d-df68-48e5-a6c1-e8de20c84236}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de origen\Core\Graphics\LowLevel\RT\ShaderTable">
+      <UniqueIdentifier>{59a762d1-863e-45ef-88da-385b7857f138}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de origen\Core\Graphics\LowLevel\Pipeline">
+      <UniqueIdentifier>{98ca4f4a-2769-474a-ab3e-0806d3a4d213}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de origen\Core\Graphics\LowLevel\Pipeline\Layout">
+      <UniqueIdentifier>{4991646e-9271-4a29-918e-bc31cea91894}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de origen\Core\Graphics\LowLevel\Pipeline\Shader">
+      <UniqueIdentifier>{f27b86fe-ff95-4a4a-bc98-b9c12dd4f73f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de origen\Core\Graphics\LowLevel\Pipeline\Pipeline">
+      <UniqueIdentifier>{a6851734-b04f-4f11-a555-4059eeede51e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de origen\Core\Graphics\LowLevel\Pipeline\Compute">
+      <UniqueIdentifier>{ba4beee5-eb0c-4f1d-baf7-1675e6d91a3b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de origen\Core\Graphics\LowLevel\Pipeline\Raytracing">
+      <UniqueIdentifier>{064c10e9-3042-45f2-a0e1-b3b9b3971718}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de origen\Core\Graphics\LowLevel\Pipeline\Graphics">
+      <UniqueIdentifier>{90756499-3b15-4adf-adda-3788e01aca33}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de origen\Core\Graphics\HighLevel">
+      <UniqueIdentifier>{5a8f829c-fffd-4b8c-b10f-6954653eac27}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de origen\Core\Graphics\HighLevel\Material">
+      <UniqueIdentifier>{b4dede04-6846-4c59-9849-43c2f3686e39}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de origen\Core\Graphics\HighLevel\Material\Layout">
+      <UniqueIdentifier>{0fb8ea34-f058-42c8-8f29-6030e3b36d78}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de origen\Core\Graphics\HighLevel\PBR">
+      <UniqueIdentifier>{458b5b52-5fb4-46df-9f84-41d90643eafd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de origen\Core\Graphics\HighLevel\PostProcess">
+      <UniqueIdentifier>{449125c2-7c98-438e-b23c-aee20a467488}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de origen\Core\Graphics\HighLevel\AnimatedModel">
+      <UniqueIdentifier>{af5b23fb-74a7-4bc1-8d79-f5b49a815a9e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de origen\Core\Graphics\HighLevel\RenderTargets">
+      <UniqueIdentifier>{d42d12b5-a203-403b-b62c-35dd5c3b5d30}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de origen\Core\Graphics\HighLevel\2D">
+      <UniqueIdentifier>{80ae52b1-44e0-44e6-acf4-70def13a498e}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -565,148 +571,148 @@
       <Filter>Archivos de origen\Core</Filter>
     </ClCompile>
     <ClCompile Include="GpuDx12.cpp">
-      <Filter>Archivos de origen\Core\RenderAPI\LowLevel\Gpu</Filter>
+      <Filter>Archivos de origen\Core\Graphics\LowLevel\Gpu</Filter>
     </ClCompile>
     <ClCompile Include="CommandQueueDx12.cpp">
-      <Filter>Archivos de origen\Core\RenderAPI\LowLevel\Commands\Queues</Filter>
+      <Filter>Archivos de origen\Core\Graphics\LowLevel\Commands\Queues</Filter>
     </ClCompile>
     <ClCompile Include="RendererDx12.cpp">
-      <Filter>Archivos de origen\Core\RenderAPI\LowLevel\Renderer</Filter>
+      <Filter>Archivos de origen\Core\Graphics\LowLevel\Renderer</Filter>
     </ClCompile>
     <ClCompile Include="GpuVk.cpp">
-      <Filter>Archivos de origen\Core\RenderAPI\LowLevel\Gpu</Filter>
+      <Filter>Archivos de origen\Core\Graphics\LowLevel\Gpu</Filter>
     </ClCompile>
     <ClCompile Include="CommandQueueVk.cpp">
-      <Filter>Archivos de origen\Core\RenderAPI\LowLevel\Commands\Queues</Filter>
+      <Filter>Archivos de origen\Core\Graphics\LowLevel\Commands\Queues</Filter>
     </ClCompile>
     <ClCompile Include="QueueFamilyIndices.cpp">
-      <Filter>Archivos de origen\Core\RenderAPI\LowLevel\Commands\Queues</Filter>
+      <Filter>Archivos de origen\Core\Graphics\LowLevel\Commands\Queues</Filter>
     </ClCompile>
     <ClCompile Include="RendererVk.cpp">
-      <Filter>Archivos de origen\Core\RenderAPI\LowLevel\Renderer</Filter>
+      <Filter>Archivos de origen\Core\Graphics\LowLevel\Renderer</Filter>
     </ClCompile>
     <ClCompile Include="CommandPoolDx12.cpp">
-      <Filter>Archivos de origen\Core\RenderAPI\LowLevel\Commands\Pool</Filter>
+      <Filter>Archivos de origen\Core\Graphics\LowLevel\Commands\Pool</Filter>
     </ClCompile>
     <ClCompile Include="CommandListDx12.cpp">
-      <Filter>Archivos de origen\Core\RenderAPI\LowLevel\Commands\List</Filter>
+      <Filter>Archivos de origen\Core\Graphics\LowLevel\Commands\List</Filter>
     </ClCompile>
     <ClCompile Include="Renderer.cpp">
-      <Filter>Archivos de origen\Core\RenderAPI\LowLevel\Renderer</Filter>
+      <Filter>Archivos de origen\Core\Graphics\LowLevel\Renderer</Filter>
     </ClCompile>
     <ClCompile Include="CommandPoolVk.cpp">
-      <Filter>Archivos de origen\Core\RenderAPI\LowLevel\Commands\Pool</Filter>
+      <Filter>Archivos de origen\Core\Graphics\LowLevel\Commands\Pool</Filter>
     </ClCompile>
     <ClCompile Include="CommandListVk.cpp">
-      <Filter>Archivos de origen\Core\RenderAPI\LowLevel\Commands\List</Filter>
+      <Filter>Archivos de origen\Core\Graphics\LowLevel\Commands\List</Filter>
     </ClCompile>
     <ClCompile Include="SwapchainDx12.cpp">
-      <Filter>Archivos de origen\Core\RenderAPI\LowLevel\Swapchain</Filter>
+      <Filter>Archivos de origen\Core\Graphics\LowLevel\Swapchain</Filter>
     </ClCompile>
     <ClCompile Include="ISwapchain.cpp">
-      <Filter>Archivos de origen\Core\RenderAPI\LowLevel\Swapchain</Filter>
+      <Filter>Archivos de origen\Core\Graphics\LowLevel\Swapchain</Filter>
     </ClCompile>
     <ClCompile Include="SwapchainVk.cpp">
-      <Filter>Archivos de origen\Core\RenderAPI\LowLevel\Swapchain</Filter>
+      <Filter>Archivos de origen\Core\Graphics\LowLevel\Swapchain</Filter>
     </ClCompile>
     <ClCompile Include="IGpuMemoryAllocator.cpp">
-      <Filter>Archivos de origen\Core\RenderAPI\LowLevel\Memory\Allocator</Filter>
+      <Filter>Archivos de origen\Core\Graphics\LowLevel\Memory\Allocator</Filter>
     </ClCompile>
     <ClCompile Include="IGpuMemoryBlock.cpp">
-      <Filter>Archivos de origen\Core\RenderAPI\LowLevel\Memory\Block</Filter>
+      <Filter>Archivos de origen\Core\Graphics\LowLevel\Memory\Block</Filter>
     </ClCompile>
     <ClCompile Include="IGpuMemorySubblock.cpp">
-      <Filter>Archivos de origen\Core\RenderAPI\LowLevel\Memory\Subblock</Filter>
+      <Filter>Archivos de origen\Core\Graphics\LowLevel\Memory\Subblock</Filter>
     </ClCompile>
     <ClCompile Include="GpuMemoryTypeVk.cpp">
-      <Filter>Archivos de origen\Core\RenderAPI\LowLevel\Memory\Enums</Filter>
+      <Filter>Archivos de origen\Core\Graphics\LowLevel\Memory\Enums</Filter>
     </ClCompile>
     <ClCompile Include="GpuMemoryTypeDx12.cpp">
-      <Filter>Archivos de origen\Core\RenderAPI\LowLevel\Memory\Enums</Filter>
+      <Filter>Archivos de origen\Core\Graphics\LowLevel\Memory\Enums</Filter>
     </ClCompile>
     <ClCompile Include="GpuMemoryAllocatorDx12.cpp">
-      <Filter>Archivos de origen\Core\RenderAPI\LowLevel\Memory\Allocator</Filter>
+      <Filter>Archivos de origen\Core\Graphics\LowLevel\Memory\Allocator</Filter>
     </ClCompile>
     <ClCompile Include="GpuMemoryBlockDx12.cpp">
-      <Filter>Archivos de origen\Core\RenderAPI\LowLevel\Memory\Block</Filter>
+      <Filter>Archivos de origen\Core\Graphics\LowLevel\Memory\Block</Filter>
     </ClCompile>
     <ClCompile Include="GpuMemoryBlockVk.cpp">
-      <Filter>Archivos de origen\Core\RenderAPI\LowLevel\Memory\Block</Filter>
+      <Filter>Archivos de origen\Core\Graphics\LowLevel\Memory\Block</Filter>
     </ClCompile>
     <ClCompile Include="GpuBuffer.cpp">
-      <Filter>Archivos de origen\Core\RenderAPI\LowLevel\Resources\Buffer</Filter>
+      <Filter>Archivos de origen\Core\Graphics\LowLevel\Resources\Buffer</Filter>
     </ClCompile>
     <ClCompile Include="GpuMemoryAllocatorVk.cpp">
-      <Filter>Archivos de origen\Core\RenderAPI\LowLevel\Memory\Allocator</Filter>
+      <Filter>Archivos de origen\Core\Graphics\LowLevel\Memory\Allocator</Filter>
     </ClCompile>
     <ClCompile Include="GpuMemorySubblockVk.cpp">
-      <Filter>Archivos de origen\Core\RenderAPI\LowLevel\Memory\Subblock</Filter>
+      <Filter>Archivos de origen\Core\Graphics\LowLevel\Memory\Subblock</Filter>
     </ClCompile>
     <ClCompile Include="GpuMemorySubblockDx12.cpp">
-      <Filter>Archivos de origen\Core\RenderAPI\LowLevel\Memory\Subblock</Filter>
+      <Filter>Archivos de origen\Core\Graphics\LowLevel\Memory\Subblock</Filter>
     </ClCompile>
     <ClCompile Include="Format.cpp">
-      <Filter>Archivos de origen\Core\RenderAPI\LowLevel\Resources\Image</Filter>
+      <Filter>Archivos de origen\Core\Graphics\LowLevel\Resources\Image</Filter>
     </ClCompile>
     <ClCompile Include="GpuImageLayoutVk.cpp">
-      <Filter>Archivos de origen\Core\RenderAPI\LowLevel\Resources\Image</Filter>
+      <Filter>Archivos de origen\Core\Graphics\LowLevel\Resources\Image</Filter>
     </ClCompile>
     <ClCompile Include="GpuImageLayoutDx12.cpp">
-      <Filter>Archivos de origen\Core\RenderAPI\LowLevel\Resources\Image</Filter>
+      <Filter>Archivos de origen\Core\Graphics\LowLevel\Resources\Image</Filter>
     </ClCompile>
     <ClCompile Include="GpuImageDx12.cpp">
-      <Filter>Archivos de origen\Core\RenderAPI\LowLevel\Resources\Image</Filter>
+      <Filter>Archivos de origen\Core\Graphics\LowLevel\Resources\Image</Filter>
     </ClCompile>
     <ClCompile Include="GpuImageVk.cpp">
-      <Filter>Archivos de origen\Core\RenderAPI\LowLevel\Resources\Image</Filter>
+      <Filter>Archivos de origen\Core\Graphics\LowLevel\Resources\Image</Filter>
     </ClCompile>
     <ClCompile Include="Color.cpp">
       <Filter>Archivos de origen\Core\Types</Filter>
     </ClCompile>
     <ClCompile Include="IGpuImage.cpp">
-      <Filter>Archivos de origen\Core\RenderAPI\LowLevel\Resources\Image</Filter>
+      <Filter>Archivos de origen\Core\Graphics\LowLevel\Resources\Image</Filter>
     </ClCompile>
     <ClCompile Include="ICommandList.cpp">
-      <Filter>Archivos de origen\Core\RenderAPI\LowLevel\Commands\List</Filter>
+      <Filter>Archivos de origen\Core\Graphics\LowLevel\Commands\List</Filter>
     </ClCompile>
     <ClCompile Include="GraphicsPipelineDx12.cpp">
-      <Filter>Archivos de origen\Core\RenderAPI\LowLevel\Pipeline\Graphics</Filter>
+      <Filter>Archivos de origen\Core\Graphics\LowLevel\Pipeline\Graphics</Filter>
     </ClCompile>
     <ClCompile Include="GraphicsPipelineVk.cpp">
-      <Filter>Archivos de origen\Core\RenderAPI\LowLevel\Pipeline\Graphics</Filter>
+      <Filter>Archivos de origen\Core\Graphics\LowLevel\Pipeline\Graphics</Filter>
     </ClCompile>
     <ClCompile Include="IGraphicsPipeline.cpp">
-      <Filter>Archivos de origen\Core\RenderAPI\LowLevel\Pipeline\Graphics</Filter>
+      <Filter>Archivos de origen\Core\Graphics\LowLevel\Pipeline\Graphics</Filter>
     </ClCompile>
     <ClCompile Include="MaterialSystem.cpp">
-      <Filter>Archivos de origen\Core\RenderAPI\HighLevel\Material</Filter>
+      <Filter>Archivos de origen\Core\Graphics\HighLevel\Material</Filter>
     </ClCompile>
     <ClCompile Include="MaterialLayout.cpp">
-      <Filter>Archivos de origen\Core\RenderAPI\HighLevel\Material\Layout</Filter>
+      <Filter>Archivos de origen\Core\Graphics\HighLevel\Material\Layout</Filter>
     </ClCompile>
     <ClCompile Include="Material.cpp">
-      <Filter>Archivos de origen\Core\RenderAPI\HighLevel\Material</Filter>
+      <Filter>Archivos de origen\Core\Graphics\HighLevel\Material</Filter>
     </ClCompile>
     <ClCompile Include="IMaterialSlot.cpp">
-      <Filter>Archivos de origen\Core\RenderAPI\LowLevel\Material\Slot</Filter>
+      <Filter>Archivos de origen\Core\Graphics\LowLevel\Material\Slot</Filter>
     </ClCompile>
     <ClCompile Include="MaterialSlotDx12.cpp">
-      <Filter>Archivos de origen\Core\RenderAPI\LowLevel\Material\Slot</Filter>
+      <Filter>Archivos de origen\Core\Graphics\LowLevel\Material\Slot</Filter>
     </ClCompile>
     <ClCompile Include="MaterialInstance.cpp">
-      <Filter>Archivos de origen\Core\RenderAPI\HighLevel\Material</Filter>
+      <Filter>Archivos de origen\Core\Graphics\HighLevel\Material</Filter>
     </ClCompile>
     <ClCompile Include="MaterialSlotVk.cpp">
-      <Filter>Archivos de origen\Core\RenderAPI\LowLevel\Material\Slot</Filter>
+      <Filter>Archivos de origen\Core\Graphics\LowLevel\Material\Slot</Filter>
     </ClCompile>
     <ClCompile Include="ShaderBindingTypeVk.cpp">
-      <Filter>Archivos de origen\Core\RenderAPI\LowLevel\Pipeline\Shader</Filter>
+      <Filter>Archivos de origen\Core\Graphics\LowLevel\Pipeline\Shader</Filter>
     </ClCompile>
     <ClCompile Include="DescriptorLayoutVk.cpp">
-      <Filter>Archivos de origen\Core\RenderAPI\LowLevel\Material\Slot\Desc</Filter>
+      <Filter>Archivos de origen\Core\Graphics\LowLevel\Material\Slot\Desc</Filter>
     </ClCompile>
     <ClCompile Include="DescriptorPoolVk.cpp">
-      <Filter>Archivos de origen\Core\RenderAPI\LowLevel\Material\Slot\Desc</Filter>
+      <Filter>Archivos de origen\Core\Graphics\LowLevel\Material\Slot\Desc</Filter>
     </ClCompile>
     <ClCompile Include="IAsset.cpp">
       <Filter>Archivos de origen\Core\Assets</Filter>
@@ -757,10 +763,10 @@
       <Filter>Archivos de origen\BuiltIn\Assets\Loaders</Filter>
     </ClCompile>
     <ClCompile Include="Vertex2D.cpp">
-      <Filter>Archivos de origen\Core\RenderAPI\LowLevel\Vertex</Filter>
+      <Filter>Archivos de origen\Core\Graphics\LowLevel\Vertex</Filter>
     </ClCompile>
     <ClCompile Include="Vertex3D.cpp">
-      <Filter>Archivos de origen\Core\RenderAPI\LowLevel\Vertex</Filter>
+      <Filter>Archivos de origen\Core\Graphics\LowLevel\Vertex</Filter>
     </ClCompile>
     <ClCompile Include="FontInstance.cpp">
       <Filter>Archivos de origen\BuiltIn\Assets\Assets\Font</Filter>
@@ -784,100 +790,100 @@
       <Filter>Archivos de origen\Core\IO</Filter>
     </ClCompile>
     <ClCompile Include="SpirvToHlsl.cpp">
-      <Filter>Archivos de origen\Core\RenderAPI\LowLevel\Pipeline\Graphics</Filter>
+      <Filter>Archivos de origen\Core\Graphics\LowLevel\Pipeline\Graphics</Filter>
     </ClCompile>
     <ClCompile Include="HlslRuntimeCompiler.cpp">
-      <Filter>Archivos de origen\Core\RenderAPI\LowLevel\Pipeline\Graphics</Filter>
+      <Filter>Archivos de origen\Core\Graphics\LowLevel\Pipeline\Graphics</Filter>
     </ClCompile>
     <ClCompile Include="WindowsUtils.cpp">
       <Filter>Archivos de origen\Core\Util</Filter>
     </ClCompile>
     <ClCompile Include="GpuMemoryTypes.cpp">
-      <Filter>Archivos de origen\Core\RenderAPI\LowLevel\Memory\Enums</Filter>
+      <Filter>Archivos de origen\Core\Graphics\LowLevel\Memory\Enums</Filter>
     </ClCompile>
     <ClCompile Include="RtShaderTableVk.cpp">
-      <Filter>Archivos de origen\Core\RenderAPI\LowLevel\RT\ShaderTable</Filter>
+      <Filter>Archivos de origen\Core\Graphics\LowLevel\RT\ShaderTable</Filter>
     </ClCompile>
     <ClCompile Include="IPipelineVk.cpp">
-      <Filter>Archivos de origen\Core\RenderAPI\LowLevel\Pipeline\Pipeline</Filter>
+      <Filter>Archivos de origen\Core\Graphics\LowLevel\Pipeline\Pipeline</Filter>
     </ClCompile>
     <ClCompile Include="ShaderStages.cpp">
-      <Filter>Archivos de origen\Core\RenderAPI\LowLevel\Pipeline\Shader</Filter>
+      <Filter>Archivos de origen\Core\Graphics\LowLevel\Pipeline\Shader</Filter>
     </ClCompile>
     <ClCompile Include="RaytracingPipelineVk.cpp">
-      <Filter>Archivos de origen\Core\RenderAPI\LowLevel\Pipeline\Raytracing</Filter>
+      <Filter>Archivos de origen\Core\Graphics\LowLevel\Pipeline\Raytracing</Filter>
     </ClCompile>
     <ClCompile Include="IRaytracingPipeline.cpp">
-      <Filter>Archivos de origen\Core\RenderAPI\LowLevel\Pipeline\Raytracing</Filter>
+      <Filter>Archivos de origen\Core\Graphics\LowLevel\Pipeline\Raytracing</Filter>
     </ClCompile>
     <ClCompile Include="BottomLevelAccelerationStructureVk.cpp">
-      <Filter>Archivos de origen\Core\RenderAPI\LowLevel\RT\AS\BLAS</Filter>
+      <Filter>Archivos de origen\Core\Graphics\LowLevel\RT\AS\BLAS</Filter>
     </ClCompile>
     <ClCompile Include="IBottomLevelAccelerationStructure.cpp">
-      <Filter>Archivos de origen\Core\RenderAPI\LowLevel\RT\AS\BLAS</Filter>
+      <Filter>Archivos de origen\Core\Graphics\LowLevel\RT\AS\BLAS</Filter>
     </ClCompile>
     <ClCompile Include="ITopLevelAccelerationStructure.cpp">
-      <Filter>Archivos de origen\Core\RenderAPI\LowLevel\RT\AS\TLAS</Filter>
+      <Filter>Archivos de origen\Core\Graphics\LowLevel\RT\AS\TLAS</Filter>
     </ClCompile>
     <ClCompile Include="PresentMode.cpp">
-      <Filter>Archivos de origen\Core\RenderAPI\HighLevel</Filter>
+      <Filter>Archivos de origen\Core\Graphics\HighLevel</Filter>
     </ClCompile>
     <ClCompile Include="TopLevelAccelerationStructureVk.cpp">
-      <Filter>Archivos de origen\Core\RenderAPI\LowLevel\RT\AS\TLAS</Filter>
+      <Filter>Archivos de origen\Core\Graphics\LowLevel\RT\AS\TLAS</Filter>
     </ClCompile>
     <ClCompile Include="IrradianceMapLoader.cpp">
       <Filter>Archivos de origen\BuiltIn\Assets\Loaders</Filter>
     </ClCompile>
     <ClCompile Include="ShadowMap.cpp">
-      <Filter>Archivos de origen\Core\RenderAPI\HighLevel\PBR</Filter>
+      <Filter>Archivos de origen\Core\Graphics\HighLevel\PBR</Filter>
     </ClCompile>
     <ClCompile Include="IComputePipeline.cpp">
-      <Filter>Archivos de origen\Core\RenderAPI\LowLevel\Pipeline\Compute</Filter>
+      <Filter>Archivos de origen\Core\Graphics\LowLevel\Pipeline\Compute</Filter>
     </ClCompile>
     <ClCompile Include="ComputePipelineVk.cpp">
-      <Filter>Archivos de origen\Core\RenderAPI\LowLevel\Pipeline\Compute</Filter>
+      <Filter>Archivos de origen\Core\Graphics\LowLevel\Pipeline\Compute</Filter>
     </ClCompile>
     <ClCompile Include="GpuImageViewVk.cpp">
-      <Filter>Archivos de origen\Core\RenderAPI\LowLevel\Resources\Image\View</Filter>
+      <Filter>Archivos de origen\Core\Graphics\LowLevel\Resources\Image\View</Filter>
     </ClCompile>
     <ClCompile Include="GpuImageViewDx12.cpp">
-      <Filter>Archivos de origen\Core\RenderAPI\LowLevel\Resources\Image\View</Filter>
+      <Filter>Archivos de origen\Core\Graphics\LowLevel\Resources\Image\View</Filter>
     </ClCompile>
     <ClCompile Include="IPipelineDx12.cpp">
-      <Filter>Archivos de origen\Core\RenderAPI\LowLevel\Pipeline\Pipeline</Filter>
+      <Filter>Archivos de origen\Core\Graphics\LowLevel\Pipeline\Pipeline</Filter>
     </ClCompile>
     <ClCompile Include="ComputePipelineDx12.cpp">
-      <Filter>Archivos de origen\Core\RenderAPI\LowLevel\Pipeline\Compute</Filter>
+      <Filter>Archivos de origen\Core\Graphics\LowLevel\Pipeline\Compute</Filter>
     </ClCompile>
     <ClCompile Include="IGpuImageView.cpp">
-      <Filter>Archivos de origen\Core\RenderAPI\LowLevel\Resources\Image\View</Filter>
+      <Filter>Archivos de origen\Core\Graphics\LowLevel\Resources\Image\View</Filter>
     </ClCompile>
     <ClCompile Include="DescriptorDx12.cpp">
-      <Filter>Archivos de origen\Core\RenderAPI\LowLevel\Memory\Allocator\Dx12</Filter>
+      <Filter>Archivos de origen\Core\Graphics\LowLevel\Memory\Allocator\Dx12</Filter>
     </ClCompile>
     <ClCompile Include="IPipelineLayout.cpp">
-      <Filter>Archivos de origen\Core\RenderAPI\LowLevel\Pipeline\Layout</Filter>
+      <Filter>Archivos de origen\Core\Graphics\LowLevel\Pipeline\Layout</Filter>
     </ClCompile>
     <ClCompile Include="PipelineLayoutDx12.cpp">
-      <Filter>Archivos de origen\Core\RenderAPI\LowLevel\Pipeline\Layout</Filter>
+      <Filter>Archivos de origen\Core\Graphics\LowLevel\Pipeline\Layout</Filter>
     </ClCompile>
     <ClCompile Include="PipelineLayoutVk.cpp">
-      <Filter>Archivos de origen\Core\RenderAPI\LowLevel\Pipeline\Layout</Filter>
+      <Filter>Archivos de origen\Core\Graphics\LowLevel\Pipeline\Layout</Filter>
     </ClCompile>
     <ClCompile Include="FxaaPass.cpp">
-      <Filter>Archivos de origen\Core\RenderAPI\HighLevel\PostProcess</Filter>
+      <Filter>Archivos de origen\Core\Graphics\HighLevel\PostProcess</Filter>
     </ClCompile>
     <ClCompile Include="BloomPass.cpp">
-      <Filter>Archivos de origen\Core\RenderAPI\HighLevel\PostProcess</Filter>
+      <Filter>Archivos de origen\Core\Graphics\HighLevel\PostProcess</Filter>
     </ClCompile>
     <ClCompile Include="IPostProcessPass.cpp">
-      <Filter>Archivos de origen\Core\RenderAPI\HighLevel\PostProcess</Filter>
+      <Filter>Archivos de origen\Core\Graphics\HighLevel\PostProcess</Filter>
     </ClCompile>
     <ClCompile Include="ToneMappingPass.cpp">
-      <Filter>Archivos de origen\Core\RenderAPI\HighLevel\PostProcess</Filter>
+      <Filter>Archivos de origen\Core\Graphics\HighLevel\PostProcess</Filter>
     </ClCompile>
     <ClCompile Include="SmaaPass.cpp">
-      <Filter>Archivos de origen\Core\RenderAPI\HighLevel\PostProcess</Filter>
+      <Filter>Archivos de origen\Core\Graphics\HighLevel\PostProcess</Filter>
     </ClCompile>
     <ClCompile Include="StaticMeshLoader.cpp">
       <Filter>Archivos de origen\BuiltIn\Assets\Loaders\Models</Filter>
@@ -889,31 +895,31 @@
       <Filter>Archivos de origen\BuiltIn\Assets\Loaders\Models</Filter>
     </ClCompile>
     <ClCompile Include="Animation.cpp">
-      <Filter>Archivos de origen\Core\RenderAPI\HighLevel\AnimatedModel</Filter>
+      <Filter>Archivos de origen\Core\Graphics\HighLevel\AnimatedModel</Filter>
     </ClCompile>
     <ClCompile Include="Animator.cpp">
-      <Filter>Archivos de origen\Core\RenderAPI\HighLevel\AnimatedModel</Filter>
+      <Filter>Archivos de origen\Core\Graphics\HighLevel\AnimatedModel</Filter>
     </ClCompile>
     <ClCompile Include="AnimationSkin.cpp">
-      <Filter>Archivos de origen\Core\RenderAPI\HighLevel\AnimatedModel</Filter>
+      <Filter>Archivos de origen\Core\Graphics\HighLevel\AnimatedModel</Filter>
     </ClCompile>
     <ClCompile Include="Bone.cpp">
-      <Filter>Archivos de origen\Core\RenderAPI\HighLevel\AnimatedModel</Filter>
+      <Filter>Archivos de origen\Core\Graphics\HighLevel\AnimatedModel</Filter>
     </ClCompile>
     <ClCompile Include="Skeleton.cpp">
-      <Filter>Archivos de origen\Core\RenderAPI\HighLevel\AnimatedModel</Filter>
+      <Filter>Archivos de origen\Core\Graphics\HighLevel\AnimatedModel</Filter>
     </ClCompile>
     <ClCompile Include="RtAccelerationStructureFlags.cpp">
-      <Filter>Archivos de origen\Core\RenderAPI\LowLevel\RT\AS</Filter>
+      <Filter>Archivos de origen\Core\Graphics\LowLevel\RT\AS</Filter>
     </ClCompile>
     <ClCompile Include="RenderTarget.cpp">
-      <Filter>Archivos de origen\Core\RenderAPI\HighLevel\RenderTargets</Filter>
+      <Filter>Archivos de origen\Core\Graphics\HighLevel\RenderTargets</Filter>
     </ClCompile>
     <ClCompile Include="RenderTargetAttachment.cpp">
-      <Filter>Archivos de origen\Core\RenderAPI\HighLevel\RenderTargets</Filter>
+      <Filter>Archivos de origen\Core\Graphics\HighLevel\RenderTargets</Filter>
     </ClCompile>
     <ClCompile Include="RtRenderTarget.cpp">
-      <Filter>Archivos de origen\Core\RenderAPI\HighLevel\RenderTargets</Filter>
+      <Filter>Archivos de origen\Core\Graphics\HighLevel\RenderTargets</Filter>
     </ClCompile>
     <ClCompile Include="IGamepadInput.cpp">
       <Filter>Archivos de origen\Core\IO\Input\Components</Filter>
@@ -960,10 +966,7 @@
     <ClCompile Include="SpecularMapLoader.cpp">
       <Filter>Archivos de origen\BuiltIn\Assets\Loaders</Filter>
     </ClCompile>
-    <ClCompile Include="Field.cpp">
-      <Filter>Archivos de origen\Core\Persistence</Filter>
-    </ClCompile>
-    <ClCompile Include="Data.cpp">
+    <ClCompile Include="DataNode.cpp">
       <Filter>Archivos de origen\Core\Persistence</Filter>
     </ClCompile>
     <ClCompile Include="IIteratorSystem.cpp">
@@ -982,22 +985,22 @@
       <Filter>Archivos de origen\Core\Collision</Filter>
     </ClCompile>
     <ClCompile Include="GpuImageViewConfig.cpp">
-      <Filter>Archivos de origen\Core\RenderAPI\LowLevel\Resources\Image\View</Filter>
+      <Filter>Archivos de origen\Core\Graphics\LowLevel\Resources\Image\View</Filter>
     </ClCompile>
     <ClCompile Include="TaaProvider.cpp">
-      <Filter>Archivos de origen\Core\RenderAPI\HighLevel\PBR</Filter>
+      <Filter>Archivos de origen\Core\Graphics\HighLevel\PBR</Filter>
     </ClCompile>
     <ClCompile Include="SpriteBatch.cpp">
-      <Filter>Archivos de origen\Core\RenderAPI\HighLevel\2D</Filter>
+      <Filter>Archivos de origen\Core\Graphics\HighLevel\2D</Filter>
     </ClCompile>
     <ClCompile Include="VertexInfo.cpp">
-      <Filter>Archivos de origen\Core\RenderAPI\LowLevel\Vertex</Filter>
+      <Filter>Archivos de origen\Core\Graphics\LowLevel\Vertex</Filter>
     </ClCompile>
     <ClCompile Include="FrameCombiner.cpp">
-      <Filter>Archivos de origen\Core\RenderAPI\HighLevel\2D</Filter>
+      <Filter>Archivos de origen\Core\Graphics\HighLevel\2D</Filter>
     </ClCompile>
     <ClCompile Include="GBuffer.cpp">
-      <Filter>Archivos de origen\Core\RenderAPI\HighLevel\PBR</Filter>
+      <Filter>Archivos de origen\Core\Graphics\HighLevel\PBR</Filter>
     </ClCompile>
     <ClCompile Include="UiHorizontalContainer.cpp">
       <Filter>Archivos de origen\BuiltIn\UI\Containers</Filter>
@@ -1102,10 +1105,10 @@
       <Filter>Archivos de origen\BuiltIn\ECS\Systems</Filter>
     </ClCompile>
     <ClCompile Include="SpriteRenderer.cpp">
-      <Filter>Archivos de origen\Core\RenderAPI\HighLevel\2D</Filter>
+      <Filter>Archivos de origen\Core\Graphics\HighLevel\2D</Filter>
     </ClCompile>
     <ClCompile Include="TextureCoordinates.cpp">
-      <Filter>Archivos de origen\Core\RenderAPI\HighLevel\2D</Filter>
+      <Filter>Archivos de origen\Core\Graphics\HighLevel\2D</Filter>
     </ClCompile>
     <ClCompile Include="AudioDevice.cpp">
       <Filter>Archivos de origen\Core\AudioAPI</Filter>
@@ -1130,6 +1133,12 @@
     </ClCompile>
     <ClCompile Include="Vector3.cpp">
       <Filter>Archivos de origen\Core\Types</Filter>
+    </ClCompile>
+    <ClCompile Include="GameObjectTranslator.cpp">
+      <Filter>Archivos de origen\Core\Net</Filter>
+    </ClCompile>
+    <ClCompile Include="Buffer.cpp">
+      <Filter>Archivos de origen\Core\Memory</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -1164,61 +1173,61 @@
       <Filter>Archivos de encabezado\Core\Util</Filter>
     </ClInclude>
     <ClInclude Include="IGpu.h">
-      <Filter>Archivos de encabezado\Core\RenderAPI\LowLevel\Gpu</Filter>
+      <Filter>Archivos de encabezado\Core\Graphics\LowLevel\Gpu</Filter>
     </ClInclude>
     <ClInclude Include="IRenderer.h">
-      <Filter>Archivos de encabezado\Core\RenderAPI\LowLevel\Renderer</Filter>
+      <Filter>Archivos de encabezado\Core\Graphics\LowLevel\Renderer</Filter>
     </ClInclude>
     <ClInclude Include="GpuDx12.h">
-      <Filter>Archivos de encabezado\Core\RenderAPI\LowLevel\Gpu</Filter>
+      <Filter>Archivos de encabezado\Core\Graphics\LowLevel\Gpu</Filter>
     </ClInclude>
     <ClInclude Include="ICommandQueue.h">
-      <Filter>Archivos de encabezado\Core\RenderAPI\LowLevel\Commands\Queue</Filter>
+      <Filter>Archivos de encabezado\Core\Graphics\LowLevel\Commands\Queue</Filter>
     </ClInclude>
     <ClInclude Include="CommandQueueDx12.h">
-      <Filter>Archivos de encabezado\Core\RenderAPI\LowLevel\Commands\Queue</Filter>
+      <Filter>Archivos de encabezado\Core\Graphics\LowLevel\Commands\Queue</Filter>
     </ClInclude>
     <ClInclude Include="RendererDx12.h">
-      <Filter>Archivos de encabezado\Core\RenderAPI\LowLevel\Renderer</Filter>
+      <Filter>Archivos de encabezado\Core\Graphics\LowLevel\Renderer</Filter>
     </ClInclude>
     <ClInclude Include="GpuVk.h">
-      <Filter>Archivos de encabezado\Core\RenderAPI\LowLevel\Gpu</Filter>
+      <Filter>Archivos de encabezado\Core\Graphics\LowLevel\Gpu</Filter>
     </ClInclude>
     <ClInclude Include="CommandQueueVk.h">
-      <Filter>Archivos de encabezado\Core\RenderAPI\LowLevel\Commands\Queue</Filter>
+      <Filter>Archivos de encabezado\Core\Graphics\LowLevel\Commands\Queue</Filter>
     </ClInclude>
     <ClInclude Include="RendererVk.h">
-      <Filter>Archivos de encabezado\Core\RenderAPI\LowLevel\Renderer</Filter>
+      <Filter>Archivos de encabezado\Core\Graphics\LowLevel\Renderer</Filter>
     </ClInclude>
     <ClInclude Include="QueueFamilyIndices.h">
-      <Filter>Archivos de encabezado\Core\RenderAPI\LowLevel\Commands\Queue</Filter>
+      <Filter>Archivos de encabezado\Core\Graphics\LowLevel\Commands\Queue</Filter>
     </ClInclude>
     <ClInclude Include="ICommandPool.h">
-      <Filter>Archivos de encabezado\Core\RenderAPI\LowLevel\Commands\Pool</Filter>
+      <Filter>Archivos de encabezado\Core\Graphics\LowLevel\Commands\Pool</Filter>
     </ClInclude>
     <ClInclude Include="CommandPoolDx12.h">
-      <Filter>Archivos de encabezado\Core\RenderAPI\LowLevel\Commands\Pool</Filter>
+      <Filter>Archivos de encabezado\Core\Graphics\LowLevel\Commands\Pool</Filter>
     </ClInclude>
     <ClInclude Include="ICommandList.h">
-      <Filter>Archivos de encabezado\Core\RenderAPI\LowLevel\Commands\List</Filter>
+      <Filter>Archivos de encabezado\Core\Graphics\LowLevel\Commands\List</Filter>
     </ClInclude>
     <ClInclude Include="CommandListDx12.h">
-      <Filter>Archivos de encabezado\Core\RenderAPI\LowLevel\Commands\List</Filter>
+      <Filter>Archivos de encabezado\Core\Graphics\LowLevel\Commands\List</Filter>
     </ClInclude>
     <ClInclude Include="CommandPoolVk.h">
-      <Filter>Archivos de encabezado\Core\RenderAPI\LowLevel\Commands\Pool</Filter>
+      <Filter>Archivos de encabezado\Core\Graphics\LowLevel\Commands\Pool</Filter>
     </ClInclude>
     <ClInclude Include="CommandListVk.h">
-      <Filter>Archivos de encabezado\Core\RenderAPI\LowLevel\Commands\List</Filter>
+      <Filter>Archivos de encabezado\Core\Graphics\LowLevel\Commands\List</Filter>
     </ClInclude>
     <ClInclude Include="ISwapchain.h">
-      <Filter>Archivos de encabezado\Core\RenderAPI\LowLevel\Swapchain</Filter>
+      <Filter>Archivos de encabezado\Core\Graphics\LowLevel\Swapchain</Filter>
     </ClInclude>
     <ClInclude Include="SwapchainDx12.h">
-      <Filter>Archivos de encabezado\Core\RenderAPI\LowLevel\Swapchain</Filter>
+      <Filter>Archivos de encabezado\Core\Graphics\LowLevel\Swapchain</Filter>
     </ClInclude>
     <ClInclude Include="SwapchainVk.h">
-      <Filter>Archivos de encabezado\Core\RenderAPI\LowLevel\Swapchain</Filter>
+      <Filter>Archivos de encabezado\Core\Graphics\LowLevel\Swapchain</Filter>
     </ClInclude>
     <ClInclude Include="DynamicArray.hpp">
       <Filter>Archivos de encabezado\Core\STD</Filter>
@@ -1227,34 +1236,34 @@
       <Filter>Archivos de encabezado\Core\STD</Filter>
     </ClInclude>
     <ClInclude Include="IGpuMemoryAllocator.h">
-      <Filter>Archivos de encabezado\Core\RenderAPI\LowLevel\Memory\Allocator</Filter>
+      <Filter>Archivos de encabezado\Core\Graphics\LowLevel\Memory\Allocator</Filter>
     </ClInclude>
     <ClInclude Include="IGpuMemoryBlock.h">
-      <Filter>Archivos de encabezado\Core\RenderAPI\LowLevel\Memory\Block</Filter>
+      <Filter>Archivos de encabezado\Core\Graphics\LowLevel\Memory\Block</Filter>
     </ClInclude>
     <ClInclude Include="IGpuMemorySubblock.h">
-      <Filter>Archivos de encabezado\Core\RenderAPI\LowLevel\Memory\Subblock</Filter>
+      <Filter>Archivos de encabezado\Core\Graphics\LowLevel\Memory\Subblock</Filter>
     </ClInclude>
     <ClInclude Include="GpuMemoryTypes.h">
-      <Filter>Archivos de encabezado\Core\RenderAPI\LowLevel\Memory\Enums</Filter>
+      <Filter>Archivos de encabezado\Core\Graphics\LowLevel\Memory\Enums</Filter>
     </ClInclude>
     <ClInclude Include="GpuMemoryTypeVk.h">
-      <Filter>Archivos de encabezado\Core\RenderAPI\LowLevel\Memory\Enums</Filter>
+      <Filter>Archivos de encabezado\Core\Graphics\LowLevel\Memory\Enums</Filter>
     </ClInclude>
     <ClInclude Include="GpuMemoryTypesDx12.h">
-      <Filter>Archivos de encabezado\Core\RenderAPI\LowLevel\Memory\Enums</Filter>
+      <Filter>Archivos de encabezado\Core\Graphics\LowLevel\Memory\Enums</Filter>
     </ClInclude>
     <ClInclude Include="GpuMemoryAllocatorDx12.h">
-      <Filter>Archivos de encabezado\Core\RenderAPI\LowLevel\Memory\Allocator</Filter>
+      <Filter>Archivos de encabezado\Core\Graphics\LowLevel\Memory\Allocator</Filter>
     </ClInclude>
     <ClInclude Include="GpuMemoryBlockDx12.h">
-      <Filter>Archivos de encabezado\Core\RenderAPI\LowLevel\Memory\Block</Filter>
+      <Filter>Archivos de encabezado\Core\Graphics\LowLevel\Memory\Block</Filter>
     </ClInclude>
     <ClInclude Include="GpuMemoryAllocatorVk.h">
-      <Filter>Archivos de encabezado\Core\RenderAPI\LowLevel\Memory\Allocator</Filter>
+      <Filter>Archivos de encabezado\Core\Graphics\LowLevel\Memory\Allocator</Filter>
     </ClInclude>
     <ClInclude Include="GpuMemoryBlockVk.h">
-      <Filter>Archivos de encabezado\Core\RenderAPI\LowLevel\Memory\Block</Filter>
+      <Filter>Archivos de encabezado\Core\Graphics\LowLevel\Memory\Block</Filter>
     </ClInclude>
     <ClInclude Include="HashMap.hpp">
       <Filter>Archivos de encabezado\Core\STD</Filter>
@@ -1266,115 +1275,115 @@
       <Filter>Archivos de encabezado\Core\STD</Filter>
     </ClInclude>
     <ClInclude Include="GpuMemorySubblockVk.h">
-      <Filter>Archivos de encabezado\Core\RenderAPI\LowLevel\Memory\Subblock</Filter>
+      <Filter>Archivos de encabezado\Core\Graphics\LowLevel\Memory\Subblock</Filter>
     </ClInclude>
     <ClInclude Include="GpuBuffer.h">
-      <Filter>Archivos de encabezado\Core\RenderAPI\LowLevel\Resources</Filter>
+      <Filter>Archivos de encabezado\Core\Graphics\LowLevel\Resources</Filter>
     </ClInclude>
     <ClInclude Include="GpuMemorySubblockDx12.h">
-      <Filter>Archivos de encabezado\Core\RenderAPI\LowLevel\Memory\Subblock</Filter>
+      <Filter>Archivos de encabezado\Core\Graphics\LowLevel\Memory\Subblock</Filter>
     </ClInclude>
     <ClInclude Include="Format.h">
-      <Filter>Archivos de encabezado\Core\RenderAPI\LowLevel\Resources\Image\Format</Filter>
+      <Filter>Archivos de encabezado\Core\Graphics\LowLevel\Resources\Image\Format</Filter>
     </ClInclude>
     <ClInclude Include="FormatDx12.h">
-      <Filter>Archivos de encabezado\Core\RenderAPI\LowLevel\Resources\Image\Format</Filter>
+      <Filter>Archivos de encabezado\Core\Graphics\LowLevel\Resources\Image\Format</Filter>
     </ClInclude>
     <ClInclude Include="FormatVk.h">
-      <Filter>Archivos de encabezado\Core\RenderAPI\LowLevel\Resources\Image\Format</Filter>
+      <Filter>Archivos de encabezado\Core\Graphics\LowLevel\Resources\Image\Format</Filter>
     </ClInclude>
     <ClInclude Include="GpuImageLayout.h">
-      <Filter>Archivos de encabezado\Core\RenderAPI\LowLevel\Resources\Image\Layout</Filter>
+      <Filter>Archivos de encabezado\Core\Graphics\LowLevel\Resources\Image\Layout</Filter>
     </ClInclude>
     <ClInclude Include="GpuImageLayoutVk.h">
-      <Filter>Archivos de encabezado\Core\RenderAPI\LowLevel\Resources\Image\Layout</Filter>
+      <Filter>Archivos de encabezado\Core\Graphics\LowLevel\Resources\Image\Layout</Filter>
     </ClInclude>
     <ClInclude Include="GpuImageLayoutDx12.h">
-      <Filter>Archivos de encabezado\Core\RenderAPI\LowLevel\Resources\Image\Layout</Filter>
+      <Filter>Archivos de encabezado\Core\Graphics\LowLevel\Resources\Image\Layout</Filter>
     </ClInclude>
     <ClInclude Include="IGpuImage.h">
-      <Filter>Archivos de encabezado\Core\RenderAPI\LowLevel\Resources\Image\Image</Filter>
+      <Filter>Archivos de encabezado\Core\Graphics\LowLevel\Resources\Image\Image</Filter>
     </ClInclude>
     <ClInclude Include="GpuImageDx12.h">
-      <Filter>Archivos de encabezado\Core\RenderAPI\LowLevel\Resources\Image\Image</Filter>
+      <Filter>Archivos de encabezado\Core\Graphics\LowLevel\Resources\Image\Image</Filter>
     </ClInclude>
     <ClInclude Include="Color.hpp">
       <Filter>Archivos de encabezado\Core\Types</Filter>
     </ClInclude>
     <ClInclude Include="GpuImageVk.h">
-      <Filter>Archivos de encabezado\Core\RenderAPI\LowLevel\Resources\Image\Image</Filter>
+      <Filter>Archivos de encabezado\Core\Graphics\LowLevel\Resources\Image\Image</Filter>
     </ClInclude>
     <ClInclude Include="RenderApiType.h">
-      <Filter>Archivos de encabezado\Core\RenderAPI\LowLevel</Filter>
+      <Filter>Archivos de encabezado\Core\Graphics\LowLevel</Filter>
     </ClInclude>
     <ClInclude Include="RenderpassType.h">
-      <Filter>Archivos de encabezado\Core\RenderAPI\LowLevel\Renderpass</Filter>
+      <Filter>Archivos de encabezado\Core\Graphics\LowLevel\Renderpass</Filter>
     </ClInclude>
     <ClInclude Include="GraphicsPipelineDx12.h">
-      <Filter>Archivos de encabezado\Core\RenderAPI\LowLevel\Pipeline\Graphics</Filter>
+      <Filter>Archivos de encabezado\Core\Graphics\LowLevel\Pipeline\Graphics</Filter>
     </ClInclude>
     <ClInclude Include="GraphicsPipelineVk.h">
-      <Filter>Archivos de encabezado\Core\RenderAPI\LowLevel\Pipeline\Graphics</Filter>
+      <Filter>Archivos de encabezado\Core\Graphics\LowLevel\Pipeline\Graphics</Filter>
     </ClInclude>
     <ClInclude Include="IGraphicsPipeline.h">
-      <Filter>Archivos de encabezado\Core\RenderAPI\LowLevel\Pipeline\Graphics</Filter>
+      <Filter>Archivos de encabezado\Core\Graphics\LowLevel\Pipeline\Graphics</Filter>
     </ClInclude>
     <ClInclude Include="PipelineCreateInfo.h">
-      <Filter>Archivos de encabezado\Core\RenderAPI\LowLevel\Pipeline\Graphics</Filter>
+      <Filter>Archivos de encabezado\Core\Graphics\LowLevel\Pipeline\Graphics</Filter>
     </ClInclude>
     <ClInclude Include="Viewport.h">
-      <Filter>Archivos de encabezado\Core\RenderAPI\LowLevel\Pipeline\Viewport</Filter>
+      <Filter>Archivos de encabezado\Core\Graphics\LowLevel\Pipeline\Viewport</Filter>
     </ClInclude>
     <ClInclude Include="EnumFlags.hpp">
       <Filter>Archivos de encabezado\Core\Util</Filter>
     </ClInclude>
     <ClInclude Include="IPipelineLayout.h">
-      <Filter>Archivos de encabezado\Core\RenderAPI\LowLevel\Pipeline\Layout\Pipeline</Filter>
+      <Filter>Archivos de encabezado\Core\Graphics\LowLevel\Pipeline\Layout\Pipeline</Filter>
     </ClInclude>
     <ClInclude Include="PipelineLayoutDx12.h">
-      <Filter>Archivos de encabezado\Core\RenderAPI\LowLevel\Pipeline\Layout\Pipeline</Filter>
+      <Filter>Archivos de encabezado\Core\Graphics\LowLevel\Pipeline\Layout\Pipeline</Filter>
     </ClInclude>
     <ClInclude Include="PipelineLayoutVk.h">
-      <Filter>Archivos de encabezado\Core\RenderAPI\LowLevel\Pipeline\Layout\Pipeline</Filter>
+      <Filter>Archivos de encabezado\Core\Graphics\LowLevel\Pipeline\Layout\Pipeline</Filter>
     </ClInclude>
     <ClInclude Include="ShaderBindingType.h">
-      <Filter>Archivos de encabezado\Core\RenderAPI\LowLevel\Pipeline\Layout\Shader</Filter>
+      <Filter>Archivos de encabezado\Core\Graphics\LowLevel\Pipeline\Layout\Shader</Filter>
     </ClInclude>
     <ClInclude Include="MaterialSystem.h">
-      <Filter>Archivos de encabezado\Core\RenderAPI\HighLevel\Material</Filter>
+      <Filter>Archivos de encabezado\Core\Graphics\HighLevel\Material</Filter>
     </ClInclude>
     <ClInclude Include="MaterialLayoutSlot.h">
-      <Filter>Archivos de encabezado\Core\RenderAPI\HighLevel\Material\Layout</Filter>
+      <Filter>Archivos de encabezado\Core\Graphics\HighLevel\Material\Layout</Filter>
     </ClInclude>
     <ClInclude Include="MaterialLayoutBinding.h">
-      <Filter>Archivos de encabezado\Core\RenderAPI\HighLevel\Material\Layout</Filter>
+      <Filter>Archivos de encabezado\Core\Graphics\HighLevel\Material\Layout</Filter>
     </ClInclude>
     <ClInclude Include="MaterialLayout.h">
-      <Filter>Archivos de encabezado\Core\RenderAPI\HighLevel\Material\Layout</Filter>
+      <Filter>Archivos de encabezado\Core\Graphics\HighLevel\Material\Layout</Filter>
     </ClInclude>
     <ClInclude Include="IMaterialSlot.h">
-      <Filter>Archivos de encabezado\Core\RenderAPI\LowLevel\Material\Slot</Filter>
+      <Filter>Archivos de encabezado\Core\Graphics\LowLevel\Material\Slot</Filter>
     </ClInclude>
     <ClInclude Include="MaterialSlotDx12.h">
-      <Filter>Archivos de encabezado\Core\RenderAPI\LowLevel\Material\Slot</Filter>
+      <Filter>Archivos de encabezado\Core\Graphics\LowLevel\Material\Slot</Filter>
     </ClInclude>
     <ClInclude Include="Material.h">
-      <Filter>Archivos de encabezado\Core\RenderAPI\HighLevel\Material</Filter>
+      <Filter>Archivos de encabezado\Core\Graphics\HighLevel\Material</Filter>
     </ClInclude>
     <ClInclude Include="MaterialSlotVk.h">
-      <Filter>Archivos de encabezado\Core\RenderAPI\LowLevel\Material\Slot</Filter>
+      <Filter>Archivos de encabezado\Core\Graphics\LowLevel\Material\Slot</Filter>
     </ClInclude>
     <ClInclude Include="MaterialInstance.h">
-      <Filter>Archivos de encabezado\Core\RenderAPI\HighLevel\Material</Filter>
+      <Filter>Archivos de encabezado\Core\Graphics\HighLevel\Material</Filter>
     </ClInclude>
     <ClInclude Include="DescriptorLayoutVk.h">
-      <Filter>Archivos de encabezado\Core\RenderAPI\LowLevel\Material\Slot\Desc</Filter>
+      <Filter>Archivos de encabezado\Core\Graphics\LowLevel\Material\Slot\Desc</Filter>
     </ClInclude>
     <ClInclude Include="ShaderBindingTypeVk.h">
-      <Filter>Archivos de encabezado\Core\RenderAPI\LowLevel\Pipeline\Layout\Shader</Filter>
+      <Filter>Archivos de encabezado\Core\Graphics\LowLevel\Pipeline\Layout\Shader</Filter>
     </ClInclude>
     <ClInclude Include="DescriptorPoolVk.h">
-      <Filter>Archivos de encabezado\Core\RenderAPI\LowLevel\Material\Slot\Desc</Filter>
+      <Filter>Archivos de encabezado\Core\Graphics\LowLevel\Material\Slot\Desc</Filter>
     </ClInclude>
     <ClInclude Include="IAsset.h">
       <Filter>Archivos de encabezado\Core\Assets</Filter>
@@ -1386,7 +1395,7 @@
       <Filter>Archivos de encabezado\Core\Assets</Filter>
     </ClInclude>
     <ClInclude Include="MaterialLayoutPushConstant.h">
-      <Filter>Archivos de encabezado\Core\RenderAPI\HighLevel\Material</Filter>
+      <Filter>Archivos de encabezado\Core\Graphics\HighLevel\Material</Filter>
     </ClInclude>
     <ClInclude Include="ConstexprBitSet.hpp">
       <Filter>Archivos de encabezado\Core\STD</Filter>
@@ -1446,34 +1455,34 @@
       <Filter>Archivos de encabezado\Core\IO</Filter>
     </ClInclude>
     <ClInclude Include="GpuImageSamplerDesc.h">
-      <Filter>Archivos de encabezado\Core\RenderAPI\LowLevel\Resources\Image\Sampler</Filter>
+      <Filter>Archivos de encabezado\Core\Graphics\LowLevel\Resources\Image\Sampler</Filter>
     </ClInclude>
     <ClInclude Include="GpuImageDimensions.h">
-      <Filter>Archivos de encabezado\Core\RenderAPI\LowLevel\Resources\Image</Filter>
+      <Filter>Archivos de encabezado\Core\Graphics\LowLevel\Resources\Image</Filter>
     </ClInclude>
     <ClInclude Include="GpuImageUsage.h">
-      <Filter>Archivos de encabezado\Core\RenderAPI\LowLevel\Resources\Image</Filter>
+      <Filter>Archivos de encabezado\Core\Graphics\LowLevel\Resources\Image</Filter>
     </ClInclude>
     <ClInclude Include="IGpuVertexDescription.h">
-      <Filter>Archivos de encabezado\Core\RenderAPI\LowLevel\Vertex\Description</Filter>
+      <Filter>Archivos de encabezado\Core\Graphics\LowLevel\Vertex\Description</Filter>
     </ClInclude>
     <ClInclude Include="VertexInfo.h">
-      <Filter>Archivos de encabezado\Core\RenderAPI\LowLevel\Vertex\Description</Filter>
+      <Filter>Archivos de encabezado\Core\Graphics\LowLevel\Vertex\Description</Filter>
     </ClInclude>
     <ClInclude Include="GpuVertexDescriptionVk.h">
-      <Filter>Archivos de encabezado\Core\RenderAPI\LowLevel\Vertex\Description</Filter>
+      <Filter>Archivos de encabezado\Core\Graphics\LowLevel\Vertex\Description</Filter>
     </ClInclude>
     <ClInclude Include="Vertex.h">
-      <Filter>Archivos de encabezado\Core\RenderAPI\LowLevel\Vertex</Filter>
+      <Filter>Archivos de encabezado\Core\Graphics\LowLevel\Vertex</Filter>
     </ClInclude>
     <ClInclude Include="Vertex2D.h">
-      <Filter>Archivos de encabezado\Core\RenderAPI\LowLevel\Vertex</Filter>
+      <Filter>Archivos de encabezado\Core\Graphics\LowLevel\Vertex</Filter>
     </ClInclude>
     <ClInclude Include="Vertex3D.h">
-      <Filter>Archivos de encabezado\Core\RenderAPI\LowLevel\Vertex</Filter>
+      <Filter>Archivos de encabezado\Core\Graphics\LowLevel\Vertex</Filter>
     </ClInclude>
     <ClInclude Include="PushConst2D.h">
-      <Filter>Archivos de encabezado\Core\RenderAPI\LowLevel\Vertex</Filter>
+      <Filter>Archivos de encabezado\Core\Graphics\LowLevel\Vertex</Filter>
     </ClInclude>
     <ClInclude Include="Font.h">
       <Filter>Archivos de encabezado\BuiltIn\Assets\Assets\Font</Filter>
@@ -1500,10 +1509,10 @@
       <Filter>Archivos de encabezado\Core\IO</Filter>
     </ClInclude>
     <ClInclude Include="SpirvToHlsl.h">
-      <Filter>Archivos de encabezado\Core\RenderAPI\LowLevel\Pipeline\Graphics</Filter>
+      <Filter>Archivos de encabezado\Core\Graphics\LowLevel\Pipeline\Graphics</Filter>
     </ClInclude>
     <ClInclude Include="HlslRuntimeCompiler.h">
-      <Filter>Archivos de encabezado\Core\RenderAPI\LowLevel\Pipeline\Graphics</Filter>
+      <Filter>Archivos de encabezado\Core\Graphics\LowLevel\Pipeline\Graphics</Filter>
     </ClInclude>
     <ClInclude Include="WindowsUtils.h">
       <Filter>Archivos de encabezado\Core\Util</Filter>
@@ -1512,91 +1521,91 @@
       <Filter>Archivos de encabezado\Core\Util</Filter>
     </ClInclude>
     <ClInclude Include="IRtShaderTable.h">
-      <Filter>Archivos de encabezado\Core\RenderAPI\LowLevel\RT\ShaderTable</Filter>
+      <Filter>Archivos de encabezado\Core\Graphics\LowLevel\RT\ShaderTable</Filter>
     </ClInclude>
     <ClInclude Include="RtShaderTableVk.h">
-      <Filter>Archivos de encabezado\Core\RenderAPI\LowLevel\RT\ShaderTable</Filter>
+      <Filter>Archivos de encabezado\Core\Graphics\LowLevel\RT\ShaderTable</Filter>
     </ClInclude>
     <ClInclude Include="IPipelineVk.h">
-      <Filter>Archivos de encabezado\Core\RenderAPI\LowLevel\Pipeline\Pipeline</Filter>
+      <Filter>Archivos de encabezado\Core\Graphics\LowLevel\Pipeline\Pipeline</Filter>
     </ClInclude>
     <ClInclude Include="IRaytracingPipeline.h">
-      <Filter>Archivos de encabezado\Core\RenderAPI\LowLevel\Pipeline\Raytracing</Filter>
+      <Filter>Archivos de encabezado\Core\Graphics\LowLevel\Pipeline\Raytracing</Filter>
     </ClInclude>
     <ClInclude Include="RaytracingPipelineVk.h">
-      <Filter>Archivos de encabezado\Core\RenderAPI\LowLevel\Pipeline\Raytracing</Filter>
+      <Filter>Archivos de encabezado\Core\Graphics\LowLevel\Pipeline\Raytracing</Filter>
     </ClInclude>
     <ClInclude Include="IBottomLevelAccelerationStructure.h">
-      <Filter>Archivos de encabezado\Core\RenderAPI\LowLevel\RT\AS\BLAS</Filter>
+      <Filter>Archivos de encabezado\Core\Graphics\LowLevel\RT\AS\BLAS</Filter>
     </ClInclude>
     <ClInclude Include="BottomLevelAccelerationStructureVk.h">
-      <Filter>Archivos de encabezado\Core\RenderAPI\LowLevel\RT\AS\BLAS</Filter>
+      <Filter>Archivos de encabezado\Core\Graphics\LowLevel\RT\AS\BLAS</Filter>
     </ClInclude>
     <ClInclude Include="ITopLevelAccelerationStructure.h">
-      <Filter>Archivos de encabezado\Core\RenderAPI\LowLevel\RT\AS\TLAS</Filter>
+      <Filter>Archivos de encabezado\Core\Graphics\LowLevel\RT\AS\TLAS</Filter>
     </ClInclude>
     <ClInclude Include="TopLevelAccelerationStructureVk.h">
-      <Filter>Archivos de encabezado\Core\RenderAPI\LowLevel\RT\AS\TLAS</Filter>
+      <Filter>Archivos de encabezado\Core\Graphics\LowLevel\RT\AS\TLAS</Filter>
     </ClInclude>
     <ClInclude Include="PresentMode.h">
-      <Filter>Archivos de encabezado\Core\RenderAPI\HighLevel</Filter>
+      <Filter>Archivos de encabezado\Core\Graphics\HighLevel</Filter>
     </ClInclude>
     <ClInclude Include="Lights.h">
-      <Filter>Archivos de encabezado\Core\RenderAPI\HighLevel\PBR</Filter>
+      <Filter>Archivos de encabezado\Core\Graphics\HighLevel\PBR</Filter>
     </ClInclude>
     <ClInclude Include="ShadowMap.h">
-      <Filter>Archivos de encabezado\Core\RenderAPI\HighLevel\PBR</Filter>
+      <Filter>Archivos de encabezado\Core\Graphics\HighLevel\PBR</Filter>
     </ClInclude>
     <ClInclude Include="IComputePipeline.h">
-      <Filter>Archivos de encabezado\Core\RenderAPI\LowLevel\Pipeline\Compute</Filter>
+      <Filter>Archivos de encabezado\Core\Graphics\LowLevel\Pipeline\Compute</Filter>
     </ClInclude>
     <ClInclude Include="ComputePipelineVk.h">
-      <Filter>Archivos de encabezado\Core\RenderAPI\LowLevel\Pipeline\Compute</Filter>
+      <Filter>Archivos de encabezado\Core\Graphics\LowLevel\Pipeline\Compute</Filter>
     </ClInclude>
     <ClInclude Include="IGpuObject.h">
-      <Filter>Archivos de encabezado\Core\RenderAPI\LowLevel</Filter>
+      <Filter>Archivos de encabezado\Core\Graphics\LowLevel</Filter>
     </ClInclude>
     <ClInclude Include="MaterialType.h">
-      <Filter>Archivos de encabezado\Core\RenderAPI\HighLevel\Material</Filter>
+      <Filter>Archivos de encabezado\Core\Graphics\HighLevel\Material</Filter>
     </ClInclude>
     <ClInclude Include="GpuBarrierInfo.h">
-      <Filter>Archivos de encabezado\Core\RenderAPI\LowLevel\Resources</Filter>
+      <Filter>Archivos de encabezado\Core\Graphics\LowLevel\Resources</Filter>
     </ClInclude>
     <ClInclude Include="IGpuImageView.h">
-      <Filter>Archivos de encabezado\Core\RenderAPI\LowLevel\Resources\Image\View</Filter>
+      <Filter>Archivos de encabezado\Core\Graphics\LowLevel\Resources\Image\View</Filter>
     </ClInclude>
     <ClInclude Include="GpuImageViewVk.h">
-      <Filter>Archivos de encabezado\Core\RenderAPI\LowLevel\Resources\Image\View</Filter>
+      <Filter>Archivos de encabezado\Core\Graphics\LowLevel\Resources\Image\View</Filter>
     </ClInclude>
     <ClInclude Include="GpuImageViewDx12.h">
-      <Filter>Archivos de encabezado\Core\RenderAPI\LowLevel\Resources\Image\View</Filter>
+      <Filter>Archivos de encabezado\Core\Graphics\LowLevel\Resources\Image\View</Filter>
     </ClInclude>
     <ClInclude Include="ComputePipelineDx12.h">
-      <Filter>Archivos de encabezado\Core\RenderAPI\LowLevel\Pipeline\Compute</Filter>
+      <Filter>Archivos de encabezado\Core\Graphics\LowLevel\Pipeline\Compute</Filter>
     </ClInclude>
     <ClInclude Include="IPipelineDx12.h">
-      <Filter>Archivos de encabezado\Core\RenderAPI\LowLevel\Pipeline\Pipeline</Filter>
+      <Filter>Archivos de encabezado\Core\Graphics\LowLevel\Pipeline\Pipeline</Filter>
     </ClInclude>
     <ClInclude Include="DescriptorDx12.h">
-      <Filter>Archivos de encabezado\Core\RenderAPI\LowLevel\Memory\Allocator\Dx12</Filter>
+      <Filter>Archivos de encabezado\Core\Graphics\LowLevel\Memory\Allocator\Dx12</Filter>
     </ClInclude>
     <ClInclude Include="FxaaPass.h">
-      <Filter>Archivos de encabezado\Core\RenderAPI\HighLevel\PostProcess</Filter>
+      <Filter>Archivos de encabezado\Core\Graphics\HighLevel\PostProcess</Filter>
     </ClInclude>
     <ClInclude Include="IPostProcessPass.h">
-      <Filter>Archivos de encabezado\Core\RenderAPI\HighLevel\PostProcess</Filter>
+      <Filter>Archivos de encabezado\Core\Graphics\HighLevel\PostProcess</Filter>
     </ClInclude>
     <ClInclude Include="BloomPass.h">
-      <Filter>Archivos de encabezado\Core\RenderAPI\HighLevel\PostProcess</Filter>
+      <Filter>Archivos de encabezado\Core\Graphics\HighLevel\PostProcess</Filter>
     </ClInclude>
     <ClInclude Include="ToneMapping.h">
-      <Filter>Archivos de encabezado\Core\RenderAPI\HighLevel\PostProcess</Filter>
+      <Filter>Archivos de encabezado\Core\Graphics\HighLevel\PostProcess</Filter>
     </ClInclude>
     <ClInclude Include="..\OSKengine\resource.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
     <ClInclude Include="SmaaPass.h">
-      <Filter>Archivos de encabezado\Core\RenderAPI\HighLevel\PostProcess</Filter>
+      <Filter>Archivos de encabezado\Core\Graphics\HighLevel\PostProcess</Filter>
     </ClInclude>
     <ClInclude Include="StaticMeshLoader.h">
       <Filter>Archivos de encabezado\BuiltIn\Assets\Loaders\Models</Filter>
@@ -1608,43 +1617,43 @@
       <Filter>Archivos de encabezado\BuiltIn\Assets\Loaders\Models</Filter>
     </ClInclude>
     <ClInclude Include="Bone.h">
-      <Filter>Archivos de encabezado\Core\RenderAPI\HighLevel\AnimatedModel</Filter>
+      <Filter>Archivos de encabezado\Core\Graphics\HighLevel\AnimatedModel</Filter>
     </ClInclude>
     <ClInclude Include="AnimationSkin.h">
-      <Filter>Archivos de encabezado\Core\RenderAPI\HighLevel\AnimatedModel</Filter>
+      <Filter>Archivos de encabezado\Core\Graphics\HighLevel\AnimatedModel</Filter>
     </ClInclude>
     <ClInclude Include="AnimationSampler.h">
-      <Filter>Archivos de encabezado\Core\RenderAPI\HighLevel\AnimatedModel</Filter>
+      <Filter>Archivos de encabezado\Core\Graphics\HighLevel\AnimatedModel</Filter>
     </ClInclude>
     <ClInclude Include="AnimationChannel.h">
-      <Filter>Archivos de encabezado\Core\RenderAPI\HighLevel\AnimatedModel</Filter>
+      <Filter>Archivos de encabezado\Core\Graphics\HighLevel\AnimatedModel</Filter>
     </ClInclude>
     <ClInclude Include="Animation.h">
-      <Filter>Archivos de encabezado\Core\RenderAPI\HighLevel\AnimatedModel</Filter>
+      <Filter>Archivos de encabezado\Core\Graphics\HighLevel\AnimatedModel</Filter>
     </ClInclude>
     <ClInclude Include="Animator.h">
-      <Filter>Archivos de encabezado\Core\RenderAPI\HighLevel\AnimatedModel</Filter>
+      <Filter>Archivos de encabezado\Core\Graphics\HighLevel\AnimatedModel</Filter>
     </ClInclude>
     <ClInclude Include="Skeleton.h">
-      <Filter>Archivos de encabezado\Core\RenderAPI\HighLevel\AnimatedModel</Filter>
+      <Filter>Archivos de encabezado\Core\Graphics\HighLevel\AnimatedModel</Filter>
     </ClInclude>
     <ClInclude Include="RtAccelerationStructureFlags.h">
-      <Filter>Archivos de encabezado\Core\RenderAPI\LowLevel\RT\AS</Filter>
+      <Filter>Archivos de encabezado\Core\Graphics\LowLevel\RT\AS</Filter>
     </ClInclude>
     <ClInclude Include="GBuffer.h">
-      <Filter>Archivos de encabezado\Core\RenderAPI\HighLevel</Filter>
+      <Filter>Archivos de encabezado\Core\Graphics\HighLevel</Filter>
     </ClInclude>
     <ClInclude Include="RenderTarget.h">
-      <Filter>Archivos de encabezado\Core\RenderAPI\HighLevel\RenderTargets</Filter>
+      <Filter>Archivos de encabezado\Core\Graphics\HighLevel\RenderTargets</Filter>
     </ClInclude>
     <ClInclude Include="RtRenderTarget.h">
-      <Filter>Archivos de encabezado\Core\RenderAPI\HighLevel\RenderTargets</Filter>
+      <Filter>Archivos de encabezado\Core\Graphics\HighLevel\RenderTargets</Filter>
     </ClInclude>
     <ClInclude Include="RenderTargetAttachmentInfo.h">
-      <Filter>Archivos de encabezado\Core\RenderAPI\HighLevel\RenderTargets</Filter>
+      <Filter>Archivos de encabezado\Core\Graphics\HighLevel\RenderTargets</Filter>
     </ClInclude>
     <ClInclude Include="RenderTargetAttachment.h">
-      <Filter>Archivos de encabezado\Core\RenderAPI\HighLevel\RenderTargets</Filter>
+      <Filter>Archivos de encabezado\Core\Graphics\HighLevel\RenderTargets</Filter>
     </ClInclude>
     <ClInclude Include="IUserInput.h">
       <Filter>Archivos de encabezado\Core\IO\Input</Filter>
@@ -1697,26 +1706,17 @@
     <ClInclude Include="Span.hpp">
       <Filter>Archivos de encabezado\Core\STD</Filter>
     </ClInclude>
-    <ClInclude Include="Field.h">
-      <Filter>Archivos de encabezado\Core\Persistence</Filter>
-    </ClInclude>
-    <ClInclude Include="ISerializable.h">
-      <Filter>Archivos de encabezado\Core\Persistence</Filter>
-    </ClInclude>
-    <ClInclude Include="Data.h">
-      <Filter>Archivos de encabezado\Core\Persistence</Filter>
-    </ClInclude>
-    <ClInclude Include="IDataElement.h">
+    <ClInclude Include="DataNode.h">
       <Filter>Archivos de encabezado\Core\Persistence</Filter>
     </ClInclude>
     <ClInclude Include="DataType.h">
       <Filter>Archivos de encabezado\Core\Persistence</Filter>
     </ClInclude>
-    <ClInclude Include="ISerializer.h">
+    <ClInclude Include="Serializer.h">
       <Filter>Archivos de encabezado\Core\Persistence</Filter>
     </ClInclude>
     <ClInclude Include="CommandQueueSupport.h">
-      <Filter>Archivos de encabezado\Core\RenderAPI\LowLevel\Commands\Queue</Filter>
+      <Filter>Archivos de encabezado\Core\Graphics\LowLevel\Commands\Queue</Filter>
     </ClInclude>
     <ClInclude Include="Event.h">
       <Filter>Archivos de encabezado\Core\ECS\Event</Filter>
@@ -1749,28 +1749,28 @@
       <Filter>Archivos de encabezado\Core\Collision</Filter>
     </ClInclude>
     <ClInclude Include="GpuImageViewConfig.h">
-      <Filter>Archivos de encabezado\Core\RenderAPI\LowLevel\Resources\Image\View</Filter>
+      <Filter>Archivos de encabezado\Core\Graphics\LowLevel\Resources\Image\View</Filter>
     </ClInclude>
     <ClInclude Include="GpuHeapMemoryUsageInfo.h">
-      <Filter>Archivos de encabezado\Core\RenderAPI\LowLevel\Memory</Filter>
+      <Filter>Archivos de encabezado\Core\Graphics\LowLevel\Memory</Filter>
     </ClInclude>
     <ClInclude Include="GpuMemoryUsageInfo.h">
-      <Filter>Archivos de encabezado\Core\RenderAPI\LowLevel\Memory</Filter>
+      <Filter>Archivos de encabezado\Core\Graphics\LowLevel\Memory</Filter>
     </ClInclude>
     <ClInclude Include="TaaProvider.h">
-      <Filter>Archivos de encabezado\Core\RenderAPI\HighLevel\PBR</Filter>
+      <Filter>Archivos de encabezado\Core\Graphics\HighLevel\PBR</Filter>
     </ClInclude>
     <ClInclude Include="SpriteBatch.h">
-      <Filter>Archivos de encabezado\Core\RenderAPI\HighLevel\2D</Filter>
+      <Filter>Archivos de encabezado\Core\Graphics\HighLevel\2D</Filter>
     </ClInclude>
     <ClInclude Include="VertexBufferView.h">
-      <Filter>Archivos de encabezado\Core\RenderAPI\LowLevel\Resources\Buffer\Views</Filter>
+      <Filter>Archivos de encabezado\Core\Graphics\LowLevel\Resources\Buffer\Views</Filter>
     </ClInclude>
     <ClInclude Include="IndexBufferView.h">
-      <Filter>Archivos de encabezado\Core\RenderAPI\LowLevel\Resources\Buffer\Views</Filter>
+      <Filter>Archivos de encabezado\Core\Graphics\LowLevel\Resources\Buffer\Views</Filter>
     </ClInclude>
     <ClInclude Include="FrameCombiner.h">
-      <Filter>Archivos de encabezado\Core\RenderAPI\HighLevel\2D</Filter>
+      <Filter>Archivos de encabezado\Core\Graphics\HighLevel\2D</Filter>
     </ClInclude>
     <ClInclude Include="UiHorizontalContainer.h">
       <Filter>Archivos de encabezado\BuiltIn\UI\Containers</Filter>
@@ -1920,10 +1920,10 @@
       <Filter>Archivos de encabezado\BuiltIn\IO</Filter>
     </ClInclude>
     <ClInclude Include="SpriteRenderer.h">
-      <Filter>Archivos de encabezado\Core\RenderAPI\HighLevel\2D\SpriteRendering</Filter>
+      <Filter>Archivos de encabezado\Core\Graphics\HighLevel\2D\SpriteRendering</Filter>
     </ClInclude>
     <ClInclude Include="TextureCoordinates.h">
-      <Filter>Archivos de encabezado\Core\RenderAPI\HighLevel\2D\SpriteRendering</Filter>
+      <Filter>Archivos de encabezado\Core\Graphics\HighLevel\2D\SpriteRendering</Filter>
     </ClInclude>
     <ClInclude Include="NotImplementedException.h">
       <Filter>Archivos de encabezado\Core\Exceptions</Filter>
@@ -1950,34 +1950,34 @@
       <Filter>Archivos de encabezado\Core\UI</Filter>
     </ClInclude>
     <ClInclude Include="CommandListExceptions.h">
-      <Filter>Archivos de encabezado\Core\RenderAPI\Exceptions</Filter>
+      <Filter>Archivos de encabezado\Core\Graphics\Exceptions</Filter>
     </ClInclude>
     <ClInclude Include="EventNotRegisteredException.h">
       <Filter>Archivos de encabezado\Core\ECS\Exceptions</Filter>
     </ClInclude>
     <ClInclude Include="PipelinesExceptions.h">
-      <Filter>Archivos de encabezado\Core\RenderAPI\Exceptions</Filter>
+      <Filter>Archivos de encabezado\Core\Graphics\Exceptions</Filter>
     </ClInclude>
     <ClInclude Include="AccelerationStructuresExceptions.h">
-      <Filter>Archivos de encabezado\Core\RenderAPI\Exceptions</Filter>
+      <Filter>Archivos de encabezado\Core\Graphics\Exceptions</Filter>
     </ClInclude>
     <ClInclude Include="EcsExceptions.h">
       <Filter>Archivos de encabezado\Core\ECS\Exceptions</Filter>
     </ClInclude>
     <ClInclude Include="AnimationExceptions.h">
-      <Filter>Archivos de encabezado\Core\RenderAPI\HighLevel\Exceptions</Filter>
+      <Filter>Archivos de encabezado\Core\Graphics\HighLevel\Exceptions</Filter>
     </ClInclude>
     <ClInclude Include="MaterialExceptions.h">
-      <Filter>Archivos de encabezado\Core\RenderAPI\Exceptions</Filter>
+      <Filter>Archivos de encabezado\Core\Graphics\Exceptions</Filter>
     </ClInclude>
     <ClInclude Include="FontLoadingExceptions.h">
       <Filter>Archivos de encabezado\BuiltIn\Assets\Exceptions</Filter>
     </ClInclude>
     <ClInclude Include="RendererExceptions.h">
-      <Filter>Archivos de encabezado\Core\RenderAPI\Exceptions</Filter>
+      <Filter>Archivos de encabezado\Core\Graphics\Exceptions</Filter>
     </ClInclude>
     <ClInclude Include="GpuMemoryExceptions.h">
-      <Filter>Archivos de encabezado\Core\RenderAPI\Exceptions</Filter>
+      <Filter>Archivos de encabezado\Core\Graphics\Exceptions</Filter>
     </ClInclude>
     <ClInclude Include="InvalidArgumentException.h">
       <Filter>Archivos de encabezado\Core\Exceptions</Filter>
@@ -2017,6 +2017,18 @@
     </ClInclude>
     <ClInclude Include="MathExceptions.h">
       <Filter>Archivos de encabezado\Core\Exceptions</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObjectTranslator.h">
+      <Filter>Archivos de encabezado\Core\Net</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene.h">
+      <Filter>Archivos de encabezado\Core\ECS</Filter>
+    </ClInclude>
+    <ClInclude Include="Buffer.h">
+      <Filter>Archivos de encabezado\Core\Memory</Filter>
+    </ClInclude>
+    <ClInclude Include="SchemaId.h">
+      <Filter>Archivos de encabezado\Core\Util</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

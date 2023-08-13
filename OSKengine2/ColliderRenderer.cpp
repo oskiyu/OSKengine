@@ -152,9 +152,9 @@ void ColliderRenderSystem::Render(GRAPHICS::ICommandList* commandList) {
 			commandList->DrawSingleInstance(sphereModel->GetIndexCount());
 		}
 
-		if (bottomLevelVertexBuffers.ContainsKey(gameObject)) {
-			const auto& vertexBuffers = bottomLevelVertexBuffers.Get(gameObject);
-			const auto& indexBuffers = bottomLevelIndexBuffers.Get(gameObject);
+		if (bottomLevelVertexBuffers.contains(gameObject)) {
+			const auto& vertexBuffers = bottomLevelVertexBuffers.at(gameObject);
+			const auto& indexBuffers = bottomLevelIndexBuffers.at(gameObject);
 
 			if (collisionObjects.contains(gameObject))
 				renderInfo.color = Color::Red;
@@ -207,18 +207,18 @@ void ColliderRenderSystem::OnObjectAdded(GameObjectIndex obj) {
 }
 
 void ColliderRenderSystem::OnObjectRemoved(GameObjectIndex obj) {
-	if (bottomLevelVertexBuffers.ContainsKey(obj)) {
-		bottomLevelVertexBuffers.Get(obj).Empty();
-		bottomLevelIndexBuffers.Get(obj).Empty();
+	if (bottomLevelVertexBuffers.contains(obj)) {
+		bottomLevelVertexBuffers.at(obj).Empty();
+		bottomLevelIndexBuffers.at(obj).Empty();
 	}
 }
 
 void ColliderRenderSystem::SetupBottomLevelModel(GameObjectIndex obj) {
 	const Collider& collider = Engine::GetEcs()->GetComponent<Collider>(obj);
 	
-	if (bottomLevelVertexBuffers.ContainsKey(obj)) {
-		bottomLevelVertexBuffers.Get(obj).Empty();
-		bottomLevelIndexBuffers.Get(obj).Empty();
+	if (bottomLevelVertexBuffers.contains(obj)) {
+		bottomLevelVertexBuffers.at(obj).Empty();
+		bottomLevelIndexBuffers.at(obj).Empty();
 	}
 
 	// Listas con los vertex e index buffers de la entidad.
@@ -227,7 +227,7 @@ void ColliderRenderSystem::SetupBottomLevelModel(GameObjectIndex obj) {
 	DynamicArray<OwnedPtr<GpuBuffer>> indexBuffers;
 
 	
-	for (UIndex64 c = 0; c < collider.GetBottomLevelCollidersCount(); c++) {
+	for (UIndex32 c = 0; c < collider.GetBottomLevelCollidersCount(); c++) {
 		const auto& blc = *collider.GetBottomLevelCollider(c)->As<ConvexVolume>();
 
 		// "Convertimos" los vértices del collider
@@ -262,14 +262,14 @@ void ColliderRenderSystem::SetupBottomLevelModel(GameObjectIndex obj) {
 	}
 
 	// Si no existían las listas, las introducimos primero.
-	if (!bottomLevelVertexBuffers.ContainsKey(obj)) {
-		bottomLevelVertexBuffers.Insert(obj, {});
-		bottomLevelIndexBuffers.Insert(obj, {});
+	if (!bottomLevelVertexBuffers.contains(obj)) {
+		bottomLevelVertexBuffers[obj] = {};
+		bottomLevelIndexBuffers[obj] = {};
 	}
 
 	for (const auto& v : vertexBuffers)
-		bottomLevelVertexBuffers.Get(obj).Insert(v.GetPointer());
+		bottomLevelVertexBuffers.at(obj).Insert(v.GetPointer());
 
 	for (const auto& i : indexBuffers)
-		bottomLevelIndexBuffers.Get(obj).Insert(i.GetPointer());
+		bottomLevelIndexBuffers.at(obj).Insert(i.GetPointer());
 }

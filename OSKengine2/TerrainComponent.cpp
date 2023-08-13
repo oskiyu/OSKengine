@@ -5,6 +5,7 @@
 #include "IGpuMemoryAllocator.h"
 #include "Color.hpp"
 #include "Vertex3D.h"
+#include "MathExceptions.h"
 
 using namespace OSK;
 using namespace OSK::GRAPHICS;
@@ -35,7 +36,12 @@ void TerrainComponent::Generate(const Vector2ui& resolution) {
 	vertexBuffer = Engine::GetRenderer()->GetAllocator()->CreateVertexBuffer(terrainVertices, Vertex3D::GetVertexInfo()).GetPointer();
 	indexBuffer = Engine::GetRenderer()->GetAllocator()->CreateIndexBuffer(terrainIndices).GetPointer();
 
-	numIndices = terrainIndices.GetSize();
+	OSK_ASSERT(
+		terrainIndices.GetSize() < std::numeric_limits<USize32>::max(), 
+		OverflowConversionException()
+	);
+
+	numIndices = static_cast<USize32>(terrainIndices.GetSize());
 }
 
 void TerrainComponent::SetMaterialInstance(OwnedPtr<MaterialInstance> materialInstance) {

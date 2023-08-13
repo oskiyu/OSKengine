@@ -1,6 +1,7 @@
 
 const float PI = 3.14159265359;
-const float DEFAULT_F0 = 0.004;
+const float E = 2.7182818284;
+const float DEFAULT_F0 = 0.04;
 
 vec3 GetShadowmapCascade(vec3 cameraSpacePosition, vec4 shadowSplits);
 int GetShadowmapIndex(vec3 cameraSpacePosition, vec4 shadowSplits);
@@ -11,7 +12,7 @@ vec3 FreshnelShlick(float cosTheta, vec3 F0){
     return F0 + (1.0 - F0) * pow(clamp(1.0 - cosTheta, 0.0, 1.0), 0.5);
 }
 
-//
+// Distribución de micro-facetas.
 float DistributionGGX(vec3 normal, vec3 h, float roughness) {
     float a = roughness * roughness;
     float a2 = a * a;
@@ -26,7 +27,25 @@ float DistributionGGX(vec3 normal, vec3 h, float roughness) {
     return num / denom;
 }
 
+float GeometryBeckmann(float NdotV, float roughness) {
+    const float alpha = roughness * roughness;
+    const float a = NdotV / (alpha * sqrt(1 - NdotV * NdotV));
+
+    return (1 - 1.259 * a + 0.396 * a * a)
+        / (3.535 * a + 2.181 * a * a);
+}
+
 float GeometrySchlickGGX(float NdotV, float roughness) {
+    float r = roughness + 1.0;
+    float k = (r * r) / 8.0;
+
+    float num = NdotV;
+    float denom = NdotV * (1.0 - k) + k;
+
+    return num / denom;
+}
+
+float GeometrySchlickGGX_IBL(float NdotV, float roughness) {
     float r = roughness + 1.0;
     float k = (r * r) / 8.0;
 
@@ -45,9 +64,18 @@ float GeometrySmith(vec3 normal, vec3 view, vec3 L, float roughness) {
     return ggx1 * ggx2;
 }
 
+float GeometrySmith_IBL(vec3 normal, vec3 view, vec3 L, float roughness) {
+    float NdotV = max(dot(normal, view), 0.0);
+    float NdotL = max(dot(normal, L), 0.0);
+    float ggx2  = GeometrySchlickGGX_IBL(NdotV, roughness);
+    float ggx1  = GeometrySchlickGGX_IBL(NdotL, roughness);
+	
+    return ggx1 * ggx2;
+}
+
 vec3 FresnelSchlickRoughness(float cosTheta, vec3 F0, float roughness) {
     return F0 + (max(vec3(1.0 - roughness), F0) - F0) 
-            * pow(clamp(1.0 - cosTheta, 0.01, 1.0), 5.0);
+            * pow(clamp(1.0 - cosTheta, 0.00001, 1.0), 5.0);
 }   
 
 vec3 GetRadiance(vec3 F0, vec3 direction, vec3 view, vec3 normal, vec3 lightColor, vec3 albedoColor, float roughnessFactor, float metallicFactor) {
@@ -56,19 +84,19 @@ vec3 GetRadiance(vec3 F0, vec3 direction, vec3 view, vec3 normal, vec3 lightColo
     vec3 radiance = lightColor;
 
     // Cook-Torrance
-    float NDF = DistributionGGX(normal, H, roughnessFactor);
+    float D = DistributionGGX(normal, H, max(0.085, roughnessFactor));
     float G = GeometrySmith(normal, view, L, roughnessFactor);
     vec3 F = FreshnelShlick(max(dot(H, view), 0.0), F0);
 
-    vec3 kS = F;
-    vec3 kD = vec3(1.0) - kS;
-    kD *= 1.0 - metallicFactor;
+    vec3 kSpecular = F;
+    vec3 kDiffuse = vec3(1.0) - kSpecular;
+    kDiffuse *= 1.0 - metallicFactor;
+    kSpecular = 1.0 - kDiffuse;
 
-    vec3 num = NDF * G * F;
-    float denom = 6.0 * max(dot(normal, view), 0.0) * max(dot(normal, L), 0.0) + 0.0001;
-    vec3 specular = num / denom;
+    const vec3 fLambert = albedoColor / PI;
+    const vec3 fCookTorrance = (D * F * G) / 4.0 * max(dot(normal, view), 0.0) * max(dot(normal, L), 0.0) + 0.0001;
 
-    return (kD * albedoColor / (PI * 0.5) + specular) * radiance * max(dot(normal, L), 0.0);
+    return (kDiffuse * fLambert + fCookTorrance) * radiance * max(dot(normal, L), 0.0);
 }
 
 vec4 GetShadowCoordinates(mat4[4] shadowMatrices, int cascadeIndex, vec3 fragPosition) {
