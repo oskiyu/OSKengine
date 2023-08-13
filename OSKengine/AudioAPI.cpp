@@ -1,6 +1,7 @@
 #include "AudioAPI.h"
 
 #include <al.h>
+#include "../OSKengine2/vcpkg_installed/x64-windows/x64-windows/include/AL/alc.h"
 
 namespace OSK {
 

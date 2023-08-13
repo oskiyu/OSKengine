@@ -13,7 +13,7 @@
 #undef APSTUDIO_READONLY_SYMBOLS
 
 /////////////////////////////////////////////////////////////////////////////
-// Espaï¿½ol (Espaï¿½a, alfabetizaciï¿½n internacional) resources
+// Español (España, alfabetización internacional) resources
 
 #if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_ESN)
 LANGUAGE LANG_SPANISH, SUBLANG_SPANISH_MODERN
@@ -52,7 +52,7 @@ END
 
 VS_VERSION_INFO VERSIONINFO
  FILEVERSION 0,0,0,0
- PRODUCTVERSION 2022,5,26,0
+ PRODUCTVERSION 2023,7,24,0
  FILEFLAGSMASK 0x3fL
 #ifdef _DEBUG
  FILEFLAGS 0x1L
@@ -68,13 +68,13 @@ BEGIN
         BLOCK "0c0a04b0"
         BEGIN
             VALUE "CompanyName", "OSKgames"
-            VALUE "FileDescription", "OSKengine Alpha 2"
+            VALUE "FileDescription", "OSKengine Closed Alpha"
             VALUE "FileVersion", "0.0.0.0"
             VALUE "InternalName", "OSKengine.dll"
-            VALUE "LegalCopyright", "Copyright (C) 2019-2022"
+            VALUE "LegalCopyright", "Copyright (C) 2019-2023"
             VALUE "OriginalFilename", "OSKengine.dll"
-            VALUE "ProductName", "OSKengine Alpha 2"
-            VALUE "ProductVersion", "Alpha 2 build 2022.5.26a Debug"
+            VALUE "ProductName", "OSKengine Closed Alpha"
+            VALUE "ProductVersion", "Closed Alpha 2023.07.24a"
         END
     END
     BLOCK "VarFileInfo"
@@ -83,16 +83,7 @@ BEGIN
     END
 END
 
-
-/////////////////////////////////////////////////////////////////////////////
-//
-// Icon
-//
-
-// Icon with lowest ID value placed first to ensure application icon
-// remains consistent on all systems.
-
-#endif    // Espaï¿½ol (Espaï¿½a, alfabetizaciï¿½n internacional) resources
+#endif    // Español (España, alfabetización internacional) resources
 /////////////////////////////////////////////////////////////////////////////
 
 
