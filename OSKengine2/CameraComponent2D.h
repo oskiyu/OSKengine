@@ -60,13 +60,13 @@ namespace OSK::ECS {
 
 	private:
 
-		const IO::IDisplay* display = nullptr;
+		const IO::IDisplay* m_display = nullptr;
 
-		glm::mat4 projection;
+		glm::mat4 m_projection;
 
-		Vector2f targetSize;
+		Vector2f m_targetSize;
 
-		UniquePtr<GRAPHICS::GpuBuffer> uniformBuffer;
+		UniquePtr<GRAPHICS::GpuBuffer> m_uniformBuffer;
 
 	};
 

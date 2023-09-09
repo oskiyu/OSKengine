@@ -230,7 +230,7 @@ namespace OSK {
 		/// @brief Transfirere el contenido de @p arr a este array.
 		/// @param arr Otro array.
 		/// @warning Deja a @p arr en un estado inválido.
-		DynamicArray(DynamicArray&& arr) noexcept : m_count(arr.m_count), m_capacity(arr.m_count) {
+		DynamicArray(DynamicArray&& arr) noexcept : m_capacity(arr.m_count), m_count(arr.m_count)  {
 			m_data = (T*)malloc(sizeof(T) * m_capacity);
 			
 			for (UIndex64 i = 0; i < arr.m_count; i++) {
@@ -455,8 +455,6 @@ namespace OSK {
 		/// 
 		/// @bug No llama a los constructores de copia.
 		void InsertAll(const DynamicArray& arr) requires _DArr::IsCopyable<T> {
-			USize64 originalSize = m_count;
-
 			EnsureSpace(m_count + arr.m_count);
 
 			for (const T& i : arr)

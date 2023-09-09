@@ -32,7 +32,7 @@ namespace OSK::COLLISION {
 	public:
 
 		ConvexVolume() = default;
-		~ConvexVolume() = default;
+		~ConvexVolume() override = default;
 
 		/// @brief Crea un volúmen convexo que implementa una caja delimitadora.
 		/// @param size Tamaño de la caja, expresado como: { halfWidth, height, halfLenght }.
@@ -47,9 +47,11 @@ namespace OSK::COLLISION {
 		/// @brief Añade una cara al poliedro.
 		/// @param vertices Vértices de la cara.
 		/// @pre vertices.GetSize() >= 3.
+		/// @pre vertices.GetSize() < UINT_MAX.
+		/// @pre convexVolume.vertices.GetSize() + vertices.GetSize() < UINT_MAX.
 		/// 
-		/// @note A la hora de construir el volumen, todas las caras deben tener sus vértices
-		/// en sentido horiario (si se observa desde fuera del collider).
+		/// @throws InvalidArgumentException si el número de vértices proporcionado es incorrecto.
+		/// @throws InvalidObjectStateException si el número de vértices final es incorrecto.
 		void AddFace(const DynamicArray<Vector3f>& vertices);
 
 		/// @brief Optimiza el proceso de detección de colisiones
@@ -57,6 +59,9 @@ namespace OSK::COLLISION {
 		/// caras paralelas.
 		void OptimizeAxes();
 
+		/// @brief Transforma los vértices.
+		/// @note Debe llamarse una vez por fotograma.
+		void Transform(const ECS::Transform3D& transform) override;
 
 		DetailedCollisionInfo GetCollisionInfo(const IBottomLevelCollider& other,
 			const ECS::Transform3D& thisOffset, const ECS::Transform3D& otherOffset) const override;
@@ -77,7 +82,7 @@ namespace OSK::COLLISION {
 		/// @return Lista con todos los índices de cada cara.
 		/// 
 		/// @see FaceIndices
-		const DynamicArray<FaceIndices> GetFaceIndices() const;
+		DynamicArray<FaceIndices> GetFaceIndices() const;
 
 	private:
 
@@ -97,19 +102,12 @@ namespace OSK::COLLISION {
 		/// Se usa para la comprobación de colisiones.
 		/// 
 		/// @param faceId Índice de la cara.
-		/// @param transform Transform aplicado al colisionador.
 		/// 
 		/// @return Eje de la cara.
 		/// 
 		/// @pre El índice debe apuntar a una cara válida que no haya sido purgada
 		/// por el proceso de optimización.
-		Axis GetWorldSpaceAxis(UIndex32 faceId, const ECS::Transform3D& transform) const;
-
-		/// @brief Obtiene una lista con todos los vértices del collider transformados
-		/// a world-space.
-		/// @param transform Transform de este collider.
-		/// @return Lista con los vértices en world-space.
-		DynamicArray<Vector3f> GetWorldSpaceVertices(const ECS::Transform3D& transform) const;
+		Axis GetWorldSpaceAxis(UIndex32 faceId) const;
 
 		/// @brief Obtiene los índices de todas las caras que contienen el vértice dado.
 		/// @param vertex Vértice buscado.
@@ -120,9 +118,15 @@ namespace OSK::COLLISION {
 		/// @note Si se incumple la precondición, devuelve una lista vacía.
 		DynamicArray<UIndex32> GetFaceIndicesWithVertex(const Vector3f& vertex) const;
 
+		void RecalculateCenter();
 
-		DynamicArray<FaceIndices> faces;
-		DynamicArray<Vector3f> vertices;
+
+		DynamicArray<FaceIndices> m_faces;
+		DynamicArray<Vector3f> m_vertices;
+		DynamicArray<Vector3f> m_transformedVertices;
+
+		Vector3f m_center = Vector3f::Zero;
+		Vector3f m_transformedCenter = Vector3f::Zero;
 
 	};
 

@@ -10,7 +10,7 @@ namespace OSK::GRAPHICS {
 
 namespace OSK::IO {
 
-	class Console {
+	class OSKAPI_CALL Console {
 
 	public:
 
@@ -30,9 +30,9 @@ namespace OSK::IO {
 
 	private:
 
-		DynamicArray<Entry> entries = DynamicArray<Entry>::CreateReservedArray(50);
-		ASSETS::Font* fuente;
-		USize32 fontSize = 20;
+		DynamicArray<Entry> m_entries = DynamicArray<Entry>::CreateReservedArray(50);
+		ASSETS::Font* m_fuente = nullptr;
+		USize32 m_fontSize = 23;
 
 	};
 

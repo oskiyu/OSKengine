@@ -23,6 +23,19 @@ void CollisionSystem::OnTick(TDeltaTime deltaTime) {
 
 	const USize64 numObjects = GetObjects().GetSize();
 
+	// Actualizar y transformar los colliders.
+	for (GameObjectIndex i : GetObjects()) {
+		auto& collider = Engine::GetEcs()->GetComponent<COLLISION::Collider>(i);
+		const auto& transform = Engine::GetEcs()->GetComponent<Transform3D>(i);
+
+		for (UIndex32 blci = 0; blci < collider.GetBottomLevelCollidersCount(); blci++) {
+			auto* blc = collider.GetBottomLevelCollider(blci);
+
+			blc->Transform(transform);
+		}
+	}
+
+	// Detección de colisiones.
 	for (UIndex64 a = 0; a < numObjects - 1; a++) {
 		const GameObjectIndex firstObject = GetObjects()[a];
 
@@ -37,8 +50,13 @@ void CollisionSystem::OnTick(TDeltaTime deltaTime) {
 
 			const auto collisionInfo = firstCollider.GetCollisionInfo(secondCollider, firstTransform, secondTransform);
 
-			if (collisionInfo.IsColliding())
-				Engine::GetEcs()->PublishEvent<CollisionEvent>({ firstObject, secondObject, collisionInfo.GetDetailedInfo() });
+			if (collisionInfo.IsColliding()) {
+				Engine::GetEcs()->PublishEvent<CollisionEvent>({
+					firstObject,
+					secondObject,
+					collisionInfo.GetDetailedInfo()
+					});
+			}
 		}
 	}
 }

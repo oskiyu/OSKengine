@@ -11,38 +11,38 @@ using namespace OSK;
 using namespace OSK::GRAPHICS;
 
 void Animator::Setup(const glm::mat4& initialTransform) {
-	this->initialTransform = initialTransform;
+	m_initialTransform = initialTransform;
 
-	materialInstance = Engine::GetRenderer()->GetMaterialSystem()
+	m_materialInstance = Engine::GetRenderer()->GetMaterialSystem()
 		->LoadMaterial("Resources/Materials/PBR/animated_direct_pbr.json")->CreateInstance().GetPointer();
 
-	for (auto& buffer : boneBuffers) {
-		buffer = Engine::GetRenderer()->GetAllocator()->CreateStorageBuffer(sizeof(glm::mat4) * boneMatrices.GetSize()).GetPointer();
+	for (auto& buffer : m_boneBuffers) {
+		buffer = Engine::GetRenderer()->GetAllocator()->CreateStorageBuffer(sizeof(glm::mat4) * m_boneMatrices.GetSize()).GetPointer();
 
 		buffer->MapMemory();
-		buffer->Write(boneMatrices.GetData(), boneMatrices.GetSize() * sizeof(glm::mat4));
+		buffer->Write(m_boneMatrices.GetData(), m_boneMatrices.GetSize() * sizeof(glm::mat4));
 		buffer->Unmap();
 	}
 
 	const GpuBuffer* buffers[3] = {
-		boneBuffers[0].GetPointer(),
-		boneBuffers[1].GetPointer(),
-		boneBuffers[2].GetPointer()
+		m_boneBuffers[0].GetPointer(),
+		m_boneBuffers[1].GetPointer(),
+		m_boneBuffers[2].GetPointer()
 	};
 
-	materialInstance->GetSlot("animation")->SetStorageBuffers("animation", buffers);
-	materialInstance->GetSlot("animation")->FlushUpdate();
+	m_materialInstance->GetSlot("animation")->SetStorageBuffers("animation", buffers);
+	m_materialInstance->GetSlot("animation")->FlushUpdate();
 }
 
 void Animator::Update(TDeltaTime deltaTime) {
-	for (const std::string& animationName : activeAnimations)
-		availableAnimations.at(animationName).Update(deltaTime, *GetActiveSkin());
+	for (const std::string& animationName : m_activeAnimations)
+		m_availableAnimations.at(animationName).Update(deltaTime, *GetActiveSkin());
 	
-	for (auto& matrix : boneMatrices)
+	for (auto& matrix : m_boneMatrices)
 		matrix = glm::mat4(1.0f);
 
-	for (const std::string& animationName : activeAnimations) {
-		const Animation& animation = availableAnimations.at(animationName);
+	for (const std::string& animationName : m_activeAnimations) {
+		const Animation& animation = m_availableAnimations.at(animationName);
 
 		for (UIndex32 boneIndex = 0; boneIndex < GetActiveSkin()->bonesIds.GetSize(); boneIndex++) {
 			const float ratio = 1.0f;// / activeAnimations.GetSize();
@@ -52,68 +52,68 @@ void Animator::Update(TDeltaTime deltaTime) {
 			const glm::mat4 inverseMatrix = GetActiveSkin()->inverseMatrices[boneIndex];
 			const glm::mat4 boneMatrix = animation.skeleton.GetBone(boneIndex, *GetActiveSkin()).globalMatrix;
 			
-			boneMatrices[boneIndex] *= ratio * boneMatrix * inverseMatrix;
+			m_boneMatrices[boneIndex] *= ratio * boneMatrix * inverseMatrix;
 		}
 	}
 
-	for (auto& matrix : boneMatrices) matrix = initialTransform * matrix;
+	for (auto& matrix : m_boneMatrices) matrix = m_initialTransform * matrix;
 
-	boneBuffers[Engine::GetRenderer()->GetCurrentResourceIndex()]->MapMemory();
-	boneBuffers[Engine::GetRenderer()->GetCurrentResourceIndex()]->Write(boneMatrices.GetData(), sizeof(glm::mat4) * boneMatrices.GetSize());
-	boneBuffers[Engine::GetRenderer()->GetCurrentResourceIndex()]->Unmap();
+	m_boneBuffers[Engine::GetRenderer()->GetCurrentResourceIndex()]->MapMemory();
+	m_boneBuffers[Engine::GetRenderer()->GetCurrentResourceIndex()]->Write(m_boneMatrices.GetData(), sizeof(glm::mat4) * m_boneMatrices.GetSize());
+	m_boneBuffers[Engine::GetRenderer()->GetCurrentResourceIndex()]->Unmap();
 }
 
 void Animator::AddActiveAnimation(std::string_view name) {
-	OSK_ASSERT(availableAnimations.contains(name), ModelAnimationNotFoundException(name));
+	OSK_ASSERT(m_availableAnimations.contains(name), ModelAnimationNotFoundException(name));
 
-	activeAnimations.Insert(static_cast<std::string>(name));
+	m_activeAnimations.Insert(static_cast<std::string>(name));
 }
 
 void Animator::RemoveActiveAnimation(std::string_view name) {
-	activeAnimations.Remove(static_cast<std::string>(name));
+	m_activeAnimations.Remove(static_cast<std::string>(name));
 }
 
 void Animator::_AddAnimation(const Animation& animation) {
-	availableAnimations[animation.name] = animation;
+	m_availableAnimations[animation.name] = animation;
 
-	for (const auto& node : nodes)
-		availableAnimations.at(animation.name).skeleton._AddNode(node);
+	for (const auto& node : m_nodes)
+		m_availableAnimations.at(animation.name).skeleton._AddNode(node);
 }
 
 void Animator::_AddNode(const MeshNode& node) {
-	nodes.Insert(node);
-	boneMatrices.Insert(glm::mat4(1.0f));
+	m_nodes.Insert(node);
+	m_boneMatrices.Insert(glm::mat4(1.0f));
 }
 
-void Animator::_AddSkin(AnimationSkin&& skin) {
-	const UIndex32 skinIndex = availableSkins.GetSize();
+void Animator::_AddSkin(const AnimationSkin& skin) {
+	const UIndex64 skinIndex = m_availableSkins.GetSize();
 
-	availableSkins.Insert(skin);
-	availableSkinsByName[skin.name] = skinIndex;
+	m_availableSkins.Insert(skin);
+	m_availableSkinsByName[skin.name] = skinIndex;
 }
 
 void Animator::SetActiveSkin(std::string_view name) {
-	OSK_ASSERT(availableSkinsByName.contains(name), ModelSkinNotFoundException(name));
+	OSK_ASSERT(m_availableSkinsByName.contains(name), ModelSkinNotFoundException(name));
 
-	activeSkin = name;
+	m_activeSkin = name;
 }
 
 const AnimationSkin* Animator::GetActiveSkin() const {
-	return activeSkin == "" 
+	return m_activeSkin == ""
 		? nullptr 
-		: &availableSkins.At(availableSkinsByName.at(activeSkin));
+		: &m_availableSkins.At(m_availableSkinsByName.at(m_activeSkin));
 }
 
 const AnimationSkin& Animator::GetSkin(UIndex32 index) const {
-	OSK_ASSERT(index < availableSkins.GetSize(), ModelSkinNotFoundException(std::format("índice {}", index)));
+	OSK_ASSERT(index < m_availableSkins.GetSize(), ModelSkinNotFoundException(std::format("índice {}", index)));
 
-	return availableSkins[index];
+	return m_availableSkins[index];
 }
 
 const MaterialInstance* Animator::GetMaterialInstance() const {
-	return materialInstance.GetPointer();
+	return m_materialInstance.GetPointer();
 }
 
 glm::mat4 Animator::GetInitialTransform() const {
-	return initialTransform;
+	return m_initialTransform;
 }

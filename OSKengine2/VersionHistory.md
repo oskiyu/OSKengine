@@ -895,3 +895,34 @@ Debido a los cambios en los tipos de datos básicos, numerosas clases y funciones
 TODO:
 
 fix ComponentManager::InsertCopy
+
+
+## 2023.09.08a
+
+### UI
+
+- `UI::IElement`:
+    - Ahora puede configurarse su visibilidad.
+        - Los contenedores invisibles no renderizarán a sus hijos.
+    - Ahora puede configurarse su capacidad para actualizar su estado.
+        - Los contenedores desactivados no actualizarán a sus hijos.
+    - Ahora puede configurarse para mantener un tamaño relativo respecto al padre, cuando el padre cambia de tamaño.
+    
+### Collisions
+
+- `CollisionSystem`
+    - *Optimización*: Ahora sólamente transforma los vértices de los colliders de nivel bajo una sola vez por fotograma, en vez de una vez por posible colisión.
+
+- `ConvexVolume`
+    - Ahora también almacena los vértices transformados (se actualiza cada fotograma).
+    - `AddFace` ya no necesita que los vértices estén en sentido horario.
+    - `GetLocalSpaceAxis` ahora devuelve el vector correcto independientemente del orden de los vértices.
+    - `GetWorldSpaceAxis` ahora devuelve el vector correcto independientemente del orden de los vértices.
+
+##### Bugfixes
+
+- **Bugfix**: `VerticalContainer::EmplaceChild()` ahora coloca correctamente los elementos en el eje horizontal.
+- **Bugfix**: `FreeContainer::EmplaceChild()` ahora tiene en cuenta correctamente los márgenes del elemento añadido.
+- **Bugfix**: `ConvexVolume::GetCollisionInfo()` ahora detectamente correctamente la información de las colisiones en todas las direcciones (test cases *T-COL-09,11,13,15*)
+- **Bugfix**: `ConvexVolume::GetWorldSpaceAxis()` ahora devuelve un vector correctamente normalizado en todos los casos.
+- **Bugfix**: `PhysicsResolver` ahora aplica correctamente impulsos en todos los casos.

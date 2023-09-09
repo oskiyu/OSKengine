@@ -176,10 +176,10 @@ Vector3f Transform3D::GetForwardVector() const {
 
 Vector3f Transform3D::GetRightVector() const {
 	return GetRotation().RotateVector(Vector3f(-1, 0, 0));
-	return Vector3f(GetRotation().ToGlm() * OSK::Vector3f(-1, 0, 0).ToGLM()).GetNormalized();
+	// return Vector3f(GetRotation().ToGlm() * OSK::Vector3f(-1, 0, 0).ToGLM()).GetNormalized();
 }
 
 Vector3f Transform3D::GetTopVector() const {
 	return GetRotation().RotateVector(Vector3f(0, 1, 0));
-	return Vector3f(GetRotation().ToGlm() * OSK::Vector3f(0, 1, 0).ToGLM()).GetNormalized();
+	// return Vector3f(GetRotation().ToGlm() * OSK::Vector3f(0, 1, 0).ToGLM()).GetNormalized();
 }

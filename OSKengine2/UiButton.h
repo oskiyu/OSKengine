@@ -57,7 +57,7 @@ namespace OSK::UI {
 		/// 
 		/// @note Por defecto, no tendrá texto.
 		/// @note Por defecto, no tendrá textura.
-		Button(const Vector2f size);
+		explicit Button(const Vector2f size);
 
 		/// @brief Crea el botón.
 		/// @param size Tamaño del botón.
@@ -67,6 +67,9 @@ namespace OSK::UI {
 		/// fuente mediante SetTextFont().
 		/// @note Por defecto, no tendrá textura.
 		Button(const Vector2f size, const std::string& text);
+
+
+		void SetSize(Vector2f size) override;
 
 
 		/// @brief Simula un click del usuario.

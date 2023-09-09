@@ -20,8 +20,44 @@ void IElement::UpdateByCursor(Vector2f cursorPosition, bool isPressed, Vector2f 
 
 }
 
+void IElement::SetKeepRelativeSize(bool keepRelativeSize) {
+	this->keepRelativeSize = keepRelativeSize;
+}
+
+bool IElement::KeepsRelativeSize() const {
+	return keepRelativeSize;
+}
+
 void IElement::_SetRelativePosition(const Vector2f& relativePosition) {
 	this->relativePosition = relativePosition;
+}
+
+void IElement::SetVisibility(bool visibility) {
+	isVisible = visibility;
+}
+
+void IElement::SetVisible() {
+	isVisible = true;
+}
+
+void IElement::SetInvisible() {
+	isVisible = false;
+}
+
+bool IElement::IsVisible() const {
+	return isVisible;
+}
+
+void IElement::Lock() {
+	isLocked = true;
+}
+
+void IElement::Unlock() {
+	isLocked = false;
+}
+
+bool IElement::IsLocked() const {
+	return isLocked;
 }
 
 void IElement::SetPadding(const Vector2f& padding) {

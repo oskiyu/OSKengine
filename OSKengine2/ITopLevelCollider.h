@@ -21,6 +21,7 @@ namespace OSK::COLLISION {
 	public:
 
 		virtual ~ITopLevelCollider() = default;
+
 		OSK_DEFINE_AS(ITopLevelCollider);
 
 		/// @brief Comprueba si este área de colisión está en contacto

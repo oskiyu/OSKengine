@@ -72,8 +72,8 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <IncludePath>..\Dependencies\OSKengine\OpenAL\include;..\Dependencies\OSKengine\json;..\Dependencies\OSKengine\stbi_image;..\Dependencies\OSKengine\tiny_gltf;C:\Users\Oscar\source\repos\OSKengine\Frameworks\OSKengine\Includes\;$(IncludePath)</IncludePath>
-    <LibraryPath>$(VULKAN_SDK)\Lib;C:\Users\Oscar\source\repos\OSKengine\Frameworks\OSKengine\Bin\Release;$(LibraryPath)</LibraryPath>
-    <ReferencePath>C:\Users\Oscar\source\repos\OSKengine\Frameworks\OSKengine\Bin\Release;$(ReferencePath)</ReferencePath>
+    <LibraryPath>$(VULKAN_SDK)\Lib;C:\Users\Oscar\source\repos\OSKengine\Frameworks\OSKengine\Bin\Debug;$(LibraryPath)</LibraryPath>
+    <ReferencePath>C:\Users\Oscar\source\repos\OSKengine\Frameworks\OSKengine\Bin\Debug;$(ReferencePath)</ReferencePath>
     <OutDir>$(ProjectDir)</OutDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -120,6 +120,8 @@
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpplatest</LanguageStandard>
+      <IntrinsicFunctions>false</IntrinsicFunctions>
+      <WholeProgramOptimization>false</WholeProgramOptimization>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -136,6 +138,7 @@
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpplatest</LanguageStandard>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -150,6 +153,7 @@
     <ClCompile Include="CarSpawner.cpp" />
     <ClCompile Include="CarSystem.cpp" />
     <ClCompile Include="CircuitSpawner.cpp" />
+    <ClCompile Include="CollisionTests.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
@@ -160,6 +164,7 @@
     <ClInclude Include="CarSpawner.h" />
     <ClInclude Include="CarSystem.h" />
     <ClInclude Include="CircuitSpawner.h" />
+    <ClInclude Include="CollisionTests.h" />
     <ClInclude Include="Game.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

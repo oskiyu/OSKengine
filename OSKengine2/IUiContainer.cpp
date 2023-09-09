@@ -7,6 +7,21 @@ using namespace OSK::UI;
 using namespace OSK::ECS;
 using namespace OSK::GRAPHICS;
 
+void IContainer::SetSize(Vector2f newSize) {
+	const Vector2f oldSize = GetSize();
+
+	IElement::SetSize(newSize);
+
+	for (auto& child : children) {
+		if (child->KeepsRelativeSize()) {
+			const Vector2f ratio = child->GetSize() / oldSize;
+			child->SetSize(newSize * ratio);
+		}
+	}
+
+	Rebuild();
+}
+
 void IContainer::AdjustSizeToChildren() {
 	Vector2f newSize = Vector2f::Zero;
 
@@ -35,6 +50,9 @@ void IContainer::Rebuild() {
 }
 
 void IContainer::Render(SpriteRenderer* renderer, Vector2f parentPosition) const {
+	if (!IsVisible()) 
+		return;
+
 	if (sprite.GetView()) {
 		Transform2D transform(EMPTY_GAME_OBJECT);
 		transform.SetPosition(GetRelativePosition() + parentPosition);
@@ -44,10 +62,14 @@ void IContainer::Render(SpriteRenderer* renderer, Vector2f parentPosition) const
 	}
 
 	for (const auto& child : children)
-		child->Render(renderer, GetRelativePosition() + parentPosition);
+		if (child->IsVisible())
+			child->Render(renderer, GetRelativePosition() + parentPosition);
 }
 
 void IContainer::UpdateByCursor(Vector2f cursorPosition, bool isPressed, Vector2f parentPosition) {
+	if (IsLocked() || !IsVisible())
+		return;
+
 	for (auto& child : children)
 		child->UpdateByCursor(cursorPosition, isPressed, GetRelativePosition() + parentPosition);
 }

@@ -34,8 +34,8 @@ namespace OSK::COLLISION {
 
 		RayCastResult(bool intersection, const Vector3f& point);
 
-		bool intersection = false;
 		Vector3f intersectionPoint;
+		bool intersection = false;
 
 	};
 

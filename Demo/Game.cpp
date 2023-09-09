@@ -14,6 +14,10 @@
 #include <OSKengine/SkyboxRenderSystem.h>
 #include <OSKengine/SpriteRenderer.h>
 
+#include <OSKengine/PhysicsSystem.h>
+#include <OSKengine/CollisionSystem.h>
+#include <OSKengine/PhysicsResolver.h>
+
 #include <OSKengine/CameraComponent2D.h>
 #include <OSKengine/CameraComponent3D.h>
 #include <OSKengine/Transform2D.h>
@@ -74,7 +78,7 @@ void Game::OnCreate() {
 	cameraObject = ecs->SpawnObject();
 
 	OSK::ECS::Transform3D cameraTransform(cameraObject);
-	cameraTransform.SetPosition({ 0, 0.5f, -1.0f });
+	cameraTransform.SetPosition(OSK::Vector3f(0.0f, 0.5f, -1.0f) * 1.2f);
 	cameraTransform.RotateWorldSpace(glm::radians(10.0f), { 1.0f, 0.0f, 0.0f });
 
 	ecs->AddComponent(cameraObject, OSK::ECS::CameraComponent3D());
@@ -136,6 +140,7 @@ void Game::OnCreate() {
 
 	toneMappingPass = new OSK::GRAPHICS::ToneMappingPass();
 	toneMappingPass->Create(OSK::Engine::GetDisplay()->GetResolution());
+	toneMappingPass->SetExposure(7.0f);
 
 	toneMappingPass->SetInput(bloomPass->GetOutput(), OSK::GRAPHICS::GpuImageViewConfig::CreateSampled_SingleMipLevel(0));
 	toneMappingPass->UpdateMaterialInstance();
@@ -144,15 +149,17 @@ void Game::OnCreate() {
 	SetupUi();
 
 	carSpawner.SetMaterial3D(material3d);
-	const OSK::ECS::GameObjectIndex carObject = carSpawner.Spawn();
+	firstCar = carSpawner.Spawn();
+	secondCar = carSpawner.Spawn();
+	carSpawner.Spawn();
 
 	circuitSpawner.SetMaterial3D(material3d);
 	circuitSpawner.Spawn();
 
 	ecs->GetComponent<OSK::ECS::Transform3D>(cameraObject)
-		.AttachToObject(carObject);
+		.AttachToObject(firstCar);
 
-	ecs->GetSystem<CarInputSystem>()->SetCar(carObject);
+	ecs->GetSystem<CarInputSystem>()->SetCar(firstCar);
 }
 
 void Game::OnTick(TDeltaTime deltaTime) {
@@ -168,11 +175,24 @@ void Game::OnTick(TDeltaTime deltaTime) {
 	OSK::Engine::GetInput()->QueryConstInterface(OSK::IUUID::IMouseInput,	 (const void**)&mouse);
 
 	if (keyboard->IsKeyDown(OSK::IO::Key::ESCAPE))
-		this->Exit();
+		ToMainMenu();
+
+	if (keyboard->IsKeyStroked(OSK::IO::Key::Q)) {
+		collisionTesting.Start(firstCar, secondCar);
+	}
+
+	if (mouse) {
+		GetRootUiElement().UpdateByCursor(
+			mouse->GetMouseState().GetPosition().ToVector2f(),
+			mouse->GetMouseState().IsButtonDown(OSK::IO::MouseButton::BUTTON_LEFT),
+			OSK::Vector2f::Zero);
+	}
 
 	ecs->GetComponent<OSK::ECS::CameraComponent3D>(cameraObject).UpdateTransform(
 		&ecs->GetComponent<OSK::ECS::Transform3D>(cameraObject)
 	);
+
+	collisionTesting.Update();
 }
 
 void Game::OnExit() {
@@ -207,7 +227,7 @@ void Game::BuildFrame() {
 
 	OSK::GRAPHICS::ICommandList* graphicsCommandList	= renderer->GetGraphicsCommandList();
 	OSK::GRAPHICS::ICommandList* frameBuildCommandList	= renderer->GetFrameBuildCommandList();
-	OSK::GRAPHICS::ICommandList* computeCommandList = renderer->GetPostComputeCommandList();
+	OSK::GRAPHICS::ICommandList* computeCommandList		= renderer->GetPostComputeCommandList();
 	OSK::GRAPHICS::RenderTarget* renderTarget			= renderer->GetFinalRenderTarget();
 
 	OSK::GRAPHICS::Viewport viewport = {
@@ -298,13 +318,16 @@ void Game::RegisterEcse() {
 	// inputSystem->SetCar(car)
 
 	ecs->RegisterSystem<OSK::ECS::ColliderRenderSystem>(0)->Initialize(cameraObject);
+
+	PauseSystems();
 }
+
 
 void Game::SetupUi() {
 	OSK::ASSETS::AssetManager* assetsManager = OSK::Engine::GetAssetManager();
 
 	OSK::ASSETS::Font* font = assetsManager->Load<OSK::ASSETS::Font>("Resources/Assets/Fonts/font0.json", "GLOBAL");
-	font->LoadSizedFont(22);
+	font->LoadSizedFont(20);
 	font->SetMaterial(material2d);
 
 	OSK::OwnedPtr<OSK::UI::HorizontalContainer> logoContainer = new OSK::UI::HorizontalContainer({ 380.0f, 80.0f });
@@ -315,6 +338,14 @@ void Game::SetupUi() {
 	const OSK::GRAPHICS::IGpuImageView* iconView = 
 		&assetsManager->Load<OSK::ASSETS::Texture>("Resources/Assets/Textures/engine_icon.json", "GLOBAL")
 		->GetTextureView2D();
+
+	const OSK::Vector2f buttonSize = OSK::Vector2f(180.0f, 50.0f);
+
+	const OSK::Color buttonColor = OSK::Color(0.3f, 0.36f, 1.0f, 1.0f);
+	const OSK::Color buttonSelectedColor = OSK::Color(0.3f, 0.5f, 1.0f, 1.0f);
+	const OSK::Color buttonPressedColor = OSK::Color(0.5f, 0.7f, 1.0f, 1.0f);
+
+	OSK::Color panelColor = OSK::Color(0.4f, 0.45f, 0.7f, 0.98f);
 
 	OSK::OwnedPtr<OSK::UI::ImageView> uiIcon = new OSK::UI::ImageView(OSK::Vector2f(48.0f));
 	uiIcon->GetSprite().SetImageView(iconView);
@@ -339,26 +370,222 @@ void Game::SetupUi() {
 	logoContainer->AdjustSizeToChildren();
 	logoContainer->Rebuild();
 
+	GetRootUiElement().SetKeepRelativeSize(true);
 	GetRootUiElement().AddChild("", logoContainer.GetPointer());
 
 	// Main menu
-	OSK::OwnedPtr<OSK::UI::VerticalContainer> mainMenu = new OSK::UI::VerticalContainer(OSK::Engine::GetDisplay()->GetResolution().ToVector2f() * 0.6f);
+	OSK::OwnedPtr<OSK::UI::FreeContainer> mainMenu = new OSK::UI::FreeContainer(OSK::Engine::GetDisplay()->GetResolution().ToVector2f());
 	mainMenu->SetAnchor(OSK::UI::Anchor::CENTER_X | OSK::UI::Anchor::CENTER_Y);
 	mainMenu->SetMargin(OSK::Vector2f(300.0f, 200.0f));
+	mainMenu->SetKeepRelativeSize(true);
 
-	OSK::OwnedPtr<OSK::UI::VerticalContainer> mainMenuButtons = new OSK::UI::VerticalContainer(mainMenu->GetContentSize());
+	OSK::OwnedPtr<OSK::UI::FreeContainer> menuLine = new OSK::UI::FreeContainer({ 2000.0f, 85.0f });
+	menuLine->SetKeepRelativeSize(true);
+	menuLine->GetSprite().SetImageView(uiView);
+	menuLine->GetSprite().color = OSK::Color(0.3f, 0.3f, 0.9f, 0.8f);
+	menuLine->SetAnchor(OSK::UI::Anchor::CENTER_X | OSK::UI::Anchor::BOTTOM);
+	menuLine->SetMargin(OSK::Vector2f(0.0f, 550.0f));
+	mainMenu->AddChild("line", menuLine.GetPointer());
+
+	OSK::OwnedPtr<OSK::UI::HorizontalContainer> mainMenuButtons = new OSK::UI::HorizontalContainer({ mainMenu->GetContentSize().x, 20.0f });
 	mainMenuButtons->SetAnchor(OSK::UI::Anchor::CENTER_X | OSK::UI::Anchor::CENTER_Y);
-	mainMenuButtons->GetSprite().SetImageView(uiView);
-	mainMenuButtons->GetSprite().color = OSK::Color(0.3f, 0.3f, 0.3f, 0.7f);
-	mainMenu->AddChild("buttons", mainMenuButtons.GetPointer());
-	
-	OSK::OwnedPtr<OSK::UI::Button> playButton = new OSK::UI::Button(OSK::Vector2f(100.0f, 80.0f), "PLAY");
-	playButton->SetTextFont(font);
-	playButton->SetAnchor(OSK::UI::Anchor::RIGHT | OSK::UI::Anchor::BOTTOM);
+	mainMenuButtons->SetKeepRelativeSize(true);
+	menuLine->AddChild("buttons", mainMenuButtons.GetPointer());
+
+	std::function<void(OSK::UI::Button*)> SetupButton = [font, uiView, buttonColor, buttonSelectedColor, buttonPressedColor](OSK::UI::Button* button) {
+		button->SetKeepRelativeSize(true);
+		button->SetTextFont(font);
+		button->SetTextFontSize(32);
+		button->SetType(OSK::UI::Button::Type::NORMAL);
+		button->SetAnchor(OSK::UI::Anchor::CENTER_X | OSK::UI::Anchor::CENTER_Y);
+		button->GetDefaultSprite().SetImageView(uiView);
+		button->GetDefaultSprite().color = buttonColor;
+		button->GetSelectedSprite().SetImageView(uiView);
+		button->GetSelectedSprite().color = buttonSelectedColor;
+		button->GetPressedSprite().SetImageView(uiView);
+		button->GetPressedSprite().color = buttonPressedColor;
+		};
+
+	std::function<void(OSK::UI::FreeContainer*)> SetupPanel = [uiView, panelColor] (OSK::UI::FreeContainer* panel) {
+		panel->SetKeepRelativeSize(true);
+		panel->GetSprite().SetImageView(uiView);
+		panel->GetSprite().color = panelColor;
+	};
+
+	OSK::OwnedPtr<OSK::UI::Button> playButton = new OSK::UI::Button(buttonSize, "PLAY");
+	SetupButton(playButton.GetPointer());
+	playButton->SetCallback([&](bool) {
+		GetRootUiElement().GetChild("mainMenu")->SetInvisible();
+		GetRootUiElement().GetChild("title")->SetInvisible();
+		UnpauseSystems();
+		});
 	mainMenuButtons->AddChild("playButton", playButton.GetPointer());
 
+	OSK::OwnedPtr<OSK::UI::Button> aboutButton = new OSK::UI::Button(buttonSize, "ABOUT");
+	SetupButton(aboutButton.GetPointer());
+	aboutButton->SetText("ABOUT");
+	aboutButton->SetCallback([&](bool) {
+		GetRootUiElement().GetChild("mainMenu")->SetInvisible();
+		GetRootUiElement().GetChild("title")->SetInvisible();
+		GetRootUiElement().GetChild("about")->SetVisible();
+		});
+	mainMenuButtons->AddChild("aboutButton", aboutButton.GetPointer());
+
+	OSK::OwnedPtr<OSK::UI::Button> optionsButton = new OSK::UI::Button(buttonSize, "AJUSTES");
+	SetupButton(optionsButton.GetPointer());
+	optionsButton->SetText("AJUSTES");
+	optionsButton->SetCallback([&](bool) {
+		GetRootUiElement().GetChild("mainMenu")->SetInvisible();
+		GetRootUiElement().GetChild("title")->SetInvisible();
+		GetRootUiElement().GetChild("options")->SetVisible();
+		});
+	mainMenuButtons->AddChild("optionsButton", optionsButton.GetPointer());
+
+	OSK::OwnedPtr<OSK::UI::Button> onlineButton = new OSK::UI::Button(buttonSize, "MULTIPLAYER");
+	SetupButton(onlineButton.GetPointer());
+	onlineButton->SetText("MULTIJUGADOR");
+	onlineButton->GetDefaultSprite().SetImageView(uiView);
+	onlineButton->GetDefaultSprite().color = OSK::Color(0.5f, 0.5f, 0.5f, 1.f);
+	onlineButton->GetSelectedSprite().SetImageView(uiView);
+	onlineButton->GetSelectedSprite().color = OSK::Color(0.5f, 0.5f, 0.5f, 1.f);
+	onlineButton->Lock();
+	mainMenuButtons->AddChild("onlineButton", onlineButton.GetPointer());
+
+	OSK::OwnedPtr<OSK::UI::Button> exitButton = new OSK::UI::Button(buttonSize, "EXIT");
+	SetupButton(exitButton.GetPointer());
+	exitButton->SetText("EXIT");
+	exitButton->SetCallback([&](bool) { this->Exit(); });
+	mainMenuButtons->AddChild("exitButton", exitButton.GetPointer());
+
+	// TITLE
+	const OSK::GRAPHICS::IGpuImageView* titleView =
+		&assetsManager->Load<OSK::ASSETS::Texture>("Resources/Assets/Textures/GameTitle.json", "GLOBAL")
+		->GetTextureView2D();
+
+	OSK::OwnedPtr<OSK::UI::FreeContainer> titleContainer = new OSK::UI::FreeContainer({ 1200.0f, 600.0f });
+	titleContainer->SetAnchor(OSK::UI::Anchor::CENTER_X | OSK::UI::Anchor::TOP);
+
+	OSK::OwnedPtr<OSK::UI::ImageView> uiTitle = new OSK::UI::ImageView(titleView->GetSize2D().ToVector2f() * 0.4f);
+	uiTitle->SetKeepRelativeSize(true);
+	uiTitle->SetAnchor(OSK::UI::Anchor::CENTER_X | OSK::UI::Anchor::TOP);
+	uiTitle->GetSprite().SetImageView(titleView);
+	uiTitle->SetMargin(OSK::Vector4f(25.0f));
+
+	titleContainer->AddChild("title", uiTitle.GetPointer());
+	titleContainer->SetKeepRelativeSize(true);
+	GetRootUiElement().AddChild("title", titleContainer.GetPointer());
+
+	mainMenuButtons->AdjustSizeToChildren();
 	mainMenuButtons->Rebuild();
+	menuLine->Rebuild();
 	mainMenu->Rebuild();
 
+	// About
+
+	auto aboutPanel = new OSK::UI::FreeContainer(OSK::Engine::GetDisplay()->GetResolution().ToVector2f() * 0.8f);
+	SetupPanel(aboutPanel);
+
+	auto aboutContent = new OSK::UI::VerticalContainer(OSK::Engine::GetDisplay()->GetResolution().ToVector2f() * 0.6f);
+
+	aboutPanel->AddChild("content", aboutContent);
+
+	auto aboutTitle = new OSK::UI::TextView(OSK::Vector2f(100.0f, 50.0f));
+	aboutTitle->SetFont(font);
+	aboutTitle->SetFontSize(32);
+	aboutTitle->SetText("About");
+	aboutTitle->SetAnchor(OSK::UI::Anchor::CENTER_X | OSK::UI::Anchor::TOP);
+
+	aboutPanel->AddChild("title", aboutTitle);
+
+	auto aboutBackButton = new OSK::UI::Button({ 100.0f, 50.0f });
+	SetupButton(aboutBackButton);
+	aboutBackButton->SetText("Back");
+	aboutBackButton->SetAnchor(OSK::UI::Anchor::LEFT |OSK::UI::Anchor::BOTTOM);
+	aboutBackButton->SetCallback([&](bool) { ToMainMenu(); });
+
+	auto about1 = new OSK::UI::TextView({ 400.0f, 50.0f });
+	about1->SetFont(font);
+	about1->SetFontSize(20);
+	about1->SetText(std::format("OSKengine by oskiyu\n\tBuild {}\n\t(c) 2019 - 2023\n\n{}", OSK::Engine::GetBuild(),
+		"ABCDEFGHIJKLMNOPQRSTUVWXYZ\nabcdefghijklmnopqrstuvwxyz\n0123456789"));
+	// about1->SetAnchor(OSK::UI::Anchor::LEFT);
+	about1->AdjustSizeToText();
+
+	aboutContent->AddChild("1", about1);
+
+	aboutPanel->AddChild("back", aboutBackButton);
+
+	aboutPanel->SetInvisible();
+	GetRootUiElement().AddChild("about", aboutPanel);
+
+	// Options
+
+	auto optionsPanel = new OSK::UI::FreeContainer(OSK::Engine::GetDisplay()->GetResolution().ToVector2f() * 0.8f);
+	SetupPanel(optionsPanel);
+
+	auto optionsContent = new OSK::UI::VerticalContainer(OSK::Engine::GetDisplay()->GetResolution().ToVector2f() * 0.6f);
+
+	optionsPanel->AddChild("content", optionsContent);
+
+	auto optionsTitle = new OSK::UI::TextView(OSK::Vector2f(100.0f, 50.0f));
+	optionsTitle->SetFont(font);
+	optionsTitle->SetFontSize(35);
+	optionsTitle->SetText("Ajustes");
+	optionsTitle->SetAnchor(OSK::UI::Anchor::CENTER_X | OSK::UI::Anchor::TOP);
+
+	optionsPanel->AddChild("title", optionsTitle);
+	optionsPanel->SetKeepRelativeSize(true);
+
+	auto optionsBackButton = new OSK::UI::Button({ 100.0f, 50.0f });
+	SetupButton(optionsBackButton);
+	optionsBackButton->SetText("Back");
+	optionsBackButton->SetCallback([&](bool) { ToMainMenu(); });
+	optionsBackButton->SetAnchor(OSK::UI::Anchor::LEFT | OSK::UI::Anchor::BOTTOM);
+
+	auto options1 = new OSK::UI::TextView({ 400.0f, 50.0f });
+	options1->SetFont(font);
+	options1->SetFontSize(25);
+	options1->SetText("OSKengine by oskiyu\n\t(c) 2019 - 2023");
+	options1->SetAnchor(OSK::UI::Anchor::LEFT);
+	options1->AdjustSizeToText();
+
+	optionsContent->AddChild("1", options1);
+
+	optionsPanel->AddChild("back", optionsBackButton);
+
+	optionsPanel->SetInvisible();
+	GetRootUiElement().AddChild("options", optionsPanel);
+
 	GetRootUiElement().AddChild("mainMenu", mainMenu.GetPointer());
+}
+
+void Game::ToMainMenu() {
+	GetRootUiElement().GetChild("mainMenu")->SetVisible();
+	GetRootUiElement().GetChild("title")->SetVisible();
+
+	// Resetar cualquier otro menú.
+	GetRootUiElement().GetChild("about")->SetInvisible();
+	GetRootUiElement().GetChild("options")->SetInvisible();
+
+	PauseSystems();
+}
+
+void Game::PauseSystems() {
+	OSK::ECS::EntityComponentSystem* ecs = OSK::Engine::GetEcs();
+
+	ecs->GetSystem<OSK::ECS::CollisionSystem>()->Deactivate();
+	ecs->GetSystem<OSK::ECS::PhysicsResolver>()->Deactivate();
+	ecs->GetSystem<OSK::ECS::PhysicsSystem>()->Deactivate();
+	ecs->GetSystem<CarSystem>()->Deactivate();
+	ecs->GetSystem<CarInputSystem>()->Deactivate();
+}
+
+void Game::UnpauseSystems() {
+	OSK::ECS::EntityComponentSystem* ecs = OSK::Engine::GetEcs();
+
+	ecs->GetSystem<OSK::ECS::CollisionSystem>()->Activate();
+	ecs->GetSystem<OSK::ECS::PhysicsResolver>()->Activate();
+	ecs->GetSystem<OSK::ECS::PhysicsSystem>()->Activate();
+	ecs->GetSystem<CarSystem>()->Activate();
+	ecs->GetSystem<CarInputSystem>()->Activate();
 }

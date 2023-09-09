@@ -35,7 +35,7 @@ void AUDIO::Buffer::Fill(const void* data, USize64 size, Format format, USize32 
 		break;
 	}
 
-	alBufferData(handle, alFormat, data, size, samplerate);
+	alBufferData(handle, alFormat, data, static_cast<ALsizei>(size), samplerate);
 
 	const auto result = alGetError();
 	OSK_ASSERT(result == AL_NO_ERROR, AudioException("Error al poblar el buffer.", result));

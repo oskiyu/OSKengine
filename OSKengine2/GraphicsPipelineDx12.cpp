@@ -171,11 +171,13 @@ DXGI_FORMAT GraphicsPipelineDx12::GetVertexAttribFormatDx12(const VertexInfo::En
 		if (entry.size == 2 * sizeof(int)) return DXGI_FORMAT_R32G32_SINT;
 		if (entry.size == 3 * sizeof(int)) return DXGI_FORMAT_R32G32B32_SINT;
 		if (entry.size == 4 * sizeof(int)) return DXGI_FORMAT_R32G32B32A32_SINT;
+		break;
 
 	case VertexInfo::Entry::Type::FLOAT:
 		if (entry.size == 2 * sizeof(float)) return DXGI_FORMAT_R32G32_FLOAT;
 		if (entry.size == 3 * sizeof(float)) return DXGI_FORMAT_R32G32B32_FLOAT;
 		if (entry.size == 4 * sizeof(float)) return DXGI_FORMAT_R32G32B32A32_FLOAT;
+		break;
 	}
 
 	OSK_ASSERT(false, NotImplementedException());

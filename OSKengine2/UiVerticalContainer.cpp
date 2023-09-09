@@ -12,16 +12,18 @@ void VerticalContainer::EmplaceChild(IElement* child) {
 	if (relativeNextPosition < GetPadding().y)
 		relativeNextPosition = GetPadding().y;
 
-	float xDiff = 0.0f;
+	// Offset vertical desde la izquierda.
+	float horizontalPositionOffset = 0.0f;
+
 	if (EFTraits::HasFlag(child->GetAnchor(), Anchor::LEFT))
-		xDiff = 0;
+		horizontalPositionOffset = child->GetMarging().x + GetPadding().x;
 	else if (EFTraits::HasFlag(child->GetAnchor(), Anchor::CENTER_X))
-		xDiff = 0;
+		horizontalPositionOffset = GetSize().x * 0.5f - (child->GetSize().y + child->GetMarging().x) * 0.5f;
 	else if (EFTraits::HasFlag(child->GetAnchor(), Anchor::RIGHT))
-		xDiff = 0;
+		horizontalPositionOffset = GetContentSize().x - child->GetSize().x - child->GetMarging().Z;
 
 	child->_SetRelativePosition(Vector2f(
-		child->GetMarging().x + GetPadding().x,
+		horizontalPositionOffset,
 		relativeNextPosition + child->GetMarging().y
 	));
 

@@ -18,7 +18,18 @@ Button::Button(const Vector2f size, const std::string& text)
 	buttonText.AdjustSizeToText();
 }
 
+void Button::SetSize(Vector2f size) {
+	IElement::SetSize(size);
+
+	defaultImage.SetSize(size);
+	selectedImage.SetSize(size);
+	pressedImage.SetSize(size);
+}
+
 void Button::Render(SpriteRenderer* renderer, Vector2f parentPosition) const {
+	if (!IsVisible())
+		return;
+
 	GetCurrentImage().Render(renderer, parentPosition);
 	buttonText.Render(renderer, parentPosition);
 }
@@ -34,6 +45,9 @@ void Button::Click() {
 }
 
 void Button::UpdateByCursor(Vector2f cursor, bool isPressed, Vector2f parentPosition) {
+	if (IsLocked() || !IsVisible())
+		return;
+
 	bool isOverButton = GetRectangle(parentPosition).ContainsPoint(cursor);
 
 	if (!isOverButton) {

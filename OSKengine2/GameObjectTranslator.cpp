@@ -11,6 +11,8 @@ GameObjectIndex GameObjectTranslator::AddExternalObject(GameObjectIndex external
 
 	thisToOther[internalId] = externalId;
 	otherToThis[externalId] = internalId;
+
+	return internalId;
 }
 
 void GameObjectTranslator::UnregisterExternalObject(ECS::GameObjectIndex externalId) {

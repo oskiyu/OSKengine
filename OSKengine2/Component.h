@@ -22,7 +22,7 @@ namespace OSK::ECS {
 	constexpr ComponentType MAX_COMPONENT_TYPES = 256;
 		
 	/// @brief Índice que ocupa un componente en un contenedor.
-	using ComponentIndex = UIndex32;
+	using ComponentIndex = UIndex64;
 
 	/// @brief Un signature permite saber qué componentes contiene un GameObject.
 	/// Es un bitset, donde el bit en la posición 'X' indicará si el

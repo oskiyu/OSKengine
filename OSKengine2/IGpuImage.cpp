@@ -110,11 +110,11 @@ USize32 GpuImage::GetMipLevels(uint32_t sizeX, uint32_t sizeY) {
 }
 
 USize64 GpuImage::GetNumberOfBytes() const {
-	return m_size.x * m_size.y * m_size.Z * GetFormatNumberOfBytes(GetFormat());
+	return static_cast<USize64>(m_size.x) * static_cast<USize64>(m_size.y) * static_cast<USize64>(m_size.Z) * GetFormatNumberOfBytes(GetFormat());
 }
 
 USize64 GpuImage::GetPhysicalNumberOfBytes() const {
-	return m_physicalSize.x * m_physicalSize.y * m_physicalSize.Z * GetFormatNumberOfBytes(GetFormat());
+	return static_cast<USize64>(m_physicalSize.x) * m_physicalSize.y * m_physicalSize.Z * GetFormatNumberOfBytes(GetFormat());
 }
 
 USize32 GpuImage::GetNumSamples() const {

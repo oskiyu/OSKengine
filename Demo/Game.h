@@ -12,6 +12,8 @@
 #include "CarSpawner.h"
 #include "CircuitSpawner.h"
 
+#include "CollisionTests.h"
+
 class Game : public OSK::IGame {
 
 public:
@@ -34,7 +36,17 @@ private:
 	void RegisterEcse();
 	void SetupUi();
 
+	void ToMainMenu();
+
+	void PauseSystems();
+	void UnpauseSystems();
+
 private:
+
+	OSK::ECS::GameObjectIndex firstCar = OSK::ECS::EMPTY_GAME_OBJECT;
+	OSK::ECS::GameObjectIndex secondCar = OSK::ECS::EMPTY_GAME_OBJECT;
+
+	CollisionTesting collisionTesting{};
 
 	CarSpawner carSpawner{};
 	CircuitSpawner circuitSpawner{};

@@ -14,7 +14,7 @@ using namespace OSK::GRAPHICS;
 void ModelComponent3D::SetModel(Model3D* model) {
 	this->model = model;
 
-	USize32 prevSize = meshesMaterialInstances.GetSize();
+	USize32 prevSize = static_cast<USize32>(meshesMaterialInstances.GetSize());
 	meshesMaterialInstances.Resize(model->GetMeshes().GetSize(), nullptr);
 
 	const GpuImageViewConfig viewConfig = GpuImageViewConfig::CreateSampled_Default();

@@ -26,7 +26,7 @@ namespace OSK {
 			std::string_view msg,
 			const std::source_location& location = std::source_location::current())
 			:
-			EngineException(std::format("AudioDeviceCreationException: No se ha creado correctamente el device: {}.", msg)) { }
+			EngineException(std::format("AudioDeviceCreationException: No se ha creado correctamente el device: {}.", msg), location) { }
 
 	};
 
@@ -39,7 +39,7 @@ namespace OSK {
 			ALCenum code,
 			const std::source_location& location = std::source_location::current())
 			:
-			EngineException(std::format("AudioException: {}. Code: {}.", msg, GetErrorDesc(code))) { }
+			EngineException(std::format("AudioException: {}. Code: {}.", msg, GetErrorDesc(code)), location) { }
 
 	};
 

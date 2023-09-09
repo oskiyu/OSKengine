@@ -10,6 +10,9 @@
 #include "OSKengine.h"
 #include "Logger.h"
 
+#include "InvalidArgumentException.h"
+#include "InvalidObjectStateException.h"
+
 using namespace OSK;
 using namespace OSK::ECS;
 using namespace OSK::COLLISION;
@@ -26,6 +29,7 @@ ConvexVolume ConvexVolume::CreateObb(const Vector3f& size, float bottomHeight) {
 	const float bottom = bottomHeight;
 
 	// Arriba
+	// width, length
 	output.AddFace({
 		{ -width, top, -length },
 		{ +width, top, -length },
@@ -34,6 +38,7 @@ ConvexVolume ConvexVolume::CreateObb(const Vector3f& size, float bottomHeight) {
 		});
 
 	// Abajo
+	// width, length
 	output.AddFace({
 		{ -width, bottom, -length },
 		{ -width, bottom, +length },
@@ -43,6 +48,7 @@ ConvexVolume ConvexVolume::CreateObb(const Vector3f& size, float bottomHeight) {
 
 
 	// Izquierda
+	// height, length
 	output.AddFace({
 		{ -width, bottom, -length },
 		{ -width, bottom, +length },
@@ -51,6 +57,7 @@ ConvexVolume ConvexVolume::CreateObb(const Vector3f& size, float bottomHeight) {
 		});
 
 	// Derecha
+	// height, length
 	output.AddFace({
 		{ +width, bottom, +length },
 		{ +width, bottom, -length },
@@ -60,6 +67,7 @@ ConvexVolume ConvexVolume::CreateObb(const Vector3f& size, float bottomHeight) {
 
 
 	// Delante
+	// width, height
 	output.AddFace({
 		{ -width, bottom, +length },
 		{ +width, bottom, +length },
@@ -68,6 +76,7 @@ ConvexVolume ConvexVolume::CreateObb(const Vector3f& size, float bottomHeight) {
 		});
 
 	// Detras
+	// width, height
 	output.AddFace({
 		{ +width, top,    -length },
 		{ +width, bottom, -length },
@@ -79,8 +88,17 @@ ConvexVolume ConvexVolume::CreateObb(const Vector3f& size, float bottomHeight) {
 }
 
 void ConvexVolume::AddFace(const DynamicArray<Vector3f>& points) {
-	const USize32 numOldVertices = vertices.GetSize();
-	const USize32 numNewVertices = points.GetSize();
+	OSK_ASSERT(points.GetSize() >= 3,
+		InvalidArgumentException("El parámetro points contiene menos de 3 entradas."));
+	OSK_ASSERT(points.GetSize() < std::numeric_limits<UIndex32>::max(),
+		InvalidArgumentException("El parámetro points contiene demasiadas entradas."));
+	OSK_ASSERT(m_vertices.GetSize() < std::numeric_limits<UIndex32>::max(),
+		InvalidObjectStateException("El collider tiene demasiados vértices."));
+	OSK_ASSERT(m_vertices.GetSize() + points.GetSize() < std::numeric_limits<UIndex32>::max(),
+		InvalidObjectStateException("El collider tiene demasiados vértices."));
+
+	const auto numOldVertices = static_cast<USize32>(m_vertices.GetSize());
+	const auto numNewVertices = static_cast<USize32>(points.GetSize());
 
 #if 0
 	// Primero, comprobamos si alguno de los vértices
@@ -112,25 +130,27 @@ void ConvexVolume::AddFace(const DynamicArray<Vector3f>& points) {
 	FaceIndices indices = FaceIndices::CreateReservedArray(numNewVertices);
 	for (UIndex32 i = 0; i < numNewVertices; i++) {
 		indices.Insert(numOldVertices + i);
-		vertices.Insert(points[i]);
+		m_vertices.Insert(points[i]);
 	}
 
-	faces.Insert(indices);
+	m_faces.Insert(indices);
+
+	RecalculateCenter();
 }
 
 void ConvexVolume::OptimizeAxes() {
-	if (faces.IsEmpty())
+	if (m_faces.IsEmpty())
 		return;
 
 	DynamicArray<FaceIndices> optimizedFaces = {};
 	DynamicArray<UIndex32> duplicatedIds = {};
 
-	for (UIndex32 i = 0; i < faces.GetSize() - 1; i++) {
+	for (UIndex32 i = 0; i < m_faces.GetSize() - 1; i++) {
 
 		// Por cada eje original, comprobamos si hay otros
 		// ejes equivalentes.
 
-		for (UIndex32 j = i + 1; j < faces.GetSize(); j++) {
+		for (UIndex32 j = i + 1; j < m_faces.GetSize(); j++) {
 
 			const Axis axis1 = GetLocalSpaceAxis(i);
 			const Axis axis2 = GetLocalSpaceAxis(j);
@@ -146,31 +166,52 @@ void ConvexVolume::OptimizeAxes() {
 	}
 
 	// Añadimos las caras que no hayan sido marcadas.
-	for (UIndex32 i = 0; i < faces.GetSize(); i++)
+	for (UIndex32 i = 0; i < m_faces.GetSize(); i++)
 		if (!duplicatedIds.ContainsElement(i))
-			optimizedFaces.Insert(faces[i]);
+			optimizedFaces.Insert(m_faces[i]);
 
-	faces = optimizedFaces;
+	m_faces = optimizedFaces;
+}
+
+void ConvexVolume::RecalculateCenter() {
+	m_center = Vector3f::Zero;
+
+	for (const Vector3f vertex : m_vertices)
+		m_center += vertex;
+
+	m_center /= static_cast<float>(m_vertices.GetSize());
 }
 
 ConvexVolume::Axis ConvexVolume::GetLocalSpaceAxis(UIndex32 faceId) const {
-	const FaceIndices& faceIndices = faces[faceId];
+	const FaceIndices& faceIndices = m_faces[faceId];
 
-	const Vector3f pointA = vertices.At(faceIndices.At(0));
-	const Vector3f pointB = vertices.At(faceIndices.At(1));
-	const Vector3f pointC = vertices.At(faceIndices.At(2));
+	const Vector3f pointA = m_vertices.At(faceIndices.At(0));
+	const Vector3f pointB = m_vertices.At(faceIndices.At(1));
+	const Vector3f pointC = m_vertices.At(faceIndices.At(2));
 
 	const Vector3f vec1 = pointB - pointA;
-	const Vector3f vec2 = pointC - pointA;
+	const Vector3f vec2 = pointC - pointB;
 
-	return vec1.Cross(vec2).GetNormalized();
+	const Vector3f cross = vec1.Cross(vec2).GetNormalized();
+	const Vector3f vecToCenter = m_center - pointA;
+	
+	return cross * glm::sign(cross.Dot(vecToCenter));
 }
 
-ConvexVolume::Axis ConvexVolume::GetWorldSpaceAxis(UIndex32 faceId, const Transform3D& transform) const {
-	const Vector3f localSpaceAxis = GetLocalSpaceAxis(faceId);
-	const glm::vec4 transformedAxis = transform.GetAsMatrix() * glm::vec4(localSpaceAxis.ToGLM(), 1.0f);
+ConvexVolume::Axis ConvexVolume::GetWorldSpaceAxis(UIndex32 faceId) const {
+	const FaceIndices& faceIndices = m_faces[faceId];
 
-	return glm::vec3(transformedAxis) / transformedAxis.w;
+	const Vector3f pointA = m_transformedVertices.At(faceIndices.At(0));
+	const Vector3f pointB = m_transformedVertices.At(faceIndices.At(1));
+	const Vector3f pointC = m_transformedVertices.At(faceIndices.At(2));
+
+	const Vector3f vec1 = pointB - pointA;
+	const Vector3f vec2 = pointC - pointB;
+
+	const Vector3f cross = vec1.Cross(vec2).GetNormalized();
+	const Vector3f vecToCenter = m_center - pointA;
+
+	return cross * glm::sign(cross.Dot(vecToCenter));
 }
 
 DetailedCollisionInfo ConvexVolume::GetCollisionInfo(const IBottomLevelCollider& other,
@@ -179,8 +220,8 @@ DetailedCollisionInfo ConvexVolume::GetCollisionInfo(const IBottomLevelCollider&
 	const auto& otherVolume = (const ConvexVolume&)other;
 
 	// Vértices en world-space de cada collider.
-	const auto transformedVerticesA = this->GetWorldSpaceVertices(thisTransform);
-	const auto transformedVerticesB = otherVolume.GetWorldSpaceVertices(otherTransform);
+	const auto& transformedVerticesA = this->m_transformedVertices;
+	const auto& transformedVerticesB = otherVolume.m_transformedVertices;
 
 	// Vector mínimo que se debe aplicar para separar las entidades,
 	// de tal manera que dejen de estar en colisión.
@@ -188,17 +229,18 @@ DetailedCollisionInfo ConvexVolume::GetCollisionInfo(const IBottomLevelCollider&
 	Vector3f currentAxis = 0.0f;
 	UIndex32 mtvFaceIndex = 0;
 
+
 	float minimumOverlap = std::numeric_limits<float>::max();
 
 	bool isAxisA = false;
 
 	// Comprobamos los ejes de este collider.
-	for (UIndex32 faceIndex = 0; faceIndex < (faces.GetSize() + otherVolume.faces.GetSize()); faceIndex++) {
-		const bool isFirstEntity = faceIndex < faces.GetSize();
+	for (UIndex32 faceIndex = 0; faceIndex < (m_faces.GetSize() + otherVolume.m_faces.GetSize()); faceIndex++) {
+		const bool isFirstEntity = faceIndex < m_faces.GetSize();
 
 		const Axis axis = isFirstEntity
-			? this->GetWorldSpaceAxis(faceIndex, thisTransform)
-			: otherVolume.GetWorldSpaceAxis(faceIndex - faces.GetSize(), otherTransform);
+			? this->GetWorldSpaceAxis(faceIndex)
+			: otherVolume.GetWorldSpaceAxis(faceIndex - static_cast<USize32>(m_faces.GetSize()));
 
 		const auto projA = FaceProjection(transformedVerticesA, axis);
 		const auto projB = FaceProjection(transformedVerticesB, axis);
@@ -209,9 +251,7 @@ DetailedCollisionInfo ConvexVolume::GetCollisionInfo(const IBottomLevelCollider&
 
 
 		// Distancia que los dos objetos se solapan en este eje.
-		const float overlap = isAxisA 
-			? projA.GetOverlap(projB)
-			: projB.GetOverlap(projA);
+		const float overlap = projA.GetOverlap(projB);
 
 		if (glm::abs(overlap) < glm::abs(minimumOverlap)) {
 			minimumOverlap = overlap;
@@ -232,7 +272,7 @@ DetailedCollisionInfo ConvexVolume::GetCollisionInfo(const IBottomLevelCollider&
 	// @see https://dyn4j.org/2011/11/contact-points-using-clipping/
 
 
-	// El collider primario es el collider a partir del cual hemos
+	// El collider de referencia es el collider a partir del cual hemos
 	// obtenido el MTV.
 	const ConvexVolume& primaryCollider = isAxisA
 		? *this
@@ -257,23 +297,21 @@ DetailedCollisionInfo ConvexVolume::GetCollisionInfo(const IBottomLevelCollider&
 
 
 	// MTV normalizado, expresado en la dirección Referencia -> Incidente.
-	const Vector3f normalizedDirectedMtv = mtv.GetNormalized();
-
-
-	// Transform del collider incidente.
-	const Transform3D& secondaryTransform = otherTransform;
+	const Vector3f normalizedDirectedMtv = isAxisA
+		?  mtv.GetNormalized()
+		: -mtv.GetNormalized();
 
 	
 	// Debemos obtener el punto del collider incidente que está
 	// más hacia el collider de referencia.
 	UIndex32 furthestIncidentPointIndex = 0;
-	float furthestIncidentPointProjection = std::numeric_limits<float>::lowest();
+	float furthestIncidentPointProjection = std::numeric_limits<float>::max();
 
 	for (UIndex32 i = 0; i < secondaryVertices.GetSize(); i++) {
 		const auto& vertex = secondaryVertices[i];
 		
 		const float dot = vertex.Dot(normalizedDirectedMtv);
-		if (dot > furthestIncidentPointProjection) {
+		if (dot < furthestIncidentPointProjection) {
 			furthestIncidentPointProjection = dot;
 			furthestIncidentPointIndex = i;
 		}
@@ -281,9 +319,9 @@ DetailedCollisionInfo ConvexVolume::GetCollisionInfo(const IBottomLevelCollider&
 
 
 	// Índices de las caras del segundo collider que contienen
-	// el vértice más alejado.
+	// el vértice más hacia la referencia.
 	const DynamicArray<UIndex32> secondaryFacesIndices 
-		= secondaryCollider.GetFaceIndicesWithVertex(secondaryCollider.vertices[furthestIncidentPointIndex]);
+		= secondaryCollider.GetFaceIndicesWithVertex(secondaryCollider.m_vertices[furthestIncidentPointIndex]);
 
 
 	// Obtenemos la cara del collider incidente que está más paralela a
@@ -292,12 +330,14 @@ DetailedCollisionInfo ConvexVolume::GetCollisionInfo(const IBottomLevelCollider&
 	Vector3f secondFaceNormal = Vector3f::Zero;
 
 	{
-		float mostParallelDot = std::numeric_limits<float>::lowest();
-		for (const UIndex32 faceId : secondaryFacesIndices) {
-			const Vector3f faceNormal = secondaryCollider.GetWorldSpaceAxis(faceId, secondaryTransform);
-			const float dot = glm::abs(faceNormal.Dot(normalizedDirectedMtv));
+		// Dot de dos vectores paralelos es 1.
+		float mostParallelDot = std::numeric_limits<float>::max();
 
-			if (dot > mostParallelDot) {
+		for (const UIndex32 faceId : secondaryFacesIndices) {
+			const Vector3f faceNormal = secondaryCollider.GetWorldSpaceAxis(faceId);
+			const float dot = glm::abs(faceNormal.Dot(normalizedDirectedMtv) - 1.0f);
+			
+			if (dot < mostParallelDot) {
 				mostParallelFaceIndex = faceId;
 				mostParallelDot = dot;
 				secondFaceNormal = faceNormal;
@@ -312,20 +352,20 @@ DetailedCollisionInfo ConvexVolume::GetCollisionInfo(const IBottomLevelCollider&
 	// del que hemos sacado el MTV.
 	const UIndex64 referenceFaceIndex = isAxisA
 		? mtvFaceIndex
-		: mtvFaceIndex - faces.GetSize();
+		: mtvFaceIndex - m_faces.GetSize();
 
 	// Puntos de contacto.
 	// Se inicializan a los puntos de la cara incidente, y después
 	// se van ajustando para representar el área de colisión.
-	DynamicArray<Vector3f> contactPoints = DynamicArray<Vector3f>::CreateReservedArray(secondaryCollider.faces[incidentFaceIndex].GetSize());
-	for (const UIndex32 index : secondaryCollider.faces[incidentFaceIndex])
+	DynamicArray<Vector3f> contactPoints = DynamicArray<Vector3f>::CreateReservedArray(secondaryCollider.m_faces[incidentFaceIndex].GetSize());
+	for (const UIndex32 index : secondaryCollider.m_faces[incidentFaceIndex])
 		contactPoints.Insert(secondaryVertices[index]);
 
 
 	// --------------------------- //
 
 	// Cara de referencia.
-	const FaceIndices& referenceFace = primaryCollider.faces[referenceFaceIndex];
+	const FaceIndices& referenceFace = primaryCollider.m_faces[referenceFaceIndex];
 
 	// Número de vértices en la cara de referencia.
 	const auto numReferenceVertices = referenceFace.GetSize();
@@ -345,7 +385,7 @@ DetailedCollisionInfo ConvexVolume::GetCollisionInfo(const IBottomLevelCollider&
 		const Vector3f lineDirection = (referenceVertex2 - referenceVertex1).Cross(referenceVertex3 - referenceVertex2).GetNormalized();
 
 		// Dirección a la que deben estár los puntos.
-		const Vector3f direction = -normalizedDirectedMtv.Cross(lineDirection).GetNormalized();
+		const Vector3f direction = normalizedDirectedMtv.Cross(lineDirection).GetNormalized();
 
 		for (UIndex64 j = 0; j < contactPoints.GetSize(); j++) {
 			Vector3f& point = contactPoints[j];
@@ -361,11 +401,11 @@ DetailedCollisionInfo ConvexVolume::GetCollisionInfo(const IBottomLevelCollider&
 
 
 	DynamicArray<Vector3f> finalContactPoints = DynamicArray<Vector3f>::CreateReservedArray(contactPoints.GetSize());
-	float currentFurthestDistance = -99999.9f;
+	float currentFurthestDistance = std::numeric_limits<float>::lowest();
 
 	for (const Vector3f& point : contactPoints) {
 		// Mayor distanca = más metido.
-		const float distance = point.Dot(normalizedDirectedMtv);
+		const float distance = point.Dot(-normalizedDirectedMtv);
 
 		if (distance > currentFurthestDistance)
 			currentFurthestDistance = distance;
@@ -373,30 +413,30 @@ DetailedCollisionInfo ConvexVolume::GetCollisionInfo(const IBottomLevelCollider&
 
 	for (const Vector3f& point : contactPoints) {
 		// Mayor distanca = más metido.
-		const float distance = point.Dot(normalizedDirectedMtv);
+		const float distance = point.Dot(-normalizedDirectedMtv);
 
 		if (glm::abs(distance - currentFurthestDistance) < 0.01f)
 			finalContactPoints.Insert(point);
 	}
 
 	return DetailedCollisionInfo::True(
-		mtv, 
+		mtv,
 		finalContactPoints,
 		mtv,
 		secondFaceNormal,
-		false
+		!isAxisA
 	);
 }
 
 DynamicArray<UIndex32> ConvexVolume::GetFaceIndicesWithVertex(const Vector3f& vertex) const {
-	DynamicArray<UIndex32> output = DynamicArray<UIndex32>::CreateReservedArray(faces.GetSize());
+	DynamicArray<UIndex32> output = DynamicArray<UIndex32>::CreateReservedArray(m_faces.GetSize());
 
-	for (UIndex32 i = 0; i < faces.GetSize(); i++) {
-		const auto& face = faces[i];
+	for (UIndex32 i = 0; i < m_faces.GetSize(); i++) {
+		const auto& face = m_faces[i];
 
 		bool containstVertex = false;
 		for (UIndex32 v = 0; v < face.GetSize(); v++) {
-			const Vector3f thisVertex = vertices[face[v]];
+			const Vector3f thisVertex = m_vertices[face[v]];
 			if (thisVertex.Equals(vertex, 0.001f)) {
 				containstVertex = true;
 				break;
@@ -419,7 +459,7 @@ Vector3f ConvexVolume::GetFurthestPoint(Vector3f direction) const {
 	Vector3f output = Vector3f::Zero;
 	float outputDistance = std::numeric_limits<float>::lowest();
 
-	for (const auto& vertex : vertices) {
+	for (const Vector3f vertex : m_vertices) {
 		const float distance = direction.Dot(vertex);
 
 		if (distance > outputDistance) {
@@ -431,19 +471,22 @@ Vector3f ConvexVolume::GetFurthestPoint(Vector3f direction) const {
 	return output;
 }
 
-DynamicArray<Vector3f> ConvexVolume::GetWorldSpaceVertices(const Transform3D& transform) const {
-	DynamicArray<Vector3f> output;
+void ConvexVolume::Transform(const Transform3D& transform) {
+	m_transformedVertices.Empty();
+	m_transformedCenter = Vector3f::Zero;
 
-	for (const auto& vertex : vertices)
-		output.Insert(transform.TransformPoint(vertex));
+	for (const Vector3f vertex : m_vertices) {
+		m_transformedVertices.Insert(transform.TransformPoint(vertex));
+		m_transformedCenter += vertex;
+	}
 
-	return output;
+	m_transformedCenter /= static_cast<float>(m_transformedVertices.GetSize());
 }
 
 const DynamicArray<Vector3f>& ConvexVolume::GetLocalSpaceVertices() const {
-	return vertices;
+	return m_vertices;
 }
 
-const DynamicArray<ConvexVolume::FaceIndices> ConvexVolume::GetFaceIndices() const {
-	return faces;
+DynamicArray<ConvexVolume::FaceIndices> ConvexVolume::GetFaceIndices() const {
+	return m_faces;
 }

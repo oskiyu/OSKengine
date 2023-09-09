@@ -16,7 +16,11 @@ namespace OSK::UI {
 
 	protected:
 
-		IContainer(const Vector2f& size) : IElement(size) {  }
+		explicit IContainer(const Vector2f& size) : IElement(size) {  }
+
+	public:
+
+		void SetSize(Vector2f newSize) override;
 
 	public:
 

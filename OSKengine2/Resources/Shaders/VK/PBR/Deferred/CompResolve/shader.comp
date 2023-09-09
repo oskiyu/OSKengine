@@ -125,8 +125,8 @@ void main() {
     const vec3 view = normalize(camera.cameraPos.xyz - worldPosition);
     const vec3 reflectDirection = reflect(-view, normal);
     
-    const float metallicFactor = clamp(materialInfo.x, 0.01, 1);
-    const float roughnessFactor = clamp(materialInfo.y, 0.01, 1);
+    const float metallicFactor = clamp(materialInfo.x, 0.02, 1);
+    const float roughnessFactor = clamp(materialInfo.y, 0.02, 0.95);
     
     vec3 F0 = vec3(DEFAULT_F0);
     F0 = mix(F0, albedo.rgb, metallicFactor);
@@ -152,19 +152,20 @@ void main() {
         normal, 
         dirLight.color.rgb * dirLight.directionAndIntensity.w, 
         albedo.rgb, 
-        max(0.05, roughnessFactor), 
+        max(0.085, roughnessFactor), 
         metallicFactor);
 
     // Irradiance Map
-    vec3 kS = FreshnelShlick(max(dot(normal, view), 0.0), F0);
-    vec3 kD = 1.0 - kS;
-    kD *= 1.0 - (metallicFactor); // * 0.2
+    const vec3 F = FresnelSchlickRoughness(max(dot(normal, view), 0.0), F0, roughnessFactor);
+    vec3 kSpecular = F;
+    vec3 kDiffuse = 1.0 - kSpecular;
+    kDiffuse *= 1.0 - metallicFactor;
+    kSpecular = 1.0 - kDiffuse;
 
-    const vec3 irradiance = texture(irradianceMap, normal).rgb;
-    const vec3 ambient = albedo.rgb * kD * irradiance;
+    const vec3 irradianceMap = mix(texture(irradianceMap, normal).rgb, vec3(length(texture(irradianceMap, normal).rgb)), 0.85);
+    vec3 iblDiffuse = albedo.rgb * irradianceMap;
 
     const float maxSpecularLod = 5 - 1;
-    const vec3 F = FresnelSchlickRoughness(max(dot(normal, view), 0.0), F0, roughnessFactor);
     const vec3 prefilteredSpecularColor = textureLod(specularMap, reflectDirection, roughnessFactor * maxSpecularLod).rgb;
     const vec2 lut = textureLod(specularLut, vec2(max(dot(normal, view), roughnessFactor)), 0).rg;
     const vec3 specular = prefilteredSpecularColor * (F * lut.x + lut.y);
@@ -178,24 +179,20 @@ void main() {
     const float radianceRatio = 1.0;
     const float specularRatio = 1.0;
 #elif defined(CUSTOM)
-    const float ambientRatio = 0.25;
-    const float radianceRatio = 1.0;
-    const float specularRatio = 0.25;
+    const float ambientRatio = 0.7;
+    const float radianceRatio = 1.2;
+    const float specularRatio = 0.8;
 #else
     const float ambientRatio = 0.65;
     const float radianceRatio = 1.0;
     const float specularRatio = 0.65;
 #endif
 
-    vec3 color = ambient * (dirLight.directionAndIntensity.w * ambientRatio) 
-                + accummulatedRadiance * radianceRatio 
-                + specular * specularRatio;
+    vec3 color = vec3(0);
 
-    /*color = GetShadowmapCascade(
-        cameraSpacePosition, 
-        dirLightShadowMat.splits,
-        dirLightShadowMat.matrix,
-        worlPosition);/**/
+    color += iblDiffuse * ambientRatio * kDiffuse * 0.2;
+    color += accummulatedRadiance * radianceRatio;
+    color += specular * specularRatio;
 
     color = vec3(
         max(color.r, 0.01),

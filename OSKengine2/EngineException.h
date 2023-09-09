@@ -14,7 +14,10 @@ namespace OSK {
 
 	public:
 
-		virtual ~EngineException() override = default;
+		~EngineException() override = default;
+
+		OSK_DEFAULT_COPY_OPERATOR(EngineException);
+		OSK_DEFAULT_MOVE_OPERATOR(EngineException);
 		
 		/// @brief Crea la excepción.
 		/// @param message Mensaje de la excepción. Debe incluir una descripción

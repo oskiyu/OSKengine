@@ -65,8 +65,8 @@ namespace OSK::IO {
 	protected:
 
 		Vector2ui resolution = Vector2ui::Zero;
-		bool isOpen = false;
 		USize32 refreshRate = 60;
+		bool isOpen = false;
 
 	};
 

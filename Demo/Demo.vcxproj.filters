@@ -25,6 +25,12 @@
     <Filter Include="Archivos de origen\Spawners">
       <UniqueIdentifier>{9cf0803b-e10a-4fd1-93b3-44cf60294cba}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Archivos de encabezado\Testing">
+      <UniqueIdentifier>{33086b92-dbed-4a74-afd1-4e9a7fe23f55}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de origen\Testing">
+      <UniqueIdentifier>{0afaa38f-b8a0-4462-9abb-8f7221ca3333}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -44,6 +50,9 @@
     </ClCompile>
     <ClCompile Include="CarSystem.cpp">
       <Filter>Archivos de origen\ECSE</Filter>
+    </ClCompile>
+    <ClCompile Include="CollisionTests.cpp">
+      <Filter>Archivos de origen\Testing</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -67,6 +76,9 @@
     </ClInclude>
     <ClInclude Include="CarSystem.h">
       <Filter>Archivos de encabezado\ECSE</Filter>
+    </ClInclude>
+    <ClInclude Include="CollisionTests.h">
+      <Filter>Archivos de encabezado\Testing</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

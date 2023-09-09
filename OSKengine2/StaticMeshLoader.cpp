@@ -19,11 +19,11 @@ using namespace OSK::GRAPHICS;
 
 
 void StaticMeshLoader::SmoothNormals() {
-	for (UIndex32 i = 0; i < indices.GetSize(); i += 3) {
+	for (UIndex32 i = 0; i < m_indices.GetSize(); i += 3) {
 		const TIndexSize localIndices[3] = {
-			indices.At(i + 0),
-			indices.At(i + 1),
-			indices.At(i + 2)
+			m_indices.At(i + 0),
+			m_indices.At(i + 1),
+			m_indices.At(i + 2)
 		};
 
 		const Vertex3D localVertices[3] = {
@@ -46,23 +46,23 @@ void StaticMeshLoader::SmoothNormals() {
 }
 
 void StaticMeshLoader::ProcessNode(const tinygltf::Node& node, UIndex32 nodeId, UIndex32 parentId) {
-	const glm::mat4 nodeMatrix = modelTransform * GetNodeMatrix(node);
+	const glm::mat4 nodeMatrix = m_modelTransform * GetNodeMatrix(node);
 	const glm::mat3 normalMatrix = glm::transpose(glm::inverse(glm::mat3(nodeMatrix)));
 
 	// Proceso del polígono.
 	if (node.mesh > -1) {
-		const tinygltf::Mesh& mesh = gltfModel.meshes[node.mesh];
+		const tinygltf::Mesh& mesh = m_gltfModel.meshes[node.mesh];
 
 		for (UIndex32 i = 0; i < mesh.primitives.size(); i++) {
 			const tinygltf::Primitive& primitive = mesh.primitives[i];
 
 			if (primitive.material > -1)
-				meshIdToMaterialId[static_cast<UIndex32>(meshes.GetSize())] = primitive.material;
+				m_meshIdToMaterialId[static_cast<UIndex32>(m_meshes.GetSize())] = primitive.material;
 
 			OSK_ASSERT(primitive.mode == TINYGLTF_MODE_TRIANGLES, UnsupportedPolygonModeException(std::to_string(primitive.mode)));
 
 			const UIndex64 firstVertexId = vertices.GetSize();
-			const UIndex64 firstIndexId = indices.GetSize();
+			const UIndex64 firstIndexId = m_indices.GetSize();
 
 			const auto primitiveIndices = GetIndices(primitive, firstVertexId);
 
@@ -91,7 +91,7 @@ void StaticMeshLoader::ProcessNode(const tinygltf::Node& node, UIndex32 nodeId, 
 				vertex.tangent = glm::normalize(normalMatrix * tangents[v].ToGLM());
 
 				if (primitive.material > -1)
-					vertex.color = modelInfo.materialInfos[primitive.material].baseColor;
+					vertex.color = m_modelInfo.materialInfos[primitive.material].baseColor;
 				
 				if (hasColors)
 					vertex.color = colors[v];
@@ -99,14 +99,14 @@ void StaticMeshLoader::ProcessNode(const tinygltf::Node& node, UIndex32 nodeId, 
 				vertices.Insert(vertex);
 			}
 
-			indices.InsertAll(primitiveIndices);
+			m_indices.InsertAll(primitiveIndices);
 
-			meshes.Insert(Mesh3D(static_cast<USize32>(primitiveIndices.GetSize()), firstIndexId));
+			m_meshes.Insert(Mesh3D(static_cast<USize32>(primitiveIndices.GetSize()), firstIndexId));
 		}
 	}
 
 	for (UIndex32 i = 0; i < node.children.size(); i++)
-		ProcessNode(gltfModel.nodes[node.children[i]], node.children[i], parentId);
+		ProcessNode(m_gltfModel.nodes[node.children[i]], node.children[i], parentId);
 }
 
 void StaticMeshLoader::SetupModel(Model3D* model) {

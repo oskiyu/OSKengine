@@ -7,24 +7,20 @@
 using namespace OSK;
 using namespace OSK::AUDIO;
 
-Source::Source() {
-
-}
-
 Source::~Source() {
-	if (handle != EMPTY_HANDLE)
-		alDeleteSources(1, &handle);
+	if (m_handle != EMPTY_HANDLE)
+		alDeleteSources(1, &m_handle);
 }
 
 void Source::Init() {
-	alGenSources(1, &handle);
+	alGenSources(1, &m_handle);
 
 	const auto result = alGetError();
 	OSK_ASSERT(result == AL_NO_ERROR, AudioException("Error al generar el source.", result));
 }
 
 void Source::SetBuffer(const Buffer& buffer) {
-	alSourcei(handle, AL_BUFFER, buffer.GetHandle());
+	alSourcei(m_handle, AL_BUFFER, buffer.GetHandle());
 
 	const auto result = alGetError();
 	OSK_ASSERT(result == AL_NO_ERROR, AudioException("Error al establecer el buffer.", result));
@@ -32,7 +28,7 @@ void Source::SetBuffer(const Buffer& buffer) {
 
 Source::State Source::GetCurrentState() const {
 	ALint state = 0;
-	alGetSourcei(handle, AL_SOURCE_STATE, &state);
+	alGetSourcei(m_handle, AL_SOURCE_STATE, &state);
 
 	if (state == AL_PLAYING)
 		return State::PLAYING;
@@ -40,6 +36,8 @@ Source::State Source::GetCurrentState() const {
 		return State::PAUSED;
 	else if (state == AL_INITIAL || state == AL_STOPPED)
 		return State::STOPPED;
+
+	return State::UNKNOWN;
 }
 
 void Source::SetCurrentState(State state) {
@@ -57,35 +55,35 @@ void Source::SetCurrentState(State state) {
 }
 
 void Source::Play() {
-	alSourcePlay(handle);
+	alSourcePlay(m_handle);
 }
 
 void Source::Pause() {
-	alSourcePause(handle);
+	alSourcePause(m_handle);
 }
 
 void Source::Stop() {
-	alSourceStop(handle);
+	alSourceStop(m_handle);
 }
 
 void Source::SetPosition(const Vector3f& position) {
-	alSource3f(handle, AL_POSITION, position.x, position.y, position.Z);
+	alSource3f(m_handle, AL_POSITION, position.x, position.y, position.Z);
 }
 
 void Source::SetVelocity(const Vector3f& velocity) {
-	alSource3f(handle, AL_VELOCITY, velocity.x, velocity.y, velocity.Z);
+	alSource3f(m_handle, AL_VELOCITY, velocity.x, velocity.y, velocity.Z);
 }
 
 void Source::SetPitch(float pitch) {
-	this->pitch = pitch;
-	alSourcef(handle, AL_PITCH, pitch);
+	m_pitch = pitch;
+	alSourcef(m_handle, AL_PITCH, pitch);
 }
 
 void Source::SetGain(float gain) {
-	this->gain = gain;
-	alSourcef(handle, AL_GAIN, gain);
+	m_gain = gain;
+	alSourcef(m_handle, AL_GAIN, gain);
 }
 
 void Source::SetLooping(bool looping) {
-	alSourcei(handle, AL_LOOPING, looping);
+	alSourcei(m_handle, AL_LOOPING, looping);
 }

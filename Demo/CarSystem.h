@@ -1,8 +1,8 @@
 #pragma once
 
-#include <OSKengine/IConsumerSystem.h>
+#include <OSKengine/IPureSystem.h>
 
-class CarSystem : public OSK::ECS::IConsumerSystem {
+class CarSystem : public OSK::ECS::IPureSystem {
 
 public:
 

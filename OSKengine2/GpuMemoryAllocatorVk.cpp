@@ -50,9 +50,9 @@ OwnedPtr<GpuImage> GpuMemoryAllocatorVk::CreateImage(const GpuImageCreateInfo& i
 	USize64 numBytes = GetFormatNumberOfBytes(info.format);
 
 	switch (info.dimension) {
-		case OSK::GRAPHICS::GpuImageDimension::d1D: numBytes *= info.resolution.x; break;
-		case OSK::GRAPHICS::GpuImageDimension::d2D: numBytes *= info.resolution.x * info.resolution.y; break;
-		case OSK::GRAPHICS::GpuImageDimension::d3D: numBytes *= info.resolution.x * info.resolution.y * info.resolution.Z; break;
+		case OSK::GRAPHICS::GpuImageDimension::d1D: numBytes *= static_cast<USize64>(info.resolution.x); break;
+		case OSK::GRAPHICS::GpuImageDimension::d2D: numBytes *= static_cast<USize64>(info.resolution.x) * static_cast<USize64>(info.resolution.y); break;
+		case OSK::GRAPHICS::GpuImageDimension::d3D: numBytes *= static_cast<USize64>(info.resolution.x) * static_cast<USize64>(info.resolution.y) * static_cast<USize64>(info.resolution.Z); break;
 	}
 
 	Vector3ui finalImageSize = info.resolution;

@@ -6,11 +6,11 @@
 namespace OSK::ECS {
 
 	/// @brief Interfaz común para todos los sistemas consumidores.
-	class IConsumerSystem : public ISystem {
+	class OSKAPI_CALL IConsumerSystem : public ISystem {
 
 	public:
 
-		virtual ~IConsumerSystem() = default;
+		~IConsumerSystem() override = default;
 
 	protected:
 
@@ -26,7 +26,7 @@ namespace OSK::ECS {
 
 	public:
 
-		virtual ~ConsumerSystem() = default;
+		~ConsumerSystem() override = default;
 
 	protected:
 

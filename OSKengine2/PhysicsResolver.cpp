@@ -17,7 +17,7 @@ void PhysicsResolver::OnTick(TDeltaTime deltaTime) {
 	const EntityComponentSystem* ecs = Engine::GetEcs();
 
 	for (const auto& event : Engine::GetEcs()->GetEventQueue<CollisionEvent>()) {
-		GameObjectIndex first = event.firstEntity;
+		GameObjectIndex first  = event.firstEntity;
 		GameObjectIndex second = event.secondEntity;
 
 		// Check.
@@ -28,12 +28,10 @@ void PhysicsResolver::OnTick(TDeltaTime deltaTime) {
 
 		const auto& collisionInfo = event.collisionInfo;
 
-		const Vector3f contactNormal = -collisionInfo.GetMinimumTranslationVector().GetNormalized();
+		Vector3f contactNormal = -collisionInfo.GetFirstFaceNormal().GetNormalized();
 
 		const Vector3f mtv = collisionInfo.GetMinimumTranslationVector();
 		const Vector3f halfMtv = mtv * 0.5f;
-
-		if (collisionInfo.ShouldSwapObjects()) std::swap(first, second);
 
 		auto& transformA = ecs->GetComponent<Transform3D>(first);
 		auto& transformB = ecs->GetComponent<Transform3D>(second);
@@ -57,24 +55,24 @@ void PhysicsResolver::OnTick(TDeltaTime deltaTime) {
 
 		// --- IMPULSOS --- //
 
-		// Si los objetos se están separando, no ajustaremos las velocidades.
-		if (physicsA.GetVelocity().Dot(physicsB.GetVelocity()) < 0.0f)
-			continue;
-
 		// Velocidades sin contar la delta de este frame.
 		// Para una simulación más estable.
 		const Vector3f velocityA = physicsA.GetVelocity() - physicsA.GetCurrentFrameVelocityDelta();
 		const Vector3f velocityB = physicsB.GetVelocity() - physicsB.GetCurrentFrameVelocityDelta();
 
 		// Velocidad a la que se separan los objetos.
-		const float separationVelocity = -glm::abs(contactNormal.Dot(velocityB - velocityA));
+		const float projectedVelocityA = glm::abs(velocityA.Dot(contactNormal));
+		const float projectedVelocityB = glm::abs(velocityB.Dot(contactNormal));
+		const float separationVelocity = -glm::abs(projectedVelocityA - projectedVelocityB);
 
 		float cor = (physicsA.coefficientOfRestitution + physicsB.coefficientOfRestitution) * 0.5f;
+		/*
 		cor = glm::clamp(
 			glm::mix(0.0f, cor, glm::abs(separationVelocity) * 2.55f - 0.5f),
 			0.0f,
 			cor
 		);
+		*/
 
 		// Velocidad a la que se separan los objetos después de la colisión.
 		float deltaSeparationVelocity = -(1 + cor) * separationVelocity;
@@ -86,13 +84,16 @@ void PhysicsResolver::OnTick(TDeltaTime deltaTime) {
 
 		const float impulsoTotal = deltaSeparationVelocity / velocityDeltaPerImpulseUnit;
 
-		const Vector3f impulsoA =  contactNormal * impulsoTotal;
-		const Vector3f impulsoB = -contactNormal * impulsoTotal;
+		const Vector3f impulsoA = contactNormal * impulsoTotal;
+		const Vector3f impulsoB = -impulsoA;
 
 		const Vector3f worldSpaceContactPoint = collisionInfo.GetSingleContactPoint();
 
-		const Vector3f contactPointA = worldSpaceContactPoint - (transformA.GetPosition() + physicsA.centerOfMassOffset);
-		const Vector3f contactPointB = worldSpaceContactPoint - (transformB.GetPosition() + physicsB.centerOfMassOffset);
+		const Vector3f centerOfMassA = transformA.GetPosition() + physicsA.centerOfMassOffset;
+		const Vector3f centerOfMassB = transformB.GetPosition() + physicsB.centerOfMassOffset;
+
+		const Vector3f contactPointA = worldSpaceContactPoint - centerOfMassA;
+		const Vector3f contactPointB = worldSpaceContactPoint - centerOfMassB;
 
 		physicsA.ApplyImpulse(impulsoA, contactPointA);
 		physicsB.ApplyImpulse(impulsoB, contactPointB);
@@ -100,6 +101,7 @@ void PhysicsResolver::OnTick(TDeltaTime deltaTime) {
 
 		// --- FRICCIÓN --- //
 
+#if 0 // Fircción direccionada.
 		const Vector4f transformFrictionA = transformA.GetRotation().ToMat4() * glm::vec4(physicsA.localFrictionCoefficient.ToGLM(), 1.0f);
 		const Vector4f transformFrictionB = transformB.GetRotation().ToMat4() * glm::vec4(physicsB.localFrictionCoefficient.ToGLM(), 1.0f);
 
@@ -112,27 +114,25 @@ void PhysicsResolver::OnTick(TDeltaTime deltaTime) {
 			= glm::abs(transformB.GetForwardVector().ToGLM()) * physicsB.localFrictionCoefficient.x
 			+ glm::abs(transformB.GetTopVector().ToGLM())	  * physicsB.localFrictionCoefficient.y
 			+ glm::abs(transformB.GetRightVector().ToGLM())   * physicsB.localFrictionCoefficient.Z; */
+#endif
 
 		const Vector3f movementAlongNormalA = 
 			(physicsA.GetVelocity() - contactNormal * physicsA.GetVelocity().Dot(contactNormal));
 		const Vector3f movementAlongNormalB = 
 			(physicsB.GetVelocity() - contactNormal * physicsB.GetVelocity().Dot(contactNormal));
 
-		physicsA.ApplyImpulse(-movementAlongNormalA * transformedFrictionA * deltaTime, contactPointA);
-		physicsB.ApplyImpulse(-movementAlongNormalB * transformedFrictionB * deltaTime, contactPointB);
+		physicsA.ApplyImpulse(-movementAlongNormalA * deltaTime, contactPointA);
+		physicsB.ApplyImpulse(-movementAlongNormalB * deltaTime, contactPointB);
 
-		Engine::GetLogger()->InfoLog(std::format("Friction A: {}:{}:{}", transformedFrictionA.x, transformedFrictionA.y, transformedFrictionA.Z));
-		Engine::GetLogger()->InfoLog(std::format("Friction B: {}:{}:{}", transformedFrictionB.x, transformedFrictionB.y, transformedFrictionB.Z));
+		continue;
 
 
 		// ---- SNAPPING --- //
 
-		continue;
-
 		const Vector3f firstNormal = collisionInfo.GetFirstFaceNormal();
 		const Vector3f secondNormal = collisionInfo.GetSecondFaceNormal();
 		const Vector3f cross = firstNormal.Cross(-secondNormal);
-		const float angle = firstNormal.GetAngle(secondNormal);
+		const float angle = glm::radians(firstNormal.GetAngle(secondNormal));
 
 		if (glm::abs(angle) > 0.1f) {
 			transformA.RotateWorldSpace(

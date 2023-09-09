@@ -9,6 +9,8 @@
 
 #include "HashMap.hpp"
 
+#include <array>
+
 namespace OSK::GRAPHICS {
 
 	/// <summary>
@@ -78,31 +80,31 @@ namespace OSK::GRAPHICS {
 		glm::mat4 GetInitialTransform() const;
 
 		void _AddAnimation(const Animation& animation);
-		void _AddSkin(AnimationSkin&& skin);
+		void _AddSkin(const AnimationSkin& skin);
 		void _AddNode(const MeshNode& node);
 
 	private:
 
 		/// <summary> Esqueleto resultado de combinar todas las animaciones activas. </summary>
-		DynamicArray<glm::mat4> boneMatrices;
+		DynamicArray<glm::mat4> m_boneMatrices;
 		
-		DynamicArray<MeshNode> nodes;
+		DynamicArray<MeshNode> m_nodes;
 				
 		/// <summary> Buffers que almacenan las matrices de los huesos que se envían al vertex shader. </summary>
-		UniquePtr<GpuBuffer> boneBuffers[NUM_RESOURCES_IN_FLIGHT]{};
+		std::array<UniquePtr<GpuBuffer>, NUM_RESOURCES_IN_FLIGHT> m_boneBuffers{};
 
 		/// <summary> Contiene un único material slot: "animation". </summary>
-		UniquePtr<MaterialInstance> materialInstance;
+		UniquePtr<MaterialInstance> m_materialInstance;
 
-		DynamicArray<AnimationSkin> availableSkins;
+		DynamicArray<AnimationSkin> m_availableSkins;
 
-		std::unordered_map<std::string, UIndex32, StringHasher, std::equal_to<>> availableSkinsByName;
-		std::unordered_map<std::string, Animation, StringHasher, std::equal_to<>> availableAnimations;
+		std::unordered_map<std::string, UIndex64, StringHasher, std::equal_to<>>  m_availableSkinsByName;
+		std::unordered_map<std::string, Animation, StringHasher, std::equal_to<>> m_availableAnimations;
 
-		DynamicArray<std::string> activeAnimations;
-		std::string activeSkin = "";
+		DynamicArray<std::string> m_activeAnimations;
+		std::string m_activeSkin = "";
 
-		glm::mat4 initialTransform = glm::mat4(1.0f);
+		glm::mat4 m_initialTransform = glm::mat4(1.0f);
 
 	};
 

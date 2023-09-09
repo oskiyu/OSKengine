@@ -19,18 +19,18 @@ namespace OSK::ECS {
 
 	public:
 
-		~ComponentContainer() = default;
+		~ComponentContainer() override = default;
 
 		/// @brief Añade un componente asignado al objeto dado.
 		/// @param obj Objeto dueño del componente.
 		/// @param component Componente a añadir.
 		/// @return Referencia no estable al componente añadido.
 		TComponent& AddComponent(GameObjectIndex obj, const TComponent& component) {
-			ComponentIndex componentId = components.GetSize();
+			ComponentIndex componentId = m_components.GetSize();
 
-			objectToComponent[obj] = componentId;
-			componentToObject[componentId] = obj;
-			components.Insert(component);
+			m_objectToComponent[obj] = componentId;
+			m_componentToObject[componentId] = obj;
+			m_components.Insert(component);
 
 			return GetComponent(obj);
 		}
@@ -40,11 +40,11 @@ namespace OSK::ECS {
 		/// @param component Componente a añadir.
 		/// @return Referencia no estable al componente añadido.
 		TComponent& AddComponentMove(GameObjectIndex obj, TComponent&& component) {
-			const ComponentIndex componentId = components.GetSize();
+			const ComponentIndex componentId = m_components.GetSize();
 
-			objectToComponent[obj] = componentId;
-			componentToObject[componentId] = obj;
-			components.Insert(std::move(component));
+			m_objectToComponent[obj] = componentId;
+			m_componentToObject[componentId] = obj;
+			m_components.Insert(std::move(component));
 
 			return GetComponent(obj);
 		}
@@ -55,26 +55,26 @@ namespace OSK::ECS {
 		/// @warning No comprueba que el objeto tenga el componente.
 		/// @pre El objeto debe tener el componente.
 		void RemoveComponent(GameObjectIndex obj) {
-			ComponentIndex compIndex = objectToComponent.at(obj);
-			const UIndex64 indexOfLast = components.GetSize() - 1;
+			ComponentIndex compIndex = m_objectToComponent.at(obj);
+			const UIndex64 indexOfLast = m_components.GetSize() - 1;
 
 			// Hacemos que el componente a eliminar esté en la última posición.
 			// El último componente se coloca en el hueco del componente eliminado,
 			// para evitar dejar huecos en el array.
-			MEMORY::MemorySwap(&components[compIndex], &components[indexOfLast], sizeof(TComponent));
+			MEMORY::MemorySwap(&m_components[compIndex], &m_components[indexOfLast], sizeof(TComponent));
 
 			// Obtenemos el objeto dueño del componente que acabamos de colocar
 			// donde el componente eliminado.
 			// Actualizamos las tablas para que apunten al nuevo lugar que ocupa.
-			GameObjectIndex objectOfLast = componentToObject.at(indexOfLast);
-			objectToComponent.at(objectOfLast) = compIndex;
-			componentToObject.at(compIndex) = objectOfLast;
+			GameObjectIndex objectOfLast = m_componentToObject.at(indexOfLast);
+			m_objectToComponent.at(objectOfLast) = compIndex;
+			m_componentToObject.at(compIndex) = objectOfLast;
 
 			// Eliminación final.
-			components.RemoveLast();
+			m_components.RemoveLast();
 
-			objectToComponent.erase(obj);
-			componentToObject.erase(indexOfLast);
+			m_objectToComponent.erase(obj);
+			m_componentToObject.erase(indexOfLast);
 		}
 
 		/// @brief Devuelve una 
@@ -84,7 +84,7 @@ namespace OSK::ECS {
 		/// @warning No comprueba que el objeto tenga el componente.
 		/// @pre El objeto debe tener el componente.
 		TComponent& GetComponent(GameObjectIndex obj) {
-			return components.At(objectToComponent.at(obj));
+			return m_components.At(m_objectToComponent.at(obj));
 		}
 
 		/// @brief Devuelve una 
@@ -94,7 +94,7 @@ namespace OSK::ECS {
 		/// @warning No comprueba que el objeto tenga el componente.
 		/// @pre El objeto debe tener el componente.
 		const TComponent& GetComponent(GameObjectIndex obj) const {
-			return components.At(objectToComponent.at(obj));
+			return m_components.At(m_objectToComponent.at(obj));
 		}
 				
 		/// @brief Elimina el componente del objeto eliminado.
@@ -109,13 +109,13 @@ namespace OSK::ECS {
 	private:
 
 		/// @brief Array con todos los componentes de un mismo tipo.
-		DynamicArray<TComponent> components;
+		DynamicArray<TComponent> m_components;
 
 		/// @brief Mapa dueño -> componente.
-		std::unordered_map<GameObjectIndex, ComponentIndex> objectToComponent;
+		std::unordered_map<GameObjectIndex, ComponentIndex> m_objectToComponent;
 		
 		/// @brief Mapa componente -> dueño.
-		std::unordered_map<ComponentIndex, GameObjectIndex> componentToObject;
+		std::unordered_map<ComponentIndex, GameObjectIndex> m_componentToObject;
 
 	};
 

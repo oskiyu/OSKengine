@@ -42,6 +42,11 @@ namespace OSK::COLLISION {
 
 		virtual bool ContainsPoint(const Vector3f& point) const = 0;
 
+		/// @brief Transforma el collider.
+		/// Debe llamarse una vez por frame.
+		/// @param transform Transform de la entidad.
+		virtual void Transform(const ECS::Transform3D& transform) = 0;
+
 	};
 
 }

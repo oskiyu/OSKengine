@@ -45,8 +45,8 @@ namespace OSK::GRAPHICS {
 			USize32 size = 0;
 			Type type = Type::FLOAT;
 			
-			void SetName(const std::string& name) {
-				this->name = name;
+			void SetName(const std::string& nname) {
+				this->name = nname;
 			}
 
 			const std::string& GetName() const {

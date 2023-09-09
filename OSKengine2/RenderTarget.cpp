@@ -96,7 +96,7 @@ RenderpassType RenderTarget::GetRenderTargetType() const {
 }
 
 USize32 RenderTarget::GetNumColorTargets() const {
-	return colorAttachments.GetSize();
+	return static_cast<USize32>(colorAttachments.GetSize());
 }
 
 MaterialInstance* RenderTarget::GetFullscreenSpriteMaterialInstance() {

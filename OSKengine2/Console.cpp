@@ -11,7 +11,7 @@ using namespace OSK::ASSETS;
 using namespace OSK::GRAPHICS;
 
 void Console::SetFont(Font* font) {
-	this->fuente = font;
+	m_fuente = font;
 }
 
 void Console::WriteLine(const std::string& text) {
@@ -20,17 +20,17 @@ void Console::WriteLine(const std::string& text) {
 		.timestamp = Engine::GetCurrentTime()
 	};
 
-	entries.Insert(entry);
+	m_entries.Insert(entry);
 }
 
 void Console::Draw(SpriteRenderer* spriteRenderer) {
-	Vector2f position = Vector2f(10.0f, 10.0f);
+	Vector2f position = Vector2f(20.0f, 280.0f);
 
 	Transform2D transform(EMPTY_GAME_OBJECT);
 	transform.SetPosition(position);
 
-	for (const auto& e : entries) {
-		spriteRenderer->DrawString(*fuente, fontSize, e.text, transform, Color::White);
-		transform.AddPosition(Vector2f(0, (float)fontSize + 2.0f));
+	for (long int i = static_cast<long int>(m_entries.GetSize()) - 1, j = 0; i >= 0 && j < 15; i--, j++) {
+		spriteRenderer->DrawString(*m_fuente, m_fontSize, m_entries[i].text, transform, Color::White);
+		transform.AddPosition(Vector2f(0, (float)m_fontSize + 2.0f));
 	}
 }

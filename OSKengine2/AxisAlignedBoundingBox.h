@@ -20,7 +20,7 @@ namespace OSK::COLLISION {
 		/// @brief Caja con tamaño 1.
 		AxisAlignedBoundingBox() = default;
 		/// @param size Radio (distancia desde un lado hasta el otro).
-		AxisAlignedBoundingBox(const Vector3f& size);
+		explicit AxisAlignedBoundingBox(const Vector3f& size);
 
 		/// @param size Radio total (distancia desde un lado hasta el otro).
 		void SetSize(const Vector3f& size);
@@ -48,7 +48,7 @@ namespace OSK::COLLISION {
 
 	private:
 
-		Vector3f size = 1.0f;
+		Vector3f m_size = 1.0f;
 
 	};
 

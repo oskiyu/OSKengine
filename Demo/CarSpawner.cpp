@@ -33,18 +33,20 @@ OSK::ECS::GameObjectIndex CarSpawner::Spawn() {
 
 	physicsComponent.SetMass(4.0f);
 	physicsComponent.centerOfMassOffset = OSK::Vector3f(0.0f, 0.17f * 0.5f, 0.0f);
+	physicsComponent.coefficientOfRestitution = 0.2f;
 
 	OSK::OwnedPtr<OSK::COLLISION::ConvexVolume> convexVolume 
-		= new OSK::COLLISION::ConvexVolume(OSK::COLLISION::ConvexVolume::CreateObb({ 0.15f * 2, 0.17f, 0.35f * 2 }, 0));
+		= new OSK::COLLISION::ConvexVolume(
+			OSK::COLLISION::ConvexVolume::CreateObb({ 0.15f * 2, 0.17f, 0.35f * 2 }, 0));
 
-	collider.SetTopLevelCollider(new OSK::COLLISION::SphereCollider(2.45f));
+	collider.SetTopLevelCollider(new OSK::COLLISION::SphereCollider(0.45f));
 	collider.AddBottomLevelCollider(convexVolume.GetPointer());
 
 	OSK::ASSETS::Model3D* carModel 
 		= OSK::Engine::GetAssetManager()->Load<OSK::ASSETS::Model3D>("Resources/Assets/Models/mclaren.json", "GLOBAL");
 	
 	modelComponent.SetModel(carModel);
-	modelComponent.SetMaterial(material3D);
+	modelComponent.SetMaterial(m_material3D);
 	OSK::ASSETS::ModelLoader3D::SetupPbrModel(*carModel, &modelComponent);
 
 	ecse->AddComponent(output, transform);
@@ -57,5 +59,5 @@ OSK::ECS::GameObjectIndex CarSpawner::Spawn() {
 }
 
 void CarSpawner::SetMaterial3D(OSK::GRAPHICS::Material* material3D) {
-	this->material3D = material3D;
+	m_material3D = material3D;
 }

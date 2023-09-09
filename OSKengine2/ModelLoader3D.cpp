@@ -98,12 +98,12 @@ void ModelLoader3D::Load(const std::string& assetFilePath, IAsset** asset) {
 	// a
 	const nlohmann::json assetInfo = ValidateDescriptionFile(assetFilePath);
 
-	std::string texturePath = assetInfo["raw_asset_path"];
+	std::string modelPath = assetInfo["raw_asset_path"];
 	output->SetName(assetInfo["name"]);
 
 	const bool isAnimated = assetInfo.contains("animated");
 
-	glm::mat4 modelTransform = glm::mat4(1.0f);
+	auto modelTransform = glm::mat4(1.0f);
 
 	modelTransform = glm::scale(modelTransform, glm::vec3(assetInfo["scale"]));
 
@@ -116,12 +116,12 @@ void ModelLoader3D::Load(const std::string& assetFilePath, IAsset** asset) {
 
 	if (isAnimated) {
 		AnimMeshLoader loader{};
-		loader.Load(assetInfo["raw_asset_path"], modelTransform);
+		loader.Load(modelPath, modelTransform);
 		loader.SetupModel(output);
 	}
 	else {
 		StaticMeshLoader loader{};
-		loader.Load(assetInfo["raw_asset_path"], modelTransform);
+		loader.Load(modelPath, modelTransform);
 		loader.SetupModel(output);
 	}
 }
@@ -142,7 +142,7 @@ void ModelLoader3D::SetupPbrModel(const Model3D& model, ECS::ModelComponent3D* c
 	for (UIndex32 i = 0; i < model.GetMeshes().GetSize(); i++) {
 		const auto& meshMetadata = model.GetMetadata().meshesMetadata[i];
 		
-		if (meshMetadata.materialTextures.size() > 0) {
+		if (!meshMetadata.materialTextures.empty()) {
 			for (auto& [name, texture] : meshMetadata.materialTextures) {
 				if (name == "baseTexture")
 					component->GetMeshMaterialInstance(i)->GetSlot("texture")->SetGpuImage("albedoTexture", model.GetImage(texture)->GetView(view));

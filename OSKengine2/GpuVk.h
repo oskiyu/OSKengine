@@ -94,7 +94,7 @@ namespace OSK::GRAPHICS {
 
 
 			/// @brief Alineamiento mínimo para dynamic ubos.
-			USize32 minAlignment = 0;
+			USize64 minAlignment = 0;
 
 			/// @brief True si puede usarse en OSKengine.
 			bool isSuitable = false;

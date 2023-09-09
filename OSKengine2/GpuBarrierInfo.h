@@ -6,8 +6,8 @@
 
 namespace OSK::GRAPHICS {
 
-	constexpr USize32 ALL_MIP_LEVELS = (~0);
-	constexpr USize32 ALL_IMAGE_LAYERS = (~0);
+	constexpr USize32 ALL_MIP_LEVELS   = (~0u);
+	constexpr USize32 ALL_IMAGE_LAYERS = (~0u);
 
 
 	/// @brief Un command stage permite diferenciar los distintos
@@ -141,7 +141,7 @@ namespace OSK::GRAPHICS {
 	/// a que finalicen todos los comandos en el stage destinationStage.
 	/// </summary>
 	struct GpuBarrierInfo {
-		GpuBarrierInfo() {}
+		GpuBarrierInfo() = default;
 		GpuBarrierInfo(GpuCommandStage stage, GpuAccessStage accessStage) : stage(stage), accessStage(accessStage) {}
 
 		GpuCommandStage stage = GpuCommandStage::NONE;

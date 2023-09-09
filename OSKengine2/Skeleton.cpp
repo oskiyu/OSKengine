@@ -37,6 +37,13 @@ Bone& Skeleton::GetBone(UIndex32 boneIndex, const AnimationSkin& skin) {
 	return nodes.at(nodeIndex);
 }
 
+const Bone& Skeleton::GetBone(UIndex32 boneIndex, const AnimationSkin& skin) const {
+	const UIndex32 nodeIndex = skin.bonesIds.At(boneIndex);
+	OSK_ASSERT(nodes.contains(nodeIndex), BoneNotFoundException(boneIndex));
+
+	return nodes.at(nodeIndex);
+}
+
 MeshNode& Skeleton::GetNode(std::string_view name) {
 	OSK_ASSERT(nodesByName.contains(name), BoneNotFoundException(name));
 

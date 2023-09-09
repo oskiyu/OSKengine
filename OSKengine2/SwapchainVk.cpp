@@ -36,7 +36,7 @@ VkPresentModeKHR GetPresentModeVk(PresentMode mode) {
 SwapchainVk::~SwapchainVk() {
 	const VkDevice device = Engine::GetRenderer()->GetGpu()->As<GpuVk>()->GetLogicalDevice();
 
-	vkDestroySwapchainKHR(device, swapchain, nullptr);
+	vkDestroySwapchainKHR(device, m_swapchain, nullptr);
 
 	for (auto& i : images) {
 		GpuImageVk* image = i->As<GpuImageVk>();
@@ -47,8 +47,8 @@ SwapchainVk::~SwapchainVk() {
 }
 
 void SwapchainVk::Create(PresentMode mode, Format format, const GpuVk& device, const IO::IDisplay& display) {
-	this->display = &display;
-	this->device = &device;
+	m_display = &display;
+	m_device = &device;
 	this->colorFormat = format;
 
 	this->mode = mode;
@@ -108,7 +108,7 @@ void SwapchainVk::Create(PresentMode mode, Format format, const GpuVk& device, c
 	createInfo.oldSwapchain = nullptr;
 
 	// Crearlo y error-handling.
-	VkResult result = vkCreateSwapchainKHR(device.GetLogicalDevice(), &createInfo, nullptr, &swapchain);
+	VkResult result = vkCreateSwapchainKHR(device.GetLogicalDevice(), &createInfo, nullptr, &m_swapchain);
 	OSK_ASSERT(result == VK_SUCCESS, SwapchainCreationException("No se ha podido crear el swapchain", result));
 
 	for (UIndex32 i = 0; i < imageCount; i++)
@@ -119,17 +119,15 @@ void SwapchainVk::Create(PresentMode mode, Format format, const GpuVk& device, c
 }
 
 void SwapchainVk::AcquireImages(unsigned int sizeX, unsigned int sizeY) {
-	VkResult result = vkGetSwapchainImagesKHR(device->GetLogicalDevice(), swapchain, &imageCount, nullptr);
+	VkResult result = vkGetSwapchainImagesKHR(m_device->GetLogicalDevice(), m_swapchain, &imageCount, nullptr);
 	OSK_ASSERT(result == VK_SUCCESS, SwapchainCreationException("Error al adquirir imagenes del swapchain", result));
 
-	VkImage* tempImages = new VkImage[imageCount];
-	vkGetSwapchainImagesKHR(device->GetLogicalDevice(), swapchain, &imageCount, tempImages);
+	auto tempImages = DynamicArray<VkImage>::CreateResizedArray(imageCount);
+	vkGetSwapchainImagesKHR(m_device->GetLogicalDevice(), m_swapchain, &imageCount, tempImages.GetData());
 	OSK_ASSERT(result == VK_SUCCESS, SwapchainCreationException("Error al adquirir imagenes del swapchain", result));
 
 	for (UIndex32 i = 0; i < imageCount; i++)
 		images[i]->As<GpuImageVk>()->_SetVkImage(tempImages[i]);
-
-	delete[] tempImages;
 }
 
 void SwapchainVk::AcquireViews() {
@@ -151,7 +149,7 @@ void SwapchainVk::AcquireViews() {
 		createInfo.subresourceRange.baseArrayLayer = 0;
 		createInfo.subresourceRange.layerCount = 1;
 
-		VkResult result = vkCreateImageView(device->GetLogicalDevice(), &createInfo, nullptr, &tempViews[i]);
+		VkResult result = vkCreateImageView(m_device->GetLogicalDevice(), &createInfo, nullptr, &tempViews[i]);
 		OSK_ASSERT(result == VK_SUCCESS, SwapchainCreationException("Error al crear view de imagen del swapchain", result));
 
 		if (images[i]->As<GpuImageVk>()->GetSwapchainView() != VK_NULL_HANDLE)
@@ -163,7 +161,7 @@ void SwapchainVk::AcquireViews() {
 }
 
 VkSwapchainKHR SwapchainVk::GetSwapchain() const {
-	return swapchain;
+	return m_swapchain;
 }
 
 void SwapchainVk::Resize() {
@@ -171,10 +169,11 @@ void SwapchainVk::Resize() {
 		i->As<GpuImageVk>()->_SetVkImage(VK_NULL_HANDLE);
 	}
 
-	vkDestroySwapchainKHR(Engine::GetRenderer()->As<RendererVk>()->GetGpu()->As<GpuVk>()->GetLogicalDevice(),
-		swapchain, nullptr);
+	vkDestroySwapchainKHR(
+		Engine::GetRenderer()->As<RendererVk>()->GetGpu()->As<GpuVk>()->GetLogicalDevice(),
+		m_swapchain, nullptr);
 
-	Create(mode, colorFormat, *device, *display);
+	Create(mode, colorFormat, *m_device, *m_display);
 }
 
 VkColorSpaceKHR SwapchainVk::GetSupportedColorSpace(const GpuVk& device) {
@@ -186,5 +185,5 @@ VkColorSpaceKHR SwapchainVk::GetSupportedColorSpace(const GpuVk& device) {
 }
 
 void SwapchainVk::Present() {
-
+	// Not needed in Vulkan.
 }

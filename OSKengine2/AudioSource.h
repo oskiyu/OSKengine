@@ -30,14 +30,16 @@ namespace OSK::AUDIO {
 			PAUSED,
 
 			/// @brief El audio está parado (en su posición inicial).
-			STOPPED
+			STOPPED,
+
+			UNKNOWN
 
 		};
 
 	public:
 
 		/// @brief Vacío.
-		Source();
+		Source() = default;
 		/// @brief Destruye la fuente nativa.
 		~Source();
 
@@ -117,22 +119,22 @@ namespace OSK::AUDIO {
 
 	private:
 
+		/// @brief Handle de este source.
+		Handle m_handle = EMPTY_HANDLE;
+
+		/// @brief Handle del buffer que contiene los datos del audio.
+		Buffer::Handle m_bufferHandle = Buffer::EMPTY_HANDLE;
+
+
 		/// @brief Pitch con el que se reproducirá el audio.
-		float pitch = 1.0f;
+		float m_pitch = 1.0f;
 
 		/// @brief Gain con el que se reproducirá el audio.
-		float gain = 1.0f;
+		float m_gain = 1.0f;
 
 		/// @brief True si el audio se reproducirá en bucle.
 		/// False en caso contrario.
-		bool loop = false;
-
-
-		/// @brief Handle de este source.
-		Handle handle = EMPTY_HANDLE;
-
-		/// @brief Handle del buffer que contiene los datos del audio.
-		Buffer::Handle bufferHandle = Buffer::EMPTY_HANDLE;
+		bool m_loop = false;
 
 	};
 

@@ -274,17 +274,17 @@ namespace OSK::ASSETS {
 		/// <summary> Carga todos los materiales usados en el modelo 3D. </summary>
 		DynamicArray<GltfMaterialInfo> LoadMaterials();
 
-		DynamicArray<GRAPHICS::TIndexSize> indices;
-		DynamicArray<GRAPHICS::Mesh3D> meshes;
+		DynamicArray<GRAPHICS::TIndexSize> m_indices;
+		DynamicArray<GRAPHICS::Mesh3D> m_meshes;
 
-		std::unordered_map<UIndex32, UIndex32> meshIdToMaterialId;
+		std::unordered_map<UIndex32, UIndex32> m_meshIdToMaterialId;
 
-		float globalScale = 1.0f;
-		glm::mat4 modelTransform = glm::mat4(1.0f);
+		float m_globalScale = 1.0f;
+		glm::mat4 m_modelTransform = glm::mat4(1.0f);
 
-		tinygltf::Model gltfModel{};
+		tinygltf::Model m_gltfModel{};
 
-		GltfModelInfo modelInfo{};
+		GltfModelInfo m_modelInfo{};
 
 	};
 }

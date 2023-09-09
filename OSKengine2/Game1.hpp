@@ -95,6 +95,7 @@
 #include "AudioApi.h"
 #include "AudioAsset.h"
 #include "AudioSource.h"
+#include "CollisionEvent.h"
 
 OSK::GRAPHICS::SpriteRenderer spriteRenderer;
 
@@ -124,7 +125,7 @@ protected:
 		Engine::GetInput()->QueryInterface(IUUID::IMouseInput, (void**)&mouseInput);
 
 		if (mouseInput) {
-			mouseInput->SetReturnMode(IO::MouseReturnMode::ALWAYS_RETURN);
+			mouseInput->SetReturnMode(IO::MouseReturnMode::FREE);
 			mouseInput->SetMotionMode(IO::MouseMotionMode::RAW);
 		}
 	}
@@ -161,6 +162,9 @@ protected:
 		font->LoadSizedFont(22);
 		font->SetMaterial(material2d);
 
+		auto font = Engine::GetAssetManager()->Load<ASSETS::Font>("Resources/Assets/Fonts/font1.json", "GLOBAL");
+		font->SetMaterial(material2d);
+
 		Engine::GetConsole()->SetFont(font);
 
 		SetupUi();
@@ -177,6 +181,7 @@ protected:
 
 	void SetupUi() {
 		auto logoContainer = new UI::HorizontalContainer({ 380.0f, 80.0f });
+		logoContainer->SetKeepRelativeSize(true);
 
 		const auto uiView = &Engine::GetAssetManager()->Load<ASSETS::Texture>("Resources/Assets/Textures/button_texture.json", "GLOBAL")
 			->GetTextureView2D();
@@ -227,10 +232,11 @@ protected:
 
 		// Panel derecho
 		UI::VerticalContainer* rightPanel = new UI::VerticalContainer(Vector2f(200.0f));
+		rightPanel->SetKeepRelativeSize(true);
 
 		rightPanel->GetSprite().SetImageView(uiView);
 		rightPanel->GetSprite().color = Color(0.3f, 0.3f, 0.3f, 0.94f);
-		rightPanel->SetAnchor(UI::Anchor::RIGHT | UI::Anchor::CENTER_Y);
+		rightPanel->SetAnchor(UI::Anchor::RIGHT | UI::Anchor::BOTTOM);
 		rightPanel->SetPadding(Vector2f(6.0f));
 
 		UI::TextView* rightPanelTitle = new UI::TextView(Vector2f(50.0f));
@@ -256,6 +262,12 @@ protected:
 		rightPanel->Rebuild();
 
 		GetRootUiElement().AddChild("rightPanel", rightPanel);
+
+		auto* button = new UI::Button(Vector2f(200.0f));
+		button->SetKeepRelativeSize(true);
+		button->GetDefaultSprite().SetImageView(uiView);
+
+		GetRootUiElement().AddChild("button", button);
 	}
 
 	void RegisterSystems() override {
@@ -400,29 +412,8 @@ protected:
 			
 		// TESTING
 		if (keyboard->IsKeyStroked(IO::Key::Q)) {
-			auto& carTransform = Engine::GetEcs()->GetComponent<Transform3D>(carObject);
-			auto& carPhysics = Engine::GetEcs()->GetComponent<PhysicsComponent>(carObject);
-
-			carTransform.SetPosition({ +0.6f, 0.6f, -3.0f });
-			carTransform.SetRotation({});
-
-			carPhysics._SetVelocity(Vector3f::Zero);
-			carPhysics._SetAcceleration(Vector3f::Zero);
+			isExecutingTestCases = true;
 		}
-		if (keyboard->IsKeyStroked(IO::Key::KEYPAD_0)) {
-			auto& carTransform = Engine::GetEcs()->GetComponent<Transform3D>(carObject);
-			auto& carPhysics = Engine::GetEcs()->GetComponent<PhysicsComponent>(carObject);
-
-			carTransform.SetPosition(Vector3f::Zero);
-			carTransform.SetRotation({});
-
-			carPhysics._SetVelocity(Vector3f::Zero);
-			carPhysics._SetAcceleration(Vector3f::Zero);
-			carPhysics._SetAngularVelocity(Vector3f::Zero);
-
-			carPhysics.ApplyImpulse(Vector3f(0.0f, 1.0f, 0.0f), Vector3f(1.0f, 0.0f, 0.0f));
-		}
-
 
 		// Movimiento del coche
 
@@ -430,12 +421,6 @@ protected:
 				
 
 		PhysicsComponent& carPhysics = Engine::GetEcs()->GetComponent<PhysicsComponent>(carObject);
-
-		/**/const float carVelocityY = carPhysics.GetVelocity().y;
-		const float projection = carPhysics.GetVelocity().Dot(carTransform.GetForwardVector());
-		Vector3f finalVelocity = carTransform.GetForwardVector().GetNormalized() * projection;
-		finalVelocity.y = carVelocityY;
-		carPhysics._SetVelocity(finalVelocity);
 
 		source.SetPitch(carPhysics.GetVelocity().GetLenght());
 
@@ -470,64 +455,11 @@ protected:
 			}
 		}
 
-		if (gamepad) {
-			const IO::GamepadState& gamepadState = gamepad->GetGamepadState(0);
-			if (gamepadState.IsConnected()) {
-				// cameraForwardMovement -= gamepadState.GetAxisState(IO::GamepadAxis::LEFT_Y);
-
-				// cameraRightMovement += gamepadState.GetAxisState(IO::GamepadAxis::LEFT_X);
-
-				cameraRotation.x += gamepadState.GetAxisState(IO::GamepadAxis::RIGHT_X);
-				cameraRotation.y += gamepadState.GetAxisState(IO::GamepadAxis::RIGHT_Y);
-
-				// carPhysics.acceleration += carTransform.GetForwardVector() * 35.f * deltaTime
-					// * gamepadState.GetAxisState(IO::GamepadAxis::R2);
-				// carPhysics.acceleration += carTransform.GetForwardVector() * -(2.0f + 85.0f) * deltaTime
-					// * gamepadState.GetAxisState(IO::GamepadAxis::L2);
-
-				if (gamepadState.GetAxisState(IO::GamepadAxis::LEFT_X) > 0.1f) {
-					carTransform.RotateWorldSpace(deltaTime * 2 * gamepadState.GetAxisState(IO::GamepadAxis::LEFT_X), { 0, 1.0f, 0 });
-					cameraRotation.x += deltaTime * 250 * gamepadState.GetAxisState(IO::GamepadAxis::LEFT_X);
-				}
-				if (gamepadState.GetAxisState(IO::GamepadAxis::LEFT_X) < -0.1f) {
-					carTransform.RotateWorldSpace(deltaTime * 2 * gamepadState.GetAxisState(IO::GamepadAxis::LEFT_X), { 0, 1.0f, 0 });
-					cameraRotation.x += deltaTime * 250 * gamepadState.GetAxisState(IO::GamepadAxis::LEFT_X);
-				}
-			}
-		}
-
 
 		// Aplicación de movimiento y rotación de la cámara
 		// camera.Rotate(-cameraRotation.X, cameraRotation.Y);
 
-		if (glm::abs(currentAngle) > 0.01f && Engine::GetEcs()->GetComponent<PhysicsComponent>(carObject).GetVelocity().GetLenght() > 1.0f) {
-			// Slip angles
-			const Vector3f front = Engine::GetEcs()->GetComponent<ECS::Transform3D>(carObject).GetForwardVector();
-			const Vector3f right = Engine::GetEcs()->GetComponent<ECS::Transform3D>(carObject).GetForwardVector();
-			const Vector3f v = Engine::GetEcs()->GetComponent<PhysicsComponent>(carObject).GetVelocity();
-
-			const float v_lat = v.Dot(right);
-			const float v_long = v.Dot(front);
-
-			const float angle_front = glm::atan(v_lat / v_long) - glm::radians(currentAngle) * glm::sign(v_long);
-			const float angle_rear = glm::atan(v_lat / v_long);
-
-			const float C_a = -3.0f;
-			const float f_lat_front = C_a * angle_front;
-			const float f_lat_rear = C_a * angle_rear;
-			const float torque = f_lat_front * 0.75f - f_lat_rear * 0.75f; // glm::cos(glm::radians(currentAngle)) * 
-
-			const float R = L / glm::sin(glm::radians(currentAngle));
-			const float w = v.GetLenght() / R;
-			const float finalAngleSlow = glm::radians(360.0f) * w * deltaTime;
-
-			const float finalAngleFast = torque;
-
-			const float finalAngle = glm::mix(finalAngleSlow, finalAngleFast, v.GetLenght() * 3);
-
-			carTransform.RotateWorldSpace(finalAngleFast * deltaTime, { 0.0f, 1.0f, 0.0f });
-		}
-
+		
 		cameraTransform.AddPosition(Vector3f(0, 0, 1) * cameraForwardMovement * deltaTime);
 		// cameraTransform.AddPosition(cameraArmTransform.GetRightVector().GetNormalized() * cameraRightMovement * deltaTime);
 
@@ -562,6 +494,66 @@ protected:
 			const auto waitMiliseconds = static_cast<long>((targetMs - deltaTime) * 1000);
 			std::this_thread::sleep_for(std::chrono::milliseconds(glm::max(0l, waitMiliseconds)));
 		}
+
+		// Test Cases
+		if (isExecutingTestCases) {
+			const TDeltaTime timeSinceLastCase = Engine::GetCurrentTime() - lastTestCaseTime;
+			
+			if (timeSinceLastCase > 3.0f) {
+				currentTestCase++;
+
+				if (currentTestCase >= testCases.GetSize()) {
+					isExecutingTestCases = false;
+					currentTestCase = -1;
+					goto _cont;
+				}
+
+				lastTestCaseTime = Engine::GetCurrentTime();
+				Engine::GetLogger()->InfoLog(std::format("Test: {}", testCases[currentTestCase].name));
+				Engine::GetConsole()->WriteLine(std::format("Test: {}", testCases[currentTestCase].name));
+				
+				auto& transformA = Engine::GetEcs()->GetComponent<Transform3D>(carObject);
+				auto& transformB = Engine::GetEcs()->GetComponent<Transform3D>(carObject2);
+
+				transformA.SetPosition(testCases[currentTestCase].positionA);
+				transformB.SetPosition(testCases[currentTestCase].positionB);
+
+				transformA.SetRotation({});
+				transformB.SetRotation({});
+
+				auto& physicsA = Engine::GetEcs()->GetComponent<PhysicsComponent>(carObject);
+				auto& physicsB = Engine::GetEcs()->GetComponent<PhysicsComponent>(carObject2);
+
+				physicsA._SetVelocity(currentTestCase % 16 < 8
+					? Vector3f::Zero
+					: testCases[currentTestCase].positionB - testCases[currentTestCase].positionA);
+				physicsA._SetAcceleration(Vector3f::Zero);
+				physicsA._SetAngularVelocity(Vector3f::Zero);
+
+				physicsB._SetVelocity(currentTestCase % 16 >= 8
+					? Vector3f::Zero
+					: testCases[currentTestCase].positionA - testCases[currentTestCase].positionB);
+				physicsB._SetAcceleration(Vector3f::Zero);
+				physicsB._SetAngularVelocity(Vector3f::Zero);
+			}
+
+			for (const auto& event : Engine::GetEcs()->GetEventQueue<CollisionEvent>()) {
+				if ((event.firstEntity == carObject || event.secondEntity == carObject) && (event.firstEntity == carObject2 || event.secondEntity == carObject2)) {
+					Engine::GetLogger()->InfoLog(std::format("Collision: A: {}, B: {}, Position: {},{},{}",
+						event.firstEntity, event.secondEntity,
+						event.collisionInfo.GetSingleContactPoint().x,
+						event.collisionInfo.GetSingleContactPoint().y,
+						event.collisionInfo.GetSingleContactPoint().Z));
+				//	Engine::GetConsole()->WriteLine(std::format("Collision: A: {}, B: {}, Position: {},{},{}",
+				//		event.firstEntity, event.secondEntity,
+				//		event.collisionInfo.GetSingleContactPoint().x,
+				//		event.collisionInfo.GetSingleContactPoint().y,
+				//		event.collisionInfo.GetSingleContactPoint().Z));
+				}
+			}
+		}
+		
+	_cont:
 
 		// UI
 		if (mouse) {
@@ -741,8 +733,11 @@ private:
 			->GetTextureView2D();
 
 		UI::HorizontalContainer* checkbox = new UI::HorizontalContainer(Vector2f(50.0f));
+		checkbox->SetKeepRelativeSize(true);
 
 		auto button = new UI::Button(Vector2f(25.0f), "");
+		button->SetKeepRelativeSize(true);
+
 		button->GetSprite(UI::Button::State::DEFAULT).SetImageView(uiView);
 		button->GetSprite(UI::Button::State::DEFAULT).color = Color::Red;
 
@@ -756,6 +751,8 @@ private:
 		button->SetState(UI::Button::State::PRESSED);
 
 		auto textView = new UI::TextView(Vector2f(25.0f));
+		textView->SetKeepRelativeSize(true);
+
 		textView->SetText(text);
 		textView->SetFont(font);
 		textView->SetFontSize(25);
@@ -904,36 +901,73 @@ private:
 	}
 
 	void SpawnCar() {
-		carObject = Engine::GetEcs()->SpawnObject();
+		{
+			carObject = Engine::GetEcs()->SpawnObject();
 
-		// Setup del transform
-		Transform3D& transform = Engine::GetEcs()->AddComponent<Transform3D>(carObject, ECS::Transform3D(carObject));
-		// transform.AddPosition({0.0f, 80.0f, 0.0f});
-		
-		// Setup de físicas
-		auto& physicsComponent = Engine::GetEcs()->AddComponent<PhysicsComponent>(carObject, {});
-		physicsComponent.SetMass(4.0f);
-		physicsComponent.centerOfMassOffset = Vector3f(0.0f, 0.17f * 0.5f, 0.0f);
-		physicsComponent.localFrictionCoefficient = Vector3f(0.0f, 0.5f, 1.0f);
+			// Setup del transform
+			Transform3D& transform = Engine::GetEcs()->AddComponent<Transform3D>(carObject, ECS::Transform3D(carObject));
+			// transform.AddPosition({0.0f, 80.0f, 0.0f});
 
-		// Setup de colisiones
-		Collider collider{};
+			// Setup de físicas
+			auto& physicsComponent = Engine::GetEcs()->AddComponent<PhysicsComponent>(carObject, {});
+			physicsComponent.SetMass(4.0f);
+			physicsComponent.centerOfMassOffset = Vector3f(0.0f, 0.17f * 0.5f, 0.0f);
+			physicsComponent.localFrictionCoefficient = Vector3f(0.0f, 0.5f, 1.0f);
 
-		OwnedPtr<ConvexVolume> convexVolume = new ConvexVolume(ConvexVolume::CreateObb({ 0.15f * 2, 0.17f, 0.35f * 2 }, 0));
-		
-		collider.SetTopLevelCollider(new SphereCollider(0.45f));
-		collider.AddBottomLevelCollider(convexVolume.GetPointer());
+			// Setup de colisiones
+			Collider collider{};
 
-		Engine::GetEcs()->AddComponent<Collider>(carObject, std::move(collider));
+			OwnedPtr<ConvexVolume> convexVolume = new ConvexVolume(ConvexVolume::CreateObb({ 0.15f * 2, 0.17f, 0.35f * 2 }, 0));
 
-		// Setup del modelo 3D
-		Model3D* carModel = Engine::GetAssetManager()->Load<Model3D>("Resources/Assets/Models/mclaren.json", "GLOBAL");
+			collider.SetTopLevelCollider(new SphereCollider(0.45f));
+			collider.AddBottomLevelCollider(convexVolume.GetPointer());
 
-		ModelComponent3D* modelComponent = &Engine::GetEcs()->AddComponent<ModelComponent3D>(carObject, {});
+			Engine::GetEcs()->AddComponent<Collider>(carObject, std::move(collider));
 
-		modelComponent->SetModel(carModel);
-		modelComponent->SetMaterial(material);
-		ModelLoader3D::SetupPbrModel(*carModel, modelComponent);
+			// Setup del modelo 3D
+			Model3D* carModel = Engine::GetAssetManager()->Load<Model3D>("Resources/Assets/Models/mclaren.json", "GLOBAL");
+
+			ModelComponent3D* modelComponent = &Engine::GetEcs()->AddComponent<ModelComponent3D>(carObject, {});
+
+			modelComponent->SetModel(carModel);
+			modelComponent->SetMaterial(material);
+			ModelLoader3D::SetupPbrModel(*carModel, modelComponent);
+		}
+
+		// 2
+
+		{
+			carObject2 = Engine::GetEcs()->SpawnObject();
+
+			// Setup del transform
+			Transform3D& transform = Engine::GetEcs()->AddComponent<Transform3D>(carObject2, ECS::Transform3D(carObject2));
+			// transform.AddPosition({0.0f, 80.0f, 0.0f});
+
+			// Setup de físicas
+			auto& physicsComponent = Engine::GetEcs()->AddComponent<PhysicsComponent>(carObject2, {});
+			physicsComponent.SetMass(4.0f);
+			physicsComponent.centerOfMassOffset = Vector3f(0.0f, 0.17f * 0.5f, 0.0f);
+			physicsComponent.localFrictionCoefficient = Vector3f(0.0f, 0.5f, 1.0f);
+
+			// Setup de colisiones
+			Collider collider{};
+
+			OwnedPtr<ConvexVolume> convexVolume = new ConvexVolume(ConvexVolume::CreateObb({ 0.15f * 2, 0.17f, 0.35f * 2 }, 0));
+
+			collider.SetTopLevelCollider(new SphereCollider(0.45f));
+			collider.AddBottomLevelCollider(convexVolume.GetPointer());
+
+			Engine::GetEcs()->AddComponent<Collider>(carObject2, std::move(collider));
+
+			// Setup del modelo 3D
+			Model3D* carModel = Engine::GetAssetManager()->Load<Model3D>("Resources/Assets/Models/mclaren.json", "GLOBAL");
+
+			ModelComponent3D* modelComponent = &Engine::GetEcs()->AddComponent<ModelComponent3D>(carObject2, {});
+
+			modelComponent->SetModel(carModel);
+			modelComponent->SetMaterial(material);
+			ModelLoader3D::SetupPbrModel(*carModel, modelComponent);
+		}
 	}
 
 	void SpawnCircuit() {
@@ -964,6 +998,8 @@ private:
 	}
 
 	void SpawnSecondCollider() {
+		return;
+
 		const GameObjectIndex secondObject = Engine::GetEcs()->SpawnObject();
 
 		// Transform
@@ -985,6 +1021,117 @@ private:
 
 		Engine::GetEcs()->AddComponent<Collider>(secondObject, std::move(collider));
 	}
+
+	struct CollisionTestCase {
+		std::string name = "";
+		Vector3f positionA = Vector3f::Zero;
+		Vector3f positionB = Vector3f::Zero;
+	};
+
+	const DynamicArray<CollisionTestCase> testCases = {
+		{ "T-COL-00", {0.0f, 0.0f, 0.0f}, {0.0f, 0.0f, -1.0f}},
+		{ "T-COL-01", {0.0f, 0.0f, 0.0f}, {1.0f, 0.0f, -1.0f} },
+		{ "T-COL-02", {0.0f, 0.0f, 0.0f}, {1.0f, 0.0f, 0.0f} },
+		{ "T-COL-03", {0.0f, 0.0f, 0.0f}, {1.0f, 0.0f, 1.0f} },
+		{ "T-COL-04", {0.0f, 0.0f, 0.0f}, {0.0f, 0.0f, 1.0f} },
+		{ "T-COL-05", {0.0f, 0.0f, 0.0f}, {-1.0f, 0.0f, 1.0f} },
+		{ "T-COL-06", {0.0f, 0.0f, 0.0f}, {-1.0f, 0.0f, 0.0f} },
+		{ "T-COL-07", {0.0f, 0.0f, 0.0f}, {-1.0f, 0.0f, -1.0f} },
+
+		{ "T-COL-08", {0.0f, 0.0f, -1.0f},{0.0f, 0.0f, 0.0f} },
+		{ "T-COL-09", {1.0f, 0.0f, -1.0f},{0.0f, 0.0f, 0.0f} },
+		{ "T-COL-10", {1.0f, 0.0f, 0.0f},{0.0f, 0.0f, 0.0f} },
+		{ "T-COL-11", {1.0f, 0.0f, 1.0f},{0.0f, 0.0f, 0.0f} },
+		{ "T-COL-12", {0.0f, 0.0f, 1.0f},{0.0f, 0.0f, 0.0f} },
+		{ "T-COL-13", {-1.0f, 0.0f, 1.0f},{0.0f, 0.0f, 0.0f} },
+		{ "T-COL-14", {-1.0f, 0.0f, 0.0f},{0.0f, 0.0f, 0.0f} },
+		{ "T-COL-15", {-1.0f, 0.0f, -1.0f},{0.0f, 0.0f, 0.0f} },
+
+		// +/+
+
+		{ "T-COL-16", {1.0f, 0.0f, 1.0f}, {1.0f, 0.0f, 0.0f}},
+		{ "T-COL-17", {1.0f, 0.0f, 1.0f}, {2.0f, 0.0f, 0.0f} },
+		{ "T-COL-18", {1.0f, 0.0f, 1.0f}, {2.0f, 0.0f, 1.0f} },
+		{ "T-COL-19", {1.0f, 0.0f, 1.0f}, {2.0f, 0.0f, 2.0f} },
+		{ "T-COL-20", {1.0f, 0.0f, 1.0f}, {1.0f, 0.0f, 2.0f} },
+		{ "T-COL-21", {1.0f, 0.0f, 1.0f}, {0.0f, 0.0f, 2.0f} },
+		{ "T-COL-22", {1.0f, 0.0f, 1.0f}, {0.0f, 0.0f, 1.0f} },
+		{ "T-COL-23", {1.0f, 0.0f, 1.0f}, {0.0f, 0.0f, 0.0f} },
+
+		{ "T-COL-24", {1.0f, 0.0f, 0.0f}, {1.0f, 0.0f, 1.0f} },
+		{ "T-COL-25", {2.0f, 0.0f, 0.0f}, {1.0f, 0.0f, 1.0f} },
+		{ "T-COL-26", {2.0f, 0.0f, 1.0f}, {1.0f, 0.0f, 1.0f} },
+		{ "T-COL-27", {2.0f, 0.0f, 2.0f}, {1.0f, 0.0f, 1.0f} },
+		{ "T-COL-28", {1.0f, 0.0f, 2.0f}, {1.0f, 0.0f, 1.0f} },
+		{ "T-COL-29", {0.0f, 0.0f, 2.0f}, {1.0f, 0.0f, 1.0f} },
+		{ "T-COL-30", {0.0f, 0.0f, 1.0f}, {1.0f, 0.0f, 1.0f} },
+		{ "T-COL-31", {0.0f, 0.0f, 0.0f}, {1.0f, 0.0f, 1.0f} },
+
+		// +/-
+
+		{ "T-COL-32", {1.0f, 0.0f, -1.0f}, {1.0f, 0.0f, -2.0f}},
+		{ "T-COL-33", {1.0f, 0.0f, -1.0f}, {2.0f, 0.0f, -2.0f} },
+		{ "T-COL-34", {1.0f, 0.0f, -1.0f}, {2.0f, 0.0f, -1.0f} },
+		{ "T-COL-35", {1.0f, 0.0f, -1.0f}, {2.0f, 0.0f, 0.0f} },
+		{ "T-COL-36", {1.0f, 0.0f, -1.0f}, {1.0f, 0.0f, 0.0f} },
+		{ "T-COL-37", {1.0f, 0.0f, -1.0f}, {0.0f, 0.0f, 0.0f} },
+		{ "T-COL-38", {1.0f, 0.0f, -1.0f}, {0.0f, 0.0f, -1.0f} },
+		{ "T-COL-39", {1.0f, 0.0f, -1.0f}, {0.0f, 0.0f, -2.0f} },
+
+		{ "T-COL-40", {1.0f, 0.0f, -2.0f}, {1.0f, 0.0f, -1.0f} },
+		{ "T-COL-41", {2.0f, 0.0f, -2.0f}, {1.0f, 0.0f, -1.0f} },
+		{ "T-COL-42", {2.0f, 0.0f, -1.0f}, {1.0f, 0.0f, -1.0f} },
+		{ "T-COL-43", {2.0f, 0.0f, 0.0f} , {1.0f, 0.0f, -1.0f} },
+		{ "T-COL-44", {1.0f, 0.0f, 0.0f} , {1.0f, 0.0f, -1.0f} },
+		{ "T-COL-45", {0.0f, 0.0f, 0.0f} , {1.0f, 0.0f, -1.0f} },
+		{ "T-COL-46", {0.0f, 0.0f, -1.0f}, {1.0f, 0.0f, -1.0f} },
+		{ "T-COL-47", {0.0f, 0.0f, -2.0f}, {1.0f, 0.0f, -1.0f} },
+
+		// -/-
+
+		{ "T-COL-48", {-1.0f, 0.0f, -1.0f}, {-1.0f, 0.0f, -2.0f}},
+		{ "T-COL-49", {-1.0f, 0.0f, -1.0f}, {0.0f, 0.0f, -2.0f} },
+		{ "T-COL-50", {-1.0f, 0.0f, -1.0f}, {0.0f, 0.0f, -1.0f} },
+		{ "T-COL-51", {-1.0f, 0.0f, -1.0f}, {0.0f, 0.0f, 0.0f} },
+		{ "T-COL-52", {-1.0f, 0.0f, -1.0f}, {-1.0f, 0.0f, 0.0f} },
+		{ "T-COL-53", {-1.0f, 0.0f, -1.0f}, {-2.0f, 0.0f, 0.0f} },
+		{ "T-COL-54", {-1.0f, 0.0f, -1.0f}, {-2.0f, 0.0f, -1.0f} },
+		{ "T-COL-55", {-1.0f, 0.0f, -1.0f}, {-2.0f, 0.0f, -2.0f} },
+
+		{ "T-COL-56", {-1.0f, 0.0f, -2.0f}, {-1.0f, 0.0f, -1.0f} },
+		{ "T-COL-57", {0.0f, 0.0f, -2.0f}, {-1.0f, 0.0f, -1.0f} },
+		{ "T-COL-58", {0.0f, 0.0f, -1.0f}, {-1.0f, 0.0f, -1.0f} },
+		{ "T-COL-59", {0.0f, 0.0f, 0.0f} , {-1.0f, 0.0f, -1.0f} },
+		{ "T-COL-60", {-1.0f, 0.0f, 0.0f} , {-1.0f, 0.0f, -1.0f} },
+		{ "T-COL-61", {-2.0f, 0.0f, 0.0f} , {-1.0f, 0.0f, -1.0f} },
+		{ "T-COL-62", {-2.0f, 0.0f, -1.0f}, {-1.0f, 0.0f, -1.0f} },
+		{ "T-COL-63", {-2.0f, 0.0f, -2.0f}, {-1.0f, 0.0f, -1.0f} },
+
+		// -/+
+
+		{ "T-COL-64", {-1.0f, 0.0f, 1.0f}, {-1.0f, 0.0f, 0.0f}},
+		{ "T-COL-65", {-1.0f, 0.0f, 1.0f}, { 0.0f, 0.0f, 0.0f} },
+		{ "T-COL-66", {-1.0f, 0.0f, 1.0f}, { 0.0f, 0.0f, 1.0f} },
+		{ "T-COL-67", {-1.0f, 0.0f, 1.0f}, { 0.0f, 0.0f, 2.0f} },
+		{ "T-COL-68", {-1.0f, 0.0f, 1.0f}, {-1.0f, 0.0f, 2.0f} },
+		{ "T-COL-69", {-1.0f, 0.0f, 1.0f}, {-2.0f, 0.0f, 2.0f} },
+		{ "T-COL-70", {-1.0f, 0.0f, 1.0f}, {-2.0f, 0.0f, 1.0f} },
+		{ "T-COL-71", {-1.0f, 0.0f, 1.0f}, {-2.0f, 0.0f, 0.0f} },
+
+		{ "T-COL-72", {-1.0f, 0.0f, 0.0f}, {-1.0f, 0.0f, 1.0f} },
+		{ "T-COL-73", { 0.0f, 0.0f, 0.0f}, {-1.0f, 0.0f, 1.0f} },
+		{ "T-COL-74", { 0.0f, 0.0f, 1.0f}, {-1.0f, 0.0f, 1.0f} },
+		{ "T-COL-75", { 0.0f, 0.0f, 2.0f} , {-1.0f, 0.0f, 1.0f} },
+		{ "T-COL-76", {-1.0f, 0.0f, 2.0f} , {-1.0f, 0.0f, 1.0f} },
+		{ "T-COL-77", {-2.0f, 0.0f, 2.0f} , {-1.0f, 0.0f, 1.0f} },
+		{ "T-COL-78", {-2.0f, 0.0f, 1.0f}, {-1.0f, 0.0f, 1.0f} },
+		{ "T-COL-79", {-2.0f, 0.0f, 0.0f}, {-1.0f, 0.0f, 1.0f} },
+
+	};
+
+	bool isExecutingTestCases = false;
+	TDeltaTime lastTestCaseTime = 0.0f;
+	int currentTestCase = -1;
 
 	struct Config {
 		bool useFxaa = true;
@@ -1014,6 +1161,8 @@ private:
 	UI::HorizontalContainer* collisionCheckbox = nullptr;
 
 	ECS::GameObjectIndex carObject = ECS::EMPTY_GAME_OBJECT;
+	ECS::GameObjectIndex carObject2 = ECS::EMPTY_GAME_OBJECT;
+
 	ECS::GameObjectIndex circuitObject = ECS::EMPTY_GAME_OBJECT;
 	ECS::GameObjectIndex cameraObject = ECS::EMPTY_GAME_OBJECT;
 	ECS::GameObjectIndex cameraArmObject = ECS::EMPTY_GAME_OBJECT;

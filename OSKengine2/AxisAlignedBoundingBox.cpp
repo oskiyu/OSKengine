@@ -15,11 +15,11 @@ AxisAlignedBoundingBox::AxisAlignedBoundingBox(const Vector3f& size) {
 }
 
 void AxisAlignedBoundingBox::SetSize(const Vector3f& size) {
-	this->size = size;
+	m_size = size;
 }
 
 const Vector3f& AxisAlignedBoundingBox::GetSize() const {
-	return size;
+	return m_size;
 }
 
 bool AxisAlignedBoundingBox::ContainsPoint(const Vector3f& thisOffset, const Vector3f& point) const {
@@ -52,9 +52,9 @@ bool AxisAlignedBoundingBox::IsColliding(const ITopLevelCollider& other,
 }
 
 Vector3f AxisAlignedBoundingBox::GetMin(const Vector3f& position) const {
-	return position - size * 0.5f;
+	return position - m_size * 0.5f;
 }
 
 Vector3f AxisAlignedBoundingBox::GetMax(const Vector3f& position) const {
-	return position + size * 0.5f;
+	return position + m_size * 0.5f;
 }

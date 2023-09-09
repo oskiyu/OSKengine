@@ -24,7 +24,7 @@ namespace OSK::ECS {
 
 		/// @brief Transform por defecto.
 		/// @param owner ID de la entidad que posee este transform.
-		Transform2D(ECS::GameObjectIndex owner);
+		explicit Transform2D(ECS::GameObjectIndex owner);
 
 		/// @brief Crea el transform.
 		/// @param owner ID de la entidad que posee este transform.

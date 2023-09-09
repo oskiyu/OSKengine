@@ -137,7 +137,7 @@ void Engine::RegisterBuiltinSystems() {
 #ifdef OSK_USE_FORWARD_RENDERER
 	entityComponentSystem->RegisterSystem<ECS::RenderSystem3D>(ECS::ISystem::DEFAULT_EXECUTION_ORDER);
 #elif defined(OSK_USE_DEFERRED_RENDERER)
-	entityComponentSystem->RegisterSystem<ECS::PbrDeferredRenderSystem>();
+	entityComponentSystem->RegisterSystem<ECS::PbrDeferredRenderSystem>(ECS::ISystem::DEFAULT_EXECUTION_ORDER);
 #elif defined(OSK_USE_HYBRID_RENDERER)
 	entityComponentSystem->RegisterSystem<ECS::HybridRenderSystem>();
 #elif OSK_NO_DEFAULT_RENDERER
@@ -214,7 +214,7 @@ Version Engine::GetVersion() {
 }
 
 std::string_view Engine::GetBuild() {
-	return "2023.08.13a";
+	return "2023.09.08a";
 }
 
 UIndex64 Engine::GetCurrentGameFrameIndex() {

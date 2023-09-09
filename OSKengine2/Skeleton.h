@@ -15,6 +15,9 @@ namespace OSK::GRAPHICS {
 
 		Skeleton() = default;
 
+		OSK_DEFAULT_COPY_OPERATOR(Skeleton);
+		OSK_DEFAULT_MOVE_OPERATOR(Skeleton);
+
 		void UpdateMatrices(const AnimationSkin& skin);
 
 		/// <summary> Devuelve el nodo con el índice dado. </summary>
@@ -34,9 +37,14 @@ namespace OSK::GRAPHICS {
 		/// @pre Debe existir un hueso con el índice dado en la animación activa.
 		/// @throws BoneNotFoundException si no existe un hueso con el índice dado.
 		Bone& GetBone(UIndex32 boneIndex, const AnimationSkin& skin);
-		const Bone& GetBone(UIndex32 boneIndex, const AnimationSkin& skin) const {
-			return GetBone(boneIndex, skin);
-		}
+
+		/// <summary> Devuelve el hueso con el índice dado. </summary>
+		/// <param name="boneIndex">Índice del hueso.</param>
+		/// <returns>Puntero nulo si no hay una skin activa.</returns>
+		/// 
+		/// @pre Debe existir un hueso con el índice dado en la animación activa.
+		/// @throws BoneNotFoundException si no existe un hueso con el índice dado.
+		const Bone& GetBone(UIndex32 boneIndex, const AnimationSkin& skin) const;
 
 		/// <summary> Devuelve el nodo con el nombre dado. </summary>
 		/// <param name="name">Nombre del nodo.</param>

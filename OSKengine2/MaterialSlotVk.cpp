@@ -191,7 +191,7 @@ void MaterialSlotVk::SetStorageImages(const std::string& binding, std::span<cons
 	}
 
 	if (!containsBinding)
-		bindingsLocations[binding] = bindings.At(0).GetSize() - 1u;
+		bindingsLocations[binding] = static_cast<USize32>(bindings.At(0).GetSize()) - 1u;
 }
 
 void MaterialSlotVk::SetAccelerationStructures(

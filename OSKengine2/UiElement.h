@@ -29,7 +29,7 @@ namespace OSK::UI {
 
 		/// @brief Establece el tamaño de la interfaz.
 		/// @param size 
-		IElement(const Vector2f& size);
+		explicit IElement(const Vector2f& size);
 
 	public:
 
@@ -50,6 +50,18 @@ namespace OSK::UI {
 		virtual void UpdateByCursor(Vector2f cursorPosition, bool isPressed, Vector2f parentPosition = Vector2f::Zero);
 
 	public:
+
+		void SetVisibility(bool visibility);
+		void SetVisible();
+		void SetInvisible();
+
+		bool IsVisible() const;
+
+		void Lock();
+		void Unlock();
+
+		bool IsLocked() const;
+
 
 		/// @brief Establece el padding (márgenes interiores).
 		/// @param padding Padding, tal que:
@@ -82,6 +94,19 @@ namespace OSK::UI {
 		void SetMargin(const Vector4f& margin);
 
 
+		/// @brief Establece si este elemento debe establecer su tamaño
+		/// relativo al padre, cambiando de tamaño cuando el padre 
+		/// también cambie de tamaño.
+		/// @param keepRelativeSize True si debe cambiar de tamaño junto al padre.
+		/// False si conserva su tamaño original.
+		void SetKeepRelativeSize(bool keepRelativeSize);
+
+		/// @return True si debe cambiar de tamaño junto al padre.
+		/// False si conserva su tamaño original cuando el padre cambia
+		/// de tamaño.
+		bool KeepsRelativeSize() const;
+
+
 		/// @brief Establece la posición relativa de este elemento respecto a su contenedor.
 		/// @param relativePosition Posición relativa.
 		virtual void _SetRelativePosition(const Vector2f& relativePosition);
@@ -96,7 +121,7 @@ namespace OSK::UI {
 		/// 
 		/// @warning No modifica ni la posición ni el tamaño de elementos padre,
 		/// hijos o hermanos.
-		void SetSize(Vector2f newSize);
+		virtual void SetSize(Vector2f newSize);
 
 		/// @return Tamaño del elemento.
 		Vector2f GetSize() const;
@@ -158,6 +183,13 @@ namespace OSK::UI {
 
 		Vector4f padding = 0;
 		Vector4f margin = 2.0f;
+
+		bool isVisible = true;
+		bool isLocked = false;
+
+		/// @brief True si se debe conservar el tamaño relativo de este elemento
+		/// cuando el elemento padre sea cambiado de tamaño.
+		bool keepRelativeSize = false;
 
 	};
 

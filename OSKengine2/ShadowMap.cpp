@@ -85,58 +85,11 @@ void ShadowMap::UpdateLightMatrixBuffer() {
 	const Transform3D& cameraTransform = Engine::GetEcs()->GetComponent<Transform3D>(cameraObject);
 
 	float cascadeSplits[numMaps]{ 3, 13, 25, 50 };
-	//for (TSize i = 0; i < numMaps; i++)
-	//	cascadeSplits[i] -= camera.GetNearPlane();
 
 	bufferContent.cascadeSplits = Vector4f(cascadeSplits[0], cascadeSplits[1], cascadeSplits[2], cascadeSplits[3]);
 
 	float lastClip = camera.GetNearPlane();
 
-// #define OSK_SHADOWS_NVIDIA
-#ifndef OSK_SHADOWS_NVIDIA
-#define OSK_SHADOWS_CUSTOM
-#endif
-
-	// NVIDIA:
-#ifdef OSK_SHADOWS_NVIDIA
-	for (TSize i = 0; i < numMaps; i++) {
-
-		// Esquinas del frustum en world-space.
-		DynamicArray<Vector3f> worldSpaceFrustumCorners = GetFrustumCorners(cameraProjection * cameraView);
-
-		for (TSize corner = 0; corner < worldSpaceFrustumCorners.GetSize() / 2; corner++) {
-			const Vector3f distanceToCorner = worldSpaceFrustumCorners[corner + 4] - worldSpaceFrustumCorners[corner];
-
-			worldSpaceFrustumCorners[corner + 4] = worldSpaceFrustumCorners[corner] + (distanceToCorner * cascadeSplits[i]);
-			worldSpaceFrustumCorners[corner] += (distanceToCorner * lastClip);
-		}
-
-		Vector3f frustumCenter = 0.0f;
-		for (const auto& corner : worldSpaceFrustumCorners)
-			frustumCenter += corner;
-		frustumCenter /= static_cast<float>(worldSpaceFrustumCorners.GetSize());
-
-		float radius = 0.0f;
-		for (const auto& corner : worldSpaceFrustumCorners)
-			radius = glm::max(radius, frustumCenter.GetDistanceTo(corner));
-		radius = glm::ceil(radius * 16.0f) / 16.0f;
-
-		const Vector3f maxExtent = radius;
-		const Vector3f minExtent = -radius;
-
-		const glm::mat4 lightView = glm::lookAt((frustumCenter - lightDirection.GetNormalized() * radius * 0.5f).ToGLM(), frustumCenter.ToGLM(), glm::vec3(0.0f, 1.0f, 0.0f));
-		const glm::mat4 lightProjection = glm::ortho(minExtent.x, maxExtent.x, minExtent.y, maxExtent.y, minExtent.Z, maxExtent.Z);
-
-		bufferContent.matrices[i] = lightProjection * lightView;
-		lastClip = cascadeSplits[i];
-
-		cascadeSplits[i] = ((nearClip + lastClip * clipRange) * -1.0f);
-	}
-#endif
-#ifdef OSK_SHADOWS_CUSTOM
-	
-	// CUSTOM:
-	
 	// Matriz vista de la cámara del jugador.
 	const glm::mat4 viewMatrix = camera.GetViewMatrix(cameraTransform);
 
@@ -187,7 +140,6 @@ void ShadowMap::UpdateLightMatrixBuffer() {
 
 		lastClip = cascadeSplits[i];
 	}
-#endif
 
 	lightUniformBuffer[resourceIndex]->ResetCursor();
 	lightUniformBuffer[resourceIndex]->MapMemory();
