@@ -102,7 +102,7 @@ void ShadowMap::UpdateLightMatrixBuffer() {
 
 		// Matriz proyección de la cámara del jugadro, en la que los planos near y far
 		// han sido recortados para representar el nivel de shadowmap.
-		const glm::mat4 croppedProjection = clipCamera.GetProjectionMatrix();
+		const glm::mat4 croppedProjection = clipCamera.GetProjectionMatrix_UnreversedZ();
 
 		// Obtiene las esquinas en el espacio del mundo.
 		DynamicArray<Vector3f> worldSpaceFrustumCorners = 
@@ -133,7 +133,7 @@ void ShadowMap::UpdateLightMatrixBuffer() {
 		const float maxY = maxExtent.y * lightDirection.GetNormalized().y;
 
 		// 'Cámara' virtual para renderizar el mapa de sombras.
-		const glm::mat4 lightProjection = glm::ortho(minExtent.x, maxExtent.x, maxExtent.y, minExtent.y, nearPlane * 12, farPlane * 4);
+		const glm::mat4 lightProjection = glm::orthoRH_ZO(minExtent.x, maxExtent.x, maxExtent.y, minExtent.y, farPlane * 4, nearPlane * 12);
 		const glm::mat4 lightView = glm::lookAt((frustumCenter - lightDirection).ToGLM(), frustumCenter.ToGLM(), glm::vec3(0.0f, 1.0f, 0.0f));
 
 		bufferContent.matrices[i] = lightProjection * lightView;

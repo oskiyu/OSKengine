@@ -129,6 +129,10 @@ void CommandListDx12::RawCopyImageToImage(const GpuImage& source, GpuImage* dest
 	commandList->CopyTextureRegion(&copyDest, copyInfo.destinationOffset.x, copyInfo.destinationOffset.y, copyInfo.destinationOffset.Z, &copySource, &copyRegion);
 }
 
+void CommandListDx12::CopyImageToImage(const GpuImage& source, GpuImage* destination, const CopyImageInfo& copyInfo, GpuImageFilteringType filter) {
+	OSK_ASSERT(false, NotImplementedException());
+}
+
 void CommandListDx12::CopyBufferToBuffer(const GpuBuffer& source, GpuBuffer* dest, USize64 size, USize64 sourceOffset, USize64 destOffset) {
 	commandList->CopyBufferRegion(
 		dest->GetMemorySubblock()->As<GpuMemorySubblockDx12>()->GetResource(), destOffset,

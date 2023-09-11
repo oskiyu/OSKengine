@@ -85,6 +85,7 @@
 #include "ToneMapping.h"
 #include "BloomPass.h"
 #include "SmaaPass.h"
+#include "HbaoPass.h"
 
 #include "ColliderRenderer.h"
 #include "SphereCollider.h"
@@ -249,7 +250,7 @@ protected:
 		rightPanel->AddChild("title", rightPanelTitle);
 
 		taaCheckbox = CreateCheckbox("TAA", [this](bool isActive) { SetTaaState(isActive); }).GetPointer();
-		fxaaCheckbox = CreateCheckbox("FXAA", [this](bool isActive) { SetFxaaState(isActive); }).GetPointer();
+		fxaaCheckbox = CreateCheckbox("HBAO", [this](bool isActive) { SetHbaoState(isActive); }).GetPointer();
 		bloomCheckbox = CreateCheckbox("Boom", [this](bool isActive) { SetBloomState(isActive); }).GetPointer();
 		collisionCheckbox = CreateCheckbox("Show Collisions", [](bool) { Engine::GetEcs()->GetSystem<ECS::ColliderRenderSystem>()->ToggleActivationStatus(); }).GetPointer();
 
@@ -262,12 +263,6 @@ protected:
 		rightPanel->Rebuild();
 
 		GetRootUiElement().AddChild("rightPanel", rightPanel);
-
-		auto* button = new UI::Button(Vector2f(200.0f));
-		button->SetKeepRelativeSize(true);
-		button->GetDefaultSprite().SetImageView(uiView);
-
-		GetRootUiElement().AddChild("button", button);
 	}
 
 	void RegisterSystems() override {
@@ -484,6 +479,12 @@ protected:
 
 		camera.UpdateTransform(&cameraTransform);
 
+		//
+		hbaoPass->UpdateCamera(
+			glm::inverse(camera.GetProjectionMatrix()), 
+			camera.GetViewMatrix(cameraTransform),
+			camera.GetNearPlane());
+
 		Engine::GetEcs()->GetComponent<CameraComponent2D>(cameraObject2d).UpdateUniformBuffer(
 			Engine::GetEcs()->GetComponent<Transform2D>(cameraObject2d)
 		);
@@ -641,8 +642,8 @@ protected:
 		frameBuildCommandList->EndDebugSection();
 
 		// Post-processing effects:
-		if (config.useFxaa)
-			fxaaPass->Execute(Engine::GetRenderer()->GetPostComputeCommandList());
+		if (config.useHbao)
+			hbaoPass->Execute(Engine::GetRenderer()->GetPostComputeCommandList());
 		if (config.useBloom)
 			bloomPass->Execute(Engine::GetRenderer()->GetPostComputeCommandList());
 		toneMappingPass->Execute(Engine::GetRenderer()->GetPostComputeCommandList());
@@ -703,8 +704,8 @@ protected:
 	void OnWindowResize(const Vector2ui& size) override {
 		textRenderTarget->Resize(size);
 		preEffectsRenderTarget->Resize(size);
-		fxaaPass->Resize(size);
 		bloomPass->Resize(size);
+		hbaoPass->Resize(size);
 		toneMappingPass->Resize(size);
 
 		preEffectsFrameCombiner->Resize(size);
@@ -714,7 +715,7 @@ protected:
 
 	void OnExit() override {
 		bloomPass.Delete();
-		fxaaPass.Delete();
+		hbaoPass.Delete();
 		toneMappingPass.Delete();
 
 		for (auto& buffer : exposureBuffers)
@@ -772,8 +773,8 @@ private:
 		renderSystem->ToggleTaa();
 	}
 
-	void SetFxaaState(bool state) {
-		config.useFxaa = state;
+	void SetHbaoState(bool state) {
+		config.useHbao = state;
 		SetupPostProcessingChain();
 	}
 
@@ -784,13 +785,13 @@ private:
 
 	void SetupRenderTargets() {
 		// Text
-		RenderTargetAttachmentInfo textColorInfo{ .format = Format::RGBA8_SRGB, .usage = GpuImageUsage::SAMPLED | GpuImageUsage::COMPUTE, .name = "Text Color Target" };
+		RenderTargetAttachmentInfo textColorInfo{ .format = Format::RGBA8_SRGB, .usage = GpuImageUsage::SAMPLED, .name = "Text Color Target" };
 		RenderTargetAttachmentInfo textDepthInfo{ .format = Format::D16_UNORM , .name = "Text Depth Target" };
 		textRenderTarget = new RenderTarget();
 		textRenderTarget->Create(Engine::GetDisplay()->GetResolution(), { textColorInfo }, textDepthInfo);
 
 		// Pre effects scene
-		RenderTargetAttachmentInfo preEffectsColorInfo{ .format = Format::RGBA16_SFLOAT, .usage = GpuImageUsage::SAMPLED | GpuImageUsage::COMPUTE | GpuImageUsage::TRANSFER_SOURCE, .name = "Pre-Effects Color Target" };
+		RenderTargetAttachmentInfo preEffectsColorInfo{ .format = Format::RGBA16_SFLOAT, .usage = GpuImageUsage::SAMPLED | GpuImageUsage::TRANSFER_SOURCE, .name = "Pre-Effects Color Target" };
 		RenderTargetAttachmentInfo preEffectsDepthInfo{ .format = Format::D16_UNORM, .name = "Pre-Effects Depth Target" };
 		preEffectsRenderTarget = new RenderTarget();
 		preEffectsRenderTarget->Create(Engine::GetDisplay()->GetResolution(), { preEffectsColorInfo }, preEffectsDepthInfo);
@@ -802,9 +803,9 @@ private:
 
 	void SetupPostProcessingChain() {
 		// Inicializaciones
-		if (!fxaaPass.HasValue()) {
-			fxaaPass = new FxaaPass();
-			fxaaPass->Create(Engine::GetDisplay()->GetResolution());
+		if (!hbaoPass.HasValue()) {
+			hbaoPass = new HbaoPass();
+			hbaoPass->Create(Engine::GetDisplay()->GetResolution());
 		}
 
 		if (!bloomPass.HasValue()) {
@@ -833,27 +834,44 @@ private:
 
 		const auto& preEffectsSource = preEffectsFrameCombiner->GetRenderTarget();
 
-		fxaaPass->SetInput(preEffectsSource, viewConfig);
+		auto* renderSystem = Engine::GetEcs()->GetSystem<OSK_CURRENT_RSYSTEM>();
+		std::array<GpuImage*, NUM_RESOURCES_IN_FLIGHT> depthImages{};
+		for (UIndex32 i = 0; i < NUM_RESOURCES_IN_FLIGHT; i++) {
+			// depthImages[i] = renderSystem->GetRenderTarget().GetDepthImage(i);
+			depthImages[i] = renderSystem->GetGbuffer().GetImage(i, GBuffer::Target::DEPTH);
+		}
+		std::array<GpuImage*, NUM_RESOURCES_IN_FLIGHT> normalImages{};
+		for (UIndex32 i = 0; i < NUM_RESOURCES_IN_FLIGHT; i++) {
+			// normalImages[i] = renderSystem->GetRenderTarget().GetColorImage(RenderSystem3D::NORMAL_IMAGE_INDEX, i);
+			normalImages[i] = renderSystem->GetGbuffer().GetImage(i, GBuffer::Target::NORMAL);
+		}
+		
+		if (config.useHbao) {
+			hbaoPass->SetInputTarget(preEffectsSource, viewConfig);
+			hbaoPass->SetNormalsInput(normalImages);
+			hbaoPass->SetDepthInput(depthImages);
+		}
 
-		if (config.useBloom && config.useFxaa) {
-			bloomPass->SetInput(fxaaPass->GetOutput(), viewConfig);
-			toneMappingPass->SetInput(bloomPass->GetOutput(), viewConfig);
+		if (config.useBloom && config.useHbao) {
+			bloomPass->SetInputTarget(hbaoPass->GetOutput(), viewConfig);
+			toneMappingPass->SetInputTarget(bloomPass->GetOutput(), viewConfig);
 		} else
 		if (config.useBloom) {
-			bloomPass->SetInput(preEffectsSource, viewConfig);
-			toneMappingPass->SetInput(bloomPass->GetOutput(), viewConfig);
+			bloomPass->SetInputTarget(preEffectsSource, viewConfig);
+			toneMappingPass->SetInputTarget(bloomPass->GetOutput(), viewConfig);
 		}
 		else 
-		if (config.useFxaa) {
-			toneMappingPass->SetInput(fxaaPass->GetOutput(), viewConfig);
+		if (config.useHbao) {
+			toneMappingPass->SetInputTarget(hbaoPass->GetOutput(), viewConfig);
 		}
 		else {
-			toneMappingPass->SetInput(preEffectsSource, viewConfig);
+			toneMappingPass->SetInputTarget(preEffectsSource, viewConfig);
 		}
 
 		Engine::GetRenderer()->WaitForCompletion();
 
-		fxaaPass->UpdateMaterialInstance();
+		if (config.useHbao)
+			hbaoPass->UpdateMaterialInstance();
 		if (config.useBloom)
 			bloomPass->UpdateMaterialInstance();
 		toneMappingPass->UpdateMaterialInstance();
@@ -1134,7 +1152,7 @@ private:
 	int currentTestCase = -1;
 
 	struct Config {
-		bool useFxaa = true;
+		bool useHbao = true;
 		bool useBloom = true;
 	} config;
 
@@ -1144,8 +1162,8 @@ private:
 	UniquePtr<RenderTarget> textRenderTarget;
 
 	UniquePtr<BloomPass> bloomPass;
-	UniquePtr<FxaaPass> fxaaPass;
 	UniquePtr<ToneMappingPass> toneMappingPass;
+	UniquePtr<HbaoPass> hbaoPass;
 
 	OSK::GRAPHICS::Material* material = nullptr;
 	OSK::GRAPHICS::Material* material2d = nullptr;

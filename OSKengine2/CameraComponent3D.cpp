@@ -10,6 +10,8 @@
 #include "Logger.h"
 #include "Math.h"
 
+#define GLM_FORCE_DEPTH_ZERO_TO_ONE
+#include <glm/glm.hpp>
 #include <glm/ext/matrix_clip_space.hpp>
 #include <glm/ext/matrix_transform.hpp>
 
@@ -72,10 +74,20 @@ void CameraComponent3D::UpdateTransform(Transform3D* transform) {
 }
 
 glm::mat4 CameraComponent3D::GetProjectionMatrix() const {
-	return glm::perspective<float>(
-		glm::radians(fov), 
-		Engine::GetDisplay()->GetScreenRatio(), 
-		nearPlane, 
+	const float f = 1.0f / glm::tan(glm::radians(fov) * 0.5f);
+
+	return glm::mat4(
+		f / Engine::GetDisplay()->GetScreenRatio(), 0.0f, 0.0f, 0.0f,
+		0.0f, f, 0.0f, 0.0f,
+		0.0f, 0.0f, 0.0f, -1.0f,
+		0.0f, 0.0f, nearPlane, 0.0f);
+}
+
+glm::mat4 CameraComponent3D::GetProjectionMatrix_UnreversedZ() const {
+	return glm::perspectiveRH_ZO<float>(
+		glm::radians(fov),
+		Engine::GetDisplay()->GetScreenRatio(),
+		nearPlane,
 		farPlane);
 }
 

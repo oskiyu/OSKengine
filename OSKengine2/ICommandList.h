@@ -87,6 +87,12 @@ namespace OSK::GRAPHICS {
 		/// @brief Mip level de la imagen de destino al que se copiará.
 		UIndex32 destinationMipLevel = 0;
 
+
+		/// @brief Canal desde el cual se leerá la información.
+		SampledChannel sourceChannel = SampledChannel::COLOR;
+		/// @brief Canal sobre el que se realizará la copia.
+		SampledChannel destinationChannel = SampledChannel::COLOR;
+
 		const static UIndex32 ALL_ARRAY_LEVELS = 0;
 
 	};
@@ -510,9 +516,10 @@ namespace OSK::GRAPHICS {
 		/// @brief Copia el contenido de una imagen a otra.
 		/// @param source Imagen con los contenidos a copiar.
 		/// @param destination Destino de la copia.
-		/// @param copyInfo Configuracióon de la copia.
+		/// @param copyInfo Configuración de la copia.
 		///
 		/// @pre Ambas imágenes deben tener el mismo formato.
+		/// @pre Las áreas de origen y destino deben ser del mismo tamaño.
 		/// @pre La imagen de origen debe haber sido creado con GpuImageUsage::TRANSFER_SOURCE.
 		/// @pre La imagen de origen debe tener el layout GpuImageLayout::TRANSFER_SOURCE.
 		/// @pre La imagen de destino debe haber sido creada con GpuImageUsage::TRANSFER_DESTINATION.
@@ -524,6 +531,25 @@ namespace OSK::GRAPHICS {
 			const GpuImage& source, 
 			GpuImage* destination, 
 			const CopyImageInfo& copyInfo) = 0;
+
+		/// @brief Copia los contenidos de una imagen a otra, realizando operaciones de cambio de resolución y formato.
+		/// @param source Imagen de origen.
+		/// @param destination Imagen de destino.
+		/// @param copyInfo Información de la copia.
+		/// @param filter Filtro que se usará en caso de realizar cambio de resolución.
+		/// 
+		/// @pre La imagen de origen debe haber sido creado con GpuImageUsage::TRANSFER_SOURCE.
+		/// @pre La imagen de origen debe tener el layout GpuImageLayout::TRANSFER_SOURCE.
+		/// @pre La imagen de destino debe haber sido creada con GpuImageUsage::TRANSFER_DESTINATION.
+		/// @pre La imagen de destino debe tener el layout GpuImageLayout::TRANSFER_DESTINATION.
+		/// @pre La lista de comandos debe estar abierta.
+		/// 
+		/// @post El layout de la imagen después de efectuarse la copia segirá siendo GpuImageLayout::TRANSFER_DESTINATION.
+		virtual void CopyImageToImage(
+			const GpuImage& source, 
+			GpuImage* destination, 
+			const CopyImageInfo& copyInfo, 
+			GpuImageFilteringType filter) = 0;
 
 		/// @brief Copia los contenidos del primer buffer al segundo.
 		/// @param source Buffer donde están el contenido que se quiere copiar.

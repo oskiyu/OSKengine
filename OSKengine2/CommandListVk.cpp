@@ -28,6 +28,7 @@
 #include "GpuImageViewVk.h"
 #include "GpuImageVk.h"
 #include "IGpuImage.h"
+#include "GpuImageVk.h"
 
 #include "CommandListExceptions.h"
 #include "NotImplementedException.h"
@@ -210,17 +211,25 @@ void CommandListVk::CopyBufferToImage(const GpuBuffer& source, GpuImage* dest, U
 void CommandListVk::RawCopyImageToImage(const GpuImage& source, GpuImage* destination, const CopyImageInfo& copyInfo) {
 	VkImageCopy region{};
 
-	region.srcOffset = { 0, 0, 0 };
-	region.dstOffset = { 0, 0, 0 };
+	region.srcOffset = {
+		static_cast<int>(copyInfo.sourceOffset.x),
+		static_cast<int>(copyInfo.sourceOffset.y),
+		static_cast<int>(copyInfo.sourceOffset.Z)
+	};
+	region.dstOffset = {
+		static_cast<int>(copyInfo.destinationOffset.x),
+		static_cast<int>(copyInfo.destinationOffset.y),
+		static_cast<int>(copyInfo.destinationOffset.Z)
+	};
 
 	const USize32 numLayers = copyInfo.numArrayLevels == CopyImageInfo::ALL_ARRAY_LEVELS ? source.GetNumLayers() : copyInfo.numArrayLevels;
 
-	region.srcSubresource.aspectMask = VK_IMAGE_ASPECT_COLOR_BIT;
+	region.srcSubresource.aspectMask = GpuImageVk::GetAspectFlags(copyInfo.sourceChannel);
 	region.srcSubresource.mipLevel = copyInfo.sourceMipLevel;
 	region.srcSubresource.baseArrayLayer = copyInfo.sourceArrayLevel;
 	region.srcSubresource.layerCount = numLayers;
 
-	region.dstSubresource.aspectMask = VK_IMAGE_ASPECT_COLOR_BIT;
+	region.dstSubresource.aspectMask = GpuImageVk::GetAspectFlags(copyInfo.destinationChannel);
 	region.dstSubresource.mipLevel = copyInfo.destinationMipLevel;
 	region.dstSubresource.baseArrayLayer = copyInfo.destinationArrayLevel;
 	region.dstSubresource.layerCount = numLayers;
@@ -233,6 +242,57 @@ void CommandListVk::RawCopyImageToImage(const GpuImage& source, GpuImage* destin
 		source.As<GpuImageVk>()->GetVkImage(), VK_IMAGE_LAYOUT_TRANSFER_SRC_OPTIMAL,
 		destination->As<GpuImageVk>()->GetVkImage(), VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL,
 		1, &region);
+}
+
+void CommandListVk::CopyImageToImage(const GpuImage& source, GpuImage* destination, const CopyImageInfo& copyInfo, GpuImageFilteringType filter) {
+	const USize32 numLayers = copyInfo.numArrayLevels == CopyImageInfo::ALL_ARRAY_LEVELS ? source.GetNumLayers() : copyInfo.numArrayLevels; 
+	
+	VkImageBlit copyRegion{};
+
+	copyRegion.srcOffsets[0] = {
+		static_cast<int>(copyInfo.sourceOffset.x),
+		static_cast<int>(copyInfo.sourceOffset.y),
+		static_cast<int>(copyInfo.sourceOffset.Z)
+	};
+	copyRegion.srcOffsets[1] = {
+		static_cast<int>(copyInfo.sourceOffset.x),
+		static_cast<int>(copyInfo.sourceOffset.y),
+		static_cast<int>(copyInfo.sourceOffset.Z)
+	};
+
+	copyRegion.dstOffsets[0] = {
+		static_cast<int>(copyInfo.destinationOffset.x),
+		static_cast<int>(copyInfo.destinationOffset.y),
+		static_cast<int>(copyInfo.destinationOffset.Z)
+	};
+	copyRegion.dstOffsets[1] = {
+		static_cast<int>(copyInfo.destinationOffset.x),
+		static_cast<int>(copyInfo.destinationOffset.y),
+		static_cast<int>(copyInfo.destinationOffset.Z)
+	};
+
+	VkImageSubresourceLayers sourceLayer{};
+	sourceLayer.aspectMask = GpuImageVk::GetAspectFlags(copyInfo.sourceChannel);
+	sourceLayer.baseArrayLayer = copyInfo.sourceArrayLevel;
+	sourceLayer.layerCount = numLayers;
+	sourceLayer.mipLevel = copyInfo.sourceMipLevel;
+
+	copyRegion.srcSubresource = sourceLayer;
+
+	VkImageSubresourceLayers destinationLayer{};
+	destinationLayer.aspectMask = GpuImageVk::GetAspectFlags(copyInfo.destinationChannel);
+	destinationLayer.baseArrayLayer = copyInfo.destinationArrayLevel;
+	destinationLayer.layerCount = numLayers;
+	destinationLayer.mipLevel = copyInfo.destinationMipLevel;
+
+	copyRegion.dstSubresource = destinationLayer;
+
+	vkCmdBlitImage(
+		commandBuffers[_GetCommandListIndex()],
+		source.As<GpuImageVk>()->GetVkImage(), VK_IMAGE_LAYOUT_TRANSFER_SRC_OPTIMAL,
+		destination->As<GpuImageVk>()->GetVkImage(), VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL,
+		1, &copyRegion,
+		GpuImageVk::GetFilterTypeVulkan(filter));
 }
 
 void CommandListVk::CopyBufferToBuffer(const GpuBuffer& source, GpuBuffer* dest, USize64 size, USize64 sourceOffset, USize64 destOffset) {
@@ -343,7 +403,7 @@ void CommandListVk::BeginGraphicsRenderpass(DynamicArray<RenderPassImageInfo> co
 	depthAttachment.resolveMode = VK_RESOLVE_MODE_NONE;
 	depthAttachment.resolveImageLayout = VK_IMAGE_LAYOUT_UNDEFINED;
 	depthAttachment.resolveImageView = VK_NULL_HANDLE;
-	depthAttachment.clearValue.depthStencil = { 1.0f, 0 };
+	depthAttachment.clearValue.depthStencil = { 0.0f, 0 };
 
 	VkRenderingInfo renderpassInfo{};
 	renderpassInfo.sType = VK_STRUCTURE_TYPE_RENDERING_INFO;

@@ -1,0 +1,12 @@
+{
+    "file_type": "MATERIAL_COMPUTE",
+    "spec_ver": 1,
+    "name": "HBAO Blur",
+
+    "compute_shader": "Resources/Shaders/VK/PostProcess/HBAO/Blur.spv",
+    
+    "slots": {
+        "0": "texture"
+    }
+
+}

@@ -926,3 +926,68 @@ fix ComponentManager::InsertCopy
 - **Bugfix**: `ConvexVolume::GetCollisionInfo()` ahora detectamente correctamente la información de las colisiones en todas las direcciones (test cases *T-COL-09,11,13,15*)
 - **Bugfix**: `ConvexVolume::GetWorldSpaceAxis()` ahora devuelve un vector correctamente normalizado en todos los casos.
 - **Bugfix**: `PhysicsResolver` ahora aplica correctamente impulsos en todos los casos.
+
+
+
+## WIP
+
+### Graphics
+
+###### Introducido HBAO como técnica de oclusión ambiental.
+
+- ***Nuevo***: `HbaoPass`:
+    - Implementa oclusión ambiental como efetdo de post-procesado de computación.
+    - Incluye 4 pases:
+        - Pase inicial que genera una imagen de oclusión ambiental con ruido.
+        - Pase de difuminado gaussiano vertical.
+        - Pase de difuminado gaussiano horizontal..
+        - Pase de resolución.
+    - Usa como input las imágenes de profundidad y de normales.
+   
+- `RenderSystem3D`:
+    - Ahora genera imágenes de normales.
+
+###### Invertida la coordenada Z de profundidad y uso de far-plane infinito.
+
+Esto aumenta enormemente la precisión de objetos alejados, y permite renderizar toda la escena gracias al far-plane infinito.
+
+- `CameraComponent3D`
+    - Ahora `GetProjectionMatrix()` genera una proyección con:
+        - Z invertida.
+        - Far-plane infinito.
+    - ***Nuevo***: `GetProjectionMatrix_UnreversedZ()`, que implementa la funcionalidad que previamente tenía `GetProjectionMatrix()`.
+
+###### Misc.
+
+- `Material`, `MaterialSystem`:
+    - Los materiales gráficos ya no están obligados a tener shaders de fragmentos.
+
+- `IGraphicsPipeline`, `GraphicsPipelineVk`:
+    - Ahora usa un formato de profundidad con z invertida.
+    - Los fragment shaders ya no son estrictamente necesarios.
+
+- `Format`
+    - ***Nuevo***: `R16_SFLOAT`
+
+- `CopyImageInfo`
+    - Ahora permite indicar los canales de origen y destino.
+
+- `ICommandList`
+    - ***Nuevo*** `CopyImageToImage()`.
+        - Permite copiar una imagen a otra cuando ambas imágenes tienen distinto tamaño y/o formato.
+    - `ICommandList::RawCopyImageToImage()` ahora puede efectuar copias en canales distintos a *COLOR*.
+
+- `GpuImageVk`
+    - ***Nuevo***: `GetAspectFlags()`.
+    - `GetFilterTypeVulkan()` ahora es public.
+    - `GetAddressModeVulkan()` ahora es public.
+
+##### Bugfixes
+
+- **Bugfix**: ahora las sombras no tienen errores de z-fighting en el renderizado diferido.
+- **Bugfix**: ahora ningún renderizado 3D tienen z-fighting en zonas alejadas de la cámara.
+- **Bugfix**: `ICommandList::RawCopyImageToImage()` ahora tiene en cuenta los offsets indicados para las imágenes de origen y destino.
+- **Bugfix**: ahora los mapas de sombras no usan una proyección con un rango de profundidad incorrecto (-1, 1).
+- **Bugfix**: ahora la cámara 3D no usa una proyección con un rango de profundidad incorrecto (-1, 1).
+- **Bugfix**: ahora `GBuffer` tiene un *getter* de imágenes no-const.
+- **Bugfix**: `PbrDeferredRenderSystem` ya no reenlaza el material de GBuffer una vez por modelo 3D.

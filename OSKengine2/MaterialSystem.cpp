@@ -423,12 +423,14 @@ void MaterialSystem::LoadMaterialV1(MaterialLayout* layout, const nlohmann::json
 	}
 	else if (type == MaterialType::GRAPHICS) {
 		OSK_ASSERT(materialInfo.contains("vertex_shader"), ASSETS::InvalidDescriptionFileException("Archivo de material incorrecto: no se encuentra 'vertex_shader'.", ""));
-		OSK_ASSERT(materialInfo.contains("fragment_shader"), ASSETS::InvalidDescriptionFileException("Archivo de material incorrecto: no se encuentra 'fragment_shader'.", ""));
 		
 		info->vertexPath = materialInfo["vertex_shader"];
-		info->fragmentPath = materialInfo["fragment_shader"];
+		info->fragmentPath = materialInfo.contains("fragment_shader")
+			? materialInfo["fragment_shader"]
+			: "";
 
 		LoadSpirvCrossShader(layout, materialInfo, FileIO::ReadBinaryFromFile(materialInfo["vertex_shader"]), ShaderStage::VERTEX, &pushConstantsOffset, &numHlslBuffers, &numHlslImages, &numHlslBindings);
+		
 		if (materialInfo.contains("tesselation_control_shader")) {
 			LoadSpirvCrossShader(layout, materialInfo, FileIO::ReadBinaryFromFile(materialInfo["tesselation_control_shader"]), ShaderStage::TESSELATION_CONTROL, &pushConstantsOffset, &numHlslBuffers, &numHlslImages, &numHlslBindings);
 			info->tesselationControlPath = materialInfo["tesselation_control_shader"];
@@ -437,7 +439,10 @@ void MaterialSystem::LoadMaterialV1(MaterialLayout* layout, const nlohmann::json
 			LoadSpirvCrossShader(layout, materialInfo, FileIO::ReadBinaryFromFile(materialInfo["tesselation_evaluation_shader"]), ShaderStage::TESSELATION_EVALUATION, &pushConstantsOffset, &numHlslBuffers, &numHlslImages, &numHlslBindings);
 			info->tesselationEvaluationPath = materialInfo["tesselation_evaluation_shader"];
 		}
-		LoadSpirvCrossShader(layout, materialInfo, FileIO::ReadBinaryFromFile(materialInfo["fragment_shader"]), ShaderStage::FRAGMENT, &pushConstantsOffset, &numHlslBuffers, &numHlslImages, &numHlslBindings);
+
+		if (materialInfo.contains("fragment_shader")) {
+			LoadSpirvCrossShader(layout, materialInfo, FileIO::ReadBinaryFromFile(materialInfo["fragment_shader"]), ShaderStage::FRAGMENT, &pushConstantsOffset, &numHlslBuffers, &numHlslImages, &numHlslBindings);
+		}
 	}
 	else if (type == MaterialType::COMPUTE) {
 		OSK_ASSERT(materialInfo.contains("compute_shader"), ASSETS::InvalidDescriptionFileException("Archivo de material incorrecto: no se encuentra 'compute_shader'.", ""));

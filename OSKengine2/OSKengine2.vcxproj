@@ -80,6 +80,7 @@
     <ClCompile Include="FaceProjection.cpp" />
     <ClCompile Include="FrameCombiner.cpp" />
     <ClCompile Include="GameObjectTranslator.cpp" />
+    <ClCompile Include="HbaoPass.cpp" />
     <ClCompile Include="UiFreeContainer.cpp" />
     <ClCompile Include="FxaaPass.cpp" />
     <ClCompile Include="GBuffer.cpp" />
@@ -321,6 +322,7 @@
     <ClInclude Include="GameObjectTranslator.h" />
     <ClInclude Include="GBuffer.h" />
     <ClInclude Include="GpuMemoryExceptions.h" />
+    <ClInclude Include="HbaoPass.h" />
     <ClInclude Include="InvalidArgumentException.h" />
     <ClInclude Include="InvalidObjectStateException.h" />
     <ClInclude Include="MathExceptions.h" />
@@ -960,7 +962,7 @@
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <MinimalRebuild>false</MinimalRebuild>
       <DisableSpecificWarnings>4251</DisableSpecificWarnings>
-      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>

@@ -72,7 +72,7 @@ vec4 GetClipSpacePosition(ivec2 coords) {
     const highp float originalDepthValue = texelFetch(depthTexture, coords, 0).x;
 
     // Profundidad en el rango [-1, 1].
-    const highp float normalizedDepth = 2.0 * originalDepthValue - 1.0;
+    const highp float normalizedDepth = 2.0 * (-camera.nearFarPlanes.x / originalDepthValue) - 1.0;
 
 
     // Coordenadas en rango [0, 1].
@@ -144,7 +144,8 @@ void main() {
         dirLightShadowMat.matrix, 
         dirLightShadowMat.splits, 
         dirLightShadowMap, 
-        worldPosition) 
+        worldPosition,
+        camera.nearFarPlanes.x) 
     * GetRadiance(
         F0, 
         dirLight.directionAndIntensity.xyz, 

@@ -109,7 +109,7 @@ vec4 GetShadowCoordinates(mat4[4] shadowMatrices, int cascadeIndex, vec3 fragPos
     return projCoords;
 }
 
-float CalculateShadowStrength(vec3 cameraSpacePosition, mat4[4] shadowMatrices, vec4 shadowSplits, sampler2DArray dirLightShadowMap, vec3 fragPosition) {
+float CalculateShadowStrength(vec3 cameraSpacePosition, mat4[4] shadowMatrices, vec4 shadowSplits, sampler2DArray dirLightShadowMap, vec3 fragPosition, float nearPlane) {
     // Cascaded Shadow Map
     const float viewDepth = cameraSpacePosition.z;
     const int shadowMapIndex = GetShadowmapIndex(cameraSpacePosition, shadowSplits);
@@ -117,7 +117,7 @@ float CalculateShadowStrength(vec3 cameraSpacePosition, mat4[4] shadowMatrices, 
     const vec4 fragPosInLightSpace = shadowMatrices[shadowMapIndex] * vec4(fragPosition, 1.0);
    
     const vec4 projCoords = GetShadowCoordinates(shadowMatrices, shadowMapIndex, fragPosition);
-    const float currentDepth = projCoords.z - 0.00025;
+    const float currentDepth = (projCoords.z) + (0.00025);
 
     float accumulatedShadow = 0.0;
     const vec2 texelSize = 1.0 / textureSize(dirLightShadowMap, 0).xy;
@@ -128,9 +128,10 @@ float CalculateShadowStrength(vec3 cameraSpacePosition, mat4[4] shadowMatrices, 
     for (int x = -iRadius; x <= iRadius; x++) {
         for (int y = -iRadius; y <= iRadius; y++) {
             const vec2 finalCoords = projCoords.xy + vec2(x, y) * texelSize;
-            const float pointDepth = texture(dirLightShadowMap, vec3(projCoords.xy + vec2(x, y) * texelSize, shadowMapIndex)).r;
+            const float pointDepth = 
+                texture(dirLightShadowMap, vec3(projCoords.xy + vec2(x, y) * texelSize, shadowMapIndex)).r;
 
-            accumulatedShadow += float(currentDepth < pointDepth);
+            accumulatedShadow += float(currentDepth > pointDepth);
         }
     }
 

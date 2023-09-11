@@ -51,6 +51,11 @@ namespace OSK::GRAPHICS {
 
 		void SetDebugName(const std::string& name) override;
 
+
+		static VkImageAspectFlags GetAspectFlags(SampledChannel channel);
+		static VkFilter GetFilterTypeVulkan(GpuImageFilteringType type);
+		static VkSamplerAddressMode GetAddressModeVulkan(GpuImageAddressMode mode);
+
 	protected:
 
 		OwnedPtr<IGpuImageView> CreateView(const GpuImageViewConfig& viewConfig) const override;
@@ -60,9 +65,6 @@ namespace OSK::GRAPHICS {
 		VkImageType GetVkImageType() const;
 		VkImageViewType GetVkImageViewType() const;
 		VkImageViewType GetVkImageArrayViewType() const;
-
-		static VkFilter GetFilterTypeVulkan(GpuImageFilteringType type);
-		static VkSamplerAddressMode GetAddressModeVulkan(GpuImageAddressMode mode);
 
 		VkImage image = VK_NULL_HANDLE;
 		VkSampler sampler = VK_NULL_HANDLE;

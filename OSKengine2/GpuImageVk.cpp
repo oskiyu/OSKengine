@@ -282,3 +282,16 @@ VkSamplerAddressMode GpuImageVk::GetAddressModeVulkan(GpuImageAddressMode mode) 
 		OSK_UNREACHABLE;
 	}
 }
+
+VkImageAspectFlags GpuImageVk::GetAspectFlags(SampledChannel channel) {
+	VkImageAspectFlags aspectMask = 0;
+
+	if (EFTraits::HasFlag(channel, SampledChannel::COLOR))
+		aspectMask |= VK_IMAGE_ASPECT_COLOR_BIT;
+	if (EFTraits::HasFlag(channel, SampledChannel::DEPTH))
+		aspectMask |= VK_IMAGE_ASPECT_DEPTH_BIT;
+	if (EFTraits::HasFlag(channel, SampledChannel::STENCIL))
+		aspectMask |= VK_IMAGE_ASPECT_STENCIL_BIT;
+
+	return aspectMask;
+}

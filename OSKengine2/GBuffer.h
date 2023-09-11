@@ -60,6 +60,13 @@ namespace OSK::GRAPHICS {
 		/// @pre frameIndex < NUM_RESOURCES_IN_FLIGHT
 		GpuImage* GetImage(UIndex32 frameIndex, Target targetType);
 
+		/// @brief Devuelve la imagen indicada por los parámetros.
+		/// @param frameIndex Índice del recurso.
+		/// @param targetType Identificador de la imagen deseada.
+		/// 
+		/// @pre frameIndex < NUM_RESOURCES_IN_FLIGHT
+		const GpuImage* GetImage(UIndex32 frameIndex, Target targetType) const;
+
 
 		/// @brief Inicia un renderpass de rasterización sobre el GBuffer.
 		/// @see ICommandList::BeginRenderpass.

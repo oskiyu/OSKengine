@@ -22,6 +22,8 @@ namespace OSK::GRAPHICS {
 
 		BGRA8_SRGB,
 
+		R16_SFLOAT,
+
 		RG16_SFLOAT,
 		RG32_SFLOAT,
 

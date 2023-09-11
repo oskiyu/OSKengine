@@ -17,7 +17,7 @@ void GBuffer::Create(const Vector2ui& resolution, GpuImageSamplerDesc sampler, G
 	
 	RenderTargetAttachmentInfo depthInfo{};
 	depthInfo.format = Format::D32_SFLOAT;
-	depthInfo.usage = GpuImageUsage::DEPTH | GpuImageUsage::STENCIL | GpuImageUsage::SAMPLED;
+	depthInfo.usage = GpuImageUsage::DEPTH | GpuImageUsage::SAMPLED;
 	depthInfo.name = "GBuffer Depth";
 	depthInfo.sampler = sampler;
 
@@ -32,6 +32,12 @@ void GBuffer::Resize(const Vector2ui& resolution) {
 }
 
 GpuImage* GBuffer::GetImage(USize32 frameIndex, Target targetType) {
+	return targetType == Target::DEPTH
+		? renderTarget.GetDepthImage(frameIndex)
+		: renderTarget.GetColorImage(static_cast<UIndex32>(targetType), frameIndex);
+}
+
+const GpuImage* GBuffer::GetImage(UIndex32 frameIndex, Target targetType) const {
 	return targetType == Target::DEPTH
 		? renderTarget.GetDepthImage(frameIndex)
 		: renderTarget.GetColorImage(static_cast<UIndex32>(targetType), frameIndex);

@@ -61,7 +61,9 @@ namespace OSK::GRAPHICS {
 		/// @warning Si las imágenes son invalidadas (porque su dueño
 		/// original se recrean o cambian de tamaño), se debe volver a 
 		/// establecer como imágenes de entrada con IPostProcessPass::SetInput.
-		void SetInput(std::span<GpuImage*, NUM_RESOURCES_IN_FLIGHT> images, const GpuImageViewConfig& viewConfig);
+		virtual void SetInput(
+			std::span<GpuImage*, NUM_RESOURCES_IN_FLIGHT> images, 
+			const GpuImageViewConfig& viewConfig);
 
 		/// @brief Establece las imágenes de entrada a partir de las que
 		/// se calculará el efecto.
@@ -70,7 +72,7 @@ namespace OSK::GRAPHICS {
 		/// @warning Si las imágenes son invalidadas (porque su dueño
 		/// original se recrean o cambian de tamaño), se debe volver a 
 		/// establecer como imágenes de entrada con IPostProcessPass::SetInput.
-		void SetInput(const RenderTarget& target, const GpuImageViewConfig& viewConfig, InputType type = InputType::STORAGE_IMAGE);
+		void SetInputTarget(const RenderTarget& target, const GpuImageViewConfig& viewConfig, InputType type = InputType::STORAGE_IMAGE);
 		
 		/// @brief Establece las imágenes de entrada a partir de las que
 		/// se calculará el efecto.
@@ -79,7 +81,7 @@ namespace OSK::GRAPHICS {
 		/// @warning Si las imágenes son invalidadas (porque su dueño
 		/// original se recrean o cambian de tamaño), se debe volver a 
 		/// establecer como imágenes de entrada con IPostProcessPass::SetInput.
-		void SetInput(const RtRenderTarget& target, const GpuImageViewConfig& viewConfig, InputType type = InputType::STORAGE_IMAGE);
+		void SetInputTarget(const RtRenderTarget& target, const GpuImageViewConfig& viewConfig, InputType type = InputType::STORAGE_IMAGE);
 
 
 		/// <summary>

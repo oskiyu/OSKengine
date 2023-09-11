@@ -38,19 +38,21 @@ PbrDeferredRenderSystem::PbrDeferredRenderSystem() {
 	signature.SetTrue(Engine::GetEcs()->GetComponentType<ModelComponent3D>());
 	_SetSignature(signature);
 
+
 	// Mapa de sombras
 	shadowMap.Create(Vector2ui(4096u));
 
 	// Directional light por defecto
 	const Vector3f direction = Vector3f(1.0f, -1.9f, 0.0f).GetNormalized();
-	dirLight.directionAndIntensity = Vector4f(direction.x, direction.y, direction.Z, 1.4f);
+	dirLight.directionAndIntensity = Vector4f(direction.x, direction.y, direction.Z, 1.0f);
 	dirLight.color = Color(255 / 255.f, 255 / 255.f, 255 / 255.f);
 	
 	CreateBuffers();
-
 	LoadMaterials();
 	SetupGBufferMaterial();
 	SetupResolveMaterial();
+
+	taaProvider.SetMaxJitter(4);
 }
 
 void PbrDeferredRenderSystem::CreateBuffers() {
@@ -161,6 +163,8 @@ void PbrDeferredRenderSystem::UpdateResolveMaterial() {
 
 void PbrDeferredRenderSystem::CreateTargetImage(const Vector2ui& size) {
 	// GBuffer.
+	GpuImageSamplerDesc sampler = GpuImageSamplerDesc::CreateDefault();
+	sampler.addressMode = GpuImageAddressMode::EDGE;
 	gBuffer.Create(size);
 
 	// Resolve
@@ -179,6 +183,7 @@ void PbrDeferredRenderSystem::CreateTargetImage(const Vector2ui& size) {
 
 	RenderTargetAttachmentInfo depthAttachment{};
 	depthAttachment.format = Format::D32_SFLOAT;
+	depthAttachment.usage = GpuImageUsage::DEPTH | GpuImageUsage::SAMPLED;
 	depthAttachment.name = "Deferred Target Depth";
 
 	renderTarget.Create(size, { colorAttachment }, depthAttachment);
@@ -221,6 +226,14 @@ void PbrDeferredRenderSystem::Resize(const Vector2ui& windowSize) {
 	IRenderSystem::Resize(windowSize);
 
 	UpdateResolveMaterial();
+}
+
+const GBuffer& PbrDeferredRenderSystem::GetGbuffer() const {
+	return gBuffer;
+}
+
+GBuffer& PbrDeferredRenderSystem::GetGbuffer() {
+	return gBuffer;
 }
 
 void PbrDeferredRenderSystem::Render(ICommandList* commandList) {
@@ -334,8 +347,12 @@ void PbrDeferredRenderSystem::GenerateShadows(ICommandList* commandList) {
 }
 
 void PbrDeferredRenderSystem::GBufferRenderLoop(ICommandList* commandList, ModelType modelType, UIndex32 jitterIndex) {
-	GpuBuffer* previousVertexBuffer = nullptr;
-	GpuBuffer* previousIndexBuffer = nullptr;
+	const GpuBuffer* previousVertexBuffer = nullptr;
+	const GpuBuffer* previousIndexBuffer = nullptr;
+
+	commandList->BindMaterial(modelType == ModelType::STATIC_MESH 
+		? *gbufferMaterial
+		: *animatedGbufferMaterial);
 
 	for (GameObjectIndex obj : GetObjects()) {
 		const ModelComponent3D& model = Engine::GetEcs()->GetComponent<ModelComponent3D>(obj);
@@ -343,11 +360,6 @@ void PbrDeferredRenderSystem::GBufferRenderLoop(ICommandList* commandList, Model
 
 		if (modelType != model.GetModel()->GetType())
 			continue;
-
-		if (modelType == ModelType::STATIC_MESH)
-			commandList->BindMaterial(*gbufferMaterial);
-		else
-			commandList->BindMaterial(*animatedGbufferMaterial);
 
 		// Actualizamos el modelo 3D, si es necesario.
 		if (previousVertexBuffer != model.GetModel()->GetVertexBuffer()) {

@@ -1140,6 +1140,9 @@
     <ClCompile Include="Buffer.cpp">
       <Filter>Archivos de origen\Core\Memory</Filter>
     </ClCompile>
+    <ClCompile Include="HbaoPass.cpp">
+      <Filter>Archivos de origen\Core\Graphics\HighLevel\PostProcess</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="KeyboardState.h">
@@ -2029,6 +2032,9 @@
     </ClInclude>
     <ClInclude Include="SchemaId.h">
       <Filter>Archivos de encabezado\Core\Util</Filter>
+    </ClInclude>
+    <ClInclude Include="HbaoPass.h">
+      <Filter>Archivos de encabezado\Core\Graphics\HighLevel\PostProcess</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

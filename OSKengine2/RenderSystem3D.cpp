@@ -36,60 +36,58 @@ RenderSystem3D::RenderSystem3D() {// Signature del sistema
 
 
 	// Mapa de sombras
-	// Before: 2048MB -> 2.048 GB, 0.78ms
-	// After: 1210MB -> 1.21 GB, 0.63ms
-	shadowMap.Create(Vector2ui(4096u));
+	m_shadowMap.Create(Vector2ui(4096u));
 
 	// Directional light por defecto
 	const Vector3f direction = Vector3f(1.0f, -1.9f, 0.0f).GetNormalized();
-	dirLight.directionAndIntensity = Vector4f(direction.x, direction.y, direction.Z, 1.0f);
-	dirLight.color = Color(255 / 255.f, 255 / 255.f, 255 / 255.f);
+	m_dirLight.directionAndIntensity = Vector4f(direction.x, direction.y, direction.Z, 1.0f);
+	m_dirLight.color = Color(255 / 255.f, 255 / 255.f, 255 / 255.f);
 
 	CreateBuffers();
 	LoadMaterials();
 	SetupMaterials();	
 
-	taaProvider.SetMaxJitter(4);
+	m_taaProvider.SetMaxJitter(4);
 }
 
 void RenderSystem3D::Initialize(GameObjectIndex camera, const IrradianceMap& irradianceMap, const SpecularMap& specularMap) {
-	cameraObject = camera;
+	m_cameraObject = camera;
 
 	const GpuImageViewConfig viewConfig  = GpuImageViewConfig::CreateSampled_Default();
 	const GpuImageViewConfig cubemapView = GpuImageViewConfig::CreateSampled_Cubemap();
 
-	sceneMaterialInstance->GetSlot("global")->SetGpuImage("irradianceMap", irradianceMap.GetGpuImage()->GetView(cubemapView));
-	sceneMaterialInstance->GetSlot("global")->SetGpuImage("specularMap", specularMap.GetCubemapImage()->GetView(cubemapView));
-	sceneMaterialInstance->GetSlot("global")->SetGpuImage("specularLut", specularMap.GetLookUpTable()->GetView(viewConfig));
-	sceneMaterialInstance->GetSlot("global")->FlushUpdate();
+	m_sceneMaterialInstance->GetSlot("global")->SetGpuImage("irradianceMap", irradianceMap.GetGpuImage()->GetView(cubemapView));
+	m_sceneMaterialInstance->GetSlot("global")->SetGpuImage("specularMap", specularMap.GetCubemapImage()->GetView(cubemapView));
+	m_sceneMaterialInstance->GetSlot("global")->SetGpuImage("specularLut", specularMap.GetLookUpTable()->GetView(viewConfig));
+	m_sceneMaterialInstance->GetSlot("global")->FlushUpdate();
 
 	// terrain.GetMaterialInstance()->GetSlot("global")->SetGpuImage("irradianceMap", irradianceMap.GetGpuImage()->GetView(cubemapView));
 	// terrain.GetMaterialInstance()->GetSlot("global")->SetGpuImage("specularMap", specularMap.GetGpuImage());
 	// terrain.GetMaterialInstance()->GetSlot("global")->FlushUpdate();
 
-	shadowMap.SetSceneCamera(camera);
+	m_shadowMap.SetSceneCamera(camera);
 }
 
 void RenderSystem3D::CreateBuffers() {
 	for (UIndex32 i = 0; i < NUM_RESOURCES_IN_FLIGHT; i++) {
-		cameraBuffers[i] = Engine::GetRenderer()->GetAllocator()->CreateUniformBuffer(sizeof(glm::mat4) * 2 + sizeof(glm::vec4)).GetPointer();
-		previousCameraBuffers[i] = Engine::GetRenderer()->GetAllocator()->CreateUniformBuffer(sizeof(glm::mat4) * 2).GetPointer();
+		m_cameraBuffers[i] = Engine::GetRenderer()->GetAllocator()->CreateUniformBuffer(sizeof(glm::mat4) * 2 + sizeof(glm::vec4)).GetPointer();
+		m_previousCameraBuffers[i] = Engine::GetRenderer()->GetAllocator()->CreateUniformBuffer(sizeof(glm::mat4) * 2).GetPointer();
 
-		dirLightUbos[i] = Engine::GetRenderer()->GetAllocator()->CreateUniformBuffer(sizeof(DirectionalLight)).GetPointer();
+		m_dirLightUbos[i] = Engine::GetRenderer()->GetAllocator()->CreateUniformBuffer(sizeof(DirectionalLight)).GetPointer();
 	}
 
-	resolutionBuffer = Engine::GetRenderer()->GetAllocator()->CreateUniformBuffer(sizeof(Vector2f)).GetPointer();
+	m_resolutionBuffer = Engine::GetRenderer()->GetAllocator()->CreateUniformBuffer(sizeof(Vector2f)).GetPointer();
 }
 
 void RenderSystem3D::LoadMaterials() {
 	// Material del terreno
-	terrainMaterial = Engine::GetRenderer()->GetMaterialSystem()->LoadMaterial("Resources/Materials/PBR/terrain_direct_pbr.json");
-	terrain.SetMaterialInstance(terrainMaterial->CreateInstance());
+	m_terrainMaterial = Engine::GetRenderer()->GetMaterialSystem()->LoadMaterial("Resources/Materials/PBR/terrain_direct_pbr.json");
+	m_terrain.SetMaterialInstance(m_terrainMaterial->CreateInstance());
 
 	// Materiales de la escena
-	sceneMaterial = Engine::GetRenderer()->GetMaterialSystem()->LoadMaterial("Resources/Materials/PBR/direct_pbr.json");
-	sceneMaterialInstance = sceneMaterial->CreateInstance().GetPointer();
-	animatedSceneMaterial = Engine::GetRenderer()->GetMaterialSystem()->LoadMaterial("Resources/Materials/PBR/animated_direct_pbr.json");
+	m_sceneMaterial = Engine::GetRenderer()->GetMaterialSystem()->LoadMaterial("Resources/Materials/PBR/direct_pbr.json");
+	m_sceneMaterialInstance = m_sceneMaterial->CreateInstance().GetPointer();
+	m_animatedSceneMaterial = Engine::GetRenderer()->GetMaterialSystem()->LoadMaterial("Resources/Materials/PBR/animated_direct_pbr.json");
 }
 
 void RenderSystem3D::SetupMaterials() {
@@ -99,31 +97,30 @@ void RenderSystem3D::SetupMaterials() {
 	std::array<const GpuBuffer*, NUM_RESOURCES_IN_FLIGHT> _shadowsMatricesUbos{};
 	std::array<const IGpuImageView*, NUM_RESOURCES_IN_FLIGHT> _shadowsMaps{};
 
-	GpuImageViewConfig shadowsViewConfig = GpuImageViewConfig::CreateSampled_Array(0, shadowMap.GetNumCascades());
+	GpuImageViewConfig shadowsViewConfig = GpuImageViewConfig::CreateSampled_Array(0, m_shadowMap.GetNumCascades());
 	shadowsViewConfig.channel = SampledChannel::DEPTH;
 
 	for (UIndex32 i = 0; i < NUM_RESOURCES_IN_FLIGHT; i++) {
-		_cameraUbos[i] = cameraBuffers[i].GetPointer();
-		_previousCameraUbos[i] = previousCameraBuffers[i].GetPointer();
-		_dirLightUbos[i] = dirLightUbos[i].GetPointer();
-		_shadowsMatricesUbos[i] = shadowMap.GetDirLightMatrixUniformBuffers()[i];
-		_shadowsMaps[i] = shadowMap.GetShadowImage(i)->GetView(shadowsViewConfig);
+		_cameraUbos[i] = m_cameraBuffers[i].GetPointer();
+		_previousCameraUbos[i] = m_previousCameraBuffers[i].GetPointer();
+		_dirLightUbos[i] = m_dirLightUbos[i].GetPointer();
+		_shadowsMatricesUbos[i] = m_shadowMap.GetDirLightMatrixUniformBuffers()[i];
+		_shadowsMaps[i] = m_shadowMap.GetShadowImage(i)->GetView(shadowsViewConfig);
 	}
 
-	sceneMaterialInstance->GetSlot("global")->SetUniformBuffers("camera", _cameraUbos);
-	sceneMaterialInstance->GetSlot("global")->SetUniformBuffers("previousCamera", _previousCameraUbos);
-	sceneMaterialInstance->GetSlot("global")->SetUniformBuffer("res", resolutionBuffer.GetValue());
+	m_sceneMaterialInstance->GetSlot("global")->SetUniformBuffers("camera", _cameraUbos);
+	m_sceneMaterialInstance->GetSlot("global")->SetUniformBuffers("previousCamera", _previousCameraUbos);
+	m_sceneMaterialInstance->GetSlot("global")->SetUniformBuffer("res", m_resolutionBuffer.GetValue());
 
-	sceneMaterialInstance->GetSlot("global")->SetUniformBuffers("dirLight", _dirLightUbos);
-	sceneMaterialInstance->GetSlot("global")->SetUniformBuffers("dirLightShadowMat", _shadowsMatricesUbos);
-	sceneMaterialInstance->GetSlot("global")->SetGpuImages("dirLightShadowMap", _shadowsMaps);
+	m_sceneMaterialInstance->GetSlot("global")->SetUniformBuffers("dirLight", _dirLightUbos);
+	m_sceneMaterialInstance->GetSlot("global")->SetUniformBuffers("dirLightShadowMat", _shadowsMatricesUbos);
+	m_sceneMaterialInstance->GetSlot("global")->SetGpuImages("dirLightShadowMap", _shadowsMaps);
 
-	sceneMaterialInstance->GetSlot("global")->FlushUpdate(); // No está completo.
+	m_sceneMaterialInstance->GetSlot("global")->FlushUpdate(); // No está completo.
 }
 
 void RenderSystem3D::InitializeTerrain(const Vector2ui& resolution, const Texture& heightMap, const Texture& texture) {
-	return;
-	
+/*
 	terrain.Generate(resolution);
 
 	const GpuImageViewConfig viewConfig = GpuImageViewConfig::CreateSampled_MipLevelRanged(0, 0);
@@ -154,6 +151,7 @@ void RenderSystem3D::InitializeTerrain(const Vector2ui& resolution, const Textur
 	// Albedo
 	terrain.GetMaterialInstance()->GetSlot("texture")->SetGpuImage("albedoTexture", texture.GetGpuImage()->GetView(GpuImageViewConfig::CreateSampled_Default()));
 	terrain.GetMaterialInstance()->GetSlot("texture")->FlushUpdate();
+*/
 }
 
 void RenderSystem3D::CreateTargetImage(const Vector2ui& size) {
@@ -164,16 +162,24 @@ void RenderSystem3D::CreateTargetImage(const Vector2ui& size) {
 	};
 
 	const RenderTargetAttachmentInfo motionInfo { 
-		.format = Format::RG16_SFLOAT, 
+		.format = Format::RG16_SFLOAT,
+		.usage = GpuImageUsage::COLOR | GpuImageUsage::SAMPLED,
 		.name = "RenderSystem3D Motion"
 	};
 
+	const RenderTargetAttachmentInfo normalInfo{
+		.format = Format::RGB10A2_UNORM,
+		.usage = GpuImageUsage::COLOR | GpuImageUsage::SAMPLED,
+		.name = "RenderSystem3D Normal"
+	};
+
 	const RenderTargetAttachmentInfo depthInfo { 
-		.format = Format::D32S8_SFLOAT_SUINT, 
+		.format = Format::D32_SFLOAT, 
+		.usage = GpuImageUsage::DEPTH | GpuImageUsage::SAMPLED,
 		.name = "RenderSystem3D Depth"
 	};
 
-	renderTarget.Create(size, { colorInfo, motionInfo }, depthInfo);
+	renderTarget.Create(size, { colorInfo, motionInfo, normalInfo }, depthInfo);
 
 	// TAA
 	std::array<const GpuImage*, NUM_RESOURCES_IN_FLIGHT> sourceImages{};
@@ -184,14 +190,14 @@ void RenderSystem3D::CreateTargetImage(const Vector2ui& size) {
 		motionImages[i] = renderTarget.GetColorImage(MOTION_IMAGE_INDEX, i);
 	}
 
-	taaProvider.InitializeTaa(
+	m_taaProvider.InitializeTaa(
 		size,
 		sourceImages,
 		motionImages);
 
-	resolutionBuffer->MapMemory();
-	resolutionBuffer->Write(size.ToVector2f());
-	resolutionBuffer->Unmap();
+	m_resolutionBuffer->MapMemory();
+	m_resolutionBuffer->Write(size.ToVector2f());
+	m_resolutionBuffer->Unmap();
 }
 
 void RenderSystem3D::Resize(const Vector2ui& size) {
@@ -206,39 +212,39 @@ void RenderSystem3D::Resize(const Vector2ui& size) {
 		motionImages[i] = renderTarget.GetColorImage(MOTION_IMAGE_INDEX, i);
 	}
 
-	taaProvider.ResizeTaa(
+	m_taaProvider.ResizeTaa(
 		size,
 		sourceImages,
 		motionImages);
 
-	resolutionBuffer->MapMemory();
-	resolutionBuffer->Write(size.ToVector2f());
-	resolutionBuffer->Unmap();
+	m_resolutionBuffer->MapMemory();
+	m_resolutionBuffer->Write(size.ToVector2f());
+	m_resolutionBuffer->Unmap();
 }
 
 ShadowMap* RenderSystem3D::GetShadowMap() {
-	return &shadowMap;
+	return &m_shadowMap;
 }
 
 void RenderSystem3D::GenerateShadows(ICommandList* commandList, ModelType modelType) {
 	const UIndex32 resourceIndex = Engine::GetRenderer()->GetCurrentResourceIndex();
 	const Viewport viewport {
 		.rectangle = { 0u, 0u, 
-		shadowMap.GetColorImage(0)->GetSize2D().x, 
-		shadowMap.GetColorImage(0)->GetSize2D().y }
+		m_shadowMap.GetColorImage(0)->GetSize2D().x, 
+		m_shadowMap.GetColorImage(0)->GetSize2D().y }
 	};
 
 	commandList->StartDebugSection("Shadows", Color::Black);
 
 	commandList->SetGpuImageBarrier(
-		shadowMap.GetShadowImage(resourceIndex), 
+		m_shadowMap.GetShadowImage(resourceIndex), 
 		GpuImageLayout::UNDEFINED,
 		GpuImageLayout::DEPTH_STENCIL_TARGET,
 		GpuBarrierInfo(GpuCommandStage::NONE, GpuAccessStage::NONE),
 		GpuBarrierInfo(GpuCommandStage::DEPTH_STENCIL_START, GpuAccessStage::DEPTH_STENCIL_READ | GpuAccessStage::DEPTH_STENCIL_WRITE),
 		GpuImageRange { 
 			.baseLayer = 0, 
-			.numLayers = shadowMap.GetNumCascades(),
+			.numLayers = m_shadowMap.GetNumCascades(),
 			.baseMipLevel = 0, 
 			.numMipLevels = ALL_MIP_LEVELS, 
 			.channel = SampledChannel::DEPTH 
@@ -247,24 +253,24 @@ void RenderSystem3D::GenerateShadows(ICommandList* commandList, ModelType modelT
 	commandList->SetViewport(viewport);
 	commandList->SetScissor(viewport.rectangle);
 
-	for (UIndex32 i = 0; i < shadowMap.GetNumCascades(); i++) {
+	for (UIndex32 i = 0; i < m_shadowMap.GetNumCascades(); i++) {
 
 		commandList->StartDebugSection(std::format("Cascade {}", i), Color::Black);
 
 		RenderPassImageInfo colorInfo{};
 		colorInfo.arrayLevel = i;
-		colorInfo.targetImage = shadowMap.GetColorImage(resourceIndex);
+		colorInfo.targetImage = m_shadowMap.GetColorImage(resourceIndex);
 
 		RenderPassImageInfo depthInfo{};
 		depthInfo.arrayLevel = i;
-		depthInfo.targetImage = shadowMap.GetShadowImage(resourceIndex);
+		depthInfo.targetImage = m_shadowMap.GetShadowImage(resourceIndex);
 
 		commandList->BeginGraphicsRenderpass({ colorInfo }, depthInfo, { 1.0f, 1.0f, 1.0f, 1.0f }, false);
 
 		commandList->StartDebugSection("Static Meshes", Color::Black);
 
-		commandList->BindMaterial(*shadowMap.GetShadowsMaterial(ModelType::STATIC_MESH));
-		commandList->BindMaterialSlot(*shadowMap.GetShadowsMaterialInstance()->GetSlot("global"));
+		commandList->BindMaterial(*m_shadowMap.GetShadowsMaterial(ModelType::STATIC_MESH));
+		commandList->BindMaterialSlot(*m_shadowMap.GetShadowsMaterialInstance()->GetSlot("global"));
 
 		ShadowsRenderLoop(ModelType::STATIC_MESH, commandList, i);
 
@@ -272,8 +278,8 @@ void RenderSystem3D::GenerateShadows(ICommandList* commandList, ModelType modelT
 
 		commandList->StartDebugSection("Animated Models", Color::Black);
 
-		commandList->BindMaterial(*shadowMap.GetShadowsMaterial(ModelType::ANIMATED_MODEL));
-		commandList->BindMaterialSlot(*shadowMap.GetShadowsMaterialInstance()->GetSlot("global"));
+		commandList->BindMaterial(*m_shadowMap.GetShadowsMaterial(ModelType::ANIMATED_MODEL));
+		commandList->BindMaterialSlot(*m_shadowMap.GetShadowsMaterialInstance()->GetSlot("global"));
 		ShadowsRenderLoop(ModelType::ANIMATED_MODEL, commandList, i);
 
 		commandList->EndDebugSection();
@@ -291,12 +297,12 @@ void RenderSystem3D::RenderScene(ICommandList* commandList) {
 	
 	commandList->StartDebugSection("PBR Direct", Color::Red);
 
-	commandList->SetGpuImageBarrier(shadowMap.GetShadowImage(resourceIndex),
+	commandList->SetGpuImageBarrier(m_shadowMap.GetShadowImage(resourceIndex),
 		GpuImageLayout::SAMPLED,
 		GpuBarrierInfo(GpuCommandStage::FRAGMENT_SHADER, GpuAccessStage::SAMPLED_READ),
 		GpuImageRange{
 			.baseLayer = 0, 
-			.numLayers = shadowMap.GetNumCascades(), 
+			.numLayers = m_shadowMap.GetNumCascades(), 
 			.baseMipLevel = 0, 
 			.numMipLevels = ALL_MIP_LEVELS, 
 			.channel = SampledChannel::DEPTH });
@@ -312,7 +318,7 @@ void RenderSystem3D::RenderScene(ICommandList* commandList) {
 	// SceneRenderLoop(ModelType::ANIMATED_MODEL, commandList);
 	commandList->EndDebugSection();
 
-	if (terrain.GetVertexBuffer() != nullptr)
+	if (m_terrain.GetVertexBuffer() != nullptr)
 		RenderTerrain(commandList);
 	
 	commandList->EndGraphicsRenderpass();
@@ -323,8 +329,8 @@ void RenderSystem3D::SceneRenderLoop(ModelType modelType, ICommandList* commandL
 	const GpuBuffer* previousVertexBuffer = nullptr;
 	const GpuBuffer* previousIndexBuffer = nullptr;
 
-	commandList->BindMaterial(modelType == ModelType::STATIC_MESH ? *sceneMaterial : *animatedSceneMaterial);
-	commandList->BindMaterialSlot(*sceneMaterialInstance->GetSlot("global"));
+	commandList->BindMaterial(modelType == ModelType::STATIC_MESH ? *m_sceneMaterial : *m_animatedSceneMaterial);
+	commandList->BindMaterialSlot(*m_sceneMaterialInstance->GetSlot("global"));
 	
 	for (GameObjectIndex obj : GetObjects()) {
 		const ModelComponent3D& model = Engine::GetEcs()->GetComponent<ModelComponent3D>(obj);
@@ -349,8 +355,8 @@ void RenderSystem3D::SceneRenderLoop(ModelType modelType, ICommandList* commandL
 			glm::vec4 materialInfos;
 		} pushConsts {
 			.model = transform.GetAsMatrix(),
-			.previousModel = previousModelMatrices.contains(obj) 
-				? previousModelMatrices.at(obj) 
+			.previousModel = m_previousModelMatrices.contains(obj) 
+				? m_previousModelMatrices.at(obj) 
 				: glm::mat4(1.0f)
 		};
 
@@ -365,7 +371,7 @@ void RenderSystem3D::SceneRenderLoop(ModelType modelType, ICommandList* commandL
 
 			pushConsts.materialInfos.x = meshMetadata.metallicFactor;
 			pushConsts.materialInfos.y = meshMetadata.roughnessFactor;
-			pushConsts.materialInfos.z = (float)taaProvider.GetCurrentFrameJitterIndex();
+			pushConsts.materialInfos.z = (float)m_taaProvider.GetCurrentFrameJitterIndex();
 
 			commandList->PushMaterialConstants("pushConstants", pushConsts);
 
@@ -403,11 +409,11 @@ void RenderSystem3D::ShadowsRenderLoop(ModelType modelType, ICommandList* comman
 }
 
 void RenderSystem3D::RenderTerrain(ICommandList* commandList) {
-	commandList->BindMaterial(*terrainMaterial);
-	commandList->BindMaterialInstance(*terrain.GetMaterialInstance());
+	commandList->BindMaterial(*m_terrainMaterial);
+	commandList->BindMaterialInstance(*m_terrain.GetMaterialInstance());
 
-	commandList->BindVertexBuffer(*terrain.GetVertexBuffer());
-	commandList->BindIndexBuffer(*terrain.GetIndexBuffer());
+	commandList->BindVertexBuffer(*m_terrain.GetVertexBuffer());
+	commandList->BindIndexBuffer(*m_terrain.GetIndexBuffer());
 	
 	glm::mat4 model = glm::scale(glm::mat4(1.0f), { 100.f, 5.f, 100.f });
 
@@ -422,7 +428,7 @@ void RenderSystem3D::RenderTerrain(ICommandList* commandList) {
 	};
 	commandList->PushMaterialConstants("pushConstants", pushConsts);
 	
-	commandList->DrawSingleMesh(0, terrain.GetNumIndices());
+	commandList->DrawSingleMesh(0, m_terrain.GetNumIndices());
 }
 
 void RenderSystem3D::ExecuteTaa(ICommandList* commandList) {
@@ -440,9 +446,9 @@ void RenderSystem3D::ExecuteTaa(ICommandList* commandList) {
 		GpuImageLayout::SAMPLED,
 		GpuBarrierInfo(GpuCommandStage::COMPUTE_SHADER, GpuAccessStage::SAMPLED_READ));
 
-	taaProvider.ExecuteTaa(commandList);
+	m_taaProvider.ExecuteTaa(commandList);
 
-	if (taaProvider.IsActive())
+	if (m_taaProvider.IsActive())
 		CopyTaaResult(commandList);
 	
 	commandList->EndDebugSection();
@@ -450,7 +456,7 @@ void RenderSystem3D::ExecuteTaa(ICommandList* commandList) {
 
 void RenderSystem3D::CopyTaaResult(GRAPHICS::ICommandList* commandList) {
 	const UIndex32 resourceIndex = Engine::GetRenderer()->GetCurrentResourceIndex();
-	GpuImage* sourceImage = taaProvider.GetTaaOutput().GetTargetImage(resourceIndex);
+	GpuImage* sourceImage = m_taaProvider.GetTaaOutput().GetTargetImage(resourceIndex);
 	GpuImage* destinationImage = renderTarget.GetColorImage(COLOR_IMAGE_INDEX, resourceIndex);
 
 	// Imagen original TAA: transfer source.
@@ -474,38 +480,38 @@ void RenderSystem3D::CopyTaaResult(GRAPHICS::ICommandList* commandList) {
 void RenderSystem3D::Render(GRAPHICS::ICommandList* commandList) {
 	const UIndex32 resourceIndex = Engine::GetRenderer()->GetCurrentResourceIndex();
 
-	const auto& camera = Engine::GetEcs()->GetComponent<CameraComponent3D>(cameraObject);
-	const auto& cameraTransform = Engine::GetEcs()->GetComponent<Transform3D>(cameraObject);
+	const auto& camera = Engine::GetEcs()->GetComponent<CameraComponent3D>(m_cameraObject);
+	const auto& cameraTransform = Engine::GetEcs()->GetComponent<Transform3D>(m_cameraObject);
 
 	const glm::mat4 currentProjection = camera.GetProjectionMatrix();
 	const glm::mat4 currentView = camera.GetViewMatrix(cameraTransform);
 
-	cameraBuffers[resourceIndex]->MapMemory();
-	cameraBuffers[resourceIndex]->Write(currentProjection);
-	cameraBuffers[resourceIndex]->Write(currentView);
-	cameraBuffers[resourceIndex]->Write(cameraTransform.GetPosition());
-	cameraBuffers[resourceIndex]->Unmap();
+	m_cameraBuffers[resourceIndex]->MapMemory();
+	m_cameraBuffers[resourceIndex]->Write(currentProjection);
+	m_cameraBuffers[resourceIndex]->Write(currentView);
+	m_cameraBuffers[resourceIndex]->Write(cameraTransform.GetPosition());
+	m_cameraBuffers[resourceIndex]->Unmap();
 
-	previousCameraBuffers[resourceIndex]->MapMemory();
-	previousCameraBuffers[resourceIndex]->Write(previousCameraProjection);
-	previousCameraBuffers[resourceIndex]->Write(previousCameraView);
-	previousCameraBuffers[resourceIndex]->Unmap();
+	m_previousCameraBuffers[resourceIndex]->MapMemory();
+	m_previousCameraBuffers[resourceIndex]->Write(m_previousCameraProjection);
+	m_previousCameraBuffers[resourceIndex]->Write(m_previousCameraView);
+	m_previousCameraBuffers[resourceIndex]->Unmap();
 
-	dirLightUbos[resourceIndex]->MapMemory();
-	dirLightUbos[resourceIndex]->Write(dirLight);
-	dirLightUbos[resourceIndex]->Unmap();
+	m_dirLightUbos[resourceIndex]->MapMemory();
+	m_dirLightUbos[resourceIndex]->Write(m_dirLight);
+	m_dirLightUbos[resourceIndex]->Unmap();
 
-	previousCameraProjection = currentProjection;
-	previousCameraView = currentView;
+	m_previousCameraProjection = currentProjection;
+	m_previousCameraView = currentView;
 
-	shadowMap.SetDirectionalLight(dirLight);
+	m_shadowMap.SetDirectionalLight(m_dirLight);
 	
 	GenerateShadows(commandList, ModelType::STATIC_MESH);
 	RenderScene(commandList);
 	ExecuteTaa(commandList);
 
 	for (const GameObjectIndex obj : GetObjects())
-		previousModelMatrices[obj] = Engine::GetEcs()->GetComponent<Transform3D>(obj).GetAsMatrix();
+		m_previousModelMatrices[obj] = Engine::GetEcs()->GetComponent<Transform3D>(obj).GetAsMatrix();
 }
 
 void RenderSystem3D::OnTick(TDeltaTime deltaTime) {

@@ -1,0 +1,110 @@
+#version 460
+
+layout (local_size_x = 8, local_size_y = 8) in;
+
+layout (set = 0, binding = 0) uniform sampler2D sceneImage;
+layout (set = 0, binding = 1, r16f) uniform writeonly image2D finalImage;
+
+layout (set = 0, binding = 2) uniform sampler2D depthImage;
+layout (set = 0, binding = 3) uniform sampler2D normalImage;
+layout (set = 0, binding = 4) uniform sampler2D noiseImage;
+
+layout (set = 1, binding = 0) uniform Camera {
+    mat4 inverseProjection;
+    mat4 view;
+    float nearPlane;
+} camera;
+
+const int NUM_DIRECTIONS = 6;
+const int NUM_STEPS = 4;
+
+const float RADIUS = 0.5;
+const float RADIUS2 = RADIUS * RADIUS;
+
+const float STEP = 0.003;
+const float TANGENT_BIAS = 0.4;
+
+float LinearizeDepth(float depth) {
+    return depth;
+}
+
+vec3 GetViewSpacePosition(vec2 normalizedCoords, float depth) {
+    // Rango [-1,+1]
+    const vec2 ndcCoords = normalizedCoords * 2.0 - 1.0;
+    
+    const vec3 clipSpaceCoords = vec3(ndcCoords, depth);
+    const vec4 viewSpacePosition = camera.inverseProjection * vec4(clipSpaceCoords, 1.0);
+
+    return viewSpacePosition.xyz / viewSpacePosition.w;
+}
+
+void main() {
+    const vec2 texSize = textureSize(depthImage, 0);
+
+    const float depth = texelFetch(depthImage, ivec2(gl_GlobalInvocationID), 0).r;
+    const vec3 normal = texelFetch(normalImage, ivec2(gl_GlobalInvocationID), 0).xyz * 2.0 - 1.0;
+
+    const vec2 normalizedCoords = vec2(gl_GlobalInvocationID) / texSize;
+    const vec3 viewSpacePosition = GetViewSpacePosition(vec2(gl_GlobalInvocationID.xy) / texSize, depth);
+
+    vec3 viewSpaceNormal = normalize(mat3(camera.view) * normal);
+    viewSpaceNormal.y *= -1.0;
+    
+    vec2 noise = textureLod(noiseImage, vec2(gl_GlobalInvocationID.xy) * 0.3, 0).xy;
+    noise.xy *= 2.0 - 1.0;
+    const mat2 rotationMatrix = mat2(
+        noise.x, -noise.y,
+        noise.y, noise.x
+    );
+
+    const float sampledDiskDirection = 2.0 * 3.14159 / NUM_DIRECTIONS;
+
+    float occlusionSum = 0.0;
+
+    for (int dir = 0; dir < NUM_DIRECTIONS; dir++) {
+        vec3 lastDiff = vec3(0.0);
+
+        const float samplingAngle = sampledDiskDirection * dir;
+        const vec2 samplingDirection = vec2(cos(samplingAngle + noise.x), sin(samplingAngle + noise.y));
+
+        const float tangentAngle = acos(dot(vec3(samplingDirection, 0.0), viewSpaceNormal))
+            - (0.5 * 3.14159) + TANGENT_BIAS;
+        float horizonAngle = tangentAngle;
+
+        for (int stepi = 0; stepi < NUM_STEPS; stepi++) {
+            // Rango [0,1].
+            const vec2 newNormalizedPosition = normalizedCoords.xy + samplingDirection * STEP * float(stepi + 1);
+
+            const float newDepht = textureLod(depthImage, newNormalizedPosition, 0).r;
+            
+            const vec3 newViewSpacePosition = GetViewSpacePosition(newNormalizedPosition, newDepht);
+
+            const vec3 diff = newViewSpacePosition - viewSpacePosition;
+            const float diffLength2 = 
+                diff.x * diff.z +
+                diff.y * diff.y +
+                diff.z * diff.z;
+
+            if (diffLength2 < RADIUS2) {
+                const float newElevationAngle = atan(diff.z / length(diff.xy));
+                horizonAngle = max(horizonAngle, newElevationAngle);
+                lastDiff = diff;
+            }
+        }
+
+        const float normalization = length(lastDiff) / RADIUS;
+        const float attenuation = 1.0 - normalization * normalization;
+
+        const float occlussion = clamp(1.05 * attenuation * (sin(horizonAngle) - sin(tangentAngle)), 0.0, 1.0);
+        occlusionSum += 1.0 - occlussion;
+    }
+
+    occlusionSum /= NUM_DIRECTIONS;
+
+    const vec4 originalColor = texelFetch(sceneImage, ivec2(gl_GlobalInvocationID.xy), 0);
+    vec3 finalColor = originalColor.rgb * vec3(occlusionSum);
+    finalColor = vec3(occlusionSum);
+    // finalColor = vec3(depth);
+
+    imageStore(finalImage, ivec2(gl_GlobalInvocationID.xy), vec4(finalColor.rgb, originalColor.a));
+}

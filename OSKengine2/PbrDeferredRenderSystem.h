@@ -35,6 +35,9 @@ namespace OSK::ECS {
 		void CreateTargetImage(const Vector2ui& size) override;
 		void Resize(const Vector2ui& size) override;
 
+		const GRAPHICS::GBuffer& GetGbuffer() const;
+		GRAPHICS::GBuffer& GetGbuffer();
+
 		void Render(GRAPHICS::ICommandList* commandList) override;
 
 		void OnTick(TDeltaTime deltaTime) override;

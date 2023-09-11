@@ -37,7 +37,7 @@ void IPostProcessPass::SetInput(std::span<GpuImage*, NUM_RESOURCES_IN_FLIGHT> im
 		postProcessingMaterialInstance->GetSlot("texture")->SetGpuImages("sceneImage", imgs);
 }
 
-void IPostProcessPass::SetInput(const RenderTarget& target, const GpuImageViewConfig & viewConfig, InputType type) {
+void IPostProcessPass::SetInputTarget(const RenderTarget& target, const GpuImageViewConfig & viewConfig, InputType type) {
 	std::array<GpuImage*, NUM_RESOURCES_IN_FLIGHT> images{};
 
 	for (UIndex32 i = 0; i < images.size(); i++)
@@ -46,7 +46,7 @@ void IPostProcessPass::SetInput(const RenderTarget& target, const GpuImageViewCo
 	SetInput(images, viewConfig);
 }
 
-void IPostProcessPass::SetInput(const RtRenderTarget& target, const GpuImageViewConfig& viewConfig, InputType type) {
+void IPostProcessPass::SetInputTarget(const RtRenderTarget& target, const GpuImageViewConfig& viewConfig, InputType type) {
 	std::array<GpuImage*, NUM_RESOURCES_IN_FLIGHT> images{};
 
 	for (UIndex32 i = 0; i < images.size(); i++)

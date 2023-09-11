@@ -54,13 +54,14 @@ namespace OSK::ECS {
 		GRAPHICS::ShadowMap* GetShadowMap();
 		
 		const GRAPHICS::GpuBuffer* GetCameraBuffer(UIndex32 index) const {
-			return cameraBuffers[index].GetPointer();
+			return m_cameraBuffers[index].GetPointer();
 		}
 
-		inline void ToggleTaa() { taaProvider.ToggleActivation(); }
+		inline void ToggleTaa() { m_taaProvider.ToggleActivation(); }
 
-		constexpr static UIndex32 COLOR_IMAGE_INDEX = 0;
+		constexpr static UIndex32 COLOR_IMAGE_INDEX  = 0;
 		constexpr static UIndex32 MOTION_IMAGE_INDEX = 1;
+		constexpr static UIndex32 NORMAL_IMAGE_INDEX = 2;
 
 	private:
 		
@@ -80,34 +81,34 @@ namespace OSK::ECS {
 		void RenderTerrain(GRAPHICS::ICommandList* commandList);
 
 		/// @brief Buffer que contendrá la resolución del sistema.
-		UniquePtr<GRAPHICS::GpuBuffer> resolutionBuffer = nullptr;
+		UniquePtr<GRAPHICS::GpuBuffer> m_resolutionBuffer = nullptr;
 
 		/// @brief Buffers con la información de la cámara en un frame en concreto.
-		std::array<UniquePtr<GRAPHICS::GpuBuffer>, NUM_RESOURCES_IN_FLIGHT> cameraBuffers{};
+		std::array<UniquePtr<GRAPHICS::GpuBuffer>, NUM_RESOURCES_IN_FLIGHT> m_cameraBuffers{};
 		/// @brief Buffers con la información de la cámara en el frame anterior.
-		std::array<UniquePtr<GRAPHICS::GpuBuffer>, NUM_RESOURCES_IN_FLIGHT> previousCameraBuffers{};
+		std::array<UniquePtr<GRAPHICS::GpuBuffer>, NUM_RESOURCES_IN_FLIGHT> m_previousCameraBuffers{};
 
-		std::array<UniquePtr<GRAPHICS::GpuBuffer>, NUM_RESOURCES_IN_FLIGHT> dirLightUbos{};
-		GRAPHICS::DirectionalLight dirLight{};
+		std::array<UniquePtr<GRAPHICS::GpuBuffer>, NUM_RESOURCES_IN_FLIGHT> m_dirLightUbos{};
+		GRAPHICS::DirectionalLight m_dirLight{};
 
-		GRAPHICS::ShadowMap shadowMap;
-		ECS::GameObjectIndex cameraObject = ECS::EMPTY_GAME_OBJECT;
+		GRAPHICS::ShadowMap m_shadowMap;
+		ECS::GameObjectIndex m_cameraObject = ECS::EMPTY_GAME_OBJECT;
 
-		GRAPHICS::Material* sceneMaterial = nullptr;
-		GRAPHICS::Material* animatedSceneMaterial = nullptr;
+		GRAPHICS::Material* m_sceneMaterial = nullptr;
+		GRAPHICS::Material* m_animatedSceneMaterial = nullptr;
 
-		UniquePtr<GRAPHICS::MaterialInstance> sceneMaterialInstance;
+		UniquePtr<GRAPHICS::MaterialInstance> m_sceneMaterialInstance;
 
-		TerrainComponent terrain{};
-		GRAPHICS::Material* terrainMaterial = nullptr;
+		TerrainComponent m_terrain{};
+		GRAPHICS::Material* m_terrainMaterial = nullptr;
 
 		// TAA
-		GRAPHICS::TaaProvider taaProvider{};
+		GRAPHICS::TaaProvider m_taaProvider{};
 
-		std::unordered_map<GameObjectIndex, glm::mat4> previousModelMatrices;
+		std::unordered_map<GameObjectIndex, glm::mat4> m_previousModelMatrices;
 
-		glm::mat4 previousCameraProjection = glm::mat4(1.0f);
-		glm::mat4 previousCameraView = glm::mat4(1.0f);
+		glm::mat4 m_previousCameraProjection = glm::mat4(1.0f);
+		glm::mat4 m_previousCameraView = glm::mat4(1.0f);
 
 	};
 

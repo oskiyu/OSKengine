@@ -38,7 +38,10 @@ void GraphicsPipelineVk::Create(const MaterialLayout* materialLayout, IGpu* devi
 	layout = new PipelineLayoutVk(materialLayout);
 
 	LoadVertexShader(info.vertexPath);
-	LoadFragmentShader(info.fragmentPath);
+
+	if (info.fragmentPath != "") {
+		LoadFragmentShader(info.fragmentPath);
+	}
 
 	if (info.tesselationControlPath != "") {
 		LoadTesselationControlShader(info.tesselationControlPath);
@@ -297,10 +300,10 @@ VkPipelineDepthStencilStateCreateInfo GraphicsPipelineVk::GetDepthInfo(const Pip
 
 	output.depthTestEnable = info.depthTestingType != DepthTestingType::NONE;
 	output.depthWriteEnable = info.depthTestingType == DepthTestingType::READ_WRITE;
-	output.depthCompareOp = VK_COMPARE_OP_LESS;
+	output.depthCompareOp = VK_COMPARE_OP_GREATER_OR_EQUAL;
 	output.depthBoundsTestEnable = VK_FALSE;
-	output.minDepthBounds = 0.0f;
-	output.maxDepthBounds = 1.0f;
+	output.minDepthBounds = 1.0f;
+	output.maxDepthBounds = 0.0f;
 	output.stencilTestEnable = VK_FALSE;
 	output.front = {};
 	output.back = {};

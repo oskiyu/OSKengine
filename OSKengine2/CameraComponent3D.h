@@ -82,14 +82,13 @@ namespace OSK::ECS {
 		void UpdateTransform(Transform3D* transform);
 
 
-		/// <summary> Obtiene la matriz proyección de la cámara. </summary>
+		/// @return Matriz proyección de la cámara, con depth Z invertido y
+		/// far-plane infinito.
 		glm::mat4 GetProjectionMatrix() const;
 
-		/// <summary>
-		/// Obtiene la matriz view de la cámara.
-		/// </summary>
-		/// <
-		
+		/// <summary> Obtiene la matriz proyección de la cámara con el rango de profundidad normal. </summary>
+		glm::mat4 GetProjectionMatrix_UnreversedZ() const;
+
 		/// <summary> Obtiene la matriz view de la cámara. </summary>
 		/// <param name="transform">Transform de la cámara.</param>
 		glm::mat4 GetViewMatrix(const Transform3D& transform) const;
