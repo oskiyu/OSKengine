@@ -929,7 +929,7 @@ fix ComponentManager::InsertCopy
 
 
 
-## WIP
+## 2023.09.11a
 
 ### Graphics
 
@@ -991,3 +991,43 @@ Esto aumenta enormemente la precisión de objetos alejados, y permite renderizar 
 - **Bugfix**: ahora la cámara 3D no usa una proyección con un rango de profundidad incorrecto (-1, 1).
 - **Bugfix**: ahora `GBuffer` tiene un *getter* de imágenes no-const.
 - **Bugfix**: `PbrDeferredRenderSystem` ya no reenlaza el material de GBuffer una vez por modelo 3D.
+ 
+
+## 2023.09.15a
+
+### UI
+
+- ***Nuevo***: `Dropdown`
+    - Elemento de UI que permite al usuario seleccionar una opción entre varias mediante un menú desplegable.
+
+- `IElement`
+    - `UpdateByCursor()`:
+        - Ahora devuelve un bool indicando si el input ha sido procesado dentro del elemento.
+        - Si devuelve true, el input se ha procesado y no hay que comprobar el resto de elementos de la interfaz.
+        - Evita que al hacer click se ejecuten funciones de elementos que están por debajo de otros.
+
+- `IContainer`
+    - Si `UpdateByCursor()` devuelve true para alguno de sus hijos, detiene la ejecución para el resto de hijos.
+
+- `TextView`
+    - Ahora permite obtener la fuente usada y su tamaño.
+
+### Assets
+
+- `Font`
+    - ***Nuevo***: `GetExistingInstance()` permite obtener una instancia previamente cargada.
+    - ***Nuevo***: `ContainsInstance()` permite comprobar si una instancia ha sido previamente cargada.
+    - Llamar a `LoadSizedFont()` con un tamaño que ya ha sido cargado no hará nada, en vez de volver a cargar la fuente.
+
+### Graphics
+
+- `IRenderer`
+    - ***Nuevo***: `SetPresentMode()` permite cambiar el modo de presentación en tiempo de ejecución.
+
+- `ISwapchain`
+    - ***Nuevo***: `SetPresentMode()` permite cambiar el modo de presentación en tiempo de ejecución.
+    
+##### Bugfixes
+
+- **Bugfix**: `UI::ImageView` ya no genera una excepción cuando se intenta renderizar sin haber establecido antes la iamgen (ahora no hace nada).
+- **Bugfix**: `Sprite` ya no genera una excepción cuando se intenta establecer un image view nulo.

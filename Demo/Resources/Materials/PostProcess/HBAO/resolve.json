@@ -1,0 +1,12 @@
+{
+    "file_type": "MATERIAL_COMPUTE",
+    "spec_ver": 1,
+    "name": "HBAO Resolve",
+
+    "compute_shader": "Resources/Shaders/VK/PostProcess/HBAO/Resolve.spv",
+    
+    "slots": {
+        "0": "texture"
+    }
+
+}

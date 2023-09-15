@@ -1,0 +1,14 @@
+#version 460
+
+layout (local_size_x = 8, local_size_y = 8) in;
+
+layout (set = 0, binding = 0) uniform sampler2D sceneImage;
+layout (set = 0, binding = 1, r16f) uniform writeonly image2D finalImage;
+layout (set = 0, binding = 2) uniform sampler2D hbaoImage;
+
+void main() {
+    const vec4 color = texelFetch(sceneImage, ivec2(gl_GlobalInvocationID.xy), 0);
+    const float hbao = texelFetch(hbaoImage, ivec2(gl_GlobalInvocationID.xy), 0).r;
+
+    imageStore(finalImage, ivec2(gl_GlobalInvocationID.xy), vec4(color.xyz * hbao, color.a));
+}

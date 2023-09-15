@@ -16,8 +16,8 @@ void IElement::Render(SpriteRenderer* renderer, Vector2f parentPosition) const {
 	
 }
 
-void IElement::UpdateByCursor(Vector2f cursorPosition, bool isPressed, Vector2f parentPosition) {
-
+bool IElement::UpdateByCursor(Vector2f cursorPosition, bool isPressed, Vector2f parentPosition) {
+	return GetRectangle(parentPosition).ContainsPoint(cursorPosition);
 }
 
 void IElement::SetKeepRelativeSize(bool keepRelativeSize) {

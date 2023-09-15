@@ -66,12 +66,18 @@ void IContainer::Render(SpriteRenderer* renderer, Vector2f parentPosition) const
 			child->Render(renderer, GetRelativePosition() + parentPosition);
 }
 
-void IContainer::UpdateByCursor(Vector2f cursorPosition, bool isPressed, Vector2f parentPosition) {
+bool IContainer::UpdateByCursor(Vector2f cursorPosition, bool isPressed, Vector2f parentPosition) {
 	if (IsLocked() || !IsVisible())
-		return;
+		return false;
 
-	for (auto& child : children)
-		child->UpdateByCursor(cursorPosition, isPressed, GetRelativePosition() + parentPosition);
+	for (auto& child : children) {
+		bool processed = child->UpdateByCursor(cursorPosition, isPressed, GetRelativePosition() + parentPosition);
+
+		if (processed)
+			return true;
+	}
+
+	return false;
 }
 
 IElement* IContainer::GetChild(const std::string_view name) const {

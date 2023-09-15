@@ -81,7 +81,7 @@ namespace OSK::UI {
 		/// @see ImageView.Render() para precondiciones.
 		void Render(GRAPHICS::SpriteRenderer* renderer, Vector2f parentPosition) const override;
 
-		void UpdateByCursor(Vector2f cursor, bool isPressed, Vector2f parentPosition) override;
+		bool UpdateByCursor(Vector2f cursor, bool isPressed, Vector2f parentPosition) override;
 
 		/// @brief Establece el callback que se ejecutará cuando
 		/// el usuario pulse el botón.

@@ -44,19 +44,16 @@ namespace OSK::GRAPHICS {
 		/// @param size Resolución (tanto de entrada como de salida).
 		virtual void Create(const Vector2ui& size);
 
-		/// <summary>
-		/// Cambia de tamaño el render target de salida.
+		/// @brief Cambia de tamaño el render target de salida.
 		/// Se puede sobreescribir para crear recursos intermedios.
-		/// </summary>
-		/// <param name="size">Tamaño de la imagen final.</param>
+		/// @param size Tamaño de la imagen final.
 		virtual void Resize(const Vector2ui& size);
 
 
-		/// <summary>
-		/// Establece las imágenes de entrada a partir de las que
+		/// @brief Establece las imágenes de entrada a partir de las que
 		/// se calculará el efecto.
-		/// </summary>
-		/// <param name="images">Imágenes de entrada.</param>
+		/// @param images Imágenes de entrada.
+		/// @param viewConfig 
 		/// 
 		/// @warning Si las imágenes son invalidadas (porque su dueño
 		/// original se recrean o cambian de tamaño), se debe volver a 

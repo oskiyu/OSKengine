@@ -42,6 +42,7 @@
 #include "UiHorizontalContainer.h"
 #include "UiVerticalContainer.h"
 #include "UiButton.h"
+#include "UiDropdown.h"
 
 #include "PcUserInput.h"
 #include "GpuImageDimensions.h"
@@ -182,7 +183,6 @@ protected:
 
 	void SetupUi() {
 		auto logoContainer = new UI::HorizontalContainer({ 380.0f, 80.0f });
-		logoContainer->SetKeepRelativeSize(true);
 
 		const auto uiView = &Engine::GetAssetManager()->Load<ASSETS::Texture>("Resources/Assets/Textures/button_texture.json", "GLOBAL")
 			->GetTextureView2D();
@@ -222,13 +222,28 @@ protected:
 		logoContainer->AddChild("text", uiText);
 		logoContainer->AddChild("text2", text2);
 		logoContainer->AddChild("fps", uiFpsText);
-		// logoContainer->AddChild("image", uiImageView);
+
+		// Dropdown
+		auto* dropdown = new UI::Dropdown(Vector2f(160.0f, 40.0f));
+		dropdown->SetAnchor(UI::Anchor::FULLY_CENTERED);
+		dropdown->SetFont(font, 22);
+		dropdown->SetSelectionCallback([](std::string_view t) {
+			if (t == "VSYNC ON")
+				Engine::GetRenderer()->SetPresentMode(PresentMode::VSYNC_ON);
+			else
+				Engine::GetRenderer()->SetPresentMode(PresentMode::VSYNC_ON_TRIPLE_BUFFER);
+			});
+		dropdown->SetBackground(uiView, Color(0.5f, 0.5f, 0.5f, 1.0f), Color(0.5f, 0.5f, 0.8f, 1.0f));
+		dropdown->AddElement("VSYNC ON");
+		dropdown->AddElement("VSYNC TRIPLE BUFFER");
+
+		logoContainer->AddChild("dropdown", dropdown);
 
 		logoContainer->SetAnchor(UI::Anchor::TOP | UI::Anchor::LEFT);
 
 		logoContainer->AdjustSizeToChildren();
 		logoContainer->Rebuild();
-
+		
 		GetRootUiElement().AddChild("", logoContainer);
 
 		// Panel derecho

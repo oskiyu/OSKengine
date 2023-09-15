@@ -83,6 +83,10 @@ namespace OSK::GRAPHICS {
 		/// @note También se llama en el destructor.
 		virtual void Close() = 0;
 
+		/// @brief Cambia el modo de presentación del renderizador.
+		/// @param mode Modo de sincronización vertical.
+		void SetPresentMode(PresentMode mode);
+
 		/// <summary> Reconfigura el swapchain al cambiar de tamaño la ventana. </summary>
 		virtual void HandleResize();
 

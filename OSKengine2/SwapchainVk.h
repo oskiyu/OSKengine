@@ -43,6 +43,7 @@ namespace OSK::GRAPHICS {
 		/// </summary>
 		void Resize();
 
+		void SetPresentMode(PresentMode mode) override;
 		void Present() override;
 
 		VkSwapchainKHR GetSwapchain() const;

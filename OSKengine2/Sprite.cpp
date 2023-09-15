@@ -42,6 +42,9 @@ TextureCoordinates2D Sprite::GetTexCoords() const {
 void Sprite::SetImageView(const IGpuImageView* view) {
 	this->view = view;
 
+	if (!view)
+		return;
+
 	textureMaterialInstance->GetSlot("texture")->SetGpuImage("stexture", view);
 	textureMaterialInstance->GetSlot("texture")->FlushUpdate();
 }

@@ -26,6 +26,8 @@ layout(location = 10) in vec4 inPreviousCameraPosition;
 layout (location = 0) out vec4 outColor;
 // Motion Vectors
 layout (location = 1) out vec4 outMotion;
+// Normal Vectors
+layout (location = 2) out vec4 outNormals;
 
 
 // Uniforms
@@ -88,7 +90,8 @@ void main() {
         dirLightShadowMat.matrix, 
         dirLightShadowMat.splits, 
         dirLightShadowMap, 
-        inPosition) 
+        inPosition,
+        1.0) 
     * GetRadiance(
         F0, 
         dirLight.directionAndIntensity.xyz, 
@@ -160,4 +163,5 @@ void main() {
     diff.y *= -1.0;
 
     outMotion = vec4(diff, 0.0, 1.0);
+    outNormals = vec4(normal.xyz * 0.5 + 0.5, 1.0);
 }

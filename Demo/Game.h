@@ -7,6 +7,7 @@
 #include <OSKengine/RenderTarget.h>
 
 #include <OSKengine/BloomPass.h>
+#include <OSKengine/HbaoPass.h>
 #include <OSKengine/ToneMapping.h>
 
 #include "CarSpawner.h"
@@ -33,6 +34,8 @@ private:
 
 	void BuildFrame() override;
 
+	void SetupPostProcessingChain();
+
 	void RegisterEcse();
 	void SetupUi();
 
@@ -58,6 +61,7 @@ private:
 	OSK::UniquePtr<OSK::GRAPHICS::RenderTarget> textRenderTarget;
 
 	OSK::UniquePtr<OSK::GRAPHICS::BloomPass> bloomPass;
+	OSK::UniquePtr<OSK::GRAPHICS::HbaoPass> hbaoPass;
 	OSK::UniquePtr<OSK::GRAPHICS::ToneMappingPass> toneMappingPass;
 
 	OSK::GRAPHICS::Material* material2d = nullptr;

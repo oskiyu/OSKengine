@@ -1143,6 +1143,9 @@
     <ClCompile Include="HbaoPass.cpp">
       <Filter>Archivos de origen\Core\Graphics\HighLevel\PostProcess</Filter>
     </ClCompile>
+    <ClCompile Include="UiDropdown.cpp">
+      <Filter>Archivos de origen\BuiltIn\UI\Elements</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="KeyboardState.h">
@@ -2035,6 +2038,9 @@
     </ClInclude>
     <ClInclude Include="HbaoPass.h">
       <Filter>Archivos de encabezado\Core\Graphics\HighLevel\PostProcess</Filter>
+    </ClInclude>
+    <ClInclude Include="UiDropdown.h">
+      <Filter>Archivos de encabezado\BuiltIn\UI\Elements</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

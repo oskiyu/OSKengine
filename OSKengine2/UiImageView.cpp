@@ -9,6 +9,9 @@ using namespace OSK::ECS;
 using namespace OSK::GRAPHICS;
 
 void ImageView::Render(SpriteRenderer* renderer, Vector2f parentPosition) const {
+	if (!sprite.GetView())
+		return;
+
 	Transform2D transform(EMPTY_GAME_OBJECT);
 	transform.SetPosition(GetContentTopLeftPosition() + parentPosition);
 	transform.SetScale(GetContentSize());

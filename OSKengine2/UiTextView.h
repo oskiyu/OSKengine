@@ -34,6 +34,14 @@ namespace OSK::UI {
 		void SetFont(ASSETS::Font* font);
 
 
+		/// @return Fuente usada por el text view.
+		/// Puede ser null.
+		const ASSETS::Font* GetFont() const;
+
+		/// @return Tamaño de fuente usado por el text view.
+		USize32 GetFontSize() const;
+
+
 		/// @brief Establece el texto que se va a renderizar.
 		/// @param text Texto renderizado.
 		void SetText(const std::string& text);

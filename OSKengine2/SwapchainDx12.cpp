@@ -186,6 +186,10 @@ void SwapchainDx12::Present() {
     UpdateFrameIndex();
 }
 
+void SwapchainDx12::SetPresentMode(PresentMode mode) {
+    OSK_ASSERT(false, NotImplementedException());
+}
+
 void SwapchainDx12::UpdateFrameIndex() {
     currentFrameIndex = swapchain->GetCurrentBackBufferIndex();
 }

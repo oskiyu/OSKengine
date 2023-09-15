@@ -71,6 +71,10 @@ void IRenderer::UploadLayeredImageToGpu(GpuImage* destination, const TByte* data
 	cmdList->RegisterStagingBuffer(stagingBuffer);
 }
 
+void IRenderer::SetPresentMode(PresentMode mode) {
+	swapchain->SetPresentMode(mode);
+}
+
 void IRenderer::HandleResize() {
 	const Vector2ui windowSize = display->GetResolution();
 

@@ -48,7 +48,9 @@ namespace OSK::ASSETS {
 		void _SetFontFilePath(const std::string& rawFile);
 
 		/// <summary> Genera la imagen de la fuente para el tamaño de letra dado. </summary>
-		/// <param name="size">Tamaño de letra, en píxeles.</param>
+		/// <param name="size">Tamaño de letra, en píxeles.
+		/// Si ya existe una instancia cargada con el tamaño dado,
+		/// no ocurre nada.</param>
 		/// 
 		/// @throws FontLibraryInitializationException Si ocurre un error al cargar la librería de generación de fuentes.
 		/// @throws FontLodaingException Si ocurre un error al cargar la fuente.
@@ -85,6 +87,17 @@ namespace OSK::ASSETS {
 		/// @throws FontLodaingException Si ocurre un error al cargar la fuente.
 		/// @throws FontCharacterLodaingException Si ocurre un error al cargar un carácter en concreto.
 		FontInstance& GetInstance(USize32 fontSize);
+
+		/// @brief Devuelve la información de una instancia de la fuente con el tamaño dado.
+		/// @param fontSize Tamaño de la fuente.
+		/// @return Instancia de la fuente.
+		/// 
+		/// @pre Se debe haber cargado previamente una instancia con el tamaño dado.
+		const FontInstance& GetExistingInstance(USize32 fontSize) const;
+
+		/// @param fontSize Tamaño de la fuente.
+		/// @return True si se ha cargado previamente una instancia con el tamaño dado.
+		bool ContainsInstance(USize32 fontSize) const;
 
 		/// <summary>
 		/// Establece el material a partir del que se van a crear

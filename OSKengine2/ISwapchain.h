@@ -45,6 +45,10 @@ namespace OSK::GRAPHICS {
 		/// </summary>
 		virtual void Present() = 0;
 
+		/// @brief Cambia el modo de presentación del renderizador.
+		/// @param mode Modo de sincronización vertical.
+		virtual void SetPresentMode(PresentMode mode) = 0;
+
 		/// <summary>
 		/// Devuelve la imagen con el índice dado.
 		/// </summary>

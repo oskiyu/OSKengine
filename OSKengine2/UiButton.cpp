@@ -44,11 +44,11 @@ void Button::Click() {
 	}
 }
 
-void Button::UpdateByCursor(Vector2f cursor, bool isPressed, Vector2f parentPosition) {
+bool Button::UpdateByCursor(Vector2f cursor, bool isPressed, Vector2f parentPosition) {
 	if (IsLocked() || !IsVisible())
-		return;
+		return false;
 
-	bool isOverButton = GetRectangle(parentPosition).ContainsPoint(cursor);
+	const bool isOverButton = GetRectangle(parentPosition).ContainsPoint(cursor);
 
 	if (!isOverButton) {
 		if (type == Type::TOGGLE) {
@@ -59,7 +59,8 @@ void Button::UpdateByCursor(Vector2f cursor, bool isPressed, Vector2f parentPosi
 		else {
 			currentState = State::DEFAULT;
 		}
-		return;
+
+		return false;
 	}
 
 	currentState = isPressed
@@ -70,6 +71,8 @@ void Button::UpdateByCursor(Vector2f cursor, bool isPressed, Vector2f parentPosi
 		Click();
 
 	wasPreviousFramePressed = isPressed;
+
+	return true;
 }
 
 void Button::SetCallback(CallbackFnc callback) {

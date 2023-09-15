@@ -184,6 +184,12 @@ VkColorSpaceKHR SwapchainVk::GetSupportedColorSpace(const GpuVk& device) {
 	return device.GetInfo().swapchainSupportDetails.formats[0].colorSpace;
 }
 
+void SwapchainVk::SetPresentMode(PresentMode mode) {
+	this->mode = mode;
+	// Recreación.
+	Resize();
+}
+
 void SwapchainVk::Present() {
 	// Not needed in Vulkan.
 }

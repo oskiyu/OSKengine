@@ -4,7 +4,6 @@
     "name": "Shadows Gen",
 
     "vertex_shader": "Resources/Shaders/VK/Shadows/vert.spv",
-    "fragment_shader": "Resources/Shaders/VK/Shadows/frag.spv",
     
     "vertex_type": "OSK::Vertex3D",
     "config": {

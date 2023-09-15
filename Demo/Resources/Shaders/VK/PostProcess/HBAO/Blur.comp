@@ -1,0 +1,34 @@
+#version 460
+
+layout (local_size_x = 8, local_size_y = 8) in;
+
+layout (set = 0, binding = 0) uniform sampler2D unblurredHbao;
+layout (set = 0, binding = 1, r16f) uniform writeonly image2D finalImage;
+
+layout(push_constant) uniform Direction {
+    int direction;
+} direction;
+
+const float KERNEL3[3] = { 1.0 / 4.0, 1.0 / 2.0, 1.0 / 4.0 };
+const float KERNEL5[5] = { 1.0 / 16.0, 4.0 / 16.0, 6.0 / 16.0, 4.0 / 16.0, 1.0 / 16.0 };
+
+void main() {
+    const vec2 imageSize = textureSize(unblurredHbao, 0).xy;
+
+    const vec2 coords = (vec2(gl_GlobalInvocationID.xy) + 0.5) / imageSize;
+    const vec2 dir = direction.direction == 0
+        ? vec2(0.0, 1.0) / imageSize
+        : vec2(1.0, 0.0) / imageSize;
+
+    const vec2 extradir = direction.direction == 0
+        ? vec2(0.0, 0.5) / imageSize
+        : vec2(0.5, 0.0) / imageSize;
+
+    float sum = 0.0;
+    for (int i = -2; i <= 2; i++) {
+        const vec2 nCoords = coords + dir * i + extradir * sign(i);
+        sum += textureLod(unblurredHbao, nCoords, 0).r * KERNEL5[i + 2];
+    }
+    
+    imageStore(finalImage, ivec2(gl_GlobalInvocationID.xy), vec4(sum, 0.0, 0.0, 1.0));
+}

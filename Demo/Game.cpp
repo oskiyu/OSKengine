@@ -9,7 +9,7 @@
 
 #include <OSKengine/IDisplay.h>
 #include <OSKengine/Viewport.h>
-#include <OSKengine/RenderSystem3D.h>
+#include <OSKengine/PbrDeferredRenderSystem.h>
 #include <OSKengine/ColliderRenderer.h>
 #include <OSKengine/SkyboxRenderSystem.h>
 #include <OSKengine/SpriteRenderer.h>
@@ -84,7 +84,7 @@ void Game::OnCreate() {
 	ecs->AddComponent(cameraObject, OSK::ECS::CameraComponent3D());
 	ecs->AddComponent(cameraObject, cameraTransform);
 
-	ecs->GetSystem<OSK::ECS::RenderSystem3D>()->Initialize(
+	ecs->GetSystem<OSK::ECS::PbrDeferredRenderSystem>()->Initialize(
 		cameraObject,
 		*assetsManager->Load<OSK::ASSETS::IrradianceMap>("Resources/Assets/IBL/specular0.json", "GLOBAL"),
 		*assetsManager->Load<OSK::ASSETS::SpecularMap>("Resources/Assets/IBL/irradiance0.json", "GLOBAL")
@@ -131,19 +131,26 @@ void Game::OnCreate() {
 
 	material2d = OSK::Engine::GetRenderer()->GetMaterialSystem()->LoadMaterial("Resources/Materials/2D/material_2d.json");
 	material3d = OSK::Engine::GetRenderer()->GetMaterialSystem()->LoadMaterial("Resources/Materials/PBR/direct_pbr.json");
+		
+	auto* renderSystem = OSK::Engine::GetEcs()->GetSystem<OSK::ECS::PbrDeferredRenderSystem>();
+	std::array<OSK::GRAPHICS::GpuImage*, NUM_RESOURCES_IN_FLIGHT> depthImages{};
+	for (UIndex32 i = 0; i < NUM_RESOURCES_IN_FLIGHT; i++)
+		depthImages[i] = renderSystem->GetGbuffer().GetImage(i, OSK::GRAPHICS::GBuffer::Target::DEPTH);
+
+	std::array<OSK::GRAPHICS::GpuImage*, NUM_RESOURCES_IN_FLIGHT> normalImages{};
+	for (UIndex32 i = 0; i < NUM_RESOURCES_IN_FLIGHT; i++)
+		normalImages[i] = renderSystem->GetGbuffer().GetImage(i, OSK::GRAPHICS::GBuffer::Target::NORMAL);
+
+	hbaoPass = new OSK::GRAPHICS::HbaoPass();
+	hbaoPass->Create(OSK::Engine::GetDisplay()->GetResolution());
 
 	bloomPass = new OSK::GRAPHICS::BloomPass();
 	bloomPass->Create(OSK::Engine::GetDisplay()->GetResolution());
 
-	bloomPass->SetInput(finalFrameCombiner->GetRenderTarget(), OSK::GRAPHICS::GpuImageViewConfig::CreateSampled_SingleMipLevel(0));
-	bloomPass->UpdateMaterialInstance();
-
 	toneMappingPass = new OSK::GRAPHICS::ToneMappingPass();
 	toneMappingPass->Create(OSK::Engine::GetDisplay()->GetResolution());
-	toneMappingPass->SetExposure(7.0f);
 
-	toneMappingPass->SetInput(bloomPass->GetOutput(), OSK::GRAPHICS::GpuImageViewConfig::CreateSampled_SingleMipLevel(0));
-	toneMappingPass->UpdateMaterialInstance();
+	SetupPostProcessingChain();
 
 	RegisterEcse();
 	SetupUi();
@@ -160,6 +167,31 @@ void Game::OnCreate() {
 		.AttachToObject(firstCar);
 
 	ecs->GetSystem<CarInputSystem>()->SetCar(firstCar);
+}
+
+void Game::SetupPostProcessingChain() {
+	auto* renderSystem = OSK::Engine::GetEcs()->GetSystem<OSK::ECS::PbrDeferredRenderSystem>();
+	std::array<OSK::GRAPHICS::GpuImage*, NUM_RESOURCES_IN_FLIGHT> depthImages{};
+	for (UIndex32 i = 0; i < NUM_RESOURCES_IN_FLIGHT; i++)
+		depthImages[i] = renderSystem->GetGbuffer().GetImage(i, OSK::GRAPHICS::GBuffer::Target::DEPTH);
+
+	std::array<OSK::GRAPHICS::GpuImage*, NUM_RESOURCES_IN_FLIGHT> normalImages{};
+	for (UIndex32 i = 0; i < NUM_RESOURCES_IN_FLIGHT; i++)
+		normalImages[i] = renderSystem->GetGbuffer().GetImage(i, OSK::GRAPHICS::GBuffer::Target::NORMAL);
+
+	hbaoPass->SetInputTarget(finalFrameCombiner->GetRenderTarget(), OSK::GRAPHICS::GpuImageViewConfig::CreateSampled_SingleMipLevel(0));
+	hbaoPass->SetNormalsInput(normalImages);
+	hbaoPass->SetDepthInput(depthImages);
+
+	hbaoPass->UpdateMaterialInstance();
+
+	bloomPass->SetInputTarget(hbaoPass->GetOutput(), OSK::GRAPHICS::GpuImageViewConfig::CreateSampled_SingleMipLevel(0));
+	bloomPass->UpdateMaterialInstance();
+
+	toneMappingPass->SetExposure(11.0f);
+
+	toneMappingPass->SetInputTarget(bloomPass->GetOutput(), OSK::GRAPHICS::GpuImageViewConfig::CreateSampled_SingleMipLevel(0));
+	toneMappingPass->UpdateMaterialInstance();
 }
 
 void Game::OnTick(TDeltaTime deltaTime) {
@@ -188,9 +220,11 @@ void Game::OnTick(TDeltaTime deltaTime) {
 			OSK::Vector2f::Zero);
 	}
 
-	ecs->GetComponent<OSK::ECS::CameraComponent3D>(cameraObject).UpdateTransform(
-		&ecs->GetComponent<OSK::ECS::Transform3D>(cameraObject)
-	);
+	OSK::ECS::CameraComponent3D& camera = ecs->GetComponent<OSK::ECS::CameraComponent3D>(cameraObject);
+	OSK::ECS::Transform3D& cameraTransform = ecs->GetComponent<OSK::ECS::Transform3D>(cameraObject);
+
+	camera.UpdateTransform(&cameraTransform);
+	hbaoPass->UpdateCamera(glm::inverse(camera.GetProjectionMatrix()), camera.GetViewMatrix(cameraTransform), camera.GetNearPlane());
 
 	collisionTesting.Update();
 }
@@ -198,6 +232,10 @@ void Game::OnTick(TDeltaTime deltaTime) {
 void Game::OnExit() {
 	finalFrameCombiner.Delete();
 	textRenderTarget.Delete();
+
+	hbaoPass.Delete();
+	bloomPass.Delete();
+	toneMappingPass.Delete();
 }
 
 void Game::OnWindowResize(const OSK::Vector2ui& newRes) {
@@ -206,17 +244,11 @@ void Game::OnWindowResize(const OSK::Vector2ui& newRes) {
 	if (textRenderTarget.HasValue())
 		textRenderTarget->Resize(newRes);
 
+	hbaoPass->Resize(newRes);
 	bloomPass->Resize(newRes);
 	toneMappingPass->Resize(newRes);
 
-	const OSK::GRAPHICS::GpuImageViewConfig viewConfig
-		= OSK::GRAPHICS::GpuImageViewConfig::CreateSampled_SingleMipLevel(0);
-
-	bloomPass->SetInput(finalFrameCombiner->GetRenderTarget(), viewConfig);
-	toneMappingPass->SetInput(bloomPass->GetOutput(), viewConfig);
-
-	bloomPass->UpdateMaterialInstance();
-	toneMappingPass->UpdateMaterialInstance();
+	SetupPostProcessingChain();
 }
 
 void Game::BuildFrame() {
@@ -265,7 +297,7 @@ void Game::BuildFrame() {
 	OSK::GRAPHICS::GpuImage* skyboxRenderSystemImg 
 		= ecs->GetSystem<OSK::ECS::SkyboxRenderSystem>()->GetRenderTarget().GetMainColorImage(resourceIndex);
 	OSK::GRAPHICS::GpuImage* sceneRenderSystemImg  
-		= ecs->GetSystem<OSK::ECS::RenderSystem3D>()->GetRenderTarget().GetMainColorImage(resourceIndex);
+		= ecs->GetSystem<OSK::ECS::PbrDeferredRenderSystem>()->GetRenderTarget().GetMainColorImage(resourceIndex);
 
 	frameBuildCommandList->SetGpuImageBarrier(skyboxRenderSystemImg,
 		GpuImageLayout::SAMPLED,
@@ -276,6 +308,7 @@ void Game::BuildFrame() {
 	finalFrameCombiner->Draw(frameBuildCommandList, *sceneRenderSystemImg->GetView(OSK::GRAPHICS::GpuImageViewConfig::CreateSampled_SingleMipLevel(0)));
 	finalFrameCombiner->End(frameBuildCommandList);
 
+	hbaoPass->Execute(computeCommandList);
 	bloomPass->Execute(computeCommandList);
 	toneMappingPass->Execute(computeCommandList);
 

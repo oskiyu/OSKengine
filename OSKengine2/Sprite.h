@@ -54,6 +54,7 @@ namespace OSK::GRAPHICS {
 		
 		/// @brief Establece la imagen del sprite.
 		/// @param view View de la imagen que se renderizará.
+		/// Si es null, no renderizará nada.
 		/// 
 		/// @pre @p view debe tener estabilidad de puntero.
 		void SetImageView(const IGpuImageView* view);

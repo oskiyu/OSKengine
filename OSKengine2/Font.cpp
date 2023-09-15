@@ -16,7 +16,7 @@
 #include "UniquePtr.hpp"
 
 #include "FontLoadingExceptions.h"
-
+#include "InvalidArgumentException.h"
 
 using namespace OSK;
 using namespace OSK::ASSETS;
@@ -31,6 +31,9 @@ void Font::_SetFontFilePath(const std::string& rawFile) {
 }
 
 void Font::LoadSizedFont(USize32 fontSize) {
+	if (ContainsInstance(fontSize))
+		return;
+
 	// Carga de la librería.
 	static FT_Library freeType = nullptr;
 	if (freeType == nullptr) {
@@ -176,6 +179,15 @@ FontInstance& Font::GetInstance(USize32 fontSize) {
 	LoadSizedFont(fontSize);
 
 	return m_instances.at(fontSize);
+}
+
+const FontInstance& Font::GetExistingInstance(USize32 fontSize) const {
+	OSK_ASSERT(m_instances.contains(fontSize), InvalidArgumentException(std::format("No existe la instancia con el tamaño {}.", fontSize)));
+	return m_instances.at(fontSize);
+}
+
+bool Font::ContainsInstance(USize32 fontSize) const {
+	return m_instances.contains(fontSize);
 }
 
 GpuImage* Font::GetGpuImage(USize32 fontSize) {

@@ -45,6 +45,7 @@ namespace OSK::GRAPHICS {
 		void CreateImages(const IO::IDisplay& display);
 
 		void Present() override;
+		void SetPresentMode(PresentMode mode) override;
 
 		void UpdateFrameIndex();
 

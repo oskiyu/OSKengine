@@ -47,7 +47,10 @@ namespace OSK::UI {
 		/// @param cursorPosition Posición del cursor.
 		/// @param isPressed True si se está pulsando el cursor.
 		/// @param parentPosition Posición del contenedor padre.
-		virtual void UpdateByCursor(Vector2f cursorPosition, bool isPressed, Vector2f parentPosition = Vector2f::Zero);
+		/// 
+		/// @return True si el click se ha procesado dentro del elemento (y por lo tanto,
+		/// se debe detener la comprobación para el resto de elementos).
+		virtual bool UpdateByCursor(Vector2f cursorPosition, bool isPressed, Vector2f parentPosition = Vector2f::Zero);
 
 	public:
 

@@ -72,6 +72,7 @@ void TextView::AdjustSizeToText() {
 
 void TextView::SetFontSize(USize32 size) {
 	fontSize = size;
+	font->LoadSizedFont(size);
 }
 
 void TextView::SetFont(Font* font) {
@@ -80,6 +81,14 @@ void TextView::SetFont(Font* font) {
 
 void TextView::SetText(const std::string& text) {
 	this->text = text;
+}
+
+const ASSETS::Font* TextView::GetFont() const {
+	return font;
+}
+
+USize32 TextView::GetFontSize() const {
+	return fontSize;
 }
 
 std::string_view TextView::GetText() const {
