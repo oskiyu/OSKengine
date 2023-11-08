@@ -23,33 +23,6 @@ using namespace OSK::ASSETS;
 using namespace OSK::GRAPHICS;
 
 
-void AnimMeshLoader::SmoothNormals() {
-	for (UIndex32 i = 0; i < m_indices.GetSize(); i += 3) {
-		const TIndexSize localIndices[3] = {
-			m_indices.At(i + 0),
-			m_indices.At(i + 1),
-			m_indices.At(i + 2)
-		};
-
-		const VertexAnim3D localVertices[3] = {
-			vertices.At(localIndices[0]),
-			vertices.At(localIndices[1]),
-			vertices.At(localIndices[2])
-		};
-
-		const Vector3f v0 = localVertices[1].position - localVertices[0].position;
-		const Vector3f v1 = localVertices[2].position - localVertices[0].position;
-
-		const Vector3f faceNormal = v0.Cross(v1).GetNormalized();
-
-		for (UIndex32 li = 0; li < 3; li++)
-			vertices.At(localIndices[li]).normal += faceNormal;
-	}
-
-	for (UIndex32 v = 0; v < vertices.GetSize(); v++)
-		vertices.At(v).normal.Normalize();
-}
-
 void AnimMeshLoader::ProcessNode(const tinygltf::Node& node, UIndex32 nodeId, UIndex32 parentId) {
 	if (tempAnimator.GetActiveSkin() == nullptr)
 		LoadSkins();
@@ -73,6 +46,8 @@ void AnimMeshLoader::ProcessNode(const tinygltf::Node& node, UIndex32 nodeId, UI
 		if (mesh.primitives[0].material > -1)
 			m_meshIdToMaterialId[static_cast<UIndex32>(m_meshes.GetSize())] = mesh.primitives[0].material;
 
+		float radius = std::numeric_limits<float>::lowest();
+
 		for (UIndex32 i = 0; i < mesh.primitives.size(); i++) {
 			const tinygltf::Primitive& primitive = mesh.primitives[i];
 
@@ -89,6 +64,11 @@ void AnimMeshLoader::ProcessNode(const tinygltf::Node& node, UIndex32 nodeId, UI
 			const auto colors = GetVertexColors(primitive);
 			const auto joints = GetJoints(primitive);
 			const auto boneWeights = GetBoneWeights(primitive);
+
+			for (const auto& vertex : positions) {
+				const glm::vec4 position = glm::inverse(nodeMatrix) * glm::vec4(vertex.ToGlm(), 1.0);
+				radius = glm::max(radius, vertex.GetDistanceTo(Vector3f(glm::vec3(position) / position.w)));
+			}
 
 			const auto tangents = HasTangets(primitive)
 				? GetTangentVectors(primitive)
@@ -107,10 +87,10 @@ void AnimMeshLoader::ProcessNode(const tinygltf::Node& node, UIndex32 nodeId, UI
 				VertexAnim3D vertex{};
 
 				vertex.position = positions[v];
-				vertex.normal = glm::normalize(normalMatrix * normals[v].ToGLM());
+				vertex.normal = Vector3f(glm::normalize(normalMatrix * normals[v].ToGlm()));
 				vertex.texCoords = texCoords[v];
 				vertex.color = Color::White;
-				vertex.tangent = glm::normalize(normalMatrix * tangents[v].ToGLM());
+				vertex.tangent = Vector3f(glm::normalize(normalMatrix * tangents[v].ToGlm()));
 
 				if (hasJoints)
 					vertex.boneIndices = joints[v];
@@ -130,7 +110,30 @@ void AnimMeshLoader::ProcessNode(const tinygltf::Node& node, UIndex32 nodeId, UI
 
 			m_indices.InsertAll(primitiveIndices);
 
-			m_meshes.Insert(Mesh3D(static_cast<USize32>(primitiveIndices.GetSize()), firstIndexId));
+			// Bounding sphere.
+			float radius = std::numeric_limits<float>::lowest();
+
+			Vector3f center = Vector3f::Zero;
+			for (UIndex64 v = firstVertexId; v < vertices.GetSize(); v++)
+				center += vertices[v].position;
+			center /= static_cast<float>(vertices.GetSize() - firstVertexId);
+
+
+			for (UIndex64 v = firstVertexId; v < vertices.GetSize(); v++) {
+				const float distance2 = vertices[v].position.GetDistanceTo2(center);
+				radius = glm::max(radius, distance2);
+			}
+			radius = glm::sqrt(radius);
+
+			auto mesh = Mesh3D(
+				static_cast<USize32>(primitiveIndices.GetSize()),
+				firstIndexId,
+				center,
+				m_meshes.GetSize());
+
+			mesh.SetBoundingSphereRadius(radius);
+
+			m_meshes.Insert(mesh);
 		}
 	}
 
@@ -277,5 +280,5 @@ void AnimMeshLoader::SetupModel(Model3D* model) {
 	model->_SetAnimator(std::move(tempAnimator));
 	model->GetAnimator()->Setup(m_modelTransform);
 
-	IMeshLoader::SetupModel(model);
+	IGltfLoader::SetupModel(model);
 }

@@ -1,0 +1,21 @@
+{
+    "file_type": "MATERIAL",
+    "spec_ver": 1,
+    "name": "GBufferColor Billboard",
+
+    "vertex_shader": "Resources/Shaders/VK/PBR/Deferred/GBuffer/vert.spv",
+    "fragment_shader": "Resources/Shaders/VK/PBR/Deferred/GBuffer/shader_billboard.spv",
+    
+    "vertex_type": "OSK::Vertex3D",
+
+    "slots": {
+        "0": "global",
+        "1": "texture"
+    },
+    
+    "config": {
+        "disable_alpha_blending": "true",
+        "cull_mode": "none"
+    }
+    
+}

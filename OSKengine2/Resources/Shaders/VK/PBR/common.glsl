@@ -4,7 +4,7 @@ const float E = 2.7182818284;
 const float DEFAULT_F0 = 0.04;
 
 vec3 GetShadowmapCascade(vec3 cameraSpacePosition, vec4 shadowSplits);
-int GetShadowmapIndex(vec3 cameraSpacePosition, vec4 shadowSplits);
+int GetShadowmapIndex(vec3 cameraSpacePosition, vec4 shadowSplits, int numCascades);
 
 // Calcula el ratio entre la cantidad entre diffuse y specular.
 //  F0: reflejo al mirar directamente a la superficie.
@@ -109,10 +109,10 @@ vec4 GetShadowCoordinates(mat4[4] shadowMatrices, int cascadeIndex, vec3 fragPos
     return projCoords;
 }
 
-float CalculateShadowStrength(vec3 cameraSpacePosition, mat4[4] shadowMatrices, vec4 shadowSplits, sampler2DArray dirLightShadowMap, vec3 fragPosition, float nearPlane) {
+float CalculateShadowStrength(vec3 cameraSpacePosition, mat4[4] shadowMatrices, vec4 shadowSplits, sampler2DArray dirLightShadowMap, vec3 fragPosition, int numCascades) {
     // Cascaded Shadow Map
     const float viewDepth = cameraSpacePosition.z;
-    const int shadowMapIndex = GetShadowmapIndex(cameraSpacePosition, shadowSplits);
+    const int shadowMapIndex = GetShadowmapIndex(cameraSpacePosition, shadowSplits, numCascades);
 
     const vec4 fragPosInLightSpace = shadowMatrices[shadowMapIndex] * vec4(fragPosition, 1.0);
    
@@ -139,18 +139,18 @@ float CalculateShadowStrength(vec3 cameraSpacePosition, mat4[4] shadowMatrices, 
     return accumulatedShadow / (diameter * diameter);
 }
 
-int GetShadowmapIndex(vec3 cameraSpacePosition, vec4 shadowSplits) {
+int GetShadowmapIndex(vec3 cameraSpacePosition, vec4 shadowSplits, int numCascades) {
     const float viewDepth = -cameraSpacePosition.z;
     
     int index = 0;
-    for (int shadowMapIndex = 0; shadowMapIndex < 3; shadowMapIndex++)
+    for (int shadowMapIndex = 0; shadowMapIndex <= numCascades; shadowMapIndex++)
         index += int(viewDepth > shadowSplits[shadowMapIndex]);
     
     return index;
 }
 
 vec3 GetShadowmapCascade(vec3 cameraSpacePosition, vec4 shadowSplits, mat4[4] shadowMatrices, vec3 fragPosition) {
-    const int shadowMapIndex = GetShadowmapIndex(cameraSpacePosition, shadowSplits);
+    const int shadowMapIndex = GetShadowmapIndex(cameraSpacePosition, shadowSplits, 4);
     const vec4 coords = GetShadowCoordinates(shadowMatrices, shadowMapIndex, fragPosition);
 
     const float strength = (coords.x > 1 || coords.x < 0 || coords.y > 1 || coords.y < 0)

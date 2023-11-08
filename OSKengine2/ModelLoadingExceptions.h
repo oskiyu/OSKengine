@@ -128,4 +128,20 @@ namespace OSK::ASSETS {
 
 	};
 
+
+	/// @brief Excepción que se lanza cuando el formato de una propiedad del mesh no está soportada.
+	class UnsupportedMeshProperties : public EngineException {
+
+	public:
+
+		explicit UnsupportedMeshProperties(
+			std::string_view propertyDataType,
+			const std::source_location& location = std::source_location::current())
+			:
+			EngineException(
+				std::format("UnsupportedMeshProperties: el mesh tiene propiedades del tipo {}.", propertyDataType),
+				location) { }
+
+	};
+
 }

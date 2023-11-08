@@ -15,7 +15,7 @@
 #include <stbi_image.h>
 
 #include <Windows.h>
-#include "WindowsUtils.h"
+#include "StringOperations.h"
 
 #include "InitializeWindowException.h"
 

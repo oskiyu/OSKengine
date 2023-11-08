@@ -19,7 +19,7 @@ CollisionInfo CollisionInfo::TopLevelOnly() {
 	return CollisionInfo(false, true);
 }
 
-CollisionInfo CollisionInfo::True(const DetailedCollisionInfo& dInfo) {
+CollisionInfo CollisionInfo::True(const DynamicArray<DetailedCollisionInfo>& dInfo) {
 	CollisionInfo info(true, true);
 	info.detailedInfo = dInfo;
 
@@ -34,6 +34,6 @@ bool CollisionInfo::IsTopLevelColliding() const {
 	return isTopLevelColliding;
 }
 
-const DetailedCollisionInfo& CollisionInfo::GetDetailedInfo() const {
+const DynamicArray<DetailedCollisionInfo>& CollisionInfo::GetDetailedInfo() const {
 	return detailedInfo;
 }

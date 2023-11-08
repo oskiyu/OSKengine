@@ -24,96 +24,35 @@ namespace OSK {
 
 namespace OSK::ECS {
 
-	/// <summary>
-	/// Componente para el renderizado 3D de un objeto.
-	/// 
-	/// Incluye:
-	/// - Modelo 3D.
-	/// - Material del modelo.
-	/// - Instancias de los materiales de los meshes del modelo.
-	/// </summary>
+	/// @brief Componente para el renderizado 3D de un objeto.
 	class OSKAPI_CALL ModelComponent3D {
 
 	public:
 
 		OSK_COMPONENT("OSK::ModelComponent3D");
 
-		/// <summary> Establece el modelo 3D que se renderizará. </summary>
-		/// <param name="model">Modelo 3D cargado.</param>
-		/// 
-		/// @pre model no debe ser null.
-		/// @warning Debe ser establecido para poder ser usado.
+		/// @brief Establece el modelo 3D que se renderizará.
+		/// @param model Modelo 3D cargado.
+		/// @pre @p model no debe ser null.
 		void SetModel(ASSETS::Model3D* model);
 
-		/// <summary> Establece los material instances del modelo 3D. </summary>
-		/// 
-		/// @note Los meshes tendrán instancias de este material.
-		/// @warning Debe ser establecido para poder ser usado.
-		void SetMaterial(GRAPHICS::Material* material);
-
-
-		/// <summary> Devuelve el modelo 3D del componente. </summary>
-		/// <returns>No null.</returns>
-		/// 
+		/// @return Modelo 3D del componente.
 		/// @pre Debe haberse establecido el modelo con ModelComponent3D::SetModel.
 		ASSETS::Model3D* GetModel() const;
 
 
-		/// <summary> Devuelve la instancia del material del mesh dado. </summary>
-		/// <param name="meshId">Índice del mesh del modelo.</param>
-		/// 
-		/// @pre El id debe corresponder a un mesh existente dentro del modelo 3D.
-		/// @warning No comprueba que esté dentro de los límites.
-		GRAPHICS::MaterialInstance* GetMeshMaterialInstance(UIndex32 meshId) const;
+		/// @brief Establece si el modelo generará sombras.
+		/// @param castShadows True si generará sombras.
+		void SetCastShadows(bool castShadows) { m_castShadows = castShadows; }
 
-		/// <summary> Bindea la textura a todos los meshes. </summary>
-		/// <param name="slot">Slot de la textura.</param>
-		/// <param name="binding">Binding de la textura.</param>
-		/// <param name="texture">Textura.</param>
-		/// 
-		/// @note Se guardará información, de tal manera que si se añaden más meshes
-		/// después de haber llamado a la función, se bindearán a ellos también.
-		/// 
-		/// @warning No comprueba que el slot / textura existan en el material.
-		void BindTextureForAllMeshes(const std::string& slot, const std::string& binding, const ASSETS::Texture* texture);
-
-		/// <summary> Bindea la textura a todos los meshes. </summary>
-		/// <param name="slot">Slot de la textura.</param>
-		/// <param name="binding">Binding de la textura.</param>
-		/// <param name="image">Imagen.</param>
-		/// 
-		/// @note Se guardará información, de tal manera que si se añaden más meshes
-		/// después de haber llamado a la función, se bindearán a ellos también.
-		/// 
-		/// @warning No comprueba que el slot / textura existan en el material.
-		void BindGpuImageForAllMeshes(const std::string& slot, const std::string& binding, const GRAPHICS::IGpuImageView* image);
-
-		/// <summary>
-		/// Bindea el buffer a todos los meshes.
-		/// </summary>
-		/// <param name="slot">Slot del buffer.</param>
-		/// <param name="binding">Binding del buffer.</param>
-		/// <param name="buffer">Buffer.</param>
-		/// 
-		/// @note Se guardará información, de tal manera que si se añaden más meshes
-		/// después de haber llamado a la función, se bindearán a ellos también.
-		/// 
-		/// @warning No comprueba que el slot / buffer existan en el material.
-		void BindUniformBufferForAllMeshes(const std::string& slot, const std::string& binding, const GRAPHICS::GpuBuffer* buffer);
+		/// @return True si generará sombras.
+		bool CastsShadows() const { return m_castShadows; }
 
 	private:
 
-		ASSETS::Model3D* model = nullptr;
-		GRAPHICS::Material* material = nullptr;
+		ASSETS::Model3D* m_model = nullptr;
 
-		DynamicArray<UniquePtr<GRAPHICS::MaterialInstance>> meshesMaterialInstances;
-
-		/// <summary> Texturas enlazadas para todos los meshes. </summary>
-		std::unordered_map<std::string, std::unordered_map<std::string, const ASSETS::Texture*>> texturesBound;
-		/// <summary> Texturas enlazadas para todos los meshes. </summary>
-		std::unordered_map<std::string, std::unordered_map<std::string, const GRAPHICS::IGpuImageView*>> imagesBound;
-		/// <summary> Buffers enlazados para todos los meshes. </summary>
-		std::unordered_map<std::string, std::unordered_map<std::string, const GRAPHICS::GpuBuffer*>> uniformBuffersBound;
+		bool m_castShadows = true;
 
 	};
 

@@ -125,16 +125,16 @@ namespace OSK::ECS {
 		// --- MOTION --- //
 
 		/// @brief Velocidad de la entidad, en metros por segundo.
-		Vector3f velocity = 0.0f;
+		Vector3f velocity = Vector3f::Zero;
 		/// @brief Aceleración de la unidad, en metros por segundo al cuadrado (m/s^2).
-		Vector3f acceleration = 0.0f;
+		Vector3f acceleration = Vector3f::Zero;
 
 		/// @brief Cambio de velocidad en el frame actual.
 		Vector3f currentFrameVelocityDelta = Vector3f::Zero;
 
 		/// @brief La dirección del vector indica el eje de rotación,
 		/// y la longitud la cantidad de velocidad.
-		Vector3f angularVelocity = 0.0f;
+		Vector3f angularVelocity = Vector3f::Zero;
 
 	};
 

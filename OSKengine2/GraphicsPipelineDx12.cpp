@@ -25,7 +25,7 @@
 #include "OSKengine.h"
 #include "Logger.h"
 
-#include "WindowsUtils.h"
+#include "StringOperations.h"
 
 
 using namespace OSK;

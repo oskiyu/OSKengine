@@ -21,6 +21,8 @@
 #include "ModelComponent3D.h"
 #include "Texture.h"
 
+#include "InvalidDescriptionFileException.h"
+
 #define GLM_ENABLE_EXPERIMENTAL
 #include <glm/gtx/matrix_decompose.hpp>
 #include <glm/gtc/type_ptr.hpp>
@@ -41,56 +43,6 @@ using namespace OSK;
 using namespace OSK::ASSETS;
 using namespace OSK::GRAPHICS;
 
-ModelLoader3D::ModelLoader3D() {
-	SetupDefaultNormalTexture();
-}
-
-ModelLoader3D::~ModelLoader3D() {
-	defaultNormalTexture.Delete();
-}
-
-void ModelLoader3D::SetupDefaultNormalTexture() {
-	IRenderer* renderer = Engine::GetRenderer();
-	IGpuMemoryAllocator* mAllocator = renderer->GetAllocator();
-	OwnedPtr<ICommandList> uploadCmdList = renderer->CreateSingleUseCommandList();
-	uploadCmdList->Start();
-
-	TByte data[4] = {
-		127, // R: x
-		127, // G: y
-		255, // B: z
-		255	 // A
-	};
-
-	OwnedPtr<GpuBuffer> stagingBuffer = mAllocator->CreateStagingBuffer(sizeof(data), GpuBufferUsage::TRANSFER_SOURCE);
-	stagingBuffer->MapMemory();
-	stagingBuffer->Write(data, sizeof(data));
-	stagingBuffer->Unmap();
-
-	GpuImageCreateInfo imageInfo = GpuImageCreateInfo::CreateDefault2D(
-		Vector2ui(1, 1),
-		Format::RGBA8_UNORM,
-		GpuImageUsage::SAMPLED | GpuImageUsage::TRANSFER_DESTINATION);
-	imageInfo.samplerDesc.mipMapMode = GpuImageMipmapMode::NONE;
-	imageInfo.samplerDesc.addressMode = GpuImageAddressMode::REPEAT;
-	defaultNormalTexture = mAllocator->CreateImage(imageInfo).GetPointer();
-
-	uploadCmdList->SetGpuImageBarrier(
-		defaultNormalTexture.GetPointer(),
-		GpuImageLayout::TRANSFER_DESTINATION,
-		GpuBarrierInfo(GpuCommandStage::TRANSFER, GpuAccessStage::TRANSFER_WRITE));
-
-	uploadCmdList->CopyBufferToImage(stagingBuffer.GetValue(), defaultNormalTexture.GetPointer());
-
-	uploadCmdList->SetGpuImageBarrier(
-		defaultNormalTexture.GetPointer(),
-		GpuImageLayout::SAMPLED,
-		GpuBarrierInfo(GpuCommandStage::FRAGMENT_SHADER, GpuAccessStage::SHADER_READ));
-	
-	uploadCmdList->Close();
-
-	renderer->SubmitSingleUseCommandList(uploadCmdList);
-}
 
 void ModelLoader3D::Load(const std::string& assetFilePath, IAsset** asset) {
 	Model3D* output = (Model3D*)*asset;
@@ -100,6 +52,10 @@ void ModelLoader3D::Load(const std::string& assetFilePath, IAsset** asset) {
 
 	std::string modelPath = assetInfo["raw_asset_path"];
 	output->SetName(assetInfo["name"]);
+
+	OSK_ASSERT(assetInfo.contains("renderpass_type"), InvalidDescriptionFileException("No se encuentra renderpass_type", assetFilePath));
+
+	output->SetRenderPassType(assetInfo["renderpass_type"]);
 
 	const bool isAnimated = assetInfo.contains("animated");
 
@@ -113,6 +69,13 @@ void ModelLoader3D::Load(const std::string& assetFilePath, IAsset** asset) {
 		modelTransform = glm::rotate(modelTransform, glm::radians((float)assetInfo["rotation_offset"][2]), { 0.0f, 0.0f, 1.0f });
 	}
 
+	/*for (const auto& lodInfo : assetInfo["lods"]) {
+		const std::string_view path = lodInfo["path"];
+
+
+	}*/
+
+	const USize64 prevNumMeshes = output->GetMeshes().GetSize();
 
 	if (isAnimated) {
 		AnimMeshLoader loader{};
@@ -124,35 +87,11 @@ void ModelLoader3D::Load(const std::string& assetFilePath, IAsset** asset) {
 		loader.Load(modelPath, modelTransform);
 		loader.SetupModel(output);
 	}
+
+	const USize64 newNumMeshes = output->GetMeshes().GetSize();
+
+	output->_RegisterLod(Model3D::Lod{ .firstMeshId = prevNumMeshes, .meshesCount = newNumMeshes - prevNumMeshes });
+
+	output->_SetId(m_nextModelId);
+	m_nextModelId++;
 }
-
-void ModelLoader3D::SetupPbrModel(const Model3D& model, ECS::ModelComponent3D* component) {
-	const GpuImageViewConfig view = GpuImageViewConfig::CreateSampled_Default();
-
-	const auto defaultNormalTextureView = defaultNormalTexture->GetView(view);
-	const auto defaultTextureView = Engine::GetAssetManager()->Load<Texture>("Resources/Assets/Textures/texture0.json", "GLOBAL")
-		->GetGpuImage()->GetView(view);
-	
-	// Texturas por defecto
-	for (UIndex32 i = 0; i < model.GetMeshes().GetSize(); i++) {
-		component->GetMeshMaterialInstance(i)->GetSlot("texture")->SetGpuImage("albedoTexture", defaultTextureView);
-		component->GetMeshMaterialInstance(i)->GetSlot("texture")->SetGpuImage("normalTexture", defaultNormalTextureView);
-	}
-
-	for (UIndex32 i = 0; i < model.GetMeshes().GetSize(); i++) {
-		const auto& meshMetadata = model.GetMetadata().meshesMetadata[i];
-		
-		if (!meshMetadata.materialTextures.empty()) {
-			for (auto& [name, texture] : meshMetadata.materialTextures) {
-				if (name == "baseTexture")
-					component->GetMeshMaterialInstance(i)->GetSlot("texture")->SetGpuImage("albedoTexture", model.GetImage(texture)->GetView(view));
-				else if (name == "normalTexture")
-					component->GetMeshMaterialInstance(i)->GetSlot("texture")->SetGpuImage("normalTexture", model.GetImage(texture)->GetView(view));
-			}
-		}
-
-		component->GetMeshMaterialInstance(i)->GetSlot("texture")->FlushUpdate();
-	}
-}
-
-UniquePtr<GpuImage> ModelLoader3D::defaultNormalTexture = nullptr;

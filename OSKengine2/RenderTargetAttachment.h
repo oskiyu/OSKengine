@@ -7,6 +7,8 @@
 #include "IGpuImage.h"
 #include "Vector2.hpp"
 
+#include <array>
+
 namespace OSK::GRAPHICS {
 
 	/// <summary>
@@ -56,7 +58,7 @@ namespace OSK::GRAPHICS {
 	private:
 
 		RenderTargetAttachmentInfo info;
-		UniquePtr<GpuImage> images[NUM_RESOURCES_IN_FLIGHT]{};
+		std::array<UniquePtr<GpuImage>, NUM_RESOURCES_IN_FLIGHT> images{};
 
 	};
 

@@ -32,6 +32,11 @@ namespace OSK::COLLISION {
 
 		OSK_COMPONENT("OSK::Collider");
 
+		/// @brief Operador de copia.
+		/// @param other Otro collider que será copiado.
+		void CopyFrom(const Collider& other);
+
+
 		/// @brief Establece el volumen de nivel alto.
 		void SetTopLevelCollider(OwnedPtr<ITopLevelCollider> collider);
 		/// @brief Añade un volumen de nivel bajo.
@@ -45,18 +50,18 @@ namespace OSK::COLLISION {
 		CollisionInfo GetCollisionInfo(const Collider& other, 
 			const ECS::Transform3D& thisTransform, const ECS::Transform3D& otherTransform) const;
 
-		const ITopLevelCollider* GetTopLevelCollider() const { return topLevelCollider.GetPointer(); }
-		ITopLevelCollider* GetTopLevelCollider() { return topLevelCollider.GetPointer(); }
+		const ITopLevelCollider* GetTopLevelCollider() const { return m_topLevelCollider.GetPointer(); }
+		ITopLevelCollider* GetTopLevelCollider() { return m_topLevelCollider.GetPointer(); }
 
-		const IBottomLevelCollider* GetBottomLevelCollider(UIndex32 id) const { return bottomLevelColliders[id].GetPointer(); }
-		IBottomLevelCollider* GetBottomLevelCollider(UIndex32 id) { return bottomLevelColliders[id].GetPointer(); }
+		const IBottomLevelCollider* GetBottomLevelCollider(UIndex32 id) const { return m_bottomLevelColliders[id].GetPointer(); }
+		IBottomLevelCollider* GetBottomLevelCollider(UIndex32 id) { return m_bottomLevelColliders[id].GetPointer(); }
 
 		USize32 GetBottomLevelCollidersCount() const;
 
 	private:
 
-		UniquePtr<ITopLevelCollider> topLevelCollider;
-		DynamicArray<UniquePtr<IBottomLevelCollider>> bottomLevelColliders;
+		UniquePtr<ITopLevelCollider> m_topLevelCollider;
+		DynamicArray<UniquePtr<IBottomLevelCollider>> m_bottomLevelColliders;
 
 	};
 

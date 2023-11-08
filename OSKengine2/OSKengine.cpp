@@ -17,6 +17,7 @@
 #include "AudioAsset.h"
 #include "AudioLoader.h"
 #include "IrradianceMapLoader.h"
+#include "PreBuiltColliderLoader.h"
 
 #include "Transform3D.h"
 #include "ModelComponent3D.h"
@@ -34,7 +35,7 @@
 #include "TerrainComponent.h"
 #include "TerrainRenderSystem.h"
 #include "InputManager.h"
-#include "PbrDeferredRenderSystem.h"
+#include "DeferredRenderSystem.h"
 #include "SkyboxRenderSystem.h"
 #include "PcUserInput.h"
 #include "Collider.h"
@@ -43,6 +44,8 @@
 #include "PhysicsSystem.h"
 #include "PhysicsComponent.h"
 #include "PhysicsResolver.h"
+
+#include "TreeNormalsRenderSystem.h"
 
 #include <GLFW/glfw3.h>
 #include "FileIO.h"
@@ -119,6 +122,7 @@ void Engine::RegisterBuiltinAssets() {
 	assetManager->RegisterLoader<ASSETS::IrradianceMapLoader>();
 	assetManager->RegisterLoader<ASSETS::SpecularMapLoader>();
 	assetManager->RegisterLoader<ASSETS::AudioLoader>();
+	assetManager->RegisterLoader<ASSETS::PreBuiltColliderLoader>();
 }
 
 void Engine::RegisterBuiltinComponents() {
@@ -137,7 +141,8 @@ void Engine::RegisterBuiltinSystems() {
 #ifdef OSK_USE_FORWARD_RENDERER
 	entityComponentSystem->RegisterSystem<ECS::RenderSystem3D>(ECS::ISystem::DEFAULT_EXECUTION_ORDER);
 #elif defined(OSK_USE_DEFERRED_RENDERER)
-	entityComponentSystem->RegisterSystem<ECS::PbrDeferredRenderSystem>(ECS::ISystem::DEFAULT_EXECUTION_ORDER);
+	entityComponentSystem->RegisterSystem<ECS::TreeNormalsRenderSystem>(ECS::ISystem::DEFAULT_EXECUTION_ORDER - 1);
+	entityComponentSystem->RegisterSystem<ECS::DeferredRenderSystem>(ECS::ISystem::DEFAULT_EXECUTION_ORDER);
 #elif defined(OSK_USE_HYBRID_RENDERER)
 	entityComponentSystem->RegisterSystem<ECS::HybridRenderSystem>();
 #elif OSK_NO_DEFAULT_RENDERER
@@ -214,7 +219,7 @@ Version Engine::GetVersion() {
 }
 
 std::string_view Engine::GetBuild() {
-	return "2023.09.08a";
+	return "2023.11.08a";
 }
 
 UIndex64 Engine::GetCurrentGameFrameIndex() {

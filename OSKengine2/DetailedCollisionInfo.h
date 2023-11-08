@@ -13,6 +13,13 @@ namespace OSK::COLLISION {
 
 	public:
 
+		enum class MtvDirection {
+			A_TO_B,
+			B_TO_A
+		};
+
+	public:
+
 		/// @brief Crea la estructura en el caso de que exista colisión.
 		/// @param minimumTranslationVector Vector mínimo que se debe mover la segunda
 		/// entidad para que ambas entidades dejen de colisionar.
@@ -28,7 +35,7 @@ namespace OSK::COLLISION {
 			const DynamicArray<Vector3f>& points,
 			Vector3f firstFaceNormal,
 			Vector3f secondFaceNormal,
-			bool shouldSwaphObjects);
+			MtvDirection mtvDirection);
 
 		/// @brief Crea una estructura vacía en el caso de que NO exista colisión.
 		/// @return Estructura para cuando no hay colisión.
@@ -71,12 +78,12 @@ namespace OSK::COLLISION {
 		/// @return Vector normal de la cara de contacto del segundo objeto.
 		Vector3f GetSecondFaceNormal() const;
 
-		/// @return True si los índices de los objetos deben intercambiarse.
-		bool ShouldSwapObjects() const;
+
+		MtvDirection GetMtvDirection() const;
 
 	private:
 
-		bool swapObjects = false;
+		MtvDirection mtvDirection = MtvDirection::A_TO_B;
 
 		bool isColliding = false;
 
@@ -91,7 +98,7 @@ namespace OSK::COLLISION {
 		/// @brief Puntos que definen el área de contacto.
 		DynamicArray<Vector3f> contactPoints;
 
-		Vector3f singleContactPoint = 0.0f;
+		Vector3f singleContactPoint = Vector3f::Zero;
 	};
 
 }

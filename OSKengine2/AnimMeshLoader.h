@@ -1,6 +1,6 @@
 #pragma once
 
-#include "IMeshLoader.h"
+#include "IGltfLoader.h"
 #include "Vertex3D.h"
 #include "Bone.h"
 #include "Animator.h"
@@ -11,7 +11,7 @@ namespace OSK::ASSETS {
 	/// Clase auxiliar que permite la carga de modelos 3D animados
 	/// junto a sus animaciones.
 	/// </summary>
-	class AnimMeshLoader : public IMeshLoader {
+	class AnimMeshLoader : public IGltfLoader {
 
 	public:
 
@@ -26,7 +26,6 @@ namespace OSK::ASSETS {
 	protected:
 
 		void ProcessNode(const tinygltf::Node& node, UIndex32 nodeId, UIndex32 parentId) override;
-		void SmoothNormals() override;
 
 		DynamicArray<GRAPHICS::VertexAnim3D> vertices;
 		

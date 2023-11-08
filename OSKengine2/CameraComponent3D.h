@@ -5,6 +5,8 @@
 #include "Vector2.hpp"
 #include "Component.h"
 
+#include "Frustum.h"
+
 namespace OSK::ECS {
 
 	class Transform3D;
@@ -80,6 +82,11 @@ namespace OSK::ECS {
 		/// 
 		/// @pre transform no debe ser null.
 		void UpdateTransform(Transform3D* transform);
+
+
+		/// @param transform Transform de la cámara.
+		/// @return Frustum de la cámara.
+		AnyFrustum GetFrustum(const Transform3D& transform) const;
 
 
 		/// @return Matriz proyección de la cámara, con depth Z invertido y

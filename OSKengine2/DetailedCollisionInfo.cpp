@@ -9,17 +9,31 @@ DetailedCollisionInfo DetailedCollisionInfo::True(
 	const DynamicArray<Vector3f>& points,
 	Vector3f firstFaceNormal,
 	Vector3f secondFaceNormal,
-	bool shouldSwaphObjects) {
+	MtvDirection mtvDirection) {
 
 	DetailedCollisionInfo output{};
 	output.isColliding = true;
 	output.minimumTranslationVector = minimumTranslationVector;
-	output.contactPoints = points;
-	output.swapObjects = shouldSwaphObjects;
+	output.contactPoints = DynamicArray<Vector3f>::CreateReservedArray(points.GetSize());
+	output.mtvDirection = mtvDirection;
 	output.firstFaceNormal = firstFaceNormal.GetNormalized();
 	output.secondFaceNormal = secondFaceNormal.GetNormalized();
+	
+	for (const auto& v : points) {
+		bool containsVertex = false;
+		for (const auto& v2 : output.contactPoints) {
+			if (v.Equals(v2, std::numeric_limits<float>::epsilon() * 100.0f)) {
+				containsVertex = true;
+				continue;
+			}
+		}
 
-	output.singleContactPoint = 0.0f;
+		if (!containsVertex) {
+			output.contactPoints.Insert(v);
+		}
+	}
+
+	output.singleContactPoint = Vector3f::Zero;
 	for (const auto& point : points)
 		output.singleContactPoint += point;
 	output.singleContactPoint /= static_cast<float>(points.GetSize());
@@ -58,6 +72,6 @@ Vector3f DetailedCollisionInfo::GetSecondFaceNormal() const {
 	return secondFaceNormal;
 }
 
-bool DetailedCollisionInfo::ShouldSwapObjects() const {
-	return swapObjects;
+DetailedCollisionInfo::MtvDirection DetailedCollisionInfo::GetMtvDirection() const {
+	return mtvDirection;
 }

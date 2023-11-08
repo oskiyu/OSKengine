@@ -133,13 +133,14 @@ namespace OSK::GRAPHICS {
 
 		std::array<UniquePtr<GpuBuffer>, NUM_RESOURCES_IN_FLIGHT> lightUniformBuffer{};
 
-		const static USize32 numMaps = 4;
+		const static USize32 numMaps = 3;
 
 		ECS::GameObjectIndex cameraObject = ECS::EMPTY_GAME_OBJECT;
 
 		struct ShadowsBufferContent {
 			alignas(16) glm::mat4 matrices[4];
 			alignas(16) Vector4f cascadeSplits;
+			alignas(16) int numCascades;
 		};
 
 	};

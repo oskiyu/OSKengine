@@ -28,8 +28,7 @@ IGpuMemoryAllocator::IGpuMemoryAllocator(IGpu* device) : device(device) {
 }
 
 IGpuMemoryAllocator::~IGpuMemoryAllocator() {
-	bufferMemoryBlocks.Free();
-	imageMemoryBlocks.Free();
+	Engine::GetLogger()->InfoLog("\t~IGpuMemoryAllocator");
 }
 
 GpuMemoryUsageInfo IGpuMemoryAllocator::GetMemoryUsageInfo() const {
@@ -156,6 +155,52 @@ void IGpuMemoryAllocator::FreeStagingMemory() {
 					bufferMemoryBlocks[i].RemoveAt(b);
 		}
 	}
+}
+
+GpuImage* IGpuMemoryAllocator::GetDefaultNormalTexture() const {
+	return m_defaultNormalTexture.GetPointer();
+}
+
+void IGpuMemoryAllocator::LoadDefaultNormalTexture() {
+	IRenderer* renderer = Engine::GetRenderer();
+	OwnedPtr<ICommandList> uploadCmdList = renderer->CreateSingleUseCommandList();
+	uploadCmdList->Start();
+
+	TByte data[4] = {
+		127, // R: x
+		127, // G: y
+		255, // B: z
+		255	 // A
+	};
+
+	OwnedPtr<GpuBuffer> stagingBuffer = CreateStagingBuffer(sizeof(data), GpuBufferUsage::TRANSFER_SOURCE);
+	stagingBuffer->MapMemory();
+	stagingBuffer->Write(data, sizeof(data));
+	stagingBuffer->Unmap();
+
+	GpuImageCreateInfo imageInfo = GpuImageCreateInfo::CreateDefault2D(
+		Vector2ui(1, 1),
+		Format::RGBA8_UNORM,
+		GpuImageUsage::SAMPLED | GpuImageUsage::TRANSFER_DESTINATION);
+	imageInfo.samplerDesc.mipMapMode = GpuImageMipmapMode::NONE;
+	imageInfo.samplerDesc.addressMode = GpuImageAddressMode::REPEAT;
+	m_defaultNormalTexture = CreateImage(imageInfo).GetPointer();
+
+	uploadCmdList->SetGpuImageBarrier(
+		m_defaultNormalTexture.GetPointer(),
+		GpuImageLayout::TRANSFER_DESTINATION,
+		GpuBarrierInfo(GpuCommandStage::TRANSFER, GpuAccessStage::TRANSFER_WRITE));
+
+	uploadCmdList->CopyBufferToImage(stagingBuffer.GetValue(), m_defaultNormalTexture.GetPointer());
+
+	uploadCmdList->SetGpuImageBarrier(
+		m_defaultNormalTexture.GetPointer(),
+		GpuImageLayout::SAMPLED,
+		GpuBarrierInfo(GpuCommandStage::FRAGMENT_SHADER, GpuAccessStage::SHADER_READ));
+
+	uploadCmdList->Close();
+
+	renderer->SubmitSingleUseCommandList(uploadCmdList);
 }
 
 OwnedPtr<GpuImage> IGpuMemoryAllocator::CreateCubemapImage(const Vector2ui& faceSize, Format format, GpuImageUsage usage, GpuSharedMemoryType sharedType, GpuImageSamplerDesc samplerDesc) {

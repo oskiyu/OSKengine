@@ -5,6 +5,10 @@
 #include "IBottomLevelCollider.h"
 
 #include "DynamicArray.hpp"
+#include "Simplex.h"
+
+#include "Gjk.h"
+#include "Sat.h"
 
 namespace OSK::COLLISION {
 
@@ -34,6 +38,8 @@ namespace OSK::COLLISION {
 		ConvexVolume() = default;
 		~ConvexVolume() override = default;
 
+		OwnedPtr<IBottomLevelCollider> CreateCopy() const override;
+
 		/// @brief Crea un volúmen convexo que implementa una caja delimitadora.
 		/// @param size Tamaño de la caja, expresado como: { halfWidth, height, halfLenght }.
 		/// @param bottomHeight Posición más baja de la caja.
@@ -54,10 +60,8 @@ namespace OSK::COLLISION {
 		/// @throws InvalidObjectStateException si el número de vértices final es incorrecto.
 		void AddFace(const DynamicArray<Vector3f>& vertices);
 
-		/// @brief Optimiza el proceso de detección de colisiones
-		/// eliminando ejes duplicados que pueden surgir al registrar
-		/// caras paralelas.
-		void OptimizeAxes();
+		/// @brief De-trianguliza el collider, juntando caras paralelas que están en el mismo plano.
+		void MergeFaces();
 
 		/// @brief Transforma los vértices.
 		/// @note Debe llamarse una vez por fotograma.
@@ -68,14 +72,17 @@ namespace OSK::COLLISION {
 
 		bool ContainsPoint(const Vector3f& point) const override;
 
-		Vector3f GetFurthestPoint(Vector3f direction) const override;
-				
+		GjkSupport GetSupport(const Vector3f& direction) const override;
+		DynamicArray<GjkSupport> GetAllSupports(const Vector3f& direction, float epsilon) const override;
 
 		/// @brief Devuelve una lista con todos los vértices del collider.
 		/// Estos vértices están en espacio local, por lo no se encuentran 
 		/// transformados de acuerdo a la entidad que posee el collider.
 		/// @return Todos los vértices del collider, en espacio local.
 		const DynamicArray<Vector3f>& GetLocalSpaceVertices() const;
+
+		const DynamicArray<Vector3f>& GetAxes() const override;
+		const DynamicArray<Vector3f>& GetVertices() const override;
 
 		/// @brief Devuelve una lista que contiene una lista de índices por cada
 		/// cara del collider.
@@ -84,7 +91,34 @@ namespace OSK::COLLISION {
 		/// @see FaceIndices
 		DynamicArray<FaceIndices> GetFaceIndices() const;
 
+		UIndex64 GetFaceWithVertexIndices(std::span<const UIndex64, 3> indices, const Vector3f& refNormal) const;
+
+		/// @brief Obtiene un eje transformado definido por los puntos de la cara indicada.
+		/// Se usa para la comprobación de colisiones.
+		/// 
+		/// @param faceId Índice de la cara.
+		/// 
+		/// @return Eje de la cara.
+		/// 
+		/// @pre El índice debe apuntar a una cara válida que no haya sido purgada
+		/// por el proceso de optimización.
+		Axis GetWorldSpaceAxis(UIndex32 faceId) const;
+
 	private:
+
+		UIndex32 GetMostParallelFaceIndex(
+			const Vector3f& faceNormal,
+			const DynamicArray<UIndex32>& candidates) const;
+
+		UIndex32 GetMostParallelFaceIndex(const Vector3f& faceNormal) const;
+
+		/// @brief Deduplica vértices comunes a varias caras.
+		void MergeVertices();
+
+		void NormalizeFaces();
+		void NormalizeFace(UIndex32 face);
+
+		bool AreFacesEquivalent(UIndex32 firstFace, UIndex32 secondFace) const;
 
 		/// @brief Obtiene el eje definido por los puntos de la cara indicada.
 		/// Se usa para la optimización de ejes.
@@ -98,25 +132,10 @@ namespace OSK::COLLISION {
 		/// por el proceso de optimización.
 		Axis GetLocalSpaceAxis(UIndex32 faceId) const;
 
-		/// @brief Obtiene un eje transformado definido por los puntos de la cara indicada.
-		/// Se usa para la comprobación de colisiones.
-		/// 
-		/// @param faceId Índice de la cara.
-		/// 
-		/// @return Eje de la cara.
-		/// 
-		/// @pre El índice debe apuntar a una cara válida que no haya sido purgada
-		/// por el proceso de optimización.
-		Axis GetWorldSpaceAxis(UIndex32 faceId) const;
 
-		/// @brief Obtiene los índices de todas las caras que contienen el vértice dado.
-		/// @param vertex Vértice buscado.
-		/// @return Lista con los índices de las caras que contienen el vértice.
-		/// 
-		/// @pre El vértice debe estar presente en el collider.
-		/// 
-		/// @note Si se incumple la precondición, devuelve una lista vacía.
-		DynamicArray<UIndex32> GetFaceIndicesWithVertex(const Vector3f& vertex) const;
+
+
+		DynamicArray<UIndex32> GetFaceIndicesWithVertex(UIndex32 vertexIndex) const;
 
 		void RecalculateCenter();
 
@@ -124,6 +143,7 @@ namespace OSK::COLLISION {
 		DynamicArray<FaceIndices> m_faces;
 		DynamicArray<Vector3f> m_vertices;
 		DynamicArray<Vector3f> m_transformedVertices;
+		DynamicArray<Vector3f> m_axes;
 
 		Vector3f m_center = Vector3f::Zero;
 		Vector3f m_transformedCenter = Vector3f::Zero;

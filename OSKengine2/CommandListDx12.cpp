@@ -23,7 +23,7 @@
 #include "Format.h"
 #include "MaterialLayout.h"
 #include "Math.h"
-#include "WindowsUtils.h"
+#include "StringOperations.h"
 #include "GpuImageViewDx12.h"
 #include "PipelineLayoutDx12.h"
 #include "IGpuImageView.h"
@@ -126,7 +126,7 @@ void CommandListDx12::RawCopyImageToImage(const GpuImage& source, GpuImage* dest
 	copyRegion.back = 1;
 	copyRegion.front = 0;
 
-	commandList->CopyTextureRegion(&copyDest, copyInfo.destinationOffset.x, copyInfo.destinationOffset.y, copyInfo.destinationOffset.Z, &copySource, &copyRegion);
+	commandList->CopyTextureRegion(&copyDest, copyInfo.destinationOffset.x, copyInfo.destinationOffset.y, copyInfo.destinationOffset.z, &copySource, &copyRegion);
 }
 
 void CommandListDx12::CopyImageToImage(const GpuImage& source, GpuImage* destination, const CopyImageInfo& copyInfo, GpuImageFilteringType filter) {

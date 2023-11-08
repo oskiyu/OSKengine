@@ -100,7 +100,7 @@ VKAPI_ATTR VkBool32 VKAPI_CALL DebugCallback(VkDebugUtilsMessageSeverityFlagBits
 		break;
 	}
 
-	Engine::GetLogger()->Log(level, std::string(pCallbackData->pMessage));
+	Engine::GetLogger()->Log(level, std::string(pCallbackData->pMessage) + "\n");
 
 	return VK_FALSE;
 }

@@ -1,0 +1,13 @@
+{
+    "file_type": "ASSET",
+    "spec_ver": 0,
+
+    "name": "Circuit0",
+    "asset_type": "Model3D",
+    "raw_asset_path": "Resources/RawAssets/Models/circuit_billboards.glb",
+
+    "scale": 0.8,
+    "rotation_offset": [0, 180, 0],
+
+    "renderpass_type": "billboard_pass"
+}

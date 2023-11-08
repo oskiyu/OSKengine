@@ -30,6 +30,11 @@
 #include "GpuMemoryTypesDx12.h"
 #include "PresentMode.h"
 
+#ifdef max
+#undef max
+#endif // max
+
+
 using namespace OSK;
 using namespace OSK::IO;
 using namespace OSK::GRAPHICS;

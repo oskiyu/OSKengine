@@ -80,7 +80,7 @@ namespace OSK {
 		/// <summary>
 		/// Cuaternión.
 		/// </summary>
-		glm::quat quaternion;
+		glm::quat quaternion = glm::identity<glm::quat>();
 
 	};
 

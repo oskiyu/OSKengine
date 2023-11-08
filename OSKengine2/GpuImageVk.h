@@ -71,6 +71,8 @@ namespace OSK::GRAPHICS {
 
 		VkImageView swapchainView = VK_NULL_HANDLE;
 
+		std::string m_name = "";
+
 	};
 
 }

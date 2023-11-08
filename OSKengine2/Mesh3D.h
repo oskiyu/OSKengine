@@ -2,6 +2,11 @@
 
 #include "OSKmacros.h"
 
+#include "SphereCollider.h"
+
+#include <glm/glm.hpp>
+#include <glm/matrix.hpp>
+
 namespace OSK::GRAPHICS {
 
 	/// <summary>
@@ -24,7 +29,26 @@ namespace OSK::GRAPHICS {
 		/// 
 		/// @pre El número de índices debe ser múltipo de 3.
 		/// @pre El número de índices debe ser mayor que 0.
-		Mesh3D(USize32 numIndices, USize32 firstIndex);
+		Mesh3D(
+			USize32 numIndices, 
+			USize32 firstIndex, 
+			const Vector3f& sphereCenter,
+			UIndex64 id);
+
+
+		/// @return Identificador único del mesh.
+		UIndex64 GetMeshId() const;
+
+
+		/// @brief Actualiza la esfera del mesh.
+		/// @param radius Radio.
+		void SetBoundingSphereRadius(float radius);
+
+		/// @return Esfera que contiene el mesh.
+		const COLLISION::SphereCollider& GetBounds() const;
+
+		/// @return Offset del mesh respecto al modelo 3D.
+		const Vector3f& GetSphereCenter() const;
 
 
 		/// <summary>
@@ -43,8 +67,14 @@ namespace OSK::GRAPHICS {
 
 	private:
 
+		UIndex64 m_meshId = 0;
+
 		USize32 numIndices = 0;
 		UIndex32 firstIndex = 0;
+		
+		Vector3f sphereCenter = Vector3f::Zero;
+
+		COLLISION::SphereCollider sphere{};
 
 	};
 

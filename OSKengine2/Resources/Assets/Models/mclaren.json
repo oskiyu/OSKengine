@@ -10,5 +10,7 @@
     "scale": 0.15,
     "load_textures": false,
     "load_materials": false,
-    "rotation_offset": [0, 0, 0]
+    "rotation_offset": [0, 0, 0],
+
+    "renderpass_type": "static_pass"
 }

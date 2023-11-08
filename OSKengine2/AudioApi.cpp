@@ -26,7 +26,7 @@ void AudioApi::SetListenerPosition(const Vector3f& position) {
 		AL_POSITION,
 		position.x,
 		position.y,
-		position.Z
+		position.z
 	);
 }
 
@@ -34,11 +34,11 @@ void AudioApi::SetListenerOrientation(const Vector3f& forward, const Vector3f& u
 	const std::array<float, 6> values = {
 		forward.x,
 		forward.y,
-		forward.Z,
+		forward.z,
 
 		up.x,
 		up.y,
-		up.Z
+		up.z
 	};
 
 	alListenerfv(
@@ -52,7 +52,7 @@ void AudioApi::SetListenerVelocity(const Vector3f& velocity) {
 		AL_VELOCITY,
 		velocity.x,
 		velocity.y,
-		velocity.Z
+		velocity.z
 	);
 }
 

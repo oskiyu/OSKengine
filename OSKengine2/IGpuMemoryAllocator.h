@@ -277,7 +277,12 @@ namespace OSK::GRAPHICS {
 		/// @brief Libera toda la memoria usada para subir recursos.
 		void FreeStagingMemory();
 
+
+		GpuImage* GetDefaultNormalTexture() const;
+
 	protected:
+
+		void LoadDefaultNormalTexture();
 
 		USize64 GetAlignment(USize64 originalAlignment, GpuBufferUsage usage) const;
 
@@ -321,6 +326,8 @@ namespace OSK::GRAPHICS {
 		DynamicArray<DynamicArray<UniquePtr<IGpuMemoryBlock>>> bufferMemoryBlocks;
 
 		DynamicArray<UniquePtr<IGpuMemoryBlock>> imageMemoryBlocks;
+
+		UniquePtr<GpuImage> m_defaultNormalTexture = nullptr;
 
 		IGpu* device = nullptr;
 

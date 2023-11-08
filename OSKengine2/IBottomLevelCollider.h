@@ -7,6 +7,10 @@
 #include "IRayCollider.h"
 #include "Transform3D.h"
 #include "DetailedCollisionInfo.h"
+#include "OwnedPtr.h"
+
+#include "Gjk.h"
+#include "Sat.h"
 
 namespace OSK::COLLISION {
 
@@ -15,13 +19,15 @@ namespace OSK::COLLISION {
 
 	/// @brief Representa un área de colisión muy ajustada
 	/// que permite detectar colisiones.
-	class OSKAPI_CALL IBottomLevelCollider {
+	class OSKAPI_CALL IBottomLevelCollider : public IGjkCollider, public ISatCollider {
 
 	public:
 
 		virtual ~IBottomLevelCollider() = default;
 
 		OSK_DEFINE_AS(IBottomLevelCollider);
+
+		virtual OwnedPtr<IBottomLevelCollider> CreateCopy() const = 0;
 
 
 		/// @brief Comprueba si este área de colisión está en contacto
@@ -34,11 +40,6 @@ namespace OSK::COLLISION {
 		/// @return Información detallada de la colisión.
 		virtual DetailedCollisionInfo GetCollisionInfo(const IBottomLevelCollider& other,
 			const ECS::Transform3D& transformA, const ECS::Transform3D& transformB) const = 0;
-
-		/// @brief Obtiene el punto más lejano del collider en la dirección dada.
-		/// @param direction Dirección.
-		/// @return Punto del collider más lejano respecto al centro en esa dirección.
-		virtual Vector3f GetFurthestPoint(Vector3f direction) const = 0;
 
 		virtual bool ContainsPoint(const Vector3f& point) const = 0;
 

@@ -12,6 +12,8 @@
 #include "CommandQueueVk.h"
 #include "GpuImageViewVk.h"
 
+#include <format>
+
 #include "RendererExceptions.h"
 
 using namespace OSK;
@@ -45,7 +47,7 @@ void GpuImageVk::CreateVkImage() {
 
 	imageInfo.extent.width = GetSize3D().x;
 	imageInfo.extent.height = GetSize3D().y;
-	imageInfo.extent.depth = GetSize3D().Z;
+	imageInfo.extent.depth = GetSize3D().z;
 
 	imageInfo.mipLevels = GetMipLevels();
 	imageInfo.arrayLayers = GetNumLayers();
@@ -209,6 +211,8 @@ void GpuImageVk::SetDebugName(const std::string& name) {
 
 	if (RendererVk::pvkSetDebugUtilsObjectNameEXT != nullptr)
 		RendererVk::pvkSetDebugUtilsObjectNameEXT(logicalDevice, &nameInfo);
+
+	m_name = name;
 }
 
 

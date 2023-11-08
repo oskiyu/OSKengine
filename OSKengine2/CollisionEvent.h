@@ -23,8 +23,8 @@ namespace OSK::ECS {
 		/// @brief Segunda entidad de la colisión.
 		GameObjectIndex secondEntity = EMPTY_GAME_OBJECT;
 
-		/// @brief Información sobre la colisión.
-		COLLISION::DetailedCollisionInfo collisionInfo = COLLISION::DetailedCollisionInfo::False();
+
+		COLLISION::DetailedCollisionInfo collisionInfo = {};
 
 	};
 

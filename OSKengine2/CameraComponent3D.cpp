@@ -15,6 +15,7 @@
 #include <glm/ext/matrix_clip_space.hpp>
 #include <glm/ext/matrix_transform.hpp>
 
+using namespace OSK;
 using namespace OSK::ECS;
 
 const OSK::Vector3f CameraComponent3D::worldUpVector = { 0.0f, 1.0f, 0.0f };
@@ -73,6 +74,57 @@ void CameraComponent3D::UpdateTransform(Transform3D* transform) {
 	angles = Vector2f::Zero;
 }
 
+AnyFrustum CameraComponent3D::GetFrustum(const Transform3D& transform) const {
+	AnyFrustum output{};
+
+	Vector2f nearSize_half = Vector2f::Zero;
+
+	nearSize_half.y = nearPlane * glm::tan(glm::radians(fov) * 0.5f);
+	nearSize_half.x = nearSize_half.y * Engine::GetDisplay()->GetScreenRatio();
+
+	const Vector3f up = transform.GetTopVector().GetNormalized();
+	const Vector3f right = transform.GetRightVector().GetNormalized();
+	const Vector3f forward = transform.GetForwardVector().GetNormalized();
+
+	const Vector3f nearLeftPosition = forward * nearPlane - right * nearSize_half.x;
+	const Vector3f nearRightPosition = forward * nearPlane + right * nearSize_half.x;
+
+	const Vector3f nearTopPosition = forward * nearPlane + up * nearSize_half.y;
+	const Vector3f nearBottomPosition = forward * nearPlane - up * nearSize_half.y;
+
+	// Near
+	output.Insert({
+		.point = transform.GetPosition() + forward * nearPlane, 
+		.normal = forward 
+	});
+
+	// Left
+	output.Insert({
+		.point = transform.GetPosition(),
+		.normal = -up.Cross(nearLeftPosition).GetNormalized()
+		});
+
+	// Right
+	output.Insert({
+		.point = transform.GetPosition(),
+		.normal = up.Cross(nearRightPosition).GetNormalized()
+		});
+
+	// Top
+	output.Insert({
+		.point = transform.GetPosition(),
+		.normal = -right.Cross(nearTopPosition).GetNormalized()
+		});
+
+	// Bottom
+	output.Insert({
+		.point = transform.GetPosition(),
+		.normal = right.Cross(nearBottomPosition).GetNormalized()
+		});
+
+	return output;
+}
+
 glm::mat4 CameraComponent3D::GetProjectionMatrix() const {
 	const float f = 1.0f / glm::tan(glm::radians(fov) * 0.5f);
 
@@ -93,7 +145,7 @@ glm::mat4 CameraComponent3D::GetProjectionMatrix_UnreversedZ() const {
 
 glm::mat4 CameraComponent3D::GetViewMatrix(const Transform3D& transform) const {
 	return glm::lookAt<float>(
-		transform.GetPosition().ToGLM(), 
-		(transform.GetPosition() + transform.GetForwardVector()).ToGLM(), 
-		transform.GetTopVector().ToGLM());
+		transform.GetPosition().ToGlm(),
+		(transform.GetPosition() + transform.GetForwardVector()).ToGlm(),
+		transform.GetTopVector().ToGlm());
 }

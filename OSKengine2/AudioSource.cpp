@@ -67,11 +67,11 @@ void Source::Stop() {
 }
 
 void Source::SetPosition(const Vector3f& position) {
-	alSource3f(m_handle, AL_POSITION, position.x, position.y, position.Z);
+	alSource3f(m_handle, AL_POSITION, position.x, position.y, position.z);
 }
 
 void Source::SetVelocity(const Vector3f& velocity) {
-	alSource3f(m_handle, AL_VELOCITY, velocity.x, velocity.y, velocity.Z);
+	alSource3f(m_handle, AL_VELOCITY, velocity.x, velocity.y, velocity.z);
 }
 
 void Source::SetPitch(float pitch) {

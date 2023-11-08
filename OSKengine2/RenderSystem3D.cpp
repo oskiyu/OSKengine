@@ -40,7 +40,7 @@ RenderSystem3D::RenderSystem3D() {// Signature del sistema
 
 	// Directional light por defecto
 	const Vector3f direction = Vector3f(1.0f, -1.9f, 0.0f).GetNormalized();
-	m_dirLight.directionAndIntensity = Vector4f(direction.x, direction.y, direction.Z, 1.0f);
+	m_dirLight.directionAndIntensity = Vector4f(direction.x, direction.y, direction.z, 1.0f);
 	m_dirLight.color = Color(255 / 255.f, 255 / 255.f, 255 / 255.f);
 
 	CreateBuffers();
@@ -179,15 +179,15 @@ void RenderSystem3D::CreateTargetImage(const Vector2ui& size) {
 		.name = "RenderSystem3D Depth"
 	};
 
-	renderTarget.Create(size, { colorInfo, motionInfo, normalInfo }, depthInfo);
+	m_renderTarget.Create(size, { colorInfo, motionInfo, normalInfo }, depthInfo);
 
 	// TAA
 	std::array<const GpuImage*, NUM_RESOURCES_IN_FLIGHT> sourceImages{};
 	std::array<const GpuImage*, NUM_RESOURCES_IN_FLIGHT> motionImages{};
 
 	for (UIndex32 i = 0; i < NUM_RESOURCES_IN_FLIGHT; i++) {
-		sourceImages[i] = renderTarget.GetColorImage(COLOR_IMAGE_INDEX, i);
-		motionImages[i] = renderTarget.GetColorImage(MOTION_IMAGE_INDEX, i);
+		sourceImages[i] = m_renderTarget.GetColorImage(COLOR_IMAGE_INDEX, i);
+		motionImages[i] = m_renderTarget.GetColorImage(MOTION_IMAGE_INDEX, i);
 	}
 
 	m_taaProvider.InitializeTaa(
@@ -208,8 +208,8 @@ void RenderSystem3D::Resize(const Vector2ui& size) {
 	std::array<const GpuImage*, NUM_RESOURCES_IN_FLIGHT> motionImages{};
 
 	for (UIndex32 i = 0; i < NUM_RESOURCES_IN_FLIGHT; i++) {
-		sourceImages[i] = renderTarget.GetColorImage(COLOR_IMAGE_INDEX, i);
-		motionImages[i] = renderTarget.GetColorImage(MOTION_IMAGE_INDEX, i);
+		sourceImages[i] = m_renderTarget.GetColorImage(COLOR_IMAGE_INDEX, i);
+		motionImages[i] = m_renderTarget.GetColorImage(MOTION_IMAGE_INDEX, i);
 	}
 
 	m_taaProvider.ResizeTaa(
@@ -307,7 +307,7 @@ void RenderSystem3D::RenderScene(ICommandList* commandList) {
 			.numMipLevels = ALL_MIP_LEVELS, 
 			.channel = SampledChannel::DEPTH });
 
-	commandList->BeginGraphicsRenderpass(&renderTarget, Color::Black * 0.0f);
+	commandList->BeginGraphicsRenderpass(&m_renderTarget, Color::Black * 0.0f);
 	SetupViewport(commandList);
 
 	commandList->StartDebugSection("Static Meshes", Color::Red);
@@ -364,7 +364,7 @@ void RenderSystem3D::SceneRenderLoop(ModelType modelType, ICommandList* commandL
 			commandList->BindMaterialSlot(*model.GetModel()->GetAnimator()->GetMaterialInstance()->GetSlot("animation"));
 
 		for (UIndex32 meshIndex = 0; meshIndex < model.GetModel()->GetMeshes().GetSize(); meshIndex++) {
-			commandList->BindMaterialSlot(*model.GetMeshMaterialInstance(meshIndex)->GetSlot("texture"));
+			// commandList->BindMaterialSlot(*model.GetMeshMaterialInstance(meshIndex)->GetSlot("texture"));
 
 			const auto& mesh = model.GetModel()->GetMeshes()[meshIndex];
 			const auto& meshMetadata = model.GetModel()->GetMetadata().meshesMetadata[meshIndex];
@@ -437,12 +437,12 @@ void RenderSystem3D::ExecuteTaa(ICommandList* commandList) {
 	const UIndex32 resourceIndex = Engine::GetRenderer()->GetCurrentResourceIndex();
 
 	commandList->SetGpuImageBarrier(
-		renderTarget.GetColorImage(MOTION_IMAGE_INDEX, resourceIndex),
+		m_renderTarget.GetColorImage(MOTION_IMAGE_INDEX, resourceIndex),
 		GpuImageLayout::SAMPLED,
 		GpuBarrierInfo(GpuCommandStage::COMPUTE_SHADER, GpuAccessStage::SAMPLED_READ));
 
 	commandList->SetGpuImageBarrier(
-		renderTarget.GetColorImage(COLOR_IMAGE_INDEX, resourceIndex),
+		m_renderTarget.GetColorImage(COLOR_IMAGE_INDEX, resourceIndex),
 		GpuImageLayout::SAMPLED,
 		GpuBarrierInfo(GpuCommandStage::COMPUTE_SHADER, GpuAccessStage::SAMPLED_READ));
 
@@ -457,7 +457,7 @@ void RenderSystem3D::ExecuteTaa(ICommandList* commandList) {
 void RenderSystem3D::CopyTaaResult(GRAPHICS::ICommandList* commandList) {
 	const UIndex32 resourceIndex = Engine::GetRenderer()->GetCurrentResourceIndex();
 	GpuImage* sourceImage = m_taaProvider.GetTaaOutput().GetTargetImage(resourceIndex);
-	GpuImage* destinationImage = renderTarget.GetColorImage(COLOR_IMAGE_INDEX, resourceIndex);
+	GpuImage* destinationImage = m_renderTarget.GetColorImage(COLOR_IMAGE_INDEX, resourceIndex);
 
 	// Imagen original TAA: transfer source.
 	commandList->SetGpuImageBarrier(
@@ -474,7 +474,7 @@ void RenderSystem3D::CopyTaaResult(GRAPHICS::ICommandList* commandList) {
 	commandList->RawCopyImageToImage(
 		*sourceImage,
 		destinationImage,
-		CopyImageInfo::CreateDefault2D(renderTarget.GetSize()));
+		CopyImageInfo::CreateDefault2D(m_renderTarget.GetSize()));
 }
 
 void RenderSystem3D::Render(GRAPHICS::ICommandList* commandList) {

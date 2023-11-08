@@ -51,11 +51,28 @@ void CollisionSystem::OnTick(TDeltaTime deltaTime) {
 			const auto collisionInfo = firstCollider.GetCollisionInfo(secondCollider, firstTransform, secondTransform);
 
 			if (collisionInfo.IsColliding()) {
-				Engine::GetEcs()->PublishEvent<CollisionEvent>({
-					firstObject,
-					secondObject,
-					collisionInfo.GetDetailedInfo()
-					});
+
+				for (const auto& detailedCollision : collisionInfo.GetDetailedInfo()) {
+					Engine::GetEcs()->PublishEvent<CollisionEvent>({
+						firstObject,
+						secondObject,
+						detailedCollision
+						});
+				}
+
+// #define OSK_COLLISION_DEBUG
+#ifdef OSK_COLLISION_DEBUG
+				Engine::GetLogger()->DebugLog(std::format("Collision: {} - {}", firstObject, secondObject));
+				Engine::GetLogger()->DebugLog(std::format("\tFrame: {}", Engine::GetCurrentGameFrameIndex()));
+				Engine::GetLogger()->DebugLog(std::format("\tWolrd point: {:.3f} {:.3f} {:.3f}", 
+					collisionInfo.GetDetailedInfo().GetSingleContactPoint().x,
+					collisionInfo.GetDetailedInfo().GetSingleContactPoint().y,
+					collisionInfo.GetDetailedInfo().GetSingleContactPoint().z));
+				Engine::GetLogger()->DebugLog(std::format("\tPoints count: {}", collisionInfo.GetDetailedInfo().GetContactPoints().GetSize()));
+				for (const auto& p : collisionInfo.GetDetailedInfo().GetContactPoints())
+					Engine::GetLogger()->DebugLog(std::format("\t\t{:.3f} {:.3f} {:.3f}", p.x, p.y, p.z));
+#endif
+
 			}
 		}
 	}

@@ -74,7 +74,7 @@ void ColliderRenderSystem::Initialize(GameObjectIndex camera) {
 void ColliderRenderSystem::CreateTargetImage(const Vector2ui& size) {
 	RenderTargetAttachmentInfo colorInfo{ .format = Format::RGBA8_SRGB, .name = "Collider Render System Target" };
 	RenderTargetAttachmentInfo depthInfo{ .format = Format::D16_UNORM, .name = "Collider Render System Depth" };
-	renderTarget.Create(size, { colorInfo }, depthInfo);
+	m_renderTarget.Create(size, { colorInfo }, depthInfo);
 }
 
 void ColliderRenderSystem::Render(GRAPHICS::ICommandList* commandList) {
@@ -100,7 +100,7 @@ void ColliderRenderSystem::Render(GRAPHICS::ICommandList* commandList) {
 
 	commandList->StartDebugSection("Collision Render", Color::Red);
 
-	commandList->BeginGraphicsRenderpass(&renderTarget, Color::Black * 0.0f);
+	commandList->BeginGraphicsRenderpass(&m_renderTarget, Color::Black * 0.0f);
 	SetupViewport(commandList);
 
 
@@ -143,7 +143,7 @@ void ColliderRenderSystem::Render(GRAPHICS::ICommandList* commandList) {
 			commandList->DrawSingleInstance(cubeModel->GetIndexCount());
 		} else
 		if (auto* sphere = dynamic_cast<const SphereCollider*>(topLevelCollider)) {
-			topLevelTransform.SetScale(sphere->GetRadius());
+			topLevelTransform.SetScale(Vector3f(sphere->GetRadius()));
 			renderInfo.modelMatrix = topLevelTransform.GetAsMatrix();
 			commandList->PushMaterialConstants("pushConstants", renderInfo);
 
@@ -185,14 +185,14 @@ void ColliderRenderSystem::Render(GRAPHICS::ICommandList* commandList) {
 	} pushConstant;
 
 	for (const Vector3f point : contactPoints) {
-		pushConstant.point = Vector4f(point.x, point.y, point.Z, 1.0f);
+		pushConstant.point = Vector4f(point.x, point.y, point.z, 1.0f);
 		commandList->PushMaterialConstants("pushConstants", pushConstant);
 		commandList->DrawSingleInstance(1);
 	}
 
 	pushConstant.color = Color::Purple;
 	for (const Vector3f point : singleContactPoints) {
-		pushConstant.point = Vector4f(point.x, point.y, point.Z, 1.0f);
+		pushConstant.point = Vector4f(point.x, point.y, point.z, 1.0f);
 		commandList->PushMaterialConstants("pushConstants", pushConstant);
 		commandList->DrawSingleInstance(1);
 	}
@@ -237,7 +237,7 @@ void ColliderRenderSystem::SetupBottomLevelModel(GameObjectIndex obj) {
 			Vertex3D vertex{};
 
 			vertex.position = cVertex;
-			vertex.normal = 0.0f;
+			vertex.normal = Vector3f::Zero;
 			vertex.color = Color::White;
 			vertex.texCoords = Vector2f::Zero;
 

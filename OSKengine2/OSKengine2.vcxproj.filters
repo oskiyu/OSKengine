@@ -553,6 +553,27 @@
     <Filter Include="Archivos de origen\Core\Graphics\HighLevel\2D">
       <UniqueIdentifier>{80ae52b1-44e0-44e6-acf4-70def13a498e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Archivos de encabezado\BuiltIn\GRAPHICS">
+      <UniqueIdentifier>{5707a52a-beec-4241-b56f-18f346e730dc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de encabezado\BuiltIn\GRAPHICS\Renderpasses">
+      <UniqueIdentifier>{35f577fb-9416-4655-9103-c82caf49eac4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de origen\BuiltIn\GRAPHICS">
+      <UniqueIdentifier>{31edad76-4588-4377-80aa-a6351110c5d8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de origen\BuiltIn\GRAPHICS\Renderpasses">
+      <UniqueIdentifier>{a52aa60a-a2f6-4432-865e-5aa431d61dbc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de encabezado\BuiltIn\GRAPHICS\MeshMapping">
+      <UniqueIdentifier>{15453b0e-f090-4e91-8321-636d0730e434}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de origen\Core\Collision\Detection">
+      <UniqueIdentifier>{7743c97c-351e-4cab-b24f-269ecd05ddd7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de encabezado\Core\Collision\Detection">
+      <UniqueIdentifier>{17d05faf-f82b-486e-a23d-e70062f0d952}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -795,9 +816,6 @@
     <ClCompile Include="HlslRuntimeCompiler.cpp">
       <Filter>Archivos de origen\Core\Graphics\LowLevel\Pipeline\Graphics</Filter>
     </ClCompile>
-    <ClCompile Include="WindowsUtils.cpp">
-      <Filter>Archivos de origen\Core\Util</Filter>
-    </ClCompile>
     <ClCompile Include="GpuMemoryTypes.cpp">
       <Filter>Archivos de origen\Core\Graphics\LowLevel\Memory\Enums</Filter>
     </ClCompile>
@@ -888,7 +906,7 @@
     <ClCompile Include="StaticMeshLoader.cpp">
       <Filter>Archivos de origen\BuiltIn\Assets\Loaders\Models</Filter>
     </ClCompile>
-    <ClCompile Include="IMeshLoader.cpp">
+    <ClCompile Include="IGltfLoader.cpp">
       <Filter>Archivos de origen\BuiltIn\Assets\Loaders\Models</Filter>
     </ClCompile>
     <ClCompile Include="AnimMeshLoader.cpp">
@@ -999,9 +1017,6 @@
     <ClCompile Include="FrameCombiner.cpp">
       <Filter>Archivos de origen\Core\Graphics\HighLevel\2D</Filter>
     </ClCompile>
-    <ClCompile Include="GBuffer.cpp">
-      <Filter>Archivos de origen\Core\Graphics\HighLevel\PBR</Filter>
-    </ClCompile>
     <ClCompile Include="UiHorizontalContainer.cpp">
       <Filter>Archivos de origen\BuiltIn\UI\Containers</Filter>
     </ClCompile>
@@ -1095,7 +1110,7 @@
     <ClCompile Include="IRenderSystem.cpp">
       <Filter>Archivos de origen\BuiltIn\ECS\Systems\Rendering</Filter>
     </ClCompile>
-    <ClCompile Include="PbrDeferredRenderSystem.cpp">
+    <ClCompile Include="DeferredRenderSystem.cpp">
       <Filter>Archivos de origen\BuiltIn\ECS\Systems\Rendering</Filter>
     </ClCompile>
     <ClCompile Include="RenderSystem3D.cpp">
@@ -1145,6 +1160,72 @@
     </ClCompile>
     <ClCompile Include="UiDropdown.cpp">
       <Filter>Archivos de origen\BuiltIn\UI\Elements</Filter>
+    </ClCompile>
+    <ClCompile Include="RenderBoundsRenderer.cpp">
+      <Filter>Archivos de origen\BuiltIn\ECS\Systems\Rendering</Filter>
+    </ClCompile>
+    <ClCompile Include="AnimatedGBufferPass.cpp">
+      <Filter>Archivos de origen\BuiltIn\GRAPHICS\Renderpasses</Filter>
+    </ClCompile>
+    <ClCompile Include="BillboardGBufferPass.cpp">
+      <Filter>Archivos de origen\BuiltIn\GRAPHICS\Renderpasses</Filter>
+    </ClCompile>
+    <ClCompile Include="StaticGBufferPass.cpp">
+      <Filter>Archivos de origen\BuiltIn\GRAPHICS\Renderpasses</Filter>
+    </ClCompile>
+    <ClCompile Include="GBuffer.cpp">
+      <Filter>Archivos de origen\BuiltIn\GRAPHICS</Filter>
+    </ClCompile>
+    <ClCompile Include="IRenderPass.cpp">
+      <Filter>Archivos de origen\Core\Graphics\HighLevel</Filter>
+    </ClCompile>
+    <ClCompile Include="TreeNormalsPass.cpp">
+      <Filter>Archivos de origen\BuiltIn\GRAPHICS\Renderpasses</Filter>
+    </ClCompile>
+    <ClCompile Include="PbrResolverPass.cpp">
+      <Filter>Archivos de origen\BuiltIn\GRAPHICS\Renderpasses</Filter>
+    </ClCompile>
+    <ClCompile Include="TreeNormalsRenderSystem.cpp">
+      <Filter>Archivos de origen\BuiltIn\ECS\Systems\Rendering</Filter>
+    </ClCompile>
+    <ClCompile Include="TreeGBufferPass.cpp">
+      <Filter>Archivos de origen\BuiltIn\GRAPHICS\Renderpasses</Filter>
+    </ClCompile>
+    <ClCompile Include="PreBuiltCollider.cpp">
+      <Filter>Archivos de origen\BuiltIn\Assets\Assets</Filter>
+    </ClCompile>
+    <ClCompile Include="PreBuiltColliderLoader.cpp">
+      <Filter>Archivos de origen\BuiltIn\Assets\Loaders</Filter>
+    </ClCompile>
+    <ClCompile Include="MeshMapping.cpp">
+      <Filter>Archivos de origen\BuiltIn\GRAPHICS</Filter>
+    </ClCompile>
+    <ClCompile Include="PerModelData.cpp">
+      <Filter>Archivos de origen\BuiltIn\GRAPHICS</Filter>
+    </ClCompile>
+    <ClCompile Include="PerMeshData.cpp">
+      <Filter>Archivos de origen\BuiltIn\GRAPHICS</Filter>
+    </ClCompile>
+    <ClCompile Include="StringOperations.cpp">
+      <Filter>Archivos de origen\Core\Util</Filter>
+    </ClCompile>
+    <ClCompile Include="Clipping.cpp">
+      <Filter>Archivos de origen\Core\Collision\Detection</Filter>
+    </ClCompile>
+    <ClCompile Include="Gjk.cpp">
+      <Filter>Archivos de origen\Core\Collision\Detection</Filter>
+    </ClCompile>
+    <ClCompile Include="Sat.cpp">
+      <Filter>Archivos de origen\Core\Collision\Detection</Filter>
+    </ClCompile>
+    <ClCompile Include="MinkowskiHull.cpp">
+      <Filter>Archivos de origen\Core\Collision\Detection</Filter>
+    </ClCompile>
+    <ClCompile Include="Simplex.cpp">
+      <Filter>Archivos de origen\Core\Collision\Detection</Filter>
+    </ClCompile>
+    <ClCompile Include="MinkowskiHull.h">
+      <Filter>Archivos de encabezado\Core\Collision\Detection</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -1520,9 +1601,6 @@
     <ClInclude Include="HlslRuntimeCompiler.h">
       <Filter>Archivos de encabezado\Core\Graphics\LowLevel\Pipeline\Graphics</Filter>
     </ClInclude>
-    <ClInclude Include="WindowsUtils.h">
-      <Filter>Archivos de encabezado\Core\Util</Filter>
-    </ClInclude>
     <ClInclude Include="ToString.h">
       <Filter>Archivos de encabezado\Core\Util</Filter>
     </ClInclude>
@@ -1616,7 +1694,7 @@
     <ClInclude Include="StaticMeshLoader.h">
       <Filter>Archivos de encabezado\BuiltIn\Assets\Loaders\Models</Filter>
     </ClInclude>
-    <ClInclude Include="IMeshLoader.h">
+    <ClInclude Include="IGltfLoader.h">
       <Filter>Archivos de encabezado\BuiltIn\Assets\Loaders\Models</Filter>
     </ClInclude>
     <ClInclude Include="AnimMeshLoader.h">
@@ -1645,9 +1723,6 @@
     </ClInclude>
     <ClInclude Include="RtAccelerationStructureFlags.h">
       <Filter>Archivos de encabezado\Core\Graphics\LowLevel\RT\AS</Filter>
-    </ClInclude>
-    <ClInclude Include="GBuffer.h">
-      <Filter>Archivos de encabezado\Core\Graphics\HighLevel</Filter>
     </ClInclude>
     <ClInclude Include="RenderTarget.h">
       <Filter>Archivos de encabezado\Core\Graphics\HighLevel\RenderTargets</Filter>
@@ -1898,7 +1973,7 @@
     <ClInclude Include="IRenderSystem.h">
       <Filter>Archivos de encabezado\BuiltIn\ECS\Systems\Rendering</Filter>
     </ClInclude>
-    <ClInclude Include="PbrDeferredRenderSystem.h">
+    <ClInclude Include="DeferredRenderSystem.h">
       <Filter>Archivos de encabezado\BuiltIn\ECS\Systems\Rendering</Filter>
     </ClInclude>
     <ClInclude Include="RenderSystem3D.h">
@@ -2041,6 +2116,87 @@
     </ClInclude>
     <ClInclude Include="UiDropdown.h">
       <Filter>Archivos de encabezado\BuiltIn\UI\Elements</Filter>
+    </ClInclude>
+    <ClInclude Include="Plane.h">
+      <Filter>Archivos de encabezado\Core\Types</Filter>
+    </ClInclude>
+    <ClInclude Include="Frustum.h">
+      <Filter>Archivos de encabezado\Core\Types</Filter>
+    </ClInclude>
+    <ClInclude Include="RenderBoundsRenderer.h">
+      <Filter>Archivos de encabezado\BuiltIn\ECS\Systems\Rendering</Filter>
+    </ClInclude>
+    <ClInclude Include="GBuffer.h">
+      <Filter>Archivos de encabezado\BuiltIn\GRAPHICS</Filter>
+    </ClInclude>
+    <ClInclude Include="BillboardGBufferPass.h">
+      <Filter>Archivos de encabezado\BuiltIn\GRAPHICS\Renderpasses</Filter>
+    </ClInclude>
+    <ClInclude Include="StaticGBufferPass.h">
+      <Filter>Archivos de encabezado\BuiltIn\GRAPHICS\Renderpasses</Filter>
+    </ClInclude>
+    <ClInclude Include="AnimatedGBufferPass.h">
+      <Filter>Archivos de encabezado\BuiltIn\GRAPHICS\Renderpasses</Filter>
+    </ClInclude>
+    <ClInclude Include="IRenderPass.h">
+      <Filter>Archivos de encabezado\Core\Graphics\HighLevel</Filter>
+    </ClInclude>
+    <ClInclude Include="DeferredPushConstants.h">
+      <Filter>Archivos de encabezado\BuiltIn\GRAPHICS</Filter>
+    </ClInclude>
+    <ClInclude Include="TreeNormalsPass.h">
+      <Filter>Archivos de encabezado\BuiltIn\GRAPHICS\Renderpasses</Filter>
+    </ClInclude>
+    <ClInclude Include="PbrResolvePass.h">
+      <Filter>Archivos de encabezado\BuiltIn\GRAPHICS\Renderpasses</Filter>
+    </ClInclude>
+    <ClInclude Include="IDeferredResolver.h">
+      <Filter>Archivos de encabezado\BuiltIn\GRAPHICS\Renderpasses</Filter>
+    </ClInclude>
+    <ClInclude Include="TreeNormalsRenderSystem.h">
+      <Filter>Archivos de encabezado\BuiltIn\ECS\Systems\Rendering</Filter>
+    </ClInclude>
+    <ClInclude Include="TreeGBufferPass.h">
+      <Filter>Archivos de encabezado\BuiltIn\GRAPHICS\Renderpasses</Filter>
+    </ClInclude>
+    <ClInclude Include="PreBuiltCollider.h">
+      <Filter>Archivos de encabezado\BuiltIn\Assets\Assets</Filter>
+    </ClInclude>
+    <ClInclude Include="PreBuiltColliderLoader.h">
+      <Filter>Archivos de encabezado\BuiltIn\Assets\Loaders</Filter>
+    </ClInclude>
+    <ClInclude Include="MeshMapping.h">
+      <Filter>Archivos de encabezado\BuiltIn\GRAPHICS\MeshMapping</Filter>
+    </ClInclude>
+    <ClInclude Include="MatrixOperations.hpp">
+      <Filter>Archivos de encabezado\Core\Util</Filter>
+    </ClInclude>
+    <ClInclude Include="StringOperations.h">
+      <Filter>Archivos de encabezado\Core\Util</Filter>
+    </ClInclude>
+    <ClInclude Include="Span.h">
+      <Filter>Archivos de encabezado\Core\STD</Filter>
+    </ClInclude>
+    <ClInclude Include="StaticArray.hpp">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
+    <ClInclude Include="Concepts.h">
+      <Filter>Archivos de encabezado\Core\STD</Filter>
+    </ClInclude>
+    <ClInclude Include="EcsPriority.h">
+      <Filter>Archivos de encabezado\Core\ECS</Filter>
+    </ClInclude>
+    <ClInclude Include="Clipping.h">
+      <Filter>Archivos de encabezado\Core\Collision\Detection</Filter>
+    </ClInclude>
+    <ClInclude Include="Gjk.h">
+      <Filter>Archivos de encabezado\Core\Collision\Detection</Filter>
+    </ClInclude>
+    <ClInclude Include="Sat.h">
+      <Filter>Archivos de encabezado\Core\Collision\Detection</Filter>
+    </ClInclude>
+    <ClInclude Include="Simplex.h">
+      <Filter>Archivos de encabezado\Core\Collision\Detection</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

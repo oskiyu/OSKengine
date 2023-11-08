@@ -11,14 +11,45 @@ Model3D::Model3D(const std::string& assetFile)
 	: IAsset(assetFile) {
 
 }
+const Model3D::Lod& Model3D::GetLod(UIndex64 level) {
+	return m_lods[glm::min(level, GetLowestLod())];
+}
+
+UIndex64 Model3D::GetHighestLod() const {
+	return Lod::HighestLevel;
+}
+
+UIndex64 Model3D::GetLowestLod() const {
+	return m_lods.GetSize() - 1;
+}
+
+void Model3D::_RegisterLod(const Lod& lod) {
+	m_lods.Insert(lod);
+}
+
+
+void Model3D::_SetId(UIndex64 id) {
+	m_modelId = id;
+}
+
+UIndex64 Model3D::GetId() const {
+	return m_modelId;
+}
 
 const DynamicArray<Mesh3D>& Model3D::GetMeshes() const {
-	return meshes;
+	return m_meshes;
 }
 
 void Model3D::AddMesh(const Mesh3D& mesh, const MeshMetadata& meshMetadata) {
-	meshes.Insert(mesh);
-	metadata.meshesMetadata.Insert(meshMetadata);
+	m_meshes.Insert(mesh);
+	m_metadata.meshesMetadata.Insert(meshMetadata);
+}
+void Model3D::SetRenderPassType(const std::string& renderPassType) {
+	m_renderPassType = renderPassType;
+}
+
+std::string_view Model3D::GetRenderPassType() const {
+	return m_renderPassType;
 }
 
 void Model3D::_SetVertexBuffer(const OwnedPtr<GRAPHICS::GpuBuffer>& vertexBuffer) {
@@ -29,32 +60,28 @@ void Model3D::_SetIndexBuffer(const OwnedPtr<GRAPHICS::GpuBuffer>& indexBuffer) 
 	this->indexBuffer = indexBuffer.GetPointer();
 }
 
-void Model3D::_SetAccelerationStructure(OwnedPtr<GRAPHICS::IBottomLevelAccelerationStructure> accelerationStructure) {
-	this->accelerationStructure = accelerationStructure.GetPointer();
-}
-
 void Model3D::_SetIndexCount(USize32 count) {
-	numIndices = count;
+	m_numIndices = count;
 }
 
 USize32 Model3D::GetIndexCount() const {
-	return numIndices;
+	return m_numIndices;
 }
 
 void Model3D::AddGpuImage(OwnedPtr<GRAPHICS::GpuImage> image) {
-	metadata.textures.Insert(image.GetPointer());
+	m_metadata.textures.Insert(image.GetPointer());
 }
 
 const GpuImage* Model3D::GetImage(UIndex32 index) const {
-	return metadata.textures.At(index).GetPointer();
+	return m_metadata.textures.At(index).GetPointer();
 }
 
 const ModelMetadata& Model3D::GetMetadata() const {
-	return metadata;
+	return m_metadata;
 }
 
 void Model3D::_SetAnimator(GRAPHICS::Animator&& animator) {
-	this->animator = new Animator(std::move(animator));
+	m_animator = new Animator(std::move(animator));
 }
 
 ModelType Model3D::GetType() const {

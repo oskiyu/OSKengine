@@ -6,6 +6,8 @@
 #include "DetailedCollisionInfo.h"
 #include "GameObject.h"
 
+#include "DynamicArray.hpp"
+
 namespace OSK::COLLISION {
 
 	/// @brief Información sobre el resultado de la detección
@@ -28,7 +30,7 @@ namespace OSK::COLLISION {
 		/// @param info Información detallada de la colisión.
 		/// @return Collision info para el caso en el que
 		/// sí que hay colisión.
-		static CollisionInfo True(const DetailedCollisionInfo& info);
+		static CollisionInfo True(const DynamicArray<DetailedCollisionInfo>& info);
 
 
 		/// @brief Devuelve true si hay una colisión entre las entidades,
@@ -60,8 +62,8 @@ namespace OSK::COLLISION {
 		/// 
 		/// @pre IsColliding debe devolver true. De lo contrario
 		/// la información devuelta es inválida.
-		const DetailedCollisionInfo& GetDetailedInfo() const;
-
+		const DynamicArray<DetailedCollisionInfo>& GetDetailedInfo() const;
+		
 	private:
 
 		CollisionInfo(bool isColliding, bool isTopLevelColliding);
@@ -69,7 +71,7 @@ namespace OSK::COLLISION {
 		bool isColliding = false;
 		bool isTopLevelColliding = false;
 
-		DetailedCollisionInfo detailedInfo;
+		DynamicArray<DetailedCollisionInfo> detailedInfo;
 
 	};
 

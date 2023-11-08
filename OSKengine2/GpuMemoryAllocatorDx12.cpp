@@ -42,7 +42,7 @@ OwnedPtr<GpuImage> GpuMemoryAllocatorDx12::CreateImage(const GpuImageCreateInfo&
 	output->_SetPhysicalSize({
 		MATH::PrimerMultiploSuperior<uint32_t>(info.resolution.x, D3D12_TEXTURE_DATA_PITCH_ALIGNMENT),
 		info.resolution.y,
-		info.resolution.Z
+		info.resolution.z
 		});
 
 	auto block = GpuMemoryBlockDx12::CreateNewImageBlock(output, device, info.memoryType, info.usage, info.numLayers);

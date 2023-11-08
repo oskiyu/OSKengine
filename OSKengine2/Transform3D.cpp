@@ -7,6 +7,8 @@
 #include <glm/gtx/quaternion.hpp>
 #include <glm/gtx/string_cast.hpp>
 
+#include "MatrixOperations.hpp"
+
 using namespace OSK;
 using namespace OSK::ECS;
 
@@ -57,7 +59,7 @@ void Transform3D::ApplyRotation(const Quaternion& rotationDelta) {
 	glm::quat q = localRotation.ToGlm();
 	q *= rotationDelta.ToGlm();
 
-	SetRotation(Quaternion::FromGlm(q));
+	SetRotation(Quaternion::FromGlm(glm::normalize(q)));
 }
 
 void Transform3D::RotateLocalSpace(float angle, const Vector3f& axis) {
@@ -71,8 +73,7 @@ void Transform3D::RotateWorldSpace(float angle, const Vector3f& axis) {
 }
 
 void Transform3D::AttachToObject(ECS::GameObjectIndex obj) {
-	for (auto c : childTransforms)
-		if (obj == c)
+	if (childTransforms.ContainsElement(obj))
 			return;
 
 	parent = obj;
@@ -94,7 +95,7 @@ void Transform3D::UpdateModel() {
 
 		globalRotation = parentTransform.globalRotation * localRotation.ToMat4();
 
-		matrix = glm::translate(matrix, parentTransform.GetPosition().ToGLM());
+		matrix = glm::translate(matrix, parentTransform.GetPosition().ToGlm());
 		matrix = matrix * parentTransform.globalRotation;
 	}
 	else {
@@ -102,35 +103,32 @@ void Transform3D::UpdateModel() {
 	}
 
 	// Posición local.
-	matrix = glm::translate(matrix, localPosition.ToGLM());
-
-	// Escala local.
-	matrix = glm::scale(matrix, localScale.ToGLM());
-
+	matrix = glm::translate(matrix, localPosition.ToGlm());
+	
 	// Rotación local.
 	matrix = matrix * localRotation.ToMat4();
+	
+	// Escala local.
+	matrix = glm::scale(matrix, localScale.ToGlm());
+
 	
 	// Obtener posición final.
 	globalPosition = Vector3f(matrix * glm::vec4(0, 0, 0, 1));
 
-	DynamicArray<GameObjectIndex> childrenToRemove;
-	for (UIndex32 i = 0; i < childTransforms.GetSize(); i++) {
+	for (UIndex64 i = 0; i < childTransforms.GetSize(); i++) {
 		Transform3D& child = GetEcs()->GetComponent<Transform3D>(childTransforms[i]);
-		if (child.parent == owner)
+		
+		if (child.parent == owner) {
 			child.UpdateModel();
-		else
-			childrenToRemove.Push(child.owner);
+		}
+		else {
+			childTransforms[i] = childTransforms.Pop();
+		}
 	}
-
-	for (const auto& i : childrenToRemove)
-		childTransforms.Remove(i);
 }
 
 Vector3f Transform3D::TransformPoint(const Vector3f& point) const {
-	const glm::vec4 p = { point.x, point.y, point.Z, 1.0f };
-	const glm::vec4 transformedPoint = matrix * p;
-
-	return Vector3f(glm::vec3(transformedPoint) / transformedPoint.w);
+	return Math::TransformPoint(point, matrix);
 }
 
 Vector3f Transform3D::GetPosition() const {
@@ -171,7 +169,7 @@ ECS::GameObjectIndex Transform3D::GetParentObject() const {
 
 Vector3f Transform3D::GetForwardVector() const {
 	return GetRotation().RotateVector(Vector3f(0, 0, 1));
-	return Vector3f(GetRotation().ToGlm() * OSK::Vector3f(0, 0, 1).ToGLM()).GetNormalized();
+	return Vector3f(GetRotation().ToGlm() * OSK::Vector3f(0, 0, 1).ToGlm()).GetNormalized();
 }
 
 Vector3f Transform3D::GetRightVector() const {

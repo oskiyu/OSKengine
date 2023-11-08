@@ -20,7 +20,7 @@ namespace OSK::COLLISION {
 		/// @brief Longitud máxima que puede llegar a tener el rayo.
 		/// No se tendrán en cuenta las colisiones con colliders que
 		/// estén más lejos que la longitud del rayo.
-		float maxLength = std::numeric_limits<float>::max();
+		float maxLength = 1000.0f;
 
 	};
 

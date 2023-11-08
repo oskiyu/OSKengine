@@ -24,20 +24,29 @@ void PhysicsResolver::OnTick(TDeltaTime deltaTime) {
 		if (!(ecs->ObjectHasComponent<PhysicsComponent>(first) && ecs->ObjectHasComponent<PhysicsComponent>(second)))
 			continue;
 
-		// --- RESOLUCIÓN INICIAL --- //
-
-		const auto& collisionInfo = event.collisionInfo;
-
-		Vector3f contactNormal = -collisionInfo.GetFirstFaceNormal().GetNormalized();
-
-		const Vector3f mtv = collisionInfo.GetMinimumTranslationVector();
-		const Vector3f halfMtv = mtv * 0.5f;
-
 		auto& transformA = ecs->GetComponent<Transform3D>(first);
 		auto& transformB = ecs->GetComponent<Transform3D>(second);
 
 		auto& physicsA = ecs->GetComponent<PhysicsComponent>(first);
 		auto& physicsB = ecs->GetComponent<PhysicsComponent>(second);
+
+
+		// --- RESOLUCIÓN INICIAL --- //
+
+		const auto& collisionInfo = event.collisionInfo;
+
+		if (collisionInfo.GetMinimumTranslationVector().GetLenght() < 0.001f) {
+			continue;
+		}
+
+
+		const Vector3f aToB = collisionInfo.GetFirstFaceNormal();
+		const Vector3f bToA = collisionInfo.GetSecondFaceNormal();
+		
+		Vector3f contactNormal = collisionInfo.GetMinimumTranslationVector().GetNormalized();
+
+		const Vector3f mtv = collisionInfo.GetMinimumTranslationVector();
+		// Engine::GetLogger()->DebugLog(std::format("{:.3f} {:.3f} {:.3f}", mtv.x, mtv.y, mtv.z));
 
 		const float inverseMassA = physicsA.GetInverseMass();
 		const float inverseMassB = physicsB.GetInverseMass();
@@ -49,9 +58,9 @@ void PhysicsResolver::OnTick(TDeltaTime deltaTime) {
 		float multiplierA = inverseMassA / totalInverseMass;
 		float multiplierB = inverseMassB / totalInverseMass;
 
-		transformA.AddPosition(-halfMtv * multiplierA);
-		transformB.AddPosition( halfMtv * multiplierB);
-
+		transformA.AddPosition(-mtv * multiplierA);
+		transformB.AddPosition( mtv * multiplierB);
+		
 
 		// --- IMPULSOS --- //
 
@@ -61,9 +70,10 @@ void PhysicsResolver::OnTick(TDeltaTime deltaTime) {
 		const Vector3f velocityB = physicsB.GetVelocity() - physicsB.GetCurrentFrameVelocityDelta();
 
 		// Velocidad a la que se separan los objetos.
-		const float projectedVelocityA = glm::abs(velocityA.Dot(contactNormal));
-		const float projectedVelocityB = glm::abs(velocityB.Dot(contactNormal));
-		const float separationVelocity = -glm::abs(projectedVelocityA - projectedVelocityB);
+		const float projectedVelocityA = velocityA.Dot(-contactNormal);
+		const float projectedVelocityB = velocityB.Dot(-contactNormal);
+		const float separationVelocity = -(projectedVelocityA - projectedVelocityB);
+
 
 		float cor = (physicsA.coefficientOfRestitution + physicsB.coefficientOfRestitution) * 0.5f;
 		/*
@@ -76,7 +86,6 @@ void PhysicsResolver::OnTick(TDeltaTime deltaTime) {
 
 		// Velocidad a la que se separan los objetos después de la colisión.
 		float deltaSeparationVelocity = -(1 + cor) * separationVelocity;
-		
 
 		// Cantidad de cambio de velocidad total del sistema 
 		// por unidad de impulso.

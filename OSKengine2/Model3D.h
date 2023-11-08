@@ -36,96 +36,128 @@ namespace OSK::ASSETS {
 	};
 
 
-	/// <summary>
-	/// Contiene datos necesarios para seguir procesando los meshes.
+	/// @brief Contiene datos necesarios para seguir procesando los meshes.
 	/// Estos datos se pueden procesar de manera distinta dependiendo del proceso
 	/// de renderizado implementado.
-	/// </summary>
 	struct MeshMetadata {
+		
+		/// @brief Nombre de la textura -> ID de la textura dentro de las texturas almacenadas por el modelo.
+		std::unordered_map<std::string, USize32, StringHasher, std::equal_to<>> textureTable;
 
-		/// <summary>
-		/// Contiene las texturas que deben bindearse a la instancia de material
-		/// de cada mesh.
-		/// </summary>
-		/// 
-		/// @note Nombre de la textura -> ID de la textura dentro de las texturas almacenadas por el modelo.
-		std::unordered_map<std::string, USize32> materialTextures;
-
-		/// <summary> Factor metálico del material del mesh. </summary>
-		///
+		/// @brief Factor metálico del material del mesh.
 		/// @note Entre 0.0 y 1.0, ambos incluidos. 
 		float metallicFactor = 0.0f;
 
-		/// <summary> Factor de rugosidad del material del mesh. </summary>
-		///
+		/// @brief Factor de rugosidad del material del mesh.
 		/// @note Entre 0.0 y 1.0, ambos incluidos. 
 		float roughnessFactor = 0.0f;
 
 	};
 
-	/// <summary>
-	/// Contiene datos necesarios para seguir procesando el modelo.
+
+	/// @brief Contiene datos necesarios para seguir procesando el modelo.
 	/// Estos datos se pueden procesar de manera distinta dependiendo del proceso
 	/// de renderizado implementado.
-	/// </summary>
 	struct ModelMetadata {
 
-		/// <summary> Metadatos por cada uno de los meshes. </summary>
-		/// 
-		/// @note Índice del mesh -> metadatos.
+		/// @brief Índice del mesh -> metadatos del mesh.
 		DynamicArray<MeshMetadata> meshesMetadata;
 
-		/// <summary> Texturas de los meshes. </summary>
-		/// 
-		/// @note Meshes de otros modelos no compartirán texturas,
-		/// aunque usen las mismas.
+		/// @brief Texturas del modelo 3D.
 		DynamicArray<UniquePtr<GRAPHICS::GpuImage>> textures;
+
+
+		constexpr static std::string_view BaseColorTextureName = "baseColorTexture";
+		constexpr static std::string_view NormalTextureName = "normalTexture";
 
 	};
 
 
-	/// <summary>
-	/// Un modelo 3D, para el renderizado 3D.
+	/// @brief Un modelo 3D, para el renderizado 3D.
 	/// Está compuesto por una serie de meshes 3D.
-	/// </summary>
 	class OSKAPI_CALL Model3D : public IAsset {
 
 	public:
 
-		Model3D(const std::string& assetFile);
+		/// @brief Indica los meshes pertenecientes al modelo
+		/// en un nivel de detalle en concreto.
+		struct Lod {
+
+			/// @brief Nivel LOD más alto posible.
+			constexpr static UIndex64 HighestLevel = 0;
+
+			/// @brief Índice del primer mesh del LOD.
+			UIndex64 firstMeshId = 0;
+
+			/// @brief Número de meshes del LOD.
+			USize64  meshesCount = 0;
+
+		};
+
+	public:
+
+		explicit Model3D(const std::string& assetFile);
 
 		OSK_ASSET_TYPE_REG("OSK::Model3D");
 
-		/// <summary>  Devuelve todos los meshes del modelo. </summary>
+
+		/// @param level Nivel de LOD deseado.
+		/// Más alto = menos detalle.
+		/// @return LOD del nivel dado.
+		/// Si @p level es mayor que el número de niveles
+		/// disponibles, se devuelve el LOD con el nivel
+		/// más cercano.
+		const Lod& GetLod(UIndex64 level);
+
+		/// @return Nivel de LOD más detallado (número más bajo).
+		UIndex64 GetHighestLod() const;
+
+		/// @return Nivel de LOD menos detallado (número más alto).
+		UIndex64 GetLowestLod() const;
+
+		/// @brief Registra un LOD.
+		/// @param lod Lod a añadir.
+		void _RegisterLod(const Lod& lod);
+
+
+		void _SetId(UIndex64 id);
+
+		/// @return ID único del modelo 3D.
+		UIndex64 GetId() const;
+
+
+		/// @return Devuelve todos los meshes del modelo.
 		const DynamicArray<GRAPHICS::Mesh3D>& GetMeshes() const;
 
-		/// <summary> Añade un mesh al modelo. </summary>
+		/// @brief Añade un mesh al modelo.
+		/// @param mesh Mesh a añadir.
+		/// @param metadata Metadatos del mesh.
 		void AddMesh(const GRAPHICS::Mesh3D& mesh, const MeshMetadata& metadata);
 
 
-		/// <summary> Establece el buffer con todos los vértices del modelo 3D. </summary>
-		/// 
-		/// @warning Función interna: no llamar.
+		/// @brief Establece el tipo de renderepass para el que se perparó
+		/// el modelo.
+		/// @param renderPassType Tipo de renderpass.
+		void SetRenderPassType(const std::string& renderPassType);
+
+		/// @return Renderpass para el que el modelo fue preparado.
+		std::string_view GetRenderPassType() const;
+
+
+		/// @brief Establece el buffer con todos los vértices del modelo 3D.
+		/// @param vertexBuffer Buffer con todos los vértices de los meshes del modelo.
 		void _SetVertexBuffer(const OwnedPtr<GRAPHICS::GpuBuffer>& vertexBuffer);
 
-		/// <summary> Establece el buffer con todos los índices del modelo. </summary>
-		/// 
-		/// @warning Función interna: no llamar.
+		/// @brief Establece el buffer con todos los índices del modelo 3D.
+		/// @param indexBuffer Buffer con todos los índices de los meshes del modelo.
 		void _SetIndexBuffer(const OwnedPtr<GRAPHICS::GpuBuffer>& indexBuffer);
 
-		/// <summary> Establece la estructura de aceleración de nivel bajo. </summary>
-		/// 
-		/// @pre Debe estar activado el renderizado por trazado de rayos.
-		/// @warning Función interna: no llamar.
-		void _SetAccelerationStructure(OwnedPtr<GRAPHICS::IBottomLevelAccelerationStructure> accelerationStructure);
 
 		/// <summary> Establece el número de índices totales del modelo. </summary>
-		/// 
 		/// @pre Debe ser múltiplo de 3.
 		/// @pre Debe ser mayor que 0.
-		/// 
-		/// @warning Función interna: no llamar.
 		void _SetIndexCount(USize32 count);
+
 
 		/// <summary> Devuelve el buffer de la GPU con los vértices del modelo. </summary>
 		/// 
@@ -139,19 +171,8 @@ namespace OSK::ASSETS {
 		GRAPHICS::GpuBuffer* GetIndexBuffer() { return indexBuffer.GetPointer(); }
 		const GRAPHICS::GpuBuffer* GetIndexBuffer() const { return indexBuffer.GetPointer(); }
 
-		/// <summary>
-		/// Devuelve la estructura de aceleración de nivel bajo del modelo.
-		/// Únicamente si se ha cargado con el renderizador en modo de 
-		/// trazado de rayos.
-		/// </summary>
-		/// 
-		/// @pre El renderizador debe tener activado el modo de trazado de rayos.
-		/// @warning Será null si el renderizador no tiene activo el modo de trazado
-		/// de rayos.
-		GRAPHICS::IBottomLevelAccelerationStructure* GetAccelerationStructure() { return accelerationStructure.GetPointer(); }
-		const GRAPHICS::IBottomLevelAccelerationStructure* GetAccelerationStructure() const { return accelerationStructure.GetPointer(); }
 
-		/// <summary> Número de índices.  </summary>
+		/// @brief Número de índices.
 		/// 
 		/// @note Múltiplo de 3.
 		/// @note Mayor que 0.
@@ -183,27 +204,38 @@ namespace OSK::ASSETS {
 		/// 
 		/// @pre Debe ser un modelo animado.
 		/// @warning Será nullptr si no se cumple la precondición.
-		GRAPHICS::Animator* GetAnimator() { return animator.GetPointer(); }
-		const GRAPHICS::Animator* GetAnimator() const { return animator.GetPointer(); }
+		GRAPHICS::Animator* GetAnimator() { return m_animator.GetPointer(); }
+		const GRAPHICS::Animator* GetAnimator() const { return m_animator.GetPointer(); }
 
 
 		ModelType GetType() const;
 
 	private:
 
+		/// @brief ID del modelo 3D.
+		UIndex64 m_modelId = 0;
+
+		DynamicArray<Lod> m_lods;
+
+		/// @brief Tipo de pase de renderizado.
+		std::string m_renderPassType = "";
+
+
+		/// @brief Buffer con los vértices de todos los meshes del modelo.
 		UniquePtr<GRAPHICS::GpuBuffer> vertexBuffer;
+
+		/// @brief Buffer con los índice de todos los meshes del modelo.
 		UniquePtr<GRAPHICS::GpuBuffer> indexBuffer;
-		/// @pre El renderizador debe tener el modo de trazado de rayos activado.
-		UniquePtr<GRAPHICS::IBottomLevelAccelerationStructure> accelerationStructure;
+
 
 		/// @pre Debe ser un modelo animado.
-		UniquePtr<GRAPHICS::Animator> animator;
+		UniquePtr<GRAPHICS::Animator> m_animator;
 
-		DynamicArray<GRAPHICS::Mesh3D> meshes;
+		DynamicArray<GRAPHICS::Mesh3D> m_meshes;
 
-		ModelMetadata metadata;
+		ModelMetadata m_metadata;
 
-		USize32 numIndices = 0;
+		USize32 m_numIndices = 0;
 
 	};
 

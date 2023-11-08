@@ -2,7 +2,7 @@
 
 #include "Assert.h"
 #include "DynamicArray.hpp"
-#include "WindowsUtils.h"
+#include "StringOperations.h"
 
 #include "PipelinesExceptions.h"
 

@@ -129,12 +129,17 @@ void BloomPass::SetupMaterialInstances() {
 void BloomPass::ExecuteSinglePass(ICommandList* computeCmdList, UIndex32 sourceMipLevel, UIndex32 destMipLevel) {
 	const UIndex32 resourceIndex = Engine::GetRenderer()->GetCurrentResourceIndex();
 
-	Vector2ui sourceResolution = resolveRenderTarget.GetTargetImage(resourceIndex)->GetMipLevelSize2D(sourceMipLevel);
-	Vector2ui destResolution = resolveRenderTarget.GetTargetImage(resourceIndex)->GetMipLevelSize2D(destMipLevel);
+	const Vector2f sourceResolution = resolveRenderTarget.GetTargetImage(resourceIndex)->GetMipLevelSize2D(sourceMipLevel).ToVector2f();
+	const Vector2f destResolution = resolveRenderTarget.GetTargetImage(resourceIndex)->GetMipLevelSize2D(destMipLevel).ToVector2f();
+
+	const Vector2f maxResolution = Vector2f(
+		glm::max(sourceResolution.x, destResolution.x),
+		glm::max(sourceResolution.y, destResolution.y)
+	);
 
 	const Vector2ui dispatchRes = {
-		glm::max(sourceResolution.x, destResolution.x) / static_cast<UIndex32>(BLOCK_SIZE),
-		glm::max(sourceResolution.y, destResolution.y) / static_cast<UIndex32>(BLOCK_SIZE)
+		static_cast<unsigned int>(glm::ceil(maxResolution.x / BLOCK_SIZE)),
+		static_cast<unsigned int>(glm::ceil(maxResolution.y / BLOCK_SIZE)),
 	};
 
 	computeCmdList->DispatchCompute({ dispatchRes.x, dispatchRes.y, 1 });

@@ -6,6 +6,11 @@
 #include "Vector3.hpp"
 #include "IRayCollider.h"
 
+#include "Plane.h"
+#include "Frustum.h"
+
+#include "OwnedPtr.h"
+
 namespace OSK::COLLISION {
 
 	class Collider;
@@ -24,6 +29,8 @@ namespace OSK::COLLISION {
 
 		OSK_DEFINE_AS(ITopLevelCollider);
 
+		virtual OwnedPtr<ITopLevelCollider> CreateCopy() const = 0;
+
 		/// @brief Comprueba si este área de colisión está en contacto
 		/// con otra.
 		/// @param other Otra área de colisión de nivel alto.
@@ -33,6 +40,15 @@ namespace OSK::COLLISION {
 			const Vector3f& thisOffset, const Vector3f& otherOffset) const = 0;
 
 		virtual bool ContainsPoint(const Vector3f& thisOffset, const Vector3f& point) const = 0;
+
+
+		/// @brief Comprueba si el collider está COMPLETMENTE por detrás del plano.
+		/// @param plane Plano a comprobar.
+		/// @return True si está completamente por detrás.
+		virtual bool IsBehindPlane(Plane plane, const Vector3f& thisOffset) const = 0;
+
+		/// @return True si el collider está dentro del frustum indicado.
+		bool IsInsideFrustum(const AnyFrustum& frustum, const Vector3f& thisOffset) const;
 
 
 		/// @brief Calcula la intersección entre un rayo y el collider.

@@ -10,6 +10,10 @@
 using namespace OSK;
 using namespace OSK::COLLISION;
 
+OwnedPtr<ITopLevelCollider> AxisAlignedBoundingBox::CreateCopy() const {
+	return new AxisAlignedBoundingBox(*this);
+}
+
 AxisAlignedBoundingBox::AxisAlignedBoundingBox(const Vector3f& size) {
 	SetSize(size);
 }
@@ -29,12 +33,25 @@ bool AxisAlignedBoundingBox::ContainsPoint(const Vector3f& thisOffset, const Vec
 	return
 		point.x > min.x && point.x < max.x &&
 		point.y > min.y && point.y < max.y &&
-		point.Z > min.Z && point.Z < max.Z;
+		point.z > min.z && point.z < max.z;
 }
 
 RayCastResult AxisAlignedBoundingBox::CastRay(const Ray& ray, const Vector3f& position) const {
 	OSK_ASSERT(false, NotImplementedException());
 	return RayCastResult::False();
+}
+
+bool AxisAlignedBoundingBox::IsBehindPlane(Plane plane, const Vector3f& position) const {
+	const Vector3f extent = m_size * 0.5f;
+
+	const float collapsedAabb =
+		extent.x * glm::abs(plane.normal.x) +
+		extent.y * glm::abs(plane.normal.y) +
+		extent.z * glm::abs(plane.normal.z);
+
+	const float signedDistanceToPlane = plane.normal.Dot(position - plane.point);
+
+	return !(glm::abs(signedDistanceToPlane) <= collapsedAabb);
 }
 
 bool AxisAlignedBoundingBox::IsColliding(const ITopLevelCollider& other,

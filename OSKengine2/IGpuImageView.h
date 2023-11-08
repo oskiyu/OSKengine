@@ -111,7 +111,7 @@ namespace OSK::GRAPHICS {
 	private:
 
 		GpuImageViewConfig config{};
-		Vector3ui size = 0;
+		Vector3ui size = Vector3ui::Zero;
 
 		const GpuImage* originalImage;
 

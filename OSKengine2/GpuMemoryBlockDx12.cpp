@@ -22,7 +22,7 @@ using namespace OSK::GRAPHICS;
 
 GpuMemoryBlockDx12::GpuMemoryBlockDx12(GpuImage* image, IGpu* device, GpuSharedMemoryType type, GpuImageUsage imageUSage, USize32 numLayers)
 	: IGpuMemoryBlock(
-		image->GetPhysicalSize().x * image->GetPhysicalSize().y * image->GetPhysicalSize().Z * GetFormatNumberOfBytes(image->GetFormat()), 
+		image->GetPhysicalSize().x * image->GetPhysicalSize().y * image->GetPhysicalSize().z * GetFormatNumberOfBytes(image->GetFormat()), 
 		device, type, GpuMemoryUsage::IMAGE), 
 	sizeX(image->GetSize3D().x), sizeY(image->GetPhysicalSize().y), format(image->GetFormat()) {
 

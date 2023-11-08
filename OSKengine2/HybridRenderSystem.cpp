@@ -26,7 +26,7 @@ HybridRenderSystem::HybridRenderSystem() {
 
 	// Directional light por defecto
 	const Vector3f direction = Vector3f(1.0f, -3.f, 0.0f).GetNormalized();
-	dirLight.directionAndIntensity = Vector4f(direction.x, direction.y, direction.Z, 1.2f);
+	dirLight.directionAndIntensity = Vector4f(direction.x, direction.y, direction.z, 1.2f);
 	dirLight.color = Color(253 / 255.f, 253 / 255.f, 225 / 255.f);
 
 	SetupRtResources();
@@ -177,7 +177,7 @@ void HybridRenderSystem::SetupResolveInstance() {
 		normalImgs[i] = gBuffer.GetImage(i, GBuffer::Target::NORMAL)->GetView(sampledViewConfig);
 
 		shadowImgs[i] = finalShadowsTarget.GetTargetImage(i)->GetView(sampledViewConfig);
-		finalImgs[i] = renderTarget.GetMainColorImage(i)->GetView(storageViewConfig);
+		finalImgs[i] = m_renderTarget.GetMainColorImage(i)->GetView(storageViewConfig);
 
 		_cameraUbos[i] = cameraUbos[i].GetPointer();
 		_dirLightUbos[i] = dirLightUbos[i].GetPointer();
@@ -227,7 +227,7 @@ void HybridRenderSystem::CreateTargetImage(const Vector2ui& size) {
 	finalDepthAttInfo.format = Format::D32S8_SFLOAT_SUINT;
 	finalDepthAttInfo.sampler = sampler;
 	finalDepthAttInfo.name = "Hybrid Target Depth";
-	renderTarget.Create(size, { finalColorAttInfo }, finalDepthAttInfo);
+	m_renderTarget.Create(size, { finalColorAttInfo }, finalDepthAttInfo);
 
 	// Shadows
 	RenderTargetAttachmentInfo rtShadowsAttachmentInfo{};
@@ -299,7 +299,7 @@ void HybridRenderSystem::GBufferRenderLoop(GRAPHICS::ICommandList* commandList, 
 			commandList->BindMaterialSlot(*model.GetModel()->GetAnimator()->GetMaterialInstance()->GetSlot("animation"));
 
 		for (UIndex32 i = 0; i < model.GetModel()->GetMeshes().GetSize(); i++) {
-			commandList->BindMaterialSlot(*model.GetMeshMaterialInstance(i)->GetSlot("texture"));
+			// commandList->BindMaterialSlot(*model.GetMeshMaterialInstance(i)->GetSlot("texture"));
 
 			const glm::mat4 previousModelMatrix = previousModelMatrices.contains(obj)
 				? previousModelMatrices.at(obj) : glm::mat4(1.0f);
@@ -463,7 +463,7 @@ void HybridRenderSystem::RenderShadows(GRAPHICS::ICommandList* cmdList) {
 
 void HybridRenderSystem::Resolve(GRAPHICS::ICommandList* cmdList) {
 	const UIndex32 imgIndex = Engine::GetRenderer()->GetCurrentResourceIndex();
-	GpuImage* targetImage = renderTarget.GetMainColorImage(imgIndex);
+	GpuImage* targetImage = m_renderTarget.GetMainColorImage(imgIndex);
 
 	cmdList->SetGpuImageBarrier(targetImage, GpuImageLayout::GENERAL,
 		GpuBarrierInfo(GpuCommandStage::COMPUTE_SHADER, GpuAccessStage::SHADER_WRITE));
@@ -473,7 +473,7 @@ void HybridRenderSystem::Resolve(GRAPHICS::ICommandList* cmdList) {
 			GpuBarrierInfo(GpuCommandStage::COMPUTE_SHADER, GpuAccessStage::SHADER_READ),
 			GpuImageRange{ .baseLayer = 0, .numLayers = ALL_IMAGE_LAYERS, .baseMipLevel = 0, .numMipLevels = ALL_MIP_LEVELS });
 
-	const Vector2ui resoulution = renderTarget.GetSize();
+	const Vector2ui resoulution = m_renderTarget.GetSize();
 	const Vector2ui threadGroupSize = { 8u, 8u };
 	const Vector2ui dispatchRes = resoulution / threadGroupSize + Vector2ui(1u, 1u);
 	

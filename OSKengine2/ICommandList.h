@@ -60,14 +60,14 @@ namespace OSK::GRAPHICS {
 
 		/// @brief Localización del área copiada de la imagen
 		/// de origen. Esquina superior izquierda.
-		Vector3ui sourceOffset = 0;
+		Vector3ui sourceOffset = Vector3ui::Zero;
 
 		/// @brief Localización del área copiada de la imagen
 		/// final. Esquina superior izquierda.
-		Vector3ui destinationOffset = 0;
+		Vector3ui destinationOffset = Vector3ui::Zero;
 
 		/// @brief Área copiada.
-		Vector3ui copySize = 0;
+		Vector3ui copySize = Vector3ui::Zero;
 
 
 		/// @brief Capa de origen a partir de la cual se copiará.

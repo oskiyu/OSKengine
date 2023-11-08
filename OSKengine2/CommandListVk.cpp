@@ -214,12 +214,12 @@ void CommandListVk::RawCopyImageToImage(const GpuImage& source, GpuImage* destin
 	region.srcOffset = {
 		static_cast<int>(copyInfo.sourceOffset.x),
 		static_cast<int>(copyInfo.sourceOffset.y),
-		static_cast<int>(copyInfo.sourceOffset.Z)
+		static_cast<int>(copyInfo.sourceOffset.z)
 	};
 	region.dstOffset = {
 		static_cast<int>(copyInfo.destinationOffset.x),
 		static_cast<int>(copyInfo.destinationOffset.y),
-		static_cast<int>(copyInfo.destinationOffset.Z)
+		static_cast<int>(copyInfo.destinationOffset.z)
 	};
 
 	const USize32 numLayers = copyInfo.numArrayLevels == CopyImageInfo::ALL_ARRAY_LEVELS ? source.GetNumLayers() : copyInfo.numArrayLevels;
@@ -236,7 +236,7 @@ void CommandListVk::RawCopyImageToImage(const GpuImage& source, GpuImage* destin
 
 	region.extent.width = copyInfo.copySize.x;
 	region.extent.height= copyInfo.copySize.y;
-	region.extent.depth = copyInfo.copySize.Z;
+	region.extent.depth = copyInfo.copySize.z;
 
 	vkCmdCopyImage(commandBuffers[_GetCommandListIndex()],
 		source.As<GpuImageVk>()->GetVkImage(), VK_IMAGE_LAYOUT_TRANSFER_SRC_OPTIMAL,
@@ -252,23 +252,23 @@ void CommandListVk::CopyImageToImage(const GpuImage& source, GpuImage* destinati
 	copyRegion.srcOffsets[0] = {
 		static_cast<int>(copyInfo.sourceOffset.x),
 		static_cast<int>(copyInfo.sourceOffset.y),
-		static_cast<int>(copyInfo.sourceOffset.Z)
+		static_cast<int>(copyInfo.sourceOffset.z)
 	};
 	copyRegion.srcOffsets[1] = {
 		static_cast<int>(copyInfo.sourceOffset.x),
 		static_cast<int>(copyInfo.sourceOffset.y),
-		static_cast<int>(copyInfo.sourceOffset.Z)
+		static_cast<int>(copyInfo.sourceOffset.z)
 	};
 
 	copyRegion.dstOffsets[0] = {
 		static_cast<int>(copyInfo.destinationOffset.x),
 		static_cast<int>(copyInfo.destinationOffset.y),
-		static_cast<int>(copyInfo.destinationOffset.Z)
+		static_cast<int>(copyInfo.destinationOffset.z)
 	};
 	copyRegion.dstOffsets[1] = {
 		static_cast<int>(copyInfo.destinationOffset.x),
 		static_cast<int>(copyInfo.destinationOffset.y),
-		static_cast<int>(copyInfo.destinationOffset.Z)
+		static_cast<int>(copyInfo.destinationOffset.z)
 	};
 
 	VkImageSubresourceLayers sourceLayer{};
@@ -501,7 +501,7 @@ void CommandListVk::TraceRays(UIndex32 raygenEntry, UIndex32 closestHitEntry, UI
 }
 
 void CommandListVk::DispatchCompute(const Vector3ui& groupCount) {
-	vkCmdDispatch(commandBuffers[_GetCommandListIndex()], groupCount.x, groupCount.y, groupCount.Z);
+	vkCmdDispatch(commandBuffers[_GetCommandListIndex()], groupCount.x, groupCount.y, groupCount.z);
 }
 
 void CommandListVk::BindGraphicsPipeline(const IGraphicsPipeline& pipeline) {

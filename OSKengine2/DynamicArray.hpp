@@ -90,7 +90,7 @@ namespace OSK {
 			/// @brief Crea el iterador.
 			/// @param i Índice del elemento.
 			/// @param arr Puntero al array.
-			constexpr Iterator(T* ptr) noexcept : m_pointer(ptr) { }
+			constexpr explicit Iterator(T* ptr) noexcept : m_pointer(ptr) { }
 
 			/// @brief Hace que el iterador apunte al elemento siguiente.
 			/// @return Self (apuntando al elemento anterior).
@@ -273,8 +273,7 @@ namespace OSK {
 
 		/// @brief Destruye el array.
 		~DynamicArray() {
-			if (m_data)
-				free(m_data);
+			Free ();
 		}
 		
 
@@ -576,10 +575,12 @@ namespace OSK {
 		UIndex64 GetIndexOf(const T& elem) const {
 			const ConstIterator it = Find(elem);
 
-			return it
-				? static_cast<USize64>(it - m_data) / sizeof(T)
-				: ULLONG_MAX;
+			return it.GetPtr()
+				? static_cast<USize64>(it.GetPtr() - m_data) / sizeof(T)
+				: std::numeric_limits<UIndex64>::max();
 		}
+
+		constexpr static UIndex64 NotFoundIndex = std::numeric_limits<UIndex64>::max();
 
 		/// <summary>
 		/// Obtiene el iterador del primer elemento almacenado que sea igual

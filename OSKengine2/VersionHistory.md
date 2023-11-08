@@ -1031,3 +1031,182 @@ Esto aumenta enormemente la precisión de objetos alejados, y permite renderizar 
 
 - **Bugfix**: `UI::ImageView` ya no genera una excepción cuando se intenta renderizar sin haber establecido antes la iamgen (ahora no hace nada).
 - **Bugfix**: `Sprite` ya no genera una excepción cuando se intenta establecer un image view nulo.
+ 
+
+## 2023.11.08a
+
+### Collisions
+
+###### Rework de la detección de colisiones (GJK-Culling).
+
+- `Collider`
+    - Ahora permite construirse copiando otro collider.
+    
+- `ITopLevelCollider` ahora permite obtener una copia.
+- `IBottomLevelCollider`:
+    - Ahora permite obtener una copia.
+    - Hereda `IGjkCollider`.
+    - Hereda `ISatCollider`.
+
+- `ConvexVolume`
+    - Ahora implementa detección de colisiones mediante *GJK-Clipping*.
+    - Ahora permite mergear los vértices y las caras.
+    - Ahora permite obtener la cara que contiene una lista de vértices.
+
+- `CollisionInfo`
+    - Ahora contiene varios `DetailedCollisionInfo` cuando dos entidades colisionan 
+con varios colliders.
+
+- `DetailedCollisionInfo` ahora permite saber la dirección del MTV (respecto a los objetos).
+
+- ***Nuevo***: `Simplex`
+    - Grupo de vértices que trata de encerrar el origen de coordenadas.
+    - Se genera usando la diferencia de Minkowski de dos volúmenes.
+    - Permite saber si dos volúmenes colisionan o no.
+
+- ***Nuevo***: `MinkowskiHull`
+    - Volumen 3D que trata de expandirse para ocupar toda la diferencia de Minkowski de dos colliders.
+    - Permite conocer el MTV y los vértices que generaron el MTV.
+
+- ***Nuevo***: `IGjkCollider`
+    - Interfaz para colliders que soportan detección de colisiones mediante GJK-EPA.
+
+- ***Nuevo***: `GjkSupport`
+    - Indica el soporte de un volumen y el vértice que lo produjo.
+
+- ***Nuevo***: `MinkowskiSupport`
+    - Indica el soporte de la diferencia de Minkowski de dos volúmenes y los vértices que lo produjeron.
+
+- ***Nuevo***: `ClipFaces()` permite realizar un clipping de dos caras, obteniendo el parche de contacto.
+
+###### Añadido frustum culling.
+
+- `ITopLevelCollider`, `SphereCollider`, `AxisAlignedBoundingBox`
+    - Ahora permiten comprobar si están delante o en un plano.
+    - Ahora permiten comprobar si están dentro de un frustum.
+
+### Graphics
+
+- `SkyboxRenderSystem`
+    - Normalizado el brillo del cubemap a 1.
+
+- `IGpuMemoryAllocator`
+    - Ahora genera y es dueño de la textura normal por defecto.
+   
+- ***Renombrado***: *`PbrDeferredRenderSystem`* -> `DeferredRenderSystem`.
+
+###### Pases de renderizado.
+
+- ***Nuevo***: `IRenderPass`
+    - Representa un pase de renderizado de un material en una escena.
+    - Almacena las instancias de materiales de los objetos.
+
+- ***Nuevo***: `StaticGBufferPass`
+- ***Nuevo***: `AnimatedGBufferPass`
+- ***Nuevo***: `BillboardGBufferPass`
+- ***Nuevo***: `TreeNormalsRenderPass`
+- ***Nuevo***: `TreeGBufferRenderPass`
+
+- ***Nuevo***: `IDeferredResolver`
+    - Pase de renderizado para la  resolución de **g-buffer*.
+
+- ***Nuevo***: `PbrResolvePass`
+
+- `IRenderSystem`
+    - Ahora almacena, maneja y ejecuta una lista de `IRenderPass`.
+    
+- ***Nuevo***: `MeshMapping`
+    - Contiene un registro de los datos de renderizado de los modelos de un pase de renderizado.
+    - Contiene una lista de `PerModelData`.
+- ***Nuevo***: `PerModelData`
+    - Contiene un registro de los datos de renderizado de un modelo en concreto.
+    - Contiene una lista de `PerMeshData`.
+- ***Nuevo***: `PerMeshData`
+    - Contiene un registro de los datos de renderizado de un mesh en concreto.
+    - Contiene las instancias de materiales.
+
+###### Mejoras y optimizaciones de efectos de post-procesado.
+
+- `HbaoPass`
+    - Ahora permite ejecutar el pase de generación de HBAO en resoluciones distintas a la nativa.
+        - Por defecto, se ejecuta a una resolución del 50%.
+    - Reajustados parámetros de generación para un mejor resultado.
+    - Los pases de desenfoque ahora:
+        - Son independientes de la resolución de entrada.
+        - Usan un radio del filtro gaussiano de 3.25.
+        - Usan interpolación bilineal al procesar la imagen anterior.
+        - Usan comprobaciones de resultado para intentar preservar los bordes nítidos.
+
+- *TAA*
+    - Ahora usa un filtro gaussiano al obtener el color de la imagen histórica, para un mejor funcionamiento en movimiento.
+    - Ahora usa momentos estadísticos (media y desviación típica) para establecer la tolerancia de color.
+    - Reducida la cantidad de ghosting en elementos que se mueven rápidamente, disminuyendo la tolerancia de color de elementos con un movimiento muy grande.
+
+###### Añadido frustum culling.
+
+- `PbrDeferredRenderSystem`
+    - Ahora realiza frustum culling en los meshes.
+
+- ***Nuevo***: `RenderBoundsRenderer`
+    - Renderiza los volúmenes usados para realizar el frustum culling.
+
+
+### Assets
+
+- `ModelLoader3D`
+    - ***Eliminado***: `SetupPbrModel()`.
+    - ***Eliminado***: `SetupDefaultNormalTexture()`.
+    - ***Eliminado***: `defaultNormalTexture`.
+
+- ***Nuevo***: `UnsupportedMeshProperties`
+
+- `Model3D`
+    - Ahora almacena un ID.
+    - Ahora permite saber cual es el pase de renderizado que debe renderizarlo.
+    - *WIP* Introducidos primeros cambios para un sistema de *LOD*.
+
+- ***Nuevo***: `PreBuiltCollider`.
+- ***Nuevo***: `PreBuiltColliderLoader`.
+
+###### Añadido frustum culling.
+
+- Model loading:
+    - Ahora genera colliders esféricos por cada mesh.
+ 
+- `Mesh3D`
+    - Ahora tiene un collider esférico.
+   
+### ECS
+
+- `ModelComponent3D`
+    - Ya no almacena instancias de material.
+
+###### Añadido frustum culling.
+
+- `CameraComponent3D`
+    - Ahora permite obtener los planos de un frustum.
+      
+### Types
+
+- `Vector3`
+    - ***Renombrado***: *Z* -> z.
+    - Ahora no puede construirse de manera implícita.
+    - Ahora pude comprobarse si es *NaN*.
+
+###### Añadido frustum culling.
+
+- ***Nuevo***: `Plane`
+    - Representa un plano en el mundo 3D.
+    - Vector normal + punto del plano.
+
+- ***Nuevo***: `AnyFrustum`
+    - Representa un frustum con un número indeterminado de planos.
+
+##### Bugfixes
+
+- **Bugfix**: `DynamicArray` ahora ejecuta correctamente los destructores de los elementos al destruirse la lista.
+- **Bugfix**: `BloomPass::ExecuteSinglePass` ahora lanza el número correcto de hilos.
+- **Bugfix**: el shader *TAA* ahora interpola correctamente los colores histórico y nuevo (hasta ahora siempre descartaba el histórico).
+- **Bugfix**: cargar los materiales de animación del renderizador en diferido ya no genera errores en las capas de validación.
+- **Bugfix**: cargar los materiales de animación del renderizador directo ya no genera errores en las capas de validación.
+- **Bugfix**: `CollisionSysyem` ahora genera correctamente un evento por cada colisión, en vez de un evento por colisión por cada pareja de objetos.

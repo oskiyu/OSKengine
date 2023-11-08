@@ -14,7 +14,7 @@ void Animator::Setup(const glm::mat4& initialTransform) {
 	m_initialTransform = initialTransform;
 
 	m_materialInstance = Engine::GetRenderer()->GetMaterialSystem()
-		->LoadMaterial("Resources/Materials/PBR/animated_direct_pbr.json")->CreateInstance().GetPointer();
+		->LoadMaterial("Resources/Materials/PBR/Deferred/deferred_gbuffer_anim.json")->CreateInstance().GetPointer();
 
 	for (auto& buffer : m_boneBuffers) {
 		buffer = Engine::GetRenderer()->GetAllocator()->CreateStorageBuffer(sizeof(glm::mat4) * m_boneMatrices.GetSize()).GetPointer();

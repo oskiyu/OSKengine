@@ -38,6 +38,11 @@ void HbaoPass::SetDepthInput(std::span<GpuImage*, NUM_RESOURCES_IN_FLIGHT> image
 
 	if (hbaoMaterialInstance.HasValue())
 		hbaoMaterialInstance->GetSlot("texture")->SetGpuImages("depthImage", m_depthInputViews);
+
+	if (blurMaterialInstanceA.HasValue())
+		blurMaterialInstanceA->GetSlot("texture")->SetGpuImages("depthImage", m_depthInputViews);
+	if (blurMaterialInstanceB.HasValue())
+		blurMaterialInstanceB->GetSlot("texture")->SetGpuImages("depthImage", m_depthInputViews);
 }
 
 void HbaoPass::Create(const Vector2ui& size) {
@@ -47,7 +52,7 @@ void HbaoPass::Create(const Vector2ui& size) {
 	info.name = "HBAO PreBlur";
 	info.sampler = GpuImageSamplerDesc::CreateDefault();
 	info.sampler.addressMode = GpuImageAddressMode::EDGE;
-	unblurredHbaoTarget.Create(size, info);
+	unblurredHbaoTarget.Create(CalcualteTargetSize(size), info);
 
 	info.name = "HBAO Blur 1";
 	firstBlurTarget.Create(size, info);
@@ -95,13 +100,20 @@ void HbaoPass::Create(const Vector2ui& size) {
 }
 
 void HbaoPass::Resize(const Vector2ui& size) {
-	unblurredHbaoTarget.Resize(size);
+	unblurredHbaoTarget.Resize(CalcualteTargetSize(size));
 	firstBlurTarget.Resize(size);
 	secondBlurTarget.Resize(size);
 
 	IPostProcessPass::Resize(size);
 
 	SetupBlurChain();
+}
+
+Vector2ui HbaoPass::CalcualteTargetSize(Vector2ui nativeRes) const {
+	return Vector2ui(
+		static_cast<unsigned int>(glm::ceil(nativeRes.x / (1.0f / m_renderSizeRatio))),
+		static_cast<unsigned int>(glm::ceil(nativeRes.y / (1.0f / m_renderSizeRatio)))
+	);
 }
 
 void HbaoPass::LoadMaterials() {
@@ -225,7 +237,7 @@ void HbaoPass::Execute(ICommandList* computeCmdList) {
 	computeCmdList->BindMaterialSlot(*hbaoMaterialInstance->GetSlot("texture"));
 	computeCmdList->BindMaterialSlot(*hbaoMaterialInstance->GetSlot("camera"));
 
-	const Vector3ui dispatchRes = {
+	Vector3ui dispatchRes = {
 		static_cast<UIndex32>(glm::ceil(static_cast<float>(unblurredHbaoTarget.GetSize().x) / 8.0f)),
 		static_cast<UIndex32>(glm::ceil(static_cast<float>(unblurredHbaoTarget.GetSize().y) / 8.0f)),
 		1
@@ -236,7 +248,12 @@ void HbaoPass::Execute(ICommandList* computeCmdList) {
 
 #pragma endregion
 
-	
+	// Blur: native resolution
+	dispatchRes = {
+		static_cast<UIndex32>(glm::ceil(static_cast<float>(firstBlurTarget.GetSize().x) / 8.0f)),
+		static_cast<UIndex32>(glm::ceil(static_cast<float>(firstBlurTarget.GetSize().y) / 8.0f)),
+		1
+	};
 
 	// Primer blur
 	computeCmdList->StartDebugSection("First Blur", Color::Purple);

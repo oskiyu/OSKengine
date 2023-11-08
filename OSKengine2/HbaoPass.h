@@ -37,6 +37,8 @@ namespace OSK::GRAPHICS {
 
 	private:
 
+		Vector2ui CalcualteTargetSize(Vector2ui nativeRes) const;
+
 		void LoadMaterials();
 		void SetupBlurChain();
 
@@ -63,6 +65,8 @@ namespace OSK::GRAPHICS {
 		std::array<const IGpuImageView*, NUM_RESOURCES_IN_FLIGHT> m_depthInputViews{};
 
 		std::array<UniquePtr<GpuBuffer>, NUM_RESOURCES_IN_FLIGHT> m_cameraBuffers{};
+
+		float m_renderSizeRatio = 0.5f;
 
 	};
 

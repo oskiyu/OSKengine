@@ -6,25 +6,25 @@
 using namespace OSK;
 
 Quaternion::Quaternion() {
-	quaternion = glm::quat(1.0f, 0.0f, 0.0f, 0.0f);
+
 }
 
 void Quaternion::Rotate_WorldSpace(float angle, const Vector3f& axis) {
-	glm::quat rot = glm::normalize(glm::angleAxis(angle, axis.ToGLM()));
+	glm::quat rot = glm::normalize(glm::angleAxis(angle, axis.ToGlm()));
 
-	quaternion = quaternion * (glm::inverse(quaternion) * rot) * quaternion;
+	quaternion = glm::normalize(quaternion * (glm::inverse(quaternion) * rot) * quaternion);
 }
 
 void Quaternion::Rotate_LocalSpace(float angle, const Vector3f& axis) {
-	quaternion = quaternion * glm::normalize(glm::angleAxis(angle, axis.ToGLM()));
+	quaternion = glm::normalize(quaternion * glm::normalize(glm::angleAxis(angle, axis.ToGlm())));
 }
 
 Vector3f Quaternion::RotateVector(const Vector3f& vec) const {
-	return glm::rotate(quaternion, vec.ToGLM());
+	return Vector3f(glm::rotate(quaternion, vec.ToGlm()));
 }
 
 Vector3f Quaternion::ToEulerAngles() const {
-	return glm::eulerAngles(quaternion);
+	return Vector3f(glm::eulerAngles(quaternion));
 }
 
 Quaternion Quaternion::FromGlm(const glm::quat& quat) {

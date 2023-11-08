@@ -18,10 +18,15 @@ namespace OSK::COLLISION {
 		SphereCollider() = default;
 		SphereCollider(float radius);
 
+		OwnedPtr<ITopLevelCollider> CreateCopy() const override;
+
+
 		void SetRadius(float radius);
 		float GetRadius() const;
 
 		bool ContainsPoint(const Vector3f& thisOffset, const Vector3f& point) const override;
+
+		bool IsBehindPlane(Plane plane, const Vector3f& thisOffset) const override;
 
 		RayCastResult CastRay(const Ray& ray, const Vector3f& position) const override;
 		bool IsColliding(const ITopLevelCollider& other,

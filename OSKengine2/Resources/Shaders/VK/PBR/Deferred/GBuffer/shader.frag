@@ -20,19 +20,30 @@ layout (location = 3) out vec2 outVelocity;
 layout (set = 1, binding = 0) uniform sampler2D albedoTexture;
 layout (set = 1, binding = 1) uniform sampler2D normalTexture;
 
+layout (set = 0, binding = 0) uniform Camera {
+    mat4 projection;
+    mat4 view;
+    mat4 projectionView;
+
+    vec3 cameraPos;
+} camera;
+
+
 layout (push_constant) uniform Model {
     mat4 modelMatrix;
     mat4 previousModelMatrix;
     // Metallic Roughness
     vec4 infos;
-    vec2 resolution;
 } model;
 
 // x = r
 // y = g
 
 void main() {
-    outColor = inColor * vec4(texture(albedoTexture, inTexCoords).rgb, 1.0);
+    outColor = inColor * texture(albedoTexture, inTexCoords).rgba;
+    
+    if (outColor.a < 0.75)
+        discard;
 
     const vec2 cameraSpacePreviousPosition = (inPreviousCameraPosition.xy / inPreviousCameraPosition.w) * 0.5 + 0.5;
     const vec2 cameraSpaceCurrentPosition = (inUnjitteredCurrentCameraPosition.xy / inUnjitteredCurrentCameraPosition.w) * 0.5 + 0.5;
@@ -44,6 +55,7 @@ void main() {
 
     vec3 normal = texture(normalTexture, inTexCoords).xyz;
     normal = normal * 2.0 - 1.0;
+
     normal = normalize(inTangentMatrix * normal);
 
     // Info packaging: (x.xxx) . (y.yyy)

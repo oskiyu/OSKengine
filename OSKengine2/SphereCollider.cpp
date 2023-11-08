@@ -7,6 +7,10 @@
 using namespace OSK;
 using namespace OSK::COLLISION;
 
+OwnedPtr<ITopLevelCollider> SphereCollider::CreateCopy() const {
+	return new SphereCollider(*this);
+}
+
 SphereCollider::SphereCollider(float radius) {
 	SetRadius(radius);
 }
@@ -21,6 +25,15 @@ float SphereCollider::GetRadius() const {
 
 bool SphereCollider::ContainsPoint(const Vector3f& thisOffset, const Vector3f& point) const {
 	return point.GetDistanceTo(thisOffset) < radius;
+}
+
+bool SphereCollider::IsBehindPlane(Plane plane, const Vector3f& center) const {
+	const float planeDistance = plane.point.Dot(plane.normal);
+	const float centerDistance = center.Dot(plane.normal);
+
+	const float distanceToPlane = centerDistance - planeDistance;
+
+	return !(distanceToPlane > -radius);
 }
 
 RayCastResult SphereCollider::CastRay(const Ray& ray, const Vector3f& center) const {

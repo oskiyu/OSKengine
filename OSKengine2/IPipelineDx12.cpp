@@ -7,7 +7,7 @@
 #undef min
 
 #include "FileIO.h"
-#include "WindowsUtils.h"
+#include "StringOperations.h"
 
 using namespace OSK;
 using namespace OSK::IO;

@@ -7,6 +7,8 @@
 #include "SharedPtr.hpp"
 #include "RenderTarget.h"
 
+#include "IRenderPass.h"
+
 namespace OSK::GRAPHICS {
 	class ICommandList;
 }
@@ -22,7 +24,7 @@ namespace OSK::ECS {
 
 	public:
 
-		virtual ~IRenderSystem() = default;
+		virtual ~IRenderSystem();
 
 		virtual void OnCreate() override;
 
@@ -51,17 +53,48 @@ namespace OSK::ECS {
 		/// el sistema.
 		GRAPHICS::RenderTarget& GetRenderTarget();
 
+
+		// -- PASES -- //
+
+		/// @brief Añade un nuevo pase de renderizado.
+		/// @param pass Pase de renderizado.
+		/// @pre No debe existir un pase de renderizado previo con el mismo nombre
+		/// que @p pass.
+		virtual void AddRenderPass(OwnedPtr<GRAPHICS::IRenderPass> pass);
+
+		/// @param name Nombre del pase de renderizado.
+		/// @return True si contiene un pase de renderizado con el nombre @p name.
+		bool HasRenderPass(std::string_view name) const;
+
+		/// @param name Nombre del pase de renderizado.
+		/// @return Pase de renderizado.
+		/// @pre Debe existir un pase de renderizado con nombre @p name.
+		GRAPHICS::IRenderPass* GetRenderPass(std::string_view name);
+
+		/// @brief Actualiza las listas de objetos asignados a cada pase.
+		virtual void UpdatePerPassObjectLists();
+
 	protected:
 
-		/// <summary>
-		/// Configura el viewport que se usará en la lista de comandos
+		/// @brief Configura el viewport que se usará en la lista de comandos
 		/// para que incluya toda la imagen del render system.
-		/// </summary>
-		/// 
+		/// @param commandList Lista de comandos.
 		/// @pre commandList no debe ser null.
 		void SetupViewport(GRAPHICS::ICommandList* commandList);
 
-		GRAPHICS::RenderTarget renderTarget;
+		// -- PASES -- //
+
+		/// @brief Pases de renderizado.
+		DynamicArray<UniquePtr<GRAPHICS::IRenderPass>> m_renderPasses;
+
+		/// @brief Mapa nombre -> pase de renderizado.
+		std::unordered_map<std::string, GRAPHICS::IRenderPass*, StringHasher, std::equal_to<>> m_renderPassesTable;
+
+		/// @brief Objetos compatibles con cada pase.
+		std::unordered_map<std::string, DynamicArray<GameObjectIndex>, StringHasher, std::equal_to<>> m_objectsPerPass;
+
+
+		GRAPHICS::RenderTarget m_renderTarget;
 
 	};
 

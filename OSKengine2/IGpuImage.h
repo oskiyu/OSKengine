@@ -227,8 +227,8 @@ namespace OSK::GRAPHICS {
 		IGpuMemoryBlock* m_block = nullptr;
 		IGpuMemorySubblock* m_buffer = nullptr;
 
-		Vector3ui m_size = 0;
-		Vector3ui m_physicalSize = 0;
+		Vector3ui m_size = Vector3ui::Zero;
+		Vector3ui m_physicalSize = Vector3ui::Zero;
 
 		GpuImageSamplerDesc m_samplerDesc{};
 

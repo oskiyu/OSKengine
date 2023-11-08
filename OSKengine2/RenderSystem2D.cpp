@@ -29,7 +29,7 @@ void RenderSystem2D::Render(ICommandList* commandList) {
 
 	commandList->StartDebugSection("2D Rendering", Color::Blue);
 
-	commandList->BeginGraphicsRenderpass(&renderTarget, { 1.0f, 1.0f, 1.0f, 0.0f });
+	commandList->BeginGraphicsRenderpass(&m_renderTarget, { 1.0f, 1.0f, 1.0f, 0.0f });
 
 	SetupViewport(commandList);
 

@@ -53,3 +53,7 @@ using TInterfaceUuid = UIndex32;
 #define OSK_IUUID(interfaceClass) (interfaceClass ::GetInterfaceUuid())
 
 inline constexpr USize32 NUM_RESOURCES_IN_FLIGHT = 3;
+
+#ifdef max
+#undef max
+#endif

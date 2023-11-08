@@ -1,14 +1,20 @@
-// OSKengine by oskiyu
-// Copyright (c) 2019-2022 oskiyu. All rights reserved.
 #include "ConvexVolume.h"
 
 #include "Transform3D.h"
 #include "FaceProjection.h"
 
 #include <optional>
+#include <set>
+#include <unordered_set>
 #include "NotImplementedException.h"
 #include "OSKengine.h"
 #include "Logger.h"
+
+#include "Simplex.h"
+#include "MinkowskiHull.h"
+#include "Clipping.h"
+
+#include "Math.h"
 
 #include "InvalidArgumentException.h"
 #include "InvalidObjectStateException.h"
@@ -18,12 +24,16 @@ using namespace OSK::ECS;
 using namespace OSK::COLLISION;
 
 
+OwnedPtr<IBottomLevelCollider> ConvexVolume::CreateCopy() const {
+	return new ConvexVolume(*this);
+}
+
 ConvexVolume ConvexVolume::CreateObb(const Vector3f& size, float bottomHeight) {
 	ConvexVolume output;
 
 	const float width = size.x * 0.5f;
 	const float height = size.y;
-	const float length = size.Z * 0.5f;
+	const float length = size.z * 0.5f;
 
 	const float top = bottomHeight + height;
 	const float bottom = bottomHeight;
@@ -84,6 +94,8 @@ ConvexVolume ConvexVolume::CreateObb(const Vector3f& size, float bottomHeight) {
 		{ -width, top,    -length },
 		});
 
+	output.MergeFaces();
+
 	return output;
 }
 
@@ -138,39 +150,229 @@ void ConvexVolume::AddFace(const DynamicArray<Vector3f>& points) {
 	RecalculateCenter();
 }
 
-void ConvexVolume::OptimizeAxes() {
-	if (m_faces.IsEmpty())
-		return;
+bool ConvexVolume::AreFacesEquivalent(UIndex32 firstFace, UIndex32 secondFace) const {
+	const Axis axis1 = GetLocalSpaceAxis(firstFace);
+	const Axis axis2 = GetLocalSpaceAxis(secondFace);
 
-	DynamicArray<FaceIndices> optimizedFaces = {};
-	DynamicArray<UIndex32> duplicatedIds = {};
+	const bool isSameAxis = axis1 == axis2 || axis1 == -axis2;
 
-	for (UIndex32 i = 0; i < m_faces.GetSize() - 1; i++) {
+	bool hasCommonPoints = false;
 
-		// Por cada eje original, comprobamos si hay otros
-		// ejes equivalentes.
+	for (const auto& indexA : m_faces[firstFace]) {
+		for (const auto& indexB : m_faces[secondFace]) {
+			if (indexA == indexB) {
+				hasCommonPoints = true;
+				break;
+			}
+		}
 
-		for (UIndex32 j = i + 1; j < m_faces.GetSize(); j++) {
-
-			const Axis axis1 = GetLocalSpaceAxis(i);
-			const Axis axis2 = GetLocalSpaceAxis(j);
-
-			// @todo epsilon?
-			const bool isSameAxis = axis1 == axis2 || axis1 == -axis2;
-
-			// Si el otro eje es igual, lo marcamos para no añadirlo
-			// a la lista optimizada.
-			if (isSameAxis)
-				duplicatedIds.Insert(j);
+		if (hasCommonPoints) {
+			break;
 		}
 	}
 
-	// Añadimos las caras que no hayan sido marcadas.
-	for (UIndex32 i = 0; i < m_faces.GetSize(); i++)
-		if (!duplicatedIds.ContainsElement(i))
+	return isSameAxis && hasCommonPoints;
+}
+
+void ConvexVolume::MergeVertices() {
+	if (m_vertices.IsEmpty())
+		return;
+	
+	// Array con los vértices finales (sin duplicados).
+	DynamicArray<Vector3f> nVertices = DynamicArray<Vector3f>::CreateReservedArray(m_vertices.GetSize());
+	
+	// Old vertex ID -> new vertex ID.
+	// Para poder actualizar los índices de
+	// las caras.
+	std::unordered_map<UIndex32, UIndex32> oldToNewId;
+
+	for (UIndex32 originalId = 0; originalId < m_vertices.GetSize(); originalId++) {
+		const Vector3f originalVertex = m_vertices[originalId];
+
+		// Sólamente añadimos el vértice al array si no estava previamente.
+		// Ningún vértice se añade más de una vez.
+		bool containsVertex = false;
+		for (const auto& v : nVertices) {
+			if (v.Equals(originalVertex, 0.00001f)) {
+				containsVertex = true;
+				break;
+			}
+		}
+
+		if (!containsVertex) {
+			nVertices.Insert(originalVertex);
+		}
+
+		// Índice del vértice en el nuevo array.
+		UIndex32 newId = 0;
+		for (; newId < nVertices.GetSize(); newId++) {
+			if (nVertices[newId].Equals(originalVertex, 0.00001f)) {
+				break;
+			}
+		}
+
+		oldToNewId[originalId] = newId;
+	}
+	
+	// Actualización de las caras.
+	for (auto& face : m_faces) {
+		for (auto& index : face) {
+			index = oldToNewId[index];
+		}
+	}
+
+	m_vertices = nVertices;
+
+	RecalculateCenter();
+}
+
+void ConvexVolume::NormalizeFaces() {
+	for (UIndex32 i = 0; i < m_faces.GetSize(); i++) {
+		NormalizeFace(i);
+	}
+}
+
+void ConvexVolume::NormalizeFace(UIndex32 faceIndex) {
+	
+	// Cara procesada
+	FaceIndices& face = m_faces[faceIndex];
+
+	// Vector normal de la cara.
+	const Vector3f faceNormal = GetLocalSpaceAxis(faceIndex);
+
+
+	// Nueva lista con los índices de los vértices.
+	DynamicArray<UIndex32> newIndices = {};
+
+
+	// Centro de la cara.
+	Vector3f center = Vector3f::Zero;
+
+	// Vértices que faltan por procesar.
+	std::set<UIndex32> remainingVertices = {};
+
+
+	// Calculamos centro y vértices por procesar.
+	for (UIndex32 i : face) {
+		center += m_vertices[i];
+		remainingVertices.insert(i);
+	}
+
+	center /= static_cast<float>(m_vertices.GetSize());
+
+
+	// ID del vértice que está siendo procesado.
+	UIndex32 currentVertexId = *remainingVertices.begin();
+
+	remainingVertices.erase(currentVertexId);
+
+	newIndices.Insert(currentVertexId);
+
+	Vector3f currentVertex = m_vertices[currentVertexId];
+
+	while (!remainingVertices.empty()) {
+		float minAngle = std::numeric_limits<float>::max();
+		UIndex32 nextVertexId = 0;
+
+		for (const UIndex32 i : remainingVertices) {
+			const Vector3f newVertex = m_vertices[i];
+
+			const Vector3f refToCenter = center - currentVertex;
+			const Vector3f newToCenter = center - newVertex;
+
+			// Get direction
+			const Vector3f direction = refToCenter.Cross(faceNormal).GetNormalized();
+			const float newDot = newToCenter.Dot(direction);
+
+			float angleDeg = refToCenter.GetAngle(newToCenter);
+			
+			if (newDot < 0.0f)
+				angleDeg = (180.0f - angleDeg) + 180.0f;
+
+			if (angleDeg < minAngle) {
+				minAngle = angleDeg;
+				nextVertexId = i;
+			}
+		}
+
+		remainingVertices.erase(nextVertexId);
+		newIndices.Insert(nextVertexId);
+
+		currentVertex = m_vertices[nextVertexId];
+	}
+
+	face = newIndices;
+}
+
+void ConvexVolume::MergeFaces() {
+	if (m_faces.IsEmpty())
+		return;
+
+	// return;
+	MergeVertices();
+
+	// ID de las caras que deben eliminarse y que serán
+	// reemplazadas.
+	std::unordered_set<UIndex32> facesToDelete = {};
+
+	// Contiene los índices de cada nueva cara.
+	// Índices de caras.
+	DynamicArray<std::unordered_set<UIndex32>> newFaces = {};
+
+
+	for (UIndex32 faceA = 0; faceA < m_faces.GetSize() - 1; faceA++) {
+		if (facesToDelete.contains(faceA))
+			continue;
+
+		// IDs de las caras equivalentes a faceA.
+		std::unordered_set<UIndex32> equivalentFaces{};
+
+		// Por cada eje original, comprobamos si hay otros
+		// ejes equivalentes.
+		for (UIndex32 faceB = faceA + 1; faceB < m_faces.GetSize(); faceB++) {
+			if (facesToDelete.contains(faceB))
+				continue;
+
+			// Si el otro eje es igual, lo marcamos para no añadirlo
+			// a la lista optimizada.
+			if (AreFacesEquivalent(faceA, faceB)) {
+				equivalentFaces.insert(faceA);
+				equivalentFaces.insert(faceB);
+
+				facesToDelete.insert(faceA);
+				facesToDelete.insert(faceB);
+			}
+		}
+
+		if (!equivalentFaces.empty()) {
+			newFaces.Insert(equivalentFaces);
+		}
+	}
+
+	DynamicArray<FaceIndices> optimizedFaces{};
+
+	// Añadimos las caras que no han sido eliminadas.
+	for (UIndex32 i = 0; i < m_faces.GetSize(); i++) {
+		if (!facesToDelete.contains(i)) {
 			optimizedFaces.Insert(m_faces[i]);
+		}
+	}
+
+	// Por cada nueva cara...
+	for (const auto& nFace : newFaces) {
+		FaceIndices newFaceIndices = {};
+
+		// ...obtenemos todos sus índices.
+		for (const auto& faceIndex : nFace) {
+			newFaceIndices.InsertAll(m_faces[faceIndex]);
+		}
+
+		optimizedFaces.Insert(newFaceIndices);
+	}
 
 	m_faces = optimizedFaces;
+
+	NormalizeFaces();
 }
 
 void ConvexVolume::RecalculateCenter() {
@@ -193,9 +395,11 @@ ConvexVolume::Axis ConvexVolume::GetLocalSpaceAxis(UIndex32 faceId) const {
 	const Vector3f vec2 = pointC - pointB;
 
 	const Vector3f cross = vec1.Cross(vec2).GetNormalized();
-	const Vector3f vecToCenter = m_center - pointA;
-	
-	return cross * glm::sign(cross.Dot(vecToCenter));
+
+	const float centerProjection = m_center.Dot(cross);
+	const float vecProjection = pointA.Dot(cross);
+
+	return cross * MATH::Sign(vecProjection - centerProjection);
 }
 
 ConvexVolume::Axis ConvexVolume::GetWorldSpaceAxis(UIndex32 faceId) const {
@@ -209,9 +413,52 @@ ConvexVolume::Axis ConvexVolume::GetWorldSpaceAxis(UIndex32 faceId) const {
 	const Vector3f vec2 = pointC - pointB;
 
 	const Vector3f cross = vec1.Cross(vec2).GetNormalized();
-	const Vector3f vecToCenter = m_center - pointA;
 
-	return cross * glm::sign(cross.Dot(vecToCenter));
+	const float centerProjection = m_transformedCenter.Dot(cross);
+	const float vecProjection = pointA.Dot(cross);
+
+	return cross * MATH::Sign(vecProjection - centerProjection);
+}
+
+
+UIndex32 ConvexVolume::GetMostParallelFaceIndex(const Vector3f& faceNormal, const DynamicArray<UIndex32>& candidates) const {
+	// Dot de dos vectores paralelos es 1.
+	float mostParallelDot = std::numeric_limits<float>::max();
+	UIndex32 output = 0;
+
+	for (UIndex32 faceId : candidates) {
+
+		const Vector3f nFaceNormal = GetWorldSpaceAxis(faceId);
+		const float dot = glm::abs(faceNormal.Dot(nFaceNormal));
+		const float diff = glm::abs(1.0f - dot);
+
+		if (diff < mostParallelDot) {
+			output = faceId;
+			mostParallelDot = dot;
+		}
+	}
+
+	return output;
+}
+
+UIndex32 ConvexVolume::GetMostParallelFaceIndex(const Vector3f& faceNormal) const {
+	// Dot de dos vectores paralelos es 1.
+	float mostParallelDot = std::numeric_limits<float>::max();
+	UIndex32 output = 0;
+
+	for (UIndex32 faceId = 0; faceId < m_faces.GetSize(); faceId++) {
+
+		const Vector3f nFaceNormal = m_axes[faceId];
+		const float dot = nFaceNormal.Dot(faceNormal);
+		const float diff = glm::abs(1.0f - dot);
+
+		if (diff < mostParallelDot) {
+			output = faceId;
+			mostParallelDot = dot;
+		}
+	}
+
+	return output;
 }
 
 DetailedCollisionInfo ConvexVolume::GetCollisionInfo(const IBottomLevelCollider& other,
@@ -219,229 +466,143 @@ DetailedCollisionInfo ConvexVolume::GetCollisionInfo(const IBottomLevelCollider&
 
 	const auto& otherVolume = (const ConvexVolume&)other;
 
-	// Vértices en world-space de cada collider.
-	const auto& transformedVerticesA = this->m_transformedVertices;
-	const auto& transformedVerticesB = otherVolume.m_transformedVertices;
+#define GJK_POINTS
+#ifdef GJK_POINTS
 
-	// Vector mínimo que se debe aplicar para separar las entidades,
-	// de tal manera que dejen de estar en colisión.
+	const Simplex simplex = Simplex::GenerateFrom(*this, otherVolume);
 
-	Vector3f currentAxis = 0.0f;
-	UIndex32 mtvFaceIndex = 0;
-
-
-	float minimumOverlap = std::numeric_limits<float>::max();
-
-	bool isAxisA = false;
-
-	// Comprobamos los ejes de este collider.
-	for (UIndex32 faceIndex = 0; faceIndex < (m_faces.GetSize() + otherVolume.m_faces.GetSize()); faceIndex++) {
-		const bool isFirstEntity = faceIndex < m_faces.GetSize();
-
-		const Axis axis = isFirstEntity
-			? this->GetWorldSpaceAxis(faceIndex)
-			: otherVolume.GetWorldSpaceAxis(faceIndex - static_cast<USize32>(m_faces.GetSize()));
-
-		const auto projA = FaceProjection(transformedVerticesA, axis);
-		const auto projB = FaceProjection(transformedVerticesB, axis);
-
-		// Si no hay overlap, no hay colisión.
-		if (!projA.Overlaps(projB))
-			return DetailedCollisionInfo::False();
-
-
-		// Distancia que los dos objetos se solapan en este eje.
-		const float overlap = projA.GetOverlap(projB);
-
-		if (glm::abs(overlap) < glm::abs(minimumOverlap)) {
-			minimumOverlap = overlap;
-			currentAxis = axis;
-
-			mtvFaceIndex = faceIndex;
-			isAxisA = isFirstEntity;
-		}
+	if (!simplex.ContainsOrigin()) {
+		return DetailedCollisionInfo::False();
 	}
+
+	const auto minkowskiHull = MinkowskiHull::BuildFromVolumes(*this, otherVolume);
+
+	if (!minkowskiHull.SurpasesMinDepth()) {
+		return DetailedCollisionInfo::False();
+	}
+
+	Vector3f mtv = minkowskiHull.GetMtv();
+
+	const UIndex64 firstFaceId = GetFaceWithVertexIndices(minkowskiHull.GetFirstFaceVerticesIds(), minkowskiHull.GetMtv());
+	const UIndex64 secondFaceId = otherVolume.GetFaceWithVertexIndices(minkowskiHull.GetSecondFaceVerticesIds(), -minkowskiHull.GetMtv());
+
+#ifdef OSK_COLLISION_DEBUG
+	Engine::GetLogger()->DebugLog(std::format("First vertices count: {}", m_transformedVertices.GetSize()));
+	Engine::GetLogger()->DebugLog(std::format("Second vertices count: {}", otherVolume.m_transformedVertices.GetSize()));
+
+	Engine::GetLogger()->DebugLog(std::format("MTV: {:.3f} {:.3f} {:.3f}", mtv.x, mtv.y, mtv.z));
+	Engine::GetLogger()->DebugLog(std::format("\tOriginal mtv depth: {:.3f}", expandingPolytope.GetMtv().GetLenght()));
+#endif
+
+	const FaceIndices& faceA = m_faces[firstFaceId];
+	const FaceIndices& faceB = otherVolume.m_faces[secondFaceId];
+
+	DynamicArray<Vector3f> verticesA = DynamicArray<Vector3f>::CreateReservedArray(faceA.GetSize());
+	for (const auto index : faceA)
+		verticesA.Insert(m_transformedVertices[index]);
+
+	DynamicArray<Vector3f> verticesB = DynamicArray<Vector3f>::CreateReservedArray(faceB.GetSize());
+	for (const auto index : faceB)
+		verticesB.Insert(otherVolume.m_transformedVertices[index]);
+
+	// Get most incident face:
+	float incidentDot = std::numeric_limits<float>::max();
+	MinkowskiHull::Volume incident = MinkowskiHull::Volume::A;
+	{
+		const float firstDot = m_axes[firstFaceId].Dot(-mtv);
+		const float secondDot = otherVolume.m_axes[secondFaceId].Dot(mtv);
+
+		incident = firstDot < secondDot ? MinkowskiHull::Volume::A : MinkowskiHull::Volume::B;
+	}
+
+	const Vector3f normal = minkowskiHull.GetNormalizedMtv();
+	const Vector3f otherNormal = otherVolume.GetWorldSpaceAxis(secondFaceId);
+
+#ifdef OSK_COLLISION_DEBUG
+	Engine::GetLogger()->DebugLog(std::format("First normal: {:.3f} {:.3f} {:.3f}", normal.x, normal.y, normal.z));
+	Engine::GetLogger()->DebugLog(std::format("Second normal: {:.3f} {:.3f} {:.3f}", otherNormal.x, otherNormal.y, otherNormal.z));
+#endif
+
+	const DynamicArray<Vector3f> finalContactPoints = incident == MinkowskiHull::Volume::A
+		? ClipFaces(verticesA, verticesB, normal, otherNormal)
+		: ClipFaces(verticesB, verticesA, otherNormal, normal);
 	
 
-	
-	// A to B
-	const Vector3f mtv = currentAxis.GetNormalized() * minimumOverlap;
+	return DetailedCollisionInfo::True(
+		minkowskiHull.GetMtv(),
+		finalContactPoints,
+		minkowskiHull.GetNormalizedMtv(),
+		otherNormal,
+		DetailedCollisionInfo::MtvDirection::A_TO_B
+	);
 
+#else
+	const auto mtvInfo = SatCollision(*this, other);
 
-	// Obtenemos los puntos de contacto.
-	// @see https://dyn4j.org/2011/11/contact-points-using-clipping/
+	if (!mtvInfo.overlaps) {
+		return DetailedCollisionInfo::False();
+	}
 
-
-	// El collider de referencia es el collider a partir del cual hemos
-	// obtenido el MTV.
-	const ConvexVolume& primaryCollider = isAxisA
+	const ConvexVolume& primaryCollider = mtvInfo.face.collider == SatInfo::Face::Collider::A
 		? *this
 		: otherVolume;
 
-	// El collider secundario es el otro collider.
-	const ConvexVolume& secondaryCollider = isAxisA
+	const ConvexVolume& secondaryCollider = mtvInfo.face.collider == SatInfo::Face::Collider::A
 		? otherVolume
 		: *this;
 
-	// Los vértices, transfomrados a espacio del mundo,
-	// del collider de referencia.
-	const DynamicArray<Vector3f>& primaryVertices = isAxisA
-		? transformedVerticesA
-		: transformedVerticesB;
-
-	// Los vértices, transfomrados a espacio del mundo,
-	// del collider incidente.
-	const DynamicArray<Vector3f>& secondaryVertices = isAxisA
-		? transformedVerticesB
-		: transformedVerticesA;
-
 
 	// MTV normalizado, expresado en la dirección Referencia -> Incidente.
-	const Vector3f normalizedDirectedMtv = isAxisA
-		?  mtv.GetNormalized()
-		: -mtv.GetNormalized();
+	const Vector3f normalizedDirectedMtv = mtvInfo.mtv.GetNormalized();
 
-	
+
 	// Debemos obtener el punto del collider incidente que está
 	// más hacia el collider de referencia.
-	UIndex32 furthestIncidentPointIndex = 0;
-	float furthestIncidentPointProjection = std::numeric_limits<float>::max();
-
-	for (UIndex32 i = 0; i < secondaryVertices.GetSize(); i++) {
-		const auto& vertex = secondaryVertices[i];
-		
-		const float dot = vertex.Dot(normalizedDirectedMtv);
-		if (dot < furthestIncidentPointProjection) {
-			furthestIncidentPointProjection = dot;
-			furthestIncidentPointIndex = i;
-		}
-	}
+	const UIndex32 furthestIncidentPointIndex = static_cast<UIndex32>(secondaryCollider.GetSupport(normalizedDirectedMtv).originalVertexId);
 
 
 	// Índices de las caras del segundo collider que contienen
 	// el vértice más hacia la referencia.
-	const DynamicArray<UIndex32> secondaryFacesIndices 
-		= secondaryCollider.GetFaceIndicesWithVertex(secondaryCollider.m_vertices[furthestIncidentPointIndex]);
+	const DynamicArray<UIndex32> secondaryFacesIndices
+		= secondaryCollider.GetFaceIndicesWithVertex(furthestIncidentPointIndex);
 
 
 	// Obtenemos la cara del collider incidente que está más paralela a
 	// la cara del MTV.
-	UIndex32 mostParallelFaceIndex = 0;
-	Vector3f secondFaceNormal = Vector3f::Zero;
+	const UIndex32 incidentFaceIndex = secondaryCollider.GetMostParallelFaceIndex(normalizedDirectedMtv, secondaryFacesIndices);
+	const Vector3f secondFaceNormal = secondaryCollider.GetWorldSpaceAxis(incidentFaceIndex);
 
-	{
-		// Dot de dos vectores paralelos es 1.
-		float mostParallelDot = std::numeric_limits<float>::max();
+	DynamicArray<Vector3f> referencePoints = DynamicArray<Vector3f>::CreateReservedArray(primaryCollider.m_faces[mtvInfo.face.index].GetSize());
+	for (const UIndex32 index : primaryCollider.m_faces[mtvInfo.face.index])
+		referencePoints.Insert(primaryCollider.m_transformedVertices[index]);
 
-		for (const UIndex32 faceId : secondaryFacesIndices) {
-			const Vector3f faceNormal = secondaryCollider.GetWorldSpaceAxis(faceId);
-			const float dot = glm::abs(faceNormal.Dot(normalizedDirectedMtv) - 1.0f);
-			
-			if (dot < mostParallelDot) {
-				mostParallelFaceIndex = faceId;
-				mostParallelDot = dot;
-				secondFaceNormal = faceNormal;
-			}
-		}
-	}
-
-	// Índice de la cara incidente.
-	const UIndex32 incidentFaceIndex = mostParallelFaceIndex;
-
-	// Índice de la cara del collider de referencia a partir
-	// del que hemos sacado el MTV.
-	const UIndex64 referenceFaceIndex = isAxisA
-		? mtvFaceIndex
-		: mtvFaceIndex - m_faces.GetSize();
-
-	// Puntos de contacto.
-	// Se inicializan a los puntos de la cara incidente, y después
-	// se van ajustando para representar el área de colisión.
-	DynamicArray<Vector3f> contactPoints = DynamicArray<Vector3f>::CreateReservedArray(secondaryCollider.m_faces[incidentFaceIndex].GetSize());
+	DynamicArray<Vector3f> secondaryPoints = DynamicArray<Vector3f>::CreateReservedArray(secondaryCollider.m_faces[incidentFaceIndex].GetSize());
 	for (const UIndex32 index : secondaryCollider.m_faces[incidentFaceIndex])
-		contactPoints.Insert(secondaryVertices[index]);
+		referencePoints.Insert(secondaryCollider.m_transformedVertices[index]);
 
+	const DynamicArray<Vector3f> finalContactPoints = ClipFaces(referencePoints, secondaryPoints, normalizedDirectedMtv, secondFaceNormal);
 
-	// --------------------------- //
-
-	// Cara de referencia.
-	const FaceIndices& referenceFace = primaryCollider.m_faces[referenceFaceIndex];
-
-	// Número de vértices en la cara de referencia.
-	const auto numReferenceVertices = referenceFace.GetSize();
-	
-	// Obtenemos los pares de vértices consecutivos de la cara de referencia.
-	for (UIndex64 v = 0; v < numReferenceVertices; v++) {
-		const UIndex64 firstReferenceVertexIndex  = referenceFace[(v + 0) % numReferenceVertices];
-		const UIndex64 secondReferenceVertexIndex = referenceFace[(v + 1) % numReferenceVertices];
-		const UIndex64 thirdReferenceVertexIndex  = referenceFace[(v + 2) % numReferenceVertices];
-
-		// Definimos un plano a partir de una línea (definida por dos vértices consecutivos)
-		// en dirección al centro.
-		const Vector3f referenceVertex1 = primaryVertices[firstReferenceVertexIndex];
-		const Vector3f referenceVertex2 = primaryVertices[secondReferenceVertexIndex];
-		const Vector3f referenceVertex3 = primaryVertices[thirdReferenceVertexIndex];
-
-		const Vector3f lineDirection = (referenceVertex2 - referenceVertex1).Cross(referenceVertex3 - referenceVertex2).GetNormalized();
-
-		// Dirección a la que deben estár los puntos.
-		const Vector3f direction = normalizedDirectedMtv.Cross(lineDirection).GetNormalized();
-
-		for (UIndex64 j = 0; j < contactPoints.GetSize(); j++) {
-			Vector3f& point = contactPoints[j];
-
-			const Vector3f relativePosition = point - referenceVertex1;
-
-			const float dot = relativePosition.Dot(direction);
-
-			if (dot < 0.0f)
-				point += -direction * dot;
-		}
-	}
-
-
-	DynamicArray<Vector3f> finalContactPoints = DynamicArray<Vector3f>::CreateReservedArray(contactPoints.GetSize());
-	float currentFurthestDistance = std::numeric_limits<float>::lowest();
-
-	for (const Vector3f& point : contactPoints) {
-		// Mayor distanca = más metido.
-		const float distance = point.Dot(-normalizedDirectedMtv);
-
-		if (distance > currentFurthestDistance)
-			currentFurthestDistance = distance;
-	}
-
-	for (const Vector3f& point : contactPoints) {
-		// Mayor distanca = más metido.
-		const float distance = point.Dot(-normalizedDirectedMtv);
-
-		if (glm::abs(distance - currentFurthestDistance) < 0.01f)
-			finalContactPoints.Insert(point);
-	}
+	const Vector3f finalMtv = mtvInfo.mtv * (mtvInfo.face.collider == SatInfo::Face::Collider::A ? 1.0f : -1.0f);
+	const Vector3f aToB = mtvInfo.face.collider == SatInfo::Face::Collider::A ? mtvInfo.mtv : secondFaceNormal;
+	const Vector3f bToA = mtvInfo.face.collider == SatInfo::Face::Collider::A ? secondFaceNormal : mtvInfo.mtv;
 
 	return DetailedCollisionInfo::True(
-		mtv,
+		finalMtv,
 		finalContactPoints,
-		mtv,
-		secondFaceNormal,
-		!isAxisA
-	);
+		aToB,
+		bToA,
+		DetailedCollisionInfo::MtvDirection::A_TO_B);
+
+#endif
 }
 
-DynamicArray<UIndex32> ConvexVolume::GetFaceIndicesWithVertex(const Vector3f& vertex) const {
+DynamicArray<UIndex32> ConvexVolume::GetFaceIndicesWithVertex(UIndex32 vertexIndex) const {
 	DynamicArray<UIndex32> output = DynamicArray<UIndex32>::CreateReservedArray(m_faces.GetSize());
 
 	for (UIndex32 i = 0; i < m_faces.GetSize(); i++) {
 		const auto& face = m_faces[i];
 
-		bool containstVertex = false;
-		for (UIndex32 v = 0; v < face.GetSize(); v++) {
-			const Vector3f thisVertex = m_vertices[face[v]];
-			if (thisVertex.Equals(vertex, 0.001f)) {
-				containstVertex = true;
-				break;
-			}
-		}
+		const bool containstVertex = face.ContainsElement(vertexIndex);
 
 		if (containstVertex)
 			output.Insert(i);
@@ -455,16 +616,37 @@ bool ConvexVolume::ContainsPoint(const Vector3f& point) const {
 	return false;
 }
 
-Vector3f ConvexVolume::GetFurthestPoint(Vector3f direction) const {
-	Vector3f output = Vector3f::Zero;
-	float outputDistance = std::numeric_limits<float>::lowest();
+GjkSupport ConvexVolume::GetSupport(const Vector3f& direction) const {
+	GjkSupport output{};
 
-	for (const Vector3f vertex : m_vertices) {
-		const float distance = direction.Dot(vertex);
+	double outputDistance = std::numeric_limits<double>::lowest();
+
+	for (UIndex64 v = 0; v < m_transformedVertices.GetSize(); v++) {
+		const Vector3f vertex = m_transformedVertices[v];
+		const float distance = vertex.Dot(direction);
 
 		if (distance > outputDistance) {
 			outputDistance = distance;
-			output = vertex;
+
+			output.point = vertex;
+			output.originalVertexId = v;
+		}
+	}
+
+	return output;
+}
+
+DynamicArray<GjkSupport> ConvexVolume::GetAllSupports(const Vector3f& direction, float epsilon) const {
+	DynamicArray<GjkSupport> output{};
+	const auto support = GetSupport(direction);
+	const float supportDistance = support.point.Dot(direction);
+
+	for (UIndex64 v = 0; v < m_transformedVertices.GetSize(); v++) {
+		const Vector3f& vertex = m_transformedVertices[v];
+		const float distance = vertex.Dot(direction);
+
+		if (glm::abs(distance - supportDistance) <= epsilon) {
+			output.Insert({ vertex, v});
 		}
 	}
 
@@ -473,14 +655,30 @@ Vector3f ConvexVolume::GetFurthestPoint(Vector3f direction) const {
 
 void ConvexVolume::Transform(const Transform3D& transform) {
 	m_transformedVertices.Empty();
+	m_axes.Empty();
+
 	m_transformedCenter = Vector3f::Zero;
 
 	for (const Vector3f vertex : m_vertices) {
-		m_transformedVertices.Insert(transform.TransformPoint(vertex));
-		m_transformedCenter += vertex;
+		const Vector3f transformedVertex = transform.TransformPoint(vertex);
+
+		m_transformedVertices.Insert(transformedVertex);
+		m_transformedCenter += transformedVertex;
 	}
 
 	m_transformedCenter /= static_cast<float>(m_transformedVertices.GetSize());
+
+	for (UIndex32 i = 0; i < m_faces.GetSize(); i++) {
+		m_axes.Insert(GetWorldSpaceAxis(i));
+	}
+}
+
+const DynamicArray<Vector3f>& ConvexVolume::GetAxes() const {
+	return m_axes;
+}
+
+const DynamicArray<Vector3f>& ConvexVolume::GetVertices() const {
+	return m_transformedVertices;
 }
 
 const DynamicArray<Vector3f>& ConvexVolume::GetLocalSpaceVertices() const {
@@ -489,4 +687,45 @@ const DynamicArray<Vector3f>& ConvexVolume::GetLocalSpaceVertices() const {
 
 DynamicArray<ConvexVolume::FaceIndices> ConvexVolume::GetFaceIndices() const {
 	return m_faces;
+}
+
+UIndex64 ConvexVolume::GetFaceWithVertexIndices(std::span<const UIndex64, 3> indices, const Vector3f& refNormal) const {
+	USize64 bestMatchVertexCount = 0;
+
+	DynamicArray<UIndex64> bestMatches;
+
+	for (UIndex64 faceId = 0; faceId < m_faces.GetSize(); faceId++) {
+		const auto& face = m_faces[faceId];
+
+		const USize64 count = 
+			static_cast<USize64>(face.ContainsElement(static_cast<UIndex32>(indices[0]))) + 
+			static_cast<USize64>(face.ContainsElement(static_cast<UIndex32>(indices[1]))) +
+			static_cast<USize64>(face.ContainsElement(static_cast<UIndex32>(indices[2])));
+
+		if (count == 3) {
+			return faceId;
+		}
+		else if (count > bestMatchVertexCount) {
+			bestMatches = { faceId };
+			bestMatchVertexCount = count;
+		}
+		else if (count == bestMatchVertexCount) {
+			bestMatches.Insert(faceId);
+		}
+	}
+
+	UIndex64 bestMatchId = 0;
+	float bestDot = std::numeric_limits<float>::lowest();
+
+	for (UIndex64 i = 0; i < bestMatches.GetSize(); i++) {
+		const Vector3f normal = m_axes[bestMatches[i]];
+		const float dot = normal.Dot(refNormal);
+
+		if (dot > bestDot) {
+			bestDot = dot;
+			bestMatchId = i;
+		}
+	}
+
+	return bestMatches[bestMatchId];
 }

@@ -22,6 +22,9 @@ namespace OSK::COLLISION {
 		/// @param size Radio (distancia desde un lado hasta el otro).
 		explicit AxisAlignedBoundingBox(const Vector3f& size);
 
+		OwnedPtr<ITopLevelCollider> CreateCopy() const override;
+
+
 		/// @param size Radio total (distancia desde un lado hasta el otro).
 		void SetSize(const Vector3f& size);
 
@@ -35,6 +38,7 @@ namespace OSK::COLLISION {
 		bool IsColliding(const ITopLevelCollider& other,
 			const Vector3f& thisOffset, const Vector3f& otherOffset) const override;
 
+		bool IsBehindPlane(Plane plane, const Vector3f& position) const override;
 
 		/// @param position Posición del AABB.
 		/// @return Esquina mínima: posición del vértice con las
@@ -48,7 +52,7 @@ namespace OSK::COLLISION {
 
 	private:
 
-		Vector3f m_size = 1.0f;
+		Vector3f m_size = Vector3f(1.0f);
 
 	};
 

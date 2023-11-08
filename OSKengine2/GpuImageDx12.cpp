@@ -1,6 +1,6 @@
 #include "GpuImageDx12.h"
 
-#include "WindowsUtils.h"
+#include "StringOperations.h"
 
 #include "OSKengine.h"
 #include "RendererDx12.h"
@@ -22,7 +22,7 @@ GpuImageDx12::GpuImageDx12(const Vector3ui& size, GpuImageDimension dimension, G
 void GpuImageDx12::FillResourceDesc() {
 	resourceDesc.Width = GetSize2D().x;
 	resourceDesc.Height = GetSize2D().y;
-	resourceDesc.DepthOrArraySize = GetNumLayers() == 1 ? GetPhysicalSize().Z : GetNumLayers();
+	resourceDesc.DepthOrArraySize = GetNumLayers() == 1 ? GetPhysicalSize().z : GetNumLayers();
 	resourceDesc.Dimension = (D3D12_RESOURCE_DIMENSION)((USize64)GetDimension() + 1);
 	resourceDesc.Alignment = D3D12_DEFAULT_RESOURCE_PLACEMENT_ALIGNMENT;
 	resourceDesc.Layout = D3D12_TEXTURE_LAYOUT_UNKNOWN;

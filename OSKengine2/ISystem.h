@@ -5,6 +5,8 @@
 #include "Component.h"
 #include "DynamicArray.hpp"
 
+#include <string>
+
 namespace OSK::GRAPHICS {
 	class ICommandList;
 }
@@ -65,6 +67,8 @@ namespace OSK::ECS{
 		/// @return True si está activo, false en caso contrario.
 		bool IsActive() const;
 
+		virtual std::string_view GetName() const = 0;
+
 
 		/// @return Índice de ordenación de ejecución.
 		int GetExecutionOrder() const;
@@ -99,5 +103,6 @@ namespace OSK::ECS{
 }
 
 #ifndef OSK_SYSTEM
-#define OSK_SYSTEM(className) constexpr static inline std::string_view GetSystemName() { return className; }
+#define OSK_SYSTEM(className) constexpr static inline std::string_view GetSystemName() { return className; } \
+std::string_view GetName() const override { return className; }
 #endif

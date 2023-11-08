@@ -19,17 +19,25 @@ bool FaceProjection::Overlaps(FaceProjection other) const {
 }
 
 float FaceProjection::GetOverlap(FaceProjection other) const {
+	return glm::max(0.0f,
+		glm::min(max, other.max) - glm::max(min, other.min)
+	);
+
 	if (!Overlaps(other))
 		return 0.0f;
 
-	float output = 0.0f;
-	output = max - other.min;
+	// Esta proyección está dentro de la otra.
+	if (this->min < other.min && this->max > other.max)
+		return glm::abs(this->max - this->min);
 
-	const float out = min - other.max;
-	if (glm::abs(out) < glm::abs(output))
-		output = out;
+	// La otra proyección está dentro de esta.
+	if (other.min < this->min && other.max > this->max)
+		return glm::abs(other.max - other.min);
 
-	return output;
+	return glm::max(
+			glm::abs(this->min - other.max),
+			glm::abs(this->max - other.min)
+		);
 }
 
 float FaceProjection::GetMin() const {

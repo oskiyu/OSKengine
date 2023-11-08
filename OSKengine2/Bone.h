@@ -31,7 +31,7 @@ namespace OSK::GRAPHICS {
 		/// <summary> Orientación actual. </summary>
 		Quaternion rotation;
 		/// <summary> Escala actual. </summary>
-		Vector3f scale = 1.0f;
+		Vector3f scale = Vector3f(1.0f);
 
 		/// <summary> Índice del hueso. </summary>
 		UIndex32 thisIndex = 0;
@@ -44,7 +44,7 @@ namespace OSK::GRAPHICS {
 
 		/// <summary> Devuelve la matriz de modelo del hueso. </summary>
 		inline glm::mat4 GetLocalMatrix() const {
-			return glm::translate(glm::mat4(1.0f), position.ToGLM()) * glm::mat4(rotation.ToGlm()) * glm::scale(glm::mat4(1.0f), scale.ToGLM());
+			return glm::translate(glm::mat4(1.0f), position.ToGlm()) * glm::mat4(rotation.ToGlm()) * glm::scale(glm::mat4(1.0f), scale.ToGlm());
 		}
 
 		glm::mat4 globalMatrix = glm::mat4(1.0f);

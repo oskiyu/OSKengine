@@ -4,12 +4,12 @@ using namespace OSK;
 using namespace OSK::COLLISION;
 
 RayCastResult::RayCastResult(bool intersection, const Vector3f& point)
-	: intersection(intersection), intersectionPoint(point) { 
+	: intersectionPoint(point), intersection(intersection) { 
 	
 }
 
 RayCastResult RayCastResult::False() {
-	return RayCastResult(false, 0.0f);
+	return RayCastResult(false, Vector3f::Zero);
 }
 
 RayCastResult RayCastResult::True(const Vector3f& intersection) {

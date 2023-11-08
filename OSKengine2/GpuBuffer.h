@@ -8,6 +8,8 @@
 #include "VertexBufferView.h"
 #include "IndexBufferView.h"
 
+#include "IGpuObject.h"
+
 #include <optional>
 
 namespace OSK::GRAPHICS {
@@ -27,10 +29,10 @@ namespace OSK::GRAPHICS {
 		/// 
 		/// @note No crea el buffer, el buffer es creado por IGpuMemoryAllocator.
 		explicit GpuBuffer(OwnedPtr<IGpuMemorySubblock> buffer, USize64 size, USize64 alignment);
-		virtual ~GpuBuffer();
+		~GpuBuffer();
 
 		OSK_DISABLE_COPY(GpuBuffer);
-
+		
 	public:
 
 		/// @brief Establece el vertex view por defecto.
@@ -147,6 +149,8 @@ namespace OSK::GRAPHICS {
 
 		USize64 size = 0;
 		USize64 alignment = 0;
+
+		std::string m_name = "UNNAMED";
 
 	};
 

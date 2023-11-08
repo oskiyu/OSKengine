@@ -84,7 +84,7 @@ void ShadowMap::UpdateLightMatrixBuffer() {
 	const CameraComponent3D& camera = Engine::GetEcs()->GetComponent<CameraComponent3D>(cameraObject);
 	const Transform3D& cameraTransform = Engine::GetEcs()->GetComponent<Transform3D>(cameraObject);
 
-	float cascadeSplits[numMaps]{ 3, 13, 25, 50 };
+	DynamicArray<float> cascadeSplits = { 5, 20, 50, 50 };
 
 	bufferContent.cascadeSplits = Vector4f(cascadeSplits[0], cascadeSplits[1], cascadeSplits[2], cascadeSplits[3]);
 
@@ -109,7 +109,7 @@ void ShadowMap::UpdateLightMatrixBuffer() {
 			GetFrustumCorners(croppedProjection * viewMatrix);
 
 		// Calculamos el centro del frustum.
-		Vector3f frustumCenter = 0.0f;
+		Vector3f frustumCenter = Vector3f::Zero;
 		for (const auto& corner : worldSpaceFrustumCorners)
 			frustumCenter += corner;
 		frustumCenter /= static_cast<float>(worldSpaceFrustumCorners.GetSize());
@@ -134,7 +134,7 @@ void ShadowMap::UpdateLightMatrixBuffer() {
 
 		// 'Cámara' virtual para renderizar el mapa de sombras.
 		const glm::mat4 lightProjection = glm::orthoRH_ZO(minExtent.x, maxExtent.x, maxExtent.y, minExtent.y, farPlane * 4, nearPlane * 12);
-		const glm::mat4 lightView = glm::lookAt((frustumCenter - lightDirection).ToGLM(), frustumCenter.ToGLM(), glm::vec3(0.0f, 1.0f, 0.0f));
+		const glm::mat4 lightView = glm::lookAt((frustumCenter - lightDirection).ToGlm(), frustumCenter.ToGlm(), glm::vec3(0.0f, 1.0f, 0.0f));
 
 		bufferContent.matrices[i] = lightProjection * lightView;
 
@@ -148,6 +148,7 @@ void ShadowMap::UpdateLightMatrixBuffer() {
 	lightUniformBuffer[resourceIndex]->Write(bufferContent.matrices[2]);
 	lightUniformBuffer[resourceIndex]->Write(bufferContent.matrices[3]);
 	lightUniformBuffer[resourceIndex]->Write(bufferContent.cascadeSplits);
+	lightUniformBuffer[resourceIndex]->Write(bufferContent.numCascades - 1);
 	lightUniformBuffer[resourceIndex]->Unmap();
 }
 
@@ -210,8 +211,8 @@ DynamicArray<Vector3f> ShadowMap::GetFrustumCorners(const glm::mat4& cameraMatri
 	};
 
 	for (auto& corner : corners) {
-		const glm::vec4 inverseResult = inverseMatrix * glm::vec4(corner.ToGLM(), 1.0f);
-		corner = glm::vec3(inverseResult / inverseResult.w);
+		const glm::vec4 inverseResult = inverseMatrix * glm::vec4(corner.ToGlm(), 1.0f);
+		corner = Vector3f(glm::vec3(inverseResult / inverseResult.w));
 	}
 
 	return corners;

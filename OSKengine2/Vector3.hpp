@@ -8,10 +8,8 @@
 
 namespace OSK {
 
-	/// <summary>
-	/// Representa un vector 3D.
-	/// </summary>
-	/// <typeparam name="T">PRecisión.</typeparam>
+	/// @brief Representa un vector 3D.
+	/// @tparam T Precisión / tipo de dato.
 	template <typename T> class Vector3_t {
 
 	public:
@@ -20,187 +18,128 @@ namespace OSK {
 
 	public:
 
-		/// <summary>
-		/// Crea un vector 3D nulo { 0, 0, 0 }.
-		/// </summary>
-		Vector3_t() {
-			this->x = 0;
-			this->y = 0;
-			this->Z = 0;
+		/// @brief Crea un vector 3D nulo { 0, 0, 0 }.
+		Vector3_t() = default;
+
+		/// @brief Crea un vector 3D.
+		/// @param x Primera coordenada.
+		/// @param y Segunda coordenada.
+		/// @param z Tercera coordenada.
+		Vector3_t(const T& x, const T& y, const T& z) : x(x), y(y), z(z) {
+
 		}
 
-		/// <summary>
-		/// Crea un vector 3D.
-		/// </summary>
-		Vector3_t(const T& x, const T& y, const T& z) {
-			this->x = x;
-			this->y = y;
-			this->Z = z;
+		/// @brief Crea una instancia del Vector2 en la que X, Y y Z tienen en mismo valor.
+		/// @param value Valor para X, Y y Z.
+		explicit Vector3_t(const T& value) : x(value), y(value), z(value) {
+
 		}
 
-		/// <summary>
-		/// Crea una instancia del Vector2 en la que X, Y y Z tienen en mismo valor.
-		/// </summary>
-		/// <param name="value">Valor para X, Y y Z.</param>
-		Vector3_t(const T& value) {
-			this->x = value;
-			this->y = value;
-			this->Z = value;
+		/// @brief Crea un vector equivalente a @p vec.
+		explicit Vector3_t(const glm::vec3& vec) : x(vec.x), y(vec.y), z(vec.z) {
+
 		}
 
-		/// <summary>
-		/// Crea un vector 3D con los parámetros de vec.
-		/// </summary>
-		Vector3_t(const glm::vec3& vec) {
-			this->x = vec.x;
-			this->y = vec.y;
-			this->Z = vec.z;
-		}
 
-		/// <summary>
-		/// Operación Vector3 + Vector3.
-		/// 
-		/// @note X1 + X2; Y1 + Y2, Z1 + Z2.
-		/// </summary>
+		/// @param vec Otro vector.
+		/// @return Suma de dos vectores.
 		Vector3_t operator+(const Vector3_t& vec) const {
-			return Vector3_t(x + vec.x, y + vec.y, Z + vec.Z);
+			return Vector3_t(x + vec.x, y + vec.y, z + vec.z);
 		}
 
-		/// <summary>
-		/// Operación Vector3 += Vector3.
-		/// 
-		/// @note X1 + X2; Y1 + Y2, Z1 + Z2.
-		/// @note Modifica este vector.
-		/// </summary>
+		/// @param vec Otro vector.
+		/// @return Vector actual sumándole @p vec.
 		Vector3_t& operator+=(const Vector3_t& vec) {
 			x += vec.x;
 			y += vec.y;
-			Z += vec.Z;
+			z += vec.z;
 			return *this;
 		}
 
-		/// <summary>
-		/// Negación del Vector3.
-		/// 
-		/// @note -X; -Y; -Z.
-		/// </summary>
+
+		/// @return Vector negado.
 		Vector3_t operator-() const {
-			return Vector3_t(-x, -y, -Z);
+			return Vector3_t(-x, -y, -z);
 		}
 
-		/// <summary>
-		/// Operación Vector3 - Vector3.
-		/// 
-		/// @note X1 - X2; Y1 - Y2; Z1 - Z2.
-		/// </summary>
+		/// @return Este vector menos @p vec.
 		Vector3_t operator-(const Vector3_t& vec) const {
-			return Vector3_t(x - vec.x, y - vec.y, Z - vec.Z);
+			return Vector3_t(x - vec.x, y - vec.y, z - vec.z);
 		}
 
-		/// <summary>
-		/// Operación Vector3 -= Vector3.
-		/// 
-		/// @note X1 - X2; Y1 - Y2, Z1 - Z2.
-		/// @note Modifica este vector.
-		/// </summary>
+		/// @brief Resta @p vec a este vector.
 		Vector3_t& operator-=(const Vector3_t& vec) {
 			x -= vec.x;
 			y -= vec.y;
-			Z -= vec.Z;
+			z -= vec.z;
 
 			return *this;
 		}
 
-		/// <summary>
-		/// Operación Vector3 * Vector3.
-		/// 
-		/// @note X1 * X2; Y1 * Y2; Z1 * Z2.
-		/// </summary>
+
+		/// @brief Multiplica cada una de las coordenadas.
+		/// @param vec Otro vector.
+		/// @return X1 * X2; Y1 * Y2; Z1 * Z2.
 		Vector3_t operator*(const Vector3_t& vec) const {
-			return Vector3_t(x * vec.x, y * vec.y, Z * vec.Z);
+			return Vector3_t(x * vec.x, y * vec.y, z * vec.z);
 		}
 
-		/// <summary>
-		/// Operación Vector3 *= Vector3.
-		/// 
-		/// @note X1 * X2; Y1 * Y2, Z1 * Z2.
-		/// @note Modifica este vector.
-		/// </summary>
+		/// @brief Multiplica cada una de las coordenadas de este
+		/// vector por las coordenadas del vector @p vec.
+		/// @return Self (X1 * X2; Y1 * Y2, Z1 * Z2).
 		Vector3_t& operator*=(const Vector3_t& vec) {
 			x *= vec.x;
 			y *= vec.y;
-			Z *= vec.Z;
-
+			z *= vec.z;
 			return *this;
 		}
 
-		/// <summary>
-		/// Operación Vector3 * T.
-		/// 
-		/// @note X * value; Y * value; Z * value.
-		/// </summary>
+		/// @brief Multiplica todas las coordenadas por el valor.
+		/// @return X * value; Y * value; Z * value.
 		Vector3_t operator*(const T& value) const {
-			return Vector3_t(x * value, y * value, Z * value);
+			return Vector3_t(x * value, y * value, z * value);
 		}
 
-		/// <summary>
-		/// Operación Vector3 *= T.
-		/// 
-		/// @note X1 * T; Y1 * T, Z1 * T.
-		/// @note Modifica este vector.
-		/// </summary>
+		/// @brief Multiplica todas las coordenadas por el valor.
+		/// @return Self (X * value; Y * value; Z * value).
 		Vector3_t& operator*=(const T& value) {
 			x *= value;
 			y *= value;
-			Z *= value;
+			z *= value;
 			return *this;
 		}
 
-		/// <summary>
-		/// Operación Vector3 / Vector3.
-		/// 
-		/// @note X / vec.X; Y / vec.Y, Z / vec.Z.
-		/// </summary>
+
+		/// @brief Divide cada una de las coordenadas.
+		/// @return  X / vec.X; Y / vec.Y, Z / vec.Z.
 		Vector3_t operator/(const Vector3_t& vec) const {
-			return Vector3_t(x / vec.x, y / vec.y, Z / vec.Z);
+			return Vector3_t(x / vec.x, y / vec.y, z / vec.z);
 		}
 
-		/// <summary>
-		/// Operación Vector3 /= Vector3.
-		/// 
-		/// @note X1 / X2; Y1 / Y2, Z1 / Z2.
-		/// @note Modifica este vector.
-		/// </summary>
+		/// @brief Divide cada una de las coordenadas.
+		/// @return Self (X / vec.X; Y / vec.Y, Z / vec.Z).
 		Vector3_t& operator/=(const Vector3_t& vec) {
-			x /= vec;
-			y /= vec;
-			Z /= vec;
-
+			x /= vec.x;
+			y /= vec.y;
+			z /= vec.z;
 			return *this;
 		}
 
-		/// <summary>
-		/// Operación Vector3 / float_t.
-		/// 
-		/// @note X / value; Y / value; Z / value.
-		/// </summary>
+		/// @brief Divide todas las coordenadas por el valor.
+		/// @return X / value; Y / value; Z / value.
 		Vector3_t operator/(const T& value) const {
-			return Vector3_t(x / value, y / value, Z / value);
+			return Vector3_t(x / value, y / value, z / value);
 		}
 
-		/// <summary>
-		/// Operación Vector3 /= T.
-		/// 
-		/// @note X1 / value; Y1 / value, Z1 / Z2value
-		/// @note Modifica este vector.
-		/// </summary>
+		/// @brief Divide todas las coordenadas por el valor.
+		/// @return Self (X / value; Y / value; Z / value).
 		Vector3_t& operator/=(const T& value) {
 			x /= value;
 			y /= value;
-			Z /= value;
-
+			z /= value;
 			return *this;
 		}
+
 
 		/// @brief Comprueba si dos vectores son iguales, de
 		/// acuerdo a un épsilon para manejar casos de error
@@ -214,207 +153,152 @@ namespace OSK {
 			return
 				glm::abs(x - other.x) < epsilon &&
 				glm::abs(y - other.y) < epsilon &&
-				glm::abs(Z - other.Z) < epsilon;
+				glm::abs(z - other.z) < epsilon;
 		}
 
-		/// <summary>
-		/// Comparación.
-		/// True si todos los componentes son iguales.
-		/// </summary>
-		bool operator==(const Vector3_t& vec) const {
-			return x == vec.x && y == vec.y && Z == vec.Z;
-		}
 
-		/// <summary>
-		/// Comparación.
-		/// True si no todos los componentes son iguales.
-		/// </summary>
-		bool operator!=(const Vector3_t& vec) const {
-			return !operator==(vec);
-		}
+		/// @return True si todos los componentes son iguales.
+		bool operator==(const Vector3_t&) const = default;
 
-		/// <summary>
-		/// Módulo del vector.
-		/// Obtiene la longitud del vector.
-		/// </summary>
+
+		/// @return Longitud / módulo del vector.
 		T GetLenght() const {
-			return glm::sqrt(x * x + y * y + Z * Z);
+			return glm::sqrt(x * x + y * y + z * z);
 		}
 
-		/// <summary>
-		/// Obtiene la distancia entre la posición representada por este vector y por el vector 'vec'.
-		/// </summary>
+
+		/// @return Distancia entre la posición representada por este vector y por el vector @p vec..
 		T GetDistanceTo(const Vector3_t& vec) const {
 			const T dx = x - vec.x;
 			const T dy = y - vec.y;
-			const T dz = Z - vec.Z;
+			const T dz = z - vec.z;
 
 			return glm::sqrt(dx * dx + dy * dy + dz * dz);
 		}
 
-		/// <summary>
-		/// Obtiene la distancia entre la posición representada por este vector y por el vector 'vec'.
-		/// Al cuadrado.
-		/// </summary>
+		/// @return Obtiene la distancia entre la posición representada por este vector y por el vector @p vec, al cuadrado.
 		T GetDistanceTo2(const Vector3_t& vec) const {
 			T dx = x - vec.x;
 			T dy = y - vec.y;
-			T dz = Z - vec.Z;
+			T dz = z - vec.z;
 
 			return dx * dx + dy * dy + dz * dz;
 		}
 
-		/// <summary>
-		/// Obtiene el producto escalar entre este vector y el vector 'vec'.
-		/// </summary>
+
+		/// @return Producto escalar entre este vector y el vector @p vec.
 		T Dot(const Vector3_t& vec) const {
-			// return glm::dot(this->ToGLM(), vec.ToGLM());
-			return x * vec.x + y * vec.y + Z * vec.Z;
+			return x * vec.x + y * vec.y + z * vec.z;
 		}
 
-		/// <summary>
-		/// Devuelve el ángulo, en grados, entre este vector y el vector dado.
-		/// 
-		/// El tipo de ángulo dependerá del resultado de this->Dot(vec):
-		/// - Agudo: resultado positivo.
-		/// - Recto: resultado 0.
-		/// - Obtuso: resultado negativo.
-		/// </summary>
-		T GetAngle(const Vector3_t& vec) const {
-			return glm::degrees(glm::acos(this->Dot(vec) / (this->GetLenght() * vec.GetLenght())));
-		}
-
-		//Vector3_t ProjectTo(const Vector3_t& vec) const {
-		//	return this->Dot(vec) / (vec.GetLenght() * vec.GetLenght()) * vec;
-		//}
-
-		/// <summary>
-		/// Obtiene el producto vectorial entre este vector y el vector 'vec'.
-		/// </summary>
+		/// @return Producto vectorial entre este vector y @p vec.
 		Vector3_t Cross(const Vector3_t& vec) const {
-			return Vector3_t(y * vec.Z - Z * vec.y, Z * vec.x - x * vec.Z, x * vec.y - y * vec.x);
+			return Vector3_t(y * vec.z - z * vec.y, z * vec.x - x * vec.z, x * vec.y - y * vec.x);
 		}
 
-		/// <summary>
-		/// Devuelve un vector 3D normalizado con la misma dirección que este.
-		/// </summary>
+		
+		/// @return Ángulo, en grados, entre este vector y el vector dado.
+		/// Rango [0, 180].
+		T GetAngle(const Vector3_t& vec) const {
+			const float num = this->Dot(vec);
+			const float den = this->GetLenght() * vec.GetLenght();
+
+			float _cos = num / den;
+			if (_cos > 1.0f) {
+				_cos = 1.0f;
+			}
+			else if (_cos < -1.0f) {
+				_cos = -1.0f;
+			}
+
+			return glm::degrees(glm::acos(_cos));
+		}
+
+
+		/// @return Vector normalizado con la misma dirección que este.
 		Vector3_t GetNormalized() const {
 			T length = GetLenght();
-
-			return Vector3_t(x / length, y / length, Z / length);
+			return Vector3_t(x / length, y / length, z / length);
 		}
 
-		/// <summary>
-		/// Normaliza el vector 3D para que su módulo (GetLength()) sea 1.
-		/// </summary>
+		/// @brief Normaliza este vector.
 		void Normalize() {
 			T length = GetLenght();
 
 			x /= length;
 			y /= length;
-			Z /= length;
+			z /= length;
 		}
 
-		/// <summary>
-		/// OSK::Vector2 a glm::vec3.
-		/// </summary>
-		glm::vec3 ToGLM() const {
-			return glm::vec3(x, y, Z);
+
+		/// @return Convierte a vector GLM.
+		glm::vec3 ToGlm() const {
+			return glm::vec3(x, y, z);
 		}
 
-		/// <summary>
-		/// OSK::Vector2 a glm::vec.
-		/// </summary>
-		inline glm::vec<3, T> ToGLM_T() const {
-			return glm::vec<3, T>(x, y, Z);
-		}
 
-		/// <summary>
-		/// Devuelve un vector con variables de distinto tipo.
-		/// P = nuevo tipo de las variables.
-		/// </summary>
+		/// @tparam P Tipo de dato (precisión).
+		/// @return Vector con tipo de dato distinto.
 		template <typename P> inline Vector3_t<P> ToVec3() const {
-			return Vector3_t<P>(x, y, Z);
+			return Vector3_t<P>(x, y, z);
 		}
 
-		/// <summary>
-		/// Devuelve un Vector3f a partir de este.
-		/// </summary>
+		
+		/// @return Vector con float.
 		inline Vector3_t<float_t> ToVector3f() const {
 			return ToVec3<float>();
 		}
 
-		/// <summary>
-		/// Devuelve un Vector3d a partir de este.
-		/// </summary>
+		/// @return Vector con double.
 		inline Vector3_t<double_t> ToVector3d() const {
 			return ToVec3<double_t>();
 		}
 
-		/// <summary>
-		/// Devuelve un Vector3i a partir de este.
-		/// </summary>
+		/// @return Vector con int.
 		inline Vector3_t<int32_t> ToVector3i() const {
 			return ToVec3<int32_t>();
 		}
 
-		/// <summary>
-		/// Devuelve un Vector3ui a partir de este.
-		/// </summary>
+		/// @return Vector con unsigned int.
 		inline Vector3_t<uint32_t> ToVector3ui() const {
 			return ToVec3<uint32_t>();
 		}
 
 		inline std::string ToString() const {
-			return "{ " + std::to_string(x) + " " + std::to_string(y) + " " + std::to_string(Z) + " }";
+			return "{ " + std::to_string(x) + " " + std::to_string(y) + " " + std::to_string(z) + " }";
 		}
 
-		/// <summary>
-		/// Representa la primera coordenada.
-		/// </summary>
+		inline bool IsNaN() const {
+			return ::std::isnan(x) || ::std::isnan(y) || ::std::isnan(z);
+		}
+
+		/// @brief Representa la primera coordenada.
 		T x;
 
-		/// <summary>
-		/// Representa la segunda coordenada.
-		/// </summary>
+		/// @brief Representa la segunda coordenada.
 		T y;
 
-		/// <summary>
-		/// Representa la tercera coordenada.
-		/// </summary>
-		T Z;
+		/// @brief Representa la tercera coordenada.
+		T z;
 
 	};
 
-	/// <summary>
-	/// Precisión = float.
-	/// </summary>
-	/// 
-	/// @deprecated Usar Vector3f.
-	using Vector3 = Vector3_t<float_t>;
-	
-	/// <summary>
-	/// Precisión = float.
-	/// </summary>
+
+	/// @brief Precisión = float.
 	using Vector3f = Vector3_t<float_t>;
-	
-	/// <summary>
-	/// Precisión = double.
-	/// </summary>
+
+	/// @brief Precisión = double.
 	using Vector3d = Vector3_t<double_t>;
-	
-	/// <summary>
-	/// Precisión = int32.
-	/// </summary>
+
+	/// @brief Precisión = int.
 	using Vector3i = Vector3_t<int32_t>;
-	
-	/// <summary>
-	/// Precisión = uint32.
-	/// </summary>
+
+	/// @brief Precisión = unsigned int.
 	using Vector3ui = Vector3_t<uint32_t>;
 
+
 	template <> inline std::string ToString<Vector3f>(const Vector3f& value) {
-		return "{ " + std::to_string(value.x) + ", " + std::to_string(value.y) + ", " + std::to_string(value.Z) + " }";
+		return value.ToString();
 	}
 
 }

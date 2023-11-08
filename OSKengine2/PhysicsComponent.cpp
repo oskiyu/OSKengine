@@ -82,7 +82,7 @@ void PhysicsComponent::ApplyImpulse(const Vector3f& impulse, const Vector3f& loc
 	Vector3f torque = GetTorque(localSpacePoint, impulse);
 
 	_SetVelocity(velocity + impulse * GetInverseMass());
-	_SetAngularVelocity(angularVelocity + torque.ToGLM() * inverseInertiaTensor);
+	_SetAngularVelocity(angularVelocity + Vector3f(torque.ToGlm() * inverseInertiaTensor));
 }
 
 Vector3f PhysicsComponent::GetTorque(const Vector3f& localSpacePoint, const Vector3f& force) {

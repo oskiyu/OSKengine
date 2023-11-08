@@ -9,12 +9,22 @@ using namespace OSK::ECS;
 using namespace OSK::COLLISION;
 
 
+void Collider::CopyFrom(const Collider& other) {
+	m_topLevelCollider = other.m_topLevelCollider->CreateCopy().GetPointer();
+
+	m_bottomLevelColliders.Empty();
+
+	for (const auto& blc : other.m_bottomLevelColliders)
+		m_bottomLevelColliders.Insert(blc->CreateCopy().GetPointer());
+}
+
+
 void Collider::SetTopLevelCollider(OwnedPtr<ITopLevelCollider> collider) {
-	topLevelCollider = collider.GetPointer();
+	m_topLevelCollider = collider.GetPointer();
 }
 
 void Collider::AddBottomLevelCollider(OwnedPtr<IBottomLevelCollider> collider) {
-	bottomLevelColliders.Insert(collider.GetPointer());
+	m_bottomLevelColliders.Insert(collider.GetPointer());
 }
 
 CollisionInfo Collider::GetCollisionInfo(const Collider& other, const Transform3D& thisTransform, const Transform3D& otherTransform) const {
@@ -25,21 +35,27 @@ CollisionInfo Collider::GetCollisionInfo(const Collider& other, const Transform3
 	const Vector3f thisPosition = thisTransform.GetPosition();
 	const Vector3f otherPosition = otherTransform.GetPosition();
 
-	if (!this->topLevelCollider->IsColliding(*otherTopLevel, thisPosition, otherPosition))
+	if (!m_topLevelCollider->IsColliding(*otherTopLevel, thisPosition, otherPosition))
 		return CollisionInfo::False();
 
-	for (const auto& bottomLevelA : this->bottomLevelColliders) {
-		for (const auto& bottomLevelB : other.bottomLevelColliders) {
+	DynamicArray<DetailedCollisionInfo> bottomLevelCollisions{};
+
+	for (const auto& bottomLevelA : m_bottomLevelColliders) {
+		for (const auto& bottomLevelB : other.m_bottomLevelColliders) {
 
 			const auto collisionInfo = bottomLevelA->GetCollisionInfo(*bottomLevelB.GetPointer(), thisTransform, otherTransform);
-			if (collisionInfo.IsColliding())
-				return CollisionInfo::True(collisionInfo);
+			
+			if (collisionInfo.IsColliding()) {
+				bottomLevelCollisions.Insert(collisionInfo);
+			}
 		}
 	}
 
-	return CollisionInfo::TopLevelOnly();
+	return bottomLevelCollisions.IsEmpty()
+		? CollisionInfo::TopLevelOnly()
+		: CollisionInfo::True(bottomLevelCollisions);
 }
 
 USize32 Collider::GetBottomLevelCollidersCount() const {
-	return static_cast<USize32>(bottomLevelColliders.GetSize());
+	return static_cast<USize32>(m_bottomLevelColliders.GetSize());
 }

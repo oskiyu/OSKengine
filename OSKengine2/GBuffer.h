@@ -1,7 +1,9 @@
 #pragma once
 
 #include "RenderTarget.h"
+
 #include <array>
+#include <limits>
 
 namespace OSK::GRAPHICS {
 

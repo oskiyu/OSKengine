@@ -1,0 +1,19 @@
+{
+    "file_type": "MATERIAL",
+    "spec_ver": 1,
+    "name": "Tree Normals",
+
+    "vertex_shader": "Resources/Shaders/VK/PBR/Deferred/Tree/normals_vert.spv",
+    "fragment_shader": "Resources/Shaders/VK/PBR/Deferred/Tree/normals_frag.spv",
+    
+    "vertex_type": "OSK::Vertex3D",
+
+    "slots": {
+        "0": "global"
+    },
+    
+    "config": {
+        "disable_alpha_blending": "true"
+    }
+    
+}

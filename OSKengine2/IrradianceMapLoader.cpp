@@ -98,7 +98,7 @@ void IrradianceMapLoader::Load(const std::string& assetFilePath, IAsset** asset)
 		GpuImageLayout::TRANSFER_DESTINATION,
 		GpuBarrierInfo(GpuCommandStage::TRANSFER, GpuAccessStage::TRANSFER_WRITE));
 
-	Engine::GetRenderer()->UploadImageToGpu(originalImage.GetPointer(), (TByte*)pixels, static_cast<USize64>(size.x) * size.y * size.Z * GetFormatNumberOfBytes(Format::RGBA32_SFLOAT), uploadCmdList.GetPointer());
+	Engine::GetRenderer()->UploadImageToGpu(originalImage.GetPointer(), (TByte*)pixels, static_cast<USize64>(size.x) * size.y * size.z * GetFormatNumberOfBytes(Format::RGBA32_SFLOAT), uploadCmdList.GetPointer());
 
 	uploadCmdList->SetGpuImageBarrier(
 		originalImage.GetPointer(), 

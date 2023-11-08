@@ -1,5 +1,6 @@
 #pragma once
 
+#include <glm/glm.hpp>
 #include <type_traits>
 
 namespace OSK::MATH {
@@ -118,6 +119,10 @@ namespace OSK::MATH {
 	/// <returns>Offset de B respecto a A (A - B).</returns>
 	static inline glm::mat4 GetMatrixOffset(const glm::mat4& first, const glm::mat4& second) {
 		return glm::inverse(first) - second;
+	}
+
+	template <typename T> T Sign(T value) {
+		return value >= static_cast<T>(0) ? static_cast<T>(1) : static_cast<T>(-1);
 	}
 
 }

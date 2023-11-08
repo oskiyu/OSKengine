@@ -324,7 +324,7 @@ void SpecularMapLoader::UploadImage(GpuImage* img, const float* pixels, const Ve
 		GpuBarrierInfo(GpuCommandStage::TRANSFER, GpuAccessStage::TRANSFER_WRITE),
 		GpuImageRange{ .baseLayer = 0, .numLayers = ALL_IMAGE_LAYERS, .baseMipLevel = 0, .numMipLevels = ALL_MIP_LEVELS });
 
-	Engine::GetRenderer()->UploadImageToGpu(img, (TByte*)pixels, size.x * size.y * size.Z * GetFormatNumberOfBytes(Format::RGBA32_SFLOAT), uploadCmdList.GetPointer());
+	Engine::GetRenderer()->UploadImageToGpu(img, (TByte*)pixels, size.x * size.y * size.z * GetFormatNumberOfBytes(Format::RGBA32_SFLOAT), uploadCmdList.GetPointer());
 
 	uploadCmdList->SetGpuImageBarrier(
 		img, 

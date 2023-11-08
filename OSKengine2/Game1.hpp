@@ -77,10 +77,13 @@
 #include "HybridRenderSystem.h"
 #include "RenderTarget.h"
 
-#include "PbrDeferredRenderSystem.h"
+#include "DeferredRenderSystem.h"
 #include "ModelLoader3D.h"
 #include "IrradianceMap.h"
 #include "SpecularMap.h"
+
+#include "PreBuiltCollider.h"
+#include "PreBuiltColliderLoader.h"
 
 #include "FxaaPass.h"
 #include "ToneMapping.h"
@@ -89,6 +92,7 @@
 #include "HbaoPass.h"
 
 #include "ColliderRenderer.h"
+#include "RenderBoundsRenderer.h"
 #include "SphereCollider.h"
 #include "ConvexVolume.h"
 #include "PhysicsComponent.h"
@@ -98,6 +102,9 @@
 #include "AudioAsset.h"
 #include "AudioSource.h"
 #include "CollisionEvent.h"
+#include "TreeNormalsRenderSystem.h"
+#include "TreeNormalsPass.h"
+#include "TreeGBufferPass.h"
 
 OSK::GRAPHICS::SpriteRenderer spriteRenderer;
 
@@ -111,7 +118,7 @@ using namespace OSK::COLLISION;
 #if defined(OSK_USE_FORWARD_RENDERER)
 #define OSK_CURRENT_RSYSTEM OSK::ECS::RenderSystem3D
 #elif defined(OSK_USE_DEFERRED_RENDERER)
-#define OSK_CURRENT_RSYSTEM OSK::ECS::PbrDeferredRenderSystem
+#define OSK_CURRENT_RSYSTEM OSK::ECS::DeferredRenderSystem
 #elif defined(OSK_USE_HYBRID_RENDERER)
 #define OSK_CURRENT_RSYSTEM OSK::ECS::HybridRenderSystem
 #endif
@@ -137,8 +144,6 @@ protected:
 	}
 
 	void OnCreate() override {
-		auto animModel = Engine::GetAssetManager()->Load<ASSETS::Model3D>("Resources/Assets/Models/animmodel.json", "GLOBAL");
-
 		// Material load
 		material = Engine::GetRenderer()->GetMaterialSystem()->LoadMaterial("Resources/Materials/PBR/direct_pbr.json"); //Resources/PbrMaterials/deferred_gbuffer.json
 		material2d = Engine::GetRenderer()->GetMaterialSystem()->LoadMaterial("Resources/Materials/2D/material_2d.json");
@@ -247,7 +252,7 @@ protected:
 		GetRootUiElement().AddChild("", logoContainer);
 
 		// Panel derecho
-		UI::VerticalContainer* rightPanel = new UI::VerticalContainer(Vector2f(200.0f));
+		UI::VerticalContainer* rightPanel = new UI::VerticalContainer(Vector2f(170.0f));
 		rightPanel->SetKeepRelativeSize(true);
 
 		rightPanel->GetSprite().SetImageView(uiView);
@@ -267,7 +272,10 @@ protected:
 		taaCheckbox = CreateCheckbox("TAA", [this](bool isActive) { SetTaaState(isActive); }).GetPointer();
 		fxaaCheckbox = CreateCheckbox("HBAO", [this](bool isActive) { SetHbaoState(isActive); }).GetPointer();
 		bloomCheckbox = CreateCheckbox("Boom", [this](bool isActive) { SetBloomState(isActive); }).GetPointer();
-		collisionCheckbox = CreateCheckbox("Show Collisions", [](bool) { Engine::GetEcs()->GetSystem<ECS::ColliderRenderSystem>()->ToggleActivationStatus(); }).GetPointer();
+		collisionCheckbox = CreateCheckbox("Show Collisions", [](bool) {
+			Engine::GetEcs()->GetSystem<ECS::ColliderRenderSystem>()->ToggleActivationStatus();
+			Engine::GetEcs()->GetSystem<ECS::RenderBoundsRenderer>()->ToggleActivationStatus();
+			}).GetPointer();
 
 		rightPanel->AddChild("taaCheckbox", taaCheckbox);
 		rightPanel->AddChild("fxaaCheckbox", fxaaCheckbox);
@@ -284,6 +292,7 @@ protected:
 		Engine::GetEcs()->RemoveSystem<ECS::RenderSystem2D>();
 
 		Engine::GetEcs()->RegisterSystem<ECS::ColliderRenderSystem>(ECS::ISystem::DEFAULT_EXECUTION_ORDER);
+		Engine::GetEcs()->RegisterSystem<ECS::RenderBoundsRenderer>(ECS::ISystem::DEFAULT_EXECUTION_ORDER);
 	}
 	
 	void OnTick(TDeltaTime deltaTime) override {
@@ -314,8 +323,6 @@ protected:
 
 			// Exit
 			if (keyboard->IsKeyDown(IO::Key::ESCAPE))
-				this->Exit();
-			if (keyboard->IsKeyDown(IO::Key::P))
 				this->Exit();
 
 			// Fullscreen
@@ -411,6 +418,20 @@ protected:
 				cameraForwardMovement *= 0.3f;
 				cameraRightMovement *= 0.3f;
 			}
+			if (keyboard->IsKeyDown(IO::Key::LEFT_CONTROL)) {
+				cameraForwardMovement *= 2.3f;
+				cameraRightMovement *= 2.3f;
+			}
+
+
+			if (keyboard->IsKeyStroked(IO::Key::P)) {
+				cameraAttachedToCar = false;
+				cameraTransform.UnAttach();
+			}
+
+			if (keyboard->IsKeyStroked(IO::Key::M)) {
+				mouse->SetReturnMode(IO::MouseReturnMode::ALWAYS_RETURN);
+			}
 		}
 
 		if (mouse) {
@@ -444,12 +465,12 @@ protected:
 			// Rotación
 			if (keyboard->IsKeyDown(IO::Key::LEFT)) {
 				currentAngle += ANGLE_PER_KEY;
-				// carTransform.RotateWorldSpace(deltaTime * 2, { 0, 1, 0 });
+				carTransform.RotateWorldSpace(deltaTime * 2, { 0, 1, 0 });
 				if (cameraAttachedToCar) cameraRotation.x += deltaTime * 250;
 			}
 			if (keyboard->IsKeyDown(IO::Key::RIGHT)) {
 				currentAngle -= ANGLE_PER_KEY;
-				// carTransform.RotateWorldSpace(deltaTime * 2, { 0, -1, 0 });
+				carTransform.RotateWorldSpace(deltaTime * 2, { 0, -1, 0 });
 				if (cameraAttachedToCar) cameraRotation.x -= deltaTime * 250;
 			}
 
@@ -471,26 +492,33 @@ protected:
 
 		
 		cameraTransform.AddPosition(Vector3f(0, 0, 1) * cameraForwardMovement * deltaTime);
-		// cameraTransform.AddPosition(cameraArmTransform.GetRightVector().GetNormalized() * cameraRightMovement * deltaTime);
+		if (!cameraAttachedToCar)
+			cameraTransform.AddPosition(cameraTransform.GetRightVector().GetNormalized() * cameraRightMovement * deltaTime);
 
 		if (Engine::GetEcs()->GetComponent<PhysicsComponent>(carObject).GetAcceleration().GetLenght() > 0.5f * deltaTime ||
 			glm::abs(Engine::GetEcs()->GetComponent<PhysicsComponent>(carObject).GetVelocity().Dot(carTransform.GetForwardVector())) > 1.2f * deltaTime) {
 			const Vector2f flatCarVec = {
 				Engine::GetEcs()->GetComponent<Transform3D>(carObject).GetRightVector().x,
-				Engine::GetEcs()->GetComponent<Transform3D>(carObject).GetRightVector().Z
+				Engine::GetEcs()->GetComponent<Transform3D>(carObject).GetRightVector().z
 			};
 
 			const Vector2f flatArmVec = {
 				cameraArmTransform.GetForwardVector().x,
-				cameraArmTransform.GetForwardVector().Z
+				cameraArmTransform.GetForwardVector().z
 			};
 
 			const float angle = -flatArmVec.Dot(flatCarVec);
 			if (cameraAttachedToCar) cameraRotation.x += angle * 750 * deltaTime;
 		}
 
-		cameraArmTransform.RotateWorldSpace(glm::radians(-cameraRotation.x * 0.25f), { 0, 1, 0 });
-		cameraArmTransform.RotateLocalSpace(glm::radians(cameraRotation.y * 0.25f), { 1, 0, 0 });
+		if (cameraAttachedToCar) {
+			cameraArmTransform.RotateWorldSpace(glm::radians(-cameraRotation.x * 0.25f), { 0, 1, 0 });
+			cameraArmTransform.RotateLocalSpace(glm::radians(cameraRotation.y * 0.25f), { 1, 0, 0 });
+		}
+		else {
+			cameraTransform.RotateLocalSpace(glm::radians(-cameraRotation.x * 0.25f), { 0, 1, 0 });
+			cameraTransform.RotateLocalSpace(glm::radians(cameraRotation.y * 0.25f), { 1, 0, 0 });
+		}
 
 		camera.UpdateTransform(&cameraTransform);
 
@@ -559,7 +587,7 @@ protected:
 						event.firstEntity, event.secondEntity,
 						event.collisionInfo.GetSingleContactPoint().x,
 						event.collisionInfo.GetSingleContactPoint().y,
-						event.collisionInfo.GetSingleContactPoint().Z));
+						event.collisionInfo.GetSingleContactPoint().z));
 				//	Engine::GetConsole()->WriteLine(std::format("Collision: A: {}, B: {}, Position: {},{},{}",
 				//		event.firstEntity, event.secondEntity,
 				//		event.collisionInfo.GetSingleContactPoint().x,
@@ -665,10 +693,18 @@ protected:
 
 		// Frame build:
 		frameBuildCommandList->StartDebugSection("Final Frame build", Color(0, 1, 0));
-		auto colliderRenderSystem = Engine::GetEcs()->GetSystem<ECS::ColliderRenderSystem>();
+		auto* colliderRenderSystem = Engine::GetEcs()->GetSystem<ECS::ColliderRenderSystem>();
 		if (colliderRenderSystem) {
 			frameBuildCommandList->SetGpuImageBarrier(
 				colliderRenderSystem->GetRenderTarget().GetMainColorImage(resourceIndex),
+				GpuImageLayout::SAMPLED,
+				GpuBarrierInfo(GpuCommandStage::FRAGMENT_SHADER, GpuAccessStage::SAMPLED_READ));
+		}
+
+		auto* boundsRenderSystem = Engine::GetEcs()->GetSystem<ECS::RenderBoundsRenderer>();
+		if (boundsRenderSystem) {
+			frameBuildCommandList->SetGpuImageBarrier(
+				boundsRenderSystem->GetRenderTarget().GetMainColorImage(resourceIndex),
 				GpuImageLayout::SAMPLED,
 				GpuBarrierInfo(GpuCommandStage::FRAGMENT_SHADER, GpuAccessStage::SAMPLED_READ));
 		}
@@ -703,6 +739,11 @@ protected:
 			frameBuildCommandList->DrawSingleInstance(6);
 		}
 
+		if (boundsRenderSystem && boundsRenderSystem->IsActive()) {
+			/*frameBuildCommandList->BindMaterialSlot(*boundsRenderSystem->GetRenderTarget().GetFullscreenSpriteMaterialSlot());
+			frameBuildCommandList->DrawSingleInstance(6);*/
+		}
+
 		frameBuildCommandList->EndGraphicsRenderpass();
 
 		frameBuildCommandList->EndDebugSection();
@@ -726,6 +767,8 @@ protected:
 		preEffectsFrameCombiner->Resize(size);
 
 		SetupPostProcessingChain();
+
+		SetupTreeNormals();
 	}
 
 	void OnExit() override {
@@ -743,6 +786,20 @@ protected:
 	}
 
 private:
+
+	void SetupTreeNormals() {
+		auto* renderSystem = Engine::GetEcs()->GetSystem<DeferredRenderSystem>();
+		auto* treeRenderSystem = Engine::GetEcs()->GetSystem<TreeNormalsRenderSystem>();
+
+		std::array<const IGpuImageView*, NUM_RESOURCES_IN_FLIGHT> normalsImages{};
+		const GpuImageViewConfig viewConfig = GpuImageViewConfig::CreateSampled_SingleMipLevel(0);
+		for (UIndex64 i = 0; i < NUM_RESOURCES_IN_FLIGHT; i++)
+			normalsImages[i] = treeRenderSystem->GetRenderTarget().GetMainColorImage(i)->GetView(viewConfig);
+
+		auto* treeGBufferPass = renderSystem->GetRenderPass(TreeGBufferPass::GetRenderPassName())->As<TreeGBufferPass>();
+		treeGBufferPass->GetMaterialInstance()->GetSlot("normals")->SetGpuImages("preCalculatedNormalTexture", normalsImages);
+		treeGBufferPass->GetMaterialInstance()->GetSlot("normals")->FlushUpdate();
+	}
 
 	OwnedPtr<UI::HorizontalContainer> CreateCheckbox(const std::string& text, UI::Button::CallbackFnc callback) {
 		const static auto uiView = &Engine::GetAssetManager()->Load<ASSETS::Texture>("Resources/Assets/Textures/button_texture.json", "GLOBAL")
@@ -901,12 +958,19 @@ private:
 		OSK_CURRENT_RSYSTEM* renderSystem = Engine::GetEcs()->GetSystem<OSK_CURRENT_RSYSTEM>();
 		renderSystem->Initialize(cameraObject, *irradianceMap, *specularMap);
 
+		auto* treeRenderSystem = Engine::GetEcs()->GetSystem<TreeNormalsRenderSystem>();
+		treeRenderSystem->Initialize(cameraObject);
+
+		SetupTreeNormals();
+
+
 		// Skybox Render System
 		Engine::GetEcs()->GetSystem<SkyboxRenderSystem>()->SetCamera(cameraObject);
 		Engine::GetEcs()->GetSystem<SkyboxRenderSystem>()->SetCubemap(*skyboxTexture);
 
-		// Collider Render System
+		// Debug Render Systems
 		Engine::GetEcs()->GetSystem<ColliderRenderSystem>()->Initialize(cameraObject);
+		Engine::GetEcs()->GetSystem<RenderBoundsRenderer>()->Initialize(cameraObject);
 
 	}
 
@@ -936,10 +1000,11 @@ private:
 	void SpawnCar() {
 		{
 			carObject = Engine::GetEcs()->SpawnObject();
+			Engine::GetLogger()->InfoLog(std::format("\tCar: {}", carObject));
 
 			// Setup del transform
 			Transform3D& transform = Engine::GetEcs()->AddComponent<Transform3D>(carObject, ECS::Transform3D(carObject));
-			// transform.AddPosition({0.0f, 80.0f, 0.0f});
+			transform.SetPosition({ 0.0f, 1.75f, -9.5f});
 
 			// Setup de físicas
 			auto& physicsComponent = Engine::GetEcs()->AddComponent<PhysicsComponent>(carObject, {});
@@ -951,6 +1016,7 @@ private:
 			Collider collider{};
 
 			OwnedPtr<ConvexVolume> convexVolume = new ConvexVolume(ConvexVolume::CreateObb({ 0.15f * 2, 0.17f, 0.35f * 2 }, 0));
+			convexVolume->MergeFaces();
 
 			collider.SetTopLevelCollider(new SphereCollider(0.45f));
 			collider.AddBottomLevelCollider(convexVolume.GetPointer());
@@ -958,23 +1024,20 @@ private:
 			Engine::GetEcs()->AddComponent<Collider>(carObject, std::move(collider));
 
 			// Setup del modelo 3D
-			Model3D* carModel = Engine::GetAssetManager()->Load<Model3D>("Resources/Assets/Models/mclaren.json", "GLOBAL");
+			Model3D* carModel = Engine::GetAssetManager()->Load<Model3D>("Resources/Assets/Models/ow.json", "GLOBAL");
 
 			ModelComponent3D* modelComponent = &Engine::GetEcs()->AddComponent<ModelComponent3D>(carObject, {});
 
 			modelComponent->SetModel(carModel);
-			modelComponent->SetMaterial(material);
-			ModelLoader3D::SetupPbrModel(*carModel, modelComponent);
 		}
 
 		// 2
-
 		{
 			carObject2 = Engine::GetEcs()->SpawnObject();
 
 			// Setup del transform
 			Transform3D& transform = Engine::GetEcs()->AddComponent<Transform3D>(carObject2, ECS::Transform3D(carObject2));
-			// transform.AddPosition({0.0f, 80.0f, 0.0f});
+			transform.SetPosition({ 0.0f, 2.25f, -11.5f });
 
 			// Setup de físicas
 			auto& physicsComponent = Engine::GetEcs()->AddComponent<PhysicsComponent>(carObject2, {});
@@ -998,13 +1061,12 @@ private:
 			ModelComponent3D* modelComponent = &Engine::GetEcs()->AddComponent<ModelComponent3D>(carObject2, {});
 
 			modelComponent->SetModel(carModel);
-			modelComponent->SetMaterial(material);
-			ModelLoader3D::SetupPbrModel(*carModel, modelComponent);
 		}
 	}
 
 	void SpawnCircuit() {
 		circuitObject = Engine::GetEcs()->SpawnObject();
+		Engine::GetLogger()->InfoLog(std::format("\tCircuit: {}", circuitObject));
 
 		// Transform
 		Engine::GetEcs()->AddComponent<Transform3D>(circuitObject, Transform3D(circuitObject));
@@ -1015,19 +1077,71 @@ private:
 		ModelComponent3D* modelComponent = &Engine::GetEcs()->AddComponent<ModelComponent3D>(circuitObject, {});
 
 		modelComponent->SetModel(circuitModel); // animModel
-		modelComponent->SetMaterial(material);
-		ModelLoader3D::SetupPbrModel(*circuitModel, modelComponent);
 
-		Collider collider{};
+
+		Collider collider = {};
+#define LOADED_COLLIDER
+#ifdef LOADED_COLLIDER
+		const auto& loadedCollider = Engine::GetAssetManager()->Load<PreBuiltCollider>("Resources/Assets/Collision/circuit_colliders.json", "GLOBAL");
+		collider.CopyFrom(*loadedCollider->GetCollider());
+#else
 		OwnedPtr<ConvexVolume> convexVolume = new ConvexVolume(ConvexVolume::CreateObb({ 100.0f, 100.0f, 100.0f }, -100.0f));
-		
+
 		collider.SetTopLevelCollider(new AxisAlignedBoundingBox({ 100.0f, 5.0f, 100.0f }));
 		collider.AddBottomLevelCollider(convexVolume.GetPointer());
+#endif // LOADED_COLLIDER
+
 		Engine::GetEcs()->AddComponent<Collider>(circuitObject, std::move(collider));
 
 		PhysicsComponent physicsComponent{};
 		physicsComponent.SetImmovable();
 		Engine::GetEcs()->AddComponent<PhysicsComponent>(circuitObject, std::move(physicsComponent));
+
+		// Billboards
+		const auto billboards = Engine::GetEcs()->SpawnObject();
+
+		Engine::GetEcs()->AddComponent<Transform3D>(billboards, Transform3D(billboards));
+
+		Model3D* billboardsModel = Engine::GetAssetManager()->Load<Model3D>("Resources/Assets/Models/circuit0_billboards.json", "GLOBAL");
+
+		ModelComponent3D* billboardsModelComponent = &Engine::GetEcs()->AddComponent<ModelComponent3D>(billboards, {});
+
+		billboardsModelComponent->SetModel(billboardsModel); // animModel
+		PhysicsComponent billboardsPhysicsComponent{};
+		billboardsPhysicsComponent.SetImmovable();
+		Engine::GetEcs()->AddComponent<PhysicsComponent>(billboards, std::move(billboardsPhysicsComponent));
+
+		// Tree normals
+		const auto treeNormals = Engine::GetEcs()->SpawnObject();
+
+		Engine::GetEcs()->AddComponent<Transform3D>(treeNormals, Transform3D(treeNormals));
+
+		Model3D* treeNormalsModel = Engine::GetAssetManager()->Load<Model3D>("Resources/Assets/Models/circuit0_tree_normals.json", "GLOBAL");
+
+		ModelComponent3D* treeNormalsModelComponent = &Engine::GetEcs()->AddComponent<ModelComponent3D>(treeNormals, {});
+
+		treeNormalsModelComponent->SetModel(treeNormalsModel); // animModel
+		treeNormalsModelComponent->SetCastShadows(false);
+
+		PhysicsComponent treeNormalsPhysicsComponent{};
+		treeNormalsPhysicsComponent.SetImmovable();
+		Engine::GetEcs()->AddComponent<PhysicsComponent>(treeNormals, std::move(treeNormalsPhysicsComponent));
+
+		// Trees
+		const auto trees = Engine::GetEcs()->SpawnObject();
+
+		Engine::GetEcs()->AddComponent<Transform3D>(trees, Transform3D(trees));
+
+		Model3D* treesModel = Engine::GetAssetManager()->Load<Model3D>("Resources/Assets/Models/circuit0_trees.json", "GLOBAL");
+
+		ModelComponent3D* treesModelComponent = &Engine::GetEcs()->AddComponent<ModelComponent3D>(trees, {});
+
+		treesModelComponent->SetModel(treesModel); // animModel
+		treesModelComponent->SetCastShadows(false);
+
+		PhysicsComponent treesPhysicsComponent{};
+		treesPhysicsComponent.SetImmovable();
+		Engine::GetEcs()->AddComponent<PhysicsComponent>(trees, std::move(treesPhysicsComponent));
 	}
 
 	void SpawnSecondCollider() {
@@ -1041,7 +1155,7 @@ private:
 
 		// Setup de físicas
 		auto& physicsComponent = Engine::GetEcs()->AddComponent<PhysicsComponent>(secondObject, {});
-		physicsComponent.SetMass(4.0f);
+		physicsComponent.SetMass(2.0f);
 		physicsComponent.centerOfMassOffset = Vector3f::Zero;
 
 		// Collider
@@ -1049,7 +1163,7 @@ private:
 
 		OwnedPtr<ConvexVolume> convexVolume = new ConvexVolume(ConvexVolume::CreateObb({ 0.2f * 2, 0.2f * 2, 0.2f * 2 }, 0.0f));
 
-		collider.SetTopLevelCollider(new AxisAlignedBoundingBox(0.95f));
+		collider.SetTopLevelCollider(new AxisAlignedBoundingBox(Vector3f(0.95f)));
 		collider.AddBottomLevelCollider(convexVolume.GetPointer());
 
 		Engine::GetEcs()->AddComponent<Collider>(secondObject, std::move(collider));
