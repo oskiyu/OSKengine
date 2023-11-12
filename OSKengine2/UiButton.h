@@ -105,7 +105,7 @@ namespace OSK::UI {
 		/// @param font Fuente.
 		/// 
 		/// @see TextView.SetFont() para precondiciones y postcondiciones.
-		void SetTextFont(ASSETS::Font* font);
+		void SetTextFont(ASSETS::AssetRef<ASSETS::Font> font);
 
 		/// @brief Establece el tamaño de la fuente del texto.
 		/// @param fontSize Tamaño, en píxeles.
@@ -169,7 +169,7 @@ namespace OSK::UI {
 
 		TextView buttonText;
 
-		CallbackFnc callback = [](bool){};
+		CallbackFnc callback = [](bool) {  (void)0; };
 
 	};
 

@@ -38,7 +38,7 @@
 #include "DeferredRenderSystem.h"
 #include "SkyboxRenderSystem.h"
 #include "PcUserInput.h"
-#include "Collider.h"
+#include "CollisionComponent.h"
 #include "CollisionEvent.h"
 #include "CollisionSystem.h"
 #include "PhysicsSystem.h"
@@ -133,7 +133,7 @@ void Engine::RegisterBuiltinComponents() {
 	entityComponentSystem->RegisterComponent<ECS::CameraComponent2D>();
 	entityComponentSystem->RegisterComponent<ECS::Transform2D>();
 	entityComponentSystem->RegisterComponent<ECS::TerrainComponent>();
-	entityComponentSystem->RegisterComponent<COLLISION::Collider>();
+	entityComponentSystem->RegisterComponent<ECS::CollisionComponent>();
 	entityComponentSystem->RegisterComponent<ECS::PhysicsComponent>();
 }
 
@@ -219,7 +219,7 @@ Version Engine::GetVersion() {
 }
 
 std::string_view Engine::GetBuild() {
-	return "2023.11.08a";
+	return "2023.11.12a";
 }
 
 UIndex64 Engine::GetCurrentGameFrameIndex() {

@@ -109,12 +109,38 @@ void SpriteRenderer::Draw(const Sprite& sprite, const TextureCoordinates2D& texC
 void SpriteRenderer::DrawString(Font& font, USize32 fontSize, std::string_view text, const ECS::Transform2D& transform, const Color& color) {
 	const auto& fontInstance = font.GetInstance(fontSize);
 
+	DrawString(fontInstance, fontSize, text, transform, color);
+}
+
+void SpriteRenderer::DrawString(ASSETS::Font& font, USize32 fontSize, std::string_view text, const Vector2f position, const Vector2f size, float rotation, const Color& color) {
+	Transform2D transform(EMPTY_GAME_OBJECT);
+	transform.SetPosition(position);
+	transform.SetRotation(rotation);
+	transform.SetScale(size);
+
+	DrawString(font, fontSize, text, transform, color);
+}
+
+void SpriteRenderer::DrawString(const Font& font, USize32 fontSize, std::string_view text, const Vector2f position, const Vector2f size, float rotation, const Color& color) {
+	Transform2D transform(EMPTY_GAME_OBJECT);
+	transform.SetPosition(position);
+	transform.SetRotation(rotation);
+	transform.SetScale(size);
+
+	DrawString(font.GetExistingInstance(fontSize), fontSize, text, transform, color);
+}
+
+void SpriteRenderer::DrawString(const Font& font, USize32 fontSize, std::string_view text, const ECS::Transform2D& transform, const Color& color) {
+	DrawString(font.GetExistingInstance(fontSize), fontSize, text, transform, color);
+}
+
+void SpriteRenderer::DrawString(const FontInstance& fontInstance, USize32 fontSize, std::string_view text, const ECS::Transform2D& transform, const Color& color) {
 	OSK_ASSERT(fontInstance.sprite.GetPointer() != nullptr, InvalidArgumentException("La fuente no tiene configurado su sprite."));
 
 	const Vector2f& position = transform.GetPosition();
 	float x = transform.GetPosition().x;
 	float y = transform.GetPosition().y;
-	
+
 	for (UIndex32 i = 0; i < text.size(); i++) {
 		const FontCharacter& character = fontInstance.characters.at(text[i]);
 
@@ -144,23 +170,14 @@ void SpriteRenderer::DrawString(Font& font, USize32 fontSize, std::string_view t
 		float posY = y - (character.bearing.y);
 
 		Draw(
-			*fontInstance.sprite.GetPointer(), 
-			TextureCoordinates2D::Pixels(character.texCoords.ToVector4f()), 
-			Vector2f(posX, posY), 
-			Vector2f(sizeX, sizeY) * transform.GetScale(), 
+			*fontInstance.sprite.GetPointer(),
+			TextureCoordinates2D::Pixels(character.texCoords.ToVector4f()),
+			Vector2f(posX, posY),
+			Vector2f(sizeX, sizeY) * transform.GetScale(),
 			transform.GetRotation(), color);
 
 		x += static_cast<float>(character.advance >> 6);
 	}
-}
-
-void SpriteRenderer::DrawString(ASSETS::Font& font, USize32 fontSize, std::string_view text, const Vector2f position, const Vector2f size, float rotation, const Color& color) {
-	Transform2D transform(EMPTY_GAME_OBJECT);
-	transform.SetPosition(position);
-	transform.SetRotation(rotation);
-	transform.SetScale(size);
-
-	DrawString(font, fontSize, text, transform, color);
 }
 
 void SpriteRenderer::End() noexcept {

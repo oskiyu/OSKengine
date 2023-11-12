@@ -49,7 +49,7 @@ namespace OSK::UI {
 			/// @param fuente Fuente del texto.
 			/// Si es null, no renderizará texto.
 			/// @param fontSize Tamaño del texto.
-			void SetFont(ASSETS::Font* fuente, USize32 fontSize);
+			void SetFont(ASSETS::AssetRef<ASSETS::Font> fuente, USize32 fontSize);
 
 
 			/// @brief Establece la imagen de fondo.
@@ -131,7 +131,7 @@ namespace OSK::UI {
 		/// que se añadan después.
 		/// @param fuente Fuente. Si es null, no se renderizará el texto.
 		/// @param fontSize Tamaño de la fuente.
-		void SetFont(ASSETS::Font* fuente, USize32 fontSize);
+		void SetFont(ASSETS::AssetRef<ASSETS::Font> fuente, USize32 fontSize);
 
 
 		/// @brief Establece la imagen de fondo que usarán las opciones.
@@ -174,7 +174,7 @@ namespace OSK::UI {
 
 
 		/// @brief Callback a ejecutar cada vez que se cambie de opción seleccionada.
-		CallbackFnc m_callback = [](std::string_view) {  };
+		CallbackFnc m_callback = [](std::string_view) { (void)0; };
 
 		/// @brief True si el fotograma anterior estaba siendo pulsado.
 		bool m_wasPreviousFramePressed = false;
@@ -182,7 +182,7 @@ namespace OSK::UI {
 
 		/// @brief Fuente de todas las opciones.
 		/// Para aplicársela a las siguientes opciones que se añadan.
-		ASSETS::Font* m_fuente = nullptr;
+		ASSETS::AssetRef<ASSETS::Font> m_fuente;
 
 		/// @brief Tamaño de fuente de todas las opciones.
 		/// Para aplicárselo a las siguientes opciones que se añadan.

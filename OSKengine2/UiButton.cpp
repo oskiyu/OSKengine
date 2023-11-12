@@ -92,7 +92,7 @@ Button::Type Button::GetType() const {
 	return type;
 }
 
-void Button::SetTextFont(Font* font) {
+void Button::SetTextFont(ASSETS::AssetRef<ASSETS::Font> font) {
 	buttonText.SetFont(font);
 	buttonText.AdjustSizeToText();
 }

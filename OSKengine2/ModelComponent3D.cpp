@@ -11,10 +11,14 @@ using namespace OSK::ECS;
 using namespace OSK::ASSETS;
 using namespace OSK::GRAPHICS;
 
-void ModelComponent3D::SetModel(Model3D* model) {
+void ModelComponent3D::SetModel(AssetRef<Model3D> model) {
 	m_model = model;
 }
 
-Model3D* ModelComponent3D::GetModel() const {
-	return m_model;
+Model3D* ModelComponent3D::GetModel() {
+	return m_model.GetAsset();
+}
+
+const Model3D* ModelComponent3D::GetModel() const {
+	return m_model.GetAsset();
 }

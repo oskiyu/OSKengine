@@ -19,7 +19,7 @@ RenderBoundsRenderer::RenderBoundsRenderer() {
 	signature.SetTrue(Engine::GetEcs()->GetComponentType<ModelComponent3D>());
 	_SetSignature(signature);
 
-	m_sphereModel = Engine::GetAssetManager()->Load<Model3D>("Resources/Assets/Models/Colliders/sphere_low.json", "RenderBoundsRenderer");
+	m_sphereModel = Engine::GetAssetManager()->Load<Model3D>("Resources/Assets/Models/Colliders/sphere_low.json");
 
 	LoadMaterials();
 }

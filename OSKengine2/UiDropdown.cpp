@@ -35,7 +35,7 @@ void UI::Dropdown::Element::SetBackground(const GRAPHICS::IGpuImageView* view, c
 	m_hoveredImageView.GetSprite().color = hoveredColor;
 }
 
-void UI::Dropdown::Element::SetFont(ASSETS::Font* fuente, USize32 fontSize) {
+void UI::Dropdown::Element::SetFont(ASSETS::AssetRef<ASSETS::Font> fuente, USize32 fontSize) {
 	m_textView.SetFont(fuente);
 	m_textView.SetFontSize(fontSize);
 	m_textView.AdjustSizeToText();
@@ -196,7 +196,7 @@ void UI::Dropdown::SelectOption(std::string_view selectedText) {
 	m_state = State::DEFAULT;
 }
 
-void UI::Dropdown::SetFont(ASSETS::Font* fuente, USize32 fontSize) {
+void UI::Dropdown::SetFont(ASSETS::AssetRef<ASSETS::Font> fuente, USize32 fontSize) {
 	m_fuente = fuente;
 	m_fontSize = fontSize;
 

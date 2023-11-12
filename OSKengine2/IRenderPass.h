@@ -11,6 +11,8 @@
 #include "GameObject.h"
 
 #include "MeshMapping.h"
+#include "Texture.h"
+#include "AssetRef.h"
 
 #include <unordered_map>
 
@@ -94,6 +96,9 @@ namespace OSK::GRAPHICS {
 
 		/// @brief Nombre del pase.
 		std::string m_passTypeName = "";
+
+		ASSETS::AssetRef<ASSETS::Texture> defaultTexture;
+
 
 		MeshMapping m_meshMapping = {};
 

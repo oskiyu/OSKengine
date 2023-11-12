@@ -4,22 +4,18 @@
 
 #include "UniquePtr.hpp"
 #include "IGpuImage.h"
-
-namespace OSK::ECS {
-	class ModelComponent3D;
-}
+#include "Model3D.h"
 
 namespace OSK::ASSETS {
 
-	class Model3D;
-
-	class OSKAPI_CALL ModelLoader3D final : public IAssetLoader {
+	class OSKAPI_CALL ModelLoader3D final : public IAssetLoader, public TAssetLoader<Model3D> {
 
 	public:
 
 		OSK_ASSET_TYPE_REG("OSK::Model3D");
 
-		void Load(const std::string& assetFilePath, IAsset** asset) override;
+		OSK_DEFAULT_LOADER_IMPL(Model3D);
+		AssetOwningRef<Model3D> Load(const std::string& assetFilePath) override;
 
 	private:
 

@@ -18,7 +18,7 @@ namespace OSK::UI {
 
 	public:
 
-		ImageView(const Vector2f& size) : IElement(size) {}
+		explicit ImageView(const Vector2f& size) : IElement(size) {}
 
 	public:
 

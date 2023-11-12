@@ -10,6 +10,7 @@
 #include "IAssetLoader.h"
 #include "IAsset.h"
 #include "Logger.h"
+#include "AssetRef.h"
 
 #include "AssetLoaderNotFoundException.h"
 
@@ -38,31 +39,16 @@ namespace OSK::ASSETS {
 		/// <summary> Carga un asset. </summary>
 		/// 
 		/// @note Esta función debe ser sobreescrita por todos los loaders.
-		template <typename T> T* 
-		Load(const std::string& assetFilePath, const std::string& lifetimePool) {
-			if (assetsTable.contains(assetFilePath))
-				return (T*)assetsTable.at(assetFilePath);
+		template <typename T> 
+		AssetRef<T> Load(const std::string& assetFilePath) {
+			AssetRef<T> output = AssetRef<T>();
 
-			T* output = new T(assetFilePath);
+			OSK_ASSERT(m_loaders.contains(T::GetAssetType()), AssetLoaderNotFoundException(T::GetAssetType()))
 
-			OSK_ASSERT(loaders.contains(T::GetAssetType()), AssetLoaderNotFoundException(T::GetAssetType()))
-
-			loaders.at(T::GetAssetType())->Load(assetFilePath, (IAsset**)&output);
-
-			assetsTable[output->GetName()] = output;
-
-			if (!assetsPerLifetime.contains(lifetimePool))
-				assetsPerLifetime[lifetimePool] = {};
-
-			assetsPerLifetime.at(lifetimePool).Insert(output);
+			m_loaders.at(T::GetAssetType())->Load(assetFilePath, &output);
 
 			return output;
 		}
-
-		/// <summary> Elimina todos assets del lifetime dado. </summary>
-		/// 
-		/// @note Si el lifetime no existe (o ya fue eliminado), no ocurre nada.
-		void DeleteLifetime(std::string_view lifetime);
 
 		/// <summary> Registra un loader, para poder cargar assets de un tipo determinado. </summary>
 		/// 
@@ -72,14 +58,12 @@ namespace OSK::ASSETS {
 		/// @warning Todo loader debe ser registrado para poder usarse.
 		template <typename T> 
 		void RegisterLoader() {
-			loaders[T::GetAssetType()] = new T;
+			m_loaders[T::GetAssetType()] = new T;
 		}
 
 	private:
 
-		std::unordered_map<std::string, IAsset*, StringHasher, std::equal_to<>> assetsTable;
-		std::unordered_map<std::string, DynamicArray<SharedPtr<IAsset>>, StringHasher, std::equal_to<>> assetsPerLifetime;
-		std::unordered_map<std::string, UniquePtr<IAssetLoader>, StringHasher, std::equal_to<>> loaders;
+		std::unordered_map<std::string, UniquePtr<IAssetLoader>, StringHasher, std::equal_to<>> m_loaders;
 
 	};
 

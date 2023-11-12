@@ -8,8 +8,8 @@
 using namespace OSK;
 using namespace OSK::ASSETS;
 
-void AudioLoader::Load(const std::string& assetFilePath, IAsset** asset) {
-	AudioAsset* output = (AudioAsset*)*asset;
+AssetOwningRef<AudioAsset> AudioLoader::Load(const std::string& assetFilePath) {
+	AssetOwningRef<AudioAsset> output(assetFilePath);
 
 	// Asset file.
 	const nlohmann::json assetInfo = ValidateDescriptionFile(assetFilePath);
@@ -76,4 +76,6 @@ void AudioLoader::Load(const std::string& assetFilePath, IAsset** asset) {
 	data = NULL;
 
 	file.close();
+
+	return output;
 }

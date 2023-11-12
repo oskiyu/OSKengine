@@ -39,7 +39,7 @@ namespace OSK::ECS {
 		GRAPHICS::Material* m_material = nullptr;
 		UniquePtr<GRAPHICS::MaterialInstance> m_materialInstance;
 
-		const ASSETS::Model3D* m_sphereModel = nullptr;
+		ASSETS::AssetRef<ASSETS::Model3D> m_sphereModel;
 
 	};
 

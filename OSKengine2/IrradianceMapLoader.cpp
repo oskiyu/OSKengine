@@ -55,15 +55,10 @@ IrradianceMapLoader::IrradianceMapLoader() {
 	RenderTargetAttachmentInfo depthInfo{ .format = Format::D16_UNORM , .name = "Irradiance Map Depth Target" };
 	cubemapGenRenderTarget.Create(irradianceLayerSize, { colorInfo }, depthInfo);
 
-	cubemapModel = Engine::GetAssetManager()->Load<ASSETS::Model3D>("Resources/Assets/Models/cube.json", "OSK::IrradianceMapLoader");
+	cubemapModel = Engine::GetAssetManager()->Load<ASSETS::Model3D>("Resources/Assets/Models/cube.json");
 }
-
-IrradianceMapLoader::~IrradianceMapLoader() {
-	Engine::GetAssetManager()->DeleteLifetime("OSK::IrradianceMapLoader");
-}
-
-void IrradianceMapLoader::Load(const std::string& assetFilePath, IAsset** asset) {
-	IrradianceMap* output = (IrradianceMap*)*asset;
+AssetOwningRef<IrradianceMap> IrradianceMapLoader::Load(const std::string& assetFilePath) {
+	AssetOwningRef<IrradianceMap> output(assetFilePath);
 
 	// Asset file.
 	const nlohmann::json assetInfo = ValidateDescriptionFile(assetFilePath);
@@ -151,6 +146,8 @@ void IrradianceMapLoader::Load(const std::string& assetFilePath, IAsset** asset)
 	output->_SetOriginalCubemap(intermediateCubemap);
 
 	stbi_image_free(pixels);
+
+	return output;
 }
 
 void IrradianceMapLoader::DrawCubemap(GpuImage* targetCubemap, ICommandList* cmdList, Material* material, IMaterialSlot* materialSlot) {

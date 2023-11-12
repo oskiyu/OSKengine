@@ -136,7 +136,7 @@ void GpuImageVk::CreateVkSampler(const GpuImageSamplerDesc& samplerDesc) {
 	}
 
 	samplerInfo.mipmapMode = VK_SAMPLER_MIPMAP_MODE_LINEAR;
-	samplerInfo.mipLodBias = 0.0f;
+	samplerInfo.mipLodBias = -0.5f;
 
 	const VkDevice device = Engine::GetRenderer()->GetGpu()->As<GpuVk>()->GetLogicalDevice();
 	vkCreateSampler(device,	&samplerInfo, nullptr, &sampler);

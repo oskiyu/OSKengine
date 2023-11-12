@@ -18,6 +18,10 @@ namespace OSK::GRAPHICS {
 
 	public:
 
+		PerMeshData() = default;
+
+		OSK_DISABLE_COPY(PerMeshData);
+
 		/// @brief Establece la instancia que se usará para el renderizado del mesh.
 		/// @param instance Instancia de renderizado.
 		void _SetMaterialInstance(OwnedPtr<MaterialInstance> instance);
@@ -45,6 +49,10 @@ namespace OSK::GRAPHICS {
 
 	public:
 
+		PerModelData() = default;
+
+		OSK_DISABLE_COPY(PerModelData);
+
 		void RegisterMesh(UIndex64 meshId);
 		void UnregisterMesh(UIndex64 meshId);
 
@@ -66,6 +74,10 @@ namespace OSK::GRAPHICS {
 	class OSKAPI_CALL MeshMapping {
 
 	public:
+
+		MeshMapping() = default;
+
+		OSK_DISABLE_COPY(MeshMapping);
 
 		void RegisterModel(UIndex64 modelId);
 		void UnregisterModel(UIndex64 modelId);

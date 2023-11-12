@@ -2,6 +2,9 @@
 
 #include "UiElement.h"
 
+#include "AssetRef.h"
+#include "Font.h"
+
 namespace OSK::ASSETS {
 	class Font;
 }
@@ -14,7 +17,7 @@ namespace OSK::UI {
 
 	public:
 
-		TextView(const Vector2f& size) : IElement(size) { }
+		explicit TextView(const Vector2f& size) : IElement(size) { }
 
 	public:
 
@@ -29,9 +32,7 @@ namespace OSK::UI {
 
 		/// @brief Establece la fuente que se usará para el renderizado del texto.
 		/// @param font Fuente del texto.
-		/// 
-		/// @pre @p font no debe ser null.
-		void SetFont(ASSETS::Font* font);
+		void SetFont(ASSETS::AssetRef<ASSETS::Font> font);
 
 
 		/// @return Fuente usada por el text view.
@@ -55,7 +56,7 @@ namespace OSK::UI {
 	private:
 
 		std::string text = "";
-		ASSETS::Font* font = nullptr;
+		ASSETS::AssetRef<ASSETS::Font> font;
 		USize32 fontSize = 12;
 
 	};

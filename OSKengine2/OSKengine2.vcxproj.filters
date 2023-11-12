@@ -1227,6 +1227,9 @@
     <ClCompile Include="MinkowskiHull.h">
       <Filter>Archivos de encabezado\Core\Collision\Detection</Filter>
     </ClCompile>
+    <ClCompile Include="CollisionComponent.cpp">
+      <Filter>Archivos de origen\BuiltIn\ECS\Components</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="KeyboardState.h">
@@ -2197,6 +2200,18 @@
     </ClInclude>
     <ClInclude Include="Simplex.h">
       <Filter>Archivos de encabezado\Core\Collision\Detection</Filter>
+    </ClInclude>
+    <ClInclude Include="AssetRef.hpp">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
+    <ClInclude Include="AssetRef.h">
+      <Filter>Archivos de encabezado\Core\Assets</Filter>
+    </ClInclude>
+    <ClInclude Include="AssetOwningRef.h">
+      <Filter>Archivos de encabezado\Core\Assets</Filter>
+    </ClInclude>
+    <ClInclude Include="CollisionComponent.h">
+      <Filter>Archivos de encabezado\BuiltIn\ECS\Components</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

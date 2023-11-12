@@ -15,10 +15,9 @@
 
 #include "MaterialInstance.h"
 
-namespace OSK::ASSETS {
-	class IrradianceMap;
-	class SpecularMap;
-}
+#include "AssetRef.h"
+#include "IrradianceMap.h"
+#include "SpecularMap.h"
 
 namespace OSK::ECS {
 
@@ -37,8 +36,8 @@ namespace OSK::ECS {
 
 		void Initialize(
 			ECS::GameObjectIndex cameraObject, 
-			const ASSETS::IrradianceMap& irradianceMap, 
-			const ASSETS::SpecularMap& specularMap);
+			ASSETS::AssetRef<ASSETS::IrradianceMap> irradianceMap,
+			ASSETS::AssetRef<ASSETS::SpecularMap> specularMap);
 
 		void CreateTargetImage(const Vector2ui& size) override;
 		void Resize(const Vector2ui& size) override;
@@ -141,6 +140,8 @@ namespace OSK::ECS {
 		/// @brief Buffers CPU->GPU donde se almacena el estado de la luz direccional.
 		std::array<UniquePtr<GRAPHICS::GpuBuffer>, NUM_RESOURCES_IN_FLIGHT> m_directionalLightBuffers{};
 
+		ASSETS::AssetRef<ASSETS::IrradianceMap> m_irradianceMap;
+		ASSETS::AssetRef<ASSETS::SpecularMap> m_specularMap;
 
 		/// @brief Mapa de sombras en cascada.
 		GRAPHICS::ShadowMap m_shadowMap;

@@ -4,16 +4,18 @@
 #include "IGltfLoader.h"
 
 #include "Collider.h"
+#include "PreBuiltCollider.h"
 
 namespace OSK::ASSETS {
 
-	class OSKAPI_CALL PreBuiltColliderLoader : public IAssetLoader, private IGltfLoader {
+	class OSKAPI_CALL PreBuiltColliderLoader : public IAssetLoader, public TAssetLoader<PreBuiltCollider>, private IGltfLoader {
 
 	public:
 
-		OSK_ASSET_TYPE_REG("OSK::PreBuiltCollider")
+		OSK_ASSET_TYPE_REG("OSK::PreBuiltCollider");
 
-		void Load(const std::string& assetFilePath, IAsset** asset) override;
+		OSK_DEFAULT_LOADER_IMPL(PreBuiltCollider);
+		AssetOwningRef<PreBuiltCollider> Load(const std::string& assetFilePath) override;
 
 	private:
 

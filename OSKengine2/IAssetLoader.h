@@ -4,6 +4,9 @@
 
 #include <json.hpp>
 
+#include "HashMap.hpp"
+#include "AssetRef.h"
+#include "AssetOwningRef.h"
 #include <string>
 
 #ifndef OSK_ASSET_TYPE_REG
@@ -38,7 +41,7 @@ namespace OSK::ASSETS {
 		/// @throws AssetDescriptionFileNotFoundException Si el archivo de descripción '.json' no existe.
 		/// @throws InvalidDescriptionFileException Si el archivo de descripción es inválido.
 		/// @throws RawAssetFileNotFoundException Si el archivo del asset original no se encuentra.
-		virtual void Load(const std::string& assetFilePath, IAsset** asset) = 0;
+		virtual void Load(const std::string& assetFilePath, void* assetRef) = 0;
 
 	protected:
 
@@ -53,4 +56,32 @@ namespace OSK::ASSETS {
 
 	};
 
+
+	/// @brief Clase base que contiene la tabña caché
+	/// de assets previamente cargados.
+	/// @tparam TAssetType Tipo de asset.
+	template <typename TAssetType>
+	class TAssetLoader {
+
+	public:
+
+		virtual ~TAssetLoader() = default;
+
+		virtual AssetOwningRef<TAssetType> Load(const std::string& path) = 0;
+
+	protected:
+
+		std::unordered_map<std::string, AssetOwningRef<TAssetType>, StringHasher, std::equal_to<>> m_assetsTable;
+
+	};
+
+}
+
+#define OSK_DEFAULT_LOADER_IMPL(TType) \
+void Load(const std::string& assetFilePath, void* assetRef) override { \
+	AssetRef<TType>& output = *static_cast<AssetRef<TType>*>(assetRef); \
+	if (!m_assetsTable.contains(assetFilePath)) { \
+		m_assetsTable[assetFilePath] = Load(assetFilePath); \
+	} \
+	output = m_assetsTable.at(assetFilePath).CreateRef(); \
 }

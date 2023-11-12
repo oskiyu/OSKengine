@@ -9,6 +9,8 @@
 #include "MaterialInstance.h"
 #include "RtRenderTarget.h"
 #include "RenderTarget.h"
+#include "AssetRef.h"
+#include "SpecularMap.h"
 
 #include <glm/glm.hpp>
 
@@ -21,16 +23,16 @@ namespace OSK::ASSETS {
 
 	class Model3D;
 
-	class OSKAPI_CALL SpecularMapLoader : public IAssetLoader {
+	class OSKAPI_CALL SpecularMapLoader : public IAssetLoader, public TAssetLoader<SpecularMap> {
 
 	public:
 
 		SpecularMapLoader();
-		~SpecularMapLoader();
 
 		OSK_ASSET_TYPE_REG("OSK::SpecularMap");
 
-		void Load(const std::string& assetFilePath, IAsset** asset) override;
+		OSK_DEFAULT_LOADER_IMPL(SpecularMap);
+		AssetOwningRef<SpecularMap> Load(const std::string& assetFilePath) override;
 
 	private:
 
@@ -40,7 +42,7 @@ namespace OSK::ASSETS {
 		void DrawPreFilter(GRAPHICS::GpuImage* cubemap, GRAPHICS::ICommandList* cmdList, UIndex32 mipLevel, float roughness);
 		void GenerateLut(GRAPHICS::ICommandList* cmdList);
 
-		ASSETS::Model3D* cubemapModel = nullptr;
+		ASSETS::AssetRef<ASSETS::Model3D> cubemapModel;
 
 		// Resolución del nivel de detalle más alto del specular map.
 		const Vector2ui maxResolution = Vector2ui(1024u);

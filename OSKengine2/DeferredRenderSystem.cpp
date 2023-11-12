@@ -94,8 +94,11 @@ void DeferredRenderSystem::SetupGBufferMaterial() {
 	m_gBufferCameraInstance->GetSlot("global")->FlushUpdate();
 }
 
-void DeferredRenderSystem::Initialize(GameObjectIndex camera, const ASSETS::IrradianceMap& irradianceMap, const ASSETS::SpecularMap& specularMap) {
+void DeferredRenderSystem::Initialize(GameObjectIndex camera, ASSETS::AssetRef<ASSETS::IrradianceMap> irradianceMap, ASSETS::AssetRef<ASSETS::SpecularMap> specularMap) {
 	m_cameraObject = camera;
+
+	m_irradianceMap = irradianceMap;
+	m_specularMap = specularMap;
 
 	// Pases por defecto
 	AddRenderPass(new StaticGBufferPass());
@@ -116,9 +119,9 @@ void DeferredRenderSystem::Initialize(GameObjectIndex camera, const ASSETS::Irra
 	const GpuImageViewConfig viewConfig = GpuImageViewConfig::CreateSampled_Default();
 	const GpuImageViewConfig cubemapConfig = GpuImageViewConfig::CreateSampled_Cubemap();
 
-	m_resolverPass->GetMaterialInstance()->GetSlot("global")->SetGpuImage("irradianceMap", irradianceMap.GetGpuImage()->GetView(cubemapConfig));
-	m_resolverPass->GetMaterialInstance()->GetSlot("global")->SetGpuImage("specularMap", specularMap.GetCubemapImage()->GetView(cubemapConfig));
-	m_resolverPass->GetMaterialInstance()->GetSlot("global")->SetGpuImage("specularLut", specularMap.GetLookUpTable()->GetView(viewConfig));
+	m_resolverPass->GetMaterialInstance()->GetSlot("global")->SetGpuImage("irradianceMap", irradianceMap->GetGpuImage()->GetView(cubemapConfig));
+	m_resolverPass->GetMaterialInstance()->GetSlot("global")->SetGpuImage("specularMap", specularMap->GetCubemapImage()->GetView(cubemapConfig));
+	m_resolverPass->GetMaterialInstance()->GetSlot("global")->SetGpuImage("specularLut", specularMap->GetLookUpTable()->GetView(viewConfig));
 	m_resolverPass->GetMaterialInstance()->GetSlot("global")->FlushUpdate();
 
 	m_shadowMap.SetSceneCamera(camera);

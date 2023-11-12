@@ -2,15 +2,18 @@
 
 #include "IAssetLoader.h"
 
+#include "CubemapTexture.h"
+
 namespace OSK::ASSETS {
 
-	class OSKAPI_CALL CubemapTextureLoader : public IAssetLoader {
+	class OSKAPI_CALL CubemapTextureLoader : public IAssetLoader, public TAssetLoader<CubemapTexture> {
 
 	public:
 
 		OSK_ASSET_TYPE_REG("OSK::CubemapTexture");
 
-		void Load(const std::string& assetFilePath, IAsset** asset) override;
+		OSK_DEFAULT_LOADER_IMPL(CubemapTexture);
+		AssetOwningRef<CubemapTexture> Load(const std::string& assetFilePath) override;
 
 	};
 

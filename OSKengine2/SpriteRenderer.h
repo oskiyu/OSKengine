@@ -12,6 +12,7 @@
 namespace OSK::ASSETS {
 	class Texture;
 	class Font;
+	class FontInstance;
 }
 
 namespace OSK::ECS { 
@@ -181,10 +182,10 @@ namespace OSK::GRAPHICS {
 		/// @pre La cola de comandos debe tener asociado un renderpass.
 		/// @pre Se debe haber establecido un material.
 		void DrawString(
-			ASSETS::Font& font, 
+			ASSETS::Font& font,
 			USize32 fontSize,
-			std::string_view text, 
-			const ECS::Transform2D& transform, 
+			std::string_view text,
+			const ECS::Transform2D& transform,
 			const Color& color);
 
 		/// @brief Renderiza el texto con la fuente indicada.
@@ -196,18 +197,63 @@ namespace OSK::GRAPHICS {
 		/// @param rotation Rotación del texto.
 		/// @param color Color del texto.
 		void DrawString(
-			ASSETS::Font& font, 
-			USize32 fontSize, 
-			std::string_view text, 
-			const Vector2f position, 
-			const Vector2f size, 
-			float rotation, const 
+			ASSETS::Font& font,
+			USize32 fontSize,
+			std::string_view text,
+			const Vector2f position,
+			const Vector2f size,
+			float rotation, const
+			Color& color);
+
+
+		/// @brief Renderiza el texto con la fuente indicada.
+		/// @param font Fuente del texto.
+		/// @param fontSize Tamaño de la fuente (en píxeles).
+		/// @param text Texto a renderizar.
+		/// @param transform Transform del texto.
+		/// @param color Color del texto.
+		/// 
+		/// @pre La cola de comandos debe estar iniciada.
+		/// @pre La cola de comandos debe tener asociado un renderpass.
+		/// @pre Se debe haber establecido un material.
+		/// 
+		/// @pre @p font debe tener previamente cargada una instancia con tamaño @p fontSize.
+		void DrawString(
+			const ASSETS::Font& font,
+			USize32 fontSize,
+			std::string_view text,
+			const ECS::Transform2D& transform,
+			const Color& color);
+
+		/// @brief Renderiza el texto con la fuente indicada.
+		/// @param font Fuente a usar.
+		/// @param fontSize Tamaño de la fuente, en píxeles.
+		/// @param text Texto a renderizar.
+		/// @param position Posición del texto.
+		/// @param size Tamaño de cada letra, multiplicador respecto al tamaño de fuente (1.0 para tamaño original).
+		/// @param rotation Rotación del texto.
+		/// @param color Color del texto.
+		/// @pre @p font debe tener previamente cargada una instancia con tamaño @p fontSize.
+		void DrawString(
+			const ASSETS::Font& font,
+			USize32 fontSize,
+			std::string_view text,
+			const Vector2f position,
+			const Vector2f size,
+			float rotation, const
 			Color& color);
 
 		/// @brief Finaliza el renderizado 2D.
 		void End() noexcept;
 
 	private:
+
+		void DrawString(
+			const ASSETS::FontInstance& font,
+			USize32 fontSize,
+			std::string_view text,
+			const ECS::Transform2D& transform,
+			const Color& color);
 
 		ICommandList* targetCommandList = nullptr;
 

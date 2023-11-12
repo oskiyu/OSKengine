@@ -86,9 +86,9 @@ void HbaoPass::Create(const Vector2ui& size) {
 	hbaoMaterialInstance->GetSlot("camera")->FlushUpdate();
 
 	// Ruido
-	const auto* noiseTexture = Engine::GetAssetManager()->Load<ASSETS::Texture>("Resources/Assets/BlueNoise/bluenoise.json", "GLOBAL");
+	const auto noiseTexture = Engine::GetAssetManager()->Load<ASSETS::Texture>("Resources/Assets/BlueNoise/bluenoise.json");
 	const auto viewConfig = GpuImageViewConfig::CreateSampled_SingleMipLevel(0);
-	hbaoMaterialInstance->GetSlot("texture")->SetGpuImage("noiseImage", noiseTexture->GetGpuImage()->GetView(viewConfig));
+	hbaoMaterialInstance->GetSlot("texture")->SetGpuImage("noiseImage", noiseTexture.GetAsset()->GetGpuImage()->GetView(viewConfig));
 	hbaoMaterialInstance->GetSlot("texture")->FlushUpdate();
 
 	// Blur

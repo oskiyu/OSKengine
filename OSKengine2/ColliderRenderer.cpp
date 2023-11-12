@@ -8,7 +8,7 @@
 #include "Material.h"
 
 #include "Transform3D.h"
-#include "Collider.h"
+#include "CollisionComponent.h"
 #include "CameraComponent3D.h"
 
 #include "AxisAlignedBoundingBox.h"
@@ -33,7 +33,7 @@ using namespace OSK::COLLISION;
 ColliderRenderSystem::ColliderRenderSystem() {
 	Signature signature{};
 	signature.SetTrue(Engine::GetEcs()->GetComponentType<Transform3D>());
-	signature.SetTrue(Engine::GetEcs()->GetComponentType<Collider>());
+	signature.SetTrue(Engine::GetEcs()->GetComponentType<CollisionComponent>());
 	_SetSignature(signature);
 
 	// Material load
@@ -48,8 +48,8 @@ ColliderRenderSystem::ColliderRenderSystem() {
 	pointsMaterialInstance = pointMaterial->CreateInstance().GetPointer();
 
 	// Asset load
-	cubeModel = Engine::GetAssetManager()->Load<Model3D>("Resources/Assets/Models/Colliders/cube.json", "ColliderRenderSystem");
-	sphereModel = Engine::GetAssetManager()->Load<Model3D>("Resources/Assets/Models/Colliders/sphere.json", "ColliderRenderSystem");
+	cubeModel = Engine::GetAssetManager()->Load<Model3D>("Resources/Assets/Models/Colliders/cube.json");
+	sphereModel = Engine::GetAssetManager()->Load<Model3D>("Resources/Assets/Models/Colliders/sphere.json");
 
 	// Material setup
 	const GpuBuffer* _cameraUbos[NUM_RESOURCES_IN_FLIGHT]{};
@@ -125,7 +125,7 @@ void ColliderRenderSystem::Render(GRAPHICS::ICommandList* commandList) {
 		Transform3D topLevelTransform = originalTransform;
 		topLevelTransform.SetRotation({});
 
-		const Collider& collider = Engine::GetEcs()->GetComponent<Collider>(gameObject);
+		const Collider& collider = *Engine::GetEcs()->GetComponent<CollisionComponent>(gameObject).GetCollider();
 		const ITopLevelCollider* topLevelCollider = collider.GetTopLevelCollider();
 
 		if (collisionObjects.contains(gameObject))
@@ -138,18 +138,18 @@ void ColliderRenderSystem::Render(GRAPHICS::ICommandList* commandList) {
 			renderInfo.modelMatrix = topLevelTransform.GetAsMatrix();
 			commandList->PushMaterialConstants("pushConstants", renderInfo);
 
-			commandList->BindVertexBuffer(*cubeModel->GetVertexBuffer());
-			commandList->BindIndexBuffer(*cubeModel->GetIndexBuffer());
-			commandList->DrawSingleInstance(cubeModel->GetIndexCount());
+			commandList->BindVertexBuffer(*cubeModel.GetAsset()->GetVertexBuffer());
+			commandList->BindIndexBuffer(*cubeModel.GetAsset()->GetIndexBuffer());
+			commandList->DrawSingleInstance(cubeModel.GetAsset()->GetIndexCount());
 		} else
 		if (auto* sphere = dynamic_cast<const SphereCollider*>(topLevelCollider)) {
 			topLevelTransform.SetScale(Vector3f(sphere->GetRadius()));
 			renderInfo.modelMatrix = topLevelTransform.GetAsMatrix();
 			commandList->PushMaterialConstants("pushConstants", renderInfo);
 
-			commandList->BindVertexBuffer(*sphereModel->GetVertexBuffer());
-			commandList->BindIndexBuffer(*sphereModel->GetIndexBuffer());
-			commandList->DrawSingleInstance(sphereModel->GetIndexCount());
+			commandList->BindVertexBuffer(*sphereModel.GetAsset()->GetVertexBuffer());
+			commandList->BindIndexBuffer(*sphereModel.GetAsset()->GetIndexBuffer());
+			commandList->DrawSingleInstance(sphereModel.GetAsset()->GetIndexCount());
 		}
 
 		if (bottomLevelVertexBuffers.contains(gameObject)) {
@@ -173,8 +173,8 @@ void ColliderRenderSystem::Render(GRAPHICS::ICommandList* commandList) {
 		}
 	}
 
-	commandList->BindVertexBuffer(*cubeModel->GetVertexBuffer());
-	commandList->BindIndexBuffer(*cubeModel->GetIndexBuffer());
+	commandList->BindVertexBuffer(*cubeModel.GetAsset()->GetVertexBuffer());
+	commandList->BindIndexBuffer(*cubeModel.GetAsset()->GetIndexBuffer());
 
 	commandList->BindMaterial(*pointMaterial);
 	commandList->BindMaterialSlot(*pointsMaterialInstance->GetSlot("global"));
@@ -214,7 +214,7 @@ void ColliderRenderSystem::OnObjectRemoved(GameObjectIndex obj) {
 }
 
 void ColliderRenderSystem::SetupBottomLevelModel(GameObjectIndex obj) {
-	const Collider& collider = Engine::GetEcs()->GetComponent<Collider>(obj);
+	const Collider& collider = *Engine::GetEcs()->GetComponent<CollisionComponent>(obj).GetCollider();
 	
 	if (bottomLevelVertexBuffers.contains(obj)) {
 		bottomLevelVertexBuffers.at(obj).Empty();

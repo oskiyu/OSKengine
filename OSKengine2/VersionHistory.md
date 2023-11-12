@@ -1210,3 +1210,25 @@ con varios colliders.
 - **Bugfix**: cargar los materiales de animación del renderizador en diferido ya no genera errores en las capas de validación.
 - **Bugfix**: cargar los materiales de animación del renderizador directo ya no genera errores en las capas de validación.
 - **Bugfix**: `CollisionSysyem` ahora genera correctamente un evento por cada colisión, en vez de un evento por colisión por cada pareja de objetos.
+
+
+## 2023.11.12a
+
+### Assets
+
+- Ahora el caché de *assets* se almacena en cada uno de los *loaders*.
+
+- ***Nuevo***: `AssetOwningRef`
+    - Dueño de una instancia de un *asset*.
+    - Permite crear `AssetRef`s.
+    - Tiene un sistema que cuenta el número de referencias creadas hacia el *asset*.
+    - Permite comprobar si está en uso, y eliminar el *asset* si no se está usando.
+    
+- ***Nuevo***: `AssetRef`
+    - Referencia hacia un *asset*
+    - Todos los *assets* deben ser referenciados a partir de un `AssetRef`.
+
+### ECS
+
+- ***Nuevo***: `CollisionComponent`
+    - Separa la funcionalidad de componente de la clase `Collider`.

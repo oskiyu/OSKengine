@@ -5,7 +5,6 @@
 #include "IGpuMemoryAllocator.h"
 
 #include "AssetManager.h"
-#include "Texture.h"
 
 #include "Model3D.h"
 #include "Mesh3D.h"
@@ -36,8 +35,8 @@ void IRenderPass::SetupMaterialInstance(const Model3D& model, const Mesh3D& mesh
 	const GpuImageViewConfig view = GpuImageViewConfig::CreateSampled_Default();
 
 	const auto defaultNormalTextureView = Engine::GetRenderer()->GetAllocator()->GetDefaultNormalTexture()->GetView(view);
-	const auto defaultTextureView = Engine::GetAssetManager()->Load<Texture>("Resources/Assets/Textures/texture0.json", "GLOBAL")
-		->GetGpuImage()->GetView(view);
+	defaultTexture = Engine::GetAssetManager()->Load<Texture>("Resources/Assets/Textures/texture0.json");
+	const auto defaultTextureView = defaultTexture->GetGpuImage()->GetView(view);
 
 	auto* mInstance = meshData.GetMaterialInstance();
 

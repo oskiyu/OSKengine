@@ -4,11 +4,10 @@
 
 #include "MaterialInstance.h"
 #include "GpuBuffer.h"
+#include "AssetRef.h"
 
-namespace OSK::ASSETS {
-	class CubemapTexture;
-	class Model3D;
-}
+#include "CubemapTexture.h"
+#include "Model3D.h"
 
 namespace OSK::ECS {
 
@@ -23,7 +22,7 @@ namespace OSK::ECS {
 		void CreateTargetImage(const Vector2ui& size) override;
 
 		void SetCamera(GameObjectIndex cameraObject);
-		void SetCubemap(const ASSETS::CubemapTexture& texture);
+		void SetCubemap(ASSETS::AssetRef<ASSETS::CubemapTexture> texture);
 
 		void Render(GRAPHICS::ICommandList* commandList) override;
 
@@ -36,7 +35,8 @@ namespace OSK::ECS {
 
 		UniquePtr<GRAPHICS::GpuBuffer> cameraUbos[3]{};
 
-		ASSETS::Model3D* cubemapModel = nullptr;
+		ASSETS::AssetRef<ASSETS::CubemapTexture> m_skybox;
+		ASSETS::AssetRef<ASSETS::Model3D> m_cubemapModel;
 
 	};
 

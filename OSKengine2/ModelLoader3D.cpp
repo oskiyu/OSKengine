@@ -44,8 +44,8 @@ using namespace OSK::ASSETS;
 using namespace OSK::GRAPHICS;
 
 
-void ModelLoader3D::Load(const std::string& assetFilePath, IAsset** asset) {
-	Model3D* output = (Model3D*)*asset;
+AssetOwningRef<Model3D> ModelLoader3D::Load(const std::string& assetFilePath) {
+	AssetOwningRef<Model3D> output(assetFilePath);
 
 	// a
 	const nlohmann::json assetInfo = ValidateDescriptionFile(assetFilePath);
@@ -80,12 +80,12 @@ void ModelLoader3D::Load(const std::string& assetFilePath, IAsset** asset) {
 	if (isAnimated) {
 		AnimMeshLoader loader{};
 		loader.Load(modelPath, modelTransform);
-		loader.SetupModel(output);
+		loader.SetupModel(output.GetAsset());
 	}
 	else {
 		StaticMeshLoader loader{};
 		loader.Load(modelPath, modelTransform);
-		loader.SetupModel(output);
+		loader.SetupModel(output.GetAsset());
 	}
 
 	const USize64 newNumMeshes = output->GetMeshes().GetSize();
@@ -94,4 +94,6 @@ void ModelLoader3D::Load(const std::string& assetFilePath, IAsset** asset) {
 
 	output->_SetId(m_nextModelId);
 	m_nextModelId++;
+
+	return output;
 }

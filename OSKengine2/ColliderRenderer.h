@@ -5,6 +5,7 @@
 #include "IRenderSystem.h"
 #include "GpuBuffer.h"
 #include "HashMap.hpp"
+#include "AssetRef.h"
 
 namespace OSK::ASSETS {
 	class Model3D;
@@ -86,8 +87,8 @@ namespace OSK::ECS {
 		std::unordered_map<GameObjectIndex, DynamicArray<UniquePtr<GRAPHICS::GpuBuffer>>> bottomLevelIndexBuffers;
 
 
-		const ASSETS::Model3D* cubeModel = nullptr;
-		const ASSETS::Model3D* sphereModel = nullptr;
+		ASSETS::AssetRef<ASSETS::Model3D> cubeModel;
+		ASSETS::AssetRef<ASSETS::Model3D> sphereModel;
 
 	};
 

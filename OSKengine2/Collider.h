@@ -30,12 +30,9 @@ namespace OSK::COLLISION {
 
 	public:
 
-		OSK_COMPONENT("OSK::Collider");
-
 		/// @brief Operador de copia.
 		/// @param other Otro collider que será copiado.
 		void CopyFrom(const Collider& other);
-
 
 		/// @brief Establece el volumen de nivel alto.
 		void SetTopLevelCollider(OwnedPtr<ITopLevelCollider> collider);

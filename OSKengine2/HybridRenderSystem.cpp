@@ -66,8 +66,8 @@ void HybridRenderSystem::SetupRtResources() {
 		dirLightUbos[i] = Engine::GetRenderer()->GetAllocator()->CreateUniformBuffer(sizeof(DirectionalLight)).GetPointer();
 	}
 
-	noise = Engine::GetAssetManager()->Load<Texture>("Resources/Assets/BlueNoise/bluenoise.json", "GLOBAL");
-	noiseX = Engine::GetAssetManager()->Load<Texture>("Resources/Assets/BlueNoise/bluenoisex.json", "GLOBAL");
+	noise = Engine::GetAssetManager()->Load<Texture>("Resources/Assets/BlueNoise/bluenoise.json");
+	noiseX = Engine::GetAssetManager()->Load<Texture>("Resources/Assets/BlueNoise/bluenoisex.json");
 }
 
 void HybridRenderSystem::SetupGBufferInstance() {
@@ -129,8 +129,8 @@ void HybridRenderSystem::SetupShadowsInstance() {
 	shadowsMaterialInstance->GetSlot("shadows")->SetGpuImages("gBufferPosition", positionImgs);
 	shadowsMaterialInstance->GetSlot("shadows")->SetStorageImages("shadowsImage", raytracedStorageImgs);
 	shadowsMaterialInstance->GetSlot("shadows")->SetUniformBuffers("dirLight", _dirLightUbos);
-	shadowsMaterialInstance->GetSlot("shadows")->SetGpuImage("noiseImage", noise->GetGpuImage()->GetView(sampledViewConfig));
-	shadowsMaterialInstance->GetSlot("shadows")->SetGpuImage("noiseImageX", noiseX->GetGpuImage()->GetView(sampledViewConfig));
+	shadowsMaterialInstance->GetSlot("shadows")->SetGpuImage("noiseImage", noise.GetAsset()->GetGpuImage()->GetView(sampledViewConfig));
+	shadowsMaterialInstance->GetSlot("shadows")->SetGpuImage("noiseImageX", noiseX.GetAsset()->GetGpuImage()->GetView(sampledViewConfig));
 
 	shadowsMaterialInstance->GetSlot("rt")->FlushUpdate();
 	shadowsMaterialInstance->GetSlot("shadows")->FlushUpdate();
@@ -270,8 +270,8 @@ void HybridRenderSystem::Resize(const Vector2ui& size) {
 
 
 void HybridRenderSystem::GBufferRenderLoop(GRAPHICS::ICommandList* commandList, ASSETS::ModelType modelType) {
-	GpuBuffer* previousVertexBuffer = nullptr;
-	GpuBuffer* previousIndexBuffer = nullptr;
+	const GpuBuffer* previousVertexBuffer = nullptr;
+	const GpuBuffer* previousIndexBuffer = nullptr;
 
 	for (GameObjectIndex obj : GetObjects()) {
 		const ModelComponent3D& model = Engine::GetEcs()->GetComponent<ModelComponent3D>(obj);

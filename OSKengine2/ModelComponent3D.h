@@ -5,14 +5,12 @@
 #include "UniquePtr.hpp"
 #include "DynamicArray.hpp"
 #include "HashMap.hpp"
+#include "AssetRef.h"
+#include "Model3D.h"
 
 #include <string>
 
 namespace OSK {
-	namespace ASSETS {
-		class Model3D;
-		class Texture;
-	}
 	namespace GRAPHICS {
 		class Material;
 		class MaterialInstance;
@@ -34,11 +32,10 @@ namespace OSK::ECS {
 		/// @brief Establece el modelo 3D que se renderizará.
 		/// @param model Modelo 3D cargado.
 		/// @pre @p model no debe ser null.
-		void SetModel(ASSETS::Model3D* model);
+		void SetModel(ASSETS::AssetRef<ASSETS::Model3D> model);
 
-		/// @return Modelo 3D del componente.
-		/// @pre Debe haberse establecido el modelo con ModelComponent3D::SetModel.
-		ASSETS::Model3D* GetModel() const;
+		ASSETS::Model3D* GetModel();
+		const ASSETS::Model3D* GetModel() const;
 
 
 		/// @brief Establece si el modelo generará sombras.
@@ -50,7 +47,7 @@ namespace OSK::ECS {
 
 	private:
 
-		ASSETS::Model3D* m_model = nullptr;
+		ASSETS::AssetRef<ASSETS::Model3D> m_model;
 
 		bool m_castShadows = true;
 

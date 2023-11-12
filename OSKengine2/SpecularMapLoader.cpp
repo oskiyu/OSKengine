@@ -50,15 +50,11 @@ SpecularMapLoader::SpecularMapLoader() {
 	lutGenerationMaterialInstance->GetSlot("global")->SetStorageImages("finalImage", lutGenImages);
 	lutGenerationMaterialInstance->GetSlot("global")->FlushUpdate();
 
-	cubemapModel = Engine::GetAssetManager()->Load<ASSETS::Model3D>("Resources/Assets/Models/cube.json", "OSK::SpecularMapLoader");
+	cubemapModel = Engine::GetAssetManager()->Load<ASSETS::Model3D>("Resources/Assets/Models/cube.json");
 }
 
-SpecularMapLoader::~SpecularMapLoader() {
-	Engine::GetAssetManager()->DeleteLifetime("OSK::SpecularMapLoader");
-}
-
-void SpecularMapLoader::Load(const std::string& assetFilePath, IAsset** asset) {
-	SpecularMap* output = (SpecularMap*)*asset;
+AssetOwningRef<SpecularMap> SpecularMapLoader::Load(const std::string& assetFilePath) {
+	AssetOwningRef<SpecularMap> output(assetFilePath);
 
 	// Asset file.
 	nlohmann::json assetInfo;
@@ -178,6 +174,8 @@ void SpecularMapLoader::Load(const std::string& assetFilePath, IAsset** asset) {
 
 	output->_SetCubemapImage(targetCubemap);
 	output->_SetLookUpTable(lut);
+
+	return output;
 }
 
 void SpecularMapLoader::DrawOriginal(GRAPHICS::GpuImage* cubemap, GRAPHICS::ICommandList* cmdList) {

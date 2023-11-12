@@ -11,8 +11,8 @@ using namespace OSK;
 using namespace OSK::ASSETS;
 using namespace OSK::COLLISION;
 
-void PreBuiltColliderLoader::Load(const std::string& assetFilePath, IAsset** asset) {
-	PreBuiltCollider* output = (PreBuiltCollider*)*asset;
+AssetOwningRef<PreBuiltCollider> PreBuiltColliderLoader::Load(const std::string& assetFilePath) {
+	AssetOwningRef<PreBuiltCollider> output(assetFilePath);
 
 	OwnedPtr<COLLISION::Collider> collider = new COLLISION::Collider();
 	m_buildingCollider = collider.GetPointer();
@@ -90,6 +90,8 @@ void PreBuiltColliderLoader::Load(const std::string& assetFilePath, IAsset** ass
 	
 	output->_SetCollider(collider);
 	m_buildingCollider = nullptr;
+
+	return output;
 }
 
 void PreBuiltColliderLoader::ProcessNode(const tinygltf::Node& node, UIndex32 nodeId, UIndex32 parentId) {

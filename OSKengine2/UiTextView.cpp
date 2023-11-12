@@ -13,7 +13,7 @@ using namespace OSK::ASSETS;
 using namespace OSK::GRAPHICS;
 
 void TextView::AdjustSizeToText() {
-	if (!font)
+	if (!font.GetAsset())
 		return;
 
 	const FontInstance& fontInstance = font->GetInstance(fontSize);
@@ -75,7 +75,7 @@ void TextView::SetFontSize(USize32 size) {
 	font->LoadSizedFont(size);
 }
 
-void TextView::SetFont(Font* font) {
+void TextView::SetFont(ASSETS::AssetRef<ASSETS::Font> font) {
 	this->font = font;
 }
 
@@ -84,7 +84,7 @@ void TextView::SetText(const std::string& text) {
 }
 
 const ASSETS::Font* TextView::GetFont() const {
-	return font;
+	return font.GetAsset();
 }
 
 USize32 TextView::GetFontSize() const {
@@ -96,7 +96,7 @@ std::string_view TextView::GetText() const {
 }
 
 void TextView::Render(SpriteRenderer* renderer, Vector2f parentPosition) const {
-	if (!font)
+	if (!font.GetAsset())
 		return;
 	
 	Vector2f globalPosition = GetContentTopLeftPosition() + parentPosition;
@@ -106,5 +106,5 @@ void TextView::Render(SpriteRenderer* renderer, Vector2f parentPosition) const {
 	Transform2D transform(EMPTY_GAME_OBJECT);
 	transform.SetPosition(globalPosition);
 
-	renderer->DrawString(*font, fontSize, text, transform, Color::White);
+	renderer->DrawString(*font.GetAsset(), fontSize, text, transform, Color::White);
 }

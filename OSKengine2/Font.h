@@ -115,7 +115,7 @@ namespace OSK::ASSETS {
 
 	private:
 
-		std::unordered_map<USize32, FontInstance> m_instances;
+		mutable std::unordered_map<USize32, FontInstance> m_instances;
 		std::string m_fontFile;
 		GRAPHICS::Material* m_material = nullptr;
 

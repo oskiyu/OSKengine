@@ -4,7 +4,7 @@
 
 #include "OSKengine.h"
 #include "EntityComponentSystem.h"
-#include "Collider.h"
+#include "CollisionComponent.h"
 
 using namespace OSK;
 using namespace OSK::ECS;
@@ -13,7 +13,7 @@ using namespace OSK::COLLISION;
 void CollisionSystem::OnCreate() {
 	Signature signature{};
 	signature.SetTrue(Engine::GetEcs()->GetComponentType<Transform3D>());
-	signature.SetTrue(Engine::GetEcs()->GetComponentType<Collider>());
+	signature.SetTrue(Engine::GetEcs()->GetComponentType<CollisionComponent>());
 	_SetSignature(signature);
 }
 
@@ -25,7 +25,7 @@ void CollisionSystem::OnTick(TDeltaTime deltaTime) {
 
 	// Actualizar y transformar los colliders.
 	for (GameObjectIndex i : GetObjects()) {
-		auto& collider = Engine::GetEcs()->GetComponent<COLLISION::Collider>(i);
+		auto& collider = *Engine::GetEcs()->GetComponent<CollisionComponent>(i).GetCollider();
 		const auto& transform = Engine::GetEcs()->GetComponent<Transform3D>(i);
 
 		for (UIndex32 blci = 0; blci < collider.GetBottomLevelCollidersCount(); blci++) {
@@ -39,13 +39,13 @@ void CollisionSystem::OnTick(TDeltaTime deltaTime) {
 	for (UIndex64 a = 0; a < numObjects - 1; a++) {
 		const GameObjectIndex firstObject = GetObjects()[a];
 
-		const auto& firstCollider = Engine::GetEcs()->GetComponent<COLLISION::Collider>(firstObject);
+		const auto& firstCollider = *Engine::GetEcs()->GetComponent<CollisionComponent>(firstObject).GetCollider();
 		const auto& firstTransform = Engine::GetEcs()->GetComponent<Transform3D>(firstObject);
 
 		for (UIndex64 b = a + 1; b < numObjects; b++) {
 			const GameObjectIndex secondObject = GetObjects()[b];
 
-			const auto& secondCollider = Engine::GetEcs()->GetComponent<COLLISION::Collider>(secondObject);
+			const auto& secondCollider = *Engine::GetEcs()->GetComponent<CollisionComponent>(secondObject).GetCollider();
 			const auto& secondTransform = Engine::GetEcs()->GetComponent<Transform3D>(secondObject);
 
 			const auto collisionInfo = firstCollider.GetCollisionInfo(secondCollider, firstTransform, secondTransform);

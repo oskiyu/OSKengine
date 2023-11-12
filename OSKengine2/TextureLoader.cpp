@@ -27,8 +27,8 @@ bool HasRgbFormat(OSK::GRAPHICS::RenderApiType api) {
 	return false;
 }
 
-void TextureLoader::Load(const std::string& assetFilePath, IAsset** asset) {
-	Texture* output = (Texture*)*asset;
+AssetOwningRef<Texture> TextureLoader::Load(const std::string& assetFilePath) {
+	AssetOwningRef<Texture> output(assetFilePath);
 
 	// Asset file.
 	const nlohmann::json assetInfo = ValidateDescriptionFile(assetFilePath);
@@ -87,4 +87,6 @@ void TextureLoader::Load(const std::string& assetFilePath, IAsset** asset) {
 	stbi_image_free(pixels);
 
 	output->_SetImage(image);
+
+	return output;
 }

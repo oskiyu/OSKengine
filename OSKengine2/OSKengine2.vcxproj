@@ -71,6 +71,7 @@
     <ClCompile Include="Clipping.cpp" />
     <ClCompile Include="Collider.cpp" />
     <ClCompile Include="ColliderRenderer.cpp" />
+    <ClCompile Include="CollisionComponent.cpp" />
     <ClCompile Include="CollisionInfo.cpp" />
     <ClCompile Include="CollisionSystem.cpp" />
     <ClCompile Include="ComputePipelineDx12.cpp" />
@@ -283,6 +284,9 @@
     <ClInclude Include="AssetDescriptionFileNotFoundException.h" />
     <ClInclude Include="AssetLoaderNotFoundException.h" />
     <ClInclude Include="AssetManager.h" />
+    <ClInclude Include="AssetOwningRef.h" />
+    <ClInclude Include="AssetRef.h" />
+    <ClInclude Include="AssetRef.hpp" />
     <ClInclude Include="AudioApi.h" />
     <ClInclude Include="AudioAsset.h" />
     <ClInclude Include="AudioBuffer.h" />
@@ -304,6 +308,7 @@
     <ClInclude Include="Clipping.h" />
     <ClInclude Include="Collider.h" />
     <ClInclude Include="ColliderRenderer.h" />
+    <ClInclude Include="CollisionComponent.h" />
     <ClInclude Include="CollisionEvent.h" />
     <ClInclude Include="CollisionInfo.h" />
     <ClInclude Include="CollisionSystem.h" />

@@ -39,6 +39,10 @@ TextureCoordinates2D Sprite::GetTexCoords() const {
 	return texCoords;
 }
 
+void Sprite::LinkAsset(ASSETS::AssetRef<Texture> texture) {
+	m_texture = texture;
+}
+
 void Sprite::SetImageView(const IGpuImageView* view) {
 	this->view = view;
 

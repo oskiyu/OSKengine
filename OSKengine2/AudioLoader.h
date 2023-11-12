@@ -2,15 +2,18 @@
 
 #include "IAssetLoader.h"
 
+#include "AudioAsset.h"
+
 namespace OSK::ASSETS {
 
-	class OSKAPI_CALL AudioLoader : public IAssetLoader {
+	class OSKAPI_CALL AudioLoader : public IAssetLoader, public TAssetLoader<AudioAsset> {
 
 	public:
 
-		OSK_ASSET_TYPE_REG("OSK::AudioAsset")
+		OSK_ASSET_TYPE_REG("OSK::AudioAsset");
 
-		void Load(const std::string& assetFilePath, IAsset** asset) override;
+		OSK_DEFAULT_LOADER_IMPL(AudioAsset);
+		AssetOwningRef<AudioAsset> Load(const std::string& assetFilePath) override;
 
 	};
 

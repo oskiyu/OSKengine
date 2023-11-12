@@ -22,8 +22,8 @@ using namespace OSK::ASSETS;
 using namespace OSK::GRAPHICS;
 
 
-void CubemapTextureLoader::Load(const std::string& assetFilePath, IAsset** asset) {
-	CubemapTexture* output = (CubemapTexture*)*asset;
+AssetOwningRef<CubemapTexture> CubemapTextureLoader::Load(const std::string& assetFilePath) {
+	AssetOwningRef<CubemapTexture> output(assetFilePath);
 
 	// Asset file.
 	const nlohmann::json assetInfo = nlohmann::json::parse(IO::FileIO::ReadFromFile(assetFilePath));
@@ -105,4 +105,6 @@ void CubemapTextureLoader::Load(const std::string& assetFilePath, IAsset** asset
 	output->_SetImage(image);
 
 	delete[] data;
+
+	return output;
 }

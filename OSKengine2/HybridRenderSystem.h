@@ -8,6 +8,7 @@
 #include "Texture.h"
 #include "GBuffer.h"
 #include "RtRenderTarget.h"
+#include "AssetRef.h"
 
 namespace OSK::GRAPHICS {
 	class IBottomLevelAccelerationStructure;
@@ -86,8 +87,8 @@ namespace OSK::ECS {
 		GRAPHICS::DirectionalLight dirLight{};
 
 		// Noises
-		ASSETS::Texture* noise = nullptr;
-		ASSETS::Texture* noiseX = nullptr;
+		ASSETS::AssetRef<ASSETS::Texture> noise;
+		ASSETS::AssetRef<ASSETS::Texture> noiseX;
 
 		// RayTracing
 		UniquePtr<GRAPHICS::ITopLevelAccelerationStructure> topLevelAccelerationStructures[3]{};

@@ -10,7 +10,9 @@ using namespace OSK::COLLISION;
 
 
 void Collider::CopyFrom(const Collider& other) {
-	m_topLevelCollider = other.m_topLevelCollider->CreateCopy().GetPointer();
+	if (other.m_topLevelCollider.HasValue()) {
+		m_topLevelCollider = other.m_topLevelCollider->CreateCopy().GetPointer();
+	}
 
 	m_bottomLevelColliders.Empty();
 

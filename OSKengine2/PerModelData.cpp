@@ -7,7 +7,7 @@ void PerModelData::RegisterMesh(UIndex64 meshId) {
 	if (HasMesh(meshId))
 		return;
 
-	m_meshesPerModel[meshId] = {};
+	m_meshesPerModel.try_emplace(meshId);
 }
 
 void PerModelData::UnregisterMesh(UIndex64 meshId) {

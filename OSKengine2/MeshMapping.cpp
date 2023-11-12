@@ -7,7 +7,7 @@ void MeshMapping::RegisterModel(UIndex64 modelId) {
 	if (HasModel(modelId))
 		return;
 
-	m_meshesPerModel[modelId] = {};
+	m_meshesPerModel.try_emplace(modelId);
 }
 
 void MeshMapping::UnregisterModel(UIndex64 modelId) {

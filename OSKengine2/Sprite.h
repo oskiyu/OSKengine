@@ -9,6 +9,9 @@
 #include "TextureCoordinates.h"
 #include "OwnedPtr.h"
 
+#include "AssetRef.h"
+#include "Texture.h"
+
 namespace OSK::ASSETS {
 	class Texture;
 }
@@ -52,6 +55,8 @@ namespace OSK::GRAPHICS {
 		TextureCoordinates2D GetTexCoords() const;
 
 		
+		void LinkAsset(ASSETS::AssetRef<ASSETS::Texture> texture);
+
 		/// @brief Establece la imagen del sprite.
 		/// @param view View de la imagen que se renderizará.
 		/// Si es null, no renderizará nada.
@@ -79,6 +84,7 @@ namespace OSK::GRAPHICS {
 	private:
 
 		TextureCoordinates2D texCoords = TextureCoordinates2D::Normalized({ 0, 0, 1, 1 });
+		ASSETS::AssetRef<ASSETS::Texture> m_texture;
 		const IGpuImageView* view = nullptr;
 		UniquePtr<MaterialInstance> textureMaterialInstance;
 
