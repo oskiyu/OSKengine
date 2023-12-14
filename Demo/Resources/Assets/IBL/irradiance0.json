@@ -4,6 +4,7 @@
 
     "name": "IrradianceMap0",
     "asset_type": "IrradianceMap",
-    "raw_asset_path": "Resources/RawAssets/IBL/Ridgecrest_Road_Ref.hdr",
+    "raw_asset_path": "Resources/RawAssets/IBL/white.hdr",
+    "raw_asset_pathog": "Resources/RawAssets/IBL/Ridgecrest_Road_Ref.hdr",
     "raw_asset_path2": "Resources/RawAssets/IBL/Road_to_MonumentValley_Ref.hdr"
 }

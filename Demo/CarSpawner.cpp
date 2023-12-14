@@ -6,6 +6,7 @@
 #include <OSKengine/Transform3D.h>
 #include <OSKengine/ModelComponent3D.h>
 #include <OSKengine/PhysicsComponent.h>
+#include <OSKengine/CollisionComponent.h>
 
 #include <OSKengine/Collider.h>
 #include <OSKengine/ConvexVolume.h>
@@ -15,45 +16,60 @@
 #include <OSKengine/ModelLoader3D.h> 
 
 #include <OSKengine/AssetManager.h>
+#include <OSKengine/AudioAsset.h>
+#include "CarAssets.h"
 
+#include "EngineComponent.h"
 #include "CarComponent.h"
+#include "CarAiComponent.h"
+#include "CarControllerComponent.h"
 
-OSK::ECS::GameObjectIndex CarSpawner::Spawn() {
+OSK::ECS::GameObjectIndex CarSpawner::Spawn(const OSK::Vector3f& position, std::string_view assetsPath) {
 	OSK::ECS::EntityComponentSystem* ecse = OSK::Engine::GetEcs();
 
 	const OSK::ECS::GameObjectIndex output = ecse->SpawnObject();
 
-	OSK::ECS::Transform3D		transform(output);
-	OSK::ECS::PhysicsComponent	physicsComponent{};
-	OSK::COLLISION::Collider	collider{};
-	OSK::ECS::ModelComponent3D	modelComponent{};
-	CarComponent				carComponent{};
+	OSK::ECS::Transform3D			transform(output);
+	OSK::ECS::PhysicsComponent		physicsComponent{};
+	OSK::ECS::CollisionComponent	collider{};
+	OSK::ECS::ModelComponent3D		modelComponent{};
+	CarComponent					carComponent{};
+	CarAiComponent					carAiComponent{};
+	CarControllerComponent			carControllerComponent{};
+	EngineComponent					engineComponent{};
 
-	transform.AddPosition({ 0.0f, 5.0f, 0.1f });
+	transform.SetPosition(position);
 
-	physicsComponent.SetMass(4.0f);
-	physicsComponent.centerOfMassOffset = OSK::Vector3f(0.0f, 0.17f * 0.5f, 0.0f);
-	physicsComponent.coefficientOfRestitution = 0.2f;
+	physicsComponent.SetMass(500.0f);
+	// physicsComponent.centerOfMassOffset = OSK::Vector3f(0.0f, 0.17f * 0.5f, 0.0f);
+	physicsComponent.coefficientOfRestitution = 0.0f;
+	physicsComponent.frictionCoefficient = 0.0f;
+	physicsComponent.SetInertiaTensor(glm::mat3(600.0f));
 
-	OSK::OwnedPtr<OSK::COLLISION::ConvexVolume> convexVolume 
-		= new OSK::COLLISION::ConvexVolume(
-			OSK::COLLISION::ConvexVolume::CreateObb({ 0.15f * 2, 0.17f, 0.35f * 2 }, 0));
+	auto carAssets = OSK::Engine::GetAssetManager()->Load<CarAssets>(static_cast<std::string>(assetsPath));
 
-	collider.SetTopLevelCollider(new OSK::COLLISION::SphereCollider(0.45f));
-	collider.AddBottomLevelCollider(convexVolume.GetPointer());
+	modelComponent.SetModel(carAssets->GetModel());
 
-	OSK::ASSETS::Model3D* carModel 
-		= OSK::Engine::GetAssetManager()->Load<OSK::ASSETS::Model3D>("Resources/Assets/Models/mclaren.json", "GLOBAL");
+	collider.SetCollider(carAssets->GetCollider());
+
+	const auto sound = OSK::Engine::GetAssetManager()->Load<OSK::ASSETS::AudioAsset>("Resources/Assets/Audio/bounce_audio.json");
 	
-	modelComponent.SetModel(carModel);
-	modelComponent.SetMaterial(m_material3D);
-	OSK::ASSETS::ModelLoader3D::SetupPbrModel(*carModel, &modelComponent);
+	// carComponent.m_trazada = OSK::Engine::GetAssetManager()->Load<OSK::ASSETS::PreLoadedSpline3D>("Resources/Assets/Curves/circuit0.json")->GetCopy();
 
 	ecse->AddComponent(output, transform);
 	ecse->AddComponent(output, physicsComponent);
 	ecse->AddComponent(output, std::move(collider));
 	ecse->AddComponent(output, std::move(modelComponent));
-	ecse->AddComponent(output, carComponent);
+	ecse->AddComponent(output, std::move(carComponent));
+	ecse->AddComponent(output, std::move(carAiComponent));
+	ecse->AddComponent(output, std::move(carControllerComponent));
+	auto& motor = ecse->AddComponent(output, std::move(engineComponent));
+
+	motor.audioSource.Init();
+	motor.audioSource.SetBuffer(sound->GetBuffer());
+	motor.audioSource.SetLooping(true);
+	motor.audioSource.SetGain(0.25f);
+	// motor.audioSource.Play();
 
 	return output;
 }

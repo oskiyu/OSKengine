@@ -4,10 +4,13 @@
 
     "name": "Model0",
     "asset_type": "Model3D",
+    "raw_asset_path2": "Resources/RawAssets/Models/l78.glb",
     "raw_asset_path": "Resources/RawAssets/Models/chass.glb",
 
-    "scale": 0.15,
+    "scale": 0.5,
     "load_textures": false,
     "load_materials": false,
-    "rotation_offset": [0, 0, 0]
+    "rotation_offset": [0, 0, 0],
+
+    "renderpass_type": "static_pass"
 }

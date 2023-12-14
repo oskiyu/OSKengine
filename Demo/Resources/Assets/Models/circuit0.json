@@ -4,9 +4,10 @@
 
     "name": "Circuit0",
     "asset_type": "Model3D",
-    "raw_asset_path": "Resources/RawAssets/Models/circuit.glb",
-    "raw_asset_path1": "Resources/RawAssets/Models/sponza.glb",
+    "raw_asset_path": "Resources/RawAssets/Models/chasring.glb",
 
-    "scale": 0.8,
-    "rotation_offset": [0, 180, 0]
+    "scale": 6,
+    "rotation_offset": [0, 180, 0],
+
+    "renderpass_type": "static_pass"
 }

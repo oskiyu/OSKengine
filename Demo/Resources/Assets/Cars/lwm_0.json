@@ -1,0 +1,9 @@
+{
+    "file_type": "ASSET",
+    "spec_ver": 0,
+
+    "name": "Los Wachines-Mineros Formula-0",
+    "asset_type": "Car",
+
+    "model_path": "Resources/Assets/Models/lwm_0.json"
+}

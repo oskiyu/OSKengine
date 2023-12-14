@@ -46,10 +46,6 @@ layout (set = 0, binding = 4) uniform PreviousCamera {
     mat4 view;
 } previousCamera;
 
-layout (set = 0, binding = 3) uniform Res {
-    vec2 resolution;
-} res;
-
 void main() {
     outColor = inColor;
 

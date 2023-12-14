@@ -1,0 +1,8 @@
+{
+    "file_type": "ASSET",
+    "spec_ver": 0,
+
+    "name": "OW-78 Selection",
+    "asset_type": "Texture",
+    "raw_asset_path": "Resources/RawAssets/Textures/Selection/OwButton.png"
+}

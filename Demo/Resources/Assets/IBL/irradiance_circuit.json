@@ -1,0 +1,8 @@
+{
+    "file_type": "IRRADIANCE_MAP",
+    "spec_ver": 0,
+
+    "name": "IrradianceMap Chasring",
+    "asset_type": "IrradianceMap",
+    "raw_asset_path": "Resources/RawAssets/IBL/Ridgecrest_Road_Ref.hdr"
+}

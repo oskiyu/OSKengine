@@ -1,0 +1,22 @@
+{
+    "file_type": "MATERIAL",
+    "spec_ver": 1,
+    "name": "GBufferColor Trees",
+
+    "vertex_shader": "Resources/Shaders/VK/PBR/Deferred/Tree/gbuffer_vert.spv",
+    "fragment_shader": "Resources/Shaders/VK/PBR/Deferred/Tree/gbuffer_frag.spv",
+    
+    "vertex_type": "OSK::Vertex3D",
+
+    "slots": {
+        "0": "global",
+        "1": "texture",
+        "2": "normals"
+    },
+    
+    "config": {
+        "disable_alpha_blending": "true",
+        "cull_mode": "none"
+    }
+    
+}

@@ -1,0 +1,8 @@
+{
+    "file_type": "SPECULAR_MAP",
+    "spec_ver": 0,
+
+    "name": "SpecularMap Chasring",
+    "asset_type": "SpecularMap",
+    "raw_asset_path": "Resources/RawAssets/IBL/Ridgecrest_Road_Ref.hdr"
+}

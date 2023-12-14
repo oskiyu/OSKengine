@@ -16,20 +16,47 @@ float GetLuminosity(vec4 color) {
     return GetLuminosity(color.rgb);
 }
 
+const float GKERNEL[3][3] = {
+  { 1 / 16.0, 1 / 8.0,  1 / 16.0},
+  { 1 / 8.0, 1 / 4.0,  1 / 8.0},
+  { 1 / 16.0, 1 / 8.0,  1 / 16.0}  
+};
+
 void main() {
     const vec2 ndcInverseRatio = textureSize(velocityImage, 0).xy;
     const vec2 ndcRatio = 1.0 / ndcInverseRatio;
 
     const ivec2 coords = ivec2(gl_GlobalInvocationID.xy);
-    const vec2 ndcCoords = (coords + 0.5) * ndcRatio;
 
-    const vec2 ndcMotion = texelFetch(velocityImage, coords, 0).xy;
+    // Rango [0, 1]
+    const vec2 normalizedCoords = (coords + 0.5) * ndcRatio;
+
+    const vec2 normalizedMotion = texelFetch(velocityImage, coords, 0).xy;
     const vec4 currentColor = texelFetch(sceneImage, coords, 0);
 
-    const vec2 previousNdcCoords = ndcCoords + ndcMotion;
-    const ivec2 previousCoords = ivec2(floor(previousNdcCoords * ndcInverseRatio));
+    // Rango [0, 1]
+    const vec2 previousNormalizedCoords = normalizedCoords + normalizedMotion;
 
-    vec3 previousColor = texture(historicalImage, (previousCoords + 0.5) * ndcRatio).rgb;
+    // Filtro gaussiano
+
+    // Parte entera de las coordenadas.
+    const vec2 intCoords = floor(previousNormalizedCoords * ndcRatio);
+    // Parte decimal de las coordenadas.
+    const vec2 fracCoords = fract(previousNormalizedCoords * ndcRatio);
+    
+    // Offset de las coordenadas anteriores respecto al centro del píxel.
+    const vec2 offsetFromCenter = fracCoords - vec2(0.5);
+
+    vec3 previousGaussianColor = vec3(0.0);
+    for (int x = -1; x <= 1; x++) {
+        for (int y = -1; y <= 1; y++) {
+            const vec2 nCoords = previousNormalizedCoords + vec2(x, y) * ndcRatio;
+            previousGaussianColor += textureLod(historicalImage, nCoords, 0).rgb;
+        }
+    }
+
+    vec4 previousColor = texture(historicalImage, previousNormalizedCoords);
+    
 
     vec3 boxMin = vec3( 1000);
     vec3 boxMax = vec3(-1000);
@@ -37,9 +64,15 @@ void main() {
     vec3 crossMin = vec3( 1000);
     vec3 crossMax = vec3(-1000);
 
+    vec3 colorMoment1 = vec3(0);
+    vec3 colorMoment2 = vec3(0);
+
     for (int x = -1; x <= 1; x++) {
         for (int y = -1; y <= 1; y++) {
             const vec3 nColor = texelFetch(sceneImage, coords + ivec2(x, y), 0).rgb;
+
+            colorMoment1 += nColor;
+            colorMoment2 += nColor * nColor;
 
             boxMin = min(boxMin, nColor);
             boxMax = max(boxMax, nColor);
@@ -51,35 +84,51 @@ void main() {
         }
     }
 
-    const vec3 colorDiscardMin = mix(boxMin, crossMin, 0.5);
-    const vec3 colorDiscardMax = mix(boxMax, crossMax, 0.5);
+    const int N = 3 * 3;
+    const vec3 mu = colorMoment1 / N;
+    const vec3 signma = sqrt(colorMoment2 / N - mu * mu);
+    
+    const float maxColorDiscardStrength = 0.75;
+
+    const float pixelsMotionLength = length(normalizedMotion * ndcInverseRatio);
+    const float colorDiscardStrength = clamp(1.0 - pow(pixelsMotionLength - 3.0, 3.0), 0.25, 0.75);
+
+    vec3 colorDiscardMin = mu - colorDiscardStrength * signma;
+    vec3 colorDiscardMax = mu + colorDiscardStrength * signma;
+
+    colorDiscardMin = clamp(colorDiscardMin, boxMin, boxMax);
+    colorDiscardMax = clamp(colorDiscardMax, boxMin, boxMax);
+
+    // const vec3 colorDiscardMin = mix(boxMin, crossMin, 0.5);
+    // const vec3 colorDiscardMax = mix(boxMax, crossMax, 0.5);
 
     /**/
-    previousColor = clamp(previousColor, colorDiscardMin, colorDiscardMax);
+    previousColor.rgb = clamp(previousColor.rgb, colorDiscardMin, colorDiscardMax);
     /**/
 
     // fract = parte decimal
-    const vec2 decimalPixelMotion = abs(0.5 - abs(fract(ndcMotion * ndcInverseRatio)));
-    vec2 pixelsMotion = 
-        abs(sqrt(decimalPixelMotion * 1));
+    // const vec2 decimalPixelMotion = abs(0.5 - abs(fract(ndcMotion * ndcInverseRatio)));
+    // vec2 pixelsMotion = abs(sqrt(decimalPixelMotion * 1));
     // pixelsMotion = abs(fract(ndcMotion * ndcInverseRatio));
 
-    float ratio = min(pixelsMotion.x, pixelsMotion.y);
+    float ratio = 0.0; // min(pixelsMotion.x, pixelsMotion.y);
 
-    const float maxRatio = 0.95;
-    ratio = mix(0.2, maxRatio, ratio);
+    const float maxRatio = 0.9;
+    ratio = mix(0.0, maxRatio, ratio);
 
-    vec3 colorDiff = abs(previousColor.rgb - currentColor.rgb);
-    float colorDiffRatio = length(colorDiff) * 0.1;
+    vec3 colorDiff = mix(
+        abs(colorDiscardMin.rgb - colorDiscardMax.rgb),
+        abs(previousColor.rgb - currentColor.rgb),
+        0.0);
+    float colorDiffRatio = 1.0 - length(colorDiff) * 2.0;
 
-    ratio -= colorDiffRatio * max(
-        0, pow(
-            max(length(ndcMotion * ndcInverseRatio) * 0.45, 1), 4));
+    ratio = colorDiffRatio;
 
     ratio = clamp(ratio, 0.0, maxRatio);
-    vec3 color = mix(currentColor.rgb, previousColor, ratio);
+    vec4 color = mix(currentColor, previousColor, ratio);
 
+    // color = mix(color, previousGaussianColor, 1.0 - clamp(1.0 - ratio * ratio, 0, 0.2));
     // if (ratio < 0.5) color = mix(color, vec3(1, ratio, ratio), ratio * 2); // length(ndcMotion * ndcInverseRatio) - 1.0)
 
-    imageStore(finalImg, coords, vec4(color, currentColor.a));
+    imageStore(finalImg, coords, vec4(color.rgb, currentColor.a));
 }

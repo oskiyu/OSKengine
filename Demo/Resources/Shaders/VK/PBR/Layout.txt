@@ -1,0 +1,18 @@
+(0, 0) = Camera
+(0, 1) = previousCamera
+(0, 2) = iblConfig
+
+(1, 0) = albedoTexture
+(1, 1) = normalTexture
+(1, 2) = materialInfo
+
+(2, 0) = boneMatrices
+
+
+Vert to frag:
+
+0 = outColor
+1 = outNormal
+2 = outMetallicRoughness
+3 = outVelocity
+4 = emissive

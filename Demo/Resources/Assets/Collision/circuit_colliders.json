@@ -1,0 +1,11 @@
+{
+    "file_type": "ASSET",
+    "spec_ver": 0,
+
+    "name": "Circuit Collider",
+    "asset_type": "collider",
+    "raw_asset_path": "Resources/RawAssets/Collision/circuit_colliders.glb",
+    
+    "scale": 6,
+    "rotation_offset": [0, 180, 0]
+}

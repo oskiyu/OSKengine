@@ -4,9 +4,11 @@
 
     "name": "Model0",
     "asset_type": "Model3D",
-    "raw_asset_path": "Resources/Assets/Models/untitled.glb",
+    "raw_asset_path": "Resources/RawAssets/Models/untitled.glb",
 
     "scale": 0.06,
     "load_textures": false,
-    "load_materials": false
+    "load_materials": false,
+
+    "renderpass_type": "static_pass"
 }

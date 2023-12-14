@@ -9,7 +9,10 @@
 
 #include <OSKengine/IDisplay.h>
 #include <OSKengine/Viewport.h>
-#include <OSKengine/PbrDeferredRenderSystem.h>
+#include <OSKengine/DeferredRenderSystem.h>
+#include <OSKengine/TreeNormalsRenderSystem.h>
+#include <OSKengine/TreeNormalsPass.h>
+#include <OSKengine/TreeGBufferPass.h>
 #include <OSKengine/ColliderRenderer.h>
 #include <OSKengine/SkyboxRenderSystem.h>
 #include <OSKengine/SpriteRenderer.h>
@@ -22,6 +25,7 @@
 #include <OSKengine/CameraComponent3D.h>
 #include <OSKengine/Transform2D.h>
 #include <OSKengine/Transform3D.h>
+#include <OSKengine/PhysicsComponent.h>
 
 #include <OSKengine/AssetManager.h>
 #include <OSKengine/IrradianceMap.h>
@@ -29,6 +33,7 @@
 #include <OSKengine/CubemapTexture.h>
 #include <OSKengine/Texture.h>
 #include <OSKengine/Font.h>
+#include <OSKengine/PreBuiltSpline3D.h>
 
 #include <OSKengine/IUiContainer.h>
 #include <OSKengine/UiHorizontalContainer.h>
@@ -37,10 +42,31 @@
 #include <OSKengine/UiTextView.h>
 #include <OSKengine/UiButton.h>
 
+#include <OSKengine/IFullscreenableDisplay.h>
+
 #include "CarComponent.h"
+#include "EngineComponent.h"
+#include "CameraArmComponent.h"
+#include "CircuitComponent.h"
+#include "CarAiComponent.h"
+#include "CarControllerComponent.h"
+
 #include "CarInputEvent.h"
 #include "CarInputSystem.h"
 #include "CarSystem.h"
+#include "CameraAttachmentSystem.h"
+#include "CarAssetsLoader.h"
+#include "CarRegistry.h"
+#include "HubCameraSystem.h"
+#include "CarAiSystem.h"
+#include "RayRenderSystem.h"
+
+#include "MainMenu.h"
+#include "CarSelectPanel.h"
+#include "MenuEvents.h"
+
+#include "UiBuilder.h"
+#include "RayCastEvent.h"
 
 void Game::CreateWindow() {
 	OSK::Engine::GetDisplay()->Create(
@@ -75,24 +101,39 @@ void Game::OnCreate() {
 	OSK::ECS::EntityComponentSystem* ecs = OSK::Engine::GetEcs();
 	OSK::ASSETS::AssetManager* assetsManager = OSK::Engine::GetAssetManager();
 
-	cameraObject = ecs->SpawnObject();
+	RegisterEcse();
 
-	OSK::ECS::Transform3D cameraTransform(cameraObject);
-	cameraTransform.SetPosition(OSK::Vector3f(0.0f, 0.5f, -1.0f) * 1.2f);
-	cameraTransform.RotateWorldSpace(glm::radians(10.0f), { 1.0f, 0.0f, 0.0f });
+	CarRegistry::LoadRegistry();
 
-	ecs->AddComponent(cameraObject, OSK::ECS::CameraComponent3D());
-	ecs->AddComponent(cameraObject, cameraTransform);
+	SpanwCamera();
 
-	ecs->GetSystem<OSK::ECS::PbrDeferredRenderSystem>()->Initialize(
+	ecs->RegisterSystem<OSK::ECS::ColliderRenderSystem>(0)->Initialize(cameraObject);
+
+	ecs->GetSystem<OSK::ECS::DeferredRenderSystem>()->Initialize(
 		cameraObject,
-		*assetsManager->Load<OSK::ASSETS::IrradianceMap>("Resources/Assets/IBL/specular0.json", "GLOBAL"),
-		*assetsManager->Load<OSK::ASSETS::SpecularMap>("Resources/Assets/IBL/irradiance0.json", "GLOBAL")
+		assetsManager->Load<OSK::ASSETS::IrradianceMap>("Resources/Assets/IBL/irradiance0.json"),
+		assetsManager->Load<OSK::ASSETS::SpecularMap>("Resources/Assets/IBL/specular0.json")
 	);
+	ecs->GetSystem<OSK::ECS::DeferredRenderSystem>()->GetDirectionalLight().directionAndIntensity.x = 0.01f;
+	ecs->GetSystem<OSK::ECS::DeferredRenderSystem>()->GetDirectionalLight().directionAndIntensity.y = -1.0f;
+	ecs->GetSystem<OSK::ECS::DeferredRenderSystem>()->GetDirectionalLight().directionAndIntensity.Z = 0.01f;
+	ecs->GetSystem<OSK::ECS::DeferredRenderSystem>()->GetDirectionalLight().directionAndIntensity.W = 1.0f;
+
+	OSK::Engine::GetEcs()->GetSystem<OSK::ECS::DeferredRenderSystem>()->GetIblConfig().emissiveStrength= 1.0f;
+
+	auto* renderSystem = OSK::Engine::GetEcs()->GetSystem<OSK::ECS::DeferredRenderSystem>();
+	std::array<OSK::GRAPHICS::GpuImage*, NUM_RESOURCES_IN_FLIGHT> depthImages{};
+	for (UIndex32 i = 0; i < NUM_RESOURCES_IN_FLIGHT; i++)
+		depthImages[i] = renderSystem->GetGbuffer().GetImage(i, OSK::GRAPHICS::GBuffer::Target::DEPTH);
+
+	OSK::Engine::GetEcs()->GetSystem<RayRenderSystem>()->SetDepthImages(depthImages);
+
+	ecs->GetSystem<OSK::ECS::TreeNormalsRenderSystem>()->Initialize(cameraObject);
+	SetupTreeNormals();
 
 	ecs->GetSystem<OSK::ECS::SkyboxRenderSystem>()->SetCamera(cameraObject);
 	ecs->GetSystem<OSK::ECS::SkyboxRenderSystem>()->SetCubemap(
-		*assetsManager->Load<OSK::ASSETS::CubemapTexture>("Resources/Assets/Skyboxes/skybox0.json", "GLOBAL")
+		assetsManager->Load<OSK::ASSETS::CubemapTexture>("Resources/Assets/Skyboxes/skybox0.json")
 	);
 
 	cameraObject2d = ecs->SpawnObject();
@@ -132,11 +173,6 @@ void Game::OnCreate() {
 	material2d = OSK::Engine::GetRenderer()->GetMaterialSystem()->LoadMaterial("Resources/Materials/2D/material_2d.json");
 	material3d = OSK::Engine::GetRenderer()->GetMaterialSystem()->LoadMaterial("Resources/Materials/PBR/direct_pbr.json");
 		
-	auto* renderSystem = OSK::Engine::GetEcs()->GetSystem<OSK::ECS::PbrDeferredRenderSystem>();
-	std::array<OSK::GRAPHICS::GpuImage*, NUM_RESOURCES_IN_FLIGHT> depthImages{};
-	for (UIndex32 i = 0; i < NUM_RESOURCES_IN_FLIGHT; i++)
-		depthImages[i] = renderSystem->GetGbuffer().GetImage(i, OSK::GRAPHICS::GBuffer::Target::DEPTH);
-
 	std::array<OSK::GRAPHICS::GpuImage*, NUM_RESOURCES_IN_FLIGHT> normalImages{};
 	for (UIndex32 i = 0; i < NUM_RESOURCES_IN_FLIGHT; i++)
 		normalImages[i] = renderSystem->GetGbuffer().GetImage(i, OSK::GRAPHICS::GBuffer::Target::NORMAL);
@@ -152,25 +188,26 @@ void Game::OnCreate() {
 
 	SetupPostProcessingChain();
 
-	RegisterEcse();
 	SetupUi();
 
 	carSpawner.SetMaterial3D(material3d);
-	firstCar = carSpawner.Spawn();
-	secondCar = carSpawner.Spawn();
-	carSpawner.Spawn();
+
+	// firstCar = carSpawner.Spawn(OSK::Vector3f(0.0f, 0.0f, 10.0f), CarRegistry::GetAssetsRoute("LWM 0"));
+
+	m_hub.Spawn(&carSpawner, CarRegistry::GetAssetsRoute("LWM 0"));
+	firstCar = m_hub.GetCarObject();
 
 	circuitSpawner.SetMaterial3D(material3d);
-	circuitSpawner.Spawn();
+	// circuitSpawner.Spawn();
 
-	ecs->GetComponent<OSK::ECS::Transform3D>(cameraObject)
-		.AttachToObject(firstCar);
+	SetMainCar(firstCar);
 
-	ecs->GetSystem<CarInputSystem>()->SetCar(firstCar);
+	//
+	OSK::Engine::GetLogger()->InfoLog(std::format("VRAM: {} Mb", OSK::Engine::GetRenderer()->GetAllocator()->GetMemoryUsageInfo().gpuOnlyMemoryInfo.usedSpace / 1000000));
 }
 
 void Game::SetupPostProcessingChain() {
-	auto* renderSystem = OSK::Engine::GetEcs()->GetSystem<OSK::ECS::PbrDeferredRenderSystem>();
+	auto* renderSystem = OSK::Engine::GetEcs()->GetSystem<OSK::ECS::DeferredRenderSystem>();
 	std::array<OSK::GRAPHICS::GpuImage*, NUM_RESOURCES_IN_FLIGHT> depthImages{};
 	for (UIndex32 i = 0; i < NUM_RESOURCES_IN_FLIGHT; i++)
 		depthImages[i] = renderSystem->GetGbuffer().GetImage(i, OSK::GRAPHICS::GBuffer::Target::DEPTH);
@@ -188,7 +225,7 @@ void Game::SetupPostProcessingChain() {
 	bloomPass->SetInputTarget(hbaoPass->GetOutput(), OSK::GRAPHICS::GpuImageViewConfig::CreateSampled_SingleMipLevel(0));
 	bloomPass->UpdateMaterialInstance();
 
-	toneMappingPass->SetExposure(11.0f);
+	toneMappingPass->SetExposure(7.5f);
 
 	toneMappingPass->SetInputTarget(bloomPass->GetOutput(), OSK::GRAPHICS::GpuImageViewConfig::CreateSampled_SingleMipLevel(0));
 	toneMappingPass->UpdateMaterialInstance();
@@ -206,12 +243,23 @@ void Game::OnTick(TDeltaTime deltaTime) {
 	OSK::Engine::GetInput()->QueryConstInterface(OSK::IUUID::IGamepadInput,	 (const void**)&gamepad);
 	OSK::Engine::GetInput()->QueryConstInterface(OSK::IUUID::IMouseInput,	 (const void**)&mouse);
 
-	if (keyboard->IsKeyDown(OSK::IO::Key::ESCAPE))
+	if (keyboard && keyboard->IsKeyDown(OSK::IO::Key::ESCAPE))
 		ToMainMenu();
 
-	if (keyboard->IsKeyStroked(OSK::IO::Key::Q)) {
-		collisionTesting.Start(firstCar, secondCar);
+	if (keyboard && keyboard->IsKeyStroked(OSK::IO::Key::R)) {
+		OSK::Engine::GetRenderer()->GetMaterialSystem()->ReloadAllMaterials();
 	}
+
+	if (keyboard && keyboard->IsKeyStroked(OSK::IO::Key::F11)) {
+		OSK::IO::IFullscreenableDisplay* display = nullptr;
+		OSK::Engine::GetDisplay()->QueryInterface(OSK::IUUID::IFullscreenableDisplay, (void**)&display);
+
+		if (display) {
+			display->ToggleFullscreen();
+		}
+	}
+
+	OSK::Vector2f cameraRotation = OSK::Vector2f::Zero;
 
 	if (mouse) {
 		GetRootUiElement().UpdateByCursor(
@@ -223,13 +271,67 @@ void Game::OnTick(TDeltaTime deltaTime) {
 	OSK::ECS::CameraComponent3D& camera = ecs->GetComponent<OSK::ECS::CameraComponent3D>(cameraObject);
 	OSK::ECS::Transform3D& cameraTransform = ecs->GetComponent<OSK::ECS::Transform3D>(cameraObject);
 
+	OSK::ECS::Transform3D& cameraArmTransform = ecs->GetComponent<OSK::ECS::Transform3D>(cameraArmObject);
+
 	camera.UpdateTransform(&cameraTransform);
 	hbaoPass->UpdateCamera(glm::inverse(camera.GetProjectionMatrix()), camera.GetViewMatrix(cameraTransform), camera.GetNearPlane());
+
+	if (m_startNextFrame) {
+		UnpauseSystems();
+		m_startNextFrame = false;
+	}
+
+	CheckEvents();
+
+
+	// GUI
+	const auto& motor = ecs->GetComponent<EngineComponent>(firstCar);
+	const auto& physics = ecs->GetComponent<OSK::ECS::PhysicsComponent>(firstCar);
+	gearText->SetText(std::format("Gear: {}", motor.currentGear + 1));
+	rpmText->SetText(std::format("RPM: {:.0f}", motor.currentRpm));
+	speedText->SetText(std::format("Vel.: {:.0f} km/h", physics.GetVelocity().GetLenght() / 1000.0f * 3600.0f));
 
 	collisionTesting.Update();
 }
 
+void Game::CheckEvents() {
+	auto* ecs = OSK::Engine::GetEcs();
+
+	if (!ecs->GetEventQueue<ExitEvent>().IsEmpty()) {
+		Exit();
+	}
+
+	if (!ecs->GetEventQueue<LoadLevelEvent>().IsEmpty()) {
+		GetRootUiElement().GetChild(MainMenu::Name)->SetInvisible();
+		ToGame(ecs->GetEventQueue<LoadLevelEvent>()[0].assetsPath);
+	}
+
+	// Selección de coche
+	for (const auto& e : ecs->GetEventQueue<SelectCarEvent>()) {
+		m_hub.SetCar(&carSpawner, e.assetsPath);
+	}
+
+	// Selección de coche
+	for (const auto& e : ecs->GetEventQueue<OSK::ECS::CollisionEvent>()) {
+		if (e.firstEntity != firstCar || e.secondEntity || firstCar) {
+			continue;
+		}
+
+		const auto distanceToCar = e.collisionInfo.GetSingleContactPoint().GetDistanceTo(
+			OSK::Engine::GetEcs()->GetComponent<OSK::ECS::Transform3D>(firstCar).GetPosition());
+
+		if (distanceToCar > 1.0f) {
+			OSK::Engine::GetLogger()->InfoLog(std::format("!! Distance: {:.2}", distanceToCar));
+		}
+	}
+}
+
 void Game::OnExit() {
+	auto* ecs = OSK::Engine::GetEcs();
+	OSK::Engine::GetLogger()->InfoLog(std::format("{}", ecs->EventHasBeenRegistered<PlayEvent>()));
+
+	m_hub.Unspawn();
+
 	finalFrameCombiner.Delete();
 	textRenderTarget.Delete();
 
@@ -249,6 +351,15 @@ void Game::OnWindowResize(const OSK::Vector2ui& newRes) {
 	toneMappingPass->Resize(newRes);
 
 	SetupPostProcessingChain();
+
+	SetupTreeNormals();
+
+	auto* renderSystem = OSK::Engine::GetEcs()->GetSystem<OSK::ECS::DeferredRenderSystem>();
+	std::array<OSK::GRAPHICS::GpuImage*, NUM_RESOURCES_IN_FLIGHT> depthImages{};
+	for (UIndex32 i = 0; i < NUM_RESOURCES_IN_FLIGHT; i++)
+		depthImages[i] = renderSystem->GetGbuffer().GetImage(i, OSK::GRAPHICS::GBuffer::Target::DEPTH);
+
+	OSK::Engine::GetEcs()->GetSystem<RayRenderSystem>()->SetDepthImages(depthImages);
 }
 
 void Game::BuildFrame() {
@@ -296,8 +407,10 @@ void Game::BuildFrame() {
 
 	OSK::GRAPHICS::GpuImage* skyboxRenderSystemImg 
 		= ecs->GetSystem<OSK::ECS::SkyboxRenderSystem>()->GetRenderTarget().GetMainColorImage(resourceIndex);
-	OSK::GRAPHICS::GpuImage* sceneRenderSystemImg  
-		= ecs->GetSystem<OSK::ECS::PbrDeferredRenderSystem>()->GetRenderTarget().GetMainColorImage(resourceIndex);
+	OSK::GRAPHICS::GpuImage* sceneRenderSystemImg
+		= ecs->GetSystem<OSK::ECS::DeferredRenderSystem>()->GetRenderTarget().GetMainColorImage(resourceIndex);
+	OSK::GRAPHICS::GpuImage* rayRenderSystemImg
+		= ecs->GetSystem<RayRenderSystem>()->GetRenderTarget().GetMainColorImage(resourceIndex);
 
 	frameBuildCommandList->SetGpuImageBarrier(skyboxRenderSystemImg,
 		GpuImageLayout::SAMPLED,
@@ -330,6 +443,9 @@ void Game::BuildFrame() {
 	frameBuildCommandList->BindMaterialSlot(*ecs->GetSystem<OSK::ECS::ColliderRenderSystem>()->GetRenderTarget().GetFullscreenSpriteMaterialSlot());
 	// frameBuildCommandList->DrawSingleInstance(6);
 
+	frameBuildCommandList->BindMaterialSlot(*ecs->GetSystem<RayRenderSystem>()->GetRenderTarget().GetFullscreenSpriteMaterialSlot());
+	frameBuildCommandList->DrawSingleInstance(6);
+
 	frameBuildCommandList->EndGraphicsRenderpass();
 
 	frameBuildCommandList->SetGpuImageBarrier(
@@ -345,40 +461,50 @@ void Game::RegisterEcse() {
 	OSK::ECS::EntityComponentSystem* ecs = OSK::Engine::GetEcs();
 
 	ecs->RegisterComponent<CarComponent>();
-	ecs->RegisterEventType<CarInputEvent>();
-	ecs->RegisterSystem<CarSystem>(-5);
-	CarInputSystem* inputSystem = ecs->RegisterSystem<CarInputSystem>(-5);
-	// inputSystem->SetCar(car)
+	ecs->RegisterComponent<EngineComponent>();
+	ecs->RegisterComponent<CameraArmComponent>();
+	ecs->RegisterComponent<CarAiComponent>();
+	ecs->RegisterComponent<CircuitComponent>();
+	ecs->RegisterComponent<CarControllerComponent>();
 
-	ecs->RegisterSystem<OSK::ECS::ColliderRenderSystem>(0)->Initialize(cameraObject);
+	ecs->RegisterEventType<CarInputEvent>();
+	ecs->RegisterEventType<ExitEvent>();
+	ecs->RegisterEventType<LoadLevelEvent>();
+	ecs->RegisterEventType<PlayEvent>();
+	ecs->RegisterEventType<SelectCarEvent>();
+	ecs->RegisterEventType<RayCastEvent>();
+
+	ecs->RegisterSystem<CarSystem>(-5);
+	ecs->RegisterSystem<CarAiSystem>(-6);
+	ecs->RegisterSystem<CarInputSystem>(-6);
+	ecs->RegisterSystem<RayRenderSystem>(0)->Initialize(cameraObject, firstCar);
+
+	ecs->RegisterSystem<CameraAttachmentSystem>(0);
+	ecs->RegisterSystem<HubCameraSystem>(0);
 
 	PauseSystems();
 }
 
+void Game::RegisterAssets() {
+	OSK::Engine::GetAssetManager()->RegisterLoader<CarAssetsLoader>();
+}
 
 void Game::SetupUi() {
 	OSK::ASSETS::AssetManager* assetsManager = OSK::Engine::GetAssetManager();
 
-	OSK::ASSETS::Font* font = assetsManager->Load<OSK::ASSETS::Font>("Resources/Assets/Fonts/font0.json", "GLOBAL");
+	auto font = assetsManager->Load<OSK::ASSETS::Font>("Resources/Assets/Fonts/font0.json");
 	font->LoadSizedFont(20);
 	font->SetMaterial(material2d);
 
 	OSK::OwnedPtr<OSK::UI::HorizontalContainer> logoContainer = new OSK::UI::HorizontalContainer({ 380.0f, 80.0f });
 
-	const OSK::GRAPHICS::IGpuImageView* uiView = 
-		&assetsManager->Load<OSK::ASSETS::Texture>("Resources/Assets/Textures/button_texture.json", "GLOBAL")
-		->GetTextureView2D();
-	const OSK::GRAPHICS::IGpuImageView* iconView = 
+	auto buttonTexture = assetsManager->Load<OSK::ASSETS::Texture>("Resources/Assets/Textures/button_texture.json");
+	auto iconTexture = assetsManager->Load<OSK::ASSETS::Texture>("Resources/Assets/Textures/engine_icon.json");
+	auto titleTexture = assetsManager->Load<OSK::ASSETS::Texture>("Resources/Assets/Textures/GameTitle.json");
+
 	const OSK::GRAPHICS::IGpuImageView* uiView = &buttonTexture->GetTextureView2D();
-		->GetTextureView2D();
-
-	const OSK::Vector2f buttonSize = OSK::Vector2f(180.0f, 50.0f);
-
-	const OSK::Color buttonColor = OSK::Color(0.3f, 0.36f, 1.0f, 1.0f);
-	const OSK::Color buttonSelectedColor = OSK::Color(0.3f, 0.5f, 1.0f, 1.0f);
-	const OSK::Color buttonPressedColor = OSK::Color(0.5f, 0.7f, 1.0f, 1.0f);
-
-	OSK::Color panelColor = OSK::Color(0.4f, 0.45f, 0.7f, 0.98f);
+	const OSK::GRAPHICS::IGpuImageView* iconView = &iconTexture->GetTextureView2D();
+	
 
 	OSK::OwnedPtr<OSK::UI::ImageView> uiIcon = new OSK::UI::ImageView(OSK::Vector2f(48.0f));
 	uiIcon->GetSprite().SetImageView(iconView);
@@ -391,12 +517,37 @@ void Game::SetupUi() {
 	uiText->SetAnchor(OSK::UI::Anchor::CENTER_X | OSK::UI::Anchor::CENTER_Y);
 	uiText->AdjustSizeToText();
 
+	gearText = new OSK::UI::TextView(OSK::Vector2f(148.0f));
+	gearText->SetFont(font);
+	gearText->SetFontSize(20);
+	gearText->SetText("gear   ");
+	gearText->SetAnchor(OSK::UI::Anchor::CENTER_X | OSK::UI::Anchor::CENTER_Y);
+	gearText->AdjustSizeToText();
+
+	rpmText = new OSK::UI::TextView(OSK::Vector2f(128.0f));
+	rpmText->SetFont(font);
+	rpmText->SetFontSize(20);
+	rpmText->SetText("rpm    ");
+	rpmText->SetAnchor(OSK::UI::Anchor::CENTER_X | OSK::UI::Anchor::CENTER_Y);
+	rpmText->AdjustSizeToText();
+
+	speedText = new OSK::UI::TextView(OSK::Vector2f(128.0f));
+	speedText->SetFont(font);
+	speedText->SetFontSize(20);
+	speedText->SetText("rpm    ");
+	speedText->SetAnchor(OSK::UI::Anchor::CENTER_X | OSK::UI::Anchor::CENTER_Y);
+	speedText->AdjustSizeToText();
+
 	logoContainer->GetSprite().SetImageView(uiView);
 	logoContainer->GetSprite().color = OSK::Color(0.3f, 0.3f, 0.3f, 0.94f);
 
 	logoContainer->SetPadding(OSK::Vector4f(4.0f));
 	logoContainer->AddChild("icon", uiIcon.GetPointer());
 	logoContainer->AddChild("text", uiText.GetPointer());
+
+	logoContainer->AddChild("gearText", gearText);
+	logoContainer->AddChild("rpmText", rpmText);
+	logoContainer->AddChild("speedText", speedText);
 
 	logoContainer->SetAnchor(OSK::UI::Anchor::TOP | OSK::UI::Anchor::LEFT);
 
@@ -407,218 +558,160 @@ void Game::SetupUi() {
 	GetRootUiElement().AddChild("", logoContainer.GetPointer());
 
 	// Main menu
-	OSK::OwnedPtr<OSK::UI::FreeContainer> mainMenu = new OSK::UI::FreeContainer(OSK::Engine::GetDisplay()->GetResolution().ToVector2f());
-	mainMenu->SetAnchor(OSK::UI::Anchor::CENTER_X | OSK::UI::Anchor::CENTER_Y);
-	mainMenu->SetMargin(OSK::Vector2f(300.0f, 200.0f));
-	mainMenu->SetKeepRelativeSize(true);
+	auto mainMenu = new MainMenu(OSK::Engine::GetDisplay()->GetResolution().ToVector2f());
 
-	OSK::OwnedPtr<OSK::UI::FreeContainer> menuLine = new OSK::UI::FreeContainer({ 2000.0f, 85.0f });
-	menuLine->SetKeepRelativeSize(true);
-	menuLine->GetSprite().SetImageView(uiView);
-	menuLine->GetSprite().color = OSK::Color(0.3f, 0.3f, 0.9f, 0.8f);
-	menuLine->SetAnchor(OSK::UI::Anchor::CENTER_X | OSK::UI::Anchor::BOTTOM);
-	menuLine->SetMargin(OSK::Vector2f(0.0f, 550.0f));
-	mainMenu->AddChild("line", menuLine.GetPointer());
-
-	OSK::OwnedPtr<OSK::UI::HorizontalContainer> mainMenuButtons = new OSK::UI::HorizontalContainer({ mainMenu->GetContentSize().x, 20.0f });
-	mainMenuButtons->SetAnchor(OSK::UI::Anchor::CENTER_X | OSK::UI::Anchor::CENTER_Y);
-	mainMenuButtons->SetKeepRelativeSize(true);
-	menuLine->AddChild("buttons", mainMenuButtons.GetPointer());
-
-	std::function<void(OSK::UI::Button*)> SetupButton = [font, uiView, buttonColor, buttonSelectedColor, buttonPressedColor](OSK::UI::Button* button) {
-		button->SetKeepRelativeSize(true);
-		button->SetTextFont(font);
-		button->SetTextFontSize(32);
-		button->SetType(OSK::UI::Button::Type::NORMAL);
-		button->SetAnchor(OSK::UI::Anchor::CENTER_X | OSK::UI::Anchor::CENTER_Y);
-		button->GetDefaultSprite().SetImageView(uiView);
-		button->GetDefaultSprite().color = buttonColor;
-		button->GetSelectedSprite().SetImageView(uiView);
-		button->GetSelectedSprite().color = buttonSelectedColor;
-		button->GetPressedSprite().SetImageView(uiView);
-		button->GetPressedSprite().color = buttonPressedColor;
-		};
-
-	std::function<void(OSK::UI::FreeContainer*)> SetupPanel = [uiView, panelColor] (OSK::UI::FreeContainer* panel) {
-		panel->SetKeepRelativeSize(true);
-		panel->GetSprite().SetImageView(uiView);
-		panel->GetSprite().color = panelColor;
-	};
-
-	OSK::OwnedPtr<OSK::UI::Button> playButton = new OSK::UI::Button(buttonSize, "PLAY");
-	SetupButton(playButton.GetPointer());
-	playButton->SetCallback([&](bool) {
-		GetRootUiElement().GetChild("mainMenu")->SetInvisible();
-		GetRootUiElement().GetChild("title")->SetInvisible();
-		UnpauseSystems();
-		});
-	mainMenuButtons->AddChild("playButton", playButton.GetPointer());
-
-	OSK::OwnedPtr<OSK::UI::Button> aboutButton = new OSK::UI::Button(buttonSize, "ABOUT");
-	SetupButton(aboutButton.GetPointer());
-	aboutButton->SetText("ABOUT");
-	aboutButton->SetCallback([&](bool) {
-		GetRootUiElement().GetChild("mainMenu")->SetInvisible();
-		GetRootUiElement().GetChild("title")->SetInvisible();
-		GetRootUiElement().GetChild("about")->SetVisible();
-		});
-	mainMenuButtons->AddChild("aboutButton", aboutButton.GetPointer());
-
-	OSK::OwnedPtr<OSK::UI::Button> optionsButton = new OSK::UI::Button(buttonSize, "AJUSTES");
-	SetupButton(optionsButton.GetPointer());
-	optionsButton->SetText("AJUSTES");
-	optionsButton->SetCallback([&](bool) {
-		GetRootUiElement().GetChild("mainMenu")->SetInvisible();
-		GetRootUiElement().GetChild("title")->SetInvisible();
-		GetRootUiElement().GetChild("options")->SetVisible();
-		});
-	mainMenuButtons->AddChild("optionsButton", optionsButton.GetPointer());
-
-	OSK::OwnedPtr<OSK::UI::Button> onlineButton = new OSK::UI::Button(buttonSize, "MULTIPLAYER");
-	SetupButton(onlineButton.GetPointer());
-	onlineButton->SetText("MULTIJUGADOR");
+	auto onlineButton = UiBuilder::CreateMainMenuButton("MULTIPLAYER");
 	onlineButton->GetDefaultSprite().SetImageView(uiView);
 	onlineButton->GetDefaultSprite().color = OSK::Color(0.5f, 0.5f, 0.5f, 1.f);
 	onlineButton->GetSelectedSprite().SetImageView(uiView);
 	onlineButton->GetSelectedSprite().color = OSK::Color(0.5f, 0.5f, 0.5f, 1.f);
 	onlineButton->Lock();
-	mainMenuButtons->AddChild("onlineButton", onlineButton.GetPointer());
+	// mainMenuButtons->AddChild("onlineButton", onlineButton.GetPointer());
 
-	OSK::OwnedPtr<OSK::UI::Button> exitButton = new OSK::UI::Button(buttonSize, "EXIT");
-	SetupButton(exitButton.GetPointer());
-	exitButton->SetText("EXIT");
-	exitButton->SetCallback([&](bool) { this->Exit(); });
-	mainMenuButtons->AddChild("exitButton", exitButton.GetPointer());
+	GetRootUiElement().AddChild(MainMenu::Name, mainMenu);
 
-	// TITLE
-	const OSK::GRAPHICS::IGpuImageView* titleView =
-		&assetsManager->Load<OSK::ASSETS::Texture>("Resources/Assets/Textures/GameTitle.json", "GLOBAL")
-		->GetTextureView2D();
 
-	OSK::OwnedPtr<OSK::UI::FreeContainer> titleContainer = new OSK::UI::FreeContainer({ 1200.0f, 600.0f });
-	titleContainer->SetAnchor(OSK::UI::Anchor::CENTER_X | OSK::UI::Anchor::TOP);
-
-	OSK::OwnedPtr<OSK::UI::ImageView> uiTitle = new OSK::UI::ImageView(titleView->GetSize2D().ToVector2f() * 0.4f);
-	uiTitle->SetKeepRelativeSize(true);
-	uiTitle->SetAnchor(OSK::UI::Anchor::CENTER_X | OSK::UI::Anchor::TOP);
-	uiTitle->GetSprite().SetImageView(titleView);
-	uiTitle->SetMargin(OSK::Vector4f(25.0f));
-
-	titleContainer->AddChild("title", uiTitle.GetPointer());
-	titleContainer->SetKeepRelativeSize(true);
-	GetRootUiElement().AddChild("title", titleContainer.GetPointer());
-
-	mainMenuButtons->AdjustSizeToChildren();
-	mainMenuButtons->Rebuild();
-	menuLine->Rebuild();
-	mainMenu->Rebuild();
-
-	// About
-
-	auto aboutPanel = new OSK::UI::FreeContainer(OSK::Engine::GetDisplay()->GetResolution().ToVector2f() * 0.8f);
-	SetupPanel(aboutPanel);
-
-	auto aboutContent = new OSK::UI::VerticalContainer(OSK::Engine::GetDisplay()->GetResolution().ToVector2f() * 0.6f);
-
-	aboutPanel->AddChild("content", aboutContent);
-
-	auto aboutTitle = new OSK::UI::TextView(OSK::Vector2f(100.0f, 50.0f));
-	aboutTitle->SetFont(font);
-	aboutTitle->SetFontSize(32);
-	aboutTitle->SetText("About");
-	aboutTitle->SetAnchor(OSK::UI::Anchor::CENTER_X | OSK::UI::Anchor::TOP);
-
-	aboutPanel->AddChild("title", aboutTitle);
-
-	auto aboutBackButton = new OSK::UI::Button({ 100.0f, 50.0f });
-	SetupButton(aboutBackButton);
-	aboutBackButton->SetText("Back");
-	aboutBackButton->SetAnchor(OSK::UI::Anchor::LEFT |OSK::UI::Anchor::BOTTOM);
-	aboutBackButton->SetCallback([&](bool) { ToMainMenu(); });
-
-	auto about1 = new OSK::UI::TextView({ 400.0f, 50.0f });
-	about1->SetFont(font);
-	about1->SetFontSize(20);
-	about1->SetText(std::format("OSKengine by oskiyu\n\tBuild {}\n\t(c) 2019 - 2023\n\n{}", OSK::Engine::GetBuild(),
-		"ABCDEFGHIJKLMNOPQRSTUVWXYZ\nabcdefghijklmnopqrstuvwxyz\n0123456789"));
-	// about1->SetAnchor(OSK::UI::Anchor::LEFT);
-	about1->AdjustSizeToText();
-
-	aboutContent->AddChild("1", about1);
-
-	aboutPanel->AddChild("back", aboutBackButton);
-
-	aboutPanel->SetInvisible();
-	GetRootUiElement().AddChild("about", aboutPanel);
-
-	// Options
-
-	auto optionsPanel = new OSK::UI::FreeContainer(OSK::Engine::GetDisplay()->GetResolution().ToVector2f() * 0.8f);
-	SetupPanel(optionsPanel);
-
-	auto optionsContent = new OSK::UI::VerticalContainer(OSK::Engine::GetDisplay()->GetResolution().ToVector2f() * 0.6f);
-
-	optionsPanel->AddChild("content", optionsContent);
-
-	auto optionsTitle = new OSK::UI::TextView(OSK::Vector2f(100.0f, 50.0f));
-	optionsTitle->SetFont(font);
-	optionsTitle->SetFontSize(35);
-	optionsTitle->SetText("Ajustes");
-	optionsTitle->SetAnchor(OSK::UI::Anchor::CENTER_X | OSK::UI::Anchor::TOP);
-
-	optionsPanel->AddChild("title", optionsTitle);
-	optionsPanel->SetKeepRelativeSize(true);
-
-	auto optionsBackButton = new OSK::UI::Button({ 100.0f, 50.0f });
-	SetupButton(optionsBackButton);
-	optionsBackButton->SetText("Back");
-	optionsBackButton->SetCallback([&](bool) { ToMainMenu(); });
-	optionsBackButton->SetAnchor(OSK::UI::Anchor::LEFT | OSK::UI::Anchor::BOTTOM);
-
-	auto options1 = new OSK::UI::TextView({ 400.0f, 50.0f });
-	options1->SetFont(font);
-	options1->SetFontSize(25);
-	options1->SetText("OSKengine by oskiyu\n\t(c) 2019 - 2023");
-	options1->SetAnchor(OSK::UI::Anchor::LEFT);
-	options1->AdjustSizeToText();
-
-	optionsContent->AddChild("1", options1);
-
-	optionsPanel->AddChild("back", optionsBackButton);
-
-	optionsPanel->SetInvisible();
-	GetRootUiElement().AddChild("options", optionsPanel);
-
-	GetRootUiElement().AddChild("mainMenu", mainMenu.GetPointer());
+	// ------------ SELECTION --------------- //
+	
 }
 
 void Game::ToMainMenu() {
-	GetRootUiElement().GetChild("mainMenu")->SetVisible();
-	GetRootUiElement().GetChild("title")->SetVisible();
+	auto* mainMenu = static_cast<MainMenu*>(GetRootUiElement().GetChild(MainMenu::Name));
 
-	// Resetar cualquier otro menú.
-	GetRootUiElement().GetChild("about")->SetInvisible();
-	GetRootUiElement().GetChild("options")->SetInvisible();
+	mainMenu->SetVisible();
+	mainMenu->ToMainMenu();
 
 	PauseSystems();
+
+	// Mouse input
+	OSK::IO::IMouseInput* mouse = nullptr;
+	OSK::Engine::GetInput()->QueryInterface(OSK::IUUID::IMouseInput, (void**)&mouse);
+	mouse->SetReturnMode(OSK::IO::MouseReturnMode::FREE);
 }
 
+void Game::ToGame(std::string_view carAssetsPath) {
+	m_hub.Unspawn();
+
+	carSpawner.Spawn(OSK::Vector3f(-25.f, 1.5f, -320.0f), carAssetsPath);
+	carSpawner.Spawn(OSK::Vector3f(-15.f, 1.5f, -322.0f), carAssetsPath);
+	carSpawner.Spawn(OSK::Vector3f(-7.f, 1.5f, -325.0f), carAssetsPath);
+	firstCar = carSpawner.Spawn(OSK::Vector3f(0.0f, 1.5f, -320.0f), carAssetsPath);
+	carSpawner.Spawn(OSK::Vector3f(7.f, 1.5f, -320.0f), carAssetsPath);
+	carSpawner.Spawn(OSK::Vector3f(18.f, 1.5f, -321.0f), carAssetsPath);
+	carSpawner.Spawn(OSK::Vector3f(26.f, 1.5f, -320.0f), carAssetsPath);
+	carSpawner.Spawn(OSK::Vector3f(30.f, 1.5f, -320.0f), carAssetsPath);
+	carSpawner.Spawn(OSK::Vector3f(34.f, 1.5f, -320.0f), carAssetsPath);
+	carSpawner.Spawn(OSK::Vector3f(38.f, 1.5f, -320.0f), carAssetsPath);
+	carSpawner.Spawn(OSK::Vector3f(42.f, 1.5f, -320.0f), carAssetsPath);
+	carSpawner.Spawn(OSK::Vector3f(46.f, 1.5f, -320.0f), carAssetsPath);
+
+	circuit = circuitSpawner.Spawn();
+
+	OSK::Engine::GetEcs()->GetSystem<CarAiSystem>()->SetCircuit(circuit);
+
+	OSK::Engine::GetEcs()->GetSystem<RayRenderSystem>()->Initialize(cameraObject, firstCar);
+
+	SetMainCar(firstCar);
+
+	OSK::Engine::GetEcs()->GetSystem<HubCameraSystem>()->Deactivate();
+
+	OSK::Engine::GetEcs()->GetSystem<OSK::ECS::DeferredRenderSystem>()->SetIbl(
+		OSK::Engine::GetAssetManager()->Load<OSK::ASSETS::IrradianceMap>("Resources/Assets/IBL/irradiance_circuit.json"),
+		OSK::Engine::GetAssetManager()->Load<OSK::ASSETS::SpecularMap>("Resources/Assets/IBL/specular_circuit.json")
+	);
+
+	OSK::Engine::GetEcs()->GetSystem<OSK::ECS::DeferredRenderSystem>()->GetIblConfig().irradianceStrength = 0.65f;
+	OSK::Engine::GetEcs()->GetSystem<OSK::ECS::DeferredRenderSystem>()->GetIblConfig().specularStrength = 0.65f;
+	OSK::Engine::GetEcs()->GetSystem<OSK::ECS::DeferredRenderSystem>()->GetIblConfig().radianceStrength = 1.0f;
+
+	const auto newDirection = OSK::Vector3f(1.0f, -1.9f, 0.0f).GetNormalized();
+
+	OSK::Engine::GetEcs()->GetSystem<OSK::ECS::DeferredRenderSystem>()->GetDirectionalLight().directionAndIntensity.x = newDirection.x;
+	OSK::Engine::GetEcs()->GetSystem<OSK::ECS::DeferredRenderSystem>()->GetDirectionalLight().directionAndIntensity.y = newDirection.y;
+	OSK::Engine::GetEcs()->GetSystem<OSK::ECS::DeferredRenderSystem>()->GetDirectionalLight().directionAndIntensity.Z = newDirection.z;
+
+	OSK::Engine::GetEcs()->GetSystem<OSK::ECS::DeferredRenderSystem>()->GetShadowMap().SetSplits({ 20, 200, 500, 1000});
+	OSK::Engine::GetEcs()->GetSystem<OSK::ECS::DeferredRenderSystem>()->GetShadowMap().SetNearPlane(-15);
+	OSK::Engine::GetEcs()->GetSystem<OSK::ECS::DeferredRenderSystem>()->GetShadowMap().SetFarPlane(15);
+
+	m_startNextFrame = true;
+
+	// Mouse input
+	OSK::IO::IMouseInput* mouse = nullptr;
+	OSK::Engine::GetInput()->QueryInterface(OSK::IUUID::IMouseInput, (void**)&mouse);
+	mouse->SetReturnMode(OSK::IO::MouseReturnMode::ALWAYS_RETURN);
+
+	OSK::Engine::GetEcs()->GetComponent<EngineComponent>(firstCar).audioSource.Play();
+
+	OSK::Engine::GetLogger()->InfoLog(std::format("VRAM: {} Mb", OSK::Engine::GetRenderer()->GetAllocator()->GetMemoryUsageInfo().gpuOnlyMemoryInfo.usedSpace / 1000000));
+}
+
+void Game::SetMainCar(OSK::ECS::GameObjectIndex obj) {
+	auto* ecs = OSK::Engine::GetEcs();
+
+	ecs->GetSystem<CarInputSystem>()->SetCar(obj);
+
+	ecs->GetSystem<CameraAttachmentSystem>()->SetCar(obj);
+	ecs->GetSystem<CameraAttachmentSystem>()->SetCamera(cameraArmObject);
+
+	ecs->GetComponent<OSK::ECS::Transform3D>(cameraArmObject).AttachToObject(obj);
+	ecs->GetComponent<OSK::ECS::Transform3D>(cameraArmObject).SetShouldInheritRotation(false);
+}
+
+
 void Game::PauseSystems() {
-	OSK::ECS::EntityComponentSystem* ecs = OSK::Engine::GetEcs();
+	auto* ecs = OSK::Engine::GetEcs();
 
 	ecs->GetSystem<OSK::ECS::CollisionSystem>()->Deactivate();
 	ecs->GetSystem<OSK::ECS::PhysicsResolver>()->Deactivate();
 	ecs->GetSystem<OSK::ECS::PhysicsSystem>()->Deactivate();
+
 	ecs->GetSystem<CarSystem>()->Deactivate();
+	ecs->GetSystem<CarAiSystem>()->Deactivate();
 	ecs->GetSystem<CarInputSystem>()->Deactivate();
+	ecs->GetSystem<CameraAttachmentSystem>()->Deactivate();
 }
 
 void Game::UnpauseSystems() {
-	OSK::ECS::EntityComponentSystem* ecs = OSK::Engine::GetEcs();
+	auto* ecs = OSK::Engine::GetEcs();
 
 	ecs->GetSystem<OSK::ECS::CollisionSystem>()->Activate();
 	ecs->GetSystem<OSK::ECS::PhysicsResolver>()->Activate();
 	ecs->GetSystem<OSK::ECS::PhysicsSystem>()->Activate();
+
 	ecs->GetSystem<CarSystem>()->Activate();
+	ecs->GetSystem<CarAiSystem>()->Activate();
 	ecs->GetSystem<CarInputSystem>()->Activate();
+	ecs->GetSystem<CameraAttachmentSystem>()->Activate();
+}
+
+void Game::SpanwCamera() {
+	auto* ecs = OSK::Engine::GetEcs();
+
+	cameraObject = ecs->SpawnObject();
+	cameraArmObject = ecs->SpawnObject();
+
+	ecs->AddComponent<OSK::ECS::Transform3D>(cameraArmObject, OSK::ECS::Transform3D(cameraArmObject));
+	ecs->AddComponent<CameraArmComponent>(cameraArmObject, {});
+
+	auto* cameraTransform = &ecs->AddComponent<OSK::ECS::Transform3D>(cameraObject, OSK::ECS::Transform3D(cameraObject));
+	cameraTransform->AddPosition({ 0.0f, 0.1f, -4.1f }); // { 0.0f, 0.1f, -4.1f }
+	ecs->AddComponent<OSK::ECS::CameraComponent3D>(cameraObject, {});
+
+	cameraTransform->AttachToObject(cameraArmObject);
+}
+
+void Game::SetupTreeNormals() {
+	auto* renderSystem = OSK::Engine::GetEcs()->GetSystem<OSK::ECS::DeferredRenderSystem>();
+	auto* treeRenderSystem = OSK::Engine::GetEcs()->GetSystem<OSK::ECS::TreeNormalsRenderSystem>();
+
+	std::array<const OSK::GRAPHICS::IGpuImageView*, NUM_RESOURCES_IN_FLIGHT> normalsImages{};
+	const auto viewConfig = OSK::GRAPHICS::GpuImageViewConfig::CreateSampled_SingleMipLevel(0);
+
+	for (UIndex32 i = 0; i < NUM_RESOURCES_IN_FLIGHT; i++)
+		normalsImages[i] = treeRenderSystem->GetRenderTarget().GetMainColorImage(i)->GetView(viewConfig);
+
+	auto* treeGBufferPass = renderSystem->GetRenderPass(OSK::GRAPHICS::TreeGBufferPass::GetRenderPassName())->As<OSK::GRAPHICS::TreeGBufferPass>();
+	treeGBufferPass->GetMaterialInstance()->GetSlot("normals")->SetGpuImages("preCalculatedNormalTexture", normalsImages);
+	treeGBufferPass->GetMaterialInstance()->GetSlot("normals")->FlushUpdate();
 }

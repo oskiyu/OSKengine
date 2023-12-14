@@ -1,0 +1,12 @@
+{
+    "file_type": "ASSET",
+    "spec_ver": 0,
+
+    "name": "Sphere",
+    "asset_type": "Model3D",
+    "raw_asset_path": "Resources/RawAssets/Models/Colliders/sphere_low.glb",
+    
+    "scale": 1.0,
+
+    "renderpass_type": "colliders_pass"
+}

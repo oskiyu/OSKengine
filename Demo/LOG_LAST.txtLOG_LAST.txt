@@ -1,7 +1,7 @@
 INFO: Iniciando OSKengine.
 INFO: 	Version: 0.0.0
-INFO: 	Build 2023.09.08a.
-INFO: Versión de vulkan: 1.3.241
+INFO: 	Build 2023.12.12a.
+INFO: Versión de vulkan: 1.3.250
 INFO: GPU elegida: NVIDIA GeForce RTX 2060
 INFO: Creado el swapchain.
 INFO: New object: 1
@@ -9,6 +9,439 @@ INFO: New object: 2
 INFO: New object: 3
 INFO: New object: 4
 INFO: New object: 5
+INFO: VRAM: 2679 Mb
+INFO: Destroyed object: 5
+INFO: Destroyed object: 4
 INFO: New object: 6
+INFO: New object: 7
+INFO: New object: 8
+INFO: New object: 9
+INFO: New object: 10
+INFO: New object: 11
+INFO: New object: 12
+INFO: New object: 13
+INFO: New object: 14
+INFO: New object: 15
+INFO: New object: 16
+INFO: New object: 17
+INFO: New object: 18
+INFO: New object: 19
+INFO: Loading spline mesh 0
+INFO: Loading spline primitive 0.0
+INFO: 	Num. positions: 102
+INFO: 	Num. indices: 204
+INFO: 	Mode: 1
+INFO: 		Index 0 is 0
+INFO: 		Position at index 0 is -206.29 0.00 232.97
+INFO: 		Index 1 is 1
+INFO: 		Position at index 1 is -185.13 0.00 265.81
+INFO: 		Index 2 is 1
+INFO: 		Position at index 2 is -185.13 0.00 265.81
+INFO: 		Index 3 is 2
+INFO: 		Position at index 3 is -162.97 0.00 283.90
+INFO: 		Index 4 is 2
+INFO: 		Position at index 4 is -162.97 0.00 283.90
+INFO: 		Index 5 is 3
+INFO: 		Position at index 5 is -143.08 0.00 294.21
+INFO: 		Index 6 is 3
+INFO: 		Position at index 6 is -143.08 0.00 294.21
+INFO: 		Index 7 is 4
+INFO: 		Position at index 7 is -129.14 0.00 297.50
+INFO: 		Index 8 is 4
+INFO: 		Position at index 8 is -129.14 0.00 297.50
+INFO: 		Index 9 is 5
+INFO: 		Position at index 9 is -115.56 0.00 295.80
+INFO: 		Index 10 is 5
+INFO: 		Position at index 10 is -115.56 0.00 295.80
+INFO: 		Index 11 is 6
+INFO: 		Position at index 11 is -101.78 0.00 288.58
+INFO: 		Index 12 is 6
+INFO: 		Position at index 12 is -101.78 0.00 288.58
+INFO: 		Index 13 is 7
+INFO: 		Position at index 13 is -90.84 0.00 277.08
+INFO: 		Index 14 is 7
+INFO: 		Position at index 14 is -90.84 0.00 277.08
+INFO: 		Index 15 is 8
+INFO: 		Position at index 15 is -58.31 0.00 220.02
+INFO: 		Index 16 is 8
+INFO: 		Position at index 16 is -58.31 0.00 220.02
+INFO: 		Index 17 is 9
+INFO: 		Position at index 17 is -28.46 0.00 184.59
+INFO: 		Index 18 is 9
+INFO: 		Position at index 18 is -28.46 0.00 184.59
+INFO: 		Index 19 is 10
+INFO: 		Position at index 19 is -19.57 0.00 178.33
+INFO: 		Index 20 is 10
+INFO: 		Position at index 20 is -19.57 0.00 178.33
+INFO: 		Index 21 is 11
+INFO: 		Position at index 21 is -11.42 0.00 174.92
+INFO: 		Index 22 is 11
+INFO: 		Position at index 22 is -11.42 0.00 174.92
+INFO: 		Index 23 is 12
+INFO: 		Position at index 23 is -3.71 0.00 172.63
+INFO: 		Index 24 is 12
+INFO: 		Position at index 24 is -3.71 0.00 172.63
+INFO: 		Index 25 is 13
+INFO: 		Position at index 25 is 4.25 0.00 171.57
+INFO: 		Index 26 is 13
+INFO: 		Position at index 26 is 4.25 0.00 171.57
+INFO: 		Index 27 is 14
+INFO: 		Position at index 27 is 9.81 0.00 173.96
+INFO: 		Index 28 is 14
+INFO: 		Position at index 28 is 9.81 0.00 173.96
+INFO: 		Index 29 is 15
+INFO: 		Position at index 29 is 14.13 0.00 178.33
+INFO: 		Index 30 is 15
+INFO: 		Position at index 30 is 14.13 0.00 178.33
+INFO: 		Index 31 is 16
+INFO: 		Position at index 31 is 18.20 0.00 185.67
+INFO: 		Index 32 is 16
+INFO: 		Position at index 32 is 18.20 0.00 185.67
+INFO: 		Index 33 is 17
+INFO: 		Position at index 33 is 20.05 0.00 193.99
+INFO: 		Index 34 is 17
+INFO: 		Position at index 34 is 20.05 0.00 193.99
+INFO: 		Index 35 is 18
+INFO: 		Position at index 35 is 18.56 0.00 236.75
+INFO: 		Index 36 is 18
+INFO: 		Position at index 36 is 18.56 0.00 236.75
+INFO: 		Index 37 is 19
+INFO: 		Position at index 37 is 18.95 0.00 256.34
+INFO: 		Index 38 is 19
+INFO: 		Position at index 38 is 18.95 0.00 256.34
+INFO: 		Index 39 is 20
+INFO: 		Position at index 39 is 19.91 0.00 263.89
+INFO: 		Index 40 is 20
+INFO: 		Position at index 40 is 19.91 0.00 263.89
+INFO: 		Index 41 is 21
+INFO: 		Position at index 41 is 22.85 0.00 270.44
+INFO: 		Index 42 is 21
+INFO: 		Position at index 42 is 22.85 0.00 270.44
+INFO: 		Index 43 is 22
+INFO: 		Position at index 43 is 27.02 0.00 274.53
+INFO: 		Index 44 is 22
+INFO: 		Position at index 44 is 27.02 0.00 274.53
+INFO: 		Index 45 is 23
+INFO: 		Position at index 45 is 32.93 0.00 277.13
+INFO: 		Index 46 is 23
+INFO: 		Position at index 46 is 32.93 0.00 277.13
+INFO: 		Index 47 is 24
+INFO: 		Position at index 47 is 41.28 0.00 276.24
+INFO: 		Index 48 is 24
+INFO: 		Position at index 48 is 41.28 0.00 276.24
+INFO: 		Index 49 is 25
+INFO: 		Position at index 49 is 50.37 0.00 273.86
+INFO: 		Index 50 is 25
+INFO: 		Position at index 50 is 50.37 0.00 273.86
+INFO: 		Index 51 is 26
+INFO: 		Position at index 51 is 59.10 0.00 269.87
+INFO: 		Index 52 is 26
+INFO: 		Position at index 52 is 59.10 0.00 269.87
+INFO: 		Index 53 is 27
+INFO: 		Position at index 53 is 68.56 0.00 264.16
+INFO: 		Index 54 is 27
+INFO: 		Position at index 54 is 68.56 0.00 264.16
+INFO: 		Index 55 is 28
+INFO: 		Position at index 55 is 90.22 0.00 221.64
+INFO: 		Index 56 is 28
+INFO: 		Position at index 56 is 90.22 0.00 221.64
+INFO: 		Index 57 is 29
+INFO: 		Position at index 57 is 100.72 0.00 199.52
+INFO: 		Index 58 is 29
+INFO: 		Position at index 58 is 100.72 0.00 199.52
+INFO: 		Index 59 is 30
+INFO: 		Position at index 59 is 112.46 0.00 189.13
+INFO: 		Index 60 is 30
+INFO: 		Position at index 60 is 112.46 0.00 189.13
+INFO: 		Index 61 is 31
+INFO: 		Position at index 61 is 128.95 0.00 183.42
+INFO: 		Index 62 is 31
+INFO: 		Position at index 62 is 128.95 0.00 183.42
+INFO: 		Index 63 is 32
+INFO: 		Position at index 63 is 146.68 0.00 179.95
+INFO: 		Index 64 is 32
+INFO: 		Position at index 64 is 146.68 0.00 179.95
+INFO: 		Index 65 is 33
+INFO: 		Position at index 65 is 166.46 0.00 175.55
+INFO: 		Index 66 is 33
+INFO: 		Position at index 66 is 166.46 0.00 175.55
+INFO: 		Index 67 is 34
+INFO: 		Position at index 67 is 175.30 0.00 171.49
+INFO: 		Index 68 is 34
+INFO: 		Position at index 68 is 175.30 0.00 171.49
+INFO: 		Index 69 is 35
+INFO: 		Position at index 69 is 181.87 0.00 165.46
+INFO: 		Index 70 is 35
+INFO: 		Position at index 70 is 181.87 0.00 165.46
+INFO: 		Index 71 is 36
+INFO: 		Position at index 71 is 188.62 0.00 157.95
+INFO: 		Index 72 is 36
+INFO: 		Position at index 72 is 188.62 0.00 157.95
+INFO: 		Index 73 is 37
+INFO: 		Position at index 73 is 194.14 0.00 150.33
+INFO: 		Index 74 is 37
+INFO: 		Position at index 74 is 194.14 0.00 150.33
+INFO: 		Index 75 is 38
+INFO: 		Position at index 75 is 198.94 0.00 139.94
+INFO: 		Index 76 is 38
+INFO: 		Position at index 76 is 198.94 0.00 139.94
+INFO: 		Index 77 is 39
+INFO: 		Position at index 77 is 203.27 0.00 123.50
+INFO: 		Index 78 is 39
+INFO: 		Position at index 78 is 203.27 0.00 123.50
+INFO: 		Index 79 is 40
+INFO: 		Position at index 79 is 202.55 0.00 99.45
+INFO: 		Index 80 is 40
+INFO: 		Position at index 80 is 202.55 0.00 99.45
+INFO: 		Index 81 is 41
+INFO: 		Position at index 81 is 198.97 0.00 87.28
+INFO: 		Index 82 is 41
+INFO: 		Position at index 82 is 198.97 0.00 87.28
+INFO: 		Index 83 is 42
+INFO: 		Position at index 83 is 171.86 0.00 48.82
+INFO: 		Index 84 is 42
+INFO: 		Position at index 84 is 171.86 0.00 48.82
+INFO: 		Index 85 is 43
+INFO: 		Position at index 85 is 159.13 0.00 33.42
+INFO: 		Index 86 is 43
+INFO: 		Position at index 86 is 159.13 0.00 33.42
+INFO: 		Index 87 is 44
+INFO: 		Position at index 87 is 153.74 0.00 25.86
+INFO: 		Index 88 is 44
+INFO: 		Position at index 88 is 153.74 0.00 25.86
+INFO: 		Index 89 is 45
+INFO: 		Position at index 89 is 151.91 0.00 18.30
+INFO: 		Index 90 is 45
+INFO: 		Position at index 90 is 151.91 0.00 18.30
+INFO: 		Index 91 is 46
+INFO: 		Position at index 91 is 151.71 0.00 9.41
+INFO: 		Index 92 is 46
+INFO: 		Position at index 92 is 151.71 0.00 9.41
+INFO: 		Index 93 is 47
+INFO: 		Position at index 93 is 154.33 0.00 1.25
+INFO: 		Index 94 is 47
+INFO: 		Position at index 94 is 154.33 0.00 1.25
+INFO: 		Index 95 is 48
+INFO: 		Position at index 95 is 160.46 0.00 -8.16
+INFO: 		Index 96 is 48
+INFO: 		Position at index 96 is 160.46 0.00 -8.16
+INFO: 		Index 97 is 49
+INFO: 		Position at index 97 is 170.31 0.00 -16.54
+INFO: 		Index 98 is 49
+INFO: 		Position at index 98 is 170.31 0.00 -16.54
+INFO: 		Index 99 is 50
+INFO: 		Position at index 99 is 216.55 0.00 -35.36
+INFO: 		Index 100 is 50
+INFO: 		Position at index 100 is 216.55 0.00 -35.36
+INFO: 		Index 101 is 51
+INFO: 		Position at index 101 is 283.51 0.00 -43.99
+INFO: 		Index 102 is 51
+INFO: 		Position at index 102 is 283.51 0.00 -43.99
+INFO: 		Index 103 is 52
+INFO: 		Position at index 103 is 306.65 0.00 -50.92
+INFO: 		Index 104 is 52
+INFO: 		Position at index 104 is 306.65 0.00 -50.92
+INFO: 		Index 105 is 53
+INFO: 		Position at index 105 is 319.41 0.00 -61.26
+INFO: 		Index 106 is 53
+INFO: 		Position at index 106 is 319.41 0.00 -61.26
+INFO: 		Index 107 is 54
+INFO: 		Position at index 107 is 327.58 0.00 -70.22
+INFO: 		Index 108 is 54
+INFO: 		Position at index 108 is 327.58 0.00 -70.22
+INFO: 		Index 109 is 55
+INFO: 		Position at index 109 is 332.27 0.00 -78.92
+INFO: 		Index 110 is 55
+INFO: 		Position at index 110 is 332.27 0.00 -78.92
+INFO: 		Index 111 is 56
+INFO: 		Position at index 111 is 334.98 0.00 -92.24
+INFO: 		Index 112 is 56
+INFO: 		Position at index 112 is 334.98 0.00 -92.24
+INFO: 		Index 113 is 57
+INFO: 		Position at index 113 is 333.84 0.00 -117.43
+INFO: 		Index 114 is 57
+INFO: 		Position at index 114 is 333.84 0.00 -117.43
+INFO: 		Index 115 is 58
+INFO: 		Position at index 115 is 320.54 0.00 -162.37
+INFO: 		Index 116 is 58
+INFO: 		Position at index 116 is 320.54 0.00 -162.37
+INFO: 		Index 117 is 59
+INFO: 		Position at index 117 is 319.18 0.00 -193.43
+INFO: 		Index 118 is 59
+INFO: 		Position at index 118 is 319.18 0.00 -193.43
+INFO: 		Index 119 is 60
+INFO: 		Position at index 119 is 321.05 0.00 -213.79
+INFO: 		Index 120 is 60
+INFO: 		Position at index 120 is 321.05 0.00 -213.79
+INFO: 		Index 121 is 61
+INFO: 		Position at index 121 is 325.48 0.00 -229.03
+INFO: 		Index 122 is 61
+INFO: 		Position at index 122 is 325.48 0.00 -229.03
+INFO: 		Index 123 is 62
+INFO: 		Position at index 123 is 339.35 0.00 -258.59
+INFO: 		Index 124 is 62
+INFO: 		Position at index 124 is 339.35 0.00 -258.59
+INFO: 		Index 125 is 63
+INFO: 		Position at index 125 is 342.76 0.00 -273.34
+INFO: 		Index 126 is 63
+INFO: 		Position at index 126 is 342.76 0.00 -273.34
+INFO: 		Index 127 is 64
+INFO: 		Position at index 127 is 341.43 0.00 -283.80
+INFO: 		Index 128 is 64
+INFO: 		Position at index 128 is 341.43 0.00 -283.80
+INFO: 		Index 129 is 65
+INFO: 		Position at index 129 is 336.76 0.00 -298.47
+INFO: 		Index 130 is 65
+INFO: 		Position at index 130 is 336.76 0.00 -298.47
+INFO: 		Index 131 is 66
+INFO: 		Position at index 131 is 331.83 0.00 -304.36
+INFO: 		Index 132 is 66
+INFO: 		Position at index 132 is 331.83 0.00 -304.36
+INFO: 		Index 133 is 67
+INFO: 		Position at index 133 is 293.88 0.00 -320.63
+INFO: 		Index 134 is 67
+INFO: 		Position at index 134 is 293.88 0.00 -320.63
+INFO: 		Index 135 is 68
+INFO: 		Position at index 135 is 123.53 0.00 -319.54
+INFO: 		Index 136 is 68
+INFO: 		Position at index 136 is 123.53 0.00 -319.54
+INFO: 		Index 137 is 69
+INFO: 		Position at index 137 is -117.19 0.00 -318.87
+INFO: 		Index 138 is 69
+INFO: 		Position at index 138 is -117.19 0.00 -318.87
+INFO: 		Index 139 is 70
+INFO: 		Position at index 139 is -146.11 0.00 -316.72
+INFO: 		Index 140 is 70
+INFO: 		Position at index 140 is -146.11 0.00 -316.72
+INFO: 		Index 141 is 71
+INFO: 		Position at index 141 is -173.79 0.00 -310.28
+INFO: 		Index 142 is 71
+INFO: 		Position at index 142 is -173.79 0.00 -310.28
+INFO: 		Index 143 is 72
+INFO: 		Position at index 143 is -207.28 0.00 -293.84
+INFO: 		Index 144 is 72
+INFO: 		Position at index 144 is -207.28 0.00 -293.84
+INFO: 		Index 145 is 73
+INFO: 		Position at index 145 is -234.62 0.00 -270.63
+INFO: 		Index 146 is 73
+INFO: 		Position at index 146 is -234.62 0.00 -270.63
+INFO: 		Index 147 is 74
+INFO: 		Position at index 147 is -275.52 0.00 -184.43
+INFO: 		Index 148 is 74
+INFO: 		Position at index 148 is -275.52 0.00 -184.43
+INFO: 		Index 149 is 75
+INFO: 		Position at index 149 is -309.24 0.00 -120.48
+INFO: 		Index 150 is 75
+INFO: 		Position at index 150 is -309.24 0.00 -120.48
+INFO: 		Index 151 is 76
+INFO: 		Position at index 151 is -334.78 0.00 -73.78
+INFO: 		Index 152 is 76
+INFO: 		Position at index 152 is -334.78 0.00 -73.78
+INFO: 		Index 153 is 77
+INFO: 		Position at index 153 is -337.72 0.00 -56.13
+INFO: 		Index 154 is 77
+INFO: 		Position at index 154 is -337.72 0.00 -56.13
+INFO: 		Index 155 is 78
+INFO: 		Position at index 155 is -332.67 0.00 -39.70
+INFO: 		Index 156 is 78
+INFO: 		Position at index 156 is -332.67 0.00 -39.70
+INFO: 		Index 157 is 79
+INFO: 		Position at index 157 is -321.73 0.00 -28.20
+INFO: 		Index 158 is 79
+INFO: 		Position at index 158 is -321.73 0.00 -28.20
+INFO: 		Index 159 is 80
+INFO: 		Position at index 159 is -304.64 0.00 -22.23
+INFO: 		Index 160 is 80
+INFO: 		Position at index 160 is -304.64 0.00 -22.23
+INFO: 		Index 161 is 81
+INFO: 		Position at index 161 is -260.39 0.00 -24.31
+INFO: 		Index 162 is 81
+INFO: 		Position at index 162 is -260.39 0.00 -24.31
+INFO: 		Index 163 is 82
+INFO: 		Position at index 163 is -137.23 0.00 -47.70
+INFO: 		Index 164 is 82
+INFO: 		Position at index 164 is -137.23 0.00 -47.70
+INFO: 		Index 165 is 83
+INFO: 		Position at index 165 is -48.62 0.00 -64.71
+INFO: 		Index 166 is 83
+INFO: 		Position at index 166 is -48.62 0.00 -64.71
+INFO: 		Index 167 is 84
+INFO: 		Position at index 167 is -30.92 0.00 -64.95
+INFO: 		Index 168 is 84
+INFO: 		Position at index 168 is -30.92 0.00 -64.95
+INFO: 		Index 169 is 85
+INFO: 		Position at index 169 is -16.63 0.00 -61.78
+INFO: 		Index 170 is 85
+INFO: 		Position at index 170 is -16.63 0.00 -61.78
+INFO: 		Index 171 is 86
+INFO: 		Position at index 171 is -5.01 0.00 -55.79
+INFO: 		Index 172 is 86
+INFO: 		Position at index 172 is -5.01 0.00 -55.79
+INFO: 		Index 173 is 87
+INFO: 		Position at index 173 is 2.46 0.00 -46.54
+INFO: 		Index 174 is 87
+INFO: 		Position at index 174 is 2.46 0.00 -46.54
+INFO: 		Index 175 is 88
+INFO: 		Position at index 175 is 4.38 0.00 -34.22
+INFO: 		Index 176 is 88
+INFO: 		Position at index 176 is 4.38 0.00 -34.22
+INFO: 		Index 177 is 89
+INFO: 		Position at index 177 is 1.56 0.00 -22.20
+INFO: 		Index 178 is 89
+INFO: 		Position at index 178 is 1.56 0.00 -22.20
+INFO: 		Index 179 is 90
+INFO: 		Position at index 179 is -9.46 0.00 -8.77
+INFO: 		Index 180 is 90
+INFO: 		Position at index 180 is -9.46 0.00 -8.77
+INFO: 		Index 181 is 91
+INFO: 		Position at index 181 is -23.45 0.00 3.46
+INFO: 		Index 182 is 91
+INFO: 		Position at index 182 is -23.45 0.00 3.46
+INFO: 		Index 183 is 92
+INFO: 		Position at index 183 is -39.65 0.00 15.84
+INFO: 		Index 184 is 92
+INFO: 		Position at index 184 is -39.65 0.00 15.84
+INFO: 		Index 185 is 93
+INFO: 		Position at index 185 is -110.57 0.00 38.86
+INFO: 		Index 186 is 93
+INFO: 		Position at index 186 is -110.57 0.00 38.86
+INFO: 		Index 187 is 94
+INFO: 		Position at index 187 is -200.06 0.00 67.00
+INFO: 		Index 188 is 94
+INFO: 		Position at index 188 is -200.06 0.00 67.00
+INFO: 		Index 189 is 95
+INFO: 		Position at index 189 is -213.85 0.00 74.82
+INFO: 		Index 190 is 95
+INFO: 		Position at index 190 is -213.85 0.00 74.82
+INFO: 		Index 191 is 96
+INFO: 		Position at index 191 is -226.92 0.00 84.24
+INFO: 		Index 192 is 96
+INFO: 		Position at index 192 is -226.92 0.00 84.24
+INFO: 		Index 193 is 97
+INFO: 		Position at index 193 is -238.58 0.00 102.25
+INFO: 		Index 194 is 97
+INFO: 		Position at index 194 is -238.58 0.00 102.25
+INFO: 		Index 195 is 98
+INFO: 		Position at index 195 is -243.65 0.00 133.17
+INFO: 		Index 196 is 98
+INFO: 		Position at index 196 is -243.65 0.00 133.17
+INFO: 		Index 197 is 99
+INFO: 		Position at index 197 is -239.46 0.00 162.31
+INFO: 		Index 198 is 99
+INFO: 		Position at index 198 is -239.46 0.00 162.31
+INFO: 		Index 199 is 100
+INFO: 		Position at index 199 is -235.54 0.00 179.68
+INFO: 		Index 200 is 100
+INFO: 		Position at index 200 is -235.54 0.00 179.68
+INFO: 		Index 201 is 101
+INFO: 		Position at index 201 is -227.70 0.00 197.05
+INFO: 		Index 202 is 101
+INFO: 		Position at index 202 is -227.70 0.00 197.05
+INFO: 		Index 203 is 0
+INFO: 		Position at index 203 is -206.29 0.00 232.97
+INFO: Spline count: 103
+INFO: VRAM: 3577 Mb
+INFO: true
+INFO: 	~IGpuMemoryAllocator
 INFO: Cerrado el log.
 

@@ -10,8 +10,12 @@
 #include <OSKengine/HbaoPass.h>
 #include <OSKengine/ToneMapping.h>
 
+#include <OSKengine/UiImageView.h>
+#include <OSKengine/UiTextView.h>
+
 #include "CarSpawner.h"
 #include "CircuitSpawner.h"
+#include "SelectionHub.h"
 
 #include "CollisionTests.h"
 
@@ -36,25 +40,49 @@ private:
 
 	void SetupPostProcessingChain();
 
+	void RegisterAssets();
 	void RegisterEcse();
+
 	void SetupUi();
 
+	void SetMainCar(OSK::ECS::GameObjectIndex obj);
+
+	void CheckEvents();
+
 	void ToMainMenu();
+	void ToGame(std::string_view carAssetsPath);
 
 	void PauseSystems();
 	void UnpauseSystems();
 
+	void SpanwCamera();
+	void SetupTreeNormals();
+
 private:
 
+	bool m_startNextFrame = false;
+
+	OSK::UI::TextView* gearText = nullptr;
+	OSK::UI::TextView* rpmText = nullptr;
+	OSK::UI::TextView* speedText = nullptr;
+
+	OSK::UI::ImageView* chasGtSelectedCar = nullptr;
+	OSK::UI::ImageView* owSelectedCar = nullptr;
+	OSK::UI::ImageView* lwmSelectedCar = nullptr;
+	OSK::UI::ImageView* currentlySelectedCar = nullptr;
+
+
 	OSK::ECS::GameObjectIndex firstCar = OSK::ECS::EMPTY_GAME_OBJECT;
-	OSK::ECS::GameObjectIndex secondCar = OSK::ECS::EMPTY_GAME_OBJECT;
+	OSK::ECS::GameObjectIndex circuit = OSK::ECS::EMPTY_GAME_OBJECT;
 
 	CollisionTesting collisionTesting{};
 
 	CarSpawner carSpawner{};
 	CircuitSpawner circuitSpawner{};
+	SelectionHub m_hub;
 
-	OSK::ECS::GameObjectIndex cameraObject	 = OSK::ECS::EMPTY_GAME_OBJECT;
+	OSK::ECS::GameObjectIndex cameraObject = OSK::ECS::EMPTY_GAME_OBJECT;
+	OSK::ECS::GameObjectIndex cameraArmObject = OSK::ECS::EMPTY_GAME_OBJECT;
 	OSK::ECS::GameObjectIndex cameraObject2d = OSK::ECS::EMPTY_GAME_OBJECT;
 	
 	OSK::UniquePtr<OSK::GRAPHICS::FrameCombiner> finalFrameCombiner;

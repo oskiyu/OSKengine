@@ -149,23 +149,56 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="CameraAttachmentSystem.cpp" />
+    <ClCompile Include="CarAiSystem.cpp" />
+    <ClCompile Include="CarAssetsLoader.cpp" />
     <ClCompile Include="CarInputSystem.cpp" />
+    <ClCompile Include="CarAssets.cpp" />
+    <ClCompile Include="CarRegistry.cpp" />
+    <ClCompile Include="CarSelectionMenu.cpp" />
+    <ClCompile Include="CarSelectPanel.cpp" />
     <ClCompile Include="CarSpawner.cpp" />
     <ClCompile Include="CarSystem.cpp" />
     <ClCompile Include="CircuitSpawner.cpp" />
     <ClCompile Include="CollisionTests.cpp" />
     <ClCompile Include="Game.cpp" />
+    <ClCompile Include="HubCameraSystem.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="MainMenu.cpp" />
+    <ClCompile Include="MainMenuPanel.cpp" />
+    <ClCompile Include="RayRenderSystem.cpp" />
+    <ClCompile Include="SelectionHub.cpp" />
+    <ClCompile Include="UiBuilder.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="CameraArmComponent.h" />
+    <ClInclude Include="CameraAttachmentSystem.h" />
+    <ClInclude Include="CarAiComponent.h" />
+    <ClInclude Include="CarAiSystem.h" />
+    <ClInclude Include="CarAssetsLoader.h" />
     <ClInclude Include="CarComponent.h" />
+    <ClInclude Include="CarControllerComponent.h" />
     <ClInclude Include="CarInputSystem.h" />
     <ClInclude Include="CarInputEvent.h" />
+    <ClInclude Include="CarAssets.h" />
+    <ClInclude Include="CarRegistry.h" />
+    <ClInclude Include="CarSelectionMenu.h" />
+    <ClInclude Include="CarSelectPanel.h" />
     <ClInclude Include="CarSpawner.h" />
     <ClInclude Include="CarSystem.h" />
+    <ClInclude Include="CircuitComponent.h" />
     <ClInclude Include="CircuitSpawner.h" />
     <ClInclude Include="CollisionTests.h" />
+    <ClInclude Include="EngineComponent.h" />
     <ClInclude Include="Game.h" />
+    <ClInclude Include="HubCameraSystem.h" />
+    <ClInclude Include="MainMenu.h" />
+    <ClInclude Include="MainMenuPanel.h" />
+    <ClInclude Include="MenuEvents.h" />
+    <ClInclude Include="RayCastEvent.h" />
+    <ClInclude Include="RayRenderSystem.h" />
+    <ClInclude Include="SelectionHub.h" />
+    <ClInclude Include="UiBuilder.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

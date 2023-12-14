@@ -3,12 +3,13 @@
 #include <OSKengine/OSKmacros.h>
 #include <OSKengine/GameObject.h>
 #include <OSKengine/Material.h>
+#include <OSKengine/Vector3.hpp>
 
 class CarSpawner {
 
 public:
 
-	OSK::ECS::GameObjectIndex Spawn();
+	OSK::ECS::GameObjectIndex Spawn(const OSK::Vector3f& position, std::string_view assetsPath);
 
 	void SetMaterial3D(OSK::GRAPHICS::Material* material3D);
 

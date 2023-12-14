@@ -82,7 +82,7 @@ void CollisionTesting::Update() {
 				event.firstEntity, event.secondEntity,
 				event.collisionInfo.GetSingleContactPoint().x,
 				event.collisionInfo.GetSingleContactPoint().y,
-				event.collisionInfo.GetSingleContactPoint().Z));
+				event.collisionInfo.GetSingleContactPoint().z));
 			//	Engine::GetConsole()->WriteLine(std::format("Collision: A: {}, B: {}, Position: {},{},{}",
 			//		event.firstEntity, event.secondEntity,
 			//		event.collisionInfo.GetSingleContactPoint().x,

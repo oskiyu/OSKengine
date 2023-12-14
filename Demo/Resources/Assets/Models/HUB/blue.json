@@ -1,0 +1,14 @@
+{
+    "file_type": "ASSET",
+    "spec_ver": 0,
+
+    "name": "Circuit0",
+    "asset_type": "Model3D",
+    "raw_asset_path": "Resources/RawAssets/Models/render.glb",
+    "raw_asset_path2": "Resources/RawAssets/Models/chasring.glb",
+
+    "scale": 0.6,
+    "rotation_offset": [0, 180, 0],
+
+    "renderpass_type": "static_pass"
+}

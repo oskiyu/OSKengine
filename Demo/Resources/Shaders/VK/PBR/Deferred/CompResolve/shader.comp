@@ -12,6 +12,13 @@ layout (set = 0, binding = 0) uniform Camera {
     vec2 nearFarPlanes;
 } camera;
 
+layout (set = 0, binding = 8) uniform IblConfig {
+    float irradianceStrength;
+    float specularStrength;
+    float radianceStrength;
+    float emissiveStrength;
+} iblConfig;
+
 
 // Lights & shadows
 layout (set = 0, binding = 1) uniform DirLightShadowMat {
@@ -34,6 +41,7 @@ layout (set = 1, binding = 0) uniform highp sampler2D depthTexture;
 layout (set = 1, binding = 1) uniform sampler2D colorTexture;
 layout (set = 1, binding = 2) uniform sampler2D normalTexture;
 layout (set = 1, binding = 3) uniform sampler2D metallicRoughnessTexture;
+layout (set = 1, binding = 4) uniform sampler2D emissiveTexture;
 
 layout (set = 2, binding = 0) uniform writeonly image2D finalImage;
 
@@ -122,11 +130,12 @@ void main() {
     const vec4 albedo = vec4(colorInfo.rgb, 1.0);
     const vec3 normal = normalize(normalInfo.xyz * 2.0 - 1.0);
 
+    // Cámara -> pos
     const vec3 view = normalize(camera.cameraPos.xyz - worldPosition);
     const vec3 reflectDirection = reflect(-view, normal);
     
     const float metallicFactor = clamp(materialInfo.x, 0.02, 1);
-    const float roughnessFactor = clamp(materialInfo.y, 0.02, 0.95);
+    const float roughnessFactor = clamp(materialInfo.y, 0.1, 0.95);
     
     vec3 F0 = vec3(DEFAULT_F0);
     F0 = mix(F0, albedo.rgb, metallicFactor);
@@ -145,7 +154,7 @@ void main() {
         dirLightShadowMat.splits, 
         dirLightShadowMap, 
         worldPosition,
-        camera.nearFarPlanes.x) 
+        4 - 1) 
     * GetRadiance(
         F0, 
         dirLight.directionAndIntensity.xyz, 
@@ -172,34 +181,26 @@ void main() {
     const vec3 specular = prefilteredSpecularColor * (F * lut.x + lut.y);
     
      
-// #define NATURAL
-// #define CUSTOM
-
-#ifdef NATURAL
-    const float ambientRatio = 1.0;
-    const float radianceRatio = 1.0;
-    const float specularRatio = 1.0;
-#elif defined(CUSTOM)
-    const float ambientRatio = 0.7;
-    const float radianceRatio = 1.2;
-    const float specularRatio = 0.8;
-#else
-    const float ambientRatio = 0.65;
-    const float radianceRatio = 1.0;
-    const float specularRatio = 0.65;
-#endif
-
     vec3 color = vec3(0);
 
-    color += iblDiffuse * ambientRatio * kDiffuse * 0.2;
-    color += accummulatedRadiance * radianceRatio;
-    color += specular * specularRatio;
+    color += iblDiffuse * iblConfig.irradianceStrength * kDiffuse * 0.2;
+    color += accummulatedRadiance * iblConfig.radianceStrength;
+    color += specular * iblConfig.specularStrength;
 
     color = vec3(
         max(color.r, 0.01),
         max(color.g, 0.01),
         max(color.b, 0.01)
     );
+
+    color += texelFetch(emissiveTexture, coords, 0).xyz * iblConfig.emissiveStrength;
+
+    // Normal view
+    /* vec3 viewSpaceNormal = normalize(mat3(camera.view) * normal);
+    viewSpaceNormal.y *= -1.0;
+    color = vec3(abs(viewSpaceNormal.z)); */
+
+    // color = mix(color, GetShadowmapCascade(cameraSpacePosition, dirLightShadowMat.splits, dirLightShadowMat.matrix, worldPosition), 1.0);
 
     imageStore(finalImage, coords, vec4(color, normalInfo.a));
 }

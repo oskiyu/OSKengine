@@ -1,0 +1,21 @@
+{
+    "file_type": "MATERIAL",
+    "spec_ver": 1,
+    "name": "Ray Cast Line Rendering",
+
+    "vertex_shader": "Resources/Shaders/VK/Colliders/RayLine/vert.spv",
+    "fragment_shader": "Resources/Shaders/VK/Colliders/RayLine/frag.spv",
+    
+    "vertex_type": "OSK::VertexCollisionDebug3D",
+
+    "slots": {
+        "0": "global"
+    },
+
+    "polygon_mode": "LINE",
+    
+    "config": {
+        "depth_testing": "read"
+    }
+    
+}

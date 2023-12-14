@@ -31,6 +31,24 @@
     <Filter Include="Archivos de origen\Testing">
       <UniqueIdentifier>{0afaa38f-b8a0-4462-9abb-8f7221ca3333}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Archivos de encabezado\Assets">
+      <UniqueIdentifier>{14ebbe91-f7ac-462f-b7ac-f02c4f80f173}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de origen\Assets">
+      <UniqueIdentifier>{4c5a48ad-5c6c-4a3e-9fa2-1f8201a94db1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de encabezado\UI">
+      <UniqueIdentifier>{3e8b5e69-81b1-4b8b-b36e-d711124c8cd2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de origen\UI">
+      <UniqueIdentifier>{d91d96cf-4f01-4aeb-9bb4-009630c97187}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de encabezado\ECSE\Debug">
+      <UniqueIdentifier>{7555358b-0050-4890-8461-9e17a42e3ee0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de origen\ECSE\Debug">
+      <UniqueIdentifier>{9c4f11ea-b283-4a48-b211-9473f70b863a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -53,6 +71,45 @@
     </ClCompile>
     <ClCompile Include="CollisionTests.cpp">
       <Filter>Archivos de origen\Testing</Filter>
+    </ClCompile>
+    <ClCompile Include="CameraAttachmentSystem.cpp">
+      <Filter>Archivos de origen\ECSE</Filter>
+    </ClCompile>
+    <ClCompile Include="CarAssets.cpp">
+      <Filter>Archivos de origen\Assets</Filter>
+    </ClCompile>
+    <ClCompile Include="CarAssetsLoader.cpp">
+      <Filter>Archivos de origen\Assets</Filter>
+    </ClCompile>
+    <ClCompile Include="CarRegistry.cpp">
+      <Filter>Archivos de origen\Assets</Filter>
+    </ClCompile>
+    <ClCompile Include="UiBuilder.cpp">
+      <Filter>Archivos de origen\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="MainMenu.cpp">
+      <Filter>Archivos de origen\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="MainMenuPanel.cpp">
+      <Filter>Archivos de origen\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="CarSelectPanel.cpp">
+      <Filter>Archivos de origen\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="CarSelectionMenu.cpp">
+      <Filter>Archivos de origen\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="SelectionHub.cpp">
+      <Filter>Archivos de origen\Spawners</Filter>
+    </ClCompile>
+    <ClCompile Include="HubCameraSystem.cpp">
+      <Filter>Archivos de origen\ECSE</Filter>
+    </ClCompile>
+    <ClCompile Include="CarAiSystem.cpp">
+      <Filter>Archivos de origen\ECSE</Filter>
+    </ClCompile>
+    <ClCompile Include="RayRenderSystem.cpp">
+      <Filter>Archivos de origen\ECSE\Debug</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -79,6 +136,66 @@
     </ClInclude>
     <ClInclude Include="CollisionTests.h">
       <Filter>Archivos de encabezado\Testing</Filter>
+    </ClInclude>
+    <ClInclude Include="CameraAttachmentSystem.h">
+      <Filter>Archivos de encabezado\ECSE</Filter>
+    </ClInclude>
+    <ClInclude Include="CarAssets.h">
+      <Filter>Archivos de encabezado\Assets</Filter>
+    </ClInclude>
+    <ClInclude Include="CarAssetsLoader.h">
+      <Filter>Archivos de encabezado\Assets</Filter>
+    </ClInclude>
+    <ClInclude Include="CarRegistry.h">
+      <Filter>Archivos de encabezado\Assets</Filter>
+    </ClInclude>
+    <ClInclude Include="EngineComponent.h">
+      <Filter>Archivos de encabezado\ECSE</Filter>
+    </ClInclude>
+    <ClInclude Include="UiBuilder.h">
+      <Filter>Archivos de encabezado\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="MainMenu.h">
+      <Filter>Archivos de encabezado\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="MenuEvents.h">
+      <Filter>Archivos de encabezado\ECSE</Filter>
+    </ClInclude>
+    <ClInclude Include="MainMenuPanel.h">
+      <Filter>Archivos de encabezado\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="CarSelectPanel.h">
+      <Filter>Archivos de encabezado\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="CarSelectionMenu.h">
+      <Filter>Archivos de encabezado\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="SelectionHub.h">
+      <Filter>Archivos de encabezado\Spawners</Filter>
+    </ClInclude>
+    <ClInclude Include="HubCameraSystem.h">
+      <Filter>Archivos de encabezado\ECSE</Filter>
+    </ClInclude>
+    <ClInclude Include="CameraArmComponent.h">
+      <Filter>Archivos de encabezado\ECSE</Filter>
+    </ClInclude>
+    <ClInclude Include="CircuitComponent.h">
+      <Filter>Archivos de encabezado\ECSE</Filter>
+    </ClInclude>
+    <ClInclude Include="CarAiComponent.h">
+      <Filter>Archivos de encabezado\ECSE</Filter>
+    </ClInclude>
+    <ClInclude Include="CarAiSystem.h">
+      <Filter>Archivos de encabezado\ECSE</Filter>
+    </ClInclude>
+    <ClInclude Include="RayRenderSystem.h">
+      <Filter>Archivos de encabezado\ECSE\Debug</Filter>
+    </ClInclude>
+    <ClInclude Include="RayCastEvent.h">
+      <Filter>Archivos de encabezado\ECSE\Debug</Filter>
+    </ClInclude>
+    <ClInclude Include="CarControllerComponent.h">
+      <Filter>Archivos de encabezado\ECSE</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -14,6 +14,11 @@ public:
 
 private:
 
-	OSK::GRAPHICS::Material* material3D = nullptr;
+	OSK::ECS::GameObjectIndex SpawnCircuit();
+	void SpawnBillboards();
+	void SpawnTrees();
+	void SpawnTreesNormals();
+
+	OSK::GRAPHICS::Material* m_material3D = nullptr;
 
 };

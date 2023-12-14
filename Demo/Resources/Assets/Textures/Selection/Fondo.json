@@ -1,0 +1,8 @@
+{
+    "file_type": "ASSET",
+    "spec_ver": 0,
+
+    "name": "Selection Fondo",
+    "asset_type": "Texture",
+    "raw_asset_path": "Resources/RawAssets/Textures/Selection/fondo.png"
+}
