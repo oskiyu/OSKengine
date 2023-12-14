@@ -14,6 +14,7 @@ namespace OSK::COLLISION {
 
 	public:
 
+		virtual RayCastResult CastRay(const Ray& ray) const = 0;
 
 	};
 

@@ -15,6 +15,7 @@ namespace OSK {
 	public:
 
 		static OSKAPI_CALL Vector3_t const Zero;
+		static OSKAPI_CALL Vector3_t const One;
 
 	public:
 

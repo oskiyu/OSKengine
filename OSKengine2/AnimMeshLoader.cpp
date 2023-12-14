@@ -18,14 +18,18 @@
 
 #include "ModelLoadingExceptions.h"
 
+#define TINYGLTF_NO_STB_IMAGE_WRITE
+#include <tiny_gltf.h>
+
+
 using namespace OSK;
 using namespace OSK::ASSETS;
 using namespace OSK::GRAPHICS;
 
 
-void AnimMeshLoader::ProcessNode(const tinygltf::Node& node, UIndex32 nodeId, UIndex32 parentId) {
+void AnimMeshLoader::ProcessNode(const tinygltf::Model& model, const tinygltf::Node& node, UIndex32 nodeId, UIndex32 parentId) {
 	if (tempAnimator.GetActiveSkin() == nullptr)
-		LoadSkins();
+		LoadSkins(model);
 
 	// La matriz inicial se aplica en la animación.
 	const glm::mat4 nodeMatrix = GetNodeMatrix(node);
@@ -41,7 +45,7 @@ void AnimMeshLoader::ProcessNode(const tinygltf::Node& node, UIndex32 nodeId, UI
 
 	// Proceso del polígono.
 	if (node.mesh > -1) {
-		const tinygltf::Mesh& mesh = m_gltfModel.meshes[node.mesh];
+		const tinygltf::Mesh& mesh = model.meshes[node.mesh];
 
 		if (mesh.primitives[0].material > -1)
 			m_meshIdToMaterialId[static_cast<UIndex32>(m_meshes.GetSize())] = mesh.primitives[0].material;
@@ -56,14 +60,14 @@ void AnimMeshLoader::ProcessNode(const tinygltf::Node& node, UIndex32 nodeId, UI
 			const UIndex32 firstVertexId = static_cast<UIndex32>(vertices.GetSize());
 			const UIndex32 firstIndexId = static_cast<UIndex32>(m_indices.GetSize());
 
-			const auto primitiveIndices = GetIndices(primitive, firstVertexId);
+			const auto primitiveIndices = GetIndices(primitive, firstVertexId, model);
 
-			const auto positions = GetVertexPositions(primitive, nodeMatrix);
-			const auto normals = GetVertexNormals(primitive);
-			const auto texCoords = GetTextureCoords(primitive);
-			const auto colors = GetVertexColors(primitive);
-			const auto joints = GetJoints(primitive);
-			const auto boneWeights = GetBoneWeights(primitive);
+			const auto positions = GetVertexPositions(primitive, nodeMatrix, model);
+			const auto normals = GetVertexNormals(primitive, model);
+			const auto texCoords = GetTextureCoords(primitive, model);
+			const auto colors = GetVertexColors(primitive, model);
+			const auto joints = GetJoints(primitive, model);
+			const auto boneWeights = GetBoneWeights(primitive, model);
 
 			for (const auto& vertex : positions) {
 				const glm::vec4 position = glm::inverse(nodeMatrix) * glm::vec4(vertex.ToGlm(), 1.0);
@@ -71,7 +75,7 @@ void AnimMeshLoader::ProcessNode(const tinygltf::Node& node, UIndex32 nodeId, UI
 			}
 
 			const auto tangents = HasTangets(primitive)
-				? GetTangentVectors(primitive)
+				? GetTangentVectors(primitive, model)
 				: GenerateTangetVectors(texCoords, positions, primitiveIndices, firstVertexId);
 
 			const USize32 numVertices = static_cast<USize32>(positions.GetSize());
@@ -140,16 +144,16 @@ void AnimMeshLoader::ProcessNode(const tinygltf::Node& node, UIndex32 nodeId, UI
 	// Engine::GetLogger()->InfoLog("Nodo cargado: " + animNode.name + " índice: " + std::to_string(animNode.thisIndex) + " parent: " + std::to_string(animNode.parentIndex));
 
 	for (UIndex32 i = 0; i < node.children.size(); i++) {
-		ProcessNode(m_gltfModel.nodes[node.children[i]], node.children[i], nodeId);
+		ProcessNode(model, model.nodes[node.children[i]], node.children[i], nodeId);
 		animNode.childIndices.Insert(node.children[i]);
 	}
 
 	tempAnimator._AddNode(animNode);
 }
 
-void AnimMeshLoader::LoadAnimations() {
-	for (UIndex32 animationId = 0; animationId < m_gltfModel.animations.size(); animationId++) {
-		tinygltf::Animation gltfAnimation = m_gltfModel.animations[animationId];
+void AnimMeshLoader::LoadAnimations(const tinygltf::Model& model) {
+	for (UIndex32 animationId = 0; animationId < model.animations.size(); animationId++) {
+		tinygltf::Animation gltfAnimation = model.animations[animationId];
 		Animation animation{};
 
 		animation.name = gltfAnimation.name;
@@ -166,9 +170,9 @@ void AnimMeshLoader::LoadAnimations() {
 			// Establece los valores de entrada del sampler, es decir,
 			// los timestamps en el que se produce una transforamción de algún tipo.
 			{
-				const tinygltf::Accessor& accessor = m_gltfModel.accessors[gltfSampler.input];
-				const tinygltf::BufferView& bufferView = m_gltfModel.bufferViews[accessor.bufferView];
-				const tinygltf::Buffer& buffer = m_gltfModel.buffers[bufferView.buffer];
+				const tinygltf::Accessor& accessor = model.accessors[gltfSampler.input];
+				const tinygltf::BufferView& bufferView = model.bufferViews[accessor.bufferView];
+				const tinygltf::Buffer& buffer = model.buffers[bufferView.buffer];
 
 				const void* data = &buffer.data[accessor.byteOffset + bufferView.byteOffset];
 				const float* timestampsBuffer = static_cast<const float*>(data);
@@ -186,9 +190,9 @@ void AnimMeshLoader::LoadAnimations() {
 			// Establece los valores de salida del sampler, es decir,
 			// la transformación de cada timestamp.
 			{
-				const tinygltf::Accessor& accessor = m_gltfModel.accessors[gltfSampler.output];
-				const tinygltf::BufferView& bufferView = m_gltfModel.bufferViews[accessor.bufferView];
-				const tinygltf::Buffer& buffer = m_gltfModel.buffers[bufferView.buffer];
+				const tinygltf::Accessor& accessor = model.accessors[gltfSampler.output];
+				const tinygltf::BufferView& bufferView = model.bufferViews[accessor.bufferView];
+				const tinygltf::Buffer& buffer = model.buffers[bufferView.buffer];
 				const void* data = &buffer.data[accessor.byteOffset + bufferView.byteOffset];
 
 				switch (accessor.type) {
@@ -239,9 +243,9 @@ void AnimMeshLoader::LoadAnimations() {
 
 }
 
-void AnimMeshLoader::LoadSkins() {	
-	for (UIndex32 skinId = 0; skinId < m_gltfModel.skins.size(); skinId++) {
-		const tinygltf::Skin& gltfSkin = m_gltfModel.skins[skinId];
+void AnimMeshLoader::LoadSkins(const tinygltf::Model& model) {
+	for (UIndex32 skinId = 0; skinId < model.skins.size(); skinId++) {
+		const tinygltf::Skin& gltfSkin = model.skins[skinId];
 
 		AnimationSkin skin;
 		skin.name = gltfSkin.name;
@@ -254,9 +258,9 @@ void AnimMeshLoader::LoadSkins() {
 			skin.bonesIds.Insert(bone);
 
 		if (gltfSkin.inverseBindMatrices > -1) {
-			const tinygltf::Accessor& accessor = m_gltfModel.accessors[gltfSkin.inverseBindMatrices];
-			const tinygltf::BufferView& bufferView = m_gltfModel.bufferViews[accessor.bufferView];
-			const tinygltf::Buffer& buffer = m_gltfModel.buffers[bufferView.buffer];
+			const tinygltf::Accessor& accessor = model.accessors[gltfSkin.inverseBindMatrices];
+			const tinygltf::BufferView& bufferView = model.bufferViews[accessor.bufferView];
+			const tinygltf::Buffer& buffer = model.buffers[bufferView.buffer];
 
 			const UIndex32 matricesSize = static_cast<UIndex32>(accessor.count * sizeof(glm::mat4));
 
@@ -275,7 +279,7 @@ void AnimMeshLoader::LoadSkins() {
 void AnimMeshLoader::SetupModel(Model3D* model) {
 	model->_SetVertexBuffer(Engine::GetRenderer()->GetAllocator()->CreateVertexBuffer(vertices, VertexAnim3D::GetVertexInfo()));
 
-	LoadAnimations();
+	// LoadAnimations();
 	
 	model->_SetAnimator(std::move(tempAnimator));
 	model->GetAnimator()->Setup(m_modelTransform);

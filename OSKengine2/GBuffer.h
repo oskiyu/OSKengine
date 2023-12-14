@@ -32,12 +32,14 @@ namespace OSK::GRAPHICS {
 			METALLIC_ROUGHNESS = 2,
 			/// @brief Movimiento = xy
 			MOTION = 3,
+			/// @brief Emisivo.
+			EMISSIVE = 4,
 
 			DEPTH = std::numeric_limits<UIndex32>::max()
 		};
 
 		/// @brief Contiene todos los tipos de imágenes, excluyendo la de profundidad.
-		const static std::array<Target, 4> ColorTargetTypes;
+		const static std::array<Target, 5> ColorTargetTypes;
 
 
 		/// @brief Crea el GBuffer con la información dada.

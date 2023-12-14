@@ -14,6 +14,7 @@
 #include "IDeferredResolver.h"
 
 #include "MaterialInstance.h"
+#include "PbrIblConfig.h"
 
 #include "AssetRef.h"
 #include "IrradianceMap.h"
@@ -32,10 +33,13 @@ namespace OSK::ECS {
 		OSK_SYSTEM("OSK::DeferredRenderSystem");
 
 		DeferredRenderSystem();
-		~DeferredRenderSystem();
 
 		void Initialize(
 			ECS::GameObjectIndex cameraObject, 
+			ASSETS::AssetRef<ASSETS::IrradianceMap> irradianceMap,
+			ASSETS::AssetRef<ASSETS::SpecularMap> specularMap);
+
+		void SetIbl(
 			ASSETS::AssetRef<ASSETS::IrradianceMap> irradianceMap,
 			ASSETS::AssetRef<ASSETS::SpecularMap> specularMap);
 
@@ -53,6 +57,15 @@ namespace OSK::ECS {
 
 		void AddRenderPass(OwnedPtr<GRAPHICS::IRenderPass> pass) override;
 		void SetResolver(OwnedPtr<GRAPHICS::IDeferredResolver> resolver);
+
+		GRAPHICS::DirectionalLight& GetDirectionalLight();
+		const GRAPHICS::DirectionalLight& GetDirectionalLight() const;
+
+		GRAPHICS::PbrIblConfig& GetIblConfig();
+		const GRAPHICS::PbrIblConfig& GetIblConfig() const;
+
+		GRAPHICS::ShadowMap& GetShadowMap();
+		const GRAPHICS::ShadowMap& GetShadowMap() const;
 
 	private:
 
@@ -137,8 +150,15 @@ namespace OSK::ECS {
 		/// @brief Información de la luz direccional.
 		GRAPHICS::DirectionalLight m_directionalLight{};
 
+		/// @brief Configuración de la iluminación IBL.
+		GRAPHICS::PbrIblConfig m_iblConfig{};
+
+
 		/// @brief Buffers CPU->GPU donde se almacena el estado de la luz direccional.
 		std::array<UniquePtr<GRAPHICS::GpuBuffer>, NUM_RESOURCES_IN_FLIGHT> m_directionalLightBuffers{};
+
+		/// @brief Buffers CPU->GPU donde se almacena la configuración de la iluminación IBL.
+		std::array<UniquePtr<GRAPHICS::GpuBuffer>, NUM_RESOURCES_IN_FLIGHT> m_iblConfigBuffers{};
 
 		ASSETS::AssetRef<ASSETS::IrradianceMap> m_irradianceMap;
 		ASSETS::AssetRef<ASSETS::SpecularMap> m_specularMap;

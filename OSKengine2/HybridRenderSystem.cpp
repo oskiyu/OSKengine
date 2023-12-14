@@ -303,7 +303,7 @@ void HybridRenderSystem::GBufferRenderLoop(GRAPHICS::ICommandList* commandList, 
 
 			const glm::mat4 previousModelMatrix = previousModelMatrices.contains(obj)
 				? previousModelMatrices.at(obj) : glm::mat4(1.0f);
-
+			/*
 			const Vector4f materialInfo{
 				model.GetModel()->GetMetadata().meshesMetadata[i].metallicFactor,
 				model.GetModel()->GetMetadata().meshesMetadata[i].roughnessFactor,
@@ -319,7 +319,7 @@ void HybridRenderSystem::GBufferRenderLoop(GRAPHICS::ICommandList* commandList, 
 				.previousModel = previousModelMatrix,
 				.materialInfo = materialInfo
 			};
-			commandList->PushMaterialConstants("model", modelConsts);
+			commandList->PushMaterialConstants("model", modelConsts);*/
 
 			commandList->DrawSingleMesh(model.GetModel()->GetMeshes()[i].GetFirstIndexId(), model.GetModel()->GetMeshes()[i].GetNumberOfIndices());
 		}

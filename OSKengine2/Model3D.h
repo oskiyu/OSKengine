@@ -7,6 +7,7 @@
 #include "OwnedPtr.h"
 #include "IGpuImage.h"
 #include "Mesh3D.h"
+#include "GpuBuffer.h"
 
 #include "GpuBuffer.h"
 #include "IBottomLevelAccelerationStructure.h"
@@ -40,17 +41,12 @@ namespace OSK::ASSETS {
 	/// Estos datos se pueden procesar de manera distinta dependiendo del proceso
 	/// de renderizado implementado.
 	struct MeshMetadata {
-		
+
 		/// @brief Nombre de la textura -> ID de la textura dentro de las texturas almacenadas por el modelo.
 		std::unordered_map<std::string, USize32, StringHasher, std::equal_to<>> textureTable;
 
-		/// @brief Factor metálico del material del mesh.
-		/// @note Entre 0.0 y 1.0, ambos incluidos. 
-		float metallicFactor = 0.0f;
-
-		/// @brief Factor de rugosidad del material del mesh.
-		/// @note Entre 0.0 y 1.0, ambos incluidos. 
-		float roughnessFactor = 0.0f;
+		/// @brief ID del material dentro de los materiales almacenados por el modelo.
+		UIndex64 materialId = 0;
 
 	};
 
@@ -65,6 +61,9 @@ namespace OSK::ASSETS {
 
 		/// @brief Texturas del modelo 3D.
 		DynamicArray<UniquePtr<GRAPHICS::GpuImage>> textures;
+
+		/// @brief Buffers con la información de los materiales.
+		DynamicArray<UniquePtr<GRAPHICS::GpuBuffer>> materialInfos;
 
 
 		constexpr static std::string_view BaseColorTextureName = "baseColorTexture";
@@ -129,6 +128,10 @@ namespace OSK::ASSETS {
 		/// @return Devuelve todos los meshes del modelo.
 		const DynamicArray<GRAPHICS::Mesh3D>& GetMeshes() const;
 
+		/// @return Devuelve todos los meshes del modelo.
+		DynamicArray<GRAPHICS::Mesh3D>& GetMeshes();
+
+
 		/// @brief Añade un mesh al modelo.
 		/// @param mesh Mesh a añadir.
 		/// @param metadata Metadatos del mesh.
@@ -182,6 +185,8 @@ namespace OSK::ASSETS {
 		/// 
 		/// @note El índice de esta imagen será su posición dentro de la lista.
 		void AddGpuImage(OwnedPtr<GRAPHICS::GpuImage> image);
+
+		void _AddMaterialBuffer(OwnedPtr<GRAPHICS::GpuBuffer> buffer);
 
 		/// <summary> Devuelve la imagen de mesh con el índice dado. </summary>
 		/// <param name="index">Índice de la imagen.</param>

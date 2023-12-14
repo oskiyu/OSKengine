@@ -189,7 +189,7 @@ void ConvexVolume::MergeVertices() {
 	for (UIndex32 originalId = 0; originalId < m_vertices.GetSize(); originalId++) {
 		const Vector3f originalVertex = m_vertices[originalId];
 
-		// Sólamente añadimos el vértice al array si no estava previamente.
+		// Sólamente añadimos el vértice al array si no estaba previamente.
 		// Ningún vértice se añade más de una vez.
 		bool containsVertex = false;
 		for (const auto& v : nVertices) {
@@ -412,12 +412,12 @@ ConvexVolume::Axis ConvexVolume::GetWorldSpaceAxis(UIndex32 faceId) const {
 	const Vector3f vec1 = pointB - pointA;
 	const Vector3f vec2 = pointC - pointB;
 
-	const Vector3f cross = vec1.Cross(vec2).GetNormalized();
+	const Vector3f normal = vec1.Cross(vec2).GetNormalized();
 
-	const float centerProjection = m_transformedCenter.Dot(cross);
-	const float vecProjection = pointA.Dot(cross);
+	const float centerProjection = m_transformedCenter.Dot(normal);
+	const float vecProjection = pointA.Dot(normal);
 
-	return cross * MATH::Sign(vecProjection - centerProjection);
+	return normal * MATH::Sign(vecProjection - centerProjection);
 }
 
 
@@ -728,4 +728,49 @@ UIndex64 ConvexVolume::GetFaceWithVertexIndices(std::span<const UIndex64, 3> ind
 	}
 
 	return bestMatches[bestMatchId];
+}
+
+RayCastResult ConvexVolume::CastRay(const Ray& ray) const {
+	float closestIntersection = std::numeric_limits<float>::max();
+	Vector3f intersectionPoint = Vector3f::Zero;
+	bool intersection = false;
+
+	for (UIndex64 i = 0; i < m_faces.GetSize(); i++) {
+		const auto& axis = m_axes[i];
+		const auto& face = m_faces[i];
+
+		const auto planeIntersectionResult = ray.IntersectionWithPlane(axis, m_transformedVertices[face[0]]);
+
+		if (!planeIntersectionResult.Result()) {
+			continue;
+		}
+
+		// Comprobamos si está dentro de la cara
+		bool insideFace = true;
+		for (UIndex64 v = 0; v < face.GetSize(); v++) {
+			const Vector3f pointA = m_transformedVertices[face[v]];
+			const Vector3f pointB = m_transformedVertices[face[(v + 1) % face.GetSize()]];
+
+			const Vector3f edge = pointB - pointA;
+
+			if (axis.Dot(edge.Cross(planeIntersectionResult.GetIntersectionPoint() - pointB)) > 0.0f) {
+				insideFace = false;
+				break;
+			}
+		}
+
+		if (insideFace) {
+			intersection = true;
+
+			const float nDistance = planeIntersectionResult.GetIntersectionPoint().GetDistanceTo2(ray.origin);
+			if (nDistance < closestIntersection) {
+				closestIntersection = nDistance;
+				intersectionPoint = planeIntersectionResult.GetIntersectionPoint();
+			}
+		}
+	}
+
+	return intersection
+		? RayCastResult::True(intersectionPoint, ECS::EMPTY_GAME_OBJECT)
+		: RayCastResult::False();
 }

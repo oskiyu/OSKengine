@@ -341,33 +341,64 @@ void CommandListVk::BeginGraphicsRenderpass(DynamicArray<RenderPassImageInfo> co
 
 	if (autoSync) {
 		for (const auto& img : colorImages) {
-			SetGpuImageBarrier(
-				img.targetImage,
-				GpuImageLayout::UNDEFINED, 
-				GpuImageLayout::COLOR_ATTACHMENT,
-				GpuBarrierInfo(GpuCommandStage::NONE, GpuAccessStage::NONE),
-				GpuBarrierInfo(GpuCommandStage::COLOR_ATTACHMENT_OUTPUT, GpuAccessStage::COLOR_ATTACHMENT_WRITE),
-				{ .baseLayer = img.arrayLevel,
-					.numLayers = 1,
-					.baseMipLevel = 0,
-					.numMipLevels = ALL_MIP_LEVELS, });
+			if (img.clear) {
+				SetGpuImageBarrier(
+					img.targetImage,
+					GpuImageLayout::UNDEFINED,
+					GpuImageLayout::COLOR_ATTACHMENT,
+					GpuBarrierInfo(GpuCommandStage::NONE, GpuAccessStage::NONE),
+					GpuBarrierInfo(GpuCommandStage::COLOR_ATTACHMENT_OUTPUT, GpuAccessStage::COLOR_ATTACHMENT_WRITE),
+					{ .baseLayer = img.arrayLevel,
+						.numLayers = 1,
+						.baseMipLevel = 0,
+						.numMipLevels = ALL_MIP_LEVELS, });
+			}
+			else {
+				const GpuImageLayout previousLayout = img.targetImage->_GetLayout(img.arrayLevel, 0);
+				SetGpuImageBarrier(
+					img.targetImage,
+					previousLayout,
+					GpuImageLayout::COLOR_ATTACHMENT,
+					img.targetImage->GetCurrentBarrier(),
+					GpuBarrierInfo(GpuCommandStage::COLOR_ATTACHMENT_OUTPUT, GpuAccessStage::COLOR_ATTACHMENT_WRITE),
+					GpuImageRange{ .baseLayer = img.arrayLevel,
+						.numLayers = 1,
+						.baseMipLevel = 0,
+						.numMipLevels = ALL_MIP_LEVELS, });
+			}
 		}
 
 		SampledChannel depthChannel = SampledChannel::DEPTH;
 		if (FormatSupportsStencil(depthImage.targetImage->GetFormat()))
 			depthChannel |= SampledChannel::STENCIL;
 
-		SetGpuImageBarrier(
-			depthImage.targetImage,
-			GpuImageLayout::UNDEFINED,
-			GpuImageLayout::DEPTH_STENCIL_TARGET,
-			GpuBarrierInfo(GpuCommandStage::NONE, GpuAccessStage::NONE),
-			GpuBarrierInfo(GpuCommandStage::DEPTH_STENCIL_START, GpuAccessStage::DEPTH_STENCIL_READ | GpuAccessStage::DEPTH_STENCIL_WRITE),
-			{ .baseLayer = depthImage.arrayLevel,
-				.numLayers = 1,
-				.baseMipLevel = 0,
-				.numMipLevels = ALL_MIP_LEVELS,
-				.channel = depthChannel });
+		if (depthImage.clear) {
+			SetGpuImageBarrier(
+				depthImage.targetImage,
+				GpuImageLayout::UNDEFINED,
+				GpuImageLayout::DEPTH_STENCIL_TARGET,
+				GpuBarrierInfo(GpuCommandStage::NONE, GpuAccessStage::NONE),
+				GpuBarrierInfo(GpuCommandStage::DEPTH_STENCIL_START, GpuAccessStage::DEPTH_STENCIL_READ | GpuAccessStage::DEPTH_STENCIL_WRITE),
+				{ .baseLayer = depthImage.arrayLevel,
+					.numLayers = 1,
+					.baseMipLevel = 0,
+					.numMipLevels = ALL_MIP_LEVELS,
+					.channel = depthChannel });
+		}
+		else {
+			const GpuImageLayout previousLayout = depthImage.targetImage->_GetLayout(depthImage.arrayLevel, 0);
+			SetGpuImageBarrier(
+				depthImage.targetImage,
+				previousLayout,
+				GpuImageLayout::DEPTH_STENCIL_TARGET,
+				depthImage.targetImage->GetCurrentBarrier(),
+				GpuBarrierInfo(GpuCommandStage::DEPTH_STENCIL_START, GpuAccessStage::DEPTH_STENCIL_READ | GpuAccessStage::DEPTH_STENCIL_WRITE),
+				{ .baseLayer = depthImage.arrayLevel,
+					.numLayers = 1,
+					.baseMipLevel = 0,
+					.numMipLevels = ALL_MIP_LEVELS,
+					.channel = depthChannel });
+		}
 	}
 
 	GpuImageViewConfig colorAttachmentConfig = GpuImageViewConfig::CreateTarget_Color();
@@ -377,7 +408,7 @@ void CommandListVk::BeginGraphicsRenderpass(DynamicArray<RenderPassImageInfo> co
 
 		colorAttachments[i] = {};
 		colorAttachments[i].sType = VK_STRUCTURE_TYPE_RENDERING_ATTACHMENT_INFO_KHR;
-		colorAttachments[i].loadOp = VK_ATTACHMENT_LOAD_OP_CLEAR;
+		colorAttachments[i].loadOp = colorImages[i].clear ? VK_ATTACHMENT_LOAD_OP_CLEAR : VK_ATTACHMENT_LOAD_OP_LOAD;
 		colorAttachments[i].storeOp = VK_ATTACHMENT_STORE_OP_STORE;
 		colorAttachments[i].imageLayout = VK_IMAGE_LAYOUT_COLOR_ATTACHMENT_OPTIMAL;
 		colorAttachments[i].imageView = colorImages[i].targetImage->GetView(colorAttachmentConfig)->As<GpuImageViewVk>()->GetVkView();
@@ -394,7 +425,7 @@ void CommandListVk::BeginGraphicsRenderpass(DynamicArray<RenderPassImageInfo> co
 
 	VkRenderingAttachmentInfo depthAttachment{};
 	depthAttachment.sType = VK_STRUCTURE_TYPE_RENDERING_ATTACHMENT_INFO_KHR;
-	depthAttachment.loadOp = VK_ATTACHMENT_LOAD_OP_CLEAR;
+	depthAttachment.loadOp = depthImage.clear ? VK_ATTACHMENT_LOAD_OP_CLEAR : VK_ATTACHMENT_LOAD_OP_LOAD;
 	depthAttachment.storeOp = VK_ATTACHMENT_STORE_OP_STORE;
 	depthAttachment.imageLayout = FormatSupportsStencil(depthImage.targetImage->GetFormat()) 
 		? VK_IMAGE_LAYOUT_DEPTH_STENCIL_ATTACHMENT_OPTIMAL

@@ -51,6 +51,10 @@ namespace OSK::ECS {
 		glm::mat3 GetInverseInertiaTensor() const;
 
 
+		void SetInertiaTensor(const glm::mat3& tensor);
+		void SetInverseInertiaTensor(const glm::mat3& inverseTensor);
+
+
 		/// @return Velocidad (en espacio del mundo).
 		Vector3f GetVelocity() const;
 
@@ -103,7 +107,8 @@ namespace OSK::ECS {
 		/// en espacio local.
 		Vector3f centerOfMassOffset = Vector3f::Zero;
 
-		Vector3f localFrictionCoefficient = Vector3f(0.5f);
+		/// @brief Cantidad de fricción dinámica.
+		float frictionCoefficient = 0.5f;
 
 		/// @brief Coeficiente de resitución, que indica
 		/// la cantidad de rebote del objeto.

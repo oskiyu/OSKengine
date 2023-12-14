@@ -106,6 +106,10 @@
 #include "TreeNormalsPass.h"
 #include "TreeGBufferPass.h"
 
+#include "PreBuiltSpline3D.h"
+
+#include <thread>
+
 OSK::GRAPHICS::SpriteRenderer spriteRenderer;
 
 
@@ -1010,7 +1014,6 @@ private:
 			auto& physicsComponent = Engine::GetEcs()->AddComponent<PhysicsComponent>(carObject, {});
 			physicsComponent.SetMass(4.0f);
 			physicsComponent.centerOfMassOffset = Vector3f(0.0f, 0.17f * 0.5f, 0.0f);
-			physicsComponent.localFrictionCoefficient = Vector3f(0.0f, 0.5f, 1.0f);
 
 			// Setup de colisiones
 			CollisionComponent collider{};
@@ -1044,7 +1047,6 @@ private:
 			auto& physicsComponent = Engine::GetEcs()->AddComponent<PhysicsComponent>(carObject2, {});
 			physicsComponent.SetMass(4.0f);
 			physicsComponent.centerOfMassOffset = Vector3f(0.0f, 0.17f * 0.5f, 0.0f);
-			physicsComponent.localFrictionCoefficient = Vector3f(0.0f, 0.5f, 1.0f);
 
 			// Setup de colisiones
 			CollisionComponent collider{};
@@ -1144,6 +1146,10 @@ private:
 		PhysicsComponent treesPhysicsComponent{};
 		treesPhysicsComponent.SetImmovable();
 		Engine::GetEcs()->AddComponent<PhysicsComponent>(trees, std::move(treesPhysicsComponent));
+
+		// Spline test
+		auto spline = Engine::GetAssetManager()->Load<PreBuiltSpline3D>("Resources/Assets/Curves/circuit0.json");
+		auto& loadedSpline = spline->Get();
 	}
 
 	void SpawnSecondCollider() {

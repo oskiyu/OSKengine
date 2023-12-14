@@ -36,37 +36,41 @@ namespace OSK::COLLISION {
 		/// @param other Otra área de colisión de nivel alto.
 		/// @param thisOffset Posición de este collider.
 		/// @param otherOffset Posición del segundo collider.
-		virtual bool IsColliding(const ITopLevelCollider& other,
-			const Vector3f& thisOffset, const Vector3f& otherOffset) const = 0;
+		virtual bool IsColliding(const ITopLevelCollider& other) const = 0;
 
-		virtual bool ContainsPoint(const Vector3f& thisOffset, const Vector3f& point) const = 0;
+		virtual bool ContainsPoint(const Vector3f& point) const = 0;
 
 
 		/// @brief Comprueba si el collider está COMPLETMENTE por detrás del plano.
 		/// @param plane Plano a comprobar.
 		/// @return True si está completamente por detrás.
-		virtual bool IsBehindPlane(Plane plane, const Vector3f& thisOffset) const = 0;
+		virtual bool IsBehindPlane(Plane plane) const = 0;
 
 		/// @return True si el collider está dentro del frustum indicado.
-		bool IsInsideFrustum(const AnyFrustum& frustum, const Vector3f& thisOffset) const;
+		bool IsInsideFrustum(const AnyFrustum& frustum) const;
 
 
 		/// @brief Calcula la intersección entre un rayo y el collider.
 		/// @param ray Rayo.
 		/// @param position Posición de este collider.
 		/// @return Resultado de la intersección.
-		virtual RayCastResult CastRay(const Ray& ray, const Vector3f& position) const = 0;
+		virtual RayCastResult CastRay(const Ray& ray) const = 0;
+
+
+		void SetPosition(const Vector3f& position);
+		const Vector3f& GetPosition() const;
 
 	protected:
 
-		static bool AabbAabbCollision(const AxisAlignedBoundingBox& first, const AxisAlignedBoundingBox& other,
-			const Vector3f& thisOffset, const Vector3f& otherOffset);
+		static bool AabbAabbCollision(const AxisAlignedBoundingBox& first, const AxisAlignedBoundingBox& other);
 
-		static bool AabbSphereCollision(const AxisAlignedBoundingBox& first, const SphereCollider& other,
-			const Vector3f& thisOffset, const Vector3f& otherOffset);
+		static bool AabbSphereCollision(const AxisAlignedBoundingBox& first, const SphereCollider& other);
 
-		static bool SphereSphereCollision(const SphereCollider& first, const SphereCollider& other, 
-			const Vector3f& thisOffset, const Vector3f& otherOffset);
+		static bool SphereSphereCollision(const SphereCollider& first, const SphereCollider& other);
+
+	private:
+
+		Vector3f m_position = Vector3f::Zero;
 
 	};
 

@@ -40,7 +40,9 @@ void IRenderPass::SetupMaterialInstance(const Model3D& model, const Mesh3D& mesh
 
 	auto* mInstance = meshData.GetMaterialInstance();
 
-	const auto& textureTable = model.GetMetadata().meshesMetadata[mesh.GetMeshId()].textureTable;
+	const auto& meshMetadata = model.GetMetadata().meshesMetadata[mesh.GetMeshId()];
+
+	const auto& textureTable = meshMetadata.textureTable;
 	const auto* colorTexture = textureTable.contains(ModelMetadata::BaseColorTextureName)
 		? model.GetMetadata().textures[textureTable.find(ModelMetadata::BaseColorTextureName)->second]->GetView(view)
 		: defaultTextureView;
@@ -48,7 +50,10 @@ void IRenderPass::SetupMaterialInstance(const Model3D& model, const Mesh3D& mesh
 		? model.GetMetadata().textures[textureTable.find(ModelMetadata::NormalTextureName)->second]->GetView(view)
 		: defaultNormalTextureView;
 
+	const auto* materialBuffer = model.GetMetadata().materialInfos[meshMetadata.materialId].GetPointer();
+
 	mInstance->GetSlot("texture")->SetGpuImage("albedoTexture", colorTexture);
 	mInstance->GetSlot("texture")->SetGpuImage("normalTexture", normalTexture);
+	mInstance->GetSlot("texture")->SetUniformBuffer("materialInfo", *materialBuffer);
 	mInstance->GetSlot("texture")->FlushUpdate();
 }

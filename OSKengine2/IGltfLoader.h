@@ -7,8 +7,15 @@
 #include "Color.hpp"
 #include "Vertex.h"
 
-#define TINYGLTF_NO_STB_IMAGE_WRITE
-#include <tiny_gltf.h>
+#include "PbrMaterialInfo.h"
+
+namespace tinygltf {
+	class Model;
+	class Mesh;
+	class Primitive;
+	class Node;
+	struct Scene;
+}
 
 
 namespace OSK::GRAPHICS {
@@ -29,18 +36,10 @@ namespace OSK::ASSETS {
 		UIndex32 colorTextureIndex = 0;
 
 
-		/// @brief Factor metálico del material.
-		///Entre 0.0 y 1.0.
-		float metallicFactor = 0.0f;
-
 		/// @brief ID de la textura que describe la naturaleza
 		/// metálica del material.
 		UIndex32 metallicTextureIndex = 0;
 
-
-		/// @brief Factor de rugosidad del material.
-		/// Entre 0 y 1.
-		float roughnessFactor = 0.0f;
 
 		/// @brief ID de la textura que describe la rugosidad
 		/// del material.
@@ -63,6 +62,8 @@ namespace OSK::ASSETS {
 		/// @brief True si tiene textura.
 		bool hasNormalTexture = false;
 
+		GRAPHICS::PbrMaterialInfo materialInfo{};
+
 	};
 
 
@@ -81,7 +82,7 @@ namespace OSK::ASSETS {
 	/// 
 	/// Incluye métodos para importar información relevante del
 	/// modelo GLTF.
-	class IGltfLoader {
+	class OSKAPI_CALL IGltfLoader {
 
 	public:
 
@@ -97,7 +98,10 @@ namespace OSK::ASSETS {
 
 		/// @brief Carga una escena.
 		/// @param scene Escena a cargar.
-		virtual void LoadScene(const tinygltf::Scene& scene);
+		/// @param model Modelo propietario de la escena.
+		virtual void LoadScene(
+			const tinygltf::Scene& scene,
+			const tinygltf::Model& model);
 
 		/// @brief Configura el modelo 3D.
 		/// @param model Modelo a configurar.
@@ -124,7 +128,11 @@ namespace OSK::ASSETS {
 		/// @param node Nodo GLTF.
 		/// @param nodeId ID del nodo procesado.
 		/// @param parentId ID del nodo padre (TSize::max si no tiene padre).
-		virtual void ProcessNode(const tinygltf::Node& node, UIndex32 nodeId, UIndex32 parentId) = 0;
+		virtual void ProcessNode(
+			const tinygltf::Model& model,
+			const tinygltf::Node& node, 
+			UIndex32 nodeId, 
+			UIndex32 parentId) = 0;
 
 
 		/// @brief Comprueba si la primitiva GLTF dada contiene un atributo
@@ -188,7 +196,10 @@ namespace OSK::ASSETS {
 		/// @note Hay exactamente una posición por cada vértice de la primitiva.
 		/// @note Cada posición se asocia con cada vértice con el mismo índice dentro de la lista
 		/// (vertices[0].pos = GetVertexPositions()[0], etc.).
-		DynamicArray<Vector3f> GetVertexPositions(const tinygltf::Primitive& primitive, const glm::mat4& nodeMatrix) const;
+		DynamicArray<Vector3f> GetVertexPositions(
+			const tinygltf::Primitive& primitive, 
+			const glm::mat4& nodeMatrix,
+			const tinygltf::Model& model) const;
 		
 		/// @brief Obtiene las normales de todos los vértices de la primitiva.
 		/// @param primitive Primitiva GLTF.
@@ -201,7 +212,9 @@ namespace OSK::ASSETS {
 		/// @note Hay exactamente una normal por cada vértice de la primitiva.
 		/// @note Cada normal se asocia con cada vértice con el mismo índice dentro de la lista
 		/// (vertices[0].normal = GetVertexNormals()[0], etc.).
-		DynamicArray<Vector3f> GetVertexNormals(const tinygltf::Primitive& primitive) const;
+		DynamicArray<Vector3f> GetVertexNormals(
+			const tinygltf::Primitive& primitive,
+			const tinygltf::Model& model) const;
 
 		/// @brief Obtiene las coordenadas de texturas de todos los vértices de la primitiva.
 		/// @param primitive Primitiva GLTF.
@@ -214,7 +227,9 @@ namespace OSK::ASSETS {
 		/// @note Hay exactamente una coordenada por cada vértice de la primitiva.
 		/// @note Cada normal se asocia con cada vértice con el mismo índice dentro de la lista
 		/// (vertices[0].texCoords = GetTextureCoords()[0], etc.).
-		DynamicArray<Vector2f> GetTextureCoords(const tinygltf::Primitive& primitive) const;
+		DynamicArray<Vector2f> GetTextureCoords(
+			const tinygltf::Primitive& primitive,
+			const tinygltf::Model& model) const;
 
 		/// @brief Obtiene los colores de todos los vértices de la primitiva, si tienen.
 		/// @param primitive Primitiva GLTF.
@@ -224,7 +239,9 @@ namespace OSK::ASSETS {
 		/// @note Si la lista no está vacía, hay exactamente un color por cada vértice de la primitiva.
 		/// @note Si la lista no está vacía, cada color se asocia con cada vértice con el mismo índice dentro de la lista
 		/// (vertices[0].color = GetVertexColors()[0], etc.).
-		DynamicArray<Color> GetVertexColors(const tinygltf::Primitive& primitive) const;
+		DynamicArray<Color> GetVertexColors(
+			const tinygltf::Primitive& primitive,
+			const tinygltf::Model& model) const;
 
 		/// @brief Obtiene los joints de animación esqueletal de todos los vértices de la primitiva, si tienen.
 		/// @param primitive Primitiva GLTF.
@@ -234,7 +251,9 @@ namespace OSK::ASSETS {
 		/// @note Si la lista no está vacía, hay exactamente un joint (Vector4f) por cada vértice de la primitiva.
 		/// @note Si la lista no está vacía, cada joint se asocia con cada vértice con el mismo índice dentro de la lista
 		/// (vertices[0].joints = GetJoints()[0], etc.).
-		DynamicArray<Vector4f> GetJoints(const tinygltf::Primitive& primitive) const;
+		DynamicArray<Vector4f> GetJoints(
+			const tinygltf::Primitive& primitive,
+			const tinygltf::Model& model) const;
 
 		/// @brief Obtiene los pesos de animación esqueletal de todos los vértices de la primitiva, si tienen.
 		/// @param primitive Primitiva GLTF.
@@ -244,20 +263,25 @@ namespace OSK::ASSETS {
 		/// @note Si la lista no está vacía, hay exactamente un peso (Vector4f) por cada vértice de la primitiva.
 		/// @note Si la lista no está vacía, cada peso se asocia con cada vértice con el mismo índice dentro de la lista
 		/// (vertices[0].weights = GetJoints()[0], etc.).
-		DynamicArray<Vector4f> GetBoneWeights(const tinygltf::Primitive& primitive) const;
+		DynamicArray<Vector4f> GetBoneWeights(
+			const tinygltf::Primitive& primitive,
+			const tinygltf::Model& model) const;
 
 		/// @param primitive Mesh.
 		/// @param startOffset Índice del primer índice.
 		/// @return Lista con los índices de @p primitive.
 		DynamicArray<GRAPHICS::TIndexSize> GetIndices(
 			const tinygltf::Primitive& primitive, 
-			GRAPHICS::TIndexSize startOffset) const;
+			GRAPHICS::TIndexSize startOffset,
+			const tinygltf::Model& model) const;
 
 		/// @param primitive Mesh.
 		/// @return Vectores tangentes de los vértices del mesh.
 		/// @pre El mesh debe tener vectores tangentes preprocesados.
 		/// @throws NoVertexTangentsFoundException si no se cumple la precondición.
-		DynamicArray<Vector3f> GetTangentVectors(const tinygltf::Primitive& primitive) const;
+		DynamicArray<Vector3f> GetTangentVectors(
+			const tinygltf::Primitive& primitive,
+			const tinygltf::Model& model) const;
 
 		/// @brief Genera vectores tangentes para los vértices indicados.
 		/// @param texCoords Coordenadas de texturas UV de los vértices.
@@ -281,10 +305,10 @@ namespace OSK::ASSETS {
 
 
 		/// @return Todas las texturas usadas en el modelo 3D.
-		DynamicArray<OwnedPtr<GRAPHICS::GpuImage>> LoadImages();
+		DynamicArray<OwnedPtr<GRAPHICS::GpuImage>> LoadImages(const tinygltf::Model& model);
 
 		/// @return Todas los materiales usados en el modelo 3D.
-		DynamicArray<GltfMaterialInfo> LoadMaterials();
+		DynamicArray<GltfMaterialInfo> LoadMaterials(const tinygltf::Model& model);
 
 
 		DynamicArray<GRAPHICS::TIndexSize> m_indices;
@@ -295,7 +319,7 @@ namespace OSK::ASSETS {
 		float m_globalScale = 1.0f;
 		glm::mat4 m_modelTransform = glm::mat4(1.0f);
 
-		tinygltf::Model m_gltfModel{};
+		DynamicArray<UniquePtr<GRAPHICS::GpuImage>> m_lastLoadImages;
 
 		GltfModelInfo m_modelInfo{};
 

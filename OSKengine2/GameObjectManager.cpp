@@ -12,13 +12,15 @@ using namespace OSK;
 using namespace OSK::ECS;
 
 GameObjectIndex GameObjectManager::CreateGameObject() {
-	if (!freeObjectIndices.IsEmpty())
-		return freeObjectIndices.Pop();
+	if (!m_freeObjectIndices.IsEmpty()) {
+		m_signatures[m_freeObjectIndices.Peek()] = {};
+		return m_freeObjectIndices.Pop();
+	}
 
-	GameObjectIndex output = nextIndex;
-	signatures.Insert({});
+	GameObjectIndex output = m_nextIndex;
+	m_signatures[output] = {};
 
-	nextIndex++;
+	m_nextIndex++;
 
 	Engine::GetLogger()->InfoLog(std::format("New object: {}", output));
 
@@ -27,10 +29,10 @@ GameObjectIndex GameObjectManager::CreateGameObject() {
 
 void GameObjectManager::DestroyGameObject(GameObjectIndex* obj) {
 	OSK_ASSERT(*obj > 0, InvalidObjectException(*obj));
-	OSK_ASSERT(*obj < signatures.GetSize(), InvalidObjectException(*obj));
+	OSK_ASSERT(m_signatures.contains(*obj), InvalidObjectException(*obj));
 
-	signatures[(*obj) - 1].Reset();
-	freeObjectIndices.Push(*obj);
+	m_signatures.erase(*obj);
+	m_freeObjectIndices.Push(*obj);
 
 	Engine::GetLogger()->InfoLog(std::format("Destroyed object: {}", *obj));
 
@@ -39,21 +41,23 @@ void GameObjectManager::DestroyGameObject(GameObjectIndex* obj) {
 
 void GameObjectManager::SetSignature(GameObjectIndex obj, const Signature& signature) {
 	OSK_ASSERT(obj > 0, InvalidObjectException(obj));
-	OSK_ASSERT(obj < signatures.GetSize() + 1, InvalidObjectException(obj));
-	signatures[obj - 1] = signature;
+	OSK_ASSERT(m_signatures.contains(obj), InvalidObjectException(obj));
+
+	m_signatures[obj] = signature;
 }
 
 Signature GameObjectManager::GetSignature(GameObjectIndex obj) const {
 	OSK_ASSERT(obj > 0, InvalidObjectException(obj));
-	OSK_ASSERT(obj < signatures.GetSize() + 1, InvalidObjectException(obj));
-	return signatures[obj - 1];
+	OSK_ASSERT(m_signatures.contains(obj), InvalidObjectException(obj));
+
+	return m_signatures.at(obj);
 }
 
 bool GameObjectManager::IsGameObjectAlive(GameObjectIndex obj) const {
-	if (obj >= nextIndex)
+	if (obj >= m_nextIndex)
 		return true;
 
-	if (freeObjectIndices.ContainsElement(obj))
+	if (m_freeObjectIndices.ContainsElement(obj))
 		return true;
 
 	return false;

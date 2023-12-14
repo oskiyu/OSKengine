@@ -32,7 +32,7 @@ namespace OSK::ASSETS {
 		OSK_ASSET_TYPE_REG("OSK::SpecularMap");
 
 		OSK_DEFAULT_LOADER_IMPL(SpecularMap);
-		AssetOwningRef<SpecularMap> Load(const std::string& assetFilePath) override;
+		void Load(const std::string& assetFilePath, SpecularMap* asset) override;
 
 	private:
 

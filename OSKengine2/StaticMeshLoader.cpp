@@ -15,24 +15,28 @@
 #include <glm/ext/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
 
+#define TINYGLTF_NO_STB_IMAGE_WRITE
+#include <tiny_gltf.h>
+
+
 using namespace OSK;
 using namespace OSK::ASSETS;
 using namespace OSK::GRAPHICS;
 
 
-void StaticMeshLoader::ProcessNode(const tinygltf::Node& node, UIndex32 nodeId, UIndex32 parentId) {
+void StaticMeshLoader::ProcessNode(const tinygltf::Model& model, const tinygltf::Node& node, UIndex32 nodeId, UIndex32 parentId) {
 	const glm::mat4 nodeMatrix = m_modelTransform * GetNodeMatrix(node);
 	const glm::mat3 normalMatrix = glm::transpose(glm::inverse(glm::mat3(nodeMatrix)));
 
 	if (node.mesh <= -1) {
 		for (UIndex32 i = 0; i < node.children.size(); i++)
-			ProcessNode(m_gltfModel.nodes[node.children[i]], node.children[i], parentId);
+			ProcessNode(model, model.nodes[node.children[i]], node.children[i], parentId);
 
 		return;
 	}
 
 	// Proceso del polígono.
-	const tinygltf::Mesh& mesh = m_gltfModel.meshes[node.mesh];
+	const tinygltf::Mesh& mesh = model.meshes[node.mesh];
 
 	for (UIndex32 i = 0; i < mesh.primitives.size(); i++) {
 		const tinygltf::Primitive& primitive = mesh.primitives[i];
@@ -45,16 +49,16 @@ void StaticMeshLoader::ProcessNode(const tinygltf::Node& node, UIndex32 nodeId, 
 		const UIndex64 firstVertexId = vertices.GetSize();
 		const UIndex64 firstIndexId = m_indices.GetSize();
 
-		const auto primitiveIndices = GetIndices(primitive, firstVertexId);
+		const auto primitiveIndices = GetIndices(primitive, firstVertexId, model);
 
-		const auto positions = GetVertexPositions(primitive, nodeMatrix);
-		const auto normals = GetVertexNormals(primitive);
-		const auto texCoords = GetTextureCoords(primitive);
-		const auto colors = GetVertexColors(primitive);
+		const auto positions = GetVertexPositions(primitive, nodeMatrix, model);
+		const auto normals = GetVertexNormals(primitive, model);
+		const auto texCoords = GetTextureCoords(primitive, model);
+		const auto colors = GetVertexColors(primitive, model);
 
 
 		const auto tangents = HasTangets(primitive)
-			? GetTangentVectors(primitive)
+			? GetTangentVectors(primitive, model)
 			: GenerateTangetVectors(texCoords, positions, primitiveIndices, firstVertexId);
 
 		const auto numVertices = positions.GetSize();
@@ -110,7 +114,7 @@ void StaticMeshLoader::ProcessNode(const tinygltf::Node& node, UIndex32 nodeId, 
 	}
 
 	for (UIndex32 i = 0; i < node.children.size(); i++)
-		ProcessNode(m_gltfModel.nodes[node.children[i]], node.children[i], parentId);
+		ProcessNode(model, model.nodes[node.children[i]], node.children[i], parentId);
 }
 
 void StaticMeshLoader::SetupModel(Model3D* model) {

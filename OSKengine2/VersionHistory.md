@@ -1232,3 +1232,157 @@ con varios colliders.
 
 - ***Nuevo***: `CollisionComponent`
     - Separa la funcionalidad de componente de la clase `Collider`.
+
+ 
+## 2023.11.15a
+
+### Graphics
+
+- `DeferredRenderSystem`
+    - Ahora permite acceder a y actualizar la luz direccional.
+
+###### Añadidos materiales emisores. Añadidos buffers para las características de los materiales.
+
+- `GBuffer`
+    - ***Nuevo***: render target `EMISSIVE`.
+        - Para los materiales emisivos.
+        - Formato: `RGBA8_UNORM`.
+
+- `DeferredPushConstants`
+    - Ya no contiene:
+        - Índice de rugosidad.
+        - Índice de metalicidad.
+
+- ***Nuevo***: `PbrMaterialInfo`
+    - Contiene:
+        - Índice de rugosidad.
+        - Índice de metalicidad.
+        - Color emisivo.
+        
+- `MeshMetadata`
+    - Ya no contiene:
+        - Índice de rugosidad.
+        - Índice de metalicidad.
+
+- `ModelMetadata`
+    - Ahora contiene buffers con la información de `PbrMaterialInfo`.
+
+- `PerMeshData`
+    - Su material instance ahora contiene los buffers del material.
+ 
+### Assets
+
+###### Añadidos materiales emisores.
+
+- `IGltfLoader`, `StaticMeshLoader`, `AnimMeshLoader`
+    - Ahora cargan el color emisor de los materiales.
+    
+##### Bugfixes
+
+- **Bugfix**: `UiContainer` ahora tiene getters de hijos que respetan const-correctnes (eliminando UB).
+- **Bugfix**: `UiVerticalContainer` ahora no desplaza los elementos hijos de manera horizontal.
+
+ 
+## 2023.11.18a
+
+### Graphics
+
+- ***Nuevo***: `PbrIblConfig`
+    - Configuración de las intensidades de los mapas IBL en el renderizado.
+
+- `DeferredRenderSystem`
+    - Ahora permite actualizar los mapas especular y de irradiancia.
+    - Ahora almacena `PbrIblConfig`.
+   
+- `ShadowMap`
+    - Vuelve a usar 4 niveles.
+
+### ECS
+ 
+- `Transform3D`
+    - Permite configurar si un transform hereda la posición de su padre.
+    - Permite configurar si un transform hereda la rotación de su padre.
+    - Permite configurar si un transform hereda la escala de su padre.
+
+### Types
+
+- ***Nuevo***: `Vector3f::One`
+
+##### Bugfixes
+
+- **Bugfix**: `GameObjectManager` ahora detecta correctamente si un objeto ha sido registrado.
+
+ 
+## 2023.11.27a
+
+### Graphics
+
+- `ShadowMap`
+    - Vuelve a tener 4 niveles.
+    - Ahora permite establecer los splits.
+
+##### Bugfixes
+
+- **Bugfix**: ahora `GpuImageAddressMode::BACKGROUND_WHITE` funciona correctamente en la implementación de Vulkan.
+- **Bugfix**: ahora `GpuImageAddressMode::BACKGROUND_BLACK` funciona correctamente en la implementación de Vulkan.
+- **Bugfix**: los shaders ahora calculan correctamente las coordenadas del mapa de sombras.
+- **Bugfix**: los shaders ahora no muestran sombars fuera de los límites del `ShadowMap`.
+- **Bugfix**: `PbrIblConfig` ahora tiene el alineamiento correcto.
+
+ 
+## 2023.12.07a
+
+### Types
+
+- ***Nuevo***: `Spline3D`
+    - Representa un segmento o conjunto de segmentos.
+    - Definido por puntos 3D.
+
+### Assets
+
+- ***Nuevo***: `PreBuiltSpline3D`
+    - Representa un `Spline3D` definido en un archivo externo.
+
+- ***Nuevo***: `PreBuiltSplineLoader3D`
+    - Carga un `PreBuiltSpline3D` a partir de un archivo `.gltf`.
+
+### ECS
+
+- `PhysicsComponent`, `PhysicsResolver`
+   - Ahora permite establecer la cantidad de fricción.
+
+##### Bugfixes
+
+- **Compile time**: ahora `IGltfLoader` no incluye archivos de Windows que incluyen definiciones.
+
+ 
+## 2023.12.11a
+
+### ECS
+
+- `CollisionSystem`
+    - Permite lanzar un rayo a la escena, pudiendo establecer el objeto lanzador para ignorarlo.
+ 
+- `AxisAlignedBoundingBox`
+    - Implementada intersección con rayos.
+    
+- `ConvexVolume`
+    - Implementada intersección con rayos.
+
+- `PhysicsComponent`
+    - Permite establecer el tensor de inercia.
+    
+TODO:
+
+fix culling static meshes
+
+## 2023.12.12a
+
+### Graphics
+
+- `RenderPassImageInfo`, `ICommandList`
+    - Permite comenzar un pase de renderizado sin limpiar las imágenes de color o profundidad.
+    
+##### Bugfixes
+
+- **Bugfix**: `PreBuiltSplineLoader3D` carga correctamente los vértices del spline en el orden correcto.

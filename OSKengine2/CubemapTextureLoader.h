@@ -13,7 +13,7 @@ namespace OSK::ASSETS {
 		OSK_ASSET_TYPE_REG("OSK::CubemapTexture");
 
 		OSK_DEFAULT_LOADER_IMPL(CubemapTexture);
-		AssetOwningRef<CubemapTexture> Load(const std::string& assetFilePath) override;
+		void Load(const std::string& assetFilePath, CubemapTexture* asset) override;
 
 	};
 

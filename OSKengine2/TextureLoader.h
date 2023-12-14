@@ -12,7 +12,7 @@ namespace OSK::ASSETS {
 		OSK_ASSET_TYPE_REG("OSK::Texture");
 
 		OSK_DEFAULT_LOADER_IMPL(Texture);
-		AssetOwningRef<Texture> Load(const std::string& assetFilePath) override;
+		void Load(const std::string& assetFilePath, Texture* asset) override;
 
 	};
 

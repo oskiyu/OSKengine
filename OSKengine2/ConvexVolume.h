@@ -104,6 +104,8 @@ namespace OSK::COLLISION {
 		/// por el proceso de optimización.
 		Axis GetWorldSpaceAxis(UIndex32 faceId) const;
 
+		RayCastResult CastRay(const Ray& ray) const override;
+
 	private:
 
 		UIndex32 GetMostParallelFaceIndex(

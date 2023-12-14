@@ -109,9 +109,9 @@ void GpuImageVk::CreateVkSampler(const GpuImageSamplerDesc& samplerDesc) {
 	samplerInfo.anisotropyEnable = VK_TRUE;
 	samplerInfo.maxAnisotropy = 16.0f;
 
-	samplerInfo.borderColor = VK_BORDER_COLOR_INT_OPAQUE_BLACK;
+	samplerInfo.borderColor = VK_BORDER_COLOR_FLOAT_OPAQUE_BLACK;
 	if (samplerDesc.addressMode == GpuImageAddressMode::BACKGROUND_WHITE)
-		samplerInfo.borderColor = VK_BORDER_COLOR_INT_OPAQUE_WHITE;
+		samplerInfo.borderColor = VK_BORDER_COLOR_FLOAT_OPAQUE_WHITE;
 
 	samplerInfo.unnormalizedCoordinates = VK_FALSE;
 

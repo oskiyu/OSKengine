@@ -16,6 +16,7 @@ layout (location = 0) out vec4 outColor;
 layout (location = 1) out vec4 outNormal;
 layout (location = 2) out vec2 outMetallicRoughness;
 layout (location = 3) out vec2 outVelocity;
+layout (location = 4) out vec4 outEmissive;
 
 layout (set = 1, binding = 0) uniform sampler2D albedoTexture;
 layout (set = 1, binding = 1) uniform sampler2D normalTexture;
@@ -28,11 +29,14 @@ layout (set = 0, binding = 0) uniform Camera {
     vec3 cameraPos;
 } camera;
 
+layout (set = 1, binding = 2) uniform MaterialInfo{
+    vec4 emissiveColor;
+    vec2 roughnessMetallic;
+} materialInfo;
+
 layout (push_constant) uniform Model {
     mat4 modelMatrix;
     mat4 previousModelMatrix;
-    // Metallic Roughness
-    vec4 infos;
 } model;
 
 // x = r
@@ -69,5 +73,10 @@ void main() {
 
     // Info packaging: (x.xxx) . (y.yyy)
     outNormal = vec4(normal * 0.5 + 0.5, 1.0);
-    outMetallicRoughness = vec2(model.infos.x, model.infos.y);
+
+    outMetallicRoughness = vec2(
+        materialInfo.roughnessMetallic.y, 
+        materialInfo.roughnessMetallic.x);
+
+    outEmissive = materialInfo.emissiveColor;
 }

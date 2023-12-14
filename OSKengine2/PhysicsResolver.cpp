@@ -125,13 +125,15 @@ void PhysicsResolver::OnTick(TDeltaTime deltaTime) {
 			+ glm::abs(transformB.GetRightVector().ToGLM())   * physicsB.localFrictionCoefficient.Z; */
 #endif
 
+		const float frictionCoefficient = (physicsA.frictionCoefficient + physicsB.frictionCoefficient) * 0.5f;
+
 		const Vector3f movementAlongNormalA = 
 			(physicsA.GetVelocity() - contactNormal * physicsA.GetVelocity().Dot(contactNormal));
 		const Vector3f movementAlongNormalB = 
 			(physicsB.GetVelocity() - contactNormal * physicsB.GetVelocity().Dot(contactNormal));
 
-		physicsA.ApplyImpulse(-movementAlongNormalA * deltaTime, contactPointA);
-		physicsB.ApplyImpulse(-movementAlongNormalB * deltaTime, contactPointB);
+		physicsA.ApplyImpulse(-movementAlongNormalA * deltaTime * frictionCoefficient, contactPointA);
+		physicsB.ApplyImpulse(-movementAlongNormalB * deltaTime * frictionCoefficient, contactPointB);
 
 		continue;
 

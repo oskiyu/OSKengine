@@ -8,17 +8,15 @@
 using namespace OSK;
 using namespace OSK::ASSETS;
 
-AssetOwningRef<AudioAsset> AudioLoader::Load(const std::string& assetFilePath) {
-	AssetOwningRef<AudioAsset> output(assetFilePath);
-
+void AudioLoader::Load(const std::string& assetFilePath, AudioAsset* asset) {
 	// Asset file.
 	const nlohmann::json assetInfo = ValidateDescriptionFile(assetFilePath);
 
 	std::string_view rawPath = assetInfo["raw_asset_path"];
-	output->SetName(assetInfo["name"]);
+	asset->SetName(assetInfo["name"]);
 
 	// Audio
-	auto& buffer = output->GetBuffer();
+	auto& buffer = asset->GetBuffer();
 
 	buffer.Init();
 
@@ -76,6 +74,4 @@ AssetOwningRef<AudioAsset> AudioLoader::Load(const std::string& assetFilePath) {
 	data = NULL;
 
 	file.close();
-
-	return output;
 }

@@ -53,7 +53,8 @@ namespace OSK::UI {
 		/// @param name Nombre del elemento hijo.
 		/// @return Puntero al elemento indicado.
 		/// @pre Debe haberse introducido un elemento con el nombre dado.
-		IElement* GetChild(const std::string_view name) const;
+		IElement* GetChild(const std::string_view name);
+		const IElement* GetChild(const std::string_view name) const;
 
 	protected:
 

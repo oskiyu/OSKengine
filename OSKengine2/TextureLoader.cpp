@@ -27,14 +27,12 @@ bool HasRgbFormat(OSK::GRAPHICS::RenderApiType api) {
 	return false;
 }
 
-AssetOwningRef<Texture> TextureLoader::Load(const std::string& assetFilePath) {
-	AssetOwningRef<Texture> output(assetFilePath);
-
+void TextureLoader::Load(const std::string& assetFilePath, Texture* asset) {
 	// Asset file.
 	const nlohmann::json assetInfo = ValidateDescriptionFile(assetFilePath);
 
 	std::string texturePath = assetInfo["raw_asset_path"];
-	output->SetName(assetInfo["name"]);
+	asset->SetName(assetInfo["name"]);
 
 	// Texture.
 
@@ -49,8 +47,8 @@ AssetOwningRef<Texture> TextureLoader::Load(const std::string& assetFilePath) {
 
 	stbi_uc* pixels = stbi_load(texturePath.c_str(), &width, &height, nullptr, numChannels);
 
-	output->_SetSize(Vector2ui(width, height));
-	output->_SetNumberOfChannels(numChannels);
+	asset->_SetSize(Vector2ui(width, height));
+	asset->_SetNumberOfChannels(numChannels);
 
 	const GRAPHICS::Format imageFormat = assetInfo.contains("is_hdr") && assetInfo["is_hdr"] == "true"
 		? GRAPHICS::Format::RGBA32_SFLOAT
@@ -86,7 +84,5 @@ AssetOwningRef<Texture> TextureLoader::Load(const std::string& assetFilePath) {
 
 	stbi_image_free(pixels);
 
-	output->_SetImage(image);
-
-	return output;
+	asset->_SetImage(image);
 }

@@ -12,7 +12,7 @@ namespace OSK::ASSETS {
 		OSK_ASSET_TYPE_REG("OSK::Font");
 
 		OSK_DEFAULT_LOADER_IMPL(Font);
-		AssetOwningRef<Font> Load(const std::string& assetFilePath) override;
+		void Load(const std::string& assetFilePath, Font* asset) override;
 
 	};
 

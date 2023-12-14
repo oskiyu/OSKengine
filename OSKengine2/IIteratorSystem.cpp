@@ -32,6 +32,10 @@ void IIteratorSystem::_SetSignature(const Signature& signature) {
 	this->signature = signature;
 }
 
-const DynamicArray<GameObjectIndex>& IIteratorSystem::GetObjects() {
+DynamicArray<GameObjectIndex>& IIteratorSystem::GetObjects() {
+	return processedObjects;
+}
+
+const DynamicArray<GameObjectIndex>& IIteratorSystem::GetObjects() const {
 	return processedObjects;
 }

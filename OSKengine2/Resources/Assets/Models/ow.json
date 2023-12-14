@@ -11,7 +11,5 @@
     "load_materials": false,
     "rotation_offset": [0, 0, 0],
 
-    "animated": true,
-
     "renderpass_type": "static_pass"
 }

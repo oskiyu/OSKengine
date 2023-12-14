@@ -45,6 +45,16 @@ glm::mat3 PhysicsComponent::GetInverseInertiaTensor() const {
 	return inverseInertiaTensor;
 }
 
+void PhysicsComponent::SetInertiaTensor(const glm::mat3& tensor) {
+	inertiaTensor = tensor;
+	inverseInertiaTensor = glm::inverse(tensor);
+}
+
+void PhysicsComponent::SetInverseInertiaTensor(const glm::mat3& inverseTensor) {
+	inertiaTensor = glm::inverse(inverseTensor);
+	inverseInertiaTensor = inverseTensor;
+}
+
 Vector3f PhysicsComponent::GetVelocity() const {
 	return velocity;
 }
@@ -82,7 +92,7 @@ void PhysicsComponent::ApplyImpulse(const Vector3f& impulse, const Vector3f& loc
 	Vector3f torque = GetTorque(localSpacePoint, impulse);
 
 	_SetVelocity(velocity + impulse * GetInverseMass());
-	_SetAngularVelocity(angularVelocity + Vector3f(torque.ToGlm() * inverseInertiaTensor));
+	_SetAngularVelocity(angularVelocity + Vector3f(torque.ToGlm() * inverseInertiaTensor)); // * GetInverseMass(): no
 }
 
 Vector3f PhysicsComponent::GetTorque(const Vector3f& localSpacePoint, const Vector3f& force) {

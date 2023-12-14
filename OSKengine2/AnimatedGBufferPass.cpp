@@ -53,10 +53,7 @@ void AnimatedGBufferPass::RenderLoop(ICommandList* commandList, const DynamicArr
 
 		for (UIndex32 i = 0; i < model.GetModel()->GetMeshes().GetSize(); i++) {
 			const auto& mesh = model.GetModel()->GetMeshes()[i];
-			const auto& sphere = mesh.GetBounds();
-			const Vector3f spherePosition = Math::TransformPoint(mesh.GetSphereCenter(), transform.GetAsMatrix());
-
-			const bool isInsideFrustum = sphere.IsInsideFrustum(frustum, spherePosition);
+			const bool isInsideFrustum = mesh.GetBounds().IsInsideFrustum(frustum);
 
 			if (!isInsideFrustum)
 				continue;
@@ -73,17 +70,10 @@ void AnimatedGBufferPass::RenderLoop(ICommandList* commandList, const DynamicArr
 
 			commandList->BindMaterialSlot(*model.GetModel()->GetAnimator()->GetMaterialInstance()->GetSlot("animation"));
 
-			const Vector4f materialInfo{
-				model.GetModel()->GetMetadata().meshesMetadata[i].metallicFactor,
-				model.GetModel()->GetMetadata().meshesMetadata[i].roughnessFactor,
-				(float)jitterIndex,
-				0.0f
-			};
-
 			modelPushConstants.model = transform.GetAsMatrix();
 			modelPushConstants.previousModel = m_previousModelMatrices.contains(obj) ? m_previousModelMatrices.at(obj) : glm::mat4(1.0f);
-			modelPushConstants.materialInfo = materialInfo;
 			modelPushConstants.resolution = resolution.ToVector2f();
+			modelPushConstants.jitterIndex = (float)jitterIndex;
 
 			commandList->PushMaterialConstants("model", modelPushConstants);
 

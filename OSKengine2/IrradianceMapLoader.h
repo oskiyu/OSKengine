@@ -33,7 +33,7 @@ namespace OSK::ASSETS {
 		OSK_ASSET_TYPE_REG("OSK::IrradianceMap");
 
 		OSK_DEFAULT_LOADER_IMPL(IrradianceMap);
-		AssetOwningRef<IrradianceMap> Load(const std::string& assetFilePath) override;
+		void Load(const std::string& assetFilePath, IrradianceMap* asset) override;
 
 	private:
 

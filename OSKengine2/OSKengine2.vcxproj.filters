@@ -1230,6 +1230,21 @@
     <ClCompile Include="CollisionComponent.cpp">
       <Filter>Archivos de origen\BuiltIn\ECS\Components</Filter>
     </ClCompile>
+    <ClCompile Include="PbrIblConfig.h">
+      <Filter>Archivos de encabezado\Core\Graphics\HighLevel\PBR</Filter>
+    </ClCompile>
+    <ClCompile Include="Spline3D.cpp">
+      <Filter>Archivos de origen\Core\Types</Filter>
+    </ClCompile>
+    <ClCompile Include="PreBuiltSpline3D.cpp">
+      <Filter>Archivos de origen\BuiltIn\Assets\Assets</Filter>
+    </ClCompile>
+    <ClCompile Include="PreBuiltSplineLoader3D.cpp">
+      <Filter>Archivos de origen\BuiltIn\Assets\Loaders</Filter>
+    </ClCompile>
+    <ClCompile Include="Ray.cpp">
+      <Filter>Archivos de origen\Core\Collision\RayCast</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="KeyboardState.h">
@@ -2212,6 +2227,18 @@
     </ClInclude>
     <ClInclude Include="CollisionComponent.h">
       <Filter>Archivos de encabezado\BuiltIn\ECS\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="PbrMaterialInfo.h">
+      <Filter>Archivos de encabezado\Core\Graphics\HighLevel\PBR</Filter>
+    </ClInclude>
+    <ClInclude Include="Spline3D.h">
+      <Filter>Archivos de encabezado\Core\Types</Filter>
+    </ClInclude>
+    <ClInclude Include="PreBuiltSpline3D.h">
+      <Filter>Archivos de encabezado\BuiltIn\Assets\Assets</Filter>
+    </ClInclude>
+    <ClInclude Include="PreBuiltSplineLoader3D.h">
+      <Filter>Archivos de encabezado\BuiltIn\Assets\Loaders</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

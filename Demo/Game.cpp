@@ -369,7 +369,7 @@ void Game::SetupUi() {
 		&assetsManager->Load<OSK::ASSETS::Texture>("Resources/Assets/Textures/button_texture.json", "GLOBAL")
 		->GetTextureView2D();
 	const OSK::GRAPHICS::IGpuImageView* iconView = 
-		&assetsManager->Load<OSK::ASSETS::Texture>("Resources/Assets/Textures/engine_icon.json", "GLOBAL")
+	const OSK::GRAPHICS::IGpuImageView* uiView = &buttonTexture->GetTextureView2D();
 		->GetTextureView2D();
 
 	const OSK::Vector2f buttonSize = OSK::Vector2f(180.0f, 50.0f);

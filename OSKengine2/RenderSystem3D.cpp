@@ -369,8 +369,8 @@ void RenderSystem3D::SceneRenderLoop(ModelType modelType, ICommandList* commandL
 			const auto& mesh = model.GetModel()->GetMeshes()[meshIndex];
 			const auto& meshMetadata = model.GetModel()->GetMetadata().meshesMetadata[meshIndex];
 
-			pushConsts.materialInfos.x = meshMetadata.metallicFactor;
-			pushConsts.materialInfos.y = meshMetadata.roughnessFactor;
+			// pushConsts.materialInfos.x = meshMetadata.metallicFactor;
+			// pushConsts.materialInfos.y = meshMetadata.roughnessFactor;
 			pushConsts.materialInfos.z = (float)m_taaProvider.GetCurrentFrameJitterIndex();
 
 			commandList->PushMaterialConstants("pushConstants", pushConsts);

@@ -85,16 +85,16 @@ void main() {
     }
 
     const int N = 3 * 3;
-    const vec3 mu = colorMoment1 / N;
-    const vec3 signma = sqrt(colorMoment2 / N - mu * mu);
+    const vec3 media = colorMoment1 / N;
+    const vec3 desviacionTipica = sqrt(colorMoment2 / N - media * media);
     
     const float maxColorDiscardStrength = 0.75;
 
     const float pixelsMotionLength = length(normalizedMotion * ndcInverseRatio);
     const float colorDiscardStrength = clamp(1.0 - pow(pixelsMotionLength - 3.0, 3.0), 0.25, 0.75);
 
-    vec3 colorDiscardMin = mu - colorDiscardStrength * signma;
-    vec3 colorDiscardMax = mu + colorDiscardStrength * signma;
+    vec3 colorDiscardMin = media - colorDiscardStrength * desviacionTipica;
+    vec3 colorDiscardMax = media + colorDiscardStrength * desviacionTipica;
 
     colorDiscardMin = clamp(colorDiscardMin, boxMin, boxMax);
     colorDiscardMax = clamp(colorDiscardMax, boxMin, boxMax);

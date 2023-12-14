@@ -13,7 +13,7 @@ namespace OSK::ASSETS {
 		OSK_ASSET_TYPE_REG("OSK::AudioAsset");
 
 		OSK_DEFAULT_LOADER_IMPL(AudioAsset);
-		AssetOwningRef<AudioAsset> Load(const std::string& assetFilePath) override;
+		void Load(const std::string& assetFilePath, AudioAsset* asset) override;
 
 	};
 

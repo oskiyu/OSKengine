@@ -57,14 +57,13 @@ IrradianceMapLoader::IrradianceMapLoader() {
 
 	cubemapModel = Engine::GetAssetManager()->Load<ASSETS::Model3D>("Resources/Assets/Models/cube.json");
 }
-AssetOwningRef<IrradianceMap> IrradianceMapLoader::Load(const std::string& assetFilePath) {
-	AssetOwningRef<IrradianceMap> output(assetFilePath);
 
+void IrradianceMapLoader::Load(const std::string& assetFilePath, IrradianceMap* asset) {
 	// Asset file.
 	const nlohmann::json assetInfo = ValidateDescriptionFile(assetFilePath);
 
 	std::string texturePath = assetInfo["raw_asset_path"];
-	output->SetName(assetInfo["name"]);
+	asset->SetName(assetInfo["name"]);
 
 	// Original texture
 	int width = 0;
@@ -142,12 +141,10 @@ AssetOwningRef<IrradianceMap> IrradianceMapLoader::Load(const std::string& asset
 	cmdList->Close();
 	Engine::GetRenderer()->SubmitSingleUseCommandList(cmdList);
 
-	output->_SetGpuImage(finalImage);
-	output->_SetOriginalCubemap(intermediateCubemap);
+	asset->_SetGpuImage(finalImage);
+	asset->_SetOriginalCubemap(intermediateCubemap);
 
 	stbi_image_free(pixels);
-
-	return output;
 }
 
 void IrradianceMapLoader::DrawCubemap(GpuImage* targetCubemap, ICommandList* cmdList, Material* material, IMaterialSlot* materialSlot) {

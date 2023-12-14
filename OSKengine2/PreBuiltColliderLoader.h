@@ -15,11 +15,11 @@ namespace OSK::ASSETS {
 		OSK_ASSET_TYPE_REG("OSK::PreBuiltCollider");
 
 		OSK_DEFAULT_LOADER_IMPL(PreBuiltCollider);
-		AssetOwningRef<PreBuiltCollider> Load(const std::string& assetFilePath) override;
+		void Load(const std::string& assetFilePath, PreBuiltCollider* asset) override;
 
 	private:
 
-		void ProcessNode(const tinygltf::Node& node, UIndex32 nodeId, UIndex32 parentId) override final;
+		void ProcessNode(const tinygltf::Model& model, const tinygltf::Node& node, UIndex32 nodeId, UIndex32 parentId) override final;
 
 		COLLISION::Collider* m_buildingCollider = nullptr;
 

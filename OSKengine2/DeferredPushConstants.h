@@ -10,8 +10,8 @@ namespace OSK::GRAPHICS {
 	struct DeferredPushConstants {
 		glm::mat4 model;
 		glm::mat4 previousModel;
-		Vector4f materialInfo;
 		Vector2f resolution;
+		float jitterIndex;
 	};
 
 }

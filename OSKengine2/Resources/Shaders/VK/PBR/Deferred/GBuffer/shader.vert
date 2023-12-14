@@ -35,8 +35,8 @@ layout (set = 0, binding = 1) uniform PreviousCamera {
 layout (push_constant) uniform Model {
     mat4 modelMatrix;
     mat4 previousModelMatrix;
-    vec4 infos;
     vec2 resolution;
+    float jitterIndex;
 } model;
 
 const vec2 jitterValues[] = {
@@ -71,7 +71,7 @@ const vec2 haltonSequence[17] = {
 
 void main() {
     // TAA
-    const float jitterFloat = model.infos.z;
+    const float jitterFloat = model.jitterIndex;
     int jitter = 0;
     for (int i = 0; i < 4; i++)
         if (abs(jitterFloat - i) < 0.2)

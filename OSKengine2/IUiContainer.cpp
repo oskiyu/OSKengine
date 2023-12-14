@@ -80,6 +80,10 @@ bool IContainer::UpdateByCursor(Vector2f cursorPosition, bool isPressed, Vector2
 	return false;
 }
 
-IElement* IContainer::GetChild(const std::string_view name) const {
+IElement* IContainer::GetChild(const std::string_view name) {
+	return childrenTable.at(static_cast<std::string>(name));
+}
+
+const IElement* IContainer::GetChild(const std::string_view name) const {
 	return childrenTable.at(static_cast<std::string>(name));
 }

@@ -40,6 +40,10 @@ const DynamicArray<Mesh3D>& Model3D::GetMeshes() const {
 	return m_meshes;
 }
 
+DynamicArray<Mesh3D>& Model3D::GetMeshes() {
+	return m_meshes;
+}
+
 void Model3D::AddMesh(const Mesh3D& mesh, const MeshMetadata& meshMetadata) {
 	m_meshes.Insert(mesh);
 	m_metadata.meshesMetadata.Insert(meshMetadata);
@@ -70,6 +74,10 @@ USize32 Model3D::GetIndexCount() const {
 
 void Model3D::AddGpuImage(OwnedPtr<GRAPHICS::GpuImage> image) {
 	m_metadata.textures.Insert(image.GetPointer());
+}
+
+void Model3D::_AddMaterialBuffer(OwnedPtr<GRAPHICS::GpuBuffer> buffer) {
+	m_metadata.materialInfos.Insert(buffer.GetPointer());
 }
 
 const GpuImage* Model3D::GetImage(UIndex32 index) const {

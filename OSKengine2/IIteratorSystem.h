@@ -43,7 +43,8 @@ namespace OSK::ECS {
 		
 		void _SetSignature(const Signature& signature);
 
-		const DynamicArray<GameObjectIndex>& GetObjects();
+		DynamicArray<GameObjectIndex>& GetObjects();
+		const DynamicArray<GameObjectIndex>& GetObjects() const;
 
 	private:
 

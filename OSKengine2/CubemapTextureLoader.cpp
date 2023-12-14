@@ -22,9 +22,7 @@ using namespace OSK::ASSETS;
 using namespace OSK::GRAPHICS;
 
 
-AssetOwningRef<CubemapTexture> CubemapTextureLoader::Load(const std::string& assetFilePath) {
-	AssetOwningRef<CubemapTexture> output(assetFilePath);
-
+void CubemapTextureLoader::Load(const std::string& assetFilePath, CubemapTexture* asset) {
 	// Asset file.
 	const nlohmann::json assetInfo = nlohmann::json::parse(IO::FileIO::ReadFromFile(assetFilePath));
 	
@@ -33,7 +31,7 @@ AssetOwningRef<CubemapTexture> CubemapTextureLoader::Load(const std::string& ass
 	OSK_ASSERT(assetInfo.contains("name"), InvalidDescriptionFileException("No se encuentra name", assetFilePath));
 	OSK_ASSERT(assetInfo.contains("asset_type"), InvalidDescriptionFileException("No se encuentra asset_type", assetFilePath));
 
-	output->SetName(assetInfo["name"]);
+	asset->SetName(assetInfo["name"]);
 
 	const std::array<std::string, 6> facesNames = {
 		"right",
@@ -102,9 +100,7 @@ AssetOwningRef<CubemapTexture> CubemapTextureLoader::Load(const std::string& ass
 	copyCmdList->Close();
 	Engine::GetRenderer()->SubmitSingleUseCommandList(copyCmdList.GetPointer());
 
-	output->_SetImage(image);
+	asset->_SetImage(image);
 
 	delete[] data;
-
-	return output;
 }

@@ -47,6 +47,9 @@ namespace OSK::GRAPHICS {
 		/// @return Esfera que contiene el mesh.
 		const COLLISION::SphereCollider& GetBounds() const;
 
+		/// @return Esfera que contiene el mesh.
+		COLLISION::SphereCollider& GetBounds();
+
 		/// @return Offset del mesh respecto al modelo 3D.
 		const Vector3f& GetSphereCenter() const;
 

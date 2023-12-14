@@ -13,209 +13,175 @@ namespace OSK::ECS {
 
 		OSK_COMPONENT("OSK::Transform3D");
 
-		/// <param name="owner">Objeto del transform.</param>
-		Transform3D(ECS::GameObjectIndex owner);
 
-		/// <summary>
-		/// Establece la posición.
-		/// 
+		/// @param owner Objeto del transform.
+		explicit Transform3D(ECS::GameObjectIndex owner);
+
+				
+		/// @brief Establece la posición local.
 		/// @note También actualiza la matriz modelo, y la de sus hijos.
-		/// </summary>
-		/// <param name="position">Nueva posición respecto al padre.</param>
+		/// 
+		/// @param position Nueva posición respecto al padre.
 		void SetPosition(const Vector3f& position);
 
-		/// <summary>
-		/// Establece la escala.
-		/// 
+		/// @brief Establece la escala local.
 		/// @note También actualiza la matriz modelo, y la de sus hijos.
-		/// </summary>
-		/// <param name="scale">Nueva escala respecto al padre.</param>
+		/// 
+		/// @param scale Nueva escala respecto al padre.
 		void SetScale(const Vector3f& scale);
 
-		/// <summary>
-		/// Establece la rotación.
-		/// 
+		/// @brief Establece la rotación local.
 		/// @note También actualiza la matriz modelo, y la de sus hijos.
-		/// </summary>
-		/// <param name="rotation">Nueva rotación respecto al padre.</param>
+		/// 
+		/// @param rotation Nueva rotación respecto al padre.
 		void SetRotation(const Quaternion& rotation);
 
-		/// <summary>
-		/// Suma el vector 3D a la posición.
-		/// 
+
+		/// @brief Suma el vector 3D a la posición.
 		/// @note También actualiza la matriz modelo, y la de sus hijos.
-		/// </summary>
-		/// <param name="positionDelta">Posición a añadir.</param>
+		/// 
+		/// @param positionDelta Cambio de posición.
 		void AddPosition(const Vector3f& positionDelta);
 
-		/// <summary>
-		/// Suma un vector 3D a la escala.
-		/// 
+		/// @brief Suma un vector 3D a la escala.
 		/// @note También actualiza la matriz modelo, y la de sus hijos.
-		/// </summary>
-		/// <param name="scaleDelta">Escala a añadir.</param>
+		/// 
+		/// @param scaleDelta Cambio de escala.
 		void AddScale(const Vector3f& scaleDelta);
 
-		/// <summary>
-		/// Aplica una rotación al transform.
-		/// 
+		/// @brief Aplica una rotación al transform.
 		/// @note También actualiza la matriz modelo, y la de sus hijos.
-		/// </summary>
-		/// <param name="rotationDelta">Rotación a aplicar.</param>
+		/// 
+		/// @param rotationDelta Cambio de rotación.
 		void ApplyRotation(const Quaternion& rotationDelta);
 
-		/// <summary>
-		/// Rota el transform respecto a sí mismo.
-		/// 
+		
+		/// @brief Rota el transform respecto a sí mismo.
 		/// @note También actualiza la matriz modelo, y la de sus hijos.
-		/// </summary>
-		/// <param name="angle">Ángulo.</param>
-		/// <param name="axis">Eje sobre el que se rota.</param>
-		/// 
-		/// @note El ángulo debe estar en grados.
+		/// @param angle Ángulo.
+		/// @param axis Eje sobre el que se rota.
+		/// @pre El ángulo debe estar en grados.
 		void RotateLocalSpace(float angle, const Vector3f& axis);
 
-		/// <summary>
-		/// Rota el transform respecto al mundo.
-		/// </summary>
-		/// <param name="angle">Ángulo.</param>
-		/// <param name="axis">Eje sobre el que se rota.</param>
-		/// 
+		/// @brief Rota el transform respecto al mundo.
+		/// @param angle Ángulo.
+		/// @param axis Eje sobre el que se rota.
 		/// @note También actualiza la matriz modelo, y la de sus hijos.
-		/// 
-		/// @note El ángulo debe estar en grados.
+		/// @pre El ángulo debe estar en grados.
 		void RotateWorldSpace(float angle, const Vector3f& axis);
 
-		/// <summary>
-		/// Actualiza la matriz modelo, y la de sus hijos.
-		/// </summary>
+
+		/// @brief Actualiza la matriz modelo, y la de sus hijos.
 		void UpdateModel();
 
+
+		/// @brief Transforma un punto respecto a este transform.
+		/// @param point Punto antes de la transformación.
+		/// @return Punto transformado.
 		Vector3f TransformPoint(const Vector3f& point) const;
 
-		/// <summary>
-		/// Enlaza este transform a su nuevo transform padre.
-		/// </summary>
-		/// <param name="baseTransform">Tranform padre.</param>
+
+		/// @brief Enlaza este transform a su nuevo transform padre.
+		/// @param baseTransform Tranform padre.
 		void AttachToObject(ECS::GameObjectIndex baseTransform);
 
-		/// <summary>
-		/// Libera este transform de su padre.
-		/// </summary>
+		/// @brief Libera este transform de su padre.
+		/// Si no tiene padre, no ocurre nada.
 		void UnAttach();
 
-		/// <summary>
-		/// Vector posición en el mundo 3D.
-		/// </summary>
+
+		/// @return Posición en el mundo 3D.
 		Vector3f GetPosition() const;
 
-		/// <summary>
-		/// Vector escala en el mundo 3D.
-		/// </summary>
+		/// @return Escala en el mundo 3D.
 		Vector3f GetScale() const;
+		
 
-		/// <summary>
-		/// Posición respecto al padre.
-		/// </summary>
+		/// @return Posición local (respecto al padre).
 		Vector3f GetLocalPosition() const;
 
-		/// <summary>
-		/// Escala respecto al padre.
-		/// </summary>
+		/// @return Escala local (respecto al padre).
 		Vector3f GetLocalScale() const;
 
-		/// <summary>
-		/// Orientación respecto al padre.
-		/// </summary>
+
+		/// @return Orientación local (respecto al padre).
 		Quaternion GetLocalRotation() const;
 
-		/// <summary>
-		/// Orientación.
-		/// </summary>
+		/// @return Orientación en el mundo 3D.
 		Quaternion GetRotation() const;
 
-		/// <summary>
-		/// Matriz modelo.
-		/// </summary>
+
+		/// @return Matriz modelo, para renderizado.
 		glm::mat4 GetAsMatrix() const;
 
-		/// <summary>
-		/// Actualiza el valor de la matriz modelo.
-		/// </summary>
+		/// @brief Actualiza manualmente el valor de la matriz modelo.
+		/// @param matrix Nueva matriz modelo.
 		void OverrideMatrix(const glm::mat4& matrix);
 
-		/// <summary>
-		/// Devuelve el identificador del objeto que posee al
-		/// transform padre..
-		/// </summary>
+
+		/// @return Identificador del objeto que posee al
+		/// transform padre.
 		ECS::GameObjectIndex GetParentObject() const;
 
-		/// <summary>
-		/// Devuelve un vector unitario 3D que apunta hacia el frente de la entidad.
-		/// </summary>
+
+		/// @return Vector unitario 3D que apunta hacia el frente de la entidad.
 		Vector3f GetForwardVector() const;
 
-		/// <summary>
-		/// Devuelve un vector unitario 3D que apunta hacia la derecha de la entidad.
-		/// </summary>
+		/// @return Vector unitario 3D que apunta hacia la derecha de la entidad.
 		Vector3f GetRightVector() const;
 
-		/// <summary>
-		/// Devuelve un vector unitario 3D que apunta hacia arriba de la entidad.
-		/// </summary>
+		/// @return Vector unitario 3D que apunta hacia arriba de la entidad.
 		Vector3f GetTopVector() const;
+
+
+		/// @brief Permite establecer si el transform hereda la posición del padre.
+		void SetShouldInheritPosition(bool value);
+
+		/// @brief Permite establecer si el transform hereda la orientación del padre.
+		void SetShouldInheritRotation(bool value);
+
+		/// @brief Permite establecer si el transform hereda la escala del padre.
+		void SetShouldInheritScale(bool value);
 
 	private:
 
-		/// <summary>
-		/// Matriz modelo (para renderizado).
-		/// </summary>
-		glm::mat4 matrix;
+		bool m_inheritPosition = true;
+		bool m_inheritRotation = true;
+		bool m_inheritScale = true;
 
-		/// <summary>
-		/// Vector posición en el mundo 3D.
-		/// </summary>
-		Vector3f globalPosition;
 
-		/// <summary>
-		/// Vector escala en el mundo 3D.
-		/// </summary>
-		Vector3f globalScale;
+		/// @brief Matriz modelo (para renderizado).
+		glm::mat4 m_matrix = glm::mat4(1.0f);
 
-		/// <summary>
-		/// Posición respecto al padre.
-		/// </summary>
-		Vector3f localPosition;
+		/// @brief Vector posición en el mundo 3D.
+		Vector3f m_globalPosition = Vector3f::Zero;
 
-		/// <summary>
-		/// Escala respecto al padre.
-		/// </summary>
-		Vector3f localScale;
+		/// @brief Vector escala en el mundo 3D.
+		Vector3f m_globalScale = Vector3f::One;
 
-		/// <summary>
-		/// Orientación.
-		/// </summary>
-		Quaternion localRotation;
 
-		/// <summary>
-		/// GlobalRotation
-		/// </summary>
-		glm::mat4 globalRotation = glm::mat4(1.0f);
+		/// @brief Posición respecto al padre.
+		Vector3f m_localPosition = Vector3f::Zero;
 
-		/// <summary>
-		/// Identificador del objeto que este transform representa.
-		/// </summary>
-		ECS::GameObjectIndex owner;
+		/// @brief Escala respecto al padre.
+		Vector3f m_localScale = Vector3f::One;
 
-		/// <summary>
-		/// Objeto padre (0 si no tiene).
-		/// </summary>
-		ECS::GameObjectIndex parent = 0;
 
-		/// <summary>
-		/// Ids de los objetos hijos.
-		/// </summary>
-		DynamicArray<ECS::GameObjectIndex> childTransforms;
+		/// @brief Orientación respecto al padre.
+		Quaternion m_localRotation{};
+
+		/// @brief Rotación global.
+		glm::mat4 m_globalRotation = glm::mat4(1.0f);
+
+
+		/// @brief Identificador del objeto que este transform representa.
+		GameObjectIndex owner = EMPTY_GAME_OBJECT;
+
+		/// @brief Objeto padre (0 si no tiene).
+		GameObjectIndex parent = EMPTY_GAME_OBJECT;
+
+		/// @brief IDs de los objetos hijos.
+		DynamicArray<GameObjectIndex> childTransforms;
 
 	};
 

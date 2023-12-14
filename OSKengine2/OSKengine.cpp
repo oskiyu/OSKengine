@@ -18,6 +18,7 @@
 #include "AudioLoader.h"
 #include "IrradianceMapLoader.h"
 #include "PreBuiltColliderLoader.h"
+#include "PreBuiltSplineLoader3D.h"
 
 #include "Transform3D.h"
 #include "ModelComponent3D.h"
@@ -123,6 +124,7 @@ void Engine::RegisterBuiltinAssets() {
 	assetManager->RegisterLoader<ASSETS::SpecularMapLoader>();
 	assetManager->RegisterLoader<ASSETS::AudioLoader>();
 	assetManager->RegisterLoader<ASSETS::PreBuiltColliderLoader>();
+	assetManager->RegisterLoader<ASSETS::PreBuiltSplineLoader3D>();
 }
 
 void Engine::RegisterBuiltinComponents() {
@@ -219,7 +221,7 @@ Version Engine::GetVersion() {
 }
 
 std::string_view Engine::GetBuild() {
-	return "2023.11.12a";
+	return "2023.12.12a";
 }
 
 UIndex64 Engine::GetCurrentGameFrameIndex() {

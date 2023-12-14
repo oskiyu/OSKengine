@@ -53,9 +53,7 @@ SpecularMapLoader::SpecularMapLoader() {
 	cubemapModel = Engine::GetAssetManager()->Load<ASSETS::Model3D>("Resources/Assets/Models/cube.json");
 }
 
-AssetOwningRef<SpecularMap> SpecularMapLoader::Load(const std::string& assetFilePath) {
-	AssetOwningRef<SpecularMap> output(assetFilePath);
-
+void SpecularMapLoader::Load(const std::string& assetFilePath, SpecularMap* asset) {
 	// Asset file.
 	nlohmann::json assetInfo;
 	try {
@@ -65,7 +63,7 @@ AssetOwningRef<SpecularMap> SpecularMapLoader::Load(const std::string& assetFile
 
 
 	std::string texturePath = assetInfo["raw_asset_path"];
-	output->SetName(assetInfo["name"]);
+	asset->SetName(assetInfo["name"]);
 
 	// Original texture loading
 	int width = 0;
@@ -172,10 +170,8 @@ AssetOwningRef<SpecularMap> SpecularMapLoader::Load(const std::string& assetFile
 
 	Engine::GetRenderer()->SubmitSingleUseCommandList(prefilterCmdList);
 
-	output->_SetCubemapImage(targetCubemap);
-	output->_SetLookUpTable(lut);
-
-	return output;
+	asset->_SetCubemapImage(targetCubemap);
+	asset->_SetLookUpTable(lut);
 }
 
 void SpecularMapLoader::DrawOriginal(GRAPHICS::GpuImage* cubemap, GRAPHICS::ICommandList* cmdList) {

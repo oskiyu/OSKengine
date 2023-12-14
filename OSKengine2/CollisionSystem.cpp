@@ -28,6 +28,8 @@ void CollisionSystem::OnTick(TDeltaTime deltaTime) {
 		auto& collider = *Engine::GetEcs()->GetComponent<CollisionComponent>(i).GetCollider();
 		const auto& transform = Engine::GetEcs()->GetComponent<Transform3D>(i);
 
+		collider.GetTopLevelCollider()->SetPosition(transform.GetPosition());
+
 		for (UIndex32 blci = 0; blci < collider.GetBottomLevelCollidersCount(); blci++) {
 			auto* blc = collider.GetBottomLevelCollider(blci);
 
@@ -76,4 +78,40 @@ void CollisionSystem::OnTick(TDeltaTime deltaTime) {
 			}
 		}
 	}
+}
+
+RayCastResult CollisionSystem::CastRay(const Ray& ray, GameObjectIndex sendingObject) const {
+	float closestDistance = std::numeric_limits<float>::max();
+	RayCastResult closest = RayCastResult::False();
+
+	for (GameObjectIndex i : GetObjects()) {
+		if (i == sendingObject) {
+			continue;
+		}
+
+		const auto& collider = *Engine::GetEcs()->GetComponent<CollisionComponent>(i).GetCollider();
+
+		const auto topLevelResult = collider.GetTopLevelCollider()->CastRay(ray);
+
+		if (!topLevelResult.Result()) {
+			// continue;
+		}
+
+		for (UIndex64 blc_i = 0; blc_i < collider.GetBottomLevelCollidersCount(); blc_i++) {
+			const auto& blc = collider.GetBottomLevelCollider(blc_i);
+			const auto result = blc->CastRay(ray);
+
+			if (!result.Result()) {
+				continue;
+			}
+
+			const float nDistance = result.GetIntersectionPoint().GetDistanceTo2(ray.origin);
+			if (nDistance < closestDistance) {
+				closestDistance = nDistance;
+				closest = RayCastResult::True(result.GetIntersectionPoint(), i);
+			}
+		}
+	}
+
+	return closest;
 }

@@ -11,6 +11,7 @@
 
 #include "Gjk.h"
 #include "Sat.h"
+#include "IRayCollider.h"
 
 namespace OSK::COLLISION {
 
@@ -19,7 +20,7 @@ namespace OSK::COLLISION {
 
 	/// @brief Representa un área de colisión muy ajustada
 	/// que permite detectar colisiones.
-	class OSKAPI_CALL IBottomLevelCollider : public IGjkCollider, public ISatCollider {
+	class OSKAPI_CALL IBottomLevelCollider : public IGjkCollider, public ISatCollider, public IRayCollider {
 
 	public:
 

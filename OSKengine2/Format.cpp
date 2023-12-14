@@ -77,7 +77,7 @@ VkFormat OSK::GRAPHICS::GetFormatVk(Format format) {
 
 	case Format::RG32_SFLOAT:
 		return VK_FORMAT_R32G32_SFLOAT;
-
+		
 	case Format::D32_SFLOAT:
 		return VK_FORMAT_D32_SFLOAT;
 

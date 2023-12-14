@@ -4,6 +4,7 @@
 
 #include <string>
 #include <memory>
+#include "UniquePtr.hpp"
 
 #include "AssetRef.h"
 
@@ -18,7 +19,10 @@ namespace OSK::ASSETS {
 	public:
 
 		AssetOwningRef() = default;
-		explicit AssetOwningRef(const std::string& assetPath) : m_data(std::make_unique<TAssetType>(assetPath)) {}
+		explicit AssetOwningRef(const std::string& assetPath) : m_data(std::make_shared<TAssetType>(assetPath)) {}
+
+		~AssetOwningRef() = default;
+
 
 		inline TAssetType* GetAsset() noexcept {
 			return m_data.get();
@@ -48,8 +52,8 @@ namespace OSK::ASSETS {
 
 	private:
 
-		std::unique_ptr<USize64> m_count = std::make_unique<USize64>(0);
-		std::unique_ptr<TAssetType> m_data;
+		std::shared_ptr<USize64> m_count = std::make_shared<USize64>(0);
+		std::shared_ptr<TAssetType> m_data;
 
 	};
 

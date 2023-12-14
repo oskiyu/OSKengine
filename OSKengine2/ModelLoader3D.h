@@ -15,7 +15,7 @@ namespace OSK::ASSETS {
 		OSK_ASSET_TYPE_REG("OSK::Model3D");
 
 		OSK_DEFAULT_LOADER_IMPL(Model3D);
-		AssetOwningRef<Model3D> Load(const std::string& assetFilePath) override;
+		void Load(const std::string& assetFilePath, Model3D* asset) override;
 
 	private:
 

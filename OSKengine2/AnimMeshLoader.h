@@ -5,6 +5,7 @@
 #include "Bone.h"
 #include "Animator.h"
 
+
 namespace OSK::ASSETS {
 
 	/// <summary>
@@ -25,7 +26,7 @@ namespace OSK::ASSETS {
 
 	protected:
 
-		void ProcessNode(const tinygltf::Node& node, UIndex32 nodeId, UIndex32 parentId) override;
+		void ProcessNode(const tinygltf::Model& model, const tinygltf::Node& node, UIndex32 nodeId, UIndex32 parentId) override;
 
 		DynamicArray<GRAPHICS::VertexAnim3D> vertices;
 		
@@ -37,8 +38,8 @@ namespace OSK::ASSETS {
 
 	private:
 
-		void LoadAnimations();
-		void LoadSkins();
+		void LoadAnimations(const tinygltf::Model& model);
+		void LoadSkins(const tinygltf::Model& model);
 
 	};
 

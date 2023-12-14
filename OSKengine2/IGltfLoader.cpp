@@ -15,6 +15,9 @@
 #include <glm/gtc/type_ptr.hpp>
 #include "StringOperations.h"
 
+#define TINYGLTF_NO_STB_IMAGE_WRITE
+#include <tiny_gltf.h>
+
 using namespace OSK;
 using namespace OSK::ASSETS;
 using namespace OSK::GRAPHICS;
@@ -28,22 +31,28 @@ void IGltfLoader::Load(const std::string& rawAssetPath, const glm::mat4& modelTr
 	std::string errorMessage = "";
 	std::string warningMessage = "";
 
-	context.LoadBinaryFromFile(&m_gltfModel, &errorMessage, &warningMessage, rawAssetPath);
+	tinygltf::Model gltfModel{};
+
+	context.LoadBinaryFromFile(&gltfModel, &errorMessage, &warningMessage, rawAssetPath);
 	OSK_ASSERT(errorMessage.empty(), EngineException("Error al cargar modelo estático: " + errorMessage));
 
-	m_modelInfo.materialInfos = LoadMaterials();
+	m_modelInfo.materialInfos = LoadMaterials(gltfModel);
 	
-	for (const auto& scene : m_gltfModel.scenes) {
-		LoadScene(scene);
+	for (const auto& scene : gltfModel.scenes) {
+		LoadScene(scene, gltfModel);
 	}
+
+	auto images = LoadImages(gltfModel);
+	for (const auto& i : images)
+		m_lastLoadImages.Insert(i.GetPointer());
 }
 
-void IGltfLoader::LoadScene(const tinygltf::Scene& scene) {
+void IGltfLoader::LoadScene(const tinygltf::Scene& scene, const tinygltf::Model& model) {
 	for (const int nodeIndex : scene.nodes) {
-		const tinygltf::Node& node = m_gltfModel.nodes[nodeIndex];
+		const tinygltf::Node& node = model.nodes[nodeIndex];
 		constexpr auto noParentId = std::numeric_limits<UIndex32>::max();
 
-		ProcessNode(node, nodeIndex, noParentId);
+		ProcessNode(model, node, nodeIndex, noParentId);
 	}
 }
 
@@ -63,16 +72,26 @@ void IGltfLoader::SetupModel(Model3D* model) {
 			if (materialInfo.hasNormalTexture)
 				meshMetadata.textureTable[(std::string)ModelMetadata::NormalTextureName] = materialInfo.normalTextureIndex;
 
-			meshMetadata.metallicFactor = materialInfo.metallicFactor;
-			meshMetadata.roughnessFactor = materialInfo.roughnessFactor;
+			meshMetadata.materialId = m_meshIdToMaterialId.at(i);
 		}
 
 		model->AddMesh(m_meshes.At(i), meshMetadata);
 	}
 
-	DynamicArray<OwnedPtr<GpuImage>> textures = LoadImages();
-	for (UIndex32 i = 0; i < textures.GetSize(); i++)
-		model->AddGpuImage(textures.At(i));
+	// Carga de texturas.
+	for (UIndex32 i = 0; i < m_lastLoadImages.GetSize(); i++)
+		model->AddGpuImage(m_lastLoadImages.At(i).Release());
+
+	// Materiales.
+	for (const auto& material : m_modelInfo.materialInfos) {
+		auto buffer = Engine::GetRenderer()->GetAllocator()->CreateUniformBuffer(sizeof(PbrMaterialInfo));
+
+		buffer->MapMemory();
+		buffer->Write(material.materialInfo);
+		buffer->Unmap();
+
+		model->_AddMaterialBuffer(buffer);
+	}
 }
 
 DynamicArray<std::string> IGltfLoader::GetTagsFromName(const tinygltf::Scene& scene) {
@@ -148,13 +167,13 @@ std::unordered_map<std::string, std::string, StringHasher, std::equal_to<>> IGlt
 	return output;
 }
 
-DynamicArray<OwnedPtr<GpuImage>> IGltfLoader::LoadImages() {
+DynamicArray<OwnedPtr<GpuImage>> IGltfLoader::LoadImages(const tinygltf::Model& model) {
 	DynamicArray<OwnedPtr<GpuImage>> output;
 
 	/// @todo Single upload cmd list.
 
-	for (UIndex32 i = 0; i < m_gltfModel.images.size(); i++) {
-		const tinygltf::Image& originalImage = m_gltfModel.images[i];
+	for (UIndex32 i = 0; i < model.images.size(); i++) {
+		const tinygltf::Image& originalImage = model.images[i];
 
 		OwnedPtr<GpuImage> image = Engine::GetRenderer()->GetAllocator()->CreateImage(
 			GpuImageCreateInfo::CreateDefault2D({ 
@@ -233,42 +252,47 @@ DynamicArray<OwnedPtr<GpuImage>> IGltfLoader::LoadImages() {
 	return output;
 }
 
-DynamicArray<GltfMaterialInfo> IGltfLoader::LoadMaterials() {
-	auto output = DynamicArray<GltfMaterialInfo>::CreateResizedArray(m_gltfModel.materials.size());
+DynamicArray<GltfMaterialInfo> IGltfLoader::LoadMaterials(const tinygltf::Model& model) {
+	auto output = DynamicArray<GltfMaterialInfo>::CreateResizedArray(model.materials.size());
 
-	for (UIndex64 i = 0; i < m_gltfModel.materials.size(); i++) {
+	for (UIndex64 i = 0; i < model.materials.size(); i++) {
 		GltfMaterialInfo info{};
 		info.baseColor = {
-			static_cast<float>(m_gltfModel.materials[i].pbrMetallicRoughness.baseColorFactor[0]),
-			static_cast<float>(m_gltfModel.materials[i].pbrMetallicRoughness.baseColorFactor[1]),
-			static_cast<float>(m_gltfModel.materials[i].pbrMetallicRoughness.baseColorFactor[2]),
-			static_cast<float>(m_gltfModel.materials[i].pbrMetallicRoughness.baseColorFactor[3])
+			static_cast<float>(model.materials[i].pbrMetallicRoughness.baseColorFactor[0]),
+			static_cast<float>(model.materials[i].pbrMetallicRoughness.baseColorFactor[1]),
+			static_cast<float>(model.materials[i].pbrMetallicRoughness.baseColorFactor[2]),
+			static_cast<float>(model.materials[i].pbrMetallicRoughness.baseColorFactor[3])
 		};
 
-		info.metallicFactor = static_cast<float>(m_gltfModel.materials[i].pbrMetallicRoughness.metallicFactor);
-		info.roughnessFactor = static_cast<float>(m_gltfModel.materials[i].pbrMetallicRoughness.roughnessFactor);
+		info.materialInfo.roughnessMetallic = {
+			static_cast<float>(model.materials[i].pbrMetallicRoughness.roughnessFactor),
+			static_cast<float>(model.materials[i].pbrMetallicRoughness.metallicFactor)
+		};
 
-		if (info.roughnessFactor >= 1.0f)
-			info.roughnessFactor = 1.0f;
+		info.materialInfo.emissiveColor = {
+			static_cast<float>(model.materials[i].emissiveFactor[0]),
+			static_cast<float>(model.materials[i].emissiveFactor[1]),
+			static_cast<float>(model.materials[i].emissiveFactor[2])
+		};
 
-		if (m_gltfModel.materials[i].pbrMetallicRoughness.baseColorTexture.index != -1) {
+		if (model.materials[i].pbrMetallicRoughness.baseColorTexture.index != -1) {
 			info.hasColorTexture = true;
-			info.colorTextureIndex = m_gltfModel.textures[m_gltfModel.materials[i].pbrMetallicRoughness.baseColorTexture.index].source;
+			info.colorTextureIndex = model.textures[model.materials[i].pbrMetallicRoughness.baseColorTexture.index].source;
 		}
 
-		if (m_gltfModel.materials[i].pbrMetallicRoughness.metallicRoughnessTexture.index != -1) {
+		if (model.materials[i].pbrMetallicRoughness.metallicRoughnessTexture.index != -1) {
 			info.hasMetallicTexture = true;
-			info.metallicTextureIndex = m_gltfModel.textures[m_gltfModel.materials[i].pbrMetallicRoughness.metallicRoughnessTexture.index].source;
+			info.metallicTextureIndex = model.textures[model.materials[i].pbrMetallicRoughness.metallicRoughnessTexture.index].source;
 		}
 
-		if (m_gltfModel.materials[i].pbrMetallicRoughness.metallicRoughnessTexture.index != -1) {
+		if (model.materials[i].pbrMetallicRoughness.metallicRoughnessTexture.index != -1) {
 			info.hasRoughnessTexture = true;
-			info.metallicTextureIndex = m_gltfModel.textures[m_gltfModel.materials[i].pbrMetallicRoughness.metallicRoughnessTexture.index].source;
+			info.metallicTextureIndex = model.textures[model.materials[i].pbrMetallicRoughness.metallicRoughnessTexture.index].source;
 		}
 
-		if (m_gltfModel.materials[i].normalTexture.index != -1) {
+		if (model.materials[i].normalTexture.index != -1) {
 			info.hasNormalTexture = true;
-			info.normalTextureIndex = m_gltfModel.textures[m_gltfModel.materials[i].normalTexture.index].source;
+			info.normalTextureIndex = model.textures[model.materials[i].normalTexture.index].source;
 		}
 
 		output[i] = info;
@@ -309,16 +333,16 @@ bool IGltfLoader::HasBoneWeights(const tinygltf::Primitive& primitive) const {
 	return HasAttribute(primitive, "WEIGHTS_0");
 }
 
-DynamicArray<Vector3f> IGltfLoader::GetVertexPositions(const tinygltf::Primitive& primitive, const glm::mat4& nodeMatrix) const {
+DynamicArray<Vector3f> IGltfLoader::GetVertexPositions(const tinygltf::Primitive& primitive, const glm::mat4& nodeMatrix, const tinygltf::Model& model) const {
 	// Comprobamos que tiene almacenado info de posición.
 	OSK_ASSERT(HasPositions(primitive), NoVertexPositionsFoundException());
 
 	// Para poder acceder a la información en forma de buffer.
-	const tinygltf::Accessor& accessor = m_gltfModel.accessors[primitive.attributes.find("POSITION")->second];
-	const tinygltf::BufferView& view = m_gltfModel.bufferViews[accessor.bufferView];
+	const tinygltf::Accessor& accessor = model.accessors[primitive.attributes.find("POSITION")->second];
+	const tinygltf::BufferView& view = model.bufferViews[accessor.bufferView];
 
 	// Leemos el buffer.
-	const float* positionsBuffer = reinterpret_cast<const float*>(&(m_gltfModel.buffers[view.buffer].data[accessor.byteOffset + view.byteOffset]));
+	const float* positionsBuffer = reinterpret_cast<const float*>(&(model.buffers[view.buffer].data[accessor.byteOffset + view.byteOffset]));
 	const USize32 numVertices = static_cast<USize32>(accessor.count);
 	
 
@@ -339,16 +363,16 @@ DynamicArray<Vector3f> IGltfLoader::GetVertexPositions(const tinygltf::Primitive
 	return output;
 }
 
-DynamicArray<Vector3f> IGltfLoader::GetVertexNormals(const tinygltf::Primitive& primitive) const {
+DynamicArray<Vector3f> IGltfLoader::GetVertexNormals(const tinygltf::Primitive& primitive, const tinygltf::Model& model) const {
 	// Comprobamos que tiene almacenado info de normales.
 	OSK_ASSERT(HasNormals(primitive), NoVertexNormalsFoundException());
 
 	// Para poder acceder a la información en forma de buffer.
-	const tinygltf::Accessor& accessor = m_gltfModel.accessors[primitive.attributes.find("NORMAL")->second];
-	const tinygltf::BufferView& view = m_gltfModel.bufferViews[accessor.bufferView];
+	const tinygltf::Accessor& accessor = model.accessors[primitive.attributes.find("NORMAL")->second];
+	const tinygltf::BufferView& view = model.bufferViews[accessor.bufferView];
 	
 	// Leemos el buffer.
-	const float* normalsBuffer = reinterpret_cast<const float*>(&(m_gltfModel.buffers[view.buffer].data[accessor.byteOffset + view.byteOffset]));
+	const float* normalsBuffer = reinterpret_cast<const float*>(&(model.buffers[view.buffer].data[accessor.byteOffset + view.byteOffset]));
 	const USize64 numVertices = accessor.count;
 	
 	DynamicArray<Vector3f> output = DynamicArray<Vector3f>::CreateResizedArray(numVertices);
@@ -364,16 +388,16 @@ DynamicArray<Vector3f> IGltfLoader::GetVertexNormals(const tinygltf::Primitive& 
 	return output;
 }
 
-DynamicArray<Vector3f> IGltfLoader::GetTangentVectors(const tinygltf::Primitive& primitive) const {
+DynamicArray<Vector3f> IGltfLoader::GetTangentVectors(const tinygltf::Primitive& primitive, const tinygltf::Model& model) const {
 	// Comprobamos que tiene almacenado info de tangentes.
 	OSK_ASSERT(HasTangets(primitive), NoVertexTangentsFoundException());
 
 	// Para poder acceder a la información en forma de buffer.
-	const tinygltf::Accessor& accessor = m_gltfModel.accessors[primitive.attributes.find("TANGENT")->second];
-	const tinygltf::BufferView& view = m_gltfModel.bufferViews[accessor.bufferView];
+	const tinygltf::Accessor& accessor = model.accessors[primitive.attributes.find("TANGENT")->second];
+	const tinygltf::BufferView& view = model.bufferViews[accessor.bufferView];
 
 	// Leemos el buffer.
-	const float* tangentsBuffer = reinterpret_cast<const float*>(&(m_gltfModel.buffers[view.buffer].data[accessor.byteOffset + view.byteOffset]));
+	const float* tangentsBuffer = reinterpret_cast<const float*>(&(model.buffers[view.buffer].data[accessor.byteOffset + view.byteOffset]));
 	const USize64 numVertices = accessor.count;
 
 	DynamicArray<Vector3f> output = DynamicArray<Vector3f>::CreateResizedArray(numVertices);
@@ -435,16 +459,16 @@ DynamicArray<Vector3f> IGltfLoader::GenerateTangetVectors(const DynamicArray<Vec
 	return output;
 }
 
-DynamicArray<Vector2f> IGltfLoader::GetTextureCoords(const tinygltf::Primitive& primitive) const {
+DynamicArray<Vector2f> IGltfLoader::GetTextureCoords(const tinygltf::Primitive& primitive, const tinygltf::Model& model) const {
 	// Comprobamos que tiene almacenado info de coordenadas de texturas.
 	OSK_ASSERT(HasTextureCoords(primitive), NoVertexTexCoordsFoundException());
 
 	// Para poder acceder a la información en forma de buffer.
-	const tinygltf::Accessor& accessor = m_gltfModel.accessors[primitive.attributes.find("TEXCOORD_0")->second];
-	const tinygltf::BufferView& view = m_gltfModel.bufferViews[accessor.bufferView];
+	const tinygltf::Accessor& accessor = model.accessors[primitive.attributes.find("TEXCOORD_0")->second];
+	const tinygltf::BufferView& view = model.bufferViews[accessor.bufferView];
 
 	// Leemos el buffer.
-	const float* texCoordsBuffer = reinterpret_cast<const float*>(&(m_gltfModel.buffers[view.buffer].data[accessor.byteOffset + view.byteOffset]));
+	const float* texCoordsBuffer = reinterpret_cast<const float*>(&(model.buffers[view.buffer].data[accessor.byteOffset + view.byteOffset]));
 	const auto numVertices = static_cast<USize32>(accessor.count);
 
 	DynamicArray<Vector2f> output = DynamicArray<Vector2f>::CreateResizedArray(numVertices);
@@ -459,16 +483,16 @@ DynamicArray<Vector2f> IGltfLoader::GetTextureCoords(const tinygltf::Primitive& 
 	return output;
 }
 
-DynamicArray<Color> IGltfLoader::GetVertexColors(const tinygltf::Primitive& primitive) const {
+DynamicArray<Color> IGltfLoader::GetVertexColors(const tinygltf::Primitive& primitive, const tinygltf::Model& model) const {
 	if (!HasColors(primitive))
 		return DynamicArray<Color>{};
 
 	// Para poder acceder a la información en forma de buffer.
-	const tinygltf::Accessor& accessor = m_gltfModel.accessors[primitive.attributes.find("COLOR_0")->second];
-	const tinygltf::BufferView& view = m_gltfModel.bufferViews[accessor.bufferView];
+	const tinygltf::Accessor& accessor = model.accessors[primitive.attributes.find("COLOR_0")->second];
+	const tinygltf::BufferView& view = model.bufferViews[accessor.bufferView];
 
 	// Leemos el buffer.
-	const void* colorBuffer = &(m_gltfModel.buffers[view.buffer].data[accessor.byteOffset + view.byteOffset]);
+	const void* colorBuffer = &(model.buffers[view.buffer].data[accessor.byteOffset + view.byteOffset]);
 	const auto numVertices = static_cast<USize32>(accessor.count);
 
 	const auto colorVectorType = accessor.type;
@@ -520,11 +544,11 @@ DynamicArray<Color> IGltfLoader::GetVertexColors(const tinygltf::Primitive& prim
 	}
 }
 
-DynamicArray<TIndexSize> IGltfLoader::GetIndices(const tinygltf::Primitive& primitive, TIndexSize startOffset) const {
+DynamicArray<TIndexSize> IGltfLoader::GetIndices(const tinygltf::Primitive& primitive, TIndexSize startOffset, const tinygltf::Model& model) const {
 	// Índices
-	const tinygltf::Accessor& indicesAccesor = m_gltfModel.accessors[primitive.indices];
-	const tinygltf::BufferView& indicesView = m_gltfModel.bufferViews[indicesAccesor.bufferView];
-	const tinygltf::Buffer& indicesBuffer = m_gltfModel.buffers[indicesView.buffer];
+	const tinygltf::Accessor& indicesAccesor = model.accessors[primitive.indices];
+	const tinygltf::BufferView& indicesView = model.bufferViews[indicesAccesor.bufferView];
+	const tinygltf::Buffer& indicesBuffer = model.buffers[indicesView.buffer];
 
 	const auto numIndices = static_cast<USize32>(indicesAccesor.count);
 
@@ -568,16 +592,16 @@ DynamicArray<TIndexSize> IGltfLoader::GetIndices(const tinygltf::Primitive& prim
 	return output;
 }
 
-DynamicArray<Vector4f> IGltfLoader::GetJoints(const tinygltf::Primitive& primitive) const {
+DynamicArray<Vector4f> IGltfLoader::GetJoints(const tinygltf::Primitive& primitive, const tinygltf::Model& model) const {
 	if (!HasJoints(primitive))
 		return DynamicArray<Vector4f>();
 
 	// Para poder acceder a la información en forma de buffer.
-	const tinygltf::Accessor& accessor = m_gltfModel.accessors[primitive.attributes.find("JOINTS_0")->second];
-	const tinygltf::BufferView& view = m_gltfModel.bufferViews[accessor.bufferView];
+	const tinygltf::Accessor& accessor = model.accessors[primitive.attributes.find("JOINTS_0")->second];
+	const tinygltf::BufferView& view = model.bufferViews[accessor.bufferView];
 
 	// Leemos el buffer.
-	const void* boneIds = &(m_gltfModel.buffers[view.buffer].data[accessor.byteOffset + view.byteOffset]);
+	const void* boneIds = &(model.buffers[view.buffer].data[accessor.byteOffset + view.byteOffset]);
 	const int jointsDataType = accessor.componentType;
 
 	const USize32 numVertices = static_cast<USize32>(accessor.count);
@@ -630,16 +654,16 @@ DynamicArray<Vector4f> IGltfLoader::GetJoints(const tinygltf::Primitive& primiti
 	return output;
 }
 
-DynamicArray<Vector4f> IGltfLoader::GetBoneWeights(const tinygltf::Primitive& primitive) const {
+DynamicArray<Vector4f> IGltfLoader::GetBoneWeights(const tinygltf::Primitive& primitive, const tinygltf::Model& model) const {
 	if (!HasBoneWeights(primitive))
 		return DynamicArray<Vector4f>();
 
 	// Para poder acceder a la información en forma de buffer.
-	const tinygltf::Accessor& accessor = m_gltfModel.accessors[primitive.attributes.find("WEIGHTS_0")->second];
-	const tinygltf::BufferView& view = m_gltfModel.bufferViews[accessor.bufferView];
+	const tinygltf::Accessor& accessor = model.accessors[primitive.attributes.find("WEIGHTS_0")->second];
+	const tinygltf::BufferView& view = model.bufferViews[accessor.bufferView];
 
 	// Leemos el buffer.
-	const float* boneWeights = reinterpret_cast<const float*>(&(m_gltfModel.buffers[view.buffer].data[accessor.byteOffset + view.byteOffset]));
+	const float* boneWeights = reinterpret_cast<const float*>(&(model.buffers[view.buffer].data[accessor.byteOffset + view.byteOffset]));
 
 	const USize32 numVertices = static_cast<USize32>(accessor.count);
 

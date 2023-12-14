@@ -20,6 +20,10 @@ const SphereCollider& Mesh3D::GetBounds() const {
 	return sphere;
 }
 
+SphereCollider& Mesh3D::GetBounds() {
+	return sphere;
+}
+
 const OSK::Vector3f& Mesh3D::GetSphereCenter() const {
 	return sphereCenter;
 }

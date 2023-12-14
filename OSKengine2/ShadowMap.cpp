@@ -30,7 +30,7 @@ using namespace OSK::GRAPHICS;
 void ShadowMap::Create(const Vector2ui& imageSize) {
 	GpuImageSamplerDesc depthSampler{};
 	depthSampler.mipMapMode = GpuImageMipmapMode::NONE;
-	depthSampler.addressMode = GpuImageAddressMode::REPEAT;
+	depthSampler.addressMode = GpuImageAddressMode::BACKGROUND_WHITE;
 
 	IGpuMemoryAllocator* memAllocator = Engine::GetRenderer()->GetAllocator();
 
@@ -43,19 +43,19 @@ void ShadowMap::Create(const Vector2ui& imageSize) {
 		imageInfo.numLayers = 4;
 		imageInfo.samplerDesc = depthSampler;
 
-		unusedColorArrayAttachment[i] = memAllocator->CreateImage(imageInfo).GetPointer();
-		unusedColorArrayAttachment[i]->SetDebugName(std::format("Shadow Map[{}] Unused", i));
+		m_unusedColorArrayAttachment[i] = memAllocator->CreateImage(imageInfo).GetPointer();
+		m_unusedColorArrayAttachment[i]->SetDebugName(std::format("Shadow Map[{}] Unused", i));
 
 		imageInfo.format = Format::D32_SFLOAT;
 		imageInfo.usage = GpuImageUsage::DEPTH | GpuImageUsage::SAMPLED | GpuImageUsage::SAMPLED_ARRAY;
 
-		depthArrayAttachment[i] = memAllocator->CreateImage(imageInfo).GetPointer();
-		depthArrayAttachment[i]->SetDebugName(std::format("Shadow Map[{}] Depth", i));
+		m_depthArrayAttachment[i] = memAllocator->CreateImage(imageInfo).GetPointer();
+		m_depthArrayAttachment[i]->SetDebugName(std::format("Shadow Map[{}] Depth", i));
 	}
 
-	shadowsGenMaterial = Engine::GetRenderer()->GetMaterialSystem()->LoadMaterial("Resources/Materials/ShadowMapping/material_shadows.json");
-	shadowsGenAnimMaterial = Engine::GetRenderer()->GetMaterialSystem()->LoadMaterial("Resources/Materials/ShadowMapping/material_shadows_anim.json");
-	shadowsGenMaterialInstance = shadowsGenMaterial->CreateInstance().GetPointer();
+	m_shadowsGenMaterial = Engine::GetRenderer()->GetMaterialSystem()->LoadMaterial("Resources/Materials/ShadowMapping/material_shadows.json");
+	m_shadowsGenAnimMaterial = Engine::GetRenderer()->GetMaterialSystem()->LoadMaterial("Resources/Materials/ShadowMapping/material_shadows_anim.json");
+	m_shadowsGenMaterialInstance = m_shadowsGenMaterial->CreateInstance().GetPointer();
 
 	std::array<const GpuBuffer*, NUM_RESOURCES_IN_FLIGHT> lightUbos{};
 	for (UIndex32 i = 0; i < NUM_RESOURCES_IN_FLIGHT; i++) {
@@ -63,15 +63,16 @@ void ShadowMap::Create(const Vector2ui& imageSize) {
 		lightUbos[i] = lightUniformBuffer[i].GetPointer();
 	}
 
-	shadowsGenMaterialInstance->GetSlot("global")->SetUniformBuffers("dirLight", lightUbos);
-	shadowsGenMaterialInstance->GetSlot("global")->FlushUpdate();
+	m_shadowsGenMaterialInstance->GetSlot("global")->SetUniformBuffers("dirLight", lightUbos);
+	m_shadowsGenMaterialInstance->GetSlot("global")->FlushUpdate();
 }
 
 void ShadowMap::SetDirectionalLight(const DirectionalLight& dirLight) {
-	OSK_ASSERT(shadowsGenMaterial != nullptr, InvalidObjectStateException("Se debe crear el ShadowMap antes de poder establecer su luz direccional."));
-	OSK_ASSERT(shadowsGenMaterialInstance.HasValue(), InvalidObjectStateException("Se debe crear el ShadowMap antes de poder establecer su luz direccional."));
+	OSK_ASSERT(m_shadowsGenMaterial != nullptr, InvalidObjectStateException("Se debe crear el ShadowMap antes de poder establecer su luz direccional."));
+	OSK_ASSERT(m_shadowsGenMaterialInstance.HasValue(), InvalidObjectStateException("Se debe crear el ShadowMap antes de poder establecer su luz direccional."));
 
-	lightDirection = Vector3f(dirLight.directionAndIntensity.x, dirLight.directionAndIntensity.y, dirLight.directionAndIntensity.Z).GetNormalized();
+	m_lightDirection = 
+		Vector3f(dirLight.directionAndIntensity.x, dirLight.directionAndIntensity.y, dirLight.directionAndIntensity.Z).GetNormalized();
 
 	UpdateLightMatrixBuffer();
 }
@@ -81,12 +82,10 @@ void ShadowMap::UpdateLightMatrixBuffer() {
 
 	ShadowsBufferContent bufferContent{};
 
-	const CameraComponent3D& camera = Engine::GetEcs()->GetComponent<CameraComponent3D>(cameraObject);
-	const Transform3D& cameraTransform = Engine::GetEcs()->GetComponent<Transform3D>(cameraObject);
+	const CameraComponent3D& camera = Engine::GetEcs()->GetComponent<CameraComponent3D>(m_cameraObject);
+	const Transform3D& cameraTransform = Engine::GetEcs()->GetComponent<Transform3D>(m_cameraObject);
 
-	DynamicArray<float> cascadeSplits = { 5, 20, 50, 50 };
-
-	bufferContent.cascadeSplits = Vector4f(cascadeSplits[0], cascadeSplits[1], cascadeSplits[2], cascadeSplits[3]);
+	bufferContent.cascadeSplits = m_splitsVec;
 
 	float lastClip = camera.GetNearPlane();
 
@@ -98,7 +97,7 @@ void ShadowMap::UpdateLightMatrixBuffer() {
 		// Creamos un frustum con NEAR = CascadeSplits[i - 1] y FAR = CascadeSplits[i],
 		// de tal manera que quede dentro toda la zona renderizada que está dentro del split.
 		CameraComponent3D clipCamera = camera;
-		clipCamera.SetPlanes(lastClip, cascadeSplits[i]);
+		clipCamera.SetPlanes(lastClip, m_splits[i]);
 
 		// Matriz proyección de la cámara del jugadro, en la que los planos near y far
 		// han sido recortados para representar el nivel de shadowmap.
@@ -116,8 +115,8 @@ void ShadowMap::UpdateLightMatrixBuffer() {
 
 		// Movemos para que el centro este en Y = 0.
 		for (auto& corner : worldSpaceFrustumCorners)
-			corner += lightDirection * frustumCenter.y;
-		frustumCenter += lightDirection * frustumCenter.y;
+			corner += m_lightDirection * frustumCenter.y;
+		frustumCenter += m_lightDirection * frustumCenter.y;
 
 		// Calculamos el radio, que será el radio del frustum que renderizará el mapa de sombras.
 		float radius = 0.0f;
@@ -129,54 +128,46 @@ void ShadowMap::UpdateLightMatrixBuffer() {
 		const Vector2f maxExtent = Vector2f(radius * 1.2f);
 		const Vector2f minExtent = -maxExtent;
 
-		const float minY = minExtent.y * lightDirection.GetNormalized().y;
-		const float maxY = maxExtent.y * lightDirection.GetNormalized().y;
-
 		// 'Cámara' virtual para renderizar el mapa de sombras.
-		const glm::mat4 lightProjection = glm::orthoRH_ZO(minExtent.x, maxExtent.x, maxExtent.y, minExtent.y, farPlane * 4, nearPlane * 12);
-		const glm::mat4 lightView = glm::lookAt((frustumCenter - lightDirection).ToGlm(), frustumCenter.ToGlm(), glm::vec3(0.0f, 1.0f, 0.0f));
+		const glm::mat4 lightProjection = glm::orthoRH_ZO(minExtent.x, maxExtent.x, maxExtent.y, minExtent.y, m_farPlane * 6, m_nearPlane * 12);
+		const glm::mat4 lightView = glm::lookAt((frustumCenter - m_lightDirection).ToGlm(), frustumCenter.ToGlm(), glm::vec3(0.0f, 1.0f, 0.0f));
 
 		bufferContent.matrices[i] = lightProjection * lightView;
 
-		lastClip = cascadeSplits[i];
+		lastClip = m_splits[i];
 	}
 
 	lightUniformBuffer[resourceIndex]->ResetCursor();
 	lightUniformBuffer[resourceIndex]->MapMemory();
-	lightUniformBuffer[resourceIndex]->Write(bufferContent.matrices[0]);
-	lightUniformBuffer[resourceIndex]->Write(bufferContent.matrices[1]);
-	lightUniformBuffer[resourceIndex]->Write(bufferContent.matrices[2]);
-	lightUniformBuffer[resourceIndex]->Write(bufferContent.matrices[3]);
-	lightUniformBuffer[resourceIndex]->Write(bufferContent.cascadeSplits);
-	lightUniformBuffer[resourceIndex]->Write(bufferContent.numCascades - 1);
+	lightUniformBuffer[resourceIndex]->Write(bufferContent);
 	lightUniformBuffer[resourceIndex]->Unmap();
 }
 
 void ShadowMap::SetNearPlane(float nearPlane) {
-	this->nearPlane = nearPlane;
+	m_nearPlane = nearPlane;
 }
 
 void ShadowMap::SetFarPlane(float farPlane) {
-	this->farPlane = farPlane;
+	m_farPlane = farPlane;
 }
 
 GpuImage* ShadowMap::GetShadowImage(UIndex32 index) {
-	return depthArrayAttachment[index].GetPointer();
+	return m_depthArrayAttachment[index].GetPointer();
 }
 
 GpuImage* ShadowMap::GetColorImage(UIndex32 index) {
-	return unusedColorArrayAttachment[index].GetPointer();
+	return m_unusedColorArrayAttachment[index].GetPointer();
 }
 
 Material* ShadowMap::GetShadowsMaterial(ModelType modelType) {
 	if (modelType == ModelType::STATIC_MESH)
-		return shadowsGenMaterial;
+		return m_shadowsGenMaterial;
 	else
-		return shadowsGenAnimMaterial;
+		return m_shadowsGenAnimMaterial;
 }
 
 MaterialInstance* ShadowMap::GetShadowsMaterialInstance() {
-	return shadowsGenMaterialInstance.GetPointer();
+	return m_shadowsGenMaterialInstance.GetPointer();
 }
 
 DynamicArray<GpuBuffer*> ShadowMap::GetDirLightMatrixUniformBuffers() {
@@ -188,11 +179,16 @@ DynamicArray<GpuBuffer*> ShadowMap::GetDirLightMatrixUniformBuffers() {
 }
 
 void ShadowMap::SetSceneCamera(ECS::GameObjectIndex cameraObject) {
-	this->cameraObject = cameraObject;
+	m_cameraObject = cameraObject;
 }
 
 UIndex32 ShadowMap::GetNumCascades() const {
 	return numMaps;
+}
+
+void ShadowMap::SetSplits(const std::array<float, 4>& splits) {
+	m_splits = splits;
+	m_splitsVec = Vector4f(splits[0], splits[1], splits[2], splits[3]);
 }
 
 DynamicArray<Vector3f> ShadowMap::GetFrustumCorners(const glm::mat4& cameraMatrix) {

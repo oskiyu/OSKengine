@@ -88,6 +88,7 @@
     <ClCompile Include="HbaoPass.cpp" />
     <ClCompile Include="IRenderPass.cpp" />
     <ClCompile Include="MeshMapping.cpp" />
+    <ClCompile Include="PbrIblConfig.h" />
     <ClCompile Include="PbrResolverPass.cpp" />
     <ClCompile Include="PerMeshData.cpp" />
     <ClCompile Include="PerModelData.cpp" />
@@ -95,9 +96,13 @@
     <ClCompile Include="MinkowskiHull.h" />
     <ClCompile Include="PreBuiltCollider.cpp" />
     <ClCompile Include="PreBuiltColliderLoader.cpp" />
+    <ClCompile Include="PreBuiltSpline3D.cpp" />
+    <ClCompile Include="PreBuiltSplineLoader3D.cpp" />
+    <ClCompile Include="Ray.cpp" />
     <ClCompile Include="RenderBoundsRenderer.cpp" />
     <ClCompile Include="Sat.cpp" />
     <ClCompile Include="Simplex.cpp" />
+    <ClCompile Include="Spline3D.cpp" />
     <ClCompile Include="StaticGBufferPass.cpp" />
     <ClCompile Include="StringOperations.cpp" />
     <ClCompile Include="TreeGBufferPass.cpp" />
@@ -364,10 +369,13 @@
     <ClInclude Include="MathExceptions.h" />
     <ClInclude Include="MatrixOperations.hpp" />
     <ClInclude Include="MeshMapping.h" />
+    <ClInclude Include="PbrMaterialInfo.h" />
     <ClInclude Include="PbrResolvePass.h" />
     <ClInclude Include="Plane.h" />
     <ClInclude Include="PreBuiltCollider.h" />
     <ClInclude Include="PreBuiltColliderLoader.h" />
+    <ClInclude Include="PreBuiltSpline3D.h" />
+    <ClInclude Include="PreBuiltSplineLoader3D.h" />
     <ClInclude Include="RenderBoundsRenderer.h" />
     <ClInclude Include="RendererExceptions.h" />
     <ClInclude Include="GpuBarrierInfo.h" />
@@ -486,6 +494,7 @@
     <ClInclude Include="SchemaId.h" />
     <ClInclude Include="Simplex.h" />
     <ClInclude Include="Span.h" />
+    <ClInclude Include="Spline3D.h" />
     <ClInclude Include="SpriteBatch.h" />
     <ClInclude Include="StaticArray.hpp" />
     <ClInclude Include="StaticGBufferPass.h" />

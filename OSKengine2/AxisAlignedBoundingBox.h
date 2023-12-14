@@ -32,23 +32,20 @@ namespace OSK::COLLISION {
 		/// desde el centro).
 		const Vector3f& GetSize() const;
 
-		/// @todo Implementación. 
-		RayCastResult CastRay(const Ray& ray, const Vector3f& position) const override;
-		bool ContainsPoint(const Vector3f& thisOffset, const Vector3f& point) const override;
-		bool IsColliding(const ITopLevelCollider& other,
-			const Vector3f& thisOffset, const Vector3f& otherOffset) const override;
+		RayCastResult CastRay(const Ray& ray) const override;
+		bool ContainsPoint(const Vector3f& point) const override;
 
-		bool IsBehindPlane(Plane plane, const Vector3f& position) const override;
+		bool IsColliding(const ITopLevelCollider& other) const override;
 
-		/// @param position Posición del AABB.
+		bool IsBehindPlane(Plane plane) const override;
+
 		/// @return Esquina mínima: posición del vértice con las
 		/// coordenadas más pequeñas.
-		Vector3f GetMin(const Vector3f& position) const;
+		Vector3f GetMin() const;
 
-		/// @param position Posición del AABB.
 		/// @return Esquina máxima: posición del vértice con las
 		/// coordenadas más grandes.
-		Vector3f GetMax(const Vector3f& position) const;
+		Vector3f GetMax() const;
 
 	private:
 

@@ -24,13 +24,12 @@ namespace OSK::COLLISION {
 		void SetRadius(float radius);
 		float GetRadius() const;
 
-		bool ContainsPoint(const Vector3f& thisOffset, const Vector3f& point) const override;
+		bool ContainsPoint(const Vector3f& point) const override;
 
-		bool IsBehindPlane(Plane plane, const Vector3f& thisOffset) const override;
+		bool IsBehindPlane(Plane plane) const override;
 
-		RayCastResult CastRay(const Ray& ray, const Vector3f& position) const override;
-		bool IsColliding(const ITopLevelCollider& other,
-			const Vector3f& thisOffset, const Vector3f& otherOffset) const override;
+		RayCastResult CastRay(const Ray& ray) const override;
+		bool IsColliding(const ITopLevelCollider& other) const override;
 
 	private:
 

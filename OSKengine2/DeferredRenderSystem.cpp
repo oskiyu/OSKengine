@@ -34,6 +34,8 @@
 
 #include "PbrResolvePass.h"
 
+#include "InvalidObjectStateException.h"
+
 using namespace OSK;
 using namespace OSK::ECS;
 using namespace OSK::ASSETS;
@@ -57,10 +59,6 @@ DeferredRenderSystem::DeferredRenderSystem() {
 	m_directionalLight.color = Color(255 / 255.f, 255 / 255.f, 255 / 255.f);
 }
 
-DeferredRenderSystem::~DeferredRenderSystem() {
-
-}
-
 
 void DeferredRenderSystem::CreateBuffers() {
 	IGpuMemoryAllocator* memAllocator = Engine::GetRenderer()->GetAllocator();
@@ -69,6 +67,7 @@ void DeferredRenderSystem::CreateBuffers() {
 		m_cameraBuffers[i] = memAllocator->CreateUniformBuffer(sizeof(CameraInfo)).GetPointer();
 		m_previousFrameCameraBuffers[i] = memAllocator->CreateUniformBuffer(sizeof(PreviousCameraInfo)).GetPointer();
 		m_directionalLightBuffers[i] = memAllocator->CreateUniformBuffer(sizeof(DirectionalLight)).GetPointer();
+		m_iblConfigBuffers[i] = memAllocator->CreateUniformBuffer(sizeof(PbrIblConfig)).GetPointer();
 	}
 }
 
@@ -97,8 +96,6 @@ void DeferredRenderSystem::SetupGBufferMaterial() {
 void DeferredRenderSystem::Initialize(GameObjectIndex camera, ASSETS::AssetRef<ASSETS::IrradianceMap> irradianceMap, ASSETS::AssetRef<ASSETS::SpecularMap> specularMap) {
 	m_cameraObject = camera;
 
-	m_irradianceMap = irradianceMap;
-	m_specularMap = specularMap;
 
 	// Pases por defecto
 	AddRenderPass(new StaticGBufferPass());
@@ -108,21 +105,14 @@ void DeferredRenderSystem::Initialize(GameObjectIndex camera, ASSETS::AssetRef<A
 
 	SetResolver(new PbrResolverPass());
 
-
 	CreateBuffers();
 	LoadMaterials();
 	SetupGBufferMaterial();
 	SetupResolveMaterial();
 
 	m_taaProvider.SetMaxJitter(4);
-
-	const GpuImageViewConfig viewConfig = GpuImageViewConfig::CreateSampled_Default();
-	const GpuImageViewConfig cubemapConfig = GpuImageViewConfig::CreateSampled_Cubemap();
-
-	m_resolverPass->GetMaterialInstance()->GetSlot("global")->SetGpuImage("irradianceMap", irradianceMap->GetGpuImage()->GetView(cubemapConfig));
-	m_resolverPass->GetMaterialInstance()->GetSlot("global")->SetGpuImage("specularMap", specularMap->GetCubemapImage()->GetView(cubemapConfig));
-	m_resolverPass->GetMaterialInstance()->GetSlot("global")->SetGpuImage("specularLut", specularMap->GetLookUpTable()->GetView(viewConfig));
-	m_resolverPass->GetMaterialInstance()->GetSlot("global")->FlushUpdate();
+		
+	SetIbl(irradianceMap, specularMap);
 
 	m_shadowMap.SetSceneCamera(camera);
 
@@ -130,6 +120,19 @@ void DeferredRenderSystem::Initialize(GameObjectIndex camera, ASSETS::AssetRef<A
 		pass->Load();
 		pass->SetCamera(camera);
 	}
+}
+
+void DeferredRenderSystem::SetIbl(AssetRef<IrradianceMap> irradianceMap, AssetRef<SpecularMap> specularMap) {
+	const GpuImageViewConfig viewConfig = GpuImageViewConfig::CreateSampled_Default();
+	const GpuImageViewConfig cubemapConfig = GpuImageViewConfig::CreateSampled_Cubemap();
+
+	m_irradianceMap = irradianceMap;
+	m_specularMap = specularMap;
+
+	m_resolverPass->GetMaterialInstance()->GetSlot("global")->SetGpuImage("irradianceMap", irradianceMap->GetGpuImage()->GetView(cubemapConfig));
+	m_resolverPass->GetMaterialInstance()->GetSlot("global")->SetGpuImage("specularMap", specularMap->GetCubemapImage()->GetView(cubemapConfig));
+	m_resolverPass->GetMaterialInstance()->GetSlot("global")->SetGpuImage("specularLut", specularMap->GetLookUpTable()->GetView(viewConfig));
+	m_resolverPass->GetMaterialInstance()->GetSlot("global")->FlushUpdate();
 }
 
 void DeferredRenderSystem::AddRenderPass(OwnedPtr<GRAPHICS::IRenderPass> pass) {
@@ -149,6 +152,7 @@ void DeferredRenderSystem::SetupResolveMaterial() {
 	std::array<const GpuBuffer*, NUM_RESOURCES_IN_FLIGHT> _dirLightUbos{};
 	std::array<const GpuBuffer*, NUM_RESOURCES_IN_FLIGHT> _shadowsMatricesUbos{};
 	std::array<const IGpuImageView*, NUM_RESOURCES_IN_FLIGHT> _shadowsMaps{};
+	std::array<const GpuBuffer*, NUM_RESOURCES_IN_FLIGHT> _iblConfigs{};
 
 	GpuImageViewConfig shadowsViewConfig = GpuImageViewConfig::CreateSampled_Array(0, m_shadowMap.GetNumCascades());
 	shadowsViewConfig.channel = SampledChannel::DEPTH;
@@ -158,12 +162,14 @@ void DeferredRenderSystem::SetupResolveMaterial() {
 		_dirLightUbos[i] = m_directionalLightBuffers[i].GetPointer();
 		_shadowsMatricesUbos[i] = m_shadowMap.GetDirLightMatrixUniformBuffers()[i];
 		_shadowsMaps[i] = m_shadowMap.GetShadowImage(i)->GetView(shadowsViewConfig);
+		_iblConfigs[i] = m_iblConfigBuffers[i].GetPointer();
 	}
 
 	m_resolverPass->GetMaterialInstance()->GetSlot("global")->SetUniformBuffers("camera", _cameraUbos);
 	m_resolverPass->GetMaterialInstance()->GetSlot("global")->SetUniformBuffers("dirLight", _dirLightUbos);
 	m_resolverPass->GetMaterialInstance()->GetSlot("global")->SetUniformBuffers("dirLightShadowMat", _shadowsMatricesUbos);
 	m_resolverPass->GetMaterialInstance()->GetSlot("global")->SetGpuImages("dirLightShadowMap", _shadowsMaps);
+	m_resolverPass->GetMaterialInstance()->GetSlot("global")->SetUniformBuffers("iblConfig", _iblConfigs);
 	m_resolverPass->GetMaterialInstance()->GetSlot("global")->FlushUpdate();
 
 	UpdateResolveMaterial();
@@ -190,6 +196,9 @@ void DeferredRenderSystem::UpdateResolveMaterial() {
 
 	for (UIndex32 i = 0; i < NUM_RESOURCES_IN_FLIGHT; i++) images[i] = m_gBuffer.GetImage(i, GBuffer::Target::METALLIC_ROUGHNESS)->GetView(viewConfig);
 	m_resolverPass->GetMaterialInstance()->GetSlot("gbuffer")->SetGpuImages("metallicRoughnessTexture", images);
+
+	for (UIndex32 i = 0; i < NUM_RESOURCES_IN_FLIGHT; i++) images[i] = m_gBuffer.GetImage(i, GBuffer::Target::EMISSIVE)->GetView(viewConfig);
+	m_resolverPass->GetMaterialInstance()->GetSlot("gbuffer")->SetGpuImages("emissiveTexture", images);
 
 	m_resolverPass->GetMaterialInstance()->GetSlot("gbuffer")->FlushUpdate();
 
@@ -309,6 +318,10 @@ void DeferredRenderSystem::Render(ICommandList* commandList) {
 	m_directionalLightBuffers[resourceIndex]->MapMemory();
 	m_directionalLightBuffers[resourceIndex]->Write(m_directionalLight);
 	m_directionalLightBuffers[resourceIndex]->Unmap();
+
+	m_iblConfigBuffers[resourceIndex]->MapMemory();
+	m_iblConfigBuffers[resourceIndex]->Write(m_iblConfig);
+	m_iblConfigBuffers[resourceIndex]->Unmap();
 
 	m_shadowMap.SetDirectionalLight(m_directionalLight);
 	
@@ -437,6 +450,10 @@ void DeferredRenderSystem::RenderGBuffer(ICommandList* commandList) {
 	const Vector2ui resolution = m_gBuffer.GetImage(resourceIndex, GBuffer::Target::COLOR)->GetSize2D();
 
 	for (auto& pass : m_renderPasses) {
+		OSK_ASSERT(
+			m_objectsPerPass.contains(pass->GetTypeName()), 
+			InvalidObjectStateException(std::format("No se encuentra el pase {}", pass->GetTypeName())));
+
 		commandList->BindMaterialSlot(*m_gBufferCameraInstance->GetSlot("global"));
 		const auto& objectList = m_objectsPerPass.find(pass->GetTypeName())->second;
 		pass->RenderLoop(commandList, objectList, jitterIndex, resolution);
@@ -551,6 +568,14 @@ void DeferredRenderSystem::CopyFinalImages(ICommandList* cmdList) {
 void DeferredRenderSystem::OnTick(TDeltaTime deltaTime) {
 	for (const GameObjectIndex obj : GetObjects()) {
 		Model3D* model = Engine::GetEcs()->GetComponent<ModelComponent3D>(obj).GetModel();
+		Transform3D transformCopy = Engine::GetEcs()->GetComponent<Transform3D>(obj);
+		transformCopy.SetScale(Vector3f::One);
+
+		for (UIndex32 i = 0; i < model->GetMeshes().GetSize(); i++) {
+			auto& mesh = model->GetMeshes()[i];
+			const Vector3f spherePosition = Math::TransformPoint(mesh.GetSphereCenter(), transformCopy.GetAsMatrix());
+			mesh.GetBounds().SetPosition(spherePosition);
+		}
 
 		if (model->GetType() == ModelType::STATIC_MESH)
 			continue;
@@ -561,4 +586,28 @@ void DeferredRenderSystem::OnTick(TDeltaTime deltaTime) {
 
 void DeferredRenderSystem::ToggleTaa() {
 	m_taaProvider.ToggleActivation();
+}
+
+DirectionalLight& DeferredRenderSystem::GetDirectionalLight() {
+	return m_directionalLight;
+}
+
+const DirectionalLight& DeferredRenderSystem::GetDirectionalLight() const {
+	return m_directionalLight;
+}
+
+PbrIblConfig& DeferredRenderSystem::GetIblConfig() {
+	return m_iblConfig;
+}
+
+const PbrIblConfig& DeferredRenderSystem::GetIblConfig() const {
+	return m_iblConfig;
+}
+
+GRAPHICS::ShadowMap& DeferredRenderSystem::GetShadowMap() {
+	return m_shadowMap;
+}
+
+const GRAPHICS::ShadowMap& DeferredRenderSystem::GetShadowMap() const {
+	return m_shadowMap;
 }

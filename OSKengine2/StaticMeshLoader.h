@@ -19,7 +19,7 @@ namespace OSK::ASSETS {
 
 	protected:
 
-		void ProcessNode(const tinygltf::Node& node, UIndex32 nodeId, UIndex32 parentId) override;
+		void ProcessNode(const tinygltf::Model& model, const tinygltf::Node& node, UIndex32 nodeId, UIndex32 parentId) override;
 
 		DynamicArray<GRAPHICS::Vertex3D> vertices;
 

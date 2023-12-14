@@ -37,7 +37,7 @@ CollisionInfo Collider::GetCollisionInfo(const Collider& other, const Transform3
 	const Vector3f thisPosition = thisTransform.GetPosition();
 	const Vector3f otherPosition = otherTransform.GetPosition();
 
-	if (!m_topLevelCollider->IsColliding(*otherTopLevel, thisPosition, otherPosition))
+	if (!m_topLevelCollider->IsColliding(*otherTopLevel))
 		return CollisionInfo::False();
 
 	DynamicArray<DetailedCollisionInfo> bottomLevelCollisions{};

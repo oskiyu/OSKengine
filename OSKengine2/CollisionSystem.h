@@ -2,6 +2,9 @@
 
 #include "IProducerSystem.h"
 
+#include "RayCastResult.h"
+#include "Ray.h"
+
 namespace OSK::ECS {
 
 	/// @brief Sistema que se encarga de detectar colisiones entre entidades
@@ -16,6 +19,10 @@ namespace OSK::ECS {
 
 		void OnCreate() override;
 		void OnTick(TDeltaTime deltaTime) override;
+
+		COLLISION::RayCastResult CastRay(
+			const COLLISION::Ray& ray,
+			GameObjectIndex sendingObject) const;
 
 	};
 

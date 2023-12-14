@@ -62,7 +62,7 @@ void Font::LoadSizedFont(USize32 fontSize) {
 		USize32 advanceX = 0;
 	};
 
-	FtChar ftCharacters[255];
+	std::array<FtChar, 255> ftCharacters;
 
 	Vector2ui gpuImageSize = { 0, 0 };
 
@@ -120,12 +120,24 @@ void Font::LoadSizedFont(USize32 fontSize) {
 		}
 
 		FontCharacter fontChar{};
-		fontChar.size = { (float)ftCharacters[c].sizeX, (float)ftCharacters[c].sizeY };
-		fontChar.bearing = { (float)ftCharacters[c].left, (float)ftCharacters[c].top };
-		fontChar.advance = ftCharacters[c].advanceX;
-		fontChar.texCoords = { (int)currentX, 0, (int)fontChar.size.x, (int)fontChar.size.y };
 
-		instance.characters[(char)c] = fontChar;
+		fontChar.size = { 
+			static_cast<float>(ftCharacters[c].sizeX), 
+			static_cast<float>(ftCharacters[c].sizeY) };
+
+		fontChar.bearing = { 
+			static_cast<float>(ftCharacters[c].left), 
+			static_cast<float>(ftCharacters[c].top) };
+
+		fontChar.advance = ftCharacters[c].advanceX;
+
+		fontChar.texCoords = { 
+			static_cast<int>(currentX), 
+			0, 
+			static_cast<int>(fontChar.size.x), 
+			static_cast<int>(fontChar.size.y) };
+
+		instance.characters[static_cast<char>(c)] = fontChar;
 
 		currentX += ftCharacters[c].sizeX;
 	}

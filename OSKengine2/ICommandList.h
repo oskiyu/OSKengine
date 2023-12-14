@@ -34,6 +34,7 @@ namespace OSK::GRAPHICS {
 	struct RenderPassImageInfo {
 		GpuImage* targetImage = nullptr;
 		UIndex32 arrayLevel = 0;
+		bool clear = true;
 	};
 
 	/// @brief Parámetros para la copia de una imagen a otra

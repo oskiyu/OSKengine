@@ -21,6 +21,7 @@
 #include "Vertex3D.h"
 
 #include "IGpuMemoryAllocator.h"
+#include "CollisionSystem.h"
 
 #include <set>
 
@@ -109,7 +110,10 @@ void ColliderRenderSystem::Render(GRAPHICS::ICommandList* commandList) {
 	const auto& eventQueue = Engine::GetEcs()->GetEventQueue<CollisionEvent>();
 	DynamicArray<Vector3f> contactPoints;
 	DynamicArray<Vector3f> singleContactPoints;
+	DynamicArray<Vector3f> rayCastContactPoints;
 	std::set<GameObjectIndex> collisionObjects;
+	std::set<GameObjectIndex> rayCastedObjects;
+
 	for (const CollisionEvent& ev : eventQueue) {
 		collisionObjects.insert(ev.firstEntity);
 		collisionObjects.insert(ev.secondEntity);
@@ -125,11 +129,25 @@ void ColliderRenderSystem::Render(GRAPHICS::ICommandList* commandList) {
 		Transform3D topLevelTransform = originalTransform;
 		topLevelTransform.SetRotation({});
 
+		if (gameObject == 1) {
+			COLLISION::Ray ray{};
+			ray.origin = originalTransform.GetPosition() + Vector3f(0.0f, 0.11f, 0.0f);
+			ray.direction = originalTransform.GetForwardVector();
+
+			const auto rayResult = Engine::GetEcs()->GetSystem<CollisionSystem>()->CastRay(ray, gameObject);
+			if (rayResult.Result()) {
+				rayCastContactPoints.Insert(rayResult.GetIntersectionPoint());
+				rayCastedObjects.insert(rayResult.GetObject());
+			}
+		}
+
 		const Collider& collider = *Engine::GetEcs()->GetComponent<CollisionComponent>(gameObject).GetCollider();
 		const ITopLevelCollider* topLevelCollider = collider.GetTopLevelCollider();
 
-		if (collisionObjects.contains(gameObject))
-			renderInfo.color = Color::Red * 0.75f;
+		if (rayCastedObjects.contains(gameObject))
+			renderInfo.color = Color::Green * 0.75f;
+		// else if (collisionObjects.contains(gameObject))
+		//	renderInfo.color = Color::Red * 0.75f;
 		else
 			renderInfo.color = Color::Yellow * 0.75f;
 
@@ -156,10 +174,12 @@ void ColliderRenderSystem::Render(GRAPHICS::ICommandList* commandList) {
 			const auto& vertexBuffers = bottomLevelVertexBuffers.at(gameObject);
 			const auto& indexBuffers = bottomLevelIndexBuffers.at(gameObject);
 
-			if (collisionObjects.contains(gameObject))
-				renderInfo.color = Color::Red;
+			if (rayCastedObjects.contains(gameObject))
+				renderInfo.color = Color::Green * 0.75f;
+			// else if (collisionObjects.contains(gameObject))
+			//	renderInfo.color = Color::Red * 0.75f;
 			else
-				renderInfo.color = Color::Yellow;
+				renderInfo.color = Color::Yellow * 0.75f;
 
 			renderInfo.modelMatrix = originalTransform.GetAsMatrix();
 			commandList->PushMaterialConstants("pushConstants", renderInfo);
@@ -192,6 +212,13 @@ void ColliderRenderSystem::Render(GRAPHICS::ICommandList* commandList) {
 
 	pushConstant.color = Color::Purple;
 	for (const Vector3f point : singleContactPoints) {
+		pushConstant.point = Vector4f(point.x, point.y, point.z, 1.0f);
+		commandList->PushMaterialConstants("pushConstants", pushConstant);
+		commandList->DrawSingleInstance(1);
+	}
+
+	pushConstant.color = Color::Green;
+	for (const Vector3f point : rayCastContactPoints) {
 		pushConstant.point = Vector4f(point.x, point.y, point.z, 1.0f);
 		commandList->PushMaterialConstants("pushConstants", pushConstant);
 		commandList->DrawSingleInstance(1);

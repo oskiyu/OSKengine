@@ -16,14 +16,6 @@
 %VULKAN_SDK%/Bin/glslc.exe ./Deferred/GBuffer/shader_billboard.frag -o ./Deferred/GBuffer/shader_billboard.spv
 %VULKAN_SDK%/Bin/glslc.exe ./Deferred/GBuffer/anim.vert -o ./Deferred/GBuffer/anim.spv
 
-%VULKAN_SDK%/Bin/glslc.exe ./Deferred/Resolve/shader.vert -o ./Deferred/Resolve/vert.spv
-%VULKAN_SDK%/Bin/glslc.exe ./Deferred/Resolve/shader.frag -o ./Deferred/Resolve/frag.spv
-
-%VULKAN_SDK%/Bin/glslc.exe ./Terrain/shader.tesc -o ./Terrain/tesc.spv
-%VULKAN_SDK%/Bin/glslc.exe ./Terrain/shader.tese -o ./Terrain/tese.spv
-%VULKAN_SDK%/Bin/glslc.exe ./Terrain/shader.vert -o ./Terrain/vert.spv
-%VULKAN_SDK%/Bin/glslc.exe ./Terrain/shader.frag -o ./Terrain/frag.spv
-
 %VULKAN_SDK%/Bin/glslc.exe ./TAA/taa.comp -o ./TAA/taa.spv
 %VULKAN_SDK%/Bin/glslc.exe ./TAA/sharpen.comp -o ./TAA/sharpen.spv
 

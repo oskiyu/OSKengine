@@ -159,7 +159,7 @@ void CommandListDx12::BeginGraphicsRenderpass(DynamicArray<RenderPassImageInfo> 
 		GpuImageViewConfig depthView = GpuImageViewConfig::CreateTarget_DepthStencil();
 		depthView.baseArrayLevel = depthImage.arrayLevel;
 
-		for (const auto& [image, layer] : colorImages) {
+		for (const auto& [image, layer, clear] : colorImages) {
 			colorView.baseArrayLevel = layer;
 			colorAttachments.Insert(image->GetView(colorView)
 				->As<GpuImageViewDx12>()->GetCpuAddress());

@@ -4,6 +4,7 @@
 
 #include "OSKmacros.h"
 #include "Vector3.hpp"
+#include "RayCastResult.h"
 
 namespace OSK::COLLISION {
 	
@@ -21,6 +22,11 @@ namespace OSK::COLLISION {
 		/// No se tendrán en cuenta las colisiones con colliders que
 		/// estén más lejos que la longitud del rayo.
 		float maxLength = 1000.0f;
+
+
+		RayCastResult IntersectionWithPlane(
+			const Vector3f& planeNormal,
+			const Vector3f& planePoint) const;
 
 	};
 

@@ -5,7 +5,9 @@
 #include <json.hpp>
 
 #include "HashMap.hpp"
+#include "UniquePtr.hpp"
 #include "AssetRef.h"
+#include <map>
 #include "AssetOwningRef.h"
 #include <string>
 
@@ -67,11 +69,11 @@ namespace OSK::ASSETS {
 
 		virtual ~TAssetLoader() = default;
 
-		virtual AssetOwningRef<TAssetType> Load(const std::string& path) = 0;
+		virtual void Load(const std::string& path, TAssetType* asset) = 0;
 
 	protected:
 
-		std::unordered_map<std::string, AssetOwningRef<TAssetType>, StringHasher, std::equal_to<>> m_assetsTable;
+		std::unordered_map<std::string, AssetOwningRef<TAssetType>> m_assetsTable;
 
 	};
 
@@ -79,9 +81,10 @@ namespace OSK::ASSETS {
 
 #define OSK_DEFAULT_LOADER_IMPL(TType) \
 void Load(const std::string& assetFilePath, void* assetRef) override { \
-	AssetRef<TType>& output = *static_cast<AssetRef<TType>*>(assetRef); \
+	OSK::ASSETS::AssetRef<TType>& output = *static_cast<OSK::ASSETS::AssetRef<TType>*>(assetRef); \
 	if (!m_assetsTable.contains(assetFilePath)) { \
-		m_assetsTable[assetFilePath] = Load(assetFilePath); \
+		m_assetsTable[assetFilePath] = OSK::ASSETS::AssetOwningRef< TType >(assetFilePath); \
+		Load(assetFilePath, m_assetsTable.find(assetFilePath)->second.GetAsset());\
 	} \
-	output = m_assetsTable.at(assetFilePath).CreateRef(); \
+	output = m_assetsTable.find(assetFilePath)->second.CreateRef(); \
 }

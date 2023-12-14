@@ -17,58 +17,50 @@ const static ECS::EntityComponentSystem* GetEcs() {
 }
 
 Transform3D::Transform3D(ECS::GameObjectIndex owner) : owner(owner) {
-	matrix = glm::mat4(1);
 
-	localPosition = Vector3f(0);
-	localScale = Vector3f(1);
-
-	globalPosition = Vector3f(0);
-	globalScale = Vector3f(1);
-
-	parent = 0;
 }
 
 void Transform3D::SetPosition(const Vector3f& nPosition) {
-	localPosition = nPosition;
+	m_localPosition = nPosition;
 	UpdateModel();
 }
 
 void Transform3D::SetScale(const Vector3f& nScale) {
-	localScale = nScale;
+	m_localScale = nScale;
 
-	if (parent)
-		localScale += GetEcs()->GetComponent<Transform3D>(parent).GetLocalScale();
+	if (parent && m_inheritScale)
+		m_localScale += GetEcs()->GetComponent<Transform3D>(parent).GetLocalScale();
 
 	UpdateModel();
 }
 
 void Transform3D::SetRotation(const Quaternion& nRotation) {
-	localRotation = nRotation;
+	m_localRotation = nRotation;
 	UpdateModel();
 }
 
 void Transform3D::AddPosition(const Vector3f& positionDelta) {
-	SetPosition(localPosition + positionDelta);
+	SetPosition(m_localPosition + positionDelta);
 }
 
 void Transform3D::AddScale(const Vector3f& scaleDelta) {
-	SetScale(localScale + scaleDelta);
+	SetScale(m_localScale + scaleDelta);
 }
 
 void Transform3D::ApplyRotation(const Quaternion& rotationDelta) {
-	glm::quat q = localRotation.ToGlm();
+	glm::quat q = m_localRotation.ToGlm();
 	q *= rotationDelta.ToGlm();
 
 	SetRotation(Quaternion::FromGlm(glm::normalize(q)));
 }
 
 void Transform3D::RotateLocalSpace(float angle, const Vector3f& axis) {
-	localRotation.Rotate_LocalSpace(angle, axis);
+	m_localRotation.Rotate_LocalSpace(angle, axis);
 	UpdateModel();
 }
 
 void Transform3D::RotateWorldSpace(float angle, const Vector3f& axis) {
-	localRotation.Rotate_WorldSpace(angle, axis);
+	m_localRotation.Rotate_WorldSpace(angle, axis);
 	UpdateModel();
 }
 
@@ -88,32 +80,39 @@ void Transform3D::UnAttach() {
 }
 
 void Transform3D::UpdateModel() {
-	matrix = glm::mat4(1.0f);
+	m_matrix = glm::mat4(1.0f);
 
 	if (parent) {
 		const Transform3D& parentTransform = GetEcs()->GetComponent<Transform3D>(parent);
 
-		globalRotation = parentTransform.globalRotation * localRotation.ToMat4();
+		m_globalRotation = m_inheritRotation 
+			? parentTransform.m_globalRotation * m_localRotation.ToMat4()
+			: m_localRotation.ToMat4();
 
-		matrix = glm::translate(matrix, parentTransform.GetPosition().ToGlm());
-		matrix = matrix * parentTransform.globalRotation;
+		if (m_inheritPosition) {
+			m_matrix = glm::translate(m_matrix, parentTransform.GetPosition().ToGlm());
+		}
+
+		if (m_inheritRotation) {
+			m_matrix = m_matrix * parentTransform.m_globalRotation;
+		}
 	}
 	else {
-		globalRotation = localRotation.ToMat4();
+		m_globalRotation = m_localRotation.ToMat4();
 	}
 
 	// Posición local.
-	matrix = glm::translate(matrix, localPosition.ToGlm());
+	m_matrix = glm::translate(m_matrix, m_localPosition.ToGlm());
 	
 	// Rotación local.
-	matrix = matrix * localRotation.ToMat4();
+	m_matrix = m_matrix * m_localRotation.ToMat4();
 	
 	// Escala local.
-	matrix = glm::scale(matrix, localScale.ToGlm());
+	m_matrix = glm::scale(m_matrix, m_localScale.ToGlm());
 
 	
 	// Obtener posición final.
-	globalPosition = Vector3f(matrix * glm::vec4(0, 0, 0, 1));
+	m_globalPosition = Vector3f(m_matrix * glm::vec4(0, 0, 0, 1));
 
 	for (UIndex64 i = 0; i < childTransforms.GetSize(); i++) {
 		Transform3D& child = GetEcs()->GetComponent<Transform3D>(childTransforms[i]);
@@ -128,39 +127,39 @@ void Transform3D::UpdateModel() {
 }
 
 Vector3f Transform3D::TransformPoint(const Vector3f& point) const {
-	return Math::TransformPoint(point, matrix);
+	return Math::TransformPoint(point, m_matrix);
 }
 
 Vector3f Transform3D::GetPosition() const {
-	return globalPosition;
+	return m_globalPosition;
 }
 
 Vector3f Transform3D::GetScale() const {
-	return globalScale;
+	return m_globalScale;
 }
 
 Vector3f Transform3D::GetLocalPosition() const {
-	return localPosition;
+	return m_localPosition;
 }
 
 Vector3f Transform3D::GetLocalScale() const {
-	return localScale;
+	return m_localScale;
 }
 
 Quaternion Transform3D::GetLocalRotation() const {
-	return localRotation;
+	return m_localRotation;
 }
 
 Quaternion Transform3D::GetRotation() const {
-	return Quaternion::FromGlm(glm::toQuat(globalRotation));
+	return Quaternion::FromGlm(glm::toQuat(m_globalRotation));
 }
 
 glm::mat4 Transform3D::GetAsMatrix() const {
-	return matrix;
+	return m_matrix;
 }
 
 void Transform3D::OverrideMatrix(const glm::mat4& matrix) {
-	this->matrix = matrix;
+	m_matrix = matrix;
 }
 
 ECS::GameObjectIndex Transform3D::GetParentObject() const {
@@ -174,10 +173,20 @@ Vector3f Transform3D::GetForwardVector() const {
 
 Vector3f Transform3D::GetRightVector() const {
 	return GetRotation().RotateVector(Vector3f(-1, 0, 0));
-	// return Vector3f(GetRotation().ToGlm() * OSK::Vector3f(-1, 0, 0).ToGLM()).GetNormalized();
 }
 
 Vector3f Transform3D::GetTopVector() const {
 	return GetRotation().RotateVector(Vector3f(0, 1, 0));
-	// return Vector3f(GetRotation().ToGlm() * OSK::Vector3f(0, 1, 0).ToGLM()).GetNormalized();
+}
+
+void Transform3D::SetShouldInheritPosition(bool value) {
+	m_inheritPosition = value;
+}
+
+void Transform3D::SetShouldInheritRotation(bool value) {
+	m_inheritRotation = value;
+}
+
+void Transform3D::SetShouldInheritScale(bool value) {
+	m_inheritScale = value;
 }

@@ -44,18 +44,15 @@ using namespace OSK::ASSETS;
 using namespace OSK::GRAPHICS;
 
 
-AssetOwningRef<Model3D> ModelLoader3D::Load(const std::string& assetFilePath) {
-	AssetOwningRef<Model3D> output(assetFilePath);
-
-	// a
+void ModelLoader3D::Load(const std::string& assetFilePath, Model3D* asset) {
 	const nlohmann::json assetInfo = ValidateDescriptionFile(assetFilePath);
 
 	std::string modelPath = assetInfo["raw_asset_path"];
-	output->SetName(assetInfo["name"]);
+	asset->SetName(assetInfo["name"]);
 
 	OSK_ASSERT(assetInfo.contains("renderpass_type"), InvalidDescriptionFileException("No se encuentra renderpass_type", assetFilePath));
 
-	output->SetRenderPassType(assetInfo["renderpass_type"]);
+	asset->SetRenderPassType(assetInfo["renderpass_type"]);
 
 	const bool isAnimated = assetInfo.contains("animated");
 
@@ -75,25 +72,23 @@ AssetOwningRef<Model3D> ModelLoader3D::Load(const std::string& assetFilePath) {
 
 	}*/
 
-	const USize64 prevNumMeshes = output->GetMeshes().GetSize();
+	const USize64 prevNumMeshes = asset->GetMeshes().GetSize();
 
 	if (isAnimated) {
 		AnimMeshLoader loader{};
 		loader.Load(modelPath, modelTransform);
-		loader.SetupModel(output.GetAsset());
+		loader.SetupModel(asset);
 	}
 	else {
 		StaticMeshLoader loader{};
 		loader.Load(modelPath, modelTransform);
-		loader.SetupModel(output.GetAsset());
+		loader.SetupModel(asset);
 	}
 
-	const USize64 newNumMeshes = output->GetMeshes().GetSize();
+	const USize64 newNumMeshes = asset->GetMeshes().GetSize();
 
-	output->_RegisterLod(Model3D::Lod{ .firstMeshId = prevNumMeshes, .meshesCount = newNumMeshes - prevNumMeshes });
+	asset->_RegisterLod(Model3D::Lod{ .firstMeshId = prevNumMeshes, .meshesCount = newNumMeshes - prevNumMeshes });
 
-	output->_SetId(m_nextModelId);
+	asset->_SetId(m_nextModelId);
 	m_nextModelId++;
-
-	return output;
 }

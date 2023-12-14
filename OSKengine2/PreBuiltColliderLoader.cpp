@@ -5,15 +5,15 @@
 #include "ModelLoadingExceptions.h"
 #include "SphereCollider.h"
 
+#define TINYGLTF_NO_STB_IMAGE_WRITE
 #include <tiny_gltf.h>
+
 
 using namespace OSK;
 using namespace OSK::ASSETS;
 using namespace OSK::COLLISION;
 
-AssetOwningRef<PreBuiltCollider> PreBuiltColliderLoader::Load(const std::string& assetFilePath) {
-	AssetOwningRef<PreBuiltCollider> output(assetFilePath);
-
+void PreBuiltColliderLoader::Load(const std::string& assetFilePath, PreBuiltCollider* asset) {
 	OwnedPtr<COLLISION::Collider> collider = new COLLISION::Collider();
 	m_buildingCollider = collider.GetPointer();
 
@@ -21,7 +21,7 @@ AssetOwningRef<PreBuiltCollider> PreBuiltColliderLoader::Load(const std::string&
 	const nlohmann::json assetInfo = ValidateDescriptionFile(assetFilePath);
 
 	std::string rawAssetPath = assetInfo["raw_asset_path"];
-	output->SetName(assetInfo["name"]);
+	asset->SetName(assetInfo["name"]);
 
 	// Loading
 	m_modelTransform = glm::mat4(1.0f);
@@ -40,20 +40,20 @@ AssetOwningRef<PreBuiltCollider> PreBuiltColliderLoader::Load(const std::string&
 	std::string warningMessage = "";
 
 	// Carga de archivo GLTF.
-	m_gltfModel = {};
+	tinygltf::Model gltfModel{};
 
-	context.LoadBinaryFromFile(&m_gltfModel, &errorMessage, &warningMessage, rawAssetPath);
+	context.LoadBinaryFromFile(&gltfModel, &errorMessage, &warningMessage, rawAssetPath);
 	OSK_ASSERT(errorMessage.empty(), EngineException("Error al cargar modelo estático: " + errorMessage));
 
 	// Escena con los colliders
-	const tinygltf::Scene scene = m_gltfModel.scenes[0];
+	const tinygltf::Scene scene = gltfModel.scenes[0];
 
 	// Cada nodo representa un collider de bajo nivel.
 	for (const int nodeIndex : scene.nodes) {
-		const tinygltf::Node& node = m_gltfModel.nodes[nodeIndex];
+		const tinygltf::Node& node = gltfModel.nodes[nodeIndex];
 		constexpr auto noParentId = std::numeric_limits<UIndex32>::max();
 
-		ProcessNode(node, nodeIndex, noParentId);
+		ProcessNode(gltfModel, node, nodeIndex, noParentId);
 	}
 
 	// Top-level collider:
@@ -88,24 +88,22 @@ AssetOwningRef<PreBuiltCollider> PreBuiltColliderLoader::Load(const std::string&
 
 	m_buildingCollider->SetTopLevelCollider(new SphereCollider(radius));
 	
-	output->_SetCollider(collider);
+	asset->_SetCollider(collider);
 	m_buildingCollider = nullptr;
-
-	return output;
 }
 
-void PreBuiltColliderLoader::ProcessNode(const tinygltf::Node& node, UIndex32 nodeId, UIndex32 parentId) {
+void PreBuiltColliderLoader::ProcessNode(const tinygltf::Model& model, const tinygltf::Node& node, UIndex32 nodeId, UIndex32 parentId) {
 	const glm::mat4 nodeMatrix = m_modelTransform * GetNodeMatrix(node);
 
 	if (node.mesh <= -1) {
 		for (UIndex32 i = 0; i < node.children.size(); i++)
-			ProcessNode(m_gltfModel.nodes[node.children[i]], node.children[i], parentId);
+			ProcessNode(model, model.nodes[node.children[i]], node.children[i], parentId);
 
 		return;
 	}
 
 	// Mesh
-	const tinygltf::Mesh& mesh = m_gltfModel.meshes[node.mesh];
+	const tinygltf::Mesh& mesh = model.meshes[node.mesh];
 
 	for (UIndex32 i = 0; i < mesh.primitives.size(); i++) {
 		OwnedPtr<ConvexVolume> volume = new ConvexVolume();
@@ -114,8 +112,8 @@ void PreBuiltColliderLoader::ProcessNode(const tinygltf::Node& node, UIndex32 no
 
 		OSK_ASSERT(primitive.mode == TINYGLTF_MODE_TRIANGLES, UnsupportedPolygonModeException(std::to_string(primitive.mode)));
 
-		const auto positions = GetVertexPositions(primitive, nodeMatrix);
-		const auto indices = GetIndices(primitive, 0);
+		const auto positions = GetVertexPositions(primitive, nodeMatrix, model);
+		const auto indices = GetIndices(primitive, 0, model);
 
 		const auto numIndices = indices.GetSize();
 
@@ -134,5 +132,5 @@ void PreBuiltColliderLoader::ProcessNode(const tinygltf::Node& node, UIndex32 no
 	}
 
 	for (UIndex32 i = 0; i < node.children.size(); i++)
-		ProcessNode(m_gltfModel.nodes[node.children[i]], node.children[i], parentId);
+		ProcessNode(model, model.nodes[node.children[i]], node.children[i], parentId);
 }
