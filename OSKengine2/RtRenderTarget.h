@@ -43,13 +43,14 @@ namespace OSK::GRAPHICS {
 
 
 		/// @brief Devuelve la imagen de renderizado en el índice de recursos dado.
-		/// @param index Índice del frame.
 		/// @return Puntero no nulo si fue correctamente inicializado. 
 		/// Nullptr si el render target no fue inicializado.
-		/// 
-		/// @pre index debe estar entre 0 y NUM_RESOURCES_IN_FLIGHT 
-		/// (0 <= index < NUM_RESOURCES_IN_FLIGHT).
-		GpuImage* GetTargetImage(UIndex32 index) const;
+		GpuImage* GetTargetImage();
+
+		/// @brief Devuelve la imagen de renderizado en el índice de recursos dado.
+		/// @return Puntero no nulo si fue correctamente inicializado. 
+		/// Nullptr si el render target no fue inicializado.
+		const GpuImage* GetTargetImage() const;
 
 
 		/// @brief Devuelve el material instance para el renderizado a pantalla completa usando
@@ -73,9 +74,9 @@ namespace OSK::GRAPHICS {
 
 		void SetupSpriteMaterial();
 
-		RenderTargetAttachment attachment;
+		RenderTargetAttachment m_attachment;
 
-		UniquePtr<MaterialInstance> fullscreenSpriteMaterialInstance;
+		UniquePtr<MaterialInstance> m_fullscreenSpriteMaterialInstance;
 
 	};
 

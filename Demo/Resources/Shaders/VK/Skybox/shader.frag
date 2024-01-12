@@ -16,4 +16,10 @@ layout (push_constant) uniform Brightness {
 
 void main() {
     outColor = texture(skybox, inTexCoords) * brightness.brightness;
+    outColor = vec4(1.0) - exp(-outColor * 4.0);
+    /* outColor += mix(
+        vec4(49, 73, 227, 255),
+        vec4(1, 26, 179, 255),
+        inTexCoords.y * inTexCoords.y
+    ) * (1.0 / 255.0) * 0.5; */
 }

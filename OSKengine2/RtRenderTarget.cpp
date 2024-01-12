@@ -10,40 +10,40 @@ using namespace OSK::GRAPHICS;
 
 void RtRenderTarget::Create(const Vector2ui& targetSize, RenderTargetAttachmentInfo attachmentInfo) {
 	attachmentInfo.usage |= GpuImageUsage::COMPUTE | GpuImageUsage::SAMPLED;
-	attachment = RenderTargetAttachment::Create(attachmentInfo, targetSize);
+	m_attachment = RenderTargetAttachment::Create(attachmentInfo, targetSize);
 
-	fullscreenSpriteMaterialInstance = Engine::GetRenderer()->GetFullscreenRenderingMaterial()->CreateInstance().GetPointer();
+	m_fullscreenSpriteMaterialInstance = Engine::GetRenderer()->GetFullscreenRenderingMaterial()->CreateInstance().GetPointer();
 	SetupSpriteMaterial();
 }
 
 void RtRenderTarget::Resize(const Vector2ui& targetSize) {
-	attachment.Resize(targetSize);
+	m_attachment.Resize(targetSize);
 	SetupSpriteMaterial();
 }
 
-GpuImage* RtRenderTarget::GetTargetImage(UIndex32 index) const {
-	return attachment.GetImage(index);
+GpuImage* RtRenderTarget::GetTargetImage() {
+	return m_attachment.GetImage();
+}
+
+const GpuImage* RtRenderTarget::GetTargetImage() const {
+	return m_attachment.GetImage();
 }
 
 Vector2ui RtRenderTarget::GetSize() const {
-	return GetTargetImage(0)->GetSize2D();
+	return GetTargetImage()->GetSize2D();
 }
 
 MaterialInstance* RtRenderTarget::GetFullscreenSpriteMaterialInstance() const {
-	return fullscreenSpriteMaterialInstance.GetPointer();
+	return m_fullscreenSpriteMaterialInstance.GetPointer();
 }
 
 IMaterialSlot* RtRenderTarget::GetFullscreenSpriteMaterialSlot() const {
-	return fullscreenSpriteMaterialInstance->GetSlot("texture");
+	return m_fullscreenSpriteMaterialInstance->GetSlot("texture");
 }
 
 void RtRenderTarget::SetupSpriteMaterial() {
 	const GpuImageViewConfig view = GpuImageViewConfig::CreateSampled_MipLevelRanged(0, 0);
 
-	std::array<const IGpuImageView*, NUM_RESOURCES_IN_FLIGHT> images{};
-	for (UIndex32 i = 0; i < NUM_RESOURCES_IN_FLIGHT; i++)
-		images[i] = GetTargetImage(i)->GetView(view);
-
-	fullscreenSpriteMaterialInstance->GetSlot("texture")->SetGpuImages("spriteTexture", images);
-	fullscreenSpriteMaterialInstance->GetSlot("texture")->FlushUpdate();
+	m_fullscreenSpriteMaterialInstance->GetSlot("texture")->SetGpuImage("spriteTexture", GetTargetImage()->GetView(view));
+	m_fullscreenSpriteMaterialInstance->GetSlot("texture")->FlushUpdate();
 }

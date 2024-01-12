@@ -11,17 +11,17 @@ using namespace OSK::GRAPHICS;
 void FrameCombiner::Create(const Vector2ui& resolution, RenderTargetAttachmentInfo info) {
 	info.usage |= GpuImageUsage::SAMPLED | GpuImageUsage::COMPUTE | GpuImageUsage::TRANSFER_DESTINATION;
 
-	renderTarget.Create(resolution, info);
+	m_renderTarget.Create(resolution, info);
 
 	LoadMaterial();
 	SetupTargetMaterial();
 }
 
 void FrameCombiner::Resize(const Vector2ui& resolution) {
-	renderTarget.Resize(resolution);
+	m_renderTarget.Resize(resolution);
 	SetupTargetMaterial();
 
-	for (auto& material : textureMaterials)
+	for (auto& material : m_textureMaterials)
 		material.clear();
 }
 
@@ -29,38 +29,33 @@ void FrameCombiner::Resize(const Vector2ui& resolution) {
 void FrameCombiner::LoadMaterial() {
 	MaterialSystem* materialSystem = Engine::GetRenderer()->GetMaterialSystem();
 
-	combinerMaterials[ImageFormat::RGBA8] = materialSystem->LoadMaterial("Resources/Materials/2D/FrameCombiner/fcombiner8.json");
-	combinerMaterials[ImageFormat::RGBA16] = materialSystem->LoadMaterial("Resources/Materials/2D/FrameCombiner/fcombiner16.json");
+	m_combinerMaterials[ImageFormat::RGBA8] = materialSystem->LoadMaterial("Resources/Materials/2D/FrameCombiner/fcombiner8.json");
+	m_combinerMaterials[ImageFormat::RGBA16] = materialSystem->LoadMaterial("Resources/Materials/2D/FrameCombiner/fcombiner16.json");
 
-	outputMaterialInstance = combinerMaterials.at(ImageFormat::RGBA8)->CreateInstance().GetPointer();
+	m_outputMaterialInstance = m_combinerMaterials.at(ImageFormat::RGBA8)->CreateInstance().GetPointer();
 }
 
 void FrameCombiner::SetupTargetMaterial() {
-	std::array<const IGpuImageView*, NUM_RESOURCES_IN_FLIGHT> images{};
 	const GpuImageViewConfig targetViewConfig = GpuImageViewConfig::CreateStorage_Default();
 
-	for (UIndex32 i = 0; i < NUM_RESOURCES_IN_FLIGHT; i++)
-		images[i] = renderTarget.GetTargetImage(i)->GetView(targetViewConfig);
-
-	outputMaterialInstance->GetSlot("output")->SetStorageImages("outputImage", images);
-	outputMaterialInstance->GetSlot("output")->FlushUpdate();
+	m_outputMaterialInstance->GetSlot("output")->SetStorageImage("outputImage", 
+		m_renderTarget.GetTargetImage()->GetView(targetViewConfig));
+	m_outputMaterialInstance->GetSlot("output")->FlushUpdate();
 }
 
 void FrameCombiner::SetupTextureMaterialInstance(const IGpuImageView& image) {
 	const UIndex32 resourceIndex = Engine::GetRenderer()->GetCurrentResourceIndex();
 
-	OwnedPtr<MaterialInstance> materialInstance = combinerMaterials.at(ImageFormat::RGBA8)->CreateInstance();
+	OwnedPtr<MaterialInstance> materialInstance = m_combinerMaterials.at(ImageFormat::RGBA8)->CreateInstance();
 	materialInstance->GetSlot("input")->SetGpuImage("inputImage", &image);
 	materialInstance->GetSlot("input")->FlushUpdate();
 
-	textureMaterials[resourceIndex][&image] = materialInstance.GetPointer();
+	m_textureMaterials[resourceIndex][&image] = materialInstance.GetPointer();
 }
 
 
 void FrameCombiner::Begin(ICommandList* commandList, ImageFormat format) {
-	const UIndex32 resourceIndex = Engine::GetRenderer()->GetCurrentResourceIndex();
-
-	auto targetImage = renderTarget.GetTargetImage(resourceIndex);
+	auto* targetImage = m_renderTarget.GetTargetImage();
 
 	commandList->SetGpuImageBarrier(
 		targetImage,
@@ -76,17 +71,17 @@ void FrameCombiner::Begin(ICommandList* commandList, ImageFormat format) {
 		GpuImageLayout::GENERAL,
 		GpuBarrierInfo(GpuCommandStage::COMPUTE_SHADER, GpuAccessStage::SHADER_WRITE));
 
-	commandList->BindMaterial(*combinerMaterials.at(format));
-	commandList->BindMaterialInstance(outputMaterialInstance.GetValue());
+	commandList->BindMaterial(*m_combinerMaterials.at(format));
+	commandList->BindMaterialInstance(m_outputMaterialInstance.GetValue());
 }
 
 void FrameCombiner::Draw(ICommandList* commandList, const IGpuImageView& image) {
 	const UIndex32 resourceIndex = Engine::GetRenderer()->GetCurrentResourceIndex();
 
-	if (!textureMaterials[resourceIndex].contains(&image))
+	if (!m_textureMaterials[resourceIndex].contains(&image))
 		SetupTextureMaterialInstance(image);
 
-	commandList->BindMaterialSlot(*textureMaterials[resourceIndex].at(&image)->GetSlot("input"));
+	commandList->BindMaterialSlot(*m_textureMaterials[resourceIndex].at(&image)->GetSlot("input"));
 	commandList->DispatchCompute(GetDispatchResolution());
 }
 
@@ -98,23 +93,27 @@ GpuBarrierInfo FrameCombiner::GetImageBarrierInfo() {
 	return GpuBarrierInfo(GpuCommandStage::COMPUTE_SHADER, GpuAccessStage::SAMPLED_READ);
 }
 
-GpuImage* FrameCombiner::GetCurrentImage() const {
-	return GetTargetImage(Engine::GetRenderer()->GetCurrentResourceIndex());
+GpuImage* FrameCombiner::GetTargetImage() {
+	return m_renderTarget.GetTargetImage();
 }
 
-GpuImage* FrameCombiner::GetTargetImage(UIndex32 imageIndex) const {
-	return renderTarget.GetTargetImage(imageIndex);
+const GpuImage* FrameCombiner::GetTargetImage() const {
+	return m_renderTarget.GetTargetImage();
+}
+
+ComputeRenderTarget& FrameCombiner::GetRenderTarget() {
+	return m_renderTarget;
 }
 
 const ComputeRenderTarget& FrameCombiner::GetRenderTarget() const {
-	return renderTarget;
+	return m_renderTarget;
 }
 
 Vector3ui FrameCombiner::GetDispatchResolution() const {
 	const static Vector2ui groupSize = { 8u, 8u };
 	return Vector3ui(
-		static_cast<USize32>(glm::ceil(renderTarget.GetSize().x / groupSize.x)),
-		static_cast<USize32>(glm::ceil(renderTarget.GetSize().y / groupSize.y)),
+		static_cast<USize32>(glm::ceil(m_renderTarget.GetSize().x / groupSize.x)),
+		static_cast<USize32>(glm::ceil(m_renderTarget.GetSize().y / groupSize.y)),
 		1u
 	);
 }

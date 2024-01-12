@@ -19,90 +19,98 @@ void RenderTarget::Create(const Vector2ui& targetSize, DynamicArray<RenderTarget
 
 	for (auto& attachmentInfo : colorInfos) {
 		attachmentInfo.usage |= GpuImageUsage::COLOR | GpuImageUsage::SAMPLED;
-		colorAttachments.Insert(RenderTargetAttachment::Create(attachmentInfo, targetSize));
+		m_colorAttachments.Insert(RenderTargetAttachment::Create(attachmentInfo, targetSize));
 	}
+
 	depthInfo.usage |= GpuImageUsage::DEPTH;
-	if (FormatSupportsStencil(depthInfo.format))
+
+	if (FormatSupportsStencil(depthInfo.format)) {
 		depthInfo.usage |= GpuImageUsage::STENCIL;
+	}
 
-	depthAttachment.Initialize(depthInfo, targetSize);
+	m_depthAttachment.Initialize(depthInfo, targetSize);
 
-	targetType = RenderpassType::INTERMEDIATE;
+	m_targetType = RenderpassType::INTERMEDIATE;
 
-	fullscreenSpriteMaterialInstance = Engine::GetRenderer()
-		->GetFullscreenRenderingMaterial()->CreateInstance().GetPointer();
+	m_fullscreenSpriteMaterialInstance = Engine::GetRenderer()->GetFullscreenRenderingMaterial()->CreateInstance().GetPointer();
 	SetupSpriteMaterial();
 }
 
 void RenderTarget::CreateAsFinal(const Vector2ui& targetSize, RenderTargetAttachmentInfo colorInfo, RenderTargetAttachmentInfo depthInfo) {
 	colorInfo.usage |= GpuImageUsage::COLOR | GpuImageUsage::SAMPLED;
-	colorAttachments.Insert(RenderTargetAttachment::Create(colorInfo, targetSize));
+	m_colorAttachments.Insert(RenderTargetAttachment::Create(colorInfo, targetSize));
 	
 	depthInfo.usage |= GpuImageUsage::DEPTH | GpuImageUsage::STENCIL;
-	depthAttachment.Initialize(depthInfo, targetSize);
+	m_depthAttachment.Initialize(depthInfo, targetSize);
 
-	targetType = RenderpassType::FINAL;
+	m_targetType = RenderpassType::FINAL;
 
-	fullscreenSpriteMaterialInstance = Engine::GetRenderer()
-		->GetFullscreenRenderingMaterial()->CreateInstance().GetPointer();
+	m_fullscreenSpriteMaterialInstance = Engine::GetRenderer()->GetFullscreenRenderingMaterial()->CreateInstance().GetPointer();
 	SetupSpriteMaterial();
 }
 
 void RenderTarget::SetupSpriteMaterial() {
 	const GpuImageViewConfig view = GpuImageViewConfig::CreateSampled_MipLevelRanged(0, 0);
 
-	std::array<const IGpuImageView*, NUM_RESOURCES_IN_FLIGHT> images{};
-	for (UIndex32 i = 0; i < NUM_RESOURCES_IN_FLIGHT; i++)
-		images[i] = GetColorImage(0, i)->GetView(view);
-
-	fullscreenSpriteMaterialInstance->GetSlot("texture")->SetGpuImages("spriteTexture", images);
-	fullscreenSpriteMaterialInstance->GetSlot("texture")->FlushUpdate();
+	m_fullscreenSpriteMaterialInstance->GetSlot("texture")->SetGpuImage("spriteTexture", GetMainColorImage()->GetView(view));
+	m_fullscreenSpriteMaterialInstance->GetSlot("texture")->FlushUpdate();
 }
 
 void RenderTarget::Resize(const Vector2ui& targetSize) {
-	for (auto& i : colorAttachments)
+	for (auto& i : m_colorAttachments)
 		i.Resize(targetSize);
-	depthAttachment.Resize(targetSize);
+
+	m_depthAttachment.Resize(targetSize);
 
 	SetupSpriteMaterial();
 }
 
-GpuImage* RenderTarget::GetColorImage(UIndex32 colorImageIndex, UIndex32 resourceIndex) const {
-	OSK_ASSERT(resourceIndex < NUM_RESOURCES_IN_FLIGHT,
-		InvalidArgumentException(std::format("El índice de la imagen debe estar entre 0 y {}", NUM_RESOURCES_IN_FLIGHT - 1)));
-	OSK_ASSERT(colorImageIndex < colorAttachments.GetSize(),
-		InvalidArgumentException(std::format("Sólo hay {}  imágenes de color.", colorAttachments.GetSize())));
+GpuImage* RenderTarget::GetColorImage(UIndex32 colorImageIndex) {
+	OSK_ASSERT(colorImageIndex < m_colorAttachments.GetSize(),
+		InvalidArgumentException(std::format("Sólo hay {}  imágenes de color.", m_colorAttachments.GetSize())));
 
-	return colorAttachments[colorImageIndex].GetImage(resourceIndex);
+	return m_colorAttachments[colorImageIndex].GetImage();
 }
 
-GpuImage* RenderTarget::GetMainColorImage(UIndex32 resourceIndex) const {
-	return GetColorImage(0, resourceIndex);
+const GpuImage* RenderTarget::GetColorImage(UIndex32 colorImageIndex) const {
+	OSK_ASSERT(colorImageIndex < m_colorAttachments.GetSize(),
+		InvalidArgumentException(std::format("Sólo hay {}  imágenes de color.", m_colorAttachments.GetSize())));
+
+	return m_colorAttachments[colorImageIndex].GetImage();
 }
 
-GpuImage* RenderTarget::GetDepthImage(UIndex32 index) const {
-	OSK_ASSERT(index < NUM_RESOURCES_IN_FLIGHT, 
-		InvalidArgumentException(std::format("El índice de la imagen debe estar entre 0 y {}", NUM_RESOURCES_IN_FLIGHT - 1)));
+GpuImage* RenderTarget::GetMainColorImage() {
+	return GetColorImage(0);
+}
 
-	return depthAttachment.GetImage(index);
+const GpuImage* RenderTarget::GetMainColorImage() const {
+	return GetColorImage(0);
+}
+
+GpuImage* RenderTarget::GetDepthImage() {
+	return m_depthAttachment.GetImage();
+}
+
+const GpuImage* RenderTarget::GetDepthImage() const {
+	return m_depthAttachment.GetImage();
 }
 
 Vector2ui RenderTarget::GetSize() const {
-	return depthAttachment.GetImage(0)->GetSize2D();
+	return m_depthAttachment.GetImage()->GetSize2D();
 }
 
 RenderpassType RenderTarget::GetRenderTargetType() const {
-	return targetType;
+	return m_targetType;
 }
 
 USize32 RenderTarget::GetNumColorTargets() const {
-	return static_cast<USize32>(colorAttachments.GetSize());
+	return static_cast<USize32>(m_colorAttachments.GetSize());
 }
 
 MaterialInstance* RenderTarget::GetFullscreenSpriteMaterialInstance() {
-	return fullscreenSpriteMaterialInstance.GetPointer();
+	return m_fullscreenSpriteMaterialInstance.GetPointer();
 }
 
 IMaterialSlot* RenderTarget::GetFullscreenSpriteMaterialSlot() {
-	return fullscreenSpriteMaterialInstance->GetSlot("texture");
+	return m_fullscreenSpriteMaterialInstance->GetSlot("texture");
 }

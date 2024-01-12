@@ -23,18 +23,6 @@ namespace OSK::GRAPHICS {
 
 	public:
 
-		/// @brief Define cómo va a acceder el efecto
-		/// de post-procesado a su imágen de entrada.
-		/// 
-		/// @deprecated En un futuro se eliminará la posibilidad de elegir
-		/// el tipo de acceso, y los efectos de post-procesado
-		/// deberán acceder a su imagen de entrada como un SAMPLER.
-		enum class InputType {
-			STORAGE_IMAGE,
-			SAMPLER
-		};
-
-
 		virtual ~IPostProcessPass() = default;
 
 		
@@ -52,14 +40,14 @@ namespace OSK::GRAPHICS {
 
 		/// @brief Establece las imágenes de entrada a partir de las que
 		/// se calculará el efecto.
-		/// @param images Imágenes de entrada.
+		/// @param image Imagen de entrada.
 		/// @param viewConfig 
 		/// 
 		/// @warning Si las imágenes son invalidadas (porque su dueño
 		/// original se recrean o cambian de tamaño), se debe volver a 
 		/// establecer como imágenes de entrada con IPostProcessPass::SetInput.
 		virtual void SetInput(
-			std::span<GpuImage*, NUM_RESOURCES_IN_FLIGHT> images, 
+			GpuImage* image,
 			const GpuImageViewConfig& viewConfig);
 
 		/// @brief Establece las imágenes de entrada a partir de las que
@@ -69,7 +57,7 @@ namespace OSK::GRAPHICS {
 		/// @warning Si las imágenes son invalidadas (porque su dueño
 		/// original se recrean o cambian de tamaño), se debe volver a 
 		/// establecer como imágenes de entrada con IPostProcessPass::SetInput.
-		void SetInputTarget(const RenderTarget& target, const GpuImageViewConfig& viewConfig, InputType type = InputType::STORAGE_IMAGE);
+		void SetInputTarget(RenderTarget& target, const GpuImageViewConfig& viewConfig);
 		
 		/// @brief Establece las imágenes de entrada a partir de las que
 		/// se calculará el efecto.
@@ -78,7 +66,7 @@ namespace OSK::GRAPHICS {
 		/// @warning Si las imágenes son invalidadas (porque su dueño
 		/// original se recrean o cambian de tamaño), se debe volver a 
 		/// establecer como imágenes de entrada con IPostProcessPass::SetInput.
-		void SetInputTarget(const RtRenderTarget& target, const GpuImageViewConfig& viewConfig, InputType type = InputType::STORAGE_IMAGE);
+		void SetInputTarget(RtRenderTarget& target, const GpuImageViewConfig& viewConfig);
 
 
 		/// <summary>
@@ -92,6 +80,12 @@ namespace OSK::GRAPHICS {
 		/// @pre computeCmdList debe ser una lista de comandos de computación.
 		virtual void Execute(ICommandList* computeCmdList) = 0;
 
+
+		/// <summary>
+		/// Devuelve el render target con la imagen final
+		/// en las imágenes de color.
+		/// </summary>
+		ComputeRenderTarget& GetOutput();
 
 		/// <summary>
 		/// Devuelve el render target con la imagen final
@@ -121,8 +115,8 @@ namespace OSK::GRAPHICS {
 
 		ComputeRenderTarget resolveRenderTarget{};
 
-		std::array<GpuImage*, NUM_RESOURCES_IN_FLIGHT> inputImages{};
-		std::array<const IGpuImageView*, NUM_RESOURCES_IN_FLIGHT> inputViews{};
+		GpuImage* inputImage = nullptr;
+		const IGpuImageView* inputView;
 
 	};
 

@@ -88,7 +88,7 @@ namespace OSK::GRAPHICS {
 		/// @brief Instancias de los materiales de downscale.
 		/// Hay una instancia por cada paso de downscale, configurada
 		/// con los mip-maps necesistados por cada paso.
-		UniquePtr<MaterialInstance> downscalingMaterialInstance[maxNumPasses]{};
+		std::array<UniquePtr<MaterialInstance>, maxNumPasses> m_downscalingMaterialInstance{};
 
 		/// @brief Instancias de los materiales de upscale.
 		/// Hay una instancia por cada paso de upscale, configurada
@@ -96,14 +96,14 @@ namespace OSK::GRAPHICS {
 		/// 
 		/// @note Aunque tiene una instancia para el nivel 0, esta no se debe usar:
 		/// se debe usar @p resolveInstance.
-		UniquePtr<MaterialInstance> upscalingMaterialInstance[maxNumPasses]{};
+		std::array<UniquePtr<MaterialInstance>, maxNumPasses> m_upscalingMaterialInstance{};
 
 		/// @brief Instancia del material final.
-		UniquePtr<MaterialInstance> resolveInstance;
+		UniquePtr<MaterialInstance> m_resolveInstance;
 
-		Material* downscaleMaterial = nullptr;
-		Material* upscaleMaterial = nullptr;
-		Material* resolveMaterial = nullptr;
+		Material* m_downscaleMaterial = nullptr;
+		Material* m_upscaleMaterial = nullptr;
+		Material* m_resolveMaterial = nullptr;
 
 		/// @brief Calcula el número de pases, de acuerdo al número
 		/// de mip-levels del render target.

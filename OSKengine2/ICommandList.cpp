@@ -45,11 +45,12 @@ void ICommandList::BeginGraphicsRenderpass(RenderTarget* renderpass, const Color
 		colorImages.Insert({ Engine::GetRenderer()->_GetSwapchain()->GetImage(resourceIndex), 0 });
 	}
 	else {
-		for (UIndex32 i = 0; i < renderpass->GetNumColorTargets(); i++)
-			colorImages.Insert({ renderpass->GetColorImage(i, resourceIndex), 0});
+		for (UIndex32 i = 0; i < renderpass->GetNumColorTargets(); i++) {
+			colorImages.Insert({ renderpass->GetColorImage(i), 0 });
+		}
 	}
 
-	BeginGraphicsRenderpass(colorImages, { renderpass->GetDepthImage(resourceIndex), 0 }, color, autoSync);
+	BeginGraphicsRenderpass(colorImages, { renderpass->GetDepthImage(), 0 }, color, autoSync);
 }
 
 void ICommandList::BindVertexBuffer(const GpuBuffer& buffer) {

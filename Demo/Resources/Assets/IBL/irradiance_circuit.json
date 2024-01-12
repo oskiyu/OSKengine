@@ -4,5 +4,5 @@
 
     "name": "IrradianceMap Chasring",
     "asset_type": "IrradianceMap",
-    "raw_asset_path": "Resources/RawAssets/IBL/Ridgecrest_Road_Ref.hdr"
+    "raw_asset_path": "Resources/RawAssets/IBL/Ridgecrest_Road_Env.hdr"
 }

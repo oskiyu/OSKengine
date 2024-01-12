@@ -48,6 +48,8 @@
 
 #include "TreeNormalsRenderSystem.h"
 
+#include "AudioApiAl.h"
+
 #include <GLFW/glfw3.h>
 #include "FileIO.h"
 #undef GetCurrentTime
@@ -62,7 +64,7 @@ UniquePtr<ASSETS::AssetManager> Engine::assetManager;
 UniquePtr<ECS::EntityComponentSystem> Engine::entityComponentSystem;
 UniquePtr<IO::IUserInput> Engine::input;
 UniquePtr<IO::InputManager> Engine::inputManager;
-UniquePtr<AUDIO::AudioApi> Engine::audioApi;
+UniquePtr<AUDIO::IAudioApi> Engine::audioApi;
 UIndex64 Engine::gameFrameIndex;
 
 void Engine::Create(GRAPHICS::RenderApiType type) {
@@ -75,7 +77,8 @@ void Engine::Create(GRAPHICS::RenderApiType type) {
 	entityComponentSystem = new ECS::EntityComponentSystem(logger.GetPointer());
 	input = new IO::PcUserInput;
 	inputManager = new IO::InputManager;
-	audioApi = new AUDIO::AudioApi;
+	audioApi = new AUDIO::AudioApiAl;
+	audioApi->Initialize();
 
 	logger->InfoLog("Iniciando OSKengine.");
 	logger->InfoLog(std::format("\tVersion: {}.{}.{}", 
@@ -206,7 +209,7 @@ IO::InputManager* Engine::GetInputManager() {
 	return inputManager.GetPointer();
 }
 
-AUDIO::AudioApi* Engine::GetAudioApi() {
+AUDIO::IAudioApi* Engine::GetAudioApi() {
 	return audioApi.GetPointer();
 }
 
@@ -221,7 +224,7 @@ Version Engine::GetVersion() {
 }
 
 std::string_view Engine::GetBuild() {
-	return "2023.12.12a";
+	return "2023.12.14a";
 }
 
 UIndex64 Engine::GetCurrentGameFrameIndex() {

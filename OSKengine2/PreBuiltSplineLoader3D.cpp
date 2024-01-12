@@ -83,13 +83,17 @@ void PreBuiltSplineLoader3D::ProcessNode(const tinygltf::Model& model, const tin
 		const auto positions = GetVertexPositions(primitive, nodeMatrix, model);
 		const auto indices = GetIndices(primitive, 0, model);
 
+#ifdef OSK_DEBUG_SPLINE_LOADING
 		OSK::Engine::GetLogger()->InfoLog(std::format("\tNum. positions: {}", positions.GetSize()));
 		OSK::Engine::GetLogger()->InfoLog(std::format("\tNum. indices: {}", indices.GetSize()));
 		OSK::Engine::GetLogger()->InfoLog(std::format("\tMode: {}", primitive.mode));
+#endif // OSK_DEBUG_SPLINE_LOADING
 
 		for (UIndex64 ind = 0; ind < indices.GetSize(); ind++) {
+#ifdef OSK_DEBUG_SPLINE_LOADING
 			OSK::Engine::GetLogger()->InfoLog(std::format("\t\tIndex {} is {}", ind, indices[ind]));
 			OSK::Engine::GetLogger()->InfoLog(std::format("\t\tPosition at index {} is {:.2f} {:.2f} {:.2f}", ind, positions[indices[ind]].x, positions[indices[ind]].y, positions[indices[ind]].z));
+#endif // OSK_DEBUG_SPLINE_LOADING
 			
 			if (!visitedIndices.contains(indices[ind])) {
 				m_loaded->_Get().AddPoint(positions[indices[ind]]);

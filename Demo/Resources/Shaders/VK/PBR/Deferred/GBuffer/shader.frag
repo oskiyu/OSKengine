@@ -69,4 +69,5 @@ void main() {
         materialInfo.roughnessMetallic.y, 
         materialInfo.roughnessMetallic.x);
 
+    outEmissive = materialInfo.emissiveColor;
 }

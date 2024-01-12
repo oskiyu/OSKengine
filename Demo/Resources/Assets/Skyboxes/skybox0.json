@@ -7,11 +7,13 @@
     "raw_asset_path": "",
     
     "faces_files": {
-        "right": "Resources/RawAssets/Skyboxes/sky/right.jpg",
-        "left": "Resources/RawAssets/Skyboxes/sky/left.jpg",
-        "top": "Resources/RawAssets/Skyboxes/sky/top.jpg",
-        "back": "Resources/RawAssets/Skyboxes/sky/back.jpg",
-        "bottom": "Resources/RawAssets/Skyboxes/sky/bottom.jpg",
-        "front": "Resources/RawAssets/Skyboxes/sky/front.jpg"
+        "left": "Resources/RawAssets/Skyboxes/sky2/right.png",
+        "right": "Resources/RawAssets/Skyboxes/sky2/left.png",
+
+        "top": "Resources/RawAssets/Skyboxes/sky2/top.png",
+        "back": "Resources/RawAssets/Skyboxes/sky2/back.png",
+
+        "bottom": "Resources/RawAssets/Skyboxes/sky2/bottom.png",
+        "front": "Resources/RawAssets/Skyboxes/sky2/front.png"
     }
 }

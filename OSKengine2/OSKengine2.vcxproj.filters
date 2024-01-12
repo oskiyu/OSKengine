@@ -574,6 +574,12 @@
     <Filter Include="Archivos de encabezado\Core\Collision\Detection">
       <UniqueIdentifier>{17d05faf-f82b-486e-a23d-e70062f0d952}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Archivos de origen\Core\AudioAPI\AL">
+      <UniqueIdentifier>{e48fc82b-a992-44ff-b00a-1597d146d683}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de encabezado\Core\AudioAPI\AL">
+      <UniqueIdentifier>{51cd08bc-0b98-4c94-a576-5e70f9f454a4}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -1125,16 +1131,7 @@
     <ClCompile Include="TextureCoordinates.cpp">
       <Filter>Archivos de origen\Core\Graphics\HighLevel\2D</Filter>
     </ClCompile>
-    <ClCompile Include="AudioDevice.cpp">
-      <Filter>Archivos de origen\Core\AudioAPI</Filter>
-    </ClCompile>
-    <ClCompile Include="AudioApi.cpp">
-      <Filter>Archivos de origen\Core\AudioAPI</Filter>
-    </ClCompile>
     <ClCompile Include="AudioBuffer.cpp">
-      <Filter>Archivos de origen\Core\AudioAPI</Filter>
-    </ClCompile>
-    <ClCompile Include="AudioSource.cpp">
       <Filter>Archivos de origen\Core\AudioAPI</Filter>
     </ClCompile>
     <ClCompile Include="AudioAsset.cpp">
@@ -1244,6 +1241,24 @@
     </ClCompile>
     <ClCompile Include="Ray.cpp">
       <Filter>Archivos de origen\Core\Collision\RayCast</Filter>
+    </ClCompile>
+    <ClCompile Include="IAudioSource.cpp">
+      <Filter>Archivos de origen\Core\AudioAPI</Filter>
+    </ClCompile>
+    <ClCompile Include="AudioSourceAl.cpp">
+      <Filter>Archivos de origen\Core\AudioAPI\AL</Filter>
+    </ClCompile>
+    <ClCompile Include="IAudioDevice.cpp">
+      <Filter>Archivos de origen\Core\AudioAPI</Filter>
+    </ClCompile>
+    <ClCompile Include="AudioDeviceAl.cpp">
+      <Filter>Archivos de origen\Core\AudioAPI\AL</Filter>
+    </ClCompile>
+    <ClCompile Include="IAudioApi.cpp">
+      <Filter>Archivos de origen\Core\AudioAPI</Filter>
+    </ClCompile>
+    <ClCompile Include="AudioApiAl.cpp">
+      <Filter>Archivos de origen\Core\AudioAPI\AL</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -2087,18 +2102,6 @@
     <ClInclude Include="GameExceptions.h">
       <Filter>Archivos de encabezado\Core\Exceptions</Filter>
     </ClInclude>
-    <ClInclude Include="AudioApi.h">
-      <Filter>Archivos de encabezado\Core\AudioAPI</Filter>
-    </ClInclude>
-    <ClInclude Include="AudioDevice.h">
-      <Filter>Archivos de encabezado\Core\AudioAPI</Filter>
-    </ClInclude>
-    <ClInclude Include="AudioBuffer.h">
-      <Filter>Archivos de encabezado\Core\AudioAPI</Filter>
-    </ClInclude>
-    <ClInclude Include="AudioSource.h">
-      <Filter>Archivos de encabezado\Core\AudioAPI</Filter>
-    </ClInclude>
     <ClInclude Include="AudioFormat.h">
       <Filter>Archivos de encabezado\Core\AudioAPI</Filter>
     </ClInclude>
@@ -2239,6 +2242,27 @@
     </ClInclude>
     <ClInclude Include="PreBuiltSplineLoader3D.h">
       <Filter>Archivos de encabezado\BuiltIn\Assets\Loaders</Filter>
+    </ClInclude>
+    <ClInclude Include="IAudioSource.h">
+      <Filter>Archivos de encabezado\Core\AudioAPI</Filter>
+    </ClInclude>
+    <ClInclude Include="AudioSourceAl.h">
+      <Filter>Archivos de encabezado\Core\AudioAPI\AL</Filter>
+    </ClInclude>
+    <ClInclude Include="AudioDeviceAl.h">
+      <Filter>Archivos de encabezado\Core\AudioAPI\AL</Filter>
+    </ClInclude>
+    <ClInclude Include="IAudioDevice.h">
+      <Filter>Archivos de encabezado\Core\AudioAPI</Filter>
+    </ClInclude>
+    <ClInclude Include="IAudioApi.h">
+      <Filter>Archivos de encabezado\Core\AudioAPI</Filter>
+    </ClInclude>
+    <ClInclude Include="AudioApiAl.h">
+      <Filter>Archivos de encabezado\Core\AudioAPI\AL</Filter>
+    </ClInclude>
+    <ClInclude Include="AudioBuffer.h">
+      <Filter>Archivos de encabezado\Core\AudioAPI\AL</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

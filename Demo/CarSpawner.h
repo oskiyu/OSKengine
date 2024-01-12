@@ -15,6 +15,8 @@ public:
 
 private:
 
+	OSK::ECS::GameObjectIndex SpawnSingleWheel(const OSK::Vector3f& position);
+
 	OSK::GRAPHICS::Material* m_material3D = nullptr;
 
 };

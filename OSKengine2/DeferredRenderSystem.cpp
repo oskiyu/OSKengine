@@ -151,7 +151,6 @@ void DeferredRenderSystem::SetupResolveMaterial() {
 	std::array<const GpuBuffer*, NUM_RESOURCES_IN_FLIGHT> _cameraUbos{};
 	std::array<const GpuBuffer*, NUM_RESOURCES_IN_FLIGHT> _dirLightUbos{};
 	std::array<const GpuBuffer*, NUM_RESOURCES_IN_FLIGHT> _shadowsMatricesUbos{};
-	std::array<const IGpuImageView*, NUM_RESOURCES_IN_FLIGHT> _shadowsMaps{};
 	std::array<const GpuBuffer*, NUM_RESOURCES_IN_FLIGHT> _iblConfigs{};
 
 	GpuImageViewConfig shadowsViewConfig = GpuImageViewConfig::CreateSampled_Array(0, m_shadowMap.GetNumCascades());
@@ -161,14 +160,13 @@ void DeferredRenderSystem::SetupResolveMaterial() {
 		_cameraUbos[i] = m_cameraBuffers[i].GetPointer();
 		_dirLightUbos[i] = m_directionalLightBuffers[i].GetPointer();
 		_shadowsMatricesUbos[i] = m_shadowMap.GetDirLightMatrixUniformBuffers()[i];
-		_shadowsMaps[i] = m_shadowMap.GetShadowImage(i)->GetView(shadowsViewConfig);
 		_iblConfigs[i] = m_iblConfigBuffers[i].GetPointer();
 	}
 
 	m_resolverPass->GetMaterialInstance()->GetSlot("global")->SetUniformBuffers("camera", _cameraUbos);
 	m_resolverPass->GetMaterialInstance()->GetSlot("global")->SetUniformBuffers("dirLight", _dirLightUbos);
 	m_resolverPass->GetMaterialInstance()->GetSlot("global")->SetUniformBuffers("dirLightShadowMat", _shadowsMatricesUbos);
-	m_resolverPass->GetMaterialInstance()->GetSlot("global")->SetGpuImages("dirLightShadowMap", _shadowsMaps);
+	m_resolverPass->GetMaterialInstance()->GetSlot("global")->SetGpuImage("dirLightShadowMap", m_shadowMap.GetShadowImage()->GetView(shadowsViewConfig));
 	m_resolverPass->GetMaterialInstance()->GetSlot("global")->SetUniformBuffers("iblConfig", _iblConfigs);
 	m_resolverPass->GetMaterialInstance()->GetSlot("global")->FlushUpdate();
 
@@ -180,34 +178,31 @@ void DeferredRenderSystem::UpdateResolveMaterial() {
 		return;
 
 	const GpuImageViewConfig viewConfig = GpuImageViewConfig::CreateSampled_MipLevelRanged(0, 0);
-	std::array<const IGpuImageView*, NUM_RESOURCES_IN_FLIGHT> images{};
 
-	GpuImageViewConfig depthView = viewConfig;
-	depthView.channel = SampledChannel::DEPTH;
+	GpuImageViewConfig depthViewConfig = viewConfig;
+	depthViewConfig.channel = SampledChannel::DEPTH;
 
-	for (UIndex32 i = 0; i < NUM_RESOURCES_IN_FLIGHT; i++) images[i] = m_gBuffer.GetImage(i, GBuffer::Target::DEPTH)->GetView(depthView);
-	m_resolverPass->GetMaterialInstance()->GetSlot("gbuffer")->SetGpuImages("depthTexture", images);
+	const auto* depthView = m_gBuffer.GetImage(GBuffer::Target::DEPTH)->GetView(depthViewConfig);
+	m_resolverPass->GetMaterialInstance()->GetSlot("gbuffer")->SetGpuImage("depthTexture", depthView);
 
-	for (UIndex32 i = 0; i < NUM_RESOURCES_IN_FLIGHT; i++) images[i] = m_gBuffer.GetImage(i, GBuffer::Target::COLOR)->GetView(viewConfig);
-	m_resolverPass->GetMaterialInstance()->GetSlot("gbuffer")->SetGpuImages("colorTexture", images);
+	const auto* colorView = m_gBuffer.GetImage(GBuffer::Target::COLOR)->GetView(viewConfig);
+	m_resolverPass->GetMaterialInstance()->GetSlot("gbuffer")->SetGpuImage("colorTexture", colorView);
 
-	for (UIndex32 i = 0; i < NUM_RESOURCES_IN_FLIGHT; i++) images[i] = m_gBuffer.GetImage(i, GBuffer::Target::NORMAL)->GetView(viewConfig);
-	m_resolverPass->GetMaterialInstance()->GetSlot("gbuffer")->SetGpuImages("normalTexture", images);
+	const auto* normalView = m_gBuffer.GetImage(GBuffer::Target::NORMAL)->GetView(viewConfig);
+	m_resolverPass->GetMaterialInstance()->GetSlot("gbuffer")->SetGpuImage("normalTexture", normalView);
 
-	for (UIndex32 i = 0; i < NUM_RESOURCES_IN_FLIGHT; i++) images[i] = m_gBuffer.GetImage(i, GBuffer::Target::METALLIC_ROUGHNESS)->GetView(viewConfig);
-	m_resolverPass->GetMaterialInstance()->GetSlot("gbuffer")->SetGpuImages("metallicRoughnessTexture", images);
+	const auto* metallicView = m_gBuffer.GetImage(GBuffer::Target::METALLIC_ROUGHNESS)->GetView(viewConfig);
+	m_resolverPass->GetMaterialInstance()->GetSlot("gbuffer")->SetGpuImage("metallicRoughnessTexture", metallicView);
 
-	for (UIndex32 i = 0; i < NUM_RESOURCES_IN_FLIGHT; i++) images[i] = m_gBuffer.GetImage(i, GBuffer::Target::EMISSIVE)->GetView(viewConfig);
-	m_resolverPass->GetMaterialInstance()->GetSlot("gbuffer")->SetGpuImages("emissiveTexture", images);
+	const auto* emissiveView = m_gBuffer.GetImage(GBuffer::Target::EMISSIVE)->GetView(viewConfig);
+	m_resolverPass->GetMaterialInstance()->GetSlot("gbuffer")->SetGpuImage("emissiveTexture", emissiveView);
 
 	m_resolverPass->GetMaterialInstance()->GetSlot("gbuffer")->FlushUpdate();
 
 	GpuImageViewConfig computeOutputConfig = GpuImageViewConfig::CreateStorage_Default();
 
-	std::array<const IGpuImageView*, NUM_RESOURCES_IN_FLIGHT> _resolveImages{};
-	for (UIndex32 i = 0; i < NUM_RESOURCES_IN_FLIGHT; i++) _resolveImages[i] = m_resolveRenderTarget.GetTargetImage(i)->GetView(computeOutputConfig);
-
-	m_resolverPass->GetMaterialInstance()->GetSlot("output")->SetStorageImages("finalImage", _resolveImages);
+	m_resolverPass->GetMaterialInstance()->GetSlot("output")->SetStorageImage("finalImage", 
+		m_resolveRenderTarget.GetTargetImage()->GetView(computeOutputConfig));
 	m_resolverPass->GetMaterialInstance()->GetSlot("output")->FlushUpdate();
 }
 
@@ -239,18 +234,10 @@ void DeferredRenderSystem::CreateTargetImage(const Vector2ui& size) {
 	m_renderTarget.Create(size, { colorAttachment }, depthAttachment);
 
 	// TAA
-	std::array<const GpuImage*, NUM_RESOURCES_IN_FLIGHT> sourceImages{};
-	std::array<const GpuImage*, NUM_RESOURCES_IN_FLIGHT> motionImages{};
-
-	for (UIndex32 i = 0; i < NUM_RESOURCES_IN_FLIGHT; i++) {
-		sourceImages[i] = m_resolveRenderTarget.GetTargetImage(i);
-		motionImages[i] = m_gBuffer.GetImage(i, GBuffer::Target::MOTION);
-	}
-
 	m_taaProvider.InitializeTaa(
 		size,
-		sourceImages,
-		motionImages);
+		m_resolveRenderTarget.GetTargetImage(),
+		m_gBuffer.GetImage(GBuffer::Target::MOTION));
 
 	UpdateResolveMaterial();
 }
@@ -260,18 +247,10 @@ void DeferredRenderSystem::Resize(const Vector2ui& windowSize) {
 	m_resolveRenderTarget.Resize(windowSize);
 
 	// TAA
-	std::array<const GpuImage*, NUM_RESOURCES_IN_FLIGHT> sourceImages{};
-	std::array<const GpuImage*, NUM_RESOURCES_IN_FLIGHT> motionImages{};
-
-	for (UIndex32 i = 0; i < NUM_RESOURCES_IN_FLIGHT; i++) {
-		sourceImages[i] = m_resolveRenderTarget.GetTargetImage(i);
-		motionImages[i] = m_gBuffer.GetImage(i, GBuffer::Target::MOTION);
-	}
-
-	m_taaProvider.ResizeTaa(
+	m_taaProvider.InitializeTaa(
 		windowSize,
-		sourceImages,
-		motionImages);
+		m_resolveRenderTarget.GetTargetImage(),
+		m_gBuffer.GetImage(GBuffer::Target::MOTION));
 
 	IRenderSystem::Resize(windowSize);
 
@@ -325,6 +304,8 @@ void DeferredRenderSystem::Render(ICommandList* commandList) {
 
 	m_shadowMap.SetDirectionalLight(m_directionalLight);
 	
+	m_gBuffer.BindPipelineBarriers(commandList);
+
 	GenerateShadows(commandList);
 
 	commandList->StartDebugSection("PBR Deferred", Color::Red);
@@ -341,17 +322,16 @@ void DeferredRenderSystem::Render(ICommandList* commandList) {
 }
 
 void DeferredRenderSystem::GenerateShadows(ICommandList* commandList) {
-	const UIndex32 resourceIndex = Engine::GetRenderer()->GetCurrentResourceIndex();
 	const Viewport viewport{
 		.rectangle = { 0u, 0u,
-		m_shadowMap.GetColorImage(0)->GetSize2D().x,
-		m_shadowMap.GetColorImage(0)->GetSize2D().y }
+		m_shadowMap.GetColorImage()->GetSize2D().x,
+		m_shadowMap.GetColorImage()->GetSize2D().y }
 	};
 
 	commandList->StartDebugSection("Shadows", Color::Black);
 
 	commandList->SetGpuImageBarrier(
-		m_shadowMap.GetShadowImage(resourceIndex),
+		m_shadowMap.GetShadowImage(),
 		GpuImageLayout::UNDEFINED,
 		GpuImageLayout::DEPTH_STENCIL_TARGET,
 		GpuBarrierInfo(GpuCommandStage::NONE, GpuAccessStage::NONE),
@@ -371,13 +351,13 @@ void DeferredRenderSystem::GenerateShadows(ICommandList* commandList) {
 
 		RenderPassImageInfo colorInfo{};
 		colorInfo.arrayLevel = i;
-		colorInfo.targetImage = m_shadowMap.GetColorImage(resourceIndex);
+		colorInfo.targetImage = m_shadowMap.GetColorImage();
 
 		RenderPassImageInfo depthInfo{};
 		depthInfo.arrayLevel = i;
-		depthInfo.targetImage = m_shadowMap.GetShadowImage(resourceIndex);
+		depthInfo.targetImage = m_shadowMap.GetShadowImage();
 
-		commandList->BeginGraphicsRenderpass({ colorInfo }, depthInfo, { 1.0f, 1.0f, 1.0f, 1.0f });
+		commandList->BeginGraphicsRenderpass({ colorInfo }, depthInfo, { 1.0f, 1.0f, 1.0f, 1.0f }, false);
 
 		commandList->BindMaterial(*m_shadowMap.GetShadowsMaterial(ASSETS::ModelType::STATIC_MESH));
 		commandList->BindMaterialSlot(*m_shadowMap.GetShadowsMaterialInstance()->GetSlot("global"));
@@ -431,11 +411,9 @@ void DeferredRenderSystem::ShadowsRenderLoop(ModelType modelType, ICommandList* 
 }
 
 void DeferredRenderSystem::RenderGBuffer(ICommandList* commandList) {
-	const UIndex32 resourceIndex = Engine::GetRenderer()->GetCurrentResourceIndex();
-
 	commandList->StartDebugSection("PBR GBuffer", Color::Red);
 
-	m_gBuffer.BeginRenderpass(commandList, Color::Black * 0.0f);
+	m_gBuffer.BeginRenderpass(commandList, Color::Black * 0.0f, false);
 
 	SetupViewport(commandList);
 
@@ -447,7 +425,7 @@ void DeferredRenderSystem::RenderGBuffer(ICommandList* commandList) {
 
 	jitterIndex = m_taaProvider.GetCurrentFrameJitterIndex();
 
-	const Vector2ui resolution = m_gBuffer.GetImage(resourceIndex, GBuffer::Target::COLOR)->GetSize2D();
+	const Vector2ui resolution = m_gBuffer.GetImage(GBuffer::Target::COLOR)->GetSize2D();
 
 	for (auto& pass : m_renderPasses) {
 		OSK_ASSERT(
@@ -465,14 +443,13 @@ void DeferredRenderSystem::RenderGBuffer(ICommandList* commandList) {
 }
 
 void DeferredRenderSystem::ResolveGBuffer(ICommandList* commandList) {
-	const UIndex32 resourceIndex = Engine::GetRenderer()->GetCurrentResourceIndex();
-
 	commandList->StartDebugSection("PBR Resolve", Color::Purple);
 
 	// Sincronización de mapa de sombras.
 	commandList->SetGpuImageBarrier(
-		m_shadowMap.GetShadowImage(resourceIndex),
+		m_shadowMap.GetShadowImage(),
 		GpuImageLayout::SAMPLED,
+		GpuBarrierInfo(GpuCommandStage::COLOR_ATTACHMENT_OUTPUT, GpuAccessStage::COLOR_ATTACHMENT_WRITE),
 		GpuBarrierInfo(GpuCommandStage::COMPUTE_SHADER, GpuAccessStage::SAMPLED_READ),
 		GpuImageRange{
 			.baseLayer = 0,
@@ -483,7 +460,7 @@ void DeferredRenderSystem::ResolveGBuffer(ICommandList* commandList) {
 
 	// Sincronización de render target.
 	commandList->SetGpuImageBarrier(
-		m_resolveRenderTarget.GetTargetImage(resourceIndex),
+		m_resolveRenderTarget.GetTargetImage(),
 		GpuImageLayout::UNDEFINED,
 		GpuImageLayout::GENERAL,
 		GpuBarrierInfo(GpuCommandStage::NONE, GpuAccessStage::NONE),
@@ -493,13 +470,13 @@ void DeferredRenderSystem::ResolveGBuffer(ICommandList* commandList) {
 	// Sincronización con todos los targets de color.
 	for (const auto type : GBuffer::ColorTargetTypes)
 		commandList->SetGpuImageBarrier(
-			m_gBuffer.GetImage(resourceIndex, type),
+			m_gBuffer.GetImage(type),
 			GpuImageLayout::SAMPLED,
 			GpuBarrierInfo(GpuCommandStage::COMPUTE_SHADER, GpuAccessStage::SAMPLED_READ));
 
 	// Sincronización con depth.
 	commandList->SetGpuImageBarrier(
-		m_gBuffer.GetImage(resourceIndex, GBuffer::Target::DEPTH),
+		m_gBuffer.GetImage(GBuffer::Target::DEPTH),
 		GpuImageLayout::SAMPLED,
 		GpuBarrierInfo(GpuCommandStage::COMPUTE_SHADER, GpuAccessStage::SHADER_READ),
 		{ .channel = SampledChannel::DEPTH });
@@ -515,9 +492,7 @@ void DeferredRenderSystem::ResolveGBuffer(ICommandList* commandList) {
 void DeferredRenderSystem::ExecuteTaa(ICommandList* commandList) {
 	commandList->StartDebugSection("TAA", Color::Yellow);
 
-	const UIndex32 resourceIndex = Engine::GetRenderer()->GetCurrentResourceIndex();
-
-	GpuImage* sourceImage = m_resolveRenderTarget.GetTargetImage(resourceIndex);
+	GpuImage* sourceImage = m_resolveRenderTarget.GetTargetImage();
 
 	commandList->SetGpuImageBarrier(
 		sourceImage,
@@ -527,7 +502,7 @@ void DeferredRenderSystem::ExecuteTaa(ICommandList* commandList) {
 	m_taaProvider.ExecuteTaa(commandList);
 
 	commandList->SetGpuImageBarrier(
-		m_taaProvider.GetTaaOutput().GetTargetImage(resourceIndex),
+		m_taaProvider.GetTaaOutput().GetTargetImage(),
 		GpuImageLayout::SAMPLED,
 		GpuBarrierInfo(GpuCommandStage::COMPUTE_SHADER, GpuAccessStage::SAMPLED_READ));
 
@@ -537,12 +512,10 @@ void DeferredRenderSystem::ExecuteTaa(ICommandList* commandList) {
 void DeferredRenderSystem::CopyFinalImages(ICommandList* cmdList) {
 	cmdList->StartDebugSection("Final Image Copy", Color::Blue);
 
-	const UIndex32 resourceIndex = Engine::GetRenderer()->GetCurrentResourceIndex();
-
 	GpuImage* sourceImage = m_taaProvider.IsActive()
-		? m_taaProvider.GetTaaOutput().GetTargetImage(resourceIndex)
-		: m_resolveRenderTarget.GetTargetImage(resourceIndex);
-	GpuImage* targetImage = m_renderTarget.GetMainColorImage(resourceIndex);
+		? m_taaProvider.GetTaaOutput().GetTargetImage()
+		: m_resolveRenderTarget.GetTargetImage();
+	GpuImage* targetImage = m_renderTarget.GetMainColorImage();
 
 
 	// Imagen original: transfer source.

@@ -49,13 +49,14 @@ void SmaaPass::SetupMaterials() {
 }
 
 void SmaaPass::Execute(ICommandList* computeCmdList) {
-	const UIndex32 resourceIndex = Engine::GetRenderer()->GetCurrentResourceIndex();
-
-	computeCmdList->SetGpuImageBarrier(inputImages[resourceIndex], GpuImageLayout::GENERAL,
-		GpuBarrierInfo(GpuCommandStage::FRAGMENT_SHADER, GpuAccessStage::SHADER_READ), GpuBarrierInfo(GpuCommandStage::COMPUTE_SHADER, GpuAccessStage::SHADER_READ),
+	computeCmdList->SetGpuImageBarrier(inputImage, GpuImageLayout::GENERAL,
+		GpuBarrierInfo(GpuCommandStage::FRAGMENT_SHADER, GpuAccessStage::SHADER_READ), 
+		GpuBarrierInfo(GpuCommandStage::COMPUTE_SHADER, GpuAccessStage::SHADER_READ),
 		{ .baseLayer = 0, .numLayers = ALL_IMAGE_LAYERS, .baseMipLevel = 0, .numMipLevels = ALL_MIP_LEVELS });
-	computeCmdList->SetGpuImageBarrier(resolveRenderTarget.GetTargetImage(resourceIndex), GpuImageLayout::GENERAL,
-		GpuBarrierInfo(GpuCommandStage::COMPUTE_SHADER, GpuAccessStage::SHADER_READ), GpuBarrierInfo(GpuCommandStage::COMPUTE_SHADER, GpuAccessStage::SHADER_WRITE),
+
+	computeCmdList->SetGpuImageBarrier(resolveRenderTarget.GetTargetImage(), GpuImageLayout::GENERAL,
+		GpuBarrierInfo(GpuCommandStage::COMPUTE_SHADER, GpuAccessStage::SHADER_READ), 
+		GpuBarrierInfo(GpuCommandStage::COMPUTE_SHADER, GpuAccessStage::SHADER_WRITE),
 		{ .baseLayer = 0, .numLayers = ALL_IMAGE_LAYERS, .baseMipLevel = 0, .numMipLevels = ALL_MIP_LEVELS });
 
 	computeCmdList->BindMaterial(*postProcessingMaterial);
@@ -70,14 +71,14 @@ void SmaaPass::Execute(ICommandList* computeCmdList) {
 	computeCmdList->DispatchCompute(dispatchRes);
 
 	computeCmdList->SetGpuImageBarrier(
-		inputImages[resourceIndex], 
+		inputImage, 
 		GpuImageLayout::SAMPLED,
 		GpuBarrierInfo(GpuCommandStage::COMPUTE_SHADER, GpuAccessStage::SHADER_READ), 
 		GpuBarrierInfo(GpuCommandStage::FRAGMENT_SHADER, GpuAccessStage::SHADER_READ),
 		{ .baseLayer = 0, .numLayers = ALL_IMAGE_LAYERS, .baseMipLevel = 0, .numMipLevels = ALL_MIP_LEVELS });
 
 	computeCmdList->SetGpuImageBarrier(
-		resolveRenderTarget.GetTargetImage(resourceIndex), 
+		resolveRenderTarget.GetTargetImage(), 
 		GpuImageLayout::GENERAL,
 		GpuBarrierInfo(GpuCommandStage::COMPUTE_SHADER, GpuAccessStage::SHADER_WRITE), 
 		GpuBarrierInfo(GpuCommandStage::COMPUTE_SHADER, GpuAccessStage::SHADER_READ),

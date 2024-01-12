@@ -172,7 +172,7 @@ void main() {
     kDiffuse *= 1.0 - metallicFactor;
     kSpecular = 1.0 - kDiffuse;
 
-    const vec3 irradianceMap = mix(texture(irradianceMap, normal).rgb, vec3(length(texture(irradianceMap, normal).rgb)), 0.85);
+    const vec3 irradianceMap = mix(texture(irradianceMap, normal).rgb, vec3(length(texture(irradianceMap, normal).rgb)), 0.8);
     vec3 iblDiffuse = albedo.rgb * irradianceMap;
 
     const float maxSpecularLod = 5 - 1;

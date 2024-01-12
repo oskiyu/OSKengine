@@ -28,70 +28,74 @@ OwnedPtr<IBottomLevelCollider> ConvexVolume::CreateCopy() const {
 	return new ConvexVolume(*this);
 }
 
-ConvexVolume ConvexVolume::CreateObb(const Vector3f& size, float bottomHeight) {
+ConvexVolume ConvexVolume::CreateObb(const Vector3f& size) {
 	ConvexVolume output;
 
-	const float width = size.x * 0.5f;
-	const float height = size.y;
-	const float length = size.z * 0.5f;
+	const float width = size.x * 2.0f;
+	const float height = size.y * 2.0f;
+	const float length = size.z * 2.0f;
 
-	const float top = bottomHeight + height;
-	const float bottom = bottomHeight;
+	const float top = height * 0.5f;
+	const float bottom = -height * 0.5f;
+	const float front = length * 0.5f;
+	const float back = -length * 0.5f;
+	const float left = -width * 0.5f;
+	const float right = width * 0.5f;
 
 	// Arriba
 	// width, length
 	output.AddFace({
-		{ -width, top, -length },
-		{ +width, top, -length },
-		{ +width, top, +length },
-		{ -width, top, +length },
+		{ left, top, back },
+		{ right, top, back },
+		{ right, top, front },
+		{ left, top, front },
 		});
 
 	// Abajo
 	// width, length
 	output.AddFace({
-		{ -width, bottom, -length },
-		{ -width, bottom, +length },
-		{ +width, bottom, +length },
-		{ +width, bottom, -length },
+		{ left, bottom, back },
+		{ left, bottom, front },
+		{ right, bottom, front },
+		{ right, bottom, back },
 		});
 
 
 	// Izquierda
 	// height, length
 	output.AddFace({
-		{ -width, bottom, -length },
-		{ -width, bottom, +length },
-		{ -width, top,    +length },
-		{ -width, top,    -length },
+		{ left, bottom, back },
+		{ left, bottom, front },
+		{ left, top,    front },
+		{ left, top,    back },
 		});
 
 	// Derecha
 	// height, length
 	output.AddFace({
-		{ +width, bottom, +length },
-		{ +width, bottom, -length },
-		{ +width, top,    -length },
-		{ +width, top,    +length },
+		{ right, bottom, front },
+		{ right, bottom, back },
+		{ right, top,    back },
+		{ right, top,    front },
 		});
 
 
 	// Delante
 	// width, height
 	output.AddFace({
-		{ -width, bottom, +length },
-		{ +width, bottom, +length },
-		{ +width, top,    +length },
-		{ -width, top,    +length },
+		{ left, bottom, front },
+		{ right, bottom, front },
+		{ right, top,    front },
+		{ left, top,    front },
 		});
 
 	// Detras
 	// width, height
 	output.AddFace({
-		{ +width, top,    -length },
-		{ +width, bottom, -length },
-		{ -width, bottom, -length },
-		{ -width, top,    -length },
+		{ right, top,    back },
+		{ right, bottom, back },
+		{ left, bottom, back },
+		{ left, top,    back },
 		});
 
 	output.MergeFaces();
@@ -143,9 +147,11 @@ void ConvexVolume::AddFace(const DynamicArray<Vector3f>& points) {
 	for (UIndex32 i = 0; i < numNewVertices; i++) {
 		indices.Insert(numOldVertices + i);
 		m_vertices.Insert(points[i]);
+		m_transformedVertices.Insert(points[i]);
 	}
 
 	m_faces.Insert(indices);
+	m_axes.Insert(GetWorldSpaceAxis(m_faces.GetSize() - 1));
 
 	RecalculateCenter();
 }
@@ -222,6 +228,7 @@ void ConvexVolume::MergeVertices() {
 	}
 
 	m_vertices = nVertices;
+	m_transformedVertices = nVertices;
 
 	RecalculateCenter();
 }
@@ -371,6 +378,12 @@ void ConvexVolume::MergeFaces() {
 	}
 
 	m_faces = optimizedFaces;
+
+	m_axes.Empty();
+
+	for (UIndex64 i = 0; i < m_faces.GetSize(); i++) {
+		m_axes.Insert(GetWorldSpaceAxis(i));
+	}
 
 	NormalizeFaces();
 }
@@ -671,6 +684,8 @@ void ConvexVolume::Transform(const Transform3D& transform) {
 	for (UIndex32 i = 0; i < m_faces.GetSize(); i++) {
 		m_axes.Insert(GetWorldSpaceAxis(i));
 	}
+
+	m_lastTransform = transform.GetAsMatrix();
 }
 
 const DynamicArray<Vector3f>& ConvexVolume::GetAxes() const {
@@ -744,6 +759,15 @@ RayCastResult ConvexVolume::CastRay(const Ray& ray) const {
 		if (!planeIntersectionResult.Result()) {
 			continue;
 		}
+
+		// Comprobamos que esté por delante del origen.
+		const float pointProjectionToRay = ray.direction.Dot(planeIntersectionResult.GetIntersectionPoint());
+		const float rayOriginProjectionToRay = ray.direction.Dot(ray.origin);
+
+		if (pointProjectionToRay < rayOriginProjectionToRay) {
+			// continue;
+		}
+
 
 		// Comprobamos si está dentro de la cara
 		bool insideFace = true;

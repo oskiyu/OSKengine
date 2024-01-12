@@ -11,9 +11,6 @@
 using namespace OSK;
 using namespace OSK::GRAPHICS;
 
-RenderTargetAttachment::RenderTargetAttachment() {
-
-}
 
 RenderTargetAttachment RenderTargetAttachment::Create(const RenderTargetAttachmentInfo& info, const Vector2ui& resolution) {
 	RenderTargetAttachment output{};
@@ -23,28 +20,27 @@ RenderTargetAttachment RenderTargetAttachment::Create(const RenderTargetAttachme
 }
 
 void RenderTargetAttachment::Initialize(const RenderTargetAttachmentInfo& info, const Vector2ui& resolution) {
-	this->info = info;
+	m_info = info;
 	
-	for (UIndex32 i = 0; i < NUM_RESOURCES_IN_FLIGHT; i++) {
-		GpuImageCreateInfo imageInfo = GpuImageCreateInfo::CreateDefault2D(resolution, info.format, info.usage);
-		imageInfo.samplerDesc = info.sampler;
+	GpuImageCreateInfo imageInfo = GpuImageCreateInfo::CreateDefault2D(resolution, info.format, info.usage);
+	imageInfo.samplerDesc = info.sampler;
 
-		images[i] = Engine::GetRenderer()->GetAllocator()->CreateImage(imageInfo).GetPointer();
-		
-		images[i]->SetDebugName(info.name + "[" + std::to_string(i) + "]");
-	}
+	m_image = Engine::GetRenderer()->GetAllocator()->CreateImage(imageInfo).GetPointer();
+	m_image->SetDebugName(info.name);
 }
 
 void RenderTargetAttachment::Resize(const Vector2ui& resolution) {
-	Initialize(info, resolution);
+	Initialize(m_info, resolution);
 }
 
 const RenderTargetAttachmentInfo& RenderTargetAttachment::GetInfo() const {
-	return info;
+	return m_info;
 }
 
-GpuImage* RenderTargetAttachment::GetImage(UIndex32 resourceIndex) const {
-	OSK_ASSERT(resourceIndex < NUM_RESOURCES_IN_FLIGHT, 
-		InvalidArgumentException("No existe imagen en el índice " + std::to_string(resourceIndex)));
-	return images[resourceIndex].GetPointer();
+GpuImage* RenderTargetAttachment::GetImage() {
+	return m_image.GetPointer();
+}
+
+const GpuImage* RenderTargetAttachment::GetImage() const {
+	return m_image.GetPointer();
 }

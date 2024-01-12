@@ -11,33 +11,29 @@
 
 namespace OSK::GRAPHICS {
 
-	/// <summary>
-	/// Representa una imagen individual que se escribirá en un proceso
+	/// @brief Representa una imagen individual que se escribirá en un proceso
 	/// de renderizado.
-	/// </summary>
 	class RenderTargetAttachment {
 
 	public:
 
-		/// <summary>
-		/// Attachment vacío, no usable.
+		/// @brief Attachment vacío, no usable.
 		/// Crear con RenderTargetAttachment::Create o RenderTargetAttachment::Initialize.
-		/// </summary>
-		RenderTargetAttachment();
+		RenderTargetAttachment() = default;
 
-		/// <summary> Crea un attachment con la información dada. </summary>
-		/// <param name="info">Información de la imagen.</param>
-		/// <param name="resolution">Resolución, en píxeles.</param>
+		/// @brief Crea un attachment con la información dada.
+		/// @param info Información de la imagen.
+		/// @param resolution Resolución, en píxeles.
 		static RenderTargetAttachment Create(const RenderTargetAttachmentInfo& info, const Vector2ui& resolution);
 
 
-		/// <summary> Inicializa el attachment para su uso. </summary>
-		/// <param name="info">Información de la imagen.</param>
-		/// <param name="resolution">Resolución, en píxeles.</param>
+		/// @brief Inicializa el attachment para su uso.
+		/// @param info Información de la imagen.
+		/// @param resolution Resolución, en píxeles.
 		void Initialize(const RenderTargetAttachmentInfo& info, const Vector2ui& resolution);
 		
-		/// <summary> Cambia de tamaño la imagen. </summary>
-		/// <param name="resolution">Nueva resolución, en píxeles.</param>
+		/// @brief Cambia de tamaño la imagen.
+		/// @param resolution Nueva resolución, en píxeles.
 		/// 
 		/// @pre Debe haberse inicializado con RenderTargetAttachment::Create / RenderTargetAttachment::Initialize.
 		/// @note Si las imágenes del attachment se usaban en un material slot,
@@ -45,20 +41,19 @@ namespace OSK::GRAPHICS {
 		void Resize(const Vector2ui& resolution);
 
 
-		/// <summary> Devuelve la información con la que se creó la imagen. </summary>
+		/// @return Información con la que se creó la imagen.
 		const RenderTargetAttachmentInfo& GetInfo() const;
 
-		/// <summary> Devuelve la imagen en el índice dado. </summary>
-		/// <param name="resourceIndex">Índice del recurso / frame.</param>
-		/// <returns>Null si no se inicializó previamente.</returns>
-		/// 
-		/// @pre 0 <= resourceIndex < NUM_RESOURCES_IN_FLIGHT.
-		GpuImage* GetImage(UIndex32 resourceIndex) const;
+		/// @return Imagen (null si no se inicializó previamente).
+		GpuImage* GetImage();
+
+		/// @return Imagen (null si no se inicializó previamente).
+		const GpuImage* GetImage() const;
 
 	private:
 
-		RenderTargetAttachmentInfo info;
-		std::array<UniquePtr<GpuImage>, NUM_RESOURCES_IN_FLIGHT> images{};
+		RenderTargetAttachmentInfo m_info;
+		UniquePtr<GpuImage> m_image = nullptr;
 
 	};
 

@@ -56,12 +56,14 @@ namespace OSK::GRAPHICS {
 		/// de las imágenes de entrada.
 		static GpuBarrierInfo GetImageBarrierInfo();
 
-		/// @return Imagen de renderizado del frame actual.
-		GpuImage* GetCurrentImage() const;
-
-		/// @param imageIndex Índice del frame.
 		/// @return Imagen de renderizado del frame.
-		GpuImage* GetTargetImage(UIndex32 imageIndex) const;
+		GpuImage* GetTargetImage();
+
+		/// @return Imagen de renderizado del frame.
+		const GpuImage* GetTargetImage() const;
+
+		/// @return Render target sobre el que se construye la imagen final.
+		ComputeRenderTarget& GetRenderTarget();
 
 		/// @return Render target sobre el que se construye la imagen final.
 		const ComputeRenderTarget& GetRenderTarget() const;
@@ -77,13 +79,13 @@ namespace OSK::GRAPHICS {
 
 	private:
 
-		ComputeRenderTarget renderTarget{};
+		ComputeRenderTarget m_renderTarget{};
 
 		/// @brief Cada formato tiene su propio material.
-		std::unordered_map<ImageFormat, Material*> combinerMaterials;
+		std::unordered_map<ImageFormat, Material*> m_combinerMaterials;
 
-		std::unordered_map<const IGpuImageView*, UniquePtr<MaterialInstance>> textureMaterials[NUM_RESOURCES_IN_FLIGHT]{};
-		UniquePtr<MaterialInstance> outputMaterialInstance = nullptr;
+		std::unordered_map<const IGpuImageView*, UniquePtr<MaterialInstance>> m_textureMaterials[NUM_RESOURCES_IN_FLIGHT]{};
+		UniquePtr<MaterialInstance> m_outputMaterialInstance = nullptr;
 
 	};
 

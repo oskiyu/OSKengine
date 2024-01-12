@@ -69,13 +69,13 @@ namespace OSK::GRAPHICS {
 		/// 
 		/// @pre Se debe haber inicializado el ShadowMap con ShadowMap::Create.
 		/// @note Devolverá nullptr si no se cumple la precondición.
-		GpuImage* GetShadowImage(UIndex32 index);
+		GpuImage* GetShadowImage();
 		
 		/// @brief Devuelve la imagen de color del mapa de sombras.
 		/// Para su renderizado.
 		/// @param index Índice de la imagen en el swapchain.
 		/// @return Mapa de profundidad.
-		GpuImage* GetColorImage(UIndex32 index);
+		GpuImage* GetColorImage();
 
 				
 		/// @brief Devuelve el material usado para la generación de sombras.
@@ -131,8 +131,8 @@ namespace OSK::GRAPHICS {
 
 		// --- Attachmens & buffers --- //
 
-		std::array<UniquePtr<GpuImage>, NUM_RESOURCES_IN_FLIGHT> m_unusedColorArrayAttachment{};
-		std::array<UniquePtr<GpuImage>, NUM_RESOURCES_IN_FLIGHT> m_depthArrayAttachment{};
+		UniquePtr<GpuImage> m_unusedColorArrayAttachment{};
+		UniquePtr<GpuImage> m_depthArrayAttachment{};
 
 		std::array<UniquePtr<GpuBuffer>, NUM_RESOURCES_IN_FLIGHT> lightUniformBuffer{};
 

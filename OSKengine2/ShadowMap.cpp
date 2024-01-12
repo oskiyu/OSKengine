@@ -34,24 +34,22 @@ void ShadowMap::Create(const Vector2ui& imageSize) {
 
 	IGpuMemoryAllocator* memAllocator = Engine::GetRenderer()->GetAllocator();
 
-	for (UIndex32 i = 0; i < NUM_RESOURCES_IN_FLIGHT; i++) {
-		GpuImageCreateInfo imageInfo = GpuImageCreateInfo::CreateDefault2D(
-			imageSize, 
-			Format::RGBA8_UNORM, 
-			GpuImageUsage::COLOR | GpuImageUsage::SAMPLED);
+	GpuImageCreateInfo imageInfo = GpuImageCreateInfo::CreateDefault2D(
+		imageSize,
+		Format::RGBA8_UNORM,
+		GpuImageUsage::COLOR | GpuImageUsage::SAMPLED);
 
-		imageInfo.numLayers = 4;
-		imageInfo.samplerDesc = depthSampler;
+	imageInfo.numLayers = 4;
+	imageInfo.samplerDesc = depthSampler;
 
-		m_unusedColorArrayAttachment[i] = memAllocator->CreateImage(imageInfo).GetPointer();
-		m_unusedColorArrayAttachment[i]->SetDebugName(std::format("Shadow Map[{}] Unused", i));
+	m_unusedColorArrayAttachment = memAllocator->CreateImage(imageInfo).GetPointer();
+	m_unusedColorArrayAttachment->SetDebugName("Shadow Map Unused");
 
-		imageInfo.format = Format::D32_SFLOAT;
-		imageInfo.usage = GpuImageUsage::DEPTH | GpuImageUsage::SAMPLED | GpuImageUsage::SAMPLED_ARRAY;
+	imageInfo.format = Format::D32_SFLOAT;
+	imageInfo.usage = GpuImageUsage::DEPTH | GpuImageUsage::SAMPLED | GpuImageUsage::SAMPLED_ARRAY;
 
-		m_depthArrayAttachment[i] = memAllocator->CreateImage(imageInfo).GetPointer();
-		m_depthArrayAttachment[i]->SetDebugName(std::format("Shadow Map[{}] Depth", i));
-	}
+	m_depthArrayAttachment = memAllocator->CreateImage(imageInfo).GetPointer();
+	m_depthArrayAttachment->SetDebugName("Shadow Map Depth");
 
 	m_shadowsGenMaterial = Engine::GetRenderer()->GetMaterialSystem()->LoadMaterial("Resources/Materials/ShadowMapping/material_shadows.json");
 	m_shadowsGenAnimMaterial = Engine::GetRenderer()->GetMaterialSystem()->LoadMaterial("Resources/Materials/ShadowMapping/material_shadows_anim.json");
@@ -151,12 +149,12 @@ void ShadowMap::SetFarPlane(float farPlane) {
 	m_farPlane = farPlane;
 }
 
-GpuImage* ShadowMap::GetShadowImage(UIndex32 index) {
-	return m_depthArrayAttachment[index].GetPointer();
+GpuImage* ShadowMap::GetShadowImage() {
+	return m_depthArrayAttachment.GetPointer();
 }
 
-GpuImage* ShadowMap::GetColorImage(UIndex32 index) {
-	return m_unusedColorArrayAttachment[index].GetPointer();
+GpuImage* ShadowMap::GetColorImage() {
+	return m_unusedColorArrayAttachment.GetPointer();
 }
 
 Material* ShadowMap::GetShadowsMaterial(ModelType modelType) {

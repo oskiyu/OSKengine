@@ -128,11 +128,62 @@ vec3 CustomColor(vec3 color) {
     return outColor;
 }
 
+float GetLuminance(vec3 color) {
+    return dot(color, vec3(0.2126, 0.7152, 0.0722));
+}
+
+vec3 ChangeLuminance(vec3 color, float targetLuminance) {
+    const float originalLuminance = GetLuminance(color);
+
+    return color * (targetLuminance / originalLuminance);
+}
+
+
+vec3 ReinhardToneMapping(vec3 color) {
+    return color / (1.0 + color);
+}
+
+vec3 ExtendedReinhardToneMapping(vec3 color) {
+    const float maxWhite = gamma.exposure;
+
+    return color * (1 + color / (maxWhite * maxWhite)) / (1.0 + color);
+}
+
+vec3 ReinhardJodieLuminanceToneMapping(vec3 color) {
+    const float luminance = GetLuminance(color);
+    const vec3 toneMapped = color / (1.0 + color);
+
+    const float originalLuminance = GetLuminance(color);
+
+    return mix(color / (1.0 + luminance), toneMapped, toneMapped);
+}
+
+vec3 ExtendedReinhardLuminanceToneMapping(vec3 color) {
+    const float maxWhite = gamma.exposure;
+
+    const float originalLuminance = GetLuminance(color);
+
+    const float newLuminance = originalLuminance * (1 + originalLuminance / (maxWhite * maxWhite)) / (1.0 + originalLuminance);
+
+    return ChangeLuminance(color, newLuminance);
+}
+
+vec3 ExposureToneMapping(vec3 color) {
+    return vec3(1.0) - exp(-color * gamma.exposure);
+}
+
 void main() {
-    const vec3 hdrColor = texelFetch(sceneImage, ivec2(gl_GlobalInvocationID), 0).rgb * gamma.exposure;
+    const vec3 hdrColor = texelFetch(sceneImage, ivec2(gl_GlobalInvocationID), 0).rgb;
 
     // const vec3 toneMapped = vec3(1.0) - exp(-hdrColor * gamma.exposure);
-    vec3 toneMapped = LearnOpenGLColor(hdrColor);
+    vec3 toneMapped = mix(
+        mix(
+            ReinhardToneMapping(hdrColor),
+            ExtendedReinhardLuminanceToneMapping(hdrColor),
+            0.6),
+        ExposureToneMapping(hdrColor),
+        0.1);
+    // toneMapped = FilmicColor(hdrColor);
 
     vec3 ldrColor = pow(toneMapped, vec3(1.0 / gamma.gamma));
     // ldrColor.b *= 0.95;

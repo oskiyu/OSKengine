@@ -77,6 +77,8 @@
 #include "HybridRenderSystem.h"
 #include "RenderTarget.h"
 
+#include "AudioSourceAl.h"
+
 #include "DeferredRenderSystem.h"
 #include "ModelLoader3D.h"
 #include "IrradianceMap.h"
@@ -98,9 +100,9 @@
 #include "PhysicsComponent.h"
 #include "FrameCombiner.h"
 
-#include "AudioApi.h"
+#include "IAudioApi.h"
 #include "AudioAsset.h"
-#include "AudioSource.h"
+#include "IAudioSource.h"
 #include "CollisionEvent.h"
 #include "TreeNormalsRenderSystem.h"
 #include "TreeNormalsPass.h"
@@ -182,12 +184,12 @@ protected:
 
 		// Audio test
 		const auto sound = Engine::GetAssetManager()->Load<ASSETS::AudioAsset>("Resources/Assets/Audio/bounce_audio.json");
-		source = AUDIO::Source();
-		source.Init();
-		source.SetBuffer(sound->GetBuffer());
-		source.SetLooping(true);
-		source.SetGain(0.05f);
-		source.Play();
+		source = OSK::Engine::GetAudioApi()->CreateNewSource().GetPointer();
+		source->Initialize();
+		source->As<AUDIO::AudioSourceAl>()->SetBuffer(sound->GetBuffer());
+		source->SetLooping(true);
+		source->SetGain(0.05f);
+		source->Play();
 	}
 
 	void SetupUi() {
@@ -457,7 +459,7 @@ protected:
 
 		PhysicsComponent& carPhysics = Engine::GetEcs()->GetComponent<PhysicsComponent>(carObject);
 
-		source.SetPitch(carPhysics.GetVelocity().GetLenght());
+		source->SetPitch(carPhysics.GetVelocity().GetLenght());
 
 
 		constexpr static float ANGLE_PER_KEY = 45.0f;
@@ -613,8 +615,6 @@ protected:
 	}
 
 	void BuildFrame() override {
-		const UIndex32 resourceIndex = Engine::GetRenderer()->GetCurrentResourceIndex();
-
 		auto graphicsCommandList = Engine::GetRenderer()->GetGraphicsCommandList();
 		auto frameBuildCommandList = Engine::GetRenderer()->GetFrameBuildCommandList();
 		auto renderpass = Engine::GetRenderer()->GetFinalRenderTarget();
@@ -666,8 +666,8 @@ protected:
 		// Pre-Effects
 		frameBuildCommandList->StartDebugSection("Pre-Effects Frame build", Color(0, 1, 0));
 
-		auto skyboxRenderSystemImg = Engine::GetEcs()->GetSystem<ECS::SkyboxRenderSystem>()->GetRenderTarget().GetMainColorImage(resourceIndex);
-		auto renderSystemImg = Engine::GetEcs()->GetSystem<OSK_CURRENT_RSYSTEM>()->GetRenderTarget().GetMainColorImage(resourceIndex);
+		auto skyboxRenderSystemImg = Engine::GetEcs()->GetSystem<ECS::SkyboxRenderSystem>()->GetRenderTarget().GetMainColorImage();
+		auto renderSystemImg = Engine::GetEcs()->GetSystem<OSK_CURRENT_RSYSTEM>()->GetRenderTarget().GetMainColorImage();
 
 		frameBuildCommandList->SetGpuImageBarrier(
 			skyboxRenderSystemImg,
@@ -700,7 +700,7 @@ protected:
 		auto* colliderRenderSystem = Engine::GetEcs()->GetSystem<ECS::ColliderRenderSystem>();
 		if (colliderRenderSystem) {
 			frameBuildCommandList->SetGpuImageBarrier(
-				colliderRenderSystem->GetRenderTarget().GetMainColorImage(resourceIndex),
+				colliderRenderSystem->GetRenderTarget().GetMainColorImage(),
 				GpuImageLayout::SAMPLED,
 				GpuBarrierInfo(GpuCommandStage::FRAGMENT_SHADER, GpuAccessStage::SAMPLED_READ));
 		}
@@ -708,18 +708,18 @@ protected:
 		auto* boundsRenderSystem = Engine::GetEcs()->GetSystem<ECS::RenderBoundsRenderer>();
 		if (boundsRenderSystem) {
 			frameBuildCommandList->SetGpuImageBarrier(
-				boundsRenderSystem->GetRenderTarget().GetMainColorImage(resourceIndex),
+				boundsRenderSystem->GetRenderTarget().GetMainColorImage(),
 				GpuImageLayout::SAMPLED,
 				GpuBarrierInfo(GpuCommandStage::FRAGMENT_SHADER, GpuAccessStage::SAMPLED_READ));
 		}
 
 		// Sync
 		frameBuildCommandList->SetGpuImageBarrier(
-			toneMappingPass->GetOutput().GetTargetImage(resourceIndex),
+			toneMappingPass->GetOutput().GetTargetImage(),
 			GpuImageLayout::SAMPLED,
 			GpuBarrierInfo(GpuCommandStage::FRAGMENT_SHADER, GpuAccessStage::SAMPLED_READ));
 		frameBuildCommandList->SetGpuImageBarrier(
-			textRenderTarget->GetMainColorImage(resourceIndex),
+			textRenderTarget->GetMainColorImage(),
 			GpuImageLayout::SAMPLED,
 			GpuBarrierInfo(GpuCommandStage::FRAGMENT_SHADER, GpuAccessStage::SAMPLED_READ));
 
@@ -753,7 +753,7 @@ protected:
 		frameBuildCommandList->EndDebugSection();
 
 		frameBuildCommandList->SetGpuImageBarrier(
-			Engine::GetRenderer()->_GetSwapchain()->GetImage(resourceIndex),
+			Engine::GetRenderer()->_GetSwapchain()->GetImage(Engine::GetRenderer()->GetCurrentResourceIndex()),
 			GpuImageLayout::COLOR_ATTACHMENT,
 			GpuImageLayout::PRESENT,
 			GpuBarrierInfo(GpuCommandStage::COLOR_ATTACHMENT_OUTPUT, GpuAccessStage::COLOR_ATTACHMENT_WRITE),
@@ -795,13 +795,11 @@ private:
 		auto* renderSystem = Engine::GetEcs()->GetSystem<DeferredRenderSystem>();
 		auto* treeRenderSystem = Engine::GetEcs()->GetSystem<TreeNormalsRenderSystem>();
 
-		std::array<const IGpuImageView*, NUM_RESOURCES_IN_FLIGHT> normalsImages{};
 		const GpuImageViewConfig viewConfig = GpuImageViewConfig::CreateSampled_SingleMipLevel(0);
-		for (UIndex64 i = 0; i < NUM_RESOURCES_IN_FLIGHT; i++)
-			normalsImages[i] = treeRenderSystem->GetRenderTarget().GetMainColorImage(i)->GetView(viewConfig);
 
 		auto* treeGBufferPass = renderSystem->GetRenderPass(TreeGBufferPass::GetRenderPassName())->As<TreeGBufferPass>();
-		treeGBufferPass->GetMaterialInstance()->GetSlot("normals")->SetGpuImages("preCalculatedNormalTexture", normalsImages);
+		treeGBufferPass->GetMaterialInstance()->GetSlot("normals")->SetGpuImage("preCalculatedNormalTexture",
+			treeRenderSystem->GetRenderTarget().GetMainColorImage()->GetView(viewConfig));
 		treeGBufferPass->GetMaterialInstance()->GetSlot("normals")->FlushUpdate();
 	}
 
@@ -908,24 +906,14 @@ private:
 
 		const GpuImageViewConfig viewConfig = GpuImageViewConfig::CreateSampled_SingleMipLevel(0);
 
-		const auto& preEffectsSource = preEffectsFrameCombiner->GetRenderTarget();
+		auto& preEffectsSource = preEffectsFrameCombiner->GetRenderTarget();
 
 		auto* renderSystem = Engine::GetEcs()->GetSystem<OSK_CURRENT_RSYSTEM>();
-		std::array<GpuImage*, NUM_RESOURCES_IN_FLIGHT> depthImages{};
-		for (UIndex32 i = 0; i < NUM_RESOURCES_IN_FLIGHT; i++) {
-			// depthImages[i] = renderSystem->GetRenderTarget().GetDepthImage(i);
-			depthImages[i] = renderSystem->GetGbuffer().GetImage(i, GBuffer::Target::DEPTH);
-		}
-		std::array<GpuImage*, NUM_RESOURCES_IN_FLIGHT> normalImages{};
-		for (UIndex32 i = 0; i < NUM_RESOURCES_IN_FLIGHT; i++) {
-			// normalImages[i] = renderSystem->GetRenderTarget().GetColorImage(RenderSystem3D::NORMAL_IMAGE_INDEX, i);
-			normalImages[i] = renderSystem->GetGbuffer().GetImage(i, GBuffer::Target::NORMAL);
-		}
-		
+
 		if (config.useHbao) {
 			hbaoPass->SetInputTarget(preEffectsSource, viewConfig);
-			hbaoPass->SetNormalsInput(normalImages);
-			hbaoPass->SetDepthInput(depthImages);
+			hbaoPass->SetNormalsInput(renderSystem->GetGbuffer().GetImage(GBuffer::Target::NORMAL));
+			hbaoPass->SetDepthInput(renderSystem->GetGbuffer().GetImage(GBuffer::Target::DEPTH));
 		}
 
 		if (config.useBloom && config.useHbao) {
@@ -1019,7 +1007,7 @@ private:
 			CollisionComponent collider{};
 			collider.SetCollider(Collider());
 
-			OwnedPtr<ConvexVolume> convexVolume = new ConvexVolume(ConvexVolume::CreateObb({ 0.15f * 2, 0.17f, 0.35f * 2 }, 0));
+			OwnedPtr<ConvexVolume> convexVolume = new ConvexVolume(ConvexVolume::CreateObb({ 0.15f * 2, 0.17f, 0.35f * 2 }));
 			convexVolume->MergeFaces();
 
 			collider.GetCollider()->SetTopLevelCollider(new SphereCollider(0.45f));
@@ -1052,7 +1040,7 @@ private:
 			CollisionComponent collider{};
 			collider.SetCollider(Collider());
 
-			OwnedPtr<ConvexVolume> convexVolume = new ConvexVolume(ConvexVolume::CreateObb({ 0.15f * 2, 0.17f, 0.35f * 2 }, 0));
+			OwnedPtr<ConvexVolume> convexVolume = new ConvexVolume(ConvexVolume::CreateObb({ 0.15f * 2, 0.17f, 0.35f * 2 }));
 
 			collider.GetCollider()->SetTopLevelCollider(new SphereCollider(0.45f));
 			collider.GetCollider()->AddBottomLevelCollider(convexVolume.GetPointer());
@@ -1170,7 +1158,7 @@ private:
 		CollisionComponent collider{};
 		collider.SetCollider(Collider());
 
-		OwnedPtr<ConvexVolume> convexVolume = new ConvexVolume(ConvexVolume::CreateObb({ 0.2f * 2, 0.2f * 2, 0.2f * 2 }, 0.0f));
+		OwnedPtr<ConvexVolume> convexVolume = new ConvexVolume(ConvexVolume::CreateObb({ 0.2f * 2, 0.2f * 2, 0.2f * 2 }));
 
 		collider.GetCollider()->SetTopLevelCollider(new AxisAlignedBoundingBox(Vector3f(0.95f)));
 		collider.GetCollider()->AddBottomLevelCollider(convexVolume.GetPointer());
@@ -1326,7 +1314,7 @@ private:
 
 	ASSETS::AssetRef<ASSETS::Font> font;
 
-	AUDIO::Source source;
+	UniquePtr<AUDIO::IAudioSource> source;
 
 	bool cameraAttachedToCar = false;
 

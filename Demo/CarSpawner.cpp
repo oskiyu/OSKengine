@@ -56,11 +56,19 @@ OSK::ECS::GameObjectIndex CarSpawner::Spawn(const OSK::Vector3f& position, std::
 	
 	// carComponent.m_trazada = OSK::Engine::GetAssetManager()->Load<OSK::ASSETS::PreLoadedSpline3D>("Resources/Assets/Curves/circuit0.json")->GetCopy();
 
+	// Wheels
+	const float deltaX = 0.45f;
+	carComponent.wheelBackLeft = SpawnSingleWheel(OSK::Vector3f(deltaX, 0.0f, -0.72f));
+	carComponent.wheelBackRight = SpawnSingleWheel(OSK::Vector3f(-deltaX, 0.0f, -0.72f));
+	carComponent.wheelFrontLeft = SpawnSingleWheel(OSK::Vector3f(deltaX, 0.0f, 0.6f));
+	carComponent.wheelFrontRight = SpawnSingleWheel(OSK::Vector3f(-deltaX, 0.0f, 0.6f));
+
+
 	ecse->AddComponent(output, transform);
 	ecse->AddComponent(output, physicsComponent);
 	ecse->AddComponent(output, std::move(collider));
 	ecse->AddComponent(output, std::move(modelComponent));
-	ecse->AddComponent(output, std::move(carComponent));
+	ecse->AddComponent(output, carComponent);
 	ecse->AddComponent(output, std::move(carAiComponent));
 	ecse->AddComponent(output, std::move(carControllerComponent));
 	auto& motor = ecse->AddComponent(output, std::move(engineComponent));
@@ -70,6 +78,40 @@ OSK::ECS::GameObjectIndex CarSpawner::Spawn(const OSK::Vector3f& position, std::
 	motor.audioSource.SetLooping(true);
 	motor.audioSource.SetGain(0.25f);
 	// motor.audioSource.Play();
+
+	auto& transformBackLeft = ecse->GetComponent<OSK::ECS::Transform3D>(carComponent.wheelBackLeft);
+	auto& transformBackRight = ecse->GetComponent<OSK::ECS::Transform3D>(carComponent.wheelBackRight);
+	auto& transformFrontLeft = ecse->GetComponent<OSK::ECS::Transform3D>(carComponent.wheelFrontLeft);
+	auto& transformFrontRight = ecse->GetComponent<OSK::ECS::Transform3D>(carComponent.wheelFrontRight);
+
+
+	transformBackRight.RotateLocalSpace(glm::radians(180.0f), OSK::Vector3f(0.0f, 1.0f, 0.0f));
+	transformFrontRight.RotateLocalSpace(glm::radians(180.0f), OSK::Vector3f(0.0f, 1.0f, 0.0f));
+
+	transformBackLeft.AttachToObject(output);
+	transformBackRight.AttachToObject(output);
+	transformFrontLeft.AttachToObject(output);
+	transformFrontRight.AttachToObject(output);
+
+
+	return output;
+}
+
+OSK::ECS::GameObjectIndex CarSpawner::SpawnSingleWheel(const OSK::Vector3f& position) {
+	OSK::ECS::EntityComponentSystem* ecse = OSK::Engine::GetEcs();
+
+	const OSK::ECS::GameObjectIndex output = ecse->SpawnObject();
+
+	OSK::ECS::Transform3D			transform(output);
+	OSK::ECS::ModelComponent3D		modelComponent{};
+
+	transform.SetPosition(position + OSK::Vector3f(0.0f, 0.12f, 0.0f));
+
+	modelComponent.SetModel(
+		OSK::Engine::GetAssetManager()->Load<OSK::ASSETS::Model3D>("Resources/Assets/Models/wheel.json"));
+
+	ecse->AddComponent(output, transform);
+	ecse->AddComponent(output, modelComponent);
 
 	return output;
 }

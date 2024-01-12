@@ -396,7 +396,7 @@ void CarAiSystem::OnTick(TDeltaTime deltaTime) {
 		carController.acceleration = 1.0f;
 
 		for (UIndex64 i = 0; i < angles.size(); i++) {
-			if (currentSpeed - brakePerMeter * distances[i] > carComponent.GetMaxSpeedForCorner(angles[i])) {
+			if (currentSpeed - brakePerMeter * distances[i] > carComponent.GetMaxSpeedForCorner(angles[i]) * 0.6f) {
 				carController.acceleration = -1.0f;
 				break;
 			}

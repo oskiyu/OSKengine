@@ -58,11 +58,11 @@ void main() {
     vec4 previousColor = texture(historicalImage, previousNormalizedCoords);
     
 
-    vec3 boxMin = vec3( 1000);
-    vec3 boxMax = vec3(-1000);
+    vec3 boxMin = vec3( 10000);
+    vec3 boxMax = vec3(-10000);
 
-    vec3 crossMin = vec3( 1000);
-    vec3 crossMax = vec3(-1000);
+    vec3 crossMin = vec3( 10000);
+    vec3 crossMax = vec3(-10000);
 
     vec3 colorMoment1 = vec3(0);
     vec3 colorMoment2 = vec3(0);
@@ -88,7 +88,7 @@ void main() {
     const vec3 mu = colorMoment1 / N;
     const vec3 signma = sqrt(colorMoment2 / N - mu * mu);
     
-    const float maxColorDiscardStrength = 0.75;
+    const float maxColorDiscardStrength = 2.5;
 
     const float pixelsMotionLength = length(normalizedMotion * ndcInverseRatio);
     const float colorDiscardStrength = clamp(1.0 - pow(pixelsMotionLength - 3.0, 3.0), 0.25, 0.75);

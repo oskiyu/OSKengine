@@ -11,7 +11,7 @@
 #include "IRenderer.h"
 #include "AssetManager.h"
 #include "EntityComponentSystem.h"
-#include "AudioApi.h"
+#include "IAudioApi.h"
 #include "IUserInput.h"
 #include "InputManager.h"
 #include "Console.h"
@@ -99,7 +99,7 @@ namespace OSK {
 		/// @brief Devuelve un puntero al sistema de input del motor.
 		/// @note El puntero es estable.
 		/// @warning Será nullptr hasta que no se llame a Engine::Create.
-		static AUDIO::AudioApi* GetAudioApi();
+		static AUDIO::IAudioApi* GetAudioApi();
 
 		/// @return Devuelve la versión del motor. 
 		static Version GetVersion();
@@ -128,7 +128,7 @@ namespace OSK {
 		static UniquePtr<ECS::EntityComponentSystem> entityComponentSystem;
 		static UniquePtr<IO::IUserInput> input;
 		static UniquePtr<IO::InputManager> inputManager;
-		static UniquePtr<AUDIO::AudioApi> audioApi;
+		static UniquePtr<AUDIO::IAudioApi> audioApi;
 
 		static UIndex64 gameFrameIndex;
 

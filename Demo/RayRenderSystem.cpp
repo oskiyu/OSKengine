@@ -59,12 +59,8 @@ void RayRenderSystem::CreateTargetImage(const OSK::Vector2ui& size) {
 	m_renderTarget.Create(size, { colorInfo }, depthInfo);
 }
 
-void RayRenderSystem::SetDepthImages(std::span<OSK::GRAPHICS::GpuImage*, 3> images) {
-	m_depthImages = {
-		{ images[0], 0, false },
-		{ images[1], 0, false },
-		{ images[2], 0, false }
-	};
+void RayRenderSystem::SetDepthImages(OSK::GRAPHICS::GpuImage* image) {
+	m_depthImage = { image, 0, false };
 }
 
 void RayRenderSystem::Render(OSK::GRAPHICS::ICommandList* commandList) {
@@ -106,8 +102,8 @@ void RayRenderSystem::Render(OSK::GRAPHICS::ICommandList* commandList) {
 
 	commandList->StartDebugSection("Ray-cast debug", OSK::Color::Red);
 	commandList->BeginGraphicsRenderpass(
-		{ OSK::GRAPHICS::RenderPassImageInfo{m_renderTarget.GetColorImage(0, resourceIndex), 0}},
-		m_depthImages[resourceIndex],
+		{ OSK::GRAPHICS::RenderPassImageInfo{m_renderTarget.GetColorImage(0), 0}},
+		m_depthImage,
 		OSK::Color::Black * 0.0f);
 
 	SetupViewport(commandList);
@@ -237,7 +233,7 @@ void RayRenderSystem::Render(OSK::GRAPHICS::ICommandList* commandList) {
 			ai.nextPoint.z,
 			1.0f);
 
-		linePushConstant.pointB = linePushConstant.pointB + OSK::Vector4f(ai.diferencia);
+		linePushConstant.pointB = linePushConstant.pointB; // +OSK::Vector4f(ai.diferencia);
 		linePushConstant.pointB.y = 0.5f;
 
 		linePushConstant.color = OSK::Color::Purple;

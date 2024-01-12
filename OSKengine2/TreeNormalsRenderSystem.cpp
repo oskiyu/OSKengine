@@ -117,7 +117,7 @@ void TreeNormalsRenderSystem::Render(ICommandList* commandList) {
 	commandList->EndGraphicsRenderpass(false);
 
 	commandList->SetGpuImageBarrier(
-		m_renderTarget.GetMainColorImage(resourceIndex),
+		m_renderTarget.GetMainColorImage(),
 		GpuImageLayout::SAMPLED,
 		GpuBarrierInfo(GpuCommandStage::COMPUTE_SHADER, GpuAccessStage::SAMPLED_READ));
 	

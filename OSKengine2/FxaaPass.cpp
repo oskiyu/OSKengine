@@ -19,17 +19,15 @@ void FxaaPass::Create(const Vector2ui& size) {
 }
 
 void FxaaPass::Execute(ICommandList* computeCmdList) {
-	const UIndex32 resourceIndex = Engine::GetRenderer()->GetCurrentResourceIndex();
-
 	computeCmdList->StartDebugSection("FXAA", Color::Purple);
 
 	computeCmdList->SetGpuImageBarrier(
-		inputImages[resourceIndex], 
+		inputImage, 
 		GpuImageLayout::SAMPLED,
 		GpuBarrierInfo(GpuCommandStage::COMPUTE_SHADER, GpuAccessStage::SAMPLED_READ));
 
 	computeCmdList->SetGpuImageBarrier(
-		resolveRenderTarget.GetTargetImage(resourceIndex), 
+		resolveRenderTarget.GetTargetImage(), 
 		GpuImageLayout::UNDEFINED,
 		GpuImageLayout::GENERAL,
 		GpuBarrierInfo(GpuCommandStage::NONE, GpuAccessStage::NONE),

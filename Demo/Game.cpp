@@ -117,16 +117,14 @@ void Game::OnCreate() {
 	ecs->GetSystem<OSK::ECS::DeferredRenderSystem>()->GetDirectionalLight().directionAndIntensity.x = 0.01f;
 	ecs->GetSystem<OSK::ECS::DeferredRenderSystem>()->GetDirectionalLight().directionAndIntensity.y = -1.0f;
 	ecs->GetSystem<OSK::ECS::DeferredRenderSystem>()->GetDirectionalLight().directionAndIntensity.Z = 0.01f;
-	ecs->GetSystem<OSK::ECS::DeferredRenderSystem>()->GetDirectionalLight().directionAndIntensity.W = 1.0f;
+	ecs->GetSystem<OSK::ECS::DeferredRenderSystem>()->GetDirectionalLight().directionAndIntensity.W = 1.3f;
 
 	OSK::Engine::GetEcs()->GetSystem<OSK::ECS::DeferredRenderSystem>()->GetIblConfig().emissiveStrength= 1.0f;
 
 	auto* renderSystem = OSK::Engine::GetEcs()->GetSystem<OSK::ECS::DeferredRenderSystem>();
-	std::array<OSK::GRAPHICS::GpuImage*, NUM_RESOURCES_IN_FLIGHT> depthImages{};
-	for (UIndex32 i = 0; i < NUM_RESOURCES_IN_FLIGHT; i++)
-		depthImages[i] = renderSystem->GetGbuffer().GetImage(i, OSK::GRAPHICS::GBuffer::Target::DEPTH);
+	OSK::GRAPHICS::GpuImage* depthImage = renderSystem->GetGbuffer().GetImage(OSK::GRAPHICS::GBuffer::Target::DEPTH);
 
-	OSK::Engine::GetEcs()->GetSystem<RayRenderSystem>()->SetDepthImages(depthImages);
+	OSK::Engine::GetEcs()->GetSystem<RayRenderSystem>()->SetDepthImages(depthImage);
 
 	ecs->GetSystem<OSK::ECS::TreeNormalsRenderSystem>()->Initialize(cameraObject);
 	SetupTreeNormals();
@@ -172,10 +170,9 @@ void Game::OnCreate() {
 
 	material2d = OSK::Engine::GetRenderer()->GetMaterialSystem()->LoadMaterial("Resources/Materials/2D/material_2d.json");
 	material3d = OSK::Engine::GetRenderer()->GetMaterialSystem()->LoadMaterial("Resources/Materials/PBR/direct_pbr.json");
-		
-	std::array<OSK::GRAPHICS::GpuImage*, NUM_RESOURCES_IN_FLIGHT> normalImages{};
-	for (UIndex32 i = 0; i < NUM_RESOURCES_IN_FLIGHT; i++)
-		normalImages[i] = renderSystem->GetGbuffer().GetImage(i, OSK::GRAPHICS::GBuffer::Target::NORMAL);
+	
+
+	OSK::GRAPHICS::GpuImage* normalImage = renderSystem->GetGbuffer().GetImage(OSK::GRAPHICS::GBuffer::Target::NORMAL);
 
 	hbaoPass = new OSK::GRAPHICS::HbaoPass();
 	hbaoPass->Create(OSK::Engine::GetDisplay()->GetResolution());
@@ -187,6 +184,9 @@ void Game::OnCreate() {
 	toneMappingPass->Create(OSK::Engine::GetDisplay()->GetResolution());
 
 	SetupPostProcessingChain();
+
+	toneMappingPass->SetExposure(0.25f);
+	toneMappingPass->SetGamma(2.6f);
 
 	SetupUi();
 
@@ -208,24 +208,20 @@ void Game::OnCreate() {
 
 void Game::SetupPostProcessingChain() {
 	auto* renderSystem = OSK::Engine::GetEcs()->GetSystem<OSK::ECS::DeferredRenderSystem>();
-	std::array<OSK::GRAPHICS::GpuImage*, NUM_RESOURCES_IN_FLIGHT> depthImages{};
-	for (UIndex32 i = 0; i < NUM_RESOURCES_IN_FLIGHT; i++)
-		depthImages[i] = renderSystem->GetGbuffer().GetImage(i, OSK::GRAPHICS::GBuffer::Target::DEPTH);
 
-	std::array<OSK::GRAPHICS::GpuImage*, NUM_RESOURCES_IN_FLIGHT> normalImages{};
-	for (UIndex32 i = 0; i < NUM_RESOURCES_IN_FLIGHT; i++)
-		normalImages[i] = renderSystem->GetGbuffer().GetImage(i, OSK::GRAPHICS::GBuffer::Target::NORMAL);
+	OSK::GRAPHICS::GpuImage* depthImage = renderSystem->GetGbuffer().GetImage(OSK::GRAPHICS::GBuffer::Target::DEPTH);
+	OSK::GRAPHICS::GpuImage* normalImage = renderSystem->GetGbuffer().GetImage(OSK::GRAPHICS::GBuffer::Target::NORMAL);
 
 	hbaoPass->SetInputTarget(finalFrameCombiner->GetRenderTarget(), OSK::GRAPHICS::GpuImageViewConfig::CreateSampled_SingleMipLevel(0));
-	hbaoPass->SetNormalsInput(normalImages);
-	hbaoPass->SetDepthInput(depthImages);
+	hbaoPass->SetDepthInput(depthImage);
+	hbaoPass->SetNormalsInput(normalImage);
 
 	hbaoPass->UpdateMaterialInstance();
 
 	bloomPass->SetInputTarget(hbaoPass->GetOutput(), OSK::GRAPHICS::GpuImageViewConfig::CreateSampled_SingleMipLevel(0));
 	bloomPass->UpdateMaterialInstance();
 
-	toneMappingPass->SetExposure(7.5f);
+	// toneMappingPass->SetExposure(7.0f);
 
 	toneMappingPass->SetInputTarget(bloomPass->GetOutput(), OSK::GRAPHICS::GpuImageViewConfig::CreateSampled_SingleMipLevel(0));
 	toneMappingPass->UpdateMaterialInstance();
@@ -355,18 +351,14 @@ void Game::OnWindowResize(const OSK::Vector2ui& newRes) {
 	SetupTreeNormals();
 
 	auto* renderSystem = OSK::Engine::GetEcs()->GetSystem<OSK::ECS::DeferredRenderSystem>();
-	std::array<OSK::GRAPHICS::GpuImage*, NUM_RESOURCES_IN_FLIGHT> depthImages{};
-	for (UIndex32 i = 0; i < NUM_RESOURCES_IN_FLIGHT; i++)
-		depthImages[i] = renderSystem->GetGbuffer().GetImage(i, OSK::GRAPHICS::GBuffer::Target::DEPTH);
+	OSK::GRAPHICS::GpuImage* depthImage = renderSystem->GetGbuffer().GetImage(OSK::GRAPHICS::GBuffer::Target::DEPTH);
 
-	OSK::Engine::GetEcs()->GetSystem<RayRenderSystem>()->SetDepthImages(depthImages);
+	OSK::Engine::GetEcs()->GetSystem<RayRenderSystem>()->SetDepthImages(depthImage);
 }
 
 void Game::BuildFrame() {
 	OSK::GRAPHICS::IRenderer* renderer = OSK::Engine::GetRenderer();
 	OSK::ECS::EntityComponentSystem* ecs = OSK::Engine::GetEcs();
-
-	const auto resourceIndex = renderer->GetCurrentResourceIndex();
 
 	OSK::GRAPHICS::ICommandList* graphicsCommandList	= renderer->GetGraphicsCommandList();
 	OSK::GRAPHICS::ICommandList* frameBuildCommandList	= renderer->GetFrameBuildCommandList();
@@ -406,11 +398,11 @@ void Game::BuildFrame() {
 	using GpuAccessStage = OSK::GRAPHICS::GpuAccessStage;
 
 	OSK::GRAPHICS::GpuImage* skyboxRenderSystemImg 
-		= ecs->GetSystem<OSK::ECS::SkyboxRenderSystem>()->GetRenderTarget().GetMainColorImage(resourceIndex);
+		= ecs->GetSystem<OSK::ECS::SkyboxRenderSystem>()->GetRenderTarget().GetMainColorImage();
 	OSK::GRAPHICS::GpuImage* sceneRenderSystemImg
-		= ecs->GetSystem<OSK::ECS::DeferredRenderSystem>()->GetRenderTarget().GetMainColorImage(resourceIndex);
+		= ecs->GetSystem<OSK::ECS::DeferredRenderSystem>()->GetRenderTarget().GetMainColorImage();
 	OSK::GRAPHICS::GpuImage* rayRenderSystemImg
-		= ecs->GetSystem<RayRenderSystem>()->GetRenderTarget().GetMainColorImage(resourceIndex);
+		= ecs->GetSystem<RayRenderSystem>()->GetRenderTarget().GetMainColorImage();
 
 	frameBuildCommandList->SetGpuImageBarrier(skyboxRenderSystemImg,
 		GpuImageLayout::SAMPLED,
@@ -447,6 +439,8 @@ void Game::BuildFrame() {
 	frameBuildCommandList->DrawSingleInstance(6);
 
 	frameBuildCommandList->EndGraphicsRenderpass();
+
+	const auto resourceIndex = renderer->GetCurrentResourceIndex();
 
 	frameBuildCommandList->SetGpuImageBarrier(
 		renderer->_GetSwapchain()->GetImage(resourceIndex),
@@ -520,21 +514,21 @@ void Game::SetupUi() {
 	gearText = new OSK::UI::TextView(OSK::Vector2f(148.0f));
 	gearText->SetFont(font);
 	gearText->SetFontSize(20);
-	gearText->SetText("gear   ");
+	gearText->SetText("gear         ");
 	gearText->SetAnchor(OSK::UI::Anchor::CENTER_X | OSK::UI::Anchor::CENTER_Y);
 	gearText->AdjustSizeToText();
 
 	rpmText = new OSK::UI::TextView(OSK::Vector2f(128.0f));
 	rpmText->SetFont(font);
 	rpmText->SetFontSize(20);
-	rpmText->SetText("rpm    ");
+	rpmText->SetText("rpm           ");
 	rpmText->SetAnchor(OSK::UI::Anchor::CENTER_X | OSK::UI::Anchor::CENTER_Y);
 	rpmText->AdjustSizeToText();
 
 	speedText = new OSK::UI::TextView(OSK::Vector2f(128.0f));
 	speedText->SetFont(font);
 	speedText->SetFontSize(20);
-	speedText->SetText("rpm    ");
+	speedText->SetText("rpm                ");
 	speedText->SetAnchor(OSK::UI::Anchor::CENTER_X | OSK::UI::Anchor::CENTER_Y);
 	speedText->AdjustSizeToText();
 
@@ -542,8 +536,8 @@ void Game::SetupUi() {
 	logoContainer->GetSprite().color = OSK::Color(0.3f, 0.3f, 0.3f, 0.94f);
 
 	logoContainer->SetPadding(OSK::Vector4f(4.0f));
-	logoContainer->AddChild("icon", uiIcon.GetPointer());
-	logoContainer->AddChild("text", uiText.GetPointer());
+	// logoContainer->AddChild("icon", uiIcon.GetPointer());
+	// logoContainer->AddChild("text", uiText.GetPointer());
 
 	logoContainer->AddChild("gearText", gearText);
 	logoContainer->AddChild("rpmText", rpmText);
@@ -620,15 +614,20 @@ void Game::ToGame(std::string_view carAssetsPath) {
 		OSK::Engine::GetAssetManager()->Load<OSK::ASSETS::SpecularMap>("Resources/Assets/IBL/specular_circuit.json")
 	);
 
-	OSK::Engine::GetEcs()->GetSystem<OSK::ECS::DeferredRenderSystem>()->GetIblConfig().irradianceStrength = 0.65f;
-	OSK::Engine::GetEcs()->GetSystem<OSK::ECS::DeferredRenderSystem>()->GetIblConfig().specularStrength = 0.65f;
+	OSK::Engine::GetEcs()->GetSystem<OSK::ECS::DeferredRenderSystem>()->GetIblConfig().irradianceStrength = 3.2f;
+	OSK::Engine::GetEcs()->GetSystem<OSK::ECS::DeferredRenderSystem>()->GetIblConfig().specularStrength = 2.5f; // 5.5f
 	OSK::Engine::GetEcs()->GetSystem<OSK::ECS::DeferredRenderSystem>()->GetIblConfig().radianceStrength = 1.0f;
+	OSK::Engine::GetEcs()->GetSystem<OSK::ECS::DeferredRenderSystem>()->GetIblConfig().emissiveStrength = 4.0f;
 
-	const auto newDirection = OSK::Vector3f(1.0f, -1.9f, 0.0f).GetNormalized();
+	toneMappingPass->SetExposure(1.8f);
+	toneMappingPass->SetGamma(2.3f);
+
+	const auto newDirection = OSK::Vector3f(1.2f, -1.7f, 0.0f).GetNormalized();
 
 	OSK::Engine::GetEcs()->GetSystem<OSK::ECS::DeferredRenderSystem>()->GetDirectionalLight().directionAndIntensity.x = newDirection.x;
 	OSK::Engine::GetEcs()->GetSystem<OSK::ECS::DeferredRenderSystem>()->GetDirectionalLight().directionAndIntensity.y = newDirection.y;
 	OSK::Engine::GetEcs()->GetSystem<OSK::ECS::DeferredRenderSystem>()->GetDirectionalLight().directionAndIntensity.Z = newDirection.z;
+	OSK::Engine::GetEcs()->GetSystem<OSK::ECS::DeferredRenderSystem>()->GetDirectionalLight().directionAndIntensity.W = 13.0f;
 
 	OSK::Engine::GetEcs()->GetSystem<OSK::ECS::DeferredRenderSystem>()->GetShadowMap().SetSplits({ 20, 200, 500, 1000});
 	OSK::Engine::GetEcs()->GetSystem<OSK::ECS::DeferredRenderSystem>()->GetShadowMap().SetNearPlane(-15);
@@ -705,13 +704,10 @@ void Game::SetupTreeNormals() {
 	auto* renderSystem = OSK::Engine::GetEcs()->GetSystem<OSK::ECS::DeferredRenderSystem>();
 	auto* treeRenderSystem = OSK::Engine::GetEcs()->GetSystem<OSK::ECS::TreeNormalsRenderSystem>();
 
-	std::array<const OSK::GRAPHICS::IGpuImageView*, NUM_RESOURCES_IN_FLIGHT> normalsImages{};
 	const auto viewConfig = OSK::GRAPHICS::GpuImageViewConfig::CreateSampled_SingleMipLevel(0);
-
-	for (UIndex32 i = 0; i < NUM_RESOURCES_IN_FLIGHT; i++)
-		normalsImages[i] = treeRenderSystem->GetRenderTarget().GetMainColorImage(i)->GetView(viewConfig);
+	const auto* view = treeRenderSystem->GetRenderTarget().GetMainColorImage()->GetView(viewConfig);
 
 	auto* treeGBufferPass = renderSystem->GetRenderPass(OSK::GRAPHICS::TreeGBufferPass::GetRenderPassName())->As<OSK::GRAPHICS::TreeGBufferPass>();
-	treeGBufferPass->GetMaterialInstance()->GetSlot("normals")->SetGpuImages("preCalculatedNormalTexture", normalsImages);
+	treeGBufferPass->GetMaterialInstance()->GetSlot("normals")->SetGpuImage("preCalculatedNormalTexture", view);
 	treeGBufferPass->GetMaterialInstance()->GetSlot("normals")->FlushUpdate();
 }

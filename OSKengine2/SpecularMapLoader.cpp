@@ -34,7 +34,7 @@ SpecularMapLoader::SpecularMapLoader() {
 	prefilterMaterialInstance = prefilterMaterial->CreateInstance().GetPointer();
 	lutGenerationMaterialInstance = lutGenerationMaterial->CreateInstance().GetPointer();
 
-	RenderTargetAttachmentInfo colorInfo{ .format = Format::RGBA32_SFLOAT, .usage = GpuImageUsage::TRANSFER_SOURCE, .name = "Cubemap Render Color" };
+	RenderTargetAttachmentInfo colorInfo{ .format = Format::RGBA16_SFLOAT, .usage = GpuImageUsage::TRANSFER_SOURCE, .name = "Cubemap Render Color" };
 	RenderTargetAttachmentInfo depthInfo{ .format = Format::D16_UNORM, .name = "Cubemap Depth Color" };
 	cubemapRenderTarget.Create(maxResolution, { colorInfo }, depthInfo);
 
@@ -42,12 +42,9 @@ SpecularMapLoader::SpecularMapLoader() {
 	lookUpTable.Create(maxResolution, lutInfo);
 
 	const GpuImageViewConfig viewConfig = GpuImageViewConfig::CreateStorage_Default();
-	const IGpuImageView* lutGenImages[3] = {
-		lookUpTable.GetTargetImage(0)->GetView(viewConfig),
-		lookUpTable.GetTargetImage(1)->GetView(viewConfig),
-		lookUpTable.GetTargetImage(2)->GetView(viewConfig)
-	};
-	lutGenerationMaterialInstance->GetSlot("global")->SetStorageImages("finalImage", lutGenImages);
+	const IGpuImageView* lutGenImage = lookUpTable.GetTargetImage()->GetView(viewConfig);
+
+	lutGenerationMaterialInstance->GetSlot("global")->SetStorageImage("finalImage", lutGenImage);
 	lutGenerationMaterialInstance->GetSlot("global")->FlushUpdate();
 
 	cubemapModel = Engine::GetAssetManager()->Load<ASSETS::Model3D>("Resources/Assets/Models/cube.json");
@@ -101,14 +98,14 @@ void SpecularMapLoader::Load(const std::string& assetFilePath, SpecularMap* asse
 
 	UniquePtr<GpuImage> originalCubemap = Engine::GetRenderer()->GetAllocator()->CreateCubemapImage(
 		maxResolution,
-		Format::RGBA32_SFLOAT, 
+		Format::RGBA16_SFLOAT, 
 		GpuImageUsage::COLOR | GpuImageUsage::SAMPLED | GpuImageUsage::CUBEMAP | GpuImageUsage::TRANSFER_DESTINATION,
 		GpuSharedMemoryType::GPU_ONLY, 
 		origianlSampler).GetPointer();
 
 	OwnedPtr<GpuImage> targetCubemap = Engine::GetRenderer()->GetAllocator()->CreateCubemapImage(
 		maxResolution,
-		Format::RGBA32_SFLOAT, 
+		Format::RGBA16_SFLOAT, 
 		GpuImageUsage::COLOR | GpuImageUsage::SAMPLED | GpuImageUsage::CUBEMAP | GpuImageUsage::TRANSFER_DESTINATION,
 		GpuSharedMemoryType::GPU_ONLY, 
 		prefilterSampler);
@@ -152,7 +149,7 @@ void SpecularMapLoader::Load(const std::string& assetFilePath, SpecularMap* asse
 	GenerateLut(prefilterCmdList.GetPointer());
 	GpuImageCreateInfo lutCreateInfo = GpuImageCreateInfo::CreateDefault2D(
 		lookUpTable.GetSize(), 
-		lookUpTable.GetTargetImage(0)->GetFormat(), 
+		lookUpTable.GetTargetImage()->GetFormat(), 
 		GpuImageUsage::SAMPLED | GpuImageUsage::TRANSFER_DESTINATION);
 	OwnedPtr<GpuImage> lut = Engine::GetRenderer()->GetAllocator()->CreateImage(lutCreateInfo);
 	lut->SetDebugName("Specular Look-Up Table");
@@ -161,7 +158,7 @@ void SpecularMapLoader::Load(const std::string& assetFilePath, SpecularMap* asse
 		GpuBarrierInfo(GpuCommandStage::TRANSFER, GpuAccessStage::TRANSFER_WRITE));
 
 	CopyImageInfo copyInfo = CopyImageInfo::CreateDefault2D(lookUpTable.GetSize());
-	prefilterCmdList->RawCopyImageToImage(*lookUpTable.GetTargetImage(Engine::GetRenderer()->GetCurrentResourceIndex()), lut.GetPointer(), copyInfo);
+	prefilterCmdList->RawCopyImageToImage(*lookUpTable.GetTargetImage(), lut.GetPointer(), copyInfo);
 
 	prefilterCmdList->SetGpuImageBarrier(lut.GetPointer(), GpuImageLayout::SAMPLED,
 		GpuBarrierInfo(GpuCommandStage::FRAGMENT_SHADER, GpuAccessStage::SAMPLED_READ));
@@ -181,8 +178,6 @@ void SpecularMapLoader::DrawOriginal(GRAPHICS::GpuImage* cubemap, GRAPHICS::ICom
 	} renderInfo;
 
 	for (UIndex32 faceId = 0; faceId < 6; faceId++) {
-		const auto resourceIndex = Engine::GetRenderer()->GetCurrentResourceIndex();
-
 		cmdList->BeginGraphicsRenderpass(&cubemapRenderTarget);
 
 		cmdList->BindMaterial(*generationMaterial);
@@ -208,7 +203,7 @@ void SpecularMapLoader::DrawOriginal(GRAPHICS::GpuImage* cubemap, GRAPHICS::ICom
 
 		cmdList->EndGraphicsRenderpass();
 
-		cmdList->SetGpuImageBarrier(cubemapRenderTarget.GetMainColorImage(resourceIndex),
+		cmdList->SetGpuImageBarrier(cubemapRenderTarget.GetMainColorImage(),
 			GpuImageLayout::TRANSFER_SOURCE,
 			GpuBarrierInfo(GpuCommandStage::TRANSFER, GpuAccessStage::TRANSFER_READ),
 			GpuImageRange{ .baseLayer = 0, .numLayers = 1, .baseMipLevel = 0, .numMipLevels = ALL_MIP_LEVELS });
@@ -220,7 +215,7 @@ void SpecularMapLoader::DrawOriginal(GRAPHICS::GpuImage* cubemap, GRAPHICS::ICom
 
 		CopyImageInfo copyInfo = CopyImageInfo::CreateDefault2D(viewport.rectangle.GetRectangleSize());
 		copyInfo.destinationArrayLevel = faceId;
-		cmdList->RawCopyImageToImage(*cubemapRenderTarget.GetMainColorImage(resourceIndex), cubemap, copyInfo);
+		cmdList->RawCopyImageToImage(*cubemapRenderTarget.GetMainColorImage(), cubemap, copyInfo);
 
 		cmdList->SetGpuImageBarrier(cubemap,
 			GpuImageLayout::SAMPLED,
@@ -263,9 +258,8 @@ void SpecularMapLoader::DrawPreFilter(GpuImage* cubemap, ICommandList* cmdList, 
 
 		cmdList->EndGraphicsRenderpass();
 
-		const auto resourceIndex = Engine::GetRenderer()->GetCurrentResourceIndex();
 
-		cmdList->SetGpuImageBarrier(cubemapRenderTarget.GetMainColorImage(resourceIndex),
+		cmdList->SetGpuImageBarrier(cubemapRenderTarget.GetMainColorImage(),
 			GpuImageLayout::TRANSFER_SOURCE,
 			GpuBarrierInfo(GpuCommandStage::TRANSFER, GpuAccessStage::TRANSFER_READ),
 			GpuImageRange{ .baseLayer = 0, .numLayers = 1, .baseMipLevel = 0, .numMipLevels = ALL_MIP_LEVELS });
@@ -278,7 +272,14 @@ void SpecularMapLoader::DrawPreFilter(GpuImage* cubemap, ICommandList* cmdList, 
 		CopyImageInfo copyInfo = CopyImageInfo::CreateDefault2D(viewport.rectangle.GetRectangleSize());
 		copyInfo.destinationArrayLevel = faceId;
 		copyInfo.destinationMipLevel = mipLevel;
-		cmdList->RawCopyImageToImage(*cubemapRenderTarget.GetMainColorImage(resourceIndex), cubemap, copyInfo);
+
+		cmdList->RawCopyImageToImage(*cubemapRenderTarget.GetMainColorImage(), cubemap, copyInfo);
+
+		/*cmdList->CopyImageToImage(
+			*cubemapRenderTarget.GetMainColorImage(), 
+			cubemap, 
+			copyInfo,
+			GpuImageFilteringType::NEAREST);*/
 
 		cmdList->SetGpuImageBarrier(cubemap,
 			GpuImageLayout::SAMPLED,
@@ -289,7 +290,7 @@ void SpecularMapLoader::DrawPreFilter(GpuImage* cubemap, ICommandList* cmdList, 
 
 void SpecularMapLoader::GenerateLut(ICommandList* cmdList) {
 	const auto resourceIndex = Engine::GetRenderer()->GetCurrentResourceIndex();
-	GpuImage* img = lookUpTable.GetTargetImage(resourceIndex);
+	GpuImage* img = lookUpTable.GetTargetImage();
 
 	cmdList->SetGpuImageBarrier(img, GpuImageLayout::GENERAL,
 		GpuBarrierInfo(GpuCommandStage::COMPUTE_SHADER, GpuAccessStage::SHADER_WRITE));

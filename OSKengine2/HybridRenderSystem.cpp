@@ -85,6 +85,7 @@ void HybridRenderSystem::SetupGBufferInstance() {
 }
 
 void HybridRenderSystem::SetupShadowsInstance() {
+	/*
 	const ITopLevelAccelerationStructure* tlas[NUM_RESOURCES_IN_FLIGHT]{};
 
 	const IGpuImageView* raytracedStorageImgs[NUM_RESOURCES_IN_FLIGHT]{};
@@ -126,7 +127,8 @@ void HybridRenderSystem::SetupShadowsInstance() {
 	}
 
 	shadowsMaterialInstance->GetSlot("rt")->SetAccelerationStructures("topLevelAccelerationStructure", tlas);
-	shadowsMaterialInstance->GetSlot("shadows")->SetGpuImages("gBufferPosition", positionImgs);
+	shadowsMaterialInstance->GetSlot("shadows")->SetGpuImage("gBufferPosition", 
+		positionImgs);
 	shadowsMaterialInstance->GetSlot("shadows")->SetStorageImages("shadowsImage", raytracedStorageImgs);
 	shadowsMaterialInstance->GetSlot("shadows")->SetUniformBuffers("dirLight", _dirLightUbos);
 	shadowsMaterialInstance->GetSlot("shadows")->SetGpuImage("noiseImage", noise.GetAsset()->GetGpuImage()->GetView(sampledViewConfig));
@@ -157,9 +159,10 @@ void HybridRenderSystem::SetupShadowsInstance() {
 	shadowsAtrousMaterialInstance->GetSlot("shadows")->SetGpuImages("historicalNormalImg", historicalGbufferNormalImgs);
 
 	shadowsAtrousMaterialInstance->GetSlot("shadows")->FlushUpdate();
+	*/
 }
 
-void HybridRenderSystem::SetupResolveInstance() {
+void HybridRenderSystem::SetupResolveInstance() {/*
 	const IGpuImageView* positionImgs[NUM_RESOURCES_IN_FLIGHT]{};
 	const IGpuImageView* colorImgs[NUM_RESOURCES_IN_FLIGHT]{};
 	const IGpuImageView* normalImgs[NUM_RESOURCES_IN_FLIGHT]{};
@@ -193,7 +196,7 @@ void HybridRenderSystem::SetupResolveInstance() {
 	resolveMaterialInstance->GetSlot("scene")->SetUniformBuffers("dirLight", _dirLightUbos);
 
 	resolveMaterialInstance->GetSlot("targets")->FlushUpdate();
-	resolveMaterialInstance->GetSlot("scene")->FlushUpdate();
+	resolveMaterialInstance->GetSlot("scene")->FlushUpdate();*/
 }
 
 void HybridRenderSystem::Initialize(GameObjectIndex cameraObject, const IrradianceMap& irradianceMap, const SpecularMap& specularMap) {
@@ -327,12 +330,10 @@ void HybridRenderSystem::GBufferRenderLoop(GRAPHICS::ICommandList* commandList, 
 }
 
 void HybridRenderSystem::RenderGBuffer(GRAPHICS::ICommandList* commandList) {
-	const UIndex32 resourceIndex = Engine::GetRenderer()->GetCurrentResourceIndex();
-
 	// Sincronización con todos los targets de color sobre los que vamos a escribir.
 	for (const auto type : GBuffer::ColorTargetTypes)
 		commandList->SetGpuImageBarrier(
-			gBuffer.GetImage(resourceIndex, type),
+			gBuffer.GetImage(type),
 			GpuImageLayout::COLOR_ATTACHMENT,
 			GpuBarrierInfo(GpuCommandStage::COLOR_ATTACHMENT_OUTPUT, GpuAccessStage::COLOR_ATTACHMENT_WRITE));
 
@@ -351,8 +352,8 @@ void HybridRenderSystem::RenderGBuffer(GRAPHICS::ICommandList* commandList) {
 
 	// Copia al gbuffer historico
 	for (const auto type : GBuffer::ColorTargetTypes) {
-		GpuImage* previousImage = gBuffer.GetImage((resourceIndex + NUM_RESOURCES_IN_FLIGHT - 1) % NUM_RESOURCES_IN_FLIGHT, type);
-		GpuImage* targetImage = historicalGBuffer.GetImage(resourceIndex, type);
+		GpuImage* previousImage = gBuffer.GetImage(type);
+		GpuImage* targetImage = historicalGBuffer.GetImage(type);
 
 		commandList->SetGpuImageBarrier(
 			previousImage, 
@@ -380,19 +381,17 @@ void HybridRenderSystem::RenderGBuffer(GRAPHICS::ICommandList* commandList) {
 
 	// Sincronización con todos los targets de color sobre los que vamos a leer en la fase de trazado de rayos.
 	for (const auto type : GBuffer::ColorTargetTypes)
-		commandList->SetGpuImageBarrier(gBuffer.GetImage(resourceIndex, type), GpuImageLayout::SAMPLED,
+		commandList->SetGpuImageBarrier(gBuffer.GetImage(type), GpuImageLayout::SAMPLED,
 			GpuBarrierInfo(GpuCommandStage::FRAGMENT_SHADER, GpuAccessStage::SHADER_READ), GpuBarrierInfo(GpuCommandStage::RAYTRACING_SHADER, GpuAccessStage::SHADER_READ),
 			GpuImageRange{ .baseLayer = 0, .numLayers = ALL_IMAGE_LAYERS, .baseMipLevel = 0, .numMipLevels = ALL_MIP_LEVELS });
 }
 
 void HybridRenderSystem::RenderShadows(GRAPHICS::ICommandList* cmdList) {
-	const UIndex32 imgIndex = Engine::GetRenderer()->GetCurrentResourceIndex();
-
-	GpuImage* rayTracedImage = raytracedShadowsTarget.GetTargetImage(imgIndex);
-	GpuImage* reprojectedImage = reprojectedShadowsTarget.GetTargetImage(imgIndex);
-	GpuImage* denoisedImage = finalShadowsTarget.GetTargetImage(imgIndex);
-	GpuImage* previousDenoisedImage = finalShadowsTarget.GetTargetImage((imgIndex + NUM_RESOURCES_IN_FLIGHT - 1) % NUM_RESOURCES_IN_FLIGHT);
-	GpuImage* historicalImage = historicalShadowsTarget.GetTargetImage(imgIndex);
+	GpuImage* rayTracedImage = raytracedShadowsTarget.GetTargetImage();
+	GpuImage* reprojectedImage = reprojectedShadowsTarget.GetTargetImage();
+	GpuImage* denoisedImage = finalShadowsTarget.GetTargetImage();
+	GpuImage* previousDenoisedImage = finalShadowsTarget.GetTargetImage();
+	GpuImage* historicalImage = historicalShadowsTarget.GetTargetImage();
 
 	const Vector2ui resolution = finalShadowsTarget.GetSize();
 	const Vector2ui threadGroupSize = { 8u, 8u };
@@ -462,14 +461,13 @@ void HybridRenderSystem::RenderShadows(GRAPHICS::ICommandList* cmdList) {
 }
 
 void HybridRenderSystem::Resolve(GRAPHICS::ICommandList* cmdList) {
-	const UIndex32 imgIndex = Engine::GetRenderer()->GetCurrentResourceIndex();
-	GpuImage* targetImage = m_renderTarget.GetMainColorImage(imgIndex);
+	GpuImage* targetImage = m_renderTarget.GetMainColorImage();
 
 	cmdList->SetGpuImageBarrier(targetImage, GpuImageLayout::GENERAL,
 		GpuBarrierInfo(GpuCommandStage::COMPUTE_SHADER, GpuAccessStage::SHADER_WRITE));
 
 	for (const auto type : GBuffer::ColorTargetTypes)
-		cmdList->SetGpuImageBarrier(gBuffer.GetImage(imgIndex, type), GpuImageLayout::SAMPLED,
+		cmdList->SetGpuImageBarrier(gBuffer.GetImage(type), GpuImageLayout::SAMPLED,
 			GpuBarrierInfo(GpuCommandStage::COMPUTE_SHADER, GpuAccessStage::SHADER_READ),
 			GpuImageRange{ .baseLayer = 0, .numLayers = ALL_IMAGE_LAYERS, .baseMipLevel = 0, .numMipLevels = ALL_MIP_LEVELS });
 
@@ -484,7 +482,7 @@ void HybridRenderSystem::Resolve(GRAPHICS::ICommandList* cmdList) {
 
 	// sRGB
 	for (const GBuffer::Target type : GBuffer::ColorTargetTypes)
-		cmdList->SetGpuImageBarrier(gBuffer.GetImage(imgIndex, type), GpuImageLayout::SAMPLED,
+		cmdList->SetGpuImageBarrier(gBuffer.GetImage(type), GpuImageLayout::SAMPLED,
 			GpuBarrierInfo(GpuCommandStage::RAYTRACING_SHADER, GpuAccessStage::SHADER_READ),
 			GpuImageRange{ .baseLayer = 0, .numLayers = ALL_IMAGE_LAYERS, .baseMipLevel = 0, .numMipLevels = ALL_MIP_LEVELS });
 

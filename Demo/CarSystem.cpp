@@ -31,7 +31,7 @@ void CarSystem::OnTick(TDeltaTime deltaTime) {
 		auto& physicsComponent = ecs->GetComponent<OSK::ECS::PhysicsComponent>(obj);
 		auto& transform = ecs->GetComponent<OSK::ECS::Transform3D>(obj);
 		const auto& controller = ecs->GetComponent<CarControllerComponent>(obj);
-		const auto& carComponent = ecs->GetComponent<CarComponent>(obj);
+		auto& carComponent = ecs->GetComponent<CarComponent>(obj);
 
 		const OSK::Vector3f front = transform.GetForwardVector();
 		const OSK::Vector3f right = transform.GetRightVector();
@@ -39,6 +39,14 @@ void CarSystem::OnTick(TDeltaTime deltaTime) {
 
 		float currentAngle = controller.rightTurn * carComponent.maxTurning;
 		float acceleration = controller.acceleration > 0.0f ? 1.0f : -1.65f;
+
+		const float currentAngleDiff = glm::abs(currentAngle - carComponent.previousFrameTurning);
+		if (currentAngleDiff / deltaTime > carComponent.maxTurningPerSecond) {
+			currentAngle = glm::mix(
+				carComponent.previousFrameTurning, 
+				currentAngle, 
+				currentAngleDiff / (carComponent.maxTurningPerSecond));
+		}
 
 		const bool isOnFloor = up.Dot(OSK::Vector3f(0, 1, 0)) > 0.96f;
 
@@ -90,7 +98,7 @@ void CarSystem::OnTick(TDeltaTime deltaTime) {
 		// Ángulo de las ruedas traseras (en radianes).
 		const float angleRear = carAngle;
 
-		const float coeficienteAgarre = -3.0f;
+		const float coeficienteAgarre = -7.0f;
 
 		const float fuerzaLateralDelantera = coeficienteAgarre * angleFront;
 		const float fuerzaLateralTrasera = coeficienteAgarre * angleRear;
@@ -100,12 +108,36 @@ void CarSystem::OnTick(TDeltaTime deltaTime) {
 
 		const float torque = fuerzaLateralDelantera - fuerzaLateralTrasera;
 
-
 		const float finalAngleFast = torque;
 
 		// const float finalAngle = glm::mix(finalAngleSlow, finalAngleFast, velocity.GetLenght() * 3);
 		if (physicsComponent.GetVelocity().GetLenght() > 0.01f && glm::abs(torque) > 0.01f)
 			transform.RotateWorldSpace(finalAngleFast * deltaTime, { 0.0f, 1.0f, 0.0f });
+
+
+		// Girar ruedas
+		auto& frontLeft = ecs->GetComponent<OSK::ECS::Transform3D>(carComponent.wheelFrontLeft);
+		auto& frontRight = ecs->GetComponent<OSK::ECS::Transform3D>(carComponent.wheelFrontRight);
+		auto& backLeft = ecs->GetComponent<OSK::ECS::Transform3D>(carComponent.wheelBackLeft);
+		auto& backRight = ecs->GetComponent<OSK::ECS::Transform3D>(carComponent.wheelBackRight);
+
+		const float difference = carComponent.previousFrameTurning - currentAngle;
+
+		if (glm::abs(difference) > 0.0001f) {
+			frontLeft.RotateWorldSpace(glm::radians(difference), OSK::Vector3f(0.0f, 1.0f, 0.0f));
+			frontRight.RotateWorldSpace(glm::radians(difference), OSK::Vector3f(0.0f, 1.0f, 0.0f));
+		}
+
+		carComponent.previousFrameTurning = currentAngle;
+
+		if (speed > 0.01f) {
+			const float multiplier = 15.f;
+
+			frontLeft.RotateLocalSpace(speed * multiplier * deltaTime, OSK::Vector3f(1.0f, 0.0f, 0.0f));
+			frontRight.RotateLocalSpace(speed * multiplier * deltaTime, OSK::Vector3f(-1.0f, 0.0f, 0.0f));
+			backLeft.RotateLocalSpace(speed * multiplier * deltaTime, OSK::Vector3f(1.0f, 0.0f, 0.0f));
+			backRight.RotateLocalSpace(speed * multiplier * deltaTime, OSK::Vector3f(-1.0f, 0.0f, 0.0f));
+		}
 	}
 
 }

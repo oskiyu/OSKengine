@@ -51,7 +51,7 @@ IrradianceMapLoader::IrradianceMapLoader() {
 	cubemapGenMaterialInstance = cubemapGenMaterial->CreateInstance().GetPointer();
 	cubemapConvolutionMaterialInstance = cubemapConvolutionMaterial->CreateInstance().GetPointer();
 
-	RenderTargetAttachmentInfo colorInfo{ .format = Format::RGBA32_SFLOAT, .usage = GpuImageUsage::TRANSFER_SOURCE, .name = "Irradiance Map Color Target"};
+	RenderTargetAttachmentInfo colorInfo{ .format = Format::RGBA16_SFLOAT, .usage = GpuImageUsage::TRANSFER_SOURCE, .name = "Irradiance Map Color Target"};
 	RenderTargetAttachmentInfo depthInfo{ .format = Format::D16_UNORM , .name = "Irradiance Map Depth Target" };
 	cubemapGenRenderTarget.Create(irradianceLayerSize, { colorInfo }, depthInfo);
 
@@ -103,10 +103,10 @@ void IrradianceMapLoader::Load(const std::string& assetFilePath, IrradianceMap* 
 	Engine::GetRenderer()->SubmitSingleUseCommandList(uploadCmdList.GetPointer());
 
 	// Crear cubemap y renderizarlo.
-	OwnedPtr<GpuImage> intermediateCubemap = Engine::GetRenderer()->GetAllocator()->CreateCubemapImage(irradianceLayerSize, Format::RGBA32_SFLOAT, GpuImageUsage::TRANSFER_SOURCE | GpuImageUsage::TRANSFER_DESTINATION | GpuImageUsage::SAMPLED | GpuImageUsage::CUBEMAP, GpuSharedMemoryType::GPU_ONLY).GetPointer();
+	OwnedPtr<GpuImage> intermediateCubemap = Engine::GetRenderer()->GetAllocator()->CreateCubemapImage(irradianceLayerSize, Format::RGBA16_SFLOAT, GpuImageUsage::TRANSFER_SOURCE | GpuImageUsage::TRANSFER_DESTINATION | GpuImageUsage::SAMPLED | GpuImageUsage::CUBEMAP, GpuSharedMemoryType::GPU_ONLY).GetPointer();
 	OwnedPtr<GpuImage> finalImage = Engine::GetRenderer()->GetAllocator()->CreateCubemapImage(
 		irradianceLayerSize, 
-		Format::RGBA32_SFLOAT, 
+		Format::RGBA16_SFLOAT, 
 		GpuImageUsage::TRANSFER_DESTINATION | GpuImageUsage::SAMPLED | GpuImageUsage::CUBEMAP, 
 		GpuSharedMemoryType::GPU_ONLY);
 
@@ -180,7 +180,7 @@ void IrradianceMapLoader::DrawCubemap(GpuImage* targetCubemap, ICommandList* cmd
 			cmdList->EndGraphicsRenderpass();
 
 			cmdList->SetGpuImageBarrier(
-				cubemapGenRenderTarget.GetMainColorImage(Engine::GetRenderer()->GetCurrentFrameIndex()), 
+				cubemapGenRenderTarget.GetMainColorImage(), 
 				GpuImageLayout::TRANSFER_SOURCE,
 				GpuBarrierInfo(GpuCommandStage::COLOR_ATTACHMENT_OUTPUT, GpuAccessStage::COLOR_ATTACHMENT_WRITE), 
 				GpuBarrierInfo(GpuCommandStage::TRANSFER, GpuAccessStage::TRANSFER_READ),
@@ -189,7 +189,14 @@ void IrradianceMapLoader::DrawCubemap(GpuImage* targetCubemap, ICommandList* cmd
 			CopyImageInfo copyInfo = CopyImageInfo::CreateDefault2D(viewport.rectangle.GetRectangleSize());
 			copyInfo.destinationArrayLevel = i;
 			copyInfo.destinationMipLevel = mipLevel;
-			cmdList->RawCopyImageToImage(*cubemapGenRenderTarget.GetMainColorImage(Engine::GetRenderer()->GetCurrentFrameIndex()), targetCubemap, copyInfo);
+
+			cmdList->RawCopyImageToImage(*cubemapGenRenderTarget.GetMainColorImage(), targetCubemap, copyInfo);
+
+			/*cmdList->CopyImageToImage(
+				*cubemapGenRenderTarget.GetMainColorImage(),
+				targetCubemap,
+				copyInfo,
+				GpuImageFilteringType::NEAREST);*/
 		}
 	}
 }

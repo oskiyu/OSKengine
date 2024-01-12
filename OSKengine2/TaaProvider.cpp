@@ -8,98 +8,86 @@
 using namespace OSK;
 using namespace OSK::GRAPHICS;
 
-void TaaProvider::InitializeTaa(const Vector2ui& resolution, std::span<const GpuImage*, NUM_RESOURCES_IN_FLIGHT> sceneImages, std::span<const GpuImage*, NUM_RESOURCES_IN_FLIGHT> motionImages) {
+void TaaProvider::InitializeTaa(const Vector2ui& resolution, const GpuImage* sceneImage, const GpuImage* motionImage) {
 	RenderTargetAttachmentInfo taaAttachment{};
 	taaAttachment.format = Format::RGBA16_SFLOAT;
 	taaAttachment.name = "TAA Image";
 	taaAttachment.sampler = GpuImageSamplerDesc::CreateDefault();
 	taaAttachment.usage = GpuImageUsage::TRANSFER_SOURCE | GpuImageUsage::TRANSFER_DESTINATION;
 
-	taaRenderTarget.Create(resolution, taaAttachment);
+	m_taaHistoricalImage.Create(resolution, taaAttachment);
+	m_taaRenderTarget.Create(resolution, taaAttachment);
 
 	taaAttachment.name = "TAA Sharpened";
 
-	taaSharpenedRenderTarget.Create(resolution, taaAttachment);
+	m_taaSharpenedRenderTarget.Create(resolution, taaAttachment);
 
 	LoadTaaMaterials();
-	SetupTaaMaterials(sceneImages, motionImages);
+	SetupTaaMaterials(sceneImage, motionImage);
 }
 
 void TaaProvider::ResizeTaa(
 	const Vector2ui& resolution, 
-	std::span<const GpuImage*, NUM_RESOURCES_IN_FLIGHT> sceneImages, 
-	std::span<const GpuImage*, NUM_RESOURCES_IN_FLIGHT> motionImages) 
+	const GpuImage* sceneImage, 
+	const GpuImage* motionImage) 
 {
-	taaRenderTarget.Resize(resolution);
-	taaSharpenedRenderTarget.Resize(resolution);
+	m_taaHistoricalImage.Resize(resolution);
+	m_taaRenderTarget.Resize(resolution);
+	m_taaSharpenedRenderTarget.Resize(resolution);
 
-	SetupTaaMaterials(sceneImages, motionImages);
+	SetupTaaMaterials(sceneImage, motionImage);
 }
 
 void TaaProvider::LoadTaaMaterials() {
 	Material* taaMaterial = Engine::GetRenderer()->GetMaterialSystem()->LoadMaterial("Resources/Materials/PBR/TAA/taa.json");
 	Material* taaSharpenMaterial = Engine::GetRenderer()->GetMaterialSystem()->LoadMaterial("Resources/Materials/PBR/TAA/sharpen.json");
 
-	taaMaterialInstance = taaMaterial->CreateInstance().GetPointer();
-	taaSharpenMaterialInstance = taaSharpenMaterial->CreateInstance().GetPointer();
+	m_taaMaterialInstance = taaMaterial->CreateInstance().GetPointer();
+	m_taaSharpenMaterialInstance = taaSharpenMaterial->CreateInstance().GetPointer();
 }
 
-void TaaProvider::SetupTaaMaterials(std::span<const GpuImage*, NUM_RESOURCES_IN_FLIGHT> sceneImages, std::span<const GpuImage*, NUM_RESOURCES_IN_FLIGHT> motionImages) {
+void TaaProvider::SetupTaaMaterials(const GpuImage* sceneImage, const GpuImage* motionImage) {
 	const auto sampledViewConfig = GpuImageViewConfig::CreateSampled_SingleMipLevel(0);
 	const auto storageViewConfig = GpuImageViewConfig::CreateStorage_Default();
 
-	std::array<const IGpuImageView*, NUM_RESOURCES_IN_FLIGHT> _taaHistoricalImages{};
-	std::array<const IGpuImageView*, NUM_RESOURCES_IN_FLIGHT> _taaTargetImages{};
+	const auto* sceneView = sceneImage->GetView(sampledViewConfig);
+	const auto* historicalView = m_taaHistoricalImage.GetTargetImage()->GetView(sampledViewConfig);
+	const auto* motionView = motionImage->GetView(sampledViewConfig);
+	const auto* targetView = m_taaRenderTarget.GetTargetImage()->GetView(storageViewConfig);
 
-	for (UIndex32 i = 0; i < NUM_RESOURCES_IN_FLIGHT; i++) {
-		const UIndex32 previousIndex = (i + NUM_RESOURCES_IN_FLIGHT - 1) % NUM_RESOURCES_IN_FLIGHT;
+	m_taaMaterialInstance->GetSlot("global")->SetGpuImage("sceneImage", sceneView);
+	m_taaMaterialInstance->GetSlot("global")->SetGpuImage("historicalImage", historicalView);
+	m_taaMaterialInstance->GetSlot("global")->SetGpuImage("velocityImage", motionView);
+	m_taaMaterialInstance->GetSlot("global")->SetStorageImage("finalImg", targetView);
+	m_taaMaterialInstance->GetSlot("global")->FlushUpdate();
 
-		_taaHistoricalImages[i] = taaRenderTarget.GetTargetImage(previousIndex)->GetView(sampledViewConfig);
-		_taaTargetImages[i] = taaRenderTarget.GetTargetImage(i)->GetView(storageViewConfig);
-	}
 
-	auto sceneViews = GetViews(sceneImages, sampledViewConfig);
-	auto motionViews = GetViews(motionImages, sampledViewConfig);
+	const IGpuImageView* sharpenInputview = m_taaRenderTarget.GetTargetImage()->GetView(sampledViewConfig);
+	const IGpuImageView* sharpenOutputview = m_taaSharpenedRenderTarget.GetTargetImage()->GetView(storageViewConfig);
 
-	taaMaterialInstance->GetSlot("global")->SetGpuImages("sceneImage", sceneViews);
-	taaMaterialInstance->GetSlot("global")->SetGpuImages("historicalImage", _taaHistoricalImages);
-	taaMaterialInstance->GetSlot("global")->SetGpuImages("velocityImage", motionViews);
-	taaMaterialInstance->GetSlot("global")->SetStorageImages("finalImg", _taaTargetImages);
-	taaMaterialInstance->GetSlot("global")->FlushUpdate();
-
-	std::array<const IGpuImageView*, NUM_RESOURCES_IN_FLIGHT> _taaSharpenInput{};
-	std::array<const IGpuImageView*, NUM_RESOURCES_IN_FLIGHT> _taaSharpenOutput{};
-
-	for (UIndex32 i = 0; i < NUM_RESOURCES_IN_FLIGHT; i++) {
-		_taaSharpenInput[i] = taaRenderTarget.GetTargetImage(i)->GetView(sampledViewConfig);
-		_taaSharpenOutput[i] = taaSharpenedRenderTarget.GetTargetImage(i)->GetView(storageViewConfig);
-	}
-
-	taaSharpenMaterialInstance->GetSlot("global")->SetGpuImages("taaImage", _taaSharpenInput);
-	taaSharpenMaterialInstance->GetSlot("global")->SetStorageImages("finalImg", _taaSharpenOutput);
-	taaSharpenMaterialInstance->GetSlot("global")->FlushUpdate();
+	m_taaSharpenMaterialInstance->GetSlot("global")->SetGpuImage("taaImage", sharpenInputview);
+	m_taaSharpenMaterialInstance->GetSlot("global")->SetStorageImage("finalImg", sharpenOutputview);
+	m_taaSharpenMaterialInstance->GetSlot("global")->FlushUpdate();
 }
 
 void TaaProvider::ExecuteTaa(ICommandList* commandList) {
-	if (!isActive) {
-		currentFrameJitterIndex = maxJitterIndex;
+	if (!m_isActive) {
+		m_currentFrameJitterIndex = m_maxJitterIndex;
 		return;
 	}
 
-	currentFrameJitterIndex = currentFrameJitterIndex % maxJitterIndex + 1;
+	m_currentFrameJitterIndex = (m_currentFrameJitterIndex + 1) % m_maxJitterIndex;
 
 	ExecuteTaaFirstPass(commandList);
+	CopyToHistoricalImage(commandList);
 	ExecuteTaaSharpening(commandList);
 }
 
 void TaaProvider::ExecuteTaaFirstPass(ICommandList* commandList) {
 	commandList->StartDebugSection("Temporal Accumulation", Color::Purple);
 
-	const UIndex32 resourceIndex = Engine::GetRenderer()->GetCurrentResourceIndex();
-	const UIndex32 previousIndex = (resourceIndex + NUM_RESOURCES_IN_FLIGHT - 1) % NUM_RESOURCES_IN_FLIGHT;
-
-	GpuImage* historicalImage = taaRenderTarget.GetTargetImage(previousIndex);
-	GpuImage* finalImage = taaRenderTarget.GetTargetImage(resourceIndex);
+	GpuImage* historicalImage = m_taaHistoricalImage.GetTargetImage();
+	GpuImage* finalImage = m_taaRenderTarget.GetTargetImage();
 
 	const GpuImageLayout previousLayout = historicalImage->_GetLayout(0, 0);
 	commandList->SetGpuImageBarrier(
@@ -116,13 +104,39 @@ void TaaProvider::ExecuteTaaFirstPass(ICommandList* commandList) {
 		GpuBarrierInfo(GpuCommandStage::NONE, GpuAccessStage::NONE),
 		GpuBarrierInfo(GpuCommandStage::COMPUTE_SHADER, GpuAccessStage::SHADER_WRITE));
 
-	const Vector2ui resoulution = taaRenderTarget.GetSize();
+	const Vector2ui resoulution = m_taaRenderTarget.GetSize();
 	const Vector2ui threadGroupSize = { 8u, 8u };
 	const Vector2ui dispatchRes = resoulution / threadGroupSize + Vector2ui(1u, 1u);
 
-	commandList->BindMaterial(*taaMaterialInstance->GetMaterial());
-	commandList->BindMaterialSlot(*taaMaterialInstance->GetSlot("global"));
+	commandList->BindMaterial(*m_taaMaterialInstance->GetMaterial());
+	commandList->BindMaterialSlot(*m_taaMaterialInstance->GetSlot("global"));
 	commandList->DispatchCompute({ dispatchRes.x, dispatchRes.y, 1 });
+
+	commandList->EndDebugSection();
+}
+
+void TaaProvider::CopyToHistoricalImage(ICommandList* commandList) {
+	commandList->StartDebugSection("TAA History Copy", Color::Yellow);
+
+	GpuImage* sourceImage = m_taaRenderTarget.GetTargetImage();
+	GpuImage* destinationImage = m_taaHistoricalImage.GetTargetImage();
+
+	commandList->SetGpuImageBarrier(
+		sourceImage,
+		GpuImageLayout::TRANSFER_SOURCE,
+		GpuBarrierInfo(GpuCommandStage::TRANSFER, GpuAccessStage::TRANSFER_READ));
+
+	commandList->SetGpuImageBarrier(
+		destinationImage,
+		GpuImageLayout::TRANSFER_DESTINATION,
+		GpuBarrierInfo(GpuCommandStage::TRANSFER, GpuAccessStage::TRANSFER_WRITE));
+
+	CopyImageInfo copyInfo = CopyImageInfo::CreateDefault2D(m_taaRenderTarget.GetSize());
+
+	commandList->RawCopyImageToImage(
+		*m_taaRenderTarget.GetTargetImage(),
+		m_taaHistoricalImage.GetTargetImage(),
+		copyInfo);
 
 	commandList->EndDebugSection();
 }
@@ -130,10 +144,8 @@ void TaaProvider::ExecuteTaaFirstPass(ICommandList* commandList) {
 void TaaProvider::ExecuteTaaSharpening(ICommandList* commandList) {
 	commandList->StartDebugSection("Sharpening", Color::Purple);
 
-	const UIndex32 resourceIndex = Engine::GetRenderer()->GetCurrentResourceIndex();
-
-	GpuImage* sourceImage = taaRenderTarget.GetTargetImage(resourceIndex);
-	GpuImage* sharpenedImage = taaSharpenedRenderTarget.GetTargetImage(resourceIndex);
+	GpuImage* sourceImage = m_taaRenderTarget.GetTargetImage();
+	GpuImage* sharpenedImage = m_taaSharpenedRenderTarget.GetTargetImage();
 
 	commandList->SetGpuImageBarrier(
 		sourceImage,
@@ -147,25 +159,13 @@ void TaaProvider::ExecuteTaaSharpening(ICommandList* commandList) {
 		GpuBarrierInfo(GpuCommandStage::NONE, GpuAccessStage::NONE),
 		GpuBarrierInfo(GpuCommandStage::COMPUTE_SHADER, GpuAccessStage::SHADER_WRITE));
 
-	const Vector2ui resoulution = taaRenderTarget.GetSize();
+	const Vector2ui resoulution = m_taaRenderTarget.GetSize();
 	const Vector2ui threadGroupSize = { 8u, 8u };
 	const Vector2ui dispatchRes = resoulution / threadGroupSize + Vector2ui(1u, 1u);
 
-	commandList->BindMaterial(*taaSharpenMaterialInstance->GetMaterial());
-	commandList->BindMaterialSlot(*taaSharpenMaterialInstance->GetSlot("global"));
+	commandList->BindMaterial(*m_taaSharpenMaterialInstance->GetMaterial());
+	commandList->BindMaterialSlot(*m_taaSharpenMaterialInstance->GetSlot("global"));
 	commandList->DispatchCompute({ dispatchRes.x, dispatchRes.y, 1 });
 
 	commandList->EndDebugSection();
-}
-
-std::array<const IGpuImageView*, NUM_RESOURCES_IN_FLIGHT> TaaProvider::GetViews(
-	std::span<const GpuImage*, NUM_RESOURCES_IN_FLIGHT> image, 
-	GpuImageViewConfig config) 
-{
-	std::array<const IGpuImageView*, NUM_RESOURCES_IN_FLIGHT> output{};
-
-	for (UIndex32 i = 0; i < NUM_RESOURCES_IN_FLIGHT; i++)
-		output[i] = image[i]->GetView(config);
-
-	return output;
 }

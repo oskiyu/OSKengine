@@ -285,9 +285,9 @@ void RendererVk::CreateInstance(const std::string& appName, const Version& versi
 		extensions.Insert(glfwExtensions[i]);
 
 	extensions.Insert(VK_KHR_GET_PHYSICAL_DEVICE_PROPERTIES_2_EXTENSION_NAME);
+	extensions.Insert(VK_EXT_DEBUG_UTILS_EXTENSION_NAME);
 
 #ifdef OSK_DEBUG
-	extensions.Insert(VK_EXT_DEBUG_UTILS_EXTENSION_NAME);
 	//Capas de validación.
 
 	if (AreValidationLayersAvailable()) {

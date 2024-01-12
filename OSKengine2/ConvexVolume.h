@@ -10,15 +10,13 @@
 #include "Gjk.h"
 #include "Sat.h"
 
+
 namespace OSK::COLLISION {
 
 	class FaceProjection;
 
 	/// @brief Clase que representa un volúmen convexo para la detección de
 	/// colisiones detallada.
-	/// 
-	/// @note A la hora de construir el volumen, todas las caras deben tener sus vértices
-	/// en sentido horiario (si se observa desde fuera del collider).
 	class OSKAPI_CALL ConvexVolume final : public IBottomLevelCollider {
 
 	public:
@@ -41,13 +39,10 @@ namespace OSK::COLLISION {
 		OwnedPtr<IBottomLevelCollider> CreateCopy() const override;
 
 		/// @brief Crea un volúmen convexo que implementa una caja delimitadora.
-		/// @param size Tamaño de la caja, expresado como: { halfWidth, height, halfLenght }.
+		/// @param size Tamaño de la caja, expresado como radio.
 		/// @param bottomHeight Posición más baja de la caja.
 		/// @return Volúmen convexo en modo de caja.
-		/// 
-		/// La caja final tendrá las dimensiones: { @p size.X / 2, @p size.Y, @p size.Z / 2 }
-		/// en la posición { 0, @p bottomHeight, 0 }.
-		static ConvexVolume CreateObb(const Vector3f& size, float bottomHeight);
+		static ConvexVolume CreateObb(const Vector3f& size);
 
 
 		/// @brief Añade una cara al poliedro.
@@ -55,6 +50,9 @@ namespace OSK::COLLISION {
 		/// @pre vertices.GetSize() >= 3.
 		/// @pre vertices.GetSize() < UINT_MAX.
 		/// @pre convexVolume.vertices.GetSize() + vertices.GetSize() < UINT_MAX.
+		/// 
+		/// @note Los puntos añadidos no serán transformados hasta que no se vuelva
+		/// a transformar el collider entero.
 		/// 
 		/// @throws InvalidArgumentException si el número de vértices proporcionado es incorrecto.
 		/// @throws InvalidObjectStateException si el número de vértices final es incorrecto.
@@ -141,6 +139,8 @@ namespace OSK::COLLISION {
 
 		void RecalculateCenter();
 
+
+		glm::mat4 m_lastTransform = glm::mat4(1.0f);
 
 		DynamicArray<FaceIndices> m_faces;
 		DynamicArray<Vector3f> m_vertices;

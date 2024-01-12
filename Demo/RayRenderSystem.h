@@ -24,7 +24,7 @@ public:
 	void CreateTargetImage(const OSK::Vector2ui& size) override;
 	void Render(OSK::GRAPHICS::ICommandList* commandList) override;
 
-	void SetDepthImages(std::span<OSK::GRAPHICS::GpuImage*, 3> images);
+	void SetDepthImages(OSK::GRAPHICS::GpuImage* image);
 
 private:
 
@@ -45,6 +45,6 @@ private:
 	OSK::UniquePtr<OSK::GRAPHICS::GpuBuffer> m_pointsVertexBuffer;
 	OSK::UniquePtr<OSK::GRAPHICS::GpuBuffer> m_pointsIndexBuffer;
 
-	OSK::DynamicArray<OSK::GRAPHICS::RenderPassImageInfo> m_depthImages;
+	OSK::GRAPHICS::RenderPassImageInfo m_depthImage;
 
 };

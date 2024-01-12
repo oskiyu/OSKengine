@@ -58,25 +58,21 @@ namespace OSK::GRAPHICS {
 
 
 		/// @brief Devuelve la imagen indicada por los parámetros.
-		/// @param frameIndex Índice del recurso.
 		/// @param targetType Identificador de la imagen deseada.
-		/// 
-		/// @pre frameIndex < NUM_RESOURCES_IN_FLIGHT
-		GpuImage* GetImage(UIndex32 frameIndex, Target targetType);
+		GpuImage* GetImage(Target targetType);
 
 		/// @brief Devuelve la imagen indicada por los parámetros.
-		/// @param frameIndex Índice del recurso.
 		/// @param targetType Identificador de la imagen deseada.
-		/// 
-		/// @pre frameIndex < NUM_RESOURCES_IN_FLIGHT
-		const GpuImage* GetImage(UIndex32 frameIndex, Target targetType) const;
+		const GpuImage* GetImage(Target targetType) const;
 
+
+		void BindPipelineBarriers(ICommandList* cmdList);
 
 		/// @brief Inicia un renderpass de rasterización sobre el GBuffer.
 		/// @see ICommandList::BeginRenderpass.
 		/// @param cmdList Lista de comandos abierta.
 		/// @param color Color con el que se limpiarán todas las imágenes de color.
-		void BeginRenderpass(ICommandList* cmdList, Color color);
+		void BeginRenderpass(ICommandList* cmdList, Color color, bool autoSync = true);
 
 	private:
 

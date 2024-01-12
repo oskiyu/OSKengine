@@ -22,11 +22,11 @@ namespace OSK::GRAPHICS {
 		void Execute(ICommandList* computeCmdList) override;
 
 		void SetInput(
-			std::span<GpuImage*, NUM_RESOURCES_IN_FLIGHT> images, 
+			GpuImage* image, 
 			const GpuImageViewConfig& viewConfig) override;
 
-		void SetNormalsInput(std::span<GpuImage*, NUM_RESOURCES_IN_FLIGHT> images);
-		void SetDepthInput(std::span<GpuImage*, NUM_RESOURCES_IN_FLIGHT> images);
+		void SetNormalsInput(GpuImage* image);
+		void SetDepthInput(GpuImage* image);
 
 		void UpdateCamera(
 			const glm::mat4& inverseProjection, 
@@ -43,30 +43,30 @@ namespace OSK::GRAPHICS {
 		void SetupBlurChain();
 
 		/// @brief Imagen en la que se guardará el filtro HBAO sin blur.
-		RtRenderTarget unblurredHbaoTarget{};
+		RtRenderTarget m_unblurredHbaoTarget{};
 
 		/// @brief Imagen HBAO con el primer pase blur.
-		RtRenderTarget firstBlurTarget{};
+		RtRenderTarget m_firstBlurTarget{};
 
 		/// @brief Imagen HBAO con el blur aplicado.
-		RtRenderTarget secondBlurTarget{};
+		RtRenderTarget m_secondBlurTarget{};
 
-		Material* hbaoMaterial = nullptr;
-		UniquePtr<MaterialInstance> hbaoMaterialInstance = nullptr;
+		Material* m_hbaoMaterial = nullptr;
+		UniquePtr<MaterialInstance> m_hbaoMaterialInstance = nullptr;
 
-		Material* blurMaterial = nullptr;
-		UniquePtr<MaterialInstance> blurMaterialInstanceA = nullptr;
-		UniquePtr<MaterialInstance> blurMaterialInstanceB = nullptr;
+		Material* m_blurMaterial = nullptr;
+		UniquePtr<MaterialInstance> m_blurMaterialInstanceA = nullptr;
+		UniquePtr<MaterialInstance> m_blurMaterialInstanceB = nullptr;
 
-		std::array<GpuImage*, NUM_RESOURCES_IN_FLIGHT> m_normalInputs{};
-		std::array<const IGpuImageView*, NUM_RESOURCES_IN_FLIGHT> m_normalInputViews{};
+		GpuImage* m_normalInput{};
+		const IGpuImageView* m_normalInputView{};
 
-		std::array<GpuImage*, NUM_RESOURCES_IN_FLIGHT> m_depthInputs{};
-		std::array<const IGpuImageView*, NUM_RESOURCES_IN_FLIGHT> m_depthInputViews{};
+		GpuImage* m_depthInput{};
+		const IGpuImageView* m_depthInputView{};
 
 		std::array<UniquePtr<GpuBuffer>, NUM_RESOURCES_IN_FLIGHT> m_cameraBuffers{};
 
-		float m_renderSizeRatio = 0.5f;
+		float m_renderSizeRatio = 1.0f;
 
 	};
 

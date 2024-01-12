@@ -1,9 +1,7 @@
 INFO: Iniciando OSKengine.
 INFO: 	Version: 0.0.0
-INFO: 	Build 2023.11.27a.
-INFO: Versión de vulkan: 1.3.241
-DEBUG: Capas de validación activas.
-INFO: Capas de validación activas.
+INFO: 	Build 2023.12.14a.
+INFO: Versión de vulkan: 1.3.255
 INFO: GPU elegida: NVIDIA GeForce RTX 2060
 INFO: Creado el swapchain.
 INFO: New object: 1
@@ -17,24 +15,8 @@ INFO: 	Circuit: 6
 INFO: New object: 7
 INFO: New object: 8
 INFO: New object: 9
-WARNING: Validation Error: [ VUID-VkPresentInfoKHR-pImageIndices-01430 ] Object 0: handle = 0x2969794fef0, type = VK_OBJECT_TYPE_QUEUE; | MessageID = 0x48ad24c6 | vkQueuePresentKHR(): pSwapchains[0] images passed to present must be in layout VK_IMAGE_LAYOUT_PRESENT_SRC_KHR or VK_IMAGE_LAYOUT_SHARED_PRESENT_KHR but is in VK_IMAGE_LAYOUT_UNDEFINED. The Vulkan spec states: Each element of pImageIndices must be the index of a presentable image acquired from the swapchain specified by the corresponding element of the pSwapchains array, and the presented image subresource must be in the VK_IMAGE_LAYOUT_PRESENT_SRC_KHR or VK_IMAGE_LAYOUT_SHARED_PRESENT_KHR layout at the time the operation is executed on a VkDevice (https://vulkan.lunarg.com/doc/view/1.3.261.1/windows/1.3-extensions/vkspec.html#VUID-VkPresentInfoKHR-pImageIndices-01430)
-
-WARNING: Validation Error: [ VUID-vkDestroyDescriptorPool-descriptorPool-00303 ] | MessageID = 0x4dad1ae8 | Cannot call vkDestroyDescriptorPool on VkDescriptorPool 0x3fe7a100000004d3[] that is currently in use by a command buffer. The Vulkan spec states: All submitted commands that refer to descriptorPool (via any allocated descriptor sets) must have completed execution (https://vulkan.lunarg.com/doc/view/1.3.261.1/windows/1.3-extensions/vkspec.html#VUID-vkDestroyDescriptorPool-descriptorPool-00303)
-
-WARNING: Validation Error: [ VUID-vkDestroyDescriptorPool-descriptorPool-00303 ] | MessageID = 0x4dad1ae8 | Cannot call vkDestroyDescriptorPool on VkDescriptorPool 0xc37e4200000004f3[] that is currently in use by a command buffer. The Vulkan spec states: All submitted commands that refer to descriptorPool (via any allocated descriptor sets) must have completed execution (https://vulkan.lunarg.com/doc/view/1.3.261.1/windows/1.3-extensions/vkspec.html#VUID-vkDestroyDescriptorPool-descriptorPool-00303)
-
-WARNING: Validation Error: [ VUID-vkDestroyDescriptorPool-descriptorPool-00303 ] | MessageID = 0x4dad1ae8 | Cannot call vkDestroyDescriptorPool on VkDescriptorPool 0xa8aad500000004c6[] that is currently in use by a command buffer. The Vulkan spec states: All submitted commands that refer to descriptorPool (via any allocated descriptor sets) must have completed execution (https://vulkan.lunarg.com/doc/view/1.3.261.1/windows/1.3-extensions/vkspec.html#VUID-vkDestroyDescriptorPool-descriptorPool-00303)
-
-WARNING: Validation Error: [ VUID-vkDestroyDescriptorPool-descriptorPool-00303 ] | MessageID = 0x4dad1ae8 | Cannot call vkDestroyDescriptorPool on VkDescriptorPool 0x3234d40000000524[] that is currently in use by a command buffer. The Vulkan spec states: All submitted commands that refer to descriptorPool (via any allocated descriptor sets) must have completed execution (https://vulkan.lunarg.com/doc/view/1.3.261.1/windows/1.3-extensions/vkspec.html#VUID-vkDestroyDescriptorPool-descriptorPool-00303)
-
-WARNING: Validation Error: [ VUID-vkDestroyDescriptorPool-descriptorPool-00303 ] | MessageID = 0x4dad1ae8 | Cannot call vkDestroyDescriptorPool on VkDescriptorPool 0x6eafb70000000541[] that is currently in use by a command buffer. The Vulkan spec states: All submitted commands that refer to descriptorPool (via any allocated descriptor sets) must have completed execution (https://vulkan.lunarg.com/doc/view/1.3.261.1/windows/1.3-extensions/vkspec.html#VUID-vkDestroyDescriptorPool-descriptorPool-00303)
-
-WARNING: Validation Error: [ VUID-vkDestroyDescriptorPool-descriptorPool-00303 ] | MessageID = 0x4dad1ae8 | Cannot call vkDestroyDescriptorPool on VkDescriptorPool 0x608c3b0000000555[] that is currently in use by a command buffer. The Vulkan spec states: All submitted commands that refer to descriptorPool (via any allocated descriptor sets) must have completed execution (https://vulkan.lunarg.com/doc/view/1.3.261.1/windows/1.3-extensions/vkspec.html#VUID-vkDestroyDescriptorPool-descriptorPool-00303)
-
-WARNING: Validation Error: [ VUID-vkDestroyDescriptorPool-descriptorPool-00303 ] | MessageID = 0x4dad1ae8 | Cannot call vkDestroyDescriptorPool on VkDescriptorPool 0xaeea8c0000000569[] that is currently in use by a command buffer. The Vulkan spec states: All submitted commands that refer to descriptorPool (via any allocated descriptor sets) must have completed execution (https://vulkan.lunarg.com/doc/view/1.3.261.1/windows/1.3-extensions/vkspec.html#VUID-vkDestroyDescriptorPool-descriptorPool-00303)
-
-WARNING: Validation Error: [ VUID-vkDestroyDescriptorPool-descriptorPool-00303 ] | MessageID = 0x4dad1ae8 | Cannot call vkDestroyDescriptorPool on VkDescriptorPool 0xc359de0000000507[] that is currently in use by a command buffer. The Vulkan spec states: All submitted commands that refer to descriptorPool (via any allocated descriptor sets) must have completed execution (https://vulkan.lunarg.com/doc/view/1.3.261.1/windows/1.3-extensions/vkspec.html#VUID-vkDestroyDescriptorPool-descriptorPool-00303)
-
+INFO: Loading spline mesh 0
+INFO: Loading spline primitive 0.0
 INFO: 	~IGpuMemoryAllocator
 INFO: Cerrado el log.
 

@@ -18,18 +18,16 @@ void ToneMappingPass::Create(const Vector2ui& size) {
 }
 
 void ToneMappingPass::Execute(ICommandList* computeCmdList) {
-	const UIndex32 resourceIndex = Engine::GetRenderer()->GetCurrentResourceIndex();
-
 	computeCmdList->StartDebugSection("Tone Mapping", Color::Purple);
 
 	computeCmdList->SetGpuImageBarrier(
-		inputImages[resourceIndex],
+		inputImage,
 		GpuImageLayout::SAMPLED,
 		GpuBarrierInfo(GpuCommandStage::COMPUTE_SHADER, GpuAccessStage::SAMPLED_READ),
 		{ .baseLayer = 0, .numLayers = 1, .baseMipLevel = 0, .numMipLevels = 1 });
 
 	computeCmdList->SetGpuImageBarrier(
-		resolveRenderTarget.GetTargetImage(resourceIndex),
+		resolveRenderTarget.GetTargetImage(),
 		GpuImageLayout::UNDEFINED,
 		GpuImageLayout::GENERAL,
 		GpuBarrierInfo(GpuCommandStage::NONE, GpuAccessStage::NONE),

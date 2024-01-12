@@ -64,17 +64,25 @@ namespace OSK::GRAPHICS {
 
 		/// @brief Devuelve la imagen de renderizado en los índices dados.
 		/// @param colorImageIndex Índice de la imagen objetivo de color.
-		/// @param resourceIndex Índice del frame.
 		/// @return Puntero no nulo a la imagen.
 		/// 
 		/// @pre Este render target debe de haberse inicializado previamente con 
 		/// RenderTarget::Create o RenderTarget::CreateAsFinal.
 		/// @pre colorImageIndex debe apuntar a un target existente (colorImageIndex < RenderTarget::GetNumColorTargets).
-		/// @pre resourceIndex debe estar entre 0 y NUM_RESOURCES_IN_FLIGHT 
-		/// (0 <= resourceIndex < NUM_RESOURCES_IN_FLIGHT).
 		/// 
 		/// @throws InvalidArgumentException si se incumple alguna precondición.
-		GpuImage* GetColorImage(UIndex32 colorImageIndex, UIndex32 resourceIndex) const;
+		GpuImage* GetColorImage(UIndex32 colorImageIndex);
+
+		/// @brief Devuelve la imagen de renderizado en los índices dados.
+		/// @param colorImageIndex Índice de la imagen objetivo de color.
+		/// @return Puntero no nulo a la imagen.
+		/// 
+		/// @pre Este render target debe de haberse inicializado previamente con 
+		/// RenderTarget::Create o RenderTarget::CreateAsFinal.
+		/// @pre colorImageIndex debe apuntar a un target existente (colorImageIndex < RenderTarget::GetNumColorTargets).
+		/// 
+		/// @briefthrows InvalidArgumentException si se incumple alguna precondición.
+		const GpuImage* GetColorImage(UIndex32 colorImageIndex) const;
 
 		/// @brief Devuelve la imagen de renderizado principal (índice 0).
 		/// @param resourceIndex Índice del frame.
@@ -83,18 +91,32 @@ namespace OSK::GRAPHICS {
 		/// @pre Debe de haberse inicializado con RenderTarget::Create o RenderTarget::CreateAsFinal.
 		/// 
 		/// @throws std::runtime_error si se incumple la precondición.
-		GpuImage* GetMainColorImage(UIndex32 resourceIndex) const;
+		GpuImage* GetMainColorImage();
 
-		/// @brief Devuelve la imagen de profundidad.
+		/// @brief Devuelve la imagen de renderizado principal (índice 0).
 		/// @param resourceIndex Índice del frame.
 		/// @return Puntero no nulo a la imagen.
 		/// 
 		/// @pre Debe de haberse inicializado con RenderTarget::Create o RenderTarget::CreateAsFinal.
-		/// @pre resourceIndex debe estar entre 0 y NUM_RESOURCES_IN_FLIGHT 
-		/// (0 <= resourceIndex < NUM_RESOURCES_IN_FLIGHT).
+		/// 
+		/// @throws std::runtime_error si se incumple la precondición.
+		const GpuImage* GetMainColorImage() const;
+
+		/// @brief Devuelve la imagen de profundidad.
+		/// @return Puntero no nulo a la imagen.
+		/// 
+		/// @pre Debe de haberse inicializado con RenderTarget::Create o RenderTarget::CreateAsFinal.
 		/// 
 		/// @throws InvalidArgumentException Si se incumple alguna de las precondiciones.
-		GpuImage* GetDepthImage(UIndex32 resourceIndex) const;
+		GpuImage* GetDepthImage();
+
+		/// @brief Devuelve la imagen de profundidad.
+		/// @return Puntero no nulo a la imagen.
+		/// 
+		/// @pre Debe de haberse inicializado con RenderTarget::Create o RenderTarget::CreateAsFinal.
+		/// 
+		/// @throws InvalidArgumentException Si se incumple alguna de las precondiciones.
+		const GpuImage* GetDepthImage() const;
 
 
 		/// @brief Número de targets de color.
@@ -133,12 +155,12 @@ namespace OSK::GRAPHICS {
 
 		void SetupSpriteMaterial();
 
-		DynamicArray<RenderTargetAttachment> colorAttachments;
-		RenderTargetAttachment depthAttachment;
+		DynamicArray<RenderTargetAttachment> m_colorAttachments;
+		RenderTargetAttachment m_depthAttachment;
 
-		RenderpassType targetType = RenderpassType::INTERMEDIATE;
+		RenderpassType m_targetType = RenderpassType::INTERMEDIATE;
 
-		UniquePtr<MaterialInstance> fullscreenSpriteMaterialInstance;
+		UniquePtr<MaterialInstance> m_fullscreenSpriteMaterialInstance;
 
 	};
 

@@ -1376,6 +1376,7 @@ TODO:
 
 fix culling static meshes
 
+
 ## 2023.12.12a
 
 ### Graphics
@@ -1386,3 +1387,20 @@ fix culling static meshes
 ##### Bugfixes
 
 - **Bugfix**: `PreBuiltSplineLoader3D` carga correctamente los vértices del spline en el orden correcto.
+
+
+## 2023.12.15a
+
+### Graphics
+
+- `RenderTargetAttachment`, `RenderTarget`, `RtRenderTarget`
+    - Ahora no tiene una imagen por cada fotograma en vuelo.
+
+### Collision
+
+- `ConvexVolume`
+    - Simplificado el proceso de creación de `OOB`.
+
+##### Bugfixes
+
+- **Bugfix**: añadir caras a un `ConvexVolume` se refleja instantaneamente al llamar a `GetVertices()` y `GetAxes()`.

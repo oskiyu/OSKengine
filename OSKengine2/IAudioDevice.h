@@ -1,60 +1,58 @@
 #pragma once
 
 #include "OSKmacros.h"
-#include "OwnedPtr.h"
-
-#include <AL/alc.h>
 #include <string>
 
 namespace OSK::AUDIO {
 
-	/// @brief Clase que representa un dispositivo de salida de audio.
-	class OSKAPI_CALL Device {
+	class IAudioDevice {
 
 	public:
+		
+		virtual ~IAudioDevice() = default;
 
-		~Device();
+		OSK_DEFINE_AS(IAudioDevice);
 
-		OSK_DISABLE_COPY(Device)
-		OSK_DEFAULT_MOVE_OPERATOR(Device)
 
 		/// @brief Instancia un objeto que referencia al dispositivo de salida
 		/// de audio por defdecto del sistema.
 		/// 
 		/// @throws AudioDeviceCreationException Si ocurre algún error al crear el device.
-		Device();
+		virtual void InitializeDefault() = 0;
 
 		/// @brief Instancia un objeto que referencia a un dispositivo en concreto.
 		/// @param name Nombre del dispositivo.
-		explicit Device(const std::string& name);
+		virtual void Initialize(const std::string& name) = 0;
 
 
 		/// @return Nombre del dispositivo.
-		inline std::string_view GetName() const { return name; }
+		inline std::string_view GetName() const { return m_name; }
+
 
 		/// @brief Establece este dispositivo como el que se va a usar para la salida
 		/// de audio del juego.
 		/// 
 		/// @throws AudioDeviceCreationException Si ocurre algún error al establecer el 
 		/// device por defecto.
-		void SetCurrent();
+		void SetCurrentOutputDevice();
 
 		/// @return True si este dispositivo es el que se está usando como salida de audio
 		/// del juego.
-		bool IsCurrent() const;
+		bool IsCurrentOutputDevice() const;
+
+
+	protected:
+
+		virtual void SetCurrentOutputDevice_Implementation() = 0;
+
+		void SetName(const std::string& name);
 
 	private:
 
-		/// @brief Dispositivo de audio.
-		OwnedPtr<ALCdevice> device = nullptr;
-
-		/// @brief Contexto del dispositivo.
-		/// Contiene los buffers y los sources,
-		/// además de un listener.
-		OwnedPtr<ALCcontext> context = nullptr;
-
 		/// @brief Nombre del dispositivo.
-		std::string name;
+		std::string m_name;
+
+		bool m_isCurrentOutputDevice = false;
 
 	};
 

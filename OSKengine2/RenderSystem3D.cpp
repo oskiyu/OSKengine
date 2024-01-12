@@ -95,7 +95,6 @@ void RenderSystem3D::SetupMaterials() {
 	std::array<const GpuBuffer*, NUM_RESOURCES_IN_FLIGHT> _previousCameraUbos{};
 	std::array<const GpuBuffer*, NUM_RESOURCES_IN_FLIGHT> _dirLightUbos{};
 	std::array<const GpuBuffer*, NUM_RESOURCES_IN_FLIGHT> _shadowsMatricesUbos{};
-	std::array<const IGpuImageView*, NUM_RESOURCES_IN_FLIGHT> _shadowsMaps{};
 
 	GpuImageViewConfig shadowsViewConfig = GpuImageViewConfig::CreateSampled_Array(0, m_shadowMap.GetNumCascades());
 	shadowsViewConfig.channel = SampledChannel::DEPTH;
@@ -105,7 +104,6 @@ void RenderSystem3D::SetupMaterials() {
 		_previousCameraUbos[i] = m_previousCameraBuffers[i].GetPointer();
 		_dirLightUbos[i] = m_dirLightUbos[i].GetPointer();
 		_shadowsMatricesUbos[i] = m_shadowMap.GetDirLightMatrixUniformBuffers()[i];
-		_shadowsMaps[i] = m_shadowMap.GetShadowImage(i)->GetView(shadowsViewConfig);
 	}
 
 	m_sceneMaterialInstance->GetSlot("global")->SetUniformBuffers("camera", _cameraUbos);
@@ -114,7 +112,7 @@ void RenderSystem3D::SetupMaterials() {
 
 	m_sceneMaterialInstance->GetSlot("global")->SetUniformBuffers("dirLight", _dirLightUbos);
 	m_sceneMaterialInstance->GetSlot("global")->SetUniformBuffers("dirLightShadowMat", _shadowsMatricesUbos);
-	m_sceneMaterialInstance->GetSlot("global")->SetGpuImages("dirLightShadowMap", _shadowsMaps);
+	m_sceneMaterialInstance->GetSlot("global")->SetGpuImage("dirLightShadowMap", m_shadowMap.GetShadowImage()->GetView(shadowsViewConfig));
 
 	m_sceneMaterialInstance->GetSlot("global")->FlushUpdate(); // No está completo.
 }
@@ -155,13 +153,13 @@ void RenderSystem3D::InitializeTerrain(const Vector2ui& resolution, const Textur
 }
 
 void RenderSystem3D::CreateTargetImage(const Vector2ui& size) {
-	const RenderTargetAttachmentInfo colorInfo { 
-		.format = Format::RGBA16_SFLOAT, 
-		.usage = GpuImageUsage::TRANSFER_DESTINATION, 
-		.name = "RenderSystem3D Target" 
+	const RenderTargetAttachmentInfo colorInfo{
+		.format = Format::RGBA16_SFLOAT,
+		.usage = GpuImageUsage::TRANSFER_DESTINATION,
+		.name = "RenderSystem3D Target"
 	};
 
-	const RenderTargetAttachmentInfo motionInfo { 
+	const RenderTargetAttachmentInfo motionInfo{
 		.format = Format::RG16_SFLOAT,
 		.usage = GpuImageUsage::COLOR | GpuImageUsage::SAMPLED,
 		.name = "RenderSystem3D Motion"
@@ -173,8 +171,8 @@ void RenderSystem3D::CreateTargetImage(const Vector2ui& size) {
 		.name = "RenderSystem3D Normal"
 	};
 
-	const RenderTargetAttachmentInfo depthInfo { 
-		.format = Format::D32_SFLOAT, 
+	const RenderTargetAttachmentInfo depthInfo{
+		.format = Format::D32_SFLOAT,
 		.usage = GpuImageUsage::DEPTH | GpuImageUsage::SAMPLED,
 		.name = "RenderSystem3D Depth"
 	};
@@ -182,18 +180,10 @@ void RenderSystem3D::CreateTargetImage(const Vector2ui& size) {
 	m_renderTarget.Create(size, { colorInfo, motionInfo, normalInfo }, depthInfo);
 
 	// TAA
-	std::array<const GpuImage*, NUM_RESOURCES_IN_FLIGHT> sourceImages{};
-	std::array<const GpuImage*, NUM_RESOURCES_IN_FLIGHT> motionImages{};
-
-	for (UIndex32 i = 0; i < NUM_RESOURCES_IN_FLIGHT; i++) {
-		sourceImages[i] = m_renderTarget.GetColorImage(COLOR_IMAGE_INDEX, i);
-		motionImages[i] = m_renderTarget.GetColorImage(MOTION_IMAGE_INDEX, i);
-	}
-
 	m_taaProvider.InitializeTaa(
 		size,
-		sourceImages,
-		motionImages);
+		m_renderTarget.GetColorImage(COLOR_IMAGE_INDEX),
+		m_renderTarget.GetColorImage(MOTION_IMAGE_INDEX));
 
 	m_resolutionBuffer->MapMemory();
 	m_resolutionBuffer->Write(size.ToVector2f());
@@ -204,18 +194,10 @@ void RenderSystem3D::Resize(const Vector2ui& size) {
 	IRenderSystem::Resize(size);
 
 	// TAA
-	std::array<const GpuImage*, NUM_RESOURCES_IN_FLIGHT> sourceImages{};
-	std::array<const GpuImage*, NUM_RESOURCES_IN_FLIGHT> motionImages{};
-
-	for (UIndex32 i = 0; i < NUM_RESOURCES_IN_FLIGHT; i++) {
-		sourceImages[i] = m_renderTarget.GetColorImage(COLOR_IMAGE_INDEX, i);
-		motionImages[i] = m_renderTarget.GetColorImage(MOTION_IMAGE_INDEX, i);
-	}
-
-	m_taaProvider.ResizeTaa(
+	m_taaProvider.InitializeTaa(
 		size,
-		sourceImages,
-		motionImages);
+		m_renderTarget.GetColorImage(COLOR_IMAGE_INDEX),
+		m_renderTarget.GetColorImage(MOTION_IMAGE_INDEX));
 
 	m_resolutionBuffer->MapMemory();
 	m_resolutionBuffer->Write(size.ToVector2f());
@@ -227,17 +209,16 @@ ShadowMap* RenderSystem3D::GetShadowMap() {
 }
 
 void RenderSystem3D::GenerateShadows(ICommandList* commandList, ModelType modelType) {
-	const UIndex32 resourceIndex = Engine::GetRenderer()->GetCurrentResourceIndex();
 	const Viewport viewport {
 		.rectangle = { 0u, 0u, 
-		m_shadowMap.GetColorImage(0)->GetSize2D().x, 
-		m_shadowMap.GetColorImage(0)->GetSize2D().y }
+		m_shadowMap.GetColorImage()->GetSize2D().x, 
+		m_shadowMap.GetColorImage()->GetSize2D().y }
 	};
 
 	commandList->StartDebugSection("Shadows", Color::Black);
 
 	commandList->SetGpuImageBarrier(
-		m_shadowMap.GetShadowImage(resourceIndex), 
+		m_shadowMap.GetShadowImage(), 
 		GpuImageLayout::UNDEFINED,
 		GpuImageLayout::DEPTH_STENCIL_TARGET,
 		GpuBarrierInfo(GpuCommandStage::NONE, GpuAccessStage::NONE),
@@ -259,11 +240,11 @@ void RenderSystem3D::GenerateShadows(ICommandList* commandList, ModelType modelT
 
 		RenderPassImageInfo colorInfo{};
 		colorInfo.arrayLevel = i;
-		colorInfo.targetImage = m_shadowMap.GetColorImage(resourceIndex);
+		colorInfo.targetImage = m_shadowMap.GetColorImage();
 
 		RenderPassImageInfo depthInfo{};
 		depthInfo.arrayLevel = i;
-		depthInfo.targetImage = m_shadowMap.GetShadowImage(resourceIndex);
+		depthInfo.targetImage = m_shadowMap.GetShadowImage();
 
 		commandList->BeginGraphicsRenderpass({ colorInfo }, depthInfo, { 1.0f, 1.0f, 1.0f, 1.0f }, false);
 
@@ -293,11 +274,9 @@ void RenderSystem3D::GenerateShadows(ICommandList* commandList, ModelType modelT
 }
 
 void RenderSystem3D::RenderScene(ICommandList* commandList) {
-	const UIndex32 resourceIndex = Engine::GetRenderer()->GetCurrentResourceIndex();
-	
 	commandList->StartDebugSection("PBR Direct", Color::Red);
 
-	commandList->SetGpuImageBarrier(m_shadowMap.GetShadowImage(resourceIndex),
+	commandList->SetGpuImageBarrier(m_shadowMap.GetShadowImage(),
 		GpuImageLayout::SAMPLED,
 		GpuBarrierInfo(GpuCommandStage::FRAGMENT_SHADER, GpuAccessStage::SAMPLED_READ),
 		GpuImageRange{
@@ -434,15 +413,13 @@ void RenderSystem3D::RenderTerrain(ICommandList* commandList) {
 void RenderSystem3D::ExecuteTaa(ICommandList* commandList) {
 	commandList->StartDebugSection("TAA", Color::Yellow);
 
-	const UIndex32 resourceIndex = Engine::GetRenderer()->GetCurrentResourceIndex();
-
 	commandList->SetGpuImageBarrier(
-		m_renderTarget.GetColorImage(MOTION_IMAGE_INDEX, resourceIndex),
+		m_renderTarget.GetColorImage(MOTION_IMAGE_INDEX),
 		GpuImageLayout::SAMPLED,
 		GpuBarrierInfo(GpuCommandStage::COMPUTE_SHADER, GpuAccessStage::SAMPLED_READ));
 
 	commandList->SetGpuImageBarrier(
-		m_renderTarget.GetColorImage(COLOR_IMAGE_INDEX, resourceIndex),
+		m_renderTarget.GetColorImage(COLOR_IMAGE_INDEX),
 		GpuImageLayout::SAMPLED,
 		GpuBarrierInfo(GpuCommandStage::COMPUTE_SHADER, GpuAccessStage::SAMPLED_READ));
 
@@ -455,9 +432,8 @@ void RenderSystem3D::ExecuteTaa(ICommandList* commandList) {
 }
 
 void RenderSystem3D::CopyTaaResult(GRAPHICS::ICommandList* commandList) {
-	const UIndex32 resourceIndex = Engine::GetRenderer()->GetCurrentResourceIndex();
-	GpuImage* sourceImage = m_taaProvider.GetTaaOutput().GetTargetImage(resourceIndex);
-	GpuImage* destinationImage = m_renderTarget.GetColorImage(COLOR_IMAGE_INDEX, resourceIndex);
+	GpuImage* sourceImage = m_taaProvider.GetTaaOutput().GetTargetImage();
+	GpuImage* destinationImage = m_renderTarget.GetColorImage(COLOR_IMAGE_INDEX);
 
 	// Imagen original TAA: transfer source.
 	commandList->SetGpuImageBarrier(
