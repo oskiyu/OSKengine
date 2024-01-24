@@ -4,6 +4,9 @@
 
 #include "ITopLevelCollider.h"
 
+#include "Serializer.h"
+
+
 namespace OSK::COLLISION {
 
 	/// @brief Un área de colisión de alto nivel representado
@@ -14,6 +17,14 @@ namespace OSK::COLLISION {
 	/// 
 	/// Por defecto, tiene tamaño ("radio") 0.5.
 	class OSKAPI_CALL AxisAlignedBoundingBox : public ITopLevelCollider {
+
+	public:
+
+		template <typename T>
+		friend nlohmann::json PERSISTENCE::SerializeJson<T>(const T& data);
+
+		template <typename T>
+		friend T PERSISTENCE::DeserializeJson<T>(const nlohmann::json& data);
 
 	public:
 		
@@ -54,5 +65,15 @@ namespace OSK::COLLISION {
 	};
 
 	using AabbCollider = AxisAlignedBoundingBox;
+
+}
+
+namespace OSK::PERSISTENCE {
+
+	template <>
+	nlohmann::json SerializeJson<OSK::COLLISION::AxisAlignedBoundingBox>(const OSK::COLLISION::AxisAlignedBoundingBox& data);
+
+	template <>
+	OSK::COLLISION::AxisAlignedBoundingBox DeserializeJson<OSK::COLLISION::AxisAlignedBoundingBox>(const nlohmann::json& json);
 
 }

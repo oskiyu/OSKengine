@@ -109,3 +109,23 @@ Vector3f AxisAlignedBoundingBox::GetMin() const {
 Vector3f AxisAlignedBoundingBox::GetMax() const {
 	return GetPosition() + m_size * 0.5f;
 }
+
+template <>
+nlohmann::json PERSISTENCE::SerializeJson<OSK::COLLISION::AxisAlignedBoundingBox>(const OSK::COLLISION::AxisAlignedBoundingBox& data) {
+	nlohmann::json output{};
+
+	output["m_size"]["x"] = data.m_size.x;
+	output["m_size"]["y"] = data.m_size.y;
+	output["m_size"]["z"] = data.m_size.z;
+
+	return output;
+}
+
+template <>
+OSK::COLLISION::AxisAlignedBoundingBox PERSISTENCE::DeserializeJson<OSK::COLLISION::AxisAlignedBoundingBox>(const nlohmann::json& json) {
+	return AxisAlignedBoundingBox(Vector3f(
+		static_cast<float>(json["m_size"]["x"]),
+		static_cast<float>(json["m_size"]["y"]),
+		static_cast<float>(json["m_size"]["z"])
+	));
+}

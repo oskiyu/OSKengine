@@ -798,3 +798,65 @@ RayCastResult ConvexVolume::CastRay(const Ray& ray) const {
 		? RayCastResult::True(intersectionPoint, ECS::EMPTY_GAME_OBJECT)
 		: RayCastResult::False();
 }
+
+
+template <>
+nlohmann::json PERSISTENCE::SerializeJson<OSK::COLLISION::ConvexVolume>(const OSK::COLLISION::ConvexVolume& data) {
+	nlohmann::json output{};
+
+	output["m_vertices"] = nlohmann::json::array();
+
+	for (const auto& v : data.m_vertices) {
+		nlohmann::json vertex{};
+		
+		vertex["x"] = v.x;
+		vertex["y"] = v.y;
+		vertex["z"] = v.z;
+
+		output["m_vertices"].push_back(vertex);
+	}
+
+
+	output["m_faces"] = nlohmann::json::array();
+
+	for (const auto& face : data.m_faces) {
+		auto jsonFace = nlohmann::json::array();
+
+		for (const auto i : face) {
+			jsonFace.push_back(i);
+		}
+
+		output["m_faces"].push_back(jsonFace);
+	}
+
+
+	return output;
+}
+
+template <>
+OSK::COLLISION::ConvexVolume PERSISTENCE::DeserializeJson<OSK::COLLISION::ConvexVolume>(const nlohmann::json& json) {
+	ConvexVolume output{};
+
+	for (const auto& vertex : json["m_vertices"]) {
+		const Vector3f nVertex = Vector3f(
+			vertex["x"],
+			vertex["y"],
+			vertex["z"]
+		);
+
+		output.m_vertices.Insert(nVertex);
+		output.m_transformedVertices.Insert(nVertex);
+	}
+
+	for (const auto& face : json["m_faces"]) {
+		ConvexVolume::FaceIndices indices{};
+
+		for (const UIndex32 i : face) {
+			indices.Insert(i);
+		}
+
+		output.m_faces.Insert(indices);
+	}
+
+	return output;
+}

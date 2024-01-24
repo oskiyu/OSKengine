@@ -85,3 +85,14 @@ VertexInfo VertexCollisionDebug3D::GetVertexInfo() {
 
 	return info;
 }
+
+VertexInfo GdrVertex3D::GetVertexInfo() {
+	VertexInfo info{};
+
+	info.entries.Insert({
+		sizeof(GdrVertex3D::gdrIndex),
+		VertexInfo::Entry::Type::UNSIGNED_INT,
+		"GDR_INDEX" });
+
+	return info;
+}

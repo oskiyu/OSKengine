@@ -10,6 +10,8 @@
 #include "Gjk.h"
 #include "Sat.h"
 
+#include "Serializer.h"
+
 
 namespace OSK::COLLISION {
 
@@ -18,6 +20,14 @@ namespace OSK::COLLISION {
 	/// @brief Clase que representa un volúmen convexo para la detección de
 	/// colisiones detallada.
 	class OSKAPI_CALL ConvexVolume final : public IBottomLevelCollider {
+
+	public:
+
+		template <typename T>
+		friend nlohmann::json PERSISTENCE::SerializeJson<T>(const T& data);
+
+		template <typename T>
+		friend T PERSISTENCE::DeserializeJson<T>(const nlohmann::json& data);
 
 	public:
 
@@ -151,5 +161,15 @@ namespace OSK::COLLISION {
 		Vector3f m_transformedCenter = Vector3f::Zero;
 
 	};
+
+}
+
+namespace OSK::PERSISTENCE {
+
+	template <>
+	nlohmann::json SerializeJson<OSK::COLLISION::ConvexVolume>(const OSK::COLLISION::ConvexVolume& data);
+
+	template <>
+	OSK::COLLISION::ConvexVolume DeserializeJson<OSK::COLLISION::ConvexVolume>(const nlohmann::json& json);
 
 }

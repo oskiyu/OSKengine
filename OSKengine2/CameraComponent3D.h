@@ -7,6 +7,9 @@
 
 #include "Frustum.h"
 
+#include "Serializer.h"
+
+
 namespace OSK::ECS {
 
 	class Transform3D;
@@ -15,6 +18,14 @@ namespace OSK::ECS {
 	/// Cámara para un mundo tridimensional.
 	/// </summary>
 	class OSKAPI_CALL CameraComponent3D {
+
+	public:
+
+		template <typename T>
+		friend nlohmann::json PERSISTENCE::SerializeJson<T>(const T& data);
+
+		template <typename T>
+		friend T PERSISTENCE::DeserializeJson<T>(const nlohmann::json& data);
 
 	public:
 
@@ -116,5 +127,15 @@ namespace OSK::ECS {
 		const static Vector3f worldUpVector;
 
 	};
+
+}
+
+namespace OSK::PERSISTENCE {
+
+	template <>
+	nlohmann::json SerializeJson<OSK::ECS::CameraComponent3D>(const OSK::ECS::CameraComponent3D& data);
+
+	template <>
+	OSK::ECS::CameraComponent3D DeserializeJson<OSK::ECS::CameraComponent3D>(const nlohmann::json& json);
 
 }

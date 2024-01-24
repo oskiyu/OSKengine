@@ -9,6 +9,9 @@
 #include "IRenderer.h"
 #include "IGpuMemoryAllocator.h"
 
+#include "Math.h"
+
+
 using namespace OSK;
 using namespace OSK::IO;
 using namespace OSK::ECS;
@@ -52,4 +55,24 @@ Vector2f CameraComponent2D::PointInWindowToPointInWorld(const Vector2f& point) c
 	relative.y = point.y / Engine::GetDisplay()->GetResolution().y;
 
 	return relative * m_targetSize;
+}
+
+
+
+template <>
+nlohmann::json PERSISTENCE::SerializeJson<OSK::ECS::CameraComponent2D>(const OSK::ECS::CameraComponent2D& data) {
+	nlohmann::json output{};
+
+	output["m_projection"] = SerializeJson<glm::mat4>(data.m_projection);
+
+	return output;
+}
+
+template <>
+OSK::ECS::CameraComponent2D PERSISTENCE::DeserializeJson<OSK::ECS::CameraComponent2D>(const nlohmann::json& json) {
+	OSK::ECS::CameraComponent2D output{};
+
+	output.m_projection = DeserializeJson<glm::mat4>(json["m_projection"]);
+
+	return output;
 }

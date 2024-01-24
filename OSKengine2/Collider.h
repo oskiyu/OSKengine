@@ -13,6 +13,9 @@
 
 #include "Component.h"
 
+#include "Serializer.h"
+
+
 namespace OSK::ECS {
 	class Transform3D;
 }
@@ -27,6 +30,14 @@ namespace OSK::COLLISION {
 	/// y una capa de bajo nivel con varios volúmenes más ajustados
 	/// y detallados.
 	class OSKAPI_CALL Collider {
+
+	public:
+
+		template <typename T>
+		friend nlohmann::json PERSISTENCE::SerializeJson<T>(const T& data);
+
+		template <typename T>
+		friend T PERSISTENCE::DeserializeJson<T>(const nlohmann::json& data);
 
 	public:
 
@@ -61,5 +72,15 @@ namespace OSK::COLLISION {
 		DynamicArray<UniquePtr<IBottomLevelCollider>> m_bottomLevelColliders;
 
 	};
+
+}
+
+namespace OSK::PERSISTENCE {
+
+	template <>
+	nlohmann::json SerializeJson<OSK::COLLISION::Collider>(const OSK::COLLISION::Collider& data);
+
+	template <>
+	OSK::COLLISION::Collider DeserializeJson<OSK::COLLISION::Collider>(const nlohmann::json& json);
 
 }

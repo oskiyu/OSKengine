@@ -84,6 +84,7 @@
     <ClCompile Include="FaceProjection.cpp" />
     <ClCompile Include="FrameCombiner.cpp" />
     <ClCompile Include="GameObjectTranslator.cpp" />
+    <ClCompile Include="GdrDeferredRenderSystem.cpp" />
     <ClCompile Include="Gjk.cpp" />
     <ClCompile Include="HbaoPass.cpp" />
     <ClCompile Include="IAudioApi.cpp" />
@@ -342,6 +343,7 @@
     <ClInclude Include="CubemapTextureLoader.h" />
     <ClInclude Include="DataNode.h" />
     <ClInclude Include="DataType.h" />
+    <ClInclude Include="GdrDeferredSystem.h" />
     <ClInclude Include="DeferredPushConstants.h" />
     <ClInclude Include="DescriptorDx12.h" />
     <ClInclude Include="DescriptorLayoutVk.h" />
@@ -416,6 +418,7 @@
     <ClInclude Include="IrradianceMap.h" />
     <ClInclude Include="IrradianceMapLoader.h" />
     <ClInclude Include="Sat.h" />
+    <ClInclude Include="Scene.h" />
     <ClInclude Include="Serializer.h" />
     <ClInclude Include="ITopLevelCollider.h" />
     <ClInclude Include="IUiContainer.h" />
@@ -496,7 +499,6 @@
     <ClInclude Include="NotImplementedException.h" />
     <ClInclude Include="PipelinesExceptions.h" />
     <ClInclude Include="RawAssetFileNotFoundException.h" />
-    <ClInclude Include="Scene.h" />
     <ClInclude Include="SchemaId.h" />
     <ClInclude Include="Simplex.h" />
     <ClInclude Include="Span.h" />
@@ -609,6 +611,7 @@
     <ClInclude Include="Vertex.h" />
     <ClInclude Include="Vertex3D.h" />
     <ClInclude Include="Vertex2D.h" />
+    <ClInclude Include="VertexAttributes.h" />
     <ClInclude Include="VertexBufferView.h" />
     <ClInclude Include="VertexInfo.h" />
     <ClInclude Include="Viewport.h" />

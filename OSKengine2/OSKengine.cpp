@@ -30,6 +30,7 @@
 #include "MaterialSystem.h"
 #include "RenderSystem2D.h"
 #include "HybridRenderSystem.h"
+#include "GdrDeferredSystem.h"
 #include "IGpuMemoryAllocator.h"
 #include "CameraComponent2D.h"
 #include "Sprite.h"
@@ -150,6 +151,9 @@ void Engine::RegisterBuiltinSystems() {
 	entityComponentSystem->RegisterSystem<ECS::DeferredRenderSystem>(ECS::ISystem::DEFAULT_EXECUTION_ORDER);
 #elif defined(OSK_USE_HYBRID_RENDERER)
 	entityComponentSystem->RegisterSystem<ECS::HybridRenderSystem>();
+#elif defined(OSK_USE_GDR_RENDERER)
+	entityComponentSystem->RegisterSystem<ECS::TreeNormalsRenderSystem>(ECS::ISystem::DEFAULT_EXECUTION_ORDER - 1);
+	entityComponentSystem->RegisterSystem<ECS::GdrDeferredRenderSystem>(ECS::ISystem::DEFAULT_EXECUTION_ORDER);
 #elif OSK_NO_DEFAULT_RENDERER
 #else 
 #error No hay un renderizador por defecto
@@ -174,6 +178,7 @@ void Engine::RegisterBuiltinVertices() {
 	renderer->GetMaterialSystem()->RegisterVertexType<GRAPHICS::Vertex3D>();
 	renderer->GetMaterialSystem()->RegisterVertexType<GRAPHICS::VertexAnim3D>();
 	renderer->GetMaterialSystem()->RegisterVertexType<GRAPHICS::VertexCollisionDebug3D>();
+	renderer->GetMaterialSystem()->RegisterVertexType<GRAPHICS::GdrVertex3D>();
 }
 
 
@@ -224,7 +229,7 @@ Version Engine::GetVersion() {
 }
 
 std::string_view Engine::GetBuild() {
-	return "2023.12.14a";
+	return "2024.01.24a";
 }
 
 UIndex64 Engine::GetCurrentGameFrameIndex() {

@@ -52,6 +52,12 @@ VkFormat IPipelineVk::GetVertexAttribFormat(const VertexInfo::Entry& entry) cons
 		if (entry.size == 3 * sizeof(float)) return VK_FORMAT_R32G32B32_SFLOAT;
 		if (entry.size == 4 * sizeof(float)) return VK_FORMAT_R32G32B32A32_SFLOAT;
 		break;
+
+	case VertexInfo::Entry::Type::UNSIGNED_INT:
+		if (entry.size == 2 * sizeof(unsigned int)) return VK_FORMAT_R32G32_UINT;
+		if (entry.size == 3 * sizeof(unsigned int)) return VK_FORMAT_R32G32B32_UINT;
+		if (entry.size == 4 * sizeof(unsigned int)) return VK_FORMAT_R32G32B32A32_UINT;
+		break;
 	}
 
 	OSK_ASSERT(false, NotImplementedException());

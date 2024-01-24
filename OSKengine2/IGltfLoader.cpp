@@ -92,6 +92,8 @@ void IGltfLoader::SetupModel(Model3D* model) {
 
 		model->_AddMaterialBuffer(buffer);
 	}
+
+	model->_SetVerticesAttributesMap(m_loadedVertices);
 }
 
 DynamicArray<std::string> IGltfLoader::GetTagsFromName(const tinygltf::Scene& scene) {

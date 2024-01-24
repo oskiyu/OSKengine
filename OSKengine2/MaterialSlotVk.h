@@ -21,27 +21,32 @@ namespace OSK::GRAPHICS {
 		/// @throws DescriptorLayoutCreationException Si hay algún error nativo durante la creación del material slot.
 		/// @throws MaterialSlotCreationException Si hay algún error durante la creación del material slot.
 		MaterialSlotVk(const std::string& name, const MaterialLayout* layout);
-		~MaterialSlotVk();
+		~MaterialSlotVk() override;
 
 		void SetUniformBuffers(
 			const std::string& binding, 
-			std::span<const GpuBuffer*, NUM_RESOURCES_IN_FLIGHT>);
+			std::span<const GpuBuffer*, NUM_RESOURCES_IN_FLIGHT>,
+			UIndex32 arrayIndex);
 
 		void SetGpuImages(
 			const std::string& binding, 
-			std::span<const IGpuImageView*, NUM_RESOURCES_IN_FLIGHT>) override;
+			std::span<const IGpuImageView*, NUM_RESOURCES_IN_FLIGHT>,
+			UIndex32 arrayIndex) override;
 
 		void SetStorageBuffers(
 			const std::string& binding, 
-			std::span<const GpuBuffer*, NUM_RESOURCES_IN_FLIGHT>) override;
+			std::span<const GpuBuffer*, NUM_RESOURCES_IN_FLIGHT>,
+			UIndex32 arrayIndex) override;
 
 		void SetStorageImages(
 			const std::string& binding, 
-			std::span<const IGpuImageView*, NUM_RESOURCES_IN_FLIGHT>) override;
+			std::span<const IGpuImageView*, NUM_RESOURCES_IN_FLIGHT>,
+			UIndex32 arrayIndex) override;
 
 		void SetAccelerationStructures(
 			const std::string& binding, 
-			std::span<const ITopLevelAccelerationStructure*, NUM_RESOURCES_IN_FLIGHT>) override;
+			std::span<const ITopLevelAccelerationStructure*, NUM_RESOURCES_IN_FLIGHT>,
+			UIndex32 arrayIndex) override;
 
 		void FlushUpdate() override;
 
@@ -51,19 +56,23 @@ namespace OSK::GRAPHICS {
 
 	private:
 
-		std::unordered_map<std::string, UIndex32> bindingsLocations;
+		std::unordered_map<std::string, UIndex32, StringHasher, std::equal_to<>> m_bindingsLocations;
 
-		DynamicArray<VkDescriptorSet> descriptorSets;
-		DynamicArray<DynamicArray<VkWriteDescriptorSet>> bindings;
 
-		DynamicArray<UniquePtr<VkDescriptorBufferInfo>> bufferInfos;
-		DynamicArray<UniquePtr<VkDescriptorImageInfo>> imageInfos;
-		DynamicArray<UniquePtr<VkWriteDescriptorSetAccelerationStructureKHR>> accelerationStructureInfos;
+		/// @brief Un descriptor set por recurso en vuelo.
+		DynamicArray<VkDescriptorSet> m_descriptorSets;
+		
+		/// @brief 
+		DynamicArray<DynamicArray<VkWriteDescriptorSet>> m_bindings;
 
-		LinkedList<VkAccelerationStructureKHR> accelerationStructures;
+		DynamicArray<UniquePtr<VkDescriptorBufferInfo>> m_bufferInfos;
+		DynamicArray<UniquePtr<VkDescriptorImageInfo>> m_imageInfos;
+		DynamicArray<UniquePtr<VkWriteDescriptorSetAccelerationStructureKHR>> m_accelerationStructureInfos;
 
-		UniquePtr<DescriptorPoolVk> pool;
-		UniquePtr<DescriptorLayoutVk> descLayout;
+		LinkedList<VkAccelerationStructureKHR> m_accelerationStructures;
+
+		UniquePtr<DescriptorPoolVk> m_pool;
+		UniquePtr<DescriptorLayoutVk> m_descLayout;
 
 	};
 

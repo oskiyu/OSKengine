@@ -3,6 +3,8 @@
 #include <glm/glm.hpp>
 #include <type_traits>
 
+#include "Serializer.h"
+
 namespace OSK::MATH {
 
 	/// <summary>
@@ -123,6 +125,65 @@ namespace OSK::MATH {
 
 	template <typename T> T Sign(T value) {
 		return value >= static_cast<T>(0) ? static_cast<T>(1) : static_cast<T>(-1);
+	}
+
+}
+
+
+namespace OSK::PERSISTENCE {
+
+	template <>
+	nlohmann::json inline SerializeJson<glm::mat3>(const glm::mat3& data) {
+		nlohmann::json output{};
+
+		for (int i = 0; i < 3; i++) {
+			for (int j = 0; j < 3; j++) {
+				output[std::to_string(i) + std::to_string(j)] = data[i][j];
+			}
+		}
+
+		return output;
+	}
+
+	template <>
+	glm::mat3 inline DeserializeJson<glm::mat3>(const nlohmann::json& json) {
+		glm::mat3 output{};
+
+		for (int i = 0; i < 3; i++) {
+			for (int j = 0; j < 3; j++) {
+				output[i][j] = json[std::to_string(i) + std::to_string(j)];
+			}
+		}
+
+		return output;
+	}
+
+
+
+	template <>
+	nlohmann::json inline SerializeJson<glm::mat4>(const glm::mat4& data) {
+		nlohmann::json output{};
+
+		for (int i = 0; i < 4; i++) {
+			for (int j = 0; j < 4; j++) {
+				output[std::to_string(i) + std::to_string(j)] = data[i][j];
+			}
+		}
+
+		return output;
+	}
+
+	template <>
+	glm::mat4 inline DeserializeJson<glm::mat4>(const nlohmann::json& json) {
+		glm::mat4 output{};
+
+		for (int i = 0; i < 4; i++) {
+			for (int j = 0; j < 4; j++) {
+				output[i][j] = json[std::to_string(i) + std::to_string(j)];
+			}
+		}
+
+		return output;
 	}
 
 }

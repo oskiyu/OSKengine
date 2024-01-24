@@ -31,7 +31,8 @@ namespace OSK::GRAPHICS {
 			/// </summary>
 			enum class Type {
 				INT,
-				FLOAT
+				FLOAT,
+				UNSIGNED_INT
 			};
 
 			Entry(USize32 size, Type type, const std::string& name) 

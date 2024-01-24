@@ -75,11 +75,12 @@
 #include "RenderSystem3D.h"
 #include "RenderSystem2D.h"
 #include "HybridRenderSystem.h"
+#include "DeferredRenderSystem.h"
+#include "GdrDeferredSystem.h"
 #include "RenderTarget.h"
 
 #include "AudioSourceAl.h"
 
-#include "DeferredRenderSystem.h"
 #include "ModelLoader3D.h"
 #include "IrradianceMap.h"
 #include "SpecularMap.h"
@@ -110,6 +111,8 @@
 
 #include "PreBuiltSpline3D.h"
 
+#include "FileIO.h"
+
 #include <thread>
 
 OSK::GRAPHICS::SpriteRenderer spriteRenderer;
@@ -127,6 +130,8 @@ using namespace OSK::COLLISION;
 #define OSK_CURRENT_RSYSTEM OSK::ECS::DeferredRenderSystem
 #elif defined(OSK_USE_HYBRID_RENDERER)
 #define OSK_CURRENT_RSYSTEM OSK::ECS::HybridRenderSystem
+#elif defined(OSK_USE_GDR_RENDERER)
+#define OSK_CURRENT_RSYSTEM OSK::ECS::GdrDeferredRenderSystem
 #endif
 
 class Game1 : public OSK::IGame {
@@ -776,6 +781,20 @@ protected:
 	}
 
 	void OnExit() override {
+		// Serialization test
+		auto* ecs = Engine::GetEcs();
+
+		const auto& transform = ecs->GetComponent<Transform3D>(carObject);
+		const auto& modelComponent = ecs->GetComponent<ModelComponent3D>(carObject);
+		const auto& physicsComponent = ecs->GetComponent<PhysicsComponent>(carObject);
+		const auto& collider = ecs->GetComponent<CollisionComponent>(carObject);
+
+		IO::FileIO::WriteFile("transform.json", PERSISTENCE::SerializeJson(transform).dump(4));
+		IO::FileIO::WriteFile("modelComponent.json", PERSISTENCE::SerializeJson(modelComponent).dump(4));
+		IO::FileIO::WriteFile("physicsComponent.json", PERSISTENCE::SerializeJson(physicsComponent).dump(4));
+		IO::FileIO::WriteFile("collider.json", PERSISTENCE::SerializeJson(collider).dump(4));
+
+
 		bloomPass.Delete();
 		hbaoPass.Delete();
 		toneMappingPass.Delete();
@@ -792,6 +811,10 @@ protected:
 private:
 
 	void SetupTreeNormals() {
+#ifdef OSK_USE_GDR_RENDERER
+		return;
+#endif // OSK_USE_GDR_RENDERER
+
 		auto* renderSystem = Engine::GetEcs()->GetSystem<DeferredRenderSystem>();
 		auto* treeRenderSystem = Engine::GetEcs()->GetSystem<TreeNormalsRenderSystem>();
 
@@ -949,6 +972,11 @@ private:
 		// PBR Render System
 		OSK_CURRENT_RSYSTEM* renderSystem = Engine::GetEcs()->GetSystem<OSK_CURRENT_RSYSTEM>();
 		renderSystem->Initialize(cameraObject, irradianceMap, specularMap);
+
+#ifdef OSK_USE_GDR_RENDERER
+		renderSystem->SetMaxCounts(20000000, 100000);
+#endif // OSK_USE_GDR_RENDERER
+
 
 		auto* treeRenderSystem = Engine::GetEcs()->GetSystem<TreeNormalsRenderSystem>();
 		treeRenderSystem->Initialize(cameraObject);

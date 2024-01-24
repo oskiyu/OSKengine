@@ -5,9 +5,20 @@
 #include "Vector3.hpp"
 #include "Quaternion.h"
 
+#include "Serializer.h"
+
+
 namespace OSK::ECS {
 
 	class OSKAPI_CALL Transform3D {
+
+	public:
+
+		template <typename T>
+		friend nlohmann::json PERSISTENCE::SerializeJson<T>(const T& data);
+
+		template <typename T>
+		friend T PERSISTENCE::DeserializeJson<T>(const nlohmann::json& data);
 
 	public:
 
@@ -16,6 +27,8 @@ namespace OSK::ECS {
 
 		/// @param owner Objeto del transform.
 		explicit Transform3D(ECS::GameObjectIndex owner);
+
+		static Transform3D FromMatrix(ECS::GameObjectIndex owner, const glm::mat4& matrix);
 
 				
 		/// @brief Establece la posición local.
@@ -184,5 +197,15 @@ namespace OSK::ECS {
 		DynamicArray<GameObjectIndex> childTransforms;
 
 	};
+
+}
+
+namespace OSK::PERSISTENCE {
+
+	template <>
+	nlohmann::json SerializeJson<OSK::ECS::Transform3D>(const OSK::ECS::Transform3D& data);
+
+	template <>
+	OSK::ECS::Transform3D DeserializeJson<OSK::ECS::Transform3D>(const nlohmann::json& json);
 
 }

@@ -310,7 +310,7 @@ namespace OSK::ASSETS {
 		/// @return Todas los materiales usados en el modelo 3D.
 		DynamicArray<GltfMaterialInfo> LoadMaterials(const tinygltf::Model& model);
 
-
+		GRAPHICS::VerticesAttributesMaps m_loadedVertices;
 		DynamicArray<GRAPHICS::TIndexSize> m_indices;
 		DynamicArray<GRAPHICS::Mesh3D> m_meshes;
 

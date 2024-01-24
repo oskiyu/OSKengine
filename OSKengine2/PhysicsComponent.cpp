@@ -3,6 +3,9 @@
 #include "Assert.h"
 #include "InvalidArgumentException.h"
 
+#include "Math.h"
+
+
 using namespace OSK;
 using namespace OSK::ECS;
 
@@ -110,4 +113,57 @@ void PhysicsComponent::_SetAngularVelocity(Vector3f angularVelocity) {
 
 void PhysicsComponent::_SetAcceleration(Vector3f acceleration) {
 	this->acceleration = acceleration;
+}
+
+
+template <>
+nlohmann::json PERSISTENCE::SerializeJson<OSK::ECS::PhysicsComponent>(const OSK::ECS::PhysicsComponent& data) {
+	nlohmann::json output{};
+
+	output["mass"] = data.mass;
+
+	output["inertiaTensor"] = SerializeJson<glm::mat3>(data.inertiaTensor);
+
+	output["velocity"]["x"] = data.velocity.x;
+	output["velocity"]["y"] = data.velocity.y;
+	output["velocity"]["z"] = data.velocity.z;
+
+	output["acceleration"]["x"] = data.acceleration.x;
+	output["acceleration"]["y"] = data.acceleration.y;
+	output["acceleration"]["z"] = data.acceleration.z;
+
+	output["angularVelocity"]["x"] = data.angularVelocity.x;
+	output["angularVelocity"]["y"] = data.angularVelocity.y;
+	output["angularVelocity"]["z"] = data.angularVelocity.z;
+
+	return output;
+}
+
+template <>
+OSK::ECS::PhysicsComponent PERSISTENCE::DeserializeJson<OSK::ECS::PhysicsComponent>(const nlohmann::json& json) {
+	PhysicsComponent output{};
+
+	output.mass = json["mass"];
+
+	output.inertiaTensor = DeserializeJson<glm::mat3>(json["inertiaTensor"]);
+
+	output.velocity = Vector3f(
+		json["velocity"]["x"],
+		json["velocity"]["y"],
+		json["velocity"]["z"]
+	);
+
+	output.acceleration = Vector3f(
+		json["acceleration"]["x"],
+		json["acceleration"]["y"],
+		json["acceleration"]["z"]
+	);
+
+	output.angularVelocity = Vector3f(
+		json["angularVelocity"]["x"],
+		json["angularVelocity"]["y"],
+		json["angularVelocity"]["z"]
+	);
+
+	return output;
 }

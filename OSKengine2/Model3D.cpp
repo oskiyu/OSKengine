@@ -3,6 +3,8 @@
 #include "Mesh3D.h"
 #include "IGpuImage.h"
 
+#include "InvalidArgumentException.h"
+
 using namespace OSK;
 using namespace OSK::ASSETS;
 using namespace OSK::GRAPHICS;
@@ -96,4 +98,12 @@ ModelType Model3D::GetType() const {
 	return GetAnimator() == nullptr
 			? ModelType::STATIC_MESH
 			: ModelType::ANIMATED_MODEL;
+}
+
+void Model3D::_SetVerticesAttributesMap(const GRAPHICS::VerticesAttributesMaps& map) {
+	m_verticesAttributes = map;
+}
+
+const GRAPHICS::VerticesAttributesMaps& Model3D::GetVerticesAttributes() const {
+	return m_verticesAttributes;
 }

@@ -2,6 +2,7 @@
 
 #include "OSKmacros.h"
 
+
 namespace OSK::ECS {
 
 	/// @brief Identificador único para un Game Object.

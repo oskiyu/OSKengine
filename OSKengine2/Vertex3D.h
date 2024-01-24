@@ -39,4 +39,9 @@ namespace OSK::GRAPHICS {
 		Vector3f position;
 	};
 
+	struct GdrVertex3D {
+		OSK_VERTEX_TYPE_REG("OSK::GdrVertex3D");
+		USize32 gdrIndex = 0;
+	};
+
 }

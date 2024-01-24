@@ -20,12 +20,13 @@
 #include "IrradianceMap.h"
 #include "SpecularMap.h"
 
+
 namespace OSK::ECS {
 
 	class CameraComponent3D;
 
 
-	/// @brief 
+	/// @brief Sistema de renderizado en diferido.
 	class OSKAPI_CALL DeferredRenderSystem : public IRenderSystem {
 
 	public:
@@ -34,29 +35,56 @@ namespace OSK::ECS {
 
 		DeferredRenderSystem();
 
+
+		/// @brief Inicializa el sistema para poder renderizar.
+		/// @param cameraObject Objeto de la cámara.
+		/// @param irradianceMap Mapa de irradiancia.
+		/// @param specularMap Mapa especular.
+		/// 
+		/// @pre @p irradianceMap Debe haber sido cargado.
+		/// @pre @p specularMap Debe haber sido cargado.
+		/// 
+		/// @pre @p cameraObject debe apuntar a un objeto con 
+		/// los siguientes componentes:
+		///		- CameraComponent3D
+		///		- Transfomr3D
 		void Initialize(
 			ECS::GameObjectIndex cameraObject, 
 			ASSETS::AssetRef<ASSETS::IrradianceMap> irradianceMap,
 			ASSETS::AssetRef<ASSETS::SpecularMap> specularMap);
 
+		/// @brief Actualiza la iluminación IBL.
+		/// @param irradianceMap Mapa de irradianca.
+		/// @param specularMap Mapa especular.
 		void SetIbl(
 			ASSETS::AssetRef<ASSETS::IrradianceMap> irradianceMap,
 			ASSETS::AssetRef<ASSETS::SpecularMap> specularMap);
 
-		void CreateTargetImage(const Vector2ui& size) override;
-		void Resize(const Vector2ui& size) override;
+		virtual void CreateTargetImage(const Vector2ui& size) override;
+		virtual void Resize(const Vector2ui& size) override;
 
+
+		/// @return GBuffer del renderizador.
 		const GRAPHICS::GBuffer& GetGbuffer() const;
+		
+		/// @return GBuffer del renderizador.
 		GRAPHICS::GBuffer& GetGbuffer();
 
-		void Render(GRAPHICS::ICommandList* commandList) override;
 
-		void OnTick(TDeltaTime deltaTime) override;
+		virtual void OnTick(TDeltaTime deltaTime) override;
+		virtual void Render(GRAPHICS::ICommandList* commandList) override;
 
+
+		/// @brief Cambia el estado de TAA (on <-> off).
 		void ToggleTaa();
 
+
 		void AddRenderPass(OwnedPtr<GRAPHICS::IRenderPass> pass) override;
+
+		/// @brief Establece el pase de resolución.
+		/// @param resolver Pase de resolución.
 		void SetResolver(OwnedPtr<GRAPHICS::IDeferredResolver> resolver);
+
 
 		GRAPHICS::DirectionalLight& GetDirectionalLight();
 		const GRAPHICS::DirectionalLight& GetDirectionalLight() const;
@@ -67,7 +95,7 @@ namespace OSK::ECS {
 		GRAPHICS::ShadowMap& GetShadowMap();
 		const GRAPHICS::ShadowMap& GetShadowMap() const;
 
-	private:
+	protected:
 
 		/// @brief Estructura con la información almacenada
 		/// en los uniform buffers de la cámara.
@@ -90,7 +118,7 @@ namespace OSK::ECS {
 			alignas(16) glm::mat4 projectionViewMatrix;
 		};
 
-	private:
+	protected:
 
 		void LoadMaterials();
 		void CreateBuffers();
@@ -109,7 +137,7 @@ namespace OSK::ECS {
 
 		void ShadowsRenderLoop(ASSETS::ModelType modelType, GRAPHICS::ICommandList* commandList, UIndex32 cascadeIndex);
 
-	private:
+	protected:
 
 		// -- RENDER TARGETS & RESOLVE -- //
 

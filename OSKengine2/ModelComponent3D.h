@@ -10,20 +10,29 @@
 
 #include <string>
 
-namespace OSK {
-	namespace GRAPHICS {
-		class Material;
-		class MaterialInstance;
-		class GpuImage;
-		class IGpuImageView;
-		class GpuBuffer;
-	}
+#include "Serializer.h"
+
+
+namespace OSK::GRAPHICS {
+	class Material;
+	class MaterialInstance;
+	class GpuImage;
+	class IGpuImageView;
+	class GpuBuffer;
 }
 
 namespace OSK::ECS {
 
 	/// @brief Componente para el renderizado 3D de un objeto.
 	class OSKAPI_CALL ModelComponent3D {
+
+	public:
+
+		template <typename T>
+		friend nlohmann::json PERSISTENCE::SerializeJson<T>(const T& data);
+
+		template <typename T>
+		friend T PERSISTENCE::DeserializeJson<T>(const nlohmann::json& data);
 
 	public:
 
@@ -52,5 +61,15 @@ namespace OSK::ECS {
 		bool m_castShadows = true;
 
 	};
+
+}
+
+namespace OSK::PERSISTENCE {
+
+	template <>
+	nlohmann::json SerializeJson<OSK::ECS::ModelComponent3D>(const OSK::ECS::ModelComponent3D& data);
+
+	template <>
+	OSK::ECS::ModelComponent3D DeserializeJson<OSK::ECS::ModelComponent3D>(const nlohmann::json& json);
 
 }

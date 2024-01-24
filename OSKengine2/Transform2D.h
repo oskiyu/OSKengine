@@ -15,6 +15,8 @@ namespace OSK::ECS {
 	/// de tal manera que al cambiar el transform padre,
 	/// el resto de transforms también ven sus variables cambiadas.
 	/// </summary>
+	/// 
+	/// @todo Serialización.
 	class OSKAPI_CALL Transform2D {
 
 	public:

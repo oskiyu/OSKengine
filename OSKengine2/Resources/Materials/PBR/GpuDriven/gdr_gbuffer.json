@@ -1,0 +1,21 @@
+{
+    "file_type": "MATERIAL",
+    "spec_ver": 1,
+    "name": "GpuDriven GBuffer Color Static",
+
+    "vertex_shader": "Resources/Shaders/VK/PBR/GpuDriven/GBuffer/vert.spv",
+    "fragment_shader": "Resources/Shaders/VK/PBR/GpuDriven/GBuffer/frag.spv",
+    
+    "vertex_type": "OSK::GdrVertex3D",
+
+    "slots": {
+        "0": "global",
+        "1": "tables",
+        "2": "images"
+    },
+    
+    "config": {
+        "disable_alpha_blending": "true"
+    }
+    
+}

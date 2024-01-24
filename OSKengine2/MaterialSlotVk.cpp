@@ -24,46 +24,54 @@ inline VkDevice GetDevice() {
 }
 
 MaterialSlotVk::MaterialSlotVk(const std::string& name, const MaterialLayout* layout)
-	: IMaterialSlot(layout, name) {
+	: IMaterialSlot(layout, name),
+	m_descLayout(new DescriptorLayoutVk(&layout->GetSlot(name)))
+{
+	m_pool = new DescriptorPoolVk(m_descLayout.GetValue(), Engine::GetRenderer()->GetSwapchainImagesCount());
 
 	const auto swapchainCount = Engine::GetRenderer()->GetSwapchainImagesCount();
 
-	descriptorSets.Resize(swapchainCount);
-	bindings.Resize(swapchainCount);
+	m_descriptorSets.Resize(swapchainCount);
+	m_bindings.Resize(swapchainCount);
 
-	descLayout = new DescriptorLayoutVk(&layout->GetSlot(name));
-	pool = new DescriptorPoolVk(descLayout.GetValue(), swapchainCount);
-	
+	const USize32 maxCount = 1;
+	const auto descriptorLayout = m_descLayout->GetLayout();
+
 	VkDescriptorSetVariableDescriptorCountAllocateInfo variableSizeDescriptorInfo{};
 	variableSizeDescriptorInfo.sType = VK_STRUCTURE_TYPE_DESCRIPTOR_SET_VARIABLE_DESCRIPTOR_COUNT_ALLOCATE_INFO;
-	variableSizeDescriptorInfo.descriptorSetCount = static_cast<uint32_t>(swapchainCount);
-	//variableSizeDescriptorInfo.pDescriptorCounts = ;
+	variableSizeDescriptorInfo.descriptorSetCount = swapchainCount;
+	variableSizeDescriptorInfo.pDescriptorCounts = &maxCount;
 	variableSizeDescriptorInfo.pNext = VK_NULL_HANDLE;
 
 	VkDescriptorSetAllocateInfo allocInfo{};
 	allocInfo.sType = VK_STRUCTURE_TYPE_DESCRIPTOR_SET_ALLOCATE_INFO;
-	allocInfo.descriptorPool = pool->GetPool();
-	allocInfo.descriptorSetCount = static_cast<uint32_t>(swapchainCount);
-	//allocInfo.pNext = &variableSizeDescriptorInfo;
+	allocInfo.descriptorPool = m_pool->GetPool();
+	allocInfo.descriptorSetCount = swapchainCount;
+	allocInfo.pSetLayouts = &descriptorLayout;
+	// allocInfo.pNext = &variableSizeDescriptorInfo;
 
-	const VkDescriptorSetLayout layouts[] = { descLayout->GetLayout(), descLayout->GetLayout(), descLayout->GetLayout() };
-	allocInfo.pSetLayouts = layouts;
+	std::array<const VkDescriptorSetLayout, NUM_RESOURCES_IN_FLIGHT> layouts = { m_descLayout->GetLayout(), m_descLayout->GetLayout(), m_descLayout->GetLayout() };
+	allocInfo.pSetLayouts = layouts.data();
 
-	VkResult result = vkAllocateDescriptorSets(GetDevice(), &allocInfo, descriptorSets.GetData());
+	VkResult result = vkAllocateDescriptorSets(GetDevice(), &allocInfo, m_descriptorSets.GetData());
 	OSK_ASSERT(result == VK_SUCCESS, MaterialSlotCreationException(result));
 
 	SetDebugName(name);
 }
 
 MaterialSlotVk::~MaterialSlotVk() {
-	pool.Delete();
-	descLayout.Delete();
+	m_pool.Delete();
+	m_descLayout.Delete();
 }
 
-void MaterialSlotVk::SetUniformBuffers(const std::string& binding, std::span<const GpuBuffer*, NUM_RESOURCES_IN_FLIGHT> buffer) {
-	const bool containsBinding = bindingsLocations.contains(binding);
+void MaterialSlotVk::SetUniformBuffers(
+	const std::string& binding, 
+	std::span<const GpuBuffer*, NUM_RESOURCES_IN_FLIGHT> buffer,
+	UIndex32 arrayIndex)
+{
+	const bool containsBinding = m_bindingsLocations.contains(binding);
 
-	for (UIndex32 i = 0; i < descriptorSets.GetSize(); i++) {
+	for (UIndex32 i = 0; i < m_descriptorSets.GetSize(); i++) {
 		const GpuMemorySubblockVk* vulkanBuffer = buffer[i]->GetMemorySubblock()->As<GpuMemorySubblockVk>();
 		const GpuMemoryBlockVk* vulkanBlock = vulkanBuffer->GetOwnerBlock()->As<GpuMemoryBlockVk>();
 
@@ -74,31 +82,38 @@ void MaterialSlotVk::SetUniformBuffers(const std::string& binding, std::span<con
 
 		VkWriteDescriptorSet descriptorWrite{};
 		descriptorWrite.sType = VK_STRUCTURE_TYPE_WRITE_DESCRIPTOR_SET;
-		descriptorWrite.dstSet = descriptorSets[i];
-		descriptorWrite.dstBinding = layout->GetSlot(name).bindings.at(binding).glslIndex;
-		descriptorWrite.dstArrayElement = 0;
+		descriptorWrite.dstSet = m_descriptorSets[i];
+		descriptorWrite.dstBinding = m_layout->GetSlot(m_name).bindings.at(binding).glslIndex;
+		descriptorWrite.dstArrayElement = arrayIndex;
 		descriptorWrite.descriptorType = VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER;
 		descriptorWrite.descriptorCount = 1;
 		descriptorWrite.pBufferInfo = bufferInfo.GetPointer();
 		descriptorWrite.pImageInfo = nullptr;
 		descriptorWrite.pTexelBufferView = nullptr;
 
-		if (containsBinding)
-			bindings.At(i)[bindingsLocations.at(binding)] = descriptorWrite;
-		else
-			bindings.At(i).Insert(descriptorWrite);
+		if (containsBinding) {
+			m_bindings.At(i)[m_bindingsLocations.at(binding)] = descriptorWrite;
+		}
+		else {
+			m_bindings.At(i).Insert(descriptorWrite);
+		}
 
-		bufferInfos.Insert(bufferInfo.GetPointer());
+		m_bufferInfos.Insert(bufferInfo.GetPointer());
 	}
 
-	if (!containsBinding)
-		bindingsLocations[binding] = static_cast<UIndex32>(bindings.At(0).GetSize()) - 1u;
+	if (!containsBinding) {
+		m_bindingsLocations[binding] = static_cast<UIndex32>(m_bindings.At(0).GetSize()) - 1u;
+	}
 }
 
-void MaterialSlotVk::SetStorageBuffers(const std::string& binding, std::span<const GpuBuffer*, NUM_RESOURCES_IN_FLIGHT> buffer) {
-	const bool containsBinding = bindingsLocations.contains(binding);
+void MaterialSlotVk::SetStorageBuffers(
+	const std::string& binding, 
+	std::span<const GpuBuffer*, NUM_RESOURCES_IN_FLIGHT> buffer,
+	UIndex32 arrayIndex) 
+{
+	const bool containsBinding = m_bindingsLocations.contains(binding);
 
-	for (UIndex32 i = 0; i < descriptorSets.GetSize(); i++) {
+	for (UIndex32 i = 0; i < m_descriptorSets.GetSize(); i++) {
 		const GpuMemorySubblockVk* vulkanBuffer = buffer[i]->GetMemorySubblock()->As<GpuMemorySubblockVk>();
 		const GpuMemoryBlockVk* vulkanBlock = vulkanBuffer->GetOwnerBlock()->As<GpuMemoryBlockVk>();
 
@@ -109,31 +124,38 @@ void MaterialSlotVk::SetStorageBuffers(const std::string& binding, std::span<con
 
 		VkWriteDescriptorSet descriptorWrite{};
 		descriptorWrite.sType = VK_STRUCTURE_TYPE_WRITE_DESCRIPTOR_SET;
-		descriptorWrite.dstSet = descriptorSets[i];
-		descriptorWrite.dstBinding = layout->GetSlot(name).bindings.at(binding).glslIndex;
-		descriptorWrite.dstArrayElement = 0;
+		descriptorWrite.dstSet = m_descriptorSets[i];
+		descriptorWrite.dstBinding = m_layout->GetSlot(m_name).bindings.at(binding).glslIndex;
+		descriptorWrite.dstArrayElement = arrayIndex;
 		descriptorWrite.descriptorType = VK_DESCRIPTOR_TYPE_STORAGE_BUFFER;
 		descriptorWrite.descriptorCount = 1;
 		descriptorWrite.pBufferInfo = bufferInfo.GetPointer();
 		descriptorWrite.pImageInfo = nullptr;
 		descriptorWrite.pTexelBufferView = nullptr;
 
-		if (containsBinding)
-			bindings.At(i)[bindingsLocations.at(binding)] = descriptorWrite;
-		else
-			bindings.At(i).Insert(descriptorWrite);
+		if (containsBinding) {
+			m_bindings.At(i)[m_bindingsLocations.at(binding)] = descriptorWrite;
+		}
+		else {
+			m_bindings.At(i).Insert(descriptorWrite);
+		}
 
-		bufferInfos.Insert(bufferInfo.GetPointer());
+		m_bufferInfos.Insert(bufferInfo.GetPointer());
 	}
 
-	if (!containsBinding)
-		bindingsLocations[binding] = static_cast<UIndex32>(bindings.At(0).GetSize()) - 1;
+	if (!containsBinding) {
+		m_bindingsLocations[binding] = static_cast<UIndex32>(m_bindings.At(0).GetSize()) - 1;
+	}
 }
 
-void MaterialSlotVk::SetGpuImages(const std::string& binding, std::span<const IGpuImageView*, NUM_RESOURCES_IN_FLIGHT> images) {
-	const bool containsBinding = bindingsLocations.contains(binding);
+void MaterialSlotVk::SetGpuImages(
+	const std::string& binding, 
+	std::span<const IGpuImageView*, NUM_RESOURCES_IN_FLIGHT> images,
+	UIndex32 arrayIndex) 
+{
+	const bool containsBinding = m_bindingsLocations.contains(binding);
 
-	for (UIndex32 i = 0; i < descriptorSets.GetSize(); i++) {
+	for (UIndex32 i = 0; i < m_descriptorSets.GetSize(); i++) {
 		OwnedPtr<VkDescriptorImageInfo> imageInfo = new VkDescriptorImageInfo();
 		imageInfo->imageLayout = VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL;
 		imageInfo->sampler = images[i]->GetImage().As<GpuImageVk>()->GetVkSampler();
@@ -141,31 +163,38 @@ void MaterialSlotVk::SetGpuImages(const std::string& binding, std::span<const IG
 
 		VkWriteDescriptorSet descriptorWrite{};
 		descriptorWrite.sType = VK_STRUCTURE_TYPE_WRITE_DESCRIPTOR_SET;
-		descriptorWrite.dstSet = descriptorSets[i];
-		descriptorWrite.dstBinding = layout->GetSlot(name).bindings.at(binding).glslIndex;
-		descriptorWrite.dstArrayElement = 0;
+		descriptorWrite.dstSet = m_descriptorSets[i];
+		descriptorWrite.dstBinding = m_layout->GetSlot(m_name).bindings.at(binding).glslIndex;
+		descriptorWrite.dstArrayElement = arrayIndex;
 		descriptorWrite.descriptorType = VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER;
 		descriptorWrite.descriptorCount = 1;
 		descriptorWrite.pBufferInfo = nullptr;
 		descriptorWrite.pImageInfo = imageInfo.GetPointer();
 		descriptorWrite.pTexelBufferView = nullptr;
 
-		if (containsBinding)
-			bindings.At(i)[bindingsLocations.at(binding)] = descriptorWrite;
-		else
-			bindings.At(i).Insert(descriptorWrite);
+		if (containsBinding) {
+			m_bindings.At(i)[m_bindingsLocations.at(binding)] = descriptorWrite;
+		}
+		else {
+			m_bindings.At(i).Insert(descriptorWrite);
+		}
 
-		imageInfos.Insert(imageInfo.GetPointer());
+		m_imageInfos.Insert(imageInfo.GetPointer());
 	}
 
-	if (!containsBinding)
-		bindingsLocations[binding] = static_cast<UIndex32>(bindings.At(0).GetSize()) - 1u;
+	if (!containsBinding) {
+		m_bindingsLocations[binding] = static_cast<UIndex32>(m_bindings.At(0).GetSize()) - 1u;
+	}
 }
 
-void MaterialSlotVk::SetStorageImages(const std::string& binding, std::span<const IGpuImageView*, NUM_RESOURCES_IN_FLIGHT> images) {
-	const bool containsBinding = bindingsLocations.contains(binding);
+void MaterialSlotVk::SetStorageImages(
+	const std::string& binding, 
+	std::span<const IGpuImageView*, NUM_RESOURCES_IN_FLIGHT> images,
+	UIndex32 arrayIndex) 
+{
+	const bool containsBinding = m_bindingsLocations.contains(binding);
 
-	for (UIndex32 i = 0; i < descriptorSets.GetSize(); i++) {
+	for (UIndex32 i = 0; i < m_descriptorSets.GetSize(); i++) {
 		OwnedPtr<VkDescriptorImageInfo> imageInfo = new VkDescriptorImageInfo();
 		imageInfo->imageLayout = VK_IMAGE_LAYOUT_GENERAL;
 		imageInfo->sampler = images[i]->GetImage().As<GpuImageVk>()->GetVkSampler();
@@ -173,68 +202,76 @@ void MaterialSlotVk::SetStorageImages(const std::string& binding, std::span<cons
 		
 		VkWriteDescriptorSet descriptorWrite{};
 		descriptorWrite.sType = VK_STRUCTURE_TYPE_WRITE_DESCRIPTOR_SET;
-		descriptorWrite.dstSet = descriptorSets[i];
-		descriptorWrite.dstBinding = layout->GetSlot(name).bindings.at(binding).glslIndex;
-		descriptorWrite.dstArrayElement = 0;
+		descriptorWrite.dstSet = m_descriptorSets[i];
+		descriptorWrite.dstBinding = m_layout->GetSlot(m_name).bindings.at(binding).glslIndex;
+		descriptorWrite.dstArrayElement = arrayIndex;
 		descriptorWrite.descriptorType = VK_DESCRIPTOR_TYPE_STORAGE_IMAGE;
 		descriptorWrite.descriptorCount = 1;
 		descriptorWrite.pBufferInfo = nullptr;
 		descriptorWrite.pImageInfo = imageInfo.GetPointer();
 		descriptorWrite.pTexelBufferView = nullptr;
 
-		if (containsBinding)
-			bindings.At(i)[bindingsLocations.at(binding)] = descriptorWrite;
-		else
-			bindings.At(i).Insert(descriptorWrite);
+		if (containsBinding) {
+			m_bindings.At(i)[m_bindingsLocations.at(binding)] = descriptorWrite;
+		}
+		else {
+			m_bindings.At(i).Insert(descriptorWrite);
+		}
 
-		imageInfos.Insert(imageInfo.GetPointer());
+		m_imageInfos.Insert(imageInfo.GetPointer());
 	}
 
-	if (!containsBinding)
-		bindingsLocations[binding] = static_cast<USize32>(bindings.At(0).GetSize()) - 1u;
+	if (!containsBinding) {
+		m_bindingsLocations[binding] = static_cast<USize32>(m_bindings.At(0).GetSize()) - 1u;
+	}
 }
 
 void MaterialSlotVk::SetAccelerationStructures(
 	const std::string& binding, 
-	std::span<const ITopLevelAccelerationStructure*, NUM_RESOURCES_IN_FLIGHT> accelerationStructure) 
+	std::span<const ITopLevelAccelerationStructure*, NUM_RESOURCES_IN_FLIGHT> accelerationStructure,
+	UIndex32 arrayIndex)
 {
-	const bool containsBinding = bindingsLocations.contains(binding);
+	const bool containsBinding = m_bindingsLocations.contains(binding);
 
-	for (UIndex32 i = 0; i < descriptorSets.GetSize(); i++) {
-		accelerationStructures.Insert(accelerationStructure[i]->As<TopLevelAccelerationStructureVk>()->GetAccelerationStructure());
+	for (UIndex32 i = 0; i < m_descriptorSets.GetSize(); i++) {
+		m_accelerationStructures.Insert(accelerationStructure[i]->As<TopLevelAccelerationStructureVk>()->GetAccelerationStructure());
 
 		OwnedPtr<VkWriteDescriptorSetAccelerationStructureKHR> descriptorAccelerationStructureInfo = new VkWriteDescriptorSetAccelerationStructureKHR{};
 		descriptorAccelerationStructureInfo->sType = VK_STRUCTURE_TYPE_WRITE_DESCRIPTOR_SET_ACCELERATION_STRUCTURE_KHR;
 		descriptorAccelerationStructureInfo->accelerationStructureCount = 1;
-		descriptorAccelerationStructureInfo->pAccelerationStructures = &accelerationStructures.Peek();
+		descriptorAccelerationStructureInfo->pAccelerationStructures = &m_accelerationStructures.Peek();
 
-		accelerationStructureInfos.Insert(descriptorAccelerationStructureInfo.GetPointer());
+		m_accelerationStructureInfos.Insert(descriptorAccelerationStructureInfo.GetPointer());
 
 		VkWriteDescriptorSet descriptorWrite{};
 		descriptorWrite.sType = VK_STRUCTURE_TYPE_WRITE_DESCRIPTOR_SET;
 		descriptorWrite.pNext = descriptorAccelerationStructureInfo.GetPointer();
-		descriptorWrite.dstSet = descriptorSets[i];
-		descriptorWrite.dstBinding = layout->GetSlot(name).bindings.at(binding).glslIndex;
+		descriptorWrite.dstSet = m_descriptorSets[i];
+		descriptorWrite.dstBinding = m_layout->GetSlot(m_name).bindings.at(binding).glslIndex;
 		descriptorWrite.descriptorCount = 1;
 		descriptorWrite.descriptorType = VK_DESCRIPTOR_TYPE_ACCELERATION_STRUCTURE_KHR;
 
-		if (containsBinding)
-			bindings.At(i)[bindingsLocations.at(binding)] = descriptorWrite;
-		else
-			bindings.At(i).Insert(descriptorWrite);
+		if (containsBinding) {
+			m_bindings.At(i)[m_bindingsLocations.at(binding)] = descriptorWrite;
+		}
+		else {
+			m_bindings.At(i).Insert(descriptorWrite);
+		}
 	}
 
-	if (!containsBinding)
-		bindingsLocations[binding] = static_cast<UIndex32>(bindings.At(0).GetSize()) - 1u;
+	if (!containsBinding) {
+		m_bindingsLocations[binding] = static_cast<UIndex32>(m_bindings.At(0).GetSize()) - 1u;
+	}
 }
 
 void MaterialSlotVk::FlushUpdate() {
-	for (const auto& binding : bindings)
+	for (const auto& binding : m_bindings) {
 		vkUpdateDescriptorSets(GetDevice(), (uint32_t)binding.GetSize(), binding.GetData(), 0, nullptr);
+	}
 }
 
 VkDescriptorSet MaterialSlotVk::GetDescriptorSet(UIndex32 index) const {
-	return descriptorSets[index];
+	return m_descriptorSets[index];
 }
 
 void MaterialSlotVk::SetDebugName(const std::string& name) {
@@ -247,7 +284,7 @@ void MaterialSlotVk::SetDebugName(const std::string& name) {
 
 	nameInfo.pObjectName = name.c_str();
 
-	for (const auto& descSet : descriptorSets) {
+	for (const auto& descSet : m_descriptorSets) {
 		nameInfo.objectHandle = (uint64_t)descSet;
 
 		if (RendererVk::pvkSetDebugUtilsObjectNameEXT != nullptr)

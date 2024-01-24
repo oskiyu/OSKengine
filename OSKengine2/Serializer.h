@@ -4,16 +4,17 @@
 
 #include "DataNode.h"
 
+#include <json.hpp>
+
 namespace OSK::PERSISTENCE {
 
-	template <typename T>
-	DataNode Serialize(const T& data) {
-		static_assert(false);
-	};
+	// --- JSON: Scene Editor --- //
 
 	template <typename T>
-	T Deserialize(const DataNode& dataNode) {
-		static_assert(false);
-	};
+	nlohmann::json SerializeJson(const T& data) = delete;
+
+
+	template <typename T>
+	T DeserializeJson(const nlohmann::json& data) = delete;
 
 }

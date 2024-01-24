@@ -16,6 +16,9 @@
 %VULKAN_SDK%/Bin/glslc.exe ./Deferred/GBuffer/shader_billboard.frag -o ./Deferred/GBuffer/shader_billboard.spv
 %VULKAN_SDK%/Bin/glslc.exe ./Deferred/GBuffer/anim.vert -o ./Deferred/GBuffer/anim.spv
 
+%VULKAN_SDK%/Bin/glslc.exe ./GpuDriven/GBuffer/vertex.vert -o ./GpuDriven/GBuffer/vert.spv
+%VULKAN_SDK%/Bin/glslc.exe ./GpuDriven/GBuffer/shader.frag -o ./GpuDriven/GBuffer/frag.spv
+
 %VULKAN_SDK%/Bin/glslc.exe ./TAA/taa.comp -o ./TAA/taa.spv
 %VULKAN_SDK%/Bin/glslc.exe ./TAA/sharpen.comp -o ./TAA/sharpen.spv
 

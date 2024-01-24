@@ -1404,3 +1404,85 @@ fix culling static meshes
 ##### Bugfixes
 
 - **Bugfix**: añadir caras a un `ConvexVolume` se refleja instantaneamente al llamar a `GetVertices()` y `GetAxes()`.
+ 
+
+## WIP
+
+### Graphics
+
+###### (WIP) Renderizado bind-less.
+
+- ***Nuevo***: (*WIP*) `GdrDeferredRenderSystem`
+    - Implementará un sistema de renderizado bind-less.
+
+###### Atributos de vértices para renderizado bind-less.
+
+- ***Nuevo***: `OSK_VERTEX_ATTRIB(x)`
+    - Debe usarse en todos los atributos.
+
+- ***Nuevo***: `VertexPositionAttribute3D`
+    - Contiene la posición del vértice.
+
+- ***Nuevo***: `VertexAttributes3D`
+    - Contiene los siguientes atributos:
+        - Vector normal.
+        - Color.
+        - Coordenadas de texturas (UV).
+        - Vector tangente.
+
+- ***Nuevo***: `VertexAnimationAttributes3D`
+    - Contiene los siguientes atributos:
+        - Índices de los huesos.
+        - Pesos de los huesos.
+
+- ***Nuevo***: `VerticesAttributesMaps`
+    - Contiene los atributos de todos los vértices de un modelo 3D.
+    - Soporta atributos customizados.
+
+- ***Nuevo***: `GdrVertex3D`
+    - Para renderizado bind-less.
+    - Únicamente representa el índice en el que se encuentran los atributos.
+
+- `VertexInfo::Entry::Type`
+    - ***Nuevo***: `UNSIGNED_INT`.
+
+- `IMaterialSlot`
+    - Ahora soporta arrays de recursos.
+
+### Assets
+
+###### Atributos de vértices para renderizado bind-less.
+
+- `Model3D`
+    - Ahora contiene los atributos de los vértices en memoria RAM.
+
+- ***Nuevo***: `MaterialMetadata`
+    - Contiene:
+        - Factor metálico.
+        - Factor de rugosidad.
+        - Color.
+
+- `IGltfMeshLoader`, `StaticMeshLoader`, `AnimMeshLoader`
+    - Ahora cargan los atributos de los modelos 3D en memoria RAM.
+
+### Persistence
+
+- ***Nuevo***: `SerializeJson<>`
+     - Función sobreescribible para la serialización de datos en un archivo JSON.
+
+- ***Nuevo***: `DeserializeJson<>`
+    - Función sobreescribible para deserializar datos almacenados en un archivo JSON.
+
+- ***Nuevo***: definidas funciones `SerializeJson<>` y `DeserializeJson<>` para:
+    - `AxisAlignedBoundingBox`
+    - `SphereCollider`
+    - `CameraComponent2D`
+    - `CameraComponent3D`
+    - `Collider`
+    - `CollisionComponent`
+    - `Transform3D`
+    - `ConvexVolume`
+    - `ModelComponent3D`
+    - `PhysicsComponent`
+    - `glm::mat3`
+    - `glm::mat4`

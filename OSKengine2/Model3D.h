@@ -16,6 +16,11 @@
 
 #include <string>
 
+#include "HashMap.hpp"
+#include "VertexAttributes.h"
+
+#include <any>
+
 namespace OSK::GRAPHICS {
 	class IMaterialSlot;
 }
@@ -51,6 +56,13 @@ namespace OSK::ASSETS {
 	};
 
 
+	struct MaterialMetadata {
+		float metallicFactor = 0.0f;
+		float roughnessFactor = 0.0f;
+		Color emissiveColor = Color::White * 0.0f;
+	};
+
+
 	/// @brief Contiene datos necesarios para seguir procesando el modelo.
 	/// Estos datos se pueden procesar de manera distinta dependiendo del proceso
 	/// de renderizado implementado.
@@ -64,6 +76,8 @@ namespace OSK::ASSETS {
 
 		/// @brief Buffers con la información de los materiales.
 		DynamicArray<UniquePtr<GRAPHICS::GpuBuffer>> materialInfos;
+
+		DynamicArray<MaterialMetadata> materials;
 
 
 		constexpr static std::string_view BaseColorTextureName = "baseColorTexture";
@@ -215,7 +229,13 @@ namespace OSK::ASSETS {
 
 		ModelType GetType() const;
 
+		void _SetVerticesAttributesMap(const GRAPHICS::VerticesAttributesMaps& map);
+		const GRAPHICS::VerticesAttributesMaps& GetVerticesAttributes() const;
+
 	private:
+
+		GRAPHICS::VerticesAttributesMaps m_verticesAttributes{};
+
 
 		/// @brief ID del modelo 3D.
 		UIndex64 m_modelId = 0;

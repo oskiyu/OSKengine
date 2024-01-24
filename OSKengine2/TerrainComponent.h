@@ -21,6 +21,8 @@ namespace OSK::ECS {
 	/// @note Si se le quiere dar relieve al terreno, se debe hacer a través de shaders.
 	/// 
 	/// @warning Se debe establecer la instancia del material (TerrainComponent::SetMaterialInstance()).
+	/// 
+	/// @deprecated No mantenido.
 	struct OSKAPI_CALL TerrainComponent {
 
 	public:

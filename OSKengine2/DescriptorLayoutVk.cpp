@@ -29,7 +29,10 @@ DescriptorLayoutVk::DescriptorLayoutVk(const MaterialLayoutSlot* slotLayout)
 		layoutBinding.pImmutableSamplers = nullptr;
 
 		bindings.Insert(layoutBinding);
-		flags.Insert(VK_DESCRIPTOR_BINDING_VARIABLE_DESCRIPTOR_COUNT_BIT | VK_DESCRIPTOR_BINDING_PARTIALLY_BOUND_BIT | VK_DESCRIPTOR_BINDING_UPDATE_AFTER_BIND_BIT);
+		flags.Insert(
+			VK_DESCRIPTOR_BINDING_VARIABLE_DESCRIPTOR_COUNT_BIT | 
+			VK_DESCRIPTOR_BINDING_PARTIALLY_BOUND_BIT | 
+			VK_DESCRIPTOR_BINDING_UPDATE_AFTER_BIND_BIT);
 	}
 
 	VkDescriptorSetLayoutBindingFlagsCreateInfo flagsCreateInfo{};

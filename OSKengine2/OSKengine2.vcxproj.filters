@@ -580,6 +580,15 @@
     <Filter Include="Archivos de encabezado\Core\AudioAPI\AL">
       <UniqueIdentifier>{51cd08bc-0b98-4c94-a576-5e70f9f454a4}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Archivos de encabezado\BuiltIn\GRAPHICS\GpuDriven">
+      <UniqueIdentifier>{323ba8d3-20c1-4068-a873-5eea3ca09e40}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de encabezado\BuiltIn\ECS\Systems\Rendering\PBR">
+      <UniqueIdentifier>{bf721ac8-e4be-4c49-9186-d762e28f742d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de origen\BuiltIn\ECS\Systems\Rendering\PBR">
+      <UniqueIdentifier>{5cb90ba5-2055-4782-98aa-9c082221021a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -1116,9 +1125,6 @@
     <ClCompile Include="IRenderSystem.cpp">
       <Filter>Archivos de origen\BuiltIn\ECS\Systems\Rendering</Filter>
     </ClCompile>
-    <ClCompile Include="DeferredRenderSystem.cpp">
-      <Filter>Archivos de origen\BuiltIn\ECS\Systems\Rendering</Filter>
-    </ClCompile>
     <ClCompile Include="RenderSystem3D.cpp">
       <Filter>Archivos de origen\BuiltIn\ECS\Systems\Rendering</Filter>
     </ClCompile>
@@ -1259,6 +1265,12 @@
     </ClCompile>
     <ClCompile Include="AudioApiAl.cpp">
       <Filter>Archivos de origen\Core\AudioAPI\AL</Filter>
+    </ClCompile>
+    <ClCompile Include="GdrDeferredRenderSystem.cpp">
+      <Filter>Archivos de origen\BuiltIn\ECS\Systems\Rendering\PBR</Filter>
+    </ClCompile>
+    <ClCompile Include="DeferredRenderSystem.cpp">
+      <Filter>Archivos de origen\BuiltIn\ECS\Systems\Rendering\PBR</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -2000,16 +2012,7 @@
     <ClInclude Include="ColliderRenderer.h">
       <Filter>Archivos de encabezado\BuiltIn\ECS\Systems\Rendering</Filter>
     </ClInclude>
-    <ClInclude Include="HybridRenderSystem.h">
-      <Filter>Archivos de encabezado\BuiltIn\ECS\Systems\Rendering</Filter>
-    </ClInclude>
     <ClInclude Include="IRenderSystem.h">
-      <Filter>Archivos de encabezado\BuiltIn\ECS\Systems\Rendering</Filter>
-    </ClInclude>
-    <ClInclude Include="DeferredRenderSystem.h">
-      <Filter>Archivos de encabezado\BuiltIn\ECS\Systems\Rendering</Filter>
-    </ClInclude>
-    <ClInclude Include="RenderSystem3D.h">
       <Filter>Archivos de encabezado\BuiltIn\ECS\Systems\Rendering</Filter>
     </ClInclude>
     <ClInclude Include="SkyboxRenderSystem.h">
@@ -2122,9 +2125,6 @@
     </ClInclude>
     <ClInclude Include="GameObjectTranslator.h">
       <Filter>Archivos de encabezado\Core\Net</Filter>
-    </ClInclude>
-    <ClInclude Include="Scene.h">
-      <Filter>Archivos de encabezado\Core\ECS</Filter>
     </ClInclude>
     <ClInclude Include="Buffer.h">
       <Filter>Archivos de encabezado\Core\Memory</Filter>
@@ -2263,6 +2263,24 @@
     </ClInclude>
     <ClInclude Include="AudioBuffer.h">
       <Filter>Archivos de encabezado\Core\AudioAPI\AL</Filter>
+    </ClInclude>
+    <ClInclude Include="DeferredRenderSystem.h">
+      <Filter>Archivos de encabezado\BuiltIn\ECS\Systems\Rendering\PBR</Filter>
+    </ClInclude>
+    <ClInclude Include="RenderSystem3D.h">
+      <Filter>Archivos de encabezado\BuiltIn\ECS\Systems\Rendering\PBR</Filter>
+    </ClInclude>
+    <ClInclude Include="HybridRenderSystem.h">
+      <Filter>Archivos de encabezado\BuiltIn\ECS\Systems\Rendering\PBR</Filter>
+    </ClInclude>
+    <ClInclude Include="GdrDeferredSystem.h">
+      <Filter>Archivos de encabezado\BuiltIn\ECS\Systems\Rendering\PBR</Filter>
+    </ClInclude>
+    <ClInclude Include="VertexAttributes.h">
+      <Filter>Archivos de encabezado\Core\Graphics\LowLevel\Vertex</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene.h">
+      <Filter>Archivos de encabezado\Core\ECS</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

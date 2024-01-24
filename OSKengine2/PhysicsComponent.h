@@ -3,10 +3,21 @@
 #include "Component.h"
 #include "Vector3.hpp"
 
+#include "Serializer.h"
+
+
 namespace OSK::ECS {
 
 	/// @brief Componente que permite simular las físicas de la entidad.
 	class OSKAPI_CALL PhysicsComponent {
+
+	public:
+
+		template <typename T>
+		friend nlohmann::json PERSISTENCE::SerializeJson<T>(const T& data);
+
+		template <typename T>
+		friend T PERSISTENCE::DeserializeJson<T>(const nlohmann::json& data);
 
 	public:
 
@@ -142,5 +153,15 @@ namespace OSK::ECS {
 		Vector3f angularVelocity = Vector3f::Zero;
 
 	};
+
+}
+
+namespace OSK::PERSISTENCE {
+
+	template <>
+	nlohmann::json SerializeJson<OSK::ECS::PhysicsComponent>(const OSK::ECS::PhysicsComponent& data);
+
+	template <>
+	OSK::ECS::PhysicsComponent DeserializeJson<OSK::ECS::PhysicsComponent>(const nlohmann::json& json);
 
 }

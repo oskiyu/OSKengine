@@ -8,6 +8,8 @@
 #include "GpuBuffer.h"
 #include <glm/glm.hpp>
 
+#include "Serializer.h"
+
 namespace OSK::IO {
 	class IDisplay;
 }
@@ -20,6 +22,14 @@ namespace OSK::ECS {
 	/// Cámara para un mundo de dos dimensiones.
 	/// </summary>
 	class OSKAPI_CALL CameraComponent2D {
+
+	public:
+
+		template <typename T>
+		friend nlohmann::json PERSISTENCE::SerializeJson<T>(const T& data);
+
+		template <typename T>
+		friend T PERSISTENCE::DeserializeJson<T>(const nlohmann::json& data);
 
 	public:
 
@@ -69,5 +79,15 @@ namespace OSK::ECS {
 		UniquePtr<GRAPHICS::GpuBuffer> m_uniformBuffer;
 
 	};
+
+}
+
+namespace OSK::PERSISTENCE {
+
+	template <>
+	nlohmann::json SerializeJson<OSK::ECS::CameraComponent2D>(const OSK::ECS::CameraComponent2D& data);
+
+	template <>
+	OSK::ECS::CameraComponent2D DeserializeJson<OSK::ECS::CameraComponent2D>(const nlohmann::json& json);
 
 }

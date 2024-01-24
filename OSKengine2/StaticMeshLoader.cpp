@@ -83,6 +83,14 @@ void StaticMeshLoader::ProcessNode(const tinygltf::Model& model, const tinygltf:
 				vertex.color = colors[v];
 
 			vertices.Insert(vertex);
+
+			// Attributes
+			m_loadedVertices.AddVertexAttribute<VertexPositionAttribute3D>({ .position = vertex.position });
+			m_loadedVertices.AddVertexAttribute<VertexAttributes3D>({
+				.normal = vertex.normal,
+				.color = vertex.color,
+				.texCoords = vertex.texCoords,
+				.tangent = vertex.tangent });
 		}
 
 		m_indices.InsertAll(primitiveIndices);

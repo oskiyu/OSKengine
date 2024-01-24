@@ -28,6 +28,8 @@ namespace OSK::GRAPHICS {
 	/// @brief Un sprite representa una imagen que puede ser renderizada en 2D.
 	/// 
 	/// También es un componente para objetos 2D.
+	/// 
+	/// @todo Serialización.
 	class OSKAPI_CALL Sprite {
 
 	public:

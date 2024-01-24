@@ -149,3 +149,46 @@ glm::mat4 CameraComponent3D::GetViewMatrix(const Transform3D& transform) const {
 		(transform.GetPosition() + transform.GetForwardVector()).ToGlm(),
 		transform.GetTopVector().ToGlm());
 }
+
+
+
+template <>
+nlohmann::json PERSISTENCE::SerializeJson<OSK::ECS::CameraComponent3D>(const OSK::ECS::CameraComponent3D& data) {
+	nlohmann::json output{};
+
+	output["fov"] = data.fov;
+	output["fovLimitDown"] = data.fovLimitDown;
+	output["fovLimitUp"] = data.fovLimitUp;
+
+	output["nearPlane"] = data.nearPlane;
+	output["farPlane"] = data.farPlane;
+
+	output["angles"]["x"] = data.angles.x;
+	output["angles"]["y"] = data.angles.y;
+
+	output["accumulatedAngles"]["x"] = data.accumulatedAngles.x;
+	output["accumulatedAngles"]["y"] = data.accumulatedAngles.y;
+
+	return output;
+}
+
+template <>
+OSK::ECS::CameraComponent3D PERSISTENCE::DeserializeJson<OSK::ECS::CameraComponent3D>(const nlohmann::json& json) {
+	OSK::ECS::CameraComponent3D output{};
+
+	output.fov = json["fov"];
+	output.fovLimitDown = json["fovLimitDown"];
+	output.fovLimitUp = json["fovLimitUp"];
+
+	output.nearPlane = json["nearPlane"];
+	output.farPlane = json["farPlane"];
+
+	output.angles.x = json["angles"]["x"];
+	output.angles.y = json["angles"]["y"];
+
+	output.accumulatedAngles.x = json["accumulatedAngles"]["x"];
+	output.accumulatedAngles.y = json["accumulatedAngles"]["y"];
+
+	return output;
+}
+

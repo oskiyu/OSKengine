@@ -9,12 +9,25 @@
 
 #include "MatrixOperations.hpp"
 
+#include "Math.h"
+
+
 using namespace OSK;
 using namespace OSK::ECS;
 
 const static ECS::EntityComponentSystem* GetEcs() {
 	return Engine::GetEcs();
 }
+
+
+Transform3D Transform3D::FromMatrix(ECS::GameObjectIndex owner, const glm::mat4& matrix) {
+	Transform3D output(owner);
+
+	// todo
+
+	return output;
+}
+
 
 Transform3D::Transform3D(ECS::GameObjectIndex owner) : owner(owner) {
 
@@ -189,4 +202,31 @@ void Transform3D::SetShouldInheritRotation(bool value) {
 
 void Transform3D::SetShouldInheritScale(bool value) {
 	m_inheritScale = value;
+}
+
+
+template <>
+nlohmann::json PERSISTENCE::SerializeJson<OSK::ECS::Transform3D>(const OSK::ECS::Transform3D& data) {
+	nlohmann::json output{};
+
+	output["owner"] = data.owner;
+
+	output["m_inheritPosition"] = data.m_inheritPosition;
+	output["m_inheritRotation"] = data.m_inheritRotation;
+	output["m_inheritScale"] = data.m_inheritScale;
+
+	output["m_matrix"] = SerializeJson<glm::mat4>(data.GetAsMatrix());
+
+	return output;
+}
+
+template <>
+OSK::ECS::Transform3D PERSISTENCE::DeserializeJson<OSK::ECS::Transform3D>(const nlohmann::json& json) {
+	Transform3D output = Transform3D::FromMatrix(json["owner"], DeserializeJson<glm::mat4>(json["m_matrix"]));
+
+	output.m_inheritPosition = json["m_inheritPosition"];
+	output.m_inheritRotation = json["m_inheritRotation"];
+	output.m_inheritScale = json["m_inheritScale"];
+
+	return output;
 }

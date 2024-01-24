@@ -4,6 +4,7 @@
 
 #include <glm/glm.hpp>
 
+
 namespace OSK {
 
 	/// @brief Representa un vector 2D.

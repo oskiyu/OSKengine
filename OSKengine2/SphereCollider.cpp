@@ -67,3 +67,17 @@ bool SphereCollider::IsColliding(const ITopLevelCollider& other) const {
 	if (auto sphere = dynamic_cast<const SphereCollider*>(&other))
 		return ITopLevelCollider::SphereSphereCollision(*this, *sphere);
 }
+
+template <>
+nlohmann::json PERSISTENCE::SerializeJson<OSK::COLLISION::SphereCollider>(const OSK::COLLISION::SphereCollider& data) {
+	nlohmann::json output{};
+
+	output["m_radius"] = data.GetRadius();
+
+	return output;
+}
+
+template <>
+OSK::COLLISION::SphereCollider PERSISTENCE::DeserializeJson<OSK::COLLISION::SphereCollider>(const nlohmann::json& json) {
+	return SphereCollider(static_cast<float>(json["m_radius"]));
+}
