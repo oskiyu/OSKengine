@@ -1,0 +1,7 @@
+Package: freetype
+Feature: png
+Depends: libpng
+Architecture: x64-windows-static
+Multi-Arch: same
+Description: Support PNG compressed OpenType embedded bitmaps.
+Status: purge ok not-installed

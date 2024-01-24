@@ -1,8 +1,0 @@
-{
-    "file_type": "IRRADIANCE_MAP",
-    "spec_ver": 0,
-
-    "name": "IrradianceMap0",
-    "asset_type": "IrradianceMap",
-    "raw_asset_path": "Resources/Assets/IBL/Ridgecrest_Road_Ref.hdr"
-}

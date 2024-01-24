@@ -1,0 +1,12 @@
+prefix=${pcfiledir}/../..
+exec_prefix=${prefix}
+libdir=${prefix}/lib
+includedir=${prefix}/include
+
+Name: OpenAL
+Description: OpenAL is a cross-platform 3D audio API
+Version: 1.23.0
+
+Libs: "-L${libdir}" -lOpenAL32
+Requires: 
+Cflags: "-I${includedir}" "-I${includedir}/AL" -DAL_LIBTYPE_STATIC

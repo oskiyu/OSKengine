@@ -367,3 +367,7 @@ healthchecksdb
 /Frameworks/OSKengine/BinLibDebug/**
 /Frameworks/OSKengine/Lib/**
 /Frameworks/OSKengine/Includes/**
+
+# Builds
+/Bin/Release/**
+/Includes/**

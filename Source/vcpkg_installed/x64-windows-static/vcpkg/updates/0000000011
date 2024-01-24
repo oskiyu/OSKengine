@@ -1,0 +1,7 @@
+Package: freetype
+Feature: bzip2
+Depends: bzip2
+Architecture: x64-windows-static
+Multi-Arch: same
+Description: Support bzip2 compressed fonts.
+Status: purge ok half-installed

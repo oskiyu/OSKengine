@@ -1,0 +1,115 @@
+{
+  "$schema": "https://raw.githubusercontent.com/spdx/spdx-spec/v2.2.1/schemas/spdx-schema.json",
+  "spdxVersion": "SPDX-2.2",
+  "dataLicense": "CC0-1.0",
+  "SPDXID": "SPDXRef-DOCUMENT",
+  "documentNamespace": "https://spdx.org/spdxdocs/spirv-cross-x64-windows-static-2021-01-15#2-c63c949d-5cb8-4cac-87ee-9fa11f501fdf",
+  "name": "spirv-cross:x64-windows-static@2021-01-15#2 23ccac9823f9876fe04939e4d4e1e8f16b58f71d21f16b3b68246b49a23d5f73",
+  "creationInfo": {
+    "creators": [
+      "Tool: vcpkg-105f7f7e8a5ea10dfac9874ff9d1a6bacba5f454"
+    ],
+    "created": "2023-09-08T17:04:46Z"
+  },
+  "relationships": [
+    {
+      "spdxElementId": "SPDXRef-port",
+      "relationshipType": "GENERATES",
+      "relatedSpdxElement": "SPDXRef-binary"
+    },
+    {
+      "spdxElementId": "SPDXRef-port",
+      "relationshipType": "CONTAINS",
+      "relatedSpdxElement": "SPDXRef-file-0"
+    },
+    {
+      "spdxElementId": "SPDXRef-port",
+      "relationshipType": "CONTAINS",
+      "relatedSpdxElement": "SPDXRef-file-1"
+    },
+    {
+      "spdxElementId": "SPDXRef-binary",
+      "relationshipType": "GENERATED_FROM",
+      "relatedSpdxElement": "SPDXRef-port"
+    },
+    {
+      "spdxElementId": "SPDXRef-file-0",
+      "relationshipType": "CONTAINED_BY",
+      "relatedSpdxElement": "SPDXRef-port"
+    },
+    {
+      "spdxElementId": "SPDXRef-file-1",
+      "relationshipType": "CONTAINED_BY",
+      "relatedSpdxElement": "SPDXRef-port"
+    },
+    {
+      "spdxElementId": "SPDXRef-file-1",
+      "relationshipType": "DEPENDENCY_MANIFEST_OF",
+      "relatedSpdxElement": "SPDXRef-port"
+    }
+  ],
+  "packages": [
+    {
+      "name": "spirv-cross",
+      "SPDXID": "SPDXRef-port",
+      "versionInfo": "2021-01-15#2",
+      "downloadLocation": "NOASSERTION",
+      "homepage": "https://github.com/KhronosGroup/SPIRV-Cross",
+      "licenseConcluded": "NOASSERTION",
+      "licenseDeclared": "NOASSERTION",
+      "copyrightText": "NOASSERTION",
+      "description": "SPIRV-Cross is a practical tool and library for performing reflection on SPIR-V and disassembling SPIR-V back to high level languages.",
+      "comment": "This is the port (recipe) consumed by vcpkg."
+    },
+    {
+      "name": "spirv-cross:x64-windows-static",
+      "SPDXID": "SPDXRef-binary",
+      "versionInfo": "23ccac9823f9876fe04939e4d4e1e8f16b58f71d21f16b3b68246b49a23d5f73",
+      "downloadLocation": "NONE",
+      "licenseConcluded": "NOASSERTION",
+      "licenseDeclared": "NOASSERTION",
+      "copyrightText": "NOASSERTION",
+      "comment": "This is a binary package built by vcpkg."
+    },
+    {
+      "SPDXID": "SPDXRef-resource-1",
+      "name": "KhronosGroup/SPIRV-Cross",
+      "downloadLocation": "git+https://github.com/KhronosGroup/SPIRV-Cross@2021-01-15",
+      "licenseConcluded": "NOASSERTION",
+      "licenseDeclared": "NOASSERTION",
+      "copyrightText": "NOASSERTION",
+      "checksums": [
+        {
+          "algorithm": "SHA512",
+          "checksumValue": "f934ef61602223f6fe6d9c826ed5beb129beb7a30b18b389625d4fc0b1efa1b8df930a2a2d2a0b4f377ef2899e8e034239819a4c6629a78c666f72004464da93"
+        }
+      ]
+    }
+  ],
+  "files": [
+    {
+      "fileName": "./portfile.cmake",
+      "SPDXID": "SPDXRef-file-0",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "c06981b82d890dba6d63826dfd25ea4e548b48756b36f9230e2a973687bf8e6b"
+        }
+      ],
+      "licenseConcluded": "NOASSERTION",
+      "copyrightText": "NOASSERTION"
+    },
+    {
+      "fileName": "./vcpkg.json",
+      "SPDXID": "SPDXRef-file-1",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "4a7e35144d02935cc4ba847f9df60f2d5f0e9fc2fbecbf3711247bb9a1995c93"
+        }
+      ],
+      "licenseConcluded": "NOASSERTION",
+      "copyrightText": "NOASSERTION"
+    }
+  ]
+}

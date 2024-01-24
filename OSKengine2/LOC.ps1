@@ -1,1 +1,0 @@
-(gci -exclude ./vcpkg_installed/. -include *.json,*.cs,*.cpp,*.h,*.hpp,*.vert,*.frag,*.hlsl,*.comp -recurse | select-string "^(\s*)//" -notMatch).Count;

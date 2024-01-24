@@ -1,0 +1,9 @@
+Package: directx-dxc
+Version: 2023-03-01
+Port-Version: 1
+Depends: vcpkg-cmake, vcpkg-cmake-config
+Architecture: x64-windows
+Multi-Arch: same
+Abi: 2540a8adba29928ca49d94ce09e9b0021289de50f9164a6b1286bff4ff233175
+Description: DirectX Shader Compiler (LLVM/Clang)
+Status: install ok half-installed

@@ -5,6 +5,8 @@
 #include "../OSKengine2/EntityComponentSystem.h"
 #include "../OSKengine2/IPureSystem.h"
 
+#include "MockLogger.hpp"
+
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 
 using namespace OSK;
@@ -42,10 +44,12 @@ TEST_CLASS(EcsTests) {
 public:
 
 	static inline std::unique_ptr<EntityComponentSystem> ecs = nullptr;
+	static inline std::unique_ptr<IO::ILogger> logger = nullptr;
 	static inline GameObjectIndex obj = EMPTY_GAME_OBJECT;
 
 	TEST_METHOD_INITIALIZE(Init) {
-		ecs = std::make_unique<EntityComponentSystem>(nullptr);
+		logger = std::make_unique<MockLogger>();
+		ecs = std::make_unique<EntityComponentSystem>(logger.get());
 		obj = ecs->SpawnObject();
 		Assert::AreNotEqual(obj, EMPTY_GAME_OBJECT, L"No se ha conseguido crear el objeto.");
 	}
@@ -96,23 +100,23 @@ public:
 #pragma region System
 
 	TEST_METHOD(RegisterSystem) {
-		ecs->RegisterSystem<TestSystem>();
+		ecs->RegisterSystem<TestSystem>(0);
 		Assert::IsTrue(ecs->HasSystem<TestSystem>());
 	}
 
 	TEST_METHOD(RegisterSecondSystem) {
-		ecs->RegisterSystem<TestSystem>();
-		Assert::ExpectException<SystemAlreadyRegisteredException>([]() { ecs->RegisterSystem<TestSystem>(); });
+		ecs->RegisterSystem<TestSystem>(0);
+		Assert::ExpectException<SystemAlreadyRegisteredException>([]() { ecs->RegisterSystem<TestSystem>(0); });
 	}
 
 	TEST_METHOD(RemoveSystem) {
-		ecs->RegisterSystem<TestSystem>();
+		ecs->RegisterSystem<TestSystem>(0);
 		ecs->RemoveSystem<TestSystem>();
 		Assert::IsFalse(ecs->HasSystem<TestSystem>());
 	}
 
 	TEST_METHOD(RemoveSecondSystem) {
-		ecs->RegisterSystem<TestSystem>();
+		ecs->RegisterSystem<TestSystem>(0);
 		ecs->RemoveSystem<TestSystem>();
 		Assert::ExpectException<SystemNotFoundException>([]() { ecs->RemoveSystem<TestSystem>(); });
 	}
@@ -122,7 +126,7 @@ public:
 	}
 
 	TEST_METHOD(SystemExecutionWithComponent) {
-		auto system = ecs->RegisterSystem<TestSystem>();
+		auto system = ecs->RegisterSystem<TestSystem>(0);
 		ecs->RegisterComponent<TestComponent>();
 		ecs->AddComponent(obj, TestComponent());
 
@@ -136,7 +140,7 @@ public:
 	}
 
 	TEST_METHOD(SystemExecutionWithoutComponent) {
-		auto system = ecs->RegisterSystem<TestSystem>();
+		auto system = ecs->RegisterSystem<TestSystem>(0);
 		ecs->RegisterComponent<TestComponent>();
 
 		ecs->OnTick(1.0f);

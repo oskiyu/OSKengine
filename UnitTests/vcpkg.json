@@ -6,6 +6,7 @@
         "glfw3",
         "spirv-cross",
         "freetype",
-        "directx-dxc"
+        "directx-dxc",
+        "openal-soft"
     ]
 }

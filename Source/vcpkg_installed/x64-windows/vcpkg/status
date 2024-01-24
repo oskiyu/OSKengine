@@ -1,0 +1,154 @@
+Package: vcpkg-cmake-config
+Version: 2022-02-06
+Port-Version: 1
+Architecture: x64-windows
+Multi-Arch: same
+Abi: 7939989eb8cdcec7c39b624004eb6175dbcd3874b203408e773de673f8529c9b
+Status: install ok installed
+
+Package: vcpkg-cmake
+Version: 2022-12-22
+Architecture: x64-windows
+Multi-Arch: same
+Abi: 25bc451af2cc8cf38ff545e189167c2fbd0b637f4e243e58b84bd763361e271d
+Status: install ok installed
+
+Package: directx-dxc
+Version: 2023-03-01
+Port-Version: 1
+Depends: vcpkg-cmake, vcpkg-cmake-config
+Architecture: x64-windows
+Multi-Arch: same
+Abi: 74de17b274c746998638ba8ddc8d05f9d61a106f5ca76e123f9c7bf907b14fb2
+Description: DirectX Shader Compiler (LLVM/Clang)
+Status: install ok installed
+
+Package: zlib
+Version: 1.2.13
+Depends: vcpkg-cmake
+Architecture: x64-windows
+Multi-Arch: same
+Abi: 8ca117fe225d4ddc19daf6ce0a0df93ab39e9644f3d35aaa8b43ffed74630b8b
+Description: A compression library
+Status: install ok installed
+
+Package: libpng
+Version: 1.6.39
+Depends: vcpkg-cmake, vcpkg-cmake-config, zlib
+Architecture: x64-windows
+Multi-Arch: same
+Abi: 608d3bff7a1f5de9595a2a1e6db01945fdb3f90a813bcacd0ffb50ec2522d51d
+Description: libpng is a library implementing an interface for reading and writing PNG (Portable Network Graphics) format files
+Status: install ok installed
+
+Package: bzip2
+Version: 1.0.8
+Port-Version: 3
+Depends: vcpkg-cmake, vcpkg-cmake-config
+Architecture: x64-windows
+Multi-Arch: same
+Abi: 77cf5b4085dcef064ecdeae4ad282710ac2553e23738bd9cde5486589abbb7f0
+Description: bzip2 is a freely available, patent free, high-quality data compressor. It typically compresses files to within 10% to 15% of the best available techniques (the PPM family of statistical compressors), whilst being around twice as fast at compression and six times faster at decompression.
+Default-Features: tool
+Status: install ok installed
+
+Package: bzip2
+Feature: tool
+Architecture: x64-windows
+Multi-Arch: same
+Description: Builds bzip2 executable
+Status: install ok installed
+
+Package: brotli
+Version: 1.0.9
+Port-Version: 5
+Depends: vcpkg-cmake, vcpkg-cmake-config
+Architecture: x64-windows
+Multi-Arch: same
+Abi: 20ec2173cef0209834dbed580fe30560a1a19fbff1f819e3299698386827208e
+Description: a generic-purpose lossless compression algorithm that compresses data using a combination of a modern variant of the LZ77 algorithm, Huffman coding and 2nd order context modeling.
+Status: install ok installed
+
+Package: freetype
+Version: 2.12.1
+Port-Version: 3
+Depends: vcpkg-cmake, vcpkg-cmake-config
+Architecture: x64-windows
+Multi-Arch: same
+Abi: 50901432b753412fda84fb737dbaaa7010da2aa91464a00d2d305cdc3705857e
+Description: A library to render fonts.
+Default-Features: brotli, bzip2, png, zlib
+Status: install ok installed
+
+Package: freetype
+Feature: brotli
+Depends: brotli
+Architecture: x64-windows
+Multi-Arch: same
+Description: Support decompression of WOFF2 streams
+Status: install ok installed
+
+Package: freetype
+Feature: bzip2
+Depends: bzip2
+Architecture: x64-windows
+Multi-Arch: same
+Description: Support bzip2 compressed fonts.
+Status: install ok installed
+
+Package: freetype
+Feature: png
+Depends: libpng
+Architecture: x64-windows
+Multi-Arch: same
+Description: Support PNG compressed OpenType embedded bitmaps.
+Status: install ok installed
+
+Package: freetype
+Feature: zlib
+Depends: zlib
+Architecture: x64-windows
+Multi-Arch: same
+Description: Use zlib instead of internal library for DEFLATE
+Status: install ok installed
+
+Package: glfw3
+Version: 3.3.8
+Port-Version: 2
+Depends: vcpkg-cmake, vcpkg-cmake-config
+Architecture: x64-windows
+Multi-Arch: same
+Abi: 01b1d9582e8c655e749048c9e2d91881d26b7479ae56c6f8627d1674dfa079dd
+Description: GLFW is a free, Open Source, multi-platform library for OpenGL, OpenGL ES and Vulkan application development. It provides a simple, platform-independent API for creating windows, contexts and surfaces, reading input, handling events, etc.
+Status: install ok installed
+
+Package: glm
+Version: 0.9.9.8
+Port-Version: 2
+Depends: vcpkg-cmake, vcpkg-cmake-config
+Architecture: x64-windows
+Multi-Arch: same
+Abi: 06b8e5ead21dcc3673f4825e041330ce4ab2a8c48ac3c33142c50dc987633320
+Description: OpenGL Mathematics (GLM)
+Status: install ok installed
+
+Package: spirv-headers
+Version: 1.3.231.1
+Port-Version: 1
+Depends: vcpkg-cmake, vcpkg-cmake-config
+Architecture: x64-windows
+Multi-Arch: same
+Abi: 68ee7980246f630a44738d33bf586600a41e902a3e1f8cbed2e4d03380e6f914
+Description: Machine-readable files for the SPIR-V Registry
+Status: install ok installed
+
+Package: spirv-cross
+Version: 2021-01-15
+Port-Version: 2
+Depends: spirv-headers, vcpkg-cmake, vcpkg-cmake-config
+Architecture: x64-windows
+Multi-Arch: same
+Abi: ba499341ff1fdfc2baad9ff768236d2fcaab9797369776a27a426e6d6d55125b
+Description: SPIRV-Cross is a practical tool and library for performing reflection on SPIR-V and disassembling SPIR-V back to high level languages.
+Status: install ok installed
+

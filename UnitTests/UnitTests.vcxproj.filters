@@ -30,12 +30,12 @@
     <ClCompile Include="EcsTests.cpp">
       <Filter>Archivos de origen\ECS</Filter>
     </ClCompile>
-    <ClCompile Include="PersistenceTests.cpp">
-      <Filter>Archivos de origen</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
+    <ClInclude Include="MockLogger.hpp">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
   </ItemGroup>

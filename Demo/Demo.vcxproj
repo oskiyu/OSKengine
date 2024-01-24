@@ -71,15 +71,15 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <IncludePath>..\Dependencies\OSKengine\OpenAL\include;..\Dependencies\OSKengine\json;..\Dependencies\OSKengine\stbi_image;..\Dependencies\OSKengine\tiny_gltf;C:\Users\Oscar\source\repos\OSKengine\Frameworks\OSKengine\Includes\;$(IncludePath)</IncludePath>
+    <IncludePath>..\External\OSKengine\OpenAL\include;..\External\OSKengine\json;..\External\OSKengine\stbi_image;..\External\OSKengine\tiny_gltf;..\Includes\;$(IncludePath)</IncludePath>
     <LibraryPath>$(VULKAN_SDK)\Lib;C:\Users\Oscar\source\repos\OSKengine\Frameworks\OSKengine\Bin\Debug;$(LibraryPath)</LibraryPath>
     <ReferencePath>C:\Users\Oscar\source\repos\OSKengine\Frameworks\OSKengine\Bin\Debug;$(ReferencePath)</ReferencePath>
     <OutDir>$(ProjectDir)</OutDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-    <IncludePath>..\Dependencies\OSKengine\OpenAL\include;..\Dependencies\OSKengine\json;..\Dependencies\OSKengine\stbi_image;..\Dependencies\OSKengine\tiny_gltf;C:\Users\Oscar\source\repos\OSKengine\Frameworks\OSKengine\Includes\;$(IncludePath)</IncludePath>
-    <LibraryPath>$(VULKAN_SDK)\Lib;C:\Users\Oscar\source\repos\OSKengine\Frameworks\OSKengine\Bin\Release;$(LibraryPath)</LibraryPath>
-    <ReferencePath>C:\Users\Oscar\source\repos\OSKengine\Frameworks\OSKengine\Bin\Release;$(ReferencePath)</ReferencePath>
+    <IncludePath>..\External\OSKengine\OpenAL\include;..\External\OSKengine\json;..\External\OSKengine\stbi_image;..\External\OSKengine\tiny_gltf;..\Includes\;$(IncludePath)</IncludePath>
+    <LibraryPath>$(VULKAN_SDK)\Lib;C:\Users\Oscar\source\repos\OSKengine\Bin\Release;$(LibraryPath)</LibraryPath>
+    <ReferencePath>C:\Users\Oscar\source\repos\OSKengine\\Bin\Release;$(ReferencePath)</ReferencePath>
     <OutDir>$(ProjectDir)</OutDir>
   </PropertyGroup>
   <PropertyGroup Label="Vcpkg">
@@ -145,7 +145,7 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>OSKengine2.lib;$(CoreLibraryDependencies);%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>OSKengine.lib;$(CoreLibraryDependencies);%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
