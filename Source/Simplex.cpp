@@ -122,7 +122,7 @@ void Simplex::UpdateTriangle() {
 		m_vertices = { a, c, b };
 		m_direction = -abc.GetNormalized();
 	}
-#elif def OSK_GJKOPTIMIZED
+#elif OSK_GJKOPTIMIZED
 	// Caso línea AB:
 	if (IsSameDirection(normal.Cross(ab), ao)) {
 		m_points.Empty();

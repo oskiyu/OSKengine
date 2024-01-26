@@ -4,11 +4,13 @@
 #include "UniquePtr.hpp"
 #include "IGpuImage.h"
 
+#include "PresentMode.h"
+#include "Format.h"
+
 #include <array>
 
 namespace OSK::GRAPHICS {
 
-	enum class PresentMode;
 
 	class IGpu;
 
@@ -55,10 +57,10 @@ namespace OSK::GRAPHICS {
 		/// 
 		/// @pre El índice está dentro de los límites.
 		GpuImage* GetImage(unsigned int index) {
-			return images[index].GetPointer();
+			return m_images[index].GetPointer();
 		}
 		const GpuImage* GetImage(unsigned int index) const {
-			return images[index].GetPointer();
+			return m_images[index].GetPointer();
 		}
 
 		PresentMode GetCurrentPresentMode() const;
@@ -70,14 +72,14 @@ namespace OSK::GRAPHICS {
 
 	protected:
 
-		PresentMode mode{};
-		Format colorFormat;
+		PresentMode m_presentMode = PresentMode::VSYNC_OFF;
+		Format m_colorFormat = Format::UNKNOWN;
 
-		IGpu* device = nullptr;
-		unsigned int imageCount = 3;
+		IGpu* m_device = nullptr;
+		unsigned int m_imageCount = NUM_RESOURCES_IN_FLIGHT;
 
-		std::array<UniquePtr<GpuImage>, 3> images{};
-		unsigned int currentFrameIndex = 0;
+		std::array<UniquePtr<GpuImage>, NUM_RESOURCES_IN_FLIGHT> m_images{};
+		unsigned int m_currentFrameIndex = 0;
 
 	};
 

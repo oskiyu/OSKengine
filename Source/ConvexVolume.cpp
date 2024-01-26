@@ -103,6 +103,12 @@ ConvexVolume ConvexVolume::CreateObb(const Vector3f& size) {
 	return output;
 }
 
+void ConvexVolume::AddOffset(const Vector3f& offset) {
+	for (auto& v : m_vertices) {
+		v += offset;
+	}
+}
+
 void ConvexVolume::AddFace(const DynamicArray<Vector3f>& points) {
 	OSK_ASSERT(points.GetSize() >= 3,
 		InvalidArgumentException("El parámetro points contiene menos de 3 entradas."));
@@ -315,7 +321,6 @@ void ConvexVolume::MergeFaces() {
 	if (m_faces.IsEmpty())
 		return;
 
-	// return;
 	MergeVertices();
 
 	// ID de las caras que deben eliminarse y que serán
@@ -519,7 +524,6 @@ DetailedCollisionInfo ConvexVolume::GetCollisionInfo(const IBottomLevelCollider&
 		verticesB.Insert(otherVolume.m_transformedVertices[index]);
 
 	// Get most incident face:
-	float incidentDot = std::numeric_limits<float>::max();
 	MinkowskiHull::Volume incident = MinkowskiHull::Volume::A;
 	{
 		const float firstDot = m_axes[firstFaceId].Dot(-mtv);
@@ -760,14 +764,6 @@ RayCastResult ConvexVolume::CastRay(const Ray& ray) const {
 			continue;
 		}
 
-		// Comprobamos que esté por delante del origen.
-		const float pointProjectionToRay = ray.direction.Dot(planeIntersectionResult.GetIntersectionPoint());
-		const float rayOriginProjectionToRay = ray.direction.Dot(ray.origin);
-
-		if (pointProjectionToRay < rayOriginProjectionToRay) {
-			// continue;
-		}
-
 
 		// Comprobamos si está dentro de la cara
 		bool insideFace = true;
@@ -838,7 +834,7 @@ OSK::COLLISION::ConvexVolume PERSISTENCE::DeserializeJson<OSK::COLLISION::Convex
 	ConvexVolume output{};
 
 	for (const auto& vertex : json["m_vertices"]) {
-		const Vector3f nVertex = Vector3f(
+		const auto nVertex = Vector3f(
 			vertex["x"],
 			vertex["y"],
 			vertex["z"]

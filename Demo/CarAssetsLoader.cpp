@@ -19,7 +19,8 @@ void CarAssetsLoader::Load(const std::string& assetFilePath, CarAssets* asset) {
 
 	OSK::OwnedPtr<OSK::COLLISION::ConvexVolume> convexVolume
 		= new OSK::COLLISION::ConvexVolume(
-			OSK::COLLISION::ConvexVolume::CreateObb({ 0.75f * 1.5f, 1.0f, 1.0f * 2.0f }, 0));
+			OSK::COLLISION::ConvexVolume::CreateObb({ 0.75f * 1.5f, 1.0f, 1.0f * 2.0f }));
+	convexVolume->AddOffset(OSK::Vector3f(0.0f, 1.0f, 0.0f));
 
 	collider->SetTopLevelCollider(new OSK::COLLISION::SphereCollider(3.0f));
 	collider->AddBottomLevelCollider(convexVolume.GetPointer());

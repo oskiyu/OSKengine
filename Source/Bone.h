@@ -15,34 +15,38 @@ namespace OSK::GRAPHICS {
 	class Skeleton;
 	struct AnimationSkin;
 
-	/// <summary> Hueso de la animación. </summary>
+
+	/// @brief Hueso de la animación.
 	using Bone = struct MeshNode {
 
-		/// <summary> Actualiza la matriz propia y la de los huesos hijos. </summary>
-		/// <param name="prevMatrix">Matriz del hueso padre.</param>
-		/// <param name="animator">Animator que contiene los huesos hijos.</param>
+		constexpr static UIndex32 EmptyIndex = std::numeric_limits<UIndex32>::max();
+
+		/// @brief Actualiza la matriz propia y la de los huesos hijos.
+		/// @param prevMatrix Matriz del hueso padre.
+		/// @param skeleton Animator que contiene los huesos hijos.
 		void UpdateSkeletonTree(const glm::mat4& prevMatrix, Skeleton* skeleton);
 
-		/// <summary> Nombre nativo. </summary>
+
+		/// @brief Nombre nativo.
 		std::string name;
 
-		/// <summary> Posición actual. </summary>
-		Vector3f position;
-		/// <summary> Orientación actual. </summary>
-		Quaternion rotation;
-		/// <summary> Escala actual. </summary>
-		Vector3f scale = Vector3f(1.0f);
+		/// @brief Posición actual.
+		Vector3f position = Vector3f::Zero;
+		/// @brief Orientación actual.
+		Quaternion rotation{};
+		/// @brief Escala actual.
+		Vector3f scale = Vector3f::One;
 
-		/// <summary> Índice del hueso. </summary>
+		/// @brief Índice del hueso.
 		UIndex32 thisIndex = 0;
-		/// <summary> Índice del nodo padre. </summary>
-		UIndex32 parentIndex = std::numeric_limits<UIndex32>::max();
-		/// <summary> Índices de los nodos hijos. </summary>
+		/// @brief Índice del nodo padre.
+		UIndex32 parentIndex = EmptyIndex;
+		/// @brief Índices de los nodos hijos.
 		DynamicArray<UIndex32> childIndices;
 
-		UIndex32 skinIndex = std::numeric_limits<UIndex32>::max();
+		UIndex32 skinIndex = EmptyIndex;
 
-		/// <summary> Devuelve la matriz de modelo del hueso. </summary>
+		/// @return Matriz de modelo del hueso.
 		inline glm::mat4 GetLocalMatrix() const {
 			return glm::translate(glm::mat4(1.0f), position.ToGlm()) * glm::mat4(rotation.ToGlm()) * glm::scale(glm::mat4(1.0f), scale.ToGlm());
 		}

@@ -8,6 +8,7 @@ namespace OSK::GRAPHICS {
 	/// Formatos que puede tener una textura / imagen.
 	/// </summary>
 	enum class Format {
+		UNKNOWN = 0,
 
 		// COLOR
 		RGBA8_UNORM,
@@ -34,7 +35,6 @@ namespace OSK::GRAPHICS {
 		// DEPTH
 		D32_SFLOAT,
 		D16_UNORM
-
 	};
 
 	/// <summary>

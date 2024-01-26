@@ -17,6 +17,7 @@
 
 #include <OSKengine/AssetManager.h>
 #include <OSKengine/AudioAsset.h>
+#include <OSKengine/AudioSourceAl.h>
 #include "CarAssets.h"
 
 #include "EngineComponent.h"
@@ -73,10 +74,11 @@ OSK::ECS::GameObjectIndex CarSpawner::Spawn(const OSK::Vector3f& position, std::
 	ecse->AddComponent(output, std::move(carControllerComponent));
 	auto& motor = ecse->AddComponent(output, std::move(engineComponent));
 
-	motor.audioSource.Init();
-	motor.audioSource.SetBuffer(sound->GetBuffer());
-	motor.audioSource.SetLooping(true);
-	motor.audioSource.SetGain(0.25f);
+	motor.audioSource = OSK::Engine::GetAudioApi()->CreateNewSource().GetPointer();
+	motor.audioSource->Initialize();
+	motor.audioSource->As<OSK::AUDIO::AudioSourceAl>()->SetBuffer(sound->GetBuffer());
+	motor.audioSource->SetLooping(true);
+	motor.audioSource->SetGain(0.25f);
 	// motor.audioSource.Play();
 
 	auto& transformBackLeft = ecse->GetComponent<OSK::ECS::Transform3D>(carComponent.wheelBackLeft);

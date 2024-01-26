@@ -72,9 +72,9 @@ namespace OSK::ECS {
 
 		const IO::IDisplay* m_display = nullptr;
 
-		glm::mat4 m_projection;
+		glm::mat4 m_projection = glm::mat4(1.0f);
 
-		Vector2f m_targetSize;
+		Vector2f m_targetSize = Vector2f::Zero;
 
 		UniquePtr<GRAPHICS::GpuBuffer> m_uniformBuffer;
 

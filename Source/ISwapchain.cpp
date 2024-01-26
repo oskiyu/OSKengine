@@ -10,7 +10,7 @@ using namespace OSK::GRAPHICS;
 
 
 void ISwapchain::TakeScreenshot() {
-	GpuImage* swapchainImage = images[Engine::GetRenderer()->GetCurrentFrameIndex()].GetPointer();
+	GpuImage* swapchainImage = m_images[Engine::GetRenderer()->GetCurrentFrameIndex()].GetPointer();
 
 	GpuImageCreateInfo intermediateImageInfo = GpuImageCreateInfo::CreateDefault2D(
 		swapchainImage->GetSize2D(),
@@ -37,17 +37,17 @@ void ISwapchain::TakeScreenshot() {
 }
 
 PresentMode ISwapchain::GetCurrentPresentMode() const {
-	return mode;
+	return m_presentMode;
 }
 
 unsigned int ISwapchain::GetImageCount() const {
-	return imageCount;
+	return m_imageCount;
 }
 
 unsigned int ISwapchain::GetCurrentFrameIndex() const {
-	return currentFrameIndex;
+	return m_currentFrameIndex;
 }
 
 Format ISwapchain::GetColorFormat() const {
-	return colorFormat;
+	return m_colorFormat;
 }

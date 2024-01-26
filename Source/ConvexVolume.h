@@ -46,13 +46,19 @@ namespace OSK::COLLISION {
 		ConvexVolume() = default;
 		~ConvexVolume() override = default;
 
+
 		OwnedPtr<IBottomLevelCollider> CreateCopy() const override;
 
-		/// @brief Crea un volúmen convexo que implementa una caja delimitadora.
+		/// @brief Crea un volumen convexo que implementa una caja delimitadora.
 		/// @param size Tamaño de la caja, expresado como radio.
-		/// @param bottomHeight Posición más baja de la caja.
-		/// @return Volúmen convexo en modo de caja.
+		/// @return Volumen convexo en modo de caja.
 		static ConvexVolume CreateObb(const Vector3f& size);
+
+		/// @brief Añade un offset a todos los vértices del volumen.
+		/// @param offset Offset.
+		/// 
+		/// @note No se aplicará a los vértices añadidos después de la llamada.
+		void AddOffset(const Vector3f& offset);
 
 
 		/// @brief Añade una cara al poliedro.

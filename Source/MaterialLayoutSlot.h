@@ -21,12 +21,12 @@ namespace OSK::GRAPHICS {
 		/// <summary>
 		/// Todos los bindings que componene este slot.
 		/// </summary>
-		std::unordered_map<std::string, MaterialLayoutBinding> bindings;
+		std::unordered_map<std::string, MaterialLayoutBinding, StringHasher, std::equal_to<>> bindings;
 
 		/// <summary>
 		/// Índice del descriptor set del shader .glsl (Vulkan/OpenGL) al que se asocia este slot.
 		/// </summary>
-		UIndex32 glslSetIndex;
+		UIndex32 glslSetIndex = 0;
 
 		/// <summary>
 		/// Stage del shader desde el que se accede al slot (VERTEX/FRAGMENT).

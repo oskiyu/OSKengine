@@ -192,16 +192,13 @@ DynamicArray<OwnedPtr<GpuImage>> IGltfLoader::LoadImages(const tinygltf::Model& 
 
 		const USize64 numBytes = originalImage.width * originalImage.height * 4;
 		if (originalImage.component == 3) {
-			TByte* data = new TByte[numBytes];
-
-			OSK_ASSERT(data != NULL, BadAllocException());
-			OSK_ASSUME(data != nullptr);
+			auto dataContainer = DynamicArray<TByte>::CreateReservedArray(numBytes);
+			auto* data = dataContainer.GetData();
 
 			memset(data, 255, numBytes);
 
 			UIndex64 rgbPos = 0;
 			for (UIndex64 i = 0; i < numBytes; i += 4) {
-				OSK_ASSUME(i < numBytes);
 				memcpy(&data[i], originalImage.image.data() + rgbPos, 3);
 				rgbPos += 3;
 			}
@@ -221,8 +218,6 @@ DynamicArray<OwnedPtr<GpuImage>> IGltfLoader::LoadImages(const tinygltf::Model& 
 				image.GetPointer(), 
 				GpuImageLayout::SAMPLED,
 				GpuBarrierInfo(GpuCommandStage::FRAGMENT_SHADER, GpuAccessStage::SHADER_READ));
-
-			delete[] data;
 		}
 		else if (originalImage.component == 4) {
 			uploadCmdList->SetGpuImageBarrier(
@@ -428,12 +423,12 @@ DynamicArray<Vector3f> IGltfLoader::GenerateTangetVectors(const DynamicArray<Vec
 		const GRAPHICS::TIndexSize indexB = indices[i + 1] - indicesStartOffset;
 		const GRAPHICS::TIndexSize indexC = indices[i + 2] - indicesStartOffset;
 
-		const Vector2f tCoords[3] = {
+		const std::array<const Vector2f, 3> tCoords = {
 			texCoords[indexA],
 			texCoords[indexB],
 			texCoords[indexC]
 		};
-		const Vector3f positions[3] = {
+		const std::array<const Vector3f, 3> positions = {
 			_positions[indexA],
 			_positions[indexB],
 			_positions[indexC]
@@ -606,7 +601,7 @@ DynamicArray<Vector4f> IGltfLoader::GetJoints(const tinygltf::Primitive& primiti
 	const void* boneIds = &(model.buffers[view.buffer].data[accessor.byteOffset + view.byteOffset]);
 	const int jointsDataType = accessor.componentType;
 
-	const USize32 numVertices = static_cast<USize32>(accessor.count);
+	const auto numVertices = static_cast<USize32>(accessor.count);
 
 	DynamicArray<Vector4f> output = DynamicArray<Vector4f>::CreateResizedArray(numVertices);
 

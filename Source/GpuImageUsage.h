@@ -11,6 +11,8 @@ namespace OSK::GRAPHICS {
 	/// </summary>
 	enum class GpuImageUsage {
 
+		UNKNOWN = 0,
+
 		/// <summary>
 		/// Se usará como imagen final para el renderizado 3D.
 		/// Almacenará la imagen de color final.

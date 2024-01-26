@@ -33,7 +33,7 @@ namespace OSK {
 
 	/// @brief Factor de crecimiento.
 	/// @see GrowthFactorType
-	constexpr unsigned int DynamicArrayGrowthFactor = 2;
+	constexpr static unsigned int DynamicArrayGrowthFactor = 2;
 
 	/// @brief Comportamiento del array cuando no hay espacio:
 	/// -EXPONENTIAL: se amplia de manera exponencial (Capacity * Factor).
@@ -178,7 +178,7 @@ namespace OSK {
 #pragma region Constructores y destructores.
 
 		/// @brief Crea el dynamic array con espacio inicial para 10 elementos.
-		DynamicArray() : m_count(0u), m_capacity(INITIAL_RESERVE_SIZE)  {
+		DynamicArray() : m_capacity(INITIAL_RESERVE_SIZE)  {
 			m_data = (T*)malloc(sizeof(T) * m_capacity);
 		}
 
@@ -248,7 +248,7 @@ namespace OSK {
 		/// @brief Transfirere el contenido de 'arr' a este array.
 		/// @param arr Otro array.
 		/// @warning Deja a @p arr en un estado inválido.
-		DynamicArray& operator=(DynamicArray&& arr) noexcept {
+		DynamicArray& operator=(DynamicArray&& arr) {
 			if (&arr == this)
 				return *this;
 

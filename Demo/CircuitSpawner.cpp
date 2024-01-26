@@ -48,10 +48,10 @@ OSK::ECS::GameObjectIndex CircuitSpawner::SpawnCircuit() {
 
 	collider.SetCollider(loadedCollider);
 	// collider.GetCollider()->SetTopLevelCollider(new OSK::COLLISION::AxisAlignedBoundingBox({ 5000.0f, 200.0f, 5000.0f }));
-	auto blc = OSK::COLLISION::ConvexVolume::CreateObb({ 2000.0f, 200.0f, 2000.0f }, -200.0f);
-	auto blc_ = blc.CreateCopy();
+	auto blc = OSK::COLLISION::ConvexVolume::CreateObb({ 2000.0f, 200.0f, 2000.0f });
+	blc.AddOffset(OSK::Vector3f(0.0f, -200.0f, 0.0f));
 
-	collider.GetCollider()->AddBottomLevelCollider(blc_);
+	collider.GetCollider()->AddBottomLevelCollider(blc.CreateCopy());
 		
 	auto carModel = OSK::Engine::GetAssetManager()->Load<OSK::ASSETS::Model3D>("Resources/Assets/Models/circuit0.json");
 

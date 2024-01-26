@@ -116,7 +116,7 @@ namespace OSK::GRAPHICS {
 		ComputeRenderTarget resolveRenderTarget{};
 
 		GpuImage* inputImage = nullptr;
-		const IGpuImageView* inputView;
+		const IGpuImageView* inputView = nullptr;
 
 	};
 

@@ -173,8 +173,8 @@ void GdrDeferredRenderSystem::Render(GRAPHICS::ICommandList* commandList) {
 			const auto& positions = model.GetModel()->GetVerticesAttributes().GetVerticesAttributes<VertexPositionAttribute3D>();
 			const auto& attributes = model.GetModel()->GetVerticesAttributes().GetVerticesAttributes<VertexAttributes3D>();
 
-			previousOffsets.positionsOffset += positions.GetSize();
-			previousOffsets.attributesOffset += attributes.GetSize();
+			previousOffsets.positionsOffset += static_cast<USize32>(positions.GetSize());
+			previousOffsets.attributesOffset += static_cast<USize32>(attributes.GetSize());
 
 			for (UIndex64 a = 0; a < positions.GetSize(); a++) {
 				m_vertexPositionsBuffers[resourceIndex]->Write(positions[a]);
@@ -184,7 +184,7 @@ void GdrDeferredRenderSystem::Render(GRAPHICS::ICommandList* commandList) {
 			if (model.GetModel()->GetVerticesAttributes().HasAttribute(VertexAnimationAttributes3D::GetAttribName())) {
 				const auto& animAttribs = model.GetModel()->GetVerticesAttributes().GetVerticesAttributes<VertexAttributes3D>();
 
-				previousOffsets.animationAttributesOffset += animAttribs.GetSize();
+				previousOffsets.animationAttributesOffset += static_cast<USize32>(animAttribs.GetSize());
 
 				for (UIndex64 a = 0; a < animAttribs.GetSize(); a++) {
 					m_vertexAnimAttributesBuffers[resourceIndex]->Write(animAttribs[a]);

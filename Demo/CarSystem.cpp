@@ -75,7 +75,7 @@ void CarSystem::OnTick(TDeltaTime deltaTime) {
 				physicsComponent.ApplyForce(transform.GetForwardVector() * torque / 550.0f);
 			}
 
-			motor.audioSource.SetPitch(motor.currentRpm / motor.minRpm);
+			motor.audioSource->SetPitch(motor.currentRpm / motor.minRpm);
 		}
 
 		// Fuerzas laterales

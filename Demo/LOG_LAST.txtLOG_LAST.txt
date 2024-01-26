@@ -1,6 +1,6 @@
 INFO: Iniciando OSKengine.
 INFO: 	Version: 0.0.0
-INFO: 	Build 2023.12.14a.
+INFO: 	Build 2024.01.26a.
 INFO: Versión de vulkan: 1.3.255
 INFO: GPU elegida: NVIDIA GeForce RTX 2060
 INFO: Creado el swapchain.
@@ -13,7 +13,7 @@ INFO: New object: 6
 INFO: New object: 7
 INFO: New object: 8
 INFO: New object: 9
-INFO: VRAM: 1177 Mb
+INFO: VRAM: 1178 Mb
 INFO: Destroyed object: 9
 INFO: Destroyed object: 4
 INFO: New object: 10

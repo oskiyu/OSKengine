@@ -1,7 +1,7 @@
 #pragma once
 
 #include <OSKengine/Component.h>
-#include <OSKengine/AudioSource.h>
+#include <OSKengine/IAudioSource.h>
 
 #include <array>
 
@@ -41,6 +41,6 @@ struct EngineComponent {
 	float maxRpm = 4200.0f;
 	float changePoint = 2000.0f;
 
-	OSK::AUDIO::Source audioSource;
+	OSK::UniquePtr<OSK::AUDIO::IAudioSource> audioSource;
 
 };

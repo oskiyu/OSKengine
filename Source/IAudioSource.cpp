@@ -10,14 +10,17 @@ void IAudioSource::Initialize() {
 
 void IAudioSource::SetPitch(float pitch) {
 	m_pitch = pitch;
+	SetPitch_Implementation(pitch);
 }
 
 void IAudioSource::SetGain(float gain) {
 	m_gain = gain;
+	SetGain_Implementation(gain);
 }
 
 void IAudioSource::SetLooping(bool looping) {
 	m_loop = looping;
+	SetLooping_Implementation(looping);
 }
 
 void IAudioSource::Play() {

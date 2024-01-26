@@ -58,9 +58,9 @@ void PreBuiltColliderLoader::Load(const std::string& assetFilePath, PreBuiltColl
 
 	// Top-level collider:
 	Vector3f center = Vector3f::Zero;
-	USize64 count = 0;
+	USize32 count = 0;
 
-	for (UIndex64 i = 0; i < m_buildingCollider->GetBottomLevelCollidersCount(); i++) {
+	for (UIndex32 i = 0; i < m_buildingCollider->GetBottomLevelCollidersCount(); i++) {
 		const auto& blc = m_buildingCollider->GetBottomLevelCollider(i);
 
 		for (const auto& vertex : blc->As<ConvexVolume>()->GetLocalSpaceVertices()) {
@@ -96,8 +96,9 @@ void PreBuiltColliderLoader::ProcessNode(const tinygltf::Model& model, const tin
 	const glm::mat4 nodeMatrix = m_modelTransform * GetNodeMatrix(node);
 
 	if (node.mesh <= -1) {
-		for (UIndex32 i = 0; i < node.children.size(); i++)
-			ProcessNode(model, model.nodes[node.children[i]], node.children[i], parentId);
+		for (const auto& child : node.children) {
+			ProcessNode(model, model.nodes[child], child, parentId);
+		}
 
 		return;
 	}
@@ -131,6 +132,7 @@ void PreBuiltColliderLoader::ProcessNode(const tinygltf::Model& model, const tin
 		m_buildingCollider->AddBottomLevelCollider(volume.GetPointer());
 	}
 
-	for (UIndex32 i = 0; i < node.children.size(); i++)
-		ProcessNode(model, model.nodes[node.children[i]], node.children[i], parentId);
+	for (const auto& child : node.children) {
+		ProcessNode(model, model.nodes[child], child, parentId);
+	}
 }

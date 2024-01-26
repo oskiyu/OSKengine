@@ -640,7 +640,7 @@ void Game::ToGame(std::string_view carAssetsPath) {
 	OSK::Engine::GetInput()->QueryInterface(OSK::IUUID::IMouseInput, (void**)&mouse);
 	mouse->SetReturnMode(OSK::IO::MouseReturnMode::ALWAYS_RETURN);
 
-	OSK::Engine::GetEcs()->GetComponent<EngineComponent>(firstCar).audioSource.Play();
+	OSK::Engine::GetEcs()->GetComponent<EngineComponent>(firstCar).audioSource->Play();
 
 	OSK::Engine::GetLogger()->InfoLog(std::format("VRAM: {} Mb", OSK::Engine::GetRenderer()->GetAllocator()->GetMemoryUsageInfo().gpuOnlyMemoryInfo.usedSpace / 1000000));
 }

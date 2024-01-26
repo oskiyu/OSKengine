@@ -1406,7 +1406,7 @@ fix culling static meshes
 - **Bugfix**: añadir caras a un `ConvexVolume` se refleja instantaneamente al llamar a `GetVertices()` y `GetAxes()`.
  
 
-## WIP
+## 2024.01.24a
 
 ### Graphics
 
@@ -1486,3 +1486,26 @@ fix culling static meshes
     - `PhysicsComponent`
     - `glm::mat3`
     - `glm::mat4`
+
+    
+## 2024.01.26a
+
+### Graphics
+
+- `Format`
+    - ***Nuevo***: `UNKNOWN`
+
+- `GpuImageUsage`
+    - ***Nuevo***: `UNKNOWN`
+
+### Collision
+
+- `ConvexVolume`
+    - ***Nuevo***: `AddOffset`
+        - Permite añadir un offset a todos los vértices del volumen en la fase de construcción.
+
+#### Bugfixes
+
+- **Bugfix**: `IAudioSource::SetPitch` ahora funciona correctamente para el backend de `OpenAL`.
+- **Bugfix**: `IAudioSource::SetGain` ahora funciona correctamente para el backend de `OpenAL`.
+- **Bugfix**: `IAudioSource::SetLooping` ahora funciona correctamente para el backend de `OpenAL`.

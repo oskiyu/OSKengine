@@ -97,7 +97,7 @@ RayCastResult CollisionSystem::CastRay(const Ray& ray, GameObjectIndex sendingOb
 			// continue;
 		}
 
-		for (UIndex64 blc_i = 0; blc_i < collider.GetBottomLevelCollidersCount(); blc_i++) {
+		for (UIndex32 blc_i = 0; blc_i < collider.GetBottomLevelCollidersCount(); blc_i++) {
 			const auto& blc = collider.GetBottomLevelCollider(blc_i);
 			const auto result = blc->CastRay(ray);
 

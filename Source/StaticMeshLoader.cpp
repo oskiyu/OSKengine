@@ -121,8 +121,9 @@ void StaticMeshLoader::ProcessNode(const tinygltf::Model& model, const tinygltf:
 		m_meshes.Insert(mesh);
 	}
 
-	for (UIndex32 i = 0; i < node.children.size(); i++)
-		ProcessNode(model, model.nodes[node.children[i]], node.children[i], parentId);
+	for (const auto& child : node.children) {
+		ProcessNode(model, model.nodes[child], child, parentId);
+	}
 }
 
 void StaticMeshLoader::SetupModel(Model3D* model) {

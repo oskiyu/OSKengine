@@ -66,7 +66,7 @@ void GpuImageVk::CreateVkImage() {
 		if (queueIndices[0] == queueIndices[1])
 			usesMultipleQueues = false;
 	}
-	else if (GetUsage() == GpuImageUsage::COMPUTE) {
+	else if (EFTraits::HasFlag(GetUsage(), GpuImageUsage::COMPUTE)) {
 		queueIndices.Insert(Engine::GetRenderer()->GetComputeCommandQueue()->As<CommandQueueVk>()->GetQueueIndex());
 	}
 	else {

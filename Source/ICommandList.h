@@ -115,7 +115,7 @@ namespace OSK::GRAPHICS {
 
 	public:
 
-		virtual ~ICommandList();
+		~ICommandList() override;
 
 		OSK_DEFINE_AS(ICommandList);
 
@@ -617,10 +617,10 @@ namespace OSK::GRAPHICS {
 		/// Pipeline que está siendo grabada en un instante determinado.
 		/// </summary>
 		union {
-			const IGraphicsPipeline* graphics;
+			const IGraphicsPipeline* graphics = nullptr;
 			const IRaytracingPipeline* raytracing;
 			const IComputePipeline* compute;
-		} currentPipeline;
+		} currentPipeline{};
 
 		/// <summary>
 		/// Material que está siendo usado en un instante determinado.

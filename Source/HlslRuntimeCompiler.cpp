@@ -33,7 +33,7 @@ ComPtr<IDxcBlob> HlslRuntimeCompiler::CompileFromFile(const std::string& path, c
 	OSK_ASSERT(SUCCEEDED(result), ShaderCompilingException(path));
 
 	// Región del shader compilado
-	DxcBuffer sourceBuffer;
+	DxcBuffer sourceBuffer{};
 	sourceBuffer.Ptr = sourceBlob->GetBufferPointer();
 	sourceBuffer.Size = sourceBlob->GetBufferSize();
 	sourceBuffer.Encoding = DXC_CP_ACP;

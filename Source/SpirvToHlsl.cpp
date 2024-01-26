@@ -71,8 +71,8 @@ void SpirvToHlsl::SetLayoutMapping(const MaterialLayout& layout) {
 
 void SpirvToHlsl::SetHlslTargetProfile(USize64 mayor, USize64 minor) {
 	auto options = compilerToHlsl.get_hlsl_options();
-	options.shader_model = mayor * 10 + minor;
-	compilerToHlsl.set_hlsl_options(options);
+	options.shader_model = static_cast<uint32_t>(mayor * 10 + minor);
+	compilerToHlsl.get_hlsl_options();
 }
 
 std::string SpirvToHlsl::CreateHlsl() {

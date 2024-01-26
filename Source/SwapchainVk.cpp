@@ -38,7 +38,7 @@ SwapchainVk::~SwapchainVk() {
 
 	vkDestroySwapchainKHR(device, m_swapchain, nullptr);
 
-	for (auto& i : images) {
+	for (auto& i : m_images) {
 		GpuImageVk* image = i->As<GpuImageVk>();
 
 		vkDestroyImageView(device, image->GetSwapchainView(), nullptr);
@@ -49,9 +49,9 @@ SwapchainVk::~SwapchainVk() {
 void SwapchainVk::Create(PresentMode mode, Format format, const GpuVk& device, const IO::IDisplay& display) {
 	m_display = &display;
 	m_device = &device;
-	this->colorFormat = format;
+	this->m_colorFormat = format;
 
-	this->mode = mode;
+	this->m_presentMode = mode;
 
 	auto& info = device.GetInfo();
 	
@@ -69,16 +69,16 @@ void SwapchainVk::Create(PresentMode mode, Format format, const GpuVk& device, c
 	extent.height = display.GetResolution().y;
 
 	//Número de imágenes en el swapchain.
-	imageCount = info.swapchainSupportDetails.surfaceCapabilities.minImageCount + 1;
+	m_imageCount = info.swapchainSupportDetails.surfaceCapabilities.minImageCount + 1;
 	//Asegurarnos de que no hay más de las soportadas.
-	if (info.swapchainSupportDetails.surfaceCapabilities.maxImageCount > 0 && imageCount > info.swapchainSupportDetails.surfaceCapabilities.maxImageCount)
-		imageCount = info.swapchainSupportDetails.surfaceCapabilities.maxImageCount;
+	if (info.swapchainSupportDetails.surfaceCapabilities.maxImageCount > 0 && m_imageCount > info.swapchainSupportDetails.surfaceCapabilities.maxImageCount)
+		m_imageCount = info.swapchainSupportDetails.surfaceCapabilities.maxImageCount;
 
 	//Create info.
 	VkSwapchainCreateInfoKHR createInfo{};
 	createInfo.sType = VK_STRUCTURE_TYPE_SWAPCHAIN_CREATE_INFO_KHR;
 	createInfo.surface = device.GetSurface();
-	createInfo.minImageCount = imageCount;
+	createInfo.minImageCount = m_imageCount;
 	createInfo.imageFormat = surfaceFormat.format;
 	createInfo.imageColorSpace = surfaceFormat.colorSpace;
 	createInfo.imageExtent = extent;
@@ -111,34 +111,34 @@ void SwapchainVk::Create(PresentMode mode, Format format, const GpuVk& device, c
 	VkResult result = vkCreateSwapchainKHR(device.GetLogicalDevice(), &createInfo, nullptr, &m_swapchain);
 	OSK_ASSERT(result == VK_SUCCESS, SwapchainCreationException("No se ha podido crear el swapchain", result));
 
-	for (UIndex32 i = 0; i < imageCount; i++)
-		images[i] = new GpuImageVk({ extent.width, extent.height, 1 }, GpuImageDimension::d2D, GpuImageUsage::COLOR, 1, format, 1, {});
+	for (UIndex32 i = 0; i < m_imageCount; i++)
+		m_images[i] = new GpuImageVk({ extent.width, extent.height, 1 }, GpuImageDimension::d2D, GpuImageUsage::COLOR, 1, format, 1, {});
 
 	AcquireImages(extent.width, extent.height);
 	AcquireViews();
 }
 
 void SwapchainVk::AcquireImages(unsigned int sizeX, unsigned int sizeY) {
-	VkResult result = vkGetSwapchainImagesKHR(m_device->GetLogicalDevice(), m_swapchain, &imageCount, nullptr);
+	VkResult result = vkGetSwapchainImagesKHR(m_device->GetLogicalDevice(), m_swapchain, &m_imageCount, nullptr);
 	OSK_ASSERT(result == VK_SUCCESS, SwapchainCreationException("Error al adquirir imagenes del swapchain", result));
 
-	auto tempImages = DynamicArray<VkImage>::CreateResizedArray(imageCount);
-	vkGetSwapchainImagesKHR(m_device->GetLogicalDevice(), m_swapchain, &imageCount, tempImages.GetData());
+	auto tempImages = DynamicArray<VkImage>::CreateResizedArray(m_imageCount);
+	vkGetSwapchainImagesKHR(m_device->GetLogicalDevice(), m_swapchain, &m_imageCount, tempImages.GetData());
 	OSK_ASSERT(result == VK_SUCCESS, SwapchainCreationException("Error al adquirir imagenes del swapchain", result));
 
-	for (UIndex32 i = 0; i < imageCount; i++)
-		images[i]->As<GpuImageVk>()->_SetVkImage(tempImages[i]);
+	for (UIndex32 i = 0; i < m_imageCount; i++)
+		m_images[i]->As<GpuImageVk>()->_SetVkImage(tempImages[i]);
 }
 
 void SwapchainVk::AcquireViews() {
-	auto tempViews = new VkImageView[imageCount];
+	auto tempViews = new VkImageView[m_imageCount];
 
-	for (UIndex32 i = 0; i < imageCount; i++) {
+	for (UIndex32 i = 0; i < m_imageCount; i++) {
 		VkImageViewCreateInfo createInfo{};
 		createInfo.sType = VK_STRUCTURE_TYPE_IMAGE_VIEW_CREATE_INFO;
-		createInfo.image = images[i]->As<GpuImageVk>()->GetVkImage();
+		createInfo.image = m_images[i]->As<GpuImageVk>()->GetVkImage();
 		createInfo.viewType = VK_IMAGE_VIEW_TYPE_2D;
-		createInfo.format = GetFormatVk(colorFormat);
+		createInfo.format = GetFormatVk(m_colorFormat);
 		createInfo.components.r = VK_COMPONENT_SWIZZLE_IDENTITY;
 		createInfo.components.g = VK_COMPONENT_SWIZZLE_IDENTITY;
 		createInfo.components.b = VK_COMPONENT_SWIZZLE_IDENTITY;
@@ -152,9 +152,9 @@ void SwapchainVk::AcquireViews() {
 		VkResult result = vkCreateImageView(m_device->GetLogicalDevice(), &createInfo, nullptr, &tempViews[i]);
 		OSK_ASSERT(result == VK_SUCCESS, SwapchainCreationException("Error al crear view de imagen del swapchain", result));
 
-		if (images[i]->As<GpuImageVk>()->GetSwapchainView() != VK_NULL_HANDLE)
-			vkDestroyImageView(Engine::GetRenderer()->GetGpu()->As<GpuVk>()->GetLogicalDevice(), images[i]->As<GpuImageVk>()->GetSwapchainView(), 0);
-		images[i]->As<GpuImageVk>()->SetSwapchainView(tempViews[i]);
+		if (m_images[i]->As<GpuImageVk>()->GetSwapchainView() != VK_NULL_HANDLE)
+			vkDestroyImageView(Engine::GetRenderer()->GetGpu()->As<GpuVk>()->GetLogicalDevice(), m_images[i]->As<GpuImageVk>()->GetSwapchainView(), 0);
+		m_images[i]->As<GpuImageVk>()->SetSwapchainView(tempViews[i]);
 	}
 
 	delete[] tempViews;
@@ -165,7 +165,7 @@ VkSwapchainKHR SwapchainVk::GetSwapchain() const {
 }
 
 void SwapchainVk::Resize() {
-	for (auto& i : images) {
+	for (auto& i : m_images) {
 		i->As<GpuImageVk>()->_SetVkImage(VK_NULL_HANDLE);
 	}
 
@@ -173,7 +173,7 @@ void SwapchainVk::Resize() {
 		Engine::GetRenderer()->As<RendererVk>()->GetGpu()->As<GpuVk>()->GetLogicalDevice(),
 		m_swapchain, nullptr);
 
-	Create(mode, colorFormat, *m_device, *m_display);
+	Create(m_presentMode, m_colorFormat, *m_device, *m_display);
 }
 
 VkColorSpaceKHR SwapchainVk::GetSupportedColorSpace(const GpuVk& device) {
@@ -185,7 +185,7 @@ VkColorSpaceKHR SwapchainVk::GetSupportedColorSpace(const GpuVk& device) {
 }
 
 void SwapchainVk::SetPresentMode(PresentMode mode) {
-	this->mode = mode;
+	this->m_presentMode = mode;
 	// Recreación.
 	Resize();
 }
