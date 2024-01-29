@@ -19,6 +19,7 @@
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="doxygen-awesome.css" rel="stylesheet" type="text/css"/>
 </head>
 <body>
 <div id="top"><!-- do not remove this div, it is closed by doxygen! -->
@@ -111,9 +112,9 @@ $(function(){initNavTree('_window_8h_source.html',''); initResizable(); });
 <div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="preprocessor">#include &quot;<a class="code" href="_i_display_8h.html">IDisplay.h</a>&quot;</span></div>
 <div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="preprocessor">#include &quot;<a class="code" href="_i_fullscreenable_display_8h.html">IFullscreenableDisplay.h</a>&quot;</span></div>
 <div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span> </div>
-<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="keyword">struct </span><a class="code hl_typedef" href="group__window.html#ga3c96d80d363e67d13a41b5d1821f3242">GLFWwindow</a>;</div>
-<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="keyword">struct </span><a class="code hl_typedef" href="group__monitor.html#ga8d9efd1cde9426692c73fe40437d0ae3">GLFWmonitor</a>;</div>
-<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span><span class="keyword">struct </span><a class="code hl_struct" href="struct_g_l_f_wvidmode.html">GLFWvidmode</a>;</div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="keyword">struct </span>GLFWwindow;</div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="keyword">struct </span>GLFWmonitor;</div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span><span class="keyword">struct </span>GLFWvidmode;</div>
 <div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span> </div>
 <div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span><span class="keyword">namespace </span><a class="code hl_namespace" href="namespace_o_s_k_1_1_i_o.html">OSK::IO</a> {</div>
 <div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span> </div>
@@ -143,16 +144,16 @@ $(function(){initNavTree('_window_8h_source.html',''); initResizable(); });
 <div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span> </div>
 <div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span> </div>
 <div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span> </div>
-<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>        <a class="code hl_typedef" href="group__window.html#ga3c96d80d363e67d13a41b5d1821f3242">GLFWwindow</a>* _GetGlfw() <span class="keyword">const</span>;</div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>        GLFWwindow* _GetGlfw() <span class="keyword">const</span>;</div>
 <div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span> </div>
 <div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span> </div>
 <div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>        <span class="keyword">static</span> <span class="keywordtype">void</span> ShowMessageBox(std::string_view message);</div>
 <div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span> </div>
 <div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>    <span class="keyword">private</span>:</div>
 <div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span> </div>
-<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>        <span class="keyword">static</span> <a class="code hl_class" href="class_o_s_k_1_1_i_o_1_1_window.html">Window</a>* GetWindowForCallback(<a class="code hl_typedef" href="group__window.html#ga3c96d80d363e67d13a41b5d1821f3242">GLFWwindow</a>* window);</div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>        <span class="keyword">static</span> <a class="code hl_class" href="class_o_s_k_1_1_i_o_1_1_window.html">Window</a>* GetWindowForCallback(GLFWwindow* window);</div>
 <div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span> </div>
-<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>        <span class="keyword">static</span> <span class="keywordtype">void</span> GlfwResizeCallback(<a class="code hl_typedef" href="group__window.html#ga3c96d80d363e67d13a41b5d1821f3242">GLFWwindow</a>* window, <span class="keywordtype">int</span> sizex, <span class="keywordtype">int</span> sizey);</div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>        <span class="keyword">static</span> <span class="keywordtype">void</span> GlfwResizeCallback(GLFWwindow* window, <span class="keywordtype">int</span> sizex, <span class="keywordtype">int</span> sizey);</div>
 <div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span> </div>
 <div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>        <span class="keywordtype">void</span> ResizeCallback(<span class="keywordtype">int</span> sizex, <span class="keywordtype">int</span> sizey);</div>
 <div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span> </div>
@@ -161,7 +162,7 @@ $(function(){initNavTree('_window_8h_source.html',''); initResizable(); });
 <div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span> </div>
 <div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span>        <a class="code hl_class" href="class_o_s_k_1_1_owned_ptr.html">OwnedPtr&lt;GLFWwindow&gt;</a> window = <span class="keyword">nullptr</span>;</div>
 <div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span>        <a class="code hl_class" href="class_o_s_k_1_1_owned_ptr.html">OwnedPtr&lt;GLFWmonitor&gt;</a> monitor = <span class="keyword">nullptr</span>; <span class="comment">// Para pantalla completa.</span></div>
-<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span>        <span class="keyword">const</span> <a class="code hl_struct" href="struct_g_l_f_wvidmode.html">GLFWvidmode</a>* monitorInfo = <span class="keyword">nullptr</span>;</div>
+<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span>        <span class="keyword">const</span> GLFWvidmode* monitorInfo = <span class="keyword">nullptr</span>;</div>
 <div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span> </div>
 <div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span>    };</div>
 </div>
@@ -179,17 +180,14 @@ $(function(){initNavTree('_window_8h_source.html',''); initResizable(); });
 <div class="ttc" id="aclass_o_s_k_1_1_i_o_1_1_window_html"><div class="ttname"><a href="class_o_s_k_1_1_i_o_1_1_window.html">OSK::IO::Window</a></div><div class="ttdoc">Clase que representa una ventana. En esta ventana se renderizará el juego. También se encarga del inp...</div><div class="ttdef"><b>Definition</b> <a href="#l00024">Window.h:24</a></div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_owned_ptr_html"><div class="ttname"><a href="class_o_s_k_1_1_owned_ptr.html">OSK::OwnedPtr</a></div><div class="ttdoc">Es dueño de un puntero.</div><div class="ttdef"><b>Definition</b> <a href="_owned_ptr_8h_source.html#l00016">OwnedPtr.h:16</a></div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_vector2__t_html"><div class="ttname"><a href="class_o_s_k_1_1_vector2__t.html">OSK::Vector2_t&lt; uint32_t &gt;</a></div></div>
-<div class="ttc" id="agroup__monitor_html_ga8d9efd1cde9426692c73fe40437d0ae3"><div class="ttname"><a href="group__monitor.html#ga8d9efd1cde9426692c73fe40437d0ae3">GLFWmonitor</a></div><div class="ttdeci">struct GLFWmonitor GLFWmonitor</div><div class="ttdoc">Opaque monitor object.</div><div class="ttdef"><b>Definition</b> <a href="x64-windows-static_2x64-windows-static_2include_2_g_l_f_w_2glfw3_8h_source.html#l01173">glfw3.h:1173</a></div></div>
-<div class="ttc" id="agroup__window_html_ga3c96d80d363e67d13a41b5d1821f3242"><div class="ttname"><a href="group__window.html#ga3c96d80d363e67d13a41b5d1821f3242">GLFWwindow</a></div><div class="ttdeci">struct GLFWwindow GLFWwindow</div><div class="ttdoc">Opaque window object.</div><div class="ttdef"><b>Definition</b> <a href="x64-windows-static_2x64-windows-static_2include_2_g_l_f_w_2glfw3_8h_source.html#l01185">glfw3.h:1185</a></div></div>
 <div class="ttc" id="anamespace_o_s_k_1_1_i_o_html"><div class="ttname"><a href="namespace_o_s_k_1_1_i_o.html">OSK::IO</a></div><div class="ttdef"><b>Definition</b> <a href="_camera_component2_d_8h_source.html#l00013">CameraComponent2D.h:13</a></div></div>
-<div class="ttc" id="astruct_g_l_f_wvidmode_html"><div class="ttname"><a href="struct_g_l_f_wvidmode.html">GLFWvidmode</a></div><div class="ttdoc">Video mode type.</div><div class="ttdef"><b>Definition</b> <a href="x64-windows-static_2x64-windows-static_2include_2_g_l_f_w_2glfw3_8h_source.html#l01657">glfw3.h:1658</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_74389ed8173ad57b461b9d623a1f3867.html">Source</a></li><li class="navelem"><a class="el" href="_window_8h.html">Window.h</a></li>
-    <li class="footer">Generado el Lunes, 29 de enero de 2024 17:18:39 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.10.0 </li>
+    <li class="footer">Generado el Lunes, 29 de enero de 2024 17:23:00 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.10.0 </li>
   </ul>
 </div>
 </body>

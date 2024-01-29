@@ -19,6 +19,7 @@
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="doxygen-awesome.css" rel="stylesheet" type="text/css"/>
 </head>
 <body>
 <div id="top"><!-- do not remove this div, it is closed by doxygen! -->
@@ -106,7 +107,7 @@ $(function(){initNavTree('_ray_cast_result_8cpp_source.html',''); initResizable(
 <div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="keyword">using namespace </span><a class="code hl_namespace" href="namespace_o_s_k_1_1_e_c_s.html">OSK::ECS</a>;</div>
 <div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="keyword">using namespace </span><a class="code hl_namespace" href="namespace_o_s_k_1_1_c_o_l_l_i_s_i_o_n.html">OSK::COLLISION</a>;</div>
 <div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span> </div>
-<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span>RayCastResult::RayCastResult(<span class="keywordtype">bool</span> intersection, <span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_vector3__t.html">Vector3f</a>&amp; point, <a class="code hl_typedef" href="namespace_o_s_k_1_1_e_c_s.html#a7be561d6b7de4e8a49c2a5cc35fba48c">GameObjectIndex</a> <span class="keywordtype">object</span>)</div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span>RayCastResult::RayCastResult(<span class="keywordtype">bool</span> intersection, <span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_vector3__t.html">Vector3f</a>&amp; point, <a class="code hl_class" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">GameObjectIndex</a> <span class="keywordtype">object</span>)</div>
 <div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span>    : m_intersectionPoint(point), m_intersection(intersection), m_object(object) { </div>
 <div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span>    </div>
 <div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span>}</div>
@@ -136,11 +137,12 @@ $(function(){initNavTree('_ray_cast_result_8cpp_source.html',''); initResizable(
 </div>
 <div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span> </div>
 <div class="foldopen" id="foldopen00028" data-start="{" data-end="}">
-<div class="line"><a id="l00028" name="l00028"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_ray_cast_result.html#a52125b83816e2937039230ec2dfa1e9d">   28</a></span><a class="code hl_typedef" href="namespace_o_s_k_1_1_e_c_s.html#a7be561d6b7de4e8a49c2a5cc35fba48c">ECS::GameObjectIndex</a> <a class="code hl_function" href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_ray_cast_result.html#a52125b83816e2937039230ec2dfa1e9d">RayCastResult::GetObject</a>()<span class="keyword"> const </span>{</div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_ray_cast_result.html#a52125b83816e2937039230ec2dfa1e9d">   28</a></span><a class="code hl_class" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">ECS::GameObjectIndex</a> <a class="code hl_function" href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_ray_cast_result.html#a52125b83816e2937039230ec2dfa1e9d">RayCastResult::GetObject</a>()<span class="keyword"> const </span>{</div>
 <div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>    <span class="keywordflow">return</span> m_object;</div>
 <div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>}</div>
 </div>
 <div class="ttc" id="a_ray_cast_result_8h_html"><div class="ttname"><a href="_ray_cast_result_8h.html">RayCastResult.h</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref_html"><div class="ttname"><a href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">OSK::ASSETS::AssetRef</a></div><div class="ttdoc">Referencia a un asset.</div><div class="ttdef"><b>Definition</b> <a href="_asset_ref_8h_source.html#l00012">AssetRef.h:12</a></div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_ray_cast_result_html"><div class="ttname"><a href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_ray_cast_result.html">OSK::COLLISION::RayCastResult</a></div><div class="ttdoc">Representa el resultado de trazar un rayo en la escena. El resultado puede ser positivo en caso de qu...</div><div class="ttdef"><b>Definition</b> <a href="_ray_cast_result_8h_source.html#l00014">RayCastResult.h:14</a></div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_ray_cast_result_html_a19066a70c7a0cd8885436b110c896aa2"><div class="ttname"><a href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_ray_cast_result.html#a19066a70c7a0cd8885436b110c896aa2">OSK::COLLISION::RayCastResult::GetIntersectionPoint</a></div><div class="ttdeci">const Vector3f &amp; GetIntersectionPoint() const</div><div class="ttdoc">Devuelve el punto de intersección más cercano al origen.</div><div class="ttdef"><b>Definition</b> <a href="#l00024">RayCastResult.cpp:24</a></div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_ray_cast_result_html_a52125b83816e2937039230ec2dfa1e9d"><div class="ttname"><a href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_ray_cast_result.html#a52125b83816e2937039230ec2dfa1e9d">OSK::COLLISION::RayCastResult::GetObject</a></div><div class="ttdeci">ECS::GameObjectIndex GetObject() const</div><div class="ttdef"><b>Definition</b> <a href="#l00028">RayCastResult.cpp:28</a></div></div>
@@ -160,7 +162,7 @@ $(function(){initNavTree('_ray_cast_result_8cpp_source.html',''); initResizable(
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_74389ed8173ad57b461b9d623a1f3867.html">Source</a></li><li class="navelem"><a class="el" href="_ray_cast_result_8cpp.html">RayCastResult.cpp</a></li>
-    <li class="footer">Generado el Lunes, 29 de enero de 2024 17:18:32 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.10.0 </li>
+    <li class="footer">Generado el Lunes, 29 de enero de 2024 17:22:59 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.10.0 </li>
   </ul>
 </div>
 </body>

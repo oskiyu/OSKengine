@@ -19,6 +19,7 @@
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="doxygen-awesome.css" rel="stylesheet" type="text/css"/>
 </head>
 <body>
 <div id="top"><!-- do not remove this div, it is closed by doxygen! -->
@@ -108,13 +109,13 @@ $(function(){initNavTree('_audio_exceptions_8h_source.html',''); initResizable()
 <div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span> </div>
 <div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="keyword">namespace </span><a class="code hl_namespace" href="namespace_o_s_k.html">OSK</a> {</div>
 <div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span> </div>
-<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span>    <span class="keyword">static</span> std::string GetErrorDesc(<a class="code hl_typedef" href="x64-windows-static_2x64-windows-static_2include_2_a_l_2alc_8h.html#a6535508b0b689f249c8e99053d584a0f">ALCenum</a> error) {</div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span>    <span class="keyword">static</span> std::string GetErrorDesc(ALCenum error) {</div>
 <div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span>        <span class="keywordflow">switch</span> (error) {</div>
-<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span>            <span class="keywordflow">case</span> <a class="code hl_define" href="x64-windows-static_2x64-windows-static_2include_2_a_l_2al_8h.html#a55849da05eeaa784af7a8b0969b6cab8">AL_INVALID_NAME</a>: <span class="keywordflow">return</span> <span class="stringliteral">&quot;AL_INVALID_NAME&quot;</span>;</div>
-<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span>            <span class="keywordflow">case</span> <a class="code hl_define" href="x64-windows-static_2x64-windows-static_2include_2_a_l_2al_8h.html#a21300e61cbf3be5a0ecc9074f3d4bad4">AL_INVALID_ENUM</a>: <span class="keywordflow">return</span> <span class="stringliteral">&quot;AL_INVALID_ENUM&quot;</span>;</div>
-<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span>            <span class="keywordflow">case</span> <a class="code hl_define" href="x64-windows-static_2x64-windows-static_2include_2_a_l_2al_8h.html#aa1ea42676fab546f02aaea2c1807b3dc">AL_INVALID_VALUE</a>: <span class="keywordflow">return</span> <span class="stringliteral">&quot;AL_INVALID_VALUE&quot;</span>;</div>
-<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span>            <span class="keywordflow">case</span> <a class="code hl_define" href="x64-windows-static_2x64-windows-static_2include_2_a_l_2al_8h.html#a5090b1863bca4b5f02d0cb17e8fff62e">AL_INVALID_OPERATION</a>: <span class="keywordflow">return</span> <span class="stringliteral">&quot;AL_INVALID_OPERATION&quot;</span>;</div>
-<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span>            <span class="keywordflow">case</span> <a class="code hl_define" href="x64-windows-static_2x64-windows-static_2include_2_a_l_2al_8h.html#a59aa3266899552df3b6a2c27afc32838">AL_OUT_OF_MEMORY</a>: <span class="keywordflow">return</span> <span class="stringliteral">&quot;AL_OUT_OF_MEMORY&quot;</span>;</div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span>            <span class="keywordflow">case</span> AL_INVALID_NAME: <span class="keywordflow">return</span> <span class="stringliteral">&quot;AL_INVALID_NAME&quot;</span>;</div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span>            <span class="keywordflow">case</span> AL_INVALID_ENUM: <span class="keywordflow">return</span> <span class="stringliteral">&quot;AL_INVALID_ENUM&quot;</span>;</div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span>            <span class="keywordflow">case</span> AL_INVALID_VALUE: <span class="keywordflow">return</span> <span class="stringliteral">&quot;AL_INVALID_VALUE&quot;</span>;</div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span>            <span class="keywordflow">case</span> AL_INVALID_OPERATION: <span class="keywordflow">return</span> <span class="stringliteral">&quot;AL_INVALID_OPERATION&quot;</span>;</div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span>            <span class="keywordflow">case</span> AL_OUT_OF_MEMORY: <span class="keywordflow">return</span> <span class="stringliteral">&quot;AL_OUT_OF_MEMORY&quot;</span>;</div>
 <div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span> </div>
 <div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>            <span class="keywordflow">default</span>: <span class="keywordflow">return</span> std::to_string(error);</div>
 <div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>        }</div>
@@ -130,7 +131,7 @@ $(function(){initNavTree('_audio_exceptions_8h_source.html',''); initResizable()
 <div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>            std::string_view msg,</div>
 <div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>            <span class="keyword">const</span> std::source_location&amp; location = std::source_location::current())</div>
 <div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>            :</div>
-<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>            <a class="code hl_class" href="class_o_s_k_1_1_engine_exception.html">EngineException</a>(<a class="code hl_namespace" href="namespacestd.html">std</a>::format(<span class="stringliteral">&quot;AudioDeviceCreationException: No se ha creado correctamente el device: {}.&quot;</span>, msg), location) { }</div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>            <a class="code hl_class" href="class_o_s_k_1_1_engine_exception.html">EngineException</a>(std::format(<span class="stringliteral">&quot;AudioDeviceCreationException: No se ha creado correctamente el device: {}.&quot;</span>, msg), location) { }</div>
 </div>
 <div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span> </div>
 <div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>    };</div>
@@ -144,10 +145,10 @@ $(function(){initNavTree('_audio_exceptions_8h_source.html',''); initResizable()
 <div class="foldopen" id="foldopen00037" data-start="{" data-end="}">
 <div class="line"><a id="l00037" name="l00037"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_audio_exception.html#a392f06078abcc25bc275f9ad6c2a441b">   37</a></span>        <a class="code hl_function" href="class_o_s_k_1_1_audio_exception.html#a392f06078abcc25bc275f9ad6c2a441b">AudioException</a>(</div>
 <div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>            std::string_view msg,</div>
-<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>            <a class="code hl_typedef" href="x64-windows-static_2x64-windows-static_2include_2_a_l_2alc_8h.html#a6535508b0b689f249c8e99053d584a0f">ALCenum</a> code,</div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>            ALCenum code,</div>
 <div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>            <span class="keyword">const</span> std::source_location&amp; location = std::source_location::current())</div>
 <div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>            :</div>
-<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>            <a class="code hl_class" href="class_o_s_k_1_1_engine_exception.html">EngineException</a>(<a class="code hl_namespace" href="namespacestd.html">std</a>::format(<span class="stringliteral">&quot;AudioException: {}. Code: {}.&quot;</span>, msg, GetErrorDesc(code)), location) { }</div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>            <a class="code hl_class" href="class_o_s_k_1_1_engine_exception.html">EngineException</a>(std::format(<span class="stringliteral">&quot;AudioException: {}. Code: {}.&quot;</span>, msg, GetErrorDesc(code)), location) { }</div>
 </div>
 <div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span> </div>
 <div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>    };</div>
@@ -162,20 +163,13 @@ $(function(){initNavTree('_audio_exceptions_8h_source.html',''); initResizable()
 <div class="ttc" id="aclass_o_s_k_1_1_audio_exception_html_a392f06078abcc25bc275f9ad6c2a441b"><div class="ttname"><a href="class_o_s_k_1_1_audio_exception.html#a392f06078abcc25bc275f9ad6c2a441b">OSK::AudioException::AudioException</a></div><div class="ttdeci">AudioException(std::string_view msg, ALCenum code, const std::source_location &amp;location=std::source_location::current())</div><div class="ttdef"><b>Definition</b> <a href="#l00037">AudioExceptions.h:37</a></div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_engine_exception_html"><div class="ttname"><a href="class_o_s_k_1_1_engine_exception.html">OSK::EngineException</a></div><div class="ttdoc">Clase base para todas las excepciones que puedan ocurrir durante la ejecución del juego.</div><div class="ttdef"><b>Definition</b> <a href="_engine_exception_8h_source.html#l00013">EngineException.h:13</a></div></div>
 <div class="ttc" id="anamespace_o_s_k_html"><div class="ttname"><a href="namespace_o_s_k.html">OSK</a></div><div class="ttdef"><b>Definition</b> <a href="_acceleration_structures_exceptions_8h_source.html#l00005">AccelerationStructuresExceptions.h:5</a></div></div>
-<div class="ttc" id="anamespacestd_html"><div class="ttname"><a href="namespacestd.html">std</a></div><div class="ttdef"><b>Definition</b> <a href="x64-windows-static_2x64-windows-static_2include_2glm_2gtx_2hash_8hpp_source.html#l00049">hash.hpp:50</a></div></div>
-<div class="ttc" id="ax64-windows-static_2x64-windows-static_2include_2_a_l_2al_8h_html_a21300e61cbf3be5a0ecc9074f3d4bad4"><div class="ttname"><a href="x64-windows-static_2x64-windows-static_2include_2_a_l_2al_8h.html#a21300e61cbf3be5a0ecc9074f3d4bad4">AL_INVALID_ENUM</a></div><div class="ttdeci">#define AL_INVALID_ENUM</div><div class="ttdef"><b>Definition</b> <a href="x64-windows-static_2x64-windows-static_2include_2_a_l_2al_8h_source.html#l00379">al.h:379</a></div></div>
-<div class="ttc" id="ax64-windows-static_2x64-windows-static_2include_2_a_l_2al_8h_html_a5090b1863bca4b5f02d0cb17e8fff62e"><div class="ttname"><a href="x64-windows-static_2x64-windows-static_2include_2_a_l_2al_8h.html#a5090b1863bca4b5f02d0cb17e8fff62e">AL_INVALID_OPERATION</a></div><div class="ttdeci">#define AL_INVALID_OPERATION</div><div class="ttdef"><b>Definition</b> <a href="x64-windows-static_2x64-windows-static_2include_2_a_l_2al_8h_source.html#l00385">al.h:385</a></div></div>
-<div class="ttc" id="ax64-windows-static_2x64-windows-static_2include_2_a_l_2al_8h_html_a55849da05eeaa784af7a8b0969b6cab8"><div class="ttname"><a href="x64-windows-static_2x64-windows-static_2include_2_a_l_2al_8h.html#a55849da05eeaa784af7a8b0969b6cab8">AL_INVALID_NAME</a></div><div class="ttdeci">#define AL_INVALID_NAME</div><div class="ttdef"><b>Definition</b> <a href="x64-windows-static_2x64-windows-static_2include_2_a_l_2al_8h_source.html#l00376">al.h:376</a></div></div>
-<div class="ttc" id="ax64-windows-static_2x64-windows-static_2include_2_a_l_2al_8h_html_a59aa3266899552df3b6a2c27afc32838"><div class="ttname"><a href="x64-windows-static_2x64-windows-static_2include_2_a_l_2al_8h.html#a59aa3266899552df3b6a2c27afc32838">AL_OUT_OF_MEMORY</a></div><div class="ttdeci">#define AL_OUT_OF_MEMORY</div><div class="ttdef"><b>Definition</b> <a href="x64-windows-static_2x64-windows-static_2include_2_a_l_2al_8h_source.html#l00388">al.h:388</a></div></div>
-<div class="ttc" id="ax64-windows-static_2x64-windows-static_2include_2_a_l_2al_8h_html_aa1ea42676fab546f02aaea2c1807b3dc"><div class="ttname"><a href="x64-windows-static_2x64-windows-static_2include_2_a_l_2al_8h.html#aa1ea42676fab546f02aaea2c1807b3dc">AL_INVALID_VALUE</a></div><div class="ttdeci">#define AL_INVALID_VALUE</div><div class="ttdef"><b>Definition</b> <a href="x64-windows-static_2x64-windows-static_2include_2_a_l_2al_8h_source.html#l00382">al.h:382</a></div></div>
-<div class="ttc" id="ax64-windows-static_2x64-windows-static_2include_2_a_l_2alc_8h_html_a6535508b0b689f249c8e99053d584a0f"><div class="ttname"><a href="x64-windows-static_2x64-windows-static_2include_2_a_l_2alc_8h.html#a6535508b0b689f249c8e99053d584a0f">ALCenum</a></div><div class="ttdeci">int ALCenum</div><div class="ttdef"><b>Definition</b> <a href="x64-windows-static_2x64-windows-static_2include_2_a_l_2alc_8h_source.html#l00066">alc.h:66</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_74389ed8173ad57b461b9d623a1f3867.html">Source</a></li><li class="navelem"><a class="el" href="_audio_exceptions_8h.html">AudioExceptions.h</a></li>
-    <li class="footer">Generado el Lunes, 29 de enero de 2024 17:18:30 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.10.0 </li>
+    <li class="footer">Generado el Lunes, 29 de enero de 2024 17:22:58 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.10.0 </li>
   </ul>
 </div>
 </body>

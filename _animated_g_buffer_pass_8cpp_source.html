@@ -19,6 +19,7 @@
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="doxygen-awesome.css" rel="stylesheet" type="text/css"/>
 </head>
 <body>
 <div id="top"><!-- do not remove this div, it is closed by doxygen! -->
@@ -176,7 +177,7 @@ $(function(){initNavTree('_animated_g_buffer_pass_8cpp_source.html',''); initRes
 <div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>            commandList-&gt;<a class="code hl_function" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list.html#abffebf19b48d6d193c0d7a875c82a115">BindMaterialSlot</a>(*model.<a class="code hl_function" href="class_o_s_k_1_1_e_c_s_1_1_model_component3_d.html#a0a15dd5753cf847844641d23793623c0">GetModel</a>()-&gt;<a class="code hl_function" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_model3_d.html#a9a0e622ebb883629a43dc8e78085b133">GetAnimator</a>()-&gt;<a class="code hl_function" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_animator.html#a0e7388a40a856c0a9388c07d5b81900f">GetMaterialInstance</a>()-&gt;<a class="code hl_function" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_instance.html#a9d4bbd10d4a25dc8b886a09ddb03200b">GetSlot</a>(<span class="stringliteral">&quot;animation&quot;</span>));</div>
 <div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span> </div>
 <div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>            modelPushConstants.model = transform.GetAsMatrix();</div>
-<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>            modelPushConstants.previousModel = <a class="code hl_variable" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_render_pass.html#aa3b1ede1c8fda9db3fab5ad760d30839">m_previousModelMatrices</a>.contains(obj) ? <a class="code hl_variable" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_render_pass.html#aa3b1ede1c8fda9db3fab5ad760d30839">m_previousModelMatrices</a>.at(obj) : <a class="code hl_typedef" href="group__core__matrix.html#gac54cbc572f1349a255fe476ca6a42a7b">glm::mat4</a>(1.0f);</div>
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>            modelPushConstants.previousModel = <a class="code hl_variable" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_render_pass.html#aa3b1ede1c8fda9db3fab5ad760d30839">m_previousModelMatrices</a>.contains(obj) ? <a class="code hl_variable" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_render_pass.html#aa3b1ede1c8fda9db3fab5ad760d30839">m_previousModelMatrices</a>.at(obj) : glm::mat4(1.0f);</div>
 <div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>            modelPushConstants.resolution = resolution.<a class="code hl_function" href="class_o_s_k_1_1_vector2__t.html#ad87181c3ef04bdc4653e05a9b086894d">ToVector2f</a>();</div>
 <div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>            modelPushConstants.jitterIndex = (float)jitterIndex;</div>
 <div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span> </div>
@@ -243,7 +244,6 @@ $(function(){initNavTree('_animated_g_buffer_pass_8cpp_source.html',''); initRes
 <div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_per_model_data_html_a9d4aed3aad11e1624a79c37f737e6a30"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_per_model_data.html#a9d4aed3aad11e1624a79c37f737e6a30">OSK::GRAPHICS::PerModelData::GetMeshData</a></div><div class="ttdeci">PerMeshData &amp; GetMeshData(UIndex64 meshId)</div><div class="ttdef"><b>Definition</b> <a href="_per_model_data_8cpp_source.html#l00020">PerModelData.cpp:20</a></div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_vector2__t_html"><div class="ttname"><a href="class_o_s_k_1_1_vector2__t.html">OSK::Vector2_t&lt; uint32_t &gt;</a></div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_vector2__t_html_ad87181c3ef04bdc4653e05a9b086894d"><div class="ttname"><a href="class_o_s_k_1_1_vector2__t.html#ad87181c3ef04bdc4653e05a9b086894d">OSK::Vector2_t::ToVector2f</a></div><div class="ttdeci">constexpr Vector2_t&lt; float_t &gt; ToVector2f() const</div><div class="ttdef"><b>Definition</b> <a href="_vector2_8hpp_source.html#l00227">Vector2.hpp:227</a></div></div>
-<div class="ttc" id="agroup__core__matrix_html_gac54cbc572f1349a255fe476ca6a42a7b"><div class="ttname"><a href="group__core__matrix.html#gac54cbc572f1349a255fe476ca6a42a7b">glm::mat4</a></div><div class="ttdeci">mat&lt; 4, 4, float, defaultp &gt; mat4</div><div class="ttdef"><b>Definition</b> <a href="x64-windows-static_2x64-windows-static_2include_2glm_2ext_2matrix__float4x4_8hpp_source.html#l00020">matrix_float4x4.hpp:20</a></div></div>
 <div class="ttc" id="anamespace_o_s_k_1_1_a_s_s_e_t_s_html"><div class="ttname"><a href="namespace_o_s_k_1_1_a_s_s_e_t_s.html">OSK::ASSETS</a></div><div class="ttdef"><b>Definition</b> <a href="_anim_mesh_loader_8h_source.html#l00009">AnimMeshLoader.h:9</a></div></div>
 <div class="ttc" id="anamespace_o_s_k_1_1_e_c_s_html"><div class="ttname"><a href="namespace_o_s_k_1_1_e_c_s.html">OSK::ECS</a></div><div class="ttdef"><b>Definition</b> <a href="_camera_component2_d_8h_source.html#l00017">CameraComponent2D.h:17</a></div></div>
 <div class="ttc" id="anamespace_o_s_k_1_1_e_c_s_html_a7be561d6b7de4e8a49c2a5cc35fba48c"><div class="ttname"><a href="namespace_o_s_k_1_1_e_c_s.html#a7be561d6b7de4e8a49c2a5cc35fba48c">OSK::ECS::GameObjectIndex</a></div><div class="ttdeci">UIndex32 GameObjectIndex</div><div class="ttdoc">Identificador único para un Game Object.</div><div class="ttdef"><b>Definition</b> <a href="_game_object_8h_source.html#l00018">GameObject.h:18</a></div></div>
@@ -256,7 +256,7 @@ $(function(){initNavTree('_animated_g_buffer_pass_8cpp_source.html',''); initRes
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_74389ed8173ad57b461b9d623a1f3867.html">Source</a></li><li class="navelem"><a class="el" href="_animated_g_buffer_pass_8cpp.html">AnimatedGBufferPass.cpp</a></li>
-    <li class="footer">Generado el Lunes, 29 de enero de 2024 17:18:30 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.10.0 </li>
+    <li class="footer">Generado el Lunes, 29 de enero de 2024 17:22:58 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.10.0 </li>
   </ul>
 </div>
 </body>

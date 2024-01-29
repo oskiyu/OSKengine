@@ -1,16 +1,4 @@
 var searchData=
 [
-  ['q_0',['Q',['../namespace_o_s_k_1_1_i_o.html#a0b92714a4a778072d4824502589bd39eaf09564c9ca56850d4cd6b3319e541aee',1,'OSK::IO']]],
-  ['quads_1',['Quads',['../x64-windows-static_2x64-windows-static_2include_2spirv_2unified1_2spv_8d.html#a9820cf029a189de2afdf9b07f2b24cd7a7606dfccfa10162a7cf4627416fc295e',1,'Quads:&#160;spv.d'],['../x64-windows_2x64-windows_2include_2spirv_2unified1_2spv_8d.html#a9820cf029a189de2afdf9b07f2b24cd7a7606dfccfa10162a7cf4627416fc295e',1,'Quads:&#160;spv.d'],['../x86-windows_2x86-windows_2include_2spirv_2unified1_2spv_8d.html#a9820cf029a189de2afdf9b07f2b24cd7a7606dfccfa10162a7cf4627416fc295e',1,'Quads:&#160;spv.d']]],
-  ['quantizationmodesmax_2',['QuantizationModesMax',['../namespacespv.html#ab04c2db7171f58e51032dd0ee5dfea71a9d930ce6f7996b8724e4ec5fac73f6d8',1,'spv']]],
-  ['quantizationmodesrnd_3',['QuantizationModesRND',['../namespacespv.html#ab04c2db7171f58e51032dd0ee5dfea71afa80f38e22ed4ae966201518301044c5',1,'spv']]],
-  ['quantizationmodesrnd_5fconv_4',['QuantizationModesRND_CONV',['../namespacespv.html#ab04c2db7171f58e51032dd0ee5dfea71adfd5d9bf3622c68f41aff84a12d81ccd',1,'spv']]],
-  ['quantizationmodesrnd_5fconv_5fodd_5',['QuantizationModesRND_CONV_ODD',['../namespacespv.html#ab04c2db7171f58e51032dd0ee5dfea71a93c91f96ac5a96db81101f01c4065ca4',1,'spv']]],
-  ['quantizationmodesrnd_5finf_6',['QuantizationModesRND_INF',['../namespacespv.html#ab04c2db7171f58e51032dd0ee5dfea71a27af4fc789c4e53b6bcc63ad7ba3c9b0',1,'spv']]],
-  ['quantizationmodesrnd_5fmin_5finf_7',['QuantizationModesRND_MIN_INF',['../namespacespv.html#ab04c2db7171f58e51032dd0ee5dfea71a8969a2d3beda708d8b9ba46fae9b441d',1,'spv']]],
-  ['quantizationmodesrnd_5fzero_8',['QuantizationModesRND_ZERO',['../namespacespv.html#ab04c2db7171f58e51032dd0ee5dfea71a86d583044ceb00cc38fe1d02b7910437',1,'spv']]],
-  ['quantizationmodestrn_9',['QuantizationModesTRN',['../namespacespv.html#ab04c2db7171f58e51032dd0ee5dfea71a82f514de3e672d75076ed90f8e75b72b',1,'spv']]],
-  ['quantizationmodestrn_5fzero_10',['QuantizationModesTRN_ZERO',['../namespacespv.html#ab04c2db7171f58e51032dd0ee5dfea71ad3caef9aaad0fab8bfe599f902ec00e5',1,'spv']]],
-  ['queuefamily_11',['QueueFamily',['../x64-windows-static_2x64-windows-static_2include_2spirv_2unified1_2spv_8d.html#ac188e130a22de192f959d4e2766e4ca8aca6913cb332cb1ec976b60124c3906c7',1,'QueueFamily:&#160;spv.d'],['../x64-windows_2x64-windows_2include_2spirv_2unified1_2spv_8d.html#ac188e130a22de192f959d4e2766e4ca8aca6913cb332cb1ec976b60124c3906c7',1,'QueueFamily:&#160;spv.d'],['../x86-windows_2x86-windows_2include_2spirv_2unified1_2spv_8d.html#ac188e130a22de192f959d4e2766e4ca8aca6913cb332cb1ec976b60124c3906c7',1,'QueueFamily:&#160;spv.d']]],
-  ['queuefamilykhr_12',['QueueFamilyKHR',['../x64-windows-static_2x64-windows-static_2include_2spirv_2unified1_2spv_8d.html#ac188e130a22de192f959d4e2766e4ca8a443f2dced869c816f5be993018cacf32',1,'QueueFamilyKHR:&#160;spv.d'],['../x64-windows_2x64-windows_2include_2spirv_2unified1_2spv_8d.html#ac188e130a22de192f959d4e2766e4ca8a443f2dced869c816f5be993018cacf32',1,'QueueFamilyKHR:&#160;spv.d'],['../x86-windows_2x86-windows_2include_2spirv_2unified1_2spv_8d.html#ac188e130a22de192f959d4e2766e4ca8a443f2dced869c816f5be993018cacf32',1,'QueueFamilyKHR:&#160;spv.d']]]
+  ['q_0',['Q',['../namespace_o_s_k_1_1_i_o.html#a0b92714a4a778072d4824502589bd39eaf09564c9ca56850d4cd6b3319e541aee',1,'OSK::IO']]]
 ];

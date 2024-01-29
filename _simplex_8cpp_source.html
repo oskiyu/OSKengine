@@ -19,6 +19,7 @@
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="doxygen-awesome.css" rel="stylesheet" type="text/css"/>
 </head>
 <body>
 <div id="top"><!-- do not remove this div, it is closed by doxygen! -->
@@ -115,12 +116,12 @@ $(function(){initNavTree('_simplex_8cpp_source.html',''); initResizable(); });
 <div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span>    <a class="code hl_class" href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_simplex.html">Simplex</a> simplex = {};</div>
 <div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span> </div>
 <div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span>    <span class="comment">// Iteración inicial.</span></div>
-<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span>    simplex.AddAndUpdate(<a class="code hl_function" href="namespace_o_s_k_1_1_c_o_l_l_i_s_i_o_n.html#acedd627cbfcc7a24dbc9c150d894ad2a">GetMinkowskiSupport</a>(first, second, <a class="code hl_typedef" href="namespace_o_s_k.html#a72b3268907c9cd41f0daf0a42e1c9dca">Vector3f</a>(1.0f, 0.0f, 0.0f)));</div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span>    simplex.<a class="code hl_function" href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_simplex.html#ab07ef50e4032910e9a6bc78687f4d908">AddAndUpdate</a>(<a class="code hl_function" href="namespace_o_s_k_1_1_c_o_l_l_i_s_i_o_n.html#acedd627cbfcc7a24dbc9c150d894ad2a">GetMinkowskiSupport</a>(first, second, <a class="code hl_typedef" href="namespace_o_s_k.html#a72b3268907c9cd41f0daf0a42e1c9dca">Vector3f</a>(1.0f, 0.0f, 0.0f)));</div>
 <div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span>    <a class="code hl_class" href="class_o_s_k_1_1_vector3__t.html">Vector3f</a> direction = -<a class="code hl_typedef" href="namespace_o_s_k.html#a72b3268907c9cd41f0daf0a42e1c9dca">Vector3f</a>(1.0f, 0.0f, 0.0f);</div>
 <div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span> </div>
 <div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>    <span class="comment">// Límite de 20 iteraciones.</span></div>
-<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>    <span class="keyword">constexpr</span> <span class="keyword">static</span> <a class="code hl_typedef" href="_o_s_kmacros_8h.html#a5784d24fcb00afb78eb7b1e1a3466ac4">USize64</a> IterationLimit = 20;</div>
-<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>    <a class="code hl_typedef" href="_o_s_kmacros_8h.html#adef8e046c86805ca0dc2db407b01a1bb">UIndex64</a> iteration = 0;</div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>    <span class="keyword">constexpr</span> <span class="keyword">static</span> <a class="code hl_class" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">USize64</a> IterationLimit = 20;</div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>    <a class="code hl_class" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">UIndex64</a> iteration = 0;</div>
 <div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>    <span class="keywordflow">for</span> (; iteration &lt; IterationLimit; iteration++) {</div>
 <div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>        <span class="keyword">const</span> <span class="keyword">auto</span> support = <a class="code hl_function" href="namespace_o_s_k_1_1_c_o_l_l_i_s_i_o_n.html#acedd627cbfcc7a24dbc9c150d894ad2a">GetMinkowskiSupport</a>(first, second, direction);</div>
 <div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span> </div>
@@ -128,13 +129,13 @@ $(function(){initNavTree('_simplex_8cpp_source.html',''); initResizable(); });
 <div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>            <span class="keywordflow">return</span> simplex;</div>
 <div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>        }</div>
 <div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span> </div>
-<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>        simplex.AddAndUpdate(support);</div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>        simplex.<a class="code hl_function" href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_simplex.html#ab07ef50e4032910e9a6bc78687f4d908">AddAndUpdate</a>(support);</div>
 <div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span> </div>
-<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>        <span class="keywordflow">if</span> (simplex.ContainsOrigin()) {</div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>        <span class="keywordflow">if</span> (simplex.<a class="code hl_function" href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_simplex.html#a86540c720b2b474a0e689daf517aed52">ContainsOrigin</a>()) {</div>
 <div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>            <span class="keywordflow">return</span> simplex;</div>
 <div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>        }</div>
 <div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span> </div>
-<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>        direction = simplex.GetSearchDirection();</div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>        direction = simplex.<a class="code hl_function" href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_simplex.html#addae9c1c138799f00ff3ac5b77c1c324">GetSearchDirection</a>();</div>
 <div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>    }</div>
 <div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>}</div>
 </div>
@@ -360,7 +361,7 @@ $(function(){initNavTree('_simplex_8cpp_source.html',''); initResizable(); });
 </div>
 <div class="line"><a id="l00251" name="l00251"></a><span class="lineno">  251</span> </div>
 <div class="foldopen" id="foldopen00252" data-start="{" data-end="}">
-<div class="line"><a id="l00252" name="l00252"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_simplex.html#a579f59b91a09ff1d719db7ecac5cf9aa">  252</a></span><a class="code hl_typedef" href="_o_s_kmacros_8h.html#a5784d24fcb00afb78eb7b1e1a3466ac4">USize64</a> <a class="code hl_function" href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_simplex.html#a579f59b91a09ff1d719db7ecac5cf9aa">Simplex::GetVerticesCount</a>()<span class="keyword"> const </span>{</div>
+<div class="line"><a id="l00252" name="l00252"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_simplex.html#a579f59b91a09ff1d719db7ecac5cf9aa">  252</a></span><a class="code hl_class" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">USize64</a> <a class="code hl_function" href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_simplex.html#a579f59b91a09ff1d719db7ecac5cf9aa">Simplex::GetVerticesCount</a>()<span class="keyword"> const </span>{</div>
 <div class="line"><a id="l00253" name="l00253"></a><span class="lineno">  253</span>    <span class="keywordflow">return</span> m_verticesCount;</div>
 <div class="line"><a id="l00254" name="l00254"></a><span class="lineno">  254</span>}</div>
 </div>
@@ -390,9 +391,8 @@ $(function(){initNavTree('_simplex_8cpp_source.html',''); initResizable(); });
 <div class="ttc" id="a_assert_8h_html"><div class="ttname"><a href="_assert_8h.html">Assert.h</a></div></div>
 <div class="ttc" id="a_assert_8h_html_a927d7efae46f019e805b046e952af182"><div class="ttname"><a href="_assert_8h.html#a927d7efae46f019e805b046e952af182">OSK_ASSERT</a></div><div class="ttdeci">#define OSK_ASSERT(condition, exception)</div><div class="ttdoc">Comrpueba si una condición se cumple. En caso de no cumplirse, lanza la excepción indicada,...</div><div class="ttdef"><b>Definition</b> <a href="_assert_8h_source.html#l00041">Assert.h:41</a></div></div>
 <div class="ttc" id="a_invalid_object_state_exception_8h_html"><div class="ttname"><a href="_invalid_object_state_exception_8h.html">InvalidObjectStateException.h</a></div></div>
-<div class="ttc" id="a_o_s_kmacros_8h_html_a5784d24fcb00afb78eb7b1e1a3466ac4"><div class="ttname"><a href="_o_s_kmacros_8h.html#a5784d24fcb00afb78eb7b1e1a3466ac4">USize64</a></div><div class="ttdeci">uint64_t USize64</div><div class="ttdef"><b>Definition</b> <a href="_o_s_kmacros_8h_source.html#l00044">OSKmacros.h:44</a></div></div>
-<div class="ttc" id="a_o_s_kmacros_8h_html_adef8e046c86805ca0dc2db407b01a1bb"><div class="ttname"><a href="_o_s_kmacros_8h.html#adef8e046c86805ca0dc2db407b01a1bb">UIndex64</a></div><div class="ttdeci">uint64_t UIndex64</div><div class="ttdef"><b>Definition</b> <a href="_o_s_kmacros_8h_source.html#l00041">OSKmacros.h:41</a></div></div>
 <div class="ttc" id="a_simplex_8h_html"><div class="ttname"><a href="_simplex_8h.html">Simplex.h</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref_html"><div class="ttname"><a href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">OSK::ASSETS::AssetRef</a></div><div class="ttdoc">Referencia a un asset.</div><div class="ttdef"><b>Definition</b> <a href="_asset_ref_8h_source.html#l00012">AssetRef.h:12</a></div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_i_gjk_collider_html"><div class="ttname"><a href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_i_gjk_collider.html">OSK::COLLISION::IGjkCollider</a></div><div class="ttdoc">Interfaz para volúmenes 3D que soporten la detección de colisiones mediante GJK.</div><div class="ttdef"><b>Definition</b> <a href="_gjk_8h_source.html#l00048">Gjk.h:48</a></div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_simplex_html"><div class="ttname"><a href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_simplex.html">OSK::COLLISION::Simplex</a></div><div class="ttdoc">Grupo de vértices que trata de encerrar el origen de coordenadas (0, 0, 0).</div><div class="ttdef"><b>Definition</b> <a href="_simplex_8h_source.html#l00015">Simplex.h:15</a></div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_simplex_html_a579f59b91a09ff1d719db7ecac5cf9aa"><div class="ttname"><a href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_simplex.html#a579f59b91a09ff1d719db7ecac5cf9aa">OSK::COLLISION::Simplex::GetVerticesCount</a></div><div class="ttdeci">USize64 GetVerticesCount() const</div><div class="ttdef"><b>Definition</b> <a href="#l00252">Simplex.cpp:252</a></div></div>
@@ -419,7 +419,7 @@ $(function(){initNavTree('_simplex_8cpp_source.html',''); initResizable(); });
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_74389ed8173ad57b461b9d623a1f3867.html">Source</a></li><li class="navelem"><a class="el" href="_simplex_8cpp.html">Simplex.cpp</a></li>
-    <li class="footer">Generado el Lunes, 29 de enero de 2024 17:18:32 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.10.0 </li>
+    <li class="footer">Generado el Lunes, 29 de enero de 2024 17:22:59 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.10.0 </li>
   </ul>
 </div>
 </body>

@@ -1,5 +1,0 @@
-var struct_s_p_i_r_v___c_r_o_s_s___n_a_m_e_s_p_a_c_e_1_1_compiler_g_l_s_l_1_1_options_1_1_fragment_options =
-[
-    [ "default_float_precision", "struct_s_p_i_r_v___c_r_o_s_s___n_a_m_e_s_p_a_c_e_1_1_compiler_g_l_s_l_1_1_options_1_1_fragment_options.html#af79ea889acc5923db76452bb5fc14c3a", null ],
-    [ "default_int_precision", "struct_s_p_i_r_v___c_r_o_s_s___n_a_m_e_s_p_a_c_e_1_1_compiler_g_l_s_l_1_1_options_1_1_fragment_options.html#a0e858538607504f47138373bbb850d21", null ]
-];

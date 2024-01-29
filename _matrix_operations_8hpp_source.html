@@ -19,6 +19,7 @@
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="doxygen-awesome.css" rel="stylesheet" type="text/css"/>
 </head>
 <body>
 <div id="top"><!-- do not remove this div, it is closed by doxygen! -->
@@ -107,22 +108,22 @@ $(function(){initNavTree('_matrix_operations_8hpp_source.html',''); initResizabl
 <div class="foldopen" id="foldopen00005" data-start="{" data-end="}">
 <div class="line"><a id="l00005" name="l00005"></a><span class="lineno"><a class="line" href="namespace_o_s_k_1_1_math.html">    5</a></span><span class="keyword">namespace </span><a class="code hl_namespace" href="namespace_o_s_k_1_1_math.html">OSK::Math</a> {</div>
 <div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span> </div>
-<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span>    <span class="keyword">inline</span> <span class="keyword">static</span> <a class="code hl_class" href="class_o_s_k_1_1_vector3__t.html">Vector3f</a> TransformPoint(<span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_vector3__t.html">Vector3f</a>&amp; point, <span class="keyword">const</span> <a class="code hl_struct" href="structglm_1_1mat.html">glm::mat4</a>&amp; matrix) {</div>
-<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span>        <span class="keyword">const</span> <a class="code hl_struct" href="structglm_1_1vec.html">glm::vec4</a> p = <a class="code hl_typedef" href="group__core__vector.html#ga233f0e8f1aecf686e67c5c39316c4da8">glm::vec4</a>(point.<a class="code hl_function" href="class_o_s_k_1_1_vector3__t.html#afe37985b6d213fc46fc8d3d0366d80bb">ToGlm</a>(), 1.0f);</div>
-<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span>        <span class="keyword">const</span> <a class="code hl_struct" href="structglm_1_1vec.html">glm::vec4</a> transformedPoint = matrix * p;</div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span>    <span class="keyword">inline</span> <span class="keyword">static</span> <a class="code hl_class" href="class_o_s_k_1_1_vector3__t.html">Vector3f</a> TransformPoint(<span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_vector3__t.html">Vector3f</a>&amp; point, <span class="keyword">const</span> glm::mat4&amp; matrix) {</div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span>        <span class="keyword">const</span> glm::vec4 p = glm::vec4(point.<a class="code hl_function" href="class_o_s_k_1_1_vector3__t.html#afe37985b6d213fc46fc8d3d0366d80bb">ToGlm</a>(), 1.0f);</div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span>        <span class="keyword">const</span> glm::vec4 transformedPoint = matrix * p;</div>
 <div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span> </div>
-<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span>        <span class="keywordflow">return</span> <a class="code hl_typedef" href="namespace_o_s_k.html#a72b3268907c9cd41f0daf0a42e1c9dca">Vector3f</a>(<a class="code hl_struct" href="structglm_1_1vec.html">glm::vec3</a>(transformedPoint) / transformedPoint.w);</div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span>        <span class="keywordflow">return</span> <a class="code hl_typedef" href="namespace_o_s_k.html#a72b3268907c9cd41f0daf0a42e1c9dca">Vector3f</a>(glm::vec3(transformedPoint) / transformedPoint.w);</div>
 <div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span>    }</div>
 <div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span> </div>
-<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span>    <span class="keyword">inline</span> <span class="keyword">static</span> <a class="code hl_class" href="class_o_s_k_1_1_vector3__t.html">Vector3f</a> TranslatePoint(<span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_vector3__t.html">Vector3f</a>&amp; point, <span class="keyword">const</span> <a class="code hl_struct" href="structglm_1_1mat.html">glm::mat4</a>&amp; matrix) {</div>
-<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span>        <span class="keyword">const</span> <a class="code hl_struct" href="structglm_1_1vec.html">glm::vec4</a> p = <a class="code hl_typedef" href="group__core__vector.html#ga233f0e8f1aecf686e67c5c39316c4da8">glm::vec4</a>(point.<a class="code hl_function" href="class_o_s_k_1_1_vector3__t.html#afe37985b6d213fc46fc8d3d0366d80bb">ToGlm</a>(), 1.0f);</div>
-<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span>        <span class="keyword">const</span> <a class="code hl_struct" href="structglm_1_1vec.html">glm::vec4</a> transformedPoint = matrix * p;</div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span>    <span class="keyword">inline</span> <span class="keyword">static</span> <a class="code hl_class" href="class_o_s_k_1_1_vector3__t.html">Vector3f</a> TranslatePoint(<span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_vector3__t.html">Vector3f</a>&amp; point, <span class="keyword">const</span> glm::mat4&amp; matrix) {</div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span>        <span class="keyword">const</span> glm::vec4 p = glm::vec4(point.<a class="code hl_function" href="class_o_s_k_1_1_vector3__t.html#afe37985b6d213fc46fc8d3d0366d80bb">ToGlm</a>(), 1.0f);</div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span>        <span class="keyword">const</span> glm::vec4 transformedPoint = matrix * p;</div>
 <div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span> </div>
-<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>        <span class="keywordflow">return</span> <a class="code hl_typedef" href="namespace_o_s_k.html#a72b3268907c9cd41f0daf0a42e1c9dca">Vector3f</a>(<a class="code hl_struct" href="structglm_1_1vec.html">glm::vec3</a>(transformedPoint) / transformedPoint.w);</div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>        <span class="keywordflow">return</span> <a class="code hl_typedef" href="namespace_o_s_k.html#a72b3268907c9cd41f0daf0a42e1c9dca">Vector3f</a>(glm::vec3(transformedPoint) / transformedPoint.w);</div>
 <div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>    }</div>
 <div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span> </div>
-<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>    <span class="keyword">inline</span> <span class="keyword">static</span> <a class="code hl_class" href="class_o_s_k_1_1_vector3__t.html">Vector3f</a> PositionFromMatrix(<span class="keyword">const</span> <a class="code hl_struct" href="structglm_1_1mat.html">glm::mat4</a> matrix) {</div>
-<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>        <span class="keywordflow">return</span> <a class="code hl_typedef" href="namespace_o_s_k.html#a72b3268907c9cd41f0daf0a42e1c9dca">Vector3f</a>(<a class="code hl_struct" href="structglm_1_1vec.html">glm::vec3</a>(matrix * <a class="code hl_struct" href="structglm_1_1vec.html">glm::vec4</a>(0.0f, 0.0f, 0.0f, 1.0f)));</div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>    <span class="keyword">inline</span> <span class="keyword">static</span> <a class="code hl_class" href="class_o_s_k_1_1_vector3__t.html">Vector3f</a> PositionFromMatrix(<span class="keyword">const</span> glm::mat4 matrix) {</div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>        <span class="keywordflow">return</span> <a class="code hl_typedef" href="namespace_o_s_k.html#a72b3268907c9cd41f0daf0a42e1c9dca">Vector3f</a>(glm::vec3(matrix * glm::vec4(0.0f, 0.0f, 0.0f, 1.0f)));</div>
 <div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>    }</div>
 <div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span> </div>
 <div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>}</div>
@@ -130,18 +131,15 @@ $(function(){initNavTree('_matrix_operations_8hpp_source.html',''); initResizabl
 <div class="ttc" id="a_vector3_8hpp_html"><div class="ttname"><a href="_vector3_8hpp.html">Vector3.hpp</a></div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_vector3__t_html"><div class="ttname"><a href="class_o_s_k_1_1_vector3__t.html">OSK::Vector3_t&lt; float_t &gt;</a></div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_vector3__t_html_afe37985b6d213fc46fc8d3d0366d80bb"><div class="ttname"><a href="class_o_s_k_1_1_vector3__t.html#afe37985b6d213fc46fc8d3d0366d80bb">OSK::Vector3_t::ToGlm</a></div><div class="ttdeci">glm::vec3 ToGlm() const</div><div class="ttdef"><b>Definition</b> <a href="_vector3_8hpp_source.html#l00236">Vector3.hpp:236</a></div></div>
-<div class="ttc" id="agroup__core__vector_html_ga233f0e8f1aecf686e67c5c39316c4da8"><div class="ttname"><a href="group__core__vector.html#ga233f0e8f1aecf686e67c5c39316c4da8">glm::vec4</a></div><div class="ttdeci">vec&lt; 4, float, defaultp &gt; vec4</div><div class="ttdef"><b>Definition</b> <a href="x64-windows-static_2x64-windows-static_2include_2glm_2ext_2vector__float4_8hpp_source.html#l00015">vector_float4.hpp:15</a></div></div>
 <div class="ttc" id="anamespace_o_s_k_1_1_math_html"><div class="ttname"><a href="namespace_o_s_k_1_1_math.html">OSK::Math</a></div><div class="ttdef"><b>Definition</b> <a href="#l00005">MatrixOperations.hpp:5</a></div></div>
 <div class="ttc" id="anamespace_o_s_k_html_a72b3268907c9cd41f0daf0a42e1c9dca"><div class="ttname"><a href="namespace_o_s_k.html#a72b3268907c9cd41f0daf0a42e1c9dca">OSK::Vector3f</a></div><div class="ttdeci">Vector3_t&lt; float_t &gt; Vector3f</div><div class="ttdoc">Precisión = float.</div><div class="ttdef"><b>Definition</b> <a href="_vector3_8hpp_source.html#l00289">Vector3.hpp:289</a></div></div>
-<div class="ttc" id="astructglm_1_1mat_html"><div class="ttname"><a href="structglm_1_1mat.html">glm::mat</a></div><div class="ttdef"><b>Definition</b> <a href="x64-windows-static_2x64-windows-static_2include_2glm_2detail_2qualifier_8hpp_source.html#l00036">qualifier.hpp:36</a></div></div>
-<div class="ttc" id="astructglm_1_1vec_html"><div class="ttname"><a href="structglm_1_1vec.html">glm::vec</a></div><div class="ttdef"><b>Definition</b> <a href="x64-windows-static_2x64-windows-static_2include_2glm_2detail_2qualifier_8hpp_source.html#l00035">qualifier.hpp:35</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_74389ed8173ad57b461b9d623a1f3867.html">Source</a></li><li class="navelem"><a class="el" href="_matrix_operations_8hpp.html">MatrixOperations.hpp</a></li>
-    <li class="footer">Generado el Lunes, 29 de enero de 2024 17:18:31 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.10.0 </li>
+    <li class="footer">Generado el Lunes, 29 de enero de 2024 17:22:59 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.10.0 </li>
   </ul>
 </div>
 </body>

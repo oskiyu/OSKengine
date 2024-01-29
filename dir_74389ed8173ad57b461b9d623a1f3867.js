@@ -1,7 +1,6 @@
 var dir_74389ed8173ad57b461b9d623a1f3867 =
 [
     [ "Doc", "dir_c82f0e26f0965f2e66bcaf2fe01a47bd.html", null ],
-    [ "vcpkg_installed", "dir_6e9399b867df62641d274959e619ad65.html", "dir_6e9399b867df62641d274959e619ad65" ],
     [ "AccelerationStructuresExceptions.h", "_acceleration_structures_exceptions_8h.html", "_acceleration_structures_exceptions_8h" ],
     [ "AnimatedGBufferPass.cpp", "_animated_g_buffer_pass_8cpp.html", null ],
     [ "AnimatedGBufferPass.h", "_animated_g_buffer_pass_8h.html", "_animated_g_buffer_pass_8h" ],

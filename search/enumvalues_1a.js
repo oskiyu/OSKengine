@@ -1,6 +1,4 @@
 var searchData=
 [
-  ['z_0',['Z',['../namespace_o_s_k_1_1_i_o.html#a0b92714a4a778072d4824502589bd39ea21c2e59531c8710156d34a3c30ac81d5',1,'OSK::IO']]],
-  ['zeroextend_1',['ZeroExtend',['../x64-windows-static_2x64-windows-static_2include_2spirv_2unified1_2spv_8d.html#a30d743b1fd2cc5b90205f6714764ffc7aef0a7f1fe8c8d5d057b3dd54bd666e2c',1,'ZeroExtend:&#160;spv.d'],['../x64-windows_2x64-windows_2include_2spirv_2unified1_2spv_8d.html#a30d743b1fd2cc5b90205f6714764ffc7ae5e0e7b4846e4b88fbb6e7adfc0563be',1,'ZeroExtend:&#160;spv.d'],['../x86-windows_2x86-windows_2include_2spirv_2unified1_2spv_8d.html#a30d743b1fd2cc5b90205f6714764ffc7ae5e0e7b4846e4b88fbb6e7adfc0563be',1,'ZeroExtend:&#160;spv.d']]],
-  ['zext_2',['Zext',['../x64-windows-static_2x64-windows-static_2include_2spirv_2unified1_2spv_8d.html#afce436a6bc7a3e40561379c80ea71ea6a7c10b4d32778ad309f75af64d75d5eaf',1,'Zext:&#160;spv.d'],['../x64-windows_2x64-windows_2include_2spirv_2unified1_2spv_8d.html#afce436a6bc7a3e40561379c80ea71ea6a7c10b4d32778ad309f75af64d75d5eaf',1,'Zext:&#160;spv.d'],['../x86-windows_2x86-windows_2include_2spirv_2unified1_2spv_8d.html#afce436a6bc7a3e40561379c80ea71ea6a7c10b4d32778ad309f75af64d75d5eaf',1,'Zext:&#160;spv.d']]]
+  ['z_0',['Z',['../namespace_o_s_k_1_1_i_o.html#a0b92714a4a778072d4824502589bd39ea21c2e59531c8710156d34a3c30ac81d5',1,'OSK::IO']]]
 ];

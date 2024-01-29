@@ -1,19 +1,18 @@
 var indexSectionsWithContent =
 {
   0: "_abcdefghijklmnopqrstuvwxyz~",
-  1: "_abcdefghiklmnopqrstuvwz",
-  2: "gost",
-  3: "_abcdefghijklmnopqrstuvwz",
-  4: "_abcdefghijklmnopqrstuvwxyz~",
-  5: "_abcdefghijklmnopqrstuvwxyz",
-  6: "_abcdfghilmopqrstuvwz",
-  7: "abcdefghiklmnopqrstv",
+  1: "abcdefghiklmnopqrstuvw",
+  2: "ot",
+  3: "abcdefghijklmnopqrstuvw",
+  4: "_abcdefghiklmnopqrstuvw~",
+  5: "abcdefghijklmnoprstuvwxyz",
+  6: "abcfghilmpqstuv",
+  7: "abcdfgiklmprstv",
   8: "_abcdefghijklmnopqrstuvwxyz",
-  9: "cdlp",
-  10: "_abcdefgimopstz",
-  11: "abcefghijkmnpqrstuvw",
-  12: "adjlopt",
-  13: "io"
+  9: "dlp",
+  10: "gost",
+  11: "adjlopt",
+  12: "io"
 };
 
 var indexSectionNames =
@@ -29,9 +28,8 @@ var indexSectionNames =
   8: "enumvalues",
   9: "related",
   10: "defines",
-  11: "groups",
-  12: "pages",
-  13: "concepts"
+  11: "pages",
+  12: "concepts"
 };
 
 var indexSectionLabels =
@@ -47,8 +45,7 @@ var indexSectionLabels =
   8: "Valores de enumeraciones",
   9: "Amigas",
   10: "defines",
-  11: "Módulos",
-  12: "Páginas",
-  13: "Conceptos"
+  11: "Páginas",
+  12: "Conceptos"
 };
 

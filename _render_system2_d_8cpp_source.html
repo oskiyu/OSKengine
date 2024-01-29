@@ -19,6 +19,7 @@
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="doxygen-awesome.css" rel="stylesheet" type="text/css"/>
 </head>
 <body>
 <div id="top"><!-- do not remove this div, it is closed by doxygen! -->
@@ -140,7 +141,7 @@ $(function(){initNavTree('_render_system2_d_8cpp_source.html',''); initResizable
 <div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span> </div>
 <div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>    spriteRenderer.<a class="code hl_function" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_sprite_renderer.html#a2ae2a44a9c2fb615b298afb0d8fbf603">Begin</a>();</div>
 <div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span> </div>
-<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>    <span class="keywordflow">for</span> (<a class="code hl_typedef" href="namespace_o_s_k_1_1_e_c_s.html#a7be561d6b7de4e8a49c2a5cc35fba48c">GameObjectIndex</a> obj : <a class="code hl_function" href="class_o_s_k_1_1_e_c_s_1_1_i_iterator_system.html#a438911164cb49af11db10ec3fe1c0dc3">GetObjects</a>()) {</div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>    <span class="keywordflow">for</span> (<a class="code hl_class" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">GameObjectIndex</a> obj : <a class="code hl_function" href="class_o_s_k_1_1_e_c_s_1_1_i_iterator_system.html#a438911164cb49af11db10ec3fe1c0dc3">GetObjects</a>()) {</div>
 <div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>        spriteRenderer.<a class="code hl_function" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_sprite_renderer.html#a0a92f1829e695be451b022660dbe63e1">Draw</a>(</div>
 <div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>            <a class="code hl_function" href="class_o_s_k_1_1_engine.html#a2e36571452395c924ab2211ad380298f">Engine::GetEcs</a>()-&gt;<a class="code hl_function" href="class_o_s_k_1_1_e_c_s_1_1_entity_component_system.html#ae9aed1c83a9b5304f0183fb7176b81c7">GetComponent</a>&lt;<a class="code hl_class" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_sprite.html">Sprite</a>&gt;(obj),</div>
 <div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>            <a class="code hl_function" href="class_o_s_k_1_1_engine.html#a2e36571452395c924ab2211ad380298f">Engine::GetEcs</a>()-&gt;<a class="code hl_function" href="class_o_s_k_1_1_e_c_s_1_1_entity_component_system.html#ae9aed1c83a9b5304f0183fb7176b81c7">GetComponent</a>&lt;<a class="code hl_class" href="class_o_s_k_1_1_e_c_s_1_1_transform2_d.html">Transform2D</a>&gt;(obj)</div>
@@ -165,6 +166,7 @@ $(function(){initNavTree('_render_system2_d_8cpp_source.html',''); initResizable
 <div class="ttc" id="a_sprite_8h_html"><div class="ttname"><a href="_sprite_8h.html">Sprite.h</a></div></div>
 <div class="ttc" id="a_transform2_d_8h_html"><div class="ttname"><a href="_transform2_d_8h.html">Transform2D.h</a></div></div>
 <div class="ttc" id="a_viewport_8h_html"><div class="ttname"><a href="_viewport_8h.html">Viewport.h</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref_html"><div class="ttname"><a href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">OSK::ASSETS::AssetRef</a></div><div class="ttdoc">Referencia a un asset.</div><div class="ttdef"><b>Definition</b> <a href="_asset_ref_8h_source.html#l00012">AssetRef.h:12</a></div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_color_html_ace3faf2dffa24249c04701310085670f"><div class="ttname"><a href="class_o_s_k_1_1_color.html#ace3faf2dffa24249c04701310085670f">OSK::Color::Blue</a></div><div class="ttdeci">static Color const Blue</div><div class="ttdoc">Color azul (0, 0, 1, 1).</div><div class="ttdef"><b>Definition</b> <a href="_color_8hpp_source.html#l00097">Color.hpp:97</a></div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_constexpr_bit_set_html"><div class="ttname"><a href="class_o_s_k_1_1_constexpr_bit_set.html">OSK::ConstexprBitSet&lt; MAX_COMPONENT_TYPES &gt;</a></div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_constexpr_bit_set_html_aa850887db869ea162a2c29d5022beece"><div class="ttname"><a href="class_o_s_k_1_1_constexpr_bit_set.html#aa850887db869ea162a2c29d5022beece">OSK::ConstexprBitSet::SetTrue</a></div><div class="ttdeci">void SetTrue(UIndex64 index)</div><div class="ttdoc">Establece el valor del bit dado a 1.</div><div class="ttdef"><b>Definition</b> <a href="_constexpr_bit_set_8hpp_source.html#l00036">ConstexprBitSet.hpp:36</a></div></div>
@@ -188,7 +190,6 @@ $(function(){initNavTree('_render_system2_d_8cpp_source.html',''); initResizable
 <div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_sprite_renderer_html_a2ae2a44a9c2fb615b298afb0d8fbf603"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_sprite_renderer.html#a2ae2a44a9c2fb615b298afb0d8fbf603">OSK::GRAPHICS::SpriteRenderer::Begin</a></div><div class="ttdeci">void Begin()</div><div class="ttdoc">Inicializa el renderizado 2D, estableciendo los recursos necesarios.</div><div class="ttdef"><b>Definition</b> <a href="_sprite_renderer_8cpp_source.html#l00050">SpriteRenderer.cpp:50</a></div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_sprite_renderer_html_a614b8a5f4e11f2b4a32cfd0710781c9f"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_sprite_renderer.html#a614b8a5f4e11f2b4a32cfd0710781c9f">OSK::GRAPHICS::SpriteRenderer::End</a></div><div class="ttdeci">void End() noexcept</div><div class="ttdoc">Finaliza el renderizado 2D.</div><div class="ttdef"><b>Definition</b> <a href="_sprite_renderer_8cpp_source.html#l00183">SpriteRenderer.cpp:183</a></div></div>
 <div class="ttc" id="anamespace_o_s_k_1_1_e_c_s_html"><div class="ttname"><a href="namespace_o_s_k_1_1_e_c_s.html">OSK::ECS</a></div><div class="ttdef"><b>Definition</b> <a href="_camera_component2_d_8h_source.html#l00017">CameraComponent2D.h:17</a></div></div>
-<div class="ttc" id="anamespace_o_s_k_1_1_e_c_s_html_a7be561d6b7de4e8a49c2a5cc35fba48c"><div class="ttname"><a href="namespace_o_s_k_1_1_e_c_s.html#a7be561d6b7de4e8a49c2a5cc35fba48c">OSK::ECS::GameObjectIndex</a></div><div class="ttdeci">UIndex32 GameObjectIndex</div><div class="ttdoc">Identificador único para un Game Object.</div><div class="ttdef"><b>Definition</b> <a href="_game_object_8h_source.html#l00018">GameObject.h:18</a></div></div>
 <div class="ttc" id="anamespace_o_s_k_1_1_g_r_a_p_h_i_c_s_html"><div class="ttname"><a href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html">OSK::GRAPHICS</a></div><div class="ttdef"><b>Definition</b> <a href="_acceleration_structures_exceptions_8h_source.html#l00005">AccelerationStructuresExceptions.h:5</a></div></div>
 <div class="ttc" id="anamespace_o_s_k_html"><div class="ttname"><a href="namespace_o_s_k.html">OSK</a></div><div class="ttdef"><b>Definition</b> <a href="_acceleration_structures_exceptions_8h_source.html#l00005">AccelerationStructuresExceptions.h:5</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
@@ -197,7 +198,7 @@ $(function(){initNavTree('_render_system2_d_8cpp_source.html',''); initResizable
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_74389ed8173ad57b461b9d623a1f3867.html">Source</a></li><li class="navelem"><a class="el" href="_render_system2_d_8cpp.html">RenderSystem2D.cpp</a></li>
-    <li class="footer">Generado el Lunes, 29 de enero de 2024 17:18:32 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.10.0 </li>
+    <li class="footer">Generado el Lunes, 29 de enero de 2024 17:22:59 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.10.0 </li>
   </ul>
 </div>
 </body>

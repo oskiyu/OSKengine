@@ -19,6 +19,7 @@
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="doxygen-awesome.css" rel="stylesheet" type="text/css"/>
 </head>
 <body>
 <div id="top"><!-- do not remove this div, it is closed by doxygen! -->
@@ -108,7 +109,7 @@ $(function(){initNavTree('_clipping_8cpp_source.html',''); initResizable(); });
 <div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span> </div>
 <div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span>    <span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_vector3__t.html">Vector3f</a> firstCenter = GetCenter(intermediatePoints);</div>
 <div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span> </div>
-<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span>    <span class="keywordflow">for</span> (<a class="code hl_typedef" href="_o_s_kmacros_8h.html#adef8e046c86805ca0dc2db407b01a1bb">UIndex64</a> v = 0; v &lt; referenceFace.<a class="code hl_function" href="class_o_s_k_1_1_dynamic_array.html#af09578371bd52d5a934bc74c8dad5f0d">GetSize</a>(); v++) {</div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span>    <span class="keywordflow">for</span> (<a class="code hl_class" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">UIndex64</a> v = 0; v &lt; referenceFace.<a class="code hl_function" href="class_o_s_k_1_1_dynamic_array.html#af09578371bd52d5a934bc74c8dad5f0d">GetSize</a>(); v++) {</div>
 <div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span>        <span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_vector3__t.html">Vector3f</a>&amp; a = referenceFace[v];</div>
 <div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span>        <span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_vector3__t.html">Vector3f</a>&amp; b = referenceFace[(v + 1) % referenceFace.<a class="code hl_function" href="class_o_s_k_1_1_dynamic_array.html#af09578371bd52d5a934bc74c8dad5f0d">GetSize</a>()];</div>
 <div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span> </div>
@@ -123,7 +124,7 @@ $(function(){initNavTree('_clipping_8cpp_source.html',''); initResizable(); });
 <div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>        <span class="keyword">const</span> <span class="keywordtype">float</span> vertexProjection = a.<a class="code hl_function" href="class_o_s_k_1_1_vector3__t.html#a79f857bd13e3e7b131fb1c171e38b069">Dot</a>(lineDirection);</div>
 <div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span> </div>
 <div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>        <span class="comment">// Si apunta hacia el centro (dot &gt;= 0.0f), se debe invertir la dirección.</span></div>
-<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>        <span class="keyword">const</span> <span class="keywordtype">float</span> sign = <a class="code hl_function" href="group__core__func__common.html#gaf749e7f029eb88580a45493e41002629">glm::sign</a>(centerProjection - vertexProjection) &gt;= 0.0f ? -1.0f : 1.0f;</div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>        <span class="keyword">const</span> <span class="keywordtype">float</span> sign = glm::sign(centerProjection - vertexProjection) &gt;= 0.0f ? -1.0f : 1.0f;</div>
 <div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span> </div>
 <div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>        <span class="comment">// Dirección de clipping final.</span></div>
 <div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>        <span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_vector3__t.html">Vector3f</a> direction = lineDirection * sign;</div>
@@ -170,7 +171,7 @@ $(function(){initNavTree('_clipping_8cpp_source.html',''); initResizable(); });
 <div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>    <span class="keywordflow">return</span> output / <span class="keyword">static_cast&lt;</span><span class="keywordtype">float</span><span class="keyword">&gt;</span>(face.<a class="code hl_function" href="class_o_s_k_1_1_dynamic_array.html#af09578371bd52d5a934bc74c8dad5f0d">GetSize</a>());</div>
 <div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>}</div>
 <div class="ttc" id="a_clipping_8h_html"><div class="ttname"><a href="_clipping_8h.html">Clipping.h</a></div></div>
-<div class="ttc" id="a_o_s_kmacros_8h_html_adef8e046c86805ca0dc2db407b01a1bb"><div class="ttname"><a href="_o_s_kmacros_8h.html#adef8e046c86805ca0dc2db407b01a1bb">UIndex64</a></div><div class="ttdeci">uint64_t UIndex64</div><div class="ttdef"><b>Definition</b> <a href="_o_s_kmacros_8h_source.html#l00041">OSKmacros.h:41</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref_html"><div class="ttname"><a href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">OSK::ASSETS::AssetRef</a></div><div class="ttdoc">Referencia a un asset.</div><div class="ttdef"><b>Definition</b> <a href="_asset_ref_8h_source.html#l00012">AssetRef.h:12</a></div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_dynamic_array_html"><div class="ttname"><a href="class_o_s_k_1_1_dynamic_array.html">OSK::DynamicArray</a></div><div class="ttdoc">Dynamic array: array que puede cambiar de tamaño.</div><div class="ttdef"><b>Definition</b> <a href="_dynamic_array_8hpp_source.html#l00066">DynamicArray.hpp:66</a></div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_dynamic_array_html_a4433c76207ce2ecad5e306b12575f1b3"><div class="ttname"><a href="class_o_s_k_1_1_dynamic_array.html#a4433c76207ce2ecad5e306b12575f1b3">OSK::DynamicArray::Insert</a></div><div class="ttdeci">void Insert(const T &amp;element)</div><div class="ttdoc">Inserta un elemento al final del array.</div><div class="ttdef"><b>Definition</b> <a href="_dynamic_array_8hpp_source.html#l00350">DynamicArray.hpp:350</a></div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_dynamic_array_html_af09578371bd52d5a934bc74c8dad5f0d"><div class="ttname"><a href="class_o_s_k_1_1_dynamic_array.html#af09578371bd52d5a934bc74c8dad5f0d">OSK::DynamicArray::GetSize</a></div><div class="ttdeci">USize64 GetSize() const noexcept</div><div class="ttdoc">Devuelve el número de elementos almacenados.</div><div class="ttdef"><b>Definition</b> <a href="_dynamic_array_8hpp_source.html#l00671">DynamicArray.hpp:671</a></div></div>
@@ -178,7 +179,6 @@ $(function(){initNavTree('_clipping_8cpp_source.html',''); initResizable(); });
 <div class="ttc" id="aclass_o_s_k_1_1_vector3__t_html_a11968baed38c50bb37083845b41efd72"><div class="ttname"><a href="class_o_s_k_1_1_vector3__t.html#a11968baed38c50bb37083845b41efd72">OSK::Vector3_t::Cross</a></div><div class="ttdeci">Vector3_t Cross(const Vector3_t &amp;vec) const</div><div class="ttdef"><b>Definition</b> <a href="_vector3_8hpp_source.html#l00196">Vector3.hpp:196</a></div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_vector3__t_html_a79f857bd13e3e7b131fb1c171e38b069"><div class="ttname"><a href="class_o_s_k_1_1_vector3__t.html#a79f857bd13e3e7b131fb1c171e38b069">OSK::Vector3_t::Dot</a></div><div class="ttdeci">T Dot(const Vector3_t &amp;vec) const</div><div class="ttdef"><b>Definition</b> <a href="_vector3_8hpp_source.html#l00191">Vector3.hpp:191</a></div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_vector3__t_html_aef1702c4230df139c7f0e28cd27bc4a6"><div class="ttname"><a href="class_o_s_k_1_1_vector3__t.html#aef1702c4230df139c7f0e28cd27bc4a6">OSK::Vector3_t::GetNormalized</a></div><div class="ttdeci">Vector3_t GetNormalized() const</div><div class="ttdef"><b>Definition</b> <a href="_vector3_8hpp_source.html#l00220">Vector3.hpp:220</a></div></div>
-<div class="ttc" id="agroup__core__func__common_html_gaf749e7f029eb88580a45493e41002629"><div class="ttname"><a href="group__core__func__common.html#gaf749e7f029eb88580a45493e41002629">glm::sign</a></div><div class="ttdeci">GLM_FUNC_DECL vec&lt; L, T, Q &gt; sign(vec&lt; L, T, Q &gt; const &amp;x)</div><div class="ttdef"><b>Definition</b> <a href="x64-windows-static_2x64-windows-static_2include_2glm_2detail_2func__common_8inl_source.html#l00295">func_common.inl:295</a></div></div>
 <div class="ttc" id="anamespace_o_s_k_1_1_c_o_l_l_i_s_i_o_n_html_ab804c9bf0dacdd2fda35f70a4126a4ce"><div class="ttname"><a href="namespace_o_s_k_1_1_c_o_l_l_i_s_i_o_n.html#ab804c9bf0dacdd2fda35f70a4126a4ce">OSK::COLLISION::ClipFaces</a></div><div class="ttdeci">DynamicArray&lt; Vector3f &gt; ClipFaces(const DynamicArray&lt; Vector3f &gt; &amp;referenceFace, const DynamicArray&lt; Vector3f &gt; &amp;secondaryFace, const Vector3f &amp;firstFaceNormal, const Vector3f &amp;secondFaceNormal)</div><div class="ttdef"><b>Definition</b> <a href="#l00003">Clipping.cpp:3</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
@@ -186,7 +186,7 @@ $(function(){initNavTree('_clipping_8cpp_source.html',''); initResizable(); });
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_74389ed8173ad57b461b9d623a1f3867.html">Source</a></li><li class="navelem"><a class="el" href="_clipping_8cpp.html">Clipping.cpp</a></li>
-    <li class="footer">Generado el Lunes, 29 de enero de 2024 17:18:30 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.10.0 </li>
+    <li class="footer">Generado el Lunes, 29 de enero de 2024 17:22:58 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.10.0 </li>
   </ul>
 </div>
 </body>

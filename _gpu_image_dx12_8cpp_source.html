@@ -19,6 +19,7 @@
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="doxygen-awesome.css" rel="stylesheet" type="text/css"/>
 </head>
 <body>
 <div id="top"><!-- do not remove this div, it is closed by doxygen! -->
@@ -175,8 +176,8 @@ $(function(){initNavTree('_gpu_image_dx12_8cpp_source.html',''); initResizable()
 </div>
 <div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span> </div>
 <div class="foldopen" id="foldopen00063" data-start="{" data-end="}">
-<div class="line"><a id="l00063" name="l00063"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_dx12.html#a70902e8c19134eb15b3d281f60a7a885">   63</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_dx12.html#a70902e8c19134eb15b3d281f60a7a885">GpuImageDx12::SetDebugName</a>(<span class="keyword">const</span> std::string&amp; <a class="code hl_variable" href="x64-windows-static_2x64-windows-static_2include_2spirv_2unified1_2spv_8d.html#a41f818ddb5dc4447d88e7b94d4f72d72">name</a>) {</div>
-<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>    <span class="keyword">auto</span> str = <a class="code hl_function" href="namespace_o_s_k.html#a2c5e32d601191e934edfe40ec5c1d12e">StringToWideString</a>(<a class="code hl_variable" href="x64-windows-static_2x64-windows-static_2include_2spirv_2unified1_2spv_8d.html#a41f818ddb5dc4447d88e7b94d4f72d72">name</a>);</div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_dx12.html#a70902e8c19134eb15b3d281f60a7a885">   63</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_dx12.html#a70902e8c19134eb15b3d281f60a7a885">GpuImageDx12::SetDebugName</a>(<span class="keyword">const</span> std::string&amp; name) {</div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>    <span class="keyword">auto</span> str = <a class="code hl_function" href="namespace_o_s_k.html#a2c5e32d601191e934edfe40ec5c1d12e">StringToWideString</a>(name);</div>
 <div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>    resource-&gt;SetName(str.c_str());</div>
 <div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>}</div>
 </div>
@@ -408,14 +409,13 @@ $(function(){initNavTree('_gpu_image_dx12_8cpp_source.html',''); initResizable()
 <div class="ttc" id="astruct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_view_config_html_ac50ea75f158345c56e87d45b908c7e23"><div class="ttname"><a href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_view_config.html#ac50ea75f158345c56e87d45b908c7e23">OSK::GRAPHICS::GpuImageViewConfig::arrayLevelCount</a></div><div class="ttdeci">USize32 arrayLevelCount</div><div class="ttdoc">Número de capas del array.</div><div class="ttdef"><b>Definition</b> <a href="_gpu_image_view_config_8h_source.html#l00151">GpuImageViewConfig.h:151</a></div></div>
 <div class="ttc" id="astruct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_view_config_html_ac5d4648824ecc9db871b22ff330faad9"><div class="ttname"><a href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_view_config.html#ac5d4648824ecc9db871b22ff330faad9">OSK::GRAPHICS::GpuImageViewConfig::arrayType</a></div><div class="ttdeci">SampledArrayType arrayType</div><div class="ttdoc">Representa si es una única imagen (o capa) o si representa un conjunto de capsa (array)....</div><div class="ttdef"><b>Definition</b> <a href="_gpu_image_view_config_8h_source.html#l00137">GpuImageViewConfig.h:137</a></div></div>
 <div class="ttc" id="astruct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_view_config_html_aee9bc303f2bce8bcf14d18b181eb286f"><div class="ttname"><a href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_view_config.html#aee9bc303f2bce8bcf14d18b181eb286f">OSK::GRAPHICS::GpuImageViewConfig::usage</a></div><div class="ttdeci">ViewUsage usage</div><div class="ttdoc">Uso que se le va a dar. Por defecto, SAMPLED.</div><div class="ttdef"><b>Definition</b> <a href="_gpu_image_view_config_8h_source.html#l00168">GpuImageViewConfig.h:168</a></div></div>
-<div class="ttc" id="ax64-windows-static_2x64-windows-static_2include_2spirv_2unified1_2spv_8d_html_a41f818ddb5dc4447d88e7b94d4f72d72"><div class="ttname"><a href="x64-windows-static_2x64-windows-static_2include_2spirv_2unified1_2spv_8d.html#a41f818ddb5dc4447d88e7b94d4f72d72">name</a></div><div class="ttdeci">free of to any person obtaining a copy of this software and or associated documentation to deal in the Materials without including without limitation the rights to and or sell copies of the and to permit persons to whom the Materials are furnished to do subject to the following NORMATIVE VERSIONS OF KHRONOS SPECIFICATIONS AND HEADER INFORMATION ARE LOCATED AT WITHOUT WARRANTY OF ANY EXPRESS OR INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY DAMAGES OR OTHER WHETHER IN AN ACTION OF TORT OR ARISING OUT OF OR IN CONNECTION WITH THE MATERIALS OR THE USE OR OTHER DEALINGS IN THE MATERIALS.This header is automatically generated by the same tool that creates the Binary Section of the SPIR V specification.Enumeration tokens for SPIR in various C C will have tokens with a Spv e.e.e.e.e.e.e.e.which can be OR d while others are mutually exclusive.The mask like ones have Mask in their name</div><div class="ttdef"><b>Definition</b> <a href="x64-windows-static_2x64-windows-static_2include_2spirv_2unified1_2spv_8d_source.html#l00049">spv.d:49</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_74389ed8173ad57b461b9d623a1f3867.html">Source</a></li><li class="navelem"><a class="el" href="_gpu_image_dx12_8cpp.html">GpuImageDx12.cpp</a></li>
-    <li class="footer">Generado el Lunes, 29 de enero de 2024 17:18:31 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.10.0 </li>
+    <li class="footer">Generado el Lunes, 29 de enero de 2024 17:22:59 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.10.0 </li>
   </ul>
 </div>
 </body>

@@ -19,6 +19,7 @@
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="doxygen-awesome.css" rel="stylesheet" type="text/css"/>
 </head>
 <body>
 <div id="top"><!-- do not remove this div, it is closed by doxygen! -->
@@ -118,11 +119,11 @@ $(function(){initNavTree('_pre_built_collider_loader_8h_source.html',''); initRe
 <div class="line"><a id="l00015" name="l00015"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_pre_built_collider_loader.html#a52ca38d54a7cb32640dc582c96835479">   15</a></span>        <a class="code hl_function" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_pre_built_collider_loader.html#a52ca38d54a7cb32640dc582c96835479">OSK_ASSET_TYPE_REG</a>(<span class="stringliteral">&quot;OSK::PreBuiltCollider&quot;</span>);</div>
 <div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span> </div>
 <div class="line"><a id="l00017" name="l00017"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_pre_built_collider_loader.html#aea8bb40a3be1c968a548fda4d0b7f64b">   17</a></span>        <a class="code hl_function" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_pre_built_collider_loader.html#aea8bb40a3be1c968a548fda4d0b7f64b">OSK_DEFAULT_LOADER_IMPL</a>(<a class="code hl_class" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_pre_built_collider.html">PreBuiltCollider</a>);</div>
-<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>        <span class="keywordtype">void</span> Load(<span class="keyword">const</span> std::string&amp; assetFilePath, <a class="code hl_class" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_pre_built_collider.html">PreBuiltCollider</a>* asset) <span class="keyword">override</span>;</div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>        <span class="keywordtype">void</span> Load(<span class="keyword">const</span> std::string&amp; <a class="code hl_class" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">assetFilePath</a>, <a class="code hl_class" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_pre_built_collider.html">PreBuiltCollider</a>* <a class="code hl_class" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">asset</a>) <span class="keyword">override</span>;</div>
 <div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span> </div>
 <div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>    <span class="keyword">private</span>:</div>
 <div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span> </div>
-<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>        <span class="keywordtype">void</span> ProcessNode(<span class="keyword">const</span> tinygltf::Model&amp; model, <span class="keyword">const</span> tinygltf::Node&amp; node, <a class="code hl_typedef" href="_o_s_kmacros_8h.html#af205b9fd0440138e6cac38a9081141df">UIndex32</a> nodeId, <a class="code hl_typedef" href="_o_s_kmacros_8h.html#af205b9fd0440138e6cac38a9081141df">UIndex32</a> parentId) <span class="keyword">override</span> <span class="keyword">final</span>;</div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>        <span class="keywordtype">void</span> ProcessNode(<span class="keyword">const</span> tinygltf::Model&amp; model, <span class="keyword">const</span> tinygltf::Node&amp; node, <a class="code hl_typedef" href="_o_s_kmacros_8h.html#af205b9fd0440138e6cac38a9081141df">UIndex32</a> nodeId, <a class="code hl_typedef" href="_o_s_kmacros_8h.html#af205b9fd0440138e6cac38a9081141df">UIndex32</a> <a class="code hl_class" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">parentId</a>) <span class="keyword">override</span> <span class="keyword">final</span>;</div>
 <div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span> </div>
 <div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>        <a class="code hl_class" href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_collider.html">COLLISION::Collider</a>* m_buildingCollider = <span class="keyword">nullptr</span>;</div>
 <div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span> </div>
@@ -136,6 +137,7 @@ $(function(){initNavTree('_pre_built_collider_loader_8h_source.html',''); initRe
 <div class="ttc" id="a_o_s_kmacros_8h_html_a09ec5b46ece998ad096bceff312bb36c"><div class="ttname"><a href="_o_s_kmacros_8h.html#a09ec5b46ece998ad096bceff312bb36c">OSKAPI_CALL</a></div><div class="ttdeci">#define OSKAPI_CALL</div><div class="ttdef"><b>Definition</b> <a href="_o_s_kmacros_8h_source.html#l00007">OSKmacros.h:7</a></div></div>
 <div class="ttc" id="a_o_s_kmacros_8h_html_af205b9fd0440138e6cac38a9081141df"><div class="ttname"><a href="_o_s_kmacros_8h.html#af205b9fd0440138e6cac38a9081141df">UIndex32</a></div><div class="ttdeci">uint32_t UIndex32</div><div class="ttdef"><b>Definition</b> <a href="_o_s_kmacros_8h_source.html#l00040">OSKmacros.h:40</a></div></div>
 <div class="ttc" id="a_pre_built_collider_8h_html"><div class="ttname"><a href="_pre_built_collider_8h.html">PreBuiltCollider.h</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref_html"><div class="ttname"><a href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">OSK::ASSETS::AssetRef</a></div><div class="ttdoc">Referencia a un asset.</div><div class="ttdef"><b>Definition</b> <a href="_asset_ref_8h_source.html#l00012">AssetRef.h:12</a></div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_a_s_s_e_t_s_1_1_i_asset_loader_html"><div class="ttname"><a href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_i_asset_loader.html">OSK::ASSETS::IAssetLoader</a></div><div class="ttdoc">Clase que se encarga de cargar un asset de un tipo en concreto.</div><div class="ttdef"><b>Definition</b> <a href="_i_asset_loader_8h_source.html#l00031">IAssetLoader.h:31</a></div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_a_s_s_e_t_s_1_1_i_gltf_loader_html"><div class="ttname"><a href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_i_gltf_loader.html">OSK::ASSETS::IGltfLoader</a></div><div class="ttdoc">Clase base para poder importar un modelo GLTF.</div><div class="ttdef"><b>Definition</b> <a href="_i_gltf_loader_8h_source.html#l00085">IGltfLoader.h:85</a></div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_a_s_s_e_t_s_1_1_pre_built_collider_html"><div class="ttname"><a href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_pre_built_collider.html">OSK::ASSETS::PreBuiltCollider</a></div><div class="ttdoc">Representa un collider cargado a partir de un archivo externo.</div><div class="ttdef"><b>Definition</b> <a href="_pre_built_collider_8h_source.html#l00014">PreBuiltCollider.h:14</a></div></div>
@@ -151,7 +153,7 @@ $(function(){initNavTree('_pre_built_collider_loader_8h_source.html',''); initRe
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_74389ed8173ad57b461b9d623a1f3867.html">Source</a></li><li class="navelem"><a class="el" href="_pre_built_collider_loader_8h.html">PreBuiltColliderLoader.h</a></li>
-    <li class="footer">Generado el Lunes, 29 de enero de 2024 17:18:31 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.10.0 </li>
+    <li class="footer">Generado el Lunes, 29 de enero de 2024 17:22:59 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.10.0 </li>
   </ul>
 </div>
 </body>

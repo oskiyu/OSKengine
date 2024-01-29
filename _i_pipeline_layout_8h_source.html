@@ -19,6 +19,7 @@
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="doxygen-awesome.css" rel="stylesheet" type="text/css"/>
 </head>
 <body>
 <div id="top"><!-- do not remove this div, it is closed by doxygen! -->
@@ -117,7 +118,7 @@ $(function(){initNavTree('_i_pipeline_layout_8h_source.html',''); initResizable(
 <div class="line"><a id="l00027" name="l00027"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_pipeline_layout.html#a6f28e32e0214d804fdd211cceaab960d">   27</a></span>        <span class="keyword">virtual</span> <a class="code hl_function" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_pipeline_layout.html#a6f28e32e0214d804fdd211cceaab960d">~IPipelineLayout</a>() = <span class="keywordflow">default</span>;</div>
 <div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span> </div>
 <div class="foldopen" id="foldopen00029" data-start="{" data-end="}">
-<div class="line"><a id="l00029" name="l00029"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_pipeline_layout.html#ab7b56d4f89c4be3813932ecc24f1b3a3">   29</a></span>        <span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt; T* <a class="code hl_function" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_pipeline_layout.html#ab7b56d4f89c4be3813932ecc24f1b3a3">As</a>() <a class="code hl_define" href="x64-windows-static_2x64-windows-static_2include_2zconf_8h.html#a2c212835823e3c54a8ab6d95c652660e">const</a> requires <a class="code hl_namespace" href="namespacestd.html">std</a>::is_base_of_v&lt;<a class="code hl_class" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_pipeline_layout.html">IPipelineLayout</a>, T&gt; {</div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_pipeline_layout.html#ab7b56d4f89c4be3813932ecc24f1b3a3">   29</a></span>        <span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt; T* <a class="code hl_function" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_pipeline_layout.html#ab7b56d4f89c4be3813932ecc24f1b3a3">As</a>() const requires std::is_base_of_v&lt;<a class="code hl_class" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_pipeline_layout.html">IPipelineLayout</a>, T&gt; {</div>
 <div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>            <span class="keywordflow">return</span> (T*)<span class="keyword">this</span>;</div>
 <div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>        }</div>
 </div>
@@ -133,15 +134,13 @@ $(function(){initNavTree('_i_pipeline_layout_8h_source.html',''); initResizable(
 <div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_pipeline_layout_html_ab7b56d4f89c4be3813932ecc24f1b3a3"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_pipeline_layout.html#ab7b56d4f89c4be3813932ecc24f1b3a3">OSK::GRAPHICS::IPipelineLayout::As</a></div><div class="ttdeci">T * As() const</div><div class="ttdef"><b>Definition</b> <a href="#l00029">IPipelineLayout.h:29</a></div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_layout_html"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_layout.html">OSK::GRAPHICS::MaterialLayout</a></div><div class="ttdoc">El layout de un material determina qué slots pertenecen a ese material.</div><div class="ttdef"><b>Definition</b> <a href="_material_layout_8h_source.html#l00013">MaterialLayout.h:13</a></div></div>
 <div class="ttc" id="anamespace_o_s_k_1_1_g_r_a_p_h_i_c_s_html"><div class="ttname"><a href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html">OSK::GRAPHICS</a></div><div class="ttdef"><b>Definition</b> <a href="_acceleration_structures_exceptions_8h_source.html#l00005">AccelerationStructuresExceptions.h:5</a></div></div>
-<div class="ttc" id="anamespacestd_html"><div class="ttname"><a href="namespacestd.html">std</a></div><div class="ttdef"><b>Definition</b> <a href="x64-windows-static_2x64-windows-static_2include_2glm_2gtx_2hash_8hpp_source.html#l00049">hash.hpp:50</a></div></div>
-<div class="ttc" id="ax64-windows-static_2x64-windows-static_2include_2zconf_8h_html_a2c212835823e3c54a8ab6d95c652660e"><div class="ttname"><a href="x64-windows-static_2x64-windows-static_2include_2zconf_8h.html#a2c212835823e3c54a8ab6d95c652660e">const</a></div><div class="ttdeci">#define const</div><div class="ttdef"><b>Definition</b> <a href="x64-windows-static_2x64-windows-static_2include_2zconf_8h_source.html#l00235">zconf.h:235</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_74389ed8173ad57b461b9d623a1f3867.html">Source</a></li><li class="navelem"><a class="el" href="_i_pipeline_layout_8h.html">IPipelineLayout.h</a></li>
-    <li class="footer">Generado el Lunes, 29 de enero de 2024 17:18:31 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.10.0 </li>
+    <li class="footer">Generado el Lunes, 29 de enero de 2024 17:22:59 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.10.0 </li>
   </ul>
 </div>
 </body>

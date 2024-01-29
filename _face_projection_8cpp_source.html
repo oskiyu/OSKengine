@@ -19,6 +19,7 @@
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="doxygen-awesome.css" rel="stylesheet" type="text/css"/>
 </head>
 <body>
 <div id="top"><!-- do not remove this div, it is closed by doxygen! -->
@@ -112,8 +113,8 @@ $(function(){initNavTree('_face_projection_8cpp_source.html',''); initResizable(
 <div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span>    <span class="keywordflow">for</span> (<span class="keyword">const</span> <span class="keyword">auto</span>&amp; vertex : vertices) {</div>
 <div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span>        <span class="keyword">const</span> <span class="keywordtype">float</span> vertexProjection = vertex.Dot(axis);</div>
 <div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span> </div>
-<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span>        min = <a class="code hl_function" href="group__core__func__common.html#ga6cf8098827054a270ee36b18e30d471d">glm::min</a>(vertexProjection, min);</div>
-<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span>        max = <a class="code hl_function" href="group__core__func__common.html#gae02d42887fc5570451f880e3c624b9ac">glm::max</a>(vertexProjection, max);</div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span>        min = glm::min(vertexProjection, min);</div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span>        max = glm::max(vertexProjection, max);</div>
 <div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span>    }</div>
 <div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span>}</div>
 </div>
@@ -126,8 +127,8 @@ $(function(){initNavTree('_face_projection_8cpp_source.html',''); initResizable(
 <div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span> </div>
 <div class="foldopen" id="foldopen00021" data-start="{" data-end="}">
 <div class="line"><a id="l00021" name="l00021"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_face_projection.html#aa5bafd76d3131cfe61ceb7842bf77c3d">   21</a></span><span class="keywordtype">float</span> <a class="code hl_function" href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_face_projection.html#aa5bafd76d3131cfe61ceb7842bf77c3d">FaceProjection::GetOverlap</a>(<a class="code hl_class" href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_face_projection.html">FaceProjection</a> other)<span class="keyword"> const </span>{</div>
-<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>    <span class="keywordflow">return</span> <a class="code hl_function" href="group__core__func__common.html#gae02d42887fc5570451f880e3c624b9ac">glm::max</a>(0.0f,</div>
-<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>        <a class="code hl_function" href="group__core__func__common.html#ga6cf8098827054a270ee36b18e30d471d">glm::min</a>(max, other.max) - <a class="code hl_function" href="group__core__func__common.html#gae02d42887fc5570451f880e3c624b9ac">glm::max</a>(min, other.min)</div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>    <span class="keywordflow">return</span> glm::max(0.0f,</div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>        glm::min(max, other.max) - glm::max(min, other.min)</div>
 <div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>    );</div>
 <div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span> </div>
 <div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>    <span class="keywordflow">if</span> (!<a class="code hl_function" href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_face_projection.html#a743bdab979c9ce34375f1761b3907ee0">Overlaps</a>(other))</div>
@@ -135,15 +136,15 @@ $(function(){initNavTree('_face_projection_8cpp_source.html',''); initResizable(
 <div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span> </div>
 <div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>    <span class="comment">// Esta proyección está dentro de la otra.</span></div>
 <div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>    <span class="keywordflow">if</span> (this-&gt;min &lt; other.min &amp;&amp; this-&gt;max &gt; other.max)</div>
-<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>        <span class="keywordflow">return</span> <a class="code hl_function" href="group__core__func__common.html#ga439e60a72eadecfeda2df5449c613a64">glm::abs</a>(this-&gt;max - this-&gt;min);</div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>        <span class="keywordflow">return</span> glm::abs(this-&gt;max - this-&gt;min);</div>
 <div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span> </div>
 <div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>    <span class="comment">// La otra proyección está dentro de esta.</span></div>
 <div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>    <span class="keywordflow">if</span> (other.min &lt; this-&gt;min &amp;&amp; other.max &gt; this-&gt;max)</div>
-<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>        <span class="keywordflow">return</span> <a class="code hl_function" href="group__core__func__common.html#ga439e60a72eadecfeda2df5449c613a64">glm::abs</a>(other.max - other.min);</div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>        <span class="keywordflow">return</span> glm::abs(other.max - other.min);</div>
 <div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span> </div>
-<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>    <span class="keywordflow">return</span> <a class="code hl_function" href="group__core__func__common.html#gae02d42887fc5570451f880e3c624b9ac">glm::max</a>(</div>
-<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>            <a class="code hl_function" href="group__core__func__common.html#ga439e60a72eadecfeda2df5449c613a64">glm::abs</a>(this-&gt;min - other.max),</div>
-<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>            <a class="code hl_function" href="group__core__func__common.html#ga439e60a72eadecfeda2df5449c613a64">glm::abs</a>(this-&gt;max - other.min)</div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>    <span class="keywordflow">return</span> glm::max(</div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>            glm::abs(this-&gt;min - other.max),</div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>            glm::abs(this-&gt;max - other.min)</div>
 <div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>        );</div>
 <div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>}</div>
 </div>
@@ -168,9 +169,6 @@ $(function(){initNavTree('_face_projection_8cpp_source.html',''); initResizable(
 <div class="ttc" id="aclass_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_face_projection_html_ad0ea04b34b24bb05aa0332567d7e76f8"><div class="ttname"><a href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_face_projection.html#ad0ea04b34b24bb05aa0332567d7e76f8">OSK::COLLISION::FaceProjection::FaceProjection</a></div><div class="ttdeci">FaceProjection(const DynamicArray&lt; Vector3f &gt; &amp;vertices, Vector3f axis)</div><div class="ttdoc">Calcula la proyección.</div><div class="ttdef"><b>Definition</b> <a href="#l00008">FaceProjection.cpp:8</a></div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_dynamic_array_html"><div class="ttname"><a href="class_o_s_k_1_1_dynamic_array.html">OSK::DynamicArray</a></div><div class="ttdoc">Dynamic array: array que puede cambiar de tamaño.</div><div class="ttdef"><b>Definition</b> <a href="_dynamic_array_8hpp_source.html#l00066">DynamicArray.hpp:66</a></div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_vector3__t_html"><div class="ttname"><a href="class_o_s_k_1_1_vector3__t.html">OSK::Vector3_t&lt; float_t &gt;</a></div></div>
-<div class="ttc" id="agroup__core__func__common_html_ga439e60a72eadecfeda2df5449c613a64"><div class="ttname"><a href="group__core__func__common.html#ga439e60a72eadecfeda2df5449c613a64">glm::abs</a></div><div class="ttdeci">GLM_FUNC_DECL GLM_CONSTEXPR genType abs(genType x)</div></div>
-<div class="ttc" id="agroup__core__func__common_html_ga6cf8098827054a270ee36b18e30d471d"><div class="ttname"><a href="group__core__func__common.html#ga6cf8098827054a270ee36b18e30d471d">glm::min</a></div><div class="ttdeci">GLM_FUNC_DECL GLM_CONSTEXPR genType min(genType x, genType y)</div><div class="ttdef"><b>Definition</b> <a href="x64-windows-static_2x64-windows-static_2include_2glm_2detail_2func__common_8inl_source.html#l00017">func_common.inl:17</a></div></div>
-<div class="ttc" id="agroup__core__func__common_html_gae02d42887fc5570451f880e3c624b9ac"><div class="ttname"><a href="group__core__func__common.html#gae02d42887fc5570451f880e3c624b9ac">glm::max</a></div><div class="ttdeci">GLM_FUNC_DECL GLM_CONSTEXPR genType max(genType x, genType y)</div><div class="ttdef"><b>Definition</b> <a href="x64-windows-static_2x64-windows-static_2include_2glm_2detail_2func__common_8inl_source.html#l00025">func_common.inl:25</a></div></div>
 <div class="ttc" id="anamespace_o_s_k_1_1_c_o_l_l_i_s_i_o_n_html"><div class="ttname"><a href="namespace_o_s_k_1_1_c_o_l_l_i_s_i_o_n.html">OSK::COLLISION</a></div><div class="ttdef"><b>Definition</b> <a href="_axis_aligned_bounding_box_8h_source.html#l00010">AxisAlignedBoundingBox.h:10</a></div></div>
 <div class="ttc" id="anamespace_o_s_k_html"><div class="ttname"><a href="namespace_o_s_k.html">OSK</a></div><div class="ttdef"><b>Definition</b> <a href="_acceleration_structures_exceptions_8h_source.html#l00005">AccelerationStructuresExceptions.h:5</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
@@ -179,7 +177,7 @@ $(function(){initNavTree('_face_projection_8cpp_source.html',''); initResizable(
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_74389ed8173ad57b461b9d623a1f3867.html">Source</a></li><li class="navelem"><a class="el" href="_face_projection_8cpp.html">FaceProjection.cpp</a></li>
-    <li class="footer">Generado el Lunes, 29 de enero de 2024 17:18:31 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.10.0 </li>
+    <li class="footer">Generado el Lunes, 29 de enero de 2024 17:22:58 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.10.0 </li>
   </ul>
 </div>
 </body>

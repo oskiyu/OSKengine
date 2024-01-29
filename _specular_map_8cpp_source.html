@@ -19,6 +19,7 @@
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="doxygen-awesome.css" rel="stylesheet" type="text/css"/>
 </head>
 <body>
 <div id="top"><!-- do not remove this div, it is closed by doxygen! -->
@@ -109,8 +110,8 @@ $(function(){initNavTree('_specular_map_8cpp_source.html',''); initResizable(); 
 <div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="keyword">using namespace </span><a class="code hl_namespace" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html">OSK::GRAPHICS</a>;</div>
 <div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span> </div>
 <div class="foldopen" id="foldopen00009" data-start="{" data-end="}">
-<div class="line"><a id="l00009" name="l00009"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_specular_map.html#a71b5d136dbd0005294d04045adec5092">    9</a></span><a class="code hl_function" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_specular_map.html#a71b5d136dbd0005294d04045adec5092">SpecularMap::SpecularMap</a>(<span class="keyword">const</span> std::string&amp; assetFile) </div>
-<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span>    : <a class="code hl_class" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_i_asset.html">IAsset</a> (assetFile) {</div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_specular_map.html#a71b5d136dbd0005294d04045adec5092">    9</a></span><a class="code hl_function" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_specular_map.html#a71b5d136dbd0005294d04045adec5092">SpecularMap::SpecularMap</a>(<span class="keyword">const</span> std::string&amp; <a class="code hl_class" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">assetFile</a>) </div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span>    : <a class="code hl_class" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_i_asset.html">IAsset</a> (<a class="code hl_class" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">assetFile</a>) {</div>
 <div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span> </div>
 <div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span>}</div>
 </div>
@@ -122,8 +123,8 @@ $(function(){initNavTree('_specular_map_8cpp_source.html',''); initResizable(); 
 </div>
 <div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span> </div>
 <div class="foldopen" id="foldopen00018" data-start="{" data-end="}">
-<div class="line"><a id="l00018" name="l00018"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_specular_map.html#a7b7f3311436729b9ca212f61519f264e">   18</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_specular_map.html#a7b7f3311436729b9ca212f61519f264e">SpecularMap::_SetCubemapImage</a>(<a class="code hl_class" href="class_o_s_k_1_1_owned_ptr.html">OwnedPtr&lt;GpuImage&gt;</a> image) {</div>
-<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>    iblCubemap = image.<a class="code hl_function" href="class_o_s_k_1_1_owned_ptr.html#a81dfab2299056fc9858aace55fca0042">GetPointer</a>();</div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_specular_map.html#a7b7f3311436729b9ca212f61519f264e">   18</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_specular_map.html#a7b7f3311436729b9ca212f61519f264e">SpecularMap::_SetCubemapImage</a>(<a class="code hl_class" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">OwnedPtr&lt;GpuImage&gt;</a> image) {</div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>    iblCubemap = image.GetPointer();</div>
 <div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>}</div>
 </div>
 <div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span> </div>
@@ -134,11 +135,12 @@ $(function(){initNavTree('_specular_map_8cpp_source.html',''); initResizable(); 
 </div>
 <div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span> </div>
 <div class="foldopen" id="foldopen00026" data-start="{" data-end="}">
-<div class="line"><a id="l00026" name="l00026"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_specular_map.html#a429587c8bccae63fe61492fd26c545a2">   26</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_specular_map.html#a429587c8bccae63fe61492fd26c545a2">SpecularMap::_SetLookUpTable</a>(<a class="code hl_class" href="class_o_s_k_1_1_owned_ptr.html">OwnedPtr&lt;GpuImage&gt;</a> image) {</div>
-<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>    lookUpTable = image.<a class="code hl_function" href="class_o_s_k_1_1_owned_ptr.html#a81dfab2299056fc9858aace55fca0042">GetPointer</a>();</div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_specular_map.html#a429587c8bccae63fe61492fd26c545a2">   26</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_specular_map.html#a429587c8bccae63fe61492fd26c545a2">SpecularMap::_SetLookUpTable</a>(<a class="code hl_class" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">OwnedPtr&lt;GpuImage&gt;</a> image) {</div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>    lookUpTable = image.GetPointer();</div>
 <div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>}</div>
 </div>
 <div class="ttc" id="a_specular_map_8h_html"><div class="ttname"><a href="_specular_map_8h.html">SpecularMap.h</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref_html"><div class="ttname"><a href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">OSK::ASSETS::AssetRef</a></div><div class="ttdoc">Referencia a un asset.</div><div class="ttdef"><b>Definition</b> <a href="_asset_ref_8h_source.html#l00012">AssetRef.h:12</a></div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_a_s_s_e_t_s_1_1_i_asset_html"><div class="ttname"><a href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_i_asset.html">OSK::ASSETS::IAsset</a></div><div class="ttdoc">Un asset es un archivo/contenido que se usa en un juego. Incluye contenido como texturas,...</div><div class="ttdef"><b>Definition</b> <a href="_i_asset_8h_source.html#l00031">IAsset.h:31</a></div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_a_s_s_e_t_s_1_1_specular_map_html_a429587c8bccae63fe61492fd26c545a2"><div class="ttname"><a href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_specular_map.html#a429587c8bccae63fe61492fd26c545a2">OSK::ASSETS::SpecularMap::_SetLookUpTable</a></div><div class="ttdeci">void _SetLookUpTable(OwnedPtr&lt; GRAPHICS::GpuImage &gt; lut)</div><div class="ttdef"><b>Definition</b> <a href="#l00026">SpecularMap.cpp:26</a></div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_a_s_s_e_t_s_1_1_specular_map_html_a71b5d136dbd0005294d04045adec5092"><div class="ttname"><a href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_specular_map.html#a71b5d136dbd0005294d04045adec5092">OSK::ASSETS::SpecularMap::SpecularMap</a></div><div class="ttdeci">SpecularMap(const std::string &amp;assetFile)</div><div class="ttdef"><b>Definition</b> <a href="#l00009">SpecularMap.cpp:9</a></div></div>
@@ -146,8 +148,6 @@ $(function(){initNavTree('_specular_map_8cpp_source.html',''); initResizable(); 
 <div class="ttc" id="aclass_o_s_k_1_1_a_s_s_e_t_s_1_1_specular_map_html_a95ab2efe0e6711d15e294c70ffac3a7c"><div class="ttname"><a href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_specular_map.html#a95ab2efe0e6711d15e294c70ffac3a7c">OSK::ASSETS::SpecularMap::GetLookUpTable</a></div><div class="ttdeci">GRAPHICS::GpuImage * GetLookUpTable()</div><div class="ttdef"><b>Definition</b> <a href="#l00022">SpecularMap.cpp:22</a></div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_a_s_s_e_t_s_1_1_specular_map_html_aa38943ac44ff4880017dab9239b44844"><div class="ttname"><a href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_specular_map.html#aa38943ac44ff4880017dab9239b44844">OSK::ASSETS::SpecularMap::GetCubemapImage</a></div><div class="ttdeci">GRAPHICS::GpuImage * GetCubemapImage()</div><div class="ttdef"><b>Definition</b> <a href="#l00014">SpecularMap.cpp:14</a></div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_html"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image.html">OSK::GRAPHICS::GpuImage</a></div><div class="ttdoc">Representación interna de una imagen en la GPU.</div><div class="ttdef"><b>Definition</b> <a href="_i_gpu_image_8h_source.html#l00058">IGpuImage.h:58</a></div></div>
-<div class="ttc" id="aclass_o_s_k_1_1_owned_ptr_html"><div class="ttname"><a href="class_o_s_k_1_1_owned_ptr.html">OSK::OwnedPtr</a></div><div class="ttdoc">Es dueño de un puntero.</div><div class="ttdef"><b>Definition</b> <a href="_owned_ptr_8h_source.html#l00016">OwnedPtr.h:16</a></div></div>
-<div class="ttc" id="aclass_o_s_k_1_1_owned_ptr_html_a81dfab2299056fc9858aace55fca0042"><div class="ttname"><a href="class_o_s_k_1_1_owned_ptr.html#a81dfab2299056fc9858aace55fca0042">OSK::OwnedPtr::GetPointer</a></div><div class="ttdeci">T * GetPointer() const</div><div class="ttdoc">Devuelve el puntero nativo.</div><div class="ttdef"><b>Definition</b> <a href="_owned_ptr_8h_source.html#l00079">OwnedPtr.h:79</a></div></div>
 <div class="ttc" id="anamespace_o_s_k_1_1_a_s_s_e_t_s_html"><div class="ttname"><a href="namespace_o_s_k_1_1_a_s_s_e_t_s.html">OSK::ASSETS</a></div><div class="ttdef"><b>Definition</b> <a href="_anim_mesh_loader_8h_source.html#l00009">AnimMeshLoader.h:9</a></div></div>
 <div class="ttc" id="anamespace_o_s_k_1_1_g_r_a_p_h_i_c_s_html"><div class="ttname"><a href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html">OSK::GRAPHICS</a></div><div class="ttdef"><b>Definition</b> <a href="_acceleration_structures_exceptions_8h_source.html#l00005">AccelerationStructuresExceptions.h:5</a></div></div>
 <div class="ttc" id="anamespace_o_s_k_html"><div class="ttname"><a href="namespace_o_s_k.html">OSK</a></div><div class="ttdef"><b>Definition</b> <a href="_acceleration_structures_exceptions_8h_source.html#l00005">AccelerationStructuresExceptions.h:5</a></div></div>
@@ -157,7 +157,7 @@ $(function(){initNavTree('_specular_map_8cpp_source.html',''); initResizable(); 
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_74389ed8173ad57b461b9d623a1f3867.html">Source</a></li><li class="navelem"><a class="el" href="_specular_map_8cpp.html">SpecularMap.cpp</a></li>
-    <li class="footer">Generado el Lunes, 29 de enero de 2024 17:18:32 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.10.0 </li>
+    <li class="footer">Generado el Lunes, 29 de enero de 2024 17:22:59 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.10.0 </li>
   </ul>
 </div>
 </body>

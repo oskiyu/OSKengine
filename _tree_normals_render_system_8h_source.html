@@ -19,6 +19,7 @@
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="doxygen-awesome.css" rel="stylesheet" type="text/css"/>
 </head>
 <body>
 <div id="top"><!-- do not remove this div, it is closed by doxygen! -->
@@ -143,9 +144,9 @@ $(function(){initNavTree('_tree_normals_render_system_8h_source.html',''); initR
 <div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>    <span class="keyword">private</span>:</div>
 <div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span> </div>
 <div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>        <span class="keyword">struct </span>CameraInfo {</div>
-<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>            <span class="keyword">alignas</span>(16) <a class="code hl_struct" href="structglm_1_1mat.html">glm::mat4</a> projectionMatrix;</div>
-<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>            <span class="keyword">alignas</span>(16) <a class="code hl_struct" href="structglm_1_1mat.html">glm::mat4</a> viewMatrix;</div>
-<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>            <span class="keyword">alignas</span>(16) <a class="code hl_struct" href="structglm_1_1mat.html">glm::mat4</a> projectionViewMatrix;</div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>            <span class="keyword">alignas</span>(16) glm::mat4 projectionMatrix;</div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>            <span class="keyword">alignas</span>(16) glm::mat4 viewMatrix;</div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>            <span class="keyword">alignas</span>(16) glm::mat4 projectionViewMatrix;</div>
 <div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span> </div>
 <div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>            <span class="keyword">alignas</span>(16) <a class="code hl_class" href="class_o_s_k_1_1_vector4__t.html">Vector4f</a> position;</div>
 <div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span> </div>
@@ -160,7 +161,7 @@ $(function(){initNavTree('_tree_normals_render_system_8h_source.html',''); initR
 <div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span> </div>
 <div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>        <span class="comment">// -- CÁMARA -- //</span></div>
 <div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span> </div>
-<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>        <a class="code hl_typedef" href="namespace_o_s_k_1_1_e_c_s.html#a7be561d6b7de4e8a49c2a5cc35fba48c">ECS::GameObjectIndex</a> m_cameraObject = ECS::EMPTY_GAME_OBJECT;</div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>        <a class="code hl_class" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">ECS::GameObjectIndex</a> m_cameraObject = ECS::EMPTY_GAME_OBJECT;</div>
 <div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span> </div>
 <div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>        std::array&lt;UniquePtr&lt;GRAPHICS::GpuBuffer&gt;, <a class="code hl_variable" href="_o_s_kmacros_8h.html#ae5e86c617c5992479b42bbd9c280b4df">NUM_RESOURCES_IN_FLIGHT</a>&gt; m_cameraBuffers{};</div>
 <div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span> </div>
@@ -175,6 +176,7 @@ $(function(){initNavTree('_tree_normals_render_system_8h_source.html',''); initR
 <div class="ttc" id="a_o_s_kmacros_8h_html_ae5e86c617c5992479b42bbd9c280b4df"><div class="ttname"><a href="_o_s_kmacros_8h.html#ae5e86c617c5992479b42bbd9c280b4df">NUM_RESOURCES_IN_FLIGHT</a></div><div class="ttdeci">constexpr USize32 NUM_RESOURCES_IN_FLIGHT</div><div class="ttdef"><b>Definition</b> <a href="_o_s_kmacros_8h_source.html#l00055">OSKmacros.h:55</a></div></div>
 <div class="ttc" id="a_owned_ptr_8h_html"><div class="ttname"><a href="_owned_ptr_8h.html">OwnedPtr.h</a></div></div>
 <div class="ttc" id="a_unique_ptr_8hpp_html"><div class="ttname"><a href="_unique_ptr_8hpp.html">UniquePtr.hpp</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref_html"><div class="ttname"><a href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">OSK::ASSETS::AssetRef</a></div><div class="ttdoc">Referencia a un asset.</div><div class="ttdef"><b>Definition</b> <a href="_asset_ref_8h_source.html#l00012">AssetRef.h:12</a></div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_e_c_s_1_1_i_render_system_html"><div class="ttname"><a href="class_o_s_k_1_1_e_c_s_1_1_i_render_system.html">OSK::ECS::IRenderSystem</a></div><div class="ttdoc">Clase base para sistemas de renderizado.</div><div class="ttdef"><b>Definition</b> <a href="_i_render_system_8h_source.html#l00023">IRenderSystem.h:23</a></div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_e_c_s_1_1_tree_normals_render_system_html"><div class="ttname"><a href="class_o_s_k_1_1_e_c_s_1_1_tree_normals_render_system.html">OSK::ECS::TreeNormalsRenderSystem</a></div><div class="ttdef"><b>Definition</b> <a href="#l00024">TreeNormalsRenderSystem.h:24</a></div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_e_c_s_1_1_tree_normals_render_system_html_a817e305ebc9e23cb6f71d1963db91066"><div class="ttname"><a href="class_o_s_k_1_1_e_c_s_1_1_tree_normals_render_system.html#a817e305ebc9e23cb6f71d1963db91066">OSK::ECS::TreeNormalsRenderSystem::OSK_SYSTEM</a></div><div class="ttdeci">OSK_SYSTEM(&quot;OSK::TreeNormalsRenderSystem&quot;)</div></div>
@@ -185,14 +187,13 @@ $(function(){initNavTree('_tree_normals_render_system_8h_source.html',''); initR
 <div class="ttc" id="anamespace_o_s_k_1_1_a_s_s_e_t_s_html"><div class="ttname"><a href="namespace_o_s_k_1_1_a_s_s_e_t_s.html">OSK::ASSETS</a></div><div class="ttdef"><b>Definition</b> <a href="_anim_mesh_loader_8h_source.html#l00009">AnimMeshLoader.h:9</a></div></div>
 <div class="ttc" id="anamespace_o_s_k_1_1_e_c_s_html"><div class="ttname"><a href="namespace_o_s_k_1_1_e_c_s.html">OSK::ECS</a></div><div class="ttdef"><b>Definition</b> <a href="_camera_component2_d_8h_source.html#l00017">CameraComponent2D.h:17</a></div></div>
 <div class="ttc" id="anamespace_o_s_k_1_1_e_c_s_html_a7be561d6b7de4e8a49c2a5cc35fba48c"><div class="ttname"><a href="namespace_o_s_k_1_1_e_c_s.html#a7be561d6b7de4e8a49c2a5cc35fba48c">OSK::ECS::GameObjectIndex</a></div><div class="ttdeci">UIndex32 GameObjectIndex</div><div class="ttdoc">Identificador único para un Game Object.</div><div class="ttdef"><b>Definition</b> <a href="_game_object_8h_source.html#l00018">GameObject.h:18</a></div></div>
-<div class="ttc" id="astructglm_1_1mat_html"><div class="ttname"><a href="structglm_1_1mat.html">glm::mat</a></div><div class="ttdef"><b>Definition</b> <a href="x64-windows-static_2x64-windows-static_2include_2glm_2detail_2qualifier_8hpp_source.html#l00036">qualifier.hpp:36</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_74389ed8173ad57b461b9d623a1f3867.html">Source</a></li><li class="navelem"><a class="el" href="_tree_normals_render_system_8h.html">TreeNormalsRenderSystem.h</a></li>
-    <li class="footer">Generado el Lunes, 29 de enero de 2024 17:18:32 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.10.0 </li>
+    <li class="footer">Generado el Lunes, 29 de enero de 2024 17:23:00 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.10.0 </li>
   </ul>
 </div>
 </body>

@@ -19,6 +19,7 @@
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="doxygen-awesome.css" rel="stylesheet" type="text/css"/>
 </head>
 <body>
 <div id="top"><!-- do not remove this div, it is closed by doxygen! -->
@@ -155,27 +156,27 @@ $(function(){initNavTree('_physics_component_8cpp_source.html',''); initResizabl
 </div>
 <div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span> </div>
 <div class="foldopen" id="foldopen00043" data-start="{" data-end="}">
-<div class="line"><a id="l00043" name="l00043"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_e_c_s_1_1_physics_component.html#ad104908de8c2c04cc6858ad9ffe1fa11">   43</a></span><a class="code hl_struct" href="structglm_1_1mat.html">glm::mat3</a> <a class="code hl_function" href="class_o_s_k_1_1_e_c_s_1_1_physics_component.html#ad104908de8c2c04cc6858ad9ffe1fa11">PhysicsComponent::GetInertiaTensor</a>()<span class="keyword"> const </span>{</div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_e_c_s_1_1_physics_component.html#ad104908de8c2c04cc6858ad9ffe1fa11">   43</a></span>glm::mat3 <a class="code hl_function" href="class_o_s_k_1_1_e_c_s_1_1_physics_component.html#ad104908de8c2c04cc6858ad9ffe1fa11">PhysicsComponent::GetInertiaTensor</a>()<span class="keyword"> const </span>{</div>
 <div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>    <span class="keywordflow">return</span> inertiaTensor;</div>
 <div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>}</div>
 </div>
 <div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span> </div>
 <div class="foldopen" id="foldopen00047" data-start="{" data-end="}">
-<div class="line"><a id="l00047" name="l00047"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_e_c_s_1_1_physics_component.html#a1d9df009bc19fc3989621a67ea50be91">   47</a></span><a class="code hl_struct" href="structglm_1_1mat.html">glm::mat3</a> <a class="code hl_function" href="class_o_s_k_1_1_e_c_s_1_1_physics_component.html#a1d9df009bc19fc3989621a67ea50be91">PhysicsComponent::GetInverseInertiaTensor</a>()<span class="keyword"> const </span>{</div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_e_c_s_1_1_physics_component.html#a1d9df009bc19fc3989621a67ea50be91">   47</a></span>glm::mat3 <a class="code hl_function" href="class_o_s_k_1_1_e_c_s_1_1_physics_component.html#a1d9df009bc19fc3989621a67ea50be91">PhysicsComponent::GetInverseInertiaTensor</a>()<span class="keyword"> const </span>{</div>
 <div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>    <span class="keywordflow">return</span> inverseInertiaTensor;</div>
 <div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>}</div>
 </div>
 <div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span> </div>
 <div class="foldopen" id="foldopen00051" data-start="{" data-end="}">
-<div class="line"><a id="l00051" name="l00051"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_e_c_s_1_1_physics_component.html#a0d5af64d99b45d6af7f34f07a468836a">   51</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="class_o_s_k_1_1_e_c_s_1_1_physics_component.html#a0d5af64d99b45d6af7f34f07a468836a">PhysicsComponent::SetInertiaTensor</a>(<span class="keyword">const</span> <a class="code hl_struct" href="structglm_1_1mat.html">glm::mat3</a>&amp; tensor) {</div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_e_c_s_1_1_physics_component.html#a0d5af64d99b45d6af7f34f07a468836a">   51</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="class_o_s_k_1_1_e_c_s_1_1_physics_component.html#a0d5af64d99b45d6af7f34f07a468836a">PhysicsComponent::SetInertiaTensor</a>(<span class="keyword">const</span> glm::mat3&amp; tensor) {</div>
 <div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>    inertiaTensor = tensor;</div>
-<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>    inverseInertiaTensor = <a class="code hl_function" href="group__core__func__matrix.html#gace61e11fc177491beeca0c6971e2f3fc">glm::inverse</a>(tensor);</div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>    inverseInertiaTensor = glm::inverse(tensor);</div>
 <div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>}</div>
 </div>
 <div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span> </div>
 <div class="foldopen" id="foldopen00056" data-start="{" data-end="}">
-<div class="line"><a id="l00056" name="l00056"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_e_c_s_1_1_physics_component.html#a0f7d8a1ed85b371a41e3a88d69ec85b0">   56</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="class_o_s_k_1_1_e_c_s_1_1_physics_component.html#a0f7d8a1ed85b371a41e3a88d69ec85b0">PhysicsComponent::SetInverseInertiaTensor</a>(<span class="keyword">const</span> <a class="code hl_struct" href="structglm_1_1mat.html">glm::mat3</a>&amp; inverseTensor) {</div>
-<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>    inertiaTensor = <a class="code hl_function" href="group__core__func__matrix.html#gace61e11fc177491beeca0c6971e2f3fc">glm::inverse</a>(inverseTensor);</div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_e_c_s_1_1_physics_component.html#a0f7d8a1ed85b371a41e3a88d69ec85b0">   56</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="class_o_s_k_1_1_e_c_s_1_1_physics_component.html#a0f7d8a1ed85b371a41e3a88d69ec85b0">PhysicsComponent::SetInverseInertiaTensor</a>(<span class="keyword">const</span> glm::mat3&amp; inverseTensor) {</div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>    inertiaTensor = glm::inverse(inverseTensor);</div>
 <div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>    inverseInertiaTensor = inverseTensor;</div>
 <div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>}</div>
 </div>
@@ -356,20 +357,18 @@ $(function(){initNavTree('_physics_component_8cpp_source.html',''); initResizabl
 <div class="ttc" id="aclass_o_s_k_1_1_vector3__t_html_aa939a1c4c1f34510b2ef2e0d47eba5bb"><div class="ttname"><a href="class_o_s_k_1_1_vector3__t.html#aa939a1c4c1f34510b2ef2e0d47eba5bb">OSK::Vector3_t::z</a></div><div class="ttdeci">T z</div><div class="ttdoc">Representa la tercera coordenada.</div><div class="ttdef"><b>Definition</b> <a href="_vector3_8hpp_source.html#l00283">Vector3.hpp:283</a></div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_vector3__t_html_ac574fd28b9114ddf48d26573d1efd570"><div class="ttname"><a href="class_o_s_k_1_1_vector3__t.html#ac574fd28b9114ddf48d26573d1efd570">OSK::Vector3_t&lt; float_t &gt;::Zero</a></div><div class="ttdeci">static OSKAPI_CALL Vector3_t const Zero</div><div class="ttdef"><b>Definition</b> <a href="_vector3_8hpp_source.html#l00017">Vector3.hpp:17</a></div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_vector3__t_html_afe37985b6d213fc46fc8d3d0366d80bb"><div class="ttname"><a href="class_o_s_k_1_1_vector3__t.html#afe37985b6d213fc46fc8d3d0366d80bb">OSK::Vector3_t::ToGlm</a></div><div class="ttdeci">glm::vec3 ToGlm() const</div><div class="ttdef"><b>Definition</b> <a href="_vector3_8hpp_source.html#l00236">Vector3.hpp:236</a></div></div>
-<div class="ttc" id="agroup__core__func__matrix_html_gace61e11fc177491beeca0c6971e2f3fc"><div class="ttname"><a href="group__core__func__matrix.html#gace61e11fc177491beeca0c6971e2f3fc">glm::inverse</a></div><div class="ttdeci">GLM_FUNC_QUALIFIER mat&lt; C, R, T, Q &gt; inverse(mat&lt; C, R, T, Q &gt; const &amp;m)</div><div class="ttdef"><b>Definition</b> <a href="x64-windows-static_2x64-windows-static_2include_2glm_2detail_2func__matrix_8inl_source.html#l00388">func_matrix.inl:388</a></div></div>
 <div class="ttc" id="anamespace_o_s_k_1_1_e_c_s_html"><div class="ttname"><a href="namespace_o_s_k_1_1_e_c_s.html">OSK::ECS</a></div><div class="ttdef"><b>Definition</b> <a href="_camera_component2_d_8h_source.html#l00017">CameraComponent2D.h:17</a></div></div>
 <div class="ttc" id="anamespace_o_s_k_1_1_p_e_r_s_i_s_t_e_n_c_e_html_a1de50096bc30bd4e50e0fac600fd0bf7"><div class="ttname"><a href="namespace_o_s_k_1_1_p_e_r_s_i_s_t_e_n_c_e.html#a1de50096bc30bd4e50e0fac600fd0bf7">OSK::PERSISTENCE::SerializeJson&lt; OSK::ECS::PhysicsComponent &gt;</a></div><div class="ttdeci">nlohmann::json SerializeJson&lt; OSK::ECS::PhysicsComponent &gt;(const OSK::ECS::PhysicsComponent &amp;data)</div></div>
 <div class="ttc" id="anamespace_o_s_k_1_1_p_e_r_s_i_s_t_e_n_c_e_html_a850b7bb0bf926e28ef2ceeb677a1083c"><div class="ttname"><a href="namespace_o_s_k_1_1_p_e_r_s_i_s_t_e_n_c_e.html#a850b7bb0bf926e28ef2ceeb677a1083c">OSK::PERSISTENCE::DeserializeJson&lt; OSK::ECS::PhysicsComponent &gt;</a></div><div class="ttdeci">OSK::ECS::PhysicsComponent DeserializeJson&lt; OSK::ECS::PhysicsComponent &gt;(const nlohmann::json &amp;json)</div></div>
 <div class="ttc" id="anamespace_o_s_k_html"><div class="ttname"><a href="namespace_o_s_k.html">OSK</a></div><div class="ttdef"><b>Definition</b> <a href="_acceleration_structures_exceptions_8h_source.html#l00005">AccelerationStructuresExceptions.h:5</a></div></div>
 <div class="ttc" id="anamespace_o_s_k_html_a72b3268907c9cd41f0daf0a42e1c9dca"><div class="ttname"><a href="namespace_o_s_k.html#a72b3268907c9cd41f0daf0a42e1c9dca">OSK::Vector3f</a></div><div class="ttdeci">Vector3_t&lt; float_t &gt; Vector3f</div><div class="ttdoc">Precisión = float.</div><div class="ttdef"><b>Definition</b> <a href="_vector3_8hpp_source.html#l00289">Vector3.hpp:289</a></div></div>
-<div class="ttc" id="astructglm_1_1mat_html"><div class="ttname"><a href="structglm_1_1mat.html">glm::mat</a></div><div class="ttdef"><b>Definition</b> <a href="x64-windows-static_2x64-windows-static_2include_2glm_2detail_2qualifier_8hpp_source.html#l00036">qualifier.hpp:36</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_74389ed8173ad57b461b9d623a1f3867.html">Source</a></li><li class="navelem"><a class="el" href="_physics_component_8cpp.html">PhysicsComponent.cpp</a></li>
-    <li class="footer">Generado el Lunes, 29 de enero de 2024 17:18:31 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.10.0 </li>
+    <li class="footer">Generado el Lunes, 29 de enero de 2024 17:22:59 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.10.0 </li>
   </ul>
 </div>
 </body>

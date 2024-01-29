@@ -19,6 +19,7 @@
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="doxygen-awesome.css" rel="stylesheet" type="text/css"/>
 </head>
 <body>
 <div id="top"><!-- do not remove this div, it is closed by doxygen! -->
@@ -139,8 +140,8 @@ $(function(){initNavTree('_i_pipeline_vk_8h_source.html',''); initResizable(); }
 <div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>        VkFormat GetVertexAttribFormat(<span class="keyword">const</span> <a class="code hl_struct" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_vertex_info_1_1_entry.html">VertexInfo::Entry</a>&amp; entry) <span class="keyword">const</span>;</div>
 <div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>        <a class="code hl_class" href="class_o_s_k_1_1_dynamic_array.html">DynamicArray&lt;VkVertexInputAttributeDescription&gt;</a> GetAttributeDescription(<span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_vertex_info.html">VertexInfo</a>&amp; info) <span class="keyword">const</span>;</div>
 <div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>        VkPipelineColorBlendAttachmentState GetColorBlendInfo(<span class="keyword">const</span> <a class="code hl_struct" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_pipeline_create_info.html">PipelineCreateInfo</a>&amp; info) <span class="keyword">const</span>;</div>
-<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>        VkPolygonMode <a class="code hl_function" href="_material_system_8cpp.html#a74a9290a249c55d10122db6ad9915370">GetPolygonMode</a>(<a class="code hl_enumeration" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a9bf4af2a8108b7a3939f60c4efafcfd8">PolygonMode</a> <a class="code hl_variable" href="x64-windows-static_2x64-windows-static_2include_2libpng16_2png_8h.html#a3eabae3e1e65723a7ec3445646cb7795">mode</a>) <span class="keyword">const</span>;</div>
-<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>        VkCullModeFlagBits GetCullMode(<a class="code hl_enumeration" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a30ce77ebba3a46932046ff265f17922c">PolygonCullMode</a> <a class="code hl_variable" href="x64-windows-static_2x64-windows-static_2include_2libpng16_2png_8h.html#a3eabae3e1e65723a7ec3445646cb7795">mode</a>) <span class="keyword">const</span>;</div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>        VkPolygonMode <a class="code hl_function" href="_material_system_8cpp.html#a74a9290a249c55d10122db6ad9915370">GetPolygonMode</a>(<a class="code hl_enumeration" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a9bf4af2a8108b7a3939f60c4efafcfd8">PolygonMode</a> mode) <span class="keyword">const</span>;</div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>        VkCullModeFlagBits GetCullMode(<a class="code hl_enumeration" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a30ce77ebba3a46932046ff265f17922c">PolygonCullMode</a> mode) <span class="keyword">const</span>;</div>
 <div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>        VkFrontFace GetFrontFaceMode(<a class="code hl_enumeration" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#ad6329cdca67793d3a3ffec0de1fab44c">PolygonFrontFaceType</a> type) <span class="keyword">const</span>;</div>
 <div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>        VkShaderStageFlagBits <a class="code hl_function" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a3a50046339fbf8642e14273583cd8118">GetShaderStageVk</a>(<a class="code hl_enumeration" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#aa7e7dcffcab27051f141128e66a50fcb">ShaderStage</a> stage) <span class="keyword">const</span>;</div>
 <div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span> </div>
@@ -170,14 +171,13 @@ $(function(){initNavTree('_i_pipeline_vk_8h_source.html',''); initResizable(); }
 <div class="ttc" id="astruct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_shader_stage_vk_html_a48c969a71a28c9db9e0c29f8c8e727ff"><div class="ttname"><a href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_shader_stage_vk.html#a48c969a71a28c9db9e0c29f8c8e727ff">OSK::GRAPHICS::ShaderStageVk::shaderModule</a></div><div class="ttdeci">VkShaderModule shaderModule</div><div class="ttdef"><b>Definition</b> <a href="#l00016">IPipelineVk.h:16</a></div></div>
 <div class="ttc" id="astruct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_shader_stage_vk_html_aba4dea039d5d473ed19d67372dc71ca7"><div class="ttname"><a href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_shader_stage_vk.html#aba4dea039d5d473ed19d67372dc71ca7">OSK::GRAPHICS::ShaderStageVk::shaderCreateInfo</a></div><div class="ttdeci">VkPipelineShaderStageCreateInfo shaderCreateInfo</div><div class="ttdef"><b>Definition</b> <a href="#l00017">IPipelineVk.h:17</a></div></div>
 <div class="ttc" id="astruct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_vertex_info_1_1_entry_html"><div class="ttname"><a href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_vertex_info_1_1_entry.html">OSK::GRAPHICS::VertexInfo::Entry</a></div><div class="ttdoc">Información de un atributo.</div><div class="ttdef"><b>Definition</b> <a href="_vertex_info_8h_source.html#l00024">VertexInfo.h:24</a></div></div>
-<div class="ttc" id="ax64-windows-static_2x64-windows-static_2include_2libpng16_2png_8h_html_a3eabae3e1e65723a7ec3445646cb7795"><div class="ttname"><a href="x64-windows-static_2x64-windows-static_2include_2libpng16_2png_8h.html#a3eabae3e1e65723a7ec3445646cb7795">mode</a></div><div class="ttdeci">png_structrp int mode</div><div class="ttdef"><b>Definition</b> <a href="x64-windows-static_2x64-windows-static_2include_2libpng16_2png_8h_source.html#l01137">png.h:1137</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_74389ed8173ad57b461b9d623a1f3867.html">Source</a></li><li class="navelem"><a class="el" href="_i_pipeline_vk_8h.html">IPipelineVk.h</a></li>
-    <li class="footer">Generado el Lunes, 29 de enero de 2024 17:18:31 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.10.0 </li>
+    <li class="footer">Generado el Lunes, 29 de enero de 2024 17:22:59 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.10.0 </li>
   </ul>
 </div>
 </body>

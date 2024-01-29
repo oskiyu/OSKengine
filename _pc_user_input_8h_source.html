@@ -19,6 +19,7 @@
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="doxygen-awesome.css" rel="stylesheet" type="text/css"/>
 </head>
 <body>
 <div id="top"><!-- do not remove this div, it is closed by doxygen! -->
@@ -138,9 +139,9 @@ $(function(){initNavTree('_pc_user_input_8h_source.html',''); initResizable(); }
 <div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>        <span class="keywordtype">void</span> UpdateMouseState(<a class="code hl_class" href="class_o_s_k_1_1_i_o_1_1_mouse_state.html">MouseState</a>* state) <span class="keyword">override</span>;</div>
 <div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>        <span class="keywordtype">void</span> UpdateGamepadState(<a class="code hl_class" href="class_o_s_k_1_1_i_o_1_1_gamepad_state.html">GamepadState</a>* state) <span class="keyword">override</span>;</div>
 <div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span> </div>
-<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>        <span class="keyword">static</span> <span class="keywordtype">void</span> MouseInputCallback(<span class="keyword">struct</span> <a class="code hl_typedef" href="group__window.html#ga3c96d80d363e67d13a41b5d1821f3242">GLFWwindow</a>* window, <span class="keywordtype">double</span> posX, <span class="keywordtype">double</span> posY);</div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>        <span class="keyword">static</span> <span class="keywordtype">void</span> MouseInputCallback(<span class="keyword">struct</span> GLFWwindow* window, <span class="keywordtype">double</span> posX, <span class="keywordtype">double</span> posY);</div>
 <div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span> </div>
-<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>        <span class="keyword">static</span> <span class="keywordtype">void</span> MouseScrollCallback(<span class="keyword">struct</span> <a class="code hl_typedef" href="group__window.html#ga3c96d80d363e67d13a41b5d1821f3242">GLFWwindow</a>* window, <span class="keywordtype">double</span> dX, <span class="keywordtype">double</span> dY);</div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>        <span class="keyword">static</span> <span class="keywordtype">void</span> MouseScrollCallback(<span class="keyword">struct</span> GLFWwindow* window, <span class="keywordtype">double</span> dX, <span class="keywordtype">double</span> dY);</div>
 <div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span> </div>
 <div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>        <a class="code hl_class" href="class_o_s_k_1_1_i_o_1_1_mouse_state.html">MouseState</a> mouseCallbackState{};</div>
 <div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span> </div>
@@ -167,7 +168,6 @@ $(function(){initNavTree('_pc_user_input_8h_source.html',''); initResizable(); }
 <div class="ttc" id="aclass_o_s_k_1_1_i_o_1_1_pc_user_input_html"><div class="ttname"><a href="class_o_s_k_1_1_i_o_1_1_pc_user_input.html">OSK::IO::PcUserInput</a></div><div class="ttdoc">Input para PC (Windows / Linux / Mac).</div><div class="ttdef"><b>Definition</b> <a href="#l00023">PcUserInput.h:24</a></div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_i_o_1_1_window_html"><div class="ttname"><a href="class_o_s_k_1_1_i_o_1_1_window.html">OSK::IO::Window</a></div><div class="ttdoc">Clase que representa una ventana. En esta ventana se renderizará el juego. También se encarga del inp...</div><div class="ttdef"><b>Definition</b> <a href="_window_8h_source.html#l00024">Window.h:24</a></div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_vector2__t_html"><div class="ttname"><a href="class_o_s_k_1_1_vector2__t.html">OSK::Vector2_t&lt; uint32_t &gt;</a></div></div>
-<div class="ttc" id="agroup__window_html_ga3c96d80d363e67d13a41b5d1821f3242"><div class="ttname"><a href="group__window.html#ga3c96d80d363e67d13a41b5d1821f3242">GLFWwindow</a></div><div class="ttdeci">struct GLFWwindow GLFWwindow</div><div class="ttdoc">Opaque window object.</div><div class="ttdef"><b>Definition</b> <a href="x64-windows-static_2x64-windows-static_2include_2_g_l_f_w_2glfw3_8h_source.html#l01185">glfw3.h:1185</a></div></div>
 <div class="ttc" id="anamespace_o_s_k_1_1_i_o_html"><div class="ttname"><a href="namespace_o_s_k_1_1_i_o.html">OSK::IO</a></div><div class="ttdef"><b>Definition</b> <a href="_camera_component2_d_8h_source.html#l00013">CameraComponent2D.h:13</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
@@ -175,7 +175,7 @@ $(function(){initNavTree('_pc_user_input_8h_source.html',''); initResizable(); }
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_74389ed8173ad57b461b9d623a1f3867.html">Source</a></li><li class="navelem"><a class="el" href="_pc_user_input_8h.html">PcUserInput.h</a></li>
-    <li class="footer">Generado el Lunes, 29 de enero de 2024 17:18:31 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.10.0 </li>
+    <li class="footer">Generado el Lunes, 29 de enero de 2024 17:22:59 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.10.0 </li>
   </ul>
 </div>
 </body>

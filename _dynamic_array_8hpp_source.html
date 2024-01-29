@@ -19,6 +19,7 @@
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="doxygen-awesome.css" rel="stylesheet" type="text/css"/>
 </head>
 <body>
 <div id="top"><!-- do not remove this div, it is closed by doxygen! -->
@@ -199,7 +200,7 @@ $(function(){initNavTree('_dynamic_array_8hpp_source.html',''); initResizable();
 <div class="line"><a id="l00111" name="l00111"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_dynamic_array_1_1_iterator.html#a5f29abfe2fe5d14f99cf14589e174859">  111</a></span>            T&amp; <a class="code hl_function" href="class_o_s_k_1_1_dynamic_array_1_1_iterator.html#a5f29abfe2fe5d14f99cf14589e174859">operator*</a>() { <span class="keywordflow">return</span> *m_pointer; }</div>
 <div class="line"><a id="l00112" name="l00112"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_dynamic_array_1_1_iterator.html#a37f85f3e20a0bf42623cefb52d1d5936">  112</a></span>            T* <a class="code hl_function" href="class_o_s_k_1_1_dynamic_array_1_1_iterator.html#a37f85f3e20a0bf42623cefb52d1d5936">GetPtr</a>() { <span class="keywordflow">return</span> m_pointer; }</div>
 <div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span> </div>
-<div class="line"><a id="l00116" name="l00116"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_dynamic_array_1_1_iterator.html#a4d000d586c286020d39466a579b686ec">  116</a></span>            <span class="keyword">constexpr</span> <span class="keywordtype">bool</span> <a class="code hl_function" href="class_o_s_k_1_1_dynamic_array_1_1_iterator.html#a4d000d586c286020d39466a579b686ec">IsEmpty</a>() <a class="code hl_define" href="x64-windows-static_2x64-windows-static_2include_2zconf_8h.html#a2c212835823e3c54a8ab6d95c652660e">const</a> noexcept { <span class="keywordflow">return</span> m_pointer == <span class="keyword">nullptr</span>; }</div>
+<div class="line"><a id="l00116" name="l00116"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_dynamic_array_1_1_iterator.html#a4d000d586c286020d39466a579b686ec">  116</a></span>            <span class="keyword">constexpr</span> <span class="keywordtype">bool</span> <a class="code hl_function" href="class_o_s_k_1_1_dynamic_array_1_1_iterator.html#a4d000d586c286020d39466a579b686ec">IsEmpty</a>() const noexcept { <span class="keywordflow">return</span> m_pointer == <span class="keyword">nullptr</span>; }</div>
 <div class="line"><a id="l00117" name="l00117"></a><span class="lineno">  117</span> </div>
 <div class="line"><a id="l00118" name="l00118"></a><span class="lineno">  118</span>        <span class="keyword">private</span>:</div>
 <div class="line"><a id="l00119" name="l00119"></a><span class="lineno">  119</span> </div>
@@ -236,7 +237,7 @@ $(function(){initNavTree('_dynamic_array_8hpp_source.html',''); initResizable();
 <div class="line"><a id="l00157" name="l00157"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_dynamic_array_1_1_const_iterator.html#acfb152f4ac44f698f563dfc661ce2f99">  157</a></span>            <span class="keyword">constexpr</span> <span class="keyword">const</span> T&amp; <a class="code hl_function" href="class_o_s_k_1_1_dynamic_array_1_1_const_iterator.html#acfb152f4ac44f698f563dfc661ce2f99">operator*</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> *m_pointer; }</div>
 <div class="line"><a id="l00158" name="l00158"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_dynamic_array_1_1_const_iterator.html#ab66cdacafdcbe53b646f53b2fce9b8dc">  158</a></span>            <span class="keyword">constexpr</span> <span class="keyword">const</span> T* <a class="code hl_function" href="class_o_s_k_1_1_dynamic_array_1_1_const_iterator.html#ab66cdacafdcbe53b646f53b2fce9b8dc">GetPtr</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> m_pointer; }</div>
 <div class="line"><a id="l00159" name="l00159"></a><span class="lineno">  159</span> </div>
-<div class="line"><a id="l00162" name="l00162"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_dynamic_array_1_1_const_iterator.html#a3bfd7a6d32ce6f2107a5ffab3b154dc1">  162</a></span>            <span class="keyword">constexpr</span> <span class="keywordtype">bool</span> <a class="code hl_function" href="class_o_s_k_1_1_dynamic_array_1_1_const_iterator.html#a3bfd7a6d32ce6f2107a5ffab3b154dc1">IsEmpty</a>() <a class="code hl_define" href="x64-windows-static_2x64-windows-static_2include_2zconf_8h.html#a2c212835823e3c54a8ab6d95c652660e">const</a> noexcept { <span class="keywordflow">return</span> m_pointer == <span class="keyword">nullptr</span>; }</div>
+<div class="line"><a id="l00162" name="l00162"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_dynamic_array_1_1_const_iterator.html#a3bfd7a6d32ce6f2107a5ffab3b154dc1">  162</a></span>            <span class="keyword">constexpr</span> <span class="keywordtype">bool</span> <a class="code hl_function" href="class_o_s_k_1_1_dynamic_array_1_1_const_iterator.html#a3bfd7a6d32ce6f2107a5ffab3b154dc1">IsEmpty</a>() const noexcept { <span class="keywordflow">return</span> m_pointer == <span class="keyword">nullptr</span>; }</div>
 <div class="line"><a id="l00163" name="l00163"></a><span class="lineno">  163</span> </div>
 <div class="line"><a id="l00164" name="l00164"></a><span class="lineno">  164</span>        <span class="keyword">private</span>:</div>
 <div class="line"><a id="l00165" name="l00165"></a><span class="lineno">  165</span> </div>
@@ -665,31 +666,31 @@ $(function(){initNavTree('_dynamic_array_8hpp_source.html',''); initResizable();
 <div class="line"><a id="l00651" name="l00651"></a><span class="lineno">  651</span><span class="preprocessor">#pragma region Getters &amp; setters</span></div>
 <div class="line"><a id="l00652" name="l00652"></a><span class="lineno">  652</span> </div>
 <div class="foldopen" id="foldopen00657" data-start="{" data-end="}">
-<div class="line"><a id="l00657" name="l00657"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_dynamic_array.html#a24b36038b685ea5f33b2b9b279035cef">  657</a></span>        <span class="keywordtype">bool</span> <a class="code hl_function" href="class_o_s_k_1_1_dynamic_array.html#a24b36038b685ea5f33b2b9b279035cef">HasBeenInitialized</a>() <a class="code hl_define" href="x64-windows-static_2x64-windows-static_2include_2zconf_8h.html#a2c212835823e3c54a8ab6d95c652660e">const</a> noexcept {</div>
+<div class="line"><a id="l00657" name="l00657"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_dynamic_array.html#a24b36038b685ea5f33b2b9b279035cef">  657</a></span>        <span class="keywordtype">bool</span> <a class="code hl_function" href="class_o_s_k_1_1_dynamic_array.html#a24b36038b685ea5f33b2b9b279035cef">HasBeenInitialized</a>() const noexcept {</div>
 <div class="line"><a id="l00658" name="l00658"></a><span class="lineno">  658</span>            <span class="keywordflow">return</span> m_data != <span class="keyword">nullptr</span>;</div>
 <div class="line"><a id="l00659" name="l00659"></a><span class="lineno">  659</span>        }</div>
 </div>
 <div class="line"><a id="l00660" name="l00660"></a><span class="lineno">  660</span> </div>
 <div class="foldopen" id="foldopen00664" data-start="{" data-end="}">
-<div class="line"><a id="l00664" name="l00664"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_dynamic_array.html#ab772cd3a1f2c189505ea17d604dfc164">  664</a></span>        <span class="keywordtype">bool</span> <a class="code hl_function" href="class_o_s_k_1_1_dynamic_array.html#ab772cd3a1f2c189505ea17d604dfc164">IsEmpty</a>() <a class="code hl_define" href="x64-windows-static_2x64-windows-static_2include_2zconf_8h.html#a2c212835823e3c54a8ab6d95c652660e">const</a> noexcept {</div>
+<div class="line"><a id="l00664" name="l00664"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_dynamic_array.html#ab772cd3a1f2c189505ea17d604dfc164">  664</a></span>        <span class="keywordtype">bool</span> <a class="code hl_function" href="class_o_s_k_1_1_dynamic_array.html#ab772cd3a1f2c189505ea17d604dfc164">IsEmpty</a>() const noexcept {</div>
 <div class="line"><a id="l00665" name="l00665"></a><span class="lineno">  665</span>            <span class="keywordflow">return</span> m_count == 0;</div>
 <div class="line"><a id="l00666" name="l00666"></a><span class="lineno">  666</span>        }</div>
 </div>
 <div class="line"><a id="l00667" name="l00667"></a><span class="lineno">  667</span> </div>
 <div class="foldopen" id="foldopen00671" data-start="{" data-end="}">
-<div class="line"><a id="l00671" name="l00671"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_dynamic_array.html#af09578371bd52d5a934bc74c8dad5f0d">  671</a></span>        <a class="code hl_typedef" href="_o_s_kmacros_8h.html#a5784d24fcb00afb78eb7b1e1a3466ac4">USize64</a> <a class="code hl_function" href="class_o_s_k_1_1_dynamic_array.html#af09578371bd52d5a934bc74c8dad5f0d">GetSize</a>() <a class="code hl_define" href="x64-windows-static_2x64-windows-static_2include_2zconf_8h.html#a2c212835823e3c54a8ab6d95c652660e">const</a> noexcept {</div>
+<div class="line"><a id="l00671" name="l00671"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_dynamic_array.html#af09578371bd52d5a934bc74c8dad5f0d">  671</a></span>        <a class="code hl_typedef" href="_o_s_kmacros_8h.html#a5784d24fcb00afb78eb7b1e1a3466ac4">USize64</a> <a class="code hl_function" href="class_o_s_k_1_1_dynamic_array.html#af09578371bd52d5a934bc74c8dad5f0d">GetSize</a>() const noexcept {</div>
 <div class="line"><a id="l00672" name="l00672"></a><span class="lineno">  672</span>            <span class="keywordflow">return</span> m_count;</div>
 <div class="line"><a id="l00673" name="l00673"></a><span class="lineno">  673</span>        }</div>
 </div>
 <div class="line"><a id="l00674" name="l00674"></a><span class="lineno">  674</span> </div>
 <div class="foldopen" id="foldopen00678" data-start="{" data-end="}">
-<div class="line"><a id="l00678" name="l00678"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_dynamic_array.html#abfdeb1af5c7537a8e00f74b6670e68ef">  678</a></span>        <a class="code hl_typedef" href="_o_s_kmacros_8h.html#a5784d24fcb00afb78eb7b1e1a3466ac4">USize64</a> <a class="code hl_function" href="class_o_s_k_1_1_dynamic_array.html#abfdeb1af5c7537a8e00f74b6670e68ef">GetReservedSize</a>() <a class="code hl_define" href="x64-windows-static_2x64-windows-static_2include_2zconf_8h.html#a2c212835823e3c54a8ab6d95c652660e">const</a> noexcept {</div>
+<div class="line"><a id="l00678" name="l00678"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_dynamic_array.html#abfdeb1af5c7537a8e00f74b6670e68ef">  678</a></span>        <a class="code hl_typedef" href="_o_s_kmacros_8h.html#a5784d24fcb00afb78eb7b1e1a3466ac4">USize64</a> <a class="code hl_function" href="class_o_s_k_1_1_dynamic_array.html#abfdeb1af5c7537a8e00f74b6670e68ef">GetReservedSize</a>() const noexcept {</div>
 <div class="line"><a id="l00679" name="l00679"></a><span class="lineno">  679</span>            <span class="keywordflow">return</span> m_capacity;</div>
 <div class="line"><a id="l00680" name="l00680"></a><span class="lineno">  680</span>        }</div>
 </div>
 <div class="line"><a id="l00681" name="l00681"></a><span class="lineno">  681</span> </div>
 <div class="foldopen" id="foldopen00685" data-start="{" data-end="}">
-<div class="line"><a id="l00685" name="l00685"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_dynamic_array.html#ab8c4487ebf2c42cdb2be44a7a8e01bb0">  685</a></span>        <span class="keyword">const</span> T* <a class="code hl_function" href="class_o_s_k_1_1_dynamic_array.html#ab8c4487ebf2c42cdb2be44a7a8e01bb0">GetData</a>() <a class="code hl_define" href="x64-windows-static_2x64-windows-static_2include_2zconf_8h.html#a2c212835823e3c54a8ab6d95c652660e">const</a> noexcept {</div>
+<div class="line"><a id="l00685" name="l00685"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_dynamic_array.html#ab8c4487ebf2c42cdb2be44a7a8e01bb0">  685</a></span>        <span class="keyword">const</span> T* <a class="code hl_function" href="class_o_s_k_1_1_dynamic_array.html#ab8c4487ebf2c42cdb2be44a7a8e01bb0">GetData</a>() const noexcept {</div>
 <div class="line"><a id="l00686" name="l00686"></a><span class="lineno">  686</span>            <span class="keywordflow">return</span> m_data;</div>
 <div class="line"><a id="l00687" name="l00687"></a><span class="lineno">  687</span>        }</div>
 </div>
@@ -715,12 +716,12 @@ $(function(){initNavTree('_dynamic_array_8hpp_source.html',''); initResizable();
 </div>
 <div class="line"><a id="l00702" name="l00702"></a><span class="lineno">  702</span> </div>
 <div class="foldopen" id="foldopen00703" data-start="{" data-end="}">
-<div class="line"><a id="l00703" name="l00703"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_dynamic_array.html#ab47c4b8469a6b27f2c106d98d1fe7261">  703</a></span>        <span class="keyword">constexpr</span> <a class="code hl_class" href="class_o_s_k_1_1_dynamic_array_1_1_const_iterator.html">ConstIterator</a> <a class="code hl_function" href="class_o_s_k_1_1_dynamic_array.html#ab47c4b8469a6b27f2c106d98d1fe7261">begin</a>() <a class="code hl_define" href="x64-windows-static_2x64-windows-static_2include_2zconf_8h.html#a2c212835823e3c54a8ab6d95c652660e">const</a> noexcept {</div>
+<div class="line"><a id="l00703" name="l00703"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_dynamic_array.html#ab47c4b8469a6b27f2c106d98d1fe7261">  703</a></span>        <span class="keyword">constexpr</span> <a class="code hl_class" href="class_o_s_k_1_1_dynamic_array_1_1_const_iterator.html">ConstIterator</a> <a class="code hl_function" href="class_o_s_k_1_1_dynamic_array.html#ab47c4b8469a6b27f2c106d98d1fe7261">begin</a>() const noexcept {</div>
 <div class="line"><a id="l00704" name="l00704"></a><span class="lineno">  704</span>            <span class="keywordflow">return</span> <a class="code hl_function" href="class_o_s_k_1_1_dynamic_array.html#acff82d697db9eba0c123cffd2227d4f2">GetConstIterator</a>(0);</div>
 <div class="line"><a id="l00705" name="l00705"></a><span class="lineno">  705</span>        }</div>
 </div>
 <div class="foldopen" id="foldopen00706" data-start="{" data-end="}">
-<div class="line"><a id="l00706" name="l00706"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_dynamic_array.html#ad75efebed19f548bcea097e47ae68cc2">  706</a></span>        <span class="keyword">constexpr</span> <a class="code hl_class" href="class_o_s_k_1_1_dynamic_array_1_1_const_iterator.html">ConstIterator</a> <a class="code hl_function" href="class_o_s_k_1_1_dynamic_array.html#ad75efebed19f548bcea097e47ae68cc2">end</a>() <a class="code hl_define" href="x64-windows-static_2x64-windows-static_2include_2zconf_8h.html#a2c212835823e3c54a8ab6d95c652660e">const</a> noexcept {</div>
+<div class="line"><a id="l00706" name="l00706"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_dynamic_array.html#ad75efebed19f548bcea097e47ae68cc2">  706</a></span>        <span class="keyword">constexpr</span> <a class="code hl_class" href="class_o_s_k_1_1_dynamic_array_1_1_const_iterator.html">ConstIterator</a> <a class="code hl_function" href="class_o_s_k_1_1_dynamic_array.html#ad75efebed19f548bcea097e47ae68cc2">end</a>() const noexcept {</div>
 <div class="line"><a id="l00707" name="l00707"></a><span class="lineno">  707</span>            <span class="keywordflow">return</span> <a class="code hl_function" href="class_o_s_k_1_1_dynamic_array.html#acff82d697db9eba0c123cffd2227d4f2">GetConstIterator</a>(m_count);</div>
 <div class="line"><a id="l00708" name="l00708"></a><span class="lineno">  708</span>        }</div>
 </div>
@@ -759,9 +760,9 @@ $(function(){initNavTree('_dynamic_array_8hpp_source.html',''); initResizable();
 <div class="line"><a id="l00745" name="l00745"></a><span class="lineno">  745</span> </div>
 <div class="line"><a id="l00747" name="l00747"></a><span class="lineno">  747</span>        T* m_data = <span class="keyword">nullptr</span>;</div>
 <div class="line"><a id="l00748" name="l00748"></a><span class="lineno">  748</span> </div>
-<div class="line"><a id="l00750" name="l00750"></a><span class="lineno">  750</span>        <a class="code hl_typedef" href="_o_s_kmacros_8h.html#a5784d24fcb00afb78eb7b1e1a3466ac4">USize64</a> m_capacity = 0;</div>
+<div class="line"><a id="l00750" name="l00750"></a><span class="lineno">  750</span>        <a class="code hl_class" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">USize64</a> m_capacity = 0;</div>
 <div class="line"><a id="l00751" name="l00751"></a><span class="lineno">  751</span> </div>
-<div class="line"><a id="l00753" name="l00753"></a><span class="lineno">  753</span>        <a class="code hl_typedef" href="_o_s_kmacros_8h.html#a5784d24fcb00afb78eb7b1e1a3466ac4">USize64</a> m_count = 0;</div>
+<div class="line"><a id="l00753" name="l00753"></a><span class="lineno">  753</span>        <a class="code hl_class" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">USize64</a> m_count = 0;</div>
 <div class="line"><a id="l00754" name="l00754"></a><span class="lineno">  754</span> </div>
 <div class="line"><a id="l00755" name="l00755"></a><span class="lineno">  755</span>    };</div>
 </div>
@@ -779,6 +780,7 @@ $(function(){initNavTree('_dynamic_array_8hpp_source.html',''); initResizable();
 <div class="ttc" id="a_bad_alloc_exception_8h_html"><div class="ttname"><a href="_bad_alloc_exception_8h.html">BadAllocException.h</a></div></div>
 <div class="ttc" id="a_o_s_kmacros_8h_html_a5784d24fcb00afb78eb7b1e1a3466ac4"><div class="ttname"><a href="_o_s_kmacros_8h.html#a5784d24fcb00afb78eb7b1e1a3466ac4">USize64</a></div><div class="ttdeci">uint64_t USize64</div><div class="ttdef"><b>Definition</b> <a href="_o_s_kmacros_8h_source.html#l00044">OSKmacros.h:44</a></div></div>
 <div class="ttc" id="a_o_s_kmacros_8h_html_adef8e046c86805ca0dc2db407b01a1bb"><div class="ttname"><a href="_o_s_kmacros_8h.html#adef8e046c86805ca0dc2db407b01a1bb">UIndex64</a></div><div class="ttdeci">uint64_t UIndex64</div><div class="ttdef"><b>Definition</b> <a href="_o_s_kmacros_8h_source.html#l00041">OSKmacros.h:41</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref_html"><div class="ttname"><a href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">OSK::ASSETS::AssetRef</a></div><div class="ttdoc">Referencia a un asset.</div><div class="ttdef"><b>Definition</b> <a href="_asset_ref_8h_source.html#l00012">AssetRef.h:12</a></div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_bad_alloc_exception_html"><div class="ttname"><a href="class_o_s_k_1_1_bad_alloc_exception.html">OSK::BadAllocException</a></div><div class="ttdoc">Excepción que se lanza cuando no se ha podido reservar la cantidad de memoria indicada.</div><div class="ttdef"><b>Definition</b> <a href="_bad_alloc_exception_8h_source.html#l00008">BadAllocException.h:8</a></div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_dynamic_array_1_1_const_iterator_html"><div class="ttname"><a href="class_o_s_k_1_1_dynamic_array_1_1_const_iterator.html">OSK::DynamicArray::ConstIterator</a></div><div class="ttdoc">Clase que representa un elemento de un DynamicArray.</div><div class="ttdef"><b>Definition</b> <a href="#l00130">DynamicArray.hpp:130</a></div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_dynamic_array_1_1_const_iterator_html_a33ffa80ec781e1cf667f5ab71dde3b8f"><div class="ttname"><a href="class_o_s_k_1_1_dynamic_array_1_1_const_iterator.html#a33ffa80ec781e1cf667f5ab71dde3b8f">OSK::DynamicArray::ConstIterator::operator&lt;=&gt;</a></div><div class="ttdeci">constexpr auto operator&lt;=&gt;(const ConstIterator &amp;) const noexcept=default</div></div>
@@ -855,14 +857,13 @@ $(function(){initNavTree('_dynamic_array_8hpp_source.html',''); initResizable();
 <div class="ttc" id="anamespace_o_s_k_html_abaa28774128d414c059ee31f2759d274"><div class="ttname"><a href="namespace_o_s_k.html#abaa28774128d414c059ee31f2759d274">OSK::GrowthFactorType</a></div><div class="ttdeci">GrowthFactorType</div><div class="ttdoc">Comportamiento del array cuando no hay espacio: -EXPONENTIAL: se amplia de manera exponencial (Capaci...</div><div class="ttdef"><b>Definition</b> <a href="#l00041">DynamicArray.hpp:41</a></div></div>
 <div class="ttc" id="anamespace_o_s_k_html_abaa28774128d414c059ee31f2759d274a9b9ff7f1774e06092c715225f3c8a59e"><div class="ttname"><a href="namespace_o_s_k.html#abaa28774128d414c059ee31f2759d274a9b9ff7f1774e06092c715225f3c8a59e">OSK::GrowthFactorType::LINEAL</a></div><div class="ttdeci">@ LINEAL</div><div class="ttdoc">Se amplia de manera lineal (Capacity + Factor).</div></div>
 <div class="ttc" id="anamespace_o_s_k_html_abaa28774128d414c059ee31f2759d274adcd5fc33e211f31cef0cd7cb36518d31"><div class="ttname"><a href="namespace_o_s_k.html#abaa28774128d414c059ee31f2759d274adcd5fc33e211f31cef0cd7cb36518d31">OSK::GrowthFactorType::EXPONENTIAL</a></div><div class="ttdeci">@ EXPONENTIAL</div><div class="ttdoc">Se amplia de manera exponencial (Capacity * Factor).</div></div>
-<div class="ttc" id="ax64-windows-static_2x64-windows-static_2include_2zconf_8h_html_a2c212835823e3c54a8ab6d95c652660e"><div class="ttname"><a href="x64-windows-static_2x64-windows-static_2include_2zconf_8h.html#a2c212835823e3c54a8ab6d95c652660e">const</a></div><div class="ttdeci">#define const</div><div class="ttdef"><b>Definition</b> <a href="x64-windows-static_2x64-windows-static_2include_2zconf_8h_source.html#l00235">zconf.h:235</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_74389ed8173ad57b461b9d623a1f3867.html">Source</a></li><li class="navelem"><a class="el" href="_dynamic_array_8hpp.html">DynamicArray.hpp</a></li>
-    <li class="footer">Generado el Lunes, 29 de enero de 2024 17:18:31 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.10.0 </li>
+    <li class="footer">Generado el Lunes, 29 de enero de 2024 17:22:58 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.10.0 </li>
   </ul>
 </div>
 </body>

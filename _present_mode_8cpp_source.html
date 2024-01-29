@@ -19,6 +19,7 @@
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="doxygen-awesome.css" rel="stylesheet" type="text/css"/>
 </head>
 <body>
 <div id="top"><!-- do not remove this div, it is closed by doxygen! -->
@@ -103,8 +104,8 @@ $(function(){initNavTree('_present_mode_8cpp_source.html',''); initResizable(); 
 <a href="_present_mode_8cpp.html">Ir a la documentación de este archivo.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#include &quot;<a class="code" href="_present_mode_8h.html">PresentMode.h</a>&quot;</span></div>
 <div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span> </div>
 <div class="foldopen" id="foldopen00003" data-start="{" data-end="}">
-<div class="line"><a id="l00003" name="l00003"></a><span class="lineno"><a class="line" href="_present_mode_8cpp.html#abc71a584764d73c2b9a36e05d0b81576">    3</a></span><span class="keyword">template</span> &lt;&gt; std::string OSK::ToString&lt;OSK::GRAPHICS::PresentMode&gt;(<span class="keyword">const</span> <a class="code hl_enumeration" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a47a7b3817b8aca438c20b7674fad28ab">OSK::GRAPHICS::PresentMode</a>&amp; <a class="code hl_variable" href="x64-windows-static_2x64-windows-static_2include_2libpng16_2png_8h.html#a3eabae3e1e65723a7ec3445646cb7795">mode</a>) {</div>
-<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span>    <span class="keywordflow">switch</span> (<a class="code hl_variable" href="x64-windows-static_2x64-windows-static_2include_2libpng16_2png_8h.html#a3eabae3e1e65723a7ec3445646cb7795">mode</a>) {</div>
+<div class="line"><a id="l00003" name="l00003"></a><span class="lineno"><a class="line" href="_present_mode_8cpp.html#abc71a584764d73c2b9a36e05d0b81576">    3</a></span><span class="keyword">template</span> &lt;&gt; std::string OSK::ToString&lt;OSK::GRAPHICS::PresentMode&gt;(<span class="keyword">const</span> <a class="code hl_enumeration" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a47a7b3817b8aca438c20b7674fad28ab">OSK::GRAPHICS::PresentMode</a>&amp; mode) {</div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span>    <span class="keywordflow">switch</span> (mode) {</div>
 <div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span>        <span class="keywordflow">case</span> <a class="code hl_enumvalue" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a47a7b3817b8aca438c20b7674fad28aba61f5be3d7713d75f23e81b12d369f7b2">OSK::GRAPHICS::PresentMode::VSYNC_OFF</a>: <span class="keywordflow">return</span> <span class="stringliteral">&quot;PresentMode::VSYNC_OFF&quot;</span>;</div>
 <div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span>        <span class="keywordflow">case</span> <a class="code hl_enumvalue" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a47a7b3817b8aca438c20b7674fad28abaa92c385ce9a5a1037c3843fd17500094">OSK::GRAPHICS::PresentMode::VSYNC_ON</a>: <span class="keywordflow">return</span> <span class="stringliteral">&quot;PresentMode::VSYNC_ON&quot;</span>;</div>
 <div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span>        <span class="keywordflow">case</span> <a class="code hl_enumvalue" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a47a7b3817b8aca438c20b7674fad28aba9e78dc83e6b122efa2757383e0602338">OSK::GRAPHICS::PresentMode::VSYNC_ON_TRIPLE_BUFFER</a>: <span class="keywordflow">return</span> <span class="stringliteral">&quot;PresentMode::VSYNC_ON_TRIPLE_BUFFER&quot;</span>;</div>
@@ -118,14 +119,13 @@ $(function(){initNavTree('_present_mode_8cpp_source.html',''); initResizable(); 
 <div class="ttc" id="anamespace_o_s_k_1_1_g_r_a_p_h_i_c_s_html_a47a7b3817b8aca438c20b7674fad28aba61f5be3d7713d75f23e81b12d369f7b2"><div class="ttname"><a href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a47a7b3817b8aca438c20b7674fad28aba61f5be3d7713d75f23e81b12d369f7b2">OSK::GRAPHICS::PresentMode::VSYNC_OFF</a></div><div class="ttdeci">@ VSYNC_OFF</div><div class="ttdoc">No se espera a que la imagen actual termine de presentarse para mostrar la nueva imagen.</div></div>
 <div class="ttc" id="anamespace_o_s_k_1_1_g_r_a_p_h_i_c_s_html_a47a7b3817b8aca438c20b7674fad28aba9e78dc83e6b122efa2757383e0602338"><div class="ttname"><a href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a47a7b3817b8aca438c20b7674fad28aba9e78dc83e6b122efa2757383e0602338">OSK::GRAPHICS::PresentMode::VSYNC_ON_TRIPLE_BUFFER</a></div><div class="ttdeci">@ VSYNC_ON_TRIPLE_BUFFER</div><div class="ttdoc">Espera a que la imagen actual termine de presentarse para mostrar la nueva imagen.</div></div>
 <div class="ttc" id="anamespace_o_s_k_1_1_g_r_a_p_h_i_c_s_html_a47a7b3817b8aca438c20b7674fad28abaa92c385ce9a5a1037c3843fd17500094"><div class="ttname"><a href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a47a7b3817b8aca438c20b7674fad28abaa92c385ce9a5a1037c3843fd17500094">OSK::GRAPHICS::PresentMode::VSYNC_ON</a></div><div class="ttdeci">@ VSYNC_ON</div><div class="ttdoc">Espera a que la imagen actual termine de presentarse para mostrar la nueva imagen.</div></div>
-<div class="ttc" id="ax64-windows-static_2x64-windows-static_2include_2libpng16_2png_8h_html_a3eabae3e1e65723a7ec3445646cb7795"><div class="ttname"><a href="x64-windows-static_2x64-windows-static_2include_2libpng16_2png_8h.html#a3eabae3e1e65723a7ec3445646cb7795">mode</a></div><div class="ttdeci">png_structrp int mode</div><div class="ttdef"><b>Definition</b> <a href="x64-windows-static_2x64-windows-static_2include_2libpng16_2png_8h_source.html#l01137">png.h:1137</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_74389ed8173ad57b461b9d623a1f3867.html">Source</a></li><li class="navelem"><a class="el" href="_present_mode_8cpp.html">PresentMode.cpp</a></li>
-    <li class="footer">Generado el Lunes, 29 de enero de 2024 17:18:32 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.10.0 </li>
+    <li class="footer">Generado el Lunes, 29 de enero de 2024 17:22:59 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.10.0 </li>
   </ul>
 </div>
 </body>

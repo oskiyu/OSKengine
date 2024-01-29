@@ -19,6 +19,7 @@
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="doxygen-awesome.css" rel="stylesheet" type="text/css"/>
 </head>
 <body>
 <div id="top"><!-- do not remove this div, it is closed by doxygen! -->
@@ -128,11 +129,11 @@ $(function(){initNavTree('_i_asset_loader_8h_source.html',''); initResizable(); 
 <div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span> </div>
 <div class="line"><a id="l00035" name="l00035"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_i_asset_loader.html#ac5c0d4e581da3c41b856364bf1bdba0c">   35</a></span>        <span class="keyword">virtual</span> <a class="code hl_function" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_i_asset_loader.html#ac5c0d4e581da3c41b856364bf1bdba0c">~IAssetLoader</a>() = <span class="keywordflow">default</span>;</div>
 <div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span> </div>
-<div class="line"><a id="l00046" name="l00046"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_i_asset_loader.html#a32515746813a19627c6d1738c17160dc">   46</a></span>        <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code hl_function" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_i_asset_loader.html#a32515746813a19627c6d1738c17160dc">Load</a>(<span class="keyword">const</span> std::string&amp; assetFilePath, <span class="keywordtype">void</span>* assetRef) = 0;</div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_i_asset_loader.html#a32515746813a19627c6d1738c17160dc">   46</a></span>        <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code hl_function" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_i_asset_loader.html#a32515746813a19627c6d1738c17160dc">Load</a>(<span class="keyword">const</span> std::string&amp; <a class="code hl_class" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">assetFilePath</a>, <span class="keywordtype">void</span>* <a class="code hl_class" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">assetRef</a>) = 0;</div>
 <div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span> </div>
 <div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>    <span class="keyword">protected</span>:</div>
 <div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span> </div>
-<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>        nlohmann::json ValidateDescriptionFile(std::string_view filePath) <span class="keyword">const</span>;</div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>        nlohmann::json ValidateDescriptionFile(std::string_view <a class="code hl_class" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">filePath</a>) <span class="keyword">const</span>;</div>
 <div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span> </div>
 <div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>    };</div>
 </div>
@@ -146,7 +147,7 @@ $(function(){initNavTree('_i_asset_loader_8h_source.html',''); initResizable(); 
 <div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span> </div>
 <div class="line"><a id="l00070" name="l00070"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_t_asset_loader.html#adfca13c8ca32c73c96c1e0ae1ab44d18">   70</a></span>        <span class="keyword">virtual</span> <a class="code hl_function" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_t_asset_loader.html#adfca13c8ca32c73c96c1e0ae1ab44d18">~TAssetLoader</a>() = <span class="keywordflow">default</span>;</div>
 <div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span> </div>
-<div class="line"><a id="l00072" name="l00072"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_t_asset_loader.html#af4a8a23aff72e5a46fc845b83e6b5691">   72</a></span>        <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code hl_function" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_t_asset_loader.html#af4a8a23aff72e5a46fc845b83e6b5691">Load</a>(<span class="keyword">const</span> std::string&amp; path, TAssetType* asset) = 0;</div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_t_asset_loader.html#af4a8a23aff72e5a46fc845b83e6b5691">   72</a></span>        <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code hl_function" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_t_asset_loader.html#af4a8a23aff72e5a46fc845b83e6b5691">Load</a>(<span class="keyword">const</span> std::string&amp; path, <a class="code hl_class" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">TAssetType</a>* <a class="code hl_class" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">asset</a>) = 0;</div>
 <div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span> </div>
 <div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>    <span class="keyword">protected</span>:</div>
 <div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span> </div>
@@ -174,6 +175,7 @@ $(function(){initNavTree('_i_asset_loader_8h_source.html',''); initResizable(); 
 <div class="ttc" id="a_o_s_kmacros_8h_html"><div class="ttname"><a href="_o_s_kmacros_8h.html">OSKmacros.h</a></div></div>
 <div class="ttc" id="a_o_s_kmacros_8h_html_a09ec5b46ece998ad096bceff312bb36c"><div class="ttname"><a href="_o_s_kmacros_8h.html#a09ec5b46ece998ad096bceff312bb36c">OSKAPI_CALL</a></div><div class="ttdeci">#define OSKAPI_CALL</div><div class="ttdef"><b>Definition</b> <a href="_o_s_kmacros_8h_source.html#l00007">OSKmacros.h:7</a></div></div>
 <div class="ttc" id="a_unique_ptr_8hpp_html"><div class="ttname"><a href="_unique_ptr_8hpp.html">UniquePtr.hpp</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref_html"><div class="ttname"><a href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">OSK::ASSETS::AssetRef</a></div><div class="ttdoc">Referencia a un asset.</div><div class="ttdef"><b>Definition</b> <a href="_asset_ref_8h_source.html#l00012">AssetRef.h:12</a></div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_a_s_s_e_t_s_1_1_i_asset_loader_html"><div class="ttname"><a href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_i_asset_loader.html">OSK::ASSETS::IAssetLoader</a></div><div class="ttdoc">Clase que se encarga de cargar un asset de un tipo en concreto.</div><div class="ttdef"><b>Definition</b> <a href="#l00031">IAssetLoader.h:31</a></div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_a_s_s_e_t_s_1_1_i_asset_loader_html_a32515746813a19627c6d1738c17160dc"><div class="ttname"><a href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_i_asset_loader.html#a32515746813a19627c6d1738c17160dc">OSK::ASSETS::IAssetLoader::Load</a></div><div class="ttdeci">virtual void Load(const std::string &amp;assetFilePath, void *assetRef)=0</div><div class="ttdoc">Carga el asset-.</div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_a_s_s_e_t_s_1_1_i_asset_loader_html_ac5c0d4e581da3c41b856364bf1bdba0c"><div class="ttname"><a href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_i_asset_loader.html#ac5c0d4e581da3c41b856364bf1bdba0c">OSK::ASSETS::IAssetLoader::~IAssetLoader</a></div><div class="ttdeci">virtual ~IAssetLoader()=default</div></div>
@@ -188,7 +190,7 @@ $(function(){initNavTree('_i_asset_loader_8h_source.html',''); initResizable(); 
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_74389ed8173ad57b461b9d623a1f3867.html">Source</a></li><li class="navelem"><a class="el" href="_i_asset_loader_8h.html">IAssetLoader.h</a></li>
-    <li class="footer">Generado el Lunes, 29 de enero de 2024 17:18:31 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.10.0 </li>
+    <li class="footer">Generado el Lunes, 29 de enero de 2024 17:22:59 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.10.0 </li>
   </ul>
 </div>
 </body>

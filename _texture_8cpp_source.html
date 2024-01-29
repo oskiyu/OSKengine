@@ -19,6 +19,7 @@
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="doxygen-awesome.css" rel="stylesheet" type="text/css"/>
 </head>
 <body>
 <div id="top"><!-- do not remove this div, it is closed by doxygen! -->
@@ -110,8 +111,8 @@ $(function(){initNavTree('_texture_8cpp_source.html',''); initResizable(); });
 <div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="keyword">using namespace </span><a class="code hl_namespace" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html">OSK::GRAPHICS</a>;</div>
 <div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span> </div>
 <div class="foldopen" id="foldopen00010" data-start="{" data-end="}">
-<div class="line"><a id="l00010" name="l00010"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_texture.html#a73989d7926a60a99f29dff7726127638">   10</a></span><a class="code hl_function" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_texture.html#a73989d7926a60a99f29dff7726127638">Texture::Texture</a>(<span class="keyword">const</span> std::string&amp; assetFile)</div>
-<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span>    : <a class="code hl_class" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_i_asset.html">IAsset</a>(assetFile) {</div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_texture.html#a73989d7926a60a99f29dff7726127638">   10</a></span><a class="code hl_function" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_texture.html#a73989d7926a60a99f29dff7726127638">Texture::Texture</a>(<span class="keyword">const</span> std::string&amp; <a class="code hl_class" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">assetFile</a>)</div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span>    : <a class="code hl_class" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_i_asset.html">IAsset</a>(<a class="code hl_class" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">assetFile</a>) {</div>
 <div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span> </div>
 <div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span>}</div>
 </div>
@@ -159,14 +160,15 @@ $(function(){initNavTree('_texture_8cpp_source.html',''); initResizable(); });
 </div>
 <div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span> </div>
 <div class="foldopen" id="foldopen00043" data-start="{" data-end="}">
-<div class="line"><a id="l00043" name="l00043"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_texture.html#ac48b769e17329079b1348a7b7dab4e4c">   43</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_texture.html#ac48b769e17329079b1348a7b7dab4e4c">Texture::_SetImage</a>(<a class="code hl_class" href="class_o_s_k_1_1_owned_ptr.html">OwnedPtr&lt;GRAPHICS::GpuImage&gt;</a> image) {</div>
-<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>    this-&gt;image = image.<a class="code hl_function" href="class_o_s_k_1_1_owned_ptr.html#a81dfab2299056fc9858aace55fca0042">GetPointer</a>();</div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_texture.html#ac48b769e17329079b1348a7b7dab4e4c">   43</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_texture.html#ac48b769e17329079b1348a7b7dab4e4c">Texture::_SetImage</a>(<a class="code hl_class" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">OwnedPtr&lt;GRAPHICS::GpuImage&gt;</a> image) {</div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>    this-&gt;image = image.GetPointer();</div>
 <div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>}</div>
 </div>
 <div class="ttc" id="a_i_gpu_image_8h_html"><div class="ttname"><a href="_i_gpu_image_8h.html">IGpuImage.h</a></div></div>
 <div class="ttc" id="a_o_s_kengine_8h_html"><div class="ttname"><a href="_o_s_kengine_8h.html">OSKengine.h</a></div></div>
 <div class="ttc" id="a_o_s_kmacros_8h_html_a3e916ed5b32955be3417da92899fc361"><div class="ttname"><a href="_o_s_kmacros_8h.html#a3e916ed5b32955be3417da92899fc361">USize32</a></div><div class="ttdeci">uint32_t USize32</div><div class="ttdef"><b>Definition</b> <a href="_o_s_kmacros_8h_source.html#l00043">OSKmacros.h:43</a></div></div>
 <div class="ttc" id="a_texture_8h_html"><div class="ttname"><a href="_texture_8h.html">Texture.h</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref_html"><div class="ttname"><a href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">OSK::ASSETS::AssetRef</a></div><div class="ttdoc">Referencia a un asset.</div><div class="ttdef"><b>Definition</b> <a href="_asset_ref_8h_source.html#l00012">AssetRef.h:12</a></div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_a_s_s_e_t_s_1_1_i_asset_html"><div class="ttname"><a href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_i_asset.html">OSK::ASSETS::IAsset</a></div><div class="ttdoc">Un asset es un archivo/contenido que se usa en un juego. Incluye contenido como texturas,...</div><div class="ttdef"><b>Definition</b> <a href="_i_asset_8h_source.html#l00031">IAsset.h:31</a></div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_a_s_s_e_t_s_1_1_texture_html_a148f1b65ca3432e57129a09e2ac063d8"><div class="ttname"><a href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_texture.html#a148f1b65ca3432e57129a09e2ac063d8">OSK::ASSETS::Texture::_SetNumberOfChannels</a></div><div class="ttdeci">void _SetNumberOfChannels(USize32 numChannels)</div><div class="ttdoc">Establece el número de canales (red green blue, etc...).</div><div class="ttdef"><b>Definition</b> <a href="#l00039">Texture.cpp:39</a></div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_a_s_s_e_t_s_1_1_texture_html_a2624c642f8e05c628cf903e8faf8088f"><div class="ttname"><a href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_texture.html#a2624c642f8e05c628cf903e8faf8088f">OSK::ASSETS::Texture::GetSize</a></div><div class="ttdeci">Vector2ui GetSize() const</div><div class="ttdoc">Tamaño de la textura.</div><div class="ttdef"><b>Definition</b> <a href="#l00015">Texture.cpp:15</a></div></div>
@@ -179,8 +181,6 @@ $(function(){initNavTree('_texture_8cpp_source.html',''); initResizable(); });
 <div class="ttc" id="aclass_o_s_k_1_1_a_s_s_e_t_s_1_1_texture_html_ae7d873004f0fbd089f26c3575b115bc3"><div class="ttname"><a href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_texture.html#ae7d873004f0fbd089f26c3575b115bc3">OSK::ASSETS::Texture::GetNumberOfChannels</a></div><div class="ttdeci">USize32 GetNumberOfChannels() const</div><div class="ttdoc">Número de canales (red green blue, etc...).</div><div class="ttdef"><b>Definition</b> <a href="#l00019">Texture.cpp:19</a></div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_html"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image.html">OSK::GRAPHICS::GpuImage</a></div><div class="ttdoc">Representación interna de una imagen en la GPU.</div><div class="ttdef"><b>Definition</b> <a href="_i_gpu_image_8h_source.html#l00058">IGpuImage.h:58</a></div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_image_view_html"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_image_view.html">OSK::GRAPHICS::IGpuImageView</a></div><div class="ttdoc">Un image view describe cómo y a qúe parte de una imagen se va a acceder al usarla.</div><div class="ttdef"><b>Definition</b> <a href="_i_gpu_image_view_8h_source.html#l00017">IGpuImageView.h:17</a></div></div>
-<div class="ttc" id="aclass_o_s_k_1_1_owned_ptr_html"><div class="ttname"><a href="class_o_s_k_1_1_owned_ptr.html">OSK::OwnedPtr</a></div><div class="ttdoc">Es dueño de un puntero.</div><div class="ttdef"><b>Definition</b> <a href="_owned_ptr_8h_source.html#l00016">OwnedPtr.h:16</a></div></div>
-<div class="ttc" id="aclass_o_s_k_1_1_owned_ptr_html_a81dfab2299056fc9858aace55fca0042"><div class="ttname"><a href="class_o_s_k_1_1_owned_ptr.html#a81dfab2299056fc9858aace55fca0042">OSK::OwnedPtr::GetPointer</a></div><div class="ttdeci">T * GetPointer() const</div><div class="ttdoc">Devuelve el puntero nativo.</div><div class="ttdef"><b>Definition</b> <a href="_owned_ptr_8h_source.html#l00079">OwnedPtr.h:79</a></div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_vector2__t_html"><div class="ttname"><a href="class_o_s_k_1_1_vector2__t.html">OSK::Vector2_t&lt; uint32_t &gt;</a></div></div>
 <div class="ttc" id="anamespace_o_s_k_1_1_a_s_s_e_t_s_html"><div class="ttname"><a href="namespace_o_s_k_1_1_a_s_s_e_t_s.html">OSK::ASSETS</a></div><div class="ttdef"><b>Definition</b> <a href="_anim_mesh_loader_8h_source.html#l00009">AnimMeshLoader.h:9</a></div></div>
 <div class="ttc" id="anamespace_o_s_k_1_1_g_r_a_p_h_i_c_s_html"><div class="ttname"><a href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html">OSK::GRAPHICS</a></div><div class="ttdef"><b>Definition</b> <a href="_acceleration_structures_exceptions_8h_source.html#l00005">AccelerationStructuresExceptions.h:5</a></div></div>
@@ -193,7 +193,7 @@ $(function(){initNavTree('_texture_8cpp_source.html',''); initResizable(); });
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_74389ed8173ad57b461b9d623a1f3867.html">Source</a></li><li class="navelem"><a class="el" href="_texture_8cpp.html">Texture.cpp</a></li>
-    <li class="footer">Generado el Lunes, 29 de enero de 2024 17:18:32 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.10.0 </li>
+    <li class="footer">Generado el Lunes, 29 de enero de 2024 17:23:00 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.10.0 </li>
   </ul>
 </div>
 </body>

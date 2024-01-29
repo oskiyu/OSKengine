@@ -19,6 +19,7 @@
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="doxygen-awesome.css" rel="stylesheet" type="text/css"/>
 </head>
 <body>
 <div id="top"><!-- do not remove this div, it is closed by doxygen! -->
@@ -115,7 +116,7 @@ $(function(){initNavTree('_texture_loader_8h_source.html',''); initResizable(); 
 <div class="line"><a id="l00012" name="l00012"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_texture_loader.html#ae639179a2474aca1ca8e6f9c001a8fc3">   12</a></span>        <a class="code hl_function" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_texture_loader.html#ae639179a2474aca1ca8e6f9c001a8fc3">OSK_ASSET_TYPE_REG</a>(<span class="stringliteral">&quot;OSK::Texture&quot;</span>);</div>
 <div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span> </div>
 <div class="line"><a id="l00014" name="l00014"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_texture_loader.html#a28a9a70fd361eb75bb6f0cd37a5ccf42">   14</a></span>        <a class="code hl_function" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_texture_loader.html#a28a9a70fd361eb75bb6f0cd37a5ccf42">OSK_DEFAULT_LOADER_IMPL</a>(<a class="code hl_class" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_texture.html">Texture</a>);</div>
-<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span>        <span class="keywordtype">void</span> Load(<span class="keyword">const</span> std::string&amp; assetFilePath, <a class="code hl_class" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_texture.html">Texture</a>* asset) <span class="keyword">override</span>;</div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span>        <span class="keywordtype">void</span> Load(<span class="keyword">const</span> std::string&amp; <a class="code hl_class" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">assetFilePath</a>, <a class="code hl_class" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_texture.html">Texture</a>* <a class="code hl_class" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">asset</a>) <span class="keyword">override</span>;</div>
 <div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span> </div>
 <div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>    };</div>
 </div>
@@ -124,6 +125,7 @@ $(function(){initNavTree('_texture_loader_8h_source.html',''); initResizable(); 
 <div class="ttc" id="a_i_asset_loader_8h_html"><div class="ttname"><a href="_i_asset_loader_8h.html">IAssetLoader.h</a></div></div>
 <div class="ttc" id="a_o_s_kmacros_8h_html_a09ec5b46ece998ad096bceff312bb36c"><div class="ttname"><a href="_o_s_kmacros_8h.html#a09ec5b46ece998ad096bceff312bb36c">OSKAPI_CALL</a></div><div class="ttdeci">#define OSKAPI_CALL</div><div class="ttdef"><b>Definition</b> <a href="_o_s_kmacros_8h_source.html#l00007">OSKmacros.h:7</a></div></div>
 <div class="ttc" id="a_texture_8h_html"><div class="ttname"><a href="_texture_8h.html">Texture.h</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref_html"><div class="ttname"><a href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">OSK::ASSETS::AssetRef</a></div><div class="ttdoc">Referencia a un asset.</div><div class="ttdef"><b>Definition</b> <a href="_asset_ref_8h_source.html#l00012">AssetRef.h:12</a></div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_a_s_s_e_t_s_1_1_i_asset_loader_html"><div class="ttname"><a href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_i_asset_loader.html">OSK::ASSETS::IAssetLoader</a></div><div class="ttdoc">Clase que se encarga de cargar un asset de un tipo en concreto.</div><div class="ttdef"><b>Definition</b> <a href="_i_asset_loader_8h_source.html#l00031">IAssetLoader.h:31</a></div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_a_s_s_e_t_s_1_1_t_asset_loader_html"><div class="ttname"><a href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_t_asset_loader.html">OSK::ASSETS::TAssetLoader</a></div><div class="ttdoc">Clase base que contiene la tabña caché de assets previamente cargados.</div><div class="ttdef"><b>Definition</b> <a href="_i_asset_loader_8h_source.html#l00066">IAssetLoader.h:66</a></div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_a_s_s_e_t_s_1_1_texture_html"><div class="ttname"><a href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_texture.html">OSK::ASSETS::Texture</a></div><div class="ttdoc">Una textura que será usada en renderizado 2D / 3D.</div><div class="ttdef"><b>Definition</b> <a href="_texture_8h_source.html#l00018">Texture.h:18</a></div></div>
@@ -137,7 +139,7 @@ $(function(){initNavTree('_texture_loader_8h_source.html',''); initResizable(); 
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_74389ed8173ad57b461b9d623a1f3867.html">Source</a></li><li class="navelem"><a class="el" href="_texture_loader_8h.html">TextureLoader.h</a></li>
-    <li class="footer">Generado el Lunes, 29 de enero de 2024 17:18:32 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.10.0 </li>
+    <li class="footer">Generado el Lunes, 29 de enero de 2024 17:23:00 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.10.0 </li>
   </ul>
 </div>
 </body>

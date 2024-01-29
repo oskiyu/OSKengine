@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['hints_0',['Hints',['../struct_s_p_i_r_v___c_r_o_s_s___n_a_m_e_s_p_a_c_e_1_1_s_p_i_r_block.html#afefd8851ebf3e50996591a6104927758',1,'SPIRV_CROSS_NAMESPACE::SPIRBlock::Hints'],['../struct_s_p_i_r_v___c_r_o_s_s___n_a_m_e_s_p_a_c_e_1_1_s_p_i_r_block.html#afefd8851ebf3e50996591a6104927758',1,'SPIRV_CROSS_NAMESPACE::SPIRBlock::Hints'],['../struct_s_p_i_r_v___c_r_o_s_s___n_a_m_e_s_p_a_c_e_1_1_s_p_i_r_block.html#afefd8851ebf3e50996591a6104927758',1,'SPIRV_CROSS_NAMESPACE::SPIRBlock::Hints']]],
-  ['hlslbindingflagbits_1',['HLSLBindingFlagBits',['../namespace_s_p_i_r_v___c_r_o_s_s___n_a_m_e_s_p_a_c_e.html#a1d94ab9c38e11b099e6ff1bf27856dc1',1,'SPIRV_CROSS_NAMESPACE::HLSLBindingFlagBits'],['../namespace_s_p_i_r_v___c_r_o_s_s___n_a_m_e_s_p_a_c_e.html#a1d94ab9c38e11b099e6ff1bf27856dc1',1,'SPIRV_CROSS_NAMESPACE::HLSLBindingFlagBits'],['../namespace_s_p_i_r_v___c_r_o_s_s___n_a_m_e_s_p_a_c_e.html#a1d94ab9c38e11b099e6ff1bf27856dc1',1,'SPIRV_CROSS_NAMESPACE::HLSLBindingFlagBits']]]
+  ['key_0',['Key',['../namespace_o_s_k_1_1_i_o.html#a0b92714a4a778072d4824502589bd39e',1,'OSK::IO']]],
+  ['keystate_1',['KeyState',['../namespace_o_s_k_1_1_i_o.html#a78afb37a98c122d12c3a1a38aba9e56e',1,'OSK::IO']]]
 ];

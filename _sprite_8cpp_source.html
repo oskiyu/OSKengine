@@ -19,6 +19,7 @@
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="doxygen-awesome.css" rel="stylesheet" type="text/css"/>
 </head>
 <body>
 <div id="top"><!-- do not remove this div, it is closed by doxygen! -->
@@ -132,7 +133,7 @@ $(function(){initNavTree('_sprite_8cpp_source.html',''); initResizable(); });
 <div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span> </div>
 <div class="foldopen" id="foldopen00029" data-start="{" data-end="}">
 <div class="line"><a id="l00029" name="l00029"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_sprite.html#a0dae07d4738aac81f5f839906c428dc8">   29</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_sprite.html#a0dae07d4738aac81f5f839906c428dc8">Sprite::SetupMaterial</a>(<a class="code hl_class" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material.html">Material</a>* material) {</div>
-<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>    <a class="code hl_define" href="_assert_8h.html#a927d7efae46f019e805b046e952af182">OSK_ASSERT</a>(material-&gt;<a class="code hl_function" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material.html#a29f2fe999bf8857dbbb65fb73df335ca">GetLayout</a>()-&gt;<a class="code hl_function" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_layout.html#a9cef2a81162243692cfbdd17e4adf0da">GetAllSlots</a>().contains(<span class="stringliteral">&quot;texture&quot;</span>), <a class="code hl_class" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_invalid_material_exception.html">InvalidMaterialException</a>());</div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>    <a class="code hl_define" href="_assert_8h.html#a927d7efae46f019e805b046e952af182">OSK_ASSERT</a>(material-&gt;<a class="code hl_function" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material.html#a29f2fe999bf8857dbbb65fb73df335ca">GetLayout</a>()-&gt;GetAllSlots().contains(<span class="stringliteral">&quot;texture&quot;</span>), <a class="code hl_class" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_invalid_material_exception.html">InvalidMaterialException</a>());</div>
 <div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>    textureMaterialInstance = material-&gt;<a class="code hl_function" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material.html#acf1dacea3b45a53ca86d96e30af22af1">CreateInstance</a>().GetPointer();</div>
 <div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>}</div>
 </div>
@@ -150,8 +151,8 @@ $(function(){initNavTree('_sprite_8cpp_source.html',''); initResizable(); });
 </div>
 <div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span> </div>
 <div class="foldopen" id="foldopen00042" data-start="{" data-end="}">
-<div class="line"><a id="l00042" name="l00042"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_sprite.html#ad087bcb736161d4899a49549d06d783c">   42</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_sprite.html#ad087bcb736161d4899a49549d06d783c">Sprite::LinkAsset</a>(<a class="code hl_class" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">ASSETS::AssetRef&lt;Texture&gt;</a> texture) {</div>
-<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>    m_texture = texture;</div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_sprite.html#ad087bcb736161d4899a49549d06d783c">   42</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_sprite.html#ad087bcb736161d4899a49549d06d783c">Sprite::LinkAsset</a>(<a class="code hl_class" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">ASSETS::AssetRef&lt;Texture&gt;</a> <a class="code hl_class" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">texture</a>) {</div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>    m_texture = <a class="code hl_class" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">texture</a>;</div>
 <div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>}</div>
 </div>
 <div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span> </div>
@@ -199,7 +200,6 @@ $(function(){initNavTree('_sprite_8cpp_source.html',''); initResizable(); });
 <div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_html"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material.html">OSK::GRAPHICS::Material</a></div><div class="ttdoc">Un material define el comportamiento del renderizador con un objeto en concreto. Debe definirse el la...</div><div class="ttdef"><b>Definition</b> <a href="_material_8h_source.html#l00050">Material.h:50</a></div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_html_a29f2fe999bf8857dbbb65fb73df335ca"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material.html#a29f2fe999bf8857dbbb65fb73df335ca">OSK::GRAPHICS::Material::GetLayout</a></div><div class="ttdeci">const MaterialLayout * GetLayout() const</div><div class="ttdoc">Devuelve el layout del material.</div><div class="ttdef"><b>Definition</b> <a href="_material_8cpp_source.html#l00045">Material.cpp:45</a></div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_html_acf1dacea3b45a53ca86d96e30af22af1"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material.html#acf1dacea3b45a53ca86d96e30af22af1">OSK::GRAPHICS::Material::CreateInstance</a></div><div class="ttdeci">OwnedPtr&lt; MaterialInstance &gt; CreateInstance()</div><div class="ttdoc">Crea y devuelve una nueva instancia de este material.</div><div class="ttdef"><b>Definition</b> <a href="_material_8cpp_source.html#l00024">Material.cpp:24</a></div></div>
-<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_layout_html_a9cef2a81162243692cfbdd17e4adf0da"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_layout.html#a9cef2a81162243692cfbdd17e4adf0da">OSK::GRAPHICS::MaterialLayout::GetAllSlots</a></div><div class="ttdeci">const MaterialSlotsIterable &amp; GetAllSlots() const</div><div class="ttdoc">Obtiene los slots.</div><div class="ttdef"><b>Definition</b> <a href="_material_layout_8cpp_source.html#l00033">MaterialLayout.cpp:33</a></div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_sprite_html_a0dae07d4738aac81f5f839906c428dc8"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_sprite.html#a0dae07d4738aac81f5f839906c428dc8">OSK::GRAPHICS::Sprite::SetupMaterial</a></div><div class="ttdeci">void SetupMaterial(Material *material)</div><div class="ttdoc">Establece el material sobre el que se inicializará el slot de la imagen del sprite.</div><div class="ttdef"><b>Definition</b> <a href="#l00029">Sprite.cpp:29</a></div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_sprite_html_a12cba3ac1868418add3c4d95ce87e615"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_sprite.html#a12cba3ac1868418add3c4d95ce87e615">OSK::GRAPHICS::Sprite::Sprite</a></div><div class="ttdeci">Sprite()</div><div class="ttdef"><b>Definition</b> <a href="#l00025">Sprite.cpp:25</a></div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_sprite_html_a73e11c31d9a6a64a3ee36b8981d12e72"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_sprite.html#a73e11c31d9a6a64a3ee36b8981d12e72">OSK::GRAPHICS::Sprite::GetTexCoords</a></div><div class="ttdeci">TextureCoordinates2D GetTexCoords() const</div><div class="ttdef"><b>Definition</b> <a href="#l00038">Sprite.cpp:38</a></div></div>
@@ -221,7 +221,7 @@ $(function(){initNavTree('_sprite_8cpp_source.html',''); initResizable(); });
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_74389ed8173ad57b461b9d623a1f3867.html">Source</a></li><li class="navelem"><a class="el" href="_sprite_8cpp.html">Sprite.cpp</a></li>
-    <li class="footer">Generado el Lunes, 29 de enero de 2024 17:18:32 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.10.0 </li>
+    <li class="footer">Generado el Lunes, 29 de enero de 2024 17:22:59 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.10.0 </li>
   </ul>
 </div>
 </body>
