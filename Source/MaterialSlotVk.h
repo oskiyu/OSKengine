@@ -7,11 +7,17 @@
 #include "DescriptorLayoutVk.h"
 #include "DescriptorPoolVk.h"
 #include "LinkedList.hpp"
-#include "HashMap.hpp"
+
+#include <unordered_map>
+#include <array>
 
 #include <vulkan/vulkan.h>
 
 namespace OSK::GRAPHICS {
+
+	class GpuMemorySubblockVk;
+	class IGpuImageView;
+
 
 	class OSKAPI_CALL MaterialSlotVk final : public IMaterialSlot {
 
@@ -26,7 +32,7 @@ namespace OSK::GRAPHICS {
 		void SetUniformBuffers(
 			const std::string& binding, 
 			std::span<const GpuBuffer*, NUM_RESOURCES_IN_FLIGHT>,
-			UIndex32 arrayIndex);
+			UIndex32 arrayIndex) override;
 
 		void SetGpuImages(
 			const std::string& binding, 
@@ -56,14 +62,21 @@ namespace OSK::GRAPHICS {
 
 	private:
 
-		std::unordered_map<std::string, UIndex32, StringHasher, std::equal_to<>> m_bindingsLocations;
+		static OwnedPtr<VkDescriptorBufferInfo> GetDescriptorBufferInfo(const GpuMemorySubblockVk& subblock);
+		static OwnedPtr<VkDescriptorImageInfo> GetDescriptorImageInfo(const IGpuImageView& view, VkImageLayout layout);
 
+		struct BindingVk {
+			/// @brief Mapa ID en el array del shader -> descriptor write.
+			std::unordered_map<UIndex32, VkWriteDescriptorSet> descriptorWrites{};
+		};
+
+		DynamicArray<VkWriteDescriptorSet> m_descriptorWrites{};
 
 		/// @brief Un descriptor set por recurso en vuelo.
-		DynamicArray<VkDescriptorSet> m_descriptorSets;
+		std::array<VkDescriptorSet, NUM_RESOURCES_IN_FLIGHT> m_descriptorSets{};
 		
-		/// @brief 
-		DynamicArray<DynamicArray<VkWriteDescriptorSet>> m_bindings;
+		/// @brief Mapas ID del binding -> datos del binding.
+		std::array<std::unordered_map<UIndex32, BindingVk>, NUM_RESOURCES_IN_FLIGHT> m_bindings;
 
 		DynamicArray<UniquePtr<VkDescriptorBufferInfo>> m_bufferInfos;
 		DynamicArray<UniquePtr<VkDescriptorImageInfo>> m_imageInfos;

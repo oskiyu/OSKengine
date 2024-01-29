@@ -34,6 +34,14 @@ MaterialType Material::GetMaterialType() const {
 	return materialType;
 }
 
+const PipelineCreateInfo& Material::GetInfo() const {
+	return pipelineInfo;
+}
+
+std::string_view Material::GetName() const {
+	return name;
+}
+
 const MaterialLayout* Material::GetLayout() const {
 	return layout.GetPointer();
 }

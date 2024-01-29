@@ -193,6 +193,9 @@ namespace OSK::GRAPHICS {
 
 		bool useAlphaBlending = true;
 
+		bool usesUnspecifiedSizedArrays = false;
+		USize32 maxUnspecifiedSizedArraysSize = 0;
+
 	};
 
 }

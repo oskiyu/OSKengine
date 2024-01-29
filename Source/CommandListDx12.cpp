@@ -360,6 +360,10 @@ void CommandListDx12::DrawSingleMesh(UIndex32 firstIndex, USize32 numIndices) {
 	commandList->DrawIndexedInstanced(numIndices, 1, firstIndex, 0, 0);
 }
 
+void CommandListDx12::DrawInstances(UIndex32 firstIndex, USize32 numIndices, UIndex32 firstInstance, USize32 instanceCount) {
+	commandList->DrawIndexedInstanced(numIndices, instanceCount, firstIndex, 0, firstInstance);
+}
+
 void CommandListDx12::TraceRays(UIndex32 raygenEntry, UIndex32 closestHitEntry, UIndex32 missEntry, const Vector2ui& resolution) {
 	OSK_ASSERT(false, NotImplementedException());
 }

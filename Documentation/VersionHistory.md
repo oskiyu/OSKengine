@@ -1,6 +1,225 @@
 # OSKengine Version History.
 
-## 2023.02.18a
+## 2023.02.02a
+
+### ECS
+
+###### Añadido soporte para eventos.
+
+- ***Nuevo***: `EventContainer<>`
+    - Contiene una lista de eventos particular.
+    - Permite:
+        - Registrar eventos.
+        - Publicar eventos.
+        - Obtener listas de eventos.
+
+- ***Nuevo***: `IEventContainer`
+    - Interfaz para `EventContainer<>`
+
+- ***Nuevo***: `EventManager`
+    - Contiene un `EventContainer` por cada tipo de evento registrado.
+    - Permite:
+        - Registrar eventos.
+        - Publicar eventos.
+        - Obtener listas de eventos.
+
+- `EntityComponentSystem`
+    - Ahora limpia las listas de eventos al final de cada frame.
+    - Ahora incluye un `EventManager`.
+    - Ahora permite:
+        - Registrar eventos.
+        - Publicar eventos.
+        - Obtener listas de eventos.
+
+### Graphics
+
+- `GpuBufferUsage`
+    - ***Nuevo***: `UPLOAD_ONLY`
+        - Representa un staging buffer.
+
+- `IGpuMemoryAllocator`
+    - Ahora permite liberar toda la memoria usada para staging buffers (y que ahor esté en desuso).
+
+- `IGpuMemoryBlock`
+    - Ahora permite saber si hay algún subbloque activo que referencie a su memoria.
+
+- `RendererVulkan`
+    - Ahora libera la memoria staging en desuso al finalizar cada frame.
+
+- `GpuMemoryAllocatorVulkan`
+    - `CreateStagingBuffer()` ahora establece el uso `GpuBufferUsage::UPLOAD_ONLY`.
+
+#### Bugfixes
+
+- **Bugfix**: corregido un `GpuImageUsage` mal configurado en el pase `BloomPass`.
+- **Bugfix**: las clases hijas de `IGpuStorageBuffer` ahora llaman correctamente al destructor.
+- **Bugfix**: las clases hijas de `IGpuUniformBuffer` ahora llaman correctamente al destructor.
+
+
+## 2023.02.02b
+
+### ECS
+
+- ***Nuevo***: `IConsumerSystem`
+    - Representa un sistema cuya funcionalidad consume eventos.
+    
+- ***Nuevo***: `IIteratorSystem`
+    - Representa un sistema cuya funcionalidad itera sobre entidades (comportamiento previamente por defecto).
+    
+- ***Nuevo***: `IProducerSystem`
+    - Representa un sistema iterador que genera eventos.
+
+- ***Nuevo***: `IPureSystem`
+    - Representa un sistema iterador que ni genera ni consume eventos.
+
+- `SystemManager`
+    - Almacena los sistemas en tres grupos:
+        - Sistemas productores.
+        - Sistemas consumidores.
+        - Sistemas puros.
+    - Ejecuta los sistemas en el siguiente orden:
+        - Sistemas productores.
+        - Sistemas consumidores.
+        - Sistemas puros.
+        
+- `IRenderSystem` ahora hereda de `IPureSystem`.
+- `TerrainRenderSystem` ahora hereda de `IPureSystem`.
+
+
+## 2023.02.03a
+
+### Collision
+
+- ***Nuevo***: `CollisionEvent`
+    - Representa una colisión entre dos entidades.
+
+- ***Nuevo***: `CollisionSystem`
+    - Detecta colisiones y genera eventos.
+
+- ***Nuevo***: `PhysicsResolver` (*WIP*)
+
+- ***Nuevo***: `RayCastResult`
+    - Almacena un resultado de un ray-cast.
+    - Incluye el punto de contacto.
+
+### ECS
+
+- `EntityComponentSystem`
+    - Permite vaciar las listas de eventos.
+    - Permite saber si una entidad está viva (existe).
+
+- `GameObjectManager`
+    - Ahora permite saber si una entidad está viva (existe).
+
+- `EventContainer`
+    - Ahora hereda de `IEventContainer`.
+
+- `ColliderRenderSystem`
+    - Implementada funcionalidad inicial (para renderizado de volúmenes de nivel alto).
+    
+### Types
+
+- `Color`
+    - ***Nuevo***: `GREEN()`.
+
+#### Bugfixes
+
+- **Bugfix**: `AxisAlignedBoundingBox::GetMin()` y `AxisAlignedBoundingBox::GetMax()` ahora devuelven el valor correcto.
+- **Bugfix**: `ITopLevelCollider::AabbSphereCollision` ahora funciona correctamente.
+
+
+## 2023.02.04a
+
+### Graphics
+
+###### Añadido soporte para wideframe.
+
+- `PolygonMode`
+    - *Renombrado*: `FILL` -> `TRIANGLE_FILL`.
+    - ***Nuevo***: `TRIANGLE_WIDEFRAME`.
+
+- `GraphicsPipelineVulkan`, `GraphicsPipelineDx12`
+    - Ahora soporta el modo de triángulo `TRIANGLE_WIDEFRAME`.
+
+- `MaterialSystem`
+    - Ahora soporta el modo de triángulo `TRIANGLE_WIDEFRAME`.
+
+### ECS
+
+- `ColliderRenderSystem`
+    - Ahora renderiza los colliders de bajo nivel (siempre que se hayan registrado previamente).
+    - Ahora usa colores ligeramente más suaves.
+
+- `IBottomLevelCollider`
+    - Ya no permite establecer un transform de offset.
+
+- `ConvexVolume`
+    - Ahora permite saber si contiene un punto en concreto.
+    - Ahora permite obtener los vértices en espacio local.
+    - Ahora permite obtener los índices de las caras.
+
+#### Bugfixes
+
+- **Bugfix**: `CollisionSystem` ahora genera eventos sólamente si colisionan los volúmenes de nivel bajo.
+
+
+## 2023.02.05a
+
+### Collision
+
+- ***Nuevo***: `DetailedCollisionInfo`
+    - Incluye la información detallada de una colisión.
+    - Incluye el MTV.
+
+- `IBottomLevelCollider`, `ConvexVolume`
+    - Ahora permiten obtener información detallada de la colisión (`DetailedCollisionInfo`).
+    - Ahora calculan el MTV.
+    
+### Physics
+
+- ***Nuevo***: `PhysicsComponent`
+    - Permite simular las físicas de un objeto (cuerpo rígido).
+    - Incluye velocidad, aceleración y peso.
+
+- `PhysicsResolver`
+    - Ahora se incluye por defecto en el motor.
+    - Ahora resuelve las colisiones separando las entidades (aplicando el MTV).
+
+- ***Nuevo***: `PhysicsSystem`
+    - Simula el movimiento de un objeto de acuerdo a su velocidad y aceleración.
+    
+
+## 2023.02.05b
+
+### Assets
+
+- `AnimMeshLoader`
+    - Eliminados logs de debug.
+
+### ECS
+
+- `ColliderRenderSystem`
+    - Ahora usa imágenes de formato `RGBA8_SRGB` en vez de `RGBA32_SFLOAT`.
+    - Ahora registra automáticamente todos los objetos compatibles.
+
+#### Bugfixes
+
+- **Bugfix**: `BloomPass` ahora no genera errores de validación.
+
+
+## 2023.02.06a
+
+### ECS
+
+- `ISystem`
+    - Ahora se puede activar y/o desactivar su ejecución.
+
+#### Bugfixes
+
+- **Bugfix**: `ModelLoader3D` ahora respeta const-correctness del modelo cargado.
+
+
+## 2023.02.07a
 
 ### Rendering
 
@@ -1509,3 +1728,22 @@ fix culling static meshes
 - **Bugfix**: `IAudioSource::SetPitch` ahora funciona correctamente para el backend de `OpenAL`.
 - **Bugfix**: `IAudioSource::SetGain` ahora funciona correctamente para el backend de `OpenAL`.
 - **Bugfix**: `IAudioSource::SetLooping` ahora funciona correctamente para el backend de `OpenAL`.
+
+
+## 2024.01.29a
+
+### Graphics
+
+- `PipelineCreateInfo`, `MaterialSystem`
+    - Ahora permite definir el número máximo de elementos de un array de descriptores.
+
+- `ICommandList`
+    - ***Nuevo***: `DrawInstances()`
+        - Permite renderizar varias instancias de un mismo modelo.
+
+#### Bugfixes
+
+- **Bugfix**: `MaterialSlotVk` ya no crea un descriptor pool 3 veces más grande de lo necesario.
+- **Bugfix**: `MaterialSlotVk` ahora es compatible con arrays de recursos.
+- **Bugfix**: `MaterialSlotVk` ahora es compatible con arrays de recursos.
+- **Bugfix**: `VertexInfo::Entry::Type::UNSIGNED_INT` ahora se puede usar para un único unsigned int.

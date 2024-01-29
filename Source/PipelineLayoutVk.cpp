@@ -44,7 +44,7 @@ PipelineLayoutVk::PipelineLayoutVk(const MaterialLayout* materialLayout)
 	}
 
 	for (auto& slot : orderedSlots) {
-		auto descLayout = new DescriptorLayoutVk(&slot);
+		auto descLayout = new DescriptorLayoutVk(&slot, 0);
 		descLayouts.Insert(descLayout);
 		nativeDescLayouts.Insert(descLayout->GetLayout());
 	}

@@ -478,7 +478,7 @@ void CommandListVk::BindIndexBufferRange(const GpuBuffer& buffer, const IndexBuf
 }
 
 void CommandListVk::BindMaterialSlot(const IMaterialSlot& slot) {
-	VkDescriptorSet sets[] = { slot.As<MaterialSlotVk>()->GetDescriptorSet(Engine::GetRenderer()->GetCurrentResourceIndex()) };
+	VkDescriptorSet set = slot.As<MaterialSlotVk>()->GetDescriptorSet(Engine::GetRenderer()->GetCurrentResourceIndex());
 
 	VkPipelineBindPoint bindPoint{};
 	switch (currentMaterial->GetMaterialType()) {
@@ -495,7 +495,7 @@ void CommandListVk::BindMaterialSlot(const IMaterialSlot& slot) {
 	}
 
 	const auto glslSetIndex = currentMaterial->GetLayout()->GetSlot(slot.GetName()).glslSetIndex;
-	vkCmdBindDescriptorSets(commandBuffers[_GetCommandListIndex()], bindPoint, layout, glslSetIndex, 1, sets, 0, nullptr);
+	vkCmdBindDescriptorSets(commandBuffers[_GetCommandListIndex()], bindPoint, layout, glslSetIndex, 1, std::addressof(set), 0, nullptr);
 }
 
 void CommandListVk::PushMaterialConstants(const std::string& pushConstName, const void* data, USize32 size, USize32 offset) {
@@ -516,6 +516,10 @@ void CommandListVk::DrawSingleInstance(USize32 numIndices) {
 
 void CommandListVk::DrawSingleMesh(UIndex32 firstIndex, USize32 numIndices) {
 	vkCmdDrawIndexed(commandBuffers[_GetCommandListIndex()], numIndices, 1, firstIndex, 0, 0);
+}
+
+void CommandListVk::DrawInstances(UIndex32 firstIndex, USize32 numIndices, UIndex32 firstInstance, USize32 instanceCount) {
+	vkCmdDrawIndexed(commandBuffers[_GetCommandListIndex()], numIndices, instanceCount, firstIndex, 0, firstInstance);
 }
 
 void CommandListVk::TraceRays(UIndex32 raygenEntry, UIndex32 closestHitEntry, UIndex32 missEntry, const Vector2ui& resolution) {

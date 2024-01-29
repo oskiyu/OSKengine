@@ -12,6 +12,7 @@
 
 using namespace OSK;
 using namespace OSK::ECS;
+using namespace OSK::ASSETS;
 using namespace OSK::GRAPHICS;
 
 
@@ -26,17 +27,25 @@ void GdrDeferredRenderSystem::CreateUnifiedBuffers(USize32 maxVertexCount, USize
 	auto* allocator = Engine::GetRenderer()->GetAllocator();
 
 	for (UIndex64 i = 0; i < NUM_RESOURCES_IN_FLIGHT; i++) {
+		const USize64 uboAlignment = 0; // TODO
+
+		const auto createBufferFunc = [allocator, uboAlignment](USize64 size) {
+			return allocator->CreateBuffer(size, uboAlignment, GpuBufferUsage::STORAGE_BUFFER, GpuSharedMemoryType::GPU_AND_CPU).GetPointer();
+		};
+
 		m_unifiedVertexBuffers[i] = allocator->CreateBuffer(sizeof(GdrVertex3D) * maxVertexCount, 0, GpuBufferUsage::VERTEX_BUFFER, GpuSharedMemoryType::GPU_AND_CPU).GetPointer();
 		m_unifiedIndexBuffers[i] = allocator->CreateBuffer(sizeof(TIndexSize) * maxVertexCount * 3, 0, GpuBufferUsage::INDEX_BUFFER, GpuSharedMemoryType::GPU_AND_CPU).GetPointer();
 
 		// Attributes
-		m_vertexPositionsBuffers[i] = allocator->CreateStorageBuffer(sizeof(VertexPositionAttribute3D) * maxVertexCount).GetPointer();
-		m_vertexAttributesBuffers[i] = allocator->CreateStorageBuffer(sizeof(VertexAttributes3D) * maxVertexCount).GetPointer();
-		m_vertexAnimAttributesBuffers[i] = allocator->CreateStorageBuffer(sizeof(VertexAnimationAttributes3D) * maxVertexCount).GetPointer();
+		m_vertexPositionsBuffers[i] = createBufferFunc(sizeof(VertexPositionAttribute3D) * maxVertexCount);
+		m_vertexAttributesBuffers[i] = createBufferFunc(sizeof(VertexAttributes3D) * maxVertexCount);
+		m_vertexAnimAttributesBuffers[i] = createBufferFunc(sizeof(VertexAnimationAttributes3D) * maxVertexCount);
 
 		// Tables
-		m_perMaterialTable[i] = allocator->CreateStorageBuffer(sizeof(GdrPerMeshInfo) * maxMeshCount).GetPointer();
-		m_perMeshTable[i] = allocator->CreateStorageBuffer(sizeof(GdrPerMaterialInfo) * maxMeshCount).GetPointer();
+		m_perMaterialTable[i] = createBufferFunc(sizeof(GdrPerMeshInfo) * maxMeshCount);
+		m_perMeshTable[i] = createBufferFunc(sizeof(GdrPerMaterialInfo) * maxMeshCount);
+
+		m_perInstanceBuffers[i] = createBufferFunc(sizeof(GdrPerMeshInstanceInfo) * maxMeshCount);
 	}
 
 	// Material
@@ -64,9 +73,9 @@ void GdrDeferredRenderSystem::CreateUnifiedBuffers(USize32 maxVertexCount, USize
 	m_gdrMaterialInstance->GetSlot("global")->SetUniformBuffers("previousCamera", previousCameraUbos);
 	m_gdrMaterialInstance->GetSlot("global")->FlushUpdate();
 
-	m_gdrMaterialInstance->GetSlot("tables")->SetUniformBuffers("meshInfos", meshTable);
-	m_gdrMaterialInstance->GetSlot("tables")->SetUniformBuffers("positions", positionsTable);
-	m_gdrMaterialInstance->GetSlot("tables")->SetUniformBuffers("attributes", attributesTable);
+	m_gdrMaterialInstance->GetSlot("tables")->SetStorageBuffers("meshInfos", meshTable);
+	m_gdrMaterialInstance->GetSlot("tables")->SetStorageBuffers("positions", positionsTable);
+	m_gdrMaterialInstance->GetSlot("tables")->SetStorageBuffers("attributes", attributesTable);
 	m_gdrMaterialInstance->GetSlot("tables")->FlushUpdate();
 }
 
@@ -82,6 +91,7 @@ void GdrDeferredRenderSystem::Render(GRAPHICS::ICommandList* commandList) {
 
 	m_perMeshTable[resourceIndex]->ResetCursor();
 	m_perMaterialTable[resourceIndex]->ResetCursor();
+	m_perInstanceBuffers[resourceIndex]->ResetCursor();
 
 
 	m_unifiedVertexBuffers[resourceIndex]->MapMemory();
@@ -93,7 +103,10 @@ void GdrDeferredRenderSystem::Render(GRAPHICS::ICommandList* commandList) {
 
 	m_perMeshTable[resourceIndex]->MapMemory();
 	m_perMaterialTable[resourceIndex]->MapMemory();
+	m_perInstanceBuffers[resourceIndex]->MapMemory();
 
+
+	m_draws.clear();
 
 	UIndex32 nextMeshIndex = 0;
 	TIndexSize nextVertexIndex = 0;
@@ -101,25 +114,19 @@ void GdrDeferredRenderSystem::Render(GRAPHICS::ICommandList* commandList) {
 	USize32 numVertices = 0;
 	USize32 numIndices = 0;
 
-	GdrPerMeshInfo previousOffsets{};
+	GdrPerMeshInfo currentOffsets{};
 
-	UIndex32 nextImageIndex = 0;
+	UIndex32 nextImageIndex = 2;
 
-	const UIndex32 defaultColorIndex = nextImageIndex;
-	nextImageIndex++; // Default Color.
-
-	const UIndex32 defaultNormalIndex = nextImageIndex;
-	nextImageIndex++; // Default Normal.
+	
 
 	const auto* defaultNormalTexture = OSK::Engine::GetRenderer()->GetAllocator()->GetDefaultNormalTexture();
-	m_gdrMaterialInstance->GetSlot("images")->SetGpuImage("images", defaultNormalTexture->GetView(GpuImageViewConfig::CreateSampled_Default()), defaultNormalIndex);
+	m_gdrMaterialInstance->GetSlot("images")->SetGpuImage("images", defaultNormalTexture->GetView(GpuImageViewConfig::CreateSampled_Default()), 0);
 		
 
 
 	const auto jitterIndex = m_taaProvider.GetCurrentFrameJitterIndex();
 	const Vector2ui resolution = m_gBuffer.GetImage(GBuffer::Target::COLOR)->GetSize2D();
-
-	std::unordered_map<const Mesh3D*, MeshDrawInfo> previousMeshesMap{};
 
 	// TODO: passes
 	for (GameObjectIndex obj : GetObjects()) {
@@ -131,120 +138,44 @@ void GdrDeferredRenderSystem::Render(GRAPHICS::ICommandList* commandList) {
 			const auto& mesh = model.GetModel()->GetMeshes()[i];
 			// const bool isInsideFrustum = mesh.GetBounds().IsInsideFrustum(frustum);
 
-
-			// Per mesh info
-
-			GdrPerMeshInfo info{};
-			info.positionsOffset = previousOffsets.positionsOffset;
-			info.attributesOffset = previousOffsets.attributesOffset;
-			info.animationAttributesOffset = previousOffsets.animationAttributesOffset;
-			info.materialOffset = previousOffsets.materialOffset;
-			info.modelMatrix = transform.GetAsMatrix();
-			info.previousModelMatrix = m_previousFrameMatrices.contains(obj)
-				? m_previousFrameMatrices.at(obj)
-				: glm::mat4(1.0f);
-
-			m_perMeshTable[resourceIndex]->Write(info);
-
-
-			// Vertices IDs
-
 			const USize32 nNumVertices = model.GetModel()->GetVertexBuffer()->GetVertexView().numVertices;
 			const USize32 nNumIndices = model.GetModel()->GetIndexBuffer()->GetIndexView().numIndices;
 
-			for (UIndex32 v = 0; v < nNumVertices; v++) {
-				m_unifiedVertexBuffers[resourceIndex]->Write(GdrVertex3D{ .gdrIndex = nextMeshIndex });
+			// Si el mesh no ha sido registrado...
+			if (m_meshes.contains(&mesh)) {
+
+				WriteMeshInfo(currentOffsets);
+
+				WriteMeshUnifiedVertexAndIndexBuffers(mesh, *model.GetModel(), nextVertexIndex, nextMeshIndex);
+				nextVertexIndex += model.GetModel()->GetVertexBuffer()->GetIndexView().numIndices;
+				nextMeshIndex++;
+
+				WriteMeshVertexAttributes(model.GetModel()->GetVerticesAttributes(), &currentOffsets);
+
+				WriteMaterialInfo(*model.GetModel(), i, &currentOffsets, &nextImageIndex);
 			}
 
-			for (UIndex32 idx = 0; idx < nNumIndices; idx++) {
-				m_unifiedIndexBuffers[resourceIndex]->Write(nextVertexIndex + idx);
-			}
+			GdrPerMeshInstanceInfo drawInfo{};
+			drawInfo.modelMatrix = transform.GetAsMatrix();
+			drawInfo.previousModelMatrix = m_previousFrameMatrices.contains(obj)
+				? m_previousFrameMatrices.at(obj)
+				: glm::mat4(1.0f);
 
-			nextVertexIndex += nNumIndices;
+			m_draws[&mesh].Insert(drawInfo);
 
-			numVertices += nNumVertices;
-			numIndices += nNumIndices;
-
-			info.materialOffset++;
-
-
-			// Vertices attributes
-
-			const auto& positions = model.GetModel()->GetVerticesAttributes().GetVerticesAttributes<VertexPositionAttribute3D>();
-			const auto& attributes = model.GetModel()->GetVerticesAttributes().GetVerticesAttributes<VertexAttributes3D>();
-
-			previousOffsets.positionsOffset += static_cast<USize32>(positions.GetSize());
-			previousOffsets.attributesOffset += static_cast<USize32>(attributes.GetSize());
-
-			for (UIndex64 a = 0; a < positions.GetSize(); a++) {
-				m_vertexPositionsBuffers[resourceIndex]->Write(positions[a]);
-				m_vertexAttributesBuffers[resourceIndex]->Write(attributes[a]);
-			}
-
-			if (model.GetModel()->GetVerticesAttributes().HasAttribute(VertexAnimationAttributes3D::GetAttribName())) {
-				const auto& animAttribs = model.GetModel()->GetVerticesAttributes().GetVerticesAttributes<VertexAttributes3D>();
-
-				previousOffsets.animationAttributesOffset += static_cast<USize32>(animAttribs.GetSize());
-
-				for (UIndex64 a = 0; a < animAttribs.GetSize(); a++) {
-					m_vertexAnimAttributesBuffers[resourceIndex]->Write(animAttribs[a]);
-				}
-			}
-
-
-			// Images
-
-			const GpuImageViewConfig viewConfig = GpuImageViewConfig::CreateSampled_Default();
-
-			const auto& modelMetadata = model.GetModel()->GetMetadata();
-
-			const auto& meshMetadata = modelMetadata.meshesMetadata[i];
-
-			const bool containsColorTexture = meshMetadata.textureTable.contains(ASSETS::ModelMetadata::BaseColorTextureName);
-			const bool containsNormalTexture = meshMetadata.textureTable.contains(ASSETS::ModelMetadata::NormalTextureName);
-
-			const UIndex32 colorViewIndex = containsColorTexture
-				? nextImageIndex
-				: defaultColorIndex;
-
-			if (containsColorTexture) {
-				const auto* colorTexture = modelMetadata.textures[meshMetadata.textureTable.find(ASSETS::ModelMetadata::BaseColorTextureName)->second].GetPointer();
-				const auto* colorView = colorTexture->GetView(viewConfig);
-
-				nextImageIndex++;
-
-				m_gdrMaterialInstance->GetSlot("images")->SetGpuImage("images", colorView, colorViewIndex);
-			}
-
-			const UIndex32 normalViewIndex = containsNormalTexture
-				? nextImageIndex
-				: defaultNormalIndex;
-
-			if (containsNormalTexture) {
-				const auto* normalTexture = modelMetadata.textures[meshMetadata.textureTable.find(ASSETS::ModelMetadata::NormalTextureName)->second].GetPointer();
-				const auto* normalView = normalTexture->GetView(viewConfig);
-
-				nextImageIndex++;
-
-				m_gdrMaterialInstance->GetSlot("images")->SetGpuImage("images", normalView, normalViewIndex);
-			}
-
-
-			GdrPerMaterialInfo materialInfo{};
-			materialInfo.albedoTextureIndex = colorViewIndex;
-			materialInfo.normalTextureIndex = normalViewIndex;
-			materialInfo.metallicRoughness = Vector2f(
-				modelMetadata.materials[meshMetadata.materialId].metallicFactor,
-				modelMetadata.materials[meshMetadata.materialId].roughnessFactor
-			);
-			materialInfo.emissiveColor = modelMetadata.materials[meshMetadata.materialId].emissiveColor;
-
-			m_perMaterialTable[resourceIndex]->Write(materialInfo);
 		}
 
 		m_previousFrameMatrices[obj] = transform.GetAsMatrix();
 	}
 
+	for (const auto& [mesh, draws] : m_draws) {
+		for (const auto& draw : draws) {
+			m_perInstanceBuffers[resourceIndex]->Write(draw);
+		}
+	}
+
+	m_gdrMaterialInstance->GetSlot("global")->FlushUpdate();
+	m_gdrMaterialInstance->GetSlot("tables")->FlushUpdate();
 	m_gdrMaterialInstance->GetSlot("images")->FlushUpdate();
 
 	m_unifiedVertexBuffers[resourceIndex]->Unmap();
@@ -256,6 +187,7 @@ void GdrDeferredRenderSystem::Render(GRAPHICS::ICommandList* commandList) {
 
 	m_perMeshTable[resourceIndex]->Unmap();
 	m_perMaterialTable[resourceIndex]->Unmap();
+	m_perInstanceBuffers[resourceIndex]->Unmap();
 
 
 	// Rendering
@@ -267,21 +199,9 @@ void GdrDeferredRenderSystem::Render(GRAPHICS::ICommandList* commandList) {
 	commandList->BindMaterial(*m_gdrMaterial);
 	commandList->BindMaterialInstance(m_gdrMaterialInstance.GetValue());
 
-	VertexBufferView vertexView{};
-	vertexView.vertexInfo = GdrVertex3D::GetVertexInfo();
-	vertexView.numVertices = numVertices;
-	vertexView.offsetInBytes = 0;
-	commandList->BindVertexBufferRange(m_unifiedVertexBuffers[resourceIndex].GetValue(), vertexView);
-
-	IndexBufferView indexView{};
-	indexView.type = IndexType::U32;
-	indexView.offsetInBytes = 0;
-	indexView.numIndices = numIndices;
-	commandList->BindVertexBufferRange(m_unifiedIndexBuffers[resourceIndex].GetValue(), vertexView);
-
 	struct {
 		Vector3f info{};
-	} pushConstants {
+	} pushConstants{
 		.info = Vector3f(
 			static_cast<float>(resolution.x),
 			static_cast<float>(resolution.y),
@@ -290,8 +210,130 @@ void GdrDeferredRenderSystem::Render(GRAPHICS::ICommandList* commandList) {
 
 	commandList->PushMaterialConstants("pushConstants", pushConstants);
 
-	commandList->DrawSingleMesh(0, numIndices);
+	UIndex32 perInstanceIndex = 0;
+	for (const auto& [mesh, draws] : m_draws) {
+		VertexBufferView vertexView{};
+		vertexView.vertexInfo = GdrVertex3D::GetVertexInfo();
+		vertexView.numVertices = numVertices;
+		vertexView.offsetInBytes = 0;
+		commandList->BindVertexBufferRange(m_unifiedVertexBuffers[resourceIndex].GetValue(), vertexView);
+
+		IndexBufferView indexView{};
+		indexView.type = IndexType::U32;
+		indexView.offsetInBytes = 0;
+		indexView.numIndices = numIndices;
+		commandList->BindIndexBufferRange(m_unifiedIndexBuffers[resourceIndex].GetValue(), indexView);
+
+		commandList->DrawInstances(0, numIndices, perInstanceIndex, static_cast<USize32>(draws.GetSize()));
+
+		perInstanceIndex += static_cast<USize32>(draws.GetSize());
+	}
 
 	commandList->EndGraphicsRenderpass();
 	commandList->EndDebugSection();
+}
+
+void GdrDeferredRenderSystem::WriteMeshUnifiedVertexAndIndexBuffers(const Mesh3D& mesh, const Model3D& model, TIndexSize firstIndex, UIndex32 nextGdrIndex) {
+	const auto resourceIndex = Engine::GetRenderer()->GetCurrentResourceIndex();
+	
+	const USize32 numVertices = model.GetVertexBuffer()->GetVertexView().numVertices;
+	const USize32 numIndices = model.GetIndexBuffer()->GetIndexView().numIndices;
+
+	// Escribimos los buffers unificados.
+	for (UIndex32 v = 0; v < numVertices; v++) {
+		m_unifiedVertexBuffers[resourceIndex]->Write(GdrVertex3D{ .gdrIndex = nextGdrIndex });
+	}
+
+	for (UIndex32 idx = 0; idx < numIndices; idx++) {
+		m_unifiedIndexBuffers[resourceIndex]->Write(firstIndex + idx);
+	}
+
+	// Establecemos las posiciones de los meshes.
+	m_meshes[&mesh].firstVertexIndex = firstIndex;
+	m_meshes[&mesh].numIndices = numIndices;
+}
+
+void GdrDeferredRenderSystem::WriteMeshVertexAttributes(const VerticesAttributesMaps& attributesMap, GdrPerMeshInfo* previousOffsets) {
+	const auto resourceIndex = Engine::GetRenderer()->GetCurrentResourceIndex();
+
+	const auto& positions = attributesMap.GetVerticesAttributes<VertexPositionAttribute3D>();
+	const auto& attributes = attributesMap.GetVerticesAttributes<VertexAttributes3D>();
+
+	previousOffsets->positionsOffset += static_cast<USize32>(positions.GetSize());
+	previousOffsets->attributesOffset += static_cast<USize32>(attributes.GetSize());
+
+	for (UIndex64 a = 0; a < positions.GetSize(); a++) {
+		m_vertexPositionsBuffers[resourceIndex]->Write(positions[a]);
+		m_vertexAttributesBuffers[resourceIndex]->Write(attributes[a]);
+	}
+
+	if (attributesMap.HasAttribute(VertexAnimationAttributes3D::GetAttribName())) {
+		const auto& animAttribs = attributesMap.GetVerticesAttributes<VertexAttributes3D>();
+
+		previousOffsets->animationAttributesOffset += static_cast<USize32>(animAttribs.GetSize());
+
+		for (UIndex64 a = 0; a < animAttribs.GetSize(); a++) {
+			m_vertexAnimAttributesBuffers[resourceIndex]->Write(animAttribs[a]);
+		}
+	}
+}
+
+void GdrDeferredRenderSystem::WriteMeshInfo(const GdrPerMeshInfo& info) {
+	const auto resourceIndex = Engine::GetRenderer()->GetCurrentResourceIndex();
+	m_perMeshTable[resourceIndex]->Write(info);
+}
+
+void GdrDeferredRenderSystem::WriteMaterialInfo(const Model3D& model, UIndex32 meshIndexInsideModel, GdrPerMeshInfo* previousOffsets, UIndex32* nextImageIndex) {
+	const UIndex32 defaultColorIndex = 0;
+	const UIndex32 defaultNormalIndex = 1;
+	
+	const auto resourceIndex = Engine::GetRenderer()->GetCurrentResourceIndex();
+	const GpuImageViewConfig viewConfig = GpuImageViewConfig::CreateSampled_Default();
+
+	const auto& modelMetadata = model.GetMetadata();
+
+	const auto& meshMetadata = modelMetadata.meshesMetadata[meshIndexInsideModel];
+
+	const bool containsColorTexture = meshMetadata.textureTable.contains(ASSETS::ModelMetadata::BaseColorTextureName);
+	const bool containsNormalTexture = meshMetadata.textureTable.contains(ASSETS::ModelMetadata::NormalTextureName);
+
+	const UIndex32 colorViewIndex = containsColorTexture
+		? *nextImageIndex
+		: defaultColorIndex;
+
+	if (containsColorTexture) {
+		const auto* colorTexture = modelMetadata.textures[meshMetadata.textureTable.find(ASSETS::ModelMetadata::BaseColorTextureName)->second].GetPointer();
+		const auto* colorView = colorTexture->GetView(viewConfig);
+
+		(*nextImageIndex)++;
+
+		m_gdrMaterialInstance->GetSlot("images")->SetGpuImage("images", colorView, colorViewIndex);
+	}
+
+	const UIndex32 normalViewIndex = containsNormalTexture
+		? *nextImageIndex
+		: defaultNormalIndex;
+
+	if (containsNormalTexture) {
+		const auto* normalTexture = modelMetadata.textures[meshMetadata.textureTable.find(ASSETS::ModelMetadata::NormalTextureName)->second].GetPointer();
+		const auto* normalView = normalTexture->GetView(viewConfig);
+
+		(*nextImageIndex)++;
+
+		m_gdrMaterialInstance->GetSlot("images")->SetGpuImage("images", normalView, normalViewIndex);
+	}
+
+
+	GdrPerMaterialInfo materialInfo{};
+	materialInfo.albedoTextureIndex = colorViewIndex;
+	materialInfo.normalTextureIndex = normalViewIndex;
+	materialInfo.metallicRoughness = Vector2f(
+		modelMetadata.materials[meshMetadata.materialId].metallicFactor,
+		modelMetadata.materials[meshMetadata.materialId].roughnessFactor
+	);
+	materialInfo.emissiveColor = modelMetadata.materials[meshMetadata.materialId].emissiveColor;
+
+	m_perMaterialTable[resourceIndex]->Write(materialInfo);
+
+	previousOffsets->materialOffset++;
 }

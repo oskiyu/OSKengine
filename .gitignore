@@ -371,3 +371,5 @@ healthchecksdb
 # Builds
 /Bin/Release/**
 /Includes/**
+
+/Documentation/HTML

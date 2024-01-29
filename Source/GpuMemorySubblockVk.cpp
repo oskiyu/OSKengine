@@ -21,6 +21,10 @@ void GpuMemorySubblockVk::MapMemory() {
 }
 
 void GpuMemorySubblockVk::MapMemory(UIndex64 size, UIndex64 offset) {
+	if (isMapped) {
+		return;
+	}
+
 	vkMapMemory(ownerBlock->GetGpu()->As<GpuVk>()->GetLogicalDevice(),
 		ownerBlock->As<GpuMemoryBlockVk>()->GetVulkanMemory(),
 		totalOffsetFromBlock + offset,
@@ -39,12 +43,13 @@ void GpuMemorySubblockVk::Write(const void* data, UIndex64 size) {
 void GpuMemorySubblockVk::WriteOffset(const void* data, UIndex64 size, UIndex64 offset) {
 	OSK_ASSERT(isMapped, GpuMemoryNotMappedException());
 
-	memcpy((char*)mappedData + offset, data, size);
+	memcpy(static_cast<char*>(mappedData) + offset, data, size);
 }
 
 void GpuMemorySubblockVk::Unmap() {
-	if (!isMapped)
+	if (!isMapped) {
 		return;
+	}
 
 	vkUnmapMemory(ownerBlock->GetGpu()->As<GpuVk>()->GetLogicalDevice(),
 		ownerBlock->As<GpuMemoryBlockVk>()->GetVulkanMemory());

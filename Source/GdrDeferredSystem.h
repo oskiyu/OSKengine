@@ -5,6 +5,15 @@
 #include "DeferredRenderSystem.h"
 
 #include "GpuBuffer.h"
+#include "Vertex.h"
+#include "VertexAttributes.h"
+
+namespace OSK::ASSETS {
+	class Model3D;
+}
+namespace OSK::GRAPHICS {
+	class Mesh3D;
+}
 
 namespace OSK::ECS {
 
@@ -21,19 +30,23 @@ namespace OSK::ECS {
 
 		void SetMaxCounts(USize32 maxVertexCount, USize32 maxMeshCount);
 
-		virtual void Render(GRAPHICS::ICommandList* commandList) override;
+		void Render(GRAPHICS::ICommandList* commandList) override;
 
 	private:
 
 		void CreateUnifiedBuffers(USize32 maxVertexCount, USize32 maxMeshCount);
 
+		/// @brief Información compartida por todas las instancias de un mesh.
 		struct GdrPerMeshInfo {
 			UIndex32 positionsOffset = 0;
 			UIndex32 attributesOffset = 0;
 			UIndex32 animationAttributesOffset = 0;
 
 			UIndex32 materialOffset = 0;
+		};
 
+		/// @brief Información por cada instancia de un mesh.
+		struct GdrPerMeshInstanceInfo {
 			glm::mat4 modelMatrix = glm::mat4(1.0f);
 			glm::mat4 previousModelMatrix = glm::mat4(1.0f);
 		};
@@ -49,15 +62,41 @@ namespace OSK::ECS {
 		struct MeshDrawInfo {
 			/// @brief Posición del primer vértice en el buffer unificado.
 			UIndex32 firstVertexIndex = 0;
+
+			/// @brief Número de índices.
+			USize32 numIndices = 0;
 		};
 
 	private:
+
+		void WriteMeshUnifiedVertexAndIndexBuffers(
+			const GRAPHICS::Mesh3D& mesh,
+			const ASSETS::Model3D& model,
+			GRAPHICS::TIndexSize firstIndex,
+			UIndex32 nextGdrIndex);
+
+		void WriteMeshVertexAttributes(
+			const GRAPHICS::VerticesAttributesMaps& attributesMap,
+			GdrPerMeshInfo* previousOffsets);
+
+		void WriteMeshInfo(const GdrPerMeshInfo& info);
+
+		void WriteMaterialInfo(
+			const ASSETS::Model3D& model,
+			UIndex32 meshIndexInsideModel,
+			GdrPerMeshInfo* previousOffsets,
+			UIndex32* nextImageIndex);
 
 		USize32 m_maxVertices = 0;
 
 
 		std::array<UniquePtr<GRAPHICS::GpuBuffer>, NUM_RESOURCES_IN_FLIGHT> m_unifiedVertexBuffers{};
 		std::array<UniquePtr<GRAPHICS::GpuBuffer>, NUM_RESOURCES_IN_FLIGHT> m_unifiedIndexBuffers{};
+
+		std::unordered_map<const GRAPHICS::Mesh3D*, MeshDrawInfo> m_meshes{};
+		std::unordered_map<const GRAPHICS::Mesh3D*, DynamicArray<GdrPerMeshInstanceInfo>> m_draws{};
+
+		std::array<UniquePtr<GRAPHICS::GpuBuffer>, NUM_RESOURCES_IN_FLIGHT> m_perInstanceBuffers{};
 
 
 		// -- Vertex attributes -- //

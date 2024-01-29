@@ -440,6 +440,13 @@ namespace OSK::GRAPHICS {
 		/// @pre La lista de comandos debe estar abierta.
 		virtual void DrawSingleMesh(UIndex32 firstIndex, USize32 numIndices) = 0;
 
+		/// @brief Renderiza varias veces la malla indicada.
+		/// @param firstIndex Índice del primer índice.
+		/// @param numIndices Número de vértices/índices de la malla.
+		/// @param firstInstance Índice de la primera instancia.
+		/// @param instanceCount Número de instancias.
+		virtual void DrawInstances(UIndex32 firstIndex, USize32 numIndices, UIndex32 firstInstance, USize32 instanceCount) = 0;
+
 
 		/// <summary>
 		/// Ejecuta un trazado de rayos.

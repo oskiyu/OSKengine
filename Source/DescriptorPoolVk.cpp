@@ -37,7 +37,7 @@ DescriptorPoolVk::DescriptorPoolVk(const DescriptorLayoutVk& layout, USize32 max
 	poolInfo.sType = VK_STRUCTURE_TYPE_DESCRIPTOR_POOL_CREATE_INFO;
 	poolInfo.poolSizeCount = (uint32_t)sizes.GetSize();
 	poolInfo.pPoolSizes = sizes.GetData();
-	poolInfo.maxSets = Engine::GetRenderer()->GetSwapchainImagesCount();
+	poolInfo.maxSets = Engine::GetRenderer()->GetSwapchainImagesCount() * maxSets;
 	poolInfo.flags = VK_DESCRIPTOR_POOL_CREATE_UPDATE_AFTER_BIND_BIT_EXT;
 
 	VkResult result = vkCreateDescriptorPool(Engine::GetRenderer()->GetGpu()->As<GpuVk>()->GetLogicalDevice(), 

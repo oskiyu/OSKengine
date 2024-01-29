@@ -974,7 +974,7 @@ private:
 		renderSystem->Initialize(cameraObject, irradianceMap, specularMap);
 
 #ifdef OSK_USE_GDR_RENDERER
-		renderSystem->SetMaxCounts(20000000, 100000);
+		renderSystem->SetMaxCounts(4'000'000, 100'000);
 #endif // OSK_USE_GDR_RENDERER
 
 

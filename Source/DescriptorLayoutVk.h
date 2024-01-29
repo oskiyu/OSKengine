@@ -9,16 +9,17 @@ namespace OSK::GRAPHICS {
 
 	struct MaterialLayoutSlot;
 
-	/// <summary>
-	/// Wrapper de un VkDescrpitorSetLayout.
+
+	/// @brief Wrapper de un VkDescrpitorSetLayout.
 	/// Se encarga de crear el layout a partir del MaterialLayoutSlot.
-	/// </summary>
 	class OSKAPI_CALL DescriptorLayoutVk final {
 
 	public:
 
+		/// @param slotLayout Layout del slot.
+		/// @param maxSets Número máximo de sets.
 		/// @throws DescriptorLayoutCreationException Si hay algún problema nativo.
-		DescriptorLayoutVk(const MaterialLayoutSlot* slotLayout);
+		DescriptorLayoutVk(const MaterialLayoutSlot* slotLayout, USize32 maxSets);
 		~DescriptorLayoutVk();
 
 		VkDescriptorSetLayout GetLayout() const;
@@ -26,8 +27,8 @@ namespace OSK::GRAPHICS {
 
 	private:
 
-		VkDescriptorSetLayout layout = NULL;
-		const MaterialLayoutSlot* slotLayout = nullptr;
+		VkDescriptorSetLayout m_layoutVk = nullptr;
+		const MaterialLayoutSlot* m_slotLayout = nullptr;
 
 	};
 

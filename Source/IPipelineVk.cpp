@@ -54,6 +54,7 @@ VkFormat IPipelineVk::GetVertexAttribFormat(const VertexInfo::Entry& entry) cons
 		break;
 
 	case VertexInfo::Entry::Type::UNSIGNED_INT:
+		if (entry.size == 1 * sizeof(unsigned int)) return VK_FORMAT_R32_UINT;
 		if (entry.size == 2 * sizeof(unsigned int)) return VK_FORMAT_R32G32_UINT;
 		if (entry.size == 3 * sizeof(unsigned int)) return VK_FORMAT_R32G32B32_UINT;
 		if (entry.size == 4 * sizeof(unsigned int)) return VK_FORMAT_R32G32B32A32_UINT;

@@ -464,6 +464,17 @@ void MaterialSystem::LoadMaterialV1(MaterialLayout* layout, const nlohmann::json
 		pushConstant.hlslBindingIndex = nextHlslBinding;
 		nextHlslBinding++;
 	}
+
+	// Bind-less
+	if (materialInfo.contains("config") && materialInfo["config"].contains("resource_vararray_max_count")) {
+		info->usesUnspecifiedSizedArrays = true;
+		const int maxCount = materialInfo["config"]["resource_vararray_max_count"];
+
+		OSK_ASSERT(maxCount > 0, ASSETS::InvalidDescriptionFileException("config.resource_vararray_max_count debe ser mayor que 0.", ""));
+		OSK_ASSERT(maxCount < 4096, ASSETS::InvalidDescriptionFileException("config.resource_vararray_max_count debe ser menor que 4096.", ""));
+
+		info->maxUnspecifiedSizedArraysSize = maxCount;
+	}
 }
 
 Material* MaterialSystem::LoadMaterial(const std::string& path) {

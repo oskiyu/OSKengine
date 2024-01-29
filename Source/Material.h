@@ -63,7 +63,7 @@ namespace OSK::GRAPHICS {
 		/// @throws ShaderCompilingException Si ocurre algún error durante la compilación de los shaders.
 		Material(const GRAPHICS::PipelineCreateInfo& pipelineInfo, OwnedPtr<MaterialLayout> layout, const VertexInfo& vertexInfo, MaterialType type);
 
-		/// @brief Establece el nombre del material-
+		/// @brief Establece el nombre del material.
 		/// @param name Nombre.
 		void SetName(const std::string& name);
 
@@ -107,6 +107,10 @@ namespace OSK::GRAPHICS {
 		/// @brief Devuelve el tipo de material.
 		/// @return Tipo de material.
 		MaterialType GetMaterialType() const;
+
+
+		const PipelineCreateInfo& GetInfo() const;
+		std::string_view GetName() const;
 
 
 		/// @brief Recarga los shaders del material.
