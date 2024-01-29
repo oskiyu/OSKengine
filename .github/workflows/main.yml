@@ -28,7 +28,7 @@ jobs:
         # Path to Doxyfile
         doxyfile-path: "./Documentation/Doxyfile" # default is ./Doxyfile
         # Working directory
-        working-directory: "." # default is .
+        working-directory: "./Source/" # default is .
     
     - name: Deploy
       uses: peaceiris/actions-gh-pages@v3
