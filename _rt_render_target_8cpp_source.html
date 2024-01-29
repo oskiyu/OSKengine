@@ -1,0 +1,206 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="es">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.10.0"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>OSKengine: Archivo de código fuente Source/RtRenderTarget.cpp</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">OSKengine<span id="projectnumber">&#160;Indev</span>
+   </div>
+   <div id="projectbrief">Motor de videojuegos.</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generado por Doxygen 1.10.0 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() {
+  initMenu('',true,false,'search.php','Buscar');
+  $(function() { init_search(); });
+});
+/* @license-end */
+</script>
+<div id="main-nav"></div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() { codefold.init(0); });
+/* @license-end */
+</script>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function(){initNavTree('_rt_render_target_8cpp_source.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Cargando...</div>
+<div class="SRStatus" id="Searching">Buscando...</div>
+<div class="SRStatus" id="NoMatches">Nada coincide</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">RtRenderTarget.cpp</div></div>
+</div><!--header-->
+<div class="contents">
+<a href="_rt_render_target_8cpp.html">Ir a la documentación de este archivo.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#include &quot;<a class="code" href="_rt_render_target_8h.html">RtRenderTarget.h</a>&quot;</span></div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span> </div>
+<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="preprocessor">#include &quot;<a class="code" href="_o_s_kengine_8h.html">OSKengine.h</a>&quot;</span></div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &quot;<a class="code" href="_i_renderer_8h.html">IRenderer.h</a>&quot;</span></div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &quot;<a class="code" href="_material_8h.html">Material.h</a>&quot;</span></div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &quot;<a class="code" href="_material_instance_8h.html">MaterialInstance.h</a>&quot;</span></div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span> </div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="keyword">using namespace </span><a class="code hl_namespace" href="namespace_o_s_k.html">OSK</a>;</div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="keyword">using namespace </span><a class="code hl_namespace" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html">OSK::GRAPHICS</a>;</div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span> </div>
+<div class="foldopen" id="foldopen00011" data-start="{" data-end="}">
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_rt_render_target.html#a8d063702a876073400d65376ad29757b">   11</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_rt_render_target.html#a8d063702a876073400d65376ad29757b">RtRenderTarget::Create</a>(<span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_vector2__t.html">Vector2ui</a>&amp; targetSize, <a class="code hl_struct" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_render_target_attachment_info.html">RenderTargetAttachmentInfo</a> attachmentInfo) {</div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span>    attachmentInfo.<a class="code hl_variable" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_render_target_attachment_info.html#a197e6b5a07ec3d460a2d98f4b2ec4d9c">usage</a> |= <a class="code hl_enumvalue" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a19a2f70fc994c00eb022e520608c5ffaaac404d7ce6ca5862e9b8a2641fbafd90">GpuImageUsage::COMPUTE</a> | <a class="code hl_enumvalue" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a19a2f70fc994c00eb022e520608c5ffaa5d0791856a3081df75c6093017a61a36">GpuImageUsage::SAMPLED</a>;</div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span>    m_attachment = <a class="code hl_function" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_render_target_attachment.html#a1105f0a738a389ace46c6c5fc517706d">RenderTargetAttachment::Create</a>(attachmentInfo, targetSize);</div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span> </div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span>    m_fullscreenSpriteMaterialInstance = <a class="code hl_function" href="class_o_s_k_1_1_engine.html#a019c5397d042224c134b7fd22c739d00">Engine::GetRenderer</a>()-&gt;<a class="code hl_function" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer.html#afae33f04095cf6d7d888845d4037c442">GetFullscreenRenderingMaterial</a>()-&gt;<a class="code hl_function" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material.html#acf1dacea3b45a53ca86d96e30af22af1">CreateInstance</a>().GetPointer();</div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span>    SetupSpriteMaterial();</div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>}</div>
+</div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span> </div>
+<div class="foldopen" id="foldopen00019" data-start="{" data-end="}">
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_rt_render_target.html#a69fc50a8eac1d53a1b3640b2a93597d0">   19</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_rt_render_target.html#a69fc50a8eac1d53a1b3640b2a93597d0">RtRenderTarget::Resize</a>(<span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_vector2__t.html">Vector2ui</a>&amp; targetSize) {</div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>    m_attachment.<a class="code hl_function" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_render_target_attachment.html#a412dad8bb214f72259ce8f9247f63bb4">Resize</a>(targetSize);</div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>    SetupSpriteMaterial();</div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>}</div>
+</div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span> </div>
+<div class="foldopen" id="foldopen00024" data-start="{" data-end="}">
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_rt_render_target.html#a3a115a59bae0dee215eb3c1b26054a17">   24</a></span><a class="code hl_class" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image.html">GpuImage</a>* <a class="code hl_function" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_rt_render_target.html#a3a115a59bae0dee215eb3c1b26054a17">RtRenderTarget::GetTargetImage</a>() {</div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>    <span class="keywordflow">return</span> m_attachment.<a class="code hl_function" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_render_target_attachment.html#a0d9dbd13bac0373560125621a154b6bf">GetImage</a>();</div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>}</div>
+</div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span> </div>
+<div class="foldopen" id="foldopen00028" data-start="{" data-end="}">
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_rt_render_target.html#a396e8f347c1434a6dbbcc1e8210d8f94">   28</a></span><span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image.html">GpuImage</a>* <a class="code hl_function" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_rt_render_target.html#a3a115a59bae0dee215eb3c1b26054a17">RtRenderTarget::GetTargetImage</a>()<span class="keyword"> const </span>{</div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>    <span class="keywordflow">return</span> m_attachment.<a class="code hl_function" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_render_target_attachment.html#a0d9dbd13bac0373560125621a154b6bf">GetImage</a>();</div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>}</div>
+</div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span> </div>
+<div class="foldopen" id="foldopen00032" data-start="{" data-end="}">
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_rt_render_target.html#a558fbd35e10e1afcbac386e032b6ccaf">   32</a></span><a class="code hl_class" href="class_o_s_k_1_1_vector2__t.html">Vector2ui</a> <a class="code hl_function" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_rt_render_target.html#a558fbd35e10e1afcbac386e032b6ccaf">RtRenderTarget::GetSize</a>()<span class="keyword"> const </span>{</div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>    <span class="keywordflow">return</span> <a class="code hl_function" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_rt_render_target.html#a3a115a59bae0dee215eb3c1b26054a17">GetTargetImage</a>()-&gt;<a class="code hl_function" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image.html#a398791ff8776fa8bb3a589713d0cad49">GetSize2D</a>();</div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>}</div>
+</div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span> </div>
+<div class="foldopen" id="foldopen00036" data-start="{" data-end="}">
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_rt_render_target.html#acb5d874d9cc556cc63e9a65f306afa4c">   36</a></span><a class="code hl_class" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_instance.html">MaterialInstance</a>* <a class="code hl_function" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_rt_render_target.html#acb5d874d9cc556cc63e9a65f306afa4c">RtRenderTarget::GetFullscreenSpriteMaterialInstance</a>()<span class="keyword"> const </span>{</div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>    <span class="keywordflow">return</span> m_fullscreenSpriteMaterialInstance.GetPointer();</div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>}</div>
+</div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span> </div>
+<div class="foldopen" id="foldopen00040" data-start="{" data-end="}">
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_rt_render_target.html#a2405536f57efdb10493789b1028be63f">   40</a></span><a class="code hl_class" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_material_slot.html">IMaterialSlot</a>* <a class="code hl_function" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_rt_render_target.html#a2405536f57efdb10493789b1028be63f">RtRenderTarget::GetFullscreenSpriteMaterialSlot</a>()<span class="keyword"> const </span>{</div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>    <span class="keywordflow">return</span> m_fullscreenSpriteMaterialInstance-&gt;GetSlot(<span class="stringliteral">&quot;texture&quot;</span>);</div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>}</div>
+</div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span> </div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span><span class="keywordtype">void</span> RtRenderTarget::SetupSpriteMaterial() {</div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>    <span class="keyword">const</span> <a class="code hl_struct" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_view_config.html">GpuImageViewConfig</a> view = <a class="code hl_function" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_view_config.html#a7fe1e0bdfbd59170a80a6b7c6f486c8d">GpuImageViewConfig::CreateSampled_MipLevelRanged</a>(0, 0);</div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span> </div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>    m_fullscreenSpriteMaterialInstance-&gt;GetSlot(<span class="stringliteral">&quot;texture&quot;</span>)-&gt;SetGpuImage(<span class="stringliteral">&quot;spriteTexture&quot;</span>, <a class="code hl_function" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_rt_render_target.html#a3a115a59bae0dee215eb3c1b26054a17">GetTargetImage</a>()-&gt;GetView(view));</div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>    m_fullscreenSpriteMaterialInstance-&gt;GetSlot(<span class="stringliteral">&quot;texture&quot;</span>)-&gt;FlushUpdate();</div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>}</div>
+<div class="ttc" id="a_i_renderer_8h_html"><div class="ttname"><a href="_i_renderer_8h.html">IRenderer.h</a></div></div>
+<div class="ttc" id="a_material_8h_html"><div class="ttname"><a href="_material_8h.html">Material.h</a></div></div>
+<div class="ttc" id="a_material_instance_8h_html"><div class="ttname"><a href="_material_instance_8h.html">MaterialInstance.h</a></div></div>
+<div class="ttc" id="a_o_s_kengine_8h_html"><div class="ttname"><a href="_o_s_kengine_8h.html">OSKengine.h</a></div></div>
+<div class="ttc" id="a_rt_render_target_8h_html"><div class="ttname"><a href="_rt_render_target_8h.html">RtRenderTarget.h</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_engine_html_a019c5397d042224c134b7fd22c739d00"><div class="ttname"><a href="class_o_s_k_1_1_engine.html#a019c5397d042224c134b7fd22c739d00">OSK::Engine::GetRenderer</a></div><div class="ttdeci">static GRAPHICS::IRenderer * GetRenderer()</div><div class="ttdoc">Devuelve un puntero al renderizador del motor.</div><div class="ttdef"><b>Definition</b> <a href="_o_s_kengine_8cpp_source.html#l00197">OSKengine.cpp:197</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_html"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image.html">OSK::GRAPHICS::GpuImage</a></div><div class="ttdoc">Representación interna de una imagen en la GPU.</div><div class="ttdef"><b>Definition</b> <a href="_i_gpu_image_8h_source.html#l00058">IGpuImage.h:58</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_html_a398791ff8776fa8bb3a589713d0cad49"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image.html#a398791ff8776fa8bb3a589713d0cad49">OSK::GRAPHICS::GpuImage::GetSize2D</a></div><div class="ttdeci">Vector2ui GetSize2D() const</div><div class="ttdef"><b>Definition</b> <a href="_i_gpu_image_8cpp_source.html#l00055">IGpuImage.cpp:55</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_material_slot_html"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_material_slot.html">OSK::GRAPHICS::IMaterialSlot</a></div><div class="ttdoc">Un slot contiene referencias a los recursos (UNIFORM BUFFER, TEXTURE, etc...) que se envían a la GPU.</div><div class="ttdef"><b>Definition</b> <a href="_i_material_slot_8h_source.html#l00027">IMaterialSlot.h:27</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_html_afae33f04095cf6d7d888845d4037c442"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer.html#afae33f04095cf6d7d888845d4037c442">OSK::GRAPHICS::IRenderer::GetFullscreenRenderingMaterial</a></div><div class="ttdeci">Material * GetFullscreenRenderingMaterial()</div><div class="ttdef"><b>Definition</b> <a href="_renderer_8cpp_source.html#l00155">Renderer.cpp:155</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_html_acf1dacea3b45a53ca86d96e30af22af1"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material.html#acf1dacea3b45a53ca86d96e30af22af1">OSK::GRAPHICS::Material::CreateInstance</a></div><div class="ttdeci">OwnedPtr&lt; MaterialInstance &gt; CreateInstance()</div><div class="ttdoc">Crea y devuelve una nueva instancia de este material.</div><div class="ttdef"><b>Definition</b> <a href="_material_8cpp_source.html#l00024">Material.cpp:24</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_instance_html"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_instance.html">OSK::GRAPHICS::MaterialInstance</a></div><div class="ttdoc">Mientras que un Material define a grandes rasgos el comportamiento al renderizarse los objetos,...</div><div class="ttdef"><b>Definition</b> <a href="_material_instance_8h_source.html#l00021">MaterialInstance.h:21</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_render_target_attachment_html_a0d9dbd13bac0373560125621a154b6bf"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_render_target_attachment.html#a0d9dbd13bac0373560125621a154b6bf">OSK::GRAPHICS::RenderTargetAttachment::GetImage</a></div><div class="ttdeci">GpuImage * GetImage()</div><div class="ttdef"><b>Definition</b> <a href="_render_target_attachment_8cpp_source.html#l00040">RenderTargetAttachment.cpp:40</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_render_target_attachment_html_a1105f0a738a389ace46c6c5fc517706d"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_render_target_attachment.html#a1105f0a738a389ace46c6c5fc517706d">OSK::GRAPHICS::RenderTargetAttachment::Create</a></div><div class="ttdeci">static RenderTargetAttachment Create(const RenderTargetAttachmentInfo &amp;info, const Vector2ui &amp;resolution)</div><div class="ttdoc">Crea un attachment con la información dada.</div><div class="ttdef"><b>Definition</b> <a href="_render_target_attachment_8cpp_source.html#l00015">RenderTargetAttachment.cpp:15</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_render_target_attachment_html_a412dad8bb214f72259ce8f9247f63bb4"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_render_target_attachment.html#a412dad8bb214f72259ce8f9247f63bb4">OSK::GRAPHICS::RenderTargetAttachment::Resize</a></div><div class="ttdeci">void Resize(const Vector2ui &amp;resolution)</div><div class="ttdoc">Cambia de tamaño la imagen.</div><div class="ttdef"><b>Definition</b> <a href="_render_target_attachment_8cpp_source.html#l00032">RenderTargetAttachment.cpp:32</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_rt_render_target_html_a2405536f57efdb10493789b1028be63f"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_rt_render_target.html#a2405536f57efdb10493789b1028be63f">OSK::GRAPHICS::RtRenderTarget::GetFullscreenSpriteMaterialSlot</a></div><div class="ttdeci">IMaterialSlot * GetFullscreenSpriteMaterialSlot() const</div><div class="ttdoc">Devuelve el material slot requerido para el renderizado a pantalla completa usando el material IRende...</div><div class="ttdef"><b>Definition</b> <a href="#l00040">RtRenderTarget.cpp:40</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_rt_render_target_html_a3a115a59bae0dee215eb3c1b26054a17"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_rt_render_target.html#a3a115a59bae0dee215eb3c1b26054a17">OSK::GRAPHICS::RtRenderTarget::GetTargetImage</a></div><div class="ttdeci">GpuImage * GetTargetImage()</div><div class="ttdoc">Devuelve la imagen de renderizado en el índice de recursos dado.</div><div class="ttdef"><b>Definition</b> <a href="#l00024">RtRenderTarget.cpp:24</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_rt_render_target_html_a558fbd35e10e1afcbac386e032b6ccaf"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_rt_render_target.html#a558fbd35e10e1afcbac386e032b6ccaf">OSK::GRAPHICS::RtRenderTarget::GetSize</a></div><div class="ttdeci">Vector2ui GetSize() const</div><div class="ttdoc">Resolución de la imagen, en píxeles.</div><div class="ttdef"><b>Definition</b> <a href="#l00032">RtRenderTarget.cpp:32</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_rt_render_target_html_a69fc50a8eac1d53a1b3640b2a93597d0"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_rt_render_target.html#a69fc50a8eac1d53a1b3640b2a93597d0">OSK::GRAPHICS::RtRenderTarget::Resize</a></div><div class="ttdeci">void Resize(const Vector2ui &amp;targetSize)</div><div class="ttdoc">Cambia de resolución la imagen del render target.</div><div class="ttdef"><b>Definition</b> <a href="#l00019">RtRenderTarget.cpp:19</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_rt_render_target_html_a8d063702a876073400d65376ad29757b"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_rt_render_target.html#a8d063702a876073400d65376ad29757b">OSK::GRAPHICS::RtRenderTarget::Create</a></div><div class="ttdeci">void Create(const Vector2ui &amp;targetSize, RenderTargetAttachmentInfo attachmentInfo)</div><div class="ttdoc">Crea el render target con la información dada.</div><div class="ttdef"><b>Definition</b> <a href="#l00011">RtRenderTarget.cpp:11</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_rt_render_target_html_acb5d874d9cc556cc63e9a65f306afa4c"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_rt_render_target.html#acb5d874d9cc556cc63e9a65f306afa4c">OSK::GRAPHICS::RtRenderTarget::GetFullscreenSpriteMaterialInstance</a></div><div class="ttdeci">MaterialInstance * GetFullscreenSpriteMaterialInstance() const</div><div class="ttdoc">Devuelve el material instance para el renderizado a pantalla completa usando el material IRenderer::G...</div><div class="ttdef"><b>Definition</b> <a href="#l00036">RtRenderTarget.cpp:36</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_vector2__t_html"><div class="ttname"><a href="class_o_s_k_1_1_vector2__t.html">OSK::Vector2_t&lt; uint32_t &gt;</a></div></div>
+<div class="ttc" id="anamespace_o_s_k_1_1_g_r_a_p_h_i_c_s_html"><div class="ttname"><a href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html">OSK::GRAPHICS</a></div><div class="ttdef"><b>Definition</b> <a href="_acceleration_structures_exceptions_8h_source.html#l00005">AccelerationStructuresExceptions.h:5</a></div></div>
+<div class="ttc" id="anamespace_o_s_k_1_1_g_r_a_p_h_i_c_s_html_a19a2f70fc994c00eb022e520608c5ffaa5d0791856a3081df75c6093017a61a36"><div class="ttname"><a href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a19a2f70fc994c00eb022e520608c5ffaa5d0791856a3081df75c6093017a61a36">OSK::GRAPHICS::GpuImageUsage::SAMPLED</a></div><div class="ttdeci">@ SAMPLED</div><div class="ttdoc">Se usará como read-only desde los shaders.</div></div>
+<div class="ttc" id="anamespace_o_s_k_1_1_g_r_a_p_h_i_c_s_html_a19a2f70fc994c00eb022e520608c5ffaaac404d7ce6ca5862e9b8a2641fbafd90"><div class="ttname"><a href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a19a2f70fc994c00eb022e520608c5ffaaac404d7ce6ca5862e9b8a2641fbafd90">OSK::GRAPHICS::GpuImageUsage::COMPUTE</a></div><div class="ttdeci">@ COMPUTE</div><div class="ttdoc">Usado en shaders de computación.</div></div>
+<div class="ttc" id="anamespace_o_s_k_html"><div class="ttname"><a href="namespace_o_s_k.html">OSK</a></div><div class="ttdef"><b>Definition</b> <a href="_acceleration_structures_exceptions_8h_source.html#l00005">AccelerationStructuresExceptions.h:5</a></div></div>
+<div class="ttc" id="astruct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_view_config_html"><div class="ttname"><a href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_view_config.html">OSK::GRAPHICS::GpuImageViewConfig</a></div><div class="ttdoc">Configuración de un image view. Desribe las características de un image view.</div><div class="ttdef"><b>Definition</b> <a href="_gpu_image_view_config_8h_source.html#l00049">GpuImageViewConfig.h:49</a></div></div>
+<div class="ttc" id="astruct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_view_config_html_a7fe1e0bdfbd59170a80a6b7c6f486c8d"><div class="ttname"><a href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_view_config.html#a7fe1e0bdfbd59170a80a6b7c6f486c8d">OSK::GRAPHICS::GpuImageViewConfig::CreateSampled_MipLevelRanged</a></div><div class="ttdeci">static GpuImageViewConfig CreateSampled_MipLevelRanged(UIndex32 baseMipLevel, UIndex32 topMipLevel)</div><div class="ttdoc">Crea una configuración para un uso normal de una textura, en la que se usan los mip-levels del rango ...</div><div class="ttdef"><b>Definition</b> <a href="_gpu_image_view_config_8cpp_source.html#l00023">GpuImageViewConfig.cpp:23</a></div></div>
+<div class="ttc" id="astruct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_render_target_attachment_info_html"><div class="ttname"><a href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_render_target_attachment_info.html">OSK::GRAPHICS::RenderTargetAttachmentInfo</a></div><div class="ttdef"><b>Definition</b> <a href="_render_target_attachment_info_8h_source.html#l00012">RenderTargetAttachmentInfo.h:12</a></div></div>
+<div class="ttc" id="astruct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_render_target_attachment_info_html_a197e6b5a07ec3d460a2d98f4b2ec4d9c"><div class="ttname"><a href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_render_target_attachment_info.html#a197e6b5a07ec3d460a2d98f4b2ec4d9c">OSK::GRAPHICS::RenderTargetAttachmentInfo::usage</a></div><div class="ttdeci">GpuImageUsage usage</div><div class="ttdoc">Uso de la imagen. Dependiendo del render target, tendrá un conjunto de usos por defecto.</div><div class="ttdef"><b>Definition</b> <a href="_render_target_attachment_info_8h_source.html#l00022">RenderTargetAttachmentInfo.h:22</a></div></div>
+</div><!-- fragment --></div><!-- contents -->
+</div><!-- doc-content -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="dir_74389ed8173ad57b461b9d623a1f3867.html">Source</a></li><li class="navelem"><a class="el" href="_rt_render_target_8cpp.html">RtRenderTarget.cpp</a></li>
+    <li class="footer">Generado el Lunes, 29 de enero de 2024 17:18:32 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.10.0 </li>
+  </ul>
+</div>
+</body>
+</html>

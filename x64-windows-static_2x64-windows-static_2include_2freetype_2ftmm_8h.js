@@ -1,0 +1,28 @@
+var x64_windows_static_2x64_windows_static_2include_2freetype_2ftmm_8h =
+[
+    [ "FT_MM_Axis_", "struct_f_t___m_m___axis__.html", "struct_f_t___m_m___axis__" ],
+    [ "FT_Multi_Master_", "struct_f_t___multi___master__.html", "struct_f_t___multi___master__" ],
+    [ "FT_Var_Axis_", "struct_f_t___var___axis__.html", "struct_f_t___var___axis__" ],
+    [ "FT_Var_Named_Style_", "struct_f_t___var___named___style__.html", "struct_f_t___var___named___style__" ],
+    [ "FT_MM_Var_", "struct_f_t___m_m___var__.html", "struct_f_t___m_m___var__" ],
+    [ "FT_VAR_AXIS_FLAG_HIDDEN", "x64-windows-static_2x64-windows-static_2include_2freetype_2ftmm_8h.html#a7fb7d2670e4873b9e7b9c4bfae62547a", null ],
+    [ "FT_MM_Axis", "x64-windows-static_2x64-windows-static_2include_2freetype_2ftmm_8h.html#a8d31ed5550d9f376dd9a2d2d649d6a64", null ],
+    [ "FT_MM_Var", "x64-windows-static_2x64-windows-static_2include_2freetype_2ftmm_8h.html#a73d7469ac82ad9c90faee58ef36ccbdc", null ],
+    [ "FT_Multi_Master", "x64-windows-static_2x64-windows-static_2include_2freetype_2ftmm_8h.html#a1526d6544240c5c3c714f513dcc42b60", null ],
+    [ "FT_Var_Axis", "x64-windows-static_2x64-windows-static_2include_2freetype_2ftmm_8h.html#a9692710d3c4cd81b364842fed0f0c0fa", null ],
+    [ "FT_Var_Named_Style", "x64-windows-static_2x64-windows-static_2include_2freetype_2ftmm_8h.html#aab8106d173255c5203a82f5c8afd3aa7", null ],
+    [ "FT_Done_MM_Var", "x64-windows-static_2x64-windows-static_2include_2freetype_2ftmm_8h.html#aa5ef877a9daa2714afdbd7a604d84dec", null ],
+    [ "FT_Get_MM_Blend_Coordinates", "x64-windows-static_2x64-windows-static_2include_2freetype_2ftmm_8h.html#a624ef2f932ebbb7e96143b8b8375b681", null ],
+    [ "FT_Get_MM_Var", "x64-windows-static_2x64-windows-static_2include_2freetype_2ftmm_8h.html#affbf679a97d52f0a1c6272393851f958", null ],
+    [ "FT_Get_MM_WeightVector", "x64-windows-static_2x64-windows-static_2include_2freetype_2ftmm_8h.html#a93767f1985956a566b47b62d0cb0ff5a", null ],
+    [ "FT_Get_Multi_Master", "x64-windows-static_2x64-windows-static_2include_2freetype_2ftmm_8h.html#a148f4570a615bf6b76aa88cbe0888771", null ],
+    [ "FT_Get_Var_Axis_Flags", "x64-windows-static_2x64-windows-static_2include_2freetype_2ftmm_8h.html#a2e6f25314ab1f200ce1fd9c1b84e7e2a", null ],
+    [ "FT_Get_Var_Blend_Coordinates", "x64-windows-static_2x64-windows-static_2include_2freetype_2ftmm_8h.html#a6ef9bd2faa0aac95a7d4e4d546d3dfeb", null ],
+    [ "FT_Get_Var_Design_Coordinates", "x64-windows-static_2x64-windows-static_2include_2freetype_2ftmm_8h.html#a7af35123829af9f5925d4d2df7f74282", null ],
+    [ "FT_Set_MM_Blend_Coordinates", "x64-windows-static_2x64-windows-static_2include_2freetype_2ftmm_8h.html#a1497638038916f78e5cbcd37c038df3f", null ],
+    [ "FT_Set_MM_Design_Coordinates", "x64-windows-static_2x64-windows-static_2include_2freetype_2ftmm_8h.html#a5ebe68a35f18a765fa9a4ea4465313b3", null ],
+    [ "FT_Set_MM_WeightVector", "x64-windows-static_2x64-windows-static_2include_2freetype_2ftmm_8h.html#a27c111a48cf0f358afe09ec0447575aa", null ],
+    [ "FT_Set_Named_Instance", "x64-windows-static_2x64-windows-static_2include_2freetype_2ftmm_8h.html#acaa9989f20456dd2588e6b4864fdd4c4", null ],
+    [ "FT_Set_Var_Blend_Coordinates", "x64-windows-static_2x64-windows-static_2include_2freetype_2ftmm_8h.html#a2ef1ba64dfcf3de9f00668933e6163bd", null ],
+    [ "FT_Set_Var_Design_Coordinates", "x64-windows-static_2x64-windows-static_2include_2freetype_2ftmm_8h.html#a783f6459c24671653e3479b52d95c687", null ]
+];

@@ -1,0 +1,412 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="es">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.10.0"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>OSKengine: Archivo de código fuente Source/vcpkg_installed/x64-windows-static/x64-windows-static/include/freetype/ftsnames.h</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">OSKengine<span id="projectnumber">&#160;Indev</span>
+   </div>
+   <div id="projectbrief">Motor de videojuegos.</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generado por Doxygen 1.10.0 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() {
+  initMenu('',true,false,'search.php','Buscar');
+  $(function() { init_search(); });
+});
+/* @license-end */
+</script>
+<div id="main-nav"></div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() { codefold.init(0); });
+/* @license-end */
+</script>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function(){initNavTree('x64-windows-static_2x64-windows-static_2include_2freetype_2ftsnames_8h_source.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Cargando...</div>
+<div class="SRStatus" id="Searching">Buscando...</div>
+<div class="SRStatus" id="NoMatches">Nada coincide</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">ftsnames.h</div></div>
+</div><!--header-->
+<div class="contents">
+<a href="x64-windows-static_2x64-windows-static_2include_2freetype_2ftsnames_8h.html">Ir a la documentación de este archivo.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="comment">/****************************************************************************</span></div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="comment"> *</span></div>
+<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="comment"> * ftsnames.h</span></div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="comment"> *</span></div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="comment"> *   Simple interface to access SFNT &#39;name&#39; tables (which are used</span></div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="comment"> *   to hold font names, copyright info, notices, etc.) (specification).</span></div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="comment"> *</span></div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="comment"> *   This is _not_ used to retrieve glyph names!</span></div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="comment"> *</span></div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="comment"> * Copyright (C) 1996-2022 by</span></div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="comment"> * David Turner, Robert Wilhelm, and Werner Lemberg.</span></div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="comment"> *</span></div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="comment"> * This file is part of the FreeType project, and may only be used,</span></div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span><span class="comment"> * modified, and distributed under the terms of the FreeType project</span></div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span><span class="comment"> * license, LICENSE.TXT.  By continuing to use, modify, or distribute</span></div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span><span class="comment"> * this file you indicate that you have read the license and</span></div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span><span class="comment"> * understand and accept it fully.</span></div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span><span class="comment"> *</span></div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span><span class="comment"> */</span></div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span> </div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span> </div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span><span class="preprocessor">#ifndef FTSNAMES_H_</span></div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span><span class="preprocessor">#define FTSNAMES_H_</span></div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span> </div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span> </div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span><span class="preprocessor">#include &lt;freetype/freetype.h&gt;</span></div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span><span class="preprocessor">#include &lt;freetype/ftparams.h&gt;</span></div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span> </div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span><span class="preprocessor">#ifdef FREETYPE_H</span></div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span><span class="preprocessor">#error &quot;freetype.h of FreeType 1 has been loaded!&quot;</span></div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span><span class="preprocessor">#error &quot;Please fix the directory search order for header files&quot;</span></div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span><span class="preprocessor">#error &quot;so that freetype.h of FreeType 2 is found first.&quot;</span></div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span><span class="preprocessor">#endif</span></div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span> </div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span> </div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span><a class="code hl_define" href="x64-windows-static_2x64-windows-static_2include_2freetype_2config_2ftheader_8h.html#a72ee5814b3ae378ebb7fd3a8e3ddec14">FT_BEGIN_HEADER</a></div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span> </div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span> </div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span><span class="comment">  /**************************************************************************</span></div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span><span class="comment">   *</span></div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span><span class="comment">   * @section:</span></div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span><span class="comment">   *   sfnt_names</span></div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span><span class="comment">   *</span></div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span><span class="comment">   * @title:</span></div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span><span class="comment">   *   SFNT Names</span></div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span><span class="comment">   *</span></div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span><span class="comment">   * @abstract:</span></div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span><span class="comment">   *   Access the names embedded in TrueType and OpenType files.</span></div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span><span class="comment">   *</span></div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span><span class="comment">   * @description:</span></div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span><span class="comment">   *   The TrueType and OpenType specifications allow the inclusion of a</span></div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span><span class="comment">   *   special names table (&#39;name&#39;) in font files.  This table contains</span></div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span><span class="comment">   *   textual (and internationalized) information regarding the font, like</span></div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span><span class="comment">   *   family name, copyright, version, etc.</span></div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span><span class="comment">   *</span></div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span><span class="comment">   *   The definitions below are used to access them if available.</span></div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span><span class="comment">   *</span></div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span><span class="comment">   *   Note that this has nothing to do with glyph names!</span></div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span><span class="comment">   *</span></div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span><span class="comment">   */</span></div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span> </div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span> </div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span><span class="comment">  /**************************************************************************</span></div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span><span class="comment">   *</span></div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span><span class="comment">   * @struct:</span></div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span><span class="comment">   *   FT_SfntName</span></div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span><span class="comment">   *</span></div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span><span class="comment">   * @description:</span></div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span><span class="comment">   *   A structure used to model an SFNT &#39;name&#39; table entry.</span></div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span><span class="comment">   *</span></div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span><span class="comment">   * @fields:</span></div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span><span class="comment">   *   platform_id ::</span></div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span><span class="comment">   *     The platform ID for `string`.  See @TT_PLATFORM_XXX for possible</span></div>
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span><span class="comment">   *     values.</span></div>
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span><span class="comment">   *</span></div>
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span><span class="comment">   *   encoding_id ::</span></div>
+<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span><span class="comment">   *     The encoding ID for `string`.  See @TT_APPLE_ID_XXX, @TT_MAC_ID_XXX,</span></div>
+<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span><span class="comment">   *     @TT_ISO_ID_XXX, @TT_MS_ID_XXX, and @TT_ADOBE_ID_XXX for possible</span></div>
+<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span><span class="comment">   *     values.</span></div>
+<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span><span class="comment">   *</span></div>
+<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span><span class="comment">   *   language_id ::</span></div>
+<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span><span class="comment">   *     The language ID for `string`.  See @TT_MAC_LANGID_XXX and</span></div>
+<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span><span class="comment">   *     @TT_MS_LANGID_XXX for possible values.</span></div>
+<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span><span class="comment">   *</span></div>
+<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span><span class="comment">   *     Registered OpenType values for `language_id` are always smaller than</span></div>
+<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span><span class="comment">   *     0x8000; values equal or larger than 0x8000 usually indicate a</span></div>
+<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span><span class="comment">   *     language tag string (introduced in OpenType version 1.6).  Use</span></div>
+<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span><span class="comment">   *     function @FT_Get_Sfnt_LangTag with `language_id` as its argument to</span></div>
+<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span><span class="comment">   *     retrieve the associated language tag.</span></div>
+<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span><span class="comment">   *</span></div>
+<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span><span class="comment">   *   name_id ::</span></div>
+<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span><span class="comment">   *     An identifier for `string`.  See @TT_NAME_ID_XXX for possible</span></div>
+<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span><span class="comment">   *     values.</span></div>
+<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span><span class="comment">   *</span></div>
+<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span><span class="comment">   *   string ::</span></div>
+<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span><span class="comment">   *     The &#39;name&#39; string.  Note that its format differs depending on the</span></div>
+<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span><span class="comment">   *     (platform,encoding) pair, being either a string of bytes (without a</span></div>
+<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span><span class="comment">   *     terminating `NULL` byte) or containing UTF-16BE entities.</span></div>
+<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span><span class="comment">   *</span></div>
+<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span><span class="comment">   *   string_len ::</span></div>
+<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span><span class="comment">   *     The length of `string` in bytes.</span></div>
+<div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span><span class="comment">   *</span></div>
+<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span><span class="comment">   * @note:</span></div>
+<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span><span class="comment">   *   Please refer to the TrueType or OpenType specification for more</span></div>
+<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span><span class="comment">   *   details.</span></div>
+<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span><span class="comment">   */</span></div>
+<div class="foldopen" id="foldopen00107" data-start="{" data-end="};">
+<div class="line"><a id="l00107" name="l00107"></a><span class="lineno"><a class="line" href="struct_f_t___sfnt_name__.html">  107</a></span>  <span class="keyword">typedef</span> <span class="keyword">struct  </span><a class="code hl_struct" href="struct_f_t___sfnt_name__.html">FT_SfntName_</a></div>
+<div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span>  {</div>
+<div class="line"><a id="l00109" name="l00109"></a><span class="lineno"><a class="line" href="struct_f_t___sfnt_name__.html#ae92450a058eb4737df85f66226d69f43">  109</a></span>    <a class="code hl_typedef" href="x64-windows-static_2x64-windows-static_2include_2freetype_2fttypes_8h.html#a937f6c17cf5ffd09086d8610c37b9f58">FT_UShort</a>  <a class="code hl_variable" href="struct_f_t___sfnt_name__.html#ae92450a058eb4737df85f66226d69f43">platform_id</a>;</div>
+<div class="line"><a id="l00110" name="l00110"></a><span class="lineno"><a class="line" href="struct_f_t___sfnt_name__.html#a01f4573605eab3f4d2e4b9b50b0de98f">  110</a></span>    <a class="code hl_typedef" href="x64-windows-static_2x64-windows-static_2include_2freetype_2fttypes_8h.html#a937f6c17cf5ffd09086d8610c37b9f58">FT_UShort</a>  <a class="code hl_variable" href="struct_f_t___sfnt_name__.html#a01f4573605eab3f4d2e4b9b50b0de98f">encoding_id</a>;</div>
+<div class="line"><a id="l00111" name="l00111"></a><span class="lineno"><a class="line" href="struct_f_t___sfnt_name__.html#a6fb23e0f299a97b25b63805b04cf1fc5">  111</a></span>    <a class="code hl_typedef" href="x64-windows-static_2x64-windows-static_2include_2freetype_2fttypes_8h.html#a937f6c17cf5ffd09086d8610c37b9f58">FT_UShort</a>  <a class="code hl_variable" href="struct_f_t___sfnt_name__.html#a6fb23e0f299a97b25b63805b04cf1fc5">language_id</a>;</div>
+<div class="line"><a id="l00112" name="l00112"></a><span class="lineno"><a class="line" href="struct_f_t___sfnt_name__.html#ac07be3e852408990fe0a910f00b68f4e">  112</a></span>    <a class="code hl_typedef" href="x64-windows-static_2x64-windows-static_2include_2freetype_2fttypes_8h.html#a937f6c17cf5ffd09086d8610c37b9f58">FT_UShort</a>  <a class="code hl_variable" href="struct_f_t___sfnt_name__.html#ac07be3e852408990fe0a910f00b68f4e">name_id</a>;</div>
+<div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span> </div>
+<div class="line"><a id="l00114" name="l00114"></a><span class="lineno"><a class="line" href="struct_f_t___sfnt_name__.html#ac8b9bbfc8fc5352981fb3660b2357ef0">  114</a></span>    <a class="code hl_typedef" href="x64-windows-static_2x64-windows-static_2include_2freetype_2fttypes_8h.html#a51f26183ca0c9f4af958939648caeccd">FT_Byte</a>*   <a class="code hl_variable" href="struct_f_t___sfnt_name__.html#ac8b9bbfc8fc5352981fb3660b2357ef0">string</a>;      <span class="comment">/* this string is *not* null-terminated! */</span></div>
+<div class="line"><a id="l00115" name="l00115"></a><span class="lineno"><a class="line" href="struct_f_t___sfnt_name__.html#a4ebdb7207b5681d16f9cc17f432cb56f">  115</a></span>    <a class="code hl_typedef" href="x64-windows-static_2x64-windows-static_2include_2freetype_2fttypes_8h.html#abcb8db4dbf35d2b55a9e8c7b0926dc52">FT_UInt</a>    <a class="code hl_variable" href="struct_f_t___sfnt_name__.html#a4ebdb7207b5681d16f9cc17f432cb56f">string_len</a>;  <span class="comment">/* in bytes                              */</span></div>
+<div class="line"><a id="l00116" name="l00116"></a><span class="lineno">  116</span> </div>
+<div class="line"><a id="l00117" name="l00117"></a><span class="lineno"><a class="line" href="x64-windows-static_2x64-windows-static_2include_2freetype_2ftsnames_8h.html#ab114c00b7f2b1944b01bdca9375cc5d0">  117</a></span>  } <a class="code hl_typedef" href="x64-windows-static_2x64-windows-static_2include_2freetype_2ftsnames_8h.html#ab114c00b7f2b1944b01bdca9375cc5d0">FT_SfntName</a>;</div>
+</div>
+<div class="line"><a id="l00118" name="l00118"></a><span class="lineno">  118</span> </div>
+<div class="line"><a id="l00119" name="l00119"></a><span class="lineno">  119</span> </div>
+<div class="line"><a id="l00120" name="l00120"></a><span class="lineno">  120</span><span class="comment">  /**************************************************************************</span></div>
+<div class="line"><a id="l00121" name="l00121"></a><span class="lineno">  121</span><span class="comment">   *</span></div>
+<div class="line"><a id="l00122" name="l00122"></a><span class="lineno">  122</span><span class="comment">   * @function:</span></div>
+<div class="line"><a id="l00123" name="l00123"></a><span class="lineno">  123</span><span class="comment">   *   FT_Get_Sfnt_Name_Count</span></div>
+<div class="line"><a id="l00124" name="l00124"></a><span class="lineno">  124</span><span class="comment">   *</span></div>
+<div class="line"><a id="l00125" name="l00125"></a><span class="lineno">  125</span><span class="comment">   * @description:</span></div>
+<div class="line"><a id="l00126" name="l00126"></a><span class="lineno">  126</span><span class="comment">   *   Retrieve the number of name strings in the SFNT &#39;name&#39; table.</span></div>
+<div class="line"><a id="l00127" name="l00127"></a><span class="lineno">  127</span><span class="comment">   *</span></div>
+<div class="line"><a id="l00128" name="l00128"></a><span class="lineno">  128</span><span class="comment">   * @input:</span></div>
+<div class="line"><a id="l00129" name="l00129"></a><span class="lineno">  129</span><span class="comment">   *   face ::</span></div>
+<div class="line"><a id="l00130" name="l00130"></a><span class="lineno">  130</span><span class="comment">   *     A handle to the source face.</span></div>
+<div class="line"><a id="l00131" name="l00131"></a><span class="lineno">  131</span><span class="comment">   *</span></div>
+<div class="line"><a id="l00132" name="l00132"></a><span class="lineno">  132</span><span class="comment">   * @return:</span></div>
+<div class="line"><a id="l00133" name="l00133"></a><span class="lineno">  133</span><span class="comment">   *   The number of strings in the &#39;name&#39; table.</span></div>
+<div class="line"><a id="l00134" name="l00134"></a><span class="lineno">  134</span><span class="comment">   *</span></div>
+<div class="line"><a id="l00135" name="l00135"></a><span class="lineno">  135</span><span class="comment">   * @note:</span></div>
+<div class="line"><a id="l00136" name="l00136"></a><span class="lineno">  136</span><span class="comment">   *   This function always returns an error if the config macro</span></div>
+<div class="line"><a id="l00137" name="l00137"></a><span class="lineno">  137</span><span class="comment">   *   `TT_CONFIG_OPTION_SFNT_NAMES` is not defined in `ftoption.h`.</span></div>
+<div class="line"><a id="l00138" name="l00138"></a><span class="lineno">  138</span><span class="comment">   */</span></div>
+<div class="line"><a id="l00139" name="l00139"></a><span class="lineno">  139</span>  <a class="code hl_define" href="x64-windows-static_2x64-windows-static_2include_2freetype_2config_2public-macros_8h.html#abb1f0cb171117bb94f204d09e6a89a6e">FT_EXPORT</a>( <a class="code hl_typedef" href="x64-windows-static_2x64-windows-static_2include_2freetype_2fttypes_8h.html#abcb8db4dbf35d2b55a9e8c7b0926dc52">FT_UInt</a> )</div>
+<div class="line"><a id="l00140" name="l00140"></a><span class="lineno"><a class="line" href="x64-windows-static_2x64-windows-static_2include_2freetype_2ftsnames_8h.html#a3ef7496741da58eadb90d455649f5eda">  140</a></span>  <a class="code hl_function" href="x64-windows-static_2x64-windows-static_2include_2freetype_2ftsnames_8h.html#a3ef7496741da58eadb90d455649f5eda">FT_Get_Sfnt_Name_Count</a>( <a class="code hl_struct" href="struct_f_t___face_rec__.html">FT_Face</a>  face );</div>
+<div class="line"><a id="l00141" name="l00141"></a><span class="lineno">  141</span> </div>
+<div class="line"><a id="l00142" name="l00142"></a><span class="lineno">  142</span> </div>
+<div class="line"><a id="l00143" name="l00143"></a><span class="lineno">  143</span><span class="comment">  /**************************************************************************</span></div>
+<div class="line"><a id="l00144" name="l00144"></a><span class="lineno">  144</span><span class="comment">   *</span></div>
+<div class="line"><a id="l00145" name="l00145"></a><span class="lineno">  145</span><span class="comment">   * @function:</span></div>
+<div class="line"><a id="l00146" name="l00146"></a><span class="lineno">  146</span><span class="comment">   *   FT_Get_Sfnt_Name</span></div>
+<div class="line"><a id="l00147" name="l00147"></a><span class="lineno">  147</span><span class="comment">   *</span></div>
+<div class="line"><a id="l00148" name="l00148"></a><span class="lineno">  148</span><span class="comment">   * @description:</span></div>
+<div class="line"><a id="l00149" name="l00149"></a><span class="lineno">  149</span><span class="comment">   *   Retrieve a string of the SFNT &#39;name&#39; table for a given index.</span></div>
+<div class="line"><a id="l00150" name="l00150"></a><span class="lineno">  150</span><span class="comment">   *</span></div>
+<div class="line"><a id="l00151" name="l00151"></a><span class="lineno">  151</span><span class="comment">   * @input:</span></div>
+<div class="line"><a id="l00152" name="l00152"></a><span class="lineno">  152</span><span class="comment">   *   face ::</span></div>
+<div class="line"><a id="l00153" name="l00153"></a><span class="lineno">  153</span><span class="comment">   *     A handle to the source face.</span></div>
+<div class="line"><a id="l00154" name="l00154"></a><span class="lineno">  154</span><span class="comment">   *</span></div>
+<div class="line"><a id="l00155" name="l00155"></a><span class="lineno">  155</span><span class="comment">   *   idx ::</span></div>
+<div class="line"><a id="l00156" name="l00156"></a><span class="lineno">  156</span><span class="comment">   *     The index of the &#39;name&#39; string.</span></div>
+<div class="line"><a id="l00157" name="l00157"></a><span class="lineno">  157</span><span class="comment">   *</span></div>
+<div class="line"><a id="l00158" name="l00158"></a><span class="lineno">  158</span><span class="comment">   * @output:</span></div>
+<div class="line"><a id="l00159" name="l00159"></a><span class="lineno">  159</span><span class="comment">   *   aname ::</span></div>
+<div class="line"><a id="l00160" name="l00160"></a><span class="lineno">  160</span><span class="comment">   *     The indexed @FT_SfntName structure.</span></div>
+<div class="line"><a id="l00161" name="l00161"></a><span class="lineno">  161</span><span class="comment">   *</span></div>
+<div class="line"><a id="l00162" name="l00162"></a><span class="lineno">  162</span><span class="comment">   * @return:</span></div>
+<div class="line"><a id="l00163" name="l00163"></a><span class="lineno">  163</span><span class="comment">   *   FreeType error code.  0~means success.</span></div>
+<div class="line"><a id="l00164" name="l00164"></a><span class="lineno">  164</span><span class="comment">   *</span></div>
+<div class="line"><a id="l00165" name="l00165"></a><span class="lineno">  165</span><span class="comment">   * @note:</span></div>
+<div class="line"><a id="l00166" name="l00166"></a><span class="lineno">  166</span><span class="comment">   *   The `string` array returned in the `aname` structure is not</span></div>
+<div class="line"><a id="l00167" name="l00167"></a><span class="lineno">  167</span><span class="comment">   *   null-terminated.  Note that you don&#39;t have to deallocate `string` by</span></div>
+<div class="line"><a id="l00168" name="l00168"></a><span class="lineno">  168</span><span class="comment">   *   yourself; FreeType takes care of it if you call @FT_Done_Face.</span></div>
+<div class="line"><a id="l00169" name="l00169"></a><span class="lineno">  169</span><span class="comment">   *</span></div>
+<div class="line"><a id="l00170" name="l00170"></a><span class="lineno">  170</span><span class="comment">   *   Use @FT_Get_Sfnt_Name_Count to get the total number of available</span></div>
+<div class="line"><a id="l00171" name="l00171"></a><span class="lineno">  171</span><span class="comment">   *   &#39;name&#39; table entries, then do a loop until you get the right platform,</span></div>
+<div class="line"><a id="l00172" name="l00172"></a><span class="lineno">  172</span><span class="comment">   *   encoding, and name ID.</span></div>
+<div class="line"><a id="l00173" name="l00173"></a><span class="lineno">  173</span><span class="comment">   *</span></div>
+<div class="line"><a id="l00174" name="l00174"></a><span class="lineno">  174</span><span class="comment">   *   &#39;name&#39; table format~1 entries can use language tags also, see</span></div>
+<div class="line"><a id="l00175" name="l00175"></a><span class="lineno">  175</span><span class="comment">   *   @FT_Get_Sfnt_LangTag.</span></div>
+<div class="line"><a id="l00176" name="l00176"></a><span class="lineno">  176</span><span class="comment">   *</span></div>
+<div class="line"><a id="l00177" name="l00177"></a><span class="lineno">  177</span><span class="comment">   *   This function always returns an error if the config macro</span></div>
+<div class="line"><a id="l00178" name="l00178"></a><span class="lineno">  178</span><span class="comment">   *   `TT_CONFIG_OPTION_SFNT_NAMES` is not defined in `ftoption.h`.</span></div>
+<div class="line"><a id="l00179" name="l00179"></a><span class="lineno">  179</span><span class="comment">   */</span></div>
+<div class="line"><a id="l00180" name="l00180"></a><span class="lineno">  180</span>  <a class="code hl_define" href="x64-windows-static_2x64-windows-static_2include_2freetype_2config_2public-macros_8h.html#abb1f0cb171117bb94f204d09e6a89a6e">FT_EXPORT</a>( <a class="code hl_typedef" href="x64-windows-static_2x64-windows-static_2include_2freetype_2fttypes_8h.html#a64c8060bdb3d6eec844a1bf670e06bdd">FT_Error</a> )</div>
+<div class="line"><a id="l00181" name="l00181"></a><span class="lineno"><a class="line" href="x64-windows-static_2x64-windows-static_2include_2freetype_2ftsnames_8h.html#ad6d1af5af193d6f42b76f733d924eed7">  181</a></span>  <a class="code hl_function" href="x64-windows-static_2x64-windows-static_2include_2freetype_2ftsnames_8h.html#ad6d1af5af193d6f42b76f733d924eed7">FT_Get_Sfnt_Name</a>( <a class="code hl_struct" href="struct_f_t___face_rec__.html">FT_Face</a>       face,</div>
+<div class="line"><a id="l00182" name="l00182"></a><span class="lineno">  182</span>                    <a class="code hl_typedef" href="x64-windows-static_2x64-windows-static_2include_2freetype_2fttypes_8h.html#abcb8db4dbf35d2b55a9e8c7b0926dc52">FT_UInt</a>       idx,</div>
+<div class="line"><a id="l00183" name="l00183"></a><span class="lineno">  183</span>                    <a class="code hl_typedef" href="x64-windows-static_2x64-windows-static_2include_2freetype_2ftsnames_8h.html#ab114c00b7f2b1944b01bdca9375cc5d0">FT_SfntName</a>  *aname );</div>
+<div class="line"><a id="l00184" name="l00184"></a><span class="lineno">  184</span> </div>
+<div class="line"><a id="l00185" name="l00185"></a><span class="lineno">  185</span> </div>
+<div class="line"><a id="l00186" name="l00186"></a><span class="lineno">  186</span><span class="comment">  /**************************************************************************</span></div>
+<div class="line"><a id="l00187" name="l00187"></a><span class="lineno">  187</span><span class="comment">   *</span></div>
+<div class="line"><a id="l00188" name="l00188"></a><span class="lineno">  188</span><span class="comment">   * @struct:</span></div>
+<div class="line"><a id="l00189" name="l00189"></a><span class="lineno">  189</span><span class="comment">   *   FT_SfntLangTag</span></div>
+<div class="line"><a id="l00190" name="l00190"></a><span class="lineno">  190</span><span class="comment">   *</span></div>
+<div class="line"><a id="l00191" name="l00191"></a><span class="lineno">  191</span><span class="comment">   * @description:</span></div>
+<div class="line"><a id="l00192" name="l00192"></a><span class="lineno">  192</span><span class="comment">   *   A structure to model a language tag entry from an SFNT &#39;name&#39; table.</span></div>
+<div class="line"><a id="l00193" name="l00193"></a><span class="lineno">  193</span><span class="comment">   *</span></div>
+<div class="line"><a id="l00194" name="l00194"></a><span class="lineno">  194</span><span class="comment">   * @fields:</span></div>
+<div class="line"><a id="l00195" name="l00195"></a><span class="lineno">  195</span><span class="comment">   *   string ::</span></div>
+<div class="line"><a id="l00196" name="l00196"></a><span class="lineno">  196</span><span class="comment">   *     The language tag string, encoded in UTF-16BE (without trailing</span></div>
+<div class="line"><a id="l00197" name="l00197"></a><span class="lineno">  197</span><span class="comment">   *     `NULL` bytes).</span></div>
+<div class="line"><a id="l00198" name="l00198"></a><span class="lineno">  198</span><span class="comment">   *</span></div>
+<div class="line"><a id="l00199" name="l00199"></a><span class="lineno">  199</span><span class="comment">   *   string_len ::</span></div>
+<div class="line"><a id="l00200" name="l00200"></a><span class="lineno">  200</span><span class="comment">   *     The length of `string` in **bytes**.</span></div>
+<div class="line"><a id="l00201" name="l00201"></a><span class="lineno">  201</span><span class="comment">   *</span></div>
+<div class="line"><a id="l00202" name="l00202"></a><span class="lineno">  202</span><span class="comment">   * @note:</span></div>
+<div class="line"><a id="l00203" name="l00203"></a><span class="lineno">  203</span><span class="comment">   *   Please refer to the TrueType or OpenType specification for more</span></div>
+<div class="line"><a id="l00204" name="l00204"></a><span class="lineno">  204</span><span class="comment">   *   details.</span></div>
+<div class="line"><a id="l00205" name="l00205"></a><span class="lineno">  205</span><span class="comment">   *</span></div>
+<div class="line"><a id="l00206" name="l00206"></a><span class="lineno">  206</span><span class="comment">   * @since:</span></div>
+<div class="line"><a id="l00207" name="l00207"></a><span class="lineno">  207</span><span class="comment">   *   2.8</span></div>
+<div class="line"><a id="l00208" name="l00208"></a><span class="lineno">  208</span><span class="comment">   */</span></div>
+<div class="foldopen" id="foldopen00209" data-start="{" data-end="};">
+<div class="line"><a id="l00209" name="l00209"></a><span class="lineno"><a class="line" href="struct_f_t___sfnt_lang_tag__.html">  209</a></span>  typedef struct  <a class="code hl_struct" href="struct_f_t___sfnt_lang_tag__.html">FT_SfntLangTag_</a></div>
+<div class="line"><a id="l00210" name="l00210"></a><span class="lineno">  210</span>  {</div>
+<div class="line"><a id="l00211" name="l00211"></a><span class="lineno"><a class="line" href="struct_f_t___sfnt_lang_tag__.html#a35771c8223ed97dc6943ef19a095d2d0">  211</a></span>    <a class="code hl_typedef" href="x64-windows-static_2x64-windows-static_2include_2freetype_2fttypes_8h.html#a51f26183ca0c9f4af958939648caeccd">FT_Byte</a>*  <a class="code hl_variable" href="struct_f_t___sfnt_lang_tag__.html#a35771c8223ed97dc6943ef19a095d2d0">string</a>;      <span class="comment">/* this string is *not* null-terminated! */</span></div>
+<div class="line"><a id="l00212" name="l00212"></a><span class="lineno"><a class="line" href="struct_f_t___sfnt_lang_tag__.html#ad4789510e3dd1f515259cb59abc1d44c">  212</a></span>    <a class="code hl_typedef" href="x64-windows-static_2x64-windows-static_2include_2freetype_2fttypes_8h.html#abcb8db4dbf35d2b55a9e8c7b0926dc52">FT_UInt</a>   <a class="code hl_variable" href="struct_f_t___sfnt_lang_tag__.html#ad4789510e3dd1f515259cb59abc1d44c">string_len</a>;  <span class="comment">/* in bytes                              */</span></div>
+<div class="line"><a id="l00213" name="l00213"></a><span class="lineno">  213</span> </div>
+<div class="line"><a id="l00214" name="l00214"></a><span class="lineno"><a class="line" href="x64-windows-static_2x64-windows-static_2include_2freetype_2ftsnames_8h.html#a8e4b3f5b43001f26a849eeb4d8bc156c">  214</a></span>  } <a class="code hl_typedef" href="x64-windows-static_2x64-windows-static_2include_2freetype_2ftsnames_8h.html#a8e4b3f5b43001f26a849eeb4d8bc156c">FT_SfntLangTag</a>;</div>
+</div>
+<div class="line"><a id="l00215" name="l00215"></a><span class="lineno">  215</span> </div>
+<div class="line"><a id="l00216" name="l00216"></a><span class="lineno">  216</span> </div>
+<div class="line"><a id="l00217" name="l00217"></a><span class="lineno">  217</span><span class="comment">  /**************************************************************************</span></div>
+<div class="line"><a id="l00218" name="l00218"></a><span class="lineno">  218</span><span class="comment">   *</span></div>
+<div class="line"><a id="l00219" name="l00219"></a><span class="lineno">  219</span><span class="comment">   * @function:</span></div>
+<div class="line"><a id="l00220" name="l00220"></a><span class="lineno">  220</span><span class="comment">   *   FT_Get_Sfnt_LangTag</span></div>
+<div class="line"><a id="l00221" name="l00221"></a><span class="lineno">  221</span><span class="comment">   *</span></div>
+<div class="line"><a id="l00222" name="l00222"></a><span class="lineno">  222</span><span class="comment">   * @description:</span></div>
+<div class="line"><a id="l00223" name="l00223"></a><span class="lineno">  223</span><span class="comment">   *   Retrieve the language tag associated with a language ID of an SFNT</span></div>
+<div class="line"><a id="l00224" name="l00224"></a><span class="lineno">  224</span><span class="comment">   *   &#39;name&#39; table entry.</span></div>
+<div class="line"><a id="l00225" name="l00225"></a><span class="lineno">  225</span><span class="comment">   *</span></div>
+<div class="line"><a id="l00226" name="l00226"></a><span class="lineno">  226</span><span class="comment">   * @input:</span></div>
+<div class="line"><a id="l00227" name="l00227"></a><span class="lineno">  227</span><span class="comment">   *   face ::</span></div>
+<div class="line"><a id="l00228" name="l00228"></a><span class="lineno">  228</span><span class="comment">   *     A handle to the source face.</span></div>
+<div class="line"><a id="l00229" name="l00229"></a><span class="lineno">  229</span><span class="comment">   *</span></div>
+<div class="line"><a id="l00230" name="l00230"></a><span class="lineno">  230</span><span class="comment">   *   langID ::</span></div>
+<div class="line"><a id="l00231" name="l00231"></a><span class="lineno">  231</span><span class="comment">   *     The language ID, as returned by @FT_Get_Sfnt_Name.  This is always a</span></div>
+<div class="line"><a id="l00232" name="l00232"></a><span class="lineno">  232</span><span class="comment">   *     value larger than 0x8000.</span></div>
+<div class="line"><a id="l00233" name="l00233"></a><span class="lineno">  233</span><span class="comment">   *</span></div>
+<div class="line"><a id="l00234" name="l00234"></a><span class="lineno">  234</span><span class="comment">   * @output:</span></div>
+<div class="line"><a id="l00235" name="l00235"></a><span class="lineno">  235</span><span class="comment">   *   alangTag ::</span></div>
+<div class="line"><a id="l00236" name="l00236"></a><span class="lineno">  236</span><span class="comment">   *     The language tag associated with the &#39;name&#39; table entry&#39;s language</span></div>
+<div class="line"><a id="l00237" name="l00237"></a><span class="lineno">  237</span><span class="comment">   *     ID.</span></div>
+<div class="line"><a id="l00238" name="l00238"></a><span class="lineno">  238</span><span class="comment">   *</span></div>
+<div class="line"><a id="l00239" name="l00239"></a><span class="lineno">  239</span><span class="comment">   * @return:</span></div>
+<div class="line"><a id="l00240" name="l00240"></a><span class="lineno">  240</span><span class="comment">   *   FreeType error code.  0~means success.</span></div>
+<div class="line"><a id="l00241" name="l00241"></a><span class="lineno">  241</span><span class="comment">   *</span></div>
+<div class="line"><a id="l00242" name="l00242"></a><span class="lineno">  242</span><span class="comment">   * @note:</span></div>
+<div class="line"><a id="l00243" name="l00243"></a><span class="lineno">  243</span><span class="comment">   *   The `string` array returned in the `alangTag` structure is not</span></div>
+<div class="line"><a id="l00244" name="l00244"></a><span class="lineno">  244</span><span class="comment">   *   null-terminated.  Note that you don&#39;t have to deallocate `string` by</span></div>
+<div class="line"><a id="l00245" name="l00245"></a><span class="lineno">  245</span><span class="comment">   *   yourself; FreeType takes care of it if you call @FT_Done_Face.</span></div>
+<div class="line"><a id="l00246" name="l00246"></a><span class="lineno">  246</span><span class="comment">   *</span></div>
+<div class="line"><a id="l00247" name="l00247"></a><span class="lineno">  247</span><span class="comment">   *   Only &#39;name&#39; table format~1 supports language tags.  For format~0</span></div>
+<div class="line"><a id="l00248" name="l00248"></a><span class="lineno">  248</span><span class="comment">   *   tables, this function always returns FT_Err_Invalid_Table.  For</span></div>
+<div class="line"><a id="l00249" name="l00249"></a><span class="lineno">  249</span><span class="comment">   *   invalid format~1 language ID values, FT_Err_Invalid_Argument is</span></div>
+<div class="line"><a id="l00250" name="l00250"></a><span class="lineno">  250</span><span class="comment">   *   returned.</span></div>
+<div class="line"><a id="l00251" name="l00251"></a><span class="lineno">  251</span><span class="comment">   *</span></div>
+<div class="line"><a id="l00252" name="l00252"></a><span class="lineno">  252</span><span class="comment">   *   This function always returns an error if the config macro</span></div>
+<div class="line"><a id="l00253" name="l00253"></a><span class="lineno">  253</span><span class="comment">   *   `TT_CONFIG_OPTION_SFNT_NAMES` is not defined in `ftoption.h`.</span></div>
+<div class="line"><a id="l00254" name="l00254"></a><span class="lineno">  254</span><span class="comment">   *</span></div>
+<div class="line"><a id="l00255" name="l00255"></a><span class="lineno">  255</span><span class="comment">   * @since:</span></div>
+<div class="line"><a id="l00256" name="l00256"></a><span class="lineno">  256</span><span class="comment">   *   2.8</span></div>
+<div class="line"><a id="l00257" name="l00257"></a><span class="lineno">  257</span><span class="comment">   */</span></div>
+<div class="line"><a id="l00258" name="l00258"></a><span class="lineno">  258</span>  <a class="code hl_define" href="x64-windows-static_2x64-windows-static_2include_2freetype_2config_2public-macros_8h.html#abb1f0cb171117bb94f204d09e6a89a6e">FT_EXPORT</a>( <a class="code hl_typedef" href="x64-windows-static_2x64-windows-static_2include_2freetype_2fttypes_8h.html#a64c8060bdb3d6eec844a1bf670e06bdd">FT_Error</a> )</div>
+<div class="line"><a id="l00259" name="l00259"></a><span class="lineno"><a class="line" href="x64-windows-static_2x64-windows-static_2include_2freetype_2ftsnames_8h.html#ae4b917c2171e3eb3ea0791f33a88b203">  259</a></span>  <a class="code hl_function" href="x64-windows-static_2x64-windows-static_2include_2freetype_2ftsnames_8h.html#ae4b917c2171e3eb3ea0791f33a88b203">FT_Get_Sfnt_LangTag</a>( <a class="code hl_struct" href="struct_f_t___face_rec__.html">FT_Face</a>          face,</div>
+<div class="line"><a id="l00260" name="l00260"></a><span class="lineno">  260</span>                       <a class="code hl_typedef" href="x64-windows-static_2x64-windows-static_2include_2freetype_2fttypes_8h.html#abcb8db4dbf35d2b55a9e8c7b0926dc52">FT_UInt</a>          langID,</div>
+<div class="line"><a id="l00261" name="l00261"></a><span class="lineno">  261</span>                       <a class="code hl_struct" href="struct_f_t___sfnt_lang_tag__.html">FT_SfntLangTag</a>  *alangTag );</div>
+<div class="line"><a id="l00262" name="l00262"></a><span class="lineno">  262</span> </div>
+<div class="line"><a id="l00263" name="l00263"></a><span class="lineno">  263</span> </div>
+<div class="line"><a id="l00264" name="l00264"></a><span class="lineno">  264</span>  <span class="comment">/* */</span></div>
+<div class="line"><a id="l00265" name="l00265"></a><span class="lineno">  265</span> </div>
+<div class="line"><a id="l00266" name="l00266"></a><span class="lineno">  266</span> </div>
+<div class="line"><a id="l00267" name="l00267"></a><span class="lineno">  267</span><a class="code hl_define" href="x64-windows-static_2x64-windows-static_2include_2freetype_2config_2ftheader_8h.html#a2ebbdbbee7f9bfa8b6b86790de7e9963">FT_END_HEADER</a></div>
+<div class="line"><a id="l00268" name="l00268"></a><span class="lineno">  268</span> </div>
+<div class="line"><a id="l00269" name="l00269"></a><span class="lineno">  269</span><span class="preprocessor">#endif </span><span class="comment">/* FTSNAMES_H_ */</span><span class="preprocessor"></span></div>
+<div class="line"><a id="l00270" name="l00270"></a><span class="lineno">  270</span> </div>
+<div class="line"><a id="l00271" name="l00271"></a><span class="lineno">  271</span> </div>
+<div class="line"><a id="l00272" name="l00272"></a><span class="lineno">  272</span><span class="comment">/* END */</span></div>
+<div class="ttc" id="astruct_f_t___face_rec___html"><div class="ttname"><a href="struct_f_t___face_rec__.html">FT_FaceRec_</a></div><div class="ttdef"><b>Definition</b> <a href="x64-windows-static_2x64-windows-static_2include_2freetype_2freetype_8h_source.html#l01077">freetype.h:1078</a></div></div>
+<div class="ttc" id="astruct_f_t___sfnt_lang_tag___html"><div class="ttname"><a href="struct_f_t___sfnt_lang_tag__.html">FT_SfntLangTag_</a></div><div class="ttdef"><b>Definition</b> <a href="#l00209">ftsnames.h:210</a></div></div>
+<div class="ttc" id="astruct_f_t___sfnt_lang_tag___html_a35771c8223ed97dc6943ef19a095d2d0"><div class="ttname"><a href="struct_f_t___sfnt_lang_tag__.html#a35771c8223ed97dc6943ef19a095d2d0">FT_SfntLangTag_::string</a></div><div class="ttdeci">FT_Byte * string</div><div class="ttdef"><b>Definition</b> <a href="#l00211">ftsnames.h:211</a></div></div>
+<div class="ttc" id="astruct_f_t___sfnt_lang_tag___html_ad4789510e3dd1f515259cb59abc1d44c"><div class="ttname"><a href="struct_f_t___sfnt_lang_tag__.html#ad4789510e3dd1f515259cb59abc1d44c">FT_SfntLangTag_::string_len</a></div><div class="ttdeci">FT_UInt string_len</div><div class="ttdef"><b>Definition</b> <a href="#l00212">ftsnames.h:212</a></div></div>
+<div class="ttc" id="astruct_f_t___sfnt_name___html"><div class="ttname"><a href="struct_f_t___sfnt_name__.html">FT_SfntName_</a></div><div class="ttdef"><b>Definition</b> <a href="#l00107">ftsnames.h:108</a></div></div>
+<div class="ttc" id="astruct_f_t___sfnt_name___html_a01f4573605eab3f4d2e4b9b50b0de98f"><div class="ttname"><a href="struct_f_t___sfnt_name__.html#a01f4573605eab3f4d2e4b9b50b0de98f">FT_SfntName_::encoding_id</a></div><div class="ttdeci">FT_UShort encoding_id</div><div class="ttdef"><b>Definition</b> <a href="#l00110">ftsnames.h:110</a></div></div>
+<div class="ttc" id="astruct_f_t___sfnt_name___html_a4ebdb7207b5681d16f9cc17f432cb56f"><div class="ttname"><a href="struct_f_t___sfnt_name__.html#a4ebdb7207b5681d16f9cc17f432cb56f">FT_SfntName_::string_len</a></div><div class="ttdeci">FT_UInt string_len</div><div class="ttdef"><b>Definition</b> <a href="#l00115">ftsnames.h:115</a></div></div>
+<div class="ttc" id="astruct_f_t___sfnt_name___html_a6fb23e0f299a97b25b63805b04cf1fc5"><div class="ttname"><a href="struct_f_t___sfnt_name__.html#a6fb23e0f299a97b25b63805b04cf1fc5">FT_SfntName_::language_id</a></div><div class="ttdeci">FT_UShort language_id</div><div class="ttdef"><b>Definition</b> <a href="#l00111">ftsnames.h:111</a></div></div>
+<div class="ttc" id="astruct_f_t___sfnt_name___html_ac07be3e852408990fe0a910f00b68f4e"><div class="ttname"><a href="struct_f_t___sfnt_name__.html#ac07be3e852408990fe0a910f00b68f4e">FT_SfntName_::name_id</a></div><div class="ttdeci">FT_UShort name_id</div><div class="ttdef"><b>Definition</b> <a href="#l00112">ftsnames.h:112</a></div></div>
+<div class="ttc" id="astruct_f_t___sfnt_name___html_ac8b9bbfc8fc5352981fb3660b2357ef0"><div class="ttname"><a href="struct_f_t___sfnt_name__.html#ac8b9bbfc8fc5352981fb3660b2357ef0">FT_SfntName_::string</a></div><div class="ttdeci">FT_Byte * string</div><div class="ttdef"><b>Definition</b> <a href="#l00114">ftsnames.h:114</a></div></div>
+<div class="ttc" id="astruct_f_t___sfnt_name___html_ae92450a058eb4737df85f66226d69f43"><div class="ttname"><a href="struct_f_t___sfnt_name__.html#ae92450a058eb4737df85f66226d69f43">FT_SfntName_::platform_id</a></div><div class="ttdeci">FT_UShort platform_id</div><div class="ttdef"><b>Definition</b> <a href="#l00109">ftsnames.h:109</a></div></div>
+<div class="ttc" id="ax64-windows-static_2x64-windows-static_2include_2freetype_2config_2ftheader_8h_html_a2ebbdbbee7f9bfa8b6b86790de7e9963"><div class="ttname"><a href="x64-windows-static_2x64-windows-static_2include_2freetype_2config_2ftheader_8h.html#a2ebbdbbee7f9bfa8b6b86790de7e9963">FT_END_HEADER</a></div><div class="ttdeci">#define FT_END_HEADER</div><div class="ttdef"><b>Definition</b> <a href="x64-windows-static_2x64-windows-static_2include_2freetype_2config_2ftheader_8h_source.html#l00057">ftheader.h:57</a></div></div>
+<div class="ttc" id="ax64-windows-static_2x64-windows-static_2include_2freetype_2config_2ftheader_8h_html_a72ee5814b3ae378ebb7fd3a8e3ddec14"><div class="ttname"><a href="x64-windows-static_2x64-windows-static_2include_2freetype_2config_2ftheader_8h.html#a72ee5814b3ae378ebb7fd3a8e3ddec14">FT_BEGIN_HEADER</a></div><div class="ttdeci">#define FT_BEGIN_HEADER</div><div class="ttdef"><b>Definition</b> <a href="x64-windows-static_2x64-windows-static_2include_2freetype_2config_2ftheader_8h_source.html#l00037">ftheader.h:37</a></div></div>
+<div class="ttc" id="ax64-windows-static_2x64-windows-static_2include_2freetype_2config_2public-macros_8h_html_abb1f0cb171117bb94f204d09e6a89a6e"><div class="ttname"><a href="x64-windows-static_2x64-windows-static_2include_2freetype_2config_2public-macros_8h.html#abb1f0cb171117bb94f204d09e6a89a6e">FT_EXPORT</a></div><div class="ttdeci">#define FT_EXPORT(x)</div><div class="ttdef"><b>Definition</b> <a href="x64-windows-static_2x64-windows-static_2include_2freetype_2config_2public-macros_8h_source.html#l00104">public-macros.h:104</a></div></div>
+<div class="ttc" id="ax64-windows-static_2x64-windows-static_2include_2freetype_2ftsnames_8h_html_a3ef7496741da58eadb90d455649f5eda"><div class="ttname"><a href="x64-windows-static_2x64-windows-static_2include_2freetype_2ftsnames_8h.html#a3ef7496741da58eadb90d455649f5eda">FT_Get_Sfnt_Name_Count</a></div><div class="ttdeci">FT_Get_Sfnt_Name_Count(FT_Face face)</div></div>
+<div class="ttc" id="ax64-windows-static_2x64-windows-static_2include_2freetype_2ftsnames_8h_html_a8e4b3f5b43001f26a849eeb4d8bc156c"><div class="ttname"><a href="x64-windows-static_2x64-windows-static_2include_2freetype_2ftsnames_8h.html#a8e4b3f5b43001f26a849eeb4d8bc156c">FT_SfntLangTag</a></div><div class="ttdeci">struct FT_SfntLangTag_ FT_SfntLangTag</div></div>
+<div class="ttc" id="ax64-windows-static_2x64-windows-static_2include_2freetype_2ftsnames_8h_html_ab114c00b7f2b1944b01bdca9375cc5d0"><div class="ttname"><a href="x64-windows-static_2x64-windows-static_2include_2freetype_2ftsnames_8h.html#ab114c00b7f2b1944b01bdca9375cc5d0">FT_SfntName</a></div><div class="ttdeci">FT_BEGIN_HEADER struct FT_SfntName_ FT_SfntName</div></div>
+<div class="ttc" id="ax64-windows-static_2x64-windows-static_2include_2freetype_2ftsnames_8h_html_ad6d1af5af193d6f42b76f733d924eed7"><div class="ttname"><a href="x64-windows-static_2x64-windows-static_2include_2freetype_2ftsnames_8h.html#ad6d1af5af193d6f42b76f733d924eed7">FT_Get_Sfnt_Name</a></div><div class="ttdeci">FT_Get_Sfnt_Name(FT_Face face, FT_UInt idx, FT_SfntName *aname)</div></div>
+<div class="ttc" id="ax64-windows-static_2x64-windows-static_2include_2freetype_2ftsnames_8h_html_ae4b917c2171e3eb3ea0791f33a88b203"><div class="ttname"><a href="x64-windows-static_2x64-windows-static_2include_2freetype_2ftsnames_8h.html#ae4b917c2171e3eb3ea0791f33a88b203">FT_Get_Sfnt_LangTag</a></div><div class="ttdeci">FT_Get_Sfnt_LangTag(FT_Face face, FT_UInt langID, FT_SfntLangTag *alangTag)</div></div>
+<div class="ttc" id="ax64-windows-static_2x64-windows-static_2include_2freetype_2fttypes_8h_html_a51f26183ca0c9f4af958939648caeccd"><div class="ttname"><a href="x64-windows-static_2x64-windows-static_2include_2freetype_2fttypes_8h.html#a51f26183ca0c9f4af958939648caeccd">FT_Byte</a></div><div class="ttdeci">unsigned char FT_Byte</div><div class="ttdef"><b>Definition</b> <a href="x64-windows-static_2x64-windows-static_2include_2freetype_2fttypes_8h_source.html#l00154">fttypes.h:154</a></div></div>
+<div class="ttc" id="ax64-windows-static_2x64-windows-static_2include_2freetype_2fttypes_8h_html_a64c8060bdb3d6eec844a1bf670e06bdd"><div class="ttname"><a href="x64-windows-static_2x64-windows-static_2include_2freetype_2fttypes_8h.html#a64c8060bdb3d6eec844a1bf670e06bdd">FT_Error</a></div><div class="ttdeci">int FT_Error</div><div class="ttdef"><b>Definition</b> <a href="x64-windows-static_2x64-windows-static_2include_2freetype_2fttypes_8h_source.html#l00299">fttypes.h:299</a></div></div>
+<div class="ttc" id="ax64-windows-static_2x64-windows-static_2include_2freetype_2fttypes_8h_html_a937f6c17cf5ffd09086d8610c37b9f58"><div class="ttname"><a href="x64-windows-static_2x64-windows-static_2include_2freetype_2fttypes_8h.html#a937f6c17cf5ffd09086d8610c37b9f58">FT_UShort</a></div><div class="ttdeci">unsigned short FT_UShort</div><div class="ttdef"><b>Definition</b> <a href="x64-windows-static_2x64-windows-static_2include_2freetype_2fttypes_8h_source.html#l00209">fttypes.h:209</a></div></div>
+<div class="ttc" id="ax64-windows-static_2x64-windows-static_2include_2freetype_2fttypes_8h_html_abcb8db4dbf35d2b55a9e8c7b0926dc52"><div class="ttname"><a href="x64-windows-static_2x64-windows-static_2include_2freetype_2fttypes_8h.html#abcb8db4dbf35d2b55a9e8c7b0926dc52">FT_UInt</a></div><div class="ttdeci">unsigned int FT_UInt</div><div class="ttdef"><b>Definition</b> <a href="x64-windows-static_2x64-windows-static_2include_2freetype_2fttypes_8h_source.html#l00231">fttypes.h:231</a></div></div>
+</div><!-- fragment --></div><!-- contents -->
+</div><!-- doc-content -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="dir_74389ed8173ad57b461b9d623a1f3867.html">Source</a></li><li class="navelem"><a class="el" href="dir_6e9399b867df62641d274959e619ad65.html">vcpkg_installed</a></li><li class="navelem"><a class="el" href="dir_30cfe0916cdc05412f182515e2d5be66.html">x64-windows-static</a></li><li class="navelem"><a class="el" href="dir_a51a3dd64c48ba06555bdcf6379b8f0c.html">x64-windows-static</a></li><li class="navelem"><a class="el" href="dir_16af1930db264e83111a8adeeb4b094c.html">include</a></li><li class="navelem"><a class="el" href="dir_ff125e9387d334b9a7ecc3b3fea50469.html">freetype</a></li><li class="navelem"><a class="el" href="x64-windows-static_2x64-windows-static_2include_2freetype_2ftsnames_8h.html">ftsnames.h</a></li>
+    <li class="footer">Generado el Lunes, 29 de enero de 2024 17:18:32 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.10.0 </li>
+  </ul>
+</div>
+</body>
+</html>

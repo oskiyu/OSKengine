@@ -1,0 +1,864 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="es">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.10.0"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>OSKengine: Referencia de la clase OSK::ECS::PhysicsComponent</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">OSKengine<span id="projectnumber">&#160;Indev</span>
+   </div>
+   <div id="projectbrief">Motor de videojuegos.</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generado por Doxygen 1.10.0 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() {
+  initMenu('',true,false,'search.php','Buscar');
+  $(function() { init_search(); });
+});
+/* @license-end */
+</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function(){initNavTree('class_o_s_k_1_1_e_c_s_1_1_physics_component.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Cargando...</div>
+<div class="SRStatus" id="Searching">Buscando...</div>
+<div class="SRStatus" id="NoMatches">Nada coincide</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="summary">
+<a href="#pub-methods">Métodos públicos</a> &#124;
+<a href="#pub-static-methods">Métodos públicos estáticos</a> &#124;
+<a href="#pub-attribs">Atributos públicos</a> &#124;
+<a href="#friends">Amigas</a> &#124;
+<a href="class_o_s_k_1_1_e_c_s_1_1_physics_component-members.html">Lista de todos los miembros</a>  </div>
+  <div class="headertitle"><div class="title">Referencia de la clase OSK::ECS::PhysicsComponent</div></div>
+</div><!--header-->
+<div class="contents">
+
+<p><code>#include &lt;<a class="el" href="_physics_component_8h_source.html">PhysicsComponent.h</a>&gt;</code></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
+Métodos públicos</h2></td></tr>
+<tr class="memitem:ac8f99a444d1502275bcc12b370eac652" id="r_ac8f99a444d1502275bcc12b370eac652"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ac8f99a444d1502275bcc12b370eac652">OSK_COMPONENT</a> (&quot;OSK::PhysicsComponent&quot;)</td></tr>
+<tr class="separator:ac8f99a444d1502275bcc12b370eac652"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a42a2265072fdf6068fab4eb26820d8a2" id="r_a42a2265072fdf6068fab4eb26820d8a2"><td class="memItemLeft" align="right" valign="top"><a class="el" href="x64-windows-static_2x64-windows-static_2include_2libpng16_2png_8h.html#a05f08be336491be77cd4dfa98f747c69">void</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a42a2265072fdf6068fab4eb26820d8a2">SetImmovable</a> ()</td></tr>
+<tr class="separator:a42a2265072fdf6068fab4eb26820d8a2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a072a1454c8ff761bc89295b7b62d04d5" id="r_a072a1454c8ff761bc89295b7b62d04d5"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a072a1454c8ff761bc89295b7b62d04d5">IsImmovable</a> () <a class="el" href="x64-windows-static_2x64-windows-static_2include_2zconf_8h.html#a2c212835823e3c54a8ab6d95c652660e">const</a></td></tr>
+<tr class="separator:a072a1454c8ff761bc89295b7b62d04d5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad33a6ccaf85590a4c5bcd0aa0e24b843" id="r_ad33a6ccaf85590a4c5bcd0aa0e24b843"><td class="memItemLeft" align="right" valign="top"><a class="el" href="x64-windows-static_2x64-windows-static_2include_2libpng16_2png_8h.html#a05f08be336491be77cd4dfa98f747c69">void</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad33a6ccaf85590a4c5bcd0aa0e24b843">SetMass</a> (float newMass)</td></tr>
+<tr class="separator:ad33a6ccaf85590a4c5bcd0aa0e24b843"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1564a658b0afe10aa7e319c3099e44df" id="r_a1564a658b0afe10aa7e319c3099e44df"><td class="memItemLeft" align="right" valign="top"><a class="el" href="x64-windows-static_2x64-windows-static_2include_2libpng16_2png_8h.html#a05f08be336491be77cd4dfa98f747c69">void</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a1564a658b0afe10aa7e319c3099e44df">SetInverseMass</a> (float newInverseMass)</td></tr>
+<tr class="separator:a1564a658b0afe10aa7e319c3099e44df"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5ec81df95c766222811cb411e50ba368" id="r_a5ec81df95c766222811cb411e50ba368"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a5ec81df95c766222811cb411e50ba368">GetMass</a> () <a class="el" href="x64-windows-static_2x64-windows-static_2include_2zconf_8h.html#a2c212835823e3c54a8ab6d95c652660e">const</a></td></tr>
+<tr class="separator:a5ec81df95c766222811cb411e50ba368"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aed0d309c07fb8227f6406a298fbbdb1d" id="r_aed0d309c07fb8227f6406a298fbbdb1d"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aed0d309c07fb8227f6406a298fbbdb1d">GetInverseMass</a> () <a class="el" href="x64-windows-static_2x64-windows-static_2include_2zconf_8h.html#a2c212835823e3c54a8ab6d95c652660e">const</a></td></tr>
+<tr class="separator:aed0d309c07fb8227f6406a298fbbdb1d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad104908de8c2c04cc6858ad9ffe1fa11" id="r_ad104908de8c2c04cc6858ad9ffe1fa11"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__core__matrix.html#ga78640a3ce345613b53b7dce709104214">glm::mat3</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad104908de8c2c04cc6858ad9ffe1fa11">GetInertiaTensor</a> () <a class="el" href="x64-windows-static_2x64-windows-static_2include_2zconf_8h.html#a2c212835823e3c54a8ab6d95c652660e">const</a></td></tr>
+<tr class="separator:ad104908de8c2c04cc6858ad9ffe1fa11"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1d9df009bc19fc3989621a67ea50be91" id="r_a1d9df009bc19fc3989621a67ea50be91"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__core__matrix.html#ga78640a3ce345613b53b7dce709104214">glm::mat3</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a1d9df009bc19fc3989621a67ea50be91">GetInverseInertiaTensor</a> () <a class="el" href="x64-windows-static_2x64-windows-static_2include_2zconf_8h.html#a2c212835823e3c54a8ab6d95c652660e">const</a></td></tr>
+<tr class="separator:a1d9df009bc19fc3989621a67ea50be91"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0d5af64d99b45d6af7f34f07a468836a" id="r_a0d5af64d99b45d6af7f34f07a468836a"><td class="memItemLeft" align="right" valign="top"><a class="el" href="x64-windows-static_2x64-windows-static_2include_2libpng16_2png_8h.html#a05f08be336491be77cd4dfa98f747c69">void</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a0d5af64d99b45d6af7f34f07a468836a">SetInertiaTensor</a> (<a class="el" href="x64-windows-static_2x64-windows-static_2include_2zconf_8h.html#a2c212835823e3c54a8ab6d95c652660e">const</a> <a class="el" href="group__core__matrix.html#ga78640a3ce345613b53b7dce709104214">glm::mat3</a> &amp;tensor)</td></tr>
+<tr class="separator:a0d5af64d99b45d6af7f34f07a468836a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0f7d8a1ed85b371a41e3a88d69ec85b0" id="r_a0f7d8a1ed85b371a41e3a88d69ec85b0"><td class="memItemLeft" align="right" valign="top"><a class="el" href="x64-windows-static_2x64-windows-static_2include_2libpng16_2png_8h.html#a05f08be336491be77cd4dfa98f747c69">void</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a0f7d8a1ed85b371a41e3a88d69ec85b0">SetInverseInertiaTensor</a> (<a class="el" href="x64-windows-static_2x64-windows-static_2include_2zconf_8h.html#a2c212835823e3c54a8ab6d95c652660e">const</a> <a class="el" href="group__core__matrix.html#ga78640a3ce345613b53b7dce709104214">glm::mat3</a> &amp;inverseTensor)</td></tr>
+<tr class="separator:a0f7d8a1ed85b371a41e3a88d69ec85b0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0a076f85be521ce66724e60170df9995" id="r_a0a076f85be521ce66724e60170df9995"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespace_o_s_k.html#a72b3268907c9cd41f0daf0a42e1c9dca">Vector3f</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a0a076f85be521ce66724e60170df9995">GetVelocity</a> () <a class="el" href="x64-windows-static_2x64-windows-static_2include_2zconf_8h.html#a2c212835823e3c54a8ab6d95c652660e">const</a></td></tr>
+<tr class="separator:a0a076f85be521ce66724e60170df9995"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a472cee08498106f192b570f4999d8c99" id="r_a472cee08498106f192b570f4999d8c99"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespace_o_s_k.html#a72b3268907c9cd41f0daf0a42e1c9dca">Vector3f</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a472cee08498106f192b570f4999d8c99">GetCurrentFrameVelocityDelta</a> () <a class="el" href="x64-windows-static_2x64-windows-static_2include_2zconf_8h.html#a2c212835823e3c54a8ab6d95c652660e">const</a></td></tr>
+<tr class="separator:a472cee08498106f192b570f4999d8c99"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afac74572b57f9ef22e4bbdb7247e098a" id="r_afac74572b57f9ef22e4bbdb7247e098a"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespace_o_s_k.html#a72b3268907c9cd41f0daf0a42e1c9dca">Vector3f</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#afac74572b57f9ef22e4bbdb7247e098a">GetVelocityOfPoint</a> (<a class="el" href="x64-windows-static_2x64-windows-static_2include_2zconf_8h.html#a2c212835823e3c54a8ab6d95c652660e">const</a> <a class="el" href="namespace_o_s_k.html#a72b3268907c9cd41f0daf0a42e1c9dca">Vector3f</a> &amp;localSpacePoint) <a class="el" href="x64-windows-static_2x64-windows-static_2include_2zconf_8h.html#a2c212835823e3c54a8ab6d95c652660e">const</a></td></tr>
+<tr class="separator:afac74572b57f9ef22e4bbdb7247e098a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8231e239542164328fc8fa736ea77763" id="r_a8231e239542164328fc8fa736ea77763"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespace_o_s_k.html#a72b3268907c9cd41f0daf0a42e1c9dca">Vector3f</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a8231e239542164328fc8fa736ea77763">GetAcceleration</a> () <a class="el" href="x64-windows-static_2x64-windows-static_2include_2zconf_8h.html#a2c212835823e3c54a8ab6d95c652660e">const</a></td></tr>
+<tr class="separator:a8231e239542164328fc8fa736ea77763"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a06d932741447c2789d5bf9fa178e26e9" id="r_a06d932741447c2789d5bf9fa178e26e9"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespace_o_s_k.html#a72b3268907c9cd41f0daf0a42e1c9dca">Vector3f</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a06d932741447c2789d5bf9fa178e26e9">GetAngularVelocity</a> () <a class="el" href="x64-windows-static_2x64-windows-static_2include_2zconf_8h.html#a2c212835823e3c54a8ab6d95c652660e">const</a></td></tr>
+<tr class="separator:a06d932741447c2789d5bf9fa178e26e9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abffd20a6e941da3f80e25893c551270f" id="r_abffd20a6e941da3f80e25893c551270f"><td class="memItemLeft" align="right" valign="top"><a class="el" href="x64-windows-static_2x64-windows-static_2include_2libpng16_2png_8h.html#a05f08be336491be77cd4dfa98f747c69">void</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#abffd20a6e941da3f80e25893c551270f">_ResetForces</a> ()</td></tr>
+<tr class="separator:abffd20a6e941da3f80e25893c551270f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9ea91a98968eb5ccac348c1523a0d987" id="r_a9ea91a98968eb5ccac348c1523a0d987"><td class="memItemLeft" align="right" valign="top"><a class="el" href="x64-windows-static_2x64-windows-static_2include_2libpng16_2png_8h.html#a05f08be336491be77cd4dfa98f747c69">void</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a9ea91a98968eb5ccac348c1523a0d987">_ResetCurrentFrameDeltas</a> ()</td></tr>
+<tr class="separator:a9ea91a98968eb5ccac348c1523a0d987"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1cbc609910bc3743fdb9e8b454d3ef20" id="r_a1cbc609910bc3743fdb9e8b454d3ef20"><td class="memItemLeft" align="right" valign="top"><a class="el" href="x64-windows-static_2x64-windows-static_2include_2libpng16_2png_8h.html#a05f08be336491be77cd4dfa98f747c69">void</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a1cbc609910bc3743fdb9e8b454d3ef20">ApplyForce</a> (<a class="el" href="x64-windows-static_2x64-windows-static_2include_2zconf_8h.html#a2c212835823e3c54a8ab6d95c652660e">const</a> <a class="el" href="namespace_o_s_k.html#a72b3268907c9cd41f0daf0a42e1c9dca">Vector3f</a> &amp;force)</td></tr>
+<tr class="separator:a1cbc609910bc3743fdb9e8b454d3ef20"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa199f088819273869cfff21b3b99ca9a" id="r_aa199f088819273869cfff21b3b99ca9a"><td class="memItemLeft" align="right" valign="top"><a class="el" href="x64-windows-static_2x64-windows-static_2include_2libpng16_2png_8h.html#a05f08be336491be77cd4dfa98f747c69">void</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aa199f088819273869cfff21b3b99ca9a">ApplyImpulse</a> (<a class="el" href="x64-windows-static_2x64-windows-static_2include_2zconf_8h.html#a2c212835823e3c54a8ab6d95c652660e">const</a> <a class="el" href="namespace_o_s_k.html#a72b3268907c9cd41f0daf0a42e1c9dca">Vector3f</a> &amp;impulse, <a class="el" href="x64-windows-static_2x64-windows-static_2include_2zconf_8h.html#a2c212835823e3c54a8ab6d95c652660e">const</a> <a class="el" href="namespace_o_s_k.html#a72b3268907c9cd41f0daf0a42e1c9dca">Vector3f</a> &amp;localSpacePoint)</td></tr>
+<tr class="separator:aa199f088819273869cfff21b3b99ca9a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a31401fd6693441c222af77e6733f178c" id="r_a31401fd6693441c222af77e6733f178c"><td class="memItemLeft" align="right" valign="top"><a class="el" href="x64-windows-static_2x64-windows-static_2include_2libpng16_2png_8h.html#a05f08be336491be77cd4dfa98f747c69">void</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a31401fd6693441c222af77e6733f178c">_SetVelocity</a> (<a class="el" href="namespace_o_s_k.html#a72b3268907c9cd41f0daf0a42e1c9dca">Vector3f</a> velocity)</td></tr>
+<tr class="separator:a31401fd6693441c222af77e6733f178c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aca5faf584b79cb71f81990be8ad62d54" id="r_aca5faf584b79cb71f81990be8ad62d54"><td class="memItemLeft" align="right" valign="top"><a class="el" href="x64-windows-static_2x64-windows-static_2include_2libpng16_2png_8h.html#a05f08be336491be77cd4dfa98f747c69">void</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aca5faf584b79cb71f81990be8ad62d54">_SetAngularVelocity</a> (<a class="el" href="namespace_o_s_k.html#a72b3268907c9cd41f0daf0a42e1c9dca">Vector3f</a> angularVelocity)</td></tr>
+<tr class="separator:aca5faf584b79cb71f81990be8ad62d54"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa7a2de92420b516483f7d2577e7b6516" id="r_aa7a2de92420b516483f7d2577e7b6516"><td class="memItemLeft" align="right" valign="top"><a class="el" href="x64-windows-static_2x64-windows-static_2include_2libpng16_2png_8h.html#a05f08be336491be77cd4dfa98f747c69">void</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aa7a2de92420b516483f7d2577e7b6516">_SetAcceleration</a> (<a class="el" href="namespace_o_s_k.html#a72b3268907c9cd41f0daf0a42e1c9dca">Vector3f</a> acceleration)</td></tr>
+<tr class="separator:aa7a2de92420b516483f7d2577e7b6516"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-static-methods" name="pub-static-methods"></a>
+Métodos públicos estáticos</h2></td></tr>
+<tr class="memitem:a47074a1b3ad682decf7e7e250fd8e997" id="r_a47074a1b3ad682decf7e7e250fd8e997"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="namespace_o_s_k.html#a72b3268907c9cd41f0daf0a42e1c9dca">Vector3f</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a47074a1b3ad682decf7e7e250fd8e997">GetTorque</a> (<a class="el" href="x64-windows-static_2x64-windows-static_2include_2zconf_8h.html#a2c212835823e3c54a8ab6d95c652660e">const</a> <a class="el" href="namespace_o_s_k.html#a72b3268907c9cd41f0daf0a42e1c9dca">Vector3f</a> &amp;localSpacePoint, <a class="el" href="x64-windows-static_2x64-windows-static_2include_2zconf_8h.html#a2c212835823e3c54a8ab6d95c652660e">const</a> <a class="el" href="namespace_o_s_k.html#a72b3268907c9cd41f0daf0a42e1c9dca">Vector3f</a> &amp;force)</td></tr>
+<tr class="separator:a47074a1b3ad682decf7e7e250fd8e997"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
+Atributos públicos</h2></td></tr>
+<tr class="memitem:a139ede070b866acdb153120c51b5e8b7" id="r_a139ede070b866acdb153120c51b5e8b7"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespace_o_s_k.html#a72b3268907c9cd41f0daf0a42e1c9dca">Vector3f</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a139ede070b866acdb153120c51b5e8b7">centerOfMassOffset</a> = <a class="el" href="class_o_s_k_1_1_vector3__t.html#ac574fd28b9114ddf48d26573d1efd570">Vector3f::Zero</a></td></tr>
+<tr class="separator:a139ede070b866acdb153120c51b5e8b7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aca400926c4aac6f1f181a8675fde8e01" id="r_aca400926c4aac6f1f181a8675fde8e01"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aca400926c4aac6f1f181a8675fde8e01">frictionCoefficient</a> = 0.5f</td></tr>
+<tr class="separator:aca400926c4aac6f1f181a8675fde8e01"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afbc57ad27cbbf0fdf1e8b03aabf0ba6a" id="r_afbc57ad27cbbf0fdf1e8b03aabf0ba6a"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#afbc57ad27cbbf0fdf1e8b03aabf0ba6a">coefficientOfRestitution</a> = 0.2f</td></tr>
+<tr class="separator:afbc57ad27cbbf0fdf1e8b03aabf0ba6a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="friends" name="friends"></a>
+Amigas</h2></td></tr>
+<tr class="memitem:a9346abf070e067da503c7d6a7db79182" id="r_a9346abf070e067da503c7d6a7db79182"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:a9346abf070e067da503c7d6a7db79182"><td class="memTemplItemLeft" align="right" valign="top">nlohmann::json&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="#a9346abf070e067da503c7d6a7db79182">PERSISTENCE::SerializeJson</a> (<a class="el" href="x64-windows-static_2x64-windows-static_2include_2zconf_8h.html#a2c212835823e3c54a8ab6d95c652660e">const</a> T &amp;data)</td></tr>
+<tr class="separator:a9346abf070e067da503c7d6a7db79182"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aafb780ec1060e230381806dc0a930fa0" id="r_aafb780ec1060e230381806dc0a930fa0"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:aafb780ec1060e230381806dc0a930fa0"><td class="memTemplItemLeft" align="right" valign="top">T&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="#aafb780ec1060e230381806dc0a930fa0">PERSISTENCE::DeserializeJson</a> (<a class="el" href="x64-windows-static_2x64-windows-static_2include_2zconf_8h.html#a2c212835823e3c54a8ab6d95c652660e">const</a> nlohmann::json &amp;data)</td></tr>
+<tr class="separator:aafb780ec1060e230381806dc0a930fa0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">Descripción detallada</h2>
+<div class="textblock"><p>Componente que permite simular las físicas de la entidad. </p>
+
+<p class="definition">Definición en la línea <a class="el" href="_physics_component_8h_source.html#l00012">12</a> del archivo <a class="el" href="_physics_component_8h_source.html">PhysicsComponent.h</a>.</p>
+</div><h2 class="groupheader">Documentación de funciones miembro</h2>
+<a id="a9ea91a98968eb5ccac348c1523a0d987" name="a9ea91a98968eb5ccac348c1523a0d987"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9ea91a98968eb5ccac348c1523a0d987">&#9670;&#160;</a></span>_ResetCurrentFrameDeltas()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="x64-windows-static_2x64-windows-static_2include_2libpng16_2png_8h.html#a05f08be336491be77cd4dfa98f747c69">void</a> PhysicsComponent::_ResetCurrentFrameDeltas </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Reestablece el cambio de velocidad en el frame. </p>
+
+<p class="definition">Definición en la línea <a class="el" href="_physics_component_8cpp_source.html#l00085">85</a> del archivo <a class="el" href="_physics_component_8cpp_source.html">PhysicsComponent.cpp</a>.</p>
+
+</div>
+</div>
+<a id="abffd20a6e941da3f80e25893c551270f" name="abffd20a6e941da3f80e25893c551270f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abffd20a6e941da3f80e25893c551270f">&#9670;&#160;</a></span>_ResetForces()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="x64-windows-static_2x64-windows-static_2include_2libpng16_2png_8h.html#a05f08be336491be77cd4dfa98f747c69">void</a> PhysicsComponent::_ResetForces </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Quita todas las fuerzas aplicadas. </p>
+
+<p class="definition">Definición en la línea <a class="el" href="_physics_component_8cpp_source.html#l00081">81</a> del archivo <a class="el" href="_physics_component_8cpp_source.html">PhysicsComponent.cpp</a>.</p>
+
+</div>
+</div>
+<a id="aa7a2de92420b516483f7d2577e7b6516" name="aa7a2de92420b516483f7d2577e7b6516"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa7a2de92420b516483f7d2577e7b6516">&#9670;&#160;</a></span>_SetAcceleration()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="x64-windows-static_2x64-windows-static_2include_2libpng16_2png_8h.html#a05f08be336491be77cd4dfa98f747c69">void</a> PhysicsComponent::_SetAcceleration </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="namespace_o_s_k.html#a72b3268907c9cd41f0daf0a42e1c9dca">Vector3f</a></td>          <td class="paramname"><span class="paramname"><em>acceleration</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Establece la acceleración del objeto. </p>
+<dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">acceleration</td><td>Nueva aceleración. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definición en la línea <a class="el" href="_physics_component_8cpp_source.html#l00114">114</a> del archivo <a class="el" href="_physics_component_8cpp_source.html">PhysicsComponent.cpp</a>.</p>
+
+</div>
+</div>
+<a id="aca5faf584b79cb71f81990be8ad62d54" name="aca5faf584b79cb71f81990be8ad62d54"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aca5faf584b79cb71f81990be8ad62d54">&#9670;&#160;</a></span>_SetAngularVelocity()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="x64-windows-static_2x64-windows-static_2include_2libpng16_2png_8h.html#a05f08be336491be77cd4dfa98f747c69">void</a> PhysicsComponent::_SetAngularVelocity </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="namespace_o_s_k.html#a72b3268907c9cd41f0daf0a42e1c9dca">Vector3f</a></td>          <td class="paramname"><span class="paramname"><em>angularVelocity</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Establece la velocidad angular del objeto. </p>
+<dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">angularVelocity</td><td>Nueva velocidad angular. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definición en la línea <a class="el" href="_physics_component_8cpp_source.html#l00110">110</a> del archivo <a class="el" href="_physics_component_8cpp_source.html">PhysicsComponent.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a31401fd6693441c222af77e6733f178c" name="a31401fd6693441c222af77e6733f178c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a31401fd6693441c222af77e6733f178c">&#9670;&#160;</a></span>_SetVelocity()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="x64-windows-static_2x64-windows-static_2include_2libpng16_2png_8h.html#a05f08be336491be77cd4dfa98f747c69">void</a> PhysicsComponent::_SetVelocity </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="namespace_o_s_k.html#a72b3268907c9cd41f0daf0a42e1c9dca">Vector3f</a></td>          <td class="paramname"><span class="paramname"><em>velocity</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Establece la velocidad del objeto. </p>
+<dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">velocity</td><td>Nueva velocidad. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definición en la línea <a class="el" href="_physics_component_8cpp_source.html#l00105">105</a> del archivo <a class="el" href="_physics_component_8cpp_source.html">PhysicsComponent.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a1cbc609910bc3743fdb9e8b454d3ef20" name="a1cbc609910bc3743fdb9e8b454d3ef20"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1cbc609910bc3743fdb9e8b454d3ef20">&#9670;&#160;</a></span>ApplyForce()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="x64-windows-static_2x64-windows-static_2include_2libpng16_2png_8h.html#a05f08be336491be77cd4dfa98f747c69">void</a> PhysicsComponent::ApplyForce </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="x64-windows-static_2x64-windows-static_2include_2zconf_8h.html#a2c212835823e3c54a8ab6d95c652660e">const</a> <a class="el" href="namespace_o_s_k.html#a72b3268907c9cd41f0daf0a42e1c9dca">Vector3f</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>force</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Ejerce una fuerza sobre el centro de masa del objeto. </p>
+<dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">force</td><td>Fuerza (en Newtons: kg*m/s2). </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definición en la línea <a class="el" href="_physics_component_8cpp_source.html#l00089">89</a> del archivo <a class="el" href="_physics_component_8cpp_source.html">PhysicsComponent.cpp</a>.</p>
+
+</div>
+</div>
+<a id="aa199f088819273869cfff21b3b99ca9a" name="aa199f088819273869cfff21b3b99ca9a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa199f088819273869cfff21b3b99ca9a">&#9670;&#160;</a></span>ApplyImpulse()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="x64-windows-static_2x64-windows-static_2include_2libpng16_2png_8h.html#a05f08be336491be77cd4dfa98f747c69">void</a> PhysicsComponent::ApplyImpulse </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="x64-windows-static_2x64-windows-static_2include_2zconf_8h.html#a2c212835823e3c54a8ab6d95c652660e">const</a> <a class="el" href="namespace_o_s_k.html#a72b3268907c9cd41f0daf0a42e1c9dca">Vector3f</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>impulse</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="x64-windows-static_2x64-windows-static_2include_2zconf_8h.html#a2c212835823e3c54a8ab6d95c652660e">const</a> <a class="el" href="namespace_o_s_k.html#a72b3268907c9cd41f0daf0a42e1c9dca">Vector3f</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>localSpacePoint</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Ejerce un impulso sobre el punto del objeto. </p>
+<dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">impulse</td><td>Impulso (en Newtons: kg*m/s). </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definición en la línea <a class="el" href="_physics_component_8cpp_source.html#l00094">94</a> del archivo <a class="el" href="_physics_component_8cpp_source.html">PhysicsComponent.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a8231e239542164328fc8fa736ea77763" name="a8231e239542164328fc8fa736ea77763"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8231e239542164328fc8fa736ea77763">&#9670;&#160;</a></span>GetAcceleration()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="namespace_o_s_k.html#a72b3268907c9cd41f0daf0a42e1c9dca">Vector3f</a> PhysicsComponent::GetAcceleration </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Devuelve</dt><dd>Aceleración (m/s). En espacio del mundo. </dd></dl>
+
+<p class="definition">Definición en la línea <a class="el" href="_physics_component_8cpp_source.html#l00073">73</a> del archivo <a class="el" href="_physics_component_8cpp_source.html">PhysicsComponent.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a06d932741447c2789d5bf9fa178e26e9" name="a06d932741447c2789d5bf9fa178e26e9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a06d932741447c2789d5bf9fa178e26e9">&#9670;&#160;</a></span>GetAngularVelocity()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="namespace_o_s_k.html#a72b3268907c9cd41f0daf0a42e1c9dca">Vector3f</a> PhysicsComponent::GetAngularVelocity </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Devuelve</dt><dd>Velocidad angular (rad/s). </dd></dl>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000017">Tareas pendientes</a></b></dt><dd>check unidades. </dd></dl>
+
+<p class="definition">Definición en la línea <a class="el" href="_physics_component_8cpp_source.html#l00077">77</a> del archivo <a class="el" href="_physics_component_8cpp_source.html">PhysicsComponent.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a472cee08498106f192b570f4999d8c99" name="a472cee08498106f192b570f4999d8c99"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a472cee08498106f192b570f4999d8c99">&#9670;&#160;</a></span>GetCurrentFrameVelocityDelta()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="namespace_o_s_k.html#a72b3268907c9cd41f0daf0a42e1c9dca">Vector3f</a> PhysicsComponent::GetCurrentFrameVelocityDelta </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Devuelve</dt><dd>Cambio de velocidad en el frame actual. </dd></dl>
+
+<p class="definition">Definición en la línea <a class="el" href="_physics_component_8cpp_source.html#l00065">65</a> del archivo <a class="el" href="_physics_component_8cpp_source.html">PhysicsComponent.cpp</a>.</p>
+
+</div>
+</div>
+<a id="ad104908de8c2c04cc6858ad9ffe1fa11" name="ad104908de8c2c04cc6858ad9ffe1fa11"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad104908de8c2c04cc6858ad9ffe1fa11">&#9670;&#160;</a></span>GetInertiaTensor()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="group__core__matrix.html#ga78640a3ce345613b53b7dce709104214">glm::mat3</a> PhysicsComponent::GetInertiaTensor </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Devuelve</dt><dd>Matriz de momento de inercia. </dd></dl>
+
+<p class="definition">Definición en la línea <a class="el" href="_physics_component_8cpp_source.html#l00043">43</a> del archivo <a class="el" href="_physics_component_8cpp_source.html">PhysicsComponent.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a1d9df009bc19fc3989621a67ea50be91" name="a1d9df009bc19fc3989621a67ea50be91"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1d9df009bc19fc3989621a67ea50be91">&#9670;&#160;</a></span>GetInverseInertiaTensor()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="group__core__matrix.html#ga78640a3ce345613b53b7dce709104214">glm::mat3</a> PhysicsComponent::GetInverseInertiaTensor </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Devuelve</dt><dd>Matriz inversa del momento de inercia. </dd></dl>
+
+<p class="definition">Definición en la línea <a class="el" href="_physics_component_8cpp_source.html#l00047">47</a> del archivo <a class="el" href="_physics_component_8cpp_source.html">PhysicsComponent.cpp</a>.</p>
+
+</div>
+</div>
+<a id="aed0d309c07fb8227f6406a298fbbdb1d" name="aed0d309c07fb8227f6406a298fbbdb1d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aed0d309c07fb8227f6406a298fbbdb1d">&#9670;&#160;</a></span>GetInverseMass()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">float PhysicsComponent::GetInverseMass </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Devuelve</dt><dd>1 / masa del objeto. Para masas infinitas, devuelve 0. </dd></dl>
+
+<p class="definition">Definición en la línea <a class="el" href="_physics_component_8cpp_source.html#l00039">39</a> del archivo <a class="el" href="_physics_component_8cpp_source.html">PhysicsComponent.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a5ec81df95c766222811cb411e50ba368" name="a5ec81df95c766222811cb411e50ba368"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5ec81df95c766222811cb411e50ba368">&#9670;&#160;</a></span>GetMass()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">float PhysicsComponent::GetMass </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Devuelve</dt><dd>Masa del objeto. </dd></dl>
+
+<p class="definition">Definición en la línea <a class="el" href="_physics_component_8cpp_source.html#l00035">35</a> del archivo <a class="el" href="_physics_component_8cpp_source.html">PhysicsComponent.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a47074a1b3ad682decf7e7e250fd8e997" name="a47074a1b3ad682decf7e7e250fd8e997"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a47074a1b3ad682decf7e7e250fd8e997">&#9670;&#160;</a></span>GetTorque()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="namespace_o_s_k.html#a72b3268907c9cd41f0daf0a42e1c9dca">Vector3f</a> PhysicsComponent::GetTorque </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="x64-windows-static_2x64-windows-static_2include_2zconf_8h.html#a2c212835823e3c54a8ab6d95c652660e">const</a> <a class="el" href="namespace_o_s_k.html#a72b3268907c9cd41f0daf0a42e1c9dca">Vector3f</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>localSpacePoint</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="x64-windows-static_2x64-windows-static_2include_2zconf_8h.html#a2c212835823e3c54a8ab6d95c652660e">const</a> <a class="el" href="namespace_o_s_k.html#a72b3268907c9cd41f0daf0a42e1c9dca">Vector3f</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>force</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definición en la línea <a class="el" href="_physics_component_8cpp_source.html#l00101">101</a> del archivo <a class="el" href="_physics_component_8cpp_source.html">PhysicsComponent.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a0a076f85be521ce66724e60170df9995" name="a0a076f85be521ce66724e60170df9995"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0a076f85be521ce66724e60170df9995">&#9670;&#160;</a></span>GetVelocity()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="namespace_o_s_k.html#a72b3268907c9cd41f0daf0a42e1c9dca">Vector3f</a> PhysicsComponent::GetVelocity </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Devuelve</dt><dd>Velocidad (en espacio del mundo). </dd></dl>
+
+<p class="definition">Definición en la línea <a class="el" href="_physics_component_8cpp_source.html#l00061">61</a> del archivo <a class="el" href="_physics_component_8cpp_source.html">PhysicsComponent.cpp</a>.</p>
+
+</div>
+</div>
+<a id="afac74572b57f9ef22e4bbdb7247e098a" name="afac74572b57f9ef22e4bbdb7247e098a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afac74572b57f9ef22e4bbdb7247e098a">&#9670;&#160;</a></span>GetVelocityOfPoint()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="namespace_o_s_k.html#a72b3268907c9cd41f0daf0a42e1c9dca">Vector3f</a> PhysicsComponent::GetVelocityOfPoint </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="x64-windows-static_2x64-windows-static_2include_2zconf_8h.html#a2c212835823e3c54a8ab6d95c652660e">const</a> <a class="el" href="namespace_o_s_k.html#a72b3268907c9cd41f0daf0a42e1c9dca">Vector3f</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>localSpacePoint</em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">localSpacePoint</td><td>Punto del objeto. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Devuelve</dt><dd>Velocidad del punto (en espacio del mundo). </dd></dl>
+
+<p class="definition">Definición en la línea <a class="el" href="_physics_component_8cpp_source.html#l00069">69</a> del archivo <a class="el" href="_physics_component_8cpp_source.html">PhysicsComponent.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a072a1454c8ff761bc89295b7b62d04d5" name="a072a1454c8ff761bc89295b7b62d04d5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a072a1454c8ff761bc89295b7b62d04d5">&#9670;&#160;</a></span>IsImmovable()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool PhysicsComponent::IsImmovable </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Devuelve</dt><dd>True si el objeto tiene masa infinita. Inverse mass = 0.0f. </dd></dl>
+
+<p class="definition">Definición en la línea <a class="el" href="_physics_component_8cpp_source.html#l00017">17</a> del archivo <a class="el" href="_physics_component_8cpp_source.html">PhysicsComponent.cpp</a>.</p>
+
+</div>
+</div>
+<a id="ac8f99a444d1502275bcc12b370eac652" name="ac8f99a444d1502275bcc12b370eac652"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac8f99a444d1502275bcc12b370eac652">&#9670;&#160;</a></span>OSK_COMPONENT()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">OSK::ECS::PhysicsComponent::OSK_COMPONENT </td>
+          <td>(</td>
+          <td class="paramtype">&quot;OSK::PhysicsComponent&quot;</td>          <td class="paramname"><span class="paramname"></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a42a2265072fdf6068fab4eb26820d8a2" name="a42a2265072fdf6068fab4eb26820d8a2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a42a2265072fdf6068fab4eb26820d8a2">&#9670;&#160;</a></span>SetImmovable()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="x64-windows-static_2x64-windows-static_2include_2libpng16_2png_8h.html#a05f08be336491be77cd4dfa98f747c69">void</a> PhysicsComponent::SetImmovable </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Establece el objeto como inmovible. </p>
+<dl class="section see"><dt>Ver también</dt><dd><a class="el" href="#ad33a6ccaf85590a4c5bcd0aa0e24b843" title="Establece la masa del objeto. También actualiza la masa inversa.">SetMass</a>(0.0f). </dd></dl>
+
+<p class="definition">Definición en la línea <a class="el" href="_physics_component_8cpp_source.html#l00013">13</a> del archivo <a class="el" href="_physics_component_8cpp_source.html">PhysicsComponent.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a0d5af64d99b45d6af7f34f07a468836a" name="a0d5af64d99b45d6af7f34f07a468836a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0d5af64d99b45d6af7f34f07a468836a">&#9670;&#160;</a></span>SetInertiaTensor()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="x64-windows-static_2x64-windows-static_2include_2libpng16_2png_8h.html#a05f08be336491be77cd4dfa98f747c69">void</a> PhysicsComponent::SetInertiaTensor </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="x64-windows-static_2x64-windows-static_2include_2zconf_8h.html#a2c212835823e3c54a8ab6d95c652660e">const</a> <a class="el" href="group__core__matrix.html#ga78640a3ce345613b53b7dce709104214">glm::mat3</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>tensor</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definición en la línea <a class="el" href="_physics_component_8cpp_source.html#l00051">51</a> del archivo <a class="el" href="_physics_component_8cpp_source.html">PhysicsComponent.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a0f7d8a1ed85b371a41e3a88d69ec85b0" name="a0f7d8a1ed85b371a41e3a88d69ec85b0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0f7d8a1ed85b371a41e3a88d69ec85b0">&#9670;&#160;</a></span>SetInverseInertiaTensor()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="x64-windows-static_2x64-windows-static_2include_2libpng16_2png_8h.html#a05f08be336491be77cd4dfa98f747c69">void</a> PhysicsComponent::SetInverseInertiaTensor </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="x64-windows-static_2x64-windows-static_2include_2zconf_8h.html#a2c212835823e3c54a8ab6d95c652660e">const</a> <a class="el" href="group__core__matrix.html#ga78640a3ce345613b53b7dce709104214">glm::mat3</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>inverseTensor</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definición en la línea <a class="el" href="_physics_component_8cpp_source.html#l00056">56</a> del archivo <a class="el" href="_physics_component_8cpp_source.html">PhysicsComponent.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a1564a658b0afe10aa7e319c3099e44df" name="a1564a658b0afe10aa7e319c3099e44df"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1564a658b0afe10aa7e319c3099e44df">&#9670;&#160;</a></span>SetInverseMass()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="x64-windows-static_2x64-windows-static_2include_2libpng16_2png_8h.html#a05f08be336491be77cd4dfa98f747c69">void</a> PhysicsComponent::SetInverseMass </td>
+          <td>(</td>
+          <td class="paramtype">float</td>          <td class="paramname"><span class="paramname"><em>newInverseMass</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Establece la inversa de la masa del objeto. También actualiza la masa. Para masas infinitas, establecer a 0. </p>
+<dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">newInverseMass</td><td>Masa inversa. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section pre"><dt>Precondición</dt><dd><code>newMass</code> &gt; 0. </dd></dl>
+
+<p class="definition">Definición en la línea <a class="el" href="_physics_component_8cpp_source.html#l00028">28</a> del archivo <a class="el" href="_physics_component_8cpp_source.html">PhysicsComponent.cpp</a>.</p>
+
+</div>
+</div>
+<a id="ad33a6ccaf85590a4c5bcd0aa0e24b843" name="ad33a6ccaf85590a4c5bcd0aa0e24b843"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad33a6ccaf85590a4c5bcd0aa0e24b843">&#9670;&#160;</a></span>SetMass()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="x64-windows-static_2x64-windows-static_2include_2libpng16_2png_8h.html#a05f08be336491be77cd4dfa98f747c69">void</a> PhysicsComponent::SetMass </td>
+          <td>(</td>
+          <td class="paramtype">float</td>          <td class="paramname"><span class="paramname"><em>newMass</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Establece la masa del objeto. También actualiza la masa inversa. </p>
+<dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">newMass</td><td>Masa del objeto. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section pre"><dt>Precondición</dt><dd><code>newMass</code> &gt; 0. </dd></dl>
+<dl class="section note"><dt>Nota</dt><dd>Para una masa infinita, usar SetInverseMass(0). </dd></dl>
+
+<p class="definition">Definición en la línea <a class="el" href="_physics_component_8cpp_source.html#l00021">21</a> del archivo <a class="el" href="_physics_component_8cpp_source.html">PhysicsComponent.cpp</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Documentación de símbolos amigos y relacionados</h2>
+<a id="aafb780ec1060e230381806dc0a930fa0" name="aafb780ec1060e230381806dc0a930fa0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aafb780ec1060e230381806dc0a930fa0">&#9670;&#160;</a></span>PERSISTENCE::DeserializeJson</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">T <a class="el" href="namespace_o_s_k_1_1_p_e_r_s_i_s_t_e_n_c_e.html#a916574565f986929dca482f19e527689">PERSISTENCE::DeserializeJson</a> </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="x64-windows-static_2x64-windows-static_2include_2zconf_8h.html#a2c212835823e3c54a8ab6d95c652660e">const</a> nlohmann::json &amp;</td>          <td class="paramname"><span class="paramname"><em>data</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">friend</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a9346abf070e067da503c7d6a7db79182" name="a9346abf070e067da503c7d6a7db79182"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9346abf070e067da503c7d6a7db79182">&#9670;&#160;</a></span>PERSISTENCE::SerializeJson</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">nlohmann::json <a class="el" href="namespace_o_s_k_1_1_p_e_r_s_i_s_t_e_n_c_e.html#a673b25e779dc249323c87c7dc3c789c2">PERSISTENCE::SerializeJson</a> </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="x64-windows-static_2x64-windows-static_2include_2zconf_8h.html#a2c212835823e3c54a8ab6d95c652660e">const</a> T &amp;</td>          <td class="paramname"><span class="paramname"><em>data</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">friend</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<h2 class="groupheader">Documentación de datos miembro</h2>
+<a id="a139ede070b866acdb153120c51b5e8b7" name="a139ede070b866acdb153120c51b5e8b7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a139ede070b866acdb153120c51b5e8b7">&#9670;&#160;</a></span>centerOfMassOffset</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="namespace_o_s_k.html#a72b3268907c9cd41f0daf0a42e1c9dca">Vector3f</a> OSK::ECS::PhysicsComponent::centerOfMassOffset = <a class="el" href="class_o_s_k_1_1_vector3__t.html#ac574fd28b9114ddf48d26573d1efd570">Vector3f::Zero</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Centro de gravedad del objeto, en espacio local. </p>
+
+<p class="definition">Definición en la línea <a class="el" href="_physics_component_8h_source.html#l00119">119</a> del archivo <a class="el" href="_physics_component_8h_source.html">PhysicsComponent.h</a>.</p>
+
+</div>
+</div>
+<a id="afbc57ad27cbbf0fdf1e8b03aabf0ba6a" name="afbc57ad27cbbf0fdf1e8b03aabf0ba6a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afbc57ad27cbbf0fdf1e8b03aabf0ba6a">&#9670;&#160;</a></span>coefficientOfRestitution</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">float OSK::ECS::PhysicsComponent::coefficientOfRestitution = 0.2f</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Coeficiente de resitución, que indica la cantidad de rebote del objeto. </p>
+<dl class="section pre"><dt>Precondición</dt><dd><code>coefficientOfRestitution</code> &gt;= 0. </dd>
+<dd>
+<code>coefficientOfRestitution</code> &lt;= 1. </dd></dl>
+
+<p class="definition">Definición en la línea <a class="el" href="_physics_component_8h_source.html#l00128">128</a> del archivo <a class="el" href="_physics_component_8h_source.html">PhysicsComponent.h</a>.</p>
+
+</div>
+</div>
+<a id="aca400926c4aac6f1f181a8675fde8e01" name="aca400926c4aac6f1f181a8675fde8e01"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aca400926c4aac6f1f181a8675fde8e01">&#9670;&#160;</a></span>frictionCoefficient</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">float OSK::ECS::PhysicsComponent::frictionCoefficient = 0.5f</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Cantidad de fricción dinámica. </p>
+
+<p class="definition">Definición en la línea <a class="el" href="_physics_component_8h_source.html#l00122">122</a> del archivo <a class="el" href="_physics_component_8h_source.html">PhysicsComponent.h</a>.</p>
+
+</div>
+</div>
+<hr/>La documentación de esta clase está generada de los siguientes archivos:<ul>
+<li>Source/<a class="el" href="_physics_component_8h_source.html">PhysicsComponent.h</a></li>
+<li>Source/<a class="el" href="_physics_component_8cpp_source.html">PhysicsComponent.cpp</a></li>
+</ul>
+</div><!-- contents -->
+</div><!-- doc-content -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="namespace_o_s_k.html">OSK</a></li><li class="navelem"><a class="el" href="namespace_o_s_k_1_1_e_c_s.html">ECS</a></li><li class="navelem"><a class="el" href="class_o_s_k_1_1_e_c_s_1_1_physics_component.html">PhysicsComponent</a></li>
+    <li class="footer">Generado el Lunes, 29 de enero de 2024 17:19:09 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.10.0 </li>
+  </ul>
+</div>
+</body>
+</html>

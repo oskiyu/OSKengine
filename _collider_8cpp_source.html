@@ -1,0 +1,273 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="es">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.10.0"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>OSKengine: Archivo de código fuente Source/Collider.cpp</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">OSKengine<span id="projectnumber">&#160;Indev</span>
+   </div>
+   <div id="projectbrief">Motor de videojuegos.</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generado por Doxygen 1.10.0 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() {
+  initMenu('',true,false,'search.php','Buscar');
+  $(function() { init_search(); });
+});
+/* @license-end */
+</script>
+<div id="main-nav"></div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() { codefold.init(0); });
+/* @license-end */
+</script>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function(){initNavTree('_collider_8cpp_source.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Cargando...</div>
+<div class="SRStatus" id="Searching">Buscando...</div>
+<div class="SRStatus" id="NoMatches">Nada coincide</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">Collider.cpp</div></div>
+</div><!--header-->
+<div class="contents">
+<a href="_collider_8cpp.html">Ir a la documentación de este archivo.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="comment">// OSKengine by oskiyu</span></div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="comment">// Copyright (c) 2019-2022 oskiyu. All rights reserved.</span></div>
+<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="preprocessor">#include &quot;<a class="code" href="_collider_8h.html">Collider.h</a>&quot;</span></div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span> </div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &quot;<a class="code" href="_transform3_d_8h.html">Transform3D.h</a>&quot;</span></div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span> </div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="preprocessor">#include &quot;<a class="code" href="_axis_aligned_bounding_box_8h.html">AxisAlignedBoundingBox.h</a>&quot;</span></div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="preprocessor">#include &quot;<a class="code" href="_sphere_collider_8h.html">SphereCollider.h</a>&quot;</span></div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="preprocessor">#include &quot;<a class="code" href="_convex_volume_8h.html">ConvexVolume.h</a>&quot;</span></div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span> </div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span> </div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="keyword">using namespace </span><a class="code hl_namespace" href="namespace_o_s_k.html">OSK</a>;</div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="keyword">using namespace </span><a class="code hl_namespace" href="namespace_o_s_k_1_1_e_c_s.html">OSK::ECS</a>;</div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span><span class="keyword">using namespace </span><a class="code hl_namespace" href="namespace_o_s_k_1_1_c_o_l_l_i_s_i_o_n.html">OSK::COLLISION</a>;</div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span> </div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span> </div>
+<div class="foldopen" id="foldopen00017" data-start="{" data-end="}">
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_collider.html#afc5934c2a5d91206509381167da7a231">   17</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_collider.html#afc5934c2a5d91206509381167da7a231">Collider::CopyFrom</a>(<span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_collider.html">Collider</a>&amp; other) {</div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>    <span class="keywordflow">if</span> (other.m_topLevelCollider.HasValue()) {</div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>        m_topLevelCollider = other.m_topLevelCollider-&gt;CreateCopy().GetPointer();</div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>    }</div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span> </div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>    m_bottomLevelColliders.Empty();</div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span> </div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>    <span class="keywordflow">for</span> (<span class="keyword">const</span> <span class="keyword">auto</span>&amp; blc : other.m_bottomLevelColliders)</div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>        m_bottomLevelColliders.Insert(blc-&gt;CreateCopy().GetPointer());</div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>}</div>
+</div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span> </div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span> </div>
+<div class="foldopen" id="foldopen00029" data-start="{" data-end="}">
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_collider.html#ac7b24a3ba100b7a59abb083483e85904">   29</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_collider.html#ac7b24a3ba100b7a59abb083483e85904">Collider::SetTopLevelCollider</a>(<a class="code hl_class" href="class_o_s_k_1_1_owned_ptr.html">OwnedPtr&lt;ITopLevelCollider&gt;</a> collider) {</div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>    m_topLevelCollider = collider.<a class="code hl_function" href="class_o_s_k_1_1_owned_ptr.html#a81dfab2299056fc9858aace55fca0042">GetPointer</a>();</div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>}</div>
+</div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span> </div>
+<div class="foldopen" id="foldopen00033" data-start="{" data-end="}">
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_collider.html#a4435bb8f299e0c3f7020242dcaaaa373">   33</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_collider.html#a4435bb8f299e0c3f7020242dcaaaa373">Collider::AddBottomLevelCollider</a>(<a class="code hl_class" href="class_o_s_k_1_1_owned_ptr.html">OwnedPtr&lt;IBottomLevelCollider&gt;</a> collider) {</div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>    m_bottomLevelColliders.Insert(collider.<a class="code hl_function" href="class_o_s_k_1_1_owned_ptr.html#a81dfab2299056fc9858aace55fca0042">GetPointer</a>());</div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>}</div>
+</div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span> </div>
+<div class="foldopen" id="foldopen00037" data-start="{" data-end="}">
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_collider.html#a4c70ae11446ae9dba266440e4b029c3c">   37</a></span><a class="code hl_class" href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_collision_info.html">CollisionInfo</a> <a class="code hl_function" href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_collider.html#a4c70ae11446ae9dba266440e4b029c3c">Collider::GetCollisionInfo</a>(<span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_collider.html">Collider</a>&amp; other, <span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_e_c_s_1_1_transform3_d.html">Transform3D</a>&amp; thisTransform, <span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_e_c_s_1_1_transform3_d.html">Transform3D</a>&amp; otherTransform)<span class="keyword"> const </span>{</div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>    <span class="keyword">const</span> <span class="keyword">auto</span> otherTopLevel = other.<a class="code hl_function" href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_collider.html#a5a1b4838806e5f6572d9e5b041d66826">GetTopLevelCollider</a>();</div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>    <span class="keywordflow">if</span> (!otherTopLevel)</div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>        <span class="keywordflow">return</span> <a class="code hl_function" href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_collision_info.html#ab94185e6a609862e1a4719be4f39a775">CollisionInfo::False</a>();</div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span> </div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>    <span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_vector3__t.html">Vector3f</a> thisPosition = thisTransform.<a class="code hl_function" href="class_o_s_k_1_1_e_c_s_1_1_transform3_d.html#a385e7addbf6a4b3f00b54019e5335550">GetPosition</a>();</div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>    <span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_vector3__t.html">Vector3f</a> otherPosition = otherTransform.<a class="code hl_function" href="class_o_s_k_1_1_e_c_s_1_1_transform3_d.html#a385e7addbf6a4b3f00b54019e5335550">GetPosition</a>();</div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span> </div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>    <span class="keywordflow">if</span> (!m_topLevelCollider-&gt;IsColliding(*otherTopLevel))</div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>        <span class="keywordflow">return</span> <a class="code hl_function" href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_collision_info.html#ab94185e6a609862e1a4719be4f39a775">CollisionInfo::False</a>();</div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span> </div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>    <a class="code hl_class" href="class_o_s_k_1_1_dynamic_array.html">DynamicArray&lt;DetailedCollisionInfo&gt;</a> bottomLevelCollisions{};</div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span> </div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>    <span class="keywordflow">for</span> (<span class="keyword">const</span> <span class="keyword">auto</span>&amp; bottomLevelA : m_bottomLevelColliders) {</div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>        <span class="keywordflow">for</span> (<span class="keyword">const</span> <span class="keyword">auto</span>&amp; bottomLevelB : other.m_bottomLevelColliders) {</div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span> </div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>            <span class="keyword">const</span> <span class="keyword">auto</span> collisionInfo = bottomLevelA-&gt;GetCollisionInfo(*bottomLevelB.GetPointer(), thisTransform, otherTransform);</div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>            </div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>            <span class="keywordflow">if</span> (collisionInfo.IsColliding()) {</div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>                bottomLevelCollisions.<a class="code hl_function" href="class_o_s_k_1_1_dynamic_array.html#a4433c76207ce2ecad5e306b12575f1b3">Insert</a>(collisionInfo);</div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>            }</div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>        }</div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>    }</div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span> </div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>    <span class="keywordflow">return</span> bottomLevelCollisions.IsEmpty()</div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>        ? <a class="code hl_function" href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_collision_info.html#a8f016453c25cfe96884fca55a111b73e">CollisionInfo::TopLevelOnly</a>()</div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>        : <a class="code hl_function" href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_collision_info.html#ae84d29425f7c71f41f226c0a5637eb5e">CollisionInfo::True</a>(bottomLevelCollisions);</div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>}</div>
+</div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span> </div>
+<div class="foldopen" id="foldopen00066" data-start="{" data-end="}">
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_collider.html#ad2a8812b48aafca6938f1f72ff29db5d">   66</a></span><a class="code hl_typedef" href="_o_s_kmacros_8h.html#a3e916ed5b32955be3417da92899fc361">USize32</a> <a class="code hl_function" href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_collider.html#ad2a8812b48aafca6938f1f72ff29db5d">Collider::GetBottomLevelCollidersCount</a>()<span class="keyword"> const </span>{</div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>    <span class="keywordflow">return</span> <span class="keyword">static_cast&lt;</span><a class="code hl_typedef" href="_o_s_kmacros_8h.html#a3e916ed5b32955be3417da92899fc361">USize32</a><span class="keyword">&gt;</span>(m_bottomLevelColliders.GetSize());</div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>}</div>
+</div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span> </div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span> </div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span><span class="keyword">template</span> &lt;&gt;</div>
+<div class="foldopen" id="foldopen00072" data-start="{" data-end="}">
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno"><a class="line" href="_collider_8cpp.html#ad9f9f485d72225c4d586d51ab70b1379">   72</a></span>nlohmann::json <a class="code hl_function" href="namespace_o_s_k_1_1_p_e_r_s_i_s_t_e_n_c_e.html#a1fbc79eba9d74e4731114e6aa07d92d1">PERSISTENCE::SerializeJson&lt;OSK::COLLISION::Collider&gt;</a>(<span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_collider.html">OSK::COLLISION::Collider</a>&amp; data) {</div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>    nlohmann::json output{};</div>
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span> </div>
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>    <span class="keywordflow">if</span> (<span class="keyword">auto</span> box = <span class="keyword">dynamic_cast&lt;</span><span class="keyword">const </span><a class="code hl_class" href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_axis_aligned_bounding_box.html">AxisAlignedBoundingBox</a>*<span class="keyword">&gt;</span>(data.<a class="code hl_function" href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_collider.html#a5a1b4838806e5f6572d9e5b041d66826">GetTopLevelCollider</a>())) {</div>
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>        output[<span class="stringliteral">&quot;top_level_type&quot;</span>] = <span class="stringliteral">&quot;AxisAlignedBoundingBox&quot;</span>;</div>
+<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span>        output[<span class="stringliteral">&quot;m_topLevelCollider&quot;</span>] = SerializeJson&lt;AxisAlignedBoundingBox&gt;(*box);</div>
+<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span>    }</div>
+<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span>    <span class="keywordflow">else</span> <span class="keywordflow">if</span> (<span class="keyword">auto</span> sphere = <span class="keyword">dynamic_cast&lt;</span><span class="keyword">const </span><a class="code hl_class" href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_sphere_collider.html">SphereCollider</a>*<span class="keyword">&gt;</span>(data.<a class="code hl_function" href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_collider.html#a5a1b4838806e5f6572d9e5b041d66826">GetTopLevelCollider</a>())) {</div>
+<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span>        output[<span class="stringliteral">&quot;top_level_type&quot;</span>] = <span class="stringliteral">&quot;SphereCollider&quot;</span>;</div>
+<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span>        output[<span class="stringliteral">&quot;m_topLevelCollider&quot;</span>] = SerializeJson&lt;SphereCollider&gt;(*sphere);</div>
+<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span>    }</div>
+<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span> </div>
+<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span>    <a class="code hl_typedef" href="_o_s_kmacros_8h.html#adef8e046c86805ca0dc2db407b01a1bb">UIndex64</a> i = 0;</div>
+<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span>    <span class="keywordflow">for</span> (<span class="keyword">const</span> <span class="keyword">auto</span>&amp; blc : data.m_bottomLevelColliders) {</div>
+<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span>        output[<span class="stringliteral">&quot;m_bottomLevelColliders&quot;</span>][std::to_string(i)] = SerializeJson&lt;ConvexVolume&gt;(*blc-&gt;As&lt;<a class="code hl_class" href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_convex_volume.html">ConvexVolume</a>&gt;());</div>
+<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span>        i++;</div>
+<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span>    }</div>
+<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span> </div>
+<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span>    <span class="keywordflow">return</span> output;</div>
+<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span>}</div>
+</div>
+<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span> </div>
+<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span><span class="keyword">template</span> &lt;&gt;</div>
+<div class="foldopen" id="foldopen00094" data-start="{" data-end="}">
+<div class="line"><a id="l00094" name="l00094"></a><span class="lineno"><a class="line" href="_collider_8cpp.html#ac973de6eab5dc679fa6d470f0040e032">   94</a></span><a class="code hl_class" href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_collider.html">OSK::COLLISION::Collider</a> <a class="code hl_function" href="namespace_o_s_k_1_1_p_e_r_s_i_s_t_e_n_c_e.html#a3d38a12a010a0506a2054643f805e1ae">PERSISTENCE::DeserializeJson&lt;OSK::COLLISION::Collider&gt;</a>(<span class="keyword">const</span> nlohmann::json&amp; json) {</div>
+<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span>    <a class="code hl_class" href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_collider.html">Collider</a> output{};</div>
+<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span> </div>
+<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span>    <a class="code hl_class" href="class_o_s_k_1_1_owned_ptr.html">OwnedPtr&lt;ITopLevelCollider&gt;</a> topLevelCollider = <span class="keyword">nullptr</span>;</div>
+<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span> </div>
+<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span>    <span class="keywordflow">if</span> (json[<span class="stringliteral">&quot;top_level_type&quot;</span>] == <span class="stringliteral">&quot;AxisAlignedBoundingBox&quot;</span>) {</div>
+<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span>        topLevelCollider = DeserializeJson&lt;AxisAlignedBoundingBox&gt;(json[<span class="stringliteral">&quot;m_topLevelCollider&quot;</span>]).CreateCopy();</div>
+<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span>    }</div>
+<div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span>    <span class="keywordflow">else</span> <span class="keywordflow">if</span> (json[<span class="stringliteral">&quot;top_level_type&quot;</span>] == <span class="stringliteral">&quot;SphereCollider&quot;</span>) {</div>
+<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span>        topLevelCollider = DeserializeJson&lt;SphereCollider&gt;(json[<span class="stringliteral">&quot;m_topLevelCollider&quot;</span>]).CreateCopy();</div>
+<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span>    }</div>
+<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span> </div>
+<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span>    <span class="keywordflow">for</span> (<span class="keyword">const</span> <span class="keyword">auto</span>&amp; [key, value] : json[<span class="stringliteral">&quot;m_bottomLevelColliders&quot;</span>].items()) {</div>
+<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span>        <span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_convex_volume.html">ConvexVolume</a>&amp; volume = DeserializeJson&lt;ConvexVolume&gt;(value);</div>
+<div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span>        output.AddBottomLevelCollider(volume.<a class="code hl_function" href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_convex_volume.html#a039b860ade9a17b78f8628435d66df4f">CreateCopy</a>());</div>
+<div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span>    }</div>
+<div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span> </div>
+<div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span>    <span class="keywordflow">return</span> output;</div>
+<div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span>}</div>
+</div>
+<div class="ttc" id="a_axis_aligned_bounding_box_8h_html"><div class="ttname"><a href="_axis_aligned_bounding_box_8h.html">AxisAlignedBoundingBox.h</a></div></div>
+<div class="ttc" id="a_collider_8h_html"><div class="ttname"><a href="_collider_8h.html">Collider.h</a></div></div>
+<div class="ttc" id="a_convex_volume_8h_html"><div class="ttname"><a href="_convex_volume_8h.html">ConvexVolume.h</a></div></div>
+<div class="ttc" id="a_o_s_kmacros_8h_html_a3e916ed5b32955be3417da92899fc361"><div class="ttname"><a href="_o_s_kmacros_8h.html#a3e916ed5b32955be3417da92899fc361">USize32</a></div><div class="ttdeci">uint32_t USize32</div><div class="ttdef"><b>Definition</b> <a href="_o_s_kmacros_8h_source.html#l00043">OSKmacros.h:43</a></div></div>
+<div class="ttc" id="a_o_s_kmacros_8h_html_adef8e046c86805ca0dc2db407b01a1bb"><div class="ttname"><a href="_o_s_kmacros_8h.html#adef8e046c86805ca0dc2db407b01a1bb">UIndex64</a></div><div class="ttdeci">uint64_t UIndex64</div><div class="ttdef"><b>Definition</b> <a href="_o_s_kmacros_8h_source.html#l00041">OSKmacros.h:41</a></div></div>
+<div class="ttc" id="a_sphere_collider_8h_html"><div class="ttname"><a href="_sphere_collider_8h.html">SphereCollider.h</a></div></div>
+<div class="ttc" id="a_transform3_d_8h_html"><div class="ttname"><a href="_transform3_d_8h.html">Transform3D.h</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_axis_aligned_bounding_box_html"><div class="ttname"><a href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_axis_aligned_bounding_box.html">OSK::COLLISION::AxisAlignedBoundingBox</a></div><div class="ttdoc">Un área de colisión de alto nivel representado por una caja tridimensional.</div><div class="ttdef"><b>Definition</b> <a href="_axis_aligned_bounding_box_8h_source.html#l00019">AxisAlignedBoundingBox.h:19</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_collider_html"><div class="ttname"><a href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_collider.html">OSK::COLLISION::Collider</a></div><div class="ttdoc">Representa un volumen que puede interseccionar con otros.</div><div class="ttdef"><b>Definition</b> <a href="_collider_8h_source.html#l00032">Collider.h:32</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_collider_html_a4435bb8f299e0c3f7020242dcaaaa373"><div class="ttname"><a href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_collider.html#a4435bb8f299e0c3f7020242dcaaaa373">OSK::COLLISION::Collider::AddBottomLevelCollider</a></div><div class="ttdeci">void AddBottomLevelCollider(OwnedPtr&lt; IBottomLevelCollider &gt; collider)</div><div class="ttdoc">Añade un volumen de nivel bajo.</div><div class="ttdef"><b>Definition</b> <a href="#l00033">Collider.cpp:33</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_collider_html_a4c70ae11446ae9dba266440e4b029c3c"><div class="ttname"><a href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_collider.html#a4c70ae11446ae9dba266440e4b029c3c">OSK::COLLISION::Collider::GetCollisionInfo</a></div><div class="ttdeci">CollisionInfo GetCollisionInfo(const Collider &amp;other, const ECS::Transform3D &amp;thisTransform, const ECS::Transform3D &amp;otherTransform) const</div><div class="ttdoc">Comprueba si hay colisión entre dos colliders.</div><div class="ttdef"><b>Definition</b> <a href="#l00037">Collider.cpp:37</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_collider_html_a5a1b4838806e5f6572d9e5b041d66826"><div class="ttname"><a href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_collider.html#a5a1b4838806e5f6572d9e5b041d66826">OSK::COLLISION::Collider::GetTopLevelCollider</a></div><div class="ttdeci">const ITopLevelCollider * GetTopLevelCollider() const</div><div class="ttdef"><b>Definition</b> <a href="_collider_8h_source.html#l00061">Collider.h:61</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_collider_html_ac7b24a3ba100b7a59abb083483e85904"><div class="ttname"><a href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_collider.html#ac7b24a3ba100b7a59abb083483e85904">OSK::COLLISION::Collider::SetTopLevelCollider</a></div><div class="ttdeci">void SetTopLevelCollider(OwnedPtr&lt; ITopLevelCollider &gt; collider)</div><div class="ttdoc">Establece el volumen de nivel alto.</div><div class="ttdef"><b>Definition</b> <a href="#l00029">Collider.cpp:29</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_collider_html_ad2a8812b48aafca6938f1f72ff29db5d"><div class="ttname"><a href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_collider.html#ad2a8812b48aafca6938f1f72ff29db5d">OSK::COLLISION::Collider::GetBottomLevelCollidersCount</a></div><div class="ttdeci">USize32 GetBottomLevelCollidersCount() const</div><div class="ttdef"><b>Definition</b> <a href="#l00066">Collider.cpp:66</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_collider_html_afc5934c2a5d91206509381167da7a231"><div class="ttname"><a href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_collider.html#afc5934c2a5d91206509381167da7a231">OSK::COLLISION::Collider::CopyFrom</a></div><div class="ttdeci">void CopyFrom(const Collider &amp;other)</div><div class="ttdoc">Operador de copia.</div><div class="ttdef"><b>Definition</b> <a href="#l00017">Collider.cpp:17</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_collision_info_html"><div class="ttname"><a href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_collision_info.html">OSK::COLLISION::CollisionInfo</a></div><div class="ttdoc">Información sobre el resultado de la detección de colisiones entre dos colliders.</div><div class="ttdef"><b>Definition</b> <a href="_collision_info_8h_source.html#l00015">CollisionInfo.h:15</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_collision_info_html_a8f016453c25cfe96884fca55a111b73e"><div class="ttname"><a href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_collision_info.html#a8f016453c25cfe96884fca55a111b73e">OSK::COLLISION::CollisionInfo::TopLevelOnly</a></div><div class="ttdeci">static CollisionInfo TopLevelOnly()</div><div class="ttdef"><b>Definition</b> <a href="_collision_info_8cpp_source.html#l00018">CollisionInfo.cpp:18</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_collision_info_html_ab94185e6a609862e1a4719be4f39a775"><div class="ttname"><a href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_collision_info.html#ab94185e6a609862e1a4719be4f39a775">OSK::COLLISION::CollisionInfo::False</a></div><div class="ttdeci">static CollisionInfo False()</div><div class="ttdef"><b>Definition</b> <a href="_collision_info_8cpp_source.html#l00014">CollisionInfo.cpp:14</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_collision_info_html_ae84d29425f7c71f41f226c0a5637eb5e"><div class="ttname"><a href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_collision_info.html#ae84d29425f7c71f41f226c0a5637eb5e">OSK::COLLISION::CollisionInfo::True</a></div><div class="ttdeci">static CollisionInfo True(const DynamicArray&lt; DetailedCollisionInfo &gt; &amp;info)</div><div class="ttdoc">Collision info para el caso en el que sí que hay colisión.</div><div class="ttdef"><b>Definition</b> <a href="_collision_info_8cpp_source.html#l00022">CollisionInfo.cpp:22</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_convex_volume_html"><div class="ttname"><a href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_convex_volume.html">OSK::COLLISION::ConvexVolume</a></div><div class="ttdoc">Clase que representa un volúmen convexo para la detección de colisiones detallada.</div><div class="ttdef"><b>Definition</b> <a href="_convex_volume_8h_source.html#l00022">ConvexVolume.h:22</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_convex_volume_html_a039b860ade9a17b78f8628435d66df4f"><div class="ttname"><a href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_convex_volume.html#a039b860ade9a17b78f8628435d66df4f">OSK::COLLISION::ConvexVolume::CreateCopy</a></div><div class="ttdeci">OwnedPtr&lt; IBottomLevelCollider &gt; CreateCopy() const override</div><div class="ttdef"><b>Definition</b> <a href="_convex_volume_8cpp_source.html#l00027">ConvexVolume.cpp:27</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_sphere_collider_html"><div class="ttname"><a href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_sphere_collider.html">OSK::COLLISION::SphereCollider</a></div><div class="ttdoc">Un área de colisión de alto nivel representado por una esfera.</div><div class="ttdef"><b>Definition</b> <a href="_sphere_collider_8h_source.html#l00016">SphereCollider.h:16</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_dynamic_array_html"><div class="ttname"><a href="class_o_s_k_1_1_dynamic_array.html">OSK::DynamicArray</a></div><div class="ttdoc">Dynamic array: array que puede cambiar de tamaño.</div><div class="ttdef"><b>Definition</b> <a href="_dynamic_array_8hpp_source.html#l00066">DynamicArray.hpp:66</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_dynamic_array_html_a4433c76207ce2ecad5e306b12575f1b3"><div class="ttname"><a href="class_o_s_k_1_1_dynamic_array.html#a4433c76207ce2ecad5e306b12575f1b3">OSK::DynamicArray::Insert</a></div><div class="ttdeci">void Insert(const T &amp;element)</div><div class="ttdoc">Inserta un elemento al final del array.</div><div class="ttdef"><b>Definition</b> <a href="_dynamic_array_8hpp_source.html#l00350">DynamicArray.hpp:350</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_e_c_s_1_1_transform3_d_html"><div class="ttname"><a href="class_o_s_k_1_1_e_c_s_1_1_transform3_d.html">OSK::ECS::Transform3D</a></div><div class="ttdef"><b>Definition</b> <a href="_transform3_d_8h_source.html#l00013">Transform3D.h:13</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_e_c_s_1_1_transform3_d_html_a385e7addbf6a4b3f00b54019e5335550"><div class="ttname"><a href="class_o_s_k_1_1_e_c_s_1_1_transform3_d.html#a385e7addbf6a4b3f00b54019e5335550">OSK::ECS::Transform3D::GetPosition</a></div><div class="ttdeci">Vector3f GetPosition() const</div><div class="ttdef"><b>Definition</b> <a href="_transform3_d_8cpp_source.html#l00146">Transform3D.cpp:146</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_owned_ptr_html"><div class="ttname"><a href="class_o_s_k_1_1_owned_ptr.html">OSK::OwnedPtr</a></div><div class="ttdoc">Es dueño de un puntero.</div><div class="ttdef"><b>Definition</b> <a href="_owned_ptr_8h_source.html#l00016">OwnedPtr.h:16</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_owned_ptr_html_a81dfab2299056fc9858aace55fca0042"><div class="ttname"><a href="class_o_s_k_1_1_owned_ptr.html#a81dfab2299056fc9858aace55fca0042">OSK::OwnedPtr::GetPointer</a></div><div class="ttdeci">T * GetPointer() const</div><div class="ttdoc">Devuelve el puntero nativo.</div><div class="ttdef"><b>Definition</b> <a href="_owned_ptr_8h_source.html#l00079">OwnedPtr.h:79</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_vector3__t_html"><div class="ttname"><a href="class_o_s_k_1_1_vector3__t.html">OSK::Vector3_t&lt; float_t &gt;</a></div></div>
+<div class="ttc" id="anamespace_o_s_k_1_1_c_o_l_l_i_s_i_o_n_html"><div class="ttname"><a href="namespace_o_s_k_1_1_c_o_l_l_i_s_i_o_n.html">OSK::COLLISION</a></div><div class="ttdef"><b>Definition</b> <a href="_axis_aligned_bounding_box_8h_source.html#l00010">AxisAlignedBoundingBox.h:10</a></div></div>
+<div class="ttc" id="anamespace_o_s_k_1_1_e_c_s_html"><div class="ttname"><a href="namespace_o_s_k_1_1_e_c_s.html">OSK::ECS</a></div><div class="ttdef"><b>Definition</b> <a href="_camera_component2_d_8h_source.html#l00017">CameraComponent2D.h:17</a></div></div>
+<div class="ttc" id="anamespace_o_s_k_1_1_p_e_r_s_i_s_t_e_n_c_e_html_a1fbc79eba9d74e4731114e6aa07d92d1"><div class="ttname"><a href="namespace_o_s_k_1_1_p_e_r_s_i_s_t_e_n_c_e.html#a1fbc79eba9d74e4731114e6aa07d92d1">OSK::PERSISTENCE::SerializeJson&lt; OSK::COLLISION::Collider &gt;</a></div><div class="ttdeci">nlohmann::json SerializeJson&lt; OSK::COLLISION::Collider &gt;(const OSK::COLLISION::Collider &amp;data)</div></div>
+<div class="ttc" id="anamespace_o_s_k_1_1_p_e_r_s_i_s_t_e_n_c_e_html_a3d38a12a010a0506a2054643f805e1ae"><div class="ttname"><a href="namespace_o_s_k_1_1_p_e_r_s_i_s_t_e_n_c_e.html#a3d38a12a010a0506a2054643f805e1ae">OSK::PERSISTENCE::DeserializeJson&lt; OSK::COLLISION::Collider &gt;</a></div><div class="ttdeci">OSK::COLLISION::Collider DeserializeJson&lt; OSK::COLLISION::Collider &gt;(const nlohmann::json &amp;json)</div></div>
+<div class="ttc" id="anamespace_o_s_k_html"><div class="ttname"><a href="namespace_o_s_k.html">OSK</a></div><div class="ttdef"><b>Definition</b> <a href="_acceleration_structures_exceptions_8h_source.html#l00005">AccelerationStructuresExceptions.h:5</a></div></div>
+</div><!-- fragment --></div><!-- contents -->
+</div><!-- doc-content -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="dir_74389ed8173ad57b461b9d623a1f3867.html">Source</a></li><li class="navelem"><a class="el" href="_collider_8cpp.html">Collider.cpp</a></li>
+    <li class="footer">Generado el Lunes, 29 de enero de 2024 17:18:30 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.10.0 </li>
+  </ul>
+</div>
+</body>
+</html>

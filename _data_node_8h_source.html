@@ -1,0 +1,191 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="es">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.10.0"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>OSKengine: Archivo de código fuente Source/DataNode.h</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">OSKengine<span id="projectnumber">&#160;Indev</span>
+   </div>
+   <div id="projectbrief">Motor de videojuegos.</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generado por Doxygen 1.10.0 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() {
+  initMenu('',true,false,'search.php','Buscar');
+  $(function() { init_search(); });
+});
+/* @license-end */
+</script>
+<div id="main-nav"></div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() { codefold.init(0); });
+/* @license-end */
+</script>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function(){initNavTree('_data_node_8h_source.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Cargando...</div>
+<div class="SRStatus" id="Searching">Buscando...</div>
+<div class="SRStatus" id="NoMatches">Nada coincide</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">DataNode.h</div></div>
+</div><!--header-->
+<div class="contents">
+<a href="_data_node_8h.html">Ir a la documentación de este archivo.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="comment">// OSKengine by oskiyu</span></div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="comment">// Copyright (c) 2019-2023 oskiyu. All rights reserved.</span></div>
+<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="preprocessor">#pragma once</span></div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span> </div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &quot;<a class="code" href="_hash_map_8hpp.html">HashMap.hpp</a>&quot;</span></div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &quot;<a class="code" href="_dynamic_array_8hpp.html">DynamicArray.hpp</a>&quot;</span></div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="preprocessor">#include &quot;<a class="code" href="_buffer_8h.html">Buffer.h</a>&quot;</span></div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="preprocessor">#include &quot;<a class="code" href="_schema_id_8h.html">SchemaId.h</a>&quot;</span></div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="preprocessor">#include &quot;<a class="code" href="_data_type_8h.html">DataType.h</a>&quot;</span></div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="preprocessor">#include &quot;<a class="code" href="_unique_ptr_8hpp.html">UniquePtr.hpp</a>&quot;</span></div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span> </div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="preprocessor">#include &lt;string&gt;</span></div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span> </div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span><span class="keyword">namespace </span><a class="code hl_namespace" href="namespace_o_s_k_1_1_p_e_r_s_i_s_t_e_n_c_e.html">OSK::PERSISTENCE</a> {</div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span> </div>
+<div class="foldopen" id="foldopen00020" data-start="{" data-end="};">
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_p_e_r_s_i_s_t_e_n_c_e_1_1_data_node.html">   20</a></span>    <span class="keyword">class </span><a class="code hl_define" href="_o_s_kmacros_8h.html#a09ec5b46ece998ad096bceff312bb36c">OSKAPI_CALL</a> <a class="code hl_class" href="class_o_s_k_1_1_p_e_r_s_i_s_t_e_n_c_e_1_1_data_node.html">DataNode</a> {</div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span> </div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>    <span class="keyword">public</span>:</div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span> </div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>        <span class="keyword">explicit</span> <a class="code hl_class" href="class_o_s_k_1_1_p_e_r_s_i_s_t_e_n_c_e_1_1_data_node.html">DataNode</a>(<span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_schema_id.html">SchemaId</a>&amp; schemaId);</div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span> </div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>        <span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_schema_id.html">SchemaId</a>&amp; GetSchemaId() <span class="keyword">const</span>;</div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span> </div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span> </div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>        <span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="foldopen" id="foldopen00041" data-start="{" data-end="}">
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_p_e_r_s_i_s_t_e_n_c_e_1_1_data_node.html#ac6aa5cdea65ebe253aa8b7586379350d">   41</a></span>        <span class="keywordtype">void</span> <a class="code hl_function" href="class_o_s_k_1_1_p_e_r_s_i_s_t_e_n_c_e_1_1_data_node.html#ac6aa5cdea65ebe253aa8b7586379350d">SetValue</a>(std::string_view <a class="code hl_variable" href="x64-windows-static_2x64-windows-static_2include_2spirv_2unified1_2spv_8d.html#a41f818ddb5dc4447d88e7b94d4f72d72">name</a>, <a class="code hl_typedef" href="namespace_o_s_k_1_1_p_e_r_s_i_s_t_e_n_c_e.html#a8dc0d4003e67334dbd602eb196e1ced6">TDataType</a> dataType, <span class="keyword">const</span> T&amp; value) {</div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>            <span class="keyword">const</span> TFieldOffset offset = m_buffer.GetSize();</div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>            m_buffer.AddData(value);</div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>            m_offsetsMap[<span class="keyword">static_cast&lt;</span>std::string<span class="keyword">&gt;</span>(<a class="code hl_variable" href="x64-windows-static_2x64-windows-static_2include_2spirv_2unified1_2spv_8d.html#a41f818ddb5dc4447d88e7b94d4f72d72">name</a>)] = offset;</div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>            m_dataTypesMap[<span class="keyword">static_cast&lt;</span>std::string<span class="keyword">&gt;</span>(<a class="code hl_variable" href="x64-windows-static_2x64-windows-static_2include_2spirv_2unified1_2spv_8d.html#a41f818ddb5dc4447d88e7b94d4f72d72">name</a>)] = dataType;</div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>        }</div>
+</div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span> </div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>        <span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="foldopen" id="foldopen00055" data-start="{" data-end="}">
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_p_e_r_s_i_s_t_e_n_c_e_1_1_data_node.html#a9e458f0aa4d8fa1f677d7efe900c55c4">   55</a></span>        <span class="keyword">const</span> T&amp; <a class="code hl_function" href="class_o_s_k_1_1_p_e_r_s_i_s_t_e_n_c_e_1_1_data_node.html#a9e458f0aa4d8fa1f677d7efe900c55c4">GetField</a>(std::string_view <a class="code hl_variable" href="x64-windows-static_2x64-windows-static_2include_2spirv_2unified1_2spv_8d.html#a41f818ddb5dc4447d88e7b94d4f72d72">name</a>)<span class="keyword"> const </span>{</div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>            <span class="keywordflow">return</span> m_buffer.GetData&lt;T&gt;(m_offsetsMap.at(<span class="keyword">static_cast&lt;</span>std::string<span class="keyword">&gt;</span>(<a class="code hl_variable" href="x64-windows-static_2x64-windows-static_2include_2spirv_2unified1_2spv_8d.html#a41f818ddb5dc4447d88e7b94d4f72d72">name</a>)));</div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>        }</div>
+</div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span> </div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span> </div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>        <a class="code hl_typedef" href="namespace_o_s_k_1_1_p_e_r_s_i_s_t_e_n_c_e.html#a8dc0d4003e67334dbd602eb196e1ced6">TDataType</a> GetDataType(std::string_view <a class="code hl_variable" href="x64-windows-static_2x64-windows-static_2include_2spirv_2unified1_2spv_8d.html#a41f818ddb5dc4447d88e7b94d4f72d72">name</a>) <span class="keyword">const</span>;</div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span> </div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>        <span class="keywordtype">bool</span> HasElement(std::string_view <a class="code hl_variable" href="x64-windows-static_2x64-windows-static_2include_2spirv_2unified1_2spv_8d.html#a41f818ddb5dc4447d88e7b94d4f72d72">name</a>) <span class="keyword">const</span>;</div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span> </div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>        <span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_m_e_m_o_r_y_1_1_buffer.html">MEMORY::Buffer</a>&amp; GetBuffer() <span class="keyword">const</span>;</div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span> </div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>    <span class="keyword">private</span>:</div>
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span> </div>
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>        <span class="keyword">using </span>TFieldOffset = <a class="code hl_typedef" href="_o_s_kmacros_8h.html#adef8e046c86805ca0dc2db407b01a1bb">UIndex64</a>;</div>
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span> </div>
+<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span>        <a class="code hl_class" href="class_o_s_k_1_1_schema_id.html">SchemaId</a> m_schemaId;</div>
+<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span>        <a class="code hl_class" href="class_o_s_k_1_1_m_e_m_o_r_y_1_1_buffer.html">MEMORY::Buffer</a> m_buffer;</div>
+<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span>        std::unordered_map&lt;std::string, TFieldOffset&gt; m_offsetsMap;</div>
+<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span>        std::unordered_map&lt;std::string, TDataType&gt; m_dataTypesMap;</div>
+<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span> </div>
+<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span>    };</div>
+</div>
+<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span> </div>
+<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span>}</div>
+<div class="ttc" id="a_buffer_8h_html"><div class="ttname"><a href="_buffer_8h.html">Buffer.h</a></div></div>
+<div class="ttc" id="a_data_type_8h_html"><div class="ttname"><a href="_data_type_8h.html">DataType.h</a></div></div>
+<div class="ttc" id="a_dynamic_array_8hpp_html"><div class="ttname"><a href="_dynamic_array_8hpp.html">DynamicArray.hpp</a></div></div>
+<div class="ttc" id="a_hash_map_8hpp_html"><div class="ttname"><a href="_hash_map_8hpp.html">HashMap.hpp</a></div></div>
+<div class="ttc" id="a_o_s_kmacros_8h_html_a09ec5b46ece998ad096bceff312bb36c"><div class="ttname"><a href="_o_s_kmacros_8h.html#a09ec5b46ece998ad096bceff312bb36c">OSKAPI_CALL</a></div><div class="ttdeci">#define OSKAPI_CALL</div><div class="ttdef"><b>Definition</b> <a href="_o_s_kmacros_8h_source.html#l00007">OSKmacros.h:7</a></div></div>
+<div class="ttc" id="a_o_s_kmacros_8h_html_adef8e046c86805ca0dc2db407b01a1bb"><div class="ttname"><a href="_o_s_kmacros_8h.html#adef8e046c86805ca0dc2db407b01a1bb">UIndex64</a></div><div class="ttdeci">uint64_t UIndex64</div><div class="ttdef"><b>Definition</b> <a href="_o_s_kmacros_8h_source.html#l00041">OSKmacros.h:41</a></div></div>
+<div class="ttc" id="a_schema_id_8h_html"><div class="ttname"><a href="_schema_id_8h.html">SchemaId.h</a></div></div>
+<div class="ttc" id="a_unique_ptr_8hpp_html"><div class="ttname"><a href="_unique_ptr_8hpp.html">UniquePtr.hpp</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_m_e_m_o_r_y_1_1_buffer_html"><div class="ttname"><a href="class_o_s_k_1_1_m_e_m_o_r_y_1_1_buffer.html">OSK::MEMORY::Buffer</a></div><div class="ttdoc">Representa una región de memoria RAM que puede usarse para almacenar información arbitraria.</div><div class="ttdef"><b>Definition</b> <a href="_buffer_8h_source.html#l00012">Buffer.h:12</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_p_e_r_s_i_s_t_e_n_c_e_1_1_data_node_html"><div class="ttname"><a href="class_o_s_k_1_1_p_e_r_s_i_s_t_e_n_c_e_1_1_data_node.html">OSK::PERSISTENCE::DataNode</a></div><div class="ttdoc">Nodo del árbol de persistencia. Puede contener datos en forma de FieldWrappers y otros nodos ahijados...</div><div class="ttdef"><b>Definition</b> <a href="#l00020">DataNode.h:20</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_p_e_r_s_i_s_t_e_n_c_e_1_1_data_node_html_a9e458f0aa4d8fa1f677d7efe900c55c4"><div class="ttname"><a href="class_o_s_k_1_1_p_e_r_s_i_s_t_e_n_c_e_1_1_data_node.html#a9e458f0aa4d8fa1f677d7efe900c55c4">OSK::PERSISTENCE::DataNode::GetField</a></div><div class="ttdeci">const T &amp; GetField(std::string_view name) const</div><div class="ttdoc">Obtiene el valor de una variable del nodo.</div><div class="ttdef"><b>Definition</b> <a href="#l00055">DataNode.h:55</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_p_e_r_s_i_s_t_e_n_c_e_1_1_data_node_html_ac6aa5cdea65ebe253aa8b7586379350d"><div class="ttname"><a href="class_o_s_k_1_1_p_e_r_s_i_s_t_e_n_c_e_1_1_data_node.html#ac6aa5cdea65ebe253aa8b7586379350d">OSK::PERSISTENCE::DataNode::SetValue</a></div><div class="ttdeci">void SetValue(std::string_view name, TDataType dataType, const T &amp;value)</div><div class="ttdoc">Establece el valor de una variable del nodo. La variable se colocará al final del nodo.</div><div class="ttdef"><b>Definition</b> <a href="#l00041">DataNode.h:41</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_schema_id_html"><div class="ttname"><a href="class_o_s_k_1_1_schema_id.html">OSK::SchemaId</a></div><div class="ttdoc">Identifica un schema en concreto. No contiene información sobre el schema.</div><div class="ttdef"><b>Definition</b> <a href="_schema_id_8h_source.html#l00012">SchemaId.h:12</a></div></div>
+<div class="ttc" id="anamespace_o_s_k_1_1_p_e_r_s_i_s_t_e_n_c_e_html"><div class="ttname"><a href="namespace_o_s_k_1_1_p_e_r_s_i_s_t_e_n_c_e.html">OSK::PERSISTENCE</a></div><div class="ttdef"><b>Definition</b> <a href="_axis_aligned_bounding_box_8h_source.html#l00071">AxisAlignedBoundingBox.h:71</a></div></div>
+<div class="ttc" id="anamespace_o_s_k_1_1_p_e_r_s_i_s_t_e_n_c_e_html_a8dc0d4003e67334dbd602eb196e1ced6"><div class="ttname"><a href="namespace_o_s_k_1_1_p_e_r_s_i_s_t_e_n_c_e.html#a8dc0d4003e67334dbd602eb196e1ced6">OSK::PERSISTENCE::TDataType</a></div><div class="ttdeci">UIndex64 TDataType</div><div class="ttdoc">Índice que indica un tipo de dato.</div><div class="ttdef"><b>Definition</b> <a href="_data_type_8h_source.html#l00008">DataType.h:8</a></div></div>
+<div class="ttc" id="ax64-windows-static_2x64-windows-static_2include_2spirv_2unified1_2spv_8d_html_a41f818ddb5dc4447d88e7b94d4f72d72"><div class="ttname"><a href="x64-windows-static_2x64-windows-static_2include_2spirv_2unified1_2spv_8d.html#a41f818ddb5dc4447d88e7b94d4f72d72">name</a></div><div class="ttdeci">free of to any person obtaining a copy of this software and or associated documentation to deal in the Materials without including without limitation the rights to and or sell copies of the and to permit persons to whom the Materials are furnished to do subject to the following NORMATIVE VERSIONS OF KHRONOS SPECIFICATIONS AND HEADER INFORMATION ARE LOCATED AT WITHOUT WARRANTY OF ANY EXPRESS OR INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY DAMAGES OR OTHER WHETHER IN AN ACTION OF TORT OR ARISING OUT OF OR IN CONNECTION WITH THE MATERIALS OR THE USE OR OTHER DEALINGS IN THE MATERIALS.This header is automatically generated by the same tool that creates the Binary Section of the SPIR V specification.Enumeration tokens for SPIR in various C C will have tokens with a Spv e.e.e.e.e.e.e.e.which can be OR d while others are mutually exclusive.The mask like ones have Mask in their name</div><div class="ttdef"><b>Definition</b> <a href="x64-windows-static_2x64-windows-static_2include_2spirv_2unified1_2spv_8d_source.html#l00049">spv.d:49</a></div></div>
+</div><!-- fragment --></div><!-- contents -->
+</div><!-- doc-content -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="dir_74389ed8173ad57b461b9d623a1f3867.html">Source</a></li><li class="navelem"><a class="el" href="_data_node_8h.html">DataNode.h</a></li>
+    <li class="footer">Generado el Lunes, 29 de enero de 2024 17:18:31 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.10.0 </li>
+  </ul>
+</div>
+</body>
+</html>

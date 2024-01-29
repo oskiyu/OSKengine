@@ -1,0 +1,250 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="es">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.10.0"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>OSKengine: Archivo de código fuente Source/TextureLoader.cpp</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">OSKengine<span id="projectnumber">&#160;Indev</span>
+   </div>
+   <div id="projectbrief">Motor de videojuegos.</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generado por Doxygen 1.10.0 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() {
+  initMenu('',true,false,'search.php','Buscar');
+  $(function() { init_search(); });
+});
+/* @license-end */
+</script>
+<div id="main-nav"></div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() { codefold.init(0); });
+/* @license-end */
+</script>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function(){initNavTree('_texture_loader_8cpp_source.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Cargando...</div>
+<div class="SRStatus" id="Searching">Buscando...</div>
+<div class="SRStatus" id="NoMatches">Nada coincide</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">TextureLoader.cpp</div></div>
+</div><!--header-->
+<div class="contents">
+<a href="_texture_loader_8cpp.html">Ir a la documentación de este archivo.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#include &quot;<a class="code" href="_texture_loader_8h.html">TextureLoader.h</a>&quot;</span></div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span> </div>
+<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="preprocessor">#include &quot;<a class="code" href="_texture_8h.html">Texture.h</a>&quot;</span></div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &quot;<a class="code" href="_o_s_kengine_8h.html">OSKengine.h</a>&quot;</span></div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &quot;<a class="code" href="_i_renderer_8h.html">IRenderer.h</a>&quot;</span></div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &quot;<a class="code" href="_i_gpu_memory_allocator_8h.html">IGpuMemoryAllocator.h</a>&quot;</span></div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="preprocessor">#include &quot;<a class="code" href="_format_8h.html">Format.h</a>&quot;</span></div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="preprocessor">#include &quot;<a class="code" href="_gpu_memory_types_8h.html">GpuMemoryTypes.h</a>&quot;</span></div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="preprocessor">#include &quot;<a class="code" href="_gpu_buffer_8h.html">GpuBuffer.h</a>&quot;</span></div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="preprocessor">#include &quot;<a class="code" href="_i_command_list_8h.html">ICommandList.h</a>&quot;</span></div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="preprocessor">#include &quot;<a class="code" href="_file_i_o_8h.html">FileIO.h</a>&quot;</span></div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="preprocessor">#include &quot;<a class="code" href="_gpu_image_layout_8h.html">GpuImageLayout.h</a>&quot;</span></div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="preprocessor">#include &quot;<a class="code" href="_render_api_type_8h.html">RenderApiType.h</a>&quot;</span></div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span><span class="preprocessor">#include &quot;<a class="code" href="_gpu_image_usage_8h.html">GpuImageUsage.h</a>&quot;</span></div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span><span class="preprocessor">#include &quot;<a class="code" href="_gpu_image_dimensions_8h.html">GpuImageDimensions.h</a>&quot;</span></div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span> </div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span><span class="comment">// #define STB_IMAGE_IMPLEMENTATION &lt;- está en tiny_glft.h</span></div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span><span class="preprocessor">#include &lt;stbi_image.h&gt;</span></div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span><span class="preprocessor">#include &lt;json.hpp&gt;</span></div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span> </div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span><span class="preprocessor">#include &quot;<a class="code" href="_invalid_description_file_exception_8h.html">InvalidDescriptionFileException.h</a>&quot;</span></div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span> </div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span><span class="keyword">using namespace </span><a class="code hl_namespace" href="namespace_o_s_k_1_1_a_s_s_e_t_s.html">OSK::ASSETS</a>;</div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span><span class="keyword">using namespace </span><a class="code hl_namespace" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html">OSK::GRAPHICS</a>;</div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span> </div>
+<div class="foldopen" id="foldopen00026" data-start="{" data-end="}">
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno"><a class="line" href="_texture_loader_8cpp.html#a61839499f35e15ae79d71c542eacc56a">   26</a></span><span class="keywordtype">bool</span> <a class="code hl_function" href="_texture_loader_8cpp.html#a61839499f35e15ae79d71c542eacc56a">HasRgbFormat</a>(<a class="code hl_enumeration" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a3057691f190dabf7642cfde72cf2430f">OSK::GRAPHICS::RenderApiType</a> api) {</div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>    <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>}</div>
+</div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span> </div>
+<div class="foldopen" id="foldopen00030" data-start="{" data-end="}">
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_texture_loader.html#ad74763b9b21cbbfb025ef8d0336c0dda">   30</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_texture_loader.html#ad74763b9b21cbbfb025ef8d0336c0dda">TextureLoader::Load</a>(<span class="keyword">const</span> std::string&amp; assetFilePath, <a class="code hl_class" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_texture.html">Texture</a>* asset) {</div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>    <span class="comment">// Asset file.</span></div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>    <span class="keyword">const</span> nlohmann::json assetInfo = <a class="code hl_function" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_i_asset_loader.html#a502866f35d2aaa0f412021ab855b8cbe">ValidateDescriptionFile</a>(assetFilePath);</div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span> </div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>    std::string texturePath = assetInfo[<span class="stringliteral">&quot;raw_asset_path&quot;</span>];</div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>    asset-&gt;<a class="code hl_function" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_i_asset.html#af0bbd1c59b2cd81667b63cb6d015c11c">SetName</a>(assetInfo[<span class="stringliteral">&quot;name&quot;</span>]);</div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span> </div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>    <span class="comment">// Texture.</span></div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span> </div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>    <span class="keywordtype">int</span> <a class="code hl_variable" href="x64-windows-static_2x64-windows-static_2include_2libpng16_2png_8h.html#ad46179dbe9c68fdcea52b34c3480ec0f">width</a> = 0;</div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>    <span class="keywordtype">int</span> height = 0;</div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>    <span class="keywordtype">int</span> numChannels = 0;</div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>    stbi_info(texturePath.c_str(), &amp;<a class="code hl_variable" href="x64-windows-static_2x64-windows-static_2include_2libpng16_2png_8h.html#ad46179dbe9c68fdcea52b34c3480ec0f">width</a>, &amp;height, &amp;numChannels);</div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span> </div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>    <span class="comment">// Las gráficas no soportan imágenes de 24 bits de manera nativa.</span></div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>    <span class="keywordflow">if</span> (numChannels != 4 &amp;&amp; !<a class="code hl_function" href="_texture_loader_8cpp.html#a61839499f35e15ae79d71c542eacc56a">HasRgbFormat</a>(<a class="code hl_function" href="class_o_s_k_1_1_engine.html#a019c5397d042224c134b7fd22c739d00">Engine::GetRenderer</a>()-&gt;GetRenderApi()))</div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>        numChannels = 4;</div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span> </div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>    stbi_uc* pixels = stbi_load(texturePath.c_str(), &amp;<a class="code hl_variable" href="x64-windows-static_2x64-windows-static_2include_2libpng16_2png_8h.html#ad46179dbe9c68fdcea52b34c3480ec0f">width</a>, &amp;height, <span class="keyword">nullptr</span>, numChannels);</div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span> </div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>    asset-&gt;<a class="code hl_function" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_texture.html#a5b8b6744153b2fb25dfef0b8e20ba970">_SetSize</a>(<a class="code hl_typedef" href="namespace_o_s_k.html#a6f5b4753cd85b4773d2880148fd031cf">Vector2ui</a>(<a class="code hl_variable" href="x64-windows-static_2x64-windows-static_2include_2libpng16_2png_8h.html#ad46179dbe9c68fdcea52b34c3480ec0f">width</a>, height));</div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>    asset-&gt;<a class="code hl_function" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_texture.html#a148f1b65ca3432e57129a09e2ac063d8">_SetNumberOfChannels</a>(numChannels);</div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span> </div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>    <span class="keyword">const</span> <a class="code hl_enumeration" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#aac59f9d056e083c0b49ea768f974e3e8">GRAPHICS::Format</a> imageFormat = assetInfo.contains(<span class="stringliteral">&quot;is_hdr&quot;</span>) &amp;&amp; assetInfo[<span class="stringliteral">&quot;is_hdr&quot;</span>] == <span class="stringliteral">&quot;true&quot;</span></div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>        ? <a class="code hl_enumvalue" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#aac59f9d056e083c0b49ea768f974e3e8ab90166b94483824b0f67dbb9ae2feef3">GRAPHICS::Format::RGBA32_SFLOAT</a></div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>        : <a class="code hl_enumvalue" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#aac59f9d056e083c0b49ea768f974e3e8a909cc8c5cc8fe4f16bec84a291aadbdb">GRAPHICS::Format::RGBA8_UNORM</a>;</div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span> </div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>    <span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_vector2__t.html">Vector2ui</a> size(<a class="code hl_variable" href="x64-windows-static_2x64-windows-static_2include_2libpng16_2png_8h.html#ad46179dbe9c68fdcea52b34c3480ec0f">width</a>, height);</div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>    <span class="keyword">const</span> <span class="keyword">auto</span> imageInfo = <a class="code hl_function" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_create_info.html#a1f22c94fd0d7a99bf068b030816376b8">GpuImageCreateInfo::CreateDefault2D</a>(size, imageFormat, <a class="code hl_enumvalue" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a19a2f70fc994c00eb022e520608c5ffaa5d0791856a3081df75c6093017a61a36">GRAPHICS::GpuImageUsage::SAMPLED</a> | <a class="code hl_enumvalue" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a19a2f70fc994c00eb022e520608c5ffaafb3bb8503e5cd907a3a7b02a495c229e">GRAPHICS::GpuImageUsage::TRANSFER_SOURCE</a> | <a class="code hl_enumvalue" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a19a2f70fc994c00eb022e520608c5ffaac61dfc60317a58b2843ec29f8e3c2359">GRAPHICS::GpuImageUsage::TRANSFER_DESTINATION</a>);</div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>    <span class="keyword">auto</span> image = <a class="code hl_function" href="class_o_s_k_1_1_engine.html#a019c5397d042224c134b7fd22c739d00">Engine::GetRenderer</a>()-&gt;<a class="code hl_function" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer.html#a100a7c8d1a62814d11637de0534003b9">GetAllocator</a>()-&gt;<a class="code hl_function" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_allocator.html#a052c4d2f448e4be42623f252f251f9ab">CreateImage</a>(imageInfo);</div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>    image-&gt;SetDebugName(assetInfo[<span class="stringliteral">&quot;name&quot;</span>]);</div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span> </div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>    <a class="code hl_class" href="class_o_s_k_1_1_owned_ptr.html">OwnedPtr&lt;ICommandList&gt;</a> uploadCmdList = <a class="code hl_function" href="class_o_s_k_1_1_engine.html#a019c5397d042224c134b7fd22c739d00">Engine::GetRenderer</a>()-&gt;<a class="code hl_function" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer.html#a0fa1cd26067c520e90cfa647f66e8366">CreateSingleUseCommandList</a>();</div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>    uploadCmdList-&gt;Reset();</div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>    uploadCmdList-&gt;Start();</div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span> </div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>    uploadCmdList-&gt;SetGpuImageBarrier(</div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>        image.GetPointer(), </div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>        GpuImageLayout::TRANSFER_DESTINATION,</div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>        <a class="code hl_struct" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_barrier_info.html">GpuBarrierInfo</a>(GpuCommandStage::TRANSFER, GpuAccessStage::TRANSFER_WRITE));</div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span> </div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>    <a class="code hl_function" href="class_o_s_k_1_1_engine.html#a019c5397d042224c134b7fd22c739d00">Engine::GetRenderer</a>()-&gt;<a class="code hl_function" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer.html#acea0c9d8a19cb8e54f2ff32b8a7ea005">UploadImageToGpu</a>(</div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>        image.GetPointer(), </div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>        pixels, </div>
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>        image-&gt;GetNumberOfBytes(), </div>
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>        uploadCmdList.<a class="code hl_function" href="class_o_s_k_1_1_owned_ptr.html#a81dfab2299056fc9858aace55fca0042">GetPointer</a>());</div>
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span> </div>
+<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span>    uploadCmdList-&gt;SetGpuImageBarrier(</div>
+<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span>        image.GetPointer(), </div>
+<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span>        GpuImageLayout::SAMPLED,</div>
+<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span>        <a class="code hl_struct" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_barrier_info.html">GpuBarrierInfo</a>(GpuCommandStage::FRAGMENT_SHADER, GpuAccessStage::SHADER_READ));</div>
+<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span> </div>
+<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span>    uploadCmdList-&gt;Close();</div>
+<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span>    <a class="code hl_function" href="class_o_s_k_1_1_engine.html#a019c5397d042224c134b7fd22c739d00">Engine::GetRenderer</a>()-&gt;<a class="code hl_function" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer.html#a6123ce5c1df39bed80e1949332bce18a">SubmitSingleUseCommandList</a>(uploadCmdList.<a class="code hl_function" href="class_o_s_k_1_1_owned_ptr.html#a81dfab2299056fc9858aace55fca0042">GetPointer</a>());</div>
+<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span> </div>
+<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span>    stbi_image_free(pixels);</div>
+<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span> </div>
+<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span>    asset-&gt;<a class="code hl_function" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_texture.html#ac48b769e17329079b1348a7b7dab4e4c">_SetImage</a>(image);</div>
+<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span>}</div>
+</div>
+<div class="ttc" id="a_file_i_o_8h_html"><div class="ttname"><a href="_file_i_o_8h.html">FileIO.h</a></div></div>
+<div class="ttc" id="a_format_8h_html"><div class="ttname"><a href="_format_8h.html">Format.h</a></div></div>
+<div class="ttc" id="a_gpu_buffer_8h_html"><div class="ttname"><a href="_gpu_buffer_8h.html">GpuBuffer.h</a></div></div>
+<div class="ttc" id="a_gpu_image_dimensions_8h_html"><div class="ttname"><a href="_gpu_image_dimensions_8h.html">GpuImageDimensions.h</a></div></div>
+<div class="ttc" id="a_gpu_image_layout_8h_html"><div class="ttname"><a href="_gpu_image_layout_8h.html">GpuImageLayout.h</a></div></div>
+<div class="ttc" id="a_gpu_image_usage_8h_html"><div class="ttname"><a href="_gpu_image_usage_8h.html">GpuImageUsage.h</a></div></div>
+<div class="ttc" id="a_gpu_memory_types_8h_html"><div class="ttname"><a href="_gpu_memory_types_8h.html">GpuMemoryTypes.h</a></div></div>
+<div class="ttc" id="a_i_command_list_8h_html"><div class="ttname"><a href="_i_command_list_8h.html">ICommandList.h</a></div></div>
+<div class="ttc" id="a_i_gpu_memory_allocator_8h_html"><div class="ttname"><a href="_i_gpu_memory_allocator_8h.html">IGpuMemoryAllocator.h</a></div></div>
+<div class="ttc" id="a_i_renderer_8h_html"><div class="ttname"><a href="_i_renderer_8h.html">IRenderer.h</a></div></div>
+<div class="ttc" id="a_invalid_description_file_exception_8h_html"><div class="ttname"><a href="_invalid_description_file_exception_8h.html">InvalidDescriptionFileException.h</a></div></div>
+<div class="ttc" id="a_o_s_kengine_8h_html"><div class="ttname"><a href="_o_s_kengine_8h.html">OSKengine.h</a></div></div>
+<div class="ttc" id="a_render_api_type_8h_html"><div class="ttname"><a href="_render_api_type_8h.html">RenderApiType.h</a></div></div>
+<div class="ttc" id="a_texture_8h_html"><div class="ttname"><a href="_texture_8h.html">Texture.h</a></div></div>
+<div class="ttc" id="a_texture_loader_8cpp_html_a61839499f35e15ae79d71c542eacc56a"><div class="ttname"><a href="_texture_loader_8cpp.html#a61839499f35e15ae79d71c542eacc56a">HasRgbFormat</a></div><div class="ttdeci">bool HasRgbFormat(OSK::GRAPHICS::RenderApiType api)</div><div class="ttdef"><b>Definition</b> <a href="#l00026">TextureLoader.cpp:26</a></div></div>
+<div class="ttc" id="a_texture_loader_8h_html"><div class="ttname"><a href="_texture_loader_8h.html">TextureLoader.h</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_a_s_s_e_t_s_1_1_i_asset_html_af0bbd1c59b2cd81667b63cb6d015c11c"><div class="ttname"><a href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_i_asset.html#af0bbd1c59b2cd81667b63cb6d015c11c">OSK::ASSETS::IAsset::SetName</a></div><div class="ttdeci">void SetName(const std::string &amp;name)</div><div class="ttdoc">Establece el nombre de la instancia de este asset.</div><div class="ttdef"><b>Definition</b> <a href="_i_asset_8cpp_source.html#l00010">IAsset.cpp:10</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_a_s_s_e_t_s_1_1_i_asset_loader_html_a502866f35d2aaa0f412021ab855b8cbe"><div class="ttname"><a href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_i_asset_loader.html#a502866f35d2aaa0f412021ab855b8cbe">OSK::ASSETS::IAssetLoader::ValidateDescriptionFile</a></div><div class="ttdeci">nlohmann::json ValidateDescriptionFile(std::string_view filePath) const</div><div class="ttdoc">Valida el contenido del archivo de descripción.</div><div class="ttdef"><b>Definition</b> <a href="_i_asset_loader_8cpp_source.html#l00014">IAssetLoader.cpp:14</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_a_s_s_e_t_s_1_1_texture_html"><div class="ttname"><a href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_texture.html">OSK::ASSETS::Texture</a></div><div class="ttdoc">Una textura que será usada en renderizado 2D / 3D.</div><div class="ttdef"><b>Definition</b> <a href="_texture_8h_source.html#l00018">Texture.h:18</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_a_s_s_e_t_s_1_1_texture_html_a148f1b65ca3432e57129a09e2ac063d8"><div class="ttname"><a href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_texture.html#a148f1b65ca3432e57129a09e2ac063d8">OSK::ASSETS::Texture::_SetNumberOfChannels</a></div><div class="ttdeci">void _SetNumberOfChannels(USize32 numChannels)</div><div class="ttdoc">Establece el número de canales (red green blue, etc...).</div><div class="ttdef"><b>Definition</b> <a href="_texture_8cpp_source.html#l00039">Texture.cpp:39</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_a_s_s_e_t_s_1_1_texture_html_a5b8b6744153b2fb25dfef0b8e20ba970"><div class="ttname"><a href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_texture.html#a5b8b6744153b2fb25dfef0b8e20ba970">OSK::ASSETS::Texture::_SetSize</a></div><div class="ttdeci">void _SetSize(const Vector2ui size)</div><div class="ttdoc">Establece el tamaño de la textura.</div><div class="ttdef"><b>Definition</b> <a href="_texture_8cpp_source.html#l00035">Texture.cpp:35</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_a_s_s_e_t_s_1_1_texture_html_ac48b769e17329079b1348a7b7dab4e4c"><div class="ttname"><a href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_texture.html#ac48b769e17329079b1348a7b7dab4e4c">OSK::ASSETS::Texture::_SetImage</a></div><div class="ttdeci">void _SetImage(OwnedPtr&lt; GRAPHICS::GpuImage &gt; image)</div><div class="ttdoc">Establece la imagen GPU de la textura.</div><div class="ttdef"><b>Definition</b> <a href="_texture_8cpp_source.html#l00043">Texture.cpp:43</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_a_s_s_e_t_s_1_1_texture_loader_html_ad74763b9b21cbbfb025ef8d0336c0dda"><div class="ttname"><a href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_texture_loader.html#ad74763b9b21cbbfb025ef8d0336c0dda">OSK::ASSETS::TextureLoader::Load</a></div><div class="ttdeci">void Load(const std::string &amp;assetFilePath, Texture *asset) override</div><div class="ttdef"><b>Definition</b> <a href="#l00030">TextureLoader.cpp:30</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_engine_html_a019c5397d042224c134b7fd22c739d00"><div class="ttname"><a href="class_o_s_k_1_1_engine.html#a019c5397d042224c134b7fd22c739d00">OSK::Engine::GetRenderer</a></div><div class="ttdeci">static GRAPHICS::IRenderer * GetRenderer()</div><div class="ttdoc">Devuelve un puntero al renderizador del motor.</div><div class="ttdef"><b>Definition</b> <a href="_o_s_kengine_8cpp_source.html#l00197">OSKengine.cpp:197</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_allocator_html_a052c4d2f448e4be42623f252f251f9ab"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_allocator.html#a052c4d2f448e4be42623f252f251f9ab">OSK::GRAPHICS::IGpuMemoryAllocator::CreateImage</a></div><div class="ttdeci">virtual OwnedPtr&lt; GpuImage &gt; CreateImage(const GpuImageCreateInfo &amp;info)=0</div><div class="ttdoc">Crea una nueva imagen en la GPU.</div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_html_a0fa1cd26067c520e90cfa647f66e8366"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer.html#a0fa1cd26067c520e90cfa647f66e8366">OSK::GRAPHICS::IRenderer::CreateSingleUseCommandList</a></div><div class="ttdeci">OwnedPtr&lt; ICommandList &gt; CreateSingleUseCommandList()</div><div class="ttdoc">Crea una lista de comandos para un único uso.</div><div class="ttdef"><b>Definition</b> <a href="_renderer_8cpp_source.html#l00104">Renderer.cpp:104</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_html_a100a7c8d1a62814d11637de0534003b9"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer.html#a100a7c8d1a62814d11637de0534003b9">OSK::GRAPHICS::IRenderer::GetAllocator</a></div><div class="ttdeci">IGpuMemoryAllocator * GetAllocator()</div><div class="ttdoc">Devuelve un puntero al asignador de memoria de la GPU.</div><div class="ttdef"><b>Definition</b> <a href="_renderer_8cpp_source.html#l00046">Renderer.cpp:46</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_html_a6123ce5c1df39bed80e1949332bce18a"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer.html#a6123ce5c1df39bed80e1949332bce18a">OSK::GRAPHICS::IRenderer::SubmitSingleUseCommandList</a></div><div class="ttdeci">virtual void SubmitSingleUseCommandList(OwnedPtr&lt; ICommandList &gt; commandList)=0</div><div class="ttdoc">Ejecuta el contenido de la lista de comandos.</div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_html_acea0c9d8a19cb8e54f2ff32b8a7ea005"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer.html#acea0c9d8a19cb8e54f2ff32b8a7ea005">OSK::GRAPHICS::IRenderer::UploadImageToGpu</a></div><div class="ttdeci">void UploadImageToGpu(GpuImage *destination, const TByte *data, USize64 numBytes, ICommandList *cmdList)</div><div class="ttdoc">Rellena la imagen en la GPU con los datos dados.</div><div class="ttdef"><b>Definition</b> <a href="_renderer_8cpp_source.html#l00096">Renderer.cpp:96</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_owned_ptr_html"><div class="ttname"><a href="class_o_s_k_1_1_owned_ptr.html">OSK::OwnedPtr</a></div><div class="ttdoc">Es dueño de un puntero.</div><div class="ttdef"><b>Definition</b> <a href="_owned_ptr_8h_source.html#l00016">OwnedPtr.h:16</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_owned_ptr_html_a81dfab2299056fc9858aace55fca0042"><div class="ttname"><a href="class_o_s_k_1_1_owned_ptr.html#a81dfab2299056fc9858aace55fca0042">OSK::OwnedPtr::GetPointer</a></div><div class="ttdeci">T * GetPointer() const</div><div class="ttdoc">Devuelve el puntero nativo.</div><div class="ttdef"><b>Definition</b> <a href="_owned_ptr_8h_source.html#l00079">OwnedPtr.h:79</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_vector2__t_html"><div class="ttname"><a href="class_o_s_k_1_1_vector2__t.html">OSK::Vector2_t&lt; uint32_t &gt;</a></div></div>
+<div class="ttc" id="anamespace_o_s_k_1_1_a_s_s_e_t_s_html"><div class="ttname"><a href="namespace_o_s_k_1_1_a_s_s_e_t_s.html">OSK::ASSETS</a></div><div class="ttdef"><b>Definition</b> <a href="_anim_mesh_loader_8h_source.html#l00009">AnimMeshLoader.h:9</a></div></div>
+<div class="ttc" id="anamespace_o_s_k_1_1_g_r_a_p_h_i_c_s_html"><div class="ttname"><a href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html">OSK::GRAPHICS</a></div><div class="ttdef"><b>Definition</b> <a href="_acceleration_structures_exceptions_8h_source.html#l00005">AccelerationStructuresExceptions.h:5</a></div></div>
+<div class="ttc" id="anamespace_o_s_k_1_1_g_r_a_p_h_i_c_s_html_a19a2f70fc994c00eb022e520608c5ffaa5d0791856a3081df75c6093017a61a36"><div class="ttname"><a href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a19a2f70fc994c00eb022e520608c5ffaa5d0791856a3081df75c6093017a61a36">OSK::GRAPHICS::GpuImageUsage::SAMPLED</a></div><div class="ttdeci">@ SAMPLED</div><div class="ttdoc">Se usará como read-only desde los shaders.</div></div>
+<div class="ttc" id="anamespace_o_s_k_1_1_g_r_a_p_h_i_c_s_html_a19a2f70fc994c00eb022e520608c5ffaac61dfc60317a58b2843ec29f8e3c2359"><div class="ttname"><a href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a19a2f70fc994c00eb022e520608c5ffaac61dfc60317a58b2843ec29f8e3c2359">OSK::GRAPHICS::GpuImageUsage::TRANSFER_DESTINATION</a></div><div class="ttdeci">@ TRANSFER_DESTINATION</div><div class="ttdoc">Se copiarán los contenidos de otra imagen a esta.</div></div>
+<div class="ttc" id="anamespace_o_s_k_1_1_g_r_a_p_h_i_c_s_html_a19a2f70fc994c00eb022e520608c5ffaafb3bb8503e5cd907a3a7b02a495c229e"><div class="ttname"><a href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a19a2f70fc994c00eb022e520608c5ffaafb3bb8503e5cd907a3a7b02a495c229e">OSK::GRAPHICS::GpuImageUsage::TRANSFER_SOURCE</a></div><div class="ttdeci">@ TRANSFER_SOURCE</div><div class="ttdoc">Se usará para copiar esta imagen a otra.</div></div>
+<div class="ttc" id="anamespace_o_s_k_1_1_g_r_a_p_h_i_c_s_html_a3057691f190dabf7642cfde72cf2430f"><div class="ttname"><a href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a3057691f190dabf7642cfde72cf2430f">OSK::GRAPHICS::RenderApiType</a></div><div class="ttdeci">RenderApiType</div><div class="ttdef"><b>Definition</b> <a href="_render_api_type_8h_source.html#l00005">RenderApiType.h:5</a></div></div>
+<div class="ttc" id="anamespace_o_s_k_1_1_g_r_a_p_h_i_c_s_html_aac59f9d056e083c0b49ea768f974e3e8"><div class="ttname"><a href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#aac59f9d056e083c0b49ea768f974e3e8">OSK::GRAPHICS::Format</a></div><div class="ttdeci">Format</div><div class="ttdoc">Formatos que puede tener una textura / imagen.</div><div class="ttdef"><b>Definition</b> <a href="_format_8h_source.html#l00010">Format.h:10</a></div></div>
+<div class="ttc" id="anamespace_o_s_k_1_1_g_r_a_p_h_i_c_s_html_aac59f9d056e083c0b49ea768f974e3e8a909cc8c5cc8fe4f16bec84a291aadbdb"><div class="ttname"><a href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#aac59f9d056e083c0b49ea768f974e3e8a909cc8c5cc8fe4f16bec84a291aadbdb">OSK::GRAPHICS::Format::RGBA8_UNORM</a></div><div class="ttdeci">@ RGBA8_UNORM</div></div>
+<div class="ttc" id="anamespace_o_s_k_1_1_g_r_a_p_h_i_c_s_html_aac59f9d056e083c0b49ea768f974e3e8ab90166b94483824b0f67dbb9ae2feef3"><div class="ttname"><a href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#aac59f9d056e083c0b49ea768f974e3e8ab90166b94483824b0f67dbb9ae2feef3">OSK::GRAPHICS::Format::RGBA32_SFLOAT</a></div><div class="ttdeci">@ RGBA32_SFLOAT</div></div>
+<div class="ttc" id="anamespace_o_s_k_html_a6f5b4753cd85b4773d2880148fd031cf"><div class="ttname"><a href="namespace_o_s_k.html#a6f5b4753cd85b4773d2880148fd031cf">OSK::Vector2ui</a></div><div class="ttdeci">Vector2_t&lt; uint32_t &gt; Vector2ui</div><div class="ttdoc">Precisión = uint32.</div><div class="ttdef"><b>Definition</b> <a href="_vector2_8hpp_source.html#l00266">Vector2.hpp:266</a></div></div>
+<div class="ttc" id="astruct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_barrier_info_html"><div class="ttname"><a href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_barrier_info.html">OSK::GRAPHICS::GpuBarrierInfo</a></div><div class="ttdoc">Al establecer un gpu barrier, dividimos todos los comandos en la lista de comandos en dos grupos.</div><div class="ttdef"><b>Definition</b> <a href="_gpu_barrier_info_8h_source.html#l00143">GpuBarrierInfo.h:143</a></div></div>
+<div class="ttc" id="astruct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_create_info_html_a1f22c94fd0d7a99bf068b030816376b8"><div class="ttname"><a href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_create_info.html#a1f22c94fd0d7a99bf068b030816376b8">OSK::GRAPHICS::GpuImageCreateInfo::CreateDefault2D</a></div><div class="ttdeci">static GpuImageCreateInfo CreateDefault2D(const Vector2ui &amp;resolution, Format format, GpuImageUsage usage)</div><div class="ttdef"><b>Definition</b> <a href="_i_gpu_memory_allocator_8cpp_source.html#l00340">IGpuMemoryAllocator.cpp:340</a></div></div>
+<div class="ttc" id="ax64-windows-static_2x64-windows-static_2include_2libpng16_2png_8h_html_ad46179dbe9c68fdcea52b34c3480ec0f"><div class="ttname"><a href="x64-windows-static_2x64-windows-static_2include_2libpng16_2png_8h.html#ad46179dbe9c68fdcea52b34c3480ec0f">width</a></div><div class="ttdeci">png_const_structrp png_const_inforp int png_fixed_point * width</div><div class="ttdef"><b>Definition</b> <a href="x64-windows-static_2x64-windows-static_2include_2libpng16_2png_8h_source.html#l02160">png.h:2160</a></div></div>
+</div><!-- fragment --></div><!-- contents -->
+</div><!-- doc-content -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="dir_74389ed8173ad57b461b9d623a1f3867.html">Source</a></li><li class="navelem"><a class="el" href="_texture_loader_8cpp.html">TextureLoader.cpp</a></li>
+    <li class="footer">Generado el Lunes, 29 de enero de 2024 17:18:32 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.10.0 </li>
+  </ul>
+</div>
+</body>
+</html>

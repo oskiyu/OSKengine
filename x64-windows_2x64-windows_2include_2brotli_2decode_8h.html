@@ -1,0 +1,786 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="es">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.10.0"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>OSKengine: Referencia del archivo Source/vcpkg_installed/x64-windows/x64-windows/include/brotli/decode.h</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">OSKengine<span id="projectnumber">&#160;Indev</span>
+   </div>
+   <div id="projectbrief">Motor de videojuegos.</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generado por Doxygen 1.10.0 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() {
+  initMenu('',true,false,'search.php','Buscar');
+  $(function() { init_search(); });
+});
+/* @license-end */
+</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function(){initNavTree('x64-windows_2x64-windows_2include_2brotli_2decode_8h.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Cargando...</div>
+<div class="SRStatus" id="Searching">Buscando...</div>
+<div class="SRStatus" id="NoMatches">Nada coincide</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="summary">
+<a href="#define-members">defines</a> &#124;
+<a href="#typedef-members">typedefs</a> &#124;
+<a href="#enum-members">Enumeraciones</a> &#124;
+<a href="#func-members">Funciones</a>  </div>
+  <div class="headertitle"><div class="title">Referencia del archivo decode.h</div></div>
+</div><!--header-->
+<div class="contents">
+<div class="textblock"><code>#include &lt;brotli/port.h&gt;</code><br />
+<code>#include &lt;brotli/types.h&gt;</code><br />
+</div>
+<p><a href="x64-windows_2x64-windows_2include_2brotli_2decode_8h_source.html">Ir al código fuente de este archivo.</a></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="define-members" name="define-members"></a>
+defines</h2></td></tr>
+<tr class="memitem:a687f5bac75f233b2c219659fbf17c0df" id="r_a687f5bac75f233b2c219659fbf17c0df"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a687f5bac75f233b2c219659fbf17c0df">BROTLI_DECODER_ERROR_CODES_LIST</a>(BROTLI_ERROR_CODE,  SEPARATOR)</td></tr>
+<tr class="separator:a687f5bac75f233b2c219659fbf17c0df"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab8490e3035c5f3b8cc31790f69d2a173" id="r_ab8490e3035c5f3b8cc31790f69d2a173"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ab8490e3035c5f3b8cc31790f69d2a173">BROTLI_COMMA_</a>&#160;&#160;&#160;,</td></tr>
+<tr class="separator:ab8490e3035c5f3b8cc31790f69d2a173"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad51e5f83a25483f7a65067ba8f10c0c6" id="r_ad51e5f83a25483f7a65067ba8f10c0c6"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad51e5f83a25483f7a65067ba8f10c0c6">BROTLI_ERROR_CODE_ENUM_ITEM_</a>(PREFIX,  NAME,  CODE)&#160;&#160;&#160;    BROTLI_DECODER ## PREFIX ## NAME = CODE</td></tr>
+<tr class="separator:ad51e5f83a25483f7a65067ba8f10c0c6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a828743953c0ee9972fd9ea884de9d3ad" id="r_a828743953c0ee9972fd9ea884de9d3ad"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a828743953c0ee9972fd9ea884de9d3ad">BROTLI_LAST_ERROR_CODE</a>&#160;&#160;&#160;BROTLI_DECODER_ERROR_UNREACHABLE</td></tr>
+<tr class="separator:a828743953c0ee9972fd9ea884de9d3ad"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="typedef-members" name="typedef-members"></a>
+typedefs</h2></td></tr>
+<tr class="memitem:a7065afee5269785561960891589ec6af" id="r_a7065afee5269785561960891589ec6af"><td class="memItemLeft" align="right" valign="top">typedef struct BrotliDecoderStateStruct&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a7065afee5269785561960891589ec6af">BrotliDecoderState</a></td></tr>
+<tr class="separator:a7065afee5269785561960891589ec6af"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae6d8c346ce0ce234336d678fba584c7a" id="r_ae6d8c346ce0ce234336d678fba584c7a"><td class="memItemLeft" align="right" valign="top">typedef enum <a class="el" href="x64-windows-static_2x64-windows-static_2include_2brotli_2decode_8h.html#a85a48e5725264efb4e36a3fb9e34c070">BrotliDecoderParameter</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae6d8c346ce0ce234336d678fba584c7a">BrotliDecoderParameter</a></td></tr>
+<tr class="separator:ae6d8c346ce0ce234336d678fba584c7a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="enum-members" name="enum-members"></a>
+Enumeraciones</h2></td></tr>
+<tr class="memitem:a87fd23715d225d1518eb7cd2a5cb374e" id="r_a87fd23715d225d1518eb7cd2a5cb374e"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a87fd23715d225d1518eb7cd2a5cb374e">BrotliDecoderResult</a> { <a class="el" href="#a87fd23715d225d1518eb7cd2a5cb374eadd6df16ccf47d89d71a0170acd452496">BROTLI_DECODER_RESULT_ERROR</a> = 0
+, <a class="el" href="#a87fd23715d225d1518eb7cd2a5cb374eaba3e4e586e974657ec2e72753a469823">BROTLI_DECODER_RESULT_SUCCESS</a> = 1
+, <a class="el" href="#a87fd23715d225d1518eb7cd2a5cb374ea0da57a2b50c1e65c6b55c095f88bff38">BROTLI_DECODER_RESULT_NEEDS_MORE_INPUT</a> = 2
+, <a class="el" href="#a87fd23715d225d1518eb7cd2a5cb374eafa10e01bd2f25a3d8d4b22db6fe66ab1">BROTLI_DECODER_RESULT_NEEDS_MORE_OUTPUT</a> = 3
+ }</td></tr>
+<tr class="separator:a87fd23715d225d1518eb7cd2a5cb374e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af0c845bca11751bdaaa05f1a6f8bd013" id="r_af0c845bca11751bdaaa05f1a6f8bd013"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af0c845bca11751bdaaa05f1a6f8bd013">BrotliDecoderErrorCode</a> </td></tr>
+<tr class="separator:af0c845bca11751bdaaa05f1a6f8bd013"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a85a48e5725264efb4e36a3fb9e34c070" id="r_a85a48e5725264efb4e36a3fb9e34c070"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a85a48e5725264efb4e36a3fb9e34c070">BrotliDecoderParameter</a> { <a class="el" href="#a85a48e5725264efb4e36a3fb9e34c070ae1ab9b5b0188da1bc56b74c6fee1d1f7">BROTLI_DECODER_PARAM_DISABLE_RING_BUFFER_REALLOCATION</a> = 0
+, <a class="el" href="#a85a48e5725264efb4e36a3fb9e34c070a500b69dd614ca3ac79d79c486dc40908">BROTLI_DECODER_PARAM_LARGE_WINDOW</a> = 1
+ }</td></tr>
+<tr class="separator:a85a48e5725264efb4e36a3fb9e34c070"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
+Funciones</h2></td></tr>
+<tr class="memitem:adee376816d421c8588eebcc76e5156d6" id="r_adee376816d421c8588eebcc76e5156d6"><td class="memItemLeft" align="right" valign="top"><a class="el" href="x64-windows-static_2x64-windows-static_2include_2brotli_2port_8h.html#a459316d532c0b1a2b1917bc529c87534">BROTLI_DEC_API</a> <a class="el" href="x64-windows-static_2x64-windows-static_2include_2brotli_2types_8h.html#ae8e1d352fb674019729cd9e7d0c27159">BROTLI_BOOL</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#adee376816d421c8588eebcc76e5156d6">BrotliDecoderSetParameter</a> (<a class="el" href="x64-windows-static_2x64-windows-static_2include_2brotli_2decode_8h.html#a7065afee5269785561960891589ec6af">BrotliDecoderState</a> *state, <a class="el" href="x64-windows-static_2x64-windows-static_2include_2brotli_2decode_8h.html#a85a48e5725264efb4e36a3fb9e34c070">BrotliDecoderParameter</a> param, uint32_t value)</td></tr>
+<tr class="separator:adee376816d421c8588eebcc76e5156d6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a287d2eb9348db276bccc5b30fbcfe904" id="r_a287d2eb9348db276bccc5b30fbcfe904"><td class="memItemLeft" align="right" valign="top"><a class="el" href="x64-windows-static_2x64-windows-static_2include_2brotli_2port_8h.html#a459316d532c0b1a2b1917bc529c87534">BROTLI_DEC_API</a> <a class="el" href="x64-windows-static_2x64-windows-static_2include_2brotli_2decode_8h.html#a7065afee5269785561960891589ec6af">BrotliDecoderState</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a287d2eb9348db276bccc5b30fbcfe904">BrotliDecoderCreateInstance</a> (<a class="el" href="x64-windows-static_2x64-windows-static_2include_2brotli_2types_8h.html#a53996dfbcbcee79dadb83c56933b9f1b">brotli_alloc_func</a> alloc_func, <a class="el" href="x64-windows-static_2x64-windows-static_2include_2brotli_2types_8h.html#a5e19dc1ca789ea76db7167289c442d32">brotli_free_func</a> free_func, <a class="el" href="x64-windows-static_2x64-windows-static_2include_2libpng16_2png_8h.html#a05f08be336491be77cd4dfa98f747c69">void</a> *opaque)</td></tr>
+<tr class="separator:a287d2eb9348db276bccc5b30fbcfe904"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad0ef795ea9bf78ec62939e9e78e04a6c" id="r_ad0ef795ea9bf78ec62939e9e78e04a6c"><td class="memItemLeft" align="right" valign="top"><a class="el" href="x64-windows-static_2x64-windows-static_2include_2brotli_2port_8h.html#a459316d532c0b1a2b1917bc529c87534">BROTLI_DEC_API</a> <a class="el" href="x64-windows-static_2x64-windows-static_2include_2libpng16_2png_8h.html#a05f08be336491be77cd4dfa98f747c69">void</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad0ef795ea9bf78ec62939e9e78e04a6c">BrotliDecoderDestroyInstance</a> (<a class="el" href="x64-windows-static_2x64-windows-static_2include_2brotli_2decode_8h.html#a7065afee5269785561960891589ec6af">BrotliDecoderState</a> *state)</td></tr>
+<tr class="separator:ad0ef795ea9bf78ec62939e9e78e04a6c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa82cc8638bebdc53205f9941eec41626" id="r_aa82cc8638bebdc53205f9941eec41626"><td class="memItemLeft" align="right" valign="top"><a class="el" href="x64-windows-static_2x64-windows-static_2include_2brotli_2port_8h.html#a459316d532c0b1a2b1917bc529c87534">BROTLI_DEC_API</a> <a class="el" href="x64-windows-static_2x64-windows-static_2include_2brotli_2decode_8h.html#a87fd23715d225d1518eb7cd2a5cb374e">BrotliDecoderResult</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aa82cc8638bebdc53205f9941eec41626">BrotliDecoderDecompress</a> (size_t encoded_size, <a class="el" href="x64-windows-static_2x64-windows-static_2include_2zconf_8h.html#a2c212835823e3c54a8ab6d95c652660e">const</a> uint8_t encoded_buffer[<a class="el" href="x64-windows-static_2x64-windows-static_2include_2brotli_2port_8h.html#aa4b0af0d4de034f61827d71ce4f1e1eb">BROTLI_ARRAY_PARAM</a>(encoded_size)], size_t *decoded_size, uint8_t decoded_buffer[<a class="el" href="x64-windows-static_2x64-windows-static_2include_2brotli_2port_8h.html#aa4b0af0d4de034f61827d71ce4f1e1eb">BROTLI_ARRAY_PARAM</a>(*decoded_size)])</td></tr>
+<tr class="separator:aa82cc8638bebdc53205f9941eec41626"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:accb83dd5dab11ad1260c6f961a2340b3" id="r_accb83dd5dab11ad1260c6f961a2340b3"><td class="memItemLeft" align="right" valign="top"><a class="el" href="x64-windows-static_2x64-windows-static_2include_2brotli_2port_8h.html#a459316d532c0b1a2b1917bc529c87534">BROTLI_DEC_API</a> <a class="el" href="x64-windows-static_2x64-windows-static_2include_2brotli_2decode_8h.html#a87fd23715d225d1518eb7cd2a5cb374e">BrotliDecoderResult</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#accb83dd5dab11ad1260c6f961a2340b3">BrotliDecoderDecompressStream</a> (<a class="el" href="x64-windows-static_2x64-windows-static_2include_2brotli_2decode_8h.html#a7065afee5269785561960891589ec6af">BrotliDecoderState</a> *state, size_t *available_in, <a class="el" href="x64-windows-static_2x64-windows-static_2include_2zconf_8h.html#a2c212835823e3c54a8ab6d95c652660e">const</a> uint8_t **next_in, size_t *available_out, uint8_t **next_out, size_t *total_out)</td></tr>
+<tr class="separator:accb83dd5dab11ad1260c6f961a2340b3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6e5cf101d02794992b3df899e72676b5" id="r_a6e5cf101d02794992b3df899e72676b5"><td class="memItemLeft" align="right" valign="top"><a class="el" href="x64-windows-static_2x64-windows-static_2include_2brotli_2port_8h.html#a459316d532c0b1a2b1917bc529c87534">BROTLI_DEC_API</a> <a class="el" href="x64-windows-static_2x64-windows-static_2include_2brotli_2types_8h.html#ae8e1d352fb674019729cd9e7d0c27159">BROTLI_BOOL</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a6e5cf101d02794992b3df899e72676b5">BrotliDecoderHasMoreOutput</a> (<a class="el" href="x64-windows-static_2x64-windows-static_2include_2zconf_8h.html#a2c212835823e3c54a8ab6d95c652660e">const</a> <a class="el" href="x64-windows-static_2x64-windows-static_2include_2brotli_2decode_8h.html#a7065afee5269785561960891589ec6af">BrotliDecoderState</a> *state)</td></tr>
+<tr class="separator:a6e5cf101d02794992b3df899e72676b5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a263c9ba2f3acb679fae4f8dc8bfdfb99" id="r_a263c9ba2f3acb679fae4f8dc8bfdfb99"><td class="memItemLeft" align="right" valign="top"><a class="el" href="x64-windows-static_2x64-windows-static_2include_2brotli_2port_8h.html#a459316d532c0b1a2b1917bc529c87534">BROTLI_DEC_API</a> <a class="el" href="x64-windows-static_2x64-windows-static_2include_2zconf_8h.html#a2c212835823e3c54a8ab6d95c652660e">const</a> uint8_t *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a263c9ba2f3acb679fae4f8dc8bfdfb99">BrotliDecoderTakeOutput</a> (<a class="el" href="x64-windows-static_2x64-windows-static_2include_2brotli_2decode_8h.html#a7065afee5269785561960891589ec6af">BrotliDecoderState</a> *state, size_t *size)</td></tr>
+<tr class="separator:a263c9ba2f3acb679fae4f8dc8bfdfb99"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af50dac3548cd60d751a338f0e14ca5d7" id="r_af50dac3548cd60d751a338f0e14ca5d7"><td class="memItemLeft" align="right" valign="top"><a class="el" href="x64-windows-static_2x64-windows-static_2include_2brotli_2port_8h.html#a459316d532c0b1a2b1917bc529c87534">BROTLI_DEC_API</a> <a class="el" href="x64-windows-static_2x64-windows-static_2include_2brotli_2types_8h.html#ae8e1d352fb674019729cd9e7d0c27159">BROTLI_BOOL</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af50dac3548cd60d751a338f0e14ca5d7">BrotliDecoderIsUsed</a> (<a class="el" href="x64-windows-static_2x64-windows-static_2include_2zconf_8h.html#a2c212835823e3c54a8ab6d95c652660e">const</a> <a class="el" href="x64-windows-static_2x64-windows-static_2include_2brotli_2decode_8h.html#a7065afee5269785561960891589ec6af">BrotliDecoderState</a> *state)</td></tr>
+<tr class="separator:af50dac3548cd60d751a338f0e14ca5d7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad8ad8d53e24daefee547be01ff9758fb" id="r_ad8ad8d53e24daefee547be01ff9758fb"><td class="memItemLeft" align="right" valign="top"><a class="el" href="x64-windows-static_2x64-windows-static_2include_2brotli_2port_8h.html#a459316d532c0b1a2b1917bc529c87534">BROTLI_DEC_API</a> <a class="el" href="x64-windows-static_2x64-windows-static_2include_2brotli_2types_8h.html#ae8e1d352fb674019729cd9e7d0c27159">BROTLI_BOOL</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad8ad8d53e24daefee547be01ff9758fb">BrotliDecoderIsFinished</a> (<a class="el" href="x64-windows-static_2x64-windows-static_2include_2zconf_8h.html#a2c212835823e3c54a8ab6d95c652660e">const</a> <a class="el" href="x64-windows-static_2x64-windows-static_2include_2brotli_2decode_8h.html#a7065afee5269785561960891589ec6af">BrotliDecoderState</a> *state)</td></tr>
+<tr class="separator:ad8ad8d53e24daefee547be01ff9758fb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af5f7da7dbe778e603d0b5209eec212fc" id="r_af5f7da7dbe778e603d0b5209eec212fc"><td class="memItemLeft" align="right" valign="top"><a class="el" href="x64-windows-static_2x64-windows-static_2include_2brotli_2port_8h.html#a459316d532c0b1a2b1917bc529c87534">BROTLI_DEC_API</a> <a class="el" href="x64-windows-static_2x64-windows-static_2include_2brotli_2decode_8h.html#af0c845bca11751bdaaa05f1a6f8bd013">BrotliDecoderErrorCode</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af5f7da7dbe778e603d0b5209eec212fc">BrotliDecoderGetErrorCode</a> (<a class="el" href="x64-windows-static_2x64-windows-static_2include_2zconf_8h.html#a2c212835823e3c54a8ab6d95c652660e">const</a> <a class="el" href="x64-windows-static_2x64-windows-static_2include_2brotli_2decode_8h.html#a7065afee5269785561960891589ec6af">BrotliDecoderState</a> *state)</td></tr>
+<tr class="separator:af5f7da7dbe778e603d0b5209eec212fc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2ad245159eee51647b1007c231b5c419" id="r_a2ad245159eee51647b1007c231b5c419"><td class="memItemLeft" align="right" valign="top"><a class="el" href="x64-windows-static_2x64-windows-static_2include_2brotli_2port_8h.html#a459316d532c0b1a2b1917bc529c87534">BROTLI_DEC_API</a> <a class="el" href="x64-windows-static_2x64-windows-static_2include_2zconf_8h.html#a2c212835823e3c54a8ab6d95c652660e">const</a> char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a2ad245159eee51647b1007c231b5c419">BrotliDecoderErrorString</a> (<a class="el" href="x64-windows-static_2x64-windows-static_2include_2brotli_2decode_8h.html#af0c845bca11751bdaaa05f1a6f8bd013">BrotliDecoderErrorCode</a> c)</td></tr>
+<tr class="separator:a2ad245159eee51647b1007c231b5c419"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a079c6b60993f16eb35dd9fa9e24eb922" id="r_a079c6b60993f16eb35dd9fa9e24eb922"><td class="memItemLeft" align="right" valign="top"><a class="el" href="x64-windows-static_2x64-windows-static_2include_2brotli_2port_8h.html#a459316d532c0b1a2b1917bc529c87534">BROTLI_DEC_API</a> uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a079c6b60993f16eb35dd9fa9e24eb922">BrotliDecoderVersion</a> (<a class="el" href="x64-windows-static_2x64-windows-static_2include_2libpng16_2png_8h.html#a05f08be336491be77cd4dfa98f747c69">void</a>)</td></tr>
+<tr class="separator:a079c6b60993f16eb35dd9fa9e24eb922"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">Descripción detallada</h2>
+<div class="textblock"><p>API for Brotli decompression. </p>
+
+<p class="definition">Definición en el archivo <a class="el" href="x64-windows_2x64-windows_2include_2brotli_2decode_8h_source.html">decode.h</a>.</p>
+</div><h2 class="groupheader">Documentación de «define»</h2>
+<a id="ab8490e3035c5f3b8cc31790f69d2a173" name="ab8490e3035c5f3b8cc31790f69d2a173"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab8490e3035c5f3b8cc31790f69d2a173">&#9670;&#160;</a></span>BROTLI_COMMA_</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define BROTLI_COMMA_&#160;&#160;&#160;,</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definición en la línea <a class="el" href="x64-windows_2x64-windows_2include_2brotli_2decode_8h_source.html#l00113">113</a> del archivo <a class="el" href="x64-windows_2x64-windows_2include_2brotli_2decode_8h_source.html">decode.h</a>.</p>
+
+</div>
+</div>
+<a id="a687f5bac75f233b2c219659fbf17c0df" name="a687f5bac75f233b2c219659fbf17c0df"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a687f5bac75f233b2c219659fbf17c0df">&#9670;&#160;</a></span>BROTLI_DECODER_ERROR_CODES_LIST</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define BROTLI_DECODER_ERROR_CODES_LIST</td>
+          <td>(</td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname">BROTLI_ERROR_CODE, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname">SEPARATOR</span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Template that evaluates items of <a class="el" href="x64-windows-static_2x64-windows-static_2include_2brotli_2decode_8h.html#af0c845bca11751bdaaa05f1a6f8bd013">BrotliDecoderErrorCode</a>.</p>
+<p>Example: </p><div class="fragment"><div class="line"><span class="comment">// Log Brotli error code.</span></div>
+<div class="line"><span class="keywordflow">switch</span> (brotliDecoderErrorCode) {</div>
+<div class="line"><span class="preprocessor">#define CASE_(PREFIX, NAME, CODE) \</span></div>
+<div class="line"><span class="preprocessor">  case BROTLI_DECODER ## PREFIX ## NAME: \</span></div>
+<div class="line"><span class="preprocessor">    LOG(INFO) &lt;&lt; &quot;error code:&quot; &lt;&lt; #NAME; \</span></div>
+<div class="line"><span class="preprocessor">    break;</span></div>
+<div class="line"><span class="preprocessor">#define NEWLINE_</span></div>
+<div class="line"><a class="code hl_define" href="x64-windows-static_2x64-windows-static_2include_2brotli_2decode_8h.html#a687f5bac75f233b2c219659fbf17c0df">BROTLI_DECODER_ERROR_CODES_LIST</a>(CASE_, NEWLINE_)</div>
+<div class="line"><span class="preprocessor">#undef CASE_</span></div>
+<div class="line"><span class="preprocessor">#undef NEWLINE_</span></div>
+<div class="line">  <span class="keywordflow">default</span>: LOG(FATAL) &lt;&lt; <span class="stringliteral">&quot;unknown brotli error code&quot;</span>;</div>
+<div class="line">}</div>
+<div class="ttc" id="ax64-windows-static_2x64-windows-static_2include_2brotli_2decode_8h_html_a687f5bac75f233b2c219659fbf17c0df"><div class="ttname"><a href="x64-windows-static_2x64-windows-static_2include_2brotli_2decode_8h.html#a687f5bac75f233b2c219659fbf17c0df">BROTLI_DECODER_ERROR_CODES_LIST</a></div><div class="ttdeci">#define BROTLI_DECODER_ERROR_CODES_LIST(BROTLI_ERROR_CODE, SEPARATOR)</div><div class="ttdef"><b>Definition</b> <a href="x64-windows-static_2x64-windows-static_2include_2brotli_2decode_8h_source.html#l00063">decode.h:63</a></div></div>
+</div><!-- fragment --> 
+<p class="definition">Definición en la línea <a class="el" href="x64-windows_2x64-windows_2include_2brotli_2decode_8h_source.html#l00063">63</a> del archivo <a class="el" href="x64-windows_2x64-windows_2include_2brotli_2decode_8h_source.html">decode.h</a>.</p>
+
+</div>
+</div>
+<a id="ad51e5f83a25483f7a65067ba8f10c0c6" name="ad51e5f83a25483f7a65067ba8f10c0c6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad51e5f83a25483f7a65067ba8f10c0c6">&#9670;&#160;</a></span>BROTLI_ERROR_CODE_ENUM_ITEM_</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define BROTLI_ERROR_CODE_ENUM_ITEM_</td>
+          <td>(</td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname">PREFIX, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname">NAME, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname">CODE</span>&#160;)&#160;&#160;&#160;    BROTLI_DECODER ## PREFIX ## NAME = CODE</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definición en la línea <a class="el" href="x64-windows_2x64-windows_2include_2brotli_2decode_8h_source.html#l00114">114</a> del archivo <a class="el" href="x64-windows_2x64-windows_2include_2brotli_2decode_8h_source.html">decode.h</a>.</p>
+
+</div>
+</div>
+<a id="a828743953c0ee9972fd9ea884de9d3ad" name="a828743953c0ee9972fd9ea884de9d3ad"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a828743953c0ee9972fd9ea884de9d3ad">&#9670;&#160;</a></span>BROTLI_LAST_ERROR_CODE</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define BROTLI_LAST_ERROR_CODE&#160;&#160;&#160;BROTLI_DECODER_ERROR_UNREACHABLE</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>The value of the last error code, negative integer.</p>
+<p>All other error code values are in the range from <a class="el" href="#a828743953c0ee9972fd9ea884de9d3ad">BROTLI_LAST_ERROR_CODE</a> to <code>-1</code>. There are also 4 other possible non-error codes <code>0</code> .. <code>3</code> in <a class="el" href="x64-windows-static_2x64-windows-static_2include_2brotli_2decode_8h.html#af0c845bca11751bdaaa05f1a6f8bd013">BrotliDecoderErrorCode</a> enumeration. </p>
+
+<p class="definition">Definición en la línea <a class="el" href="x64-windows_2x64-windows_2include_2brotli_2decode_8h_source.html#l00128">128</a> del archivo <a class="el" href="x64-windows_2x64-windows_2include_2brotli_2decode_8h_source.html">decode.h</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Documentación de «typedef»</h2>
+<a id="ae6d8c346ce0ce234336d678fba584c7a" name="ae6d8c346ce0ce234336d678fba584c7a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae6d8c346ce0ce234336d678fba584c7a">&#9670;&#160;</a></span>BrotliDecoderParameter</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef enum <a class="el" href="x64-windows-static_2x64-windows-static_2include_2brotli_2decode_8h.html#a85a48e5725264efb4e36a3fb9e34c070">BrotliDecoderParameter</a> <a class="el" href="x64-windows-static_2x64-windows-static_2include_2brotli_2decode_8h.html#a85a48e5725264efb4e36a3fb9e34c070">BrotliDecoderParameter</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Options to be used with <a class="el" href="x64-windows-static_2x64-windows-static_2include_2brotli_2decode_8h.html#adee376816d421c8588eebcc76e5156d6">BrotliDecoderSetParameter</a>. </p>
+
+</div>
+</div>
+<a id="a7065afee5269785561960891589ec6af" name="a7065afee5269785561960891589ec6af"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7065afee5269785561960891589ec6af">&#9670;&#160;</a></span>BrotliDecoderState</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef struct BrotliDecoderStateStruct <a class="el" href="x64-windows-static_2x64-windows-static_2include_2brotli_2decode_8h.html#a7065afee5269785561960891589ec6af">BrotliDecoderState</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Opaque structure that holds decoder state.</p>
+<p>Allocated and initialized with <a class="el" href="x64-windows-static_2x64-windows-static_2include_2brotli_2decode_8h.html#a287d2eb9348db276bccc5b30fbcfe904">BrotliDecoderCreateInstance</a>. Cleaned up and deallocated with <a class="el" href="x64-windows-static_2x64-windows-static_2include_2brotli_2decode_8h.html#ad0ef795ea9bf78ec62939e9e78e04a6c">BrotliDecoderDestroyInstance</a>. </p>
+
+<p class="definition">Definición en la línea <a class="el" href="x64-windows_2x64-windows_2include_2brotli_2decode_8h_source.html#l00028">28</a> del archivo <a class="el" href="x64-windows_2x64-windows_2include_2brotli_2decode_8h_source.html">decode.h</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Documentación de enumeraciones</h2>
+<a id="af0c845bca11751bdaaa05f1a6f8bd013" name="af0c845bca11751bdaaa05f1a6f8bd013"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af0c845bca11751bdaaa05f1a6f8bd013">&#9670;&#160;</a></span>BrotliDecoderErrorCode</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum <a class="el" href="x64-windows-static_2x64-windows-static_2include_2brotli_2decode_8h.html#af0c845bca11751bdaaa05f1a6f8bd013">BrotliDecoderErrorCode</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Error code for detailed logging / production debugging.</p>
+<p>See <a class="el" href="x64-windows-static_2x64-windows-static_2include_2brotli_2decode_8h.html#af5f7da7dbe778e603d0b5209eec212fc">BrotliDecoderGetErrorCode</a> and <a class="el" href="#a828743953c0ee9972fd9ea884de9d3ad">BROTLI_LAST_ERROR_CODE</a>. </p>
+
+<p class="definition">Definición en la línea <a class="el" href="x64-windows_2x64-windows_2include_2brotli_2decode_8h_source.html#l00112">112</a> del archivo <a class="el" href="x64-windows_2x64-windows_2include_2brotli_2decode_8h_source.html">decode.h</a>.</p>
+
+</div>
+</div>
+<a id="a85a48e5725264efb4e36a3fb9e34c070" name="a85a48e5725264efb4e36a3fb9e34c070"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a85a48e5725264efb4e36a3fb9e34c070">&#9670;&#160;</a></span>BrotliDecoderParameter</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum <a class="el" href="x64-windows-static_2x64-windows-static_2include_2brotli_2decode_8h.html#a85a48e5725264efb4e36a3fb9e34c070">BrotliDecoderParameter</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Options to be used with <a class="el" href="x64-windows-static_2x64-windows-static_2include_2brotli_2decode_8h.html#adee376816d421c8588eebcc76e5156d6">BrotliDecoderSetParameter</a>. </p>
+<table class="fieldtable">
+<tr><th colspan="2">Valores de enumeraciones</th></tr><tr><td class="fieldname"><a id="a85a48e5725264efb4e36a3fb9e34c070ae1ab9b5b0188da1bc56b74c6fee1d1f7" name="a85a48e5725264efb4e36a3fb9e34c070ae1ab9b5b0188da1bc56b74c6fee1d1f7"></a>BROTLI_DECODER_PARAM_DISABLE_RING_BUFFER_REALLOCATION&#160;</td><td class="fielddoc"><p>Disable "canny" ring buffer allocation strategy.</p>
+<p>Ring buffer is allocated according to window size, despite the real size of the content. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a85a48e5725264efb4e36a3fb9e34c070a500b69dd614ca3ac79d79c486dc40908" name="a85a48e5725264efb4e36a3fb9e34c070a500b69dd614ca3ac79d79c486dc40908"></a>BROTLI_DECODER_PARAM_LARGE_WINDOW&#160;</td><td class="fielddoc"><p>Flag that determines if "Large Window Brotli" is used. </p>
+</td></tr>
+</table>
+
+<p class="definition">Definición en la línea <a class="el" href="x64-windows_2x64-windows_2include_2brotli_2decode_8h_source.html#l00131">131</a> del archivo <a class="el" href="x64-windows_2x64-windows_2include_2brotli_2decode_8h_source.html">decode.h</a>.</p>
+
+</div>
+</div>
+<a id="a87fd23715d225d1518eb7cd2a5cb374e" name="a87fd23715d225d1518eb7cd2a5cb374e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a87fd23715d225d1518eb7cd2a5cb374e">&#9670;&#160;</a></span>BrotliDecoderResult</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum <a class="el" href="x64-windows-static_2x64-windows-static_2include_2brotli_2decode_8h.html#a87fd23715d225d1518eb7cd2a5cb374e">BrotliDecoderResult</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Result type for <a class="el" href="#aa82cc8638bebdc53205f9941eec41626">BrotliDecoderDecompress</a> and <a class="el" href="#accb83dd5dab11ad1260c6f961a2340b3">BrotliDecoderDecompressStream</a> functions. </p>
+<table class="fieldtable">
+<tr><th colspan="2">Valores de enumeraciones</th></tr><tr><td class="fieldname"><a id="a87fd23715d225d1518eb7cd2a5cb374eadd6df16ccf47d89d71a0170acd452496" name="a87fd23715d225d1518eb7cd2a5cb374eadd6df16ccf47d89d71a0170acd452496"></a>BROTLI_DECODER_RESULT_ERROR&#160;</td><td class="fielddoc"><p>Decoding error, e.g. corrupted input or memory allocation problem. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a87fd23715d225d1518eb7cd2a5cb374eaba3e4e586e974657ec2e72753a469823" name="a87fd23715d225d1518eb7cd2a5cb374eaba3e4e586e974657ec2e72753a469823"></a>BROTLI_DECODER_RESULT_SUCCESS&#160;</td><td class="fielddoc"><p>Decoding successfully completed. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a87fd23715d225d1518eb7cd2a5cb374ea0da57a2b50c1e65c6b55c095f88bff38" name="a87fd23715d225d1518eb7cd2a5cb374ea0da57a2b50c1e65c6b55c095f88bff38"></a>BROTLI_DECODER_RESULT_NEEDS_MORE_INPUT&#160;</td><td class="fielddoc"><p>Partially done; should be called again with more input. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a87fd23715d225d1518eb7cd2a5cb374eafa10e01bd2f25a3d8d4b22db6fe66ab1" name="a87fd23715d225d1518eb7cd2a5cb374eafa10e01bd2f25a3d8d4b22db6fe66ab1"></a>BROTLI_DECODER_RESULT_NEEDS_MORE_OUTPUT&#160;</td><td class="fielddoc"><p>Partially done; should be called again with more output. </p>
+</td></tr>
+</table>
+
+<p class="definition">Definición en la línea <a class="el" href="x64-windows_2x64-windows_2include_2brotli_2decode_8h_source.html#l00034">34</a> del archivo <a class="el" href="x64-windows_2x64-windows_2include_2brotli_2decode_8h_source.html">decode.h</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Documentación de funciones</h2>
+<a id="a287d2eb9348db276bccc5b30fbcfe904" name="a287d2eb9348db276bccc5b30fbcfe904"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a287d2eb9348db276bccc5b30fbcfe904">&#9670;&#160;</a></span>BrotliDecoderCreateInstance()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="x64-windows-static_2x64-windows-static_2include_2brotli_2port_8h.html#a459316d532c0b1a2b1917bc529c87534">BROTLI_DEC_API</a> <a class="el" href="x64-windows-static_2x64-windows-static_2include_2brotli_2decode_8h.html#a7065afee5269785561960891589ec6af">BrotliDecoderState</a> * BrotliDecoderCreateInstance </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="x64-windows-static_2x64-windows-static_2include_2brotli_2types_8h.html#a53996dfbcbcee79dadb83c56933b9f1b">brotli_alloc_func</a></td>          <td class="paramname"><span class="paramname"><em>alloc_func</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="x64-windows-static_2x64-windows-static_2include_2brotli_2types_8h.html#a5e19dc1ca789ea76db7167289c442d32">brotli_free_func</a></td>          <td class="paramname"><span class="paramname"><em>free_func</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="x64-windows-static_2x64-windows-static_2include_2libpng16_2png_8h.html#a05f08be336491be77cd4dfa98f747c69">void</a> *</td>          <td class="paramname"><span class="paramname"><em>opaque</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Creates an instance of <a class="el" href="#a7065afee5269785561960891589ec6af">BrotliDecoderState</a> and initializes it.</p>
+<p>The instance can be used once for decoding and should then be destroyed with <a class="el" href="x64-windows-static_2x64-windows-static_2include_2brotli_2decode_8h.html#ad0ef795ea9bf78ec62939e9e78e04a6c">BrotliDecoderDestroyInstance</a>, it cannot be reused for a new decoding session.</p>
+<p><code>alloc_func</code> and <code>free_func</code> <b>MUST</b> be both zero or both non-zero. In the case they are both zero, default memory allocators are used. <code>opaque</code> is passed to <code>alloc_func</code> and <code>free_func</code> when they are called. <code>free_func</code> has to return without doing anything when asked to free a NULL pointer.</p>
+<dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">alloc_func</td><td>custom memory allocation function </td></tr>
+    <tr><td class="paramname">free_func</td><td>custom memory free function </td></tr>
+    <tr><td class="paramname">opaque</td><td>custom memory manager handle </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Devuelve</dt><dd><code>0</code> if instance can not be allocated or initialized </dd>
+<dd>
+pointer to initialized <a class="el" href="#a7065afee5269785561960891589ec6af">BrotliDecoderState</a> otherwise </dd></dl>
+
+</div>
+</div>
+<a id="aa82cc8638bebdc53205f9941eec41626" name="aa82cc8638bebdc53205f9941eec41626"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa82cc8638bebdc53205f9941eec41626">&#9670;&#160;</a></span>BrotliDecoderDecompress()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="x64-windows-static_2x64-windows-static_2include_2brotli_2port_8h.html#a459316d532c0b1a2b1917bc529c87534">BROTLI_DEC_API</a> <a class="el" href="x64-windows-static_2x64-windows-static_2include_2brotli_2decode_8h.html#a87fd23715d225d1518eb7cd2a5cb374e">BrotliDecoderResult</a> BrotliDecoderDecompress </td>
+          <td>(</td>
+          <td class="paramtype">size_t</td>          <td class="paramname"><span class="paramname"><em>encoded_size</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="x64-windows-static_2x64-windows-static_2include_2zconf_8h.html#a2c212835823e3c54a8ab6d95c652660e">const</a> uint8_t</td>          <td class="paramname"><span class="paramname"><em>encoded_buffer</em>[BROTLI_ARRAY_PARAM(encoded_size)], </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">size_t *</td>          <td class="paramname"><span class="paramname"><em>decoded_size</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint8_t</td>          <td class="paramname"><span class="paramname"><em>decoded_buffer</em>[BROTLI_ARRAY_PARAM(*decoded_size)]</span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Performs one-shot memory-to-memory decompression.</p>
+<p>Decompresses the data in <code>encoded_buffer</code> into <code>decoded_buffer</code>, and sets <code>*decoded_size</code> to the decompressed length.</p>
+<dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir"></td><td class="paramname">encoded_size</td><td>size of <code>encoded_buffer</code> </td></tr>
+    <tr><td class="paramdir"></td><td class="paramname">encoded_buffer</td><td>compressed data buffer with at least <code>encoded_size</code> addressable bytes </td></tr>
+    <tr><td class="paramdir">[in,out]</td><td class="paramname">decoded_size</td><td><b>in:</b> size of <code>decoded_buffer</code>; <br  />
+ <b>out:</b> length of decompressed data written to <code>decoded_buffer</code> </td></tr>
+    <tr><td class="paramdir"></td><td class="paramname">decoded_buffer</td><td>decompressed data destination buffer </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Devuelve</dt><dd><a class="el" href="#a87fd23715d225d1518eb7cd2a5cb374eadd6df16ccf47d89d71a0170acd452496">BROTLI_DECODER_RESULT_ERROR</a> if input is corrupted, memory allocation failed, or <code>decoded_buffer</code> is not large enough; </dd>
+<dd>
+<a class="el" href="#a87fd23715d225d1518eb7cd2a5cb374eaba3e4e586e974657ec2e72753a469823">BROTLI_DECODER_RESULT_SUCCESS</a> otherwise </dd></dl>
+
+</div>
+</div>
+<a id="accb83dd5dab11ad1260c6f961a2340b3" name="accb83dd5dab11ad1260c6f961a2340b3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#accb83dd5dab11ad1260c6f961a2340b3">&#9670;&#160;</a></span>BrotliDecoderDecompressStream()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="x64-windows-static_2x64-windows-static_2include_2brotli_2port_8h.html#a459316d532c0b1a2b1917bc529c87534">BROTLI_DEC_API</a> <a class="el" href="x64-windows-static_2x64-windows-static_2include_2brotli_2decode_8h.html#a87fd23715d225d1518eb7cd2a5cb374e">BrotliDecoderResult</a> BrotliDecoderDecompressStream </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="x64-windows-static_2x64-windows-static_2include_2brotli_2decode_8h.html#a7065afee5269785561960891589ec6af">BrotliDecoderState</a> *</td>          <td class="paramname"><span class="paramname"><em>state</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">size_t *</td>          <td class="paramname"><span class="paramname"><em>available_in</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="x64-windows-static_2x64-windows-static_2include_2zconf_8h.html#a2c212835823e3c54a8ab6d95c652660e">const</a> uint8_t **</td>          <td class="paramname"><span class="paramname"><em>next_in</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">size_t *</td>          <td class="paramname"><span class="paramname"><em>available_out</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint8_t **</td>          <td class="paramname"><span class="paramname"><em>next_out</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">size_t *</td>          <td class="paramname"><span class="paramname"><em>total_out</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Decompresses the input stream to the output stream.</p>
+<p>The values <code>*available_in</code> and <code>*available_out</code> must specify the number of bytes addressable at <code>*next_in</code> and <code>*next_out</code> respectively. When <code>*available_out</code> is <code>0</code>, <code>next_out</code> is allowed to be <code>NULL</code>.</p>
+<p>After each call, <code>*available_in</code> will be decremented by the amount of input bytes consumed, and the <code>*next_in</code> pointer will be incremented by that amount. Similarly, <code>*available_out</code> will be decremented by the amount of output bytes written, and the <code>*next_out</code> pointer will be incremented by that amount.</p>
+<p><code>total_out</code>, if it is not a null-pointer, will be set to the number of bytes decompressed since the last <code>state</code> initialization.</p>
+<dl class="section note"><dt>Nota</dt><dd>Input is never overconsumed, so <code>next_in</code> and <code>available_in</code> could be passed to the next consumer after decoding is complete.</dd></dl>
+<dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir"></td><td class="paramname">state</td><td>decoder instance </td></tr>
+    <tr><td class="paramdir">[in,out]</td><td class="paramname">available_in</td><td><b>in:</b> amount of available input; <br  />
+ <b>out:</b> amount of unused input </td></tr>
+    <tr><td class="paramdir">[in,out]</td><td class="paramname">next_in</td><td>pointer to the next compressed byte </td></tr>
+    <tr><td class="paramdir">[in,out]</td><td class="paramname">available_out</td><td><b>in:</b> length of output buffer; <br  />
+ <b>out:</b> remaining size of output buffer </td></tr>
+    <tr><td class="paramdir">[in,out]</td><td class="paramname">next_out</td><td>output buffer cursor; can be <code>NULL</code> if <code>available_out</code> is <code>0</code> </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">total_out</td><td>number of bytes decompressed so far; can be <code>NULL</code> </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Devuelve</dt><dd><a class="el" href="#a87fd23715d225d1518eb7cd2a5cb374eadd6df16ccf47d89d71a0170acd452496">BROTLI_DECODER_RESULT_ERROR</a> if input is corrupted, memory allocation failed, arguments were invalid, etc.; use <a class="el" href="x64-windows-static_2x64-windows-static_2include_2brotli_2decode_8h.html#af5f7da7dbe778e603d0b5209eec212fc">BrotliDecoderGetErrorCode</a> to get detailed error code </dd>
+<dd>
+<a class="el" href="#a87fd23715d225d1518eb7cd2a5cb374ea0da57a2b50c1e65c6b55c095f88bff38">BROTLI_DECODER_RESULT_NEEDS_MORE_INPUT</a> decoding is blocked until more input data is provided </dd>
+<dd>
+<a class="el" href="#a87fd23715d225d1518eb7cd2a5cb374eafa10e01bd2f25a3d8d4b22db6fe66ab1">BROTLI_DECODER_RESULT_NEEDS_MORE_OUTPUT</a> decoding is blocked until more output space is provided </dd>
+<dd>
+<a class="el" href="#a87fd23715d225d1518eb7cd2a5cb374eaba3e4e586e974657ec2e72753a469823">BROTLI_DECODER_RESULT_SUCCESS</a> decoding is finished, no more input might be consumed and no more output will be produced </dd></dl>
+
+</div>
+</div>
+<a id="ad0ef795ea9bf78ec62939e9e78e04a6c" name="ad0ef795ea9bf78ec62939e9e78e04a6c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad0ef795ea9bf78ec62939e9e78e04a6c">&#9670;&#160;</a></span>BrotliDecoderDestroyInstance()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="x64-windows-static_2x64-windows-static_2include_2brotli_2port_8h.html#a459316d532c0b1a2b1917bc529c87534">BROTLI_DEC_API</a> <a class="el" href="x64-windows-static_2x64-windows-static_2include_2libpng16_2png_8h.html#a05f08be336491be77cd4dfa98f747c69">void</a> BrotliDecoderDestroyInstance </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="x64-windows-static_2x64-windows-static_2include_2brotli_2decode_8h.html#a7065afee5269785561960891589ec6af">BrotliDecoderState</a> *</td>          <td class="paramname"><span class="paramname"><em>state</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Deinitializes and frees <a class="el" href="#a7065afee5269785561960891589ec6af">BrotliDecoderState</a> instance.</p>
+<dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">state</td><td>decoder instance to be cleaned up and deallocated </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a2ad245159eee51647b1007c231b5c419" name="a2ad245159eee51647b1007c231b5c419"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2ad245159eee51647b1007c231b5c419">&#9670;&#160;</a></span>BrotliDecoderErrorString()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="x64-windows-static_2x64-windows-static_2include_2brotli_2port_8h.html#a459316d532c0b1a2b1917bc529c87534">BROTLI_DEC_API</a> <a class="el" href="x64-windows-static_2x64-windows-static_2include_2zconf_8h.html#a2c212835823e3c54a8ab6d95c652660e">const</a> char * BrotliDecoderErrorString </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="x64-windows-static_2x64-windows-static_2include_2brotli_2decode_8h.html#af0c845bca11751bdaaa05f1a6f8bd013">BrotliDecoderErrorCode</a></td>          <td class="paramname"><span class="paramname"><em>c</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Converts error code to a c-string. </p>
+
+</div>
+</div>
+<a id="af5f7da7dbe778e603d0b5209eec212fc" name="af5f7da7dbe778e603d0b5209eec212fc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af5f7da7dbe778e603d0b5209eec212fc">&#9670;&#160;</a></span>BrotliDecoderGetErrorCode()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="x64-windows-static_2x64-windows-static_2include_2brotli_2port_8h.html#a459316d532c0b1a2b1917bc529c87534">BROTLI_DEC_API</a> <a class="el" href="x64-windows-static_2x64-windows-static_2include_2brotli_2decode_8h.html#af0c845bca11751bdaaa05f1a6f8bd013">BrotliDecoderErrorCode</a> BrotliDecoderGetErrorCode </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="x64-windows-static_2x64-windows-static_2include_2zconf_8h.html#a2c212835823e3c54a8ab6d95c652660e">const</a> <a class="el" href="x64-windows-static_2x64-windows-static_2include_2brotli_2decode_8h.html#a7065afee5269785561960891589ec6af">BrotliDecoderState</a> *</td>          <td class="paramname"><span class="paramname"><em>state</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Acquires a detailed error code.</p>
+<p>Should be used only after <a class="el" href="#accb83dd5dab11ad1260c6f961a2340b3">BrotliDecoderDecompressStream</a> returns <a class="el" href="#a87fd23715d225d1518eb7cd2a5cb374eadd6df16ccf47d89d71a0170acd452496">BROTLI_DECODER_RESULT_ERROR</a>.</p>
+<p>See also <a class="el" href="#a2ad245159eee51647b1007c231b5c419">BrotliDecoderErrorString</a></p>
+<dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">state</td><td>decoder instance </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Devuelve</dt><dd>last saved error code </dd></dl>
+
+</div>
+</div>
+<a id="a6e5cf101d02794992b3df899e72676b5" name="a6e5cf101d02794992b3df899e72676b5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6e5cf101d02794992b3df899e72676b5">&#9670;&#160;</a></span>BrotliDecoderHasMoreOutput()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="x64-windows-static_2x64-windows-static_2include_2brotli_2port_8h.html#a459316d532c0b1a2b1917bc529c87534">BROTLI_DEC_API</a> <a class="el" href="x64-windows-static_2x64-windows-static_2include_2brotli_2types_8h.html#ae8e1d352fb674019729cd9e7d0c27159">BROTLI_BOOL</a> BrotliDecoderHasMoreOutput </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="x64-windows-static_2x64-windows-static_2include_2zconf_8h.html#a2c212835823e3c54a8ab6d95c652660e">const</a> <a class="el" href="x64-windows-static_2x64-windows-static_2include_2brotli_2decode_8h.html#a7065afee5269785561960891589ec6af">BrotliDecoderState</a> *</td>          <td class="paramname"><span class="paramname"><em>state</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Checks if decoder has more output.</p>
+<dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">state</td><td>decoder instance </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Devuelve</dt><dd><a class="el" href="x64-windows-static_2x64-windows-static_2include_2brotli_2types_8h.html#a2f2490f572e3ddaa8e45b9f4e947ce60">BROTLI_TRUE</a>, if decoder has some unconsumed output </dd>
+<dd>
+<a class="el" href="x64-windows-static_2x64-windows-static_2include_2brotli_2types_8h.html#ac506138cd10f0b21daee6491213d36c5">BROTLI_FALSE</a> otherwise </dd></dl>
+
+</div>
+</div>
+<a id="ad8ad8d53e24daefee547be01ff9758fb" name="ad8ad8d53e24daefee547be01ff9758fb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad8ad8d53e24daefee547be01ff9758fb">&#9670;&#160;</a></span>BrotliDecoderIsFinished()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="x64-windows-static_2x64-windows-static_2include_2brotli_2port_8h.html#a459316d532c0b1a2b1917bc529c87534">BROTLI_DEC_API</a> <a class="el" href="x64-windows-static_2x64-windows-static_2include_2brotli_2types_8h.html#ae8e1d352fb674019729cd9e7d0c27159">BROTLI_BOOL</a> BrotliDecoderIsFinished </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="x64-windows-static_2x64-windows-static_2include_2zconf_8h.html#a2c212835823e3c54a8ab6d95c652660e">const</a> <a class="el" href="x64-windows-static_2x64-windows-static_2include_2brotli_2decode_8h.html#a7065afee5269785561960891589ec6af">BrotliDecoderState</a> *</td>          <td class="paramname"><span class="paramname"><em>state</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Checks if decoder instance reached the final state.</p>
+<dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">state</td><td>decoder instance </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Devuelve</dt><dd><a class="el" href="x64-windows-static_2x64-windows-static_2include_2brotli_2types_8h.html#a2f2490f572e3ddaa8e45b9f4e947ce60">BROTLI_TRUE</a> if decoder is in a state where it reached the end of the input and produced all of the output </dd>
+<dd>
+<a class="el" href="x64-windows-static_2x64-windows-static_2include_2brotli_2types_8h.html#ac506138cd10f0b21daee6491213d36c5">BROTLI_FALSE</a> otherwise </dd></dl>
+
+</div>
+</div>
+<a id="af50dac3548cd60d751a338f0e14ca5d7" name="af50dac3548cd60d751a338f0e14ca5d7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af50dac3548cd60d751a338f0e14ca5d7">&#9670;&#160;</a></span>BrotliDecoderIsUsed()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="x64-windows-static_2x64-windows-static_2include_2brotli_2port_8h.html#a459316d532c0b1a2b1917bc529c87534">BROTLI_DEC_API</a> <a class="el" href="x64-windows-static_2x64-windows-static_2include_2brotli_2types_8h.html#ae8e1d352fb674019729cd9e7d0c27159">BROTLI_BOOL</a> BrotliDecoderIsUsed </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="x64-windows-static_2x64-windows-static_2include_2zconf_8h.html#a2c212835823e3c54a8ab6d95c652660e">const</a> <a class="el" href="x64-windows-static_2x64-windows-static_2include_2brotli_2decode_8h.html#a7065afee5269785561960891589ec6af">BrotliDecoderState</a> *</td>          <td class="paramname"><span class="paramname"><em>state</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Checks if instance has already consumed input.</p>
+<p>Instance that returns <a class="el" href="x64-windows-static_2x64-windows-static_2include_2brotli_2types_8h.html#ac506138cd10f0b21daee6491213d36c5">BROTLI_FALSE</a> is considered "fresh" and could be reused.</p>
+<dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">state</td><td>decoder instance </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Devuelve</dt><dd><a class="el" href="x64-windows-static_2x64-windows-static_2include_2brotli_2types_8h.html#a2f2490f572e3ddaa8e45b9f4e947ce60">BROTLI_TRUE</a> if decoder has already used some input bytes </dd>
+<dd>
+<a class="el" href="x64-windows-static_2x64-windows-static_2include_2brotli_2types_8h.html#ac506138cd10f0b21daee6491213d36c5">BROTLI_FALSE</a> otherwise </dd></dl>
+
+</div>
+</div>
+<a id="adee376816d421c8588eebcc76e5156d6" name="adee376816d421c8588eebcc76e5156d6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adee376816d421c8588eebcc76e5156d6">&#9670;&#160;</a></span>BrotliDecoderSetParameter()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="x64-windows-static_2x64-windows-static_2include_2brotli_2port_8h.html#a459316d532c0b1a2b1917bc529c87534">BROTLI_DEC_API</a> <a class="el" href="x64-windows-static_2x64-windows-static_2include_2brotli_2types_8h.html#ae8e1d352fb674019729cd9e7d0c27159">BROTLI_BOOL</a> BrotliDecoderSetParameter </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="x64-windows-static_2x64-windows-static_2include_2brotli_2decode_8h.html#a7065afee5269785561960891589ec6af">BrotliDecoderState</a> *</td>          <td class="paramname"><span class="paramname"><em>state</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="x64-windows-static_2x64-windows-static_2include_2brotli_2decode_8h.html#a85a48e5725264efb4e36a3fb9e34c070">BrotliDecoderParameter</a></td>          <td class="paramname"><span class="paramname"><em>param</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint32_t</td>          <td class="paramname"><span class="paramname"><em>value</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Sets the specified parameter to the given decoder instance.</p>
+<dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">state</td><td>decoder instance </td></tr>
+    <tr><td class="paramname">param</td><td>parameter to set </td></tr>
+    <tr><td class="paramname">value</td><td>new parameter value </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Devuelve</dt><dd><a class="el" href="x64-windows-static_2x64-windows-static_2include_2brotli_2types_8h.html#ac506138cd10f0b21daee6491213d36c5">BROTLI_FALSE</a> if parameter is unrecognized, or value is invalid </dd>
+<dd>
+<a class="el" href="x64-windows-static_2x64-windows-static_2include_2brotli_2types_8h.html#a2f2490f572e3ddaa8e45b9f4e947ce60">BROTLI_TRUE</a> if value is accepted </dd></dl>
+
+</div>
+</div>
+<a id="a263c9ba2f3acb679fae4f8dc8bfdfb99" name="a263c9ba2f3acb679fae4f8dc8bfdfb99"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a263c9ba2f3acb679fae4f8dc8bfdfb99">&#9670;&#160;</a></span>BrotliDecoderTakeOutput()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="x64-windows-static_2x64-windows-static_2include_2brotli_2port_8h.html#a459316d532c0b1a2b1917bc529c87534">BROTLI_DEC_API</a> <a class="el" href="x64-windows-static_2x64-windows-static_2include_2zconf_8h.html#a2c212835823e3c54a8ab6d95c652660e">const</a> uint8_t * BrotliDecoderTakeOutput </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="x64-windows-static_2x64-windows-static_2include_2brotli_2decode_8h.html#a7065afee5269785561960891589ec6af">BrotliDecoderState</a> *</td>          <td class="paramname"><span class="paramname"><em>state</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">size_t *</td>          <td class="paramname"><span class="paramname"><em>size</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Acquires pointer to internal output buffer.</p>
+<p>This method is used to make language bindings easier and more efficient:</p><ol type="1">
+<li>push data to <a class="el" href="#accb83dd5dab11ad1260c6f961a2340b3">BrotliDecoderDecompressStream</a>, until <a class="el" href="#a87fd23715d225d1518eb7cd2a5cb374eafa10e01bd2f25a3d8d4b22db6fe66ab1">BROTLI_DECODER_RESULT_NEEDS_MORE_OUTPUT</a> is reported</li>
+<li>use <a class="el" href="#a263c9ba2f3acb679fae4f8dc8bfdfb99">BrotliDecoderTakeOutput</a> to peek bytes and copy to language-specific entity</li>
+</ol>
+<p>Also this could be useful if there is an output stream that is able to consume all the provided data (e.g. when data is saved to file system).</p>
+<dl class="section attention"><dt>Atención</dt><dd>After every call to <a class="el" href="#a263c9ba2f3acb679fae4f8dc8bfdfb99">BrotliDecoderTakeOutput</a> <code>*size</code> bytes of output are considered consumed for all consecutive calls to the instance methods; returned pointer becomes invalidated as well.</dd></dl>
+<dl class="section note"><dt>Nota</dt><dd>Decoder output is not guaranteed to be contiguous. This means that after the size-unrestricted call to <a class="el" href="#a263c9ba2f3acb679fae4f8dc8bfdfb99">BrotliDecoderTakeOutput</a>, immediate next call to <a class="el" href="#a263c9ba2f3acb679fae4f8dc8bfdfb99">BrotliDecoderTakeOutput</a> may return more data.</dd></dl>
+<dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir"></td><td class="paramname">state</td><td>decoder instance </td></tr>
+    <tr><td class="paramdir">[in,out]</td><td class="paramname">size</td><td><b>in:</b> number of bytes caller is ready to take, <code>0</code> if any amount could be handled; <br  />
+ <b>out:</b> amount of data pointed by returned pointer and considered consumed; <br  />
+ out value is never greater than in value, unless it is <code>0</code> </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Devuelve</dt><dd>pointer to output data </dd></dl>
+
+</div>
+</div>
+<a id="a079c6b60993f16eb35dd9fa9e24eb922" name="a079c6b60993f16eb35dd9fa9e24eb922"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a079c6b60993f16eb35dd9fa9e24eb922">&#9670;&#160;</a></span>BrotliDecoderVersion()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="x64-windows-static_2x64-windows-static_2include_2brotli_2port_8h.html#a459316d532c0b1a2b1917bc529c87534">BROTLI_DEC_API</a> uint32_t BrotliDecoderVersion </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="x64-windows-static_2x64-windows-static_2include_2libpng16_2png_8h.html#a05f08be336491be77cd4dfa98f747c69">void</a></td>          <td class="paramname"><span class="paramname"></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Gets a decoder library version.</p>
+<p>Look at BROTLI_VERSION for more information. </p>
+
+</div>
+</div>
+</div><!-- contents -->
+</div><!-- doc-content -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="dir_74389ed8173ad57b461b9d623a1f3867.html">Source</a></li><li class="navelem"><a class="el" href="dir_6e9399b867df62641d274959e619ad65.html">vcpkg_installed</a></li><li class="navelem"><a class="el" href="dir_ff113058011a9e08e4166a621bc2138c.html">x64-windows</a></li><li class="navelem"><a class="el" href="dir_b8313821a9bae10eb29b3f9afa25cc3a.html">x64-windows</a></li><li class="navelem"><a class="el" href="dir_661a5da092994cf8a44a2130d5038002.html">include</a></li><li class="navelem"><a class="el" href="dir_dbaeec9a5fad019dca249dece5b97f2f.html">brotli</a></li><li class="navelem"><a class="el" href="x64-windows_2x64-windows_2include_2brotli_2decode_8h.html">decode.h</a></li>
+    <li class="footer">Generado el Lunes, 29 de enero de 2024 17:18:40 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.10.0 </li>
+  </ul>
+</div>
+</body>
+</html>

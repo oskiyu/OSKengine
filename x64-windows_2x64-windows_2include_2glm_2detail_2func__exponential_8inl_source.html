@@ -1,0 +1,295 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="es">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.10.0"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>OSKengine: Archivo de código fuente Source/vcpkg_installed/x64-windows/x64-windows/include/glm/detail/func_exponential.inl</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">OSKengine<span id="projectnumber">&#160;Indev</span>
+   </div>
+   <div id="projectbrief">Motor de videojuegos.</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generado por Doxygen 1.10.0 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() {
+  initMenu('',true,false,'search.php','Buscar');
+  $(function() { init_search(); });
+});
+/* @license-end */
+</script>
+<div id="main-nav"></div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() { codefold.init(0); });
+/* @license-end */
+</script>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function(){initNavTree('x64-windows_2x64-windows_2include_2glm_2detail_2func__exponential_8inl_source.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Cargando...</div>
+<div class="SRStatus" id="Searching">Buscando...</div>
+<div class="SRStatus" id="NoMatches">Nada coincide</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">func_exponential.inl</div></div>
+</div><!--header-->
+<div class="contents">
+<a href="x64-windows_2x64-windows_2include_2glm_2detail_2func__exponential_8inl.html">Ir a la documentación de este archivo.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span> </div>
+<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span> </div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &quot;<a class="code" href="x64-windows_2x64-windows_2include_2glm_2vector__relational_8hpp.html">../vector_relational.hpp</a>&quot;</span></div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &quot;<a class="code" href="x64-windows_2x64-windows_2include_2glm_2detail_2__vectorize_8hpp.html">_vectorize.hpp</a>&quot;</span></div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &lt;limits&gt;</span></div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="preprocessor">#include &lt;cmath&gt;</span></div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="preprocessor">#include &lt;cassert&gt;</span></div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span> </div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="keyword">namespace </span><a class="code hl_namespace" href="namespaceglm.html">glm</a>{</div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="keyword">namespace </span>detail</div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span>{</div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="preprocessor">#   if GLM_HAS_CXX11_STL</span></div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span>        <span class="keyword">using </span>std::log2;</div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span><span class="preprocessor">#   else</span></div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span>        <span class="keyword">template</span>&lt;<span class="keyword">typename</span> genType&gt;</div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>        genType <a class="code hl_function" href="namespaceglm_1_1detail.html#a3d24a612f2c5fa4f3aaf97dcd979ef1c">log2</a>(genType Value)</div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>        {</div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>            <span class="keywordflow">return</span> std::log(Value) * <span class="keyword">static_cast&lt;</span>genType<span class="keyword">&gt;</span>(1.4426950408889634073599246810019);</div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>        }</div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span><span class="preprocessor">#   endif</span></div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span> </div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>    <span class="keyword">template</span>&lt;length_t L, <span class="keyword">typename</span> T, qualifier Q, <span class="keywordtype">bool</span> isFloat, <span class="keywordtype">bool</span> Aligned&gt;</div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>    <span class="keyword">struct </span>compute_log2</div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>    {</div>
+<div class="foldopen" id="foldopen00026" data-start="{" data-end="}">
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno"><a class="line" href="structglm_1_1detail_1_1compute__log2.html#a6764283ce6db36e96a1342b8c4bf6808">   26</a></span>        <a class="code hl_define" href="x64-windows-static_2x64-windows-static_2include_2glm_2detail_2setup_8hpp.html#a33fdea6f91c5f834105f7415e2a64407">GLM_FUNC_QUALIFIER</a> <span class="keyword">static</span> <a class="code hl_struct" href="structglm_1_1vec.html">vec&lt;L, T, Q&gt;</a> <a class="code hl_function" href="structglm_1_1detail_1_1compute__log2.html#a6764283ce6db36e96a1342b8c4bf6808">call</a>(<a class="code hl_struct" href="structglm_1_1vec.html">vec&lt;L, T, Q&gt;</a> <span class="keyword">const</span>&amp; v)</div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>        {</div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>            <a class="code hl_define" href="x64-windows-static_2x64-windows-static_2include_2glm_2detail_2setup_8hpp.html#a6893d4a6bf0ecab00f7c73166379245a">GLM_STATIC_ASSERT</a>(std::numeric_limits&lt;T&gt;::is_iec559, <span class="stringliteral">&quot;&#39;log2&#39; only accept floating-point inputs. Include &lt;glm/gtc/integer.hpp&gt; for integer inputs.&quot;</span>);</div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span> </div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>            <span class="keywordflow">return</span> <a class="code hl_struct" href="structglm_1_1detail_1_1functor1.html">detail::functor1&lt;vec, L, T, T, Q&gt;::call</a>(<a class="code hl_function" href="namespaceglm_1_1detail.html#a3d24a612f2c5fa4f3aaf97dcd979ef1c">log2</a>, v);</div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>        }</div>
+</div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>    };</div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span> </div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>    <span class="keyword">template</span>&lt;length_t L, <span class="keyword">typename</span> T, qualifier Q, <span class="keywordtype">bool</span> Aligned&gt;</div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>    <span class="keyword">struct </span>compute_sqrt</div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>    {</div>
+<div class="foldopen" id="foldopen00037" data-start="{" data-end="}">
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno"><a class="line" href="structglm_1_1detail_1_1compute__sqrt.html#a36931768ae96c81e722c199141fcf4cf">   37</a></span>        <a class="code hl_define" href="x64-windows-static_2x64-windows-static_2include_2glm_2detail_2setup_8hpp.html#a33fdea6f91c5f834105f7415e2a64407">GLM_FUNC_QUALIFIER</a> <span class="keyword">static</span> <a class="code hl_struct" href="structglm_1_1vec.html">vec&lt;L, T, Q&gt;</a> <a class="code hl_function" href="structglm_1_1detail_1_1compute__sqrt.html#a36931768ae96c81e722c199141fcf4cf">call</a>(<a class="code hl_struct" href="structglm_1_1vec.html">vec&lt;L, T, Q&gt;</a> <span class="keyword">const</span>&amp; x)</div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>        {</div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>            <span class="keywordflow">return</span> <a class="code hl_struct" href="structglm_1_1detail_1_1functor1.html">detail::functor1&lt;vec, L, T, T, Q&gt;::call</a>(std::sqrt, x);</div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>        }</div>
+</div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>    };</div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span> </div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>    <span class="keyword">template</span>&lt;length_t L, <span class="keyword">typename</span> T, qualifier Q, <span class="keywordtype">bool</span> Aligned&gt;</div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>    <span class="keyword">struct </span>compute_inversesqrt</div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>    {</div>
+<div class="foldopen" id="foldopen00046" data-start="{" data-end="}">
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno"><a class="line" href="structglm_1_1detail_1_1compute__inversesqrt.html#a0dd0f32e60f454dc0b6e020e537b8030">   46</a></span>        <a class="code hl_define" href="x64-windows-static_2x64-windows-static_2include_2glm_2detail_2setup_8hpp.html#a33fdea6f91c5f834105f7415e2a64407">GLM_FUNC_QUALIFIER</a> <span class="keyword">static</span> <a class="code hl_struct" href="structglm_1_1vec.html">vec&lt;L, T, Q&gt;</a> <a class="code hl_function" href="structglm_1_1detail_1_1compute__inversesqrt.html#a0dd0f32e60f454dc0b6e020e537b8030">call</a>(<a class="code hl_struct" href="structglm_1_1vec.html">vec&lt;L, T, Q&gt;</a> <span class="keyword">const</span>&amp; x)</div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>        {</div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>            <span class="keywordflow">return</span> <span class="keyword">static_cast&lt;</span>T<span class="keyword">&gt;</span>(1) / <a class="code hl_function" href="group__core__func__exponential.html#ga1f904e09827e939a56e4158f45ca8ede">sqrt</a>(x);</div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>        }</div>
+</div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>    };</div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span> </div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>    <span class="keyword">template</span>&lt;length_t L, <span class="keywordtype">bool</span> Aligned&gt;</div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>    <span class="keyword">struct </span>compute_inversesqrt&lt;L, float, <a class="code hl_enumvalue" href="namespaceglm.html#a36ed105b07c7746804d7fdc7cc90ff25a3b763a530cd95d31fb1ea64574700061">lowp</a>, <a class="code hl_enumvalue" href="x64-windows-static_2x64-windows-static_2include_2spirv_2unified1_2spv_8d.html#ad06450b23b79af403ec80564f864d85fa77577948716d10ccd697c9412a4db5c7">Aligned</a>&gt;</div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>    {</div>
+<div class="foldopen" id="foldopen00055" data-start="{" data-end="}">
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno"><a class="line" href="structglm_1_1detail_1_1compute__inversesqrt_3_01_l_00_01float_00_01lowp_00_01_aligned_01_4.html#a9d073a882881ef40582d5f1b6151d39c">   55</a></span>        <a class="code hl_define" href="x64-windows-static_2x64-windows-static_2include_2glm_2detail_2setup_8hpp.html#a33fdea6f91c5f834105f7415e2a64407">GLM_FUNC_QUALIFIER</a> <span class="keyword">static</span> <a class="code hl_struct" href="structglm_1_1vec.html">vec&lt;L, float, lowp&gt;</a> <a class="code hl_function" href="structglm_1_1detail_1_1compute__inversesqrt_3_01_l_00_01float_00_01lowp_00_01_aligned_01_4.html#a9d073a882881ef40582d5f1b6151d39c">call</a>(<a class="code hl_struct" href="structglm_1_1vec.html">vec&lt;L, float, lowp&gt;</a> <span class="keyword">const</span>&amp; x)</div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>        {</div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>            <a class="code hl_struct" href="structglm_1_1vec.html">vec&lt;L, float, lowp&gt;</a> tmp(x);</div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>            <a class="code hl_struct" href="structglm_1_1vec.html">vec&lt;L, float, lowp&gt;</a> xhalf(tmp * 0.5f);</div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>            <a class="code hl_struct" href="structglm_1_1vec.html">vec&lt;L, uint, lowp&gt;</a>* p = <span class="keyword">reinterpret_cast&lt;</span><a class="code hl_struct" href="structglm_1_1vec.html">vec&lt;L, uint, lowp&gt;</a>*<span class="keyword">&gt;</span>(<span class="keyword">const_cast&lt;</span><a class="code hl_struct" href="structglm_1_1vec.html">vec&lt;L, float, lowp&gt;</a>*<span class="keyword">&gt;</span>(&amp;x));</div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>            <a class="code hl_struct" href="structglm_1_1vec.html">vec&lt;L, uint, lowp&gt;</a> i = <a class="code hl_struct" href="structglm_1_1vec.html">vec&lt;L, uint, lowp&gt;</a>(0x5f375a86) - (*p &gt;&gt; <a class="code hl_struct" href="structglm_1_1vec.html">vec&lt;L, uint, lowp&gt;</a>(1));</div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>            <a class="code hl_struct" href="structglm_1_1vec.html">vec&lt;L, float, lowp&gt;</a>* ptmp = <span class="keyword">reinterpret_cast&lt;</span><a class="code hl_struct" href="structglm_1_1vec.html">vec&lt;L, float, lowp&gt;</a>*<span class="keyword">&gt;</span>(&amp;i);</div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>            tmp = *ptmp;</div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>            tmp = tmp * (1.5f - xhalf * tmp * tmp);</div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>            <span class="keywordflow">return</span> tmp;</div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>        }</div>
+</div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>    };</div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>}<span class="comment">//namespace detail</span></div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span> </div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>    <span class="comment">// pow</span></div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>    <span class="keyword">using </span>std::pow;</div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>    <span class="keyword">template</span>&lt;length_t L, <span class="keyword">typename</span> T, qualifier Q&gt;</div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>    <a class="code hl_define" href="x64-windows-static_2x64-windows-static_2include_2glm_2detail_2setup_8hpp.html#a33fdea6f91c5f834105f7415e2a64407">GLM_FUNC_QUALIFIER</a> vec&lt;L, T, Q&gt; <a class="code hl_function" href="group__core__func__exponential.html#ga717a43207fffc8b5e8e66cf56ded5ace">pow</a>(vec&lt;L, T, Q&gt; <span class="keyword">const</span>&amp; base, vec&lt;L, T, Q&gt; <span class="keyword">const</span>&amp; exponent)</div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>    {</div>
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>        <span class="keywordflow">return</span> detail::functor2&lt;vec, L, T, Q&gt;::call(pow, base, exponent);</div>
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>    }</div>
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span> </div>
+<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span>    <span class="comment">// exp</span></div>
+<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span>    <span class="keyword">using </span>std::exp;</div>
+<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span>    <span class="keyword">template</span>&lt;length_t L, <span class="keyword">typename</span> T, qualifier Q&gt;</div>
+<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span>    <a class="code hl_define" href="x64-windows-static_2x64-windows-static_2include_2glm_2detail_2setup_8hpp.html#a33fdea6f91c5f834105f7415e2a64407">GLM_FUNC_QUALIFIER</a> vec&lt;L, T, Q&gt; <a class="code hl_function" href="group__core__func__exponential.html#gaf6342f49d902286a599ceb86036236ce">exp</a>(vec&lt;L, T, Q&gt; <span class="keyword">const</span>&amp; x)</div>
+<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span>    {</div>
+<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span>        <span class="keywordflow">return</span> detail::functor1&lt;vec, L, T, T, Q&gt;::call(exp, x);</div>
+<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span>    }</div>
+<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span> </div>
+<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span>    <span class="comment">// log</span></div>
+<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span>    <span class="keyword">using </span>std::log;</div>
+<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span>    <span class="keyword">template</span>&lt;length_t L, <span class="keyword">typename</span> T, qualifier Q&gt;</div>
+<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span>    <a class="code hl_define" href="x64-windows-static_2x64-windows-static_2include_2glm_2detail_2setup_8hpp.html#a33fdea6f91c5f834105f7415e2a64407">GLM_FUNC_QUALIFIER</a> vec&lt;L, T, Q&gt; <a class="code hl_function" href="group__core__func__exponential.html#gad26901b9f2fdd30612867a8dcfa73fbc">log</a>(vec&lt;L, T, Q&gt; <span class="keyword">const</span>&amp; x)</div>
+<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span>    {</div>
+<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span>        <span class="keywordflow">return</span> detail::functor1&lt;vec, L, T, T, Q&gt;::call(log, x);</div>
+<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span>    }</div>
+<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span> </div>
+<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span><span class="preprocessor">#   if GLM_HAS_CXX11_STL</span></div>
+<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span>    <span class="keyword">using </span>std::exp2;</div>
+<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span><span class="preprocessor">#   else</span></div>
+<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span>    <span class="comment">//exp2, ln2 = 0.69314718055994530941723212145818f</span></div>
+<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span>    <span class="keyword">template</span>&lt;<span class="keyword">typename</span> genType&gt;</div>
+<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span>    <a class="code hl_define" href="x64-windows-static_2x64-windows-static_2include_2glm_2detail_2setup_8hpp.html#a33fdea6f91c5f834105f7415e2a64407">GLM_FUNC_QUALIFIER</a> genType <a class="code hl_function" href="namespaceglm.html#a8f6240c6756f850537398b1af2751c4b">exp2</a>(genType x)</div>
+<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span>    {</div>
+<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span>        <a class="code hl_define" href="x64-windows-static_2x64-windows-static_2include_2glm_2detail_2setup_8hpp.html#a6893d4a6bf0ecab00f7c73166379245a">GLM_STATIC_ASSERT</a>(std::numeric_limits&lt;genType&gt;::is_iec559, <span class="stringliteral">&quot;&#39;exp2&#39; only accept floating-point inputs&quot;</span>);</div>
+<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span> </div>
+<div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span>        <span class="keywordflow">return</span> std::exp(<span class="keyword">static_cast&lt;</span>genType<span class="keyword">&gt;</span>(0.69314718055994530941723212145818) * x);</div>
+<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span>    }</div>
+<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span><span class="preprocessor">#   endif</span></div>
+<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span> </div>
+<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span>    <span class="keyword">template</span>&lt;length_t L, <span class="keyword">typename</span> T, qualifier Q&gt;</div>
+<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span>    <a class="code hl_define" href="x64-windows-static_2x64-windows-static_2include_2glm_2detail_2setup_8hpp.html#a33fdea6f91c5f834105f7415e2a64407">GLM_FUNC_QUALIFIER</a> vec&lt;L, T, Q&gt; <a class="code hl_function" href="namespaceglm.html#a8f6240c6756f850537398b1af2751c4b">exp2</a>(vec&lt;L, T, Q&gt; <span class="keyword">const</span>&amp; x)</div>
+<div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span>    {</div>
+<div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span>        <span class="keywordflow">return</span> detail::functor1&lt;vec, L, T, T, Q&gt;::call(<a class="code hl_function" href="namespaceglm.html#a8f6240c6756f850537398b1af2751c4b">exp2</a>, x);</div>
+<div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span>    }</div>
+<div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span> </div>
+<div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span>    <span class="comment">// log2, ln2 = 0.69314718055994530941723212145818f</span></div>
+<div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span>    <span class="keyword">template</span>&lt;<span class="keyword">typename</span> genType&gt;</div>
+<div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span>    <a class="code hl_define" href="x64-windows-static_2x64-windows-static_2include_2glm_2detail_2setup_8hpp.html#a33fdea6f91c5f834105f7415e2a64407">GLM_FUNC_QUALIFIER</a> genType <a class="code hl_function" href="namespaceglm.html#ab47f0f29ead9cefd62d62ba5f83fe81b">log2</a>(genType x)</div>
+<div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span>    {</div>
+<div class="line"><a id="l00116" name="l00116"></a><span class="lineno">  116</span>        <span class="keywordflow">return</span> <a class="code hl_function" href="namespaceglm.html#ab47f0f29ead9cefd62d62ba5f83fe81b">log2</a>(vec&lt;1, genType&gt;(x)).x;</div>
+<div class="line"><a id="l00117" name="l00117"></a><span class="lineno">  117</span>    }</div>
+<div class="line"><a id="l00118" name="l00118"></a><span class="lineno">  118</span> </div>
+<div class="line"><a id="l00119" name="l00119"></a><span class="lineno">  119</span>    <span class="keyword">template</span>&lt;length_t L, <span class="keyword">typename</span> T, qualifier Q&gt;</div>
+<div class="line"><a id="l00120" name="l00120"></a><span class="lineno">  120</span>    <a class="code hl_define" href="x64-windows-static_2x64-windows-static_2include_2glm_2detail_2setup_8hpp.html#a33fdea6f91c5f834105f7415e2a64407">GLM_FUNC_QUALIFIER</a> vec&lt;L, T, Q&gt; <a class="code hl_function" href="namespaceglm.html#ab47f0f29ead9cefd62d62ba5f83fe81b">log2</a>(vec&lt;L, T, Q&gt; <span class="keyword">const</span>&amp; x)</div>
+<div class="line"><a id="l00121" name="l00121"></a><span class="lineno">  121</span>    {</div>
+<div class="line"><a id="l00122" name="l00122"></a><span class="lineno">  122</span>        <span class="keywordflow">return</span> detail::compute_log2&lt;L, T, Q, std::numeric_limits&lt;T&gt;::is_iec559, <a class="code hl_variable" href="structglm_1_1detail_1_1is__aligned.html#a50a4715cd385591476c2c7fe84d6c58c">detail::is_aligned&lt;Q&gt;::value</a>&gt;::call(x);</div>
+<div class="line"><a id="l00123" name="l00123"></a><span class="lineno">  123</span>    }</div>
+<div class="line"><a id="l00124" name="l00124"></a><span class="lineno">  124</span> </div>
+<div class="line"><a id="l00125" name="l00125"></a><span class="lineno">  125</span>    <span class="comment">// sqrt</span></div>
+<div class="line"><a id="l00126" name="l00126"></a><span class="lineno">  126</span>    <span class="keyword">using </span>std::sqrt;</div>
+<div class="line"><a id="l00127" name="l00127"></a><span class="lineno">  127</span>    <span class="keyword">template</span>&lt;length_t L, <span class="keyword">typename</span> T, qualifier Q&gt;</div>
+<div class="line"><a id="l00128" name="l00128"></a><span class="lineno">  128</span>    <a class="code hl_define" href="x64-windows-static_2x64-windows-static_2include_2glm_2detail_2setup_8hpp.html#a33fdea6f91c5f834105f7415e2a64407">GLM_FUNC_QUALIFIER</a> vec&lt;L, T, Q&gt; <a class="code hl_function" href="group__core__func__exponential.html#ga1f904e09827e939a56e4158f45ca8ede">sqrt</a>(vec&lt;L, T, Q&gt; <span class="keyword">const</span>&amp; x)</div>
+<div class="line"><a id="l00129" name="l00129"></a><span class="lineno">  129</span>    {</div>
+<div class="line"><a id="l00130" name="l00130"></a><span class="lineno">  130</span>        <a class="code hl_define" href="x64-windows-static_2x64-windows-static_2include_2glm_2detail_2setup_8hpp.html#a6893d4a6bf0ecab00f7c73166379245a">GLM_STATIC_ASSERT</a>(std::numeric_limits&lt;T&gt;::is_iec559, <span class="stringliteral">&quot;&#39;sqrt&#39; only accept floating-point inputs&quot;</span>);</div>
+<div class="line"><a id="l00131" name="l00131"></a><span class="lineno">  131</span>        <span class="keywordflow">return</span> detail::compute_sqrt&lt;L, T, Q, detail::is_aligned&lt;Q&gt;::value&gt;::call(x);</div>
+<div class="line"><a id="l00132" name="l00132"></a><span class="lineno">  132</span>    }</div>
+<div class="line"><a id="l00133" name="l00133"></a><span class="lineno">  133</span> </div>
+<div class="line"><a id="l00134" name="l00134"></a><span class="lineno">  134</span>    <span class="comment">// inversesqrt</span></div>
+<div class="line"><a id="l00135" name="l00135"></a><span class="lineno">  135</span>    <span class="keyword">template</span>&lt;<span class="keyword">typename</span> genType&gt;</div>
+<div class="line"><a id="l00136" name="l00136"></a><span class="lineno">  136</span>    <a class="code hl_define" href="x64-windows-static_2x64-windows-static_2include_2glm_2detail_2setup_8hpp.html#a33fdea6f91c5f834105f7415e2a64407">GLM_FUNC_QUALIFIER</a> genType <a class="code hl_function" href="namespaceglm.html#a5e3dd2bba414db15477d43ca9d71acf5">inversesqrt</a>(genType x)</div>
+<div class="line"><a id="l00137" name="l00137"></a><span class="lineno">  137</span>    {</div>
+<div class="line"><a id="l00138" name="l00138"></a><span class="lineno">  138</span>        <span class="keywordflow">return</span> <span class="keyword">static_cast&lt;</span>genType<span class="keyword">&gt;</span>(1) / <a class="code hl_function" href="group__core__func__exponential.html#ga1f904e09827e939a56e4158f45ca8ede">sqrt</a>(x);</div>
+<div class="line"><a id="l00139" name="l00139"></a><span class="lineno">  139</span>    }</div>
+<div class="line"><a id="l00140" name="l00140"></a><span class="lineno">  140</span> </div>
+<div class="line"><a id="l00141" name="l00141"></a><span class="lineno">  141</span>    <span class="keyword">template</span>&lt;length_t L, <span class="keyword">typename</span> T, qualifier Q&gt;</div>
+<div class="line"><a id="l00142" name="l00142"></a><span class="lineno">  142</span>    <a class="code hl_define" href="x64-windows-static_2x64-windows-static_2include_2glm_2detail_2setup_8hpp.html#a33fdea6f91c5f834105f7415e2a64407">GLM_FUNC_QUALIFIER</a> vec&lt;L, T, Q&gt; <a class="code hl_function" href="namespaceglm.html#a5e3dd2bba414db15477d43ca9d71acf5">inversesqrt</a>(vec&lt;L, T, Q&gt; <span class="keyword">const</span>&amp; x)</div>
+<div class="line"><a id="l00143" name="l00143"></a><span class="lineno">  143</span>    {</div>
+<div class="line"><a id="l00144" name="l00144"></a><span class="lineno">  144</span>        <a class="code hl_define" href="x64-windows-static_2x64-windows-static_2include_2glm_2detail_2setup_8hpp.html#a6893d4a6bf0ecab00f7c73166379245a">GLM_STATIC_ASSERT</a>(std::numeric_limits&lt;T&gt;::is_iec559, <span class="stringliteral">&quot;&#39;inversesqrt&#39; only accept floating-point inputs&quot;</span>);</div>
+<div class="line"><a id="l00145" name="l00145"></a><span class="lineno">  145</span>        <span class="keywordflow">return</span> detail::compute_inversesqrt&lt;L, T, Q, detail::is_aligned&lt;Q&gt;::value&gt;::call(x);</div>
+<div class="line"><a id="l00146" name="l00146"></a><span class="lineno">  146</span>    }</div>
+<div class="line"><a id="l00147" name="l00147"></a><span class="lineno">  147</span>}<span class="comment">//namespace glm</span></div>
+<div class="line"><a id="l00148" name="l00148"></a><span class="lineno">  148</span> </div>
+<div class="line"><a id="l00149" name="l00149"></a><span class="lineno">  149</span><span class="preprocessor">#if GLM_CONFIG_SIMD == GLM_ENABLE</span></div>
+<div class="line"><a id="l00150" name="l00150"></a><span class="lineno">  150</span><span class="preprocessor">#   include &quot;<a class="code" href="x64-windows_2x64-windows_2include_2glm_2detail_2func__exponential__simd_8inl.html">func_exponential_simd.inl</a>&quot;</span></div>
+<div class="line"><a id="l00151" name="l00151"></a><span class="lineno">  151</span><span class="preprocessor">#endif</span></div>
+<div class="line"><a id="l00152" name="l00152"></a><span class="lineno">  152</span> </div>
+<div class="ttc" id="agroup__core__func__exponential_html_ga1f904e09827e939a56e4158f45ca8ede"><div class="ttname"><a href="group__core__func__exponential.html#ga1f904e09827e939a56e4158f45ca8ede">glm::sqrt</a></div><div class="ttdeci">GLM_FUNC_QUALIFIER vec&lt; L, T, Q &gt; sqrt(vec&lt; L, T, Q &gt; const &amp;x)</div><div class="ttdef"><b>Definition</b> <a href="x64-windows-static_2x64-windows-static_2include_2glm_2detail_2func__exponential_8inl_source.html#l00128">func_exponential.inl:128</a></div></div>
+<div class="ttc" id="agroup__core__func__exponential_html_ga717a43207fffc8b5e8e66cf56ded5ace"><div class="ttname"><a href="group__core__func__exponential.html#ga717a43207fffc8b5e8e66cf56ded5ace">glm::pow</a></div><div class="ttdeci">GLM_FUNC_QUALIFIER vec&lt; L, T, Q &gt; pow(vec&lt; L, T, Q &gt; const &amp;base, vec&lt; L, T, Q &gt; const &amp;exponent)</div><div class="ttdef"><b>Definition</b> <a href="x64-windows-static_2x64-windows-static_2include_2glm_2detail_2func__exponential_8inl_source.html#l00072">func_exponential.inl:72</a></div></div>
+<div class="ttc" id="agroup__core__func__exponential_html_gad26901b9f2fdd30612867a8dcfa73fbc"><div class="ttname"><a href="group__core__func__exponential.html#gad26901b9f2fdd30612867a8dcfa73fbc">glm::log</a></div><div class="ttdeci">GLM_FUNC_QUALIFIER vec&lt; L, T, Q &gt; log(vec&lt; L, T, Q &gt; const &amp;x)</div><div class="ttdef"><b>Definition</b> <a href="x64-windows-static_2x64-windows-static_2include_2glm_2detail_2func__exponential_8inl_source.html#l00088">func_exponential.inl:88</a></div></div>
+<div class="ttc" id="agroup__core__func__exponential_html_gaf6342f49d902286a599ceb86036236ce"><div class="ttname"><a href="group__core__func__exponential.html#gaf6342f49d902286a599ceb86036236ce">glm::exp</a></div><div class="ttdeci">GLM_FUNC_QUALIFIER vec&lt; L, T, Q &gt; exp(vec&lt; L, T, Q &gt; const &amp;x)</div><div class="ttdef"><b>Definition</b> <a href="x64-windows-static_2x64-windows-static_2include_2glm_2detail_2func__exponential_8inl_source.html#l00080">func_exponential.inl:80</a></div></div>
+<div class="ttc" id="anamespaceglm_1_1detail_html_a3d24a612f2c5fa4f3aaf97dcd979ef1c"><div class="ttname"><a href="namespaceglm_1_1detail.html#a3d24a612f2c5fa4f3aaf97dcd979ef1c">glm::detail::log2</a></div><div class="ttdeci">genType log2(genType Value)</div><div class="ttdef"><b>Definition</b> <a href="x64-windows-static_2x64-windows-static_2include_2glm_2detail_2func__exponential_8inl_source.html#l00017">func_exponential.inl:17</a></div></div>
+<div class="ttc" id="anamespaceglm_html"><div class="ttname"><a href="namespaceglm.html">glm</a></div><div class="ttdoc">Core features</div><div class="ttdef"><b>Definition</b> <a href="x64-windows-static_2x64-windows-static_2include_2glm_2common_8hpp_source.html#l00020">common.hpp:21</a></div></div>
+<div class="ttc" id="anamespaceglm_html_a36ed105b07c7746804d7fdc7cc90ff25a3b763a530cd95d31fb1ea64574700061"><div class="ttname"><a href="namespaceglm.html#a36ed105b07c7746804d7fdc7cc90ff25a3b763a530cd95d31fb1ea64574700061">glm::lowp</a></div><div class="ttdeci">@ lowp</div><div class="ttdoc">By default lowp qualifier is also packed.</div><div class="ttdef"><b>Definition</b> <a href="x64-windows-static_2x64-windows-static_2include_2glm_2detail_2qualifier_8hpp_source.html#l00023">qualifier.hpp:23</a></div></div>
+<div class="ttc" id="anamespaceglm_html_a5e3dd2bba414db15477d43ca9d71acf5"><div class="ttname"><a href="namespaceglm.html#a5e3dd2bba414db15477d43ca9d71acf5">glm::inversesqrt</a></div><div class="ttdeci">GLM_FUNC_QUALIFIER genType inversesqrt(genType x)</div><div class="ttdef"><b>Definition</b> <a href="x64-windows-static_2x64-windows-static_2include_2glm_2detail_2func__exponential_8inl_source.html#l00136">func_exponential.inl:136</a></div></div>
+<div class="ttc" id="anamespaceglm_html_a8f6240c6756f850537398b1af2751c4b"><div class="ttname"><a href="namespaceglm.html#a8f6240c6756f850537398b1af2751c4b">glm::exp2</a></div><div class="ttdeci">GLM_FUNC_QUALIFIER genType exp2(genType x)</div><div class="ttdef"><b>Definition</b> <a href="x64-windows-static_2x64-windows-static_2include_2glm_2detail_2func__exponential_8inl_source.html#l00098">func_exponential.inl:98</a></div></div>
+<div class="ttc" id="anamespaceglm_html_ab47f0f29ead9cefd62d62ba5f83fe81b"><div class="ttname"><a href="namespaceglm.html#ab47f0f29ead9cefd62d62ba5f83fe81b">glm::log2</a></div><div class="ttdeci">GLM_FUNC_QUALIFIER genType log2(genType x)</div><div class="ttdef"><b>Definition</b> <a href="x64-windows-static_2x64-windows-static_2include_2glm_2detail_2func__exponential_8inl_source.html#l00114">func_exponential.inl:114</a></div></div>
+<div class="ttc" id="astructglm_1_1detail_1_1compute__inversesqrt_3_01_l_00_01float_00_01lowp_00_01_aligned_01_4_html_a9d073a882881ef40582d5f1b6151d39c"><div class="ttname"><a href="structglm_1_1detail_1_1compute__inversesqrt_3_01_l_00_01float_00_01lowp_00_01_aligned_01_4.html#a9d073a882881ef40582d5f1b6151d39c">glm::detail::compute_inversesqrt&lt; L, float, lowp, Aligned &gt;::call</a></div><div class="ttdeci">static GLM_FUNC_QUALIFIER vec&lt; L, float, lowp &gt; call(vec&lt; L, float, lowp &gt; const &amp;x)</div><div class="ttdef"><b>Definition</b> <a href="#l00055">func_exponential.inl:55</a></div></div>
+<div class="ttc" id="astructglm_1_1detail_1_1compute__inversesqrt_html_a0dd0f32e60f454dc0b6e020e537b8030"><div class="ttname"><a href="structglm_1_1detail_1_1compute__inversesqrt.html#a0dd0f32e60f454dc0b6e020e537b8030">glm::detail::compute_inversesqrt::call</a></div><div class="ttdeci">static GLM_FUNC_QUALIFIER vec&lt; L, T, Q &gt; call(vec&lt; L, T, Q &gt; const &amp;x)</div><div class="ttdef"><b>Definition</b> <a href="#l00046">func_exponential.inl:46</a></div></div>
+<div class="ttc" id="astructglm_1_1detail_1_1compute__log2_html_a6764283ce6db36e96a1342b8c4bf6808"><div class="ttname"><a href="structglm_1_1detail_1_1compute__log2.html#a6764283ce6db36e96a1342b8c4bf6808">glm::detail::compute_log2::call</a></div><div class="ttdeci">static GLM_FUNC_QUALIFIER vec&lt; L, T, Q &gt; call(vec&lt; L, T, Q &gt; const &amp;v)</div><div class="ttdef"><b>Definition</b> <a href="#l00026">func_exponential.inl:26</a></div></div>
+<div class="ttc" id="astructglm_1_1detail_1_1compute__sqrt_html_a36931768ae96c81e722c199141fcf4cf"><div class="ttname"><a href="structglm_1_1detail_1_1compute__sqrt.html#a36931768ae96c81e722c199141fcf4cf">glm::detail::compute_sqrt::call</a></div><div class="ttdeci">static GLM_FUNC_QUALIFIER vec&lt; L, T, Q &gt; call(vec&lt; L, T, Q &gt; const &amp;x)</div><div class="ttdef"><b>Definition</b> <a href="#l00037">func_exponential.inl:37</a></div></div>
+<div class="ttc" id="astructglm_1_1detail_1_1functor1_html"><div class="ttname"><a href="structglm_1_1detail_1_1functor1.html">glm::detail::functor1</a></div><div class="ttdef"><b>Definition</b> <a href="x64-windows-static_2x64-windows-static_2include_2glm_2detail_2__vectorize_8hpp_source.html#l00007">_vectorize.hpp:7</a></div></div>
+<div class="ttc" id="astructglm_1_1detail_1_1is__aligned_html_a50a4715cd385591476c2c7fe84d6c58c"><div class="ttname"><a href="structglm_1_1detail_1_1is__aligned.html#a50a4715cd385591476c2c7fe84d6c58c">glm::detail::is_aligned::value</a></div><div class="ttdeci">static const bool value</div><div class="ttdef"><b>Definition</b> <a href="x64-windows-static_2x64-windows-static_2include_2glm_2detail_2qualifier_8hpp_source.html#l00061">qualifier.hpp:61</a></div></div>
+<div class="ttc" id="astructglm_1_1vec_html"><div class="ttname"><a href="structglm_1_1vec.html">glm::vec</a></div><div class="ttdef"><b>Definition</b> <a href="x64-windows-static_2x64-windows-static_2include_2glm_2detail_2qualifier_8hpp_source.html#l00035">qualifier.hpp:35</a></div></div>
+<div class="ttc" id="ax64-windows-static_2x64-windows-static_2include_2glm_2detail_2setup_8hpp_html_a33fdea6f91c5f834105f7415e2a64407"><div class="ttname"><a href="x64-windows-static_2x64-windows-static_2include_2glm_2detail_2setup_8hpp.html#a33fdea6f91c5f834105f7415e2a64407">GLM_FUNC_QUALIFIER</a></div><div class="ttdeci">#define GLM_FUNC_QUALIFIER</div><div class="ttdef"><b>Definition</b> <a href="x64-windows-static_2x64-windows-static_2include_2glm_2detail_2setup_8hpp_source.html#l00439">setup.hpp:439</a></div></div>
+<div class="ttc" id="ax64-windows-static_2x64-windows-static_2include_2glm_2detail_2setup_8hpp_html_a6893d4a6bf0ecab00f7c73166379245a"><div class="ttname"><a href="x64-windows-static_2x64-windows-static_2include_2glm_2detail_2setup_8hpp.html#a6893d4a6bf0ecab00f7c73166379245a">GLM_STATIC_ASSERT</a></div><div class="ttdeci">#define GLM_STATIC_ASSERT(x, message)</div><div class="ttdef"><b>Definition</b> <a href="x64-windows-static_2x64-windows-static_2include_2glm_2detail_2setup_8hpp_source.html#l00405">setup.hpp:405</a></div></div>
+<div class="ttc" id="ax64-windows-static_2x64-windows-static_2include_2spirv_2unified1_2spv_8d_html_ad06450b23b79af403ec80564f864d85fa77577948716d10ccd697c9412a4db5c7"><div class="ttname"><a href="x64-windows-static_2x64-windows-static_2include_2spirv_2unified1_2spv_8d.html#ad06450b23b79af403ec80564f864d85fa77577948716d10ccd697c9412a4db5c7">Aligned</a></div><div class="ttdeci">@ Aligned</div><div class="ttdef"><b>Definition</b> <a href="x64-windows-static_2x64-windows-static_2include_2spirv_2unified1_2spv_8d_source.html#l00830">spv.d:830</a></div></div>
+<div class="ttc" id="ax64-windows_2x64-windows_2include_2glm_2detail_2__vectorize_8hpp_html"><div class="ttname"><a href="x64-windows_2x64-windows_2include_2glm_2detail_2__vectorize_8hpp.html">_vectorize.hpp</a></div></div>
+<div class="ttc" id="ax64-windows_2x64-windows_2include_2glm_2detail_2func__exponential__simd_8inl_html"><div class="ttname"><a href="x64-windows_2x64-windows_2include_2glm_2detail_2func__exponential__simd_8inl.html">func_exponential_simd.inl</a></div></div>
+<div class="ttc" id="ax64-windows_2x64-windows_2include_2glm_2vector__relational_8hpp_html"><div class="ttname"><a href="x64-windows_2x64-windows_2include_2glm_2vector__relational_8hpp.html">vector_relational.hpp</a></div></div>
+</div><!-- fragment --></div><!-- contents -->
+</div><!-- doc-content -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="dir_74389ed8173ad57b461b9d623a1f3867.html">Source</a></li><li class="navelem"><a class="el" href="dir_6e9399b867df62641d274959e619ad65.html">vcpkg_installed</a></li><li class="navelem"><a class="el" href="dir_ff113058011a9e08e4166a621bc2138c.html">x64-windows</a></li><li class="navelem"><a class="el" href="dir_b8313821a9bae10eb29b3f9afa25cc3a.html">x64-windows</a></li><li class="navelem"><a class="el" href="dir_661a5da092994cf8a44a2130d5038002.html">include</a></li><li class="navelem"><a class="el" href="dir_5c9198f23516f425351f7a7bfdedf4c6.html">glm</a></li><li class="navelem"><a class="el" href="dir_b552e0c49fa9e50adb2761a615d4df58.html">detail</a></li><li class="navelem"><a class="el" href="x64-windows_2x64-windows_2include_2glm_2detail_2func__exponential_8inl.html">func_exponential.inl</a></li>
+    <li class="footer">Generado el Lunes, 29 de enero de 2024 17:18:33 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.10.0 </li>
+  </ul>
+</div>
+</body>
+</html>

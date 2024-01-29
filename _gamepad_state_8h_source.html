@@ -1,0 +1,259 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="es">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.10.0"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>OSKengine: Archivo de código fuente Source/GamepadState.h</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">OSKengine<span id="projectnumber">&#160;Indev</span>
+   </div>
+   <div id="projectbrief">Motor de videojuegos.</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generado por Doxygen 1.10.0 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() {
+  initMenu('',true,false,'search.php','Buscar');
+  $(function() { init_search(); });
+});
+/* @license-end */
+</script>
+<div id="main-nav"></div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() { codefold.init(0); });
+/* @license-end */
+</script>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function(){initNavTree('_gamepad_state_8h_source.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Cargando...</div>
+<div class="SRStatus" id="Searching">Buscando...</div>
+<div class="SRStatus" id="NoMatches">Nada coincide</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">GamepadState.h</div></div>
+</div><!--header-->
+<div class="contents">
+<a href="_gamepad_state_8h.html">Ir a la documentación de este archivo.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#pragma once</span></div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span> </div>
+<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="preprocessor">#include &quot;<a class="code" href="_o_s_kmacros_8h.html">OSKmacros.h</a>&quot;</span></div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span> </div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &lt;array&gt;</span></div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &lt;GLFW/glfw3.h&gt;</span></div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span> </div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="keyword">namespace </span><a class="code hl_namespace" href="namespace_o_s_k_1_1_i_o.html">OSK::IO</a> {</div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span> </div>
+<div class="foldopen" id="foldopen00015" data-start="{" data-end="};">
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno"><a class="line" href="namespace_o_s_k_1_1_i_o.html#a37e62c3e569002298eedcfd13bad4dd4">   15</a></span>    <span class="keyword">enum class</span> <a class="code hl_enumeration" href="namespace_o_s_k_1_1_i_o.html#a37e62c3e569002298eedcfd13bad4dd4">GamepadAxis</a> {</div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span> </div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>        <a class="code hl_enumvalue" href="namespace_o_s_k_1_1_i_o.html#a37e62c3e569002298eedcfd13bad4dd4ae5815a16e50afa87f9a36ab8a52545c7">LEFT_X</a> = <a class="code hl_define" href="group__gamepad__axes.html#ga544e396d092036a7d80c1e5f233f7a38">GLFW_GAMEPAD_AXIS_LEFT_X</a>,</div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span> </div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>        <a class="code hl_enumvalue" href="namespace_o_s_k_1_1_i_o.html#a37e62c3e569002298eedcfd13bad4dd4adbc23e1293dc0846d28e1ea129344fcf">LEFT_Y</a> = <a class="code hl_define" href="group__gamepad__axes.html#ga64dcf2c6e9be50b7c556ff7671996dd5">GLFW_GAMEPAD_AXIS_LEFT_Y</a>,</div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span> </div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>        <a class="code hl_enumvalue" href="namespace_o_s_k_1_1_i_o.html#a37e62c3e569002298eedcfd13bad4dd4aea468ab59a115911fef1492a49e6bc59">RIGHT_X</a> = <a class="code hl_define" href="group__gamepad__axes.html#gabd6785106cd3c5a044a6e49a395ee2fc">GLFW_GAMEPAD_AXIS_RIGHT_X</a>,</div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span> </div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>        <a class="code hl_enumvalue" href="namespace_o_s_k_1_1_i_o.html#a37e62c3e569002298eedcfd13bad4dd4a9dfcf221fddfd2f237b3fd736caa7809">RIGHT_Y</a> = <a class="code hl_define" href="group__gamepad__axes.html#ga1cc20566d44d521b7183681a8e88e2e4">GLFW_GAMEPAD_AXIS_RIGHT_Y</a>,</div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span> </div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>        <a class="code hl_enumvalue" href="namespace_o_s_k_1_1_i_o.html#a37e62c3e569002298eedcfd13bad4dd4a7e6aa2d53f6ee2b1a34b017fa403cb76">L2</a> = <a class="code hl_define" href="group__gamepad__axes.html#ga6d79561dd8907c37354426242901b86e">GLFW_GAMEPAD_AXIS_LEFT_TRIGGER</a>,</div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span> </div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>        <a class="code hl_enumvalue" href="namespace_o_s_k_1_1_i_o.html#a37e62c3e569002298eedcfd13bad4dd4a8c6d22ff6f63fc6711cfa315cb80b314">R2</a> = <a class="code hl_define" href="group__gamepad__axes.html#ga121a7d5d20589a423cd1634dd6ee6eab">GLFW_GAMEPAD_AXIS_RIGHT_TRIGGER</a>,</div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span> </div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>        <a class="code hl_enumvalue" href="namespace_o_s_k_1_1_i_o.html#a37e62c3e569002298eedcfd13bad4dd4a72b49a7cbf0c0e3dff052d091d838252">__END</a></div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span> </div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>    };</div>
+</div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span> </div>
+<div class="foldopen" id="foldopen00074" data-start="{" data-end="};">
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno"><a class="line" href="namespace_o_s_k_1_1_i_o.html#ad1d8e1f23e2f2515648a3ad1b93ff345">   74</a></span>    <span class="keyword">enum class</span> <a class="code hl_enumeration" href="namespace_o_s_k_1_1_i_o.html#ad1d8e1f23e2f2515648a3ad1b93ff345">GamepadButton</a> {</div>
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span> </div>
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>        <a class="code hl_enumvalue" href="namespace_o_s_k_1_1_i_o.html#ad1d8e1f23e2f2515648a3ad1b93ff345a9dd4e461268c8034f5c8564e155c67a6">x</a> = <a class="code hl_define" href="group__gamepad__buttons.html#ga52cc94785cf3fe9a12e246539259887c">GLFW_GAMEPAD_BUTTON_X</a>,</div>
+<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span>        <a class="code hl_enumvalue" href="namespace_o_s_k_1_1_i_o.html#ad1d8e1f23e2f2515648a3ad1b93ff345a415290769594460e2e485922904f345d">y</a> = <a class="code hl_define" href="group__gamepad__buttons.html#gafc931248bda494b530cbe057f386a5ed">GLFW_GAMEPAD_BUTTON_Y</a>,</div>
+<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span>        <a class="code hl_enumvalue" href="namespace_o_s_k_1_1_i_o.html#ad1d8e1f23e2f2515648a3ad1b93ff345a7fc56270e7a70fa81a5935b72eacbe29">A</a> = <a class="code hl_define" href="group__gamepad__buttons.html#gae055a12fbf4b48b5954c8e1cd129b810">GLFW_GAMEPAD_BUTTON_A</a>,</div>
+<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span>        <a class="code hl_enumvalue" href="namespace_o_s_k_1_1_i_o.html#ad1d8e1f23e2f2515648a3ad1b93ff345a9d5ed678fe57bcca610140957afab571">B</a> = <a class="code hl_define" href="group__gamepad__buttons.html#ga2228a6512fd5950cdb51ba07846546fa">GLFW_GAMEPAD_BUTTON_B</a>,</div>
+<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span> </div>
+<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span>        <a class="code hl_enumvalue" href="namespace_o_s_k_1_1_i_o.html#ad1d8e1f23e2f2515648a3ad1b93ff345ab078ffd28db767c502ac367053f6e0ac">START</a> = <a class="code hl_define" href="group__gamepad__buttons.html#ga04606949dd9139434b8a1bedf4ac1021">GLFW_GAMEPAD_BUTTON_START</a>,</div>
+<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span>        <a class="code hl_enumvalue" href="namespace_o_s_k_1_1_i_o.html#ad1d8e1f23e2f2515648a3ad1b93ff345a1dd26f1f1790f0b56d5752fb0fbecef0">BACK</a> = <a class="code hl_define" href="group__gamepad__buttons.html#gabc7c0264ce778835b516a472b47f6caf">GLFW_GAMEPAD_BUTTON_BACK</a>,</div>
+<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span> </div>
+<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span>        <a class="code hl_enumvalue" href="namespace_o_s_k_1_1_i_o.html#ad1d8e1f23e2f2515648a3ad1b93ff345a9ec4c0afd450ceac7adb81c3bcfc9732">L1</a> = <a class="code hl_define" href="group__gamepad__buttons.html#ga3e089787327454f7bfca7364d6ca206a">GLFW_GAMEPAD_BUTTON_LEFT_THUMB</a>,</div>
+<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span>        <a class="code hl_enumvalue" href="namespace_o_s_k_1_1_i_o.html#ad1d8e1f23e2f2515648a3ad1b93ff345acda522d4353b166cc2dee84673307b4e">R1</a> = <a class="code hl_define" href="group__gamepad__buttons.html#ga1c003f52b5aebb45272475b48953b21a">GLFW_GAMEPAD_BUTTON_RIGHT_THUMB</a>,</div>
+<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span> </div>
+<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span>        <a class="code hl_enumvalue" href="namespace_o_s_k_1_1_i_o.html#ad1d8e1f23e2f2515648a3ad1b93ff345a01658843618e6525f57490c077e42cfd">PAD_TOP</a> = <a class="code hl_define" href="group__gamepad__buttons.html#ga4f1ed6f974a47bc8930d4874a283476a">GLFW_GAMEPAD_BUTTON_DPAD_UP</a>,</div>
+<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span>        <a class="code hl_enumvalue" href="namespace_o_s_k_1_1_i_o.html#ad1d8e1f23e2f2515648a3ad1b93ff345a0634239a328057c4cf72e09bef7c056b">PAD_DOWN</a> = <a class="code hl_define" href="group__gamepad__buttons.html#ga8f2b731b97d80f90f11967a83207665c">GLFW_GAMEPAD_BUTTON_DPAD_DOWN</a>,</div>
+<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span>        <a class="code hl_enumvalue" href="namespace_o_s_k_1_1_i_o.html#ad1d8e1f23e2f2515648a3ad1b93ff345a383c253a0c1fb4693a76a140e27c32fb">PAD_LEFT</a> = <a class="code hl_define" href="group__gamepad__buttons.html#gaf0697e0e8607b2ebe1c93b0c6befe301">GLFW_GAMEPAD_BUTTON_DPAD_LEFT</a>,</div>
+<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span>        <a class="code hl_enumvalue" href="namespace_o_s_k_1_1_i_o.html#ad1d8e1f23e2f2515648a3ad1b93ff345a8086e04686895d3e8396649873703c58">PAD_RIGHT</a> = <a class="code hl_define" href="group__gamepad__buttons.html#gae2a780d2a8c79e0b77c0b7b601ca57c6">GLFW_GAMEPAD_BUTTON_DPAD_RIGHT</a></div>
+<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span> </div>
+<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span>    };</div>
+</div>
+<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span> </div>
+<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span> </div>
+<div class="foldopen" id="foldopen00098" data-start="{" data-end="};">
+<div class="line"><a id="l00098" name="l00098"></a><span class="lineno"><a class="line" href="namespace_o_s_k_1_1_i_o.html#aaddc5e8725ac9d930e313af0044eb968">   98</a></span>    <span class="keyword">enum class</span> <a class="code hl_enumeration" href="namespace_o_s_k_1_1_i_o.html#aaddc5e8725ac9d930e313af0044eb968">GamepadButtonState</a> {</div>
+<div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span>        <a class="code hl_enumvalue" href="namespace_o_s_k_1_1_i_o.html#aaddc5e8725ac9d930e313af0044eb968a109d54efbb64d71f9a6ab18d0fb8add8">RELEASED</a>,</div>
+<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span> </div>
+<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span>        <a class="code hl_enumvalue" href="namespace_o_s_k_1_1_i_o.html#aaddc5e8725ac9d930e313af0044eb968a5381dc876ab002103a027265bc14ae52">PRESSED</a></div>
+<div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span> </div>
+<div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span>    };</div>
+</div>
+<div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span> </div>
+<div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span> </div>
+<div class="foldopen" id="foldopen00121" data-start="{" data-end="};">
+<div class="line"><a id="l00121" name="l00121"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_i_o_1_1_gamepad_state.html">  121</a></span>    <span class="keyword">class </span><a class="code hl_define" href="_o_s_kmacros_8h.html#a09ec5b46ece998ad096bceff312bb36c">OSKAPI_CALL</a> <a class="code hl_class" href="class_o_s_k_1_1_i_o_1_1_gamepad_state.html">GamepadState</a> {</div>
+<div class="line"><a id="l00122" name="l00122"></a><span class="lineno">  122</span> </div>
+<div class="line"><a id="l00123" name="l00123"></a><span class="lineno">  123</span>    <span class="keyword">public</span>:</div>
+<div class="line"><a id="l00124" name="l00124"></a><span class="lineno">  124</span> </div>
+<div class="line"><a id="l00125" name="l00125"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_i_o_1_1_gamepad_state.html#a5076312216049c079600e938e17887ac">  125</a></span>        <a class="code hl_function" href="class_o_s_k_1_1_i_o_1_1_gamepad_state.html#a5076312216049c079600e938e17887ac">GamepadState</a>() { }</div>
+<div class="line"><a id="l00126" name="l00126"></a><span class="lineno">  126</span>        <a class="code hl_class" href="class_o_s_k_1_1_i_o_1_1_gamepad_state.html">GamepadState</a>(<a class="code hl_typedef" href="_o_s_kmacros_8h.html#af205b9fd0440138e6cac38a9081141df">UIndex32</a> identifier);</div>
+<div class="line"><a id="l00127" name="l00127"></a><span class="lineno">  127</span> </div>
+<div class="line"><a id="l00128" name="l00128"></a><span class="lineno">  128</span>        <a class="code hl_enumeration" href="namespace_o_s_k_1_1_i_o.html#aaddc5e8725ac9d930e313af0044eb968">GamepadButtonState</a> GetButtonState(<a class="code hl_enumeration" href="namespace_o_s_k_1_1_i_o.html#ad1d8e1f23e2f2515648a3ad1b93ff345">GamepadButton</a> button) <span class="keyword">const</span>;</div>
+<div class="line"><a id="l00129" name="l00129"></a><span class="lineno">  129</span> </div>
+<div class="line"><a id="l00130" name="l00130"></a><span class="lineno">  130</span>        <span class="keywordtype">bool</span> IsButtonDown(<a class="code hl_enumeration" href="namespace_o_s_k_1_1_i_o.html#ad1d8e1f23e2f2515648a3ad1b93ff345">GamepadButton</a> button) <span class="keyword">const</span>;</div>
+<div class="line"><a id="l00131" name="l00131"></a><span class="lineno">  131</span>        <span class="keywordtype">bool</span> IsButtonUp(<a class="code hl_enumeration" href="namespace_o_s_k_1_1_i_o.html#ad1d8e1f23e2f2515648a3ad1b93ff345">GamepadButton</a> button) <span class="keyword">const</span>;</div>
+<div class="line"><a id="l00132" name="l00132"></a><span class="lineno">  132</span> </div>
+<div class="line"><a id="l00141" name="l00141"></a><span class="lineno">  141</span>        <span class="keywordtype">float</span> GetAxisState(<a class="code hl_enumeration" href="namespace_o_s_k_1_1_i_o.html#a37e62c3e569002298eedcfd13bad4dd4">GamepadAxis</a> axis) <span class="keyword">const</span>;</div>
+<div class="line"><a id="l00142" name="l00142"></a><span class="lineno">  142</span> </div>
+<div class="line"><a id="l00150" name="l00150"></a><span class="lineno">  150</span>        <a class="code hl_typedef" href="_o_s_kmacros_8h.html#af205b9fd0440138e6cac38a9081141df">UIndex32</a> GetIdentifier() <span class="keyword">const</span>;</div>
+<div class="line"><a id="l00151" name="l00151"></a><span class="lineno">  151</span> </div>
+<div class="line"><a id="l00156" name="l00156"></a><span class="lineno">  156</span>        <span class="keywordtype">bool</span> IsConnected() <span class="keyword">const</span>;</div>
+<div class="line"><a id="l00157" name="l00157"></a><span class="lineno">  157</span> </div>
+<div class="line"><a id="l00158" name="l00158"></a><span class="lineno">  158</span>        <span class="keywordtype">void</span> _SetButtonState(<a class="code hl_enumeration" href="namespace_o_s_k_1_1_i_o.html#ad1d8e1f23e2f2515648a3ad1b93ff345">GamepadButton</a> button, <a class="code hl_enumeration" href="namespace_o_s_k_1_1_i_o.html#aaddc5e8725ac9d930e313af0044eb968">GamepadButtonState</a> state);</div>
+<div class="line"><a id="l00159" name="l00159"></a><span class="lineno">  159</span>        <span class="keywordtype">void</span> _SetAxisState(<a class="code hl_enumeration" href="namespace_o_s_k_1_1_i_o.html#a37e62c3e569002298eedcfd13bad4dd4">GamepadAxis</a> axis, <span class="keywordtype">float</span> value);</div>
+<div class="line"><a id="l00160" name="l00160"></a><span class="lineno">  160</span>        <span class="keywordtype">void</span> _SetConnectionState(<span class="keywordtype">bool</span> isConnected);</div>
+<div class="line"><a id="l00161" name="l00161"></a><span class="lineno">  161</span> </div>
+<div class="line"><a id="l00162" name="l00162"></a><span class="lineno">  162</span>    <span class="keyword">private</span>:</div>
+<div class="line"><a id="l00163" name="l00163"></a><span class="lineno">  163</span> </div>
+<div class="line"><a id="l00164" name="l00164"></a><span class="lineno">  164</span>        std::array&lt;GamepadButtonState, 4&gt; buttonState{};</div>
+<div class="line"><a id="l00165" name="l00165"></a><span class="lineno">  165</span>        <span class="keywordtype">float</span> axesStates[6]{};</div>
+<div class="line"><a id="l00166" name="l00166"></a><span class="lineno">  166</span> </div>
+<div class="line"><a id="l00167" name="l00167"></a><span class="lineno">  167</span>        <a class="code hl_typedef" href="_o_s_kmacros_8h.html#af205b9fd0440138e6cac38a9081141df">UIndex32</a> identifier = 0;</div>
+<div class="line"><a id="l00168" name="l00168"></a><span class="lineno">  168</span> </div>
+<div class="line"><a id="l00169" name="l00169"></a><span class="lineno">  169</span>        <span class="keywordtype">bool</span> isConnected = <span class="keyword">false</span>;</div>
+<div class="line"><a id="l00170" name="l00170"></a><span class="lineno">  170</span> </div>
+<div class="line"><a id="l00171" name="l00171"></a><span class="lineno">  171</span>    };</div>
+</div>
+<div class="line"><a id="l00172" name="l00172"></a><span class="lineno">  172</span> </div>
+<div class="line"><a id="l00173" name="l00173"></a><span class="lineno">  173</span>}</div>
+<div class="ttc" id="a_o_s_kmacros_8h_html"><div class="ttname"><a href="_o_s_kmacros_8h.html">OSKmacros.h</a></div></div>
+<div class="ttc" id="a_o_s_kmacros_8h_html_a09ec5b46ece998ad096bceff312bb36c"><div class="ttname"><a href="_o_s_kmacros_8h.html#a09ec5b46ece998ad096bceff312bb36c">OSKAPI_CALL</a></div><div class="ttdeci">#define OSKAPI_CALL</div><div class="ttdef"><b>Definition</b> <a href="_o_s_kmacros_8h_source.html#l00007">OSKmacros.h:7</a></div></div>
+<div class="ttc" id="a_o_s_kmacros_8h_html_af205b9fd0440138e6cac38a9081141df"><div class="ttname"><a href="_o_s_kmacros_8h.html#af205b9fd0440138e6cac38a9081141df">UIndex32</a></div><div class="ttdeci">uint32_t UIndex32</div><div class="ttdef"><b>Definition</b> <a href="_o_s_kmacros_8h_source.html#l00040">OSKmacros.h:40</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_i_o_1_1_gamepad_state_html"><div class="ttname"><a href="class_o_s_k_1_1_i_o_1_1_gamepad_state.html">OSK::IO::GamepadState</a></div><div class="ttdoc">Representa el estado actual de un gamepad conectado a la plataforma.</div><div class="ttdef"><b>Definition</b> <a href="#l00121">GamepadState.h:121</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_i_o_1_1_gamepad_state_html_a5076312216049c079600e938e17887ac"><div class="ttname"><a href="class_o_s_k_1_1_i_o_1_1_gamepad_state.html#a5076312216049c079600e938e17887ac">OSK::IO::GamepadState::GamepadState</a></div><div class="ttdeci">GamepadState()</div><div class="ttdef"><b>Definition</b> <a href="#l00125">GamepadState.h:125</a></div></div>
+<div class="ttc" id="agroup__gamepad__axes_html_ga121a7d5d20589a423cd1634dd6ee6eab"><div class="ttname"><a href="group__gamepad__axes.html#ga121a7d5d20589a423cd1634dd6ee6eab">GLFW_GAMEPAD_AXIS_RIGHT_TRIGGER</a></div><div class="ttdeci">#define GLFW_GAMEPAD_AXIS_RIGHT_TRIGGER</div><div class="ttdef"><b>Definition</b> <a href="x64-windows-static_2x64-windows-static_2include_2_g_l_f_w_2glfw3_8h_source.html#l00653">glfw3.h:653</a></div></div>
+<div class="ttc" id="agroup__gamepad__axes_html_ga1cc20566d44d521b7183681a8e88e2e4"><div class="ttname"><a href="group__gamepad__axes.html#ga1cc20566d44d521b7183681a8e88e2e4">GLFW_GAMEPAD_AXIS_RIGHT_Y</a></div><div class="ttdeci">#define GLFW_GAMEPAD_AXIS_RIGHT_Y</div><div class="ttdef"><b>Definition</b> <a href="x64-windows-static_2x64-windows-static_2include_2_g_l_f_w_2glfw3_8h_source.html#l00651">glfw3.h:651</a></div></div>
+<div class="ttc" id="agroup__gamepad__axes_html_ga544e396d092036a7d80c1e5f233f7a38"><div class="ttname"><a href="group__gamepad__axes.html#ga544e396d092036a7d80c1e5f233f7a38">GLFW_GAMEPAD_AXIS_LEFT_X</a></div><div class="ttdeci">#define GLFW_GAMEPAD_AXIS_LEFT_X</div><div class="ttdef"><b>Definition</b> <a href="x64-windows-static_2x64-windows-static_2include_2_g_l_f_w_2glfw3_8h_source.html#l00648">glfw3.h:648</a></div></div>
+<div class="ttc" id="agroup__gamepad__axes_html_ga64dcf2c6e9be50b7c556ff7671996dd5"><div class="ttname"><a href="group__gamepad__axes.html#ga64dcf2c6e9be50b7c556ff7671996dd5">GLFW_GAMEPAD_AXIS_LEFT_Y</a></div><div class="ttdeci">#define GLFW_GAMEPAD_AXIS_LEFT_Y</div><div class="ttdef"><b>Definition</b> <a href="x64-windows-static_2x64-windows-static_2include_2_g_l_f_w_2glfw3_8h_source.html#l00649">glfw3.h:649</a></div></div>
+<div class="ttc" id="agroup__gamepad__axes_html_ga6d79561dd8907c37354426242901b86e"><div class="ttname"><a href="group__gamepad__axes.html#ga6d79561dd8907c37354426242901b86e">GLFW_GAMEPAD_AXIS_LEFT_TRIGGER</a></div><div class="ttdeci">#define GLFW_GAMEPAD_AXIS_LEFT_TRIGGER</div><div class="ttdef"><b>Definition</b> <a href="x64-windows-static_2x64-windows-static_2include_2_g_l_f_w_2glfw3_8h_source.html#l00652">glfw3.h:652</a></div></div>
+<div class="ttc" id="agroup__gamepad__axes_html_gabd6785106cd3c5a044a6e49a395ee2fc"><div class="ttname"><a href="group__gamepad__axes.html#gabd6785106cd3c5a044a6e49a395ee2fc">GLFW_GAMEPAD_AXIS_RIGHT_X</a></div><div class="ttdeci">#define GLFW_GAMEPAD_AXIS_RIGHT_X</div><div class="ttdef"><b>Definition</b> <a href="x64-windows-static_2x64-windows-static_2include_2_g_l_f_w_2glfw3_8h_source.html#l00650">glfw3.h:650</a></div></div>
+<div class="ttc" id="agroup__gamepad__buttons_html_ga04606949dd9139434b8a1bedf4ac1021"><div class="ttname"><a href="group__gamepad__buttons.html#ga04606949dd9139434b8a1bedf4ac1021">GLFW_GAMEPAD_BUTTON_START</a></div><div class="ttdeci">#define GLFW_GAMEPAD_BUTTON_START</div><div class="ttdef"><b>Definition</b> <a href="x64-windows-static_2x64-windows-static_2include_2_g_l_f_w_2glfw3_8h_source.html#l00625">glfw3.h:625</a></div></div>
+<div class="ttc" id="agroup__gamepad__buttons_html_ga1c003f52b5aebb45272475b48953b21a"><div class="ttname"><a href="group__gamepad__buttons.html#ga1c003f52b5aebb45272475b48953b21a">GLFW_GAMEPAD_BUTTON_RIGHT_THUMB</a></div><div class="ttdeci">#define GLFW_GAMEPAD_BUTTON_RIGHT_THUMB</div><div class="ttdef"><b>Definition</b> <a href="x64-windows-static_2x64-windows-static_2include_2_g_l_f_w_2glfw3_8h_source.html#l00628">glfw3.h:628</a></div></div>
+<div class="ttc" id="agroup__gamepad__buttons_html_ga2228a6512fd5950cdb51ba07846546fa"><div class="ttname"><a href="group__gamepad__buttons.html#ga2228a6512fd5950cdb51ba07846546fa">GLFW_GAMEPAD_BUTTON_B</a></div><div class="ttdeci">#define GLFW_GAMEPAD_BUTTON_B</div><div class="ttdef"><b>Definition</b> <a href="x64-windows-static_2x64-windows-static_2include_2_g_l_f_w_2glfw3_8h_source.html#l00619">glfw3.h:619</a></div></div>
+<div class="ttc" id="agroup__gamepad__buttons_html_ga3e089787327454f7bfca7364d6ca206a"><div class="ttname"><a href="group__gamepad__buttons.html#ga3e089787327454f7bfca7364d6ca206a">GLFW_GAMEPAD_BUTTON_LEFT_THUMB</a></div><div class="ttdeci">#define GLFW_GAMEPAD_BUTTON_LEFT_THUMB</div><div class="ttdef"><b>Definition</b> <a href="x64-windows-static_2x64-windows-static_2include_2_g_l_f_w_2glfw3_8h_source.html#l00627">glfw3.h:627</a></div></div>
+<div class="ttc" id="agroup__gamepad__buttons_html_ga4f1ed6f974a47bc8930d4874a283476a"><div class="ttname"><a href="group__gamepad__buttons.html#ga4f1ed6f974a47bc8930d4874a283476a">GLFW_GAMEPAD_BUTTON_DPAD_UP</a></div><div class="ttdeci">#define GLFW_GAMEPAD_BUTTON_DPAD_UP</div><div class="ttdef"><b>Definition</b> <a href="x64-windows-static_2x64-windows-static_2include_2_g_l_f_w_2glfw3_8h_source.html#l00629">glfw3.h:629</a></div></div>
+<div class="ttc" id="agroup__gamepad__buttons_html_ga52cc94785cf3fe9a12e246539259887c"><div class="ttname"><a href="group__gamepad__buttons.html#ga52cc94785cf3fe9a12e246539259887c">GLFW_GAMEPAD_BUTTON_X</a></div><div class="ttdeci">#define GLFW_GAMEPAD_BUTTON_X</div><div class="ttdef"><b>Definition</b> <a href="x64-windows-static_2x64-windows-static_2include_2_g_l_f_w_2glfw3_8h_source.html#l00620">glfw3.h:620</a></div></div>
+<div class="ttc" id="agroup__gamepad__buttons_html_ga8f2b731b97d80f90f11967a83207665c"><div class="ttname"><a href="group__gamepad__buttons.html#ga8f2b731b97d80f90f11967a83207665c">GLFW_GAMEPAD_BUTTON_DPAD_DOWN</a></div><div class="ttdeci">#define GLFW_GAMEPAD_BUTTON_DPAD_DOWN</div><div class="ttdef"><b>Definition</b> <a href="x64-windows-static_2x64-windows-static_2include_2_g_l_f_w_2glfw3_8h_source.html#l00631">glfw3.h:631</a></div></div>
+<div class="ttc" id="agroup__gamepad__buttons_html_gabc7c0264ce778835b516a472b47f6caf"><div class="ttname"><a href="group__gamepad__buttons.html#gabc7c0264ce778835b516a472b47f6caf">GLFW_GAMEPAD_BUTTON_BACK</a></div><div class="ttdeci">#define GLFW_GAMEPAD_BUTTON_BACK</div><div class="ttdef"><b>Definition</b> <a href="x64-windows-static_2x64-windows-static_2include_2_g_l_f_w_2glfw3_8h_source.html#l00624">glfw3.h:624</a></div></div>
+<div class="ttc" id="agroup__gamepad__buttons_html_gae055a12fbf4b48b5954c8e1cd129b810"><div class="ttname"><a href="group__gamepad__buttons.html#gae055a12fbf4b48b5954c8e1cd129b810">GLFW_GAMEPAD_BUTTON_A</a></div><div class="ttdeci">#define GLFW_GAMEPAD_BUTTON_A</div><div class="ttdef"><b>Definition</b> <a href="x64-windows-static_2x64-windows-static_2include_2_g_l_f_w_2glfw3_8h_source.html#l00618">glfw3.h:618</a></div></div>
+<div class="ttc" id="agroup__gamepad__buttons_html_gae2a780d2a8c79e0b77c0b7b601ca57c6"><div class="ttname"><a href="group__gamepad__buttons.html#gae2a780d2a8c79e0b77c0b7b601ca57c6">GLFW_GAMEPAD_BUTTON_DPAD_RIGHT</a></div><div class="ttdeci">#define GLFW_GAMEPAD_BUTTON_DPAD_RIGHT</div><div class="ttdef"><b>Definition</b> <a href="x64-windows-static_2x64-windows-static_2include_2_g_l_f_w_2glfw3_8h_source.html#l00630">glfw3.h:630</a></div></div>
+<div class="ttc" id="agroup__gamepad__buttons_html_gaf0697e0e8607b2ebe1c93b0c6befe301"><div class="ttname"><a href="group__gamepad__buttons.html#gaf0697e0e8607b2ebe1c93b0c6befe301">GLFW_GAMEPAD_BUTTON_DPAD_LEFT</a></div><div class="ttdeci">#define GLFW_GAMEPAD_BUTTON_DPAD_LEFT</div><div class="ttdef"><b>Definition</b> <a href="x64-windows-static_2x64-windows-static_2include_2_g_l_f_w_2glfw3_8h_source.html#l00632">glfw3.h:632</a></div></div>
+<div class="ttc" id="agroup__gamepad__buttons_html_gafc931248bda494b530cbe057f386a5ed"><div class="ttname"><a href="group__gamepad__buttons.html#gafc931248bda494b530cbe057f386a5ed">GLFW_GAMEPAD_BUTTON_Y</a></div><div class="ttdeci">#define GLFW_GAMEPAD_BUTTON_Y</div><div class="ttdef"><b>Definition</b> <a href="x64-windows-static_2x64-windows-static_2include_2_g_l_f_w_2glfw3_8h_source.html#l00621">glfw3.h:621</a></div></div>
+<div class="ttc" id="anamespace_o_s_k_1_1_i_o_html"><div class="ttname"><a href="namespace_o_s_k_1_1_i_o.html">OSK::IO</a></div><div class="ttdef"><b>Definition</b> <a href="_camera_component2_d_8h_source.html#l00013">CameraComponent2D.h:13</a></div></div>
+<div class="ttc" id="anamespace_o_s_k_1_1_i_o_html_a37e62c3e569002298eedcfd13bad4dd4"><div class="ttname"><a href="namespace_o_s_k_1_1_i_o.html#a37e62c3e569002298eedcfd13bad4dd4">OSK::IO::GamepadAxis</a></div><div class="ttdeci">GamepadAxis</div><div class="ttdoc">Todos y cada uno de los ejes del gamepad, es decir, cada uno de los inputs que pueden tener un valor ...</div><div class="ttdef"><b>Definition</b> <a href="#l00015">GamepadState.h:15</a></div></div>
+<div class="ttc" id="anamespace_o_s_k_1_1_i_o_html_a37e62c3e569002298eedcfd13bad4dd4a72b49a7cbf0c0e3dff052d091d838252"><div class="ttname"><a href="namespace_o_s_k_1_1_i_o.html#a37e62c3e569002298eedcfd13bad4dd4a72b49a7cbf0c0e3dff052d091d838252">OSK::IO::GamepadAxis::__END</a></div><div class="ttdeci">@ __END</div></div>
+<div class="ttc" id="anamespace_o_s_k_1_1_i_o_html_a37e62c3e569002298eedcfd13bad4dd4a7e6aa2d53f6ee2b1a34b017fa403cb76"><div class="ttname"><a href="namespace_o_s_k_1_1_i_o.html#a37e62c3e569002298eedcfd13bad4dd4a7e6aa2d53f6ee2b1a34b017fa403cb76">OSK::IO::GamepadAxis::L2</a></div><div class="ttdeci">@ L2</div><div class="ttdoc">Gatillo izquierdo.</div></div>
+<div class="ttc" id="anamespace_o_s_k_1_1_i_o_html_a37e62c3e569002298eedcfd13bad4dd4a8c6d22ff6f63fc6711cfa315cb80b314"><div class="ttname"><a href="namespace_o_s_k_1_1_i_o.html#a37e62c3e569002298eedcfd13bad4dd4a8c6d22ff6f63fc6711cfa315cb80b314">OSK::IO::GamepadAxis::R2</a></div><div class="ttdeci">@ R2</div><div class="ttdoc">Gatillo derecho.</div></div>
+<div class="ttc" id="anamespace_o_s_k_1_1_i_o_html_a37e62c3e569002298eedcfd13bad4dd4a9dfcf221fddfd2f237b3fd736caa7809"><div class="ttname"><a href="namespace_o_s_k_1_1_i_o.html#a37e62c3e569002298eedcfd13bad4dd4a9dfcf221fddfd2f237b3fd736caa7809">OSK::IO::GamepadAxis::RIGHT_Y</a></div><div class="ttdeci">@ RIGHT_Y</div><div class="ttdoc">Eje horizontal del joystick derecho.</div></div>
+<div class="ttc" id="anamespace_o_s_k_1_1_i_o_html_a37e62c3e569002298eedcfd13bad4dd4adbc23e1293dc0846d28e1ea129344fcf"><div class="ttname"><a href="namespace_o_s_k_1_1_i_o.html#a37e62c3e569002298eedcfd13bad4dd4adbc23e1293dc0846d28e1ea129344fcf">OSK::IO::GamepadAxis::LEFT_Y</a></div><div class="ttdeci">@ LEFT_Y</div><div class="ttdoc">Eje vertical del joystick izquierdo.</div></div>
+<div class="ttc" id="anamespace_o_s_k_1_1_i_o_html_a37e62c3e569002298eedcfd13bad4dd4ae5815a16e50afa87f9a36ab8a52545c7"><div class="ttname"><a href="namespace_o_s_k_1_1_i_o.html#a37e62c3e569002298eedcfd13bad4dd4ae5815a16e50afa87f9a36ab8a52545c7">OSK::IO::GamepadAxis::LEFT_X</a></div><div class="ttdeci">@ LEFT_X</div><div class="ttdoc">Eje horizontal del joystick izquierdo.</div></div>
+<div class="ttc" id="anamespace_o_s_k_1_1_i_o_html_a37e62c3e569002298eedcfd13bad4dd4aea468ab59a115911fef1492a49e6bc59"><div class="ttname"><a href="namespace_o_s_k_1_1_i_o.html#a37e62c3e569002298eedcfd13bad4dd4aea468ab59a115911fef1492a49e6bc59">OSK::IO::GamepadAxis::RIGHT_X</a></div><div class="ttdeci">@ RIGHT_X</div><div class="ttdoc">Eje horizontal del joystick derecho.</div></div>
+<div class="ttc" id="anamespace_o_s_k_1_1_i_o_html_aaddc5e8725ac9d930e313af0044eb968"><div class="ttname"><a href="namespace_o_s_k_1_1_i_o.html#aaddc5e8725ac9d930e313af0044eb968">OSK::IO::GamepadButtonState</a></div><div class="ttdeci">GamepadButtonState</div><div class="ttdoc">Estados en el que puede estar un botón del gamepad.</div><div class="ttdef"><b>Definition</b> <a href="#l00098">GamepadState.h:98</a></div></div>
+<div class="ttc" id="anamespace_o_s_k_1_1_i_o_html_aaddc5e8725ac9d930e313af0044eb968a109d54efbb64d71f9a6ab18d0fb8add8"><div class="ttname"><a href="namespace_o_s_k_1_1_i_o.html#aaddc5e8725ac9d930e313af0044eb968a109d54efbb64d71f9a6ab18d0fb8add8">OSK::IO::GamepadButtonState::RELEASED</a></div><div class="ttdeci">@ RELEASED</div><div class="ttdoc">No está siendo pulsado.</div></div>
+<div class="ttc" id="anamespace_o_s_k_1_1_i_o_html_aaddc5e8725ac9d930e313af0044eb968a5381dc876ab002103a027265bc14ae52"><div class="ttname"><a href="namespace_o_s_k_1_1_i_o.html#aaddc5e8725ac9d930e313af0044eb968a5381dc876ab002103a027265bc14ae52">OSK::IO::GamepadButtonState::PRESSED</a></div><div class="ttdeci">@ PRESSED</div><div class="ttdoc">Está siendo pulsado.</div></div>
+<div class="ttc" id="anamespace_o_s_k_1_1_i_o_html_ad1d8e1f23e2f2515648a3ad1b93ff345"><div class="ttname"><a href="namespace_o_s_k_1_1_i_o.html#ad1d8e1f23e2f2515648a3ad1b93ff345">OSK::IO::GamepadButton</a></div><div class="ttdeci">GamepadButton</div><div class="ttdoc">Botones del gamepad. Pueden estar pulsados o no, no hay valores intermedios.</div><div class="ttdef"><b>Definition</b> <a href="#l00074">GamepadState.h:74</a></div></div>
+<div class="ttc" id="anamespace_o_s_k_1_1_i_o_html_ad1d8e1f23e2f2515648a3ad1b93ff345a01658843618e6525f57490c077e42cfd"><div class="ttname"><a href="namespace_o_s_k_1_1_i_o.html#ad1d8e1f23e2f2515648a3ad1b93ff345a01658843618e6525f57490c077e42cfd">OSK::IO::GamepadButton::PAD_TOP</a></div><div class="ttdeci">@ PAD_TOP</div></div>
+<div class="ttc" id="anamespace_o_s_k_1_1_i_o_html_ad1d8e1f23e2f2515648a3ad1b93ff345a0634239a328057c4cf72e09bef7c056b"><div class="ttname"><a href="namespace_o_s_k_1_1_i_o.html#ad1d8e1f23e2f2515648a3ad1b93ff345a0634239a328057c4cf72e09bef7c056b">OSK::IO::GamepadButton::PAD_DOWN</a></div><div class="ttdeci">@ PAD_DOWN</div></div>
+<div class="ttc" id="anamespace_o_s_k_1_1_i_o_html_ad1d8e1f23e2f2515648a3ad1b93ff345a1dd26f1f1790f0b56d5752fb0fbecef0"><div class="ttname"><a href="namespace_o_s_k_1_1_i_o.html#ad1d8e1f23e2f2515648a3ad1b93ff345a1dd26f1f1790f0b56d5752fb0fbecef0">OSK::IO::GamepadButton::BACK</a></div><div class="ttdeci">@ BACK</div></div>
+<div class="ttc" id="anamespace_o_s_k_1_1_i_o_html_ad1d8e1f23e2f2515648a3ad1b93ff345a383c253a0c1fb4693a76a140e27c32fb"><div class="ttname"><a href="namespace_o_s_k_1_1_i_o.html#ad1d8e1f23e2f2515648a3ad1b93ff345a383c253a0c1fb4693a76a140e27c32fb">OSK::IO::GamepadButton::PAD_LEFT</a></div><div class="ttdeci">@ PAD_LEFT</div></div>
+<div class="ttc" id="anamespace_o_s_k_1_1_i_o_html_ad1d8e1f23e2f2515648a3ad1b93ff345a415290769594460e2e485922904f345d"><div class="ttname"><a href="namespace_o_s_k_1_1_i_o.html#ad1d8e1f23e2f2515648a3ad1b93ff345a415290769594460e2e485922904f345d">OSK::IO::GamepadButton::y</a></div><div class="ttdeci">@ y</div></div>
+<div class="ttc" id="anamespace_o_s_k_1_1_i_o_html_ad1d8e1f23e2f2515648a3ad1b93ff345a7fc56270e7a70fa81a5935b72eacbe29"><div class="ttname"><a href="namespace_o_s_k_1_1_i_o.html#ad1d8e1f23e2f2515648a3ad1b93ff345a7fc56270e7a70fa81a5935b72eacbe29">OSK::IO::GamepadButton::A</a></div><div class="ttdeci">@ A</div></div>
+<div class="ttc" id="anamespace_o_s_k_1_1_i_o_html_ad1d8e1f23e2f2515648a3ad1b93ff345a8086e04686895d3e8396649873703c58"><div class="ttname"><a href="namespace_o_s_k_1_1_i_o.html#ad1d8e1f23e2f2515648a3ad1b93ff345a8086e04686895d3e8396649873703c58">OSK::IO::GamepadButton::PAD_RIGHT</a></div><div class="ttdeci">@ PAD_RIGHT</div></div>
+<div class="ttc" id="anamespace_o_s_k_1_1_i_o_html_ad1d8e1f23e2f2515648a3ad1b93ff345a9d5ed678fe57bcca610140957afab571"><div class="ttname"><a href="namespace_o_s_k_1_1_i_o.html#ad1d8e1f23e2f2515648a3ad1b93ff345a9d5ed678fe57bcca610140957afab571">OSK::IO::GamepadButton::B</a></div><div class="ttdeci">@ B</div></div>
+<div class="ttc" id="anamespace_o_s_k_1_1_i_o_html_ad1d8e1f23e2f2515648a3ad1b93ff345a9dd4e461268c8034f5c8564e155c67a6"><div class="ttname"><a href="namespace_o_s_k_1_1_i_o.html#ad1d8e1f23e2f2515648a3ad1b93ff345a9dd4e461268c8034f5c8564e155c67a6">OSK::IO::GamepadButton::x</a></div><div class="ttdeci">@ x</div></div>
+<div class="ttc" id="anamespace_o_s_k_1_1_i_o_html_ad1d8e1f23e2f2515648a3ad1b93ff345a9ec4c0afd450ceac7adb81c3bcfc9732"><div class="ttname"><a href="namespace_o_s_k_1_1_i_o.html#ad1d8e1f23e2f2515648a3ad1b93ff345a9ec4c0afd450ceac7adb81c3bcfc9732">OSK::IO::GamepadButton::L1</a></div><div class="ttdeci">@ L1</div></div>
+<div class="ttc" id="anamespace_o_s_k_1_1_i_o_html_ad1d8e1f23e2f2515648a3ad1b93ff345ab078ffd28db767c502ac367053f6e0ac"><div class="ttname"><a href="namespace_o_s_k_1_1_i_o.html#ad1d8e1f23e2f2515648a3ad1b93ff345ab078ffd28db767c502ac367053f6e0ac">OSK::IO::GamepadButton::START</a></div><div class="ttdeci">@ START</div></div>
+<div class="ttc" id="anamespace_o_s_k_1_1_i_o_html_ad1d8e1f23e2f2515648a3ad1b93ff345acda522d4353b166cc2dee84673307b4e"><div class="ttname"><a href="namespace_o_s_k_1_1_i_o.html#ad1d8e1f23e2f2515648a3ad1b93ff345acda522d4353b166cc2dee84673307b4e">OSK::IO::GamepadButton::R1</a></div><div class="ttdeci">@ R1</div></div>
+</div><!-- fragment --></div><!-- contents -->
+</div><!-- doc-content -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="dir_74389ed8173ad57b461b9d623a1f3867.html">Source</a></li><li class="navelem"><a class="el" href="_gamepad_state_8h.html">GamepadState.h</a></li>
+    <li class="footer">Generado el Lunes, 29 de enero de 2024 17:18:31 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.10.0 </li>
+  </ul>
+</div>
+</body>
+</html>

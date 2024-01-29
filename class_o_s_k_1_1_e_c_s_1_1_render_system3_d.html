@@ -1,0 +1,1501 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="es">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.10.0"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>OSKengine: Referencia de la clase OSK::ECS::RenderSystem3D</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">OSKengine<span id="projectnumber">&#160;Indev</span>
+   </div>
+   <div id="projectbrief">Motor de videojuegos.</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generado por Doxygen 1.10.0 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() {
+  initMenu('',true,false,'search.php','Buscar');
+  $(function() { init_search(); });
+});
+/* @license-end */
+</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function(){initNavTree('class_o_s_k_1_1_e_c_s_1_1_render_system3_d.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Cargando...</div>
+<div class="SRStatus" id="Searching">Buscando...</div>
+<div class="SRStatus" id="NoMatches">Nada coincide</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="summary">
+<a href="#pub-methods">Métodos públicos</a> &#124;
+<a href="#pub-static-attribs">Atributos públicos estáticos</a> &#124;
+<a href="#pro-methods">Métodos protegidos</a> &#124;
+<a href="#pro-attribs">Atributos protegidos</a> &#124;
+<a href="class_o_s_k_1_1_e_c_s_1_1_render_system3_d-members.html">Lista de todos los miembros</a>  </div>
+  <div class="headertitle"><div class="title">Referencia de la clase OSK::ECS::RenderSystem3D<span class="mlabels"><span class="mlabel">abstract</span></span></div></div>
+</div><!--header-->
+<div class="contents">
+
+<p><code>#include &lt;<a class="el" href="_render_system3_d_8h_source.html">RenderSystem3D.h</a>&gt;</code></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
+Métodos públicos</h2></td></tr>
+<tr class="memitem:a493b2f75e14d1d63509e90df7edd326e" id="r_a493b2f75e14d1d63509e90df7edd326e"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a493b2f75e14d1d63509e90df7edd326e">OSK_SYSTEM</a> (&quot;OSK::RenderSystem3D&quot;)</td></tr>
+<tr class="separator:a493b2f75e14d1d63509e90df7edd326e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1ee1a85dba0dab30f922b0f8a43b01a5" id="r_a1ee1a85dba0dab30f922b0f8a43b01a5"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a1ee1a85dba0dab30f922b0f8a43b01a5">RenderSystem3D</a> ()</td></tr>
+<tr class="separator:a1ee1a85dba0dab30f922b0f8a43b01a5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a41ced97ec5141bd203c6d407fc00b6fe" id="r_a41ced97ec5141bd203c6d407fc00b6fe"><td class="memItemLeft" align="right" valign="top"><a class="el" href="x64-windows-static_2x64-windows-static_2include_2libpng16_2png_8h.html#a05f08be336491be77cd4dfa98f747c69">void</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a41ced97ec5141bd203c6d407fc00b6fe">Initialize</a> (<a class="el" href="namespace_o_s_k_1_1_e_c_s.html#a7be561d6b7de4e8a49c2a5cc35fba48c">GameObjectIndex</a> cameraObject, <a class="el" href="x64-windows-static_2x64-windows-static_2include_2zconf_8h.html#a2c212835823e3c54a8ab6d95c652660e">const</a> <a class="el" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_irradiance_map.html">ASSETS::IrradianceMap</a> &amp;irradianceMap, <a class="el" href="x64-windows-static_2x64-windows-static_2include_2zconf_8h.html#a2c212835823e3c54a8ab6d95c652660e">const</a> <a class="el" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_specular_map.html">ASSETS::SpecularMap</a> &amp;specularMap)</td></tr>
+<tr class="separator:a41ced97ec5141bd203c6d407fc00b6fe"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a890108dd7d405eb602d0d80fefefdada" id="r_a890108dd7d405eb602d0d80fefefdada"><td class="memItemLeft" align="right" valign="top"><a class="el" href="x64-windows-static_2x64-windows-static_2include_2libpng16_2png_8h.html#a05f08be336491be77cd4dfa98f747c69">void</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a890108dd7d405eb602d0d80fefefdada">InitializeTerrain</a> (<a class="el" href="x64-windows-static_2x64-windows-static_2include_2zconf_8h.html#a2c212835823e3c54a8ab6d95c652660e">const</a> <a class="el" href="namespace_o_s_k.html#a6f5b4753cd85b4773d2880148fd031cf">Vector2ui</a> &amp;resolution, <a class="el" href="x64-windows-static_2x64-windows-static_2include_2zconf_8h.html#a2c212835823e3c54a8ab6d95c652660e">const</a> <a class="el" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_texture.html">ASSETS::Texture</a> &amp;heightMap, <a class="el" href="x64-windows-static_2x64-windows-static_2include_2zconf_8h.html#a2c212835823e3c54a8ab6d95c652660e">const</a> <a class="el" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_texture.html">ASSETS::Texture</a> &amp;texture)</td></tr>
+<tr class="separator:a890108dd7d405eb602d0d80fefefdada"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5f61471f90f9586b0b24be7bd0226bf3" id="r_a5f61471f90f9586b0b24be7bd0226bf3"><td class="memItemLeft" align="right" valign="top"><a class="el" href="x64-windows-static_2x64-windows-static_2include_2libpng16_2png_8h.html#a05f08be336491be77cd4dfa98f747c69">void</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a5f61471f90f9586b0b24be7bd0226bf3">CreateTargetImage</a> (<a class="el" href="x64-windows-static_2x64-windows-static_2include_2zconf_8h.html#a2c212835823e3c54a8ab6d95c652660e">const</a> <a class="el" href="namespace_o_s_k.html#a6f5b4753cd85b4773d2880148fd031cf">Vector2ui</a> &amp;size) override</td></tr>
+<tr class="separator:a5f61471f90f9586b0b24be7bd0226bf3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a69771f412015a908acba9b67a4dc99bd" id="r_a69771f412015a908acba9b67a4dc99bd"><td class="memItemLeft" align="right" valign="top"><a class="el" href="x64-windows-static_2x64-windows-static_2include_2libpng16_2png_8h.html#a05f08be336491be77cd4dfa98f747c69">void</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a69771f412015a908acba9b67a4dc99bd">Resize</a> (<a class="el" href="x64-windows-static_2x64-windows-static_2include_2zconf_8h.html#a2c212835823e3c54a8ab6d95c652660e">const</a> <a class="el" href="namespace_o_s_k.html#a6f5b4753cd85b4773d2880148fd031cf">Vector2ui</a> &amp;size) override</td></tr>
+<tr class="separator:a69771f412015a908acba9b67a4dc99bd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a65a6b4272468a563ea381aaf9f5e480d" id="r_a65a6b4272468a563ea381aaf9f5e480d"><td class="memItemLeft" align="right" valign="top"><a class="el" href="x64-windows-static_2x64-windows-static_2include_2libpng16_2png_8h.html#a05f08be336491be77cd4dfa98f747c69">void</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a65a6b4272468a563ea381aaf9f5e480d">OnTick</a> (<a class="el" href="_o_s_kmacros_8h.html#ad05d5eacc527d5b61240124daf13b33b">TDeltaTime</a> deltaTime) override</td></tr>
+<tr class="separator:a65a6b4272468a563ea381aaf9f5e480d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0f6ecaafe704974730190d0b7f274b1a" id="r_a0f6ecaafe704974730190d0b7f274b1a"><td class="memItemLeft" align="right" valign="top"><a class="el" href="x64-windows-static_2x64-windows-static_2include_2libpng16_2png_8h.html#a05f08be336491be77cd4dfa98f747c69">void</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a0f6ecaafe704974730190d0b7f274b1a">Render</a> (<a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list.html">GRAPHICS::ICommandList</a> *commandList) override</td></tr>
+<tr class="separator:a0f6ecaafe704974730190d0b7f274b1a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6b8811a0612a96336cca1402e1004d97" id="r_a6b8811a0612a96336cca1402e1004d97"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_shadow_map.html">GRAPHICS::ShadowMap</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a6b8811a0612a96336cca1402e1004d97">GetShadowMap</a> ()</td></tr>
+<tr class="separator:a6b8811a0612a96336cca1402e1004d97"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3af94ea4d0fd797e7c149a4d7fcccc93" id="r_a3af94ea4d0fd797e7c149a4d7fcccc93"><td class="memItemLeft" align="right" valign="top"><a class="el" href="x64-windows-static_2x64-windows-static_2include_2zconf_8h.html#a2c212835823e3c54a8ab6d95c652660e">const</a> <a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_buffer.html">GRAPHICS::GpuBuffer</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a3af94ea4d0fd797e7c149a4d7fcccc93">GetCameraBuffer</a> (<a class="el" href="_o_s_kmacros_8h.html#af205b9fd0440138e6cac38a9081141df">UIndex32</a> index) <a class="el" href="x64-windows-static_2x64-windows-static_2include_2zconf_8h.html#a2c212835823e3c54a8ab6d95c652660e">const</a></td></tr>
+<tr class="separator:a3af94ea4d0fd797e7c149a4d7fcccc93"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa01efd52a4c804e5f9b7c98716a22033" id="r_aa01efd52a4c804e5f9b7c98716a22033"><td class="memItemLeft" align="right" valign="top"><a class="el" href="x64-windows-static_2x64-windows-static_2include_2libpng16_2png_8h.html#a05f08be336491be77cd4dfa98f747c69">void</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aa01efd52a4c804e5f9b7c98716a22033">ToggleTaa</a> ()</td></tr>
+<tr class="separator:aa01efd52a4c804e5f9b7c98716a22033"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab99fd447d1c640bcc003dc5713768b6c" id="r_ab99fd447d1c640bcc003dc5713768b6c"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="x64-windows-static_2x64-windows-static_2include_2libpng16_2png_8h.html#a05f08be336491be77cd4dfa98f747c69">void</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_e_c_s_1_1_i_render_system.html#ab99fd447d1c640bcc003dc5713768b6c">OnCreate</a> () override</td></tr>
+<tr class="separator:ab99fd447d1c640bcc003dc5713768b6c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7ead258d11d094f960bed0b7da407d85" id="r_a7ead258d11d094f960bed0b7da407d85"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_render_target.html">GRAPHICS::RenderTarget</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_e_c_s_1_1_i_render_system.html#a7ead258d11d094f960bed0b7da407d85">GetRenderTarget</a> ()</td></tr>
+<tr class="separator:a7ead258d11d094f960bed0b7da407d85"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9ff9af8e87772753d7f044c1041ee702" id="r_a9ff9af8e87772753d7f044c1041ee702"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="x64-windows-static_2x64-windows-static_2include_2libpng16_2png_8h.html#a05f08be336491be77cd4dfa98f747c69">void</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_e_c_s_1_1_i_render_system.html#a9ff9af8e87772753d7f044c1041ee702">AddRenderPass</a> (<a class="el" href="class_o_s_k_1_1_owned_ptr.html">OwnedPtr</a>&lt; <a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_render_pass.html">GRAPHICS::IRenderPass</a> &gt; pass)</td></tr>
+<tr class="separator:a9ff9af8e87772753d7f044c1041ee702"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab94addc1abfab194c74604c12aeffefc" id="r_ab94addc1abfab194c74604c12aeffefc"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_e_c_s_1_1_i_render_system.html#ab94addc1abfab194c74604c12aeffefc">HasRenderPass</a> (std::string_view <a class="el" href="x64-windows-static_2x64-windows-static_2include_2spirv_2unified1_2spv_8d.html#a41f818ddb5dc4447d88e7b94d4f72d72">name</a>) <a class="el" href="x64-windows-static_2x64-windows-static_2include_2zconf_8h.html#a2c212835823e3c54a8ab6d95c652660e">const</a></td></tr>
+<tr class="separator:ab94addc1abfab194c74604c12aeffefc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a934fe1003a9126d9c71023ac1c4e1cba" id="r_a934fe1003a9126d9c71023ac1c4e1cba"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_render_pass.html">GRAPHICS::IRenderPass</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_e_c_s_1_1_i_render_system.html#a934fe1003a9126d9c71023ac1c4e1cba">GetRenderPass</a> (std::string_view <a class="el" href="x64-windows-static_2x64-windows-static_2include_2spirv_2unified1_2spv_8d.html#a41f818ddb5dc4447d88e7b94d4f72d72">name</a>)</td></tr>
+<tr class="separator:a934fe1003a9126d9c71023ac1c4e1cba"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2f1eb4de3c072e59ad4f8403d1a69eff" id="r_a2f1eb4de3c072e59ad4f8403d1a69eff"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="x64-windows-static_2x64-windows-static_2include_2libpng16_2png_8h.html#a05f08be336491be77cd4dfa98f747c69">void</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_e_c_s_1_1_i_render_system.html#a2f1eb4de3c072e59ad4f8403d1a69eff">UpdatePerPassObjectLists</a> ()</td></tr>
+<tr class="separator:a2f1eb4de3c072e59ad4f8403d1a69eff"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af380b55facabf814ca48fef44cae116b" id="r_af380b55facabf814ca48fef44cae116b"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="x64-windows-static_2x64-windows-static_2include_2libpng16_2png_8h.html#a05f08be336491be77cd4dfa98f747c69">void</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_e_c_s_1_1_i_iterator_system.html#af380b55facabf814ca48fef44cae116b">OnObjectAdded</a> (<a class="el" href="namespace_o_s_k_1_1_e_c_s.html#a7be561d6b7de4e8a49c2a5cc35fba48c">GameObjectIndex</a> obj)</td></tr>
+<tr class="separator:af380b55facabf814ca48fef44cae116b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a95c8a52cae15f1ea27c6bed80c8708c3" id="r_a95c8a52cae15f1ea27c6bed80c8708c3"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="x64-windows-static_2x64-windows-static_2include_2libpng16_2png_8h.html#a05f08be336491be77cd4dfa98f747c69">void</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_e_c_s_1_1_i_iterator_system.html#a95c8a52cae15f1ea27c6bed80c8708c3">OnObjectRemoved</a> (<a class="el" href="namespace_o_s_k_1_1_e_c_s.html#a7be561d6b7de4e8a49c2a5cc35fba48c">GameObjectIndex</a> obj)</td></tr>
+<tr class="separator:a95c8a52cae15f1ea27c6bed80c8708c3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae112bd30755ef771c25dc2d620fb6295" id="r_ae112bd30755ef771c25dc2d620fb6295"><td class="memItemLeft" align="right" valign="top"><a class="el" href="x64-windows-static_2x64-windows-static_2include_2zconf_8h.html#a2c212835823e3c54a8ab6d95c652660e">const</a> <a class="el" href="namespace_o_s_k_1_1_e_c_s.html#a9c0e00962e3504ffd2435edb417d2d42">Signature</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_e_c_s_1_1_i_iterator_system.html#ae112bd30755ef771c25dc2d620fb6295">GetSignature</a> () <a class="el" href="x64-windows-static_2x64-windows-static_2include_2zconf_8h.html#a2c212835823e3c54a8ab6d95c652660e">const</a></td></tr>
+<tr class="separator:ae112bd30755ef771c25dc2d620fb6295"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3d0156b5098e283a1c7ffa2b9cc6337a" id="r_a3d0156b5098e283a1c7ffa2b9cc6337a"><td class="memItemLeft" align="right" valign="top"><a class="el" href="x64-windows-static_2x64-windows-static_2include_2libpng16_2png_8h.html#a05f08be336491be77cd4dfa98f747c69">void</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_e_c_s_1_1_i_iterator_system.html#a3d0156b5098e283a1c7ffa2b9cc6337a">_AddObject</a> (<a class="el" href="namespace_o_s_k_1_1_e_c_s.html#a7be561d6b7de4e8a49c2a5cc35fba48c">GameObjectIndex</a> obj)</td></tr>
+<tr class="separator:a3d0156b5098e283a1c7ffa2b9cc6337a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4b70e54251c33543c0cff980ef36e644" id="r_a4b70e54251c33543c0cff980ef36e644"><td class="memItemLeft" align="right" valign="top"><a class="el" href="x64-windows-static_2x64-windows-static_2include_2libpng16_2png_8h.html#a05f08be336491be77cd4dfa98f747c69">void</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_e_c_s_1_1_i_iterator_system.html#a4b70e54251c33543c0cff980ef36e644">_RemoveObject</a> (<a class="el" href="namespace_o_s_k_1_1_e_c_s.html#a7be561d6b7de4e8a49c2a5cc35fba48c">GameObjectIndex</a> obj)</td></tr>
+<tr class="separator:a4b70e54251c33543c0cff980ef36e644"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a43e7608ce2a31c9c13b42cf4ce6eb0ef" id="r_a43e7608ce2a31c9c13b42cf4ce6eb0ef"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="x64-windows-static_2x64-windows-static_2include_2libpng16_2png_8h.html#a05f08be336491be77cd4dfa98f747c69">void</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_e_c_s_1_1_i_system.html#a43e7608ce2a31c9c13b42cf4ce6eb0ef">OnRemove</a> ()</td></tr>
+<tr class="separator:a43e7608ce2a31c9c13b42cf4ce6eb0ef"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad45cabb31dc788fbc37feaed82fd99d8" id="r_ad45cabb31dc788fbc37feaed82fd99d8"><td class="memItemLeft" align="right" valign="top"><a class="el" href="x64-windows-static_2x64-windows-static_2include_2libpng16_2png_8h.html#a05f08be336491be77cd4dfa98f747c69">void</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_e_c_s_1_1_i_system.html#ad45cabb31dc788fbc37feaed82fd99d8">Activate</a> ()</td></tr>
+<tr class="separator:ad45cabb31dc788fbc37feaed82fd99d8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2d6aa3dc12aa77cc9109b920ddca4225" id="r_a2d6aa3dc12aa77cc9109b920ddca4225"><td class="memItemLeft" align="right" valign="top"><a class="el" href="x64-windows-static_2x64-windows-static_2include_2libpng16_2png_8h.html#a05f08be336491be77cd4dfa98f747c69">void</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_e_c_s_1_1_i_system.html#a2d6aa3dc12aa77cc9109b920ddca4225">Deactivate</a> ()</td></tr>
+<tr class="separator:a2d6aa3dc12aa77cc9109b920ddca4225"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a97458cf11d6b977bad992387a2d67297" id="r_a97458cf11d6b977bad992387a2d67297"><td class="memItemLeft" align="right" valign="top"><a class="el" href="x64-windows-static_2x64-windows-static_2include_2libpng16_2png_8h.html#a05f08be336491be77cd4dfa98f747c69">void</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_e_c_s_1_1_i_system.html#a97458cf11d6b977bad992387a2d67297">SetActivationStatus</a> (bool isActive)</td></tr>
+<tr class="separator:a97458cf11d6b977bad992387a2d67297"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a01bbb5166a33e4484f42fcc6f03494b4" id="r_a01bbb5166a33e4484f42fcc6f03494b4"><td class="memItemLeft" align="right" valign="top"><a class="el" href="x64-windows-static_2x64-windows-static_2include_2libpng16_2png_8h.html#a05f08be336491be77cd4dfa98f747c69">void</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_e_c_s_1_1_i_system.html#a01bbb5166a33e4484f42fcc6f03494b4">ToggleActivationStatus</a> ()</td></tr>
+<tr class="separator:a01bbb5166a33e4484f42fcc6f03494b4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acdd2816796e17bd727d7ee4d10e11aed" id="r_acdd2816796e17bd727d7ee4d10e11aed"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_e_c_s_1_1_i_system.html#acdd2816796e17bd727d7ee4d10e11aed">IsActive</a> () <a class="el" href="x64-windows-static_2x64-windows-static_2include_2zconf_8h.html#a2c212835823e3c54a8ab6d95c652660e">const</a></td></tr>
+<tr class="separator:acdd2816796e17bd727d7ee4d10e11aed"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9ac4b0e11cb52d7222ef76e675cb9cc5" id="r_a9ac4b0e11cb52d7222ef76e675cb9cc5"><td class="memItemLeft" align="right" valign="top">virtual std::string_view&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_e_c_s_1_1_i_system.html#a9ac4b0e11cb52d7222ef76e675cb9cc5">GetName</a> () <a class="el" href="x64-windows-static_2x64-windows-static_2include_2zconf_8h.html#a2c212835823e3c54a8ab6d95c652660e">const</a> =0</td></tr>
+<tr class="separator:a9ac4b0e11cb52d7222ef76e675cb9cc5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6952a02e89f9377c8377a26be104294d" id="r_a6952a02e89f9377c8377a26be104294d"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_e_c_s_1_1_i_system.html#a6952a02e89f9377c8377a26be104294d">GetExecutionOrder</a> () <a class="el" href="x64-windows-static_2x64-windows-static_2include_2zconf_8h.html#a2c212835823e3c54a8ab6d95c652660e">const</a></td></tr>
+<tr class="separator:a6952a02e89f9377c8377a26be104294d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa8ebf2899f45680529227ba1026291d7" id="r_aa8ebf2899f45680529227ba1026291d7"><td class="memItemLeft" align="right" valign="top"><a class="el" href="x64-windows-static_2x64-windows-static_2include_2libpng16_2png_8h.html#a05f08be336491be77cd4dfa98f747c69">void</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_e_c_s_1_1_i_system.html#aa8ebf2899f45680529227ba1026291d7">_SetExecutionOrder</a> (int newOrder)</td></tr>
+<tr class="separator:aa8ebf2899f45680529227ba1026291d7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-static-attribs" name="pub-static-attribs"></a>
+Atributos públicos estáticos</h2></td></tr>
+<tr class="memitem:a50e98bc2de00e4a60e746813e3777453" id="r_a50e98bc2de00e4a60e746813e3777453"><td class="memItemLeft" align="right" valign="top">static constexpr <a class="el" href="_o_s_kmacros_8h.html#af205b9fd0440138e6cac38a9081141df">UIndex32</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a50e98bc2de00e4a60e746813e3777453">COLOR_IMAGE_INDEX</a> = 0</td></tr>
+<tr class="separator:a50e98bc2de00e4a60e746813e3777453"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a53c71ef7181e3275c5dd30f8b915f458" id="r_a53c71ef7181e3275c5dd30f8b915f458"><td class="memItemLeft" align="right" valign="top">static constexpr <a class="el" href="_o_s_kmacros_8h.html#af205b9fd0440138e6cac38a9081141df">UIndex32</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a53c71ef7181e3275c5dd30f8b915f458">MOTION_IMAGE_INDEX</a> = 1</td></tr>
+<tr class="separator:a53c71ef7181e3275c5dd30f8b915f458"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a805c938d983ec6e87910ddb4fc7ec044" id="r_a805c938d983ec6e87910ddb4fc7ec044"><td class="memItemLeft" align="right" valign="top">static constexpr <a class="el" href="_o_s_kmacros_8h.html#af205b9fd0440138e6cac38a9081141df">UIndex32</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a805c938d983ec6e87910ddb4fc7ec044">NORMAL_IMAGE_INDEX</a> = 2</td></tr>
+<tr class="separator:a805c938d983ec6e87910ddb4fc7ec044"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a475b37d3a934c9097c8df5a21ca67b88" id="r_a475b37d3a934c9097c8df5a21ca67b88"><td class="memItemLeft" align="right" valign="top">static constexpr int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_e_c_s_1_1_i_system.html#a475b37d3a934c9097c8df5a21ca67b88">DEFAULT_EXECUTION_ORDER</a> = 0</td></tr>
+<tr class="separator:a475b37d3a934c9097c8df5a21ca67b88"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pro-methods" name="pro-methods"></a>
+Métodos protegidos</h2></td></tr>
+<tr class="memitem:ae3c3f809429c0eb238b4b5a58e4a756a" id="r_ae3c3f809429c0eb238b4b5a58e4a756a"><td class="memItemLeft" align="right" valign="top"><a class="el" href="x64-windows-static_2x64-windows-static_2include_2libpng16_2png_8h.html#a05f08be336491be77cd4dfa98f747c69">void</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_e_c_s_1_1_i_render_system.html#ae3c3f809429c0eb238b4b5a58e4a756a">SetupViewport</a> (<a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list.html">GRAPHICS::ICommandList</a> *commandList)</td></tr>
+<tr class="separator:ae3c3f809429c0eb238b4b5a58e4a756a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4fdd39a45a60a3921398d8fe68884a99" id="r_a4fdd39a45a60a3921398d8fe68884a99"><td class="memItemLeft" align="right" valign="top"><a class="el" href="x64-windows-static_2x64-windows-static_2include_2libpng16_2png_8h.html#a05f08be336491be77cd4dfa98f747c69">void</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_e_c_s_1_1_i_iterator_system.html#a4fdd39a45a60a3921398d8fe68884a99">_SetSignature</a> (<a class="el" href="x64-windows-static_2x64-windows-static_2include_2zconf_8h.html#a2c212835823e3c54a8ab6d95c652660e">const</a> <a class="el" href="namespace_o_s_k_1_1_e_c_s.html#a9c0e00962e3504ffd2435edb417d2d42">Signature</a> &amp;signature)</td></tr>
+<tr class="separator:a4fdd39a45a60a3921398d8fe68884a99"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a438911164cb49af11db10ec3fe1c0dc3" id="r_a438911164cb49af11db10ec3fe1c0dc3"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_o_s_k_1_1_dynamic_array.html">DynamicArray</a>&lt; <a class="el" href="namespace_o_s_k_1_1_e_c_s.html#a7be561d6b7de4e8a49c2a5cc35fba48c">GameObjectIndex</a> &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_e_c_s_1_1_i_iterator_system.html#a438911164cb49af11db10ec3fe1c0dc3">GetObjects</a> ()</td></tr>
+<tr class="separator:a438911164cb49af11db10ec3fe1c0dc3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a81c627f770103084b1867198663ab07a" id="r_a81c627f770103084b1867198663ab07a"><td class="memItemLeft" align="right" valign="top"><a class="el" href="x64-windows-static_2x64-windows-static_2include_2zconf_8h.html#a2c212835823e3c54a8ab6d95c652660e">const</a> <a class="el" href="class_o_s_k_1_1_dynamic_array.html">DynamicArray</a>&lt; <a class="el" href="namespace_o_s_k_1_1_e_c_s.html#a7be561d6b7de4e8a49c2a5cc35fba48c">GameObjectIndex</a> &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_e_c_s_1_1_i_iterator_system.html#a81c627f770103084b1867198663ab07a">GetObjects</a> () <a class="el" href="x64-windows-static_2x64-windows-static_2include_2zconf_8h.html#a2c212835823e3c54a8ab6d95c652660e">const</a></td></tr>
+<tr class="separator:a81c627f770103084b1867198663ab07a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pro-attribs" name="pro-attribs"></a>
+Atributos protegidos</h2></td></tr>
+<tr class="memitem:a6d7db1bd0001d9c2b6a738ec0211bfa2" id="r_a6d7db1bd0001d9c2b6a738ec0211bfa2"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_o_s_k_1_1_dynamic_array.html">DynamicArray</a>&lt; <a class="el" href="class_o_s_k_1_1_unique_ptr.html">UniquePtr</a>&lt; <a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_render_pass.html">GRAPHICS::IRenderPass</a> &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_e_c_s_1_1_i_render_system.html#a6d7db1bd0001d9c2b6a738ec0211bfa2">m_renderPasses</a></td></tr>
+<tr class="separator:a6d7db1bd0001d9c2b6a738ec0211bfa2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a57e3dc4c4a82440c48ba470e7d86acb5" id="r_a57e3dc4c4a82440c48ba470e7d86acb5"><td class="memItemLeft" align="right" valign="top">std::unordered_map&lt; std::string, <a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_render_pass.html">GRAPHICS::IRenderPass</a> *, <a class="el" href="struct_o_s_k_1_1_string_hasher.html">StringHasher</a>, std::equal_to&lt;&gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_e_c_s_1_1_i_render_system.html#a57e3dc4c4a82440c48ba470e7d86acb5">m_renderPassesTable</a></td></tr>
+<tr class="separator:a57e3dc4c4a82440c48ba470e7d86acb5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af06aff11fb42935ec6185141d216b500" id="r_af06aff11fb42935ec6185141d216b500"><td class="memItemLeft" align="right" valign="top">std::unordered_map&lt; std::string, <a class="el" href="class_o_s_k_1_1_dynamic_array.html">DynamicArray</a>&lt; <a class="el" href="namespace_o_s_k_1_1_e_c_s.html#a7be561d6b7de4e8a49c2a5cc35fba48c">GameObjectIndex</a> &gt;, <a class="el" href="struct_o_s_k_1_1_string_hasher.html">StringHasher</a>, std::equal_to&lt;&gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_e_c_s_1_1_i_render_system.html#af06aff11fb42935ec6185141d216b500">m_objectsPerPass</a></td></tr>
+<tr class="separator:af06aff11fb42935ec6185141d216b500"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aeaa0bf1f05132020a8eac8de0a8f0461" id="r_aeaa0bf1f05132020a8eac8de0a8f0461"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_render_target.html">GRAPHICS::RenderTarget</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_e_c_s_1_1_i_render_system.html#aeaa0bf1f05132020a8eac8de0a8f0461">m_renderTarget</a></td></tr>
+<tr class="separator:aeaa0bf1f05132020a8eac8de0a8f0461"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">Descripción detallada</h2>
+<div class="textblock"><p>Sistema que se encarga del renderizado de modelos 3D de los objetos. </p>
+<p>Signature:</p><ul>
+<li><a class="el" href="class_o_s_k_1_1_e_c_s_1_1_model_component3_d.html" title="Componente para el renderizado 3D de un objeto.">ModelComponent3D</a>.</li>
+<li><a class="el" href="class_o_s_k_1_1_e_c_s_1_1_transform3_d.html">Transform3D</a>. </li>
+</ul>
+
+<p class="definition">Definición en la línea <a class="el" href="_render_system3_d_8h_source.html#l00036">36</a> del archivo <a class="el" href="_render_system3_d_8h_source.html">RenderSystem3D.h</a>.</p>
+</div><h2 class="groupheader">Documentación de constructores y destructores</h2>
+<a id="a1ee1a85dba0dab30f922b0f8a43b01a5" name="a1ee1a85dba0dab30f922b0f8a43b01a5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1ee1a85dba0dab30f922b0f8a43b01a5">&#9670;&#160;</a></span>RenderSystem3D()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">RenderSystem3D::RenderSystem3D </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definición en la línea <a class="el" href="_render_system3_d_8cpp_source.html#l00031">31</a> del archivo <a class="el" href="_render_system3_d_8cpp_source.html">RenderSystem3D.cpp</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Documentación de funciones miembro</h2>
+<a id="a3d0156b5098e283a1c7ffa2b9cc6337a" name="a3d0156b5098e283a1c7ffa2b9cc6337a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3d0156b5098e283a1c7ffa2b9cc6337a">&#9670;&#160;</a></span>_AddObject()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="x64-windows-static_2x64-windows-static_2include_2libpng16_2png_8h.html#a05f08be336491be77cd4dfa98f747c69">void</a> IIteratorSystem::_AddObject </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="namespace_o_s_k_1_1_e_c_s.html#a7be561d6b7de4e8a49c2a5cc35fba48c">GameObjectIndex</a></td>          <td class="paramname"><span class="paramname"><em>obj</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Añade un objeto a la lista de objetos procesables. </p>
+<dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">obj</td><td><br  />
+ </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definición en la línea <a class="el" href="_i_iterator_system_8cpp_source.html#l00018">18</a> del archivo <a class="el" href="_i_iterator_system_8cpp_source.html">IIteratorSystem.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a4b70e54251c33543c0cff980ef36e644" name="a4b70e54251c33543c0cff980ef36e644"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4b70e54251c33543c0cff980ef36e644">&#9670;&#160;</a></span>_RemoveObject()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="x64-windows-static_2x64-windows-static_2include_2libpng16_2png_8h.html#a05f08be336491be77cd4dfa98f747c69">void</a> IIteratorSystem::_RemoveObject </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="namespace_o_s_k_1_1_e_c_s.html#a7be561d6b7de4e8a49c2a5cc35fba48c">GameObjectIndex</a></td>          <td class="paramname"><span class="paramname"><em>obj</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Elimina un objeto de la lista de objetos procesables. </p>
+<dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">obj</td><td><br  />
+ </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definición en la línea <a class="el" href="_i_iterator_system_8cpp_source.html#l00025">25</a> del archivo <a class="el" href="_i_iterator_system_8cpp_source.html">IIteratorSystem.cpp</a>.</p>
+
+</div>
+</div>
+<a id="aa8ebf2899f45680529227ba1026291d7" name="aa8ebf2899f45680529227ba1026291d7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa8ebf2899f45680529227ba1026291d7">&#9670;&#160;</a></span>_SetExecutionOrder()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="x64-windows-static_2x64-windows-static_2include_2libpng16_2png_8h.html#a05f08be336491be77cd4dfa98f747c69">void</a> ISystem::_SetExecutionOrder </td>
+          <td>(</td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>newOrder</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Establece el nuevo índice de ordenación de ejecución. </p>
+<dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">newOrder</td><td>Nuevo índice. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definición en la línea <a class="el" href="_i_system_8cpp_source.html#l00041">41</a> del archivo <a class="el" href="_i_system_8cpp_source.html">ISystem.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a4fdd39a45a60a3921398d8fe68884a99" name="a4fdd39a45a60a3921398d8fe68884a99"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4fdd39a45a60a3921398d8fe68884a99">&#9670;&#160;</a></span>_SetSignature()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="x64-windows-static_2x64-windows-static_2include_2libpng16_2png_8h.html#a05f08be336491be77cd4dfa98f747c69">void</a> IIteratorSystem::_SetSignature </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="x64-windows-static_2x64-windows-static_2include_2zconf_8h.html#a2c212835823e3c54a8ab6d95c652660e">const</a> <a class="el" href="namespace_o_s_k_1_1_e_c_s.html#a9c0e00962e3504ffd2435edb417d2d42">Signature</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>signature</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definición en la línea <a class="el" href="_i_iterator_system_8cpp_source.html#l00031">31</a> del archivo <a class="el" href="_i_iterator_system_8cpp_source.html">IIteratorSystem.cpp</a>.</p>
+
+</div>
+</div>
+<a id="ad45cabb31dc788fbc37feaed82fd99d8" name="ad45cabb31dc788fbc37feaed82fd99d8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad45cabb31dc788fbc37feaed82fd99d8">&#9670;&#160;</a></span>Activate()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="x64-windows-static_2x64-windows-static_2include_2libpng16_2png_8h.html#a05f08be336491be77cd4dfa98f747c69">void</a> ISystem::Activate </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Activa el sistema, con lo que se ejecutará cada frame. </p>
+
+<p class="definition">Definición en la línea <a class="el" href="_i_system_8cpp_source.html#l00017">17</a> del archivo <a class="el" href="_i_system_8cpp_source.html">ISystem.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a9ff9af8e87772753d7f044c1041ee702" name="a9ff9af8e87772753d7f044c1041ee702"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9ff9af8e87772753d7f044c1041ee702">&#9670;&#160;</a></span>AddRenderPass()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="x64-windows-static_2x64-windows-static_2include_2libpng16_2png_8h.html#a05f08be336491be77cd4dfa98f747c69">void</a> IRenderSystem::AddRenderPass </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="class_o_s_k_1_1_owned_ptr.html">OwnedPtr</a>&lt; <a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_render_pass.html">GRAPHICS::IRenderPass</a> &gt;</td>          <td class="paramname"><span class="paramname"><em>pass</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">virtual</span><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Añade un nuevo pase de renderizado. </p>
+<dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">pass</td><td>Pase de renderizado. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section pre"><dt>Precondición</dt><dd>No debe existir un pase de renderizado previo con el mismo nombre que <code>pass</code>. </dd></dl>
+
+<p>Reimplementado en <a class="el" href="class_o_s_k_1_1_e_c_s_1_1_deferred_render_system.html#a67c81b33c059e78a3a108fcde1b302ba">OSK::ECS::DeferredRenderSystem</a> y <a class="el" href="class_o_s_k_1_1_e_c_s_1_1_tree_normals_render_system.html#aca7a2cb1a859c12be1362f01148f2a2d">OSK::ECS::TreeNormalsRenderSystem</a>.</p>
+
+<p class="definition">Definición en la línea <a class="el" href="_i_render_system_8cpp_source.html#l00049">49</a> del archivo <a class="el" href="_i_render_system_8cpp_source.html">IRenderSystem.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a5f61471f90f9586b0b24be7bd0226bf3" name="a5f61471f90f9586b0b24be7bd0226bf3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5f61471f90f9586b0b24be7bd0226bf3">&#9670;&#160;</a></span>CreateTargetImage()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="x64-windows-static_2x64-windows-static_2include_2libpng16_2png_8h.html#a05f08be336491be77cd4dfa98f747c69">void</a> RenderSystem3D::CreateTargetImage </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="x64-windows-static_2x64-windows-static_2include_2zconf_8h.html#a2c212835823e3c54a8ab6d95c652660e">const</a> <a class="el" href="namespace_o_s_k.html#a6f5b4753cd85b4773d2880148fd031cf">Vector2ui</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>size</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Crea la imagen de renderizado. </p>
+<p>Si el render system va a usar más imágenes de renderizado, se deben inicializar sobreescribiendo esta función.</p>
+<dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">size</td><td>Resolución de la imagen de renderizado. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Reimplementado de <a class="el" href="class_o_s_k_1_1_e_c_s_1_1_i_render_system.html#af963cc4b47d5d60b0b33473e3c7f3c75">OSK::ECS::IRenderSystem</a>.</p>
+
+<p class="definition">Definición en la línea <a class="el" href="_render_system3_d_8cpp_source.html#l00155">155</a> del archivo <a class="el" href="_render_system3_d_8cpp_source.html">RenderSystem3D.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a2d6aa3dc12aa77cc9109b920ddca4225" name="a2d6aa3dc12aa77cc9109b920ddca4225"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2d6aa3dc12aa77cc9109b920ddca4225">&#9670;&#160;</a></span>Deactivate()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="x64-windows-static_2x64-windows-static_2include_2libpng16_2png_8h.html#a05f08be336491be77cd4dfa98f747c69">void</a> ISystem::Deactivate </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Desactiva el sistema, con lo que dejará de ejecutarse. </p>
+
+<p class="definition">Definición en la línea <a class="el" href="_i_system_8cpp_source.html#l00021">21</a> del archivo <a class="el" href="_i_system_8cpp_source.html">ISystem.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a3af94ea4d0fd797e7c149a4d7fcccc93" name="a3af94ea4d0fd797e7c149a4d7fcccc93"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3af94ea4d0fd797e7c149a4d7fcccc93">&#9670;&#160;</a></span>GetCameraBuffer()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="x64-windows-static_2x64-windows-static_2include_2zconf_8h.html#a2c212835823e3c54a8ab6d95c652660e">const</a> <a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_buffer.html">GRAPHICS::GpuBuffer</a> * OSK::ECS::RenderSystem3D::GetCameraBuffer </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="_o_s_kmacros_8h.html#af205b9fd0440138e6cac38a9081141df">UIndex32</a></td>          <td class="paramname"><span class="paramname"><em>index</em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definición en la línea <a class="el" href="_render_system3_d_8h_source.html#l00056">56</a> del archivo <a class="el" href="_render_system3_d_8h_source.html">RenderSystem3D.h</a>.</p>
+
+</div>
+</div>
+<a id="a6952a02e89f9377c8377a26be104294d" name="a6952a02e89f9377c8377a26be104294d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6952a02e89f9377c8377a26be104294d">&#9670;&#160;</a></span>GetExecutionOrder()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int ISystem::GetExecutionOrder </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Devuelve</dt><dd>Índice de ordenación de ejecución. </dd></dl>
+
+<p class="definition">Definición en la línea <a class="el" href="_i_system_8cpp_source.html#l00037">37</a> del archivo <a class="el" href="_i_system_8cpp_source.html">ISystem.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a9ac4b0e11cb52d7222ef76e675cb9cc5" name="a9ac4b0e11cb52d7222ef76e675cb9cc5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9ac4b0e11cb52d7222ef76e675cb9cc5">&#9670;&#160;</a></span>GetName()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual std::string_view OSK::ECS::ISystem::GetName </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a438911164cb49af11db10ec3fe1c0dc3" name="a438911164cb49af11db10ec3fe1c0dc3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a438911164cb49af11db10ec3fe1c0dc3">&#9670;&#160;</a></span>GetObjects() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="class_o_s_k_1_1_dynamic_array.html">DynamicArray</a>&lt; <a class="el" href="namespace_o_s_k_1_1_e_c_s.html#a7be561d6b7de4e8a49c2a5cc35fba48c">GameObjectIndex</a> &gt; &amp; IIteratorSystem::GetObjects </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definición en la línea <a class="el" href="_i_iterator_system_8cpp_source.html#l00035">35</a> del archivo <a class="el" href="_i_iterator_system_8cpp_source.html">IIteratorSystem.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a81c627f770103084b1867198663ab07a" name="a81c627f770103084b1867198663ab07a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a81c627f770103084b1867198663ab07a">&#9670;&#160;</a></span>GetObjects() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="x64-windows-static_2x64-windows-static_2include_2zconf_8h.html#a2c212835823e3c54a8ab6d95c652660e">const</a> <a class="el" href="class_o_s_k_1_1_dynamic_array.html">DynamicArray</a>&lt; <a class="el" href="namespace_o_s_k_1_1_e_c_s.html#a7be561d6b7de4e8a49c2a5cc35fba48c">GameObjectIndex</a> &gt; &amp; IIteratorSystem::GetObjects </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definición en la línea <a class="el" href="_i_iterator_system_8cpp_source.html#l00039">39</a> del archivo <a class="el" href="_i_iterator_system_8cpp_source.html">IIteratorSystem.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a934fe1003a9126d9c71023ac1c4e1cba" name="a934fe1003a9126d9c71023ac1c4e1cba"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a934fe1003a9126d9c71023ac1c4e1cba">&#9670;&#160;</a></span>GetRenderPass()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_render_pass.html">IRenderPass</a> * IRenderSystem::GetRenderPass </td>
+          <td>(</td>
+          <td class="paramtype">std::string_view</td>          <td class="paramname"><span class="paramname"><em>name</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">name</td><td>Nombre del pase de renderizado. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Devuelve</dt><dd>Pase de renderizado. </dd></dl>
+<dl class="section pre"><dt>Precondición</dt><dd>Debe existir un pase de renderizado con nombre <code>name</code>. </dd></dl>
+
+<p class="definition">Definición en la línea <a class="el" href="_i_render_system_8cpp_source.html#l00059">59</a> del archivo <a class="el" href="_i_render_system_8cpp_source.html">IRenderSystem.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a7ead258d11d094f960bed0b7da407d85" name="a7ead258d11d094f960bed0b7da407d85"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7ead258d11d094f960bed0b7da407d85">&#9670;&#160;</a></span>GetRenderTarget()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_render_target.html">RenderTarget</a> &amp; IRenderSystem::GetRenderTarget </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Devuelve</dt><dd>Render target principal sobre el que se renderiza el sistema. </dd></dl>
+
+<p class="definition">Definición en la línea <a class="el" href="_i_render_system_8cpp_source.html#l00044">44</a> del archivo <a class="el" href="_i_render_system_8cpp_source.html">IRenderSystem.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a6b8811a0612a96336cca1402e1004d97" name="a6b8811a0612a96336cca1402e1004d97"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6b8811a0612a96336cca1402e1004d97">&#9670;&#160;</a></span>GetShadowMap()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_shadow_map.html">ShadowMap</a> * RenderSystem3D::GetShadowMap </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definición en la línea <a class="el" href="_render_system3_d_8cpp_source.html#l00207">207</a> del archivo <a class="el" href="_render_system3_d_8cpp_source.html">RenderSystem3D.cpp</a>.</p>
+
+</div>
+</div>
+<a id="ae112bd30755ef771c25dc2d620fb6295" name="ae112bd30755ef771c25dc2d620fb6295"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae112bd30755ef771c25dc2d620fb6295">&#9670;&#160;</a></span>GetSignature()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="x64-windows-static_2x64-windows-static_2include_2zconf_8h.html#a2c212835823e3c54a8ab6d95c652660e">const</a> <a class="el" href="namespace_o_s_k_1_1_e_c_s.html#a9c0e00962e3504ffd2435edb417d2d42">Signature</a> &amp; IIteratorSystem::GetSignature </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Devuelve el signature del sistema, indicando qué componentes necesita. </p>
+<dl class="section return"><dt>Devuelve</dt><dd>Signature del sistema. </dd></dl>
+
+<p class="definition">Definición en la línea <a class="el" href="_i_iterator_system_8cpp_source.html#l00014">14</a> del archivo <a class="el" href="_i_iterator_system_8cpp_source.html">IIteratorSystem.cpp</a>.</p>
+
+</div>
+</div>
+<a id="ab94addc1abfab194c74604c12aeffefc" name="ab94addc1abfab194c74604c12aeffefc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab94addc1abfab194c74604c12aeffefc">&#9670;&#160;</a></span>HasRenderPass()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool IRenderSystem::HasRenderPass </td>
+          <td>(</td>
+          <td class="paramtype">std::string_view</td>          <td class="paramname"><span class="paramname"><em>name</em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">name</td><td>Nombre del pase de renderizado. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Devuelve</dt><dd>True si contiene un pase de renderizado con el nombre <code>name</code>. </dd></dl>
+
+<p class="definition">Definición en la línea <a class="el" href="_i_render_system_8cpp_source.html#l00055">55</a> del archivo <a class="el" href="_i_render_system_8cpp_source.html">IRenderSystem.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a41ced97ec5141bd203c6d407fc00b6fe" name="a41ced97ec5141bd203c6d407fc00b6fe"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a41ced97ec5141bd203c6d407fc00b6fe">&#9670;&#160;</a></span>Initialize()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="x64-windows-static_2x64-windows-static_2include_2libpng16_2png_8h.html#a05f08be336491be77cd4dfa98f747c69">void</a> RenderSystem3D::Initialize </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="namespace_o_s_k_1_1_e_c_s.html#a7be561d6b7de4e8a49c2a5cc35fba48c">GameObjectIndex</a></td>          <td class="paramname"><span class="paramname"><em>cameraObject</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="x64-windows-static_2x64-windows-static_2include_2zconf_8h.html#a2c212835823e3c54a8ab6d95c652660e">const</a> <a class="el" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_irradiance_map.html">ASSETS::IrradianceMap</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>irradianceMap</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="x64-windows-static_2x64-windows-static_2include_2zconf_8h.html#a2c212835823e3c54a8ab6d95c652660e">const</a> <a class="el" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_specular_map.html">ASSETS::SpecularMap</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>specularMap</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definición en la línea <a class="el" href="_render_system3_d_8cpp_source.html#l00053">53</a> del archivo <a class="el" href="_render_system3_d_8cpp_source.html">RenderSystem3D.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a890108dd7d405eb602d0d80fefefdada" name="a890108dd7d405eb602d0d80fefefdada"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a890108dd7d405eb602d0d80fefefdada">&#9670;&#160;</a></span>InitializeTerrain()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="x64-windows-static_2x64-windows-static_2include_2libpng16_2png_8h.html#a05f08be336491be77cd4dfa98f747c69">void</a> RenderSystem3D::InitializeTerrain </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="x64-windows-static_2x64-windows-static_2include_2zconf_8h.html#a2c212835823e3c54a8ab6d95c652660e">const</a> <a class="el" href="namespace_o_s_k.html#a6f5b4753cd85b4773d2880148fd031cf">Vector2ui</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>resolution</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="x64-windows-static_2x64-windows-static_2include_2zconf_8h.html#a2c212835823e3c54a8ab6d95c652660e">const</a> <a class="el" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_texture.html">ASSETS::Texture</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>heightMap</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="x64-windows-static_2x64-windows-static_2include_2zconf_8h.html#a2c212835823e3c54a8ab6d95c652660e">const</a> <a class="el" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_texture.html">ASSETS::Texture</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>texture</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definición en la línea <a class="el" href="_render_system3_d_8cpp_source.html#l00120">120</a> del archivo <a class="el" href="_render_system3_d_8cpp_source.html">RenderSystem3D.cpp</a>.</p>
+
+</div>
+</div>
+<a id="acdd2816796e17bd727d7ee4d10e11aed" name="acdd2816796e17bd727d7ee4d10e11aed"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acdd2816796e17bd727d7ee4d10e11aed">&#9670;&#160;</a></span>IsActive()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool ISystem::IsActive </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Permite saber si un sistema está activo, es decir, si un sistema se ejcutará cada frame o no. </p>
+<dl class="section return"><dt>Devuelve</dt><dd>True si está activo, false en caso contrario. </dd></dl>
+
+<p class="definition">Definición en la línea <a class="el" href="_i_system_8cpp_source.html#l00033">33</a> del archivo <a class="el" href="_i_system_8cpp_source.html">ISystem.cpp</a>.</p>
+
+</div>
+</div>
+<a id="ab99fd447d1c640bcc003dc5713768b6c" name="ab99fd447d1c640bcc003dc5713768b6c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab99fd447d1c640bcc003dc5713768b6c">&#9670;&#160;</a></span>OnCreate()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="x64-windows-static_2x64-windows-static_2include_2libpng16_2png_8h.html#a05f08be336491be77cd4dfa98f747c69">void</a> IRenderSystem::OnCreate </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Función que se ejecuta al crearse el sistema. </p>
+
+<p>Reimplementado de <a class="el" href="class_o_s_k_1_1_e_c_s_1_1_i_system.html#a78d27d6a19bd0d3c9eadc3521c350001">OSK::ECS::ISystem</a>.</p>
+
+<p class="definition">Definición en la línea <a class="el" href="_i_render_system_8cpp_source.html#l00025">25</a> del archivo <a class="el" href="_i_render_system_8cpp_source.html">IRenderSystem.cpp</a>.</p>
+
+</div>
+</div>
+<a id="af380b55facabf814ca48fef44cae116b" name="af380b55facabf814ca48fef44cae116b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af380b55facabf814ca48fef44cae116b">&#9670;&#160;</a></span>OnObjectAdded()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="x64-windows-static_2x64-windows-static_2include_2libpng16_2png_8h.html#a05f08be336491be77cd4dfa98f747c69">void</a> IIteratorSystem::OnObjectAdded </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="namespace_o_s_k_1_1_e_c_s.html#a7be561d6b7de4e8a49c2a5cc35fba48c">GameObjectIndex</a></td>          <td class="paramname"><span class="paramname"><em>obj</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">virtual</span><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Función que se ejecuta cuando un GameObject entra en la lista de objetos procesables por el sistema. </p>
+<dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">obj</td><td><br  />
+ </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Reimplementado en <a class="el" href="class_o_s_k_1_1_e_c_s_1_1_collider_render_system.html#ac08db4e636ce1989f2f034bd25851fae">OSK::ECS::ColliderRenderSystem</a>.</p>
+
+<p class="definition">Definición en la línea <a class="el" href="_i_iterator_system_8cpp_source.html#l00006">6</a> del archivo <a class="el" href="_i_iterator_system_8cpp_source.html">IIteratorSystem.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a95c8a52cae15f1ea27c6bed80c8708c3" name="a95c8a52cae15f1ea27c6bed80c8708c3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a95c8a52cae15f1ea27c6bed80c8708c3">&#9670;&#160;</a></span>OnObjectRemoved()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="x64-windows-static_2x64-windows-static_2include_2libpng16_2png_8h.html#a05f08be336491be77cd4dfa98f747c69">void</a> IIteratorSystem::OnObjectRemoved </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="namespace_o_s_k_1_1_e_c_s.html#a7be561d6b7de4e8a49c2a5cc35fba48c">GameObjectIndex</a></td>          <td class="paramname"><span class="paramname"><em>obj</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">virtual</span><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Función que se ejecuta cuando un GameObject sale de la lista de objetos procesables por el sistema. </p>
+<dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">obj</td><td><br  />
+ </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Reimplementado en <a class="el" href="class_o_s_k_1_1_e_c_s_1_1_collider_render_system.html#a729841b2136b8b644e1c43fc17a10c2f">OSK::ECS::ColliderRenderSystem</a>.</p>
+
+<p class="definition">Definición en la línea <a class="el" href="_i_iterator_system_8cpp_source.html#l00010">10</a> del archivo <a class="el" href="_i_iterator_system_8cpp_source.html">IIteratorSystem.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a43e7608ce2a31c9c13b42cf4ce6eb0ef" name="a43e7608ce2a31c9c13b42cf4ce6eb0ef"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a43e7608ce2a31c9c13b42cf4ce6eb0ef">&#9670;&#160;</a></span>OnRemove()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="x64-windows-static_2x64-windows-static_2include_2libpng16_2png_8h.html#a05f08be336491be77cd4dfa98f747c69">void</a> ISystem::OnRemove </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">virtual</span><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Función que se ejecuta al destruirse el sistema. </p>
+
+<p class="definition">Definición en la línea <a class="el" href="_i_system_8cpp_source.html#l00013">13</a> del archivo <a class="el" href="_i_system_8cpp_source.html">ISystem.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a65a6b4272468a563ea381aaf9f5e480d" name="a65a6b4272468a563ea381aaf9f5e480d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a65a6b4272468a563ea381aaf9f5e480d">&#9670;&#160;</a></span>OnTick()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="x64-windows-static_2x64-windows-static_2include_2libpng16_2png_8h.html#a05f08be336491be77cd4dfa98f747c69">void</a> RenderSystem3D::OnTick </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="_o_s_kmacros_8h.html#ad05d5eacc527d5b61240124daf13b33b">TDeltaTime</a></td>          <td class="paramname"><span class="paramname"><em>deltaTime</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Función que se ejecuta una vez por frame. La lógica en la mayoría de sistemas estará implementada en este método. </p>
+<dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">deltaTime</td><td>Número de segundos que han pasado desde la anterior ejecución. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Reimplementado de <a class="el" href="class_o_s_k_1_1_e_c_s_1_1_i_system.html#ab66937b130814e6f06f3d76648dd0fb6">OSK::ECS::ISystem</a>.</p>
+
+<p class="definition">Definición en la línea <a class="el" href="_render_system3_d_8cpp_source.html#l00493">493</a> del archivo <a class="el" href="_render_system3_d_8cpp_source.html">RenderSystem3D.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a493b2f75e14d1d63509e90df7edd326e" name="a493b2f75e14d1d63509e90df7edd326e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a493b2f75e14d1d63509e90df7edd326e">&#9670;&#160;</a></span>OSK_SYSTEM()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">OSK::ECS::RenderSystem3D::OSK_SYSTEM </td>
+          <td>(</td>
+          <td class="paramtype">&quot;OSK::RenderSystem3D&quot;</td>          <td class="paramname"><span class="paramname"></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a0f6ecaafe704974730190d0b7f274b1a" name="a0f6ecaafe704974730190d0b7f274b1a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0f6ecaafe704974730190d0b7f274b1a">&#9670;&#160;</a></span>Render()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="x64-windows-static_2x64-windows-static_2include_2libpng16_2png_8h.html#a05f08be336491be77cd4dfa98f747c69">void</a> RenderSystem3D::Render </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list.html">GRAPHICS::ICommandList</a> *</td>          <td class="paramname"><span class="paramname"><em>commandList</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Comando específico del sistema, para ejecutar el renderizado. </p>
+<dl class="section pre"><dt>Precondición</dt><dd>La lista de comandos debe estar abierta. </dd></dl>
+
+<p>Implementa <a class="el" href="class_o_s_k_1_1_e_c_s_1_1_i_render_system.html#a09d5e15f08aeff1cac75da8bada0f48d">OSK::ECS::IRenderSystem</a>.</p>
+
+<p class="definition">Definición en la línea <a class="el" href="_render_system3_d_8cpp_source.html#l00456">456</a> del archivo <a class="el" href="_render_system3_d_8cpp_source.html">RenderSystem3D.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a69771f412015a908acba9b67a4dc99bd" name="a69771f412015a908acba9b67a4dc99bd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a69771f412015a908acba9b67a4dc99bd">&#9670;&#160;</a></span>Resize()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="x64-windows-static_2x64-windows-static_2include_2libpng16_2png_8h.html#a05f08be336491be77cd4dfa98f747c69">void</a> RenderSystem3D::Resize </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="x64-windows-static_2x64-windows-static_2include_2zconf_8h.html#a2c212835823e3c54a8ab6d95c652660e">const</a> <a class="el" href="namespace_o_s_k.html#a6f5b4753cd85b4773d2880148fd031cf">Vector2ui</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>resolution</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Cambia la resolución de la imagen de render target. </p>
+<dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">resolution</td><td>Nueva resolución de renderizado.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section note"><dt>Nota</dt><dd>Se llama cada vez que la ventana cambia de tamaño. </dd>
+<dd>
+Se puede sobreescribir para cambiar de tamaño otras imágenes de renderizado. </dd></dl>
+
+<p>Reimplementado de <a class="el" href="class_o_s_k_1_1_e_c_s_1_1_i_render_system.html#a73d2840e29adafef2ccface8fbd76303">OSK::ECS::IRenderSystem</a>.</p>
+
+<p class="definition">Definición en la línea <a class="el" href="_render_system3_d_8cpp_source.html#l00193">193</a> del archivo <a class="el" href="_render_system3_d_8cpp_source.html">RenderSystem3D.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a97458cf11d6b977bad992387a2d67297" name="a97458cf11d6b977bad992387a2d67297"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a97458cf11d6b977bad992387a2d67297">&#9670;&#160;</a></span>SetActivationStatus()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="x64-windows-static_2x64-windows-static_2include_2libpng16_2png_8h.html#a05f08be336491be77cd4dfa98f747c69">void</a> ISystem::SetActivationStatus </td>
+          <td>(</td>
+          <td class="paramtype">bool</td>          <td class="paramname"><span class="paramname"><em>isActive</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Establece si el sistema debe ejecutarse o no. </p>
+<dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">isActive</td><td>True si debe ejecutarse, false en caso contrario. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definición en la línea <a class="el" href="_i_system_8cpp_source.html#l00025">25</a> del archivo <a class="el" href="_i_system_8cpp_source.html">ISystem.cpp</a>.</p>
+
+</div>
+</div>
+<a id="ae3c3f809429c0eb238b4b5a58e4a756a" name="ae3c3f809429c0eb238b4b5a58e4a756a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae3c3f809429c0eb238b4b5a58e4a756a">&#9670;&#160;</a></span>SetupViewport()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="x64-windows-static_2x64-windows-static_2include_2libpng16_2png_8h.html#a05f08be336491be77cd4dfa98f747c69">void</a> IRenderSystem::SetupViewport </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list.html">GRAPHICS::ICommandList</a> *</td>          <td class="paramname"><span class="paramname"><em>commandList</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Configura el viewport que se usará en la lista de comandos para que incluya toda la imagen del render system. </p>
+<dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">commandList</td><td>Lista de comandos. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section pre"><dt>Precondición</dt><dd>commandList no debe ser null. </dd></dl>
+
+<p class="definition">Definición en la línea <a class="el" href="_i_render_system_8cpp_source.html#l00082">82</a> del archivo <a class="el" href="_i_render_system_8cpp_source.html">IRenderSystem.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a01bbb5166a33e4484f42fcc6f03494b4" name="a01bbb5166a33e4484f42fcc6f03494b4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a01bbb5166a33e4484f42fcc6f03494b4">&#9670;&#160;</a></span>ToggleActivationStatus()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="x64-windows-static_2x64-windows-static_2include_2libpng16_2png_8h.html#a05f08be336491be77cd4dfa98f747c69">void</a> ISystem::ToggleActivationStatus </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Cambia entre activado/desactivado. </p>
+
+<p class="definition">Definición en la línea <a class="el" href="_i_system_8cpp_source.html#l00029">29</a> del archivo <a class="el" href="_i_system_8cpp_source.html">ISystem.cpp</a>.</p>
+
+</div>
+</div>
+<a id="aa01efd52a4c804e5f9b7c98716a22033" name="aa01efd52a4c804e5f9b7c98716a22033"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa01efd52a4c804e5f9b7c98716a22033">&#9670;&#160;</a></span>ToggleTaa()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="x64-windows-static_2x64-windows-static_2include_2libpng16_2png_8h.html#a05f08be336491be77cd4dfa98f747c69">void</a> OSK::ECS::RenderSystem3D::ToggleTaa </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definición en la línea <a class="el" href="_render_system3_d_8h_source.html#l00060">60</a> del archivo <a class="el" href="_render_system3_d_8h_source.html">RenderSystem3D.h</a>.</p>
+
+</div>
+</div>
+<a id="a2f1eb4de3c072e59ad4f8403d1a69eff" name="a2f1eb4de3c072e59ad4f8403d1a69eff"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2f1eb4de3c072e59ad4f8403d1a69eff">&#9670;&#160;</a></span>UpdatePerPassObjectLists()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="x64-windows-static_2x64-windows-static_2include_2libpng16_2png_8h.html#a05f08be336491be77cd4dfa98f747c69">void</a> IRenderSystem::UpdatePerPassObjectLists </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">virtual</span><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Actualiza las listas de objetos asignados a cada pase. </p>
+
+<p class="definition">Definición en la línea <a class="el" href="_i_render_system_8cpp_source.html#l00063">63</a> del archivo <a class="el" href="_i_render_system_8cpp_source.html">IRenderSystem.cpp</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Documentación de datos miembro</h2>
+<a id="a50e98bc2de00e4a60e746813e3777453" name="a50e98bc2de00e4a60e746813e3777453"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a50e98bc2de00e4a60e746813e3777453">&#9670;&#160;</a></span>COLOR_IMAGE_INDEX</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">constexpr <a class="el" href="_o_s_kmacros_8h.html#af205b9fd0440138e6cac38a9081141df">UIndex32</a> OSK::ECS::RenderSystem3D::COLOR_IMAGE_INDEX = 0</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definición en la línea <a class="el" href="_render_system3_d_8h_source.html#l00062">62</a> del archivo <a class="el" href="_render_system3_d_8h_source.html">RenderSystem3D.h</a>.</p>
+
+</div>
+</div>
+<a id="a475b37d3a934c9097c8df5a21ca67b88" name="a475b37d3a934c9097c8df5a21ca67b88"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a475b37d3a934c9097c8df5a21ca67b88">&#9670;&#160;</a></span>DEFAULT_EXECUTION_ORDER</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">constexpr int OSK::ECS::ISystem::DEFAULT_EXECUTION_ORDER = 0</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">constexpr</span><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Índice de ordenación por defecto. </p>
+
+<p class="definition">Definición en la línea <a class="el" href="_i_system_8h_source.html#l00029">29</a> del archivo <a class="el" href="_i_system_8h_source.html">ISystem.h</a>.</p>
+
+</div>
+</div>
+<a id="af06aff11fb42935ec6185141d216b500" name="af06aff11fb42935ec6185141d216b500"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af06aff11fb42935ec6185141d216b500">&#9670;&#160;</a></span>m_objectsPerPass</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::unordered_map&lt;std::string, <a class="el" href="class_o_s_k_1_1_dynamic_array.html">DynamicArray</a>&lt;<a class="el" href="namespace_o_s_k_1_1_e_c_s.html#a7be561d6b7de4e8a49c2a5cc35fba48c">GameObjectIndex</a>&gt;, <a class="el" href="struct_o_s_k_1_1_string_hasher.html">StringHasher</a>, std::equal_to&lt;&gt; &gt; OSK::ECS::IRenderSystem::m_objectsPerPass</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Objetos compatibles con cada pase. </p>
+
+<p class="definition">Definición en la línea <a class="el" href="_i_render_system_8h_source.html#l00094">94</a> del archivo <a class="el" href="_i_render_system_8h_source.html">IRenderSystem.h</a>.</p>
+
+</div>
+</div>
+<a id="a6d7db1bd0001d9c2b6a738ec0211bfa2" name="a6d7db1bd0001d9c2b6a738ec0211bfa2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6d7db1bd0001d9c2b6a738ec0211bfa2">&#9670;&#160;</a></span>m_renderPasses</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="class_o_s_k_1_1_dynamic_array.html">DynamicArray</a>&lt;<a class="el" href="class_o_s_k_1_1_unique_ptr.html">UniquePtr</a>&lt;<a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_render_pass.html">GRAPHICS::IRenderPass</a>&gt; &gt; OSK::ECS::IRenderSystem::m_renderPasses</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Pases de renderizado. </p>
+
+<p class="definition">Definición en la línea <a class="el" href="_i_render_system_8h_source.html#l00088">88</a> del archivo <a class="el" href="_i_render_system_8h_source.html">IRenderSystem.h</a>.</p>
+
+</div>
+</div>
+<a id="a57e3dc4c4a82440c48ba470e7d86acb5" name="a57e3dc4c4a82440c48ba470e7d86acb5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a57e3dc4c4a82440c48ba470e7d86acb5">&#9670;&#160;</a></span>m_renderPassesTable</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::unordered_map&lt;std::string, <a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_render_pass.html">GRAPHICS::IRenderPass</a>*, <a class="el" href="struct_o_s_k_1_1_string_hasher.html">StringHasher</a>, std::equal_to&lt;&gt; &gt; OSK::ECS::IRenderSystem::m_renderPassesTable</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Mapa nombre -&gt; pase de renderizado. </p>
+
+<p class="definition">Definición en la línea <a class="el" href="_i_render_system_8h_source.html#l00091">91</a> del archivo <a class="el" href="_i_render_system_8h_source.html">IRenderSystem.h</a>.</p>
+
+</div>
+</div>
+<a id="aeaa0bf1f05132020a8eac8de0a8f0461" name="aeaa0bf1f05132020a8eac8de0a8f0461"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aeaa0bf1f05132020a8eac8de0a8f0461">&#9670;&#160;</a></span>m_renderTarget</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_render_target.html">GRAPHICS::RenderTarget</a> OSK::ECS::IRenderSystem::m_renderTarget</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definición en la línea <a class="el" href="_i_render_system_8h_source.html#l00097">97</a> del archivo <a class="el" href="_i_render_system_8h_source.html">IRenderSystem.h</a>.</p>
+
+</div>
+</div>
+<a id="a53c71ef7181e3275c5dd30f8b915f458" name="a53c71ef7181e3275c5dd30f8b915f458"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a53c71ef7181e3275c5dd30f8b915f458">&#9670;&#160;</a></span>MOTION_IMAGE_INDEX</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">constexpr <a class="el" href="_o_s_kmacros_8h.html#af205b9fd0440138e6cac38a9081141df">UIndex32</a> OSK::ECS::RenderSystem3D::MOTION_IMAGE_INDEX = 1</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definición en la línea <a class="el" href="_render_system3_d_8h_source.html#l00063">63</a> del archivo <a class="el" href="_render_system3_d_8h_source.html">RenderSystem3D.h</a>.</p>
+
+</div>
+</div>
+<a id="a805c938d983ec6e87910ddb4fc7ec044" name="a805c938d983ec6e87910ddb4fc7ec044"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a805c938d983ec6e87910ddb4fc7ec044">&#9670;&#160;</a></span>NORMAL_IMAGE_INDEX</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">constexpr <a class="el" href="_o_s_kmacros_8h.html#af205b9fd0440138e6cac38a9081141df">UIndex32</a> OSK::ECS::RenderSystem3D::NORMAL_IMAGE_INDEX = 2</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definición en la línea <a class="el" href="_render_system3_d_8h_source.html#l00064">64</a> del archivo <a class="el" href="_render_system3_d_8h_source.html">RenderSystem3D.h</a>.</p>
+
+</div>
+</div>
+<hr/>La documentación de esta clase está generada de los siguientes archivos:<ul>
+<li>Source/<a class="el" href="_render_system3_d_8h_source.html">RenderSystem3D.h</a></li>
+<li>Source/<a class="el" href="_render_system3_d_8cpp_source.html">RenderSystem3D.cpp</a></li>
+</ul>
+</div><!-- contents -->
+</div><!-- doc-content -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="namespace_o_s_k.html">OSK</a></li><li class="navelem"><a class="el" href="namespace_o_s_k_1_1_e_c_s.html">ECS</a></li><li class="navelem"><a class="el" href="class_o_s_k_1_1_e_c_s_1_1_render_system3_d.html">RenderSystem3D</a></li>
+    <li class="footer">Generado el Lunes, 29 de enero de 2024 17:19:10 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.10.0 </li>
+  </ul>
+</div>
+</body>
+</html>

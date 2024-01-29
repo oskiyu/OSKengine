@@ -1,0 +1,224 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="es">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.10.0"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>OSKengine: Archivo de código fuente Source/IAudioSource.h</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">OSKengine<span id="projectnumber">&#160;Indev</span>
+   </div>
+   <div id="projectbrief">Motor de videojuegos.</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generado por Doxygen 1.10.0 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() {
+  initMenu('',true,false,'search.php','Buscar');
+  $(function() { init_search(); });
+});
+/* @license-end */
+</script>
+<div id="main-nav"></div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() { codefold.init(0); });
+/* @license-end */
+</script>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function(){initNavTree('_i_audio_source_8h_source.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Cargando...</div>
+<div class="SRStatus" id="Searching">Buscando...</div>
+<div class="SRStatus" id="NoMatches">Nada coincide</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">IAudioSource.h</div></div>
+</div><!--header-->
+<div class="contents">
+<a href="_i_audio_source_8h.html">Ir a la documentación de este archivo.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#pragma once</span></div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span> </div>
+<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="preprocessor">#include &quot;<a class="code" href="_o_s_kmacros_8h.html">OSKmacros.h</a>&quot;</span></div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &quot;<a class="code" href="_vector3_8hpp.html">Vector3.hpp</a>&quot;</span></div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span> </div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="keyword">namespace </span><a class="code hl_namespace" href="namespace_o_s_k_1_1_a_u_d_i_o.html">OSK::AUDIO</a> {</div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span> </div>
+<div class="foldopen" id="foldopen00010" data-start="{" data-end="};">
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno"><a class="line" href="namespace_o_s_k_1_1_a_u_d_i_o.html#addc6f8d4c0f711311adac345c3d99780">   10</a></span>    <span class="keyword">enum class</span> <a class="code hl_enumeration" href="namespace_o_s_k_1_1_a_u_d_i_o.html#addc6f8d4c0f711311adac345c3d99780">AudioState</a> {</div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span> </div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span>        <a class="code hl_enumvalue" href="namespace_o_s_k_1_1_a_u_d_i_o.html#addc6f8d4c0f711311adac345c3d99780a50366a49630a416ab3ccaa004196027e">PLAYING</a>,</div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span> </div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span>        <a class="code hl_enumvalue" href="namespace_o_s_k_1_1_a_u_d_i_o.html#addc6f8d4c0f711311adac345c3d99780a99b2439e63f73ad515f7ab2447a80673">PAUSED</a>,</div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span> </div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>        <a class="code hl_enumvalue" href="namespace_o_s_k_1_1_a_u_d_i_o.html#addc6f8d4c0f711311adac345c3d99780a09d4d696b4e935115b9313e3c412509a">STOPPED</a>,</div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span> </div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>        <a class="code hl_enumvalue" href="namespace_o_s_k_1_1_a_u_d_i_o.html#addc6f8d4c0f711311adac345c3d99780a696b031073e74bf2cb98e5ef201d4aa3">UNKNOWN</a></div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span> </div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>    };</div>
+</div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span> </div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span> </div>
+<div class="foldopen" id="foldopen00026" data-start="{" data-end="};">
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_a_u_d_i_o_1_1_i_audio_source.html">   26</a></span>    <span class="keyword">class </span><a class="code hl_define" href="_o_s_kmacros_8h.html#a09ec5b46ece998ad096bceff312bb36c">OSKAPI_CALL</a> <a class="code hl_class" href="class_o_s_k_1_1_a_u_d_i_o_1_1_i_audio_source.html">IAudioSource</a> {</div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span> </div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>    <span class="keyword">public</span>:</div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>        </div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_a_u_d_i_o_1_1_i_audio_source.html#a3ddbd503a947104d5b328e154f009515">   30</a></span>        <span class="keyword">virtual</span> <a class="code hl_function" href="class_o_s_k_1_1_a_u_d_i_o_1_1_i_audio_source.html#a3ddbd503a947104d5b328e154f009515">~IAudioSource</a>() = <span class="keywordflow">default</span>;</div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span> </div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_a_u_d_i_o_1_1_i_audio_source.html#a53ba3ee99fcd6dc9254842358d34b5b0">   32</a></span>        <a class="code hl_function" href="class_o_s_k_1_1_a_u_d_i_o_1_1_i_audio_source.html#a53ba3ee99fcd6dc9254842358d34b5b0">OSK_DEFINE_AS</a>(<a class="code hl_class" href="class_o_s_k_1_1_a_u_d_i_o_1_1_i_audio_source.html">IAudioSource</a>);</div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span> </div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span> </div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>        <span class="keyword">virtual</span> <span class="keywordtype">void</span> Initialize();</div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span> </div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>        <span class="comment">// --- Configuración --- //</span></div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span> </div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_a_u_d_i_o_1_1_i_audio_source.html#ad1b9dd9938b22d1600a0e00c38ff0407">   41</a></span>        <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code hl_function" href="class_o_s_k_1_1_a_u_d_i_o_1_1_i_audio_source.html#ad1b9dd9938b22d1600a0e00c38ff0407">SetPosition</a>(<span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_vector3__t.html">Vector3f</a>&amp; position) = 0;</div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span> </div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_a_u_d_i_o_1_1_i_audio_source.html#ae896a769431429e57eb2845d77011d17">   45</a></span>        <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code hl_function" href="class_o_s_k_1_1_a_u_d_i_o_1_1_i_audio_source.html#ae896a769431429e57eb2845d77011d17">SetVelocity</a>(<span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_vector3__t.html">Vector3f</a>&amp; velocity) = 0;</div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span> </div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span> </div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>        <span class="keywordtype">void</span> SetPitch(<span class="keywordtype">float</span> pitch);</div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span> </div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>        <span class="keywordtype">void</span> SetGain(<span class="keywordtype">float</span> gain);</div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span> </div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>        <span class="keywordtype">void</span> SetLooping(<span class="keywordtype">bool</span> looping);</div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span> </div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span> </div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>        <span class="comment">// --- Estados --- //</span></div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span> </div>
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>        <span class="keywordtype">void</span> SetCurrentState(<a class="code hl_enumeration" href="namespace_o_s_k_1_1_a_u_d_i_o.html#addc6f8d4c0f711311adac345c3d99780">AudioState</a> state);</div>
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span> </div>
+<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span>        <a class="code hl_enumeration" href="namespace_o_s_k_1_1_a_u_d_i_o.html#addc6f8d4c0f711311adac345c3d99780">AudioState</a> GetCurrentState() <span class="keyword">const</span>;</div>
+<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span> </div>
+<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span> </div>
+<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span>        <span class="keywordtype">void</span> Play();</div>
+<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span> </div>
+<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span>        <span class="keywordtype">void</span> Pause();</div>
+<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span> </div>
+<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span>        <span class="keywordtype">void</span> Stop();</div>
+<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span>        </div>
+<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span>    <span class="keyword">protected</span>:</div>
+<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span> </div>
+<div class="line"><a id="l00097" name="l00097"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_a_u_d_i_o_1_1_i_audio_source.html#a1ad628e5a6b534627cb87b1d71ae875f">   97</a></span>        <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code hl_function" href="class_o_s_k_1_1_a_u_d_i_o_1_1_i_audio_source.html#a1ad628e5a6b534627cb87b1d71ae875f">Play_Implementation</a>() = 0;</div>
+<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span> </div>
+<div class="line"><a id="l00101" name="l00101"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_a_u_d_i_o_1_1_i_audio_source.html#a9dd31d1cfca85dd90a0e0f37be9e064e">  101</a></span>        <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code hl_function" href="class_o_s_k_1_1_a_u_d_i_o_1_1_i_audio_source.html#a9dd31d1cfca85dd90a0e0f37be9e064e">Pause_Implementation</a>() = 0;</div>
+<div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span> </div>
+<div class="line"><a id="l00105" name="l00105"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_a_u_d_i_o_1_1_i_audio_source.html#a74a3c4fe1aa168e0f693c603d182789d">  105</a></span>        <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code hl_function" href="class_o_s_k_1_1_a_u_d_i_o_1_1_i_audio_source.html#a74a3c4fe1aa168e0f693c603d182789d">Stop_Implementation</a>() = 0;</div>
+<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span> </div>
+<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span> </div>
+<div class="line"><a id="l00111" name="l00111"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_a_u_d_i_o_1_1_i_audio_source.html#a618361835e41572db1a3daf8ed0156c5">  111</a></span>        <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code hl_function" href="class_o_s_k_1_1_a_u_d_i_o_1_1_i_audio_source.html#a618361835e41572db1a3daf8ed0156c5">SetPitch_Implementation</a>(<span class="keywordtype">float</span> pitch) = 0;</div>
+<div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span> </div>
+<div class="line"><a id="l00117" name="l00117"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_a_u_d_i_o_1_1_i_audio_source.html#a59953ddb234adc407e134939311c54b5">  117</a></span>        <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code hl_function" href="class_o_s_k_1_1_a_u_d_i_o_1_1_i_audio_source.html#a59953ddb234adc407e134939311c54b5">SetGain_Implementation</a>(<span class="keywordtype">float</span> gain) = 0;</div>
+<div class="line"><a id="l00118" name="l00118"></a><span class="lineno">  118</span> </div>
+<div class="line"><a id="l00121" name="l00121"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_a_u_d_i_o_1_1_i_audio_source.html#ace83f4faa0233abb01375f6e6db0e37c">  121</a></span>        <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code hl_function" href="class_o_s_k_1_1_a_u_d_i_o_1_1_i_audio_source.html#ace83f4faa0233abb01375f6e6db0e37c">SetLooping_Implementation</a>(<span class="keywordtype">bool</span> looping) = 0;</div>
+<div class="line"><a id="l00122" name="l00122"></a><span class="lineno">  122</span> </div>
+<div class="line"><a id="l00123" name="l00123"></a><span class="lineno">  123</span>    <span class="keyword">private</span>:</div>
+<div class="line"><a id="l00124" name="l00124"></a><span class="lineno">  124</span> </div>
+<div class="line"><a id="l00126" name="l00126"></a><span class="lineno">  126</span>        <span class="keywordtype">float</span> m_pitch = 1.0f;</div>
+<div class="line"><a id="l00127" name="l00127"></a><span class="lineno">  127</span> </div>
+<div class="line"><a id="l00129" name="l00129"></a><span class="lineno">  129</span>        <span class="keywordtype">float</span> m_gain = 1.0f;</div>
+<div class="line"><a id="l00130" name="l00130"></a><span class="lineno">  130</span> </div>
+<div class="line"><a id="l00133" name="l00133"></a><span class="lineno">  133</span>        <span class="keywordtype">bool</span> m_loop = <span class="keyword">false</span>;</div>
+<div class="line"><a id="l00134" name="l00134"></a><span class="lineno">  134</span> </div>
+<div class="line"><a id="l00136" name="l00136"></a><span class="lineno">  136</span>        <a class="code hl_enumeration" href="namespace_o_s_k_1_1_a_u_d_i_o.html#addc6f8d4c0f711311adac345c3d99780">AudioState</a> m_state = AudioState::STOPPED;</div>
+<div class="line"><a id="l00137" name="l00137"></a><span class="lineno">  137</span> </div>
+<div class="line"><a id="l00138" name="l00138"></a><span class="lineno">  138</span>    };</div>
+</div>
+<div class="line"><a id="l00139" name="l00139"></a><span class="lineno">  139</span> </div>
+<div class="line"><a id="l00140" name="l00140"></a><span class="lineno">  140</span>}</div>
+<div class="ttc" id="a_o_s_kmacros_8h_html"><div class="ttname"><a href="_o_s_kmacros_8h.html">OSKmacros.h</a></div></div>
+<div class="ttc" id="a_o_s_kmacros_8h_html_a09ec5b46ece998ad096bceff312bb36c"><div class="ttname"><a href="_o_s_kmacros_8h.html#a09ec5b46ece998ad096bceff312bb36c">OSKAPI_CALL</a></div><div class="ttdeci">#define OSKAPI_CALL</div><div class="ttdef"><b>Definition</b> <a href="_o_s_kmacros_8h_source.html#l00007">OSKmacros.h:7</a></div></div>
+<div class="ttc" id="a_vector3_8hpp_html"><div class="ttname"><a href="_vector3_8hpp.html">Vector3.hpp</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_a_u_d_i_o_1_1_i_audio_source_html"><div class="ttname"><a href="class_o_s_k_1_1_a_u_d_i_o_1_1_i_audio_source.html">OSK::AUDIO::IAudioSource</a></div><div class="ttdef"><b>Definition</b> <a href="#l00026">IAudioSource.h:26</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_a_u_d_i_o_1_1_i_audio_source_html_a1ad628e5a6b534627cb87b1d71ae875f"><div class="ttname"><a href="class_o_s_k_1_1_a_u_d_i_o_1_1_i_audio_source.html#a1ad628e5a6b534627cb87b1d71ae875f">OSK::AUDIO::IAudioSource::Play_Implementation</a></div><div class="ttdeci">virtual void Play_Implementation()=0</div><div class="ttdoc">Reproduce el audio del source.</div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_a_u_d_i_o_1_1_i_audio_source_html_a3ddbd503a947104d5b328e154f009515"><div class="ttname"><a href="class_o_s_k_1_1_a_u_d_i_o_1_1_i_audio_source.html#a3ddbd503a947104d5b328e154f009515">OSK::AUDIO::IAudioSource::~IAudioSource</a></div><div class="ttdeci">virtual ~IAudioSource()=default</div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_a_u_d_i_o_1_1_i_audio_source_html_a53ba3ee99fcd6dc9254842358d34b5b0"><div class="ttname"><a href="class_o_s_k_1_1_a_u_d_i_o_1_1_i_audio_source.html#a53ba3ee99fcd6dc9254842358d34b5b0">OSK::AUDIO::IAudioSource::OSK_DEFINE_AS</a></div><div class="ttdeci">OSK_DEFINE_AS(IAudioSource)</div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_a_u_d_i_o_1_1_i_audio_source_html_a59953ddb234adc407e134939311c54b5"><div class="ttname"><a href="class_o_s_k_1_1_a_u_d_i_o_1_1_i_audio_source.html#a59953ddb234adc407e134939311c54b5">OSK::AUDIO::IAudioSource::SetGain_Implementation</a></div><div class="ttdeci">virtual void SetGain_Implementation(float gain)=0</div><div class="ttdoc">Establece el gain ('volumen') del source. Por defecto 1.0.</div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_a_u_d_i_o_1_1_i_audio_source_html_a618361835e41572db1a3daf8ed0156c5"><div class="ttname"><a href="class_o_s_k_1_1_a_u_d_i_o_1_1_i_audio_source.html#a618361835e41572db1a3daf8ed0156c5">OSK::AUDIO::IAudioSource::SetPitch_Implementation</a></div><div class="ttdeci">virtual void SetPitch_Implementation(float pitch)=0</div><div class="ttdoc">Establece el pitch del source. Por defecto 1.0.</div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_a_u_d_i_o_1_1_i_audio_source_html_a74a3c4fe1aa168e0f693c603d182789d"><div class="ttname"><a href="class_o_s_k_1_1_a_u_d_i_o_1_1_i_audio_source.html#a74a3c4fe1aa168e0f693c603d182789d">OSK::AUDIO::IAudioSource::Stop_Implementation</a></div><div class="ttdeci">virtual void Stop_Implementation()=0</div><div class="ttdoc">Detiene el audio del source, devolviéndolo al estado inicial.</div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_a_u_d_i_o_1_1_i_audio_source_html_a9dd31d1cfca85dd90a0e0f37be9e064e"><div class="ttname"><a href="class_o_s_k_1_1_a_u_d_i_o_1_1_i_audio_source.html#a9dd31d1cfca85dd90a0e0f37be9e064e">OSK::AUDIO::IAudioSource::Pause_Implementation</a></div><div class="ttdeci">virtual void Pause_Implementation()=0</div><div class="ttdoc">Pausa el audio del source.</div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_a_u_d_i_o_1_1_i_audio_source_html_ace83f4faa0233abb01375f6e6db0e37c"><div class="ttname"><a href="class_o_s_k_1_1_a_u_d_i_o_1_1_i_audio_source.html#ace83f4faa0233abb01375f6e6db0e37c">OSK::AUDIO::IAudioSource::SetLooping_Implementation</a></div><div class="ttdeci">virtual void SetLooping_Implementation(bool looping)=0</div><div class="ttdoc">Establece si el audio se reproducirá en bucle.</div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_a_u_d_i_o_1_1_i_audio_source_html_ad1b9dd9938b22d1600a0e00c38ff0407"><div class="ttname"><a href="class_o_s_k_1_1_a_u_d_i_o_1_1_i_audio_source.html#ad1b9dd9938b22d1600a0e00c38ff0407">OSK::AUDIO::IAudioSource::SetPosition</a></div><div class="ttdeci">virtual void SetPosition(const Vector3f &amp;position)=0</div><div class="ttdoc">Establece la posición del source.</div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_a_u_d_i_o_1_1_i_audio_source_html_ae896a769431429e57eb2845d77011d17"><div class="ttname"><a href="class_o_s_k_1_1_a_u_d_i_o_1_1_i_audio_source.html#ae896a769431429e57eb2845d77011d17">OSK::AUDIO::IAudioSource::SetVelocity</a></div><div class="ttdeci">virtual void SetVelocity(const Vector3f &amp;velocity)=0</div><div class="ttdoc">Establece la velocidad del source.</div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_vector3__t_html"><div class="ttname"><a href="class_o_s_k_1_1_vector3__t.html">OSK::Vector3_t&lt; float_t &gt;</a></div></div>
+<div class="ttc" id="anamespace_o_s_k_1_1_a_u_d_i_o_html"><div class="ttname"><a href="namespace_o_s_k_1_1_a_u_d_i_o.html">OSK::AUDIO</a></div><div class="ttdef"><b>Definition</b> <a href="_audio_api_al_8h_source.html#l00007">AudioApiAl.h:7</a></div></div>
+<div class="ttc" id="anamespace_o_s_k_1_1_a_u_d_i_o_html_addc6f8d4c0f711311adac345c3d99780"><div class="ttname"><a href="namespace_o_s_k_1_1_a_u_d_i_o.html#addc6f8d4c0f711311adac345c3d99780">OSK::AUDIO::AudioState</a></div><div class="ttdeci">AudioState</div><div class="ttdoc">Estado en el que puede estar una fuente de audio.</div><div class="ttdef"><b>Definition</b> <a href="#l00010">IAudioSource.h:10</a></div></div>
+<div class="ttc" id="anamespace_o_s_k_1_1_a_u_d_i_o_html_addc6f8d4c0f711311adac345c3d99780a09d4d696b4e935115b9313e3c412509a"><div class="ttname"><a href="namespace_o_s_k_1_1_a_u_d_i_o.html#addc6f8d4c0f711311adac345c3d99780a09d4d696b4e935115b9313e3c412509a">OSK::AUDIO::AudioState::STOPPED</a></div><div class="ttdeci">@ STOPPED</div><div class="ttdoc">El audio está parado (en su posición inicial).</div></div>
+<div class="ttc" id="anamespace_o_s_k_1_1_a_u_d_i_o_html_addc6f8d4c0f711311adac345c3d99780a50366a49630a416ab3ccaa004196027e"><div class="ttname"><a href="namespace_o_s_k_1_1_a_u_d_i_o.html#addc6f8d4c0f711311adac345c3d99780a50366a49630a416ab3ccaa004196027e">OSK::AUDIO::AudioState::PLAYING</a></div><div class="ttdeci">@ PLAYING</div><div class="ttdoc">El audio se está reproduciendo.</div></div>
+<div class="ttc" id="anamespace_o_s_k_1_1_a_u_d_i_o_html_addc6f8d4c0f711311adac345c3d99780a696b031073e74bf2cb98e5ef201d4aa3"><div class="ttname"><a href="namespace_o_s_k_1_1_a_u_d_i_o.html#addc6f8d4c0f711311adac345c3d99780a696b031073e74bf2cb98e5ef201d4aa3">OSK::AUDIO::AudioState::UNKNOWN</a></div><div class="ttdeci">@ UNKNOWN</div></div>
+<div class="ttc" id="anamespace_o_s_k_1_1_a_u_d_i_o_html_addc6f8d4c0f711311adac345c3d99780a99b2439e63f73ad515f7ab2447a80673"><div class="ttname"><a href="namespace_o_s_k_1_1_a_u_d_i_o.html#addc6f8d4c0f711311adac345c3d99780a99b2439e63f73ad515f7ab2447a80673">OSK::AUDIO::AudioState::PAUSED</a></div><div class="ttdeci">@ PAUSED</div><div class="ttdoc">El audio está pausado.</div></div>
+</div><!-- fragment --></div><!-- contents -->
+</div><!-- doc-content -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="dir_74389ed8173ad57b461b9d623a1f3867.html">Source</a></li><li class="navelem"><a class="el" href="_i_audio_source_8h.html">IAudioSource.h</a></li>
+    <li class="footer">Generado el Lunes, 29 de enero de 2024 17:18:31 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.10.0 </li>
+  </ul>
+</div>
+</body>
+</html>

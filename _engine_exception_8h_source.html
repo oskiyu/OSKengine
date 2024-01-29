@@ -1,0 +1,166 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="es">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.10.0"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>OSKengine: Archivo de código fuente Source/EngineException.h</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">OSKengine<span id="projectnumber">&#160;Indev</span>
+   </div>
+   <div id="projectbrief">Motor de videojuegos.</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generado por Doxygen 1.10.0 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() {
+  initMenu('',true,false,'search.php','Buscar');
+  $(function() { init_search(); });
+});
+/* @license-end */
+</script>
+<div id="main-nav"></div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() { codefold.init(0); });
+/* @license-end */
+</script>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function(){initNavTree('_engine_exception_8h_source.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Cargando...</div>
+<div class="SRStatus" id="Searching">Buscando...</div>
+<div class="SRStatus" id="NoMatches">Nada coincide</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">EngineException.h</div></div>
+</div><!--header-->
+<div class="contents">
+<a href="_engine_exception_8h.html">Ir a la documentación de este archivo.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#pragma once</span></div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span> </div>
+<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="preprocessor">#include &lt;stdexcept&gt;</span></div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &lt;source_location&gt;</span></div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &lt;format&gt;</span></div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span> </div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="preprocessor">#include &quot;<a class="code" href="_o_s_kmacros_8h.html">OSKmacros.h</a>&quot;</span></div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span> </div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="keyword">namespace </span><a class="code hl_namespace" href="namespace_o_s_k.html">OSK</a> {</div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span> </div>
+<div class="foldopen" id="foldopen00013" data-start="{" data-end="};">
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_engine_exception.html">   13</a></span>    <span class="keyword">class </span><a class="code hl_define" href="_o_s_kmacros_8h.html#a09ec5b46ece998ad096bceff312bb36c">OSKAPI_CALL</a> <a class="code hl_class" href="class_o_s_k_1_1_engine_exception.html">EngineException</a> : <span class="keyword">public</span> std::runtime_error {</div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span> </div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span>    <span class="keyword">public</span>:</div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span> </div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_engine_exception.html#a0317725a42e5b06b5a47eb2e1ff2de7d">   17</a></span>        <a class="code hl_function" href="class_o_s_k_1_1_engine_exception.html#a0317725a42e5b06b5a47eb2e1ff2de7d">~EngineException</a>() <span class="keyword">override</span> = <span class="keywordflow">default</span>;</div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span> </div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_engine_exception.html#a6feebdb6af95fe96f589781ce0157322">   19</a></span>        <a class="code hl_function" href="class_o_s_k_1_1_engine_exception.html#a6feebdb6af95fe96f589781ce0157322">OSK_DEFAULT_COPY_OPERATOR</a>(<a class="code hl_class" href="class_o_s_k_1_1_engine_exception.html">EngineException</a>);</div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_engine_exception.html#a5917dd00839ecf40e569d1abb1b2a7b9">   20</a></span>        <a class="code hl_function" href="class_o_s_k_1_1_engine_exception.html#a5917dd00839ecf40e569d1abb1b2a7b9">OSK_DEFAULT_MOVE_OPERATOR</a>(<a class="code hl_class" href="class_o_s_k_1_1_engine_exception.html">EngineException</a>);</div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>        </div>
+<div class="foldopen" id="foldopen00026" data-start="{" data-end="}">
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_engine_exception.html#a7b995f408d3fc32009f967cfb45abe79">   26</a></span>        <span class="keyword">inline</span> <a class="code hl_function" href="class_o_s_k_1_1_engine_exception.html#a7b995f408d3fc32009f967cfb45abe79">EngineException</a>(</div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>            <span class="keyword">const</span> std::string_view message, </div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>            <span class="keyword">const</span> std::source_location&amp; location = std::source_location::current())</div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>            : </div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>            <a class="code hl_namespace" href="namespacestd.html">std</a>::runtime_error(<a class="code hl_namespace" href="namespacestd.html">std</a>::format(<span class="stringliteral">&quot;{}\n{}&quot;</span>, message, FormatLocation(location))),</div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>            location(location) { }</div>
+</div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span> </div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>    <span class="keyword">private</span>:</div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span> </div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>        std::source_location location;</div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span> </div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>        <span class="keyword">static</span> <span class="keyword">inline</span> std::string FormatLocation(<span class="keyword">const</span> std::source_location&amp; location) {</div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>            <span class="keywordflow">return</span> std::format(<span class="stringliteral">&quot;\tat {}\n\tat line {}\n\tat file {}&quot;</span>,</div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>                location.function_name(),</div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>                location.line(),</div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>                location.file_name());</div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>        }</div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span> </div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>    };</div>
+</div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span> </div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>}</div>
+<div class="ttc" id="a_o_s_kmacros_8h_html"><div class="ttname"><a href="_o_s_kmacros_8h.html">OSKmacros.h</a></div></div>
+<div class="ttc" id="a_o_s_kmacros_8h_html_a09ec5b46ece998ad096bceff312bb36c"><div class="ttname"><a href="_o_s_kmacros_8h.html#a09ec5b46ece998ad096bceff312bb36c">OSKAPI_CALL</a></div><div class="ttdeci">#define OSKAPI_CALL</div><div class="ttdef"><b>Definition</b> <a href="_o_s_kmacros_8h_source.html#l00007">OSKmacros.h:7</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_engine_exception_html"><div class="ttname"><a href="class_o_s_k_1_1_engine_exception.html">OSK::EngineException</a></div><div class="ttdoc">Clase base para todas las excepciones que puedan ocurrir durante la ejecución del juego.</div><div class="ttdef"><b>Definition</b> <a href="#l00013">EngineException.h:13</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_engine_exception_html_a0317725a42e5b06b5a47eb2e1ff2de7d"><div class="ttname"><a href="class_o_s_k_1_1_engine_exception.html#a0317725a42e5b06b5a47eb2e1ff2de7d">OSK::EngineException::~EngineException</a></div><div class="ttdeci">~EngineException() override=default</div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_engine_exception_html_a5917dd00839ecf40e569d1abb1b2a7b9"><div class="ttname"><a href="class_o_s_k_1_1_engine_exception.html#a5917dd00839ecf40e569d1abb1b2a7b9">OSK::EngineException::OSK_DEFAULT_MOVE_OPERATOR</a></div><div class="ttdeci">OSK_DEFAULT_MOVE_OPERATOR(EngineException)</div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_engine_exception_html_a6feebdb6af95fe96f589781ce0157322"><div class="ttname"><a href="class_o_s_k_1_1_engine_exception.html#a6feebdb6af95fe96f589781ce0157322">OSK::EngineException::OSK_DEFAULT_COPY_OPERATOR</a></div><div class="ttdeci">OSK_DEFAULT_COPY_OPERATOR(EngineException)</div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_engine_exception_html_a7b995f408d3fc32009f967cfb45abe79"><div class="ttname"><a href="class_o_s_k_1_1_engine_exception.html#a7b995f408d3fc32009f967cfb45abe79">OSK::EngineException::EngineException</a></div><div class="ttdeci">EngineException(const std::string_view message, const std::source_location &amp;location=std::source_location::current())</div><div class="ttdoc">Crea la excepción.</div><div class="ttdef"><b>Definition</b> <a href="#l00026">EngineException.h:26</a></div></div>
+<div class="ttc" id="anamespace_o_s_k_html"><div class="ttname"><a href="namespace_o_s_k.html">OSK</a></div><div class="ttdef"><b>Definition</b> <a href="_acceleration_structures_exceptions_8h_source.html#l00005">AccelerationStructuresExceptions.h:5</a></div></div>
+<div class="ttc" id="anamespacestd_html"><div class="ttname"><a href="namespacestd.html">std</a></div><div class="ttdef"><b>Definition</b> <a href="x64-windows-static_2x64-windows-static_2include_2glm_2gtx_2hash_8hpp_source.html#l00049">hash.hpp:50</a></div></div>
+</div><!-- fragment --></div><!-- contents -->
+</div><!-- doc-content -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="dir_74389ed8173ad57b461b9d623a1f3867.html">Source</a></li><li class="navelem"><a class="el" href="_engine_exception_8h.html">EngineException.h</a></li>
+    <li class="footer">Generado el Lunes, 29 de enero de 2024 17:18:31 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.10.0 </li>
+  </ul>
+</div>
+</body>
+</html>

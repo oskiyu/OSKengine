@@ -1,0 +1,25 @@
+var class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_block =
+[
+    [ "ReusableMemorySubblock", "struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_block_1_1_reusable_memory_subblock.html", "struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_block_1_1_reusable_memory_subblock" ],
+    [ "~IGpuMemoryBlock", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_block.html#ab7bfc7d07ee839e9660e44cf9c15f5ce", null ],
+    [ "IGpuMemoryBlock", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_block.html#ad33dd0b4c47fa61a16466dcf2ec3e20e", null ],
+    [ "CreateNewMemorySubblock", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_block.html#a84b742a3f8589d5e8612d39d4ffd2d24", null ],
+    [ "GetAllocatedSize", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_block.html#a39b466554cd4a3163e7824133161c88c", null ],
+    [ "GetAvailableSpace", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_block.html#abc59083a812617c23f419e7f866b9f09", null ],
+    [ "GetGpu", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_block.html#a2003b58e4ba53da3f0adf7e8d52eed97", null ],
+    [ "GetNextMemorySubblock", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_block.html#ae1355d84d1b1f4da4ba1f78cd63c5b82", null ],
+    [ "GetShareType", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_block.html#a0bbdd382268b0bb587b03c1180cecde8", null ],
+    [ "GetUsageType", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_block.html#a80aec8670a12157bc819ed904d71e60e", null ],
+    [ "IsUnused", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_block.html#ade0f4cfb99ac4d5653f80064e83a78e2", null ],
+    [ "OSK_DEFINE_AS", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_block.html#a458632dd6887cb1b943ef1962f407042", null ],
+    [ "RemoveSubblock", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_block.html#adfe42ab34135cb8dcf5adc7cffb44d96", null ],
+    [ "availableSpace", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_block.html#abc1e855fd56cf8f2ba91efe5f6058385", null ],
+    [ "bufferUsage", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_block.html#a29e425423138eea520b859cab15c2235", null ],
+    [ "currentOffset", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_block.html#a921c6aa09ba2c4ffb8a6ff8edca8dbe3", null ],
+    [ "device", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_block.html#ac75aa44cce34a964dfe1d6026d4d3c5f", null ],
+    [ "reusableSubblocks", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_block.html#afb0a469af9d65724ffe513423dd32482", null ],
+    [ "subblocks", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_block.html#a486fd0961d556d8e0dd64763ff843ed3", null ],
+    [ "totalSize", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_block.html#a7887b4b066117738b0f64ebbdf05bf05", null ],
+    [ "type", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_block.html#a49883b25223e08eefef3da606eacf367", null ],
+    [ "usage", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_block.html#a2e98cccefbc350a426c8d10d66f58769", null ]
+];

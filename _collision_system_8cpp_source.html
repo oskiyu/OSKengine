@@ -1,0 +1,272 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="es">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.10.0"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>OSKengine: Archivo de código fuente Source/CollisionSystem.cpp</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">OSKengine<span id="projectnumber">&#160;Indev</span>
+   </div>
+   <div id="projectbrief">Motor de videojuegos.</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generado por Doxygen 1.10.0 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() {
+  initMenu('',true,false,'search.php','Buscar');
+  $(function() { init_search(); });
+});
+/* @license-end */
+</script>
+<div id="main-nav"></div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() { codefold.init(0); });
+/* @license-end */
+</script>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function(){initNavTree('_collision_system_8cpp_source.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Cargando...</div>
+<div class="SRStatus" id="Searching">Buscando...</div>
+<div class="SRStatus" id="NoMatches">Nada coincide</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">CollisionSystem.cpp</div></div>
+</div><!--header-->
+<div class="contents">
+<a href="_collision_system_8cpp.html">Ir a la documentación de este archivo.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#include &quot;<a class="code" href="_collision_system_8h.html">CollisionSystem.h</a>&quot;</span></div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span> </div>
+<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="preprocessor">#include &quot;<a class="code" href="_collision_event_8h.html">CollisionEvent.h</a>&quot;</span></div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span> </div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &quot;<a class="code" href="_o_s_kengine_8h.html">OSKengine.h</a>&quot;</span></div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &quot;<a class="code" href="_entity_component_system_8h.html">EntityComponentSystem.h</a>&quot;</span></div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="preprocessor">#include &quot;<a class="code" href="_collision_component_8h.html">CollisionComponent.h</a>&quot;</span></div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span> </div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="keyword">using namespace </span><a class="code hl_namespace" href="namespace_o_s_k.html">OSK</a>;</div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="keyword">using namespace </span><a class="code hl_namespace" href="namespace_o_s_k_1_1_e_c_s.html">OSK::ECS</a>;</div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="keyword">using namespace </span><a class="code hl_namespace" href="namespace_o_s_k_1_1_c_o_l_l_i_s_i_o_n.html">OSK::COLLISION</a>;</div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span> </div>
+<div class="foldopen" id="foldopen00013" data-start="{" data-end="}">
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_e_c_s_1_1_collision_system.html#a4f1e6ece88939b1346600babd8060722">   13</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="class_o_s_k_1_1_e_c_s_1_1_collision_system.html#a4f1e6ece88939b1346600babd8060722">CollisionSystem::OnCreate</a>() {</div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span>    <a class="code hl_class" href="class_o_s_k_1_1_constexpr_bit_set.html">Signature</a> signature{};</div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span>    signature.<a class="code hl_function" href="class_o_s_k_1_1_constexpr_bit_set.html#aa850887db869ea162a2c29d5022beece">SetTrue</a>(<a class="code hl_function" href="class_o_s_k_1_1_engine.html#a2e36571452395c924ab2211ad380298f">Engine::GetEcs</a>()-&gt;GetComponentType&lt;Transform3D&gt;());</div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span>    signature.SetTrue(<a class="code hl_function" href="class_o_s_k_1_1_engine.html#a2e36571452395c924ab2211ad380298f">Engine::GetEcs</a>()-&gt;GetComponentType&lt;CollisionComponent&gt;());</div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>    <a class="code hl_function" href="class_o_s_k_1_1_e_c_s_1_1_i_iterator_system.html#a4fdd39a45a60a3921398d8fe68884a99">_SetSignature</a>(signature);</div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>}</div>
+</div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span> </div>
+<div class="foldopen" id="foldopen00020" data-start="{" data-end="}">
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_e_c_s_1_1_collision_system.html#af5fb35b2baeea2938a829cacfc442d1f">   20</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="class_o_s_k_1_1_e_c_s_1_1_collision_system.html#af5fb35b2baeea2938a829cacfc442d1f">CollisionSystem::OnTick</a>(<a class="code hl_typedef" href="_o_s_kmacros_8h.html#ad05d5eacc527d5b61240124daf13b33b">TDeltaTime</a> deltaTime) {</div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>    <span class="keywordflow">if</span> (<a class="code hl_function" href="class_o_s_k_1_1_e_c_s_1_1_i_iterator_system.html#a438911164cb49af11db10ec3fe1c0dc3">GetObjects</a>().GetSize() &lt; 2)</div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>        <span class="keywordflow">return</span>;</div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span> </div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>    <span class="keyword">const</span> <a class="code hl_typedef" href="_o_s_kmacros_8h.html#a5784d24fcb00afb78eb7b1e1a3466ac4">USize64</a> numObjects = <a class="code hl_function" href="class_o_s_k_1_1_e_c_s_1_1_i_iterator_system.html#a438911164cb49af11db10ec3fe1c0dc3">GetObjects</a>().<a class="code hl_function" href="class_o_s_k_1_1_dynamic_array.html#af09578371bd52d5a934bc74c8dad5f0d">GetSize</a>();</div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span> </div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>    <span class="comment">// Actualizar y transformar los colliders.</span></div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>    <span class="keywordflow">for</span> (<a class="code hl_typedef" href="namespace_o_s_k_1_1_e_c_s.html#a7be561d6b7de4e8a49c2a5cc35fba48c">GameObjectIndex</a> i : <a class="code hl_function" href="class_o_s_k_1_1_e_c_s_1_1_i_iterator_system.html#a438911164cb49af11db10ec3fe1c0dc3">GetObjects</a>()) {</div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>        <span class="keyword">auto</span>&amp; collider = *<a class="code hl_function" href="class_o_s_k_1_1_engine.html#a2e36571452395c924ab2211ad380298f">Engine::GetEcs</a>()-&gt;<a class="code hl_function" href="class_o_s_k_1_1_e_c_s_1_1_entity_component_system.html#ae9aed1c83a9b5304f0183fb7176b81c7">GetComponent</a>&lt;<a class="code hl_class" href="class_o_s_k_1_1_e_c_s_1_1_collision_component.html">CollisionComponent</a>&gt;(i).GetCollider();</div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>        <span class="keyword">const</span> <span class="keyword">auto</span>&amp; transform = <a class="code hl_function" href="class_o_s_k_1_1_engine.html#a2e36571452395c924ab2211ad380298f">Engine::GetEcs</a>()-&gt;<a class="code hl_function" href="class_o_s_k_1_1_e_c_s_1_1_entity_component_system.html#ae9aed1c83a9b5304f0183fb7176b81c7">GetComponent</a>&lt;<a class="code hl_class" href="class_o_s_k_1_1_e_c_s_1_1_transform3_d.html">Transform3D</a>&gt;(i);</div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span> </div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>        collider.GetTopLevelCollider()-&gt;<a class="code hl_function" href="class_o_s_k_1_1_e_c_s_1_1_transform3_d.html#abe67f13052baadaf4439950bc4b555db">SetPosition</a>(transform.GetPosition());</div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span> </div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>        <span class="keywordflow">for</span> (<a class="code hl_typedef" href="_o_s_kmacros_8h.html#af205b9fd0440138e6cac38a9081141df">UIndex32</a> blci = 0; blci &lt; collider.GetBottomLevelCollidersCount(); blci++) {</div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>            <span class="keyword">auto</span>* blc = collider.GetBottomLevelCollider(blci);</div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span> </div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>            blc-&gt;Transform(transform);</div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>        }</div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>    }</div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span> </div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>    <span class="comment">// Detección de colisiones.</span></div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>    <span class="keywordflow">for</span> (<a class="code hl_typedef" href="_o_s_kmacros_8h.html#adef8e046c86805ca0dc2db407b01a1bb">UIndex64</a> a = 0; a &lt; numObjects - 1; a++) {</div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>        <span class="keyword">const</span> <a class="code hl_typedef" href="namespace_o_s_k_1_1_e_c_s.html#a7be561d6b7de4e8a49c2a5cc35fba48c">GameObjectIndex</a> firstObject = <a class="code hl_function" href="class_o_s_k_1_1_e_c_s_1_1_i_iterator_system.html#a438911164cb49af11db10ec3fe1c0dc3">GetObjects</a>()[a];</div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span> </div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>        <span class="keyword">const</span> <span class="keyword">auto</span>&amp; firstCollider = *<a class="code hl_function" href="class_o_s_k_1_1_engine.html#a2e36571452395c924ab2211ad380298f">Engine::GetEcs</a>()-&gt;<a class="code hl_function" href="class_o_s_k_1_1_e_c_s_1_1_entity_component_system.html#ae9aed1c83a9b5304f0183fb7176b81c7">GetComponent</a>&lt;<a class="code hl_class" href="class_o_s_k_1_1_e_c_s_1_1_collision_component.html">CollisionComponent</a>&gt;(firstObject).GetCollider();</div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>        <span class="keyword">const</span> <span class="keyword">auto</span>&amp; firstTransform = <a class="code hl_function" href="class_o_s_k_1_1_engine.html#a2e36571452395c924ab2211ad380298f">Engine::GetEcs</a>()-&gt;<a class="code hl_function" href="class_o_s_k_1_1_e_c_s_1_1_entity_component_system.html#ae9aed1c83a9b5304f0183fb7176b81c7">GetComponent</a>&lt;<a class="code hl_class" href="class_o_s_k_1_1_e_c_s_1_1_transform3_d.html">Transform3D</a>&gt;(firstObject);</div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span> </div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>        <span class="keywordflow">for</span> (<a class="code hl_typedef" href="_o_s_kmacros_8h.html#adef8e046c86805ca0dc2db407b01a1bb">UIndex64</a> b = a + 1; b &lt; numObjects; b++) {</div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>            <span class="keyword">const</span> <a class="code hl_typedef" href="namespace_o_s_k_1_1_e_c_s.html#a7be561d6b7de4e8a49c2a5cc35fba48c">GameObjectIndex</a> secondObject = <a class="code hl_function" href="class_o_s_k_1_1_e_c_s_1_1_i_iterator_system.html#a438911164cb49af11db10ec3fe1c0dc3">GetObjects</a>()[b];</div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span> </div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>            <span class="keyword">const</span> <span class="keyword">auto</span>&amp; secondCollider = *<a class="code hl_function" href="class_o_s_k_1_1_engine.html#a2e36571452395c924ab2211ad380298f">Engine::GetEcs</a>()-&gt;<a class="code hl_function" href="class_o_s_k_1_1_e_c_s_1_1_entity_component_system.html#ae9aed1c83a9b5304f0183fb7176b81c7">GetComponent</a>&lt;<a class="code hl_class" href="class_o_s_k_1_1_e_c_s_1_1_collision_component.html">CollisionComponent</a>&gt;(secondObject).GetCollider();</div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>            <span class="keyword">const</span> <span class="keyword">auto</span>&amp; secondTransform = <a class="code hl_function" href="class_o_s_k_1_1_engine.html#a2e36571452395c924ab2211ad380298f">Engine::GetEcs</a>()-&gt;<a class="code hl_function" href="class_o_s_k_1_1_e_c_s_1_1_entity_component_system.html#ae9aed1c83a9b5304f0183fb7176b81c7">GetComponent</a>&lt;<a class="code hl_class" href="class_o_s_k_1_1_e_c_s_1_1_transform3_d.html">Transform3D</a>&gt;(secondObject);</div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span> </div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>            <span class="keyword">const</span> <span class="keyword">auto</span> collisionInfo = firstCollider.GetCollisionInfo(secondCollider, firstTransform, secondTransform);</div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span> </div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>            <span class="keywordflow">if</span> (collisionInfo.IsColliding()) {</div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span> </div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>                <span class="keywordflow">for</span> (<span class="keyword">const</span> <span class="keyword">auto</span>&amp; detailedCollision : collisionInfo.GetDetailedInfo()) {</div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>                    <a class="code hl_function" href="class_o_s_k_1_1_engine.html#a2e36571452395c924ab2211ad380298f">Engine::GetEcs</a>()-&gt;<a class="code hl_function" href="class_o_s_k_1_1_e_c_s_1_1_entity_component_system.html#a2772cc0a8ea3a3ace7aa0e933101d1f5">PublishEvent</a>&lt;<a class="code hl_struct" href="struct_o_s_k_1_1_e_c_s_1_1_collision_event.html">CollisionEvent</a>&gt;({</div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>                        firstObject,</div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>                        secondObject,</div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>                        detailedCollision</div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>                        });</div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>                }</div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span> </div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span><span class="comment">// #define OSK_COLLISION_DEBUG</span></div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span><span class="preprocessor">#ifdef OSK_COLLISION_DEBUG</span></div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>                <a class="code hl_function" href="class_o_s_k_1_1_engine.html#ac39b79a3e665381630f6c710f3772a2b">Engine::GetLogger</a>()-&gt;<a class="code hl_function" href="class_o_s_k_1_1_i_o_1_1_logger.html#ae076171ead67368c6c7d97b476fb3f79">DebugLog</a>(std::format(<span class="stringliteral">&quot;Collision: {} - {}&quot;</span>, firstObject, secondObject));</div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>                <a class="code hl_function" href="class_o_s_k_1_1_engine.html#ac39b79a3e665381630f6c710f3772a2b">Engine::GetLogger</a>()-&gt;<a class="code hl_function" href="class_o_s_k_1_1_i_o_1_1_logger.html#ae076171ead67368c6c7d97b476fb3f79">DebugLog</a>(std::format(<span class="stringliteral">&quot;\tFrame: {}&quot;</span>, <a class="code hl_function" href="class_o_s_k_1_1_engine.html#a8298cbab77cc3ea3abe5a46ea52b82fa">Engine::GetCurrentGameFrameIndex</a>()));</div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>                <a class="code hl_function" href="class_o_s_k_1_1_engine.html#ac39b79a3e665381630f6c710f3772a2b">Engine::GetLogger</a>()-&gt;<a class="code hl_function" href="class_o_s_k_1_1_i_o_1_1_logger.html#ae076171ead67368c6c7d97b476fb3f79">DebugLog</a>(std::format(<span class="stringliteral">&quot;\tWolrd point: {:.3f} {:.3f} {:.3f}&quot;</span>, </div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>                    collisionInfo.GetDetailedInfo().GetSingleContactPoint().x,</div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>                    collisionInfo.GetDetailedInfo().GetSingleContactPoint().y,</div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>                    collisionInfo.GetDetailedInfo().GetSingleContactPoint().z));</div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>                <a class="code hl_function" href="class_o_s_k_1_1_engine.html#ac39b79a3e665381630f6c710f3772a2b">Engine::GetLogger</a>()-&gt;<a class="code hl_function" href="class_o_s_k_1_1_i_o_1_1_logger.html#ae076171ead67368c6c7d97b476fb3f79">DebugLog</a>(std::format(<span class="stringliteral">&quot;\tPoints count: {}&quot;</span>, collisionInfo.GetDetailedInfo().GetContactPoints().GetSize()));</div>
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>                <span class="keywordflow">for</span> (<span class="keyword">const</span> <span class="keyword">auto</span>&amp; p : collisionInfo.GetDetailedInfo().GetContactPoints())</div>
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>                    <a class="code hl_function" href="class_o_s_k_1_1_engine.html#ac39b79a3e665381630f6c710f3772a2b">Engine::GetLogger</a>()-&gt;<a class="code hl_function" href="class_o_s_k_1_1_i_o_1_1_logger.html#ae076171ead67368c6c7d97b476fb3f79">DebugLog</a>(std::format(<span class="stringliteral">&quot;\t\t{:.3f} {:.3f} {:.3f}&quot;</span>, p.x, p.y, p.z));</div>
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span><span class="preprocessor">#endif</span></div>
+<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span> </div>
+<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span>            }</div>
+<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span>        }</div>
+<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span>    }</div>
+<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span>}</div>
+</div>
+<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span> </div>
+<div class="foldopen" id="foldopen00083" data-start="{" data-end="}">
+<div class="line"><a id="l00083" name="l00083"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_e_c_s_1_1_collision_system.html#a225ca90a347828ab549f11ea34453db0">   83</a></span><a class="code hl_class" href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_ray_cast_result.html">RayCastResult</a> <a class="code hl_function" href="class_o_s_k_1_1_e_c_s_1_1_collision_system.html#a225ca90a347828ab549f11ea34453db0">CollisionSystem::CastRay</a>(<span class="keyword">const</span> <a class="code hl_struct" href="struct_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_ray.html">Ray</a>&amp; ray, <a class="code hl_typedef" href="namespace_o_s_k_1_1_e_c_s.html#a7be561d6b7de4e8a49c2a5cc35fba48c">GameObjectIndex</a> sendingObject)<span class="keyword"> const </span>{</div>
+<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span>    <span class="keywordtype">float</span> closestDistance = std::numeric_limits&lt;float&gt;::max();</div>
+<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span>    <a class="code hl_class" href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_ray_cast_result.html">RayCastResult</a> closest = <a class="code hl_function" href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_ray_cast_result.html#af10022f2f38d51befdf03b1e9394b2b6">RayCastResult::False</a>();</div>
+<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span> </div>
+<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span>    <span class="keywordflow">for</span> (<a class="code hl_typedef" href="namespace_o_s_k_1_1_e_c_s.html#a7be561d6b7de4e8a49c2a5cc35fba48c">GameObjectIndex</a> i : <a class="code hl_function" href="class_o_s_k_1_1_e_c_s_1_1_i_iterator_system.html#a438911164cb49af11db10ec3fe1c0dc3">GetObjects</a>()) {</div>
+<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span>        <span class="keywordflow">if</span> (i == sendingObject) {</div>
+<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span>            <span class="keywordflow">continue</span>;</div>
+<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span>        }</div>
+<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span> </div>
+<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span>        <span class="keyword">const</span> <span class="keyword">auto</span>&amp; collider = *<a class="code hl_function" href="class_o_s_k_1_1_engine.html#a2e36571452395c924ab2211ad380298f">Engine::GetEcs</a>()-&gt;<a class="code hl_function" href="class_o_s_k_1_1_e_c_s_1_1_entity_component_system.html#ae9aed1c83a9b5304f0183fb7176b81c7">GetComponent</a>&lt;<a class="code hl_class" href="class_o_s_k_1_1_e_c_s_1_1_collision_component.html">CollisionComponent</a>&gt;(i).GetCollider();</div>
+<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span> </div>
+<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span>        <span class="keyword">const</span> <span class="keyword">auto</span> topLevelResult = collider.GetTopLevelCollider()-&gt;CastRay(ray);</div>
+<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span> </div>
+<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span>        <span class="keywordflow">if</span> (!topLevelResult.Result()) {</div>
+<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span>            <span class="comment">// continue;</span></div>
+<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span>        }</div>
+<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span> </div>
+<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span>        <span class="keywordflow">for</span> (<a class="code hl_typedef" href="_o_s_kmacros_8h.html#af205b9fd0440138e6cac38a9081141df">UIndex32</a> blc_i = 0; blc_i &lt; collider.GetBottomLevelCollidersCount(); blc_i++) {</div>
+<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span>            <span class="keyword">const</span> <span class="keyword">auto</span>&amp; blc = collider.GetBottomLevelCollider(blc_i);</div>
+<div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span>            <span class="keyword">const</span> <span class="keyword">auto</span> result = blc-&gt;CastRay(ray);</div>
+<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span> </div>
+<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span>            <span class="keywordflow">if</span> (!result.Result()) {</div>
+<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span>                <span class="keywordflow">continue</span>;</div>
+<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span>            }</div>
+<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span> </div>
+<div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span>            <span class="keyword">const</span> <span class="keywordtype">float</span> nDistance = result.GetIntersectionPoint().GetDistanceTo2(ray.<a class="code hl_variable" href="struct_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_ray.html#a58f1fd48fd028230b012d6a806f5f65c">origin</a>);</div>
+<div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span>            <span class="keywordflow">if</span> (nDistance &lt; closestDistance) {</div>
+<div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span>                closestDistance = nDistance;</div>
+<div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span>                closest = <a class="code hl_function" href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_ray_cast_result.html#aa2f2f5c5ef956e33398edd0e733948e7">RayCastResult::True</a>(result.GetIntersectionPoint(), i);</div>
+<div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span>            }</div>
+<div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span>        }</div>
+<div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span>    }</div>
+<div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span> </div>
+<div class="line"><a id="l00116" name="l00116"></a><span class="lineno">  116</span>    <span class="keywordflow">return</span> closest;</div>
+<div class="line"><a id="l00117" name="l00117"></a><span class="lineno">  117</span>}</div>
+</div>
+<div class="ttc" id="a_collision_component_8h_html"><div class="ttname"><a href="_collision_component_8h.html">CollisionComponent.h</a></div></div>
+<div class="ttc" id="a_collision_event_8h_html"><div class="ttname"><a href="_collision_event_8h.html">CollisionEvent.h</a></div></div>
+<div class="ttc" id="a_collision_system_8h_html"><div class="ttname"><a href="_collision_system_8h.html">CollisionSystem.h</a></div></div>
+<div class="ttc" id="a_entity_component_system_8h_html"><div class="ttname"><a href="_entity_component_system_8h.html">EntityComponentSystem.h</a></div></div>
+<div class="ttc" id="a_o_s_kengine_8h_html"><div class="ttname"><a href="_o_s_kengine_8h.html">OSKengine.h</a></div></div>
+<div class="ttc" id="a_o_s_kmacros_8h_html_a5784d24fcb00afb78eb7b1e1a3466ac4"><div class="ttname"><a href="_o_s_kmacros_8h.html#a5784d24fcb00afb78eb7b1e1a3466ac4">USize64</a></div><div class="ttdeci">uint64_t USize64</div><div class="ttdef"><b>Definition</b> <a href="_o_s_kmacros_8h_source.html#l00044">OSKmacros.h:44</a></div></div>
+<div class="ttc" id="a_o_s_kmacros_8h_html_ad05d5eacc527d5b61240124daf13b33b"><div class="ttname"><a href="_o_s_kmacros_8h.html#ad05d5eacc527d5b61240124daf13b33b">TDeltaTime</a></div><div class="ttdeci">float TDeltaTime</div><div class="ttdef"><b>Definition</b> <a href="_o_s_kmacros_8h_source.html#l00046">OSKmacros.h:46</a></div></div>
+<div class="ttc" id="a_o_s_kmacros_8h_html_adef8e046c86805ca0dc2db407b01a1bb"><div class="ttname"><a href="_o_s_kmacros_8h.html#adef8e046c86805ca0dc2db407b01a1bb">UIndex64</a></div><div class="ttdeci">uint64_t UIndex64</div><div class="ttdef"><b>Definition</b> <a href="_o_s_kmacros_8h_source.html#l00041">OSKmacros.h:41</a></div></div>
+<div class="ttc" id="a_o_s_kmacros_8h_html_af205b9fd0440138e6cac38a9081141df"><div class="ttname"><a href="_o_s_kmacros_8h.html#af205b9fd0440138e6cac38a9081141df">UIndex32</a></div><div class="ttdeci">uint32_t UIndex32</div><div class="ttdef"><b>Definition</b> <a href="_o_s_kmacros_8h_source.html#l00040">OSKmacros.h:40</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_ray_cast_result_html"><div class="ttname"><a href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_ray_cast_result.html">OSK::COLLISION::RayCastResult</a></div><div class="ttdoc">Representa el resultado de trazar un rayo en la escena. El resultado puede ser positivo en caso de qu...</div><div class="ttdef"><b>Definition</b> <a href="_ray_cast_result_8h_source.html#l00014">RayCastResult.h:14</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_ray_cast_result_html_aa2f2f5c5ef956e33398edd0e733948e7"><div class="ttname"><a href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_ray_cast_result.html#aa2f2f5c5ef956e33398edd0e733948e7">OSK::COLLISION::RayCastResult::True</a></div><div class="ttdeci">static RayCastResult True(const Vector3f &amp;intersection, ECS::GameObjectIndex gameObject)</div><div class="ttdoc">Crea un resultado verdadero (con intersección).</div><div class="ttdef"><b>Definition</b> <a href="_ray_cast_result_8cpp_source.html#l00016">RayCastResult.cpp:16</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_ray_cast_result_html_af10022f2f38d51befdf03b1e9394b2b6"><div class="ttname"><a href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_ray_cast_result.html#af10022f2f38d51befdf03b1e9394b2b6">OSK::COLLISION::RayCastResult::False</a></div><div class="ttdeci">static RayCastResult False()</div><div class="ttdoc">Crea un resultado falso (sin intersección).</div><div class="ttdef"><b>Definition</b> <a href="_ray_cast_result_8cpp_source.html#l00012">RayCastResult.cpp:12</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_constexpr_bit_set_html"><div class="ttname"><a href="class_o_s_k_1_1_constexpr_bit_set.html">OSK::ConstexprBitSet&lt; MAX_COMPONENT_TYPES &gt;</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_constexpr_bit_set_html_aa850887db869ea162a2c29d5022beece"><div class="ttname"><a href="class_o_s_k_1_1_constexpr_bit_set.html#aa850887db869ea162a2c29d5022beece">OSK::ConstexprBitSet::SetTrue</a></div><div class="ttdeci">void SetTrue(UIndex64 index)</div><div class="ttdoc">Establece el valor del bit dado a 1.</div><div class="ttdef"><b>Definition</b> <a href="_constexpr_bit_set_8hpp_source.html#l00036">ConstexprBitSet.hpp:36</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_dynamic_array_html_af09578371bd52d5a934bc74c8dad5f0d"><div class="ttname"><a href="class_o_s_k_1_1_dynamic_array.html#af09578371bd52d5a934bc74c8dad5f0d">OSK::DynamicArray::GetSize</a></div><div class="ttdeci">USize64 GetSize() const noexcept</div><div class="ttdoc">Devuelve el número de elementos almacenados.</div><div class="ttdef"><b>Definition</b> <a href="_dynamic_array_8hpp_source.html#l00671">DynamicArray.hpp:671</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_e_c_s_1_1_collision_component_html"><div class="ttname"><a href="class_o_s_k_1_1_e_c_s_1_1_collision_component.html">OSK::ECS::CollisionComponent</a></div><div class="ttdef"><b>Definition</b> <a href="_collision_component_8h_source.html#l00015">CollisionComponent.h:15</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_e_c_s_1_1_collision_system_html_a225ca90a347828ab549f11ea34453db0"><div class="ttname"><a href="class_o_s_k_1_1_e_c_s_1_1_collision_system.html#a225ca90a347828ab549f11ea34453db0">OSK::ECS::CollisionSystem::CastRay</a></div><div class="ttdeci">COLLISION::RayCastResult CastRay(const COLLISION::Ray &amp;ray, GameObjectIndex sendingObject) const</div><div class="ttdef"><b>Definition</b> <a href="#l00083">CollisionSystem.cpp:83</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_e_c_s_1_1_collision_system_html_a4f1e6ece88939b1346600babd8060722"><div class="ttname"><a href="class_o_s_k_1_1_e_c_s_1_1_collision_system.html#a4f1e6ece88939b1346600babd8060722">OSK::ECS::CollisionSystem::OnCreate</a></div><div class="ttdeci">void OnCreate() override</div><div class="ttdoc">Función que se ejecuta al crearse el sistema.</div><div class="ttdef"><b>Definition</b> <a href="#l00013">CollisionSystem.cpp:13</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_e_c_s_1_1_collision_system_html_af5fb35b2baeea2938a829cacfc442d1f"><div class="ttname"><a href="class_o_s_k_1_1_e_c_s_1_1_collision_system.html#af5fb35b2baeea2938a829cacfc442d1f">OSK::ECS::CollisionSystem::OnTick</a></div><div class="ttdeci">void OnTick(TDeltaTime deltaTime) override</div><div class="ttdoc">Función que se ejecuta una vez por frame. La lógica en la mayoría de sistemas estará implementada en ...</div><div class="ttdef"><b>Definition</b> <a href="#l00020">CollisionSystem.cpp:20</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_e_c_s_1_1_entity_component_system_html_a2772cc0a8ea3a3ace7aa0e933101d1f5"><div class="ttname"><a href="class_o_s_k_1_1_e_c_s_1_1_entity_component_system.html#a2772cc0a8ea3a3ace7aa0e933101d1f5">OSK::ECS::EntityComponentSystem::PublishEvent</a></div><div class="ttdeci">void PublishEvent(const TEvent &amp;event)</div><div class="ttdoc">Publica un evento, de tal manera que puede ser procesado por los sistemas consumidores.</div><div class="ttdef"><b>Definition</b> <a href="_entity_component_system_8h_source.html#l00290">EntityComponentSystem.h:290</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_e_c_s_1_1_entity_component_system_html_ae9aed1c83a9b5304f0183fb7176b81c7"><div class="ttname"><a href="class_o_s_k_1_1_e_c_s_1_1_entity_component_system.html#ae9aed1c83a9b5304f0183fb7176b81c7">OSK::ECS::EntityComponentSystem::GetComponent</a></div><div class="ttdeci">TComponent &amp; GetComponent(GameObjectIndex obj) const</div><div class="ttdoc">Devuelve una referencia no estable al componente del tipo dado del objeto.</div><div class="ttdef"><b>Definition</b> <a href="_entity_component_system_8h_source.html#l00180">EntityComponentSystem.h:180</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_e_c_s_1_1_i_iterator_system_html_a438911164cb49af11db10ec3fe1c0dc3"><div class="ttname"><a href="class_o_s_k_1_1_e_c_s_1_1_i_iterator_system.html#a438911164cb49af11db10ec3fe1c0dc3">OSK::ECS::IIteratorSystem::GetObjects</a></div><div class="ttdeci">DynamicArray&lt; GameObjectIndex &gt; &amp; GetObjects()</div><div class="ttdef"><b>Definition</b> <a href="_i_iterator_system_8cpp_source.html#l00035">IIteratorSystem.cpp:35</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_e_c_s_1_1_i_iterator_system_html_a4fdd39a45a60a3921398d8fe68884a99"><div class="ttname"><a href="class_o_s_k_1_1_e_c_s_1_1_i_iterator_system.html#a4fdd39a45a60a3921398d8fe68884a99">OSK::ECS::IIteratorSystem::_SetSignature</a></div><div class="ttdeci">void _SetSignature(const Signature &amp;signature)</div><div class="ttdef"><b>Definition</b> <a href="_i_iterator_system_8cpp_source.html#l00031">IIteratorSystem.cpp:31</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_e_c_s_1_1_transform3_d_html"><div class="ttname"><a href="class_o_s_k_1_1_e_c_s_1_1_transform3_d.html">OSK::ECS::Transform3D</a></div><div class="ttdef"><b>Definition</b> <a href="_transform3_d_8h_source.html#l00013">Transform3D.h:13</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_e_c_s_1_1_transform3_d_html_abe67f13052baadaf4439950bc4b555db"><div class="ttname"><a href="class_o_s_k_1_1_e_c_s_1_1_transform3_d.html#abe67f13052baadaf4439950bc4b555db">OSK::ECS::Transform3D::SetPosition</a></div><div class="ttdeci">void SetPosition(const Vector3f &amp;position)</div><div class="ttdoc">Establece la posición local.</div><div class="ttdef"><b>Definition</b> <a href="_transform3_d_8cpp_source.html#l00036">Transform3D.cpp:36</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_engine_html_a2e36571452395c924ab2211ad380298f"><div class="ttname"><a href="class_o_s_k_1_1_engine.html#a2e36571452395c924ab2211ad380298f">OSK::Engine::GetEcs</a></div><div class="ttdeci">static ECS::EntityComponentSystem * GetEcs()</div><div class="ttdoc">Devuelve un puntero al ECS del motor.</div><div class="ttdef"><b>Definition</b> <a href="_o_s_kengine_8cpp_source.html#l00205">OSKengine.cpp:205</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_engine_html_a8298cbab77cc3ea3abe5a46ea52b82fa"><div class="ttname"><a href="class_o_s_k_1_1_engine.html#a8298cbab77cc3ea3abe5a46ea52b82fa">OSK::Engine::GetCurrentGameFrameIndex</a></div><div class="ttdeci">static UIndex64 GetCurrentGameFrameIndex()</div><div class="ttdef"><b>Definition</b> <a href="_o_s_kengine_8cpp_source.html#l00235">OSKengine.cpp:235</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_engine_html_ac39b79a3e665381630f6c710f3772a2b"><div class="ttname"><a href="class_o_s_k_1_1_engine.html#ac39b79a3e665381630f6c710f3772a2b">OSK::Engine::GetLogger</a></div><div class="ttdeci">static IO::Logger * GetLogger()</div><div class="ttdef"><b>Definition</b> <a href="_o_s_kengine_8cpp_source.html#l00185">OSKengine.cpp:185</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_i_o_1_1_logger_html_ae076171ead67368c6c7d97b476fb3f79"><div class="ttname"><a href="class_o_s_k_1_1_i_o_1_1_logger.html#ae076171ead67368c6c7d97b476fb3f79">OSK::IO::Logger::DebugLog</a></div><div class="ttdeci">void DebugLog(const std::string &amp;msg)</div><div class="ttdoc">Manda un mensaje de depuración.</div><div class="ttdef"><b>Definition</b> <a href="_logger_8cpp_source.html#l00056">Logger.cpp:56</a></div></div>
+<div class="ttc" id="anamespace_o_s_k_1_1_c_o_l_l_i_s_i_o_n_html"><div class="ttname"><a href="namespace_o_s_k_1_1_c_o_l_l_i_s_i_o_n.html">OSK::COLLISION</a></div><div class="ttdef"><b>Definition</b> <a href="_axis_aligned_bounding_box_8h_source.html#l00010">AxisAlignedBoundingBox.h:10</a></div></div>
+<div class="ttc" id="anamespace_o_s_k_1_1_e_c_s_html"><div class="ttname"><a href="namespace_o_s_k_1_1_e_c_s.html">OSK::ECS</a></div><div class="ttdef"><b>Definition</b> <a href="_camera_component2_d_8h_source.html#l00017">CameraComponent2D.h:17</a></div></div>
+<div class="ttc" id="anamespace_o_s_k_1_1_e_c_s_html_a7be561d6b7de4e8a49c2a5cc35fba48c"><div class="ttname"><a href="namespace_o_s_k_1_1_e_c_s.html#a7be561d6b7de4e8a49c2a5cc35fba48c">OSK::ECS::GameObjectIndex</a></div><div class="ttdeci">UIndex32 GameObjectIndex</div><div class="ttdoc">Identificador único para un Game Object.</div><div class="ttdef"><b>Definition</b> <a href="_game_object_8h_source.html#l00018">GameObject.h:18</a></div></div>
+<div class="ttc" id="anamespace_o_s_k_html"><div class="ttname"><a href="namespace_o_s_k.html">OSK</a></div><div class="ttdef"><b>Definition</b> <a href="_acceleration_structures_exceptions_8h_source.html#l00005">AccelerationStructuresExceptions.h:5</a></div></div>
+<div class="ttc" id="astruct_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_ray_html"><div class="ttname"><a href="struct_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_ray.html">OSK::COLLISION::Ray</a></div><div class="ttdoc">Representa un rayo lanzado en el mundo que puede colisionar con colliders.</div><div class="ttdef"><b>Definition</b> <a href="_ray_8h_source.html#l00013">Ray.h:13</a></div></div>
+<div class="ttc" id="astruct_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_ray_html_a58f1fd48fd028230b012d6a806f5f65c"><div class="ttname"><a href="struct_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_ray.html#a58f1fd48fd028230b012d6a806f5f65c">OSK::COLLISION::Ray::origin</a></div><div class="ttdeci">Vector3f origin</div><div class="ttdoc">Posición del mundo desde el que se origina el rayo.</div><div class="ttdef"><b>Definition</b> <a href="_ray_8h_source.html#l00016">Ray.h:16</a></div></div>
+<div class="ttc" id="astruct_o_s_k_1_1_e_c_s_1_1_collision_event_html"><div class="ttname"><a href="struct_o_s_k_1_1_e_c_s_1_1_collision_event.html">OSK::ECS::CollisionEvent</a></div><div class="ttdoc">Evento que representa una colisión entre dos entidades.</div><div class="ttdef"><b>Definition</b> <a href="_collision_event_8h_source.html#l00013">CollisionEvent.h:13</a></div></div>
+</div><!-- fragment --></div><!-- contents -->
+</div><!-- doc-content -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="dir_74389ed8173ad57b461b9d623a1f3867.html">Source</a></li><li class="navelem"><a class="el" href="_collision_system_8cpp.html">CollisionSystem.cpp</a></li>
+    <li class="footer">Generado el Lunes, 29 de enero de 2024 17:18:31 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.10.0 </li>
+  </ul>
+</div>
+</body>
+</html>

@@ -1,0 +1,491 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="es">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.10.0"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>OSKengine: Archivo de código fuente Source/vcpkg_installed/x64-windows-static/x64-windows-static/include/freetype/otsvg.h</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">OSKengine<span id="projectnumber">&#160;Indev</span>
+   </div>
+   <div id="projectbrief">Motor de videojuegos.</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generado por Doxygen 1.10.0 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() {
+  initMenu('',true,false,'search.php','Buscar');
+  $(function() { init_search(); });
+});
+/* @license-end */
+</script>
+<div id="main-nav"></div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() { codefold.init(0); });
+/* @license-end */
+</script>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function(){initNavTree('x64-windows-static_2x64-windows-static_2include_2freetype_2otsvg_8h_source.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Cargando...</div>
+<div class="SRStatus" id="Searching">Buscando...</div>
+<div class="SRStatus" id="NoMatches">Nada coincide</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">otsvg.h</div></div>
+</div><!--header-->
+<div class="contents">
+<a href="x64-windows-static_2x64-windows-static_2include_2freetype_2otsvg_8h.html">Ir a la documentación de este archivo.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="comment">/****************************************************************************</span></div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="comment"> *</span></div>
+<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="comment"> * otsvg.h</span></div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="comment"> *</span></div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="comment"> *   Interface for OT-SVG support related things (specification).</span></div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="comment"> *</span></div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="comment"> * Copyright (C) 2022 by</span></div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="comment"> * David Turner, Robert Wilhelm, Werner Lemberg, and Moazin Khatti.</span></div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="comment"> *</span></div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="comment"> * This file is part of the FreeType project, and may only be used,</span></div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="comment"> * modified, and distributed under the terms of the FreeType project</span></div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="comment"> * license, LICENSE.TXT.  By continuing to use, modify, or distribute</span></div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="comment"> * this file you indicate that you have read the license and</span></div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span><span class="comment"> * understand and accept it fully.</span></div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span><span class="comment"> *</span></div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span><span class="comment"> */</span></div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span> </div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span> </div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span><span class="preprocessor">#ifndef OTSVG_H_</span></div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span><span class="preprocessor">#define OTSVG_H_</span></div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span> </div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span><span class="preprocessor">#include &lt;freetype/freetype.h&gt;</span></div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span> </div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span><span class="preprocessor">#ifdef FREETYPE_H</span></div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span><span class="preprocessor">#error &quot;freetype.h of FreeType 1 has been loaded!&quot;</span></div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span><span class="preprocessor">#error &quot;Please fix the directory search order for header files&quot;</span></div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span><span class="preprocessor">#error &quot;so that freetype.h of FreeType 2 is found first.&quot;</span></div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span><span class="preprocessor">#endif</span></div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span> </div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span> </div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span><a class="code hl_define" href="x64-windows-static_2x64-windows-static_2include_2freetype_2config_2ftheader_8h.html#a72ee5814b3ae378ebb7fd3a8e3ddec14">FT_BEGIN_HEADER</a></div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span> </div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span> </div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span><span class="comment">  /**************************************************************************</span></div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span><span class="comment">   *</span></div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span><span class="comment">   * @section:</span></div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span><span class="comment">   *   svg_fonts</span></div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span><span class="comment">   *</span></div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span><span class="comment">   * @title:</span></div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span><span class="comment">   *   OpenType SVG Fonts</span></div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span><span class="comment">   *</span></div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span><span class="comment">   * @abstract:</span></div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span><span class="comment">   *   OT-SVG API between FreeType and an external SVG rendering library.</span></div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span><span class="comment">   *</span></div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span><span class="comment">   * @description:</span></div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span><span class="comment">   *   This section describes the four hooks necessary to render SVG</span></div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span><span class="comment">   *   &#39;documents&#39; that are contained in an OpenType font&#39;s &#39;SVG~&#39; table.</span></div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span><span class="comment">   *</span></div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span><span class="comment">   *   For more information on the implementation, see our standard hooks</span></div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span><span class="comment">   *   based on &#39;librsvg&#39; in the [FreeType Demo</span></div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span><span class="comment">   *   Programs](https://gitlab.freedesktop.org/freetype/freetype-demos)</span></div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span><span class="comment">   *   repository.</span></div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span><span class="comment">   *</span></div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span><span class="comment">   */</span></div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span> </div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span> </div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span><span class="comment">  /**************************************************************************</span></div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span><span class="comment">   *</span></div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span><span class="comment">   * @functype:</span></div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span><span class="comment">   *   SVG_Lib_Init_Func</span></div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span><span class="comment">   *</span></div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span><span class="comment">   * @description:</span></div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span><span class="comment">   *   A callback that is called when the first OT-SVG glyph is rendered in</span></div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span><span class="comment">   *   the lifetime of an @FT_Library object.  In a typical implementation,</span></div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span><span class="comment">   *   one would want to allocate a structure and point the `data_pointer`</span></div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span><span class="comment">   *   to it and perform any library initializations that might be needed.</span></div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span><span class="comment">   *</span></div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span><span class="comment">   * @inout:</span></div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span><span class="comment">   *   data_pointer ::</span></div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span><span class="comment">   *     The SVG rendering module stores a pointer variable that can be used</span></div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span><span class="comment">   *     by clients to store any data that needs to be shared across</span></div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span><span class="comment">   *     different hooks.  `data_pointer` is essentially a pointer to that</span></div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span><span class="comment">   *     pointer such that it can be written to as well as read from.</span></div>
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span><span class="comment">   *</span></div>
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span><span class="comment">   * @return:</span></div>
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span><span class="comment">   *   FreeType error code.  0 means success.</span></div>
+<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span><span class="comment">   *</span></div>
+<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span><span class="comment">   * @since:</span></div>
+<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span><span class="comment">   *   2.12</span></div>
+<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span><span class="comment">   */</span></div>
+<div class="line"><a id="l00081" name="l00081"></a><span class="lineno"><a class="line" href="x64-windows-static_2x64-windows-static_2include_2freetype_2otsvg_8h.html#a211f960d1a82ce9a2e3a6656b48a76f1">   81</a></span>  <span class="keyword">typedef</span> <a class="code hl_typedef" href="x64-windows-static_2x64-windows-static_2include_2freetype_2fttypes_8h.html#a64c8060bdb3d6eec844a1bf670e06bdd">FT_Error</a></div>
+<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span>  (*<a class="code hl_variable" href="x64-windows-static_2x64-windows-static_2include_2freetype_2otsvg_8h.html#a211f960d1a82ce9a2e3a6656b48a76f1">SVG_Lib_Init_Func</a>)( <a class="code hl_typedef" href="x64-windows-static_2x64-windows-static_2include_2freetype_2fttypes_8h.html#a00f9e6a0ddd7bc55f79b2f4b5b867266">FT_Pointer</a>  *data_pointer );</div>
+<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span> </div>
+<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span> </div>
+<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span><span class="comment">  /**************************************************************************</span></div>
+<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span><span class="comment">   *</span></div>
+<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span><span class="comment">   * @functype:</span></div>
+<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span><span class="comment">   *   SVG_Lib_Free_Func</span></div>
+<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span><span class="comment">   *</span></div>
+<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span><span class="comment">   * @description:</span></div>
+<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span><span class="comment">   *   A callback that is called when the `ot-svg` module is being freed.</span></div>
+<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span><span class="comment">   *   It is only called if the init hook was called earlier.  This means</span></div>
+<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span><span class="comment">   *   that neither the init nor the free hook is called if no OT-SVG glyph</span></div>
+<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span><span class="comment">   *   is rendered.</span></div>
+<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span><span class="comment">   *</span></div>
+<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span><span class="comment">   *   In a typical implementation, one would want to free any state</span></div>
+<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span><span class="comment">   *   structure that was allocated in the init hook and perform any</span></div>
+<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span><span class="comment">   *   library-related closure that might be needed.</span></div>
+<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span><span class="comment">   *</span></div>
+<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span><span class="comment">   * @inout:</span></div>
+<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span><span class="comment">   *   data_pointer ::</span></div>
+<div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span><span class="comment">   *     The SVG rendering module stores a pointer variable that can be used</span></div>
+<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span><span class="comment">   *     by clients to store any data that needs to be shared across</span></div>
+<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span><span class="comment">   *     different hooks.  `data_pointer` is essentially a pointer to that</span></div>
+<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span><span class="comment">   *     pointer such that it can be written to as well as read from.</span></div>
+<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span><span class="comment">   *</span></div>
+<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span><span class="comment">   * @since:</span></div>
+<div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span><span class="comment">   *   2.12</span></div>
+<div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span><span class="comment">   */</span></div>
+<div class="line"><a id="l00110" name="l00110"></a><span class="lineno"><a class="line" href="x64-windows-static_2x64-windows-static_2include_2freetype_2otsvg_8h.html#ab2c2e4efc41c0b2b6b018c466c3ca7fe">  110</a></span>  <span class="keyword">typedef</span> <a class="code hl_variable" href="x64-windows-static_2x64-windows-static_2include_2libpng16_2png_8h.html#a05f08be336491be77cd4dfa98f747c69">void</a></div>
+<div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span>  (*<a class="code hl_typedef" href="x64-windows-static_2x64-windows-static_2include_2freetype_2otsvg_8h.html#ab2c2e4efc41c0b2b6b018c466c3ca7fe">SVG_Lib_Free_Func</a>)( <a class="code hl_typedef" href="x64-windows-static_2x64-windows-static_2include_2freetype_2fttypes_8h.html#a00f9e6a0ddd7bc55f79b2f4b5b867266">FT_Pointer</a>  *data_pointer );</div>
+<div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span> </div>
+<div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span> </div>
+<div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span><span class="comment">  /**************************************************************************</span></div>
+<div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span><span class="comment">   *</span></div>
+<div class="line"><a id="l00116" name="l00116"></a><span class="lineno">  116</span><span class="comment">   * @functype:</span></div>
+<div class="line"><a id="l00117" name="l00117"></a><span class="lineno">  117</span><span class="comment">   *   SVG_Lib_Render_Func</span></div>
+<div class="line"><a id="l00118" name="l00118"></a><span class="lineno">  118</span><span class="comment">   *</span></div>
+<div class="line"><a id="l00119" name="l00119"></a><span class="lineno">  119</span><span class="comment">   * @description:</span></div>
+<div class="line"><a id="l00120" name="l00120"></a><span class="lineno">  120</span><span class="comment">   *   A callback that is called to render an OT-SVG glyph.  This callback</span></div>
+<div class="line"><a id="l00121" name="l00121"></a><span class="lineno">  121</span><span class="comment">   *   hook is called right after the preset hook @SVG_Lib_Preset_Slot_Func</span></div>
+<div class="line"><a id="l00122" name="l00122"></a><span class="lineno">  122</span><span class="comment">   *   has been called with `cache` set to `TRUE`.  The data necessary to</span></div>
+<div class="line"><a id="l00123" name="l00123"></a><span class="lineno">  123</span><span class="comment">   *   render is available through the handle @FT_SVG_Document, which is set</span></div>
+<div class="line"><a id="l00124" name="l00124"></a><span class="lineno">  124</span><span class="comment">   *   in the `other` field of @FT_GlyphSlotRec.</span></div>
+<div class="line"><a id="l00125" name="l00125"></a><span class="lineno">  125</span><span class="comment">   *</span></div>
+<div class="line"><a id="l00126" name="l00126"></a><span class="lineno">  126</span><span class="comment">   *   The render hook is expected to render the SVG glyph to the bitmap</span></div>
+<div class="line"><a id="l00127" name="l00127"></a><span class="lineno">  127</span><span class="comment">   *   buffer that is allocated already at `slot-&gt;bitmap.buffer`.  It also</span></div>
+<div class="line"><a id="l00128" name="l00128"></a><span class="lineno">  128</span><span class="comment">   *   sets the `num_grays` value as well as `slot-&gt;format`.</span></div>
+<div class="line"><a id="l00129" name="l00129"></a><span class="lineno">  129</span><span class="comment">   *</span></div>
+<div class="line"><a id="l00130" name="l00130"></a><span class="lineno">  130</span><span class="comment">   * @input:</span></div>
+<div class="line"><a id="l00131" name="l00131"></a><span class="lineno">  131</span><span class="comment">   *   slot ::</span></div>
+<div class="line"><a id="l00132" name="l00132"></a><span class="lineno">  132</span><span class="comment">   *     The slot to render.</span></div>
+<div class="line"><a id="l00133" name="l00133"></a><span class="lineno">  133</span><span class="comment">   *</span></div>
+<div class="line"><a id="l00134" name="l00134"></a><span class="lineno">  134</span><span class="comment">   * @inout:</span></div>
+<div class="line"><a id="l00135" name="l00135"></a><span class="lineno">  135</span><span class="comment">   *   data_pointer ::</span></div>
+<div class="line"><a id="l00136" name="l00136"></a><span class="lineno">  136</span><span class="comment">   *     The SVG rendering module stores a pointer variable that can be used</span></div>
+<div class="line"><a id="l00137" name="l00137"></a><span class="lineno">  137</span><span class="comment">   *     by clients to store any data that needs to be shared across</span></div>
+<div class="line"><a id="l00138" name="l00138"></a><span class="lineno">  138</span><span class="comment">   *     different hooks.  `data_pointer` is essentially a pointer to that</span></div>
+<div class="line"><a id="l00139" name="l00139"></a><span class="lineno">  139</span><span class="comment">   *     pointer such that it can be written to as well as read from.</span></div>
+<div class="line"><a id="l00140" name="l00140"></a><span class="lineno">  140</span><span class="comment">   *</span></div>
+<div class="line"><a id="l00141" name="l00141"></a><span class="lineno">  141</span><span class="comment">   * @return:</span></div>
+<div class="line"><a id="l00142" name="l00142"></a><span class="lineno">  142</span><span class="comment">   *   FreeType error code.  0 means success.</span></div>
+<div class="line"><a id="l00143" name="l00143"></a><span class="lineno">  143</span><span class="comment">   *</span></div>
+<div class="line"><a id="l00144" name="l00144"></a><span class="lineno">  144</span><span class="comment">   * @since:</span></div>
+<div class="line"><a id="l00145" name="l00145"></a><span class="lineno">  145</span><span class="comment">   *   2.12</span></div>
+<div class="line"><a id="l00146" name="l00146"></a><span class="lineno">  146</span><span class="comment">   */</span></div>
+<div class="line"><a id="l00147" name="l00147"></a><span class="lineno"><a class="line" href="x64-windows-static_2x64-windows-static_2include_2freetype_2otsvg_8h.html#a30f6ea1cd6169e0e78b7c0563a887714">  147</a></span>  <span class="keyword">typedef</span> <a class="code hl_typedef" href="x64-windows-static_2x64-windows-static_2include_2freetype_2fttypes_8h.html#a64c8060bdb3d6eec844a1bf670e06bdd">FT_Error</a></div>
+<div class="line"><a id="l00148" name="l00148"></a><span class="lineno">  148</span>  (*<a class="code hl_typedef" href="x64-windows-static_2x64-windows-static_2include_2freetype_2otsvg_8h.html#a30f6ea1cd6169e0e78b7c0563a887714">SVG_Lib_Render_Func</a>)( <a class="code hl_struct" href="struct_f_t___glyph_slot_rec__.html">FT_GlyphSlot</a>  slot,</div>
+<div class="line"><a id="l00149" name="l00149"></a><span class="lineno">  149</span>                          <a class="code hl_typedef" href="x64-windows-static_2x64-windows-static_2include_2freetype_2fttypes_8h.html#a00f9e6a0ddd7bc55f79b2f4b5b867266">FT_Pointer</a>   *data_pointer );</div>
+<div class="line"><a id="l00150" name="l00150"></a><span class="lineno">  150</span> </div>
+<div class="line"><a id="l00151" name="l00151"></a><span class="lineno">  151</span> </div>
+<div class="line"><a id="l00152" name="l00152"></a><span class="lineno">  152</span><span class="comment">  /**************************************************************************</span></div>
+<div class="line"><a id="l00153" name="l00153"></a><span class="lineno">  153</span><span class="comment">   *</span></div>
+<div class="line"><a id="l00154" name="l00154"></a><span class="lineno">  154</span><span class="comment">   * @functype:</span></div>
+<div class="line"><a id="l00155" name="l00155"></a><span class="lineno">  155</span><span class="comment">   *   SVG_Lib_Preset_Slot_Func</span></div>
+<div class="line"><a id="l00156" name="l00156"></a><span class="lineno">  156</span><span class="comment">   *</span></div>
+<div class="line"><a id="l00157" name="l00157"></a><span class="lineno">  157</span><span class="comment">   * @description:</span></div>
+<div class="line"><a id="l00158" name="l00158"></a><span class="lineno">  158</span><span class="comment">   *   A callback that is called to preset the glyph slot.  It is called from</span></div>
+<div class="line"><a id="l00159" name="l00159"></a><span class="lineno">  159</span><span class="comment">   *   two places.</span></div>
+<div class="line"><a id="l00160" name="l00160"></a><span class="lineno">  160</span><span class="comment">   *</span></div>
+<div class="line"><a id="l00161" name="l00161"></a><span class="lineno">  161</span><span class="comment">   *   1. When `FT_Load_Glyph` needs to preset the glyph slot.</span></div>
+<div class="line"><a id="l00162" name="l00162"></a><span class="lineno">  162</span><span class="comment">   *</span></div>
+<div class="line"><a id="l00163" name="l00163"></a><span class="lineno">  163</span><span class="comment">   *   2. Right before the `svg` module calls the render callback hook.</span></div>
+<div class="line"><a id="l00164" name="l00164"></a><span class="lineno">  164</span><span class="comment">   *</span></div>
+<div class="line"><a id="l00165" name="l00165"></a><span class="lineno">  165</span><span class="comment">   *   When it is the former, the argument `cache` is set to `FALSE`.  When</span></div>
+<div class="line"><a id="l00166" name="l00166"></a><span class="lineno">  166</span><span class="comment">   *   it is the latter, the argument `cache` is set to `TRUE`.  This</span></div>
+<div class="line"><a id="l00167" name="l00167"></a><span class="lineno">  167</span><span class="comment">   *   distinction has been made because many calculations that are necessary</span></div>
+<div class="line"><a id="l00168" name="l00168"></a><span class="lineno">  168</span><span class="comment">   *   for presetting a glyph slot are the same needed later for the render</span></div>
+<div class="line"><a id="l00169" name="l00169"></a><span class="lineno">  169</span><span class="comment">   *   callback hook.  Thus, if `cache` is `TRUE`, the hook can _cache_ those</span></div>
+<div class="line"><a id="l00170" name="l00170"></a><span class="lineno">  170</span><span class="comment">   *   calculations in a memory block referenced by the state pointer.</span></div>
+<div class="line"><a id="l00171" name="l00171"></a><span class="lineno">  171</span><span class="comment">   *</span></div>
+<div class="line"><a id="l00172" name="l00172"></a><span class="lineno">  172</span><span class="comment">   *   This hook is expected to preset the slot by setting parameters such as</span></div>
+<div class="line"><a id="l00173" name="l00173"></a><span class="lineno">  173</span><span class="comment">   *   `bitmap_left`, `bitmap_top`, `width`, `rows`, `pitch`, and</span></div>
+<div class="line"><a id="l00174" name="l00174"></a><span class="lineno">  174</span><span class="comment">   *   `pixel_mode`.  It is also expected to set all the metrics for the slot</span></div>
+<div class="line"><a id="l00175" name="l00175"></a><span class="lineno">  175</span><span class="comment">   *   including the vertical advance if it is not already set.  Typically,</span></div>
+<div class="line"><a id="l00176" name="l00176"></a><span class="lineno">  176</span><span class="comment">   *   fonts have horizontal advances but not vertical ones.  If those are</span></div>
+<div class="line"><a id="l00177" name="l00177"></a><span class="lineno">  177</span><span class="comment">   *   available, they had already been set, otherwise they have to be</span></div>
+<div class="line"><a id="l00178" name="l00178"></a><span class="lineno">  178</span><span class="comment">   *   estimated and set manually.  The hook must take into account the</span></div>
+<div class="line"><a id="l00179" name="l00179"></a><span class="lineno">  179</span><span class="comment">   *   transformations that have been set, and translate the transformation</span></div>
+<div class="line"><a id="l00180" name="l00180"></a><span class="lineno">  180</span><span class="comment">   *   matrices into the SVG coordinate system, as the original matrix is</span></div>
+<div class="line"><a id="l00181" name="l00181"></a><span class="lineno">  181</span><span class="comment">   *   intended for the TTF/CFF coordinate system.</span></div>
+<div class="line"><a id="l00182" name="l00182"></a><span class="lineno">  182</span><span class="comment">   *</span></div>
+<div class="line"><a id="l00183" name="l00183"></a><span class="lineno">  183</span><span class="comment">   * @input:</span></div>
+<div class="line"><a id="l00184" name="l00184"></a><span class="lineno">  184</span><span class="comment">   *   slot ::</span></div>
+<div class="line"><a id="l00185" name="l00185"></a><span class="lineno">  185</span><span class="comment">   *     The glyph slot that has the SVG document loaded.</span></div>
+<div class="line"><a id="l00186" name="l00186"></a><span class="lineno">  186</span><span class="comment">   *</span></div>
+<div class="line"><a id="l00187" name="l00187"></a><span class="lineno">  187</span><span class="comment">   *   cache ::</span></div>
+<div class="line"><a id="l00188" name="l00188"></a><span class="lineno">  188</span><span class="comment">   *     See description.</span></div>
+<div class="line"><a id="l00189" name="l00189"></a><span class="lineno">  189</span><span class="comment">   *</span></div>
+<div class="line"><a id="l00190" name="l00190"></a><span class="lineno">  190</span><span class="comment">   * @inout:</span></div>
+<div class="line"><a id="l00191" name="l00191"></a><span class="lineno">  191</span><span class="comment">   *   data_pointer ::</span></div>
+<div class="line"><a id="l00192" name="l00192"></a><span class="lineno">  192</span><span class="comment">   *     The SVG rendering module stores a pointer variable that can be used</span></div>
+<div class="line"><a id="l00193" name="l00193"></a><span class="lineno">  193</span><span class="comment">   *     by clients to store any data that needs to be shared across</span></div>
+<div class="line"><a id="l00194" name="l00194"></a><span class="lineno">  194</span><span class="comment">   *     different hooks.  `data_pointer` is essentially a pointer to that</span></div>
+<div class="line"><a id="l00195" name="l00195"></a><span class="lineno">  195</span><span class="comment">   *     pointer such that it can be written to as well as read from.</span></div>
+<div class="line"><a id="l00196" name="l00196"></a><span class="lineno">  196</span><span class="comment">   *</span></div>
+<div class="line"><a id="l00197" name="l00197"></a><span class="lineno">  197</span><span class="comment">   * @return:</span></div>
+<div class="line"><a id="l00198" name="l00198"></a><span class="lineno">  198</span><span class="comment">   *   FreeType error code.  0 means success.</span></div>
+<div class="line"><a id="l00199" name="l00199"></a><span class="lineno">  199</span><span class="comment">   *</span></div>
+<div class="line"><a id="l00200" name="l00200"></a><span class="lineno">  200</span><span class="comment">   * @since:</span></div>
+<div class="line"><a id="l00201" name="l00201"></a><span class="lineno">  201</span><span class="comment">   *   2.12</span></div>
+<div class="line"><a id="l00202" name="l00202"></a><span class="lineno">  202</span><span class="comment">   */</span></div>
+<div class="line"><a id="l00203" name="l00203"></a><span class="lineno"><a class="line" href="x64-windows-static_2x64-windows-static_2include_2freetype_2otsvg_8h.html#af77e9a29118239c1e5f879478a71a560">  203</a></span>  <span class="keyword">typedef</span> <a class="code hl_typedef" href="x64-windows-static_2x64-windows-static_2include_2freetype_2fttypes_8h.html#a64c8060bdb3d6eec844a1bf670e06bdd">FT_Error</a></div>
+<div class="line"><a id="l00204" name="l00204"></a><span class="lineno">  204</span>  (*<a class="code hl_typedef" href="x64-windows-static_2x64-windows-static_2include_2freetype_2otsvg_8h.html#af77e9a29118239c1e5f879478a71a560">SVG_Lib_Preset_Slot_Func</a>)( <a class="code hl_struct" href="struct_f_t___glyph_slot_rec__.html">FT_GlyphSlot</a>  slot,</div>
+<div class="line"><a id="l00205" name="l00205"></a><span class="lineno">  205</span>                               <a class="code hl_variable" href="x64-windows-static_2x64-windows-static_2include_2freetype_2fttypes_8h.html#a1a832a256bb5a7e6e884afaa1a07f3ae">FT_Bool</a>       cache,</div>
+<div class="line"><a id="l00206" name="l00206"></a><span class="lineno">  206</span>                               <a class="code hl_typedef" href="x64-windows-static_2x64-windows-static_2include_2freetype_2fttypes_8h.html#a00f9e6a0ddd7bc55f79b2f4b5b867266">FT_Pointer</a>   *state );</div>
+<div class="line"><a id="l00207" name="l00207"></a><span class="lineno">  207</span> </div>
+<div class="line"><a id="l00208" name="l00208"></a><span class="lineno">  208</span> </div>
+<div class="line"><a id="l00209" name="l00209"></a><span class="lineno">  209</span><span class="comment">  /**************************************************************************</span></div>
+<div class="line"><a id="l00210" name="l00210"></a><span class="lineno">  210</span><span class="comment">   *</span></div>
+<div class="line"><a id="l00211" name="l00211"></a><span class="lineno">  211</span><span class="comment">   * @struct:</span></div>
+<div class="line"><a id="l00212" name="l00212"></a><span class="lineno">  212</span><span class="comment">   *   SVG_RendererHooks</span></div>
+<div class="line"><a id="l00213" name="l00213"></a><span class="lineno">  213</span><span class="comment">   *</span></div>
+<div class="line"><a id="l00214" name="l00214"></a><span class="lineno">  214</span><span class="comment">   * @description:</span></div>
+<div class="line"><a id="l00215" name="l00215"></a><span class="lineno">  215</span><span class="comment">   *   A structure that stores the four hooks needed to render OT-SVG glyphs</span></div>
+<div class="line"><a id="l00216" name="l00216"></a><span class="lineno">  216</span><span class="comment">   *   properly.  The structure is publicly used to set the hooks via the</span></div>
+<div class="line"><a id="l00217" name="l00217"></a><span class="lineno">  217</span><span class="comment">   *   @svg-hooks driver property.</span></div>
+<div class="line"><a id="l00218" name="l00218"></a><span class="lineno">  218</span><span class="comment">   *</span></div>
+<div class="line"><a id="l00219" name="l00219"></a><span class="lineno">  219</span><span class="comment">   *   The behavior of each hook is described in its documentation.  One</span></div>
+<div class="line"><a id="l00220" name="l00220"></a><span class="lineno">  220</span><span class="comment">   *   thing to note is that the preset hook and the render hook often need</span></div>
+<div class="line"><a id="l00221" name="l00221"></a><span class="lineno">  221</span><span class="comment">   *   to do the same operations; therefore, it&#39;s better to cache the</span></div>
+<div class="line"><a id="l00222" name="l00222"></a><span class="lineno">  222</span><span class="comment">   *   intermediate data in a state structure to avoid calculating it twice.</span></div>
+<div class="line"><a id="l00223" name="l00223"></a><span class="lineno">  223</span><span class="comment">   *   For example, in the preset hook one can draw the glyph on a recorder</span></div>
+<div class="line"><a id="l00224" name="l00224"></a><span class="lineno">  224</span><span class="comment">   *   surface and later create a bitmap surface from it in the render hook.</span></div>
+<div class="line"><a id="l00225" name="l00225"></a><span class="lineno">  225</span><span class="comment">   *</span></div>
+<div class="line"><a id="l00226" name="l00226"></a><span class="lineno">  226</span><span class="comment">   *   All four hooks must be non-NULL.</span></div>
+<div class="line"><a id="l00227" name="l00227"></a><span class="lineno">  227</span><span class="comment">   *</span></div>
+<div class="line"><a id="l00228" name="l00228"></a><span class="lineno">  228</span><span class="comment">   * @fields:</span></div>
+<div class="line"><a id="l00229" name="l00229"></a><span class="lineno">  229</span><span class="comment">   *   init_svg ::</span></div>
+<div class="line"><a id="l00230" name="l00230"></a><span class="lineno">  230</span><span class="comment">   *     The initialization hook.</span></div>
+<div class="line"><a id="l00231" name="l00231"></a><span class="lineno">  231</span><span class="comment">   *</span></div>
+<div class="line"><a id="l00232" name="l00232"></a><span class="lineno">  232</span><span class="comment">   *   free_svg ::</span></div>
+<div class="line"><a id="l00233" name="l00233"></a><span class="lineno">  233</span><span class="comment">   *     The cleanup hook.</span></div>
+<div class="line"><a id="l00234" name="l00234"></a><span class="lineno">  234</span><span class="comment">   *</span></div>
+<div class="line"><a id="l00235" name="l00235"></a><span class="lineno">  235</span><span class="comment">   *   render_hook ::</span></div>
+<div class="line"><a id="l00236" name="l00236"></a><span class="lineno">  236</span><span class="comment">   *     The render hook.</span></div>
+<div class="line"><a id="l00237" name="l00237"></a><span class="lineno">  237</span><span class="comment">   *</span></div>
+<div class="line"><a id="l00238" name="l00238"></a><span class="lineno">  238</span><span class="comment">   *   preset_slot ::</span></div>
+<div class="line"><a id="l00239" name="l00239"></a><span class="lineno">  239</span><span class="comment">   *     The preset hook.</span></div>
+<div class="line"><a id="l00240" name="l00240"></a><span class="lineno">  240</span><span class="comment">   *</span></div>
+<div class="line"><a id="l00241" name="l00241"></a><span class="lineno">  241</span><span class="comment">   * @since:</span></div>
+<div class="line"><a id="l00242" name="l00242"></a><span class="lineno">  242</span><span class="comment">   *   2.12</span></div>
+<div class="line"><a id="l00243" name="l00243"></a><span class="lineno">  243</span><span class="comment">   */</span></div>
+<div class="foldopen" id="foldopen00244" data-start="{" data-end="};">
+<div class="line"><a id="l00244" name="l00244"></a><span class="lineno"><a class="line" href="struct_s_v_g___renderer_hooks__.html">  244</a></span>  <span class="keyword">typedef</span> <span class="keyword">struct </span><a class="code hl_struct" href="struct_s_v_g___renderer_hooks__.html">SVG_RendererHooks_</a></div>
+<div class="line"><a id="l00245" name="l00245"></a><span class="lineno">  245</span>  {</div>
+<div class="line"><a id="l00246" name="l00246"></a><span class="lineno"><a class="line" href="struct_s_v_g___renderer_hooks__.html#aba4f5fcb05a5b84991f2db32c22eb9e2">  246</a></span>    <a class="code hl_variable" href="x86-windows_2x86-windows_2include_2freetype_2otsvg_8h.html#a211f960d1a82ce9a2e3a6656b48a76f1">SVG_Lib_Init_Func</a>    <a class="code hl_variable" href="struct_s_v_g___renderer_hooks__.html#aba4f5fcb05a5b84991f2db32c22eb9e2">init_svg</a>;</div>
+<div class="line"><a id="l00247" name="l00247"></a><span class="lineno"><a class="line" href="struct_s_v_g___renderer_hooks__.html#a1c7444395131299ad6bd38223ec02de9">  247</a></span>    <a class="code hl_typedef" href="x86-windows_2x86-windows_2include_2freetype_2otsvg_8h.html#ab2c2e4efc41c0b2b6b018c466c3ca7fe">SVG_Lib_Free_Func</a>    <a class="code hl_variable" href="struct_s_v_g___renderer_hooks__.html#a1c7444395131299ad6bd38223ec02de9">free_svg</a>;</div>
+<div class="line"><a id="l00248" name="l00248"></a><span class="lineno"><a class="line" href="struct_s_v_g___renderer_hooks__.html#abbbac5f069a6b3fe6620753526a7ce52">  248</a></span>    <a class="code hl_typedef" href="x86-windows_2x86-windows_2include_2freetype_2otsvg_8h.html#a30f6ea1cd6169e0e78b7c0563a887714">SVG_Lib_Render_Func</a>  <a class="code hl_variable" href="struct_s_v_g___renderer_hooks__.html#abbbac5f069a6b3fe6620753526a7ce52">render_svg</a>;</div>
+<div class="line"><a id="l00249" name="l00249"></a><span class="lineno">  249</span> </div>
+<div class="line"><a id="l00250" name="l00250"></a><span class="lineno"><a class="line" href="struct_s_v_g___renderer_hooks__.html#aa695b2e7796dc1e3993a12d80cb4aa27">  250</a></span>    <a class="code hl_typedef" href="x86-windows_2x86-windows_2include_2freetype_2otsvg_8h.html#af77e9a29118239c1e5f879478a71a560">SVG_Lib_Preset_Slot_Func</a>  <a class="code hl_variable" href="struct_s_v_g___renderer_hooks__.html#aa695b2e7796dc1e3993a12d80cb4aa27">preset_slot</a>;</div>
+<div class="line"><a id="l00251" name="l00251"></a><span class="lineno">  251</span> </div>
+<div class="line"><a id="l00252" name="l00252"></a><span class="lineno"><a class="line" href="x64-windows-static_2x64-windows-static_2include_2freetype_2otsvg_8h.html#a5b70d77f59466fd7612da6770753cfa5">  252</a></span>  } <a class="code hl_typedef" href="x64-windows-static_2x64-windows-static_2include_2freetype_2otsvg_8h.html#a5b70d77f59466fd7612da6770753cfa5">SVG_RendererHooks</a>;</div>
+</div>
+<div class="line"><a id="l00253" name="l00253"></a><span class="lineno">  253</span> </div>
+<div class="line"><a id="l00254" name="l00254"></a><span class="lineno">  254</span> </div>
+<div class="line"><a id="l00255" name="l00255"></a><span class="lineno">  255</span><span class="comment">  /**************************************************************************</span></div>
+<div class="line"><a id="l00256" name="l00256"></a><span class="lineno">  256</span><span class="comment">   *</span></div>
+<div class="line"><a id="l00257" name="l00257"></a><span class="lineno">  257</span><span class="comment">   * @struct:</span></div>
+<div class="line"><a id="l00258" name="l00258"></a><span class="lineno">  258</span><span class="comment">   *   FT_SVG_DocumentRec</span></div>
+<div class="line"><a id="l00259" name="l00259"></a><span class="lineno">  259</span><span class="comment">   *</span></div>
+<div class="line"><a id="l00260" name="l00260"></a><span class="lineno">  260</span><span class="comment">   * @description:</span></div>
+<div class="line"><a id="l00261" name="l00261"></a><span class="lineno">  261</span><span class="comment">   *   A structure that models one SVG document.</span></div>
+<div class="line"><a id="l00262" name="l00262"></a><span class="lineno">  262</span><span class="comment">   *</span></div>
+<div class="line"><a id="l00263" name="l00263"></a><span class="lineno">  263</span><span class="comment">   * @fields:</span></div>
+<div class="line"><a id="l00264" name="l00264"></a><span class="lineno">  264</span><span class="comment">   *   svg_document ::</span></div>
+<div class="line"><a id="l00265" name="l00265"></a><span class="lineno">  265</span><span class="comment">   *     A pointer to the SVG document.</span></div>
+<div class="line"><a id="l00266" name="l00266"></a><span class="lineno">  266</span><span class="comment">   *</span></div>
+<div class="line"><a id="l00267" name="l00267"></a><span class="lineno">  267</span><span class="comment">   *   svg_document_length ::</span></div>
+<div class="line"><a id="l00268" name="l00268"></a><span class="lineno">  268</span><span class="comment">   *     The length of `svg_document`.</span></div>
+<div class="line"><a id="l00269" name="l00269"></a><span class="lineno">  269</span><span class="comment">   *</span></div>
+<div class="line"><a id="l00270" name="l00270"></a><span class="lineno">  270</span><span class="comment">   *   metrics ::</span></div>
+<div class="line"><a id="l00271" name="l00271"></a><span class="lineno">  271</span><span class="comment">   *     A metrics object storing the size information.</span></div>
+<div class="line"><a id="l00272" name="l00272"></a><span class="lineno">  272</span><span class="comment">   *</span></div>
+<div class="line"><a id="l00273" name="l00273"></a><span class="lineno">  273</span><span class="comment">   *   units_per_EM ::</span></div>
+<div class="line"><a id="l00274" name="l00274"></a><span class="lineno">  274</span><span class="comment">   *     The size of the EM square.</span></div>
+<div class="line"><a id="l00275" name="l00275"></a><span class="lineno">  275</span><span class="comment">   *</span></div>
+<div class="line"><a id="l00276" name="l00276"></a><span class="lineno">  276</span><span class="comment">   *   start_glyph_id ::</span></div>
+<div class="line"><a id="l00277" name="l00277"></a><span class="lineno">  277</span><span class="comment">   *     The first glyph ID in the glyph range covered by this document.</span></div>
+<div class="line"><a id="l00278" name="l00278"></a><span class="lineno">  278</span><span class="comment">   *</span></div>
+<div class="line"><a id="l00279" name="l00279"></a><span class="lineno">  279</span><span class="comment">   *   end_glyph_id ::</span></div>
+<div class="line"><a id="l00280" name="l00280"></a><span class="lineno">  280</span><span class="comment">   *     The last glyph ID in the glyph range covered by this document.</span></div>
+<div class="line"><a id="l00281" name="l00281"></a><span class="lineno">  281</span><span class="comment">   *</span></div>
+<div class="line"><a id="l00282" name="l00282"></a><span class="lineno">  282</span><span class="comment">   *   transform ::</span></div>
+<div class="line"><a id="l00283" name="l00283"></a><span class="lineno">  283</span><span class="comment">   *     A 2x2 transformation matrix to apply to the glyph while rendering</span></div>
+<div class="line"><a id="l00284" name="l00284"></a><span class="lineno">  284</span><span class="comment">   *     it.</span></div>
+<div class="line"><a id="l00285" name="l00285"></a><span class="lineno">  285</span><span class="comment">   *</span></div>
+<div class="line"><a id="l00286" name="l00286"></a><span class="lineno">  286</span><span class="comment">   *   delta ::</span></div>
+<div class="line"><a id="l00287" name="l00287"></a><span class="lineno">  287</span><span class="comment">   *     The translation to apply to the glyph while rendering.</span></div>
+<div class="line"><a id="l00288" name="l00288"></a><span class="lineno">  288</span><span class="comment">   *</span></div>
+<div class="line"><a id="l00289" name="l00289"></a><span class="lineno">  289</span><span class="comment">   * @note:</span></div>
+<div class="line"><a id="l00290" name="l00290"></a><span class="lineno">  290</span><span class="comment">   *   When an @FT_GlyphSlot object `slot` is passed down to a renderer, the</span></div>
+<div class="line"><a id="l00291" name="l00291"></a><span class="lineno">  291</span><span class="comment">   *   renderer can only access the `metrics` and `units_per_EM` fields via</span></div>
+<div class="line"><a id="l00292" name="l00292"></a><span class="lineno">  292</span><span class="comment">   *   `slot-&gt;face`.  However, when @FT_Glyph_To_Bitmap sets up a dummy</span></div>
+<div class="line"><a id="l00293" name="l00293"></a><span class="lineno">  293</span><span class="comment">   *   object, it has no way to set a `face` object.  Thus, metrics</span></div>
+<div class="line"><a id="l00294" name="l00294"></a><span class="lineno">  294</span><span class="comment">   *   information and `units_per_EM` (which is necessary for OT-SVG) has to</span></div>
+<div class="line"><a id="l00295" name="l00295"></a><span class="lineno">  295</span><span class="comment">   *   be stored separately.</span></div>
+<div class="line"><a id="l00296" name="l00296"></a><span class="lineno">  296</span><span class="comment">   *</span></div>
+<div class="line"><a id="l00297" name="l00297"></a><span class="lineno">  297</span><span class="comment">   * @since:</span></div>
+<div class="line"><a id="l00298" name="l00298"></a><span class="lineno">  298</span><span class="comment">   *   2.12</span></div>
+<div class="line"><a id="l00299" name="l00299"></a><span class="lineno">  299</span><span class="comment">   */</span></div>
+<div class="foldopen" id="foldopen00300" data-start="{" data-end="};">
+<div class="line"><a id="l00300" name="l00300"></a><span class="lineno"><a class="line" href="struct_f_t___s_v_g___document_rec__.html">  300</a></span>  <span class="keyword">typedef</span> <span class="keyword">struct  </span><a class="code hl_struct" href="struct_f_t___s_v_g___document_rec__.html">FT_SVG_DocumentRec_</a></div>
+<div class="line"><a id="l00301" name="l00301"></a><span class="lineno">  301</span>  {</div>
+<div class="line"><a id="l00302" name="l00302"></a><span class="lineno"><a class="line" href="struct_f_t___s_v_g___document_rec__.html#a6011fb62a09e9e03097b79f26f34d018">  302</a></span>    <a class="code hl_typedef" href="x64-windows-static_2x64-windows-static_2include_2freetype_2fttypes_8h.html#a51f26183ca0c9f4af958939648caeccd">FT_Byte</a>*  <a class="code hl_variable" href="struct_f_t___s_v_g___document_rec__.html#a6011fb62a09e9e03097b79f26f34d018">svg_document</a>;</div>
+<div class="line"><a id="l00303" name="l00303"></a><span class="lineno"><a class="line" href="struct_f_t___s_v_g___document_rec__.html#abcd326ea3071803034c46bd8270e7feb">  303</a></span>    <a class="code hl_typedef" href="x64-windows-static_2x64-windows-static_2include_2freetype_2fttypes_8h.html#a4fac88bdba78eb76b505efa6e4fbf3f5">FT_ULong</a>  <a class="code hl_variable" href="struct_f_t___s_v_g___document_rec__.html#abcd326ea3071803034c46bd8270e7feb">svg_document_length</a>;</div>
+<div class="line"><a id="l00304" name="l00304"></a><span class="lineno">  304</span> </div>
+<div class="line"><a id="l00305" name="l00305"></a><span class="lineno"><a class="line" href="struct_f_t___s_v_g___document_rec__.html#a3e3cc4824e9471ba63fbcf5d22761afa">  305</a></span>    <a class="code hl_struct" href="struct_f_t___size___metrics__.html">FT_Size_Metrics</a>  <a class="code hl_variable" href="struct_f_t___s_v_g___document_rec__.html#a3e3cc4824e9471ba63fbcf5d22761afa">metrics</a>;</div>
+<div class="line"><a id="l00306" name="l00306"></a><span class="lineno"><a class="line" href="struct_f_t___s_v_g___document_rec__.html#af0563dde7b3cb988f07389310642d87d">  306</a></span>    <a class="code hl_typedef" href="x64-windows-static_2x64-windows-static_2include_2freetype_2fttypes_8h.html#a937f6c17cf5ffd09086d8610c37b9f58">FT_UShort</a>        <a class="code hl_variable" href="struct_f_t___s_v_g___document_rec__.html#af0563dde7b3cb988f07389310642d87d">units_per_EM</a>;</div>
+<div class="line"><a id="l00307" name="l00307"></a><span class="lineno">  307</span> </div>
+<div class="line"><a id="l00308" name="l00308"></a><span class="lineno"><a class="line" href="struct_f_t___s_v_g___document_rec__.html#a83b42afcd5ab72a6e7a4431e9b00bc19">  308</a></span>    <a class="code hl_typedef" href="x64-windows-static_2x64-windows-static_2include_2freetype_2fttypes_8h.html#a937f6c17cf5ffd09086d8610c37b9f58">FT_UShort</a>  <a class="code hl_variable" href="struct_f_t___s_v_g___document_rec__.html#a83b42afcd5ab72a6e7a4431e9b00bc19">start_glyph_id</a>;</div>
+<div class="line"><a id="l00309" name="l00309"></a><span class="lineno"><a class="line" href="struct_f_t___s_v_g___document_rec__.html#a6f6a58c2c7368b6b3211b65924042fb1">  309</a></span>    <a class="code hl_typedef" href="x64-windows-static_2x64-windows-static_2include_2freetype_2fttypes_8h.html#a937f6c17cf5ffd09086d8610c37b9f58">FT_UShort</a>  <a class="code hl_variable" href="struct_f_t___s_v_g___document_rec__.html#a6f6a58c2c7368b6b3211b65924042fb1">end_glyph_id</a>;</div>
+<div class="line"><a id="l00310" name="l00310"></a><span class="lineno">  310</span> </div>
+<div class="line"><a id="l00311" name="l00311"></a><span class="lineno"><a class="line" href="struct_f_t___s_v_g___document_rec__.html#a00766d58bb60e9baaa104a16da2aa95a">  311</a></span>    <a class="code hl_struct" href="struct_f_t___matrix__.html">FT_Matrix</a>  <a class="code hl_variable" href="struct_f_t___s_v_g___document_rec__.html#a00766d58bb60e9baaa104a16da2aa95a">transform</a>;</div>
+<div class="line"><a id="l00312" name="l00312"></a><span class="lineno"><a class="line" href="struct_f_t___s_v_g___document_rec__.html#a8a58c6193e4d6907dbcba71712d327e6">  312</a></span>    <a class="code hl_struct" href="struct_f_t___vector__.html">FT_Vector</a>  <a class="code hl_variable" href="struct_f_t___s_v_g___document_rec__.html#a8a58c6193e4d6907dbcba71712d327e6">delta</a>;</div>
+<div class="line"><a id="l00313" name="l00313"></a><span class="lineno">  313</span> </div>
+<div class="line"><a id="l00314" name="l00314"></a><span class="lineno"><a class="line" href="x64-windows-static_2x64-windows-static_2include_2freetype_2otsvg_8h.html#a516c602eee25221e5df6cae02e7470c5">  314</a></span>  } <a class="code hl_typedef" href="x64-windows_2x64-windows_2include_2freetype_2otsvg_8h.html#a516c602eee25221e5df6cae02e7470c5">FT_SVG_DocumentRec</a>;</div>
+</div>
+<div class="line"><a id="l00315" name="l00315"></a><span class="lineno">  315</span> </div>
+<div class="line"><a id="l00316" name="l00316"></a><span class="lineno">  316</span> </div>
+<div class="line"><a id="l00317" name="l00317"></a><span class="lineno">  317</span><span class="comment">  /**************************************************************************</span></div>
+<div class="line"><a id="l00318" name="l00318"></a><span class="lineno">  318</span><span class="comment">   *</span></div>
+<div class="line"><a id="l00319" name="l00319"></a><span class="lineno">  319</span><span class="comment">   * @type:</span></div>
+<div class="line"><a id="l00320" name="l00320"></a><span class="lineno">  320</span><span class="comment">   *   FT_SVG_Document</span></div>
+<div class="line"><a id="l00321" name="l00321"></a><span class="lineno">  321</span><span class="comment">   *</span></div>
+<div class="line"><a id="l00322" name="l00322"></a><span class="lineno">  322</span><span class="comment">   * @description:</span></div>
+<div class="line"><a id="l00323" name="l00323"></a><span class="lineno">  323</span><span class="comment">   *   A handle to an @FT_SVG_DocumentRec object.</span></div>
+<div class="line"><a id="l00324" name="l00324"></a><span class="lineno">  324</span><span class="comment">   *</span></div>
+<div class="line"><a id="l00325" name="l00325"></a><span class="lineno">  325</span><span class="comment">   * @since:</span></div>
+<div class="line"><a id="l00326" name="l00326"></a><span class="lineno">  326</span><span class="comment">   *   2.12</span></div>
+<div class="line"><a id="l00327" name="l00327"></a><span class="lineno">  327</span><span class="comment">   */</span></div>
+<div class="line"><a id="l00328" name="l00328"></a><span class="lineno"><a class="line" href="x64-windows-static_2x64-windows-static_2include_2freetype_2otsvg_8h.html#acb9ee1af1a78f3f5333c580720106579">  328</a></span>  <span class="keyword">typedef</span> <span class="keyword">struct </span><a class="code hl_struct" href="struct_f_t___s_v_g___document_rec__.html">FT_SVG_DocumentRec_</a>*  <a class="code hl_typedef" href="x64-windows-static_2x64-windows-static_2include_2freetype_2otsvg_8h.html#acb9ee1af1a78f3f5333c580720106579">FT_SVG_Document</a>;</div>
+<div class="line"><a id="l00329" name="l00329"></a><span class="lineno">  329</span> </div>
+<div class="line"><a id="l00330" name="l00330"></a><span class="lineno">  330</span> </div>
+<div class="line"><a id="l00331" name="l00331"></a><span class="lineno">  331</span><a class="code hl_define" href="x64-windows-static_2x64-windows-static_2include_2freetype_2config_2ftheader_8h.html#a2ebbdbbee7f9bfa8b6b86790de7e9963">FT_END_HEADER</a></div>
+<div class="line"><a id="l00332" name="l00332"></a><span class="lineno">  332</span> </div>
+<div class="line"><a id="l00333" name="l00333"></a><span class="lineno">  333</span><span class="preprocessor">#endif </span><span class="comment">/* OTSVG_H_ */</span><span class="preprocessor"></span></div>
+<div class="line"><a id="l00334" name="l00334"></a><span class="lineno">  334</span> </div>
+<div class="line"><a id="l00335" name="l00335"></a><span class="lineno">  335</span> </div>
+<div class="line"><a id="l00336" name="l00336"></a><span class="lineno">  336</span><span class="comment">/* END */</span></div>
+<div class="ttc" id="astruct_f_t___glyph_slot_rec___html"><div class="ttname"><a href="struct_f_t___glyph_slot_rec__.html">FT_GlyphSlotRec_</a></div><div class="ttdef"><b>Definition</b> <a href="x64-windows-static_2x64-windows-static_2include_2freetype_2freetype_8h_source.html#l02054">freetype.h:2055</a></div></div>
+<div class="ttc" id="astruct_f_t___matrix___html"><div class="ttname"><a href="struct_f_t___matrix__.html">FT_Matrix_</a></div><div class="ttdef"><b>Definition</b> <a href="x64-windows-static_2x64-windows-static_2include_2freetype_2fttypes_8h_source.html#l00390">fttypes.h:391</a></div></div>
+<div class="ttc" id="astruct_f_t___s_v_g___document_rec___html"><div class="ttname"><a href="struct_f_t___s_v_g___document_rec__.html">FT_SVG_DocumentRec_</a></div><div class="ttdef"><b>Definition</b> <a href="#l00300">otsvg.h:301</a></div></div>
+<div class="ttc" id="astruct_f_t___s_v_g___document_rec___html_a00766d58bb60e9baaa104a16da2aa95a"><div class="ttname"><a href="struct_f_t___s_v_g___document_rec__.html#a00766d58bb60e9baaa104a16da2aa95a">FT_SVG_DocumentRec_::transform</a></div><div class="ttdeci">FT_Matrix transform</div><div class="ttdef"><b>Definition</b> <a href="#l00311">otsvg.h:311</a></div></div>
+<div class="ttc" id="astruct_f_t___s_v_g___document_rec___html_a3e3cc4824e9471ba63fbcf5d22761afa"><div class="ttname"><a href="struct_f_t___s_v_g___document_rec__.html#a3e3cc4824e9471ba63fbcf5d22761afa">FT_SVG_DocumentRec_::metrics</a></div><div class="ttdeci">FT_Size_Metrics metrics</div><div class="ttdef"><b>Definition</b> <a href="#l00305">otsvg.h:305</a></div></div>
+<div class="ttc" id="astruct_f_t___s_v_g___document_rec___html_a6011fb62a09e9e03097b79f26f34d018"><div class="ttname"><a href="struct_f_t___s_v_g___document_rec__.html#a6011fb62a09e9e03097b79f26f34d018">FT_SVG_DocumentRec_::svg_document</a></div><div class="ttdeci">FT_Byte * svg_document</div><div class="ttdef"><b>Definition</b> <a href="#l00302">otsvg.h:302</a></div></div>
+<div class="ttc" id="astruct_f_t___s_v_g___document_rec___html_a6f6a58c2c7368b6b3211b65924042fb1"><div class="ttname"><a href="struct_f_t___s_v_g___document_rec__.html#a6f6a58c2c7368b6b3211b65924042fb1">FT_SVG_DocumentRec_::end_glyph_id</a></div><div class="ttdeci">FT_UShort end_glyph_id</div><div class="ttdef"><b>Definition</b> <a href="#l00309">otsvg.h:309</a></div></div>
+<div class="ttc" id="astruct_f_t___s_v_g___document_rec___html_a83b42afcd5ab72a6e7a4431e9b00bc19"><div class="ttname"><a href="struct_f_t___s_v_g___document_rec__.html#a83b42afcd5ab72a6e7a4431e9b00bc19">FT_SVG_DocumentRec_::start_glyph_id</a></div><div class="ttdeci">FT_UShort start_glyph_id</div><div class="ttdef"><b>Definition</b> <a href="#l00308">otsvg.h:308</a></div></div>
+<div class="ttc" id="astruct_f_t___s_v_g___document_rec___html_a8a58c6193e4d6907dbcba71712d327e6"><div class="ttname"><a href="struct_f_t___s_v_g___document_rec__.html#a8a58c6193e4d6907dbcba71712d327e6">FT_SVG_DocumentRec_::delta</a></div><div class="ttdeci">FT_Vector delta</div><div class="ttdef"><b>Definition</b> <a href="#l00312">otsvg.h:312</a></div></div>
+<div class="ttc" id="astruct_f_t___s_v_g___document_rec___html_abcd326ea3071803034c46bd8270e7feb"><div class="ttname"><a href="struct_f_t___s_v_g___document_rec__.html#abcd326ea3071803034c46bd8270e7feb">FT_SVG_DocumentRec_::svg_document_length</a></div><div class="ttdeci">FT_ULong svg_document_length</div><div class="ttdef"><b>Definition</b> <a href="#l00303">otsvg.h:303</a></div></div>
+<div class="ttc" id="astruct_f_t___s_v_g___document_rec___html_af0563dde7b3cb988f07389310642d87d"><div class="ttname"><a href="struct_f_t___s_v_g___document_rec__.html#af0563dde7b3cb988f07389310642d87d">FT_SVG_DocumentRec_::units_per_EM</a></div><div class="ttdeci">FT_UShort units_per_EM</div><div class="ttdef"><b>Definition</b> <a href="#l00306">otsvg.h:306</a></div></div>
+<div class="ttc" id="astruct_f_t___size___metrics___html"><div class="ttname"><a href="struct_f_t___size___metrics__.html">FT_Size_Metrics_</a></div><div class="ttdef"><b>Definition</b> <a href="x64-windows-static_2x64-windows-static_2include_2freetype_2freetype_8h_source.html#l01778">freetype.h:1779</a></div></div>
+<div class="ttc" id="astruct_f_t___vector___html"><div class="ttname"><a href="struct_f_t___vector__.html">FT_Vector_</a></div><div class="ttdef"><b>Definition</b> <a href="x64-windows-static_2x64-windows-static_2include_2freetype_2ftimage_8h_source.html#l00070">ftimage.h:71</a></div></div>
+<div class="ttc" id="astruct_s_v_g___renderer_hooks___html"><div class="ttname"><a href="struct_s_v_g___renderer_hooks__.html">SVG_RendererHooks_</a></div><div class="ttdef"><b>Definition</b> <a href="#l00244">otsvg.h:245</a></div></div>
+<div class="ttc" id="astruct_s_v_g___renderer_hooks___html_a1c7444395131299ad6bd38223ec02de9"><div class="ttname"><a href="struct_s_v_g___renderer_hooks__.html#a1c7444395131299ad6bd38223ec02de9">SVG_RendererHooks_::free_svg</a></div><div class="ttdeci">SVG_Lib_Free_Func free_svg</div><div class="ttdef"><b>Definition</b> <a href="#l00247">otsvg.h:247</a></div></div>
+<div class="ttc" id="astruct_s_v_g___renderer_hooks___html_aa695b2e7796dc1e3993a12d80cb4aa27"><div class="ttname"><a href="struct_s_v_g___renderer_hooks__.html#aa695b2e7796dc1e3993a12d80cb4aa27">SVG_RendererHooks_::preset_slot</a></div><div class="ttdeci">SVG_Lib_Preset_Slot_Func preset_slot</div><div class="ttdef"><b>Definition</b> <a href="#l00250">otsvg.h:250</a></div></div>
+<div class="ttc" id="astruct_s_v_g___renderer_hooks___html_aba4f5fcb05a5b84991f2db32c22eb9e2"><div class="ttname"><a href="struct_s_v_g___renderer_hooks__.html#aba4f5fcb05a5b84991f2db32c22eb9e2">SVG_RendererHooks_::init_svg</a></div><div class="ttdeci">SVG_Lib_Init_Func init_svg</div><div class="ttdef"><b>Definition</b> <a href="#l00246">otsvg.h:246</a></div></div>
+<div class="ttc" id="astruct_s_v_g___renderer_hooks___html_abbbac5f069a6b3fe6620753526a7ce52"><div class="ttname"><a href="struct_s_v_g___renderer_hooks__.html#abbbac5f069a6b3fe6620753526a7ce52">SVG_RendererHooks_::render_svg</a></div><div class="ttdeci">SVG_Lib_Render_Func render_svg</div><div class="ttdef"><b>Definition</b> <a href="#l00248">otsvg.h:248</a></div></div>
+<div class="ttc" id="ax64-windows-static_2x64-windows-static_2include_2freetype_2config_2ftheader_8h_html_a2ebbdbbee7f9bfa8b6b86790de7e9963"><div class="ttname"><a href="x64-windows-static_2x64-windows-static_2include_2freetype_2config_2ftheader_8h.html#a2ebbdbbee7f9bfa8b6b86790de7e9963">FT_END_HEADER</a></div><div class="ttdeci">#define FT_END_HEADER</div><div class="ttdef"><b>Definition</b> <a href="x64-windows-static_2x64-windows-static_2include_2freetype_2config_2ftheader_8h_source.html#l00057">ftheader.h:57</a></div></div>
+<div class="ttc" id="ax64-windows-static_2x64-windows-static_2include_2freetype_2config_2ftheader_8h_html_a72ee5814b3ae378ebb7fd3a8e3ddec14"><div class="ttname"><a href="x64-windows-static_2x64-windows-static_2include_2freetype_2config_2ftheader_8h.html#a72ee5814b3ae378ebb7fd3a8e3ddec14">FT_BEGIN_HEADER</a></div><div class="ttdeci">#define FT_BEGIN_HEADER</div><div class="ttdef"><b>Definition</b> <a href="x64-windows-static_2x64-windows-static_2include_2freetype_2config_2ftheader_8h_source.html#l00037">ftheader.h:37</a></div></div>
+<div class="ttc" id="ax64-windows-static_2x64-windows-static_2include_2freetype_2fttypes_8h_html_a00f9e6a0ddd7bc55f79b2f4b5b867266"><div class="ttname"><a href="x64-windows-static_2x64-windows-static_2include_2freetype_2fttypes_8h.html#a00f9e6a0ddd7bc55f79b2f4b5b867266">FT_Pointer</a></div><div class="ttdeci">void * FT_Pointer</div><div class="ttdef"><b>Definition</b> <a href="x64-windows-static_2x64-windows-static_2include_2freetype_2fttypes_8h_source.html#l00310">fttypes.h:310</a></div></div>
+<div class="ttc" id="ax64-windows-static_2x64-windows-static_2include_2freetype_2fttypes_8h_html_a1a832a256bb5a7e6e884afaa1a07f3ae"><div class="ttname"><a href="x64-windows-static_2x64-windows-static_2include_2freetype_2fttypes_8h.html#a1a832a256bb5a7e6e884afaa1a07f3ae">FT_Bool</a></div><div class="ttdeci">FT_BEGIN_HEADER typedef unsigned char FT_Bool</div><div class="ttdef"><b>Definition</b> <a href="x64-windows-static_2x64-windows-static_2include_2freetype_2fttypes_8h_source.html#l00108">fttypes.h:108</a></div></div>
+<div class="ttc" id="ax64-windows-static_2x64-windows-static_2include_2freetype_2fttypes_8h_html_a4fac88bdba78eb76b505efa6e4fbf3f5"><div class="ttname"><a href="x64-windows-static_2x64-windows-static_2include_2freetype_2fttypes_8h.html#a4fac88bdba78eb76b505efa6e4fbf3f5">FT_ULong</a></div><div class="ttdeci">unsigned long FT_ULong</div><div class="ttdef"><b>Definition</b> <a href="x64-windows-static_2x64-windows-static_2include_2freetype_2fttypes_8h_source.html#l00253">fttypes.h:253</a></div></div>
+<div class="ttc" id="ax64-windows-static_2x64-windows-static_2include_2freetype_2fttypes_8h_html_a51f26183ca0c9f4af958939648caeccd"><div class="ttname"><a href="x64-windows-static_2x64-windows-static_2include_2freetype_2fttypes_8h.html#a51f26183ca0c9f4af958939648caeccd">FT_Byte</a></div><div class="ttdeci">unsigned char FT_Byte</div><div class="ttdef"><b>Definition</b> <a href="x64-windows-static_2x64-windows-static_2include_2freetype_2fttypes_8h_source.html#l00154">fttypes.h:154</a></div></div>
+<div class="ttc" id="ax64-windows-static_2x64-windows-static_2include_2freetype_2fttypes_8h_html_a64c8060bdb3d6eec844a1bf670e06bdd"><div class="ttname"><a href="x64-windows-static_2x64-windows-static_2include_2freetype_2fttypes_8h.html#a64c8060bdb3d6eec844a1bf670e06bdd">FT_Error</a></div><div class="ttdeci">int FT_Error</div><div class="ttdef"><b>Definition</b> <a href="x64-windows-static_2x64-windows-static_2include_2freetype_2fttypes_8h_source.html#l00299">fttypes.h:299</a></div></div>
+<div class="ttc" id="ax64-windows-static_2x64-windows-static_2include_2freetype_2fttypes_8h_html_a937f6c17cf5ffd09086d8610c37b9f58"><div class="ttname"><a href="x64-windows-static_2x64-windows-static_2include_2freetype_2fttypes_8h.html#a937f6c17cf5ffd09086d8610c37b9f58">FT_UShort</a></div><div class="ttdeci">unsigned short FT_UShort</div><div class="ttdef"><b>Definition</b> <a href="x64-windows-static_2x64-windows-static_2include_2freetype_2fttypes_8h_source.html#l00209">fttypes.h:209</a></div></div>
+<div class="ttc" id="ax64-windows-static_2x64-windows-static_2include_2freetype_2otsvg_8h_html_a211f960d1a82ce9a2e3a6656b48a76f1"><div class="ttname"><a href="x64-windows-static_2x64-windows-static_2include_2freetype_2otsvg_8h.html#a211f960d1a82ce9a2e3a6656b48a76f1">SVG_Lib_Init_Func</a></div><div class="ttdeci">FT_BEGIN_HEADER typedef FT_Error(* SVG_Lib_Init_Func)(FT_Pointer *data_pointer)</div><div class="ttdef"><b>Definition</b> <a href="#l00081">otsvg.h:82</a></div></div>
+<div class="ttc" id="ax64-windows-static_2x64-windows-static_2include_2freetype_2otsvg_8h_html_a30f6ea1cd6169e0e78b7c0563a887714"><div class="ttname"><a href="x64-windows-static_2x64-windows-static_2include_2freetype_2otsvg_8h.html#a30f6ea1cd6169e0e78b7c0563a887714">SVG_Lib_Render_Func</a></div><div class="ttdeci">FT_Error(* SVG_Lib_Render_Func)(FT_GlyphSlot slot, FT_Pointer *data_pointer)</div><div class="ttdef"><b>Definition</b> <a href="#l00147">otsvg.h:148</a></div></div>
+<div class="ttc" id="ax64-windows-static_2x64-windows-static_2include_2freetype_2otsvg_8h_html_a5b70d77f59466fd7612da6770753cfa5"><div class="ttname"><a href="x64-windows-static_2x64-windows-static_2include_2freetype_2otsvg_8h.html#a5b70d77f59466fd7612da6770753cfa5">SVG_RendererHooks</a></div><div class="ttdeci">struct SVG_RendererHooks_ SVG_RendererHooks</div></div>
+<div class="ttc" id="ax64-windows-static_2x64-windows-static_2include_2freetype_2otsvg_8h_html_ab2c2e4efc41c0b2b6b018c466c3ca7fe"><div class="ttname"><a href="x64-windows-static_2x64-windows-static_2include_2freetype_2otsvg_8h.html#ab2c2e4efc41c0b2b6b018c466c3ca7fe">SVG_Lib_Free_Func</a></div><div class="ttdeci">void(* SVG_Lib_Free_Func)(FT_Pointer *data_pointer)</div><div class="ttdef"><b>Definition</b> <a href="#l00110">otsvg.h:111</a></div></div>
+<div class="ttc" id="ax64-windows-static_2x64-windows-static_2include_2freetype_2otsvg_8h_html_acb9ee1af1a78f3f5333c580720106579"><div class="ttname"><a href="x64-windows-static_2x64-windows-static_2include_2freetype_2otsvg_8h.html#acb9ee1af1a78f3f5333c580720106579">FT_SVG_Document</a></div><div class="ttdeci">struct FT_SVG_DocumentRec_ * FT_SVG_Document</div><div class="ttdef"><b>Definition</b> <a href="#l00328">otsvg.h:328</a></div></div>
+<div class="ttc" id="ax64-windows-static_2x64-windows-static_2include_2freetype_2otsvg_8h_html_af77e9a29118239c1e5f879478a71a560"><div class="ttname"><a href="x64-windows-static_2x64-windows-static_2include_2freetype_2otsvg_8h.html#af77e9a29118239c1e5f879478a71a560">SVG_Lib_Preset_Slot_Func</a></div><div class="ttdeci">FT_Error(* SVG_Lib_Preset_Slot_Func)(FT_GlyphSlot slot, FT_Bool cache, FT_Pointer *state)</div><div class="ttdef"><b>Definition</b> <a href="#l00203">otsvg.h:204</a></div></div>
+<div class="ttc" id="ax64-windows-static_2x64-windows-static_2include_2libpng16_2png_8h_html_a05f08be336491be77cd4dfa98f747c69"><div class="ttname"><a href="x64-windows-static_2x64-windows-static_2include_2libpng16_2png_8h.html#a05f08be336491be77cd4dfa98f747c69">void</a></div><div class="ttdeci">void</div><div class="ttdef"><b>Definition</b> <a href="x64-windows-static_2x64-windows-static_2include_2libpng16_2png_8h_source.html#l01080">png.h:1080</a></div></div>
+<div class="ttc" id="ax64-windows_2x64-windows_2include_2freetype_2otsvg_8h_html_a516c602eee25221e5df6cae02e7470c5"><div class="ttname"><a href="x64-windows_2x64-windows_2include_2freetype_2otsvg_8h.html#a516c602eee25221e5df6cae02e7470c5">FT_SVG_DocumentRec</a></div><div class="ttdeci">struct FT_SVG_DocumentRec_ FT_SVG_DocumentRec</div></div>
+<div class="ttc" id="ax86-windows_2x86-windows_2include_2freetype_2otsvg_8h_html_a211f960d1a82ce9a2e3a6656b48a76f1"><div class="ttname"><a href="x86-windows_2x86-windows_2include_2freetype_2otsvg_8h.html#a211f960d1a82ce9a2e3a6656b48a76f1">SVG_Lib_Init_Func</a></div><div class="ttdeci">FT_BEGIN_HEADER typedef FT_Error(* SVG_Lib_Init_Func)(FT_Pointer *data_pointer)</div><div class="ttdef"><b>Definition</b> <a href="x86-windows_2x86-windows_2include_2freetype_2otsvg_8h_source.html#l00081">otsvg.h:82</a></div></div>
+<div class="ttc" id="ax86-windows_2x86-windows_2include_2freetype_2otsvg_8h_html_a30f6ea1cd6169e0e78b7c0563a887714"><div class="ttname"><a href="x86-windows_2x86-windows_2include_2freetype_2otsvg_8h.html#a30f6ea1cd6169e0e78b7c0563a887714">SVG_Lib_Render_Func</a></div><div class="ttdeci">FT_Error(* SVG_Lib_Render_Func)(FT_GlyphSlot slot, FT_Pointer *data_pointer)</div><div class="ttdef"><b>Definition</b> <a href="x86-windows_2x86-windows_2include_2freetype_2otsvg_8h_source.html#l00147">otsvg.h:148</a></div></div>
+<div class="ttc" id="ax86-windows_2x86-windows_2include_2freetype_2otsvg_8h_html_ab2c2e4efc41c0b2b6b018c466c3ca7fe"><div class="ttname"><a href="x86-windows_2x86-windows_2include_2freetype_2otsvg_8h.html#ab2c2e4efc41c0b2b6b018c466c3ca7fe">SVG_Lib_Free_Func</a></div><div class="ttdeci">void(* SVG_Lib_Free_Func)(FT_Pointer *data_pointer)</div><div class="ttdef"><b>Definition</b> <a href="x86-windows_2x86-windows_2include_2freetype_2otsvg_8h_source.html#l00110">otsvg.h:111</a></div></div>
+<div class="ttc" id="ax86-windows_2x86-windows_2include_2freetype_2otsvg_8h_html_af77e9a29118239c1e5f879478a71a560"><div class="ttname"><a href="x86-windows_2x86-windows_2include_2freetype_2otsvg_8h.html#af77e9a29118239c1e5f879478a71a560">SVG_Lib_Preset_Slot_Func</a></div><div class="ttdeci">FT_Error(* SVG_Lib_Preset_Slot_Func)(FT_GlyphSlot slot, FT_Bool cache, FT_Pointer *state)</div><div class="ttdef"><b>Definition</b> <a href="x86-windows_2x86-windows_2include_2freetype_2otsvg_8h_source.html#l00203">otsvg.h:204</a></div></div>
+</div><!-- fragment --></div><!-- contents -->
+</div><!-- doc-content -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="dir_74389ed8173ad57b461b9d623a1f3867.html">Source</a></li><li class="navelem"><a class="el" href="dir_6e9399b867df62641d274959e619ad65.html">vcpkg_installed</a></li><li class="navelem"><a class="el" href="dir_30cfe0916cdc05412f182515e2d5be66.html">x64-windows-static</a></li><li class="navelem"><a class="el" href="dir_a51a3dd64c48ba06555bdcf6379b8f0c.html">x64-windows-static</a></li><li class="navelem"><a class="el" href="dir_16af1930db264e83111a8adeeb4b094c.html">include</a></li><li class="navelem"><a class="el" href="dir_ff125e9387d334b9a7ecc3b3fea50469.html">freetype</a></li><li class="navelem"><a class="el" href="x64-windows-static_2x64-windows-static_2include_2freetype_2otsvg_8h.html">otsvg.h</a></li>
+    <li class="footer">Generado el Lunes, 29 de enero de 2024 17:18:32 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.10.0 </li>
+  </ul>
+</div>
+</body>
+</html>

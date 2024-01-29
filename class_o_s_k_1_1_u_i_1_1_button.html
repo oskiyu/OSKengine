@@ -1,0 +1,1687 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="es">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.10.0"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>OSKengine: Referencia de la clase OSK::UI::Button</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">OSKengine<span id="projectnumber">&#160;Indev</span>
+   </div>
+   <div id="projectbrief">Motor de videojuegos.</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generado por Doxygen 1.10.0 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() {
+  initMenu('',true,false,'search.php','Buscar');
+  $(function() { init_search(); });
+});
+/* @license-end */
+</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function(){initNavTree('class_o_s_k_1_1_u_i_1_1_button.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Cargando...</div>
+<div class="SRStatus" id="Searching">Buscando...</div>
+<div class="SRStatus" id="NoMatches">Nada coincide</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="summary">
+<a href="#pub-types">Tipos públicos</a> &#124;
+<a href="#pub-methods">Métodos públicos</a> &#124;
+<a href="#pro-attribs">Atributos protegidos</a> &#124;
+<a href="class_o_s_k_1_1_u_i_1_1_button-members.html">Lista de todos los miembros</a>  </div>
+  <div class="headertitle"><div class="title">Referencia de la clase OSK::UI::Button</div></div>
+</div><!--header-->
+<div class="contents">
+
+<p><code>#include &lt;<a class="el" href="_ui_button_8h_source.html">UiButton.h</a>&gt;</code></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-types" name="pub-types"></a>
+Tipos públicos</h2></td></tr>
+<tr class="memitem:a48eccceca7cc012bdfca96ef7da07faa" id="r_a48eccceca7cc012bdfca96ef7da07faa"><td class="memItemLeft" align="right" valign="top">enum class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a48eccceca7cc012bdfca96ef7da07faa">State</a> { <a class="el" href="#a48eccceca7cc012bdfca96ef7da07faaa5b39c8b553c821e7cddc6da64b5bd2ee">DEFAULT</a>
+, <a class="el" href="#a48eccceca7cc012bdfca96ef7da07faaac841881b7f65d9e69aa9c932ca4427c8">SELECTED</a>
+, <a class="el" href="#a48eccceca7cc012bdfca96ef7da07faaa5381dc876ab002103a027265bc14ae52">PRESSED</a>
+ }</td></tr>
+<tr class="separator:a48eccceca7cc012bdfca96ef7da07faa"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8fedb01940ab3e88358f91eb0d140f74" id="r_a8fedb01940ab3e88358f91eb0d140f74"><td class="memItemLeft" align="right" valign="top">enum class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a8fedb01940ab3e88358f91eb0d140f74">Type</a> { <a class="el" href="#a8fedb01940ab3e88358f91eb0d140f74a1e23852820b9154316c7c06e2b7ba051">NORMAL</a>
+, <a class="el" href="#a8fedb01940ab3e88358f91eb0d140f74a1252c45651289c0b553a30d27bb5ae9b">TOGGLE</a>
+ }</td></tr>
+<tr class="separator:a8fedb01940ab3e88358f91eb0d140f74"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a11115ea0979f9ebb993ac2b3844b0c84" id="r_a11115ea0979f9ebb993ac2b3844b0c84"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a11115ea0979f9ebb993ac2b3844b0c84">CallbackFnc</a> = std::function&lt;<a class="el" href="x64-windows-static_2x64-windows-static_2include_2libpng16_2png_8h.html#a05f08be336491be77cd4dfa98f747c69">void</a>(bool isPressed)&gt;</td></tr>
+<tr class="separator:a11115ea0979f9ebb993ac2b3844b0c84"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
+Métodos públicos</h2></td></tr>
+<tr class="memitem:a1437045c5e830d4942a96a687df8a39e" id="r_a1437045c5e830d4942a96a687df8a39e"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a1437045c5e830d4942a96a687df8a39e">Button</a> (<a class="el" href="x64-windows-static_2x64-windows-static_2include_2zconf_8h.html#a2c212835823e3c54a8ab6d95c652660e">const</a> <a class="el" href="namespace_o_s_k.html#a31a299dbb3a3a60d90d16d1a4eca9651">Vector2f</a> <a class="el" href="class_o_s_k_1_1_u_i_1_1_i_element.html#ae01866b02c7417455751f01b2f9d1fbf">size</a>)</td></tr>
+<tr class="separator:a1437045c5e830d4942a96a687df8a39e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a43b83836884ec2dd7476e48bd48d994a" id="r_a43b83836884ec2dd7476e48bd48d994a"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a43b83836884ec2dd7476e48bd48d994a">Button</a> (<a class="el" href="x64-windows-static_2x64-windows-static_2include_2zconf_8h.html#a2c212835823e3c54a8ab6d95c652660e">const</a> <a class="el" href="namespace_o_s_k.html#a31a299dbb3a3a60d90d16d1a4eca9651">Vector2f</a> <a class="el" href="class_o_s_k_1_1_u_i_1_1_i_element.html#ae01866b02c7417455751f01b2f9d1fbf">size</a>, <a class="el" href="x64-windows-static_2x64-windows-static_2include_2zconf_8h.html#a2c212835823e3c54a8ab6d95c652660e">const</a> std::string &amp;text)</td></tr>
+<tr class="separator:a43b83836884ec2dd7476e48bd48d994a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9a5243a1d41737e7035be6c8f779bbec" id="r_a9a5243a1d41737e7035be6c8f779bbec"><td class="memItemLeft" align="right" valign="top"><a class="el" href="x64-windows-static_2x64-windows-static_2include_2libpng16_2png_8h.html#a05f08be336491be77cd4dfa98f747c69">void</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a9a5243a1d41737e7035be6c8f779bbec">SetSize</a> (<a class="el" href="namespace_o_s_k.html#a31a299dbb3a3a60d90d16d1a4eca9651">Vector2f</a> <a class="el" href="class_o_s_k_1_1_u_i_1_1_i_element.html#ae01866b02c7417455751f01b2f9d1fbf">size</a>) override</td></tr>
+<tr class="separator:a9a5243a1d41737e7035be6c8f779bbec"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a67258126e72dd44e60fcc5ae3e2a94e0" id="r_a67258126e72dd44e60fcc5ae3e2a94e0"><td class="memItemLeft" align="right" valign="top"><a class="el" href="x64-windows-static_2x64-windows-static_2include_2libpng16_2png_8h.html#a05f08be336491be77cd4dfa98f747c69">void</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a67258126e72dd44e60fcc5ae3e2a94e0">Click</a> ()</td></tr>
+<tr class="separator:a67258126e72dd44e60fcc5ae3e2a94e0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aec1327c5b08cc121f4f45bcd7d8d37e0" id="r_aec1327c5b08cc121f4f45bcd7d8d37e0"><td class="memItemLeft" align="right" valign="top"><a class="el" href="x64-windows-static_2x64-windows-static_2include_2libpng16_2png_8h.html#a05f08be336491be77cd4dfa98f747c69">void</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aec1327c5b08cc121f4f45bcd7d8d37e0">Render</a> (<a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_sprite_renderer.html">GRAPHICS::SpriteRenderer</a> *renderer, <a class="el" href="namespace_o_s_k.html#a31a299dbb3a3a60d90d16d1a4eca9651">Vector2f</a> parentPosition) <a class="el" href="x64-windows-static_2x64-windows-static_2include_2zconf_8h.html#a2c212835823e3c54a8ab6d95c652660e">const</a> override</td></tr>
+<tr class="separator:aec1327c5b08cc121f4f45bcd7d8d37e0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a74543b51fc409bfc7bf64eacb85c1088" id="r_a74543b51fc409bfc7bf64eacb85c1088"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a74543b51fc409bfc7bf64eacb85c1088">UpdateByCursor</a> (<a class="el" href="namespace_o_s_k.html#a31a299dbb3a3a60d90d16d1a4eca9651">Vector2f</a> cursor, bool isPressed, <a class="el" href="namespace_o_s_k.html#a31a299dbb3a3a60d90d16d1a4eca9651">Vector2f</a> parentPosition) override</td></tr>
+<tr class="separator:a74543b51fc409bfc7bf64eacb85c1088"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9af78c1f9e49cc8174b912bf559d61d2" id="r_a9af78c1f9e49cc8174b912bf559d61d2"><td class="memItemLeft" align="right" valign="top"><a class="el" href="x64-windows-static_2x64-windows-static_2include_2libpng16_2png_8h.html#a05f08be336491be77cd4dfa98f747c69">void</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a9af78c1f9e49cc8174b912bf559d61d2">SetCallback</a> (<a class="el" href="#a11115ea0979f9ebb993ac2b3844b0c84">CallbackFnc</a> callback)</td></tr>
+<tr class="separator:a9af78c1f9e49cc8174b912bf559d61d2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9c3fb324ae5d4529606fe21545c27e06" id="r_a9c3fb324ae5d4529606fe21545c27e06"><td class="memItemLeft" align="right" valign="top"><a class="el" href="x64-windows-static_2x64-windows-static_2include_2libpng16_2png_8h.html#a05f08be336491be77cd4dfa98f747c69">void</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a9c3fb324ae5d4529606fe21545c27e06">SetState</a> (<a class="el" href="#a48eccceca7cc012bdfca96ef7da07faa">State</a> state)</td></tr>
+<tr class="separator:a9c3fb324ae5d4529606fe21545c27e06"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab93a6aecb99f3c38296f3f01745362dd" id="r_ab93a6aecb99f3c38296f3f01745362dd"><td class="memItemLeft" align="right" valign="top"><a class="el" href="x64-windows-static_2x64-windows-static_2include_2libpng16_2png_8h.html#a05f08be336491be77cd4dfa98f747c69">void</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ab93a6aecb99f3c38296f3f01745362dd">SetType</a> (<a class="el" href="#a8fedb01940ab3e88358f91eb0d140f74">Type</a> type)</td></tr>
+<tr class="separator:ab93a6aecb99f3c38296f3f01745362dd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac138f600a878e67458158a17229a0aa6" id="r_ac138f600a878e67458158a17229a0aa6"><td class="memItemLeft" align="right" valign="top"><a class="el" href="#a8fedb01940ab3e88358f91eb0d140f74">Type</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ac138f600a878e67458158a17229a0aa6">GetType</a> () <a class="el" href="x64-windows-static_2x64-windows-static_2include_2zconf_8h.html#a2c212835823e3c54a8ab6d95c652660e">const</a></td></tr>
+<tr class="separator:ac138f600a878e67458158a17229a0aa6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aae7302275cf0147aa191383086c6ba2f" id="r_aae7302275cf0147aa191383086c6ba2f"><td class="memItemLeft" align="right" valign="top"><a class="el" href="x64-windows-static_2x64-windows-static_2include_2libpng16_2png_8h.html#a05f08be336491be77cd4dfa98f747c69">void</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aae7302275cf0147aa191383086c6ba2f">SetTextFont</a> (<a class="el" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">ASSETS::AssetRef</a>&lt; <a class="el" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_font.html">ASSETS::Font</a> &gt; font)</td></tr>
+<tr class="separator:aae7302275cf0147aa191383086c6ba2f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a76a19529831a0328e0dd514b7cb4ea5a" id="r_a76a19529831a0328e0dd514b7cb4ea5a"><td class="memItemLeft" align="right" valign="top"><a class="el" href="x64-windows-static_2x64-windows-static_2include_2libpng16_2png_8h.html#a05f08be336491be77cd4dfa98f747c69">void</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a76a19529831a0328e0dd514b7cb4ea5a">SetTextFontSize</a> (<a class="el" href="_o_s_kmacros_8h.html#a3e916ed5b32955be3417da92899fc361">USize32</a> fontSize)</td></tr>
+<tr class="separator:a76a19529831a0328e0dd514b7cb4ea5a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a59a468ad73ca347c30cebb85fc92066f" id="r_a59a468ad73ca347c30cebb85fc92066f"><td class="memItemLeft" align="right" valign="top"><a class="el" href="x64-windows-static_2x64-windows-static_2include_2libpng16_2png_8h.html#a05f08be336491be77cd4dfa98f747c69">void</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a59a468ad73ca347c30cebb85fc92066f">SetText</a> (<a class="el" href="x64-windows-static_2x64-windows-static_2include_2zconf_8h.html#a2c212835823e3c54a8ab6d95c652660e">const</a> std::string &amp;text)</td></tr>
+<tr class="separator:a59a468ad73ca347c30cebb85fc92066f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a732800aec072fb35bea63c51ab9c93d6" id="r_a732800aec072fb35bea63c51ab9c93d6"><td class="memItemLeft" align="right" valign="top">std::string_view&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a732800aec072fb35bea63c51ab9c93d6">GetText</a> () <a class="el" href="x64-windows-static_2x64-windows-static_2include_2zconf_8h.html#a2c212835823e3c54a8ab6d95c652660e">const</a></td></tr>
+<tr class="separator:a732800aec072fb35bea63c51ab9c93d6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa250c2576539262e349e059da0a4d1be" id="r_aa250c2576539262e349e059da0a4d1be"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_sprite.html">GRAPHICS::Sprite</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aa250c2576539262e349e059da0a4d1be">GetDefaultSprite</a> ()</td></tr>
+<tr class="separator:aa250c2576539262e349e059da0a4d1be"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1b7734141b89d2d6220bbcd8fb0c41d3" id="r_a1b7734141b89d2d6220bbcd8fb0c41d3"><td class="memItemLeft" align="right" valign="top"><a class="el" href="x64-windows-static_2x64-windows-static_2include_2zconf_8h.html#a2c212835823e3c54a8ab6d95c652660e">const</a> <a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_sprite.html">GRAPHICS::Sprite</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a1b7734141b89d2d6220bbcd8fb0c41d3">GetDefaultSprite</a> () <a class="el" href="x64-windows-static_2x64-windows-static_2include_2zconf_8h.html#a2c212835823e3c54a8ab6d95c652660e">const</a></td></tr>
+<tr class="separator:a1b7734141b89d2d6220bbcd8fb0c41d3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a539eb10bc824ef0f577442b6dfb0aac1" id="r_a539eb10bc824ef0f577442b6dfb0aac1"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_sprite.html">GRAPHICS::Sprite</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a539eb10bc824ef0f577442b6dfb0aac1">GetSelectedSprite</a> ()</td></tr>
+<tr class="separator:a539eb10bc824ef0f577442b6dfb0aac1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a022f48786a845d9fc6db82e9fa68babd" id="r_a022f48786a845d9fc6db82e9fa68babd"><td class="memItemLeft" align="right" valign="top"><a class="el" href="x64-windows-static_2x64-windows-static_2include_2zconf_8h.html#a2c212835823e3c54a8ab6d95c652660e">const</a> <a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_sprite.html">GRAPHICS::Sprite</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a022f48786a845d9fc6db82e9fa68babd">GetSelectedSprite</a> () <a class="el" href="x64-windows-static_2x64-windows-static_2include_2zconf_8h.html#a2c212835823e3c54a8ab6d95c652660e">const</a></td></tr>
+<tr class="separator:a022f48786a845d9fc6db82e9fa68babd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3f64b16ff0e4c1377e91f6e9683210a5" id="r_a3f64b16ff0e4c1377e91f6e9683210a5"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_sprite.html">GRAPHICS::Sprite</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a3f64b16ff0e4c1377e91f6e9683210a5">GetPressedSprite</a> ()</td></tr>
+<tr class="separator:a3f64b16ff0e4c1377e91f6e9683210a5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad4b88ac7ac162f98ac3ec35de1e0d74b" id="r_ad4b88ac7ac162f98ac3ec35de1e0d74b"><td class="memItemLeft" align="right" valign="top"><a class="el" href="x64-windows-static_2x64-windows-static_2include_2zconf_8h.html#a2c212835823e3c54a8ab6d95c652660e">const</a> <a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_sprite.html">GRAPHICS::Sprite</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad4b88ac7ac162f98ac3ec35de1e0d74b">GetPressedSprite</a> () <a class="el" href="x64-windows-static_2x64-windows-static_2include_2zconf_8h.html#a2c212835823e3c54a8ab6d95c652660e">const</a></td></tr>
+<tr class="separator:ad4b88ac7ac162f98ac3ec35de1e0d74b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6f9e1c28376f615b7aa4e25d26813595" id="r_a6f9e1c28376f615b7aa4e25d26813595"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_sprite.html">GRAPHICS::Sprite</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a6f9e1c28376f615b7aa4e25d26813595">GetSprite</a> (<a class="el" href="#a48eccceca7cc012bdfca96ef7da07faa">State</a> state)</td></tr>
+<tr class="separator:a6f9e1c28376f615b7aa4e25d26813595"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af09122c2f942f8b4fec2d8b628f9ffd0" id="r_af09122c2f942f8b4fec2d8b628f9ffd0"><td class="memItemLeft" align="right" valign="top"><a class="el" href="x64-windows-static_2x64-windows-static_2include_2zconf_8h.html#a2c212835823e3c54a8ab6d95c652660e">const</a> <a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_sprite.html">GRAPHICS::Sprite</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af09122c2f942f8b4fec2d8b628f9ffd0">GetSprite</a> (<a class="el" href="#a48eccceca7cc012bdfca96ef7da07faa">State</a> state) <a class="el" href="x64-windows-static_2x64-windows-static_2include_2zconf_8h.html#a2c212835823e3c54a8ab6d95c652660e">const</a></td></tr>
+<tr class="separator:af09122c2f942f8b4fec2d8b628f9ffd0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a46f079dc5060292013e4be6baf8e19b5" id="r_a46f079dc5060292013e4be6baf8e19b5"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_u_i_1_1_i_element.html#a46f079dc5060292013e4be6baf8e19b5">OSK_DEFINE_AS</a> (<a class="el" href="class_o_s_k_1_1_u_i_1_1_i_element.html">IElement</a>)</td></tr>
+<tr class="separator:a46f079dc5060292013e4be6baf8e19b5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5bcecd711fd5ee01b654092b5cd3236b" id="r_a5bcecd711fd5ee01b654092b5cd3236b"><td class="memItemLeft" align="right" valign="top"><a class="el" href="x64-windows-static_2x64-windows-static_2include_2libpng16_2png_8h.html#a05f08be336491be77cd4dfa98f747c69">void</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_u_i_1_1_i_element.html#a5bcecd711fd5ee01b654092b5cd3236b">SetVisibility</a> (bool visibility)</td></tr>
+<tr class="separator:a5bcecd711fd5ee01b654092b5cd3236b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a374616da89c3ff9b31e4d7ddf6fc0164" id="r_a374616da89c3ff9b31e4d7ddf6fc0164"><td class="memItemLeft" align="right" valign="top"><a class="el" href="x64-windows-static_2x64-windows-static_2include_2libpng16_2png_8h.html#a05f08be336491be77cd4dfa98f747c69">void</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_u_i_1_1_i_element.html#a374616da89c3ff9b31e4d7ddf6fc0164">SetVisible</a> ()</td></tr>
+<tr class="separator:a374616da89c3ff9b31e4d7ddf6fc0164"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3321d2f589991ea5b04db9eec5fad644" id="r_a3321d2f589991ea5b04db9eec5fad644"><td class="memItemLeft" align="right" valign="top"><a class="el" href="x64-windows-static_2x64-windows-static_2include_2libpng16_2png_8h.html#a05f08be336491be77cd4dfa98f747c69">void</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_u_i_1_1_i_element.html#a3321d2f589991ea5b04db9eec5fad644">SetInvisible</a> ()</td></tr>
+<tr class="separator:a3321d2f589991ea5b04db9eec5fad644"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8accfad472072a3da3f18fb57df749d9" id="r_a8accfad472072a3da3f18fb57df749d9"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_u_i_1_1_i_element.html#a8accfad472072a3da3f18fb57df749d9">IsVisible</a> () <a class="el" href="x64-windows-static_2x64-windows-static_2include_2zconf_8h.html#a2c212835823e3c54a8ab6d95c652660e">const</a></td></tr>
+<tr class="separator:a8accfad472072a3da3f18fb57df749d9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5547de24b168940bf610ff1010d33c83" id="r_a5547de24b168940bf610ff1010d33c83"><td class="memItemLeft" align="right" valign="top"><a class="el" href="x64-windows-static_2x64-windows-static_2include_2libpng16_2png_8h.html#a05f08be336491be77cd4dfa98f747c69">void</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_u_i_1_1_i_element.html#a5547de24b168940bf610ff1010d33c83">Lock</a> ()</td></tr>
+<tr class="separator:a5547de24b168940bf610ff1010d33c83"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a27da2bfbce9e2310b18720be5c42970e" id="r_a27da2bfbce9e2310b18720be5c42970e"><td class="memItemLeft" align="right" valign="top"><a class="el" href="x64-windows-static_2x64-windows-static_2include_2libpng16_2png_8h.html#a05f08be336491be77cd4dfa98f747c69">void</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_u_i_1_1_i_element.html#a27da2bfbce9e2310b18720be5c42970e">Unlock</a> ()</td></tr>
+<tr class="separator:a27da2bfbce9e2310b18720be5c42970e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a21414ead67744859466084e70e995f77" id="r_a21414ead67744859466084e70e995f77"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_u_i_1_1_i_element.html#a21414ead67744859466084e70e995f77">IsLocked</a> () <a class="el" href="x64-windows-static_2x64-windows-static_2include_2zconf_8h.html#a2c212835823e3c54a8ab6d95c652660e">const</a></td></tr>
+<tr class="separator:a21414ead67744859466084e70e995f77"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac7bbc9e1c7ba8ebbbd37aea078870e70" id="r_ac7bbc9e1c7ba8ebbbd37aea078870e70"><td class="memItemLeft" align="right" valign="top"><a class="el" href="x64-windows-static_2x64-windows-static_2include_2libpng16_2png_8h.html#a05f08be336491be77cd4dfa98f747c69">void</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_u_i_1_1_i_element.html#ac7bbc9e1c7ba8ebbbd37aea078870e70">SetPadding</a> (<a class="el" href="x64-windows-static_2x64-windows-static_2include_2zconf_8h.html#a2c212835823e3c54a8ab6d95c652660e">const</a> <a class="el" href="namespace_o_s_k.html#a31a299dbb3a3a60d90d16d1a4eca9651">Vector2f</a> &amp;padding)</td></tr>
+<tr class="separator:ac7bbc9e1c7ba8ebbbd37aea078870e70"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a87cc4015ceb54d73ce132f4b6eb31eb3" id="r_a87cc4015ceb54d73ce132f4b6eb31eb3"><td class="memItemLeft" align="right" valign="top"><a class="el" href="x64-windows-static_2x64-windows-static_2include_2libpng16_2png_8h.html#a05f08be336491be77cd4dfa98f747c69">void</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_u_i_1_1_i_element.html#a87cc4015ceb54d73ce132f4b6eb31eb3">SetPadding</a> (<a class="el" href="x64-windows-static_2x64-windows-static_2include_2zconf_8h.html#a2c212835823e3c54a8ab6d95c652660e">const</a> <a class="el" href="namespace_o_s_k.html#a98c42bf0a7665f299a3a66c8d4cdcdc2">Vector4f</a> &amp;padding)</td></tr>
+<tr class="separator:a87cc4015ceb54d73ce132f4b6eb31eb3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1f9254e765f4d52294a6d9840603deb0" id="r_a1f9254e765f4d52294a6d9840603deb0"><td class="memItemLeft" align="right" valign="top"><a class="el" href="x64-windows-static_2x64-windows-static_2include_2libpng16_2png_8h.html#a05f08be336491be77cd4dfa98f747c69">void</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_u_i_1_1_i_element.html#a1f9254e765f4d52294a6d9840603deb0">SetMargin</a> (<a class="el" href="x64-windows-static_2x64-windows-static_2include_2zconf_8h.html#a2c212835823e3c54a8ab6d95c652660e">const</a> <a class="el" href="namespace_o_s_k.html#a31a299dbb3a3a60d90d16d1a4eca9651">Vector2f</a> &amp;margin)</td></tr>
+<tr class="separator:a1f9254e765f4d52294a6d9840603deb0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab7d38d7722b4ef6fa64a7a0102fb81ee" id="r_ab7d38d7722b4ef6fa64a7a0102fb81ee"><td class="memItemLeft" align="right" valign="top"><a class="el" href="x64-windows-static_2x64-windows-static_2include_2libpng16_2png_8h.html#a05f08be336491be77cd4dfa98f747c69">void</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_u_i_1_1_i_element.html#ab7d38d7722b4ef6fa64a7a0102fb81ee">SetMargin</a> (<a class="el" href="x64-windows-static_2x64-windows-static_2include_2zconf_8h.html#a2c212835823e3c54a8ab6d95c652660e">const</a> <a class="el" href="namespace_o_s_k.html#a98c42bf0a7665f299a3a66c8d4cdcdc2">Vector4f</a> &amp;margin)</td></tr>
+<tr class="separator:ab7d38d7722b4ef6fa64a7a0102fb81ee"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a791189631c86ca8344bfe5f4d3a235cc" id="r_a791189631c86ca8344bfe5f4d3a235cc"><td class="memItemLeft" align="right" valign="top"><a class="el" href="x64-windows-static_2x64-windows-static_2include_2libpng16_2png_8h.html#a05f08be336491be77cd4dfa98f747c69">void</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_u_i_1_1_i_element.html#a791189631c86ca8344bfe5f4d3a235cc">SetKeepRelativeSize</a> (bool keepRelativeSize)</td></tr>
+<tr class="separator:a791189631c86ca8344bfe5f4d3a235cc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae5ccb397475874b1610b00d7bd0d9899" id="r_ae5ccb397475874b1610b00d7bd0d9899"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_u_i_1_1_i_element.html#ae5ccb397475874b1610b00d7bd0d9899">KeepsRelativeSize</a> () <a class="el" href="x64-windows-static_2x64-windows-static_2include_2zconf_8h.html#a2c212835823e3c54a8ab6d95c652660e">const</a></td></tr>
+<tr class="separator:ae5ccb397475874b1610b00d7bd0d9899"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adea383318ebc3ed78c2507a02bd6fe67" id="r_adea383318ebc3ed78c2507a02bd6fe67"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespace_o_s_k.html#a31a299dbb3a3a60d90d16d1a4eca9651">Vector2f</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_u_i_1_1_i_element.html#adea383318ebc3ed78c2507a02bd6fe67">GetRelativePosition</a> () <a class="el" href="x64-windows-static_2x64-windows-static_2include_2zconf_8h.html#a2c212835823e3c54a8ab6d95c652660e">const</a></td></tr>
+<tr class="separator:adea383318ebc3ed78c2507a02bd6fe67"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad23a7cf71ff3d1b1528adfb674f5573c" id="r_ad23a7cf71ff3d1b1528adfb674f5573c"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespace_o_s_k.html#a31a299dbb3a3a60d90d16d1a4eca9651">Vector2f</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_u_i_1_1_i_element.html#ad23a7cf71ff3d1b1528adfb674f5573c">GetSize</a> () <a class="el" href="x64-windows-static_2x64-windows-static_2include_2zconf_8h.html#a2c212835823e3c54a8ab6d95c652660e">const</a></td></tr>
+<tr class="separator:ad23a7cf71ff3d1b1528adfb674f5573c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aea7364031375d85ac5b817ce0050d2e0" id="r_aea7364031375d85ac5b817ce0050d2e0"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespace_o_s_k.html#a31a299dbb3a3a60d90d16d1a4eca9651">Vector2f</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_u_i_1_1_i_element.html#aea7364031375d85ac5b817ce0050d2e0">GetContentSize</a> () <a class="el" href="x64-windows-static_2x64-windows-static_2include_2zconf_8h.html#a2c212835823e3c54a8ab6d95c652660e">const</a></td></tr>
+<tr class="separator:aea7364031375d85ac5b817ce0050d2e0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab3e540f50a997e460748e6dab21daa9d" id="r_ab3e540f50a997e460748e6dab21daa9d"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespace_o_s_k.html#a31a299dbb3a3a60d90d16d1a4eca9651">Vector2f</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_u_i_1_1_i_element.html#ab3e540f50a997e460748e6dab21daa9d">GetContentTopLeftPosition</a> () <a class="el" href="x64-windows-static_2x64-windows-static_2include_2zconf_8h.html#a2c212835823e3c54a8ab6d95c652660e">const</a></td></tr>
+<tr class="separator:ab3e540f50a997e460748e6dab21daa9d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a212afdf3c6d058266d9fd66821286646" id="r_a212afdf3c6d058266d9fd66821286646"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespace_o_s_k.html#a98c42bf0a7665f299a3a66c8d4cdcdc2">Vector4f</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_u_i_1_1_i_element.html#a212afdf3c6d058266d9fd66821286646">GetRectangle</a> (<a class="el" href="namespace_o_s_k.html#a31a299dbb3a3a60d90d16d1a4eca9651">Vector2f</a> parentPosition) <a class="el" href="x64-windows-static_2x64-windows-static_2include_2zconf_8h.html#a2c212835823e3c54a8ab6d95c652660e">const</a></td></tr>
+<tr class="separator:a212afdf3c6d058266d9fd66821286646"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1abff2399030167132e867fd37f03e20" id="r_a1abff2399030167132e867fd37f03e20"><td class="memItemLeft" align="right" valign="top"><a class="el" href="x64-windows-static_2x64-windows-static_2include_2libpng16_2png_8h.html#a05f08be336491be77cd4dfa98f747c69">void</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_u_i_1_1_i_element.html#a1abff2399030167132e867fd37f03e20">SetAnchor</a> (<a class="el" href="namespace_o_s_k_1_1_u_i.html#a11a2d616034d52a2903a58d5de6739f9">Anchor</a> anchor)</td></tr>
+<tr class="separator:a1abff2399030167132e867fd37f03e20"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adcd7290ee054c3924e98beb87e295b4a" id="r_adcd7290ee054c3924e98beb87e295b4a"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespace_o_s_k_1_1_u_i.html#a11a2d616034d52a2903a58d5de6739f9">Anchor</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_u_i_1_1_i_element.html#adcd7290ee054c3924e98beb87e295b4a">GetAnchor</a> () <a class="el" href="x64-windows-static_2x64-windows-static_2include_2zconf_8h.html#a2c212835823e3c54a8ab6d95c652660e">const</a></td></tr>
+<tr class="separator:adcd7290ee054c3924e98beb87e295b4a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abcea5513c2ebd113d46c3053f0497e3d" id="r_abcea5513c2ebd113d46c3053f0497e3d"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespace_o_s_k.html#a98c42bf0a7665f299a3a66c8d4cdcdc2">Vector4f</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_u_i_1_1_i_element.html#abcea5513c2ebd113d46c3053f0497e3d">GetPadding</a> () <a class="el" href="x64-windows-static_2x64-windows-static_2include_2zconf_8h.html#a2c212835823e3c54a8ab6d95c652660e">const</a></td></tr>
+<tr class="separator:abcea5513c2ebd113d46c3053f0497e3d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab7236921801fcbd58d0ac45c8489a4c4" id="r_ab7236921801fcbd58d0ac45c8489a4c4"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespace_o_s_k.html#a98c42bf0a7665f299a3a66c8d4cdcdc2">Vector4f</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_u_i_1_1_i_element.html#ab7236921801fcbd58d0ac45c8489a4c4">GetMarging</a> () <a class="el" href="x64-windows-static_2x64-windows-static_2include_2zconf_8h.html#a2c212835823e3c54a8ab6d95c652660e">const</a></td></tr>
+<tr class="separator:ab7236921801fcbd58d0ac45c8489a4c4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a479e31dd3da8cdafc6daa8e8a2b3903b" id="r_a479e31dd3da8cdafc6daa8e8a2b3903b"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespace_o_s_k.html#a31a299dbb3a3a60d90d16d1a4eca9651">Vector2f</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_u_i_1_1_i_element.html#a479e31dd3da8cdafc6daa8e8a2b3903b">GetPadding2D</a> () <a class="el" href="x64-windows-static_2x64-windows-static_2include_2zconf_8h.html#a2c212835823e3c54a8ab6d95c652660e">const</a></td></tr>
+<tr class="separator:a479e31dd3da8cdafc6daa8e8a2b3903b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a99898f2535aa57d386e39fd5d0947a62" id="r_a99898f2535aa57d386e39fd5d0947a62"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespace_o_s_k.html#a31a299dbb3a3a60d90d16d1a4eca9651">Vector2f</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_u_i_1_1_i_element.html#a99898f2535aa57d386e39fd5d0947a62">GetMarging2D</a> () <a class="el" href="x64-windows-static_2x64-windows-static_2include_2zconf_8h.html#a2c212835823e3c54a8ab6d95c652660e">const</a></td></tr>
+<tr class="separator:a99898f2535aa57d386e39fd5d0947a62"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pro-attribs" name="pro-attribs"></a>
+Atributos protegidos</h2></td></tr>
+<tr class="memitem:ae01866b02c7417455751f01b2f9d1fbf" id="r_ae01866b02c7417455751f01b2f9d1fbf"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespace_o_s_k.html#a31a299dbb3a3a60d90d16d1a4eca9651">Vector2f</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_u_i_1_1_i_element.html#ae01866b02c7417455751f01b2f9d1fbf">size</a> = <a class="el" href="class_o_s_k_1_1_vector2__t.html#a3759903561dac1fc476d0cc9d051c536">Vector2f::Zero</a></td></tr>
+<tr class="separator:ae01866b02c7417455751f01b2f9d1fbf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">Descripción detallada</h2>
+<div class="textblock"><p>Elemento de <a class="el" href="namespace_o_s_k_1_1_u_i.html">UI</a> que permite al usuario interaccionar. </p>
+
+<p class="definition">Definición en la línea <a class="el" href="_ui_button_8h_source.html#l00013">13</a> del archivo <a class="el" href="_ui_button_8h_source.html">UiButton.h</a>.</p>
+</div><h2 class="groupheader">Documentación de los «Typedef» miembros de la clase</h2>
+<a id="a11115ea0979f9ebb993ac2b3844b0c84" name="a11115ea0979f9ebb993ac2b3844b0c84"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a11115ea0979f9ebb993ac2b3844b0c84">&#9670;&#160;</a></span>CallbackFnc</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">using <a class="el" href="#a11115ea0979f9ebb993ac2b3844b0c84">OSK::UI::Button::CallbackFnc</a> = std::function&lt;<a class="el" href="x64-windows-static_2x64-windows-static_2include_2libpng16_2png_8h.html#a05f08be336491be77cd4dfa98f747c69">void</a>(bool isPressed)&gt;</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Callback que se ejecuta al pulsar el botón. </p>
+<dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">isPressed</td><td>Indica si el nuevo estado es activo o no. Para botones normales, siempre será true. Para bottones estilo TOGGLE, indicará si a partir de la pulsación el botón está a true o a false. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definición en la línea <a class="el" href="_ui_button_8h_source.html#l00051">51</a> del archivo <a class="el" href="_ui_button_8h_source.html">UiButton.h</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Documentación de las enumeraciones miembro de la clase</h2>
+<a id="a48eccceca7cc012bdfca96ef7da07faa" name="a48eccceca7cc012bdfca96ef7da07faa"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a48eccceca7cc012bdfca96ef7da07faa">&#9670;&#160;</a></span>State</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum class <a class="el" href="#a48eccceca7cc012bdfca96ef7da07faa">OSK::UI::Button::State</a></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">strong</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Estado en el que está en botón en un momento dado. </p>
+<table class="fieldtable">
+<tr><th colspan="2">Valores de enumeraciones</th></tr><tr><td class="fieldname"><a id="a48eccceca7cc012bdfca96ef7da07faaa5b39c8b553c821e7cddc6da64b5bd2ee" name="a48eccceca7cc012bdfca96ef7da07faaa5b39c8b553c821e7cddc6da64b5bd2ee"></a>DEFAULT&#160;</td><td class="fielddoc"><p>Estado inicial. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a48eccceca7cc012bdfca96ef7da07faaac841881b7f65d9e69aa9c932ca4427c8" name="a48eccceca7cc012bdfca96ef7da07faaac841881b7f65d9e69aa9c932ca4427c8"></a>SELECTED&#160;</td><td class="fielddoc"><p>Estado en el que está cuando el usuario sobrepasa el botón con el ratón. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a48eccceca7cc012bdfca96ef7da07faaa5381dc876ab002103a027265bc14ae52" name="a48eccceca7cc012bdfca96ef7da07faaa5381dc876ab002103a027265bc14ae52"></a>PRESSED&#160;</td><td class="fielddoc"><p>Estado en el que está cuando se pulsa el botón. </p>
+</td></tr>
+</table>
+
+<p class="definition">Definición en la línea <a class="el" href="_ui_button_8h_source.html#l00019">19</a> del archivo <a class="el" href="_ui_button_8h_source.html">UiButton.h</a>.</p>
+
+</div>
+</div>
+<a id="a8fedb01940ab3e88358f91eb0d140f74" name="a8fedb01940ab3e88358f91eb0d140f74"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8fedb01940ab3e88358f91eb0d140f74">&#9670;&#160;</a></span>Type</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum class <a class="el" href="#a8fedb01940ab3e88358f91eb0d140f74">OSK::UI::Button::Type</a></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">strong</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Tipo de botón, que condiciona su comportamiento. </p>
+<table class="fieldtable">
+<tr><th colspan="2">Valores de enumeraciones</th></tr><tr><td class="fieldname"><a id="a8fedb01940ab3e88358f91eb0d140f74a1e23852820b9154316c7c06e2b7ba051" name="a8fedb01940ab3e88358f91eb0d140f74a1e23852820b9154316c7c06e2b7ba051"></a>NORMAL&#160;</td><td class="fielddoc"><p>Botón normal. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a8fedb01940ab3e88358f91eb0d140f74a1252c45651289c0b553a30d27bb5ae9b" name="a8fedb01940ab3e88358f91eb0d140f74a1252c45651289c0b553a30d27bb5ae9b"></a>TOGGLE&#160;</td><td class="fielddoc"><p>Botón estilo TOGGLE. </p>
+</td></tr>
+</table>
+
+<p class="definition">Definición en la línea <a class="el" href="_ui_button_8h_source.html#l00036">36</a> del archivo <a class="el" href="_ui_button_8h_source.html">UiButton.h</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Documentación de constructores y destructores</h2>
+<a id="a1437045c5e830d4942a96a687df8a39e" name="a1437045c5e830d4942a96a687df8a39e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1437045c5e830d4942a96a687df8a39e">&#9670;&#160;</a></span>Button() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">Button::Button </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="x64-windows-static_2x64-windows-static_2include_2zconf_8h.html#a2c212835823e3c54a8ab6d95c652660e">const</a> <a class="el" href="namespace_o_s_k.html#a31a299dbb3a3a60d90d16d1a4eca9651">Vector2f</a></td>          <td class="paramname"><span class="paramname"><em>size</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">explicit</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Crea el botón. </p>
+<dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">size</td><td>Tamaño del botón.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section note"><dt>Nota</dt><dd>Por defecto, no tendrá texto. </dd>
+<dd>
+Por defecto, no tendrá textura. </dd></dl>
+
+<p class="definition">Definición en la línea <a class="el" href="_ui_button_8cpp_source.html#l00009">9</a> del archivo <a class="el" href="_ui_button_8cpp_source.html">UiButton.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a43b83836884ec2dd7476e48bd48d994a" name="a43b83836884ec2dd7476e48bd48d994a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a43b83836884ec2dd7476e48bd48d994a">&#9670;&#160;</a></span>Button() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">Button::Button </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="x64-windows-static_2x64-windows-static_2include_2zconf_8h.html#a2c212835823e3c54a8ab6d95c652660e">const</a> <a class="el" href="namespace_o_s_k.html#a31a299dbb3a3a60d90d16d1a4eca9651">Vector2f</a></td>          <td class="paramname"><span class="paramname"><em>size</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="x64-windows-static_2x64-windows-static_2include_2zconf_8h.html#a2c212835823e3c54a8ab6d95c652660e">const</a> std::string &amp;</td>          <td class="paramname"><span class="paramname"><em>text</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Crea el botón. </p>
+<dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">size</td><td>Tamaño del botón. </td></tr>
+    <tr><td class="paramname">text</td><td>Texto del botón.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section note"><dt>Nota</dt><dd>No se renderizará el texto hasta que no se establezca una fuente mediante <a class="el" href="#aae7302275cf0147aa191383086c6ba2f" title="Establece la fuente del texto.">SetTextFont()</a>. </dd>
+<dd>
+Por defecto, no tendrá textura. </dd></dl>
+
+<p class="definition">Definición en la línea <a class="el" href="_ui_button_8cpp_source.html#l00013">13</a> del archivo <a class="el" href="_ui_button_8cpp_source.html">UiButton.cpp</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Documentación de funciones miembro</h2>
+<a id="a67258126e72dd44e60fcc5ae3e2a94e0" name="a67258126e72dd44e60fcc5ae3e2a94e0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a67258126e72dd44e60fcc5ae3e2a94e0">&#9670;&#160;</a></span>Click()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="x64-windows-static_2x64-windows-static_2include_2libpng16_2png_8h.html#a05f08be336491be77cd4dfa98f747c69">void</a> Button::Click </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Simula un click del usuario. </p>
+
+<p class="definition">Definición en la línea <a class="el" href="_ui_button_8cpp_source.html#l00037">37</a> del archivo <a class="el" href="_ui_button_8cpp_source.html">UiButton.cpp</a>.</p>
+
+</div>
+</div>
+<a id="adcd7290ee054c3924e98beb87e295b4a" name="adcd7290ee054c3924e98beb87e295b4a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adcd7290ee054c3924e98beb87e295b4a">&#9670;&#160;</a></span>GetAnchor()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="namespace_o_s_k_1_1_u_i.html#a11a2d616034d52a2903a58d5de6739f9">Anchor</a> OSK::UI::IElement::GetAnchor </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Devuelve</dt><dd>Anchor actual del elemento. </dd></dl>
+
+<p class="definition">Definición en la línea <a class="el" href="_ui_element_8h_source.html#l00151">151</a> del archivo <a class="el" href="_ui_element_8h_source.html">UiElement.h</a>.</p>
+
+</div>
+</div>
+<a id="aea7364031375d85ac5b817ce0050d2e0" name="aea7364031375d85ac5b817ce0050d2e0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aea7364031375d85ac5b817ce0050d2e0">&#9670;&#160;</a></span>GetContentSize()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="namespace_o_s_k.html#a31a299dbb3a3a60d90d16d1a4eca9651">Vector2f</a> IElement::GetContentSize </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Devuelve</dt><dd>Tamaño del contenido del elemento (tamaño - padding). </dd></dl>
+
+<p class="definition">Definición en la línea <a class="el" href="_ui_element_8cpp_source.html#l00091">91</a> del archivo <a class="el" href="_ui_element_8cpp_source.html">UiElement.cpp</a>.</p>
+
+</div>
+</div>
+<a id="ab3e540f50a997e460748e6dab21daa9d" name="ab3e540f50a997e460748e6dab21daa9d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab3e540f50a997e460748e6dab21daa9d">&#9670;&#160;</a></span>GetContentTopLeftPosition()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="namespace_o_s_k.html#a31a299dbb3a3a60d90d16d1a4eca9651">Vector2f</a> IElement::GetContentTopLeftPosition </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Devuelve</dt><dd>Posición relativa del contenido (posición - padding). </dd></dl>
+
+<p class="definition">Definición en la línea <a class="el" href="_ui_element_8cpp_source.html#l00095">95</a> del archivo <a class="el" href="_ui_element_8cpp_source.html">UiElement.cpp</a>.</p>
+
+</div>
+</div>
+<a id="aa250c2576539262e349e059da0a4d1be" name="aa250c2576539262e349e059da0a4d1be"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa250c2576539262e349e059da0a4d1be">&#9670;&#160;</a></span>GetDefaultSprite() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_sprite.html">Sprite</a> &amp; Button::GetDefaultSprite </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Devuelve</dt><dd>Sprite que se renderizará si tiene el estado por defecto. </dd></dl>
+
+<p class="definition">Definición en la línea <a class="el" href="_ui_button_8cpp_source.html#l00131">131</a> del archivo <a class="el" href="_ui_button_8cpp_source.html">UiButton.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a1b7734141b89d2d6220bbcd8fb0c41d3" name="a1b7734141b89d2d6220bbcd8fb0c41d3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1b7734141b89d2d6220bbcd8fb0c41d3">&#9670;&#160;</a></span>GetDefaultSprite() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="x64-windows-static_2x64-windows-static_2include_2zconf_8h.html#a2c212835823e3c54a8ab6d95c652660e">const</a> <a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_sprite.html">Sprite</a> &amp; Button::GetDefaultSprite </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Devuelve</dt><dd>Sprite que se renderizará si tiene el estado por defecto. </dd></dl>
+
+<p class="definition">Definición en la línea <a class="el" href="_ui_button_8cpp_source.html#l00135">135</a> del archivo <a class="el" href="_ui_button_8cpp_source.html">UiButton.cpp</a>.</p>
+
+</div>
+</div>
+<a id="ab7236921801fcbd58d0ac45c8489a4c4" name="ab7236921801fcbd58d0ac45c8489a4c4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab7236921801fcbd58d0ac45c8489a4c4">&#9670;&#160;</a></span>GetMarging()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="namespace_o_s_k.html#a98c42bf0a7665f299a3a66c8d4cdcdc2">Vector4f</a> IElement::GetMarging </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Devuelve</dt><dd>Márgenes, tal que: X -&gt; margen izquierdo. Y -&gt; margen superior. Z -&gt; margen derecho. W -&gt; margen inferior. </dd></dl>
+
+<p class="definition">Definición en la línea <a class="el" href="_ui_element_8cpp_source.html#l00116">116</a> del archivo <a class="el" href="_ui_element_8cpp_source.html">UiElement.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a99898f2535aa57d386e39fd5d0947a62" name="a99898f2535aa57d386e39fd5d0947a62"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a99898f2535aa57d386e39fd5d0947a62">&#9670;&#160;</a></span>GetMarging2D()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="namespace_o_s_k.html#a31a299dbb3a3a60d90d16d1a4eca9651">Vector2f</a> IElement::GetMarging2D </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Devuelve</dt><dd>Márgenes, tal que: X -&gt; margen izquierdo + margen derecho. Y -&gt; margen superior + margen inferior. </dd></dl>
+
+<p class="definition">Definición en la línea <a class="el" href="_ui_element_8cpp_source.html#l00127">127</a> del archivo <a class="el" href="_ui_element_8cpp_source.html">UiElement.cpp</a>.</p>
+
+</div>
+</div>
+<a id="abcea5513c2ebd113d46c3053f0497e3d" name="abcea5513c2ebd113d46c3053f0497e3d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abcea5513c2ebd113d46c3053f0497e3d">&#9670;&#160;</a></span>GetPadding()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="namespace_o_s_k.html#a98c42bf0a7665f299a3a66c8d4cdcdc2">Vector4f</a> IElement::GetPadding </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Devuelve</dt><dd>Padding, tal que: X -&gt; padding izquierdo. Y -&gt; padding superior. Z -&gt; padding derecho. W -&gt; padding inferior. </dd></dl>
+
+<p class="definition">Definición en la línea <a class="el" href="_ui_element_8cpp_source.html#l00112">112</a> del archivo <a class="el" href="_ui_element_8cpp_source.html">UiElement.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a479e31dd3da8cdafc6daa8e8a2b3903b" name="a479e31dd3da8cdafc6daa8e8a2b3903b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a479e31dd3da8cdafc6daa8e8a2b3903b">&#9670;&#160;</a></span>GetPadding2D()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="namespace_o_s_k.html#a31a299dbb3a3a60d90d16d1a4eca9651">Vector2f</a> IElement::GetPadding2D </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Devuelve</dt><dd>Padding, tal que: X -&gt; padding izquierdo + padding derecho. Y -&gt; padding superior + padding inferior. </dd></dl>
+
+<p class="definition">Definición en la línea <a class="el" href="_ui_element_8cpp_source.html#l00120">120</a> del archivo <a class="el" href="_ui_element_8cpp_source.html">UiElement.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a3f64b16ff0e4c1377e91f6e9683210a5" name="a3f64b16ff0e4c1377e91f6e9683210a5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3f64b16ff0e4c1377e91f6e9683210a5">&#9670;&#160;</a></span>GetPressedSprite() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_sprite.html">Sprite</a> &amp; Button::GetPressedSprite </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Devuelve</dt><dd>Sprite que se renderizará si está siendo pulsado. </dd></dl>
+
+<p class="definition">Definición en la línea <a class="el" href="_ui_button_8cpp_source.html#l00147">147</a> del archivo <a class="el" href="_ui_button_8cpp_source.html">UiButton.cpp</a>.</p>
+
+</div>
+</div>
+<a id="ad4b88ac7ac162f98ac3ec35de1e0d74b" name="ad4b88ac7ac162f98ac3ec35de1e0d74b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad4b88ac7ac162f98ac3ec35de1e0d74b">&#9670;&#160;</a></span>GetPressedSprite() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="x64-windows-static_2x64-windows-static_2include_2zconf_8h.html#a2c212835823e3c54a8ab6d95c652660e">const</a> <a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_sprite.html">Sprite</a> &amp; Button::GetPressedSprite </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Devuelve</dt><dd>Sprite que se renderizará si está siendo pulsado. </dd></dl>
+
+<p class="definition">Definición en la línea <a class="el" href="_ui_button_8cpp_source.html#l00151">151</a> del archivo <a class="el" href="_ui_button_8cpp_source.html">UiButton.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a212afdf3c6d058266d9fd66821286646" name="a212afdf3c6d058266d9fd66821286646"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a212afdf3c6d058266d9fd66821286646">&#9670;&#160;</a></span>GetRectangle()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="namespace_o_s_k.html#a98c42bf0a7665f299a3a66c8d4cdcdc2">Vector4f</a> IElement::GetRectangle </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="namespace_o_s_k.html#a31a299dbb3a3a60d90d16d1a4eca9651">Vector2f</a></td>          <td class="paramname"><span class="paramname"><em>parentPosition</em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Devuelve</dt><dd>Rectángulo que ocupa el elemento, tal que: X, Y -&gt; posición. Z -&gt; ancho. W -&gt; alto. </dd></dl>
+
+<p class="definition">Definición en la línea <a class="el" href="_ui_element_8cpp_source.html#l00099">99</a> del archivo <a class="el" href="_ui_element_8cpp_source.html">UiElement.cpp</a>.</p>
+
+</div>
+</div>
+<a id="adea383318ebc3ed78c2507a02bd6fe67" name="adea383318ebc3ed78c2507a02bd6fe67"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adea383318ebc3ed78c2507a02bd6fe67">&#9670;&#160;</a></span>GetRelativePosition()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="namespace_o_s_k.html#a31a299dbb3a3a60d90d16d1a4eca9651">Vector2f</a> IElement::GetRelativePosition </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Devuelve</dt><dd>Posición relativa respecto a su contenedor. </dd></dl>
+
+<p class="definition">Definición en la línea <a class="el" href="_ui_element_8cpp_source.html#l00079">79</a> del archivo <a class="el" href="_ui_element_8cpp_source.html">UiElement.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a539eb10bc824ef0f577442b6dfb0aac1" name="a539eb10bc824ef0f577442b6dfb0aac1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a539eb10bc824ef0f577442b6dfb0aac1">&#9670;&#160;</a></span>GetSelectedSprite() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_sprite.html">Sprite</a> &amp; Button::GetSelectedSprite </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Devuelve</dt><dd>Sprite que se renderizará si está siendo seleccionado. </dd></dl>
+
+<p class="definition">Definición en la línea <a class="el" href="_ui_button_8cpp_source.html#l00139">139</a> del archivo <a class="el" href="_ui_button_8cpp_source.html">UiButton.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a022f48786a845d9fc6db82e9fa68babd" name="a022f48786a845d9fc6db82e9fa68babd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a022f48786a845d9fc6db82e9fa68babd">&#9670;&#160;</a></span>GetSelectedSprite() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="x64-windows-static_2x64-windows-static_2include_2zconf_8h.html#a2c212835823e3c54a8ab6d95c652660e">const</a> <a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_sprite.html">Sprite</a> &amp; Button::GetSelectedSprite </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Devuelve</dt><dd>Sprite que se renderizará si está siendo seleccionado. </dd></dl>
+
+<p class="definition">Definición en la línea <a class="el" href="_ui_button_8cpp_source.html#l00143">143</a> del archivo <a class="el" href="_ui_button_8cpp_source.html">UiButton.cpp</a>.</p>
+
+</div>
+</div>
+<a id="ad23a7cf71ff3d1b1528adfb674f5573c" name="ad23a7cf71ff3d1b1528adfb674f5573c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad23a7cf71ff3d1b1528adfb674f5573c">&#9670;&#160;</a></span>GetSize()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="namespace_o_s_k.html#a31a299dbb3a3a60d90d16d1a4eca9651">Vector2f</a> IElement::GetSize </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Devuelve</dt><dd>Tamaño del elemento. </dd></dl>
+
+<p class="definition">Definición en la línea <a class="el" href="_ui_element_8cpp_source.html#l00087">87</a> del archivo <a class="el" href="_ui_element_8cpp_source.html">UiElement.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a6f9e1c28376f615b7aa4e25d26813595" name="a6f9e1c28376f615b7aa4e25d26813595"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6f9e1c28376f615b7aa4e25d26813595">&#9670;&#160;</a></span>GetSprite() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_sprite.html">Sprite</a> &amp; Button::GetSprite </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="#a48eccceca7cc012bdfca96ef7da07faa">State</a></td>          <td class="paramname"><span class="paramname"><em>state</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">state</td><td>Estado del botón. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Devuelve</dt><dd>Sprite que se renderizará en el estado dado. </dd></dl>
+
+<p class="definition">Definición en la línea <a class="el" href="_ui_button_8cpp_source.html#l00105">105</a> del archivo <a class="el" href="_ui_button_8cpp_source.html">UiButton.cpp</a>.</p>
+
+</div>
+</div>
+<a id="af09122c2f942f8b4fec2d8b628f9ffd0" name="af09122c2f942f8b4fec2d8b628f9ffd0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af09122c2f942f8b4fec2d8b628f9ffd0">&#9670;&#160;</a></span>GetSprite() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="x64-windows-static_2x64-windows-static_2include_2zconf_8h.html#a2c212835823e3c54a8ab6d95c652660e">const</a> <a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_sprite.html">Sprite</a> &amp; Button::GetSprite </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="#a48eccceca7cc012bdfca96ef7da07faa">State</a></td>          <td class="paramname"><span class="paramname"><em>state</em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">state</td><td>Estado del botón. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Devuelve</dt><dd>Sprite que se renderizará en el estado dado. </dd></dl>
+
+<p class="definition">Definición en la línea <a class="el" href="_ui_button_8cpp_source.html#l00118">118</a> del archivo <a class="el" href="_ui_button_8cpp_source.html">UiButton.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a732800aec072fb35bea63c51ab9c93d6" name="a732800aec072fb35bea63c51ab9c93d6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a732800aec072fb35bea63c51ab9c93d6">&#9670;&#160;</a></span>GetText()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string_view Button::GetText </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Devuelve</dt><dd>Texto del botón. </dd></dl>
+
+<p class="definition">Definición en la línea <a class="el" href="_ui_button_8cpp_source.html#l00173">173</a> del archivo <a class="el" href="_ui_button_8cpp_source.html">UiButton.cpp</a>.</p>
+
+</div>
+</div>
+<a id="ac138f600a878e67458158a17229a0aa6" name="ac138f600a878e67458158a17229a0aa6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac138f600a878e67458158a17229a0aa6">&#9670;&#160;</a></span>GetType()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="#a8fedb01940ab3e88358f91eb0d140f74">Button::Type</a> Button::GetType </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Devuelve</dt><dd>Devuelve el tipo de botón actual. </dd></dl>
+
+<p class="definition">Definición en la línea <a class="el" href="_ui_button_8cpp_source.html#l00091">91</a> del archivo <a class="el" href="_ui_button_8cpp_source.html">UiButton.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a21414ead67744859466084e70e995f77" name="a21414ead67744859466084e70e995f77"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a21414ead67744859466084e70e995f77">&#9670;&#160;</a></span>IsLocked()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool IElement::IsLocked </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definición en la línea <a class="el" href="_ui_element_8cpp_source.html#l00059">59</a> del archivo <a class="el" href="_ui_element_8cpp_source.html">UiElement.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a8accfad472072a3da3f18fb57df749d9" name="a8accfad472072a3da3f18fb57df749d9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8accfad472072a3da3f18fb57df749d9">&#9670;&#160;</a></span>IsVisible()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool IElement::IsVisible </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definición en la línea <a class="el" href="_ui_element_8cpp_source.html#l00047">47</a> del archivo <a class="el" href="_ui_element_8cpp_source.html">UiElement.cpp</a>.</p>
+
+</div>
+</div>
+<a id="ae5ccb397475874b1610b00d7bd0d9899" name="ae5ccb397475874b1610b00d7bd0d9899"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae5ccb397475874b1610b00d7bd0d9899">&#9670;&#160;</a></span>KeepsRelativeSize()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool IElement::KeepsRelativeSize </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Devuelve</dt><dd>True si debe cambiar de tamaño junto al padre. False si conserva su tamaño original cuando el padre cambia de tamaño. </dd></dl>
+
+<p class="definition">Definición en la línea <a class="el" href="_ui_element_8cpp_source.html#l00027">27</a> del archivo <a class="el" href="_ui_element_8cpp_source.html">UiElement.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a5547de24b168940bf610ff1010d33c83" name="a5547de24b168940bf610ff1010d33c83"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5547de24b168940bf610ff1010d33c83">&#9670;&#160;</a></span>Lock()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="x64-windows-static_2x64-windows-static_2include_2libpng16_2png_8h.html#a05f08be336491be77cd4dfa98f747c69">void</a> IElement::Lock </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definición en la línea <a class="el" href="_ui_element_8cpp_source.html#l00051">51</a> del archivo <a class="el" href="_ui_element_8cpp_source.html">UiElement.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a46f079dc5060292013e4be6baf8e19b5" name="a46f079dc5060292013e4be6baf8e19b5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a46f079dc5060292013e4be6baf8e19b5">&#9670;&#160;</a></span>OSK_DEFINE_AS()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">OSK::UI::IElement::OSK_DEFINE_AS </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="class_o_s_k_1_1_u_i_1_1_i_element.html">IElement</a></td>          <td class="paramname"><span class="paramname"></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="aec1327c5b08cc121f4f45bcd7d8d37e0" name="aec1327c5b08cc121f4f45bcd7d8d37e0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aec1327c5b08cc121f4f45bcd7d8d37e0">&#9670;&#160;</a></span>Render()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="x64-windows-static_2x64-windows-static_2include_2libpng16_2png_8h.html#a05f08be336491be77cd4dfa98f747c69">void</a> Button::Render </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_sprite_renderer.html">GRAPHICS::SpriteRenderer</a> *</td>          <td class="paramname"><span class="paramname"><em>renderer</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="namespace_o_s_k.html#a31a299dbb3a3a60d90d16d1a4eca9651">Vector2f</a></td>          <td class="paramname"><span class="paramname"><em>parentPosition</em></span>&#160;) const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Renderiza el botón de acuerdo a su estado actual. Si se renderiza el texto, estará centrado. </p>
+<dl class="section see"><dt>Ver también</dt><dd><a class="el" href="class_o_s_k_1_1_u_i_1_1_text_view.html#a50b5f0a643cb84003aa56e5bd4d33974">TextView.Render()</a> para precondiciones. </dd>
+<dd>
+<a class="el" href="class_o_s_k_1_1_u_i_1_1_image_view.html#aadc972bd7f1fb0a2df0b8e7459e2b986" title="Renderiza el elemento.">ImageView.Render()</a> para precondiciones. </dd></dl>
+
+<p>Reimplementado de <a class="el" href="class_o_s_k_1_1_u_i_1_1_i_element.html#ab13bdea8414d11e8623f1557dd7fc78e">OSK::UI::IElement</a>.</p>
+
+<p class="definition">Definición en la línea <a class="el" href="_ui_button_8cpp_source.html#l00029">29</a> del archivo <a class="el" href="_ui_button_8cpp_source.html">UiButton.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a1abff2399030167132e867fd37f03e20" name="a1abff2399030167132e867fd37f03e20"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1abff2399030167132e867fd37f03e20">&#9670;&#160;</a></span>SetAnchor()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="x64-windows-static_2x64-windows-static_2include_2libpng16_2png_8h.html#a05f08be336491be77cd4dfa98f747c69">void</a> IElement::SetAnchor </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="namespace_o_s_k_1_1_u_i.html#a11a2d616034d52a2903a58d5de6739f9">Anchor</a></td>          <td class="paramname"><span class="paramname"><em>anchor</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Establece el anchor del elemento. No cambiará su posición respecto al contenedor padre. </p>
+<dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">anchor</td><td>Nuevo anchor. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definición en la línea <a class="el" href="_ui_element_8cpp_source.html#l00108">108</a> del archivo <a class="el" href="_ui_element_8cpp_source.html">UiElement.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a9af78c1f9e49cc8174b912bf559d61d2" name="a9af78c1f9e49cc8174b912bf559d61d2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9af78c1f9e49cc8174b912bf559d61d2">&#9670;&#160;</a></span>SetCallback()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="x64-windows-static_2x64-windows-static_2include_2libpng16_2png_8h.html#a05f08be336491be77cd4dfa98f747c69">void</a> Button::SetCallback </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="#a11115ea0979f9ebb993ac2b3844b0c84">CallbackFnc</a></td>          <td class="paramname"><span class="paramname"><em>callback</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Establece el callback que se ejecutará cuando el usuario pulse el botón. </p>
+<dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">callback</td><td>Función que se ejecutará. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definición en la línea <a class="el" href="_ui_button_8cpp_source.html#l00078">78</a> del archivo <a class="el" href="_ui_button_8cpp_source.html">UiButton.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a3321d2f589991ea5b04db9eec5fad644" name="a3321d2f589991ea5b04db9eec5fad644"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3321d2f589991ea5b04db9eec5fad644">&#9670;&#160;</a></span>SetInvisible()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="x64-windows-static_2x64-windows-static_2include_2libpng16_2png_8h.html#a05f08be336491be77cd4dfa98f747c69">void</a> IElement::SetInvisible </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definición en la línea <a class="el" href="_ui_element_8cpp_source.html#l00043">43</a> del archivo <a class="el" href="_ui_element_8cpp_source.html">UiElement.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a791189631c86ca8344bfe5f4d3a235cc" name="a791189631c86ca8344bfe5f4d3a235cc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a791189631c86ca8344bfe5f4d3a235cc">&#9670;&#160;</a></span>SetKeepRelativeSize()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="x64-windows-static_2x64-windows-static_2include_2libpng16_2png_8h.html#a05f08be336491be77cd4dfa98f747c69">void</a> IElement::SetKeepRelativeSize </td>
+          <td>(</td>
+          <td class="paramtype">bool</td>          <td class="paramname"><span class="paramname"><em>keepRelativeSize</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Establece si este elemento debe establecer su tamaño relativo al padre, cambiando de tamaño cuando el padre también cambie de tamaño. </p>
+<dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">keepRelativeSize</td><td>True si debe cambiar de tamaño junto al padre. False si conserva su tamaño original. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definición en la línea <a class="el" href="_ui_element_8cpp_source.html#l00023">23</a> del archivo <a class="el" href="_ui_element_8cpp_source.html">UiElement.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a1f9254e765f4d52294a6d9840603deb0" name="a1f9254e765f4d52294a6d9840603deb0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1f9254e765f4d52294a6d9840603deb0">&#9670;&#160;</a></span>SetMargin() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="x64-windows-static_2x64-windows-static_2include_2libpng16_2png_8h.html#a05f08be336491be77cd4dfa98f747c69">void</a> IElement::SetMargin </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="x64-windows-static_2x64-windows-static_2include_2zconf_8h.html#a2c212835823e3c54a8ab6d95c652660e">const</a> <a class="el" href="namespace_o_s_k.html#a31a299dbb3a3a60d90d16d1a4eca9651">Vector2f</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>margin</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Establece los márgenes externos. </p>
+<dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">margin</td><td>Márgenes, tal que: X -&gt; margen izquierdo y derecho. Y -&gt; margen superior e inferior. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definición en la línea <a class="el" href="_ui_element_8cpp_source.html#l00071">71</a> del archivo <a class="el" href="_ui_element_8cpp_source.html">UiElement.cpp</a>.</p>
+
+</div>
+</div>
+<a id="ab7d38d7722b4ef6fa64a7a0102fb81ee" name="ab7d38d7722b4ef6fa64a7a0102fb81ee"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab7d38d7722b4ef6fa64a7a0102fb81ee">&#9670;&#160;</a></span>SetMargin() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="x64-windows-static_2x64-windows-static_2include_2libpng16_2png_8h.html#a05f08be336491be77cd4dfa98f747c69">void</a> IElement::SetMargin </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="x64-windows-static_2x64-windows-static_2include_2zconf_8h.html#a2c212835823e3c54a8ab6d95c652660e">const</a> <a class="el" href="namespace_o_s_k.html#a98c42bf0a7665f299a3a66c8d4cdcdc2">Vector4f</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>margin</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Establece los márgenes externos. </p>
+<dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">margin</td><td>Márgenes, tal que: X -&gt; margen izquierdo. Y -&gt; margen superior. Z -&gt; margen derecho. W -&gt; margen inferior. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definición en la línea <a class="el" href="_ui_element_8cpp_source.html#l00075">75</a> del archivo <a class="el" href="_ui_element_8cpp_source.html">UiElement.cpp</a>.</p>
+
+</div>
+</div>
+<a id="ac7bbc9e1c7ba8ebbbd37aea078870e70" name="ac7bbc9e1c7ba8ebbbd37aea078870e70"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac7bbc9e1c7ba8ebbbd37aea078870e70">&#9670;&#160;</a></span>SetPadding() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="x64-windows-static_2x64-windows-static_2include_2libpng16_2png_8h.html#a05f08be336491be77cd4dfa98f747c69">void</a> IElement::SetPadding </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="x64-windows-static_2x64-windows-static_2include_2zconf_8h.html#a2c212835823e3c54a8ab6d95c652660e">const</a> <a class="el" href="namespace_o_s_k.html#a31a299dbb3a3a60d90d16d1a4eca9651">Vector2f</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>padding</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Establece el padding (márgenes interiores). </p>
+<dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">padding</td><td>Padding, tal que: X -&gt; padding izquierdo y derecho. Y -&gt; padding superior e inferior. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definición en la línea <a class="el" href="_ui_element_8cpp_source.html#l00063">63</a> del archivo <a class="el" href="_ui_element_8cpp_source.html">UiElement.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a87cc4015ceb54d73ce132f4b6eb31eb3" name="a87cc4015ceb54d73ce132f4b6eb31eb3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a87cc4015ceb54d73ce132f4b6eb31eb3">&#9670;&#160;</a></span>SetPadding() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="x64-windows-static_2x64-windows-static_2include_2libpng16_2png_8h.html#a05f08be336491be77cd4dfa98f747c69">void</a> IElement::SetPadding </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="x64-windows-static_2x64-windows-static_2include_2zconf_8h.html#a2c212835823e3c54a8ab6d95c652660e">const</a> <a class="el" href="namespace_o_s_k.html#a98c42bf0a7665f299a3a66c8d4cdcdc2">Vector4f</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>padding</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Establece el padding (márgenes interiores). </p>
+<dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">padding</td><td></td></tr>
+    <tr><td class="paramname">padding</td><td>Padding, tal que: X -&gt; padding izquierdo. Y -&gt; padding superior. Z -&gt; padding derecho. W -&gt; padding inferior. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definición en la línea <a class="el" href="_ui_element_8cpp_source.html#l00067">67</a> del archivo <a class="el" href="_ui_element_8cpp_source.html">UiElement.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a9a5243a1d41737e7035be6c8f779bbec" name="a9a5243a1d41737e7035be6c8f779bbec"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9a5243a1d41737e7035be6c8f779bbec">&#9670;&#160;</a></span>SetSize()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="x64-windows-static_2x64-windows-static_2include_2libpng16_2png_8h.html#a05f08be336491be77cd4dfa98f747c69">void</a> Button::SetSize </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="namespace_o_s_k.html#a31a299dbb3a3a60d90d16d1a4eca9651">Vector2f</a></td>          <td class="paramname"><span class="paramname"><em>newSize</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Cambia el tamaño del elemento, sin modifciar contenedores ni elementos hijos. </p>
+<dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">newSize</td><td>Nuevo tamaño.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section warning"><dt>Atención</dt><dd>No modifica ni la posición ni el tamaño de elementos padre, hijos o hermanos. </dd></dl>
+
+<p>Reimplementado de <a class="el" href="class_o_s_k_1_1_u_i_1_1_i_element.html#a8ca9400811cfe67e2b0f7c9c33beac16">OSK::UI::IElement</a>.</p>
+
+<p class="definition">Definición en la línea <a class="el" href="_ui_button_8cpp_source.html#l00021">21</a> del archivo <a class="el" href="_ui_button_8cpp_source.html">UiButton.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a9c3fb324ae5d4529606fe21545c27e06" name="a9c3fb324ae5d4529606fe21545c27e06"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9c3fb324ae5d4529606fe21545c27e06">&#9670;&#160;</a></span>SetState()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="x64-windows-static_2x64-windows-static_2include_2libpng16_2png_8h.html#a05f08be336491be77cd4dfa98f747c69">void</a> Button::SetState </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="#a48eccceca7cc012bdfca96ef7da07faa">State</a></td>          <td class="paramname"><span class="paramname"><em>state</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Sobreescribe el estado acutal del botón. </p>
+<dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">state</td><td>Nuevo estado. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definición en la línea <a class="el" href="_ui_button_8cpp_source.html#l00082">82</a> del archivo <a class="el" href="_ui_button_8cpp_source.html">UiButton.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a59a468ad73ca347c30cebb85fc92066f" name="a59a468ad73ca347c30cebb85fc92066f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a59a468ad73ca347c30cebb85fc92066f">&#9670;&#160;</a></span>SetText()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="x64-windows-static_2x64-windows-static_2include_2libpng16_2png_8h.html#a05f08be336491be77cd4dfa98f747c69">void</a> Button::SetText </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="x64-windows-static_2x64-windows-static_2include_2zconf_8h.html#a2c212835823e3c54a8ab6d95c652660e">const</a> std::string &amp;</td>          <td class="paramname"><span class="paramname"><em>text</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Establece el texto a renderizar. El texto será renderizado centrado. </p>
+<dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">text</td><td>Nuevo texto. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definición en la línea <a class="el" href="_ui_button_8cpp_source.html#l00168">168</a> del archivo <a class="el" href="_ui_button_8cpp_source.html">UiButton.cpp</a>.</p>
+
+</div>
+</div>
+<a id="aae7302275cf0147aa191383086c6ba2f" name="aae7302275cf0147aa191383086c6ba2f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aae7302275cf0147aa191383086c6ba2f">&#9670;&#160;</a></span>SetTextFont()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="x64-windows-static_2x64-windows-static_2include_2libpng16_2png_8h.html#a05f08be336491be77cd4dfa98f747c69">void</a> Button::SetTextFont </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">ASSETS::AssetRef</a>&lt; <a class="el" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_font.html">ASSETS::Font</a> &gt;</td>          <td class="paramname"><span class="paramname"><em>font</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Establece la fuente del texto. </p>
+<dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">font</td><td>Fuente.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section see"><dt>Ver también</dt><dd><a class="el" href="class_o_s_k_1_1_u_i_1_1_text_view.html#a244c660ef9fab12255ea8c84d5f20ebd" title="Establece la fuente que se usará para el renderizado del texto.">TextView.SetFont()</a> para precondiciones y postcondiciones. </dd></dl>
+
+<p class="definition">Definición en la línea <a class="el" href="_ui_button_8cpp_source.html#l00095">95</a> del archivo <a class="el" href="_ui_button_8cpp_source.html">UiButton.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a76a19529831a0328e0dd514b7cb4ea5a" name="a76a19529831a0328e0dd514b7cb4ea5a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a76a19529831a0328e0dd514b7cb4ea5a">&#9670;&#160;</a></span>SetTextFontSize()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="x64-windows-static_2x64-windows-static_2include_2libpng16_2png_8h.html#a05f08be336491be77cd4dfa98f747c69">void</a> Button::SetTextFontSize </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="_o_s_kmacros_8h.html#a3e916ed5b32955be3417da92899fc361">USize32</a></td>          <td class="paramname"><span class="paramname"><em>fontSize</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Establece el tamaño de la fuente del texto. </p>
+<dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">fontSize</td><td>Tamaño, en píxeles.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section see"><dt>Ver también</dt><dd><a class="el" href="class_o_s_k_1_1_u_i_1_1_text_view.html#a4f490b6dba2f44914b64c766de60600f" title="Establece el tamaño de fuente que se usará.">TextView.SetFontSize()</a> para precondiciones y postcondiciones. </dd></dl>
+
+<p class="definition">Definición en la línea <a class="el" href="_ui_button_8cpp_source.html#l00100">100</a> del archivo <a class="el" href="_ui_button_8cpp_source.html">UiButton.cpp</a>.</p>
+
+</div>
+</div>
+<a id="ab93a6aecb99f3c38296f3f01745362dd" name="ab93a6aecb99f3c38296f3f01745362dd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab93a6aecb99f3c38296f3f01745362dd">&#9670;&#160;</a></span>SetType()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="x64-windows-static_2x64-windows-static_2include_2libpng16_2png_8h.html#a05f08be336491be77cd4dfa98f747c69">void</a> Button::SetType </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="#a8fedb01940ab3e88358f91eb0d140f74">Type</a></td>          <td class="paramname"><span class="paramname"><em>type</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Establece el tipo de botón. </p>
+<dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">type</td><td>Nuevo tipo de botón. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definición en la línea <a class="el" href="_ui_button_8cpp_source.html#l00087">87</a> del archivo <a class="el" href="_ui_button_8cpp_source.html">UiButton.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a5bcecd711fd5ee01b654092b5cd3236b" name="a5bcecd711fd5ee01b654092b5cd3236b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5bcecd711fd5ee01b654092b5cd3236b">&#9670;&#160;</a></span>SetVisibility()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="x64-windows-static_2x64-windows-static_2include_2libpng16_2png_8h.html#a05f08be336491be77cd4dfa98f747c69">void</a> IElement::SetVisibility </td>
+          <td>(</td>
+          <td class="paramtype">bool</td>          <td class="paramname"><span class="paramname"><em>visibility</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definición en la línea <a class="el" href="_ui_element_8cpp_source.html#l00035">35</a> del archivo <a class="el" href="_ui_element_8cpp_source.html">UiElement.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a374616da89c3ff9b31e4d7ddf6fc0164" name="a374616da89c3ff9b31e4d7ddf6fc0164"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a374616da89c3ff9b31e4d7ddf6fc0164">&#9670;&#160;</a></span>SetVisible()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="x64-windows-static_2x64-windows-static_2include_2libpng16_2png_8h.html#a05f08be336491be77cd4dfa98f747c69">void</a> IElement::SetVisible </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definición en la línea <a class="el" href="_ui_element_8cpp_source.html#l00039">39</a> del archivo <a class="el" href="_ui_element_8cpp_source.html">UiElement.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a27da2bfbce9e2310b18720be5c42970e" name="a27da2bfbce9e2310b18720be5c42970e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a27da2bfbce9e2310b18720be5c42970e">&#9670;&#160;</a></span>Unlock()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="x64-windows-static_2x64-windows-static_2include_2libpng16_2png_8h.html#a05f08be336491be77cd4dfa98f747c69">void</a> IElement::Unlock </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definición en la línea <a class="el" href="_ui_element_8cpp_source.html#l00055">55</a> del archivo <a class="el" href="_ui_element_8cpp_source.html">UiElement.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a74543b51fc409bfc7bf64eacb85c1088" name="a74543b51fc409bfc7bf64eacb85c1088"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a74543b51fc409bfc7bf64eacb85c1088">&#9670;&#160;</a></span>UpdateByCursor()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool Button::UpdateByCursor </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="namespace_o_s_k.html#a31a299dbb3a3a60d90d16d1a4eca9651">Vector2f</a></td>          <td class="paramname"><span class="paramname"><em>cursorPosition</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool</td>          <td class="paramname"><span class="paramname"><em>isPressed</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="namespace_o_s_k.html#a31a299dbb3a3a60d90d16d1a4eca9651">Vector2f</a></td>          <td class="paramname"><span class="paramname"><em>parentPosition</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Actualiza el estado o cualquier otra característica del elemento de acuerdo a la posición del cursor (ratón). </p>
+<dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">cursorPosition</td><td>Posición del cursor. </td></tr>
+    <tr><td class="paramname">isPressed</td><td>True si se está pulsando el cursor. </td></tr>
+    <tr><td class="paramname">parentPosition</td><td>Posición del contenedor padre.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Devuelve</dt><dd>True si el click se ha procesado dentro del elemento (y por lo tanto, se debe detener la comprobación para el resto de elementos). </dd></dl>
+
+<p>Reimplementado de <a class="el" href="class_o_s_k_1_1_u_i_1_1_i_element.html#a6ad37633b14a2f0d68a324f8dcfc9021">OSK::UI::IElement</a>.</p>
+
+<p class="definition">Definición en la línea <a class="el" href="_ui_button_8cpp_source.html#l00047">47</a> del archivo <a class="el" href="_ui_button_8cpp_source.html">UiButton.cpp</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Documentación de datos miembro</h2>
+<a id="ae01866b02c7417455751f01b2f9d1fbf" name="ae01866b02c7417455751f01b2f9d1fbf"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae01866b02c7417455751f01b2f9d1fbf">&#9670;&#160;</a></span>size</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="namespace_o_s_k.html#a31a299dbb3a3a60d90d16d1a4eca9651">Vector2f</a> OSK::UI::IElement::size = <a class="el" href="class_o_s_k_1_1_vector2__t.html#a3759903561dac1fc476d0cc9d051c536">Vector2f::Zero</a></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definición en la línea <a class="el" href="_ui_element_8h_source.html#l00179">179</a> del archivo <a class="el" href="_ui_element_8h_source.html">UiElement.h</a>.</p>
+
+</div>
+</div>
+<hr/>La documentación de esta clase está generada de los siguientes archivos:<ul>
+<li>Source/<a class="el" href="_ui_button_8h_source.html">UiButton.h</a></li>
+<li>Source/<a class="el" href="_ui_button_8cpp_source.html">UiButton.cpp</a></li>
+</ul>
+</div><!-- contents -->
+</div><!-- doc-content -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="namespace_o_s_k.html">OSK</a></li><li class="navelem"><a class="el" href="namespace_o_s_k_1_1_u_i.html">UI</a></li><li class="navelem"><a class="el" href="class_o_s_k_1_1_u_i_1_1_button.html">Button</a></li>
+    <li class="footer">Generado el Lunes, 29 de enero de 2024 17:19:11 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.10.0 </li>
+  </ul>
+</div>
+</body>
+</html>

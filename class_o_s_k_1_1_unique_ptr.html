@@ -1,0 +1,685 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="es">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.10.0"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>OSKengine: Referencia de la plantilla de la clase OSK::UniquePtr&lt; T &gt;</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">OSKengine<span id="projectnumber">&#160;Indev</span>
+   </div>
+   <div id="projectbrief">Motor de videojuegos.</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generado por Doxygen 1.10.0 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() {
+  initMenu('',true,false,'search.php','Buscar');
+  $(function() { init_search(); });
+});
+/* @license-end */
+</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function(){initNavTree('class_o_s_k_1_1_unique_ptr.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Cargando...</div>
+<div class="SRStatus" id="Searching">Buscando...</div>
+<div class="SRStatus" id="NoMatches">Nada coincide</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="summary">
+<a href="#pub-methods">Métodos públicos</a> &#124;
+<a href="class_o_s_k_1_1_unique_ptr-members.html">Lista de todos los miembros</a>  </div>
+  <div class="headertitle"><div class="title">Referencia de la plantilla de la clase OSK::UniquePtr&lt; T &gt;</div></div>
+</div><!--header-->
+<div class="contents">
+
+<p><code>#include &lt;<a class="el" href="_unique_ptr_8hpp_source.html">UniquePtr.hpp</a>&gt;</code></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
+Métodos públicos</h2></td></tr>
+<tr class="memitem:a5f482cedcbb8ba2ca77f0e8591eeecd7" id="r_a5f482cedcbb8ba2ca77f0e8591eeecd7"><td class="memItemLeft" align="right" valign="top">constexpr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a5f482cedcbb8ba2ca77f0e8591eeecd7">UniquePtr</a> () noexcept=default</td></tr>
+<tr class="separator:a5f482cedcbb8ba2ca77f0e8591eeecd7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a36bba57a92873ff1e860a28f6c37e145" id="r_a36bba57a92873ff1e860a28f6c37e145"><td class="memItemLeft" align="right" valign="top">constexpr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a36bba57a92873ff1e860a28f6c37e145">UniquePtr</a> (T *data) noexcept</td></tr>
+<tr class="separator:a36bba57a92873ff1e860a28f6c37e145"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5922899585bf6cb4745238b09c1ccce3" id="r_a5922899585bf6cb4745238b09c1ccce3"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a5922899585bf6cb4745238b09c1ccce3">~UniquePtr</a> ()</td></tr>
+<tr class="separator:a5922899585bf6cb4745238b09c1ccce3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4a1caf2dfaafa41a8d83d720d8c55250" id="r_a4a1caf2dfaafa41a8d83d720d8c55250"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a4a1caf2dfaafa41a8d83d720d8c55250">UniquePtr</a> (<a class="el" href="x64-windows-static_2x64-windows-static_2include_2zconf_8h.html#a2c212835823e3c54a8ab6d95c652660e">const</a> <a class="el" href="class_o_s_k_1_1_unique_ptr.html">UniquePtr</a> &amp;) noexcept=delete</td></tr>
+<tr class="separator:a4a1caf2dfaafa41a8d83d720d8c55250"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af52b21e65bcc991b4ff567fc1715b7b8" id="r_af52b21e65bcc991b4ff567fc1715b7b8"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_o_s_k_1_1_unique_ptr.html">UniquePtr</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af52b21e65bcc991b4ff567fc1715b7b8">operator=</a> (<a class="el" href="x64-windows-static_2x64-windows-static_2include_2zconf_8h.html#a2c212835823e3c54a8ab6d95c652660e">const</a> <a class="el" href="class_o_s_k_1_1_unique_ptr.html">UniquePtr</a> &amp;) noexcept=delete</td></tr>
+<tr class="separator:af52b21e65bcc991b4ff567fc1715b7b8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9ab9d755f7d9721ce936bb7568139df5" id="r_a9ab9d755f7d9721ce936bb7568139df5"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a9ab9d755f7d9721ce936bb7568139df5">UniquePtr</a> (<a class="el" href="class_o_s_k_1_1_unique_ptr.html">UniquePtr</a> &amp;&amp;other) noexcept</td></tr>
+<tr class="separator:a9ab9d755f7d9721ce936bb7568139df5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a38e7b9325d9020dd2a220d0c296ec070" id="r_a38e7b9325d9020dd2a220d0c296ec070"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_o_s_k_1_1_unique_ptr.html">UniquePtr</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a38e7b9325d9020dd2a220d0c296ec070">operator=</a> (<a class="el" href="class_o_s_k_1_1_unique_ptr.html">UniquePtr</a> &amp;&amp;other) noexcept</td></tr>
+<tr class="separator:a38e7b9325d9020dd2a220d0c296ec070"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abf2f6b6e820f745e03c87b6695c21b0a" id="r_abf2f6b6e820f745e03c87b6695c21b0a"><td class="memItemLeft" align="right" valign="top">T *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#abf2f6b6e820f745e03c87b6695c21b0a">Release</a> ()</td></tr>
+<tr class="separator:abf2f6b6e820f745e03c87b6695c21b0a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a63ecb25ac6bda45bae7e8d7f3e134fbd" id="r_a63ecb25ac6bda45bae7e8d7f3e134fbd"><td class="memTemplParams" colspan="2">template&lt;typename Self &gt; </td></tr>
+<tr class="memitem:a63ecb25ac6bda45bae7e8d7f3e134fbd"><td class="memTemplItemLeft" align="right" valign="top">auto &amp;&amp;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="#a63ecb25ac6bda45bae7e8d7f3e134fbd">GetPointer</a> (this Self &amp;&amp;self)</td></tr>
+<tr class="separator:a63ecb25ac6bda45bae7e8d7f3e134fbd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aeaa9e044a8d74cba507322008317cc41" id="r_aeaa9e044a8d74cba507322008317cc41"><td class="memTemplParams" colspan="2">template&lt;typename Self &gt; </td></tr>
+<tr class="memitem:aeaa9e044a8d74cba507322008317cc41"><td class="memTemplItemLeft" align="right" valign="top">auto &amp;&amp;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="#aeaa9e044a8d74cba507322008317cc41">GetValue</a> (this Self &amp;&amp;self)</td></tr>
+<tr class="separator:aeaa9e044a8d74cba507322008317cc41"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aaaa3d8c556ae8bed8340fc1889842755" id="r_aaaa3d8c556ae8bed8340fc1889842755"><td class="memTemplParams" colspan="2">template&lt;typename Self &gt; </td></tr>
+<tr class="memitem:aaaa3d8c556ae8bed8340fc1889842755"><td class="memTemplItemLeft" align="right" valign="top">auto &amp;&amp;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="#aaaa3d8c556ae8bed8340fc1889842755">operator*</a> (this Self &amp;&amp;self)</td></tr>
+<tr class="separator:aaaa3d8c556ae8bed8340fc1889842755"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a71a5c476540b6a1ff33c79ce6bd89203" id="r_a71a5c476540b6a1ff33c79ce6bd89203"><td class="memTemplParams" colspan="2">template&lt;typename Self &gt; </td></tr>
+<tr class="memitem:a71a5c476540b6a1ff33c79ce6bd89203"><td class="memTemplItemLeft" align="right" valign="top">auto &amp;&amp;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="#a71a5c476540b6a1ff33c79ce6bd89203">operator-&gt;</a> (this Self &amp;&amp;self)</td></tr>
+<tr class="separator:a71a5c476540b6a1ff33c79ce6bd89203"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ada3a2da18d62849320f5818c039311c7" id="r_ada3a2da18d62849320f5818c039311c7"><td class="memItemLeft" align="right" valign="top">constexpr bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ada3a2da18d62849320f5818c039311c7">HasValue</a> () <a class="el" href="x64-windows-static_2x64-windows-static_2include_2zconf_8h.html#a2c212835823e3c54a8ab6d95c652660e">const</a></td></tr>
+<tr class="separator:ada3a2da18d62849320f5818c039311c7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a39da2bc8dc4424258a8455eae98c4497" id="r_a39da2bc8dc4424258a8455eae98c4497"><td class="memItemLeft" align="right" valign="top"><a class="el" href="x64-windows-static_2x64-windows-static_2include_2libpng16_2png_8h.html#a05f08be336491be77cd4dfa98f747c69">void</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a39da2bc8dc4424258a8455eae98c4497">Delete</a> ()</td></tr>
+<tr class="separator:a39da2bc8dc4424258a8455eae98c4497"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3c6725a56406ebbce68e3eac61ac14b2" id="r_a3c6725a56406ebbce68e3eac61ac14b2"><td class="memItemLeft" align="right" valign="top"><a class="el" href="x64-windows-static_2x64-windows-static_2include_2libpng16_2png_8h.html#a05f08be336491be77cd4dfa98f747c69">void</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a3c6725a56406ebbce68e3eac61ac14b2">Swap</a> (<a class="el" href="class_o_s_k_1_1_unique_ptr.html">UniquePtr</a>&lt; T &gt; &amp;other)</td></tr>
+<tr class="separator:a3c6725a56406ebbce68e3eac61ac14b2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7e8d8e72b10876fcf01584970a426360" id="r_a7e8d8e72b10876fcf01584970a426360"><td class="memItemLeft" align="right" valign="top">constexpr bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a7e8d8e72b10876fcf01584970a426360">operator==</a> (<a class="el" href="x64-windows-static_2x64-windows-static_2include_2zconf_8h.html#a2c212835823e3c54a8ab6d95c652660e">const</a> <a class="el" href="class_o_s_k_1_1_unique_ptr.html">UniquePtr</a> &amp;) <a class="el" href="x64-windows-static_2x64-windows-static_2include_2zconf_8h.html#a2c212835823e3c54a8ab6d95c652660e">const</a> noexcept=default</td></tr>
+<tr class="separator:a7e8d8e72b10876fcf01584970a426360"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">Descripción detallada</h2>
+<div class="textblock"><div class="compoundTemplParams">template&lt;typename T&gt;<br />
+class OSK::UniquePtr&lt; T &gt;</div><p>Estructura que es dueña de un objeto almacenado en heap. Al destruirse el <a class="el" href="class_o_s_k_1_1_unique_ptr.html" title="Estructura que es dueña de un objeto almacenado en heap. Al destruirse el UniquePtr,...">UniquePtr</a>, también se destruirá el objeto y se liberará la memoria asociada. </p>
+<dl class="tparams"><dt>Parámetros de plantilla</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">T</td><td>Tipo de dato del objeto.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section note"><dt>Nota</dt><dd>Usarse como miembro de una clase deshabilitará su constructor y su operador de copia.</dd></dl>
+<dl class="section warning"><dt>Atención</dt><dd>Debe incluirse el tipo que se vaya a usar dentro del <a class="el" href="class_o_s_k_1_1_unique_ptr.html" title="Estructura que es dueña de un objeto almacenado en heap. Al destruirse el UniquePtr,...">UniquePtr</a>. <div class="fragment"><div class="line"><span class="preprocessor">#include &quot;T.h&quot;</span> </div>
+</div><!-- fragment --> De lo contrario, no se llamará al destructor al eliminarse. </dd></dl>
+
+<p class="definition">Definición en la línea <a class="el" href="_unique_ptr_8hpp_source.html#l00022">22</a> del archivo <a class="el" href="_unique_ptr_8hpp_source.html">UniquePtr.hpp</a>.</p>
+</div><h2 class="groupheader">Documentación de constructores y destructores</h2>
+<a id="a5f482cedcbb8ba2ca77f0e8591eeecd7" name="a5f482cedcbb8ba2ca77f0e8591eeecd7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5f482cedcbb8ba2ca77f0e8591eeecd7">&#9670;&#160;</a></span>UniquePtr() <span class="overload">[1/4]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">constexpr <a class="el" href="class_o_s_k_1_1_unique_ptr.html">OSK::UniquePtr</a>&lt; T &gt;::UniquePtr </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">constexpr</span><span class="mlabel">default</span><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Crea un <a class="el" href="class_o_s_k_1_1_unique_ptr.html" title="Estructura que es dueña de un objeto almacenado en heap. Al destruirse el UniquePtr,...">UniquePtr</a> vacío. </p>
+
+</div>
+</div>
+<a id="a36bba57a92873ff1e860a28f6c37e145" name="a36bba57a92873ff1e860a28f6c37e145"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a36bba57a92873ff1e860a28f6c37e145">&#9670;&#160;</a></span>UniquePtr() <span class="overload">[2/4]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">constexpr <a class="el" href="class_o_s_k_1_1_unique_ptr.html">OSK::UniquePtr</a>&lt; T &gt;::UniquePtr </td>
+          <td>(</td>
+          <td class="paramtype">T *</td>          <td class="paramname"><span class="paramname"><em>data</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">constexpr</span><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Crea un <a class="el" href="class_o_s_k_1_1_unique_ptr.html" title="Estructura que es dueña de un objeto almacenado en heap. Al destruirse el UniquePtr,...">UniquePtr</a> a partir del objeto almacenado en la dirección de memoria dada. </p>
+<dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">data</td><td>Puntero al objeto almacenado en memoria heap. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section pre"><dt>Precondición</dt><dd><code>data</code> debe haber sido creado con el operador new. </dd></dl>
+
+<p class="definition">Definición en la línea <a class="el" href="_unique_ptr_8hpp_source.html#l00033">33</a> del archivo <a class="el" href="_unique_ptr_8hpp_source.html">UniquePtr.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a5922899585bf6cb4745238b09c1ccce3" name="a5922899585bf6cb4745238b09c1ccce3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5922899585bf6cb4745238b09c1ccce3">&#9670;&#160;</a></span>~UniquePtr()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="class_o_s_k_1_1_unique_ptr.html">OSK::UniquePtr</a>&lt; T &gt;::~<a class="el" href="class_o_s_k_1_1_unique_ptr.html">UniquePtr</a> </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Destruye el objeto, eliminándolo. Si no tenía ningún objeto, no ocurre nada. </p>
+
+<p class="definition">Definición en la línea <a class="el" href="_unique_ptr_8hpp_source.html#l00038">38</a> del archivo <a class="el" href="_unique_ptr_8hpp_source.html">UniquePtr.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a4a1caf2dfaafa41a8d83d720d8c55250" name="a4a1caf2dfaafa41a8d83d720d8c55250"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4a1caf2dfaafa41a8d83d720d8c55250">&#9670;&#160;</a></span>UniquePtr() <span class="overload">[3/4]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="class_o_s_k_1_1_unique_ptr.html">OSK::UniquePtr</a>&lt; T &gt;::UniquePtr </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="x64-windows-static_2x64-windows-static_2include_2zconf_8h.html#a2c212835823e3c54a8ab6d95c652660e">const</a> <a class="el" href="class_o_s_k_1_1_unique_ptr.html">UniquePtr</a>&lt; T &gt; &amp;</td>          <td class="paramname"><span class="paramname"></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">delete</span><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a9ab9d755f7d9721ce936bb7568139df5" name="a9ab9d755f7d9721ce936bb7568139df5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9ab9d755f7d9721ce936bb7568139df5">&#9670;&#160;</a></span>UniquePtr() <span class="overload">[4/4]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="class_o_s_k_1_1_unique_ptr.html">OSK::UniquePtr</a>&lt; T &gt;::UniquePtr </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="class_o_s_k_1_1_unique_ptr.html">UniquePtr</a>&lt; T &gt; &amp;&amp;</td>          <td class="paramname"><span class="paramname"><em>other</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Crea un <a class="el" href="class_o_s_k_1_1_unique_ptr.html" title="Estructura que es dueña de un objeto almacenado en heap. Al destruirse el UniquePtr,...">UniquePtr</a> que pasa a poseer el objeto de otro <a class="el" href="class_o_s_k_1_1_unique_ptr.html" title="Estructura que es dueña de un objeto almacenado en heap. Al destruirse el UniquePtr,...">UniquePtr</a>. El otro <a class="el" href="class_o_s_k_1_1_unique_ptr.html" title="Estructura que es dueña de un objeto almacenado en heap. Al destruirse el UniquePtr,...">UniquePtr</a> se convierte en un <a class="el" href="class_o_s_k_1_1_unique_ptr.html" title="Estructura que es dueña de un objeto almacenado en heap. Al destruirse el UniquePtr,...">UniquePtr</a> vacío. </p>
+<dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">other</td><td>El otro puntero. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section post"><dt>Postcondición</dt><dd>Este <a class="el" href="class_o_s_k_1_1_unique_ptr.html" title="Estructura que es dueña de un objeto almacenado en heap. Al destruirse el UniquePtr,...">UniquePtr</a> pasa a poseer el objeto de <code>other</code>. </dd>
+<dd>
+El <a class="el" href="class_o_s_k_1_1_unique_ptr.html" title="Estructura que es dueña de un objeto almacenado en heap. Al destruirse el UniquePtr,...">UniquePtr</a> <code>other</code> pasa a estar vacío. </dd></dl>
+<dl class="section note"><dt>Nota</dt><dd>Si <code>other</code> está vacío, entonces este <a class="el" href="class_o_s_k_1_1_unique_ptr.html" title="Estructura que es dueña de un objeto almacenado en heap. Al destruirse el UniquePtr,...">UniquePtr</a> pasa a estar vacío. </dd></dl>
+
+<p class="definition">Definición en la línea <a class="el" href="_unique_ptr_8hpp_source.html#l00052">52</a> del archivo <a class="el" href="_unique_ptr_8hpp_source.html">UniquePtr.hpp</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Documentación de funciones miembro</h2>
+<a id="a39da2bc8dc4424258a8455eae98c4497" name="a39da2bc8dc4424258a8455eae98c4497"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a39da2bc8dc4424258a8455eae98c4497">&#9670;&#160;</a></span>Delete()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="x64-windows-static_2x64-windows-static_2include_2libpng16_2png_8h.html#a05f08be336491be77cd4dfa98f747c69">void</a> <a class="el" href="class_o_s_k_1_1_unique_ptr.html">OSK::UniquePtr</a>&lt; T &gt;::Delete </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definición en la línea <a class="el" href="_unique_ptr_8hpp_source.html#l00096">96</a> del archivo <a class="el" href="_unique_ptr_8hpp_source.html">UniquePtr.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a63ecb25ac6bda45bae7e8d7f3e134fbd" name="a63ecb25ac6bda45bae7e8d7f3e134fbd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a63ecb25ac6bda45bae7e8d7f3e134fbd">&#9670;&#160;</a></span>GetPointer()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+<div class="memtemplate">
+template&lt;typename Self &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">auto &amp;&amp; <a class="el" href="class_o_s_k_1_1_unique_ptr.html">OSK::UniquePtr</a>&lt; T &gt;::GetPointer </td>
+          <td>(</td>
+          <td class="paramtype">this Self &amp;&amp;</td>          <td class="paramname"><span class="paramname"><em>self</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definición en la línea <a class="el" href="_unique_ptr_8hpp_source.html#l00075">75</a> del archivo <a class="el" href="_unique_ptr_8hpp_source.html">UniquePtr.hpp</a>.</p>
+
+</div>
+</div>
+<a id="aeaa9e044a8d74cba507322008317cc41" name="aeaa9e044a8d74cba507322008317cc41"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aeaa9e044a8d74cba507322008317cc41">&#9670;&#160;</a></span>GetValue()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+<div class="memtemplate">
+template&lt;typename Self &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">auto &amp;&amp; <a class="el" href="class_o_s_k_1_1_unique_ptr.html">OSK::UniquePtr</a>&lt; T &gt;::GetValue </td>
+          <td>(</td>
+          <td class="paramtype">this Self &amp;&amp;</td>          <td class="paramname"><span class="paramname"><em>self</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definición en la línea <a class="el" href="_unique_ptr_8hpp_source.html#l00080">80</a> del archivo <a class="el" href="_unique_ptr_8hpp_source.html">UniquePtr.hpp</a>.</p>
+
+</div>
+</div>
+<a id="ada3a2da18d62849320f5818c039311c7" name="ada3a2da18d62849320f5818c039311c7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ada3a2da18d62849320f5818c039311c7">&#9670;&#160;</a></span>HasValue()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">constexpr bool <a class="el" href="class_o_s_k_1_1_unique_ptr.html">OSK::UniquePtr</a>&lt; T &gt;::HasValue </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definición en la línea <a class="el" href="_unique_ptr_8hpp_source.html#l00094">94</a> del archivo <a class="el" href="_unique_ptr_8hpp_source.html">UniquePtr.hpp</a>.</p>
+
+</div>
+</div>
+<a id="aaaa3d8c556ae8bed8340fc1889842755" name="aaaa3d8c556ae8bed8340fc1889842755"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aaaa3d8c556ae8bed8340fc1889842755">&#9670;&#160;</a></span>operator*()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+<div class="memtemplate">
+template&lt;typename Self &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">auto &amp;&amp; <a class="el" href="class_o_s_k_1_1_unique_ptr.html">OSK::UniquePtr</a>&lt; T &gt;::operator* </td>
+          <td>(</td>
+          <td class="paramtype">this Self &amp;&amp;</td>          <td class="paramname"><span class="paramname"><em>self</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definición en la línea <a class="el" href="_unique_ptr_8hpp_source.html#l00085">85</a> del archivo <a class="el" href="_unique_ptr_8hpp_source.html">UniquePtr.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a71a5c476540b6a1ff33c79ce6bd89203" name="a71a5c476540b6a1ff33c79ce6bd89203"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a71a5c476540b6a1ff33c79ce6bd89203">&#9670;&#160;</a></span>operator-&gt;()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+<div class="memtemplate">
+template&lt;typename Self &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">auto &amp;&amp; <a class="el" href="class_o_s_k_1_1_unique_ptr.html">OSK::UniquePtr</a>&lt; T &gt;::operator-&gt; </td>
+          <td>(</td>
+          <td class="paramtype">this Self &amp;&amp;</td>          <td class="paramname"><span class="paramname"><em>self</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definición en la línea <a class="el" href="_unique_ptr_8hpp_source.html#l00089">89</a> del archivo <a class="el" href="_unique_ptr_8hpp_source.html">UniquePtr.hpp</a>.</p>
+
+</div>
+</div>
+<a id="af52b21e65bcc991b4ff567fc1715b7b8" name="af52b21e65bcc991b4ff567fc1715b7b8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af52b21e65bcc991b4ff567fc1715b7b8">&#9670;&#160;</a></span>operator=() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="class_o_s_k_1_1_unique_ptr.html">UniquePtr</a> &amp; <a class="el" href="class_o_s_k_1_1_unique_ptr.html">OSK::UniquePtr</a>&lt; T &gt;::operator= </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="x64-windows-static_2x64-windows-static_2include_2zconf_8h.html#a2c212835823e3c54a8ab6d95c652660e">const</a> <a class="el" href="class_o_s_k_1_1_unique_ptr.html">UniquePtr</a>&lt; T &gt; &amp;</td>          <td class="paramname"><span class="paramname"></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">delete</span><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a38e7b9325d9020dd2a220d0c296ec070" name="a38e7b9325d9020dd2a220d0c296ec070"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a38e7b9325d9020dd2a220d0c296ec070">&#9670;&#160;</a></span>operator=() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="class_o_s_k_1_1_unique_ptr.html">UniquePtr</a> &amp; <a class="el" href="class_o_s_k_1_1_unique_ptr.html">OSK::UniquePtr</a>&lt; T &gt;::operator= </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="class_o_s_k_1_1_unique_ptr.html">UniquePtr</a>&lt; T &gt; &amp;&amp;</td>          <td class="paramname"><span class="paramname"><em>other</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Este puntero será dueño del puntero de other. </p>
+<dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">other</td><td>Otro puntero. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section post"><dt>Postcondición</dt><dd><code>other</code> queda vacío. </dd></dl>
+
+<p class="definition">Definición en la línea <a class="el" href="_unique_ptr_8hpp_source.html#l00057">57</a> del archivo <a class="el" href="_unique_ptr_8hpp_source.html">UniquePtr.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a7e8d8e72b10876fcf01584970a426360" name="a7e8d8e72b10876fcf01584970a426360"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7e8d8e72b10876fcf01584970a426360">&#9670;&#160;</a></span>operator==()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">constexpr bool <a class="el" href="class_o_s_k_1_1_unique_ptr.html">OSK::UniquePtr</a>&lt; T &gt;::operator== </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="x64-windows-static_2x64-windows-static_2include_2zconf_8h.html#a2c212835823e3c54a8ab6d95c652660e">const</a> <a class="el" href="class_o_s_k_1_1_unique_ptr.html">UniquePtr</a>&lt; T &gt; &amp;</td>          <td class="paramname"><span class="paramname"></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">constexpr</span><span class="mlabel">default</span><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="abf2f6b6e820f745e03c87b6695c21b0a" name="abf2f6b6e820f745e03c87b6695c21b0a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abf2f6b6e820f745e03c87b6695c21b0a">&#9670;&#160;</a></span>Release()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">T * <a class="el" href="class_o_s_k_1_1_unique_ptr.html">OSK::UniquePtr</a>&lt; T &gt;::Release </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Devuelve el puntero, y después vacía el <a class="el" href="class_o_s_k_1_1_unique_ptr.html" title="Estructura que es dueña de un objeto almacenado en heap. Al destruirse el UniquePtr,...">UniquePtr</a>. </p>
+<dl class="section return"><dt>Devuelve</dt><dd>Puntero que poseía. </dd></dl>
+<dl class="section post"><dt>Postcondición</dt><dd>El puntero almacenado pasa a ser nulo. </dd></dl>
+
+<p class="definition">Definición en la línea <a class="el" href="_unique_ptr_8hpp_source.html#l00067">67</a> del archivo <a class="el" href="_unique_ptr_8hpp_source.html">UniquePtr.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a3c6725a56406ebbce68e3eac61ac14b2" name="a3c6725a56406ebbce68e3eac61ac14b2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3c6725a56406ebbce68e3eac61ac14b2">&#9670;&#160;</a></span>Swap()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="x64-windows-static_2x64-windows-static_2include_2libpng16_2png_8h.html#a05f08be336491be77cd4dfa98f747c69">void</a> <a class="el" href="class_o_s_k_1_1_unique_ptr.html">OSK::UniquePtr</a>&lt; T &gt;::Swap </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="class_o_s_k_1_1_unique_ptr.html">UniquePtr</a>&lt; T &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>other</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Intercambia el objeto de este <a class="el" href="class_o_s_k_1_1_unique_ptr.html" title="Estructura que es dueña de un objeto almacenado en heap. Al destruirse el UniquePtr,...">UniquePtr</a> por el objeto del <a class="el" href="class_o_s_k_1_1_unique_ptr.html" title="Estructura que es dueña de un objeto almacenado en heap. Al destruirse el UniquePtr,...">UniquePtr</a> <code>other</code>. </p>
+<dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">other</td><td>Otro <a class="el" href="class_o_s_k_1_1_unique_ptr.html" title="Estructura que es dueña de un objeto almacenado en heap. Al destruirse el UniquePtr,...">UniquePtr</a>, con el que se va a intercambiar el objeto. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section post"><dt>Postcondición</dt><dd>Este <a class="el" href="class_o_s_k_1_1_unique_ptr.html" title="Estructura que es dueña de un objeto almacenado en heap. Al destruirse el UniquePtr,...">UniquePtr</a> almacena (y es dueño) del objeto que antes tenía <code>other</code>. </dd>
+<dd>
+El <a class="el" href="class_o_s_k_1_1_unique_ptr.html" title="Estructura que es dueña de un objeto almacenado en heap. Al destruirse el UniquePtr,...">UniquePtr</a> <code>other</code> almacena (y es dueño) del objeto que antes tenía este <a class="el" href="class_o_s_k_1_1_unique_ptr.html" title="Estructura que es dueña de un objeto almacenado en heap. Al destruirse el UniquePtr,...">UniquePtr</a>. </dd></dl>
+
+<p class="definition">Definición en la línea <a class="el" href="_unique_ptr_8hpp_source.html#l00111">111</a> del archivo <a class="el" href="_unique_ptr_8hpp_source.html">UniquePtr.hpp</a>.</p>
+
+</div>
+</div>
+<hr/>La documentación de esta clase está generada del siguiente archivo:<ul>
+<li>Source/<a class="el" href="_unique_ptr_8hpp_source.html">UniquePtr.hpp</a></li>
+</ul>
+</div><!-- contents -->
+</div><!-- doc-content -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="namespace_o_s_k.html">OSK</a></li><li class="navelem"><a class="el" href="class_o_s_k_1_1_unique_ptr.html">UniquePtr</a></li>
+    <li class="footer">Generado el Lunes, 29 de enero de 2024 17:19:09 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.10.0 </li>
+  </ul>
+</div>
+</body>
+</html>

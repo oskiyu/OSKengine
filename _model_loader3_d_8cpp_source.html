@@ -1,0 +1,257 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="es">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.10.0"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>OSKengine: Archivo de código fuente Source/ModelLoader3D.cpp</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">OSKengine<span id="projectnumber">&#160;Indev</span>
+   </div>
+   <div id="projectbrief">Motor de videojuegos.</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generado por Doxygen 1.10.0 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() {
+  initMenu('',true,false,'search.php','Buscar');
+  $(function() { init_search(); });
+});
+/* @license-end */
+</script>
+<div id="main-nav"></div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() { codefold.init(0); });
+/* @license-end */
+</script>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function(){initNavTree('_model_loader3_d_8cpp_source.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Cargando...</div>
+<div class="SRStatus" id="Searching">Buscando...</div>
+<div class="SRStatus" id="NoMatches">Nada coincide</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">ModelLoader3D.cpp</div></div>
+</div><!--header-->
+<div class="contents">
+<a href="_model_loader3_d_8cpp.html">Ir a la documentación de este archivo.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#include &quot;<a class="code" href="_model_loader3_d_8h.html">ModelLoader3D.h</a>&quot;</span></div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span> </div>
+<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="preprocessor">#include &quot;<a class="code" href="_model3_d_8h.html">Model3D.h</a>&quot;</span></div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &quot;<a class="code" href="_dynamic_array_8hpp.html">DynamicArray.hpp</a>&quot;</span></div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &quot;<a class="code" href="_vertex_8h.html">Vertex.h</a>&quot;</span></div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &quot;<a class="code" href="_o_s_kengine_8h.html">OSKengine.h</a>&quot;</span></div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="preprocessor">#include &quot;<a class="code" href="_i_renderer_8h.html">IRenderer.h</a>&quot;</span></div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="preprocessor">#include &quot;<a class="code" href="_gpu_buffer_8h.html">GpuBuffer.h</a>&quot;</span></div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="preprocessor">#include &quot;<a class="code" href="_i_gpu_memory_allocator_8h.html">IGpuMemoryAllocator.h</a>&quot;</span></div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="preprocessor">#include &quot;<a class="code" href="_file_i_o_8h.html">FileIO.h</a>&quot;</span></div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="preprocessor">#include &quot;<a class="code" href="_mesh3_d_8h.html">Mesh3D.h</a>&quot;</span></div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="preprocessor">#include &quot;<a class="code" href="_format_8h.html">Format.h</a>&quot;</span></div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="preprocessor">#include &quot;<a class="code" href="_gpu_memory_types_8h.html">GpuMemoryTypes.h</a>&quot;</span></div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span><span class="preprocessor">#include &quot;<a class="code" href="_i_gpu_image_8h.html">IGpuImage.h</a>&quot;</span></div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span><span class="preprocessor">#include &quot;<a class="code" href="_gpu_image_layout_8h.html">GpuImageLayout.h</a>&quot;</span></div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span><span class="preprocessor">#include &quot;<a class="code" href="_owned_ptr_8h.html">OwnedPtr.h</a>&quot;</span></div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span><span class="preprocessor">#include &quot;<a class="code" href="_gpu_image_usage_8h.html">GpuImageUsage.h</a>&quot;</span></div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span><span class="preprocessor">#include &quot;<a class="code" href="_gpu_image_dimensions_8h.html">GpuImageDimensions.h</a>&quot;</span></div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span><span class="preprocessor">#include &quot;<a class="code" href="_color_8hpp.html">Color.hpp</a>&quot;</span></div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span><span class="preprocessor">#include &quot;<a class="code" href="_vertex3_d_8h.html">Vertex3D.h</a>&quot;</span></div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span><span class="preprocessor">#include &quot;<a class="code" href="_model_component3_d_8h.html">ModelComponent3D.h</a>&quot;</span></div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span><span class="preprocessor">#include &quot;<a class="code" href="_texture_8h.html">Texture.h</a>&quot;</span></div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span> </div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span><span class="preprocessor">#include &quot;<a class="code" href="_invalid_description_file_exception_8h.html">InvalidDescriptionFileException.h</a>&quot;</span></div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span> </div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno"><a class="line" href="_model_loader3_d_8cpp.html#abd75661fe7969e19439052a5f69ba5d1">   26</a></span><span class="preprocessor">#define GLM_ENABLE_EXPERIMENTAL</span></div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span><span class="preprocessor">#include &lt;glm/gtx/matrix_decompose.hpp&gt;</span></div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span><span class="preprocessor">#include &lt;glm/gtc/type_ptr.hpp&gt;</span></div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span><span class="preprocessor">#include &lt;json.hpp&gt;</span></div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span> </div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno"><a class="line" href="_model_loader3_d_8cpp.html#ac203b64c0edef3702d707aed38ab024a">   31</a></span><span class="preprocessor">#define TINYGLTF_IMPLEMENTATION</span></div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno"><a class="line" href="_model_loader3_d_8cpp.html#a18372412ad2fc3ce1e3240b3cf0efe78">   32</a></span><span class="preprocessor">#define STB_IMAGE_IMPLEMENTATION</span></div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno"><a class="line" href="_model_loader3_d_8cpp.html#ab85d274e208f7c3760dee26d2ab13eb8">   33</a></span><span class="preprocessor">#define TINYGLTF_NO_STB_IMAGE_WRITE</span></div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span><span class="preprocessor">#include &lt;tiny_gltf.h&gt;</span></div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span><span class="preprocessor">#undef TINYGLTF_IMPLEMENTATION</span></div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span><span class="preprocessor">#undef STB_IMAGE_IMPLEMENTATION</span></div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span><span class="preprocessor">#undef TINYGLTF_NO_STB_IMAGE_WRITE</span></div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span> </div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span><span class="preprocessor">#include &quot;<a class="code" href="_static_mesh_loader_8h.html">StaticMeshLoader.h</a>&quot;</span></div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span><span class="preprocessor">#include &quot;<a class="code" href="_anim_mesh_loader_8h.html">AnimMeshLoader.h</a>&quot;</span></div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span> </div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span><span class="keyword">using namespace </span><a class="code hl_namespace" href="namespace_o_s_k.html">OSK</a>;</div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span><span class="keyword">using namespace </span><a class="code hl_namespace" href="namespace_o_s_k_1_1_a_s_s_e_t_s.html">OSK::ASSETS</a>;</div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span><span class="keyword">using namespace </span><a class="code hl_namespace" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html">OSK::GRAPHICS</a>;</div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span> </div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span> </div>
+<div class="foldopen" id="foldopen00047" data-start="{" data-end="}">
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_model_loader3_d.html#a2a4ea363dfb9d4a21b60501fdb0995ec">   47</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_model_loader3_d.html#a2a4ea363dfb9d4a21b60501fdb0995ec">ModelLoader3D::Load</a>(<span class="keyword">const</span> std::string&amp; assetFilePath, <a class="code hl_class" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_model3_d.html">Model3D</a>* asset) {</div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>    <span class="keyword">const</span> nlohmann::json assetInfo = <a class="code hl_function" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_i_asset_loader.html#a502866f35d2aaa0f412021ab855b8cbe">ValidateDescriptionFile</a>(assetFilePath);</div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span> </div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>    std::string modelPath = assetInfo[<span class="stringliteral">&quot;raw_asset_path&quot;</span>];</div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>    asset-&gt;<a class="code hl_function" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_i_asset.html#af0bbd1c59b2cd81667b63cb6d015c11c">SetName</a>(assetInfo[<span class="stringliteral">&quot;name&quot;</span>]);</div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span> </div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>    <a class="code hl_define" href="_assert_8h.html#a927d7efae46f019e805b046e952af182">OSK_ASSERT</a>(assetInfo.contains(<span class="stringliteral">&quot;renderpass_type&quot;</span>), <a class="code hl_class" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_invalid_description_file_exception.html">InvalidDescriptionFileException</a>(<span class="stringliteral">&quot;No se encuentra renderpass_type&quot;</span>, assetFilePath));</div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span> </div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>    asset-&gt;<a class="code hl_function" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_model3_d.html#aadf07fd5f22b9ad21b5a1e66a19cabac">SetRenderPassType</a>(assetInfo[<span class="stringliteral">&quot;renderpass_type&quot;</span>]);</div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span> </div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>    <span class="keyword">const</span> <span class="keywordtype">bool</span> isAnimated = assetInfo.contains(<span class="stringliteral">&quot;animated&quot;</span>);</div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span> </div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>    <span class="keyword">auto</span> modelTransform = <a class="code hl_typedef" href="group__core__matrix.html#gac54cbc572f1349a255fe476ca6a42a7b">glm::mat4</a>(1.0f);</div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span> </div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>    modelTransform = <a class="code hl_function" href="group__ext__matrix__transform.html#gaae2f8b2080622b24b85e1096748599b6">glm::scale</a>(modelTransform, <a class="code hl_struct" href="structglm_1_1vec.html">glm::vec3</a>(assetInfo[<span class="stringliteral">&quot;scale&quot;</span>]));</div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span> </div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>    <span class="keywordflow">if</span> (assetInfo.contains(<span class="stringliteral">&quot;rotation_offset&quot;</span>)) {</div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>        modelTransform = <a class="code hl_function" href="group__ext__matrix__transform.html#ga42613eb0c7deb5f5188fc159df6c8950">glm::rotate</a>(modelTransform, <a class="code hl_function" href="namespaceglm.html#a00577ee752441c79d5bb11d7c29e1627">glm::radians</a>((<span class="keywordtype">float</span>)assetInfo[<span class="stringliteral">&quot;rotation_offset&quot;</span>][0]), { 1.0f, 0.0f, 0.0f});</div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>        modelTransform = <a class="code hl_function" href="group__ext__matrix__transform.html#ga42613eb0c7deb5f5188fc159df6c8950">glm::rotate</a>(modelTransform, <a class="code hl_function" href="namespaceglm.html#a00577ee752441c79d5bb11d7c29e1627">glm::radians</a>((<span class="keywordtype">float</span>)assetInfo[<span class="stringliteral">&quot;rotation_offset&quot;</span>][1]), { 0.0f, 1.0f, 0.0f });</div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>        modelTransform = <a class="code hl_function" href="group__ext__matrix__transform.html#ga42613eb0c7deb5f5188fc159df6c8950">glm::rotate</a>(modelTransform, <a class="code hl_function" href="namespaceglm.html#a00577ee752441c79d5bb11d7c29e1627">glm::radians</a>((<span class="keywordtype">float</span>)assetInfo[<span class="stringliteral">&quot;rotation_offset&quot;</span>][2]), { 0.0f, 0.0f, 1.0f });</div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>    }</div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span> </div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>    <span class="comment">/*for (const auto&amp; lodInfo : assetInfo[&quot;lods&quot;]) {</span></div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span><span class="comment">        const std::string_view path = lodInfo[&quot;path&quot;];</span></div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span><span class="comment"></span> </div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span><span class="comment"></span> </div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span><span class="comment">    }*/</span></div>
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span> </div>
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>    <span class="keyword">const</span> <a class="code hl_typedef" href="_o_s_kmacros_8h.html#a5784d24fcb00afb78eb7b1e1a3466ac4">USize64</a> prevNumMeshes = asset-&gt;<a class="code hl_function" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_model3_d.html#a480cf3e35730e8fb88c1e40cef76fdea">GetMeshes</a>().GetSize();</div>
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span> </div>
+<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span>    <span class="keywordflow">if</span> (isAnimated) {</div>
+<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span>        <a class="code hl_class" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_anim_mesh_loader.html">AnimMeshLoader</a> loader{};</div>
+<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span>        loader.<a class="code hl_function" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_i_gltf_loader.html#aae120a2fb01532cc6915b474fdb5550b">Load</a>(modelPath, modelTransform);</div>
+<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span>        loader.SetupModel(asset);</div>
+<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span>    }</div>
+<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span>    <span class="keywordflow">else</span> {</div>
+<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span>        <a class="code hl_class" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_static_mesh_loader.html">StaticMeshLoader</a> loader{};</div>
+<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span>        loader.<a class="code hl_function" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_i_gltf_loader.html#aae120a2fb01532cc6915b474fdb5550b">Load</a>(modelPath, modelTransform);</div>
+<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span>        loader.SetupModel(asset);</div>
+<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span>    }</div>
+<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span> </div>
+<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span>    <span class="keyword">const</span> <a class="code hl_typedef" href="_o_s_kmacros_8h.html#a5784d24fcb00afb78eb7b1e1a3466ac4">USize64</a> newNumMeshes = asset-&gt;<a class="code hl_function" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_model3_d.html#a480cf3e35730e8fb88c1e40cef76fdea">GetMeshes</a>().GetSize();</div>
+<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span> </div>
+<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span>    asset-&gt;<a class="code hl_function" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_model3_d.html#ad5b41d72fa9710d8585eb330e7a0f75f">_RegisterLod</a>(<a class="code hl_struct" href="struct_o_s_k_1_1_a_s_s_e_t_s_1_1_model3_d_1_1_lod.html">Model3D::Lod</a>{ .<a class="code hl_variable" href="struct_o_s_k_1_1_a_s_s_e_t_s_1_1_model3_d_1_1_lod.html#afb9256dbbe86ec1cc228f2e505dd1bb3">firstMeshId</a> = prevNumMeshes, .meshesCount = newNumMeshes - prevNumMeshes });</div>
+<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span> </div>
+<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span>    asset-&gt;<a class="code hl_function" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_model3_d.html#a2e5b0a1ee95f8bfcd7e4bec2ad4ae00b">_SetId</a>(m_nextModelId);</div>
+<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span>    m_nextModelId++;</div>
+<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span>}</div>
+</div>
+<div class="ttc" id="a_anim_mesh_loader_8h_html"><div class="ttname"><a href="_anim_mesh_loader_8h.html">AnimMeshLoader.h</a></div></div>
+<div class="ttc" id="a_assert_8h_html_a927d7efae46f019e805b046e952af182"><div class="ttname"><a href="_assert_8h.html#a927d7efae46f019e805b046e952af182">OSK_ASSERT</a></div><div class="ttdeci">#define OSK_ASSERT(condition, exception)</div><div class="ttdoc">Comrpueba si una condición se cumple. En caso de no cumplirse, lanza la excepción indicada,...</div><div class="ttdef"><b>Definition</b> <a href="_assert_8h_source.html#l00041">Assert.h:41</a></div></div>
+<div class="ttc" id="a_color_8hpp_html"><div class="ttname"><a href="_color_8hpp.html">Color.hpp</a></div></div>
+<div class="ttc" id="a_dynamic_array_8hpp_html"><div class="ttname"><a href="_dynamic_array_8hpp.html">DynamicArray.hpp</a></div></div>
+<div class="ttc" id="a_file_i_o_8h_html"><div class="ttname"><a href="_file_i_o_8h.html">FileIO.h</a></div></div>
+<div class="ttc" id="a_format_8h_html"><div class="ttname"><a href="_format_8h.html">Format.h</a></div></div>
+<div class="ttc" id="a_gpu_buffer_8h_html"><div class="ttname"><a href="_gpu_buffer_8h.html">GpuBuffer.h</a></div></div>
+<div class="ttc" id="a_gpu_image_dimensions_8h_html"><div class="ttname"><a href="_gpu_image_dimensions_8h.html">GpuImageDimensions.h</a></div></div>
+<div class="ttc" id="a_gpu_image_layout_8h_html"><div class="ttname"><a href="_gpu_image_layout_8h.html">GpuImageLayout.h</a></div></div>
+<div class="ttc" id="a_gpu_image_usage_8h_html"><div class="ttname"><a href="_gpu_image_usage_8h.html">GpuImageUsage.h</a></div></div>
+<div class="ttc" id="a_gpu_memory_types_8h_html"><div class="ttname"><a href="_gpu_memory_types_8h.html">GpuMemoryTypes.h</a></div></div>
+<div class="ttc" id="a_i_gpu_image_8h_html"><div class="ttname"><a href="_i_gpu_image_8h.html">IGpuImage.h</a></div></div>
+<div class="ttc" id="a_i_gpu_memory_allocator_8h_html"><div class="ttname"><a href="_i_gpu_memory_allocator_8h.html">IGpuMemoryAllocator.h</a></div></div>
+<div class="ttc" id="a_i_renderer_8h_html"><div class="ttname"><a href="_i_renderer_8h.html">IRenderer.h</a></div></div>
+<div class="ttc" id="a_invalid_description_file_exception_8h_html"><div class="ttname"><a href="_invalid_description_file_exception_8h.html">InvalidDescriptionFileException.h</a></div></div>
+<div class="ttc" id="a_mesh3_d_8h_html"><div class="ttname"><a href="_mesh3_d_8h.html">Mesh3D.h</a></div></div>
+<div class="ttc" id="a_model3_d_8h_html"><div class="ttname"><a href="_model3_d_8h.html">Model3D.h</a></div></div>
+<div class="ttc" id="a_model_component3_d_8h_html"><div class="ttname"><a href="_model_component3_d_8h.html">ModelComponent3D.h</a></div></div>
+<div class="ttc" id="a_model_loader3_d_8h_html"><div class="ttname"><a href="_model_loader3_d_8h.html">ModelLoader3D.h</a></div></div>
+<div class="ttc" id="a_o_s_kengine_8h_html"><div class="ttname"><a href="_o_s_kengine_8h.html">OSKengine.h</a></div></div>
+<div class="ttc" id="a_o_s_kmacros_8h_html_a5784d24fcb00afb78eb7b1e1a3466ac4"><div class="ttname"><a href="_o_s_kmacros_8h.html#a5784d24fcb00afb78eb7b1e1a3466ac4">USize64</a></div><div class="ttdeci">uint64_t USize64</div><div class="ttdef"><b>Definition</b> <a href="_o_s_kmacros_8h_source.html#l00044">OSKmacros.h:44</a></div></div>
+<div class="ttc" id="a_owned_ptr_8h_html"><div class="ttname"><a href="_owned_ptr_8h.html">OwnedPtr.h</a></div></div>
+<div class="ttc" id="a_static_mesh_loader_8h_html"><div class="ttname"><a href="_static_mesh_loader_8h.html">StaticMeshLoader.h</a></div></div>
+<div class="ttc" id="a_texture_8h_html"><div class="ttname"><a href="_texture_8h.html">Texture.h</a></div></div>
+<div class="ttc" id="a_vertex3_d_8h_html"><div class="ttname"><a href="_vertex3_d_8h.html">Vertex3D.h</a></div></div>
+<div class="ttc" id="a_vertex_8h_html"><div class="ttname"><a href="_vertex_8h.html">Vertex.h</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_a_s_s_e_t_s_1_1_anim_mesh_loader_html"><div class="ttname"><a href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_anim_mesh_loader.html">OSK::ASSETS::AnimMeshLoader</a></div><div class="ttdoc">Clase auxiliar que permite la carga de modelos 3D animados junto a sus animaciones.</div><div class="ttdef"><b>Definition</b> <a href="_anim_mesh_loader_8h_source.html#l00015">AnimMeshLoader.h:15</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_a_s_s_e_t_s_1_1_i_asset_html_af0bbd1c59b2cd81667b63cb6d015c11c"><div class="ttname"><a href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_i_asset.html#af0bbd1c59b2cd81667b63cb6d015c11c">OSK::ASSETS::IAsset::SetName</a></div><div class="ttdeci">void SetName(const std::string &amp;name)</div><div class="ttdoc">Establece el nombre de la instancia de este asset.</div><div class="ttdef"><b>Definition</b> <a href="_i_asset_8cpp_source.html#l00010">IAsset.cpp:10</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_a_s_s_e_t_s_1_1_i_asset_loader_html_a502866f35d2aaa0f412021ab855b8cbe"><div class="ttname"><a href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_i_asset_loader.html#a502866f35d2aaa0f412021ab855b8cbe">OSK::ASSETS::IAssetLoader::ValidateDescriptionFile</a></div><div class="ttdeci">nlohmann::json ValidateDescriptionFile(std::string_view filePath) const</div><div class="ttdoc">Valida el contenido del archivo de descripción.</div><div class="ttdef"><b>Definition</b> <a href="_i_asset_loader_8cpp_source.html#l00014">IAssetLoader.cpp:14</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_a_s_s_e_t_s_1_1_i_gltf_loader_html_aae120a2fb01532cc6915b474fdb5550b"><div class="ttname"><a href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_i_gltf_loader.html#aae120a2fb01532cc6915b474fdb5550b">OSK::ASSETS::IGltfLoader::Load</a></div><div class="ttdeci">void Load(const std::string &amp;rawAssetPath, const glm::mat4 &amp;modelTransform)</div><div class="ttdoc">Carga el modelo 3D.</div><div class="ttdef"><b>Definition</b> <a href="_i_gltf_loader_8cpp_source.html#l00026">IGltfLoader.cpp:26</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_a_s_s_e_t_s_1_1_invalid_description_file_exception_html"><div class="ttname"><a href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_invalid_description_file_exception.html">OSK::ASSETS::InvalidDescriptionFileException</a></div><div class="ttdoc">Excepción que se lanza cuando se trata de cargar un archivo de descripción que no contiene todos los ...</div><div class="ttdef"><b>Definition</b> <a href="_invalid_description_file_exception_8h_source.html#l00010">InvalidDescriptionFileException.h:10</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_a_s_s_e_t_s_1_1_model3_d_html"><div class="ttname"><a href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_model3_d.html">OSK::ASSETS::Model3D</a></div><div class="ttdoc">Un modelo 3D, para el renderizado 3D. Está compuesto por una serie de meshes 3D.</div><div class="ttdef"><b>Definition</b> <a href="_model3_d_8h_source.html#l00091">Model3D.h:91</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_a_s_s_e_t_s_1_1_model3_d_html_a2e5b0a1ee95f8bfcd7e4bec2ad4ae00b"><div class="ttname"><a href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_model3_d.html#a2e5b0a1ee95f8bfcd7e4bec2ad4ae00b">OSK::ASSETS::Model3D::_SetId</a></div><div class="ttdeci">void _SetId(UIndex64 id)</div><div class="ttdef"><b>Definition</b> <a href="_model3_d_8cpp_source.html#l00033">Model3D.cpp:33</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_a_s_s_e_t_s_1_1_model3_d_html_a480cf3e35730e8fb88c1e40cef76fdea"><div class="ttname"><a href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_model3_d.html#a480cf3e35730e8fb88c1e40cef76fdea">OSK::ASSETS::Model3D::GetMeshes</a></div><div class="ttdeci">const DynamicArray&lt; GRAPHICS::Mesh3D &gt; &amp; GetMeshes() const</div><div class="ttdef"><b>Definition</b> <a href="_model3_d_8cpp_source.html#l00041">Model3D.cpp:41</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_a_s_s_e_t_s_1_1_model3_d_html_aadf07fd5f22b9ad21b5a1e66a19cabac"><div class="ttname"><a href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_model3_d.html#aadf07fd5f22b9ad21b5a1e66a19cabac">OSK::ASSETS::Model3D::SetRenderPassType</a></div><div class="ttdeci">void SetRenderPassType(const std::string &amp;renderPassType)</div><div class="ttdoc">Establece el tipo de renderepass para el que se perparó el modelo.</div><div class="ttdef"><b>Definition</b> <a href="_model3_d_8cpp_source.html#l00053">Model3D.cpp:53</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_a_s_s_e_t_s_1_1_model3_d_html_ad5b41d72fa9710d8585eb330e7a0f75f"><div class="ttname"><a href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_model3_d.html#ad5b41d72fa9710d8585eb330e7a0f75f">OSK::ASSETS::Model3D::_RegisterLod</a></div><div class="ttdeci">void _RegisterLod(const Lod &amp;lod)</div><div class="ttdoc">Registra un LOD.</div><div class="ttdef"><b>Definition</b> <a href="_model3_d_8cpp_source.html#l00028">Model3D.cpp:28</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_a_s_s_e_t_s_1_1_model_loader3_d_html_a2a4ea363dfb9d4a21b60501fdb0995ec"><div class="ttname"><a href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_model_loader3_d.html#a2a4ea363dfb9d4a21b60501fdb0995ec">OSK::ASSETS::ModelLoader3D::Load</a></div><div class="ttdeci">void Load(const std::string &amp;assetFilePath, Model3D *asset) override</div><div class="ttdef"><b>Definition</b> <a href="#l00047">ModelLoader3D.cpp:47</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_a_s_s_e_t_s_1_1_static_mesh_loader_html"><div class="ttname"><a href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_static_mesh_loader.html">OSK::ASSETS::StaticMeshLoader</a></div><div class="ttdoc">Clase auxiliar que permite la carga de modelos 3D estáticos.</div><div class="ttdef"><b>Definition</b> <a href="_static_mesh_loader_8h_source.html#l00011">StaticMeshLoader.h:11</a></div></div>
+<div class="ttc" id="agroup__core__matrix_html_gac54cbc572f1349a255fe476ca6a42a7b"><div class="ttname"><a href="group__core__matrix.html#gac54cbc572f1349a255fe476ca6a42a7b">glm::mat4</a></div><div class="ttdeci">mat&lt; 4, 4, float, defaultp &gt; mat4</div><div class="ttdef"><b>Definition</b> <a href="x64-windows-static_2x64-windows-static_2include_2glm_2ext_2matrix__float4x4_8hpp_source.html#l00020">matrix_float4x4.hpp:20</a></div></div>
+<div class="ttc" id="agroup__ext__matrix__transform_html_ga42613eb0c7deb5f5188fc159df6c8950"><div class="ttname"><a href="group__ext__matrix__transform.html#ga42613eb0c7deb5f5188fc159df6c8950">glm::rotate</a></div><div class="ttdeci">GLM_FUNC_DECL mat&lt; 4, 4, T, Q &gt; rotate(mat&lt; 4, 4, T, Q &gt; const &amp;m, T angle, vec&lt; 3, T, Q &gt; const &amp;axis)</div><div class="ttdef"><b>Definition</b> <a href="x64-windows-static_2x64-windows-static_2include_2glm_2ext_2matrix__transform_8inl_source.html#l00018">matrix_transform.inl:18</a></div></div>
+<div class="ttc" id="agroup__ext__matrix__transform_html_gaae2f8b2080622b24b85e1096748599b6"><div class="ttname"><a href="group__ext__matrix__transform.html#gaae2f8b2080622b24b85e1096748599b6">glm::scale</a></div><div class="ttdeci">GLM_FUNC_DECL mat&lt; 4, 4, T, Q &gt; scale(mat&lt; 4, 4, T, Q &gt; const &amp;m, vec&lt; 3, T, Q &gt; const &amp;v)</div><div class="ttdef"><b>Definition</b> <a href="x64-windows-static_2x64-windows-static_2include_2glm_2ext_2matrix__transform_8inl_source.html#l00078">matrix_transform.inl:78</a></div></div>
+<div class="ttc" id="anamespace_o_s_k_1_1_a_s_s_e_t_s_html"><div class="ttname"><a href="namespace_o_s_k_1_1_a_s_s_e_t_s.html">OSK::ASSETS</a></div><div class="ttdef"><b>Definition</b> <a href="_anim_mesh_loader_8h_source.html#l00009">AnimMeshLoader.h:9</a></div></div>
+<div class="ttc" id="anamespace_o_s_k_1_1_g_r_a_p_h_i_c_s_html"><div class="ttname"><a href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html">OSK::GRAPHICS</a></div><div class="ttdef"><b>Definition</b> <a href="_acceleration_structures_exceptions_8h_source.html#l00005">AccelerationStructuresExceptions.h:5</a></div></div>
+<div class="ttc" id="anamespace_o_s_k_html"><div class="ttname"><a href="namespace_o_s_k.html">OSK</a></div><div class="ttdef"><b>Definition</b> <a href="_acceleration_structures_exceptions_8h_source.html#l00005">AccelerationStructuresExceptions.h:5</a></div></div>
+<div class="ttc" id="anamespaceglm_html_a00577ee752441c79d5bb11d7c29e1627"><div class="ttname"><a href="namespaceglm.html#a00577ee752441c79d5bb11d7c29e1627">glm::radians</a></div><div class="ttdeci">GLM_FUNC_QUALIFIER GLM_CONSTEXPR genType radians(genType degrees)</div><div class="ttdef"><b>Definition</b> <a href="x64-windows-static_2x64-windows-static_2include_2glm_2detail_2func__trigonometric_8inl_source.html#l00009">func_trigonometric.inl:9</a></div></div>
+<div class="ttc" id="astruct_o_s_k_1_1_a_s_s_e_t_s_1_1_model3_d_1_1_lod_html"><div class="ttname"><a href="struct_o_s_k_1_1_a_s_s_e_t_s_1_1_model3_d_1_1_lod.html">OSK::ASSETS::Model3D::Lod</a></div><div class="ttdoc">Indica los meshes pertenecientes al modelo en un nivel de detalle en concreto.</div><div class="ttdef"><b>Definition</b> <a href="_model3_d_8h_source.html#l00097">Model3D.h:97</a></div></div>
+<div class="ttc" id="astruct_o_s_k_1_1_a_s_s_e_t_s_1_1_model3_d_1_1_lod_html_afb9256dbbe86ec1cc228f2e505dd1bb3"><div class="ttname"><a href="struct_o_s_k_1_1_a_s_s_e_t_s_1_1_model3_d_1_1_lod.html#afb9256dbbe86ec1cc228f2e505dd1bb3">OSK::ASSETS::Model3D::Lod::firstMeshId</a></div><div class="ttdeci">UIndex64 firstMeshId</div><div class="ttdoc">Índice del primer mesh del LOD.</div><div class="ttdef"><b>Definition</b> <a href="_model3_d_8h_source.html#l00103">Model3D.h:103</a></div></div>
+<div class="ttc" id="astructglm_1_1vec_html"><div class="ttname"><a href="structglm_1_1vec.html">glm::vec</a></div><div class="ttdef"><b>Definition</b> <a href="x64-windows-static_2x64-windows-static_2include_2glm_2detail_2qualifier_8hpp_source.html#l00035">qualifier.hpp:35</a></div></div>
+</div><!-- fragment --></div><!-- contents -->
+</div><!-- doc-content -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="dir_74389ed8173ad57b461b9d623a1f3867.html">Source</a></li><li class="navelem"><a class="el" href="_model_loader3_d_8cpp.html">ModelLoader3D.cpp</a></li>
+    <li class="footer">Generado el Lunes, 29 de enero de 2024 17:18:31 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.10.0 </li>
+  </ul>
+</div>
+</body>
+</html>

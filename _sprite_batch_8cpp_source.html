@@ -1,0 +1,252 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="es">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.10.0"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>OSKengine: Archivo de código fuente Source/SpriteBatch.cpp</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">OSKengine<span id="projectnumber">&#160;Indev</span>
+   </div>
+   <div id="projectbrief">Motor de videojuegos.</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generado por Doxygen 1.10.0 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() {
+  initMenu('',true,false,'search.php','Buscar');
+  $(function() { init_search(); });
+});
+/* @license-end */
+</script>
+<div id="main-nav"></div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() { codefold.init(0); });
+/* @license-end */
+</script>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function(){initNavTree('_sprite_batch_8cpp_source.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Cargando...</div>
+<div class="SRStatus" id="Searching">Buscando...</div>
+<div class="SRStatus" id="NoMatches">Nada coincide</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">SpriteBatch.cpp</div></div>
+</div><!--header-->
+<div class="contents">
+<a href="_sprite_batch_8cpp.html">Ir a la documentación de este archivo.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#include &quot;<a class="code" href="_sprite_batch_8h.html">SpriteBatch.h</a>&quot;</span></div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span> </div>
+<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="preprocessor">#include &quot;<a class="code" href="_o_s_kengine_8h.html">OSKengine.h</a>&quot;</span></div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &quot;<a class="code" href="_i_renderer_8h.html">IRenderer.h</a>&quot;</span></div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &quot;<a class="code" href="_i_gpu_memory_allocator_8h.html">IGpuMemoryAllocator.h</a>&quot;</span></div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &quot;<a class="code" href="_i_gpu_8h.html">IGpu.h</a>&quot;</span></div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span> </div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="preprocessor">#include &quot;<a class="code" href="_vertex2_d_8h.html">Vertex2D.h</a>&quot;</span></div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="preprocessor">#include &quot;<a class="code" href="_i_command_list_8h.html">ICommandList.h</a>&quot;</span></div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span> </div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="keyword">using namespace </span><a class="code hl_namespace" href="namespace_o_s_k.html">OSK</a>;</div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="keyword">using namespace </span><a class="code hl_namespace" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html">OSK::GRAPHICS</a>;</div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span> </div>
+<div class="foldopen" id="foldopen00014" data-start="{" data-end="}">
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_sprite_batch.html#a8254ba8b5a64a4e62cdcc73f375f1893">   14</a></span><a class="code hl_function" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_sprite_batch.html#a8254ba8b5a64a4e62cdcc73f375f1893">SpriteBatch::SpriteBatch</a>(<a class="code hl_class" href="class_o_s_k_1_1_owned_ptr.html">OwnedPtr&lt;MaterialInstance&gt;</a> materialInstance) : materialInstance(materialInstance.GetPointer()) {</div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span>    <span class="keyword">auto</span>&amp; allocator = *<a class="code hl_function" href="class_o_s_k_1_1_engine.html#a019c5397d042224c134b7fd22c739d00">Engine::GetRenderer</a>()-&gt;<a class="code hl_function" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer.html#a100a7c8d1a62814d11637de0534003b9">GetAllocator</a>();</div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span> </div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>    <span class="keyword">const</span> <a class="code hl_typedef" href="_o_s_kmacros_8h.html#a5784d24fcb00afb78eb7b1e1a3466ac4">USize64</a> vertexBufferSize = <span class="keyword">sizeof</span>(<a class="code hl_struct" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_vertex2_d.html">Vertex2D</a>) * <a class="code hl_variable" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_sprite_batch.html#a140119c24c0595823b72d0198e498595">maxVertices</a>;</div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>    <span class="keyword">const</span> <a class="code hl_typedef" href="_o_s_kmacros_8h.html#a5784d24fcb00afb78eb7b1e1a3466ac4">USize64</a> indexBufferSize = <span class="keyword">sizeof</span>(<a class="code hl_typedef" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#ae5df06fd78ce077c547552654e7d672a">TIndexSize</a>) * <a class="code hl_variable" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_sprite_batch.html#acc9c44da12adfba8f860cf9d9ccec108">maxIndices</a>;</div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span> </div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>    <span class="keywordflow">for</span> (<span class="keyword">auto</span>&amp; buffer : vertexBuffers) {</div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>        buffer = allocator.<a class="code hl_function" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_allocator.html#a116d8b6a0d01eae6d2c75145a27a0e4e">CreateBuffer</a>(vertexBufferSize, 0, <a class="code hl_enumvalue" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#ad8b871b506bab7c4021326a1a10bbc7faa77fcc0c8db7e3e4c3ca370997298c34">GpuBufferUsage::VERTEX_BUFFER</a>, <a class="code hl_enumvalue" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a85a830e82585f3a565d1f097491042cea096f8c31942629a91cc086cbda5f5465">GpuSharedMemoryType::GPU_AND_CPU</a>).GetPointer();</div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>        buffer-&gt;MapMemory();</div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>    }</div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span> </div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>    <span class="keywordflow">for</span> (<span class="keyword">auto</span>&amp; buffer : indexBuffers) {</div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>        buffer = allocator.CreateBuffer(indexBufferSize, 0, <a class="code hl_enumvalue" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#ad8b871b506bab7c4021326a1a10bbc7fa24ba47a6b7ca772e4185e7a7b54d4c90">GpuBufferUsage::INDEX_BUFFER</a>, <a class="code hl_enumvalue" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a85a830e82585f3a565d1f097491042cea096f8c31942629a91cc086cbda5f5465">GpuSharedMemoryType::GPU_AND_CPU</a>).GetPointer();</div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>        buffer-&gt;MapMemory();</div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>    }</div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>}</div>
+</div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span> </div>
+<div class="foldopen" id="foldopen00031" data-start="{" data-end="}">
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_sprite_batch.html#a43b757c8a41aa6fac637a289c2a42bf1">   31</a></span><a class="code hl_function" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_sprite_batch.html#a43b757c8a41aa6fac637a289c2a42bf1">SpriteBatch::~SpriteBatch</a>() {</div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>    <span class="keywordflow">for</span> (<span class="keyword">auto</span>&amp; buffer : vertexBuffers)</div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>        buffer-&gt;Unmap();</div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span> </div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>    <span class="keywordflow">for</span> (<span class="keyword">auto</span>&amp; buffer : indexBuffers)</div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>        buffer-&gt;Unmap();</div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>}</div>
+</div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span> </div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span> </div>
+<div class="foldopen" id="foldopen00040" data-start="{" data-end="}">
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_sprite_batch.html#a611e6902584309df3d761aca65111eac">   40</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_sprite_batch.html#a611e6902584309df3d761aca65111eac">SpriteBatch::Draw</a>(<a class="code hl_class" href="class_o_s_k_1_1_vector2__t.html">Vector2f</a> position, <a class="code hl_class" href="class_o_s_k_1_1_vector2__t.html">Vector2f</a> size, <a class="code hl_class" href="class_o_s_k_1_1_vector4__t.html">Vector4f</a> texCoords) {</div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>    <span class="keyword">const</span> <a class="code hl_typedef" href="_o_s_kmacros_8h.html#af205b9fd0440138e6cac38a9081141df">UIndex32</a> resourceIndex = <a class="code hl_function" href="class_o_s_k_1_1_engine.html#a019c5397d042224c134b7fd22c739d00">Engine::GetRenderer</a>()-&gt;<a class="code hl_function" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer.html#ada20f4392461a0f6e1da27c46018dd0b">GetCurrentResourceIndex</a>();</div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span> </div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>    <span class="keyword">const</span> <a class="code hl_struct" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_vertex2_d.html">Vertex2D</a> newVertices[4] {</div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>        <a class="code hl_struct" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_vertex2_d.html">Vertex2D</a>(position + size * <a class="code hl_typedef" href="namespace_o_s_k.html#a31a299dbb3a3a60d90d16d1a4eca9651">Vector2f</a>(0, 0), { texCoords.<a class="code hl_variable" href="class_o_s_k_1_1_vector4__t.html#a0593b906f5d047bd9ddbda62463ba1bc">x</a>, texCoords.<a class="code hl_variable" href="class_o_s_k_1_1_vector4__t.html#a6b7176a7eb65f006dc0bc8ca35efba37">y</a> }),</div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>        <a class="code hl_struct" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_vertex2_d.html">Vertex2D</a>(position + size * <a class="code hl_typedef" href="namespace_o_s_k.html#a31a299dbb3a3a60d90d16d1a4eca9651">Vector2f</a>(1, 0), { texCoords.<a class="code hl_variable" href="class_o_s_k_1_1_vector4__t.html#a0b2280749f7a332b7b3d4a1390a2d527">Z</a>, texCoords.<a class="code hl_variable" href="class_o_s_k_1_1_vector4__t.html#a6b7176a7eb65f006dc0bc8ca35efba37">y</a> }),</div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>        <a class="code hl_struct" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_vertex2_d.html">Vertex2D</a>(position + size * <a class="code hl_typedef" href="namespace_o_s_k.html#a31a299dbb3a3a60d90d16d1a4eca9651">Vector2f</a>(1, 1), { texCoords.<a class="code hl_variable" href="class_o_s_k_1_1_vector4__t.html#a0b2280749f7a332b7b3d4a1390a2d527">Z</a>, texCoords.<a class="code hl_variable" href="class_o_s_k_1_1_vector4__t.html#a158c28407c22448e5e80370418f99fa1">W</a> }),</div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>        <a class="code hl_struct" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_vertex2_d.html">Vertex2D</a>(position + size * <a class="code hl_typedef" href="namespace_o_s_k.html#a31a299dbb3a3a60d90d16d1a4eca9651">Vector2f</a>(0, 1), { texCoords.<a class="code hl_variable" href="class_o_s_k_1_1_vector4__t.html#a0593b906f5d047bd9ddbda62463ba1bc">x</a>, texCoords.<a class="code hl_variable" href="class_o_s_k_1_1_vector4__t.html#a158c28407c22448e5e80370418f99fa1">W</a> })</div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>    };</div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span> </div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>    <span class="keyword">const</span> <a class="code hl_typedef" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#ae5df06fd78ce077c547552654e7d672a">TIndexSize</a> newIndices[6] {</div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>        0 + numIndices, 1 + numIndices, 2 + numIndices,</div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>        1 + numIndices, 2 + numIndices, 3 + numIndices</div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>    };</div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span> </div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>    vertexBuffers[resourceIndex]-&gt;WriteOffset(newVertices, 4 * <span class="keyword">sizeof</span>(<a class="code hl_struct" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_vertex2_d.html">Vertex2D</a>), numVertices * <span class="keyword">sizeof</span>(<a class="code hl_struct" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_vertex2_d.html">Vertex2D</a>));</div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>    indexBuffers[resourceIndex]-&gt;WriteOffset(newIndices, 6 * <span class="keyword">sizeof</span>(<a class="code hl_typedef" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#ae5df06fd78ce077c547552654e7d672a">TIndexSize</a>), numIndices * <span class="keyword">sizeof</span>(<a class="code hl_typedef" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#ae5df06fd78ce077c547552654e7d672a">TIndexSize</a>));</div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span> </div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>    numVertices += 4;</div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>    numIndices += 6;</div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>}</div>
+</div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span> </div>
+<div class="foldopen" id="foldopen00062" data-start="{" data-end="}">
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_sprite_batch.html#ac6114566c8ac7fe67a2f59806a41f1d5">   62</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_sprite_batch.html#ac6114566c8ac7fe67a2f59806a41f1d5">SpriteBatch::ResetCurrentFrame</a>() {</div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>    numVertices = 0;</div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>    numIndices = 0;</div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>}</div>
+</div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span> </div>
+<div class="foldopen" id="foldopen00067" data-start="{" data-end="}">
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_sprite_batch.html#abc27ba0eb14eaa20fdcb50483a762ddb">   67</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_sprite_batch.html#a611e6902584309df3d761aca65111eac">SpriteBatch::Draw</a>(<a class="code hl_class" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list.html">ICommandList</a>* commandList) {</div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>    <span class="keywordflow">if</span> (numIndices == 0)</div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>        <span class="keywordflow">return</span>;</div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span> </div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>    <span class="keyword">const</span> <a class="code hl_typedef" href="_o_s_kmacros_8h.html#af205b9fd0440138e6cac38a9081141df">UIndex32</a> resourceIndex = <a class="code hl_function" href="class_o_s_k_1_1_engine.html#a019c5397d042224c134b7fd22c739d00">Engine::GetRenderer</a>()-&gt;<a class="code hl_function" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer.html#ada20f4392461a0f6e1da27c46018dd0b">GetCurrentResourceIndex</a>();</div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span> </div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>    <a class="code hl_struct" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_vertex_buffer_view.html">VertexBufferView</a> vertexView{};</div>
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>    vertexView.<a class="code hl_variable" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_vertex_buffer_view.html#a078319dae1999c7332becce874f8c9dc">offsetInBytes</a> = 0;</div>
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>    vertexView.vertexInfo = Vertex2D::GetVertexInfo();</div>
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>    vertexView.numVertices = numVertices;</div>
+<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span> </div>
+<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span>    <a class="code hl_struct" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_index_buffer_view.html">IndexBufferView</a> indexView{};</div>
+<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span>    indexView.<a class="code hl_variable" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_index_buffer_view.html#a5d5e077c1a0427b8e7cff0586969e26e">offsetInBytes</a> = 0;</div>
+<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span>    indexView.type = <a class="code hl_enumvalue" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a51678af75d71bd806874506ec4f37a1fac8bd5bedff8ef192d39a962afc0e19ee">IndexType::U32</a>;</div>
+<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span>    indexView.numIndices = numIndices;</div>
+<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span> </div>
+<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span>    commandList-&gt;<a class="code hl_function" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list.html#a876d36bec645e2ac8b7f612d390b2171">BindVertexBufferRange</a>(vertexBuffers[resourceIndex].GetValue(), vertexView);</div>
+<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span>    commandList-&gt;<a class="code hl_function" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list.html#ac5b2e326d47f14e598274abd56fa17a5">BindIndexBufferRange</a>(indexBuffers[resourceIndex].GetValue(), indexView);</div>
+<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span>    commandList-&gt;<a class="code hl_function" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list.html#ae2d13eabf397e5dc203213a71aa8aad0">DrawSingleInstance</a>(numIndices);</div>
+<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span>}</div>
+</div>
+<div class="ttc" id="a_i_command_list_8h_html"><div class="ttname"><a href="_i_command_list_8h.html">ICommandList.h</a></div></div>
+<div class="ttc" id="a_i_gpu_8h_html"><div class="ttname"><a href="_i_gpu_8h.html">IGpu.h</a></div></div>
+<div class="ttc" id="a_i_gpu_memory_allocator_8h_html"><div class="ttname"><a href="_i_gpu_memory_allocator_8h.html">IGpuMemoryAllocator.h</a></div></div>
+<div class="ttc" id="a_i_renderer_8h_html"><div class="ttname"><a href="_i_renderer_8h.html">IRenderer.h</a></div></div>
+<div class="ttc" id="a_o_s_kengine_8h_html"><div class="ttname"><a href="_o_s_kengine_8h.html">OSKengine.h</a></div></div>
+<div class="ttc" id="a_o_s_kmacros_8h_html_a5784d24fcb00afb78eb7b1e1a3466ac4"><div class="ttname"><a href="_o_s_kmacros_8h.html#a5784d24fcb00afb78eb7b1e1a3466ac4">USize64</a></div><div class="ttdeci">uint64_t USize64</div><div class="ttdef"><b>Definition</b> <a href="_o_s_kmacros_8h_source.html#l00044">OSKmacros.h:44</a></div></div>
+<div class="ttc" id="a_o_s_kmacros_8h_html_af205b9fd0440138e6cac38a9081141df"><div class="ttname"><a href="_o_s_kmacros_8h.html#af205b9fd0440138e6cac38a9081141df">UIndex32</a></div><div class="ttdeci">uint32_t UIndex32</div><div class="ttdef"><b>Definition</b> <a href="_o_s_kmacros_8h_source.html#l00040">OSKmacros.h:40</a></div></div>
+<div class="ttc" id="a_sprite_batch_8h_html"><div class="ttname"><a href="_sprite_batch_8h.html">SpriteBatch.h</a></div></div>
+<div class="ttc" id="a_vertex2_d_8h_html"><div class="ttname"><a href="_vertex2_d_8h.html">Vertex2D.h</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_engine_html_a019c5397d042224c134b7fd22c739d00"><div class="ttname"><a href="class_o_s_k_1_1_engine.html#a019c5397d042224c134b7fd22c739d00">OSK::Engine::GetRenderer</a></div><div class="ttdeci">static GRAPHICS::IRenderer * GetRenderer()</div><div class="ttdoc">Devuelve un puntero al renderizador del motor.</div><div class="ttdef"><b>Definition</b> <a href="_o_s_kengine_8cpp_source.html#l00197">OSKengine.cpp:197</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list_html"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list.html">OSK::GRAPHICS::ICommandList</a></div><div class="ttdoc">Una lista de comandos contiene una serie de comandos que serán enviados a la GPU para su ejecución....</div><div class="ttdef"><b>Definition</b> <a href="_i_command_list_8h_source.html#l00114">ICommandList.h:114</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list_html_a876d36bec645e2ac8b7f612d390b2171"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list.html#a876d36bec645e2ac8b7f612d390b2171">OSK::GRAPHICS::ICommandList::BindVertexBufferRange</a></div><div class="ttdeci">virtual void BindVertexBufferRange(const GpuBuffer &amp;buffer, const VertexBufferView &amp;view)=0</div><div class="ttdoc">Establece el vertex buffer que se va a usar en los próximos renderizados.</div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list_html_ac5b2e326d47f14e598274abd56fa17a5"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list.html#ac5b2e326d47f14e598274abd56fa17a5">OSK::GRAPHICS::ICommandList::BindIndexBufferRange</a></div><div class="ttdeci">virtual void BindIndexBufferRange(const GpuBuffer &amp;buffer, const IndexBufferView &amp;view)=0</div><div class="ttdoc">Establece el index buffer que se va a usar en los próximos renderizados.</div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list_html_ae2d13eabf397e5dc203213a71aa8aad0"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list.html#ae2d13eabf397e5dc203213a71aa8aad0">OSK::GRAPHICS::ICommandList::DrawSingleInstance</a></div><div class="ttdeci">virtual void DrawSingleInstance(USize32 numIndices)=0</div><div class="ttdoc">Renderiza los triángulos del vertex e index buffer, con el material enlazado.</div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_allocator_html_a116d8b6a0d01eae6d2c75145a27a0e4e"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_allocator.html#a116d8b6a0d01eae6d2c75145a27a0e4e">OSK::GRAPHICS::IGpuMemoryAllocator::CreateBuffer</a></div><div class="ttdeci">OwnedPtr&lt; GpuBuffer &gt; CreateBuffer(USize64 size, USize64 alignment, GpuBufferUsage usage, GpuSharedMemoryType memoryType)</div><div class="ttdoc">Crea un buffer genérico de memoria en la GPU con las características dadas.</div><div class="ttdef"><b>Definition</b> <a href="_i_gpu_memory_allocator_8cpp_source.html#l00236">IGpuMemoryAllocator.cpp:236</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_html_a100a7c8d1a62814d11637de0534003b9"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer.html#a100a7c8d1a62814d11637de0534003b9">OSK::GRAPHICS::IRenderer::GetAllocator</a></div><div class="ttdeci">IGpuMemoryAllocator * GetAllocator()</div><div class="ttdoc">Devuelve un puntero al asignador de memoria de la GPU.</div><div class="ttdef"><b>Definition</b> <a href="_renderer_8cpp_source.html#l00046">Renderer.cpp:46</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_html_ada20f4392461a0f6e1da27c46018dd0b"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer.html#ada20f4392461a0f6e1da27c46018dd0b">OSK::GRAPHICS::IRenderer::GetCurrentResourceIndex</a></div><div class="ttdeci">USize32 GetCurrentResourceIndex() const</div><div class="ttdoc">Devuelve el índidce de los recursos procesados en el fotograma actual.</div><div class="ttdef"><b>Definition</b> <a href="_renderer_8cpp_source.html#l00139">Renderer.cpp:139</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_sprite_batch_html_a140119c24c0595823b72d0198e498595"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_sprite_batch.html#a140119c24c0595823b72d0198e498595">OSK::GRAPHICS::SpriteBatch::maxVertices</a></div><div class="ttdeci">static const USize32 maxVertices</div><div class="ttdef"><b>Definition</b> <a href="_sprite_batch_8h_source.html#l00036">SpriteBatch.h:36</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_sprite_batch_html_a43b757c8a41aa6fac637a289c2a42bf1"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_sprite_batch.html#a43b757c8a41aa6fac637a289c2a42bf1">OSK::GRAPHICS::SpriteBatch::~SpriteBatch</a></div><div class="ttdeci">~SpriteBatch()</div><div class="ttdef"><b>Definition</b> <a href="#l00031">SpriteBatch.cpp:31</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_sprite_batch_html_a611e6902584309df3d761aca65111eac"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_sprite_batch.html#a611e6902584309df3d761aca65111eac">OSK::GRAPHICS::SpriteBatch::Draw</a></div><div class="ttdeci">void Draw(Vector2f position, Vector2f size, Vector4f texCoords)</div><div class="ttdef"><b>Definition</b> <a href="#l00040">SpriteBatch.cpp:40</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_sprite_batch_html_a8254ba8b5a64a4e62cdcc73f375f1893"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_sprite_batch.html#a8254ba8b5a64a4e62cdcc73f375f1893">OSK::GRAPHICS::SpriteBatch::SpriteBatch</a></div><div class="ttdeci">SpriteBatch(OwnedPtr&lt; MaterialInstance &gt; materialInstance)</div><div class="ttdef"><b>Definition</b> <a href="#l00014">SpriteBatch.cpp:14</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_sprite_batch_html_ac6114566c8ac7fe67a2f59806a41f1d5"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_sprite_batch.html#ac6114566c8ac7fe67a2f59806a41f1d5">OSK::GRAPHICS::SpriteBatch::ResetCurrentFrame</a></div><div class="ttdeci">void ResetCurrentFrame()</div><div class="ttdef"><b>Definition</b> <a href="#l00062">SpriteBatch.cpp:62</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_sprite_batch_html_acc9c44da12adfba8f860cf9d9ccec108"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_sprite_batch.html#acc9c44da12adfba8f860cf9d9ccec108">OSK::GRAPHICS::SpriteBatch::maxIndices</a></div><div class="ttdeci">static const USize32 maxIndices</div><div class="ttdef"><b>Definition</b> <a href="_sprite_batch_8h_source.html#l00037">SpriteBatch.h:37</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_owned_ptr_html"><div class="ttname"><a href="class_o_s_k_1_1_owned_ptr.html">OSK::OwnedPtr</a></div><div class="ttdoc">Es dueño de un puntero.</div><div class="ttdef"><b>Definition</b> <a href="_owned_ptr_8h_source.html#l00016">OwnedPtr.h:16</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_vector2__t_html"><div class="ttname"><a href="class_o_s_k_1_1_vector2__t.html">OSK::Vector2_t&lt; float_t &gt;</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_vector4__t_html"><div class="ttname"><a href="class_o_s_k_1_1_vector4__t.html">OSK::Vector4_t&lt; float_t &gt;</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_vector4__t_html_a0593b906f5d047bd9ddbda62463ba1bc"><div class="ttname"><a href="class_o_s_k_1_1_vector4__t.html#a0593b906f5d047bd9ddbda62463ba1bc">OSK::Vector4_t::x</a></div><div class="ttdeci">T x</div><div class="ttdoc">Primera coordenada. Posición X del rectángulo.</div><div class="ttdef"><b>Definition</b> <a href="_vector4_8hpp_source.html#l00327">Vector4.hpp:327</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_vector4__t_html_a0b2280749f7a332b7b3d4a1390a2d527"><div class="ttname"><a href="class_o_s_k_1_1_vector4__t.html#a0b2280749f7a332b7b3d4a1390a2d527">OSK::Vector4_t::Z</a></div><div class="ttdeci">T Z</div><div class="ttdoc">Tercera coordenada. Ancho del rectángulo.</div><div class="ttdef"><b>Definition</b> <a href="_vector4_8hpp_source.html#l00339">Vector4.hpp:339</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_vector4__t_html_a158c28407c22448e5e80370418f99fa1"><div class="ttname"><a href="class_o_s_k_1_1_vector4__t.html#a158c28407c22448e5e80370418f99fa1">OSK::Vector4_t::W</a></div><div class="ttdeci">T W</div><div class="ttdoc">Cuarta coordenada. Alto del rectángulo.</div><div class="ttdef"><b>Definition</b> <a href="_vector4_8hpp_source.html#l00345">Vector4.hpp:345</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_vector4__t_html_a6b7176a7eb65f006dc0bc8ca35efba37"><div class="ttname"><a href="class_o_s_k_1_1_vector4__t.html#a6b7176a7eb65f006dc0bc8ca35efba37">OSK::Vector4_t::y</a></div><div class="ttdeci">T y</div><div class="ttdoc">Segunda coordenada. Posición Y del rectángulo.</div><div class="ttdef"><b>Definition</b> <a href="_vector4_8hpp_source.html#l00333">Vector4.hpp:333</a></div></div>
+<div class="ttc" id="anamespace_o_s_k_1_1_g_r_a_p_h_i_c_s_html"><div class="ttname"><a href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html">OSK::GRAPHICS</a></div><div class="ttdef"><b>Definition</b> <a href="_acceleration_structures_exceptions_8h_source.html#l00005">AccelerationStructuresExceptions.h:5</a></div></div>
+<div class="ttc" id="anamespace_o_s_k_1_1_g_r_a_p_h_i_c_s_html_a51678af75d71bd806874506ec4f37a1fac8bd5bedff8ef192d39a962afc0e19ee"><div class="ttname"><a href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a51678af75d71bd806874506ec4f37a1fac8bd5bedff8ef192d39a962afc0e19ee">OSK::GRAPHICS::IndexType::U32</a></div><div class="ttdeci">@ U32</div><div class="ttdoc">Índices de cuatro bytes.</div></div>
+<div class="ttc" id="anamespace_o_s_k_1_1_g_r_a_p_h_i_c_s_html_a85a830e82585f3a565d1f097491042cea096f8c31942629a91cc086cbda5f5465"><div class="ttname"><a href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a85a830e82585f3a565d1f097491042cea096f8c31942629a91cc086cbda5f5465">OSK::GRAPHICS::GpuSharedMemoryType::GPU_AND_CPU</a></div><div class="ttdeci">@ GPU_AND_CPU</div><div class="ttdoc">Compartido. Útil para recursos que van a ser sobreescritos a menudo, o recursos de un solo uso a los ...</div></div>
+<div class="ttc" id="anamespace_o_s_k_1_1_g_r_a_p_h_i_c_s_html_ad8b871b506bab7c4021326a1a10bbc7fa24ba47a6b7ca772e4185e7a7b54d4c90"><div class="ttname"><a href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#ad8b871b506bab7c4021326a1a10bbc7fa24ba47a6b7ca772e4185e7a7b54d4c90">OSK::GRAPHICS::GpuBufferUsage::INDEX_BUFFER</a></div><div class="ttdeci">@ INDEX_BUFFER</div><div class="ttdoc">Buffer que contendrá los índices de modelos 3D.</div></div>
+<div class="ttc" id="anamespace_o_s_k_1_1_g_r_a_p_h_i_c_s_html_ad8b871b506bab7c4021326a1a10bbc7faa77fcc0c8db7e3e4c3ca370997298c34"><div class="ttname"><a href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#ad8b871b506bab7c4021326a1a10bbc7faa77fcc0c8db7e3e4c3ca370997298c34">OSK::GRAPHICS::GpuBufferUsage::VERTEX_BUFFER</a></div><div class="ttdeci">@ VERTEX_BUFFER</div><div class="ttdoc">Buffer que contendrá los vértices de modelos 3D.</div></div>
+<div class="ttc" id="anamespace_o_s_k_1_1_g_r_a_p_h_i_c_s_html_ae5df06fd78ce077c547552654e7d672a"><div class="ttname"><a href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#ae5df06fd78ce077c547552654e7d672a">OSK::GRAPHICS::TIndexSize</a></div><div class="ttdeci">uint32_t TIndexSize</div><div class="ttdef"><b>Definition</b> <a href="_vertex_8h_source.html#l00007">Vertex.h:7</a></div></div>
+<div class="ttc" id="anamespace_o_s_k_html"><div class="ttname"><a href="namespace_o_s_k.html">OSK</a></div><div class="ttdef"><b>Definition</b> <a href="_acceleration_structures_exceptions_8h_source.html#l00005">AccelerationStructuresExceptions.h:5</a></div></div>
+<div class="ttc" id="anamespace_o_s_k_html_a31a299dbb3a3a60d90d16d1a4eca9651"><div class="ttname"><a href="namespace_o_s_k.html#a31a299dbb3a3a60d90d16d1a4eca9651">OSK::Vector2f</a></div><div class="ttdeci">Vector2_t&lt; float_t &gt; Vector2f</div><div class="ttdoc">Precisión = float.</div><div class="ttdef"><b>Definition</b> <a href="_vector2_8hpp_source.html#l00257">Vector2.hpp:257</a></div></div>
+<div class="ttc" id="astruct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_index_buffer_view_html"><div class="ttname"><a href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_index_buffer_view.html">OSK::GRAPHICS::IndexBufferView</a></div><div class="ttdoc">Estructura que permite interpretar los datos de un index buffer.</div><div class="ttdef"><b>Definition</b> <a href="_index_buffer_view_8h_source.html#l00035">IndexBufferView.h:35</a></div></div>
+<div class="ttc" id="astruct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_index_buffer_view_html_a5d5e077c1a0427b8e7cff0586969e26e"><div class="ttname"><a href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_index_buffer_view.html#a5d5e077c1a0427b8e7cff0586969e26e">OSK::GRAPHICS::IndexBufferView::offsetInBytes</a></div><div class="ttdeci">USize32 offsetInBytes</div><div class="ttdoc">Offset del primer índice respecto al inicio del buffer.</div><div class="ttdef"><b>Definition</b> <a href="_index_buffer_view_8h_source.html#l00045">IndexBufferView.h:45</a></div></div>
+<div class="ttc" id="astruct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_vertex2_d_html"><div class="ttname"><a href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_vertex2_d.html">OSK::GRAPHICS::Vertex2D</a></div><div class="ttdef"><b>Definition</b> <a href="_vertex2_d_8h_source.html#l00009">Vertex2D.h:9</a></div></div>
+<div class="ttc" id="astruct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_vertex_buffer_view_html"><div class="ttname"><a href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_vertex_buffer_view.html">OSK::GRAPHICS::VertexBufferView</a></div><div class="ttdoc">Estructura que permite interpretar los datos de un vertex buffer.</div><div class="ttdef"><b>Definition</b> <a href="_vertex_buffer_view_8h_source.html#l00009">VertexBufferView.h:9</a></div></div>
+<div class="ttc" id="astruct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_vertex_buffer_view_html_a078319dae1999c7332becce874f8c9dc"><div class="ttname"><a href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_vertex_buffer_view.html#a078319dae1999c7332becce874f8c9dc">OSK::GRAPHICS::VertexBufferView::offsetInBytes</a></div><div class="ttdeci">USize64 offsetInBytes</div><div class="ttdoc">Offset del primer vértice respecto al inicio del buffer.</div><div class="ttdef"><b>Definition</b> <a href="_vertex_buffer_view_8h_source.html#l00019">VertexBufferView.h:19</a></div></div>
+</div><!-- fragment --></div><!-- contents -->
+</div><!-- doc-content -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="dir_74389ed8173ad57b461b9d623a1f3867.html">Source</a></li><li class="navelem"><a class="el" href="_sprite_batch_8cpp.html">SpriteBatch.cpp</a></li>
+    <li class="footer">Generado el Lunes, 29 de enero de 2024 17:18:32 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.10.0 </li>
+  </ul>
+</div>
+</body>
+</html>

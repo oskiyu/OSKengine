@@ -1,0 +1,177 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="es">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.10.0"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>OSKengine: Archivo de código fuente Source/Bone.h</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">OSKengine<span id="projectnumber">&#160;Indev</span>
+   </div>
+   <div id="projectbrief">Motor de videojuegos.</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generado por Doxygen 1.10.0 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() {
+  initMenu('',true,false,'search.php','Buscar');
+  $(function() { init_search(); });
+});
+/* @license-end */
+</script>
+<div id="main-nav"></div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() { codefold.init(0); });
+/* @license-end */
+</script>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function(){initNavTree('_bone_8h_source.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Cargando...</div>
+<div class="SRStatus" id="Searching">Buscando...</div>
+<div class="SRStatus" id="NoMatches">Nada coincide</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">Bone.h</div></div>
+</div><!--header-->
+<div class="contents">
+<a href="_bone_8h.html">Ir a la documentación de este archivo.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#pragma once</span></div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span> </div>
+<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="preprocessor">#include &quot;<a class="code" href="_dynamic_array_8hpp.html">DynamicArray.hpp</a>&quot;</span></div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &quot;<a class="code" href="_vector3_8hpp.html">Vector3.hpp</a>&quot;</span></div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &quot;<a class="code" href="_quaternion_8h.html">Quaternion.h</a>&quot;</span></div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span> </div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="preprocessor">#include &lt;limits&gt;</span></div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span> </div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="preprocessor">#ifdef max</span></div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="preprocessor">#undef max</span></div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="preprocessor">#endif</span></div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span> </div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="keyword">namespace </span><a class="code hl_namespace" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html">OSK::GRAPHICS</a> {</div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span> </div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span>    <span class="keyword">class </span>Skeleton;</div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span>    <span class="keyword">struct </span>AnimationSkin;</div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span> </div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span> </div>
+<div class="foldopen" id="foldopen00020" data-start="{" data-end="};">
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno"><a class="line" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a6ba2b7a043103ea5fb5ade9f30f71103">   20</a></span>    <span class="keyword">using </span><a class="code hl_typedef" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a6ba2b7a043103ea5fb5ade9f30f71103">Bone</a> = <span class="keyword">struct </span>MeshNode {</div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span> </div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>        <span class="keyword">constexpr</span> <span class="keyword">static</span> <a class="code hl_typedef" href="_o_s_kmacros_8h.html#af205b9fd0440138e6cac38a9081141df">UIndex32</a> EmptyIndex = std::numeric_limits&lt;UIndex32&gt;::max();</div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span> </div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>        <span class="keywordtype">void</span> UpdateSkeletonTree(<span class="keyword">const</span> <a class="code hl_struct" href="structglm_1_1mat.html">glm::mat4</a>&amp; prevMatrix, <a class="code hl_class" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_skeleton.html">Skeleton</a>* skeleton);</div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span> </div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span> </div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>        std::string <a class="code hl_variable" href="x64-windows-static_2x64-windows-static_2include_2spirv_2unified1_2spv_8d.html#a41f818ddb5dc4447d88e7b94d4f72d72">name</a>;</div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span> </div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>        <a class="code hl_class" href="class_o_s_k_1_1_vector3__t.html">Vector3f</a> position = Vector3f::Zero;</div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>        <a class="code hl_class" href="class_o_s_k_1_1_quaternion.html">Quaternion</a> rotation{};</div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>        <a class="code hl_class" href="class_o_s_k_1_1_vector3__t.html">Vector3f</a> scale = Vector3f::One;</div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span> </div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>        <a class="code hl_typedef" href="_o_s_kmacros_8h.html#af205b9fd0440138e6cac38a9081141df">UIndex32</a> thisIndex = 0;</div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>        <a class="code hl_typedef" href="_o_s_kmacros_8h.html#af205b9fd0440138e6cac38a9081141df">UIndex32</a> parentIndex = EmptyIndex;</div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>        <a class="code hl_class" href="class_o_s_k_1_1_dynamic_array.html">DynamicArray&lt;UIndex32&gt;</a> childIndices;</div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span> </div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>        <a class="code hl_typedef" href="_o_s_kmacros_8h.html#af205b9fd0440138e6cac38a9081141df">UIndex32</a> skinIndex = EmptyIndex;</div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span> </div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>        <span class="keyword">inline</span> <a class="code hl_struct" href="structglm_1_1mat.html">glm::mat4</a> GetLocalMatrix()<span class="keyword"> const </span>{</div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>            <span class="keywordflow">return</span> <a class="code hl_function" href="group__ext__matrix__transform.html#ga67d8473d6b293d1bb2b4eaf249795cab">glm::translate</a>(<a class="code hl_struct" href="structglm_1_1mat.html">glm::mat4</a>(1.0f), position.<a class="code hl_function" href="class_o_s_k_1_1_vector3__t.html#afe37985b6d213fc46fc8d3d0366d80bb">ToGlm</a>()) * <a class="code hl_typedef" href="group__core__matrix.html#gac54cbc572f1349a255fe476ca6a42a7b">glm::mat4</a>(rotation.ToGlm()) * <a class="code hl_function" href="group__ext__matrix__transform.html#gaae2f8b2080622b24b85e1096748599b6">glm::scale</a>(<a class="code hl_struct" href="structglm_1_1mat.html">glm::mat4</a>(1.0f), scale.ToGlm());</div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>        }</div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span> </div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>        <a class="code hl_struct" href="structglm_1_1mat.html">glm::mat4</a> globalMatrix = <a class="code hl_typedef" href="group__core__matrix.html#gac54cbc572f1349a255fe476ca6a42a7b">glm::mat4</a>(1.0f);</div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span> </div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>    };</div>
+</div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span> </div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>}</div>
+<div class="ttc" id="a_dynamic_array_8hpp_html"><div class="ttname"><a href="_dynamic_array_8hpp.html">DynamicArray.hpp</a></div></div>
+<div class="ttc" id="a_o_s_kmacros_8h_html_af205b9fd0440138e6cac38a9081141df"><div class="ttname"><a href="_o_s_kmacros_8h.html#af205b9fd0440138e6cac38a9081141df">UIndex32</a></div><div class="ttdeci">uint32_t UIndex32</div><div class="ttdef"><b>Definition</b> <a href="_o_s_kmacros_8h_source.html#l00040">OSKmacros.h:40</a></div></div>
+<div class="ttc" id="a_quaternion_8h_html"><div class="ttname"><a href="_quaternion_8h.html">Quaternion.h</a></div></div>
+<div class="ttc" id="a_vector3_8hpp_html"><div class="ttname"><a href="_vector3_8hpp.html">Vector3.hpp</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_dynamic_array_html"><div class="ttname"><a href="class_o_s_k_1_1_dynamic_array.html">OSK::DynamicArray</a></div><div class="ttdoc">Dynamic array: array que puede cambiar de tamaño.</div><div class="ttdef"><b>Definition</b> <a href="_dynamic_array_8hpp_source.html#l00066">DynamicArray.hpp:66</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_skeleton_html"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_skeleton.html">OSK::GRAPHICS::Skeleton</a></div><div class="ttdef"><b>Definition</b> <a href="_skeleton_8h_source.html#l00012">Skeleton.h:12</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_quaternion_html"><div class="ttname"><a href="class_o_s_k_1_1_quaternion.html">OSK::Quaternion</a></div><div class="ttdoc">Representa un cuaternión, para representar una orientación.</div><div class="ttdef"><b>Definition</b> <a href="_quaternion_8h_source.html#l00013">Quaternion.h:13</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_vector3__t_html"><div class="ttname"><a href="class_o_s_k_1_1_vector3__t.html">OSK::Vector3_t&lt; float_t &gt;</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_vector3__t_html_afe37985b6d213fc46fc8d3d0366d80bb"><div class="ttname"><a href="class_o_s_k_1_1_vector3__t.html#afe37985b6d213fc46fc8d3d0366d80bb">OSK::Vector3_t::ToGlm</a></div><div class="ttdeci">glm::vec3 ToGlm() const</div><div class="ttdef"><b>Definition</b> <a href="_vector3_8hpp_source.html#l00236">Vector3.hpp:236</a></div></div>
+<div class="ttc" id="agroup__core__matrix_html_gac54cbc572f1349a255fe476ca6a42a7b"><div class="ttname"><a href="group__core__matrix.html#gac54cbc572f1349a255fe476ca6a42a7b">glm::mat4</a></div><div class="ttdeci">mat&lt; 4, 4, float, defaultp &gt; mat4</div><div class="ttdef"><b>Definition</b> <a href="x64-windows-static_2x64-windows-static_2include_2glm_2ext_2matrix__float4x4_8hpp_source.html#l00020">matrix_float4x4.hpp:20</a></div></div>
+<div class="ttc" id="agroup__ext__matrix__transform_html_ga67d8473d6b293d1bb2b4eaf249795cab"><div class="ttname"><a href="group__ext__matrix__transform.html#ga67d8473d6b293d1bb2b4eaf249795cab">glm::translate</a></div><div class="ttdeci">GLM_FUNC_DECL mat&lt; 4, 4, T, Q &gt; translate(mat&lt; 4, 4, T, Q &gt; const &amp;m, vec&lt; 3, T, Q &gt; const &amp;v)</div><div class="ttdef"><b>Definition</b> <a href="x64-windows-static_2x64-windows-static_2include_2glm_2ext_2matrix__transform_8inl_source.html#l00010">matrix_transform.inl:10</a></div></div>
+<div class="ttc" id="agroup__ext__matrix__transform_html_gaae2f8b2080622b24b85e1096748599b6"><div class="ttname"><a href="group__ext__matrix__transform.html#gaae2f8b2080622b24b85e1096748599b6">glm::scale</a></div><div class="ttdeci">GLM_FUNC_DECL mat&lt; 4, 4, T, Q &gt; scale(mat&lt; 4, 4, T, Q &gt; const &amp;m, vec&lt; 3, T, Q &gt; const &amp;v)</div><div class="ttdef"><b>Definition</b> <a href="x64-windows-static_2x64-windows-static_2include_2glm_2ext_2matrix__transform_8inl_source.html#l00078">matrix_transform.inl:78</a></div></div>
+<div class="ttc" id="anamespace_o_s_k_1_1_g_r_a_p_h_i_c_s_html"><div class="ttname"><a href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html">OSK::GRAPHICS</a></div><div class="ttdef"><b>Definition</b> <a href="_acceleration_structures_exceptions_8h_source.html#l00005">AccelerationStructuresExceptions.h:5</a></div></div>
+<div class="ttc" id="anamespace_o_s_k_1_1_g_r_a_p_h_i_c_s_html_a6ba2b7a043103ea5fb5ade9f30f71103"><div class="ttname"><a href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a6ba2b7a043103ea5fb5ade9f30f71103">OSK::GRAPHICS::Bone</a></div><div class="ttdeci">struct MeshNode { constexpr static UIndex32 EmptyIndex=std::numeric_limits&lt; UIndex32 &gt;::max(); void UpdateSkeletonTree(const glm::mat4 &amp;prevMatrix, Skeleton *skeleton); std::string name; Vector3f position=Vector3f::Zero; Quaternion rotation{}; Vector3f scale=Vector3f::One; UIndex32 thisIndex=0; UIndex32 parentIndex=EmptyIndex; DynamicArray&lt; UIndex32 &gt; childIndices; UIndex32 skinIndex=EmptyIndex; inline glm::mat4 GetLocalMatrix() const { return glm::translate(glm::mat4(1.0f), position.ToGlm()) *glm::mat4(rotation.ToGlm()) *glm::scale(glm::mat4(1.0f), scale.ToGlm()); } glm::mat4 globalMatrix=glm::mat4(1.0f); } Bone</div><div class="ttdoc">Hueso de la animación.</div><div class="ttdef"><b>Definition</b> <a href="#l00020">Bone.h:20</a></div></div>
+<div class="ttc" id="astructglm_1_1mat_html"><div class="ttname"><a href="structglm_1_1mat.html">glm::mat</a></div><div class="ttdef"><b>Definition</b> <a href="x64-windows-static_2x64-windows-static_2include_2glm_2detail_2qualifier_8hpp_source.html#l00036">qualifier.hpp:36</a></div></div>
+<div class="ttc" id="ax64-windows-static_2x64-windows-static_2include_2spirv_2unified1_2spv_8d_html_a41f818ddb5dc4447d88e7b94d4f72d72"><div class="ttname"><a href="x64-windows-static_2x64-windows-static_2include_2spirv_2unified1_2spv_8d.html#a41f818ddb5dc4447d88e7b94d4f72d72">name</a></div><div class="ttdeci">free of to any person obtaining a copy of this software and or associated documentation to deal in the Materials without including without limitation the rights to and or sell copies of the and to permit persons to whom the Materials are furnished to do subject to the following NORMATIVE VERSIONS OF KHRONOS SPECIFICATIONS AND HEADER INFORMATION ARE LOCATED AT WITHOUT WARRANTY OF ANY EXPRESS OR INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY DAMAGES OR OTHER WHETHER IN AN ACTION OF TORT OR ARISING OUT OF OR IN CONNECTION WITH THE MATERIALS OR THE USE OR OTHER DEALINGS IN THE MATERIALS.This header is automatically generated by the same tool that creates the Binary Section of the SPIR V specification.Enumeration tokens for SPIR in various C C will have tokens with a Spv e.e.e.e.e.e.e.e.which can be OR d while others are mutually exclusive.The mask like ones have Mask in their name</div><div class="ttdef"><b>Definition</b> <a href="x64-windows-static_2x64-windows-static_2include_2spirv_2unified1_2spv_8d_source.html#l00049">spv.d:49</a></div></div>
+</div><!-- fragment --></div><!-- contents -->
+</div><!-- doc-content -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="dir_74389ed8173ad57b461b9d623a1f3867.html">Source</a></li><li class="navelem"><a class="el" href="_bone_8h.html">Bone.h</a></li>
+    <li class="footer">Generado el Lunes, 29 de enero de 2024 17:18:30 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.10.0 </li>
+  </ul>
+</div>
+</body>
+</html>

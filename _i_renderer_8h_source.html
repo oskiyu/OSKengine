@@ -1,0 +1,439 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="es">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.10.0"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>OSKengine: Archivo de código fuente Source/IRenderer.h</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">OSKengine<span id="projectnumber">&#160;Indev</span>
+   </div>
+   <div id="projectbrief">Motor de videojuegos.</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generado por Doxygen 1.10.0 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() {
+  initMenu('',true,false,'search.php','Buscar');
+  $(function() { init_search(); });
+});
+/* @license-end */
+</script>
+<div id="main-nav"></div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() { codefold.init(0); });
+/* @license-end */
+</script>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function(){initNavTree('_i_renderer_8h_source.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Cargando...</div>
+<div class="SRStatus" id="Searching">Buscando...</div>
+<div class="SRStatus" id="NoMatches">Nada coincide</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">IRenderer.h</div></div>
+</div><!--header-->
+<div class="contents">
+<a href="_i_renderer_8h.html">Ir a la documentación de este archivo.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#pragma once</span></div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span> </div>
+<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="preprocessor">#include &quot;<a class="code" href="_o_s_kmacros_8h.html">OSKmacros.h</a>&quot;</span></div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &quot;<a class="code" href="_unique_ptr_8hpp.html">UniquePtr.hpp</a>&quot;</span></div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &quot;<a class="code" href="_owned_ptr_8h.html">OwnedPtr.h</a>&quot;</span></div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &quot;<a class="code" href="_dynamic_array_8hpp.html">DynamicArray.hpp</a>&quot;</span></div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span> </div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span> </div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="preprocessor">#include &quot;<a class="code" href="_i_gpu_8h.html">IGpu.h</a>&quot;</span></div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="preprocessor">#include &quot;<a class="code" href="_i_command_queue_8h.html">ICommandQueue.h</a>&quot;</span></div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="preprocessor">#include &quot;<a class="code" href="_i_swapchain_8h.html">ISwapchain.h</a>&quot;</span></div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="preprocessor">#include &quot;<a class="code" href="_i_command_list_8h.html">ICommandList.h</a>&quot;</span></div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="preprocessor">#include &quot;<a class="code" href="_i_command_pool_8h.html">ICommandPool.h</a>&quot;</span></div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span><span class="preprocessor">#include &quot;<a class="code" href="_i_gpu_memory_allocator_8h.html">IGpuMemoryAllocator.h</a>&quot;</span></div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span><span class="preprocessor">#include &quot;<a class="code" href="_render_target_8h.html">RenderTarget.h</a>&quot;</span></div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span><span class="preprocessor">#include &quot;<a class="code" href="_material_system_8h.html">MaterialSystem.h</a>&quot;</span></div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span><span class="preprocessor">#include &quot;<a class="code" href="_material_8h.html">Material.h</a>&quot;</span></div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span><span class="preprocessor">#include &quot;<a class="code" href="_present_mode_8h.html">PresentMode.h</a>&quot;</span></div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span> </div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span><span class="preprocessor">#include &quot;<a class="code" href="_i_gpu_image_8h.html">IGpuImage.h</a>&quot;</span></div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span><span class="preprocessor">#include &quot;<a class="code" href="_gpu_buffer_8h.html">GpuBuffer.h</a>&quot;</span></div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span> </div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span><span class="comment">// Camera 2D para renderizar a la pantalla</span></div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span><span class="preprocessor">#include &quot;<a class="code" href="_camera_component2_d_8h.html">CameraComponent2D.h</a>&quot;</span></div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span><span class="preprocessor">#include &quot;<a class="code" href="_transform2_d_8h.html">Transform2D.h</a>&quot;</span></div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span> </div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span><span class="preprocessor">#include &lt;string&gt;</span></div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span><span class="preprocessor">#include &lt;functional&gt;</span></div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span> </div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span><span class="keyword">namespace </span><a class="code hl_namespace" href="namespace_o_s_k.html">OSK</a> {</div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>    <span class="keyword">struct </span><a class="code hl_variable" href="x64-windows-static_2x64-windows-static_2include_2spirv_2unified1_2spv_8d.html#adc76a15af6cace1106bbd5592f5d8f0d">Version</a>;</div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>    <span class="keyword">namespace </span>IO {</div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>        <span class="keyword">class </span>IDisplay;</div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>    }</div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>}</div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span> </div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span><span class="keyword">namespace </span><a class="code hl_namespace" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html">OSK::GRAPHICS</a> {</div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span> </div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>    <span class="keyword">class </span>MaterialLayout;</div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>    <span class="keyword">class </span>IMaterialSlot;</div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>    <span class="keyword">struct </span>PipelineCreateInfo;</div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>    <span class="keyword">class </span>IGraphicsPipeline;</div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>    <span class="keyword">class </span>IRaytracingPipeline;</div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>    <span class="keyword">class </span>GpuImage;</div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>    <span class="keyword">class </span>VertexInfo;</div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>    <span class="keyword">class </span>IPostProcessPass;</div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span> </div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>    <span class="keyword">enum class</span> <a class="code hl_enumeration" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a3057691f190dabf7642cfde72cf2430f">RenderApiType</a>;</div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>    <span class="keyword">enum class</span> <a class="code hl_enumeration" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a20f40e3d3e967090ee1884e0c77b9df9">GpuImageLayout</a>;</div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span> </div>
+<div class="foldopen" id="foldopen00057" data-start="{" data-end="};">
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer.html">   57</a></span>    <span class="keyword">class </span><a class="code hl_define" href="_o_s_kmacros_8h.html#a09ec5b46ece998ad096bceff312bb36c">OSKAPI_CALL</a> <a class="code hl_class" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer.html">IRenderer</a> {</div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span> </div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>    <span class="keyword">public</span>:</div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span> </div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer.html#a93e97ba3e814f6e1a3655c162739ec1f">   61</a></span>        <a class="code hl_function" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer.html#a93e97ba3e814f6e1a3655c162739ec1f">OSK_DEFINE_AS</a>(<a class="code hl_class" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer.html">IRenderer</a>);</div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span> </div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer.html#aa168ea76a7cb69e1f6483080f7bb05d3">   63</a></span>        <span class="keyword">virtual</span> <a class="code hl_function" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer.html#aa168ea76a7cb69e1f6483080f7bb05d3">~IRenderer</a>() = <span class="keywordflow">default</span>;</div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span> </div>
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer.html#afd8e117f227f8083cfe8de2a0fb9c72d">   75</a></span>        <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code hl_function" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer.html#afd8e117f227f8083cfe8de2a0fb9c72d">Initialize</a>(</div>
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>            <span class="keyword">const</span> std::string&amp; appName, </div>
+<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span>            <span class="keyword">const</span> <a class="code hl_struct" href="struct_o_s_k_1_1_version.html">Version</a>&amp; version, </div>
+<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span>            <span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_i_o_1_1_i_display.html">IO::IDisplay</a>&amp; display, </div>
+<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span>            <a class="code hl_enumeration" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a47a7b3817b8aca438c20b7674fad28ab">PresentMode</a> <a class="code hl_variable" href="x64-windows-static_2x64-windows-static_2include_2libpng16_2png_8h.html#a3eabae3e1e65723a7ec3445646cb7795">mode</a>) = 0;</div>
+<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span> </div>
+<div class="line"><a id="l00084" name="l00084"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer.html#ace147aba8abf236698e2c46238aa7561">   84</a></span>        <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code hl_function" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer.html#ace147aba8abf236698e2c46238aa7561">Close</a>() = 0;</div>
+<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span> </div>
+<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span>        <span class="keywordtype">void</span> SetPresentMode(<a class="code hl_enumeration" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a47a7b3817b8aca438c20b7674fad28ab">PresentMode</a> <a class="code hl_variable" href="x64-windows-static_2x64-windows-static_2include_2libpng16_2png_8h.html#a3eabae3e1e65723a7ec3445646cb7795">mode</a>);</div>
+<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span> </div>
+<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span>        <span class="keyword">virtual</span> <span class="keywordtype">void</span> HandleResize();</div>
+<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span> </div>
+<div class="line"><a id="l00098" name="l00098"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer.html#a90aa9f12a25efdcc002be083fdc9c701">   98</a></span>        <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code hl_function" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer.html#a90aa9f12a25efdcc002be083fdc9c701">PresentFrame</a>() = 0;</div>
+<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span> </div>
+<div class="line"><a id="l00104" name="l00104"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer.html#a4a5f5a94ea92312c37f03f9be01f0fa5">  104</a></span>        <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code hl_function" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer.html#a4a5f5a94ea92312c37f03f9be01f0fa5">WaitForCompletion</a>() = 0;</div>
+<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span> </div>
+<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span><span class="preprocessor">#pragma region Getters</span></div>
+<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span> </div>
+<div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span>        <a class="code hl_class" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list.html">ICommandList</a>* GetPreComputeCommandList();</div>
+<div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span>        <a class="code hl_class" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list.html">ICommandList</a>* GetGraphicsCommandList();</div>
+<div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span>        <a class="code hl_class" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list.html">ICommandList</a>* GetPostComputeCommandList();</div>
+<div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span>        <a class="code hl_class" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list.html">ICommandList</a>* GetFrameBuildCommandList();</div>
+<div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span> </div>
+<div class="line"><a id="l00113" name="l00113"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer.html#a753bebfa3c047179505a4ffb1b991f15">  113</a></span>        <span class="keyword">inline</span> <a class="code hl_class" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_queue.html">ICommandQueue</a>* <a class="code hl_function" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer.html#a753bebfa3c047179505a4ffb1b991f15">GetGraphicsCommandQueue</a>() { <span class="keywordflow">return</span> graphicsQueue.GetPointer(); }</div>
+<div class="line"><a id="l00114" name="l00114"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer.html#a25f63aef13e609b6692fb31027c33202">  114</a></span>        <span class="keyword">inline</span> <a class="code hl_class" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_queue.html">ICommandQueue</a>* <a class="code hl_function" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer.html#a25f63aef13e609b6692fb31027c33202">GetComputeCommandQueue</a>() { <span class="keywordflow">return</span> computeQueue.GetPointer(); }</div>
+<div class="line"><a id="l00115" name="l00115"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer.html#a12a1317275afb40d7800cccdfbece8fb">  115</a></span>        <span class="keyword">inline</span> <a class="code hl_class" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_queue.html">ICommandQueue</a>* <a class="code hl_function" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer.html#a12a1317275afb40d7800cccdfbece8fb">GetPresentCommandQueue</a>() { <span class="keywordflow">return</span> presentQueue.GetPointer(); }</div>
+<div class="line"><a id="l00116" name="l00116"></a><span class="lineno">  116</span> </div>
+<div class="line"><a id="l00122" name="l00122"></a><span class="lineno">  122</span>        <a class="code hl_class" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_allocator.html">IGpuMemoryAllocator</a>* GetAllocator();</div>
+<div class="line"><a id="l00123" name="l00123"></a><span class="lineno">  123</span> </div>
+<div class="line"><a id="l00129" name="l00129"></a><span class="lineno">  129</span>        <a class="code hl_class" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu.html">IGpu</a>* GetGpu();</div>
+<div class="line"><a id="l00130" name="l00130"></a><span class="lineno">  130</span> </div>
+<div class="line"><a id="l00136" name="l00136"></a><span class="lineno">  136</span>        <a class="code hl_class" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_system.html">MaterialSystem</a>* GetMaterialSystem();</div>
+<div class="line"><a id="l00137" name="l00137"></a><span class="lineno">  137</span> </div>
+<div class="line"><a id="l00144" name="l00144"></a><span class="lineno">  144</span>        <a class="code hl_class" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_swapchain.html">ISwapchain</a>* _GetSwapchain();</div>
+<div class="line"><a id="l00145" name="l00145"></a><span class="lineno">  145</span> </div>
+<div class="line"><a id="l00146" name="l00146"></a><span class="lineno">  146</span> </div>
+<div class="line"><a id="l00152" name="l00152"></a><span class="lineno">  152</span>        <a class="code hl_class" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_render_target.html">RenderTarget</a>* GetFinalRenderTarget();</div>
+<div class="line"><a id="l00153" name="l00153"></a><span class="lineno">  153</span> </div>
+<div class="line"><a id="l00163" name="l00163"></a><span class="lineno">  163</span>        <span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_e_c_s_1_1_camera_component2_d.html">ECS::CameraComponent2D</a>&amp; GetRenderTargetsCamera() <span class="keyword">const</span>;</div>
+<div class="line"><a id="l00164" name="l00164"></a><span class="lineno">  164</span> </div>
+<div class="line"><a id="l00165" name="l00165"></a><span class="lineno">  165</span> </div>
+<div class="line"><a id="l00167" name="l00167"></a><span class="lineno">  167</span>        <span class="keywordtype">bool</span> IsOpen() <span class="keyword">const</span>;</div>
+<div class="line"><a id="l00168" name="l00168"></a><span class="lineno">  168</span> </div>
+<div class="line"><a id="l00173" name="l00173"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer.html#af6c2b503a6e4f7757e58062fcdf60ebc">  173</a></span>        <span class="keyword">virtual</span> <span class="keywordtype">bool</span> <a class="code hl_function" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer.html#af6c2b503a6e4f7757e58062fcdf60ebc">SupportsRaytracing</a>() <span class="keyword">const</span> = 0;</div>
+<div class="line"><a id="l00174" name="l00174"></a><span class="lineno">  174</span> </div>
+<div class="line"><a id="l00175" name="l00175"></a><span class="lineno">  175</span> </div>
+<div class="line"><a id="l00180" name="l00180"></a><span class="lineno">  180</span>        <a class="code hl_typedef" href="_o_s_kmacros_8h.html#a3e916ed5b32955be3417da92899fc361">USize32</a> GetSwapchainImagesCount() <span class="keyword">const</span>;</div>
+<div class="line"><a id="l00181" name="l00181"></a><span class="lineno">  181</span> </div>
+<div class="line"><a id="l00183" name="l00183"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer.html#ad6ae3773acf9eb826d6009abf7a334a3">  183</a></span>        <span class="keyword">virtual</span> <a class="code hl_typedef" href="_o_s_kmacros_8h.html#a3e916ed5b32955be3417da92899fc361">USize32</a> <a class="code hl_function" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer.html#ad6ae3773acf9eb826d6009abf7a334a3">GetCurrentFrameIndex</a>() <span class="keyword">const</span> = 0;</div>
+<div class="line"><a id="l00184" name="l00184"></a><span class="lineno">  184</span> </div>
+<div class="line"><a id="l00186" name="l00186"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer.html#a59e1204fb4bf9c1cbb643cf45259680d">  186</a></span>        <span class="keyword">virtual</span> <a class="code hl_typedef" href="_o_s_kmacros_8h.html#a3e916ed5b32955be3417da92899fc361">USize32</a> <a class="code hl_function" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer.html#a59e1204fb4bf9c1cbb643cf45259680d">GetCurrentCommandListIndex</a>() <span class="keyword">const</span> = 0;</div>
+<div class="line"><a id="l00187" name="l00187"></a><span class="lineno">  187</span> </div>
+<div class="line"><a id="l00189" name="l00189"></a><span class="lineno">  189</span>        <a class="code hl_typedef" href="_o_s_kmacros_8h.html#a3e916ed5b32955be3417da92899fc361">USize32</a> GetCurrentResourceIndex() <span class="keyword">const</span>;</div>
+<div class="line"><a id="l00190" name="l00190"></a><span class="lineno">  190</span> </div>
+<div class="line"><a id="l00191" name="l00191"></a><span class="lineno">  191</span> </div>
+<div class="line"><a id="l00196" name="l00196"></a><span class="lineno">  196</span>        <a class="code hl_enumeration" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a3057691f190dabf7642cfde72cf2430f">RenderApiType</a> GetRenderApi() <span class="keyword">const</span>;</div>
+<div class="line"><a id="l00197" name="l00197"></a><span class="lineno">  197</span> </div>
+<div class="line"><a id="l00198" name="l00198"></a><span class="lineno">  198</span><span class="preprocessor">#pragma endregion</span></div>
+<div class="line"><a id="l00199" name="l00199"></a><span class="lineno">  199</span> </div>
+<div class="line"><a id="l00200" name="l00200"></a><span class="lineno">  200</span> </div>
+<div class="line"><a id="l00201" name="l00201"></a><span class="lineno">  201</span><span class="preprocessor">#pragma region Image upload</span></div>
+<div class="line"><a id="l00202" name="l00202"></a><span class="lineno">  202</span> </div>
+<div class="line"><a id="l00207" name="l00207"></a><span class="lineno">  207</span>        <span class="keywordtype">void</span> UploadLayeredImageToGpu(</div>
+<div class="line"><a id="l00208" name="l00208"></a><span class="lineno">  208</span>            <a class="code hl_class" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image.html">GpuImage</a>* destination, </div>
+<div class="line"><a id="l00209" name="l00209"></a><span class="lineno">  209</span>            <span class="keyword">const</span> <a class="code hl_typedef" href="namespace_o_s_k.html#a79ac5831e0b2433213dacbfc636f4d8f">TByte</a>* data, </div>
+<div class="line"><a id="l00210" name="l00210"></a><span class="lineno">  210</span>            <a class="code hl_typedef" href="_o_s_kmacros_8h.html#a5784d24fcb00afb78eb7b1e1a3466ac4">USize64</a> numBytes, </div>
+<div class="line"><a id="l00211" name="l00211"></a><span class="lineno">  211</span>            <a class="code hl_typedef" href="_o_s_kmacros_8h.html#a3e916ed5b32955be3417da92899fc361">USize32</a> numLayers, </div>
+<div class="line"><a id="l00212" name="l00212"></a><span class="lineno">  212</span>            <a class="code hl_class" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list.html">ICommandList</a>* cmdList);</div>
+<div class="line"><a id="l00213" name="l00213"></a><span class="lineno">  213</span> </div>
+<div class="line"><a id="l00218" name="l00218"></a><span class="lineno">  218</span>        <span class="keywordtype">void</span> UploadImageToGpu(</div>
+<div class="line"><a id="l00219" name="l00219"></a><span class="lineno">  219</span>            <a class="code hl_class" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image.html">GpuImage</a>* destination, </div>
+<div class="line"><a id="l00220" name="l00220"></a><span class="lineno">  220</span>            <span class="keyword">const</span> <a class="code hl_typedef" href="namespace_o_s_k.html#a79ac5831e0b2433213dacbfc636f4d8f">TByte</a>* data, </div>
+<div class="line"><a id="l00221" name="l00221"></a><span class="lineno">  221</span>            <a class="code hl_typedef" href="_o_s_kmacros_8h.html#a5784d24fcb00afb78eb7b1e1a3466ac4">USize64</a> numBytes,</div>
+<div class="line"><a id="l00222" name="l00222"></a><span class="lineno">  222</span>            <a class="code hl_class" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list.html">ICommandList</a>* cmdList);</div>
+<div class="line"><a id="l00223" name="l00223"></a><span class="lineno">  223</span> </div>
+<div class="line"><a id="l00230" name="l00230"></a><span class="lineno">  230</span>        <span class="keywordtype">void</span> UploadCubemapImageToGpu(</div>
+<div class="line"><a id="l00231" name="l00231"></a><span class="lineno">  231</span>            <a class="code hl_class" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image.html">GpuImage</a>* destination, </div>
+<div class="line"><a id="l00232" name="l00232"></a><span class="lineno">  232</span>            <span class="keyword">const</span> <a class="code hl_typedef" href="namespace_o_s_k.html#a79ac5831e0b2433213dacbfc636f4d8f">TByte</a>* data, </div>
+<div class="line"><a id="l00233" name="l00233"></a><span class="lineno">  233</span>            <a class="code hl_typedef" href="_o_s_kmacros_8h.html#a5784d24fcb00afb78eb7b1e1a3466ac4">USize64</a> numBytes,</div>
+<div class="line"><a id="l00234" name="l00234"></a><span class="lineno">  234</span>            <a class="code hl_class" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list.html">ICommandList</a>* cmdList);</div>
+<div class="line"><a id="l00235" name="l00235"></a><span class="lineno">  235</span> </div>
+<div class="line"><a id="l00236" name="l00236"></a><span class="lineno">  236</span><span class="preprocessor">#pragma endregion</span></div>
+<div class="line"><a id="l00237" name="l00237"></a><span class="lineno">  237</span> </div>
+<div class="line"><a id="l00238" name="l00238"></a><span class="lineno">  238</span><span class="preprocessor">#pragma region Factory methods</span></div>
+<div class="line"><a id="l00239" name="l00239"></a><span class="lineno">  239</span> </div>
+<div class="line"><a id="l00244" name="l00244"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer.html#a698029d7d9f0752dd70bce6ad46df58f">  244</a></span>        <span class="keyword">virtual</span> <a class="code hl_class" href="class_o_s_k_1_1_owned_ptr.html">OwnedPtr&lt;IGraphicsPipeline&gt;</a> <a class="code hl_function" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer.html#a698029d7d9f0752dd70bce6ad46df58f">_CreateGraphicsPipeline</a>(</div>
+<div class="line"><a id="l00245" name="l00245"></a><span class="lineno">  245</span>            <span class="keyword">const</span> <a class="code hl_struct" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_pipeline_create_info.html">PipelineCreateInfo</a>&amp; pipelineInfo, </div>
+<div class="line"><a id="l00246" name="l00246"></a><span class="lineno">  246</span>            <span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_layout.html">MaterialLayout</a>&amp; layout, </div>
+<div class="line"><a id="l00247" name="l00247"></a><span class="lineno">  247</span>            <span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_vertex_info.html">VertexInfo</a>&amp; vertexTypeName) = 0;</div>
+<div class="line"><a id="l00248" name="l00248"></a><span class="lineno">  248</span> </div>
+<div class="line"><a id="l00253" name="l00253"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer.html#a2090c62d1c6a997e219687a3f056803c">  253</a></span>        <span class="keyword">virtual</span> <a class="code hl_class" href="class_o_s_k_1_1_owned_ptr.html">OwnedPtr&lt;IRaytracingPipeline&gt;</a> <a class="code hl_function" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer.html#a2090c62d1c6a997e219687a3f056803c">_CreateRaytracingPipeline</a>(</div>
+<div class="line"><a id="l00254" name="l00254"></a><span class="lineno">  254</span>            <span class="keyword">const</span> <a class="code hl_struct" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_pipeline_create_info.html">PipelineCreateInfo</a>&amp; pipelineInfo, </div>
+<div class="line"><a id="l00255" name="l00255"></a><span class="lineno">  255</span>            <span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_layout.html">MaterialLayout</a>&amp; layout, </div>
+<div class="line"><a id="l00256" name="l00256"></a><span class="lineno">  256</span>            <span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_vertex_info.html">VertexInfo</a>&amp; vertexTypeName) = 0;</div>
+<div class="line"><a id="l00257" name="l00257"></a><span class="lineno">  257</span> </div>
+<div class="line"><a id="l00262" name="l00262"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer.html#a72334c25700b3dacfa25418947fa8d42">  262</a></span>        <span class="keyword">virtual</span> <a class="code hl_class" href="class_o_s_k_1_1_owned_ptr.html">OwnedPtr&lt;IComputePipeline&gt;</a> <a class="code hl_function" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer.html#a72334c25700b3dacfa25418947fa8d42">_CreateComputePipeline</a>(</div>
+<div class="line"><a id="l00263" name="l00263"></a><span class="lineno">  263</span>            <span class="keyword">const</span> <a class="code hl_struct" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_pipeline_create_info.html">PipelineCreateInfo</a>&amp; pipelineInfo, </div>
+<div class="line"><a id="l00264" name="l00264"></a><span class="lineno">  264</span>            <span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_layout.html">MaterialLayout</a>&amp; layout) = 0;</div>
+<div class="line"><a id="l00265" name="l00265"></a><span class="lineno">  265</span> </div>
+<div class="line"><a id="l00269" name="l00269"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer.html#a541a0a14723178c938ceb60b22fcddf4">  269</a></span>        <span class="keyword">virtual</span> <a class="code hl_class" href="class_o_s_k_1_1_owned_ptr.html">OwnedPtr&lt;IMaterialSlot&gt;</a> <a class="code hl_function" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer.html#a541a0a14723178c938ceb60b22fcddf4">_CreateMaterialSlot</a>(</div>
+<div class="line"><a id="l00270" name="l00270"></a><span class="lineno">  270</span>            <span class="keyword">const</span> std::string&amp; <a class="code hl_variable" href="x64-windows-static_2x64-windows-static_2include_2spirv_2unified1_2spv_8d.html#a41f818ddb5dc4447d88e7b94d4f72d72">name</a>, </div>
+<div class="line"><a id="l00271" name="l00271"></a><span class="lineno">  271</span>            <span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_layout.html">MaterialLayout</a>&amp; layout) <span class="keyword">const</span> = 0;</div>
+<div class="line"><a id="l00272" name="l00272"></a><span class="lineno">  272</span> </div>
+<div class="line"><a id="l00274" name="l00274"></a><span class="lineno">  274</span>        <a class="code hl_class" href="class_o_s_k_1_1_owned_ptr.html">OwnedPtr&lt;ICommandList&gt;</a> CreateSingleUseCommandList();</div>
+<div class="line"><a id="l00276" name="l00276"></a><span class="lineno">  276</span>        </div>
+<div class="line"><a id="l00285" name="l00285"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer.html#a6123ce5c1df39bed80e1949332bce18a">  285</a></span>        <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code hl_function" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer.html#a6123ce5c1df39bed80e1949332bce18a">SubmitSingleUseCommandList</a>(<a class="code hl_class" href="class_o_s_k_1_1_owned_ptr.html">OwnedPtr&lt;ICommandList&gt;</a> commandList) = 0;</div>
+<div class="line"><a id="l00286" name="l00286"></a><span class="lineno">  286</span> </div>
+<div class="line"><a id="l00287" name="l00287"></a><span class="lineno">  287</span><span class="preprocessor">#pragma endregion</span></div>
+<div class="line"><a id="l00288" name="l00288"></a><span class="lineno">  288</span> </div>
+<div class="line"><a id="l00289" name="l00289"></a><span class="lineno">  289</span> </div>
+<div class="line"><a id="l00293" name="l00293"></a><span class="lineno">  293</span>        <span class="keywordtype">bool</span> IsRtActive() <span class="keyword">const</span>;</div>
+<div class="line"><a id="l00294" name="l00294"></a><span class="lineno">  294</span> </div>
+<div class="line"><a id="l00299" name="l00299"></a><span class="lineno">  299</span>        <span class="keywordtype">bool</span> _HasImplicitResizeHandling() <span class="keyword">const</span>;</div>
+<div class="line"><a id="l00300" name="l00300"></a><span class="lineno">  300</span> </div>
+<div class="line"><a id="l00301" name="l00301"></a><span class="lineno">  301</span> </div>
+<div class="line"><a id="l00302" name="l00302"></a><span class="lineno">  302</span>        <a class="code hl_class" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material.html">Material</a>* GetFullscreenRenderingMaterial();</div>
+<div class="line"><a id="l00303" name="l00303"></a><span class="lineno">  303</span> </div>
+<div class="line"><a id="l00304" name="l00304"></a><span class="lineno">  304</span>    <span class="keyword">protected</span>:</div>
+<div class="line"><a id="l00305" name="l00305"></a><span class="lineno">  305</span> </div>
+<div class="line"><a id="l00306" name="l00306"></a><span class="lineno">  306</span>        <a class="code hl_class" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer.html">IRenderer</a>(<a class="code hl_enumeration" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a3057691f190dabf7642cfde72cf2430f">RenderApiType</a> renderApiType, <span class="keywordtype">bool</span> requestRayTracing);</div>
+<div class="line"><a id="l00307" name="l00307"></a><span class="lineno">  307</span> </div>
+<div class="line"><a id="l00320" name="l00320"></a><span class="lineno">  320</span>        <span class="keyword">virtual</span> <span class="keyword">const</span> <a class="code hl_typedef" href="namespace_o_s_k.html#a79ac5831e0b2433213dacbfc636f4d8f">TByte</a>* FormatImageDataForGpu(<span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image.html">GpuImage</a>* image, <span class="keyword">const</span> <a class="code hl_typedef" href="namespace_o_s_k.html#a79ac5831e0b2433213dacbfc636f4d8f">TByte</a>* data, <a class="code hl_typedef" href="_o_s_kmacros_8h.html#a3e916ed5b32955be3417da92899fc361">USize32</a> numLayers);</div>
+<div class="line"><a id="l00321" name="l00321"></a><span class="lineno">  321</span> </div>
+<div class="line"><a id="l00323" name="l00323"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer.html#a68c35e96c0520bb5121761b79bb5bf61">  323</a></span>        <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code hl_function" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer.html#a68c35e96c0520bb5121761b79bb5bf61">CreateCommandQueues</a>() = 0;</div>
+<div class="line"><a id="l00324" name="l00324"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer.html#a6cee4717a48eca50317d899ad9079210">  324</a></span>        <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code hl_function" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer.html#a6cee4717a48eca50317d899ad9079210">CreateSwapchain</a>(<a class="code hl_enumeration" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a47a7b3817b8aca438c20b7674fad28ab">PresentMode</a> <a class="code hl_variable" href="x64-windows-static_2x64-windows-static_2include_2libpng16_2png_8h.html#a3eabae3e1e65723a7ec3445646cb7795">mode</a>) = 0;</div>
+<div class="line"><a id="l00325" name="l00325"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer.html#aeddc71ea58f84ac13bf7017133a8d2b0">  325</a></span>        <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code hl_function" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer.html#aeddc71ea58f84ac13bf7017133a8d2b0">CreateGpuMemoryAllocator</a>() = 0;</div>
+<div class="line"><a id="l00326" name="l00326"></a><span class="lineno">  326</span>        </div>
+<div class="line"><a id="l00327" name="l00327"></a><span class="lineno">  327</span>        <span class="keywordtype">void</span> CreateMainRenderpass();</div>
+<div class="line"><a id="l00328" name="l00328"></a><span class="lineno">  328</span> </div>
+<div class="line"><a id="l00329" name="l00329"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer.html#a2928763ae4948a9de9bafad902fd9696">  329</a></span>        <a class="code hl_class" href="class_o_s_k_1_1_unique_ptr.html">UniquePtr&lt;IGpu&gt;</a> <a class="code hl_variable" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer.html#a2928763ae4948a9de9bafad902fd9696">currentGpu</a>;</div>
+<div class="line"><a id="l00330" name="l00330"></a><span class="lineno">  330</span> </div>
+<div class="line"><a id="l00331" name="l00331"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer.html#ada7ad73436c32df92625b7af4e708e17">  331</a></span>        <a class="code hl_class" href="class_o_s_k_1_1_unique_ptr.html">UniquePtr&lt;ICommandQueue&gt;</a> <a class="code hl_variable" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer.html#ada7ad73436c32df92625b7af4e708e17">graphicsQueue</a>;</div>
+<div class="line"><a id="l00332" name="l00332"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer.html#a05fc17f5d2cbaa3895f5d3a626107e47">  332</a></span>        <a class="code hl_class" href="class_o_s_k_1_1_unique_ptr.html">UniquePtr&lt;ICommandQueue&gt;</a> <a class="code hl_variable" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer.html#a05fc17f5d2cbaa3895f5d3a626107e47">computeQueue</a>;</div>
+<div class="line"><a id="l00333" name="l00333"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer.html#a9fd87ed15539f6d249ce8d2e8247b522">  333</a></span>        <a class="code hl_class" href="class_o_s_k_1_1_unique_ptr.html">UniquePtr&lt;ICommandQueue&gt;</a> <a class="code hl_variable" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer.html#a9fd87ed15539f6d249ce8d2e8247b522">presentQueue</a>;</div>
+<div class="line"><a id="l00334" name="l00334"></a><span class="lineno">  334</span> </div>
+<div class="line"><a id="l00335" name="l00335"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer.html#a4c5061452a68969f433306c2e5984a70">  335</a></span>        <a class="code hl_class" href="class_o_s_k_1_1_unique_ptr.html">UniquePtr&lt;ISwapchain&gt;</a> <a class="code hl_variable" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer.html#a4c5061452a68969f433306c2e5984a70">swapchain</a>;</div>
+<div class="line"><a id="l00336" name="l00336"></a><span class="lineno">  336</span> </div>
+<div class="line"><a id="l00337" name="l00337"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer.html#acad78f090fc5cf8a54762d863452b419">  337</a></span>        <a class="code hl_class" href="class_o_s_k_1_1_unique_ptr.html">UniquePtr&lt;ICommandPool&gt;</a> <a class="code hl_variable" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer.html#acad78f090fc5cf8a54762d863452b419">graphicsCommandPool</a>;</div>
+<div class="line"><a id="l00338" name="l00338"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer.html#a34603566a0187941cbff752e587db881">  338</a></span>        <a class="code hl_class" href="class_o_s_k_1_1_unique_ptr.html">UniquePtr&lt;ICommandList&gt;</a> <a class="code hl_variable" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer.html#a34603566a0187941cbff752e587db881">graphicsCommandList</a>;</div>
+<div class="line"><a id="l00339" name="l00339"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer.html#a3b31beb9b077f69dddeed7b30745ae81">  339</a></span>        <a class="code hl_class" href="class_o_s_k_1_1_unique_ptr.html">UniquePtr&lt;ICommandList&gt;</a> <a class="code hl_variable" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer.html#a3b31beb9b077f69dddeed7b30745ae81">frameBuildCommandList</a>;</div>
+<div class="line"><a id="l00340" name="l00340"></a><span class="lineno">  340</span> </div>
+<div class="line"><a id="l00341" name="l00341"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer.html#a76bddfef891f966b5d0001cc5063986f">  341</a></span>        <a class="code hl_class" href="class_o_s_k_1_1_unique_ptr.html">UniquePtr&lt;ICommandPool&gt;</a> <a class="code hl_variable" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer.html#a76bddfef891f966b5d0001cc5063986f">computeCommandPool</a>;</div>
+<div class="line"><a id="l00342" name="l00342"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer.html#aea4737662d1590969769cd958cb7adaf">  342</a></span>        <a class="code hl_class" href="class_o_s_k_1_1_unique_ptr.html">UniquePtr&lt;ICommandList&gt;</a> <a class="code hl_variable" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer.html#aea4737662d1590969769cd958cb7adaf">preComputeCommandList</a>;</div>
+<div class="line"><a id="l00343" name="l00343"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer.html#a0574dda9de1a0beaffbe4326f374cbee">  343</a></span>        <a class="code hl_class" href="class_o_s_k_1_1_unique_ptr.html">UniquePtr&lt;ICommandList&gt;</a> <a class="code hl_variable" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer.html#a0574dda9de1a0beaffbe4326f374cbee">postComputeCommandList</a>;</div>
+<div class="line"><a id="l00344" name="l00344"></a><span class="lineno">  344</span> </div>
+<div class="line"><a id="l00345" name="l00345"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer.html#a046cb6d9d3bd12965b1abc3e9bd3c2c3">  345</a></span>        <a class="code hl_class" href="class_o_s_k_1_1_unique_ptr.html">UniquePtr&lt;IGpuMemoryAllocator&gt;</a> <a class="code hl_variable" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer.html#a046cb6d9d3bd12965b1abc3e9bd3c2c3">gpuMemoryAllocator</a>;</div>
+<div class="line"><a id="l00346" name="l00346"></a><span class="lineno">  346</span> </div>
+<div class="line"><a id="l00347" name="l00347"></a><span class="lineno">  347</span>        <span class="comment">// Renderpasses</span></div>
+<div class="line"><a id="l00348" name="l00348"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer.html#a30073a14bdd20555c38f5326b0ea9b89">  348</a></span>        <a class="code hl_class" href="class_o_s_k_1_1_unique_ptr.html">UniquePtr&lt;RenderTarget&gt;</a> <a class="code hl_variable" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer.html#a30073a14bdd20555c38f5326b0ea9b89">finalRenderTarget</a>;</div>
+<div class="line"><a id="l00349" name="l00349"></a><span class="lineno">  349</span>        </div>
+<div class="line"><a id="l00350" name="l00350"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer.html#a6bca4cd0b04eecbf58432b51c221da77">  350</a></span>        <a class="code hl_class" href="class_o_s_k_1_1_unique_ptr.html">UniquePtr&lt;MaterialSystem&gt;</a> <a class="code hl_variable" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer.html#a6bca4cd0b04eecbf58432b51c221da77">materialSystem</a>;</div>
+<div class="line"><a id="l00351" name="l00351"></a><span class="lineno">  351</span> </div>
+<div class="line"><a id="l00352" name="l00352"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer.html#a0493d3e86b3a5f32f74acf9a280c812f">  352</a></span>        <a class="code hl_class" href="class_o_s_k_1_1_dynamic_array.html">DynamicArray&lt;UniquePtr&lt;ICommandList&gt;</a>&gt; <a class="code hl_variable" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer.html#a0493d3e86b3a5f32f74acf9a280c812f">singleTimeCommandLists</a>;</div>
+<div class="line"><a id="l00353" name="l00353"></a><span class="lineno">  353</span> </div>
+<div class="line"><a id="l00354" name="l00354"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer.html#a0dd4df1f6aedb79c660b511c673e1318">  354</a></span>        <span class="keywordtype">bool</span> isFirstRender = <span class="keyword">true</span>;</div>
+<div class="line"><a id="l00355" name="l00355"></a><span class="lineno">  355</span> </div>
+<div class="line"><a id="l00356" name="l00356"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer.html#a21af846b7072ce67ae57ab6ed4c24111">  356</a></span>        <span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_i_o_1_1_i_display.html">IO::IDisplay</a>* display = <span class="keyword">nullptr</span>;</div>
+<div class="line"><a id="l00357" name="l00357"></a><span class="lineno">  357</span> </div>
+<div class="line"><a id="l00358" name="l00358"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer.html#a92b402ae79fb7b6b7a262d8efe790a4b">  358</a></span>        <span class="keywordtype">bool</span> isOpen = <span class="keyword">false</span>;</div>
+<div class="line"><a id="l00359" name="l00359"></a><span class="lineno">  359</span> </div>
+<div class="line"><a id="l00360" name="l00360"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer.html#aae0f70bb0d6940710331e6b251812c81">  360</a></span>        <a class="code hl_class" href="class_o_s_k_1_1_unique_ptr.html">UniquePtr&lt;ECS::CameraComponent2D&gt;</a> <a class="code hl_variable" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer.html#aae0f70bb0d6940710331e6b251812c81">renderTargetsCamera</a>;</div>
+<div class="line"><a id="l00361" name="l00361"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer.html#ad4be6bdc6e9ed15a10bf4e333b722c58">  361</a></span>        <a class="code hl_class" href="class_o_s_k_1_1_e_c_s_1_1_transform2_d.html">ECS::Transform2D</a> renderTargetsCameraTransform{ ECS::EMPTY_GAME_OBJECT };</div>
+<div class="line"><a id="l00362" name="l00362"></a><span class="lineno">  362</span> </div>
+<div class="line"><a id="l00363" name="l00363"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer.html#a8a9bd673e93ebce0a7e60a8133f51de7">  363</a></span>        <span class="keywordtype">bool</span> implicitResizeHandling = <span class="keyword">false</span>;</div>
+<div class="line"><a id="l00364" name="l00364"></a><span class="lineno">  364</span> </div>
+<div class="line"><a id="l00365" name="l00365"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer.html#a54e890abc204e8918aae618cf4642a0b">  365</a></span>        <span class="keywordtype">bool</span> isRtActive = <span class="keyword">false</span>;</div>
+<div class="line"><a id="l00366" name="l00366"></a><span class="lineno">  366</span> </div>
+<div class="line"><a id="l00367" name="l00367"></a><span class="lineno">  367</span>        <span class="keywordtype">bool</span> IsRtRequested() <span class="keyword">const</span>;</div>
+<div class="line"><a id="l00368" name="l00368"></a><span class="lineno">  368</span> </div>
+<div class="line"><a id="l00369" name="l00369"></a><span class="lineno">  369</span>        <span class="comment">// True si se usa la misma queue para enviar comandos gráficos y de computación.</span></div>
+<div class="line"><a id="l00370" name="l00370"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer.html#a7575d99920b80cf3481c26d2e170ebd6">  370</a></span>        <span class="keywordtype">bool</span> singleCommandQueue = <span class="keyword">false</span>;</div>
+<div class="line"><a id="l00371" name="l00371"></a><span class="lineno">  371</span> </div>
+<div class="line"><a id="l00372" name="l00372"></a><span class="lineno">  372</span>    <span class="keyword">private</span>:</div>
+<div class="line"><a id="l00373" name="l00373"></a><span class="lineno">  373</span> </div>
+<div class="line"><a id="l00374" name="l00374"></a><span class="lineno">  374</span>        <a class="code hl_enumeration" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a3057691f190dabf7642cfde72cf2430f">RenderApiType</a> renderApiType;</div>
+<div class="line"><a id="l00375" name="l00375"></a><span class="lineno">  375</span>        <span class="keywordtype">bool</span> isRtRequested = <span class="keyword">false</span>;</div>
+<div class="line"><a id="l00376" name="l00376"></a><span class="lineno">  376</span> </div>
+<div class="line"><a id="l00377" name="l00377"></a><span class="lineno">  377</span>    };</div>
+</div>
+<div class="line"><a id="l00378" name="l00378"></a><span class="lineno">  378</span> </div>
+<div class="line"><a id="l00379" name="l00379"></a><span class="lineno">  379</span>}</div>
+<div class="ttc" id="a_camera_component2_d_8h_html"><div class="ttname"><a href="_camera_component2_d_8h.html">CameraComponent2D.h</a></div></div>
+<div class="ttc" id="a_dynamic_array_8hpp_html"><div class="ttname"><a href="_dynamic_array_8hpp.html">DynamicArray.hpp</a></div></div>
+<div class="ttc" id="a_gpu_buffer_8h_html"><div class="ttname"><a href="_gpu_buffer_8h.html">GpuBuffer.h</a></div></div>
+<div class="ttc" id="a_i_command_list_8h_html"><div class="ttname"><a href="_i_command_list_8h.html">ICommandList.h</a></div></div>
+<div class="ttc" id="a_i_command_pool_8h_html"><div class="ttname"><a href="_i_command_pool_8h.html">ICommandPool.h</a></div></div>
+<div class="ttc" id="a_i_command_queue_8h_html"><div class="ttname"><a href="_i_command_queue_8h.html">ICommandQueue.h</a></div></div>
+<div class="ttc" id="a_i_gpu_8h_html"><div class="ttname"><a href="_i_gpu_8h.html">IGpu.h</a></div></div>
+<div class="ttc" id="a_i_gpu_image_8h_html"><div class="ttname"><a href="_i_gpu_image_8h.html">IGpuImage.h</a></div></div>
+<div class="ttc" id="a_i_gpu_memory_allocator_8h_html"><div class="ttname"><a href="_i_gpu_memory_allocator_8h.html">IGpuMemoryAllocator.h</a></div></div>
+<div class="ttc" id="a_i_swapchain_8h_html"><div class="ttname"><a href="_i_swapchain_8h.html">ISwapchain.h</a></div></div>
+<div class="ttc" id="a_material_8h_html"><div class="ttname"><a href="_material_8h.html">Material.h</a></div></div>
+<div class="ttc" id="a_material_system_8h_html"><div class="ttname"><a href="_material_system_8h.html">MaterialSystem.h</a></div></div>
+<div class="ttc" id="a_o_s_kmacros_8h_html"><div class="ttname"><a href="_o_s_kmacros_8h.html">OSKmacros.h</a></div></div>
+<div class="ttc" id="a_o_s_kmacros_8h_html_a09ec5b46ece998ad096bceff312bb36c"><div class="ttname"><a href="_o_s_kmacros_8h.html#a09ec5b46ece998ad096bceff312bb36c">OSKAPI_CALL</a></div><div class="ttdeci">#define OSKAPI_CALL</div><div class="ttdef"><b>Definition</b> <a href="_o_s_kmacros_8h_source.html#l00007">OSKmacros.h:7</a></div></div>
+<div class="ttc" id="a_o_s_kmacros_8h_html_a3e916ed5b32955be3417da92899fc361"><div class="ttname"><a href="_o_s_kmacros_8h.html#a3e916ed5b32955be3417da92899fc361">USize32</a></div><div class="ttdeci">uint32_t USize32</div><div class="ttdef"><b>Definition</b> <a href="_o_s_kmacros_8h_source.html#l00043">OSKmacros.h:43</a></div></div>
+<div class="ttc" id="a_o_s_kmacros_8h_html_a5784d24fcb00afb78eb7b1e1a3466ac4"><div class="ttname"><a href="_o_s_kmacros_8h.html#a5784d24fcb00afb78eb7b1e1a3466ac4">USize64</a></div><div class="ttdeci">uint64_t USize64</div><div class="ttdef"><b>Definition</b> <a href="_o_s_kmacros_8h_source.html#l00044">OSKmacros.h:44</a></div></div>
+<div class="ttc" id="a_owned_ptr_8h_html"><div class="ttname"><a href="_owned_ptr_8h.html">OwnedPtr.h</a></div></div>
+<div class="ttc" id="a_present_mode_8h_html"><div class="ttname"><a href="_present_mode_8h.html">PresentMode.h</a></div></div>
+<div class="ttc" id="a_render_target_8h_html"><div class="ttname"><a href="_render_target_8h.html">RenderTarget.h</a></div></div>
+<div class="ttc" id="a_transform2_d_8h_html"><div class="ttname"><a href="_transform2_d_8h.html">Transform2D.h</a></div></div>
+<div class="ttc" id="a_unique_ptr_8hpp_html"><div class="ttname"><a href="_unique_ptr_8hpp.html">UniquePtr.hpp</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_dynamic_array_html"><div class="ttname"><a href="class_o_s_k_1_1_dynamic_array.html">OSK::DynamicArray</a></div><div class="ttdoc">Dynamic array: array que puede cambiar de tamaño.</div><div class="ttdef"><b>Definition</b> <a href="_dynamic_array_8hpp_source.html#l00066">DynamicArray.hpp:66</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_e_c_s_1_1_camera_component2_d_html"><div class="ttname"><a href="class_o_s_k_1_1_e_c_s_1_1_camera_component2_d.html">OSK::ECS::CameraComponent2D</a></div><div class="ttdoc">Cámara para un mundo de dos dimensiones.</div><div class="ttdef"><b>Definition</b> <a href="_camera_component2_d_8h_source.html#l00024">CameraComponent2D.h:24</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_e_c_s_1_1_transform2_d_html"><div class="ttname"><a href="class_o_s_k_1_1_e_c_s_1_1_transform2_d.html">OSK::ECS::Transform2D</a></div><div class="ttdoc">Clase que almacena el 'transform' de un objeto en un mundo 2D. El transform contiene posición,...</div><div class="ttdef"><b>Definition</b> <a href="_transform2_d_8h_source.html#l00020">Transform2D.h:20</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_html"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image.html">OSK::GRAPHICS::GpuImage</a></div><div class="ttdoc">Representación interna de una imagen en la GPU.</div><div class="ttdef"><b>Definition</b> <a href="_i_gpu_image_8h_source.html#l00058">IGpuImage.h:58</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list_html"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list.html">OSK::GRAPHICS::ICommandList</a></div><div class="ttdoc">Una lista de comandos contiene una serie de comandos que serán enviados a la GPU para su ejecución....</div><div class="ttdef"><b>Definition</b> <a href="_i_command_list_8h_source.html#l00114">ICommandList.h:114</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_queue_html"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_queue.html">OSK::GRAPHICS::ICommandQueue</a></div><div class="ttdoc">Representa un puerto de entrada para los comandos de la GPU.</div><div class="ttdef"><b>Definition</b> <a href="_i_command_queue_8h_source.html#l00011">ICommandQueue.h:11</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_html"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu.html">OSK::GRAPHICS::IGpu</a></div><div class="ttdoc">Representa una conexión con la GPU.</div><div class="ttdef"><b>Definition</b> <a href="_i_gpu_8h_source.html#l00014">IGpu.h:14</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_allocator_html"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_allocator.html">OSK::GRAPHICS::IGpuMemoryAllocator</a></div><div class="ttdoc">El asignador de memoria se encarga de reservar grandes bloques de memoria en la GPU,...</div><div class="ttdef"><b>Definition</b> <a href="_i_gpu_memory_allocator_8h_source.html#l00097">IGpuMemoryAllocator.h:97</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_html"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer.html">OSK::GRAPHICS::IRenderer</a></div><div class="ttdoc">Proporciona la interfaz de un renderizador.</div><div class="ttdef"><b>Definition</b> <a href="#l00057">IRenderer.h:57</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_html_a046cb6d9d3bd12965b1abc3e9bd3c2c3"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer.html#a046cb6d9d3bd12965b1abc3e9bd3c2c3">OSK::GRAPHICS::IRenderer::gpuMemoryAllocator</a></div><div class="ttdeci">UniquePtr&lt; IGpuMemoryAllocator &gt; gpuMemoryAllocator</div><div class="ttdef"><b>Definition</b> <a href="#l00345">IRenderer.h:345</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_html_a0493d3e86b3a5f32f74acf9a280c812f"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer.html#a0493d3e86b3a5f32f74acf9a280c812f">OSK::GRAPHICS::IRenderer::singleTimeCommandLists</a></div><div class="ttdeci">DynamicArray&lt; UniquePtr&lt; ICommandList &gt; &gt; singleTimeCommandLists</div><div class="ttdef"><b>Definition</b> <a href="#l00352">IRenderer.h:352</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_html_a0574dda9de1a0beaffbe4326f374cbee"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer.html#a0574dda9de1a0beaffbe4326f374cbee">OSK::GRAPHICS::IRenderer::postComputeCommandList</a></div><div class="ttdeci">UniquePtr&lt; ICommandList &gt; postComputeCommandList</div><div class="ttdef"><b>Definition</b> <a href="#l00343">IRenderer.h:343</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_html_a05fc17f5d2cbaa3895f5d3a626107e47"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer.html#a05fc17f5d2cbaa3895f5d3a626107e47">OSK::GRAPHICS::IRenderer::computeQueue</a></div><div class="ttdeci">UniquePtr&lt; ICommandQueue &gt; computeQueue</div><div class="ttdef"><b>Definition</b> <a href="#l00332">IRenderer.h:332</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_html_a12a1317275afb40d7800cccdfbece8fb"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer.html#a12a1317275afb40d7800cccdfbece8fb">OSK::GRAPHICS::IRenderer::GetPresentCommandQueue</a></div><div class="ttdeci">ICommandQueue * GetPresentCommandQueue()</div><div class="ttdef"><b>Definition</b> <a href="#l00115">IRenderer.h:115</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_html_a2090c62d1c6a997e219687a3f056803c"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer.html#a2090c62d1c6a997e219687a3f056803c">OSK::GRAPHICS::IRenderer::_CreateRaytracingPipeline</a></div><div class="ttdeci">virtual OwnedPtr&lt; IRaytracingPipeline &gt; _CreateRaytracingPipeline(const PipelineCreateInfo &amp;pipelineInfo, const MaterialLayout &amp;layout, const VertexInfo &amp;vertexTypeName)=0</div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_html_a25f63aef13e609b6692fb31027c33202"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer.html#a25f63aef13e609b6692fb31027c33202">OSK::GRAPHICS::IRenderer::GetComputeCommandQueue</a></div><div class="ttdeci">ICommandQueue * GetComputeCommandQueue()</div><div class="ttdef"><b>Definition</b> <a href="#l00114">IRenderer.h:114</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_html_a2928763ae4948a9de9bafad902fd9696"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer.html#a2928763ae4948a9de9bafad902fd9696">OSK::GRAPHICS::IRenderer::currentGpu</a></div><div class="ttdeci">UniquePtr&lt; IGpu &gt; currentGpu</div><div class="ttdef"><b>Definition</b> <a href="#l00329">IRenderer.h:329</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_html_a30073a14bdd20555c38f5326b0ea9b89"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer.html#a30073a14bdd20555c38f5326b0ea9b89">OSK::GRAPHICS::IRenderer::finalRenderTarget</a></div><div class="ttdeci">UniquePtr&lt; RenderTarget &gt; finalRenderTarget</div><div class="ttdef"><b>Definition</b> <a href="#l00348">IRenderer.h:348</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_html_a34603566a0187941cbff752e587db881"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer.html#a34603566a0187941cbff752e587db881">OSK::GRAPHICS::IRenderer::graphicsCommandList</a></div><div class="ttdeci">UniquePtr&lt; ICommandList &gt; graphicsCommandList</div><div class="ttdef"><b>Definition</b> <a href="#l00338">IRenderer.h:338</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_html_a3b31beb9b077f69dddeed7b30745ae81"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer.html#a3b31beb9b077f69dddeed7b30745ae81">OSK::GRAPHICS::IRenderer::frameBuildCommandList</a></div><div class="ttdeci">UniquePtr&lt; ICommandList &gt; frameBuildCommandList</div><div class="ttdef"><b>Definition</b> <a href="#l00339">IRenderer.h:339</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_html_a4a5f5a94ea92312c37f03f9be01f0fa5"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer.html#a4a5f5a94ea92312c37f03f9be01f0fa5">OSK::GRAPHICS::IRenderer::WaitForCompletion</a></div><div class="ttdeci">virtual void WaitForCompletion()=0</div><div class="ttdoc">Hace que el hilo actual espere a que se hayan ejecutado todos los comandos en la GPU....</div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_html_a4c5061452a68969f433306c2e5984a70"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer.html#a4c5061452a68969f433306c2e5984a70">OSK::GRAPHICS::IRenderer::swapchain</a></div><div class="ttdeci">UniquePtr&lt; ISwapchain &gt; swapchain</div><div class="ttdef"><b>Definition</b> <a href="#l00335">IRenderer.h:335</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_html_a541a0a14723178c938ceb60b22fcddf4"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer.html#a541a0a14723178c938ceb60b22fcddf4">OSK::GRAPHICS::IRenderer::_CreateMaterialSlot</a></div><div class="ttdeci">virtual OwnedPtr&lt; IMaterialSlot &gt; _CreateMaterialSlot(const std::string &amp;name, const MaterialLayout &amp;layout) const =0</div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_html_a59e1204fb4bf9c1cbb643cf45259680d"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer.html#a59e1204fb4bf9c1cbb643cf45259680d">OSK::GRAPHICS::IRenderer::GetCurrentCommandListIndex</a></div><div class="ttdeci">virtual USize32 GetCurrentCommandListIndex() const =0</div><div class="ttdoc">Devuelve el índidce de la lista de comandos que será usada en el prximo fotograma.</div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_html_a6123ce5c1df39bed80e1949332bce18a"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer.html#a6123ce5c1df39bed80e1949332bce18a">OSK::GRAPHICS::IRenderer::SubmitSingleUseCommandList</a></div><div class="ttdeci">virtual void SubmitSingleUseCommandList(OwnedPtr&lt; ICommandList &gt; commandList)=0</div><div class="ttdoc">Ejecuta el contenido de la lista de comandos.</div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_html_a68c35e96c0520bb5121761b79bb5bf61"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer.html#a68c35e96c0520bb5121761b79bb5bf61">OSK::GRAPHICS::IRenderer::CreateCommandQueues</a></div><div class="ttdeci">virtual void CreateCommandQueues()=0</div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_html_a698029d7d9f0752dd70bce6ad46df58f"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer.html#a698029d7d9f0752dd70bce6ad46df58f">OSK::GRAPHICS::IRenderer::_CreateGraphicsPipeline</a></div><div class="ttdeci">virtual OwnedPtr&lt; IGraphicsPipeline &gt; _CreateGraphicsPipeline(const PipelineCreateInfo &amp;pipelineInfo, const MaterialLayout &amp;layout, const VertexInfo &amp;vertexTypeName)=0</div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_html_a6bca4cd0b04eecbf58432b51c221da77"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer.html#a6bca4cd0b04eecbf58432b51c221da77">OSK::GRAPHICS::IRenderer::materialSystem</a></div><div class="ttdeci">UniquePtr&lt; MaterialSystem &gt; materialSystem</div><div class="ttdef"><b>Definition</b> <a href="#l00350">IRenderer.h:350</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_html_a6cee4717a48eca50317d899ad9079210"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer.html#a6cee4717a48eca50317d899ad9079210">OSK::GRAPHICS::IRenderer::CreateSwapchain</a></div><div class="ttdeci">virtual void CreateSwapchain(PresentMode mode)=0</div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_html_a72334c25700b3dacfa25418947fa8d42"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer.html#a72334c25700b3dacfa25418947fa8d42">OSK::GRAPHICS::IRenderer::_CreateComputePipeline</a></div><div class="ttdeci">virtual OwnedPtr&lt; IComputePipeline &gt; _CreateComputePipeline(const PipelineCreateInfo &amp;pipelineInfo, const MaterialLayout &amp;layout)=0</div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_html_a753bebfa3c047179505a4ffb1b991f15"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer.html#a753bebfa3c047179505a4ffb1b991f15">OSK::GRAPHICS::IRenderer::GetGraphicsCommandQueue</a></div><div class="ttdeci">ICommandQueue * GetGraphicsCommandQueue()</div><div class="ttdef"><b>Definition</b> <a href="#l00113">IRenderer.h:113</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_html_a76bddfef891f966b5d0001cc5063986f"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer.html#a76bddfef891f966b5d0001cc5063986f">OSK::GRAPHICS::IRenderer::computeCommandPool</a></div><div class="ttdeci">UniquePtr&lt; ICommandPool &gt; computeCommandPool</div><div class="ttdef"><b>Definition</b> <a href="#l00341">IRenderer.h:341</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_html_a90aa9f12a25efdcc002be083fdc9c701"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer.html#a90aa9f12a25efdcc002be083fdc9c701">OSK::GRAPHICS::IRenderer::PresentFrame</a></div><div class="ttdeci">virtual void PresentFrame()=0</div><div class="ttdoc">Una vez se han grabado todos los comandos, se debe iniciar su ejecución en la GPU para ser renderizad...</div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_html_a93e97ba3e814f6e1a3655c162739ec1f"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer.html#a93e97ba3e814f6e1a3655c162739ec1f">OSK::GRAPHICS::IRenderer::OSK_DEFINE_AS</a></div><div class="ttdeci">OSK_DEFINE_AS(IRenderer)</div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_html_a9fd87ed15539f6d249ce8d2e8247b522"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer.html#a9fd87ed15539f6d249ce8d2e8247b522">OSK::GRAPHICS::IRenderer::presentQueue</a></div><div class="ttdeci">UniquePtr&lt; ICommandQueue &gt; presentQueue</div><div class="ttdef"><b>Definition</b> <a href="#l00333">IRenderer.h:333</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_html_aa168ea76a7cb69e1f6483080f7bb05d3"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer.html#aa168ea76a7cb69e1f6483080f7bb05d3">OSK::GRAPHICS::IRenderer::~IRenderer</a></div><div class="ttdeci">virtual ~IRenderer()=default</div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_html_aae0f70bb0d6940710331e6b251812c81"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer.html#aae0f70bb0d6940710331e6b251812c81">OSK::GRAPHICS::IRenderer::renderTargetsCamera</a></div><div class="ttdeci">UniquePtr&lt; ECS::CameraComponent2D &gt; renderTargetsCamera</div><div class="ttdef"><b>Definition</b> <a href="#l00360">IRenderer.h:360</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_html_acad78f090fc5cf8a54762d863452b419"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer.html#acad78f090fc5cf8a54762d863452b419">OSK::GRAPHICS::IRenderer::graphicsCommandPool</a></div><div class="ttdeci">UniquePtr&lt; ICommandPool &gt; graphicsCommandPool</div><div class="ttdef"><b>Definition</b> <a href="#l00337">IRenderer.h:337</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_html_ace147aba8abf236698e2c46238aa7561"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer.html#ace147aba8abf236698e2c46238aa7561">OSK::GRAPHICS::IRenderer::Close</a></div><div class="ttdeci">virtual void Close()=0</div><div class="ttdoc">Cierra el renderizador.</div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_html_ad6ae3773acf9eb826d6009abf7a334a3"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer.html#ad6ae3773acf9eb826d6009abf7a334a3">OSK::GRAPHICS::IRenderer::GetCurrentFrameIndex</a></div><div class="ttdeci">virtual USize32 GetCurrentFrameIndex() const =0</div><div class="ttdoc">Devuelve el índidce del próximo fotograma que será presentado.</div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_html_ada7ad73436c32df92625b7af4e708e17"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer.html#ada7ad73436c32df92625b7af4e708e17">OSK::GRAPHICS::IRenderer::graphicsQueue</a></div><div class="ttdeci">UniquePtr&lt; ICommandQueue &gt; graphicsQueue</div><div class="ttdef"><b>Definition</b> <a href="#l00331">IRenderer.h:331</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_html_aea4737662d1590969769cd958cb7adaf"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer.html#aea4737662d1590969769cd958cb7adaf">OSK::GRAPHICS::IRenderer::preComputeCommandList</a></div><div class="ttdeci">UniquePtr&lt; ICommandList &gt; preComputeCommandList</div><div class="ttdef"><b>Definition</b> <a href="#l00342">IRenderer.h:342</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_html_aeddc71ea58f84ac13bf7017133a8d2b0"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer.html#aeddc71ea58f84ac13bf7017133a8d2b0">OSK::GRAPHICS::IRenderer::CreateGpuMemoryAllocator</a></div><div class="ttdeci">virtual void CreateGpuMemoryAllocator()=0</div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_html_af6c2b503a6e4f7757e58062fcdf60ebc"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer.html#af6c2b503a6e4f7757e58062fcdf60ebc">OSK::GRAPHICS::IRenderer::SupportsRaytracing</a></div><div class="ttdeci">virtual bool SupportsRaytracing() const =0</div><div class="ttdoc">True si el renderizador soporta trazado de rayos. Depende de la GPU usada.</div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_html_afd8e117f227f8083cfe8de2a0fb9c72d"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer.html#afd8e117f227f8083cfe8de2a0fb9c72d">OSK::GRAPHICS::IRenderer::Initialize</a></div><div class="ttdeci">virtual void Initialize(const std::string &amp;appName, const Version &amp;version, const IO::IDisplay &amp;display, PresentMode mode)=0</div><div class="ttdoc">Inicializa todo el sistema de renderizado.</div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_swapchain_html"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_swapchain.html">OSK::GRAPHICS::ISwapchain</a></div><div class="ttdoc">Un swapchain es una estructura encargada de manejar el cambio de imagenes que son representadas en el...</div><div class="ttdef"><b>Definition</b> <a href="_i_swapchain_8h_source.html#l00024">ISwapchain.h:24</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_html"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material.html">OSK::GRAPHICS::Material</a></div><div class="ttdoc">Un material define el comportamiento del renderizador con un objeto en concreto. Debe definirse el la...</div><div class="ttdef"><b>Definition</b> <a href="_material_8h_source.html#l00050">Material.h:50</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_layout_html"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_layout.html">OSK::GRAPHICS::MaterialLayout</a></div><div class="ttdoc">El layout de un material determina qué slots pertenecen a ese material.</div><div class="ttdef"><b>Definition</b> <a href="_material_layout_8h_source.html#l00013">MaterialLayout.h:13</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_system_html"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_system.html">OSK::GRAPHICS::MaterialSystem</a></div><div class="ttdoc">Clase que se encarga de cargar y manejar los materiales. Un material define el comportamiento del ren...</div><div class="ttdef"><b>Definition</b> <a href="_material_system_8h_source.html#l00027">MaterialSystem.h:27</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_render_target_html"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_render_target.html">OSK::GRAPHICS::RenderTarget</a></div><div class="ttdoc">Render target para el renderizado de imágenes desde shaders de rasterizado.</div><div class="ttdef"><b>Definition</b> <a href="_render_target_8h_source.html#l00021">RenderTarget.h:21</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_vertex_info_html"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_vertex_info.html">OSK::GRAPHICS::VertexInfo</a></div><div class="ttdoc">Información de los atributos de un vértice. El graphics pipeline lo usará para configurar el tipo de ...</div><div class="ttdef"><b>Definition</b> <a href="_vertex_info_8h_source.html#l00014">VertexInfo.h:14</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_i_o_1_1_i_display_html"><div class="ttname"><a href="class_o_s_k_1_1_i_o_1_1_i_display.html">OSK::IO::IDisplay</a></div><div class="ttdoc">Interfaz que representa un display: la pantalla sobre la que se renderiza.</div><div class="ttdef"><b>Definition</b> <a href="_i_display_8h_source.html#l00018">IDisplay.h:18</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_owned_ptr_html"><div class="ttname"><a href="class_o_s_k_1_1_owned_ptr.html">OSK::OwnedPtr</a></div><div class="ttdoc">Es dueño de un puntero.</div><div class="ttdef"><b>Definition</b> <a href="_owned_ptr_8h_source.html#l00016">OwnedPtr.h:16</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_unique_ptr_html"><div class="ttname"><a href="class_o_s_k_1_1_unique_ptr.html">OSK::UniquePtr</a></div><div class="ttdoc">Estructura que es dueña de un objeto almacenado en heap. Al destruirse el UniquePtr,...</div><div class="ttdef"><b>Definition</b> <a href="_unique_ptr_8hpp_source.html#l00022">UniquePtr.hpp:22</a></div></div>
+<div class="ttc" id="anamespace_o_s_k_1_1_g_r_a_p_h_i_c_s_html"><div class="ttname"><a href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html">OSK::GRAPHICS</a></div><div class="ttdef"><b>Definition</b> <a href="_acceleration_structures_exceptions_8h_source.html#l00005">AccelerationStructuresExceptions.h:5</a></div></div>
+<div class="ttc" id="anamespace_o_s_k_1_1_g_r_a_p_h_i_c_s_html_a20f40e3d3e967090ee1884e0c77b9df9"><div class="ttname"><a href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a20f40e3d3e967090ee1884e0c77b9df9">OSK::GRAPHICS::GpuImageLayout</a></div><div class="ttdeci">GpuImageLayout</div><div class="ttdoc">Define el layout actual de una imagen.</div><div class="ttdef"><b>Definition</b> <a href="_gpu_image_layout_8h_source.html#l00015">GpuImageLayout.h:15</a></div></div>
+<div class="ttc" id="anamespace_o_s_k_1_1_g_r_a_p_h_i_c_s_html_a3057691f190dabf7642cfde72cf2430f"><div class="ttname"><a href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a3057691f190dabf7642cfde72cf2430f">OSK::GRAPHICS::RenderApiType</a></div><div class="ttdeci">RenderApiType</div><div class="ttdef"><b>Definition</b> <a href="_render_api_type_8h_source.html#l00005">RenderApiType.h:5</a></div></div>
+<div class="ttc" id="anamespace_o_s_k_1_1_g_r_a_p_h_i_c_s_html_a47a7b3817b8aca438c20b7674fad28ab"><div class="ttname"><a href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a47a7b3817b8aca438c20b7674fad28ab">OSK::GRAPHICS::PresentMode</a></div><div class="ttdeci">PresentMode</div><div class="ttdoc">Define el modo de sincronización vertical.</div><div class="ttdef"><b>Definition</b> <a href="_present_mode_8h_source.html#l00013">PresentMode.h:13</a></div></div>
+<div class="ttc" id="anamespace_o_s_k_html"><div class="ttname"><a href="namespace_o_s_k.html">OSK</a></div><div class="ttdef"><b>Definition</b> <a href="_acceleration_structures_exceptions_8h_source.html#l00005">AccelerationStructuresExceptions.h:5</a></div></div>
+<div class="ttc" id="anamespace_o_s_k_html_a79ac5831e0b2433213dacbfc636f4d8f"><div class="ttname"><a href="namespace_o_s_k.html#a79ac5831e0b2433213dacbfc636f4d8f">OSK::TByte</a></div><div class="ttdeci">uint8_t TByte</div><div class="ttdef"><b>Definition</b> <a href="_constexpr_bit_set_8hpp_source.html#l00007">ConstexprBitSet.hpp:7</a></div></div>
+<div class="ttc" id="astruct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_pipeline_create_info_html"><div class="ttname"><a href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_pipeline_create_info.html">OSK::GRAPHICS::PipelineCreateInfo</a></div><div class="ttdoc">Contiene la información necesaria para configurar un nuevo graphics pipeline.</div><div class="ttdef"><b>Definition</b> <a href="_pipeline_create_info_8h_source.html#l00102">PipelineCreateInfo.h:102</a></div></div>
+<div class="ttc" id="astruct_o_s_k_1_1_version_html"><div class="ttname"><a href="struct_o_s_k_1_1_version.html">OSK::Version</a></div><div class="ttdoc">Representa una versión.</div><div class="ttdef"><b>Definition</b> <a href="_version_8h_source.html#l00008">Version.h:8</a></div></div>
+<div class="ttc" id="ax64-windows-static_2x64-windows-static_2include_2libpng16_2png_8h_html_a3eabae3e1e65723a7ec3445646cb7795"><div class="ttname"><a href="x64-windows-static_2x64-windows-static_2include_2libpng16_2png_8h.html#a3eabae3e1e65723a7ec3445646cb7795">mode</a></div><div class="ttdeci">png_structrp int mode</div><div class="ttdef"><b>Definition</b> <a href="x64-windows-static_2x64-windows-static_2include_2libpng16_2png_8h_source.html#l01137">png.h:1137</a></div></div>
+<div class="ttc" id="ax64-windows-static_2x64-windows-static_2include_2spirv_2unified1_2spv_8d_html_a41f818ddb5dc4447d88e7b94d4f72d72"><div class="ttname"><a href="x64-windows-static_2x64-windows-static_2include_2spirv_2unified1_2spv_8d.html#a41f818ddb5dc4447d88e7b94d4f72d72">name</a></div><div class="ttdeci">free of to any person obtaining a copy of this software and or associated documentation to deal in the Materials without including without limitation the rights to and or sell copies of the and to permit persons to whom the Materials are furnished to do subject to the following NORMATIVE VERSIONS OF KHRONOS SPECIFICATIONS AND HEADER INFORMATION ARE LOCATED AT WITHOUT WARRANTY OF ANY EXPRESS OR INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY DAMAGES OR OTHER WHETHER IN AN ACTION OF TORT OR ARISING OUT OF OR IN CONNECTION WITH THE MATERIALS OR THE USE OR OTHER DEALINGS IN THE MATERIALS.This header is automatically generated by the same tool that creates the Binary Section of the SPIR V specification.Enumeration tokens for SPIR in various C C will have tokens with a Spv e.e.e.e.e.e.e.e.which can be OR d while others are mutually exclusive.The mask like ones have Mask in their name</div><div class="ttdef"><b>Definition</b> <a href="x64-windows-static_2x64-windows-static_2include_2spirv_2unified1_2spv_8d_source.html#l00049">spv.d:49</a></div></div>
+<div class="ttc" id="ax64-windows-static_2x64-windows-static_2include_2spirv_2unified1_2spv_8d_html_adc76a15af6cace1106bbd5592f5d8f0d"><div class="ttname"><a href="x64-windows-static_2x64-windows-static_2include_2spirv_2unified1_2spv_8d.html#adc76a15af6cace1106bbd5592f5d8f0d">Version</a></div><div class="ttdeci">enum uint Version</div><div class="ttdef"><b>Definition</b> <a href="x64-windows-static_2x64-windows-static_2include_2spirv_2unified1_2spv_8d_source.html#l00056">spv.d:56</a></div></div>
+</div><!-- fragment --></div><!-- contents -->
+</div><!-- doc-content -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="dir_74389ed8173ad57b461b9d623a1f3867.html">Source</a></li><li class="navelem"><a class="el" href="_i_renderer_8h.html">IRenderer.h</a></li>
+    <li class="footer">Generado el Lunes, 29 de enero de 2024 17:18:31 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.10.0 </li>
+  </ul>
+</div>
+</body>
+</html>

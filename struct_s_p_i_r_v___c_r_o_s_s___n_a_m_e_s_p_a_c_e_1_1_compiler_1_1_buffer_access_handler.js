@@ -1,0 +1,28 @@
+var struct_s_p_i_r_v___c_r_o_s_s___n_a_m_e_s_p_a_c_e_1_1_compiler_1_1_buffer_access_handler =
+[
+    [ "BufferAccessHandler", "struct_s_p_i_r_v___c_r_o_s_s___n_a_m_e_s_p_a_c_e_1_1_compiler_1_1_buffer_access_handler.html#a6d20e14ebffc73f4e302412030b48e61", null ],
+    [ "BufferAccessHandler", "struct_s_p_i_r_v___c_r_o_s_s___n_a_m_e_s_p_a_c_e_1_1_compiler_1_1_buffer_access_handler.html#a6d20e14ebffc73f4e302412030b48e61", null ],
+    [ "BufferAccessHandler", "struct_s_p_i_r_v___c_r_o_s_s___n_a_m_e_s_p_a_c_e_1_1_compiler_1_1_buffer_access_handler.html#a6d20e14ebffc73f4e302412030b48e61", null ],
+    [ "begin_function_scope", "struct_s_p_i_r_v___c_r_o_s_s___n_a_m_e_s_p_a_c_e_1_1_compiler_1_1_buffer_access_handler.html#a9d108e60f22f380dd01e73787264ee21", null ],
+    [ "begin_function_scope", "struct_s_p_i_r_v___c_r_o_s_s___n_a_m_e_s_p_a_c_e_1_1_compiler_1_1_buffer_access_handler.html#a9d108e60f22f380dd01e73787264ee21", null ],
+    [ "begin_function_scope", "struct_s_p_i_r_v___c_r_o_s_s___n_a_m_e_s_p_a_c_e_1_1_compiler_1_1_buffer_access_handler.html#a9d108e60f22f380dd01e73787264ee21", null ],
+    [ "end_function_scope", "struct_s_p_i_r_v___c_r_o_s_s___n_a_m_e_s_p_a_c_e_1_1_compiler_1_1_buffer_access_handler.html#ad6a06615c98814e0e02f543d117f2be0", null ],
+    [ "end_function_scope", "struct_s_p_i_r_v___c_r_o_s_s___n_a_m_e_s_p_a_c_e_1_1_compiler_1_1_buffer_access_handler.html#ad6a06615c98814e0e02f543d117f2be0", null ],
+    [ "end_function_scope", "struct_s_p_i_r_v___c_r_o_s_s___n_a_m_e_s_p_a_c_e_1_1_compiler_1_1_buffer_access_handler.html#ad6a06615c98814e0e02f543d117f2be0", null ],
+    [ "follow_function_call", "struct_s_p_i_r_v___c_r_o_s_s___n_a_m_e_s_p_a_c_e_1_1_compiler_1_1_buffer_access_handler.html#a97de74e193f7da91ad9a61a5e760e413", null ],
+    [ "follow_function_call", "struct_s_p_i_r_v___c_r_o_s_s___n_a_m_e_s_p_a_c_e_1_1_compiler_1_1_buffer_access_handler.html#a97de74e193f7da91ad9a61a5e760e413", null ],
+    [ "follow_function_call", "struct_s_p_i_r_v___c_r_o_s_s___n_a_m_e_s_p_a_c_e_1_1_compiler_1_1_buffer_access_handler.html#a97de74e193f7da91ad9a61a5e760e413", null ],
+    [ "handle", "struct_s_p_i_r_v___c_r_o_s_s___n_a_m_e_s_p_a_c_e_1_1_compiler_1_1_buffer_access_handler.html#a62a62c7adf0bf61cb1bedb417acfa46b", null ],
+    [ "handle", "struct_s_p_i_r_v___c_r_o_s_s___n_a_m_e_s_p_a_c_e_1_1_compiler_1_1_buffer_access_handler.html#a62a62c7adf0bf61cb1bedb417acfa46b", null ],
+    [ "handle", "struct_s_p_i_r_v___c_r_o_s_s___n_a_m_e_s_p_a_c_e_1_1_compiler_1_1_buffer_access_handler.html#a62a62c7adf0bf61cb1bedb417acfa46b", null ],
+    [ "rearm_current_block", "struct_s_p_i_r_v___c_r_o_s_s___n_a_m_e_s_p_a_c_e_1_1_compiler_1_1_buffer_access_handler.html#ac80851be89d39befcc55eac2940c274e", null ],
+    [ "rearm_current_block", "struct_s_p_i_r_v___c_r_o_s_s___n_a_m_e_s_p_a_c_e_1_1_compiler_1_1_buffer_access_handler.html#ac80851be89d39befcc55eac2940c274e", null ],
+    [ "rearm_current_block", "struct_s_p_i_r_v___c_r_o_s_s___n_a_m_e_s_p_a_c_e_1_1_compiler_1_1_buffer_access_handler.html#ac80851be89d39befcc55eac2940c274e", null ],
+    [ "set_current_block", "struct_s_p_i_r_v___c_r_o_s_s___n_a_m_e_s_p_a_c_e_1_1_compiler_1_1_buffer_access_handler.html#af709a0e3a77645843837758bec1304e9", null ],
+    [ "set_current_block", "struct_s_p_i_r_v___c_r_o_s_s___n_a_m_e_s_p_a_c_e_1_1_compiler_1_1_buffer_access_handler.html#af709a0e3a77645843837758bec1304e9", null ],
+    [ "set_current_block", "struct_s_p_i_r_v___c_r_o_s_s___n_a_m_e_s_p_a_c_e_1_1_compiler_1_1_buffer_access_handler.html#af709a0e3a77645843837758bec1304e9", null ],
+    [ "compiler", "struct_s_p_i_r_v___c_r_o_s_s___n_a_m_e_s_p_a_c_e_1_1_compiler_1_1_buffer_access_handler.html#a28e38ab0153fee2a7b267c3a3a254cc3", null ],
+    [ "id", "struct_s_p_i_r_v___c_r_o_s_s___n_a_m_e_s_p_a_c_e_1_1_compiler_1_1_buffer_access_handler.html#a69011af064d15212638e417e790171a3", null ],
+    [ "ranges", "struct_s_p_i_r_v___c_r_o_s_s___n_a_m_e_s_p_a_c_e_1_1_compiler_1_1_buffer_access_handler.html#a91b69b1a196bd0b1ac075f9f7a3077bc", null ],
+    [ "seen", "struct_s_p_i_r_v___c_r_o_s_s___n_a_m_e_s_p_a_c_e_1_1_compiler_1_1_buffer_access_handler.html#a531d181d944b4a688a9df341bf79ed7b", null ]
+];

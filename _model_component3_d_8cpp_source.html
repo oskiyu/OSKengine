@@ -1,0 +1,192 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="es">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.10.0"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>OSKengine: Archivo de código fuente Source/ModelComponent3D.cpp</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">OSKengine<span id="projectnumber">&#160;Indev</span>
+   </div>
+   <div id="projectbrief">Motor de videojuegos.</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generado por Doxygen 1.10.0 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() {
+  initMenu('',true,false,'search.php','Buscar');
+  $(function() { init_search(); });
+});
+/* @license-end */
+</script>
+<div id="main-nav"></div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() { codefold.init(0); });
+/* @license-end */
+</script>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function(){initNavTree('_model_component3_d_8cpp_source.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Cargando...</div>
+<div class="SRStatus" id="Searching">Buscando...</div>
+<div class="SRStatus" id="NoMatches">Nada coincide</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">ModelComponent3D.cpp</div></div>
+</div><!--header-->
+<div class="contents">
+<a href="_model_component3_d_8cpp.html">Ir a la documentación de este archivo.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#include &quot;<a class="code" href="_model_component3_d_8h.html">ModelComponent3D.h</a>&quot;</span></div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span> </div>
+<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="preprocessor">#include &quot;<a class="code" href="_material_instance_8h.html">MaterialInstance.h</a>&quot;</span></div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &quot;<a class="code" href="_model3_d_8h.html">Model3D.h</a>&quot;</span></div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &quot;<a class="code" href="_mesh3_d_8h.html">Mesh3D.h</a>&quot;</span></div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &quot;<a class="code" href="_material_8h.html">Material.h</a>&quot;</span></div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="preprocessor">#include &quot;<a class="code" href="_i_material_slot_8h.html">IMaterialSlot.h</a>&quot;</span></div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span> </div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="preprocessor">#include &quot;<a class="code" href="_o_s_kengine_8h.html">OSKengine.h</a>&quot;</span></div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="preprocessor">#include &quot;<a class="code" href="_asset_manager_8h.html">AssetManager.h</a>&quot;</span></div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span> </div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span> </div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="keyword">using namespace </span><a class="code hl_namespace" href="namespace_o_s_k.html">OSK</a>;</div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span><span class="keyword">using namespace </span><a class="code hl_namespace" href="namespace_o_s_k_1_1_e_c_s.html">OSK::ECS</a>;</div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span><span class="keyword">using namespace </span><a class="code hl_namespace" href="namespace_o_s_k_1_1_a_s_s_e_t_s.html">OSK::ASSETS</a>;</div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span><span class="keyword">using namespace </span><a class="code hl_namespace" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html">OSK::GRAPHICS</a>;</div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span> </div>
+<div class="foldopen" id="foldopen00018" data-start="{" data-end="}">
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_e_c_s_1_1_model_component3_d.html#a85bd0a087d45aa02e97c0e77f57dff8e">   18</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="class_o_s_k_1_1_e_c_s_1_1_model_component3_d.html#a85bd0a087d45aa02e97c0e77f57dff8e">ModelComponent3D::SetModel</a>(<a class="code hl_class" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">AssetRef&lt;Model3D&gt;</a> model) {</div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>    m_model = model;</div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>}</div>
+</div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span> </div>
+<div class="foldopen" id="foldopen00022" data-start="{" data-end="}">
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_e_c_s_1_1_model_component3_d.html#a0a15dd5753cf847844641d23793623c0">   22</a></span><a class="code hl_class" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_model3_d.html">Model3D</a>* <a class="code hl_function" href="class_o_s_k_1_1_e_c_s_1_1_model_component3_d.html#a0a15dd5753cf847844641d23793623c0">ModelComponent3D::GetModel</a>() {</div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>    <span class="keywordflow">return</span> m_model.GetAsset();</div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>}</div>
+</div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span> </div>
+<div class="foldopen" id="foldopen00026" data-start="{" data-end="}">
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_e_c_s_1_1_model_component3_d.html#a25e1a6fe19af86878b5341504f6ffa3e">   26</a></span><span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_model3_d.html">Model3D</a>* <a class="code hl_function" href="class_o_s_k_1_1_e_c_s_1_1_model_component3_d.html#a0a15dd5753cf847844641d23793623c0">ModelComponent3D::GetModel</a>()<span class="keyword"> const </span>{</div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>    <span class="keywordflow">return</span> m_model.GetAsset();</div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>}</div>
+</div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span> </div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span><span class="keyword">template</span> &lt;&gt;</div>
+<div class="foldopen" id="foldopen00031" data-start="{" data-end="}">
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno"><a class="line" href="_model_component3_d_8cpp.html#aa5dfe84c8bd0e8fd391bf2ae7904fb68">   31</a></span>nlohmann::json <a class="code hl_function" href="namespace_o_s_k_1_1_p_e_r_s_i_s_t_e_n_c_e.html#af16827bbb7fd2c4b9ee2aa5061bfd72a">PERSISTENCE::SerializeJson&lt;OSK::ECS::ModelComponent3D&gt;</a>(<span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_e_c_s_1_1_model_component3_d.html">OSK::ECS::ModelComponent3D</a>&amp; data) {</div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>    nlohmann::json output{};</div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span> </div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>    output[<span class="stringliteral">&quot;m_model&quot;</span>] = data.m_model-&gt;GetAssetFilename();</div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>    output[<span class="stringliteral">&quot;m_castShadows&quot;</span>] = data.m_castShadows;</div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span> </div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>    <span class="keywordflow">return</span> output;</div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>}</div>
+</div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span> </div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span><span class="keyword">template</span> &lt;&gt;</div>
+<div class="foldopen" id="foldopen00041" data-start="{" data-end="}">
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno"><a class="line" href="_model_component3_d_8cpp.html#aa478a1be033d2aeed579583d4bf90255">   41</a></span><a class="code hl_class" href="class_o_s_k_1_1_e_c_s_1_1_model_component3_d.html">OSK::ECS::ModelComponent3D</a> <a class="code hl_function" href="namespace_o_s_k_1_1_p_e_r_s_i_s_t_e_n_c_e.html#a56c6c981e80c188f0d5afff114c68613">PERSISTENCE::DeserializeJson&lt;OSK::ECS::ModelComponent3D&gt;</a>(<span class="keyword">const</span> nlohmann::json&amp; json) {</div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>    <a class="code hl_class" href="class_o_s_k_1_1_e_c_s_1_1_model_component3_d.html">ModelComponent3D</a> output{};</div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span> </div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>    output.m_castShadows = json[<span class="stringliteral">&quot;m_castShadows&quot;</span>];</div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>    output.m_model = <a class="code hl_function" href="class_o_s_k_1_1_engine.html#ab092fdb69a9c816c93f177192477d97c">Engine::GetAssetManager</a>()-&gt;<a class="code hl_function" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_manager.html#aae32c0b5d0362cd837e62534f29c8701">Load</a>&lt;<a class="code hl_class" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_model3_d.html">ASSETS::Model3D</a>&gt;(json[<span class="stringliteral">&quot;m_model&quot;</span>]);</div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span> </div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>    <span class="keywordflow">return</span> output;</div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>}</div>
+</div>
+<div class="ttc" id="a_asset_manager_8h_html"><div class="ttname"><a href="_asset_manager_8h.html">AssetManager.h</a></div></div>
+<div class="ttc" id="a_i_material_slot_8h_html"><div class="ttname"><a href="_i_material_slot_8h.html">IMaterialSlot.h</a></div></div>
+<div class="ttc" id="a_material_8h_html"><div class="ttname"><a href="_material_8h.html">Material.h</a></div></div>
+<div class="ttc" id="a_material_instance_8h_html"><div class="ttname"><a href="_material_instance_8h.html">MaterialInstance.h</a></div></div>
+<div class="ttc" id="a_mesh3_d_8h_html"><div class="ttname"><a href="_mesh3_d_8h.html">Mesh3D.h</a></div></div>
+<div class="ttc" id="a_model3_d_8h_html"><div class="ttname"><a href="_model3_d_8h.html">Model3D.h</a></div></div>
+<div class="ttc" id="a_model_component3_d_8h_html"><div class="ttname"><a href="_model_component3_d_8h.html">ModelComponent3D.h</a></div></div>
+<div class="ttc" id="a_o_s_kengine_8h_html"><div class="ttname"><a href="_o_s_kengine_8h.html">OSKengine.h</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_manager_html_aae32c0b5d0362cd837e62534f29c8701"><div class="ttname"><a href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_manager.html#aae32c0b5d0362cd837e62534f29c8701">OSK::ASSETS::AssetManager::Load</a></div><div class="ttdeci">AssetRef&lt; T &gt; Load(const std::string &amp;assetFilePath)</div><div class="ttdoc">Carga un asset.</div><div class="ttdef"><b>Definition</b> <a href="_asset_manager_8h_source.html#l00043">AssetManager.h:43</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref_html"><div class="ttname"><a href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">OSK::ASSETS::AssetRef</a></div><div class="ttdoc">Referencia a un asset.</div><div class="ttdef"><b>Definition</b> <a href="_asset_ref_8h_source.html#l00012">AssetRef.h:12</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_a_s_s_e_t_s_1_1_model3_d_html"><div class="ttname"><a href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_model3_d.html">OSK::ASSETS::Model3D</a></div><div class="ttdoc">Un modelo 3D, para el renderizado 3D. Está compuesto por una serie de meshes 3D.</div><div class="ttdef"><b>Definition</b> <a href="_model3_d_8h_source.html#l00091">Model3D.h:91</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_e_c_s_1_1_model_component3_d_html"><div class="ttname"><a href="class_o_s_k_1_1_e_c_s_1_1_model_component3_d.html">OSK::ECS::ModelComponent3D</a></div><div class="ttdoc">Componente para el renderizado 3D de un objeto.</div><div class="ttdef"><b>Definition</b> <a href="_model_component3_d_8h_source.html#l00027">ModelComponent3D.h:27</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_e_c_s_1_1_model_component3_d_html_a0a15dd5753cf847844641d23793623c0"><div class="ttname"><a href="class_o_s_k_1_1_e_c_s_1_1_model_component3_d.html#a0a15dd5753cf847844641d23793623c0">OSK::ECS::ModelComponent3D::GetModel</a></div><div class="ttdeci">ASSETS::Model3D * GetModel()</div><div class="ttdef"><b>Definition</b> <a href="#l00022">ModelComponent3D.cpp:22</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_e_c_s_1_1_model_component3_d_html_a85bd0a087d45aa02e97c0e77f57dff8e"><div class="ttname"><a href="class_o_s_k_1_1_e_c_s_1_1_model_component3_d.html#a85bd0a087d45aa02e97c0e77f57dff8e">OSK::ECS::ModelComponent3D::SetModel</a></div><div class="ttdeci">void SetModel(ASSETS::AssetRef&lt; ASSETS::Model3D &gt; model)</div><div class="ttdoc">Establece el modelo 3D que se renderizará.</div><div class="ttdef"><b>Definition</b> <a href="#l00018">ModelComponent3D.cpp:18</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_engine_html_ab092fdb69a9c816c93f177192477d97c"><div class="ttname"><a href="class_o_s_k_1_1_engine.html#ab092fdb69a9c816c93f177192477d97c">OSK::Engine::GetAssetManager</a></div><div class="ttdeci">static ASSETS::AssetManager * GetAssetManager()</div><div class="ttdoc">Devuelve un puntero al sistema de assets del motor.</div><div class="ttdef"><b>Definition</b> <a href="_o_s_kengine_8cpp_source.html#l00201">OSKengine.cpp:201</a></div></div>
+<div class="ttc" id="anamespace_o_s_k_1_1_a_s_s_e_t_s_html"><div class="ttname"><a href="namespace_o_s_k_1_1_a_s_s_e_t_s.html">OSK::ASSETS</a></div><div class="ttdef"><b>Definition</b> <a href="_anim_mesh_loader_8h_source.html#l00009">AnimMeshLoader.h:9</a></div></div>
+<div class="ttc" id="anamespace_o_s_k_1_1_e_c_s_html"><div class="ttname"><a href="namespace_o_s_k_1_1_e_c_s.html">OSK::ECS</a></div><div class="ttdef"><b>Definition</b> <a href="_camera_component2_d_8h_source.html#l00017">CameraComponent2D.h:17</a></div></div>
+<div class="ttc" id="anamespace_o_s_k_1_1_g_r_a_p_h_i_c_s_html"><div class="ttname"><a href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html">OSK::GRAPHICS</a></div><div class="ttdef"><b>Definition</b> <a href="_acceleration_structures_exceptions_8h_source.html#l00005">AccelerationStructuresExceptions.h:5</a></div></div>
+<div class="ttc" id="anamespace_o_s_k_1_1_p_e_r_s_i_s_t_e_n_c_e_html_a56c6c981e80c188f0d5afff114c68613"><div class="ttname"><a href="namespace_o_s_k_1_1_p_e_r_s_i_s_t_e_n_c_e.html#a56c6c981e80c188f0d5afff114c68613">OSK::PERSISTENCE::DeserializeJson&lt; OSK::ECS::ModelComponent3D &gt;</a></div><div class="ttdeci">OSK::ECS::ModelComponent3D DeserializeJson&lt; OSK::ECS::ModelComponent3D &gt;(const nlohmann::json &amp;json)</div></div>
+<div class="ttc" id="anamespace_o_s_k_1_1_p_e_r_s_i_s_t_e_n_c_e_html_af16827bbb7fd2c4b9ee2aa5061bfd72a"><div class="ttname"><a href="namespace_o_s_k_1_1_p_e_r_s_i_s_t_e_n_c_e.html#af16827bbb7fd2c4b9ee2aa5061bfd72a">OSK::PERSISTENCE::SerializeJson&lt; OSK::ECS::ModelComponent3D &gt;</a></div><div class="ttdeci">nlohmann::json SerializeJson&lt; OSK::ECS::ModelComponent3D &gt;(const OSK::ECS::ModelComponent3D &amp;data)</div></div>
+<div class="ttc" id="anamespace_o_s_k_html"><div class="ttname"><a href="namespace_o_s_k.html">OSK</a></div><div class="ttdef"><b>Definition</b> <a href="_acceleration_structures_exceptions_8h_source.html#l00005">AccelerationStructuresExceptions.h:5</a></div></div>
+</div><!-- fragment --></div><!-- contents -->
+</div><!-- doc-content -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="dir_74389ed8173ad57b461b9d623a1f3867.html">Source</a></li><li class="navelem"><a class="el" href="_model_component3_d_8cpp.html">ModelComponent3D.cpp</a></li>
+    <li class="footer">Generado el Lunes, 29 de enero de 2024 17:18:31 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.10.0 </li>
+  </ul>
+</div>
+</body>
+</html>

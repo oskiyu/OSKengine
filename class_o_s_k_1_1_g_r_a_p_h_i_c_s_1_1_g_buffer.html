@@ -1,0 +1,403 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="es">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.10.0"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>OSKengine: Referencia de la clase OSK::GRAPHICS::GBuffer</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">OSKengine<span id="projectnumber">&#160;Indev</span>
+   </div>
+   <div id="projectbrief">Motor de videojuegos.</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generado por Doxygen 1.10.0 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() {
+  initMenu('',true,false,'search.php','Buscar');
+  $(function() { init_search(); });
+});
+/* @license-end */
+</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function(){initNavTree('class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_g_buffer.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Cargando...</div>
+<div class="SRStatus" id="Searching">Buscando...</div>
+<div class="SRStatus" id="NoMatches">Nada coincide</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="summary">
+<a href="#pub-types">Tipos públicos</a> &#124;
+<a href="#pub-methods">Métodos públicos</a> &#124;
+<a href="#pub-static-attribs">Atributos públicos estáticos</a> &#124;
+<a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_g_buffer-members.html">Lista de todos los miembros</a>  </div>
+  <div class="headertitle"><div class="title">Referencia de la clase OSK::GRAPHICS::GBuffer</div></div>
+</div><!--header-->
+<div class="contents">
+
+<p><code>#include &lt;<a class="el" href="_g_buffer_8h_source.html">GBuffer.h</a>&gt;</code></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-types" name="pub-types"></a>
+Tipos públicos</h2></td></tr>
+<tr class="memitem:a8f52ca2748885a3ab46968840107c0c1" id="r_a8f52ca2748885a3ab46968840107c0c1"><td class="memItemLeft" align="right" valign="top">enum class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a8f52ca2748885a3ab46968840107c0c1">Target</a> : UIndex32 { <br />
+&#160;&#160;<a class="el" href="#a8f52ca2748885a3ab46968840107c0c1a04bd834032febb3fda8c6936ee140949">COLOR</a> = 0
+, <a class="el" href="#a8f52ca2748885a3ab46968840107c0c1a1e23852820b9154316c7c06e2b7ba051">NORMAL</a> = 1
+, <a class="el" href="#a8f52ca2748885a3ab46968840107c0c1a9d3d58825f3b7225ff1fa4cf2609fea5">METALLIC_ROUGHNESS</a> = 2
+, <a class="el" href="#a8f52ca2748885a3ab46968840107c0c1af96e6ea7a7375bd60bad3f3caae3cf27">MOTION</a> = 3
+, <br />
+&#160;&#160;<a class="el" href="#a8f52ca2748885a3ab46968840107c0c1a91520e2b2b496ddf92e7ed320df5027b">EMISSIVE</a> = 4
+, <a class="el" href="#a8f52ca2748885a3ab46968840107c0c1aaa1780b4fcce2d5d9af13dc25386d111">DEPTH</a> = std::numeric_limits&lt;UIndex32&gt;::max()
+<br />
+ }</td></tr>
+<tr class="separator:a8f52ca2748885a3ab46968840107c0c1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
+Métodos públicos</h2></td></tr>
+<tr class="memitem:ab4768e9af525c61ff55a7bd181299afa" id="r_ab4768e9af525c61ff55a7bd181299afa"><td class="memItemLeft" align="right" valign="top"><a class="el" href="x64-windows-static_2x64-windows-static_2include_2libpng16_2png_8h.html#a05f08be336491be77cd4dfa98f747c69">void</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ab4768e9af525c61ff55a7bd181299afa">Create</a> (<a class="el" href="x64-windows-static_2x64-windows-static_2include_2zconf_8h.html#a2c212835823e3c54a8ab6d95c652660e">const</a> <a class="el" href="namespace_o_s_k.html#a6f5b4753cd85b4773d2880148fd031cf">Vector2ui</a> &amp;resolution, <a class="el" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_sampler_desc.html">GpuImageSamplerDesc</a> sampler=<a class="el" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_sampler_desc.html#a7141f4646d5bafd13be400d6cc5597cb">GpuImageSamplerDesc::CreateDefault</a>(), <a class="el" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a19a2f70fc994c00eb022e520608c5ffa">GpuImageUsage</a> usage=<a class="el" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a19a2f70fc994c00eb022e520608c5ffaa04bd834032febb3fda8c6936ee140949">GpuImageUsage::COLOR</a>|<a class="el" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a19a2f70fc994c00eb022e520608c5ffaa5d0791856a3081df75c6093017a61a36">GpuImageUsage::SAMPLED</a>)</td></tr>
+<tr class="separator:ab4768e9af525c61ff55a7bd181299afa"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abf1f6e141e5bc94d9bd4317bdc27a0d7" id="r_abf1f6e141e5bc94d9bd4317bdc27a0d7"><td class="memItemLeft" align="right" valign="top"><a class="el" href="x64-windows-static_2x64-windows-static_2include_2libpng16_2png_8h.html#a05f08be336491be77cd4dfa98f747c69">void</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#abf1f6e141e5bc94d9bd4317bdc27a0d7">Resize</a> (<a class="el" href="x64-windows-static_2x64-windows-static_2include_2zconf_8h.html#a2c212835823e3c54a8ab6d95c652660e">const</a> <a class="el" href="namespace_o_s_k.html#a6f5b4753cd85b4773d2880148fd031cf">Vector2ui</a> &amp;resolution)</td></tr>
+<tr class="separator:abf1f6e141e5bc94d9bd4317bdc27a0d7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0fb9c5c55b9dcc2fcd5ee9d9928554f3" id="r_a0fb9c5c55b9dcc2fcd5ee9d9928554f3"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image.html">GpuImage</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a0fb9c5c55b9dcc2fcd5ee9d9928554f3">GetImage</a> (<a class="el" href="#a8f52ca2748885a3ab46968840107c0c1">Target</a> targetType)</td></tr>
+<tr class="separator:a0fb9c5c55b9dcc2fcd5ee9d9928554f3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4c19eacb62a15c566fe46472b488f87b" id="r_a4c19eacb62a15c566fe46472b488f87b"><td class="memItemLeft" align="right" valign="top"><a class="el" href="x64-windows-static_2x64-windows-static_2include_2zconf_8h.html#a2c212835823e3c54a8ab6d95c652660e">const</a> <a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image.html">GpuImage</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a4c19eacb62a15c566fe46472b488f87b">GetImage</a> (<a class="el" href="#a8f52ca2748885a3ab46968840107c0c1">Target</a> targetType) <a class="el" href="x64-windows-static_2x64-windows-static_2include_2zconf_8h.html#a2c212835823e3c54a8ab6d95c652660e">const</a></td></tr>
+<tr class="separator:a4c19eacb62a15c566fe46472b488f87b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3a03e4b2f4bf296382c1ada80a5be556" id="r_a3a03e4b2f4bf296382c1ada80a5be556"><td class="memItemLeft" align="right" valign="top"><a class="el" href="x64-windows-static_2x64-windows-static_2include_2libpng16_2png_8h.html#a05f08be336491be77cd4dfa98f747c69">void</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a3a03e4b2f4bf296382c1ada80a5be556">BindPipelineBarriers</a> (<a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list.html">ICommandList</a> *cmdList)</td></tr>
+<tr class="separator:a3a03e4b2f4bf296382c1ada80a5be556"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a34a1442e30ac42f716f2ab0a10651542" id="r_a34a1442e30ac42f716f2ab0a10651542"><td class="memItemLeft" align="right" valign="top"><a class="el" href="x64-windows-static_2x64-windows-static_2include_2libpng16_2png_8h.html#a05f08be336491be77cd4dfa98f747c69">void</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a34a1442e30ac42f716f2ab0a10651542">BeginRenderpass</a> (<a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list.html">ICommandList</a> *cmdList, <a class="el" href="class_o_s_k_1_1_color.html">Color</a> color, bool autoSync=true)</td></tr>
+<tr class="separator:a34a1442e30ac42f716f2ab0a10651542"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-static-attribs" name="pub-static-attribs"></a>
+Atributos públicos estáticos</h2></td></tr>
+<tr class="memitem:aed5c2c895187fd424cba237734d64b51" id="r_aed5c2c895187fd424cba237734d64b51"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="x64-windows-static_2x64-windows-static_2include_2zconf_8h.html#a2c212835823e3c54a8ab6d95c652660e">const</a> std::array&lt; <a class="el" href="#a8f52ca2748885a3ab46968840107c0c1">Target</a>, 5 &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aed5c2c895187fd424cba237734d64b51">ColorTargetTypes</a> = { <a class="el" href="#a8f52ca2748885a3ab46968840107c0c1a04bd834032febb3fda8c6936ee140949">Target::COLOR</a>, <a class="el" href="#a8f52ca2748885a3ab46968840107c0c1a1e23852820b9154316c7c06e2b7ba051">Target::NORMAL</a>, <a class="el" href="#a8f52ca2748885a3ab46968840107c0c1a9d3d58825f3b7225ff1fa4cf2609fea5">Target::METALLIC_ROUGHNESS</a>, <a class="el" href="#a8f52ca2748885a3ab46968840107c0c1af96e6ea7a7375bd60bad3f3caae3cf27">Target::MOTION</a>, <a class="el" href="#a8f52ca2748885a3ab46968840107c0c1a91520e2b2b496ddf92e7ed320df5027b">Target::EMISSIVE</a> }</td></tr>
+<tr class="separator:aed5c2c895187fd424cba237734d64b51"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">Descripción detallada</h2>
+<div class="textblock"><p>Clase que contiene los render targets necesarios para renderizar un <a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_g_buffer.html" title="Clase que contiene los render targets necesarios para renderizar un GBuffer. Un GBuffer contiene imág...">GBuffer</a>. Un <a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_g_buffer.html" title="Clase que contiene los render targets necesarios para renderizar un GBuffer. Un GBuffer contiene imág...">GBuffer</a> contiene imágenes con la información de posición, color, normales y movimiento de la geometría que aparece en la pantalla, de tal manera que permite un renderizado en diferido. </p>
+
+<p class="definition">Definición en la línea <a class="el" href="_g_buffer_8h_source.html#l00018">18</a> del archivo <a class="el" href="_g_buffer_8h_source.html">GBuffer.h</a>.</p>
+</div><h2 class="groupheader">Documentación de las enumeraciones miembro de la clase</h2>
+<a id="a8f52ca2748885a3ab46968840107c0c1" name="a8f52ca2748885a3ab46968840107c0c1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8f52ca2748885a3ab46968840107c0c1">&#9670;&#160;</a></span>Target</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum class <a class="el" href="#a8f52ca2748885a3ab46968840107c0c1">OSK::GRAPHICS::GBuffer::Target</a> : <a class="el" href="_o_s_kmacros_8h.html#af205b9fd0440138e6cac38a9081141df">UIndex32</a></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">strong</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Identifica cada una de las imágenes del <a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_g_buffer.html" title="Clase que contiene los render targets necesarios para renderizar un GBuffer. Un GBuffer contiene imág...">GBuffer</a>. </p>
+<table class="fieldtable">
+<tr><th colspan="2">Valores de enumeraciones</th></tr><tr><td class="fieldname"><a id="a8f52ca2748885a3ab46968840107c0c1a04bd834032febb3fda8c6936ee140949" name="a8f52ca2748885a3ab46968840107c0c1a04bd834032febb3fda8c6936ee140949"></a>COLOR&#160;</td><td class="fielddoc"><p><a class="el" href="class_o_s_k_1_1_color.html" title="Representa un color en formato RGBA float.">Color</a> = rgb uint. Stencil = a uint. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a8f52ca2748885a3ab46968840107c0c1a1e23852820b9154316c7c06e2b7ba051" name="a8f52ca2748885a3ab46968840107c0c1a1e23852820b9154316c7c06e2b7ba051"></a>NORMAL&#160;</td><td class="fielddoc"><p>Normal = xyz. Alpha = a. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a8f52ca2748885a3ab46968840107c0c1a9d3d58825f3b7225ff1fa4cf2609fea5" name="a8f52ca2748885a3ab46968840107c0c1a9d3d58825f3b7225ff1fa4cf2609fea5"></a>METALLIC_ROUGHNESS&#160;</td><td class="fielddoc"><p>Metallic = x, roughness = y. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a8f52ca2748885a3ab46968840107c0c1af96e6ea7a7375bd60bad3f3caae3cf27" name="a8f52ca2748885a3ab46968840107c0c1af96e6ea7a7375bd60bad3f3caae3cf27"></a>MOTION&#160;</td><td class="fielddoc"><p>Movimiento = xy. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a8f52ca2748885a3ab46968840107c0c1a91520e2b2b496ddf92e7ed320df5027b" name="a8f52ca2748885a3ab46968840107c0c1a91520e2b2b496ddf92e7ed320df5027b"></a>EMISSIVE&#160;</td><td class="fielddoc"><p>Emisivo. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a8f52ca2748885a3ab46968840107c0c1aaa1780b4fcce2d5d9af13dc25386d111" name="a8f52ca2748885a3ab46968840107c0c1aaa1780b4fcce2d5d9af13dc25386d111"></a>DEPTH&#160;</td><td class="fielddoc"></td></tr>
+</table>
+
+<p class="definition">Definición en la línea <a class="el" href="_g_buffer_8h_source.html#l00024">24</a> del archivo <a class="el" href="_g_buffer_8h_source.html">GBuffer.h</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Documentación de funciones miembro</h2>
+<a id="a34a1442e30ac42f716f2ab0a10651542" name="a34a1442e30ac42f716f2ab0a10651542"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a34a1442e30ac42f716f2ab0a10651542">&#9670;&#160;</a></span>BeginRenderpass()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="x64-windows-static_2x64-windows-static_2include_2libpng16_2png_8h.html#a05f08be336491be77cd4dfa98f747c69">void</a> GBuffer::BeginRenderpass </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list.html">ICommandList</a> *</td>          <td class="paramname"><span class="paramname"><em>cmdList</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="class_o_s_k_1_1_color.html">Color</a></td>          <td class="paramname"><span class="paramname"><em>color</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool</td>          <td class="paramname"><span class="paramname"><em>autoSync</em><span class="paramdefsep"> = </span><span class="paramdefval">true</span></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Inicia un renderpass de rasterización sobre el <a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_g_buffer.html" title="Clase que contiene los render targets necesarios para renderizar un GBuffer. Un GBuffer contiene imág...">GBuffer</a>. </p>
+<dl class="section see"><dt>Ver también</dt><dd>ICommandList::BeginRenderpass. </dd></dl>
+<dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">cmdList</td><td>Lista de comandos abierta. </td></tr>
+    <tr><td class="paramname">color</td><td><a class="el" href="class_o_s_k_1_1_color.html" title="Representa un color en formato RGBA float.">Color</a> con el que se limpiarán todas las imágenes de color. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definición en la línea <a class="el" href="_g_buffer_8cpp_source.html#l00079">79</a> del archivo <a class="el" href="_g_buffer_8cpp_source.html">GBuffer.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a3a03e4b2f4bf296382c1ada80a5be556" name="a3a03e4b2f4bf296382c1ada80a5be556"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3a03e4b2f4bf296382c1ada80a5be556">&#9670;&#160;</a></span>BindPipelineBarriers()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="x64-windows-static_2x64-windows-static_2include_2libpng16_2png_8h.html#a05f08be336491be77cd4dfa98f747c69">void</a> GBuffer::BindPipelineBarriers </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list.html">ICommandList</a> *</td>          <td class="paramname"><span class="paramname"><em>cmdList</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definición en la línea <a class="el" href="_g_buffer_8cpp_source.html#l00048">48</a> del archivo <a class="el" href="_g_buffer_8cpp_source.html">GBuffer.cpp</a>.</p>
+
+</div>
+</div>
+<a id="ab4768e9af525c61ff55a7bd181299afa" name="ab4768e9af525c61ff55a7bd181299afa"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab4768e9af525c61ff55a7bd181299afa">&#9670;&#160;</a></span>Create()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="x64-windows-static_2x64-windows-static_2include_2libpng16_2png_8h.html#a05f08be336491be77cd4dfa98f747c69">void</a> GBuffer::Create </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="x64-windows-static_2x64-windows-static_2include_2zconf_8h.html#a2c212835823e3c54a8ab6d95c652660e">const</a> <a class="el" href="namespace_o_s_k.html#a6f5b4753cd85b4773d2880148fd031cf">Vector2ui</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>resolution</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_sampler_desc.html">GpuImageSamplerDesc</a></td>          <td class="paramname"><span class="paramname"><em>sampler</em><span class="paramdefsep"> = </span><span class="paramdefval"><a class="el" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_sampler_desc.html#a7141f4646d5bafd13be400d6cc5597cb">GpuImageSamplerDesc::CreateDefault</a>()</span>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a19a2f70fc994c00eb022e520608c5ffa">GpuImageUsage</a></td>          <td class="paramname"><span class="paramname"><em>usage</em><span class="paramdefsep"> = </span><span class="paramdefval"><a class="el" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a19a2f70fc994c00eb022e520608c5ffaa04bd834032febb3fda8c6936ee140949">GpuImageUsage::COLOR</a>&#160;|&#160;<a class="el" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a19a2f70fc994c00eb022e520608c5ffaa5d0791856a3081df75c6093017a61a36">GpuImageUsage::SAMPLED</a></span></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Crea el <a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_g_buffer.html" title="Clase que contiene los render targets necesarios para renderizar un GBuffer. Un GBuffer contiene imág...">GBuffer</a> con la información dada. </p>
+<dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">resolution</td><td>Resolución, en píxeles. </td></tr>
+    <tr><td class="paramname">sampler</td><td>Sampler usado por todas las imágenes de color. </td></tr>
+    <tr><td class="paramname">usage</td><td>Uso de las imágenes de color. Tendrá, al menos, los definidos en <a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_render_target.html" title="Render target para el renderizado de imágenes desde shaders de rasterizado.">RenderTarget</a>. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definición en la línea <a class="el" href="_g_buffer_8cpp_source.html#l00010">10</a> del archivo <a class="el" href="_g_buffer_8cpp_source.html">GBuffer.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a0fb9c5c55b9dcc2fcd5ee9d9928554f3" name="a0fb9c5c55b9dcc2fcd5ee9d9928554f3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0fb9c5c55b9dcc2fcd5ee9d9928554f3">&#9670;&#160;</a></span>GetImage() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image.html">GpuImage</a> * GBuffer::GetImage </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="#a8f52ca2748885a3ab46968840107c0c1">Target</a></td>          <td class="paramname"><span class="paramname"><em>targetType</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Devuelve la imagen indicada por los parámetros. </p>
+<dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">targetType</td><td>Identificador de la imagen deseada. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definición en la línea <a class="el" href="_g_buffer_8cpp_source.html#l00036">36</a> del archivo <a class="el" href="_g_buffer_8cpp_source.html">GBuffer.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a4c19eacb62a15c566fe46472b488f87b" name="a4c19eacb62a15c566fe46472b488f87b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4c19eacb62a15c566fe46472b488f87b">&#9670;&#160;</a></span>GetImage() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="x64-windows-static_2x64-windows-static_2include_2zconf_8h.html#a2c212835823e3c54a8ab6d95c652660e">const</a> <a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image.html">GpuImage</a> * GBuffer::GetImage </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="#a8f52ca2748885a3ab46968840107c0c1">Target</a></td>          <td class="paramname"><span class="paramname"><em>targetType</em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Devuelve la imagen indicada por los parámetros. </p>
+<dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">targetType</td><td>Identificador de la imagen deseada. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definición en la línea <a class="el" href="_g_buffer_8cpp_source.html#l00042">42</a> del archivo <a class="el" href="_g_buffer_8cpp_source.html">GBuffer.cpp</a>.</p>
+
+</div>
+</div>
+<a id="abf1f6e141e5bc94d9bd4317bdc27a0d7" name="abf1f6e141e5bc94d9bd4317bdc27a0d7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abf1f6e141e5bc94d9bd4317bdc27a0d7">&#9670;&#160;</a></span>Resize()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="x64-windows-static_2x64-windows-static_2include_2libpng16_2png_8h.html#a05f08be336491be77cd4dfa98f747c69">void</a> GBuffer::Resize </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="x64-windows-static_2x64-windows-static_2include_2zconf_8h.html#a2c212835823e3c54a8ab6d95c652660e">const</a> <a class="el" href="namespace_o_s_k.html#a6f5b4753cd85b4773d2880148fd031cf">Vector2ui</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>resolution</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Cambia la resolución del <a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_g_buffer.html" title="Clase que contiene los render targets necesarios para renderizar un GBuffer. Un GBuffer contiene imág...">GBuffer</a>. </p>
+<dl class="section see"><dt>Ver también</dt><dd><a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_render_target.html" title="Render target para el renderizado de imágenes desde shaders de rasterizado.">RenderTarget</a> </dd></dl>
+<dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">resolution</td><td>Nueva resolución, en píxeles. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definición en la línea <a class="el" href="_g_buffer_8cpp_source.html#l00032">32</a> del archivo <a class="el" href="_g_buffer_8cpp_source.html">GBuffer.cpp</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Documentación de datos miembro</h2>
+<a id="aed5c2c895187fd424cba237734d64b51" name="aed5c2c895187fd424cba237734d64b51"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aed5c2c895187fd424cba237734d64b51">&#9670;&#160;</a></span>ColorTargetTypes</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="x64-windows-static_2x64-windows-static_2include_2zconf_8h.html#a2c212835823e3c54a8ab6d95c652660e">const</a> std::array&lt; <a class="el" href="#a8f52ca2748885a3ab46968840107c0c1">GBuffer::Target</a>, 5 &gt; GBuffer::ColorTargetTypes = { <a class="el" href="#a8f52ca2748885a3ab46968840107c0c1a04bd834032febb3fda8c6936ee140949">Target::COLOR</a>, <a class="el" href="#a8f52ca2748885a3ab46968840107c0c1a1e23852820b9154316c7c06e2b7ba051">Target::NORMAL</a>, <a class="el" href="#a8f52ca2748885a3ab46968840107c0c1a9d3d58825f3b7225ff1fa4cf2609fea5">Target::METALLIC_ROUGHNESS</a>, <a class="el" href="#a8f52ca2748885a3ab46968840107c0c1af96e6ea7a7375bd60bad3f3caae3cf27">Target::MOTION</a>, <a class="el" href="#a8f52ca2748885a3ab46968840107c0c1a91520e2b2b496ddf92e7ed320df5027b">Target::EMISSIVE</a> }</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Contiene todos los tipos de imágenes, excluyendo la de profundidad. </p>
+
+<p class="definition">Definición en la línea <a class="el" href="_g_buffer_8h_source.html#l00042">42</a> del archivo <a class="el" href="_g_buffer_8h_source.html">GBuffer.h</a>.</p>
+
+</div>
+</div>
+<hr/>La documentación de esta clase está generada de los siguientes archivos:<ul>
+<li>Source/<a class="el" href="_g_buffer_8h_source.html">GBuffer.h</a></li>
+<li>Source/<a class="el" href="_g_buffer_8cpp_source.html">GBuffer.cpp</a></li>
+</ul>
+</div><!-- contents -->
+</div><!-- doc-content -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="namespace_o_s_k.html">OSK</a></li><li class="navelem"><a class="el" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html">GRAPHICS</a></li><li class="navelem"><a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_g_buffer.html">GBuffer</a></li>
+    <li class="footer">Generado el Lunes, 29 de enero de 2024 17:19:10 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.10.0 </li>
+  </ul>
+</div>
+</body>
+</html>

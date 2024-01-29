@@ -1,0 +1,173 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="es">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.10.0"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>OSKengine: Archivo de código fuente Source/IKeyboardInput.h</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">OSKengine<span id="projectnumber">&#160;Indev</span>
+   </div>
+   <div id="projectbrief">Motor de videojuegos.</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generado por Doxygen 1.10.0 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() {
+  initMenu('',true,false,'search.php','Buscar');
+  $(function() { init_search(); });
+});
+/* @license-end */
+</script>
+<div id="main-nav"></div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() { codefold.init(0); });
+/* @license-end */
+</script>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function(){initNavTree('_i_keyboard_input_8h_source.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Cargando...</div>
+<div class="SRStatus" id="Searching">Buscando...</div>
+<div class="SRStatus" id="NoMatches">Nada coincide</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">IKeyboardInput.h</div></div>
+</div><!--header-->
+<div class="contents">
+<a href="_i_keyboard_input_8h.html">Ir a la documentación de este archivo.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="comment">// OSKengine by oskiyu</span></div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="comment">// Copyright (c) 2019-2022 oskiyu. All rights reserved.</span></div>
+<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="preprocessor">#pragma once</span></div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span> </div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &quot;<a class="code" href="_keyboard_state_8h.html">KeyboardState.h</a>&quot;</span></div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &quot;<a class="code" href="_i_query_interface_8h.html">IQueryInterface.h</a>&quot;</span></div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span> </div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="keyword">namespace </span><a class="code hl_namespace" href="namespace_o_s_k_1_1_i_o.html">OSK::IO</a> {</div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span> </div>
+<div class="foldopen" id="foldopen00012" data-start="{" data-end="};">
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_i_o_1_1_i_keyboard_input.html">   12</a></span>    <span class="keyword">class </span><a class="code hl_define" href="_o_s_kmacros_8h.html#a09ec5b46ece998ad096bceff312bb36c">OSKAPI_CALL</a> <a class="code hl_class" href="class_o_s_k_1_1_i_o_1_1_i_keyboard_input.html">IKeyboardInput</a> {</div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span> </div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span>    <span class="keyword">public</span>:</div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span> </div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_i_o_1_1_i_keyboard_input.html#abd862085441fc8df0237f062ac731161">   16</a></span>        <a class="code hl_function" href="class_o_s_k_1_1_i_o_1_1_i_keyboard_input.html#abd862085441fc8df0237f062ac731161">OSK_DEFINE_IUUID</a>((<a class="code hl_typedef" href="_o_s_kmacros_8h.html#a37e9cf53c704ad464b71f433fe27fe2b">TInterfaceUuid</a>)IUUID::IKeyboardInput);</div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span> </div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_i_o_1_1_i_keyboard_input.html#ae3a32a68b5048f978c6f684bf2b3f84f">   18</a></span>        <span class="keyword">virtual</span> <a class="code hl_function" href="class_o_s_k_1_1_i_o_1_1_i_keyboard_input.html#ae3a32a68b5048f978c6f684bf2b3f84f">~IKeyboardInput</a>() = <span class="keywordflow">default</span>;</div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span> </div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span> </div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>        <span class="keywordtype">void</span> UpdateKeyboardInput();</div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span> </div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span> </div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>        <span class="keywordtype">bool</span> IsKeyDown(<a class="code hl_enumeration" href="namespace_o_s_k_1_1_i_o.html#a0b92714a4a778072d4824502589bd39e">Key</a> key) <span class="keyword">const</span>;</div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span> </div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>        <span class="keywordtype">bool</span> IsKeyUp(<a class="code hl_enumeration" href="namespace_o_s_k_1_1_i_o.html#a0b92714a4a778072d4824502589bd39e">Key</a> key) <span class="keyword">const</span>;</div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span> </div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span> </div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>        <span class="keywordtype">bool</span> IsKeyStroked(<a class="code hl_enumeration" href="namespace_o_s_k_1_1_i_o.html#a0b92714a4a778072d4824502589bd39e">Key</a> key) <span class="keyword">const</span>;</div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span> </div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>        <span class="keywordtype">bool</span> IsKeyReleased(<a class="code hl_enumeration" href="namespace_o_s_k_1_1_i_o.html#a0b92714a4a778072d4824502589bd39e">Key</a> key) <span class="keyword">const</span>;</div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span> </div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span> </div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>        <span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_i_o_1_1_keyboard_state.html">KeyboardState</a>&amp; GetKeyboardState() <span class="keyword">const</span>;</div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span> </div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>        <span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_i_o_1_1_keyboard_state.html">KeyboardState</a>&amp; GetPreviousKeyboardState() <span class="keyword">const</span>;</div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span> </div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>    <span class="keyword">protected</span>:</div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span> </div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_i_o_1_1_i_keyboard_input.html#a4cb45dfcadc92c93ceb6bec001dcccb2">   49</a></span>        <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code hl_function" href="class_o_s_k_1_1_i_o_1_1_i_keyboard_input.html#a4cb45dfcadc92c93ceb6bec001dcccb2">UpdateKeyboardState</a>(<a class="code hl_class" href="class_o_s_k_1_1_i_o_1_1_keyboard_state.html">KeyboardState</a>* currentState) = 0;</div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span> </div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>    <span class="keyword">private</span>:</div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span> </div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>        <a class="code hl_class" href="class_o_s_k_1_1_i_o_1_1_keyboard_state.html">KeyboardState</a> oldState{};</div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>        <a class="code hl_class" href="class_o_s_k_1_1_i_o_1_1_keyboard_state.html">KeyboardState</a> newState{};</div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span> </div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>    };</div>
+</div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span> </div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>}</div>
+<div class="ttc" id="a_i_query_interface_8h_html"><div class="ttname"><a href="_i_query_interface_8h.html">IQueryInterface.h</a></div></div>
+<div class="ttc" id="a_keyboard_state_8h_html"><div class="ttname"><a href="_keyboard_state_8h.html">KeyboardState.h</a></div></div>
+<div class="ttc" id="a_o_s_kmacros_8h_html_a09ec5b46ece998ad096bceff312bb36c"><div class="ttname"><a href="_o_s_kmacros_8h.html#a09ec5b46ece998ad096bceff312bb36c">OSKAPI_CALL</a></div><div class="ttdeci">#define OSKAPI_CALL</div><div class="ttdef"><b>Definition</b> <a href="_o_s_kmacros_8h_source.html#l00007">OSKmacros.h:7</a></div></div>
+<div class="ttc" id="a_o_s_kmacros_8h_html_a37e9cf53c704ad464b71f433fe27fe2b"><div class="ttname"><a href="_o_s_kmacros_8h.html#a37e9cf53c704ad464b71f433fe27fe2b">TInterfaceUuid</a></div><div class="ttdeci">UIndex32 TInterfaceUuid</div><div class="ttdef"><b>Definition</b> <a href="_o_s_kmacros_8h_source.html#l00048">OSKmacros.h:48</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_i_o_1_1_i_keyboard_input_html"><div class="ttname"><a href="class_o_s_k_1_1_i_o_1_1_i_keyboard_input.html">OSK::IO::IKeyboardInput</a></div><div class="ttdoc">Interfaz para leer la entrada del usuario a través del teclado.</div><div class="ttdef"><b>Definition</b> <a href="#l00012">IKeyboardInput.h:12</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_i_o_1_1_i_keyboard_input_html_a4cb45dfcadc92c93ceb6bec001dcccb2"><div class="ttname"><a href="class_o_s_k_1_1_i_o_1_1_i_keyboard_input.html#a4cb45dfcadc92c93ceb6bec001dcccb2">OSK::IO::IKeyboardInput::UpdateKeyboardState</a></div><div class="ttdeci">virtual void UpdateKeyboardState(KeyboardState *currentState)=0</div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_i_o_1_1_i_keyboard_input_html_abd862085441fc8df0237f062ac731161"><div class="ttname"><a href="class_o_s_k_1_1_i_o_1_1_i_keyboard_input.html#abd862085441fc8df0237f062ac731161">OSK::IO::IKeyboardInput::OSK_DEFINE_IUUID</a></div><div class="ttdeci">OSK_DEFINE_IUUID((TInterfaceUuid) IUUID::IKeyboardInput)</div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_i_o_1_1_i_keyboard_input_html_ae3a32a68b5048f978c6f684bf2b3f84f"><div class="ttname"><a href="class_o_s_k_1_1_i_o_1_1_i_keyboard_input.html#ae3a32a68b5048f978c6f684bf2b3f84f">OSK::IO::IKeyboardInput::~IKeyboardInput</a></div><div class="ttdeci">virtual ~IKeyboardInput()=default</div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_i_o_1_1_keyboard_state_html"><div class="ttname"><a href="class_o_s_k_1_1_i_o_1_1_keyboard_state.html">OSK::IO::KeyboardState</a></div><div class="ttdoc">Representa el estado del teclado en un instante determinado. Contiene el estado (presionado o suelto)...</div><div class="ttdef"><b>Definition</b> <a href="_keyboard_state_8h_source.html#l00164">KeyboardState.h:164</a></div></div>
+<div class="ttc" id="anamespace_o_s_k_1_1_i_o_html"><div class="ttname"><a href="namespace_o_s_k_1_1_i_o.html">OSK::IO</a></div><div class="ttdef"><b>Definition</b> <a href="_camera_component2_d_8h_source.html#l00013">CameraComponent2D.h:13</a></div></div>
+<div class="ttc" id="anamespace_o_s_k_1_1_i_o_html_a0b92714a4a778072d4824502589bd39e"><div class="ttname"><a href="namespace_o_s_k_1_1_i_o.html#a0b92714a4a778072d4824502589bd39e">OSK::IO::Key</a></div><div class="ttdeci">Key</div><div class="ttdoc">Enum con todas las teclas del teclado disponibles.</div><div class="ttdef"><b>Definition</b> <a href="_keyboard_state_8h_source.html#l00010">KeyboardState.h:10</a></div></div>
+</div><!-- fragment --></div><!-- contents -->
+</div><!-- doc-content -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="dir_74389ed8173ad57b461b9d623a1f3867.html">Source</a></li><li class="navelem"><a class="el" href="_i_keyboard_input_8h.html">IKeyboardInput.h</a></li>
+    <li class="footer">Generado el Lunes, 29 de enero de 2024 17:18:31 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.10.0 </li>
+  </ul>
+</div>
+</body>
+</html>

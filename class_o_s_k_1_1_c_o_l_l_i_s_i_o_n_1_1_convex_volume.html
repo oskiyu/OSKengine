@@ -1,0 +1,883 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="es">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.10.0"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>OSKengine: Referencia de la clase OSK::COLLISION::ConvexVolume</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">OSKengine<span id="projectnumber">&#160;Indev</span>
+   </div>
+   <div id="projectbrief">Motor de videojuegos.</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generado por Doxygen 1.10.0 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() {
+  initMenu('',true,false,'search.php','Buscar');
+  $(function() { init_search(); });
+});
+/* @license-end */
+</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function(){initNavTree('class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_convex_volume.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Cargando...</div>
+<div class="SRStatus" id="Searching">Buscando...</div>
+<div class="SRStatus" id="NoMatches">Nada coincide</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="summary">
+<a href="#pub-types">Tipos públicos</a> &#124;
+<a href="#pub-methods">Métodos públicos</a> &#124;
+<a href="#pub-static-methods">Métodos públicos estáticos</a> &#124;
+<a href="#friends">Amigas</a> &#124;
+<a href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_convex_volume-members.html">Lista de todos los miembros</a>  </div>
+  <div class="headertitle"><div class="title">Referencia de la clase OSK::COLLISION::ConvexVolume<span class="mlabels"><span class="mlabel">final</span></span></div></div>
+</div><!--header-->
+<div class="contents">
+
+<p><code>#include &lt;<a class="el" href="_convex_volume_8h_source.html">ConvexVolume.h</a>&gt;</code></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-types" name="pub-types"></a>
+Tipos públicos</h2></td></tr>
+<tr class="memitem:a2f99e2f9743d5185adaca37474366960" id="r_a2f99e2f9743d5185adaca37474366960"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a2f99e2f9743d5185adaca37474366960">FaceIndices</a> = <a class="el" href="class_o_s_k_1_1_dynamic_array.html">DynamicArray</a>&lt;<a class="el" href="_o_s_kmacros_8h.html#af205b9fd0440138e6cac38a9081141df">UIndex32</a>&gt;</td></tr>
+<tr class="separator:a2f99e2f9743d5185adaca37474366960"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af303773368792a8a22456da5f8210ebc" id="r_af303773368792a8a22456da5f8210ebc"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af303773368792a8a22456da5f8210ebc">Axis</a> = <a class="el" href="namespace_o_s_k.html#a72b3268907c9cd41f0daf0a42e1c9dca">Vector3f</a></td></tr>
+<tr class="separator:af303773368792a8a22456da5f8210ebc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
+Métodos públicos</h2></td></tr>
+<tr class="memitem:aac0dca3e298bac3b002a87df5f1f0bfd" id="r_aac0dca3e298bac3b002a87df5f1f0bfd"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aac0dca3e298bac3b002a87df5f1f0bfd">ConvexVolume</a> ()=default</td></tr>
+<tr class="separator:aac0dca3e298bac3b002a87df5f1f0bfd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aeab648901ded3d187779717e315a3236" id="r_aeab648901ded3d187779717e315a3236"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aeab648901ded3d187779717e315a3236">~ConvexVolume</a> () override=default</td></tr>
+<tr class="separator:aeab648901ded3d187779717e315a3236"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a039b860ade9a17b78f8628435d66df4f" id="r_a039b860ade9a17b78f8628435d66df4f"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_o_s_k_1_1_owned_ptr.html">OwnedPtr</a>&lt; <a class="el" href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_i_bottom_level_collider.html">IBottomLevelCollider</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a039b860ade9a17b78f8628435d66df4f">CreateCopy</a> () <a class="el" href="x64-windows-static_2x64-windows-static_2include_2zconf_8h.html#a2c212835823e3c54a8ab6d95c652660e">const</a> override</td></tr>
+<tr class="separator:a039b860ade9a17b78f8628435d66df4f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2436ea5164b2a5b03068386ac29468da" id="r_a2436ea5164b2a5b03068386ac29468da"><td class="memItemLeft" align="right" valign="top"><a class="el" href="x64-windows-static_2x64-windows-static_2include_2libpng16_2png_8h.html#a05f08be336491be77cd4dfa98f747c69">void</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a2436ea5164b2a5b03068386ac29468da">AddOffset</a> (<a class="el" href="x64-windows-static_2x64-windows-static_2include_2zconf_8h.html#a2c212835823e3c54a8ab6d95c652660e">const</a> <a class="el" href="namespace_o_s_k.html#a72b3268907c9cd41f0daf0a42e1c9dca">Vector3f</a> &amp;offset)</td></tr>
+<tr class="separator:a2436ea5164b2a5b03068386ac29468da"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0404ff4c901165b73c42f5d50ac9e766" id="r_a0404ff4c901165b73c42f5d50ac9e766"><td class="memItemLeft" align="right" valign="top"><a class="el" href="x64-windows-static_2x64-windows-static_2include_2libpng16_2png_8h.html#a05f08be336491be77cd4dfa98f747c69">void</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a0404ff4c901165b73c42f5d50ac9e766">AddFace</a> (<a class="el" href="x64-windows-static_2x64-windows-static_2include_2zconf_8h.html#a2c212835823e3c54a8ab6d95c652660e">const</a> <a class="el" href="class_o_s_k_1_1_dynamic_array.html">DynamicArray</a>&lt; <a class="el" href="namespace_o_s_k.html#a72b3268907c9cd41f0daf0a42e1c9dca">Vector3f</a> &gt; &amp;vertices)</td></tr>
+<tr class="separator:a0404ff4c901165b73c42f5d50ac9e766"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa4a9d00bd1c156e6d3447da73bcc2817" id="r_aa4a9d00bd1c156e6d3447da73bcc2817"><td class="memItemLeft" align="right" valign="top"><a class="el" href="x64-windows-static_2x64-windows-static_2include_2libpng16_2png_8h.html#a05f08be336491be77cd4dfa98f747c69">void</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aa4a9d00bd1c156e6d3447da73bcc2817">MergeFaces</a> ()</td></tr>
+<tr class="separator:aa4a9d00bd1c156e6d3447da73bcc2817"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a532ab8b6b3544135c09a125e755c418b" id="r_a532ab8b6b3544135c09a125e755c418b"><td class="memItemLeft" align="right" valign="top"><a class="el" href="x64-windows-static_2x64-windows-static_2include_2libpng16_2png_8h.html#a05f08be336491be77cd4dfa98f747c69">void</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a532ab8b6b3544135c09a125e755c418b">Transform</a> (<a class="el" href="x64-windows-static_2x64-windows-static_2include_2zconf_8h.html#a2c212835823e3c54a8ab6d95c652660e">const</a> <a class="el" href="class_o_s_k_1_1_e_c_s_1_1_transform3_d.html">ECS::Transform3D</a> &amp;transform) override</td></tr>
+<tr class="separator:a532ab8b6b3544135c09a125e755c418b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3e37261185215968c74a849422c1d622" id="r_a3e37261185215968c74a849422c1d622"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_detailed_collision_info.html">DetailedCollisionInfo</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a3e37261185215968c74a849422c1d622">GetCollisionInfo</a> (<a class="el" href="x64-windows-static_2x64-windows-static_2include_2zconf_8h.html#a2c212835823e3c54a8ab6d95c652660e">const</a> <a class="el" href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_i_bottom_level_collider.html">IBottomLevelCollider</a> &amp;other, <a class="el" href="x64-windows-static_2x64-windows-static_2include_2zconf_8h.html#a2c212835823e3c54a8ab6d95c652660e">const</a> <a class="el" href="class_o_s_k_1_1_e_c_s_1_1_transform3_d.html">ECS::Transform3D</a> &amp;thisOffset, <a class="el" href="x64-windows-static_2x64-windows-static_2include_2zconf_8h.html#a2c212835823e3c54a8ab6d95c652660e">const</a> <a class="el" href="class_o_s_k_1_1_e_c_s_1_1_transform3_d.html">ECS::Transform3D</a> &amp;otherOffset) <a class="el" href="x64-windows-static_2x64-windows-static_2include_2zconf_8h.html#a2c212835823e3c54a8ab6d95c652660e">const</a> override</td></tr>
+<tr class="separator:a3e37261185215968c74a849422c1d622"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0367c0e40c455bd81fc6fc54243f3051" id="r_a0367c0e40c455bd81fc6fc54243f3051"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a0367c0e40c455bd81fc6fc54243f3051">ContainsPoint</a> (<a class="el" href="x64-windows-static_2x64-windows-static_2include_2zconf_8h.html#a2c212835823e3c54a8ab6d95c652660e">const</a> <a class="el" href="namespace_o_s_k.html#a72b3268907c9cd41f0daf0a42e1c9dca">Vector3f</a> &amp;point) <a class="el" href="x64-windows-static_2x64-windows-static_2include_2zconf_8h.html#a2c212835823e3c54a8ab6d95c652660e">const</a> override</td></tr>
+<tr class="separator:a0367c0e40c455bd81fc6fc54243f3051"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a27717e8cb3cdc37f3c79e43d19922951" id="r_a27717e8cb3cdc37f3c79e43d19922951"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_gjk_support.html">GjkSupport</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a27717e8cb3cdc37f3c79e43d19922951">GetSupport</a> (<a class="el" href="x64-windows-static_2x64-windows-static_2include_2zconf_8h.html#a2c212835823e3c54a8ab6d95c652660e">const</a> <a class="el" href="namespace_o_s_k.html#a72b3268907c9cd41f0daf0a42e1c9dca">Vector3f</a> &amp;direction) <a class="el" href="x64-windows-static_2x64-windows-static_2include_2zconf_8h.html#a2c212835823e3c54a8ab6d95c652660e">const</a> override</td></tr>
+<tr class="separator:a27717e8cb3cdc37f3c79e43d19922951"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a25cfa41236939a534f36fb7ded005c7c" id="r_a25cfa41236939a534f36fb7ded005c7c"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_o_s_k_1_1_dynamic_array.html">DynamicArray</a>&lt; <a class="el" href="struct_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_gjk_support.html">GjkSupport</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a25cfa41236939a534f36fb7ded005c7c">GetAllSupports</a> (<a class="el" href="x64-windows-static_2x64-windows-static_2include_2zconf_8h.html#a2c212835823e3c54a8ab6d95c652660e">const</a> <a class="el" href="namespace_o_s_k.html#a72b3268907c9cd41f0daf0a42e1c9dca">Vector3f</a> &amp;direction, float epsilon) <a class="el" href="x64-windows-static_2x64-windows-static_2include_2zconf_8h.html#a2c212835823e3c54a8ab6d95c652660e">const</a> override</td></tr>
+<tr class="separator:a25cfa41236939a534f36fb7ded005c7c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa1586ce5c05049f9534a0c46275956f1" id="r_aa1586ce5c05049f9534a0c46275956f1"><td class="memItemLeft" align="right" valign="top"><a class="el" href="x64-windows-static_2x64-windows-static_2include_2zconf_8h.html#a2c212835823e3c54a8ab6d95c652660e">const</a> <a class="el" href="class_o_s_k_1_1_dynamic_array.html">DynamicArray</a>&lt; <a class="el" href="namespace_o_s_k.html#a72b3268907c9cd41f0daf0a42e1c9dca">Vector3f</a> &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aa1586ce5c05049f9534a0c46275956f1">GetLocalSpaceVertices</a> () <a class="el" href="x64-windows-static_2x64-windows-static_2include_2zconf_8h.html#a2c212835823e3c54a8ab6d95c652660e">const</a></td></tr>
+<tr class="separator:aa1586ce5c05049f9534a0c46275956f1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aead85c67542a4ff4eda67f7900455567" id="r_aead85c67542a4ff4eda67f7900455567"><td class="memItemLeft" align="right" valign="top"><a class="el" href="x64-windows-static_2x64-windows-static_2include_2zconf_8h.html#a2c212835823e3c54a8ab6d95c652660e">const</a> <a class="el" href="class_o_s_k_1_1_dynamic_array.html">DynamicArray</a>&lt; <a class="el" href="namespace_o_s_k.html#a72b3268907c9cd41f0daf0a42e1c9dca">Vector3f</a> &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aead85c67542a4ff4eda67f7900455567">GetAxes</a> () <a class="el" href="x64-windows-static_2x64-windows-static_2include_2zconf_8h.html#a2c212835823e3c54a8ab6d95c652660e">const</a> override</td></tr>
+<tr class="separator:aead85c67542a4ff4eda67f7900455567"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9eb963d3e9eb20e7c857dc3e6347ee9c" id="r_a9eb963d3e9eb20e7c857dc3e6347ee9c"><td class="memItemLeft" align="right" valign="top"><a class="el" href="x64-windows-static_2x64-windows-static_2include_2zconf_8h.html#a2c212835823e3c54a8ab6d95c652660e">const</a> <a class="el" href="class_o_s_k_1_1_dynamic_array.html">DynamicArray</a>&lt; <a class="el" href="namespace_o_s_k.html#a72b3268907c9cd41f0daf0a42e1c9dca">Vector3f</a> &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a9eb963d3e9eb20e7c857dc3e6347ee9c">GetVertices</a> () <a class="el" href="x64-windows-static_2x64-windows-static_2include_2zconf_8h.html#a2c212835823e3c54a8ab6d95c652660e">const</a> override</td></tr>
+<tr class="separator:a9eb963d3e9eb20e7c857dc3e6347ee9c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4a8d38de1b5a0b294303916c56c84b39" id="r_a4a8d38de1b5a0b294303916c56c84b39"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_o_s_k_1_1_dynamic_array.html">DynamicArray</a>&lt; <a class="el" href="#a2f99e2f9743d5185adaca37474366960">FaceIndices</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a4a8d38de1b5a0b294303916c56c84b39">GetFaceIndices</a> () <a class="el" href="x64-windows-static_2x64-windows-static_2include_2zconf_8h.html#a2c212835823e3c54a8ab6d95c652660e">const</a></td></tr>
+<tr class="separator:a4a8d38de1b5a0b294303916c56c84b39"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad760a4d471a3c17b2a55d1e51345bf01" id="r_ad760a4d471a3c17b2a55d1e51345bf01"><td class="memItemLeft" align="right" valign="top"><a class="el" href="_o_s_kmacros_8h.html#adef8e046c86805ca0dc2db407b01a1bb">UIndex64</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad760a4d471a3c17b2a55d1e51345bf01">GetFaceWithVertexIndices</a> (std::span&lt; <a class="el" href="x64-windows-static_2x64-windows-static_2include_2zconf_8h.html#a2c212835823e3c54a8ab6d95c652660e">const</a> <a class="el" href="_o_s_kmacros_8h.html#adef8e046c86805ca0dc2db407b01a1bb">UIndex64</a>, 3 &gt; indices, <a class="el" href="x64-windows-static_2x64-windows-static_2include_2zconf_8h.html#a2c212835823e3c54a8ab6d95c652660e">const</a> <a class="el" href="namespace_o_s_k.html#a72b3268907c9cd41f0daf0a42e1c9dca">Vector3f</a> &amp;refNormal) <a class="el" href="x64-windows-static_2x64-windows-static_2include_2zconf_8h.html#a2c212835823e3c54a8ab6d95c652660e">const</a></td></tr>
+<tr class="separator:ad760a4d471a3c17b2a55d1e51345bf01"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac70afb1f04343f09f5640daadcdc828b" id="r_ac70afb1f04343f09f5640daadcdc828b"><td class="memItemLeft" align="right" valign="top"><a class="el" href="#af303773368792a8a22456da5f8210ebc">Axis</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ac70afb1f04343f09f5640daadcdc828b">GetWorldSpaceAxis</a> (<a class="el" href="_o_s_kmacros_8h.html#af205b9fd0440138e6cac38a9081141df">UIndex32</a> faceId) <a class="el" href="x64-windows-static_2x64-windows-static_2include_2zconf_8h.html#a2c212835823e3c54a8ab6d95c652660e">const</a></td></tr>
+<tr class="separator:ac70afb1f04343f09f5640daadcdc828b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a62900bca74bd5c2d3e3110b30e92bc64" id="r_a62900bca74bd5c2d3e3110b30e92bc64"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_ray_cast_result.html">RayCastResult</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a62900bca74bd5c2d3e3110b30e92bc64">CastRay</a> (<a class="el" href="x64-windows-static_2x64-windows-static_2include_2zconf_8h.html#a2c212835823e3c54a8ab6d95c652660e">const</a> <a class="el" href="struct_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_ray.html">Ray</a> &amp;ray) <a class="el" href="x64-windows-static_2x64-windows-static_2include_2zconf_8h.html#a2c212835823e3c54a8ab6d95c652660e">const</a> override</td></tr>
+<tr class="separator:a62900bca74bd5c2d3e3110b30e92bc64"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6eda8ff8ca88b4247601e9d1b13a7939" id="r_a6eda8ff8ca88b4247601e9d1b13a7939"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_i_bottom_level_collider.html#a6eda8ff8ca88b4247601e9d1b13a7939">OSK_DEFINE_AS</a> (<a class="el" href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_i_bottom_level_collider.html">IBottomLevelCollider</a>)</td></tr>
+<tr class="separator:a6eda8ff8ca88b4247601e9d1b13a7939"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-static-methods" name="pub-static-methods"></a>
+Métodos públicos estáticos</h2></td></tr>
+<tr class="memitem:aee74299801b6a91a8bd36d38fee15a86" id="r_aee74299801b6a91a8bd36d38fee15a86"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_convex_volume.html">ConvexVolume</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aee74299801b6a91a8bd36d38fee15a86">CreateObb</a> (<a class="el" href="x64-windows-static_2x64-windows-static_2include_2zconf_8h.html#a2c212835823e3c54a8ab6d95c652660e">const</a> <a class="el" href="namespace_o_s_k.html#a72b3268907c9cd41f0daf0a42e1c9dca">Vector3f</a> &amp;size)</td></tr>
+<tr class="separator:aee74299801b6a91a8bd36d38fee15a86"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="friends" name="friends"></a>
+Amigas</h2></td></tr>
+<tr class="memitem:a9346abf070e067da503c7d6a7db79182" id="r_a9346abf070e067da503c7d6a7db79182"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:a9346abf070e067da503c7d6a7db79182"><td class="memTemplItemLeft" align="right" valign="top">nlohmann::json&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="#a9346abf070e067da503c7d6a7db79182">PERSISTENCE::SerializeJson</a> (<a class="el" href="x64-windows-static_2x64-windows-static_2include_2zconf_8h.html#a2c212835823e3c54a8ab6d95c652660e">const</a> T &amp;data)</td></tr>
+<tr class="separator:a9346abf070e067da503c7d6a7db79182"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aafb780ec1060e230381806dc0a930fa0" id="r_aafb780ec1060e230381806dc0a930fa0"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:aafb780ec1060e230381806dc0a930fa0"><td class="memTemplItemLeft" align="right" valign="top">T&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="#aafb780ec1060e230381806dc0a930fa0">PERSISTENCE::DeserializeJson</a> (<a class="el" href="x64-windows-static_2x64-windows-static_2include_2zconf_8h.html#a2c212835823e3c54a8ab6d95c652660e">const</a> nlohmann::json &amp;data)</td></tr>
+<tr class="separator:aafb780ec1060e230381806dc0a930fa0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">Descripción detallada</h2>
+<div class="textblock"><p>Clase que representa un volúmen convexo para la detección de colisiones detallada. </p>
+
+<p class="definition">Definición en la línea <a class="el" href="_convex_volume_8h_source.html#l00022">22</a> del archivo <a class="el" href="_convex_volume_8h_source.html">ConvexVolume.h</a>.</p>
+</div><h2 class="groupheader">Documentación de los «Typedef» miembros de la clase</h2>
+<a id="af303773368792a8a22456da5f8210ebc" name="af303773368792a8a22456da5f8210ebc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af303773368792a8a22456da5f8210ebc">&#9670;&#160;</a></span>Axis</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">using <a class="el" href="#af303773368792a8a22456da5f8210ebc">OSK::COLLISION::ConvexVolume::Axis</a> = <a class="el" href="namespace_o_s_k.html#a72b3268907c9cd41f0daf0a42e1c9dca">Vector3f</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Eje. </p>
+
+<p class="definition">Definición en la línea <a class="el" href="_convex_volume_8h_source.html#l00042">42</a> del archivo <a class="el" href="_convex_volume_8h_source.html">ConvexVolume.h</a>.</p>
+
+</div>
+</div>
+<a id="a2f99e2f9743d5185adaca37474366960" name="a2f99e2f9743d5185adaca37474366960"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2f99e2f9743d5185adaca37474366960">&#9670;&#160;</a></span>FaceIndices</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">using <a class="el" href="#a2f99e2f9743d5185adaca37474366960">OSK::COLLISION::ConvexVolume::FaceIndices</a> = <a class="el" href="class_o_s_k_1_1_dynamic_array.html">DynamicArray</a>&lt;<a class="el" href="_o_s_kmacros_8h.html#af205b9fd0440138e6cac38a9081141df">UIndex32</a>&gt;</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Una lista que contiene los índices de los vértices de una cara. </p>
+<p>Cada índice representa un vértice almacenado en la lista de vértices del collider. </p>
+
+<p class="definition">Definición en la línea <a class="el" href="_convex_volume_8h_source.html#l00039">39</a> del archivo <a class="el" href="_convex_volume_8h_source.html">ConvexVolume.h</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Documentación de constructores y destructores</h2>
+<a id="aac0dca3e298bac3b002a87df5f1f0bfd" name="aac0dca3e298bac3b002a87df5f1f0bfd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aac0dca3e298bac3b002a87df5f1f0bfd">&#9670;&#160;</a></span>ConvexVolume()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">OSK::COLLISION::ConvexVolume::ConvexVolume </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">default</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="aeab648901ded3d187779717e315a3236" name="aeab648901ded3d187779717e315a3236"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aeab648901ded3d187779717e315a3236">&#9670;&#160;</a></span>~ConvexVolume()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">OSK::COLLISION::ConvexVolume::~ConvexVolume </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">default</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<h2 class="groupheader">Documentación de funciones miembro</h2>
+<a id="a0404ff4c901165b73c42f5d50ac9e766" name="a0404ff4c901165b73c42f5d50ac9e766"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0404ff4c901165b73c42f5d50ac9e766">&#9670;&#160;</a></span>AddFace()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="x64-windows-static_2x64-windows-static_2include_2libpng16_2png_8h.html#a05f08be336491be77cd4dfa98f747c69">void</a> ConvexVolume::AddFace </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="x64-windows-static_2x64-windows-static_2include_2zconf_8h.html#a2c212835823e3c54a8ab6d95c652660e">const</a> <a class="el" href="class_o_s_k_1_1_dynamic_array.html">DynamicArray</a>&lt; <a class="el" href="namespace_o_s_k.html#a72b3268907c9cd41f0daf0a42e1c9dca">Vector3f</a> &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>vertices</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Añade una cara al poliedro. </p>
+<dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">vertices</td><td>Vértices de la cara. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section pre"><dt>Precondición</dt><dd>vertices.GetSize() &gt;= 3. </dd>
+<dd>
+vertices.GetSize() &lt; UINT_MAX. </dd>
+<dd>
+convexVolume.vertices.GetSize() + vertices.GetSize() &lt; UINT_MAX.</dd></dl>
+<dl class="section note"><dt>Nota</dt><dd>Los puntos añadidos no serán transformados hasta que no se vuelva a transformar el collider entero.</dd></dl>
+<dl class="exception"><dt>Excepciones</dt><dd>
+  <table class="exception">
+    <tr><td class="paramname"><a class="el" href="class_o_s_k_1_1_invalid_argument_exception.html" title="Excepción que se lanza cuando se trata de ejecutar una función pasando argumentos con valores que no ...">InvalidArgumentException</a></td><td>si el número de vértices proporcionado es incorrecto. </td></tr>
+    <tr><td class="paramname"><a class="el" href="class_o_s_k_1_1_invalid_object_state_exception.html" title="Excepción que se lanza cuando se trata de ejecutar una función de un objeto cuyo estado interno no es...">InvalidObjectStateException</a></td><td>si el número de vértices final es incorrecto. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definición en la línea <a class="el" href="_convex_volume_8cpp_source.html#l00112">112</a> del archivo <a class="el" href="_convex_volume_8cpp_source.html">ConvexVolume.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a2436ea5164b2a5b03068386ac29468da" name="a2436ea5164b2a5b03068386ac29468da"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2436ea5164b2a5b03068386ac29468da">&#9670;&#160;</a></span>AddOffset()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="x64-windows-static_2x64-windows-static_2include_2libpng16_2png_8h.html#a05f08be336491be77cd4dfa98f747c69">void</a> ConvexVolume::AddOffset </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="x64-windows-static_2x64-windows-static_2include_2zconf_8h.html#a2c212835823e3c54a8ab6d95c652660e">const</a> <a class="el" href="namespace_o_s_k.html#a72b3268907c9cd41f0daf0a42e1c9dca">Vector3f</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>offset</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Añade un offset a todos los vértices del volumen. </p>
+<dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">offset</td><td>Offset.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section note"><dt>Nota</dt><dd>No se aplicará a los vértices añadidos después de la llamada. </dd></dl>
+
+<p class="definition">Definición en la línea <a class="el" href="_convex_volume_8cpp_source.html#l00106">106</a> del archivo <a class="el" href="_convex_volume_8cpp_source.html">ConvexVolume.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a62900bca74bd5c2d3e3110b30e92bc64" name="a62900bca74bd5c2d3e3110b30e92bc64"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a62900bca74bd5c2d3e3110b30e92bc64">&#9670;&#160;</a></span>CastRay()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_ray_cast_result.html">RayCastResult</a> ConvexVolume::CastRay </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="x64-windows-static_2x64-windows-static_2include_2zconf_8h.html#a2c212835823e3c54a8ab6d95c652660e">const</a> <a class="el" href="struct_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_ray.html">Ray</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>ray</em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Implementa <a class="el" href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_i_ray_collider.html#a78ad23fe3e49348e0cee661c23f9a0a4">OSK::COLLISION::IRayCollider</a>.</p>
+
+<p class="definition">Definición en la línea <a class="el" href="_convex_volume_8cpp_source.html#l00752">752</a> del archivo <a class="el" href="_convex_volume_8cpp_source.html">ConvexVolume.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a0367c0e40c455bd81fc6fc54243f3051" name="a0367c0e40c455bd81fc6fc54243f3051"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0367c0e40c455bd81fc6fc54243f3051">&#9670;&#160;</a></span>ContainsPoint()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool ConvexVolume::ContainsPoint </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="x64-windows-static_2x64-windows-static_2include_2zconf_8h.html#a2c212835823e3c54a8ab6d95c652660e">const</a> <a class="el" href="namespace_o_s_k.html#a72b3268907c9cd41f0daf0a42e1c9dca">Vector3f</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>point</em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Implementa <a class="el" href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_i_bottom_level_collider.html#a0ee7950a95b070687dc8960436f1b7c6">OSK::COLLISION::IBottomLevelCollider</a>.</p>
+
+<p class="definition">Definición en la línea <a class="el" href="_convex_volume_8cpp_source.html#l00631">631</a> del archivo <a class="el" href="_convex_volume_8cpp_source.html">ConvexVolume.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a039b860ade9a17b78f8628435d66df4f" name="a039b860ade9a17b78f8628435d66df4f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a039b860ade9a17b78f8628435d66df4f">&#9670;&#160;</a></span>CreateCopy()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="class_o_s_k_1_1_owned_ptr.html">OwnedPtr</a>&lt; <a class="el" href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_i_bottom_level_collider.html">IBottomLevelCollider</a> &gt; ConvexVolume::CreateCopy </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Implementa <a class="el" href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_i_bottom_level_collider.html#a391e75de6b0b06f7900b688cac00e5da">OSK::COLLISION::IBottomLevelCollider</a>.</p>
+
+<p class="definition">Definición en la línea <a class="el" href="_convex_volume_8cpp_source.html#l00027">27</a> del archivo <a class="el" href="_convex_volume_8cpp_source.html">ConvexVolume.cpp</a>.</p>
+
+</div>
+</div>
+<a id="aee74299801b6a91a8bd36d38fee15a86" name="aee74299801b6a91a8bd36d38fee15a86"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aee74299801b6a91a8bd36d38fee15a86">&#9670;&#160;</a></span>CreateObb()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_convex_volume.html">ConvexVolume</a> ConvexVolume::CreateObb </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="x64-windows-static_2x64-windows-static_2include_2zconf_8h.html#a2c212835823e3c54a8ab6d95c652660e">const</a> <a class="el" href="namespace_o_s_k.html#a72b3268907c9cd41f0daf0a42e1c9dca">Vector3f</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>size</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Crea un volumen convexo que implementa una caja delimitadora. </p>
+<dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">size</td><td>Tamaño de la caja, expresado como radio. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Devuelve</dt><dd>Volumen convexo en modo de caja. </dd></dl>
+
+<p class="definition">Definición en la línea <a class="el" href="_convex_volume_8cpp_source.html#l00031">31</a> del archivo <a class="el" href="_convex_volume_8cpp_source.html">ConvexVolume.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a25cfa41236939a534f36fb7ded005c7c" name="a25cfa41236939a534f36fb7ded005c7c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a25cfa41236939a534f36fb7ded005c7c">&#9670;&#160;</a></span>GetAllSupports()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="class_o_s_k_1_1_dynamic_array.html">DynamicArray</a>&lt; <a class="el" href="struct_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_gjk_support.html">GjkSupport</a> &gt; ConvexVolume::GetAllSupports </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="x64-windows-static_2x64-windows-static_2include_2zconf_8h.html#a2c212835823e3c54a8ab6d95c652660e">const</a> <a class="el" href="namespace_o_s_k.html#a72b3268907c9cd41f0daf0a42e1c9dca">Vector3f</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>direction</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float</td>          <td class="paramname"><span class="paramname"><em>epsilon</em></span>&#160;) const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">direction</td><td>Dirección en la que se busca el soporte. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Devuelve</dt><dd>Soportes (puntos más alejados en la dirección <code>direction</code>). </dd></dl>
+
+<p>Implementa <a class="el" href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_i_gjk_collider.html#a9ecb80f5a179771acd55f5b97aac7f97">OSK::COLLISION::IGjkCollider</a>.</p>
+
+<p class="definition">Definición en la línea <a class="el" href="_convex_volume_8cpp_source.html#l00656">656</a> del archivo <a class="el" href="_convex_volume_8cpp_source.html">ConvexVolume.cpp</a>.</p>
+
+</div>
+</div>
+<a id="aead85c67542a4ff4eda67f7900455567" name="aead85c67542a4ff4eda67f7900455567"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aead85c67542a4ff4eda67f7900455567">&#9670;&#160;</a></span>GetAxes()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="x64-windows-static_2x64-windows-static_2include_2zconf_8h.html#a2c212835823e3c54a8ab6d95c652660e">const</a> <a class="el" href="class_o_s_k_1_1_dynamic_array.html">DynamicArray</a>&lt; <a class="el" href="namespace_o_s_k.html#a72b3268907c9cd41f0daf0a42e1c9dca">Vector3f</a> &gt; &amp; ConvexVolume::GetAxes </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Devuelve</dt><dd>Ejes que se deben comprobar. </dd></dl>
+
+<p>Implementa <a class="el" href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_i_sat_collider.html#a60dd6a6a2fd9dbdf198b8259ca7a2573">OSK::COLLISION::ISatCollider</a>.</p>
+
+<p class="definition">Definición en la línea <a class="el" href="_convex_volume_8cpp_source.html#l00695">695</a> del archivo <a class="el" href="_convex_volume_8cpp_source.html">ConvexVolume.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a3e37261185215968c74a849422c1d622" name="a3e37261185215968c74a849422c1d622"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3e37261185215968c74a849422c1d622">&#9670;&#160;</a></span>GetCollisionInfo()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_detailed_collision_info.html">DetailedCollisionInfo</a> ConvexVolume::GetCollisionInfo </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="x64-windows-static_2x64-windows-static_2include_2zconf_8h.html#a2c212835823e3c54a8ab6d95c652660e">const</a> <a class="el" href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_i_bottom_level_collider.html">IBottomLevelCollider</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>other</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="x64-windows-static_2x64-windows-static_2include_2zconf_8h.html#a2c212835823e3c54a8ab6d95c652660e">const</a> <a class="el" href="class_o_s_k_1_1_e_c_s_1_1_transform3_d.html">ECS::Transform3D</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>transformA</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="x64-windows-static_2x64-windows-static_2include_2zconf_8h.html#a2c212835823e3c54a8ab6d95c652660e">const</a> <a class="el" href="class_o_s_k_1_1_e_c_s_1_1_transform3_d.html">ECS::Transform3D</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>transformB</em></span>&#160;) const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Comprueba si este área de colisión está en contacto con otra, y devuelve la información detallada resultante. </p>
+<dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">other</td><td>Otra área de colisión de nivel bajo. </td></tr>
+    <tr><td class="paramname">transformA</td><td>Transform de este collider. </td></tr>
+    <tr><td class="paramname">transformB</td><td>Transform del otro collider.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Devuelve</dt><dd>Información detallada de la colisión. </dd></dl>
+
+<p>Implementa <a class="el" href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_i_bottom_level_collider.html#ac741ed7befd12b1fcc254ad9f9ac0c97">OSK::COLLISION::IBottomLevelCollider</a>.</p>
+
+<p class="definition">Definición en la línea <a class="el" href="_convex_volume_8cpp_source.html#l00482">482</a> del archivo <a class="el" href="_convex_volume_8cpp_source.html">ConvexVolume.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a4a8d38de1b5a0b294303916c56c84b39" name="a4a8d38de1b5a0b294303916c56c84b39"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4a8d38de1b5a0b294303916c56c84b39">&#9670;&#160;</a></span>GetFaceIndices()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="class_o_s_k_1_1_dynamic_array.html">DynamicArray</a>&lt; <a class="el" href="#a2f99e2f9743d5185adaca37474366960">ConvexVolume::FaceIndices</a> &gt; ConvexVolume::GetFaceIndices </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Devuelve una lista que contiene una lista de índices por cada cara del collider. </p>
+<dl class="section return"><dt>Devuelve</dt><dd>Lista con todos los índices de cada cara.</dd></dl>
+<dl class="section see"><dt>Ver también</dt><dd><a class="el" href="#a2f99e2f9743d5185adaca37474366960" title="Una lista que contiene los índices de los vértices de una cara.">FaceIndices</a> </dd></dl>
+
+<p class="definition">Definición en la línea <a class="el" href="_convex_volume_8cpp_source.html#l00707">707</a> del archivo <a class="el" href="_convex_volume_8cpp_source.html">ConvexVolume.cpp</a>.</p>
+
+</div>
+</div>
+<a id="ad760a4d471a3c17b2a55d1e51345bf01" name="ad760a4d471a3c17b2a55d1e51345bf01"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad760a4d471a3c17b2a55d1e51345bf01">&#9670;&#160;</a></span>GetFaceWithVertexIndices()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="_o_s_kmacros_8h.html#adef8e046c86805ca0dc2db407b01a1bb">UIndex64</a> ConvexVolume::GetFaceWithVertexIndices </td>
+          <td>(</td>
+          <td class="paramtype">std::span&lt; <a class="el" href="x64-windows-static_2x64-windows-static_2include_2zconf_8h.html#a2c212835823e3c54a8ab6d95c652660e">const</a> <a class="el" href="_o_s_kmacros_8h.html#adef8e046c86805ca0dc2db407b01a1bb">UIndex64</a>, 3 &gt;</td>          <td class="paramname"><span class="paramname"><em>indices</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="x64-windows-static_2x64-windows-static_2include_2zconf_8h.html#a2c212835823e3c54a8ab6d95c652660e">const</a> <a class="el" href="namespace_o_s_k.html#a72b3268907c9cd41f0daf0a42e1c9dca">Vector3f</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>refNormal</em></span>&#160;) const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definición en la línea <a class="el" href="_convex_volume_8cpp_source.html#l00711">711</a> del archivo <a class="el" href="_convex_volume_8cpp_source.html">ConvexVolume.cpp</a>.</p>
+
+</div>
+</div>
+<a id="aa1586ce5c05049f9534a0c46275956f1" name="aa1586ce5c05049f9534a0c46275956f1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa1586ce5c05049f9534a0c46275956f1">&#9670;&#160;</a></span>GetLocalSpaceVertices()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="x64-windows-static_2x64-windows-static_2include_2zconf_8h.html#a2c212835823e3c54a8ab6d95c652660e">const</a> <a class="el" href="class_o_s_k_1_1_dynamic_array.html">DynamicArray</a>&lt; <a class="el" href="namespace_o_s_k.html#a72b3268907c9cd41f0daf0a42e1c9dca">Vector3f</a> &gt; &amp; ConvexVolume::GetLocalSpaceVertices </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Devuelve una lista con todos los vértices del collider. Estos vértices están en espacio local, por lo no se encuentran transformados de acuerdo a la entidad que posee el collider. </p>
+<dl class="section return"><dt>Devuelve</dt><dd>Todos los vértices del collider, en espacio local. </dd></dl>
+
+<p class="definition">Definición en la línea <a class="el" href="_convex_volume_8cpp_source.html#l00703">703</a> del archivo <a class="el" href="_convex_volume_8cpp_source.html">ConvexVolume.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a27717e8cb3cdc37f3c79e43d19922951" name="a27717e8cb3cdc37f3c79e43d19922951"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a27717e8cb3cdc37f3c79e43d19922951">&#9670;&#160;</a></span>GetSupport()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="struct_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_gjk_support.html">GjkSupport</a> ConvexVolume::GetSupport </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="x64-windows-static_2x64-windows-static_2include_2zconf_8h.html#a2c212835823e3c54a8ab6d95c652660e">const</a> <a class="el" href="namespace_o_s_k.html#a72b3268907c9cd41f0daf0a42e1c9dca">Vector3f</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>direction</em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">direction</td><td>Dirección en la que se busca el soporte. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Devuelve</dt><dd>Soporte (punto más alejado en la dirección <code>direction</code>). </dd></dl>
+
+<p>Implementa <a class="el" href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_i_gjk_collider.html#a0db85d332a6ecdcc58f148c7041162b2">OSK::COLLISION::IGjkCollider</a>.</p>
+
+<p class="definition">Definición en la línea <a class="el" href="_convex_volume_8cpp_source.html#l00636">636</a> del archivo <a class="el" href="_convex_volume_8cpp_source.html">ConvexVolume.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a9eb963d3e9eb20e7c857dc3e6347ee9c" name="a9eb963d3e9eb20e7c857dc3e6347ee9c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9eb963d3e9eb20e7c857dc3e6347ee9c">&#9670;&#160;</a></span>GetVertices()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="x64-windows-static_2x64-windows-static_2include_2zconf_8h.html#a2c212835823e3c54a8ab6d95c652660e">const</a> <a class="el" href="class_o_s_k_1_1_dynamic_array.html">DynamicArray</a>&lt; <a class="el" href="namespace_o_s_k.html#a72b3268907c9cd41f0daf0a42e1c9dca">Vector3f</a> &gt; &amp; ConvexVolume::GetVertices </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Devuelve</dt><dd>Vértices del collider, en espacio del mundo. </dd></dl>
+
+<p>Implementa <a class="el" href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_i_sat_collider.html#a319d59f37beaffcdb05485cef800f75a">OSK::COLLISION::ISatCollider</a>.</p>
+
+<p class="definition">Definición en la línea <a class="el" href="_convex_volume_8cpp_source.html#l00699">699</a> del archivo <a class="el" href="_convex_volume_8cpp_source.html">ConvexVolume.cpp</a>.</p>
+
+</div>
+</div>
+<a id="ac70afb1f04343f09f5640daadcdc828b" name="ac70afb1f04343f09f5640daadcdc828b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac70afb1f04343f09f5640daadcdc828b">&#9670;&#160;</a></span>GetWorldSpaceAxis()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="#af303773368792a8a22456da5f8210ebc">ConvexVolume::Axis</a> ConvexVolume::GetWorldSpaceAxis </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="_o_s_kmacros_8h.html#af205b9fd0440138e6cac38a9081141df">UIndex32</a></td>          <td class="paramname"><span class="paramname"><em>faceId</em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Obtiene un eje transformado definido por los puntos de la cara indicada. Se usa para la comprobación de colisiones. </p>
+<dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">faceId</td><td>Índice de la cara.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Devuelve</dt><dd>Eje de la cara.</dd></dl>
+<dl class="section pre"><dt>Precondición</dt><dd>El índice debe apuntar a una cara válida que no haya sido purgada por el proceso de optimización. </dd></dl>
+
+<p class="definition">Definición en la línea <a class="el" href="_convex_volume_8cpp_source.html#l00423">423</a> del archivo <a class="el" href="_convex_volume_8cpp_source.html">ConvexVolume.cpp</a>.</p>
+
+</div>
+</div>
+<a id="aa4a9d00bd1c156e6d3447da73bcc2817" name="aa4a9d00bd1c156e6d3447da73bcc2817"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa4a9d00bd1c156e6d3447da73bcc2817">&#9670;&#160;</a></span>MergeFaces()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="x64-windows-static_2x64-windows-static_2include_2libpng16_2png_8h.html#a05f08be336491be77cd4dfa98f747c69">void</a> ConvexVolume::MergeFaces </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>De-trianguliza el collider, juntando caras paralelas que están en el mismo plano. </p>
+
+<p class="definition">Definición en la línea <a class="el" href="_convex_volume_8cpp_source.html#l00320">320</a> del archivo <a class="el" href="_convex_volume_8cpp_source.html">ConvexVolume.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a6eda8ff8ca88b4247601e9d1b13a7939" name="a6eda8ff8ca88b4247601e9d1b13a7939"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6eda8ff8ca88b4247601e9d1b13a7939">&#9670;&#160;</a></span>OSK_DEFINE_AS()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">OSK::COLLISION::IBottomLevelCollider::OSK_DEFINE_AS </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_i_bottom_level_collider.html">IBottomLevelCollider</a></td>          <td class="paramname"><span class="paramname"></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a532ab8b6b3544135c09a125e755c418b" name="a532ab8b6b3544135c09a125e755c418b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a532ab8b6b3544135c09a125e755c418b">&#9670;&#160;</a></span>Transform()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="x64-windows-static_2x64-windows-static_2include_2libpng16_2png_8h.html#a05f08be336491be77cd4dfa98f747c69">void</a> ConvexVolume::Transform </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="x64-windows-static_2x64-windows-static_2include_2zconf_8h.html#a2c212835823e3c54a8ab6d95c652660e">const</a> <a class="el" href="class_o_s_k_1_1_e_c_s_1_1_transform3_d.html">ECS::Transform3D</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>transform</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Transforma los vértices. </p>
+<dl class="section note"><dt>Nota</dt><dd>Debe llamarse una vez por fotograma. </dd></dl>
+
+<p>Implementa <a class="el" href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_i_bottom_level_collider.html#a8c112274ab13603ca7abd50dde6b813f">OSK::COLLISION::IBottomLevelCollider</a>.</p>
+
+<p class="definition">Definición en la línea <a class="el" href="_convex_volume_8cpp_source.html#l00673">673</a> del archivo <a class="el" href="_convex_volume_8cpp_source.html">ConvexVolume.cpp</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Documentación de símbolos amigos y relacionados</h2>
+<a id="aafb780ec1060e230381806dc0a930fa0" name="aafb780ec1060e230381806dc0a930fa0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aafb780ec1060e230381806dc0a930fa0">&#9670;&#160;</a></span>PERSISTENCE::DeserializeJson</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">T <a class="el" href="namespace_o_s_k_1_1_p_e_r_s_i_s_t_e_n_c_e.html#a916574565f986929dca482f19e527689">PERSISTENCE::DeserializeJson</a> </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="x64-windows-static_2x64-windows-static_2include_2zconf_8h.html#a2c212835823e3c54a8ab6d95c652660e">const</a> nlohmann::json &amp;</td>          <td class="paramname"><span class="paramname"><em>data</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">friend</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a9346abf070e067da503c7d6a7db79182" name="a9346abf070e067da503c7d6a7db79182"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9346abf070e067da503c7d6a7db79182">&#9670;&#160;</a></span>PERSISTENCE::SerializeJson</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">nlohmann::json <a class="el" href="namespace_o_s_k_1_1_p_e_r_s_i_s_t_e_n_c_e.html#a673b25e779dc249323c87c7dc3c789c2">PERSISTENCE::SerializeJson</a> </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="x64-windows-static_2x64-windows-static_2include_2zconf_8h.html#a2c212835823e3c54a8ab6d95c652660e">const</a> T &amp;</td>          <td class="paramname"><span class="paramname"><em>data</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">friend</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<hr/>La documentación de esta clase está generada de los siguientes archivos:<ul>
+<li>Source/<a class="el" href="_convex_volume_8h_source.html">ConvexVolume.h</a></li>
+<li>Source/<a class="el" href="_convex_volume_8cpp_source.html">ConvexVolume.cpp</a></li>
+</ul>
+</div><!-- contents -->
+</div><!-- doc-content -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="namespace_o_s_k.html">OSK</a></li><li class="navelem"><a class="el" href="namespace_o_s_k_1_1_c_o_l_l_i_s_i_o_n.html">COLLISION</a></li><li class="navelem"><a class="el" href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_convex_volume.html">ConvexVolume</a></li>
+    <li class="footer">Generado el Lunes, 29 de enero de 2024 17:19:09 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.10.0 </li>
+  </ul>
+</div>
+</body>
+</html>

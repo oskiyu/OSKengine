@@ -1,0 +1,25 @@
+var struct_s_p_i_r_v___c_r_o_s_s___n_a_m_e_s_p_a_c_e_1_1_meta_1_1_decoration =
+[
+    [ "Extended", "struct_s_p_i_r_v___c_r_o_s_s___n_a_m_e_s_p_a_c_e_1_1_meta_1_1_decoration_1_1_extended.html", "struct_s_p_i_r_v___c_r_o_s_s___n_a_m_e_s_p_a_c_e_1_1_meta_1_1_decoration_1_1_extended" ],
+    [ "alias", "struct_s_p_i_r_v___c_r_o_s_s___n_a_m_e_s_p_a_c_e_1_1_meta_1_1_decoration.html#a4efa2c64b8206f98261505bc28ab5867", null ],
+    [ "array_stride", "struct_s_p_i_r_v___c_r_o_s_s___n_a_m_e_s_p_a_c_e_1_1_meta_1_1_decoration.html#a3316c78df066db5bbe9d390c2a40e682", null ],
+    [ "binding", "struct_s_p_i_r_v___c_r_o_s_s___n_a_m_e_s_p_a_c_e_1_1_meta_1_1_decoration.html#a09feea82f755d3de765eda7ae14aef90", null ],
+    [ "builtin", "struct_s_p_i_r_v___c_r_o_s_s___n_a_m_e_s_p_a_c_e_1_1_meta_1_1_decoration.html#ac0e7b25e597eaac2bda820a64217719c", null ],
+    [ "builtin_type", "struct_s_p_i_r_v___c_r_o_s_s___n_a_m_e_s_p_a_c_e_1_1_meta_1_1_decoration.html#a53887ef08c97f51c17a3875e03e30e1c", null ],
+    [ "component", "struct_s_p_i_r_v___c_r_o_s_s___n_a_m_e_s_p_a_c_e_1_1_meta_1_1_decoration.html#a78e91d3b763d86fb2048a4a5c4a21502", null ],
+    [ "decoration_flags", "struct_s_p_i_r_v___c_r_o_s_s___n_a_m_e_s_p_a_c_e_1_1_meta_1_1_decoration.html#a660f8dd9214bc9e9c364799cbffa88d4", null ],
+    [ "extended", "struct_s_p_i_r_v___c_r_o_s_s___n_a_m_e_s_p_a_c_e_1_1_meta_1_1_decoration.html#a055231f3da05c9df926b5f35cd7337f1", null ],
+    [ "fp_rounding_mode", "struct_s_p_i_r_v___c_r_o_s_s___n_a_m_e_s_p_a_c_e_1_1_meta_1_1_decoration.html#abaf533026ee4875c406f2933e5514ecc", null ],
+    [ "hlsl_semantic", "struct_s_p_i_r_v___c_r_o_s_s___n_a_m_e_s_p_a_c_e_1_1_meta_1_1_decoration.html#abcdd276a26408167891303441123b418", null ],
+    [ "index", "struct_s_p_i_r_v___c_r_o_s_s___n_a_m_e_s_p_a_c_e_1_1_meta_1_1_decoration.html#a7bf137792f3d906306aa85b00f400924", null ],
+    [ "input_attachment", "struct_s_p_i_r_v___c_r_o_s_s___n_a_m_e_s_p_a_c_e_1_1_meta_1_1_decoration.html#a3db07ac83a5b802760703d563f0cc7cd", null ],
+    [ "location", "struct_s_p_i_r_v___c_r_o_s_s___n_a_m_e_s_p_a_c_e_1_1_meta_1_1_decoration.html#a53c19d3e021a1c6c8da209888100aa87", null ],
+    [ "matrix_stride", "struct_s_p_i_r_v___c_r_o_s_s___n_a_m_e_s_p_a_c_e_1_1_meta_1_1_decoration.html#a6370aca6dab05e384f46f2f10f56f63e", null ],
+    [ "offset", "struct_s_p_i_r_v___c_r_o_s_s___n_a_m_e_s_p_a_c_e_1_1_meta_1_1_decoration.html#a6b7ab016bd2568132a645c2621c6014b", null ],
+    [ "qualified_alias", "struct_s_p_i_r_v___c_r_o_s_s___n_a_m_e_s_p_a_c_e_1_1_meta_1_1_decoration.html#a39923779a82fbc04e94d14de6873ad73", null ],
+    [ "set", "struct_s_p_i_r_v___c_r_o_s_s___n_a_m_e_s_p_a_c_e_1_1_meta_1_1_decoration.html#aa734be88ed176745dd3038fe11ab8bd2", null ],
+    [ "spec_id", "struct_s_p_i_r_v___c_r_o_s_s___n_a_m_e_s_p_a_c_e_1_1_meta_1_1_decoration.html#a78628d5b2e95ea99b97307f06b208182", null ],
+    [ "stream", "struct_s_p_i_r_v___c_r_o_s_s___n_a_m_e_s_p_a_c_e_1_1_meta_1_1_decoration.html#a42a523eb84bfaa1ce9a805f071811c94", null ],
+    [ "xfb_buffer", "struct_s_p_i_r_v___c_r_o_s_s___n_a_m_e_s_p_a_c_e_1_1_meta_1_1_decoration.html#a07cd07f89a52b8a832d399a3fb6ee74e", null ],
+    [ "xfb_stride", "struct_s_p_i_r_v___c_r_o_s_s___n_a_m_e_s_p_a_c_e_1_1_meta_1_1_decoration.html#ade40767cdcfc907d351eba83c3601394", null ]
+];

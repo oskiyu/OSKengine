@@ -1,0 +1,257 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="es">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.10.0"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>OSKengine: Archivo de código fuente Source/PipelineCreateInfo.h</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">OSKengine<span id="projectnumber">&#160;Indev</span>
+   </div>
+   <div id="projectbrief">Motor de videojuegos.</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generado por Doxygen 1.10.0 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() {
+  initMenu('',true,false,'search.php','Buscar');
+  $(function() { init_search(); });
+});
+/* @license-end */
+</script>
+<div id="main-nav"></div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() { codefold.init(0); });
+/* @license-end */
+</script>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function(){initNavTree('_pipeline_create_info_8h_source.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Cargando...</div>
+<div class="SRStatus" id="Searching">Buscando...</div>
+<div class="SRStatus" id="NoMatches">Nada coincide</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">PipelineCreateInfo.h</div></div>
+</div><!--header-->
+<div class="contents">
+<a href="_pipeline_create_info_8h.html">Ir a la documentación de este archivo.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#pragma once</span></div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span> </div>
+<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="preprocessor">#include &lt;string&gt;</span></div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span> </div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &quot;<a class="code" href="_dynamic_array_8hpp.html">DynamicArray.hpp</a>&quot;</span></div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &quot;<a class="code" href="_format_8h.html">Format.h</a>&quot;</span></div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span> </div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="keyword">namespace </span><a class="code hl_namespace" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html">OSK::GRAPHICS</a> {</div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span> </div>
+<div class="foldopen" id="foldopen00013" data-start="{" data-end="};">
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno"><a class="line" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a9bf4af2a8108b7a3939f60c4efafcfd8">   13</a></span>    <span class="keyword">enum class</span> <a class="code hl_enumeration" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a9bf4af2a8108b7a3939f60c4efafcfd8">PolygonMode</a> {</div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span> </div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>        <a class="code hl_enumvalue" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a9bf4af2a8108b7a3939f60c4efafcfd8a37a03466f46f1fb13dadb80faea6b24c">TRIANGLE_FILL</a>,</div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span> </div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>        <a class="code hl_enumvalue" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a9bf4af2a8108b7a3939f60c4efafcfd8a38b916d2838bbcd3eb17dde43c251b83">TRIANGLE_WIDEFRAME</a>,</div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span> </div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>        <a class="code hl_enumvalue" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a9bf4af2a8108b7a3939f60c4efafcfd8a17b8ef2c330f1430e00c9de5469fc7e7">LINE</a>,</div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span> </div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>        <a class="code hl_enumvalue" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a9bf4af2a8108b7a3939f60c4efafcfd8aaebdbcb765394d25d6a604589a890f82">POINT</a></div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span> </div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>    };</div>
+</div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span> </div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span> </div>
+<div class="foldopen" id="foldopen00038" data-start="{" data-end="};">
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno"><a class="line" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a30ce77ebba3a46932046ff265f17922c">   38</a></span>    <span class="keyword">enum class</span> <a class="code hl_enumeration" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a30ce77ebba3a46932046ff265f17922c">PolygonCullMode</a> {</div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span> </div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>        <a class="code hl_enumvalue" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a30ce77ebba3a46932046ff265f17922cabb2fe5c916efb43aab8cbb68f997d2ee">FRONT</a>,</div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span> </div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>        <a class="code hl_enumvalue" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a30ce77ebba3a46932046ff265f17922ca1dd26f1f1790f0b56d5752fb0fbecef0">BACK</a>,</div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span> </div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>        <a class="code hl_enumvalue" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a87b8cca05623bca89396376156c6c641ab50339a10e1de285ac99d4c3990b8693">NONE</a></div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span> </div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>    };</div>
+</div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span> </div>
+<div class="foldopen" id="foldopen00060" data-start="{" data-end="};">
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno"><a class="line" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#ad6329cdca67793d3a3ffec0de1fab44c">   60</a></span>    <span class="keyword">enum class</span> <a class="code hl_enumeration" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#ad6329cdca67793d3a3ffec0de1fab44c">PolygonFrontFaceType</a> {</div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span> </div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>        <a class="code hl_enumvalue" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#ad6329cdca67793d3a3ffec0de1fab44cacfe39a5621dfe382d2991f32c4ae08da">CLOCKWISE</a>,</div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span> </div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>        <a class="code hl_enumvalue" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#ad6329cdca67793d3a3ffec0de1fab44cab437c6ed212434e8984c403374fe494c">COUNTERCLOCKWISE</a></div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span> </div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>    };</div>
+</div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span> </div>
+<div class="foldopen" id="foldopen00079" data-start="{" data-end="};">
+<div class="line"><a id="l00079" name="l00079"></a><span class="lineno"><a class="line" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a9f540971911df275819dd542e32027dd">   79</a></span>    <span class="keyword">enum class</span> <a class="code hl_enumeration" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a9f540971911df275819dd542e32027dd">DepthTestingType</a> {</div>
+<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span> </div>
+<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span>        <a class="code hl_enumvalue" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a87b8cca05623bca89396376156c6c641ab50339a10e1de285ac99d4c3990b8693">NONE</a>,</div>
+<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span> </div>
+<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span>        <a class="code hl_enumvalue" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a9f540971911df275819dd542e32027dda3466fab4975481651940ed328aa990e4">READ</a>,</div>
+<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span> </div>
+<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span>        <a class="code hl_enumvalue" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a9f540971911df275819dd542e32027ddaa7b843fb734e3b3fea8e5f902d3f4144">READ_WRITE</a></div>
+<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span> </div>
+<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span>    };</div>
+</div>
+<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span> </div>
+<div class="foldopen" id="foldopen00102" data-start="{" data-end="};">
+<div class="line"><a id="l00102" name="l00102"></a><span class="lineno"><a class="line" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_pipeline_create_info.html">  102</a></span>    <span class="keyword">struct </span><a class="code hl_struct" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_pipeline_create_info.html">PipelineCreateInfo</a> {</div>
+<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span> </div>
+<div class="line"><a id="l00110" name="l00110"></a><span class="lineno"><a class="line" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_pipeline_create_info.html#a3fac189838e4f2c919f229eadf5bdb62">  110</a></span>        std::string <a class="code hl_variable" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_pipeline_create_info.html#a3fac189838e4f2c919f229eadf5bdb62">vertexPath</a>;</div>
+<div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span> </div>
+<div class="line"><a id="l00118" name="l00118"></a><span class="lineno"><a class="line" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_pipeline_create_info.html#a4c3aff625b37077df47c3b631db00301">  118</a></span>        std::string <a class="code hl_variable" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_pipeline_create_info.html#a4c3aff625b37077df47c3b631db00301">fragmentPath</a>;</div>
+<div class="line"><a id="l00119" name="l00119"></a><span class="lineno">  119</span> </div>
+<div class="line"><a id="l00128" name="l00128"></a><span class="lineno"><a class="line" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_pipeline_create_info.html#a848c4a29ab5c3469851cc714aaba9621">  128</a></span>        std::string <a class="code hl_variable" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_pipeline_create_info.html#a848c4a29ab5c3469851cc714aaba9621">tesselationControlPath</a> = <span class="stringliteral">&quot;&quot;</span>;</div>
+<div class="line"><a id="l00129" name="l00129"></a><span class="lineno">  129</span> </div>
+<div class="line"><a id="l00137" name="l00137"></a><span class="lineno"><a class="line" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_pipeline_create_info.html#ad6aaaaa5814f2a26e3937cb128f6843e">  137</a></span>        std::string <a class="code hl_variable" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_pipeline_create_info.html#ad6aaaaa5814f2a26e3937cb128f6843e">tesselationEvaluationPath</a> = <span class="stringliteral">&quot;&quot;</span>;</div>
+<div class="line"><a id="l00138" name="l00138"></a><span class="lineno">  138</span> </div>
+<div class="line"><a id="l00139" name="l00139"></a><span class="lineno"><a class="line" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_pipeline_create_info.html#a0bfe9ca2ed2bf52a85df106765ed64e9">  139</a></span>        std::string <a class="code hl_variable" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_pipeline_create_info.html#a0bfe9ca2ed2bf52a85df106765ed64e9">rtRaygenShaderPath</a> = <span class="stringliteral">&quot;&quot;</span>;</div>
+<div class="line"><a id="l00140" name="l00140"></a><span class="lineno"><a class="line" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_pipeline_create_info.html#a09c9b9c025bb3dbc32b69dff04ff980d">  140</a></span>        std::string <a class="code hl_variable" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_pipeline_create_info.html#a09c9b9c025bb3dbc32b69dff04ff980d">rtClosestHitShaderPath</a> = <span class="stringliteral">&quot;&quot;</span>;</div>
+<div class="line"><a id="l00141" name="l00141"></a><span class="lineno"><a class="line" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_pipeline_create_info.html#a757c6a25f8fa8ec656d053decf470524">  141</a></span>        std::string <a class="code hl_variable" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_pipeline_create_info.html#a757c6a25f8fa8ec656d053decf470524">rtMissShaderPath</a> = <span class="stringliteral">&quot;&quot;</span>;</div>
+<div class="line"><a id="l00142" name="l00142"></a><span class="lineno">  142</span> </div>
+<div class="line"><a id="l00143" name="l00143"></a><span class="lineno"><a class="line" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_pipeline_create_info.html#a755653872913052be0e019b57076eb71">  143</a></span>        std::string <a class="code hl_variable" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_pipeline_create_info.html#a755653872913052be0e019b57076eb71">computeShaderPath</a> = <span class="stringliteral">&quot;&quot;</span>;</div>
+<div class="line"><a id="l00144" name="l00144"></a><span class="lineno">  144</span> </div>
+<div class="line"><a id="l00148" name="l00148"></a><span class="lineno"><a class="line" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_pipeline_create_info.html#ae303c024e599fb4c39d13cee17401a7c">  148</a></span>        <a class="code hl_typedef" href="_o_s_kmacros_8h.html#a3e916ed5b32955be3417da92899fc361">USize32</a> <a class="code hl_variable" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_pipeline_create_info.html#ae303c024e599fb4c39d13cee17401a7c">tesselationPatchControlPoints</a> = 3;</div>
+<div class="line"><a id="l00149" name="l00149"></a><span class="lineno">  149</span> </div>
+<div class="line"><a id="l00153" name="l00153"></a><span class="lineno"><a class="line" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_pipeline_create_info.html#a374bbb3534c447ec42cf7edb5380ae84">  153</a></span>        <a class="code hl_enumeration" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a9bf4af2a8108b7a3939f60c4efafcfd8">PolygonMode</a> <a class="code hl_variable" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_pipeline_create_info.html#a374bbb3534c447ec42cf7edb5380ae84">polygonMode</a>;</div>
+<div class="line"><a id="l00154" name="l00154"></a><span class="lineno">  154</span> </div>
+<div class="line"><a id="l00159" name="l00159"></a><span class="lineno"><a class="line" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_pipeline_create_info.html#acfe51d79edebcbe9e45e8f9586d05c10">  159</a></span>        <a class="code hl_enumeration" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a30ce77ebba3a46932046ff265f17922c">PolygonCullMode</a> <a class="code hl_variable" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_pipeline_create_info.html#acfe51d79edebcbe9e45e8f9586d05c10">cullMode</a> = <a class="code hl_enumvalue" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a30ce77ebba3a46932046ff265f17922cabb2fe5c916efb43aab8cbb68f997d2ee">PolygonCullMode::FRONT</a>;</div>
+<div class="line"><a id="l00160" name="l00160"></a><span class="lineno">  160</span> </div>
+<div class="line"><a id="l00168" name="l00168"></a><span class="lineno"><a class="line" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_pipeline_create_info.html#a735bb08e92ec77c4f39f8a80ebf1c149">  168</a></span>        <a class="code hl_enumeration" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#ad6329cdca67793d3a3ffec0de1fab44c">PolygonFrontFaceType</a> <a class="code hl_variable" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_pipeline_create_info.html#a735bb08e92ec77c4f39f8a80ebf1c149">frontFaceType</a>;</div>
+<div class="line"><a id="l00169" name="l00169"></a><span class="lineno">  169</span> </div>
+<div class="line"><a id="l00175" name="l00175"></a><span class="lineno"><a class="line" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_pipeline_create_info.html#a944b54b561e76f4ca2efb71b03395ac4">  175</a></span>        <a class="code hl_enumeration" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a9f540971911df275819dd542e32027dd">DepthTestingType</a> <a class="code hl_variable" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_pipeline_create_info.html#a944b54b561e76f4ca2efb71b03395ac4">depthTestingType</a> = <a class="code hl_enumvalue" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a9f540971911df275819dd542e32027ddaa7b843fb734e3b3fea8e5f902d3f4144">DepthTestingType::READ_WRITE</a>;</div>
+<div class="line"><a id="l00176" name="l00176"></a><span class="lineno">  176</span> </div>
+<div class="line"><a id="l00182" name="l00182"></a><span class="lineno"><a class="line" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_pipeline_create_info.html#aefde218953366f55118fc7d07cf3cbd4">  182</a></span>        <span class="keywordtype">bool</span> <a class="code hl_variable" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_pipeline_create_info.html#aefde218953366f55118fc7d07cf3cbd4">precompiledHlslShaders</a> = <span class="keyword">true</span>;</div>
+<div class="line"><a id="l00183" name="l00183"></a><span class="lineno">  183</span> </div>
+<div class="line"><a id="l00184" name="l00184"></a><span class="lineno"><a class="line" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_pipeline_create_info.html#a341e2b9eb5690f41edd35ea01c16c3ff">  184</a></span>        <span class="keywordtype">bool</span> <a class="code hl_variable" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_pipeline_create_info.html#a341e2b9eb5690f41edd35ea01c16c3ff">isRaytracing</a> = <span class="keyword">false</span>;</div>
+<div class="line"><a id="l00185" name="l00185"></a><span class="lineno">  185</span> </div>
+<div class="line"><a id="l00189" name="l00189"></a><span class="lineno"><a class="line" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_pipeline_create_info.html#a031c05fb2778c508449834a5281e84fd">  189</a></span>        <a class="code hl_class" href="class_o_s_k_1_1_dynamic_array.html">DynamicArray&lt;Format&gt;</a> <a class="code hl_variable" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_pipeline_create_info.html#a031c05fb2778c508449834a5281e84fd">formats</a>;</div>
+<div class="line"><a id="l00190" name="l00190"></a><span class="lineno">  190</span> </div>
+<div class="line"><a id="l00192" name="l00192"></a><span class="lineno"><a class="line" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_pipeline_create_info.html#a531f86d873e70d6f465922546397f4b0">  192</a></span>        <a class="code hl_enumeration" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#aac59f9d056e083c0b49ea768f974e3e8">Format</a> <a class="code hl_variable" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_pipeline_create_info.html#a531f86d873e70d6f465922546397f4b0">depthFormat</a>;</div>
+<div class="line"><a id="l00193" name="l00193"></a><span class="lineno">  193</span> </div>
+<div class="line"><a id="l00194" name="l00194"></a><span class="lineno"><a class="line" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_pipeline_create_info.html#a15c6dab63bc5eea84af6aee414d0eb61">  194</a></span>        <span class="keywordtype">bool</span> <a class="code hl_variable" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_pipeline_create_info.html#a15c6dab63bc5eea84af6aee414d0eb61">useAlphaBlending</a> = <span class="keyword">true</span>;</div>
+<div class="line"><a id="l00195" name="l00195"></a><span class="lineno">  195</span> </div>
+<div class="line"><a id="l00196" name="l00196"></a><span class="lineno"><a class="line" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_pipeline_create_info.html#af72af092a7450a36397eea3df173dbc2">  196</a></span>        <span class="keywordtype">bool</span> <a class="code hl_variable" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_pipeline_create_info.html#af72af092a7450a36397eea3df173dbc2">usesUnspecifiedSizedArrays</a> = <span class="keyword">false</span>;</div>
+<div class="line"><a id="l00197" name="l00197"></a><span class="lineno"><a class="line" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_pipeline_create_info.html#a505ee79ad3d962e2a8192c4151bf8207">  197</a></span>        <a class="code hl_typedef" href="_o_s_kmacros_8h.html#a3e916ed5b32955be3417da92899fc361">USize32</a> <a class="code hl_variable" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_pipeline_create_info.html#a505ee79ad3d962e2a8192c4151bf8207">maxUnspecifiedSizedArraysSize</a> = 0;</div>
+<div class="line"><a id="l00198" name="l00198"></a><span class="lineno">  198</span> </div>
+<div class="line"><a id="l00199" name="l00199"></a><span class="lineno">  199</span>    };</div>
+</div>
+<div class="line"><a id="l00200" name="l00200"></a><span class="lineno">  200</span> </div>
+<div class="line"><a id="l00201" name="l00201"></a><span class="lineno">  201</span>}</div>
+<div class="ttc" id="a_dynamic_array_8hpp_html"><div class="ttname"><a href="_dynamic_array_8hpp.html">DynamicArray.hpp</a></div></div>
+<div class="ttc" id="a_format_8h_html"><div class="ttname"><a href="_format_8h.html">Format.h</a></div></div>
+<div class="ttc" id="a_o_s_kmacros_8h_html_a3e916ed5b32955be3417da92899fc361"><div class="ttname"><a href="_o_s_kmacros_8h.html#a3e916ed5b32955be3417da92899fc361">USize32</a></div><div class="ttdeci">uint32_t USize32</div><div class="ttdef"><b>Definition</b> <a href="_o_s_kmacros_8h_source.html#l00043">OSKmacros.h:43</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_dynamic_array_html"><div class="ttname"><a href="class_o_s_k_1_1_dynamic_array.html">OSK::DynamicArray</a></div><div class="ttdoc">Dynamic array: array que puede cambiar de tamaño.</div><div class="ttdef"><b>Definition</b> <a href="_dynamic_array_8hpp_source.html#l00066">DynamicArray.hpp:66</a></div></div>
+<div class="ttc" id="anamespace_o_s_k_1_1_g_r_a_p_h_i_c_s_html"><div class="ttname"><a href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html">OSK::GRAPHICS</a></div><div class="ttdef"><b>Definition</b> <a href="_acceleration_structures_exceptions_8h_source.html#l00005">AccelerationStructuresExceptions.h:5</a></div></div>
+<div class="ttc" id="anamespace_o_s_k_1_1_g_r_a_p_h_i_c_s_html_a30ce77ebba3a46932046ff265f17922c"><div class="ttname"><a href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a30ce77ebba3a46932046ff265f17922c">OSK::GRAPHICS::PolygonCullMode</a></div><div class="ttdeci">PolygonCullMode</div><div class="ttdoc">Modo de cull de los polígonos. Algunos polígonos pueden descartarse si dan la espalda a la cámara.</div><div class="ttdef"><b>Definition</b> <a href="#l00038">PipelineCreateInfo.h:38</a></div></div>
+<div class="ttc" id="anamespace_o_s_k_1_1_g_r_a_p_h_i_c_s_html_a30ce77ebba3a46932046ff265f17922ca1dd26f1f1790f0b56d5752fb0fbecef0"><div class="ttname"><a href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a30ce77ebba3a46932046ff265f17922ca1dd26f1f1790f0b56d5752fb0fbecef0">OSK::GRAPHICS::PolygonCullMode::BACK</a></div><div class="ttdeci">@ BACK</div><div class="ttdoc">Se descartan los polígonos que no miran hacia la cámara.</div></div>
+<div class="ttc" id="anamespace_o_s_k_1_1_g_r_a_p_h_i_c_s_html_a30ce77ebba3a46932046ff265f17922cabb2fe5c916efb43aab8cbb68f997d2ee"><div class="ttname"><a href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a30ce77ebba3a46932046ff265f17922cabb2fe5c916efb43aab8cbb68f997d2ee">OSK::GRAPHICS::PolygonCullMode::FRONT</a></div><div class="ttdeci">@ FRONT</div><div class="ttdoc">Se descartan los polígonos que miran hacia la cámara.</div></div>
+<div class="ttc" id="anamespace_o_s_k_1_1_g_r_a_p_h_i_c_s_html_a87b8cca05623bca89396376156c6c641ab50339a10e1de285ac99d4c3990b8693"><div class="ttname"><a href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a87b8cca05623bca89396376156c6c641ab50339a10e1de285ac99d4c3990b8693">OSK::GRAPHICS::GpuCommandStage::NONE</a></div><div class="ttdeci">@ NONE</div><div class="ttdoc">Ningún comando será afectado.</div></div>
+<div class="ttc" id="anamespace_o_s_k_1_1_g_r_a_p_h_i_c_s_html_a9bf4af2a8108b7a3939f60c4efafcfd8"><div class="ttname"><a href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a9bf4af2a8108b7a3939f60c4efafcfd8">OSK::GRAPHICS::PolygonMode</a></div><div class="ttdeci">PolygonMode</div><div class="ttdoc">Modo de renderizado de los polígonos: llenos o lineas.</div><div class="ttdef"><b>Definition</b> <a href="#l00013">PipelineCreateInfo.h:13</a></div></div>
+<div class="ttc" id="anamespace_o_s_k_1_1_g_r_a_p_h_i_c_s_html_a9bf4af2a8108b7a3939f60c4efafcfd8a17b8ef2c330f1430e00c9de5469fc7e7"><div class="ttname"><a href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a9bf4af2a8108b7a3939f60c4efafcfd8a17b8ef2c330f1430e00c9de5469fc7e7">OSK::GRAPHICS::PolygonMode::LINE</a></div><div class="ttdeci">@ LINE</div><div class="ttdoc">Se renderizan líneas rectas.</div></div>
+<div class="ttc" id="anamespace_o_s_k_1_1_g_r_a_p_h_i_c_s_html_a9bf4af2a8108b7a3939f60c4efafcfd8a37a03466f46f1fb13dadb80faea6b24c"><div class="ttname"><a href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a9bf4af2a8108b7a3939f60c4efafcfd8a37a03466f46f1fb13dadb80faea6b24c">OSK::GRAPHICS::PolygonMode::TRIANGLE_FILL</a></div><div class="ttdeci">@ TRIANGLE_FILL</div><div class="ttdoc">Se renderizan los triángulos enteros.</div></div>
+<div class="ttc" id="anamespace_o_s_k_1_1_g_r_a_p_h_i_c_s_html_a9bf4af2a8108b7a3939f60c4efafcfd8a38b916d2838bbcd3eb17dde43c251b83"><div class="ttname"><a href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a9bf4af2a8108b7a3939f60c4efafcfd8a38b916d2838bbcd3eb17dde43c251b83">OSK::GRAPHICS::PolygonMode::TRIANGLE_WIDEFRAME</a></div><div class="ttdeci">@ TRIANGLE_WIDEFRAME</div><div class="ttdoc">Se renderizan los bordes de los triángulos.</div></div>
+<div class="ttc" id="anamespace_o_s_k_1_1_g_r_a_p_h_i_c_s_html_a9bf4af2a8108b7a3939f60c4efafcfd8aaebdbcb765394d25d6a604589a890f82"><div class="ttname"><a href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a9bf4af2a8108b7a3939f60c4efafcfd8aaebdbcb765394d25d6a604589a890f82">OSK::GRAPHICS::PolygonMode::POINT</a></div><div class="ttdeci">@ POINT</div><div class="ttdoc">Se renderizan puntos.</div></div>
+<div class="ttc" id="anamespace_o_s_k_1_1_g_r_a_p_h_i_c_s_html_a9f540971911df275819dd542e32027dd"><div class="ttname"><a href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a9f540971911df275819dd542e32027dd">OSK::GRAPHICS::DepthTestingType</a></div><div class="ttdeci">DepthTestingType</div><div class="ttdoc">Establece la configuración de testeo de profundidad. Activarlo permite que los objetos en la imagen f...</div><div class="ttdef"><b>Definition</b> <a href="#l00079">PipelineCreateInfo.h:79</a></div></div>
+<div class="ttc" id="anamespace_o_s_k_1_1_g_r_a_p_h_i_c_s_html_a9f540971911df275819dd542e32027dda3466fab4975481651940ed328aa990e4"><div class="ttname"><a href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a9f540971911df275819dd542e32027dda3466fab4975481651940ed328aa990e4">OSK::GRAPHICS::DepthTestingType::READ</a></div><div class="ttdeci">@ READ</div><div class="ttdoc">Lee la información para comprobar que el objeto debe ser renderizado, pero no actualiza la informació...</div></div>
+<div class="ttc" id="anamespace_o_s_k_1_1_g_r_a_p_h_i_c_s_html_a9f540971911df275819dd542e32027ddaa7b843fb734e3b3fea8e5f902d3f4144"><div class="ttname"><a href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a9f540971911df275819dd542e32027ddaa7b843fb734e3b3fea8e5f902d3f4144">OSK::GRAPHICS::DepthTestingType::READ_WRITE</a></div><div class="ttdeci">@ READ_WRITE</div><div class="ttdoc">Comportamiento normal.</div></div>
+<div class="ttc" id="anamespace_o_s_k_1_1_g_r_a_p_h_i_c_s_html_aac59f9d056e083c0b49ea768f974e3e8"><div class="ttname"><a href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#aac59f9d056e083c0b49ea768f974e3e8">OSK::GRAPHICS::Format</a></div><div class="ttdeci">Format</div><div class="ttdoc">Formatos que puede tener una textura / imagen.</div><div class="ttdef"><b>Definition</b> <a href="_format_8h_source.html#l00010">Format.h:10</a></div></div>
+<div class="ttc" id="anamespace_o_s_k_1_1_g_r_a_p_h_i_c_s_html_ad6329cdca67793d3a3ffec0de1fab44c"><div class="ttname"><a href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#ad6329cdca67793d3a3ffec0de1fab44c">OSK::GRAPHICS::PolygonFrontFaceType</a></div><div class="ttdeci">PolygonFrontFaceType</div><div class="ttdoc">Qué cara del polígono mira hacia delante.</div><div class="ttdef"><b>Definition</b> <a href="#l00060">PipelineCreateInfo.h:60</a></div></div>
+<div class="ttc" id="anamespace_o_s_k_1_1_g_r_a_p_h_i_c_s_html_ad6329cdca67793d3a3ffec0de1fab44cab437c6ed212434e8984c403374fe494c"><div class="ttname"><a href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#ad6329cdca67793d3a3ffec0de1fab44cab437c6ed212434e8984c403374fe494c">OSK::GRAPHICS::PolygonFrontFaceType::COUNTERCLOCKWISE</a></div><div class="ttdeci">@ COUNTERCLOCKWISE</div><div class="ttdoc">/// Mira hacia delante si los vértices están en orden contrario de las agujas del reloj.</div></div>
+<div class="ttc" id="anamespace_o_s_k_1_1_g_r_a_p_h_i_c_s_html_ad6329cdca67793d3a3ffec0de1fab44cacfe39a5621dfe382d2991f32c4ae08da"><div class="ttname"><a href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#ad6329cdca67793d3a3ffec0de1fab44cacfe39a5621dfe382d2991f32c4ae08da">OSK::GRAPHICS::PolygonFrontFaceType::CLOCKWISE</a></div><div class="ttdeci">@ CLOCKWISE</div><div class="ttdoc">Mira hacia delante si los vértices están en orden de las agujas del reloj.</div></div>
+<div class="ttc" id="astruct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_pipeline_create_info_html"><div class="ttname"><a href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_pipeline_create_info.html">OSK::GRAPHICS::PipelineCreateInfo</a></div><div class="ttdoc">Contiene la información necesaria para configurar un nuevo graphics pipeline.</div><div class="ttdef"><b>Definition</b> <a href="#l00102">PipelineCreateInfo.h:102</a></div></div>
+<div class="ttc" id="astruct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_pipeline_create_info_html_a031c05fb2778c508449834a5281e84fd"><div class="ttname"><a href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_pipeline_create_info.html#a031c05fb2778c508449834a5281e84fd">OSK::GRAPHICS::PipelineCreateInfo::formats</a></div><div class="ttdeci">DynamicArray&lt; Format &gt; formats</div><div class="ttdoc">Formato de la imagen sobre la que se renderizará.</div><div class="ttdef"><b>Definition</b> <a href="#l00189">PipelineCreateInfo.h:189</a></div></div>
+<div class="ttc" id="astruct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_pipeline_create_info_html_a09c9b9c025bb3dbc32b69dff04ff980d"><div class="ttname"><a href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_pipeline_create_info.html#a09c9b9c025bb3dbc32b69dff04ff980d">OSK::GRAPHICS::PipelineCreateInfo::rtClosestHitShaderPath</a></div><div class="ttdeci">std::string rtClosestHitShaderPath</div><div class="ttdef"><b>Definition</b> <a href="#l00140">PipelineCreateInfo.h:140</a></div></div>
+<div class="ttc" id="astruct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_pipeline_create_info_html_a0bfe9ca2ed2bf52a85df106765ed64e9"><div class="ttname"><a href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_pipeline_create_info.html#a0bfe9ca2ed2bf52a85df106765ed64e9">OSK::GRAPHICS::PipelineCreateInfo::rtRaygenShaderPath</a></div><div class="ttdeci">std::string rtRaygenShaderPath</div><div class="ttdef"><b>Definition</b> <a href="#l00139">PipelineCreateInfo.h:139</a></div></div>
+<div class="ttc" id="astruct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_pipeline_create_info_html_a15c6dab63bc5eea84af6aee414d0eb61"><div class="ttname"><a href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_pipeline_create_info.html#a15c6dab63bc5eea84af6aee414d0eb61">OSK::GRAPHICS::PipelineCreateInfo::useAlphaBlending</a></div><div class="ttdeci">bool useAlphaBlending</div><div class="ttdef"><b>Definition</b> <a href="#l00194">PipelineCreateInfo.h:194</a></div></div>
+<div class="ttc" id="astruct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_pipeline_create_info_html_a341e2b9eb5690f41edd35ea01c16c3ff"><div class="ttname"><a href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_pipeline_create_info.html#a341e2b9eb5690f41edd35ea01c16c3ff">OSK::GRAPHICS::PipelineCreateInfo::isRaytracing</a></div><div class="ttdeci">bool isRaytracing</div><div class="ttdef"><b>Definition</b> <a href="#l00184">PipelineCreateInfo.h:184</a></div></div>
+<div class="ttc" id="astruct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_pipeline_create_info_html_a374bbb3534c447ec42cf7edb5380ae84"><div class="ttname"><a href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_pipeline_create_info.html#a374bbb3534c447ec42cf7edb5380ae84">OSK::GRAPHICS::PipelineCreateInfo::polygonMode</a></div><div class="ttdeci">PolygonMode polygonMode</div><div class="ttdoc">Tipo de polígono (línea, triángulo...).</div><div class="ttdef"><b>Definition</b> <a href="#l00153">PipelineCreateInfo.h:153</a></div></div>
+<div class="ttc" id="astruct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_pipeline_create_info_html_a3fac189838e4f2c919f229eadf5bdb62"><div class="ttname"><a href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_pipeline_create_info.html#a3fac189838e4f2c919f229eadf5bdb62">OSK::GRAPHICS::PipelineCreateInfo::vertexPath</a></div><div class="ttdeci">std::string vertexPath</div><div class="ttdoc">Dirección en la que se encuentra el shader de vértices.</div><div class="ttdef"><b>Definition</b> <a href="#l00110">PipelineCreateInfo.h:110</a></div></div>
+<div class="ttc" id="astruct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_pipeline_create_info_html_a4c3aff625b37077df47c3b631db00301"><div class="ttname"><a href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_pipeline_create_info.html#a4c3aff625b37077df47c3b631db00301">OSK::GRAPHICS::PipelineCreateInfo::fragmentPath</a></div><div class="ttdeci">std::string fragmentPath</div><div class="ttdoc">Dirección en la que se encuentra el shader de fragmentos o píxeles.</div><div class="ttdef"><b>Definition</b> <a href="#l00118">PipelineCreateInfo.h:118</a></div></div>
+<div class="ttc" id="astruct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_pipeline_create_info_html_a505ee79ad3d962e2a8192c4151bf8207"><div class="ttname"><a href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_pipeline_create_info.html#a505ee79ad3d962e2a8192c4151bf8207">OSK::GRAPHICS::PipelineCreateInfo::maxUnspecifiedSizedArraysSize</a></div><div class="ttdeci">USize32 maxUnspecifiedSizedArraysSize</div><div class="ttdef"><b>Definition</b> <a href="#l00197">PipelineCreateInfo.h:197</a></div></div>
+<div class="ttc" id="astruct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_pipeline_create_info_html_a531f86d873e70d6f465922546397f4b0"><div class="ttname"><a href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_pipeline_create_info.html#a531f86d873e70d6f465922546397f4b0">OSK::GRAPHICS::PipelineCreateInfo::depthFormat</a></div><div class="ttdeci">Format depthFormat</div><div class="ttdoc">Formato de la imagen de profundidad.</div><div class="ttdef"><b>Definition</b> <a href="#l00192">PipelineCreateInfo.h:192</a></div></div>
+<div class="ttc" id="astruct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_pipeline_create_info_html_a735bb08e92ec77c4f39f8a80ebf1c149"><div class="ttname"><a href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_pipeline_create_info.html#a735bb08e92ec77c4f39f8a80ebf1c149">OSK::GRAPHICS::PipelineCreateInfo::frontFaceType</a></div><div class="ttdeci">PolygonFrontFaceType frontFaceType</div><div class="ttdoc">Establece cómo saber qué cara es la delantera del triángulo. Para poder usar correctamente CullMode.</div><div class="ttdef"><b>Definition</b> <a href="#l00168">PipelineCreateInfo.h:168</a></div></div>
+<div class="ttc" id="astruct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_pipeline_create_info_html_a755653872913052be0e019b57076eb71"><div class="ttname"><a href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_pipeline_create_info.html#a755653872913052be0e019b57076eb71">OSK::GRAPHICS::PipelineCreateInfo::computeShaderPath</a></div><div class="ttdeci">std::string computeShaderPath</div><div class="ttdef"><b>Definition</b> <a href="#l00143">PipelineCreateInfo.h:143</a></div></div>
+<div class="ttc" id="astruct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_pipeline_create_info_html_a757c6a25f8fa8ec656d053decf470524"><div class="ttname"><a href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_pipeline_create_info.html#a757c6a25f8fa8ec656d053decf470524">OSK::GRAPHICS::PipelineCreateInfo::rtMissShaderPath</a></div><div class="ttdeci">std::string rtMissShaderPath</div><div class="ttdef"><b>Definition</b> <a href="#l00141">PipelineCreateInfo.h:141</a></div></div>
+<div class="ttc" id="astruct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_pipeline_create_info_html_a848c4a29ab5c3469851cc714aaba9621"><div class="ttname"><a href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_pipeline_create_info.html#a848c4a29ab5c3469851cc714aaba9621">OSK::GRAPHICS::PipelineCreateInfo::tesselationControlPath</a></div><div class="ttdeci">std::string tesselationControlPath</div><div class="ttdoc">Dirección en la que se encuentra el shader de control de la teselación. Este shader es el encargado d...</div><div class="ttdef"><b>Definition</b> <a href="#l00128">PipelineCreateInfo.h:128</a></div></div>
+<div class="ttc" id="astruct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_pipeline_create_info_html_a944b54b561e76f4ca2efb71b03395ac4"><div class="ttname"><a href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_pipeline_create_info.html#a944b54b561e76f4ca2efb71b03395ac4">OSK::GRAPHICS::PipelineCreateInfo::depthTestingType</a></div><div class="ttdeci">DepthTestingType depthTestingType</div><div class="ttdoc">Establece la configuración de testeo de profundidad. Activarlo permite que los objetos en la imagen f...</div><div class="ttdef"><b>Definition</b> <a href="#l00175">PipelineCreateInfo.h:175</a></div></div>
+<div class="ttc" id="astruct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_pipeline_create_info_html_acfe51d79edebcbe9e45e8f9586d05c10"><div class="ttname"><a href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_pipeline_create_info.html#acfe51d79edebcbe9e45e8f9586d05c10">OSK::GRAPHICS::PipelineCreateInfo::cullMode</a></div><div class="ttdeci">PolygonCullMode cullMode</div><div class="ttdoc">Establece si no se renderizarán los polígonos que estén de espaldas a la cámara.</div><div class="ttdef"><b>Definition</b> <a href="#l00159">PipelineCreateInfo.h:159</a></div></div>
+<div class="ttc" id="astruct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_pipeline_create_info_html_ad6aaaaa5814f2a26e3937cb128f6843e"><div class="ttname"><a href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_pipeline_create_info.html#ad6aaaaa5814f2a26e3937cb128f6843e">OSK::GRAPHICS::PipelineCreateInfo::tesselationEvaluationPath</a></div><div class="ttdeci">std::string tesselationEvaluationPath</div><div class="ttdoc">Dirección en la que se encuentra el shader de evaluación de la teselación. Este shader es el encargad...</div><div class="ttdef"><b>Definition</b> <a href="#l00137">PipelineCreateInfo.h:137</a></div></div>
+<div class="ttc" id="astruct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_pipeline_create_info_html_ae303c024e599fb4c39d13cee17401a7c"><div class="ttname"><a href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_pipeline_create_info.html#ae303c024e599fb4c39d13cee17401a7c">OSK::GRAPHICS::PipelineCreateInfo::tesselationPatchControlPoints</a></div><div class="ttdeci">USize32 tesselationPatchControlPoints</div><div class="ttdoc">Número de vértices que tendrá cada patch del teselado.</div><div class="ttdef"><b>Definition</b> <a href="#l00148">PipelineCreateInfo.h:148</a></div></div>
+<div class="ttc" id="astruct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_pipeline_create_info_html_aefde218953366f55118fc7d07cf3cbd4"><div class="ttname"><a href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_pipeline_create_info.html#aefde218953366f55118fc7d07cf3cbd4">OSK::GRAPHICS::PipelineCreateInfo::precompiledHlslShaders</a></div><div class="ttdeci">bool precompiledHlslShaders</div><div class="ttdoc">True si los shaders hlsl están precompilados. False si se deben compilar en tiempo de creación del pi...</div><div class="ttdef"><b>Definition</b> <a href="#l00182">PipelineCreateInfo.h:182</a></div></div>
+<div class="ttc" id="astruct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_pipeline_create_info_html_af72af092a7450a36397eea3df173dbc2"><div class="ttname"><a href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_pipeline_create_info.html#af72af092a7450a36397eea3df173dbc2">OSK::GRAPHICS::PipelineCreateInfo::usesUnspecifiedSizedArrays</a></div><div class="ttdeci">bool usesUnspecifiedSizedArrays</div><div class="ttdef"><b>Definition</b> <a href="#l00196">PipelineCreateInfo.h:196</a></div></div>
+</div><!-- fragment --></div><!-- contents -->
+</div><!-- doc-content -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="dir_74389ed8173ad57b461b9d623a1f3867.html">Source</a></li><li class="navelem"><a class="el" href="_pipeline_create_info_8h.html">PipelineCreateInfo.h</a></li>
+    <li class="footer">Generado el Lunes, 29 de enero de 2024 17:18:31 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.10.0 </li>
+  </ul>
+</div>
+</body>
+</html>

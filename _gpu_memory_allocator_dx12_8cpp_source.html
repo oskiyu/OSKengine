@@ -1,0 +1,279 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="es">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.10.0"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>OSKengine: Archivo de código fuente Source/GpuMemoryAllocatorDx12.cpp</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">OSKengine<span id="projectnumber">&#160;Indev</span>
+   </div>
+   <div id="projectbrief">Motor de videojuegos.</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generado por Doxygen 1.10.0 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() {
+  initMenu('',true,false,'search.php','Buscar');
+  $(function() { init_search(); });
+});
+/* @license-end */
+</script>
+<div id="main-nav"></div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() { codefold.init(0); });
+/* @license-end */
+</script>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function(){initNavTree('_gpu_memory_allocator_dx12_8cpp_source.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Cargando...</div>
+<div class="SRStatus" id="Searching">Buscando...</div>
+<div class="SRStatus" id="NoMatches">Nada coincide</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">GpuMemoryAllocatorDx12.cpp</div></div>
+</div><!--header-->
+<div class="contents">
+<a href="_gpu_memory_allocator_dx12_8cpp.html">Ir a la documentación de este archivo.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#include &quot;<a class="code" href="_gpu_memory_allocator_dx12_8h.html">GpuMemoryAllocatorDx12.h</a>&quot;</span></div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span> </div>
+<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="preprocessor">#include &quot;<a class="code" href="_gpu_memory_block_dx12_8h.html">GpuMemoryBlockDx12.h</a>&quot;</span></div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &quot;<a class="code" href="_gpu_memory_subblock_dx12_8h.html">GpuMemorySubblockDx12.h</a>&quot;</span></div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &quot;<a class="code" href="_gpu_image_dx12_8h.html">GpuImageDx12.h</a>&quot;</span></div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &quot;<a class="code" href="_gpu_buffer_8h.html">GpuBuffer.h</a>&quot;</span></div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="preprocessor">#include &quot;<a class="code" href="_gpu_dx12_8h.html">GpuDx12.h</a>&quot;</span></div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="preprocessor">#include &quot;<a class="code" href="_gpu_memory_types_dx12_8h.html">GpuMemoryTypesDx12.h</a>&quot;</span></div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="preprocessor">#include &quot;<a class="code" href="_vertex_8h.html">Vertex.h</a>&quot;</span></div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="preprocessor">#include &quot;<a class="code" href="_gpu_memory_types_8h.html">GpuMemoryTypes.h</a>&quot;</span></div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="preprocessor">#include &quot;<a class="code" href="_o_s_kengine_8h.html">OSKengine.h</a>&quot;</span></div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="preprocessor">#include &quot;<a class="code" href="_renderer_dx12_8h.html">RendererDx12.h</a>&quot;</span></div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="preprocessor">#include &quot;<a class="code" href="_command_list_dx12_8h.html">CommandListDx12.h</a>&quot;</span></div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span><span class="preprocessor">#include &quot;<a class="code" href="_gpu_image_usage_8h.html">GpuImageUsage.h</a>&quot;</span></div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span><span class="preprocessor">#include &quot;<a class="code" href="_format_dx12_8h.html">FormatDx12.h</a>&quot;</span></div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span><span class="preprocessor">#include &quot;<a class="code" href="_gpu_image_dimensions_8h.html">GpuImageDimensions.h</a>&quot;</span></div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span><span class="preprocessor">#include &quot;<a class="code" href="_math_8h.html">Math.h</a>&quot;</span></div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span> </div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span><span class="keyword">using namespace </span><a class="code hl_namespace" href="namespace_o_s_k.html">OSK</a>;</div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span><span class="keyword">using namespace </span><a class="code hl_namespace" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html">OSK::GRAPHICS</a>;</div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span> </div>
+<div class="foldopen" id="foldopen00022" data-start="{" data-end="}">
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_memory_allocator_dx12.html#aa786af46ac462b8a9249f8592c3124f7">   22</a></span><a class="code hl_function" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_memory_allocator_dx12.html#aa786af46ac462b8a9249f8592c3124f7">GpuMemoryAllocatorDx12::GpuMemoryAllocatorDx12</a>(<a class="code hl_class" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu.html">IGpu</a>* device)</div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>    : <a class="code hl_class" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_allocator.html">IGpuMemoryAllocator</a>(device) { </div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span> </div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>    <a class="code hl_variable" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_allocator.html#a54fadbabc406ab83573b16327b5a535c">minVertexBufferAlignment</a> = D3D12_DEFAULT_RESOURCE_PLACEMENT_ALIGNMENT;</div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>    <a class="code hl_variable" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_allocator.html#ad8e1b7218313f8ba2c219d8e11bfee98">minIndexBufferAlignment</a> = D3D12_DEFAULT_RESOURCE_PLACEMENT_ALIGNMENT;</div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>    <a class="code hl_variable" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_allocator.html#ae56ced982a5969f195c1f1c4bb5f02e3">minUniformBufferAlignment</a> = D3D12_DEFAULT_RESOURCE_PLACEMENT_ALIGNMENT;</div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>    <a class="code hl_variable" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_allocator.html#a5142ba6fc53d48af4dc0710b5fd19e8c">minStorageBufferAlignment</a> = D3D12_DEFAULT_RESOURCE_PLACEMENT_ALIGNMENT;</div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>}</div>
+</div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span> </div>
+<div class="foldopen" id="foldopen00031" data-start="{" data-end="}">
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_memory_allocator_dx12.html#aa3c04bae79729c022b58bd742bcb2e91">   31</a></span><a class="code hl_class" href="class_o_s_k_1_1_owned_ptr.html">OwnedPtr&lt;IGpuMemoryBlock&gt;</a> <a class="code hl_function" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_memory_allocator_dx12.html#aa3c04bae79729c022b58bd742bcb2e91">GpuMemoryAllocatorDx12::CreateNewBufferBlock</a>(<a class="code hl_typedef" href="_o_s_kmacros_8h.html#a5784d24fcb00afb78eb7b1e1a3466ac4">USize64</a> size, <a class="code hl_enumeration" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#ad8b871b506bab7c4021326a1a10bbc7f">GpuBufferUsage</a> usage, <a class="code hl_enumeration" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a85a830e82585f3a565d1f097491042ce">GpuSharedMemoryType</a> sharedType) {</div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>    <span class="keywordflow">return</span> <a class="code hl_function" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_memory_block_dx12.html#acc9fd3ebb9acb4aeb6d15741fb69a679">GpuMemoryBlockDx12::CreateNewBufferBlock</a>(size, <a class="code hl_variable" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_allocator.html#a8f655b1e1884b8285b6d90b3d8f94e98">device</a>, sharedType, usage).<a class="code hl_function" href="class_o_s_k_1_1_owned_ptr.html#a81dfab2299056fc9858aace55fca0042">GetPointer</a>();</div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>}</div>
+</div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span> </div>
+<div class="foldopen" id="foldopen00035" data-start="{" data-end="}">
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_memory_allocator_dx12.html#ad1498ab79f352797847e9547f422dac7">   35</a></span><a class="code hl_class" href="class_o_s_k_1_1_owned_ptr.html">OwnedPtr&lt;IGpuMemoryBlock&gt;</a> <a class="code hl_function" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_memory_allocator_dx12.html#ad1498ab79f352797847e9547f422dac7">GpuMemoryAllocatorDx12::CreateNewImageBlock</a>(<a class="code hl_class" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image.html">GpuImage</a>* image, <a class="code hl_enumeration" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a19a2f70fc994c00eb022e520608c5ffa">GpuImageUsage</a> usage, <a class="code hl_enumeration" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a85a830e82585f3a565d1f097491042ce">GpuSharedMemoryType</a> sharedType) {</div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>    <span class="keywordflow">return</span> <a class="code hl_function" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_memory_block_dx12.html#ad3c918640c85f72c5991570912712365">GpuMemoryBlockDx12::CreateNewImageBlock</a>(image, <a class="code hl_variable" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_allocator.html#a8f655b1e1884b8285b6d90b3d8f94e98">device</a>, sharedType, usage, image-&gt;<a class="code hl_function" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image.html#a702c7bef88e759bb87abe45620749350">GetNumLayers</a>()).<a class="code hl_function" href="class_o_s_k_1_1_owned_ptr.html#a81dfab2299056fc9858aace55fca0042">GetPointer</a>();</div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>}</div>
+</div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span> </div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span> </div>
+<div class="foldopen" id="foldopen00040" data-start="{" data-end="}">
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_memory_allocator_dx12.html#a5d7e304a10aae95bdb60b4fff2654626">   40</a></span><a class="code hl_class" href="class_o_s_k_1_1_owned_ptr.html">OwnedPtr&lt;GpuImage&gt;</a> <a class="code hl_function" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_memory_allocator_dx12.html#a5d7e304a10aae95bdb60b4fff2654626">GpuMemoryAllocatorDx12::CreateImage</a>(<span class="keyword">const</span> <a class="code hl_struct" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_create_info.html">GpuImageCreateInfo</a>&amp; info) {</div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>    <span class="keyword">auto</span> output = <span class="keyword">new</span> <a class="code hl_class" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_dx12.html">GpuImageDx12</a>(info.<a class="code hl_variable" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_create_info.html#a8092753c9ee6afb0d2d436bd67022090">resolution</a>, info.<a class="code hl_variable" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_create_info.html#a709fba8b34f1734d6a603a38ea6e33c4">dimension</a>, info.<a class="code hl_variable" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_create_info.html#abc4d61d7511c2970d2d562e4d5a5d1b0">usage</a>, info.<a class="code hl_variable" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_create_info.html#afccbd72ee2387b4515b284735a9614f5">numLayers</a>, info.<a class="code hl_variable" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_create_info.html#a752fd3e26192ce973e993a015893b3f6">format</a>, info.<a class="code hl_variable" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_create_info.html#a5c621426fc616512ebe815f4b6d9b841">msaaSamples</a>, info.<a class="code hl_variable" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_create_info.html#a0773ddff9db45e3919ea70a643c02bd8">samplerDesc</a>);</div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>    output-&gt;_SetPhysicalSize({</div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>        MATH::PrimerMultiploSuperior&lt;uint32_t&gt;(info.<a class="code hl_variable" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_create_info.html#a8092753c9ee6afb0d2d436bd67022090">resolution</a>.<a class="code hl_variable" href="class_o_s_k_1_1_vector3__t.html#a481bd4a15724b2509174e62cf093d3e2">x</a>, D3D12_TEXTURE_DATA_PITCH_ALIGNMENT),</div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>        info.<a class="code hl_variable" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_create_info.html#a8092753c9ee6afb0d2d436bd67022090">resolution</a>.<a class="code hl_variable" href="class_o_s_k_1_1_vector3__t.html#a23b731e2b121b01fe571c679ae3bbfdb">y</a>,</div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>        info.<a class="code hl_variable" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_create_info.html#a8092753c9ee6afb0d2d436bd67022090">resolution</a>.<a class="code hl_variable" href="class_o_s_k_1_1_vector3__t.html#aa939a1c4c1f34510b2ef2e0d47eba5bb">z</a></div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>        });</div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span> </div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>    <span class="keyword">auto</span> block = <a class="code hl_function" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_memory_block_dx12.html#ad3c918640c85f72c5991570912712365">GpuMemoryBlockDx12::CreateNewImageBlock</a>(output, <a class="code hl_variable" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_allocator.html#a8f655b1e1884b8285b6d90b3d8f94e98">device</a>, info.<a class="code hl_variable" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_create_info.html#aaa96b9b3238b2eefb6f389e87a2a883f">memoryType</a>, info.<a class="code hl_variable" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_create_info.html#abc4d61d7511c2970d2d562e4d5a5d1b0">usage</a>, info.<a class="code hl_variable" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_create_info.html#afccbd72ee2387b4515b284735a9614f5">numLayers</a>);</div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span> </div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>    output-&gt;SetBlock(block.GetPointer());</div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span> </div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>    <span class="keywordflow">return</span> output;</div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>}</div>
+</div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span> </div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span> </div>
+<div class="foldopen" id="foldopen00056" data-start="{" data-end="}">
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_memory_allocator_dx12.html#a99949d205dab1dfb1d70b0521f7e6770">   56</a></span><a class="code hl_class" href="class_o_s_k_1_1_owned_ptr.html">OwnedPtr&lt;IGpuMemoryBlock&gt;</a> <a class="code hl_function" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_memory_allocator_dx12.html#a99949d205dab1dfb1d70b0521f7e6770">GpuMemoryAllocatorDx12::CreateNewBufferMemoryBlock</a>(<a class="code hl_typedef" href="_o_s_kmacros_8h.html#a5784d24fcb00afb78eb7b1e1a3466ac4">USize64</a> size, <a class="code hl_enumeration" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#ad8b871b506bab7c4021326a1a10bbc7f">GpuBufferUsage</a> usage, <a class="code hl_enumeration" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a85a830e82585f3a565d1f097491042ce">GpuSharedMemoryType</a> sharedType) {</div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>    <a class="code hl_typedef" href="_o_s_kmacros_8h.html#a5784d24fcb00afb78eb7b1e1a3466ac4">USize64</a> bSize = <a class="code hl_variable" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_allocator.html#a15a307c693598df9c0af4e4a6417a48a">IGpuMemoryAllocator::SizeOfMemoryBlockInMb</a> * 1000;</div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span> </div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>    <span class="keywordflow">if</span> (size &gt; bSize)</div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>        bSize = size;</div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span> </div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>    <span class="keywordflow">return</span> <a class="code hl_function" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_memory_block_dx12.html#acc9fd3ebb9acb4aeb6d15741fb69a679">GpuMemoryBlockDx12::CreateNewBufferBlock</a>(bSize, <a class="code hl_variable" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_allocator.html#a8f655b1e1884b8285b6d90b3d8f94e98">device</a>, sharedType, usage).<a class="code hl_function" href="class_o_s_k_1_1_owned_ptr.html#a81dfab2299056fc9858aace55fca0042">GetPointer</a>();</div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>}</div>
+</div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span> </div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span> </div>
+<div class="foldopen" id="foldopen00066" data-start="{" data-end="}">
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_memory_allocator_dx12.html#a767464336876e714610143919a7017c0">   66</a></span><a class="code hl_class" href="class_o_s_k_1_1_owned_ptr.html">OwnedPtr&lt;IBottomLevelAccelerationStructure&gt;</a> <a class="code hl_function" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_memory_allocator_dx12.html#a767464336876e714610143919a7017c0">GpuMemoryAllocatorDx12::_CreateBottomAccelerationStructure</a>() {</div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>    <a class="code hl_define" href="_assert_8h.html#a927d7efae46f019e805b046e952af182">OSK_ASSERT</a>(<span class="keyword">false</span>, <a class="code hl_class" href="class_o_s_k_1_1_not_implemented_exception.html">NotImplementedException</a>());</div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span> </div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>    <span class="keywordflow">return</span> <span class="keyword">nullptr</span>;</div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>}</div>
+</div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span> </div>
+<div class="foldopen" id="foldopen00072" data-start="{" data-end="}">
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_memory_allocator_dx12.html#a58d48790f540c5fda2e5351eb70c36b5">   72</a></span><a class="code hl_class" href="class_o_s_k_1_1_owned_ptr.html">OwnedPtr&lt;ITopLevelAccelerationStructure&gt;</a> <a class="code hl_function" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_memory_allocator_dx12.html#a58d48790f540c5fda2e5351eb70c36b5">GpuMemoryAllocatorDx12::_CreateTopAccelerationStructure</a>() {</div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>    <a class="code hl_define" href="_assert_8h.html#a927d7efae46f019e805b046e952af182">OSK_ASSERT</a>(<span class="keyword">false</span>, <a class="code hl_class" href="class_o_s_k_1_1_not_implemented_exception.html">NotImplementedException</a>());</div>
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span> </div>
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>    <span class="keywordflow">return</span> <span class="keyword">nullptr</span>;</div>
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>}</div>
+</div>
+<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span> </div>
+<div class="foldopen" id="foldopen00078" data-start="{" data-end="}">
+<div class="line"><a id="l00078" name="l00078"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_memory_allocator_dx12.html#a6e6ca51985913b36e836dbaa552079b3">   78</a></span><a class="code hl_struct" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_descriptor_dx12.html">DescriptorDx12</a> <a class="code hl_function" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_memory_allocator_dx12.html#a6e6ca51985913b36e836dbaa552079b3">GpuMemoryAllocatorDx12::GetDescriptor</a>(D3D12_DESCRIPTOR_HEAP_TYPE type) {</div>
+<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span>    <span class="keywordflow">if</span> (!<a class="code hl_variable" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_memory_allocator_dx12.html#aa364625623d59f1ec98d7ceff192b08d">descriptorBlocks</a>.contains(type))</div>
+<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span>        <a class="code hl_variable" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_memory_allocator_dx12.html#aa364625623d59f1ec98d7ceff192b08d">descriptorBlocks</a>[type] = {};</div>
+<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span> </div>
+<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span>    <span class="keyword">auto</span>&amp; list = <a class="code hl_variable" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_memory_allocator_dx12.html#aa364625623d59f1ec98d7ceff192b08d">descriptorBlocks</a>.at(type);</div>
+<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span>    <span class="keywordflow">if</span> (list.IsEmpty() || list.Peek().IsFull())</div>
+<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span>        list.Insert(<a class="code hl_class" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_descriptor_block_dx12.html">DescriptorBlockDx12</a>(type, 256, <a class="code hl_variable" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_allocator.html#a8f655b1e1884b8285b6d90b3d8f94e98">device</a>-&gt;As&lt;<a class="code hl_class" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_dx12.html">GpuDx12</a>&gt;()));</div>
+<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span>        </div>
+<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span>    <span class="keywordflow">return</span> list.Peek().CreateDescriptor();</div>
+<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span>}</div>
+</div>
+<div class="ttc" id="a_assert_8h_html_a927d7efae46f019e805b046e952af182"><div class="ttname"><a href="_assert_8h.html#a927d7efae46f019e805b046e952af182">OSK_ASSERT</a></div><div class="ttdeci">#define OSK_ASSERT(condition, exception)</div><div class="ttdoc">Comrpueba si una condición se cumple. En caso de no cumplirse, lanza la excepción indicada,...</div><div class="ttdef"><b>Definition</b> <a href="_assert_8h_source.html#l00041">Assert.h:41</a></div></div>
+<div class="ttc" id="a_command_list_dx12_8h_html"><div class="ttname"><a href="_command_list_dx12_8h.html">CommandListDx12.h</a></div></div>
+<div class="ttc" id="a_format_dx12_8h_html"><div class="ttname"><a href="_format_dx12_8h.html">FormatDx12.h</a></div></div>
+<div class="ttc" id="a_gpu_buffer_8h_html"><div class="ttname"><a href="_gpu_buffer_8h.html">GpuBuffer.h</a></div></div>
+<div class="ttc" id="a_gpu_dx12_8h_html"><div class="ttname"><a href="_gpu_dx12_8h.html">GpuDx12.h</a></div></div>
+<div class="ttc" id="a_gpu_image_dimensions_8h_html"><div class="ttname"><a href="_gpu_image_dimensions_8h.html">GpuImageDimensions.h</a></div></div>
+<div class="ttc" id="a_gpu_image_dx12_8h_html"><div class="ttname"><a href="_gpu_image_dx12_8h.html">GpuImageDx12.h</a></div></div>
+<div class="ttc" id="a_gpu_image_usage_8h_html"><div class="ttname"><a href="_gpu_image_usage_8h.html">GpuImageUsage.h</a></div></div>
+<div class="ttc" id="a_gpu_memory_allocator_dx12_8h_html"><div class="ttname"><a href="_gpu_memory_allocator_dx12_8h.html">GpuMemoryAllocatorDx12.h</a></div></div>
+<div class="ttc" id="a_gpu_memory_block_dx12_8h_html"><div class="ttname"><a href="_gpu_memory_block_dx12_8h.html">GpuMemoryBlockDx12.h</a></div></div>
+<div class="ttc" id="a_gpu_memory_subblock_dx12_8h_html"><div class="ttname"><a href="_gpu_memory_subblock_dx12_8h.html">GpuMemorySubblockDx12.h</a></div></div>
+<div class="ttc" id="a_gpu_memory_types_8h_html"><div class="ttname"><a href="_gpu_memory_types_8h.html">GpuMemoryTypes.h</a></div></div>
+<div class="ttc" id="a_gpu_memory_types_dx12_8h_html"><div class="ttname"><a href="_gpu_memory_types_dx12_8h.html">GpuMemoryTypesDx12.h</a></div></div>
+<div class="ttc" id="a_math_8h_html"><div class="ttname"><a href="_math_8h.html">Math.h</a></div></div>
+<div class="ttc" id="a_o_s_kengine_8h_html"><div class="ttname"><a href="_o_s_kengine_8h.html">OSKengine.h</a></div></div>
+<div class="ttc" id="a_o_s_kmacros_8h_html_a5784d24fcb00afb78eb7b1e1a3466ac4"><div class="ttname"><a href="_o_s_kmacros_8h.html#a5784d24fcb00afb78eb7b1e1a3466ac4">USize64</a></div><div class="ttdeci">uint64_t USize64</div><div class="ttdef"><b>Definition</b> <a href="_o_s_kmacros_8h_source.html#l00044">OSKmacros.h:44</a></div></div>
+<div class="ttc" id="a_renderer_dx12_8h_html"><div class="ttname"><a href="_renderer_dx12_8h.html">RendererDx12.h</a></div></div>
+<div class="ttc" id="a_vertex_8h_html"><div class="ttname"><a href="_vertex_8h.html">Vertex.h</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_descriptor_block_dx12_html"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_descriptor_block_dx12.html">OSK::GRAPHICS::DescriptorBlockDx12</a></div><div class="ttdoc">Estructura para ayudar al manejo de descriptor heaps.</div><div class="ttdef"><b>Definition</b> <a href="_descriptor_dx12_8h_source.html#l00024">DescriptorDx12.h:24</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_dx12_html"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_dx12.html">OSK::GRAPHICS::GpuDx12</a></div><div class="ttdef"><b>Definition</b> <a href="_gpu_dx12_8h_source.html#l00015">GpuDx12.h:15</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_dx12_html"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_dx12.html">OSK::GRAPHICS::GpuImageDx12</a></div><div class="ttdef"><b>Definition</b> <a href="_gpu_image_dx12_8h_source.html#l00013">GpuImageDx12.h:13</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_html"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image.html">OSK::GRAPHICS::GpuImage</a></div><div class="ttdoc">Representación interna de una imagen en la GPU.</div><div class="ttdef"><b>Definition</b> <a href="_i_gpu_image_8h_source.html#l00058">IGpuImage.h:58</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_html_a702c7bef88e759bb87abe45620749350"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image.html#a702c7bef88e759bb87abe45620749350">OSK::GRAPHICS::GpuImage::GetNumLayers</a></div><div class="ttdeci">USize32 GetNumLayers() const</div><div class="ttdef"><b>Definition</b> <a href="_i_gpu_image_8cpp_source.html#l00084">IGpuImage.cpp:84</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_memory_allocator_dx12_html_a58d48790f540c5fda2e5351eb70c36b5"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_memory_allocator_dx12.html#a58d48790f540c5fda2e5351eb70c36b5">OSK::GRAPHICS::GpuMemoryAllocatorDx12::_CreateTopAccelerationStructure</a></div><div class="ttdeci">OwnedPtr&lt; ITopLevelAccelerationStructure &gt; _CreateTopAccelerationStructure() override</div><div class="ttdef"><b>Definition</b> <a href="#l00072">GpuMemoryAllocatorDx12.cpp:72</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_memory_allocator_dx12_html_a5d7e304a10aae95bdb60b4fff2654626"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_memory_allocator_dx12.html#a5d7e304a10aae95bdb60b4fff2654626">OSK::GRAPHICS::GpuMemoryAllocatorDx12::CreateImage</a></div><div class="ttdeci">OwnedPtr&lt; GpuImage &gt; CreateImage(const GpuImageCreateInfo &amp;info) override</div><div class="ttdoc">Crea una nueva imagen en la GPU.</div><div class="ttdef"><b>Definition</b> <a href="#l00040">GpuMemoryAllocatorDx12.cpp:40</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_memory_allocator_dx12_html_a6e6ca51985913b36e836dbaa552079b3"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_memory_allocator_dx12.html#a6e6ca51985913b36e836dbaa552079b3">OSK::GRAPHICS::GpuMemoryAllocatorDx12::GetDescriptor</a></div><div class="ttdeci">DescriptorDx12 GetDescriptor(D3D12_DESCRIPTOR_HEAP_TYPE type)</div><div class="ttdef"><b>Definition</b> <a href="#l00078">GpuMemoryAllocatorDx12.cpp:78</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_memory_allocator_dx12_html_a767464336876e714610143919a7017c0"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_memory_allocator_dx12.html#a767464336876e714610143919a7017c0">OSK::GRAPHICS::GpuMemoryAllocatorDx12::_CreateBottomAccelerationStructure</a></div><div class="ttdeci">OwnedPtr&lt; IBottomLevelAccelerationStructure &gt; _CreateBottomAccelerationStructure() override</div><div class="ttdef"><b>Definition</b> <a href="#l00066">GpuMemoryAllocatorDx12.cpp:66</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_memory_allocator_dx12_html_a99949d205dab1dfb1d70b0521f7e6770"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_memory_allocator_dx12.html#a99949d205dab1dfb1d70b0521f7e6770">OSK::GRAPHICS::GpuMemoryAllocatorDx12::CreateNewBufferMemoryBlock</a></div><div class="ttdeci">OwnedPtr&lt; IGpuMemoryBlock &gt; CreateNewBufferMemoryBlock(USize64 size, GpuBufferUsage usage, GpuSharedMemoryType sharedType)</div><div class="ttdef"><b>Definition</b> <a href="#l00056">GpuMemoryAllocatorDx12.cpp:56</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_memory_allocator_dx12_html_aa364625623d59f1ec98d7ceff192b08d"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_memory_allocator_dx12.html#aa364625623d59f1ec98d7ceff192b08d">OSK::GRAPHICS::GpuMemoryAllocatorDx12::descriptorBlocks</a></div><div class="ttdeci">std::unordered_map&lt; D3D12_DESCRIPTOR_HEAP_TYPE, DynamicArray&lt; DescriptorBlockDx12 &gt; &gt; descriptorBlocks</div><div class="ttdef"><b>Definition</b> <a href="_gpu_memory_allocator_dx12_8h_source.html#l00030">GpuMemoryAllocatorDx12.h:30</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_memory_allocator_dx12_html_aa3c04bae79729c022b58bd742bcb2e91"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_memory_allocator_dx12.html#aa3c04bae79729c022b58bd742bcb2e91">OSK::GRAPHICS::GpuMemoryAllocatorDx12::CreateNewBufferBlock</a></div><div class="ttdeci">OwnedPtr&lt; IGpuMemoryBlock &gt; CreateNewBufferBlock(USize64 size, GpuBufferUsage usage, GpuSharedMemoryType sharedType) override</div><div class="ttdef"><b>Definition</b> <a href="#l00031">GpuMemoryAllocatorDx12.cpp:31</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_memory_allocator_dx12_html_aa786af46ac462b8a9249f8592c3124f7"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_memory_allocator_dx12.html#aa786af46ac462b8a9249f8592c3124f7">OSK::GRAPHICS::GpuMemoryAllocatorDx12::GpuMemoryAllocatorDx12</a></div><div class="ttdeci">GpuMemoryAllocatorDx12(IGpu *device)</div><div class="ttdef"><b>Definition</b> <a href="#l00022">GpuMemoryAllocatorDx12.cpp:22</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_memory_allocator_dx12_html_ad1498ab79f352797847e9547f422dac7"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_memory_allocator_dx12.html#ad1498ab79f352797847e9547f422dac7">OSK::GRAPHICS::GpuMemoryAllocatorDx12::CreateNewImageBlock</a></div><div class="ttdeci">OwnedPtr&lt; IGpuMemoryBlock &gt; CreateNewImageBlock(GpuImage *image, GpuImageUsage usage, GpuSharedMemoryType sharedType) override</div><div class="ttdef"><b>Definition</b> <a href="#l00035">GpuMemoryAllocatorDx12.cpp:35</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_memory_block_dx12_html_acc9fd3ebb9acb4aeb6d15741fb69a679"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_memory_block_dx12.html#acc9fd3ebb9acb4aeb6d15741fb69a679">OSK::GRAPHICS::GpuMemoryBlockDx12::CreateNewBufferBlock</a></div><div class="ttdeci">static OwnedPtr&lt; GpuMemoryBlockDx12 &gt; CreateNewBufferBlock(USize64 reservedSize, IGpu *device, GpuSharedMemoryType type, GpuBufferUsage bufferUSage)</div><div class="ttdef"><b>Definition</b> <a href="_gpu_memory_block_dx12_8cpp_source.html#l00054">GpuMemoryBlockDx12.cpp:54</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_memory_block_dx12_html_ad3c918640c85f72c5991570912712365"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_memory_block_dx12.html#ad3c918640c85f72c5991570912712365">OSK::GRAPHICS::GpuMemoryBlockDx12::CreateNewImageBlock</a></div><div class="ttdeci">static OwnedPtr&lt; GpuMemoryBlockDx12 &gt; CreateNewImageBlock(GpuImage *image, IGpu *device, GpuSharedMemoryType type, GpuImageUsage imageUSage, USize32 numLayers)</div><div class="ttdef"><b>Definition</b> <a href="_gpu_memory_block_dx12_8cpp_source.html#l00058">GpuMemoryBlockDx12.cpp:58</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_html"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu.html">OSK::GRAPHICS::IGpu</a></div><div class="ttdoc">Representa una conexión con la GPU.</div><div class="ttdef"><b>Definition</b> <a href="_i_gpu_8h_source.html#l00014">IGpu.h:14</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_allocator_html"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_allocator.html">OSK::GRAPHICS::IGpuMemoryAllocator</a></div><div class="ttdoc">El asignador de memoria se encarga de reservar grandes bloques de memoria en la GPU,...</div><div class="ttdef"><b>Definition</b> <a href="_i_gpu_memory_allocator_8h_source.html#l00097">IGpuMemoryAllocator.h:97</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_allocator_html_a15a307c693598df9c0af4e4a6417a48a"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_allocator.html#a15a307c693598df9c0af4e4a6417a48a">OSK::GRAPHICS::IGpuMemoryAllocator::SizeOfMemoryBlockInMb</a></div><div class="ttdeci">static const USize64 SizeOfMemoryBlockInMb</div><div class="ttdoc">El tamaño de memoria que, por defecto, tendrá cada bloque de memoria.</div><div class="ttdef"><b>Definition</b> <a href="_i_gpu_memory_allocator_8h_source.html#l00110">IGpuMemoryAllocator.h:110</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_allocator_html_a5142ba6fc53d48af4dc0710b5fd19e8c"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_allocator.html#a5142ba6fc53d48af4dc0710b5fd19e8c">OSK::GRAPHICS::IGpuMemoryAllocator::minStorageBufferAlignment</a></div><div class="ttdeci">USize64 minStorageBufferAlignment</div><div class="ttdef"><b>Definition</b> <a href="_i_gpu_memory_allocator_8h_source.html#l00292">IGpuMemoryAllocator.h:292</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_allocator_html_a54fadbabc406ab83573b16327b5a535c"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_allocator.html#a54fadbabc406ab83573b16327b5a535c">OSK::GRAPHICS::IGpuMemoryAllocator::minVertexBufferAlignment</a></div><div class="ttdeci">USize64 minVertexBufferAlignment</div><div class="ttdef"><b>Definition</b> <a href="_i_gpu_memory_allocator_8h_source.html#l00289">IGpuMemoryAllocator.h:289</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_allocator_html_a8f655b1e1884b8285b6d90b3d8f94e98"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_allocator.html#a8f655b1e1884b8285b6d90b3d8f94e98">OSK::GRAPHICS::IGpuMemoryAllocator::device</a></div><div class="ttdeci">IGpu * device</div><div class="ttdef"><b>Definition</b> <a href="_i_gpu_memory_allocator_8h_source.html#l00332">IGpuMemoryAllocator.h:332</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_allocator_html_ad8e1b7218313f8ba2c219d8e11bfee98"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_allocator.html#ad8e1b7218313f8ba2c219d8e11bfee98">OSK::GRAPHICS::IGpuMemoryAllocator::minIndexBufferAlignment</a></div><div class="ttdeci">USize64 minIndexBufferAlignment</div><div class="ttdef"><b>Definition</b> <a href="_i_gpu_memory_allocator_8h_source.html#l00290">IGpuMemoryAllocator.h:290</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_allocator_html_ae56ced982a5969f195c1f1c4bb5f02e3"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_allocator.html#ae56ced982a5969f195c1f1c4bb5f02e3">OSK::GRAPHICS::IGpuMemoryAllocator::minUniformBufferAlignment</a></div><div class="ttdeci">USize64 minUniformBufferAlignment</div><div class="ttdef"><b>Definition</b> <a href="_i_gpu_memory_allocator_8h_source.html#l00291">IGpuMemoryAllocator.h:291</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_not_implemented_exception_html"><div class="ttname"><a href="class_o_s_k_1_1_not_implemented_exception.html">OSK::NotImplementedException</a></div><div class="ttdoc">Excepción que se lanza cuando se trata de ejecutar una funcionalidad que aún no se ha desarrollado.</div><div class="ttdef"><b>Definition</b> <a href="_not_implemented_exception_8h_source.html#l00008">NotImplementedException.h:8</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_owned_ptr_html"><div class="ttname"><a href="class_o_s_k_1_1_owned_ptr.html">OSK::OwnedPtr</a></div><div class="ttdoc">Es dueño de un puntero.</div><div class="ttdef"><b>Definition</b> <a href="_owned_ptr_8h_source.html#l00016">OwnedPtr.h:16</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_owned_ptr_html_a81dfab2299056fc9858aace55fca0042"><div class="ttname"><a href="class_o_s_k_1_1_owned_ptr.html#a81dfab2299056fc9858aace55fca0042">OSK::OwnedPtr::GetPointer</a></div><div class="ttdeci">T * GetPointer() const</div><div class="ttdoc">Devuelve el puntero nativo.</div><div class="ttdef"><b>Definition</b> <a href="_owned_ptr_8h_source.html#l00079">OwnedPtr.h:79</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_vector3__t_html_a23b731e2b121b01fe571c679ae3bbfdb"><div class="ttname"><a href="class_o_s_k_1_1_vector3__t.html#a23b731e2b121b01fe571c679ae3bbfdb">OSK::Vector3_t::y</a></div><div class="ttdeci">T y</div><div class="ttdoc">Representa la segunda coordenada.</div><div class="ttdef"><b>Definition</b> <a href="_vector3_8hpp_source.html#l00280">Vector3.hpp:280</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_vector3__t_html_a481bd4a15724b2509174e62cf093d3e2"><div class="ttname"><a href="class_o_s_k_1_1_vector3__t.html#a481bd4a15724b2509174e62cf093d3e2">OSK::Vector3_t::x</a></div><div class="ttdeci">T x</div><div class="ttdoc">Representa la primera coordenada.</div><div class="ttdef"><b>Definition</b> <a href="_vector3_8hpp_source.html#l00277">Vector3.hpp:277</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_vector3__t_html_aa939a1c4c1f34510b2ef2e0d47eba5bb"><div class="ttname"><a href="class_o_s_k_1_1_vector3__t.html#aa939a1c4c1f34510b2ef2e0d47eba5bb">OSK::Vector3_t::z</a></div><div class="ttdeci">T z</div><div class="ttdoc">Representa la tercera coordenada.</div><div class="ttdef"><b>Definition</b> <a href="_vector3_8hpp_source.html#l00283">Vector3.hpp:283</a></div></div>
+<div class="ttc" id="anamespace_o_s_k_1_1_g_r_a_p_h_i_c_s_html"><div class="ttname"><a href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html">OSK::GRAPHICS</a></div><div class="ttdef"><b>Definition</b> <a href="_acceleration_structures_exceptions_8h_source.html#l00005">AccelerationStructuresExceptions.h:5</a></div></div>
+<div class="ttc" id="anamespace_o_s_k_1_1_g_r_a_p_h_i_c_s_html_a19a2f70fc994c00eb022e520608c5ffa"><div class="ttname"><a href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a19a2f70fc994c00eb022e520608c5ffa">OSK::GRAPHICS::GpuImageUsage</a></div><div class="ttdeci">GpuImageUsage</div><div class="ttdoc">Uso que se le va a dar a la imagen.</div><div class="ttdef"><b>Definition</b> <a href="_gpu_image_usage_8h_source.html#l00012">GpuImageUsage.h:12</a></div></div>
+<div class="ttc" id="anamespace_o_s_k_1_1_g_r_a_p_h_i_c_s_html_a85a830e82585f3a565d1f097491042ce"><div class="ttname"><a href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a85a830e82585f3a565d1f097491042ce">OSK::GRAPHICS::GpuSharedMemoryType</a></div><div class="ttdeci">GpuSharedMemoryType</div><div class="ttdoc">Define qué dispositivo tiene acceso a la memoria.</div><div class="ttdef"><b>Definition</b> <a href="_gpu_memory_types_8h_source.html#l00015">GpuMemoryTypes.h:15</a></div></div>
+<div class="ttc" id="anamespace_o_s_k_1_1_g_r_a_p_h_i_c_s_html_ad8b871b506bab7c4021326a1a10bbc7f"><div class="ttname"><a href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#ad8b871b506bab7c4021326a1a10bbc7f">OSK::GRAPHICS::GpuBufferUsage</a></div><div class="ttdeci">GpuBufferUsage</div><div class="ttdoc">Uso que se le va a dar a un buffer. Pueden combinarse varios de estos usos.</div><div class="ttdef"><b>Definition</b> <a href="_gpu_memory_types_8h_source.html#l00049">GpuMemoryTypes.h:49</a></div></div>
+<div class="ttc" id="anamespace_o_s_k_html"><div class="ttname"><a href="namespace_o_s_k.html">OSK</a></div><div class="ttdef"><b>Definition</b> <a href="_acceleration_structures_exceptions_8h_source.html#l00005">AccelerationStructuresExceptions.h:5</a></div></div>
+<div class="ttc" id="astruct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_descriptor_dx12_html"><div class="ttname"><a href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_descriptor_dx12.html">OSK::GRAPHICS::DescriptorDx12</a></div><div class="ttdef"><b>Definition</b> <a href="_descriptor_dx12_8h_source.html#l00014">DescriptorDx12.h:14</a></div></div>
+<div class="ttc" id="astruct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_create_info_html"><div class="ttname"><a href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_create_info.html">OSK::GRAPHICS::GpuImageCreateInfo</a></div><div class="ttdef"><b>Definition</b> <a href="_i_gpu_memory_allocator_8h_source.html#l00047">IGpuMemoryAllocator.h:47</a></div></div>
+<div class="ttc" id="astruct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_create_info_html_a0773ddff9db45e3919ea70a643c02bd8"><div class="ttname"><a href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_create_info.html#a0773ddff9db45e3919ea70a643c02bd8">OSK::GRAPHICS::GpuImageCreateInfo::samplerDesc</a></div><div class="ttdeci">GpuImageSamplerDesc samplerDesc</div><div class="ttdoc">Estructura con información sobre cómo se accederá a la imagen desde los shaders.</div><div class="ttdef"><b>Definition</b> <a href="_i_gpu_memory_allocator_8h_source.html#l00083">IGpuMemoryAllocator.h:83</a></div></div>
+<div class="ttc" id="astruct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_create_info_html_a5c621426fc616512ebe815f4b6d9b841"><div class="ttname"><a href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_create_info.html#a5c621426fc616512ebe815f4b6d9b841">OSK::GRAPHICS::GpuImageCreateInfo::msaaSamples</a></div><div class="ttdeci">USize32 msaaSamples</div><div class="ttdoc">Número de muestreos. Para imágenes normales, 1.</div><div class="ttdef"><b>Definition</b> <a href="_i_gpu_memory_allocator_8h_source.html#l00080">IGpuMemoryAllocator.h:80</a></div></div>
+<div class="ttc" id="astruct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_create_info_html_a709fba8b34f1734d6a603a38ea6e33c4"><div class="ttname"><a href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_create_info.html#a709fba8b34f1734d6a603a38ea6e33c4">OSK::GRAPHICS::GpuImageCreateInfo::dimension</a></div><div class="ttdeci">GpuImageDimension dimension</div><div class="ttdoc">Número de dimensiones de la imagen.</div><div class="ttdef"><b>Definition</b> <a href="_i_gpu_memory_allocator_8h_source.html#l00069">IGpuMemoryAllocator.h:69</a></div></div>
+<div class="ttc" id="astruct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_create_info_html_a752fd3e26192ce973e993a015893b3f6"><div class="ttname"><a href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_create_info.html#a752fd3e26192ce973e993a015893b3f6">OSK::GRAPHICS::GpuImageCreateInfo::format</a></div><div class="ttdeci">Format format</div><div class="ttdoc">Formato de la imagen.</div><div class="ttdef"><b>Definition</b> <a href="_i_gpu_memory_allocator_8h_source.html#l00063">IGpuMemoryAllocator.h:63</a></div></div>
+<div class="ttc" id="astruct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_create_info_html_a8092753c9ee6afb0d2d436bd67022090"><div class="ttname"><a href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_create_info.html#a8092753c9ee6afb0d2d436bd67022090">OSK::GRAPHICS::GpuImageCreateInfo::resolution</a></div><div class="ttdeci">Vector3ui resolution</div><div class="ttdoc">Resolución de la imagen, en píxeles. Para imágenes 2D, Z se ignora. Para imágenes 1D,...</div><div class="ttdef"><b>Definition</b> <a href="_i_gpu_memory_allocator_8h_source.html#l00060">IGpuMemoryAllocator.h:60</a></div></div>
+<div class="ttc" id="astruct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_create_info_html_aaa96b9b3238b2eefb6f389e87a2a883f"><div class="ttname"><a href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_create_info.html#aaa96b9b3238b2eefb6f389e87a2a883f">OSK::GRAPHICS::GpuImageCreateInfo::memoryType</a></div><div class="ttdeci">GpuSharedMemoryType memoryType</div><div class="ttdef"><b>Definition</b> <a href="_i_gpu_memory_allocator_8h_source.html#l00085">IGpuMemoryAllocator.h:85</a></div></div>
+<div class="ttc" id="astruct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_create_info_html_abc4d61d7511c2970d2d562e4d5a5d1b0"><div class="ttname"><a href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_create_info.html#abc4d61d7511c2970d2d562e4d5a5d1b0">OSK::GRAPHICS::GpuImageCreateInfo::usage</a></div><div class="ttdeci">GpuImageUsage usage</div><div class="ttdoc">Tareas para las que se usará la imagen.</div><div class="ttdef"><b>Definition</b> <a href="_i_gpu_memory_allocator_8h_source.html#l00066">IGpuMemoryAllocator.h:66</a></div></div>
+<div class="ttc" id="astruct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_create_info_html_afccbd72ee2387b4515b284735a9614f5"><div class="ttname"><a href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_create_info.html#afccbd72ee2387b4515b284735a9614f5">OSK::GRAPHICS::GpuImageCreateInfo::numLayers</a></div><div class="ttdeci">USize32 numLayers</div><div class="ttdoc">Número de capas. Si se trata de una imagen sencilla, debe ser 1. Si se trata de un array de imágenes,...</div><div class="ttdef"><b>Definition</b> <a href="_i_gpu_memory_allocator_8h_source.html#l00076">IGpuMemoryAllocator.h:76</a></div></div>
+</div><!-- fragment --></div><!-- contents -->
+</div><!-- doc-content -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="dir_74389ed8173ad57b461b9d623a1f3867.html">Source</a></li><li class="navelem"><a class="el" href="_gpu_memory_allocator_dx12_8cpp.html">GpuMemoryAllocatorDx12.cpp</a></li>
+    <li class="footer">Generado el Lunes, 29 de enero de 2024 17:18:31 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.10.0 </li>
+  </ul>
+</div>
+</body>
+</html>

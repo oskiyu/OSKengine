@@ -1,0 +1,217 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="es">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.10.0"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>OSKengine: Archivo de código fuente Source/Skeleton.cpp</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">OSKengine<span id="projectnumber">&#160;Indev</span>
+   </div>
+   <div id="projectbrief">Motor de videojuegos.</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generado por Doxygen 1.10.0 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() {
+  initMenu('',true,false,'search.php','Buscar');
+  $(function() { init_search(); });
+});
+/* @license-end */
+</script>
+<div id="main-nav"></div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() { codefold.init(0); });
+/* @license-end */
+</script>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function(){initNavTree('_skeleton_8cpp_source.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Cargando...</div>
+<div class="SRStatus" id="Searching">Buscando...</div>
+<div class="SRStatus" id="NoMatches">Nada coincide</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">Skeleton.cpp</div></div>
+</div><!--header-->
+<div class="contents">
+<a href="_skeleton_8cpp.html">Ir a la documentación de este archivo.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#include &quot;<a class="code" href="_skeleton_8h.html">Skeleton.h</a>&quot;</span></div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span> </div>
+<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="preprocessor">#include &quot;<a class="code" href="_assert_8h.html">Assert.h</a>&quot;</span></div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &quot;<a class="code" href="_animation_skin_8h.html">AnimationSkin.h</a>&quot;</span></div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &quot;<a class="code" href="_animation_exceptions_8h.html">AnimationExceptions.h</a>&quot;</span></div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span> </div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="keyword">using namespace </span><a class="code hl_namespace" href="namespace_o_s_k.html">OSK</a>;</div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="keyword">using namespace </span><a class="code hl_namespace" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html">OSK::GRAPHICS</a>;</div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span> </div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span> </div>
+<div class="foldopen" id="foldopen00011" data-start="{" data-end="}">
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_skeleton.html#a7fcbd5c0d758730273d004d33e7cd667">   11</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_skeleton.html#a7fcbd5c0d758730273d004d33e7cd667">Skeleton::UpdateMatrices</a>(<span class="keyword">const</span> <a class="code hl_struct" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_animation_skin.html">AnimationSkin</a>&amp; skin) {</div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span>    <span class="comment">// Actualizar matrices de los huesos</span></div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span>    <span class="keywordflow">if</span> (skin.<a class="code hl_variable" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_animation_skin.html#a8682c1373a8f8a4ba1e9d634c8fd28c9">rootIndex</a> != std::numeric_limits&lt;UIndex32&gt;::max())</div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span>        nodes.at(skin.<a class="code hl_variable" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_animation_skin.html#a8682c1373a8f8a4ba1e9d634c8fd28c9">rootIndex</a>).UpdateSkeletonTree(<a class="code hl_struct" href="structglm_1_1mat.html">glm::mat4</a>(1.0f), <span class="keyword">this</span>);</div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span>    <span class="keywordflow">else</span></div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span>        nodes.at(<a class="code hl_function" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_skeleton.html#a6be528c7493e17df99e515cccf3e6945">GetRootNodeIndex</a>()).UpdateSkeletonTree(<a class="code hl_struct" href="structglm_1_1mat.html">glm::mat4</a>(1.0f), <span class="keyword">this</span>);</div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>}</div>
+</div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span> </div>
+<div class="foldopen" id="foldopen00019" data-start="{" data-end="}">
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_skeleton.html#a6be528c7493e17df99e515cccf3e6945">   19</a></span><a class="code hl_typedef" href="_o_s_kmacros_8h.html#af205b9fd0440138e6cac38a9081141df">UIndex32</a> <a class="code hl_function" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_skeleton.html#a6be528c7493e17df99e515cccf3e6945">Skeleton::GetRootNodeIndex</a>()<span class="keyword"> const </span>{</div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>    <span class="keywordflow">for</span> (<span class="keyword">auto</span>&amp; [index, node] : nodes)</div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>        <span class="keywordflow">if</span> (node.parentIndex == std::numeric_limits&lt;UIndex32&gt;::max())</div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>            <span class="keywordflow">return</span> index;</div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span> </div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>    <span class="keywordflow">return</span> 0;</div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>}</div>
+</div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span> </div>
+<div class="foldopen" id="foldopen00027" data-start="{" data-end="}">
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_skeleton.html#a6a8cda03efbdaec836c0741cbeb82496">   27</a></span>MeshNode&amp; <a class="code hl_function" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_skeleton.html#a6a8cda03efbdaec836c0741cbeb82496">Skeleton::GetNode</a>(<a class="code hl_typedef" href="_o_s_kmacros_8h.html#af205b9fd0440138e6cac38a9081141df">UIndex32</a> nodeIndex) {</div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>    <a class="code hl_define" href="_assert_8h.html#a927d7efae46f019e805b046e952af182">OSK_ASSERT</a>(nodes.contains(nodeIndex), <a class="code hl_class" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_bone_not_found_exception.html">BoneNotFoundException</a>(nodeIndex));</div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span> </div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>    <span class="keywordflow">return</span> nodes.at(nodeIndex);</div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>}</div>
+</div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span> </div>
+<div class="foldopen" id="foldopen00033" data-start="{" data-end="}">
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_skeleton.html#afd72551e0f9704a9e56f535123abbe39">   33</a></span><a class="code hl_typedef" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a6ba2b7a043103ea5fb5ade9f30f71103">Bone</a>&amp; <a class="code hl_function" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_skeleton.html#afd72551e0f9704a9e56f535123abbe39">Skeleton::GetBone</a>(<a class="code hl_typedef" href="_o_s_kmacros_8h.html#af205b9fd0440138e6cac38a9081141df">UIndex32</a> boneIndex, <span class="keyword">const</span> <a class="code hl_struct" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_animation_skin.html">AnimationSkin</a>&amp; skin) {</div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>    <span class="keyword">const</span> <a class="code hl_typedef" href="_o_s_kmacros_8h.html#af205b9fd0440138e6cac38a9081141df">UIndex32</a> nodeIndex = skin.<a class="code hl_variable" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_animation_skin.html#a58055174c7f93a2707a286da67a27a9a">bonesIds</a>.<a class="code hl_function" href="class_o_s_k_1_1_dynamic_array.html#abb2718a784ceb0e0f31fdc7f5dbd782f">At</a>(boneIndex);</div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>    <a class="code hl_define" href="_assert_8h.html#a927d7efae46f019e805b046e952af182">OSK_ASSERT</a>(nodes.contains(nodeIndex), <a class="code hl_class" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_bone_not_found_exception.html">BoneNotFoundException</a>(boneIndex));</div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span> </div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>    <span class="keywordflow">return</span> nodes.at(nodeIndex);</div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>}</div>
+</div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span> </div>
+<div class="foldopen" id="foldopen00040" data-start="{" data-end="}">
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_skeleton.html#a267cf391cf7c5dbbe65662501adb9a50">   40</a></span><span class="keyword">const</span> <a class="code hl_typedef" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a6ba2b7a043103ea5fb5ade9f30f71103">Bone</a>&amp; <a class="code hl_function" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_skeleton.html#afd72551e0f9704a9e56f535123abbe39">Skeleton::GetBone</a>(<a class="code hl_typedef" href="_o_s_kmacros_8h.html#af205b9fd0440138e6cac38a9081141df">UIndex32</a> boneIndex, <span class="keyword">const</span> <a class="code hl_struct" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_animation_skin.html">AnimationSkin</a>&amp; skin)<span class="keyword"> const </span>{</div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>    <span class="keyword">const</span> <a class="code hl_typedef" href="_o_s_kmacros_8h.html#af205b9fd0440138e6cac38a9081141df">UIndex32</a> nodeIndex = skin.<a class="code hl_variable" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_animation_skin.html#a58055174c7f93a2707a286da67a27a9a">bonesIds</a>.<a class="code hl_function" href="class_o_s_k_1_1_dynamic_array.html#abb2718a784ceb0e0f31fdc7f5dbd782f">At</a>(boneIndex);</div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>    <a class="code hl_define" href="_assert_8h.html#a927d7efae46f019e805b046e952af182">OSK_ASSERT</a>(nodes.contains(nodeIndex), <a class="code hl_class" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_bone_not_found_exception.html">BoneNotFoundException</a>(boneIndex));</div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span> </div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>    <span class="keywordflow">return</span> nodes.at(nodeIndex);</div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>}</div>
+</div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span> </div>
+<div class="foldopen" id="foldopen00047" data-start="{" data-end="}">
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_skeleton.html#a427e36ac61322d0e8b5eeef1015a6513">   47</a></span>MeshNode&amp; <a class="code hl_function" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_skeleton.html#a6a8cda03efbdaec836c0741cbeb82496">Skeleton::GetNode</a>(std::string_view <a class="code hl_variable" href="x64-windows-static_2x64-windows-static_2include_2spirv_2unified1_2spv_8d.html#a41f818ddb5dc4447d88e7b94d4f72d72">name</a>) {</div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>    <a class="code hl_define" href="_assert_8h.html#a927d7efae46f019e805b046e952af182">OSK_ASSERT</a>(nodesByName.contains(<a class="code hl_variable" href="x64-windows-static_2x64-windows-static_2include_2spirv_2unified1_2spv_8d.html#a41f818ddb5dc4447d88e7b94d4f72d72">name</a>), <a class="code hl_class" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_bone_not_found_exception.html">BoneNotFoundException</a>(<a class="code hl_variable" href="x64-windows-static_2x64-windows-static_2include_2spirv_2unified1_2spv_8d.html#a41f818ddb5dc4447d88e7b94d4f72d72">name</a>));</div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span> </div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>    <span class="keywordflow">return</span> <a class="code hl_function" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_skeleton.html#a6a8cda03efbdaec836c0741cbeb82496">GetNode</a>(nodesByName.find(<a class="code hl_variable" href="x64-windows-static_2x64-windows-static_2include_2spirv_2unified1_2spv_8d.html#a41f818ddb5dc4447d88e7b94d4f72d72">name</a>)-&gt;second);</div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>}</div>
+</div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span> </div>
+<div class="foldopen" id="foldopen00053" data-start="{" data-end="}">
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_skeleton.html#a660c34a9f2ae846a3c0bd5840063e050">   53</a></span><a class="code hl_typedef" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a6ba2b7a043103ea5fb5ade9f30f71103">Bone</a>&amp; <a class="code hl_function" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_skeleton.html#afd72551e0f9704a9e56f535123abbe39">Skeleton::GetBone</a>(std::string_view <a class="code hl_variable" href="x64-windows-static_2x64-windows-static_2include_2spirv_2unified1_2spv_8d.html#a41f818ddb5dc4447d88e7b94d4f72d72">name</a>, <span class="keyword">const</span> <a class="code hl_struct" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_animation_skin.html">AnimationSkin</a>&amp; skin) {</div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>    <a class="code hl_define" href="_assert_8h.html#a927d7efae46f019e805b046e952af182">OSK_ASSERT</a>(nodesByName.contains(<a class="code hl_variable" href="x64-windows-static_2x64-windows-static_2include_2spirv_2unified1_2spv_8d.html#a41f818ddb5dc4447d88e7b94d4f72d72">name</a>), <a class="code hl_class" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_bone_not_found_exception.html">BoneNotFoundException</a>(<a class="code hl_variable" href="x64-windows-static_2x64-windows-static_2include_2spirv_2unified1_2spv_8d.html#a41f818ddb5dc4447d88e7b94d4f72d72">name</a>));</div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span> </div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>    <span class="keywordflow">return</span> <a class="code hl_function" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_skeleton.html#afd72551e0f9704a9e56f535123abbe39">GetBone</a>(nodesByName.find(<a class="code hl_variable" href="x64-windows-static_2x64-windows-static_2include_2spirv_2unified1_2spv_8d.html#a41f818ddb5dc4447d88e7b94d4f72d72">name</a>)-&gt;second, skin);</div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>}</div>
+</div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span> </div>
+<div class="foldopen" id="foldopen00059" data-start="{" data-end="}">
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_skeleton.html#a479e8a78f2847079f4268bf1bfb249b2">   59</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_skeleton.html#a479e8a78f2847079f4268bf1bfb249b2">Skeleton::_AddNode</a>(<span class="keyword">const</span> MeshNode&amp; node) {</div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>    <span class="keyword">const</span> <a class="code hl_typedef" href="_o_s_kmacros_8h.html#af205b9fd0440138e6cac38a9081141df">UIndex32</a> nodeIndex = node.thisIndex;</div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span> </div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>    <a class="code hl_define" href="_assert_8h.html#a927d7efae46f019e805b046e952af182">OSK_ASSERT</a>(!nodes.contains(nodeIndex), <a class="code hl_class" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_bone_already_added_exception.html">BoneAlreadyAddedException</a>(node.thisIndex));</div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span> </div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>    nodes[nodeIndex] = node;</div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>    nodesByName[node.name] = nodeIndex;</div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>}</div>
+</div>
+<div class="ttc" id="a_animation_exceptions_8h_html"><div class="ttname"><a href="_animation_exceptions_8h.html">AnimationExceptions.h</a></div></div>
+<div class="ttc" id="a_animation_skin_8h_html"><div class="ttname"><a href="_animation_skin_8h.html">AnimationSkin.h</a></div></div>
+<div class="ttc" id="a_assert_8h_html"><div class="ttname"><a href="_assert_8h.html">Assert.h</a></div></div>
+<div class="ttc" id="a_assert_8h_html_a927d7efae46f019e805b046e952af182"><div class="ttname"><a href="_assert_8h.html#a927d7efae46f019e805b046e952af182">OSK_ASSERT</a></div><div class="ttdeci">#define OSK_ASSERT(condition, exception)</div><div class="ttdoc">Comrpueba si una condición se cumple. En caso de no cumplirse, lanza la excepción indicada,...</div><div class="ttdef"><b>Definition</b> <a href="_assert_8h_source.html#l00041">Assert.h:41</a></div></div>
+<div class="ttc" id="a_o_s_kmacros_8h_html_af205b9fd0440138e6cac38a9081141df"><div class="ttname"><a href="_o_s_kmacros_8h.html#af205b9fd0440138e6cac38a9081141df">UIndex32</a></div><div class="ttdeci">uint32_t UIndex32</div><div class="ttdef"><b>Definition</b> <a href="_o_s_kmacros_8h_source.html#l00040">OSKmacros.h:40</a></div></div>
+<div class="ttc" id="a_skeleton_8h_html"><div class="ttname"><a href="_skeleton_8h.html">Skeleton.h</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_dynamic_array_html_abb2718a784ceb0e0f31fdc7f5dbd782f"><div class="ttname"><a href="class_o_s_k_1_1_dynamic_array.html#abb2718a784ceb0e0f31fdc7f5dbd782f">OSK::DynamicArray::At</a></div><div class="ttdeci">const T &amp; At(UIndex64 index) const</div><div class="ttdoc">Devuelve el elemento en la posición dada.</div><div class="ttdef"><b>Definition</b> <a href="_dynamic_array_8hpp_source.html#l00377">DynamicArray.hpp:377</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_bone_already_added_exception_html"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_bone_already_added_exception.html">OSK::GRAPHICS::BoneAlreadyAddedException</a></div><div class="ttdoc">Excepción que ocurre cuando se trata de añadir un hueso que ya existe.</div><div class="ttdef"><b>Definition</b> <a href="_animation_exceptions_8h_source.html#l00062">AnimationExceptions.h:62</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_bone_not_found_exception_html"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_bone_not_found_exception.html">OSK::GRAPHICS::BoneNotFoundException</a></div><div class="ttdoc">Excepción que ocurre cuando se trata de acceder a un bone que no existe.</div><div class="ttdef"><b>Definition</b> <a href="_animation_exceptions_8h_source.html#l00039">AnimationExceptions.h:39</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_skeleton_html_a479e8a78f2847079f4268bf1bfb249b2"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_skeleton.html#a479e8a78f2847079f4268bf1bfb249b2">OSK::GRAPHICS::Skeleton::_AddNode</a></div><div class="ttdeci">void _AddNode(const MeshNode &amp;node)</div><div class="ttdoc">Añade un nodo al esqueleto.</div><div class="ttdef"><b>Definition</b> <a href="#l00059">Skeleton.cpp:59</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_skeleton_html_a6a8cda03efbdaec836c0741cbeb82496"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_skeleton.html#a6a8cda03efbdaec836c0741cbeb82496">OSK::GRAPHICS::Skeleton::GetNode</a></div><div class="ttdeci">MeshNode &amp; GetNode(UIndex32 nodeIndex)</div><div class="ttdoc">Devuelve el nodo con el índice dado.</div><div class="ttdef"><b>Definition</b> <a href="#l00027">Skeleton.cpp:27</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_skeleton_html_a6be528c7493e17df99e515cccf3e6945"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_skeleton.html#a6be528c7493e17df99e515cccf3e6945">OSK::GRAPHICS::Skeleton::GetRootNodeIndex</a></div><div class="ttdeci">UIndex32 GetRootNodeIndex() const</div><div class="ttdoc">Devuelve el índice nodo del esqueleto que no tiene padre.</div><div class="ttdef"><b>Definition</b> <a href="#l00019">Skeleton.cpp:19</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_skeleton_html_a7fcbd5c0d758730273d004d33e7cd667"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_skeleton.html#a7fcbd5c0d758730273d004d33e7cd667">OSK::GRAPHICS::Skeleton::UpdateMatrices</a></div><div class="ttdeci">void UpdateMatrices(const AnimationSkin &amp;skin)</div><div class="ttdef"><b>Definition</b> <a href="#l00011">Skeleton.cpp:11</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_skeleton_html_afd72551e0f9704a9e56f535123abbe39"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_skeleton.html#afd72551e0f9704a9e56f535123abbe39">OSK::GRAPHICS::Skeleton::GetBone</a></div><div class="ttdeci">Bone &amp; GetBone(UIndex32 boneIndex, const AnimationSkin &amp;skin)</div><div class="ttdoc">Devuelve el hueso con el índice dado.</div><div class="ttdef"><b>Definition</b> <a href="#l00033">Skeleton.cpp:33</a></div></div>
+<div class="ttc" id="anamespace_o_s_k_1_1_g_r_a_p_h_i_c_s_html"><div class="ttname"><a href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html">OSK::GRAPHICS</a></div><div class="ttdef"><b>Definition</b> <a href="_acceleration_structures_exceptions_8h_source.html#l00005">AccelerationStructuresExceptions.h:5</a></div></div>
+<div class="ttc" id="anamespace_o_s_k_1_1_g_r_a_p_h_i_c_s_html_a6ba2b7a043103ea5fb5ade9f30f71103"><div class="ttname"><a href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a6ba2b7a043103ea5fb5ade9f30f71103">OSK::GRAPHICS::Bone</a></div><div class="ttdeci">struct MeshNode { constexpr static UIndex32 EmptyIndex=std::numeric_limits&lt; UIndex32 &gt;::max(); void UpdateSkeletonTree(const glm::mat4 &amp;prevMatrix, Skeleton *skeleton); std::string name; Vector3f position=Vector3f::Zero; Quaternion rotation{}; Vector3f scale=Vector3f::One; UIndex32 thisIndex=0; UIndex32 parentIndex=EmptyIndex; DynamicArray&lt; UIndex32 &gt; childIndices; UIndex32 skinIndex=EmptyIndex; inline glm::mat4 GetLocalMatrix() const { return glm::translate(glm::mat4(1.0f), position.ToGlm()) *glm::mat4(rotation.ToGlm()) *glm::scale(glm::mat4(1.0f), scale.ToGlm()); } glm::mat4 globalMatrix=glm::mat4(1.0f); } Bone</div><div class="ttdoc">Hueso de la animación.</div><div class="ttdef"><b>Definition</b> <a href="_bone_8h_source.html#l00020">Bone.h:20</a></div></div>
+<div class="ttc" id="anamespace_o_s_k_html"><div class="ttname"><a href="namespace_o_s_k.html">OSK</a></div><div class="ttdef"><b>Definition</b> <a href="_acceleration_structures_exceptions_8h_source.html#l00005">AccelerationStructuresExceptions.h:5</a></div></div>
+<div class="ttc" id="astruct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_animation_skin_html"><div class="ttname"><a href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_animation_skin.html">OSK::GRAPHICS::AnimationSkin</a></div><div class="ttdoc">Indica cómo aplicar una animación a un modelo animado.</div><div class="ttdef"><b>Definition</b> <a href="_animation_skin_8h_source.html#l00015">AnimationSkin.h:15</a></div></div>
+<div class="ttc" id="astruct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_animation_skin_html_a58055174c7f93a2707a286da67a27a9a"><div class="ttname"><a href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_animation_skin.html#a58055174c7f93a2707a286da67a27a9a">OSK::GRAPHICS::AnimationSkin::bonesIds</a></div><div class="ttdeci">DynamicArray&lt; UIndex32 &gt; bonesIds</div><div class="ttdoc">Huesos a los que se aplica la Skin. También funciona como un mapa boneID -&gt; nodeID.</div><div class="ttdef"><b>Definition</b> <a href="_animation_skin_8h_source.html#l00033">AnimationSkin.h:33</a></div></div>
+<div class="ttc" id="astruct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_animation_skin_html_a8682c1373a8f8a4ba1e9d634c8fd28c9"><div class="ttname"><a href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_animation_skin.html#a8682c1373a8f8a4ba1e9d634c8fd28c9">OSK::GRAPHICS::AnimationSkin::rootIndex</a></div><div class="ttdeci">UIndex32 rootIndex</div><div class="ttdoc">Índice del nodo root de la skin.</div><div class="ttdef"><b>Definition</b> <a href="_animation_skin_8h_source.html#l00026">AnimationSkin.h:26</a></div></div>
+<div class="ttc" id="astructglm_1_1mat_html"><div class="ttname"><a href="structglm_1_1mat.html">glm::mat</a></div><div class="ttdef"><b>Definition</b> <a href="x64-windows-static_2x64-windows-static_2include_2glm_2detail_2qualifier_8hpp_source.html#l00036">qualifier.hpp:36</a></div></div>
+<div class="ttc" id="ax64-windows-static_2x64-windows-static_2include_2spirv_2unified1_2spv_8d_html_a41f818ddb5dc4447d88e7b94d4f72d72"><div class="ttname"><a href="x64-windows-static_2x64-windows-static_2include_2spirv_2unified1_2spv_8d.html#a41f818ddb5dc4447d88e7b94d4f72d72">name</a></div><div class="ttdeci">free of to any person obtaining a copy of this software and or associated documentation to deal in the Materials without including without limitation the rights to and or sell copies of the and to permit persons to whom the Materials are furnished to do subject to the following NORMATIVE VERSIONS OF KHRONOS SPECIFICATIONS AND HEADER INFORMATION ARE LOCATED AT WITHOUT WARRANTY OF ANY EXPRESS OR INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY DAMAGES OR OTHER WHETHER IN AN ACTION OF TORT OR ARISING OUT OF OR IN CONNECTION WITH THE MATERIALS OR THE USE OR OTHER DEALINGS IN THE MATERIALS.This header is automatically generated by the same tool that creates the Binary Section of the SPIR V specification.Enumeration tokens for SPIR in various C C will have tokens with a Spv e.e.e.e.e.e.e.e.which can be OR d while others are mutually exclusive.The mask like ones have Mask in their name</div><div class="ttdef"><b>Definition</b> <a href="x64-windows-static_2x64-windows-static_2include_2spirv_2unified1_2spv_8d_source.html#l00049">spv.d:49</a></div></div>
+</div><!-- fragment --></div><!-- contents -->
+</div><!-- doc-content -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="dir_74389ed8173ad57b461b9d623a1f3867.html">Source</a></li><li class="navelem"><a class="el" href="_skeleton_8cpp.html">Skeleton.cpp</a></li>
+    <li class="footer">Generado el Lunes, 29 de enero de 2024 17:18:32 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.10.0 </li>
+  </ul>
+</div>
+</body>
+</html>

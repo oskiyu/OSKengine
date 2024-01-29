@@ -1,0 +1,225 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="es">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.10.0"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>OSKengine: Archivo de código fuente Source/MouseState.h</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">OSKengine<span id="projectnumber">&#160;Indev</span>
+   </div>
+   <div id="projectbrief">Motor de videojuegos.</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generado por Doxygen 1.10.0 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() {
+  initMenu('',true,false,'search.php','Buscar');
+  $(function() { init_search(); });
+});
+/* @license-end */
+</script>
+<div id="main-nav"></div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() { codefold.init(0); });
+/* @license-end */
+</script>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function(){initNavTree('_mouse_state_8h_source.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Cargando...</div>
+<div class="SRStatus" id="Searching">Buscando...</div>
+<div class="SRStatus" id="NoMatches">Nada coincide</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">MouseState.h</div></div>
+</div><!--header-->
+<div class="contents">
+<a href="_mouse_state_8h.html">Ir a la documentación de este archivo.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#pragma once</span></div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span> </div>
+<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="preprocessor">#include &quot;<a class="code" href="_o_s_kmacros_8h.html">OSKmacros.h</a>&quot;</span></div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span> </div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &quot;<a class="code" href="_vector2_8hpp.html">Vector2.hpp</a>&quot;</span></div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span> </div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="keyword">namespace </span><a class="code hl_namespace" href="namespace_o_s_k_1_1_i_o.html">OSK::IO</a> {</div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span> </div>
+<div class="foldopen" id="foldopen00012" data-start="{" data-end="};">
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno"><a class="line" href="namespace_o_s_k_1_1_i_o.html#ab1308b3812c6bb66739549adf2501e77">   12</a></span>    <span class="keyword">enum class</span> <a class="code hl_enumeration" href="namespace_o_s_k_1_1_i_o.html#ab1308b3812c6bb66739549adf2501e77">MouseButton</a> {</div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span> </div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>        <a class="code hl_enumvalue" href="namespace_o_s_k_1_1_i_o.html#ab1308b3812c6bb66739549adf2501e77ac8dcbbd6eda649ff9bdb9873ae813ce4">BUTTON_1</a>,</div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span> </div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>        <a class="code hl_enumvalue" href="namespace_o_s_k_1_1_i_o.html#ab1308b3812c6bb66739549adf2501e77aa1a723bed8032bec8965b277db1282fd">BUTTON_2</a>,</div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span> </div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>        <a class="code hl_enumvalue" href="namespace_o_s_k_1_1_i_o.html#ab1308b3812c6bb66739549adf2501e77abed7db4dd815234cab9bc093ce7211ce">BUTTON_3</a>,</div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span> </div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>        <a class="code hl_enumvalue" href="namespace_o_s_k_1_1_i_o.html#ab1308b3812c6bb66739549adf2501e77aced95fd58604044d16afa405cc000f15">BUTTON_4</a>,</div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span> </div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>        <a class="code hl_enumvalue" href="namespace_o_s_k_1_1_i_o.html#ab1308b3812c6bb66739549adf2501e77a8ff4e0dd37cc18b1e5f58a03b587cc58">BUTTON_5</a>,</div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span> </div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>        <a class="code hl_enumvalue" href="namespace_o_s_k_1_1_i_o.html#ab1308b3812c6bb66739549adf2501e77a34bb46927945c34d8fb1cd3cca06f777">BUTTON_6</a>,</div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span> </div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>        <a class="code hl_enumvalue" href="namespace_o_s_k_1_1_i_o.html#ab1308b3812c6bb66739549adf2501e77a4f9e8a2c91b9d7fb9ed8db0caff8397a">BUTTON_7</a>,</div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span> </div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>        <a class="code hl_enumvalue" href="namespace_o_s_k_1_1_i_o.html#ab1308b3812c6bb66739549adf2501e77a36d9e3a4330b098458b81de2a861cbaa">BUTTON_LEFT</a>,</div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span> </div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>        <a class="code hl_enumvalue" href="namespace_o_s_k_1_1_i_o.html#ab1308b3812c6bb66739549adf2501e77ae075c9b2c5940dd1aa3b1564a8353f27">BUTTON_RIGHT</a>,</div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span> </div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>        <a class="code hl_enumvalue" href="namespace_o_s_k_1_1_i_o.html#ab1308b3812c6bb66739549adf2501e77a02029eeec1878b3c58e83b74ce07d11c">BUTTON_MIDDLE</a>,</div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span> </div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>        <a class="code hl_enumvalue" href="namespace_o_s_k_1_1_i_o.html#a37e62c3e569002298eedcfd13bad4dd4a72b49a7cbf0c0e3dff052d091d838252">__END</a></div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span> </div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>    };</div>
+</div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span> </div>
+<div class="foldopen" id="foldopen00071" data-start="{" data-end="};">
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno"><a class="line" href="namespace_o_s_k_1_1_i_o.html#a59bf216682b802b6dad7d81be5ea3f31">   71</a></span>    <span class="keyword">enum class</span> <a class="code hl_enumeration" href="namespace_o_s_k_1_1_i_o.html#a59bf216682b802b6dad7d81be5ea3f31">ButtonState</a> {</div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span> </div>
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>        <a class="code hl_enumvalue" href="namespace_o_s_k_1_1_i_o.html#aaddc5e8725ac9d930e313af0044eb968a109d54efbb64d71f9a6ab18d0fb8add8">RELEASED</a>,</div>
+<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span> </div>
+<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span>        <a class="code hl_enumvalue" href="namespace_o_s_k_1_1_i_o.html#aaddc5e8725ac9d930e313af0044eb968a5381dc876ab002103a027265bc14ae52">PRESSED</a></div>
+<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span> </div>
+<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span>    };</div>
+</div>
+<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span> </div>
+<div class="line"><a id="l00088" name="l00088"></a><span class="lineno"><a class="line" href="namespace_o_s_k_1_1_i_o.html#a2126937723636a6160e7c746cc47b61c">   88</a></span>    <span class="keyword">constexpr</span> <span class="keywordtype">int</span> <a class="code hl_variable" href="namespace_o_s_k_1_1_i_o.html#a2126937723636a6160e7c746cc47b61c">MouseNumberOfButtons</a> = (int)<a class="code hl_enumvalue" href="namespace_o_s_k_1_1_i_o.html#ab1308b3812c6bb66739549adf2501e77a72b49a7cbf0c0e3dff052d091d838252">MouseButton::__END</a>;</div>
+<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span> </div>
+<div class="foldopen" id="foldopen00094" data-start="{" data-end="};">
+<div class="line"><a id="l00094" name="l00094"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_i_o_1_1_mouse_state.html">   94</a></span>    <span class="keyword">class </span><a class="code hl_define" href="_o_s_kmacros_8h.html#a09ec5b46ece998ad096bceff312bb36c">OSKAPI_CALL</a> <a class="code hl_class" href="class_o_s_k_1_1_i_o_1_1_mouse_state.html">MouseState</a> {</div>
+<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span> </div>
+<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span>    <span class="keyword">public</span>:</div>
+<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span> </div>
+<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span>        <a class="code hl_class" href="class_o_s_k_1_1_i_o_1_1_mouse_state.html">MouseState</a>();</div>
+<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span> </div>
+<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span>        <a class="code hl_enumeration" href="namespace_o_s_k_1_1_i_o.html#a59bf216682b802b6dad7d81be5ea3f31">ButtonState</a> GetButtonState(<a class="code hl_enumeration" href="namespace_o_s_k_1_1_i_o.html#ab1308b3812c6bb66739549adf2501e77">MouseButton</a> button) <span class="keyword">const</span>;</div>
+<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span> </div>
+<div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span>        <span class="keywordtype">bool</span> IsButtonDown(<a class="code hl_enumeration" href="namespace_o_s_k_1_1_i_o.html#ab1308b3812c6bb66739549adf2501e77">MouseButton</a> button) <span class="keyword">const</span>;</div>
+<div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span> </div>
+<div class="line"><a id="l00119" name="l00119"></a><span class="lineno">  119</span>        <span class="keywordtype">bool</span> IsButtonUp(<a class="code hl_enumeration" href="namespace_o_s_k_1_1_i_o.html#ab1308b3812c6bb66739549adf2501e77">MouseButton</a> button) <span class="keyword">const</span>;</div>
+<div class="line"><a id="l00120" name="l00120"></a><span class="lineno">  120</span> </div>
+<div class="line"><a id="l00124" name="l00124"></a><span class="lineno">  124</span>        <a class="code hl_class" href="class_o_s_k_1_1_vector2__t.html">Vector2i</a> GetPosition() <span class="keyword">const</span>;</div>
+<div class="line"><a id="l00125" name="l00125"></a><span class="lineno">  125</span> </div>
+<div class="line"><a id="l00132" name="l00132"></a><span class="lineno">  132</span>        <a class="code hl_class" href="class_o_s_k_1_1_vector2__t.html">Vector2f</a> GetRelativePosition() <span class="keyword">const</span>;</div>
+<div class="line"><a id="l00133" name="l00133"></a><span class="lineno">  133</span> </div>
+<div class="line"><a id="l00137" name="l00137"></a><span class="lineno">  137</span>        <span class="keywordtype">int</span> GetScroll() <span class="keyword">const</span>;</div>
+<div class="line"><a id="l00138" name="l00138"></a><span class="lineno">  138</span> </div>
+<div class="line"><a id="l00142" name="l00142"></a><span class="lineno">  142</span>        <span class="keywordtype">int</span> GetHorizontalScroll() <span class="keyword">const</span>;</div>
+<div class="line"><a id="l00143" name="l00143"></a><span class="lineno">  143</span> </div>
+<div class="line"><a id="l00144" name="l00144"></a><span class="lineno">  144</span>        <span class="keywordtype">void</span> _SetScrollX(<span class="keywordtype">int</span> <a class="code hl_enumvalue" href="namespace_o_s_k_1_1_i_o.html#ad1d8e1f23e2f2515648a3ad1b93ff345a9dd4e461268c8034f5c8564e155c67a6">x</a>);</div>
+<div class="line"><a id="l00145" name="l00145"></a><span class="lineno">  145</span>        <span class="keywordtype">void</span> _SetScrollY(<span class="keywordtype">int</span> <a class="code hl_enumvalue" href="namespace_o_s_k_1_1_i_o.html#ad1d8e1f23e2f2515648a3ad1b93ff345a415290769594460e2e485922904f345d">y</a>);</div>
+<div class="line"><a id="l00146" name="l00146"></a><span class="lineno">  146</span>        <span class="keywordtype">void</span> _SetPosition(<span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_vector2__t.html">Vector2i</a>&amp; pos);</div>
+<div class="line"><a id="l00147" name="l00147"></a><span class="lineno">  147</span>        <span class="keywordtype">void</span> _SetRelativePosition(<span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_vector2__t.html">Vector2f</a>&amp; pos);</div>
+<div class="line"><a id="l00148" name="l00148"></a><span class="lineno">  148</span>        <span class="keywordtype">void</span> _SetButtonState(<a class="code hl_enumeration" href="namespace_o_s_k_1_1_i_o.html#ab1308b3812c6bb66739549adf2501e77">MouseButton</a> button, <a class="code hl_enumeration" href="namespace_o_s_k_1_1_i_o.html#a59bf216682b802b6dad7d81be5ea3f31">ButtonState</a> state);</div>
+<div class="line"><a id="l00149" name="l00149"></a><span class="lineno">  149</span> </div>
+<div class="line"><a id="l00150" name="l00150"></a><span class="lineno">  150</span>    <span class="keyword">private</span>:</div>
+<div class="line"><a id="l00151" name="l00151"></a><span class="lineno">  151</span> </div>
+<div class="line"><a id="l00152" name="l00152"></a><span class="lineno">  152</span>        <a class="code hl_class" href="class_o_s_k_1_1_vector2__t.html">Vector2i</a> position = Vector2i::Zero;</div>
+<div class="line"><a id="l00153" name="l00153"></a><span class="lineno">  153</span>        <a class="code hl_class" href="class_o_s_k_1_1_vector2__t.html">Vector2f</a> relativePosition = Vector2f::Zero;</div>
+<div class="line"><a id="l00154" name="l00154"></a><span class="lineno">  154</span>        <a class="code hl_class" href="class_o_s_k_1_1_vector2__t.html">Vector2i</a> scroll = Vector2i::Zero;</div>
+<div class="line"><a id="l00155" name="l00155"></a><span class="lineno">  155</span> </div>
+<div class="line"><a id="l00156" name="l00156"></a><span class="lineno">  156</span>        <a class="code hl_enumeration" href="namespace_o_s_k_1_1_i_o.html#a59bf216682b802b6dad7d81be5ea3f31">ButtonState</a> buttonStates[<a class="code hl_variable" href="namespace_o_s_k_1_1_i_o.html#a2126937723636a6160e7c746cc47b61c">MouseNumberOfButtons</a>];</div>
+<div class="line"><a id="l00157" name="l00157"></a><span class="lineno">  157</span> </div>
+<div class="line"><a id="l00158" name="l00158"></a><span class="lineno">  158</span>    };</div>
+</div>
+<div class="line"><a id="l00159" name="l00159"></a><span class="lineno">  159</span> </div>
+<div class="line"><a id="l00160" name="l00160"></a><span class="lineno">  160</span>}</div>
+<div class="ttc" id="a_o_s_kmacros_8h_html"><div class="ttname"><a href="_o_s_kmacros_8h.html">OSKmacros.h</a></div></div>
+<div class="ttc" id="a_o_s_kmacros_8h_html_a09ec5b46ece998ad096bceff312bb36c"><div class="ttname"><a href="_o_s_kmacros_8h.html#a09ec5b46ece998ad096bceff312bb36c">OSKAPI_CALL</a></div><div class="ttdeci">#define OSKAPI_CALL</div><div class="ttdef"><b>Definition</b> <a href="_o_s_kmacros_8h_source.html#l00007">OSKmacros.h:7</a></div></div>
+<div class="ttc" id="a_vector2_8hpp_html"><div class="ttname"><a href="_vector2_8hpp.html">Vector2.hpp</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_i_o_1_1_mouse_state_html"><div class="ttname"><a href="class_o_s_k_1_1_i_o_1_1_mouse_state.html">OSK::IO::MouseState</a></div><div class="ttdoc">Struct que almacena el estado del ratón en un determinado momento. Contiene la posición,...</div><div class="ttdef"><b>Definition</b> <a href="#l00094">MouseState.h:94</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_vector2__t_html"><div class="ttname"><a href="class_o_s_k_1_1_vector2__t.html">OSK::Vector2_t&lt; int32_t &gt;</a></div></div>
+<div class="ttc" id="anamespace_o_s_k_1_1_i_o_html"><div class="ttname"><a href="namespace_o_s_k_1_1_i_o.html">OSK::IO</a></div><div class="ttdef"><b>Definition</b> <a href="_camera_component2_d_8h_source.html#l00013">CameraComponent2D.h:13</a></div></div>
+<div class="ttc" id="anamespace_o_s_k_1_1_i_o_html_a2126937723636a6160e7c746cc47b61c"><div class="ttname"><a href="namespace_o_s_k_1_1_i_o.html#a2126937723636a6160e7c746cc47b61c">OSK::IO::MouseNumberOfButtons</a></div><div class="ttdeci">constexpr int MouseNumberOfButtons</div><div class="ttdoc">Número de teclas disponibles en el teclado.</div><div class="ttdef"><b>Definition</b> <a href="#l00088">MouseState.h:88</a></div></div>
+<div class="ttc" id="anamespace_o_s_k_1_1_i_o_html_a37e62c3e569002298eedcfd13bad4dd4a72b49a7cbf0c0e3dff052d091d838252"><div class="ttname"><a href="namespace_o_s_k_1_1_i_o.html#a37e62c3e569002298eedcfd13bad4dd4a72b49a7cbf0c0e3dff052d091d838252">OSK::IO::GamepadAxis::__END</a></div><div class="ttdeci">@ __END</div></div>
+<div class="ttc" id="anamespace_o_s_k_1_1_i_o_html_a59bf216682b802b6dad7d81be5ea3f31"><div class="ttname"><a href="namespace_o_s_k_1_1_i_o.html#a59bf216682b802b6dad7d81be5ea3f31">OSK::IO::ButtonState</a></div><div class="ttdeci">ButtonState</div><div class="ttdoc">Estados en el que puede estar un botón.</div><div class="ttdef"><b>Definition</b> <a href="#l00071">MouseState.h:71</a></div></div>
+<div class="ttc" id="anamespace_o_s_k_1_1_i_o_html_aaddc5e8725ac9d930e313af0044eb968a109d54efbb64d71f9a6ab18d0fb8add8"><div class="ttname"><a href="namespace_o_s_k_1_1_i_o.html#aaddc5e8725ac9d930e313af0044eb968a109d54efbb64d71f9a6ab18d0fb8add8">OSK::IO::GamepadButtonState::RELEASED</a></div><div class="ttdeci">@ RELEASED</div><div class="ttdoc">No está siendo pulsado.</div></div>
+<div class="ttc" id="anamespace_o_s_k_1_1_i_o_html_aaddc5e8725ac9d930e313af0044eb968a5381dc876ab002103a027265bc14ae52"><div class="ttname"><a href="namespace_o_s_k_1_1_i_o.html#aaddc5e8725ac9d930e313af0044eb968a5381dc876ab002103a027265bc14ae52">OSK::IO::GamepadButtonState::PRESSED</a></div><div class="ttdeci">@ PRESSED</div><div class="ttdoc">Está siendo pulsado.</div></div>
+<div class="ttc" id="anamespace_o_s_k_1_1_i_o_html_ab1308b3812c6bb66739549adf2501e77"><div class="ttname"><a href="namespace_o_s_k_1_1_i_o.html#ab1308b3812c6bb66739549adf2501e77">OSK::IO::MouseButton</a></div><div class="ttdeci">MouseButton</div><div class="ttdoc">Botones del ratón.</div><div class="ttdef"><b>Definition</b> <a href="#l00012">MouseState.h:12</a></div></div>
+<div class="ttc" id="anamespace_o_s_k_1_1_i_o_html_ab1308b3812c6bb66739549adf2501e77a02029eeec1878b3c58e83b74ce07d11c"><div class="ttname"><a href="namespace_o_s_k_1_1_i_o.html#ab1308b3812c6bb66739549adf2501e77a02029eeec1878b3c58e83b74ce07d11c">OSK::IO::MouseButton::BUTTON_MIDDLE</a></div><div class="ttdeci">@ BUTTON_MIDDLE</div><div class="ttdoc">Botón de la rueda.</div></div>
+<div class="ttc" id="anamespace_o_s_k_1_1_i_o_html_ab1308b3812c6bb66739549adf2501e77a34bb46927945c34d8fb1cd3cca06f777"><div class="ttname"><a href="namespace_o_s_k_1_1_i_o.html#ab1308b3812c6bb66739549adf2501e77a34bb46927945c34d8fb1cd3cca06f777">OSK::IO::MouseButton::BUTTON_6</a></div><div class="ttdeci">@ BUTTON_6</div><div class="ttdoc">Botón extra #6.</div></div>
+<div class="ttc" id="anamespace_o_s_k_1_1_i_o_html_ab1308b3812c6bb66739549adf2501e77a36d9e3a4330b098458b81de2a861cbaa"><div class="ttname"><a href="namespace_o_s_k_1_1_i_o.html#ab1308b3812c6bb66739549adf2501e77a36d9e3a4330b098458b81de2a861cbaa">OSK::IO::MouseButton::BUTTON_LEFT</a></div><div class="ttdeci">@ BUTTON_LEFT</div><div class="ttdoc">Botón izquierdo.</div></div>
+<div class="ttc" id="anamespace_o_s_k_1_1_i_o_html_ab1308b3812c6bb66739549adf2501e77a4f9e8a2c91b9d7fb9ed8db0caff8397a"><div class="ttname"><a href="namespace_o_s_k_1_1_i_o.html#ab1308b3812c6bb66739549adf2501e77a4f9e8a2c91b9d7fb9ed8db0caff8397a">OSK::IO::MouseButton::BUTTON_7</a></div><div class="ttdeci">@ BUTTON_7</div><div class="ttdoc">Botón extra #7.</div></div>
+<div class="ttc" id="anamespace_o_s_k_1_1_i_o_html_ab1308b3812c6bb66739549adf2501e77a72b49a7cbf0c0e3dff052d091d838252"><div class="ttname"><a href="namespace_o_s_k_1_1_i_o.html#ab1308b3812c6bb66739549adf2501e77a72b49a7cbf0c0e3dff052d091d838252">OSK::IO::MouseButton::__END</a></div><div class="ttdeci">@ __END</div></div>
+<div class="ttc" id="anamespace_o_s_k_1_1_i_o_html_ab1308b3812c6bb66739549adf2501e77a8ff4e0dd37cc18b1e5f58a03b587cc58"><div class="ttname"><a href="namespace_o_s_k_1_1_i_o.html#ab1308b3812c6bb66739549adf2501e77a8ff4e0dd37cc18b1e5f58a03b587cc58">OSK::IO::MouseButton::BUTTON_5</a></div><div class="ttdeci">@ BUTTON_5</div><div class="ttdoc">Botón extra #5.</div></div>
+<div class="ttc" id="anamespace_o_s_k_1_1_i_o_html_ab1308b3812c6bb66739549adf2501e77aa1a723bed8032bec8965b277db1282fd"><div class="ttname"><a href="namespace_o_s_k_1_1_i_o.html#ab1308b3812c6bb66739549adf2501e77aa1a723bed8032bec8965b277db1282fd">OSK::IO::MouseButton::BUTTON_2</a></div><div class="ttdeci">@ BUTTON_2</div><div class="ttdoc">Botón extra #2.</div></div>
+<div class="ttc" id="anamespace_o_s_k_1_1_i_o_html_ab1308b3812c6bb66739549adf2501e77abed7db4dd815234cab9bc093ce7211ce"><div class="ttname"><a href="namespace_o_s_k_1_1_i_o.html#ab1308b3812c6bb66739549adf2501e77abed7db4dd815234cab9bc093ce7211ce">OSK::IO::MouseButton::BUTTON_3</a></div><div class="ttdeci">@ BUTTON_3</div><div class="ttdoc">Botón extra #3.</div></div>
+<div class="ttc" id="anamespace_o_s_k_1_1_i_o_html_ab1308b3812c6bb66739549adf2501e77ac8dcbbd6eda649ff9bdb9873ae813ce4"><div class="ttname"><a href="namespace_o_s_k_1_1_i_o.html#ab1308b3812c6bb66739549adf2501e77ac8dcbbd6eda649ff9bdb9873ae813ce4">OSK::IO::MouseButton::BUTTON_1</a></div><div class="ttdeci">@ BUTTON_1</div><div class="ttdoc">Botón extra #1.</div></div>
+<div class="ttc" id="anamespace_o_s_k_1_1_i_o_html_ab1308b3812c6bb66739549adf2501e77aced95fd58604044d16afa405cc000f15"><div class="ttname"><a href="namespace_o_s_k_1_1_i_o.html#ab1308b3812c6bb66739549adf2501e77aced95fd58604044d16afa405cc000f15">OSK::IO::MouseButton::BUTTON_4</a></div><div class="ttdeci">@ BUTTON_4</div><div class="ttdoc">Botón extra #4.</div></div>
+<div class="ttc" id="anamespace_o_s_k_1_1_i_o_html_ab1308b3812c6bb66739549adf2501e77ae075c9b2c5940dd1aa3b1564a8353f27"><div class="ttname"><a href="namespace_o_s_k_1_1_i_o.html#ab1308b3812c6bb66739549adf2501e77ae075c9b2c5940dd1aa3b1564a8353f27">OSK::IO::MouseButton::BUTTON_RIGHT</a></div><div class="ttdeci">@ BUTTON_RIGHT</div><div class="ttdoc">Botón derecho.</div></div>
+<div class="ttc" id="anamespace_o_s_k_1_1_i_o_html_ad1d8e1f23e2f2515648a3ad1b93ff345a415290769594460e2e485922904f345d"><div class="ttname"><a href="namespace_o_s_k_1_1_i_o.html#ad1d8e1f23e2f2515648a3ad1b93ff345a415290769594460e2e485922904f345d">OSK::IO::GamepadButton::y</a></div><div class="ttdeci">@ y</div></div>
+<div class="ttc" id="anamespace_o_s_k_1_1_i_o_html_ad1d8e1f23e2f2515648a3ad1b93ff345a9dd4e461268c8034f5c8564e155c67a6"><div class="ttname"><a href="namespace_o_s_k_1_1_i_o.html#ad1d8e1f23e2f2515648a3ad1b93ff345a9dd4e461268c8034f5c8564e155c67a6">OSK::IO::GamepadButton::x</a></div><div class="ttdeci">@ x</div></div>
+</div><!-- fragment --></div><!-- contents -->
+</div><!-- doc-content -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="dir_74389ed8173ad57b461b9d623a1f3867.html">Source</a></li><li class="navelem"><a class="el" href="_mouse_state_8h.html">MouseState.h</a></li>
+    <li class="footer">Generado el Lunes, 29 de enero de 2024 17:18:31 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.10.0 </li>
+  </ul>
+</div>
+</body>
+</html>

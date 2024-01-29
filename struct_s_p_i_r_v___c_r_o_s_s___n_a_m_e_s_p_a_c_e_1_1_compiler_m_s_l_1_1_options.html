@@ -1,0 +1,1829 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="es">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.10.0"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>OSKengine: Referencia de la estructura SPIRV_CROSS_NAMESPACE::CompilerMSL::Options</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">OSKengine<span id="projectnumber">&#160;Indev</span>
+   </div>
+   <div id="projectbrief">Motor de videojuegos.</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generado por Doxygen 1.10.0 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() {
+  initMenu('',true,false,'search.php','Buscar');
+  $(function() { init_search(); });
+});
+/* @license-end */
+</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function(){initNavTree('struct_s_p_i_r_v___c_r_o_s_s___n_a_m_e_s_p_a_c_e_1_1_compiler_m_s_l_1_1_options.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Cargando...</div>
+<div class="SRStatus" id="Searching">Buscando...</div>
+<div class="SRStatus" id="NoMatches">Nada coincide</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="summary">
+<a href="#pub-types">Tipos públicos</a> &#124;
+<a href="#pub-methods">Métodos públicos</a> &#124;
+<a href="#pub-static-methods">Métodos públicos estáticos</a> &#124;
+<a href="#pub-attribs">Atributos públicos</a> &#124;
+<a href="struct_s_p_i_r_v___c_r_o_s_s___n_a_m_e_s_p_a_c_e_1_1_compiler_m_s_l_1_1_options-members.html">Lista de todos los miembros</a>  </div>
+  <div class="headertitle"><div class="title">Referencia de la estructura SPIRV_CROSS_NAMESPACE::CompilerMSL::Options</div></div>
+</div><!--header-->
+<div class="contents">
+
+<p><code>#include &lt;<a class="el" href="x64-windows-static_2x64-windows-static_2include_2spirv__cross_2spirv__msl_8hpp_source.html">spirv_msl.hpp</a>&gt;</code></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-types" name="pub-types"></a>
+Tipos públicos</h2></td></tr>
+<tr class="memitem:a6b8b4d6ac9032d440cba1ee4eb672e51" id="r_a6b8b4d6ac9032d440cba1ee4eb672e51"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a6b8b4d6ac9032d440cba1ee4eb672e51">Platform</a> { <br />
+&#160;&#160;<a class="el" href="#a6b8b4d6ac9032d440cba1ee4eb672e51a897d94e17852bcb47f43b662a40530cb">iOS</a> = 0
+, <a class="el" href="#a6b8b4d6ac9032d440cba1ee4eb672e51a72488f827a352e7b1eae084e349a84f2">macOS</a> = 1
+, <a class="el" href="#a6b8b4d6ac9032d440cba1ee4eb672e51a897d94e17852bcb47f43b662a40530cb">iOS</a> = 0
+, <a class="el" href="#a6b8b4d6ac9032d440cba1ee4eb672e51a72488f827a352e7b1eae084e349a84f2">macOS</a> = 1
+, <br />
+&#160;&#160;<a class="el" href="#a6b8b4d6ac9032d440cba1ee4eb672e51a897d94e17852bcb47f43b662a40530cb">iOS</a> = 0
+, <a class="el" href="#a6b8b4d6ac9032d440cba1ee4eb672e51a72488f827a352e7b1eae084e349a84f2">macOS</a> = 1
+<br />
+ }</td></tr>
+<tr class="separator:a6b8b4d6ac9032d440cba1ee4eb672e51"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a478a9d1610f3d7b7b7820aae6649c8d7" id="r_a478a9d1610f3d7b7b7820aae6649c8d7"><td class="memItemLeft" align="right" valign="top">enum class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a478a9d1610f3d7b7b7820aae6649c8d7">IndexType</a> { <br />
+&#160;&#160;<a class="el" href="#a478a9d1610f3d7b7b7820aae6649c8d7a6adf97f83acf6453d4a6a4b1070f3754">None</a> = 0
+, <a class="el" href="#a478a9d1610f3d7b7b7820aae6649c8d7a8bd950a9d7779b83f5c30046c9aaf1cf">UInt16</a> = 1
+, <a class="el" href="#a478a9d1610f3d7b7b7820aae6649c8d7ae7956ed7be1c5025a27ed3cb42a396bd">UInt32</a> = 2
+, <a class="el" href="#a478a9d1610f3d7b7b7820aae6649c8d7a6adf97f83acf6453d4a6a4b1070f3754">None</a> = 0
+, <br />
+&#160;&#160;<a class="el" href="#a478a9d1610f3d7b7b7820aae6649c8d7a8bd950a9d7779b83f5c30046c9aaf1cf">UInt16</a> = 1
+, <a class="el" href="#a478a9d1610f3d7b7b7820aae6649c8d7ae7956ed7be1c5025a27ed3cb42a396bd">UInt32</a> = 2
+, <a class="el" href="#a478a9d1610f3d7b7b7820aae6649c8d7a6adf97f83acf6453d4a6a4b1070f3754">None</a> = 0
+, <a class="el" href="#a478a9d1610f3d7b7b7820aae6649c8d7a8bd950a9d7779b83f5c30046c9aaf1cf">UInt16</a> = 1
+, <br />
+&#160;&#160;<a class="el" href="#a478a9d1610f3d7b7b7820aae6649c8d7ae7956ed7be1c5025a27ed3cb42a396bd">UInt32</a> = 2
+<br />
+ }</td></tr>
+<tr class="separator:a478a9d1610f3d7b7b7820aae6649c8d7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6b8b4d6ac9032d440cba1ee4eb672e51" id="r_a6b8b4d6ac9032d440cba1ee4eb672e51"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a6b8b4d6ac9032d440cba1ee4eb672e51">Platform</a> { <br />
+&#160;&#160;<a class="el" href="#a6b8b4d6ac9032d440cba1ee4eb672e51a897d94e17852bcb47f43b662a40530cb">iOS</a> = 0
+, <a class="el" href="#a6b8b4d6ac9032d440cba1ee4eb672e51a72488f827a352e7b1eae084e349a84f2">macOS</a> = 1
+, <a class="el" href="#a6b8b4d6ac9032d440cba1ee4eb672e51a897d94e17852bcb47f43b662a40530cb">iOS</a> = 0
+, <a class="el" href="#a6b8b4d6ac9032d440cba1ee4eb672e51a72488f827a352e7b1eae084e349a84f2">macOS</a> = 1
+, <br />
+&#160;&#160;<a class="el" href="#a6b8b4d6ac9032d440cba1ee4eb672e51a897d94e17852bcb47f43b662a40530cb">iOS</a> = 0
+, <a class="el" href="#a6b8b4d6ac9032d440cba1ee4eb672e51a72488f827a352e7b1eae084e349a84f2">macOS</a> = 1
+<br />
+ }</td></tr>
+<tr class="separator:a6b8b4d6ac9032d440cba1ee4eb672e51"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a478a9d1610f3d7b7b7820aae6649c8d7" id="r_a478a9d1610f3d7b7b7820aae6649c8d7"><td class="memItemLeft" align="right" valign="top">enum class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a478a9d1610f3d7b7b7820aae6649c8d7">IndexType</a> { <br />
+&#160;&#160;<a class="el" href="#a478a9d1610f3d7b7b7820aae6649c8d7a6adf97f83acf6453d4a6a4b1070f3754">None</a> = 0
+, <a class="el" href="#a478a9d1610f3d7b7b7820aae6649c8d7a8bd950a9d7779b83f5c30046c9aaf1cf">UInt16</a> = 1
+, <a class="el" href="#a478a9d1610f3d7b7b7820aae6649c8d7ae7956ed7be1c5025a27ed3cb42a396bd">UInt32</a> = 2
+, <a class="el" href="#a478a9d1610f3d7b7b7820aae6649c8d7a6adf97f83acf6453d4a6a4b1070f3754">None</a> = 0
+, <br />
+&#160;&#160;<a class="el" href="#a478a9d1610f3d7b7b7820aae6649c8d7a8bd950a9d7779b83f5c30046c9aaf1cf">UInt16</a> = 1
+, <a class="el" href="#a478a9d1610f3d7b7b7820aae6649c8d7ae7956ed7be1c5025a27ed3cb42a396bd">UInt32</a> = 2
+, <a class="el" href="#a478a9d1610f3d7b7b7820aae6649c8d7a6adf97f83acf6453d4a6a4b1070f3754">None</a> = 0
+, <a class="el" href="#a478a9d1610f3d7b7b7820aae6649c8d7a8bd950a9d7779b83f5c30046c9aaf1cf">UInt16</a> = 1
+, <br />
+&#160;&#160;<a class="el" href="#a478a9d1610f3d7b7b7820aae6649c8d7ae7956ed7be1c5025a27ed3cb42a396bd">UInt32</a> = 2
+<br />
+ }</td></tr>
+<tr class="separator:a478a9d1610f3d7b7b7820aae6649c8d7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6b8b4d6ac9032d440cba1ee4eb672e51" id="r_a6b8b4d6ac9032d440cba1ee4eb672e51"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a6b8b4d6ac9032d440cba1ee4eb672e51">Platform</a> { <br />
+&#160;&#160;<a class="el" href="#a6b8b4d6ac9032d440cba1ee4eb672e51a897d94e17852bcb47f43b662a40530cb">iOS</a> = 0
+, <a class="el" href="#a6b8b4d6ac9032d440cba1ee4eb672e51a72488f827a352e7b1eae084e349a84f2">macOS</a> = 1
+, <a class="el" href="#a6b8b4d6ac9032d440cba1ee4eb672e51a897d94e17852bcb47f43b662a40530cb">iOS</a> = 0
+, <a class="el" href="#a6b8b4d6ac9032d440cba1ee4eb672e51a72488f827a352e7b1eae084e349a84f2">macOS</a> = 1
+, <br />
+&#160;&#160;<a class="el" href="#a6b8b4d6ac9032d440cba1ee4eb672e51a897d94e17852bcb47f43b662a40530cb">iOS</a> = 0
+, <a class="el" href="#a6b8b4d6ac9032d440cba1ee4eb672e51a72488f827a352e7b1eae084e349a84f2">macOS</a> = 1
+<br />
+ }</td></tr>
+<tr class="separator:a6b8b4d6ac9032d440cba1ee4eb672e51"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a478a9d1610f3d7b7b7820aae6649c8d7" id="r_a478a9d1610f3d7b7b7820aae6649c8d7"><td class="memItemLeft" align="right" valign="top">enum class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a478a9d1610f3d7b7b7820aae6649c8d7">IndexType</a> { <br />
+&#160;&#160;<a class="el" href="#a478a9d1610f3d7b7b7820aae6649c8d7a6adf97f83acf6453d4a6a4b1070f3754">None</a> = 0
+, <a class="el" href="#a478a9d1610f3d7b7b7820aae6649c8d7a8bd950a9d7779b83f5c30046c9aaf1cf">UInt16</a> = 1
+, <a class="el" href="#a478a9d1610f3d7b7b7820aae6649c8d7ae7956ed7be1c5025a27ed3cb42a396bd">UInt32</a> = 2
+, <a class="el" href="#a478a9d1610f3d7b7b7820aae6649c8d7a6adf97f83acf6453d4a6a4b1070f3754">None</a> = 0
+, <br />
+&#160;&#160;<a class="el" href="#a478a9d1610f3d7b7b7820aae6649c8d7a8bd950a9d7779b83f5c30046c9aaf1cf">UInt16</a> = 1
+, <a class="el" href="#a478a9d1610f3d7b7b7820aae6649c8d7ae7956ed7be1c5025a27ed3cb42a396bd">UInt32</a> = 2
+, <a class="el" href="#a478a9d1610f3d7b7b7820aae6649c8d7a6adf97f83acf6453d4a6a4b1070f3754">None</a> = 0
+, <a class="el" href="#a478a9d1610f3d7b7b7820aae6649c8d7a8bd950a9d7779b83f5c30046c9aaf1cf">UInt16</a> = 1
+, <br />
+&#160;&#160;<a class="el" href="#a478a9d1610f3d7b7b7820aae6649c8d7ae7956ed7be1c5025a27ed3cb42a396bd">UInt32</a> = 2
+<br />
+ }</td></tr>
+<tr class="separator:a478a9d1610f3d7b7b7820aae6649c8d7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
+Métodos públicos</h2></td></tr>
+<tr class="memitem:a57d4aead4a1833e001f4238a5b12238c" id="r_a57d4aead4a1833e001f4238a5b12238c"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a57d4aead4a1833e001f4238a5b12238c">is_ios</a> () <a class="el" href="x64-windows-static_2x64-windows-static_2include_2zconf_8h.html#a2c212835823e3c54a8ab6d95c652660e">const</a></td></tr>
+<tr class="separator:a57d4aead4a1833e001f4238a5b12238c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a02a5f0cd712d37aae5bc4d6601406f50" id="r_a02a5f0cd712d37aae5bc4d6601406f50"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a02a5f0cd712d37aae5bc4d6601406f50">is_macos</a> () <a class="el" href="x64-windows-static_2x64-windows-static_2include_2zconf_8h.html#a2c212835823e3c54a8ab6d95c652660e">const</a></td></tr>
+<tr class="separator:a02a5f0cd712d37aae5bc4d6601406f50"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a424b3445f3ce12a612d4337f1539f0c4" id="r_a424b3445f3ce12a612d4337f1539f0c4"><td class="memItemLeft" align="right" valign="top"><a class="el" href="x64-windows-static_2x64-windows-static_2include_2libpng16_2png_8h.html#a05f08be336491be77cd4dfa98f747c69">void</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a424b3445f3ce12a612d4337f1539f0c4">set_msl_version</a> (uint32_t major, uint32_t minor=0, uint32_t patch=0)</td></tr>
+<tr class="separator:a424b3445f3ce12a612d4337f1539f0c4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a10ebc703c92547539af72bf16dad67d0" id="r_a10ebc703c92547539af72bf16dad67d0"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a10ebc703c92547539af72bf16dad67d0">supports_msl_version</a> (uint32_t major, uint32_t minor=0, uint32_t patch=0) <a class="el" href="x64-windows-static_2x64-windows-static_2include_2zconf_8h.html#a2c212835823e3c54a8ab6d95c652660e">const</a></td></tr>
+<tr class="separator:a10ebc703c92547539af72bf16dad67d0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a57d4aead4a1833e001f4238a5b12238c" id="r_a57d4aead4a1833e001f4238a5b12238c"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a57d4aead4a1833e001f4238a5b12238c">is_ios</a> () <a class="el" href="x64-windows-static_2x64-windows-static_2include_2zconf_8h.html#a2c212835823e3c54a8ab6d95c652660e">const</a></td></tr>
+<tr class="separator:a57d4aead4a1833e001f4238a5b12238c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a02a5f0cd712d37aae5bc4d6601406f50" id="r_a02a5f0cd712d37aae5bc4d6601406f50"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a02a5f0cd712d37aae5bc4d6601406f50">is_macos</a> () <a class="el" href="x64-windows-static_2x64-windows-static_2include_2zconf_8h.html#a2c212835823e3c54a8ab6d95c652660e">const</a></td></tr>
+<tr class="separator:a02a5f0cd712d37aae5bc4d6601406f50"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a424b3445f3ce12a612d4337f1539f0c4" id="r_a424b3445f3ce12a612d4337f1539f0c4"><td class="memItemLeft" align="right" valign="top"><a class="el" href="x64-windows-static_2x64-windows-static_2include_2libpng16_2png_8h.html#a05f08be336491be77cd4dfa98f747c69">void</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a424b3445f3ce12a612d4337f1539f0c4">set_msl_version</a> (uint32_t major, uint32_t minor=0, uint32_t patch=0)</td></tr>
+<tr class="separator:a424b3445f3ce12a612d4337f1539f0c4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a10ebc703c92547539af72bf16dad67d0" id="r_a10ebc703c92547539af72bf16dad67d0"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a10ebc703c92547539af72bf16dad67d0">supports_msl_version</a> (uint32_t major, uint32_t minor=0, uint32_t patch=0) <a class="el" href="x64-windows-static_2x64-windows-static_2include_2zconf_8h.html#a2c212835823e3c54a8ab6d95c652660e">const</a></td></tr>
+<tr class="separator:a10ebc703c92547539af72bf16dad67d0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a57d4aead4a1833e001f4238a5b12238c" id="r_a57d4aead4a1833e001f4238a5b12238c"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a57d4aead4a1833e001f4238a5b12238c">is_ios</a> () <a class="el" href="x64-windows-static_2x64-windows-static_2include_2zconf_8h.html#a2c212835823e3c54a8ab6d95c652660e">const</a></td></tr>
+<tr class="separator:a57d4aead4a1833e001f4238a5b12238c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a02a5f0cd712d37aae5bc4d6601406f50" id="r_a02a5f0cd712d37aae5bc4d6601406f50"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a02a5f0cd712d37aae5bc4d6601406f50">is_macos</a> () <a class="el" href="x64-windows-static_2x64-windows-static_2include_2zconf_8h.html#a2c212835823e3c54a8ab6d95c652660e">const</a></td></tr>
+<tr class="separator:a02a5f0cd712d37aae5bc4d6601406f50"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a424b3445f3ce12a612d4337f1539f0c4" id="r_a424b3445f3ce12a612d4337f1539f0c4"><td class="memItemLeft" align="right" valign="top"><a class="el" href="x64-windows-static_2x64-windows-static_2include_2libpng16_2png_8h.html#a05f08be336491be77cd4dfa98f747c69">void</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a424b3445f3ce12a612d4337f1539f0c4">set_msl_version</a> (uint32_t major, uint32_t minor=0, uint32_t patch=0)</td></tr>
+<tr class="separator:a424b3445f3ce12a612d4337f1539f0c4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a10ebc703c92547539af72bf16dad67d0" id="r_a10ebc703c92547539af72bf16dad67d0"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a10ebc703c92547539af72bf16dad67d0">supports_msl_version</a> (uint32_t major, uint32_t minor=0, uint32_t patch=0) <a class="el" href="x64-windows-static_2x64-windows-static_2include_2zconf_8h.html#a2c212835823e3c54a8ab6d95c652660e">const</a></td></tr>
+<tr class="separator:a10ebc703c92547539af72bf16dad67d0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-static-methods" name="pub-static-methods"></a>
+Métodos públicos estáticos</h2></td></tr>
+<tr class="memitem:aa85c1cd8b0f16d894af636a284c9da2f" id="r_aa85c1cd8b0f16d894af636a284c9da2f"><td class="memItemLeft" align="right" valign="top">static uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aa85c1cd8b0f16d894af636a284c9da2f">make_msl_version</a> (uint32_t major, uint32_t minor=0, uint32_t patch=0)</td></tr>
+<tr class="separator:aa85c1cd8b0f16d894af636a284c9da2f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa85c1cd8b0f16d894af636a284c9da2f" id="r_aa85c1cd8b0f16d894af636a284c9da2f"><td class="memItemLeft" align="right" valign="top">static uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aa85c1cd8b0f16d894af636a284c9da2f">make_msl_version</a> (uint32_t major, uint32_t minor=0, uint32_t patch=0)</td></tr>
+<tr class="separator:aa85c1cd8b0f16d894af636a284c9da2f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa85c1cd8b0f16d894af636a284c9da2f" id="r_aa85c1cd8b0f16d894af636a284c9da2f"><td class="memItemLeft" align="right" valign="top">static uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aa85c1cd8b0f16d894af636a284c9da2f">make_msl_version</a> (uint32_t major, uint32_t minor=0, uint32_t patch=0)</td></tr>
+<tr class="separator:aa85c1cd8b0f16d894af636a284c9da2f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
+Atributos públicos</h2></td></tr>
+<tr class="memitem:a47a7fe4d9f78de5326cb5c0ca3adc172" id="r_a47a7fe4d9f78de5326cb5c0ca3adc172"><td class="memItemLeft" align="right" valign="top"><a class="el" href="#a6b8b4d6ac9032d440cba1ee4eb672e51">Platform</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a47a7fe4d9f78de5326cb5c0ca3adc172">platform</a> = macOS</td></tr>
+<tr class="separator:a47a7fe4d9f78de5326cb5c0ca3adc172"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5788bdf82cd192a7e534f0100a733a74" id="r_a5788bdf82cd192a7e534f0100a733a74"><td class="memItemLeft" align="right" valign="top">uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a5788bdf82cd192a7e534f0100a733a74">msl_version</a> = make_msl_version(1, 2)</td></tr>
+<tr class="separator:a5788bdf82cd192a7e534f0100a733a74"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a29ef2a43b274cfb29ede97f3aead94e9" id="r_a29ef2a43b274cfb29ede97f3aead94e9"><td class="memItemLeft" align="right" valign="top">uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a29ef2a43b274cfb29ede97f3aead94e9">texel_buffer_texture_width</a> = 4096</td></tr>
+<tr class="separator:a29ef2a43b274cfb29ede97f3aead94e9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4b6c108edcf69846905d346b3f515e51" id="r_a4b6c108edcf69846905d346b3f515e51"><td class="memItemLeft" align="right" valign="top">uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a4b6c108edcf69846905d346b3f515e51">r32ui_linear_texture_alignment</a> = 4</td></tr>
+<tr class="separator:a4b6c108edcf69846905d346b3f515e51"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7c05ba9389610d063d56789d3fc1f0b3" id="r_a7c05ba9389610d063d56789d3fc1f0b3"><td class="memItemLeft" align="right" valign="top">uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a7c05ba9389610d063d56789d3fc1f0b3">r32ui_alignment_constant_id</a> = 65535</td></tr>
+<tr class="separator:a7c05ba9389610d063d56789d3fc1f0b3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aeaf0896ba98a0c2078a0a5f3cabdaade" id="r_aeaf0896ba98a0c2078a0a5f3cabdaade"><td class="memItemLeft" align="right" valign="top">uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aeaf0896ba98a0c2078a0a5f3cabdaade">swizzle_buffer_index</a> = 30</td></tr>
+<tr class="separator:aeaf0896ba98a0c2078a0a5f3cabdaade"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4bf26a4a54dbcc4d13a783d4a3a2e818" id="r_a4bf26a4a54dbcc4d13a783d4a3a2e818"><td class="memItemLeft" align="right" valign="top">uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a4bf26a4a54dbcc4d13a783d4a3a2e818">indirect_params_buffer_index</a> = 29</td></tr>
+<tr class="separator:a4bf26a4a54dbcc4d13a783d4a3a2e818"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abbc6187e9840243b9d101d921eb1f80a" id="r_abbc6187e9840243b9d101d921eb1f80a"><td class="memItemLeft" align="right" valign="top">uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#abbc6187e9840243b9d101d921eb1f80a">shader_output_buffer_index</a> = 28</td></tr>
+<tr class="separator:abbc6187e9840243b9d101d921eb1f80a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac8cf883d1df4dc4c7b9d4912268e3661" id="r_ac8cf883d1df4dc4c7b9d4912268e3661"><td class="memItemLeft" align="right" valign="top">uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ac8cf883d1df4dc4c7b9d4912268e3661">shader_patch_output_buffer_index</a> = 27</td></tr>
+<tr class="separator:ac8cf883d1df4dc4c7b9d4912268e3661"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a150bf4ed677d1084be321199d028fd9f" id="r_a150bf4ed677d1084be321199d028fd9f"><td class="memItemLeft" align="right" valign="top">uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a150bf4ed677d1084be321199d028fd9f">shader_tess_factor_buffer_index</a> = 26</td></tr>
+<tr class="separator:a150bf4ed677d1084be321199d028fd9f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab5b01cfbf01dba7bec358bcb4097e743" id="r_ab5b01cfbf01dba7bec358bcb4097e743"><td class="memItemLeft" align="right" valign="top">uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ab5b01cfbf01dba7bec358bcb4097e743">buffer_size_buffer_index</a> = 25</td></tr>
+<tr class="separator:ab5b01cfbf01dba7bec358bcb4097e743"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8c0f31d5f5b2da7e8e43f146217af4a7" id="r_a8c0f31d5f5b2da7e8e43f146217af4a7"><td class="memItemLeft" align="right" valign="top">uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a8c0f31d5f5b2da7e8e43f146217af4a7">view_mask_buffer_index</a> = 24</td></tr>
+<tr class="separator:a8c0f31d5f5b2da7e8e43f146217af4a7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ace2d92ecf706e5a71eb03e59db3a0922" id="r_ace2d92ecf706e5a71eb03e59db3a0922"><td class="memItemLeft" align="right" valign="top">uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ace2d92ecf706e5a71eb03e59db3a0922">dynamic_offsets_buffer_index</a> = 23</td></tr>
+<tr class="separator:ace2d92ecf706e5a71eb03e59db3a0922"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a469a33ccebe71041fab02ee9767ae1a6" id="r_a469a33ccebe71041fab02ee9767ae1a6"><td class="memItemLeft" align="right" valign="top">uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a469a33ccebe71041fab02ee9767ae1a6">shader_input_buffer_index</a> = 22</td></tr>
+<tr class="separator:a469a33ccebe71041fab02ee9767ae1a6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af15a6d74e2cc766022ab269c9f34ee7e" id="r_af15a6d74e2cc766022ab269c9f34ee7e"><td class="memItemLeft" align="right" valign="top">uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af15a6d74e2cc766022ab269c9f34ee7e">shader_index_buffer_index</a> = 21</td></tr>
+<tr class="separator:af15a6d74e2cc766022ab269c9f34ee7e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa799737fad5d9302b42b8d149959b162" id="r_aa799737fad5d9302b42b8d149959b162"><td class="memItemLeft" align="right" valign="top">uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aa799737fad5d9302b42b8d149959b162">shader_input_wg_index</a> = 0</td></tr>
+<tr class="separator:aa799737fad5d9302b42b8d149959b162"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac77bbd67198c6003028ad2564c9ef45e" id="r_ac77bbd67198c6003028ad2564c9ef45e"><td class="memItemLeft" align="right" valign="top">uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ac77bbd67198c6003028ad2564c9ef45e">device_index</a> = 0</td></tr>
+<tr class="separator:ac77bbd67198c6003028ad2564c9ef45e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0c9f19a20d838b642ed6b45099a4af4c" id="r_a0c9f19a20d838b642ed6b45099a4af4c"><td class="memItemLeft" align="right" valign="top">uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a0c9f19a20d838b642ed6b45099a4af4c">enable_frag_output_mask</a> = 0xffffffff</td></tr>
+<tr class="separator:a0c9f19a20d838b642ed6b45099a4af4c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a98caf14ccd5370d1703b252783f8ddaa" id="r_a98caf14ccd5370d1703b252783f8ddaa"><td class="memItemLeft" align="right" valign="top">uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a98caf14ccd5370d1703b252783f8ddaa">additional_fixed_sample_mask</a> = 0xffffffff</td></tr>
+<tr class="separator:a98caf14ccd5370d1703b252783f8ddaa"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aee50e10a72a16caf4da16593f74f3fdb" id="r_aee50e10a72a16caf4da16593f74f3fdb"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aee50e10a72a16caf4da16593f74f3fdb">enable_point_size_builtin</a> = true</td></tr>
+<tr class="separator:aee50e10a72a16caf4da16593f74f3fdb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a802e22205edb426d59e979e699dd18ce" id="r_a802e22205edb426d59e979e699dd18ce"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a802e22205edb426d59e979e699dd18ce">enable_frag_depth_builtin</a> = true</td></tr>
+<tr class="separator:a802e22205edb426d59e979e699dd18ce"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8aa294574c450bc34f2bf688274fe57c" id="r_a8aa294574c450bc34f2bf688274fe57c"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a8aa294574c450bc34f2bf688274fe57c">enable_frag_stencil_ref_builtin</a> = true</td></tr>
+<tr class="separator:a8aa294574c450bc34f2bf688274fe57c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab62d8bb807b63d581e73088bb92fcf13" id="r_ab62d8bb807b63d581e73088bb92fcf13"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ab62d8bb807b63d581e73088bb92fcf13">disable_rasterization</a> = false</td></tr>
+<tr class="separator:ab62d8bb807b63d581e73088bb92fcf13"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a05e49ccb6bb7030dd0505a3a36a5bdef" id="r_a05e49ccb6bb7030dd0505a3a36a5bdef"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a05e49ccb6bb7030dd0505a3a36a5bdef">capture_output_to_buffer</a> = false</td></tr>
+<tr class="separator:a05e49ccb6bb7030dd0505a3a36a5bdef"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a378a974865826067ba24ed9ea13ebfa2" id="r_a378a974865826067ba24ed9ea13ebfa2"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a378a974865826067ba24ed9ea13ebfa2">swizzle_texture_samples</a> = false</td></tr>
+<tr class="separator:a378a974865826067ba24ed9ea13ebfa2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a023543aaa45267427a4d4e41351e4c91" id="r_a023543aaa45267427a4d4e41351e4c91"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a023543aaa45267427a4d4e41351e4c91">tess_domain_origin_lower_left</a> = false</td></tr>
+<tr class="separator:a023543aaa45267427a4d4e41351e4c91"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6c722460942b71117e65499f141f2993" id="r_a6c722460942b71117e65499f141f2993"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a6c722460942b71117e65499f141f2993">multiview</a> = false</td></tr>
+<tr class="separator:a6c722460942b71117e65499f141f2993"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a34fd02268720b9824ad7daa7c48314c6" id="r_a34fd02268720b9824ad7daa7c48314c6"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a34fd02268720b9824ad7daa7c48314c6">multiview_layered_rendering</a> = true</td></tr>
+<tr class="separator:a34fd02268720b9824ad7daa7c48314c6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ade178351556f60646cbd585c1a50ae13" id="r_ade178351556f60646cbd585c1a50ae13"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ade178351556f60646cbd585c1a50ae13">view_index_from_device_index</a> = false</td></tr>
+<tr class="separator:ade178351556f60646cbd585c1a50ae13"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac9ac173e31c8adf40fa8c4572dda99a3" id="r_ac9ac173e31c8adf40fa8c4572dda99a3"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ac9ac173e31c8adf40fa8c4572dda99a3">dispatch_base</a> = false</td></tr>
+<tr class="separator:ac9ac173e31c8adf40fa8c4572dda99a3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a145a2e35bbdcc2903a5a8412bd44a62e" id="r_a145a2e35bbdcc2903a5a8412bd44a62e"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a145a2e35bbdcc2903a5a8412bd44a62e">texture_1D_as_2D</a> = false</td></tr>
+<tr class="separator:a145a2e35bbdcc2903a5a8412bd44a62e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3d7ff36a25ff6ec3b4027aa25ecb12ae" id="r_a3d7ff36a25ff6ec3b4027aa25ecb12ae"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a3d7ff36a25ff6ec3b4027aa25ecb12ae">argument_buffers</a> = false</td></tr>
+<tr class="separator:a3d7ff36a25ff6ec3b4027aa25ecb12ae"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac38a5327f91c507fd4aa7f9bdab9f629" id="r_ac38a5327f91c507fd4aa7f9bdab9f629"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ac38a5327f91c507fd4aa7f9bdab9f629">enable_base_index_zero</a> = false</td></tr>
+<tr class="separator:ac38a5327f91c507fd4aa7f9bdab9f629"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5ee1ee35842cd4479d14107efafb360d" id="r_a5ee1ee35842cd4479d14107efafb360d"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a5ee1ee35842cd4479d14107efafb360d">pad_fragment_output_components</a> = false</td></tr>
+<tr class="separator:a5ee1ee35842cd4479d14107efafb360d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a232f2f614f9faefc0b621143d38457cb" id="r_a232f2f614f9faefc0b621143d38457cb"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a232f2f614f9faefc0b621143d38457cb">ios_support_base_vertex_instance</a> = false</td></tr>
+<tr class="separator:a232f2f614f9faefc0b621143d38457cb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af13d37ec0181bca61ee7df4d692ee9b3" id="r_af13d37ec0181bca61ee7df4d692ee9b3"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af13d37ec0181bca61ee7df4d692ee9b3">use_framebuffer_fetch_subpasses</a> = false</td></tr>
+<tr class="separator:af13d37ec0181bca61ee7df4d692ee9b3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7240522e0e55aac1b17717ab5faa4ff4" id="r_a7240522e0e55aac1b17717ab5faa4ff4"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a7240522e0e55aac1b17717ab5faa4ff4">invariant_float_math</a> = false</td></tr>
+<tr class="separator:a7240522e0e55aac1b17717ab5faa4ff4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abbf27f956694de3c83f7ab21d22cfe39" id="r_abbf27f956694de3c83f7ab21d22cfe39"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#abbf27f956694de3c83f7ab21d22cfe39">emulate_cube_array</a> = false</td></tr>
+<tr class="separator:abbf27f956694de3c83f7ab21d22cfe39"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac2519294899a7782d40f859d3a80be19" id="r_ac2519294899a7782d40f859d3a80be19"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ac2519294899a7782d40f859d3a80be19">enable_decoration_binding</a> = false</td></tr>
+<tr class="separator:ac2519294899a7782d40f859d3a80be19"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a58ad9caf2c96dd39647ed848d0c77735" id="r_a58ad9caf2c96dd39647ed848d0c77735"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a58ad9caf2c96dd39647ed848d0c77735">texture_buffer_native</a> = false</td></tr>
+<tr class="separator:a58ad9caf2c96dd39647ed848d0c77735"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a099e69a75d1132b7349e7101fbec6112" id="r_a099e69a75d1132b7349e7101fbec6112"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a099e69a75d1132b7349e7101fbec6112">force_active_argument_buffer_resources</a> = false</td></tr>
+<tr class="separator:a099e69a75d1132b7349e7101fbec6112"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a543062ac1a6a326721e73330bcfe9fcb" id="r_a543062ac1a6a326721e73330bcfe9fcb"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a543062ac1a6a326721e73330bcfe9fcb">force_native_arrays</a> = false</td></tr>
+<tr class="separator:a543062ac1a6a326721e73330bcfe9fcb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae80a369e1b3cb209644e55a4e61a5a4d" id="r_ae80a369e1b3cb209644e55a4e61a5a4d"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae80a369e1b3cb209644e55a4e61a5a4d">enable_clip_distance_user_varying</a> = true</td></tr>
+<tr class="separator:ae80a369e1b3cb209644e55a4e61a5a4d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad8b362831f4dd46b09491e040c57b34a" id="r_ad8b362831f4dd46b09491e040c57b34a"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad8b362831f4dd46b09491e040c57b34a">multi_patch_workgroup</a> = false</td></tr>
+<tr class="separator:ad8b362831f4dd46b09491e040c57b34a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac4c69f654b669f5af205ac1191330398" id="r_ac4c69f654b669f5af205ac1191330398"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ac4c69f654b669f5af205ac1191330398">vertex_for_tessellation</a> = false</td></tr>
+<tr class="separator:ac4c69f654b669f5af205ac1191330398"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a765ae428d163ba7f705ec636a3ca14f7" id="r_a765ae428d163ba7f705ec636a3ca14f7"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a765ae428d163ba7f705ec636a3ca14f7">arrayed_subpass_input</a> = false</td></tr>
+<tr class="separator:a765ae428d163ba7f705ec636a3ca14f7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af826e661d64924a14776d218028e523d" id="r_af826e661d64924a14776d218028e523d"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af826e661d64924a14776d218028e523d">ios_use_simdgroup_functions</a> = false</td></tr>
+<tr class="separator:af826e661d64924a14776d218028e523d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7253cc6f44ab70b5a6d5cfed341fa9e0" id="r_a7253cc6f44ab70b5a6d5cfed341fa9e0"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a7253cc6f44ab70b5a6d5cfed341fa9e0">emulate_subgroups</a> = false</td></tr>
+<tr class="separator:a7253cc6f44ab70b5a6d5cfed341fa9e0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a85f1f5dc4d4c92e838522dc87352f709" id="r_a85f1f5dc4d4c92e838522dc87352f709"><td class="memItemLeft" align="right" valign="top">uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a85f1f5dc4d4c92e838522dc87352f709">fixed_subgroup_size</a> = 0</td></tr>
+<tr class="separator:a85f1f5dc4d4c92e838522dc87352f709"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3d6bf5cc7dd8d8d1f828c509d62c2654" id="r_a3d6bf5cc7dd8d8d1f828c509d62c2654"><td class="memItemLeft" align="right" valign="top"><a class="el" href="#a478a9d1610f3d7b7b7820aae6649c8d7">IndexType</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a3d6bf5cc7dd8d8d1f828c509d62c2654">vertex_index_type</a> = IndexType::None</td></tr>
+<tr class="separator:a3d6bf5cc7dd8d8d1f828c509d62c2654"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a295b1043c118ebfaaf864165acd9c522" id="r_a295b1043c118ebfaaf864165acd9c522"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a295b1043c118ebfaaf864165acd9c522">force_sample_rate_shading</a> = false</td></tr>
+<tr class="separator:a295b1043c118ebfaaf864165acd9c522"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">Descripción detallada</h2>
+<div class="textblock">
+<p class="definition">Definición en la línea <a class="el" href="x64-windows-static_2x64-windows-static_2include_2spirv__cross_2spirv__msl_8hpp_source.html#l00272">272</a> del archivo <a class="el" href="x64-windows-static_2x64-windows-static_2include_2spirv__cross_2spirv__msl_8hpp_source.html">spirv_msl.hpp</a>.</p>
+</div><h2 class="groupheader">Documentación de las enumeraciones miembro de la clase</h2>
+<a id="a478a9d1610f3d7b7b7820aae6649c8d7" name="a478a9d1610f3d7b7b7820aae6649c8d7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a478a9d1610f3d7b7b7820aae6649c8d7">&#9670;&#160;</a></span>IndexType <span class="overload">[1/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum class SPIRV_CROSS_NAMESPACE::CompilerMSL::Options::IndexType</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">strong</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<table class="fieldtable">
+<tr><th colspan="2">Valores de enumeraciones</th></tr><tr><td class="fieldname"><a id="a478a9d1610f3d7b7b7820aae6649c8d7a6adf97f83acf6453d4a6a4b1070f3754" name="a478a9d1610f3d7b7b7820aae6649c8d7a6adf97f83acf6453d4a6a4b1070f3754"></a>None&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a478a9d1610f3d7b7b7820aae6649c8d7a8bd950a9d7779b83f5c30046c9aaf1cf" name="a478a9d1610f3d7b7b7820aae6649c8d7a8bd950a9d7779b83f5c30046c9aaf1cf"></a>UInt16&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a478a9d1610f3d7b7b7820aae6649c8d7ae7956ed7be1c5025a27ed3cb42a396bd" name="a478a9d1610f3d7b7b7820aae6649c8d7ae7956ed7be1c5025a27ed3cb42a396bd"></a>UInt32&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a478a9d1610f3d7b7b7820aae6649c8d7a6adf97f83acf6453d4a6a4b1070f3754" name="a478a9d1610f3d7b7b7820aae6649c8d7a6adf97f83acf6453d4a6a4b1070f3754"></a>None&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a478a9d1610f3d7b7b7820aae6649c8d7a8bd950a9d7779b83f5c30046c9aaf1cf" name="a478a9d1610f3d7b7b7820aae6649c8d7a8bd950a9d7779b83f5c30046c9aaf1cf"></a>UInt16&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a478a9d1610f3d7b7b7820aae6649c8d7ae7956ed7be1c5025a27ed3cb42a396bd" name="a478a9d1610f3d7b7b7820aae6649c8d7ae7956ed7be1c5025a27ed3cb42a396bd"></a>UInt32&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a478a9d1610f3d7b7b7820aae6649c8d7a6adf97f83acf6453d4a6a4b1070f3754" name="a478a9d1610f3d7b7b7820aae6649c8d7a6adf97f83acf6453d4a6a4b1070f3754"></a>None&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a478a9d1610f3d7b7b7820aae6649c8d7a8bd950a9d7779b83f5c30046c9aaf1cf" name="a478a9d1610f3d7b7b7820aae6649c8d7a8bd950a9d7779b83f5c30046c9aaf1cf"></a>UInt16&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a478a9d1610f3d7b7b7820aae6649c8d7ae7956ed7be1c5025a27ed3cb42a396bd" name="a478a9d1610f3d7b7b7820aae6649c8d7ae7956ed7be1c5025a27ed3cb42a396bd"></a>UInt32&#160;</td><td class="fielddoc"></td></tr>
+</table>
+
+<p class="definition">Definición en la línea <a class="el" href="x64-windows-static_2x64-windows-static_2include_2spirv__cross_2spirv__msl_8hpp_source.html#l00396">396</a> del archivo <a class="el" href="x64-windows-static_2x64-windows-static_2include_2spirv__cross_2spirv__msl_8hpp_source.html">spirv_msl.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a478a9d1610f3d7b7b7820aae6649c8d7" name="a478a9d1610f3d7b7b7820aae6649c8d7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a478a9d1610f3d7b7b7820aae6649c8d7">&#9670;&#160;</a></span>IndexType <span class="overload">[2/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum class SPIRV_CROSS_NAMESPACE::CompilerMSL::Options::IndexType</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">strong</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<table class="fieldtable">
+<tr><th colspan="2">Valores de enumeraciones</th></tr><tr><td class="fieldname"><a id="a478a9d1610f3d7b7b7820aae6649c8d7a6adf97f83acf6453d4a6a4b1070f3754" name="a478a9d1610f3d7b7b7820aae6649c8d7a6adf97f83acf6453d4a6a4b1070f3754"></a>None&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a478a9d1610f3d7b7b7820aae6649c8d7a8bd950a9d7779b83f5c30046c9aaf1cf" name="a478a9d1610f3d7b7b7820aae6649c8d7a8bd950a9d7779b83f5c30046c9aaf1cf"></a>UInt16&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a478a9d1610f3d7b7b7820aae6649c8d7ae7956ed7be1c5025a27ed3cb42a396bd" name="a478a9d1610f3d7b7b7820aae6649c8d7ae7956ed7be1c5025a27ed3cb42a396bd"></a>UInt32&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a478a9d1610f3d7b7b7820aae6649c8d7a6adf97f83acf6453d4a6a4b1070f3754" name="a478a9d1610f3d7b7b7820aae6649c8d7a6adf97f83acf6453d4a6a4b1070f3754"></a>None&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a478a9d1610f3d7b7b7820aae6649c8d7a8bd950a9d7779b83f5c30046c9aaf1cf" name="a478a9d1610f3d7b7b7820aae6649c8d7a8bd950a9d7779b83f5c30046c9aaf1cf"></a>UInt16&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a478a9d1610f3d7b7b7820aae6649c8d7ae7956ed7be1c5025a27ed3cb42a396bd" name="a478a9d1610f3d7b7b7820aae6649c8d7ae7956ed7be1c5025a27ed3cb42a396bd"></a>UInt32&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a478a9d1610f3d7b7b7820aae6649c8d7a6adf97f83acf6453d4a6a4b1070f3754" name="a478a9d1610f3d7b7b7820aae6649c8d7a6adf97f83acf6453d4a6a4b1070f3754"></a>None&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a478a9d1610f3d7b7b7820aae6649c8d7a8bd950a9d7779b83f5c30046c9aaf1cf" name="a478a9d1610f3d7b7b7820aae6649c8d7a8bd950a9d7779b83f5c30046c9aaf1cf"></a>UInt16&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a478a9d1610f3d7b7b7820aae6649c8d7ae7956ed7be1c5025a27ed3cb42a396bd" name="a478a9d1610f3d7b7b7820aae6649c8d7ae7956ed7be1c5025a27ed3cb42a396bd"></a>UInt32&#160;</td><td class="fielddoc"></td></tr>
+</table>
+
+<p class="definition">Definición en la línea <a class="el" href="x64-windows_2x64-windows_2include_2spirv__cross_2spirv__msl_8hpp_source.html#l00396">396</a> del archivo <a class="el" href="x64-windows_2x64-windows_2include_2spirv__cross_2spirv__msl_8hpp_source.html">spirv_msl.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a478a9d1610f3d7b7b7820aae6649c8d7" name="a478a9d1610f3d7b7b7820aae6649c8d7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a478a9d1610f3d7b7b7820aae6649c8d7">&#9670;&#160;</a></span>IndexType <span class="overload">[3/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum class SPIRV_CROSS_NAMESPACE::CompilerMSL::Options::IndexType</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">strong</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<table class="fieldtable">
+<tr><th colspan="2">Valores de enumeraciones</th></tr><tr><td class="fieldname"><a id="a478a9d1610f3d7b7b7820aae6649c8d7a6adf97f83acf6453d4a6a4b1070f3754" name="a478a9d1610f3d7b7b7820aae6649c8d7a6adf97f83acf6453d4a6a4b1070f3754"></a>None&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a478a9d1610f3d7b7b7820aae6649c8d7a8bd950a9d7779b83f5c30046c9aaf1cf" name="a478a9d1610f3d7b7b7820aae6649c8d7a8bd950a9d7779b83f5c30046c9aaf1cf"></a>UInt16&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a478a9d1610f3d7b7b7820aae6649c8d7ae7956ed7be1c5025a27ed3cb42a396bd" name="a478a9d1610f3d7b7b7820aae6649c8d7ae7956ed7be1c5025a27ed3cb42a396bd"></a>UInt32&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a478a9d1610f3d7b7b7820aae6649c8d7a6adf97f83acf6453d4a6a4b1070f3754" name="a478a9d1610f3d7b7b7820aae6649c8d7a6adf97f83acf6453d4a6a4b1070f3754"></a>None&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a478a9d1610f3d7b7b7820aae6649c8d7a8bd950a9d7779b83f5c30046c9aaf1cf" name="a478a9d1610f3d7b7b7820aae6649c8d7a8bd950a9d7779b83f5c30046c9aaf1cf"></a>UInt16&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a478a9d1610f3d7b7b7820aae6649c8d7ae7956ed7be1c5025a27ed3cb42a396bd" name="a478a9d1610f3d7b7b7820aae6649c8d7ae7956ed7be1c5025a27ed3cb42a396bd"></a>UInt32&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a478a9d1610f3d7b7b7820aae6649c8d7a6adf97f83acf6453d4a6a4b1070f3754" name="a478a9d1610f3d7b7b7820aae6649c8d7a6adf97f83acf6453d4a6a4b1070f3754"></a>None&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a478a9d1610f3d7b7b7820aae6649c8d7a8bd950a9d7779b83f5c30046c9aaf1cf" name="a478a9d1610f3d7b7b7820aae6649c8d7a8bd950a9d7779b83f5c30046c9aaf1cf"></a>UInt16&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a478a9d1610f3d7b7b7820aae6649c8d7ae7956ed7be1c5025a27ed3cb42a396bd" name="a478a9d1610f3d7b7b7820aae6649c8d7ae7956ed7be1c5025a27ed3cb42a396bd"></a>UInt32&#160;</td><td class="fielddoc"></td></tr>
+</table>
+
+<p class="definition">Definición en la línea <a class="el" href="x86-windows_2x86-windows_2include_2spirv__cross_2spirv__msl_8hpp_source.html#l00396">396</a> del archivo <a class="el" href="x86-windows_2x86-windows_2include_2spirv__cross_2spirv__msl_8hpp_source.html">spirv_msl.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a6b8b4d6ac9032d440cba1ee4eb672e51" name="a6b8b4d6ac9032d440cba1ee4eb672e51"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6b8b4d6ac9032d440cba1ee4eb672e51">&#9670;&#160;</a></span>Platform <span class="overload">[1/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum SPIRV_CROSS_NAMESPACE::CompilerMSL::Options::Platform</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<table class="fieldtable">
+<tr><th colspan="2">Valores de enumeraciones</th></tr><tr><td class="fieldname"><a id="a6b8b4d6ac9032d440cba1ee4eb672e51a897d94e17852bcb47f43b662a40530cb" name="a6b8b4d6ac9032d440cba1ee4eb672e51a897d94e17852bcb47f43b662a40530cb"></a>iOS&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a6b8b4d6ac9032d440cba1ee4eb672e51a72488f827a352e7b1eae084e349a84f2" name="a6b8b4d6ac9032d440cba1ee4eb672e51a72488f827a352e7b1eae084e349a84f2"></a>macOS&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a6b8b4d6ac9032d440cba1ee4eb672e51a897d94e17852bcb47f43b662a40530cb" name="a6b8b4d6ac9032d440cba1ee4eb672e51a897d94e17852bcb47f43b662a40530cb"></a>iOS&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a6b8b4d6ac9032d440cba1ee4eb672e51a72488f827a352e7b1eae084e349a84f2" name="a6b8b4d6ac9032d440cba1ee4eb672e51a72488f827a352e7b1eae084e349a84f2"></a>macOS&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a6b8b4d6ac9032d440cba1ee4eb672e51a897d94e17852bcb47f43b662a40530cb" name="a6b8b4d6ac9032d440cba1ee4eb672e51a897d94e17852bcb47f43b662a40530cb"></a>iOS&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a6b8b4d6ac9032d440cba1ee4eb672e51a72488f827a352e7b1eae084e349a84f2" name="a6b8b4d6ac9032d440cba1ee4eb672e51a72488f827a352e7b1eae084e349a84f2"></a>macOS&#160;</td><td class="fielddoc"></td></tr>
+</table>
+
+<p class="definition">Definición en la línea <a class="el" href="x64-windows-static_2x64-windows-static_2include_2spirv__cross_2spirv__msl_8hpp_source.html#l00274">274</a> del archivo <a class="el" href="x64-windows-static_2x64-windows-static_2include_2spirv__cross_2spirv__msl_8hpp_source.html">spirv_msl.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a6b8b4d6ac9032d440cba1ee4eb672e51" name="a6b8b4d6ac9032d440cba1ee4eb672e51"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6b8b4d6ac9032d440cba1ee4eb672e51">&#9670;&#160;</a></span>Platform <span class="overload">[2/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum SPIRV_CROSS_NAMESPACE::CompilerMSL::Options::Platform</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<table class="fieldtable">
+<tr><th colspan="2">Valores de enumeraciones</th></tr><tr><td class="fieldname"><a id="a6b8b4d6ac9032d440cba1ee4eb672e51a897d94e17852bcb47f43b662a40530cb" name="a6b8b4d6ac9032d440cba1ee4eb672e51a897d94e17852bcb47f43b662a40530cb"></a>iOS&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a6b8b4d6ac9032d440cba1ee4eb672e51a72488f827a352e7b1eae084e349a84f2" name="a6b8b4d6ac9032d440cba1ee4eb672e51a72488f827a352e7b1eae084e349a84f2"></a>macOS&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a6b8b4d6ac9032d440cba1ee4eb672e51a897d94e17852bcb47f43b662a40530cb" name="a6b8b4d6ac9032d440cba1ee4eb672e51a897d94e17852bcb47f43b662a40530cb"></a>iOS&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a6b8b4d6ac9032d440cba1ee4eb672e51a72488f827a352e7b1eae084e349a84f2" name="a6b8b4d6ac9032d440cba1ee4eb672e51a72488f827a352e7b1eae084e349a84f2"></a>macOS&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a6b8b4d6ac9032d440cba1ee4eb672e51a897d94e17852bcb47f43b662a40530cb" name="a6b8b4d6ac9032d440cba1ee4eb672e51a897d94e17852bcb47f43b662a40530cb"></a>iOS&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a6b8b4d6ac9032d440cba1ee4eb672e51a72488f827a352e7b1eae084e349a84f2" name="a6b8b4d6ac9032d440cba1ee4eb672e51a72488f827a352e7b1eae084e349a84f2"></a>macOS&#160;</td><td class="fielddoc"></td></tr>
+</table>
+
+<p class="definition">Definición en la línea <a class="el" href="x64-windows_2x64-windows_2include_2spirv__cross_2spirv__msl_8hpp_source.html#l00274">274</a> del archivo <a class="el" href="x64-windows_2x64-windows_2include_2spirv__cross_2spirv__msl_8hpp_source.html">spirv_msl.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a6b8b4d6ac9032d440cba1ee4eb672e51" name="a6b8b4d6ac9032d440cba1ee4eb672e51"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6b8b4d6ac9032d440cba1ee4eb672e51">&#9670;&#160;</a></span>Platform <span class="overload">[3/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum SPIRV_CROSS_NAMESPACE::CompilerMSL::Options::Platform</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<table class="fieldtable">
+<tr><th colspan="2">Valores de enumeraciones</th></tr><tr><td class="fieldname"><a id="a6b8b4d6ac9032d440cba1ee4eb672e51a897d94e17852bcb47f43b662a40530cb" name="a6b8b4d6ac9032d440cba1ee4eb672e51a897d94e17852bcb47f43b662a40530cb"></a>iOS&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a6b8b4d6ac9032d440cba1ee4eb672e51a72488f827a352e7b1eae084e349a84f2" name="a6b8b4d6ac9032d440cba1ee4eb672e51a72488f827a352e7b1eae084e349a84f2"></a>macOS&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a6b8b4d6ac9032d440cba1ee4eb672e51a897d94e17852bcb47f43b662a40530cb" name="a6b8b4d6ac9032d440cba1ee4eb672e51a897d94e17852bcb47f43b662a40530cb"></a>iOS&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a6b8b4d6ac9032d440cba1ee4eb672e51a72488f827a352e7b1eae084e349a84f2" name="a6b8b4d6ac9032d440cba1ee4eb672e51a72488f827a352e7b1eae084e349a84f2"></a>macOS&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a6b8b4d6ac9032d440cba1ee4eb672e51a897d94e17852bcb47f43b662a40530cb" name="a6b8b4d6ac9032d440cba1ee4eb672e51a897d94e17852bcb47f43b662a40530cb"></a>iOS&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a6b8b4d6ac9032d440cba1ee4eb672e51a72488f827a352e7b1eae084e349a84f2" name="a6b8b4d6ac9032d440cba1ee4eb672e51a72488f827a352e7b1eae084e349a84f2"></a>macOS&#160;</td><td class="fielddoc"></td></tr>
+</table>
+
+<p class="definition">Definición en la línea <a class="el" href="x86-windows_2x86-windows_2include_2spirv__cross_2spirv__msl_8hpp_source.html#l00274">274</a> del archivo <a class="el" href="x86-windows_2x86-windows_2include_2spirv__cross_2spirv__msl_8hpp_source.html">spirv_msl.hpp</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Documentación de funciones miembro</h2>
+<a id="a57d4aead4a1833e001f4238a5b12238c" name="a57d4aead4a1833e001f4238a5b12238c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a57d4aead4a1833e001f4238a5b12238c">&#9670;&#160;</a></span>is_ios() <span class="overload">[1/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool SPIRV_CROSS_NAMESPACE::CompilerMSL::Options::is_ios </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definición en la línea <a class="el" href="x64-windows-static_2x64-windows-static_2include_2spirv__cross_2spirv__msl_8hpp_source.html#l00416">416</a> del archivo <a class="el" href="x64-windows-static_2x64-windows-static_2include_2spirv__cross_2spirv__msl_8hpp_source.html">spirv_msl.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a57d4aead4a1833e001f4238a5b12238c" name="a57d4aead4a1833e001f4238a5b12238c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a57d4aead4a1833e001f4238a5b12238c">&#9670;&#160;</a></span>is_ios() <span class="overload">[2/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool SPIRV_CROSS_NAMESPACE::CompilerMSL::Options::is_ios </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definición en la línea <a class="el" href="x64-windows_2x64-windows_2include_2spirv__cross_2spirv__msl_8hpp_source.html#l00416">416</a> del archivo <a class="el" href="x64-windows_2x64-windows_2include_2spirv__cross_2spirv__msl_8hpp_source.html">spirv_msl.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a57d4aead4a1833e001f4238a5b12238c" name="a57d4aead4a1833e001f4238a5b12238c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a57d4aead4a1833e001f4238a5b12238c">&#9670;&#160;</a></span>is_ios() <span class="overload">[3/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool SPIRV_CROSS_NAMESPACE::CompilerMSL::Options::is_ios </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definición en la línea <a class="el" href="x86-windows_2x86-windows_2include_2spirv__cross_2spirv__msl_8hpp_source.html#l00416">416</a> del archivo <a class="el" href="x86-windows_2x86-windows_2include_2spirv__cross_2spirv__msl_8hpp_source.html">spirv_msl.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a02a5f0cd712d37aae5bc4d6601406f50" name="a02a5f0cd712d37aae5bc4d6601406f50"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a02a5f0cd712d37aae5bc4d6601406f50">&#9670;&#160;</a></span>is_macos() <span class="overload">[1/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool SPIRV_CROSS_NAMESPACE::CompilerMSL::Options::is_macos </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definición en la línea <a class="el" href="x64-windows-static_2x64-windows-static_2include_2spirv__cross_2spirv__msl_8hpp_source.html#l00421">421</a> del archivo <a class="el" href="x64-windows-static_2x64-windows-static_2include_2spirv__cross_2spirv__msl_8hpp_source.html">spirv_msl.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a02a5f0cd712d37aae5bc4d6601406f50" name="a02a5f0cd712d37aae5bc4d6601406f50"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a02a5f0cd712d37aae5bc4d6601406f50">&#9670;&#160;</a></span>is_macos() <span class="overload">[2/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool SPIRV_CROSS_NAMESPACE::CompilerMSL::Options::is_macos </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definición en la línea <a class="el" href="x64-windows_2x64-windows_2include_2spirv__cross_2spirv__msl_8hpp_source.html#l00421">421</a> del archivo <a class="el" href="x64-windows_2x64-windows_2include_2spirv__cross_2spirv__msl_8hpp_source.html">spirv_msl.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a02a5f0cd712d37aae5bc4d6601406f50" name="a02a5f0cd712d37aae5bc4d6601406f50"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a02a5f0cd712d37aae5bc4d6601406f50">&#9670;&#160;</a></span>is_macos() <span class="overload">[3/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool SPIRV_CROSS_NAMESPACE::CompilerMSL::Options::is_macos </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definición en la línea <a class="el" href="x86-windows_2x86-windows_2include_2spirv__cross_2spirv__msl_8hpp_source.html#l00421">421</a> del archivo <a class="el" href="x86-windows_2x86-windows_2include_2spirv__cross_2spirv__msl_8hpp_source.html">spirv_msl.hpp</a>.</p>
+
+</div>
+</div>
+<a id="aa85c1cd8b0f16d894af636a284c9da2f" name="aa85c1cd8b0f16d894af636a284c9da2f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa85c1cd8b0f16d894af636a284c9da2f">&#9670;&#160;</a></span>make_msl_version() <span class="overload">[1/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static uint32_t SPIRV_CROSS_NAMESPACE::CompilerMSL::Options::make_msl_version </td>
+          <td>(</td>
+          <td class="paramtype">uint32_t</td>          <td class="paramname"><span class="paramname"><em>major</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint32_t</td>          <td class="paramname"><span class="paramname"><em>minor</em><span class="paramdefsep"> = </span><span class="paramdefval">0</span>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint32_t</td>          <td class="paramname"><span class="paramname"><em>patch</em><span class="paramdefsep"> = </span><span class="paramdefval">0</span></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definición en la línea <a class="el" href="x64-windows-static_2x64-windows-static_2include_2spirv__cross_2spirv__msl_8hpp_source.html#l00436">436</a> del archivo <a class="el" href="x64-windows-static_2x64-windows-static_2include_2spirv__cross_2spirv__msl_8hpp_source.html">spirv_msl.hpp</a>.</p>
+
+</div>
+</div>
+<a id="aa85c1cd8b0f16d894af636a284c9da2f" name="aa85c1cd8b0f16d894af636a284c9da2f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa85c1cd8b0f16d894af636a284c9da2f">&#9670;&#160;</a></span>make_msl_version() <span class="overload">[2/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static uint32_t SPIRV_CROSS_NAMESPACE::CompilerMSL::Options::make_msl_version </td>
+          <td>(</td>
+          <td class="paramtype">uint32_t</td>          <td class="paramname"><span class="paramname"><em>major</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint32_t</td>          <td class="paramname"><span class="paramname"><em>minor</em><span class="paramdefsep"> = </span><span class="paramdefval">0</span>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint32_t</td>          <td class="paramname"><span class="paramname"><em>patch</em><span class="paramdefsep"> = </span><span class="paramdefval">0</span></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definición en la línea <a class="el" href="x64-windows_2x64-windows_2include_2spirv__cross_2spirv__msl_8hpp_source.html#l00436">436</a> del archivo <a class="el" href="x64-windows_2x64-windows_2include_2spirv__cross_2spirv__msl_8hpp_source.html">spirv_msl.hpp</a>.</p>
+
+</div>
+</div>
+<a id="aa85c1cd8b0f16d894af636a284c9da2f" name="aa85c1cd8b0f16d894af636a284c9da2f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa85c1cd8b0f16d894af636a284c9da2f">&#9670;&#160;</a></span>make_msl_version() <span class="overload">[3/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static uint32_t SPIRV_CROSS_NAMESPACE::CompilerMSL::Options::make_msl_version </td>
+          <td>(</td>
+          <td class="paramtype">uint32_t</td>          <td class="paramname"><span class="paramname"><em>major</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint32_t</td>          <td class="paramname"><span class="paramname"><em>minor</em><span class="paramdefsep"> = </span><span class="paramdefval">0</span>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint32_t</td>          <td class="paramname"><span class="paramname"><em>patch</em><span class="paramdefsep"> = </span><span class="paramdefval">0</span></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definición en la línea <a class="el" href="x86-windows_2x86-windows_2include_2spirv__cross_2spirv__msl_8hpp_source.html#l00436">436</a> del archivo <a class="el" href="x86-windows_2x86-windows_2include_2spirv__cross_2spirv__msl_8hpp_source.html">spirv_msl.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a424b3445f3ce12a612d4337f1539f0c4" name="a424b3445f3ce12a612d4337f1539f0c4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a424b3445f3ce12a612d4337f1539f0c4">&#9670;&#160;</a></span>set_msl_version() <span class="overload">[1/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="x64-windows-static_2x64-windows-static_2include_2libpng16_2png_8h.html#a05f08be336491be77cd4dfa98f747c69">void</a> SPIRV_CROSS_NAMESPACE::CompilerMSL::Options::set_msl_version </td>
+          <td>(</td>
+          <td class="paramtype">uint32_t</td>          <td class="paramname"><span class="paramname"><em>major</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint32_t</td>          <td class="paramname"><span class="paramname"><em>minor</em><span class="paramdefsep"> = </span><span class="paramdefval">0</span>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint32_t</td>          <td class="paramname"><span class="paramname"><em>patch</em><span class="paramdefsep"> = </span><span class="paramdefval">0</span></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definición en la línea <a class="el" href="x64-windows-static_2x64-windows-static_2include_2spirv__cross_2spirv__msl_8hpp_source.html#l00426">426</a> del archivo <a class="el" href="x64-windows-static_2x64-windows-static_2include_2spirv__cross_2spirv__msl_8hpp_source.html">spirv_msl.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a424b3445f3ce12a612d4337f1539f0c4" name="a424b3445f3ce12a612d4337f1539f0c4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a424b3445f3ce12a612d4337f1539f0c4">&#9670;&#160;</a></span>set_msl_version() <span class="overload">[2/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="x64-windows-static_2x64-windows-static_2include_2libpng16_2png_8h.html#a05f08be336491be77cd4dfa98f747c69">void</a> SPIRV_CROSS_NAMESPACE::CompilerMSL::Options::set_msl_version </td>
+          <td>(</td>
+          <td class="paramtype">uint32_t</td>          <td class="paramname"><span class="paramname"><em>major</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint32_t</td>          <td class="paramname"><span class="paramname"><em>minor</em><span class="paramdefsep"> = </span><span class="paramdefval">0</span>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint32_t</td>          <td class="paramname"><span class="paramname"><em>patch</em><span class="paramdefsep"> = </span><span class="paramdefval">0</span></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definición en la línea <a class="el" href="x64-windows_2x64-windows_2include_2spirv__cross_2spirv__msl_8hpp_source.html#l00426">426</a> del archivo <a class="el" href="x64-windows_2x64-windows_2include_2spirv__cross_2spirv__msl_8hpp_source.html">spirv_msl.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a424b3445f3ce12a612d4337f1539f0c4" name="a424b3445f3ce12a612d4337f1539f0c4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a424b3445f3ce12a612d4337f1539f0c4">&#9670;&#160;</a></span>set_msl_version() <span class="overload">[3/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="x64-windows-static_2x64-windows-static_2include_2libpng16_2png_8h.html#a05f08be336491be77cd4dfa98f747c69">void</a> SPIRV_CROSS_NAMESPACE::CompilerMSL::Options::set_msl_version </td>
+          <td>(</td>
+          <td class="paramtype">uint32_t</td>          <td class="paramname"><span class="paramname"><em>major</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint32_t</td>          <td class="paramname"><span class="paramname"><em>minor</em><span class="paramdefsep"> = </span><span class="paramdefval">0</span>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint32_t</td>          <td class="paramname"><span class="paramname"><em>patch</em><span class="paramdefsep"> = </span><span class="paramdefval">0</span></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definición en la línea <a class="el" href="x86-windows_2x86-windows_2include_2spirv__cross_2spirv__msl_8hpp_source.html#l00426">426</a> del archivo <a class="el" href="x86-windows_2x86-windows_2include_2spirv__cross_2spirv__msl_8hpp_source.html">spirv_msl.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a10ebc703c92547539af72bf16dad67d0" name="a10ebc703c92547539af72bf16dad67d0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a10ebc703c92547539af72bf16dad67d0">&#9670;&#160;</a></span>supports_msl_version() <span class="overload">[1/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool SPIRV_CROSS_NAMESPACE::CompilerMSL::Options::supports_msl_version </td>
+          <td>(</td>
+          <td class="paramtype">uint32_t</td>          <td class="paramname"><span class="paramname"><em>major</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint32_t</td>          <td class="paramname"><span class="paramname"><em>minor</em><span class="paramdefsep"> = </span><span class="paramdefval">0</span>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint32_t</td>          <td class="paramname"><span class="paramname"><em>patch</em><span class="paramdefsep"> = </span><span class="paramdefval">0</span></span>&#160;) const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definición en la línea <a class="el" href="x64-windows-static_2x64-windows-static_2include_2spirv__cross_2spirv__msl_8hpp_source.html#l00431">431</a> del archivo <a class="el" href="x64-windows-static_2x64-windows-static_2include_2spirv__cross_2spirv__msl_8hpp_source.html">spirv_msl.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a10ebc703c92547539af72bf16dad67d0" name="a10ebc703c92547539af72bf16dad67d0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a10ebc703c92547539af72bf16dad67d0">&#9670;&#160;</a></span>supports_msl_version() <span class="overload">[2/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool SPIRV_CROSS_NAMESPACE::CompilerMSL::Options::supports_msl_version </td>
+          <td>(</td>
+          <td class="paramtype">uint32_t</td>          <td class="paramname"><span class="paramname"><em>major</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint32_t</td>          <td class="paramname"><span class="paramname"><em>minor</em><span class="paramdefsep"> = </span><span class="paramdefval">0</span>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint32_t</td>          <td class="paramname"><span class="paramname"><em>patch</em><span class="paramdefsep"> = </span><span class="paramdefval">0</span></span>&#160;) const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definición en la línea <a class="el" href="x64-windows_2x64-windows_2include_2spirv__cross_2spirv__msl_8hpp_source.html#l00431">431</a> del archivo <a class="el" href="x64-windows_2x64-windows_2include_2spirv__cross_2spirv__msl_8hpp_source.html">spirv_msl.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a10ebc703c92547539af72bf16dad67d0" name="a10ebc703c92547539af72bf16dad67d0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a10ebc703c92547539af72bf16dad67d0">&#9670;&#160;</a></span>supports_msl_version() <span class="overload">[3/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool SPIRV_CROSS_NAMESPACE::CompilerMSL::Options::supports_msl_version </td>
+          <td>(</td>
+          <td class="paramtype">uint32_t</td>          <td class="paramname"><span class="paramname"><em>major</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint32_t</td>          <td class="paramname"><span class="paramname"><em>minor</em><span class="paramdefsep"> = </span><span class="paramdefval">0</span>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint32_t</td>          <td class="paramname"><span class="paramname"><em>patch</em><span class="paramdefsep"> = </span><span class="paramdefval">0</span></span>&#160;) const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definición en la línea <a class="el" href="x86-windows_2x86-windows_2include_2spirv__cross_2spirv__msl_8hpp_source.html#l00431">431</a> del archivo <a class="el" href="x86-windows_2x86-windows_2include_2spirv__cross_2spirv__msl_8hpp_source.html">spirv_msl.hpp</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Documentación de datos miembro</h2>
+<a id="a98caf14ccd5370d1703b252783f8ddaa" name="a98caf14ccd5370d1703b252783f8ddaa"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a98caf14ccd5370d1703b252783f8ddaa">&#9670;&#160;</a></span>additional_fixed_sample_mask</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint32_t SPIRV_CROSS_NAMESPACE::CompilerMSL::Options::additional_fixed_sample_mask = 0xffffffff</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definición en la línea <a class="el" href="x64-windows-static_2x64-windows-static_2include_2spirv__cross_2spirv__msl_8hpp_source.html#l00301">301</a> del archivo <a class="el" href="x64-windows-static_2x64-windows-static_2include_2spirv__cross_2spirv__msl_8hpp_source.html">spirv_msl.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a3d7ff36a25ff6ec3b4027aa25ecb12ae" name="a3d7ff36a25ff6ec3b4027aa25ecb12ae"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3d7ff36a25ff6ec3b4027aa25ecb12ae">&#9670;&#160;</a></span>argument_buffers</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool SPIRV_CROSS_NAMESPACE::CompilerMSL::Options::argument_buffers = false</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definición en la línea <a class="el" href="x64-windows-static_2x64-windows-static_2include_2spirv__cross_2spirv__msl_8hpp_source.html#l00317">317</a> del archivo <a class="el" href="x64-windows-static_2x64-windows-static_2include_2spirv__cross_2spirv__msl_8hpp_source.html">spirv_msl.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a765ae428d163ba7f705ec636a3ca14f7" name="a765ae428d163ba7f705ec636a3ca14f7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a765ae428d163ba7f705ec636a3ca14f7">&#9670;&#160;</a></span>arrayed_subpass_input</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool SPIRV_CROSS_NAMESPACE::CompilerMSL::Options::arrayed_subpass_input = false</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definición en la línea <a class="el" href="x64-windows-static_2x64-windows-static_2include_2spirv__cross_2spirv__msl_8hpp_source.html#l00372">372</a> del archivo <a class="el" href="x64-windows-static_2x64-windows-static_2include_2spirv__cross_2spirv__msl_8hpp_source.html">spirv_msl.hpp</a>.</p>
+
+</div>
+</div>
+<a id="ab5b01cfbf01dba7bec358bcb4097e743" name="ab5b01cfbf01dba7bec358bcb4097e743"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab5b01cfbf01dba7bec358bcb4097e743">&#9670;&#160;</a></span>buffer_size_buffer_index</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint32_t SPIRV_CROSS_NAMESPACE::CompilerMSL::Options::buffer_size_buffer_index = 25</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definición en la línea <a class="el" href="x64-windows-static_2x64-windows-static_2include_2spirv__cross_2spirv__msl_8hpp_source.html#l00290">290</a> del archivo <a class="el" href="x64-windows-static_2x64-windows-static_2include_2spirv__cross_2spirv__msl_8hpp_source.html">spirv_msl.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a05e49ccb6bb7030dd0505a3a36a5bdef" name="a05e49ccb6bb7030dd0505a3a36a5bdef"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a05e49ccb6bb7030dd0505a3a36a5bdef">&#9670;&#160;</a></span>capture_output_to_buffer</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool SPIRV_CROSS_NAMESPACE::CompilerMSL::Options::capture_output_to_buffer = false</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definición en la línea <a class="el" href="x64-windows-static_2x64-windows-static_2include_2spirv__cross_2spirv__msl_8hpp_source.html#l00306">306</a> del archivo <a class="el" href="x64-windows-static_2x64-windows-static_2include_2spirv__cross_2spirv__msl_8hpp_source.html">spirv_msl.hpp</a>.</p>
+
+</div>
+</div>
+<a id="ac77bbd67198c6003028ad2564c9ef45e" name="ac77bbd67198c6003028ad2564c9ef45e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac77bbd67198c6003028ad2564c9ef45e">&#9670;&#160;</a></span>device_index</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint32_t SPIRV_CROSS_NAMESPACE::CompilerMSL::Options::device_index = 0</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definición en la línea <a class="el" href="x64-windows-static_2x64-windows-static_2include_2spirv__cross_2spirv__msl_8hpp_source.html#l00296">296</a> del archivo <a class="el" href="x64-windows-static_2x64-windows-static_2include_2spirv__cross_2spirv__msl_8hpp_source.html">spirv_msl.hpp</a>.</p>
+
+</div>
+</div>
+<a id="ab62d8bb807b63d581e73088bb92fcf13" name="ab62d8bb807b63d581e73088bb92fcf13"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab62d8bb807b63d581e73088bb92fcf13">&#9670;&#160;</a></span>disable_rasterization</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool SPIRV_CROSS_NAMESPACE::CompilerMSL::Options::disable_rasterization = false</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definición en la línea <a class="el" href="x64-windows-static_2x64-windows-static_2include_2spirv__cross_2spirv__msl_8hpp_source.html#l00305">305</a> del archivo <a class="el" href="x64-windows-static_2x64-windows-static_2include_2spirv__cross_2spirv__msl_8hpp_source.html">spirv_msl.hpp</a>.</p>
+
+</div>
+</div>
+<a id="ac9ac173e31c8adf40fa8c4572dda99a3" name="ac9ac173e31c8adf40fa8c4572dda99a3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac9ac173e31c8adf40fa8c4572dda99a3">&#9670;&#160;</a></span>dispatch_base</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool SPIRV_CROSS_NAMESPACE::CompilerMSL::Options::dispatch_base = false</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definición en la línea <a class="el" href="x64-windows-static_2x64-windows-static_2include_2spirv__cross_2spirv__msl_8hpp_source.html#l00312">312</a> del archivo <a class="el" href="x64-windows-static_2x64-windows-static_2include_2spirv__cross_2spirv__msl_8hpp_source.html">spirv_msl.hpp</a>.</p>
+
+</div>
+</div>
+<a id="ace2d92ecf706e5a71eb03e59db3a0922" name="ace2d92ecf706e5a71eb03e59db3a0922"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ace2d92ecf706e5a71eb03e59db3a0922">&#9670;&#160;</a></span>dynamic_offsets_buffer_index</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint32_t SPIRV_CROSS_NAMESPACE::CompilerMSL::Options::dynamic_offsets_buffer_index = 23</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definición en la línea <a class="el" href="x64-windows-static_2x64-windows-static_2include_2spirv__cross_2spirv__msl_8hpp_source.html#l00292">292</a> del archivo <a class="el" href="x64-windows-static_2x64-windows-static_2include_2spirv__cross_2spirv__msl_8hpp_source.html">spirv_msl.hpp</a>.</p>
+
+</div>
+</div>
+<a id="abbf27f956694de3c83f7ab21d22cfe39" name="abbf27f956694de3c83f7ab21d22cfe39"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abbf27f956694de3c83f7ab21d22cfe39">&#9670;&#160;</a></span>emulate_cube_array</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool SPIRV_CROSS_NAMESPACE::CompilerMSL::Options::emulate_cube_array = false</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definición en la línea <a class="el" href="x64-windows-static_2x64-windows-static_2include_2spirv__cross_2spirv__msl_8hpp_source.html#l00336">336</a> del archivo <a class="el" href="x64-windows-static_2x64-windows-static_2include_2spirv__cross_2spirv__msl_8hpp_source.html">spirv_msl.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a7253cc6f44ab70b5a6d5cfed341fa9e0" name="a7253cc6f44ab70b5a6d5cfed341fa9e0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7253cc6f44ab70b5a6d5cfed341fa9e0">&#9670;&#160;</a></span>emulate_subgroups</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool SPIRV_CROSS_NAMESPACE::CompilerMSL::Options::emulate_subgroups = false</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definición en la línea <a class="el" href="x64-windows-static_2x64-windows-static_2include_2spirv__cross_2spirv__msl_8hpp_source.html#l00383">383</a> del archivo <a class="el" href="x64-windows-static_2x64-windows-static_2include_2spirv__cross_2spirv__msl_8hpp_source.html">spirv_msl.hpp</a>.</p>
+
+</div>
+</div>
+<a id="ac38a5327f91c507fd4aa7f9bdab9f629" name="ac38a5327f91c507fd4aa7f9bdab9f629"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac38a5327f91c507fd4aa7f9bdab9f629">&#9670;&#160;</a></span>enable_base_index_zero</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool SPIRV_CROSS_NAMESPACE::CompilerMSL::Options::enable_base_index_zero = false</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definición en la línea <a class="el" href="x64-windows-static_2x64-windows-static_2include_2spirv__cross_2spirv__msl_8hpp_source.html#l00320">320</a> del archivo <a class="el" href="x64-windows-static_2x64-windows-static_2include_2spirv__cross_2spirv__msl_8hpp_source.html">spirv_msl.hpp</a>.</p>
+
+</div>
+</div>
+<a id="ae80a369e1b3cb209644e55a4e61a5a4d" name="ae80a369e1b3cb209644e55a4e61a5a4d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae80a369e1b3cb209644e55a4e61a5a4d">&#9670;&#160;</a></span>enable_clip_distance_user_varying</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool SPIRV_CROSS_NAMESPACE::CompilerMSL::Options::enable_clip_distance_user_varying = true</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definición en la línea <a class="el" href="x64-windows-static_2x64-windows-static_2include_2spirv__cross_2spirv__msl_8hpp_source.html#l00356">356</a> del archivo <a class="el" href="x64-windows-static_2x64-windows-static_2include_2spirv__cross_2spirv__msl_8hpp_source.html">spirv_msl.hpp</a>.</p>
+
+</div>
+</div>
+<a id="ac2519294899a7782d40f859d3a80be19" name="ac2519294899a7782d40f859d3a80be19"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac2519294899a7782d40f859d3a80be19">&#9670;&#160;</a></span>enable_decoration_binding</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool SPIRV_CROSS_NAMESPACE::CompilerMSL::Options::enable_decoration_binding = false</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definición en la línea <a class="el" href="x64-windows-static_2x64-windows-static_2include_2spirv__cross_2spirv__msl_8hpp_source.html#l00339">339</a> del archivo <a class="el" href="x64-windows-static_2x64-windows-static_2include_2spirv__cross_2spirv__msl_8hpp_source.html">spirv_msl.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a802e22205edb426d59e979e699dd18ce" name="a802e22205edb426d59e979e699dd18ce"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a802e22205edb426d59e979e699dd18ce">&#9670;&#160;</a></span>enable_frag_depth_builtin</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool SPIRV_CROSS_NAMESPACE::CompilerMSL::Options::enable_frag_depth_builtin = true</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definición en la línea <a class="el" href="x64-windows-static_2x64-windows-static_2include_2spirv__cross_2spirv__msl_8hpp_source.html#l00303">303</a> del archivo <a class="el" href="x64-windows-static_2x64-windows-static_2include_2spirv__cross_2spirv__msl_8hpp_source.html">spirv_msl.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a0c9f19a20d838b642ed6b45099a4af4c" name="a0c9f19a20d838b642ed6b45099a4af4c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0c9f19a20d838b642ed6b45099a4af4c">&#9670;&#160;</a></span>enable_frag_output_mask</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint32_t SPIRV_CROSS_NAMESPACE::CompilerMSL::Options::enable_frag_output_mask = 0xffffffff</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definición en la línea <a class="el" href="x64-windows-static_2x64-windows-static_2include_2spirv__cross_2spirv__msl_8hpp_source.html#l00297">297</a> del archivo <a class="el" href="x64-windows-static_2x64-windows-static_2include_2spirv__cross_2spirv__msl_8hpp_source.html">spirv_msl.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a8aa294574c450bc34f2bf688274fe57c" name="a8aa294574c450bc34f2bf688274fe57c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8aa294574c450bc34f2bf688274fe57c">&#9670;&#160;</a></span>enable_frag_stencil_ref_builtin</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool SPIRV_CROSS_NAMESPACE::CompilerMSL::Options::enable_frag_stencil_ref_builtin = true</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definición en la línea <a class="el" href="x64-windows-static_2x64-windows-static_2include_2spirv__cross_2spirv__msl_8hpp_source.html#l00304">304</a> del archivo <a class="el" href="x64-windows-static_2x64-windows-static_2include_2spirv__cross_2spirv__msl_8hpp_source.html">spirv_msl.hpp</a>.</p>
+
+</div>
+</div>
+<a id="aee50e10a72a16caf4da16593f74f3fdb" name="aee50e10a72a16caf4da16593f74f3fdb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aee50e10a72a16caf4da16593f74f3fdb">&#9670;&#160;</a></span>enable_point_size_builtin</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool SPIRV_CROSS_NAMESPACE::CompilerMSL::Options::enable_point_size_builtin = true</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definición en la línea <a class="el" href="x64-windows-static_2x64-windows-static_2include_2spirv__cross_2spirv__msl_8hpp_source.html#l00302">302</a> del archivo <a class="el" href="x64-windows-static_2x64-windows-static_2include_2spirv__cross_2spirv__msl_8hpp_source.html">spirv_msl.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a85f1f5dc4d4c92e838522dc87352f709" name="a85f1f5dc4d4c92e838522dc87352f709"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a85f1f5dc4d4c92e838522dc87352f709">&#9670;&#160;</a></span>fixed_subgroup_size</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint32_t SPIRV_CROSS_NAMESPACE::CompilerMSL::Options::fixed_subgroup_size = 0</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definición en la línea <a class="el" href="x64-windows-static_2x64-windows-static_2include_2spirv__cross_2spirv__msl_8hpp_source.html#l00394">394</a> del archivo <a class="el" href="x64-windows-static_2x64-windows-static_2include_2spirv__cross_2spirv__msl_8hpp_source.html">spirv_msl.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a099e69a75d1132b7349e7101fbec6112" name="a099e69a75d1132b7349e7101fbec6112"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a099e69a75d1132b7349e7101fbec6112">&#9670;&#160;</a></span>force_active_argument_buffer_resources</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool SPIRV_CROSS_NAMESPACE::CompilerMSL::Options::force_active_argument_buffer_resources = false</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definición en la línea <a class="el" href="x64-windows-static_2x64-windows-static_2include_2spirv__cross_2spirv__msl_8hpp_source.html#l00347">347</a> del archivo <a class="el" href="x64-windows-static_2x64-windows-static_2include_2spirv__cross_2spirv__msl_8hpp_source.html">spirv_msl.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a543062ac1a6a326721e73330bcfe9fcb" name="a543062ac1a6a326721e73330bcfe9fcb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a543062ac1a6a326721e73330bcfe9fcb">&#9670;&#160;</a></span>force_native_arrays</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool SPIRV_CROSS_NAMESPACE::CompilerMSL::Options::force_native_arrays = false</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definición en la línea <a class="el" href="x64-windows-static_2x64-windows-static_2include_2spirv__cross_2spirv__msl_8hpp_source.html#l00352">352</a> del archivo <a class="el" href="x64-windows-static_2x64-windows-static_2include_2spirv__cross_2spirv__msl_8hpp_source.html">spirv_msl.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a295b1043c118ebfaaf864165acd9c522" name="a295b1043c118ebfaaf864165acd9c522"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a295b1043c118ebfaaf864165acd9c522">&#9670;&#160;</a></span>force_sample_rate_shading</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool SPIRV_CROSS_NAMESPACE::CompilerMSL::Options::force_sample_rate_shading = false</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definición en la línea <a class="el" href="x64-windows-static_2x64-windows-static_2include_2spirv__cross_2spirv__msl_8hpp_source.html#l00414">414</a> del archivo <a class="el" href="x64-windows-static_2x64-windows-static_2include_2spirv__cross_2spirv__msl_8hpp_source.html">spirv_msl.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a4bf26a4a54dbcc4d13a783d4a3a2e818" name="a4bf26a4a54dbcc4d13a783d4a3a2e818"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4bf26a4a54dbcc4d13a783d4a3a2e818">&#9670;&#160;</a></span>indirect_params_buffer_index</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint32_t SPIRV_CROSS_NAMESPACE::CompilerMSL::Options::indirect_params_buffer_index = 29</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definición en la línea <a class="el" href="x64-windows-static_2x64-windows-static_2include_2spirv__cross_2spirv__msl_8hpp_source.html#l00286">286</a> del archivo <a class="el" href="x64-windows-static_2x64-windows-static_2include_2spirv__cross_2spirv__msl_8hpp_source.html">spirv_msl.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a7240522e0e55aac1b17717ab5faa4ff4" name="a7240522e0e55aac1b17717ab5faa4ff4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7240522e0e55aac1b17717ab5faa4ff4">&#9670;&#160;</a></span>invariant_float_math</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool SPIRV_CROSS_NAMESPACE::CompilerMSL::Options::invariant_float_math = false</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definición en la línea <a class="el" href="x64-windows-static_2x64-windows-static_2include_2spirv__cross_2spirv__msl_8hpp_source.html#l00333">333</a> del archivo <a class="el" href="x64-windows-static_2x64-windows-static_2include_2spirv__cross_2spirv__msl_8hpp_source.html">spirv_msl.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a232f2f614f9faefc0b621143d38457cb" name="a232f2f614f9faefc0b621143d38457cb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a232f2f614f9faefc0b621143d38457cb">&#9670;&#160;</a></span>ios_support_base_vertex_instance</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool SPIRV_CROSS_NAMESPACE::CompilerMSL::Options::ios_support_base_vertex_instance = false</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definición en la línea <a class="el" href="x64-windows-static_2x64-windows-static_2include_2spirv__cross_2spirv__msl_8hpp_source.html#l00327">327</a> del archivo <a class="el" href="x64-windows-static_2x64-windows-static_2include_2spirv__cross_2spirv__msl_8hpp_source.html">spirv_msl.hpp</a>.</p>
+
+</div>
+</div>
+<a id="af826e661d64924a14776d218028e523d" name="af826e661d64924a14776d218028e523d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af826e661d64924a14776d218028e523d">&#9670;&#160;</a></span>ios_use_simdgroup_functions</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool SPIRV_CROSS_NAMESPACE::CompilerMSL::Options::ios_use_simdgroup_functions = false</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definición en la línea <a class="el" href="x64-windows-static_2x64-windows-static_2include_2spirv__cross_2spirv__msl_8hpp_source.html#l00377">377</a> del archivo <a class="el" href="x64-windows-static_2x64-windows-static_2include_2spirv__cross_2spirv__msl_8hpp_source.html">spirv_msl.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a5788bdf82cd192a7e534f0100a733a74" name="a5788bdf82cd192a7e534f0100a733a74"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5788bdf82cd192a7e534f0100a733a74">&#9670;&#160;</a></span>msl_version</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint32_t SPIRV_CROSS_NAMESPACE::CompilerMSL::Options::msl_version = make_msl_version(1, 2)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definición en la línea <a class="el" href="x64-windows-static_2x64-windows-static_2include_2spirv__cross_2spirv__msl_8hpp_source.html#l00281">281</a> del archivo <a class="el" href="x64-windows-static_2x64-windows-static_2include_2spirv__cross_2spirv__msl_8hpp_source.html">spirv_msl.hpp</a>.</p>
+
+</div>
+</div>
+<a id="ad8b362831f4dd46b09491e040c57b34a" name="ad8b362831f4dd46b09491e040c57b34a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad8b362831f4dd46b09491e040c57b34a">&#9670;&#160;</a></span>multi_patch_workgroup</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool SPIRV_CROSS_NAMESPACE::CompilerMSL::Options::multi_patch_workgroup = false</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definición en la línea <a class="el" href="x64-windows-static_2x64-windows-static_2include_2spirv__cross_2spirv__msl_8hpp_source.html#l00361">361</a> del archivo <a class="el" href="x64-windows-static_2x64-windows-static_2include_2spirv__cross_2spirv__msl_8hpp_source.html">spirv_msl.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a6c722460942b71117e65499f141f2993" name="a6c722460942b71117e65499f141f2993"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6c722460942b71117e65499f141f2993">&#9670;&#160;</a></span>multiview</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool SPIRV_CROSS_NAMESPACE::CompilerMSL::Options::multiview = false</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definición en la línea <a class="el" href="x64-windows-static_2x64-windows-static_2include_2spirv__cross_2spirv__msl_8hpp_source.html#l00309">309</a> del archivo <a class="el" href="x64-windows-static_2x64-windows-static_2include_2spirv__cross_2spirv__msl_8hpp_source.html">spirv_msl.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a34fd02268720b9824ad7daa7c48314c6" name="a34fd02268720b9824ad7daa7c48314c6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a34fd02268720b9824ad7daa7c48314c6">&#9670;&#160;</a></span>multiview_layered_rendering</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool SPIRV_CROSS_NAMESPACE::CompilerMSL::Options::multiview_layered_rendering = true</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definición en la línea <a class="el" href="x64-windows-static_2x64-windows-static_2include_2spirv__cross_2spirv__msl_8hpp_source.html#l00310">310</a> del archivo <a class="el" href="x64-windows-static_2x64-windows-static_2include_2spirv__cross_2spirv__msl_8hpp_source.html">spirv_msl.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a5ee1ee35842cd4479d14107efafb360d" name="a5ee1ee35842cd4479d14107efafb360d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5ee1ee35842cd4479d14107efafb360d">&#9670;&#160;</a></span>pad_fragment_output_components</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool SPIRV_CROSS_NAMESPACE::CompilerMSL::Options::pad_fragment_output_components = false</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definición en la línea <a class="el" href="x64-windows-static_2x64-windows-static_2include_2spirv__cross_2spirv__msl_8hpp_source.html#l00324">324</a> del archivo <a class="el" href="x64-windows-static_2x64-windows-static_2include_2spirv__cross_2spirv__msl_8hpp_source.html">spirv_msl.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a47a7fe4d9f78de5326cb5c0ca3adc172" name="a47a7fe4d9f78de5326cb5c0ca3adc172"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a47a7fe4d9f78de5326cb5c0ca3adc172">&#9670;&#160;</a></span>platform</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="#a6b8b4d6ac9032d440cba1ee4eb672e51">Platform</a> SPIRV_CROSS_NAMESPACE::CompilerMSL::Options::platform = macOS</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definición en la línea <a class="el" href="x64-windows-static_2x64-windows-static_2include_2spirv__cross_2spirv__msl_8hpp_source.html#l00280">280</a> del archivo <a class="el" href="x64-windows-static_2x64-windows-static_2include_2spirv__cross_2spirv__msl_8hpp_source.html">spirv_msl.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a7c05ba9389610d063d56789d3fc1f0b3" name="a7c05ba9389610d063d56789d3fc1f0b3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7c05ba9389610d063d56789d3fc1f0b3">&#9670;&#160;</a></span>r32ui_alignment_constant_id</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint32_t SPIRV_CROSS_NAMESPACE::CompilerMSL::Options::r32ui_alignment_constant_id = 65535</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definición en la línea <a class="el" href="x64-windows-static_2x64-windows-static_2include_2spirv__cross_2spirv__msl_8hpp_source.html#l00284">284</a> del archivo <a class="el" href="x64-windows-static_2x64-windows-static_2include_2spirv__cross_2spirv__msl_8hpp_source.html">spirv_msl.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a4b6c108edcf69846905d346b3f515e51" name="a4b6c108edcf69846905d346b3f515e51"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4b6c108edcf69846905d346b3f515e51">&#9670;&#160;</a></span>r32ui_linear_texture_alignment</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint32_t SPIRV_CROSS_NAMESPACE::CompilerMSL::Options::r32ui_linear_texture_alignment = 4</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definición en la línea <a class="el" href="x64-windows-static_2x64-windows-static_2include_2spirv__cross_2spirv__msl_8hpp_source.html#l00283">283</a> del archivo <a class="el" href="x64-windows-static_2x64-windows-static_2include_2spirv__cross_2spirv__msl_8hpp_source.html">spirv_msl.hpp</a>.</p>
+
+</div>
+</div>
+<a id="af15a6d74e2cc766022ab269c9f34ee7e" name="af15a6d74e2cc766022ab269c9f34ee7e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af15a6d74e2cc766022ab269c9f34ee7e">&#9670;&#160;</a></span>shader_index_buffer_index</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint32_t SPIRV_CROSS_NAMESPACE::CompilerMSL::Options::shader_index_buffer_index = 21</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definición en la línea <a class="el" href="x64-windows-static_2x64-windows-static_2include_2spirv__cross_2spirv__msl_8hpp_source.html#l00294">294</a> del archivo <a class="el" href="x64-windows-static_2x64-windows-static_2include_2spirv__cross_2spirv__msl_8hpp_source.html">spirv_msl.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a469a33ccebe71041fab02ee9767ae1a6" name="a469a33ccebe71041fab02ee9767ae1a6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a469a33ccebe71041fab02ee9767ae1a6">&#9670;&#160;</a></span>shader_input_buffer_index</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint32_t SPIRV_CROSS_NAMESPACE::CompilerMSL::Options::shader_input_buffer_index = 22</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definición en la línea <a class="el" href="x64-windows-static_2x64-windows-static_2include_2spirv__cross_2spirv__msl_8hpp_source.html#l00293">293</a> del archivo <a class="el" href="x64-windows-static_2x64-windows-static_2include_2spirv__cross_2spirv__msl_8hpp_source.html">spirv_msl.hpp</a>.</p>
+
+</div>
+</div>
+<a id="aa799737fad5d9302b42b8d149959b162" name="aa799737fad5d9302b42b8d149959b162"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa799737fad5d9302b42b8d149959b162">&#9670;&#160;</a></span>shader_input_wg_index</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint32_t SPIRV_CROSS_NAMESPACE::CompilerMSL::Options::shader_input_wg_index = 0</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definición en la línea <a class="el" href="x64-windows-static_2x64-windows-static_2include_2spirv__cross_2spirv__msl_8hpp_source.html#l00295">295</a> del archivo <a class="el" href="x64-windows-static_2x64-windows-static_2include_2spirv__cross_2spirv__msl_8hpp_source.html">spirv_msl.hpp</a>.</p>
+
+</div>
+</div>
+<a id="abbc6187e9840243b9d101d921eb1f80a" name="abbc6187e9840243b9d101d921eb1f80a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abbc6187e9840243b9d101d921eb1f80a">&#9670;&#160;</a></span>shader_output_buffer_index</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint32_t SPIRV_CROSS_NAMESPACE::CompilerMSL::Options::shader_output_buffer_index = 28</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definición en la línea <a class="el" href="x64-windows-static_2x64-windows-static_2include_2spirv__cross_2spirv__msl_8hpp_source.html#l00287">287</a> del archivo <a class="el" href="x64-windows-static_2x64-windows-static_2include_2spirv__cross_2spirv__msl_8hpp_source.html">spirv_msl.hpp</a>.</p>
+
+</div>
+</div>
+<a id="ac8cf883d1df4dc4c7b9d4912268e3661" name="ac8cf883d1df4dc4c7b9d4912268e3661"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac8cf883d1df4dc4c7b9d4912268e3661">&#9670;&#160;</a></span>shader_patch_output_buffer_index</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint32_t SPIRV_CROSS_NAMESPACE::CompilerMSL::Options::shader_patch_output_buffer_index = 27</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definición en la línea <a class="el" href="x64-windows-static_2x64-windows-static_2include_2spirv__cross_2spirv__msl_8hpp_source.html#l00288">288</a> del archivo <a class="el" href="x64-windows-static_2x64-windows-static_2include_2spirv__cross_2spirv__msl_8hpp_source.html">spirv_msl.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a150bf4ed677d1084be321199d028fd9f" name="a150bf4ed677d1084be321199d028fd9f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a150bf4ed677d1084be321199d028fd9f">&#9670;&#160;</a></span>shader_tess_factor_buffer_index</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint32_t SPIRV_CROSS_NAMESPACE::CompilerMSL::Options::shader_tess_factor_buffer_index = 26</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definición en la línea <a class="el" href="x64-windows-static_2x64-windows-static_2include_2spirv__cross_2spirv__msl_8hpp_source.html#l00289">289</a> del archivo <a class="el" href="x64-windows-static_2x64-windows-static_2include_2spirv__cross_2spirv__msl_8hpp_source.html">spirv_msl.hpp</a>.</p>
+
+</div>
+</div>
+<a id="aeaf0896ba98a0c2078a0a5f3cabdaade" name="aeaf0896ba98a0c2078a0a5f3cabdaade"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aeaf0896ba98a0c2078a0a5f3cabdaade">&#9670;&#160;</a></span>swizzle_buffer_index</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint32_t SPIRV_CROSS_NAMESPACE::CompilerMSL::Options::swizzle_buffer_index = 30</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definición en la línea <a class="el" href="x64-windows-static_2x64-windows-static_2include_2spirv__cross_2spirv__msl_8hpp_source.html#l00285">285</a> del archivo <a class="el" href="x64-windows-static_2x64-windows-static_2include_2spirv__cross_2spirv__msl_8hpp_source.html">spirv_msl.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a378a974865826067ba24ed9ea13ebfa2" name="a378a974865826067ba24ed9ea13ebfa2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a378a974865826067ba24ed9ea13ebfa2">&#9670;&#160;</a></span>swizzle_texture_samples</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool SPIRV_CROSS_NAMESPACE::CompilerMSL::Options::swizzle_texture_samples = false</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definición en la línea <a class="el" href="x64-windows-static_2x64-windows-static_2include_2spirv__cross_2spirv__msl_8hpp_source.html#l00307">307</a> del archivo <a class="el" href="x64-windows-static_2x64-windows-static_2include_2spirv__cross_2spirv__msl_8hpp_source.html">spirv_msl.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a023543aaa45267427a4d4e41351e4c91" name="a023543aaa45267427a4d4e41351e4c91"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a023543aaa45267427a4d4e41351e4c91">&#9670;&#160;</a></span>tess_domain_origin_lower_left</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool SPIRV_CROSS_NAMESPACE::CompilerMSL::Options::tess_domain_origin_lower_left = false</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definición en la línea <a class="el" href="x64-windows-static_2x64-windows-static_2include_2spirv__cross_2spirv__msl_8hpp_source.html#l00308">308</a> del archivo <a class="el" href="x64-windows-static_2x64-windows-static_2include_2spirv__cross_2spirv__msl_8hpp_source.html">spirv_msl.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a29ef2a43b274cfb29ede97f3aead94e9" name="a29ef2a43b274cfb29ede97f3aead94e9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a29ef2a43b274cfb29ede97f3aead94e9">&#9670;&#160;</a></span>texel_buffer_texture_width</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint32_t SPIRV_CROSS_NAMESPACE::CompilerMSL::Options::texel_buffer_texture_width = 4096</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definición en la línea <a class="el" href="x64-windows-static_2x64-windows-static_2include_2spirv__cross_2spirv__msl_8hpp_source.html#l00282">282</a> del archivo <a class="el" href="x64-windows-static_2x64-windows-static_2include_2spirv__cross_2spirv__msl_8hpp_source.html">spirv_msl.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a145a2e35bbdcc2903a5a8412bd44a62e" name="a145a2e35bbdcc2903a5a8412bd44a62e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a145a2e35bbdcc2903a5a8412bd44a62e">&#9670;&#160;</a></span>texture_1D_as_2D</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool SPIRV_CROSS_NAMESPACE::CompilerMSL::Options::texture_1D_as_2D = false</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definición en la línea <a class="el" href="x64-windows-static_2x64-windows-static_2include_2spirv__cross_2spirv__msl_8hpp_source.html#l00313">313</a> del archivo <a class="el" href="x64-windows-static_2x64-windows-static_2include_2spirv__cross_2spirv__msl_8hpp_source.html">spirv_msl.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a58ad9caf2c96dd39647ed848d0c77735" name="a58ad9caf2c96dd39647ed848d0c77735"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a58ad9caf2c96dd39647ed848d0c77735">&#9670;&#160;</a></span>texture_buffer_native</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool SPIRV_CROSS_NAMESPACE::CompilerMSL::Options::texture_buffer_native = false</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definición en la línea <a class="el" href="x64-windows-static_2x64-windows-static_2include_2spirv__cross_2spirv__msl_8hpp_source.html#l00342">342</a> del archivo <a class="el" href="x64-windows-static_2x64-windows-static_2include_2spirv__cross_2spirv__msl_8hpp_source.html">spirv_msl.hpp</a>.</p>
+
+</div>
+</div>
+<a id="af13d37ec0181bca61ee7df4d692ee9b3" name="af13d37ec0181bca61ee7df4d692ee9b3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af13d37ec0181bca61ee7df4d692ee9b3">&#9670;&#160;</a></span>use_framebuffer_fetch_subpasses</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool SPIRV_CROSS_NAMESPACE::CompilerMSL::Options::use_framebuffer_fetch_subpasses = false</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definición en la línea <a class="el" href="x64-windows-static_2x64-windows-static_2include_2spirv__cross_2spirv__msl_8hpp_source.html#l00330">330</a> del archivo <a class="el" href="x64-windows-static_2x64-windows-static_2include_2spirv__cross_2spirv__msl_8hpp_source.html">spirv_msl.hpp</a>.</p>
+
+</div>
+</div>
+<a id="ac4c69f654b669f5af205ac1191330398" name="ac4c69f654b669f5af205ac1191330398"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac4c69f654b669f5af205ac1191330398">&#9670;&#160;</a></span>vertex_for_tessellation</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool SPIRV_CROSS_NAMESPACE::CompilerMSL::Options::vertex_for_tessellation = false</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definición en la línea <a class="el" href="x64-windows-static_2x64-windows-static_2include_2spirv__cross_2spirv__msl_8hpp_source.html#l00366">366</a> del archivo <a class="el" href="x64-windows-static_2x64-windows-static_2include_2spirv__cross_2spirv__msl_8hpp_source.html">spirv_msl.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a3d6bf5cc7dd8d8d1f828c509d62c2654" name="a3d6bf5cc7dd8d8d1f828c509d62c2654"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3d6bf5cc7dd8d8d1f828c509d62c2654">&#9670;&#160;</a></span>vertex_index_type</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="#a478a9d1610f3d7b7b7820aae6649c8d7">IndexType</a> SPIRV_CROSS_NAMESPACE::CompilerMSL::Options::vertex_index_type = IndexType::None</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definición en la línea <a class="el" href="x64-windows-static_2x64-windows-static_2include_2spirv__cross_2spirv__msl_8hpp_source.html#l00409">409</a> del archivo <a class="el" href="x64-windows-static_2x64-windows-static_2include_2spirv__cross_2spirv__msl_8hpp_source.html">spirv_msl.hpp</a>.</p>
+
+</div>
+</div>
+<a id="ade178351556f60646cbd585c1a50ae13" name="ade178351556f60646cbd585c1a50ae13"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ade178351556f60646cbd585c1a50ae13">&#9670;&#160;</a></span>view_index_from_device_index</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool SPIRV_CROSS_NAMESPACE::CompilerMSL::Options::view_index_from_device_index = false</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definición en la línea <a class="el" href="x64-windows-static_2x64-windows-static_2include_2spirv__cross_2spirv__msl_8hpp_source.html#l00311">311</a> del archivo <a class="el" href="x64-windows-static_2x64-windows-static_2include_2spirv__cross_2spirv__msl_8hpp_source.html">spirv_msl.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a8c0f31d5f5b2da7e8e43f146217af4a7" name="a8c0f31d5f5b2da7e8e43f146217af4a7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8c0f31d5f5b2da7e8e43f146217af4a7">&#9670;&#160;</a></span>view_mask_buffer_index</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint32_t SPIRV_CROSS_NAMESPACE::CompilerMSL::Options::view_mask_buffer_index = 24</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definición en la línea <a class="el" href="x64-windows-static_2x64-windows-static_2include_2spirv__cross_2spirv__msl_8hpp_source.html#l00291">291</a> del archivo <a class="el" href="x64-windows-static_2x64-windows-static_2include_2spirv__cross_2spirv__msl_8hpp_source.html">spirv_msl.hpp</a>.</p>
+
+</div>
+</div>
+<hr/>La documentación de esta estructura está generada de los siguientes archivos:<ul>
+<li>Source/vcpkg_installed/x64-windows-static/x64-windows-static/include/spirv_cross/<a class="el" href="x64-windows-static_2x64-windows-static_2include_2spirv__cross_2spirv__msl_8hpp_source.html">spirv_msl.hpp</a></li>
+<li>Source/vcpkg_installed/x64-windows/x64-windows/include/spirv_cross/<a class="el" href="x64-windows_2x64-windows_2include_2spirv__cross_2spirv__msl_8hpp_source.html">spirv_msl.hpp</a></li>
+<li>Source/vcpkg_installed/x86-windows/x86-windows/include/spirv_cross/<a class="el" href="x86-windows_2x86-windows_2include_2spirv__cross_2spirv__msl_8hpp_source.html">spirv_msl.hpp</a></li>
+</ul>
+</div><!-- contents -->
+</div><!-- doc-content -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="namespace_s_p_i_r_v___c_r_o_s_s___n_a_m_e_s_p_a_c_e.html">SPIRV_CROSS_NAMESPACE</a></li><li class="navelem"><a class="el" href="class_s_p_i_r_v___c_r_o_s_s___n_a_m_e_s_p_a_c_e_1_1_compiler_m_s_l.html">CompilerMSL</a></li><li class="navelem"><a class="el" href="struct_s_p_i_r_v___c_r_o_s_s___n_a_m_e_s_p_a_c_e_1_1_compiler_m_s_l_1_1_options.html">Options</a></li>
+    <li class="footer">Generado el Lunes, 29 de enero de 2024 17:19:13 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.10.0 </li>
+  </ul>
+</div>
+</body>
+</html>

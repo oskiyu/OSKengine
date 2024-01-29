@@ -1,0 +1,317 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="es">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.10.0"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>OSKengine: Archivo de código fuente Source/AxisAlignedBoundingBox.cpp</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">OSKengine<span id="projectnumber">&#160;Indev</span>
+   </div>
+   <div id="projectbrief">Motor de videojuegos.</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generado por Doxygen 1.10.0 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() {
+  initMenu('',true,false,'search.php','Buscar');
+  $(function() { init_search(); });
+});
+/* @license-end */
+</script>
+<div id="main-nav"></div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() { codefold.init(0); });
+/* @license-end */
+</script>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function(){initNavTree('_axis_aligned_bounding_box_8cpp_source.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Cargando...</div>
+<div class="SRStatus" id="Searching">Buscando...</div>
+<div class="SRStatus" id="NoMatches">Nada coincide</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">AxisAlignedBoundingBox.cpp</div></div>
+</div><!--header-->
+<div class="contents">
+<a href="_axis_aligned_bounding_box_8cpp.html">Ir a la documentación de este archivo.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="comment">// OSKengine by oskiyu</span></div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="comment">// Copyright (c) 2019-2022 oskiyu. All rights reserved.</span></div>
+<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="preprocessor">#include &quot;<a class="code" href="_axis_aligned_bounding_box_8h.html">AxisAlignedBoundingBox.h</a>&quot;</span></div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span> </div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &quot;<a class="code" href="_sphere_collider_8h.html">SphereCollider.h</a>&quot;</span></div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &quot;<a class="code" href="_assert_8h.html">Assert.h</a>&quot;</span></div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="preprocessor">#include &quot;<a class="code" href="_not_implemented_exception_8h.html">NotImplementedException.h</a>&quot;</span></div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="preprocessor">#include &quot;<a class="code" href="_o_s_kengine_8h.html">OSKengine.h</a>&quot;</span></div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span> </div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="keyword">using namespace </span><a class="code hl_namespace" href="namespace_o_s_k.html">OSK</a>;</div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="keyword">using namespace </span><a class="code hl_namespace" href="namespace_o_s_k_1_1_c_o_l_l_i_s_i_o_n.html">OSK::COLLISION</a>;</div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span> </div>
+<div class="foldopen" id="foldopen00013" data-start="{" data-end="}">
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_axis_aligned_bounding_box.html#a05192eb36783816d462fd1ac77ec548d">   13</a></span><a class="code hl_class" href="class_o_s_k_1_1_owned_ptr.html">OwnedPtr&lt;ITopLevelCollider&gt;</a> <a class="code hl_function" href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_axis_aligned_bounding_box.html#a05192eb36783816d462fd1ac77ec548d">AxisAlignedBoundingBox::CreateCopy</a>()<span class="keyword"> const </span>{</div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span>    <span class="keywordflow">return</span> <span class="keyword">new</span> <a class="code hl_function" href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_axis_aligned_bounding_box.html#ab52e3f971fc7904c6d4bd24bf4ea2738">AxisAlignedBoundingBox</a>(*<span class="keyword">this</span>);</div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span>}</div>
+</div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span> </div>
+<div class="foldopen" id="foldopen00017" data-start="{" data-end="}">
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_axis_aligned_bounding_box.html#af6ec16d1ff9275a6d32236591f381460">   17</a></span><a class="code hl_function" href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_axis_aligned_bounding_box.html#ab52e3f971fc7904c6d4bd24bf4ea2738">AxisAlignedBoundingBox::AxisAlignedBoundingBox</a>(<span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_vector3__t.html">Vector3f</a>&amp; size) {</div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>    <a class="code hl_function" href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_axis_aligned_bounding_box.html#ae00ef70ed4bb09c07e04c8c61cfe1d7c">SetSize</a>(size);</div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>}</div>
+</div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span> </div>
+<div class="foldopen" id="foldopen00021" data-start="{" data-end="}">
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_axis_aligned_bounding_box.html#ae00ef70ed4bb09c07e04c8c61cfe1d7c">   21</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_axis_aligned_bounding_box.html#ae00ef70ed4bb09c07e04c8c61cfe1d7c">AxisAlignedBoundingBox::SetSize</a>(<span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_vector3__t.html">Vector3f</a>&amp; size) {</div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>    m_size = size;</div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>}</div>
+</div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span> </div>
+<div class="foldopen" id="foldopen00025" data-start="{" data-end="}">
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_axis_aligned_bounding_box.html#aaf879822dbd753923c17e6a93e3651c6">   25</a></span><span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_vector3__t.html">Vector3f</a>&amp; <a class="code hl_function" href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_axis_aligned_bounding_box.html#aaf879822dbd753923c17e6a93e3651c6">AxisAlignedBoundingBox::GetSize</a>()<span class="keyword"> const </span>{</div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>    <span class="keywordflow">return</span> m_size;</div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>}</div>
+</div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span> </div>
+<div class="foldopen" id="foldopen00029" data-start="{" data-end="}">
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_axis_aligned_bounding_box.html#a465157f557b4c8c95bf9758541ec5a34">   29</a></span><span class="keywordtype">bool</span> <a class="code hl_function" href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_axis_aligned_bounding_box.html#a465157f557b4c8c95bf9758541ec5a34">AxisAlignedBoundingBox::ContainsPoint</a>(<span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_vector3__t.html">Vector3f</a>&amp; point)<span class="keyword"> const </span>{</div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>    <span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_vector3__t.html">Vector3f</a> min = <a class="code hl_function" href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_axis_aligned_bounding_box.html#adb2f85c765c20238d0628dbd8d955a97">GetMin</a>();</div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>    <span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_vector3__t.html">Vector3f</a> max = <a class="code hl_function" href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_axis_aligned_bounding_box.html#a73e7a5381e4573cb5a5f288c9f695649">GetMax</a>();</div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span> </div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>    <span class="keywordflow">return</span></div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>        point.<a class="code hl_variable" href="class_o_s_k_1_1_vector3__t.html#a481bd4a15724b2509174e62cf093d3e2">x</a> &gt; min.x &amp;&amp; point.<a class="code hl_variable" href="class_o_s_k_1_1_vector3__t.html#a481bd4a15724b2509174e62cf093d3e2">x</a> &lt; max.x &amp;&amp;</div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>        point.<a class="code hl_variable" href="class_o_s_k_1_1_vector3__t.html#a23b731e2b121b01fe571c679ae3bbfdb">y</a> &gt; min.y &amp;&amp; point.<a class="code hl_variable" href="class_o_s_k_1_1_vector3__t.html#a23b731e2b121b01fe571c679ae3bbfdb">y</a> &lt; max.y &amp;&amp;</div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>        point.<a class="code hl_variable" href="class_o_s_k_1_1_vector3__t.html#aa939a1c4c1f34510b2ef2e0d47eba5bb">z</a> &gt; min.z &amp;&amp; point.<a class="code hl_variable" href="class_o_s_k_1_1_vector3__t.html#aa939a1c4c1f34510b2ef2e0d47eba5bb">z</a> &lt; max.z;</div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>}</div>
+</div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span> </div>
+<div class="foldopen" id="foldopen00039" data-start="{" data-end="}">
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_axis_aligned_bounding_box.html#a22be50db7c68c84f933aadb94228d670">   39</a></span><a class="code hl_class" href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_ray_cast_result.html">RayCastResult</a> <a class="code hl_function" href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_axis_aligned_bounding_box.html#a22be50db7c68c84f933aadb94228d670">AxisAlignedBoundingBox::CastRay</a>(<span class="keyword">const</span> <a class="code hl_struct" href="struct_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_ray.html">Ray</a>&amp; ray)<span class="keyword"> const </span>{</div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>    <span class="keyword">const</span> std::array&lt;Vector3f, 6&gt; normals = {</div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>        <a class="code hl_typedef" href="namespace_o_s_k.html#a72b3268907c9cd41f0daf0a42e1c9dca">Vector3f</a>(1.0f, 0.0f, 0.0f),</div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>        <a class="code hl_typedef" href="namespace_o_s_k.html#a72b3268907c9cd41f0daf0a42e1c9dca">Vector3f</a>(-1.0f, 0.0f, 0.0f),</div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>        <a class="code hl_typedef" href="namespace_o_s_k.html#a72b3268907c9cd41f0daf0a42e1c9dca">Vector3f</a>(0.0f, 1.0f, 0.0f),</div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>        <a class="code hl_typedef" href="namespace_o_s_k.html#a72b3268907c9cd41f0daf0a42e1c9dca">Vector3f</a>(0.0f, -1.0f, 0.0f),</div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>        <a class="code hl_typedef" href="namespace_o_s_k.html#a72b3268907c9cd41f0daf0a42e1c9dca">Vector3f</a>(0.0f, 0.0f, 1.0f),</div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>        <a class="code hl_typedef" href="namespace_o_s_k.html#a72b3268907c9cd41f0daf0a42e1c9dca">Vector3f</a>(0.0f, 0.0f, -1.0f)</div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>    };</div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span> </div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>    <span class="keyword">const</span> std::array&lt;Vector3f, 6&gt; points = {</div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>        <a class="code hl_function" href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_i_top_level_collider.html#ae1be71ba2c65e3972b15ab6f6af075aa">GetPosition</a>() + normals[0] * m_size * 0.5f,</div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>        <a class="code hl_function" href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_i_top_level_collider.html#ae1be71ba2c65e3972b15ab6f6af075aa">GetPosition</a>() + normals[1] * m_size * 0.5f,</div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>        <a class="code hl_function" href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_i_top_level_collider.html#ae1be71ba2c65e3972b15ab6f6af075aa">GetPosition</a>() + normals[2] * m_size * 0.5f,</div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>        <a class="code hl_function" href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_i_top_level_collider.html#ae1be71ba2c65e3972b15ab6f6af075aa">GetPosition</a>() + normals[3] * m_size * 0.5f,</div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>        <a class="code hl_function" href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_i_top_level_collider.html#ae1be71ba2c65e3972b15ab6f6af075aa">GetPosition</a>() + normals[4] * m_size * 0.5f,</div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>        <a class="code hl_function" href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_i_top_level_collider.html#ae1be71ba2c65e3972b15ab6f6af075aa">GetPosition</a>() + normals[5] * m_size * 0.5f</div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>    };</div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span> </div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>    <span class="keywordtype">float</span> closestDistance = std::numeric_limits&lt;float&gt;::max();</div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>    <a class="code hl_class" href="class_o_s_k_1_1_vector3__t.html">Vector3f</a> closestIntersection = <a class="code hl_variable" href="class_o_s_k_1_1_vector3__t.html#ac574fd28b9114ddf48d26573d1efd570">Vector3f::Zero</a>;</div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>    <span class="keywordtype">bool</span> intersection = <span class="keyword">false</span>;</div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>    <span class="keywordflow">for</span> (<a class="code hl_typedef" href="_o_s_kmacros_8h.html#adef8e046c86805ca0dc2db407b01a1bb">UIndex64</a> i = 0; i &lt; 6; i++) {</div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>        <span class="keyword">const</span> <span class="keyword">auto</span> result = ray.<a class="code hl_function" href="struct_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_ray.html#a550f34a09bdacf018d8d22abbabb8c12">IntersectionWithPlane</a>(normals[i], points[i]);</div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span> </div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>        <span class="keywordflow">if</span> (!result.Result())</div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>            <span class="keywordflow">continue</span>;</div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span> </div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>        intersection = <span class="keyword">true</span>;</div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span> </div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>        <span class="keyword">const</span> <span class="keywordtype">float</span> nDistance = result.<a class="code hl_function" href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_ray_cast_result.html#a19066a70c7a0cd8885436b110c896aa2">GetIntersectionPoint</a>().<a class="code hl_function" href="class_o_s_k_1_1_vector3__t.html#a7ec7d40bc7e1dc4c9a5becfe3f29f5ff">GetDistanceTo2</a>(ray.<a class="code hl_variable" href="struct_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_ray.html#a58f1fd48fd028230b012d6a806f5f65c">origin</a>);</div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>        <span class="keywordflow">if</span> (nDistance &lt; closestDistance) {</div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>            closestDistance = nDistance;</div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>            closestIntersection = result.GetIntersectionPoint();</div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>        }</div>
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>    }</div>
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span> </div>
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>    <span class="keywordflow">return</span> intersection</div>
+<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span>        ? <a class="code hl_function" href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_ray_cast_result.html#aa2f2f5c5ef956e33398edd0e733948e7">RayCastResult::True</a>(closestIntersection, <a class="code hl_variable" href="namespace_o_s_k_1_1_e_c_s.html#a46b3731582093c6a4b02a2024b9edf81">ECS::EMPTY_GAME_OBJECT</a>)</div>
+<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span>        : <a class="code hl_function" href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_ray_cast_result.html#af10022f2f38d51befdf03b1e9394b2b6">RayCastResult::False</a>();</div>
+<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span>}</div>
+</div>
+<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span> </div>
+<div class="foldopen" id="foldopen00081" data-start="{" data-end="}">
+<div class="line"><a id="l00081" name="l00081"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_axis_aligned_bounding_box.html#aa7061f072c91401afb9254742c5a711f">   81</a></span><span class="keywordtype">bool</span> <a class="code hl_function" href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_axis_aligned_bounding_box.html#aa7061f072c91401afb9254742c5a711f">AxisAlignedBoundingBox::IsBehindPlane</a>(<a class="code hl_struct" href="struct_o_s_k_1_1_plane.html">Plane</a> plane)<span class="keyword"> const </span>{</div>
+<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span>    <span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_vector3__t.html">Vector3f</a> extent = m_size * 0.5f;</div>
+<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span> </div>
+<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span>    <span class="keyword">const</span> <span class="keywordtype">float</span> collapsedAabb =</div>
+<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span>        extent.<a class="code hl_variable" href="class_o_s_k_1_1_vector3__t.html#a481bd4a15724b2509174e62cf093d3e2">x</a> * <a class="code hl_function" href="group__core__func__common.html#ga439e60a72eadecfeda2df5449c613a64">glm::abs</a>(plane.<a class="code hl_variable" href="struct_o_s_k_1_1_plane.html#a49bd05bdb11e2c236dc0d54c40725148">normal</a>.<a class="code hl_variable" href="class_o_s_k_1_1_vector3__t.html#a481bd4a15724b2509174e62cf093d3e2">x</a>) +</div>
+<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span>        extent.<a class="code hl_variable" href="class_o_s_k_1_1_vector3__t.html#a23b731e2b121b01fe571c679ae3bbfdb">y</a> * <a class="code hl_function" href="group__core__func__common.html#ga439e60a72eadecfeda2df5449c613a64">glm::abs</a>(plane.<a class="code hl_variable" href="struct_o_s_k_1_1_plane.html#a49bd05bdb11e2c236dc0d54c40725148">normal</a>.<a class="code hl_variable" href="class_o_s_k_1_1_vector3__t.html#a23b731e2b121b01fe571c679ae3bbfdb">y</a>) +</div>
+<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span>        extent.<a class="code hl_variable" href="class_o_s_k_1_1_vector3__t.html#aa939a1c4c1f34510b2ef2e0d47eba5bb">z</a> * <a class="code hl_function" href="group__core__func__common.html#ga439e60a72eadecfeda2df5449c613a64">glm::abs</a>(plane.<a class="code hl_variable" href="struct_o_s_k_1_1_plane.html#a49bd05bdb11e2c236dc0d54c40725148">normal</a>.<a class="code hl_variable" href="class_o_s_k_1_1_vector3__t.html#aa939a1c4c1f34510b2ef2e0d47eba5bb">z</a>);</div>
+<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span> </div>
+<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span>    <span class="keyword">const</span> <span class="keywordtype">float</span> signedDistanceToPlane = plane.<a class="code hl_variable" href="struct_o_s_k_1_1_plane.html#a49bd05bdb11e2c236dc0d54c40725148">normal</a>.<a class="code hl_function" href="class_o_s_k_1_1_vector3__t.html#a79f857bd13e3e7b131fb1c171e38b069">Dot</a>(<a class="code hl_function" href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_i_top_level_collider.html#ae1be71ba2c65e3972b15ab6f6af075aa">GetPosition</a>() - plane.<a class="code hl_variable" href="struct_o_s_k_1_1_plane.html#aacbe4522a87240b7b1b179fcf1d58715">point</a>);</div>
+<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span> </div>
+<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span>    <span class="keywordflow">return</span> !(<a class="code hl_function" href="group__core__func__common.html#ga439e60a72eadecfeda2df5449c613a64">glm::abs</a>(signedDistanceToPlane) &lt;= collapsedAabb);</div>
+<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span>}</div>
+</div>
+<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span> </div>
+<div class="foldopen" id="foldopen00094" data-start="{" data-end="}">
+<div class="line"><a id="l00094" name="l00094"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_axis_aligned_bounding_box.html#a4b290a84aaa8832d48f3fb39c4cae6fa">   94</a></span><span class="keywordtype">bool</span> <a class="code hl_function" href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_axis_aligned_bounding_box.html#a4b290a84aaa8832d48f3fb39c4cae6fa">AxisAlignedBoundingBox::IsColliding</a>(<span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_i_top_level_collider.html">ITopLevelCollider</a>&amp; other)<span class="keyword"> const </span>{</div>
+<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span> </div>
+<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span>    <span class="keywordflow">if</span> (<span class="keyword">auto</span> box = <span class="keyword">dynamic_cast&lt;</span><span class="keyword">const </span><a class="code hl_class" href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_axis_aligned_bounding_box.html">AxisAlignedBoundingBox</a>*<span class="keyword">&gt;</span>(&amp;other))</div>
+<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span>        <span class="keywordflow">return</span> <a class="code hl_function" href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_i_top_level_collider.html#a934b9aca49dcb9df9c740dcf8d4e8112">ITopLevelCollider::AabbAabbCollision</a>(*<span class="keyword">this</span>, *box);</div>
+<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span> </div>
+<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span>    <span class="keywordflow">if</span> (<span class="keyword">auto</span> sphere = <span class="keyword">dynamic_cast&lt;</span><span class="keyword">const </span><a class="code hl_class" href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_sphere_collider.html">SphereCollider</a>*<span class="keyword">&gt;</span>(&amp;other))</div>
+<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span>        <span class="keywordflow">return</span> <a class="code hl_function" href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_i_top_level_collider.html#a000a8139b279ada1cfbf2fccc8438e84">ITopLevelCollider::AabbSphereCollision</a>(*<span class="keyword">this</span>, *sphere);</div>
+<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span> </div>
+<div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span>    <a class="code hl_define" href="_assert_8h.html#a927d7efae46f019e805b046e952af182">OSK_ASSERT</a>(<span class="keyword">false</span>, <a class="code hl_class" href="class_o_s_k_1_1_not_implemented_exception.html">NotImplementedException</a>());</div>
+<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span>}</div>
+</div>
+<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span> </div>
+<div class="foldopen" id="foldopen00105" data-start="{" data-end="}">
+<div class="line"><a id="l00105" name="l00105"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_axis_aligned_bounding_box.html#adb2f85c765c20238d0628dbd8d955a97">  105</a></span><a class="code hl_class" href="class_o_s_k_1_1_vector3__t.html">Vector3f</a> <a class="code hl_function" href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_axis_aligned_bounding_box.html#adb2f85c765c20238d0628dbd8d955a97">AxisAlignedBoundingBox::GetMin</a>()<span class="keyword"> const </span>{</div>
+<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span>    <span class="keywordflow">return</span> <a class="code hl_function" href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_i_top_level_collider.html#ae1be71ba2c65e3972b15ab6f6af075aa">GetPosition</a>() - m_size * 0.5f;</div>
+<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span>}</div>
+</div>
+<div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span> </div>
+<div class="foldopen" id="foldopen00109" data-start="{" data-end="}">
+<div class="line"><a id="l00109" name="l00109"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_axis_aligned_bounding_box.html#a73e7a5381e4573cb5a5f288c9f695649">  109</a></span><a class="code hl_class" href="class_o_s_k_1_1_vector3__t.html">Vector3f</a> <a class="code hl_function" href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_axis_aligned_bounding_box.html#a73e7a5381e4573cb5a5f288c9f695649">AxisAlignedBoundingBox::GetMax</a>()<span class="keyword"> const </span>{</div>
+<div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span>    <span class="keywordflow">return</span> <a class="code hl_function" href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_i_top_level_collider.html#ae1be71ba2c65e3972b15ab6f6af075aa">GetPosition</a>() + m_size * 0.5f;</div>
+<div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span>}</div>
+</div>
+<div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span> </div>
+<div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span><span class="keyword">template</span> &lt;&gt;</div>
+<div class="foldopen" id="foldopen00114" data-start="{" data-end="}">
+<div class="line"><a id="l00114" name="l00114"></a><span class="lineno"><a class="line" href="_axis_aligned_bounding_box_8cpp.html#a9040e32b0151af1f2e01f4de9fd3a890">  114</a></span>nlohmann::json <a class="code hl_function" href="namespace_o_s_k_1_1_p_e_r_s_i_s_t_e_n_c_e.html#ab52ead4bec0309eb80a6806cea12f0bf">PERSISTENCE::SerializeJson&lt;OSK::COLLISION::AxisAlignedBoundingBox&gt;</a>(<span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_axis_aligned_bounding_box.html">OSK::COLLISION::AxisAlignedBoundingBox</a>&amp; data) {</div>
+<div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span>    nlohmann::json output{};</div>
+<div class="line"><a id="l00116" name="l00116"></a><span class="lineno">  116</span> </div>
+<div class="line"><a id="l00117" name="l00117"></a><span class="lineno">  117</span>    output[<span class="stringliteral">&quot;m_size&quot;</span>][<span class="stringliteral">&quot;x&quot;</span>] = data.m_size.<a class="code hl_variable" href="class_o_s_k_1_1_vector3__t.html#a481bd4a15724b2509174e62cf093d3e2">x</a>;</div>
+<div class="line"><a id="l00118" name="l00118"></a><span class="lineno">  118</span>    output[<span class="stringliteral">&quot;m_size&quot;</span>][<span class="stringliteral">&quot;y&quot;</span>] = data.m_size.<a class="code hl_variable" href="class_o_s_k_1_1_vector3__t.html#a23b731e2b121b01fe571c679ae3bbfdb">y</a>;</div>
+<div class="line"><a id="l00119" name="l00119"></a><span class="lineno">  119</span>    output[<span class="stringliteral">&quot;m_size&quot;</span>][<span class="stringliteral">&quot;z&quot;</span>] = data.m_size.<a class="code hl_variable" href="class_o_s_k_1_1_vector3__t.html#aa939a1c4c1f34510b2ef2e0d47eba5bb">z</a>;</div>
+<div class="line"><a id="l00120" name="l00120"></a><span class="lineno">  120</span> </div>
+<div class="line"><a id="l00121" name="l00121"></a><span class="lineno">  121</span>    <span class="keywordflow">return</span> output;</div>
+<div class="line"><a id="l00122" name="l00122"></a><span class="lineno">  122</span>}</div>
+</div>
+<div class="line"><a id="l00123" name="l00123"></a><span class="lineno">  123</span> </div>
+<div class="line"><a id="l00124" name="l00124"></a><span class="lineno">  124</span><span class="keyword">template</span> &lt;&gt;</div>
+<div class="foldopen" id="foldopen00125" data-start="{" data-end="}">
+<div class="line"><a id="l00125" name="l00125"></a><span class="lineno"><a class="line" href="_axis_aligned_bounding_box_8cpp.html#afeb913ce5e8a59ead58cd352e4cf8036">  125</a></span><a class="code hl_class" href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_axis_aligned_bounding_box.html">OSK::COLLISION::AxisAlignedBoundingBox</a> <a class="code hl_function" href="namespace_o_s_k_1_1_p_e_r_s_i_s_t_e_n_c_e.html#afa7459e2be2e22ef92a40d391e56ff0d">PERSISTENCE::DeserializeJson&lt;OSK::COLLISION::AxisAlignedBoundingBox&gt;</a>(<span class="keyword">const</span> nlohmann::json&amp; json) {</div>
+<div class="line"><a id="l00126" name="l00126"></a><span class="lineno">  126</span>    <span class="keywordflow">return</span> <a class="code hl_class" href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_axis_aligned_bounding_box.html">AxisAlignedBoundingBox</a>(<a class="code hl_typedef" href="namespace_o_s_k.html#a72b3268907c9cd41f0daf0a42e1c9dca">Vector3f</a>(</div>
+<div class="line"><a id="l00127" name="l00127"></a><span class="lineno">  127</span>        <span class="keyword">static_cast&lt;</span><span class="keywordtype">float</span><span class="keyword">&gt;</span>(json[<span class="stringliteral">&quot;m_size&quot;</span>][<span class="stringliteral">&quot;x&quot;</span>]),</div>
+<div class="line"><a id="l00128" name="l00128"></a><span class="lineno">  128</span>        <span class="keyword">static_cast&lt;</span><span class="keywordtype">float</span><span class="keyword">&gt;</span>(json[<span class="stringliteral">&quot;m_size&quot;</span>][<span class="stringliteral">&quot;y&quot;</span>]),</div>
+<div class="line"><a id="l00129" name="l00129"></a><span class="lineno">  129</span>        <span class="keyword">static_cast&lt;</span><span class="keywordtype">float</span><span class="keyword">&gt;</span>(json[<span class="stringliteral">&quot;m_size&quot;</span>][<span class="stringliteral">&quot;z&quot;</span>])</div>
+<div class="line"><a id="l00130" name="l00130"></a><span class="lineno">  130</span>    ));</div>
+<div class="line"><a id="l00131" name="l00131"></a><span class="lineno">  131</span>}</div>
+</div>
+<div class="ttc" id="a_assert_8h_html"><div class="ttname"><a href="_assert_8h.html">Assert.h</a></div></div>
+<div class="ttc" id="a_assert_8h_html_a927d7efae46f019e805b046e952af182"><div class="ttname"><a href="_assert_8h.html#a927d7efae46f019e805b046e952af182">OSK_ASSERT</a></div><div class="ttdeci">#define OSK_ASSERT(condition, exception)</div><div class="ttdoc">Comrpueba si una condición se cumple. En caso de no cumplirse, lanza la excepción indicada,...</div><div class="ttdef"><b>Definition</b> <a href="_assert_8h_source.html#l00041">Assert.h:41</a></div></div>
+<div class="ttc" id="a_axis_aligned_bounding_box_8h_html"><div class="ttname"><a href="_axis_aligned_bounding_box_8h.html">AxisAlignedBoundingBox.h</a></div></div>
+<div class="ttc" id="a_not_implemented_exception_8h_html"><div class="ttname"><a href="_not_implemented_exception_8h.html">NotImplementedException.h</a></div></div>
+<div class="ttc" id="a_o_s_kengine_8h_html"><div class="ttname"><a href="_o_s_kengine_8h.html">OSKengine.h</a></div></div>
+<div class="ttc" id="a_o_s_kmacros_8h_html_adef8e046c86805ca0dc2db407b01a1bb"><div class="ttname"><a href="_o_s_kmacros_8h.html#adef8e046c86805ca0dc2db407b01a1bb">UIndex64</a></div><div class="ttdeci">uint64_t UIndex64</div><div class="ttdef"><b>Definition</b> <a href="_o_s_kmacros_8h_source.html#l00041">OSKmacros.h:41</a></div></div>
+<div class="ttc" id="a_sphere_collider_8h_html"><div class="ttname"><a href="_sphere_collider_8h.html">SphereCollider.h</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_axis_aligned_bounding_box_html"><div class="ttname"><a href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_axis_aligned_bounding_box.html">OSK::COLLISION::AxisAlignedBoundingBox</a></div><div class="ttdoc">Un área de colisión de alto nivel representado por una caja tridimensional.</div><div class="ttdef"><b>Definition</b> <a href="_axis_aligned_bounding_box_8h_source.html#l00019">AxisAlignedBoundingBox.h:19</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_axis_aligned_bounding_box_html_a05192eb36783816d462fd1ac77ec548d"><div class="ttname"><a href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_axis_aligned_bounding_box.html#a05192eb36783816d462fd1ac77ec548d">OSK::COLLISION::AxisAlignedBoundingBox::CreateCopy</a></div><div class="ttdeci">OwnedPtr&lt; ITopLevelCollider &gt; CreateCopy() const override</div><div class="ttdef"><b>Definition</b> <a href="#l00013">AxisAlignedBoundingBox.cpp:13</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_axis_aligned_bounding_box_html_a22be50db7c68c84f933aadb94228d670"><div class="ttname"><a href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_axis_aligned_bounding_box.html#a22be50db7c68c84f933aadb94228d670">OSK::COLLISION::AxisAlignedBoundingBox::CastRay</a></div><div class="ttdeci">RayCastResult CastRay(const Ray &amp;ray) const override</div><div class="ttdoc">Calcula la intersección entre un rayo y el collider.</div><div class="ttdef"><b>Definition</b> <a href="#l00039">AxisAlignedBoundingBox.cpp:39</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_axis_aligned_bounding_box_html_a465157f557b4c8c95bf9758541ec5a34"><div class="ttname"><a href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_axis_aligned_bounding_box.html#a465157f557b4c8c95bf9758541ec5a34">OSK::COLLISION::AxisAlignedBoundingBox::ContainsPoint</a></div><div class="ttdeci">bool ContainsPoint(const Vector3f &amp;point) const override</div><div class="ttdef"><b>Definition</b> <a href="#l00029">AxisAlignedBoundingBox.cpp:29</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_axis_aligned_bounding_box_html_a4b290a84aaa8832d48f3fb39c4cae6fa"><div class="ttname"><a href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_axis_aligned_bounding_box.html#a4b290a84aaa8832d48f3fb39c4cae6fa">OSK::COLLISION::AxisAlignedBoundingBox::IsColliding</a></div><div class="ttdeci">bool IsColliding(const ITopLevelCollider &amp;other) const override</div><div class="ttdoc">Comprueba si este área de colisión está en contacto con otra.</div><div class="ttdef"><b>Definition</b> <a href="#l00094">AxisAlignedBoundingBox.cpp:94</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_axis_aligned_bounding_box_html_a73e7a5381e4573cb5a5f288c9f695649"><div class="ttname"><a href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_axis_aligned_bounding_box.html#a73e7a5381e4573cb5a5f288c9f695649">OSK::COLLISION::AxisAlignedBoundingBox::GetMax</a></div><div class="ttdeci">Vector3f GetMax() const</div><div class="ttdef"><b>Definition</b> <a href="#l00109">AxisAlignedBoundingBox.cpp:109</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_axis_aligned_bounding_box_html_aa7061f072c91401afb9254742c5a711f"><div class="ttname"><a href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_axis_aligned_bounding_box.html#aa7061f072c91401afb9254742c5a711f">OSK::COLLISION::AxisAlignedBoundingBox::IsBehindPlane</a></div><div class="ttdeci">bool IsBehindPlane(Plane plane) const override</div><div class="ttdoc">Comprueba si el collider está COMPLETMENTE por detrás del plano.</div><div class="ttdef"><b>Definition</b> <a href="#l00081">AxisAlignedBoundingBox.cpp:81</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_axis_aligned_bounding_box_html_aaf879822dbd753923c17e6a93e3651c6"><div class="ttname"><a href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_axis_aligned_bounding_box.html#aaf879822dbd753923c17e6a93e3651c6">OSK::COLLISION::AxisAlignedBoundingBox::GetSize</a></div><div class="ttdeci">const Vector3f &amp; GetSize() const</div><div class="ttdef"><b>Definition</b> <a href="#l00025">AxisAlignedBoundingBox.cpp:25</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_axis_aligned_bounding_box_html_ab52e3f971fc7904c6d4bd24bf4ea2738"><div class="ttname"><a href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_axis_aligned_bounding_box.html#ab52e3f971fc7904c6d4bd24bf4ea2738">OSK::COLLISION::AxisAlignedBoundingBox::AxisAlignedBoundingBox</a></div><div class="ttdeci">AxisAlignedBoundingBox()=default</div><div class="ttdoc">Caja con tamaño 1.</div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_axis_aligned_bounding_box_html_adb2f85c765c20238d0628dbd8d955a97"><div class="ttname"><a href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_axis_aligned_bounding_box.html#adb2f85c765c20238d0628dbd8d955a97">OSK::COLLISION::AxisAlignedBoundingBox::GetMin</a></div><div class="ttdeci">Vector3f GetMin() const</div><div class="ttdef"><b>Definition</b> <a href="#l00105">AxisAlignedBoundingBox.cpp:105</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_axis_aligned_bounding_box_html_ae00ef70ed4bb09c07e04c8c61cfe1d7c"><div class="ttname"><a href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_axis_aligned_bounding_box.html#ae00ef70ed4bb09c07e04c8c61cfe1d7c">OSK::COLLISION::AxisAlignedBoundingBox::SetSize</a></div><div class="ttdeci">void SetSize(const Vector3f &amp;size)</div><div class="ttdef"><b>Definition</b> <a href="#l00021">AxisAlignedBoundingBox.cpp:21</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_i_top_level_collider_html"><div class="ttname"><a href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_i_top_level_collider.html">OSK::COLLISION::ITopLevelCollider</a></div><div class="ttdoc">Representa un área de colisión no muy ajustada que permite descartar colisiones de una manera más ráp...</div><div class="ttdef"><b>Definition</b> <a href="_i_top_level_collider_8h_source.html#l00024">ITopLevelCollider.h:24</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_i_top_level_collider_html_a000a8139b279ada1cfbf2fccc8438e84"><div class="ttname"><a href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_i_top_level_collider.html#a000a8139b279ada1cfbf2fccc8438e84">OSK::COLLISION::ITopLevelCollider::AabbSphereCollision</a></div><div class="ttdeci">static bool AabbSphereCollision(const AxisAlignedBoundingBox &amp;first, const SphereCollider &amp;other)</div><div class="ttdef"><b>Definition</b> <a href="_i_top_level_collider_8cpp_source.html#l00024">ITopLevelCollider.cpp:24</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_i_top_level_collider_html_a934b9aca49dcb9df9c740dcf8d4e8112"><div class="ttname"><a href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_i_top_level_collider.html#a934b9aca49dcb9df9c740dcf8d4e8112">OSK::COLLISION::ITopLevelCollider::AabbAabbCollision</a></div><div class="ttdeci">static bool AabbAabbCollision(const AxisAlignedBoundingBox &amp;first, const AxisAlignedBoundingBox &amp;other)</div><div class="ttdef"><b>Definition</b> <a href="_i_top_level_collider_8cpp_source.html#l00011">ITopLevelCollider.cpp:11</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_i_top_level_collider_html_ae1be71ba2c65e3972b15ab6f6af075aa"><div class="ttname"><a href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_i_top_level_collider.html#ae1be71ba2c65e3972b15ab6f6af075aa">OSK::COLLISION::ITopLevelCollider::GetPosition</a></div><div class="ttdeci">const Vector3f &amp; GetPosition() const</div><div class="ttdef"><b>Definition</b> <a href="_i_top_level_collider_8cpp_source.html#l00065">ITopLevelCollider.cpp:65</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_ray_cast_result_html"><div class="ttname"><a href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_ray_cast_result.html">OSK::COLLISION::RayCastResult</a></div><div class="ttdoc">Representa el resultado de trazar un rayo en la escena. El resultado puede ser positivo en caso de qu...</div><div class="ttdef"><b>Definition</b> <a href="_ray_cast_result_8h_source.html#l00014">RayCastResult.h:14</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_ray_cast_result_html_a19066a70c7a0cd8885436b110c896aa2"><div class="ttname"><a href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_ray_cast_result.html#a19066a70c7a0cd8885436b110c896aa2">OSK::COLLISION::RayCastResult::GetIntersectionPoint</a></div><div class="ttdeci">const Vector3f &amp; GetIntersectionPoint() const</div><div class="ttdoc">Devuelve el punto de intersección más cercano al origen.</div><div class="ttdef"><b>Definition</b> <a href="_ray_cast_result_8cpp_source.html#l00024">RayCastResult.cpp:24</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_ray_cast_result_html_aa2f2f5c5ef956e33398edd0e733948e7"><div class="ttname"><a href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_ray_cast_result.html#aa2f2f5c5ef956e33398edd0e733948e7">OSK::COLLISION::RayCastResult::True</a></div><div class="ttdeci">static RayCastResult True(const Vector3f &amp;intersection, ECS::GameObjectIndex gameObject)</div><div class="ttdoc">Crea un resultado verdadero (con intersección).</div><div class="ttdef"><b>Definition</b> <a href="_ray_cast_result_8cpp_source.html#l00016">RayCastResult.cpp:16</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_ray_cast_result_html_af10022f2f38d51befdf03b1e9394b2b6"><div class="ttname"><a href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_ray_cast_result.html#af10022f2f38d51befdf03b1e9394b2b6">OSK::COLLISION::RayCastResult::False</a></div><div class="ttdeci">static RayCastResult False()</div><div class="ttdoc">Crea un resultado falso (sin intersección).</div><div class="ttdef"><b>Definition</b> <a href="_ray_cast_result_8cpp_source.html#l00012">RayCastResult.cpp:12</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_sphere_collider_html"><div class="ttname"><a href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_sphere_collider.html">OSK::COLLISION::SphereCollider</a></div><div class="ttdoc">Un área de colisión de alto nivel representado por una esfera.</div><div class="ttdef"><b>Definition</b> <a href="_sphere_collider_8h_source.html#l00016">SphereCollider.h:16</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_not_implemented_exception_html"><div class="ttname"><a href="class_o_s_k_1_1_not_implemented_exception.html">OSK::NotImplementedException</a></div><div class="ttdoc">Excepción que se lanza cuando se trata de ejecutar una funcionalidad que aún no se ha desarrollado.</div><div class="ttdef"><b>Definition</b> <a href="_not_implemented_exception_8h_source.html#l00008">NotImplementedException.h:8</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_owned_ptr_html"><div class="ttname"><a href="class_o_s_k_1_1_owned_ptr.html">OSK::OwnedPtr</a></div><div class="ttdoc">Es dueño de un puntero.</div><div class="ttdef"><b>Definition</b> <a href="_owned_ptr_8h_source.html#l00016">OwnedPtr.h:16</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_vector3__t_html"><div class="ttname"><a href="class_o_s_k_1_1_vector3__t.html">OSK::Vector3_t&lt; float_t &gt;</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_vector3__t_html_a23b731e2b121b01fe571c679ae3bbfdb"><div class="ttname"><a href="class_o_s_k_1_1_vector3__t.html#a23b731e2b121b01fe571c679ae3bbfdb">OSK::Vector3_t::y</a></div><div class="ttdeci">T y</div><div class="ttdoc">Representa la segunda coordenada.</div><div class="ttdef"><b>Definition</b> <a href="_vector3_8hpp_source.html#l00280">Vector3.hpp:280</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_vector3__t_html_a481bd4a15724b2509174e62cf093d3e2"><div class="ttname"><a href="class_o_s_k_1_1_vector3__t.html#a481bd4a15724b2509174e62cf093d3e2">OSK::Vector3_t::x</a></div><div class="ttdeci">T x</div><div class="ttdoc">Representa la primera coordenada.</div><div class="ttdef"><b>Definition</b> <a href="_vector3_8hpp_source.html#l00277">Vector3.hpp:277</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_vector3__t_html_a79f857bd13e3e7b131fb1c171e38b069"><div class="ttname"><a href="class_o_s_k_1_1_vector3__t.html#a79f857bd13e3e7b131fb1c171e38b069">OSK::Vector3_t::Dot</a></div><div class="ttdeci">T Dot(const Vector3_t &amp;vec) const</div><div class="ttdef"><b>Definition</b> <a href="_vector3_8hpp_source.html#l00191">Vector3.hpp:191</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_vector3__t_html_a7ec7d40bc7e1dc4c9a5becfe3f29f5ff"><div class="ttname"><a href="class_o_s_k_1_1_vector3__t.html#a7ec7d40bc7e1dc4c9a5becfe3f29f5ff">OSK::Vector3_t::GetDistanceTo2</a></div><div class="ttdeci">T GetDistanceTo2(const Vector3_t &amp;vec) const</div><div class="ttdef"><b>Definition</b> <a href="_vector3_8hpp_source.html#l00181">Vector3.hpp:181</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_vector3__t_html_aa939a1c4c1f34510b2ef2e0d47eba5bb"><div class="ttname"><a href="class_o_s_k_1_1_vector3__t.html#aa939a1c4c1f34510b2ef2e0d47eba5bb">OSK::Vector3_t::z</a></div><div class="ttdeci">T z</div><div class="ttdoc">Representa la tercera coordenada.</div><div class="ttdef"><b>Definition</b> <a href="_vector3_8hpp_source.html#l00283">Vector3.hpp:283</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_vector3__t_html_ac574fd28b9114ddf48d26573d1efd570"><div class="ttname"><a href="class_o_s_k_1_1_vector3__t.html#ac574fd28b9114ddf48d26573d1efd570">OSK::Vector3_t&lt; float_t &gt;::Zero</a></div><div class="ttdeci">static OSKAPI_CALL Vector3_t const Zero</div><div class="ttdef"><b>Definition</b> <a href="_vector3_8hpp_source.html#l00017">Vector3.hpp:17</a></div></div>
+<div class="ttc" id="agroup__core__func__common_html_ga439e60a72eadecfeda2df5449c613a64"><div class="ttname"><a href="group__core__func__common.html#ga439e60a72eadecfeda2df5449c613a64">glm::abs</a></div><div class="ttdeci">GLM_FUNC_DECL GLM_CONSTEXPR genType abs(genType x)</div></div>
+<div class="ttc" id="anamespace_o_s_k_1_1_c_o_l_l_i_s_i_o_n_html"><div class="ttname"><a href="namespace_o_s_k_1_1_c_o_l_l_i_s_i_o_n.html">OSK::COLLISION</a></div><div class="ttdef"><b>Definition</b> <a href="_axis_aligned_bounding_box_8h_source.html#l00010">AxisAlignedBoundingBox.h:10</a></div></div>
+<div class="ttc" id="anamespace_o_s_k_1_1_e_c_s_html_a46b3731582093c6a4b02a2024b9edf81"><div class="ttname"><a href="namespace_o_s_k_1_1_e_c_s.html#a46b3731582093c6a4b02a2024b9edf81">OSK::ECS::EMPTY_GAME_OBJECT</a></div><div class="ttdeci">constexpr GameObjectIndex EMPTY_GAME_OBJECT</div><div class="ttdoc">El ID no identifica a ningún objeto válido.</div><div class="ttdef"><b>Definition</b> <a href="_game_object_8h_source.html#l00021">GameObject.h:21</a></div></div>
+<div class="ttc" id="anamespace_o_s_k_1_1_p_e_r_s_i_s_t_e_n_c_e_html_ab52ead4bec0309eb80a6806cea12f0bf"><div class="ttname"><a href="namespace_o_s_k_1_1_p_e_r_s_i_s_t_e_n_c_e.html#ab52ead4bec0309eb80a6806cea12f0bf">OSK::PERSISTENCE::SerializeJson&lt; OSK::COLLISION::AxisAlignedBoundingBox &gt;</a></div><div class="ttdeci">nlohmann::json SerializeJson&lt; OSK::COLLISION::AxisAlignedBoundingBox &gt;(const OSK::COLLISION::AxisAlignedBoundingBox &amp;data)</div></div>
+<div class="ttc" id="anamespace_o_s_k_1_1_p_e_r_s_i_s_t_e_n_c_e_html_afa7459e2be2e22ef92a40d391e56ff0d"><div class="ttname"><a href="namespace_o_s_k_1_1_p_e_r_s_i_s_t_e_n_c_e.html#afa7459e2be2e22ef92a40d391e56ff0d">OSK::PERSISTENCE::DeserializeJson&lt; OSK::COLLISION::AxisAlignedBoundingBox &gt;</a></div><div class="ttdeci">OSK::COLLISION::AxisAlignedBoundingBox DeserializeJson&lt; OSK::COLLISION::AxisAlignedBoundingBox &gt;(const nlohmann::json &amp;json)</div></div>
+<div class="ttc" id="anamespace_o_s_k_html"><div class="ttname"><a href="namespace_o_s_k.html">OSK</a></div><div class="ttdef"><b>Definition</b> <a href="_acceleration_structures_exceptions_8h_source.html#l00005">AccelerationStructuresExceptions.h:5</a></div></div>
+<div class="ttc" id="anamespace_o_s_k_html_a72b3268907c9cd41f0daf0a42e1c9dca"><div class="ttname"><a href="namespace_o_s_k.html#a72b3268907c9cd41f0daf0a42e1c9dca">OSK::Vector3f</a></div><div class="ttdeci">Vector3_t&lt; float_t &gt; Vector3f</div><div class="ttdoc">Precisión = float.</div><div class="ttdef"><b>Definition</b> <a href="_vector3_8hpp_source.html#l00289">Vector3.hpp:289</a></div></div>
+<div class="ttc" id="astruct_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_ray_html"><div class="ttname"><a href="struct_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_ray.html">OSK::COLLISION::Ray</a></div><div class="ttdoc">Representa un rayo lanzado en el mundo que puede colisionar con colliders.</div><div class="ttdef"><b>Definition</b> <a href="_ray_8h_source.html#l00013">Ray.h:13</a></div></div>
+<div class="ttc" id="astruct_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_ray_html_a550f34a09bdacf018d8d22abbabb8c12"><div class="ttname"><a href="struct_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_ray.html#a550f34a09bdacf018d8d22abbabb8c12">OSK::COLLISION::Ray::IntersectionWithPlane</a></div><div class="ttdeci">RayCastResult IntersectionWithPlane(const Vector3f &amp;planeNormal, const Vector3f &amp;planePoint) const</div><div class="ttdef"><b>Definition</b> <a href="_ray_8cpp_source.html#l00006">Ray.cpp:6</a></div></div>
+<div class="ttc" id="astruct_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_ray_html_a58f1fd48fd028230b012d6a806f5f65c"><div class="ttname"><a href="struct_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_ray.html#a58f1fd48fd028230b012d6a806f5f65c">OSK::COLLISION::Ray::origin</a></div><div class="ttdeci">Vector3f origin</div><div class="ttdoc">Posición del mundo desde el que se origina el rayo.</div><div class="ttdef"><b>Definition</b> <a href="_ray_8h_source.html#l00016">Ray.h:16</a></div></div>
+<div class="ttc" id="astruct_o_s_k_1_1_plane_html"><div class="ttname"><a href="struct_o_s_k_1_1_plane.html">OSK::Plane</a></div><div class="ttdoc">Representa un plano en el espacio 3D.</div><div class="ttdef"><b>Definition</b> <a href="_plane_8h_source.html#l00008">Plane.h:8</a></div></div>
+<div class="ttc" id="astruct_o_s_k_1_1_plane_html_a49bd05bdb11e2c236dc0d54c40725148"><div class="ttname"><a href="struct_o_s_k_1_1_plane.html#a49bd05bdb11e2c236dc0d54c40725148">OSK::Plane::normal</a></div><div class="ttdeci">Vector3f normal</div><div class="ttdoc">Vector normal del plano.</div><div class="ttdef"><b>Definition</b> <a href="_plane_8h_source.html#l00014">Plane.h:14</a></div></div>
+<div class="ttc" id="astruct_o_s_k_1_1_plane_html_aacbe4522a87240b7b1b179fcf1d58715"><div class="ttname"><a href="struct_o_s_k_1_1_plane.html#aacbe4522a87240b7b1b179fcf1d58715">OSK::Plane::point</a></div><div class="ttdeci">Vector3f point</div><div class="ttdoc">Punto perteneciente al plano.</div><div class="ttdef"><b>Definition</b> <a href="_plane_8h_source.html#l00011">Plane.h:11</a></div></div>
+</div><!-- fragment --></div><!-- contents -->
+</div><!-- doc-content -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="dir_74389ed8173ad57b461b9d623a1f3867.html">Source</a></li><li class="navelem"><a class="el" href="_axis_aligned_bounding_box_8cpp.html">AxisAlignedBoundingBox.cpp</a></li>
+    <li class="footer">Generado el Lunes, 29 de enero de 2024 17:18:30 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.10.0 </li>
+  </ul>
+</div>
+</body>
+</html>

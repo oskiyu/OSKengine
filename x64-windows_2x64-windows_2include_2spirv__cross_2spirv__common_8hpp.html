@@ -1,0 +1,440 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="es">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.10.0"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>OSKengine: Referencia del archivo Source/vcpkg_installed/x64-windows/x64-windows/include/spirv_cross/spirv_common.hpp</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">OSKengine<span id="projectnumber">&#160;Indev</span>
+   </div>
+   <div id="projectbrief">Motor de videojuegos.</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generado por Doxygen 1.10.0 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() {
+  initMenu('',true,false,'search.php','Buscar');
+  $(function() { init_search(); });
+});
+/* @license-end */
+</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function(){initNavTree('x64-windows_2x64-windows_2include_2spirv__cross_2spirv__common_8hpp.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Cargando...</div>
+<div class="SRStatus" id="Searching">Buscando...</div>
+<div class="SRStatus" id="NoMatches">Nada coincide</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="summary">
+<a href="#nested-classes">Clases</a> &#124;
+<a href="#namespaces">Espacios de nombres</a> &#124;
+<a href="#define-members">defines</a> &#124;
+<a href="#enum-members">Enumeraciones</a> &#124;
+<a href="#func-members">Funciones</a>  </div>
+  <div class="headertitle"><div class="title">Referencia del archivo spirv_common.hpp</div></div>
+</div><!--header-->
+<div class="contents">
+<div class="textblock"><code>#include &quot;<a class="el" href="x64-windows_2x64-windows_2include_2spirv__cross_2spirv_8hpp_source.html">spirv.hpp</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="x64-windows_2x64-windows_2include_2spirv__cross_2spirv__cross__containers_8hpp_source.html">spirv_cross_containers.hpp</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="x64-windows_2x64-windows_2include_2spirv__cross_2spirv__cross__error__handling_8hpp_source.html">spirv_cross_error_handling.hpp</a>&quot;</code><br />
+<code>#include &lt;functional&gt;</code><br />
+</div>
+<p><a href="x64-windows_2x64-windows_2include_2spirv__cross_2spirv__common_8hpp_source.html">Ir al código fuente de este archivo.</a></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="nested-classes" name="nested-classes"></a>
+Clases</h2></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_s_p_i_r_v___c_r_o_s_s___n_a_m_e_s_p_a_c_e_1_1_bitset.html">SPIRV_CROSS_NAMESPACE::Bitset</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_s_p_i_r_v___c_r_o_s_s___n_a_m_e_s_p_a_c_e_1_1_value_saver.html">SPIRV_CROSS_NAMESPACE::ValueSaver&lt; T &gt;</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_s_p_i_r_v___c_r_o_s_s___n_a_m_e_s_p_a_c_e_1_1_instruction.html">SPIRV_CROSS_NAMESPACE::Instruction</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_s_p_i_r_v___c_r_o_s_s___n_a_m_e_s_p_a_c_e_1_1_typed_i_d_3_01_type_none_01_4.html">SPIRV_CROSS_NAMESPACE::TypedID&lt; TypeNone &gt;</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_s_p_i_r_v___c_r_o_s_s___n_a_m_e_s_p_a_c_e_1_1_typed_i_d.html">SPIRV_CROSS_NAMESPACE::TypedID&lt; type &gt;</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_s_p_i_r_v___c_r_o_s_s___n_a_m_e_s_p_a_c_e_1_1_i_variant.html">SPIRV_CROSS_NAMESPACE::IVariant</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_s_p_i_r_v___c_r_o_s_s___n_a_m_e_s_p_a_c_e_1_1_s_p_i_r_undef.html">SPIRV_CROSS_NAMESPACE::SPIRUndef</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_s_p_i_r_v___c_r_o_s_s___n_a_m_e_s_p_a_c_e_1_1_s_p_i_r_string.html">SPIRV_CROSS_NAMESPACE::SPIRString</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_s_p_i_r_v___c_r_o_s_s___n_a_m_e_s_p_a_c_e_1_1_s_p_i_r_combined_image_sampler.html">SPIRV_CROSS_NAMESPACE::SPIRCombinedImageSampler</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_s_p_i_r_v___c_r_o_s_s___n_a_m_e_s_p_a_c_e_1_1_s_p_i_r_constant_op.html">SPIRV_CROSS_NAMESPACE::SPIRConstantOp</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_s_p_i_r_v___c_r_o_s_s___n_a_m_e_s_p_a_c_e_1_1_s_p_i_r_type.html">SPIRV_CROSS_NAMESPACE::SPIRType</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_s_p_i_r_v___c_r_o_s_s___n_a_m_e_s_p_a_c_e_1_1_s_p_i_r_type_1_1_image_type.html">SPIRV_CROSS_NAMESPACE::SPIRType::ImageType</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_s_p_i_r_v___c_r_o_s_s___n_a_m_e_s_p_a_c_e_1_1_s_p_i_r_extension.html">SPIRV_CROSS_NAMESPACE::SPIRExtension</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_s_p_i_r_v___c_r_o_s_s___n_a_m_e_s_p_a_c_e_1_1_s_p_i_r_entry_point.html">SPIRV_CROSS_NAMESPACE::SPIREntryPoint</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_s_p_i_r_v___c_r_o_s_s___n_a_m_e_s_p_a_c_e_1_1_s_p_i_r_entry_point_1_1_workgroup_size.html">SPIRV_CROSS_NAMESPACE::SPIREntryPoint::WorkgroupSize</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_s_p_i_r_v___c_r_o_s_s___n_a_m_e_s_p_a_c_e_1_1_s_p_i_r_expression.html">SPIRV_CROSS_NAMESPACE::SPIRExpression</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_s_p_i_r_v___c_r_o_s_s___n_a_m_e_s_p_a_c_e_1_1_s_p_i_r_function_prototype.html">SPIRV_CROSS_NAMESPACE::SPIRFunctionPrototype</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_s_p_i_r_v___c_r_o_s_s___n_a_m_e_s_p_a_c_e_1_1_s_p_i_r_block.html">SPIRV_CROSS_NAMESPACE::SPIRBlock</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_s_p_i_r_v___c_r_o_s_s___n_a_m_e_s_p_a_c_e_1_1_s_p_i_r_block_1_1_phi.html">SPIRV_CROSS_NAMESPACE::SPIRBlock::Phi</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_s_p_i_r_v___c_r_o_s_s___n_a_m_e_s_p_a_c_e_1_1_s_p_i_r_block_1_1_case.html">SPIRV_CROSS_NAMESPACE::SPIRBlock::Case</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_s_p_i_r_v___c_r_o_s_s___n_a_m_e_s_p_a_c_e_1_1_s_p_i_r_function.html">SPIRV_CROSS_NAMESPACE::SPIRFunction</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_s_p_i_r_v___c_r_o_s_s___n_a_m_e_s_p_a_c_e_1_1_s_p_i_r_function_1_1_parameter.html">SPIRV_CROSS_NAMESPACE::SPIRFunction::Parameter</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_s_p_i_r_v___c_r_o_s_s___n_a_m_e_s_p_a_c_e_1_1_s_p_i_r_function_1_1_combined_image_sampler_parameter.html">SPIRV_CROSS_NAMESPACE::SPIRFunction::CombinedImageSamplerParameter</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_s_p_i_r_v___c_r_o_s_s___n_a_m_e_s_p_a_c_e_1_1_s_p_i_r_function_1_1_entry_line.html">SPIRV_CROSS_NAMESPACE::SPIRFunction::EntryLine</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_s_p_i_r_v___c_r_o_s_s___n_a_m_e_s_p_a_c_e_1_1_s_p_i_r_access_chain.html">SPIRV_CROSS_NAMESPACE::SPIRAccessChain</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_s_p_i_r_v___c_r_o_s_s___n_a_m_e_s_p_a_c_e_1_1_s_p_i_r_variable.html">SPIRV_CROSS_NAMESPACE::SPIRVariable</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_s_p_i_r_v___c_r_o_s_s___n_a_m_e_s_p_a_c_e_1_1_s_p_i_r_constant.html">SPIRV_CROSS_NAMESPACE::SPIRConstant</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">union &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="union_s_p_i_r_v___c_r_o_s_s___n_a_m_e_s_p_a_c_e_1_1_s_p_i_r_constant_1_1_constant.html">SPIRV_CROSS_NAMESPACE::SPIRConstant::Constant</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_s_p_i_r_v___c_r_o_s_s___n_a_m_e_s_p_a_c_e_1_1_s_p_i_r_constant_1_1_constant_vector.html">SPIRV_CROSS_NAMESPACE::SPIRConstant::ConstantVector</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_s_p_i_r_v___c_r_o_s_s___n_a_m_e_s_p_a_c_e_1_1_s_p_i_r_constant_1_1_constant_matrix.html">SPIRV_CROSS_NAMESPACE::SPIRConstant::ConstantMatrix</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_s_p_i_r_v___c_r_o_s_s___n_a_m_e_s_p_a_c_e_1_1_object_pool_group.html">SPIRV_CROSS_NAMESPACE::ObjectPoolGroup</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_s_p_i_r_v___c_r_o_s_s___n_a_m_e_s_p_a_c_e_1_1_variant.html">SPIRV_CROSS_NAMESPACE::Variant</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_s_p_i_r_v___c_r_o_s_s___n_a_m_e_s_p_a_c_e_1_1_access_chain_meta.html">SPIRV_CROSS_NAMESPACE::AccessChainMeta</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_s_p_i_r_v___c_r_o_s_s___n_a_m_e_s_p_a_c_e_1_1_meta.html">SPIRV_CROSS_NAMESPACE::Meta</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_s_p_i_r_v___c_r_o_s_s___n_a_m_e_s_p_a_c_e_1_1_meta_1_1_decoration.html">SPIRV_CROSS_NAMESPACE::Meta::Decoration</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_s_p_i_r_v___c_r_o_s_s___n_a_m_e_s_p_a_c_e_1_1_meta_1_1_decoration_1_1_extended.html">SPIRV_CROSS_NAMESPACE::Meta::Decoration::Extended</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_s_p_i_r_v___c_r_o_s_s___n_a_m_e_s_p_a_c_e_1_1_hasher.html">SPIRV_CROSS_NAMESPACE::Hasher</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_s_p_i_r_v___c_r_o_s_s___n_a_m_e_s_p_a_c_e_1_1_set_binding_pair.html">SPIRV_CROSS_NAMESPACE::SetBindingPair</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_s_p_i_r_v___c_r_o_s_s___n_a_m_e_s_p_a_c_e_1_1_stage_set_binding.html">SPIRV_CROSS_NAMESPACE::StageSetBinding</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_s_p_i_r_v___c_r_o_s_s___n_a_m_e_s_p_a_c_e_1_1_internal_hasher.html">SPIRV_CROSS_NAMESPACE::InternalHasher</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structstd_1_1hash_3_01_s_p_i_r_v___c_r_o_s_s___n_a_m_e_s_p_a_c_e_1_1_typed_i_d_3_01type_01_4_01_4.html">std::hash&lt; SPIRV_CROSS_NAMESPACE::TypedID&lt; type &gt; &gt;</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="namespaces" name="namespaces"></a>
+Espacios de nombres</h2></td></tr>
+<tr class="memitem:namespace_s_p_i_r_v___c_r_o_s_s___n_a_m_e_s_p_a_c_e" id="r_namespace_s_p_i_r_v___c_r_o_s_s___n_a_m_e_s_p_a_c_e"><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_s_p_i_r_v___c_r_o_s_s___n_a_m_e_s_p_a_c_e.html">SPIRV_CROSS_NAMESPACE</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:namespace_s_p_i_r_v___c_r_o_s_s___n_a_m_e_s_p_a_c_e_1_1inner" id="r_namespace_s_p_i_r_v___c_r_o_s_s___n_a_m_e_s_p_a_c_e_1_1inner"><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_s_p_i_r_v___c_r_o_s_s___n_a_m_e_s_p_a_c_e_1_1inner.html">SPIRV_CROSS_NAMESPACE::inner</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:namespacestd" id="r_namespacestd"><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacestd.html">std</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="define-members" name="define-members"></a>
+defines</h2></td></tr>
+<tr class="memitem:ad84987f309329e1d39aa91d4257253c3" id="r_ad84987f309329e1d39aa91d4257253c3"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad84987f309329e1d39aa91d4257253c3">SPIRV_CROSS_NAMESPACE</a>&#160;&#160;&#160;spirv_cross</td></tr>
+<tr class="separator:ad84987f309329e1d39aa91d4257253c3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a80d1be0b904f6e87d4ef8339d3fbc4bf" id="r_a80d1be0b904f6e87d4ef8339d3fbc4bf"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a80d1be0b904f6e87d4ef8339d3fbc4bf">SPIRV_CROSS_FLT_FMT</a>&#160;&#160;&#160;&quot;%.32g&quot;</td></tr>
+<tr class="separator:a80d1be0b904f6e87d4ef8339d3fbc4bf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae4324c19f19d68f09ad760e5f8f76131" id="r_ae4324c19f19d68f09ad760e5f8f76131"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae4324c19f19d68f09ad760e5f8f76131">SPIRV_CROSS_DECLARE_CLONE</a>(T)</td></tr>
+<tr class="separator:ae4324c19f19d68f09ad760e5f8f76131"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="enum-members" name="enum-members"></a>
+Enumeraciones</h2></td></tr>
+<tr class="memitem:a878513c0b00f55e36825afc2e93989c4" id="r_a878513c0b00f55e36825afc2e93989c4"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_s_p_i_r_v___c_r_o_s_s___n_a_m_e_s_p_a_c_e.html#a878513c0b00f55e36825afc2e93989c4">SPIRV_CROSS_NAMESPACE::Types</a> { <br />
+&#160;&#160;<a class="el" href="namespace_s_p_i_r_v___c_r_o_s_s___n_a_m_e_s_p_a_c_e.html#a878513c0b00f55e36825afc2e93989c4a88819f1576961eecf7140939cd400131">SPIRV_CROSS_NAMESPACE::TypeNone</a>
+, <a class="el" href="namespace_s_p_i_r_v___c_r_o_s_s___n_a_m_e_s_p_a_c_e.html#a878513c0b00f55e36825afc2e93989c4af41544ee0e762f608bc6ad64d1bf0d97">SPIRV_CROSS_NAMESPACE::TypeType</a>
+, <a class="el" href="namespace_s_p_i_r_v___c_r_o_s_s___n_a_m_e_s_p_a_c_e.html#a878513c0b00f55e36825afc2e93989c4ae46d76e0af8b14b4445ae4200401d8d7">SPIRV_CROSS_NAMESPACE::TypeVariable</a>
+, <a class="el" href="namespace_s_p_i_r_v___c_r_o_s_s___n_a_m_e_s_p_a_c_e.html#a878513c0b00f55e36825afc2e93989c4a78ab3e2a1eca35b99601101327ae1d76">SPIRV_CROSS_NAMESPACE::TypeConstant</a>
+, <br />
+&#160;&#160;<a class="el" href="namespace_s_p_i_r_v___c_r_o_s_s___n_a_m_e_s_p_a_c_e.html#a878513c0b00f55e36825afc2e93989c4a994fe1aaa0525e731a341760edcf3c9f">SPIRV_CROSS_NAMESPACE::TypeFunction</a>
+, <a class="el" href="namespace_s_p_i_r_v___c_r_o_s_s___n_a_m_e_s_p_a_c_e.html#a878513c0b00f55e36825afc2e93989c4ab57ed0da9d6eb678901cfa4039f54db3">SPIRV_CROSS_NAMESPACE::TypeFunctionPrototype</a>
+, <a class="el" href="namespace_s_p_i_r_v___c_r_o_s_s___n_a_m_e_s_p_a_c_e.html#a878513c0b00f55e36825afc2e93989c4a2db2d237879d68c4e5bd8eff6b8866c6">SPIRV_CROSS_NAMESPACE::TypeBlock</a>
+, <a class="el" href="namespace_s_p_i_r_v___c_r_o_s_s___n_a_m_e_s_p_a_c_e.html#a878513c0b00f55e36825afc2e93989c4a15a278ce217aa3802b344d4668b0c553">SPIRV_CROSS_NAMESPACE::TypeExtension</a>
+, <br />
+&#160;&#160;<a class="el" href="namespace_s_p_i_r_v___c_r_o_s_s___n_a_m_e_s_p_a_c_e.html#a878513c0b00f55e36825afc2e93989c4afb0d72308cc3d9200e56f28b104124a9">SPIRV_CROSS_NAMESPACE::TypeExpression</a>
+, <a class="el" href="namespace_s_p_i_r_v___c_r_o_s_s___n_a_m_e_s_p_a_c_e.html#a878513c0b00f55e36825afc2e93989c4aa4de4908027244952c64241854502952">SPIRV_CROSS_NAMESPACE::TypeConstantOp</a>
+, <a class="el" href="namespace_s_p_i_r_v___c_r_o_s_s___n_a_m_e_s_p_a_c_e.html#a878513c0b00f55e36825afc2e93989c4a29193e5f8bef1c786eb3a470308800d8">SPIRV_CROSS_NAMESPACE::TypeCombinedImageSampler</a>
+, <a class="el" href="namespace_s_p_i_r_v___c_r_o_s_s___n_a_m_e_s_p_a_c_e.html#a878513c0b00f55e36825afc2e93989c4a37fae844db418aefe455bd62e5720a4c">SPIRV_CROSS_NAMESPACE::TypeAccessChain</a>
+, <br />
+&#160;&#160;<a class="el" href="namespace_s_p_i_r_v___c_r_o_s_s___n_a_m_e_s_p_a_c_e.html#a878513c0b00f55e36825afc2e93989c4a94ba2f4a07479dec5b8ed6d26858c8a2">SPIRV_CROSS_NAMESPACE::TypeUndef</a>
+, <a class="el" href="namespace_s_p_i_r_v___c_r_o_s_s___n_a_m_e_s_p_a_c_e.html#a878513c0b00f55e36825afc2e93989c4aa2f8ecf0d8a10a87ea345d32ae3b53f7">SPIRV_CROSS_NAMESPACE::TypeString</a>
+, <a class="el" href="namespace_s_p_i_r_v___c_r_o_s_s___n_a_m_e_s_p_a_c_e.html#a878513c0b00f55e36825afc2e93989c4afe744a2d26bae1fc14a7ee11d86cbd33">SPIRV_CROSS_NAMESPACE::TypeCount</a>
+, <a class="el" href="namespace_s_p_i_r_v___c_r_o_s_s___n_a_m_e_s_p_a_c_e.html#a878513c0b00f55e36825afc2e93989c4a88819f1576961eecf7140939cd400131">SPIRV_CROSS_NAMESPACE::TypeNone</a>
+, <br />
+&#160;&#160;<a class="el" href="namespace_s_p_i_r_v___c_r_o_s_s___n_a_m_e_s_p_a_c_e.html#a878513c0b00f55e36825afc2e93989c4af41544ee0e762f608bc6ad64d1bf0d97">SPIRV_CROSS_NAMESPACE::TypeType</a>
+, <a class="el" href="namespace_s_p_i_r_v___c_r_o_s_s___n_a_m_e_s_p_a_c_e.html#a878513c0b00f55e36825afc2e93989c4ae46d76e0af8b14b4445ae4200401d8d7">SPIRV_CROSS_NAMESPACE::TypeVariable</a>
+, <a class="el" href="namespace_s_p_i_r_v___c_r_o_s_s___n_a_m_e_s_p_a_c_e.html#a878513c0b00f55e36825afc2e93989c4a78ab3e2a1eca35b99601101327ae1d76">SPIRV_CROSS_NAMESPACE::TypeConstant</a>
+, <a class="el" href="namespace_s_p_i_r_v___c_r_o_s_s___n_a_m_e_s_p_a_c_e.html#a878513c0b00f55e36825afc2e93989c4a994fe1aaa0525e731a341760edcf3c9f">SPIRV_CROSS_NAMESPACE::TypeFunction</a>
+, <br />
+&#160;&#160;<a class="el" href="namespace_s_p_i_r_v___c_r_o_s_s___n_a_m_e_s_p_a_c_e.html#a878513c0b00f55e36825afc2e93989c4ab57ed0da9d6eb678901cfa4039f54db3">SPIRV_CROSS_NAMESPACE::TypeFunctionPrototype</a>
+, <a class="el" href="namespace_s_p_i_r_v___c_r_o_s_s___n_a_m_e_s_p_a_c_e.html#a878513c0b00f55e36825afc2e93989c4a2db2d237879d68c4e5bd8eff6b8866c6">SPIRV_CROSS_NAMESPACE::TypeBlock</a>
+, <a class="el" href="namespace_s_p_i_r_v___c_r_o_s_s___n_a_m_e_s_p_a_c_e.html#a878513c0b00f55e36825afc2e93989c4a15a278ce217aa3802b344d4668b0c553">SPIRV_CROSS_NAMESPACE::TypeExtension</a>
+, <a class="el" href="namespace_s_p_i_r_v___c_r_o_s_s___n_a_m_e_s_p_a_c_e.html#a878513c0b00f55e36825afc2e93989c4afb0d72308cc3d9200e56f28b104124a9">SPIRV_CROSS_NAMESPACE::TypeExpression</a>
+, <br />
+&#160;&#160;<a class="el" href="namespace_s_p_i_r_v___c_r_o_s_s___n_a_m_e_s_p_a_c_e.html#a878513c0b00f55e36825afc2e93989c4aa4de4908027244952c64241854502952">SPIRV_CROSS_NAMESPACE::TypeConstantOp</a>
+, <a class="el" href="namespace_s_p_i_r_v___c_r_o_s_s___n_a_m_e_s_p_a_c_e.html#a878513c0b00f55e36825afc2e93989c4a29193e5f8bef1c786eb3a470308800d8">SPIRV_CROSS_NAMESPACE::TypeCombinedImageSampler</a>
+, <a class="el" href="namespace_s_p_i_r_v___c_r_o_s_s___n_a_m_e_s_p_a_c_e.html#a878513c0b00f55e36825afc2e93989c4a37fae844db418aefe455bd62e5720a4c">SPIRV_CROSS_NAMESPACE::TypeAccessChain</a>
+, <a class="el" href="namespace_s_p_i_r_v___c_r_o_s_s___n_a_m_e_s_p_a_c_e.html#a878513c0b00f55e36825afc2e93989c4a94ba2f4a07479dec5b8ed6d26858c8a2">SPIRV_CROSS_NAMESPACE::TypeUndef</a>
+, <br />
+&#160;&#160;<a class="el" href="namespace_s_p_i_r_v___c_r_o_s_s___n_a_m_e_s_p_a_c_e.html#a878513c0b00f55e36825afc2e93989c4aa2f8ecf0d8a10a87ea345d32ae3b53f7">SPIRV_CROSS_NAMESPACE::TypeString</a>
+, <a class="el" href="namespace_s_p_i_r_v___c_r_o_s_s___n_a_m_e_s_p_a_c_e.html#a878513c0b00f55e36825afc2e93989c4afe744a2d26bae1fc14a7ee11d86cbd33">SPIRV_CROSS_NAMESPACE::TypeCount</a>
+, <a class="el" href="namespace_s_p_i_r_v___c_r_o_s_s___n_a_m_e_s_p_a_c_e.html#a878513c0b00f55e36825afc2e93989c4a88819f1576961eecf7140939cd400131">SPIRV_CROSS_NAMESPACE::TypeNone</a>
+, <a class="el" href="namespace_s_p_i_r_v___c_r_o_s_s___n_a_m_e_s_p_a_c_e.html#a878513c0b00f55e36825afc2e93989c4af41544ee0e762f608bc6ad64d1bf0d97">SPIRV_CROSS_NAMESPACE::TypeType</a>
+, <br />
+&#160;&#160;<a class="el" href="namespace_s_p_i_r_v___c_r_o_s_s___n_a_m_e_s_p_a_c_e.html#a878513c0b00f55e36825afc2e93989c4ae46d76e0af8b14b4445ae4200401d8d7">SPIRV_CROSS_NAMESPACE::TypeVariable</a>
+, <a class="el" href="namespace_s_p_i_r_v___c_r_o_s_s___n_a_m_e_s_p_a_c_e.html#a878513c0b00f55e36825afc2e93989c4a78ab3e2a1eca35b99601101327ae1d76">SPIRV_CROSS_NAMESPACE::TypeConstant</a>
+, <a class="el" href="namespace_s_p_i_r_v___c_r_o_s_s___n_a_m_e_s_p_a_c_e.html#a878513c0b00f55e36825afc2e93989c4a994fe1aaa0525e731a341760edcf3c9f">SPIRV_CROSS_NAMESPACE::TypeFunction</a>
+, <a class="el" href="namespace_s_p_i_r_v___c_r_o_s_s___n_a_m_e_s_p_a_c_e.html#a878513c0b00f55e36825afc2e93989c4ab57ed0da9d6eb678901cfa4039f54db3">SPIRV_CROSS_NAMESPACE::TypeFunctionPrototype</a>
+, <br />
+&#160;&#160;<a class="el" href="namespace_s_p_i_r_v___c_r_o_s_s___n_a_m_e_s_p_a_c_e.html#a878513c0b00f55e36825afc2e93989c4a2db2d237879d68c4e5bd8eff6b8866c6">SPIRV_CROSS_NAMESPACE::TypeBlock</a>
+, <a class="el" href="namespace_s_p_i_r_v___c_r_o_s_s___n_a_m_e_s_p_a_c_e.html#a878513c0b00f55e36825afc2e93989c4a15a278ce217aa3802b344d4668b0c553">SPIRV_CROSS_NAMESPACE::TypeExtension</a>
+, <a class="el" href="namespace_s_p_i_r_v___c_r_o_s_s___n_a_m_e_s_p_a_c_e.html#a878513c0b00f55e36825afc2e93989c4afb0d72308cc3d9200e56f28b104124a9">SPIRV_CROSS_NAMESPACE::TypeExpression</a>
+, <a class="el" href="namespace_s_p_i_r_v___c_r_o_s_s___n_a_m_e_s_p_a_c_e.html#a878513c0b00f55e36825afc2e93989c4aa4de4908027244952c64241854502952">SPIRV_CROSS_NAMESPACE::TypeConstantOp</a>
+, <br />
+&#160;&#160;<a class="el" href="namespace_s_p_i_r_v___c_r_o_s_s___n_a_m_e_s_p_a_c_e.html#a878513c0b00f55e36825afc2e93989c4a29193e5f8bef1c786eb3a470308800d8">SPIRV_CROSS_NAMESPACE::TypeCombinedImageSampler</a>
+, <a class="el" href="namespace_s_p_i_r_v___c_r_o_s_s___n_a_m_e_s_p_a_c_e.html#a878513c0b00f55e36825afc2e93989c4a37fae844db418aefe455bd62e5720a4c">SPIRV_CROSS_NAMESPACE::TypeAccessChain</a>
+, <a class="el" href="namespace_s_p_i_r_v___c_r_o_s_s___n_a_m_e_s_p_a_c_e.html#a878513c0b00f55e36825afc2e93989c4a94ba2f4a07479dec5b8ed6d26858c8a2">SPIRV_CROSS_NAMESPACE::TypeUndef</a>
+, <a class="el" href="namespace_s_p_i_r_v___c_r_o_s_s___n_a_m_e_s_p_a_c_e.html#a878513c0b00f55e36825afc2e93989c4aa2f8ecf0d8a10a87ea345d32ae3b53f7">SPIRV_CROSS_NAMESPACE::TypeString</a>
+, <br />
+&#160;&#160;<a class="el" href="namespace_s_p_i_r_v___c_r_o_s_s___n_a_m_e_s_p_a_c_e.html#a878513c0b00f55e36825afc2e93989c4afe744a2d26bae1fc14a7ee11d86cbd33">SPIRV_CROSS_NAMESPACE::TypeCount</a>
+<br />
+ }</td></tr>
+<tr class="separator:a878513c0b00f55e36825afc2e93989c4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a08b24875d86f9422e44de6da38ca4a9f" id="r_a08b24875d86f9422e44de6da38ca4a9f"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_s_p_i_r_v___c_r_o_s_s___n_a_m_e_s_p_a_c_e.html#a08b24875d86f9422e44de6da38ca4a9f">SPIRV_CROSS_NAMESPACE::ExtendedDecorations</a> { <br />
+&#160;&#160;<a class="el" href="namespace_s_p_i_r_v___c_r_o_s_s___n_a_m_e_s_p_a_c_e.html#a08b24875d86f9422e44de6da38ca4a9fac13d6710ea4ebe54d834685dbf49eefd">SPIRV_CROSS_NAMESPACE::SPIRVCrossDecorationBufferBlockRepacked</a> = 0
+, <a class="el" href="namespace_s_p_i_r_v___c_r_o_s_s___n_a_m_e_s_p_a_c_e.html#a08b24875d86f9422e44de6da38ca4a9fa7a819f2eeae1a482bf3366f7d5cf40d8">SPIRV_CROSS_NAMESPACE::SPIRVCrossDecorationPhysicalTypeID</a>
+, <a class="el" href="namespace_s_p_i_r_v___c_r_o_s_s___n_a_m_e_s_p_a_c_e.html#a08b24875d86f9422e44de6da38ca4a9fa0311aba0f80df57d5eda45ea53af2502">SPIRV_CROSS_NAMESPACE::SPIRVCrossDecorationPhysicalTypePacked</a>
+, <a class="el" href="namespace_s_p_i_r_v___c_r_o_s_s___n_a_m_e_s_p_a_c_e.html#a08b24875d86f9422e44de6da38ca4a9fa9739b3d7e361d7b20f8fce857e750314">SPIRV_CROSS_NAMESPACE::SPIRVCrossDecorationPaddingTarget</a>
+, <br />
+&#160;&#160;<a class="el" href="namespace_s_p_i_r_v___c_r_o_s_s___n_a_m_e_s_p_a_c_e.html#a08b24875d86f9422e44de6da38ca4a9fa03ba9ad00e12ba98700030aec25f926b">SPIRV_CROSS_NAMESPACE::SPIRVCrossDecorationInterfaceMemberIndex</a>
+, <a class="el" href="namespace_s_p_i_r_v___c_r_o_s_s___n_a_m_e_s_p_a_c_e.html#a08b24875d86f9422e44de6da38ca4a9fa8fff12d22f2b20b723046482d078bddb">SPIRV_CROSS_NAMESPACE::SPIRVCrossDecorationInterfaceOrigID</a>
+, <a class="el" href="namespace_s_p_i_r_v___c_r_o_s_s___n_a_m_e_s_p_a_c_e.html#a08b24875d86f9422e44de6da38ca4a9fac0865f0ed26c183e3b9e94436d06ea7e">SPIRV_CROSS_NAMESPACE::SPIRVCrossDecorationResourceIndexPrimary</a>
+, <a class="el" href="namespace_s_p_i_r_v___c_r_o_s_s___n_a_m_e_s_p_a_c_e.html#a08b24875d86f9422e44de6da38ca4a9faea409650375ead2c72902e8923c9ac20">SPIRV_CROSS_NAMESPACE::SPIRVCrossDecorationResourceIndexSecondary</a>
+, <br />
+&#160;&#160;<a class="el" href="namespace_s_p_i_r_v___c_r_o_s_s___n_a_m_e_s_p_a_c_e.html#a08b24875d86f9422e44de6da38ca4a9fab38c5053db5aa08d339615b80f992b2a">SPIRV_CROSS_NAMESPACE::SPIRVCrossDecorationResourceIndexTertiary</a>
+, <a class="el" href="namespace_s_p_i_r_v___c_r_o_s_s___n_a_m_e_s_p_a_c_e.html#a08b24875d86f9422e44de6da38ca4a9faf760652bedf90543acb66433503a5ca2">SPIRV_CROSS_NAMESPACE::SPIRVCrossDecorationResourceIndexQuaternary</a>
+, <a class="el" href="namespace_s_p_i_r_v___c_r_o_s_s___n_a_m_e_s_p_a_c_e.html#a08b24875d86f9422e44de6da38ca4a9fae8881717a030f03f18a7718d48e51be8">SPIRV_CROSS_NAMESPACE::SPIRVCrossDecorationExplicitOffset</a>
+, <a class="el" href="namespace_s_p_i_r_v___c_r_o_s_s___n_a_m_e_s_p_a_c_e.html#a08b24875d86f9422e44de6da38ca4a9fa5845ca61a3f894ee089d995d49b8dfb5">SPIRV_CROSS_NAMESPACE::SPIRVCrossDecorationBuiltInDispatchBase</a>
+, <br />
+&#160;&#160;<a class="el" href="namespace_s_p_i_r_v___c_r_o_s_s___n_a_m_e_s_p_a_c_e.html#a08b24875d86f9422e44de6da38ca4a9fae03c9cd1690ab05add218d43dabeae81">SPIRV_CROSS_NAMESPACE::SPIRVCrossDecorationDynamicImageSampler</a>
+, <a class="el" href="namespace_s_p_i_r_v___c_r_o_s_s___n_a_m_e_s_p_a_c_e.html#a08b24875d86f9422e44de6da38ca4a9fa9e6e1f70566a6f16e8cf93290ba3589b">SPIRV_CROSS_NAMESPACE::SPIRVCrossDecorationBuiltInStageInputSize</a>
+, <a class="el" href="namespace_s_p_i_r_v___c_r_o_s_s___n_a_m_e_s_p_a_c_e.html#a08b24875d86f9422e44de6da38ca4a9faff4acf0afc0c24e3b4789692dcef6754">SPIRV_CROSS_NAMESPACE::SPIRVCrossDecorationTessIOOriginalInputTypeID</a>
+, <a class="el" href="namespace_s_p_i_r_v___c_r_o_s_s___n_a_m_e_s_p_a_c_e.html#a08b24875d86f9422e44de6da38ca4a9fafc6c8d8a733d154d9ddac32182f08fe3">SPIRV_CROSS_NAMESPACE::SPIRVCrossDecorationInterpolantComponentExpr</a>
+, <br />
+&#160;&#160;<a class="el" href="namespace_s_p_i_r_v___c_r_o_s_s___n_a_m_e_s_p_a_c_e.html#a08b24875d86f9422e44de6da38ca4a9fa038b9f629ea76b86f99f8af2ed493e81">SPIRV_CROSS_NAMESPACE::SPIRVCrossDecorationCount</a>
+, <a class="el" href="namespace_s_p_i_r_v___c_r_o_s_s___n_a_m_e_s_p_a_c_e.html#a08b24875d86f9422e44de6da38ca4a9fac13d6710ea4ebe54d834685dbf49eefd">SPIRV_CROSS_NAMESPACE::SPIRVCrossDecorationBufferBlockRepacked</a> = 0
+, <a class="el" href="namespace_s_p_i_r_v___c_r_o_s_s___n_a_m_e_s_p_a_c_e.html#a08b24875d86f9422e44de6da38ca4a9fa7a819f2eeae1a482bf3366f7d5cf40d8">SPIRV_CROSS_NAMESPACE::SPIRVCrossDecorationPhysicalTypeID</a>
+, <a class="el" href="namespace_s_p_i_r_v___c_r_o_s_s___n_a_m_e_s_p_a_c_e.html#a08b24875d86f9422e44de6da38ca4a9fa0311aba0f80df57d5eda45ea53af2502">SPIRV_CROSS_NAMESPACE::SPIRVCrossDecorationPhysicalTypePacked</a>
+, <br />
+&#160;&#160;<a class="el" href="namespace_s_p_i_r_v___c_r_o_s_s___n_a_m_e_s_p_a_c_e.html#a08b24875d86f9422e44de6da38ca4a9fa9739b3d7e361d7b20f8fce857e750314">SPIRV_CROSS_NAMESPACE::SPIRVCrossDecorationPaddingTarget</a>
+, <a class="el" href="namespace_s_p_i_r_v___c_r_o_s_s___n_a_m_e_s_p_a_c_e.html#a08b24875d86f9422e44de6da38ca4a9fa03ba9ad00e12ba98700030aec25f926b">SPIRV_CROSS_NAMESPACE::SPIRVCrossDecorationInterfaceMemberIndex</a>
+, <a class="el" href="namespace_s_p_i_r_v___c_r_o_s_s___n_a_m_e_s_p_a_c_e.html#a08b24875d86f9422e44de6da38ca4a9fa8fff12d22f2b20b723046482d078bddb">SPIRV_CROSS_NAMESPACE::SPIRVCrossDecorationInterfaceOrigID</a>
+, <a class="el" href="namespace_s_p_i_r_v___c_r_o_s_s___n_a_m_e_s_p_a_c_e.html#a08b24875d86f9422e44de6da38ca4a9fac0865f0ed26c183e3b9e94436d06ea7e">SPIRV_CROSS_NAMESPACE::SPIRVCrossDecorationResourceIndexPrimary</a>
+, <br />
+&#160;&#160;<a class="el" href="namespace_s_p_i_r_v___c_r_o_s_s___n_a_m_e_s_p_a_c_e.html#a08b24875d86f9422e44de6da38ca4a9faea409650375ead2c72902e8923c9ac20">SPIRV_CROSS_NAMESPACE::SPIRVCrossDecorationResourceIndexSecondary</a>
+, <a class="el" href="namespace_s_p_i_r_v___c_r_o_s_s___n_a_m_e_s_p_a_c_e.html#a08b24875d86f9422e44de6da38ca4a9fab38c5053db5aa08d339615b80f992b2a">SPIRV_CROSS_NAMESPACE::SPIRVCrossDecorationResourceIndexTertiary</a>
+, <a class="el" href="namespace_s_p_i_r_v___c_r_o_s_s___n_a_m_e_s_p_a_c_e.html#a08b24875d86f9422e44de6da38ca4a9faf760652bedf90543acb66433503a5ca2">SPIRV_CROSS_NAMESPACE::SPIRVCrossDecorationResourceIndexQuaternary</a>
+, <a class="el" href="namespace_s_p_i_r_v___c_r_o_s_s___n_a_m_e_s_p_a_c_e.html#a08b24875d86f9422e44de6da38ca4a9fae8881717a030f03f18a7718d48e51be8">SPIRV_CROSS_NAMESPACE::SPIRVCrossDecorationExplicitOffset</a>
+, <br />
+&#160;&#160;<a class="el" href="namespace_s_p_i_r_v___c_r_o_s_s___n_a_m_e_s_p_a_c_e.html#a08b24875d86f9422e44de6da38ca4a9fa5845ca61a3f894ee089d995d49b8dfb5">SPIRV_CROSS_NAMESPACE::SPIRVCrossDecorationBuiltInDispatchBase</a>
+, <a class="el" href="namespace_s_p_i_r_v___c_r_o_s_s___n_a_m_e_s_p_a_c_e.html#a08b24875d86f9422e44de6da38ca4a9fae03c9cd1690ab05add218d43dabeae81">SPIRV_CROSS_NAMESPACE::SPIRVCrossDecorationDynamicImageSampler</a>
+, <a class="el" href="namespace_s_p_i_r_v___c_r_o_s_s___n_a_m_e_s_p_a_c_e.html#a08b24875d86f9422e44de6da38ca4a9fa9e6e1f70566a6f16e8cf93290ba3589b">SPIRV_CROSS_NAMESPACE::SPIRVCrossDecorationBuiltInStageInputSize</a>
+, <a class="el" href="namespace_s_p_i_r_v___c_r_o_s_s___n_a_m_e_s_p_a_c_e.html#a08b24875d86f9422e44de6da38ca4a9faff4acf0afc0c24e3b4789692dcef6754">SPIRV_CROSS_NAMESPACE::SPIRVCrossDecorationTessIOOriginalInputTypeID</a>
+, <br />
+&#160;&#160;<a class="el" href="namespace_s_p_i_r_v___c_r_o_s_s___n_a_m_e_s_p_a_c_e.html#a08b24875d86f9422e44de6da38ca4a9fafc6c8d8a733d154d9ddac32182f08fe3">SPIRV_CROSS_NAMESPACE::SPIRVCrossDecorationInterpolantComponentExpr</a>
+, <a class="el" href="namespace_s_p_i_r_v___c_r_o_s_s___n_a_m_e_s_p_a_c_e.html#a08b24875d86f9422e44de6da38ca4a9fa038b9f629ea76b86f99f8af2ed493e81">SPIRV_CROSS_NAMESPACE::SPIRVCrossDecorationCount</a>
+, <a class="el" href="namespace_s_p_i_r_v___c_r_o_s_s___n_a_m_e_s_p_a_c_e.html#a08b24875d86f9422e44de6da38ca4a9fac13d6710ea4ebe54d834685dbf49eefd">SPIRV_CROSS_NAMESPACE::SPIRVCrossDecorationBufferBlockRepacked</a> = 0
+, <a class="el" href="namespace_s_p_i_r_v___c_r_o_s_s___n_a_m_e_s_p_a_c_e.html#a08b24875d86f9422e44de6da38ca4a9fa7a819f2eeae1a482bf3366f7d5cf40d8">SPIRV_CROSS_NAMESPACE::SPIRVCrossDecorationPhysicalTypeID</a>
+, <br />
+&#160;&#160;<a class="el" href="namespace_s_p_i_r_v___c_r_o_s_s___n_a_m_e_s_p_a_c_e.html#a08b24875d86f9422e44de6da38ca4a9fa0311aba0f80df57d5eda45ea53af2502">SPIRV_CROSS_NAMESPACE::SPIRVCrossDecorationPhysicalTypePacked</a>
+, <a class="el" href="namespace_s_p_i_r_v___c_r_o_s_s___n_a_m_e_s_p_a_c_e.html#a08b24875d86f9422e44de6da38ca4a9fa9739b3d7e361d7b20f8fce857e750314">SPIRV_CROSS_NAMESPACE::SPIRVCrossDecorationPaddingTarget</a>
+, <a class="el" href="namespace_s_p_i_r_v___c_r_o_s_s___n_a_m_e_s_p_a_c_e.html#a08b24875d86f9422e44de6da38ca4a9fa03ba9ad00e12ba98700030aec25f926b">SPIRV_CROSS_NAMESPACE::SPIRVCrossDecorationInterfaceMemberIndex</a>
+, <a class="el" href="namespace_s_p_i_r_v___c_r_o_s_s___n_a_m_e_s_p_a_c_e.html#a08b24875d86f9422e44de6da38ca4a9fa8fff12d22f2b20b723046482d078bddb">SPIRV_CROSS_NAMESPACE::SPIRVCrossDecorationInterfaceOrigID</a>
+, <br />
+&#160;&#160;<a class="el" href="namespace_s_p_i_r_v___c_r_o_s_s___n_a_m_e_s_p_a_c_e.html#a08b24875d86f9422e44de6da38ca4a9fac0865f0ed26c183e3b9e94436d06ea7e">SPIRV_CROSS_NAMESPACE::SPIRVCrossDecorationResourceIndexPrimary</a>
+, <a class="el" href="namespace_s_p_i_r_v___c_r_o_s_s___n_a_m_e_s_p_a_c_e.html#a08b24875d86f9422e44de6da38ca4a9faea409650375ead2c72902e8923c9ac20">SPIRV_CROSS_NAMESPACE::SPIRVCrossDecorationResourceIndexSecondary</a>
+, <a class="el" href="namespace_s_p_i_r_v___c_r_o_s_s___n_a_m_e_s_p_a_c_e.html#a08b24875d86f9422e44de6da38ca4a9fab38c5053db5aa08d339615b80f992b2a">SPIRV_CROSS_NAMESPACE::SPIRVCrossDecorationResourceIndexTertiary</a>
+, <a class="el" href="namespace_s_p_i_r_v___c_r_o_s_s___n_a_m_e_s_p_a_c_e.html#a08b24875d86f9422e44de6da38ca4a9faf760652bedf90543acb66433503a5ca2">SPIRV_CROSS_NAMESPACE::SPIRVCrossDecorationResourceIndexQuaternary</a>
+, <br />
+&#160;&#160;<a class="el" href="namespace_s_p_i_r_v___c_r_o_s_s___n_a_m_e_s_p_a_c_e.html#a08b24875d86f9422e44de6da38ca4a9fae8881717a030f03f18a7718d48e51be8">SPIRV_CROSS_NAMESPACE::SPIRVCrossDecorationExplicitOffset</a>
+, <a class="el" href="namespace_s_p_i_r_v___c_r_o_s_s___n_a_m_e_s_p_a_c_e.html#a08b24875d86f9422e44de6da38ca4a9fa5845ca61a3f894ee089d995d49b8dfb5">SPIRV_CROSS_NAMESPACE::SPIRVCrossDecorationBuiltInDispatchBase</a>
+, <a class="el" href="namespace_s_p_i_r_v___c_r_o_s_s___n_a_m_e_s_p_a_c_e.html#a08b24875d86f9422e44de6da38ca4a9fae03c9cd1690ab05add218d43dabeae81">SPIRV_CROSS_NAMESPACE::SPIRVCrossDecorationDynamicImageSampler</a>
+, <a class="el" href="namespace_s_p_i_r_v___c_r_o_s_s___n_a_m_e_s_p_a_c_e.html#a08b24875d86f9422e44de6da38ca4a9fa9e6e1f70566a6f16e8cf93290ba3589b">SPIRV_CROSS_NAMESPACE::SPIRVCrossDecorationBuiltInStageInputSize</a>
+, <br />
+&#160;&#160;<a class="el" href="namespace_s_p_i_r_v___c_r_o_s_s___n_a_m_e_s_p_a_c_e.html#a08b24875d86f9422e44de6da38ca4a9faff4acf0afc0c24e3b4789692dcef6754">SPIRV_CROSS_NAMESPACE::SPIRVCrossDecorationTessIOOriginalInputTypeID</a>
+, <a class="el" href="namespace_s_p_i_r_v___c_r_o_s_s___n_a_m_e_s_p_a_c_e.html#a08b24875d86f9422e44de6da38ca4a9fafc6c8d8a733d154d9ddac32182f08fe3">SPIRV_CROSS_NAMESPACE::SPIRVCrossDecorationInterpolantComponentExpr</a>
+, <a class="el" href="namespace_s_p_i_r_v___c_r_o_s_s___n_a_m_e_s_p_a_c_e.html#a08b24875d86f9422e44de6da38ca4a9fa038b9f629ea76b86f99f8af2ed493e81">SPIRV_CROSS_NAMESPACE::SPIRVCrossDecorationCount</a>
+<br />
+ }</td></tr>
+<tr class="separator:a08b24875d86f9422e44de6da38ca4a9f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
+Funciones</h2></td></tr>
+<tr class="memitem:a1dce17f23b6660cfe143ab8ac1674f6c" id="r_a1dce17f23b6660cfe143ab8ac1674f6c"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:a1dce17f23b6660cfe143ab8ac1674f6c"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="x64-windows-static_2x64-windows-static_2include_2libpng16_2png_8h.html#a05f08be336491be77cd4dfa98f747c69">void</a>&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespace_s_p_i_r_v___c_r_o_s_s___n_a_m_e_s_p_a_c_e_1_1inner.html#a1dce17f23b6660cfe143ab8ac1674f6c">SPIRV_CROSS_NAMESPACE::inner::join_helper</a> (<a class="el" href="class_s_p_i_r_v___c_r_o_s_s___n_a_m_e_s_p_a_c_e_1_1_string_stream.html">StringStream</a>&lt;&gt; &amp;stream, T &amp;&amp;t)</td></tr>
+<tr class="separator:a1dce17f23b6660cfe143ab8ac1674f6c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1c5364f4f2c99bcfe850118f3ed6b65c" id="r_a1c5364f4f2c99bcfe850118f3ed6b65c"><td class="memTemplParams" colspan="2">template&lt;typename T , typename... Ts&gt; </td></tr>
+<tr class="memitem:a1c5364f4f2c99bcfe850118f3ed6b65c"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="x64-windows-static_2x64-windows-static_2include_2libpng16_2png_8h.html#a05f08be336491be77cd4dfa98f747c69">void</a>&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespace_s_p_i_r_v___c_r_o_s_s___n_a_m_e_s_p_a_c_e_1_1inner.html#a1c5364f4f2c99bcfe850118f3ed6b65c">SPIRV_CROSS_NAMESPACE::inner::join_helper</a> (<a class="el" href="class_s_p_i_r_v___c_r_o_s_s___n_a_m_e_s_p_a_c_e_1_1_string_stream.html">StringStream</a>&lt;&gt; &amp;stream, T &amp;&amp;t, Ts &amp;&amp;... ts)</td></tr>
+<tr class="separator:a1c5364f4f2c99bcfe850118f3ed6b65c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad749adf7c4ebeb70c99c1608e59826b0" id="r_ad749adf7c4ebeb70c99c1608e59826b0"><td class="memTemplParams" colspan="2">template&lt;typename... Ts&gt; </td></tr>
+<tr class="memitem:ad749adf7c4ebeb70c99c1608e59826b0"><td class="memTemplItemLeft" align="right" valign="top">std::string&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespace_s_p_i_r_v___c_r_o_s_s___n_a_m_e_s_p_a_c_e.html#ad749adf7c4ebeb70c99c1608e59826b0">SPIRV_CROSS_NAMESPACE::join</a> (Ts &amp;&amp;... ts)</td></tr>
+<tr class="separator:ad749adf7c4ebeb70c99c1608e59826b0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2e6cce1ed95d365362c3df5922890dec" id="r_a2e6cce1ed95d365362c3df5922890dec"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_s_p_i_r_v___c_r_o_s_s___n_a_m_e_s_p_a_c_e.html#a2e6cce1ed95d365362c3df5922890dec">SPIRV_CROSS_NAMESPACE::merge</a> (<a class="el" href="x64-windows-static_2x64-windows-static_2include_2zconf_8h.html#a2c212835823e3c54a8ab6d95c652660e">const</a> <a class="el" href="class_s_p_i_r_v___c_r_o_s_s___n_a_m_e_s_p_a_c_e_1_1_small_vector.html">SmallVector</a>&lt; std::string &gt; &amp;list, <a class="el" href="x64-windows-static_2x64-windows-static_2include_2zconf_8h.html#a2c212835823e3c54a8ab6d95c652660e">const</a> char *between=&quot;, &quot;)</td></tr>
+<tr class="separator:a2e6cce1ed95d365362c3df5922890dec"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3db82bd912d520fb79f8717229b845a7" id="r_a3db82bd912d520fb79f8717229b845a7"><td class="memTemplParams" colspan="2">template&lt;typename T , typename std::enable_if&lt;!std::is_floating_point&lt; T &gt;::value, int &gt;::type  = 0&gt; </td></tr>
+<tr class="memitem:a3db82bd912d520fb79f8717229b845a7"><td class="memTemplItemLeft" align="right" valign="top">std::string&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespace_s_p_i_r_v___c_r_o_s_s___n_a_m_e_s_p_a_c_e.html#a3db82bd912d520fb79f8717229b845a7">SPIRV_CROSS_NAMESPACE::convert_to_string</a> (<a class="el" href="x64-windows-static_2x64-windows-static_2include_2zconf_8h.html#a2c212835823e3c54a8ab6d95c652660e">const</a> T &amp;t)</td></tr>
+<tr class="separator:a3db82bd912d520fb79f8717229b845a7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0fbc1bf43247b274bbe58a67f5c5cba2" id="r_a0fbc1bf43247b274bbe58a67f5c5cba2"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_s_p_i_r_v___c_r_o_s_s___n_a_m_e_s_p_a_c_e.html#a0fbc1bf43247b274bbe58a67f5c5cba2">SPIRV_CROSS_NAMESPACE::convert_to_string</a> (float t, char locale_radix_point)</td></tr>
+<tr class="separator:a0fbc1bf43247b274bbe58a67f5c5cba2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac10aeda0b43706c025644171a3539b58" id="r_ac10aeda0b43706c025644171a3539b58"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_s_p_i_r_v___c_r_o_s_s___n_a_m_e_s_p_a_c_e.html#ac10aeda0b43706c025644171a3539b58">SPIRV_CROSS_NAMESPACE::convert_to_string</a> (double t, char locale_radix_point)</td></tr>
+<tr class="separator:ac10aeda0b43706c025644171a3539b58"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9e3bb19a0184b55fe9ab21f00912a2fa" id="r_a9e3bb19a0184b55fe9ab21f00912a2fa"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:a9e3bb19a0184b55fe9ab21f00912a2fa"><td class="memTemplItemLeft" align="right" valign="top">T &amp;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespace_s_p_i_r_v___c_r_o_s_s___n_a_m_e_s_p_a_c_e.html#a9e3bb19a0184b55fe9ab21f00912a2fa">SPIRV_CROSS_NAMESPACE::variant_get</a> (<a class="el" href="class_s_p_i_r_v___c_r_o_s_s___n_a_m_e_s_p_a_c_e_1_1_variant.html">Variant</a> &amp;var)</td></tr>
+<tr class="separator:a9e3bb19a0184b55fe9ab21f00912a2fa"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6bf36602b75754dbf8c65714d9f342c9" id="r_a6bf36602b75754dbf8c65714d9f342c9"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:a6bf36602b75754dbf8c65714d9f342c9"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="x64-windows-static_2x64-windows-static_2include_2zconf_8h.html#a2c212835823e3c54a8ab6d95c652660e">const</a> T &amp;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespace_s_p_i_r_v___c_r_o_s_s___n_a_m_e_s_p_a_c_e.html#a6bf36602b75754dbf8c65714d9f342c9">SPIRV_CROSS_NAMESPACE::variant_get</a> (<a class="el" href="x64-windows-static_2x64-windows-static_2include_2zconf_8h.html#a2c212835823e3c54a8ab6d95c652660e">const</a> <a class="el" href="class_s_p_i_r_v___c_r_o_s_s___n_a_m_e_s_p_a_c_e_1_1_variant.html">Variant</a> &amp;var)</td></tr>
+<tr class="separator:a6bf36602b75754dbf8c65714d9f342c9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5a0249502438a279e6d6299a858b58af" id="r_a5a0249502438a279e6d6299a858b58af"><td class="memTemplParams" colspan="2">template&lt;typename T , typename... P&gt; </td></tr>
+<tr class="memitem:a5a0249502438a279e6d6299a858b58af"><td class="memTemplItemLeft" align="right" valign="top">T &amp;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespace_s_p_i_r_v___c_r_o_s_s___n_a_m_e_s_p_a_c_e.html#a5a0249502438a279e6d6299a858b58af">SPIRV_CROSS_NAMESPACE::variant_set</a> (<a class="el" href="class_s_p_i_r_v___c_r_o_s_s___n_a_m_e_s_p_a_c_e_1_1_variant.html">Variant</a> &amp;var, P &amp;&amp;... args)</td></tr>
+<tr class="separator:a5a0249502438a279e6d6299a858b58af"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<h2 class="groupheader">Documentación de «define»</h2>
+<a id="ae4324c19f19d68f09ad760e5f8f76131" name="ae4324c19f19d68f09ad760e5f8f76131"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae4324c19f19d68f09ad760e5f8f76131">&#9670;&#160;</a></span>SPIRV_CROSS_DECLARE_CLONE</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define SPIRV_CROSS_DECLARE_CLONE</td>
+          <td>(</td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname">T</span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<b>Valor:</b><div class="fragment"><div class="line">    IVariant *clone(ObjectPoolBase *pool) <span class="keyword">override</span>                  \</div>
+<div class="line">    {                                                               \</div>
+<div class="line">        <span class="keywordflow">return</span> <span class="keyword">static_cast&lt;</span>ObjectPool&lt;T&gt; *<span class="keyword">&gt;</span>(pool)-&gt;allocate(*<span class="keyword">this</span>); \</div>
+<div class="line">    }</div>
+</div><!-- fragment -->
+<p class="definition">Definición en la línea <a class="el" href="x64-windows_2x64-windows_2include_2spirv__cross_2spirv__common_8hpp_source.html#l00410">410</a> del archivo <a class="el" href="x64-windows_2x64-windows_2include_2spirv__cross_2spirv__common_8hpp_source.html">spirv_common.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a80d1be0b904f6e87d4ef8339d3fbc4bf" name="a80d1be0b904f6e87d4ef8339d3fbc4bf"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a80d1be0b904f6e87d4ef8339d3fbc4bf">&#9670;&#160;</a></span>SPIRV_CROSS_FLT_FMT</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define SPIRV_CROSS_FLT_FMT&#160;&#160;&#160;&quot;%.32g&quot;</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definición en la línea <a class="el" href="x64-windows_2x64-windows_2include_2spirv__cross_2spirv__common_8hpp_source.html#l00216">216</a> del archivo <a class="el" href="x64-windows_2x64-windows_2include_2spirv__cross_2spirv__common_8hpp_source.html">spirv_common.hpp</a>.</p>
+
+</div>
+</div>
+<a id="ad84987f309329e1d39aa91d4257253c3" name="ad84987f309329e1d39aa91d4257253c3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad84987f309329e1d39aa91d4257253c3">&#9670;&#160;</a></span>SPIRV_CROSS_NAMESPACE</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define SPIRV_CROSS_NAMESPACE&#160;&#160;&#160;spirv_cross</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definición en la línea <a class="el" href="x64-windows_2x64-windows_2include_2spirv__cross_2spirv__common_8hpp_source.html#l00045">45</a> del archivo <a class="el" href="x64-windows_2x64-windows_2include_2spirv__cross_2spirv__common_8hpp_source.html">spirv_common.hpp</a>.</p>
+
+</div>
+</div>
+</div><!-- contents -->
+</div><!-- doc-content -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="dir_74389ed8173ad57b461b9d623a1f3867.html">Source</a></li><li class="navelem"><a class="el" href="dir_6e9399b867df62641d274959e619ad65.html">vcpkg_installed</a></li><li class="navelem"><a class="el" href="dir_ff113058011a9e08e4166a621bc2138c.html">x64-windows</a></li><li class="navelem"><a class="el" href="dir_b8313821a9bae10eb29b3f9afa25cc3a.html">x64-windows</a></li><li class="navelem"><a class="el" href="dir_661a5da092994cf8a44a2130d5038002.html">include</a></li><li class="navelem"><a class="el" href="dir_dd7e71c936451086e19ea70ef38a2407.html">spirv_cross</a></li><li class="navelem"><a class="el" href="x64-windows_2x64-windows_2include_2spirv__cross_2spirv__common_8hpp.html">spirv_common.hpp</a></li>
+    <li class="footer">Generado el Lunes, 29 de enero de 2024 17:19:01 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.10.0 </li>
+  </ul>
+</div>
+</body>
+</html>

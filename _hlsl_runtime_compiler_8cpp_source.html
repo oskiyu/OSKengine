@@ -1,0 +1,203 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="es">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.10.0"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>OSKengine: Archivo de código fuente Source/HlslRuntimeCompiler.cpp</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">OSKengine<span id="projectnumber">&#160;Indev</span>
+   </div>
+   <div id="projectbrief">Motor de videojuegos.</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generado por Doxygen 1.10.0 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() {
+  initMenu('',true,false,'search.php','Buscar');
+  $(function() { init_search(); });
+});
+/* @license-end */
+</script>
+<div id="main-nav"></div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() { codefold.init(0); });
+/* @license-end */
+</script>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function(){initNavTree('_hlsl_runtime_compiler_8cpp_source.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Cargando...</div>
+<div class="SRStatus" id="Searching">Buscando...</div>
+<div class="SRStatus" id="NoMatches">Nada coincide</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">HlslRuntimeCompiler.cpp</div></div>
+</div><!--header-->
+<div class="contents">
+<a href="_hlsl_runtime_compiler_8cpp.html">Ir a la documentación de este archivo.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#include &quot;<a class="code" href="_hlsl_runtime_compiler_8h.html">HlslRuntimeCompiler.h</a>&quot;</span></div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span> </div>
+<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="preprocessor">#include &quot;<a class="code" href="_assert_8h.html">Assert.h</a>&quot;</span></div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &quot;<a class="code" href="_dynamic_array_8hpp.html">DynamicArray.hpp</a>&quot;</span></div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &quot;<a class="code" href="_string_operations_8h.html">StringOperations.h</a>&quot;</span></div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span> </div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="preprocessor">#include &quot;<a class="code" href="_pipelines_exceptions_8h.html">PipelinesExceptions.h</a>&quot;</span></div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span> </div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="keyword">using namespace </span><a class="code hl_namespace" href="namespace_o_s_k.html">OSK</a>;</div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="keyword">using namespace </span><a class="code hl_namespace" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html">OSK::GRAPHICS</a>;</div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span> </div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span>ComPtr&lt;IDxcCompiler3&gt; HlslRuntimeCompiler::compiler = <span class="keyword">nullptr</span>;</div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span>ComPtr&lt;IDxcUtils&gt; HlslRuntimeCompiler::utils = <span class="keyword">nullptr</span>;</div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span>ComPtr&lt;IDxcIncludeHandler&gt; HlslRuntimeCompiler::includeHandler = <span class="keyword">nullptr</span>;</div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span> </div>
+<div class="foldopen" id="foldopen00016" data-start="{" data-end="}">
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_hlsl_runtime_compiler.html#ad56975c12b8c57456b4e213e2937281c">   16</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_hlsl_runtime_compiler.html#ad56975c12b8c57456b4e213e2937281c">HlslRuntimeCompiler::InitializeComponents</a>() {</div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>    HRESULT result = <a class="code hl_function" href="x64-windows-static_2x64-windows-static_2include_2directx-dxc_2dxcapi_8h.html#a261924f1b244f4b9ed5c5f0dc6c4fa77">DxcCreateInstance</a>(<a class="code hl_variable" href="x64-windows-static_2x64-windows-static_2include_2directx-dxc_2dxcapi_8h.html#a739938fb287474bac98061d37e076c46">CLSID_DxcCompiler</a>, IID_PPV_ARGS(&amp;compiler));</div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>    <a class="code hl_define" href="_assert_8h.html#a927d7efae46f019e805b046e952af182">OSK_ASSERT</a>(SUCCEEDED(result), <a class="code hl_class" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_shader_compiling_exception.html">ShaderCompilingException</a>(<span class="stringliteral">&quot;No se pudo instanciar la libreria del compilador DX12.&quot;</span>));</div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span> </div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>    result = <a class="code hl_function" href="x64-windows-static_2x64-windows-static_2include_2directx-dxc_2dxcapi_8h.html#a261924f1b244f4b9ed5c5f0dc6c4fa77">DxcCreateInstance</a>(<a class="code hl_variable" href="x64-windows-static_2x64-windows-static_2include_2directx-dxc_2dxcapi_8h.html#ae10ba18a923e3d02cce2bb90114e676a">CLSID_DxcUtils</a>, IID_PPV_ARGS(utils.GetAddressOf()));</div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>    <a class="code hl_define" href="_assert_8h.html#a927d7efae46f019e805b046e952af182">OSK_ASSERT</a>(SUCCEEDED(result), <a class="code hl_class" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_shader_compiling_exception.html">ShaderCompilingException</a>(<span class="stringliteral">&quot;No se pudo instanciar el compilador DX12.&quot;</span>));</div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span> </div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>    result = utils-&gt;CreateDefaultIncludeHandler(&amp;includeHandler);</div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>    <a class="code hl_define" href="_assert_8h.html#a927d7efae46f019e805b046e952af182">OSK_ASSERT</a>(SUCCEEDED(result), <a class="code hl_class" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_shader_compiling_exception.html">ShaderCompilingException</a>(<span class="stringliteral">&quot;No se pudo instanciar el iclude handler compilador DX12.&quot;</span>));</div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>}</div>
+</div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span> </div>
+<div class="foldopen" id="foldopen00027" data-start="{" data-end="}">
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_hlsl_runtime_compiler.html#a82745de6cab664215a954ab69a709c91">   27</a></span>ComPtr&lt;IDxcBlob&gt; <a class="code hl_function" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_hlsl_runtime_compiler.html#a82745de6cab664215a954ab69a709c91">HlslRuntimeCompiler::CompileFromFile</a>(<span class="keyword">const</span> std::string&amp; path, <span class="keyword">const</span> std::string&amp; hlslProfile) {</div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>    <span class="comment">// Prerpocesar el código</span></div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>    ComPtr&lt;IDxcBlobEncoding&gt; sourceBlob;</div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>    <span class="keyword">static</span> UINT32 encoding = CP_UTF8;</div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span> </div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>    HRESULT result = utils-&gt;LoadFile(L<span class="stringliteral">&quot;./temp_shader&quot;</span>, &amp;encoding, sourceBlob.GetAddressOf());</div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>    <a class="code hl_define" href="_assert_8h.html#a927d7efae46f019e805b046e952af182">OSK_ASSERT</a>(SUCCEEDED(result), <a class="code hl_class" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_shader_compiling_exception.html">ShaderCompilingException</a>(path));</div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span> </div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>    <span class="comment">// Región del shader compilado</span></div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>    <a class="code hl_struct" href="struct_dxc_buffer.html">DxcBuffer</a> sourceBuffer{};</div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>    sourceBuffer.<a class="code hl_variable" href="struct_dxc_buffer.html#af2738e69183728e8add28a0c1aa82b64">Ptr</a> = sourceBlob-&gt;GetBufferPointer();</div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>    sourceBuffer.Size = sourceBlob-&gt;GetBufferSize();</div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>    sourceBuffer.Encoding = <a class="code hl_define" href="x64-windows-static_2x64-windows-static_2include_2directx-dxc_2dxcapi_8h.html#add15f469c09e9efa564522bed7280435">DXC_CP_ACP</a>;</div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span> </div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>    <span class="comment">// Argumentos</span></div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>    std::wstring profile = <a class="code hl_function" href="namespace_o_s_k.html#a2c5e32d601191e934edfe40ec5c1d12e">StringToWideString</a>(hlslProfile);</div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>    <a class="code hl_class" href="class_o_s_k_1_1_dynamic_array.html">DynamicArray&lt;LPCWSTR&gt;</a> args;</div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>    args.<a class="code hl_function" href="class_o_s_k_1_1_dynamic_array.html#a4433c76207ce2ecad5e306b12575f1b3">Insert</a>(L<span class="stringliteral">&quot;-E&quot;</span>);</div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>    args.<a class="code hl_function" href="class_o_s_k_1_1_dynamic_array.html#a4433c76207ce2ecad5e306b12575f1b3">Insert</a>(L<span class="stringliteral">&quot;main&quot;</span>);</div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>    args.<a class="code hl_function" href="class_o_s_k_1_1_dynamic_array.html#a4433c76207ce2ecad5e306b12575f1b3">Insert</a>(L<span class="stringliteral">&quot;-T&quot;</span>);</div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>    args.<a class="code hl_function" href="class_o_s_k_1_1_dynamic_array.html#a4433c76207ce2ecad5e306b12575f1b3">Insert</a>(profile.c_str());</div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span> </div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>    <span class="comment">// Compilación</span></div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>    ComPtr&lt;IDxcResult&gt; compiled;</div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>    result = compiler-&gt;Compile(&amp;sourceBuffer, args.<a class="code hl_function" href="class_o_s_k_1_1_dynamic_array.html#ab8c4487ebf2c42cdb2be44a7a8e01bb0">GetData</a>(), args.<a class="code hl_function" href="class_o_s_k_1_1_dynamic_array.html#af09578371bd52d5a934bc74c8dad5f0d">GetSize</a>(), includeHandler.Get(), IID_PPV_ARGS(&amp;compiled));</div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span> </div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>    ComPtr&lt;IDxcBlobUtf8&gt; compilationErrors;</div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>    compiled-&gt;GetOutput(<a class="code hl_enumvalue" href="x64-windows-static_2x64-windows-static_2include_2directx-dxc_2dxcapi_8h.html#a0bb3d5554274516853fc0baeb66ff19caf8ecb441148729d1a2155e611cb4e09e">DXC_OUT_ERRORS</a>, IID_PPV_ARGS(compilationErrors.GetAddressOf()), <span class="keyword">nullptr</span>);</div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>    <span class="keywordflow">if</span> (compilationErrors &amp;&amp; compilationErrors-&gt;GetStringLength() &gt; 0)</div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>        <a class="code hl_define" href="_assert_8h.html#a927d7efae46f019e805b046e952af182">OSK_ASSERT</a>(<span class="keyword">false</span>, <a class="code hl_class" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_shader_compiling_exception.html">ShaderCompilingException</a>(std::string((<span class="keywordtype">char</span>*)compilationErrors-&gt;GetBufferPointer())));</div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span> </div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>    ComPtr&lt;IDxcBlob&gt; output;</div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span> </div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>    compiled-&gt;GetResult(&amp;output);</div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span> </div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>    <span class="keywordflow">return</span> output;</div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>}</div>
+</div>
+<div class="ttc" id="a_assert_8h_html"><div class="ttname"><a href="_assert_8h.html">Assert.h</a></div></div>
+<div class="ttc" id="a_assert_8h_html_a927d7efae46f019e805b046e952af182"><div class="ttname"><a href="_assert_8h.html#a927d7efae46f019e805b046e952af182">OSK_ASSERT</a></div><div class="ttdeci">#define OSK_ASSERT(condition, exception)</div><div class="ttdoc">Comrpueba si una condición se cumple. En caso de no cumplirse, lanza la excepción indicada,...</div><div class="ttdef"><b>Definition</b> <a href="_assert_8h_source.html#l00041">Assert.h:41</a></div></div>
+<div class="ttc" id="a_dynamic_array_8hpp_html"><div class="ttname"><a href="_dynamic_array_8hpp.html">DynamicArray.hpp</a></div></div>
+<div class="ttc" id="a_hlsl_runtime_compiler_8h_html"><div class="ttname"><a href="_hlsl_runtime_compiler_8h.html">HlslRuntimeCompiler.h</a></div></div>
+<div class="ttc" id="a_pipelines_exceptions_8h_html"><div class="ttname"><a href="_pipelines_exceptions_8h.html">PipelinesExceptions.h</a></div></div>
+<div class="ttc" id="a_string_operations_8h_html"><div class="ttname"><a href="_string_operations_8h.html">StringOperations.h</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_dynamic_array_html"><div class="ttname"><a href="class_o_s_k_1_1_dynamic_array.html">OSK::DynamicArray</a></div><div class="ttdoc">Dynamic array: array que puede cambiar de tamaño.</div><div class="ttdef"><b>Definition</b> <a href="_dynamic_array_8hpp_source.html#l00066">DynamicArray.hpp:66</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_dynamic_array_html_a4433c76207ce2ecad5e306b12575f1b3"><div class="ttname"><a href="class_o_s_k_1_1_dynamic_array.html#a4433c76207ce2ecad5e306b12575f1b3">OSK::DynamicArray::Insert</a></div><div class="ttdeci">void Insert(const T &amp;element)</div><div class="ttdoc">Inserta un elemento al final del array.</div><div class="ttdef"><b>Definition</b> <a href="_dynamic_array_8hpp_source.html#l00350">DynamicArray.hpp:350</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_dynamic_array_html_ab8c4487ebf2c42cdb2be44a7a8e01bb0"><div class="ttname"><a href="class_o_s_k_1_1_dynamic_array.html#ab8c4487ebf2c42cdb2be44a7a8e01bb0">OSK::DynamicArray::GetData</a></div><div class="ttdeci">const T * GetData() const noexcept</div><div class="ttdoc">Devuelve el array original.</div><div class="ttdef"><b>Definition</b> <a href="_dynamic_array_8hpp_source.html#l00685">DynamicArray.hpp:685</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_dynamic_array_html_af09578371bd52d5a934bc74c8dad5f0d"><div class="ttname"><a href="class_o_s_k_1_1_dynamic_array.html#af09578371bd52d5a934bc74c8dad5f0d">OSK::DynamicArray::GetSize</a></div><div class="ttdeci">USize64 GetSize() const noexcept</div><div class="ttdoc">Devuelve el número de elementos almacenados.</div><div class="ttdef"><b>Definition</b> <a href="_dynamic_array_8hpp_source.html#l00671">DynamicArray.hpp:671</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_hlsl_runtime_compiler_html_a82745de6cab664215a954ab69a709c91"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_hlsl_runtime_compiler.html#a82745de6cab664215a954ab69a709c91">OSK::GRAPHICS::HlslRuntimeCompiler::CompileFromFile</a></div><div class="ttdeci">ComPtr&lt; IDxcBlob &gt; CompileFromFile(const std::string &amp;path, const std::string &amp;hlslProfile)</div><div class="ttdoc">Compila el código HLSL almacenado en el archivo indicado.</div><div class="ttdef"><b>Definition</b> <a href="#l00027">HlslRuntimeCompiler.cpp:27</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_hlsl_runtime_compiler_html_ad56975c12b8c57456b4e213e2937281c"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_hlsl_runtime_compiler.html#ad56975c12b8c57456b4e213e2937281c">OSK::GRAPHICS::HlslRuntimeCompiler::InitializeComponents</a></div><div class="ttdeci">static void InitializeComponents()</div><div class="ttdoc">Inicializa los componentes globales.</div><div class="ttdef"><b>Definition</b> <a href="#l00016">HlslRuntimeCompiler.cpp:16</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_shader_compiling_exception_html"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_shader_compiling_exception.html">OSK::GRAPHICS::ShaderCompilingException</a></div><div class="ttdoc">Excepción que se lanza cuando hay un error con el API de bajo nivel al compilar un shader.</div><div class="ttdef"><b>Definition</b> <a href="_pipelines_exceptions_8h_source.html#l00038">PipelinesExceptions.h:38</a></div></div>
+<div class="ttc" id="anamespace_o_s_k_1_1_g_r_a_p_h_i_c_s_html"><div class="ttname"><a href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html">OSK::GRAPHICS</a></div><div class="ttdef"><b>Definition</b> <a href="_acceleration_structures_exceptions_8h_source.html#l00005">AccelerationStructuresExceptions.h:5</a></div></div>
+<div class="ttc" id="anamespace_o_s_k_html"><div class="ttname"><a href="namespace_o_s_k.html">OSK</a></div><div class="ttdef"><b>Definition</b> <a href="_acceleration_structures_exceptions_8h_source.html#l00005">AccelerationStructuresExceptions.h:5</a></div></div>
+<div class="ttc" id="anamespace_o_s_k_html_a2c5e32d601191e934edfe40ec5c1d12e"><div class="ttname"><a href="namespace_o_s_k.html#a2c5e32d601191e934edfe40ec5c1d12e">OSK::StringToWideString</a></div><div class="ttdeci">std::wstring StringToWideString(std::string_view string)</div><div class="ttdef"><b>Definition</b> <a href="_string_operations_8cpp_source.html#l00023">StringOperations.cpp:23</a></div></div>
+<div class="ttc" id="astruct_dxc_buffer_html"><div class="ttname"><a href="struct_dxc_buffer.html">DxcBuffer</a></div><div class="ttdef"><b>Definition</b> <a href="x64-windows-static_2x64-windows-static_2include_2directx-dxc_2dxcapi_8h_source.html#l00200">dxcapi.h:200</a></div></div>
+<div class="ttc" id="astruct_dxc_buffer_html_af2738e69183728e8add28a0c1aa82b64"><div class="ttname"><a href="struct_dxc_buffer.html#af2738e69183728e8add28a0c1aa82b64">DxcBuffer::Ptr</a></div><div class="ttdeci">LPCVOID Ptr</div><div class="ttdef"><b>Definition</b> <a href="x64-windows-static_2x64-windows-static_2include_2directx-dxc_2dxcapi_8h_source.html#l00201">dxcapi.h:201</a></div></div>
+<div class="ttc" id="ax64-windows-static_2x64-windows-static_2include_2directx-dxc_2dxcapi_8h_html_a0bb3d5554274516853fc0baeb66ff19caf8ecb441148729d1a2155e611cb4e09e"><div class="ttname"><a href="x64-windows-static_2x64-windows-static_2include_2directx-dxc_2dxcapi_8h.html#a0bb3d5554274516853fc0baeb66ff19caf8ecb441148729d1a2155e611cb4e09e">DXC_OUT_ERRORS</a></div><div class="ttdeci">@ DXC_OUT_ERRORS</div><div class="ttdef"><b>Definition</b> <a href="x64-windows-static_2x64-windows-static_2include_2directx-dxc_2dxcapi_8h_source.html#l00470">dxcapi.h:470</a></div></div>
+<div class="ttc" id="ax64-windows-static_2x64-windows-static_2include_2directx-dxc_2dxcapi_8h_html_a261924f1b244f4b9ed5c5f0dc6c4fa77"><div class="ttname"><a href="x64-windows-static_2x64-windows-static_2include_2directx-dxc_2dxcapi_8h.html#a261924f1b244f4b9ed5c5f0dc6c4fa77">DxcCreateInstance</a></div><div class="ttdeci">DXC_API_IMPORT HRESULT __stdcall DxcCreateInstance(_In_ REFCLSID rclsid, _In_ REFIID riid, _Out_ LPVOID *ppv)</div><div class="ttdoc">Creates a single uninitialized object of the class associated with a specified CLSID.</div></div>
+<div class="ttc" id="ax64-windows-static_2x64-windows-static_2include_2directx-dxc_2dxcapi_8h_html_a739938fb287474bac98061d37e076c46"><div class="ttname"><a href="x64-windows-static_2x64-windows-static_2include_2directx-dxc_2dxcapi_8h.html#a739938fb287474bac98061d37e076c46">CLSID_DxcCompiler</a></div><div class="ttdeci">CLSID_SCOPE const CLSID CLSID_DxcCompiler</div><div class="ttdef"><b>Definition</b> <a href="x64-windows-static_2x64-windows-static_2include_2directx-dxc_2dxcapi_8h_source.html#l00729">dxcapi.h:729</a></div></div>
+<div class="ttc" id="ax64-windows-static_2x64-windows-static_2include_2directx-dxc_2dxcapi_8h_html_add15f469c09e9efa564522bed7280435"><div class="ttname"><a href="x64-windows-static_2x64-windows-static_2include_2directx-dxc_2dxcapi_8h.html#add15f469c09e9efa564522bed7280435">DXC_CP_ACP</a></div><div class="ttdeci">#define DXC_CP_ACP</div><div class="ttdef"><b>Definition</b> <a href="x64-windows-static_2x64-windows-static_2include_2directx-dxc_2dxcapi_8h_source.html#l00095">dxcapi.h:95</a></div></div>
+<div class="ttc" id="ax64-windows-static_2x64-windows-static_2include_2directx-dxc_2dxcapi_8h_html_ae10ba18a923e3d02cce2bb90114e676a"><div class="ttname"><a href="x64-windows-static_2x64-windows-static_2include_2directx-dxc_2dxcapi_8h.html#ae10ba18a923e3d02cce2bb90114e676a">CLSID_DxcUtils</a></div><div class="ttdeci">CLSID_SCOPE const GUID CLSID_DxcUtils</div><div class="ttdef"><b>Definition</b> <a href="x64-windows-static_2x64-windows-static_2include_2directx-dxc_2dxcapi_8h_source.html#l00763">dxcapi.h:763</a></div></div>
+</div><!-- fragment --></div><!-- contents -->
+</div><!-- doc-content -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="dir_74389ed8173ad57b461b9d623a1f3867.html">Source</a></li><li class="navelem"><a class="el" href="_hlsl_runtime_compiler_8cpp.html">HlslRuntimeCompiler.cpp</a></li>
+    <li class="footer">Generado el Lunes, 29 de enero de 2024 17:18:31 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.10.0 </li>
+  </ul>
+</div>
+</body>
+</html>
