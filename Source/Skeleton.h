@@ -13,76 +13,69 @@ namespace OSK::GRAPHICS {
 
 	public:
 
-		Skeleton() = default;
+		explicit Skeleton(const DynamicArray<AnimationBone>& bones);
 
 		OSK_DEFAULT_COPY_OPERATOR(Skeleton);
 		OSK_DEFAULT_MOVE_OPERATOR(Skeleton);
 
 		void UpdateMatrices(const AnimationSkin& skin);
 
-		/// <summary> Devuelve el nodo con el índice dado. </summary>
-		/// <param name="nodeIndex">Índice del nodo.</param>
+
+		/// @brief Añade un nuevo hueso al esqueleto.
+		/// @param bone Nuevo hueso.
+		/// 
+		/// @pre No debe existir previamente un hueso con el mismo nombre.
+		void AddBone(const AnimationBone& bone);
+
+		/// @param boneIndex Índice del nodo
+		/// @return Nodo con el índice dado.
 		/// 
 		/// @pre Debe existir un nodo con el índice dado.
 		/// @throws BoneNotFoundException si no existe un hueso con el índice dado.
-		MeshNode& GetNode(UIndex32 nodeIndex);
-		const MeshNode& GetNode(UIndex32 nodeIndex) const {
-			return GetNode(nodeIndex);
-		}
+		AnimationBone& GetBone(UIndex32 boneIndex);
+		const AnimationBone& GetBone(UIndex32 boneIndex) const;
 
-		/// <summary> Devuelve el hueso con el índice dado. </summary>
-		/// <param name="boneIndex">Índice del hueso.</param>
-		/// <returns>Puntero nulo si no hay una skin activa.</returns>
+		/// @param boneIndex Índice del hueso (en la skin).
+		/// @param skin Skin con el identificador del hueso.
+		/// @return Hueso con el índice dado (según la skin indicada).
 		/// 
 		/// @pre Debe existir un hueso con el índice dado en la animación activa.
 		/// @throws BoneNotFoundException si no existe un hueso con el índice dado.
-		Bone& GetBone(UIndex32 boneIndex, const AnimationSkin& skin);
+		AnimationBone& GetBone(UIndex32 boneIndex, const AnimationSkin& skin);
+		const AnimationBone& GetBone(UIndex32 boneIndex, const AnimationSkin& skin) const;
 
-		/// <summary> Devuelve el hueso con el índice dado. </summary>
-		/// <param name="boneIndex">Índice del hueso.</param>
-		/// <returns>Puntero nulo si no hay una skin activa.</returns>
+		/// @param name Nombre del hueso.
+		/// @return Hueso con el nombre dado.
 		/// 
-		/// @pre Debe existir un hueso con el índice dado en la animación activa.
-		/// @throws BoneNotFoundException si no existe un hueso con el índice dado.
-		const Bone& GetBone(UIndex32 boneIndex, const AnimationSkin& skin) const;
-
-		/// <summary> Devuelve el nodo con el nombre dado. </summary>
-		/// <param name="name">Nombre del nodo.</param>
-		/// <returns>Puntero no nulo.</returns>
-		/// 
-		/// @pre Debe existir un nodo con el nombre dado.
+		/// @pre Debe existir un hueso con el nombre dado.
 		/// @throws BoneNotFoundException si no existe un hueso con el nombre dado.
-		MeshNode& GetNode(std::string_view name);
-		const MeshNode& GetNode(std::string_view name) const {
-			return GetNode(name);
-		}
+		AnimationBone& GetBone(std::string_view name);
+		const AnimationBone& GetBone(std::string_view name) const;
 
-		/// <summary> Devuelve el hueso con el nombre dado. </summary>
-		/// <param name="name">Nombre del hueso.</param>
+		/// @param name Nombre del hueso.
+		/// @param skin Skin.
+		/// @return Hueso con el nombre dado, según la skin indicada.
 		/// 
 		/// @pre Debe existir un hueso con el índice dado en la animación activa.
 		/// @throws BoneNotFoundException si no existe un hueso con el nombre dado.
-		Bone& GetBone(std::string_view name, const AnimationSkin& skin);
-		const Bone& GetBone(std::string_view name, const AnimationSkin& skin) const {
-			return GetBone(name, skin);
-		}
+		AnimationBone& GetBone(std::string_view name, const AnimationSkin& skin);
+		const AnimationBone& GetBone(std::string_view name, const AnimationSkin& skin) const;
 
-		/// @brief Añade un nodo al esqueleto.
-		/// @param node Nuevo nodo.
-		/// @throws BoneAlreadyAddedException Si el bone ya estaba antes añadido.
-		void _AddNode(const MeshNode& node);
 
-		/// <summary> Devuelve el índice nodo del esqueleto que no tiene padre. </summary>
+		/// @return Índice del hueso del esqueleto que no tiene padre.
 		UIndex32 GetRootNodeIndex() const;
+
+		/// @return Número de huesos.
+		USize64 GetBoneCount() const;
 
 	private:
 
-		/// <summary> Mapa índice del nodo -> nodo. </summary>
+		/// @brief Mapa índice del nodo -> nodo.
 		/// @note No todos los nodos son huesos.
-		std::unordered_map<UIndex32, MeshNode> nodes;
+		std::unordered_map<UIndex32, AnimationBone> m_bones;
 
-		/// <summary> Mapa nombre del nodo -> índice del nodo. </summary>
-		std::unordered_map<std::string, UIndex32, StringHasher, std::equal_to<>> nodesByName;
+		/// @brief Mapa nombre del nodo -> índice del nodo.
+		std::unordered_map<std::string, UIndex32, StringHasher, std::equal_to<>> m_boneNameToIndex;
 
 	};
 

@@ -76,7 +76,8 @@ OwnedPtr<GpuImage> GpuMemoryAllocatorVk::CreateImage(const GpuImageCreateInfo& i
 		info.numLayers, 
 		info.format, 
 		info.msaaSamples, 
-		info.samplerDesc);
+		info.samplerDesc,
+		info.tilingType);
 
 	output->CreateVkImage();
 	auto block = GpuMemoryBlockVk::CreateNewImageBlock(output.GetPointer(), device, info.memoryType, info.usage);

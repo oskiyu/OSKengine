@@ -6,6 +6,7 @@
 #include "HashMap.hpp"
 #include "UniquePtr.hpp"
 
+#include "EcsExceptions.h"
 #include "EventNotRegisteredException.h"
 
 #include <format>
@@ -29,6 +30,7 @@ namespace OSK::ECS {
 		/// @pre TEvent debe cumplir IsEcsEvent<TEvent>.
 		template <typename TEvent>  requires IsEcsEvent<TEvent>
 		void RegisterEventType() {
+			OSK_ASSERT(!EventHasBeenRegistered<TEvent>(), EventAlreadyRegisteredException(TEvent::GetEventName()));
 			const auto key = static_cast<std::string>(TEvent::GetEventName());
 
 			containers[key] =  new EventContainer<TEvent>();
@@ -44,8 +46,10 @@ namespace OSK::ECS {
 		/// @pre TEvent debe haber sido registrado con RegisterEventType.
 		template <typename TEvent> requires IsEcsEvent<TEvent>
 		void PublishEvent(const TEvent& event) {
-			const auto name = static_cast<std::string>(TEvent::GetEventName());
-			auto& container = static_cast<EventContainer<TEvent>&>(containers.at(name).GetValue());
+			OSK_ASSERT(EventHasBeenRegistered<TEvent>(), EventNotRegisteredException(TEvent::GetEventName()));
+
+			const std::string_view name = TEvent::GetEventName();
+			auto& container = static_cast<EventContainer<TEvent>&>(containers.find(name)->second.GetValue());
 
 			container.PublishEvent(event);
 		}
@@ -84,6 +88,12 @@ namespace OSK::ECS {
 		template <typename TEvent> requires IsEcsEvent<TEvent>
 		bool EventHasBeenRegistered() const {
 			return containers.contains(TEvent::GetEventName());
+		}
+
+		/// @param eventName Nombre del tipo de evento.
+		/// @return EventQueueSpan con todos los eventos almacenados del tipo indicado.
+		EventQueueSpan GetEventQueueSpan(std::string_view eventName) const {
+			return containers.find(eventName)->second->GetEventQueueSpan();
 		}
 
 	private:

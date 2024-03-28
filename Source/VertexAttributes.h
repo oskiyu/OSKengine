@@ -90,7 +90,8 @@ namespace OSK::GRAPHICS {
 			}
 
 			auto& attributeList = attributes.find(TAttrib::GetAttribName())->second;
-			std::any_cast<DynamicArray<TAttrib>>(attributeList).Insert(attribute);
+			auto& castedList = std::any_cast<DynamicArray<TAttrib>&>(attributeList);
+			castedList.Insert(attribute);
 		}
 
 		/// @brief Obtiene una lista de atributos en concreto.
@@ -103,7 +104,7 @@ namespace OSK::GRAPHICS {
 		const DynamicArray<TAttrib>& GetVerticesAttributes() const {
 			OSK_ASSERT(HasAttribute(TAttrib::GetAttribName()), InvalidArgumentException(std::format("No existe el atributo {}", TAttrib::GetAttribName())));
 
-			return std::any_cast<DynamicArray<TAttrib>>(attributes.find(TAttrib::GetAttribName())->second);
+			return std::any_cast<const DynamicArray<TAttrib>&>(attributes.find(TAttrib::GetAttribName())->second);
 		}
 	};
 

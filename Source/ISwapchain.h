@@ -30,7 +30,14 @@ namespace OSK::GRAPHICS {
 		virtual ~ISwapchain() = default;
 
 
-		void TakeScreenshot();
+		/// @brief Obtiene una captura de pantalla del juego
+		/// y la guarda en disco.
+		/// @param path Ruta + nombre de la imagen.
+		/// 
+		/// @post La imagen se guardara con el nombre "path_<año>_<mes>_<dia>_<hora><minuto><segundo>.png"
+		/// 
+		/// @todo Soporte para swapchain con formatos sin swizzle
+		void TakeScreenshot(std::string_view path);
 
 		/// <summary>
 		/// Devuelve el número de imágenes del swapchain.

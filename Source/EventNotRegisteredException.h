@@ -19,4 +19,19 @@ namespace OSK::ECS {
 
 	};
 
+	/// @brief Excepción que se lanza cuando se trata de registrar un evento que ya ha sido registrado.
+	class EventAlreadyRegisteredException : public EngineException {
+
+	public:
+
+		explicit EventAlreadyRegisteredException(
+			std::string_view eventName,
+			const std::source_location& location = std::source_location::current())
+			:
+			EngineException(
+				std::format("EventAlreadyRegisteredException: El evento {} ya estaba registrado.", eventName),
+				location) { }
+
+	};
+
 }

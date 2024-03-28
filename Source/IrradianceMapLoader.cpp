@@ -173,9 +173,9 @@ void IrradianceMapLoader::DrawCubemap(GpuImage* targetCubemap, ICommandList* cmd
 			renderInfo.cameraView = cameraViews[i];
 			cmdList->PushMaterialConstants("info", renderInfo);
 
-			cmdList->BindVertexBuffer(*cubemapModel->GetVertexBuffer());
-			cmdList->BindIndexBuffer(*cubemapModel->GetIndexBuffer());
-			cmdList->DrawSingleInstance(cubemapModel->GetIndexCount());
+			cmdList->BindVertexBuffer(cubemapModel->GetModel().GetVertexBuffer());
+			cmdList->BindIndexBuffer(cubemapModel->GetModel().GetIndexBuffer());
+			cmdList->DrawSingleInstance(cubemapModel->GetModel().GetTotalIndexCount());
 
 			cmdList->EndGraphicsRenderpass();
 

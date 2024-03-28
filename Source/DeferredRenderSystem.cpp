@@ -14,7 +14,6 @@
 #include "Material.h"
 #include "MaterialLayout.h"
 #include "Model3D.h"
-#include "Mesh3D.h"
 #include "Viewport.h"
 #include "Window.h"
 #include "GpuImageLayout.h"
@@ -31,10 +30,12 @@
 #include "AnimatedGBufferPass.h"
 #include "BillboardGBufferPass.h"
 #include "TreeGBufferPass.h"
+#include "ShadowsStaticPass.h"
 
 #include "PbrResolvePass.h"
 
 #include "InvalidObjectStateException.h"
+
 
 using namespace OSK;
 using namespace OSK::ECS;
@@ -98,10 +99,14 @@ void DeferredRenderSystem::Initialize(GameObjectIndex camera, ASSETS::AssetRef<A
 
 
 	// Pases por defecto
-	AddRenderPass(new StaticGBufferPass());
-	AddRenderPass(new AnimatedGBufferPass());
-	AddRenderPass(new BillboardGBufferPass());
-	AddRenderPass(new TreeGBufferPass());
+	AddShaderPass(new StaticGBufferPass());
+	AddShaderPass(new AnimatedGBufferPass());
+	AddShaderPass(new BillboardGBufferPass());
+	AddShaderPass(new TreeGBufferPass());
+
+	auto* shadowsPass = new ShadowsStaticPass();
+	AddShadowsPass(shadowsPass);
+	shadowsPass->SetupShadowMap(m_shadowMap);
 
 	SetResolver(new PbrResolverPass());
 
@@ -116,7 +121,12 @@ void DeferredRenderSystem::Initialize(GameObjectIndex camera, ASSETS::AssetRef<A
 
 	m_shadowMap.SetSceneCamera(camera);
 
-	for (auto& pass : m_renderPasses) {
+	for (auto& pass : m_shaderPasses.GetAllPasses()) {
+		pass->Load();
+		pass->SetCamera(camera);
+	}
+
+	for (auto& pass : m_shadowsPasses.GetAllPasses()) {
 		pass->Load();
 		pass->SetCamera(camera);
 	}
@@ -135,8 +145,15 @@ void DeferredRenderSystem::SetIbl(AssetRef<IrradianceMap> irradianceMap, AssetRe
 	m_resolverPass->GetMaterialInstance()->GetSlot("global")->FlushUpdate();
 }
 
-void DeferredRenderSystem::AddRenderPass(OwnedPtr<GRAPHICS::IRenderPass> pass) {
-	IRenderSystem::AddRenderPass(pass);
+void DeferredRenderSystem::AddShaderPass(OwnedPtr<GRAPHICS::IShaderPass> pass) {
+	IRenderSystem::AddShaderPass(pass);
+
+	pass->SetCamera(m_cameraObject);
+	pass->Load();
+}
+
+void DeferredRenderSystem::AddShadowsPass(OwnedPtr<GRAPHICS::IShaderPass> pass) {
+	IRenderSystem::AddShadowsPass(pass);
 
 	pass->SetCamera(m_cameraObject);
 	pass->Load();
@@ -265,7 +282,7 @@ GBuffer& DeferredRenderSystem::GetGbuffer() {
 	return m_gBuffer;
 }
 
-void DeferredRenderSystem::Render(ICommandList* commandList) {
+void DeferredRenderSystem::Render(ICommandList* commandList, std::span<const ECS::GameObjectIndex> objects) {
 	const UIndex32 resourceIndex = Engine::GetRenderer()->GetCurrentResourceIndex();
 
 	const CameraComponent3D& camera = Engine::GetEcs()->GetComponent<CameraComponent3D>(m_cameraObject);
@@ -306,12 +323,28 @@ void DeferredRenderSystem::Render(ICommandList* commandList) {
 	
 	m_gBuffer.BindPipelineBarriers(commandList);
 
+	UpdatePerPassObjectLists(objects);
+
+	// MeshMapping
+	for (auto& pass : m_shaderPasses.GetAllPasses()) {
+		pass->UpdateLocalMeshMapping(m_shaderPasses.GetCompatibleObjects(pass->GetTypeName()));
+	}
+
+	for (auto& pass : m_shadowsPasses.GetAllPasses()) {
+		pass->UpdateLocalMeshMapping(m_shadowsPasses.GetCompatibleObjects(pass->GetTypeName()));
+	}
+
+	for (const auto& obj : objects) {
+		if (!m_meshMapping.HasPreviousModelMatrix(obj)) {
+			const auto& transform = Engine::GetEcs()->GetComponent<Transform3D>(obj);
+			m_meshMapping.SetPreviousModelMatrix(obj, transform.GetAsMatrix());
+		}
+	}
+
 	GenerateShadows(commandList);
 
 	commandList->StartDebugSection("PBR Deferred", Color::Red);
 	
-	UpdatePerPassObjectLists();
-
 	RenderGBuffer(commandList);
 	ResolveGBuffer(commandList);
 
@@ -319,6 +352,11 @@ void DeferredRenderSystem::Render(ICommandList* commandList) {
 
 	ExecuteTaa(commandList);
 	CopyFinalImages(commandList);
+
+	for (const auto& obj : objects) {
+		const auto& transform = Engine::GetEcs()->GetComponent<Transform3D>(obj);
+		m_meshMapping.SetPreviousModelMatrix(obj, transform.GetAsMatrix());
+	}
 }
 
 void DeferredRenderSystem::GenerateShadows(ICommandList* commandList) {
@@ -359,15 +397,13 @@ void DeferredRenderSystem::GenerateShadows(ICommandList* commandList) {
 
 		commandList->BeginGraphicsRenderpass({ colorInfo }, depthInfo, { 1.0f, 1.0f, 1.0f, 1.0f }, false);
 
-		commandList->BindMaterial(*m_shadowMap.GetShadowsMaterial(ASSETS::ModelType::STATIC_MESH));
-		commandList->BindMaterialSlot(*m_shadowMap.GetShadowsMaterialInstance()->GetSlot("global"));
-
-		ShadowsRenderLoop(ModelType::STATIC_MESH, commandList, i);
-		
-		commandList->BindMaterial(*m_shadowMap.GetShadowsMaterial(ModelType::ANIMATED_MODEL));
-		commandList->BindMaterialSlot(*m_shadowMap.GetShadowsMaterialInstance()->GetSlot("global"));
-
-		ShadowsRenderLoop(ModelType::ANIMATED_MODEL, commandList, i);
+		for (auto& pass : m_shadowsPasses.GetAllPasses()) {
+			pass->As<IShadowsPass>()->ShadowsRenderLoop(
+				commandList,
+				m_shadowsPasses.GetCompatibleObjects(pass->GetTypeName()),
+				i,
+				m_shadowMap);
+		}
 
 		commandList->EndGraphicsRenderpass();
 
@@ -375,39 +411,6 @@ void DeferredRenderSystem::GenerateShadows(ICommandList* commandList) {
 	}
 
 	commandList->EndDebugSection();
-}
-
-void DeferredRenderSystem::ShadowsRenderLoop(ModelType modelType, ICommandList* commandList, UIndex32 cascadeIndex) {
-	for (const GameObjectIndex obj : GetObjects()) {
-		const ModelComponent3D& model = Engine::GetEcs()->GetComponent<ModelComponent3D>(obj);
-		const Transform3D& transform = Engine::GetEcs()->GetComponent<Transform3D>(obj);
-
-		if (model.GetModel()->GetType() != modelType)
-			continue;
-
-		if (!model.CastsShadows())
-			continue;
-
-		commandList->BindVertexBuffer(*model.GetModel()->GetVertexBuffer());
-		commandList->BindIndexBuffer(*model.GetModel()->GetIndexBuffer());
-
-		if (modelType == ModelType::ANIMATED_MODEL)
-			commandList->BindMaterialSlot(*model.GetModel()->GetAnimator()->GetMaterialInstance()->GetSlot("animation"));
-
-		struct {
-			glm::mat4 model;
-			int cascadeIndex;
-		} const pushConstant{
-			.model = transform.GetAsMatrix(),
-			.cascadeIndex = static_cast<int>(cascadeIndex)
-		};
-		commandList->PushMaterialConstants("model", pushConstant);
-
-		for (UIndex32 i = 0; i < model.GetModel()->GetMeshes().GetSize(); i++)
-			commandList->DrawSingleMesh(
-				model.GetModel()->GetMeshes()[i].GetFirstIndexId(), 
-				model.GetModel()->GetMeshes()[i].GetNumberOfIndices());
-	}
 }
 
 void DeferredRenderSystem::RenderGBuffer(ICommandList* commandList) {
@@ -427,14 +430,14 @@ void DeferredRenderSystem::RenderGBuffer(ICommandList* commandList) {
 
 	const Vector2ui resolution = m_gBuffer.GetImage(GBuffer::Target::COLOR)->GetSize2D();
 
-	for (auto& pass : m_renderPasses) {
-		OSK_ASSERT(
-			m_objectsPerPass.contains(pass->GetTypeName()), 
-			InvalidObjectStateException(std::format("No se encuentra el pase {}", pass->GetTypeName())));
-
+	for (auto& pass : m_shaderPasses.GetAllPasses()) {
+		// OSK_ASSERT(
+		//	m_objectsPerPass.contains(pass->GetTypeName()), 
+		//	InvalidObjectStateException(std::format("No se encuentra el pase {}", pass->GetTypeName())));
+		
 		commandList->BindMaterialSlot(*m_gBufferCameraInstance->GetSlot("global"));
-		const auto& objectList = m_objectsPerPass.find(pass->GetTypeName())->second;
-		pass->RenderLoop(commandList, objectList, jitterIndex, resolution);
+		const auto& objectList = m_shaderPasses.GetCompatibleObjects(pass->GetTypeName());
+		pass->RenderLoop(commandList, objectList, &m_meshMapping, jitterIndex, resolution);
 	}
 
 	commandList->EndGraphicsRenderpass();
@@ -482,7 +485,7 @@ void DeferredRenderSystem::ResolveGBuffer(ICommandList* commandList) {
 		{ .channel = SampledChannel::DEPTH });
 
 	m_resolverPass->RenderLoop(
-		commandList, {}, 
+		commandList, {}, &m_meshMapping,
 		m_taaProvider.GetCurrentFrameJitterIndex(), 
 		m_resolveRenderTarget.GetSize());
 
@@ -538,22 +541,19 @@ void DeferredRenderSystem::CopyFinalImages(ICommandList* cmdList) {
 	cmdList->EndDebugSection();
 }
 
-void DeferredRenderSystem::OnTick(TDeltaTime deltaTime) {
-	for (const GameObjectIndex obj : GetObjects()) {
-		Model3D* model = Engine::GetEcs()->GetComponent<ModelComponent3D>(obj).GetModel();
+void DeferredRenderSystem::Execute(TDeltaTime deltaTime, std::span<const ECS::GameObjectIndex> objects) {
+	for (const GameObjectIndex obj : objects) {
+		auto& model = Engine::GetEcs()->GetComponent<ModelComponent3D>(obj);
 		Transform3D transformCopy = Engine::GetEcs()->GetComponent<Transform3D>(obj);
 		transformCopy.SetScale(Vector3f::One);
 
-		for (UIndex32 i = 0; i < model->GetMeshes().GetSize(); i++) {
-			auto& mesh = model->GetMeshes()[i];
+		for (UIndex32 i = 0; i < model.GetModel()->GetMeshes().GetSize(); i++) {
+			auto& mesh = model.GetModel()->GetMeshes()[i];
 			const Vector3f spherePosition = Math::TransformPoint(mesh.GetSphereCenter(), transformCopy.GetAsMatrix());
 			mesh.GetBounds().SetPosition(spherePosition);
 		}
 
-		if (model->GetType() == ModelType::STATIC_MESH)
-			continue;
-
-		model->GetAnimator()->Update(deltaTime);
+		model.GetAnimator().Update(deltaTime);
 	}
 }
 

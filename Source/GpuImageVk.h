@@ -19,7 +19,8 @@ namespace OSK::GRAPHICS {
 			USize32 numLayers, 
 			Format format, 
 			USize32 numSamples,
-			GpuImageSamplerDesc samplerDesc);
+			GpuImageSamplerDesc samplerDesc,
+			GpuImageTiling tiling);
 
 		~GpuImageVk();
 

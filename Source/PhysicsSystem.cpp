@@ -15,8 +15,8 @@ void PhysicsSystem::OnCreate() {
 	_SetSignature(signature);
 }
 
-void PhysicsSystem::OnTick(TDeltaTime deltaTime) {
-	for (const GameObjectIndex obj : GetObjects()) {
+void PhysicsSystem::Execute(TDeltaTime deltaTime, std::span<const GameObjectIndex> objects) {
+	for (const GameObjectIndex obj : objects) {
 		auto& transform = Engine::GetEcs()->GetComponent<Transform3D>(obj);
 		auto& physicsComponent = Engine::GetEcs()->GetComponent<PhysicsComponent>(obj);
 

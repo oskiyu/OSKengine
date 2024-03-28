@@ -10,7 +10,7 @@
 
 #include "OwnedPtr.h"
 
-#include "IRenderPass.h"
+#include "IShaderPass.h"
 #include "IDeferredResolver.h"
 
 #include "MaterialInstance.h"
@@ -71,15 +71,16 @@ namespace OSK::ECS {
 		GRAPHICS::GBuffer& GetGbuffer();
 
 
-		virtual void OnTick(TDeltaTime deltaTime) override;
-		virtual void Render(GRAPHICS::ICommandList* commandList) override;
+		virtual void Execute(TDeltaTime deltaTime, std::span<const ECS::GameObjectIndex> objects) override;
+		virtual void Render(GRAPHICS::ICommandList* commandList, std::span<const ECS::GameObjectIndex> objects) override;
 
 
 		/// @brief Cambia el estado de TAA (on <-> off).
 		void ToggleTaa();
 
 
-		void AddRenderPass(OwnedPtr<GRAPHICS::IRenderPass> pass) override;
+		void AddShaderPass(OwnedPtr<GRAPHICS::IShaderPass> pass) override;
+		void AddShadowsPass(OwnedPtr<GRAPHICS::IShaderPass> pass) override;
 
 		/// @brief Establece el pase de resolución.
 		/// @param resolver Pase de resolución.
@@ -134,8 +135,6 @@ namespace OSK::ECS {
 		void ExecuteTaa(GRAPHICS::ICommandList* commandList);
 		void SharpenTaa(GRAPHICS::ICommandList* commandList);
 		void CopyFinalImages(GRAPHICS::ICommandList* commandList);
-
-		void ShadowsRenderLoop(ASSETS::ModelType modelType, GRAPHICS::ICommandList* commandList, UIndex32 cascadeIndex);
 
 	protected:
 

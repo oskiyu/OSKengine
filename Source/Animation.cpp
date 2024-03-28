@@ -6,18 +6,32 @@
 using namespace OSK;
 using namespace OSK::GRAPHICS;
 
-void Animation::Update(TDeltaTime deltaTime, const AnimationSkin& skin) {
-	currentTime += deltaTime;
+Animation::Animation(
+	const std::string& name, 
+	const DynamicArray<AnimationSampler>& samplers, 
+	const DynamicArray<AnimationChannel>& channels,
+	const DynamicArray<AnimationBone>& bones) : m_name(name), m_samplers(samplers), m_channels(channels), m_skeleton(bones)
+{
+	for (const auto& sampler : m_samplers) {
+		for (const TDeltaTime timestamp : sampler.timestamps) {
+			m_startTime = glm::min(m_startTime, timestamp);
+			m_endTime = glm::max(m_endTime, timestamp);
+		}
+	}
+}
 
-	if (currentTime > endTime) {
-		if (shouldLoop)
-			currentTime -= endTime;
+void Animation::Update(TDeltaTime deltaTime, const AnimationSkin& skin) {
+	m_currentTime += deltaTime;
+
+	if (m_currentTime > m_endTime) {
+		if (m_shouldLoop)
+			m_currentTime -= m_endTime;
 		else
 			return;
 	}
 
-	for (const auto& channel : channels) {
-		const AnimationSampler& sampler = samplers[channel.samplerIndex];
+	for (const auto& channel : m_channels) {
+		const AnimationSampler& sampler = m_samplers[channel.samplerIndex];
 
 		for (UIndex64 timestampIndex = 0; timestampIndex < sampler.timestamps.GetSize() - 1; timestampIndex++) {
 			// TODO: check interpolation type
@@ -26,17 +40,17 @@ void Animation::Update(TDeltaTime deltaTime, const AnimationSkin& skin) {
 			const auto timestampB = sampler.timestamps[timestampIndex + 1];
 
 			const bool isCurrentTimeBetweenStamps =
-				currentTime >= timestampA &&
-				currentTime <= timestampB;
+				m_currentTime >= timestampA &&
+				m_currentTime <= timestampB;
 
 			if (!isCurrentTimeBetweenStamps)
 				return;
 
 			// Si el timestamp actual está entre los dos, se hace una interpolación lineal.
 
-			const float ratio = (currentTime - timestampA) / (timestampB - timestampA);
+			const float ratio = (m_currentTime - timestampA) / (timestampB - timestampA);
 
-			MeshNode& node = skeleton.GetNode(channel.nodeId);
+			AnimationBone& bone = m_skeleton.GetBone(channel.nodeId);
 
 			const auto& outputA = sampler.outputs[timestampIndex];
 			const auto& outputB = sampler.outputs[timestampIndex + 1];
@@ -45,7 +59,7 @@ void Animation::Update(TDeltaTime deltaTime, const AnimationSkin& skin) {
 
 				case AnimationChannel::ChannelType::TRANSLATION: {
 					const Vector4f vec4 = MATH::LinearInterpolation_Fast(outputA, outputB, ratio);
-					node.position = { vec4.x, vec4.y, vec4.Z };
+					bone.position = { vec4.x, vec4.y, vec4.Z };
 				}
 				break;
 
@@ -62,13 +76,13 @@ void Animation::Update(TDeltaTime deltaTime, const AnimationSkin& skin) {
 					next.z = outputB.Z;
 					next.w = outputB.W;
 
-					node.rotation = Quaternion::FromGlm(glm::normalize(glm::slerp(prev, next, ratio)));
+					bone.rotation = Quaternion::FromGlm(glm::normalize(glm::slerp(prev, next, ratio)));
 				}
 				break;
 
 				case AnimationChannel::ChannelType::SCALE: {
 					const Vector4f vec4 = MATH::LinearInterpolation_Fast(outputA, outputB, ratio);
-					node.scale = { vec4.x, vec4.y, vec4.Z };
+					bone.scale = { vec4.x, vec4.y, vec4.Z };
 				}
 				break;
 
@@ -76,5 +90,17 @@ void Animation::Update(TDeltaTime deltaTime, const AnimationSkin& skin) {
 		}
 	}
 
-	skeleton.UpdateMatrices(skin);
+	m_skeleton.UpdateMatrices(skin);
+}
+
+void Animation::SetLooping(bool isLooping) {
+	m_shouldLoop = isLooping;
+}
+
+std::string_view Animation::GetName() const {
+	return m_name;
+}
+
+const Skeleton& Animation::GetSkeleton() const {
+	return m_skeleton;
 }

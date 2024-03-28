@@ -22,7 +22,7 @@ void TreeGBufferPass::Load() {
 	m_materialInstance = m_passMaterial->CreateInstance().GetPointer();
 }
 
-void TreeGBufferPass::RenderLoop(ICommandList* commandList, const DynamicArray<ECS::GameObjectIndex>& objectsToRender, UIndex32 jitterIndex, Vector2ui resolution) {
+void TreeGBufferPass::RenderLoop(ICommandList* commandList, const DynamicArray<ECS::GameObjectIndex>& objectsToRender, GlobalMeshMapping* meshMapping, UIndex32 jitterIndex, Vector2ui resolution) {
 	commandList->StartDebugSection("Tree Pass", Color::Red);
 
 	const auto frustum =
@@ -43,14 +43,14 @@ void TreeGBufferPass::RenderLoop(ICommandList* commandList, const DynamicArray<E
 		const Transform3D& transform = Engine::GetEcs()->GetComponent<Transform3D>(obj);
 
 		// Actualizamos el modelo 3D, si es necesario.
-		if (previousVertexBuffer != model.GetModel()->GetVertexBuffer()) {
-			commandList->BindVertexBuffer(*model.GetModel()->GetVertexBuffer());
-			previousVertexBuffer = model.GetModel()->GetVertexBuffer();
+		if (previousVertexBuffer != &model.GetModel()->GetVertexBuffer()) {
+			commandList->BindVertexBuffer(model.GetModel()->GetVertexBuffer());
+			previousVertexBuffer = &model.GetModel()->GetVertexBuffer();
 		}
 
-		if (previousIndexBuffer != model.GetModel()->GetIndexBuffer()) {
-			commandList->BindIndexBuffer(*model.GetModel()->GetIndexBuffer());
-			previousIndexBuffer = model.GetModel()->GetIndexBuffer();
+		if (previousIndexBuffer != &model.GetModel()->GetIndexBuffer()) {
+			commandList->BindIndexBuffer(model.GetModel()->GetIndexBuffer());
+			previousIndexBuffer = &model.GetModel()->GetIndexBuffer();
 		}
 
 		for (UIndex32 i = 0; i < model.GetModel()->GetMeshes().GetSize(); i++) {
@@ -60,27 +60,21 @@ void TreeGBufferPass::RenderLoop(ICommandList* commandList, const DynamicArray<E
 			if (!isInsideFrustum)
 				continue;
 
-			if (!m_meshMapping.HasModel(model.GetModel()->GetId()))
-				m_meshMapping.RegisterModel(model.GetModel()->GetId());
-
-			auto& modelData = m_meshMapping.GetModelData(model.GetModel()->GetId());
-			if (!modelData.HasMesh(mesh.GetMeshId()))
-				SetupMaterialInstance(*model.GetModel(), mesh);
-
-			const auto& mSlot = *modelData.GetMeshData(mesh.GetMeshId()).GetMaterialInstance()->GetSlot("texture");
+			auto& modelData = m_localMeshMapping.GetModelData(model.GetModel()->GetUuid());
+			const auto& mSlot = *modelData.GetMeshData(mesh.GetUuid()).GetMaterialInstance()->GetSlot("texture");
 			commandList->BindMaterialSlot(mSlot);
 
 			modelPushConstants.model = transform.GetAsMatrix();
-			modelPushConstants.previousModel = m_previousModelMatrices.contains(obj) ? m_previousModelMatrices.at(obj) : glm::mat4(1.0f);
+			modelPushConstants.previousModel = meshMapping->GetPreviousModelMatrix(obj);
 			modelPushConstants.resolution = resolution.ToVector2f();
 			modelPushConstants.jitterIndex = (float)jitterIndex;
 
 			commandList->PushMaterialConstants("model", modelPushConstants);
 
-			commandList->DrawSingleMesh(mesh.GetFirstIndexId(), mesh.GetNumberOfIndices());
+			commandList->DrawSingleMesh(
+				mesh.GetFirstIndexIdx(), 
+				mesh.GetNumIndices());
 		}
-
-		m_previousModelMatrices[obj] = transform.GetAsMatrix();
 	}
 
 	commandList->EndDebugSection();

@@ -96,3 +96,14 @@ VertexInfo GdrVertex3D::GetVertexInfo() {
 
 	return info;
 }
+
+VertexInfo PositionOnlyVertex3D::GetVertexInfo() {
+	VertexInfo info{};
+
+	info.entries.Insert({
+		sizeof(PositionOnlyVertex3D::position),
+		VertexInfo::Entry::Type::FLOAT,
+		"POSITION" });
+
+	return info;
+}

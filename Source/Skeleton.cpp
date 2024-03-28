@@ -8,59 +8,85 @@ using namespace OSK;
 using namespace OSK::GRAPHICS;
 
 
+Skeleton::Skeleton(const DynamicArray<AnimationBone>& bones) {
+	for (const auto& bone : bones) {
+		const UIndex32 boneIndex = bone.thisIndex;
+
+		// OSK_ASSERT(!m_bones.contains(nodeIndex), BoneAlreadyAddedException(bone.thisIndex));
+
+		m_bones[boneIndex] = bone;
+		m_boneNameToIndex[bone.name] = boneIndex;
+	}
+}
+
 void Skeleton::UpdateMatrices(const AnimationSkin& skin) {
 	// Actualizar matrices de los huesos
 	if (skin.rootIndex != std::numeric_limits<UIndex32>::max())
-		nodes.at(skin.rootIndex).UpdateSkeletonTree(glm::mat4(1.0f), this);
+		m_bones.at(skin.rootIndex).UpdateSkeletonTree(glm::mat4(1.0f), this);
 	else
-		nodes.at(GetRootNodeIndex()).UpdateSkeletonTree(glm::mat4(1.0f), this);
+		m_bones.at(GetRootNodeIndex()).UpdateSkeletonTree(glm::mat4(1.0f), this);
 }
 
 UIndex32 Skeleton::GetRootNodeIndex() const {
-	for (auto& [index, node] : nodes)
+	for (auto& [index, node] : m_bones)
 		if (node.parentIndex == std::numeric_limits<UIndex32>::max())
 			return index;
 
 	return 0;
 }
 
-MeshNode& Skeleton::GetNode(UIndex32 nodeIndex) {
-	OSK_ASSERT(nodes.contains(nodeIndex), BoneNotFoundException(nodeIndex));
-
-	return nodes.at(nodeIndex);
+void Skeleton::AddBone(const AnimationBone& bone) {
+	m_bones[bone.thisIndex] = bone;
+	m_boneNameToIndex[bone.name] = bone.thisIndex;
 }
 
-Bone& Skeleton::GetBone(UIndex32 boneIndex, const AnimationSkin& skin) {
+USize64 Skeleton::GetBoneCount() const {
+	return m_bones.size();
+}
+
+AnimationBone& Skeleton::GetBone(UIndex32 nodeIndex) {
+	OSK_ASSERT(m_bones.contains(nodeIndex), BoneNotFoundException(nodeIndex));
+	return m_bones.at(nodeIndex);
+}
+
+const AnimationBone& Skeleton::GetBone(UIndex32 nodeIndex) const {
+	OSK_ASSERT(m_bones.contains(nodeIndex), BoneNotFoundException(nodeIndex));
+	return m_bones.at(nodeIndex);
+}
+
+
+AnimationBone& Skeleton::GetBone(UIndex32 boneIndex, const AnimationSkin& skin) {
 	const UIndex32 nodeIndex = skin.bonesIds.At(boneIndex);
-	OSK_ASSERT(nodes.contains(nodeIndex), BoneNotFoundException(boneIndex));
-
-	return nodes.at(nodeIndex);
+	OSK_ASSERT(m_bones.contains(nodeIndex), BoneNotFoundException(boneIndex));
+	return m_bones.at(nodeIndex);
 }
 
-const Bone& Skeleton::GetBone(UIndex32 boneIndex, const AnimationSkin& skin) const {
+const AnimationBone& Skeleton::GetBone(UIndex32 boneIndex, const AnimationSkin& skin) const {
 	const UIndex32 nodeIndex = skin.bonesIds.At(boneIndex);
-	OSK_ASSERT(nodes.contains(nodeIndex), BoneNotFoundException(boneIndex));
-
-	return nodes.at(nodeIndex);
+	OSK_ASSERT(m_bones.contains(nodeIndex), BoneNotFoundException(boneIndex));
+	return m_bones.at(nodeIndex);
 }
 
-MeshNode& Skeleton::GetNode(std::string_view name) {
-	OSK_ASSERT(nodesByName.contains(name), BoneNotFoundException(name));
+AnimationBone& Skeleton::GetBone(std::string_view name) {
+	OSK_ASSERT(m_boneNameToIndex.contains(name), BoneNotFoundException(name));
 
-	return GetNode(nodesByName.find(name)->second);
+	return GetBone(m_boneNameToIndex.find(name)->second);
 }
 
-Bone& Skeleton::GetBone(std::string_view name, const AnimationSkin& skin) {
-	OSK_ASSERT(nodesByName.contains(name), BoneNotFoundException(name));
+const AnimationBone& Skeleton::GetBone(std::string_view name) const {
+	OSK_ASSERT(m_boneNameToIndex.contains(name), BoneNotFoundException(name));
 
-	return GetBone(nodesByName.find(name)->second, skin);
+	return GetBone(m_boneNameToIndex.find(name)->second);
 }
 
-void Skeleton::_AddNode(const MeshNode& node) {
-	const UIndex32 nodeIndex = node.thisIndex;
+AnimationBone& Skeleton::GetBone(std::string_view name, const AnimationSkin& skin) {
+	OSK_ASSERT(m_boneNameToIndex.contains(name), BoneNotFoundException(name));
 
-	OSK_ASSERT(!nodes.contains(nodeIndex), BoneAlreadyAddedException(node.thisIndex));
+	return GetBone(m_boneNameToIndex.find(name)->second, skin);
+}
 
-	nodes[nodeIndex] = node;
-	nodesByName[node.name] = nodeIndex;
+const AnimationBone& Skeleton::GetBone(std::string_view name, const AnimationSkin& skin) const {
+	OSK_ASSERT(m_boneNameToIndex.contains(name), BoneNotFoundException(name));
+
+	return GetBone(m_boneNameToIndex.find(name)->second, skin);
 }

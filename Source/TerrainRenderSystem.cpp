@@ -21,8 +21,8 @@ TerrainRenderSystem::TerrainRenderSystem() {
 	_SetSignature(signature);
 }
 
-void TerrainRenderSystem::Render(ICommandList* commandList) {
-	for (const GameObjectIndex obj : GetObjects()) {
+void TerrainRenderSystem::Render(ICommandList* commandList, std::span<const ECS::GameObjectIndex> objects) {
+	for (const GameObjectIndex obj : objects) {
 		const TerrainComponent& model = Engine::GetEcs()->GetComponent<TerrainComponent>(obj);
 		const Transform3D& transform = Engine::GetEcs()->GetComponent<Transform3D>(obj);
 

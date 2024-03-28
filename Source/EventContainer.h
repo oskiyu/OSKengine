@@ -19,6 +19,14 @@ namespace OSK::ECS {
 			eventQueue.Empty();
 		}
 
+		EventQueueSpan GetEventQueueSpan() const override {
+			EventQueueSpan output{};
+			output.data = eventQueue.GetData();
+			output.numEntries = eventQueue.GetSize();
+
+			return output;
+		}
+
 		/// @brief Registra un evento en la cola.
 		/// @param event Nuevo evento.
 		void PublishEvent(const TEvent& event) {

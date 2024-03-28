@@ -6,6 +6,8 @@
 #include "OwnedPtr.h"
 #include "UniquePtr.hpp"
 
+#include "EcsExceptions.h"
+
 #include <string>
 
 namespace OSK::ECS {
@@ -23,8 +25,12 @@ namespace OSK::ECS {
 		/// @brief Registra un componente, de tal manera que podrá ser usado
 		/// en el ECS.
 		/// @tparam TComponent Tipo del componente.
+		/// @pre @p TComponent no debe haber sido previamente registrado.
+		/// @throws ComponentAlreadyRegisteredException si el componente ya había sido registrado.
 		template <typename TComponent> 
 		void RegisterComponent() {
+			OSK_ASSERT(!ComponentHasBeenRegistered<TComponent>(), ComponentAlreadyRegisteredException(TComponent::GetComponentTypeName()));
+
 			const std::string key = static_cast<std::string>(TComponent::GetComponentTypeName());
 
 			componentTypes[key] = nextComponentType;
@@ -35,8 +41,11 @@ namespace OSK::ECS {
 
 		/// @tparam TComponent Tipo de componente.
 		/// @return Devuelve el identificador del tipo de componente.
+		/// @pre @p TComponent debe haber sido previamente registrado.
+		/// @throws ComponentNotRegisteredException si el componente no había sido registrado.
 		template <typename TComponent>
 		ComponentType GetComponentType() const {
+			OSK_ASSERT(ComponentHasBeenRegistered<TComponent>(), ComponentNotRegisteredException(TComponent::GetComponentTypeName()))
 			return componentTypes.find(TComponent::GetComponentTypeName())->second;
 		}
 
@@ -74,8 +83,19 @@ namespace OSK::ECS {
 		/// <typeparam name="TComponent">Tipo del componente.</typeparam>
 		/// <param name="obj">Dueño del componente.</param>
 		/// <returns>Referencia al componente.</returns>
-		template <typename TComponent> 
+		template <typename TComponent>
 		TComponent& GetComponent(GameObjectIndex obj) {
+			return GetComponentContainer<TComponent>()->GetComponent(obj);
+		}
+
+		/// <summary>
+		/// Devuelve el componente del tipo dado, que es poseído por el objeto.
+		/// </summary>
+		/// <typeparam name="TComponent">Tipo del componente.</typeparam>
+		/// <param name="obj">Dueño del componente.</param>
+		/// <returns>Referencia al componente.</returns>
+		template <typename TComponent>
+		const TComponent& GetComponent(GameObjectIndex obj) const {
 			return GetComponentContainer<TComponent>()->GetComponent(obj);
 		}
 
@@ -88,6 +108,18 @@ namespace OSK::ECS {
 		template <typename TComponent>
 		bool ComponentHasBeenRegistered() const {
 			return componentTypes.contains(TComponent::GetComponentTypeName());
+		}
+
+		/// @tparam TComponent Tipo de componente.
+		/// @param obj Objeto a comprobar.
+		/// @return True si el objeto tiene el componente indicado.
+		/// 
+		/// @pre El componente @p TComponent debe haber sido previamente registrado.
+		/// @throws ComponentNotRegisteredException si @p TComponent no ha sido previamente registradao.
+		template <typename TComponent>
+		bool ObjectHasComponent(GameObjectIndex obj) const {
+			OSK_ASSERT(ComponentHasBeenRegistered<TComponent>(), ComponentNotRegisteredException(TComponent::GetComponentTypeName()));
+			return GetComponentContainer<TComponent>()->ObjectHasComponent(obj);
 		}
 
 	private:
@@ -109,10 +141,16 @@ namespace OSK::ECS {
 		/// <summary>
 		/// Devuelve el contenedor del tipo de componente.
 		/// </summary>
-		template <typename TComponent> ComponentContainer<TComponent>* GetComponentContainer() {
+		template <typename TComponent> 
+		ComponentContainer<TComponent>* GetComponentContainer() {
 			return (ComponentContainer<TComponent>*)componentContainers.find(TComponent::GetComponentTypeName())->second.GetPointer();
 		}
-			
+
+		template <typename TComponent>
+		const ComponentContainer<TComponent>* GetComponentContainer() const {
+			return (const ComponentContainer<TComponent>*)componentContainers.find(TComponent::GetComponentTypeName())->second.GetPointer();
+		}
+		
 	};
 
 }

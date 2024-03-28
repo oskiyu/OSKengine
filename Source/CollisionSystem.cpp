@@ -17,14 +17,9 @@ void CollisionSystem::OnCreate() {
 	_SetSignature(signature);
 }
 
-void CollisionSystem::OnTick(TDeltaTime deltaTime) {
-	if (GetObjects().GetSize() < 2)
-		return;
-
-	const USize64 numObjects = GetObjects().GetSize();
-
+void CollisionSystem::OnExecutionStart() {
 	// Actualizar y transformar los colliders.
-	for (GameObjectIndex i : GetObjects()) {
+	for (const GameObjectIndex i : GetAllCompatibleObjects()) {
 		auto& collider = *Engine::GetEcs()->GetComponent<CollisionComponent>(i).GetCollider();
 		const auto& transform = Engine::GetEcs()->GetComponent<Transform3D>(i);
 
@@ -36,19 +31,27 @@ void CollisionSystem::OnTick(TDeltaTime deltaTime) {
 			blc->Transform(transform);
 		}
 	}
+}
 
-	// Detección de colisiones.
-	for (UIndex64 a = 0; a < numObjects - 1; a++) {
-		const GameObjectIndex firstObject = GetObjects()[a];
+void CollisionSystem::Execute(TDeltaTime deltaTime, std::span<const GameObjectIndex> objects) {
+	if (GetAllCompatibleObjects().size() < 2) {
+		return;
+	}
 
-		const auto& firstCollider = *Engine::GetEcs()->GetComponent<CollisionComponent>(firstObject).GetCollider();
-		const auto& firstTransform = Engine::GetEcs()->GetComponent<Transform3D>(firstObject);
+	const USize64 numObjects = objects.size();
+	
+	for (const GameObjectIndex a : objects) {
+		
+		const auto& firstCollider = *Engine::GetEcs()->GetComponent<CollisionComponent>(a).GetCollider();
+		const auto& firstTransform = Engine::GetEcs()->GetComponent<Transform3D>(a);
 
-		for (UIndex64 b = a + 1; b < numObjects; b++) {
-			const GameObjectIndex secondObject = GetObjects()[b];
+		for (const GameObjectIndex b : GetAllCompatibleObjects()) {
+			if (b <= a) {
+				continue;
+			}
 
-			const auto& secondCollider = *Engine::GetEcs()->GetComponent<CollisionComponent>(secondObject).GetCollider();
-			const auto& secondTransform = Engine::GetEcs()->GetComponent<Transform3D>(secondObject);
+			const auto& secondCollider = *Engine::GetEcs()->GetComponent<CollisionComponent>(b).GetCollider();
+			const auto& secondTransform = Engine::GetEcs()->GetComponent<Transform3D>(b);
 
 			const auto collisionInfo = firstCollider.GetCollisionInfo(secondCollider, firstTransform, secondTransform);
 
@@ -56,17 +59,17 @@ void CollisionSystem::OnTick(TDeltaTime deltaTime) {
 
 				for (const auto& detailedCollision : collisionInfo.GetDetailedInfo()) {
 					Engine::GetEcs()->PublishEvent<CollisionEvent>({
-						firstObject,
-						secondObject,
+						a,
+						b,
 						detailedCollision
 						});
 				}
 
-// #define OSK_COLLISION_DEBUG
+				// #define OSK_COLLISION_DEBUG
 #ifdef OSK_COLLISION_DEBUG
 				Engine::GetLogger()->DebugLog(std::format("Collision: {} - {}", firstObject, secondObject));
 				Engine::GetLogger()->DebugLog(std::format("\tFrame: {}", Engine::GetCurrentGameFrameIndex()));
-				Engine::GetLogger()->DebugLog(std::format("\tWolrd point: {:.3f} {:.3f} {:.3f}", 
+				Engine::GetLogger()->DebugLog(std::format("\tWolrd point: {:.3f} {:.3f} {:.3f}",
 					collisionInfo.GetDetailedInfo().GetSingleContactPoint().x,
 					collisionInfo.GetDetailedInfo().GetSingleContactPoint().y,
 					collisionInfo.GetDetailedInfo().GetSingleContactPoint().z));
@@ -84,7 +87,7 @@ RayCastResult CollisionSystem::CastRay(const Ray& ray, GameObjectIndex sendingOb
 	float closestDistance = std::numeric_limits<float>::max();
 	RayCastResult closest = RayCastResult::False();
 
-	for (GameObjectIndex i : GetObjects()) {
+	for (const GameObjectIndex i : GetAllCompatibleObjects()) {
 		if (i == sendingObject) {
 			continue;
 		}

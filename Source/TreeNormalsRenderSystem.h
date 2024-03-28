@@ -6,7 +6,7 @@
 
 #include "OwnedPtr.h"
 
-#include "IRenderPass.h"
+#include "IShaderPass.h"
 
 #include "MaterialInstance.h"
 
@@ -34,9 +34,9 @@ namespace OSK::ECS {
 
 		void CreateTargetImage(const Vector2ui& size) override;
 
-		void Render(GRAPHICS::ICommandList* commandList) override;
+		void Render(GRAPHICS::ICommandList* commandList, std::span<const ECS::GameObjectIndex> objects) override;
 
-		void AddRenderPass(OwnedPtr<GRAPHICS::IRenderPass> pass) override;
+		void AddShaderPass(OwnedPtr<GRAPHICS::IShaderPass> pass) override;
 		
 	private:
 

@@ -41,40 +41,73 @@ void IRenderSystem::CreateTargetImage(const Vector2ui& size) {
 	m_renderTarget.Create(size, { colorInfo }, depthInfo);
 }
 
+void IRenderSystem::OnRenderStart(GRAPHICS::ICommandList* commandList) {
+
+}
+
+void IRenderSystem::OnRenderEnd(GRAPHICS::ICommandList* commandList) {
+
+}
+
 RenderTarget& IRenderSystem::GetRenderTarget() {
 	return m_renderTarget;
 }
 
 
-void IRenderSystem::AddRenderPass(OwnedPtr<GRAPHICS::IRenderPass> pass) {
-	m_renderPasses.Insert(pass.GetPointer());
-	m_renderPassesTable[(std::string)pass->GetTypeName()] = pass.GetPointer();
-	m_objectsPerPass[(std::string)pass->GetTypeName()] = {};
+void IRenderSystem::AddShaderPass(OwnedPtr<GRAPHICS::IShaderPass> pass) {
+	m_shaderPasses.AddShaderPass(pass);
 }
 
-bool IRenderSystem::HasRenderPass(std::string_view name) const {
-	return m_renderPassesTable.contains(name);
+void IRenderSystem::AddShadowsPass(OwnedPtr<GRAPHICS::IShaderPass> pass) {
+	m_shadowsPasses.AddShaderPass(pass);
 }
 
-IRenderPass* IRenderSystem::GetRenderPass(std::string_view name) {
-	return m_renderPassesTable.find(name)->second;
-}
-
-void IRenderSystem::UpdatePerPassObjectLists() {
-	for (auto& [name, list] : m_objectsPerPass) {
-		list.Empty();
+IShaderPass* IRenderSystem::GetShaderPass(std::string_view name) {
+	if (m_shaderPasses.ContainsShaderPass(name)) {
+		return m_shaderPasses.GetShaderPass(name);
 	}
 
-	for (const GameObjectIndex obj : GetObjects()) {
+	if (m_shadowsPasses.ContainsShaderPass(name)) {
+		return m_shadowsPasses.GetShaderPass(name);
+	}
+
+	return nullptr;
+}
+
+const IShaderPass* IRenderSystem::GetShaderPass(std::string_view name) const {
+	if (m_shaderPasses.ContainsShaderPass(name)) {
+		return m_shaderPasses.GetShaderPass(name);
+	}
+
+	if (m_shadowsPasses.ContainsShaderPass(name)) {
+		return m_shadowsPasses.GetShaderPass(name);
+	}
+
+	return nullptr;
+}
+
+void IRenderSystem::UpdatePerPassObjectLists(std::span<const ECS::GameObjectIndex> objects) {
+	for (auto& pass : m_shaderPasses.GetAllPasses()) {
+		m_shaderPasses.GetCompatibleObjects(pass->GetTypeName()).Empty();
+	}
+
+	for (auto& pass : m_shadowsPasses.GetAllPasses()) {
+		m_shadowsPasses.GetCompatibleObjects(pass->GetTypeName()).Empty();
+	}
+
+
+	for (const GameObjectIndex obj : objects) {
 		const auto& model = Engine::GetEcs()->GetComponent<ModelComponent3D>(obj);
 
-		const std::string_view passName = model.GetModel()->GetRenderPassType();
+		for (const auto& passName : model.GetShaderPassNames()) {
+			if (m_shaderPasses.ContainsShaderPass(passName)) {
+				m_shaderPasses.AddCompatibleObject(passName, obj);
+			}
 
-		if (!m_objectsPerPass.contains(passName))
-			m_objectsPerPass[(std::string)passName] = {};
-
-		auto& list = m_objectsPerPass.find(passName)->second;
-		list.Insert(obj);
+			if (m_shadowsPasses.ContainsShaderPass(passName)) {
+				m_shadowsPasses.AddCompatibleObject(passName, obj);
+			}
+		}		
 	}
 }
 

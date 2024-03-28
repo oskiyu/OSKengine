@@ -4,7 +4,7 @@
 
 namespace OSK::ECS {
 
-	class OSKAPI_CALL TerrainRenderSystem : public IPureSystem {
+	class OSKAPI_CALL TerrainRenderSystem : public IRenderSystem {
 
 	public:
 
@@ -12,13 +12,7 @@ namespace OSK::ECS {
 
 		TerrainRenderSystem();
 
-		/// <summary>
-		/// Comando específico del sistema, para ejecutar el renderizado.
-		/// </summary>
-		/// 
-		/// @pre La lista de comandos debe estar abierta.
-		/// @pre La lista de comandos debe tener un renderpass activo.
-		void Render(GRAPHICS::ICommandList* commandList);
+		void Render(GRAPHICS::ICommandList* commandList, std::span<const ECS::GameObjectIndex> objects) override;
 
 	};
 

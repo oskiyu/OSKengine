@@ -58,7 +58,23 @@ namespace OSK::ASSETS {
 		/// @warning Todo loader debe ser registrado para poder usarse.
 		template <typename T> 
 		void RegisterLoader() {
+			const auto& key = T::GetAssetType();
+
+			OSK_ASSERT(!m_loaders.contains(key), AssetLoaderAlreadyRegisteredException(key))
 			m_loaders[T::GetAssetType()] = new T;
+		}
+
+		/// @brief Devuelve el loader indicado.
+		/// @tparam TLoader Loader a obtener.
+		/// @return Loader.
+		/// @pre El loader debe haber sido previamente registrado.
+		template <typename TLoader>
+		TLoader* GetLoader() {
+			const auto& key = TLoader::GetAssetType();
+
+			OSK_ASSERT(m_loaders.contains(TLoader::GetAssetType()), AssetLoaderNotFoundException(TLoader::GetAssetType()))
+
+			return static_cast<TLoader*>(m_loaders.find(key)->second.GetPointer());
 		}
 
 	private:

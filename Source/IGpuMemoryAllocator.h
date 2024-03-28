@@ -83,7 +83,7 @@ namespace OSK::GRAPHICS {
 		GpuImageSamplerDesc samplerDesc = {};
 
 		GpuSharedMemoryType memoryType = GpuSharedMemoryType::GPU_ONLY;
-
+		GpuImageTiling tilingType = GpuImageTiling::OPTIMAL;
 	};
 
 

@@ -119,4 +119,20 @@ namespace OSK::ECS {
 
 	};
 
+
+	/// @brief Excepción que se da cuando se trata de insertar un sistema que genera una dependencia cíclica.
+	class SystemCyclicDependencyException : public EngineException {
+
+	public:
+
+		SystemCyclicDependencyException(
+			std::string_view systemName,
+			const std::source_location& location = std::source_location::current())
+			:
+			EngineException(
+				std::format("SystemCyclicDependencyException: El sistema {} genera una dependencia cíclica.", systemName),
+				location) {}
+
+	};
+
 }

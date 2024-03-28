@@ -7,80 +7,88 @@
 
 namespace OSK {
 
-	/// <summary>
-	/// Representa un cuaternión, para representar una orientación.
-	/// </summary>
+	/// @brief Representa un cuaternión, para representar una orientación.
 	class OSKAPI_CALL Quaternion {
 
 	public:
 
-		/// <summary>
-		/// Crea el cuaternión.
-		/// </summary>
-		Quaternion();
+		/// @brief Crea un cuaternión vacío.
+		Quaternion() = default;
 
-		/// <summary>
-		/// Rota el cuaternión dado un eje, que se interpreta en espacio del mundo.
-		/// </summary>
-		/// <param name="angle">Ángulo que se va a rotar.</param>
-		/// <param name="axis">Eje, en coordenadas del mundo, sobre el que se va a rotar.</param>
+
+		/// @brief Crea un cuaternión vacío.
+		static Quaternion Empty();
+
+		/// @brief Crea un cuaternión a partir de las coordenadas de Euler.
+		/// @param rot Rotación (Euler).
+		static Quaternion CreateFromEulerAngles(const Vector3f& rot);
+
+		/// @brief Crea un cuaternión a partir del dado.
+		/// @param quat Cuaternión original.
+		static Quaternion FromGlm(const glm::quat& quat);
+
+
+		/// @brief Rota el cuaternión dado un eje, que se interpreta en espacio del mundo.
+		/// @param angle Ángulo que se va a rotar.
+		/// @param axis Eje, en coordenadas del mundo, sobre el que se va a rotar.
 		void Rotate_WorldSpace(float angle, const Vector3f& axis);
 
-		/// <summary>
-		/// Rota el cuaternión dado un eje, que se interpreta en espacio local.
-		/// </summary>
-		/// <param name="angle">Ángulo que se va a rotar.</param>
-		/// <param name="axis">Eje, en coordenadas del cuaternión, sobre el que se va a rotar.</param>
+		/// @brief Rota el cuaternión dado un eje, que se interpreta en espacio local.
+		/// @param angle Ángulo que se va a rotar.
+		/// @param axis Eje, en coordenadas del cuaternión, sobre el que se va a rotar.
 		void Rotate_LocalSpace(float angle, const Vector3f& axis);
+
+
+		/// @brief Aplica una rotación en un nuevo quaternion.
+		/// @param other Rotación a aplicar.
+		/// @return Nuevo cuaternion, resultado de aplicar @p other
+		/// sobre este cuaternión.
+		/// @note Este cuaternión no será modificado.
+		Quaternion operator+(const Quaternion& other) const;
+
+		/// @brief Aplica una rotación al quaternion.
+		/// @param other Rotación a aplicar.
+		/// @return Self.
+		Quaternion& operator+=(const Quaternion& other);
+
+
+		/// @param other Otro cuaternión.
+		/// @return Diferencia entre este cuaternion y el otro (this - other).
+		/// @note Este cuaternión no será modificado.
+		Quaternion operator-(const Quaternion& other) const;
+
+		/// @brief Quita una rotación del cuaternión.
+		/// @param other Otro cuaternión.
+		/// @return Self. 
+		Quaternion& operator-=(const Quaternion& other);
+
 
 		/// @brief Rota un vector con la orientación de este quaternión.
 		/// @param vec Vector a rotar.
 		/// @return Vector rotado.
 		Vector3f RotateVector(const Vector3f& vec) const;
 
-		/// <summary>
-		/// Devuelve la rotación del cuaternión como coordenadas de Euler.
-		/// </summary>
-		/// <returns>Rotación.</returns>
+
+		/// @return Rotación del cuaternión como coordenadas de Euler.
 		Vector3f ToEulerAngles() const;
 
-		/// <summary>
-		/// Crea un cuaternión a partir de las coordenadas de Euler.
-		/// </summary>
-		/// <param name="rot">Rotación.</param>
-		/// <returns>Quaternión.</returns>
-		static Quaternion CreateFromEulerAngles(const Vector3f& rot);
 
-		/// <summary>
-		/// Crea un cuaternión a partir del dado.
-		/// </summary>
-		static Quaternion FromGlm(const glm::quat& quat);
-
-		/// <summary>
-		/// Interpola este cuaternion con otro.
-		/// </summary>
-		/// <param name="other">Otro cuaternion.</param>
-		/// <param name="factor">Factor de interpolación.</param>
-		/// <returns>Quaternion interpolado.</returns>
+		/// @brief Interpola este cuaternion con otro.
+		/// @param other Otro cuaternion.
+		/// @param factor Factor de interpolación.
+		/// @return Quaternion interpolado.
 		Quaternion Interpolate(const Quaternion& other, float factor) const;
 
-		/// <summary>
-		/// Devuelve el cuaternión en formato GLM.
-		/// </summary>
+
+		/// @return Cuaternión en formato GLM.
 		glm::quat ToGlm() const;
 
-		/// <summary>
-		/// Devuelve una matriz de rotación.
-		/// </summary>
-		/// <returns>Matriz de rotación.</returns>
+		/// @return Matriz de rotación.
 		glm::mat4 ToMat4() const;
 
 	private:
 
-		/// <summary>
-		/// Cuaternión.
-		/// </summary>
-		glm::quat quaternion = glm::identity<glm::quat>();
+		glm::quat m_quaternion = glm::identity<glm::quat>();
 
 	};
 

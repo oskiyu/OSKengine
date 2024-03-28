@@ -15,6 +15,7 @@ namespace OSK::GRAPHICS {
 		void RenderLoop(
 			ICommandList* commandList,
 			const DynamicArray<ECS::GameObjectIndex>& objectsToRender,
+			GlobalMeshMapping* meshMapping,
 			UIndex32 jitterIndex,
 			Vector2ui resolution) override final;
 

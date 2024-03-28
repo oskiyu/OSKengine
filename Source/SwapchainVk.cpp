@@ -112,7 +112,7 @@ void SwapchainVk::Create(PresentMode mode, Format format, const GpuVk& device, c
 	OSK_ASSERT(result == VK_SUCCESS, SwapchainCreationException("No se ha podido crear el swapchain", result));
 
 	for (UIndex32 i = 0; i < m_imageCount; i++)
-		m_images[i] = new GpuImageVk({ extent.width, extent.height, 1 }, GpuImageDimension::d2D, GpuImageUsage::COLOR, 1, format, 1, {});
+		m_images[i] = new GpuImageVk({ extent.width, extent.height, 1 }, GpuImageDimension::d2D, GpuImageUsage::COLOR, 1, format, 1, {}, GpuImageTiling::OPTIMAL);
 
 	AcquireImages(extent.width, extent.height);
 	AcquireViews();

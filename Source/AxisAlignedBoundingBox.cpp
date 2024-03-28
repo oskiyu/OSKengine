@@ -103,11 +103,11 @@ bool AxisAlignedBoundingBox::IsColliding(const ITopLevelCollider& other) const {
 }
 
 Vector3f AxisAlignedBoundingBox::GetMin() const {
-	return GetPosition() - m_size * 0.5f;
+	return GetPosition() - m_size;
 }
 
 Vector3f AxisAlignedBoundingBox::GetMax() const {
-	return GetPosition() + m_size * 0.5f;
+	return GetPosition() + m_size;
 }
 
 template <>

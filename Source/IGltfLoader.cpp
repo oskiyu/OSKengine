@@ -18,13 +18,17 @@
 #define TINYGLTF_NO_STB_IMAGE_WRITE
 #include <tiny_gltf.h>
 
+#include "Texture.h"
+#include "TextureLoader.h"
+#include "AssetOwningRef.h"
+
 using namespace OSK;
 using namespace OSK::ASSETS;
 using namespace OSK::GRAPHICS;
 
 
-void IGltfLoader::Load(const std::string& rawAssetPath, const glm::mat4& modelTransform) {
-	m_modelTransform = modelTransform;
+CpuModel3D GltfLoader::Load(std::string_view path, const glm::mat4& transform, float globalScale) {
+	CpuModel3D output = {};
 
 	tinygltf::TinyGLTF context;
 
@@ -33,74 +37,222 @@ void IGltfLoader::Load(const std::string& rawAssetPath, const glm::mat4& modelTr
 
 	tinygltf::Model gltfModel{};
 
-	context.LoadBinaryFromFile(&gltfModel, &errorMessage, &warningMessage, rawAssetPath);
+	context.LoadBinaryFromFile(&gltfModel, &errorMessage, &warningMessage, static_cast<std::string>(path));
 	OSK_ASSERT(errorMessage.empty(), EngineException("Error al cargar modelo estático: " + errorMessage));
 
-	m_modelInfo.materialInfos = LoadMaterials(gltfModel);
-	
 	for (const auto& scene : gltfModel.scenes) {
-		LoadScene(scene, gltfModel);
+		for (const int nodeIndex : scene.nodes) {
+			const tinygltf::Node& node = gltfModel.nodes[nodeIndex];
+			output.AddMeshes(ProcessNode(gltfModel, node, transform, globalScale));
+		}
 	}
 
-	auto images = LoadImages(gltfModel);
-	for (const auto& i : images)
-		m_lastLoadImages.Insert(i.GetPointer());
+	output.AddAnimations(LoadAnimations(gltfModel));
+	output.AddAnimationSkins(LoadAnimationSkins(gltfModel));
+
+	return output;
 }
 
-void IGltfLoader::LoadScene(const tinygltf::Scene& scene, const tinygltf::Model& model) {
-	for (const int nodeIndex : scene.nodes) {
-		const tinygltf::Node& node = model.nodes[nodeIndex];
-		constexpr auto noParentId = std::numeric_limits<UIndex32>::max();
+void GltfLoader::LoadMaterials(std::string_view path, DynamicArray<GRAPHICS::GpuModel3D::Material>* materials, GRAPHICS::GpuModel3D::TextureTable* textures) {
+	tinygltf::TinyGLTF context;
 
-		ProcessNode(model, node, nodeIndex, noParentId);
+	std::string errorMessage = "";
+	std::string warningMessage = "";
+
+	tinygltf::Model gltfModel{};
+
+	context.LoadBinaryFromFile(&gltfModel, &errorMessage, &warningMessage, static_cast<std::string>(path));
+	OSK_ASSERT(errorMessage.empty(), EngineException("Error al cargar modelo estático: " + errorMessage));
+
+	*materials = LoadMaterials(gltfModel);
+
+	const auto images = LoadImages(gltfModel);
+
+	for (const auto& image : images) {
+		textures->AddTexture(image);
 	}
 }
 
-void IGltfLoader::SetupModel(Model3D* model) {
-	model->_SetIndexBuffer(Engine::GetRenderer()->GetAllocator()->CreateIndexBuffer(m_indices));
-	model->_SetIndexCount(static_cast<USize32>(m_indices.GetSize()));
+DynamicArray<AnimationSkin> GltfLoader::LoadAnimationSkins(const tinygltf::Model& model) {
+	DynamicArray<AnimationSkin> output = DynamicArray<AnimationSkin>::CreateReservedArray(model.skins.size());
 
-	for (UIndex32 i = 0; i < m_meshes.GetSize(); i++) {
-		MeshMetadata meshMetadata{};
+	for (UIndex32 skinId = 0; skinId < model.skins.size(); skinId++) {
+		const tinygltf::Skin& gltfSkin = model.skins[skinId];
 
-		if (m_meshIdToMaterialId.contains(i)) {
-			const auto& materialInfo = m_modelInfo.materialInfos.At(m_meshIdToMaterialId.at(i));
+		AnimationSkin skin;
+		skin.name = gltfSkin.name;
+		skin.thisIndex = skinId;
 
-			if (materialInfo.hasColorTexture)
-				meshMetadata.textureTable[(std::string)ModelMetadata::BaseColorTextureName] = materialInfo.colorTextureIndex;
+		if (gltfSkin.skeleton > -1)
+			skin.rootIndex = static_cast<UIndex32>(gltfSkin.skeleton);
 
-			if (materialInfo.hasNormalTexture)
-				meshMetadata.textureTable[(std::string)ModelMetadata::NormalTextureName] = materialInfo.normalTextureIndex;
+		for (const auto bone : gltfSkin.joints)
+			skin.bonesIds.Insert(bone);
 
-			meshMetadata.materialId = m_meshIdToMaterialId.at(i);
+		if (gltfSkin.inverseBindMatrices > -1) {
+			const tinygltf::Accessor& accessor = model.accessors[gltfSkin.inverseBindMatrices];
+			const tinygltf::BufferView& bufferView = model.bufferViews[accessor.bufferView];
+			const tinygltf::Buffer& buffer = model.buffers[bufferView.buffer];
+
+			const auto matricesSize = static_cast<UIndex32>(accessor.count * sizeof(glm::mat4));
+
+			skin.inverseMatrices.Resize(accessor.count);
+			memcpy(skin.inverseMatrices.GetData(), &buffer.data[accessor.byteOffset + bufferView.byteOffset], matricesSize);
 		}
 
-		model->AddMesh(m_meshes.At(i), meshMetadata);
+		output.Insert(skin);
 	}
 
-	// Carga de texturas.
-	for (UIndex32 i = 0; i < m_lastLoadImages.GetSize(); i++)
-		model->AddGpuImage(m_lastLoadImages.At(i).Release());
-
-	// Materiales.
-	for (const auto& material : m_modelInfo.materialInfos) {
-		auto buffer = Engine::GetRenderer()->GetAllocator()->CreateUniformBuffer(sizeof(PbrMaterialInfo));
-
-		buffer->MapMemory();
-		buffer->Write(material.materialInfo);
-		buffer->Unmap();
-
-		model->_AddMaterialBuffer(buffer);
-	}
-
-	model->_SetVerticesAttributesMap(m_loadedVertices);
+	return output;
 }
 
-DynamicArray<std::string> IGltfLoader::GetTagsFromName(const tinygltf::Scene& scene) {
+DynamicArray<GpuModel3D::Material> GltfLoader::LoadMaterials(const tinygltf::Model& model) {
+	auto output = DynamicArray<GpuModel3D::Material>::CreateResizedArray(model.materials.size());
+
+	for (UIndex64 i = 0; i < model.materials.size(); i++) {
+		GpuModel3D::Material material{};
+
+		material.baseColor = {
+			static_cast<float>(model.materials[i].pbrMetallicRoughness.baseColorFactor[0]),
+			static_cast<float>(model.materials[i].pbrMetallicRoughness.baseColorFactor[1]),
+			static_cast<float>(model.materials[i].pbrMetallicRoughness.baseColorFactor[2]),
+			static_cast<float>(model.materials[i].pbrMetallicRoughness.baseColorFactor[3])
+		};
+
+		material.roughnessFactor = static_cast<float>(model.materials[i].pbrMetallicRoughness.roughnessFactor);
+		material.metallicFactor = static_cast<float>(model.materials[i].pbrMetallicRoughness.metallicFactor);
+
+		material.emissiveColor = {
+			static_cast<float>(model.materials[i].emissiveFactor[0]),
+			static_cast<float>(model.materials[i].emissiveFactor[1]),
+			static_cast<float>(model.materials[i].emissiveFactor[2])
+		};
+
+		if (model.materials[i].pbrMetallicRoughness.baseColorTexture.index != -1) {
+			material.colorTextureIndex = model.textures[model.materials[i].pbrMetallicRoughness.baseColorTexture.index].source;
+		}
+
+		if (model.materials[i].pbrMetallicRoughness.metallicRoughnessTexture.index != -1) {
+			material.metallicTextureIndex = model.textures[model.materials[i].pbrMetallicRoughness.metallicRoughnessTexture.index].source;
+		}
+
+		if (model.materials[i].pbrMetallicRoughness.metallicRoughnessTexture.index != -1) {
+			material.metallicTextureIndex = model.textures[model.materials[i].pbrMetallicRoughness.metallicRoughnessTexture.index].source;
+		}
+
+		if (model.materials[i].normalTexture.index != -1) {
+			material.normalTextureIndex = model.textures[model.materials[i].normalTexture.index].source;
+		}
+
+		output[i] = material;
+	}
+
+	return output;
+}
+
+DynamicArray<Animation> GltfLoader::LoadAnimations(const tinygltf::Model& model) {
+	DynamicArray<Animation> output = DynamicArray<Animation>::CreateReservedArray(model.animations.size());
+
+	const auto bones = LoadAllBones(model);
+
+	for (const auto& gltfAnimation : model.animations) {
+		output.Insert(
+			Animation(
+				gltfAnimation.name,
+				LoadAnimationSamplers(model, gltfAnimation),
+				LoadAnimationChannels(gltfAnimation),
+				bones));
+	}
+
+	return output;
+}
+
+DynamicArray<AnimationSampler> GltfLoader::LoadAnimationSamplers(const tinygltf::Model& model, const tinygltf::Animation& gltfAnimation) {
+	DynamicArray<AnimationSampler> samplers = DynamicArray<AnimationSampler>::CreateResizedArray(gltfAnimation.samplers.size());
+
+	for (UIndex32 samplerId = 0; samplerId < gltfAnimation.samplers.size(); samplerId++) {
+		tinygltf::AnimationSampler gltfSampler = gltfAnimation.samplers[samplerId];
+
+		AnimationSampler& sampler = samplers[samplerId];
+		// TODO: sampler interpolation type
+
+		// Establece los valores de entrada del sampler, es decir,
+		// los timestamps en el que se produce una transforamción de algún tipo.
+		{
+			const tinygltf::Accessor& accessor = model.accessors[gltfSampler.input];
+			const tinygltf::BufferView& bufferView = model.bufferViews[accessor.bufferView];
+			const tinygltf::Buffer& buffer = model.buffers[bufferView.buffer];
+
+			const void* data = &buffer.data[accessor.byteOffset + bufferView.byteOffset];
+			const auto* timestampsBuffer = static_cast<const float*>(data);
+
+			for (UIndex32 i = 0; i < accessor.count; i++) {
+				sampler.timestamps.Insert(timestampsBuffer[i]);
+			}
+		}
+
+		// Establece los valores de salida del sampler, es decir,
+		// la transformación de cada timestamp.
+		{
+			const tinygltf::Accessor& accessor = model.accessors[gltfSampler.output];
+			const tinygltf::BufferView& bufferView = model.bufferViews[accessor.bufferView];
+			const tinygltf::Buffer& buffer = model.buffers[bufferView.buffer];
+			const void* data = &buffer.data[accessor.byteOffset + bufferView.byteOffset];
+
+			switch (accessor.type) {
+
+			case TINYGLTF_TYPE_VEC3: {
+				const glm::vec3* vecBuffer = static_cast<const glm::vec3*>(data);
+				for (UIndex32 i = 0; i < accessor.count; i++)
+					sampler.outputs.Insert(glm::vec4(vecBuffer[i], 0.0));
+			}
+								   break;
+
+			case TINYGLTF_TYPE_VEC4: {
+				const glm::vec4* vecBuffer = static_cast<const glm::vec4*>(data);
+				for (UIndex32 i = 0; i < accessor.count; i++)
+					sampler.outputs.Insert(vecBuffer[i]);
+			}
+								   break;
+
+			}
+		}
+	}
+	return samplers;
+}
+
+DynamicArray<AnimationChannel> GltfLoader::LoadAnimationChannels(const tinygltf::Animation& gltfAnimation) {
+	DynamicArray<AnimationChannel> channels = DynamicArray<AnimationChannel>::CreateResizedArray(gltfAnimation.channels.size());
+
+	for (UIndex32 channelId = 0; channelId < gltfAnimation.channels.size(); channelId++) {
+		tinygltf::AnimationChannel gltfChannel = gltfAnimation.channels[channelId];
+
+		AnimationChannel& channel = channels[channelId];
+		channel.samplerIndex = channelId;
+		channel.nodeId = gltfChannel.target_node;
+
+		if (gltfChannel.target_path == "translation") {
+			channel.type = AnimationChannel::ChannelType::TRANSLATION;
+		}
+		else if (gltfChannel.target_path == "rotation") {
+			channel.type = AnimationChannel::ChannelType::ROTATION;
+		}
+		else if (gltfChannel.target_path == "scale") {
+			channel.type = AnimationChannel::ChannelType::SCALE;
+		}
+		else {
+			// OSK_CHECK(false, "El canal de animación " + gltfChannel.target_path + " no está soportado.");
+		}
+	}
+
+	return channels;
+}
+
+DynamicArray<std::string> GltfLoader::GetTagsFromName(const tinygltf::Scene& scene) {
 	return Tokenize(scene.name, ':');
 }
 
-glm::mat4 IGltfLoader::GetNodeMatrix(const tinygltf::Node& node) {
+glm::mat4 GltfLoader::GetNodeMatrix(const tinygltf::Node& node) {
 	// Obtenemos el transform del nodo.
 	// Puede estar definido de varias maneras:
 
@@ -127,7 +279,7 @@ glm::mat4 IGltfLoader::GetNodeMatrix(const tinygltf::Node& node) {
 	return nodeMatrix;
 }
 
-std::unordered_map<std::string, std::string, StringHasher, std::equal_to<>> IGltfLoader::GetCustomProperties(const tinygltf::Mesh& mesh) const {
+std::unordered_map<std::string, std::string, StringHasher, std::equal_to<>> GltfLoader::GetCustomProperties(const tinygltf::Mesh& mesh) {
 	std::unordered_map<std::string, std::string, StringHasher, std::equal_to<>> output{};
 	const auto& extras = mesh.extras;
 
@@ -169,8 +321,191 @@ std::unordered_map<std::string, std::string, StringHasher, std::equal_to<>> IGlt
 	return output;
 }
 
-DynamicArray<OwnedPtr<GpuImage>> IGltfLoader::LoadImages(const tinygltf::Model& model) {
-	DynamicArray<OwnedPtr<GpuImage>> output;
+DynamicArray<AnimationBone> GltfLoader::LoadAllBones(const tinygltf::Model& model) {
+	DynamicArray<AnimationBone> output{};
+
+	for (const auto& scene : model.scenes) {
+		for (const int nodeIndex : scene.nodes) {
+			const tinygltf::Node& node = model.nodes[nodeIndex];
+			constexpr auto noParentId = std::numeric_limits<UIndex32>::max();
+
+			output.InsertAll(LoadBones(model, node, nodeIndex, noParentId));
+		}
+	}
+
+	return output;
+}
+
+DynamicArray<AnimationBone> GltfLoader::LoadBones(const tinygltf::Model& model, const tinygltf::Node& node, UIndex64 nodeIndex, UIndex64 parentIndex) {
+	DynamicArray<AnimationBone> output{};
+	
+	AnimationBone bone{};
+	bone.name = node.name;
+	bone.thisIndex = nodeIndex;
+	bone.parentIndex = parentIndex;
+
+	if (node.skin > -1) {
+		bone.skinIndex = node.skin;
+	}
+
+	output.Insert(bone);
+
+	for (UIndex32 i = 0; i < node.children.size(); i++) {
+		output.InsertAll(LoadBones(model, model.nodes[node.children[i]], node.children[i], nodeIndex));
+	}
+
+	return output;
+}
+
+DynamicArray<CpuMesh3D> GltfLoader::ProcessNode(const tinygltf::Model& model, const tinygltf::Node& node, const glm::mat4& transform, float globalScale) {
+	DynamicArray<CpuMesh3D> output = {};
+
+	const glm::mat4 nodeMatrix = transform * GetNodeMatrix(node);
+	const glm::mat3 normalMatrix = glm::transpose(glm::inverse(glm::mat3(nodeMatrix)));
+
+	if (node.mesh <= -1) {
+		for (UIndex32 i = 0; i < node.children.size(); i++) {
+			output.InsertAll(ProcessNode(model, model.nodes[node.children[i]], transform, globalScale));
+		}
+
+		return output;
+	}
+
+	// Proceso del polígono.
+	const tinygltf::Mesh& mesh = model.meshes[node.mesh];
+
+	for (UIndex32 i = 0; i < mesh.primitives.size(); i++) {
+		CpuMesh3D cpuMesh{};
+
+		const tinygltf::Primitive& primitive = mesh.primitives[i];
+
+		if (primitive.material > -1) {
+			cpuMesh.SetMaterialIndex(primitive.material);
+		}
+
+		const auto primitiveIndices = GetIndices(primitive, 0, model);
+
+		const std::optional<DynamicArray<Vector3f>> positions = HasPositions(primitive)
+			? GetVertexPositions(primitive, nodeMatrix, model, globalScale)
+			: std::optional<DynamicArray<Vector3f>>{};
+
+		const std::optional<DynamicArray<Vector3f>> normals = HasNormals(primitive)
+			? GetVertexNormals(primitive, model)
+			: std::optional<DynamicArray<Vector3f>>{};
+
+		const std::optional<DynamicArray<Vector2f>> texCoords = HasTextureCoords(primitive)
+			? GetTextureCoords(primitive, model)
+			: std::optional<DynamicArray<Vector2f>>{};
+
+		const std::optional<DynamicArray<Color>> colors = HasColors(primitive)
+			? GetVertexColors(primitive, model)
+			: std::optional<DynamicArray<Color>>{};
+
+		const std::optional<DynamicArray<Vector3f>> tangents = HasTangets(primitive)
+			? GetTangentVectors(primitive, model)
+			: std::optional<DynamicArray<Vector3f>>{};
+
+		const std::optional<DynamicArray<Vector4f>> boneWeights = HasBoneWeights(primitive)
+			? GetBoneWeights(primitive, model)
+			: std::optional<DynamicArray<Vector4f>>{};
+
+		const std::optional<DynamicArray<Vector4f>> boneIds = HasJoints(primitive)
+			? GetJoints(primitive, model)
+			: std::optional<DynamicArray<Vector4f>>{};
+
+		const auto numVertices = positions.has_value()
+			? positions.value().GetSize()
+			: 0;
+
+		// Procesamos los buffers y generamos nuevos vértices.
+		for (UIndex64 v = 0; v < numVertices; v++) {
+
+			CpuVertex3D vertex{};
+			vertex.position = positions.value()[v];
+
+			if (normals.has_value()) {
+				vertex.normal = Vector3f(glm::normalize(normalMatrix * normals.value()[v].ToGlm()));
+			}
+
+			if (texCoords.has_value()) {
+				vertex.uv = texCoords.value()[v];
+			}
+
+			if (tangents.has_value()) {
+				vertex.tangent = Vector3f(glm::normalize(normalMatrix * tangents.value()[v].ToGlm()));
+			}
+
+			if (colors.has_value()) {
+				vertex.color = colors.value()[v];
+			}
+			else if (primitive.material > -1) {
+				const auto& nativeColor = model.materials[primitive.material].pbrMetallicRoughness.baseColorFactor;
+
+				vertex.color = Color(
+					nativeColor[0],
+					nativeColor[1],
+					nativeColor[2]);
+			}
+
+			if (boneWeights.has_value()) {
+				const auto& weights = boneWeights.value()[v];
+				vertex.boneWeights = {
+					weights.x, weights.y, weights.Z, weights.W
+				};
+			}
+
+			if (boneIds.has_value()) {
+				const auto& ids = boneIds.value()[v];
+				vertex.boneIds = {
+					ids.x, ids.y, ids.Z, ids.W
+				};
+			}
+
+			cpuMesh.AddVertex(vertex);
+		}
+
+		switch (primitive.mode) {
+		case TINYGLTF_MODE_TRIANGLES: {
+			for (UIndex64 idx = 0; idx < primitiveIndices.GetSize(); idx += 3) {
+				cpuMesh.AddTriangleIndex({
+					primitiveIndices[idx + 0],
+					primitiveIndices[idx + 1],
+					primitiveIndices[idx + 2] });
+			}
+		}
+			break;
+
+		case TINYGLTF_MODE_LINE: {
+			for (UIndex64 idx = 0; idx < primitiveIndices.GetSize(); idx += 2) {
+				cpuMesh.AddLineIndex({
+					primitiveIndices[idx + 0],
+					primitiveIndices[idx + 1] });
+			}
+		}
+			break;
+
+		case TINYGLTF_MODE_POINTS: {
+			for (UIndex64 idx = 0; idx < primitiveIndices.GetSize(); idx++) {
+				cpuMesh.AddPointIndex(primitiveIndices[idx]);
+			}
+		}
+			break;
+		}
+
+		output.Insert(cpuMesh);
+	}
+
+	for (UIndex32 i = 0; i < node.children.size(); i++) {
+		output.InsertAll(ProcessNode(model, model.nodes[node.children[i]], transform, globalScale));
+	}
+
+	return output;
+}
+
+DynamicArray<AssetRef<Texture>> GltfLoader::LoadImages(const tinygltf::Model& model) {
+	auto* textureLoader = Engine::GetAssetManager()->GetLoader<TextureLoader>();
+
+	DynamicArray<AssetRef<Texture>> output;
 
 	/// @todo Single upload cmd list.
 
@@ -243,94 +578,52 @@ DynamicArray<OwnedPtr<GpuImage>> IGltfLoader::LoadImages(const tinygltf::Model& 
 		uploadCmdList->Close();
 		Engine::GetRenderer()->SubmitSingleUseCommandList(uploadCmdList.GetPointer());
 
-		output.Insert(image);
+		AssetOwningRef<Texture> owningRef("XD");
+		owningRef.GetAsset()->_SetImage(image);
+		owningRef.GetAsset()->_SetSize(image->GetSize2D());
+		owningRef.GetAsset()->_SetNumberOfChannels(4);
+
+		textureLoader->RegisterTexture(owningRef);
+
+		output.Insert(owningRef.CreateRef());
 	}
 
 	return output;
 }
 
-DynamicArray<GltfMaterialInfo> IGltfLoader::LoadMaterials(const tinygltf::Model& model) {
-	auto output = DynamicArray<GltfMaterialInfo>::CreateResizedArray(model.materials.size());
-
-	for (UIndex64 i = 0; i < model.materials.size(); i++) {
-		GltfMaterialInfo info{};
-		info.baseColor = {
-			static_cast<float>(model.materials[i].pbrMetallicRoughness.baseColorFactor[0]),
-			static_cast<float>(model.materials[i].pbrMetallicRoughness.baseColorFactor[1]),
-			static_cast<float>(model.materials[i].pbrMetallicRoughness.baseColorFactor[2]),
-			static_cast<float>(model.materials[i].pbrMetallicRoughness.baseColorFactor[3])
-		};
-
-		info.materialInfo.roughnessMetallic = {
-			static_cast<float>(model.materials[i].pbrMetallicRoughness.roughnessFactor),
-			static_cast<float>(model.materials[i].pbrMetallicRoughness.metallicFactor)
-		};
-
-		info.materialInfo.emissiveColor = {
-			static_cast<float>(model.materials[i].emissiveFactor[0]),
-			static_cast<float>(model.materials[i].emissiveFactor[1]),
-			static_cast<float>(model.materials[i].emissiveFactor[2])
-		};
-
-		if (model.materials[i].pbrMetallicRoughness.baseColorTexture.index != -1) {
-			info.hasColorTexture = true;
-			info.colorTextureIndex = model.textures[model.materials[i].pbrMetallicRoughness.baseColorTexture.index].source;
-		}
-
-		if (model.materials[i].pbrMetallicRoughness.metallicRoughnessTexture.index != -1) {
-			info.hasMetallicTexture = true;
-			info.metallicTextureIndex = model.textures[model.materials[i].pbrMetallicRoughness.metallicRoughnessTexture.index].source;
-		}
-
-		if (model.materials[i].pbrMetallicRoughness.metallicRoughnessTexture.index != -1) {
-			info.hasRoughnessTexture = true;
-			info.metallicTextureIndex = model.textures[model.materials[i].pbrMetallicRoughness.metallicRoughnessTexture.index].source;
-		}
-
-		if (model.materials[i].normalTexture.index != -1) {
-			info.hasNormalTexture = true;
-			info.normalTextureIndex = model.textures[model.materials[i].normalTexture.index].source;
-		}
-
-		output[i] = info;
-	}
-
-	return output;
-}
-
-bool IGltfLoader::HasAttribute(const tinygltf::Primitive& primitive, const std::string& name) const {
+bool GltfLoader::HasAttribute(const tinygltf::Primitive& primitive, const std::string& name) {
 	return primitive.attributes.contains(name);
 }
 
-bool IGltfLoader::HasPositions(const tinygltf::Primitive& primitive) const {
+bool GltfLoader::HasPositions(const tinygltf::Primitive& primitive) {
 	return HasAttribute(primitive, "POSITION");
 }
 
-bool IGltfLoader::HasNormals(const tinygltf::Primitive& primitive) const {
+bool GltfLoader::HasNormals(const tinygltf::Primitive& primitive) {
 	return HasAttribute(primitive, "NORMAL");
 }
 
-bool IGltfLoader::HasTangets(const tinygltf::Primitive& primitive) const {
+bool GltfLoader::HasTangets(const tinygltf::Primitive& primitive) {
 	return HasAttribute(primitive, "TANGENT");
 }
 
-bool IGltfLoader::HasTextureCoords(const tinygltf::Primitive& primitive) const {
+bool GltfLoader::HasTextureCoords(const tinygltf::Primitive& primitive) {
 	return HasAttribute(primitive, "TEXCOORD_0");
 }
 
-bool IGltfLoader::HasColors(const tinygltf::Primitive& primitive) const {
+bool GltfLoader::HasColors(const tinygltf::Primitive& primitive) {
 	return HasAttribute(primitive, "COLOR_0");
 }
 
-bool IGltfLoader::HasJoints(const tinygltf::Primitive& primitive) const {
+bool GltfLoader::HasJoints(const tinygltf::Primitive& primitive) {
 	return HasAttribute(primitive, "JOINTS_0");
 }
 
-bool IGltfLoader::HasBoneWeights(const tinygltf::Primitive& primitive) const {
+bool GltfLoader::HasBoneWeights(const tinygltf::Primitive& primitive) {
 	return HasAttribute(primitive, "WEIGHTS_0");
 }
 
-DynamicArray<Vector3f> IGltfLoader::GetVertexPositions(const tinygltf::Primitive& primitive, const glm::mat4& nodeMatrix, const tinygltf::Model& model) const {
+DynamicArray<Vector3f> GltfLoader::GetVertexPositions(const tinygltf::Primitive& primitive, const glm::mat4& nodeMatrix, const tinygltf::Model& model, float globalScale) {
 	// Comprobamos que tiene almacenado info de posición.
 	OSK_ASSERT(HasPositions(primitive), NoVertexPositionsFoundException());
 
@@ -351,7 +644,7 @@ DynamicArray<Vector3f> IGltfLoader::GetVertexPositions(const tinygltf::Primitive
 			positionsBuffer[v * 3 + 0],
 			positionsBuffer[v * 3 + 1],
 			positionsBuffer[v * 3 + 2],
-			m_globalScale
+			globalScale
 		);
 
 		output[v] = Vector3f(glm::vec3(nodeMatrix * vertexPosition));
@@ -360,7 +653,7 @@ DynamicArray<Vector3f> IGltfLoader::GetVertexPositions(const tinygltf::Primitive
 	return output;
 }
 
-DynamicArray<Vector3f> IGltfLoader::GetVertexNormals(const tinygltf::Primitive& primitive, const tinygltf::Model& model) const {
+DynamicArray<Vector3f> GltfLoader::GetVertexNormals(const tinygltf::Primitive& primitive, const tinygltf::Model& model) {
 	// Comprobamos que tiene almacenado info de normales.
 	OSK_ASSERT(HasNormals(primitive), NoVertexNormalsFoundException());
 
@@ -385,7 +678,7 @@ DynamicArray<Vector3f> IGltfLoader::GetVertexNormals(const tinygltf::Primitive& 
 	return output;
 }
 
-DynamicArray<Vector3f> IGltfLoader::GetTangentVectors(const tinygltf::Primitive& primitive, const tinygltf::Model& model) const {
+DynamicArray<Vector3f> GltfLoader::GetTangentVectors(const tinygltf::Primitive& primitive, const tinygltf::Model& model) {
 	// Comprobamos que tiene almacenado info de tangentes.
 	OSK_ASSERT(HasTangets(primitive), NoVertexTangentsFoundException());
 
@@ -415,7 +708,7 @@ DynamicArray<Vector3f> IGltfLoader::GetTangentVectors(const tinygltf::Primitive&
 
 }
 
-DynamicArray<Vector3f> IGltfLoader::GenerateTangetVectors(const DynamicArray<Vector2f>& texCoords, const DynamicArray<Vector3f>& _positions, const DynamicArray<TIndexSize>& indices, UIndex32 indicesStartOffset) const {
+DynamicArray<Vector3f> GltfLoader::GenerateTangetVectors(const DynamicArray<Vector2f>& texCoords, const DynamicArray<Vector3f>& _positions, const DynamicArray<TIndexSize>& indices, UIndex32 indicesStartOffset) {
 	DynamicArray<Vector3f> output = DynamicArray<Vector3f>::CreateResizedArray(texCoords.GetSize());
 
 	for (UIndex32 i = 0; i < indices.GetSize(); i += 3) {
@@ -456,7 +749,7 @@ DynamicArray<Vector3f> IGltfLoader::GenerateTangetVectors(const DynamicArray<Vec
 	return output;
 }
 
-DynamicArray<Vector2f> IGltfLoader::GetTextureCoords(const tinygltf::Primitive& primitive, const tinygltf::Model& model) const {
+DynamicArray<Vector2f> GltfLoader::GetTextureCoords(const tinygltf::Primitive& primitive, const tinygltf::Model& model) {
 	// Comprobamos que tiene almacenado info de coordenadas de texturas.
 	OSK_ASSERT(HasTextureCoords(primitive), NoVertexTexCoordsFoundException());
 
@@ -480,7 +773,7 @@ DynamicArray<Vector2f> IGltfLoader::GetTextureCoords(const tinygltf::Primitive& 
 	return output;
 }
 
-DynamicArray<Color> IGltfLoader::GetVertexColors(const tinygltf::Primitive& primitive, const tinygltf::Model& model) const {
+DynamicArray<Color> GltfLoader::GetVertexColors(const tinygltf::Primitive& primitive, const tinygltf::Model& model) {
 	if (!HasColors(primitive))
 		return DynamicArray<Color>{};
 
@@ -541,7 +834,7 @@ DynamicArray<Color> IGltfLoader::GetVertexColors(const tinygltf::Primitive& prim
 	}
 }
 
-DynamicArray<TIndexSize> IGltfLoader::GetIndices(const tinygltf::Primitive& primitive, TIndexSize startOffset, const tinygltf::Model& model) const {
+DynamicArray<TIndexSize> GltfLoader::GetIndices(const tinygltf::Primitive& primitive, TIndexSize startOffset, const tinygltf::Model& model) {
 	// Índices
 	const tinygltf::Accessor& indicesAccesor = model.accessors[primitive.indices];
 	const tinygltf::BufferView& indicesView = model.bufferViews[indicesAccesor.bufferView];
@@ -589,7 +882,7 @@ DynamicArray<TIndexSize> IGltfLoader::GetIndices(const tinygltf::Primitive& prim
 	return output;
 }
 
-DynamicArray<Vector4f> IGltfLoader::GetJoints(const tinygltf::Primitive& primitive, const tinygltf::Model& model) const {
+DynamicArray<Vector4f> GltfLoader::GetJoints(const tinygltf::Primitive& primitive, const tinygltf::Model& model) {
 	if (!HasJoints(primitive))
 		return DynamicArray<Vector4f>();
 
@@ -651,7 +944,7 @@ DynamicArray<Vector4f> IGltfLoader::GetJoints(const tinygltf::Primitive& primiti
 	return output;
 }
 
-DynamicArray<Vector4f> IGltfLoader::GetBoneWeights(const tinygltf::Primitive& primitive, const tinygltf::Model& model) const {
+DynamicArray<Vector4f> GltfLoader::GetBoneWeights(const tinygltf::Primitive& primitive, const tinygltf::Model& model) {
 	if (!HasBoneWeights(primitive))
 		return DynamicArray<Vector4f>();
 

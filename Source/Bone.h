@@ -17,7 +17,7 @@ namespace OSK::GRAPHICS {
 
 
 	/// @brief Hueso de la animación.
-	using Bone = struct MeshNode {
+	struct AnimationBone {
 
 		constexpr static UIndex32 EmptyIndex = std::numeric_limits<UIndex32>::max();
 
@@ -48,7 +48,10 @@ namespace OSK::GRAPHICS {
 
 		/// @return Matriz de modelo del hueso.
 		inline glm::mat4 GetLocalMatrix() const {
-			return glm::translate(glm::mat4(1.0f), position.ToGlm()) * glm::mat4(rotation.ToGlm()) * glm::scale(glm::mat4(1.0f), scale.ToGlm());
+			return 
+				glm::translate(glm::mat4(1.0f), position.ToGlm()) * 
+				glm::mat4(rotation.ToGlm()) * 
+				glm::scale(glm::mat4(1.0f), scale.ToGlm());
 		}
 
 		glm::mat4 globalMatrix = glm::mat4(1.0f);

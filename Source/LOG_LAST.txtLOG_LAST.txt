@@ -1,36 +1,123 @@
 INFO: Iniciando OSKengine.
 INFO: 	Version: 0.0.0
-INFO: 	Build 2024.01.26a.
-INFO: Versión de vulkan: 1.3.255
-DEBUG: Capas de validación activas.
-INFO: Capas de validación activas.
+INFO: 	Build 2024.03.06a.
+INFO: Versión de vulkan: 1.3.261
 INFO: GPU elegida: NVIDIA GeForce RTX 2060
 INFO: Creado el swapchain.
-INFO: New object: 1
+INFO: Nuevo grafo:
+INFO: 	Nuevo set:
+INFO: 		OSK::TreeNormalsRenderSystem
+INFO: Añadido sistema: OSK::TreeNormalsRenderSystem
+INFO: Nuevo grafo:
+INFO: 	Nuevo set:
+INFO: 		OSK::TreeNormalsRenderSystem
+INFO: 	Nuevo set:
+INFO: 		OSK::DeferredRenderSystem
+INFO: Añadido sistema: OSK::DeferredRenderSystem
+INFO: Nuevo grafo:
+INFO: 	Nuevo set:
+INFO: 		OSK::TreeNormalsRenderSystem
+INFO: 	Nuevo set:
+INFO: 		OSK::DeferredRenderSystem
+INFO: 		OSK::PhysicsSystem
+INFO: Añadido sistema: OSK::PhysicsSystem
+INFO: Nuevo grafo:
+INFO: 	Nuevo set:
+INFO: 		OSK::TreeNormalsRenderSystem
+INFO: 	Nuevo set:
+INFO: 		OSK::DeferredRenderSystem
+INFO: 		OSK::PhysicsSystem
+INFO: 	Nuevo set:
+INFO: 		OSK::CollisionSystem
+INFO: Añadido sistema: OSK::CollisionSystem
+INFO: Nuevo grafo:
+INFO: 	Nuevo set:
+INFO: 		OSK::TreeNormalsRenderSystem
+INFO: 	Nuevo set:
+INFO: 		OSK::DeferredRenderSystem
+INFO: 		OSK::PhysicsSystem
+INFO: 	Nuevo set:
+INFO: 		OSK::CollisionSystem
+INFO: 	Nuevo set:
+INFO: 		OSK::PhysicsResolverSystem
+INFO: Añadido sistema: OSK::PhysicsResolverSystem
+INFO: Nuevo grafo:
+INFO: 	Nuevo set:
+INFO: 		OSK::TreeNormalsRenderSystem
+INFO: 		OSK::PhysicsSystem
+INFO: 	Nuevo set:
+INFO: 		OSK::CollisionSystem
+INFO: 	Nuevo set:
+INFO: 		OSK::PhysicsResolverSystem
+INFO: 	Nuevo set:
+INFO: 		OSK::TransformApplierSystem
+INFO: 	Nuevo set:
+INFO: 		OSK::DeferredRenderSystem
+INFO: Añadido sistema: OSK::TransformApplierSystem
+INFO: Nuevo grafo:
+INFO: 	Nuevo set:
+INFO: 		OSK::TreeNormalsRenderSystem
+INFO: 		OSK::PhysicsSystem
+INFO: 	Nuevo set:
+INFO: 		OSK::CollisionSystem
+INFO: 	Nuevo set:
+INFO: 		OSK::PhysicsResolverSystem
+INFO: 	Nuevo set:
+INFO: 		OSK::TransformApplierSystem
+INFO: 	Nuevo set:
+INFO: 		OSK::DeferredRenderSystem
+INFO: 		OSK::SkyboxRenderSystem
+INFO: Añadido sistema: OSK::SkyboxRenderSystem
+INFO: Nuevo grafo:
+INFO: 	Nuevo set:
+INFO: 		OSK::TreeNormalsRenderSystem
+INFO: 		OSK::PhysicsSystem
+INFO: 	Nuevo set:
+INFO: 		OSK::CollisionSystem
+INFO: 	Nuevo set:
+INFO: 		OSK::PhysicsResolverSystem
+INFO: 	Nuevo set:
+INFO: 		OSK::TransformApplierSystem
+INFO: 	Nuevo set:
+INFO: 		OSK::DeferredRenderSystem
+INFO: 		OSK::RenderSystem2D
+INFO: 		OSK::SkyboxRenderSystem
+INFO: Añadido sistema: OSK::RenderSystem2D
+INFO: Nuevo grafo:
+INFO: 	Nuevo set:
+INFO: 		OSK::TreeNormalsRenderSystem
+INFO: 		OSK::PhysicsSystem
+INFO: 	Nuevo set:
+INFO: 		OSK::CollisionSystem
+INFO: 	Nuevo set:
+INFO: 		OSK::PhysicsResolverSystem
+INFO: 	Nuevo set:
+INFO: 		OSK::TransformApplierSystem
+INFO: 	Nuevo set:
+INFO: 		OSK::DeferredRenderSystem
+INFO: 		OSK::SkyboxRenderSystem
+INFO: 	Nuevo set:
+INFO: 		OSK::ColliderRenderSystem
+INFO: Añadido sistema: OSK::ColliderRenderSystem
+INFO: Nuevo grafo:
+INFO: 	Nuevo set:
+INFO: 		OSK::TreeNormalsRenderSystem
+INFO: 		OSK::PhysicsSystem
+INFO: 	Nuevo set:
+INFO: 		OSK::CollisionSystem
+INFO: 	Nuevo set:
+INFO: 		OSK::PhysicsResolverSystem
+INFO: 	Nuevo set:
+INFO: 		OSK::TransformApplierSystem
+INFO: 	Nuevo set:
+INFO: 		OSK::DeferredRenderSystem
+INFO: 		OSK::SkyboxRenderSystem
+INFO: 	Nuevo set:
+INFO: 		OSK::ColliderRenderSystem
+INFO: 		OSK::RenderBoundsRenderer
+INFO: Añadido sistema: OSK::RenderBoundsRenderer
 INFO: 	Car: 1
-INFO: New object: 2
-INFO: New object: 3
-INFO: New object: 4
-INFO: New object: 5
-INFO: New object: 6
 INFO: 	Circuit: 6
-INFO: New object: 7
-INFO: New object: 8
-INFO: New object: 9
-INFO: Loading spline mesh 0
-INFO: Loading spline primitive 0.0
-WARNING: Validation Error: [ VUID-VkPresentInfoKHR-pImageIndices-01430 ] Object 0: handle = 0x23ad6c34620, type = VK_OBJECT_TYPE_QUEUE; | MessageID = 0x48ad24c6 | vkQueuePresentKHR(): pPresentInfo->pSwapchains[0] images passed to present must be in layout VK_IMAGE_LAYOUT_PRESENT_SRC_KHR or VK_IMAGE_LAYOUT_SHARED_PRESENT_KHR but is in VK_IMAGE_LAYOUT_UNDEFINED. The Vulkan spec states: Each element of pImageIndices must be the index of a presentable image acquired from the swapchain specified by the corresponding element of the pSwapchains array, and the presented image subresource must be in the VK_IMAGE_LAYOUT_PRESENT_SRC_KHR or VK_IMAGE_LAYOUT_SHARED_PRESENT_KHR layout at the time the operation is executed on a VkDevice (https://vulkan.lunarg.com/doc/view/1.3.268.0/windows/1.3-extensions/vkspec.html#VUID-VkPresentInfoKHR-pImageIndices-01430)
-
-WARNING: Validation Error: [ VUID-vkDestroyDescriptorPool-descriptorPool-00303 ] | MessageID = 0x4dad1ae8 | vkDestroyDescriptorPool():  can't be called on VkDescriptorPool 0x952ae5000000037a[] that is currently in use by VkCommandBuffer 0x23add2e64f0[Graphics CmdList[0]]. The Vulkan spec states: All submitted commands that refer to descriptorPool (via any allocated descriptor sets) must have completed execution (https://vulkan.lunarg.com/doc/view/1.3.268.0/windows/1.3-extensions/vkspec.html#VUID-vkDestroyDescriptorPool-descriptorPool-00303)
-
-WARNING: Validation Error: [ VUID-vkDestroyDescriptorPool-descriptorPool-00303 ] | MessageID = 0x4dad1ae8 | vkDestroyDescriptorPool():  can't be called on VkDescriptorPool 0x78e915000000036d[] that is currently in use by VkCommandBuffer 0x23accd8cdb0[Graphics CmdList[1]]. The Vulkan spec states: All submitted commands that refer to descriptorPool (via any allocated descriptor sets) must have completed execution (https://vulkan.lunarg.com/doc/view/1.3.268.0/windows/1.3-extensions/vkspec.html#VUID-vkDestroyDescriptorPool-descriptorPool-00303)
-
-WARNING: Validation Error: [ VUID-vkDestroyDescriptorPool-descriptorPool-00303 ] | MessageID = 0x4dad1ae8 | vkDestroyDescriptorPool():  can't be called on VkDescriptorPool 0x17f18f00000003cb[] that is currently in use by VkCommandBuffer 0x23add2e64f0[Graphics CmdList[0]]. The Vulkan spec states: All submitted commands that refer to descriptorPool (via any allocated descriptor sets) must have completed execution (https://vulkan.lunarg.com/doc/view/1.3.268.0/windows/1.3-extensions/vkspec.html#VUID-vkDestroyDescriptorPool-descriptorPool-00303)
-
-WARNING: Validation Error: [ VUID-vkDestroyDescriptorPool-descriptorPool-00303 ] | MessageID = 0x4dad1ae8 | vkDestroyDescriptorPool():  can't be called on VkDescriptorPool 0xa5717300000003e8[] that is currently in use by VkCommandBuffer 0x23add2e64f0[Graphics CmdList[0]]. The Vulkan spec states: All submitted commands that refer to descriptorPool (via any allocated descriptor sets) must have completed execution (https://vulkan.lunarg.com/doc/view/1.3.268.0/windows/1.3-extensions/vkspec.html#VUID-vkDestroyDescriptorPool-descriptorPool-00303)
-
-WARNING: Validation Error: [ VUID-vkDestroyDescriptorPool-descriptorPool-00303 ] | MessageID = 0x4dad1ae8 | vkDestroyDescriptorPool():  can't be called on VkDescriptorPool 0x6150e600000003fc[] that is currently in use by VkCommandBuffer 0x23accd8cdb0[Graphics CmdList[1]]. The Vulkan spec states: All submitted commands that refer to descriptorPool (via any allocated descriptor sets) must have completed execution (https://vulkan.lunarg.com/doc/view/1.3.268.0/windows/1.3-extensions/vkspec.html#VUID-vkDestroyDescriptorPool-descriptorPool-00303)
-
 INFO: 	~IGpuMemoryAllocator
 INFO: Cerrado el log.
 

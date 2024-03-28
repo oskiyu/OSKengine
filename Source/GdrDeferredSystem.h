@@ -8,12 +8,10 @@
 #include "Vertex.h"
 #include "VertexAttributes.h"
 
-namespace OSK::ASSETS {
-	class Model3D;
-}
-namespace OSK::GRAPHICS {
-	class Mesh3D;
-}
+#include "GpuModel3D.h"
+#include "GpuMesh3D.h"
+
+
 
 namespace OSK::ECS {
 
@@ -30,7 +28,7 @@ namespace OSK::ECS {
 
 		void SetMaxCounts(USize32 maxVertexCount, USize32 maxMeshCount);
 
-		void Render(GRAPHICS::ICommandList* commandList) override;
+		void Render(GRAPHICS::ICommandList* commandList, std::span<const ECS::GameObjectIndex> objects) override;
 
 	private:
 
@@ -70,8 +68,8 @@ namespace OSK::ECS {
 	private:
 
 		void WriteMeshUnifiedVertexAndIndexBuffers(
-			const GRAPHICS::Mesh3D& mesh,
-			const ASSETS::Model3D& model,
+			const GRAPHICS::GpuMesh3D& mesh,
+			const GRAPHICS::GpuModel3D& model,
 			GRAPHICS::TIndexSize firstIndex,
 			UIndex32 nextGdrIndex);
 
@@ -82,7 +80,7 @@ namespace OSK::ECS {
 		void WriteMeshInfo(const GdrPerMeshInfo& info);
 
 		void WriteMaterialInfo(
-			const ASSETS::Model3D& model,
+			const GRAPHICS::GpuModel3D& model,
 			UIndex32 meshIndexInsideModel,
 			GdrPerMeshInfo* previousOffsets,
 			UIndex32* nextImageIndex);
@@ -93,8 +91,8 @@ namespace OSK::ECS {
 		std::array<UniquePtr<GRAPHICS::GpuBuffer>, NUM_RESOURCES_IN_FLIGHT> m_unifiedVertexBuffers{};
 		std::array<UniquePtr<GRAPHICS::GpuBuffer>, NUM_RESOURCES_IN_FLIGHT> m_unifiedIndexBuffers{};
 
-		std::unordered_map<const GRAPHICS::Mesh3D*, MeshDrawInfo> m_meshes{};
-		std::unordered_map<const GRAPHICS::Mesh3D*, DynamicArray<GdrPerMeshInstanceInfo>> m_draws{};
+		std::unordered_map<GRAPHICS::GpuMeshUuid, MeshDrawInfo> m_meshes{};
+		std::unordered_map<GRAPHICS::GpuMeshUuid, DynamicArray<GdrPerMeshInstanceInfo>> m_draws{};
 
 		std::array<UniquePtr<GRAPHICS::GpuBuffer>, NUM_RESOURCES_IN_FLIGHT> m_perInstanceBuffers{};
 

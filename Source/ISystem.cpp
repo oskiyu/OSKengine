@@ -6,10 +6,6 @@ void ISystem::OnCreate() {
 
 }
 
-void ISystem::OnTick(TDeltaTime deltaTime) {
-
-}
-
 void ISystem::OnRemove() {
 
 }
@@ -23,21 +19,21 @@ void ISystem::Deactivate() {
 }
 
 void ISystem::SetActivationStatus(bool isActive) {
-	this->isActive = isActive;
+	m_isActive = isActive;
 }
 
 void ISystem::ToggleActivationStatus() {
-	SetActivationStatus(!isActive);
+	SetActivationStatus(!m_isActive);
 }
 
 bool ISystem::IsActive() const {
-	return isActive;
+	return m_isActive;
 }
 
-int ISystem::GetExecutionOrder() const {
-	return order;
+void ISystem::_SetDependencies(const SystemDependencies& dependencies) {
+	m_dependencies = dependencies;
 }
 
-void ISystem::_SetExecutionOrder(int newOrder) {
-	order = newOrder;
+const SystemDependencies& ISystem::GetDependencies() const {
+	return m_dependencies;
 }

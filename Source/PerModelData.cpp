@@ -3,28 +3,40 @@
 using namespace OSK;
 using namespace OSK::GRAPHICS;
 
-void PerModelData::RegisterMesh(UIndex64 meshId) {
+
+MaterialInstance* GlobalPerModelData::GetAnimationMaterialInstance() {
+	return m_animationMaterialInstance.GetPointer();
+}
+
+const MaterialInstance* GlobalPerModelData::GetAnimationMaterialInstance() const {
+	return m_animationMaterialInstance.GetPointer();
+}
+
+
+// --- Local --- //
+
+void LocalPerModelData::RegisterMesh(GpuMeshUuid meshId) {
 	if (HasMesh(meshId))
 		return;
 
 	m_meshesPerModel.try_emplace(meshId);
 }
 
-void PerModelData::UnregisterMesh(UIndex64 meshId) {
+void LocalPerModelData::UnregisterMesh(GpuMeshUuid meshId) {
 	if (HasMesh(meshId))
 		return;
 
 	m_meshesPerModel.erase(meshId);
 }
 
-PerMeshData& PerModelData::GetMeshData(UIndex64 meshId) {
+LocalPerMeshData& LocalPerModelData::GetMeshData(GpuMeshUuid meshId) {
 	return m_meshesPerModel.at(meshId);
 }
 
-const PerMeshData& PerModelData::GetMeshData(UIndex64 meshId) const {
+const LocalPerMeshData& LocalPerModelData::GetMeshData(GpuMeshUuid meshId) const {
 	return m_meshesPerModel.at(meshId);
 }
 
-bool PerModelData::HasMesh(UIndex64 meshId) const {
+bool LocalPerModelData::HasMesh(GpuMeshUuid meshId) const {
 	return m_meshesPerModel.contains(meshId);
 }

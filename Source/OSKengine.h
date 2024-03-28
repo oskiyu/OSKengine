@@ -15,25 +15,13 @@
 #include "IUserInput.h"
 #include "InputManager.h"
 #include "Console.h"
+#include "Uuid.h"
+
 
 namespace OSK {
 	
-	namespace IO {
-		class Logger;
-		class IDisplay;
-		class InputManager;
-	}
-
 	namespace GRAPHICS {
-		class IRenderer;
 		enum class RenderApiType;
-	}
-
-	namespace ASSETS {
-		class AssetManager;
-	}
-	namespace ECS {
-		class EntityComponentSystem;
 	}
 
 
@@ -101,6 +89,12 @@ namespace OSK {
 		/// @warning Será nullptr hasta que no se llame a Engine::Create.
 		static AUDIO::IAudioApi* GetAudioApi();
 
+		/// @brief Devuelve un puntero al sistema de asignación de UUIDs.
+		/// @note El puntero es estable.
+		/// @warning Será nullptr hasta que no se llame a Engine::Create.
+		static UuidProvider* GetUuidProvider();
+
+
 		/// @return Devuelve la versión del motor. 
 		static Version GetVersion();
 		/// @return Devuelve la build del motor, en formato aaaa.mm.dd.n
@@ -129,6 +123,7 @@ namespace OSK {
 		static UniquePtr<IO::IUserInput> input;
 		static UniquePtr<IO::InputManager> inputManager;
 		static UniquePtr<AUDIO::IAudioApi> audioApi;
+		static UniquePtr<UuidProvider> uuidProvider;
 
 		static UIndex64 gameFrameIndex;
 

@@ -86,3 +86,7 @@ void TextureLoader::Load(const std::string& assetFilePath, Texture* asset) {
 
 	asset->_SetImage(image);
 }
+
+void TextureLoader::RegisterTexture(AssetOwningRef<Texture> texture) {
+	m_externallyLoadedTextures.Insert(texture);
+}

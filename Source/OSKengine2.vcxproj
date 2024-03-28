@@ -78,6 +78,7 @@
     <ClCompile Include="ComputePipelineVk.cpp" />
     <ClCompile Include="Console.cpp" />
     <ClCompile Include="ConvexVolume.cpp" />
+    <ClCompile Include="CpuModel3D.cpp" />
     <ClCompile Include="DataNode.cpp" />
     <ClCompile Include="DescriptorDx12.cpp" />
     <ClCompile Include="DetailedCollisionInfo.cpp" />
@@ -86,11 +87,14 @@
     <ClCompile Include="GameObjectTranslator.cpp" />
     <ClCompile Include="GdrDeferredRenderSystem.cpp" />
     <ClCompile Include="Gjk.cpp" />
+    <ClCompile Include="GpuMesh3D.cpp" />
+    <ClCompile Include="GpuModel3D.cpp" />
     <ClCompile Include="HbaoPass.cpp" />
     <ClCompile Include="IAudioApi.cpp" />
     <ClCompile Include="IAudioDevice.cpp" />
     <ClCompile Include="IAudioSource.cpp" />
-    <ClCompile Include="IRenderPass.cpp" />
+    <ClCompile Include="IConsumerSystem.cpp" />
+    <ClCompile Include="IShaderPass.cpp" />
     <ClCompile Include="MeshMapping.cpp" />
     <ClCompile Include="PbrIblConfig.h" />
     <ClCompile Include="PbrResolverPass.cpp" />
@@ -105,10 +109,13 @@
     <ClCompile Include="Ray.cpp" />
     <ClCompile Include="RenderBoundsRenderer.cpp" />
     <ClCompile Include="Sat.cpp" />
+    <ClCompile Include="ShadowsStaticPass.cpp" />
     <ClCompile Include="Simplex.cpp" />
     <ClCompile Include="Spline3D.cpp" />
     <ClCompile Include="StaticGBufferPass.cpp" />
     <ClCompile Include="StringOperations.cpp" />
+    <ClCompile Include="SystemExecutionGraph.cpp" />
+    <ClCompile Include="TransformApplierSystem.cpp" />
     <ClCompile Include="TreeGBufferPass.cpp" />
     <ClCompile Include="TreeNormalsPass.cpp" />
     <ClCompile Include="TreeNormalsRenderSystem.cpp" />
@@ -182,8 +189,6 @@
     <ClCompile Include="IPipelineLayout.cpp" />
     <ClCompile Include="IPipelineVk.cpp" />
     <ClCompile Include="IPostProcessPass.cpp" />
-    <ClCompile Include="IProducerSystem.cpp" />
-    <ClCompile Include="IPureSystem.cpp" />
     <ClCompile Include="IRaytracingPipeline.cpp" />
     <ClCompile Include="IRenderSystem.cpp" />
     <ClCompile Include="IrradianceMap.cpp" />
@@ -198,7 +203,6 @@
     <ClCompile Include="MaterialSlotVk.cpp" />
     <ClCompile Include="MaterialSystem.cpp" />
     <ClCompile Include="Memory.cpp" />
-    <ClCompile Include="Mesh3D.cpp" />
     <ClCompile Include="Model3D.cpp" />
     <ClCompile Include="ModelComponent3D.cpp" />
     <ClCompile Include="ModelLoader3D.cpp" />
@@ -364,13 +368,16 @@
     <ClInclude Include="GameObjectTranslator.h" />
     <ClInclude Include="GBuffer.h" />
     <ClInclude Include="Gjk.h" />
+    <ClInclude Include="CpuModel3D.h" />
     <ClInclude Include="GpuMemoryExceptions.h" />
+    <ClInclude Include="GpuMesh3D.h" />
+    <ClInclude Include="GpuModel3D.h" />
     <ClInclude Include="HbaoPass.h" />
     <ClInclude Include="IAudioApi.h" />
     <ClInclude Include="IAudioDevice.h" />
     <ClInclude Include="IAudioSource.h" />
     <ClInclude Include="IDeferredResolver.h" />
-    <ClInclude Include="IRenderPass.h" />
+    <ClInclude Include="IShaderPass.h" />
     <ClInclude Include="InvalidArgumentException.h" />
     <ClInclude Include="InvalidObjectStateException.h" />
     <ClInclude Include="MathExceptions.h" />
@@ -411,7 +418,6 @@
     <ClInclude Include="InvalidDescriptionFileException.h" />
     <ClInclude Include="IPipelineDx12.h" />
     <ClInclude Include="IPostProcessPass.h" />
-    <ClInclude Include="IProducerSystem.h" />
     <ClInclude Include="IQueryInterface.h" />
     <ClInclude Include="IRayCollider.h" />
     <ClInclude Include="IrradianceMap.h" />
@@ -489,7 +495,6 @@
     <ClInclude Include="MaterialType.h" />
     <ClInclude Include="Math.h" />
     <ClInclude Include="Memory.h" />
-    <ClInclude Include="Mesh3D.h" />
     <ClInclude Include="Model3D.h" />
     <ClInclude Include="ModelComponent3D.h" />
     <ClInclude Include="ModelLoader3D.h" />
@@ -500,6 +505,7 @@
     <ClInclude Include="PipelinesExceptions.h" />
     <ClInclude Include="RawAssetFileNotFoundException.h" />
     <ClInclude Include="SchemaId.h" />
+    <ClInclude Include="ShadowsStaticPass.h" />
     <ClInclude Include="Simplex.h" />
     <ClInclude Include="Span.h" />
     <ClInclude Include="Spline3D.h" />
@@ -508,6 +514,7 @@
     <ClInclude Include="StaticGBufferPass.h" />
     <ClInclude Include="StringOperations.h" />
     <ClInclude Include="SystemAlreadyRegisteredException.h" />
+    <ClInclude Include="SystemExecutionGraph.h" />
     <ClInclude Include="TaaProvider.h" />
     <ClInclude Include="DeferredRenderSystem.h" />
     <ClInclude Include="PcUserInput.h" />
@@ -540,7 +547,6 @@
     <ClInclude Include="Pair.hpp" />
     <ClInclude Include="PipelineCreateInfo.h" />
     <ClInclude Include="PresentMode.h" />
-    <ClInclude Include="IPureSystem.h" />
     <ClInclude Include="PushConst2D.h" />
     <ClInclude Include="Quaternion.h" />
     <ClInclude Include="QueueFamilyIndices.h" />
@@ -590,6 +596,7 @@
     <ClInclude Include="ToString.h" />
     <ClInclude Include="Transform2D.h" />
     <ClInclude Include="Transform3D.h" />
+    <ClInclude Include="TransformApplierSystem.h" />
     <ClInclude Include="TreeGBufferPass.h" />
     <ClInclude Include="TreeNormalsPass.h" />
     <ClInclude Include="TreeNormalsRenderSystem.h" />
@@ -604,6 +611,7 @@
     <ClInclude Include="UiVerticalContainer.h" />
     <ClInclude Include="UniquePtr.hpp" />
     <ClInclude Include="Units.hpp" />
+    <ClInclude Include="Uuid.h" />
     <ClInclude Include="Vector2.hpp" />
     <ClInclude Include="Vector3.hpp" />
     <ClInclude Include="Vector4.hpp" />

@@ -27,7 +27,7 @@ namespace OSK::ECS {
 		void Initialize(GameObjectIndex cameraObject);
 
 		void CreateTargetImage(const Vector2ui& size) override;
-		void Render(GRAPHICS::ICommandList* commandList) override;
+		void Render(GRAPHICS::ICommandList* commandList, std::span<const ECS::GameObjectIndex> objects) override;
 
 	private:
 

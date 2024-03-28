@@ -8,7 +8,6 @@
 #include "GpuBuffer.h"
 #include "IGpuMemoryAllocator.h"
 #include "FileIO.h"
-#include "Mesh3D.h"
 #include "Format.h"
 #include "GpuMemoryTypes.h"
 #include "IGpuImage.h"
@@ -52,8 +51,6 @@ void ModelLoader3D::Load(const std::string& assetFilePath, Model3D* asset) {
 
 	OSK_ASSERT(assetInfo.contains("renderpass_type"), InvalidDescriptionFileException("No se encuentra renderpass_type", assetFilePath));
 
-	asset->SetRenderPassType(assetInfo["renderpass_type"]);
-
 	const bool isAnimated = assetInfo.contains("animated");
 
 	auto modelTransform = glm::mat4(1.0f);
@@ -61,34 +58,32 @@ void ModelLoader3D::Load(const std::string& assetFilePath, Model3D* asset) {
 	modelTransform = glm::scale(modelTransform, glm::vec3(assetInfo["scale"]));
 
 	if (assetInfo.contains("rotation_offset")) {
-		modelTransform = glm::rotate(modelTransform, glm::radians((float)assetInfo["rotation_offset"][0]), { 1.0f, 0.0f, 0.0f});
+		modelTransform = glm::rotate(modelTransform, glm::radians((float)assetInfo["rotation_offset"][0]), { 1.0f, 0.0f, 0.0f });
 		modelTransform = glm::rotate(modelTransform, glm::radians((float)assetInfo["rotation_offset"][1]), { 0.0f, 1.0f, 0.0f });
 		modelTransform = glm::rotate(modelTransform, glm::radians((float)assetInfo["rotation_offset"][2]), { 0.0f, 0.0f, 1.0f });
 	}
 
-	/*for (const auto& lodInfo : assetInfo["lods"]) {
-		const std::string_view path = lodInfo["path"];
-
-
-	}*/
-
-	const USize64 prevNumMeshes = asset->GetMeshes().GetSize();
+	auto cpuModel = GltfLoader::Load(
+		modelPath,
+		modelTransform,
+		1.0f);
 
 	if (isAnimated) {
 		AnimMeshLoader loader{};
-		loader.Load(modelPath, modelTransform);
-		loader.SetupModel(asset);
+		loader.Load(cpuModel, &asset->_GetModel());
 	}
 	else {
 		StaticMeshLoader loader{};
-		loader.Load(modelPath, modelTransform);
-		loader.SetupModel(asset);
+		loader.Load(cpuModel, &asset->_GetModel());
 	}
 
-	const USize64 newNumMeshes = asset->GetMeshes().GetSize();
+	DynamicArray<GpuModel3D::Material> materials{};
+	GltfLoader::LoadMaterials(
+		modelPath,
+		&materials,
+		&asset->_GetModel().GetTextureTable());
 
-	asset->_RegisterLod(Model3D::Lod{ .firstMeshId = prevNumMeshes, .meshesCount = newNumMeshes - prevNumMeshes });
+	asset->_GetModel().SetMaterials(materials);
 
-	asset->_SetId(m_nextModelId);
-	m_nextModelId++;
+	asset->_GetModel().SetUuid(GpuModelUuid(Engine::GetUuidProvider()->GenerateNewUuid()));
 }

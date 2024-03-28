@@ -6,6 +6,9 @@
 #include "Component.h"
 #include "Memory.h"
 
+#include "Assert.h"
+#include "InvalidArgumentException.h"
+
 namespace OSK::ECS {
 		
 	/// @brief Contenedor para el dynamic array de componentes del tipo dado.
@@ -25,7 +28,14 @@ namespace OSK::ECS {
 		/// @param obj Objeto dueño del componente.
 		/// @param component Componente a añadir.
 		/// @return Referencia no estable al componente añadido.
+		/// 
+		/// @pre El objeto @p obj no contiene previamente un componente del tipo.
+		/// @throws InvalidArgumentException si se incumple la precondición.
 		TComponent& AddComponent(GameObjectIndex obj, const TComponent& component) {
+			OSK_ASSERT(
+				!ObjectHasComponent(obj),
+				InvalidArgumentException(std::format("El objeto {} ya contiene el componente.", obj)))
+
 			ComponentIndex componentId = m_components.GetSize();
 
 			m_objectToComponent[obj] = componentId;
@@ -39,7 +49,14 @@ namespace OSK::ECS {
 		/// @param obj Objeto dueño del componente.
 		/// @param component Componente a añadir.
 		/// @return Referencia no estable al componente añadido.
+		/// 
+		/// @pre El objeto @p obj no contiene previamente un componente del tipo.
+		/// @throws InvalidArgumentException si se incumple la precondición.
 		TComponent& AddComponentMove(GameObjectIndex obj, TComponent&& component) {
+			OSK_ASSERT(
+				!ObjectHasComponent(obj),
+				InvalidArgumentException(std::format("El objeto {} ya contiene el componente.", obj)))
+
 			const ComponentIndex componentId = m_components.GetSize();
 
 			m_objectToComponent[obj] = componentId;
@@ -54,7 +71,12 @@ namespace OSK::ECS {
 		/// 
 		/// @warning No comprueba que el objeto tenga el componente.
 		/// @pre El objeto debe tener el componente.
+		/// @throws InvalidArgumentException Si el objeto no contiene el componente dado.
 		void RemoveComponent(GameObjectIndex obj) {
+			OSK_ASSERT(
+				m_objectToComponent.contains(obj), 
+				InvalidArgumentException(std::format("El objeto {} no contiene el componente.", obj)))
+
 			ComponentIndex compIndex = m_objectToComponent.at(obj);
 			const UIndex64 indexOfLast = m_components.GetSize() - 1;
 
@@ -77,7 +99,7 @@ namespace OSK::ECS {
 			m_componentToObject.erase(indexOfLast);
 		}
 
-		/// @brief Devuelve una 
+
 		/// @param obj ID del objeto.
 		/// @return Referencia no estable al componente del objeto dado.
 		/// 
@@ -87,7 +109,6 @@ namespace OSK::ECS {
 			return m_components.At(m_objectToComponent.at(obj));
 		}
 
-		/// @brief Devuelve una 
 		/// @param obj ID del objeto.
 		/// @return Referencia no estable al componente del objeto dado.
 		/// 
@@ -104,6 +125,12 @@ namespace OSK::ECS {
 		/// @pre El objeto debe tener el componente.
 		void GameObjectDestroyerd(GameObjectIndex obj) override {
 			RemoveComponent(obj);
+		}
+
+		/// @param obj Objeto a comprobar.
+		/// @return True si tiene el componente añadido.
+		bool ObjectHasComponent(GameObjectIndex obj) const {
+			return m_objectToComponent.contains(obj);
 		}
 
 	private:

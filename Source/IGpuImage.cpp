@@ -13,8 +13,8 @@
 using namespace OSK;
 using namespace OSK::GRAPHICS;
 
-GpuImage::GpuImage(const Vector3ui& size, GpuImageDimension dimension, GpuImageUsage usage, USize32 numLayers, Format format, USize32 numSamples, GpuImageSamplerDesc samplerDesc)
-	: m_size(size), m_samplerDesc(samplerDesc), m_numSamples(numSamples), m_format(format), m_currentLayout(GpuImageLayout::UNDEFINED), m_dimension(dimension), m_usage(usage), m_numLayers(numLayers) {
+GpuImage::GpuImage(const Vector3ui& size, GpuImageDimension dimension, GpuImageUsage usage, USize32 numLayers, Format format, USize32 numSamples, GpuImageSamplerDesc samplerDesc, GpuImageTiling tiling)
+	: m_size(size), m_samplerDesc(samplerDesc), m_numSamples(numSamples), m_format(format), m_currentLayout(GpuImageLayout::UNDEFINED), m_dimension(dimension), m_usage(usage), m_numLayers(numLayers), m_tiling(tiling) {
 	
 	switch (samplerDesc.mipMapMode) {
 	case GpuImageMipmapMode::AUTO:

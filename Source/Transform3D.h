@@ -84,23 +84,24 @@ namespace OSK::ECS {
 		void RotateWorldSpace(float angle, const Vector3f& axis);
 
 
-		/// @brief Actualiza la matriz modelo, y la de sus hijos.
-		void UpdateModel();
-
-
 		/// @brief Transforma un punto respecto a este transform.
 		/// @param point Punto antes de la transformación.
 		/// @return Punto transformado.
 		Vector3f TransformPoint(const Vector3f& point) const;
 
 
-		/// @brief Enlaza este transform a su nuevo transform padre.
-		/// @param baseTransform Tranform padre.
-		void AttachToObject(ECS::GameObjectIndex baseTransform);
+		/// @brief Añade un hijo al transform.
+		/// @param childId ID del hijo.
+		/// @pre @p childId debe poseer un Transform3D.
+		/// @pre @p childId no debe haber sido previamente añadido.
+		void AddChild(ECS::GameObjectIndex childId);
 
-		/// @brief Libera este transform de su padre.
-		/// Si no tiene padre, no ocurre nada.
-		void UnAttach();
+		/// @brief Elimina un hijo de la lista de hijos.
+		/// @param childId ID del hijo.
+		void RemoveChild(ECS::GameObjectIndex childId);
+
+		/// @return Lista con los ID de los elementos hijos.
+		std::span<const GameObjectIndex> GetChildren() const;
 
 
 		/// @return Posición en el mundo 3D.
@@ -132,11 +133,6 @@ namespace OSK::ECS {
 		void OverrideMatrix(const glm::mat4& matrix);
 
 
-		/// @return Identificador del objeto que posee al
-		/// transform padre.
-		ECS::GameObjectIndex GetParentObject() const;
-
-
 		/// @return Vector unitario 3D que apunta hacia el frente de la entidad.
 		Vector3f GetForwardVector() const;
 
@@ -156,7 +152,14 @@ namespace OSK::ECS {
 		/// @brief Permite establecer si el transform hereda la escala del padre.
 		void SetShouldInheritScale(bool value);
 
+
+		void _ApplyChanges(std::optional<const Transform3D*> parent);
+
 	private:
+
+		/// @brief Actualiza la matriz modelo.
+		void UpdateModel(std::optional<const Transform3D*> parent);
+
 
 		bool m_inheritPosition = true;
 		bool m_inheritRotation = true;
@@ -188,13 +191,21 @@ namespace OSK::ECS {
 
 
 		/// @brief Identificador del objeto que este transform representa.
-		GameObjectIndex owner = EMPTY_GAME_OBJECT;
-
-		/// @brief Objeto padre (0 si no tiene).
-		GameObjectIndex parent = EMPTY_GAME_OBJECT;
+		GameObjectIndex m_ownerId = EMPTY_GAME_OBJECT;
 
 		/// @brief IDs de los objetos hijos.
-		DynamicArray<GameObjectIndex> childTransforms;
+		DynamicArray<GameObjectIndex> m_childIds;
+
+
+		// --- Changes --- //
+
+		bool m_isPositionDirty = false;
+		bool m_isRotationDirty = false;
+		bool m_isScaleDirty = false;
+
+		Vector3f m_changeInPosition = Vector3f::Zero;
+		Quaternion m_changeInRotation = {};
+		Vector3f m_changeInScale = Vector3f::Zero;
 
 	};
 

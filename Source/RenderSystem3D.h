@@ -48,8 +48,8 @@ namespace OSK::ECS {
 		void CreateTargetImage(const Vector2ui& size) override;
 		void Resize(const Vector2ui& size) override;
 
-		void OnTick(TDeltaTime deltaTime) override;
-		void Render(GRAPHICS::ICommandList* commandList) override;
+		void Execute(TDeltaTime deltaTime, std::span<const ECS::GameObjectIndex> objects) override;
+		void Render(GRAPHICS::ICommandList* commandList, std::span<const ECS::GameObjectIndex> objects) override;
 		
 		GRAPHICS::ShadowMap* GetShadowMap();
 		
@@ -69,14 +69,11 @@ namespace OSK::ECS {
 		void LoadMaterials();
 		void SetupMaterials();
 
-		void GenerateShadows(GRAPHICS::ICommandList* commandList, ASSETS::ModelType modelType);
+		void GenerateShadows(GRAPHICS::ICommandList* commandList);
 		void RenderScene(GRAPHICS::ICommandList* commandList);
 
 		void ExecuteTaa(GRAPHICS::ICommandList* commandList);
 		void CopyTaaResult(GRAPHICS::ICommandList* commandList);
-
-		void SceneRenderLoop(ASSETS::ModelType modelType, GRAPHICS::ICommandList* commandList);
-		void ShadowsRenderLoop(ASSETS::ModelType modelType, GRAPHICS::ICommandList* commandList, UIndex32 cascadeIndex);
 
 		void RenderTerrain(GRAPHICS::ICommandList* commandList);
 

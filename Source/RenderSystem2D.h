@@ -17,13 +17,7 @@ namespace OSK::ECS {
 
 		RenderSystem2D();
 
-		/// <summary>
-		/// Comando específico del sistema, para ejecutar el renderizado.
-		/// </summary>
-		/// 
-		/// @pre La lista de comandos debe estar abierta.
-		/// @pre La lista de comandos debe tener un renderpass activo.
-		void Render(GRAPHICS::ICommandList* commandList);
+		void Render(GRAPHICS::ICommandList* commandList, std::span<const ECS::GameObjectIndex> objects) override;
 
 	private:
 

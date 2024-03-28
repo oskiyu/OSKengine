@@ -31,7 +31,6 @@
 #include "Sprite.h"
 #include "MouseState.h"
 #include "MouseModes.h"
-#include "Mesh3D.h"
 #include "CubemapTexture.h"
 #include "IKeyboardInput.h"
 #include "ICommandList.h"
@@ -69,6 +68,9 @@
 #include "SkyboxRenderSystem.h"
 #include "CollisionComponent.h"
 #include "AxisAlignedBoundingBox.h"
+
+#include "StaticGBufferPass.h"
+#include "ShadowsStaticPass.h"
 
 #include "Math.h"
 
@@ -302,11 +304,13 @@ protected:
 	void RegisterSystems() override {
 		Engine::GetEcs()->RemoveSystem<ECS::RenderSystem2D>();
 
-		Engine::GetEcs()->RegisterSystem<ECS::ColliderRenderSystem>(ECS::ISystem::DEFAULT_EXECUTION_ORDER);
-		Engine::GetEcs()->RegisterSystem<ECS::RenderBoundsRenderer>(ECS::ISystem::DEFAULT_EXECUTION_ORDER);
+		ECS::SystemDependencies debugRenderDependencies{};
+		debugRenderDependencies.executeAfterThese.insert(static_cast<std::string>(ECS::DeferredRenderSystem::GetSystemName()));
+		Engine::GetEcs()->RegisterSystem<ECS::ColliderRenderSystem>(debugRenderDependencies);
+		Engine::GetEcs()->RegisterSystem<ECS::RenderBoundsRenderer>(debugRenderDependencies);
 	}
 	
-	void OnTick(TDeltaTime deltaTime) override {
+	void OnTick_BeforeEcs(TDeltaTime deltaTime) override {
 		const auto _ = Engine::GetEcs();
 
 		IO::IKeyboardInput* keyboard = nullptr;
@@ -434,10 +438,14 @@ protected:
 				cameraRightMovement *= 2.3f;
 			}
 
+			if (keyboard->IsKeyStroked(IO::Key::F2)) {
+				Engine::GetRenderer()->_GetSwapchain()->TakeScreenshot("screenshot");
+			}
+
 
 			if (keyboard->IsKeyStroked(IO::Key::P)) {
 				cameraAttachedToCar = false;
-				cameraTransform.UnAttach();
+				cameraArmTransform.RemoveChild(cameraObject);
 			}
 
 			if (keyboard->IsKeyStroked(IO::Key::M)) {
@@ -820,7 +828,7 @@ private:
 
 		const GpuImageViewConfig viewConfig = GpuImageViewConfig::CreateSampled_SingleMipLevel(0);
 
-		auto* treeGBufferPass = renderSystem->GetRenderPass(TreeGBufferPass::GetRenderPassName())->As<TreeGBufferPass>();
+		auto* treeGBufferPass = renderSystem->GetShaderPass(TreeGBufferPass::GetRenderPassName())->As<TreeGBufferPass>();
 		treeGBufferPass->GetMaterialInstance()->GetSlot("normals")->SetGpuImage("preCalculatedNormalTexture",
 			treeRenderSystem->GetRenderTarget().GetMainColorImage()->GetView(viewConfig));
 		treeGBufferPass->GetMaterialInstance()->GetSlot("normals")->FlushUpdate();
@@ -998,14 +1006,15 @@ private:
 		cameraObject = Engine::GetEcs()->SpawnObject();
 		cameraArmObject = Engine::GetEcs()->SpawnObject();
 
-		Engine::GetEcs()->AddComponent<Transform3D>(cameraArmObject, Transform3D(cameraArmObject));
+		auto& cameraArmTransform = Engine::GetEcs()->AddComponent<Transform3D>(cameraArmObject, Transform3D(cameraArmObject));
 
 		Transform3D* cameraTransform = &Engine::GetEcs()->AddComponent<Transform3D>(cameraObject, Transform3D(cameraObject));
 		cameraTransform->AddPosition({ 0.0f, 0.1f, -1.1f });
 		Engine::GetEcs()->AddComponent<CameraComponent3D>(cameraObject, {});
 
-		cameraTransform->AttachToObject(cameraArmObject);
-		Engine::GetEcs()->GetComponent<Transform3D>(cameraArmObject).AttachToObject(carObject); cameraAttachedToCar = true;
+		cameraArmTransform.AddChild(cameraObject);
+
+		Engine::GetEcs()->GetComponent<Transform3D>(carObject).AddChild(cameraArmObject); cameraAttachedToCar = true;
 	}
 
 	void SpawnCamera2D() {
@@ -1049,6 +1058,8 @@ private:
 			ModelComponent3D* modelComponent = &Engine::GetEcs()->AddComponent<ModelComponent3D>(carObject, {});
 
 			modelComponent->SetModel(carModel);
+			modelComponent->AddShaderPassName(StaticGBufferPass::Name);
+			modelComponent->AddShaderPassName(ShadowsStaticPass::Name);
 		}
 
 		// 2
@@ -1081,6 +1092,8 @@ private:
 			ModelComponent3D* modelComponent = &Engine::GetEcs()->AddComponent<ModelComponent3D>(carObject2, {});
 
 			modelComponent->SetModel(carModel);
+			modelComponent->AddShaderPassName(StaticGBufferPass::Name);
+			modelComponent->AddShaderPassName(ShadowsStaticPass::Name);
 		}
 	}
 
@@ -1097,6 +1110,8 @@ private:
 		ModelComponent3D* modelComponent = &Engine::GetEcs()->AddComponent<ModelComponent3D>(circuitObject, {});
 
 		modelComponent->SetModel(circuitModel); // animModel
+		modelComponent->AddShaderPassName(StaticGBufferPass::Name);
+		modelComponent->AddShaderPassName(ShadowsStaticPass::Name);
 
 
 #define LOADED_COLLIDER

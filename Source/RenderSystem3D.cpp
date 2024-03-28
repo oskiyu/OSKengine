@@ -9,7 +9,7 @@
 #include "Material.h"
 #include "MaterialLayout.h"
 #include "Model3D.h"
-#include "Mesh3D.h"
+#include "GpuMesh3D.h"
 #include "Viewport.h"
 #include "GpuImageLayout.h"
 #include "IGpuImage.h"
@@ -208,7 +208,7 @@ ShadowMap* RenderSystem3D::GetShadowMap() {
 	return &m_shadowMap;
 }
 
-void RenderSystem3D::GenerateShadows(ICommandList* commandList, ModelType modelType) {
+void RenderSystem3D::GenerateShadows(ICommandList* commandList) {
 	const Viewport viewport {
 		.rectangle = { 0u, 0u, 
 		m_shadowMap.GetColorImage()->GetSize2D().x, 
@@ -250,18 +250,14 @@ void RenderSystem3D::GenerateShadows(ICommandList* commandList, ModelType modelT
 
 		commandList->StartDebugSection("Static Meshes", Color::Black);
 
-		commandList->BindMaterial(*m_shadowMap.GetShadowsMaterial(ModelType::STATIC_MESH));
-		commandList->BindMaterialSlot(*m_shadowMap.GetShadowsMaterialInstance()->GetSlot("global"));
-
-		ShadowsRenderLoop(ModelType::STATIC_MESH, commandList, i);
-
-		commandList->EndDebugSection();
-
-		commandList->StartDebugSection("Animated Models", Color::Black);
-
-		commandList->BindMaterial(*m_shadowMap.GetShadowsMaterial(ModelType::ANIMATED_MODEL));
-		commandList->BindMaterialSlot(*m_shadowMap.GetShadowsMaterialInstance()->GetSlot("global"));
-		ShadowsRenderLoop(ModelType::ANIMATED_MODEL, commandList, i);
+		for (auto& pass : m_shadowsPasses.GetAllPasses()) {
+			pass->RenderLoop(
+				commandList,
+				m_shadowsPasses.GetCompatibleObjects(pass->GetTypeName()),
+				&m_meshMapping,
+				0,
+				m_shadowMap.GetShadowImage()->GetSize2D());
+		}
 
 		commandList->EndDebugSection();
 
@@ -289,102 +285,19 @@ void RenderSystem3D::RenderScene(ICommandList* commandList) {
 	commandList->BeginGraphicsRenderpass(&m_renderTarget, Color::Black * 0.0f);
 	SetupViewport(commandList);
 
-	commandList->StartDebugSection("Static Meshes", Color::Red);
-	SceneRenderLoop(ModelType::STATIC_MESH, commandList);
-	commandList->EndDebugSection();
-
-	commandList->StartDebugSection("Animated Models", Color::Red);
-	// SceneRenderLoop(ModelType::ANIMATED_MODEL, commandList);
-	commandList->EndDebugSection();
+	for (auto& pass : m_shaderPasses.GetAllPasses()) {
+		pass->RenderLoop(commandList,
+			m_shaderPasses.GetCompatibleObjects(pass->GetTypeName()),
+			&m_meshMapping,
+			m_taaProvider.GetCurrentFrameJitterIndex(),
+			m_renderTarget.GetSize());
+	}
 
 	if (m_terrain.GetVertexBuffer() != nullptr)
 		RenderTerrain(commandList);
 	
 	commandList->EndGraphicsRenderpass();
 	commandList->EndDebugSection();
-}
-
-void RenderSystem3D::SceneRenderLoop(ModelType modelType, ICommandList* commandList) {
-	const GpuBuffer* previousVertexBuffer = nullptr;
-	const GpuBuffer* previousIndexBuffer = nullptr;
-
-	commandList->BindMaterial(modelType == ModelType::STATIC_MESH ? *m_sceneMaterial : *m_animatedSceneMaterial);
-	commandList->BindMaterialSlot(*m_sceneMaterialInstance->GetSlot("global"));
-	
-	for (GameObjectIndex obj : GetObjects()) {
-		const ModelComponent3D& model = Engine::GetEcs()->GetComponent<ModelComponent3D>(obj);
-		const Transform3D& transform = Engine::GetEcs()->GetComponent<Transform3D>(obj);
-
-		if (model.GetModel()->GetType() != modelType)
-			continue;
-
-		if (previousVertexBuffer != model.GetModel()->GetVertexBuffer()) {
-			commandList->BindVertexBuffer(*model.GetModel()->GetVertexBuffer());
-			previousVertexBuffer = model.GetModel()->GetVertexBuffer();
-		}
-
-		if (previousIndexBuffer != model.GetModel()->GetIndexBuffer()) {
-			commandList->BindIndexBuffer(*model.GetModel()->GetIndexBuffer());
-			previousIndexBuffer = model.GetModel()->GetIndexBuffer();
-		}
-
-		struct {
-			glm::mat4 model;
-			glm::mat4 previousModel;
-			glm::vec4 materialInfos;
-		} pushConsts {
-			.model = transform.GetAsMatrix(),
-			.previousModel = m_previousModelMatrices.contains(obj) 
-				? m_previousModelMatrices.at(obj) 
-				: glm::mat4(1.0f)
-		};
-
-		if (modelType == ModelType::ANIMATED_MODEL)
-			commandList->BindMaterialSlot(*model.GetModel()->GetAnimator()->GetMaterialInstance()->GetSlot("animation"));
-
-		for (UIndex32 meshIndex = 0; meshIndex < model.GetModel()->GetMeshes().GetSize(); meshIndex++) {
-			// commandList->BindMaterialSlot(*model.GetMeshMaterialInstance(meshIndex)->GetSlot("texture"));
-
-			const auto& mesh = model.GetModel()->GetMeshes()[meshIndex];
-			const auto& meshMetadata = model.GetModel()->GetMetadata().meshesMetadata[meshIndex];
-
-			// pushConsts.materialInfos.x = meshMetadata.metallicFactor;
-			// pushConsts.materialInfos.y = meshMetadata.roughnessFactor;
-			pushConsts.materialInfos.z = (float)m_taaProvider.GetCurrentFrameJitterIndex();
-
-			commandList->PushMaterialConstants("pushConstants", pushConsts);
-
-			commandList->DrawSingleMesh(mesh.GetFirstIndexId(), mesh.GetNumberOfIndices());
-		}
-	}
-}
-
-void RenderSystem3D::ShadowsRenderLoop(ModelType modelType, ICommandList* commandList, UIndex32 cascadeIndex) {
-	for (const GameObjectIndex obj : GetObjects()) {
-		const auto& model = Engine::GetEcs()->GetComponent<ModelComponent3D>(obj);
-		const auto& transform = Engine::GetEcs()->GetComponent<Transform3D>(obj);
-
-		if (model.GetModel()->GetType() != modelType)
-			continue;
-
-		commandList->BindVertexBuffer(*model.GetModel()->GetVertexBuffer());
-		commandList->BindIndexBuffer(*model.GetModel()->GetIndexBuffer());
-
-		if (modelType == ModelType::ANIMATED_MODEL)
-			commandList->BindMaterialSlot(*model.GetModel()->GetAnimator()->GetMaterialInstance()->GetSlot("animation"));
-
-		struct {
-			glm::mat4 model;
-			int cascadeIndex;
-		} const pushConstant{
-			.model = transform.GetAsMatrix(),
-			.cascadeIndex = static_cast<int>(cascadeIndex)
-		};
-		commandList->PushMaterialConstants("model", pushConstant);
-
-		for (const auto& mesh : model.GetModel()->GetMeshes())
-			commandList->DrawSingleMesh(mesh.GetFirstIndexId(), mesh.GetNumberOfIndices());
-	}
 }
 
 void RenderSystem3D::RenderTerrain(ICommandList* commandList) {
@@ -453,7 +366,7 @@ void RenderSystem3D::CopyTaaResult(GRAPHICS::ICommandList* commandList) {
 		CopyImageInfo::CreateDefault2D(m_renderTarget.GetSize()));
 }
 
-void RenderSystem3D::Render(GRAPHICS::ICommandList* commandList) {
+void RenderSystem3D::Render(GRAPHICS::ICommandList* commandList, std::span<const ECS::GameObjectIndex> objects) {
 	const UIndex32 resourceIndex = Engine::GetRenderer()->GetCurrentResourceIndex();
 
 	const auto& camera = Engine::GetEcs()->GetComponent<CameraComponent3D>(m_cameraObject);
@@ -482,21 +395,18 @@ void RenderSystem3D::Render(GRAPHICS::ICommandList* commandList) {
 
 	m_shadowMap.SetDirectionalLight(m_dirLight);
 	
-	GenerateShadows(commandList, ModelType::STATIC_MESH);
+	GenerateShadows(commandList);
 	RenderScene(commandList);
 	ExecuteTaa(commandList);
 
-	for (const GameObjectIndex obj : GetObjects())
+	for (const GameObjectIndex obj : objects)
 		m_previousModelMatrices[obj] = Engine::GetEcs()->GetComponent<Transform3D>(obj).GetAsMatrix();
 }
 
-void RenderSystem3D::OnTick(TDeltaTime deltaTime) {
-	for (const GameObjectIndex obj : GetObjects()) {
-		Model3D* model = Engine::GetEcs()->GetComponent<ModelComponent3D>(obj).GetModel();
+void RenderSystem3D::Execute(TDeltaTime deltaTime, std::span<const ECS::GameObjectIndex> objects) {
+	for (const GameObjectIndex obj : objects) {
+		auto* model = &Engine::GetEcs()->GetComponent<ModelComponent3D>(obj);
 
-		if (model->GetType() == ModelType::STATIC_MESH)
-			continue;
-
-		model->GetAnimator()->Update(deltaTime);
+		model->GetAnimator().Update(deltaTime);
 	}
 }

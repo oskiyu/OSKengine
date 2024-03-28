@@ -43,11 +43,17 @@ namespace OSK {
 		/// los sistemas del juego.
 		virtual void OnCreate();
 
-		/// @brief Función que se ejecuta cada frame.
-		/// Para hacer actualización del estado del juego.
-		/// @param deltaTime Tiempo que ha pasado desde el último frame,
+		/// @brief Función que se ejecuta cada frame, antes que los
+		/// sistemas ECS.
+		/// @param deltaTime Tiempo que ha pasado desde la última ejecución,
 		/// en segundos.
-		virtual void OnTick(TDeltaTime deltaTime);
+		virtual void OnTick_BeforeEcs(TDeltaTime deltaTime);
+
+		/// @brief Función que se ejecuta cada frame, después que los
+		/// sistemas ECS.
+		/// @param deltaTime Tiempo que ha pasado desde la última ejecución,
+		/// en segundos.
+		virtual void OnTick_AfterEcs(TDeltaTime deltaTime);
 
 		/// @brief Esta función debe renderizar la imagen final que se representará en la ventana.
 		/// 

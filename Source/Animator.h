@@ -10,99 +10,104 @@
 #include "HashMap.hpp"
 
 #include <array>
+#include <unordered_set>
+
 
 namespace OSK::GRAPHICS {
 
-	/// <summary>
-	/// Componente (no ECS) de un modelo animado.
-	/// 
-	/// Todos los modelos tienen uno, pero solo los
-	/// modelos animados contendrán animaciones.
-	/// 
-	/// Contiene el esqueleto del modelo animado.
-	/// </summary>
+	/// @brief Contiene y gestiona las animaciones de un
+	/// modelo 3D.
 	/// 
 	/// @todo Interpolación de animaciones.
 	class OSKAPI_CALL Animator {
 
 	public:
 
+		/// @brief Establece la matriz inicial de la animación.
+		/// @param initialTransform Matriz inicial.
 		void Setup(const glm::mat4& initialTransform);
 
-		/// <summary> Actualiza el esqueleto de acuerdo a la animación activa. </summary>
-		/// @note Si no hay ninguna animacióna ctiva, no ocurrirá nada.
+
+		/// @brief Actualiza el esqueleto del modelo, de acuerdo a todas
+		/// las animaciones activas.
+		/// @param deltaTime Tiempo que ha pasado desde la última llamada
+		/// a la función.
 		void Update(TDeltaTime deltaTime);
 
-		/// <summary> Desactiva la animación, de tal manera que no haya una animación activa. </summary>
-		/// @note Si no hay una animación activa, no ocurrirá nada.
-		void DeactivateAnimation();
 
 		/// @brief Establece la animación activa del modelo.
 		/// @param name Nombre de la animación.
+		/// 
 		/// @pre Debe haber una animación disponible con el nombre dado.
 		/// @throws ModelAnimationNotFoundException si no se cumple la precondición.
 		void AddActiveAnimation(std::string_view name);
 
-		/// <summary> Quita una animación activa del modelo. </summary>
-		/// <param name="name">Nombre de la animación.</param>
+		/// @brief Quita una animación activa del modelo.
+		/// @param name Nombre de la animación.
 		/// 
 		/// @note Si no hay una animación activa, no ocurrirá nada.
+		/// 
+		/// @pre Debe haber una animación disponible con el nombre dado.
+		/// @throws ModelAnimationNotFoundException si no se cumple la precondición.
 		void RemoveActiveAnimation(std::string_view name);
 
-		/// <summary> 
-		/// Establece la skin activa del modelo,
+
+		/// @brief Establece la skin activa del modelo,
 		/// estableciendo qué vértices serán afectados por la animación.
-		/// </summary>
-		/// <param name="name">Nombre de la animación.</param>
+		/// @param name Nombre de la skin.
 		/// 
 		/// @pre Debe haber una skin disponible con el nombre dado.
 		/// @throws std::runtime_error si no se cumple la precondición.
 		void SetActiveSkin(std::string_view name);
 
-		/// <summary> Devuelve la skin activa. </summary>
-		/// <returns>Puntero nulo si no hay ninguna skin activa.</returns>
+		/// @return Devuelve la skin activa. Puntero nulo si no hay ninguna skin activa.
 		const AnimationSkin* GetActiveSkin() const;
 
-		/// <summary>
-		/// Devuelve la skin con el índice dado.
-		/// </summary>
+
+		/// @param index Índice de la skin.
+		/// @return Devuelve la skin con el índice dado.
 		/// 
 		/// @pre Debe existir la skin con el índice dado.
+		/// @throws ModelSkinNotFoundException si no se cumple la precondición.
 		const AnimationSkin& GetSkin(UIndex32 index) const;
 		
-		/// <summary>
-		/// Devuelve un material instance que únicamente tiene 
-		/// el slot "animation", que contiene las matrices de los huesos.
-		/// </summary>
-		/// <returns>Not null.</returns>
-		const MaterialInstance* GetMaterialInstance() const;
 
+		/// @return Matriz inicial de la animación.
 		glm::mat4 GetInitialTransform() const;
 
-		void _AddAnimation(const Animation& animation);
-		void _AddSkin(const AnimationSkin& skin);
-		void _AddNode(const MeshNode& node);
+
+		/// @brief Registra una nueva animación.
+		/// @param animation Nueva animación.
+		void AddAnimation(const Animation& animation);
+
+		/// @brief Registra una nueva skin.
+		/// @param skin Nueva skin.
+		void AddSkin(const AnimationSkin& skin);
+
+
+		/// @return Lista con las matrices de los huesos del esqueleto
+		/// del modelo, con todas las animaciones activas aplicadas.
+		const DynamicArray<glm::mat4>& GetFinalSkeletonMatrices() const;
+
+
+		/// @return True si contiene al menos una animación.
+		/// Para modelos no animados, devuelve false.
+		bool HasAnimations() const;
 
 	private:
 
-		/// <summary> Esqueleto resultado de combinar todas las animaciones activas. </summary>
+		/// @brief Esqueleto resultado de combinar todas las animaciones activas.
 		DynamicArray<glm::mat4> m_boneMatrices;
 		
-		DynamicArray<MeshNode> m_nodes;
-				
-		/// <summary> Buffers que almacenan las matrices de los huesos que se envían al vertex shader. </summary>
-		std::array<UniquePtr<GpuBuffer>, NUM_RESOURCES_IN_FLIGHT> m_boneBuffers{};
 
-		/// <summary> Contiene un único material slot: "animation". </summary>
-		UniquePtr<MaterialInstance> m_materialInstance;
+		DynamicArray<Animation> m_animations;
+		DynamicArray<AnimationSkin> m_animationSkins;
 
-		DynamicArray<AnimationSkin> m_availableSkins;
+		std::unordered_set<UIndex64> m_activeAnimations;
+		std::optional<UIndex64> m_activeSkinIndex;
 
-		std::unordered_map<std::string, UIndex64, StringHasher, std::equal_to<>>  m_availableSkinsByName;
-		std::unordered_map<std::string, Animation, StringHasher, std::equal_to<>> m_availableAnimations;
-
-		DynamicArray<std::string> m_activeAnimations;
-		std::string m_activeSkin = "";
+		std::unordered_map<std::string, UIndex64, StringHasher, std::equal_to<>> m_skinsByName;
+		std::unordered_map<std::string, UIndex64, StringHasher, std::equal_to<>> m_animationsByName;
 
 		glm::mat4 m_initialTransform = glm::mat4(1.0f);
 

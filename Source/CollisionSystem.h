@@ -1,6 +1,6 @@
 #pragma once
 
-#include "IProducerSystem.h"
+#include "IIteratorSystem.h"
 
 #include "RayCastResult.h"
 #include "Ray.h"
@@ -11,14 +11,16 @@ namespace OSK::ECS {
 	/// y publica los eventos correspondientes.
 	/// 
 	/// Tipo de evento que publica: CollisionEvent.
-	class OSKAPI_CALL CollisionSystem final : public IProducerSystem {
+	class OSKAPI_CALL CollisionSystem final : public IIteratorSystem {
 
 	public:
 
 		OSK_SYSTEM("OSK::CollisionSystem");
 
 		void OnCreate() override;
-		void OnTick(TDeltaTime deltaTime) override;
+
+		void OnExecutionStart() override;
+		void Execute(TDeltaTime deltaTime, std::span<const GameObjectIndex> objects) override;
 
 		COLLISION::RayCastResult CastRay(
 			const COLLISION::Ray& ray,

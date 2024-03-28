@@ -2,7 +2,6 @@
 
 #include "MaterialInstance.h"
 #include "Model3D.h"
-#include "Mesh3D.h"
 #include "Material.h"
 #include "IMaterialSlot.h"
 
@@ -17,15 +16,60 @@ using namespace OSK::GRAPHICS;
 
 void ModelComponent3D::SetModel(AssetRef<Model3D> model) {
 	m_model = model;
+
+	for (const auto& animation : model->GetModel().GetCpuModel().GetAnimations()) {
+		m_animator.AddAnimation(animation);
+	}
+
+	for (const auto& animationSkin : model->GetModel().GetCpuModel().GetAnimationSkins()) {
+		m_animator.AddSkin(animationSkin);
+	}
+
+	if (!model->GetModel().GetCpuModel().GetAnimationSkins().IsEmpty()) {
+		m_animator.SetActiveSkin(model->GetModel().GetCpuModel().GetAnimationSkins()[0].name);
+	}
 }
 
-Model3D* ModelComponent3D::GetModel() {
+ASSETS::Model3D* ModelComponent3D::GetModelAsset() {
 	return m_model.GetAsset();
 }
 
-const Model3D* ModelComponent3D::GetModel() const {
+const ASSETS::Model3D* ModelComponent3D::GetModelAsset() const {
 	return m_model.GetAsset();
 }
+
+GRAPHICS::GpuModel3D* ModelComponent3D::GetModel() {
+	return &m_model->_GetModel();
+}
+
+const GRAPHICS::GpuModel3D* ModelComponent3D::GetModel() const {
+	return &m_model->GetModel();
+}
+
+GRAPHICS::Animator& ModelComponent3D::GetAnimator() {
+	return m_animator;
+}
+
+const GRAPHICS::Animator& ModelComponent3D::GetAnimator() const {
+	return m_animator;
+}
+
+bool ModelComponent3D::IsAnimated() const {
+	return m_animator.HasAnimations();
+}
+
+void ModelComponent3D::AddShaderPassName(const std::string& name) {
+	m_shaderNames.insert(name);
+}
+
+void ModelComponent3D::RemoveShaderPassName(const std::string& name) {
+	m_shaderNames.erase(name);
+}
+
+const std::unordered_set<std::string, StringHasher, std::equal_to<>>& ModelComponent3D::GetShaderPassNames() const {
+	return m_shaderNames;
+}
+
 
 template <>
 nlohmann::json PERSISTENCE::SerializeJson<OSK::ECS::ModelComponent3D>(const OSK::ECS::ModelComponent3D& data) {

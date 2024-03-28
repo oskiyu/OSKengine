@@ -1,0 +1,16 @@
+{
+    "file_type": "MATERIAL",
+    "spec_ver": 1,
+    "name": "Shadows Gen",
+
+    "vertex_shader": "Resources/Shaders/VK/Shadows/vert.spv",
+    
+    "vertex_type": "OSK::PositionOnlyVertex3D",
+    "config": {
+        "cull_mode": "front"
+    },
+
+    "slots": {
+        "0": "global"
+    }
+}

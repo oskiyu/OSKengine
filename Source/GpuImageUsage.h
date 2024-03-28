@@ -107,6 +107,15 @@ namespace OSK::GRAPHICS {
 		ARRAY
 	};
 
+	/// @brief Describe cómo se almacena la imagen en la memoria.
+	enum class GpuImageTiling {
+		/// @brief La imagen se almacena de una forma óptima para su uso en el motor.
+		OPTIMAL,
+
+		/// @brief La imagen se almacena de manera que pueda copiarse a la CPU de manera sencilla.
+		LINEAL
+	};
+
 }
 
 OSK_FLAGS(OSK::GRAPHICS::GpuImageUsage);

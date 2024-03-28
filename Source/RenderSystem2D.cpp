@@ -24,7 +24,7 @@ RenderSystem2D::RenderSystem2D() {
 	_SetSignature(signature);
 }
 
-void RenderSystem2D::Render(ICommandList* commandList) {
+void RenderSystem2D::Render(ICommandList* commandList, std::span<const ECS::GameObjectIndex> objects) {
 	spriteRenderer.SetCommandList(commandList);
 
 	commandList->StartDebugSection("2D Rendering", Color::Blue);
@@ -35,7 +35,7 @@ void RenderSystem2D::Render(ICommandList* commandList) {
 
 	spriteRenderer.Begin();
 
-	for (GameObjectIndex obj : GetObjects()) {
+	for (const GameObjectIndex obj : objects) {
 		spriteRenderer.Draw(
 			Engine::GetEcs()->GetComponent<Sprite>(obj),
 			Engine::GetEcs()->GetComponent<Transform2D>(obj)

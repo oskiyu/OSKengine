@@ -50,7 +50,7 @@ void SkyboxRenderSystem::SetCubemap(ASSETS::AssetRef<ASSETS::CubemapTexture> tex
 	skyboxMaterialInstance->GetSlot("texture")->FlushUpdate();
 }
 
-void SkyboxRenderSystem::Render(ICommandList* commandList) {
+void SkyboxRenderSystem::Render(ICommandList* commandList, std::span<const ECS::GameObjectIndex> objects) {
 	if (cameraObject == EMPTY_GAME_OBJECT)
 		return;
 
@@ -70,10 +70,10 @@ void SkyboxRenderSystem::Render(ICommandList* commandList) {
 	this->SetupViewport(commandList);
 	commandList->BindMaterial(*skyboxMaterial);
 	commandList->BindMaterialInstance(*skyboxMaterialInstance);
-	commandList->BindVertexBuffer(*m_cubemapModel->GetVertexBuffer());
-	commandList->BindIndexBuffer(*m_cubemapModel->GetIndexBuffer());
+	commandList->BindVertexBuffer(m_cubemapModel->GetModel().GetVertexBuffer());
+	commandList->BindIndexBuffer(m_cubemapModel->GetModel().GetIndexBuffer());
 	commandList->PushMaterialConstants("brightness", 1.0f);
-	commandList->DrawSingleInstance(m_cubemapModel->GetIndexCount());
+	commandList->DrawSingleInstance(m_cubemapModel->GetModel().GetTotalIndexCount());
 	commandList->EndGraphicsRenderpass();
 
 	commandList->EndDebugSection();

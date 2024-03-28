@@ -24,7 +24,7 @@ namespace OSK::ECS {
 		void SetCamera(GameObjectIndex cameraObject);
 		void SetCubemap(ASSETS::AssetRef<ASSETS::CubemapTexture> texture);
 
-		void Render(GRAPHICS::ICommandList* commandList) override;
+		void Render(GRAPHICS::ICommandList* commandList, std::span<const ECS::GameObjectIndex> objects) override;
 
 	private:
 

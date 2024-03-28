@@ -15,7 +15,7 @@ namespace OSK::COLLISION {
 	/// Esta caja está alineada con los ejes X, Y y Z; y no puede
 	/// ser rotada.
 	/// 
-	/// Por defecto, tiene tamaño ("radio") 0.5.
+	/// Por defecto, tiene tamaño ("radio") 1.
 	class OSKAPI_CALL AxisAlignedBoundingBox : public ITopLevelCollider {
 
 	public:

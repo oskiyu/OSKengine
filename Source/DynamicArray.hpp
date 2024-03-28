@@ -7,6 +7,7 @@
 #include <limits>
 #include <initializer_list>
 #include "BadAllocException.h"
+#include <span>
 
 namespace OSK {
 
@@ -687,6 +688,42 @@ namespace OSK {
 		}
 		T* GetData() noexcept {
 			return m_data;
+		}
+
+		/// @return Span con todos los elementos de la lista.
+		std::span<T> GetFullSpan() {
+			return std::span<T>(m_data, m_count);
+		}
+
+		/// @return Span con todos los elementos de la lista.
+		std::span<const T> GetFullSpan() const {
+			return std::span<T>(m_data, m_count);
+		}
+
+		/// @brief Crea un span con un subrango de elementos.
+		/// @param startIndex Índice del primer objeto.
+		/// @param count Número de objetos.
+		/// @return Span con los objetos indicados.
+		/// 
+		/// @pre @p startIndex debe ser menor que el número de elementos
+		/// de la lista.
+		/// @pre @p startIndex + @p count debe ser menor que el número de elementos
+		/// de la lista.
+		std::span<T> GetSpan(UIndex64 startIndex, USize64 count) {
+			return std::span<T>(m_data + startIndex, count);
+		}
+
+		/// @brief Crea un span con un subrango de elementos.
+		/// @param startIndex Índice del primer objeto.
+		/// @param count Número de objetos.
+		/// @return Span con los objetos indicados.
+		/// 
+		/// @pre @p startIndex debe ser menor que el número de elementos
+		/// de la lista.
+		/// @pre @p startIndex + @p count debe ser menor que el número de elementos
+		/// de la lista.
+		std::span<const T> GetSpan(UIndex64 startIndex, USize64 count) const {
+			return std::span<T>(m_data + startIndex, count);
 		}
 
 #pragma endregion

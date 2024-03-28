@@ -1,5 +1,30 @@
 # OSKengine Version History.
 
+
+## 2023.01.28a
+
+### Graphics
+
+- `MaterialSlotVulkan`
+    - Ahora puede establecerse un nombre de debug.
+    
+Añadidos nombres de debug a las imágenes GPU de:
+- `FontInstance`
+- `Model3D`
+- `IrradianceMap`
+- Renderpass principal.
+- `ShadowMap`
+- `Texture`
+
+#### Bugfixes
+
+- **Bugfix**: `AssetManager` ahora elimina correctamente los loaders.
+- **Bugfix**: `HashMap` ahora elimina correctamente los elementos almacenados.
+- **Bugfix**: `IRenderer`, `RendererVulkan` ahora esperan correctamente a que se completen los trabajos de la GPU antes de destruirse.
+- **Bugfix**: `Material::GetGraphicsPipeline()` ahora es const-correct.
+- **Bugfix**: `MaterialSystem::LoadMaterialV1()` ahora no tiene memory leaks.
+
+
 ## 2023.02.02a
 
 ### ECS
@@ -1747,3 +1772,348 @@ fix culling static meshes
 - **Bugfix**: `MaterialSlotVk` ahora es compatible con arrays de recursos.
 - **Bugfix**: `MaterialSlotVk` ahora es compatible con arrays de recursos.
 - **Bugfix**: `VertexInfo::Entry::Type::UNSIGNED_INT` ahora se puede usar para un único unsigned int.
+
+
+## 2024.02.11a
+
+### General
+
+- Añadida nueva dependencia: `stb_image_write`.
+
+### Graphics
+
+###### Soporte para capturas de pantalla.
+
+- `ISwapchain`
+    - Ahora permite obtener capturas de pantalla y guardarlas en disco.
+
+- ***Nuevo***: `GpuImageTiling`
+    - Indica la manera en la que se almacenan los píxeles en memoria.
+    - Puede ser:
+        - `GpuImageTiling::LINEAL`: se almacenan de manera lineal, por filas.
+        - `GpuImageTiling::OPTIMAL`: se almacenan de manera óptima para renderizado.
+
+- `IGpuMemorySubblock`
+    - Ahora permite obtener directamente la región de memoria mapeada.
+    
+
+## 2024.03.28a
+
+Mejoras de arquitectura:
+- Modernización de las arquitecturas relacionadas con modelos 3D.
+- Preparación para la implementación de un modelo de ejecución multihilo.
+
+### Graphics
+
+- `Animation`
+    - Mejorado encapsulamiento.
+
+- `Animator`
+    - Ahora se almacena en el componente ECS `ModelComponent3D`, permitiendo que cada entidad pueda animarse por separado.
+    - Ya no contiene las instancias de los materiales de animación.
+    - Ya no contiene los buffers con los transforms de los huesos.
+    - Ahora permite comprobar si contiene alguna animación.
+
+- `AnimationBone` (antes `MeshNode`)
+    - Renombrado.
+
+- `PbrMaterialInfo`
+    - Ahora indica si el material contiene textura normal.
+
+- `ShadowMap`
+    - Ya no contiene los materiales de generación de sombras y sus instancias.
+
+- ***Nuevo***: `PositionOnlyVertex3D`
+
+###### Rework de modelos 3D.
+
+- ***Nuevo***: `GpuModelUuid`
+- ***Nuevo***: `GpuMeshUuid`
+
+- `GpuMesh3D` (antes `Mesh3D`)
+    - Renombrado.
+    - Ahora usa `GpuMeshUuid`.
+
+- ***Nuevo***: `GpuModel3D`
+    - Representa un modelo 3D almacenado en GPU.
+    - Almacena los buffers de vértices e índices.
+    - Almacena un `VerticesAttributesMaps`.
+    - Almacena una lista de `GpuMesh3D`.
+    - Puede almacenar, de manera opcional, el `CpuModel3D` a partir del que se ha creado.
+    - Almacena una lista de `GpuModel3D::Lod`.
+    - Almacena una lista de `GpuModel3D::Material`.
+    - Almacena una `GpuModel3D::TextureTable`.
+
+- ***Nuevo***: `GpuModel3D::Lod`
+    - Indica los meshes de un modelo que conforman un Lod.
+
+- ***Nuevo***: `GpuModel3D::Material`
+    - Indica las propiedades de un material PBR.
+    - Incluye:
+        - Color base.
+        - Color de emisión.
+        - Rugosidad.
+        - Metalicidad.
+        - Índice de textura de color (opcional).
+        - Índice de textura normal (opcional).
+        - Índice de textura de rugosidad (opcional).
+        - Índice de textura de metalicidad (opcional).
+
+- ***Nuevo***: `GpuModel3D::TextureTable`
+    - Almacena las texturas usadas por un modelo.
+
+###### Renombre de pases de renderizado, y ampliación a shadow maps.
+
+- ***Eliminado***: `MeshMapping`
+- ***Eliminado***: `PerModelData`
+- ***Eliminado***: `PerMeshData`
+
+- ***Nuevo***: `GlobalMeshMapping`
+    - Contiene la información de un modelo 3D que se comparte con todos los pases de renderizado.
+    - Incluye:
+        - Matrices de los objetos en el frame anterior.
+        - Mapa de `GlobalPerModelData`.
+
+- ***Nuevo***: `GlobalPerModelData`
+    - Almacena la información global de un modelo en concreto.
+    - Incluye:
+        - Instancia de material de animación.
+        - Buffer de GPU con los huesos de la animación.
+
+- ***Nuevo***: `GlobalMeshMapping`
+    - Contiene la información de un modelo 3D que se comparte con todos los pases de renderizado.
+    - Incluye:
+        - Matrices de los objetos en el frame anterior.
+        - Mapa de `GlobalPerModelData`.
+
+- ***Nuevo***: `LocalMeshMapping`
+    - Contiene la información de los modelos 3D usada por un pase de renderizado.
+    - Contiene un mapa de `LocalPerModelData`.
+    
+- ***Nuevo***: `LocalPerModelData`
+    - Contiene la información de un modelo 3D en concreto usada por un pase de renderizado.
+    - Contiene un mapa de `LocalPerMeshData`.
+
+- ***Nuevo***: `LocalPerMeshData`
+    - Contiene la información de una malla 3D en concreto usada por un pase de renderizado.
+    - Contiene:
+        - Instancia de material de renderizado PBR.
+        - Información del material PB en un GPU buffer.
+
+- `IShaderPass` (antes `IRenderPass`)
+    - Renombrado.
+    - Ahora contiene un `LocalMeshMapping`.
+    - También usa un `GlobalMeshMapping`, dado por el sistema de renderizado.
+
+- ***Nuevo***: `IShadowsPass`
+    - Pase de renderizado de sombras.
+
+- ***Nuevo***: `ShadowsStaticPass`
+    - Implementa `IShadowsPass` para mallas estáticas.
+    
+- ***Nuevo***: `ShaderPassTable`
+    - Almacena los pases de renderizado de un sistema de renderizado.
+    - Alamcena los IDs de los objetos compatibles con cada pase de renderizado.
+
+### Assets
+
+- `AssetManager`
+    - Ahora permite obtener directamente los loaders.
+
+- ***Nuevo***: `AssetLoaderAlreadyRegisteredException`
+
+- ***Eliminado***: `ModelMobilityType`
+- ***Eliminado***: `ModelType`
+- ***Eliminado***: `MeshMetadata`
+- ***Eliminado***: `MaterialMetadata`
+- ***Eliminado***: `ModelMetadata`
+- ***Eliminado***: `Model3D::Lod`
+
+- `Model3D`
+    - Ya no contiene el mapa de atributos de vértices de un modelo.
+    - Ya no contiene el identificador único de un modelo.
+    - Ya no contiene los niveles Lod del modelo.
+    - Ya no contiene el nombre del pase de renderizado aplicable al modelo.
+    - Ya no contiene el animador de un modelo 3D animado.
+    - Ahora contiene una instancia de la clase `GpuModel3D`.
+    
+- `TextureLoader`
+    - Ahora permite almacenar referencias `AssetOwningRef<Texture>` cargadas fuera del loader.
+    
+###### Rework de la carga de modelos.
+
+- ***Eliminado***: `GltfMaterialInfo`
+- ***Eliminado***: `GltfModelInfo`
+
+- `GltfLoader` (antes `IGltfLoader`)
+    - Ahora carga un modelo almacenado en la CPU (`CpuModel3D`).
+    - Actualizado para seguir un modelo de programación funcional.
+    - Ya no almacena información intermedia en atributos de la clase.
+    
+- `StaticMeshLoader`
+    - Ahora configura un `GpuModel3D` a partir de un `CpuModel3D`.
+- `AnimMeshLoader`
+    - Ahora configura un `GpuModel3D` a partir de un `CpuModel3D`.
+    
+- `PreBuiltSplineLoader3D`
+    - Ahora carga el spline a partir de un `CpuModel3D`, cargándolo mediante `GltfLoader`.
+- `PreBuiltColliderLoader`
+    - Ahora carga el collider a partir de un `CpuModel3D`, cargándolo mediante `GltfLoader`.
+
+###### Nuevas excepciones para la carga de modelos 3D.
+
+- ***Nuevo***: `NoVertexColorFoundException`
+- ***Nuevo***: `NoVertexBoneWeightsFoundException`
+- ***Nuevo***: `NoVertexBoneIndicesFoundException`
+
+### ECS
+
+- `ModelComponent3D`
+    - Ahora contiene el animador del modelo, permitiendo que cada entidad se anime por separado.
+    - Ahora contiene los nombres de los pases de renderizado aplicables al modelo.
+
+- ***Nuevo***: `EventAlreadyRegisteredException`
+
+###### Grafos de ejecución y dependencias explícitas entre sistemas.
+
+- ***Eliminado***: `DEFAULT_EXECUTION_ORDER`
+
+- ***Nuevo***: `SystemDependencies`
+    - Permite establecer dependencias de ejecución entre sistemas.
+    - `executeAfterThese`: sistemas que deben ejecutarse antes.
+    - `executeBeforeThese`: sistemas que deben ejecutarse después.
+
+- ***Nuevo***: `SystemExecutionGraph`
+    - Contiene un grafo indicando el orden de ejecución de los sistemas, respetando sus dependencias de ejecución.
+    - Los sistemas se organizan en sets, de tal manera que se respeten las dependencias.
+    - Detecta dependencias cíclicas.
+    
+- ***Nuevo***: `SystemCyclicDependencyException`
+    
+- ***Eliminado***: `IPureSystem`
+- ***Eliminado***: `IProducerSystem`
+
+- ***Nuevo***: `EventQueueSpan`
+    - Representa un rango de eventos.
+    - Debe ser casteado al tipo de evento.
+ 
+- `ISystem`
+    - ***Eliminado***: `OnTick()`.
+
+- `IConsumerSystem`
+    - Ahora debe declara explícitamente el tipo de evento al que está enlazado mediante `GetEventName()`.
+    - ***Nuevo***: `OnExecutionStart()`: función que se ejecuta antes de comenzar el procesamiento de eventos.
+    - ***Nuevo***: `OnExecutionEnd()`: función que se ejecuta después de finalizar el procesamiento de eventos.
+    - El procesamiento ahora se realiza en la función `Execute`.
+    - Obtiene los eventos a través de un `EventQueueSpan`.
+        - Puede castearse a un span del tipo de evento que sea con la función `BuildSpan()`.
+ 
+- ***Nuevo***: `ITypedConsumerSystem<>`
+    - Opción más sencilla para implementar un sistema consumidor.
+    - Template class que se construye con el tipo de evento en concreto.
+    - Incluye una función `Execute()` con un span ya casteado al tipo de evento.
+
+- `IIteratorSystem`
+    - ***Nuevo***: `OnExecutionStart()`: función que se ejecuta antes de comenzar el procesamiento de objetos.
+    - ***Nuevo***: `OnExecutionEnd()`: función que se ejecuta después de finalizar el procesamiento de objetos.
+    - La ejecución de la lógica ahora ocurre en `Execute()`.
+        - Ahora obtiene directamente la lsita de objetos a procesar.
+
+- `IRenderSystem`
+    - ***Nuevo***: `OnRenderStart()`: función que se ejecuta antes de comenzar el proceso de renderizado.
+    - ***Nuevo***: `OnRenderEnd()`: función que se ejecuta después de finalizar el proceso de renderizado.
+    - Ahora permite añadir pases de renderizado de sombras.
+
+- `SystemManager`
+    - Ahora usa un `SystemExecutionGraph` para conocer el orden de ejecución de los sistemas.
+    - Ahora manda explícitamente un rango de objetos o eventos a los sistemas que lo procesan.
+    - Ahora ejecuta los renderizados de los sistemas ECS.
+
+- `EntityComponentSystem`
+    - Ahora ejecuta los renderizados de los sistemas ECS.
+
+- `IGame`
+    - Ahora ya no ejecuta los renderizados de los sistemas ECS.
+    - ***Eliminado***: `OnTick()`.
+    - ***Nuevo***: `OnTick_BeforeEcs()`.
+    - ***Nuevo***: `OnTick_AfterEcs()`.
+    
+###### Mini-rework de Transform3D para adaptarlo al futuro sistema de trabajos.
+
+- `Transform3D`
+    - Cambiar sus valores (posición, rotación o escala) a través de la interfaz no aplica directamente los cambios, sino que almacena el delta internamente.
+    - Actualizar la matriz modelo (`UpdateModel()`) ya no llama a la función `UpdateModel()` de los elementos hijos.
+    - Ahora la jerarquía se almacena únicamente hacia abajo:
+        - ***Eliminado***: ID del padre.
+        - ***Eliminado***: `AttachToObject()`.
+        - ***Eliminado***: `Unattach()`.
+        - ***Nuevo***: `AddChild()`.
+        - ***Nuevo***: `RemoveChild()`.
+        - ***Nuevo***: `GetChildren()`.
+    - ***Nuevo***: `_ApplyChanges()`: aplica los cambios almacenados durante el frame.
+
+- ***Nuevo***: `TransformApplierSystem`
+    - Se encarga de aplicar todos los cambios de los `Transform3D`.
+    - Respeta las jerarquías.
+
+### Types
+
+- `DynamicArray`
+    - Ahora puede construir un span con todos los elementos del array.
+    - Ahora puede construir un span con un subrango de elementos del array.
+
+- `Quaternion`
+    - ***Nuevo***: `Empty()`: crea un cuaternión vacío.
+    - ***Nuevo***: operadores `+` y `+=`: aplican una rotación sobre el cuaternión.
+    - ***Nuevo***: operadores `-` y `-=`: obtienen la diferencia entre dos cuaterniones.
+
+###### Modelos 3D almacenados en memoria RAM.
+
+- ***Nuevo***: `CpuVertex3D`
+    - Vértice con los atributos que pueden ser cargados de un archivo.
+    - Contiene (todos son opcionales):
+        - Posición.
+        - Coordenadas de textura.
+        - Vector normal.
+        - Vector tangente.
+        - Color.
+        - IDs de huesos.
+        - Pesos de huesos.
+
+- ***Nuevo***: `CpuMesh3D`
+    - Malla de vértices.
+    - Contiene los vértices, así como los índices.
+    - Puede diferenciar entre:
+        - Índices de triángulos (`TriangleIndices`).
+        - Índices de líneas (`LineIndices`).
+        - Índices de puntos aislados (`PointIndex`).
+    - Puede contener, de manera opcional, un índice de material.
+
+- ***Nuevo***: `CpuModel3D`
+    - Modelo almacenado en memoria RAM.
+    - Contiene una lista de mallas.
+    - Puede contener animaciones, y sus skins.
+
+###### Añadidos UUIDs formales.
+
+- ***Nuevo***: `BaseUuid`
+    - Clase template que representa un identificador numérico único.
+    - Pueden crearse distintos tipos.
+    - Cada tipo es incompatibe con otros tipos.
+
+- ***Nuevo***: `UuidProvider`
+    - Genera nuevos UUIDs.
+    
+### Macros
+
+- `OSK_DEFINE_AS(x)`
+    - Ahora define una función `Is<>` que permite saber en tiempo de ejecución si un objeto puede convertirse en un tipo en concreto.
+
+#### Bugfixes
+
+- **Bugfix**: `GameObjectManager::IsGameObjectAlive`, `EntityComponentSystem::IsGameObjectAlive` ahora devuelven el valor correcto.
+- **Bugfix**: `AabbCollider::GetMin`, `AabbCollider::GetMax` ahora devuelven el valor correcto.
+- **Bugfix**: `SystemManager::GetSystem`, `EntityComponentSystem::GetSystem` ahora devuelven *nullptr* si el sistema no está registrado.
+- **Bugfix**: las funciones *const* de `Skeleton` que permiten obtener huesos ya no generan bucles infinitos.
+- **Bugfix**: `PreBuiltSplineLoader3D` ahora carga correctamente los puntos si previamente se ha cargado un spline con un transform específico.
+- **Bugfix**: `VerticesAttributesMap::GetVerticesAttributes` ahora devuelve correctamente una referencia a la lista de atributos.

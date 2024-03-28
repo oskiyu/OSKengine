@@ -68,6 +68,45 @@ namespace OSK::ASSETS {
 
 	};
 
+	class NoVertexColorFoundException : public EngineException {
+
+	public:
+
+		explicit NoVertexColorFoundException(
+			const std::source_location& location = std::source_location::current())
+			:
+			EngineException(
+				std::format("NoVertexColorFoundException: El archivo del modelo 3D no contiene colores de vértices."),
+				location) { }
+
+	};
+
+	class NoVertexBoneWeightsFoundException : public EngineException {
+
+	public:
+
+		explicit NoVertexBoneWeightsFoundException(
+			const std::source_location& location = std::source_location::current())
+			:
+			EngineException(
+				std::format("NoVertexBoneWeightsFoundException: El archivo del modelo 3D no contiene huesos."),
+				location) { }
+
+	};
+
+	class NoVertexBoneIndicesFoundException : public EngineException {
+
+	public:
+
+		explicit NoVertexBoneIndicesFoundException(
+			const std::source_location& location = std::source_location::current())
+			:
+			EngineException(
+				std::format("NoVertexBoneIndicesFoundException: El archivo del modelo 3D no contiene huesos."),
+				location) { }
+
+	};
+
 
 	/// @brief Excepción que se lanza cuando los índices de un modelo 3D son de un tipo no soportado.
 	class UnsupportedIndexTypeException : public EngineException {

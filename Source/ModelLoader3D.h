@@ -17,10 +17,6 @@ namespace OSK::ASSETS {
 		OSK_DEFAULT_LOADER_IMPL(Model3D);
 		void Load(const std::string& assetFilePath, Model3D* asset) override;
 
-	private:
-
-		UIndex64 m_nextModelId = 0;
-
 	};
 
 }

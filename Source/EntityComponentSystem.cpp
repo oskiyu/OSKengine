@@ -15,7 +15,11 @@ EntityComponentSystem::EntityComponentSystem(IO::ILogger* logger) : logger(logge
 }
 
 void EntityComponentSystem::OnTick(TDeltaTime deltaTime) {
-	systemManager->OnTick(deltaTime);
+	systemManager->OnTick(deltaTime, eventManager.GetValue());
+}
+
+void EntityComponentSystem::OnRender(GRAPHICS::ICommandList* commandList) {
+	systemManager->OnRender(commandList);
 }
 
 void EntityComponentSystem::_ClearEventQueues() {

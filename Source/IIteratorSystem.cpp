@@ -11,31 +11,30 @@ void IIteratorSystem::OnObjectRemoved(GameObjectIndex obj) {
 
 }
 
+void IIteratorSystem::OnExecutionStart() {
+
+}
+
+void IIteratorSystem::Execute(TDeltaTime deltaTime, std::span<const ECS::GameObjectIndex> objects) {
+
+}
+
+void IIteratorSystem::OnExecutionEnd() {
+
+}
+
 const Signature& IIteratorSystem::GetSignature() const {
-	return signature;
-}
-
-void IIteratorSystem::_AddObject(GameObjectIndex obj) {
-	if (!processedObjects.ContainsElement(obj))
-		processedObjects.Insert(obj);
-
-	OnObjectAdded(obj);
-}
-
-void IIteratorSystem::_RemoveObject(GameObjectIndex obj) {
-	processedObjects.Remove(obj);
-
-	OnObjectRemoved(obj);
+	return m_signature;
 }
 
 void IIteratorSystem::_SetSignature(const Signature& signature) {
-	this->signature = signature;
+	m_signature = signature;
 }
 
-DynamicArray<GameObjectIndex>& IIteratorSystem::GetObjects() {
-	return processedObjects;
+void IIteratorSystem::SetCompatibleObjects(std::span<const ECS::GameObjectIndex> objects) {
+	m_allCompatibleObjects = objects;
 }
 
-const DynamicArray<GameObjectIndex>& IIteratorSystem::GetObjects() const {
-	return processedObjects;
+std::span<const ECS::GameObjectIndex> IIteratorSystem::GetAllCompatibleObjects() const {
+	return m_allCompatibleObjects;
 }

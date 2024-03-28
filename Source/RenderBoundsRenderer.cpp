@@ -52,7 +52,7 @@ void RenderBoundsRenderer::CreateTargetImage(const Vector2ui& size) {
 	m_renderTarget.Create(size, { colorInfo }, depthInfo);
 }
 
-void RenderBoundsRenderer::Render(ICommandList* commandList) {
+void RenderBoundsRenderer::Render(ICommandList* commandList, std::span<const ECS::GameObjectIndex> objects) {
 	if (m_cameraObject == EMPTY_GAME_OBJECT)
 		return;
 
@@ -76,8 +76,8 @@ void RenderBoundsRenderer::Render(ICommandList* commandList) {
 	commandList->BindMaterial(*m_material);
 	commandList->BindMaterialInstance(*m_materialInstance);
 
-	commandList->BindVertexBuffer(*m_sphereModel->GetVertexBuffer());
-	commandList->BindIndexBuffer(*m_sphereModel->GetIndexBuffer());
+	commandList->BindVertexBuffer(m_sphereModel->GetModel().GetVertexBuffer());
+	commandList->BindIndexBuffer(m_sphereModel->GetModel().GetIndexBuffer());
 
 	Transform3D transform(EMPTY_GAME_OBJECT);
 
@@ -87,7 +87,7 @@ void RenderBoundsRenderer::Render(ICommandList* commandList) {
 	};
 	RenderInfo info{};
 
-	for (const GameObjectIndex obj : GetObjects()) {
+	for (const GameObjectIndex obj : objects) {
 		const auto& model = Engine::GetEcs()->GetComponent<ModelComponent3D>(obj);
 		const auto& objectTransform = Engine::GetEcs()->GetComponent<Transform3D>(obj);
 
@@ -108,7 +108,7 @@ void RenderBoundsRenderer::Render(ICommandList* commandList) {
 			info.color.alpha = 20.0f / distance;
 
 			commandList->PushMaterialConstants("pushConstants", info);
-			commandList->DrawSingleInstance(m_sphereModel->GetIndexCount());
+			commandList->DrawSingleInstance(m_sphereModel->GetModel().GetTotalIndexCount());
 		}
 
 	}

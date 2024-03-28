@@ -19,6 +19,7 @@
 #include "IrradianceMapLoader.h"
 #include "PreBuiltColliderLoader.h"
 #include "PreBuiltSplineLoader3D.h"
+#include "TransformApplierSystem.h"
 
 #include "Transform3D.h"
 #include "ModelComponent3D.h"
@@ -56,6 +57,7 @@
 #undef GetCurrentTime
 
 using namespace OSK;
+using namespace OSK::ECS;
 
 UniquePtr<IO::Logger> Engine::logger;
 UniquePtr<IO::Console> Engine::console;
@@ -66,6 +68,7 @@ UniquePtr<ECS::EntityComponentSystem> Engine::entityComponentSystem;
 UniquePtr<IO::IUserInput> Engine::input;
 UniquePtr<IO::InputManager> Engine::inputManager;
 UniquePtr<AUDIO::IAudioApi> Engine::audioApi;
+UniquePtr<UuidProvider> Engine::uuidProvider;
 UIndex64 Engine::gameFrameIndex;
 
 void Engine::Create(GRAPHICS::RenderApiType type) {
@@ -80,6 +83,7 @@ void Engine::Create(GRAPHICS::RenderApiType type) {
 	inputManager = new IO::InputManager;
 	audioApi = new AUDIO::AudioApiAl;
 	audioApi->Initialize();
+	uuidProvider = new UuidProvider;
 
 	logger->InfoLog("Iniciando OSKengine.");
 	logger->InfoLog(std::format("\tVersion: {}.{}.{}", 
@@ -147,8 +151,12 @@ void Engine::RegisterBuiltinSystems() {
 #ifdef OSK_USE_FORWARD_RENDERER
 	entityComponentSystem->RegisterSystem<ECS::RenderSystem3D>(ECS::ISystem::DEFAULT_EXECUTION_ORDER);
 #elif defined(OSK_USE_DEFERRED_RENDERER)
-	entityComponentSystem->RegisterSystem<ECS::TreeNormalsRenderSystem>(ECS::ISystem::DEFAULT_EXECUTION_ORDER - 1);
-	entityComponentSystem->RegisterSystem<ECS::DeferredRenderSystem>(ECS::ISystem::DEFAULT_EXECUTION_ORDER);
+	entityComponentSystem->RegisterSystem<ECS::TreeNormalsRenderSystem>(ECS::SystemDependencies::Empty());
+
+	ECS::SystemDependencies deferredRenderDependencies{};
+	deferredRenderDependencies.executeAfterThese.insert(static_cast<std::string>(ECS::TreeNormalsRenderSystem::GetSystemName()));
+	deferredRenderDependencies.executeAfterThese.insert(static_cast<std::string>(TransformApplierSystem::GetSystemName()));
+	entityComponentSystem->RegisterSystem<ECS::DeferredRenderSystem>(deferredRenderDependencies);
 #elif defined(OSK_USE_HYBRID_RENDERER)
 	entityComponentSystem->RegisterSystem<ECS::HybridRenderSystem>();
 #elif defined(OSK_USE_GDR_RENDERER)
@@ -159,13 +167,22 @@ void Engine::RegisterBuiltinSystems() {
 #error No hay un renderizador por defecto
 #endif
 
-	entityComponentSystem->RegisterSystem<ECS::PhysicsSystem>(ECS::ISystem::DEFAULT_EXECUTION_ORDER - 2);
+	entityComponentSystem->RegisterSystem<ECS::PhysicsSystem>(SystemDependencies::Empty());
 
-	entityComponentSystem->RegisterSystem<ECS::CollisionSystem>(ECS::ISystem::DEFAULT_EXECUTION_ORDER - 1);
-	entityComponentSystem->RegisterSystem<ECS::PhysicsResolver>(ECS::ISystem::DEFAULT_EXECUTION_ORDER - 1);
+	ECS::SystemDependencies collisionDependencies{};
+	collisionDependencies.executeAfterThese.insert(static_cast<std::string>(PhysicsSystem::GetSystemName()));
+	entityComponentSystem->RegisterSystem<ECS::CollisionSystem>(collisionDependencies);
 
-	entityComponentSystem->RegisterSystem<ECS::SkyboxRenderSystem>(ECS::ISystem::DEFAULT_EXECUTION_ORDER);
-	entityComponentSystem->RegisterSystem<ECS::RenderSystem2D>(ECS::ISystem::DEFAULT_EXECUTION_ORDER);
+	ECS::SystemDependencies collisionResolverDependencies{};
+	collisionResolverDependencies.executeAfterThese.insert(static_cast<std::string>(CollisionSystem::GetSystemName()));
+	entityComponentSystem->RegisterSystem<ECS::PhysicsResolver>(collisionResolverDependencies);
+
+	ECS::SystemDependencies transformApplierDependencies{};
+	transformApplierDependencies.executeAfterThese.insert(static_cast<std::string>(PhysicsResolver::GetSystemName()));
+	entityComponentSystem->RegisterSystem<TransformApplierSystem>(transformApplierDependencies);
+
+	entityComponentSystem->RegisterSystem<ECS::SkyboxRenderSystem>(SystemDependencies::Empty());
+	entityComponentSystem->RegisterSystem<ECS::RenderSystem2D>(SystemDependencies::Empty());
 }
 
 void Engine::RegisterBuiltinEvents() {
@@ -176,6 +193,7 @@ void Engine::RegisterBuiltinEvents() {
 void Engine::RegisterBuiltinVertices() {
 	renderer->GetMaterialSystem()->RegisterVertexType<GRAPHICS::Vertex2D>();
 	renderer->GetMaterialSystem()->RegisterVertexType<GRAPHICS::Vertex3D>();
+	renderer->GetMaterialSystem()->RegisterVertexType<GRAPHICS::PositionOnlyVertex3D>();
 	renderer->GetMaterialSystem()->RegisterVertexType<GRAPHICS::VertexAnim3D>();
 	renderer->GetMaterialSystem()->RegisterVertexType<GRAPHICS::VertexCollisionDebug3D>();
 	renderer->GetMaterialSystem()->RegisterVertexType<GRAPHICS::GdrVertex3D>();
@@ -218,6 +236,11 @@ AUDIO::IAudioApi* Engine::GetAudioApi() {
 	return audioApi.GetPointer();
 }
 
+UuidProvider* Engine::GetUuidProvider() {
+	return uuidProvider.GetPointer();
+}
+
+
 float Engine::GetCurrentTime() {
 	return static_cast<float>(glfwGetTime());
 }
@@ -229,7 +252,7 @@ Version Engine::GetVersion() {
 }
 
 std::string_view Engine::GetBuild() {
-	return "2024.01.26a";
+	return "2024.03.28a";
 }
 
 UIndex64 Engine::GetCurrentGameFrameIndex() {

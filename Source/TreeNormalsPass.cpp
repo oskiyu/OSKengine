@@ -22,7 +22,7 @@ void TreeNormalsPass::Load() {
 	m_materialInstance = m_passMaterial->CreateInstance().GetPointer();
 }
 
-void TreeNormalsPass::RenderLoop(ICommandList* commandList, const DynamicArray<ECS::GameObjectIndex>& objectsToRender, UIndex32 jitterIndex, Vector2ui resolution) {
+void TreeNormalsPass::RenderLoop(ICommandList* commandList, const DynamicArray<ECS::GameObjectIndex>& objectsToRender, GlobalMeshMapping* meshMapping, UIndex32 jitterIndex, Vector2ui resolution) {
 	commandList->StartDebugSection("Tree Normals Pass", Color::Red);
 
 	const auto frustum =
@@ -43,14 +43,14 @@ void TreeNormalsPass::RenderLoop(ICommandList* commandList, const DynamicArray<E
 		const Transform3D& transform = Engine::GetEcs()->GetComponent<Transform3D>(obj);
 
 		// Actualizamos el modelo 3D, si es necesario.
-		if (previousVertexBuffer != model.GetModel()->GetVertexBuffer()) {
-			commandList->BindVertexBuffer(*model.GetModel()->GetVertexBuffer());
-			previousVertexBuffer = model.GetModel()->GetVertexBuffer();
+		if (previousVertexBuffer != &model.GetModel()->GetVertexBuffer()) {
+			commandList->BindVertexBuffer(model.GetModel()->GetVertexBuffer());
+			previousVertexBuffer = &model.GetModel()->GetVertexBuffer();
 		}
 
-		if (previousIndexBuffer != model.GetModel()->GetIndexBuffer()) {
-			commandList->BindIndexBuffer(*model.GetModel()->GetIndexBuffer());
-			previousIndexBuffer = model.GetModel()->GetIndexBuffer();
+		if (previousIndexBuffer != &model.GetModel()->GetIndexBuffer()) {
+			commandList->BindIndexBuffer(model.GetModel()->GetIndexBuffer());
+			previousIndexBuffer = &model.GetModel()->GetIndexBuffer();
 		}
 
 		for (UIndex32 i = 0; i < model.GetModel()->GetMeshes().GetSize(); i++) {
@@ -62,7 +62,9 @@ void TreeNormalsPass::RenderLoop(ICommandList* commandList, const DynamicArray<E
 
 			commandList->PushMaterialConstants("model", modelPushConstants);
 
-			commandList->DrawSingleMesh(mesh.GetFirstIndexId(), mesh.GetNumberOfIndices());
+			commandList->DrawSingleMesh(
+				mesh.GetFirstIndexIdx(), 
+				mesh.GetNumIndices());
 		}
 	}
 

@@ -51,23 +51,14 @@ void ShadowMap::Create(const Vector2ui& imageSize) {
 	m_depthArrayAttachment = memAllocator->CreateImage(imageInfo).GetPointer();
 	m_depthArrayAttachment->SetDebugName("Shadow Map Depth");
 
-	m_shadowsGenMaterial = Engine::GetRenderer()->GetMaterialSystem()->LoadMaterial("Resources/Materials/ShadowMapping/material_shadows.json");
-	m_shadowsGenAnimMaterial = Engine::GetRenderer()->GetMaterialSystem()->LoadMaterial("Resources/Materials/ShadowMapping/material_shadows_anim.json");
-	m_shadowsGenMaterialInstance = m_shadowsGenMaterial->CreateInstance().GetPointer();
-
-	std::array<const GpuBuffer*, NUM_RESOURCES_IN_FLIGHT> lightUbos{};
 	for (UIndex32 i = 0; i < NUM_RESOURCES_IN_FLIGHT; i++) {
 		lightUniformBuffer[i] = Engine::GetRenderer()->GetAllocator()->CreateUniformBuffer(sizeof(glm::mat4) * 4 + sizeof(Vector4f)).GetPointer();
-		lightUbos[i] = lightUniformBuffer[i].GetPointer();
 	}
-
-	m_shadowsGenMaterialInstance->GetSlot("global")->SetUniformBuffers("dirLight", lightUbos);
-	m_shadowsGenMaterialInstance->GetSlot("global")->FlushUpdate();
 }
 
 void ShadowMap::SetDirectionalLight(const DirectionalLight& dirLight) {
-	OSK_ASSERT(m_shadowsGenMaterial != nullptr, InvalidObjectStateException("Se debe crear el ShadowMap antes de poder establecer su luz direccional."));
-	OSK_ASSERT(m_shadowsGenMaterialInstance.HasValue(), InvalidObjectStateException("Se debe crear el ShadowMap antes de poder establecer su luz direccional."));
+	// OSK_ASSERT(m_shadowsGenMaterial != nullptr, InvalidObjectStateException("Se debe crear el ShadowMap antes de poder establecer su luz direccional."));
+	// OSK_ASSERT(m_shadowsGenMaterialInstance.HasValue(), InvalidObjectStateException("Se debe crear el ShadowMap antes de poder establecer su luz direccional."));
 
 	m_lightDirection = 
 		Vector3f(dirLight.directionAndIntensity.x, dirLight.directionAndIntensity.y, dirLight.directionAndIntensity.Z).GetNormalized();
@@ -157,17 +148,6 @@ GpuImage* ShadowMap::GetColorImage() {
 	return m_unusedColorArrayAttachment.GetPointer();
 }
 
-Material* ShadowMap::GetShadowsMaterial(ModelType modelType) {
-	if (modelType == ModelType::STATIC_MESH)
-		return m_shadowsGenMaterial;
-	else
-		return m_shadowsGenAnimMaterial;
-}
-
-MaterialInstance* ShadowMap::GetShadowsMaterialInstance() {
-	return m_shadowsGenMaterialInstance.GetPointer();
-}
-
 DynamicArray<GpuBuffer*> ShadowMap::GetDirLightMatrixUniformBuffers() {
 	auto output = DynamicArray<GpuBuffer*>::CreateResizedArray(NUM_RESOURCES_IN_FLIGHT);
 	for (UIndex32 i = 0; i < NUM_RESOURCES_IN_FLIGHT; i++)
@@ -187,6 +167,16 @@ UIndex32 ShadowMap::GetNumCascades() const {
 void ShadowMap::SetSplits(const std::array<float, 4>& splits) {
 	m_splits = splits;
 	m_splitsVec = Vector4f(splits[0], splits[1], splits[2], splits[3]);
+}
+
+std::array<const GpuBuffer*, NUM_RESOURCES_IN_FLIGHT> ShadowMap::GetGpuBuffers() const {
+	std::array<const GpuBuffer*, NUM_RESOURCES_IN_FLIGHT> output{};
+
+	for (UIndex64 i = 0; i < output.size(); i++) {
+		output[i] = lightUniformBuffer[i].GetPointer();
+	}
+
+	return output;
 }
 
 DynamicArray<Vector3f> ShadowMap::GetFrustumCorners(const glm::mat4& cameraMatrix) {

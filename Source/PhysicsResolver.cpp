@@ -13,10 +13,10 @@ using namespace OSK;
 using namespace OSK::ECS;
 using namespace OSK::COLLISION;
 
-void PhysicsResolver::OnTick(TDeltaTime deltaTime) {
+void PhysicsResolver::Execute(TDeltaTime deltaTime, std::span<const CollisionEvent> events) {
 	const EntityComponentSystem* ecs = Engine::GetEcs();
 
-	for (const auto& event : Engine::GetEcs()->GetEventQueue<CollisionEvent>()) {
+	for (const auto& event : events) {
 		GameObjectIndex first  = event.firstEntity;
 		GameObjectIndex second = event.secondEntity;
 

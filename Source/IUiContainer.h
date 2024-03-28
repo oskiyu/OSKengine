@@ -24,8 +24,19 @@ namespace OSK::UI {
 
 	public:
 
-		inline GRAPHICS::Sprite& GetSprite() { return sprite; }
-		inline const GRAPHICS::Sprite& GetSprite() const { return sprite; }
+		inline GRAPHICS::Sprite& GetSprite() { 
+			if (!m_sprite.HasValue()) {
+				m_sprite = new GRAPHICS::Sprite;
+			}
+			return m_sprite.GetValue(); 
+		}
+
+		inline const GRAPHICS::Sprite& GetSprite() const {
+			if (!m_sprite.HasValue()) {
+				m_sprite = new GRAPHICS::Sprite;
+			}
+			return m_sprite.GetValue();
+		}
 
 		/// @brief Ajusta el tamaño del contenedor, para que sea el justo y
 		/// necesario para que quepan todos los elementos hijos.
@@ -68,7 +79,7 @@ namespace OSK::UI {
 
 	protected:
 
-		GRAPHICS::Sprite sprite{};
+		mutable UniquePtr<GRAPHICS::Sprite> m_sprite{};
 
 		DynamicArray<SharedPtr<IElement>> children;
 		std::unordered_map<std::string, IElement*> childrenTable{};

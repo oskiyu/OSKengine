@@ -96,6 +96,10 @@ namespace OSK::GRAPHICS {
 		USize64 GetAllocatedSize() const;
 		USize64 GetOffsetFromBlock() const;
 
+		/// @pre La memoria debe haber sido previamente mapeada mediante MapMemory().
+		/// @return Puntero al inicio de la región de memoria mapeada.
+		const TByte* GetMappedData() const { return static_cast<const TByte*>(mappedData); }
+
 	protected:
 
 		IGpuMemorySubblock(IGpuMemoryBlock* owner, USize64 size, USize64 offset);

@@ -272,63 +272,6 @@ void HybridRenderSystem::Resize(const Vector2ui& size) {
 }
 
 
-void HybridRenderSystem::GBufferRenderLoop(GRAPHICS::ICommandList* commandList, ASSETS::ModelType modelType) {
-	const GpuBuffer* previousVertexBuffer = nullptr;
-	const GpuBuffer* previousIndexBuffer = nullptr;
-
-	for (GameObjectIndex obj : GetObjects()) {
-		const ModelComponent3D& model = Engine::GetEcs()->GetComponent<ModelComponent3D>(obj);
-		const Transform3D& transform = Engine::GetEcs()->GetComponent<Transform3D>(obj);
-
-		if (modelType != model.GetModel()->GetType())
-			continue;
-
-		if (modelType == ModelType::STATIC_MESH)
-			commandList->BindMaterial(*gbufferMaterial);
-		else
-			commandList->BindMaterial(*animatedGbufferMaterial);
-
-		// Actualizamos el modelo 3D, si es necesario.
-		if (previousVertexBuffer != model.GetModel()->GetVertexBuffer()) {
-			commandList->BindVertexBuffer(*model.GetModel()->GetVertexBuffer());
-			previousVertexBuffer = model.GetModel()->GetVertexBuffer();
-		}
-		if (previousIndexBuffer != model.GetModel()->GetIndexBuffer()) {
-			commandList->BindIndexBuffer(*model.GetModel()->GetIndexBuffer());
-			previousIndexBuffer = model.GetModel()->GetIndexBuffer();
-		}
-
-		if (modelType == ModelType::ANIMATED_MODEL)
-			commandList->BindMaterialSlot(*model.GetModel()->GetAnimator()->GetMaterialInstance()->GetSlot("animation"));
-
-		for (UIndex32 i = 0; i < model.GetModel()->GetMeshes().GetSize(); i++) {
-			// commandList->BindMaterialSlot(*model.GetMeshMaterialInstance(i)->GetSlot("texture"));
-
-			const glm::mat4 previousModelMatrix = previousModelMatrices.contains(obj)
-				? previousModelMatrices.at(obj) : glm::mat4(1.0f);
-			/*
-			const Vector4f materialInfo{
-				model.GetModel()->GetMetadata().meshesMetadata[i].metallicFactor,
-				model.GetModel()->GetMetadata().meshesMetadata[i].roughnessFactor,
-				0.0f,
-				0.0f
-			};
-			struct {
-				glm::mat4 model;
-				glm::mat4 previousModel;
-				Vector4f materialInfo;
-			} modelConsts{
-				.model = transform.GetAsMatrix(),
-				.previousModel = previousModelMatrix,
-				.materialInfo = materialInfo
-			};
-			commandList->PushMaterialConstants("model", modelConsts);*/
-
-			commandList->DrawSingleMesh(model.GetModel()->GetMeshes()[i].GetFirstIndexId(), model.GetModel()->GetMeshes()[i].GetNumberOfIndices());
-		}
-	}
-}
-
 void HybridRenderSystem::RenderGBuffer(GRAPHICS::ICommandList* commandList) {
 	// Sincronización con todos los targets de color sobre los que vamos a escribir.
 	for (const auto type : GBuffer::ColorTargetTypes)
@@ -344,8 +287,14 @@ void HybridRenderSystem::RenderGBuffer(GRAPHICS::ICommandList* commandList) {
 	commandList->BindMaterial(*gbufferMaterial);
 	commandList->BindMaterialSlot(*globalGbufferMaterialInstance->GetSlot("global"));
 
-	GBufferRenderLoop(commandList, ModelType::STATIC_MESH);
-	GBufferRenderLoop(commandList, ModelType::ANIMATED_MODEL);
+	for (auto& pass : m_shaderPasses.GetAllPasses()) {
+		pass->RenderLoop(
+			commandList,
+			m_shaderPasses.GetCompatibleObjects(pass->GetTypeName()),
+			&m_meshMapping,
+			0,
+			m_renderTarget.GetSize());
+	}
 
 	commandList->EndGraphicsRenderpass();
 
@@ -490,7 +439,7 @@ void HybridRenderSystem::Resolve(GRAPHICS::ICommandList* cmdList) {
 		GpuBarrierInfo(GpuCommandStage::FRAGMENT_SHADER, GpuAccessStage::SHADER_READ));
 }
 
-void HybridRenderSystem::Render(GRAPHICS::ICommandList* commandList) {
+void HybridRenderSystem::Render(GRAPHICS::ICommandList* commandList, std::span<const ECS::GameObjectIndex> objects) {
 	const UIndex32 resourceIndex = Engine::GetRenderer()->GetCurrentResourceIndex();
 
 	topLevelAccelerationStructures[resourceIndex]->Update(commandList);
@@ -520,13 +469,9 @@ void HybridRenderSystem::Render(GRAPHICS::ICommandList* commandList) {
 	RenderShadows(commandList);
 	Resolve(commandList);
 
-	for (const GameObjectIndex obj : GetObjects()) {
+	for (const GameObjectIndex obj : objects) {
 		previousModelMatrices[obj] = Engine::GetEcs()->GetComponent<Transform3D>(obj).GetAsMatrix();
 	}
-}
-
-void HybridRenderSystem::OnTick(TDeltaTime deltaTime) {
-
 }
 
 

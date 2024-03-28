@@ -44,4 +44,9 @@ namespace OSK::GRAPHICS {
 		USize32 gdrIndex = 0;
 	};
 
+	struct PositionOnlyVertex3D {
+		OSK_VERTEX_TYPE_REG("OSK::PositionOnlyVertex3D");
+		Vector3f position = Vector3f::Zero;
+	};
+
 }

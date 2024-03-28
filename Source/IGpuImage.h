@@ -71,7 +71,8 @@ namespace OSK::GRAPHICS {
 			USize32 numLayers, 
 			Format format, 
 			USize32 numSamples,
-			GpuImageSamplerDesc samplerDesc);
+			GpuImageSamplerDesc samplerDesc,
+			GpuImageTiling tiling);
 
 		virtual ~GpuImage() override;
 
@@ -216,6 +217,8 @@ namespace OSK::GRAPHICS {
 		/// @throws ImageViewCreationException Si hay algún error al crear el view.
 		virtual OwnedPtr<IGpuImageView> CreateView(const GpuImageViewConfig& viewConfig) const = 0;
 
+		inline GpuImageTiling GetTiling() const { return m_tiling; }
+
 	private:
 
 		GpuBarrierInfo m_currentBarrier{};
@@ -239,6 +242,7 @@ namespace OSK::GRAPHICS {
 		GpuImageDimension m_dimension;
 		GpuImageUsage m_usage;
 		USize32 m_numLayers = 0;
+		GpuImageTiling m_tiling = GpuImageTiling::OPTIMAL;
 
 	};
 

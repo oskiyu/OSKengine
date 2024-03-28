@@ -1,13 +1,15 @@
 #pragma once
 
-#include "IPureSystem.h"
+#include "IIteratorSystem.h"
 
 #include "Vector2.hpp"
 #include "UniquePtr.hpp"
 #include "SharedPtr.hpp"
 #include "RenderTarget.h"
 
-#include "IRenderPass.h"
+#include "IShaderPass.h"
+#include "MeshMapping.h"
+
 
 namespace OSK::GRAPHICS {
 	class ICommandList;
@@ -15,12 +17,13 @@ namespace OSK::GRAPHICS {
 
 namespace OSK::ECS {
 		
+
 	/// @brief 
 	/// Clase base para sistemas de renderizado.
 	/// 
 	/// Cada sistema de renderizado renderizará en una imagen propia
 	/// (IRenderSystem::GetSystemTargetImage).
-	class OSKAPI_CALL IRenderSystem : public IPureSystem {
+	class OSKAPI_CALL IRenderSystem : public IIteratorSystem {
 
 	public:
 
@@ -28,9 +31,20 @@ namespace OSK::ECS {
 
 		virtual void OnCreate() override;
 
+		/// @brief Función que se ejecuta antes de comenzar el proceso de objetos.
+		/// @param commandList Lista de comandos.
+		virtual void OnRenderStart(GRAPHICS::ICommandList* commandList);
+
 		/// @brief Comando específico del sistema, para ejecutar el renderizado.
 		/// @pre La lista de comandos debe estar abierta.
-		virtual void Render(GRAPHICS::ICommandList* commandList) = 0;
+		virtual void Render(
+			GRAPHICS::ICommandList* commandList, 
+			std::span<const ECS::GameObjectIndex> objects) = 0;
+
+		/// @brief Función que se ejecuta después de finalizar el proceso de objetos.
+		/// @param commandList Lista de comandos.
+		virtual void OnRenderEnd(GRAPHICS::ICommandList* commandList);
+
 
 		/// @brief Cambia la resolución de la imagen de render target.
 		/// 
@@ -60,19 +74,20 @@ namespace OSK::ECS {
 		/// @param pass Pase de renderizado.
 		/// @pre No debe existir un pase de renderizado previo con el mismo nombre
 		/// que @p pass.
-		virtual void AddRenderPass(OwnedPtr<GRAPHICS::IRenderPass> pass);
+		virtual void AddShaderPass(OwnedPtr<GRAPHICS::IShaderPass> pass);
 
-		/// @param name Nombre del pase de renderizado.
-		/// @return True si contiene un pase de renderizado con el nombre @p name.
-		bool HasRenderPass(std::string_view name) const;
+		/// @brief Añade un nuevo pase de renderizado de sombras.
+		/// @param pass Pase de renderizado de sombras.
+		/// @pre No debe existir un pase de renderizado de sombras previo con el mismo nombre
+		/// que @p pass.
+		virtual void AddShadowsPass(OwnedPtr<GRAPHICS::IShaderPass> pass);
 
-		/// @param name Nombre del pase de renderizado.
-		/// @return Pase de renderizado.
-		/// @pre Debe existir un pase de renderizado con nombre @p name.
-		GRAPHICS::IRenderPass* GetRenderPass(std::string_view name);
+		GRAPHICS::IShaderPass* GetShaderPass(std::string_view name);
+		const GRAPHICS::IShaderPass* GetShaderPass(std::string_view name) const;
+
 
 		/// @brief Actualiza las listas de objetos asignados a cada pase.
-		virtual void UpdatePerPassObjectLists();
+		virtual void UpdatePerPassObjectLists(std::span<const ECS::GameObjectIndex> objects);
 
 	protected:
 
@@ -82,19 +97,16 @@ namespace OSK::ECS {
 		/// @pre commandList no debe ser null.
 		void SetupViewport(GRAPHICS::ICommandList* commandList);
 
+
 		// -- PASES -- //
 
-		/// @brief Pases de renderizado.
-		DynamicArray<UniquePtr<GRAPHICS::IRenderPass>> m_renderPasses;
-
-		/// @brief Mapa nombre -> pase de renderizado.
-		std::unordered_map<std::string, GRAPHICS::IRenderPass*, StringHasher, std::equal_to<>> m_renderPassesTable;
-
-		/// @brief Objetos compatibles con cada pase.
-		std::unordered_map<std::string, DynamicArray<GameObjectIndex>, StringHasher, std::equal_to<>> m_objectsPerPass;
+		GRAPHICS::ShaderPassTable m_shaderPasses{};
+		GRAPHICS::ShaderPassTable m_shadowsPasses{};
 
 
 		GRAPHICS::RenderTarget m_renderTarget;
+
+		GRAPHICS::GlobalMeshMapping m_meshMapping = {};
 
 	};
 

@@ -19,8 +19,8 @@
 using namespace OSK;
 using namespace OSK::GRAPHICS;
 
-GpuImageVk::GpuImageVk(const Vector3ui& size, GpuImageDimension dimension, GpuImageUsage usage, USize32 numLayers, Format format, USize32 numSamples, GpuImageSamplerDesc samplerDesc)
-	: GpuImage(size, dimension, usage, numLayers, format, numSamples, samplerDesc) {
+GpuImageVk::GpuImageVk(const Vector3ui& size, GpuImageDimension dimension, GpuImageUsage usage, USize32 numLayers, Format format, USize32 numSamples, GpuImageSamplerDesc samplerDesc, GpuImageTiling tiling)
+	: GpuImage(size, dimension, usage, numLayers, format, numSamples, samplerDesc, tiling) {
 
 }
 
@@ -53,7 +53,7 @@ void GpuImageVk::CreateVkImage() {
 	imageInfo.arrayLayers = GetNumLayers();
 
 	imageInfo.format = GetFormatVk(GetFormat());
-	imageInfo.tiling = VK_IMAGE_TILING_OPTIMAL;
+	imageInfo.tiling = GetTiling() == GpuImageTiling::OPTIMAL ? VK_IMAGE_TILING_OPTIMAL : VK_IMAGE_TILING_LINEAR;
 	imageInfo.initialLayout = VK_IMAGE_LAYOUT_UNDEFINED;
 	imageInfo.usage = GetGpuImageUsageVk(GetUsage());
 	imageInfo.samples = (VkSampleCountFlagBits)GetNumSamples();

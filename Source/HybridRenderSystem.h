@@ -37,9 +37,7 @@ namespace OSK::ECS {
 		void CreateTargetImage(const Vector2ui& size) override;
 		void Resize(const Vector2ui& size) override;
 
-		void Render(GRAPHICS::ICommandList* commandList) override;
-
-		void OnTick(TDeltaTime deltaTime) override;
+		void Render(GRAPHICS::ICommandList* commandList, std::span<const ECS::GameObjectIndex> objects) override;
 
 		void AddBlas(GRAPHICS::IBottomLevelAccelerationStructure* blas);
 
@@ -75,7 +73,6 @@ namespace OSK::ECS {
 
 		// Renders
 		void RenderGBuffer(GRAPHICS::ICommandList* cmdList);
-		void GBufferRenderLoop(GRAPHICS::ICommandList* cmdList, ASSETS::ModelType modelType);
 		void RenderShadows(GRAPHICS::ICommandList* cmdList);
 		void Resolve(GRAPHICS::ICommandList* cmdList);
 

@@ -32,6 +32,7 @@ layout (set = 0, binding = 0) uniform Camera {
 layout (set = 1, binding = 2) uniform MaterialInfo{
     vec4 emissiveColor;
     vec2 roughnessMetallic;
+    int hasNormalTexture;
 } materialInfo;
 
 layout (push_constant) uniform Model {
@@ -56,9 +57,12 @@ void main() {
 
     outVelocity = diff;
 
-    vec3 normal = texture(normalTexture, inTexCoords).xyz;
-    normal = normal * 2.0 - 1.0;
-    normal = normalize(inTangentMatrix * normal);
+    vec3 normal = inNormal;
+    if (materialInfo.hasNormalTexture == 1) {
+        normal = texture(normalTexture, inTexCoords).xyz;
+        normal = normal * 2.0 - 1.0;
+        normal = normalize(inTangentMatrix * normal);
+    }
     
     const vec3 view = inWorldPosition.xyz - camera.cameraPos;
 

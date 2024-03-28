@@ -4,18 +4,26 @@ using namespace OSK;
 using namespace OSK::GRAPHICS;
 
 
-void PerMeshData::_SetMaterialInstance(OwnedPtr<MaterialInstance> instance) {
+void LocalPerMeshData::_SetMaterialInstance(OwnedPtr<MaterialInstance> instance) {
 	m_materialInstance = instance.GetPointer();
 }
 
-void PerMeshData::_SetBlas(OwnedPtr<IBottomLevelAccelerationStructure> blas) {
-	m_bottomLevelAS = blas.GetPointer();
+void LocalPerMeshData::_SetMaterialBuffer(OwnedPtr<GpuBuffer> materialBuffer) {
+	m_materialBuffer = materialBuffer.GetPointer();
 }
 
-MaterialInstance* PerMeshData::GetMaterialInstance() {
+MaterialInstance* LocalPerMeshData::GetMaterialInstance() {
 	return m_materialInstance.GetPointer();
 }
 
-const MaterialInstance* PerMeshData::GetMaterialInstance() const {
+const MaterialInstance* LocalPerMeshData::GetMaterialInstance() const {
 	return m_materialInstance.GetPointer();
+}
+
+GpuBuffer* LocalPerMeshData::GetMaterialBuffer() {
+	return m_materialBuffer.GetPointer();
+}
+
+const GpuBuffer* LocalPerMeshData::GetMaterialBuffer() const {
+	return m_materialBuffer.GetPointer();
 }

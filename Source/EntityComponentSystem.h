@@ -54,6 +54,10 @@ namespace OSK::ECS {
 		/// última ejecución de esta función.
 		void OnTick(TDeltaTime deltaTime);
 
+		/// @brief Ejecuta el renderizado de los sistemas de renderizado.
+		/// @param commandList Lista de comandos.
+		void OnRender(GRAPHICS::ICommandList* commandList);
+
 #pragma region Components
 
 		/// @brief Registra un tipo de componente.
@@ -202,17 +206,21 @@ namespace OSK::ECS {
 
 		/// @brief Registra y almacena un nuevo sistema del tipo dado.
 		/// @tparam TSystem Tipo de sistema.
+		/// @param dependencies dependencias del sistema.
 		/// @return Sistema creado.
 		/// 
 		/// @pre @p TSystem debe cumplir con IsEcsSystem<TSystem>.
 		/// @pre El sistema no debe haber sido previamente registrado.
+		/// @pre No debe haber ninguna dependencia cíclica al incluir el sistema
+		/// @p system.
 		/// 
+		/// @throws SystemCyclicDependency si hay una dependencia cíclica.
 		/// @throws SystemAlreadyRegisteredException si el sistema ya habia sido previamente registrado.
 		template <typename TSystem> requires IsEcsSystem<TSystem>
-		TSystem* RegisterSystem(int order) {
+		TSystem* RegisterSystem(const SystemDependencies& dependencies) {
 			OSK_ASSERT(!this->systemManager->ContainsSystem<TSystem>(), SystemAlreadyRegisteredException(TSystem::GetSystemName()))
 
-			TSystem* output = systemManager->RegisterSystem<TSystem>(order);
+			TSystem* output = systemManager->RegisterSystem<TSystem>(dependencies);
 
 			((ISystem*)output)->OnCreate();
 

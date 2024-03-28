@@ -9,6 +9,7 @@ namespace OSK::GRAPHICS {
 
 		alignas(16) Color emissiveColor = Color::Black;
 		alignas(16) Vector2f roughnessMetallic = Vector2f::Zero;
+		alignas(16) int hasNormalTexture = 0;
 
 	};
 

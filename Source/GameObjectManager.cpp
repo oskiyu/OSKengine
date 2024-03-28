@@ -22,8 +22,6 @@ GameObjectIndex GameObjectManager::CreateGameObject() {
 
 	m_nextIndex++;
 
-	Engine::GetLogger()->InfoLog(std::format("New object: {}", output));
-
 	return output;
 }
 
@@ -33,8 +31,6 @@ void GameObjectManager::DestroyGameObject(GameObjectIndex* obj) {
 
 	m_signatures.erase(*obj);
 	m_freeObjectIndices.Push(*obj);
-
-	Engine::GetLogger()->InfoLog(std::format("Destroyed object: {}", *obj));
 
 	*obj = 0;
 }
@@ -54,11 +50,5 @@ Signature GameObjectManager::GetSignature(GameObjectIndex obj) const {
 }
 
 bool GameObjectManager::IsGameObjectAlive(GameObjectIndex obj) const {
-	if (obj >= m_nextIndex)
-		return true;
-
-	if (m_freeObjectIndices.ContainsElement(obj))
-		return true;
-
-	return false;
+	return m_signatures.contains(obj);
 }

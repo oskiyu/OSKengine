@@ -78,7 +78,7 @@ void ColliderRenderSystem::CreateTargetImage(const Vector2ui& size) {
 	m_renderTarget.Create(size, { colorInfo }, depthInfo);
 }
 
-void ColliderRenderSystem::Render(GRAPHICS::ICommandList* commandList) {
+void ColliderRenderSystem::Render(GRAPHICS::ICommandList* commandList, std::span<const ECS::GameObjectIndex> objects) {
 	if (cameraObject == EMPTY_GAME_OBJECT)
 		return;
 
@@ -121,7 +121,7 @@ void ColliderRenderSystem::Render(GRAPHICS::ICommandList* commandList) {
 		singleContactPoints.Insert(ev.collisionInfo.GetSingleContactPoint());
 	}
 
-	for (GameObjectIndex gameObject : GetObjects()) {
+	for (GameObjectIndex gameObject : objects) {
 		commandList->BindMaterial(*material);
 		commandList->BindMaterialSlot(*materialInstance->GetSlot("global"));
 
@@ -156,18 +156,18 @@ void ColliderRenderSystem::Render(GRAPHICS::ICommandList* commandList) {
 			renderInfo.modelMatrix = topLevelTransform.GetAsMatrix();
 			commandList->PushMaterialConstants("pushConstants", renderInfo);
 
-			commandList->BindVertexBuffer(*cubeModel.GetAsset()->GetVertexBuffer());
-			commandList->BindIndexBuffer(*cubeModel.GetAsset()->GetIndexBuffer());
-			commandList->DrawSingleInstance(cubeModel.GetAsset()->GetIndexCount());
+			commandList->BindVertexBuffer(cubeModel.GetAsset()->GetModel().GetVertexBuffer());
+			commandList->BindIndexBuffer(cubeModel.GetAsset()->GetModel().GetIndexBuffer());
+			commandList->DrawSingleInstance(cubeModel.GetAsset()->GetModel().GetTotalIndexCount());
 		} else
 		if (auto* sphere = dynamic_cast<const SphereCollider*>(topLevelCollider)) {
 			topLevelTransform.SetScale(Vector3f(sphere->GetRadius()));
 			renderInfo.modelMatrix = topLevelTransform.GetAsMatrix();
 			commandList->PushMaterialConstants("pushConstants", renderInfo);
 
-			commandList->BindVertexBuffer(*sphereModel.GetAsset()->GetVertexBuffer());
-			commandList->BindIndexBuffer(*sphereModel.GetAsset()->GetIndexBuffer());
-			commandList->DrawSingleInstance(sphereModel.GetAsset()->GetIndexCount());
+			commandList->BindVertexBuffer(sphereModel.GetAsset()->GetModel().GetVertexBuffer());
+			commandList->BindIndexBuffer(sphereModel.GetAsset()->GetModel().GetIndexBuffer());
+			commandList->DrawSingleInstance(sphereModel.GetAsset()->GetModel().GetTotalIndexCount());
 		}
 
 		if (bottomLevelVertexBuffers.contains(gameObject)) {
@@ -193,8 +193,8 @@ void ColliderRenderSystem::Render(GRAPHICS::ICommandList* commandList) {
 		}
 	}
 
-	commandList->BindVertexBuffer(*cubeModel.GetAsset()->GetVertexBuffer());
-	commandList->BindIndexBuffer(*cubeModel.GetAsset()->GetIndexBuffer());
+	commandList->BindVertexBuffer(cubeModel.GetAsset()->GetModel().GetVertexBuffer());
+	commandList->BindIndexBuffer(cubeModel.GetAsset()->GetModel().GetIndexBuffer());
 
 	commandList->BindMaterial(*pointMaterial);
 	commandList->BindMaterialSlot(*pointsMaterialInstance->GetSlot("global"));

@@ -53,12 +53,12 @@ void IContainer::Render(SpriteRenderer* renderer, Vector2f parentPosition) const
 	if (!IsVisible()) 
 		return;
 
-	if (sprite.GetView()) {
+	if (m_sprite.HasValue() && m_sprite->GetView()) {
 		Transform2D transform(EMPTY_GAME_OBJECT);
 		transform.SetPosition(GetRelativePosition() + parentPosition);
 		transform.SetScale(GetSize());
 
-		renderer->Draw(sprite, transform);
+		renderer->Draw(m_sprite.GetValue(), transform);
 	}
 
 	for (const auto& child : children)

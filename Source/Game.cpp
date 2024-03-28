@@ -42,7 +42,11 @@ void IGame::OnCreate() {
 	// Sobreescrito en clase Game del juego.
 }
 
-void IGame::OnTick(TDeltaTime) {
+void IGame::OnTick_BeforeEcs(TDeltaTime) {
+	// Sobreescrito en clase Game del juego.
+}
+
+void IGame::OnTick_AfterEcs(TDeltaTime) {
 	// Sobreescrito en clase Game del juego.
 }
 
@@ -108,12 +112,11 @@ void IGame::_Run() {
 		Engine::GetInput()->Update();
 		Engine::GetInputManager()->_Update(*Engine::GetInput());
 
+		OnTick_BeforeEcs(deltaTime);
 		Engine::GetEcs()->OnTick(deltaTime);
-		OnTick(deltaTime);
+		OnTick_AfterEcs(deltaTime);
 
-		for (auto i : Engine::GetEcs()->GetRenderSystems())
-			if (i->IsActive())
-				i->Render(Engine::GetRenderer()->GetGraphicsCommandList());
+		Engine::GetEcs()->OnRender(Engine::GetRenderer()->GetGraphicsCommandList());
 
 		BuildFrame();
 

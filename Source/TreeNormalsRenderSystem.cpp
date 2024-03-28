@@ -28,7 +28,7 @@ TreeNormalsRenderSystem::TreeNormalsRenderSystem() {
 	signature.SetTrue(Engine::GetEcs()->GetComponentType<ModelComponent3D>());
 	_SetSignature(signature);
 
-	AddRenderPass(new TreeNormalsPass());
+	AddShaderPass(new TreeNormalsPass());
 }
 
 void TreeNormalsRenderSystem::CreateBuffers() {
@@ -45,7 +45,7 @@ void TreeNormalsRenderSystem::Initialize(GameObjectIndex camera) {
 	const GpuImageViewConfig viewConfig = GpuImageViewConfig::CreateSampled_Default();
 	const GpuImageViewConfig cubemapConfig = GpuImageViewConfig::CreateSampled_Cubemap();
 
-	for (auto& pass : m_renderPasses) {
+	for (auto& pass : m_shaderPasses.GetAllPasses()) {
 		pass->Load();
 		pass->SetCamera(camera);
 	}
@@ -57,13 +57,13 @@ void TreeNormalsRenderSystem::Initialize(GameObjectIndex camera) {
 	for (UIndex64 i = 0; i < NUM_RESOURCES_IN_FLIGHT; i++)
 		cameraBuffers[i] = m_cameraBuffers[i].GetPointer();
 
-	auto* materialInstance = GetRenderPass("tree_normals_pass")->GetMaterialInstance();
+	auto* materialInstance = m_shaderPasses.GetShaderPass("tree_normals_pass")->GetMaterialInstance();
 	materialInstance->GetSlot("global")->SetUniformBuffers("camera", cameraBuffers);
 	materialInstance->GetSlot("global")->FlushUpdate();
 }
 
-void TreeNormalsRenderSystem::AddRenderPass(OwnedPtr<GRAPHICS::IRenderPass> pass) {
-	IRenderSystem::AddRenderPass(pass);
+void TreeNormalsRenderSystem::AddShaderPass(OwnedPtr<GRAPHICS::IShaderPass> pass) {
+	IRenderSystem::AddShaderPass(pass);
 
 	pass->SetCamera(m_cameraObject);
 	pass->Load();
@@ -84,7 +84,7 @@ void TreeNormalsRenderSystem::CreateTargetImage(const Vector2ui& size) {
 	m_renderTarget.Create(size, { colorAttachment }, depthAttachment);
 }
 
-void TreeNormalsRenderSystem::Render(ICommandList* commandList) {
+void TreeNormalsRenderSystem::Render(ICommandList* commandList, std::span<const ECS::GameObjectIndex> objects) {
 	const UIndex32 resourceIndex = Engine::GetRenderer()->GetCurrentResourceIndex();
 
 	const CameraComponent3D& camera = Engine::GetEcs()->GetComponent<CameraComponent3D>(m_cameraObject);
@@ -101,7 +101,7 @@ void TreeNormalsRenderSystem::Render(ICommandList* commandList) {
 	m_cameraBuffers[resourceIndex]->Write(currentCameraInfo);
 	m_cameraBuffers[resourceIndex]->Unmap();
 
-	UpdatePerPassObjectLists();
+	UpdatePerPassObjectLists(objects);
 
 	// Pase
 	commandList->StartDebugSection("Tree Normals", Color::Red);
@@ -109,9 +109,9 @@ void TreeNormalsRenderSystem::Render(ICommandList* commandList) {
 	commandList->BeginGraphicsRenderpass(&m_renderTarget, Color::Black * 0.0f);
 	SetupViewport(commandList);
 
-	for (auto& pass : m_renderPasses) {
-		const auto& objectList = m_objectsPerPass.find(pass->GetTypeName())->second;
-		pass->RenderLoop(commandList, objectList, 0 /*TODO*/, m_renderTarget.GetSize());
+	for (auto& pass : m_shaderPasses.GetAllPasses()) {
+		const auto& objectList = m_shaderPasses.GetCompatibleObjects(pass->GetTypeName());
+		pass->RenderLoop(commandList, objectList, &m_meshMapping, 0 /*TODO*/, m_renderTarget.GetSize());
 	}
 
 	commandList->EndGraphicsRenderpass(false);

@@ -9,8 +9,6 @@
 
 namespace OSK::GRAPHICS {
 
-	class Animator;
-
 	/// @brief Indica cómo aplicar una animación a un modelo animado.
 	struct AnimationSkin {
 

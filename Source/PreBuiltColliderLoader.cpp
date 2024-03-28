@@ -15,7 +15,6 @@ using namespace OSK::COLLISION;
 
 void PreBuiltColliderLoader::Load(const std::string& assetFilePath, PreBuiltCollider* asset) {
 	OwnedPtr<COLLISION::Collider> collider = new COLLISION::Collider();
-	m_buildingCollider = collider.GetPointer();
 
 	// Asset file.
 	const nlohmann::json assetInfo = ValidateDescriptionFile(assetFilePath);
@@ -24,44 +23,41 @@ void PreBuiltColliderLoader::Load(const std::string& assetFilePath, PreBuiltColl
 	asset->SetName(assetInfo["name"]);
 
 	// Loading
-	m_modelTransform = glm::mat4(1.0f);
+	auto modelTransform = glm::mat4(1.0f);
 
-	m_modelTransform = glm::scale(m_modelTransform, glm::vec3(assetInfo["scale"]));
+	modelTransform = glm::scale(modelTransform, glm::vec3(assetInfo["scale"]));
 
 	if (assetInfo.contains("rotation_offset")) {
-		m_modelTransform = glm::rotate(m_modelTransform, glm::radians((float)assetInfo["rotation_offset"][0]), { 1.0f, 0.0f, 0.0f });
-		m_modelTransform = glm::rotate(m_modelTransform, glm::radians((float)assetInfo["rotation_offset"][1]), { 0.0f, 1.0f, 0.0f });
-		m_modelTransform = glm::rotate(m_modelTransform, glm::radians((float)assetInfo["rotation_offset"][2]), { 0.0f, 0.0f, 1.0f });
+		modelTransform = glm::rotate(modelTransform, glm::radians((float)assetInfo["rotation_offset"][0]), { 1.0f, 0.0f, 0.0f });
+		modelTransform = glm::rotate(modelTransform, glm::radians((float)assetInfo["rotation_offset"][1]), { 0.0f, 1.0f, 0.0f });
+		modelTransform = glm::rotate(modelTransform, glm::radians((float)assetInfo["rotation_offset"][2]), { 0.0f, 0.0f, 1.0f });
 	}
 
-	tinygltf::TinyGLTF context;
+	const CpuModel3D model = GltfLoader::Load(rawAssetPath, modelTransform, 1.0f);
 
-	std::string errorMessage = "";
-	std::string warningMessage = "";
+	for (const auto& mesh : model.GetMeshes()) {
+		const auto& vertices = mesh.GetVertices();
 
-	// Carga de archivo GLTF.
-	tinygltf::Model gltfModel{};
+		OwnedPtr<ConvexVolume> volume = new ConvexVolume();
 
-	context.LoadBinaryFromFile(&gltfModel, &errorMessage, &warningMessage, rawAssetPath);
-	OSK_ASSERT(errorMessage.empty(), EngineException("Error al cargar modelo estático: " + errorMessage));
+		for (const auto& triangle : mesh.GetTriangles()) {
+			volume->AddFace({ 
+				vertices[triangle[0]].position.value(),
+				vertices[triangle[1]].position.value(),
+				vertices[triangle[2]].position.value() });
+		}
 
-	// Escena con los colliders
-	const tinygltf::Scene scene = gltfModel.scenes[0];
+		volume->MergeFaces();
 
-	// Cada nodo representa un collider de bajo nivel.
-	for (const int nodeIndex : scene.nodes) {
-		const tinygltf::Node& node = gltfModel.nodes[nodeIndex];
-		constexpr auto noParentId = std::numeric_limits<UIndex32>::max();
-
-		ProcessNode(gltfModel, node, nodeIndex, noParentId);
+		collider->AddBottomLevelCollider(volume.GetPointer());
 	}
 
 	// Top-level collider:
 	Vector3f center = Vector3f::Zero;
 	USize32 count = 0;
 
-	for (UIndex32 i = 0; i < m_buildingCollider->GetBottomLevelCollidersCount(); i++) {
-		const auto& blc = m_buildingCollider->GetBottomLevelCollider(i);
+	for (UIndex32 i = 0; i < collider->GetBottomLevelCollidersCount(); i++) {
+		const auto& blc = collider->GetBottomLevelCollider(i);
 
 		for (const auto& vertex : blc->As<ConvexVolume>()->GetLocalSpaceVertices()) {
 			center += vertex;
@@ -74,8 +70,8 @@ void PreBuiltColliderLoader::Load(const std::string& assetFilePath, PreBuiltColl
 	// Radio
 	float radius = 0.0f;
 
-	for (UIndex64 i = 0; i < m_buildingCollider->GetBottomLevelCollidersCount(); i++) {
-		auto* blc = m_buildingCollider->GetBottomLevelCollider(i)->As<ConvexVolume>();
+	for (UIndex64 i = 0; i < collider->GetBottomLevelCollidersCount(); i++) {
+		auto* blc = collider->GetBottomLevelCollider(i)->As<ConvexVolume>();
 		blc->MergeFaces();
 
 		for (const auto& vertex : blc->GetLocalSpaceVertices()) {
@@ -86,53 +82,7 @@ void PreBuiltColliderLoader::Load(const std::string& assetFilePath, PreBuiltColl
 
 	radius = glm::sqrt(radius);
 
-	m_buildingCollider->SetTopLevelCollider(new SphereCollider(radius));
+	collider->SetTopLevelCollider(new SphereCollider(radius));
 	
 	asset->_SetCollider(collider);
-	m_buildingCollider = nullptr;
-}
-
-void PreBuiltColliderLoader::ProcessNode(const tinygltf::Model& model, const tinygltf::Node& node, UIndex32 nodeId, UIndex32 parentId) {
-	const glm::mat4 nodeMatrix = m_modelTransform * GetNodeMatrix(node);
-
-	if (node.mesh <= -1) {
-		for (const auto& child : node.children) {
-			ProcessNode(model, model.nodes[child], child, parentId);
-		}
-
-		return;
-	}
-
-	// Mesh
-	const tinygltf::Mesh& mesh = model.meshes[node.mesh];
-
-	for (UIndex32 i = 0; i < mesh.primitives.size(); i++) {
-		OwnedPtr<ConvexVolume> volume = new ConvexVolume();
-
-		const tinygltf::Primitive& primitive = mesh.primitives[i];
-
-		OSK_ASSERT(primitive.mode == TINYGLTF_MODE_TRIANGLES, UnsupportedPolygonModeException(std::to_string(primitive.mode)));
-
-		const auto positions = GetVertexPositions(primitive, nodeMatrix, model);
-		const auto indices = GetIndices(primitive, 0, model);
-
-		const auto numIndices = indices.GetSize();
-
-		// Procesamos los buffers y generamos nuevos vértices.
-		for (UIndex64 ni = 0; ni < numIndices; ni += 3) {
-			volume->AddFace({
-				positions[indices[ni + 0]],
-				positions[indices[ni + 1]],
-				positions[indices[ni + 2]]
-				});
-		}
-
-		volume->MergeFaces();
-
-		m_buildingCollider->AddBottomLevelCollider(volume.GetPointer());
-	}
-
-	for (const auto& child : node.children) {
-		ProcessNode(model, model.nodes[child], child, parentId);
-	}
 }

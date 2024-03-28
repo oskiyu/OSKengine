@@ -35,7 +35,7 @@ namespace OSK::UI {
 
 		virtual ~IElement() = default;
 
-		OSK_DEFINE_AS(IElement);
+		OSK_DEFINE_AS(IElement)
 
 		/// @brief Renderiza el elemento.
 		/// @param renderer Renderizador de sprites.

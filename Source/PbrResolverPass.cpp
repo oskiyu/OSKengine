@@ -22,7 +22,7 @@ void PbrResolverPass::Load() {
 	m_materialInstance = m_passMaterial->CreateInstance().GetPointer();
 }
 
-void PbrResolverPass::RenderLoop(ICommandList* commandList, const DynamicArray<ECS::GameObjectIndex>& objectsToRender, UIndex32 jitterIndex, Vector2ui resolution) {
+void PbrResolverPass::RenderLoop(ICommandList* commandList, const DynamicArray<ECS::GameObjectIndex>& objectsToRender, GlobalMeshMapping* meshMapping, UIndex32 jitterIndex, Vector2ui resolution) {
 	const Vector2ui threadGroupSize = { 8u, 8u };
 	const Vector2ui dispatchRes = resolution / threadGroupSize + Vector2ui(1u, 1u);
 

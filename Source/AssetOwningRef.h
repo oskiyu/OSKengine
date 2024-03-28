@@ -50,6 +50,10 @@ namespace OSK::ASSETS {
 			return *m_count > 0;
 		}
 
+		USize64 GetCount() const {
+			return *m_count.get();
+		}
+
 	private:
 
 		std::shared_ptr<USize64> m_count = std::make_shared<USize64>(0);

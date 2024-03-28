@@ -27,8 +27,9 @@ className(className&&) noexcept = default; \
 className& operator=(className&&) noexcept = default;
 
 #define OSK_DEFINE_AS(className) \
-template <typename T> constexpr const T* As() const requires std::is_base_of_v<className, T> { return (const T*)this; } \
-template <typename T> constexpr T* As() requires std::is_base_of_v<className, T> { return (T*)this; } \
+template <typename T> constexpr const T* As() const requires std::is_base_of_v<className, T> { return static_cast<const T*>(this); } \
+template <typename T> constexpr T* As() requires std::is_base_of_v<className, T> { return static_cast<T*>(this); } \
+template <typename T> constexpr bool Is() const requires std::is_base_of_v<className, T> { return static_cast<bool>(dynamic_cast<const T*>(this)); }
 	
 #define OSK_NODISCARD [[nodiscard]]
 
@@ -43,6 +44,7 @@ using UIndex64 = uint64_t;
 using USize32 = uint32_t;
 using USize64 = uint64_t;
 
+/// @brief Segundos.
 using TDeltaTime = float;
 using TByte = uint8_t;
 using TInterfaceUuid = UIndex32;

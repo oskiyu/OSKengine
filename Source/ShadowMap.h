@@ -78,20 +78,6 @@ namespace OSK::GRAPHICS {
 		GpuImage* GetColorImage();
 
 				
-		/// @brief Devuelve el material usado para la generación de sombras.
-		/// 
-		/// @pre Se debe haber inicializado el ShadowMap con ShadowMap::Create.
-		/// @note Devolverá nullptr si no se cumple la precondición.
-		Material* GetShadowsMaterial(ASSETS::ModelType modelType);
-
-		/// @brief Devuelve la instancia del material para la generación de sombras.
-		///
-		/// @note Se debe vincular el slot "global" para poder ser usado correctamente.
-		/// 
-		/// @pre Se debe haber inicializado el ShadowMap con ShadowMap::Create.
-		/// @note Devolverá nullptr si no se cumple la precondición.
-		MaterialInstance* GetShadowsMaterialInstance();
-
 		/// @brief Devuelve el uniform buffer que contiene la matriz de
 		/// proyección y vista de la luz que proyecta la sombra.
 		/// 
@@ -120,6 +106,9 @@ namespace OSK::GRAPHICS {
 		/// @param splits Límites de los niveles.
 		void SetSplits(const std::array<float, 4>& splits);
 
+
+		std::array<const GpuBuffer*, NUM_RESOURCES_IN_FLIGHT> GetGpuBuffers() const;
+
 	private:
 
 		static DynamicArray<Vector3f> GetFrustumCorners(const glm::mat4& cameraMatrix);
@@ -140,14 +129,6 @@ namespace OSK::GRAPHICS {
 			alignas(16) glm::mat4 matrices[4];
 			alignas(16) Vector4f cascadeSplits;
 		};
-
-
-		// --- Materials --- //
-
-		Material* m_shadowsGenMaterial = nullptr;
-		Material* m_shadowsGenAnimMaterial = nullptr;
-
-		UniquePtr<MaterialInstance> m_shadowsGenMaterialInstance = nullptr;
 
 
 		// --- Light & camera info --- //

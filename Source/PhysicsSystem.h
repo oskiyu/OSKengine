@@ -1,12 +1,13 @@
 #pragma once
 
-#include "IPureSystem.h"
+#include "IIteratorSystem.h"
 
 #include "Vector3.hpp"
 
+
 namespace OSK::ECS {
 
-	class OSKAPI_CALL PhysicsSystem final : public IPureSystem{
+	class OSKAPI_CALL PhysicsSystem final : public IIteratorSystem {
 
 	public:
 
@@ -15,7 +16,7 @@ namespace OSK::ECS {
 		PhysicsSystem() = default;
 
 		void OnCreate() override;
-		void OnTick(TDeltaTime deltaTime) override;
+		void Execute(TDeltaTime deltaTime, std::span<const GameObjectIndex> objects) override;
 
 	private:
 
