@@ -2,7 +2,7 @@ var class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image =
 [
     [ "ArrayLevelIndex", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image.html#a3ba7ae34f0300d29e55316008bb2e8a6", null ],
     [ "MipLevelIndex", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image.html#a8353e7a46a31b3c28ee049b8122893bb", null ],
-    [ "GpuImage", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image.html#a5675ea6767ea4b04ff0e81e3d0df25eb", null ],
+    [ "GpuImage", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image.html#acfc83df51a48db67c4f3a2c8d8fb677b", null ],
     [ "~GpuImage", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image.html#ab16bd72ad08c771a3cc118a707da3d05", null ],
     [ "_GetLayout", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image.html#a59319dfcb8e3faef4a097b96df72f5d9", null ],
     [ "_InitDefaultLayout", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image.html#a7f8931d8dd3223f782626038f4f7de48", null ],
@@ -25,6 +25,7 @@ var class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image =
     [ "GetSize1D", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image.html#a06ed388f9c9e1bbb5cb4dd9132f3b89e", null ],
     [ "GetSize2D", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image.html#a398791ff8776fa8bb3a589713d0cad49", null ],
     [ "GetSize3D", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image.html#aa7693dce157e863e4a115302b1ab16ce", null ],
+    [ "GetTiling", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image.html#abfeda42d815ae3d525fd47624be1fd92", null ],
     [ "GetUsage", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image.html#a339142f665e7289fafcd8e52cb03f9cb", null ],
     [ "GetView", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image.html#aee44857e300e500743cb18908f0aed4d", null ],
     [ "OSK_DEFAULT_MOVE_OPERATOR", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image.html#a9b63a991ed71aced4871b3c820b51b28", null ],

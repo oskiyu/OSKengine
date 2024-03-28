@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['takescreenshot_0',['TakeScreenshot',['../class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_swapchain.html#aa7a44b30d06a1e8c33ff309dac3a0187',1,'OSK::GRAPHICS::ISwapchain']]],
+  ['takescreenshot_0',['TakeScreenshot',['../class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_swapchain.html#ade42c48de233c97ce745413780ccc75c',1,'OSK::GRAPHICS::ISwapchain']]],
   ['terrainrendersystem_1',['TerrainRenderSystem',['../class_o_s_k_1_1_e_c_s_1_1_terrain_render_system.html#a2bef96630dfa1a2ab7e346c50077ceb3',1,'OSK::ECS::TerrainRenderSystem']]],
   ['texture_2',['Texture',['../class_o_s_k_1_1_a_s_s_e_t_s_1_1_texture.html#a73989d7926a60a99f29dff7726127638',1,'OSK::ASSETS::Texture']]],
   ['textview_3',['TextView',['../class_o_s_k_1_1_u_i_1_1_text_view.html#a14c002467988db1b36d438f2d2b80b13',1,'OSK::UI::TextView']]],
@@ -9,10 +9,10 @@ var searchData=
   ['toggleactivationstatus_6',['ToggleActivationStatus',['../class_o_s_k_1_1_e_c_s_1_1_i_system.html#a01bbb5166a33e4484f42fcc6f03494b4',1,'OSK::ECS::ISystem']]],
   ['togglefullscreen_7',['ToggleFullscreen',['../class_o_s_k_1_1_i_o_1_1_i_fullscreenable_display.html#ada2ca7e7ef05f2d60ca7b3bbf5f5ce0a',1,'OSK::IO::IFullscreenableDisplay']]],
   ['toggletaa_8',['ToggleTaa',['../class_o_s_k_1_1_e_c_s_1_1_deferred_render_system.html#a566cf130b7067e8a14a5fbb0dbe68514',1,'OSK::ECS::DeferredRenderSystem::ToggleTaa()'],['../class_o_s_k_1_1_e_c_s_1_1_render_system3_d.html#aa01efd52a4c804e5f9b7c98716a22033',1,'OSK::ECS::RenderSystem3D::ToggleTaa()']]],
-  ['toglm_9',['ToGlm',['../class_o_s_k_1_1_color.html#a858a2f4d502e74328218fa4d0e733d95',1,'OSK::Color::ToGlm()'],['../class_o_s_k_1_1_quaternion.html#ac88cc76e26ff73c65e593e6273c8f4e9',1,'OSK::Quaternion::ToGlm()'],['../class_o_s_k_1_1_vector2__t.html#a007c9e3a314f959ab6affb9bd314235c',1,'OSK::Vector2_t::ToGlm()'],['../class_o_s_k_1_1_vector3__t.html#afe37985b6d213fc46fc8d3d0366d80bb',1,'OSK::Vector3_t::ToGlm()']]],
-  ['toglm_10',['ToGLM',['../class_o_s_k_1_1_vector4__t.html#a112f4b73019853c6fb2c672ffdd58a58',1,'OSK::Vector4_t']]],
-  ['toglm_5ft_11',['ToGLM_T',['../class_o_s_k_1_1_vector4__t.html#ac3153a72cbc0e891f630aa4f376ff381',1,'OSK::Vector4_t']]],
-  ['toglm_5ft_12',['ToGlm_t',['../class_o_s_k_1_1_vector2__t.html#ac5bfb6b6a76c25156551ac29c26c7c74',1,'OSK::Vector2_t']]],
+  ['toglm_9',['ToGLM',['../class_o_s_k_1_1_vector4__t.html#a112f4b73019853c6fb2c672ffdd58a58',1,'OSK::Vector4_t']]],
+  ['toglm_10',['ToGlm',['../class_o_s_k_1_1_color.html#a858a2f4d502e74328218fa4d0e733d95',1,'OSK::Color::ToGlm()'],['../class_o_s_k_1_1_quaternion.html#ac88cc76e26ff73c65e593e6273c8f4e9',1,'OSK::Quaternion::ToGlm()'],['../class_o_s_k_1_1_vector2__t.html#a007c9e3a314f959ab6affb9bd314235c',1,'OSK::Vector2_t::ToGlm()'],['../class_o_s_k_1_1_vector3__t.html#afe37985b6d213fc46fc8d3d0366d80bb',1,'OSK::Vector3_t::ToGlm()']]],
+  ['toglm_5ft_11',['ToGlm_t',['../class_o_s_k_1_1_vector2__t.html#ac5bfb6b6a76c25156551ac29c26c7c74',1,'OSK::Vector2_t']]],
+  ['toglm_5ft_12',['ToGLM_T',['../class_o_s_k_1_1_vector4__t.html#ac3153a72cbc0e891f630aa4f376ff381',1,'OSK::Vector4_t']]],
   ['tokenize_13',['Tokenize',['../namespace_o_s_k.html#a82a1d748670add36cb14ffc4005db327',1,'OSK']]],
   ['tomat4_14',['ToMat4',['../class_o_s_k_1_1_quaternion.html#a5ab0ea79fd870ee2e32b836c2c4f5525',1,'OSK::Quaternion']]],
   ['toplevelonly_15',['TopLevelOnly',['../class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_collision_info.html#a8f016453c25cfe96884fca55a111b73e',1,'OSK::COLLISION::CollisionInfo']]],
@@ -37,9 +37,10 @@ var searchData=
   ['transform_34',['Transform',['../class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_convex_volume.html#a532ab8b6b3544135c09a125e755c418b',1,'OSK::COLLISION::ConvexVolume::Transform()'],['../class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_i_bottom_level_collider.html#a8c112274ab13603ca7abd50dde6b813f',1,'OSK::COLLISION::IBottomLevelCollider::Transform()']]],
   ['transform2d_35',['Transform2D',['../class_o_s_k_1_1_e_c_s_1_1_transform2_d.html#a9da50f666bba0e2e276bffd09619674d',1,'OSK::ECS::Transform2D::Transform2D(ECS::GameObjectIndex owner)'],['../class_o_s_k_1_1_e_c_s_1_1_transform2_d.html#ab1f3aa0708f80a4a769767820362d6c1',1,'OSK::ECS::Transform2D::Transform2D(ECS::GameObjectIndex owner, const Vector2f &amp;position, const Vector2f &amp;scale, float rotation)']]],
   ['transform3d_36',['Transform3D',['../class_o_s_k_1_1_e_c_s_1_1_transform3_d.html#a10c838b2e1e87925aaca154cc34ca18a',1,'OSK::ECS::Transform3D']]],
-  ['transformpoint_37',['TransformPoint',['../class_o_s_k_1_1_e_c_s_1_1_transform3_d.html#a865f66350d13df8b492abc200ec755d7',1,'OSK::ECS::Transform3D']]],
-  ['treegbufferpass_38',['TreeGBufferPass',['../class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_tree_g_buffer_pass.html#a004a2d23d9e44969bca290400fefd32c',1,'OSK::GRAPHICS::TreeGBufferPass']]],
-  ['treenormalspass_39',['TreeNormalsPass',['../class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_tree_normals_pass.html#aa91c5ef5c8af4abe5d3ff46d1fa806e1',1,'OSK::GRAPHICS::TreeNormalsPass']]],
-  ['treenormalsrendersystem_40',['TreeNormalsRenderSystem',['../class_o_s_k_1_1_e_c_s_1_1_tree_normals_render_system.html#a1211185b0c2aa18df3681f3670bb656e',1,'OSK::ECS::TreeNormalsRenderSystem']]],
-  ['true_41',['True',['../class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_collision_info.html#ae84d29425f7c71f41f226c0a5637eb5e',1,'OSK::COLLISION::CollisionInfo::True()'],['../class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_detailed_collision_info.html#a5587d98b2f5abcf2335c52c3b4e1e56f',1,'OSK::COLLISION::DetailedCollisionInfo::True()'],['../class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_ray_cast_result.html#aa2f2f5c5ef956e33398edd0e733948e7',1,'OSK::COLLISION::RayCastResult::True()']]]
+  ['transformappliersystem_37',['TransformApplierSystem',['../class_o_s_k_1_1_e_c_s_1_1_transform_applier_system.html#a2a0de7ec51417a6bb64dba33bb26d6fa',1,'OSK::ECS::TransformApplierSystem']]],
+  ['transformpoint_38',['TransformPoint',['../class_o_s_k_1_1_e_c_s_1_1_transform3_d.html#a865f66350d13df8b492abc200ec755d7',1,'OSK::ECS::Transform3D']]],
+  ['treegbufferpass_39',['TreeGBufferPass',['../class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_tree_g_buffer_pass.html#a004a2d23d9e44969bca290400fefd32c',1,'OSK::GRAPHICS::TreeGBufferPass']]],
+  ['treenormalspass_40',['TreeNormalsPass',['../class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_tree_normals_pass.html#aa91c5ef5c8af4abe5d3ff46d1fa806e1',1,'OSK::GRAPHICS::TreeNormalsPass']]],
+  ['treenormalsrendersystem_41',['TreeNormalsRenderSystem',['../class_o_s_k_1_1_e_c_s_1_1_tree_normals_render_system.html#a1211185b0c2aa18df3681f3670bb656e',1,'OSK::ECS::TreeNormalsRenderSystem']]],
+  ['true_42',['True',['../class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_collision_info.html#ae84d29425f7c71f41f226c0a5637eb5e',1,'OSK::COLLISION::CollisionInfo::True()'],['../class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_detailed_collision_info.html#a5587d98b2f5abcf2335c52c3b4e1e56f',1,'OSK::COLLISION::DetailedCollisionInfo::True()'],['../class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_ray_cast_result.html#aa2f2f5c5ef956e33398edd0e733948e7',1,'OSK::COLLISION::RayCastResult::True()']]]
 ];

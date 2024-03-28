@@ -106,6 +106,8 @@ $(function(){initNavTree('class_o_s_k_1_1_e_c_s_1_1_event_container.html',''); i
 Métodos públicos</h2></td></tr>
 <tr class="memitem:a136c484e396525fbfe5e28135a7aa3a7" id="r_a136c484e396525fbfe5e28135a7aa3a7"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a136c484e396525fbfe5e28135a7aa3a7">_ClearQueue</a> () override</td></tr>
 <tr class="separator:a136c484e396525fbfe5e28135a7aa3a7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:addf9c2f70aafeab5cff380fa4e634e54" id="r_addf9c2f70aafeab5cff380fa4e634e54"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_o_s_k_1_1_e_c_s_1_1_event_queue_span.html">EventQueueSpan</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#addf9c2f70aafeab5cff380fa4e634e54">GetEventQueueSpan</a> () const override</td></tr>
+<tr class="separator:addf9c2f70aafeab5cff380fa4e634e54"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3a0ca5d6e4dc9d498975dce3264392f8" id="r_a3a0ca5d6e4dc9d498975dce3264392f8"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a3a0ca5d6e4dc9d498975dce3264392f8">PublishEvent</a> (const TEvent &amp;event)</td></tr>
 <tr class="separator:a3a0ca5d6e4dc9d498975dce3264392f8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a97fb98096ec369d465adc9a6f1b24639" id="r_a97fb98096ec369d465adc9a6f1b24639"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="class_o_s_k_1_1_dynamic_array.html">DynamicArray</a>&lt; TEvent &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a97fb98096ec369d465adc9a6f1b24639">GetEventQueue</a> () const</td></tr>
@@ -186,7 +188,39 @@ template&lt;typename TEvent &gt; </div>
 <p>Obtiene la cola con todos los eventos del frame actual. </p>
 <dl class="section return"><dt>Devuelve</dt><dd>Cola con los eventos del frame actual. </dd></dl>
 
-<p class="definition">Definición en la línea <a class="el" href="_event_container_8h_source.html#l00030">30</a> del archivo <a class="el" href="_event_container_8h_source.html">EventContainer.h</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_event_container_8h_source.html#l00038">38</a> del archivo <a class="el" href="_event_container_8h_source.html">EventContainer.h</a>.</p>
+
+</div>
+</div>
+<a id="addf9c2f70aafeab5cff380fa4e634e54" name="addf9c2f70aafeab5cff380fa4e634e54"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#addf9c2f70aafeab5cff380fa4e634e54">&#9670;&#160;</a></span>GetEventQueueSpan()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename TEvent &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="struct_o_s_k_1_1_e_c_s_1_1_event_queue_span.html">EventQueueSpan</a> <a class="el" href="class_o_s_k_1_1_e_c_s_1_1_event_container.html">OSK::ECS::EventContainer</a>&lt; TEvent &gt;::GetEventQueueSpan </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Devuelve</dt><dd><a class="el" href="struct_o_s_k_1_1_e_c_s_1_1_event_queue_span.html" title="Indica un subrango de una lista de eventos.">EventQueueSpan</a> con todos los eventos de esta cola. </dd></dl>
+
+<p>Implementa <a class="el" href="class_o_s_k_1_1_e_c_s_1_1_i_event_container.html#afaee008d7e9a70cd6794cef4ab657b64">OSK::ECS::IEventContainer</a>.</p>
+
+<p class="definition">Definición en la línea <a class="el" href="_event_container_8h_source.html#l00022">22</a> del archivo <a class="el" href="_event_container_8h_source.html">EventContainer.h</a>.</p>
 
 </div>
 </div>
@@ -223,7 +257,7 @@ template&lt;typename TEvent &gt; </div>
   </dd>
 </dl>
 
-<p class="definition">Definición en la línea <a class="el" href="_event_container_8h_source.html#l00024">24</a> del archivo <a class="el" href="_event_container_8h_source.html">EventContainer.h</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_event_container_8h_source.html#l00032">32</a> del archivo <a class="el" href="_event_container_8h_source.html">EventContainer.h</a>.</p>
 
 </div>
 </div>
@@ -236,7 +270,7 @@ template&lt;typename TEvent &gt; </div>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="namespace_o_s_k.html">OSK</a></li><li class="navelem"><a class="el" href="namespace_o_s_k_1_1_e_c_s.html">ECS</a></li><li class="navelem"><a class="el" href="class_o_s_k_1_1_e_c_s_1_1_event_container.html">EventContainer</a></li>
-    <li class="footer">Generado el Lunes, 29 de enero de 2024 17:23:01 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.10.0 </li>
+    <li class="footer">Generado el Jueves, 28 de marzo de 2024 17:53:12 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.10.0 </li>
   </ul>
 </div>
 </body>

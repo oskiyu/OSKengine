@@ -103,7 +103,7 @@ $(function(){initNavTree('_collision_system_8h_source.html',''); initResizable()
 <div class="contents">
 <a href="_collision_system_8h.html">Ir a la documentación de este archivo.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#pragma once</span></div>
 <div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span> </div>
-<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="preprocessor">#include &quot;<a class="code" href="_i_producer_system_8h.html">IProducerSystem.h</a>&quot;</span></div>
+<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="preprocessor">#include &quot;<a class="code" href="_i_iterator_system_8h.html">IIteratorSystem.h</a>&quot;</span></div>
 <div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span> </div>
 <div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &quot;<a class="code" href="_ray_cast_result_8h.html">RayCastResult.h</a>&quot;</span></div>
 <div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &quot;<a class="code" href="_ray_8h.html">Ray.h</a>&quot;</span></div>
@@ -111,32 +111,34 @@ $(function(){initNavTree('_collision_system_8h_source.html',''); initResizable()
 <div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="keyword">namespace </span><a class="code hl_namespace" href="namespace_o_s_k_1_1_e_c_s.html">OSK::ECS</a> {</div>
 <div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span> </div>
 <div class="foldopen" id="foldopen00014" data-start="{" data-end="};">
-<div class="line"><a id="l00014" name="l00014"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_e_c_s_1_1_collision_system.html">   14</a></span>    <span class="keyword">class </span><a class="code hl_define" href="_o_s_kmacros_8h.html#a09ec5b46ece998ad096bceff312bb36c">OSKAPI_CALL</a> <a class="code hl_class" href="class_o_s_k_1_1_e_c_s_1_1_collision_system.html">CollisionSystem</a> final : <span class="keyword">public</span> <a class="code hl_class" href="class_o_s_k_1_1_e_c_s_1_1_i_producer_system.html">IProducerSystem</a> {</div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_e_c_s_1_1_collision_system.html">   14</a></span>    <span class="keyword">class </span><a class="code hl_define" href="_o_s_kmacros_8h.html#a09ec5b46ece998ad096bceff312bb36c">OSKAPI_CALL</a> <a class="code hl_class" href="class_o_s_k_1_1_e_c_s_1_1_collision_system.html">CollisionSystem</a> final : <span class="keyword">public</span> <a class="code hl_class" href="class_o_s_k_1_1_e_c_s_1_1_i_iterator_system.html">IIteratorSystem</a> {</div>
 <div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span> </div>
 <div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span>    <span class="keyword">public</span>:</div>
 <div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span> </div>
 <div class="line"><a id="l00018" name="l00018"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_e_c_s_1_1_collision_system.html#ad54061f9e2d3acccbb4b211bb5615fd2">   18</a></span>        <a class="code hl_function" href="class_o_s_k_1_1_e_c_s_1_1_collision_system.html#ad54061f9e2d3acccbb4b211bb5615fd2">OSK_SYSTEM</a>(<span class="stringliteral">&quot;OSK::CollisionSystem&quot;</span>);</div>
 <div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span> </div>
 <div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>        <span class="keywordtype">void</span> OnCreate() <span class="keyword">override</span>;</div>
-<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>        <span class="keywordtype">void</span> OnTick(<a class="code hl_typedef" href="_o_s_kmacros_8h.html#ad05d5eacc527d5b61240124daf13b33b">TDeltaTime</a> deltaTime) <span class="keyword">override</span>;</div>
-<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span> </div>
-<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>        <a class="code hl_class" href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_ray_cast_result.html">COLLISION::RayCastResult</a> CastRay(</div>
-<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>            <span class="keyword">const</span> <a class="code hl_struct" href="struct_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_ray.html">COLLISION::Ray</a>&amp; ray,</div>
-<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>            <a class="code hl_typedef" href="namespace_o_s_k_1_1_e_c_s.html#a7be561d6b7de4e8a49c2a5cc35fba48c">GameObjectIndex</a> sendingObject) <span class="keyword">const</span>;</div>
-<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span> </div>
-<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>    };</div>
-</div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span> </div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>        <span class="keywordtype">void</span> OnExecutionStart() <span class="keyword">override</span>;</div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>        <span class="keywordtype">void</span> Execute(<a class="code hl_typedef" href="_o_s_kmacros_8h.html#ad05d5eacc527d5b61240124daf13b33b">TDeltaTime</a> deltaTime, std::span&lt;const GameObjectIndex&gt; objects) <span class="keyword">override</span>;</div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span> </div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>        <a class="code hl_class" href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_ray_cast_result.html">COLLISION::RayCastResult</a> CastRay(</div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>            <span class="keyword">const</span> <a class="code hl_struct" href="struct_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_ray.html">COLLISION::Ray</a>&amp; ray,</div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>            <a class="code hl_typedef" href="namespace_o_s_k_1_1_e_c_s.html#a7be561d6b7de4e8a49c2a5cc35fba48c">GameObjectIndex</a> sendingObject) <span class="keyword">const</span>;</div>
 <div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span> </div>
-<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>}</div>
-<div class="ttc" id="a_i_producer_system_8h_html"><div class="ttname"><a href="_i_producer_system_8h.html">IProducerSystem.h</a></div></div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>    };</div>
+</div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span> </div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>}</div>
+<div class="ttc" id="a_i_iterator_system_8h_html"><div class="ttname"><a href="_i_iterator_system_8h.html">IIteratorSystem.h</a></div></div>
 <div class="ttc" id="a_o_s_kmacros_8h_html_a09ec5b46ece998ad096bceff312bb36c"><div class="ttname"><a href="_o_s_kmacros_8h.html#a09ec5b46ece998ad096bceff312bb36c">OSKAPI_CALL</a></div><div class="ttdeci">#define OSKAPI_CALL</div><div class="ttdef"><b>Definition</b> <a href="_o_s_kmacros_8h_source.html#l00007">OSKmacros.h:7</a></div></div>
-<div class="ttc" id="a_o_s_kmacros_8h_html_ad05d5eacc527d5b61240124daf13b33b"><div class="ttname"><a href="_o_s_kmacros_8h.html#ad05d5eacc527d5b61240124daf13b33b">TDeltaTime</a></div><div class="ttdeci">float TDeltaTime</div><div class="ttdef"><b>Definition</b> <a href="_o_s_kmacros_8h_source.html#l00046">OSKmacros.h:46</a></div></div>
+<div class="ttc" id="a_o_s_kmacros_8h_html_ad05d5eacc527d5b61240124daf13b33b"><div class="ttname"><a href="_o_s_kmacros_8h.html#ad05d5eacc527d5b61240124daf13b33b">TDeltaTime</a></div><div class="ttdeci">float TDeltaTime</div><div class="ttdoc">Segundos.</div><div class="ttdef"><b>Definition</b> <a href="_o_s_kmacros_8h_source.html#l00048">OSKmacros.h:48</a></div></div>
 <div class="ttc" id="a_ray_8h_html"><div class="ttname"><a href="_ray_8h.html">Ray.h</a></div></div>
 <div class="ttc" id="a_ray_cast_result_8h_html"><div class="ttname"><a href="_ray_cast_result_8h.html">RayCastResult.h</a></div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_ray_cast_result_html"><div class="ttname"><a href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_ray_cast_result.html">OSK::COLLISION::RayCastResult</a></div><div class="ttdoc">Representa el resultado de trazar un rayo en la escena. El resultado puede ser positivo en caso de qu...</div><div class="ttdef"><b>Definition</b> <a href="_ray_cast_result_8h_source.html#l00014">RayCastResult.h:14</a></div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_e_c_s_1_1_collision_system_html"><div class="ttname"><a href="class_o_s_k_1_1_e_c_s_1_1_collision_system.html">OSK::ECS::CollisionSystem</a></div><div class="ttdoc">Sistema que se encarga de detectar colisiones entre entidades y publica los eventos correspondientes.</div><div class="ttdef"><b>Definition</b> <a href="#l00014">CollisionSystem.h:14</a></div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_e_c_s_1_1_collision_system_html_ad54061f9e2d3acccbb4b211bb5615fd2"><div class="ttname"><a href="class_o_s_k_1_1_e_c_s_1_1_collision_system.html#ad54061f9e2d3acccbb4b211bb5615fd2">OSK::ECS::CollisionSystem::OSK_SYSTEM</a></div><div class="ttdeci">OSK_SYSTEM(&quot;OSK::CollisionSystem&quot;)</div></div>
-<div class="ttc" id="aclass_o_s_k_1_1_e_c_s_1_1_i_producer_system_html"><div class="ttname"><a href="class_o_s_k_1_1_e_c_s_1_1_i_producer_system.html">OSK::ECS::IProducerSystem</a></div><div class="ttdoc">Un sistema productor es un sistema iterador que puede emitir eventos.</div><div class="ttdef"><b>Definition</b> <a href="_i_producer_system_8h_source.html#l00010">IProducerSystem.h:10</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_e_c_s_1_1_i_iterator_system_html"><div class="ttname"><a href="class_o_s_k_1_1_e_c_s_1_1_i_iterator_system.html">OSK::ECS::IIteratorSystem</a></div><div class="ttdoc">Un sistema que aplica su funcionalidad iterando una o más veces sobre las entidades compatibles.</div><div class="ttdef"><b>Definition</b> <a href="_i_iterator_system_8h_source.html#l00013">IIteratorSystem.h:13</a></div></div>
 <div class="ttc" id="anamespace_o_s_k_1_1_e_c_s_html"><div class="ttname"><a href="namespace_o_s_k_1_1_e_c_s.html">OSK::ECS</a></div><div class="ttdef"><b>Definition</b> <a href="_camera_component2_d_8h_source.html#l00017">CameraComponent2D.h:17</a></div></div>
 <div class="ttc" id="anamespace_o_s_k_1_1_e_c_s_html_a7be561d6b7de4e8a49c2a5cc35fba48c"><div class="ttname"><a href="namespace_o_s_k_1_1_e_c_s.html#a7be561d6b7de4e8a49c2a5cc35fba48c">OSK::ECS::GameObjectIndex</a></div><div class="ttdeci">UIndex32 GameObjectIndex</div><div class="ttdoc">Identificador único para un Game Object.</div><div class="ttdef"><b>Definition</b> <a href="_game_object_8h_source.html#l00018">GameObject.h:18</a></div></div>
 <div class="ttc" id="astruct_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_ray_html"><div class="ttname"><a href="struct_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_ray.html">OSK::COLLISION::Ray</a></div><div class="ttdoc">Representa un rayo lanzado en el mundo que puede colisionar con colliders.</div><div class="ttdef"><b>Definition</b> <a href="_ray_8h_source.html#l00013">Ray.h:13</a></div></div>
@@ -146,7 +148,7 @@ $(function(){initNavTree('_collision_system_8h_source.html',''); initResizable()
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_74389ed8173ad57b461b9d623a1f3867.html">Source</a></li><li class="navelem"><a class="el" href="_collision_system_8h.html">CollisionSystem.h</a></li>
-    <li class="footer">Generado el Lunes, 29 de enero de 2024 17:22:58 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.10.0 </li>
+    <li class="footer">Generado el Jueves, 28 de marzo de 2024 17:53:10 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.10.0 </li>
   </ul>
 </div>
 </body>

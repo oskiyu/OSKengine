@@ -2,6 +2,7 @@ var class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_memory_subblock_vk =
 [
     [ "GpuMemorySubblockVk", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_memory_subblock_vk.html#aa0cb3c6ad740d9554fd62bbdad79fdd3", null ],
     [ "GetAllocatedSize", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_memory_subblock_vk.html#a3e6f49a3c1faa34a849019cd10790396", null ],
+    [ "GetMappedData", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_memory_subblock_vk.html#a041c7419708ed856e2e7ec9d31402978", null ],
     [ "GetOffsetFromBlock", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_memory_subblock_vk.html#a26e6c25deddfc2380dafc71fc749e1bc", null ],
     [ "GetOwnerBlock", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_memory_subblock_vk.html#aa93fb9b1213377fa3e4187569872671e", null ],
     [ "MapMemory", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_memory_subblock_vk.html#a7a54c19881cd6205ecd775d9120985e9", null ],

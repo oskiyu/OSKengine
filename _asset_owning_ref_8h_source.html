@@ -120,7 +120,7 @@ $(function(){initNavTree('_asset_owning_ref_8h_source.html',''); initResizable()
 <div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>    <span class="keyword">public</span>:</div>
 <div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span> </div>
 <div class="line"><a id="l00021" name="l00021"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_owning_ref.html#abf7532643e5b5136441096c3c15f56b3">   21</a></span>        <a class="code hl_function" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_owning_ref.html#abf7532643e5b5136441096c3c15f56b3">AssetOwningRef</a>() = <span class="keywordflow">default</span>;</div>
-<div class="line"><a id="l00022" name="l00022"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_owning_ref.html#a49cf1da829c3121907715671c182a200">   22</a></span>        <span class="keyword">explicit</span> <a class="code hl_function" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_owning_ref.html#a49cf1da829c3121907715671c182a200">AssetOwningRef</a>(<span class="keyword">const</span> std::string&amp; <a class="code hl_class" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">assetPath</a>) : m_data(std::<a class="code hl_class" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">make_shared</a>&lt;<a class="code hl_class" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">TAssetType</a>&gt;(<a class="code hl_class" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">assetPath</a>)) {}</div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_owning_ref.html#a49cf1da829c3121907715671c182a200">   22</a></span>        <span class="keyword">explicit</span> <a class="code hl_function" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_owning_ref.html#a49cf1da829c3121907715671c182a200">AssetOwningRef</a>(<span class="keyword">const</span> std::string&amp; assetPath) : m_data(std::<a class="code hl_class" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">make_shared</a>&lt;<a class="code hl_class" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">TAssetType</a>&gt;(<a class="code hl_class" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">assetPath</a>)) {}</div>
 <div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span> </div>
 <div class="line"><a id="l00024" name="l00024"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_owning_ref.html#aebb3382d4689a2049a82b9e973911c69">   24</a></span>        <a class="code hl_function" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_owning_ref.html#aebb3382d4689a2049a82b9e973911c69">~AssetOwningRef</a>() = <span class="keywordflow">default</span>;</div>
 <div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span> </div>
@@ -161,17 +161,24 @@ $(function(){initNavTree('_asset_owning_ref_8h_source.html',''); initResizable()
 <div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>        }</div>
 </div>
 <div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span> </div>
-<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>    <span class="keyword">private</span>:</div>
-<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span> </div>
-<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>        std::shared_ptr&lt;USize64&gt; m_count = std::make_shared&lt;USize64&gt;(0);</div>
-<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>        std::shared_ptr&lt;TAssetType&gt; m_data;</div>
-<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span> </div>
-<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>    };</div>
+<div class="foldopen" id="foldopen00053" data-start="{" data-end="}">
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_owning_ref.html#aef0b278b02f9307a07a7296b12fd42e0">   53</a></span>        <a class="code hl_typedef" href="_o_s_kmacros_8h.html#a5784d24fcb00afb78eb7b1e1a3466ac4">USize64</a> <a class="code hl_function" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_owning_ref.html#aef0b278b02f9307a07a7296b12fd42e0">GetCount</a>()<span class="keyword"> const </span>{</div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>            <span class="keywordflow">return</span> *m_count.get();</div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>        }</div>
 </div>
-<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span> </div>
-<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>}</div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span> </div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>    <span class="keyword">private</span>:</div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span> </div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>        std::shared_ptr&lt;USize64&gt; m_count = std::make_shared&lt;USize64&gt;(0);</div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>        std::shared_ptr&lt;TAssetType&gt; m_data;</div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span> </div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>    };</div>
+</div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span> </div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>}</div>
 <div class="ttc" id="a_asset_ref_8h_html"><div class="ttname"><a href="_asset_ref_8h.html">AssetRef.h</a></div></div>
 <div class="ttc" id="a_o_s_kmacros_8h_html"><div class="ttname"><a href="_o_s_kmacros_8h.html">OSKmacros.h</a></div></div>
+<div class="ttc" id="a_o_s_kmacros_8h_html_a5784d24fcb00afb78eb7b1e1a3466ac4"><div class="ttname"><a href="_o_s_kmacros_8h.html#a5784d24fcb00afb78eb7b1e1a3466ac4">USize64</a></div><div class="ttdeci">uint64_t USize64</div><div class="ttdef"><b>Definition</b> <a href="_o_s_kmacros_8h_source.html#l00045">OSKmacros.h:45</a></div></div>
 <div class="ttc" id="a_unique_ptr_8hpp_html"><div class="ttname"><a href="_unique_ptr_8hpp.html">UniquePtr.hpp</a></div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_owning_ref_html"><div class="ttname"><a href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_owning_ref.html">OSK::ASSETS::AssetOwningRef</a></div><div class="ttdoc">Clase que es propietaria de una instancia de un asset. Permite crear referencias a ese asset.</div><div class="ttdef"><b>Definition</b> <a href="#l00017">AssetOwningRef.h:17</a></div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_owning_ref_html_a30f8e619049fcc03748ceb49431fbe4b"><div class="ttname"><a href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_owning_ref.html#a30f8e619049fcc03748ceb49431fbe4b">OSK::ASSETS::AssetOwningRef::GetAsset</a></div><div class="ttdeci">TAssetType * GetAsset() noexcept</div><div class="ttdef"><b>Definition</b> <a href="#l00027">AssetOwningRef.h:27</a></div></div>
@@ -183,6 +190,7 @@ $(function(){initNavTree('_asset_owning_ref_8h_source.html',''); initResizable()
 <div class="ttc" id="aclass_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_owning_ref_html_a9899d56b73f8fcd6f7ef64a7c7643d5b"><div class="ttname"><a href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_owning_ref.html#a9899d56b73f8fcd6f7ef64a7c7643d5b">OSK::ASSETS::AssetOwningRef::CreateRef</a></div><div class="ttdeci">AssetRef&lt; TAssetType &gt; CreateRef() noexcept</div><div class="ttdoc">Crea una referencia apuntando a este asset.</div><div class="ttdef"><b>Definition</b> <a href="#l00045">AssetOwningRef.h:45</a></div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_owning_ref_html_abf7532643e5b5136441096c3c15f56b3"><div class="ttname"><a href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_owning_ref.html#abf7532643e5b5136441096c3c15f56b3">OSK::ASSETS::AssetOwningRef::AssetOwningRef</a></div><div class="ttdeci">AssetOwningRef()=default</div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_owning_ref_html_aebb3382d4689a2049a82b9e973911c69"><div class="ttname"><a href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_owning_ref.html#aebb3382d4689a2049a82b9e973911c69">OSK::ASSETS::AssetOwningRef::~AssetOwningRef</a></div><div class="ttdeci">~AssetOwningRef()=default</div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_owning_ref_html_aef0b278b02f9307a07a7296b12fd42e0"><div class="ttname"><a href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_owning_ref.html#aef0b278b02f9307a07a7296b12fd42e0">OSK::ASSETS::AssetOwningRef::GetCount</a></div><div class="ttdeci">USize64 GetCount() const</div><div class="ttdef"><b>Definition</b> <a href="#l00053">AssetOwningRef.h:53</a></div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref_html"><div class="ttname"><a href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">OSK::ASSETS::AssetRef</a></div><div class="ttdoc">Referencia a un asset.</div><div class="ttdef"><b>Definition</b> <a href="_asset_ref_8h_source.html#l00012">AssetRef.h:12</a></div></div>
 <div class="ttc" id="anamespace_o_s_k_1_1_a_s_s_e_t_s_html"><div class="ttname"><a href="namespace_o_s_k_1_1_a_s_s_e_t_s.html">OSK::ASSETS</a></div><div class="ttdef"><b>Definition</b> <a href="_anim_mesh_loader_8h_source.html#l00009">AnimMeshLoader.h:9</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
@@ -191,7 +199,7 @@ $(function(){initNavTree('_asset_owning_ref_8h_source.html',''); initResizable()
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_74389ed8173ad57b461b9d623a1f3867.html">Source</a></li><li class="navelem"><a class="el" href="_asset_owning_ref_8h.html">AssetOwningRef.h</a></li>
-    <li class="footer">Generado el Lunes, 29 de enero de 2024 17:22:58 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.10.0 </li>
+    <li class="footer">Generado el Jueves, 28 de marzo de 2024 17:53:10 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.10.0 </li>
   </ul>
 </div>
 </body>

@@ -168,7 +168,7 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definición en la línea <a class="el" href="_o_s_kmacros_8h_source.html#l00035">35</a> del archivo <a class="el" href="_o_s_kmacros_8h_source.html">OSKmacros.h</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_o_s_kmacros_8h_source.html#l00036">36</a> del archivo <a class="el" href="_o_s_kmacros_8h_source.html">OSKmacros.h</a>.</p>
 
 </div>
 </div>
@@ -228,8 +228,10 @@ Variables</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<b>Valor:</b><div class="fragment"><div class="line"><span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt; <span class="keyword">constexpr</span> <span class="keyword">const</span> T* As() const requires std::is_base_of_v&lt;className, T&gt; { <span class="keywordflow">return</span> (<span class="keyword">const</span> T*)<span class="keyword">this</span>; } \</div>
-<div class="line"><span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt; <span class="keyword">constexpr</span> T* As() <span class="keyword">requires</span> std::is_base_of_v&lt;className, T&gt; { <span class="keywordflow">return</span> (T*)<span class="keyword">this</span>; } \</div>
+<b>Valor:</b><div class="fragment"><div class="line"><span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt; <span class="keyword">constexpr</span> <span class="keyword">const</span> T* As() const requires std::is_base_of_v&lt;className, T&gt; { <span class="keywordflow">return</span> <span class="keyword">static_cast&lt;</span><span class="keyword">const </span>T*<span class="keyword">&gt;</span>(<span class="keyword">this</span>); } \</div>
+<div class="line"><span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt; <span class="keyword">constexpr</span> T* As() <span class="keyword">requires</span> std::is_base_of_v&lt;className, T&gt; { <span class="keywordflow">return</span> <span class="keyword">static_cast&lt;</span>T*<span class="keyword">&gt;</span>(<span class="keyword">this</span>); } \</div>
+<div class="line"><span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt; <span class="keyword">constexpr</span> <span class="keywordtype">bool</span> Is() const requires std::is_base_of_v&lt;className, T&gt; { <span class="keywordflow">return</span> <span class="keyword">static_cast&lt;</span><span class="keywordtype">bool</span><span class="keyword">&gt;</span>(<span class="keyword">dynamic_cast&lt;</span><span class="keyword">const </span><a class="code hl_enumvalue" href="namespace_o_s_k_1_1_i_o.html#a0b92714a4a778072d4824502589bd39eab9ece18c950afbfa6b0fdbfa4ff731d3">T</a>*<span class="keyword">&gt;</span>(<span class="keyword">this</span>)); }</div>
+<div class="ttc" id="anamespace_o_s_k_1_1_i_o_html_a0b92714a4a778072d4824502589bd39eab9ece18c950afbfa6b0fdbfa4ff731d3"><div class="ttname"><a href="namespace_o_s_k_1_1_i_o.html#a0b92714a4a778072d4824502589bd39eab9ece18c950afbfa6b0fdbfa4ff731d3">OSK::IO::Key::T</a></div><div class="ttdeci">@ T</div></div>
 </div><!-- fragment -->
 <p class="definition">Definición en la línea <a class="el" href="_o_s_kmacros_8h_source.html#l00029">29</a> del archivo <a class="el" href="_o_s_kmacros_8h_source.html">OSKmacros.h</a>.</p>
 
@@ -250,7 +252,7 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definición en la línea <a class="el" href="_o_s_kmacros_8h_source.html#l00052">52</a> del archivo <a class="el" href="_o_s_kmacros_8h_source.html">OSKmacros.h</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_o_s_kmacros_8h_source.html#l00054">54</a> del archivo <a class="el" href="_o_s_kmacros_8h_source.html">OSKmacros.h</a>.</p>
 
 </div>
 </div>
@@ -311,7 +313,7 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definición en la línea <a class="el" href="_o_s_kmacros_8h_source.html#l00053">53</a> del archivo <a class="el" href="_o_s_kmacros_8h_source.html">OSKmacros.h</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_o_s_kmacros_8h_source.html#l00055">55</a> del archivo <a class="el" href="_o_s_kmacros_8h_source.html">OSKmacros.h</a>.</p>
 
 </div>
 </div>
@@ -327,7 +329,7 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definición en la línea <a class="el" href="_o_s_kmacros_8h_source.html#l00033">33</a> del archivo <a class="el" href="_o_s_kmacros_8h_source.html">OSKmacros.h</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_o_s_kmacros_8h_source.html#l00034">34</a> del archivo <a class="el" href="_o_s_kmacros_8h_source.html">OSKmacros.h</a>.</p>
 
 </div>
 </div>
@@ -343,7 +345,7 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definición en la línea <a class="el" href="_o_s_kmacros_8h_source.html#l00036">36</a> del archivo <a class="el" href="_o_s_kmacros_8h_source.html">OSKmacros.h</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_o_s_kmacros_8h_source.html#l00037">37</a> del archivo <a class="el" href="_o_s_kmacros_8h_source.html">OSKmacros.h</a>.</p>
 
 </div>
 </div>
@@ -376,7 +378,7 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definición en la línea <a class="el" href="_o_s_kmacros_8h_source.html#l00047">47</a> del archivo <a class="el" href="_o_s_kmacros_8h_source.html">OSKmacros.h</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_o_s_kmacros_8h_source.html#l00049">49</a> del archivo <a class="el" href="_o_s_kmacros_8h_source.html">OSKmacros.h</a>.</p>
 
 </div>
 </div>
@@ -392,7 +394,9 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definición en la línea <a class="el" href="_o_s_kmacros_8h_source.html#l00046">46</a> del archivo <a class="el" href="_o_s_kmacros_8h_source.html">OSKmacros.h</a>.</p>
+<p>Segundos. </p>
+
+<p class="definition">Definición en la línea <a class="el" href="_o_s_kmacros_8h_source.html#l00048">48</a> del archivo <a class="el" href="_o_s_kmacros_8h_source.html">OSKmacros.h</a>.</p>
 
 </div>
 </div>
@@ -408,7 +412,7 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definición en la línea <a class="el" href="_o_s_kmacros_8h_source.html#l00048">48</a> del archivo <a class="el" href="_o_s_kmacros_8h_source.html">OSKmacros.h</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_o_s_kmacros_8h_source.html#l00050">50</a> del archivo <a class="el" href="_o_s_kmacros_8h_source.html">OSKmacros.h</a>.</p>
 
 </div>
 </div>
@@ -424,7 +428,7 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definición en la línea <a class="el" href="_o_s_kmacros_8h_source.html#l00040">40</a> del archivo <a class="el" href="_o_s_kmacros_8h_source.html">OSKmacros.h</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_o_s_kmacros_8h_source.html#l00041">41</a> del archivo <a class="el" href="_o_s_kmacros_8h_source.html">OSKmacros.h</a>.</p>
 
 </div>
 </div>
@@ -440,7 +444,7 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definición en la línea <a class="el" href="_o_s_kmacros_8h_source.html#l00041">41</a> del archivo <a class="el" href="_o_s_kmacros_8h_source.html">OSKmacros.h</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_o_s_kmacros_8h_source.html#l00042">42</a> del archivo <a class="el" href="_o_s_kmacros_8h_source.html">OSKmacros.h</a>.</p>
 
 </div>
 </div>
@@ -456,7 +460,7 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definición en la línea <a class="el" href="_o_s_kmacros_8h_source.html#l00043">43</a> del archivo <a class="el" href="_o_s_kmacros_8h_source.html">OSKmacros.h</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_o_s_kmacros_8h_source.html#l00044">44</a> del archivo <a class="el" href="_o_s_kmacros_8h_source.html">OSKmacros.h</a>.</p>
 
 </div>
 </div>
@@ -472,7 +476,7 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definición en la línea <a class="el" href="_o_s_kmacros_8h_source.html#l00044">44</a> del archivo <a class="el" href="_o_s_kmacros_8h_source.html">OSKmacros.h</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_o_s_kmacros_8h_source.html#l00045">45</a> del archivo <a class="el" href="_o_s_kmacros_8h_source.html">OSKmacros.h</a>.</p>
 
 </div>
 </div>
@@ -497,7 +501,7 @@ Variables</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definición en la línea <a class="el" href="_o_s_kmacros_8h_source.html#l00055">55</a> del archivo <a class="el" href="_o_s_kmacros_8h_source.html">OSKmacros.h</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_o_s_kmacros_8h_source.html#l00057">57</a> del archivo <a class="el" href="_o_s_kmacros_8h_source.html">OSKmacros.h</a>.</p>
 
 </div>
 </div>
@@ -507,7 +511,7 @@ Variables</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_74389ed8173ad57b461b9d623a1f3867.html">Source</a></li><li class="navelem"><a class="el" href="_o_s_kmacros_8h.html">OSKmacros.h</a></li>
-    <li class="footer">Generado el Lunes, 29 de enero de 2024 17:23:00 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.10.0 </li>
+    <li class="footer">Generado el Jueves, 28 de marzo de 2024 17:53:12 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.10.0 </li>
   </ul>
 </div>
 </body>

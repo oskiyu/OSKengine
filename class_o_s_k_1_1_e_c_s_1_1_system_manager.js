@@ -6,9 +6,10 @@ var class_o_s_k_1_1_e_c_s_1_1_system_manager =
     [ "GameObjectSignatureChanged", "class_o_s_k_1_1_e_c_s_1_1_system_manager.html#a74ebffeb57090187fe5add293d79ca67", null ],
     [ "GetSystem", "class_o_s_k_1_1_e_c_s_1_1_system_manager.html#a5331150695972d9d251fb760e8f6ee9e", null ],
     [ "GetSystem", "class_o_s_k_1_1_e_c_s_1_1_system_manager.html#ad64dc9529ce5a15a0d2269ce099f1bc6", null ],
-    [ "OnTick", "class_o_s_k_1_1_e_c_s_1_1_system_manager.html#a79813ae895035ff2df8f47239b9003bb", null ],
+    [ "OnRender", "class_o_s_k_1_1_e_c_s_1_1_system_manager.html#a5aeb33cf0b11ad975659c232a3a22b72", null ],
+    [ "OnTick", "class_o_s_k_1_1_e_c_s_1_1_system_manager.html#a5ea92a92d97f6a286c9c0c652c45bb9e", null ],
     [ "OSK_DEFAULT_MOVE_OPERATOR", "class_o_s_k_1_1_e_c_s_1_1_system_manager.html#a66a0c00487f4f014f2d6efaf9f1bd0a6", null ],
     [ "OSK_DISABLE_COPY", "class_o_s_k_1_1_e_c_s_1_1_system_manager.html#a5e503e38a6f749c36c77c14ce48846de", null ],
-    [ "RegisterSystem", "class_o_s_k_1_1_e_c_s_1_1_system_manager.html#aa3161d1c2132014008efcd27d5d4ec69", null ],
+    [ "RegisterSystem", "class_o_s_k_1_1_e_c_s_1_1_system_manager.html#aecab7fe0aeea50f027db32e42c79790e", null ],
     [ "RemoveSystem", "class_o_s_k_1_1_e_c_s_1_1_system_manager.html#a3fb325594bcd65b490abec1254d2d3c9", null ]
 ];

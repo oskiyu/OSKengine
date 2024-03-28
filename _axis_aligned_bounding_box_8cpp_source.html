@@ -172,7 +172,7 @@ $(function(){initNavTree('_axis_aligned_bounding_box_8cpp_source.html',''); init
 <div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>    <span class="keywordtype">float</span> closestDistance = std::numeric_limits&lt;float&gt;::max();</div>
 <div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>    <a class="code hl_class" href="class_o_s_k_1_1_vector3__t.html">Vector3f</a> closestIntersection = <a class="code hl_variable" href="class_o_s_k_1_1_vector3__t.html#ac574fd28b9114ddf48d26573d1efd570">Vector3f::Zero</a>;</div>
 <div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>    <span class="keywordtype">bool</span> intersection = <span class="keyword">false</span>;</div>
-<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>    <span class="keywordflow">for</span> (<a class="code hl_class" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">UIndex64</a> i = 0; i &lt; 6; i++) {</div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>    <span class="keywordflow">for</span> (<a class="code hl_typedef" href="_o_s_kmacros_8h.html#adef8e046c86805ca0dc2db407b01a1bb">UIndex64</a> i = 0; i &lt; 6; i++) {</div>
 <div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>        <span class="keyword">const</span> <span class="keyword">auto</span> result = ray.<a class="code hl_function" href="struct_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_ray.html#a550f34a09bdacf018d8d22abbabb8c12">IntersectionWithPlane</a>(normals[i], points[i]);</div>
 <div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span> </div>
 <div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>        <span class="keywordflow">if</span> (!result.Result())</div>
@@ -223,13 +223,13 @@ $(function(){initNavTree('_axis_aligned_bounding_box_8cpp_source.html',''); init
 <div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span> </div>
 <div class="foldopen" id="foldopen00105" data-start="{" data-end="}">
 <div class="line"><a id="l00105" name="l00105"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_axis_aligned_bounding_box.html#adb2f85c765c20238d0628dbd8d955a97">  105</a></span><a class="code hl_class" href="class_o_s_k_1_1_vector3__t.html">Vector3f</a> <a class="code hl_function" href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_axis_aligned_bounding_box.html#adb2f85c765c20238d0628dbd8d955a97">AxisAlignedBoundingBox::GetMin</a>()<span class="keyword"> const </span>{</div>
-<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span>    <span class="keywordflow">return</span> <a class="code hl_function" href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_i_top_level_collider.html#ae1be71ba2c65e3972b15ab6f6af075aa">GetPosition</a>() - m_size * 0.5f;</div>
+<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span>    <span class="keywordflow">return</span> <a class="code hl_function" href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_i_top_level_collider.html#ae1be71ba2c65e3972b15ab6f6af075aa">GetPosition</a>() - m_size;</div>
 <div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span>}</div>
 </div>
 <div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span> </div>
 <div class="foldopen" id="foldopen00109" data-start="{" data-end="}">
 <div class="line"><a id="l00109" name="l00109"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_axis_aligned_bounding_box.html#a73e7a5381e4573cb5a5f288c9f695649">  109</a></span><a class="code hl_class" href="class_o_s_k_1_1_vector3__t.html">Vector3f</a> <a class="code hl_function" href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_axis_aligned_bounding_box.html#a73e7a5381e4573cb5a5f288c9f695649">AxisAlignedBoundingBox::GetMax</a>()<span class="keyword"> const </span>{</div>
-<div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span>    <span class="keywordflow">return</span> <a class="code hl_function" href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_i_top_level_collider.html#ae1be71ba2c65e3972b15ab6f6af075aa">GetPosition</a>() + m_size * 0.5f;</div>
+<div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span>    <span class="keywordflow">return</span> <a class="code hl_function" href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_i_top_level_collider.html#ae1be71ba2c65e3972b15ab6f6af075aa">GetPosition</a>() + m_size;</div>
 <div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span>}</div>
 </div>
 <div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span> </div>
@@ -261,8 +261,8 @@ $(function(){initNavTree('_axis_aligned_bounding_box_8cpp_source.html',''); init
 <div class="ttc" id="a_axis_aligned_bounding_box_8h_html"><div class="ttname"><a href="_axis_aligned_bounding_box_8h.html">AxisAlignedBoundingBox.h</a></div></div>
 <div class="ttc" id="a_not_implemented_exception_8h_html"><div class="ttname"><a href="_not_implemented_exception_8h.html">NotImplementedException.h</a></div></div>
 <div class="ttc" id="a_o_s_kengine_8h_html"><div class="ttname"><a href="_o_s_kengine_8h.html">OSKengine.h</a></div></div>
+<div class="ttc" id="a_o_s_kmacros_8h_html_adef8e046c86805ca0dc2db407b01a1bb"><div class="ttname"><a href="_o_s_kmacros_8h.html#adef8e046c86805ca0dc2db407b01a1bb">UIndex64</a></div><div class="ttdeci">uint64_t UIndex64</div><div class="ttdef"><b>Definition</b> <a href="_o_s_kmacros_8h_source.html#l00042">OSKmacros.h:42</a></div></div>
 <div class="ttc" id="a_sphere_collider_8h_html"><div class="ttname"><a href="_sphere_collider_8h.html">SphereCollider.h</a></div></div>
-<div class="ttc" id="aclass_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref_html"><div class="ttname"><a href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">OSK::ASSETS::AssetRef</a></div><div class="ttdoc">Referencia a un asset.</div><div class="ttdef"><b>Definition</b> <a href="_asset_ref_8h_source.html#l00012">AssetRef.h:12</a></div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_axis_aligned_bounding_box_html"><div class="ttname"><a href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_axis_aligned_bounding_box.html">OSK::COLLISION::AxisAlignedBoundingBox</a></div><div class="ttdoc">Un área de colisión de alto nivel representado por una caja tridimensional.</div><div class="ttdef"><b>Definition</b> <a href="_axis_aligned_bounding_box_8h_source.html#l00019">AxisAlignedBoundingBox.h:19</a></div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_axis_aligned_bounding_box_html_a05192eb36783816d462fd1ac77ec548d"><div class="ttname"><a href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_axis_aligned_bounding_box.html#a05192eb36783816d462fd1ac77ec548d">OSK::COLLISION::AxisAlignedBoundingBox::CreateCopy</a></div><div class="ttdeci">OwnedPtr&lt; ITopLevelCollider &gt; CreateCopy() const override</div><div class="ttdef"><b>Definition</b> <a href="#l00013">AxisAlignedBoundingBox.cpp:13</a></div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_axis_aligned_bounding_box_html_a22be50db7c68c84f933aadb94228d670"><div class="ttname"><a href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_axis_aligned_bounding_box.html#a22be50db7c68c84f933aadb94228d670">OSK::COLLISION::AxisAlignedBoundingBox::CastRay</a></div><div class="ttdeci">RayCastResult CastRay(const Ray &amp;ray) const override</div><div class="ttdoc">Calcula la intersección entre un rayo y el collider.</div><div class="ttdef"><b>Definition</b> <a href="#l00039">AxisAlignedBoundingBox.cpp:39</a></div></div>
@@ -310,7 +310,7 @@ $(function(){initNavTree('_axis_aligned_bounding_box_8cpp_source.html',''); init
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_74389ed8173ad57b461b9d623a1f3867.html">Source</a></li><li class="navelem"><a class="el" href="_axis_aligned_bounding_box_8cpp.html">AxisAlignedBoundingBox.cpp</a></li>
-    <li class="footer">Generado el Lunes, 29 de enero de 2024 17:22:58 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.10.0 </li>
+    <li class="footer">Generado el Jueves, 28 de marzo de 2024 17:53:10 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.10.0 </li>
   </ul>
 </div>
 </body>

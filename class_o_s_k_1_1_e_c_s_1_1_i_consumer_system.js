@@ -2,15 +2,19 @@ var class_o_s_k_1_1_e_c_s_1_1_i_consumer_system =
 [
     [ "~IConsumerSystem", "class_o_s_k_1_1_e_c_s_1_1_i_consumer_system.html#a6fc04dc15a1804e94b951525c077ff9e", null ],
     [ "IConsumerSystem", "class_o_s_k_1_1_e_c_s_1_1_i_consumer_system.html#a37892b5adc973766930d9923150cbdaa", null ],
-    [ "_SetExecutionOrder", "class_o_s_k_1_1_e_c_s_1_1_i_consumer_system.html#aa8ebf2899f45680529227ba1026291d7", null ],
+    [ "_SetDependencies", "class_o_s_k_1_1_e_c_s_1_1_i_consumer_system.html#a2239551fafeab2592dc35cddc17305d3", null ],
     [ "Activate", "class_o_s_k_1_1_e_c_s_1_1_i_consumer_system.html#ad45cabb31dc788fbc37feaed82fd99d8", null ],
+    [ "BuildSpan", "class_o_s_k_1_1_e_c_s_1_1_i_consumer_system.html#a2395e5a893e21a8dfb3a9a1fd33faae2", null ],
     [ "Deactivate", "class_o_s_k_1_1_e_c_s_1_1_i_consumer_system.html#a2d6aa3dc12aa77cc9109b920ddca4225", null ],
-    [ "GetExecutionOrder", "class_o_s_k_1_1_e_c_s_1_1_i_consumer_system.html#a6952a02e89f9377c8377a26be104294d", null ],
+    [ "Execute", "class_o_s_k_1_1_e_c_s_1_1_i_consumer_system.html#ae4901ae4e4bcdf8574dd14cd7f63eef4", null ],
+    [ "GetDependencies", "class_o_s_k_1_1_e_c_s_1_1_i_consumer_system.html#a6f9009164fc90548c0979358232d2de4", null ],
+    [ "GetEventName", "class_o_s_k_1_1_e_c_s_1_1_i_consumer_system.html#ad49aab55a9646b2082f286c43ed5ef6e", null ],
     [ "GetName", "class_o_s_k_1_1_e_c_s_1_1_i_consumer_system.html#a9ac4b0e11cb52d7222ef76e675cb9cc5", null ],
     [ "IsActive", "class_o_s_k_1_1_e_c_s_1_1_i_consumer_system.html#acdd2816796e17bd727d7ee4d10e11aed", null ],
     [ "OnCreate", "class_o_s_k_1_1_e_c_s_1_1_i_consumer_system.html#a78d27d6a19bd0d3c9eadc3521c350001", null ],
+    [ "OnExecutionEnd", "class_o_s_k_1_1_e_c_s_1_1_i_consumer_system.html#abe96b51045b1c933b800aa217c99df7d", null ],
+    [ "OnExecutionStart", "class_o_s_k_1_1_e_c_s_1_1_i_consumer_system.html#abb1a1463af46335628d3c822ba74d5c2", null ],
     [ "OnRemove", "class_o_s_k_1_1_e_c_s_1_1_i_consumer_system.html#a43e7608ce2a31c9c13b42cf4ce6eb0ef", null ],
-    [ "OnTick", "class_o_s_k_1_1_e_c_s_1_1_i_consumer_system.html#ab66937b130814e6f06f3d76648dd0fb6", null ],
     [ "SetActivationStatus", "class_o_s_k_1_1_e_c_s_1_1_i_consumer_system.html#a97458cf11d6b977bad992387a2d67297", null ],
     [ "ToggleActivationStatus", "class_o_s_k_1_1_e_c_s_1_1_i_consumer_system.html#a01bbb5166a33e4484f42fcc6f03494b4", null ]
 ];

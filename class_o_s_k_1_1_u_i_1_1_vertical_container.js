@@ -23,7 +23,6 @@ var class_o_s_k_1_1_u_i_1_1_vertical_container =
     [ "IsVisible", "class_o_s_k_1_1_u_i_1_1_vertical_container.html#a8accfad472072a3da3f18fb57df749d9", null ],
     [ "KeepsRelativeSize", "class_o_s_k_1_1_u_i_1_1_vertical_container.html#ae5ccb397475874b1610b00d7bd0d9899", null ],
     [ "Lock", "class_o_s_k_1_1_u_i_1_1_vertical_container.html#a5547de24b168940bf610ff1010d33c83", null ],
-    [ "OSK_DEFINE_AS", "class_o_s_k_1_1_u_i_1_1_vertical_container.html#a46f079dc5060292013e4be6baf8e19b5", null ],
     [ "Rebuild", "class_o_s_k_1_1_u_i_1_1_vertical_container.html#a8ace09d55aa9f339c50aeb6309939bbf", null ],
     [ "Render", "class_o_s_k_1_1_u_i_1_1_vertical_container.html#ad272fdfdb6b4aa762e3d2c88388d79b7", null ],
     [ "ResetLayout", "class_o_s_k_1_1_u_i_1_1_vertical_container.html#a3fef1e2bd3cb878903a62372a2a5456f", null ],
@@ -41,6 +40,6 @@ var class_o_s_k_1_1_u_i_1_1_vertical_container =
     [ "UpdateByCursor", "class_o_s_k_1_1_u_i_1_1_vertical_container.html#a5e076c98dee5b4c28f7f84dd25c75d90", null ],
     [ "children", "class_o_s_k_1_1_u_i_1_1_vertical_container.html#a3cb95097b29de13d4c6684a506ca6844", null ],
     [ "childrenTable", "class_o_s_k_1_1_u_i_1_1_vertical_container.html#a0c43643fc0cd49fa8a4cc5ea0ed2a95c", null ],
-    [ "size", "class_o_s_k_1_1_u_i_1_1_vertical_container.html#ae01866b02c7417455751f01b2f9d1fbf", null ],
-    [ "sprite", "class_o_s_k_1_1_u_i_1_1_vertical_container.html#aad0b59cffc740bba336eecf079ce8f5f", null ]
+    [ "m_sprite", "class_o_s_k_1_1_u_i_1_1_vertical_container.html#a03f55330e93c62dbb127ec0f551f3991", null ],
+    [ "size", "class_o_s_k_1_1_u_i_1_1_vertical_container.html#ae01866b02c7417455751f01b2f9d1fbf", null ]
 ];

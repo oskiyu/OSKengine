@@ -118,6 +118,8 @@ Métodos públicos</h2></td></tr>
 <tr class="separator:a77ccbb13d753d941019131c1fe669f2d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa2ae3332ee4b0c80860b7cc3d60d5d55" id="r_aa2ae3332ee4b0c80860b7cc3d60d5d55"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aa2ae3332ee4b0c80860b7cc3d60d5d55">GameObjectDestroyerd</a> (<a class="el" href="namespace_o_s_k_1_1_e_c_s.html#a7be561d6b7de4e8a49c2a5cc35fba48c">GameObjectIndex</a> obj) override</td></tr>
 <tr class="separator:aa2ae3332ee4b0c80860b7cc3d60d5d55"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac5deb455d303cbc941039e4a64387b31" id="r_ac5deb455d303cbc941039e4a64387b31"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ac5deb455d303cbc941039e4a64387b31">ObjectHasComponent</a> (<a class="el" href="namespace_o_s_k_1_1_e_c_s.html#a7be561d6b7de4e8a49c2a5cc35fba48c">GameObjectIndex</a> obj) const</td></tr>
+<tr class="separator:ac5deb455d303cbc941039e4a64387b31"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Descripción detallada</h2>
 <div class="textblock"><div class="compoundTemplParams">template&lt;typename TComponent&gt;<br />
@@ -131,7 +133,7 @@ class OSK::ECS::ComponentContainer&lt; TComponent &gt;</div><p>Contenedor para e
 </dl>
 <dl class="section pre"><dt>Precondición</dt><dd>TComponent debe validar <a class="el" href="concept_o_s_k_1_1_e_c_s_1_1_is_ecs_component.html" title="Concepto que nos permite detectar si una clase cumple con las condiciones para ser un componente.">IsEcsComponent</a>. </dd></dl>
 
-<p class="definition">Definición en la línea <a class="el" href="_component_container_8h_source.html#l00018">18</a> del archivo <a class="el" href="_component_container_8h_source.html">ComponentContainer.h</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_component_container_8h_source.html#l00021">21</a> del archivo <a class="el" href="_component_container_8h_source.html">ComponentContainer.h</a>.</p>
 </div><h2 class="groupheader">Documentación de constructores y destructores</h2>
 <a id="a141c6941e31a9648aeb999a9c0521789" name="a141c6941e31a9648aeb999a9c0521789"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a141c6941e31a9648aeb999a9c0521789">&#9670;&#160;</a></span>~ComponentContainer()</h2>
@@ -198,9 +200,16 @@ template&lt;typename TComponent &gt; </div>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Devuelve</dt><dd>Referencia no estable al componente añadido. </dd></dl>
+<dl class="section return"><dt>Devuelve</dt><dd>Referencia no estable al componente añadido.</dd></dl>
+<dl class="section pre"><dt>Precondición</dt><dd>El objeto <code>obj</code> no contiene previamente un componente del tipo. </dd></dl>
+<dl class="exception"><dt>Excepciones</dt><dd>
+  <table class="exception">
+    <tr><td class="paramname"><a class="el" href="class_o_s_k_1_1_invalid_argument_exception.html" title="Excepción que se lanza cuando se trata de ejecutar una función pasando argumentos con valores que no ...">InvalidArgumentException</a></td><td>si se incumple la precondición. </td></tr>
+  </table>
+  </dd>
+</dl>
 
-<p class="definition">Definición en la línea <a class="el" href="_component_container_8h_source.html#l00028">28</a> del archivo <a class="el" href="_component_container_8h_source.html">ComponentContainer.h</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_component_container_8h_source.html#l00034">34</a> del archivo <a class="el" href="_component_container_8h_source.html">ComponentContainer.h</a>.</p>
 
 </div>
 </div>
@@ -241,9 +250,16 @@ template&lt;typename TComponent &gt; </div>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Devuelve</dt><dd>Referencia no estable al componente añadido. </dd></dl>
+<dl class="section return"><dt>Devuelve</dt><dd>Referencia no estable al componente añadido.</dd></dl>
+<dl class="section pre"><dt>Precondición</dt><dd>El objeto <code>obj</code> no contiene previamente un componente del tipo. </dd></dl>
+<dl class="exception"><dt>Excepciones</dt><dd>
+  <table class="exception">
+    <tr><td class="paramname"><a class="el" href="class_o_s_k_1_1_invalid_argument_exception.html" title="Excepción que se lanza cuando se trata de ejecutar una función pasando argumentos con valores que no ...">InvalidArgumentException</a></td><td>si se incumple la precondición. </td></tr>
+  </table>
+  </dd>
+</dl>
 
-<p class="definition">Definición en la línea <a class="el" href="_component_container_8h_source.html#l00042">42</a> del archivo <a class="el" href="_component_container_8h_source.html">ComponentContainer.h</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_component_container_8h_source.html#l00055">55</a> del archivo <a class="el" href="_component_container_8h_source.html">ComponentContainer.h</a>.</p>
 
 </div>
 </div>
@@ -284,7 +300,7 @@ template&lt;typename TComponent &gt; </div>
 
 <p>Implementa <a class="el" href="class_o_s_k_1_1_e_c_s_1_1_i_component_container.html#af511b10111c3e122b3e4f42930ccebe0">OSK::ECS::IComponentContainer</a>.</p>
 
-<p class="definition">Definición en la línea <a class="el" href="_component_container_8h_source.html#l00105">105</a> del archivo <a class="el" href="_component_container_8h_source.html">ComponentContainer.h</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_component_container_8h_source.html#l00126">126</a> del archivo <a class="el" href="_component_container_8h_source.html">ComponentContainer.h</a>.</p>
 
 </div>
 </div>
@@ -312,8 +328,6 @@ template&lt;typename TComponent &gt; </div>
   </tr>
 </table>
 </div><div class="memdoc">
-
-<p>Devuelve una. </p>
 <dl class="params"><dt>Parámetros</dt><dd>
   <table class="params">
     <tr><td class="paramname">obj</td><td>ID del objeto. </td></tr>
@@ -324,7 +338,7 @@ template&lt;typename TComponent &gt; </div>
 <dl class="section warning"><dt>Atención</dt><dd>No comprueba que el objeto tenga el componente. </dd></dl>
 <dl class="section pre"><dt>Precondición</dt><dd>El objeto debe tener el componente. </dd></dl>
 
-<p class="definition">Definición en la línea <a class="el" href="_component_container_8h_source.html#l00086">86</a> del archivo <a class="el" href="_component_container_8h_source.html">ComponentContainer.h</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_component_container_8h_source.html#l00108">108</a> del archivo <a class="el" href="_component_container_8h_source.html">ComponentContainer.h</a>.</p>
 
 </div>
 </div>
@@ -352,8 +366,6 @@ template&lt;typename TComponent &gt; </div>
   </tr>
 </table>
 </div><div class="memdoc">
-
-<p>Devuelve una. </p>
 <dl class="params"><dt>Parámetros</dt><dd>
   <table class="params">
     <tr><td class="paramname">obj</td><td>ID del objeto. </td></tr>
@@ -364,7 +376,43 @@ template&lt;typename TComponent &gt; </div>
 <dl class="section warning"><dt>Atención</dt><dd>No comprueba que el objeto tenga el componente. </dd></dl>
 <dl class="section pre"><dt>Precondición</dt><dd>El objeto debe tener el componente. </dd></dl>
 
-<p class="definition">Definición en la línea <a class="el" href="_component_container_8h_source.html#l00096">96</a> del archivo <a class="el" href="_component_container_8h_source.html">ComponentContainer.h</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_component_container_8h_source.html#l00117">117</a> del archivo <a class="el" href="_component_container_8h_source.html">ComponentContainer.h</a>.</p>
+
+</div>
+</div>
+<a id="ac5deb455d303cbc941039e4a64387b31" name="ac5deb455d303cbc941039e4a64387b31"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac5deb455d303cbc941039e4a64387b31">&#9670;&#160;</a></span>ObjectHasComponent()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename TComponent &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool <a class="el" href="class_o_s_k_1_1_e_c_s_1_1_component_container.html">OSK::ECS::ComponentContainer</a>&lt; TComponent &gt;::ObjectHasComponent </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="namespace_o_s_k_1_1_e_c_s.html#a7be561d6b7de4e8a49c2a5cc35fba48c">GameObjectIndex</a></td>          <td class="paramname"><span class="paramname"><em>obj</em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">obj</td><td>Objeto a comprobar. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Devuelve</dt><dd>True si tiene el componente añadido. </dd></dl>
+
+<p class="definition">Definición en la línea <a class="el" href="_component_container_8h_source.html#l00132">132</a> del archivo <a class="el" href="_component_container_8h_source.html">ComponentContainer.h</a>.</p>
 
 </div>
 </div>
@@ -402,8 +450,14 @@ template&lt;typename TComponent &gt; </div>
 </dl>
 <dl class="section warning"><dt>Atención</dt><dd>No comprueba que el objeto tenga el componente. </dd></dl>
 <dl class="section pre"><dt>Precondición</dt><dd>El objeto debe tener el componente. </dd></dl>
+<dl class="exception"><dt>Excepciones</dt><dd>
+  <table class="exception">
+    <tr><td class="paramname"><a class="el" href="class_o_s_k_1_1_invalid_argument_exception.html" title="Excepción que se lanza cuando se trata de ejecutar una función pasando argumentos con valores que no ...">InvalidArgumentException</a></td><td>Si el objeto no contiene el componente dado. </td></tr>
+  </table>
+  </dd>
+</dl>
 
-<p class="definition">Definición en la línea <a class="el" href="_component_container_8h_source.html#l00057">57</a> del archivo <a class="el" href="_component_container_8h_source.html">ComponentContainer.h</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_component_container_8h_source.html#l00075">75</a> del archivo <a class="el" href="_component_container_8h_source.html">ComponentContainer.h</a>.</p>
 
 </div>
 </div>
@@ -416,7 +470,7 @@ template&lt;typename TComponent &gt; </div>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="namespace_o_s_k.html">OSK</a></li><li class="navelem"><a class="el" href="namespace_o_s_k_1_1_e_c_s.html">ECS</a></li><li class="navelem"><a class="el" href="class_o_s_k_1_1_e_c_s_1_1_component_container.html">ComponentContainer</a></li>
-    <li class="footer">Generado el Lunes, 29 de enero de 2024 17:23:01 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.10.0 </li>
+    <li class="footer">Generado el Jueves, 28 de marzo de 2024 17:53:12 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.10.0 </li>
   </ul>
 </div>
 </body>

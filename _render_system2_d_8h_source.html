@@ -121,20 +121,20 @@ $(function(){initNavTree('_render_system2_d_8h_source.html',''); initResizable()
 <div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span> </div>
 <div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>        <a class="code hl_class" href="class_o_s_k_1_1_e_c_s_1_1_render_system2_d.html">RenderSystem2D</a>();</div>
 <div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span> </div>
-<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>        <span class="keywordtype">void</span> Render(<a class="code hl_class" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list.html">GRAPHICS::ICommandList</a>* commandList);</div>
-<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span> </div>
-<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>    <span class="keyword">private</span>:</div>
-<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span> </div>
-<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>        <a class="code hl_class" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_sprite_renderer.html">GRAPHICS::SpriteRenderer</a> spriteRenderer{};</div>
-<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span> </div>
-<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>    };</div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>        <span class="keywordtype">void</span> Render(<a class="code hl_class" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list.html">GRAPHICS::ICommandList</a>* commandList, std::span&lt;const ECS::GameObjectIndex&gt; objects) <span class="keyword">override</span>;</div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span> </div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>    <span class="keyword">private</span>:</div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span> </div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>        <a class="code hl_class" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_sprite_renderer.html">GRAPHICS::SpriteRenderer</a> spriteRenderer{};</div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span> </div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>    };</div>
 </div>
-<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span> </div>
-<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>}</div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span> </div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>}</div>
 <div class="ttc" id="a_i_render_system_8h_html"><div class="ttname"><a href="_i_render_system_8h.html">IRenderSystem.h</a></div></div>
 <div class="ttc" id="a_o_s_kmacros_8h_html_a09ec5b46ece998ad096bceff312bb36c"><div class="ttname"><a href="_o_s_kmacros_8h.html#a09ec5b46ece998ad096bceff312bb36c">OSKAPI_CALL</a></div><div class="ttdeci">#define OSKAPI_CALL</div><div class="ttdef"><b>Definition</b> <a href="_o_s_kmacros_8h_source.html#l00007">OSKmacros.h:7</a></div></div>
 <div class="ttc" id="a_sprite_renderer_8h_html"><div class="ttname"><a href="_sprite_renderer_8h.html">SpriteRenderer.h</a></div></div>
-<div class="ttc" id="aclass_o_s_k_1_1_e_c_s_1_1_i_render_system_html"><div class="ttname"><a href="class_o_s_k_1_1_e_c_s_1_1_i_render_system.html">OSK::ECS::IRenderSystem</a></div><div class="ttdoc">Clase base para sistemas de renderizado.</div><div class="ttdef"><b>Definition</b> <a href="_i_render_system_8h_source.html#l00023">IRenderSystem.h:23</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_e_c_s_1_1_i_render_system_html"><div class="ttname"><a href="class_o_s_k_1_1_e_c_s_1_1_i_render_system.html">OSK::ECS::IRenderSystem</a></div><div class="ttdoc">Clase base para sistemas de renderizado.</div><div class="ttdef"><b>Definition</b> <a href="_i_render_system_8h_source.html#l00026">IRenderSystem.h:26</a></div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_e_c_s_1_1_render_system2_d_html"><div class="ttname"><a href="class_o_s_k_1_1_e_c_s_1_1_render_system2_d.html">OSK::ECS::RenderSystem2D</a></div><div class="ttdef"><b>Definition</b> <a href="#l00012">RenderSystem2D.h:12</a></div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_e_c_s_1_1_render_system2_d_html_aa34950d068088dcb5e46056bef8af71c"><div class="ttname"><a href="class_o_s_k_1_1_e_c_s_1_1_render_system2_d.html#aa34950d068088dcb5e46056bef8af71c">OSK::ECS::RenderSystem2D::OSK_SYSTEM</a></div><div class="ttdeci">OSK_SYSTEM(&quot;OSK::RenderSystem2D&quot;)</div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list_html"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list.html">OSK::GRAPHICS::ICommandList</a></div><div class="ttdoc">Una lista de comandos contiene una serie de comandos que serán enviados a la GPU para su ejecución....</div><div class="ttdef"><b>Definition</b> <a href="_i_command_list_8h_source.html#l00114">ICommandList.h:114</a></div></div>
@@ -147,7 +147,7 @@ $(function(){initNavTree('_render_system2_d_8h_source.html',''); initResizable()
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_74389ed8173ad57b461b9d623a1f3867.html">Source</a></li><li class="navelem"><a class="el" href="_render_system2_d_8h.html">RenderSystem2D.h</a></li>
-    <li class="footer">Generado el Lunes, 29 de enero de 2024 17:22:59 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.10.0 </li>
+    <li class="footer">Generado el Jueves, 28 de marzo de 2024 17:53:11 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.10.0 </li>
   </ul>
 </div>
 </body>

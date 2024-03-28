@@ -175,100 +175,157 @@ $(function(){initNavTree('_model_loading_exceptions_8h_source.html',''); initRes
 <div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>    };</div>
 </div>
 <div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span> </div>
-<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span> </div>
-<div class="foldopen" id="foldopen00073" data-start="{" data-end="};">
-<div class="line"><a id="l00073" name="l00073"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_unsupported_index_type_exception.html">   73</a></span>    <span class="keyword">class </span><a class="code hl_class" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_unsupported_index_type_exception.html">UnsupportedIndexTypeException</a> : <span class="keyword">public</span> <a class="code hl_class" href="class_o_s_k_1_1_engine_exception.html">EngineException</a> {</div>
+<div class="foldopen" id="foldopen00071" data-start="{" data-end="};">
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_no_vertex_color_found_exception.html">   71</a></span>    <span class="keyword">class </span><a class="code hl_class" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_no_vertex_color_found_exception.html">NoVertexColorFoundException</a> : <span class="keyword">public</span> <a class="code hl_class" href="class_o_s_k_1_1_engine_exception.html">EngineException</a> {</div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span> </div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>    <span class="keyword">public</span>:</div>
 <div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span> </div>
-<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>    <span class="keyword">public</span>:</div>
-<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span> </div>
-<div class="foldopen" id="foldopen00077" data-start="{" data-end="}">
-<div class="line"><a id="l00077" name="l00077"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_unsupported_index_type_exception.html#a7ab0322826715ff11ea84a6bbe4d0b57">   77</a></span>        <span class="keyword">explicit</span> <a class="code hl_function" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_unsupported_index_type_exception.html#a7ab0322826715ff11ea84a6bbe4d0b57">UnsupportedIndexTypeException</a>(</div>
-<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span>            <span class="keyword">const</span> std::string&amp; type,</div>
-<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span>            <span class="keyword">const</span> std::source_location&amp; location = std::source_location::current())</div>
-<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span>            :</div>
-<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span>            <a class="code hl_class" href="class_o_s_k_1_1_engine_exception.html">EngineException</a>(</div>
-<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span>                std::format(<span class="stringliteral">&quot;UnsupportedIndexTypeException: El modelo contiene índices del tipo {} no soportado.&quot;</span>, type),</div>
-<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span>                location) { }</div>
+<div class="foldopen" id="foldopen00075" data-start="{" data-end="}">
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_no_vertex_color_found_exception.html#ae51b14f06ea24e5ed5cb66d140d61024">   75</a></span>        <span class="keyword">explicit</span> <a class="code hl_function" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_no_vertex_color_found_exception.html#ae51b14f06ea24e5ed5cb66d140d61024">NoVertexColorFoundException</a>(</div>
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>            <span class="keyword">const</span> std::source_location&amp; location = std::source_location::current())</div>
+<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span>            :</div>
+<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span>            <a class="code hl_class" href="class_o_s_k_1_1_engine_exception.html">EngineException</a>(</div>
+<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span>                std::format(<span class="stringliteral">&quot;NoVertexColorFoundException: El archivo del modelo 3D no contiene colores de vértices.&quot;</span>),</div>
+<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span>                location) { }</div>
 </div>
-<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span> </div>
-<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span>    };</div>
+<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span> </div>
+<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span>    };</div>
 </div>
-<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span> </div>
-<div class="foldopen" id="foldopen00088" data-start="{" data-end="};">
-<div class="line"><a id="l00088" name="l00088"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_unsupported_joint_type_exception.html">   88</a></span>    <span class="keyword">class </span><a class="code hl_class" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_unsupported_joint_type_exception.html">UnsupportedJointTypeException</a> : <span class="keyword">public</span> <a class="code hl_class" href="class_o_s_k_1_1_engine_exception.html">EngineException</a> {</div>
-<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span> </div>
-<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span>    <span class="keyword">public</span>:</div>
-<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span> </div>
-<div class="foldopen" id="foldopen00092" data-start="{" data-end="}">
-<div class="line"><a id="l00092" name="l00092"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_unsupported_joint_type_exception.html#af1f0ee463c225128a098bb089ad09ddc">   92</a></span>        <span class="keyword">explicit</span> <a class="code hl_function" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_unsupported_joint_type_exception.html#af1f0ee463c225128a098bb089ad09ddc">UnsupportedJointTypeException</a>(</div>
-<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span>            <span class="keyword">const</span> std::string&amp; type,</div>
-<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span>            <span class="keyword">const</span> std::source_location&amp; location = std::source_location::current())</div>
-<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span>            :</div>
-<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span>            <a class="code hl_class" href="class_o_s_k_1_1_engine_exception.html">EngineException</a>(</div>
-<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span>                std::format(<span class="stringliteral">&quot;UnsupportedJointTypeException: El modelo contiene joints del tipo {} no soportado.&quot;</span>, type),</div>
-<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span>                location) { }</div>
+<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span> </div>
+<div class="foldopen" id="foldopen00084" data-start="{" data-end="};">
+<div class="line"><a id="l00084" name="l00084"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_no_vertex_bone_weights_found_exception.html">   84</a></span>    <span class="keyword">class </span><a class="code hl_class" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_no_vertex_bone_weights_found_exception.html">NoVertexBoneWeightsFoundException</a> : <span class="keyword">public</span> <a class="code hl_class" href="class_o_s_k_1_1_engine_exception.html">EngineException</a> {</div>
+<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span> </div>
+<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span>    <span class="keyword">public</span>:</div>
+<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span> </div>
+<div class="foldopen" id="foldopen00088" data-start="{" data-end="}">
+<div class="line"><a id="l00088" name="l00088"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_no_vertex_bone_weights_found_exception.html#a1fe126b950e12d9ca81d93502b366a88">   88</a></span>        <span class="keyword">explicit</span> <a class="code hl_function" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_no_vertex_bone_weights_found_exception.html#a1fe126b950e12d9ca81d93502b366a88">NoVertexBoneWeightsFoundException</a>(</div>
+<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span>            <span class="keyword">const</span> std::source_location&amp; location = std::source_location::current())</div>
+<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span>            :</div>
+<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span>            <a class="code hl_class" href="class_o_s_k_1_1_engine_exception.html">EngineException</a>(</div>
+<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span>                std::format(<span class="stringliteral">&quot;NoVertexBoneWeightsFoundException: El archivo del modelo 3D no contiene huesos.&quot;</span>),</div>
+<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span>                location) { }</div>
 </div>
-<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span> </div>
-<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span>    };</div>
+<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span> </div>
+<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span>    };</div>
 </div>
-<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span> </div>
-<div class="foldopen" id="foldopen00103" data-start="{" data-end="};">
-<div class="line"><a id="l00103" name="l00103"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_unsupported_model_image_format_exception.html">  103</a></span>    <span class="keyword">class </span><a class="code hl_class" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_unsupported_model_image_format_exception.html">UnsupportedModelImageFormatException</a> : <span class="keyword">public</span> <a class="code hl_class" href="class_o_s_k_1_1_engine_exception.html">EngineException</a> {</div>
-<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span> </div>
-<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span>    <span class="keyword">public</span>:</div>
-<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span> </div>
-<div class="foldopen" id="foldopen00107" data-start="{" data-end="}">
-<div class="line"><a id="l00107" name="l00107"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_unsupported_model_image_format_exception.html#a9bf910f6494faa86f077c4f61a183c97">  107</a></span>        <span class="keyword">explicit</span> <a class="code hl_function" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_unsupported_model_image_format_exception.html#a9bf910f6494faa86f077c4f61a183c97">UnsupportedModelImageFormatException</a>(</div>
-<div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span>            <span class="keyword">const</span> std::source_location&amp; location = std::source_location::current())</div>
-<div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span>            :</div>
-<div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span>            <a class="code hl_class" href="class_o_s_k_1_1_engine_exception.html">EngineException</a>(</div>
-<div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span>                std::format(<span class="stringliteral">&quot;UnsupportedModelImageFormatException: El modelo contiene imágenes no soportadas.&quot;</span>),</div>
-<div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span>                location) { }</div>
+<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span> </div>
+<div class="foldopen" id="foldopen00097" data-start="{" data-end="};">
+<div class="line"><a id="l00097" name="l00097"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_no_vertex_bone_indices_found_exception.html">   97</a></span>    <span class="keyword">class </span><a class="code hl_class" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_no_vertex_bone_indices_found_exception.html">NoVertexBoneIndicesFoundException</a> : <span class="keyword">public</span> <a class="code hl_class" href="class_o_s_k_1_1_engine_exception.html">EngineException</a> {</div>
+<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span> </div>
+<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span>    <span class="keyword">public</span>:</div>
+<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span> </div>
+<div class="foldopen" id="foldopen00101" data-start="{" data-end="}">
+<div class="line"><a id="l00101" name="l00101"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_no_vertex_bone_indices_found_exception.html#adc8644ad844bd13614b1bca288454de0">  101</a></span>        <span class="keyword">explicit</span> <a class="code hl_function" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_no_vertex_bone_indices_found_exception.html#adc8644ad844bd13614b1bca288454de0">NoVertexBoneIndicesFoundException</a>(</div>
+<div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span>            <span class="keyword">const</span> std::source_location&amp; location = std::source_location::current())</div>
+<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span>            :</div>
+<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span>            <a class="code hl_class" href="class_o_s_k_1_1_engine_exception.html">EngineException</a>(</div>
+<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span>                std::format(<span class="stringliteral">&quot;NoVertexBoneIndicesFoundException: El archivo del modelo 3D no contiene huesos.&quot;</span>),</div>
+<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span>                location) { }</div>
 </div>
+<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span> </div>
+<div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span>    };</div>
+</div>
+<div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span> </div>
+<div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span> </div>
+<div class="foldopen" id="foldopen00112" data-start="{" data-end="};">
+<div class="line"><a id="l00112" name="l00112"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_unsupported_index_type_exception.html">  112</a></span>    <span class="keyword">class </span><a class="code hl_class" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_unsupported_index_type_exception.html">UnsupportedIndexTypeException</a> : <span class="keyword">public</span> <a class="code hl_class" href="class_o_s_k_1_1_engine_exception.html">EngineException</a> {</div>
 <div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span> </div>
-<div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span>    };</div>
-</div>
+<div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span>    <span class="keyword">public</span>:</div>
 <div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span> </div>
-<div class="foldopen" id="foldopen00117" data-start="{" data-end="};">
-<div class="line"><a id="l00117" name="l00117"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_unsupported_polygon_mode_exception.html">  117</a></span>    <span class="keyword">class </span><a class="code hl_class" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_unsupported_polygon_mode_exception.html">UnsupportedPolygonModeException</a> : <span class="keyword">public</span> <a class="code hl_class" href="class_o_s_k_1_1_engine_exception.html">EngineException</a> {</div>
-<div class="line"><a id="l00118" name="l00118"></a><span class="lineno">  118</span> </div>
-<div class="line"><a id="l00119" name="l00119"></a><span class="lineno">  119</span>    <span class="keyword">public</span>:</div>
-<div class="line"><a id="l00120" name="l00120"></a><span class="lineno">  120</span> </div>
-<div class="foldopen" id="foldopen00121" data-start="{" data-end="}">
-<div class="line"><a id="l00121" name="l00121"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_unsupported_polygon_mode_exception.html#a5db25babba7bf484bf66488b756c66b4">  121</a></span>        <span class="keyword">explicit</span> <a class="code hl_function" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_unsupported_polygon_mode_exception.html#a5db25babba7bf484bf66488b756c66b4">UnsupportedPolygonModeException</a>(</div>
-<div class="line"><a id="l00122" name="l00122"></a><span class="lineno">  122</span>            std::string_view polygonMode,</div>
-<div class="line"><a id="l00123" name="l00123"></a><span class="lineno">  123</span>            <span class="keyword">const</span> std::source_location&amp; location = std::source_location::current())</div>
-<div class="line"><a id="l00124" name="l00124"></a><span class="lineno">  124</span>            :</div>
-<div class="line"><a id="l00125" name="l00125"></a><span class="lineno">  125</span>            <a class="code hl_class" href="class_o_s_k_1_1_engine_exception.html">EngineException</a>(</div>
-<div class="line"><a id="l00126" name="l00126"></a><span class="lineno">  126</span>                std::format(<span class="stringliteral">&quot;UnsupportedPolygonModeException: el modelo tiene polígonos {} en vez de TRIANGLES.&quot;</span>, polygonMode),</div>
-<div class="line"><a id="l00127" name="l00127"></a><span class="lineno">  127</span>                location) { }</div>
+<div class="foldopen" id="foldopen00116" data-start="{" data-end="}">
+<div class="line"><a id="l00116" name="l00116"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_unsupported_index_type_exception.html#a7ab0322826715ff11ea84a6bbe4d0b57">  116</a></span>        <span class="keyword">explicit</span> <a class="code hl_function" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_unsupported_index_type_exception.html#a7ab0322826715ff11ea84a6bbe4d0b57">UnsupportedIndexTypeException</a>(</div>
+<div class="line"><a id="l00117" name="l00117"></a><span class="lineno">  117</span>            <span class="keyword">const</span> std::string&amp; type,</div>
+<div class="line"><a id="l00118" name="l00118"></a><span class="lineno">  118</span>            <span class="keyword">const</span> std::source_location&amp; location = std::source_location::current())</div>
+<div class="line"><a id="l00119" name="l00119"></a><span class="lineno">  119</span>            :</div>
+<div class="line"><a id="l00120" name="l00120"></a><span class="lineno">  120</span>            <a class="code hl_class" href="class_o_s_k_1_1_engine_exception.html">EngineException</a>(</div>
+<div class="line"><a id="l00121" name="l00121"></a><span class="lineno">  121</span>                std::format(<span class="stringliteral">&quot;UnsupportedIndexTypeException: El modelo contiene índices del tipo {} no soportado.&quot;</span>, type),</div>
+<div class="line"><a id="l00122" name="l00122"></a><span class="lineno">  122</span>                location) { }</div>
 </div>
+<div class="line"><a id="l00123" name="l00123"></a><span class="lineno">  123</span> </div>
+<div class="line"><a id="l00124" name="l00124"></a><span class="lineno">  124</span>    };</div>
+</div>
+<div class="line"><a id="l00125" name="l00125"></a><span class="lineno">  125</span> </div>
+<div class="foldopen" id="foldopen00127" data-start="{" data-end="};">
+<div class="line"><a id="l00127" name="l00127"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_unsupported_joint_type_exception.html">  127</a></span>    <span class="keyword">class </span><a class="code hl_class" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_unsupported_joint_type_exception.html">UnsupportedJointTypeException</a> : <span class="keyword">public</span> <a class="code hl_class" href="class_o_s_k_1_1_engine_exception.html">EngineException</a> {</div>
 <div class="line"><a id="l00128" name="l00128"></a><span class="lineno">  128</span> </div>
-<div class="line"><a id="l00129" name="l00129"></a><span class="lineno">  129</span>    };</div>
-</div>
+<div class="line"><a id="l00129" name="l00129"></a><span class="lineno">  129</span>    <span class="keyword">public</span>:</div>
 <div class="line"><a id="l00130" name="l00130"></a><span class="lineno">  130</span> </div>
-<div class="line"><a id="l00131" name="l00131"></a><span class="lineno">  131</span> </div>
-<div class="foldopen" id="foldopen00133" data-start="{" data-end="};">
-<div class="line"><a id="l00133" name="l00133"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_unsupported_mesh_properties.html">  133</a></span>    <span class="keyword">class </span><a class="code hl_class" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_unsupported_mesh_properties.html">UnsupportedMeshProperties</a> : <span class="keyword">public</span> <a class="code hl_class" href="class_o_s_k_1_1_engine_exception.html">EngineException</a> {</div>
-<div class="line"><a id="l00134" name="l00134"></a><span class="lineno">  134</span> </div>
-<div class="line"><a id="l00135" name="l00135"></a><span class="lineno">  135</span>    <span class="keyword">public</span>:</div>
-<div class="line"><a id="l00136" name="l00136"></a><span class="lineno">  136</span> </div>
-<div class="foldopen" id="foldopen00137" data-start="{" data-end="}">
-<div class="line"><a id="l00137" name="l00137"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_unsupported_mesh_properties.html#abf13f94e5e9b15d16b881d6b29c834be">  137</a></span>        <span class="keyword">explicit</span> <a class="code hl_function" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_unsupported_mesh_properties.html#abf13f94e5e9b15d16b881d6b29c834be">UnsupportedMeshProperties</a>(</div>
-<div class="line"><a id="l00138" name="l00138"></a><span class="lineno">  138</span>            std::string_view <a class="code hl_class" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">propertyDataType</a>,</div>
-<div class="line"><a id="l00139" name="l00139"></a><span class="lineno">  139</span>            <span class="keyword">const</span> std::source_location&amp; location = std::source_location::current())</div>
-<div class="line"><a id="l00140" name="l00140"></a><span class="lineno">  140</span>            :</div>
-<div class="line"><a id="l00141" name="l00141"></a><span class="lineno">  141</span>            <a class="code hl_class" href="class_o_s_k_1_1_engine_exception.html">EngineException</a>(</div>
-<div class="line"><a id="l00142" name="l00142"></a><span class="lineno">  142</span>                std::format(<span class="stringliteral">&quot;UnsupportedMeshProperties: el mesh tiene propiedades del tipo {}.&quot;</span>, <a class="code hl_class" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">propertyDataType</a>),</div>
-<div class="line"><a id="l00143" name="l00143"></a><span class="lineno">  143</span>                location) { }</div>
+<div class="foldopen" id="foldopen00131" data-start="{" data-end="}">
+<div class="line"><a id="l00131" name="l00131"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_unsupported_joint_type_exception.html#af1f0ee463c225128a098bb089ad09ddc">  131</a></span>        <span class="keyword">explicit</span> <a class="code hl_function" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_unsupported_joint_type_exception.html#af1f0ee463c225128a098bb089ad09ddc">UnsupportedJointTypeException</a>(</div>
+<div class="line"><a id="l00132" name="l00132"></a><span class="lineno">  132</span>            <span class="keyword">const</span> std::string&amp; type,</div>
+<div class="line"><a id="l00133" name="l00133"></a><span class="lineno">  133</span>            <span class="keyword">const</span> std::source_location&amp; location = std::source_location::current())</div>
+<div class="line"><a id="l00134" name="l00134"></a><span class="lineno">  134</span>            :</div>
+<div class="line"><a id="l00135" name="l00135"></a><span class="lineno">  135</span>            <a class="code hl_class" href="class_o_s_k_1_1_engine_exception.html">EngineException</a>(</div>
+<div class="line"><a id="l00136" name="l00136"></a><span class="lineno">  136</span>                std::format(<span class="stringliteral">&quot;UnsupportedJointTypeException: El modelo contiene joints del tipo {} no soportado.&quot;</span>, type),</div>
+<div class="line"><a id="l00137" name="l00137"></a><span class="lineno">  137</span>                location) { }</div>
 </div>
-<div class="line"><a id="l00144" name="l00144"></a><span class="lineno">  144</span> </div>
-<div class="line"><a id="l00145" name="l00145"></a><span class="lineno">  145</span>    };</div>
+<div class="line"><a id="l00138" name="l00138"></a><span class="lineno">  138</span> </div>
+<div class="line"><a id="l00139" name="l00139"></a><span class="lineno">  139</span>    };</div>
 </div>
-<div class="line"><a id="l00146" name="l00146"></a><span class="lineno">  146</span> </div>
-<div class="line"><a id="l00147" name="l00147"></a><span class="lineno">  147</span>}</div>
+<div class="line"><a id="l00140" name="l00140"></a><span class="lineno">  140</span> </div>
+<div class="foldopen" id="foldopen00142" data-start="{" data-end="};">
+<div class="line"><a id="l00142" name="l00142"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_unsupported_model_image_format_exception.html">  142</a></span>    <span class="keyword">class </span><a class="code hl_class" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_unsupported_model_image_format_exception.html">UnsupportedModelImageFormatException</a> : <span class="keyword">public</span> <a class="code hl_class" href="class_o_s_k_1_1_engine_exception.html">EngineException</a> {</div>
+<div class="line"><a id="l00143" name="l00143"></a><span class="lineno">  143</span> </div>
+<div class="line"><a id="l00144" name="l00144"></a><span class="lineno">  144</span>    <span class="keyword">public</span>:</div>
+<div class="line"><a id="l00145" name="l00145"></a><span class="lineno">  145</span> </div>
+<div class="foldopen" id="foldopen00146" data-start="{" data-end="}">
+<div class="line"><a id="l00146" name="l00146"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_unsupported_model_image_format_exception.html#a9bf910f6494faa86f077c4f61a183c97">  146</a></span>        <span class="keyword">explicit</span> <a class="code hl_function" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_unsupported_model_image_format_exception.html#a9bf910f6494faa86f077c4f61a183c97">UnsupportedModelImageFormatException</a>(</div>
+<div class="line"><a id="l00147" name="l00147"></a><span class="lineno">  147</span>            <span class="keyword">const</span> std::source_location&amp; location = std::source_location::current())</div>
+<div class="line"><a id="l00148" name="l00148"></a><span class="lineno">  148</span>            :</div>
+<div class="line"><a id="l00149" name="l00149"></a><span class="lineno">  149</span>            <a class="code hl_class" href="class_o_s_k_1_1_engine_exception.html">EngineException</a>(</div>
+<div class="line"><a id="l00150" name="l00150"></a><span class="lineno">  150</span>                std::format(<span class="stringliteral">&quot;UnsupportedModelImageFormatException: El modelo contiene imágenes no soportadas.&quot;</span>),</div>
+<div class="line"><a id="l00151" name="l00151"></a><span class="lineno">  151</span>                location) { }</div>
+</div>
+<div class="line"><a id="l00152" name="l00152"></a><span class="lineno">  152</span> </div>
+<div class="line"><a id="l00153" name="l00153"></a><span class="lineno">  153</span>    };</div>
+</div>
+<div class="line"><a id="l00154" name="l00154"></a><span class="lineno">  154</span> </div>
+<div class="foldopen" id="foldopen00156" data-start="{" data-end="};">
+<div class="line"><a id="l00156" name="l00156"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_unsupported_polygon_mode_exception.html">  156</a></span>    <span class="keyword">class </span><a class="code hl_class" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_unsupported_polygon_mode_exception.html">UnsupportedPolygonModeException</a> : <span class="keyword">public</span> <a class="code hl_class" href="class_o_s_k_1_1_engine_exception.html">EngineException</a> {</div>
+<div class="line"><a id="l00157" name="l00157"></a><span class="lineno">  157</span> </div>
+<div class="line"><a id="l00158" name="l00158"></a><span class="lineno">  158</span>    <span class="keyword">public</span>:</div>
+<div class="line"><a id="l00159" name="l00159"></a><span class="lineno">  159</span> </div>
+<div class="foldopen" id="foldopen00160" data-start="{" data-end="}">
+<div class="line"><a id="l00160" name="l00160"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_unsupported_polygon_mode_exception.html#a5db25babba7bf484bf66488b756c66b4">  160</a></span>        <span class="keyword">explicit</span> <a class="code hl_function" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_unsupported_polygon_mode_exception.html#a5db25babba7bf484bf66488b756c66b4">UnsupportedPolygonModeException</a>(</div>
+<div class="line"><a id="l00161" name="l00161"></a><span class="lineno">  161</span>            std::string_view polygonMode,</div>
+<div class="line"><a id="l00162" name="l00162"></a><span class="lineno">  162</span>            <span class="keyword">const</span> std::source_location&amp; location = std::source_location::current())</div>
+<div class="line"><a id="l00163" name="l00163"></a><span class="lineno">  163</span>            :</div>
+<div class="line"><a id="l00164" name="l00164"></a><span class="lineno">  164</span>            <a class="code hl_class" href="class_o_s_k_1_1_engine_exception.html">EngineException</a>(</div>
+<div class="line"><a id="l00165" name="l00165"></a><span class="lineno">  165</span>                std::format(<span class="stringliteral">&quot;UnsupportedPolygonModeException: el modelo tiene polígonos {} en vez de TRIANGLES.&quot;</span>, polygonMode),</div>
+<div class="line"><a id="l00166" name="l00166"></a><span class="lineno">  166</span>                location) { }</div>
+</div>
+<div class="line"><a id="l00167" name="l00167"></a><span class="lineno">  167</span> </div>
+<div class="line"><a id="l00168" name="l00168"></a><span class="lineno">  168</span>    };</div>
+</div>
+<div class="line"><a id="l00169" name="l00169"></a><span class="lineno">  169</span> </div>
+<div class="line"><a id="l00170" name="l00170"></a><span class="lineno">  170</span> </div>
+<div class="foldopen" id="foldopen00172" data-start="{" data-end="};">
+<div class="line"><a id="l00172" name="l00172"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_unsupported_mesh_properties.html">  172</a></span>    <span class="keyword">class </span><a class="code hl_class" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_unsupported_mesh_properties.html">UnsupportedMeshProperties</a> : <span class="keyword">public</span> <a class="code hl_class" href="class_o_s_k_1_1_engine_exception.html">EngineException</a> {</div>
+<div class="line"><a id="l00173" name="l00173"></a><span class="lineno">  173</span> </div>
+<div class="line"><a id="l00174" name="l00174"></a><span class="lineno">  174</span>    <span class="keyword">public</span>:</div>
+<div class="line"><a id="l00175" name="l00175"></a><span class="lineno">  175</span> </div>
+<div class="foldopen" id="foldopen00176" data-start="{" data-end="}">
+<div class="line"><a id="l00176" name="l00176"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_unsupported_mesh_properties.html#abf13f94e5e9b15d16b881d6b29c834be">  176</a></span>        <span class="keyword">explicit</span> <a class="code hl_function" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_unsupported_mesh_properties.html#abf13f94e5e9b15d16b881d6b29c834be">UnsupportedMeshProperties</a>(</div>
+<div class="line"><a id="l00177" name="l00177"></a><span class="lineno">  177</span>            std::string_view <a class="code hl_class" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">propertyDataType</a>,</div>
+<div class="line"><a id="l00178" name="l00178"></a><span class="lineno">  178</span>            <span class="keyword">const</span> std::source_location&amp; location = std::source_location::current())</div>
+<div class="line"><a id="l00179" name="l00179"></a><span class="lineno">  179</span>            :</div>
+<div class="line"><a id="l00180" name="l00180"></a><span class="lineno">  180</span>            <a class="code hl_class" href="class_o_s_k_1_1_engine_exception.html">EngineException</a>(</div>
+<div class="line"><a id="l00181" name="l00181"></a><span class="lineno">  181</span>                std::format(<span class="stringliteral">&quot;UnsupportedMeshProperties: el mesh tiene propiedades del tipo {}.&quot;</span>, <a class="code hl_class" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">propertyDataType</a>),</div>
+<div class="line"><a id="l00182" name="l00182"></a><span class="lineno">  182</span>                location) { }</div>
+</div>
+<div class="line"><a id="l00183" name="l00183"></a><span class="lineno">  183</span> </div>
+<div class="line"><a id="l00184" name="l00184"></a><span class="lineno">  184</span>    };</div>
+</div>
+<div class="line"><a id="l00185" name="l00185"></a><span class="lineno">  185</span> </div>
+<div class="line"><a id="l00186" name="l00186"></a><span class="lineno">  186</span>}</div>
 <div class="ttc" id="a_engine_exception_8h_html"><div class="ttname"><a href="_engine_exception_8h.html">EngineException.h</a></div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref_html"><div class="ttname"><a href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">OSK::ASSETS::AssetRef</a></div><div class="ttdoc">Referencia a un asset.</div><div class="ttdef"><b>Definition</b> <a href="_asset_ref_8h_source.html#l00012">AssetRef.h:12</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_a_s_s_e_t_s_1_1_no_vertex_bone_indices_found_exception_html"><div class="ttname"><a href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_no_vertex_bone_indices_found_exception.html">OSK::ASSETS::NoVertexBoneIndicesFoundException</a></div><div class="ttdef"><b>Definition</b> <a href="#l00097">ModelLoadingExceptions.h:97</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_a_s_s_e_t_s_1_1_no_vertex_bone_indices_found_exception_html_adc8644ad844bd13614b1bca288454de0"><div class="ttname"><a href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_no_vertex_bone_indices_found_exception.html#adc8644ad844bd13614b1bca288454de0">OSK::ASSETS::NoVertexBoneIndicesFoundException::NoVertexBoneIndicesFoundException</a></div><div class="ttdeci">NoVertexBoneIndicesFoundException(const std::source_location &amp;location=std::source_location::current())</div><div class="ttdef"><b>Definition</b> <a href="#l00101">ModelLoadingExceptions.h:101</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_a_s_s_e_t_s_1_1_no_vertex_bone_weights_found_exception_html"><div class="ttname"><a href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_no_vertex_bone_weights_found_exception.html">OSK::ASSETS::NoVertexBoneWeightsFoundException</a></div><div class="ttdef"><b>Definition</b> <a href="#l00084">ModelLoadingExceptions.h:84</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_a_s_s_e_t_s_1_1_no_vertex_bone_weights_found_exception_html_a1fe126b950e12d9ca81d93502b366a88"><div class="ttname"><a href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_no_vertex_bone_weights_found_exception.html#a1fe126b950e12d9ca81d93502b366a88">OSK::ASSETS::NoVertexBoneWeightsFoundException::NoVertexBoneWeightsFoundException</a></div><div class="ttdeci">NoVertexBoneWeightsFoundException(const std::source_location &amp;location=std::source_location::current())</div><div class="ttdef"><b>Definition</b> <a href="#l00088">ModelLoadingExceptions.h:88</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_a_s_s_e_t_s_1_1_no_vertex_color_found_exception_html"><div class="ttname"><a href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_no_vertex_color_found_exception.html">OSK::ASSETS::NoVertexColorFoundException</a></div><div class="ttdef"><b>Definition</b> <a href="#l00071">ModelLoadingExceptions.h:71</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_a_s_s_e_t_s_1_1_no_vertex_color_found_exception_html_ae51b14f06ea24e5ed5cb66d140d61024"><div class="ttname"><a href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_no_vertex_color_found_exception.html#ae51b14f06ea24e5ed5cb66d140d61024">OSK::ASSETS::NoVertexColorFoundException::NoVertexColorFoundException</a></div><div class="ttdeci">NoVertexColorFoundException(const std::source_location &amp;location=std::source_location::current())</div><div class="ttdef"><b>Definition</b> <a href="#l00075">ModelLoadingExceptions.h:75</a></div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_a_s_s_e_t_s_1_1_no_vertex_normals_found_exception_html"><div class="ttname"><a href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_no_vertex_normals_found_exception.html">OSK::ASSETS::NoVertexNormalsFoundException</a></div><div class="ttdoc">Excepción que se lanza cuando no se consiguen encontrar las normales de los vértices de un modelo 3D ...</div><div class="ttdef"><b>Definition</b> <a href="#l00026">ModelLoadingExceptions.h:26</a></div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_a_s_s_e_t_s_1_1_no_vertex_normals_found_exception_html_a883465907218cb2b5783e7cd1960e319"><div class="ttname"><a href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_no_vertex_normals_found_exception.html#a883465907218cb2b5783e7cd1960e319">OSK::ASSETS::NoVertexNormalsFoundException::NoVertexNormalsFoundException</a></div><div class="ttdeci">NoVertexNormalsFoundException(const std::source_location &amp;location=std::source_location::current())</div><div class="ttdef"><b>Definition</b> <a href="#l00030">ModelLoadingExceptions.h:30</a></div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_a_s_s_e_t_s_1_1_no_vertex_positions_found_exception_html"><div class="ttname"><a href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_no_vertex_positions_found_exception.html">OSK::ASSETS::NoVertexPositionsFoundException</a></div><div class="ttdoc">Excepción que se lanza cuando no se consiguen encontrar las posiciones de los vértices de un modelo 3...</div><div class="ttdef"><b>Definition</b> <a href="#l00010">ModelLoadingExceptions.h:10</a></div></div>
@@ -277,16 +334,16 @@ $(function(){initNavTree('_model_loading_exceptions_8h_source.html',''); initRes
 <div class="ttc" id="aclass_o_s_k_1_1_a_s_s_e_t_s_1_1_no_vertex_tangents_found_exception_html_a2fa3eb981e8800da6fb780d840e3a693"><div class="ttname"><a href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_no_vertex_tangents_found_exception.html#a2fa3eb981e8800da6fb780d840e3a693">OSK::ASSETS::NoVertexTangentsFoundException::NoVertexTangentsFoundException</a></div><div class="ttdeci">NoVertexTangentsFoundException(const std::source_location &amp;location=std::source_location::current())</div><div class="ttdef"><b>Definition</b> <a href="#l00046">ModelLoadingExceptions.h:46</a></div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_a_s_s_e_t_s_1_1_no_vertex_tex_coords_found_exception_html"><div class="ttname"><a href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_no_vertex_tex_coords_found_exception.html">OSK::ASSETS::NoVertexTexCoordsFoundException</a></div><div class="ttdoc">Excepción que se lanza cuando no se consiguen encontrar las coordenadas de texturas de los vértices d...</div><div class="ttdef"><b>Definition</b> <a href="#l00058">ModelLoadingExceptions.h:58</a></div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_a_s_s_e_t_s_1_1_no_vertex_tex_coords_found_exception_html_abe33e2016999dcd7f6ecb4ddca857aff"><div class="ttname"><a href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_no_vertex_tex_coords_found_exception.html#abe33e2016999dcd7f6ecb4ddca857aff">OSK::ASSETS::NoVertexTexCoordsFoundException::NoVertexTexCoordsFoundException</a></div><div class="ttdeci">NoVertexTexCoordsFoundException(const std::source_location &amp;location=std::source_location::current())</div><div class="ttdef"><b>Definition</b> <a href="#l00062">ModelLoadingExceptions.h:62</a></div></div>
-<div class="ttc" id="aclass_o_s_k_1_1_a_s_s_e_t_s_1_1_unsupported_index_type_exception_html"><div class="ttname"><a href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_unsupported_index_type_exception.html">OSK::ASSETS::UnsupportedIndexTypeException</a></div><div class="ttdoc">Excepción que se lanza cuando los índices de un modelo 3D son de un tipo no soportado.</div><div class="ttdef"><b>Definition</b> <a href="#l00073">ModelLoadingExceptions.h:73</a></div></div>
-<div class="ttc" id="aclass_o_s_k_1_1_a_s_s_e_t_s_1_1_unsupported_index_type_exception_html_a7ab0322826715ff11ea84a6bbe4d0b57"><div class="ttname"><a href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_unsupported_index_type_exception.html#a7ab0322826715ff11ea84a6bbe4d0b57">OSK::ASSETS::UnsupportedIndexTypeException::UnsupportedIndexTypeException</a></div><div class="ttdeci">UnsupportedIndexTypeException(const std::string &amp;type, const std::source_location &amp;location=std::source_location::current())</div><div class="ttdef"><b>Definition</b> <a href="#l00077">ModelLoadingExceptions.h:77</a></div></div>
-<div class="ttc" id="aclass_o_s_k_1_1_a_s_s_e_t_s_1_1_unsupported_joint_type_exception_html"><div class="ttname"><a href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_unsupported_joint_type_exception.html">OSK::ASSETS::UnsupportedJointTypeException</a></div><div class="ttdoc">Excepción que se lanza cuando los joints de un modelo 3D son de un tipo no soportado.</div><div class="ttdef"><b>Definition</b> <a href="#l00088">ModelLoadingExceptions.h:88</a></div></div>
-<div class="ttc" id="aclass_o_s_k_1_1_a_s_s_e_t_s_1_1_unsupported_joint_type_exception_html_af1f0ee463c225128a098bb089ad09ddc"><div class="ttname"><a href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_unsupported_joint_type_exception.html#af1f0ee463c225128a098bb089ad09ddc">OSK::ASSETS::UnsupportedJointTypeException::UnsupportedJointTypeException</a></div><div class="ttdeci">UnsupportedJointTypeException(const std::string &amp;type, const std::source_location &amp;location=std::source_location::current())</div><div class="ttdef"><b>Definition</b> <a href="#l00092">ModelLoadingExceptions.h:92</a></div></div>
-<div class="ttc" id="aclass_o_s_k_1_1_a_s_s_e_t_s_1_1_unsupported_mesh_properties_html"><div class="ttname"><a href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_unsupported_mesh_properties.html">OSK::ASSETS::UnsupportedMeshProperties</a></div><div class="ttdoc">Excepción que se lanza cuando el formato de una propiedad del mesh no está soportada.</div><div class="ttdef"><b>Definition</b> <a href="#l00133">ModelLoadingExceptions.h:133</a></div></div>
-<div class="ttc" id="aclass_o_s_k_1_1_a_s_s_e_t_s_1_1_unsupported_mesh_properties_html_abf13f94e5e9b15d16b881d6b29c834be"><div class="ttname"><a href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_unsupported_mesh_properties.html#abf13f94e5e9b15d16b881d6b29c834be">OSK::ASSETS::UnsupportedMeshProperties::UnsupportedMeshProperties</a></div><div class="ttdeci">UnsupportedMeshProperties(std::string_view propertyDataType, const std::source_location &amp;location=std::source_location::current())</div><div class="ttdef"><b>Definition</b> <a href="#l00137">ModelLoadingExceptions.h:137</a></div></div>
-<div class="ttc" id="aclass_o_s_k_1_1_a_s_s_e_t_s_1_1_unsupported_model_image_format_exception_html"><div class="ttname"><a href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_unsupported_model_image_format_exception.html">OSK::ASSETS::UnsupportedModelImageFormatException</a></div><div class="ttdoc">Excepción que se lanza cuando el formato de las imágenes de un modelo no están soportadas.</div><div class="ttdef"><b>Definition</b> <a href="#l00103">ModelLoadingExceptions.h:103</a></div></div>
-<div class="ttc" id="aclass_o_s_k_1_1_a_s_s_e_t_s_1_1_unsupported_model_image_format_exception_html_a9bf910f6494faa86f077c4f61a183c97"><div class="ttname"><a href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_unsupported_model_image_format_exception.html#a9bf910f6494faa86f077c4f61a183c97">OSK::ASSETS::UnsupportedModelImageFormatException::UnsupportedModelImageFormatException</a></div><div class="ttdeci">UnsupportedModelImageFormatException(const std::source_location &amp;location=std::source_location::current())</div><div class="ttdef"><b>Definition</b> <a href="#l00107">ModelLoadingExceptions.h:107</a></div></div>
-<div class="ttc" id="aclass_o_s_k_1_1_a_s_s_e_t_s_1_1_unsupported_polygon_mode_exception_html"><div class="ttname"><a href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_unsupported_polygon_mode_exception.html">OSK::ASSETS::UnsupportedPolygonModeException</a></div><div class="ttdoc">Excepción que se lanza cuando el formato de los polígonos no es TRIÁNGULOS.</div><div class="ttdef"><b>Definition</b> <a href="#l00117">ModelLoadingExceptions.h:117</a></div></div>
-<div class="ttc" id="aclass_o_s_k_1_1_a_s_s_e_t_s_1_1_unsupported_polygon_mode_exception_html_a5db25babba7bf484bf66488b756c66b4"><div class="ttname"><a href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_unsupported_polygon_mode_exception.html#a5db25babba7bf484bf66488b756c66b4">OSK::ASSETS::UnsupportedPolygonModeException::UnsupportedPolygonModeException</a></div><div class="ttdeci">UnsupportedPolygonModeException(std::string_view polygonMode, const std::source_location &amp;location=std::source_location::current())</div><div class="ttdef"><b>Definition</b> <a href="#l00121">ModelLoadingExceptions.h:121</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_a_s_s_e_t_s_1_1_unsupported_index_type_exception_html"><div class="ttname"><a href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_unsupported_index_type_exception.html">OSK::ASSETS::UnsupportedIndexTypeException</a></div><div class="ttdoc">Excepción que se lanza cuando los índices de un modelo 3D son de un tipo no soportado.</div><div class="ttdef"><b>Definition</b> <a href="#l00112">ModelLoadingExceptions.h:112</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_a_s_s_e_t_s_1_1_unsupported_index_type_exception_html_a7ab0322826715ff11ea84a6bbe4d0b57"><div class="ttname"><a href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_unsupported_index_type_exception.html#a7ab0322826715ff11ea84a6bbe4d0b57">OSK::ASSETS::UnsupportedIndexTypeException::UnsupportedIndexTypeException</a></div><div class="ttdeci">UnsupportedIndexTypeException(const std::string &amp;type, const std::source_location &amp;location=std::source_location::current())</div><div class="ttdef"><b>Definition</b> <a href="#l00116">ModelLoadingExceptions.h:116</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_a_s_s_e_t_s_1_1_unsupported_joint_type_exception_html"><div class="ttname"><a href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_unsupported_joint_type_exception.html">OSK::ASSETS::UnsupportedJointTypeException</a></div><div class="ttdoc">Excepción que se lanza cuando los joints de un modelo 3D son de un tipo no soportado.</div><div class="ttdef"><b>Definition</b> <a href="#l00127">ModelLoadingExceptions.h:127</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_a_s_s_e_t_s_1_1_unsupported_joint_type_exception_html_af1f0ee463c225128a098bb089ad09ddc"><div class="ttname"><a href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_unsupported_joint_type_exception.html#af1f0ee463c225128a098bb089ad09ddc">OSK::ASSETS::UnsupportedJointTypeException::UnsupportedJointTypeException</a></div><div class="ttdeci">UnsupportedJointTypeException(const std::string &amp;type, const std::source_location &amp;location=std::source_location::current())</div><div class="ttdef"><b>Definition</b> <a href="#l00131">ModelLoadingExceptions.h:131</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_a_s_s_e_t_s_1_1_unsupported_mesh_properties_html"><div class="ttname"><a href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_unsupported_mesh_properties.html">OSK::ASSETS::UnsupportedMeshProperties</a></div><div class="ttdoc">Excepción que se lanza cuando el formato de una propiedad del mesh no está soportada.</div><div class="ttdef"><b>Definition</b> <a href="#l00172">ModelLoadingExceptions.h:172</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_a_s_s_e_t_s_1_1_unsupported_mesh_properties_html_abf13f94e5e9b15d16b881d6b29c834be"><div class="ttname"><a href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_unsupported_mesh_properties.html#abf13f94e5e9b15d16b881d6b29c834be">OSK::ASSETS::UnsupportedMeshProperties::UnsupportedMeshProperties</a></div><div class="ttdeci">UnsupportedMeshProperties(std::string_view propertyDataType, const std::source_location &amp;location=std::source_location::current())</div><div class="ttdef"><b>Definition</b> <a href="#l00176">ModelLoadingExceptions.h:176</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_a_s_s_e_t_s_1_1_unsupported_model_image_format_exception_html"><div class="ttname"><a href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_unsupported_model_image_format_exception.html">OSK::ASSETS::UnsupportedModelImageFormatException</a></div><div class="ttdoc">Excepción que se lanza cuando el formato de las imágenes de un modelo no están soportadas.</div><div class="ttdef"><b>Definition</b> <a href="#l00142">ModelLoadingExceptions.h:142</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_a_s_s_e_t_s_1_1_unsupported_model_image_format_exception_html_a9bf910f6494faa86f077c4f61a183c97"><div class="ttname"><a href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_unsupported_model_image_format_exception.html#a9bf910f6494faa86f077c4f61a183c97">OSK::ASSETS::UnsupportedModelImageFormatException::UnsupportedModelImageFormatException</a></div><div class="ttdeci">UnsupportedModelImageFormatException(const std::source_location &amp;location=std::source_location::current())</div><div class="ttdef"><b>Definition</b> <a href="#l00146">ModelLoadingExceptions.h:146</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_a_s_s_e_t_s_1_1_unsupported_polygon_mode_exception_html"><div class="ttname"><a href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_unsupported_polygon_mode_exception.html">OSK::ASSETS::UnsupportedPolygonModeException</a></div><div class="ttdoc">Excepción que se lanza cuando el formato de los polígonos no es TRIÁNGULOS.</div><div class="ttdef"><b>Definition</b> <a href="#l00156">ModelLoadingExceptions.h:156</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_a_s_s_e_t_s_1_1_unsupported_polygon_mode_exception_html_a5db25babba7bf484bf66488b756c66b4"><div class="ttname"><a href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_unsupported_polygon_mode_exception.html#a5db25babba7bf484bf66488b756c66b4">OSK::ASSETS::UnsupportedPolygonModeException::UnsupportedPolygonModeException</a></div><div class="ttdeci">UnsupportedPolygonModeException(std::string_view polygonMode, const std::source_location &amp;location=std::source_location::current())</div><div class="ttdef"><b>Definition</b> <a href="#l00160">ModelLoadingExceptions.h:160</a></div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_engine_exception_html"><div class="ttname"><a href="class_o_s_k_1_1_engine_exception.html">OSK::EngineException</a></div><div class="ttdoc">Clase base para todas las excepciones que puedan ocurrir durante la ejecución del juego.</div><div class="ttdef"><b>Definition</b> <a href="_engine_exception_8h_source.html#l00013">EngineException.h:13</a></div></div>
 <div class="ttc" id="anamespace_o_s_k_1_1_a_s_s_e_t_s_html"><div class="ttname"><a href="namespace_o_s_k_1_1_a_s_s_e_t_s.html">OSK::ASSETS</a></div><div class="ttdef"><b>Definition</b> <a href="_anim_mesh_loader_8h_source.html#l00009">AnimMeshLoader.h:9</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
@@ -295,7 +352,7 @@ $(function(){initNavTree('_model_loading_exceptions_8h_source.html',''); initRes
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_74389ed8173ad57b461b9d623a1f3867.html">Source</a></li><li class="navelem"><a class="el" href="_model_loading_exceptions_8h.html">ModelLoadingExceptions.h</a></li>
-    <li class="footer">Generado el Lunes, 29 de enero de 2024 17:22:59 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.10.0 </li>
+    <li class="footer">Generado el Jueves, 28 de marzo de 2024 17:53:11 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.10.0 </li>
   </ul>
 </div>
 </body>

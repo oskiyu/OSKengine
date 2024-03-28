@@ -110,43 +110,62 @@ $(function(){initNavTree('_quaternion_8h_source.html',''); initResizable(); });
 <div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span> </div>
 <div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="keyword">namespace </span><a class="code hl_namespace" href="namespace_o_s_k.html">OSK</a> {</div>
 <div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span> </div>
-<div class="foldopen" id="foldopen00013" data-start="{" data-end="};">
-<div class="line"><a id="l00013" name="l00013"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_quaternion.html">   13</a></span>    <span class="keyword">class </span><a class="code hl_define" href="_o_s_kmacros_8h.html#a09ec5b46ece998ad096bceff312bb36c">OSKAPI_CALL</a> <a class="code hl_class" href="class_o_s_k_1_1_quaternion.html">Quaternion</a> {</div>
+<div class="foldopen" id="foldopen00011" data-start="{" data-end="};">
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_quaternion.html">   11</a></span>    <span class="keyword">class </span><a class="code hl_define" href="_o_s_kmacros_8h.html#a09ec5b46ece998ad096bceff312bb36c">OSKAPI_CALL</a> <a class="code hl_class" href="class_o_s_k_1_1_quaternion.html">Quaternion</a> {</div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span> </div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span>    <span class="keyword">public</span>:</div>
 <div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span> </div>
-<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span>    <span class="keyword">public</span>:</div>
-<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span> </div>
-<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>        <a class="code hl_class" href="class_o_s_k_1_1_quaternion.html">Quaternion</a>();</div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_quaternion.html#ab297a7a6ebea147111c4547aefa8f126">   16</a></span>        <a class="code hl_function" href="class_o_s_k_1_1_quaternion.html#ab297a7a6ebea147111c4547aefa8f126">Quaternion</a>() = <span class="keywordflow">default</span>;</div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span> </div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span> </div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>        <span class="keyword">static</span> <a class="code hl_class" href="class_o_s_k_1_1_quaternion.html">Quaternion</a> Empty();</div>
 <div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span> </div>
-<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>        <span class="keywordtype">void</span> Rotate_WorldSpace(<span class="keywordtype">float</span> angle, <span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_vector3__t.html">Vector3f</a>&amp; axis);</div>
-<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span> </div>
-<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>        <span class="keywordtype">void</span> Rotate_LocalSpace(<span class="keywordtype">float</span> angle, <span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_vector3__t.html">Vector3f</a>&amp; axis);</div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_quaternion.html#add8e5106b98ff75f9d02db8955885307">   24</a></span>        <span class="keyword">static</span> <a class="code hl_class" href="class_o_s_k_1_1_quaternion.html">Quaternion</a> <a class="code hl_function" href="class_o_s_k_1_1_quaternion.html#add8e5106b98ff75f9d02db8955885307">CreateFromEulerAngles</a>(<span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_vector3__t.html">Vector3f</a>&amp; rot);</div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span> </div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>        <span class="keyword">static</span> <a class="code hl_class" href="class_o_s_k_1_1_quaternion.html">Quaternion</a> FromGlm(<span class="keyword">const</span> glm::quat&amp; quat);</div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span> </div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span> </div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>        <span class="keywordtype">void</span> Rotate_WorldSpace(<span class="keywordtype">float</span> angle, <span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_vector3__t.html">Vector3f</a>&amp; axis);</div>
 <div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span> </div>
-<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>        <a class="code hl_class" href="class_o_s_k_1_1_vector3__t.html">Vector3f</a> RotateVector(<span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_vector3__t.html">Vector3f</a>&amp; vec) <span class="keyword">const</span>;</div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>        <span class="keywordtype">void</span> Rotate_LocalSpace(<span class="keywordtype">float</span> angle, <span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_vector3__t.html">Vector3f</a>&amp; axis);</div>
 <div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span> </div>
-<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>        <a class="code hl_class" href="class_o_s_k_1_1_vector3__t.html">Vector3f</a> ToEulerAngles() <span class="keyword">const</span>;</div>
-<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span> </div>
-<div class="line"><a id="l00052" name="l00052"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_quaternion.html#add8e5106b98ff75f9d02db8955885307">   52</a></span>        <span class="keyword">static</span> <a class="code hl_class" href="class_o_s_k_1_1_quaternion.html">Quaternion</a> <a class="code hl_function" href="class_o_s_k_1_1_quaternion.html#add8e5106b98ff75f9d02db8955885307">CreateFromEulerAngles</a>(<span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_vector3__t.html">Vector3f</a>&amp; rot);</div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span> </div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>        <a class="code hl_class" href="class_o_s_k_1_1_quaternion.html">Quaternion</a> operator+(<span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_quaternion.html">Quaternion</a>&amp; other) <span class="keyword">const</span>;</div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span> </div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>        <a class="code hl_class" href="class_o_s_k_1_1_quaternion.html">Quaternion</a>&amp; operator+=(<span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_quaternion.html">Quaternion</a>&amp; other);</div>
 <div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span> </div>
-<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>        <span class="keyword">static</span> <a class="code hl_class" href="class_o_s_k_1_1_quaternion.html">Quaternion</a> FromGlm(<span class="keyword">const</span> glm::quat&amp; quat);</div>
-<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span> </div>
-<div class="line"><a id="l00065" name="l00065"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_quaternion.html#af54cdc7831c4cf47741c86b34c22cfd8">   65</a></span>        <a class="code hl_class" href="class_o_s_k_1_1_quaternion.html">Quaternion</a> <a class="code hl_function" href="class_o_s_k_1_1_quaternion.html#af54cdc7831c4cf47741c86b34c22cfd8">Interpolate</a>(<span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_quaternion.html">Quaternion</a>&amp; other, <span class="keywordtype">float</span> factor) <span class="keyword">const</span>;</div>
-<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span> </div>
-<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>        glm::quat ToGlm() <span class="keyword">const</span>;</div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span> </div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>        <a class="code hl_class" href="class_o_s_k_1_1_quaternion.html">Quaternion</a> operator-(<span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_quaternion.html">Quaternion</a>&amp; other) <span class="keyword">const</span>;</div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span> </div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>        <a class="code hl_class" href="class_o_s_k_1_1_quaternion.html">Quaternion</a>&amp; operator-=(<span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_quaternion.html">Quaternion</a>&amp; other);</div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span> </div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span> </div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>        <a class="code hl_class" href="class_o_s_k_1_1_vector3__t.html">Vector3f</a> RotateVector(<span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_vector3__t.html">Vector3f</a>&amp; vec) <span class="keyword">const</span>;</div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span> </div>
 <div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span> </div>
-<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>        glm::mat4 ToMat4() <span class="keyword">const</span>;</div>
-<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span> </div>
-<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span>    <span class="keyword">private</span>:</div>
-<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span> </div>
-<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span>        glm::quat quaternion = glm::identity&lt;glm::quat&gt;();</div>
-<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span> </div>
-<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span>    };</div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>        <a class="code hl_class" href="class_o_s_k_1_1_vector3__t.html">Vector3f</a> ToEulerAngles() <span class="keyword">const</span>;</div>
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span> </div>
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span> </div>
+<div class="line"><a id="l00080" name="l00080"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_quaternion.html#af54cdc7831c4cf47741c86b34c22cfd8">   80</a></span>        <a class="code hl_class" href="class_o_s_k_1_1_quaternion.html">Quaternion</a> <a class="code hl_function" href="class_o_s_k_1_1_quaternion.html#af54cdc7831c4cf47741c86b34c22cfd8">Interpolate</a>(<span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_quaternion.html">Quaternion</a>&amp; other, <span class="keywordtype">float</span> factor) <span class="keyword">const</span>;</div>
+<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span> </div>
+<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span> </div>
+<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span>        glm::quat ToGlm() <span class="keyword">const</span>;</div>
+<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span> </div>
+<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span>        glm::mat4 ToMat4() <span class="keyword">const</span>;</div>
+<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span> </div>
+<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span>    <span class="keyword">private</span>:</div>
+<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span> </div>
+<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span>        glm::quat m_quaternion = glm::identity&lt;glm::quat&gt;();</div>
+<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span> </div>
+<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span>    };</div>
 </div>
-<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span> </div>
-<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span>}</div>
+<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span> </div>
+<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span>}</div>
 <div class="ttc" id="a_o_s_kmacros_8h_html"><div class="ttname"><a href="_o_s_kmacros_8h.html">OSKmacros.h</a></div></div>
 <div class="ttc" id="a_o_s_kmacros_8h_html_a09ec5b46ece998ad096bceff312bb36c"><div class="ttname"><a href="_o_s_kmacros_8h.html#a09ec5b46ece998ad096bceff312bb36c">OSKAPI_CALL</a></div><div class="ttdeci">#define OSKAPI_CALL</div><div class="ttdef"><b>Definition</b> <a href="_o_s_kmacros_8h_source.html#l00007">OSKmacros.h:7</a></div></div>
 <div class="ttc" id="a_vector3_8hpp_html"><div class="ttname"><a href="_vector3_8hpp.html">Vector3.hpp</a></div></div>
-<div class="ttc" id="aclass_o_s_k_1_1_quaternion_html"><div class="ttname"><a href="class_o_s_k_1_1_quaternion.html">OSK::Quaternion</a></div><div class="ttdoc">Representa un cuaternión, para representar una orientación.</div><div class="ttdef"><b>Definition</b> <a href="#l00013">Quaternion.h:13</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_quaternion_html"><div class="ttname"><a href="class_o_s_k_1_1_quaternion.html">OSK::Quaternion</a></div><div class="ttdoc">Representa un cuaternión, para representar una orientación.</div><div class="ttdef"><b>Definition</b> <a href="#l00011">Quaternion.h:11</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_quaternion_html_ab297a7a6ebea147111c4547aefa8f126"><div class="ttname"><a href="class_o_s_k_1_1_quaternion.html#ab297a7a6ebea147111c4547aefa8f126">OSK::Quaternion::Quaternion</a></div><div class="ttdeci">Quaternion()=default</div><div class="ttdoc">Crea un cuaternión vacío.</div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_quaternion_html_add8e5106b98ff75f9d02db8955885307"><div class="ttname"><a href="class_o_s_k_1_1_quaternion.html#add8e5106b98ff75f9d02db8955885307">OSK::Quaternion::CreateFromEulerAngles</a></div><div class="ttdeci">static Quaternion CreateFromEulerAngles(const Vector3f &amp;rot)</div><div class="ttdoc">Crea un cuaternión a partir de las coordenadas de Euler.</div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_quaternion_html_af54cdc7831c4cf47741c86b34c22cfd8"><div class="ttname"><a href="class_o_s_k_1_1_quaternion.html#af54cdc7831c4cf47741c86b34c22cfd8">OSK::Quaternion::Interpolate</a></div><div class="ttdeci">Quaternion Interpolate(const Quaternion &amp;other, float factor) const</div><div class="ttdoc">Interpola este cuaternion con otro.</div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_vector3__t_html"><div class="ttname"><a href="class_o_s_k_1_1_vector3__t.html">OSK::Vector3_t&lt; float_t &gt;</a></div></div>
@@ -157,7 +176,7 @@ $(function(){initNavTree('_quaternion_8h_source.html',''); initResizable(); });
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_74389ed8173ad57b461b9d623a1f3867.html">Source</a></li><li class="navelem"><a class="el" href="_quaternion_8h.html">Quaternion.h</a></li>
-    <li class="footer">Generado el Lunes, 29 de enero de 2024 17:22:59 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.10.0 </li>
+    <li class="footer">Generado el Jueves, 28 de marzo de 2024 17:53:11 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.10.0 </li>
   </ul>
 </div>
 </body>

@@ -1,0 +1,327 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="es">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.10.0"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>OSKengine: Archivo de código fuente Source/CpuModel3D.cpp</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="doxygen-awesome.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">OSKengine<span id="projectnumber">&#160;Indev</span>
+   </div>
+   <div id="projectbrief">Motor de videojuegos.</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generado por Doxygen 1.10.0 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() {
+  initMenu('',true,false,'search.php','Buscar');
+  $(function() { init_search(); });
+});
+/* @license-end */
+</script>
+<div id="main-nav"></div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() { codefold.init(0); });
+/* @license-end */
+</script>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function(){initNavTree('_cpu_model3_d_8cpp_source.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Cargando...</div>
+<div class="SRStatus" id="Searching">Buscando...</div>
+<div class="SRStatus" id="NoMatches">Nada coincide</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">CpuModel3D.cpp</div></div>
+</div><!--header-->
+<div class="contents">
+<a href="_cpu_model3_d_8cpp.html">Ir a la documentación de este archivo.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#include &quot;<a class="code" href="_cpu_model3_d_8h.html">CpuModel3D.h</a>&quot;</span></div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span> </div>
+<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="keyword">using namespace </span><a class="code hl_namespace" href="namespace_o_s_k.html">OSK</a>;</div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span> </div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span> </div>
+<div class="foldopen" id="foldopen00006" data-start="{" data-end="}">
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_cpu_mesh3_d.html#a5b9fa842d316bb047691af33d39acd48">    6</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="class_o_s_k_1_1_cpu_mesh3_d.html#a5b9fa842d316bb047691af33d39acd48">CpuMesh3D::AddVertex</a>(<a class="code hl_struct" href="struct_o_s_k_1_1_cpu_vertex3_d.html">CpuVertex3D</a> vertex) {</div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span>    m_vertices.Insert(vertex);</div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span>}</div>
+</div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span> </div>
+<div class="foldopen" id="foldopen00010" data-start="{" data-end="}">
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_cpu_mesh3_d.html#a067f7555c2e318ecb4e653e5ef78c9f9">   10</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="class_o_s_k_1_1_cpu_mesh3_d.html#a067f7555c2e318ecb4e653e5ef78c9f9">CpuMesh3D::AddVertices</a>(<span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_dynamic_array.html">DynamicArray&lt;CpuVertex3D&gt;</a>&amp; vertices) {</div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span>    m_vertices.InsertAll(vertices);</div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span>}</div>
+</div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span> </div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span> </div>
+<div class="foldopen" id="foldopen00015" data-start="{" data-end="}">
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_cpu_mesh3_d.html#a7eb5035926733f10c5da456cc8ccf459">   15</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="class_o_s_k_1_1_cpu_mesh3_d.html#a7eb5035926733f10c5da456cc8ccf459">CpuMesh3D::AddTriangleIndices</a>(<span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_dynamic_array.html">DynamicArray&lt;TriangleIndices&gt;</a>&amp; indices) {</div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span>    m_triangles.<a class="code hl_function" href="class_o_s_k_1_1_dynamic_array.html#a286f518150138acd1773a7cfaf2c8482">InsertAll</a>(indices);</div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>}</div>
+</div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span> </div>
+<div class="foldopen" id="foldopen00019" data-start="{" data-end="}">
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_cpu_mesh3_d.html#aacccc34c58b759d0a60f8c1ed0f11929">   19</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="class_o_s_k_1_1_cpu_mesh3_d.html#aacccc34c58b759d0a60f8c1ed0f11929">CpuMesh3D::AddLineIndices</a>(<span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_dynamic_array.html">DynamicArray&lt;LineIndices&gt;</a>&amp; indices) {</div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>    m_lines.<a class="code hl_function" href="class_o_s_k_1_1_dynamic_array.html#a286f518150138acd1773a7cfaf2c8482">InsertAll</a>(indices);</div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>}</div>
+</div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span> </div>
+<div class="foldopen" id="foldopen00023" data-start="{" data-end="}">
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_cpu_mesh3_d.html#a0fd07390e552762fdf9b38ae4c1bbc1a">   23</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="class_o_s_k_1_1_cpu_mesh3_d.html#a0fd07390e552762fdf9b38ae4c1bbc1a">CpuMesh3D::AddPointIndices</a>(<span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_dynamic_array.html">DynamicArray&lt;PointIndex&gt;</a>&amp; indices) {</div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>    m_points.<a class="code hl_function" href="class_o_s_k_1_1_dynamic_array.html#a286f518150138acd1773a7cfaf2c8482">InsertAll</a>(indices);</div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>}</div>
+</div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span> </div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span> </div>
+<div class="foldopen" id="foldopen00028" data-start="{" data-end="}">
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_cpu_mesh3_d.html#a2a61d1a1d4ea7eee9639c74ecafbdf6a">   28</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="class_o_s_k_1_1_cpu_mesh3_d.html#a2a61d1a1d4ea7eee9639c74ecafbdf6a">CpuMesh3D::AddTriangleIndex</a>(<a class="code hl_typedef" href="class_o_s_k_1_1_cpu_mesh3_d.html#a9131da3cbaff5a4272ac0401268ace12">TriangleIndices</a> indices) {</div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>    m_triangles.<a class="code hl_function" href="class_o_s_k_1_1_dynamic_array.html#a4433c76207ce2ecad5e306b12575f1b3">Insert</a>(indices);</div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>}</div>
+</div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span> </div>
+<div class="foldopen" id="foldopen00032" data-start="{" data-end="}">
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_cpu_mesh3_d.html#a1201e610d10e282d94b34ae52f955bb2">   32</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="class_o_s_k_1_1_cpu_mesh3_d.html#a1201e610d10e282d94b34ae52f955bb2">CpuMesh3D::AddLineIndex</a>(<a class="code hl_typedef" href="class_o_s_k_1_1_cpu_mesh3_d.html#afda04096b8f1907b780b8946db2d42d4">LineIndices</a> indices) {</div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>    m_lines.<a class="code hl_function" href="class_o_s_k_1_1_dynamic_array.html#a4433c76207ce2ecad5e306b12575f1b3">Insert</a>(indices);</div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>}</div>
+</div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span> </div>
+<div class="foldopen" id="foldopen00036" data-start="{" data-end="}">
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_cpu_mesh3_d.html#a4ed319dac1a1c9159c0c06939fb06954">   36</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="class_o_s_k_1_1_cpu_mesh3_d.html#a4ed319dac1a1c9159c0c06939fb06954">CpuMesh3D::AddPointIndex</a>(<a class="code hl_typedef" href="class_o_s_k_1_1_cpu_mesh3_d.html#aba336c6862b1d634236d0d1bfe4fcdb8">PointIndex</a> indices) {</div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>    m_points.<a class="code hl_function" href="class_o_s_k_1_1_dynamic_array.html#a4433c76207ce2ecad5e306b12575f1b3">Insert</a>(indices);</div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>}</div>
+</div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span> </div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span> </div>
+<div class="foldopen" id="foldopen00041" data-start="{" data-end="}">
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_cpu_mesh3_d.html#a98dbdedd45c679e1d1ab298937497186">   41</a></span><span class="keywordtype">bool</span> <a class="code hl_function" href="class_o_s_k_1_1_cpu_mesh3_d.html#a98dbdedd45c679e1d1ab298937497186">CpuMesh3D::HasTriangles</a>()<span class="keyword"> const </span>{</div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>    <span class="keywordflow">return</span> !m_triangles.<a class="code hl_function" href="class_o_s_k_1_1_dynamic_array.html#ab772cd3a1f2c189505ea17d604dfc164">IsEmpty</a>();</div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>}</div>
+</div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span> </div>
+<div class="foldopen" id="foldopen00045" data-start="{" data-end="}">
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_cpu_mesh3_d.html#a42def2b84dfb7f8375f3a62e8d39af17">   45</a></span><span class="keywordtype">bool</span> <a class="code hl_function" href="class_o_s_k_1_1_cpu_mesh3_d.html#a42def2b84dfb7f8375f3a62e8d39af17">CpuMesh3D::HasLines</a>()<span class="keyword"> const </span>{</div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>    <span class="keywordflow">return</span> !m_lines.<a class="code hl_function" href="class_o_s_k_1_1_dynamic_array.html#ab772cd3a1f2c189505ea17d604dfc164">IsEmpty</a>();</div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>}</div>
+</div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span> </div>
+<div class="foldopen" id="foldopen00049" data-start="{" data-end="}">
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_cpu_mesh3_d.html#aa63f247607d81bb72dca76d04cec82fc">   49</a></span><span class="keywordtype">bool</span> <a class="code hl_function" href="class_o_s_k_1_1_cpu_mesh3_d.html#aa63f247607d81bb72dca76d04cec82fc">CpuMesh3D::HasPoints</a>()<span class="keyword"> const </span>{</div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>    <span class="keywordflow">return</span> !m_points.<a class="code hl_function" href="class_o_s_k_1_1_dynamic_array.html#ab772cd3a1f2c189505ea17d604dfc164">IsEmpty</a>();</div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>}</div>
+</div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span> </div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span> </div>
+<div class="foldopen" id="foldopen00054" data-start="{" data-end="}">
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_cpu_mesh3_d.html#ae3515e979b178f2eb3e3fbe20ab2818f">   54</a></span><a class="code hl_typedef" href="_o_s_kmacros_8h.html#a5784d24fcb00afb78eb7b1e1a3466ac4">USize64</a> <a class="code hl_function" href="class_o_s_k_1_1_cpu_mesh3_d.html#ae3515e979b178f2eb3e3fbe20ab2818f">CpuMesh3D::GetTriangleCount</a>()<span class="keyword"> const </span>{</div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>    <span class="keywordflow">return</span> m_triangles.<a class="code hl_function" href="class_o_s_k_1_1_dynamic_array.html#af09578371bd52d5a934bc74c8dad5f0d">GetSize</a>();</div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>}</div>
+</div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span> </div>
+<div class="foldopen" id="foldopen00058" data-start="{" data-end="}">
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_cpu_mesh3_d.html#a876b8700cdd4d40c15ecee8f160d2a2d">   58</a></span><a class="code hl_typedef" href="_o_s_kmacros_8h.html#a5784d24fcb00afb78eb7b1e1a3466ac4">USize64</a> <a class="code hl_function" href="class_o_s_k_1_1_cpu_mesh3_d.html#a876b8700cdd4d40c15ecee8f160d2a2d">CpuMesh3D::GetLineCount</a>()<span class="keyword"> const </span>{</div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>    <span class="keywordflow">return</span> m_lines.<a class="code hl_function" href="class_o_s_k_1_1_dynamic_array.html#af09578371bd52d5a934bc74c8dad5f0d">GetSize</a>();</div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>}</div>
+</div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span> </div>
+<div class="foldopen" id="foldopen00062" data-start="{" data-end="}">
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_cpu_mesh3_d.html#add9bef440f878cc484781e562d907ad9">   62</a></span><a class="code hl_typedef" href="_o_s_kmacros_8h.html#a5784d24fcb00afb78eb7b1e1a3466ac4">USize64</a> <a class="code hl_function" href="class_o_s_k_1_1_cpu_mesh3_d.html#add9bef440f878cc484781e562d907ad9">CpuMesh3D::GetPointCount</a>()<span class="keyword"> const </span>{</div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>    <span class="keywordflow">return</span> m_points.<a class="code hl_function" href="class_o_s_k_1_1_dynamic_array.html#af09578371bd52d5a934bc74c8dad5f0d">GetSize</a>();</div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>}</div>
+</div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span> </div>
+<div class="foldopen" id="foldopen00066" data-start="{" data-end="}">
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_cpu_mesh3_d.html#a9d7aee36cd4a1d205fdfdf7ad6d97028">   66</a></span><span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_dynamic_array.html">DynamicArray&lt;CpuMesh3D::TriangleIndices&gt;</a>&amp; <a class="code hl_function" href="class_o_s_k_1_1_cpu_mesh3_d.html#a9d7aee36cd4a1d205fdfdf7ad6d97028">CpuMesh3D::GetTriangles</a>()<span class="keyword"> const </span>{</div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>    <span class="keywordflow">return</span> m_triangles;</div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>}</div>
+</div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span> </div>
+<div class="foldopen" id="foldopen00070" data-start="{" data-end="}">
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_cpu_mesh3_d.html#ad050e4ada64139707e291c0eae3a5f2a">   70</a></span><span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_dynamic_array.html">DynamicArray&lt;CpuMesh3D::LineIndices&gt;</a>&amp; <a class="code hl_function" href="class_o_s_k_1_1_cpu_mesh3_d.html#ad050e4ada64139707e291c0eae3a5f2a">CpuMesh3D::GetLines</a>()<span class="keyword"> const </span>{</div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>    <span class="keywordflow">return</span> m_lines;</div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>}</div>
+</div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span> </div>
+<div class="foldopen" id="foldopen00074" data-start="{" data-end="}">
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_cpu_mesh3_d.html#a052e14a9db82504a71d09c49f37fac35">   74</a></span><span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_dynamic_array.html">DynamicArray&lt;CpuMesh3D::PointIndex&gt;</a>&amp; <a class="code hl_function" href="class_o_s_k_1_1_cpu_mesh3_d.html#a052e14a9db82504a71d09c49f37fac35">CpuMesh3D::GetPoints</a>()<span class="keyword"> const </span>{</div>
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>    <span class="keywordflow">return</span> m_points;</div>
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>}</div>
+</div>
+<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span> </div>
+<div class="foldopen" id="foldopen00078" data-start="{" data-end="}">
+<div class="line"><a id="l00078" name="l00078"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_cpu_mesh3_d.html#a6459b353daa5f6abc3fc429cad98992a">   78</a></span><span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_dynamic_array.html">DynamicArray&lt;CpuVertex3D&gt;</a>&amp; <a class="code hl_function" href="class_o_s_k_1_1_cpu_mesh3_d.html#a6459b353daa5f6abc3fc429cad98992a">CpuMesh3D::GetVertices</a>()<span class="keyword"> const </span>{</div>
+<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span>    <span class="keywordflow">return</span> m_vertices;</div>
+<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span>}</div>
+</div>
+<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span> </div>
+<div class="foldopen" id="foldopen00082" data-start="{" data-end="}">
+<div class="line"><a id="l00082" name="l00082"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_cpu_mesh3_d.html#a455c25d8f8a7314281a8f280f9d05128">   82</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="class_o_s_k_1_1_cpu_mesh3_d.html#a455c25d8f8a7314281a8f280f9d05128">CpuMesh3D::SetMaterialIndex</a>(<a class="code hl_typedef" href="_o_s_kmacros_8h.html#adef8e046c86805ca0dc2db407b01a1bb">UIndex64</a> index) {</div>
+<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span>    m_materialIndex = index;</div>
+<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span>}</div>
+</div>
+<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span> </div>
+<div class="foldopen" id="foldopen00086" data-start="{" data-end="}">
+<div class="line"><a id="l00086" name="l00086"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_cpu_mesh3_d.html#adc418facfedeb96f426f3a9b036bd3c3">   86</a></span><span class="keywordtype">bool</span> <a class="code hl_function" href="class_o_s_k_1_1_cpu_mesh3_d.html#adc418facfedeb96f426f3a9b036bd3c3">CpuMesh3D::HasMaterial</a>()<span class="keyword"> const </span>{</div>
+<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span>    <span class="keywordflow">return</span> m_materialIndex.has_value();</div>
+<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span>}</div>
+</div>
+<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span> </div>
+<div class="foldopen" id="foldopen00090" data-start="{" data-end="}">
+<div class="line"><a id="l00090" name="l00090"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_cpu_mesh3_d.html#a5152809e5d7141a4496767330176f172">   90</a></span><a class="code hl_typedef" href="_o_s_kmacros_8h.html#adef8e046c86805ca0dc2db407b01a1bb">UIndex64</a> <a class="code hl_function" href="class_o_s_k_1_1_cpu_mesh3_d.html#a5152809e5d7141a4496767330176f172">CpuMesh3D::GetMaterialIndex</a>()<span class="keyword"> const </span>{</div>
+<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span>    <span class="keywordflow">return</span> m_materialIndex.value();</div>
+<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span>}</div>
+</div>
+<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span> </div>
+<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span> </div>
+<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span><span class="comment">// Model //</span></div>
+<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span> </div>
+<div class="foldopen" id="foldopen00097" data-start="{" data-end="}">
+<div class="line"><a id="l00097" name="l00097"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_cpu_model3_d.html#a0f3f9d6e2c7951d7e3ad0a0ad54e93e0">   97</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="class_o_s_k_1_1_cpu_model3_d.html#a0f3f9d6e2c7951d7e3ad0a0ad54e93e0">CpuModel3D::AddMeshes</a>(<span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_dynamic_array.html">DynamicArray&lt;CpuMesh3D&gt;</a>&amp; meshes) {</div>
+<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span>    m_meshes.InsertAll(meshes);</div>
+<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span>}</div>
+</div>
+<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span> </div>
+<div class="foldopen" id="foldopen00101" data-start="{" data-end="}">
+<div class="line"><a id="l00101" name="l00101"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_cpu_model3_d.html#a58bf6740b41c3721e52393dea1e61531">  101</a></span><span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_dynamic_array.html">DynamicArray&lt;CpuMesh3D&gt;</a>&amp; <a class="code hl_function" href="class_o_s_k_1_1_cpu_model3_d.html#a58bf6740b41c3721e52393dea1e61531">CpuModel3D::GetMeshes</a>()<span class="keyword"> const </span>{</div>
+<div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span>    <span class="keywordflow">return</span> m_meshes;</div>
+<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span>}</div>
+</div>
+<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span> </div>
+<div class="foldopen" id="foldopen00105" data-start="{" data-end="}">
+<div class="line"><a id="l00105" name="l00105"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_cpu_model3_d.html#a00de939f71f7fe40fbf1e20f478b477c">  105</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="class_o_s_k_1_1_cpu_model3_d.html#a00de939f71f7fe40fbf1e20f478b477c">CpuModel3D::AddAnimations</a>(<span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_dynamic_array.html">DynamicArray&lt;GRAPHICS::Animation&gt;</a>&amp; animations) {</div>
+<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span>    m_animations.InsertAll(animations);</div>
+<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span>}</div>
+</div>
+<div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span> </div>
+<div class="foldopen" id="foldopen00109" data-start="{" data-end="}">
+<div class="line"><a id="l00109" name="l00109"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_cpu_model3_d.html#aef3c62d67ed3f58ed244e69b4624d84c">  109</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="class_o_s_k_1_1_cpu_model3_d.html#aef3c62d67ed3f58ed244e69b4624d84c">CpuModel3D::AddAnimationSkins</a>(<span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_dynamic_array.html">DynamicArray&lt;GRAPHICS::AnimationSkin&gt;</a>&amp; skins) {</div>
+<div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span>    m_animationSkins.InsertAll(skins);</div>
+<div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span>}</div>
+</div>
+<div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span> </div>
+<div class="foldopen" id="foldopen00113" data-start="{" data-end="}">
+<div class="line"><a id="l00113" name="l00113"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_cpu_model3_d.html#a735f148d529d2ba2ce095b3b8811f4a9">  113</a></span><span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_dynamic_array.html">DynamicArray&lt;GRAPHICS::Animation&gt;</a>&amp; <a class="code hl_function" href="class_o_s_k_1_1_cpu_model3_d.html#a735f148d529d2ba2ce095b3b8811f4a9">CpuModel3D::GetAnimations</a>()<span class="keyword"> const </span>{</div>
+<div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span>    <span class="keywordflow">return</span> m_animations;</div>
+<div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span>}</div>
+</div>
+<div class="line"><a id="l00116" name="l00116"></a><span class="lineno">  116</span> </div>
+<div class="foldopen" id="foldopen00117" data-start="{" data-end="}">
+<div class="line"><a id="l00117" name="l00117"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_cpu_model3_d.html#a806c0cc99a6251d08c5d43a36f90e7ec">  117</a></span><span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_dynamic_array.html">DynamicArray&lt;GRAPHICS::AnimationSkin&gt;</a>&amp; <a class="code hl_function" href="class_o_s_k_1_1_cpu_model3_d.html#a806c0cc99a6251d08c5d43a36f90e7ec">CpuModel3D::GetAnimationSkins</a>()<span class="keyword"> const </span>{</div>
+<div class="line"><a id="l00118" name="l00118"></a><span class="lineno">  118</span>    <span class="keywordflow">return</span> m_animationSkins;</div>
+<div class="line"><a id="l00119" name="l00119"></a><span class="lineno">  119</span>}</div>
+</div>
+<div class="ttc" id="a_cpu_model3_d_8h_html"><div class="ttname"><a href="_cpu_model3_d_8h.html">CpuModel3D.h</a></div></div>
+<div class="ttc" id="a_o_s_kmacros_8h_html_a5784d24fcb00afb78eb7b1e1a3466ac4"><div class="ttname"><a href="_o_s_kmacros_8h.html#a5784d24fcb00afb78eb7b1e1a3466ac4">USize64</a></div><div class="ttdeci">uint64_t USize64</div><div class="ttdef"><b>Definition</b> <a href="_o_s_kmacros_8h_source.html#l00045">OSKmacros.h:45</a></div></div>
+<div class="ttc" id="a_o_s_kmacros_8h_html_adef8e046c86805ca0dc2db407b01a1bb"><div class="ttname"><a href="_o_s_kmacros_8h.html#adef8e046c86805ca0dc2db407b01a1bb">UIndex64</a></div><div class="ttdeci">uint64_t UIndex64</div><div class="ttdef"><b>Definition</b> <a href="_o_s_kmacros_8h_source.html#l00042">OSKmacros.h:42</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_cpu_mesh3_d_html_a052e14a9db82504a71d09c49f37fac35"><div class="ttname"><a href="class_o_s_k_1_1_cpu_mesh3_d.html#a052e14a9db82504a71d09c49f37fac35">OSK::CpuMesh3D::GetPoints</a></div><div class="ttdeci">const DynamicArray&lt; PointIndex &gt; &amp; GetPoints() const</div><div class="ttdef"><b>Definition</b> <a href="#l00074">CpuModel3D.cpp:74</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_cpu_mesh3_d_html_a067f7555c2e318ecb4e653e5ef78c9f9"><div class="ttname"><a href="class_o_s_k_1_1_cpu_mesh3_d.html#a067f7555c2e318ecb4e653e5ef78c9f9">OSK::CpuMesh3D::AddVertices</a></div><div class="ttdeci">void AddVertices(const DynamicArray&lt; CpuVertex3D &gt; &amp;vertices)</div><div class="ttdoc">Añade una lista de vértices.</div><div class="ttdef"><b>Definition</b> <a href="#l00010">CpuModel3D.cpp:10</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_cpu_mesh3_d_html_a0fd07390e552762fdf9b38ae4c1bbc1a"><div class="ttname"><a href="class_o_s_k_1_1_cpu_mesh3_d.html#a0fd07390e552762fdf9b38ae4c1bbc1a">OSK::CpuMesh3D::AddPointIndices</a></div><div class="ttdeci">void AddPointIndices(const DynamicArray&lt; PointIndex &gt; &amp;indices)</div><div class="ttdoc">Registra una lista de puntos aislados, representado por los índices que ocupan en la lista de vértice...</div><div class="ttdef"><b>Definition</b> <a href="#l00023">CpuModel3D.cpp:23</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_cpu_mesh3_d_html_a1201e610d10e282d94b34ae52f955bb2"><div class="ttname"><a href="class_o_s_k_1_1_cpu_mesh3_d.html#a1201e610d10e282d94b34ae52f955bb2">OSK::CpuMesh3D::AddLineIndex</a></div><div class="ttdeci">void AddLineIndex(LineIndices indices)</div><div class="ttdoc">Registra una línea, representada por sus dos índices.</div><div class="ttdef"><b>Definition</b> <a href="#l00032">CpuModel3D.cpp:32</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_cpu_mesh3_d_html_a2a61d1a1d4ea7eee9639c74ecafbdf6a"><div class="ttname"><a href="class_o_s_k_1_1_cpu_mesh3_d.html#a2a61d1a1d4ea7eee9639c74ecafbdf6a">OSK::CpuMesh3D::AddTriangleIndex</a></div><div class="ttdeci">void AddTriangleIndex(TriangleIndices indices)</div><div class="ttdoc">Registra un triángulo, representado por sus tres índices.</div><div class="ttdef"><b>Definition</b> <a href="#l00028">CpuModel3D.cpp:28</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_cpu_mesh3_d_html_a42def2b84dfb7f8375f3a62e8d39af17"><div class="ttname"><a href="class_o_s_k_1_1_cpu_mesh3_d.html#a42def2b84dfb7f8375f3a62e8d39af17">OSK::CpuMesh3D::HasLines</a></div><div class="ttdeci">bool HasLines() const</div><div class="ttdef"><b>Definition</b> <a href="#l00045">CpuModel3D.cpp:45</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_cpu_mesh3_d_html_a455c25d8f8a7314281a8f280f9d05128"><div class="ttname"><a href="class_o_s_k_1_1_cpu_mesh3_d.html#a455c25d8f8a7314281a8f280f9d05128">OSK::CpuMesh3D::SetMaterialIndex</a></div><div class="ttdeci">void SetMaterialIndex(UIndex64 index)</div><div class="ttdoc">Establece el índice del material.</div><div class="ttdef"><b>Definition</b> <a href="#l00082">CpuModel3D.cpp:82</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_cpu_mesh3_d_html_a4ed319dac1a1c9159c0c06939fb06954"><div class="ttname"><a href="class_o_s_k_1_1_cpu_mesh3_d.html#a4ed319dac1a1c9159c0c06939fb06954">OSK::CpuMesh3D::AddPointIndex</a></div><div class="ttdeci">void AddPointIndex(PointIndex indices)</div><div class="ttdoc">Registra un punto aislado, representado por su índice.</div><div class="ttdef"><b>Definition</b> <a href="#l00036">CpuModel3D.cpp:36</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_cpu_mesh3_d_html_a5152809e5d7141a4496767330176f172"><div class="ttname"><a href="class_o_s_k_1_1_cpu_mesh3_d.html#a5152809e5d7141a4496767330176f172">OSK::CpuMesh3D::GetMaterialIndex</a></div><div class="ttdeci">UIndex64 GetMaterialIndex() const</div><div class="ttdef"><b>Definition</b> <a href="#l00090">CpuModel3D.cpp:90</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_cpu_mesh3_d_html_a5b9fa842d316bb047691af33d39acd48"><div class="ttname"><a href="class_o_s_k_1_1_cpu_mesh3_d.html#a5b9fa842d316bb047691af33d39acd48">OSK::CpuMesh3D::AddVertex</a></div><div class="ttdeci">void AddVertex(CpuVertex3D vertex)</div><div class="ttdoc">Añade un único vértice.</div><div class="ttdef"><b>Definition</b> <a href="#l00006">CpuModel3D.cpp:6</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_cpu_mesh3_d_html_a6459b353daa5f6abc3fc429cad98992a"><div class="ttname"><a href="class_o_s_k_1_1_cpu_mesh3_d.html#a6459b353daa5f6abc3fc429cad98992a">OSK::CpuMesh3D::GetVertices</a></div><div class="ttdeci">const DynamicArray&lt; CpuVertex3D &gt; &amp; GetVertices() const</div><div class="ttdef"><b>Definition</b> <a href="#l00078">CpuModel3D.cpp:78</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_cpu_mesh3_d_html_a7eb5035926733f10c5da456cc8ccf459"><div class="ttname"><a href="class_o_s_k_1_1_cpu_mesh3_d.html#a7eb5035926733f10c5da456cc8ccf459">OSK::CpuMesh3D::AddTriangleIndices</a></div><div class="ttdeci">void AddTriangleIndices(const DynamicArray&lt; TriangleIndices &gt; &amp;indices)</div><div class="ttdoc">Registra una lista de triángulos, cada uno representado por los índices correspondientes.</div><div class="ttdef"><b>Definition</b> <a href="#l00015">CpuModel3D.cpp:15</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_cpu_mesh3_d_html_a876b8700cdd4d40c15ecee8f160d2a2d"><div class="ttname"><a href="class_o_s_k_1_1_cpu_mesh3_d.html#a876b8700cdd4d40c15ecee8f160d2a2d">OSK::CpuMesh3D::GetLineCount</a></div><div class="ttdeci">USize64 GetLineCount() const</div><div class="ttdef"><b>Definition</b> <a href="#l00058">CpuModel3D.cpp:58</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_cpu_mesh3_d_html_a9131da3cbaff5a4272ac0401268ace12"><div class="ttname"><a href="class_o_s_k_1_1_cpu_mesh3_d.html#a9131da3cbaff5a4272ac0401268ace12">OSK::CpuMesh3D::TriangleIndices</a></div><div class="ttdeci">std::array&lt; UIndex64, 3 &gt; TriangleIndices</div><div class="ttdoc">Índices de tres vértices que conforman un triángulo.</div><div class="ttdef"><b>Definition</b> <a href="_cpu_model3_d_8h_source.html#l00043">CpuModel3D.h:43</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_cpu_mesh3_d_html_a98dbdedd45c679e1d1ab298937497186"><div class="ttname"><a href="class_o_s_k_1_1_cpu_mesh3_d.html#a98dbdedd45c679e1d1ab298937497186">OSK::CpuMesh3D::HasTriangles</a></div><div class="ttdeci">bool HasTriangles() const</div><div class="ttdef"><b>Definition</b> <a href="#l00041">CpuModel3D.cpp:41</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_cpu_mesh3_d_html_a9d7aee36cd4a1d205fdfdf7ad6d97028"><div class="ttname"><a href="class_o_s_k_1_1_cpu_mesh3_d.html#a9d7aee36cd4a1d205fdfdf7ad6d97028">OSK::CpuMesh3D::GetTriangles</a></div><div class="ttdeci">const DynamicArray&lt; TriangleIndices &gt; &amp; GetTriangles() const</div><div class="ttdef"><b>Definition</b> <a href="#l00066">CpuModel3D.cpp:66</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_cpu_mesh3_d_html_aa63f247607d81bb72dca76d04cec82fc"><div class="ttname"><a href="class_o_s_k_1_1_cpu_mesh3_d.html#aa63f247607d81bb72dca76d04cec82fc">OSK::CpuMesh3D::HasPoints</a></div><div class="ttdeci">bool HasPoints() const</div><div class="ttdef"><b>Definition</b> <a href="#l00049">CpuModel3D.cpp:49</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_cpu_mesh3_d_html_aacccc34c58b759d0a60f8c1ed0f11929"><div class="ttname"><a href="class_o_s_k_1_1_cpu_mesh3_d.html#aacccc34c58b759d0a60f8c1ed0f11929">OSK::CpuMesh3D::AddLineIndices</a></div><div class="ttdeci">void AddLineIndices(const DynamicArray&lt; LineIndices &gt; &amp;indices)</div><div class="ttdoc">Registra una lista de líneas, cada una representada por los índices correspondientes.</div><div class="ttdef"><b>Definition</b> <a href="#l00019">CpuModel3D.cpp:19</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_cpu_mesh3_d_html_aba336c6862b1d634236d0d1bfe4fcdb8"><div class="ttname"><a href="class_o_s_k_1_1_cpu_mesh3_d.html#aba336c6862b1d634236d0d1bfe4fcdb8">OSK::CpuMesh3D::PointIndex</a></div><div class="ttdeci">UIndex64 PointIndex</div><div class="ttdoc">Índice de un punto aislado.</div><div class="ttdef"><b>Definition</b> <a href="_cpu_model3_d_8h_source.html#l00049">CpuModel3D.h:49</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_cpu_mesh3_d_html_ad050e4ada64139707e291c0eae3a5f2a"><div class="ttname"><a href="class_o_s_k_1_1_cpu_mesh3_d.html#ad050e4ada64139707e291c0eae3a5f2a">OSK::CpuMesh3D::GetLines</a></div><div class="ttdeci">const DynamicArray&lt; LineIndices &gt; &amp; GetLines() const</div><div class="ttdef"><b>Definition</b> <a href="#l00070">CpuModel3D.cpp:70</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_cpu_mesh3_d_html_adc418facfedeb96f426f3a9b036bd3c3"><div class="ttname"><a href="class_o_s_k_1_1_cpu_mesh3_d.html#adc418facfedeb96f426f3a9b036bd3c3">OSK::CpuMesh3D::HasMaterial</a></div><div class="ttdeci">bool HasMaterial() const</div><div class="ttdef"><b>Definition</b> <a href="#l00086">CpuModel3D.cpp:86</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_cpu_mesh3_d_html_add9bef440f878cc484781e562d907ad9"><div class="ttname"><a href="class_o_s_k_1_1_cpu_mesh3_d.html#add9bef440f878cc484781e562d907ad9">OSK::CpuMesh3D::GetPointCount</a></div><div class="ttdeci">USize64 GetPointCount() const</div><div class="ttdef"><b>Definition</b> <a href="#l00062">CpuModel3D.cpp:62</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_cpu_mesh3_d_html_ae3515e979b178f2eb3e3fbe20ab2818f"><div class="ttname"><a href="class_o_s_k_1_1_cpu_mesh3_d.html#ae3515e979b178f2eb3e3fbe20ab2818f">OSK::CpuMesh3D::GetTriangleCount</a></div><div class="ttdeci">USize64 GetTriangleCount() const</div><div class="ttdef"><b>Definition</b> <a href="#l00054">CpuModel3D.cpp:54</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_cpu_mesh3_d_html_afda04096b8f1907b780b8946db2d42d4"><div class="ttname"><a href="class_o_s_k_1_1_cpu_mesh3_d.html#afda04096b8f1907b780b8946db2d42d4">OSK::CpuMesh3D::LineIndices</a></div><div class="ttdeci">std::array&lt; UIndex64, 2 &gt; LineIndices</div><div class="ttdoc">Índices de dos vértices que conforman una línea.</div><div class="ttdef"><b>Definition</b> <a href="_cpu_model3_d_8h_source.html#l00046">CpuModel3D.h:46</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_cpu_model3_d_html_a00de939f71f7fe40fbf1e20f478b477c"><div class="ttname"><a href="class_o_s_k_1_1_cpu_model3_d.html#a00de939f71f7fe40fbf1e20f478b477c">OSK::CpuModel3D::AddAnimations</a></div><div class="ttdeci">void AddAnimations(const DynamicArray&lt; GRAPHICS::Animation &gt; &amp;animations)</div><div class="ttdoc">Añade una lista de animaciones al modelo.</div><div class="ttdef"><b>Definition</b> <a href="#l00105">CpuModel3D.cpp:105</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_cpu_model3_d_html_a0f3f9d6e2c7951d7e3ad0a0ad54e93e0"><div class="ttname"><a href="class_o_s_k_1_1_cpu_model3_d.html#a0f3f9d6e2c7951d7e3ad0a0ad54e93e0">OSK::CpuModel3D::AddMeshes</a></div><div class="ttdeci">void AddMeshes(const DynamicArray&lt; CpuMesh3D &gt; &amp;meshes)</div><div class="ttdoc">Añade una lista de mallas al modelo.</div><div class="ttdef"><b>Definition</b> <a href="#l00097">CpuModel3D.cpp:97</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_cpu_model3_d_html_a58bf6740b41c3721e52393dea1e61531"><div class="ttname"><a href="class_o_s_k_1_1_cpu_model3_d.html#a58bf6740b41c3721e52393dea1e61531">OSK::CpuModel3D::GetMeshes</a></div><div class="ttdeci">const DynamicArray&lt; CpuMesh3D &gt; &amp; GetMeshes() const</div><div class="ttdef"><b>Definition</b> <a href="#l00101">CpuModel3D.cpp:101</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_cpu_model3_d_html_a735f148d529d2ba2ce095b3b8811f4a9"><div class="ttname"><a href="class_o_s_k_1_1_cpu_model3_d.html#a735f148d529d2ba2ce095b3b8811f4a9">OSK::CpuModel3D::GetAnimations</a></div><div class="ttdeci">const DynamicArray&lt; GRAPHICS::Animation &gt; &amp; GetAnimations() const</div><div class="ttdef"><b>Definition</b> <a href="#l00113">CpuModel3D.cpp:113</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_cpu_model3_d_html_a806c0cc99a6251d08c5d43a36f90e7ec"><div class="ttname"><a href="class_o_s_k_1_1_cpu_model3_d.html#a806c0cc99a6251d08c5d43a36f90e7ec">OSK::CpuModel3D::GetAnimationSkins</a></div><div class="ttdeci">const DynamicArray&lt; GRAPHICS::AnimationSkin &gt; &amp; GetAnimationSkins() const</div><div class="ttdef"><b>Definition</b> <a href="#l00117">CpuModel3D.cpp:117</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_cpu_model3_d_html_aef3c62d67ed3f58ed244e69b4624d84c"><div class="ttname"><a href="class_o_s_k_1_1_cpu_model3_d.html#aef3c62d67ed3f58ed244e69b4624d84c">OSK::CpuModel3D::AddAnimationSkins</a></div><div class="ttdeci">void AddAnimationSkins(const DynamicArray&lt; GRAPHICS::AnimationSkin &gt; &amp;skins)</div><div class="ttdoc">Añade una lista de skins de animaciones al modelo.</div><div class="ttdef"><b>Definition</b> <a href="#l00109">CpuModel3D.cpp:109</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_dynamic_array_html"><div class="ttname"><a href="class_o_s_k_1_1_dynamic_array.html">OSK::DynamicArray</a></div><div class="ttdoc">Dynamic array: array que puede cambiar de tamaño.</div><div class="ttdef"><b>Definition</b> <a href="_dynamic_array_8hpp_source.html#l00067">DynamicArray.hpp:67</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_dynamic_array_html_a286f518150138acd1773a7cfaf2c8482"><div class="ttname"><a href="class_o_s_k_1_1_dynamic_array.html#a286f518150138acd1773a7cfaf2c8482">OSK::DynamicArray::InsertAll</a></div><div class="ttdeci">void InsertAll(const DynamicArray &amp;arr)</div><div class="ttdoc">Añade los elementos de 'arr' a este array.</div><div class="ttdef"><b>Definition</b> <a href="_dynamic_array_8hpp_source.html#l00457">DynamicArray.hpp:457</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_dynamic_array_html_a4433c76207ce2ecad5e306b12575f1b3"><div class="ttname"><a href="class_o_s_k_1_1_dynamic_array.html#a4433c76207ce2ecad5e306b12575f1b3">OSK::DynamicArray::Insert</a></div><div class="ttdeci">void Insert(const T &amp;element)</div><div class="ttdoc">Inserta un elemento al final del array.</div><div class="ttdef"><b>Definition</b> <a href="_dynamic_array_8hpp_source.html#l00351">DynamicArray.hpp:351</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_dynamic_array_html_ab772cd3a1f2c189505ea17d604dfc164"><div class="ttname"><a href="class_o_s_k_1_1_dynamic_array.html#ab772cd3a1f2c189505ea17d604dfc164">OSK::DynamicArray::IsEmpty</a></div><div class="ttdeci">bool IsEmpty() const noexcept</div><div class="ttdoc">Devuelve true si el array está vacío.</div><div class="ttdef"><b>Definition</b> <a href="_dynamic_array_8hpp_source.html#l00665">DynamicArray.hpp:665</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_dynamic_array_html_af09578371bd52d5a934bc74c8dad5f0d"><div class="ttname"><a href="class_o_s_k_1_1_dynamic_array.html#af09578371bd52d5a934bc74c8dad5f0d">OSK::DynamicArray::GetSize</a></div><div class="ttdeci">USize64 GetSize() const noexcept</div><div class="ttdoc">Devuelve el número de elementos almacenados.</div><div class="ttdef"><b>Definition</b> <a href="_dynamic_array_8hpp_source.html#l00672">DynamicArray.hpp:672</a></div></div>
+<div class="ttc" id="anamespace_o_s_k_html"><div class="ttname"><a href="namespace_o_s_k.html">OSK</a></div><div class="ttdef"><b>Definition</b> <a href="_acceleration_structures_exceptions_8h_source.html#l00005">AccelerationStructuresExceptions.h:5</a></div></div>
+<div class="ttc" id="astruct_o_s_k_1_1_cpu_vertex3_d_html"><div class="ttname"><a href="struct_o_s_k_1_1_cpu_vertex3_d.html">OSK::CpuVertex3D</a></div><div class="ttdoc">Vértice con los atributos que pueden ser cargados de un archivo.</div><div class="ttdef"><b>Definition</b> <a href="_cpu_model3_d_8h_source.html#l00022">CpuModel3D.h:22</a></div></div>
+</div><!-- fragment --></div><!-- contents -->
+</div><!-- doc-content -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="dir_74389ed8173ad57b461b9d623a1f3867.html">Source</a></li><li class="navelem"><a class="el" href="_cpu_model3_d_8cpp.html">CpuModel3D.cpp</a></li>
+    <li class="footer">Generado el Jueves, 28 de marzo de 2024 17:53:10 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.10.0 </li>
+  </ul>
+</div>
+</body>
+</html>

@@ -129,6 +129,8 @@ Métodos públicos</h2></td></tr>
 <tr class="separator:a3e6f49a3c1faa34a849019cd10790396"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a26e6c25deddfc2380dafc71fc749e1bc" id="r_a26e6c25deddfc2380dafc71fc749e1bc"><td class="memItemLeft" align="right" valign="top"><a class="el" href="_o_s_kmacros_8h.html#a5784d24fcb00afb78eb7b1e1a3466ac4">USize64</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_subblock.html#a26e6c25deddfc2380dafc71fc749e1bc">GetOffsetFromBlock</a> () const</td></tr>
 <tr class="separator:a26e6c25deddfc2380dafc71fc749e1bc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a041c7419708ed856e2e7ec9d31402978" id="r_a041c7419708ed856e2e7ec9d31402978"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="namespace_o_s_k.html#a79ac5831e0b2433213dacbfc636f4d8f">TByte</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_subblock.html#a041c7419708ed856e2e7ec9d31402978">GetMappedData</a> () const</td></tr>
+<tr class="separator:a041c7419708ed856e2e7ec9d31402978"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pro-attribs" name="pro-attribs"></a>
 Atributos protegidos</h2></td></tr>
@@ -202,6 +204,35 @@ Atributos protegidos</h2></td></tr>
 </div><div class="memdoc">
 
 <p class="definition">Definición en la línea <a class="el" href="_i_gpu_memory_subblock_8cpp_source.html#l00019">19</a> del archivo <a class="el" href="_i_gpu_memory_subblock_8cpp_source.html">IGpuMemorySubblock.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a041c7419708ed856e2e7ec9d31402978" name="a041c7419708ed856e2e7ec9d31402978"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a041c7419708ed856e2e7ec9d31402978">&#9670;&#160;</a></span>GetMappedData()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="namespace_o_s_k.html#a79ac5831e0b2433213dacbfc636f4d8f">TByte</a> * OSK::GRAPHICS::IGpuMemorySubblock::GetMappedData </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section pre"><dt>Precondición</dt><dd>La memoria debe haber sido previamente mapeada mediante <a class="el" href="#a7a54c19881cd6205ecd775d9120985e9" title="Mapea toda la memoria del subbloque, para poder escribirse.">MapMemory()</a>. </dd></dl>
+<dl class="section return"><dt>Devuelve</dt><dd>Puntero al inicio de la región de memoria mapeada. </dd></dl>
+
+<p class="definition">Definición en la línea <a class="el" href="_i_gpu_memory_subblock_8h_source.html#l00101">101</a> del archivo <a class="el" href="_i_gpu_memory_subblock_8h_source.html">IGpuMemorySubblock.h</a>.</p>
 
 </div>
 </div>
@@ -593,7 +624,7 @@ Toda la información escrita debe escribirse sobre una zona de memoria completam
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definición en la línea <a class="el" href="_i_gpu_memory_subblock_8h_source.html#l00111">111</a> del archivo <a class="el" href="_i_gpu_memory_subblock_8h_source.html">IGpuMemorySubblock.h</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_i_gpu_memory_subblock_8h_source.html#l00115">115</a> del archivo <a class="el" href="_i_gpu_memory_subblock_8h_source.html">IGpuMemorySubblock.h</a>.</p>
 
 </div>
 </div>
@@ -617,7 +648,7 @@ Toda la información escrita debe escribirse sobre una zona de memoria completam
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definición en la línea <a class="el" href="_i_gpu_memory_subblock_8h_source.html#l00105">105</a> del archivo <a class="el" href="_i_gpu_memory_subblock_8h_source.html">IGpuMemorySubblock.h</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_i_gpu_memory_subblock_8h_source.html#l00109">109</a> del archivo <a class="el" href="_i_gpu_memory_subblock_8h_source.html">IGpuMemorySubblock.h</a>.</p>
 
 </div>
 </div>
@@ -641,7 +672,7 @@ Toda la información escrita debe escribirse sobre una zona de memoria completam
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definición en la línea <a class="el" href="_i_gpu_memory_subblock_8h_source.html#l00106">106</a> del archivo <a class="el" href="_i_gpu_memory_subblock_8h_source.html">IGpuMemorySubblock.h</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_i_gpu_memory_subblock_8h_source.html#l00110">110</a> del archivo <a class="el" href="_i_gpu_memory_subblock_8h_source.html">IGpuMemorySubblock.h</a>.</p>
 
 </div>
 </div>
@@ -665,7 +696,7 @@ Toda la información escrita debe escribirse sobre una zona de memoria completam
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definición en la línea <a class="el" href="_i_gpu_memory_subblock_8h_source.html#l00103">103</a> del archivo <a class="el" href="_i_gpu_memory_subblock_8h_source.html">IGpuMemorySubblock.h</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_i_gpu_memory_subblock_8h_source.html#l00107">107</a> del archivo <a class="el" href="_i_gpu_memory_subblock_8h_source.html">IGpuMemorySubblock.h</a>.</p>
 
 </div>
 </div>
@@ -689,7 +720,7 @@ Toda la información escrita debe escribirse sobre una zona de memoria completam
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definición en la línea <a class="el" href="_i_gpu_memory_subblock_8h_source.html#l00108">108</a> del archivo <a class="el" href="_i_gpu_memory_subblock_8h_source.html">IGpuMemorySubblock.h</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_i_gpu_memory_subblock_8h_source.html#l00112">112</a> del archivo <a class="el" href="_i_gpu_memory_subblock_8h_source.html">IGpuMemorySubblock.h</a>.</p>
 
 </div>
 </div>
@@ -713,7 +744,7 @@ Toda la información escrita debe escribirse sobre una zona de memoria completam
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definición en la línea <a class="el" href="_i_gpu_memory_subblock_8h_source.html#l00109">109</a> del archivo <a class="el" href="_i_gpu_memory_subblock_8h_source.html">IGpuMemorySubblock.h</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_i_gpu_memory_subblock_8h_source.html#l00113">113</a> del archivo <a class="el" href="_i_gpu_memory_subblock_8h_source.html">IGpuMemorySubblock.h</a>.</p>
 
 </div>
 </div>
@@ -727,7 +758,7 @@ Toda la información escrita debe escribirse sobre una zona de memoria completam
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="namespace_o_s_k.html">OSK</a></li><li class="navelem"><a class="el" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html">GRAPHICS</a></li><li class="navelem"><a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_memory_subblock_vk.html">GpuMemorySubblockVk</a></li>
-    <li class="footer">Generado el Lunes, 29 de enero de 2024 17:23:02 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.10.0 </li>
+    <li class="footer">Generado el Jueves, 28 de marzo de 2024 17:53:13 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.10.0 </li>
   </ul>
 </div>
 </body>

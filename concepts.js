@@ -11,11 +11,8 @@ var concepts =
       ] ],
       [ "ECS", "namespace_o_s_k_1_1_e_c_s.html", [
         [ "IsEcsComponent", "concept_o_s_k_1_1_e_c_s_1_1_is_ecs_component.html", null ],
-        [ "IsConsumerSystemEvent", "concept_o_s_k_1_1_e_c_s_1_1_is_consumer_system_event.html", null ],
         [ "IsConsumerSystem", "concept_o_s_k_1_1_e_c_s_1_1_is_consumer_system.html", null ],
         [ "IsIteratorSystem", "concept_o_s_k_1_1_e_c_s_1_1_is_iterator_system.html", null ],
-        [ "IsProducerSystem", "concept_o_s_k_1_1_e_c_s_1_1_is_producer_system.html", null ],
-        [ "IsPureSystem", "concept_o_s_k_1_1_e_c_s_1_1_is_pure_system.html", null ],
         [ "IsEcsSystem", "concept_o_s_k_1_1_e_c_s_1_1_is_ecs_system.html", null ]
       ] ],
       [ "EFTraits", "namespace_o_s_k_1_1_e_f_traits.html", [

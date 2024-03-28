@@ -9,6 +9,6 @@ var _rt_acceleration_structure_flags_8h =
       [ "UPDATE", "_rt_acceleration_structure_flags_8h.html#a36849b56fb8ca2a551ef010d857bea90a15a8022d0ed9cd9c2a2e756822703eb4", null ],
       [ "REBUILD", "_rt_acceleration_structure_flags_8h.html#a36849b56fb8ca2a551ef010d857bea90ac75592fa549dce0833e49b89944bf685", null ]
     ] ],
-    [ "GetAsBuildFlags", "_rt_acceleration_structure_flags_8h.html#a28c68761749c9dceca3b090f7a62a898", null ],
+    [ "GetAsBuildFlags", "_rt_acceleration_structure_flags_8h.html#ae389088104d0eb24f3b4172c7ce80631", null ],
     [ "OSK_FLAGS", "_rt_acceleration_structure_flags_8h.html#ae81042e5d44bb7e06c7905b7153acd22", null ]
 ];

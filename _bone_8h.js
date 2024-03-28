@@ -1,4 +1,4 @@
 var _bone_8h =
 [
-    [ "Bone", "_bone_8h.html#a6ba2b7a043103ea5fb5ade9f30f71103", null ]
+    [ "OSK::GRAPHICS::AnimationBone", "struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_animation_bone.html", "struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_animation_bone" ]
 ];

@@ -11,8 +11,9 @@ var searchData=
   ['gpuimagefilteringtype_8',['GpuImageFilteringType',['../namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a169cbd3b800f2c408287690a502bace1',1,'OSK::GRAPHICS']]],
   ['gpuimagelayout_9',['GpuImageLayout',['../namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a20f40e3d3e967090ee1884e0c77b9df9',1,'OSK::GRAPHICS']]],
   ['gpuimagemipmapmode_10',['GpuImageMipmapMode',['../namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a7b3d3107477f334f9d9d85a64c930c8a',1,'OSK::GRAPHICS']]],
-  ['gpuimageusage_11',['GpuImageUsage',['../namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a19a2f70fc994c00eb022e520608c5ffa',1,'OSK::GRAPHICS']]],
-  ['gpumemoryusage_12',['GpuMemoryUsage',['../namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#ae5e58e16d9268fde60c3eae698b225ec',1,'OSK::GRAPHICS']]],
-  ['gpusharedmemorytype_13',['GpuSharedMemoryType',['../namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a85a830e82585f3a565d1f097491042ce',1,'OSK::GRAPHICS']]],
-  ['growthfactortype_14',['GrowthFactorType',['../namespace_o_s_k.html#abaa28774128d414c059ee31f2759d274',1,'OSK']]]
+  ['gpuimagetiling_11',['GpuImageTiling',['../namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#ad104d68df20e4df59f9a73783fda907c',1,'OSK::GRAPHICS']]],
+  ['gpuimageusage_12',['GpuImageUsage',['../namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a19a2f70fc994c00eb022e520608c5ffa',1,'OSK::GRAPHICS']]],
+  ['gpumemoryusage_13',['GpuMemoryUsage',['../namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#ae5e58e16d9268fde60c3eae698b225ec',1,'OSK::GRAPHICS']]],
+  ['gpusharedmemorytype_14',['GpuSharedMemoryType',['../namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a85a830e82585f3a565d1f097491042ce',1,'OSK::GRAPHICS']]],
+  ['growthfactortype_15',['GrowthFactorType',['../namespace_o_s_k.html#abaa28774128d414c059ee31f2759d274',1,'OSK']]]
 ];

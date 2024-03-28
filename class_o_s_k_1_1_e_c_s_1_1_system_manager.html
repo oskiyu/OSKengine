@@ -110,16 +110,18 @@ Métodos públicos</h2></td></tr>
 <tr class="separator:a5e503e38a6f749c36c77c14ce48846de"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a66a0c00487f4f014f2d6efaf9f1bd0a6" id="r_a66a0c00487f4f014f2d6efaf9f1bd0a6"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a66a0c00487f4f014f2d6efaf9f1bd0a6">OSK_DEFAULT_MOVE_OPERATOR</a> (<a class="el" href="class_o_s_k_1_1_e_c_s_1_1_system_manager.html">SystemManager</a>)</td></tr>
 <tr class="separator:a66a0c00487f4f014f2d6efaf9f1bd0a6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a79813ae895035ff2df8f47239b9003bb" id="r_a79813ae895035ff2df8f47239b9003bb"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a79813ae895035ff2df8f47239b9003bb">OnTick</a> (<a class="el" href="_o_s_kmacros_8h.html#ad05d5eacc527d5b61240124daf13b33b">TDeltaTime</a> deltaTime)</td></tr>
-<tr class="separator:a79813ae895035ff2df8f47239b9003bb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5ea92a92d97f6a286c9c0c652c45bb9e" id="r_a5ea92a92d97f6a286c9c0c652c45bb9e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a5ea92a92d97f6a286c9c0c652c45bb9e">OnTick</a> (<a class="el" href="_o_s_kmacros_8h.html#ad05d5eacc527d5b61240124daf13b33b">TDeltaTime</a> deltaTime, const <a class="el" href="class_o_s_k_1_1_e_c_s_1_1_event_manager.html">EventManager</a> &amp;eventManager)</td></tr>
+<tr class="separator:a5ea92a92d97f6a286c9c0c652c45bb9e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5aeb33cf0b11ad975659c232a3a22b72" id="r_a5aeb33cf0b11ad975659c232a3a22b72"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a5aeb33cf0b11ad975659c232a3a22b72">OnRender</a> (<a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list.html">GRAPHICS::ICommandList</a> *commandList)</td></tr>
+<tr class="separator:a5aeb33cf0b11ad975659c232a3a22b72"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:adeba4513a1ca0154da78f72d2bb3c408" id="r_adeba4513a1ca0154da78f72d2bb3c408"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#adeba4513a1ca0154da78f72d2bb3c408">GameObjectDestroyed</a> (<a class="el" href="namespace_o_s_k_1_1_e_c_s.html#a7be561d6b7de4e8a49c2a5cc35fba48c">GameObjectIndex</a> obj)</td></tr>
 <tr class="separator:adeba4513a1ca0154da78f72d2bb3c408"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a74ebffeb57090187fe5add293d79ca67" id="r_a74ebffeb57090187fe5add293d79ca67"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a74ebffeb57090187fe5add293d79ca67">GameObjectSignatureChanged</a> (<a class="el" href="namespace_o_s_k_1_1_e_c_s.html#a7be561d6b7de4e8a49c2a5cc35fba48c">GameObjectIndex</a> obj, const <a class="el" href="namespace_o_s_k_1_1_e_c_s.html#a9c0e00962e3504ffd2435edb417d2d42">Signature</a> &amp;signature)</td></tr>
 <tr class="separator:a74ebffeb57090187fe5add293d79ca67"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa3161d1c2132014008efcd27d5d4ec69" id="r_aa3161d1c2132014008efcd27d5d4ec69"><td class="memTemplParams" colspan="2">template&lt;typename TSystem &gt; <br />
+<tr class="memitem:aecab7fe0aeea50f027db32e42c79790e" id="r_aecab7fe0aeea50f027db32e42c79790e"><td class="memTemplParams" colspan="2">template&lt;typename TSystem &gt; <br />
 requires IsEcsSystem&lt;TSystem&gt;</td></tr>
-<tr class="memitem:aa3161d1c2132014008efcd27d5d4ec69"><td class="memTemplItemLeft" align="right" valign="top">TSystem *&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="#aa3161d1c2132014008efcd27d5d4ec69">RegisterSystem</a> (int order)</td></tr>
-<tr class="separator:aa3161d1c2132014008efcd27d5d4ec69"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aecab7fe0aeea50f027db32e42c79790e"><td class="memTemplItemLeft" align="right" valign="top">TSystem *&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="#aecab7fe0aeea50f027db32e42c79790e">RegisterSystem</a> (const <a class="el" href="struct_o_s_k_1_1_e_c_s_1_1_system_dependencies.html">SystemDependencies</a> &amp;dependencies)</td></tr>
+<tr class="separator:aecab7fe0aeea50f027db32e42c79790e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3fb325594bcd65b490abec1254d2d3c9" id="r_a3fb325594bcd65b490abec1254d2d3c9"><td class="memTemplParams" colspan="2">template&lt;typename TSystem &gt; <br />
 requires IsEcsSystem&lt;TSystem&gt;</td></tr>
 <tr class="memitem:a3fb325594bcd65b490abec1254d2d3c9"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="#a3fb325594bcd65b490abec1254d2d3c9">RemoveSystem</a> ()</td></tr>
@@ -141,7 +143,7 @@ requires IsEcsSystem&lt;TSystem&gt;</td></tr>
 <div class="textblock"><p>El <a class="el" href="class_o_s_k_1_1_e_c_s_1_1_system_manager.html" title="El SystemManager se encarga de almacenar y manejar los sistemas del juego. Es el encargado de llamar ...">SystemManager</a> se encarga de almacenar y manejar los sistemas del juego. Es el encargado de llamar a las funciones OnTick de los sistemas, además de introducir y eliminar de los sistemas a los GameObjects que cada sistema vaya a procesar. </p>
 <dl class="section note"><dt>Nota</dt><dd>Dueño de los sistemas. </dd></dl>
 
-<p class="definition">Definición en la línea <a class="el" href="_system_manager_8h_source.html#l00028">28</a> del archivo <a class="el" href="_system_manager_8h_source.html">SystemManager.h</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_system_manager_8h_source.html#l00033">33</a> del archivo <a class="el" href="_system_manager_8h_source.html">SystemManager.h</a>.</p>
 </div><h2 class="groupheader">Documentación de constructores y destructores</h2>
 <a id="a7f08d18419d8782f296027a7ca1c1790" name="a7f08d18419d8782f296027a7ca1c1790"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a7f08d18419d8782f296027a7ca1c1790">&#9670;&#160;</a></span>SystemManager()</h2>
@@ -204,7 +206,7 @@ requires IsEcsSystem&lt;TSystem&gt;</div>
 </dl>
 <dl class="section return"><dt>Devuelve</dt><dd>True si está registrado, false en caso contrario. </dd></dl>
 
-<p class="definition">Definición en la línea <a class="el" href="_system_manager_8h_source.html#l00167">167</a> del archivo <a class="el" href="_system_manager_8h_source.html">SystemManager.h</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_system_manager_8h_source.html#l00129">129</a> del archivo <a class="el" href="_system_manager_8h_source.html">SystemManager.h</a>.</p>
 
 </div>
 </div>
@@ -231,7 +233,7 @@ requires IsEcsSystem&lt;TSystem&gt;</div>
   </dd>
 </dl>
 
-<p class="definition">Definición en la línea <a class="el" href="_system_manager_8cpp_source.html#l00023">23</a> del archivo <a class="el" href="_system_manager_8cpp_source.html">SystemManager.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_system_manager_8cpp_source.html#l00078">78</a> del archivo <a class="el" href="_system_manager_8cpp_source.html">SystemManager.cpp</a>.</p>
 
 </div>
 </div>
@@ -263,7 +265,7 @@ requires IsEcsSystem&lt;TSystem&gt;</div>
   </dd>
 </dl>
 
-<p class="definition">Definición en la línea <a class="el" href="_system_manager_8cpp_source.html#l00031">31</a> del archivo <a class="el" href="_system_manager_8cpp_source.html">SystemManager.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_system_manager_8cpp_source.html#l00084">84</a> del archivo <a class="el" href="_system_manager_8cpp_source.html">SystemManager.cpp</a>.</p>
 
 </div>
 </div>
@@ -300,7 +302,7 @@ requires IsEcsSystem&lt;TSystem&gt;</div>
 </dl>
 <dl class="section return"><dt>Devuelve</dt><dd>La instancia del sistema dado. Null si no está registrado. </dd></dl>
 
-<p class="definition">Definición en la línea <a class="el" href="_system_manager_8h_source.html#l00126">126</a> del archivo <a class="el" href="_system_manager_8h_source.html">SystemManager.h</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_system_manager_8h_source.html#l00104">104</a> del archivo <a class="el" href="_system_manager_8h_source.html">SystemManager.h</a>.</p>
 
 </div>
 </div>
@@ -337,12 +339,39 @@ requires IsEcsSystem&lt;TSystem&gt;</div>
 </dl>
 <dl class="section return"><dt>Devuelve</dt><dd>La instancia del sistema dado. Null si no está registrado. </dd></dl>
 
-<p class="definition">Definición en la línea <a class="el" href="_system_manager_8h_source.html#l00146">146</a> del archivo <a class="el" href="_system_manager_8h_source.html">SystemManager.h</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_system_manager_8h_source.html#l00116">116</a> del archivo <a class="el" href="_system_manager_8h_source.html">SystemManager.h</a>.</p>
 
 </div>
 </div>
-<a id="a79813ae895035ff2df8f47239b9003bb" name="a79813ae895035ff2df8f47239b9003bb"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a79813ae895035ff2df8f47239b9003bb">&#9670;&#160;</a></span>OnTick()</h2>
+<a id="a5aeb33cf0b11ad975659c232a3a22b72" name="a5aeb33cf0b11ad975659c232a3a22b72"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5aeb33cf0b11ad975659c232a3a22b72">&#9670;&#160;</a></span>OnRender()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void SystemManager::OnRender </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list.html">GRAPHICS::ICommandList</a> *</td>          <td class="paramname"><span class="paramname"><em>commandList</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Ejecuta el renderizado de los sistemas de renderizado. </p>
+<dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">commandList</td><td>Lista de comandos. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definición en la línea <a class="el" href="_system_manager_8cpp_source.html#l00051">51</a> del archivo <a class="el" href="_system_manager_8cpp_source.html">SystemManager.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a5ea92a92d97f6a286c9c0c652c45bb9e" name="a5ea92a92d97f6a286c9c0c652c45bb9e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5ea92a92d97f6a286c9c0c652c45bb9e">&#9670;&#160;</a></span>OnTick()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -350,8 +379,12 @@ requires IsEcsSystem&lt;TSystem&gt;</div>
         <tr>
           <td class="memname">void SystemManager::OnTick </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="_o_s_kmacros_8h.html#ad05d5eacc527d5b61240124daf13b33b">TDeltaTime</a></td>          <td class="paramname"><span class="paramname"><em>deltaTime</em></span></td><td>)</td>
+          <td class="paramtype"><a class="el" href="_o_s_kmacros_8h.html#ad05d5eacc527d5b61240124daf13b33b">TDeltaTime</a></td>          <td class="paramname"><span class="paramname"><em>deltaTime</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
           <td></td>
+          <td class="paramtype">const <a class="el" href="class_o_s_k_1_1_e_c_s_1_1_event_manager.html">EventManager</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>eventManager</em></span>&#160;)</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -364,7 +397,7 @@ requires IsEcsSystem&lt;TSystem&gt;</div>
   </dd>
 </dl>
 
-<p class="definition">Definición en la línea <a class="el" href="_system_manager_8cpp_source.html#l00007">7</a> del archivo <a class="el" href="_system_manager_8cpp_source.html">SystemManager.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_system_manager_8cpp_source.html#l00015">15</a> del archivo <a class="el" href="_system_manager_8cpp_source.html">SystemManager.cpp</a>.</p>
 
 </div>
 </div>
@@ -402,8 +435,8 @@ requires IsEcsSystem&lt;TSystem&gt;</div>
 
 </div>
 </div>
-<a id="aa3161d1c2132014008efcd27d5d4ec69" name="aa3161d1c2132014008efcd27d5d4ec69"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa3161d1c2132014008efcd27d5d4ec69">&#9670;&#160;</a></span>RegisterSystem()</h2>
+<a id="aecab7fe0aeea50f027db32e42c79790e" name="aecab7fe0aeea50f027db32e42c79790e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aecab7fe0aeea50f027db32e42c79790e">&#9670;&#160;</a></span>RegisterSystem()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -417,7 +450,7 @@ requires IsEcsSystem&lt;TSystem&gt;</div>
         <tr>
           <td class="memname">TSystem * OSK::ECS::SystemManager::RegisterSystem </td>
           <td>(</td>
-          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>order</em></span></td><td>)</td>
+          <td class="paramtype">const <a class="el" href="struct_o_s_k_1_1_e_c_s_1_1_system_dependencies.html">SystemDependencies</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>dependencies</em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -437,7 +470,7 @@ requires IsEcsSystem&lt;TSystem&gt;</div>
 </dl>
 <dl class="section return"><dt>Devuelve</dt><dd>Instancia del sistema. </dd></dl>
 
-<p class="definition">Definición en la línea <a class="el" href="_system_manager_8h_source.html#l00072">72</a> del archivo <a class="el" href="_system_manager_8h_source.html">SystemManager.h</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_system_manager_8h_source.html#l00068">68</a> del archivo <a class="el" href="_system_manager_8h_source.html">SystemManager.h</a>.</p>
 
 </div>
 </div>
@@ -476,7 +509,7 @@ requires IsEcsSystem&lt;TSystem&gt;</div>
 </dl>
 <dl class="section note"><dt>Nota</dt><dd>Si el sistema no está registrado, no ocurre nada. </dd></dl>
 
-<p class="definition">Definición en la línea <a class="el" href="_system_manager_8h_source.html#l00101">101</a> del archivo <a class="el" href="_system_manager_8h_source.html">SystemManager.h</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_system_manager_8h_source.html#l00093">93</a> del archivo <a class="el" href="_system_manager_8h_source.html">SystemManager.h</a>.</p>
 
 </div>
 </div>
@@ -490,7 +523,7 @@ requires IsEcsSystem&lt;TSystem&gt;</div>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="namespace_o_s_k.html">OSK</a></li><li class="navelem"><a class="el" href="namespace_o_s_k_1_1_e_c_s.html">ECS</a></li><li class="navelem"><a class="el" href="class_o_s_k_1_1_e_c_s_1_1_system_manager.html">SystemManager</a></li>
-    <li class="footer">Generado el Lunes, 29 de enero de 2024 17:23:01 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.10.0 </li>
+    <li class="footer">Generado el Jueves, 28 de marzo de 2024 17:53:12 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.10.0 </li>
   </ul>
 </div>
 </body>

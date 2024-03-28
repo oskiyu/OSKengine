@@ -1,0 +1,1393 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="es">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.10.0"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>OSKengine: Referencia de la clase OSK::ASSETS::GltfLoader</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="doxygen-awesome.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">OSKengine<span id="projectnumber">&#160;Indev</span>
+   </div>
+   <div id="projectbrief">Motor de videojuegos.</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generado por Doxygen 1.10.0 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() {
+  initMenu('',true,false,'search.php','Buscar');
+  $(function() { init_search(); });
+});
+/* @license-end */
+</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function(){initNavTree('class_o_s_k_1_1_a_s_s_e_t_s_1_1_gltf_loader.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Cargando...</div>
+<div class="SRStatus" id="Searching">Buscando...</div>
+<div class="SRStatus" id="NoMatches">Nada coincide</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="summary">
+<a href="#pub-static-methods">Métodos públicos estáticos</a> &#124;
+<a href="#pro-static-methods">Métodos protegidos estáticos</a> &#124;
+<a href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_gltf_loader-members.html">Lista de todos los miembros</a>  </div>
+  <div class="headertitle"><div class="title">Referencia de la clase OSK::ASSETS::GltfLoader</div></div>
+</div><!--header-->
+<div class="contents">
+
+<p><code>#include &lt;<a class="el" href="_i_gltf_loader_8h_source.html">IGltfLoader.h</a>&gt;</code></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-static-methods" name="pub-static-methods"></a>
+Métodos públicos estáticos</h2></td></tr>
+<tr class="memitem:a3d4e4b263e8972e52d6144c975068769" id="r_a3d4e4b263e8972e52d6144c975068769"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">static</a> <a class="el" href="class_o_s_k_1_1_cpu_model3_d.html">CpuModel3D</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a3d4e4b263e8972e52d6144c975068769">Load</a> (std::string_view path, <a class="el" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">const</a> glm::mat4 &amp;<a class="el" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">transform</a>, <a class="el" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">float</a> globalScale)</td></tr>
+<tr class="separator:a3d4e4b263e8972e52d6144c975068769"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a706a5f8499c686f1a9e3db2f00f3cd5a" id="r_a706a5f8499c686f1a9e3db2f00f3cd5a"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">static</a> <a class="el" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">void</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a706a5f8499c686f1a9e3db2f00f3cd5a">LoadMaterials</a> (std::string_view path, <a class="el" href="class_o_s_k_1_1_dynamic_array.html">DynamicArray</a>&lt; <a class="el" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_model3_d_1_1_material.html">GRAPHICS::GpuModel3D::Material</a> &gt; *materials, <a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_model3_d_1_1_texture_table.html">GRAPHICS::GpuModel3D::TextureTable</a> *<a class="el" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">textures</a>)</td></tr>
+<tr class="separator:a706a5f8499c686f1a9e3db2f00f3cd5a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pro-static-methods" name="pro-static-methods"></a>
+Métodos protegidos estáticos</h2></td></tr>
+<tr class="memitem:a8e4e468d0e561decc1cff91e0f4c12a7" id="r_a8e4e468d0e561decc1cff91e0f4c12a7"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">static</a> <a class="el" href="class_o_s_k_1_1_dynamic_array.html">DynamicArray</a>&lt; <a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_animation.html">GRAPHICS::Animation</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a8e4e468d0e561decc1cff91e0f4c12a7">LoadAnimations</a> (<a class="el" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">const</a> tinygltf::Model &amp;model)</td></tr>
+<tr class="separator:a8e4e468d0e561decc1cff91e0f4c12a7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2f7aa4a53040e422d701fd0d9db2ad71" id="r_a2f7aa4a53040e422d701fd0d9db2ad71"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">static</a> <a class="el" href="class_o_s_k_1_1_dynamic_array.html">DynamicArray</a>&lt; <a class="el" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_animation_sampler.html">GRAPHICS::AnimationSampler</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a2f7aa4a53040e422d701fd0d9db2ad71">LoadAnimationSamplers</a> (<a class="el" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">const</a> tinygltf::Model &amp;model, <a class="el" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">const</a> tinygltf::Animation &amp;<a class="el" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">gltfAnimation</a>)</td></tr>
+<tr class="separator:a2f7aa4a53040e422d701fd0d9db2ad71"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a342ec61531816f7b0df7b54a048b7b94" id="r_a342ec61531816f7b0df7b54a048b7b94"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">static</a> <a class="el" href="class_o_s_k_1_1_dynamic_array.html">DynamicArray</a>&lt; <a class="el" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_animation_channel.html">GRAPHICS::AnimationChannel</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a342ec61531816f7b0df7b54a048b7b94">LoadAnimationChannels</a> (<a class="el" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">const</a> tinygltf::Animation &amp;<a class="el" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">gltfAnimation</a>)</td></tr>
+<tr class="separator:a342ec61531816f7b0df7b54a048b7b94"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aef4a0ac309d6962315eeab6249a17488" id="r_aef4a0ac309d6962315eeab6249a17488"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">static</a> <a class="el" href="class_o_s_k_1_1_dynamic_array.html">DynamicArray</a>&lt; <a class="el" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_animation_skin.html">GRAPHICS::AnimationSkin</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aef4a0ac309d6962315eeab6249a17488">LoadAnimationSkins</a> (<a class="el" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">const</a> tinygltf::Model &amp;model)</td></tr>
+<tr class="separator:aef4a0ac309d6962315eeab6249a17488"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa57fa32b5842ca713de03950045b6e4a" id="r_aa57fa32b5842ca713de03950045b6e4a"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">static</a> <a class="el" href="class_o_s_k_1_1_dynamic_array.html">DynamicArray</a>&lt; std::string &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aa57fa32b5842ca713de03950045b6e4a">GetTagsFromName</a> (<a class="el" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">const</a> tinygltf::Scene &amp;<a class="el" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">scene</a>)</td></tr>
+<tr class="separator:aa57fa32b5842ca713de03950045b6e4a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac10d46f2dcdafc9686122d1ca2ce6d3a" id="r_ac10d46f2dcdafc9686122d1ca2ce6d3a"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">static</a> <a class="el" href="class_o_s_k_1_1_dynamic_array.html">DynamicArray</a>&lt; <a class="el" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_model3_d_1_1_material.html">GRAPHICS::GpuModel3D::Material</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ac10d46f2dcdafc9686122d1ca2ce6d3a">LoadMaterials</a> (<a class="el" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">const</a> tinygltf::Model &amp;model)</td></tr>
+<tr class="separator:ac10d46f2dcdafc9686122d1ca2ce6d3a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae53b0e0b44cb9eec54cafa1d044294ad" id="r_ae53b0e0b44cb9eec54cafa1d044294ad"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">static</a> glm::mat4&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae53b0e0b44cb9eec54cafa1d044294ad">GetNodeMatrix</a> (<a class="el" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">const</a> tinygltf::Node &amp;node)</td></tr>
+<tr class="separator:ae53b0e0b44cb9eec54cafa1d044294ad"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a53689440f20806f607d7cb0cb90cf4b0" id="r_a53689440f20806f607d7cb0cb90cf4b0"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">static</a> <a class="el" href="class_o_s_k_1_1_dynamic_array.html">DynamicArray</a>&lt; <a class="el" href="class_o_s_k_1_1_cpu_mesh3_d.html">CpuMesh3D</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a53689440f20806f607d7cb0cb90cf4b0">ProcessNode</a> (<a class="el" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">const</a> tinygltf::Model &amp;model, <a class="el" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">const</a> tinygltf::Node &amp;node, <a class="el" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">const</a> glm::mat4 &amp;<a class="el" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">transform</a>, <a class="el" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">float</a> globalScale)</td></tr>
+<tr class="separator:a53689440f20806f607d7cb0cb90cf4b0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aecc9175fd23919914ca48e02dacc88a6" id="r_aecc9175fd23919914ca48e02dacc88a6"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">static</a> <a class="el" href="class_o_s_k_1_1_dynamic_array.html">DynamicArray</a>&lt; <a class="el" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_animation_bone.html">GRAPHICS::AnimationBone</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aecc9175fd23919914ca48e02dacc88a6">LoadBones</a> (<a class="el" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">const</a> tinygltf::Model &amp;model, <a class="el" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">const</a> tinygltf::Node &amp;node, <a class="el" href="_o_s_kmacros_8h.html#adef8e046c86805ca0dc2db407b01a1bb">UIndex64</a> <a class="el" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">nodeIndex</a>, <a class="el" href="_o_s_kmacros_8h.html#adef8e046c86805ca0dc2db407b01a1bb">UIndex64</a> parentIndex)</td></tr>
+<tr class="separator:aecc9175fd23919914ca48e02dacc88a6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a14aca8d09742c13d5407c3639df9594a" id="r_a14aca8d09742c13d5407c3639df9594a"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">static</a> <a class="el" href="class_o_s_k_1_1_dynamic_array.html">DynamicArray</a>&lt; <a class="el" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_animation_bone.html">GRAPHICS::AnimationBone</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a14aca8d09742c13d5407c3639df9594a">LoadAllBones</a> (<a class="el" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">const</a> tinygltf::Model &amp;model)</td></tr>
+<tr class="separator:a14aca8d09742c13d5407c3639df9594a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adf20fe556f766a1a55af8906f728392d" id="r_adf20fe556f766a1a55af8906f728392d"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">static</a> <a class="el" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">bool</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#adf20fe556f766a1a55af8906f728392d">HasAttribute</a> (<a class="el" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">const</a> tinygltf::Primitive &amp;<a class="el" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">primitive</a>, <a class="el" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">const</a> std::string &amp;name)</td></tr>
+<tr class="separator:adf20fe556f766a1a55af8906f728392d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afec81df7879faf0a02b97a15eea7d4ab" id="r_afec81df7879faf0a02b97a15eea7d4ab"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">static</a> <a class="el" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">bool</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#afec81df7879faf0a02b97a15eea7d4ab">HasPositions</a> (<a class="el" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">const</a> tinygltf::Primitive &amp;<a class="el" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">primitive</a>)</td></tr>
+<tr class="separator:afec81df7879faf0a02b97a15eea7d4ab"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a05778bbf9f412f1aaa3aa1ed51fbe772" id="r_a05778bbf9f412f1aaa3aa1ed51fbe772"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">static</a> <a class="el" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">bool</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a05778bbf9f412f1aaa3aa1ed51fbe772">HasNormals</a> (<a class="el" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">const</a> tinygltf::Primitive &amp;<a class="el" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">primitive</a>)</td></tr>
+<tr class="separator:a05778bbf9f412f1aaa3aa1ed51fbe772"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aca6b1819b6f868c1dbb7bb2806ef78a3" id="r_aca6b1819b6f868c1dbb7bb2806ef78a3"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">static</a> <a class="el" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">bool</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aca6b1819b6f868c1dbb7bb2806ef78a3">HasTangets</a> (<a class="el" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">const</a> tinygltf::Primitive &amp;<a class="el" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">primitive</a>)</td></tr>
+<tr class="separator:aca6b1819b6f868c1dbb7bb2806ef78a3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae3c8f5d2a8c72751de5ee9384a79f0d4" id="r_ae3c8f5d2a8c72751de5ee9384a79f0d4"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">static</a> <a class="el" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">bool</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae3c8f5d2a8c72751de5ee9384a79f0d4">HasTextureCoords</a> (<a class="el" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">const</a> tinygltf::Primitive &amp;<a class="el" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">primitive</a>)</td></tr>
+<tr class="separator:ae3c8f5d2a8c72751de5ee9384a79f0d4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6423773bfb8c987db0fae741691585ce" id="r_a6423773bfb8c987db0fae741691585ce"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">static</a> <a class="el" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">bool</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a6423773bfb8c987db0fae741691585ce">HasColors</a> (<a class="el" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">const</a> tinygltf::Primitive &amp;<a class="el" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">primitive</a>)</td></tr>
+<tr class="separator:a6423773bfb8c987db0fae741691585ce"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8731956c3cce385df200d55c1508b055" id="r_a8731956c3cce385df200d55c1508b055"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">static</a> <a class="el" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">bool</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a8731956c3cce385df200d55c1508b055">HasJoints</a> (<a class="el" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">const</a> tinygltf::Primitive &amp;<a class="el" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">primitive</a>)</td></tr>
+<tr class="separator:a8731956c3cce385df200d55c1508b055"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8f4f301025422970e9f0fc2f2194bde5" id="r_a8f4f301025422970e9f0fc2f2194bde5"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">static</a> <a class="el" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">bool</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a8f4f301025422970e9f0fc2f2194bde5">HasBoneWeights</a> (<a class="el" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">const</a> tinygltf::Primitive &amp;<a class="el" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">primitive</a>)</td></tr>
+<tr class="separator:a8f4f301025422970e9f0fc2f2194bde5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a613fd917f933910cfe33f64c4f7a9cb4" id="r_a613fd917f933910cfe33f64c4f7a9cb4"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">static</a> <a class="el" href="class_o_s_k_1_1_dynamic_array.html">DynamicArray</a>&lt; <a class="el" href="namespace_o_s_k.html#a72b3268907c9cd41f0daf0a42e1c9dca">Vector3f</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a613fd917f933910cfe33f64c4f7a9cb4">GetVertexPositions</a> (<a class="el" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">const</a> tinygltf::Primitive &amp;<a class="el" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">primitive</a>, <a class="el" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">const</a> glm::mat4 &amp;<a class="el" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">nodeMatrix</a>, <a class="el" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">const</a> tinygltf::Model &amp;model, <a class="el" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">float</a> globalScale)</td></tr>
+<tr class="separator:a613fd917f933910cfe33f64c4f7a9cb4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad2d543b06a3c807ae539dabb3e59d2f9" id="r_ad2d543b06a3c807ae539dabb3e59d2f9"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">static</a> <a class="el" href="class_o_s_k_1_1_dynamic_array.html">DynamicArray</a>&lt; <a class="el" href="namespace_o_s_k.html#a72b3268907c9cd41f0daf0a42e1c9dca">Vector3f</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad2d543b06a3c807ae539dabb3e59d2f9">GetVertexNormals</a> (<a class="el" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">const</a> tinygltf::Primitive &amp;<a class="el" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">primitive</a>, <a class="el" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">const</a> tinygltf::Model &amp;model)</td></tr>
+<tr class="separator:ad2d543b06a3c807ae539dabb3e59d2f9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4a63f075d184d5838ebb8e138e5f028d" id="r_a4a63f075d184d5838ebb8e138e5f028d"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">static</a> <a class="el" href="class_o_s_k_1_1_dynamic_array.html">DynamicArray</a>&lt; <a class="el" href="namespace_o_s_k.html#a31a299dbb3a3a60d90d16d1a4eca9651">Vector2f</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a4a63f075d184d5838ebb8e138e5f028d">GetTextureCoords</a> (<a class="el" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">const</a> tinygltf::Primitive &amp;<a class="el" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">primitive</a>, <a class="el" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">const</a> tinygltf::Model &amp;model)</td></tr>
+<tr class="separator:a4a63f075d184d5838ebb8e138e5f028d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7ddc561d157e1dea1a8a5f5d6633d64b" id="r_a7ddc561d157e1dea1a8a5f5d6633d64b"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">static</a> <a class="el" href="class_o_s_k_1_1_dynamic_array.html">DynamicArray</a>&lt; <a class="el" href="class_o_s_k_1_1_color.html">Color</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a7ddc561d157e1dea1a8a5f5d6633d64b">GetVertexColors</a> (<a class="el" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">const</a> tinygltf::Primitive &amp;<a class="el" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">primitive</a>, <a class="el" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">const</a> tinygltf::Model &amp;model)</td></tr>
+<tr class="separator:a7ddc561d157e1dea1a8a5f5d6633d64b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5cdfd67965dcdc51653ffe09ae4a9a05" id="r_a5cdfd67965dcdc51653ffe09ae4a9a05"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">static</a> <a class="el" href="class_o_s_k_1_1_dynamic_array.html">DynamicArray</a>&lt; <a class="el" href="namespace_o_s_k.html#a98c42bf0a7665f299a3a66c8d4cdcdc2">Vector4f</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a5cdfd67965dcdc51653ffe09ae4a9a05">GetJoints</a> (<a class="el" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">const</a> tinygltf::Primitive &amp;<a class="el" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">primitive</a>, <a class="el" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">const</a> tinygltf::Model &amp;model)</td></tr>
+<tr class="separator:a5cdfd67965dcdc51653ffe09ae4a9a05"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0c8954261f19ca9a618590c52b975fc0" id="r_a0c8954261f19ca9a618590c52b975fc0"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">static</a> <a class="el" href="class_o_s_k_1_1_dynamic_array.html">DynamicArray</a>&lt; <a class="el" href="namespace_o_s_k.html#a98c42bf0a7665f299a3a66c8d4cdcdc2">Vector4f</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a0c8954261f19ca9a618590c52b975fc0">GetBoneWeights</a> (<a class="el" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">const</a> tinygltf::Primitive &amp;<a class="el" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">primitive</a>, <a class="el" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">const</a> tinygltf::Model &amp;model)</td></tr>
+<tr class="separator:a0c8954261f19ca9a618590c52b975fc0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae78bf4156f2ee27687659aeca3a241ea" id="r_ae78bf4156f2ee27687659aeca3a241ea"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">static</a> <a class="el" href="class_o_s_k_1_1_dynamic_array.html">DynamicArray</a>&lt; <a class="el" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#ae5df06fd78ce077c547552654e7d672a">GRAPHICS::TIndexSize</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae78bf4156f2ee27687659aeca3a241ea">GetIndices</a> (<a class="el" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">const</a> tinygltf::Primitive &amp;<a class="el" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">primitive</a>, <a class="el" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#ae5df06fd78ce077c547552654e7d672a">GRAPHICS::TIndexSize</a> <a class="el" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">startOffset</a>, <a class="el" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">const</a> tinygltf::Model &amp;model)</td></tr>
+<tr class="separator:ae78bf4156f2ee27687659aeca3a241ea"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1bc0fd537564fd41aba980d3483d76f4" id="r_a1bc0fd537564fd41aba980d3483d76f4"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">static</a> <a class="el" href="class_o_s_k_1_1_dynamic_array.html">DynamicArray</a>&lt; <a class="el" href="namespace_o_s_k.html#a72b3268907c9cd41f0daf0a42e1c9dca">Vector3f</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a1bc0fd537564fd41aba980d3483d76f4">GetTangentVectors</a> (<a class="el" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">const</a> tinygltf::Primitive &amp;<a class="el" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">primitive</a>, <a class="el" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">const</a> tinygltf::Model &amp;model)</td></tr>
+<tr class="separator:a1bc0fd537564fd41aba980d3483d76f4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab27e2a625b21a1a60037bb9101e0b7b1" id="r_ab27e2a625b21a1a60037bb9101e0b7b1"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">static</a> <a class="el" href="class_o_s_k_1_1_dynamic_array.html">DynamicArray</a>&lt; <a class="el" href="namespace_o_s_k.html#a72b3268907c9cd41f0daf0a42e1c9dca">Vector3f</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ab27e2a625b21a1a60037bb9101e0b7b1">GenerateTangetVectors</a> (<a class="el" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">const</a> <a class="el" href="class_o_s_k_1_1_dynamic_array.html">DynamicArray</a>&lt; <a class="el" href="namespace_o_s_k.html#a31a299dbb3a3a60d90d16d1a4eca9651">Vector2f</a> &gt; &amp;texCoords, <a class="el" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">const</a> <a class="el" href="class_o_s_k_1_1_dynamic_array.html">DynamicArray</a>&lt; <a class="el" href="namespace_o_s_k.html#a72b3268907c9cd41f0daf0a42e1c9dca">Vector3f</a> &gt; &amp;<a class="el" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">positions</a>, <a class="el" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">const</a> <a class="el" href="class_o_s_k_1_1_dynamic_array.html">DynamicArray</a>&lt; <a class="el" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#ae5df06fd78ce077c547552654e7d672a">GRAPHICS::TIndexSize</a> &gt; &amp;<a class="el" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">indices</a>, <a class="el" href="_o_s_kmacros_8h.html#af205b9fd0440138e6cac38a9081141df">UIndex32</a> <a class="el" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">indicesStartOffset</a>)</td></tr>
+<tr class="separator:ab27e2a625b21a1a60037bb9101e0b7b1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a076e5de9b22fe4925bb50cecb941023b" id="r_a076e5de9b22fe4925bb50cecb941023b"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">static</a> std::unordered_map&lt; std::string, std::string, <a class="el" href="struct_o_s_k_1_1_string_hasher.html">StringHasher</a>, std::equal_to&lt;&gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a076e5de9b22fe4925bb50cecb941023b">GetCustomProperties</a> (<a class="el" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">const</a> tinygltf::Mesh &amp;<a class="el" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">mesh</a>)</td></tr>
+<tr class="separator:a076e5de9b22fe4925bb50cecb941023b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aed385c1369ceb15b1a332a4da85c8703" id="r_aed385c1369ceb15b1a332a4da85c8703"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">static</a> <a class="el" href="class_o_s_k_1_1_dynamic_array.html">DynamicArray</a>&lt; <a class="el" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">ASSETS::AssetRef</a>&lt; <a class="el" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_texture.html">ASSETS::Texture</a> &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aed385c1369ceb15b1a332a4da85c8703">LoadImages</a> (<a class="el" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">const</a> tinygltf::Model &amp;model)</td></tr>
+<tr class="separator:aed385c1369ceb15b1a332a4da85c8703"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">Descripción detallada</h2>
+<div class="textblock"><p>Clase base para poder importar un modelo GLTF. </p>
+<p>Incluye métodos para importar información relevante del modelo GLTF. </p>
+
+<p class="definition">Definición en la línea <a class="el" href="_i_gltf_loader_8h_source.html#l00045">45</a> del archivo <a class="el" href="_i_gltf_loader_8h_source.html">IGltfLoader.h</a>.</p>
+</div><h2 class="groupheader">Documentación de funciones miembro</h2>
+<a id="ab27e2a625b21a1a60037bb9101e0b7b1" name="ab27e2a625b21a1a60037bb9101e0b7b1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab27e2a625b21a1a60037bb9101e0b7b1">&#9670;&#160;</a></span>GenerateTangetVectors()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="class_o_s_k_1_1_dynamic_array.html">DynamicArray</a>&lt; <a class="el" href="namespace_o_s_k.html#a72b3268907c9cd41f0daf0a42e1c9dca">Vector3f</a> &gt; GltfLoader::GenerateTangetVectors </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">const</a> <a class="el" href="class_o_s_k_1_1_dynamic_array.html">DynamicArray</a>&lt; <a class="el" href="namespace_o_s_k.html#a31a299dbb3a3a60d90d16d1a4eca9651">Vector2f</a> &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>texCoords</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">const</a> <a class="el" href="class_o_s_k_1_1_dynamic_array.html">DynamicArray</a>&lt; <a class="el" href="namespace_o_s_k.html#a72b3268907c9cd41f0daf0a42e1c9dca">Vector3f</a> &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>positions</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">const</a> <a class="el" href="class_o_s_k_1_1_dynamic_array.html">DynamicArray</a>&lt; <a class="el" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#ae5df06fd78ce077c547552654e7d672a">GRAPHICS::TIndexSize</a> &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>indices</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="_o_s_kmacros_8h.html#af205b9fd0440138e6cac38a9081141df">UIndex32</a></td>          <td class="paramname"><span class="paramname"><em>indicesStartOffset</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Genera vectores tangentes para los vértices indicados. </p>
+<dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">texCoords</td><td>Coordenadas de texturas UV de los vértices. </td></tr>
+    <tr><td class="paramname">positions</td><td>Posiciones de los vértices. </td></tr>
+    <tr><td class="paramname">indices</td><td>Índices de los vértices. </td></tr>
+    <tr><td class="paramname">indicesStartOffset</td><td>Primer índice de los vértices. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Devuelve</dt><dd>Vectores tangentes.</dd></dl>
+<dl class="section pre"><dt>Precondición</dt><dd><code>texCoords.GetSize()</code> == <code>positions.GetSize()</code> </dd>
+<dd>
+<code>indices.GetSize()</code> debe ser múltiplo de 3. </dd></dl>
+<dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">indicesStartOffset</td><td>debe ser múltiplo de 3. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definición en la línea <a class="el" href="_i_gltf_loader_8cpp_source.html#l00711">711</a> del archivo <a class="el" href="_i_gltf_loader_8cpp_source.html">IGltfLoader.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a0c8954261f19ca9a618590c52b975fc0" name="a0c8954261f19ca9a618590c52b975fc0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0c8954261f19ca9a618590c52b975fc0">&#9670;&#160;</a></span>GetBoneWeights()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="class_o_s_k_1_1_dynamic_array.html">DynamicArray</a>&lt; <a class="el" href="namespace_o_s_k.html#a98c42bf0a7665f299a3a66c8d4cdcdc2">Vector4f</a> &gt; GltfLoader::GetBoneWeights </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">const</a> tinygltf::Primitive &amp;</td>          <td class="paramname"><span class="paramname"><em>primitive</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">const</a> tinygltf::Model &amp;</td>          <td class="paramname"><span class="paramname"><em>model</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Obtiene los pesos de animación esqueletal de todos los vértices de la primitiva, si tienen. </p>
+<dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">primitive</td><td>Primitiva GLTF. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Devuelve</dt><dd>Lista con los pesos de los vértices de la primitiva (puede estar vacía).</dd></dl>
+<dl class="section note"><dt>Nota</dt><dd>Si <a class="el" href="#a8f4f301025422970e9f0fc2f2194bde5" title="Comrpueba si la primitiva contiene los pesos de animación esqueletal de sus vértices.">HasBoneWeights()</a> para la primitiva dada por <code>primitive</code> es false, entonces devuelve una lista vacía. </dd>
+<dd>
+Si la lista no está vacía, hay exactamente un peso (Vector4f) por cada vértice de la primitiva. </dd>
+<dd>
+Si la lista no está vacía, cada peso se asocia con cada vértice con el mismo índice dentro de la lista (vertices[0].weights = <a class="el" href="#a5cdfd67965dcdc51653ffe09ae4a9a05" title="Obtiene los joints de animación esqueletal de todos los vértices de la primitiva, si tienen.">GetJoints()</a>[0], etc.). </dd></dl>
+
+<p class="definition">Definición en la línea <a class="el" href="_i_gltf_loader_8cpp_source.html#l00947">947</a> del archivo <a class="el" href="_i_gltf_loader_8cpp_source.html">IGltfLoader.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a076e5de9b22fe4925bb50cecb941023b" name="a076e5de9b22fe4925bb50cecb941023b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a076e5de9b22fe4925bb50cecb941023b">&#9670;&#160;</a></span>GetCustomProperties()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::unordered_map&lt; std::string, std::string, <a class="el" href="struct_o_s_k_1_1_string_hasher.html">StringHasher</a>, std::equal_to&lt;&gt; &gt; GltfLoader::GetCustomProperties </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">const</a> tinygltf::Mesh &amp;</td>          <td class="paramname"><span class="paramname"><em>mesh</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">mesh</td><td>Mesh. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Devuelve</dt><dd>Propiedades extra del mesh. </dd></dl>
+
+<p class="definition">Definición en la línea <a class="el" href="_i_gltf_loader_8cpp_source.html#l00282">282</a> del archivo <a class="el" href="_i_gltf_loader_8cpp_source.html">IGltfLoader.cpp</a>.</p>
+
+</div>
+</div>
+<a id="ae78bf4156f2ee27687659aeca3a241ea" name="ae78bf4156f2ee27687659aeca3a241ea"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae78bf4156f2ee27687659aeca3a241ea">&#9670;&#160;</a></span>GetIndices()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="class_o_s_k_1_1_dynamic_array.html">DynamicArray</a>&lt; <a class="el" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#ae5df06fd78ce077c547552654e7d672a">TIndexSize</a> &gt; GltfLoader::GetIndices </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">const</a> tinygltf::Primitive &amp;</td>          <td class="paramname"><span class="paramname"><em>primitive</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#ae5df06fd78ce077c547552654e7d672a">GRAPHICS::TIndexSize</a></td>          <td class="paramname"><span class="paramname"><em>startOffset</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">const</a> tinygltf::Model &amp;</td>          <td class="paramname"><span class="paramname"><em>model</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">primitive</td><td>Mesh. </td></tr>
+    <tr><td class="paramname">startOffset</td><td>Índice del primer índice. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Devuelve</dt><dd>Lista con los índices de <code>primitive</code>. </dd></dl>
+
+<p class="definition">Definición en la línea <a class="el" href="_i_gltf_loader_8cpp_source.html#l00837">837</a> del archivo <a class="el" href="_i_gltf_loader_8cpp_source.html">IGltfLoader.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a5cdfd67965dcdc51653ffe09ae4a9a05" name="a5cdfd67965dcdc51653ffe09ae4a9a05"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5cdfd67965dcdc51653ffe09ae4a9a05">&#9670;&#160;</a></span>GetJoints()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="class_o_s_k_1_1_dynamic_array.html">DynamicArray</a>&lt; <a class="el" href="namespace_o_s_k.html#a98c42bf0a7665f299a3a66c8d4cdcdc2">Vector4f</a> &gt; GltfLoader::GetJoints </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">const</a> tinygltf::Primitive &amp;</td>          <td class="paramname"><span class="paramname"><em>primitive</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">const</a> tinygltf::Model &amp;</td>          <td class="paramname"><span class="paramname"><em>model</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Obtiene los joints de animación esqueletal de todos los vértices de la primitiva, si tienen. </p>
+<dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">primitive</td><td>Primitiva GLTF. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Devuelve</dt><dd>Lista con los joints de los vértices de la primitiva (puede estar vacía).</dd></dl>
+<dl class="section note"><dt>Nota</dt><dd>Si <a class="el" href="#a8731956c3cce385df200d55c1508b055" title="Comrpueba si la primitiva contiene los joints (para animación esqueletal) de sus vértices.">HasJoints()</a> para la primitiva dada por <code>primitive</code> es false, entonces devuelve una lista vacía. </dd>
+<dd>
+Si la lista no está vacía, hay exactamente un joint (Vector4f) por cada vértice de la primitiva. </dd>
+<dd>
+Si la lista no está vacía, cada joint se asocia con cada vértice con el mismo índice dentro de la lista (vertices[0].joints = <a class="el" href="#a5cdfd67965dcdc51653ffe09ae4a9a05" title="Obtiene los joints de animación esqueletal de todos los vértices de la primitiva, si tienen.">GetJoints()</a>[0], etc.). </dd></dl>
+
+<p class="definition">Definición en la línea <a class="el" href="_i_gltf_loader_8cpp_source.html#l00885">885</a> del archivo <a class="el" href="_i_gltf_loader_8cpp_source.html">IGltfLoader.cpp</a>.</p>
+
+</div>
+</div>
+<a id="ae53b0e0b44cb9eec54cafa1d044294ad" name="ae53b0e0b44cb9eec54cafa1d044294ad"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae53b0e0b44cb9eec54cafa1d044294ad">&#9670;&#160;</a></span>GetNodeMatrix()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">glm::mat4 GltfLoader::GetNodeMatrix </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">const</a> tinygltf::Node &amp;</td>          <td class="paramname"><span class="paramname"><em>node</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Devuelve una matriz en formato GLM con el transform del nodo. </p>
+<dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">node</td><td>Nodo GLTF. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Devuelve</dt><dd>Matriz con su transform. </dd></dl>
+
+<p class="definition">Definición en la línea <a class="el" href="_i_gltf_loader_8cpp_source.html#l00255">255</a> del archivo <a class="el" href="_i_gltf_loader_8cpp_source.html">IGltfLoader.cpp</a>.</p>
+
+</div>
+</div>
+<a id="aa57fa32b5842ca713de03950045b6e4a" name="aa57fa32b5842ca713de03950045b6e4a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa57fa32b5842ca713de03950045b6e4a">&#9670;&#160;</a></span>GetTagsFromName()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="class_o_s_k_1_1_dynamic_array.html">DynamicArray</a>&lt; std::string &gt; GltfLoader::GetTagsFromName </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">const</a> tinygltf::Scene &amp;</td>          <td class="paramname"><span class="paramname"><em>scene</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definición en la línea <a class="el" href="_i_gltf_loader_8cpp_source.html#l00251">251</a> del archivo <a class="el" href="_i_gltf_loader_8cpp_source.html">IGltfLoader.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a1bc0fd537564fd41aba980d3483d76f4" name="a1bc0fd537564fd41aba980d3483d76f4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1bc0fd537564fd41aba980d3483d76f4">&#9670;&#160;</a></span>GetTangentVectors()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="class_o_s_k_1_1_dynamic_array.html">DynamicArray</a>&lt; <a class="el" href="namespace_o_s_k.html#a72b3268907c9cd41f0daf0a42e1c9dca">Vector3f</a> &gt; GltfLoader::GetTangentVectors </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">const</a> tinygltf::Primitive &amp;</td>          <td class="paramname"><span class="paramname"><em>primitive</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">const</a> tinygltf::Model &amp;</td>          <td class="paramname"><span class="paramname"><em>model</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">primitive</td><td>Mesh. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Devuelve</dt><dd>Vectores tangentes de los vértices del mesh. </dd></dl>
+<dl class="section pre"><dt>Precondición</dt><dd>El mesh debe tener vectores tangentes preprocesados. </dd></dl>
+<dl class="exception"><dt>Excepciones</dt><dd>
+  <table class="exception">
+    <tr><td class="paramname"><a class="el" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_no_vertex_tangents_found_exception.html" title="Excepción que se lanza cuando no se consiguen encontrar las tangentes de los vértices de un modelo 3D...">NoVertexTangentsFoundException</a></td><td>si no se cumple la precondición. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definición en la línea <a class="el" href="_i_gltf_loader_8cpp_source.html#l00681">681</a> del archivo <a class="el" href="_i_gltf_loader_8cpp_source.html">IGltfLoader.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a4a63f075d184d5838ebb8e138e5f028d" name="a4a63f075d184d5838ebb8e138e5f028d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4a63f075d184d5838ebb8e138e5f028d">&#9670;&#160;</a></span>GetTextureCoords()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="class_o_s_k_1_1_dynamic_array.html">DynamicArray</a>&lt; <a class="el" href="namespace_o_s_k.html#a31a299dbb3a3a60d90d16d1a4eca9651">Vector2f</a> &gt; GltfLoader::GetTextureCoords </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">const</a> tinygltf::Primitive &amp;</td>          <td class="paramname"><span class="paramname"><em>primitive</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">const</a> tinygltf::Model &amp;</td>          <td class="paramname"><span class="paramname"><em>model</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Obtiene las coordenadas de texturas de todos los vértices de la primitiva. </p>
+<dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">primitive</td><td>Primitiva GLTF. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Devuelve</dt><dd>Lista con todas las coordenadas de texturas de la primitiva.</dd></dl>
+<dl class="section pre"><dt>Precondición</dt><dd><a class="el" href="#ae3c8f5d2a8c72751de5ee9384a79f0d4" title="Comrpueba si la primitiva contiene las coordenadas de texturas de sus vértices.">HasTextureCoords()</a> debe ser true para la primitiva dada por <code>primitive</code>.</dd></dl>
+<dl class="exception"><dt>Excepciones</dt><dd>
+  <table class="exception">
+    <tr><td class="paramname">std::runtime_error</td><td>si se incumple la precondición.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section note"><dt>Nota</dt><dd>Hay exactamente una coordenada por cada vértice de la primitiva. </dd>
+<dd>
+Cada normal se asocia con cada vértice con el mismo índice dentro de la lista (vertices[0].texCoords = <a class="el" href="#a4a63f075d184d5838ebb8e138e5f028d" title="Obtiene las coordenadas de texturas de todos los vértices de la primitiva.">GetTextureCoords()</a>[0], etc.). </dd></dl>
+
+<p class="definition">Definición en la línea <a class="el" href="_i_gltf_loader_8cpp_source.html#l00752">752</a> del archivo <a class="el" href="_i_gltf_loader_8cpp_source.html">IGltfLoader.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a7ddc561d157e1dea1a8a5f5d6633d64b" name="a7ddc561d157e1dea1a8a5f5d6633d64b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7ddc561d157e1dea1a8a5f5d6633d64b">&#9670;&#160;</a></span>GetVertexColors()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="class_o_s_k_1_1_dynamic_array.html">DynamicArray</a>&lt; <a class="el" href="class_o_s_k_1_1_color.html">Color</a> &gt; GltfLoader::GetVertexColors </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">const</a> tinygltf::Primitive &amp;</td>          <td class="paramname"><span class="paramname"><em>primitive</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">const</a> tinygltf::Model &amp;</td>          <td class="paramname"><span class="paramname"><em>model</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Obtiene los colores de todos los vértices de la primitiva, si tienen. </p>
+<dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">primitive</td><td>Primitiva GLTF. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Devuelve</dt><dd>Lista con los colores de los vértices de la primitiva (puede estar vacía).</dd></dl>
+<dl class="section note"><dt>Nota</dt><dd>Si <a class="el" href="#a6423773bfb8c987db0fae741691585ce" title="Comrpueba si la primitiva contiene los colores de sus vértices.">HasColors()</a> para la primitiva dada por <code>primitive</code> es false, entonces devuelve una lista vacía. </dd>
+<dd>
+Si la lista no está vacía, hay exactamente un color por cada vértice de la primitiva. </dd>
+<dd>
+Si la lista no está vacía, cada color se asocia con cada vértice con el mismo índice dentro de la lista (vertices[0].color = <a class="el" href="#a7ddc561d157e1dea1a8a5f5d6633d64b" title="Obtiene los colores de todos los vértices de la primitiva, si tienen.">GetVertexColors()</a>[0], etc.). </dd></dl>
+
+<p class="definition">Definición en la línea <a class="el" href="_i_gltf_loader_8cpp_source.html#l00776">776</a> del archivo <a class="el" href="_i_gltf_loader_8cpp_source.html">IGltfLoader.cpp</a>.</p>
+
+</div>
+</div>
+<a id="ad2d543b06a3c807ae539dabb3e59d2f9" name="ad2d543b06a3c807ae539dabb3e59d2f9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad2d543b06a3c807ae539dabb3e59d2f9">&#9670;&#160;</a></span>GetVertexNormals()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="class_o_s_k_1_1_dynamic_array.html">DynamicArray</a>&lt; <a class="el" href="namespace_o_s_k.html#a72b3268907c9cd41f0daf0a42e1c9dca">Vector3f</a> &gt; GltfLoader::GetVertexNormals </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">const</a> tinygltf::Primitive &amp;</td>          <td class="paramname"><span class="paramname"><em>primitive</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">const</a> tinygltf::Model &amp;</td>          <td class="paramname"><span class="paramname"><em>model</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Obtiene las normales de todos los vértices de la primitiva. </p>
+<dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">primitive</td><td>Primitiva GLTF. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Devuelve</dt><dd>Lista con todas las normales de la primitiva.</dd></dl>
+<dl class="section pre"><dt>Precondición</dt><dd><a class="el" href="#a05778bbf9f412f1aaa3aa1ed51fbe772" title="Comrpueba si la primitiva contiene los vectores normales de sus vértices.">HasNormals()</a> debe ser true para la primitiva dada por <code>primitive</code>.</dd></dl>
+<dl class="exception"><dt>Excepciones</dt><dd>
+  <table class="exception">
+    <tr><td class="paramname">std::runtime_error</td><td>si se incumple la precondición.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section note"><dt>Nota</dt><dd>Hay exactamente una normal por cada vértice de la primitiva. </dd>
+<dd>
+Cada normal se asocia con cada vértice con el mismo índice dentro de la lista (vertices[0].normal = <a class="el" href="#ad2d543b06a3c807ae539dabb3e59d2f9" title="Obtiene las normales de todos los vértices de la primitiva.">GetVertexNormals()</a>[0], etc.). </dd></dl>
+
+<p class="definition">Definición en la línea <a class="el" href="_i_gltf_loader_8cpp_source.html#l00656">656</a> del archivo <a class="el" href="_i_gltf_loader_8cpp_source.html">IGltfLoader.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a613fd917f933910cfe33f64c4f7a9cb4" name="a613fd917f933910cfe33f64c4f7a9cb4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a613fd917f933910cfe33f64c4f7a9cb4">&#9670;&#160;</a></span>GetVertexPositions()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="class_o_s_k_1_1_dynamic_array.html">DynamicArray</a>&lt; <a class="el" href="namespace_o_s_k.html#a72b3268907c9cd41f0daf0a42e1c9dca">Vector3f</a> &gt; GltfLoader::GetVertexPositions </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">const</a> tinygltf::Primitive &amp;</td>          <td class="paramname"><span class="paramname"><em>primitive</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">const</a> glm::mat4 &amp;</td>          <td class="paramname"><span class="paramname"><em>nodeMatrix</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">const</a> tinygltf::Model &amp;</td>          <td class="paramname"><span class="paramname"><em>model</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">float</a></td>          <td class="paramname"><span class="paramname"><em>globalScale</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Obtiene las posiciones de todos los vértices de la primitiva. </p>
+<dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">primitive</td><td>Primitiva GLTF. </td></tr>
+    <tr><td class="paramname">nodeMatrix</td><td>Transform local del nodo que está siendo procesado. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Devuelve</dt><dd>Lista con todas las posiciones 3D.</dd></dl>
+<dl class="section pre"><dt>Precondición</dt><dd><a class="el" href="#afec81df7879faf0a02b97a15eea7d4ab" title="Comrpueba si la primitiva contiene la posición de sus vértices.">HasPositions()</a> debe ser true para la primitiva dada por <code>primitive</code>.</dd></dl>
+<dl class="exception"><dt>Excepciones</dt><dd>
+  <table class="exception">
+    <tr><td class="paramname">std::runtime_error</td><td>si se incumple la precondición.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section note"><dt>Nota</dt><dd>Hay exactamente una posición por cada vértice de la primitiva. </dd>
+<dd>
+Cada posición se asocia con cada vértice con el mismo índice dentro de la lista (vertices[0].pos = <a class="el" href="#a613fd917f933910cfe33f64c4f7a9cb4" title="Obtiene las posiciones de todos los vértices de la primitiva.">GetVertexPositions()</a>[0], etc.). </dd></dl>
+
+<p class="definition">Definición en la línea <a class="el" href="_i_gltf_loader_8cpp_source.html#l00626">626</a> del archivo <a class="el" href="_i_gltf_loader_8cpp_source.html">IGltfLoader.cpp</a>.</p>
+
+</div>
+</div>
+<a id="adf20fe556f766a1a55af8906f728392d" name="adf20fe556f766a1a55af8906f728392d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adf20fe556f766a1a55af8906f728392d">&#9670;&#160;</a></span>HasAttribute()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">bool</a> GltfLoader::HasAttribute </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">const</a> tinygltf::Primitive &amp;</td>          <td class="paramname"><span class="paramname"><em>primitive</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">const</a> std::string &amp;</td>          <td class="paramname"><span class="paramname"><em>name</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Comprueba si la primitiva GLTF dada contiene un atributo en específico. </p>
+<dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">primitive</td><td>Primitiva GLTF. </td></tr>
+    <tr><td class="paramname">name</td><td>Nombre del atributo, según la especificación. Por ejempl, "POSITION" o "COLOR_0". </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Devuelve</dt><dd>True si lo tiene, false en caso contrario.</dd></dl>
+<dl class="section pre"><dt>Precondición</dt><dd><code>name</code> debe referirse a un atributo válido GLTF.</dd></dl>
+<dl class="section note"><dt>Nota</dt><dd>Si el atributo dado por <code>name</code> no se corresponde con ninguno de los atributos posibles, devuelve false. <br  />
+ </dd></dl>
+
+<p class="definition">Definición en la línea <a class="el" href="_i_gltf_loader_8cpp_source.html#l00594">594</a> del archivo <a class="el" href="_i_gltf_loader_8cpp_source.html">IGltfLoader.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a8f4f301025422970e9f0fc2f2194bde5" name="a8f4f301025422970e9f0fc2f2194bde5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8f4f301025422970e9f0fc2f2194bde5">&#9670;&#160;</a></span>HasBoneWeights()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">bool</a> GltfLoader::HasBoneWeights </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">const</a> tinygltf::Primitive &amp;</td>          <td class="paramname"><span class="paramname"><em>primitive</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Comrpueba si la primitiva contiene los pesos de animación esqueletal de sus vértices. </p>
+<dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">primitive</td><td>Primitiva GLTF. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Devuelve</dt><dd>True si tiene pesos, false en caso contrario. </dd></dl>
+
+<p class="definition">Definición en la línea <a class="el" href="_i_gltf_loader_8cpp_source.html#l00622">622</a> del archivo <a class="el" href="_i_gltf_loader_8cpp_source.html">IGltfLoader.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a6423773bfb8c987db0fae741691585ce" name="a6423773bfb8c987db0fae741691585ce"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6423773bfb8c987db0fae741691585ce">&#9670;&#160;</a></span>HasColors()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">bool</a> GltfLoader::HasColors </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">const</a> tinygltf::Primitive &amp;</td>          <td class="paramname"><span class="paramname"><em>primitive</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Comrpueba si la primitiva contiene los colores de sus vértices. </p>
+<dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">primitive</td><td>Primitiva GLTF. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Devuelve</dt><dd>True si tiene colores, false en caso contrario. </dd></dl>
+
+<p class="definition">Definición en la línea <a class="el" href="_i_gltf_loader_8cpp_source.html#l00614">614</a> del archivo <a class="el" href="_i_gltf_loader_8cpp_source.html">IGltfLoader.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a8731956c3cce385df200d55c1508b055" name="a8731956c3cce385df200d55c1508b055"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8731956c3cce385df200d55c1508b055">&#9670;&#160;</a></span>HasJoints()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">bool</a> GltfLoader::HasJoints </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">const</a> tinygltf::Primitive &amp;</td>          <td class="paramname"><span class="paramname"><em>primitive</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Comrpueba si la primitiva contiene los joints (para animación esqueletal) de sus vértices. </p>
+<dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">primitive</td><td>Primitiva GLTF. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Devuelve</dt><dd>True si tiene joints, false en caso contrario. </dd></dl>
+
+<p class="definition">Definición en la línea <a class="el" href="_i_gltf_loader_8cpp_source.html#l00618">618</a> del archivo <a class="el" href="_i_gltf_loader_8cpp_source.html">IGltfLoader.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a05778bbf9f412f1aaa3aa1ed51fbe772" name="a05778bbf9f412f1aaa3aa1ed51fbe772"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a05778bbf9f412f1aaa3aa1ed51fbe772">&#9670;&#160;</a></span>HasNormals()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">bool</a> GltfLoader::HasNormals </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">const</a> tinygltf::Primitive &amp;</td>          <td class="paramname"><span class="paramname"><em>primitive</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Comrpueba si la primitiva contiene los vectores normales de sus vértices. </p>
+<dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">primitive</td><td>Primitiva GLTF. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Devuelve</dt><dd>True si tiene normales, false en caso contrario. </dd></dl>
+
+<p class="definition">Definición en la línea <a class="el" href="_i_gltf_loader_8cpp_source.html#l00602">602</a> del archivo <a class="el" href="_i_gltf_loader_8cpp_source.html">IGltfLoader.cpp</a>.</p>
+
+</div>
+</div>
+<a id="afec81df7879faf0a02b97a15eea7d4ab" name="afec81df7879faf0a02b97a15eea7d4ab"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afec81df7879faf0a02b97a15eea7d4ab">&#9670;&#160;</a></span>HasPositions()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">bool</a> GltfLoader::HasPositions </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">const</a> tinygltf::Primitive &amp;</td>          <td class="paramname"><span class="paramname"><em>primitive</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Comrpueba si la primitiva contiene la posición de sus vértices. </p>
+<dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">primitive</td><td>Primitiva GLTF. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Devuelve</dt><dd>True si tiene posiciones, false en caso contrario. </dd></dl>
+
+<p class="definition">Definición en la línea <a class="el" href="_i_gltf_loader_8cpp_source.html#l00598">598</a> del archivo <a class="el" href="_i_gltf_loader_8cpp_source.html">IGltfLoader.cpp</a>.</p>
+
+</div>
+</div>
+<a id="aca6b1819b6f868c1dbb7bb2806ef78a3" name="aca6b1819b6f868c1dbb7bb2806ef78a3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aca6b1819b6f868c1dbb7bb2806ef78a3">&#9670;&#160;</a></span>HasTangets()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">bool</a> GltfLoader::HasTangets </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">const</a> tinygltf::Primitive &amp;</td>          <td class="paramname"><span class="paramname"><em>primitive</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Comrpueba si la primitiva contiene los vectores tangenciales de sus vértices. </p>
+<dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">primitive</td><td>Primitiva GLTF. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Devuelve</dt><dd>True si tiene tangentes, false en caso contrario. </dd></dl>
+
+<p class="definition">Definición en la línea <a class="el" href="_i_gltf_loader_8cpp_source.html#l00606">606</a> del archivo <a class="el" href="_i_gltf_loader_8cpp_source.html">IGltfLoader.cpp</a>.</p>
+
+</div>
+</div>
+<a id="ae3c8f5d2a8c72751de5ee9384a79f0d4" name="ae3c8f5d2a8c72751de5ee9384a79f0d4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae3c8f5d2a8c72751de5ee9384a79f0d4">&#9670;&#160;</a></span>HasTextureCoords()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">bool</a> GltfLoader::HasTextureCoords </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">const</a> tinygltf::Primitive &amp;</td>          <td class="paramname"><span class="paramname"><em>primitive</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Comrpueba si la primitiva contiene las coordenadas de texturas de sus vértices. </p>
+<dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">primitive</td><td>Primitiva GLTF. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Devuelve</dt><dd>True si tiene coordenadas de texturas, false en caso contrario. </dd></dl>
+
+<p class="definition">Definición en la línea <a class="el" href="_i_gltf_loader_8cpp_source.html#l00610">610</a> del archivo <a class="el" href="_i_gltf_loader_8cpp_source.html">IGltfLoader.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a3d4e4b263e8972e52d6144c975068769" name="a3d4e4b263e8972e52d6144c975068769"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3d4e4b263e8972e52d6144c975068769">&#9670;&#160;</a></span>Load()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="class_o_s_k_1_1_cpu_model3_d.html">CpuModel3D</a> GltfLoader::Load </td>
+          <td>(</td>
+          <td class="paramtype">std::string_view</td>          <td class="paramname"><span class="paramname"><em>path</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">const</a> glm::mat4 &amp;</td>          <td class="paramname"><span class="paramname"><em>transform</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">float</a></td>          <td class="paramname"><span class="paramname"><em>globalScale</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definición en la línea <a class="el" href="_i_gltf_loader_8cpp_source.html#l00030">30</a> del archivo <a class="el" href="_i_gltf_loader_8cpp_source.html">IGltfLoader.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a14aca8d09742c13d5407c3639df9594a" name="a14aca8d09742c13d5407c3639df9594a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a14aca8d09742c13d5407c3639df9594a">&#9670;&#160;</a></span>LoadAllBones()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="class_o_s_k_1_1_dynamic_array.html">DynamicArray</a>&lt; <a class="el" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_animation_bone.html">AnimationBone</a> &gt; GltfLoader::LoadAllBones </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">const</a> tinygltf::Model &amp;</td>          <td class="paramname"><span class="paramname"><em>model</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definición en la línea <a class="el" href="_i_gltf_loader_8cpp_source.html#l00324">324</a> del archivo <a class="el" href="_i_gltf_loader_8cpp_source.html">IGltfLoader.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a342ec61531816f7b0df7b54a048b7b94" name="a342ec61531816f7b0df7b54a048b7b94"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a342ec61531816f7b0df7b54a048b7b94">&#9670;&#160;</a></span>LoadAnimationChannels()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="class_o_s_k_1_1_dynamic_array.html">DynamicArray</a>&lt; <a class="el" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_animation_channel.html">AnimationChannel</a> &gt; GltfLoader::LoadAnimationChannels </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">const</a> tinygltf::Animation &amp;</td>          <td class="paramname"><span class="paramname"><em>gltfAnimation</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definición en la línea <a class="el" href="_i_gltf_loader_8cpp_source.html#l00224">224</a> del archivo <a class="el" href="_i_gltf_loader_8cpp_source.html">IGltfLoader.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a8e4e468d0e561decc1cff91e0f4c12a7" name="a8e4e468d0e561decc1cff91e0f4c12a7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8e4e468d0e561decc1cff91e0f4c12a7">&#9670;&#160;</a></span>LoadAnimations()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="class_o_s_k_1_1_dynamic_array.html">DynamicArray</a>&lt; <a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_animation.html">Animation</a> &gt; GltfLoader::LoadAnimations </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">const</a> tinygltf::Model &amp;</td>          <td class="paramname"><span class="paramname"><em>model</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definición en la línea <a class="el" href="_i_gltf_loader_8cpp_source.html#l00153">153</a> del archivo <a class="el" href="_i_gltf_loader_8cpp_source.html">IGltfLoader.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a2f7aa4a53040e422d701fd0d9db2ad71" name="a2f7aa4a53040e422d701fd0d9db2ad71"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2f7aa4a53040e422d701fd0d9db2ad71">&#9670;&#160;</a></span>LoadAnimationSamplers()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="class_o_s_k_1_1_dynamic_array.html">DynamicArray</a>&lt; <a class="el" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_animation_sampler.html">AnimationSampler</a> &gt; GltfLoader::LoadAnimationSamplers </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">const</a> tinygltf::Model &amp;</td>          <td class="paramname"><span class="paramname"><em>model</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">const</a> tinygltf::Animation &amp;</td>          <td class="paramname"><span class="paramname"><em>gltfAnimation</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definición en la línea <a class="el" href="_i_gltf_loader_8cpp_source.html#l00170">170</a> del archivo <a class="el" href="_i_gltf_loader_8cpp_source.html">IGltfLoader.cpp</a>.</p>
+
+</div>
+</div>
+<a id="aef4a0ac309d6962315eeab6249a17488" name="aef4a0ac309d6962315eeab6249a17488"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aef4a0ac309d6962315eeab6249a17488">&#9670;&#160;</a></span>LoadAnimationSkins()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="class_o_s_k_1_1_dynamic_array.html">DynamicArray</a>&lt; <a class="el" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_animation_skin.html">AnimationSkin</a> &gt; GltfLoader::LoadAnimationSkins </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">const</a> tinygltf::Model &amp;</td>          <td class="paramname"><span class="paramname"><em>model</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definición en la línea <a class="el" href="_i_gltf_loader_8cpp_source.html#l00076">76</a> del archivo <a class="el" href="_i_gltf_loader_8cpp_source.html">IGltfLoader.cpp</a>.</p>
+
+</div>
+</div>
+<a id="aecc9175fd23919914ca48e02dacc88a6" name="aecc9175fd23919914ca48e02dacc88a6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aecc9175fd23919914ca48e02dacc88a6">&#9670;&#160;</a></span>LoadBones()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="class_o_s_k_1_1_dynamic_array.html">DynamicArray</a>&lt; <a class="el" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_animation_bone.html">AnimationBone</a> &gt; GltfLoader::LoadBones </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">const</a> tinygltf::Model &amp;</td>          <td class="paramname"><span class="paramname"><em>model</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">const</a> tinygltf::Node &amp;</td>          <td class="paramname"><span class="paramname"><em>node</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="_o_s_kmacros_8h.html#adef8e046c86805ca0dc2db407b01a1bb">UIndex64</a></td>          <td class="paramname"><span class="paramname"><em>nodeIndex</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="_o_s_kmacros_8h.html#adef8e046c86805ca0dc2db407b01a1bb">UIndex64</a></td>          <td class="paramname"><span class="paramname"><em>parentIndex</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definición en la línea <a class="el" href="_i_gltf_loader_8cpp_source.html#l00339">339</a> del archivo <a class="el" href="_i_gltf_loader_8cpp_source.html">IGltfLoader.cpp</a>.</p>
+
+</div>
+</div>
+<a id="aed385c1369ceb15b1a332a4da85c8703" name="aed385c1369ceb15b1a332a4da85c8703"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aed385c1369ceb15b1a332a4da85c8703">&#9670;&#160;</a></span>LoadImages()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="class_o_s_k_1_1_dynamic_array.html">DynamicArray</a>&lt; <a class="el" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">AssetRef</a>&lt; <a class="el" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_texture.html">Texture</a> &gt; &gt; GltfLoader::LoadImages </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">const</a> tinygltf::Model &amp;</td>          <td class="paramname"><span class="paramname"><em>model</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Devuelve</dt><dd>Todas las texturas usadas en el modelo 3D. </dd></dl>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000010">Tareas pendientes</a></b></dt><dd>Single upload cmd list. </dd></dl>
+
+<p class="definition">Definición en la línea <a class="el" href="_i_gltf_loader_8cpp_source.html#l00505">505</a> del archivo <a class="el" href="_i_gltf_loader_8cpp_source.html">IGltfLoader.cpp</a>.</p>
+
+</div>
+</div>
+<a id="ac10d46f2dcdafc9686122d1ca2ce6d3a" name="ac10d46f2dcdafc9686122d1ca2ce6d3a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac10d46f2dcdafc9686122d1ca2ce6d3a">&#9670;&#160;</a></span>LoadMaterials() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="class_o_s_k_1_1_dynamic_array.html">DynamicArray</a>&lt; <a class="el" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_model3_d_1_1_material.html">GpuModel3D::Material</a> &gt; GltfLoader::LoadMaterials </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">const</a> tinygltf::Model &amp;</td>          <td class="paramname"><span class="paramname"><em>model</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definición en la línea <a class="el" href="_i_gltf_loader_8cpp_source.html#l00109">109</a> del archivo <a class="el" href="_i_gltf_loader_8cpp_source.html">IGltfLoader.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a706a5f8499c686f1a9e3db2f00f3cd5a" name="a706a5f8499c686f1a9e3db2f00f3cd5a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a706a5f8499c686f1a9e3db2f00f3cd5a">&#9670;&#160;</a></span>LoadMaterials() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">void</a> GltfLoader::LoadMaterials </td>
+          <td>(</td>
+          <td class="paramtype">std::string_view</td>          <td class="paramname"><span class="paramname"><em>path</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="class_o_s_k_1_1_dynamic_array.html">DynamicArray</a>&lt; <a class="el" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_model3_d_1_1_material.html">GRAPHICS::GpuModel3D::Material</a> &gt; *</td>          <td class="paramname"><span class="paramname"><em>materials</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_model3_d_1_1_texture_table.html">GRAPHICS::GpuModel3D::TextureTable</a> *</td>          <td class="paramname"><span class="paramname"><em>textures</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definición en la línea <a class="el" href="_i_gltf_loader_8cpp_source.html#l00056">56</a> del archivo <a class="el" href="_i_gltf_loader_8cpp_source.html">IGltfLoader.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a53689440f20806f607d7cb0cb90cf4b0" name="a53689440f20806f607d7cb0cb90cf4b0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a53689440f20806f607d7cb0cb90cf4b0">&#9670;&#160;</a></span>ProcessNode()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="class_o_s_k_1_1_dynamic_array.html">DynamicArray</a>&lt; <a class="el" href="class_o_s_k_1_1_cpu_mesh3_d.html">CpuMesh3D</a> &gt; GltfLoader::ProcessNode </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">const</a> tinygltf::Model &amp;</td>          <td class="paramname"><span class="paramname"><em>model</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">const</a> tinygltf::Node &amp;</td>          <td class="paramname"><span class="paramname"><em>node</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">const</a> glm::mat4 &amp;</td>          <td class="paramname"><span class="paramname"><em>transform</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">float</a></td>          <td class="paramname"><span class="paramname"><em>globalScale</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Procesa un nodo de un modelo GLTF. Este nodo puede contener o no geometría 3D en forma de meshes. </p>
+<dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">node</td><td>Nodo GLTF. </td></tr>
+    <tr><td class="paramname">nodeId</td><td>ID del nodo procesado. </td></tr>
+    <tr><td class="paramname">parentId</td><td>ID del nodo padre (TSize::max si no tiene padre). </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definición en la línea <a class="el" href="_i_gltf_loader_8cpp_source.html#l00360">360</a> del archivo <a class="el" href="_i_gltf_loader_8cpp_source.html">IGltfLoader.cpp</a>.</p>
+
+</div>
+</div>
+<hr/>La documentación de esta clase está generada de los siguientes archivos:<ul>
+<li>Source/<a class="el" href="_i_gltf_loader_8h_source.html">IGltfLoader.h</a></li>
+<li>Source/<a class="el" href="_i_gltf_loader_8cpp_source.html">IGltfLoader.cpp</a></li>
+</ul>
+</div><!-- contents -->
+</div><!-- doc-content -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="namespace_o_s_k.html">OSK</a></li><li class="navelem"><a class="el" href="namespace_o_s_k_1_1_a_s_s_e_t_s.html">ASSETS</a></li><li class="navelem"><a class="el" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_gltf_loader.html">GltfLoader</a></li>
+    <li class="footer">Generado el Jueves, 28 de marzo de 2024 17:53:12 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.10.0 </li>
+  </ul>
+</div>
+</body>
+</html>

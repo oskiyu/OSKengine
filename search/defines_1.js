@@ -19,7 +19,7 @@ var searchData=
   ['osk_5fflags_16',['OSK_FLAGS',['../_enum_flags_8hpp.html#a300a0bab085bddd0e2bd3cbb15bb68b6',1,'EnumFlags.hpp']]],
   ['osk_5fiuuid_17',['OSK_IUUID',['../_o_s_kmacros_8h.html#ab50df35cdc0a6fe9356e3dcaaf670f16',1,'OSKmacros.h']]],
   ['osk_5fnodiscard_18',['OSK_NODISCARD',['../_o_s_kmacros_8h.html#a0b474619a247da5962d555753c6299b4',1,'OSKmacros.h']]],
-  ['osk_5frenderpass_19',['OSK_RENDERPASS',['../_i_render_pass_8h.html#a3e601dd30e33315a66a14776851174e1',1,'IRenderPass.h']]],
+  ['osk_5frenderpass_19',['OSK_RENDERPASS',['../_i_shader_pass_8h.html#a3e601dd30e33315a66a14776851174e1',1,'IShaderPass.h']]],
   ['osk_5fsystem_20',['OSK_SYSTEM',['../_i_system_8h.html#a8f8e44bc705ee82b3070d63d8d702148',1,'ISystem.h']]],
   ['osk_5funreachable_21',['OSK_UNREACHABLE',['../_o_s_kmacros_8h.html#a7f66930d44d424c73993bff69e464ae8',1,'OSKmacros.h']]],
   ['osk_5fuse_5fdeferred_5frenderer_22',['OSK_USE_DEFERRED_RENDERER',['../_o_s_kengine_8h.html#aceb74e11be490dd5f57618931a15f442',1,'OSKengine.h']]],

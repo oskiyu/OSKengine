@@ -95,7 +95,6 @@ $(function(){initNavTree('class_o_s_k_1_1_e_c_s_1_1_i_system.html',''); initResi
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Métodos públicos</a> &#124;
-<a href="#pub-static-attribs">Atributos públicos estáticos</a> &#124;
 <a href="#pro-methods">Métodos protegidos</a> &#124;
 <a href="class_o_s_k_1_1_e_c_s_1_1_i_system-members.html">Lista de todos los miembros</a>  </div>
   <div class="headertitle"><div class="title">Referencia de la clase OSK::ECS::ISystem<span class="mlabels"><span class="mlabel">abstract</span></span></div></div>
@@ -112,8 +111,6 @@ Métodos públicos</h2></td></tr>
 <tr class="separator:a78d27d6a19bd0d3c9eadc3521c350001"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a43e7608ce2a31c9c13b42cf4ce6eb0ef" id="r_a43e7608ce2a31c9c13b42cf4ce6eb0ef"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a43e7608ce2a31c9c13b42cf4ce6eb0ef">OnRemove</a> ()</td></tr>
 <tr class="separator:a43e7608ce2a31c9c13b42cf4ce6eb0ef"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab66937b130814e6f06f3d76648dd0fb6" id="r_ab66937b130814e6f06f3d76648dd0fb6"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ab66937b130814e6f06f3d76648dd0fb6">OnTick</a> (<a class="el" href="_o_s_kmacros_8h.html#ad05d5eacc527d5b61240124daf13b33b">TDeltaTime</a> deltaTime)</td></tr>
-<tr class="separator:ab66937b130814e6f06f3d76648dd0fb6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad45cabb31dc788fbc37feaed82fd99d8" id="r_ad45cabb31dc788fbc37feaed82fd99d8"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad45cabb31dc788fbc37feaed82fd99d8">Activate</a> ()</td></tr>
 <tr class="separator:ad45cabb31dc788fbc37feaed82fd99d8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2d6aa3dc12aa77cc9109b920ddca4225" id="r_a2d6aa3dc12aa77cc9109b920ddca4225"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a2d6aa3dc12aa77cc9109b920ddca4225">Deactivate</a> ()</td></tr>
@@ -124,17 +121,12 @@ Métodos públicos</h2></td></tr>
 <tr class="separator:a01bbb5166a33e4484f42fcc6f03494b4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:acdd2816796e17bd727d7ee4d10e11aed" id="r_acdd2816796e17bd727d7ee4d10e11aed"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#acdd2816796e17bd727d7ee4d10e11aed">IsActive</a> () const</td></tr>
 <tr class="separator:acdd2816796e17bd727d7ee4d10e11aed"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2239551fafeab2592dc35cddc17305d3" id="r_a2239551fafeab2592dc35cddc17305d3"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a2239551fafeab2592dc35cddc17305d3">_SetDependencies</a> (const <a class="el" href="struct_o_s_k_1_1_e_c_s_1_1_system_dependencies.html">SystemDependencies</a> &amp;dependencies)</td></tr>
+<tr class="separator:a2239551fafeab2592dc35cddc17305d3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6f9009164fc90548c0979358232d2de4" id="r_a6f9009164fc90548c0979358232d2de4"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="struct_o_s_k_1_1_e_c_s_1_1_system_dependencies.html">SystemDependencies</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a6f9009164fc90548c0979358232d2de4">GetDependencies</a> () const</td></tr>
+<tr class="separator:a6f9009164fc90548c0979358232d2de4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9ac4b0e11cb52d7222ef76e675cb9cc5" id="r_a9ac4b0e11cb52d7222ef76e675cb9cc5"><td class="memItemLeft" align="right" valign="top">virtual std::string_view&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a9ac4b0e11cb52d7222ef76e675cb9cc5">GetName</a> () const =0</td></tr>
 <tr class="separator:a9ac4b0e11cb52d7222ef76e675cb9cc5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6952a02e89f9377c8377a26be104294d" id="r_a6952a02e89f9377c8377a26be104294d"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a6952a02e89f9377c8377a26be104294d">GetExecutionOrder</a> () const</td></tr>
-<tr class="separator:a6952a02e89f9377c8377a26be104294d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa8ebf2899f45680529227ba1026291d7" id="r_aa8ebf2899f45680529227ba1026291d7"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aa8ebf2899f45680529227ba1026291d7">_SetExecutionOrder</a> (int newOrder)</td></tr>
-<tr class="separator:aa8ebf2899f45680529227ba1026291d7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-static-attribs" name="pub-static-attribs"></a>
-Atributos públicos estáticos</h2></td></tr>
-<tr class="memitem:a475b37d3a934c9097c8df5a21ca67b88" id="r_a475b37d3a934c9097c8df5a21ca67b88"><td class="memItemLeft" align="right" valign="top">static constexpr int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a475b37d3a934c9097c8df5a21ca67b88">DEFAULT_EXECUTION_ORDER</a> = 0</td></tr>
-<tr class="separator:a475b37d3a934c9097c8df5a21ca67b88"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pro-methods" name="pro-methods"></a>
 Métodos protegidos</h2></td></tr>
@@ -142,11 +134,10 @@ Métodos protegidos</h2></td></tr>
 <tr class="separator:a3d80dfebab196c8a8f334ae5b89e7f1d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Descripción detallada</h2>
-<div class="textblock"><p>Un sistema se encarga de ejecutar lógica con los datos de los componentes. Los componentes no son más que colecciones de datos: la lógica está en los sistemas. </p>
-<dl class="section note"><dt>Nota</dt><dd>Cada sistema tiene un Signature, que indica qué componentes debe tener un GameObject para ser procesado por el sistema. </dd></dl>
+<div class="textblock"><p>Un sistema se encarga de ejecutar lógica. </p>
 <dl class="section warning"><dt>Atención</dt><dd>Para que una clase pueda ser usada como sistema, debe tener implementado <a class="el" href="_i_system_8h.html#a8f8e44bc705ee82b3070d63d8d702148">OSK_SYSTEM(className)</a>. Este debe ser un identificador único: no pueden haber dos tipos de sistemas con el mismo className. </dd></dl>
 
-<p class="definition">Definición en la línea <a class="el" href="_i_system_8h_source.html#l00024">24</a> del archivo <a class="el" href="_i_system_8h_source.html">ISystem.h</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_i_system_8h_source.html#l00037">37</a> del archivo <a class="el" href="_i_system_8h_source.html">ISystem.h</a>.</p>
 </div><h2 class="groupheader">Documentación de constructores y destructores</h2>
 <a id="add6feeb7e64c9eea2563dcece799c55d" name="add6feeb7e64c9eea2563dcece799c55d"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#add6feeb7e64c9eea2563dcece799c55d">&#9670;&#160;</a></span>~ISystem()</h2>
@@ -199,30 +190,22 @@ Métodos protegidos</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Documentación de funciones miembro</h2>
-<a id="aa8ebf2899f45680529227ba1026291d7" name="aa8ebf2899f45680529227ba1026291d7"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa8ebf2899f45680529227ba1026291d7">&#9670;&#160;</a></span>_SetExecutionOrder()</h2>
+<a id="a2239551fafeab2592dc35cddc17305d3" name="a2239551fafeab2592dc35cddc17305d3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2239551fafeab2592dc35cddc17305d3">&#9670;&#160;</a></span>_SetDependencies()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void ISystem::_SetExecutionOrder </td>
+          <td class="memname">void ISystem::_SetDependencies </td>
           <td>(</td>
-          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>newOrder</em></span></td><td>)</td>
+          <td class="paramtype">const <a class="el" href="struct_o_s_k_1_1_e_c_s_1_1_system_dependencies.html">SystemDependencies</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>dependencies</em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Establece el nuevo índice de ordenación de ejecución. </p>
-<dl class="params"><dt>Parámetros</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">newOrder</td><td>Nuevo índice. </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p class="definition">Definición en la línea <a class="el" href="_i_system_8cpp_source.html#l00041">41</a> del archivo <a class="el" href="_i_system_8cpp_source.html">ISystem.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_i_system_8cpp_source.html#l00033">33</a> del archivo <a class="el" href="_i_system_8cpp_source.html">ISystem.cpp</a>.</p>
 
 </div>
 </div>
@@ -243,7 +226,7 @@ Métodos protegidos</h2></td></tr>
 
 <p>Activa el sistema, con lo que se ejecutará cada frame. </p>
 
-<p class="definition">Definición en la línea <a class="el" href="_i_system_8cpp_source.html#l00017">17</a> del archivo <a class="el" href="_i_system_8cpp_source.html">ISystem.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_i_system_8cpp_source.html#l00013">13</a> del archivo <a class="el" href="_i_system_8cpp_source.html">ISystem.cpp</a>.</p>
 
 </div>
 </div>
@@ -264,25 +247,24 @@ Métodos protegidos</h2></td></tr>
 
 <p>Desactiva el sistema, con lo que dejará de ejecutarse. </p>
 
-<p class="definition">Definición en la línea <a class="el" href="_i_system_8cpp_source.html#l00021">21</a> del archivo <a class="el" href="_i_system_8cpp_source.html">ISystem.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_i_system_8cpp_source.html#l00017">17</a> del archivo <a class="el" href="_i_system_8cpp_source.html">ISystem.cpp</a>.</p>
 
 </div>
 </div>
-<a id="a6952a02e89f9377c8377a26be104294d" name="a6952a02e89f9377c8377a26be104294d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6952a02e89f9377c8377a26be104294d">&#9670;&#160;</a></span>GetExecutionOrder()</h2>
+<a id="a6f9009164fc90548c0979358232d2de4" name="a6f9009164fc90548c0979358232d2de4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6f9009164fc90548c0979358232d2de4">&#9670;&#160;</a></span>GetDependencies()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">int ISystem::GetExecutionOrder </td>
+          <td class="memname">const <a class="el" href="struct_o_s_k_1_1_e_c_s_1_1_system_dependencies.html">SystemDependencies</a> &amp; ISystem::GetDependencies </td>
           <td>(</td>
           <td class="paramname"><span class="paramname"></span></td><td>)</td>
           <td> const</td>
         </tr>
       </table>
 </div><div class="memdoc">
-<dl class="section return"><dt>Devuelve</dt><dd>Índice de ordenación de ejecución. </dd></dl>
 
 <p class="definition">Definición en la línea <a class="el" href="_i_system_8cpp_source.html#l00037">37</a> del archivo <a class="el" href="_i_system_8cpp_source.html">ISystem.cpp</a>.</p>
 
@@ -331,7 +313,7 @@ Métodos protegidos</h2></td></tr>
 <p>Permite saber si un sistema está activo, es decir, si un sistema se ejcutará cada frame o no. </p>
 <dl class="section return"><dt>Devuelve</dt><dd>True si está activo, false en caso contrario. </dd></dl>
 
-<p class="definition">Definición en la línea <a class="el" href="_i_system_8cpp_source.html#l00033">33</a> del archivo <a class="el" href="_i_system_8cpp_source.html">ISystem.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_i_system_8cpp_source.html#l00029">29</a> del archivo <a class="el" href="_i_system_8cpp_source.html">ISystem.cpp</a>.</p>
 
 </div>
 </div>
@@ -360,7 +342,7 @@ Métodos protegidos</h2></td></tr>
 
 <p>Función que se ejecuta al crearse el sistema. </p>
 
-<p>Reimplementado en <a class="el" href="class_o_s_k_1_1_e_c_s_1_1_collision_system.html#a4f1e6ece88939b1346600babd8060722">OSK::ECS::CollisionSystem</a>, <a class="el" href="class_o_s_k_1_1_e_c_s_1_1_i_render_system.html#ab99fd447d1c640bcc003dc5713768b6c">OSK::ECS::IRenderSystem</a> y <a class="el" href="class_o_s_k_1_1_e_c_s_1_1_physics_system.html#a06f5d16b2dc08d8278276cce6bebe177">OSK::ECS::PhysicsSystem</a>.</p>
+<p>Reimplementado en <a class="el" href="class_o_s_k_1_1_e_c_s_1_1_collision_system.html#a4f1e6ece88939b1346600babd8060722">OSK::ECS::CollisionSystem</a>, <a class="el" href="class_o_s_k_1_1_e_c_s_1_1_i_render_system.html#ab99fd447d1c640bcc003dc5713768b6c">OSK::ECS::IRenderSystem</a>, <a class="el" href="class_o_s_k_1_1_e_c_s_1_1_physics_system.html#a06f5d16b2dc08d8278276cce6bebe177">OSK::ECS::PhysicsSystem</a> y <a class="el" href="class_o_s_k_1_1_e_c_s_1_1_transform_applier_system.html#aa63da735055c328379dbcb1188523e44">OSK::ECS::TransformApplierSystem</a>.</p>
 
 <p class="definition">Definición en la línea <a class="el" href="_i_system_8cpp_source.html#l00005">5</a> del archivo <a class="el" href="_i_system_8cpp_source.html">ISystem.cpp</a>.</p>
 
@@ -391,43 +373,6 @@ Métodos protegidos</h2></td></tr>
 
 <p>Función que se ejecuta al destruirse el sistema. </p>
 
-<p class="definition">Definición en la línea <a class="el" href="_i_system_8cpp_source.html#l00013">13</a> del archivo <a class="el" href="_i_system_8cpp_source.html">ISystem.cpp</a>.</p>
-
-</div>
-</div>
-<a id="ab66937b130814e6f06f3d76648dd0fb6" name="ab66937b130814e6f06f3d76648dd0fb6"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab66937b130814e6f06f3d76648dd0fb6">&#9670;&#160;</a></span>OnTick()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void ISystem::OnTick </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="_o_s_kmacros_8h.html#ad05d5eacc527d5b61240124daf13b33b">TDeltaTime</a></td>          <td class="paramname"><span class="paramname"><em>deltaTime</em></span></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Función que se ejecuta una vez por frame. La lógica en la mayoría de sistemas estará implementada en este método. </p>
-<dl class="params"><dt>Parámetros</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">deltaTime</td><td>Número de segundos que han pasado desde la anterior ejecución. </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p>Reimplementado en <a class="el" href="class_o_s_k_1_1_e_c_s_1_1_collision_system.html#af5fb35b2baeea2938a829cacfc442d1f">OSK::ECS::CollisionSystem</a>, <a class="el" href="class_o_s_k_1_1_e_c_s_1_1_deferred_render_system.html#a3ab78fa62ab29c6aa1425585a76f8aa0">OSK::ECS::DeferredRenderSystem</a>, <a class="el" href="class_o_s_k_1_1_e_c_s_1_1_hybrid_render_system.html#a93d8c202f7dd602deb57a4ee81192e04">OSK::ECS::HybridRenderSystem</a>, <a class="el" href="class_o_s_k_1_1_e_c_s_1_1_physics_resolver.html#a10a9b21b2452e1c1eba30a6f38c536b4">OSK::ECS::PhysicsResolver</a>, <a class="el" href="class_o_s_k_1_1_e_c_s_1_1_physics_system.html#ae3f4d9a1329e46237c9c488bc53ddb40">OSK::ECS::PhysicsSystem</a> y <a class="el" href="class_o_s_k_1_1_e_c_s_1_1_render_system3_d.html#a65a6b4272468a563ea381aaf9f5e480d">OSK::ECS::RenderSystem3D</a>.</p>
-
 <p class="definition">Definición en la línea <a class="el" href="_i_system_8cpp_source.html#l00009">9</a> del archivo <a class="el" href="_i_system_8cpp_source.html">ISystem.cpp</a>.</p>
 
 </div>
@@ -455,7 +400,7 @@ Métodos protegidos</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definición en la línea <a class="el" href="_i_system_8cpp_source.html#l00025">25</a> del archivo <a class="el" href="_i_system_8cpp_source.html">ISystem.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_i_system_8cpp_source.html#l00021">21</a> del archivo <a class="el" href="_i_system_8cpp_source.html">ISystem.cpp</a>.</p>
 
 </div>
 </div>
@@ -476,34 +421,7 @@ Métodos protegidos</h2></td></tr>
 
 <p>Cambia entre activado/desactivado. </p>
 
-<p class="definition">Definición en la línea <a class="el" href="_i_system_8cpp_source.html#l00029">29</a> del archivo <a class="el" href="_i_system_8cpp_source.html">ISystem.cpp</a>.</p>
-
-</div>
-</div>
-<h2 class="groupheader">Documentación de datos miembro</h2>
-<a id="a475b37d3a934c9097c8df5a21ca67b88" name="a475b37d3a934c9097c8df5a21ca67b88"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a475b37d3a934c9097c8df5a21ca67b88">&#9670;&#160;</a></span>DEFAULT_EXECUTION_ORDER</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">constexpr int OSK::ECS::ISystem::DEFAULT_EXECUTION_ORDER = 0</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">constexpr</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Índice de ordenación por defecto. </p>
-
-<p class="definition">Definición en la línea <a class="el" href="_i_system_8h_source.html#l00029">29</a> del archivo <a class="el" href="_i_system_8h_source.html">ISystem.h</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_i_system_8cpp_source.html#l00025">25</a> del archivo <a class="el" href="_i_system_8cpp_source.html">ISystem.cpp</a>.</p>
 
 </div>
 </div>
@@ -517,7 +435,7 @@ Métodos protegidos</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="namespace_o_s_k.html">OSK</a></li><li class="navelem"><a class="el" href="namespace_o_s_k_1_1_e_c_s.html">ECS</a></li><li class="navelem"><a class="el" href="class_o_s_k_1_1_e_c_s_1_1_i_system.html">ISystem</a></li>
-    <li class="footer">Generado el Lunes, 29 de enero de 2024 17:23:01 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.10.0 </li>
+    <li class="footer">Generado el Jueves, 28 de marzo de 2024 17:53:12 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.10.0 </li>
   </ul>
 </div>
 </body>

@@ -128,16 +128,22 @@ Métodos públicos</h2></td></tr>
 <tr class="memitem:a203d56a00c4e9182050f57ef945fc025" id="r_a203d56a00c4e9182050f57ef945fc025"><td class="memTemplParams" colspan="2">template&lt;typename TComponent &gt; </td></tr>
 <tr class="memitem:a203d56a00c4e9182050f57ef945fc025"><td class="memTemplItemLeft" align="right" valign="top">TComponent &amp;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="#a203d56a00c4e9182050f57ef945fc025">GetComponent</a> (<a class="el" href="namespace_o_s_k_1_1_e_c_s.html#a7be561d6b7de4e8a49c2a5cc35fba48c">GameObjectIndex</a> obj)</td></tr>
 <tr class="separator:a203d56a00c4e9182050f57ef945fc025"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa738603b4ddbb7c98fe2b7e7ff553c69" id="r_aa738603b4ddbb7c98fe2b7e7ff553c69"><td class="memTemplParams" colspan="2">template&lt;typename TComponent &gt; </td></tr>
+<tr class="memitem:aa738603b4ddbb7c98fe2b7e7ff553c69"><td class="memTemplItemLeft" align="right" valign="top">const TComponent &amp;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="#aa738603b4ddbb7c98fe2b7e7ff553c69">GetComponent</a> (<a class="el" href="namespace_o_s_k_1_1_e_c_s.html#a7be561d6b7de4e8a49c2a5cc35fba48c">GameObjectIndex</a> obj) const</td></tr>
+<tr class="separator:aa738603b4ddbb7c98fe2b7e7ff553c69"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a16a5d5a2b1f3601de2f1794c6cafa6b1" id="r_a16a5d5a2b1f3601de2f1794c6cafa6b1"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a16a5d5a2b1f3601de2f1794c6cafa6b1">GameObjectDestroyed</a> (<a class="el" href="namespace_o_s_k_1_1_e_c_s.html#a7be561d6b7de4e8a49c2a5cc35fba48c">GameObjectIndex</a> obj)</td></tr>
 <tr class="separator:a16a5d5a2b1f3601de2f1794c6cafa6b1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a083ca33598156793dd64af188a176d00" id="r_a083ca33598156793dd64af188a176d00"><td class="memTemplParams" colspan="2">template&lt;typename TComponent &gt; </td></tr>
 <tr class="memitem:a083ca33598156793dd64af188a176d00"><td class="memTemplItemLeft" align="right" valign="top">bool&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="#a083ca33598156793dd64af188a176d00">ComponentHasBeenRegistered</a> () const</td></tr>
 <tr class="separator:a083ca33598156793dd64af188a176d00"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1c5a364ae7bb71ad68216ec6240936c8" id="r_a1c5a364ae7bb71ad68216ec6240936c8"><td class="memTemplParams" colspan="2">template&lt;typename TComponent &gt; </td></tr>
+<tr class="memitem:a1c5a364ae7bb71ad68216ec6240936c8"><td class="memTemplItemLeft" align="right" valign="top">bool&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="#a1c5a364ae7bb71ad68216ec6240936c8">ObjectHasComponent</a> (<a class="el" href="namespace_o_s_k_1_1_e_c_s.html#a7be561d6b7de4e8a49c2a5cc35fba48c">GameObjectIndex</a> obj) const</td></tr>
+<tr class="separator:a1c5a364ae7bb71ad68216ec6240936c8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Descripción detallada</h2>
 <div class="textblock"><p>Se encarga de manejar la creación y eliminación de componentes. Guarda un <a class="el" href="class_o_s_k_1_1_e_c_s_1_1_component_container.html" title="Contenedor para el dynamic array de componentes del tipo dado. Se encarga de manejar la introducción ...">ComponentContainer</a> por cada tipo de componente registrado. </p>
 
-<p class="definition">Definición en la línea <a class="el" href="_component_manager_8h_source.html#l00015">15</a> del archivo <a class="el" href="_component_manager_8h_source.html">ComponentManager.h</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_component_manager_8h_source.html#l00017">17</a> del archivo <a class="el" href="_component_manager_8h_source.html">ComponentManager.h</a>.</p>
 </div><h2 class="groupheader">Documentación de constructores y destructores</h2>
 <a id="ad4ebf2f60d06f78223fe0834647052f6" name="ad4ebf2f60d06f78223fe0834647052f6"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ad4ebf2f60d06f78223fe0834647052f6">&#9670;&#160;</a></span>ComponentManager()</h2>
@@ -210,7 +216,7 @@ template&lt;typename TComponent &gt; </div>
 </dl>
 <dl class="section return"><dt>Devuelve</dt><dd>Referencia al componente. </dd></dl>
 
-<p class="definition">Definición en la línea <a class="el" href="_component_manager_8h_source.html#l00049">49</a> del archivo <a class="el" href="_component_manager_8h_source.html">ComponentManager.h</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_component_manager_8h_source.html#l00058">58</a> del archivo <a class="el" href="_component_manager_8h_source.html">ComponentManager.h</a>.</p>
 
 </div>
 </div>
@@ -246,7 +252,7 @@ template&lt;typename TComponent &gt; </div>
 <p>Añade el componente dado al GameObject dado. </p>
 <dl class="section return"><dt>Devuelve</dt><dd>El componente recién añadido.</dd></dl>
 
-<p class="definition">Definición en la línea <a class="el" href="_component_manager_8h_source.html#l00058">58</a> del archivo <a class="el" href="_component_manager_8h_source.html">ComponentManager.h</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_component_manager_8h_source.html#l00067">67</a> del archivo <a class="el" href="_component_manager_8h_source.html">ComponentManager.h</a>.</p>
 
 </div>
 </div>
@@ -275,7 +281,7 @@ template&lt;typename TComponent &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definición en la línea <a class="el" href="_component_manager_8h_source.html#l00089">89</a> del archivo <a class="el" href="_component_manager_8h_source.html">ComponentManager.h</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_component_manager_8h_source.html#l00109">109</a> del archivo <a class="el" href="_component_manager_8h_source.html">ComponentManager.h</a>.</p>
 
 </div>
 </div>
@@ -301,7 +307,7 @@ template&lt;typename TComponent &gt; </div>
 </div>
 </div>
 <a id="a203d56a00c4e9182050f57ef945fc025" name="a203d56a00c4e9182050f57ef945fc025"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a203d56a00c4e9182050f57ef945fc025">&#9670;&#160;</a></span>GetComponent()</h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a203d56a00c4e9182050f57ef945fc025">&#9670;&#160;</a></span>GetComponent() <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -340,7 +346,51 @@ template&lt;typename TComponent &gt; </div>
 </dl>
 <dl class="section return"><dt>Devuelve</dt><dd>Referencia al componente.</dd></dl>
 
-<p class="definition">Definición en la línea <a class="el" href="_component_manager_8h_source.html#l00078">78</a> del archivo <a class="el" href="_component_manager_8h_source.html">ComponentManager.h</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_component_manager_8h_source.html#l00087">87</a> del archivo <a class="el" href="_component_manager_8h_source.html">ComponentManager.h</a>.</p>
+
+</div>
+</div>
+<a id="aa738603b4ddbb7c98fe2b7e7ff553c69" name="aa738603b4ddbb7c98fe2b7e7ff553c69"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa738603b4ddbb7c98fe2b7e7ff553c69">&#9670;&#160;</a></span>GetComponent() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename TComponent &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const TComponent &amp; OSK::ECS::ComponentManager::GetComponent </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="namespace_o_s_k_1_1_e_c_s.html#a7be561d6b7de4e8a49c2a5cc35fba48c">GameObjectIndex</a></td>          <td class="paramname"><span class="paramname"><em>obj</em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Devuelve el componente del tipo dado, que es poseído por el objeto. </p>
+<dl class="tparams"><dt>Parámetros de plantilla</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">TComponent</td><td>Tipo del componente.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">obj</td><td>Dueño del componente.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Devuelve</dt><dd>Referencia al componente.</dd></dl>
+
+<p class="definition">Definición en la línea <a class="el" href="_component_manager_8h_source.html#l00098">98</a> del archivo <a class="el" href="_component_manager_8h_source.html">ComponentManager.h</a>.</p>
 
 </div>
 </div>
@@ -375,8 +425,64 @@ template&lt;typename TComponent &gt; </div>
   </dd>
 </dl>
 <dl class="section return"><dt>Devuelve</dt><dd>Devuelve el identificador del tipo de componente. </dd></dl>
+<dl class="section pre"><dt>Precondición</dt><dd><code>TComponent</code> debe haber sido previamente registrado. </dd></dl>
+<dl class="exception"><dt>Excepciones</dt><dd>
+  <table class="exception">
+    <tr><td class="paramname"><a class="el" href="class_o_s_k_1_1_e_c_s_1_1_component_not_registered_exception.html" title="Excepción que ocurre cuando se trata de registrar un componente que ya ha sido previamente registrado...">ComponentNotRegisteredException</a></td><td>si el componente no había sido registrado. </td></tr>
+  </table>
+  </dd>
+</dl>
 
-<p class="definition">Definición en la línea <a class="el" href="_component_manager_8h_source.html#l00039">39</a> del archivo <a class="el" href="_component_manager_8h_source.html">ComponentManager.h</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_component_manager_8h_source.html#l00047">47</a> del archivo <a class="el" href="_component_manager_8h_source.html">ComponentManager.h</a>.</p>
+
+</div>
+</div>
+<a id="a1c5a364ae7bb71ad68216ec6240936c8" name="a1c5a364ae7bb71ad68216ec6240936c8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1c5a364ae7bb71ad68216ec6240936c8">&#9670;&#160;</a></span>ObjectHasComponent()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename TComponent &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool OSK::ECS::ComponentManager::ObjectHasComponent </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="namespace_o_s_k_1_1_e_c_s.html#a7be561d6b7de4e8a49c2a5cc35fba48c">GameObjectIndex</a></td>          <td class="paramname"><span class="paramname"><em>obj</em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="tparams"><dt>Parámetros de plantilla</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">TComponent</td><td>Tipo de componente. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">obj</td><td>Objeto a comprobar. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Devuelve</dt><dd>True si el objeto tiene el componente indicado.</dd></dl>
+<dl class="section pre"><dt>Precondición</dt><dd>El componente <code>TComponent</code> debe haber sido previamente registrado. </dd></dl>
+<dl class="exception"><dt>Excepciones</dt><dd>
+  <table class="exception">
+    <tr><td class="paramname"><a class="el" href="class_o_s_k_1_1_e_c_s_1_1_component_not_registered_exception.html" title="Excepción que ocurre cuando se trata de registrar un componente que ya ha sido previamente registrado...">ComponentNotRegisteredException</a></td><td>si <code>TComponent</code> no ha sido previamente registradao. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definición en la línea <a class="el" href="_component_manager_8h_source.html#l00120">120</a> del archivo <a class="el" href="_component_manager_8h_source.html">ComponentManager.h</a>.</p>
 
 </div>
 </div>
@@ -446,8 +552,15 @@ template&lt;typename TComponent &gt; </div>
   </table>
   </dd>
 </dl>
+<dl class="section pre"><dt>Precondición</dt><dd><code>TComponent</code> no debe haber sido previamente registrado. </dd></dl>
+<dl class="exception"><dt>Excepciones</dt><dd>
+  <table class="exception">
+    <tr><td class="paramname"><a class="el" href="class_o_s_k_1_1_e_c_s_1_1_component_already_registered_exception.html" title="Excepción que ocurre cuando se trata de registrar un componente que ya ha sido previamente registrado...">ComponentAlreadyRegisteredException</a></td><td>si el componente ya había sido registrado. </td></tr>
+  </table>
+  </dd>
+</dl>
 
-<p class="definition">Definición en la línea <a class="el" href="_component_manager_8h_source.html#l00027">27</a> del archivo <a class="el" href="_component_manager_8h_source.html">ComponentManager.h</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_component_manager_8h_source.html#l00031">31</a> del archivo <a class="el" href="_component_manager_8h_source.html">ComponentManager.h</a>.</p>
 
 </div>
 </div>
@@ -484,7 +597,7 @@ template&lt;typename TComponent &gt; </div>
   </dd>
 </dl>
 
-<p class="definition">Definición en la línea <a class="el" href="_component_manager_8h_source.html#l00067">67</a> del archivo <a class="el" href="_component_manager_8h_source.html">ComponentManager.h</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_component_manager_8h_source.html#l00076">76</a> del archivo <a class="el" href="_component_manager_8h_source.html">ComponentManager.h</a>.</p>
 
 </div>
 </div>
@@ -498,7 +611,7 @@ template&lt;typename TComponent &gt; </div>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="namespace_o_s_k.html">OSK</a></li><li class="navelem"><a class="el" href="namespace_o_s_k_1_1_e_c_s.html">ECS</a></li><li class="navelem"><a class="el" href="class_o_s_k_1_1_e_c_s_1_1_component_manager.html">ComponentManager</a></li>
-    <li class="footer">Generado el Lunes, 29 de enero de 2024 17:23:01 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.10.0 </li>
+    <li class="footer">Generado el Jueves, 28 de marzo de 2024 17:53:12 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.10.0 </li>
   </ul>
 </div>
 </body>

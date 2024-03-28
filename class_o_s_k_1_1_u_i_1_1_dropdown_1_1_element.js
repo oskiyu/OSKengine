@@ -21,7 +21,6 @@ var class_o_s_k_1_1_u_i_1_1_dropdown_1_1_element =
     [ "IsVisible", "class_o_s_k_1_1_u_i_1_1_dropdown_1_1_element.html#a8accfad472072a3da3f18fb57df749d9", null ],
     [ "KeepsRelativeSize", "class_o_s_k_1_1_u_i_1_1_dropdown_1_1_element.html#ae5ccb397475874b1610b00d7bd0d9899", null ],
     [ "Lock", "class_o_s_k_1_1_u_i_1_1_dropdown_1_1_element.html#a5547de24b168940bf610ff1010d33c83", null ],
-    [ "OSK_DEFINE_AS", "class_o_s_k_1_1_u_i_1_1_dropdown_1_1_element.html#a46f079dc5060292013e4be6baf8e19b5", null ],
     [ "Render", "class_o_s_k_1_1_u_i_1_1_dropdown_1_1_element.html#a0fdf0600ea94edb00f1ebd1c6d35bf1a", null ],
     [ "SetAnchor", "class_o_s_k_1_1_u_i_1_1_dropdown_1_1_element.html#a1abff2399030167132e867fd37f03e20", null ],
     [ "SetBackground", "class_o_s_k_1_1_u_i_1_1_dropdown_1_1_element.html#a3203b735218c3643b4ffe26787b3eaf1", null ],

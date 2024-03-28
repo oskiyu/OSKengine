@@ -1,7 +1,11 @@
 var class_o_s_k_1_1_quaternion =
 [
-    [ "Quaternion", "class_o_s_k_1_1_quaternion.html#abcc01358aada56ea5f0db4da18aaf77d", null ],
+    [ "Quaternion", "class_o_s_k_1_1_quaternion.html#ab297a7a6ebea147111c4547aefa8f126", null ],
     [ "Interpolate", "class_o_s_k_1_1_quaternion.html#af54cdc7831c4cf47741c86b34c22cfd8", null ],
+    [ "operator+", "class_o_s_k_1_1_quaternion.html#a38ded2615fe0716baf02ecab8573371a", null ],
+    [ "operator+=", "class_o_s_k_1_1_quaternion.html#a72ef12aabea6b197ca0c386f8692131c", null ],
+    [ "operator-", "class_o_s_k_1_1_quaternion.html#a524feebd4ef483ae67d6325b8bff2d19", null ],
+    [ "operator-=", "class_o_s_k_1_1_quaternion.html#a682c2bc53ef117e70dd633271ddd65b4", null ],
     [ "Rotate_LocalSpace", "class_o_s_k_1_1_quaternion.html#a75e8c10361739559544d11313264bd0c", null ],
     [ "Rotate_WorldSpace", "class_o_s_k_1_1_quaternion.html#adb48d1d2334b6a47fde67ab2313e6447", null ],
     [ "RotateVector", "class_o_s_k_1_1_quaternion.html#ac0e494c7cb54c40e9ed6cd477948030b", null ],

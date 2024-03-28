@@ -218,7 +218,26 @@ $(function(){initNavTree('_ecs_exceptions_8h_source.html',''); initResizable(); 
 <div class="line"><a id="l00120" name="l00120"></a><span class="lineno">  120</span>    };</div>
 </div>
 <div class="line"><a id="l00121" name="l00121"></a><span class="lineno">  121</span> </div>
-<div class="line"><a id="l00122" name="l00122"></a><span class="lineno">  122</span>}</div>
+<div class="line"><a id="l00122" name="l00122"></a><span class="lineno">  122</span> </div>
+<div class="foldopen" id="foldopen00124" data-start="{" data-end="};">
+<div class="line"><a id="l00124" name="l00124"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_e_c_s_1_1_system_cyclic_dependency_exception.html">  124</a></span>    <span class="keyword">class </span><a class="code hl_class" href="class_o_s_k_1_1_e_c_s_1_1_system_cyclic_dependency_exception.html">SystemCyclicDependencyException</a> : <span class="keyword">public</span> <a class="code hl_class" href="class_o_s_k_1_1_engine_exception.html">EngineException</a> {</div>
+<div class="line"><a id="l00125" name="l00125"></a><span class="lineno">  125</span> </div>
+<div class="line"><a id="l00126" name="l00126"></a><span class="lineno">  126</span>    <span class="keyword">public</span>:</div>
+<div class="line"><a id="l00127" name="l00127"></a><span class="lineno">  127</span> </div>
+<div class="foldopen" id="foldopen00128" data-start="{" data-end="}">
+<div class="line"><a id="l00128" name="l00128"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_e_c_s_1_1_system_cyclic_dependency_exception.html#a33188c158b2c605ef5334294a88ff54f">  128</a></span>        <a class="code hl_function" href="class_o_s_k_1_1_e_c_s_1_1_system_cyclic_dependency_exception.html#a33188c158b2c605ef5334294a88ff54f">SystemCyclicDependencyException</a>(</div>
+<div class="line"><a id="l00129" name="l00129"></a><span class="lineno">  129</span>            std::string_view systemName,</div>
+<div class="line"><a id="l00130" name="l00130"></a><span class="lineno">  130</span>            <span class="keyword">const</span> std::source_location&amp; location = std::source_location::current())</div>
+<div class="line"><a id="l00131" name="l00131"></a><span class="lineno">  131</span>            :</div>
+<div class="line"><a id="l00132" name="l00132"></a><span class="lineno">  132</span>            <a class="code hl_class" href="class_o_s_k_1_1_engine_exception.html">EngineException</a>(</div>
+<div class="line"><a id="l00133" name="l00133"></a><span class="lineno">  133</span>                std::format(<span class="stringliteral">&quot;SystemCyclicDependencyException: El sistema {} genera una dependencia cíclica.&quot;</span>, systemName),</div>
+<div class="line"><a id="l00134" name="l00134"></a><span class="lineno">  134</span>                location) {}</div>
+</div>
+<div class="line"><a id="l00135" name="l00135"></a><span class="lineno">  135</span> </div>
+<div class="line"><a id="l00136" name="l00136"></a><span class="lineno">  136</span>    };</div>
+</div>
+<div class="line"><a id="l00137" name="l00137"></a><span class="lineno">  137</span> </div>
+<div class="line"><a id="l00138" name="l00138"></a><span class="lineno">  138</span>}</div>
 <div class="ttc" id="a_engine_exception_8h_html"><div class="ttname"><a href="_engine_exception_8h.html">EngineException.h</a></div></div>
 <div class="ttc" id="a_game_object_8h_html"><div class="ttname"><a href="_game_object_8h.html">GameObject.h</a></div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref_html"><div class="ttname"><a href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">OSK::ASSETS::AssetRef</a></div><div class="ttdoc">Referencia a un asset.</div><div class="ttdef"><b>Definition</b> <a href="_asset_ref_8h_source.html#l00012">AssetRef.h:12</a></div></div>
@@ -232,6 +251,8 @@ $(function(){initNavTree('_ecs_exceptions_8h_source.html',''); initResizable(); 
 <div class="ttc" id="aclass_o_s_k_1_1_e_c_s_1_1_invalid_object_exception_html_ac9897bf50a59f7259e697f8d8d0e2544"><div class="ttname"><a href="class_o_s_k_1_1_e_c_s_1_1_invalid_object_exception.html#ac9897bf50a59f7259e697f8d8d0e2544">OSK::ECS::InvalidObjectException::InvalidObjectException</a></div><div class="ttdeci">InvalidObjectException(GameObjectIndex obj, const std::source_location &amp;location=std::source_location::current())</div><div class="ttdoc">Excepción que ocurre cuando se trata de registrar un componente que ya ha sido previamente registrado...</div><div class="ttdef"><b>Definition</b> <a href="#l00016">EcsExceptions.h:16</a></div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_e_c_s_1_1_object_already_has_component_exception_html"><div class="ttname"><a href="class_o_s_k_1_1_e_c_s_1_1_object_already_has_component_exception.html">OSK::ECS::ObjectAlreadyHasComponentException</a></div><div class="ttdoc">Excepción que ocurre cuando se trata de añadir un componente a un objeto que ya tiene un componente d...</div><div class="ttdef"><b>Definition</b> <a href="#l00067">EcsExceptions.h:67</a></div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_e_c_s_1_1_object_already_has_component_exception_html_a20e28efbe691bbb55c4e496bfdae1a43"><div class="ttname"><a href="class_o_s_k_1_1_e_c_s_1_1_object_already_has_component_exception.html#a20e28efbe691bbb55c4e496bfdae1a43">OSK::ECS::ObjectAlreadyHasComponentException::ObjectAlreadyHasComponentException</a></div><div class="ttdeci">ObjectAlreadyHasComponentException(std::string_view componentName, GameObjectIndex object, const std::source_location &amp;location=std::source_location::current())</div><div class="ttdoc">Excepción que ocurre cuando se trata de añadir un componente a un objeto que ya tiene un componente d...</div><div class="ttdef"><b>Definition</b> <a href="#l00075">EcsExceptions.h:75</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_e_c_s_1_1_system_cyclic_dependency_exception_html"><div class="ttname"><a href="class_o_s_k_1_1_e_c_s_1_1_system_cyclic_dependency_exception.html">OSK::ECS::SystemCyclicDependencyException</a></div><div class="ttdoc">Excepción que se da cuando se trata de insertar un sistema que genera una dependencia cíclica.</div><div class="ttdef"><b>Definition</b> <a href="#l00124">EcsExceptions.h:124</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_e_c_s_1_1_system_cyclic_dependency_exception_html_a33188c158b2c605ef5334294a88ff54f"><div class="ttname"><a href="class_o_s_k_1_1_e_c_s_1_1_system_cyclic_dependency_exception.html#a33188c158b2c605ef5334294a88ff54f">OSK::ECS::SystemCyclicDependencyException::SystemCyclicDependencyException</a></div><div class="ttdeci">SystemCyclicDependencyException(std::string_view systemName, const std::source_location &amp;location=std::source_location::current())</div><div class="ttdef"><b>Definition</b> <a href="#l00128">EcsExceptions.h:128</a></div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_e_c_s_1_1_system_not_found_exception_html"><div class="ttname"><a href="class_o_s_k_1_1_e_c_s_1_1_system_not_found_exception.html">OSK::ECS::SystemNotFoundException</a></div><div class="ttdoc">Excepción que se da cuando se trata de operar sobre un sistema que no ha sido registrado.</div><div class="ttdef"><b>Definition</b> <a href="#l00108">EcsExceptions.h:108</a></div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_e_c_s_1_1_system_not_found_exception_html_a5586eed232a02ee8a467f440fe9070b2"><div class="ttname"><a href="class_o_s_k_1_1_e_c_s_1_1_system_not_found_exception.html#a5586eed232a02ee8a467f440fe9070b2">OSK::ECS::SystemNotFoundException::SystemNotFoundException</a></div><div class="ttdeci">SystemNotFoundException(std::string_view systemName, const std::source_location &amp;location=std::source_location::current())</div><div class="ttdef"><b>Definition</b> <a href="#l00112">EcsExceptions.h:112</a></div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_engine_exception_html"><div class="ttname"><a href="class_o_s_k_1_1_engine_exception.html">OSK::EngineException</a></div><div class="ttdoc">Clase base para todas las excepciones que puedan ocurrir durante la ejecución del juego.</div><div class="ttdef"><b>Definition</b> <a href="_engine_exception_8h_source.html#l00013">EngineException.h:13</a></div></div>
@@ -242,7 +263,7 @@ $(function(){initNavTree('_ecs_exceptions_8h_source.html',''); initResizable(); 
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_74389ed8173ad57b461b9d623a1f3867.html">Source</a></li><li class="navelem"><a class="el" href="_ecs_exceptions_8h.html">EcsExceptions.h</a></li>
-    <li class="footer">Generado el Lunes, 29 de enero de 2024 17:22:58 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.10.0 </li>
+    <li class="footer">Generado el Jueves, 28 de marzo de 2024 17:53:10 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.10.0 </li>
   </ul>
 </div>
 </body>

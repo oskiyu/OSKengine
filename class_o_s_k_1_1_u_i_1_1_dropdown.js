@@ -20,7 +20,6 @@ var class_o_s_k_1_1_u_i_1_1_dropdown =
     [ "IsVisible", "class_o_s_k_1_1_u_i_1_1_dropdown.html#a8accfad472072a3da3f18fb57df749d9", null ],
     [ "KeepsRelativeSize", "class_o_s_k_1_1_u_i_1_1_dropdown.html#ae5ccb397475874b1610b00d7bd0d9899", null ],
     [ "Lock", "class_o_s_k_1_1_u_i_1_1_dropdown.html#a5547de24b168940bf610ff1010d33c83", null ],
-    [ "OSK_DEFINE_AS", "class_o_s_k_1_1_u_i_1_1_dropdown.html#a46f079dc5060292013e4be6baf8e19b5", null ],
     [ "RemoveElement", "class_o_s_k_1_1_u_i_1_1_dropdown.html#a07c84ac528a1787f07073bcb12d01afd", null ],
     [ "Render", "class_o_s_k_1_1_u_i_1_1_dropdown.html#a4a46fedad820eb59ee37723955199e75", null ],
     [ "SelectOption", "class_o_s_k_1_1_u_i_1_1_dropdown.html#a3a3ab34066a264281a2274e202f0bfa4", null ],

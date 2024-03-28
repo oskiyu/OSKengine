@@ -17,7 +17,6 @@ var class_o_s_k_1_1_u_i_1_1_i_element =
     [ "IsVisible", "class_o_s_k_1_1_u_i_1_1_i_element.html#a8accfad472072a3da3f18fb57df749d9", null ],
     [ "KeepsRelativeSize", "class_o_s_k_1_1_u_i_1_1_i_element.html#ae5ccb397475874b1610b00d7bd0d9899", null ],
     [ "Lock", "class_o_s_k_1_1_u_i_1_1_i_element.html#a5547de24b168940bf610ff1010d33c83", null ],
-    [ "OSK_DEFINE_AS", "class_o_s_k_1_1_u_i_1_1_i_element.html#a46f079dc5060292013e4be6baf8e19b5", null ],
     [ "Render", "class_o_s_k_1_1_u_i_1_1_i_element.html#ab13bdea8414d11e8623f1557dd7fc78e", null ],
     [ "SetAnchor", "class_o_s_k_1_1_u_i_1_1_i_element.html#a1abff2399030167132e867fd37f03e20", null ],
     [ "SetInvisible", "class_o_s_k_1_1_u_i_1_1_i_element.html#a3321d2f589991ea5b04db9eec5fad644", null ],

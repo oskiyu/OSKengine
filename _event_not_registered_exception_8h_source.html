@@ -125,8 +125,28 @@ $(function(){initNavTree('_event_not_registered_exception_8h_source.html',''); i
 <div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>    };</div>
 </div>
 <div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span> </div>
-<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>}</div>
+<div class="foldopen" id="foldopen00023" data-start="{" data-end="};">
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_e_c_s_1_1_event_already_registered_exception.html">   23</a></span>    <span class="keyword">class </span><a class="code hl_class" href="class_o_s_k_1_1_e_c_s_1_1_event_already_registered_exception.html">EventAlreadyRegisteredException</a> : <span class="keyword">public</span> <a class="code hl_class" href="class_o_s_k_1_1_engine_exception.html">EngineException</a> {</div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span> </div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>    <span class="keyword">public</span>:</div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span> </div>
+<div class="foldopen" id="foldopen00027" data-start="{" data-end="}">
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_e_c_s_1_1_event_already_registered_exception.html#a624f72a38e68c4d6a0d5598f16cb580c">   27</a></span>        <span class="keyword">explicit</span> <a class="code hl_function" href="class_o_s_k_1_1_e_c_s_1_1_event_already_registered_exception.html#a624f72a38e68c4d6a0d5598f16cb580c">EventAlreadyRegisteredException</a>(</div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>            std::string_view eventName,</div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>            <span class="keyword">const</span> std::source_location&amp; location = std::source_location::current())</div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>            :</div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>            <a class="code hl_class" href="class_o_s_k_1_1_engine_exception.html">EngineException</a>(</div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>                std::format(<span class="stringliteral">&quot;EventAlreadyRegisteredException: El evento {} ya estaba registrado.&quot;</span>, eventName),</div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>                location) { }</div>
+</div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span> </div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>    };</div>
+</div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span> </div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>}</div>
 <div class="ttc" id="a_engine_exception_8h_html"><div class="ttname"><a href="_engine_exception_8h.html">EngineException.h</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_e_c_s_1_1_event_already_registered_exception_html"><div class="ttname"><a href="class_o_s_k_1_1_e_c_s_1_1_event_already_registered_exception.html">OSK::ECS::EventAlreadyRegisteredException</a></div><div class="ttdoc">Excepción que se lanza cuando se trata de registrar un evento que ya ha sido registrado.</div><div class="ttdef"><b>Definition</b> <a href="#l00023">EventNotRegisteredException.h:23</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_e_c_s_1_1_event_already_registered_exception_html_a624f72a38e68c4d6a0d5598f16cb580c"><div class="ttname"><a href="class_o_s_k_1_1_e_c_s_1_1_event_already_registered_exception.html#a624f72a38e68c4d6a0d5598f16cb580c">OSK::ECS::EventAlreadyRegisteredException::EventAlreadyRegisteredException</a></div><div class="ttdeci">EventAlreadyRegisteredException(std::string_view eventName, const std::source_location &amp;location=std::source_location::current())</div><div class="ttdef"><b>Definition</b> <a href="#l00027">EventNotRegisteredException.h:27</a></div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_e_c_s_1_1_event_not_registered_exception_html"><div class="ttname"><a href="class_o_s_k_1_1_e_c_s_1_1_event_not_registered_exception.html">OSK::ECS::EventNotRegisteredException</a></div><div class="ttdoc">Excepción que se lanza cuando se trata de usar un evento que no ha sido registrado.</div><div class="ttdef"><b>Definition</b> <a href="#l00008">EventNotRegisteredException.h:8</a></div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_e_c_s_1_1_event_not_registered_exception_html_a1d0d2c5a620854f198aa9068ff1e6aad"><div class="ttname"><a href="class_o_s_k_1_1_e_c_s_1_1_event_not_registered_exception.html#a1d0d2c5a620854f198aa9068ff1e6aad">OSK::ECS::EventNotRegisteredException::EventNotRegisteredException</a></div><div class="ttdeci">EventNotRegisteredException(std::string_view eventName, const std::source_location &amp;location=std::source_location::current())</div><div class="ttdef"><b>Definition</b> <a href="#l00012">EventNotRegisteredException.h:12</a></div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_engine_exception_html"><div class="ttname"><a href="class_o_s_k_1_1_engine_exception.html">OSK::EngineException</a></div><div class="ttdoc">Clase base para todas las excepciones que puedan ocurrir durante la ejecución del juego.</div><div class="ttdef"><b>Definition</b> <a href="_engine_exception_8h_source.html#l00013">EngineException.h:13</a></div></div>
@@ -137,7 +157,7 @@ $(function(){initNavTree('_event_not_registered_exception_8h_source.html',''); i
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_74389ed8173ad57b461b9d623a1f3867.html">Source</a></li><li class="navelem"><a class="el" href="_event_not_registered_exception_8h.html">EventNotRegisteredException.h</a></li>
-    <li class="footer">Generado el Lunes, 29 de enero de 2024 17:22:58 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.10.0 </li>
+    <li class="footer">Generado el Jueves, 28 de marzo de 2024 17:53:10 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.10.0 </li>
   </ul>
 </div>
 </body>

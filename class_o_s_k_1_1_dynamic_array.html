@@ -199,6 +199,14 @@ Métodos públicos</h2></td></tr>
 <tr class="separator:ab8c4487ebf2c42cdb2be44a7a8e01bb0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:adb9931acdcd40b2886c9445e2d1b3b5d" id="r_adb9931acdcd40b2886c9445e2d1b3b5d"><td class="memItemLeft" align="right" valign="top">T *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#adb9931acdcd40b2886c9445e2d1b3b5d">GetData</a> () noexcept</td></tr>
 <tr class="separator:adb9931acdcd40b2886c9445e2d1b3b5d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa623134157acd07f1e42312f2a98b81c" id="r_aa623134157acd07f1e42312f2a98b81c"><td class="memItemLeft" align="right" valign="top">std::span&lt; T &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aa623134157acd07f1e42312f2a98b81c">GetFullSpan</a> ()</td></tr>
+<tr class="separator:aa623134157acd07f1e42312f2a98b81c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afe5fa626882b944c86ce07cdf6392eb0" id="r_afe5fa626882b944c86ce07cdf6392eb0"><td class="memItemLeft" align="right" valign="top">std::span&lt; const T &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#afe5fa626882b944c86ce07cdf6392eb0">GetFullSpan</a> () const</td></tr>
+<tr class="separator:afe5fa626882b944c86ce07cdf6392eb0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1da0d5cb6c19aa886205984527ac158a" id="r_a1da0d5cb6c19aa886205984527ac158a"><td class="memItemLeft" align="right" valign="top">std::span&lt; T &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a1da0d5cb6c19aa886205984527ac158a">GetSpan</a> (<a class="el" href="_o_s_kmacros_8h.html#adef8e046c86805ca0dc2db407b01a1bb">UIndex64</a> startIndex, <a class="el" href="_o_s_kmacros_8h.html#a5784d24fcb00afb78eb7b1e1a3466ac4">USize64</a> count)</td></tr>
+<tr class="separator:a1da0d5cb6c19aa886205984527ac158a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afcffebbdf9842da7f00a975208678bfb" id="r_afcffebbdf9842da7f00a975208678bfb"><td class="memItemLeft" align="right" valign="top">std::span&lt; const T &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#afcffebbdf9842da7f00a975208678bfb">GetSpan</a> (<a class="el" href="_o_s_kmacros_8h.html#adef8e046c86805ca0dc2db407b01a1bb">UIndex64</a> startIndex, <a class="el" href="_o_s_kmacros_8h.html#a5784d24fcb00afb78eb7b1e1a3466ac4">USize64</a> count) const</td></tr>
+<tr class="separator:afcffebbdf9842da7f00a975208678bfb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aed916827911ede697ebc67847b6abb7d" id="r_aed916827911ede697ebc67847b6abb7d"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_o_s_k_1_1_dynamic_array_1_1_iterator.html">Iterator</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aed916827911ede697ebc67847b6abb7d">begin</a> () noexcept</td></tr>
 <tr class="separator:aed916827911ede697ebc67847b6abb7d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a34a7c3ad34a4482db41d62bc9c44279e" id="r_a34a7c3ad34a4482db41d62bc9c44279e"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_o_s_k_1_1_dynamic_array_1_1_iterator.html">Iterator</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a34a7c3ad34a4482db41d62bc9c44279e">end</a> () noexcept</td></tr>
@@ -249,7 +257,7 @@ class OSK::DynamicArray&lt; T &gt;</div><p>Dynamic array: array que puede cambia
 <dl class="section note"><dt>Nota</dt><dd>Usa memoria contígua. </dd></dl>
 <dl class="section warning"><dt>Atención</dt><dd>No ofrece estabilidad de punteros. </dd></dl>
 
-<p class="definition">Definición en la línea <a class="el" href="_dynamic_array_8hpp_source.html#l00066">66</a> del archivo <a class="el" href="_dynamic_array_8hpp_source.html">DynamicArray.hpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_dynamic_array_8hpp_source.html#l00067">67</a> del archivo <a class="el" href="_dynamic_array_8hpp_source.html">DynamicArray.hpp</a>.</p>
 </div><h2 class="groupheader">Documentación de constructores y destructores</h2>
 <a id="a0508c283bcf64dbdf293df1e492f478d" name="a0508c283bcf64dbdf293df1e492f478d"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a0508c283bcf64dbdf293df1e492f478d">&#9670;&#160;</a></span>DynamicArray() <span class="overload">[1/4]</span></h2>
@@ -278,7 +286,7 @@ template&lt;typename T &gt; </div>
 
 <p>Crea el dynamic array con espacio inicial para 10 elementos. </p>
 
-<p class="definition">Definición en la línea <a class="el" href="_dynamic_array_8hpp_source.html#l00181">181</a> del archivo <a class="el" href="_dynamic_array_8hpp_source.html">DynamicArray.hpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_dynamic_array_8hpp_source.html#l00182">182</a> del archivo <a class="el" href="_dynamic_array_8hpp_source.html">DynamicArray.hpp</a>.</p>
 
 </div>
 </div>
@@ -315,7 +323,7 @@ template&lt;typename T &gt; </div>
   </dd>
 </dl>
 
-<p class="definition">Definición en la línea <a class="el" href="_dynamic_array_8hpp_source.html#l00187">187</a> del archivo <a class="el" href="_dynamic_array_8hpp_source.html">DynamicArray.hpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_dynamic_array_8hpp_source.html#l00188">188</a> del archivo <a class="el" href="_dynamic_array_8hpp_source.html">DynamicArray.hpp</a>.</p>
 
 </div>
 </div>
@@ -352,7 +360,7 @@ template&lt;typename T &gt; </div>
   </dd>
 </dl>
 
-<p class="definition">Definición en la línea <a class="el" href="_dynamic_array_8hpp_source.html#l00199">199</a> del archivo <a class="el" href="_dynamic_array_8hpp_source.html">DynamicArray.hpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_dynamic_array_8hpp_source.html#l00200">200</a> del archivo <a class="el" href="_dynamic_array_8hpp_source.html">DynamicArray.hpp</a>.</p>
 
 </div>
 </div>
@@ -390,7 +398,7 @@ template&lt;typename T &gt; </div>
 </dl>
 <dl class="section warning"><dt>Atención</dt><dd>Deja a <code>arr</code> en un estado inválido. </dd></dl>
 
-<p class="definition">Definición en la línea <a class="el" href="_dynamic_array_8hpp_source.html#l00233">233</a> del archivo <a class="el" href="_dynamic_array_8hpp_source.html">DynamicArray.hpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_dynamic_array_8hpp_source.html#l00234">234</a> del archivo <a class="el" href="_dynamic_array_8hpp_source.html">DynamicArray.hpp</a>.</p>
 
 </div>
 </div>
@@ -421,7 +429,7 @@ template&lt;typename T &gt; </div>
 
 <p>Destruye el array. </p>
 
-<p class="definition">Definición en la línea <a class="el" href="_dynamic_array_8hpp_source.html#l00275">275</a> del archivo <a class="el" href="_dynamic_array_8hpp_source.html">DynamicArray.hpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_dynamic_array_8hpp_source.html#l00276">276</a> del archivo <a class="el" href="_dynamic_array_8hpp_source.html">DynamicArray.hpp</a>.</p>
 
 </div>
 </div>
@@ -465,7 +473,7 @@ template&lt;typename T &gt; </div>
   </dd>
 </dl>
 
-<p class="definition">Definición en la línea <a class="el" href="_dynamic_array_8hpp_source.html#l00324">324</a> del archivo <a class="el" href="_dynamic_array_8hpp_source.html">DynamicArray.hpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_dynamic_array_8hpp_source.html#l00325">325</a> del archivo <a class="el" href="_dynamic_array_8hpp_source.html">DynamicArray.hpp</a>.</p>
 
 </div>
 </div>
@@ -494,7 +502,7 @@ template&lt;typename T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definición en la línea <a class="el" href="_dynamic_array_8hpp_source.html#l00404">404</a> del archivo <a class="el" href="_dynamic_array_8hpp_source.html">DynamicArray.hpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_dynamic_array_8hpp_source.html#l00405">405</a> del archivo <a class="el" href="_dynamic_array_8hpp_source.html">DynamicArray.hpp</a>.</p>
 
 </div>
 </div>
@@ -532,7 +540,7 @@ template&lt;typename T &gt; </div>
   </dd>
 </dl>
 
-<p class="definition">Definición en la línea <a class="el" href="_dynamic_array_8hpp_source.html#l00377">377</a> del archivo <a class="el" href="_dynamic_array_8hpp_source.html">DynamicArray.hpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_dynamic_array_8hpp_source.html#l00378">378</a> del archivo <a class="el" href="_dynamic_array_8hpp_source.html">DynamicArray.hpp</a>.</p>
 
 </div>
 </div>
@@ -561,7 +569,7 @@ template&lt;typename T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definición en la línea <a class="el" href="_dynamic_array_8hpp_source.html#l00395">395</a> del archivo <a class="el" href="_dynamic_array_8hpp_source.html">DynamicArray.hpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_dynamic_array_8hpp_source.html#l00396">396</a> del archivo <a class="el" href="_dynamic_array_8hpp_source.html">DynamicArray.hpp</a>.</p>
 
 </div>
 </div>
@@ -590,7 +598,7 @@ template&lt;typename T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definición en la línea <a class="el" href="_dynamic_array_8hpp_source.html#l00703">703</a> del archivo <a class="el" href="_dynamic_array_8hpp_source.html">DynamicArray.hpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_dynamic_array_8hpp_source.html#l00740">740</a> del archivo <a class="el" href="_dynamic_array_8hpp_source.html">DynamicArray.hpp</a>.</p>
 
 </div>
 </div>
@@ -619,7 +627,7 @@ template&lt;typename T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definición en la línea <a class="el" href="_dynamic_array_8hpp_source.html#l00696">696</a> del archivo <a class="el" href="_dynamic_array_8hpp_source.html">DynamicArray.hpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_dynamic_array_8hpp_source.html#l00733">733</a> del archivo <a class="el" href="_dynamic_array_8hpp_source.html">DynamicArray.hpp</a>.</p>
 
 </div>
 </div>
@@ -648,7 +656,7 @@ template&lt;typename T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definición en la línea <a class="el" href="_dynamic_array_8hpp_source.html#l00386">386</a> del archivo <a class="el" href="_dynamic_array_8hpp_source.html">DynamicArray.hpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_dynamic_array_8hpp_source.html#l00387">387</a> del archivo <a class="el" href="_dynamic_array_8hpp_source.html">DynamicArray.hpp</a>.</p>
 
 </div>
 </div>
@@ -680,7 +688,7 @@ template&lt;typename T &gt; </div>
 <p>Comprueba si el elemento está presente en el array. </p>
 <dl class="section pre"><dt>Precondición</dt><dd>El tipo del elemento debe tener definido el operador de comparación '=='. </dd></dl>
 
-<p class="definition">Definición en la línea <a class="el" href="_dynamic_array_8hpp_source.html#l00563">563</a> del archivo <a class="el" href="_dynamic_array_8hpp_source.html">DynamicArray.hpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_dynamic_array_8hpp_source.html#l00564">564</a> del archivo <a class="el" href="_dynamic_array_8hpp_source.html">DynamicArray.hpp</a>.</p>
 
 </div>
 </div>
@@ -717,7 +725,7 @@ template&lt;typename T &gt; </div>
   </dd>
 </dl>
 
-<p class="definition">Definición en la línea <a class="el" href="_dynamic_array_8hpp_source.html#l00283">283</a> del archivo <a class="el" href="_dynamic_array_8hpp_source.html">DynamicArray.hpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_dynamic_array_8hpp_source.html#l00284">284</a> del archivo <a class="el" href="_dynamic_array_8hpp_source.html">DynamicArray.hpp</a>.</p>
 
 </div>
 </div>
@@ -769,7 +777,7 @@ requires _DArr::IsCopyable&lt;T&gt;</div>
 </dl>
 <dl class="section return"><dt>Devuelve</dt><dd><a class="el" href="class_o_s_k_1_1_dynamic_array.html" title="Dynamic array: array que puede cambiar de tamaño.">DynamicArray</a> con <code>size</code> elementos iguales. </dd></dl>
 
-<p class="definition">Definición en la línea <a class="el" href="_dynamic_array_8hpp_source.html#l00296">296</a> del archivo <a class="el" href="_dynamic_array_8hpp_source.html">DynamicArray.hpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_dynamic_array_8hpp_source.html#l00297">297</a> del archivo <a class="el" href="_dynamic_array_8hpp_source.html">DynamicArray.hpp</a>.</p>
 
 </div>
 </div>
@@ -821,7 +829,7 @@ requires _DArr::IsMovable&lt;T&gt;</div>
 </dl>
 <dl class="section return"><dt>Devuelve</dt><dd><a class="el" href="class_o_s_k_1_1_dynamic_array.html" title="Dynamic array: array que puede cambiar de tamaño.">DynamicArray</a> con <code>size</code> elementos iguales. </dd></dl>
 
-<p class="definition">Definición en la línea <a class="el" href="_dynamic_array_8hpp_source.html#l00309">309</a> del archivo <a class="el" href="_dynamic_array_8hpp_source.html">DynamicArray.hpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_dynamic_array_8hpp_source.html#l00310">310</a> del archivo <a class="el" href="_dynamic_array_8hpp_source.html">DynamicArray.hpp</a>.</p>
 
 </div>
 </div>
@@ -852,7 +860,7 @@ template&lt;typename T &gt; </div>
 
 <p>Elimina los elementos, sin liberar memoria. </p>
 
-<p class="definition">Definición en la línea <a class="el" href="_dynamic_array_8hpp_source.html#l00627">627</a> del archivo <a class="el" href="_dynamic_array_8hpp_source.html">DynamicArray.hpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_dynamic_array_8hpp_source.html#l00628">628</a> del archivo <a class="el" href="_dynamic_array_8hpp_source.html">DynamicArray.hpp</a>.</p>
 
 </div>
 </div>
@@ -881,7 +889,7 @@ template&lt;typename T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definición en la línea <a class="el" href="_dynamic_array_8hpp_source.html#l00706">706</a> del archivo <a class="el" href="_dynamic_array_8hpp_source.html">DynamicArray.hpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_dynamic_array_8hpp_source.html#l00743">743</a> del archivo <a class="el" href="_dynamic_array_8hpp_source.html">DynamicArray.hpp</a>.</p>
 
 </div>
 </div>
@@ -910,7 +918,7 @@ template&lt;typename T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definición en la línea <a class="el" href="_dynamic_array_8hpp_source.html#l00699">699</a> del archivo <a class="el" href="_dynamic_array_8hpp_source.html">DynamicArray.hpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_dynamic_array_8hpp_source.html#l00736">736</a> del archivo <a class="el" href="_dynamic_array_8hpp_source.html">DynamicArray.hpp</a>.</p>
 
 </div>
 </div>
@@ -943,7 +951,7 @@ template&lt;typename T &gt; </div>
 <dl class="section note"><dt>Nota</dt><dd>Devuelve un iterador vacío si no está.</dd></dl>
 <dl class="section pre"><dt>Precondición</dt><dd>El tipo del elemento debe tener definido el operador de comparación '=='. </dd></dl>
 
-<p class="definition">Definición en la línea <a class="el" href="_dynamic_array_8hpp_source.html#l00593">593</a> del archivo <a class="el" href="_dynamic_array_8hpp_source.html">DynamicArray.hpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_dynamic_array_8hpp_source.html#l00594">594</a> del archivo <a class="el" href="_dynamic_array_8hpp_source.html">DynamicArray.hpp</a>.</p>
 
 </div>
 </div>
@@ -972,7 +980,7 @@ template&lt;typename T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definición en la línea <a class="el" href="_dynamic_array_8hpp_source.html#l00601">601</a> del archivo <a class="el" href="_dynamic_array_8hpp_source.html">DynamicArray.hpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_dynamic_array_8hpp_source.html#l00602">602</a> del archivo <a class="el" href="_dynamic_array_8hpp_source.html">DynamicArray.hpp</a>.</p>
 
 </div>
 </div>
@@ -1003,7 +1011,7 @@ template&lt;typename T &gt; </div>
 
 <p>Elimina el array, liberando memoria. </p>
 
-<p class="definition">Definición en la línea <a class="el" href="_dynamic_array_8hpp_source.html#l00612">612</a> del archivo <a class="el" href="_dynamic_array_8hpp_source.html">DynamicArray.hpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_dynamic_array_8hpp_source.html#l00613">613</a> del archivo <a class="el" href="_dynamic_array_8hpp_source.html">DynamicArray.hpp</a>.</p>
 
 </div>
 </div>
@@ -1032,7 +1040,7 @@ template&lt;typename T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definición en la línea <a class="el" href="_dynamic_array_8hpp_source.html#l00719">719</a> del archivo <a class="el" href="_dynamic_array_8hpp_source.html">DynamicArray.hpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_dynamic_array_8hpp_source.html#l00756">756</a> del archivo <a class="el" href="_dynamic_array_8hpp_source.html">DynamicArray.hpp</a>.</p>
 
 </div>
 </div>
@@ -1063,7 +1071,7 @@ template&lt;typename T &gt; </div>
 
 <p>Devuelve el array original. </p>
 
-<p class="definition">Definición en la línea <a class="el" href="_dynamic_array_8hpp_source.html#l00685">685</a> del archivo <a class="el" href="_dynamic_array_8hpp_source.html">DynamicArray.hpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_dynamic_array_8hpp_source.html#l00686">686</a> del archivo <a class="el" href="_dynamic_array_8hpp_source.html">DynamicArray.hpp</a>.</p>
 
 </div>
 </div>
@@ -1092,7 +1100,67 @@ template&lt;typename T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definición en la línea <a class="el" href="_dynamic_array_8hpp_source.html#l00688">688</a> del archivo <a class="el" href="_dynamic_array_8hpp_source.html">DynamicArray.hpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_dynamic_array_8hpp_source.html#l00689">689</a> del archivo <a class="el" href="_dynamic_array_8hpp_source.html">DynamicArray.hpp</a>.</p>
+
+</div>
+</div>
+<a id="aa623134157acd07f1e42312f2a98b81c" name="aa623134157acd07f1e42312f2a98b81c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa623134157acd07f1e42312f2a98b81c">&#9670;&#160;</a></span>GetFullSpan() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::span&lt; T &gt; <a class="el" href="class_o_s_k_1_1_dynamic_array.html">OSK::DynamicArray</a>&lt; T &gt;::GetFullSpan </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Devuelve</dt><dd><a class="el" href="class_o_s_k_1_1_span.html">Span</a> con todos los elementos de la lista. </dd></dl>
+
+<p class="definition">Definición en la línea <a class="el" href="_dynamic_array_8hpp_source.html#l00694">694</a> del archivo <a class="el" href="_dynamic_array_8hpp_source.html">DynamicArray.hpp</a>.</p>
+
+</div>
+</div>
+<a id="afe5fa626882b944c86ce07cdf6392eb0" name="afe5fa626882b944c86ce07cdf6392eb0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afe5fa626882b944c86ce07cdf6392eb0">&#9670;&#160;</a></span>GetFullSpan() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::span&lt; const T &gt; <a class="el" href="class_o_s_k_1_1_dynamic_array.html">OSK::DynamicArray</a>&lt; T &gt;::GetFullSpan </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Devuelve</dt><dd><a class="el" href="class_o_s_k_1_1_span.html">Span</a> con todos los elementos de la lista. </dd></dl>
+
+<p class="definition">Definición en la línea <a class="el" href="_dynamic_array_8hpp_source.html#l00699">699</a> del archivo <a class="el" href="_dynamic_array_8hpp_source.html">DynamicArray.hpp</a>.</p>
 
 </div>
 </div>
@@ -1125,7 +1193,7 @@ template&lt;typename T &gt; </div>
 <dl class="section pre"><dt>Precondición</dt><dd>El tipo del elemento debe tener definido el operador de comparación '=='.</dd></dl>
 <dl class="section note"><dt>Nota</dt><dd>Si no se encuentra, devuelve std::numeric_limits&lt;USize64&gt;::max(). </dd></dl>
 
-<p class="definition">Definición en la línea <a class="el" href="_dynamic_array_8hpp_source.html#l00575">575</a> del archivo <a class="el" href="_dynamic_array_8hpp_source.html">DynamicArray.hpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_dynamic_array_8hpp_source.html#l00576">576</a> del archivo <a class="el" href="_dynamic_array_8hpp_source.html">DynamicArray.hpp</a>.</p>
 
 </div>
 </div>
@@ -1157,7 +1225,7 @@ template&lt;typename T &gt; </div>
 <p>Devuelve el iterador que apunta a un elemento en particular. </p>
 <dl class="section note"><dt>Nota</dt><dd>Puede no apuntar a un element válido. </dd></dl>
 
-<p class="definition">Definición en la línea <a class="el" href="_dynamic_array_8hpp_source.html#l00715">715</a> del archivo <a class="el" href="_dynamic_array_8hpp_source.html">DynamicArray.hpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_dynamic_array_8hpp_source.html#l00752">752</a> del archivo <a class="el" href="_dynamic_array_8hpp_source.html">DynamicArray.hpp</a>.</p>
 
 </div>
 </div>
@@ -1188,7 +1256,7 @@ template&lt;typename T &gt; </div>
 
 <p>Devuelve el número de elementos reservados. </p>
 
-<p class="definition">Definición en la línea <a class="el" href="_dynamic_array_8hpp_source.html#l00678">678</a> del archivo <a class="el" href="_dynamic_array_8hpp_source.html">DynamicArray.hpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_dynamic_array_8hpp_source.html#l00679">679</a> del archivo <a class="el" href="_dynamic_array_8hpp_source.html">DynamicArray.hpp</a>.</p>
 
 </div>
 </div>
@@ -1219,7 +1287,99 @@ template&lt;typename T &gt; </div>
 
 <p>Devuelve el número de elementos almacenados. </p>
 
-<p class="definition">Definición en la línea <a class="el" href="_dynamic_array_8hpp_source.html#l00671">671</a> del archivo <a class="el" href="_dynamic_array_8hpp_source.html">DynamicArray.hpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_dynamic_array_8hpp_source.html#l00672">672</a> del archivo <a class="el" href="_dynamic_array_8hpp_source.html">DynamicArray.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a1da0d5cb6c19aa886205984527ac158a" name="a1da0d5cb6c19aa886205984527ac158a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1da0d5cb6c19aa886205984527ac158a">&#9670;&#160;</a></span>GetSpan() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::span&lt; T &gt; <a class="el" href="class_o_s_k_1_1_dynamic_array.html">OSK::DynamicArray</a>&lt; T &gt;::GetSpan </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="_o_s_kmacros_8h.html#adef8e046c86805ca0dc2db407b01a1bb">UIndex64</a></td>          <td class="paramname"><span class="paramname"><em>startIndex</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="_o_s_kmacros_8h.html#a5784d24fcb00afb78eb7b1e1a3466ac4">USize64</a></td>          <td class="paramname"><span class="paramname"><em>count</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Crea un span con un subrango de elementos. </p>
+<dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">startIndex</td><td>Índice del primer objeto. </td></tr>
+    <tr><td class="paramname">count</td><td>Número de objetos. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Devuelve</dt><dd><a class="el" href="class_o_s_k_1_1_span.html">Span</a> con los objetos indicados.</dd></dl>
+<dl class="section pre"><dt>Precondición</dt><dd><code>startIndex</code> debe ser menor que el número de elementos de la lista. </dd>
+<dd>
+<code>startIndex</code> + <code>count</code> debe ser menor que el número de elementos de la lista. </dd></dl>
+
+<p class="definition">Definición en la línea <a class="el" href="_dynamic_array_8hpp_source.html#l00712">712</a> del archivo <a class="el" href="_dynamic_array_8hpp_source.html">DynamicArray.hpp</a>.</p>
+
+</div>
+</div>
+<a id="afcffebbdf9842da7f00a975208678bfb" name="afcffebbdf9842da7f00a975208678bfb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afcffebbdf9842da7f00a975208678bfb">&#9670;&#160;</a></span>GetSpan() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::span&lt; const T &gt; <a class="el" href="class_o_s_k_1_1_dynamic_array.html">OSK::DynamicArray</a>&lt; T &gt;::GetSpan </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="_o_s_kmacros_8h.html#adef8e046c86805ca0dc2db407b01a1bb">UIndex64</a></td>          <td class="paramname"><span class="paramname"><em>startIndex</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="_o_s_kmacros_8h.html#a5784d24fcb00afb78eb7b1e1a3466ac4">USize64</a></td>          <td class="paramname"><span class="paramname"><em>count</em></span>&#160;) const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Crea un span con un subrango de elementos. </p>
+<dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">startIndex</td><td>Índice del primer objeto. </td></tr>
+    <tr><td class="paramname">count</td><td>Número de objetos. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Devuelve</dt><dd><a class="el" href="class_o_s_k_1_1_span.html">Span</a> con los objetos indicados.</dd></dl>
+<dl class="section pre"><dt>Precondición</dt><dd><code>startIndex</code> debe ser menor que el número de elementos de la lista. </dd>
+<dd>
+<code>startIndex</code> + <code>count</code> debe ser menor que el número de elementos de la lista. </dd></dl>
+
+<p class="definition">Definición en la línea <a class="el" href="_dynamic_array_8hpp_source.html#l00725">725</a> del archivo <a class="el" href="_dynamic_array_8hpp_source.html">DynamicArray.hpp</a>.</p>
 
 </div>
 </div>
@@ -1251,7 +1411,7 @@ template&lt;typename T &gt; </div>
 <p>Devuelve true si el array se ha inicializado. </p>
 <dl class="section return"><dt>Devuelve</dt><dd>Estado del array.</dd></dl>
 
-<p class="definition">Definición en la línea <a class="el" href="_dynamic_array_8hpp_source.html#l00657">657</a> del archivo <a class="el" href="_dynamic_array_8hpp_source.html">DynamicArray.hpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_dynamic_array_8hpp_source.html#l00658">658</a> del archivo <a class="el" href="_dynamic_array_8hpp_source.html">DynamicArray.hpp</a>.</p>
 
 </div>
 </div>
@@ -1288,7 +1448,7 @@ template&lt;typename T &gt; </div>
   </dd>
 </dl>
 
-<p class="definition">Definición en la línea <a class="el" href="_dynamic_array_8hpp_source.html#l00350">350</a> del archivo <a class="el" href="_dynamic_array_8hpp_source.html">DynamicArray.hpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_dynamic_array_8hpp_source.html#l00351">351</a> del archivo <a class="el" href="_dynamic_array_8hpp_source.html">DynamicArray.hpp</a>.</p>
 
 </div>
 </div>
@@ -1319,7 +1479,7 @@ template&lt;typename T &gt; </div>
 
 <p>Inserta un elemento al final del array. </p>
 
-<p class="definition">Definición en la línea <a class="el" href="_dynamic_array_8hpp_source.html#l00367">367</a> del archivo <a class="el" href="_dynamic_array_8hpp_source.html">DynamicArray.hpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_dynamic_array_8hpp_source.html#l00368">368</a> del archivo <a class="el" href="_dynamic_array_8hpp_source.html">DynamicArray.hpp</a>.</p>
 
 </div>
 </div>
@@ -1357,7 +1517,7 @@ template&lt;typename T &gt; </div>
 </dl>
 <dl class="bug"><dt><b><a class="el" href="bug.html#_bug000001">Defecto</a></b></dt><dd>No llama a los constructores de copia. </dd></dl>
 
-<p class="definition">Definición en la línea <a class="el" href="_dynamic_array_8hpp_source.html#l00456">456</a> del archivo <a class="el" href="_dynamic_array_8hpp_source.html">DynamicArray.hpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_dynamic_array_8hpp_source.html#l00457">457</a> del archivo <a class="el" href="_dynamic_array_8hpp_source.html">DynamicArray.hpp</a>.</p>
 
 </div>
 </div>
@@ -1395,7 +1555,7 @@ template&lt;typename T &gt; </div>
 </dl>
 <dl class="section pre"><dt>Precondición</dt><dd>El elemento es copiable. </dd></dl>
 
-<p class="definition">Definición en la línea <a class="el" href="_dynamic_array_8hpp_source.html#l00339">339</a> del archivo <a class="el" href="_dynamic_array_8hpp_source.html">DynamicArray.hpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_dynamic_array_8hpp_source.html#l00340">340</a> del archivo <a class="el" href="_dynamic_array_8hpp_source.html">DynamicArray.hpp</a>.</p>
 
 </div>
 </div>
@@ -1432,7 +1592,7 @@ template&lt;typename T &gt; </div>
   </dd>
 </dl>
 
-<p class="definition">Definición en la línea <a class="el" href="_dynamic_array_8hpp_source.html#l00356">356</a> del archivo <a class="el" href="_dynamic_array_8hpp_source.html">DynamicArray.hpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_dynamic_array_8hpp_source.html#l00357">357</a> del archivo <a class="el" href="_dynamic_array_8hpp_source.html">DynamicArray.hpp</a>.</p>
 
 </div>
 </div>
@@ -1463,7 +1623,7 @@ template&lt;typename T &gt; </div>
 
 <p>Devuelve true si el array está vacío. </p>
 
-<p class="definition">Definición en la línea <a class="el" href="_dynamic_array_8hpp_source.html#l00664">664</a> del archivo <a class="el" href="_dynamic_array_8hpp_source.html">DynamicArray.hpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_dynamic_array_8hpp_source.html#l00665">665</a> del archivo <a class="el" href="_dynamic_array_8hpp_source.html">DynamicArray.hpp</a>.</p>
 
 </div>
 </div>
@@ -1501,7 +1661,7 @@ template&lt;typename T &gt; </div>
 </dl>
 <dl class="section return"><dt>Devuelve</dt><dd><a class="el" href="class_o_s_k_1_1_dynamic_array.html" title="Dynamic array: array que puede cambiar de tamaño.">DynamicArray</a> copiado. </dd></dl>
 
-<p class="definition">Definición en la línea <a class="el" href="_dynamic_array_8hpp_source.html#l00214">214</a> del archivo <a class="el" href="_dynamic_array_8hpp_source.html">DynamicArray.hpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_dynamic_array_8hpp_source.html#l00215">215</a> del archivo <a class="el" href="_dynamic_array_8hpp_source.html">DynamicArray.hpp</a>.</p>
 
 </div>
 </div>
@@ -1539,7 +1699,7 @@ template&lt;typename T &gt; </div>
 </dl>
 <dl class="section warning"><dt>Atención</dt><dd>Deja a <code>arr</code> en un estado inválido. </dd></dl>
 
-<p class="definition">Definición en la línea <a class="el" href="_dynamic_array_8hpp_source.html#l00251">251</a> del archivo <a class="el" href="_dynamic_array_8hpp_source.html">DynamicArray.hpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_dynamic_array_8hpp_source.html#l00252">252</a> del archivo <a class="el" href="_dynamic_array_8hpp_source.html">DynamicArray.hpp</a>.</p>
 
 </div>
 </div>
@@ -1568,7 +1728,7 @@ template&lt;typename T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definición en la línea <a class="el" href="_dynamic_array_8hpp_source.html#l00645">645</a> del archivo <a class="el" href="_dynamic_array_8hpp_source.html">DynamicArray.hpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_dynamic_array_8hpp_source.html#l00646">646</a> del archivo <a class="el" href="_dynamic_array_8hpp_source.html">DynamicArray.hpp</a>.</p>
 
 </div>
 </div>
@@ -1613,7 +1773,7 @@ template&lt;typename T &gt; </div>
   </dd>
 </dl>
 
-<p class="definition">Definición en la línea <a class="el" href="_dynamic_array_8hpp_source.html#l00642">642</a> del archivo <a class="el" href="_dynamic_array_8hpp_source.html">DynamicArray.hpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_dynamic_array_8hpp_source.html#l00643">643</a> del archivo <a class="el" href="_dynamic_array_8hpp_source.html">DynamicArray.hpp</a>.</p>
 
 </div>
 </div>
@@ -1645,7 +1805,7 @@ template&lt;typename T &gt; </div>
 <p>Devuelve el último elemento de la lista. </p>
 <dl class="section note"><dt>Nota</dt><dd>No lo quita de la lista. </dd></dl>
 
-<p class="definition">Definición en la línea <a class="el" href="_dynamic_array_8hpp_source.html#l00433">433</a> del archivo <a class="el" href="_dynamic_array_8hpp_source.html">DynamicArray.hpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_dynamic_array_8hpp_source.html#l00434">434</a> del archivo <a class="el" href="_dynamic_array_8hpp_source.html">DynamicArray.hpp</a>.</p>
 
 </div>
 </div>
@@ -1677,7 +1837,7 @@ template&lt;typename T &gt; </div>
 <p>Devuelve el último elemento de la lista. </p>
 <dl class="section note"><dt>Nota</dt><dd>Lo quita de la lista. </dd></dl>
 
-<p class="definition">Definición en la línea <a class="el" href="_dynamic_array_8hpp_source.html#l00442">442</a> del archivo <a class="el" href="_dynamic_array_8hpp_source.html">DynamicArray.hpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_dynamic_array_8hpp_source.html#l00443">443</a> del archivo <a class="el" href="_dynamic_array_8hpp_source.html">DynamicArray.hpp</a>.</p>
 
 </div>
 </div>
@@ -1708,7 +1868,7 @@ template&lt;typename T &gt; </div>
 
 <p>Añade el elemento al final de la lista. </p>
 
-<p class="definition">Definición en la línea <a class="el" href="_dynamic_array_8hpp_source.html#l00417">417</a> del archivo <a class="el" href="_dynamic_array_8hpp_source.html">DynamicArray.hpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_dynamic_array_8hpp_source.html#l00418">418</a> del archivo <a class="el" href="_dynamic_array_8hpp_source.html">DynamicArray.hpp</a>.</p>
 
 </div>
 </div>
@@ -1739,7 +1899,7 @@ template&lt;typename T &gt; </div>
 
 <p>Añade el elemento al final de la lista. </p>
 
-<p class="definition">Definición en la línea <a class="el" href="_dynamic_array_8hpp_source.html#l00424">424</a> del archivo <a class="el" href="_dynamic_array_8hpp_source.html">DynamicArray.hpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_dynamic_array_8hpp_source.html#l00425">425</a> del archivo <a class="el" href="_dynamic_array_8hpp_source.html">DynamicArray.hpp</a>.</p>
 
 </div>
 </div>
@@ -1774,7 +1934,7 @@ template&lt;typename T &gt; </div>
 <dd>
 Elimina únicamente la primera aparición. </dd></dl>
 
-<p class="definition">Definición en la línea <a class="el" href="_dynamic_array_8hpp_source.html#l00538">538</a> del archivo <a class="el" href="_dynamic_array_8hpp_source.html">DynamicArray.hpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_dynamic_array_8hpp_source.html#l00539">539</a> del archivo <a class="el" href="_dynamic_array_8hpp_source.html">DynamicArray.hpp</a>.</p>
 
 </div>
 </div>
@@ -1812,7 +1972,7 @@ template&lt;typename T &gt; </div>
   </dd>
 </dl>
 
-<p class="definition">Definición en la línea <a class="el" href="_dynamic_array_8hpp_source.html#l00508">508</a> del archivo <a class="el" href="_dynamic_array_8hpp_source.html">DynamicArray.hpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_dynamic_array_8hpp_source.html#l00509">509</a> del archivo <a class="el" href="_dynamic_array_8hpp_source.html">DynamicArray.hpp</a>.</p>
 
 </div>
 </div>
@@ -1849,7 +2009,7 @@ template&lt;typename T &gt; </div>
   </dd>
 </dl>
 
-<p class="definition">Definición en la línea <a class="el" href="_dynamic_array_8hpp_source.html#l00549">549</a> del archivo <a class="el" href="_dynamic_array_8hpp_source.html">DynamicArray.hpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_dynamic_array_8hpp_source.html#l00550">550</a> del archivo <a class="el" href="_dynamic_array_8hpp_source.html">DynamicArray.hpp</a>.</p>
 
 </div>
 </div>
@@ -1880,7 +2040,7 @@ template&lt;typename T &gt; </div>
 
 <p>Cambia el tamaño del array. Los datos se conservan, siempre que se pueda. </p>
 
-<p class="definition">Definición en la línea <a class="el" href="_dynamic_array_8hpp_source.html#l00467">467</a> del archivo <a class="el" href="_dynamic_array_8hpp_source.html">DynamicArray.hpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_dynamic_array_8hpp_source.html#l00468">468</a> del archivo <a class="el" href="_dynamic_array_8hpp_source.html">DynamicArray.hpp</a>.</p>
 
 </div>
 </div>
@@ -1917,7 +2077,7 @@ template&lt;typename... TArgs&gt; </div>
 
 <p>Cambia el tamaño del array. Los datos se conservan, siempre que se pueda. Se añaden elementos hasta que haya 'size' elementos. </p>
 
-<p class="definition">Definición en la línea <a class="el" href="_dynamic_array_8hpp_source.html#l00476">476</a> del archivo <a class="el" href="_dynamic_array_8hpp_source.html">DynamicArray.hpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_dynamic_array_8hpp_source.html#l00477">477</a> del archivo <a class="el" href="_dynamic_array_8hpp_source.html">DynamicArray.hpp</a>.</p>
 
 </div>
 </div>
@@ -1954,7 +2114,7 @@ template&lt;typename... TArgs&gt; </div>
 
 <p>Cambia el tamaño del array. Los datos se conservan, siempre que se pueda. Se añaden elementos hasta que haya 'size' elementos. </p>
 
-<p class="definition">Definición en la línea <a class="el" href="_dynamic_array_8hpp_source.html#l00491">491</a> del archivo <a class="el" href="_dynamic_array_8hpp_source.html">DynamicArray.hpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_dynamic_array_8hpp_source.html#l00492">492</a> del archivo <a class="el" href="_dynamic_array_8hpp_source.html">DynamicArray.hpp</a>.</p>
 
 </div>
 </div>
@@ -1975,7 +2135,7 @@ template&lt;typename T &gt; </div>
 
 <p>Comportamiento al aumentar de tamaño. </p>
 
-<p class="definition">Definición en la línea <a class="el" href="_dynamic_array_8hpp_source.html#l00728">728</a> del archivo <a class="el" href="_dynamic_array_8hpp_source.html">DynamicArray.hpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_dynamic_array_8hpp_source.html#l00765">765</a> del archivo <a class="el" href="_dynamic_array_8hpp_source.html">DynamicArray.hpp</a>.</p>
 
 </div>
 </div>
@@ -2003,7 +2163,7 @@ template&lt;typename T &gt; </div>
 
 <p>Tamaño inicial. </p>
 
-<p class="definition">Definición en la línea <a class="el" href="_dynamic_array_8hpp_source.html#l00071">71</a> del archivo <a class="el" href="_dynamic_array_8hpp_source.html">DynamicArray.hpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_dynamic_array_8hpp_source.html#l00072">72</a> del archivo <a class="el" href="_dynamic_array_8hpp_source.html">DynamicArray.hpp</a>.</p>
 
 </div>
 </div>
@@ -2029,7 +2189,7 @@ template&lt;typename T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definición en la línea <a class="el" href="_dynamic_array_8hpp_source.html#l00583">583</a> del archivo <a class="el" href="_dynamic_array_8hpp_source.html">DynamicArray.hpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_dynamic_array_8hpp_source.html#l00584">584</a> del archivo <a class="el" href="_dynamic_array_8hpp_source.html">DynamicArray.hpp</a>.</p>
 
 </div>
 </div>
@@ -2042,7 +2202,7 @@ template&lt;typename T &gt; </div>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="namespace_o_s_k.html">OSK</a></li><li class="navelem"><a class="el" href="class_o_s_k_1_1_dynamic_array.html">DynamicArray</a></li>
-    <li class="footer">Generado el Lunes, 29 de enero de 2024 17:23:00 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.10.0 </li>
+    <li class="footer">Generado el Jueves, 28 de marzo de 2024 17:53:12 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.10.0 </li>
   </ul>
 </div>
 </body>

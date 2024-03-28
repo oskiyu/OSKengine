@@ -19,6 +19,5 @@ var searchData=
   ['depth_5fstencil_5ftarget_16',['DEPTH_STENCIL_TARGET',['../namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a20f40e3d3e967090ee1884e0c77b9df9aad449a013a6d7a34d5ea38b6263ff6d8',1,'OSK::GRAPHICS::DEPTH_STENCIL_TARGET'],['../namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#ade40ecf1619c14b53344301c1eca1bcaaad449a013a6d7a34d5ea38b6263ff6d8',1,'OSK::GRAPHICS::DEPTH_STENCIL_TARGET']]],
   ['depth_5fstencil_5fwrite_17',['DEPTH_STENCIL_WRITE',['../namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#ad268e74ba4a1759bcbdfadcb7ecfa259a90348e17527ad0393b938a05737320a7',1,'OSK::GRAPHICS']]],
   ['down_18',['DOWN',['../namespace_o_s_k_1_1_i_o.html#a0b92714a4a778072d4824502589bd39eac4e0e4e3118472beeb2ae75827450f1f',1,'OSK::IO']]],
-  ['dx12_19',['DX12',['../namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a3057691f190dabf7642cfde72cf2430fa8bfc0c05d68d95476338b4d64a879c33',1,'OSK::GRAPHICS']]],
-  ['dynamic_20',['DYNAMIC',['../namespace_o_s_k_1_1_a_s_s_e_t_s.html#abe608719d1d14e6e8f0c485348f82b46a0fcc90da4811c877ba9f9c12f7d60bc9',1,'OSK::ASSETS']]]
+  ['dx12_19',['DX12',['../namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a3057691f190dabf7642cfde72cf2430fa8bfc0c05d68d95476338b4d64a879c33',1,'OSK::GRAPHICS']]]
 ];

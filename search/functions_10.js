@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['quaternion_0',['Quaternion',['../class_o_s_k_1_1_quaternion.html#abcc01358aada56ea5f0db4da18aaf77d',1,'OSK::Quaternion']]],
+  ['quaternion_0',['Quaternion',['../class_o_s_k_1_1_quaternion.html#ab297a7a6ebea147111c4547aefa8f126',1,'OSK::Quaternion']]],
   ['queryconstinterface_1',['QueryConstInterface',['../class_o_s_k_1_1_i_query_interface.html#a589dec31a1efd4e4f69b9513a7086825',1,'OSK::IQueryInterface::QueryConstInterface(TInterfaceUuid uuid, const void **ptr) const =0'],['../class_o_s_k_1_1_i_query_interface.html#a04792bb58288a5a2e890c506a8ad1a8c',1,'OSK::IQueryInterface::QueryConstInterface(IUUID uuid, const void **ptr) const'],['../class_o_s_k_1_1_i_o_1_1_pc_user_input.html#afe5e6cb12858e2283b37b3b93889ae03',1,'OSK::IO::PcUserInput::QueryConstInterface()'],['../class_o_s_k_1_1_i_o_1_1_window.html#a9ba775b62b74a7a39c6e91acf6446c6a',1,'OSK::IO::Window::QueryConstInterface()']]],
   ['queryinterface_2',['QueryInterface',['../class_o_s_k_1_1_i_query_interface.html#abf1b865ec9b11ced8c2d35660aab9346',1,'OSK::IQueryInterface::QueryInterface(TInterfaceUuid interfaceUuid, void **ptr) const =0'],['../class_o_s_k_1_1_i_query_interface.html#a96e28be0f3cec3a83c161d417162288f',1,'OSK::IQueryInterface::QueryInterface(IUUID uuid, void **ptr) const'],['../class_o_s_k_1_1_i_o_1_1_pc_user_input.html#adc05725ed42f9df7fcc020822378a49f',1,'OSK::IO::PcUserInput::QueryInterface()'],['../class_o_s_k_1_1_i_o_1_1_window.html#a57a3c9c0e6f2e028cb551d9b2df5c49b',1,'OSK::IO::Window::QueryInterface()']]]
 ];

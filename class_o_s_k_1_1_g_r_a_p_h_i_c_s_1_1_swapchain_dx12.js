@@ -16,7 +16,7 @@ var class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_swapchain_dx12 =
     [ "OSK_DEFINE_AS", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_swapchain_dx12.html#a42d404105397016f4590ca3d5b8d705e", null ],
     [ "Present", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_swapchain_dx12.html#a2b32ff591946bb42ff3a4d50cbd45732", null ],
     [ "SetPresentMode", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_swapchain_dx12.html#af654fb9beb956273b33217eb0203aa2c", null ],
-    [ "TakeScreenshot", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_swapchain_dx12.html#aa7a44b30d06a1e8c33ff309dac3a0187", null ],
+    [ "TakeScreenshot", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_swapchain_dx12.html#ade42c48de233c97ce745413780ccc75c", null ],
     [ "UpdateFrameIndex", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_swapchain_dx12.html#a6b8b38be2d0042035bc6c08605faddf2", null ],
     [ "m_colorFormat", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_swapchain_dx12.html#aaeae2bf71a75923024953e44b6de4507", null ],
     [ "m_currentFrameIndex", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_swapchain_dx12.html#aae0f2502eef0d8bd18de4aaa15654e2f", null ],

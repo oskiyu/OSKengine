@@ -2,6 +2,7 @@ var namespace_o_s_k_1_1_a_s_s_e_t_s =
 [
     [ "AnimMeshLoader", "class_o_s_k_1_1_a_s_s_e_t_s_1_1_anim_mesh_loader.html", "class_o_s_k_1_1_a_s_s_e_t_s_1_1_anim_mesh_loader" ],
     [ "AssetDescriptionFileNotFoundException", "class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_description_file_not_found_exception.html", "class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_description_file_not_found_exception" ],
+    [ "AssetLoaderAlreadyRegisteredException", "class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_loader_already_registered_exception.html", "class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_loader_already_registered_exception" ],
     [ "AssetLoaderNotFoundException", "class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_loader_not_found_exception.html", "class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_loader_not_found_exception" ],
     [ "AssetManager", "class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_manager.html", "class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_manager" ],
     [ "AssetOwningRef", "class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_owning_ref.html", "class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_owning_ref" ],
@@ -17,19 +18,17 @@ var namespace_o_s_k_1_1_a_s_s_e_t_s =
     [ "FontLibraryInitializationException", "class_o_s_k_1_1_a_s_s_e_t_s_1_1_font_library_initialization_exception.html", "class_o_s_k_1_1_a_s_s_e_t_s_1_1_font_library_initialization_exception" ],
     [ "FontLoader", "class_o_s_k_1_1_a_s_s_e_t_s_1_1_font_loader.html", "class_o_s_k_1_1_a_s_s_e_t_s_1_1_font_loader" ],
     [ "FontLodaingException", "class_o_s_k_1_1_a_s_s_e_t_s_1_1_font_lodaing_exception.html", "class_o_s_k_1_1_a_s_s_e_t_s_1_1_font_lodaing_exception" ],
-    [ "GltfMaterialInfo", "struct_o_s_k_1_1_a_s_s_e_t_s_1_1_gltf_material_info.html", "struct_o_s_k_1_1_a_s_s_e_t_s_1_1_gltf_material_info" ],
-    [ "GltfModelInfo", "struct_o_s_k_1_1_a_s_s_e_t_s_1_1_gltf_model_info.html", "struct_o_s_k_1_1_a_s_s_e_t_s_1_1_gltf_model_info" ],
+    [ "GltfLoader", "class_o_s_k_1_1_a_s_s_e_t_s_1_1_gltf_loader.html", null ],
     [ "IAsset", "class_o_s_k_1_1_a_s_s_e_t_s_1_1_i_asset.html", "class_o_s_k_1_1_a_s_s_e_t_s_1_1_i_asset" ],
     [ "IAssetLoader", "class_o_s_k_1_1_a_s_s_e_t_s_1_1_i_asset_loader.html", "class_o_s_k_1_1_a_s_s_e_t_s_1_1_i_asset_loader" ],
-    [ "IGltfLoader", "class_o_s_k_1_1_a_s_s_e_t_s_1_1_i_gltf_loader.html", "class_o_s_k_1_1_a_s_s_e_t_s_1_1_i_gltf_loader" ],
     [ "InvalidDescriptionFileException", "class_o_s_k_1_1_a_s_s_e_t_s_1_1_invalid_description_file_exception.html", "class_o_s_k_1_1_a_s_s_e_t_s_1_1_invalid_description_file_exception" ],
     [ "IrradianceMap", "class_o_s_k_1_1_a_s_s_e_t_s_1_1_irradiance_map.html", "class_o_s_k_1_1_a_s_s_e_t_s_1_1_irradiance_map" ],
     [ "IrradianceMapLoader", "class_o_s_k_1_1_a_s_s_e_t_s_1_1_irradiance_map_loader.html", "class_o_s_k_1_1_a_s_s_e_t_s_1_1_irradiance_map_loader" ],
-    [ "MaterialMetadata", "struct_o_s_k_1_1_a_s_s_e_t_s_1_1_material_metadata.html", "struct_o_s_k_1_1_a_s_s_e_t_s_1_1_material_metadata" ],
-    [ "MeshMetadata", "struct_o_s_k_1_1_a_s_s_e_t_s_1_1_mesh_metadata.html", "struct_o_s_k_1_1_a_s_s_e_t_s_1_1_mesh_metadata" ],
     [ "Model3D", "class_o_s_k_1_1_a_s_s_e_t_s_1_1_model3_d.html", "class_o_s_k_1_1_a_s_s_e_t_s_1_1_model3_d" ],
     [ "ModelLoader3D", "class_o_s_k_1_1_a_s_s_e_t_s_1_1_model_loader3_d.html", "class_o_s_k_1_1_a_s_s_e_t_s_1_1_model_loader3_d" ],
-    [ "ModelMetadata", "struct_o_s_k_1_1_a_s_s_e_t_s_1_1_model_metadata.html", "struct_o_s_k_1_1_a_s_s_e_t_s_1_1_model_metadata" ],
+    [ "NoVertexBoneIndicesFoundException", "class_o_s_k_1_1_a_s_s_e_t_s_1_1_no_vertex_bone_indices_found_exception.html", "class_o_s_k_1_1_a_s_s_e_t_s_1_1_no_vertex_bone_indices_found_exception" ],
+    [ "NoVertexBoneWeightsFoundException", "class_o_s_k_1_1_a_s_s_e_t_s_1_1_no_vertex_bone_weights_found_exception.html", "class_o_s_k_1_1_a_s_s_e_t_s_1_1_no_vertex_bone_weights_found_exception" ],
+    [ "NoVertexColorFoundException", "class_o_s_k_1_1_a_s_s_e_t_s_1_1_no_vertex_color_found_exception.html", "class_o_s_k_1_1_a_s_s_e_t_s_1_1_no_vertex_color_found_exception" ],
     [ "NoVertexNormalsFoundException", "class_o_s_k_1_1_a_s_s_e_t_s_1_1_no_vertex_normals_found_exception.html", "class_o_s_k_1_1_a_s_s_e_t_s_1_1_no_vertex_normals_found_exception" ],
     [ "NoVertexPositionsFoundException", "class_o_s_k_1_1_a_s_s_e_t_s_1_1_no_vertex_positions_found_exception.html", "class_o_s_k_1_1_a_s_s_e_t_s_1_1_no_vertex_positions_found_exception" ],
     [ "NoVertexTangentsFoundException", "class_o_s_k_1_1_a_s_s_e_t_s_1_1_no_vertex_tangents_found_exception.html", "class_o_s_k_1_1_a_s_s_e_t_s_1_1_no_vertex_tangents_found_exception" ],
@@ -49,14 +48,5 @@ var namespace_o_s_k_1_1_a_s_s_e_t_s =
     [ "UnsupportedJointTypeException", "class_o_s_k_1_1_a_s_s_e_t_s_1_1_unsupported_joint_type_exception.html", "class_o_s_k_1_1_a_s_s_e_t_s_1_1_unsupported_joint_type_exception" ],
     [ "UnsupportedMeshProperties", "class_o_s_k_1_1_a_s_s_e_t_s_1_1_unsupported_mesh_properties.html", "class_o_s_k_1_1_a_s_s_e_t_s_1_1_unsupported_mesh_properties" ],
     [ "UnsupportedModelImageFormatException", "class_o_s_k_1_1_a_s_s_e_t_s_1_1_unsupported_model_image_format_exception.html", "class_o_s_k_1_1_a_s_s_e_t_s_1_1_unsupported_model_image_format_exception" ],
-    [ "UnsupportedPolygonModeException", "class_o_s_k_1_1_a_s_s_e_t_s_1_1_unsupported_polygon_mode_exception.html", "class_o_s_k_1_1_a_s_s_e_t_s_1_1_unsupported_polygon_mode_exception" ],
-    [ "ModelMobilityType", "namespace_o_s_k_1_1_a_s_s_e_t_s.html#abe608719d1d14e6e8f0c485348f82b46", [
-      [ "STATIC", "namespace_o_s_k_1_1_a_s_s_e_t_s.html#abe608719d1d14e6e8f0c485348f82b46afe6f99ef1ec99efbdc19a9786cf1facc", null ],
-      [ "MOSTLY_STATIC", "namespace_o_s_k_1_1_a_s_s_e_t_s.html#abe608719d1d14e6e8f0c485348f82b46a5c07222288077e12664b8028bc4fe3be", null ],
-      [ "DYNAMIC", "namespace_o_s_k_1_1_a_s_s_e_t_s.html#abe608719d1d14e6e8f0c485348f82b46a0fcc90da4811c877ba9f9c12f7d60bc9", null ]
-    ] ],
-    [ "ModelType", "namespace_o_s_k_1_1_a_s_s_e_t_s.html#a192866f841033401ce3c83efcaf81027", [
-      [ "STATIC_MESH", "namespace_o_s_k_1_1_a_s_s_e_t_s.html#a192866f841033401ce3c83efcaf81027a9ae070d34a7ef3af54b1fd95652c0e18", null ],
-      [ "ANIMATED_MODEL", "namespace_o_s_k_1_1_a_s_s_e_t_s.html#a192866f841033401ce3c83efcaf81027a4977f736e80475f02eb114d4352c037c", null ]
-    ] ]
+    [ "UnsupportedPolygonModeException", "class_o_s_k_1_1_a_s_s_e_t_s_1_1_unsupported_polygon_mode_exception.html", "class_o_s_k_1_1_a_s_s_e_t_s_1_1_unsupported_polygon_mode_exception" ]
 ];

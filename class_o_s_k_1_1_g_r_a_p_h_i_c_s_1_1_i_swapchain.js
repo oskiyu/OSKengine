@@ -10,7 +10,7 @@ var class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_swapchain =
     [ "OSK_DEFINE_AS", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_swapchain.html#a42d404105397016f4590ca3d5b8d705e", null ],
     [ "Present", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_swapchain.html#ab42ef18df4fc72d0a6b17829b2aa8b7f", null ],
     [ "SetPresentMode", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_swapchain.html#a4c140ea50462cb4a340b81b5223ef2e9", null ],
-    [ "TakeScreenshot", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_swapchain.html#aa7a44b30d06a1e8c33ff309dac3a0187", null ],
+    [ "TakeScreenshot", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_swapchain.html#ade42c48de233c97ce745413780ccc75c", null ],
     [ "m_colorFormat", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_swapchain.html#aaeae2bf71a75923024953e44b6de4507", null ],
     [ "m_currentFrameIndex", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_swapchain.html#aae0f2502eef0d8bd18de4aaa15654e2f", null ],
     [ "m_device", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_swapchain.html#af040938a43d516f60b65e67029876ad3", null ],

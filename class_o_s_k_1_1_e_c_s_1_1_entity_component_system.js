@@ -15,11 +15,12 @@ var class_o_s_k_1_1_e_c_s_1_1_entity_component_system =
     [ "HasSystem", "class_o_s_k_1_1_e_c_s_1_1_entity_component_system.html#af99b27ec5c4a675906a93b473d07ba18", null ],
     [ "IsGameObjectAlive", "class_o_s_k_1_1_e_c_s_1_1_entity_component_system.html#aab8512a19f26e2beefe570ab3ea04207", null ],
     [ "ObjectHasComponent", "class_o_s_k_1_1_e_c_s_1_1_entity_component_system.html#a433fc2a7434470f4fbc01d62c32f535c", null ],
+    [ "OnRender", "class_o_s_k_1_1_e_c_s_1_1_entity_component_system.html#a9fe514873725525079db5a80a2333c98", null ],
     [ "OnTick", "class_o_s_k_1_1_e_c_s_1_1_entity_component_system.html#a5a836db0967b2e872e8d66b379bb0728", null ],
     [ "PublishEvent", "class_o_s_k_1_1_e_c_s_1_1_entity_component_system.html#a2772cc0a8ea3a3ace7aa0e933101d1f5", null ],
     [ "RegisterComponent", "class_o_s_k_1_1_e_c_s_1_1_entity_component_system.html#adaedf90c82706a70eba2fbee61d28cd3", null ],
     [ "RegisterEventType", "class_o_s_k_1_1_e_c_s_1_1_entity_component_system.html#aea919328b2cc80dc457f4160b2e89eb3", null ],
-    [ "RegisterSystem", "class_o_s_k_1_1_e_c_s_1_1_entity_component_system.html#aa723265b8b13628ec83b02505bf95542", null ],
+    [ "RegisterSystem", "class_o_s_k_1_1_e_c_s_1_1_entity_component_system.html#aa2570d5d96c1f4704b52c835294f7aa5", null ],
     [ "RemoveComponent", "class_o_s_k_1_1_e_c_s_1_1_entity_component_system.html#a951795223a1dbef1b648f2dbe1b29b2d", null ],
     [ "RemoveSystem", "class_o_s_k_1_1_e_c_s_1_1_entity_component_system.html#a798a0e00bae8eecdee1ff9d4cdcb8ebd", null ],
     [ "SpawnObject", "class_o_s_k_1_1_e_c_s_1_1_entity_component_system.html#a8fdd1a158a10e388946a2c3e0ddf1eb5", null ]

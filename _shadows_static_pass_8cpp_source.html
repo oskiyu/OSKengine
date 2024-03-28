@@ -1,0 +1,232 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="es">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.10.0"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>OSKengine: Archivo de código fuente Source/ShadowsStaticPass.cpp</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="doxygen-awesome.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">OSKengine<span id="projectnumber">&#160;Indev</span>
+   </div>
+   <div id="projectbrief">Motor de videojuegos.</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generado por Doxygen 1.10.0 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() {
+  initMenu('',true,false,'search.php','Buscar');
+  $(function() { init_search(); });
+});
+/* @license-end */
+</script>
+<div id="main-nav"></div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() { codefold.init(0); });
+/* @license-end */
+</script>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function(){initNavTree('_shadows_static_pass_8cpp_source.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Cargando...</div>
+<div class="SRStatus" id="Searching">Buscando...</div>
+<div class="SRStatus" id="NoMatches">Nada coincide</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">ShadowsStaticPass.cpp</div></div>
+</div><!--header-->
+<div class="contents">
+<a href="_shadows_static_pass_8cpp.html">Ir a la documentación de este archivo.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#include &quot;<a class="code" href="_shadows_static_pass_8h.html">ShadowsStaticPass.h</a>&quot;</span></div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span> </div>
+<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="preprocessor">#include &quot;<a class="code" href="_o_s_kengine_8h.html">OSKengine.h</a>&quot;</span></div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &quot;<a class="code" href="_entity_component_system_8h.html">EntityComponentSystem.h</a>&quot;</span></div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span> </div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &quot;<a class="code" href="_camera_component3_d_8h.html">CameraComponent3D.h</a>&quot;</span></div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="preprocessor">#include &quot;<a class="code" href="_transform3_d_8h.html">Transform3D.h</a>&quot;</span></div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="preprocessor">#include &quot;<a class="code" href="_model_component3_d_8h.html">ModelComponent3D.h</a>&quot;</span></div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="preprocessor">#include &quot;<a class="code" href="_model3_d_8h.html">Model3D.h</a>&quot;</span></div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="preprocessor">#include &quot;<a class="code" href="_deferred_push_constants_8h.html">DeferredPushConstants.h</a>&quot;</span></div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="preprocessor">#include &quot;<a class="code" href="_texture_8h.html">Texture.h</a>&quot;</span></div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span> </div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="preprocessor">#include &quot;<a class="code" href="_shadow_map_8h.html">ShadowMap.h</a>&quot;</span></div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span><span class="preprocessor">#include &quot;<a class="code" href="_matrix_operations_8hpp.html">MatrixOperations.hpp</a>&quot;</span></div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span> </div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span><span class="preprocessor">#include &lt;unordered_set&gt;</span></div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span> </div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span><span class="preprocessor">#include &quot;<a class="code" href="_vertex3_d_8h.html">Vertex3D.h</a>&quot;</span></div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span> </div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span><span class="keyword">using namespace </span><a class="code hl_namespace" href="namespace_o_s_k.html">OSK</a>;</div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span><span class="keyword">using namespace </span><a class="code hl_namespace" href="namespace_o_s_k_1_1_e_c_s.html">OSK::ECS</a>;</div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span><span class="keyword">using namespace </span><a class="code hl_namespace" href="namespace_o_s_k_1_1_a_s_s_e_t_s.html">OSK::ASSETS</a>;</div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span><span class="keyword">using namespace </span><a class="code hl_namespace" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html">OSK::GRAPHICS</a>;</div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span> </div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span> </div>
+<div class="foldopen" id="foldopen00026" data-start="{" data-end="}">
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_shadows_static_pass.html#a4f37da183a46fa1af23deb46baf80610">   26</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_shadows_static_pass.html#a4f37da183a46fa1af23deb46baf80610">ShadowsStaticPass::Load</a>() {</div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>    <a class="code hl_variable" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_shader_pass.html#ac260238caa4992b8f63f73c208029a8f">m_passMaterial</a> = <a class="code hl_function" href="class_o_s_k_1_1_engine.html#a019c5397d042224c134b7fd22c739d00">Engine::GetRenderer</a>()-&gt;GetMaterialSystem()-&gt;LoadMaterial(<span class="stringliteral">&quot;Resources/Materials/ShadowMapping/material_shadows.json&quot;</span>);</div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>    m_materialInstance = <a class="code hl_variable" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_shader_pass.html#ac260238caa4992b8f63f73c208029a8f">m_passMaterial</a>-&gt;<a class="code hl_function" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material.html#acf1dacea3b45a53ca86d96e30af22af1">CreateInstance</a>().GetPointer();</div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>}</div>
+</div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span> </div>
+<div class="foldopen" id="foldopen00031" data-start="{" data-end="}">
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_shadows_static_pass.html#ac7691f6b6bff92d780ced198fe968077">   31</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_shadows_static_pass.html#ac7691f6b6bff92d780ced198fe968077">ShadowsStaticPass::SetupShadowMap</a>(<span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_shadow_map.html">ShadowMap</a>&amp; <a class="code hl_class" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">shadowMap</a>) {</div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>    <span class="keyword">auto</span> <a class="code hl_class" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">lightUbos</a> = <a class="code hl_class" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">shadowMap</a>.GetGpuBuffers();</div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span> </div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>    m_materialInstance-&gt;GetSlot(<span class="stringliteral">&quot;global&quot;</span>)-&gt;SetUniformBuffers(<span class="stringliteral">&quot;dirLight&quot;</span>, <a class="code hl_class" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">lightUbos</a>);</div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>    m_materialInstance-&gt;GetSlot(<span class="stringliteral">&quot;global&quot;</span>)-&gt;FlushUpdate();</div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>}</div>
+</div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span> </div>
+<div class="foldopen" id="foldopen00038" data-start="{" data-end="}">
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_shadows_static_pass.html#a8c2cc40cd5cfa52ad8dc80001912075d">   38</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_shadows_static_pass.html#a8c2cc40cd5cfa52ad8dc80001912075d">ShadowsStaticPass::ShadowsRenderLoop</a>(<a class="code hl_class" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list.html">ICommandList</a>* commandList, <span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">DynamicArray&lt;ECS::GameObjectIndex&gt;</a>&amp; <a class="code hl_class" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">objectsToRender</a>, <a class="code hl_typedef" href="_o_s_kmacros_8h.html#af205b9fd0440138e6cac38a9081141df">UIndex32</a> <a class="code hl_class" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">cascadeIndex</a>, <span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_shadow_map.html">ShadowMap</a>&amp; <a class="code hl_class" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">shadowMap</a>) {</div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>    <span class="keywordflow">if</span> (!m_hasBeenSet) {</div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>        <a class="code hl_function" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_shadows_static_pass.html#ac7691f6b6bff92d780ced198fe968077">SetupShadowMap</a>(<a class="code hl_class" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">shadowMap</a>);</div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>        m_hasBeenSet = <span class="keyword">true</span>;</div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>    }</div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>    </div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>    commandList-&gt;<a class="code hl_function" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list.html#a09c13f55f611baa6b54956612c2e4ce7">BindMaterial</a>(*<a class="code hl_variable" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_shader_pass.html#ac260238caa4992b8f63f73c208029a8f">m_passMaterial</a>);</div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>    commandList-&gt;<a class="code hl_function" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list.html#abffebf19b48d6d193c0d7a875c82a115">BindMaterialSlot</a>(*m_materialInstance-&gt;GetSlot(<span class="stringliteral">&quot;global&quot;</span>));</div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span> </div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>    <span class="keywordflow">for</span> (<span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">GameObjectIndex</a> <a class="code hl_class" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">obj</a> : <a class="code hl_class" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">objectsToRender</a>) {</div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>        <span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_e_c_s_1_1_model_component3_d.html">ModelComponent3D</a>&amp; model = <a class="code hl_function" href="class_o_s_k_1_1_engine.html#a2e36571452395c924ab2211ad380298f">Engine::GetEcs</a>()-&gt;GetComponent&lt;<a class="code hl_class" href="class_o_s_k_1_1_e_c_s_1_1_model_component3_d.html">ModelComponent3D</a>&gt;(<a class="code hl_class" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">obj</a>);</div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>        <span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_e_c_s_1_1_transform3_d.html">Transform3D</a>&amp; <a class="code hl_class" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">transform</a> = <a class="code hl_function" href="class_o_s_k_1_1_engine.html#a2e36571452395c924ab2211ad380298f">Engine::GetEcs</a>()-&gt;GetComponent&lt;<a class="code hl_class" href="class_o_s_k_1_1_e_c_s_1_1_transform3_d.html">Transform3D</a>&gt;(<a class="code hl_class" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">obj</a>);</div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span> </div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>        <span class="keywordflow">if</span> (!model.<a class="code hl_function" href="class_o_s_k_1_1_e_c_s_1_1_model_component3_d.html#a7f7ca47e05391f710ecd78b5ab7e1185">CastsShadows</a>())</div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>            <span class="keywordflow">continue</span>;</div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span> </div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>        commandList-&gt;<a class="code hl_function" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list.html#a0e40eda73ff1f475140649d27a4306e7">BindVertexBuffer</a>(model.<a class="code hl_function" href="class_o_s_k_1_1_e_c_s_1_1_model_component3_d.html#adee5ff754c7633596b9ecf29a7cde82c">GetModel</a>()-&gt;<a class="code hl_function" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_model3_d.html#ab1fa76c4b19380a8b36e021700d4b607">GetVertexBuffer</a>());</div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>        commandList-&gt;<a class="code hl_function" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list.html#a87f6db835f225fc12e6b1849ff42f7aa">BindIndexBuffer</a>(model.<a class="code hl_function" href="class_o_s_k_1_1_e_c_s_1_1_model_component3_d.html#adee5ff754c7633596b9ecf29a7cde82c">GetModel</a>()-&gt;<a class="code hl_function" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_model3_d.html#a6f2efdacbb5bf1677731c2541d891e33">GetIndexBuffer</a>());</div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span> </div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>        <span class="keyword">struct </span>{</div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>            glm::mat4 model;</div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>            <span class="keywordtype">int</span> <a class="code hl_class" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">cascadeIndex</a>;</div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>        } <span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">pushConstant</a>{</div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>            .model = <a class="code hl_class" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">transform</a>.GetAsMatrix(),</div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>            .cascadeIndex = <span class="keyword">static_cast&lt;</span><span class="keywordtype">int</span><span class="keyword">&gt;</span>(<a class="code hl_class" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">cascadeIndex</a>)</div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>        };</div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>        commandList-&gt;<a class="code hl_function" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list.html#a93f5f50e194242bf308e3ca06bde3f50">PushMaterialConstants</a>(<span class="stringliteral">&quot;model&quot;</span>, <a class="code hl_class" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">pushConstant</a>);</div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span> </div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>        <span class="keywordflow">for</span> (<a class="code hl_typedef" href="_o_s_kmacros_8h.html#af205b9fd0440138e6cac38a9081141df">UIndex32</a> <a class="code hl_class" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">i</a> = 0; <a class="code hl_class" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">i</a> &lt; model.<a class="code hl_function" href="class_o_s_k_1_1_e_c_s_1_1_model_component3_d.html#adee5ff754c7633596b9ecf29a7cde82c">GetModel</a>()-&gt;<a class="code hl_function" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_model3_d.html#a7f40cff6ad596de25aac244ffb766463">GetMeshes</a>().GetSize(); <a class="code hl_class" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">i</a>++) {</div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>            commandList-&gt;<a class="code hl_function" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list.html#ad11552e4b7c251696eba4030e58e63a8">DrawSingleMesh</a>(</div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>                model.<a class="code hl_function" href="class_o_s_k_1_1_e_c_s_1_1_model_component3_d.html#adee5ff754c7633596b9ecf29a7cde82c">GetModel</a>()-&gt;<a class="code hl_function" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_model3_d.html#a7f40cff6ad596de25aac244ffb766463">GetMeshes</a>()[<a class="code hl_class" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">i</a>].GetFirstIndexIdx(),</div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>                model.<a class="code hl_function" href="class_o_s_k_1_1_e_c_s_1_1_model_component3_d.html#adee5ff754c7633596b9ecf29a7cde82c">GetModel</a>()-&gt;<a class="code hl_function" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_model3_d.html#a7f40cff6ad596de25aac244ffb766463">GetMeshes</a>()[<a class="code hl_class" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">i</a>].GetNumIndices());</div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>        }</div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>    }</div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>}</div>
+</div>
+<div class="ttc" id="a_camera_component3_d_8h_html"><div class="ttname"><a href="_camera_component3_d_8h.html">CameraComponent3D.h</a></div></div>
+<div class="ttc" id="a_deferred_push_constants_8h_html"><div class="ttname"><a href="_deferred_push_constants_8h.html">DeferredPushConstants.h</a></div></div>
+<div class="ttc" id="a_entity_component_system_8h_html"><div class="ttname"><a href="_entity_component_system_8h.html">EntityComponentSystem.h</a></div></div>
+<div class="ttc" id="a_matrix_operations_8hpp_html"><div class="ttname"><a href="_matrix_operations_8hpp.html">MatrixOperations.hpp</a></div></div>
+<div class="ttc" id="a_model3_d_8h_html"><div class="ttname"><a href="_model3_d_8h.html">Model3D.h</a></div></div>
+<div class="ttc" id="a_model_component3_d_8h_html"><div class="ttname"><a href="_model_component3_d_8h.html">ModelComponent3D.h</a></div></div>
+<div class="ttc" id="a_o_s_kengine_8h_html"><div class="ttname"><a href="_o_s_kengine_8h.html">OSKengine.h</a></div></div>
+<div class="ttc" id="a_o_s_kmacros_8h_html_af205b9fd0440138e6cac38a9081141df"><div class="ttname"><a href="_o_s_kmacros_8h.html#af205b9fd0440138e6cac38a9081141df">UIndex32</a></div><div class="ttdeci">uint32_t UIndex32</div><div class="ttdef"><b>Definition</b> <a href="_o_s_kmacros_8h_source.html#l00041">OSKmacros.h:41</a></div></div>
+<div class="ttc" id="a_shadow_map_8h_html"><div class="ttname"><a href="_shadow_map_8h.html">ShadowMap.h</a></div></div>
+<div class="ttc" id="a_shadows_static_pass_8h_html"><div class="ttname"><a href="_shadows_static_pass_8h.html">ShadowsStaticPass.h</a></div></div>
+<div class="ttc" id="a_texture_8h_html"><div class="ttname"><a href="_texture_8h.html">Texture.h</a></div></div>
+<div class="ttc" id="a_transform3_d_8h_html"><div class="ttname"><a href="_transform3_d_8h.html">Transform3D.h</a></div></div>
+<div class="ttc" id="a_vertex3_d_8h_html"><div class="ttname"><a href="_vertex3_d_8h.html">Vertex3D.h</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref_html"><div class="ttname"><a href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">OSK::ASSETS::AssetRef</a></div><div class="ttdoc">Referencia a un asset.</div><div class="ttdef"><b>Definition</b> <a href="_asset_ref_8h_source.html#l00012">AssetRef.h:12</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_e_c_s_1_1_model_component3_d_html"><div class="ttname"><a href="class_o_s_k_1_1_e_c_s_1_1_model_component3_d.html">OSK::ECS::ModelComponent3D</a></div><div class="ttdoc">Componente para el renderizado 3D de un objeto.</div><div class="ttdef"><b>Definition</b> <a href="_model_component3_d_8h_source.html#l00029">ModelComponent3D.h:29</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_e_c_s_1_1_model_component3_d_html_a7f7ca47e05391f710ecd78b5ab7e1185"><div class="ttname"><a href="class_o_s_k_1_1_e_c_s_1_1_model_component3_d.html#a7f7ca47e05391f710ecd78b5ab7e1185">OSK::ECS::ModelComponent3D::CastsShadows</a></div><div class="ttdeci">bool CastsShadows() const</div><div class="ttdef"><b>Definition</b> <a href="_model_component3_d_8h_source.html#l00060">ModelComponent3D.h:60</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_e_c_s_1_1_model_component3_d_html_adee5ff754c7633596b9ecf29a7cde82c"><div class="ttname"><a href="class_o_s_k_1_1_e_c_s_1_1_model_component3_d.html#adee5ff754c7633596b9ecf29a7cde82c">OSK::ECS::ModelComponent3D::GetModel</a></div><div class="ttdeci">GRAPHICS::GpuModel3D * GetModel()</div><div class="ttdef"><b>Definition</b> <a href="_model_component3_d_8cpp_source.html#l00041">ModelComponent3D.cpp:41</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_e_c_s_1_1_transform3_d_html"><div class="ttname"><a href="class_o_s_k_1_1_e_c_s_1_1_transform3_d.html">OSK::ECS::Transform3D</a></div><div class="ttdef"><b>Definition</b> <a href="_transform3_d_8h_source.html#l00013">Transform3D.h:13</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_engine_html_a019c5397d042224c134b7fd22c739d00"><div class="ttname"><a href="class_o_s_k_1_1_engine.html#a019c5397d042224c134b7fd22c739d00">OSK::Engine::GetRenderer</a></div><div class="ttdeci">static GRAPHICS::IRenderer * GetRenderer()</div><div class="ttdoc">Devuelve un puntero al renderizador del motor.</div><div class="ttdef"><b>Definition</b> <a href="_o_s_kengine_8cpp_source.html#l00215">OSKengine.cpp:215</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_engine_html_a2e36571452395c924ab2211ad380298f"><div class="ttname"><a href="class_o_s_k_1_1_engine.html#a2e36571452395c924ab2211ad380298f">OSK::Engine::GetEcs</a></div><div class="ttdeci">static ECS::EntityComponentSystem * GetEcs()</div><div class="ttdoc">Devuelve un puntero al ECS del motor.</div><div class="ttdef"><b>Definition</b> <a href="_o_s_kengine_8cpp_source.html#l00223">OSKengine.cpp:223</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_model3_d_html_a6f2efdacbb5bf1677731c2541d891e33"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_model3_d.html#a6f2efdacbb5bf1677731c2541d891e33">OSK::GRAPHICS::GpuModel3D::GetIndexBuffer</a></div><div class="ttdeci">const GpuBuffer &amp; GetIndexBuffer() const</div><div class="ttdef"><b>Definition</b> <a href="_gpu_model3_d_8cpp_source.html#l00095">GpuModel3D.cpp:95</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_model3_d_html_a7f40cff6ad596de25aac244ffb766463"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_model3_d.html#a7f40cff6ad596de25aac244ffb766463">OSK::GRAPHICS::GpuModel3D::GetMeshes</a></div><div class="ttdeci">DynamicArray&lt; GpuMesh3D &gt; &amp; GetMeshes()</div><div class="ttdef"><b>Definition</b> <a href="_gpu_model3_d_8cpp_source.html#l00047">GpuModel3D.cpp:47</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_model3_d_html_ab1fa76c4b19380a8b36e021700d4b607"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_model3_d.html#ab1fa76c4b19380a8b36e021700d4b607">OSK::GRAPHICS::GpuModel3D::GetVertexBuffer</a></div><div class="ttdeci">const GpuBuffer &amp; GetVertexBuffer() const</div><div class="ttdef"><b>Definition</b> <a href="_gpu_model3_d_8cpp_source.html#l00091">GpuModel3D.cpp:91</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list_html"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list.html">OSK::GRAPHICS::ICommandList</a></div><div class="ttdoc">Una lista de comandos contiene una serie de comandos que serán enviados a la GPU para su ejecución....</div><div class="ttdef"><b>Definition</b> <a href="_i_command_list_8h_source.html#l00114">ICommandList.h:114</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list_html_a09c13f55f611baa6b54956612c2e4ce7"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list.html#a09c13f55f611baa6b54956612c2e4ce7">OSK::GRAPHICS::ICommandList::BindMaterial</a></div><div class="ttdeci">void BindMaterial(const Material &amp;material)</div><div class="ttdoc">Establece el material que se va a usar a la hora de renderizar los próximos comandos.</div><div class="ttdef"><b>Definition</b> <a href="_i_command_list_8cpp_source.html#l00066">ICommandList.cpp:66</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list_html_a0e40eda73ff1f475140649d27a4306e7"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list.html#a0e40eda73ff1f475140649d27a4306e7">OSK::GRAPHICS::ICommandList::BindVertexBuffer</a></div><div class="ttdeci">void BindVertexBuffer(const GpuBuffer &amp;buffer)</div><div class="ttdoc">Establece el vertex buffer que se va a usar en los próximos renderizados.</div><div class="ttdef"><b>Definition</b> <a href="_i_command_list_8cpp_source.html#l00056">ICommandList.cpp:56</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list_html_a87f6db835f225fc12e6b1849ff42f7aa"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list.html#a87f6db835f225fc12e6b1849ff42f7aa">OSK::GRAPHICS::ICommandList::BindIndexBuffer</a></div><div class="ttdeci">void BindIndexBuffer(const GpuBuffer &amp;buffer)</div><div class="ttdoc">Establece el index buffer que se va a usar en los próximos renderizados.</div><div class="ttdef"><b>Definition</b> <a href="_i_command_list_8cpp_source.html#l00061">ICommandList.cpp:61</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list_html_a93f5f50e194242bf308e3ca06bde3f50"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list.html#a93f5f50e194242bf308e3ca06bde3f50">OSK::GRAPHICS::ICommandList::PushMaterialConstants</a></div><div class="ttdeci">void PushMaterialConstants(const std::string &amp;pushConstName, const void *data, USize32 size)</div><div class="ttdoc">Envía datos push constant al shader.</div><div class="ttdef"><b>Definition</b> <a href="_i_command_list_8cpp_source.html#l00099">ICommandList.cpp:99</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list_html_abffebf19b48d6d193c0d7a875c82a115"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list.html#abffebf19b48d6d193c0d7a875c82a115">OSK::GRAPHICS::ICommandList::BindMaterialSlot</a></div><div class="ttdeci">virtual void BindMaterialSlot(const IMaterialSlot &amp;slot)=0</div><div class="ttdoc">Establece un material slot que estará asignado en los próximos comandos de renderizado....</div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list_html_ad11552e4b7c251696eba4030e58e63a8"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list.html#ad11552e4b7c251696eba4030e58e63a8">OSK::GRAPHICS::ICommandList::DrawSingleMesh</a></div><div class="ttdeci">virtual void DrawSingleMesh(UIndex32 firstIndex, USize32 numIndices)=0</div><div class="ttdoc">Renderiza los triángulos del mesh, con el material enlazado.</div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_shader_pass_html_ac260238caa4992b8f63f73c208029a8f"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_shader_pass.html#ac260238caa4992b8f63f73c208029a8f">OSK::GRAPHICS::IShaderPass::m_passMaterial</a></div><div class="ttdeci">Material * m_passMaterial</div><div class="ttdoc">Material del pase.</div><div class="ttdef"><b>Definition</b> <a href="_i_shader_pass_8h_source.html#l00094">IShaderPass.h:94</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_html_acf1dacea3b45a53ca86d96e30af22af1"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material.html#acf1dacea3b45a53ca86d96e30af22af1">OSK::GRAPHICS::Material::CreateInstance</a></div><div class="ttdeci">OwnedPtr&lt; MaterialInstance &gt; CreateInstance()</div><div class="ttdoc">Crea y devuelve una nueva instancia de este material.</div><div class="ttdef"><b>Definition</b> <a href="_material_8cpp_source.html#l00024">Material.cpp:24</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_shadow_map_html"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_shadow_map.html">OSK::GRAPHICS::ShadowMap</a></div><div class="ttdoc">Renderiza un mapa de profundidad de la escena desde el punto de vista de una luz direccional.</div><div class="ttdef"><b>Definition</b> <a href="_shadow_map_8h_source.html#l00032">ShadowMap.h:32</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_shadows_static_pass_html_a4f37da183a46fa1af23deb46baf80610"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_shadows_static_pass.html#a4f37da183a46fa1af23deb46baf80610">OSK::GRAPHICS::ShadowsStaticPass::Load</a></div><div class="ttdeci">void Load() override</div><div class="ttdoc">Carga los shaders del pase.</div><div class="ttdef"><b>Definition</b> <a href="#l00026">ShadowsStaticPass.cpp:26</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_shadows_static_pass_html_a8c2cc40cd5cfa52ad8dc80001912075d"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_shadows_static_pass.html#a8c2cc40cd5cfa52ad8dc80001912075d">OSK::GRAPHICS::ShadowsStaticPass::ShadowsRenderLoop</a></div><div class="ttdeci">void ShadowsRenderLoop(ICommandList *commandList, const DynamicArray&lt; ECS::GameObjectIndex &gt; &amp;objectsToRender, UIndex32 cascadeIndex, const ShadowMap &amp;shadowMap) override</div><div class="ttdef"><b>Definition</b> <a href="#l00038">ShadowsStaticPass.cpp:38</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_shadows_static_pass_html_ac7691f6b6bff92d780ced198fe968077"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_shadows_static_pass.html#ac7691f6b6bff92d780ced198fe968077">OSK::GRAPHICS::ShadowsStaticPass::SetupShadowMap</a></div><div class="ttdeci">void SetupShadowMap(const ShadowMap &amp;shadowMap)</div><div class="ttdef"><b>Definition</b> <a href="#l00031">ShadowsStaticPass.cpp:31</a></div></div>
+<div class="ttc" id="anamespace_o_s_k_1_1_a_s_s_e_t_s_html"><div class="ttname"><a href="namespace_o_s_k_1_1_a_s_s_e_t_s.html">OSK::ASSETS</a></div><div class="ttdef"><b>Definition</b> <a href="_anim_mesh_loader_8h_source.html#l00009">AnimMeshLoader.h:9</a></div></div>
+<div class="ttc" id="anamespace_o_s_k_1_1_e_c_s_html"><div class="ttname"><a href="namespace_o_s_k_1_1_e_c_s.html">OSK::ECS</a></div><div class="ttdef"><b>Definition</b> <a href="_camera_component2_d_8h_source.html#l00017">CameraComponent2D.h:17</a></div></div>
+<div class="ttc" id="anamespace_o_s_k_1_1_g_r_a_p_h_i_c_s_html"><div class="ttname"><a href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html">OSK::GRAPHICS</a></div><div class="ttdef"><b>Definition</b> <a href="_acceleration_structures_exceptions_8h_source.html#l00005">AccelerationStructuresExceptions.h:5</a></div></div>
+<div class="ttc" id="anamespace_o_s_k_html"><div class="ttname"><a href="namespace_o_s_k.html">OSK</a></div><div class="ttdef"><b>Definition</b> <a href="_acceleration_structures_exceptions_8h_source.html#l00005">AccelerationStructuresExceptions.h:5</a></div></div>
+</div><!-- fragment --></div><!-- contents -->
+</div><!-- doc-content -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="dir_74389ed8173ad57b461b9d623a1f3867.html">Source</a></li><li class="navelem"><a class="el" href="_shadows_static_pass_8cpp.html">ShadowsStaticPass.cpp</a></li>
+    <li class="footer">Generado el Jueves, 28 de marzo de 2024 17:53:11 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.10.0 </li>
+  </ul>
+</div>
+</body>
+</html>

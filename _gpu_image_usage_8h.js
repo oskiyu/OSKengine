@@ -1,5 +1,9 @@
 var _gpu_image_usage_8h =
 [
+    [ "GpuImageTiling", "_gpu_image_usage_8h.html#ad104d68df20e4df59f9a73783fda907c", [
+      [ "OPTIMAL", "_gpu_image_usage_8h.html#ad104d68df20e4df59f9a73783fda907caf00c8dbdd6e1f11bdae06be94277d293", null ],
+      [ "LINEAL", "_gpu_image_usage_8h.html#ad104d68df20e4df59f9a73783fda907ca9b9ff7f1774e06092c715225f3c8a59e", null ]
+    ] ],
     [ "GpuImageUsage", "_gpu_image_usage_8h.html#a19a2f70fc994c00eb022e520608c5ffa", [
       [ "UNKNOWN", "_gpu_image_usage_8h.html#a19a2f70fc994c00eb022e520608c5ffaa696b031073e74bf2cb98e5ef201d4aa3", null ],
       [ "COLOR", "_gpu_image_usage_8h.html#a19a2f70fc994c00eb022e520608c5ffaa04bd834032febb3fda8c6936ee140949", null ],

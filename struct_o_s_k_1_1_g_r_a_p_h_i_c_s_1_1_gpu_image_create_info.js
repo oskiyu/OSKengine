@@ -10,5 +10,6 @@ var struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_create_info =
     [ "numLayers", "struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_create_info.html#afccbd72ee2387b4515b284735a9614f5", null ],
     [ "resolution", "struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_create_info.html#a8092753c9ee6afb0d2d436bd67022090", null ],
     [ "samplerDesc", "struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_create_info.html#a0773ddff9db45e3919ea70a643c02bd8", null ],
+    [ "tilingType", "struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_create_info.html#a28358b58e8e298d003f56d70ca9108bb", null ],
     [ "usage", "struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_create_info.html#abc4d61d7511c2970d2d562e4d5a5d1b0", null ]
 ];
