@@ -24,6 +24,7 @@ namespace OSK::GRAPHICS {
 
 		OwnedPtr<ICommandPool> CreateGraphicsCommandPool() override;
 		OwnedPtr<ICommandPool> CreateComputeCommandPool() override;
+		std::optional<OwnedPtr<ICommandPool>> CreateTransferOnlyCommandPool() override;
 
 		void SetAdapter(const ComPtr<IDXGIAdapter1>& adapter);
 		void SetDevice(const ComPtr<ID3D12Device>& device);

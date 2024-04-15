@@ -55,7 +55,7 @@ namespace OSK::ECS {
 		
 		/// @brief Identificador del próximo objeto (si no hay identificadores
 		/// libres que se puedan reutilizar).
-		GameObjectIndex m_nextIndex = 1;
+		UIndex64 m_nextIndex = 1;
 
 	};
 

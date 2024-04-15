@@ -521,7 +521,8 @@ DynamicArray<AssetRef<Texture>> GltfLoader::LoadImages(const tinygltf::Model& mo
 		);
 		image->SetDebugName(std::format("Mesh texture {}", i));
 
-		OwnedPtr<ICommandList> uploadCmdList = Engine::GetRenderer()->CreateSingleUseCommandList();
+		// Al efectuar mip-mapping, debe usar GpuQueueType::MAIN.
+		OwnedPtr<ICommandList> uploadCmdList = Engine::GetRenderer()->CreateSingleUseCommandList(GpuQueueType::MAIN); 
 		uploadCmdList->Reset();
 		uploadCmdList->Start();
 
@@ -582,10 +583,11 @@ DynamicArray<AssetRef<Texture>> GltfLoader::LoadImages(const tinygltf::Model& mo
 		owningRef.GetAsset()->_SetImage(image);
 		owningRef.GetAsset()->_SetSize(image->GetSize2D());
 		owningRef.GetAsset()->_SetNumberOfChannels(4);
-
-		textureLoader->RegisterTexture(owningRef);
+		owningRef._SetAsLoaded();
 
 		output.Insert(owningRef.CreateRef());
+
+		textureLoader->RegisterTexture(std::move(owningRef));
 	}
 
 	return output;

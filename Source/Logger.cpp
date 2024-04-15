@@ -10,16 +10,21 @@ using namespace OSK;
 using namespace OSK::IO;
 
 Logger::~Logger() {
-	Close();
+	try {
+		Close();
+	}
+	catch (const EngineException&) {}
 }
 
 void Logger::Start(const std::string& path) {
-	this->path = path;
-	hasBeenStarted = true;
+	m_path = path;
+	m_hasBeenStarted = true;
 }
 
 void Logger::Log(LogLevel level, const std::string& msg) {
-	if (!hasBeenStarted)
+	std::lock_guard lock(m_mutex);
+
+	if (!m_hasBeenStarted)
 		throw LoggerNotInitializedException();
 
 	std::string start = "";
@@ -42,15 +47,12 @@ void Logger::Log(LogLevel level, const std::string& msg) {
 		break;
 	}
 
-//#ifdef OSK_DEBUG
 	std::cout << start << msg << std::endl;
-//#else
-	output.append(start);
-	output.append(msg);
 
-	output.append("\n");
-//#endif
+	m_output.append(start);
+	m_output.append(msg);
 
+	m_output.append("\n");
 }
 
 void Logger::DebugLog(const std::string& message) {
@@ -61,32 +63,32 @@ void Logger::InfoLog(const std::string& message) {
 }
 
 void Logger::Save() {
-	Save(path);
+	Save(m_path);
 }
 
 void Logger::Save(const std::string& filename) {
-	if (!hasBeenStarted)
+	if (!m_hasBeenStarted)
 		throw LoggerNotInitializedException();
 
 //#ifdef OSK_RELEASE
-	std::ofstream outputLog(path + filename);
+	std::ofstream outputLog(m_path + filename);
 
 	if (outputLog.is_open())
-		outputLog << output << std::endl;
+		outputLog << m_output << std::endl;
 	
 	outputLog.close();
 //#endif // OSK_RELEASE
 }
 
 void Logger::Clear() {
-	if (!hasBeenStarted)
+	if (!m_hasBeenStarted)
 		throw LoggerNotInitializedException();
 
-	output.clear();
+	m_output.clear();
 }
 
 void Logger::Close() {
-	if (!hasBeenStarted)
+	if (!m_hasBeenStarted)
 		throw LoggerNotInitializedException();
 
 	InfoLog("Cerrado el log.");

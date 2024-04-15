@@ -35,6 +35,7 @@
 #include "PbrResolvePass.h"
 
 #include "InvalidObjectStateException.h"
+#include "CopyImageInfo.h"
 
 
 using namespace OSK;

@@ -6,20 +6,16 @@
 using namespace OSK;
 using namespace OSK::GRAPHICS;
 
-CommandQueueVk::CommandQueueVk(CommandQueueSupport support, UIndex32 familyIndex, UIndex32 inFamilyIndex, const GpuVk& gpu)
-	: ICommandQueue(support), familyIndex(familyIndex), inFamilyIndex(inFamilyIndex) {
+CommandQueueVk::CommandQueueVk(QueueFamily family, UIndex32 indexInsideFamily, GpuQueueType queueType, const GpuVk& gpu)
+	: ICommandQueue(family, queueType, indexInsideFamily) {
 
-	vkGetDeviceQueue(gpu.GetLogicalDevice(), familyIndex, inFamilyIndex, &queue);
+	vkGetDeviceQueue(
+		gpu.GetLogicalDevice(), 
+		family.familyIndex, 
+		indexInsideFamily, 
+		&m_queue);
 }
 
 VkQueue CommandQueueVk::GetQueue() const {
-	return queue;
-}
-
-UIndex32 CommandQueueVk::GetQueueIndex() const {
-	return inFamilyIndex;
-}
-
-UIndex32 CommandQueueVk::GetFamilyIndex() const {
-	return familyIndex;
+	return m_queue;
 }

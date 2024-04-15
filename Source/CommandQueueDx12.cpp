@@ -7,7 +7,7 @@ using namespace OSK;
 using namespace OSK::GRAPHICS;
 using namespace Microsoft::WRL;
 
-CommandQueueDx12::CommandQueueDx12(CommandQueueSupport support) : ICommandQueue(support) {
+CommandQueueDx12::CommandQueueDx12(const QueueFamily& family, UIndex32 indexInsideFamily, GpuQueueType type) : ICommandQueue(family, type, indexInsideFamily) {
 
 }
 

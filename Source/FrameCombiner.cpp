@@ -5,6 +5,8 @@
 #include "IRenderer.h"
 #include "Material.h"
 
+#include "GpuImageLayout.h"
+
 using namespace OSK;
 using namespace OSK::GRAPHICS;
 

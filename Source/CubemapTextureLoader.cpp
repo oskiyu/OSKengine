@@ -77,9 +77,10 @@ void CubemapTextureLoader::Load(const std::string& assetFilePath, CubemapTexture
 		Vector2i(width, height).ToVector2ui(), 
 		GRAPHICS::Format::RGBA8_SRGB, 
 		GRAPHICS::GpuImageUsage::SAMPLED | GRAPHICS::GpuImageUsage::TRANSFER_SOURCE| GRAPHICS::GpuImageUsage::TRANSFER_DESTINATION, 
-		GRAPHICS::GpuSharedMemoryType::GPU_ONLY);
+		GRAPHICS::GpuSharedMemoryType::GPU_ONLY,
+		GRAPHICS::GpuQueueType::MAIN);
 
-	OwnedPtr<ICommandList> copyCmdList = Engine::GetRenderer()->CreateSingleUseCommandList();
+	OwnedPtr<ICommandList> copyCmdList = Engine::GetRenderer()->CreateSingleUseCommandList(GpuQueueType::MAIN);
 	copyCmdList->Reset();
 	copyCmdList->Start();
 
@@ -97,6 +98,10 @@ void CubemapTextureLoader::Load(const std::string& assetFilePath, CubemapTexture
 		GpuBarrierInfo(GpuCommandStage::FRAGMENT_SHADER, GpuAccessStage::SHADER_READ),
 		GpuImageRange{ .baseLayer = 0, .numLayers = ALL_IMAGE_LAYERS, .baseMipLevel = 0, .numMipLevels = ALL_MIP_LEVELS });
 	
+	copyCmdList->TransferToQueue(
+		image.GetPointer(),
+		*Engine::GetRenderer()->GetMainRenderingQueue());
+
 	copyCmdList->Close();
 	Engine::GetRenderer()->SubmitSingleUseCommandList(copyCmdList.GetPointer());
 

@@ -7,41 +7,38 @@
 using namespace OSK;
 using namespace OSK::ECS;
 
-EntityComponentSystem::EntityComponentSystem(IO::ILogger* logger) : logger(logger){
-	systemManager = new SystemManager;
-	componentManager = new ComponentManager;
-	gameObjectManager = new GameObjectManager;
-	eventManager = new EventManager;
+EntityComponentSystem::EntityComponentSystem(IO::ILogger* logger) : m_logger(logger) {
+
 }
 
 void EntityComponentSystem::OnTick(TDeltaTime deltaTime) {
-	systemManager->OnTick(deltaTime, eventManager.GetValue());
+	m_systemManager->OnTick(deltaTime, m_eventManager.GetValue());
 }
 
 void EntityComponentSystem::OnRender(GRAPHICS::ICommandList* commandList) {
-	systemManager->OnRender(commandList);
+	m_systemManager->OnRender(commandList);
 }
 
 void EntityComponentSystem::_ClearEventQueues() {
-	eventManager->_ClearQueues();
+	m_eventManager->_ClearQueues();
 }
 
 GameObjectIndex EntityComponentSystem::SpawnObject() {
-	return gameObjectManager->CreateGameObject();
+	return m_gameObjectManager->CreateGameObject();
 }
 
 void EntityComponentSystem::DestroyObject(GameObjectIndex* obj) {
-	gameObjectManager->DestroyGameObject(obj);
+	m_gameObjectManager->DestroyGameObject(obj);
 }
 
 bool EntityComponentSystem::IsGameObjectAlive(GameObjectIndex obj) const {
-	return gameObjectManager->IsGameObjectAlive(obj);
+	return m_gameObjectManager->IsGameObjectAlive(obj);
 }
 
 void EntityComponentSystem::EndFrame() {
-	eventManager->_ClearQueues();
+	m_eventManager->_ClearQueues();
 }
 
 const DynamicArray<IRenderSystem*>& EntityComponentSystem::GetRenderSystems() const {
-	return renderSystems;
+	return m_renderSystems;
 }

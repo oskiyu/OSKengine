@@ -2,7 +2,7 @@
 
 #include "OSKmacros.h"
 #include "DynamicArray.hpp"
-#include "CommandQueueSupport.h"
+#include "CommandsSupport.h"
 
 namespace OSK::GRAPHICS {
 
@@ -13,7 +13,7 @@ namespace OSK::GRAPHICS {
 		/// @brief Número de colas en la familia.
 		USize32 numQueues;
 		/// @brief Operaciones soportadas.
-		CommandQueueSupport support;
+		CommandsSupport support;
 	};
 		
 	/// @brief Información sobre las colas de comandos soportadas
@@ -26,7 +26,7 @@ namespace OSK::GRAPHICS {
 		/// @brief Devuelve una lista con todas las familias que tienen el soporte dado.
 		/// @param support Soporte requerido.
 		/// @return Lista (puede estar vacía si no hay familias que lo soporten).
-		DynamicArray<QueueFamily> GetFamilies(CommandQueueSupport support) const;
+		DynamicArray<QueueFamily> GetFamilies(CommandsSupport support) const;
 
 
 		/// @brief Comprueba si una GPU tiene soporta para todas las colas

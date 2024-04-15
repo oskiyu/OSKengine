@@ -35,6 +35,17 @@ void PhysicsResolver::Execute(TDeltaTime deltaTime, std::span<const CollisionEve
 
 		const auto& collisionInfo = event.collisionInfo;
 
+#ifdef OSK_COLLISION_DEBUG
+		
+		Engine::GetLogger()->DebugLog(std::format("Detailed collision: {} - {}", first, second));
+		Engine::GetLogger()->DebugLog(std::format("\tFrame: {}", Engine::GetCurrentGameFrameIndex()));
+		Engine::GetLogger()->DebugLog(std::format("\tWolrd points: {:.3f} {:.3f} {:.3f}",
+			collisionInfo.GetSingleContactPoint().x,
+			collisionInfo.GetSingleContactPoint().y,
+			collisionInfo.GetSingleContactPoint().z));
+
+#endif // OSK_COLLISION_DEBUG
+
 		if (collisionInfo.GetMinimumTranslationVector().GetLenght() < 0.001f) {
 			continue;
 		}
@@ -46,7 +57,6 @@ void PhysicsResolver::Execute(TDeltaTime deltaTime, std::span<const CollisionEve
 		Vector3f contactNormal = collisionInfo.GetMinimumTranslationVector().GetNormalized();
 
 		const Vector3f mtv = collisionInfo.GetMinimumTranslationVector();
-		// Engine::GetLogger()->DebugLog(std::format("{:.3f} {:.3f} {:.3f}", mtv.x, mtv.y, mtv.z));
 
 		const float inverseMassA = physicsA.GetInverseMass();
 		const float inverseMassB = physicsB.GetInverseMass();
@@ -58,8 +68,8 @@ void PhysicsResolver::Execute(TDeltaTime deltaTime, std::span<const CollisionEve
 		float multiplierA = inverseMassA / totalInverseMass;
 		float multiplierB = inverseMassB / totalInverseMass;
 
-		transformA.AddPosition(-mtv * multiplierA);
-		transformB.AddPosition( mtv * multiplierB);
+		transformA.AddPosition_ThreadSafe(-mtv * multiplierA);
+		transformB.AddPosition_ThreadSafe( mtv * multiplierB);
 		
 
 		// --- IMPULSOS --- //
@@ -146,11 +156,11 @@ void PhysicsResolver::Execute(TDeltaTime deltaTime, std::span<const CollisionEve
 		const float angle = glm::radians(firstNormal.GetAngle(secondNormal));
 
 		if (glm::abs(angle) > 0.1f) {
-			transformA.RotateWorldSpace(
+			transformA.RotateWorldSpace_ThreadSafe(
 				angle * multiplierA,
 				cross.GetNormalized()
 			);
-			transformB.RotateWorldSpace(
+			transformB.RotateWorldSpace_ThreadSafe(
 				-angle * multiplierB,
 				cross.GetNormalized()
 			);

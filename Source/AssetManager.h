@@ -36,26 +36,59 @@ namespace OSK::ASSETS {
 
 	public:
 
-		/// <summary> Carga un asset. </summary>
+		/// @brief Carga un asset.
+		/// @tparam T Tipo del asset.
+		/// @param assetFilePath Ruta del archivo de descripción del asset.
+		/// @return Referencia al asset.
 		/// 
-		/// @note Esta función debe ser sobreescrita por todos los loaders.
+		/// @pre Debe haberse registrado un loader para el tipo de asset.
+		/// 
+		/// @throws AssetLoaderNotFoundException si el cargador para el tipo
+		/// de asset no ha sido previamente regsitrado.
 		template <typename T> 
 		AssetRef<T> Load(const std::string& assetFilePath) {
+			OSK_ASSERT(m_loaders.contains(T::GetAssetType()), AssetLoaderNotFoundException(T::GetAssetType()));
+
 			AssetRef<T> output = AssetRef<T>();
 
-			OSK_ASSERT(m_loaders.contains(T::GetAssetType()), AssetLoaderNotFoundException(T::GetAssetType()))
-
-			m_loaders.at(T::GetAssetType())->Load(assetFilePath, &output);
+			m_loaders.at(T::GetAssetType())->FullyLoad(assetFilePath, &output);
 
 			return output;
 		}
 
-		/// <summary> Registra un loader, para poder cargar assets de un tipo determinado. </summary>
+		/// @brief Carga un asset de manera asíncrona.
+		/// Lanza un trabajo que realizará la carga del asset.
+		/// @tparam T Tipo de asset.
+		/// @param assetFilePath Ruta del archivo de descripción.
+		/// @return Referencia al asset.
+		/// 
+		/// @note La referencia no contendrá el asset cargado al instante debido a
+		/// la ejecución asíncrona. Debe comprobarse antes de usarse.
+		/// 
+		/// @pre Debe haberse registrado un loader para el tipo de asset.
+		/// 
+		/// @throws AssetLoaderNotFoundException si el cargador para el tipo
+		/// de asset no ha sido previamente regsitrado.
+		template <typename T>
+		AssetRef<T> LoadAsync(const std::string& assetFilePath, std::span<const std::string> tags = {}) {
+			OSK_ASSERT(m_loaders.contains(T::GetAssetType()), AssetLoaderNotFoundException(T::GetAssetType()))
+
+			AssetRef<T> output = AssetRef<T>();
+
+			auto* loader = m_loaders.find(T::GetAssetType())->second.GetPointer();
+
+			loader->RegisterWithoutLoading(assetFilePath, std::addressof(output));
+			LaunchAsyncLoad(assetFilePath, loader, tags);
+			
+			return output;
+		}
+
+
+		/// @brief Registra un loader, para poder cargar assets de un tipo determinado.
+		/// @tparam T Tipo del loader.
 		/// 
 		/// @pre No debe haberse registrado antes este loader.
-		/// 
-		/// @warning T debe ser el tipo de asset, NO el loader.
-		/// @warning Todo loader debe ser registrado para poder usarse.
+		/// @throws AssetLoaderAlreadyRegisteredException si se incumple la precondición.
 		template <typename T> 
 		void RegisterLoader() {
 			const auto& key = T::GetAssetType();
@@ -67,7 +100,9 @@ namespace OSK::ASSETS {
 		/// @brief Devuelve el loader indicado.
 		/// @tparam TLoader Loader a obtener.
 		/// @return Loader.
+		/// 
 		/// @pre El loader debe haber sido previamente registrado.
+		/// @throws AssetLoaderNotFoundException si el loader no ha sido previamente cargado.
 		template <typename TLoader>
 		TLoader* GetLoader() {
 			const auto& key = TLoader::GetAssetType();
@@ -78,6 +113,19 @@ namespace OSK::ASSETS {
 		}
 
 	private:
+
+		/// @brief Lanza un trabajo para cargar el asset indicado.
+		/// @param assetPath Ruta al archivo de descripción.
+		/// @param loader Cargador que debe realizar la carga.
+		/// 
+		/// @pre Debe haberse registrado un loader para el tipo de asset.
+		/// 
+		/// @throws AssetLoaderNotFoundException si el cargador para el tipo
+		/// de asset no ha sido previamente regsitrado.
+		void LaunchAsyncLoad(
+			const std::string& assetPath, 
+			IAssetLoader* loader,
+			std::span<const std::string> tags);
 
 		std::unordered_map<std::string, UniquePtr<IAssetLoader>, StringHasher, std::equal_to<>> m_loaders;
 

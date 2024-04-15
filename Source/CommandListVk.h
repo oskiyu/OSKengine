@@ -3,22 +3,28 @@
 #include "ICommandList.h"
 #include "DynamicArray.hpp"
 
-#include <vulkan/vulkan.h>
+#include <array>
+
+OSK_VULKAN_TYPEDEF(VkCommandBuffer);
+OSK_VULKAN_TYPEDEF(VkDevice);
 
 namespace OSK::GRAPHICS {
 
 	class GpuBuffer;
 	class GraphicsPipelineVk;
+	class GpuVk;
+	class CommandPoolVk;
 
 
 	class OSKAPI_CALL CommandListVk final : public ICommandList {
 
 	public:
 
-		CommandListVk() = default;
+		CommandListVk(
+			const GpuVk& gpu,
+			const CommandPoolVk& commandPool);
 
-		const DynamicArray<VkCommandBuffer>& GetCommandBuffers() const;
-		DynamicArray<VkCommandBuffer>* GetCommandBuffers();
+		std::span<const VkCommandBuffer> GetCommandBuffers() const;
 
 		void Reset() override;
 		void Start() override;
@@ -48,7 +54,13 @@ namespace OSK::GRAPHICS {
 
 		void DispatchCompute(const Vector3ui& groupCount);
 
-		void SetGpuImageBarrier(GpuImage* image, GpuImageLayout previousLayout, GpuImageLayout nextLayout, GpuBarrierInfo previous, GpuBarrierInfo next, const GpuImageRange& range) override;
+		void SetGpuImageBarrier(GpuImage* image, GpuImageLayout previousLayout, GpuImageLayout nextLayout, GpuBarrierInfo previous, GpuBarrierInfo next, const GpuImageRange& range, const ResourceQueueTransferInfo queueTranfer) override;
+		void SetGpuBufferBarrier(
+			GpuBuffer* buffer,
+			const GpuBufferRange& range,
+			GpuBarrierInfo previous,
+			GpuBarrierInfo next,
+			const ResourceQueueTransferInfo queueTranfer) override;
 
 		void CopyBufferToImage(const GpuBuffer& source, GpuImage* dest, UIndex32 layer, USize64 offset) override;
 		void RawCopyImageToImage(const GpuImage& source, GpuImage* destination, const CopyImageInfo& copyInfo) override;
@@ -66,19 +78,12 @@ namespace OSK::GRAPHICS {
 
 	private:
 
-		static VkIndexType GetIndexType(IndexType type);
-
 		void BindGraphicsPipeline(const IGraphicsPipeline& computePipeline) override;
 		void BindComputePipeline(const IComputePipeline& computePipeline) override;
 		void BindRayTracingPipeline(const IRaytracingPipeline& computePipeline) override;
 
-		VkPipelineStageFlagBits2 GetPipelineStage(GpuCommandStage stage) const;
-		VkAccessFlags2 GetPipelineAccess(GpuAccessStage stage) const;
-
-		/// <summary>
-		/// Varias listas nativas, una por cada imagen en el swapchain.
-		/// </summary>
-		DynamicArray<VkCommandBuffer> commandBuffers;
+		std::array<VkCommandBuffer, NUM_RESOURCES_IN_FLIGHT> m_commandBuffers;
+		VkDevice m_logicalDevice = nullptr;
 
 	};
 

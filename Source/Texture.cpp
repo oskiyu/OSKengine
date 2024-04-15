@@ -13,33 +13,33 @@ Texture::Texture(const std::string& assetFile)
 }
 
 Vector2ui Texture::GetSize() const {
-	return size;
+	return m_size;
 }
 
 USize32 Texture::GetNumberOfChannels() const {
-	return numChannels;
+	return m_numChannels;
 }
 
 GRAPHICS::GpuImage* Texture::GetGpuImage() const {
-	return image.GetPointer();
+	return m_image.GetPointer();
 }
 
 const IGpuImageView& Texture::GetTextureView2D() const {
-	return *image->GetView(GpuImageViewConfig::CreateSampled_Default());
+	return *m_image->GetView(GpuImageViewConfig::CreateSampled_Default());
 }
 
 const IGpuImageView& Texture::GetTextureView() const {
-	return *image->GetView(GpuImageViewConfig::CreateSampled_SingleMipLevel(0));
+	return *m_image->GetView(GpuImageViewConfig::CreateSampled_SingleMipLevel(0));
 }
 
 void Texture::_SetSize(const Vector2ui size) {
-	this->size = size;
+	m_size = size;
 }
 
 void Texture::_SetNumberOfChannels(USize32 numChannels) {
-	this->numChannels = numChannels;
+	m_numChannels = numChannels;
 }
 
 void Texture::_SetImage(OwnedPtr<GRAPHICS::GpuImage> image) {
-	this->image = image.GetPointer();
+	m_image = image.GetPointer();
 }

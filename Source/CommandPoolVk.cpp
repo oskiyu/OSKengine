@@ -5,59 +5,54 @@
 #include "CommandListVk.h"
 #include "GpuVk.h"
 #include "Assert.h"
-#include "OSKengine.h"
-#include "RendererVk.h"
-#include "GpuVk.h"
+#include "QueueFamilyIndices.h"
 
 #include "CommandListExceptions.h"
+#include "RendererExceptions.h"
 
 using namespace OSK;
 using namespace OSK::GRAPHICS;
 
+
+CommandPoolVk::CommandPoolVk(const GpuVk& device, const QueueFamily& queueType, GpuQueueType type) : ICommandPool(queueType.support, type), m_logicalDevice(device.GetLogicalDevice()) {
+	VkCommandPoolCreateInfo poolInfo{};
+	poolInfo.sType = VK_STRUCTURE_TYPE_COMMAND_POOL_CREATE_INFO;
+	poolInfo.queueFamilyIndex = queueType.familyIndex;
+	poolInfo.flags = VK_COMMAND_POOL_CREATE_RESET_COMMAND_BUFFER_BIT;
+
+	VkResult result = vkCreateCommandPool(
+		device.GetLogicalDevice(), 
+		&poolInfo, 
+		nullptr, 
+		&m_commandPool);
+
+	OSK_ASSERT(result == VK_SUCCESS, CommandPoolCreationException(result));
+}
+
 CommandPoolVk::~CommandPoolVk() {
-	vkDestroyCommandPool(Engine::GetRenderer()->As<RendererVk>()->GetGpu()->As<GpuVk>()->GetLogicalDevice(),
-		commandPool, nullptr);
+	vkDestroyCommandPool(
+		m_logicalDevice,
+		m_commandPool, 
+		nullptr);
 }
 
 OwnedPtr<ICommandList> CommandPoolVk::CreateCommandList(const IGpu& device) {
-	return CreateList(device, numberOfImages);
+	return CreateList(device, NUM_RESOURCES_IN_FLIGHT);
 }
 
 OwnedPtr<ICommandList> CommandPoolVk::CreateSingleTimeCommandList(const IGpu& device) {
-	return CreateList(device, 1);
-}
-
-OwnedPtr<ICommandList> CommandPoolVk::CreateList(const IGpu& device, USize32 numNativeLists) {
-	auto list = new CommandListVk;
-
-	list->GetCommandBuffers()->Reserve(numNativeLists);
-	for (size_t i = 0; i < numNativeLists; i++)
-		list->GetCommandBuffers()->Insert(VK_NULL_HANDLE);
-
-	VkCommandBufferAllocateInfo allocInfo{};
-	allocInfo.sType = VK_STRUCTURE_TYPE_COMMAND_BUFFER_ALLOCATE_INFO;
-	allocInfo.commandPool = commandPool;
-	allocInfo.level = VK_COMMAND_BUFFER_LEVEL_PRIMARY;
-	allocInfo.commandBufferCount = static_cast<uint32_t>(list->GetCommandBuffers()->GetSize());
-
-	VkResult result = vkAllocateCommandBuffers(device.As<GpuVk>()->GetLogicalDevice(), &allocInfo, list->GetCommandBuffers()->GetData());
-	OSK_ASSERT(result == VK_SUCCESS, CommandListCreationException(result));
+	OwnedPtr<ICommandList> list = CreateList(device, 1);
+	list->_SetSingleTimeUse();
 
 	return list;
 }
 
-void CommandPoolVk::SetSwapchainCount(unsigned int count) {
-	numberOfImages = count;
-}
-
-unsigned int CommandPoolVk::GetSwapchainCount() const {
-	return numberOfImages;
-}
-
-void CommandPoolVk::SetCommandPool(VkCommandPool commandPool) {
-	this->commandPool = commandPool;
+OwnedPtr<ICommandList> CommandPoolVk::CreateList(const IGpu& device, USize32 numNativeLists) {
+	return new CommandListVk(
+		*device.As<GpuVk>(),
+		*this);
 }
 
 VkCommandPool CommandPoolVk::GetCommandPool() const {
-	return commandPool;
+	return m_commandPool;
 }

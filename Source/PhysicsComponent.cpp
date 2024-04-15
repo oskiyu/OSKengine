@@ -59,6 +59,7 @@ void PhysicsComponent::SetInverseInertiaTensor(const glm::mat3& inverseTensor) {
 }
 
 Vector3f PhysicsComponent::GetVelocity() const {
+	std::lock_guard lock(m_mutex.mutex);
 	return velocity;
 }
 
@@ -67,14 +68,17 @@ Vector3f PhysicsComponent::GetCurrentFrameVelocityDelta() const {
 }
 
 Vector3f PhysicsComponent::GetVelocityOfPoint(const Vector3f& localSpacePoint) const {
+	std::lock_guard lock(m_mutex.mutex);
 	return velocity + angularVelocity.Cross(localSpacePoint);
 }
 
 Vector3f PhysicsComponent::GetAcceleration() const {
+	std::lock_guard lock(m_mutex.mutex);
 	return acceleration;
 }
 
 Vector3f PhysicsComponent::GetAngularVelocity() const {
+	std::lock_guard lock(m_mutex.mutex);
 	return angularVelocity;
 }
 
@@ -83,6 +87,7 @@ void PhysicsComponent::_ResetForces() {
 }
 
 void PhysicsComponent::_ResetCurrentFrameDeltas() {
+	std::lock_guard lock(m_mutex.mutex);
 	currentFrameVelocityDelta = Vector3f::Zero;
 }
 
@@ -103,15 +108,18 @@ Vector3f PhysicsComponent::GetTorque(const Vector3f& localSpacePoint, const Vect
 }
 
 void PhysicsComponent::_SetVelocity(Vector3f velocity) {
+	std::lock_guard lock(m_mutex.mutex);
 	currentFrameVelocityDelta += this->velocity - velocity;
 	this->velocity = velocity;
 }
 
 void PhysicsComponent::_SetAngularVelocity(Vector3f angularVelocity) {
+	std::lock_guard lock(m_mutex.mutex);
 	this->angularVelocity = angularVelocity;
 }
 
 void PhysicsComponent::_SetAcceleration(Vector3f acceleration) {
+	std::lock_guard lock(m_mutex.mutex);
 	this->acceleration = acceleration;
 }
 

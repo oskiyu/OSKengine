@@ -3,11 +3,14 @@
 #include "IGpuMemoryBlock.h"
 #include "IGpuMemorySubblock.h"
 
+#include "GpuBufferRange.h"
+
+
 using namespace OSK;
 using namespace OSK::GRAPHICS;
 
-GpuBuffer::GpuBuffer(OwnedPtr<IGpuMemorySubblock> buffer, USize64 size, USize64 alignment)
-	: buffer(buffer.GetPointer()), size(size), alignment(alignment) {
+GpuBuffer::GpuBuffer(OwnedPtr<IGpuMemorySubblock> buffer, USize64 size, USize64 alignment, const ICommandQueue* ownerQueue)
+	: buffer(buffer.GetPointer()), m_ownerQueue(ownerQueue), size(size), alignment(alignment) {
 
 }
 
@@ -46,6 +49,30 @@ IGpuMemorySubblock* GpuBuffer::GetMemorySubblock() const {
 
 IGpuMemoryBlock* GpuBuffer::GetMemoryBlock() const {
 	return GetMemorySubblock()->GetOwnerBlock();
+}
+
+void GpuBuffer::_UpdateCurrentBarrier(const GpuBarrierInfo& barrier) {
+	m_currentBarrier = barrier;
+}
+
+const GpuBarrierInfo& GpuBuffer::GetCurrentBarrier() const {
+	return m_currentBarrier;
+}
+
+const ICommandQueue* GpuBuffer::GetOwnerQueue() const {
+	return m_ownerQueue;
+}
+
+void GpuBuffer::_UpdateOwnerQueue(const ICommandQueue* ownerQueue) {
+	m_ownerQueue = ownerQueue;
+}
+
+GpuBufferRange GpuBuffer::GetWholeBufferRange() const {
+	GpuBufferRange output{};
+	output.offset = GetMemorySubblock()->GetOffsetFromBlock();
+	output.size = GetMemorySubblock()->GetAllocatedSize();
+
+	return output;
 }
 
 void GpuBuffer::MapMemory() {

@@ -15,6 +15,8 @@
 
 #include "TreeNormalsPass.h"
 
+#include "GpuImageLayout.h"
+
 using namespace OSK;
 using namespace OSK::ECS;
 using namespace OSK::ASSETS;

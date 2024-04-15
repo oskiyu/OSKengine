@@ -23,32 +23,58 @@ using namespace OSK::IO;
 using namespace OSK::ECS;
 using namespace OSK::GRAPHICS;
 
-IRenderer::IRenderer(RenderApiType type, bool requestRayTracing) : renderApiType(type), isRtRequested(requestRayTracing) {
-	materialSystem = new MaterialSystem;
+IRenderer::IRenderer(RenderApiType type, bool requestRayTracing) noexcept
+	: m_materialSystem(new MaterialSystem), m_renderApiType(type), m_isRtRequested(requestRayTracing) {
+	}
+
+
+void IRenderer::CloseSingletonInstances() {
+	m_swapchain.Delete();
+	m_finalRenderTarget.Delete();
+	m_materialSystem.Delete();
+	m_gpuMemoryAllocator.Delete();
 }
 
-ICommandList* IRenderer::GetPreComputeCommandList() {
-	return singleCommandQueue ? graphicsCommandList.GetPointer() : preComputeCommandList.GetPointer();
-}
+void IRenderer::CloseGpu() {
+	std::lock_guard lock(m_queueSubmitMutex.mutex);
 
-ICommandList* IRenderer::GetGraphicsCommandList() {
-	return graphicsCommandList.GetPointer();
-}
+	for (auto& list : m_singleTimeCommandLists) {
+		list.Delete();
+	}
 
-ICommandList* IRenderer::GetPostComputeCommandList() {
-	return singleCommandQueue ? graphicsCommandList.GetPointer() : postComputeCommandList.GetPointer();
-}
+	m_singleTimeCommandLists.Free();
 
-ICommandList* IRenderer::GetFrameBuildCommandList() {
-	return singleCommandQueue ? graphicsCommandList.GetPointer() : frameBuildCommandList.GetPointer();
+	if (m_unifiedCommandPools.has_value()) {
+		m_unifiedCommandPools.reset();
+	}
+
+	m_unifiedQueue.Delete();
+
+	if (m_graphicsComputeCommandPools.has_value()) {
+		m_graphicsComputeCommandPools.reset();
+	}
+
+	m_graphicsComputeQueue.Delete();
+
+	if (m_transferOnlyCommandPools.has_value()) {
+		m_transferOnlyCommandPools.reset();
+	}
+
+	m_transferOnlyQueue.Delete();
+
+	m_currentGpu.Delete();
 }
 
 IGpuMemoryAllocator* IRenderer::GetAllocator() {
-	return gpuMemoryAllocator.GetPointer();
+	return m_gpuMemoryAllocator.GetPointer();
 }
 
 IGpu* IRenderer::GetGpu() {
-	return currentGpu.GetPointer();
+	return m_currentGpu.GetPointer();
+}
+
+const IGpu* IRenderer::GetGpu() const {
+	return m_currentGpu.GetPointer();
 }
 
 void IRenderer::UploadLayeredImageToGpu(GpuImage* destination, const TByte* data, USize64 numBytes, USize32 numLayers, ICommandList* cmdList) {
@@ -59,7 +85,7 @@ void IRenderer::UploadLayeredImageToGpu(GpuImage* destination, const TByte* data
 
 	const TByte* uploadableData = data;
 
-	auto stagingBuffer = GetAllocator()->CreateStagingBuffer(gpuNumBytes);
+	auto stagingBuffer = GetAllocator()->CreateStagingBuffer(gpuNumBytes, cmdList->GetCompatibleQueueType());
 	stagingBuffer->MapMemory();
 	stagingBuffer->Write(uploadableData, gpuNumBytes);
 	stagingBuffer->Unmap();
@@ -72,25 +98,19 @@ void IRenderer::UploadLayeredImageToGpu(GpuImage* destination, const TByte* data
 }
 
 void IRenderer::SetPresentMode(PresentMode mode) {
-	swapchain->SetPresentMode(mode);
+	m_swapchain->SetPresentMode(m_currentGpu.GetValue(), mode);
 }
 
-void IRenderer::HandleResize() {
-	const Vector2ui windowSize = display->GetResolution();
+void IRenderer::HandleResize(const Vector2ui& resolution) {
+	if (Engine::GetEcs()) {
+		for (auto i : Engine::GetEcs()->GetRenderSystems()) {
+			i->Resize(resolution);
+		}
+	}
 
-	renderTargetsCamera->UpdateUniformBuffer(renderTargetsCameraTransform);
+	m_finalRenderTarget->Resize(resolution);
 
-	if (Engine::GetEcs())
-		for (auto i : Engine::GetEcs()->GetRenderSystems())
-			i->Resize(windowSize);
-
-	finalRenderTarget->Resize(windowSize);
-
-	Engine::GetEcs()->PublishEvent<IDisplay::ResolutionChangedEvent>({ windowSize });
-}
-
-const TByte* IRenderer::FormatImageDataForGpu(const GpuImage* image, const TByte* data, USize32 numLayers) {
-	return data;
+	Engine::GetEcs()->PublishEvent<IDisplay::ResolutionChangedEvent>({ resolution });
 }
 
 void IRenderer::UploadImageToGpu(GpuImage* destination, const TByte* data, USize64 numBytes, ICommandList* cmdList) {
@@ -101,65 +121,209 @@ void IRenderer::UploadCubemapImageToGpu(GpuImage* destination, const TByte* data
 	UploadLayeredImageToGpu(destination, data, numBytes, 6, cmdList);
 }
 
-OwnedPtr<ICommandList> IRenderer::CreateSingleUseCommandList() {
-	auto output = graphicsCommandPool->CreateCommandList(currentGpu.GetValue());
-	output->_SetSingleTimeUse();
+OwnedPtr<ICommandList> IRenderer::CreateSingleUseCommandList(GpuQueueType queueType, std::thread::id threadId) {
+	ICommandPool* creator = nullptr;
 
-	return output;
+	switch (queueType) {
+	case OSK::GRAPHICS::GpuQueueType::MAIN:
+		creator = UseUnifiedCommandPool()
+			? GetUnifiedCommandPool(threadId)
+			: GetGraphicsComputeCommandPool(threadId);
+		break;
+
+	case OSK::GRAPHICS::GpuQueueType::PRESENTATION:
+		// No hay lista de comandos de PRESENTATION.
+		OSK_ASSERT(false, InvalidArgumentException("No se puede crear una lista de comandos en la cola GpuQueueType::PRESENTATION."));
+		break;
+
+	case OSK::GRAPHICS::GpuQueueType::ASYNC_TRANSFER:
+		if (HasTransferOnlyCommandPool()) {
+			creator = GetTransferOnlyCommandPool(threadId);
+		}
+		else {
+			creator = UseUnifiedCommandPool()
+				? GetUnifiedCommandPool(threadId)
+				: GetGraphicsComputeCommandPool(threadId);
+		}
+		break;
+
+	default:
+		break;
+	}
+
+	return creator->CreateSingleTimeCommandList(*GetGpu());
 }
 
 MaterialSystem* IRenderer::GetMaterialSystem() {
-	return materialSystem.GetPointer();
+	return m_materialSystem.GetPointer();
 }
 
 void IRenderer::CreateMainRenderpass() {
-	RenderTargetAttachmentInfo colorInfo{ .format = swapchain->GetColorFormat(), .name = "Final Color Target" };
+	RenderTargetAttachmentInfo colorInfo{ .format = m_swapchain->GetColorFormat(), .name = "Final Color Target" };
 	RenderTargetAttachmentInfo depthInfo{ .format = Format::D32S8_SFLOAT_SUINT, .name = "Final Depth Target" };
-	finalRenderTarget = new RenderTarget;
-	finalRenderTarget->CreateAsFinal(swapchain->GetImage(0)->GetSize2D(),
+	m_finalRenderTarget = new RenderTarget;
+	m_finalRenderTarget->CreateAsFinal(m_swapchain->GetImage(0)->GetSize2D(),
 		{ colorInfo }, depthInfo);
 }
 
 RenderApiType IRenderer::GetRenderApi() const {
-	return renderApiType;
+	return m_renderApiType;
 }
 
 USize32 IRenderer::GetSwapchainImagesCount() const {
-	return swapchain->GetImageCount();
-}
-
-bool IRenderer::IsOpen() const {
-	return isOpen;
+	return m_swapchain->GetImageCount();
 }
 
 RenderTarget* IRenderer::GetFinalRenderTarget() {
-	return finalRenderTarget.GetPointer();
+	return m_finalRenderTarget.GetPointer();
 }
 
 UIndex32 IRenderer::GetCurrentResourceIndex() const {
 	return this->GetCurrentCommandListIndex();
 }
 
-const ECS::CameraComponent2D& IRenderer::GetRenderTargetsCamera() const {
-	return *renderTargetsCamera.GetPointer();
-}
-
 ISwapchain* IRenderer::_GetSwapchain() {
-	return swapchain.GetPointer();
+	return m_swapchain.GetPointer();
 }
 
 bool IRenderer::_HasImplicitResizeHandling() const {
-	return implicitResizeHandling;
+	return m_implicitResizeHandling;
 }
 
-Material* IRenderer::GetFullscreenRenderingMaterial() {
-	return materialSystem->LoadMaterial("Resources/Materials/2D/material_rendertarget.json");
+ICommandList* IRenderer::GetMainCommandList() {
+	return m_mainCommandList.GetPointer();
+}
+
+bool IRenderer::IsOpen() const {
+	return m_currentGpu.HasValue();
 }
 
 bool IRenderer::IsRtActive() const {
-	return isRtActive;
+	return m_isRtActive;
 }
 
 bool IRenderer::IsRtRequested() const {
-	return isRtRequested;
+	return m_isRtRequested;
+}
+
+
+void IRenderer::RegisterUnifiedCommandPool(const ICommandQueue* unifiedQueue) {
+	m_unifiedCommandPools.emplace(unifiedQueue);
+}
+
+void IRenderer::RegisterGraphicsCommputeCommandPool(const ICommandQueue* graphicsComputeQueue) {
+	m_graphicsComputeCommandPools.emplace(graphicsComputeQueue);
+}
+
+void IRenderer::RegisterTransferOnlyCommandPool(const ICommandQueue* transferQueue) {
+	m_transferOnlyCommandPools.emplace(transferQueue);
+}
+
+
+void IRenderer::_SetUnifiedCommandQueue(OwnedPtr<ICommandQueue> commandQueue) {
+	m_unifiedQueue = commandQueue.GetPointer();
+}
+
+void IRenderer::_SetGraphicsCommputeCommandQueue(OwnedPtr<ICommandQueue> commandQueue) {
+	m_graphicsComputeQueue = commandQueue.GetPointer();
+}
+
+void IRenderer::_SetPresentationCommandQueue(OwnedPtr<ICommandQueue> commandQueue) {
+	m_presentationQueue = commandQueue.GetPointer();
+}
+
+void IRenderer::_SetTransferOnlyCommandQueue(OwnedPtr<ICommandQueue> commandQueue) {
+	m_transferOnlyQueue = commandQueue.GetPointer();
+}
+
+void IRenderer::_SetMainCommandList(OwnedPtr<ICommandList> commandList) {
+	m_mainCommandList = commandList.GetPointer();
+}
+
+void IRenderer::_SetGpu(OwnedPtr<IGpu> gpu) {
+	m_currentGpu = gpu.GetPointer();
+}
+
+void IRenderer::_SetMemoryAllocator(OwnedPtr<IGpuMemoryAllocator> allocator) {
+	m_gpuMemoryAllocator = allocator.GetPointer();
+}
+
+void IRenderer::_SetSwapchain(OwnedPtr<ISwapchain> swapchain) {
+	m_swapchain = swapchain.GetPointer();
+}
+
+
+ICommandPool* IRenderer::GetUnifiedCommandPool(std::thread::id threadId) {
+	return m_unifiedCommandPools->GetCommandPool(threadId);
+}
+
+bool IRenderer::UseUnifiedCommandPool() const {
+	return m_unifiedCommandPools.has_value();
+}
+
+const ICommandQueue* IRenderer::GetUnifiedQueue() const {
+	return m_unifiedQueue.GetPointer();
+}
+
+const ICommandQueue* IRenderer::GetGraphicsComputeQueue() const {
+	return m_graphicsComputeQueue.GetPointer();
+}
+
+const ICommandQueue* IRenderer::GetPresentationQueue() const {
+	return m_presentationQueue.GetPointer();
+}
+
+bool IRenderer::UseUnifiedCommandQueue() const {
+	return m_unifiedQueue.HasValue();
+}
+
+const ICommandQueue* IRenderer::GetTransferOnlyQueue() const {
+	return m_transferOnlyQueue.GetPointer();
+}
+
+bool IRenderer::HasTransferOnlyQueue() const {
+	return m_transferOnlyQueue.HasValue();
+}
+
+const ICommandQueue* IRenderer::GetMainRenderingQueue() const {
+	return UseUnifiedCommandQueue()
+		? GetUnifiedQueue()
+		: GetGraphicsComputeQueue();
+}
+
+const ICommandQueue* IRenderer::GetOptimalQueue(GpuQueueType type) const {
+	if (type == GpuQueueType::ASYNC_TRANSFER) {
+		if (HasTransferOnlyCommandPool()) {
+			return GetTransferOnlyQueue();
+		}
+		else {
+			return GetMainRenderingQueue();
+		}
+	}
+
+	if (type == GpuQueueType::MAIN) {
+		return GetMainRenderingQueue();
+	}
+
+	if (type == GpuQueueType::PRESENTATION) {
+		return UseUnifiedCommandQueue()
+			? GetUnifiedQueue()
+			: GetPresentationQueue();
+	}
+}
+
+ICommandPool* IRenderer::GetGraphicsComputeCommandPool(std::thread::id threadId) {
+	return m_graphicsComputeCommandPools->GetCommandPool(threadId);
+}
+
+ICommandPool* IRenderer::GetTransferOnlyCommandPool(std::thread::id threadId) {
+	return m_transferOnlyCommandPools->GetCommandPool(threadId);
+}
+
+bool IRenderer::HasTransferOnlyCommandPool() const {
+	return m_transferOnlyCommandPools.has_value();
+}
+
+Material* IRenderer::GetFullscreenRenderingMaterial() {
+	return m_materialSystem->LoadMaterial("Resources/Materials/2D/material_rendertarget.json");
 }

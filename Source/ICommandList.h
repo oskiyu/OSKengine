@@ -1,101 +1,63 @@
 #pragma once
 
 #include "OSKmacros.h"
+
+#include "Vector3.hpp"
 #include "Vector4.hpp"
+
 #include "DynamicArray.hpp"
 #include "UniquePtr.hpp"
 #include "GpuBuffer.h"
 #include "Color.hpp"
 #include "RenderpassType.h"
-#include "Vector3.hpp"
 
 #include "IGpuObject.h"
-#include "GpuBarrierInfo.h"
+
+// Para `GpuImageRange = {}`.
+#include "IGpuImage.h"
+
+// Para `ResourceQueueTransfer::Empty()`.
+#include "ResourceQueueTransfer.h"
+
+// Para `GpuImageRange::{}`.
+#include "GpuImageRange.h"
 
 #include <string>
-#include <type_traits>
-#include "VertexBufferView.h"
-#include "IndexBufferView.h"
-#include "IGpuImage.h"
+
 
 namespace OSK::GRAPHICS {
 
+	// Materiales.
 	class Material;
 	class IMaterialSlot;
 	class MaterialInstance;
-	class GpuImage;
-	enum class GpuImageLayout;
-	class RenderTarget;
-	struct Viewport;
+
+	// Pipelines.
 	class IGraphicsPipeline;
 	class IRaytracingPipeline;
 	class IComputePipeline;
+
+	// Imágenes.
+	class GpuImage;
+	enum class GpuImageLayout;
+	class CopyImageInfo;
+	class RenderTarget;
+
+	// Buffers.
+	struct GpuBufferRange;
+
+	// Barriers.
+	struct GpuBarrierInfo;
+
+	// Otros.
+	struct Viewport;
+	class ICommandPool;
+
 
 	struct RenderPassImageInfo {
 		GpuImage* targetImage = nullptr;
 		UIndex32 arrayLevel = 0;
 		bool clear = true;
-	};
-
-	/// @brief Parámetros para la copia de una imagen a otra
-	/// en la GPU.
-	struct CopyImageInfo {
-
-		static CopyImageInfo CreateDefault1D(uint32_t size);
-		static CopyImageInfo CreateDefault2D(Vector2ui size);
-		static CopyImageInfo CreateDefault3D(Vector3ui size);
-
-		void SetCopySize(uint32_t size);
-		void SetCopySize(Vector2ui size);
-		void SetCopySize(Vector3ui size);
-
-		void SetSourceOffset(uint32_t offset);
-		void SetSourceOffset(Vector2ui offset);
-		void SetSourceOffset(Vector3ui offset);
-
-		void SetDestinationOffset(uint32_t offset);
-		void SetDestinationOffset(Vector2ui offset);
-		void SetDestinationOffset(Vector3ui offset);
-
-		void SetCopyAllLevels();
-
-		/// @brief Localización del área copiada de la imagen
-		/// de origen. Esquina superior izquierda.
-		Vector3ui sourceOffset = Vector3ui::Zero;
-
-		/// @brief Localización del área copiada de la imagen
-		/// final. Esquina superior izquierda.
-		Vector3ui destinationOffset = Vector3ui::Zero;
-
-		/// @brief Área copiada.
-		Vector3ui copySize = Vector3ui::Zero;
-
-
-		/// @brief Capa de origen a partir de la cual se copiará.
-		UIndex32 sourceArrayLevel = 0;
-
-		/// @brief Capa de destino a partir de la cual se escribirá.
-		UIndex32 destinationArrayLevel = 0;
-
-		/// @brief Número de capas que se van a copiar.
-		/// Para copiar todas las capas, establecer como ALL_ARRAY_LEVELS.
-		UIndex32 numArrayLevels = 1;
-
-
-		/// @brief Mip level de la imagen de origen desde el cual se copiará.
-		UIndex32 sourceMipLevel = 0;
-
-		/// @brief Mip level de la imagen de destino al que se copiará.
-		UIndex32 destinationMipLevel = 0;
-
-
-		/// @brief Canal desde el cual se leerá la información.
-		SampledChannel sourceChannel = SampledChannel::COLOR;
-		/// @brief Canal sobre el que se realizará la copia.
-		SampledChannel destinationChannel = SampledChannel::COLOR;
-
-		const static UIndex32 ALL_ARRAY_LEVELS = 0;
-
 	};
 
 	enum class RenderpassAutoSync {
@@ -109,7 +71,7 @@ namespace OSK::GRAPHICS {
 	/// La lista es creada por una pool de comandos, y se introduce
 	/// en una cola de comandos para su ejecución.
 	/// 
-	/// @note Los comandos serán ejecutados en orden una vez se envíe la lista
+	/// @note Los comandos serán ejecutados una vez se envíe la lista
 	/// a la GPU.
 	class OSKAPI_CALL ICommandList : public IGpuObject {
 
@@ -118,6 +80,7 @@ namespace OSK::GRAPHICS {
 		~ICommandList() override;
 
 		OSK_DEFINE_AS(ICommandList);
+
 
 		/// @brief Vacía la lista de comandos.
 		/// 
@@ -153,6 +116,7 @@ namespace OSK::GRAPHICS {
 		/// @param previous Stage previo.
 		/// @param next Stage siguiente.
 		/// @param range Información sobre que subrecursos de la imagen serán afectados.
+		/// @param queueTranfer Información sobre la transferencia de la imagen de una cola a otra.
 		///
 		/// @note Se debe cambiar el layout de la imagen antes de ejecutar un comando sobre ella,
 		/// si su layout actual no coincide con el necesario.
@@ -164,10 +128,11 @@ namespace OSK::GRAPHICS {
 		virtual void SetGpuImageBarrier(
 			GpuImage* image, 
 			GpuImageLayout previousLayout, 
-			GpuImageLayout nextLayout, 
+			GpuImageLayout nextLayout,
 			GpuBarrierInfo previous, 
 			GpuBarrierInfo next, 
-			const GpuImageRange& range = {}) = 0;
+			const GpuImageRange& range = {},
+			const ResourceQueueTransferInfo queueTranfer = ResourceQueueTransferInfo::Empty()) = 0;
 
 		/// @brief Establece un barrier que sincroniza la ejecución de comandos.
 		/// Cambia el layout de la imagen.
@@ -177,6 +142,7 @@ namespace OSK::GRAPHICS {
 		/// @param previous Stage previo.
 		/// @param next Stage siguiente.
 		/// @param range Información sobre que subrecursos de la imagen serán afectados.
+		/// @param queueTranfer Información sobre la transferencia de la imagen de una cola a otra.
 		/// 
 		/// @note Se debe cambiar el layout de la imagen antes de ejecutar un comando sobre ella,
 		/// si su layout actual no coincide con el necesario.
@@ -189,7 +155,8 @@ namespace OSK::GRAPHICS {
 			GpuImageLayout nextLayout,
 			GpuBarrierInfo previous,
 			GpuBarrierInfo next,
-			const GpuImageRange& range = {});
+			const GpuImageRange& range = {},
+			const ResourceQueueTransferInfo queueTranfer = ResourceQueueTransferInfo::Empty());
 
 		/// @brief Establece un barrier que sincroniza la ejecución de comandos.
 		/// Cambia el layout de la imagen.
@@ -198,6 +165,7 @@ namespace OSK::GRAPHICS {
 		/// @param nextLayout Nuevo layout.
 		/// @param next Stage siguiente.
 		/// @param range Información sobre que subrecursos de la imagen serán afectados.
+		/// @param queueTranfer Información sobre la transferencia de la imagen de una cola a otra.
 		/// 
 		/// @note Se debe cambiar el layout de la imagen antes de ejecutar un comando sobre ella,
 		/// si su layout actual no coincide con el necesario.
@@ -209,23 +177,41 @@ namespace OSK::GRAPHICS {
 			GpuImage* image,
 			GpuImageLayout nextLayout,
 			GpuBarrierInfo next,
-			const GpuImageRange& range = {});
+			const GpuImageRange& range = {},
+			const ResourceQueueTransferInfo queueTranfer = ResourceQueueTransferInfo::Empty());
 
 
-		/// @brief Limpia el contenido de una imagen fuera de un renderpass.
-		/// @param image Imagen a limpiar.
-		/// @param range Rango de la imagen que será limpiada.
-		/// @param color Color con el que se limpiará (por defecto, negro).
+		/// @brief Establece un barrier que sincroniza la ejecución de comandos que
+		/// usan un buffer.
+		/// @param buffer Buffer usado.
+		/// @param range Rango del buffer usado.
+		/// @param previous Stage previo.
+		/// @param next Stage siguiente.
+		/// @param queueTranfer Información sobre la transferencia de la imagen de una cola a otra.
 		/// 
 		/// @pre La lista de comandos debe estar abierta.
-		/// @pre La lista de comandos no debe tener ningún renderpass activo.
-		/// @pre @p range.channel debe ser SampledChannel::COLOR.
+		virtual void SetGpuBufferBarrier(
+			GpuBuffer* buffer,
+			const GpuBufferRange& range,
+			GpuBarrierInfo previous,
+			GpuBarrierInfo next,
+			const ResourceQueueTransferInfo queueTranfer = ResourceQueueTransferInfo::Empty()) = 0;
+
+		/// @brief Establece un barrier que sincroniza la ejecución de comandos que
+		/// usan un buffer.
+		/// @param buffer Buffer usado.
+		/// @param range Rango del buffer usado.
+		/// @param next Stage siguiente.
+		/// @param queueTranfer Información sobre la transferencia de la imagen de una cola a otra.
 		/// 
-		/// @post El layout de la imagen después de limpiarse será TRANSFER_DESTINATION.
-		virtual void ClearImage(
-			GpuImage* image, 
-			const GpuImageRange& range = {},
-			const Color& color = Color::Black) = 0;
+		/// @pre La lista de comandos debe estar abierta.
+		void SetGpuBufferBarrier(
+			GpuBuffer* buffer,
+			const GpuBufferRange& range,
+			GpuBarrierInfo next,
+			const ResourceQueueTransferInfo queueTranfer = ResourceQueueTransferInfo::Empty());
+
+#pragma region Pases
 
 		/// @brief Comienza el renderizado a un render target.
 		/// @param renderTarget Render target sobre el que se renderizará.
@@ -239,10 +225,16 @@ namespace OSK::GRAPHICS {
 		/// @pre No debe haber ningún renderpass activo.
 		/// @pre La lista de comandos debe estar abierta.
 		/// 
-		/// @post Las imágenes de color se encontrarán en GpuImageLayout::COLOR_ATTACHMENT.
-		/// @post La imagen de prfundidad se encontrarán en GpuImageLayout::DEPTH_STENCIL_TARGET.
+		/// @post Las imágenes de color se encontrarán en `GpuImageLayout::COLOR_ATTACHMENT`.
+		/// @post La imagen de profundidad se encontrarán en `GpuImageLayout::DEPTH_STENCIL_TARGET`.
+		/// 
+		/// @note El tipo de comando es de GRÁFICOS.
+		/// @pre El pool de comandos a partir del cual se ha creado la lista debe 
+		/// soportar, al menos, `CommandsSupport::GRAPHICS`.
+		/// @pre La cola de comandos sobre la que se envía la lista debe 
+		/// soportar, al menos, `CommandsSupport::GRAPHICS`.
 		void BeginGraphicsRenderpass(
-			RenderTarget* renderTarget, 
+			RenderTarget* renderTarget,
 			const Color& color = Color::Black,
 			bool autoSync = true);
 
@@ -260,12 +252,39 @@ namespace OSK::GRAPHICS {
 		/// @pre La lista de comandos debe estar abierta.
 		/// 
 		/// @post Las imágenes de color se encontrarán en GpuImageLayout::COLOR_ATTACHMENT.
-		/// @post La imagen de prfundidad se encontrarán en GpuImageLayout::DEPTH_STENCIL_TARGET.
+		/// @post La imagen de profundidad se encontrarán en GpuImageLayout::DEPTH_STENCIL_TARGET.
+		/// 
+		/// @note El tipo de comando es de GRÁFICOS.
+		/// @pre El pool de comandos a partir del cual se ha creado la lista debe 
+		/// soportar, al menos, `CommandsSupport::GRAPHICS`.
+		/// @pre La cola de comandos sobre la que se envía la lista debe 
+		/// soportar, al menos, `CommandsSupport::GRAPHICS`.
 		virtual void BeginGraphicsRenderpass(
-			DynamicArray<RenderPassImageInfo> colorImages, 
-			RenderPassImageInfo depthImage, 
+			DynamicArray<RenderPassImageInfo> colorImages,
+			RenderPassImageInfo depthImage,
 			const Color& color = Color::Black,
 			bool autoSync = true) = 0;
+
+		/// @brief Limpia el contenido de una imagen fuera de un renderpass.
+		/// @param image Imagen a limpiar.
+		/// @param range Rango de la imagen que será limpiada.
+		/// @param color Color con el que se limpiará (por defecto, negro).
+		/// 
+		/// @pre La lista de comandos debe estar abierta.
+		/// @pre La lista de comandos no debe tener ningún renderpass activo.
+		/// @pre @p range.channel debe ser SampledChannel::COLOR.
+		/// 
+		/// @post El layout de la imagen después de limpiarse será TRANSFER_DESTINATION.
+		/// 
+		/// @note El tipo de comando es de GRÁFICOS.
+		/// @pre El pool de comandos a partir del cual se ha creado la lista debe 
+		/// soportar, al menos, `CommandsSupport::GRAPHICS`.
+		/// @pre La cola de comandos sobre la que se envía la lista debe 
+		/// soportar, al menos, `CommandsSupport::GRAPHICS`.
+		virtual void ClearImage(
+			GpuImage* image,
+			const GpuImageRange& range = {},
+			const Color& color = Color::Black) = 0;
 
 		/// @brief Finaliza el renderizado a un render target.
 		/// @param autoSync True para introducir barriers automáticamente,
@@ -275,8 +294,46 @@ namespace OSK::GRAPHICS {
 		/// @pre La lista de comandos debe estar abierta.
 		/// @post Aplica a los color targets un GpuImageBarrier con nuevo layout = SHADER_READ_ONLY para 
 		/// fragment shader.
+		/// 
+		/// @note El tipo de comando es de GRÁFICOS.
+		/// @pre El pool de comandos a partir del cual se ha creado la lista debe 
+		/// soportar, al menos, `CommandsSupport::GRAPHICS`.
+		/// @pre La cola de comandos sobre la que se envía la lista debe 
+		/// soportar, al menos, `CommandsSupport::GRAPHICS`.
 		virtual void EndGraphicsRenderpass(bool autoSync = true) = 0;
 
+
+		/// @brief Establece el viewport a renderizar.
+		/// El viewport describe el área de la patnalla que se va a renderizar.
+		/// Además, establece la profundida mínima y máxima.
+		/// @param viewport Información del viewport.
+		/// 
+		/// @pre Debe haber un renderpass activo.
+		/// @pre La lista de comandos debe estar abierta.
+		/// 
+		/// @note El tipo de comando es de GRÁFICOS.
+		/// @pre El pool de comandos a partir del cual se ha creado la lista debe 
+		/// soportar, al menos, `CommandsSupport::GRAPHICS`.
+		/// @pre La cola de comandos sobre la que se envía la lista debe 
+		/// soportar, al menos, `CommandsSupport::GRAPHICS`.
+		virtual void SetViewport(const Viewport& viewport) = 0;
+
+		/// @brief Establece qué área del renderizado será visible en la textura final.
+		/// @param scissor Área de renderizado.
+		/// 
+		/// @pre Debe haber un renderpass activo.
+		/// @pre La lista de comandos debe estar abierta.
+		/// 
+		/// @note El tipo de comando es de GRÁFICOS.
+		/// @pre El pool de comandos a partir del cual se ha creado la lista debe 
+		/// soportar, al menos, `CommandsSupport::GRAPHICS`.
+		/// @pre La cola de comandos sobre la que se envía la lista debe 
+		/// soportar, al menos, `CommandsSupport::GRAPHICS`.
+		virtual void SetScissor(const Vector4ui& scissor) = 0;
+
+#pragma endregion
+
+#pragma region Binding
 
 		/// @brief Establece el material que se va a usar a la hora de renderizar los próximos comandos.
 		///
@@ -291,9 +348,19 @@ namespace OSK::GRAPHICS {
 		/// 
 		/// @warning Para materiales de rasterizado, debe estar activo el renderpass
 		/// con el que se vaya a renderizar usando este material.
+		/// 
+		/// @pre Si es un material gráfico, el pool de comandos a partir del cual se ha creado la lista debe 
+		/// soportar, al menos, `CommandsSupport::GRAPHICS`.
+		/// @pre Si es un material gráfico, la cola de comandos sobre la que se envía la lista debe 
+		/// soportar, al menos, `CommandsSupport::GRAPHICS`.
+		/// 
+		/// @pre Si es un material de computación, el pool de comandos a partir del cual se ha creado la lista debe 
+		/// soportar, al menos, `CommandsSupport::COMPUTE`.
+		/// @pre Si es un material de computación, la cola de comandos sobre la que se envía la lista debe 
+		/// soportar, al menos, `CommandsSupport::COMPUTE`.
 		void BindMaterial(const Material& material);
 
-				
+
 		/// @brief Establece el vertex buffer que se va a usar en los próximos renderizados.
 		/// @param buffer Buffer con los vértices.
 		/// @param view View que representa el rango a enlazar.
@@ -303,6 +370,12 @@ namespace OSK::GRAPHICS {
 		/// 
 		/// @note Los materiales que se usen después de este comando deben tener
 		/// el mismo tipo de vértice.
+		/// 
+		/// @note El tipo de comando es de GRÁFICOS.
+		/// @pre El pool de comandos a partir del cual se ha creado la lista debe 
+		/// soportar, al menos, `CommandsSupport::GRAPHICS`.
+		/// @pre La cola de comandos sobre la que se envía la lista debe 
+		/// soportar, al menos, `CommandsSupport::GRAPHICS`.
 		virtual void BindVertexBufferRange(const GpuBuffer& buffer, const VertexBufferView& view) = 0;
 
 		/// @brief Establece el vertex buffer que se va a usar en los próximos renderizados.
@@ -316,6 +389,12 @@ namespace OSK::GRAPHICS {
 		/// el mismo tipo de vértice.
 		/// 
 		/// @throws InvalidVertexBufferException Si el buffer no tiene inicializado su view de vértices.
+		/// 
+		/// @note El tipo de comando es de GRÁFICOS.
+		/// @pre El pool de comandos a partir del cual se ha creado la lista debe 
+		/// soportar, al menos, `CommandsSupport::GRAPHICS`.
+		/// @pre La cola de comandos sobre la que se envía la lista debe 
+		/// soportar, al menos, `CommandsSupport::GRAPHICS`.
 		void BindVertexBuffer(const GpuBuffer& buffer);
 
 		/// @brief Establece el index buffer que se va a usar en los próximos renderizados.
@@ -324,6 +403,12 @@ namespace OSK::GRAPHICS {
 		/// 
 		/// @pre Debe haber un renderpass activo.
 		/// @pre La lista de comandos debe estar abierta.
+		/// 
+		/// @note El tipo de comando es de GRÁFICOS.
+		/// @pre El pool de comandos a partir del cual se ha creado la lista debe 
+		/// soportar, al menos, `CommandsSupport::GRAPHICS`.
+		/// @pre La cola de comandos sobre la que se envía la lista debe 
+		/// soportar, al menos, `CommandsSupport::GRAPHICS`.
 		virtual void BindIndexBufferRange(const GpuBuffer& buffer, const IndexBufferView& view) = 0;
 
 		/// @brief Establece el index buffer que se va a usar en los próximos renderizados.
@@ -334,6 +419,12 @@ namespace OSK::GRAPHICS {
 		/// @pre La lista de comandos debe estar abierta.
 		/// 
 		/// @throws InvalidIndexBufferException Si el buffer no tiene inicializado su view de índices.
+		/// 
+		/// @note El tipo de comando es de GRÁFICOS.
+		/// @pre El pool de comandos a partir del cual se ha creado la lista debe 
+		/// soportar, al menos, `CommandsSupport::GRAPHICS`.
+		/// @pre La cola de comandos sobre la que se envía la lista debe 
+		/// soportar, al menos, `CommandsSupport::GRAPHICS`.
 		void BindIndexBuffer(const GpuBuffer& buffer);
 
 
@@ -343,75 +434,98 @@ namespace OSK::GRAPHICS {
 		/// @pre Debe haber un material enlazado.
 		/// @pre El slot debe ser compatible con el material enlazado.
 		/// @pre La lista de comandos debe estar abierta.
+		/// 
+		/// @pre El pool de comandos a partir del cual se ha creado la lista debe 
+		/// soportar, al menos, `CommandsSupport::GRAPHICS` o `CommandsSupport::COMPUTE`.
+		/// @pre La cola de comandos sobre la que se envía la lista debe 
+		/// soportar, al menos, `CommandsSupport::GRAPHICS` o `CommandsSupport::COMPUTE`.
 		virtual void BindMaterialInstance(const MaterialInstance& instance);
 
-		/// <summary>
-		/// Establece un material slot que estará asignado en los próximos comandos de renderizado.
+		/// @brief Establece un material slot que estará asignado en los próximos comandos de renderizado.
 		/// Pueden haber varios slots asignados en un mismo instante,
 		/// siempre que no tengan el mismo id.
-		/// </summary>
+		/// @param slot Slot a establecer.
 		/// 
 		/// @pre Debe haber un renderpass activo, en caso de que sea un material gráfico.
 		/// @pre Debe haber un material enlazado.
 		/// @pre El slot debe ser compatible con el material enlazado.
 		/// @pre La lista de comandos debe estar abierta.
+		/// 
+		/// @pre El pool de comandos a partir del cual se ha creado la lista debe 
+		/// soportar, al menos, `CommandsSupport::GRAPHICS` o `CommandsSupport::COMPUTE`.
+		/// @pre La cola de comandos sobre la que se envía la lista debe 
+		/// soportar, al menos, `CommandsSupport::GRAPHICS` o `CommandsSupport::COMPUTE`.
 		virtual void BindMaterialSlot(const IMaterialSlot& slot) = 0;
 
-		/// <summary>
-		/// Envía datos push constant al shader.
-		/// </summary>
-		/// <param name="pushConstName">Nombre de los push const en el shader.</param>
-		/// <param name="data">Información a enviar.</param>
-		/// <param name="size">Número de bytes a enviar.</param>
+
+		/// @brief Envía datos push constant al shader.
+		/// @param pushConstName Nombre de los push const en el shader.
+		/// @param data Información a enviar.
+		/// @param size Número de bytes a enviar.
 		/// 
+		/// @pre @p size > 0.
 		/// @pre Debe haber un renderpass activo.
 		/// @pre Debe haber un material enlazado.
 		/// @pre El push constant debe ser compatible con el material enlazado.
 		/// @pre La lista de comandos debe estar abierta.
+		/// 
+		/// @pre El pool de comandos a partir del cual se ha creado la lista debe 
+		/// soportar, al menos, `CommandsSupport::GRAPHICS` o `CommandsSupport::COMPUTE`.
+		/// @pre La cola de comandos sobre la que se envía la lista debe 
+		/// soportar, al menos, `CommandsSupport::GRAPHICS` o `CommandsSupport::COMPUTE`.
 		void PushMaterialConstants(
-			const std::string& pushConstName, 
-			const void* data, 
+			const std::string& pushConstName,
+			const void* data,
 			USize32 size);
 
-		/// <summary>
-		/// Envía datos push constant al shader.
-		/// </summary>
-		/// <param name="pushConstName">Nombre de los push const en el shader.</param>
-		/// <param name="data">Información a enviar.</param>
+		/// @brief Envía datos push constant al shader.
+		/// @tparam T Tipo de dato.
+		/// @param pushConstName Nombre de los push const en el shader.
+		/// @param data Datos a enviar.
 		/// 
 		/// @pre Debe haber un renderpass activo.
 		/// @pre Debe haber un material enlazado.
 		/// @pre El push constant debe ser compatible con el material enlazado.
 		/// @pre La lista de comandos debe estar abierta.
-		template <typename T> 
+		/// 
+		/// @pre El pool de comandos a partir del cual se ha creado la lista debe 
+		/// soportar, al menos, `CommandsSupport::GRAPHICS` o `CommandsSupport::COMPUTE`.
+		/// @pre La cola de comandos sobre la que se envía la lista debe 
+		/// soportar, al menos, `CommandsSupport::GRAPHICS` o `CommandsSupport::COMPUTE`.
+		template <typename T>
 		void PushMaterialConstants(const std::string& pushConstName, const T& data) {
 			PushMaterialConstants(pushConstName, &data, sizeof(T));
 		}
 
-		/// <summary>
-		/// Envía datos push constant al shader.
-		/// </summary>
-		/// <param name="pushConstName">Nombre de los push const en el shader.</param>
-		/// <param name="data">Información a enviar.</param>
-		/// <param name="size">Número de bytes a enviar.</param>
-		/// <param name="offset">Offset, dentro de este push constant, con el que se mandarán datos.</param>
+		/// @brief Envía datos push constant al shader.
+		/// @param pushConstName Nombre de los push const en el shader.
+		/// @param data Información a enviar.
+		/// @param size Número de bytes a enviar.
+		/// @param offset Offset, dentro de este push constant, con el que se mandarán datos.
 		/// 
+		/// @pre @p size > 0.
 		/// @pre Debe haber un renderpass activo.
 		/// @pre Debe haber un material enlazado.
 		/// @pre El push constant debe ser compatible con el material enlazado.
 		/// @pre La lista de comandos debe estar abierta.
+		/// 
+		/// @pre El pool de comandos a partir del cual se ha creado la lista debe 
+		/// soportar, al menos, `CommandsSupport::GRAPHICS` o `CommandsSupport::COMPUTE`.
+		/// @pre La cola de comandos sobre la que se envía la lista debe 
+		/// soportar, al menos, `CommandsSupport::GRAPHICS` o `CommandsSupport::COMPUTE`.
 		virtual void PushMaterialConstants(
-			const std::string& pushConstName, 
-			const void* data, 
-			USize32 size, 
+			const std::string& pushConstName,
+			const void* data,
+			USize32 size,
 			USize32 offset) = 0;
-		
 
-		/// <summary>
-		/// Renderiza los triángulos del vertex e index buffer,
+#pragma endregion
+
+#pragma region Drawing
+
+		/// @brief Renderiza los triángulos del vertex e index buffer,
 		/// con el material enlazado.
-		/// </summary>
-		/// <param name="numIndices">Número de vértices/índices del vertex buffer.</param>
+		/// @param numIndices Número de vértices/índices del vertex buffer.
 		/// 
 		/// @pre Debe haber un renderpass activo.
 		/// @pre Debe haber un material enlazado.
@@ -421,14 +535,20 @@ namespace OSK::GRAPHICS {
 		/// @pre Deben estar enlazados los slots y los push constants necesarios
 		/// para rellenar el material.
 		/// @pre La lista de comandos debe estar abierta.
+		/// 
+		/// @note El tipo de comando es de GRÁFICOS.
+		/// @pre El pool de comandos a partir del cual se ha creado la lista debe 
+		/// soportar, al menos, `CommandsSupport::GRAPHICS`.
+		/// @pre La cola de comandos sobre la que se envía la lista debe 
+		/// soportar, al menos, `CommandsSupport::GRAPHICS`.
 		virtual void DrawSingleInstance(USize32 numIndices) = 0;
-		
-		/// <summary>
+
+		/// <su
+		/// @brief 
 		/// Renderiza los triángulos del mesh,
 		/// con el material enlazado.
-		/// </summary>
-		/// <param name="numIndices">Número de vértices/índices del mesh.</param>
-		/// <param name="firstIndex">Primer vértice del mesh.</param>
+		/// @param firstIndex Índice del primer vértice del mesh.
+		/// @param numIndices Número de vértices/índices del mesh.
 		/// 
 		/// @pre Debe haber un renderpass activo.
 		/// @pre Debe haber un material enlazado.
@@ -438,6 +558,12 @@ namespace OSK::GRAPHICS {
 		/// @pre Deben estar enlazados los slots y los push constants necesarios
 		/// para rellenar el material.
 		/// @pre La lista de comandos debe estar abierta.
+		/// 
+		/// @note El tipo de comando es de GRÁFICOS.
+		/// @pre El pool de comandos a partir del cual se ha creado la lista debe 
+		/// soportar, al menos, `CommandsSupport::GRAPHICS`.
+		/// @pre La cola de comandos sobre la que se envía la lista debe 
+		/// soportar, al menos, `CommandsSupport::GRAPHICS`.
 		virtual void DrawSingleMesh(UIndex32 firstIndex, USize32 numIndices) = 0;
 
 		/// @brief Renderiza varias veces la malla indicada.
@@ -447,6 +573,9 @@ namespace OSK::GRAPHICS {
 		/// @param instanceCount Número de instancias.
 		virtual void DrawInstances(UIndex32 firstIndex, USize32 numIndices, UIndex32 firstInstance, USize32 instanceCount) = 0;
 
+#pragma endregion
+
+#pragma region Ray-tracing
 
 		/// <summary>
 		/// Ejecuta un trazado de rayos.
@@ -468,34 +597,41 @@ namespace OSK::GRAPHICS {
 		/// @pre Debe haberse activado la opción de trazado de rayos de OSKengine.
 		/// 
 		/// @todo Implementación en DX12.
+		/// 
+		/// @note El tipo de comando es de COMPUTACIÓN.
+		/// @pre El pool de comandos a partir del cual se ha creado la lista debe 
+		/// soportar, al menos, `CommandsSupport::COMPUTE`.
+		/// @pre La cola de comandos sobre la que se envía la lista debe 
+		/// soportar, al menos, `CommandsSupport::COMPUTE`.
 		virtual void TraceRays(
-			UIndex32 raygenEntry, 
+			UIndex32 raygenEntry,
 			UIndex32 closestHitEntry,
 			UIndex32 missEntry,
 			const Vector2ui& resolution) = 0;
 
+#pragma endregion
 
+#pragma region Compute
+
+		/// @brief Comienza la ejecución de un material de computación.
+		/// @param groupCount Número de grupos lanzados.
+		/// 
+		/// @pre NO debe haber un renderpass activo.
+		/// @pre Debe haber un material de computación enlazado.
+		/// @pre Deben estar enlazados los slots y los push constants necesarios
+		/// para rellenar el material.
+		/// @pre La lista de comandos debe estar abierta.
+		/// 
+		/// @note El tipo de comando es de COMPUTACIÓN.
+		/// @pre El pool de comandos a partir del cual se ha creado la lista debe 
+		/// soportar, al menos, `CommandsSupport::COMPUTE`.
+		/// @pre La cola de comandos sobre la que se envía la lista debe 
+		/// soportar, al menos, `CommandsSupport::COMPUTE`.
 		virtual void DispatchCompute(const Vector3ui& groupCount) = 0;
 
+#pragma endregion
 
-		/// <summary>
-		/// Establece el viewport a renderizar.
-		/// El viewport describe el área de la patnalla que se va a renderizar.
-		/// Además, establece la profundida mínima y máxima.
-		/// </summary>
-		/// 
-		/// @pre Debe haber un renderpass activo.
-		/// @pre La lista de comandos debe estar abierta.
-		virtual void SetViewport(const Viewport& viewport) = 0;
-
-		/// <summary>
-		/// Establece qué área del renderizado será visible en la textura final.
-		/// </summary>
-		/// 
-		/// @pre Debe haber un renderpass activo.
-		/// @pre La lista de comandos debe estar abierta.
-		virtual void SetScissor(const Vector4ui& scissor) = 0;
-
+#pragma region Transfer
 
 		/// @brief Copia la imagen guardada en un buffer a una imagen en la GPU.
 		/// Para poder subir una imagen a la GPU, primero debemos subir la
@@ -515,9 +651,21 @@ namespace OSK::GRAPHICS {
 		/// 
 		/// @post El layout de la imagen después de efectuarse la copia segirá siendo GpuImageLayout::TRANSFER_DESTINATION.
 		/// @post Si la imagen de destino tiene niveles de mip-map, estos estarán correctamente generados.
+		/// 
+		/// @note Si el número de niveles de mip de @p dest es 1, el tipo de comando es de TRANSFERENCIA.
+		/// @pre Si el número de niveles de mip de @p dest es 1, el pool de comandos a partir del cual se ha creado la lista debe 
+		/// soportar, al menos, `CommandsSupport::TRANSFER`.
+		/// @pre Si el número de niveles de mip de @p dest es 1, la cola de comandos sobre la que se envía la lista debe 
+		/// soportar, al menos, `CommandsSupport::TRANSFER`.
+		/// 
+		/// @note Si el número de niveles de mip de @p dest es mayor que 1, el tipo de comando es de TRANSFERENCIA y GRÁFICOS.
+		/// @pre Si el número de niveles de mip de @p dest es mayor que 1, el pool de comandos a partir del cual se ha creado la lista debe 
+		/// soportar, al menos, `CommandsSupport::TRANSFER` y `CommandsSupport::GRAPHICS`.
+		/// @pre Si el número de niveles de mip de @p dest es mayor que 1, la cola de comandos sobre la que se envía la lista debe 
+		/// soportar, al menos, `CommandsSupport::TRANSFER` y `CommandsSupport::GRAPHICS`.
 		virtual void CopyBufferToImage(
-			const GpuBuffer& source, 
-			GpuImage* dest, 
+			const GpuBuffer& source,
+			GpuImage* dest,
 			UIndex32 layer = 0,
 			USize64 offset = 0) = 0;
 
@@ -535,9 +683,15 @@ namespace OSK::GRAPHICS {
 		/// @pre La lista de comandos debe estar abierta.
 		/// 
 		/// @post El layout de la imagen después de efectuarse la copia segirá siendo GpuImageLayout::TRANSFER_DESTINATION.
+		/// 
+		/// @note El tipo de comando es de TRANSFERENCIA.
+		/// @pre El pool de comandos a partir del cual se ha creado la lista debe 
+		/// soportar, al menos, `CommandsSupport::TRANSFER`.
+		/// @pre La cola de comandos sobre la que se envía la lista debe 
+		/// soportar, al menos, `CommandsSupport::TRANSFER`.
 		virtual void RawCopyImageToImage(
-			const GpuImage& source, 
-			GpuImage* destination, 
+			const GpuImage& source,
+			GpuImage* destination,
 			const CopyImageInfo& copyInfo) = 0;
 
 		/// @brief Copia los contenidos de una imagen a otra, realizando operaciones de cambio de resolución y formato.
@@ -553,10 +707,16 @@ namespace OSK::GRAPHICS {
 		/// @pre La lista de comandos debe estar abierta.
 		/// 
 		/// @post El layout de la imagen después de efectuarse la copia segirá siendo GpuImageLayout::TRANSFER_DESTINATION.
+		/// 
+		/// @note El tipo de comando es de TRANSFERENCIA y GRÁFICOS.
+		/// @pre El pool de comandos a partir del cual se ha creado la lista debe 
+		/// soportar, al menos, `CommandsSupport::TRANSFER` y `CommandsSupport::GRAPHICS`.
+		/// @pre La cola de comandos sobre la que se envía la lista debe 
+		/// soportar, al menos, `CommandsSupport::TRANSFER` y `CommandsSupport::GRAPHICS`.
 		virtual void CopyImageToImage(
-			const GpuImage& source, 
-			GpuImage* destination, 
-			const CopyImageInfo& copyInfo, 
+			const GpuImage& source,
+			GpuImage* destination,
+			const CopyImageInfo& copyInfo,
 			GpuImageFilteringType filter) = 0;
 
 		/// @brief Copia los contenidos del primer buffer al segundo.
@@ -565,6 +725,12 @@ namespace OSK::GRAPHICS {
 		/// @param size Tamaño, en bytes, del área de memoria que se va a copiar.
 		/// @param sourceOffset Offset del área de memoria en el origen.
 		/// @param destOffset Offset del área de memoria en el destino.
+		/// 
+		/// @note El tipo de comando es de TRANSFERENCIA.
+		/// @pre El pool de comandos a partir del cual se ha creado la lista debe 
+		/// soportar, al menos, `CommandsSupport::TRANSFER`.
+		/// @pre La cola de comandos sobre la que se envía la lista debe 
+		/// soportar, al menos, `CommandsSupport::TRANSFER`.
 		virtual void CopyBufferToBuffer(
 			const GpuBuffer& source,
 			GpuBuffer* dest,
@@ -573,28 +739,89 @@ namespace OSK::GRAPHICS {
 			USize64 destOffset) = 0;
 
 
-		/// <summary>
-		/// Registra un buffer intermedio.
+		/// @brief Registra un buffer intermedio.
 		/// Como la operación de copia de datos de un buffer intermedio a un buffer final
 		/// no se realiza hasta que se ejecute la lista de comandos, no podemos
 		/// eliminar el buffer intermedio hasta la próxima ejecución de la
 		/// lista de comandos.
-		/// </summary>
+		/// @param stagingBuffer Staging buffer a enlazar a la lista de comandos.
 		/// 
 		/// @pre El buffer debe haber sido creado con GpuBufferUsage::TRANSFER_SOURCE.
 		/// @pre El buffer debe haber sido creado con GpuSharedMemoryType::GPU_AND_CPU.
 		/// @pre La lista de comandos debe estar abierta.
 		void RegisterStagingBuffer(OwnedPtr<GpuBuffer> stagingBuffer);
 
-		/// <summary>
-		/// Elimina todos los buffers intermedios que ya no son necesarios.
-		/// </summary>
-		/// 
+		/// @brief Elimina todos los buffers intermedios que ya no son necesarios.
 		/// @pre La lista debe haberse ejecutado antes de llamar a esta función.
 		void DeleteAllStagingBuffers();
 
 		void _SetSingleTimeUse();
+#pragma endregion
 
+#pragma region Resource queue transfer
+
+		/// @brief Transfiere la propiedad de la imagen de una cola GPU a otra.
+		/// @param image Imagen cuya propiedad será tranfserida.
+		/// @param sourceQueue Cola que era propietaria antes de este comando.
+		/// @param targetQueue Cola que será propietaria después de este comando.
+		/// 
+		/// @pre @p targetQueue debe ser estable.
+		/// 
+		/// @pre @p sourceQueue debe ser la cola que posee la imagen antes de este comando.
+		/// 
+		/// @note La transferencia de la propiedad no se completará hasta que no
+		/// se complete la ejecución del comando en GPU.
+		/// @note Si @p sourceQueue y @p targetQueue representan la misma cola,
+		/// no ocurre nada.
+		void TransferToQueue(
+			GpuImage* image,
+			const ICommandQueue& sourceQueue,
+			const ICommandQueue& targetQueue);
+
+		/// @brief Transfiere la propiedad de la imagen a otra cola GPU.
+		/// @param image Imagen cuya propiedad será tranfserida.
+		/// @param targetQueue Cola que será propietaria después de este comando.
+		/// 
+		/// @pre @p targetQueue debe ser estable.
+		/// 
+		/// @note Si @p targetQueue representan la cola que ya es propietaria de la imagen,
+		/// no ocurre nada.
+		void TransferToQueue(
+			GpuImage* image,
+			const ICommandQueue& targetQueue);
+
+
+		/// @brief Transfiere la propiedad del buffer de una cola GPU a otra.
+		/// @param buffer Buffer cuya propiedad será tranfserida.
+		/// @param sourceQueue Cola que era propietaria antes de este comando.
+		/// @param targetQueue Cola que será propietaria después de este comando.
+		/// 
+		/// @pre @p targetQueue debe ser estable.
+		/// 
+		/// @pre @p sourceQueue debe ser la cola que posee el buffer antes de este comando.
+		/// 
+		/// @note La transferencia de la propiedad no se completará hasta que no
+		/// se complete la ejecución del comando en GPU.
+		/// @note Si @p sourceQueue y @p targetQueue representan la misma cola,
+		/// no ocurre nada.
+		void TransferToQueue(
+			GpuBuffer* buffer,
+			const ICommandQueue& sourceQueue,
+			const ICommandQueue& targetQueue);
+
+		/// @brief Transfiere la propiedad del buffer de una cola GPU a otra.
+		/// @param buffer Buffer cuya propiedad será tranfserida.
+		/// @param targetQueue Cola que será propietaria después de este comando.
+		/// 
+		/// @pre @p targetQueue debe ser estable.
+		/// 
+		/// @note Si @p targetQueue representan la cola que ya es propietaria del buffer,
+		/// no ocurre nada.
+		void TransferToQueue(
+			GpuBuffer* buffer,
+			const ICommandQueue& targetQueue);
+
+#pragma endregion
 
 
 		/// @brief Añade un marcador en la lista de comandos que podrá ser vista
@@ -612,37 +839,62 @@ namespace OSK::GRAPHICS {
 		virtual void EndDebugSection() = 0;
 
 
+		const ICommandPool* GetOwnerPool() const;
+		
+		/// @return Tipo de cola GPU en la que se puede
+		/// insertar esta lista;
+		GpuQueueType GetCompatibleQueueType() const;
+
 		UIndex32 _GetCommandListIndex() const;
 
 	protected:
+
+		explicit ICommandList(const ICommandPool* commandPool);
+
+		void _SetSingleTime();
 
 		virtual void BindGraphicsPipeline(const IGraphicsPipeline& computePipeline) = 0;
 		virtual void BindComputePipeline(const IComputePipeline& computePipeline) = 0;
 		virtual void BindRayTracingPipeline(const IRaytracingPipeline& computePipeline) = 0;
 
-		/// <summary>
-		/// Pipeline que está siendo grabada en un instante determinado.
-		/// </summary>
+
+		/// @brief Pipeline que está siendo grabado en un instante determinado.
+		/// Sólamente puede estar uno activo.
 		union {
 			const IGraphicsPipeline* graphics = nullptr;
 			const IRaytracingPipeline* raytracing;
 			const IComputePipeline* compute;
-		} currentPipeline{};
+		} m_currentPipeline{};
 
-		/// <summary>
-		/// Material que está siendo usado en un instante determinado.
-		/// </summary>
-		const Material* currentMaterial = nullptr;
+		/// @brief Material que está siendo usado en un instante determinado.
+		const Material* m_currentlyBoundMaterial = nullptr;
 
-		DynamicArray<RenderPassImageInfo> currentColorImages;
-		RenderPassImageInfo currentDepthImage;
-		RenderpassType currentRenderpassType = RenderpassType::INTERMEDIATE;
 
-		bool isSingleUse = false;
+		/// @brief 
+		DynamicArray<RenderPassImageInfo> m_currentlyBoundColorImages;
+
+		/// @brief 
+		RenderPassImageInfo m_currentlyBoundDepthImage;
+
+		/// @brief 
+		RenderpassType m_currentlyBoundRenderTargetType = RenderpassType::INTERMEDIATE;
+
 
 	private:
 
-		DynamicArray<UniquePtr<GpuBuffer>> stagingBuffersToDelete;
+		/// @brief True si es una lista de uso único.
+		bool m_isSingleUse = false;
+
+		/// @brief Buffers de un único uso que pueden ser eliminados
+		/// tras la ejecución de esta lista de comandos.
+		DynamicArray<UniquePtr<GpuBuffer>> m_stagingBuffersToDelete;
+
+		/// @brief Lista con las imágenes que han cambiado de
+		/// cola de GPU.
+		DynamicArray<GpuImage*> m_imagesToQueueTransfer;
+
+		/// @brief Command pool que creó esta lista de comandos.
+		const ICommandPool* m_ownerPool = nullptr;
 
 	};
 

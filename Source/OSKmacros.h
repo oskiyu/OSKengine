@@ -54,6 +54,13 @@ using TInterfaceUuid = UIndex32;
 #define OSK_DEFINE_IUUID(uuid) static TInterfaceUuid GetInterfaceUuid() { return uuid; }
 #define OSK_IUUID(interfaceClass) (interfaceClass ::GetInterfaceUuid())
 
+#define OSK_VULKAN_TYPEDEF(type) \
+struct type##_T;\
+using type = type##_T*
+
+#define OSK_VULKAN_FLAGS_TYPEDEF(type) using type = USize32;
+
+
 inline constexpr USize32 NUM_RESOURCES_IN_FLIGHT = 3;
 
 #ifdef max

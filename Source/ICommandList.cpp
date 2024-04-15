@@ -8,33 +8,53 @@
 #include "MaterialLayout.h"
 #include "MaterialInstance.h"
 
+#include "GpuBufferRange.h"
+
 #include "CommandListExceptions.h"
 
 using namespace OSK;
 using namespace OSK::GRAPHICS;
 
+ICommandList::ICommandList(const ICommandPool* commandPool) : m_ownerPool(commandPool) {
+
+}
+
 ICommandList::~ICommandList() {
 	DeleteAllStagingBuffers();
 }
 
-void ICommandList::SetGpuImageBarrier(GpuImage* image, GpuImageLayout nextLayout, GpuBarrierInfo previous, GpuBarrierInfo next, const GpuImageRange& range) {
-	const GpuImageLayout previousLayout = image->_GetLayout(range.baseLayer, range.baseMipLevel);
-	SetGpuImageBarrier(image, previousLayout, nextLayout, previous, next, range);
+
+void ICommandList::_SetSingleTime() {
+	m_isSingleUse = true;
 }
 
-void ICommandList::SetGpuImageBarrier(GpuImage* image, GpuImageLayout nextLayout, GpuBarrierInfo next, const GpuImageRange& range) {
+void ICommandList::SetGpuImageBarrier(GpuImage* image, GpuImageLayout nextLayout, GpuBarrierInfo previous, GpuBarrierInfo next, const GpuImageRange& range, const ResourceQueueTransferInfo queueTranfer) {
 	const GpuImageLayout previousLayout = image->_GetLayout(range.baseLayer, range.baseMipLevel);
-	SetGpuImageBarrier(image, previousLayout, nextLayout, image->GetCurrentBarrier(), next, range);
+	SetGpuImageBarrier(image, previousLayout, nextLayout, previous, next, range, queueTranfer);
+}
+
+void ICommandList::SetGpuImageBarrier(GpuImage* image, GpuImageLayout nextLayout, GpuBarrierInfo next, const GpuImageRange& range, const ResourceQueueTransferInfo queueTranfer) {
+	const GpuImageLayout previousLayout = image->_GetLayout(range.baseLayer, range.baseMipLevel);
+	SetGpuImageBarrier(image, previousLayout, nextLayout, image->GetCurrentBarrier(), next, range, queueTranfer);
+}
+
+void ICommandList::SetGpuBufferBarrier(GpuBuffer* buffer, const GpuBufferRange& range, GpuBarrierInfo next, const ResourceQueueTransferInfo queueTranfer) {
+	SetGpuBufferBarrier(
+		buffer,
+		range,
+		buffer->GetCurrentBarrier(),
+		next,
+		queueTranfer);
 }
 
 void ICommandList::RegisterStagingBuffer(OwnedPtr<GpuBuffer> stagingBuffer) {
-	stagingBuffersToDelete.Insert(stagingBuffer.GetPointer());
+	m_stagingBuffersToDelete.Insert(stagingBuffer.GetPointer());
 }
 
 void ICommandList::BeginGraphicsRenderpass(RenderTarget* renderpass, const Color& color, bool autoSync) {
-	currentRenderpassType = renderpass->GetRenderTargetType();
+	m_currentlyBoundRenderTargetType = renderpass->GetRenderTargetType();
 
-	const bool isFinal = currentRenderpassType == RenderpassType::FINAL;
+	const bool isFinal = m_currentlyBoundRenderTargetType == RenderpassType::FINAL;
 	const UIndex32 resourceIndex = isFinal
 		? Engine::GetRenderer()->GetCurrentFrameIndex()
 		: Engine::GetRenderer()->GetCurrentResourceIndex();
@@ -64,17 +84,17 @@ void ICommandList::BindIndexBuffer(const GpuBuffer& buffer) {
 }
 
 void ICommandList::BindMaterial(const Material& material) {
-	currentMaterial = &material;
+	m_currentlyBoundMaterial = &material;
 
 	switch (material.GetMaterialType()) {
 		case MaterialType::GRAPHICS: {
 			PipelineKey pipelineKey{};
-			pipelineKey.depthFormat = currentDepthImage.targetImage->GetFormat();
+			pipelineKey.depthFormat = m_currentlyBoundDepthImage.targetImage->GetFormat();
 
-			for (const auto& colorImg : currentColorImages)
+			for (const auto& colorImg : m_currentlyBoundColorImages)
 				pipelineKey.colorFormats.Insert(colorImg.targetImage->GetFormat());
 
-			currentPipeline.graphics = material.GetGraphicsPipeline(pipelineKey);
+			m_currentPipeline.graphics = material.GetGraphicsPipeline(pipelineKey);
 
 			BindGraphicsPipeline(*material.GetGraphicsPipeline(pipelineKey));
 			break;
@@ -82,11 +102,11 @@ void ICommandList::BindMaterial(const Material& material) {
 
 		case MaterialType::RAYTRACING: 
 			BindRayTracingPipeline(*material.GetRaytracingPipeline());
-			currentPipeline.raytracing = material.GetRaytracingPipeline();
+			m_currentPipeline.raytracing = material.GetRaytracingPipeline();
 			break;
 
 		case MaterialType::COMPUTE: BindComputePipeline(*material.GetComputePipeline());
-			currentPipeline.compute = material.GetComputePipeline();
+			m_currentPipeline.compute = material.GetComputePipeline();
 			break;
 	}
 }
@@ -101,75 +121,58 @@ void ICommandList::PushMaterialConstants(const std::string& pushConstName, const
 }
 
 void ICommandList::DeleteAllStagingBuffers() {
-	stagingBuffersToDelete.Free();
+	m_stagingBuffersToDelete.Free();
 }
 
 void ICommandList::_SetSingleTimeUse() {
-	isSingleUse = true;
+	m_isSingleUse = true;
+}
+
+const ICommandPool* ICommandList::GetOwnerPool() const {
+	return m_ownerPool;
+}
+
+GpuQueueType ICommandList::GetCompatibleQueueType() const {
+	return m_ownerPool->GetLinkedQueueType();
 }
 
 UIndex32 ICommandList::_GetCommandListIndex() const {
-	return isSingleUse ? 0 : Engine::GetRenderer()->GetCurrentCommandListIndex();
+	return m_isSingleUse ? 0 : Engine::GetRenderer()->GetCurrentCommandListIndex();
 }
 
+void ICommandList::TransferToQueue(GpuImage* image, const ICommandQueue& sourceQueue, const ICommandQueue& targetQueue) {
+	if (&sourceQueue == &targetQueue) {
+		return;
+	}
 
-CopyImageInfo CopyImageInfo::CreateDefault1D(uint32_t size) {
-	CopyImageInfo output{};
-	output.SetCopySize(size);
+	SetGpuImageBarrier(
+		image,
+		image->_GetLayout(0, 0),
+		GpuBarrierInfo(GpuCommandStage::ALL, GpuAccessStage::NONE),
+		GpuBarrierInfo(GpuCommandStage::ALL, GpuAccessStage::NONE),
+		GpuImageRange{},
+		ResourceQueueTransferInfo::FromTo(sourceQueue.GetFamily(), targetQueue.GetFamily()));
 
-	return output;
+	image->_UpdateOwnerQueue(std::addressof(targetQueue));
 }
 
-CopyImageInfo CopyImageInfo::CreateDefault2D(Vector2ui size) {
-	CopyImageInfo output{};
-	output.SetCopySize(size);
-
-	return output;
+void ICommandList::TransferToQueue(GpuImage* image, const ICommandQueue& targetQueue) {
+	TransferToQueue(image, *image->GetOwnerQueue(), targetQueue);
 }
 
-CopyImageInfo CopyImageInfo::CreateDefault3D(Vector3ui size) {
-	CopyImageInfo output{};
-	output.SetCopySize(size);
-
-	return output;
+void ICommandList::TransferToQueue(GpuBuffer* buffer, const ICommandQueue& sourceQueue, const ICommandQueue& targetQueue) {
+	SetGpuBufferBarrier(
+		buffer,
+		buffer->GetWholeBufferRange(),
+		GpuBarrierInfo(GpuCommandStage::ALL, GpuAccessStage::NONE),
+		ResourceQueueTransferInfo::FromTo(
+			sourceQueue.GetFamily(),
+			targetQueue.GetFamily()));
 }
 
-void CopyImageInfo::SetCopySize(uint32_t size) {
-	copySize = { size, 1u, 1u };
-}
-
-void CopyImageInfo::SetCopySize(Vector2ui size) {
-	copySize = { size.x, size.y, 1u };
-}
-
-void CopyImageInfo::SetCopySize(Vector3ui size) {
-	copySize = size;
-}
-
-void CopyImageInfo::SetSourceOffset(uint32_t offset) {
-	sourceOffset = { offset, 0, 0 };
-}
-
-void CopyImageInfo::SetSourceOffset(Vector2ui offset) {
-	sourceOffset = { offset.x, offset.y, 0 };
-}
-
-void CopyImageInfo::SetSourceOffset(Vector3ui offset) {
-	sourceOffset = offset;
-}
-
-void CopyImageInfo::SetDestinationOffset(uint32_t offset) {
-	destinationOffset = { offset, 0, 0 };
-}
-
-void CopyImageInfo::SetDestinationOffset(Vector2ui offset) {
-	destinationOffset = { offset.x, offset.y, 0 };
-}
-
-void CopyImageInfo::SetDestinationOffset(Vector3ui offset) {
-	destinationOffset = offset;
-}
-
-void CopyImageInfo::SetCopyAllLevels() {
-	numArrayLevels = ALL_ARRAY_LEVELS;
+void ICommandList::TransferToQueue(GpuBuffer* buffer, const ICommandQueue& targetQueue) {
+	TransferToQueue(
+		buffer,
+		*buffer->GetOwnerQueue(),
+		targetQueue);
 }

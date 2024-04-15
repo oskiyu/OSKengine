@@ -56,7 +56,7 @@ ColliderRenderSystem::ColliderRenderSystem() {
 	const GpuBuffer* _cameraUbos[NUM_RESOURCES_IN_FLIGHT]{};
 	for (UIndex32 i = 0; i < NUM_RESOURCES_IN_FLIGHT; i++) {
 		cameraUbos[i] = Engine::GetRenderer()->GetAllocator()
-			->CreateUniformBuffer(sizeof(glm::mat4) * 2 + sizeof(glm::vec4))
+			->CreateUniformBuffer(sizeof(glm::mat4) * 2 + sizeof(glm::vec4), GpuQueueType::MAIN)
 			.GetPointer();
 		_cameraUbos[i] = cameraUbos[i].GetPointer();
 	}
@@ -129,7 +129,7 @@ void ColliderRenderSystem::Render(GRAPHICS::ICommandList* commandList, std::span
 		Transform3D topLevelTransform = originalTransform;
 		topLevelTransform.SetRotation({});
 
-		if (gameObject == 1) {
+		if (gameObject.Get() == 1) {
 			COLLISION::Ray ray{};
 			ray.origin = originalTransform.GetPosition() + Vector3f(0.0f, 0.11f, 0.0f);
 			ray.direction = originalTransform.GetForwardVector();
@@ -284,8 +284,12 @@ void ColliderRenderSystem::SetupBottomLevelModel(GameObjectIndex obj) {
 		}
 
 		// Creamos los buffers.
-		vertexBuffers.Insert(Engine::GetRenderer()->GetAllocator()->CreateVertexBuffer(vertices, Vertex3D::GetVertexInfo()).GetPointer());
-		indexBuffers.Insert(Engine::GetRenderer()->GetAllocator()->CreateIndexBuffer(indices).GetPointer());
+		vertexBuffers.Insert(Engine::GetRenderer()->GetAllocator()->CreateVertexBuffer(
+			vertices, 
+			Vertex3D::GetVertexInfo(),
+			GpuQueueType::MAIN).GetPointer());
+
+		indexBuffers.Insert(Engine::GetRenderer()->GetAllocator()->CreateIndexBuffer(indices, GpuQueueType::MAIN).GetPointer());
 	}
 
 	// Si no existían las listas, las introducimos primero.

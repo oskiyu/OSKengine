@@ -150,6 +150,7 @@ namespace OSK::GRAPHICS {
 
 		OwnedPtr<ICommandPool> CreateGraphicsCommandPool() override;
 		OwnedPtr<ICommandPool> CreateComputeCommandPool() override;
+		std::optional<OwnedPtr<ICommandPool>> CreateTransferOnlyCommandPool() override;
 
 	private:
 

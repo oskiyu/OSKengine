@@ -59,7 +59,8 @@ void TextureLoader::Load(const std::string& assetFilePath, Texture* asset) {
 	auto image = Engine::GetRenderer()->GetAllocator()->CreateImage(imageInfo);
 	image->SetDebugName(assetInfo["name"]);
 
-	OwnedPtr<ICommandList> uploadCmdList = Engine::GetRenderer()->CreateSingleUseCommandList();
+	// Preferir cola de transferencia: NO, por mipmap generation.
+	OwnedPtr<ICommandList> uploadCmdList = Engine::GetRenderer()->CreateSingleUseCommandList(GpuQueueType::MAIN);
 	uploadCmdList->Reset();
 	uploadCmdList->Start();
 
@@ -79,6 +80,10 @@ void TextureLoader::Load(const std::string& assetFilePath, Texture* asset) {
 		GpuImageLayout::SAMPLED,
 		GpuBarrierInfo(GpuCommandStage::FRAGMENT_SHADER, GpuAccessStage::SHADER_READ));
 
+	uploadCmdList->TransferToQueue(
+		image.GetPointer(),
+		*Engine::GetRenderer()->GetMainRenderingQueue());
+
 	uploadCmdList->Close();
 	Engine::GetRenderer()->SubmitSingleUseCommandList(uploadCmdList.GetPointer());
 
@@ -87,6 +92,6 @@ void TextureLoader::Load(const std::string& assetFilePath, Texture* asset) {
 	asset->_SetImage(image);
 }
 
-void TextureLoader::RegisterTexture(AssetOwningRef<Texture> texture) {
-	m_externallyLoadedTextures.Insert(texture);
+void TextureLoader::RegisterTexture(AssetOwningRef<Texture>&& texture) {
+	m_externallyLoadedTextures.Insert(std::move(texture));
 }

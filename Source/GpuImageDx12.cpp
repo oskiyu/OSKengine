@@ -14,8 +14,7 @@
 using namespace OSK;
 using namespace OSK::GRAPHICS;
 
-GpuImageDx12::GpuImageDx12(const Vector3ui& size, GpuImageDimension dimension, GpuImageUsage usage, USize32 numLayers, Format format, USize32 numSamples, GpuImageSamplerDesc samplerDesc)
-	: GpuImage(size, dimension, usage, numLayers, format, numSamples, samplerDesc, GpuImageTiling::OPTIMAL) {
+GpuImageDx12::GpuImageDx12(const GpuImageCreateInfo& info, const ICommandQueue* queue) : GpuImage(info, queue) {
 
 }
 

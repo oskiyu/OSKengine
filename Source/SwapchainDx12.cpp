@@ -39,30 +39,14 @@ using namespace OSK;
 using namespace OSK::IO;
 using namespace OSK::GRAPHICS;
 
-SwapchainDx12::~SwapchainDx12() {
-    if (swapchain.Get())
-        swapchain.Reset();
-
-    Engine::GetLogger()->InfoLog("Swapchain cerrado.");
-}
-
-void SwapchainDx12::Create(PresentMode mode, IGpu* device, Format format, const CommandQueueDx12& commandQueue, IDXGIFactory4* factory, const IO::IDisplay& display) {
-    this->m_device = device;
-    this->m_colorFormat = format;
-
-    this->m_presentMode = mode;
-
-    if (mode == PresentMode::VSYNC_ON_TRIPLE_BUFFER) {
-        Engine::GetLogger()->InfoLog(
-            std::format("El modo de presentación {} no está soportado. Se usará {}.",
-                ToString<PresentMode>(mode),
-                ToString<PresentMode>(PresentMode::VSYNC_ON)));
-        this->m_presentMode = PresentMode::VSYNC_ON;
-    }
-
+SwapchainDx12::SwapchainDx12(PresentMode mode, Format format, const GpuDx12& device, std::span<const UIndex32> queueIndices, const IDisplay& display, IDXGIFactory4* factory)
+: ISwapchain(mode, format, queueIndices) 
+{
     DXGI_SWAP_CHAIN_DESC1 swapchainDesc{};
 
-    swapchainDesc.BufferCount = m_imageCount;
+    SetNumImagesInFlight(NUM_RESOURCES_IN_FLIGHT);
+
+    swapchainDesc.BufferCount = GetImageCount();
     swapchainDesc.BufferUsage = DXGI_USAGE_RENDER_TARGET_OUTPUT;
 
     swapchainDesc.Width = display.GetResolution().x;
@@ -74,23 +58,27 @@ void SwapchainDx12::Create(PresentMode mode, IGpu* device, Format format, const 
     swapchainDesc.SampleDesc.Count = 1;
 
     ComPtr<IDXGISwapChain1> swapchainTemp;
-    factory->CreateSwapChainForHwnd(
+    /*factory->CreateSwapChainForHwnd(
         commandQueue.GetCommandQueue(), // swap chain forces flush when does flip
         glfwGetWin32Window(display.As<Window>()->_GetGlfw()),
         &swapchainDesc,
         nullptr, // pFullscreenDesc
         nullptr, // pRestrictToOutput
         &swapchainTemp
-    );
+    );*/
 
     swapchainTemp.As(&swapchain);
-        
-    CreateImages(display);
 }
 
+SwapchainDx12::~SwapchainDx12() {
+    if (swapchain.Get())
+        swapchain.Reset();
+}
+
+
 void SwapchainDx12::DeleteImages() {
-    for (USize32 i = 0; i < m_imageCount; i++)
-        m_images[i].Delete();
+    // for (USize32 i = 0; i < m_imageCount; i++)
+    //    m_images[i].Delete();
 
     renderTargetsDesc->Release();
 }
@@ -100,21 +88,21 @@ void SwapchainDx12::CreateImages(const IO::IDisplay& display) {
     D3D12_DESCRIPTOR_HEAP_DESC imagesMemoryCreateInfo{};
     imagesMemoryCreateInfo.Flags = D3D12_DESCRIPTOR_HEAP_FLAG_NONE;
     imagesMemoryCreateInfo.NodeMask = 0;
-    imagesMemoryCreateInfo.NumDescriptors = m_imageCount;
+    imagesMemoryCreateInfo.NumDescriptors = GetImageCount();
     imagesMemoryCreateInfo.Type = D3D12_DESCRIPTOR_HEAP_TYPE_RTV;
 
     D3D12_DESCRIPTOR_HEAP_DESC depthImagesMemoryCreateInfo{};
     depthImagesMemoryCreateInfo.Flags = D3D12_DESCRIPTOR_HEAP_FLAG_NONE;
     depthImagesMemoryCreateInfo.NodeMask = 0;
-    depthImagesMemoryCreateInfo.NumDescriptors = m_imageCount;
+    depthImagesMemoryCreateInfo.NumDescriptors = GetImageCount();
     depthImagesMemoryCreateInfo.Type = D3D12_DESCRIPTOR_HEAP_TYPE_DSV;
 
-    m_device->As<GpuDx12>()->GetDevice()->CreateDescriptorHeap(&imagesMemoryCreateInfo, IID_PPV_ARGS(&renderTargetsDesc));
+    /*m_device->As<GpuDx12>()->GetDevice()->CreateDescriptorHeap(&imagesMemoryCreateInfo, IID_PPV_ARGS(&renderTargetsDesc));
     auto result = m_device->As<GpuDx12>()->GetDevice()->CreateDescriptorHeap(&depthImagesMemoryCreateInfo, IID_PPV_ARGS(&depthTargetsDescHeap));
 
     const Vector3ui imageSize = Vector3ui(display.GetResolution().x, display.GetResolution().y, 1);
-    for (UIndex32 i = 0; i < m_imageCount; i++) {
-        m_images[i] = new GpuImageDx12(imageSize, GpuImageDimension::d2D, GpuImageUsage::COLOR, 1, m_colorFormat, 1, {});
+    for (UIndex32 i = 0; i < GetImageCount(); i++) {
+        m_images[i] = new GpuImageDx12(imageSize, GpuImageDimension::d2D, GpuImageUsage::COLOR, 1, GetColorFormat(), 1, {});
         depthImages[i] = new GpuImageDx12(
             imageSize, 
             GpuImageDimension::d2D, 
@@ -183,20 +171,16 @@ void SwapchainDx12::CreateImages(const IO::IDisplay& display) {
 
             m_device->As<GpuDx12>()->GetDevice()->CreateDepthStencilView(depthImages[i]->As<GpuImageDx12>()->GetResource(), &depthStencilViewDesc, depthDescriptor);
         }
-    }
+    }*/
 }
 
 void SwapchainDx12::Present() {
-    swapchain->Present(static_cast<UINT>(m_presentMode), 0);
+    swapchain->Present(static_cast<UINT>(GetCurrentPresentMode()), 0);
     UpdateFrameIndex();
 }
 
-void SwapchainDx12::SetPresentMode(PresentMode mode) {
-    OSK_ASSERT(false, NotImplementedException());
-}
-
 void SwapchainDx12::UpdateFrameIndex() {
-    m_currentFrameIndex = swapchain->GetCurrentBackBufferIndex();
+    // m_currentFrameIndex = swapchain->GetCurrentBackBufferIndex();
 }
 
 IDXGISwapChain3* SwapchainDx12::GetSwapchain() const {
@@ -209,4 +193,8 @@ ID3D12DescriptorHeap* SwapchainDx12::GetRenderTargetMemory() const {
 
 ID3D12DescriptorHeap* SwapchainDx12::GetDepthStencilMemory() const {
     return this->depthTargetsDescHeap.Get();
+}
+
+void SwapchainDx12::Resize(const IGpu& gpu, Vector2ui newResolution) {
+    /// @todo
 }

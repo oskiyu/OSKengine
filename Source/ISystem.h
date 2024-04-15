@@ -28,6 +28,17 @@ namespace OSK::ECS{
 		/// @brief Sistemas que deben ejecutarse después del sistema.
 		std::set<std::string, std::less<>> executeBeforeThese;
 
+		/// @brief Indica si este sistema debe ser ejecutado sin que otros 
+		/// sistemas puedan ejecutarse al mismo tiempo.
+		bool exclusiveExecution = false;
+
+		/// @brief Indica si este sistema debe ser ejecutado exclusivamente
+		/// en un único hilo.
+		/// 
+		/// Permite que otros sistemas puedan ejecutarse
+		/// al mismo tiempo.
+		bool singleThreaded = false;
+
 	};
 
 

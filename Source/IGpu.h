@@ -4,7 +4,7 @@
 #include "OwnedPtr.h"
 #include "GpuMemoryUsageInfo.h"
 
-#include <type_traits>
+#include <optional>
 
 namespace OSK::GRAPHICS {
 
@@ -28,6 +28,13 @@ namespace OSK::GRAPHICS {
 		/// @return Command pool para comandos de computación.
 		/// @throws CommandPoolCreationException Si ocurre algún error. 
 		virtual OwnedPtr<ICommandPool> CreateComputeCommandPool() = 0;
+
+
+		/// @brief Intenta crear un pool de comandos que soporte únicamente operaciones de transferencia.
+		/// @return Command pool para comandos excusivamente de transferencia.
+		/// Si no hay, retorna vacío.
+		virtual std::optional<OwnedPtr<ICommandPool>> CreateTransferOnlyCommandPool() = 0;
+
 
 		/// @brief Obtiene la información sobre el uso de memoria de esta GPU,
 		/// incluyendo espacio usado y espacio disponible.

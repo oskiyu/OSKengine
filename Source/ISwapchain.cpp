@@ -4,6 +4,9 @@
 #include "IRenderer.h"
 #include "IGpuImage.h"
 #include "ICommandList.h"
+#include "CopyImageInfo.h"
+
+#include "GpuImageLayout.h"
 
 #define STB_IMAGE_WRITE_IMPLEMENTATION
 #include <stb_image_write.h>
@@ -13,6 +16,24 @@
 using namespace OSK;
 using namespace OSK::GRAPHICS;
 
+
+ISwapchain::ISwapchain(PresentMode mode, Format format, std::span<const UIndex32> queueIndices) : m_presentMode(mode), m_colorFormat(format){
+	for (const auto index : queueIndices) {
+		m_queueIndices.Insert(index);
+	}
+}
+
+void ISwapchain::SetNumImagesInFlight(USize32 imageCount) {
+	m_numImagesInFlight = imageCount;
+}
+
+void ISwapchain::SetImage(OwnedPtr<GpuImage> image, UIndex32 index) {
+	m_images[index] = image.GetPointer();
+}
+
+std::span<const UIndex32> ISwapchain::GetQueueIndices() const {
+	return m_queueIndices.GetFullSpan();
+}
 
 void ISwapchain::TakeScreenshot(std::string_view path) {
 	// Obtenemos la imagen a guardar.
@@ -27,7 +48,7 @@ void ISwapchain::TakeScreenshot(std::string_view path) {
 	);
 	intermediateImageInfo.memoryType = GpuSharedMemoryType::GPU_AND_CPU;
 	intermediateImageInfo.tilingType = GpuImageTiling::LINEAL;
-	intermediateImageInfo.SetMsaaSamples(1);
+	intermediateImageInfo.msaaSamples = 1;
 	intermediateImageInfo.samplerDesc = GpuImageSamplerDesc::CreateDefault();
 
 	UniquePtr<GpuImage> intermediateImage = Engine::GetRenderer()->GetAllocator()->CreateImage(intermediateImageInfo).GetPointer();
@@ -35,7 +56,8 @@ void ISwapchain::TakeScreenshot(std::string_view path) {
 
 	// Comenzamos el proceso de copia.
 
-	OwnedPtr<ICommandList> commandList = Engine::GetRenderer()->CreateSingleUseCommandList();
+	// Preferir NO usar cola de transferencia, para no tener que transferir la propiedad de la imagen.
+	OwnedPtr<ICommandList> commandList = Engine::GetRenderer()->CreateSingleUseCommandList(GpuQueueType::MAIN);
 	commandList->Reset();
 	commandList->Start();
 
@@ -118,11 +140,17 @@ PresentMode ISwapchain::GetCurrentPresentMode() const {
 }
 
 unsigned int ISwapchain::GetImageCount() const {
-	return m_imageCount;
+	return m_numImagesInFlight;
 }
 
 unsigned int ISwapchain::GetCurrentFrameIndex() const {
 	return m_currentFrameIndex;
+}
+
+void ISwapchain::SetPresentMode(const IGpu& gpu, PresentMode mode) {
+	m_presentMode = mode;
+	// Recrear.
+	Resize(gpu, GetImage(0)->GetSize2D());
 }
 
 Format ISwapchain::GetColorFormat() const {

@@ -9,7 +9,7 @@ namespace OSK::GRAPHICS {
 	constexpr USize32 ALL_MIP_LEVELS   = (~0u);
 	constexpr USize32 ALL_IMAGE_LAYERS = (~0u);
 
-
+	
 	/// @brief Un command stage permite diferenciar los distintos
 	/// tipos de comandos ejecutables por la GPU.
 	/// Se usan en una barrera para sincronizar los comandos de distintos
@@ -130,7 +130,8 @@ namespace OSK::GRAPHICS {
 	};
 
 
-	/// <summary>
+
+	/// @brief 
 	/// Al establecer un gpu barrier, dividimos todos
 	/// los comandos en la lista de comandos en dos grupos.
 	/// 
@@ -139,7 +140,6 @@ namespace OSK::GRAPHICS {
 	/// 
 	/// Todos los comandos enviados después del gpu barrier deben esperar
 	/// a que finalicen todos los comandos en el stage destinationStage.
-	/// </summary>
 	struct GpuBarrierInfo {
 		GpuBarrierInfo() = default;
 		GpuBarrierInfo(GpuCommandStage stage, GpuAccessStage accessStage) : stage(stage), accessStage(accessStage) {}

@@ -19,27 +19,69 @@
 using namespace OSK;
 using namespace OSK::GRAPHICS;
 
-GpuImageVk::GpuImageVk(const Vector3ui& size, GpuImageDimension dimension, GpuImageUsage usage, USize32 numLayers, Format format, USize32 numSamples, GpuImageSamplerDesc samplerDesc, GpuImageTiling tiling)
-	: GpuImage(size, dimension, usage, numLayers, format, numSamples, samplerDesc, tiling) {
+
+VkFilter GpuImageVk::GetFilterTypeVulkan(GpuImageFilteringType type) {
+	switch (type) {
+	case OSK::GRAPHICS::GpuImageFilteringType::LIENAR:
+		return VK_FILTER_LINEAR;
+	case OSK::GRAPHICS::GpuImageFilteringType::NEAREST:
+		return VK_FILTER_NEAREST;
+	case OSK::GRAPHICS::GpuImageFilteringType::CUBIC:
+		return VK_FILTER_CUBIC_IMG;
+	default:
+		OSK_UNREACHABLE;
+	}
+}
+
+VkSamplerAddressMode GpuImageVk::GetAddressModeVulkan(GpuImageAddressMode mode) {
+	switch (mode) {
+	case OSK::GRAPHICS::GpuImageAddressMode::REPEAT:
+		return VK_SAMPLER_ADDRESS_MODE_REPEAT;
+	case OSK::GRAPHICS::GpuImageAddressMode::MIRRORED_REPEAT:
+		return VK_SAMPLER_ADDRESS_MODE_MIRRORED_REPEAT;
+	case OSK::GRAPHICS::GpuImageAddressMode::EDGE:
+		return VK_SAMPLER_ADDRESS_MODE_CLAMP_TO_EDGE;
+	case OSK::GRAPHICS::GpuImageAddressMode::BACKGROUND_BLACK:
+		return VK_SAMPLER_ADDRESS_MODE_CLAMP_TO_BORDER;
+	case OSK::GRAPHICS::GpuImageAddressMode::BACKGROUND_WHITE:
+		return VK_SAMPLER_ADDRESS_MODE_CLAMP_TO_BORDER;
+	default:
+		OSK_UNREACHABLE;
+	}
+}
+
+VkImageAspectFlags GpuImageVk::GetAspectFlags(SampledChannel channel) {
+	VkImageAspectFlags aspectMask = 0;
+
+	if (EFTraits::HasFlag(channel, SampledChannel::COLOR))
+		aspectMask |= VK_IMAGE_ASPECT_COLOR_BIT;
+	if (EFTraits::HasFlag(channel, SampledChannel::DEPTH))
+		aspectMask |= VK_IMAGE_ASPECT_DEPTH_BIT;
+	if (EFTraits::HasFlag(channel, SampledChannel::STENCIL))
+		aspectMask |= VK_IMAGE_ASPECT_STENCIL_BIT;
+
+	return aspectMask;
+}
+
+
+GpuImageVk::GpuImageVk(const GpuImageCreateInfo& info, const ICommandQueue* ownerQueue) : GpuImage(info, ownerQueue) {
 
 }
 
 GpuImageVk::~GpuImageVk() {
 	const VkDevice logicalDevice = Engine::GetRenderer()->GetGpu()->As<GpuVk>()->GetLogicalDevice();
 
-	if (image != VK_NULL_HANDLE)
-		vkDestroyImage(logicalDevice, image, nullptr);
+	if (m_image != VK_NULL_HANDLE)
+		vkDestroyImage(logicalDevice, m_image, nullptr);
 
-	if (sampler != VK_NULL_HANDLE)
-		vkDestroySampler(logicalDevice, sampler, nullptr);
+	if (m_sampler != VK_NULL_HANDLE)
+		vkDestroySampler(logicalDevice, m_sampler, nullptr);
 }
 
 
 /* VULKAN SPECIFICS */
 
 void GpuImageVk::CreateVkImage() {
-	bool usesMultipleQueues = EFTraits::HasFlag(GetUsage(), GpuImageUsage::COMPUTE) && GetUsage() != GpuImageUsage::COMPUTE;
-
 	VkImageCreateInfo imageInfo{};
 	
 	imageInfo.sType = VK_STRUCTURE_TYPE_IMAGE_CREATE_INFO;
@@ -53,43 +95,61 @@ void GpuImageVk::CreateVkImage() {
 	imageInfo.arrayLayers = GetNumLayers();
 
 	imageInfo.format = GetFormatVk(GetFormat());
-	imageInfo.tiling = GetTiling() == GpuImageTiling::OPTIMAL ? VK_IMAGE_TILING_OPTIMAL : VK_IMAGE_TILING_LINEAR;
+	imageInfo.tiling = GetImageTiling() == GpuImageTiling::OPTIMAL ? VK_IMAGE_TILING_OPTIMAL : VK_IMAGE_TILING_LINEAR;
 	imageInfo.initialLayout = VK_IMAGE_LAYOUT_UNDEFINED;
 	imageInfo.usage = GetGpuImageUsageVk(GetUsage());
-	imageInfo.samples = (VkSampleCountFlagBits)GetNumSamples();
+	imageInfo.samples = (VkSampleCountFlagBits)GetMsaaSampleCount();
 
-	DynamicArray<uint32_t> queueIndices;
-	if (usesMultipleQueues) {
-		queueIndices.Insert(Engine::GetRenderer()->GetGraphicsCommandQueue()->As<CommandQueueVk>()->GetQueueIndex());
-		queueIndices.Insert(Engine::GetRenderer()->GetComputeCommandQueue()->As<CommandQueueVk>()->GetQueueIndex());
+	std::set<UIndex32> queueIndices;
 
-		if (queueIndices[0] == queueIndices[1])
-			usesMultipleQueues = false;
-	}
-	else if (EFTraits::HasFlag(GetUsage(), GpuImageUsage::COMPUTE)) {
-		queueIndices.Insert(Engine::GetRenderer()->GetComputeCommandQueue()->As<CommandQueueVk>()->GetQueueIndex());
+	const auto* renderer = Engine::GetRenderer();
+
+	if (GetOwnerQueue()->GetQueueType() == GpuQueueType::ASYNC_TRANSFER && renderer->HasTransferOnlyQueue()) {
+		queueIndices.insert(renderer->GetTransferOnlyQueue()->GetFamily().familyIndex);
 	}
 	else {
-		queueIndices.Insert(Engine::GetRenderer()->GetGraphicsCommandQueue()->As<CommandQueueVk>()->GetQueueIndex());
+		if (GetOwnerQueue()->GetQueueType() == GpuQueueType::PRESENTATION) {
+			if (renderer->UseUnifiedCommandQueue()) {
+				queueIndices.insert(renderer->GetUnifiedQueue()->GetFamily().familyIndex);
+			}
+			else {
+				queueIndices.insert(renderer->GetGraphicsComputeQueue()->GetFamily().familyIndex);
+				queueIndices.insert(renderer->GetPresentationQueue()->GetFamily().familyIndex);
+			}
+		}
+
+		if (GetOwnerQueue()->GetQueueType() == GpuQueueType::MAIN) {
+			if (renderer->UseUnifiedCommandQueue()) {
+				queueIndices.insert(renderer->GetUnifiedQueue()->GetFamily().familyIndex);
+			}
+			else {
+				queueIndices.insert(renderer->GetGraphicsComputeQueue()->GetFamily().familyIndex);
+			}
+		}
 	}
 
-	imageInfo.queueFamilyIndexCount = usesMultipleQueues ? static_cast<uint32_t>(queueIndices.GetSize()) : 1;
-	imageInfo.pQueueFamilyIndices = queueIndices.GetData();
-	imageInfo.sharingMode = usesMultipleQueues
-		? VK_SHARING_MODE_CONCURRENT
-		: VK_SHARING_MODE_EXCLUSIVE;
+	DynamicArray<USize32> indices = DynamicArray<USize32>::CreateReservedArray(static_cast<USize32>(queueIndices.size()));
+	for (const auto& index : queueIndices) {
+		indices.Insert(index);
+	}
+
+	imageInfo.queueFamilyIndexCount = static_cast<USize32>(queueIndices.size());
+	imageInfo.pQueueFamilyIndices = indices.GetData();
+	imageInfo.sharingMode = queueIndices.size() == 1
+		? VK_SHARING_MODE_EXCLUSIVE
+		: VK_SHARING_MODE_CONCURRENT;
 
 	// Si la imagen se usará como cubemap, debemos especificarlo.
 	imageInfo.flags = EFTraits::HasFlag(GetUsage(), GpuImageUsage::CUBEMAP) ? VK_IMAGE_CREATE_CUBE_COMPATIBLE_BIT : 0;
 	
 	const VkDevice device = Engine::GetRenderer()->GetGpu()->As<GpuVk>()->GetLogicalDevice();
-	const VkResult result = vkCreateImage(device,	&imageInfo, nullptr, &image);
+	const VkResult result = vkCreateImage(device,	&imageInfo, nullptr, &m_image);
 
 	OSK_ASSERT(result == VK_SUCCESS, ImageCreationException(result));
 }
 
 VkImage GpuImageVk::GetVkImage() const {
-	return image;
+	return m_image;
 }
 
 void GpuImageVk::CreateVkSampler(const GpuImageSamplerDesc& samplerDesc) {
@@ -139,23 +199,23 @@ void GpuImageVk::CreateVkSampler(const GpuImageSamplerDesc& samplerDesc) {
 	samplerInfo.mipLodBias = -0.5f;
 
 	const VkDevice device = Engine::GetRenderer()->GetGpu()->As<GpuVk>()->GetLogicalDevice();
-	vkCreateSampler(device,	&samplerInfo, nullptr, &sampler);
+	vkCreateSampler(device,	&samplerInfo, nullptr, &m_sampler);
 }
 
 VkSampler GpuImageVk::GetVkSampler() const {
-	return sampler;
+	return m_sampler;
 }
 
 void GpuImageVk::_SetVkImage(VkImage img) {
-	image = img;
+	m_image = img;
 }
 
 void GpuImageVk::SetSwapchainView(VkImageView view) {
-	swapchainView = view;
+	m_swapchainView = view;
 }
 
 VkImageView GpuImageVk::GetSwapchainView() const {
-	return swapchainView;
+	return m_swapchainView;
 }
 
 OwnedPtr<IGpuImageView> GpuImageVk::CreateView(const GpuImageViewConfig& viewConfig) const {
@@ -164,7 +224,7 @@ OwnedPtr<IGpuImageView> GpuImageVk::CreateView(const GpuImageViewConfig& viewCon
 	VkImageViewCreateInfo viewInfo{};
 
 	viewInfo.sType = VK_STRUCTURE_TYPE_IMAGE_VIEW_CREATE_INFO;
-	viewInfo.image = image;
+	viewInfo.image = m_image;
 	viewInfo.viewType = viewConfig.arrayType == SampledArrayType::SINGLE_LAYER ? GetVkImageViewType() : GetVkImageArrayViewType();
 	viewInfo.format = GetFormatVk(GetFormat());
 	
@@ -207,7 +267,7 @@ void GpuImageVk::SetDebugName(const std::string& name) {
 	const VkDevice logicalDevice = Engine::GetRenderer()->GetGpu()->As<GpuVk>()->GetLogicalDevice();
 
 	nameInfo.pObjectName = name.c_str();
-	nameInfo.objectHandle = (uint64_t)image;
+	nameInfo.objectHandle = (uint64_t)m_image;
 
 	if (RendererVk::pvkSetDebugUtilsObjectNameEXT != nullptr)
 		RendererVk::pvkSetDebugUtilsObjectNameEXT(logicalDevice, &nameInfo);
@@ -255,47 +315,4 @@ VkImageViewType GpuImageVk::GetVkImageArrayViewType() const {
 	default:
 		OSK_UNREACHABLE;
 	}
-}
-
-VkFilter GpuImageVk::GetFilterTypeVulkan(GpuImageFilteringType type) {
-	switch (type) {
-	case OSK::GRAPHICS::GpuImageFilteringType::LIENAR:
-		return VK_FILTER_LINEAR;
-	case OSK::GRAPHICS::GpuImageFilteringType::NEAREST:
-		return VK_FILTER_NEAREST;
-	case OSK::GRAPHICS::GpuImageFilteringType::CUBIC:
-		return VK_FILTER_CUBIC_IMG;
-	default:
-		OSK_UNREACHABLE;
-	}
-}
-
-VkSamplerAddressMode GpuImageVk::GetAddressModeVulkan(GpuImageAddressMode mode) {
-	switch (mode) {
-	case OSK::GRAPHICS::GpuImageAddressMode::REPEAT:
-		return VK_SAMPLER_ADDRESS_MODE_REPEAT;
-	case OSK::GRAPHICS::GpuImageAddressMode::MIRRORED_REPEAT:
-		return VK_SAMPLER_ADDRESS_MODE_MIRRORED_REPEAT;
-	case OSK::GRAPHICS::GpuImageAddressMode::EDGE:
-		return VK_SAMPLER_ADDRESS_MODE_CLAMP_TO_EDGE;
-	case OSK::GRAPHICS::GpuImageAddressMode::BACKGROUND_BLACK:
-		return VK_SAMPLER_ADDRESS_MODE_CLAMP_TO_BORDER;
-	case OSK::GRAPHICS::GpuImageAddressMode::BACKGROUND_WHITE:
-		return VK_SAMPLER_ADDRESS_MODE_CLAMP_TO_BORDER;
-	default:
-		OSK_UNREACHABLE;
-	}
-}
-
-VkImageAspectFlags GpuImageVk::GetAspectFlags(SampledChannel channel) {
-	VkImageAspectFlags aspectMask = 0;
-
-	if (EFTraits::HasFlag(channel, SampledChannel::COLOR))
-		aspectMask |= VK_IMAGE_ASPECT_COLOR_BIT;
-	if (EFTraits::HasFlag(channel, SampledChannel::DEPTH))
-		aspectMask |= VK_IMAGE_ASPECT_DEPTH_BIT;
-	if (EFTraits::HasFlag(channel, SampledChannel::STENCIL))
-		aspectMask |= VK_IMAGE_ASPECT_STENCIL_BIT;
-
-	return aspectMask;
 }

@@ -21,6 +21,8 @@
 #include "Viewport.h"
 #include "Model3D.h"
 
+#include "CopyImageInfo.h"
+
 #include <json.hpp>
 #include <stbi_image.h>
 #include <glm/glm.hpp>
@@ -83,7 +85,7 @@ void IrradianceMapLoader::Load(const std::string& assetFilePath, IrradianceMap* 
 	UniquePtr<GpuImage> originalImage = Engine::GetRenderer()->GetAllocator()->CreateImage(imageInfo).GetPointer();
 	originalImage->SetDebugName("Irradiance Map Original Image");
 
-	OwnedPtr<ICommandList> uploadCmdList = Engine::GetRenderer()->CreateSingleUseCommandList().GetPointer();
+	OwnedPtr<ICommandList> uploadCmdList = Engine::GetRenderer()->CreateSingleUseCommandList(GpuQueueType::MAIN).GetPointer();
 	uploadCmdList->Reset();
 	uploadCmdList->Start();
 
@@ -103,12 +105,19 @@ void IrradianceMapLoader::Load(const std::string& assetFilePath, IrradianceMap* 
 	Engine::GetRenderer()->SubmitSingleUseCommandList(uploadCmdList.GetPointer());
 
 	// Crear cubemap y renderizarlo.
-	OwnedPtr<GpuImage> intermediateCubemap = Engine::GetRenderer()->GetAllocator()->CreateCubemapImage(irradianceLayerSize, Format::RGBA16_SFLOAT, GpuImageUsage::TRANSFER_SOURCE | GpuImageUsage::TRANSFER_DESTINATION | GpuImageUsage::SAMPLED | GpuImageUsage::CUBEMAP, GpuSharedMemoryType::GPU_ONLY).GetPointer();
+	OwnedPtr<GpuImage> intermediateCubemap = Engine::GetRenderer()->GetAllocator()->CreateCubemapImage(
+		irradianceLayerSize, 
+		Format::RGBA16_SFLOAT, 
+		GpuImageUsage::TRANSFER_SOURCE | GpuImageUsage::TRANSFER_DESTINATION | GpuImageUsage::SAMPLED | GpuImageUsage::CUBEMAP, 
+		GpuSharedMemoryType::GPU_ONLY,
+		GpuQueueType::MAIN).GetPointer();
+
 	OwnedPtr<GpuImage> finalImage = Engine::GetRenderer()->GetAllocator()->CreateCubemapImage(
 		irradianceLayerSize, 
 		Format::RGBA16_SFLOAT, 
 		GpuImageUsage::TRANSFER_DESTINATION | GpuImageUsage::SAMPLED | GpuImageUsage::CUBEMAP, 
-		GpuSharedMemoryType::GPU_ONLY);
+		GpuSharedMemoryType::GPU_ONLY,
+		GpuQueueType::MAIN);
 
 	// Material
 	cubemapGenMaterialInstance->GetSlot("global")->SetGpuImage("image", originalImage->GetView(GpuImageViewConfig::CreateSampled_Default()));
@@ -118,7 +127,7 @@ void IrradianceMapLoader::Load(const std::string& assetFilePath, IrradianceMap* 
 	cubemapConvolutionMaterialInstance->GetSlot("global")->FlushUpdate();
 
 	// Renderizado
-	OwnedPtr<ICommandList> cmdList = Engine::GetRenderer()->CreateSingleUseCommandList().GetPointer();
+	OwnedPtr<ICommandList> cmdList = Engine::GetRenderer()->CreateSingleUseCommandList(GpuQueueType::MAIN).GetPointer();
 	cmdList->Reset();
 	cmdList->Start();
 

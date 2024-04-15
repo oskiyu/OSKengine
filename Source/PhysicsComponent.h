@@ -4,11 +4,15 @@
 #include "Vector3.hpp"
 
 #include "Serializer.h"
+#include "MutexHolder.h"
 
 
 namespace OSK::ECS {
 
 	/// @brief Componente que permite simular las físicas de la entidad.
+	/// @threadsafety Las llamadas que están relacionadas con la obtención de
+	/// velocidades (lineal y angular, total y por fotograma) y las llamadas
+	/// relacionadas con la aplicación de fuerzas son thread-safe.
 	class OSKAPI_CALL PhysicsComponent {
 
 	public:
@@ -67,50 +71,62 @@ namespace OSK::ECS {
 
 
 		/// @return Velocidad (en espacio del mundo).
+		/// @threadsafe
 		Vector3f GetVelocity() const;
 
 		/// @return Cambio de velocidad en el frame actual.
+		/// @threadsafe
 		Vector3f GetCurrentFrameVelocityDelta() const;
 
 		/// @param localSpacePoint Punto del objeto.
 		/// @return Velocidad del punto (en espacio del mundo).
+		/// @threadsafe
 		Vector3f GetVelocityOfPoint(const Vector3f& localSpacePoint) const;
 
 		/// @return Aceleración (m/s).
 		/// En espacio del mundo.
+		/// @threadsafe
 		Vector3f GetAcceleration() const;
 
 
 		/// @return Velocidad angular (rad/s).
 		/// @todo check unidades.
+		/// @threadsafe
 		Vector3f GetAngularVelocity() const;
 
 
 		/// @brief Quita todas las fuerzas aplicadas.
+		/// @warning No es thread-safe.
 		void _ResetForces();
 
 		/// @brief Reestablece el cambio de velocidad en el frame.
+		/// @warning No es thread-safe.
 		void _ResetCurrentFrameDeltas();
 
 		/// @brief Ejerce una fuerza sobre el centro de masa del objeto.
 		/// @param force Fuerza (en Newtons: kg*m/s2).
+		/// @threadsafe
 		void ApplyForce(const Vector3f& force);
 
 		/// @brief Ejerce un impulso sobre el punto del objeto.
 		/// @param impulse Impulso (en Newtons: kg*m/s).
+		/// @threadsafe
 		void ApplyImpulse(const Vector3f& impulse, const Vector3f& localSpacePoint);
 
 
 		/// @brief Establece la velocidad del objeto.
 		/// @param velocity Nueva velocidad.
+		/// @warning No es thread-safe.
 		void _SetVelocity(Vector3f velocity);
 
 		/// @brief Establece la velocidad angular del objeto.
 		/// @param angularVelocity Nueva velocidad angular.
+		/// @warning No es thread-safe.
 		void _SetAngularVelocity(Vector3f angularVelocity);
 
 		/// @brief Establece la acceleración del objeto.
 		/// @param acceleration Nueva aceleración.
+		/// @warning No es thread-safe.
 		void _SetAcceleration(Vector3f acceleration);
 
 
@@ -151,6 +167,11 @@ namespace OSK::ECS {
 		/// @brief La dirección del vector indica el eje de rotación,
 		/// y la longitud la cantidad de velocidad.
 		Vector3f angularVelocity = Vector3f::Zero;
+
+
+		// Multithreading
+
+		mutable MutexHolder m_mutex;
 
 	};
 

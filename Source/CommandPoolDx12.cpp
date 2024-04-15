@@ -6,19 +6,13 @@
 using namespace OSK;
 using namespace OSK::GRAPHICS;
 
+
+CommandPoolDx12::CommandPoolDx12(CommandsSupport supportedCommands, GpuQueueType type) : ICommandPool(supportedCommands, type) {
+
+}
+
 OwnedPtr<ICommandList> CommandPoolDx12::CreateCommandList(const IGpu& device) {
-	auto output = new CommandListDx12;
-
-    ComPtr<ID3D12GraphicsCommandList> list;
-
-    device.As<GpuDx12>()->GetDevice()->CreateCommandList(0, D3D12_COMMAND_LIST_TYPE_DIRECT,
-        commandPool.Get(), nullptr, IID_PPV_ARGS(&list));
-    list->Close();
-
-    output->SetCommandList(list);
-    output->SetCommandPool(*this);
-
-    return output;
+    return new CommandListDx12(*device.As<GpuDx12>(), *this);
 }
 
 OwnedPtr<ICommandList> CommandPoolDx12::CreateSingleTimeCommandList(const IGpu& device) {

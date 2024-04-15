@@ -150,7 +150,10 @@ void Font::LoadSizedFont(USize32 fontSize) {
 		finalPixels.Insert(data[i]);
 	}
 
-	OwnedPtr<ICommandList> copyCmdList = Engine::GetRenderer()->CreateSingleUseCommandList();
+	// Creamos la lista de comandos para subir el recurso.
+	// Preferir cola exclusiva de transferencia.
+	OwnedPtr<ICommandList> copyCmdList = Engine::GetRenderer()->CreateSingleUseCommandList(GpuQueueType::MAIN);
+
 	copyCmdList->Reset();
 	copyCmdList->Start();
 
@@ -165,6 +168,12 @@ void Font::LoadSizedFont(USize32 fontSize) {
 		gpuImage.GetPointer(), 
 		GpuImageLayout::SAMPLED,
 		GpuBarrierInfo(GpuCommandStage::FRAGMENT_SHADER, GpuAccessStage::SHADER_READ));
+
+	// Transferimos la imagen a la cola principal.
+	copyCmdList->TransferToQueue(
+		gpuImage.GetPointer(),
+		*Engine::GetRenderer()->GetMainRenderingQueue());
+
 	copyCmdList->Close();
 	Engine::GetRenderer()->SubmitSingleUseCommandList(copyCmdList.GetPointer());
 

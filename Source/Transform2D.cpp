@@ -108,7 +108,7 @@ void Transform2D::AttachToObject(GameObjectIndex baseTransform) {
 }
 
 void Transform2D::UnAttach() {
-	if (owner && parent)
+	if (!owner.IsEmpty() && !parent.IsEmpty())
 		Engine::GetEcs()->GetComponent<Transform2D>(parent).childTransforms.Remove(owner);
 
 	owner = EMPTY_GAME_OBJECT;

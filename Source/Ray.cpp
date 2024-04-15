@@ -15,6 +15,6 @@ RayCastResult Ray::IntersectionWithPlane(const Vector3f& planeNormal, const Vect
 		return RayCastResult::False();
 	}
 	else {
-		return RayCastResult::True(origin + direction * distance, 0);
+		return RayCastResult::True(origin + direction * distance, ECS::GameObjectIndex::CreateEmpty());
 	}
 }

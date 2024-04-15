@@ -69,15 +69,7 @@ OwnedPtr<GpuImage> GpuMemoryAllocatorVk::CreateImage(const GpuImageCreateInfo& i
 	if (finalImageSize.y == 0)
 		finalImageSize.y = 1;
 
-	OwnedPtr<GpuImageVk> output = new GpuImageVk(
-		info.resolution, 
-		info.dimension, 
-		info.usage, 
-		info.numLayers, 
-		info.format, 
-		info.msaaSamples, 
-		info.samplerDesc,
-		info.tilingType);
+	OwnedPtr<GpuImageVk> output = new GpuImageVk(info, Engine::GetRenderer()->GetOptimalQueue(info.queueType));
 
 	output->CreateVkImage();
 	auto block = GpuMemoryBlockVk::CreateNewImageBlock(output.GetPointer(), device, info.memoryType, info.usage);

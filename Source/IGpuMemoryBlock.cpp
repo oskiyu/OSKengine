@@ -14,6 +14,7 @@ IGpuMemoryBlock::IGpuMemoryBlock(USize64 reservedSize, IGpu* device, GpuSharedMe
 	: totalSize(reservedSize), availableSpace(reservedSize), type(type), usage(usage), device(device) { }
 
 void IGpuMemoryBlock::RemoveSubblock(IGpuMemorySubblock* subblock) {
+	std::lock_guard lock(m_subblockSearchMutex.mutex);
 	subblocks.Remove(subblock);
 	// Engine::GetLogger()->InfoLog("Subbloque quitado.");
 }
@@ -23,6 +24,7 @@ USize64 IGpuMemoryBlock::GetAllocatedSize() const {
 }
 
 USize64 IGpuMemoryBlock::GetAvailableSpace() const {
+	// std::lock_guard lock(m_subblockSearchMutex.mutex);
 	return availableSpace;
 }
 
@@ -39,6 +41,8 @@ GpuMemoryUsage IGpuMemoryBlock::GetUsageType() const {
 }
 
 IGpuMemorySubblock* IGpuMemoryBlock::GetNextMemorySubblock(USize64 size, USize64 alignment) {
+	std::lock_guard lock(m_subblockSearchMutex.mutex);
+
 	IGpuMemorySubblock* output = nullptr;
 
 	bool isReused = false;

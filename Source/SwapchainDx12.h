@@ -18,40 +18,36 @@ namespace OSK::GRAPHICS {
 	enum class Format;
 	class CommandQueueDx12;
 	class GpuImage;
+	class GpuDx12;
 
-	/// <summary>
-	/// Un swapchain es una estructura encargada de manejar el cambio de imagenes que
-	/// son representadas en el monitor.
-	/// 
-	/// La GPU trabaja en una sola imagen a la vez. El swapchain se encarga entonces
-	/// de transmitir la imagen al monitor.
-	/// </summary>
+
 	class OSKAPI_CALL SwapchainDx12 : public ISwapchain {
 
 	public:
 
-		~SwapchainDx12();
+		SwapchainDx12(
+			PresentMode mode,
+			Format format,
+			const GpuDx12& device,
+			std::span<const UIndex32> queueIndices,
+			const IO::IDisplay& display,
+			IDXGIFactory4* factory);
+		~SwapchainDx12() override;
 
-		/// <summary>
-		/// Crea el swapchain.
-		/// Obtiene automáticamente el tamaño de las imágenes a partir del
-		/// tamaño de la ventana.
-		/// </summary>
-		/// <param name="commandQueue">Al cambiar de imagen, el swapchain
-		/// de DirectX 12 fuerza un flush de la cola de comandos.</param>
 		void Create(PresentMode mode, IGpu* device, Format format, const CommandQueueDx12& commandQueue, IDXGIFactory4* factory, const IO::IDisplay& display);
 		
 		void DeleteImages();
 		void CreateImages(const IO::IDisplay& display);
 
 		void Present() override;
-		void SetPresentMode(PresentMode mode) override;
 
 		void UpdateFrameIndex();
 
 		IDXGISwapChain3* GetSwapchain() const;
 		ID3D12DescriptorHeap* GetRenderTargetMemory() const;
 		ID3D12DescriptorHeap* GetDepthStencilMemory() const;
+
+		void Resize(const IGpu& gpu, Vector2ui newResolution) override;
 
 	private:
 

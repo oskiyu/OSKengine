@@ -12,16 +12,14 @@ struct ID3D12CommandQueue;
 
 namespace OSK::GRAPHICS {
 
-	/// <summary>
-	/// Una cola de comandos almacena todas las listas de comandos que se envían a la GPU.
-	/// 
-	/// Implementación de la interfaz para el renderizador de DirectX 12.
-	/// </summary>
 	class OSKAPI_CALL CommandQueueDx12 : public ICommandQueue {
 
 	public:
 
-		CommandQueueDx12(CommandQueueSupport support);
+		CommandQueueDx12(
+			const QueueFamily& family,
+			UIndex32 indexInsideFamily,
+			GpuQueueType type);
 
 		void SetCommandQueue(const ComPtr<ID3D12CommandQueue>& commandQueue);
 		ID3D12CommandQueue* GetCommandQueue() const;

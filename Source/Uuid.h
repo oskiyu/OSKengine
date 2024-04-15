@@ -3,6 +3,7 @@
 #include "OSKmacros.h"
 
 #include <xhash>
+#include <atomic>
 
 
 namespace OSK {
@@ -22,11 +23,11 @@ namespace OSK {
 		explicit BaseUuid(UIndex64 value) : m_value(value) {}
 
 
-		bool operator==(const BaseUuid&) const = default;
+		auto operator<=>(const BaseUuid&) const = default;
 
 
 		/// @return Crea un UUID vacío.
-		static BaseUuid CreateEmpty() {
+		static constexpr BaseUuid CreateEmpty() {
 			return BaseUuid();
 		}
 
@@ -64,16 +65,14 @@ namespace OSK {
 
 		/// @brief Genera un nuevo identificador único.
 		/// @return Nuevo identificador único.
+		/// @threadsafe
 		UIndex64 GenerateNewUuid() {
-			auto output = m_nextIndex;
-			m_nextIndex++;
-
-			return output;
+			return m_nextIndex.fetch_add(1);
 		}
 
 	private:
 
-		UIndex64 m_nextIndex = 1;
+		std::atomic<UIndex64> m_nextIndex = 1;
 
 	};
 
@@ -89,3 +88,18 @@ namespace OSK {
 		} \
 	}; \
  \
+
+#define OSK_DEFINE_UUID_FORMATTER(type, text) \
+template <> \
+struct std::formatter<type> { \
+\
+	formatter() {}\
+\
+	constexpr auto parse(std::format_parse_context& ctx) {\
+		return ctx.begin();\
+	}\
+\
+	auto format(const type& uuid, std::format_context& ctx) const {\
+		return std::format_to(ctx.out(), text, uuid.Get());\
+	}\
+};

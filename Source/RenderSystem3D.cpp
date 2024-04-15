@@ -22,6 +22,7 @@
 #include "Model3D.h"
 #include "Texture.h"
 #include "SpecularMap.h"
+#include "CopyImageInfo.h"
 
 using namespace OSK;
 using namespace OSK::ECS;

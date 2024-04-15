@@ -33,8 +33,8 @@ void TerrainComponent::Generate(const Vector2ui& resolution) {
 		}
 	}
 
-	vertexBuffer = Engine::GetRenderer()->GetAllocator()->CreateVertexBuffer(terrainVertices, Vertex3D::GetVertexInfo()).GetPointer();
-	indexBuffer = Engine::GetRenderer()->GetAllocator()->CreateIndexBuffer(terrainIndices).GetPointer();
+	vertexBuffer = Engine::GetRenderer()->GetAllocator()->CreateVertexBuffer(terrainVertices, Vertex3D::GetVertexInfo(), GpuQueueType::MAIN).GetPointer();
+	indexBuffer = Engine::GetRenderer()->GetAllocator()->CreateIndexBuffer(terrainIndices, GpuQueueType::MAIN).GetPointer();
 
 	OSK_ASSERT(
 		terrainIndices.GetSize() < std::numeric_limits<USize32>::max(), 

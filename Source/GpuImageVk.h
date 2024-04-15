@@ -2,9 +2,16 @@
 
 #include "IGpuImage.h"
 #include "DynamicArray.hpp"
-#include "GpuImageSamplerDesc.h"
 
-#include <vulkan/vulkan.h>
+OSK_VULKAN_TYPEDEF(VkImage);
+OSK_VULKAN_TYPEDEF(VkSampler);
+OSK_VULKAN_TYPEDEF(VkImageView);
+OSK_VULKAN_FLAGS_TYPEDEF(VkImageAspectFlags);
+
+enum VkImageViewType;
+enum VkImageType;
+enum VkFilter;
+enum VkSamplerAddressMode;
 
 namespace OSK::GRAPHICS {
 	
@@ -13,38 +20,25 @@ namespace OSK::GRAPHICS {
 	public:
 
 		GpuImageVk(
-			const Vector3ui& size, 
-			GpuImageDimension dimension, 
-			GpuImageUsage usage, 
-			USize32 numLayers, 
-			Format format, 
-			USize32 numSamples,
-			GpuImageSamplerDesc samplerDesc,
-			GpuImageTiling tiling);
+			const GpuImageCreateInfo& info,
+			const ICommandQueue* ownerQueue);
 
-		~GpuImageVk();
+		~GpuImageVk() override;
 
 		OSK_DISABLE_COPY(GpuImageVk);
 
-		/// <summary>
-		/// Crea la imagen con los parámetros pasados por el constructor.
-		/// </summary>
-		/// 
+
+		/// @brief Crea la imagen con los parámetros pasados por el constructor.
 		/// @throws ImageCreationException si no se puede crear la imagen en la GPU.
 		void CreateVkImage();
 		VkImage GetVkImage() const;
 
-		/// <summary>
-		/// Crea el sampler para la imagen.
-		/// </summary>
+		/// @brief Crea el sampler de la imagen.
+		/// @param sampler Descripción del sampler.
 		void CreateVkSampler(const GpuImageSamplerDesc& sampler);
 
-		/// <summary>
-		/// Devuelve el sampler de la imagen.
-		/// </summary>
 		VkSampler GetVkSampler() const;
 
-		/* SWAPCHAIN */
 		void _SetVkImage(VkImage img);
 		
 		void SetSwapchainView(VkImageView view);
@@ -53,9 +47,9 @@ namespace OSK::GRAPHICS {
 		void SetDebugName(const std::string& name) override;
 
 
-		static VkImageAspectFlags GetAspectFlags(SampledChannel channel);
 		static VkFilter GetFilterTypeVulkan(GpuImageFilteringType type);
 		static VkSamplerAddressMode GetAddressModeVulkan(GpuImageAddressMode mode);
+		static VkImageAspectFlags GetAspectFlags(SampledChannel channel);
 
 	protected:
 
@@ -67,10 +61,10 @@ namespace OSK::GRAPHICS {
 		VkImageViewType GetVkImageViewType() const;
 		VkImageViewType GetVkImageArrayViewType() const;
 
-		VkImage image = VK_NULL_HANDLE;
-		VkSampler sampler = VK_NULL_HANDLE;
+		VkImage m_image = nullptr;
+		VkSampler m_sampler = nullptr;
 
-		VkImageView swapchainView = VK_NULL_HANDLE;
+		VkImageView m_swapchainView = nullptr;
 
 		std::string m_name = "";
 

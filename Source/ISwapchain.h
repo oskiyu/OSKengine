@@ -11,16 +11,13 @@
 
 namespace OSK::GRAPHICS {
 
-
 	class IGpu;
 
-	/// <summary>
-	/// Un swapchain es una estructura encargada de manejar el cambio de imagenes que
+	/// @brief Un swapchain es una estructura encargada de manejar el cambio de imagenes que
 	/// son representadas en el monitor.
 	/// 
 	/// La GPU trabaja en una sola imagen a la vez. El swapchain se encarga entonces
 	/// de transmitir la imagen al monitor.
-	/// </summary>
 	class OSKAPI_CALL ISwapchain {
 
 	public:
@@ -39,54 +36,114 @@ namespace OSK::GRAPHICS {
 		/// @todo Soporte para swapchain con formatos sin swizzle
 		void TakeScreenshot(std::string_view path);
 
-		/// <summary>
-		/// Devuelve el número de imágenes del swapchain.
-		/// </summary>
-		unsigned int GetImageCount() const;
 
-		/// <summary>
-		/// Devuelve el índice de la imagen renderizada en un momento dado.
-		/// </summary>
+		/// @return Devuelve el número de imágenes del swapchain.
+		/// 
+		/// @details Será mayor que 0.
+		/// @details Será menor que `NUM_RESOURCES_IN_FLIGHT`.
+		USize32 GetImageCount() const;
+
+		/// @return Índice de la imagen renderizada en un momento dado.
 		unsigned int GetCurrentFrameIndex() const;
 
-		/// <summary>
-		/// Envía la imagen renderizada al monitor.
-		/// </summary>
+
+		/// @brief Envía la imagen renderizada al monitor.
 		virtual void Present() = 0;
 
 		/// @brief Cambia el modo de presentación del renderizador.
 		/// @param mode Modo de sincronización vertical.
-		virtual void SetPresentMode(PresentMode mode) = 0;
+		void SetPresentMode(
+			const IGpu& gpu,
+			PresentMode mode);
 
-		/// <summary>
-		/// Devuelve la imagen con el índice dado.
-		/// </summary>
+		
+
+		/// @param index Índice de la imagen dentro del swapchain.
+		/// @return Imagen con el índice dado.
 		/// 
-		/// @pre El índice está dentro de los límites.
+		/// @pre @p index < `GetImageCount()`.
 		GpuImage* GetImage(unsigned int index) {
 			return m_images[index].GetPointer();
+
+			/// @param index Índice de la imagen dentro del swapchain.
+			/// @return Imagen con el índice dado.
+			/// 
+			/// @pre @p index < `GetImageCount()`.
 		}
 		const GpuImage* GetImage(unsigned int index) const {
 			return m_images[index].GetPointer();
 		}
 
+
+		/// @brief Actualiza el swapchain para reflejar un
+		/// cambio de resolución de pantalla.
+		/// @param gpu GPU dueña del swapchain.
+		/// @param newResolution Nueva resolución.
+		/// 
+		/// @pre @p newResolution != `Vector2ui::Zero`.
+		virtual void Resize(
+			const IGpu& gpu,
+			Vector2ui newResolution) = 0;
+
+		/// @return Modo de presentación actual.
 		PresentMode GetCurrentPresentMode() const;
 
-		/// <summary>
-		/// Devuelve el formato de las imágenes del swapchain.
-		/// </summary>
+		/// @return Formato de las imágenes del swapchain.
 		Format GetColorFormat() const;
 
 	protected:
 
+		/// @brief Inicializa las variables de la clase.
+		/// @param mode Modo de presentación.
+		/// @param format Formato de las imágenes del swapchain.
+		/// @param queueIndices Índices de las colas de comandos que
+		/// accederán a las imágenes del swapchain.
+		/// 
+		/// @pre @p queueIndices debe tener al menos una entrada.
+		/// @pre @p queueIndices debe referenciar, al menos,
+		/// la cola que se vaya a usar para operaciones
+		/// de presentación.
+		/// @pre @p queueIndices debe referenciar, al menos,
+		/// la cola que se vaya a usar para operaciones
+		/// renderizar sobre el swapchain.
+		ISwapchain(
+			PresentMode mode,
+			Format format,
+			std::span<const UIndex32> queueIndices);
+
+		/// @brief Actualiza la variable de la clase.
+		/// @param imageCount Número de imágenes del swapchain.
+		/// 
+		/// @note No ejecuta ninguna lógica de adquisición de imágenes.
+		/// 
+		/// @pre @p imageCount > 0.
+		/// @pre @p imageCount < `NUM_RESOURCES_IN_FLIGHT`.
+		void SetNumImagesInFlight(USize32 imageCount);
+
+		/// @brief Establece la imagen del swapchain en el índice dado.
+		/// @param image Imagen a establecer.
+		/// @param index Índice de la imagen dentro del swapchain.
+		/// 
+		/// @pre @p index < `GetImageCount()`.
+		void SetImage(
+			OwnedPtr<GpuImage> image,
+			UIndex32 index);
+
+		/// @return Índices de las colas que usarán las imágenes
+		/// del swapchain.
+		std::span<const UIndex32> GetQueueIndices() const;
+
+	private:
+
+		USize32 m_numImagesInFlight = NUM_RESOURCES_IN_FLIGHT;
+
 		PresentMode m_presentMode = PresentMode::VSYNC_OFF;
 		Format m_colorFormat = Format::UNKNOWN;
 
-		IGpu* m_device = nullptr;
-		unsigned int m_imageCount = NUM_RESOURCES_IN_FLIGHT;
-
 		std::array<UniquePtr<GpuImage>, NUM_RESOURCES_IN_FLIGHT> m_images{};
-		unsigned int m_currentFrameIndex = 0;
+		UIndex32 m_currentFrameIndex = 0;
+
+		DynamicArray<UIndex32> m_queueIndices;
 
 	};
 

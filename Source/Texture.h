@@ -12,9 +12,7 @@ namespace OSK::GRAPHICS {
 
 namespace OSK::ASSETS {
 
-	/// <summary>
-	/// Una textura que será usada en renderizado 2D / 3D.
-	/// </summary>
+	/// @brief Una textura que será usada en renderizado 2D / 3D.
 	class OSKAPI_CALL Texture : public IAsset {
 
 	public:
@@ -23,52 +21,51 @@ namespace OSK::ASSETS {
 
 		OSK_ASSET_TYPE_REG("OSK::Texture");
 
-		/// <summary> Tamaño de la textura. </summary>
-		/// 
+
+		/// @return Tamaño de la textura.
 		/// @note En píxeles.
 		Vector2ui GetSize() const;
 
-		/// <summary> Número de canales (red green blue, etc...). </summary>
+		/// @return Número de canales (red green blue, etc...).
 		USize32 GetNumberOfChannels() const;
 
 
-		/// <summary>
-		/// Imagen guardada en la GPU.
-		/// Para renderizado.
-		/// </summary>
-		/// 
+		/// @return Imagen guardada en la GPU.
 		/// @note No puede ser null.
+		/// @stablepointer
 		GRAPHICS::GpuImage* GetGpuImage() const;
 
 		/// @return Image view para renderizado 2D, con un único nivel de mip.
+		/// @stablepointer
 		const GRAPHICS::IGpuImageView& GetTextureView2D() const;
 
 		/// @return Image view para renderizado 3D, con varios niveles de mip.
+		/// @stablepointer
 		const GRAPHICS::IGpuImageView& GetTextureView() const;
 
-		/// <summary> Establece el tamaño de la textura. </summary>
-		/// 
+
+		/// @brief Establece el tamaño de la textura.
+		/// @param size Tamaño, en píxeles.
 		/// @warning Función interna: no llamar.
-		/// @note En píxeles.
 		void _SetSize(const Vector2ui size);
 
-		/// <summary> Establece el número de canales (red green blue, etc...). </summary>
-		/// 
+		/// @brief Establece el número de canales (red green blue, etc...).
+		/// @param numChannels Número de canales.
 		/// @warning Función interna: no llamar.
 		void _SetNumberOfChannels(USize32 numChannels);
 
-		/// <summary> Establece la imagen GPU de la textura. </summary> </param>
-		/// 
+		/// @brief Establece la imagen GPU de la textura.
+		/// @param image Imagen en la GPU.
 		/// @warning Función interna: no llamar.
 		void _SetImage(OwnedPtr<GRAPHICS::GpuImage> image);
 
 	private:
 
-		/// <summary> @note En píxeles. </summary>
-		Vector2ui size;
-		USize32 numChannels = 0;
+		/// @note En píxeles.
+		Vector2ui m_size;
+		USize32 m_numChannels = 0;
 
-		UniquePtr<GRAPHICS::GpuImage> image;
+		UniquePtr<GRAPHICS::GpuImage> m_image;
 
 	};
 

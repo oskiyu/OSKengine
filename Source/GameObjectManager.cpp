@@ -17,7 +17,7 @@ GameObjectIndex GameObjectManager::CreateGameObject() {
 		return m_freeObjectIndices.Pop();
 	}
 
-	GameObjectIndex output = m_nextIndex;
+	GameObjectIndex output = GameObjectIndex(m_nextIndex);
 	m_signatures[output] = {};
 
 	m_nextIndex++;
@@ -26,24 +26,24 @@ GameObjectIndex GameObjectManager::CreateGameObject() {
 }
 
 void GameObjectManager::DestroyGameObject(GameObjectIndex* obj) {
-	OSK_ASSERT(*obj > 0, InvalidObjectException(*obj));
+	OSK_ASSERT(obj->Get() > 0, InvalidObjectException(*obj));
 	OSK_ASSERT(m_signatures.contains(*obj), InvalidObjectException(*obj));
 
 	m_signatures.erase(*obj);
 	m_freeObjectIndices.Push(*obj);
 
-	*obj = 0;
+	obj->SetValue(0);
 }
 
 void GameObjectManager::SetSignature(GameObjectIndex obj, const Signature& signature) {
-	OSK_ASSERT(obj > 0, InvalidObjectException(obj));
+	OSK_ASSERT(obj.Get() > 0, InvalidObjectException(obj));
 	OSK_ASSERT(m_signatures.contains(obj), InvalidObjectException(obj));
 
 	m_signatures[obj] = signature;
 }
 
 Signature GameObjectManager::GetSignature(GameObjectIndex obj) const {
-	OSK_ASSERT(obj > 0, InvalidObjectException(obj));
+	OSK_ASSERT(obj.Get() > 0, InvalidObjectException(obj));
 	OSK_ASSERT(m_signatures.contains(obj), InvalidObjectException(obj));
 
 	return m_signatures.at(obj);

@@ -65,44 +65,38 @@ GpuMemoryUsageInfo GpuVk::GetMemoryUsageInfo() const {
 
 OwnedPtr<ICommandPool> GpuVk::CreateGraphicsCommandPool() {
 	const QueueFamiles families = GetQueueFamilyIndices();
-	const QueueFamily family = families.GetFamilies(CommandQueueSupport::GRAPHICS | CommandQueueSupport::COMPUTE | CommandQueueSupport::PRESENTATION).AtCpy(0);
+	const QueueFamily family = families.GetFamilies(
+		CommandsSupport::GRAPHICS | 
+		CommandsSupport::COMPUTE | 
+		CommandsSupport::PRESENTATION).AtCpy(0);
 
-	VkCommandPoolCreateInfo poolInfo{};
-	poolInfo.sType = VK_STRUCTURE_TYPE_COMMAND_POOL_CREATE_INFO;
-	poolInfo.queueFamilyIndex = family.familyIndex;
-	poolInfo.flags = VK_COMMAND_POOL_CREATE_RESET_COMMAND_BUFFER_BIT;
-
-	VkCommandPool commandPool = VK_NULL_HANDLE;
-
-	VkResult result = vkCreateCommandPool(logicalDevice, &poolInfo, nullptr, &commandPool);
-	OSK_ASSERT(result == VK_SUCCESS, CommandPoolCreationException(result));
-
-	auto output = new CommandPoolVk;
-	output->SetCommandPool(commandPool);
-
-	return output;
+	return new CommandPoolVk(*this, family, GpuQueueType::MAIN);
 }
 
 OwnedPtr<ICommandPool> GpuVk::CreateComputeCommandPool() {
-	const auto families = GetQueueFamilyIndices().GetFamilies(CommandQueueSupport::GRAPHICS | CommandQueueSupport::COMPUTE | CommandQueueSupport::PRESENTATION);
+	const auto families = GetQueueFamilyIndices().GetFamilies(
+		CommandsSupport::GRAPHICS | 
+		CommandsSupport::COMPUTE | 
+		CommandsSupport::PRESENTATION);
+
 	const QueueFamily family = families.At(0);
 
-	// @todo check por si no se puede usar una cola única.
+	return new CommandPoolVk(
+		*this,
+		family,
+		GpuQueueType::MAIN);
+}
 
-	VkCommandPoolCreateInfo poolInfo{};
-	poolInfo.sType = VK_STRUCTURE_TYPE_COMMAND_POOL_CREATE_INFO;
-	poolInfo.queueFamilyIndex = family.familyIndex;
-	poolInfo.flags = VK_COMMAND_POOL_CREATE_RESET_COMMAND_BUFFER_BIT;
+std::optional<OwnedPtr<ICommandPool>> GpuVk::CreateTransferOnlyCommandPool() {
+	const auto families = GetQueueFamilyIndices().GetFamilies(CommandsSupport::TRANSFER);
 
-	VkCommandPool commandPool = VK_NULL_HANDLE;
+	for (const auto& family : families) {
+		if (family.support == CommandsSupport::TRANSFER) {
+			return new CommandPoolVk(*this, family, GpuQueueType::ASYNC_TRANSFER);
+		}
+	}
 
-	VkResult result = vkCreateCommandPool(logicalDevice, &poolInfo, nullptr, &commandPool);
-	OSK_ASSERT(result == VK_SUCCESS, CommandPoolCreationException(result));
-
-	auto output = new CommandPoolVk;
-	output->SetCommandPool(commandPool);
-
-	return output;
+	return {};
 }
 
 VkSurfaceKHR GpuVk::GetSurface() const {
@@ -122,17 +116,28 @@ VkPhysicalDevice GpuVk::GetPhysicalDevice() const {
 
 void GpuVk::CreateLogicalDevice() {
 	const QueueFamiles families = GetQueueFamilyIndices();
-	const auto graphicsAndComputeFamiliesList = GetQueueFamilyIndices().GetFamilies(CommandQueueSupport::GRAPHICS | CommandQueueSupport::COMPUTE);
+
+	const auto graphicsAndComputeFamiliesList = families.GetFamilies(
+		CommandsSupport::GRAPHICS | CommandsSupport::COMPUTE);
+	const auto transferOnlyQueues = families.GetFamilies(CommandsSupport::TRANSFER);
 
 	std::set<uint32_t> uniqueQueueFamilies;
 
 	const QueueFamily graphicsAndComputeFamily = graphicsAndComputeFamiliesList.At(0);
 	uniqueQueueFamilies.insert(graphicsAndComputeFamily.familyIndex);
 
-	if (!EFTraits::HasFlag(graphicsAndComputeFamily.support, CommandQueueSupport::PRESENTATION)) {
-		uniqueQueueFamilies.insert(families.GetFamilies(CommandQueueSupport::PRESENTATION).AtCpy(0).familyIndex);
+	if (!EFTraits::HasFlag(graphicsAndComputeFamily.support, CommandsSupport::PRESENTATION)) {
+		uniqueQueueFamilies.insert(families.GetFamilies(CommandsSupport::PRESENTATION).AtCpy(0).familyIndex);
 	}
 	
+	for (const auto& family : transferOnlyQueues) {
+		// Sólamente transfer.
+		if (family.support == CommandsSupport::TRANSFER) {
+			uniqueQueueFamilies.insert(family.familyIndex);
+			break;
+		}
+	}
+
 	// Creación de las colas.
 	DynamicArray<VkDeviceQueueCreateInfo> createInfos;
 	float_t qPriority = 1.0f;
@@ -253,24 +258,24 @@ QueueFamiles GpuVk::GetQueueFamilyIndices() const {
 		family.numQueues = q.queueCount;
 
 		if (q.queueFlags & VK_QUEUE_GRAPHICS_BIT)
-			family.support |= CommandQueueSupport::GRAPHICS;
+			family.support |= CommandsSupport::GRAPHICS;
 
 		if (q.queueFlags & VK_QUEUE_COMPUTE_BIT)
-			family.support |= CommandQueueSupport::COMPUTE;
+			family.support |= CommandsSupport::COMPUTE;
 
 		if (q.queueFlags & VK_QUEUE_TRANSFER_BIT)
-			family.support |= CommandQueueSupport::TRANSFER;
+			family.support |= CommandsSupport::TRANSFER;
 
 		// Según el spec, si una familia soporta tanto GRAPHICS como COMPUTE, también debe soportar transfer, aunque no esté especificado explícitamente en el struct.
-		if (EFTraits::HasFlag(family.support, CommandQueueSupport::COMPUTE) && EFTraits::HasFlag(family.support, CommandQueueSupport::GRAPHICS))
-			family.support |= CommandQueueSupport::TRANSFER;
+		if (EFTraits::HasFlag(family.support, CommandsSupport::COMPUTE) && EFTraits::HasFlag(family.support, CommandsSupport::GRAPHICS))
+			family.support |= CommandsSupport::TRANSFER;
 
 		// Soporte para presentación.
 		VkBool32 presentSupport = false;
 		vkGetPhysicalDeviceSurfaceSupportKHR(physicalDevice, familyIndex, surface, &presentSupport);
 
 		if (presentSupport)
-			family.support |= CommandQueueSupport::PRESENTATION;
+			family.support |= CommandsSupport::PRESENTATION;
 
 		output.families.Insert(family);
 

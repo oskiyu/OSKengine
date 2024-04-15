@@ -74,6 +74,7 @@ void IGame::_Run() {
 	Engine::RegisterBuiltinComponents();
 	Engine::RegisterBuiltinSystems();
 	Engine::RegisterBuiltinEvents();
+	Engine::RegisterBuiltinJobs();
 
 	rootUiElement = new UI::FreeContainer(Engine::GetDisplay()->GetResolution().ToVector2f());
 
@@ -89,11 +90,11 @@ void IGame::_Run() {
 		0, 1, 2, 1, 2, 3
 	};
 
-	Sprite::globalVertexBuffer = Engine::GetRenderer()->GetAllocator()->CreateVertexBuffer(vertices2d, Vertex2D::GetVertexInfo()).GetPointer();
-	Sprite::globalIndexBuffer = Engine::GetRenderer()->GetAllocator()->CreateIndexBuffer(indices2d).GetPointer();
+	Sprite::globalVertexBuffer = Engine::GetRenderer()->GetAllocator()->CreateVertexBuffer(vertices2d, Vertex2D::GetVertexInfo(), GpuQueueType::MAIN).GetPointer();
+	Sprite::globalIndexBuffer = Engine::GetRenderer()->GetAllocator()->CreateIndexBuffer(indices2d, GpuQueueType::MAIN).GetPointer();
 
 	OSK_ASSERT(Engine::GetDisplay()->IsOpen(), WindowNotCreatedException());
-	OSK_ASSERT(Engine::GetRenderer()->IsOpen(), RenderedNotCreatedException());
+	// OSK_ASSERT(Engine::GetRenderer()->IsOpen(), RenderedNotCreatedException());
 
 	RegisterAssets();
 	RegisterComponents();
@@ -116,7 +117,7 @@ void IGame::_Run() {
 		Engine::GetEcs()->OnTick(deltaTime);
 		OnTick_AfterEcs(deltaTime);
 
-		Engine::GetEcs()->OnRender(Engine::GetRenderer()->GetGraphicsCommandList());
+		Engine::GetEcs()->OnRender(Engine::GetRenderer()->GetMainCommandList());
 
 		BuildFrame();
 

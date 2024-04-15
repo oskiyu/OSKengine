@@ -9,6 +9,7 @@
 #include "Assert.h"
 #include "InvalidArgumentException.h"
 
+
 namespace OSK::ECS {
 		
 	/// @brief Contenedor para el dynamic array de componentes del tipo dado.

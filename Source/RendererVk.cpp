@@ -107,16 +107,14 @@ VKAPI_ATTR VkBool32 VKAPI_CALL DebugCallback(VkDebugUtilsMessageSeverityFlagBits
 
 
 RendererVk::RendererVk(bool requestRayTracing) : IRenderer(RenderApiType::VULKAN, requestRayTracing) {
-	implicitResizeHandling = true;
+	m_implicitResizeHandling = true;
 }
 
 RendererVk::~RendererVk() {
-	Close();
+	// Close();
 }
 
-void RendererVk::Initialize(const std::string& appName, const Version& version, const IO::IDisplay& display, PresentMode mode) {
-	this->display = &display;
-	
+void RendererVk::Initialize(const std::string& appName, const Version& version, const IO::IDisplay& display, PresentMode mode) {	
 	CreateInstance(appName, version);
 
 	if (AreValidationLayersAvailable())
@@ -124,33 +122,33 @@ void RendererVk::Initialize(const std::string& appName, const Version& version, 
 	CreateSurface(display);
 	ChooseGpu();
 	
-	SetupDebugFunctions(currentGpu->As<GpuVk>()->GetLogicalDevice());
+	SetupDebugFunctions(GetGpu()->As<GpuVk>()->GetLogicalDevice());
 
 	CreateCommandQueues();
 	CreateSyncPrimitives();
-	CreateSwapchain(mode);
+	CreateSwapchain(mode, display.GetResolution());
 	CreateGpuMemoryAllocator();
-	if (IsRtRequested() && currentGpu->As<GpuVk>()->GetInfo().IsRtCompatible())
-		SetupRtFunctions(currentGpu->As<GpuVk>()->GetLogicalDevice());
-	SetupRenderingFunctions(currentGpu->As<GpuVk>()->GetLogicalDevice());
-
-	renderTargetsCamera = new ECS::CameraComponent2D;
-	renderTargetsCamera->LinkToDisplay(&display);
-	renderTargetsCameraTransform.SetScale(display.GetResolution().ToVector2f() * 0.5f);
-	renderTargetsCamera->UpdateUniformBuffer(renderTargetsCameraTransform);
+	if (IsRtRequested() && GetGpu()->As<GpuVk>()->GetInfo().IsRtCompatible())
+		SetupRtFunctions(GetGpu()->As<GpuVk>()->GetLogicalDevice());
+	SetupRenderingFunctions(GetGpu()->As<GpuVk>()->GetLogicalDevice());
 
 	CreateMainRenderpass();
 
 	if (Engine::GetEcs())
 		for (auto i : Engine::GetEcs()->GetRenderSystems())
 			i->CreateTargetImage(display.GetResolution());
+}
 
-	isOpen = true;
+OwnedPtr<ICommandPool> RendererVk::CreateCommandPool(const ICommandQueue* targetQueueType) {
+	return new CommandPoolVk(
+		*GetGpu()->As<GpuVk>(),
+		targetQueueType->GetFamily(),
+		targetQueueType->GetQueueType());
 }
 
 OwnedPtr<IGraphicsPipeline> RendererVk::_CreateGraphicsPipeline(const PipelineCreateInfo& pipelineInfo, const MaterialLayout& layout, const VertexInfo& vertexInfo) {
 	auto* pipeline = new GraphicsPipelineVk;
-	pipeline->Create(&layout, currentGpu.GetPointer(), pipelineInfo, vertexInfo);
+	pipeline->Create(&layout, GetGpu(), pipelineInfo, vertexInfo);
 
 	return pipeline;
 }
@@ -170,78 +168,88 @@ OwnedPtr<IComputePipeline> RendererVk::_CreateComputePipeline(const PipelineCrea
 }
 
 void RendererVk::WaitForCompletion() {
-	const VkDevice device = currentGpu->As<GpuVk>()->GetLogicalDevice();
+	const VkDevice device = GetGpu()->As<GpuVk>()->GetLogicalDevice();
 
 	// Esperar a que termine la ejecución de todos los comandos.
 	vkDeviceWaitIdle(device);
 }
 
 void RendererVk::Close() {
-	const VkDevice device = currentGpu->As<GpuVk>()->GetLogicalDevice();
-
+	const VkDevice device = GetGpu()->As<GpuVk>()->GetLogicalDevice();
 	WaitForCompletion();
 
-	swapchain.Delete();
+	CloseSingletonInstances();
+	
 
-	finalRenderTarget.Delete();
-
-	renderTargetsCamera.Delete();
-
-	graphicsCommandPool.Delete();
-	computeCommandPool.Delete();
-
-	materialSystem.Delete();
-	gpuMemoryAllocator.Delete();
-
-	vkDestroySurfaceKHR(instance, surface, nullptr);
+	vkDestroySurfaceKHR(m_instance, m_surface, nullptr);
 
 	for (USize32 i = 0; i < NUM_RESOURCES_IN_FLIGHT; i++) {
-		vkDestroyFence(device, fullyRenderedFences[i], nullptr);
+		vkDestroyFence(device, m_fullyRenderedFences[i], nullptr);
 
-		vkDestroySemaphore(device, imageAvailableSemaphores[i], nullptr);
-		vkDestroySemaphore(device, preComputeFinishedSemaphores[i], nullptr);
-		vkDestroySemaphore(device, renderFinishedSemaphores[i], nullptr);
-		vkDestroySemaphore(device, postComputeFinishedSemaphores[i], nullptr);
-		vkDestroySemaphore(device, frameBuildSemaphores[i], nullptr);
+		vkDestroySemaphore(device, m_imageAvailableSemaphores[i], nullptr);
+		vkDestroySemaphore(device, m_imageFinishedSemaphores[i], nullptr);
 	}
 
-	currentGpu.Delete();
+	CloseGpu();
 
 	if (AreValidationLayersAvailable()) {
-		auto func = (PFN_vkDestroyDebugUtilsMessengerEXT)vkGetInstanceProcAddr(instance, "vkDestroyDebugUtilsMessengerEXT");
+		auto func = (PFN_vkDestroyDebugUtilsMessengerEXT)vkGetInstanceProcAddr(m_instance, "vkDestroyDebugUtilsMessengerEXT");
 		// OSK_ASSERT(func != nullptr, "No se puede destruir la consola de capas de validación.");
-		if (func)
-			func(instance, debugConsole, nullptr);
+		if (func) {
+			func(m_instance, m_debugConsole, nullptr);
+		}
 	}
 
-	vkDestroyInstance(instance, nullptr);
-
-	isOpen = false;
+	vkDestroyInstance(m_instance, nullptr);
 }
 
-void RendererVk::HandleResize() {
+void RendererVk::HandleResize(const Vector2ui& resolution) {
 	// El renderpass final se maneja automáticamente en el bucle principal del renderer.
-	IRenderer::HandleResize();
+	IRenderer::HandleResize(resolution);
 }
 
 void RendererVk::SubmitSingleUseCommandList(OwnedPtr<ICommandList> commandList) {
+	std::lock_guard lock(m_queueSubmitMutex.mutex);
+
 	const auto cmdIndex = commandList->_GetCommandListIndex();
-	const VkQueue graphicsQ = graphicsQueue->As<CommandQueueVk>()->GetQueue();
-	const VkCommandBuffer cmdBuffer = commandList->As<CommandListVk>()->GetCommandBuffers()->At(cmdIndex);
+
+	// Debemos saber cual es la cola compatible con el pool usado.
+	VkQueue queue = VK_NULL_HANDLE;
+
+	if (UseUnifiedCommandQueue() && commandList->GetOwnerPool()->GetLinkedQueueType() == GetUnifiedQueue()->GetQueueType()) {
+		// Cola unificada.
+		queue = GetUnifiedQueue()->As<CommandQueueVk>()->GetQueue();
+		// Engine::GetLogger()->InfoLog(std::format("\tInsertada lista en cola unificada."));
+	}
+	else if (!UseUnifiedCommandQueue() && commandList->GetOwnerPool()->GetLinkedQueueType() == GetGraphicsComputeQueue()->GetQueueType()) {
+		// Cola principal.
+		queue = GetGraphicsComputeQueue()->As<CommandQueueVk>()->GetQueue();
+		// Engine::GetLogger()->InfoLog(std::format("\tInsertada lista en cola principal."));
+	}
+	else if (HasTransferOnlyCommandPool() && commandList->GetOwnerPool()->GetLinkedQueueType() == GetTransferOnlyQueue()->GetQueueType()) {
+		// Cola de transferencia.
+		queue = GetTransferOnlyQueue()->As<CommandQueueVk>()->GetQueue();
+		// Engine::GetLogger()->InfoLog(std::format("\tInsertada lista en cola exclusiva de transferencia."));
+	}
+
+	const VkCommandBuffer cmdBuffer = commandList->As<CommandListVk>()->GetCommandBuffers()[cmdIndex];
 
 	VkSubmitInfo submitInfo{};
 	submitInfo.sType = VK_STRUCTURE_TYPE_SUBMIT_INFO;
 	submitInfo.commandBufferCount = 1;
 	submitInfo.pCommandBuffers = &cmdBuffer;
 
-	VkResult result = vkQueueSubmit(graphicsQ, 1, &submitInfo, VK_NULL_HANDLE);
+	VkResult result = vkQueueSubmit(queue, 1, &submitInfo, VK_NULL_HANDLE);
 	OSK_ASSERT(result == VK_SUCCESS, CommandQueueSubmitException(result));
-	result = vkQueueWaitIdle(graphicsQ);
+	result = vkQueueWaitIdle(queue);
 	OSK_ASSERT(result == VK_SUCCESS, CommandQueueSubmitException(result));
 
-	vkFreeCommandBuffers(currentGpu->As<GpuVk>()->GetLogicalDevice(), graphicsCommandPool->As<CommandPoolVk>()->GetCommandPool(), 1, &cmdBuffer);
+	vkFreeCommandBuffers(
+		GetGpu()->As<GpuVk>()->GetLogicalDevice(), 
+		commandList->GetOwnerPool()->As<CommandPoolVk>()->GetCommandPool(),
+		1, &cmdBuffer);
 
-	singleTimeCommandLists.Insert(commandList.GetPointer());
+	m_singleTimeCommandLists.Insert(commandList.GetPointer());
 }
 
 void RendererVk::CreateInstance(const std::string& appName, const Version& version) {
@@ -313,15 +321,27 @@ void RendererVk::CreateInstance(const std::string& appName, const Version& versi
 	//for (const auto& i : validationLayers)
 	//	Engine::GetLogger()->InfoLog("	" + std::string(i));
 
-	VkResult result = vkCreateInstance(&createInfo, nullptr, &instance);
+	VkResult result = vkCreateInstance(&createInfo, nullptr, &m_instance);
 	OSK_ASSERT(result == VK_SUCCESS, RendererCreationException("Crear instancia de Vulkan", result));
 }
 
-void RendererVk::CreateSwapchain(PresentMode mode) {
-	swapchain = new SwapchainVk;
+void RendererVk::CreateSwapchain(PresentMode mode, const Vector2ui& resolution) {
+	DynamicArray<UIndex32> queueIndices{};
 
-	swapchain->As<SwapchainVk>()->Create(mode, Format::BGRA8_SRGB, *currentGpu->As<GpuVk>(), *display);
-	Engine::GetLogger()->InfoLog("Creado el swapchain.");
+	if (UseUnifiedCommandQueue()) {
+		queueIndices.Insert(GetUnifiedQueue()->GetFamily().familyIndex);
+	}
+	else {
+		queueIndices.Insert(GetGraphicsComputeQueue()->GetFamily().familyIndex);
+		queueIndices.Insert(GetPresentationQueue()->GetFamily().familyIndex);
+	}
+
+	_SetSwapchain(new SwapchainVk(
+		mode,
+		Format::BGRA8_SRGB,
+		*GetGpu()->As<GpuVk>(),
+		resolution,
+		queueIndices.GetFullSpan()));
 }
 
 void RendererVk::SetupDebugLogging() {
@@ -331,17 +351,17 @@ void RendererVk::SetupDebugLogging() {
 	createInfo.messageType = VK_DEBUG_UTILS_MESSAGE_TYPE_VALIDATION_BIT_EXT | VK_DEBUG_UTILS_MESSAGE_TYPE_PERFORMANCE_BIT_EXT;
 	createInfo.pfnUserCallback = DebugCallback;
 
-	auto func = (PFN_vkCreateDebugUtilsMessengerEXT)vkGetInstanceProcAddr(instance, "vkCreateDebugUtilsMessengerEXT");
+	auto func = (PFN_vkCreateDebugUtilsMessengerEXT)vkGetInstanceProcAddr(m_instance, "vkCreateDebugUtilsMessengerEXT");
 	OSK_ASSERT(func != nullptr, RendererCreationException("No se puede iniciar la consola de capas de validación", 0));
 
-	auto result = func(instance, &createInfo, nullptr, &debugConsole);
+	auto result = func(m_instance, &createInfo, nullptr, &m_debugConsole);
 	OSK_ASSERT(result == VK_SUCCESS, RendererCreationException("No se puede iniciar la consola de capas de validación.", 0));
 
 	Engine::GetLogger()->InfoLog("Capas de validación activas.");
 }
 
 void RendererVk::CreateSurface(const IO::IDisplay& display) {
-	const VkResult result = glfwCreateWindowSurface(instance, display.As<IO::Window>()->_GetGlfw(), nullptr, &surface);
+	const VkResult result = glfwCreateWindowSurface(m_instance, display.As<IO::Window>()->_GetGlfw(), nullptr, &m_surface);
 	OSK_ASSERT(result == VK_SUCCESS, RendererCreationException("No se ha podido crear la superficie", result));
 }
 
@@ -350,19 +370,19 @@ void RendererVk::ChooseGpu() {
 
 	// Obtiene el número de GPUs disponibles.
 	uint32_t count = 0;
-	vkEnumeratePhysicalDevices(instance, &count, nullptr);
+	vkEnumeratePhysicalDevices(m_instance, &count, nullptr);
 
 	OSK_ASSERT(count != 0, GpuNotFoundException());
 
 	// Obtiene los handlers de las GPUs.
 	auto devices = DynamicArray<VkPhysicalDevice>::CreateResizedArray(count);
-	vkEnumeratePhysicalDevices(instance, &count, devices.GetData());
+	vkEnumeratePhysicalDevices(m_instance, &count, devices.GetData());
 
 	// Comprobar la compatibilidad de las GPUs.
 	// Obtener una GPU compatible.
 	DynamicArray<GpuVk::Info> gpus;
 	for (const VkPhysicalDevice gpu : devices) {
-		const GpuVk::Info info = GpuVk::Info::Get(gpu, surface);
+		const GpuVk::Info info = GpuVk::Info::Get(gpu, m_surface);
 
 		if (info.isSuitable)
 			gpus.Insert(info);
@@ -375,50 +395,76 @@ void RendererVk::ChooseGpu() {
 
 	Engine::GetLogger()->InfoLog("GPU elegida: " + std::string(info.properties.deviceName));
 
-	currentGpu = new GpuVk(gpu, surface);
-	currentGpu->As<GpuVk>()->CreateLogicalDevice();
+	auto* gpuVk = new GpuVk(gpu, m_surface);
+	gpuVk->CreateLogicalDevice();
+
+	_SetGpu(gpuVk);
 }
 
 void RendererVk::CreateCommandQueues() {
-	const QueueFamiles queueFamilies = currentGpu->As<GpuVk>()->GetQueueFamilyIndices();
+	GpuVk& gpu = *GetGpu()->As<GpuVk>();
+
+	const QueueFamiles queueFamilies = gpu.GetQueueFamilyIndices();
 
 	// Obtener las colas.
 	
 	// Preferir cola única para comandos y gráficos.
 	// Según el spec, si hay al menos una familia de comandos gráficos, también debe soportar computación y transfer.
-	const QueueFamily graphicsAndComputeFamily = queueFamilies.GetFamilies(CommandQueueSupport::GRAPHICS | CommandQueueSupport::COMPUTE).At(0);
-	graphicsQueue = new CommandQueueVk(graphicsAndComputeFamily.support, graphicsAndComputeFamily.familyIndex, 0, *currentGpu->As<GpuVk>());
-	computeQueue = new CommandQueueVk(graphicsAndComputeFamily.support, graphicsAndComputeFamily.familyIndex, 0, *currentGpu->As<GpuVk>());
+	
+	const DynamicArray<QueueFamily> unifiedFamiliesList = queueFamilies.GetFamilies(
+		CommandsSupport::GRAPHICS |
+		CommandsSupport::COMPUTE |
+		CommandsSupport::TRANSFER |
+		CommandsSupport::PRESENTATION);
 
-	// La cola de presentación puede ser distinta.
-	if (EFTraits::HasFlag(graphicsAndComputeFamily.support, CommandQueueSupport::PRESENTATION)) {
-		presentQueue = new CommandQueueVk(graphicsAndComputeFamily.support, graphicsAndComputeFamily.familyIndex, 0, *currentGpu->As<GpuVk>());
+	if (!unifiedFamiliesList.IsEmpty()) {
+		// Existe una familia con soporte para todos los comandos:
+		// usar cola unificada.
+
+		_SetUnifiedCommandQueue(new CommandQueueVk(unifiedFamiliesList[0], 0, GpuQueueType::MAIN,  gpu));
+
+		RegisterUnifiedCommandPool(GetUnifiedQueue());
+
+		_SetMainCommandList(GetUnifiedCommandPool(std::this_thread::get_id())->CreateCommandList(gpu));
+
+		OSK::Engine::GetLogger()->InfoLog("Uso de cola GPU unificada.");
 	}
 	else {
-		const QueueFamily presentFamily = queueFamilies.GetFamilies(CommandQueueSupport::PRESENTATION).At(0);
-		presentQueue = new CommandQueueVk(presentFamily.support, presentFamily.familyIndex, 0, *currentGpu->As<GpuVk>());
+		// Colas potencialmente exclusivas para cada tarea.
+		// 
+		// Una para graphics + compute + transfer (debe existir según spec.).
+		const QueueFamily graphicsAndComputeFamily = queueFamilies.GetFamilies(
+			CommandsSupport::GRAPHICS |
+			CommandsSupport::COMPUTE |
+			CommandsSupport::TRANSFER)[0];
+
+		_SetGraphicsCommputeCommandQueue(new CommandQueueVk(graphicsAndComputeFamily, 0, GpuQueueType::MAIN, gpu));
+
+		RegisterGraphicsCommputeCommandPool(GetGraphicsComputeQueue());
+
+		// Una para presentación.
+		const QueueFamily presentationFamily = queueFamilies.GetFamilies(
+			CommandsSupport::PRESENTATION)[0];
+
+		_SetPresentationCommandQueue(new CommandQueueVk(presentationFamily, 0, GpuQueueType::PRESENTATION, gpu));
+
+		_SetMainCommandList(GetGraphicsComputeCommandPool(std::this_thread::get_id())->CreateCommandList(gpu));
+
+		OSK::Engine::GetLogger()->InfoLog("Uso de colas GPU de renderizado y presentación.");
 	}
 
-	if (graphicsQueue->As<CommandQueueVk>()->GetQueueIndex() == computeQueue->As<CommandQueueVk>()->GetQueueIndex())
-		singleCommandQueue = true;
+	// Buscamos una cola exclusivamente de transferencia.
+	const DynamicArray<QueueFamily> transferFamilies = queueFamilies.GetFamilies(
+		CommandsSupport::TRANSFER);
 
-	graphicsCommandPool = currentGpu->As<GpuVk>()->CreateGraphicsCommandPool().GetPointer();
-	computeCommandPool = currentGpu->As<GpuVk>()->CreateComputeCommandPool().GetPointer();
+	for (const auto& family : transferFamilies) {
+		if (family.support == CommandsSupport::TRANSFER) {
+			_SetTransferOnlyCommandQueue(new CommandQueueVk(family, 0, GpuQueueType::ASYNC_TRANSFER, gpu));
+			RegisterTransferOnlyCommandPool(GetTransferOnlyQueue());
+			OSK::Engine::GetLogger()->InfoLog("Uso de cola GPU de transferencia.");
 
-	graphicsCommandPool->As<CommandPoolVk>()->SetSwapchainCount(3);
-	computeCommandPool->As<CommandPoolVk>()->SetSwapchainCount(3);
-
-	graphicsCommandList = graphicsCommandPool->CreateCommandList(currentGpu.GetValue()).GetPointer();
-	graphicsCommandList->SetDebugName("Graphics CmdList");
-
-	if (!singleCommandQueue) {
-		preComputeCommandList = computeCommandPool->CreateCommandList(currentGpu.GetValue()).GetPointer();
-		postComputeCommandList = computeCommandPool->CreateCommandList(currentGpu.GetValue()).GetPointer();
-		frameBuildCommandList = graphicsCommandPool->CreateCommandList(currentGpu.GetValue()).GetPointer();
-
-		preComputeCommandList->SetDebugName("Pre-Compute CmdList");
-		postComputeCommandList->SetDebugName("Post-Compute CmdList");
-		frameBuildCommandList->SetDebugName("Frame Build CmdList");
+			break;
+		}
 	}
 }
 
@@ -460,15 +506,7 @@ OwnedPtr<IMaterialSlot> RendererVk::_CreateMaterialSlot(const std::string& name,
 }
 
 void RendererVk::CreateSyncPrimitives() {
-	const VkDevice logicalDevice = currentGpu->As<GpuVk>()->GetLogicalDevice();
-
-	imageAvailableSemaphores = DynamicArray<VkSemaphore>::CreateResizedArray(3, VK_NULL_HANDLE);
-	renderFinishedSemaphores = DynamicArray<VkSemaphore>::CreateResizedArray(3, VK_NULL_HANDLE);
-	preComputeFinishedSemaphores = DynamicArray<VkSemaphore>::CreateResizedArray(3, VK_NULL_HANDLE);
-	postComputeFinishedSemaphores = DynamicArray<VkSemaphore>::CreateResizedArray(3, VK_NULL_HANDLE);
-	frameBuildSemaphores = DynamicArray<VkSemaphore>::CreateResizedArray(3, VK_NULL_HANDLE);
-
-	fullyRenderedFences = DynamicArray<VkFence>::CreateResizedArray(3, VK_NULL_HANDLE);
+	const VkDevice logicalDevice = GetGpu()->As<GpuVk>()->GetLogicalDevice();
 
 	VkSemaphoreCreateInfo semaphoreInfo{};
 	semaphoreInfo.sType = VK_STRUCTURE_TYPE_SEMAPHORE_CREATE_INFO;
@@ -479,24 +517,17 @@ void RendererVk::CreateSyncPrimitives() {
 
 	for (UIndex32 i = 0; i < NUM_RESOURCES_IN_FLIGHT; i++) {
 		
-		VkResult result = vkCreateSemaphore(logicalDevice, &semaphoreInfo, nullptr, &imageAvailableSemaphores[i]);
+		VkResult result = vkCreateSemaphore(logicalDevice, &semaphoreInfo, nullptr, &m_imageAvailableSemaphores[i]);
 		OSK_ASSERT(result == VK_SUCCESS, RendererCreationException("Error al crear el semáforo.", result));
 
-		result = vkCreateSemaphore(logicalDevice, &semaphoreInfo, nullptr, &preComputeFinishedSemaphores[i]);
+		result = vkCreateSemaphore(logicalDevice, &semaphoreInfo, nullptr, &m_imageFinishedSemaphores[i]);
 		OSK_ASSERT(result == VK_SUCCESS, RendererCreationException("Error al crear el semáforo.", result));
 
-		result = vkCreateSemaphore(logicalDevice, &semaphoreInfo, nullptr, &renderFinishedSemaphores[i]);
-		OSK_ASSERT(result == VK_SUCCESS, RendererCreationException("Error al crear el semáforo.", result));
-
-		result = vkCreateSemaphore(logicalDevice, &semaphoreInfo, nullptr, &postComputeFinishedSemaphores[i]);
-		OSK_ASSERT(result == VK_SUCCESS, RendererCreationException("Error al crear el semáforo.", result));
-
-		result = vkCreateSemaphore(logicalDevice, &semaphoreInfo, nullptr, &frameBuildSemaphores[i]);
-		OSK_ASSERT(result == VK_SUCCESS, RendererCreationException("Error al crear el semáforo.", result));
 
 		// Fences
-		result = vkCreateFence(logicalDevice, &fenceInfo, nullptr, &fullyRenderedFences[i]);
+		result = vkCreateFence(logicalDevice, &fenceInfo, nullptr, &m_fullyRenderedFences[i]);
 		OSK_ASSERT(result == VK_SUCCESS, RendererCreationException("Error al crear el fence.", result));
+
 
 		if (pvkSetDebugUtilsObjectNameEXT != nullptr) {
 			std::string name = "";
@@ -507,35 +538,19 @@ void RendererVk::CreateSyncPrimitives() {
 
 			name = std::format("Image Available Semaphore[{}]", i);
 			debugName.pObjectName = name.c_str();
-			debugName.objectHandle = (uint64_t)imageAvailableSemaphores[i];
+			debugName.objectHandle = (uint64_t)m_imageAvailableSemaphores[i];
 			pvkSetDebugUtilsObjectNameEXT(logicalDevice, &debugName);
 
 			name = std::format("Render Finished Semaphore[{}]", i);
 			debugName.pObjectName = name.c_str();
-			debugName.objectHandle = (uint64_t)renderFinishedSemaphores[i];
+			debugName.objectHandle = (uint64_t)m_imageFinishedSemaphores[i];
 			pvkSetDebugUtilsObjectNameEXT(logicalDevice, &debugName);
-
-			name = std::format("Pre-Compute Finished Semaphore[{}]", i);
-			debugName.pObjectName = name.c_str();
-			debugName.objectHandle = (uint64_t)preComputeFinishedSemaphores[i];
-			pvkSetDebugUtilsObjectNameEXT(logicalDevice, &debugName);
-
-			name = std::format("Post-Compute Finished Semaphore[{}]", i);
-			debugName.pObjectName = name.c_str();
-			debugName.objectHandle = (uint64_t)postComputeFinishedSemaphores[i];
-			pvkSetDebugUtilsObjectNameEXT(logicalDevice, &debugName);
-
-			name = std::format("Frame build Semaphore[{}]", i);
-			debugName.pObjectName = name.c_str();
-			debugName.objectHandle = (uint64_t)frameBuildSemaphores[i];
-			pvkSetDebugUtilsObjectNameEXT(logicalDevice, &debugName);
-
 
 			debugName.objectType = VK_OBJECT_TYPE_FENCE;
 
 			name = std::format("Fully Rendered Fence[{}]", i);
 			debugName.pObjectName = name.c_str();
-			debugName.objectHandle = (uint64_t)fullyRenderedFences[i];
+			debugName.objectHandle = (uint64_t)m_fullyRenderedFences[i];
 			result = pvkSetDebugUtilsObjectNameEXT(logicalDevice, &debugName);
 		}
 
@@ -544,216 +559,111 @@ void RendererVk::CreateSyncPrimitives() {
 	// Las primeras fencees en enviarse deben estár UNSIGNALED,
 	// pero las hemos creado signaled.
 	const VkFence firstFencesToReset[] = {
-		fullyRenderedFences[0]
+		m_fullyRenderedFences[0]
 	};
 	vkResetFences(logicalDevice, _countof(firstFencesToReset), firstFencesToReset);
 }
 
 void RendererVk::CreateGpuMemoryAllocator() {
-	gpuMemoryAllocator = new GpuMemoryAllocatorVk(currentGpu.GetPointer());
+	_SetMemoryAllocator(new GpuMemoryAllocatorVk(GetGpu()));
 }
 
 void RendererVk::PresentFrame() {
-	if (isFirstRender) {
+	if (m_isFirstRender) {
 		AcquireNextFrame();
 
-		graphicsCommandList->Reset();
-		graphicsCommandList->Start();
+		GetMainCommandList()->Reset();
+		GetMainCommandList()->Start();
 
-		if (!singleCommandQueue) {
-			preComputeCommandList->Reset();
-			preComputeCommandList->Start();
-
-			postComputeCommandList->Reset();
-			postComputeCommandList->Start();
-
-			frameBuildCommandList->Reset();
-			frameBuildCommandList->Start();
-		}
-
-		isFirstRender = false;
+		m_isFirstRender = false;
 	}
 
-	graphicsCommandList->Close();
-	if (!singleCommandQueue) {
-		preComputeCommandList->Close();
-		postComputeCommandList->Close();
-		frameBuildCommandList->Close();
-	}
+	GetMainCommandList()->Close();
 
 	// Sync
-	if (singleCommandQueue) {
-		SubmitGraphicsAndComputeCommands();
-	}
-	else {
-		SubmitPreComputeCommands();
-		SubmitGraphicsCommands();
-		SubmitPostComputeCommands();
-		SubmitFrameBuildCommands();
-	}
+	SubmitMainCommandList();
 	SubmitFrame();
 	AcquireNextFrame();
 
-	for (auto& singleTimeCmdList : singleTimeCommandLists)
-		singleTimeCmdList->DeleteAllStagingBuffers();
-	singleTimeCommandLists.Free();
+	{
+		std::lock_guard lock(m_queueSubmitMutex.mutex);
+		for (auto& singleTimeCmdList : m_singleTimeCommandLists)
+			singleTimeCmdList->DeleteAllStagingBuffers();
+		m_singleTimeCommandLists.Free();
+	}
 
 	GetAllocator()->FreeStagingMemory();
 
 	//
 
-	graphicsCommandList->Reset();
-	graphicsCommandList->Start();
-
-	if (!singleCommandQueue) {
-		preComputeCommandList->Reset();
-		preComputeCommandList->Start();
-
-		postComputeCommandList->Reset();
-		postComputeCommandList->Start();
-
-		frameBuildCommandList->Reset();
-		frameBuildCommandList->Start();
-	}
+	GetMainCommandList()->Reset();
+	GetMainCommandList()->Start();
 }
 
-void RendererVk::SubmitPreComputeCommands() {
-	// Esperar a que la imagen esté disponible antes de renderizar.
-	const VkPipelineStageFlags waitStages[] = { VK_PIPELINE_STAGE_COLOR_ATTACHMENT_OUTPUT_BIT };
+void RendererVk::SubmitMainCommandList() {
+	// Esperar a que se completen todos los comandos.
+	const VkPipelineStageFlags waitStage = VK_PIPELINE_STAGE_ALL_COMMANDS_BIT;
 
 	VkSubmitInfo submitInfo{};
 	submitInfo.sType = VK_STRUCTURE_TYPE_SUBMIT_INFO;
 	submitInfo.waitSemaphoreCount = 1;
-	submitInfo.pWaitSemaphores = &imageAvailableSemaphores[currentCommandBufferIndex]; // Debemos esperar hasta que esta imagen esté disponible.
-	submitInfo.pWaitDstStageMask = waitStages;
-	submitInfo.pSignalSemaphores = &preComputeFinishedSemaphores[currentCommandBufferIndex]; // Al terminar, indicamos que esta imagen se ha terminado de renderizar.
+	submitInfo.pWaitSemaphores = &m_imageAvailableSemaphores[currentCommandBufferIndex]; // Debemos esperar hasta que esta imagen esté disponible.
+	submitInfo.pWaitDstStageMask = &waitStage;
+	submitInfo.pSignalSemaphores = &m_imageFinishedSemaphores[currentCommandBufferIndex]; // Al terminar, indicamos que esta imagen se ha terminado de renderizar.
 	submitInfo.signalSemaphoreCount = 1;
 
 	submitInfo.commandBufferCount = 1;
-	submitInfo.pCommandBuffers = &preComputeCommandList->As<CommandListVk>()->GetCommandBuffers()->At(currentCommandBufferIndex);
+	submitInfo.pCommandBuffers = &GetMainCommandList()->As<CommandListVk>()->GetCommandBuffers()[currentCommandBufferIndex];
 
-	VkResult result = vkQueueSubmit(computeQueue->As<CommandQueueVk>()->GetQueue(), 1, &submitInfo, VK_NULL_HANDLE /*preComputeCommandsFences[currentCommandBufferIndex]*/);
+	const VkQueue queue = UseUnifiedCommandQueue()
+		? GetUnifiedQueue()->As<CommandQueueVk>()->GetQueue()
+		: GetGraphicsComputeQueue()->As<CommandQueueVk>()->GetQueue();
+
+	VkResult result = vkQueueSubmit(queue, 1, &submitInfo, m_fullyRenderedFences[currentCommandBufferIndex]);
 	OSK_ASSERT(result == VK_SUCCESS, CommandListSubmitException("PreCompute", result));
-}
-
-void RendererVk::SubmitGraphicsCommands() {
-	// Esperar a que la imagen esté disponible antes de renderizar.
-	const VkPipelineStageFlags waitStages[] = { VK_PIPELINE_STAGE_COMPUTE_SHADER_BIT };
-	const VkSemaphore waitSemaphores[] = {
-		preComputeFinishedSemaphores[currentCommandBufferIndex]
-	};
-
-	VkSubmitInfo submitInfo{};
-	submitInfo.sType = VK_STRUCTURE_TYPE_SUBMIT_INFO;
-	submitInfo.waitSemaphoreCount = _countof(waitSemaphores);
-	submitInfo.pWaitSemaphores = waitSemaphores;
-	submitInfo.pWaitDstStageMask = waitStages;
-	submitInfo.pSignalSemaphores = &renderFinishedSemaphores[currentCommandBufferIndex]; // Al terminar, indicamos que esta imagen se ha terminado de renderizar.
-	submitInfo.signalSemaphoreCount = 1;
-
-	submitInfo.commandBufferCount = 1;
-	submitInfo.pCommandBuffers = &graphicsCommandList->As<CommandListVk>()->GetCommandBuffers()->At(currentCommandBufferIndex);
-
-	VkResult result = vkQueueSubmit(graphicsQueue->As<CommandQueueVk>()->GetQueue(), 1, &submitInfo, VK_NULL_HANDLE /*graphicsCommandsFences[currentCommandBufferIndex]*/);
-	OSK_ASSERT(result == VK_SUCCESS, CommandListSubmitException("Graphics", result));
-}
-
-void RendererVk::SubmitPostComputeCommands() {
-	// Esperar a que la imagen esté disponible antes de renderizar.
-	const VkPipelineStageFlags waitStages[] = { VK_PIPELINE_STAGE_COLOR_ATTACHMENT_OUTPUT_BIT };
-	const VkSemaphore waitSemaphores[] = {
-		renderFinishedSemaphores[currentCommandBufferIndex]
-	};
-
-	VkSubmitInfo submitInfo{};
-	submitInfo.sType = VK_STRUCTURE_TYPE_SUBMIT_INFO;
-	submitInfo.waitSemaphoreCount = _countof(waitSemaphores);
-	submitInfo.pWaitSemaphores = waitSemaphores;
-	submitInfo.pWaitDstStageMask = waitStages;
-	submitInfo.pSignalSemaphores = &postComputeFinishedSemaphores[currentCommandBufferIndex]; // Al terminar, indicamos que esta imagen se ha terminado de renderizar.
-	submitInfo.signalSemaphoreCount = 1;
-
-	submitInfo.commandBufferCount = 1;
-	submitInfo.pCommandBuffers = &postComputeCommandList->As<CommandListVk>()->GetCommandBuffers()->At(currentCommandBufferIndex);
-
-	VkResult result = vkQueueSubmit(computeQueue->As<CommandQueueVk>()->GetQueue(), 1, &submitInfo, VK_NULL_HANDLE);
-	OSK_ASSERT(result == VK_SUCCESS, CommandListSubmitException("PostCompute", result));
-}
-
-void RendererVk::SubmitGraphicsAndComputeCommands() {
-	// Esperar a que la imagen esté disponible antes de renderizar.
-	const VkPipelineStageFlags waitStages[] = { VK_PIPELINE_STAGE_ALL_COMMANDS_BIT };
-
-	VkSubmitInfo submitInfo{};
-	submitInfo.sType = VK_STRUCTURE_TYPE_SUBMIT_INFO;
-	submitInfo.waitSemaphoreCount = 1;
-	submitInfo.pWaitSemaphores = &imageAvailableSemaphores[currentCommandBufferIndex]; // Debemos esperar hasta que esta imagen esté disponible.
-	submitInfo.pWaitDstStageMask = waitStages;
-	submitInfo.pSignalSemaphores = &frameBuildSemaphores[currentCommandBufferIndex]; // Al terminar, indicamos que esta imagen se ha terminado de renderizar.
-	submitInfo.signalSemaphoreCount = 1;
-
-	submitInfo.commandBufferCount = 1;
-	submitInfo.pCommandBuffers = &graphicsCommandList->As<CommandListVk>()->GetCommandBuffers()->At(currentCommandBufferIndex);
-
-	VkResult result = vkQueueSubmit(graphicsQueue->As<CommandQueueVk>()->GetQueue(), 1, &submitInfo, fullyRenderedFences[currentCommandBufferIndex]);
-	OSK_ASSERT(result == VK_SUCCESS, CommandListSubmitException("PreCompute", result));
-}
-
-void RendererVk::SubmitFrameBuildCommands() {
-	// Esperar a que la imagen esté disponible antes de renderizar.
-	const VkPipelineStageFlags waitStages[] = { VK_PIPELINE_STAGE_COMPUTE_SHADER_BIT };
-	const VkSemaphore waitSemaphores[] = {
-		postComputeFinishedSemaphores[currentCommandBufferIndex]
-	};
-
-	VkSubmitInfo submitInfo{};
-	submitInfo.sType = VK_STRUCTURE_TYPE_SUBMIT_INFO;
-	submitInfo.waitSemaphoreCount = _countof(waitSemaphores);
-	submitInfo.pWaitSemaphores = waitSemaphores;
-	submitInfo.pWaitDstStageMask = waitStages;
-	submitInfo.pSignalSemaphores = &frameBuildSemaphores[currentCommandBufferIndex]; // Al terminar, indicamos que esta imagen se ha terminado de renderizar.
-	submitInfo.signalSemaphoreCount = 1;
-
-	submitInfo.commandBufferCount = 1;
-	submitInfo.pCommandBuffers = &frameBuildCommandList->As<CommandListVk>()->GetCommandBuffers()->At(currentCommandBufferIndex);
-
-	VkResult result = vkQueueSubmit(graphicsQueue->As<CommandQueueVk>()->GetQueue(), 1, &submitInfo, fullyRenderedFences[currentCommandBufferIndex]);
-	OSK_ASSERT(result == VK_SUCCESS, CommandListSubmitException("FrameBuild", result));
 }
 
 void RendererVk::SubmitFrame() {
-	const VkSwapchainKHR swapChains[] = { swapchain->As<SwapchainVk>()->GetSwapchain() };
-	const VkSemaphore waitSemaphores[] = { frameBuildSemaphores[currentCommandBufferIndex] };
+	const VkDevice logicalDevice = GetGpu()->As<GpuVk>()->GetLogicalDevice();
+
+	const VkSwapchainKHR swapChains = _GetSwapchain()->As<SwapchainVk>()->GetSwapchain();
+	// Esperamos a que la imagen haya terminado de rendereizarse.
+	const VkSemaphore waitSemaphores = m_imageFinishedSemaphores[currentCommandBufferIndex];
 
 	VkPresentInfoKHR presentInfo{};
 	presentInfo.sType = VK_STRUCTURE_TYPE_PRESENT_INFO_KHR;
-	presentInfo.waitSemaphoreCount = _countof(waitSemaphores);
-	presentInfo.pWaitSemaphores = waitSemaphores; // Debemos esperar a que la imagen actual termine de renderizarse.
+	presentInfo.waitSemaphoreCount = 1;
+	presentInfo.pWaitSemaphores = &waitSemaphores; // Debemos esperar a que la imagen actual termine de renderizarse.
 	presentInfo.swapchainCount = 1;
-	presentInfo.pSwapchains = swapChains;
+	presentInfo.pSwapchains = &swapChains;
 	presentInfo.pImageIndices = &currentFrameIndex; // Lo presentamos en esta imagen.
 	presentInfo.pResults = nullptr;
 
-	VkResult result = vkQueuePresentKHR(presentQueue->As<CommandQueueVk>()->GetQueue(), &presentInfo);
+	const VkQueue queue = UseUnifiedCommandQueue()
+		? GetUnifiedQueue()->As<CommandQueueVk>()->GetQueue()
+		: GetPresentationQueue()->As<CommandQueueVk>()->GetQueue();
+
+	VkResult result = vkQueuePresentKHR(queue, &presentInfo);
 	const bool resized = result == VK_ERROR_OUT_OF_DATE_KHR || result == VK_SUBOPTIMAL_KHR;
 	if (resized) {
 		// Esperamos a que se terminen todas las listas de comandos para
 		// poder cambiar de tamaño los render targets.
-		vkDeviceWaitIdle(currentGpu->As<GpuVk>()->GetLogicalDevice());
+		vkDeviceWaitIdle(logicalDevice);
 		/// @todo vkWaitForSemaphores
 
-		swapchain->As<SwapchainVk>()->Resize();
+		const auto& resolution = Engine::GetDisplay()->GetResolution();
 
-		if (display->GetResolution().x > 0 && display->GetResolution().y > 0)
-			Engine::GetRenderer()->As<RendererVk>()->HandleResize();
+		if (resolution.x > 0 && resolution.y > 0) {
+			_GetSwapchain()->As<SwapchainVk>()->Resize(*GetGpu(), resolution);
+			Engine::GetRenderer()->As<RendererVk>()->HandleResize(resolution);
+		}
 	}
 
-	currentCommandBufferIndex = (currentCommandBufferIndex + 1) % NUM_RESOURCES_IN_FLIGHT; //swapchain->GetImageCount()
+	currentCommandBufferIndex = (currentCommandBufferIndex + 1) % NUM_RESOURCES_IN_FLIGHT;
 
 	// Si la siguiente imagen está siendo procesada, esperar a que termine.
-	// @todo vkGetSemaphoreState
-	vkWaitForFences(currentGpu->As<GpuVk>()->GetLogicalDevice(), 1, &fullyRenderedFences[currentCommandBufferIndex], VK_TRUE, UINT64_MAX);
-	vkResetFences(currentGpu->As<GpuVk>()->GetLogicalDevice(), 1, &fullyRenderedFences[currentCommandBufferIndex]);
+	vkWaitForFences(logicalDevice, 1, &m_fullyRenderedFences[currentCommandBufferIndex], VK_TRUE, UINT64_MAX);
+	vkResetFences(logicalDevice, 1, &m_fullyRenderedFences[currentCommandBufferIndex]);
 }
 
 void RendererVk::AcquireNextFrame() {
@@ -762,10 +672,10 @@ void RendererVk::AcquireNextFrame() {
 	// Adquirimos el índice de la próxima imagen a procesar.
 	// NOTA: puede que tengamos que esperar a que esta imagen quede disponible.
 	VkResult result = vkAcquireNextImageKHR(
-		currentGpu->As<GpuVk>()->GetLogicalDevice(), 
-		swapchain->As<SwapchainVk>()->GetSwapchain(), 
+		GetGpu()->As<GpuVk>()->GetLogicalDevice(),
+		_GetSwapchain()->As<SwapchainVk>()->GetSwapchain(),
 		OSK_NO_TIMEOUT,
-		imageAvailableSemaphores[currentCommandBufferIndex], 
+		m_imageAvailableSemaphores[currentCommandBufferIndex], 
 		VK_NULL_HANDLE, 
 		&currentFrameIndex);
 
@@ -784,7 +694,7 @@ void RendererVk::SetupRtFunctions(VkDevice device) {
 	pvkGetRayTracingShaderGroupHandlesKHR = reinterpret_cast<PFN_vkGetRayTracingShaderGroupHandlesKHR>(vkGetDeviceProcAddr(device, "vkGetRayTracingShaderGroupHandlesKHR"));
 	pvkCreateRayTracingPipelinesKHR = reinterpret_cast<PFN_vkCreateRayTracingPipelinesKHR>(vkGetDeviceProcAddr(device, "vkCreateRayTracingPipelinesKHR"));
 
-	isRtActive = true;
+	m_isRtActive = true;
 }
 
 void RendererVk::SetupDebugFunctions(VkDevice instance) {
@@ -824,7 +734,7 @@ UIndex32 RendererVk::GetCurrentCommandListIndex() const {
 }
 
 bool RendererVk::SupportsRaytracing() const {
-	return currentGpu->As<GpuVk>()->GetInfo().IsRtCompatible();
+	return GetGpu()->As<GpuVk>()->GetInfo().IsRtCompatible();
 }
 
 PFN_vkGetBufferDeviceAddressKHR RendererVk::pvkGetBufferDeviceAddressKHR = nullptr;

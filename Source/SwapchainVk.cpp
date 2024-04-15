@@ -38,47 +38,49 @@ SwapchainVk::~SwapchainVk() {
 
 	vkDestroySwapchainKHR(device, m_swapchain, nullptr);
 
-	for (auto& i : m_images) {
-		GpuImageVk* image = i->As<GpuImageVk>();
+	for (UIndex32 i = 0; i < GetImageCount(); i++) {
+		GpuImageVk* image = GetImage(i)->As<GpuImageVk>();
 
 		vkDestroyImageView(device, image->GetSwapchainView(), nullptr);
 		image->_SetVkImage(VK_NULL_HANDLE);
 	}
 }
 
-void SwapchainVk::Create(PresentMode mode, Format format, const GpuVk& device, const IO::IDisplay& display) {
-	m_display = &display;
-	m_device = &device;
-	this->m_colorFormat = format;
+SwapchainVk::SwapchainVk(PresentMode mode, Format format, const GpuVk& device, const Vector2ui& resolution, std::span<const UIndex32> queueIndices) : ISwapchain(mode, format, queueIndices) {
+	CreationLogic(device, resolution);
+}
 
-	this->m_presentMode = mode;
-
+void SwapchainVk::CreationLogic(const GpuVk& device, const Vector2ui& resolution) {
 	auto& info = device.GetInfo();
-	
-	//Formato del swapchain.
+
+	// Formato del swapchain.
 	VkSurfaceFormatKHR surfaceFormat{};
 	surfaceFormat.colorSpace = GetSupportedColorSpace(device);
-	surfaceFormat.format = GetFormatVk(format);
+	surfaceFormat.format = GetFormatVk(GetColorFormat());
 
-	//Modo de pressentación.
-	VkPresentModeKHR presentMode = GetPresentModeVk(mode);
+	// Modo de pressentación.
+	VkPresentModeKHR presentMode = GetPresentModeVk(GetCurrentPresentMode());
 
-	//tamaño.
+	// Tamaño.
 	VkExtent2D extent{};
-	extent.width = display.GetResolution().x;
-	extent.height = display.GetResolution().y;
+	extent.width = resolution.x;
+	extent.height = resolution.y;
 
-	//Número de imágenes en el swapchain.
-	m_imageCount = info.swapchainSupportDetails.surfaceCapabilities.minImageCount + 1;
-	//Asegurarnos de que no hay más de las soportadas.
-	if (info.swapchainSupportDetails.surfaceCapabilities.maxImageCount > 0 && m_imageCount > info.swapchainSupportDetails.surfaceCapabilities.maxImageCount)
-		m_imageCount = info.swapchainSupportDetails.surfaceCapabilities.maxImageCount;
+	// Número de imágenes en el swapchain.
+	if (
+		info.swapchainSupportDetails.surfaceCapabilities.minImageCount <= NUM_RESOURCES_IN_FLIGHT &&
+		info.swapchainSupportDetails.surfaceCapabilities.maxImageCount >= NUM_RESOURCES_IN_FLIGHT) {
+		SetNumImagesInFlight(NUM_RESOURCES_IN_FLIGHT);
+	}
+	else {
+		SetNumImagesInFlight(info.swapchainSupportDetails.surfaceCapabilities.maxImageCount);
+	}
 
-	//Create info.
+	// Create info.
 	VkSwapchainCreateInfoKHR createInfo{};
 	createInfo.sType = VK_STRUCTURE_TYPE_SWAPCHAIN_CREATE_INFO_KHR;
 	createInfo.surface = device.GetSurface();
-	createInfo.minImageCount = m_imageCount;
+	createInfo.minImageCount = GetImageCount();
 	createInfo.imageFormat = surfaceFormat.format;
 	createInfo.imageColorSpace = surfaceFormat.colorSpace;
 	createInfo.imageExtent = extent;
@@ -87,20 +89,34 @@ void SwapchainVk::Create(PresentMode mode, Format format, const GpuVk& device, c
 
 	// Colas.
 	// Cómo se maneja el swapchain.
-	const auto graphicsIndex = Engine::GetRenderer()->GetGraphicsCommandQueue()->As<CommandQueueVk>()->GetFamilyIndex();
-	const auto presentIndex = Engine::GetRenderer()->GetPresentCommandQueue()->As<CommandQueueVk>()->GetFamilyIndex();
-	DynamicArray<uint32_t> indices = { graphicsIndex , presentIndex };
-
-	if (graphicsIndex != presentIndex) {
-		createInfo.imageSharingMode = VK_SHARING_MODE_CONCURRENT;
-		createInfo.queueFamilyIndexCount = 2;
-		createInfo.pQueueFamilyIndices = indices.GetData();
-	}
-	else {
+	if (GetQueueIndices().size() == 1) {
 		createInfo.imageSharingMode = VK_SHARING_MODE_EXCLUSIVE;
 		createInfo.queueFamilyIndexCount = 0;
 		createInfo.pQueueFamilyIndices = nullptr;
 	}
+	else {
+		bool areAllEqual = true;
+		const auto firstIndex = GetQueueIndices()[0];
+
+		for (const auto& index : GetQueueIndices()) {
+			if (firstIndex != index) {
+				areAllEqual = false;
+				break;
+			}
+		}
+
+		if (areAllEqual) {
+			createInfo.imageSharingMode = VK_SHARING_MODE_EXCLUSIVE;
+			createInfo.queueFamilyIndexCount = 0;
+			createInfo.pQueueFamilyIndices = nullptr;
+		}
+		else {
+			createInfo.imageSharingMode = VK_SHARING_MODE_CONCURRENT;
+			createInfo.queueFamilyIndexCount = GetQueueIndices().size();
+			createInfo.pQueueFamilyIndices = GetQueueIndices().data();
+		}
+	}
+
 	createInfo.preTransform = info.swapchainSupportDetails.surfaceCapabilities.currentTransform;
 	createInfo.compositeAlpha = VK_COMPOSITE_ALPHA_OPAQUE_BIT_KHR; // ¿Debería mostrarse lo que hay detrás de la ventana?
 	createInfo.presentMode = presentMode;
@@ -111,34 +127,42 @@ void SwapchainVk::Create(PresentMode mode, Format format, const GpuVk& device, c
 	VkResult result = vkCreateSwapchainKHR(device.GetLogicalDevice(), &createInfo, nullptr, &m_swapchain);
 	OSK_ASSERT(result == VK_SUCCESS, SwapchainCreationException("No se ha podido crear el swapchain", result));
 
-	for (UIndex32 i = 0; i < m_imageCount; i++)
-		m_images[i] = new GpuImageVk({ extent.width, extent.height, 1 }, GpuImageDimension::d2D, GpuImageUsage::COLOR, 1, format, 1, {}, GpuImageTiling::OPTIMAL);
+	for (UIndex32 i = 0; i < GetImageCount(); i++) {
+		GpuImageCreateInfo imageInfo = GpuImageCreateInfo::CreateDefault2D(resolution, GetColorFormat(), GpuImageUsage::COLOR);
+		const auto* queue = Engine::GetRenderer()->UseUnifiedCommandQueue()
+			? Engine::GetRenderer()->GetUnifiedQueue()
+			: Engine::GetRenderer()->GetPresentationQueue();
 
-	AcquireImages(extent.width, extent.height);
-	AcquireViews();
+		SetImage(new GpuImageVk(imageInfo, queue), i);
+	}
+
+	AcquireImages(device, { extent.width, extent.height });
+	AcquireViews(device);
 }
 
-void SwapchainVk::AcquireImages(unsigned int sizeX, unsigned int sizeY) {
-	VkResult result = vkGetSwapchainImagesKHR(m_device->GetLogicalDevice(), m_swapchain, &m_imageCount, nullptr);
+
+void SwapchainVk::AcquireImages(const GpuVk& device, const Vector2ui& resolution) {
+	auto imageCount = GetImageCount();
+	VkResult result = vkGetSwapchainImagesKHR(device.GetLogicalDevice(), m_swapchain, &imageCount, nullptr);
 	OSK_ASSERT(result == VK_SUCCESS, SwapchainCreationException("Error al adquirir imagenes del swapchain", result));
 
-	auto tempImages = DynamicArray<VkImage>::CreateResizedArray(m_imageCount);
-	vkGetSwapchainImagesKHR(m_device->GetLogicalDevice(), m_swapchain, &m_imageCount, tempImages.GetData());
+	auto tempImages = DynamicArray<VkImage>::CreateResizedArray(imageCount);
+	vkGetSwapchainImagesKHR(device.GetLogicalDevice(), m_swapchain, &imageCount, tempImages.GetData());
 	OSK_ASSERT(result == VK_SUCCESS, SwapchainCreationException("Error al adquirir imagenes del swapchain", result));
 
-	for (UIndex32 i = 0; i < m_imageCount; i++)
-		m_images[i]->As<GpuImageVk>()->_SetVkImage(tempImages[i]);
+	for (UIndex32 i = 0; i < imageCount; i++)
+		GetImage(i)->As<GpuImageVk>()->_SetVkImage(tempImages[i]);
 }
 
-void SwapchainVk::AcquireViews() {
-	auto tempViews = new VkImageView[m_imageCount];
+void SwapchainVk::AcquireViews(const GpuVk& device) {
+	auto tempViews = new VkImageView[GetImageCount()];
 
-	for (UIndex32 i = 0; i < m_imageCount; i++) {
+	for (UIndex32 i = 0; i < GetImageCount(); i++) {
 		VkImageViewCreateInfo createInfo{};
 		createInfo.sType = VK_STRUCTURE_TYPE_IMAGE_VIEW_CREATE_INFO;
-		createInfo.image = m_images[i]->As<GpuImageVk>()->GetVkImage();
+		createInfo.image = GetImage(i)->As<GpuImageVk>()->GetVkImage();
 		createInfo.viewType = VK_IMAGE_VIEW_TYPE_2D;
-		createInfo.format = GetFormatVk(m_colorFormat);
+		createInfo.format = GetFormatVk(GetColorFormat());
 		createInfo.components.r = VK_COMPONENT_SWIZZLE_IDENTITY;
 		createInfo.components.g = VK_COMPONENT_SWIZZLE_IDENTITY;
 		createInfo.components.b = VK_COMPONENT_SWIZZLE_IDENTITY;
@@ -149,12 +173,16 @@ void SwapchainVk::AcquireViews() {
 		createInfo.subresourceRange.baseArrayLayer = 0;
 		createInfo.subresourceRange.layerCount = 1;
 
-		VkResult result = vkCreateImageView(m_device->GetLogicalDevice(), &createInfo, nullptr, &tempViews[i]);
+		VkResult result = vkCreateImageView(device.GetLogicalDevice(), &createInfo, nullptr, &tempViews[i]);
 		OSK_ASSERT(result == VK_SUCCESS, SwapchainCreationException("Error al crear view de imagen del swapchain", result));
 
-		if (m_images[i]->As<GpuImageVk>()->GetSwapchainView() != VK_NULL_HANDLE)
-			vkDestroyImageView(Engine::GetRenderer()->GetGpu()->As<GpuVk>()->GetLogicalDevice(), m_images[i]->As<GpuImageVk>()->GetSwapchainView(), 0);
-		m_images[i]->As<GpuImageVk>()->SetSwapchainView(tempViews[i]);
+		if (GetImage(i)->As<GpuImageVk>()->GetSwapchainView() != VK_NULL_HANDLE) {
+			vkDestroyImageView(
+				Engine::GetRenderer()->GetGpu()->As<GpuVk>()->GetLogicalDevice(), 
+				GetImage(i)->As<GpuImageVk>()->GetSwapchainView(), 0);
+		}
+
+		GetImage(i)->As<GpuImageVk>()->SetSwapchainView(tempViews[i]);
 	}
 
 	delete[] tempViews;
@@ -164,16 +192,16 @@ VkSwapchainKHR SwapchainVk::GetSwapchain() const {
 	return m_swapchain;
 }
 
-void SwapchainVk::Resize() {
-	for (auto& i : m_images) {
-		i->As<GpuImageVk>()->_SetVkImage(VK_NULL_HANDLE);
+void SwapchainVk::Resize(const IGpu& gpu, Vector2ui newResolution) {
+	for (UIndex32 i = 0; i < GetImageCount(); i++) {
+		GetImage(i)->As<GpuImageVk>()->_SetVkImage(VK_NULL_HANDLE);
 	}
 
 	vkDestroySwapchainKHR(
-		Engine::GetRenderer()->As<RendererVk>()->GetGpu()->As<GpuVk>()->GetLogicalDevice(),
+		gpu.As<GpuVk>()->GetLogicalDevice(),
 		m_swapchain, nullptr);
 
-	Create(m_presentMode, m_colorFormat, *m_device, *m_display);
+	CreationLogic(*gpu.As<GpuVk>(), newResolution);
 }
 
 VkColorSpaceKHR SwapchainVk::GetSupportedColorSpace(const GpuVk& device) {
@@ -182,12 +210,6 @@ VkColorSpaceKHR SwapchainVk::GetSupportedColorSpace(const GpuVk& device) {
 			return format.colorSpace;
 
 	return device.GetInfo().swapchainSupportDetails.formats[0].colorSpace;
-}
-
-void SwapchainVk::SetPresentMode(PresentMode mode) {
-	this->m_presentMode = mode;
-	// Recreación.
-	Resize();
 }
 
 void SwapchainVk::Present() {

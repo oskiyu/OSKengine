@@ -3,17 +3,20 @@
 #include "OSKmacros.h"
 #include "OwnedPtr.h"
 #include "UniquePtr.hpp"
+
+#include "DynamicArray.hpp"
+#include "HashMap.hpp"
+
 #include "Vector2.hpp"
 #include "Vector3.hpp"
-#include "GpuImageSamplerDesc.h"
+
+#include "GpuImageCreateInfo.h"
 
 #include "IGpuMemoryBlock.h"
 #include "IGpuObject.h"
 
 #include "IGpuImageView.h"
 #include "IGpuMemorySubblock.h"
-#include "DynamicArray.hpp"
-#include "HashMap.hpp"
 
 #include "GpuBarrierInfo.h"
 
@@ -25,54 +28,21 @@ namespace OSK::GRAPHICS {
 	enum class GpuImageDimension;
 	enum class GpuImageUsage;
 	class IGpu;
+	class ICommandQueue;
+	
 
-
-	/// @brief Describe un rango de una imagen,
-	/// incluyendo capas, niveles de mip y canales.
-	struct GpuImageRange {
-
-		/// @brief Índice de la primera capa que será afectada por el barrier.
-		/// @pre Si la imagen NO es array, debe ser 0.
-		UIndex32 baseLayer = 0;
-
-		/// @brief Número de capas del array afectadas por el barrier.
-		USize32 numLayers = ALL_IMAGE_LAYERS;
-
-		/// @brief Nivel más bajo de mip que será afectado por el barrier.
-		UIndex32 baseMipLevel = 0;
-		/// @brief Número de niveles de mip que serán afectados por el barrier.
-		USize32 numMipLevels = ALL_MIP_LEVELS;
-
-
-		/// @brief Canal(es) afectados por el barrier.
-		SampledChannel channel = SampledChannel::COLOR;
-
-	};
-
-
-	/// <summary>
-	/// Representación interna de una imagen en la GPU.
-	/// 
-	/// Puede referirse a la imagend e una textura, imágenes del swapchain, etc...
-	/// </summary>
+	/// @brief Representación interna de una imagen en la GPU.
 	class OSKAPI_CALL GpuImage : public IGpuObject {
 
 	public:
 
+		/// @brief Índice del array de imágenes.
 		using ArrayLevelIndex = UIndex32;
+
+		/// @brief Índice de niveles de mip.
 		using MipLevelIndex = UIndex32;
 
 	public:
-
-		GpuImage(
-			const Vector3ui& size, 
-			GpuImageDimension dimension, 
-			GpuImageUsage usage, 
-			USize32 numLayers, 
-			Format format, 
-			USize32 numSamples,
-			GpuImageSamplerDesc samplerDesc,
-			GpuImageTiling tiling);
 
 		virtual ~GpuImage() override;
 
@@ -81,12 +51,22 @@ namespace OSK::GRAPHICS {
 
 		OSK_DEFINE_AS(GpuImage);
 		
-		void _SetPhysicalSize(const Vector3ui& size);
+
+#pragma region Memory
+
+		/// @return Bloque de memoria en el que la imagen
+		/// está alojada.
+		IGpuMemoryBlock* GetMemory() const;
+
+		/// @return Subbloque de memoria en el que la imagen
+		/// está alojada.
+		IGpuMemorySubblock* GetBuffer() const;
 
 		void SetBlock(OwnedPtr<IGpuMemoryBlock> buffer);
 
-		IGpuMemoryBlock* GetMemory() const;
-		IGpuMemorySubblock* GetBuffer() const;
+#pragma endregion
+
+#pragma region Resoluciones
 
 		/// @return Resolución de la imagen, en píxeles.
 		/// Para imágenes 2D, el componente Z es 1.
@@ -100,7 +80,13 @@ namespace OSK::GRAPHICS {
 		/// @return Resolución de la imagen, en píxeles.
 		USize32 GetSize1D() const;
 
+		void _SetPhysicalSize(const Vector3ui& size);
 		Vector3ui GetPhysicalSize() const;
+
+#pragma endregion
+
+		
+
 
 		/// @return Formato de la imagen.
 		Format GetFormat() const;
@@ -128,37 +114,28 @@ namespace OSK::GRAPHICS {
 		/// @return Sampler por defecto de la imagen.
 		GpuImageSamplerDesc GetImageSampler() const;
 
-		/// <summary>
-		/// Devuelve el número máximo de miplevels de esta imagen.
-		/// </summary>
-		unsigned int GetMipLevels() const;
+		/// @return Número máximo de miplevels de esta imagen.
+		USize32 GetMipLevels() const;
 
-		/// <summary>
-		/// Devuelve el número máximo de miplevels de una imagen.
-		/// </summary>
-		/// <param name="sizeX">Ancho de la imagen.</param>
-		/// <param name="sizeY">Alto de la imagen.</param>
+		/// @param sizeX Resolución en X.
+		/// @param sizeY Resolución en Y.
+		/// @return Número máximo de miplevels de una imagen.
 		static USize32 GetMipLevels(uint32_t sizeX, uint32_t sizeY);
 
-		/// <summary>
-		/// Devuelve el número de bytes que ocupa esta imagen en la memoria de la GPU.
-		/// </summary>
-		/// <returns>Espacio ocupado en la GPU.</returns>
-		/// 
-		/// @note Debido a cuestiones de alineamiento y demás, puede ocupar más
-		/// espacio del esperado.
+
+		/// @return Devuelve el número de bytes que ocupa esta imagen en la memoria de la GPU.
 		USize64 GetNumberOfBytes() const;
 
-		/// <summary>
-		/// Devuelve el número de bytes reales que ocupa esta imagen en la memoria de la GPU
-		/// </summary>
-		/// <returns>Espacio ocupado en la GPU.</returns>
+		/// @return Devuelve el número de bytes real que ocupa esta imagen en la memoria de la GPU.
+		/// @note Debido a cuestiones de alineamiento y demás, puede ocupar más
+		/// espacio del esperado.
 		USize64 GetPhysicalNumberOfBytes() const;
 
-		/// <summary>
-		/// Devuelve el número de muestras que esta imagen puede tener en un renderizado con MSAA.
-		/// </summary>
-		USize32 GetNumSamples() const;
+		/// @return Devuelve el número de muestras que esta imagen puede tener en un renderizado con MSAA.
+		USize32 GetMsaaSampleCount() const;
+
+		/// @return Tiling de la imagen.
+		GpuImageTiling GetImageTiling() const;
 
 		/// @brief Obtiene un image view con las características dadas.
 		/// @param channel Canal de la imagen accedido por el view.
@@ -209,15 +186,33 @@ namespace OSK::GRAPHICS {
 		/// @return Layout.
 		GpuImageLayout _GetLayout(ArrayLevelIndex arrayLevel, MipLevelIndex mipLevel) const;
 
+#pragma region Queues
+
+		/// @return Cola de comandos que posee el recurso.
+		/// @stablepointer
+		const ICommandQueue* GetOwnerQueue() const;
+
+		/// @brief Actualiza la variable de la clase que representa
+		/// la cola de comandos que la posee.
+		/// @param ownerQueue Nueva cola que posee la imagen.
+		/// @pre @p ownerQueue debe ser estable.
+		void _UpdateOwnerQueue(const ICommandQueue* ownerQueue);
+
+#pragma endregion
+
+
 	protected:
+
+		/// @pre @p ownerQueue debe ser estable.
+		GpuImage(
+			const GpuImageCreateInfo& info,
+			const ICommandQueue* ownerQueue);
 
 		/// @brief Crea un image view con la configuración indicada.
 		/// @param viewConfig Configuración del view.
 		/// @return View.
 		/// @throws ImageViewCreationException Si hay algún error al crear el view.
 		virtual OwnedPtr<IGpuImageView> CreateView(const GpuImageViewConfig& viewConfig) const = 0;
-
-		inline GpuImageTiling GetTiling() const { return m_tiling; }
 
 	private:
 
@@ -230,19 +225,14 @@ namespace OSK::GRAPHICS {
 		IGpuMemoryBlock* m_block = nullptr;
 		IGpuMemorySubblock* m_buffer = nullptr;
 
-		Vector3ui m_size = Vector3ui::Zero;
 		Vector3ui m_physicalSize = Vector3ui::Zero;
 
-		GpuImageSamplerDesc m_samplerDesc{};
+		GpuImageCreateInfo m_imageInfo;
 
 		USize32 m_mipLevels = 0;
-		USize32 m_numSamples = 0;
-		Format m_format;
-		GpuImageLayout m_currentLayout;
-		GpuImageDimension m_dimension;
-		GpuImageUsage m_usage;
-		USize32 m_numLayers = 0;
-		GpuImageTiling m_tiling = GpuImageTiling::OPTIMAL;
+
+		/// @brief Cola de comandos que posee este recurso.
+		const ICommandQueue* m_ownerQueue = nullptr;
 
 	};
 

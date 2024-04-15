@@ -9,14 +9,11 @@ namespace OSK::GRAPHICS {
 
 	class IRenderpass;
 
-	/// <summary>
-	/// Implementación de la interfaz para el renderizador de Vulkan.
-	/// </summary>
 	class OSKAPI_CALL RendererVk final : public IRenderer {
 
 	public:
 
-		RendererVk(bool requestRayTracing);
+		explicit RendererVk(bool requestRayTracing);
 		~RendererVk();
 
 		void Initialize(
@@ -25,7 +22,7 @@ namespace OSK::GRAPHICS {
 			const IO::IDisplay& display, 
 			PresentMode mode) override;
 		void Close() override;
-		void HandleResize() override;
+		void HandleResize(const Vector2ui& resolution) override;
 		void PresentFrame() override;
 		void SubmitSingleUseCommandList(OwnedPtr<ICommandList> commandList) override;
 		void WaitForCompletion() override;
@@ -44,6 +41,8 @@ namespace OSK::GRAPHICS {
 		OwnedPtr<IMaterialSlot> _CreateMaterialSlot(
 			const std::string& name, 
 			const MaterialLayout& layout) const override;
+
+		OwnedPtr<ICommandPool> CreateCommandPool(const ICommandQueue* targetQueueType) override;
 
 		UIndex32 GetCurrentFrameIndex() const override;
 		UIndex32 GetCurrentCommandListIndex() const override;
@@ -77,7 +76,7 @@ namespace OSK::GRAPHICS {
 	protected:
 
 		void CreateCommandQueues() override;
-		void CreateSwapchain(PresentMode mode) override;
+		void CreateSwapchain(PresentMode mode, const Vector2ui& resolution) override;
 		void CreateGpuMemoryAllocator() override;
 
 	private:
@@ -91,12 +90,7 @@ namespace OSK::GRAPHICS {
 
 		// Sync
 		void CreateSyncPrimitives();
-		void SubmitPreComputeCommands();
-		void SubmitGraphicsCommands();
-		void SubmitPostComputeCommands();
-
-		void SubmitGraphicsAndComputeCommands();
-		void SubmitFrameBuildCommands();
+		void SubmitMainCommandList();
 
 		void SubmitFrame();
 		void AcquireNextFrame();
@@ -107,19 +101,25 @@ namespace OSK::GRAPHICS {
 
 		bool AreValidationLayersAvailable() const;
 
-		VkInstance instance = VK_NULL_HANDLE;
-		VkSurfaceKHR surface = VK_NULL_HANDLE;
-		VkDebugUtilsMessengerEXT debugConsole = VK_NULL_HANDLE;
+		VkInstance m_instance = VK_NULL_HANDLE;
+		VkSurfaceKHR m_surface = VK_NULL_HANDLE;
+		VkDebugUtilsMessengerEXT m_debugConsole = VK_NULL_HANDLE;
 
 		// Sync
-		DynamicArray<VkSemaphore> imageAvailableSemaphores;
 
-		DynamicArray<VkSemaphore> preComputeFinishedSemaphores; // PreCompute -> RenderFinished
-		DynamicArray<VkSemaphore> renderFinishedSemaphores; // RenderFinished -> PostCompute
-		DynamicArray<VkSemaphore> postComputeFinishedSemaphores; // PostCompute -> Framebuild
-		DynamicArray<VkSemaphore> frameBuildSemaphores; // Framebuild -> Present
+		/// @brief Semáforos que serán señalizados
+		/// cuando la imagen indicada esté disponible
+		/// para renderizarse.
+		std::array<VkSemaphore, NUM_RESOURCES_IN_FLIGHT> m_imageAvailableSemaphores;
 
-		DynamicArray<VkFence> fullyRenderedFences;
+		/// @brief Semáforos que serán señalizados
+		/// cuando la imagen indicada haya terminado de
+		/// renderizarse.
+		std::array<VkSemaphore, NUM_RESOURCES_IN_FLIGHT> m_imageFinishedSemaphores;
+
+		/// @brief Permiten esperar en la CPU a que la siguiente
+		/// imagen haya terminado de renderizarse.
+		DynamicArray<VkFence> m_fullyRenderedFences;
 
 		USize32 currentCommandBufferIndex = 0;
 		USize32 currentFrameIndex = 0;

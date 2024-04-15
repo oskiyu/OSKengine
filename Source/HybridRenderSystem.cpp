@@ -12,6 +12,8 @@
 #include "IrradianceMap.h"
 #include "SpecularMap.h"
 
+#include "CopyImageInfo.h"
+
 using namespace OSK;
 using namespace OSK::ECS;
 using namespace OSK::ASSETS;

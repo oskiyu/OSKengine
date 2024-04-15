@@ -67,8 +67,6 @@ RendererDx12::~RendererDx12() {
 void RendererDx12::Initialize(const std::string& appName, const Version& version, const IO::IDisplay& display, PresentMode mode) {
 	Engine::GetLogger()->InfoLog("Iniciando renderizador DX12.");
 
-	this->display = &display;
-
 #ifdef OSK_RELEASE
 	useDebugConsole = false;
 #else
@@ -93,21 +91,14 @@ void RendererDx12::Initialize(const std::string& appName, const Version& version
 
 	ChooseGpu();
 	CreateCommandQueues();
-	CreateSwapchain(mode);
+	CreateSwapchain(mode, Engine::GetDisplay()->GetResolution());
 	CreateGpuMemoryAllocator();
-
-	renderTargetsCamera = new ECS::CameraComponent2D;
-	renderTargetsCamera->LinkToDisplay(&display);
-	renderTargetsCameraTransform.SetScale({ display.GetResolution().x / 2.0f, display.GetResolution().y / 2.0f });
-	renderTargetsCamera->UpdateUniformBuffer(renderTargetsCameraTransform);
 
 	CreateMainRenderpass();
 
 	if (Engine::GetEcs())
 		for (auto i : Engine::GetEcs()->GetRenderSystems())
 			i->CreateTargetImage(display.GetResolution());
-
-	isOpen = true;
 
 	HlslRuntimeCompiler::InitializeComponents();
 }
@@ -117,52 +108,39 @@ void RendererDx12::WaitForCompletion() {
 }
 
 void RendererDx12::Close() {
-	isOpen = false;
+
 }
 
-void RendererDx12::HandleResize() {
+void RendererDx12::HandleResize(const Vector2ui& resolution) {
 	mustResize = true;
 
-	IRenderer::HandleResize();
+	IRenderer::HandleResize(resolution);
 }
 
 void RendererDx12::Resize() {
+	const auto* display = Engine::GetDisplay();
+
 	if (display->GetResolution().x == 0 && display->GetResolution().y == 0)
 		return;
 
-	Format format = swapchain->GetImage(0)->GetFormat();
+	Format format = _GetSwapchain()->GetImage(0)->GetFormat();
 
-	swapchain->As<SwapchainDx12>()->DeleteImages();
+	_GetSwapchain()->As<SwapchainDx12>()->DeleteImages();
 
-	swapchain->As<SwapchainDx12>()->GetSwapchain()->ResizeBuffers(swapchain->GetImageCount(),
-		display->GetResolution().x, display->GetResolution().y, GetFormatDx12(format), 0);
+	_GetSwapchain()->As<SwapchainDx12>()->GetSwapchain()->ResizeBuffers(
+		_GetSwapchain()->GetImageCount(),
+		display->GetResolution().x, 
+		display->GetResolution().y, 
+		GetFormatDx12(format), 0);
 
-	swapchain->As<SwapchainDx12>()->CreateImages(*display);
+	_GetSwapchain()->As<SwapchainDx12>()->CreateImages(*display);
 	//finalRenderpass->SetImages(swapchain->GetImage(0), swapchain->GetImage(1), swapchain->GetImage(2));
-}
-
-const TByte* RendererDx12::FormatImageDataForGpu(const GpuImage* image, const TByte* data, USize32 numLayers) {
-	TByte* output = new TByte[image->GetPhysicalNumberOfBytes() * numLayers];
-
-	const USize32 numBytesPerPixel = GetFormatNumberOfBytes(image->GetFormat());
-	const USize64 numBytesPerLayer = image->GetPhysicalNumberOfBytes();
-
-	for (UIndex32 i = 0; i < numLayers + 0; i++) {
-		const USize32 layerOffset = numBytesPerLayer * i;
-
-		for (UIndex32 y = 0; y < image->GetPhysicalSize().y; y++)
-			memcpy(&output[layerOffset + y * image->GetPhysicalSize().x * numBytesPerPixel], 
-				&data[layerOffset + y * image->GetSize2D().x * numBytesPerPixel], 
-				image->GetSize2D().x * numBytesPerPixel);
-	}
-
-	return output;
 }
 
 OwnedPtr<IGraphicsPipeline> RendererDx12::_CreateGraphicsPipeline(const PipelineCreateInfo& pipelineInfo, const MaterialLayout& layout, const VertexInfo& vertexInfo) {
 	GraphicsPipelineDx12* pipeline = new GraphicsPipelineDx12();
 
-	pipeline->Create(&layout, currentGpu.GetPointer(), pipelineInfo, vertexInfo);
+	pipeline->Create(&layout, GetGpu(), pipelineInfo, vertexInfo);
 
 	return pipeline;
 }
@@ -173,15 +151,21 @@ OwnedPtr<IRaytracingPipeline> RendererDx12::_CreateRaytracingPipeline(const Pipe
 }
 
 OwnedPtr<IComputePipeline> RendererDx12::_CreateComputePipeline(const PipelineCreateInfo& pipelineInfo, const MaterialLayout& layout) {
-	return new ComputePipelineDx12(pipelineInfo, &layout, currentGpu.GetPointer());
+	return new ComputePipelineDx12(pipelineInfo, &layout, GetGpu());
 }
 
 OwnedPtr<IMaterialSlot> RendererDx12::_CreateMaterialSlot(const std::string& name, const MaterialLayout& layout) const {
 	return new MaterialSlotDx12(name, &layout);
 }
 
+OwnedPtr<ICommandPool> RendererDx12::CreateCommandPool(const ICommandQueue* targetQueueType) {
+	return new CommandPoolDx12(
+		targetQueueType->GetSupportedCommands(),
+		targetQueueType->GetQueueType());
+}
+
 void RendererDx12::ChooseGpu() {
-	currentGpu = new GpuDx12;
+	_SetGpu(new GpuDx12);
 	ComPtr<IDXGIAdapter1> adapter;
 
 	bool found = false;
@@ -208,8 +192,8 @@ void RendererDx12::ChooseGpu() {
 	ComPtr<ID3D12Device5> device;
 	D3D12CreateDevice(adapter.Get(), D3D_FEATURE_LEVEL_12_1, IID_PPV_ARGS(&device));
 		
-	currentGpu->As<GpuDx12>()->SetAdapter(adapter);
-	currentGpu->As<GpuDx12>()->SetDevice(device);
+	GetGpu()->As<GpuDx12>()->SetAdapter(adapter);
+	GetGpu()->As<GpuDx12>()->SetDevice(device);
 
 	if (useDebugConsole) {
 		ID3D12InfoQueue* infoQueue1 = nullptr;
@@ -251,62 +235,64 @@ void RendererDx12::CreateCommandQueues() {
 	createInfo.Flags = D3D12_COMMAND_QUEUE_FLAG_NONE;
 
 	// Una vez rellenada la estructura, crear el CommandQueue
-	currentGpu->As<GpuDx12>()->GetDevice()->CreateCommandQueue(&createInfo, IID_PPV_ARGS(&commandQ));
+	GetGpu()->As<GpuDx12>()->GetDevice()->CreateCommandQueue(&createInfo, IID_PPV_ARGS(&commandQ));
 
-	graphicsQueue->As<CommandQueueDx12>()->SetCommandQueue(commandQ);
-	graphicsCommandPool = currentGpu->CreateGraphicsCommandPool().GetPointer();
+	_SetUnifiedCommandQueue(new CommandQueueDx12(QueueFamily{}, 0, GpuQueueType::MAIN));
+	// GetUnifiedQueue()->As<CommandQueueDx12>()->SetCommandQueue(commandQ);
 
-	graphicsCommandList = graphicsCommandPool->CreateCommandList(currentGpu.GetValue()).GetPointer();
-	graphicsCommandList->As<CommandListDx12>()->SetCommandPool(*graphicsCommandPool->As<CommandPoolDx12>());
-	Engine::GetLogger()->InfoLog("Creada la lista de comandos.");
+	RegisterUnifiedCommandPool(GetUnifiedQueue());
+	// GetUnifiedCommandPool()->As<CommandPoolDx12>()->SetCommandPool();
+
+	_SetMainCommandList(GetUnifiedCommandPool(std::this_thread::get_id())->CreateCommandList(*GetGpu()).GetPointer());
+	// GetMainCommandList()->As<CommandListDx12>()->SetCommandPool(*GetUnifiedCommandPool()->As<CommandPoolDx12>());
 }
 
-void RendererDx12::CreateSwapchain(PresentMode mode) {
-	swapchain = new SwapchainDx12;
+void RendererDx12::CreateSwapchain(PresentMode mode, const Vector2ui& resolution) {
+	DynamicArray<UIndex32> queueIndices{};
 
-	swapchain->As<SwapchainDx12>()->Create(mode, currentGpu.GetPointer(), Format::RGBA8_UNORM, *graphicsQueue->As<CommandQueueDx12>(), factory.Get(), *display);
+	if (UseUnifiedCommandQueue()) {
+		queueIndices.Insert(GetUnifiedQueue()->GetFamily().familyIndex);
+	}
+	else {
+		queueIndices.Insert(GetGraphicsComputeQueue()->GetFamily().familyIndex);
+		queueIndices.Insert(GetPresentationQueue()->GetFamily().familyIndex);
+	}
 
-	Engine::GetLogger()->InfoLog("Creado el swapchain.");
+	_SetSwapchain(new SwapchainDx12(
+		mode,
+		Format::RGBA8_UNORM,
+		*GetGpu()->As<GpuDx12>(),
+		queueIndices.GetFullSpan(),
+		*Engine::GetDisplay(),
+		factory.Get()));
 }
 
 void RendererDx12::CreateGpuMemoryAllocator() {
-	gpuMemoryAllocator = new GpuMemoryAllocatorDx12(currentGpu.GetPointer());
-
-	Engine::GetLogger()->InfoLog("Creado el asignador de memoria de la GPU.");
+	_SetMemoryAllocator(new GpuMemoryAllocatorDx12(GetGpu()));
 }
 
 void RendererDx12::PresentFrame() {
-	if (isFirstRender) {
-		graphicsCommandList->Reset();
-		graphicsCommandList->Start();
+	if (m_isFirstRender) {
+		GetMainCommandList()->Reset();
+		GetMainCommandList()->Start();
 
-		preComputeCommandList->Reset();
-		preComputeCommandList->Start();
-
-		postComputeCommandList->Reset();
-		postComputeCommandList->Start();
-
-		isFirstRender = false;
+		m_isFirstRender = false;
 	}
 
-	graphicsCommandList->Close();
-	preComputeCommandList->Close();
-	postComputeCommandList->Close();
+	GetMainCommandList()->Close();
 
-	for (auto& cmdList : singleTimeCommandLists)
+	for (auto& cmdList : m_singleTimeCommandLists)
 		cmdList->DeleteAllStagingBuffers();
 
-	ID3D12CommandList* commandLists[] = { graphicsCommandList->As<CommandListDx12>()->GetCommandList() };
-	graphicsQueue->As<CommandQueueDx12>()->GetCommandQueue()->ExecuteCommandLists(1, commandLists);
+	ID3D12CommandList* commandList = GetMainCommandList()->As<CommandListDx12>()->GetCommandList();
+	GetUnifiedQueue()->As<CommandQueueDx12>()->GetCommandQueue()->ExecuteCommandLists(1, &commandList);
 
-	swapchain->Present();
+	_GetSwapchain()->Present();
 
 	// syncDevice->As<SyncDeviceDx12>()->Flush(*graphicsQueue->As<CommandQueueDx12>());
 	// syncDevice->As<SyncDeviceDx12>()->Await();
 
-	graphicsCommandList->Reset();
-	preComputeCommandList->Reset();
-	postComputeCommandList->Reset();
+	GetMainCommandList()->Reset();
 
 	//
 	if (mustResize) {
@@ -315,22 +301,20 @@ void RendererDx12::PresentFrame() {
 
 		// syncDevice->As<SyncDeviceDx12>()->Flush(*graphicsQueue->As<CommandQueueDx12>());
 		// syncDevice->As<SyncDeviceDx12>()->Await();
-		swapchain->As<SwapchainDx12>()->UpdateFrameIndex();
+		_GetSwapchain()->As<SwapchainDx12>()->UpdateFrameIndex();
 	}
 
-	graphicsCommandList->Start();
-	preComputeCommandList->Start();
-	postComputeCommandList->Start();
+	GetMainCommandList()->Start();
 }
 
 void RendererDx12::SubmitSingleUseCommandList(OwnedPtr<ICommandList> commandList) {
 	ID3D12CommandList* commandLists[] = { commandList->As<CommandListDx12>()->GetCommandList() };
-	graphicsQueue->As<CommandQueueDx12>()->GetCommandQueue()->ExecuteCommandLists(1, commandLists);
+	GetGraphicsComputeQueue()->As<CommandQueueDx12>()->GetCommandQueue()->ExecuteCommandLists(1, commandLists);
 
 	// syncDevice->As<SyncDeviceDx12>()->Flush(*graphicsQueue->As<CommandQueueDx12>());
 	// syncDevice->As<SyncDeviceDx12>()->Await();
 
-	singleTimeCommandLists.Insert(commandList.GetPointer());
+	m_singleTimeCommandLists.Insert(commandList.GetPointer());
 }
 
 USize32 RendererDx12::GetCurrentFrameIndex() const {

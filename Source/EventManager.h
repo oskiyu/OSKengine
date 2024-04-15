@@ -10,6 +10,8 @@
 #include "EventNotRegisteredException.h"
 
 #include <format>
+#include <mutex>
+
 
 namespace OSK::ECS {
 
@@ -44,9 +46,14 @@ namespace OSK::ECS {
 		/// 
 		/// @pre TEvent debe cumplir IsEcsEvent<TEvent>.
 		/// @pre TEvent debe haber sido registrado con RegisterEventType.
+		/// 
+		/// @threadsafety Es thread-safe siempre y cuando no haya ningún otro hilo
+		/// obteniendo la cola.
 		template <typename TEvent> requires IsEcsEvent<TEvent>
 		void PublishEvent(const TEvent& event) {
 			OSK_ASSERT(EventHasBeenRegistered<TEvent>(), EventNotRegisteredException(TEvent::GetEventName()));
+
+			std::lock_guard lock(m_queueInsertMutex);
 
 			const std::string_view name = TEvent::GetEventName();
 			auto& container = static_cast<EventContainer<TEvent>&>(containers.find(name)->second.GetValue());
@@ -69,7 +76,7 @@ namespace OSK::ECS {
 		const DynamicArray<TEvent>& GetEventQueue() const {
 			if (!containers.contains(TEvent::GetEventName()))
 				throw EventNotRegisteredException(TEvent::GetEventName());
-
+			
 			const auto& container = static_cast<const EventContainer<TEvent>&>(
 				containers.find(TEvent::GetEventName())->second.GetValue());
 
@@ -97,6 +104,8 @@ namespace OSK::ECS {
 		}
 
 	private:
+
+		std::mutex m_queueInsertMutex;
 
 		/// @brief Contenedores.
 		std::unordered_map<std::string, UniquePtr<IEventContainer>, StringHasher, std::equal_to<>> containers;

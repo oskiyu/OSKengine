@@ -2,19 +2,21 @@
 
 #include "OSKmacros.h"
 #include "OwnedPtr.h"
-#include "UniquePtr.hpp"
-#include "IGpuMemorySubblock.h"
 
 #include "VertexBufferView.h"
 #include "IndexBufferView.h"
 
-#include "IGpuObject.h"
+#include "GpuBarrierInfo.h"
 
 #include <optional>
+
 
 namespace OSK::GRAPHICS {
 
 	class IGpuMemoryBlock;
+	class IGpuMemorySubblock;
+	class ICommandQueue;
+	struct GpuBufferRange;
 
 	/// @brief Representa un buffer que contiene información
 	/// accesible desde la GPU.
@@ -26,9 +28,15 @@ namespace OSK::GRAPHICS {
 		/// @param buffer Subbloque de memoria que tiene este buffer.
 		/// @param size Tamaño del buffer. En bytes.
 		/// @param alignment Alineamiento del contenido del buffer.
+		/// @param ownerQueue Cola que posee el recurso.
 		/// 
 		/// @note No crea el buffer, el buffer es creado por IGpuMemoryAllocator.
-		explicit GpuBuffer(OwnedPtr<IGpuMemorySubblock> buffer, USize64 size, USize64 alignment);
+		GpuBuffer(
+			OwnedPtr<IGpuMemorySubblock> buffer, 
+			USize64 size, 
+			USize64 alignment,
+			const ICommandQueue* ownerQueue);
+
 		~GpuBuffer();
 
 		OSK_DISABLE_COPY(GpuBuffer);
@@ -135,14 +143,48 @@ namespace OSK::GRAPHICS {
 		USize64 GetAlignment() const;
 
 
+		GpuBufferRange GetWholeBufferRange() const;
+
 		IGpuMemorySubblock* GetMemorySubblock() const;
 		IGpuMemoryBlock* GetMemoryBlock() const;
+
+#pragma region Barriers
+
+		/// @brief Establece el barrier actualmente aplicado, para facilitar la sincronización
+		/// en futuras llamadas.
+		/// @param barrier Barrier aplicado.
+		void _UpdateCurrentBarrier(const GpuBarrierInfo& barrier);
+
+		/// @return Barrier actualmente aplicado.
+		const GpuBarrierInfo& GetCurrentBarrier() const;
+
+#pragma endregion
+
+		/// @return Cola de comandos que posee el recurso.
+		/// @stablepointer
+		const ICommandQueue* GetOwnerQueue() const;
+
+		/// @brief Actualiza la variable de la clase que representa
+		/// la cola de comandos que la posee.
+		/// @param ownerQueue Nueva cola que posee el buffer.
+		/// @pre @p ownerQueue debe ser estable.
+		void _UpdateOwnerQueue(const ICommandQueue* ownerQueue);
+
+#pragma region Queues
+
+#pragma endregion
+
 
 	protected:
 
 		IGpuMemorySubblock* buffer = nullptr;
 
 	private:
+
+		/// @brief Cola de comandos que posee este recurso.
+		const ICommandQueue* m_ownerQueue = nullptr;
+
+		GpuBarrierInfo m_currentBarrier{};
 
 		std::optional<VertexBufferView> vertexView;
 		std::optional<IndexBufferView> indexView;

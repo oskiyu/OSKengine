@@ -40,18 +40,20 @@ void CollisionSystem::Execute(TDeltaTime deltaTime, std::span<const GameObjectIn
 
 	const USize64 numObjects = objects.size();
 	
-	for (const GameObjectIndex a : objects) {
-		
-		const auto& firstCollider = *Engine::GetEcs()->GetComponent<CollisionComponent>(a).GetCollider();
-		const auto& firstTransform = Engine::GetEcs()->GetComponent<Transform3D>(a);
+	for (UIndex64 a = 0; a < numObjects; a++) {
+		UIndex64 indexInGlobalList = objects.data() - GetAllCompatibleObjects().data() + a;
 
-		for (const GameObjectIndex b : GetAllCompatibleObjects()) {
-			if (b <= a) {
-				continue;
-			}
+		const GameObjectIndex first = objects[a];
 
-			const auto& secondCollider = *Engine::GetEcs()->GetComponent<CollisionComponent>(b).GetCollider();
-			const auto& secondTransform = Engine::GetEcs()->GetComponent<Transform3D>(b);
+		const auto& firstCollider = *Engine::GetEcs()->GetComponent<CollisionComponent>(first).GetCollider();
+		const auto& firstTransform = Engine::GetEcs()->GetComponent<Transform3D>(first);
+
+		for (UIndex64 b = indexInGlobalList + 1; b < GetAllCompatibleObjects().size(); b++) {
+
+			const GameObjectIndex second = GetAllCompatibleObjects()[b];
+
+			const auto& secondCollider = *Engine::GetEcs()->GetComponent<CollisionComponent>(second).GetCollider();
+			const auto& secondTransform = Engine::GetEcs()->GetComponent<Transform3D>(second);
 
 			const auto collisionInfo = firstCollider.GetCollisionInfo(secondCollider, firstTransform, secondTransform);
 
@@ -59,23 +61,25 @@ void CollisionSystem::Execute(TDeltaTime deltaTime, std::span<const GameObjectIn
 
 				for (const auto& detailedCollision : collisionInfo.GetDetailedInfo()) {
 					Engine::GetEcs()->PublishEvent<CollisionEvent>({
-						a,
-						b,
+						first,
+						second,
 						detailedCollision
 						});
 				}
 
-				// #define OSK_COLLISION_DEBUG
+// #define OSK_COLLISION_DEBUG
 #ifdef OSK_COLLISION_DEBUG
-				Engine::GetLogger()->DebugLog(std::format("Collision: {} - {}", firstObject, secondObject));
+				Engine::GetLogger()->DebugLog(std::format("Collision: {} - {}", first, second));
 				Engine::GetLogger()->DebugLog(std::format("\tFrame: {}", Engine::GetCurrentGameFrameIndex()));
-				Engine::GetLogger()->DebugLog(std::format("\tWolrd point: {:.3f} {:.3f} {:.3f}",
-					collisionInfo.GetDetailedInfo().GetSingleContactPoint().x,
-					collisionInfo.GetDetailedInfo().GetSingleContactPoint().y,
-					collisionInfo.GetDetailedInfo().GetSingleContactPoint().z));
-				Engine::GetLogger()->DebugLog(std::format("\tPoints count: {}", collisionInfo.GetDetailedInfo().GetContactPoints().GetSize()));
-				for (const auto& p : collisionInfo.GetDetailedInfo().GetContactPoints())
-					Engine::GetLogger()->DebugLog(std::format("\t\t{:.3f} {:.3f} {:.3f}", p.x, p.y, p.z));
+				for (const auto& c : collisionInfo.GetDetailedInfo()) {
+					Engine::GetLogger()->DebugLog(std::format("\tWolrd points: {:.3f} {:.3f} {:.3f}",
+						c.GetSingleContactPoint().x,
+						c.GetSingleContactPoint().y,
+						c.GetSingleContactPoint().z));
+				}
+				// Engine::GetLogger()->DebugLog(std::format("\tPoints count: {}", collisionInfo.GetDetailedInfo().GetContactPoints().GetSize()));
+				// for (const auto& p : collisionInfo.GetDetailedInfo().GetContactPoints())
+				//	Engine::GetLogger()->DebugLog(std::format("\t\t{:.3f} {:.3f} {:.3f}", p.x, p.y, p.z));
 #endif
 
 			}

@@ -140,6 +140,7 @@ void Window::ResizeCallback(int sizex, int sizey) {
 	resolution.x = sizex;
 	resolution.y = sizey;
 
-	if (!Engine::GetRenderer()->_HasImplicitResizeHandling())
-		Engine::GetRenderer()->HandleResize();
+	if (!Engine::GetRenderer()->_HasImplicitResizeHandling()) {
+		Engine::GetRenderer()->HandleResize(resolution);
+	}
 }

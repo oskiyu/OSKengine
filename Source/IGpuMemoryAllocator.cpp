@@ -11,6 +11,8 @@
 #include "ITopLevelAccelerationStructure.h"
 #include "IBottomLevelAccelerationStructure.h"
 
+#include "GpuImageLayout.h"
+
 #include "OSKengine.h"
 #include "Logger.h"
 
@@ -35,17 +37,28 @@ GpuMemoryUsageInfo IGpuMemoryAllocator::GetMemoryUsageInfo() const {
 	return device->GetMemoryUsageInfo();
 }
 
-OwnedPtr<GpuBuffer> IGpuMemoryAllocator::CreateVertexBuffer(const void* data, USize32 vertexSize, USize32 numVertices, const VertexInfo& vertexInfo, GpuBufferUsage usage) {
+OwnedPtr<GpuBuffer> IGpuMemoryAllocator::CreateVertexBuffer(const void* data, USize32 vertexSize, USize32 numVertices, const VertexInfo& vertexInfo, GpuQueueType queueType, GpuBufferUsage usage) {
+	return CreateVertexBuffer(
+		data,
+		vertexSize,
+		numVertices,
+		vertexInfo,
+		queueType,
+		queueType,
+		usage);
+}
+
+OwnedPtr<GpuBuffer> IGpuMemoryAllocator::CreateVertexBuffer(const void* data, USize32 vertexSize, USize32 numVertices, const VertexInfo& vertexInfo, GpuQueueType transferQueue, GpuQueueType queueType ,  GpuBufferUsage usage) {
 	const USize64 bufferSize = numVertices * vertexSize;
 	const GpuBufferUsage finalUsage = usage | GpuBufferUsage::VERTEX_BUFFER | GpuBufferUsage::TRANSFER_DESTINATION;
 
 	// Buffer temporal sobre el que escribimos los vértices.
-	GpuBuffer* stagingBuffer = CreateStagingBuffer(bufferSize).GetPointer();
+	GpuBuffer* stagingBuffer = CreateStagingBuffer(bufferSize, transferQueue).GetPointer();
 	stagingBuffer->MapMemory();
 	stagingBuffer->Write(data, bufferSize);
 	stagingBuffer->Unmap();
 
-	OwnedPtr<GpuBuffer> output = CreateBuffer(bufferSize, 0, finalUsage, GpuSharedMemoryType::GPU_ONLY);
+	OwnedPtr<GpuBuffer> output = CreateBuffer(bufferSize, 0, finalUsage, GpuSharedMemoryType::GPU_ONLY, transferQueue);
 
 	// Establecemos el vertex view.
 	VertexBufferView vertexView{};
@@ -56,11 +69,17 @@ OwnedPtr<GpuBuffer> IGpuMemoryAllocator::CreateVertexBuffer(const void* data, US
 	output->SetVertexView(vertexView);
 
 	// Debemos copiar el buffer temporal al buffer final.
-	OwnedPtr<ICommandList> singleTimeCommandList = Engine::GetRenderer()->CreateSingleUseCommandList();
+	OwnedPtr<ICommandList> singleTimeCommandList = Engine::GetRenderer()->CreateSingleUseCommandList(transferQueue);
 	singleTimeCommandList->Reset();
 	singleTimeCommandList->Start();
 
 	singleTimeCommandList->CopyBufferToBuffer(*stagingBuffer, output.GetPointer(), bufferSize, 0, 0);
+
+	if (transferQueue != queueType) {
+		singleTimeCommandList->TransferToQueue(
+			output.GetPointer(),
+			*Engine::GetRenderer()->GetOptimalQueue(queueType));
+	}
 
 	singleTimeCommandList->Close();
 
@@ -71,16 +90,24 @@ OwnedPtr<GpuBuffer> IGpuMemoryAllocator::CreateVertexBuffer(const void* data, US
 	return output;
 }
 
-OwnedPtr<GpuBuffer> IGpuMemoryAllocator::CreateIndexBuffer(const DynamicArray<TIndexSize>& indices, GpuBufferUsage usage) {
+OwnedPtr<GpuBuffer> IGpuMemoryAllocator::CreateIndexBuffer(const DynamicArray<TIndexSize>& indices, GpuQueueType queueType, GpuBufferUsage usage) {
+	return CreateIndexBuffer(
+		indices,
+		queueType,
+		queueType,
+		usage);
+}
+
+OwnedPtr<GpuBuffer> IGpuMemoryAllocator::CreateIndexBuffer(const DynamicArray<TIndexSize>& indices, GpuQueueType transferQueue, GpuQueueType queueType, GpuBufferUsage usage) {
 	const USize64 bufferSize = sizeof(TIndexSize) * indices.GetSize();
 	const GpuBufferUsage finalUsage = usage | GpuBufferUsage::INDEX_BUFFER | GpuBufferUsage::TRANSFER_DESTINATION;
 
-	GpuBuffer* stagingBuffer = CreateStagingBuffer(bufferSize).GetPointer();
+	GpuBuffer* stagingBuffer = CreateStagingBuffer(bufferSize, transferQueue).GetPointer();
 	stagingBuffer->MapMemory();
 	stagingBuffer->Write(indices.GetData(), bufferSize);
 	stagingBuffer->Unmap();
 
-	OwnedPtr<GpuBuffer> output = CreateBuffer(bufferSize, 0, finalUsage, GpuSharedMemoryType::GPU_ONLY);
+	OwnedPtr<GpuBuffer> output = CreateBuffer(bufferSize, 0, finalUsage, GpuSharedMemoryType::GPU_ONLY, transferQueue);
 
 	// Establecemos el index view.
 	IndexBufferView view{};
@@ -90,11 +117,13 @@ OwnedPtr<GpuBuffer> IGpuMemoryAllocator::CreateIndexBuffer(const DynamicArray<TI
 
 	output->SetIndexView(view);
 
-	auto singleTimeCommandList = Engine::GetRenderer()->CreateSingleUseCommandList();
+	auto singleTimeCommandList = Engine::GetRenderer()->CreateSingleUseCommandList(transferQueue);
 	singleTimeCommandList->Reset();
 	singleTimeCommandList->Start();
 
 	singleTimeCommandList->CopyBufferToBuffer(*stagingBuffer, output.GetPointer(), bufferSize, 0, 0);
+
+	singleTimeCommandList->TransferToQueue(output.GetPointer(), *Engine::GetRenderer()->GetOptimalQueue(queueType));
 
 	singleTimeCommandList->Close();
 
@@ -163,7 +192,7 @@ GpuImage* IGpuMemoryAllocator::GetDefaultNormalTexture() const {
 
 void IGpuMemoryAllocator::LoadDefaultNormalTexture() {
 	IRenderer* renderer = Engine::GetRenderer();
-	OwnedPtr<ICommandList> uploadCmdList = renderer->CreateSingleUseCommandList();
+	OwnedPtr<ICommandList> uploadCmdList = renderer->CreateSingleUseCommandList(GpuQueueType::ASYNC_TRANSFER);
 	uploadCmdList->Start();
 
 	TByte data[4] = {
@@ -173,7 +202,7 @@ void IGpuMemoryAllocator::LoadDefaultNormalTexture() {
 		255	 // A
 	};
 
-	OwnedPtr<GpuBuffer> stagingBuffer = CreateStagingBuffer(sizeof(data), GpuBufferUsage::TRANSFER_SOURCE);
+	OwnedPtr<GpuBuffer> stagingBuffer = CreateStagingBuffer(sizeof(data), uploadCmdList->GetCompatibleQueueType());
 	stagingBuffer->MapMemory();
 	stagingBuffer->Write(data, sizeof(data));
 	stagingBuffer->Unmap();
@@ -196,14 +225,14 @@ void IGpuMemoryAllocator::LoadDefaultNormalTexture() {
 	uploadCmdList->SetGpuImageBarrier(
 		m_defaultNormalTexture.GetPointer(),
 		GpuImageLayout::SAMPLED,
-		GpuBarrierInfo(GpuCommandStage::FRAGMENT_SHADER, GpuAccessStage::SHADER_READ));
+		GpuBarrierInfo(GpuCommandStage::NONE, GpuAccessStage::NONE));
 
 	uploadCmdList->Close();
 
 	renderer->SubmitSingleUseCommandList(uploadCmdList);
 }
 
-OwnedPtr<GpuImage> IGpuMemoryAllocator::CreateCubemapImage(const Vector2ui& faceSize, Format format, GpuImageUsage usage, GpuSharedMemoryType sharedType, GpuImageSamplerDesc samplerDesc) {
+OwnedPtr<GpuImage> IGpuMemoryAllocator::CreateCubemapImage(const Vector2ui& faceSize, Format format, GpuImageUsage usage, GpuSharedMemoryType sharedType, GpuQueueType queueType, GpuImageSamplerDesc samplerDesc) {
 	if (!EFTraits::HasFlag(usage, GpuImageUsage::CUBEMAP))
 		EFTraits::AddFlag(&usage, GpuImageUsage::CUBEMAP);
 
@@ -211,34 +240,35 @@ OwnedPtr<GpuImage> IGpuMemoryAllocator::CreateCubemapImage(const Vector2ui& face
 	info.memoryType = sharedType;
 	info.samplerDesc = samplerDesc;
 	info.numLayers = 6;
+	info.queueType = queueType;
 
 	return CreateImage(info);
 }
 
-OwnedPtr<GpuBuffer> IGpuMemoryAllocator::CreateUniformBuffer(USize64 size, GpuBufferUsage usage) {
+OwnedPtr<GpuBuffer> IGpuMemoryAllocator::CreateUniformBuffer(USize64 size, GpuQueueType queueType, GpuBufferUsage usage) {
 	const GpuBufferUsage finalUsage = usage | GpuBufferUsage::UNIFORM_BUFFER;
 
-	return CreateBuffer(size, 0, finalUsage, GpuSharedMemoryType::GPU_AND_CPU);
+	return CreateBuffer(size, 0, finalUsage, GpuSharedMemoryType::GPU_AND_CPU, queueType);
 }
 
-OwnedPtr<GpuBuffer> IGpuMemoryAllocator::CreateStorageBuffer(USize64 size, GpuBufferUsage usage) {
+OwnedPtr<GpuBuffer> IGpuMemoryAllocator::CreateStorageBuffer(USize64 size, GpuQueueType queueType, GpuBufferUsage usage) {
 	const GpuBufferUsage finalUsage = usage | GpuBufferUsage::STORAGE_BUFFER;
 
-	return CreateBuffer(size, 0, finalUsage, GpuSharedMemoryType::GPU_AND_CPU);
+	return CreateBuffer(size, 0, finalUsage, GpuSharedMemoryType::GPU_AND_CPU, queueType);
 }
 
-OwnedPtr<GpuBuffer> IGpuMemoryAllocator::CreateStagingBuffer(USize64 size, GpuBufferUsage usage) {
+OwnedPtr<GpuBuffer> IGpuMemoryAllocator::CreateStagingBuffer(USize64 size, GpuQueueType queueType, GpuBufferUsage usage) {
 	const GpuBufferUsage finalUsage = usage | GpuBufferUsage::TRANSFER_SOURCE | GpuBufferUsage::UPLOAD_ONLY;
 	
-	return CreateBuffer(size, 0, finalUsage, GpuSharedMemoryType::GPU_AND_CPU);
+	return CreateBuffer(size, 0, finalUsage, GpuSharedMemoryType::GPU_AND_CPU, queueType);
 }
 
-OwnedPtr<GpuBuffer> IGpuMemoryAllocator::CreateBuffer(USize64 size, USize64 alignment, GpuBufferUsage usage, GpuSharedMemoryType memoryType) {
+OwnedPtr<GpuBuffer> IGpuMemoryAllocator::CreateBuffer(USize64 size, USize64 alignment, GpuBufferUsage usage, GpuSharedMemoryType memoryType, GpuQueueType queueType) {
 	const USize64 finalAlignment = GetAlignment(alignment, usage);
 	IGpuMemoryBlock* block = GetNextBufferMemoryBlock(size, usage, memoryType);
 	OwnedPtr<IGpuMemorySubblock> subblock = block->GetNextMemorySubblock(size, finalAlignment);
 
-	return new GpuBuffer(subblock, size, finalAlignment);
+	return new GpuBuffer(subblock, size, finalAlignment, Engine::GetRenderer()->GetOptimalQueue(queueType));
 }
 
 OwnedPtr<ITopLevelAccelerationStructure> IGpuMemoryAllocator::CreateTopAccelerationStructure(DynamicArray<IBottomLevelAccelerationStructure*> bottomStructures) {
@@ -270,6 +300,8 @@ OwnedPtr<IBottomLevelAccelerationStructure> IGpuMemoryAllocator::CreateBottomAcc
 }
 
 IGpuMemoryBlock* IGpuMemoryAllocator::GetNextBufferMemoryBlock(USize64 size, GpuBufferUsage usage, GpuSharedMemoryType sharedType) {
+	std::lock_guard lock(m_memoryAllocationMutex.mutex);
+
 	// Miramos todas las listas de bloques para comprobar si hay alguna que
 	// tiene bloques con las características necesarias.
 	for (UIndex64 i = 0; i < bufferMemoryBlocksInfo.GetSize(); i++) {
@@ -325,46 +357,4 @@ USize64 IGpuMemoryAllocator::GetAlignment(USize64 originalAlignment, GpuBufferUs
 		output = glm::max(output, minStorageBufferAlignment);
 
 	return output;
-}
-
-GpuImageCreateInfo GpuImageCreateInfo::CreateDefault1D(uint32_t resolution, Format format, GpuImageUsage usage) {
-	GpuImageCreateInfo output{};
-	output.resolution = Vector3ui{ resolution, 1, 1 };
-	output.format = format;
-	output.usage = usage;
-	output.dimension = GpuImageDimension::d1D;
-
-	return output;
-}
-
-GpuImageCreateInfo GpuImageCreateInfo::CreateDefault2D(const Vector2ui& resolution, Format format, GpuImageUsage usage) {
-	GpuImageCreateInfo output{};
-	output.resolution = Vector3ui{ resolution.x, resolution.y, 1 };
-	output.format = format;
-	output.usage = usage;
-	output.dimension = GpuImageDimension::d2D;
-
-	return output;
-}
-
-GpuImageCreateInfo GpuImageCreateInfo::CreateDefault3D(const Vector3ui& resolution, Format format, GpuImageUsage usage) {
-	GpuImageCreateInfo output{};
-	output.resolution = resolution;
-	output.format = format;
-	output.usage = usage;
-	output.dimension = GpuImageDimension::d3D;
-
-	return output;
-}
-
-void GpuImageCreateInfo::SetMsaaSamples(USize32 msaaSamples) {
-	this->msaaSamples = msaaSamples;
-}
-
-void GpuImageCreateInfo::SetSamplerDescription(const GpuImageSamplerDesc& description) {
-	samplerDesc = description;
-}
-
-void GpuImageCreateInfo::SetMemoryType(GpuSharedMemoryType memoryType) {
-	this->memoryType = memoryType;
 }

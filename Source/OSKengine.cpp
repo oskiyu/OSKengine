@@ -50,6 +50,9 @@
 
 #include "TreeNormalsRenderSystem.h"
 
+#include "IteratorSystemExecutionJob.h"
+#include "ConsumerSystemExecutionJob.h"
+
 #include "AudioApiAl.h"
 
 #include <GLFW/glfw3.h>
@@ -68,6 +71,7 @@ UniquePtr<ECS::EntityComponentSystem> Engine::entityComponentSystem;
 UniquePtr<IO::IUserInput> Engine::input;
 UniquePtr<IO::InputManager> Engine::inputManager;
 UniquePtr<AUDIO::IAudioApi> Engine::audioApi;
+UniquePtr<JobSystem> Engine::m_jobSystem;
 UniquePtr<UuidProvider> Engine::uuidProvider;
 UIndex64 Engine::gameFrameIndex;
 
@@ -84,6 +88,7 @@ void Engine::Create(GRAPHICS::RenderApiType type) {
 	audioApi = new AUDIO::AudioApiAl;
 	audioApi->Initialize();
 	uuidProvider = new UuidProvider;
+	m_jobSystem = new JobSystem;
 
 	logger->InfoLog("Iniciando OSKengine.");
 	logger->InfoLog(std::format("\tVersion: {}.{}.{}", 
@@ -113,14 +118,19 @@ void Engine::Create(GRAPHICS::RenderApiType type) {
 
 void Engine::Close() {
 	renderer->WaitForCompletion();
+	m_jobSystem->WaitForAll();
 
 	entityComponentSystem.Delete();
 	assetManager.Delete();
 	display.Delete();
 	inputManager.Delete();
+
+	renderer->Close();
 	renderer.Delete();
+
 	audioApi.Delete();
 	logger.Delete();
+	m_jobSystem.Delete();
 }
 
 void Engine::RegisterBuiltinAssets() {
@@ -171,14 +181,19 @@ void Engine::RegisterBuiltinSystems() {
 
 	ECS::SystemDependencies collisionDependencies{};
 	collisionDependencies.executeAfterThese.insert(static_cast<std::string>(PhysicsSystem::GetSystemName()));
+	collisionDependencies.exclusiveExecution = true;
+	collisionDependencies.singleThreaded = true;
 	entityComponentSystem->RegisterSystem<ECS::CollisionSystem>(collisionDependencies);
 
 	ECS::SystemDependencies collisionResolverDependencies{};
 	collisionResolverDependencies.executeAfterThese.insert(static_cast<std::string>(CollisionSystem::GetSystemName()));
+	collisionResolverDependencies.exclusiveExecution = true;
+	collisionResolverDependencies.singleThreaded = true;
 	entityComponentSystem->RegisterSystem<ECS::PhysicsResolver>(collisionResolverDependencies);
 
 	ECS::SystemDependencies transformApplierDependencies{};
 	transformApplierDependencies.executeAfterThese.insert(static_cast<std::string>(PhysicsResolver::GetSystemName()));
+	transformApplierDependencies.singleThreaded = true;
 	entityComponentSystem->RegisterSystem<TransformApplierSystem>(transformApplierDependencies);
 
 	entityComponentSystem->RegisterSystem<ECS::SkyboxRenderSystem>(SystemDependencies::Empty());
@@ -197,6 +212,10 @@ void Engine::RegisterBuiltinVertices() {
 	renderer->GetMaterialSystem()->RegisterVertexType<GRAPHICS::VertexAnim3D>();
 	renderer->GetMaterialSystem()->RegisterVertexType<GRAPHICS::VertexCollisionDebug3D>();
 	renderer->GetMaterialSystem()->RegisterVertexType<GRAPHICS::GdrVertex3D>();
+}
+
+void Engine::RegisterBuiltinJobs() {
+
 }
 
 
@@ -236,6 +255,10 @@ AUDIO::IAudioApi* Engine::GetAudioApi() {
 	return audioApi.GetPointer();
 }
 
+JobSystem* Engine::GetJobSystem() {
+	return m_jobSystem.GetPointer();
+}
+
 UuidProvider* Engine::GetUuidProvider() {
 	return uuidProvider.GetPointer();
 }
@@ -252,7 +275,7 @@ Version Engine::GetVersion() {
 }
 
 std::string_view Engine::GetBuild() {
-	return "2024.03.28a";
+	return "2024.04.16a";
 }
 
 UIndex64 Engine::GetCurrentGameFrameIndex() {

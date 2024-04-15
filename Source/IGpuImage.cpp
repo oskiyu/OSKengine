@@ -13,22 +13,21 @@
 using namespace OSK;
 using namespace OSK::GRAPHICS;
 
-GpuImage::GpuImage(const Vector3ui& size, GpuImageDimension dimension, GpuImageUsage usage, USize32 numLayers, Format format, USize32 numSamples, GpuImageSamplerDesc samplerDesc, GpuImageTiling tiling)
-	: m_size(size), m_samplerDesc(samplerDesc), m_numSamples(numSamples), m_format(format), m_currentLayout(GpuImageLayout::UNDEFINED), m_dimension(dimension), m_usage(usage), m_numLayers(numLayers), m_tiling(tiling) {
+GpuImage::GpuImage(const GpuImageCreateInfo& info, const ICommandQueue* ownerQueue) : m_imageInfo(info), m_ownerQueue(ownerQueue) {
 	
-	switch (samplerDesc.mipMapMode) {
+	switch (info.samplerDesc.mipMapMode) {
 	case GpuImageMipmapMode::AUTO:
-		m_mipLevels = GetMipLevels(size.x, size.y);
+		m_mipLevels = GetMipLevels(info.resolution.x, info.resolution.y);
 		break;
 	case GpuImageMipmapMode::CUSTOM:
-		m_mipLevels = samplerDesc.maxMipLevel;
+		m_mipLevels = info.samplerDesc.maxMipLevel;
 		break;
 	case GpuImageMipmapMode::NONE:
 		m_mipLevels = 1;
 		break;
 	}
 
-	_SetPhysicalSize(size);
+	_SetPhysicalSize(info.resolution);
 	_InitDefaultLayout();
 }
 
@@ -49,15 +48,15 @@ void GpuImage::_SetPhysicalSize(const Vector3ui& size) {
 }
 
 Vector3ui GpuImage::GetSize3D() const {
-	return m_size;
+	return m_imageInfo.resolution;
 }
 
 Vector2ui GpuImage::GetSize2D() const {
-	return { m_size.x, m_size.y };
+	return { m_imageInfo.resolution.x, m_imageInfo.resolution.y };
 }
 
 USize32 GpuImage::GetSize1D() const {
-	return m_size.x;
+	return m_imageInfo.resolution.x;
 }
 
 Vector2ui GpuImage::GetMipLevelSize2D(UIndex32 mipLevel) const {
@@ -74,23 +73,23 @@ Vector3ui GpuImage::GetPhysicalSize() const {
 }
 
 GpuImageDimension GpuImage::GetDimension() const {
-	return m_dimension;
+	return m_imageInfo.dimension;
 }
 
 GpuImageUsage GpuImage::GetUsage() const {
-	return m_usage;
+	return m_imageInfo.usage;
 }
 
 USize32 GpuImage::GetNumLayers() const {
-	return m_numLayers;
+	return m_imageInfo.numLayers;
 }
 
 GpuImageSamplerDesc GpuImage::GetImageSampler() const {
-	return m_samplerDesc;
+	return m_imageInfo.samplerDesc;
 }
 
 Format GpuImage::GetFormat() const {
-	return m_format;
+	return m_imageInfo.format;
 }
 
 IGpuMemoryBlock* GpuImage::GetMemory() const {
@@ -110,15 +109,26 @@ USize32 GpuImage::GetMipLevels(uint32_t sizeX, uint32_t sizeY) {
 }
 
 USize64 GpuImage::GetNumberOfBytes() const {
-	return static_cast<USize64>(m_size.x) * static_cast<USize64>(m_size.y) * static_cast<USize64>(m_size.z) * GetFormatNumberOfBytes(GetFormat());
+	return 
+		static_cast<USize64>(m_imageInfo.resolution.x) * 
+		static_cast<USize64>(m_imageInfo.resolution.y) * 
+		static_cast<USize64>(m_imageInfo.resolution.z) * GetFormatNumberOfBytes(GetFormat());
 }
 
 USize64 GpuImage::GetPhysicalNumberOfBytes() const {
-	return static_cast<USize64>(m_physicalSize.x) * m_physicalSize.y * m_physicalSize.z * GetFormatNumberOfBytes(GetFormat());
+	return 
+		static_cast<USize64>(m_physicalSize.x) * 
+		m_physicalSize.y * 
+		m_physicalSize.z * 
+		GetFormatNumberOfBytes(GetFormat());
 }
 
-USize32 GpuImage::GetNumSamples() const {
-	return m_numSamples;
+USize32 GpuImage::GetMsaaSampleCount() const {
+	return m_imageInfo.msaaSamples;
+}
+
+GpuImageTiling GpuImage::GetImageTiling() const {
+	return m_imageInfo.tilingType;
 }
 
 const IGpuImageView* GpuImage::GetView(const GpuImageViewConfig& viewConfig) const {
@@ -139,7 +149,7 @@ const GpuBarrierInfo& GpuImage::GetCurrentBarrier() const {
 }
 
 void GpuImage::_InitDefaultLayout() {
-	const USize32 arrayLevelCount = m_numLayers;
+	const USize32 arrayLevelCount = m_imageInfo.numLayers;
 	const USize32 mipLevelCount = m_mipLevels;
 
 	for (ArrayLevelIndex a = 0; a < arrayLevelCount; a++) {
@@ -152,7 +162,7 @@ void GpuImage::_InitDefaultLayout() {
 }
 
 void GpuImage::_SetLayout(ArrayLevelIndex baseArrayLevel, USize32 arrayLevelCount, MipLevelIndex baseMipLevel, USize32 mipLevelCount, GpuImageLayout layout) {
-	arrayLevelCount = glm::min(arrayLevelCount, m_numLayers);
+	arrayLevelCount = glm::min(arrayLevelCount, m_imageInfo.numLayers);
 	mipLevelCount = glm::min(mipLevelCount, m_mipLevels);
 	
 	for (ArrayLevelIndex a = baseArrayLevel; a < baseArrayLevel + arrayLevelCount; a++) {
@@ -164,4 +174,12 @@ void GpuImage::_SetLayout(ArrayLevelIndex baseArrayLevel, USize32 arrayLevelCoun
 }
 GpuImageLayout GpuImage::_GetLayout(ArrayLevelIndex arrayLevel, MipLevelIndex mipLevel) const {
 	return m_layouts.at(arrayLevel).at(mipLevel);
+}
+
+const ICommandQueue* GpuImage::GetOwnerQueue() const {
+	return m_ownerQueue;
+}
+
+void GpuImage::_UpdateOwnerQueue(const ICommandQueue* ownerQueue) {
+	m_ownerQueue = ownerQueue;
 }

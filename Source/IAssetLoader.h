@@ -11,6 +11,8 @@
 #include "AssetOwningRef.h"
 #include <string>
 
+#include "AssetsMap.h"
+
 #ifndef OSK_ASSET_TYPE_REG
 #define OSK_ASSET_TYPE_REG(typeName) const static std::string GetAssetType() { return typeName; }
 #endif
@@ -34,16 +36,43 @@ namespace OSK::ASSETS {
 
 		virtual ~IAssetLoader() = default;
 
-		/// @brief Carga el asset-
+		/// @brief Realiza el proceso de carga el asset.
 		/// @param assetFilePath Ruta del archivo de descripción que describe el asset.
-		/// @param asset Puntero al puntero del asset a cargar.
+		/// @param asset Puntero al asset a cargar.
 		/// 
-		/// @pre IAsset** asset debe apuntar a un asset ya creado (no puede ser null).
+		/// @pre El asset debe haber sido previamente registrado mediante RegisterWithoutLoading().
+		/// @pre El asset no debe haber sido previamente cargado, ya sea mediante Load() o
+		/// mediante FullyLoad().
 		/// 
 		/// @throws AssetDescriptionFileNotFoundException Si el archivo de descripción '.json' no existe.
 		/// @throws InvalidDescriptionFileException Si el archivo de descripción es inválido.
 		/// @throws RawAssetFileNotFoundException Si el archivo del asset original no se encuentra.
-		virtual void Load(const std::string& assetFilePath, void* assetRef) = 0;
+		virtual void Load(const std::string& assetFilePath) = 0;
+
+		/// @brief Realiza el proceso completo de registro de asset y carga del asset.
+		/// @param assetFilePath Ruta del archivo de descripción que describe el asset.
+		/// @param assetRef Puntero a la referencia del asset.
+		/// 
+		/// @pre @p *assetRef debe apuntar a una referencia ya creada.
+		/// 
+		/// @throws AssetDescriptionFileNotFoundException Si el archivo de descripción '.json' no existe.
+		/// @throws InvalidDescriptionFileException Si el archivo de descripción es inválido.
+		/// @throws RawAssetFileNotFoundException Si el archivo del asset original no se encuentra.
+		virtual void FullyLoad(const std::string& assetFilePath, void* assetRef) = 0;
+
+		/// @brief Registra el asset en la tabla de assets, creando la AssetOwningRef.
+		/// @param assetFilePath Ruta del archivo de descripción que describe el asset.
+		/// @param assetRef Puntero a la referencia del asset.
+		/// 
+		/// @pre @p *assetRef debe apuntar a una referencia ya creada.
+		virtual void RegisterWithoutLoading(const std::string& assetFilePath, void* assetRef) = 0;
+
+		/// @brief Establece el flag indicando que el asset ha sido comletamente cargado.
+		/// @param assetFilePath Ruta del archivo de descripción que describe el asset.
+		/// 
+		/// @pre El asset debe haber sido previamente registrado (ya sea mediante FullyLoad()
+		/// o mediante RegisterWithoutLoading()).
+		virtual void SetAsLoaded(std::string_view assetFilePath) = 0;
 
 	protected:
 
@@ -73,18 +102,32 @@ namespace OSK::ASSETS {
 
 	protected:
 
-		std::unordered_map<std::string, AssetOwningRef<TAssetType>> m_assetsTable;
+		AssetsMap<TAssetType> m_assetsTable;
 
 	};
 
 }
 
 #define OSK_DEFAULT_LOADER_IMPL(TType) \
-void Load(const std::string& assetFilePath, void* assetRef) override { \
+void RegisterWithoutLoading(const std::string& assetFilePath, void* assetRef) override { \
 	OSK::ASSETS::AssetRef<TType>& output = *static_cast<OSK::ASSETS::AssetRef<TType>*>(assetRef); \
-	if (!m_assetsTable.contains(assetFilePath)) { \
-		m_assetsTable[assetFilePath] = OSK::ASSETS::AssetOwningRef< TType >(assetFilePath); \
-		Load(assetFilePath, m_assetsTable.find(assetFilePath)->second.GetAsset());\
+	output = m_assetsTable.GetReference_OrRegister(assetFilePath); \
+} \
+\
+void FullyLoad(const std::string& assetFilePath, void* assetRef) override { \
+	OSK::ASSETS::AssetRef<TType>& output = *static_cast<OSK::ASSETS::AssetRef<TType>*>(assetRef); \
+	if (!m_assetsTable.HasAsset(assetFilePath)) { \
+		m_assetsTable.Register(assetFilePath); \
+		Load(assetFilePath, m_assetsTable.GetAsset(assetFilePath));\
 	} \
-	output = m_assetsTable.find(assetFilePath)->second.CreateRef(); \
+	output = m_assetsTable.GetExistingReference(assetFilePath); \
+} \
+void SetAsLoaded(std::string_view assetFilePath) { \
+	m_assetsTable.SetAsLoaded(assetFilePath); \
+} \
+void Load(const std::string& assetFilePath) override { \
+	Load(assetFilePath, m_assetsTable.GetAsset(assetFilePath)); \
+	SetAsLoaded(assetFilePath); \
 }
+
+// OSK::ASSETS::AssetRef<TType>& output = *static_cast<OSK::ASSETS::AssetRef<TType>*>(assetRef); \

@@ -15,6 +15,7 @@
 #include "Model3D.h"
 #include "Material.h"
 #include "MaterialInstance.h"
+#include "CopyImageInfo.h"
 
 #include "Assert.h"
 
@@ -100,7 +101,8 @@ void SpecularMapLoader::Load(const std::string& assetFilePath, SpecularMap* asse
 		maxResolution,
 		Format::RGBA16_SFLOAT, 
 		GpuImageUsage::COLOR | GpuImageUsage::SAMPLED | GpuImageUsage::CUBEMAP | GpuImageUsage::TRANSFER_DESTINATION,
-		GpuSharedMemoryType::GPU_ONLY, 
+		GpuSharedMemoryType::GPU_ONLY,
+		GpuQueueType::MAIN,
 		origianlSampler).GetPointer();
 
 	OwnedPtr<GpuImage> targetCubemap = Engine::GetRenderer()->GetAllocator()->CreateCubemapImage(
@@ -108,6 +110,7 @@ void SpecularMapLoader::Load(const std::string& assetFilePath, SpecularMap* asse
 		Format::RGBA16_SFLOAT, 
 		GpuImageUsage::COLOR | GpuImageUsage::SAMPLED | GpuImageUsage::CUBEMAP | GpuImageUsage::TRANSFER_DESTINATION,
 		GpuSharedMemoryType::GPU_ONLY, 
+		GpuQueueType::MAIN,
 		prefilterSampler);
 
 	originalCubemap->SetDebugName("Original Specular Cubemap");
@@ -120,7 +123,8 @@ void SpecularMapLoader::Load(const std::string& assetFilePath, SpecularMap* asse
 	prefilterMaterialInstance->GetSlot("global")->FlushUpdate();
 
 	// Renderizar a cubemap
-	OwnedPtr<ICommandList> originalDrawCmdList = Engine::GetRenderer()->CreateSingleUseCommandList();
+	OwnedPtr<ICommandList> originalDrawCmdList = Engine::GetRenderer()->CreateSingleUseCommandList(GpuQueueType::MAIN);
+
 	originalDrawCmdList->SetDebugName("Specular Cubemap Cmd List");
 
 	originalDrawCmdList->Reset();
@@ -134,7 +138,8 @@ void SpecularMapLoader::Load(const std::string& assetFilePath, SpecularMap* asse
 
 	// Preprocesado
 
-	OwnedPtr<ICommandList> prefilterCmdList = Engine::GetRenderer()->CreateSingleUseCommandList();
+	OwnedPtr<ICommandList> prefilterCmdList = Engine::GetRenderer()->CreateSingleUseCommandList(GpuQueueType::MAIN);
+
 	prefilterCmdList->SetDebugName("Prefilter and LUT generation");
 
 	prefilterCmdList->Reset();
@@ -309,7 +314,8 @@ void SpecularMapLoader::GenerateLut(ICommandList* cmdList) {
 }
 
 void SpecularMapLoader::UploadImage(GpuImage* img, const float* pixels, const Vector3ui& size) const {
-	OwnedPtr<ICommandList> uploadCmdList = Engine::GetRenderer()->CreateSingleUseCommandList();
+	OwnedPtr<ICommandList> uploadCmdList = Engine::GetRenderer()->CreateSingleUseCommandList(GpuQueueType::MAIN);
+
 	uploadCmdList->Reset();
 	uploadCmdList->Start();
 

@@ -1,6 +1,9 @@
 #pragma once
 
 #include "OSKmacros.h"
+#include "Uuid.h"
+
+#include <format>
 
 
 namespace OSK::ECS {
@@ -15,9 +18,12 @@ namespace OSK::ECS {
 	/// relacionada con un GameObject.
 	/// 
 	/// @warning Cada GameObject sólo puede tener un componente de cada tipo.
-	using GameObjectIndex = UIndex32;
+	using GameObjectIndex = BaseUuid<class GameObjectIndexTag>;
 
 	/// @brief El ID no identifica a ningún objeto válido.
-	constexpr GameObjectIndex EMPTY_GAME_OBJECT = 0;
+	constexpr GameObjectIndex EMPTY_GAME_OBJECT = GameObjectIndex::CreateEmpty();
 
 }
+
+OSK_DEFINE_UUID_HASH(OSK::ECS::GameObjectIndex);
+OSK_DEFINE_UUID_FORMATTER(OSK::ECS::GameObjectIndex, "GameObjectIndex {}");

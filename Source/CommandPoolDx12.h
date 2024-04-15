@@ -17,6 +17,10 @@ namespace OSK::GRAPHICS {
 
 	public:
 
+		CommandPoolDx12(
+			CommandsSupport supportedCommands,
+			GpuQueueType type);
+
 		/// <summary>
 		/// Crea una nueva lista de comandos.
 		/// </summary>

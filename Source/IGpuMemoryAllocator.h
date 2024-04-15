@@ -3,38 +3,51 @@
 #include "OSKmacros.h"
 #include "OwnedPtr.h"
 #include "UniquePtr.hpp"
-#include "LinkedList.hpp"
 #include "HashMap.hpp"
 #include "DynamicArray.hpp"
-#include "Vertex.h"
 #include "Vector2.hpp"
 #include "Vector3.hpp"
 
-#include "GpuImageSamplerDesc.h"
-#include "GpuMemoryTypes.h"
-#include "GpuImageDimensions.h"
-#include "GpuImageUsage.h"
-#include "GpuImageLayout.h"
-#include "Format.h"
+// Recursos
+#include "IGpuImage.h"
+#include "IGpuMemoryBlock.h"
+#include "IGpuMemorySubblock.h"
 
-#include "VertexBufferView.h"
-#include "IndexBufferView.h"
+// Para `TIndexSize`
+#include "Vertex.h"
 
+// Sincronización.
+#include "MutexHolder.h"
+
+// Otros.
 #include "GpuMemoryUsageInfo.h"
+
 
 namespace OSK::GRAPHICS {
 
-	class IGpuMemoryBlock;
-	class IGpuMemorySubblock;
-	class IGpu;
+	// Enumeraciones.
 	enum class GpuBufferUsage;
+	enum class GpuQueueType;
 
-	class IBottomLevelAccelerationStructure;
-	class ITopLevelAccelerationStructure;
+	// Recursos.
 	class GpuBuffer;
 	class GpuImage;
+	struct GpuImageCreateInfo;
+
+	// Ray-tracing.
+	class IBottomLevelAccelerationStructure;
+	class ITopLevelAccelerationStructure;
+
+	// Vértices.
 	struct Vertex3D;
 	class VertexInfo;
+
+	struct VertexBufferView;
+	struct IndexBufferView;
+
+	// Interfaces.
+	class IGpu;
+
 
 	struct OSKAPI_CALL GpuBufferMemoryBlockInfo {
 		USize64 size;
@@ -43,49 +56,7 @@ namespace OSK::GRAPHICS {
 
 		bool operator==(const GpuBufferMemoryBlockInfo& other) const;
 	};
-
-	struct GpuImageCreateInfo {
-
-		static GpuImageCreateInfo CreateDefault1D(uint32_t resolution, Format format, GpuImageUsage usage);
-		static GpuImageCreateInfo CreateDefault2D(const Vector2ui& resolution, Format format, GpuImageUsage usage);
-		static GpuImageCreateInfo CreateDefault3D(const Vector3ui& resolution, Format format, GpuImageUsage usage);
-
-		void SetMsaaSamples(USize32 msaaSamples);
-		void SetSamplerDescription(const GpuImageSamplerDesc& description);
-		void SetMemoryType(GpuSharedMemoryType memoryType);
-
-		/// @brief Resolución de la imagen, en píxeles.
-		/// Para imágenes 2D, Z se ignora. 
-		/// Para imágenes 1D, Y y Z se ignoran.
-		Vector3ui resolution;
-
-		/// @brief Formato de la imagen.
-		Format format;
-
-		/// @brief Tareas para las que se usará la imagen.
-		GpuImageUsage usage;
-
-		/// @brief Número de dimensiones de la imagen.
-		GpuImageDimension dimension;
-
-		/// @brief Número de capas.
-		/// Si se trata de una imagen sencilla, debe ser 1.
-		/// Si se trata de un array de imágenes, debe ser >= 2.
-		/// 
-		/// @pre Debe ser > 0.
-		USize32 numLayers = 1;
-
-		/// @brief Número de muestreos.
-		/// Para imágenes normales, 1.
-		USize32 msaaSamples = 1;
-
-		/// @brief Estructura con información sobre cómo se accederá a la imagen desde los shaders.
-		GpuImageSamplerDesc samplerDesc = {};
-
-		GpuSharedMemoryType memoryType = GpuSharedMemoryType::GPU_ONLY;
-		GpuImageTiling tilingType = GpuImageTiling::OPTIMAL;
-	};
-
+	
 
 	/// @brief El asignador de memoria se encarga de reservar grandes bloques
 	/// de memoria en la GPU, que después podrán ser usados para
@@ -94,6 +65,8 @@ namespace OSK::GRAPHICS {
 	/// La memoria de un bloque se divide en subbloques. Al reservar
 	/// un recurso, se crea un subbloque que ocupará parte de la
 	/// memoria del bloque.
+	/// 
+	/// @threadsafe
 	class OSKAPI_CALL IGpuMemoryAllocator {
 
 	public:
@@ -115,10 +88,14 @@ namespace OSK::GRAPHICS {
 		/// @brief Obtiene la información sobre el uso de memoria de esta GPU,
 		/// incluyendo espacio usado y espacio disponible.
 		/// @return Información sobre el uso de memoria de esta GPU.
+		/// 
+		/// @threadsafe
 		GpuMemoryUsageInfo GetMemoryUsageInfo() const;
 		
 		/// @brief Crea una nueva imagen en la GPU.
 		/// @param info Información para la creación de la imagen.
+		/// 
+		/// @threadsafe
 		virtual OwnedPtr<GpuImage> CreateImage(const GpuImageCreateInfo& info) = 0;
 
 		/// @brief Crea una imagen cubemap sin inicializar en la GPU.
@@ -126,82 +103,185 @@ namespace OSK::GRAPHICS {
 		/// @param format Formato de todas las caras.
 		/// @param usage Uso que se le va a dar al cubemap.
 		/// @param sharedType Tipo de memoria preferente.
+		/// @param queueType Tipo de cola sobre la que se alojará.
 		/// @param samplerDesc Sampler del cubemap.
 		/// @return Imagen sin información.
 		/// 
 		/// @post La imagen devuelta tendrá al menos el uso GpuImageUsage::CUBEMAP.
+		/// 
+		/// @threadsafe
 		OwnedPtr<GpuImage> CreateCubemapImage(
 			const Vector2ui& faceSize, 
 			Format format, 
 			GpuImageUsage usage, 
-			GpuSharedMemoryType sharedType, 
+			GpuSharedMemoryType sharedType,
+			GpuQueueType queueType,
 			GpuImageSamplerDesc samplerDesc = {});
 
+#pragma region Vertex buffers
+
 		/// @brief Crea un buffer de vértices con los vértices dados.
+		/// 
 		/// @param data Puntero al array de vértices.
 		/// @param vertexSize Tamaño de cada vértice individual, en bytes.
 		/// @param numVertices Número de vértices pasados.
 		/// @param vertexInfo Información del tipo de vértice.
+		/// @param queueType Tipo de cola en la que se almacenará.
 		/// @param usage Uso que se le dará al buffer, además de como vertex buffer.
+		/// 
 		/// @return Buffer en la GPU con los vértices.
 		/// 
 		/// @note El buffer se colocará preferentemente en un bloque con GpuSharedMemoryType::GPU_ONLY.
 		/// @post El buffer siempre tendrá al menos los usos GpuBufferUsage::VERTEX_BUFFER y GpuBufferUsage::TRANSFER_DESTINATION.
+		/// 
+		/// @threadsafe
 		OwnedPtr<GpuBuffer> CreateVertexBuffer(
-			const void* data, 
-			USize32 vertexSize, 
-			USize32 numVertices, 
+			const void* data,
+			USize32 vertexSize,
+			USize32 numVertices,
 			const VertexInfo& vertexInfo,
+			GpuQueueType queueType,
 			GpuBufferUsage usage = GpuBufferUsage::VERTEX_BUFFER);
 
 		/// @brief Crea un buffer de vértices con los vértices dados.
-		/// @tparam T Tipo del vértice.
-		/// @param vertices Lista con los vértices a añadir.
-		/// @param vertexInfo Información del tipo del vértice.
+		/// 
+		/// @param data Puntero al array de vértices.
+		/// @param vertexSize Tamaño de cada vértice individual, en bytes.
+		/// @param numVertices Número de vértices pasados.
+		/// @param vertexInfo Información del tipo de vértice.
+		/// @param transferQueue Tipo de cola que se usará para transferir el contenido.
+		/// @param finalQueue Tipo de cola en la que se almacenará.
 		/// @param usage Uso que se le dará al buffer, además de como vertex buffer.
+		/// 
 		/// @return Buffer en la GPU con los vértices.
 		/// 
 		/// @note El buffer se colocará preferentemente en un bloque con GpuSharedMemoryType::GPU_ONLY.
 		/// @post El buffer siempre tendrá al menos los usos GpuBufferUsage::VERTEX_BUFFER y GpuBufferUsage::TRANSFER_DESTINATION.
-		template <typename T> 
+		/// 
+		/// @threadsafe
+		OwnedPtr<GpuBuffer> CreateVertexBuffer(
+			const void* data,
+			USize32 vertexSize,
+			USize32 numVertices,
+			const VertexInfo& vertexInfo,
+			GpuQueueType transferQueue,
+			GpuQueueType finalQueue,
+			GpuBufferUsage usage = GpuBufferUsage::VERTEX_BUFFER);
+
+		/// @brief Crea un buffer de vértices con los vértices dados.
+		/// 
+		/// @tparam T Tipo del vértice.
+		/// @param vertices Lista con los vértices a añadir.
+		/// @param vertexInfo Información del tipo del vértice.
+		/// @param queueType Tipo de cola en la que se almacenará.
+		/// @param usage Uso que se le dará al buffer, además de como vertex buffer.
+		/// 
+		/// @return Buffer en la GPU con los vértices.
+		/// 
+		/// @note El buffer se colocará preferentemente en un bloque con GpuSharedMemoryType::GPU_ONLY.
+		/// @post El buffer siempre tendrá al menos los usos GpuBufferUsage::VERTEX_BUFFER y GpuBufferUsage::TRANSFER_DESTINATION.
+		/// 
+		/// @threadsafe
+		template <typename T>
 		inline OwnedPtr<GpuBuffer> CreateVertexBuffer(
 			const DynamicArray<T>& vertices,
 			const VertexInfo& vertexInfo,
+			GpuQueueType queueType,
 			GpuBufferUsage usage = GpuBufferUsage::VERTEX_BUFFER) {
-			return this->CreateVertexBuffer(vertices.GetData(), sizeof(T), vertices.GetSize(), vertexInfo);
+			return this->CreateVertexBuffer(vertices.GetData(), sizeof(T), vertices.GetSize(), vertexInfo, queueType, usage);
 		}
+
+		/// @brief Crea un buffer de vértices con los vértices dados.
+		/// 
+		/// @tparam T Tipo del vértice.
+		/// @param vertices Lista con los vértices a añadir.
+		/// @param vertexInfo Información del tipo del vértice.
+		/// @param transferQueue Tipo de cola que se usará para transferir el contenido.
+		/// @param finalQueue Tipo de cola en la que se almacenará.
+		/// @param usage Uso que se le dará al buffer, además de como vertex buffer.
+		/// 
+		/// @return Buffer en la GPU con los vértices.
+		/// 
+		/// @note El buffer se colocará preferentemente en un bloque con GpuSharedMemoryType::GPU_ONLY.
+		/// @post El buffer siempre tendrá al menos los usos GpuBufferUsage::VERTEX_BUFFER y GpuBufferUsage::TRANSFER_DESTINATION.
+		/// 
+		/// @threadsafe
+		template <typename T>
+		inline OwnedPtr<GpuBuffer> CreateVertexBuffer(
+			const DynamicArray<T>& vertices,
+			const VertexInfo& vertexInfo,
+			GpuQueueType transferQueue,
+			GpuQueueType finalQueue,
+			GpuBufferUsage usage = GpuBufferUsage::VERTEX_BUFFER) {
+			return this->CreateVertexBuffer(vertices.GetData(), sizeof(T), vertices.GetSize(), vertexInfo, transferQueue, finalQueue, usage);
+		}
+
+#pragma endregion
+
+#pragma region Index buffers
 
 		/// @brief Crea un buffer de índices con los índices dados.
 		/// @param indices Lista de índices.
+		/// @param queueType Tipo de cola en la que se almacenará.
 		/// @param usage Uso que se le dará al buffer, además de como index buffer.
 		/// @return Buffer con los índices.
 		/// 
 		/// @note El buffer se colocará preferentemente en un bloque con GpuSharedMemoryType::GPU_ONLY.
 		/// @post El buffer siempre tendrá al menos los usos GpuBufferUsage::INDEX_BUFFER y GpuBufferUsage::TRANSFER_DESTINATION.
+		/// 
+		/// @threadsafe
 		OwnedPtr<GpuBuffer> CreateIndexBuffer(
 			const DynamicArray<TIndexSize>& indices,
+			GpuQueueType queueType,
 			GpuBufferUsage usage = GpuBufferUsage::INDEX_BUFFER);
+
+		/// @brief Crea un buffer de índices con los índices dados.
+		/// @param indices Lista de índices.
+		/// @param queueTtransferQueueype Tipo de cola que se usará para la transferencia.
+		/// @param queueType Tipo de cola en la que se almacenará.
+		/// @param usage Uso que se le dará al buffer, además de como index buffer.
+		/// @return Buffer con los índices.
+		/// 
+		/// @note El buffer se colocará preferentemente en un bloque con GpuSharedMemoryType::GPU_ONLY.
+		/// @post El buffer siempre tendrá al menos los usos GpuBufferUsage::INDEX_BUFFER y GpuBufferUsage::TRANSFER_DESTINATION.
+		/// 
+		/// @threadsafe
+		OwnedPtr<GpuBuffer> CreateIndexBuffer(
+			const DynamicArray<TIndexSize>& indices,
+			GpuQueueType transferQueue,
+			GpuQueueType queueType,
+			GpuBufferUsage usage = GpuBufferUsage::INDEX_BUFFER);
+
+#pragma endregion
 
 		/// @brief Crea un uniform buffer.
 		/// @param size Tamaño del uniform buffer.
+		/// @param queueType Tipo de cola en la que se almacenará.
 		/// @param usage Uso que se le dará al buffer, además de como uniform buffer.
 		/// @return Uniform buffer.
 		/// 
 		/// @note El buffer se colocará en un bloque con GpuSharedMemoryType::GPU_AND_CPU.
 		/// @post El buffer siempre tendrá al menos el uso GpuBufferUsage::UNIFORM_BUFFER.
+		/// 
+		/// @threadsafe
 		OwnedPtr<GpuBuffer> CreateUniformBuffer(
 			USize64 size,
+			GpuQueueType queueType = GpuQueueType::MAIN,
 			GpuBufferUsage usage = GpuBufferUsage::UNIFORM_BUFFER);
 
 		/// @brief Crea un storage buffer.
 		/// @param size Tamaño, en bytes.
+		/// @param queueType Tipo de cola en la que se almacenará.
 		/// @param usage Uso que se le dará al buffer, además de como storage buffer.
 		/// @return Storage buffer.
 		/// 
 		/// @note El buffer se colocará en un bloque con GpuSharedMemoryType::GPU_AND_CPU.
 		/// @post El buffer siempre tendrá al menos el uso GpuBufferUsage::STORAGE_BUFFER.
+		/// 
+		/// @threadsafe
 		OwnedPtr<GpuBuffer> CreateStorageBuffer(
 			USize64 size,
+			GpuQueueType queueType,
 			GpuBufferUsage usage = GpuBufferUsage::STORAGE_BUFFER);
 
 		/// @brief Crea un buffer temporal con el tamaño dado.
@@ -211,13 +291,17 @@ namespace OSK::GRAPHICS {
 		/// la GPU podrá copiar esta región de memoria a una región de memoria de video
 		/// más rápida.
 		/// @param size Tamaño del buffer, en bytes.
+		/// @param queueType Tipo de cola en la que se almacenará.
 		/// @param usage Uso que se le va a dar al buffer, además de como staging buffer.
 		/// @return Staging buffer.
 		/// 
 		/// @note El buffer se colocará en un bloque con GpuSharedMemoryType::GPU_AND_CPU.
 		/// @post El buffer siempre tendrá al menos los usos GpuBufferUsage::TRANSFER_SOURCE | GpuBufferUsage::UPLOAD_ONLY.
+		/// 
+		/// @threadsafe
 		OwnedPtr<GpuBuffer> CreateStagingBuffer(
 			USize64 size,
+			GpuQueueType queueType,
 			GpuBufferUsage usage = GpuBufferUsage::UPLOAD_ONLY);
 
 		/// @brief Crea un buffer genérico de memoria en la GPU con las características dadas.
@@ -225,12 +309,16 @@ namespace OSK::GRAPHICS {
 		/// @param alignment Alineamiento del buffer respecto al inicio del bloque.
 		/// @param usage Uso que se le dará al buffer.
 		/// @param memoryType Tipo de memoria que se alojará.
+		/// @param queueType Tipo de cola en la que se almacenará.
 		/// @return Buffer en la GPU.
+		/// 
+		/// @threadsafe
 		OwnedPtr<GpuBuffer> CreateBuffer(
 			USize64 size,
 			USize64 alignment,
 			GpuBufferUsage usage, 
-			GpuSharedMemoryType memoryType);
+			GpuSharedMemoryType memoryType,
+			GpuQueueType queueType);
 
 
 		/// @brief Crea una estructura de aceleración espacial para el trazado de rayos.
@@ -240,6 +328,8 @@ namespace OSK::GRAPHICS {
 		/// @param vertexBuffer Vértices del modelo 3D a partir del que se va a crear la estructura.
 		/// @param indexBuffer Índices del modelo 3D a partir del que se va a crear la estructura.
 		/// @return Estructura de bajo nivel.
+		/// 
+		/// @threadsafe
 		OwnedPtr<IBottomLevelAccelerationStructure> CreateBottomAccelerationStructure(
 			const GpuBuffer& vertexBuffer,
 			const GpuBuffer& indexBuffer);
@@ -253,6 +343,8 @@ namespace OSK::GRAPHICS {
 		/// @param indexBuffer Índices del modelo 3D a partir del que se va a crear la estructura.
 		/// @param indexView View de los índices.
 		/// @return Estructura de bajo nivel.
+		/// 
+		/// @threadsafe
 		OwnedPtr<IBottomLevelAccelerationStructure> CreateBottomAccelerationStructure(
 			const GpuBuffer& vertexBuffer,
 			const VertexBufferView& vertexView,
@@ -265,6 +357,8 @@ namespace OSK::GRAPHICS {
 		/// @param bottomStructures Lista con todas las estructuras de bajo nivel a partir
 		/// de los que se va a crear la estructura de alto nivel.
 		/// @return Estructura de alto nivel.
+		/// 
+		/// @threadsafe
 		OwnedPtr<ITopLevelAccelerationStructure> CreateTopAccelerationStructure(
 			DynamicArray<IBottomLevelAccelerationStructure*> bottomStructures);
 
@@ -272,12 +366,15 @@ namespace OSK::GRAPHICS {
 		/// <summary>
 		/// Quita uno de los bloques, que ha sido eliminado.
 		/// </summary>
+		/// 
+		/// @threadsafe
 		void RemoveMemoryBlock(IGpuMemoryBlock* block);
 
 		/// @brief Libera toda la memoria usada para subir recursos.
 		void FreeStagingMemory();
 
 
+		/// @threadsafe
 		GpuImage* GetDefaultNormalTexture() const;
 
 	protected:
@@ -312,6 +409,8 @@ namespace OSK::GRAPHICS {
 		/// 
 		/// @remark Es posible que el tamaño del bloque sea mayor al indicado en size.
 		/// @remark Si no hay ningún bloque con tamaño suficiente, se crea uno nuevo.
+		/// 
+		/// @threadsafe
 		IGpuMemoryBlock* GetNextBufferMemoryBlock(USize64 size, GpuBufferUsage usage, GpuSharedMemoryType sharedType);
 
 		/// @brief Devuelve un subbloque con las características dadas.
@@ -319,6 +418,8 @@ namespace OSK::GRAPHICS {
 		/// @param usage Uso que se le dará a la memoria.
 		/// @param sharedType Tipo de memoria.
 		/// @return Bloque con el tamaño dado.
+		/// 
+		/// @threadsafe
 		IGpuMemorySubblock* GetNextBufferMemorySubblock(USize64 size, GpuBufferUsage usage, GpuSharedMemoryType sharedType);
 
 		/// @brief Información de los bloques.
@@ -330,6 +431,10 @@ namespace OSK::GRAPHICS {
 		UniquePtr<GpuImage> m_defaultNormalTexture = nullptr;
 
 		IGpu* device = nullptr;
+
+		// Mutex para las alojaciones de memoria.
+		// Para la búsqueda de bloques.
+		MutexHolder m_memoryAllocationMutex;
 
 	};
 

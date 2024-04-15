@@ -3,13 +3,7 @@
 #include "ISwapchain.h"
 
 enum VkColorSpaceKHR;
-
-struct VkSwapchainKHR_T;
-typedef VkSwapchainKHR_T* VkSwapchainKHR;
-	
-namespace OSK::IO {
-	class IDisplay;
-}
+OSK_VULKAN_TYPEDEF(VkSwapchainKHR);
 
 namespace OSK::GRAPHICS {
 
@@ -22,47 +16,50 @@ namespace OSK::GRAPHICS {
 
 	public:
 
-		~SwapchainVk() override;
-
-		/// <summary>
-		/// Crea el swapchain.
-		/// Obtiene automáticamente el tamaño de las imágenes a partir del
-		/// tamaño de la ventana.
-		/// </summary>
+		/// @brief 
+		/// @param mode 
+		/// @param format 
+		/// @param device 
+		/// @param display 
+		/// @param queueIndices 
 		/// 
 		/// @throws SwapchainCreationException Si ocurre algún error.
-		void Create(
-			PresentMode mode, 
-			Format format, 
-			const GpuVk& device, 
-			const IO::IDisplay& display);
+		SwapchainVk(
+			PresentMode mode,
+			Format format,
+			const GpuVk& device,
+			const Vector2ui& resolution,
+			std::span<const UIndex32> queueIndices);
+		~SwapchainVk() override;
 
-		/// <summary>
-		/// Recrea el swapchain con el tamaño de la ventana.
-		/// Para cuando se ha cambiado de tamaño la ventana.
-		/// </summary>
-		void Resize();
 
-		void SetPresentMode(PresentMode mode) override;
+		void Resize(
+			const IGpu& gpu,
+			Vector2ui newResolution) override;
+
 		void Present() override;
 
 		VkSwapchainKHR GetSwapchain() const;
 
 	private:
 
+		void CreationLogic(
+			const GpuVk& device,
+			const Vector2ui& resolution);
+
 		/// @throws SwapchainCreationException Si ocurre algún error.
-		void AcquireImages(unsigned int sizeX, unsigned int sizeY);
+		void AcquireImages(
+			const GpuVk& device, 
+			const Vector2ui& resolution);
 		/// @throws SwapchainCreationException Si ocurre algún error.
-		void AcquireViews();
+		void AcquireViews(const GpuVk& device);
 
 		/// <summary>
 		/// Devuelve el mejor formato de colores soportado por el monitor.
 		/// </summary>
 		static VkColorSpaceKHR GetSupportedColorSpace(const GpuVk& device);
 
-		VkSwapchainKHR m_swapchain = 0;
-		const IO::IDisplay* m_display = nullptr;
-		const GpuVk* m_device = nullptr;
+		VkSwapchainKHR m_swapchain = nullptr;
 
 	};
 

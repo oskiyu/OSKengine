@@ -2,38 +2,66 @@
 
 #include "OSKmacros.h"
 #include "OwnedPtr.h"
-#include <type_traits>
+
 
 namespace OSK::GRAPHICS {
 
 	class ICommandList;
 	class IGpu;
 
-	/// <summary>
-	/// Una pool de comandos se encarga de crear una serie de listas de comandos.
+	enum class CommandsSupport;
+	enum class GpuQueueType;
+
+
+	/// @brief Una pool de comandos se encarga de crear una serie de listas de comandos.
 	/// Al mismo tiempo, al destruir el pool se destruirán cada una de las listas creadas por el pool.
-	/// </summary>
 	class OSKAPI_CALL ICommandPool {
 
 	public:
 
 		virtual ~ICommandPool() = default;
 
-		/// <summary>
-		/// Crea una lista de comandos.
-		/// </summary>
-		/// <param name="device">GPU donde se alamcenarán las listas.</param>
+		OSK_DEFINE_AS(ICommandPool);
+
+
+		/// @brief Crea una lista de comandos.
+		/// @param device GPU donde se alamcenarán las listas.
+		/// @return Lista de comandos.
+		/// 
+		/// @throws CommandListCreationException si no se pudo crear la lista. 
 		virtual OwnedPtr<ICommandList> CreateCommandList(const IGpu& device) = 0;
 
-		/// <summary>
-		/// Crea una lista de comandos de un sólo uso.
-		/// </summary>
-		/// <param name="device">GPU donde se alamcenarán las listas.</param>
+		/// @brief Crea una lista de comandos de un sólo uso.
+		/// @param device GPU donde se alamcenarán las listas.
+		/// @return Lista de comandos de un único uso.
+		/// 
+		/// @throws CommandListCreationException si no se pudo crear la lista. 
 		virtual OwnedPtr<ICommandList> CreateSingleTimeCommandList(const IGpu& device) = 0;
 
-		template <typename T> T* As() const requires std::is_base_of_v<ICommandPool, T> {
-			return (T*)this;
-		}
+
+		/// @return Tipos de comandos soportados por este pool.
+		/// Las listas de comandos creadas a partir de este pool
+		/// sólamente soportarán los comandos del tipo indicado.
+		CommandsSupport GetSupportedCommands() const;
+
+		/// @return Tipo de cola en la que se puede insertar
+		/// las listas creadas por este pool.
+		GpuQueueType GetLinkedQueueType() const;
+
+	protected:
+
+		/// @brief Crea la lista.
+		/// @param supportedCommands Tipos de comandos soportados.
+		/// @param mainType Tipo de cola en la que se puede insertar
+		/// las listas creadas por este pool.
+		ICommandPool(
+			CommandsSupport supportedCommands,
+			GpuQueueType mainType);
+
+	private:
+
+		CommandsSupport m_supportedCommands;
+		GpuQueueType m_mainQueueType;
 
 	};
 

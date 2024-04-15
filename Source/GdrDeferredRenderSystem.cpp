@@ -30,11 +30,11 @@ void GdrDeferredRenderSystem::CreateUnifiedBuffers(USize32 maxVertexCount, USize
 		const USize64 uboAlignment = 0; // TODO
 
 		const auto createBufferFunc = [allocator, uboAlignment](USize64 size) {
-			return allocator->CreateBuffer(size, uboAlignment, GpuBufferUsage::STORAGE_BUFFER, GpuSharedMemoryType::GPU_AND_CPU).GetPointer();
+			return allocator->CreateBuffer(size, uboAlignment, GpuBufferUsage::STORAGE_BUFFER, GpuSharedMemoryType::GPU_AND_CPU, GpuQueueType::MAIN).GetPointer();
 		};
 
-		m_unifiedVertexBuffers[i] = allocator->CreateBuffer(sizeof(GdrVertex3D) * maxVertexCount, 0, GpuBufferUsage::VERTEX_BUFFER, GpuSharedMemoryType::GPU_AND_CPU).GetPointer();
-		m_unifiedIndexBuffers[i] = allocator->CreateBuffer(sizeof(TIndexSize) * maxVertexCount * 3, 0, GpuBufferUsage::INDEX_BUFFER, GpuSharedMemoryType::GPU_AND_CPU).GetPointer();
+		m_unifiedVertexBuffers[i] = allocator->CreateBuffer(sizeof(GdrVertex3D) * maxVertexCount, 0, GpuBufferUsage::VERTEX_BUFFER, GpuSharedMemoryType::GPU_AND_CPU, GpuQueueType::MAIN).GetPointer();
+		m_unifiedIndexBuffers[i] = allocator->CreateBuffer(sizeof(TIndexSize) * maxVertexCount * 3, 0, GpuBufferUsage::INDEX_BUFFER, GpuSharedMemoryType::GPU_AND_CPU, GpuQueueType::MAIN).GetPointer();
 
 		// Attributes
 		m_vertexPositionsBuffers[i] = createBufferFunc(sizeof(VertexPositionAttribute3D) * maxVertexCount);

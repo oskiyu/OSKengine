@@ -11,25 +11,17 @@ namespace OSK::GRAPHICS {
 
 	class CommandPoolDx12;
 	class GpuImageDx12;
+	class GpuDx12;
 
-	/// <summary>
-	/// Una lista de comandos contiene una serie de comandos que serán
-	/// enviados a la GPU para su ejecución.
-	/// La lista es creada por una pool de comandos, y se introduce
-	/// en una cola de comandos para su ejecución.
-	/// 
-	/// Esta es la implementación de la lista de comandos para el 
-	/// renderizador de DirectX 12.
-	/// </summary>
 	class OSKAPI_CALL CommandListDx12 final : public ICommandList {
 
 	public:
 
+		CommandListDx12(
+			const GpuDx12& gpu,
+			const CommandPoolDx12& commandPool);
 		CommandListDx12() = default;
 
-		void SetCommandPool(const CommandPoolDx12& commandPool);
-
-		void SetCommandList(const ComPtr<ID3D12GraphicsCommandList>& commandList);
 		ID3D12GraphicsCommandList* GetCommandList() const;
 
 		void Reset() override;
@@ -44,7 +36,20 @@ namespace OSK::GRAPHICS {
 		void BeginGraphicsRenderpass(DynamicArray<RenderPassImageInfo> colorImages, RenderPassImageInfo depthImage, const Color& color, bool autoSync) override;
 		void EndGraphicsRenderpass(bool autoSync) override;
 
-		void SetGpuImageBarrier(GpuImage* image, GpuImageLayout previousLayout, GpuImageLayout nextLayout, GpuBarrierInfo previous, GpuBarrierInfo next, const GpuImageRange& prevImageInfo) override;
+		void SetGpuImageBarrier(
+			GpuImage* image, 
+			GpuImageLayout previousLayout, 
+			GpuImageLayout nextLayout, 
+			GpuBarrierInfo previous, 
+			GpuBarrierInfo next, 
+			const GpuImageRange& range, 
+			const ResourceQueueTransferInfo queueTranfer) override;
+		void SetGpuBufferBarrier(
+			GpuBuffer* buffer,
+			const GpuBufferRange& range,
+			GpuBarrierInfo previous,
+			GpuBarrierInfo next,
+			const ResourceQueueTransferInfo queueTranfer) override;
 
 		void BindVertexBufferRange(const GpuBuffer& buffer, const VertexBufferView& view) override;
 		void BindIndexBufferRange(const GpuBuffer& buffer, const IndexBufferView& view) override;
@@ -92,7 +97,6 @@ namespace OSK::GRAPHICS {
 		void BindRayTracingPipeline(const IRaytracingPipeline& computePipeline) override;
 
 		ComPtr<ID3D12GraphicsCommandList> commandList;
-		const CommandPoolDx12* commandPool;
 
 	};
 

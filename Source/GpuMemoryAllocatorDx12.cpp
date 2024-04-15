@@ -38,7 +38,7 @@ OwnedPtr<IGpuMemoryBlock> GpuMemoryAllocatorDx12::CreateNewImageBlock(GpuImage* 
 
 
 OwnedPtr<GpuImage> GpuMemoryAllocatorDx12::CreateImage(const GpuImageCreateInfo& info) {
-	auto output = new GpuImageDx12(info.resolution, info.dimension, info.usage, info.numLayers, info.format, info.msaaSamples, info.samplerDesc);
+	auto output = new GpuImageDx12(info, Engine::GetRenderer()->GetOptimalQueue(info.queueType));
 	output->_SetPhysicalSize({
 		MATH::PrimerMultiploSuperior<uint32_t>(info.resolution.x, D3D12_TEXTURE_DATA_PITCH_ALIGNMENT),
 		info.resolution.y,

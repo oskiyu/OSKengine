@@ -133,6 +133,11 @@ namespace OSK::ECS {
 
 	private:
 
+		void LaunchJobs(
+			ISystem* system,
+			TDeltaTime deltaTime, 
+			const EventManager& eventManager);
+
 		struct SystemEntry {
 			UniquePtr<ISystem> system;
 			DynamicArray<GameObjectIndex> compatibleObjects;

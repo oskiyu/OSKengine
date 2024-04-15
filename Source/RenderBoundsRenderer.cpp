@@ -32,7 +32,7 @@ void RenderBoundsRenderer::LoadMaterials() {
 	std::array<const GpuBuffer*, NUM_RESOURCES_IN_FLIGHT> cameraUbos{};
 	for (UIndex32 i = 0; i < NUM_RESOURCES_IN_FLIGHT; i++) {
 		m_cameraUbos[i] = Engine::GetRenderer()->GetAllocator()
-			->CreateUniformBuffer(sizeof(glm::mat4) * 2 + sizeof(glm::vec4))
+			->CreateUniformBuffer(sizeof(glm::mat4) * 2 + sizeof(glm::vec4), GpuQueueType::MAIN)
 			.GetPointer();
 
 		cameraUbos[i] = m_cameraUbos[i].GetPointer();

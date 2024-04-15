@@ -98,8 +98,18 @@ void StaticMeshLoader::Load(const CpuModel3D& model, GpuModel3D* output) {
 
 	output->SetCpuModel3D(model);
 
-	output->SetVertexBuffer(Engine::GetRenderer()->GetAllocator()->CreateVertexBuffer(vertices, Vertex3D::GetVertexInfo()));
-	output->SetIndexBuffer(Engine::GetRenderer()->GetAllocator()->CreateIndexBuffer(indices));
+	output->SetVertexBuffer(
+		Engine::GetRenderer()->GetAllocator()->CreateVertexBuffer(
+			vertices, 
+			Vertex3D::GetVertexInfo(),
+			GpuQueueType::ASYNC_TRANSFER,
+			GpuQueueType::MAIN));
+
+	output->SetIndexBuffer(Engine::GetRenderer()->GetAllocator()->CreateIndexBuffer(
+		indices,
+		GpuQueueType::ASYNC_TRANSFER,
+		GpuQueueType::MAIN));
+
 	output->SetIndexCount(static_cast<USize32>(indices.GetSize()));
 }
 

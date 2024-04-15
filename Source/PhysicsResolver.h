@@ -6,7 +6,6 @@
 namespace OSK::ECS {
 
 	/// @brief Sistema que resuelve las colisiones entre entidades.
-	/// @todo Implementación.
 	class OSKAPI_CALL PhysicsResolver final : public ITypedConsumerSystem<CollisionEvent> {
 
 	public:

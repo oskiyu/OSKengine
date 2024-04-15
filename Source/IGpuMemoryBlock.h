@@ -4,6 +4,8 @@
 #include "DynamicArray.hpp"
 #include "OwnedPtr.h"
 
+#include "MutexHolder.h"
+
 namespace OSK::GRAPHICS {
 
 	class IGpuMemorySubblock;
@@ -32,6 +34,7 @@ namespace OSK::GRAPHICS {
 
 		/// @brief 
 		/// @param subblock 
+		/// @threadsafe
 		void RemoveSubblock(IGpuMemorySubblock* subblock);
 
 		
@@ -39,6 +42,8 @@ namespace OSK::GRAPHICS {
 		/// @param size Tamaño de memoria, en bytes.
 		/// @param alignment Alineamiento de la memoria necesario.
 		/// @return Subbloque con las características dadas.
+		/// 
+		/// @threadsafe
 		/// 
 		/// @throws GpuMemoryBlockNotEnoughSpaceException si no se logra obtener un bloque con
 		/// las características dadas. Esto puede ocurrir aunque en principio el bloque
@@ -48,24 +53,30 @@ namespace OSK::GRAPHICS {
 		
 		/// @brief Devuelve el tamaño total del bloque, ya esté siendo usado o no.
 		/// @return Tamaño del bloque, en bytes.
+		/// @threadsafe
 		USize64 GetAllocatedSize() const;
 				
 		/// @brief Devuelve la cantidad de memoria disponible que nunca ha sido
 		/// reclamada.
 		/// No tiene en cuenta los subbloques reutilizables.
 		/// @return Tamaño libre no usado previamente, en bytes.
+		/// 
+		/// @threadsafe
 		USize64 GetAvailableSpace() const;
 
 		/// @brief Devuelve el tipo de memoria.
 		/// @return Tipo de memoria.
+		/// @threadsafe
 		GpuSharedMemoryType GetShareType() const;
 
 		/// @brief Devuelve el uso que se le da a esta memoria.
 		/// @return Uso de la memoria (BUFFER o IMAGEN).
+		/// @threadsafe
 		GpuMemoryUsage GetUsageType() const;
 
 		/// @brief Devuelve la GPU en la que reside el bloque.
 		/// @return Gpu en la que reside el bloque.
+		/// @threadsafe
 		inline IGpu* GetGpu() const { return device; }
 
 		/// @brief Comporueba si hay alguna parte del bloque en uso.
@@ -122,6 +133,10 @@ namespace OSK::GRAPHICS {
 
 		/// @brief GPU donde reside este bloque.
 		IGpu* device = nullptr;
+
+		/// @brief Mutex para la búsqueda y alojamiento de
+		/// subbloques.
+		mutable MutexHolder m_subblockSearchMutex;
 
 	};
 

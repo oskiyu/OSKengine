@@ -2,8 +2,7 @@
 
 #include "ICommandQueue.h"
 
-struct VkQueue_T;
-typedef VkQueue_T* VkQueue;
+OSK_VULKAN_TYPEDEF(VkQueue);
 
 namespace OSK::GRAPHICS {
 
@@ -13,21 +12,24 @@ namespace OSK::GRAPHICS {
 
 	public:
 
+		/// @brief Obtiene la cola de comandos.
+		/// @param family Familia a la que pertenece la cola.
+		/// @param queueIndexInsideFamily Índice de la cola dentro de la familia.
+		/// @param queueType Tipo de cola.
+		/// @param gpu Gpu sobre la que se aloja la cola.
 		CommandQueueVk(
-			CommandQueueSupport support, 
-			UIndex32 familyIndex,
-			UIndex32 inFamilyIndex,
+			QueueFamily family,
+			UIndex32 queueIndexInsideFamily,
+			GpuQueueType queueType,
 			const GpuVk& gpu);
 
+
+		/// @return Cola nativa.
 		VkQueue GetQueue() const;
-		UIndex32 GetQueueIndex() const;
-		UIndex32 GetFamilyIndex() const;
 
 	private:
 
-		VkQueue queue = nullptr;
-		UIndex32 familyIndex = 0;
-		UIndex32 inFamilyIndex = 0;
+		VkQueue m_queue = nullptr;
 
 	};
 

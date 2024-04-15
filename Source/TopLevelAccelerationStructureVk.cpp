@@ -43,7 +43,13 @@ void TopLevelAccelerationStructureVk::Setup() {
 	}
 
 	// Geometría única del TLAS
-	instanceBuffer = memoryAllocator->CreateBuffer(sizeof(VkAccelerationStructureInstanceKHR) * instances.GetSize(), 0, GpuBufferUsage::RT_ACCELERATION_STRUCTURE_BUILDING, GpuSharedMemoryType::GPU_AND_CPU).GetPointer();
+	instanceBuffer = memoryAllocator->CreateBuffer(
+		sizeof(VkAccelerationStructureInstanceKHR) * instances.GetSize(), 
+		0, 
+		GpuBufferUsage::RT_ACCELERATION_STRUCTURE_BUILDING, 
+		GpuSharedMemoryType::GPU_AND_CPU,
+		GpuQueueType::MAIN).GetPointer();
+
 	if (!instances.IsEmpty()) {
 		instanceBuffer->MapMemory();
 		instanceBuffer->Write(instances.GetData(), sizeof(VkAccelerationStructureInstanceKHR) * instances.GetSize());
@@ -81,7 +87,12 @@ void TopLevelAccelerationStructureVk::Setup() {
 		&one,
 		&tlasSizeInfo);
 
-	accelerationStructureBuffer = memoryAllocator->CreateBuffer(tlasSizeInfo.accelerationStructureSize, 256, GpuBufferUsage::RT_ACCELERATION_STRUCTURE, GpuSharedMemoryType::GPU_ONLY).GetPointer();
+	accelerationStructureBuffer = memoryAllocator->CreateBuffer(
+		tlasSizeInfo.accelerationStructureSize, 
+		256, 
+		GpuBufferUsage::RT_ACCELERATION_STRUCTURE, 
+		GpuSharedMemoryType::GPU_ONLY,
+		GpuQueueType::MAIN).GetPointer();
 
 	// Creación
 	VkAccelerationStructureCreateInfoKHR asCreateInfo{};
@@ -103,7 +114,8 @@ void TopLevelAccelerationStructureVk::Setup() {
 		tlasSizeInfo.buildScratchSize, 
 		0, 
 		GpuBufferUsage::RT_ACCELERATION_STRUCTURE_BUILDING, 
-		GpuSharedMemoryType::GPU_AND_CPU).GetPointer();
+		GpuSharedMemoryType::GPU_AND_CPU,
+		GpuQueueType::MAIN).GetPointer();
 
 	const VkDeviceOrHostAddressConstKHR tlasBuildAddress {
 		.deviceAddress = GetBufferDeviceAddress(buildBuffer->GetMemoryBlock()->As<GpuMemoryBlockVk>()->GetVulkanBuffer(), logicalDevice)
@@ -130,9 +142,9 @@ void TopLevelAccelerationStructureVk::Setup() {
 		&tlasBuildRangeInfo
 	};
 
-	auto tlasCommandList = Engine::GetRenderer()->CreateSingleUseCommandList();
+	auto tlasCommandList = Engine::GetRenderer()->CreateSingleUseCommandList(GpuQueueType::MAIN);
 	tlasCommandList->Start();
-	RendererVk::pvkCmdBuildAccelerationStructuresKHR(tlasCommandList->As<CommandListVk>()->GetCommandBuffers()->At(tlasCommandList->_GetCommandListIndex()), 1, &tlasBuildGeometryInfo, tlasRanges.GetData());
+	RendererVk::pvkCmdBuildAccelerationStructuresKHR(tlasCommandList->As<CommandListVk>()->GetCommandBuffers()[tlasCommandList->_GetCommandListIndex()], 1, &tlasBuildGeometryInfo, tlasRanges.GetData());
 	tlasCommandList->Close();
 	Engine::GetRenderer()->SubmitSingleUseCommandList(tlasCommandList.GetPointer());
 
@@ -160,7 +172,13 @@ void TopLevelAccelerationStructureVk::Update(ICommandList* cmdList) {
 			instances[i].accelerationStructureReference = blass[i]->As<BottomLevelAccelerationStructureVk>()->GetGpuAddress().deviceAddress;
 		}
 
-		instanceBuffer = Engine::GetRenderer()->GetAllocator()->CreateBuffer(sizeof(VkAccelerationStructureInstanceKHR) * instances.GetSize(), 0, GpuBufferUsage::RT_ACCELERATION_STRUCTURE_BUILDING, GpuSharedMemoryType::GPU_AND_CPU).GetPointer();
+		instanceBuffer = Engine::GetRenderer()->GetAllocator()->CreateBuffer(
+			sizeof(VkAccelerationStructureInstanceKHR) * instances.GetSize(), 
+			0, 
+			GpuBufferUsage::RT_ACCELERATION_STRUCTURE_BUILDING, 
+			GpuSharedMemoryType::GPU_AND_CPU,
+			GpuQueueType::MAIN).GetPointer();
+
 		instanceBuffer->MapMemory();
 		instanceBuffer->Write(instances.GetData(), sizeof(VkAccelerationStructureInstanceKHR) * instances.GetSize());
 		instanceBuffer->Unmap();
@@ -204,7 +222,7 @@ void TopLevelAccelerationStructureVk::Update(ICommandList* cmdList) {
 		&tlasBuildRangeInfo
 	};
 
-	const VkCommandBuffer vkCmdList = cmdList->As<CommandListVk>()->GetCommandBuffers()->At(cmdList->_GetCommandListIndex());
+	const VkCommandBuffer vkCmdList = cmdList->As<CommandListVk>()->GetCommandBuffers()[cmdList->_GetCommandListIndex()];
 	RendererVk::pvkCmdBuildAccelerationStructuresKHR(vkCmdList, 1, &tlasBuildGeometryInfo, tlasRanges.GetData());
 
 	// Sincronización para que no se pueda usar el blas hasta que haya sido reconstruido correctamente.

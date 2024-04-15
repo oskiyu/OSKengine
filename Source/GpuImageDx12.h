@@ -14,7 +14,9 @@ namespace OSK::GRAPHICS {
 
 	public:
 
-		GpuImageDx12(const Vector3ui& size, GpuImageDimension dimension, GpuImageUsage usage, USize32 numLayers, Format format, USize32 numSamples, GpuImageSamplerDesc samplerDesc);
+		GpuImageDx12(
+			const GpuImageCreateInfo& info,
+			const ICommandQueue* queue);
 
 		void FillResourceDesc();
 		const D3D12_RESOURCE_DESC& GetResourceDesc();

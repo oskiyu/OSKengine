@@ -4,6 +4,7 @@
 #include "IRenderer.h"
 #include "MaterialSystem.h"
 #include "Material.h"
+#include "CopyImageInfo.h"
 
 using namespace OSK;
 using namespace OSK::GRAPHICS;

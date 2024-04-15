@@ -43,6 +43,8 @@
 #include "UiButton.h"
 #include "UiDropdown.h"
 
+#include "AssetLoaderJob.h"
+
 #include "PcUserInput.h"
 #include "GpuImageDimensions.h"
 #include "GpuImageUsage.h"
@@ -114,6 +116,7 @@
 #include "PreBuiltSpline3D.h"
 
 #include "FileIO.h"
+#include "StopWatch.h"
 
 #include <thread>
 
@@ -157,25 +160,28 @@ protected:
 	}
 
 	void OnCreate() override {
+		StopWatch stopWatch{};
+		stopWatch.Start();
+
 		// Material load
 		material = Engine::GetRenderer()->GetMaterialSystem()->LoadMaterial("Resources/Materials/PBR/direct_pbr.json"); //Resources/PbrMaterials/deferred_gbuffer.json
 		material2d = Engine::GetRenderer()->GetMaterialSystem()->LoadMaterial("Resources/Materials/2D/material_2d.json");
 		materialRenderTarget = Engine::GetRenderer()->GetMaterialSystem()->LoadMaterial("Resources/Materials/2D/material_rendertarget.json");
 
 		SpawnCar();
+		SpawnCircuit();
 
 		SpawnCamera();
 		SpawnCamera2D();
 
 		SetupRenderSystems();
-				
-		SpawnCircuit();
+		
 		SpawnSecondCollider();
 		
 		SetupRenderTargets();
 		SetupPostProcessingChain();
 
-		spriteRenderer.SetCommandList(Engine::GetRenderer()->GetGraphicsCommandList());
+		spriteRenderer.SetCommandList(Engine::GetRenderer()->GetMainCommandList());
 
 		// Font loading
 		font = Engine::GetAssetManager()->Load<ASSETS::Font>("Resources/Assets/Fonts/font0.json");
@@ -197,6 +203,13 @@ protected:
 		source->SetLooping(true);
 		source->SetGain(0.05f);
 		source->Play();
+
+		// Esperar a la carga completa.
+		Engine::GetJobSystem()->WaitForJobs<AssetLoaderJob>();
+
+		stopWatch.Stop();
+
+		Engine::GetLogger()->InfoLog(std::format("Tiempo de carga: {} segundos", stopWatch.GetElapsedTime()));
 	}
 
 	void SetupUi() {
@@ -628,12 +641,11 @@ protected:
 	}
 
 	void BuildFrame() override {
-		auto graphicsCommandList = Engine::GetRenderer()->GetGraphicsCommandList();
-		auto frameBuildCommandList = Engine::GetRenderer()->GetFrameBuildCommandList();
+		auto commandList = Engine::GetRenderer()->GetMainCommandList();
 		auto renderpass = Engine::GetRenderer()->GetFinalRenderTarget();
 
 		static SpriteRenderer spriteRenderer{};
-		spriteRenderer.SetCommandList(graphicsCommandList);
+		spriteRenderer.SetCommandList(commandList);
 
 		const Vector4ui windowRec = {
 			0,
@@ -645,12 +657,12 @@ protected:
 		Viewport viewport{};
 		viewport.rectangle = windowRec;
 
-		graphicsCommandList->SetViewport(viewport);
-		graphicsCommandList->SetScissor(windowRec);
+		commandList->SetViewport(viewport);
+		commandList->SetScissor(windowRec);
 
 		// Render text
-		graphicsCommandList->StartDebugSection("Text Rendering", Color::Blue);
-		graphicsCommandList->BeginGraphicsRenderpass(textRenderTarget.GetPointer(), Color::Black * 0.0f);
+		commandList->StartDebugSection("Text Rendering", Color::Blue);
+		commandList->BeginGraphicsRenderpass(textRenderTarget.GetPointer(), Color::Black * 0.0f);
 
 		spriteRenderer.Begin();
 		spriteRenderer.SetCamera(cameraObject2d);
@@ -671,48 +683,48 @@ protected:
 
 		spriteRenderer.End();
 
-		graphicsCommandList->EndGraphicsRenderpass();
-		graphicsCommandList->EndDebugSection();
+		commandList->EndGraphicsRenderpass();
+		commandList->EndDebugSection();
 
 		// Full-screen rendering
 		//
 		// Pre-Effects
-		frameBuildCommandList->StartDebugSection("Pre-Effects Frame build", Color(0, 1, 0));
+		commandList->StartDebugSection("Pre-Effects Frame build", Color(0, 1, 0));
 
 		auto skyboxRenderSystemImg = Engine::GetEcs()->GetSystem<ECS::SkyboxRenderSystem>()->GetRenderTarget().GetMainColorImage();
 		auto renderSystemImg = Engine::GetEcs()->GetSystem<OSK_CURRENT_RSYSTEM>()->GetRenderTarget().GetMainColorImage();
 
-		frameBuildCommandList->SetGpuImageBarrier(
+		commandList->SetGpuImageBarrier(
 			skyboxRenderSystemImg,
 			GpuImageLayout::SAMPLED,
 			GpuBarrierInfo(GpuCommandStage::COMPUTE_SHADER, GpuAccessStage::SAMPLED_READ));
 
-		frameBuildCommandList->SetGpuImageBarrier(
+		commandList->SetGpuImageBarrier(
 			renderSystemImg,
 			GpuImageLayout::SAMPLED,
 			GpuBarrierInfo(GpuCommandStage::COMPUTE_SHADER, GpuAccessStage::SAMPLED_READ));
 
 		GpuImageViewConfig viewConfig = GpuImageViewConfig::CreateSampled_SingleMipLevel(0);
 
-		preEffectsFrameCombiner->Begin(frameBuildCommandList, FrameCombiner::ImageFormat::RGBA16);
-		preEffectsFrameCombiner->Draw(frameBuildCommandList, *skyboxRenderSystemImg->GetView(viewConfig));
-		preEffectsFrameCombiner->Draw(frameBuildCommandList, *renderSystemImg->GetView(viewConfig));
-		preEffectsFrameCombiner->End(frameBuildCommandList);
+		preEffectsFrameCombiner->Begin(commandList, FrameCombiner::ImageFormat::RGBA16);
+		preEffectsFrameCombiner->Draw(commandList, *skyboxRenderSystemImg->GetView(viewConfig));
+		preEffectsFrameCombiner->Draw(commandList, *renderSystemImg->GetView(viewConfig));
+		preEffectsFrameCombiner->End(commandList);
 
-		frameBuildCommandList->EndDebugSection();
+		commandList->EndDebugSection();
 
 		// Post-processing effects:
 		if (config.useHbao)
-			hbaoPass->Execute(Engine::GetRenderer()->GetPostComputeCommandList());
+			hbaoPass->Execute(commandList);
 		if (config.useBloom)
-			bloomPass->Execute(Engine::GetRenderer()->GetPostComputeCommandList());
-		toneMappingPass->Execute(Engine::GetRenderer()->GetPostComputeCommandList());
+			bloomPass->Execute(commandList);
+		toneMappingPass->Execute(commandList);
 
 		// Frame build:
-		frameBuildCommandList->StartDebugSection("Final Frame build", Color(0, 1, 0));
+		commandList->StartDebugSection("Final Frame build", Color(0, 1, 0));
 		auto* colliderRenderSystem = Engine::GetEcs()->GetSystem<ECS::ColliderRenderSystem>();
 		if (colliderRenderSystem) {
-			frameBuildCommandList->SetGpuImageBarrier(
+			commandList->SetGpuImageBarrier(
 				colliderRenderSystem->GetRenderTarget().GetMainColorImage(),
 				GpuImageLayout::SAMPLED,
 				GpuBarrierInfo(GpuCommandStage::FRAGMENT_SHADER, GpuAccessStage::SAMPLED_READ));
@@ -720,40 +732,40 @@ protected:
 
 		auto* boundsRenderSystem = Engine::GetEcs()->GetSystem<ECS::RenderBoundsRenderer>();
 		if (boundsRenderSystem) {
-			frameBuildCommandList->SetGpuImageBarrier(
+			commandList->SetGpuImageBarrier(
 				boundsRenderSystem->GetRenderTarget().GetMainColorImage(),
 				GpuImageLayout::SAMPLED,
 				GpuBarrierInfo(GpuCommandStage::FRAGMENT_SHADER, GpuAccessStage::SAMPLED_READ));
 		}
 
 		// Sync
-		frameBuildCommandList->SetGpuImageBarrier(
+		commandList->SetGpuImageBarrier(
 			toneMappingPass->GetOutput().GetTargetImage(),
 			GpuImageLayout::SAMPLED,
 			GpuBarrierInfo(GpuCommandStage::FRAGMENT_SHADER, GpuAccessStage::SAMPLED_READ));
-		frameBuildCommandList->SetGpuImageBarrier(
+		commandList->SetGpuImageBarrier(
 			textRenderTarget->GetMainColorImage(),
 			GpuImageLayout::SAMPLED,
 			GpuBarrierInfo(GpuCommandStage::FRAGMENT_SHADER, GpuAccessStage::SAMPLED_READ));
 
-		frameBuildCommandList->BindVertexBuffer(*Sprite::globalVertexBuffer);
-		frameBuildCommandList->BindIndexBuffer(*Sprite::globalIndexBuffer);
+		commandList->BindVertexBuffer(*Sprite::globalVertexBuffer);
+		commandList->BindIndexBuffer(*Sprite::globalIndexBuffer);
 
-		frameBuildCommandList->SetViewport(viewport);
-		frameBuildCommandList->SetScissor(windowRec);
+		commandList->SetViewport(viewport);
+		commandList->SetScissor(windowRec);
 
-		frameBuildCommandList->BeginGraphicsRenderpass(renderpass);
-		frameBuildCommandList->BindMaterial(*Engine::GetRenderer()->GetFullscreenRenderingMaterial());
+		commandList->BeginGraphicsRenderpass(renderpass);
+		commandList->BindMaterial(*Engine::GetRenderer()->GetFullscreenRenderingMaterial());
 
-		frameBuildCommandList->BindMaterialSlot(*toneMappingPass->GetOutput().GetFullscreenSpriteMaterialSlot());
-		frameBuildCommandList->DrawSingleInstance(6);
+		commandList->BindMaterialSlot(*toneMappingPass->GetOutput().GetFullscreenSpriteMaterialSlot());
+		commandList->DrawSingleInstance(6);
 
-		frameBuildCommandList->BindMaterialSlot(*textRenderTarget->GetFullscreenSpriteMaterialSlot());
-		frameBuildCommandList->DrawSingleInstance(6);
+		commandList->BindMaterialSlot(*textRenderTarget->GetFullscreenSpriteMaterialSlot());
+		commandList->DrawSingleInstance(6);
 
 		if (colliderRenderSystem && colliderRenderSystem->IsActive()) {
-			frameBuildCommandList->BindMaterialSlot(*colliderRenderSystem->GetRenderTarget().GetFullscreenSpriteMaterialSlot());
-			frameBuildCommandList->DrawSingleInstance(6);
+			commandList->BindMaterialSlot(*colliderRenderSystem->GetRenderTarget().GetFullscreenSpriteMaterialSlot());
+			commandList->DrawSingleInstance(6);
 		}
 
 		if (boundsRenderSystem && boundsRenderSystem->IsActive()) {
@@ -761,11 +773,11 @@ protected:
 			frameBuildCommandList->DrawSingleInstance(6);*/
 		}
 
-		frameBuildCommandList->EndGraphicsRenderpass();
+		commandList->EndGraphicsRenderpass();
 
-		frameBuildCommandList->EndDebugSection();
+		commandList->EndDebugSection();
 
-		frameBuildCommandList->SetGpuImageBarrier(
+		commandList->SetGpuImageBarrier(
 			Engine::GetRenderer()->_GetSwapchain()->GetImage(Engine::GetRenderer()->GetCurrentResourceIndex()),
 			GpuImageLayout::COLOR_ATTACHMENT,
 			GpuImageLayout::PRESENT,
@@ -924,7 +936,7 @@ private:
 
 			const GpuBuffer* epxBuffers[NUM_RESOURCES_IN_FLIGHT]{};
 			for (UIndex32 i = 0; i < exposureBuffers.size(); i++) {
-				exposureBuffers[i] = Engine::GetRenderer()->GetAllocator()->CreateStorageBuffer(sizeof(float)).GetPointer();
+				exposureBuffers[i] = Engine::GetRenderer()->GetAllocator()->CreateStorageBuffer(sizeof(float), GpuQueueType::MAIN).GetPointer();
 				epxBuffers[i] = exposureBuffers[i].GetPointer();
 
 				exposureBuffers[i]->MapMemory();
@@ -973,9 +985,14 @@ private:
 	}
 
 	void SetupRenderSystems() {
-		auto skyboxTexture = Engine::GetAssetManager()->Load<CubemapTexture>("Resources/Assets/Skyboxes/skybox0.json");
-		auto specularMap = Engine::GetAssetManager()->Load<SpecularMap>("Resources/Assets/IBL/irradiance0.json");
-		auto irradianceMap = Engine::GetAssetManager()->Load<IrradianceMap>("Resources/Assets/IBL/specular0.json");
+		DynamicArray<std::string> tags{};
+		tags.Insert("RENDER_SYSTEM_RESOURCES");
+
+		auto skyboxTexture = Engine::GetAssetManager()->LoadAsync<CubemapTexture>("Resources/Assets/Skyboxes/skybox0.json", tags.GetFullSpan());
+		auto specularMap = Engine::GetAssetManager()->LoadAsync<SpecularMap>("Resources/Assets/IBL/irradiance0.json", tags.GetFullSpan());
+		auto irradianceMap = Engine::GetAssetManager()->LoadAsync<IrradianceMap>("Resources/Assets/IBL/specular0.json", tags.GetFullSpan());
+
+		Engine::GetJobSystem()->WaitForTag(tags[0]);
 
 		// PBR Render System
 		OSK_CURRENT_RSYSTEM* renderSystem = Engine::GetEcs()->GetSystem<OSK_CURRENT_RSYSTEM>();
@@ -1029,7 +1046,6 @@ private:
 	void SpawnCar() {
 		{
 			carObject = Engine::GetEcs()->SpawnObject();
-			Engine::GetLogger()->InfoLog(std::format("\tCar: {}", carObject));
 
 			// Setup del transform
 			Transform3D& transform = Engine::GetEcs()->AddComponent<Transform3D>(carObject, ECS::Transform3D(carObject));
@@ -1037,8 +1053,9 @@ private:
 
 			// Setup de físicas
 			auto& physicsComponent = Engine::GetEcs()->AddComponent<PhysicsComponent>(carObject, {});
-			physicsComponent.SetMass(4.0f);
+			physicsComponent.SetMass(400.0f);
 			physicsComponent.centerOfMassOffset = Vector3f(0.0f, 0.17f * 0.5f, 0.0f);
+			physicsComponent.coefficientOfRestitution = 0.5f;
 
 			// Setup de colisiones
 			CollisionComponent collider{};
@@ -1053,7 +1070,7 @@ private:
 			Engine::GetEcs()->AddComponent<CollisionComponent>(carObject, std::move(collider));
 
 			// Setup del modelo 3D
-			auto carModel = Engine::GetAssetManager()->Load<Model3D>("Resources/Assets/Models/ow.json");
+			auto carModel = Engine::GetAssetManager()->LoadAsync<Model3D>("Resources/Assets/Models/ow.json");
 
 			ModelComponent3D* modelComponent = &Engine::GetEcs()->AddComponent<ModelComponent3D>(carObject, {});
 
@@ -1072,8 +1089,9 @@ private:
 
 			// Setup de físicas
 			auto& physicsComponent = Engine::GetEcs()->AddComponent<PhysicsComponent>(carObject2, {});
-			physicsComponent.SetMass(4.0f);
+			physicsComponent.SetMass(400.0f);
 			physicsComponent.centerOfMassOffset = Vector3f(0.0f, 0.17f * 0.5f, 0.0f);
+			physicsComponent.coefficientOfRestitution = 0.5f;
 
 			// Setup de colisiones
 			CollisionComponent collider{};
@@ -1087,7 +1105,7 @@ private:
 			Engine::GetEcs()->AddComponent<CollisionComponent>(carObject2, std::move(collider));
 
 			// Setup del modelo 3D
-			auto carModel = Engine::GetAssetManager()->Load<Model3D>("Resources/Assets/Models/mclaren.json");
+			auto carModel = Engine::GetAssetManager()->LoadAsync<Model3D>("Resources/Assets/Models/mclaren.json");
 
 			ModelComponent3D* modelComponent = &Engine::GetEcs()->AddComponent<ModelComponent3D>(carObject2, {});
 
@@ -1099,13 +1117,12 @@ private:
 
 	void SpawnCircuit() {
 		circuitObject = Engine::GetEcs()->SpawnObject();
-		Engine::GetLogger()->InfoLog(std::format("\tCircuit: {}", circuitObject));
 
 		// Transform
 		Engine::GetEcs()->AddComponent<Transform3D>(circuitObject, Transform3D(circuitObject));
 
 		// Modelo 3D
-		auto circuitModel = Engine::GetAssetManager()->Load<Model3D>("Resources/Assets/Models/circuit0.json");
+		auto circuitModel = Engine::GetAssetManager()->LoadAsync<Model3D>("Resources/Assets/Models/circuit0.json");
 
 		ModelComponent3D* modelComponent = &Engine::GetEcs()->AddComponent<ModelComponent3D>(circuitObject, {});
 
@@ -1137,13 +1154,14 @@ private:
 
 		Engine::GetEcs()->AddComponent<Transform3D>(billboards, Transform3D(billboards));
 
-		auto billboardsModel = Engine::GetAssetManager()->Load<Model3D>("Resources/Assets/Models/circuit0_billboards.json");
+		auto billboardsModel = Engine::GetAssetManager()->LoadAsync<Model3D>("Resources/Assets/Models/circuit0_billboards.json");
 
 		ModelComponent3D* billboardsModelComponent = &Engine::GetEcs()->AddComponent<ModelComponent3D>(billboards, {});
 
 		billboardsModelComponent->SetModel(billboardsModel); // animModel
 		PhysicsComponent billboardsPhysicsComponent{};
 		billboardsPhysicsComponent.SetImmovable();
+		billboardsPhysicsComponent.coefficientOfRestitution = 0.05f;
 		Engine::GetEcs()->AddComponent<PhysicsComponent>(billboards, std::move(billboardsPhysicsComponent));
 
 		// Tree normals
@@ -1151,7 +1169,7 @@ private:
 
 		Engine::GetEcs()->AddComponent<Transform3D>(treeNormals, Transform3D(treeNormals));
 
-		auto treeNormalsModel = Engine::GetAssetManager()->Load<Model3D>("Resources/Assets/Models/circuit0_tree_normals.json");
+		auto treeNormalsModel = Engine::GetAssetManager()->LoadAsync<Model3D>("Resources/Assets/Models/circuit0_tree_normals.json");
 
 		ModelComponent3D* treeNormalsModelComponent = &Engine::GetEcs()->AddComponent<ModelComponent3D>(treeNormals, {});
 
@@ -1167,7 +1185,7 @@ private:
 
 		Engine::GetEcs()->AddComponent<Transform3D>(trees, Transform3D(trees));
 
-		auto treesModel = Engine::GetAssetManager()->Load<Model3D>("Resources/Assets/Models/circuit0_trees.json");
+		auto treesModel = Engine::GetAssetManager()->LoadAsync<Model3D>("Resources/Assets/Models/circuit0_trees.json");
 
 		ModelComponent3D* treesModelComponent = &Engine::GetEcs()->AddComponent<ModelComponent3D>(trees, {});
 
@@ -1179,7 +1197,7 @@ private:
 		Engine::GetEcs()->AddComponent<PhysicsComponent>(trees, std::move(treesPhysicsComponent));
 
 		// Spline test
-		auto spline = Engine::GetAssetManager()->Load<PreBuiltSpline3D>("Resources/Assets/Curves/circuit0.json");
+		auto spline = Engine::GetAssetManager()->LoadAsync<PreBuiltSpline3D>("Resources/Assets/Curves/circuit0.json");
 		auto& loadedSpline = spline->Get();
 	}
 

@@ -10,6 +10,7 @@
 #include "PbrMaterialInfo.h"
 
 #include "ModelComponent3D.h"
+#include "TextureLoader.h"
 
 
 using namespace OSK;
@@ -55,7 +56,12 @@ void IShaderPass::SetupMaterialInstance(const GpuModel3D& model, const GpuMesh3D
 	auto& meshData = modelData.GetMeshData(mesh.GetUuid());
 
 	meshData._SetMaterialInstance(m_passMaterial->CreateInstance().GetPointer());
-	meshData._SetMaterialBuffer(Engine::GetRenderer()->GetAllocator()->CreateBuffer(sizeof(PbrMaterialInfo), 0, GpuBufferUsage::UNIFORM_BUFFER, GpuSharedMemoryType::GPU_AND_CPU));
+	meshData._SetMaterialBuffer(Engine::GetRenderer()->GetAllocator()->CreateBuffer(
+		sizeof(PbrMaterialInfo), 
+		0, 
+		GpuBufferUsage::UNIFORM_BUFFER, 
+		GpuSharedMemoryType::GPU_AND_CPU,
+		GpuQueueType::MAIN));
 
 	// Material Instance
 	const GpuImageViewConfig view = GpuImageViewConfig::CreateSampled_Default();
@@ -68,6 +74,7 @@ void IShaderPass::SetupMaterialInstance(const GpuModel3D& model, const GpuMesh3D
 
 	const auto& material = model.GetMaterial(mesh.GetMaterialIndex());
 	
+	auto* textureLoader = Engine::GetAssetManager()->GetLoader<TextureLoader>();
 	const auto& textureTable = model.GetTextureTable();
 	
 	const auto* colorTexture = material.colorTextureIndex.has_value()

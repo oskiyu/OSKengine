@@ -6,6 +6,8 @@
 #include "Quaternion.h"
 
 #include "Serializer.h"
+#include "MutexHolder.h"
+#include "AtomicHolder.h"
 
 
 namespace OSK::ECS {
@@ -32,56 +34,114 @@ namespace OSK::ECS {
 
 				
 		/// @brief Establece la posición local.
-		/// @note También actualiza la matriz modelo, y la de sus hijos.
-		/// 
 		/// @param position Nueva posición respecto al padre.
 		void SetPosition(const Vector3f& position);
 
 		/// @brief Establece la escala local.
-		/// @note También actualiza la matriz modelo, y la de sus hijos.
-		/// 
 		/// @param scale Nueva escala respecto al padre.
 		void SetScale(const Vector3f& scale);
 
 		/// @brief Establece la rotación local.
-		/// @note También actualiza la matriz modelo, y la de sus hijos.
-		/// 
 		/// @param rotation Nueva rotación respecto al padre.
 		void SetRotation(const Quaternion& rotation);
 
 
 		/// @brief Suma el vector 3D a la posición.
-		/// @note También actualiza la matriz modelo, y la de sus hijos.
-		/// 
 		/// @param positionDelta Cambio de posición.
 		void AddPosition(const Vector3f& positionDelta);
 
-		/// @brief Suma un vector 3D a la escala.
-		/// @note También actualiza la matriz modelo, y la de sus hijos.
+		/// @brief Suma el vector 3D a la posición.
+		/// @param positionDelta Cambio de posición.
 		/// 
+		/// @pre No debe haber ningún otro hilo llamando a _ApplyChanges().
+		/// @pre No debe haber ningún otro hilo lllamando a AddPosition().
+		/// @threadsafety Esta función es thread-safe, siempre y
+		/// cuando se cumplan las precondiciones.
+		/// 
+		/// @note En condiciones normales, sólamente se llama a _ApplyChanges()
+		/// en el sistema TransformApplierSystem (que se ejecuta de
+		/// manera exclusiva).
+		void AddPosition_ThreadSafe(const Vector3f& positionDelta);
+
+
+		/// @brief Suma un vector 3D a la escala.
 		/// @param scaleDelta Cambio de escala.
 		void AddScale(const Vector3f& scaleDelta);
 
-		/// @brief Aplica una rotación al transform.
-		/// @note También actualiza la matriz modelo, y la de sus hijos.
+		/// @brief Suma un vector 3D a la escala.
+		/// @param scaleDelta Cambio de escala.
 		/// 
+		/// @pre No debe haber ningún otro hilo llamando a _ApplyChanges().
+		/// @pre No debe haber ningún otro hilo lllamando a AddPosition().
+		/// @threadsafety Esta función es thread-safe, siempre y
+		/// cuando se cumplan las precondiciones.
+		/// 
+		/// @note En condiciones normales, sólamente se llama a _ApplyChanges()
+		/// en el sistema TransformApplierSystem (que se ejecuta de
+		/// manera exclusiva).
+		void AddScale_ThreadSafe(const Vector3f& scaleDelta);
+
+
+		/// @brief Aplica una rotación al transform.
 		/// @param rotationDelta Cambio de rotación.
 		void ApplyRotation(const Quaternion& rotationDelta);
 
+		/// @brief Aplica una rotación al transform.
+		/// @param rotationDelta Cambio de rotación.
+		/// 
+		/// @pre No debe haber ningún otro hilo llamando a _ApplyChanges().
+		/// @pre No debe haber ningún otro hilo lllamando a AddPosition().
+		/// @threadsafety Esta función es thread-safe, siempre y
+		/// cuando se cumplan las precondiciones.
+		/// 
+		/// @note En condiciones normales, sólamente se llama a _ApplyChanges()
+		/// en el sistema TransformApplierSystem (que se ejecuta de
+		/// manera exclusiva).
+		void ApplyRotation_ThreadSafe(const Quaternion& rotationDelta);
+
 		
 		/// @brief Rota el transform respecto a sí mismo.
-		/// @note También actualiza la matriz modelo, y la de sus hijos.
 		/// @param angle Ángulo.
 		/// @param axis Eje sobre el que se rota.
 		/// @pre El ángulo debe estar en grados.
 		void RotateLocalSpace(float angle, const Vector3f& axis);
 
+		/// @brief Rota el transform respecto a sí mismo.
+		/// @param angle Ángulo.
+		/// @param axis Eje sobre el que se rota.
+		/// @pre El ángulo debe estar en grados.
+		/// 
+		/// @pre No debe haber ningún otro hilo llamando a _ApplyChanges().
+		/// @pre No debe haber ningún otro hilo lllamando a AddPosition().
+		/// @threadsafety Esta función es thread-safe, siempre y
+		/// cuando se cumplan las precondiciones.
+		/// 
+		/// @note En condiciones normales, sólamente se llama a _ApplyChanges()
+		/// en el sistema TransformApplierSystem (que se ejecuta de
+		/// manera exclusiva).
+		void RotateLocalSpace_ThreadSafe(float angle, const Vector3f& axis);
+
+
 		/// @brief Rota el transform respecto al mundo.
 		/// @param angle Ángulo.
 		/// @param axis Eje sobre el que se rota.
-		/// @note También actualiza la matriz modelo, y la de sus hijos.
 		/// @pre El ángulo debe estar en grados.
 		void RotateWorldSpace(float angle, const Vector3f& axis);
+
+		/// @brief Rota el transform respecto al mundo.
+		/// @param angle Ángulo.
+		/// @param axis Eje sobre el que se rota.
+		/// @pre El ángulo debe estar en grados.
+		/// 
+		/// @pre No debe haber ningún otro hilo llamando a _ApplyChanges().
+		/// @pre No debe haber ningún otro hilo lllamando a AddPosition().
+		/// @threadsafety Esta función es thread-safe, siempre y
+		/// cuando se cumplan las precondiciones.
+		/// 
+		/// @note En condiciones normales, sólamente se llama a _ApplyChanges()
+		/// en el sistema TransformApplierSystem (que se ejecuta de
+		/// manera exclusiva).
+		void RotateWorldSpace_ThreadSafe(float angle, const Vector3f& axis);
 
 
 		/// @brief Transforma un punto respecto a este transform.
@@ -199,13 +259,20 @@ namespace OSK::ECS {
 
 		// --- Changes --- //
 
-		bool m_isPositionDirty = false;
-		bool m_isRotationDirty = false;
-		bool m_isScaleDirty = false;
+		AtomicHolder<bool> m_isPositionDirty = AtomicHolder<bool>(false);
+		AtomicHolder<bool> m_isRotationDirty = AtomicHolder<bool>(false);
+		AtomicHolder<bool> m_isScaleDirty = AtomicHolder<bool>(false);
 
 		Vector3f m_changeInPosition = Vector3f::Zero;
 		Quaternion m_changeInRotation = {};
 		Vector3f m_changeInScale = Vector3f::Zero;
+
+
+		// Multithreading
+
+		MutexHolder m_positionMutex;
+		MutexHolder m_rotationMutex;
+		MutexHolder m_scaleMutex;
 
 	};
 

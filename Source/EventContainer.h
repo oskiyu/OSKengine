@@ -23,6 +23,7 @@ namespace OSK::ECS {
 			EventQueueSpan output{};
 			output.data = eventQueue.GetData();
 			output.numEntries = eventQueue.GetSize();
+			output.eventSize = sizeof(TEvent);
 
 			return output;
 		}

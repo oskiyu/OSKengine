@@ -50,17 +50,35 @@ void Transform3D::SetRotation(const Quaternion& nRotation) {
 
 void Transform3D::AddPosition(const Vector3f& positionDelta) {
 	m_changeInPosition += positionDelta;
-	m_isPositionDirty = true;
+	m_isPositionDirty.atomic = true;
+}
+
+void Transform3D::AddPosition_ThreadSafe(const Vector3f& positionDelta) {
+	std::lock_guard lock(m_positionMutex.mutex);
+	m_changeInPosition += positionDelta;
+	m_isPositionDirty.atomic = true;
 }
 
 void Transform3D::AddScale(const Vector3f& scaleDelta) {
 	m_changeInScale += scaleDelta;
-	m_isScaleDirty = true;
+	m_isScaleDirty.atomic = true;
+}
+
+void Transform3D::AddScale_ThreadSafe(const Vector3f& scaleDelta) {
+	std::lock_guard lock(m_scaleMutex.mutex);
+	m_changeInScale += scaleDelta;
+	m_isScaleDirty.atomic = true;
 }
 
 void Transform3D::ApplyRotation(const Quaternion& rotationDelta) {
 	m_changeInRotation += rotationDelta;
-	m_isRotationDirty = true;
+	m_isRotationDirty.atomic = true;
+}
+
+void Transform3D::ApplyRotation_ThreadSafe(const Quaternion& rotationDelta) {
+	std::lock_guard lock(m_rotationMutex.mutex);
+	m_changeInRotation += rotationDelta;
+	m_isRotationDirty.atomic = true;
 }
 
 void Transform3D::RotateLocalSpace(float angle, const Vector3f& axis) {
@@ -69,8 +87,14 @@ void Transform3D::RotateLocalSpace(float angle, const Vector3f& axis) {
 	const Quaternion difference = copy - m_localRotation;
 
 	ApplyRotation(difference);
-	// m_isRotationDirty = true;
-	// m_localRotation.Rotate_LocalSpace(angle, axis);
+}
+
+void Transform3D::RotateLocalSpace_ThreadSafe(float angle, const Vector3f& axis) {
+	auto copy = Quaternion(m_localRotation);
+	copy.Rotate_WorldSpace(angle, axis);
+	const Quaternion difference = copy - m_localRotation;
+
+	ApplyRotation_ThreadSafe(difference);
 }
 
 void Transform3D::RotateWorldSpace(float angle, const Vector3f& axis) {
@@ -79,8 +103,14 @@ void Transform3D::RotateWorldSpace(float angle, const Vector3f& axis) {
 	const Quaternion difference = copy - m_localRotation;
 
 	ApplyRotation(difference);
-	// m_isRotationDirty = true;
-	// m_localRotation.Rotate_WorldSpace(angle, axis);
+}
+
+void Transform3D::RotateWorldSpace_ThreadSafe(float angle, const Vector3f& axis) {
+	auto copy = Quaternion(m_localRotation);
+	copy.Rotate_WorldSpace(angle, axis);
+	const Quaternion difference = copy - m_localRotation;
+
+	ApplyRotation_ThreadSafe(difference);
 }
 
 void Transform3D::AddChild(ECS::GameObjectIndex obj) {
@@ -160,29 +190,29 @@ void Transform3D::SetShouldInheritScale(bool value) {
 
 void Transform3D::_ApplyChanges(std::optional<const Transform3D*> parent) {
 	const bool isAnyDirty =
-		m_isPositionDirty ||
-		m_isRotationDirty ||
-		m_isScaleDirty;
+		m_isPositionDirty.atomic ||
+		m_isRotationDirty.atomic ||
+		m_isScaleDirty.atomic;
 
-	if (m_isPositionDirty) {
+	if (m_isPositionDirty.atomic) {
 		m_localPosition += m_changeInPosition;
 		m_changeInPosition = Vector3f::Zero;
 
-		m_isPositionDirty = false;
+		m_isPositionDirty.atomic = false;
 	}
 
-	if (m_isRotationDirty) {
+	if (m_isRotationDirty.atomic) {
 		m_localRotation += m_changeInRotation;
 		m_changeInRotation = Quaternion::Empty();
 
-		m_isRotationDirty = false;
+		m_isRotationDirty.atomic = false;
 	}
 
-	if (m_isScaleDirty) {
+	if (m_isScaleDirty.atomic) {
 		m_localScale += m_changeInScale;
 		m_changeInScale = Vector3f::Zero;
 
-		m_isScaleDirty = false;
+		m_isScaleDirty.atomic = false;
 	}
 
 	if (isAnyDirty) {
@@ -244,7 +274,7 @@ nlohmann::json PERSISTENCE::SerializeJson<OSK::ECS::Transform3D>(const OSK::ECS:
 
 template <>
 OSK::ECS::Transform3D PERSISTENCE::DeserializeJson<OSK::ECS::Transform3D>(const nlohmann::json& json) {
-	Transform3D output = Transform3D::FromMatrix(json["owner"], DeserializeJson<glm::mat4>(json["m_matrix"]));
+	Transform3D output = Transform3D::FromMatrix(GameObjectIndex(json["owner"]), DeserializeJson<glm::mat4>(json["m_matrix"]));
 
 	output.m_inheritPosition = json["m_inheritPosition"];
 	output.m_inheritRotation = json["m_inheritRotation"];

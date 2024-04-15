@@ -25,7 +25,7 @@ namespace OSK::GRAPHICS {
 		~RendererDx12();
 		void Initialize(const std::string& appName, const Version& version, const IO::IDisplay& display, PresentMode mode) override;
 		void Close() override;
-		void HandleResize() override;
+		void HandleResize(const Vector2ui& resolution) override;
 
 		void PresentFrame() override;
 		void SubmitSingleUseCommandList(OwnedPtr<ICommandList> commandList) override;
@@ -36,6 +36,8 @@ namespace OSK::GRAPHICS {
 		OwnedPtr<IComputePipeline> _CreateComputePipeline(const PipelineCreateInfo& pipelineInfo, const MaterialLayout& layout) override;
 		OwnedPtr<IMaterialSlot> _CreateMaterialSlot(const std::string& name, const MaterialLayout& layout) const override;
 
+		OwnedPtr<ICommandPool> CreateCommandPool(const ICommandQueue* targetQueueType) override;
+
 		bool SupportsRaytracing() const override;
 
 		USize32 GetCurrentFrameIndex() const override;
@@ -43,10 +45,8 @@ namespace OSK::GRAPHICS {
 
 	protected:
 
-		const TByte* FormatImageDataForGpu(const GpuImage* image, const TByte* data, USize32 numLayers) override;
-
 		void CreateCommandQueues() override;
-		void CreateSwapchain(PresentMode mode) override;
+		void CreateSwapchain(PresentMode mode, const Vector2ui& resolution) override;
 		void CreateGpuMemoryAllocator() override;
 
 	private:

@@ -29,6 +29,8 @@
 #include "IGpuImageView.h"
 #include "ComputePipelineDx12.h"
 
+#include "CopyImageInfo.h"
+
 using namespace OSK;
 using namespace OSK::GRAPHICS;
 
@@ -40,21 +42,24 @@ USize64 Multiplo256(USize64 original) {
 	return output * 256;
 }
 
-void CommandListDx12::SetCommandList(const ComPtr<ID3D12GraphicsCommandList>& commandList) {
-	this->commandList = commandList;
+CommandListDx12::CommandListDx12(const GpuDx12& gpu, const CommandPoolDx12& commandPool) : ICommandList(&commandPool) {
+	gpu.GetDevice()->CreateCommandList(
+		0, 
+		D3D12_COMMAND_LIST_TYPE_DIRECT,
+		commandPool.GetCommandAllocator(), 
+		nullptr, 
+		IID_PPV_ARGS(&commandList));
+
+	commandList->Close();
 }
 
 ID3D12GraphicsCommandList* CommandListDx12::GetCommandList() const {
 	return commandList.Get();
 }
 
-void CommandListDx12::SetCommandPool(const CommandPoolDx12& commandPool) {
-	this->commandPool = &commandPool;
-}
-
 void CommandListDx12::Reset() {
-	commandPool->GetCommandAllocator()->Reset();
-	commandList->Reset(commandPool->GetCommandAllocator(), nullptr);
+	GetOwnerPool()->As<CommandPoolDx12>()->GetCommandAllocator()->Reset();
+	commandList->Reset(GetOwnerPool()->As<CommandPoolDx12>()->GetCommandAllocator(), nullptr);
 }
 
 void CommandListDx12::Start() {
@@ -67,7 +72,15 @@ void CommandListDx12::Close() {
 void CommandListDx12::ClearImage(GpuImage* image, const GpuImageRange& range, const Color& color) {
 	// commandList->ClearRenderTargetView();
 }
-void CommandListDx12::SetGpuImageBarrier(GpuImage* image, GpuImageLayout previousLayout, GpuImageLayout nextLayout, GpuBarrierInfo previous, GpuBarrierInfo next, const GpuImageRange& prevImageInfo) {
+void CommandListDx12::SetGpuImageBarrier(
+	GpuImage* image,
+	GpuImageLayout previousLayout,
+	GpuImageLayout nextLayout,
+	GpuBarrierInfo previous,
+	GpuBarrierInfo next,
+	const GpuImageRange& range,
+	const ResourceQueueTransferInfo queueTranfer) 
+{
 	ID3D12Resource* resource = image->As<GpuImageDx12>()->GetResource();
 	
 	D3D12_RESOURCE_BARRIER barrierInfo{};
@@ -77,15 +90,33 @@ void CommandListDx12::SetGpuImageBarrier(GpuImage* image, GpuImageLayout previou
 	barrierInfo.Transition.StateBefore = GetGpuImageLayoutDx12(previousLayout);
 	barrierInfo.Transition.StateAfter = GetGpuImageLayoutDx12(nextLayout);
 	barrierInfo.Transition.Subresource = D3D12_RESOURCE_BARRIER_ALL_SUBRESOURCES;
-
+	
 	commandList->ResourceBarrier(1, &barrierInfo);
 
 	image->_SetLayout(
-		prevImageInfo.baseLayer,
-		prevImageInfo.numLayers,
-		prevImageInfo.baseMipLevel,
-		prevImageInfo.numLayers,
+		range.baseLayer,
+		range.numLayers,
+		range.baseMipLevel,
+		range.numLayers,
 		nextLayout);
+}
+
+void CommandListDx12::SetGpuBufferBarrier(
+	GpuBuffer* buffer,
+	const GpuBufferRange& range,
+	GpuBarrierInfo previous,
+	GpuBarrierInfo next,
+	const ResourceQueueTransferInfo queueTranfer) 
+{
+	ID3D12Resource* resource = buffer->GetMemorySubblock()->As<GpuMemorySubblockDx12>()->GetResource();
+
+	D3D12_RESOURCE_BARRIER barrierInfo{};
+	barrierInfo.Type = D3D12_RESOURCE_BARRIER_TYPE_TRANSITION;
+	barrierInfo.Flags = D3D12_RESOURCE_BARRIER_FLAG_NONE;
+	barrierInfo.Transition.pResource = resource;
+	barrierInfo.Transition.Subresource = D3D12_RESOURCE_BARRIER_ALL_SUBRESOURCES;
+
+	commandList->ResourceBarrier(1, &barrierInfo);
 }
 
 void CommandListDx12::CopyBufferToImage(const GpuBuffer& source, GpuImage* dest, UIndex32 layer, USize64 offset) {
@@ -143,7 +174,7 @@ void CommandListDx12::BeginGraphicsRenderpass(DynamicArray<RenderPassImageInfo> 
 	DynamicArray<D3D12_CPU_DESCRIPTOR_HANDLE> colorAttachments{};
 	D3D12_CPU_DESCRIPTOR_HANDLE depthStencilDesc{};
 
-	if (currentRenderpassType== RenderpassType::FINAL) {
+	if (m_currentlyBoundRenderTargetType == RenderpassType::FINAL) {
 		const SwapchainDx12* swapchain = Engine::GetRenderer()->_GetSwapchain()->As<SwapchainDx12>();
 
 		colorAttachments.Insert(swapchain->GetRenderTargetMemory()->GetCPUDescriptorHandleForHeapStart());
@@ -180,7 +211,7 @@ void CommandListDx12::BeginGraphicsRenderpass(DynamicArray<RenderPassImageInfo> 
 		};
 
 		if (autoSync)
-		SetGpuImageBarrier(img.targetImage, GpuImageLayout::UNDEFINED, GpuImageLayout::COLOR_ATTACHMENT, prev, next, imgInfo);
+		SetGpuImageBarrier(img.targetImage, GpuImageLayout::UNDEFINED, GpuImageLayout::COLOR_ATTACHMENT, prev, next, imgInfo, ResourceQueueTransferInfo::Empty());
 	}
 
 	const FLOAT clearValue[] = { color.red, color.green, color.blue, color.alpha };
@@ -191,16 +222,16 @@ void CommandListDx12::BeginGraphicsRenderpass(DynamicArray<RenderPassImageInfo> 
 
 	commandList->OMSetRenderTargets(static_cast<UINT>(colorAttachments.GetSize()), colorAttachments.GetData(), FALSE, &depthStencilDesc);
 
-	currentColorImages = std::move(colorImages);
-	currentDepthImage = depthImage;
+	m_currentlyBoundColorImages = std::move(colorImages);
+	m_currentlyBoundDepthImage = depthImage;
 }
 
 void CommandListDx12::EndGraphicsRenderpass(bool autoSync) {
 	GpuImageLayout finalLayout = GpuImageLayout::SAMPLED;
-	if (currentRenderpassType == RenderpassType::FINAL)
+	if (m_currentlyBoundRenderTargetType == RenderpassType::FINAL)
 		finalLayout = GpuImageLayout::PRESENT;
 
-	for (const auto& img : currentColorImages) {
+	for (const auto& img : m_currentlyBoundColorImages) {
 		GpuBarrierInfo prevBarrier{};
 		prevBarrier.stage = GpuCommandStage::COLOR_ATTACHMENT_OUTPUT;
 		prevBarrier.accessStage = GpuAccessStage::COLOR_ATTACHMENT_WRITE;
@@ -216,11 +247,12 @@ void CommandListDx12::EndGraphicsRenderpass(bool autoSync) {
 		imgBarrier.numMipLevels = ALL_MIP_LEVELS;
 
 		if (autoSync)
-			SetGpuImageBarrier(img.targetImage, GpuImageLayout::COLOR_ATTACHMENT, finalLayout, prevBarrier, nextBarrier, imgBarrier);
+			SetGpuImageBarrier(img.targetImage, GpuImageLayout::COLOR_ATTACHMENT, finalLayout, prevBarrier, nextBarrier, imgBarrier, ResourceQueueTransferInfo::Empty());
 	}
 
-	if (currentRenderpassType != RenderpassType::INTERMEDIATE)
-		currentRenderpassType = RenderpassType::INTERMEDIATE;
+	if (m_currentlyBoundRenderTargetType != RenderpassType::INTERMEDIATE) {
+		m_currentlyBoundRenderTargetType = RenderpassType::INTERMEDIATE;
+	}
 }
 
 void CommandListDx12::ResourceBarrier(ID3D12Resource* resource, D3D12_RESOURCE_STATES from, D3D12_RESOURCE_STATES to) {
@@ -239,7 +271,7 @@ void CommandListDx12::BindGraphicsPipeline(const IGraphicsPipeline& graphicsPipe
 	commandList->SetGraphicsRootSignature(graphicsPipeline.GetLayout()->As<PipelineLayoutDx12>()->GetSignature());
 	commandList->SetPipelineState(graphicsPipeline.As<GraphicsPipelineDx12>()->GetPipeline());
 
-	commandList->IASetPrimitiveTopology(currentPipeline.graphics->As<GraphicsPipelineDx12>()->GetTopologyType());
+	commandList->IASetPrimitiveTopology(m_currentPipeline.graphics->As<GraphicsPipelineDx12>()->GetTopologyType());
 }
 
 void CommandListDx12::BindComputePipeline(const IComputePipeline& computePipeline) {
@@ -273,7 +305,7 @@ void CommandListDx12::BindIndexBufferRange(const GpuBuffer& buffer, const IndexB
 void CommandListDx12::BindMaterialSlot(const IMaterialSlot& slot) {
 	for (const auto& [index, buffer] : slot.As<MaterialSlotDx12>()->GetUniformBuffers()) {
 		if (buffer != nullptr) {
-			switch (currentMaterial->GetMaterialType())	{
+			switch (m_currentlyBoundMaterial->GetMaterialType())	{
 			case MaterialType::GRAPHICS:
 				commandList->SetGraphicsRootConstantBufferView(index,
 					buffer->GetMemorySubblock()->As<GpuMemorySubblockDx12>()->GetResource()->GetGPUVirtualAddress());
@@ -288,7 +320,7 @@ void CommandListDx12::BindMaterialSlot(const IMaterialSlot& slot) {
 
 	for (const auto& [index, buffer] : slot.As<MaterialSlotDx12>()->GetStorageBuffers()) {
 		if (buffer != nullptr) {
-			switch (currentMaterial->GetMaterialType()) {
+			switch (m_currentlyBoundMaterial->GetMaterialType()) {
 			case MaterialType::GRAPHICS:
 				commandList->SetGraphicsRootUnorderedAccessView(index,
 					buffer->GetMemorySubblock()->As<GpuMemorySubblockDx12>()->GetResource()->GetGPUVirtualAddress());
@@ -310,7 +342,7 @@ void CommandListDx12::BindMaterialSlot(const IMaterialSlot& slot) {
 
 			commandList->SetDescriptorHeaps(1, heaps);
 			
-			switch (currentMaterial->GetMaterialType()) {
+			switch (m_currentlyBoundMaterial->GetMaterialType()) {
 			case MaterialType::GRAPHICS:
 				commandList->SetGraphicsRootDescriptorTable(index, view->GetGpuAddress());
 				break;
@@ -323,7 +355,7 @@ void CommandListDx12::BindMaterialSlot(const IMaterialSlot& slot) {
 
 	for (const auto& [index, image] : slot.As<MaterialSlotDx12>()->GetStorageBuffers()) {
 		if (image != nullptr) {
-			switch (currentMaterial->GetMaterialType()) {
+			switch (m_currentlyBoundMaterial->GetMaterialType()) {
 			case MaterialType::GRAPHICS:
 				commandList->SetGraphicsRootUnorderedAccessView(index,
 					image->GetMemorySubblock()->As<GpuMemorySubblockDx12>()->GetResource()->GetGPUVirtualAddress());
@@ -338,7 +370,7 @@ void CommandListDx12::BindMaterialSlot(const IMaterialSlot& slot) {
 }
 
 void CommandListDx12::PushMaterialConstants(const std::string& pushConstName, const void* data, USize32 size, USize32 offset) {
-	auto& pushConst = currentMaterial->GetLayout()->GetPushConstant(pushConstName);
+	auto& pushConst = m_currentlyBoundMaterial->GetLayout()->GetPushConstant(pushConstName);
 
 	USize32 nSize = size / 4;
 	if (size % 4)

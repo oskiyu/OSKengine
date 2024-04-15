@@ -40,7 +40,9 @@ bool SystemExecutionGraph::ValidatePreviousDependencies(std::string_view startPo
 	}
 
 	for (const auto& followingSystem : system->GetDependencies().executeAfterThese) {
-		const auto* newSystem = m_allRegisteredSystems.find(followingSystem)->second;
+		const auto* newSystem = m_allRegisteredSystems.contains(followingSystem)
+			? m_allRegisteredSystems.find(followingSystem)->second
+			: nullptr;
 
 		if (!ValidatePreviousDependencies(startPoint, newSystem)) {
 			return false;
@@ -60,7 +62,9 @@ bool SystemExecutionGraph::ValidateFollowingDependencies(std::string_view startP
 	}
 
 	for (const auto& followingSystem : system->GetDependencies().executeBeforeThese) {
-		const auto* newSystem = m_allRegisteredSystems.find(followingSystem)->second;
+		const auto* newSystem = m_allRegisteredSystems.contains(followingSystem)
+			? m_allRegisteredSystems.find(followingSystem)->second
+			: nullptr;
 
 		if (!ValidateFollowingDependencies(startPoint, newSystem)) {
 			return false;
@@ -177,7 +181,7 @@ void SystemExecutionGraph::Rebuild() {
 			const bool barrier =
 				system->GetDependencies().executeAfterThese.contains(nSystem->GetName());
 
-			if (barrier) {
+			if (barrier || system->GetDependencies().exclusiveExecution || nSystem->GetDependencies().exclusiveExecution) {
 				needsNewSet = true;
 				break;
 			}

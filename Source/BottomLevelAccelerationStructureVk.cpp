@@ -29,7 +29,13 @@ void BottomLevelAccelerationStructureVk::Setup(
 	const VkDevice logicalDevice = Engine::GetRenderer()->GetGpu()->As<GpuVk>()->GetLogicalDevice();
 	IGpuMemoryAllocator* memoryAllocator = Engine::GetRenderer()->GetAllocator();
 
-	matrixBuffer = Engine::GetRenderer()->GetAllocator()->CreateBuffer(sizeof(VkTransformMatrixKHR), 0, GpuBufferUsage::RT_ACCELERATION_STRUCTURE_BUILDING, GpuSharedMemoryType::GPU_AND_CPU).GetPointer();
+	matrixBuffer = Engine::GetRenderer()->GetAllocator()->CreateBuffer(
+		sizeof(VkTransformMatrixKHR), 
+		0, 
+		GpuBufferUsage::RT_ACCELERATION_STRUCTURE_BUILDING, 
+		GpuSharedMemoryType::GPU_AND_CPU,
+		GpuQueueType::MAIN).GetPointer();
+
 	SetMatrix(glm::mat4(1.0f));
 
 	// Obtene la localización en la memoria de la GPU de los buffers.
@@ -103,8 +109,19 @@ void BottomLevelAccelerationStructureVk::Setup(
 		&numTriangles,
 		&sizeInfo);
 
-	accelerationStructureBuffer = memoryAllocator->CreateBuffer(sizeInfo.accelerationStructureSize, 256, GpuBufferUsage::RT_ACCELERATION_STRUCTURE, GpuSharedMemoryType::GPU_ONLY).GetPointer();
-	buildBuffer = memoryAllocator->CreateBuffer(sizeInfo.buildScratchSize, Engine::GetRenderer()->GetGpu()->As<GpuVk>()->GetInfo().rtAccelerationStructuresProperites.minAccelerationStructureScratchOffsetAlignment, GpuBufferUsage::RT_ACCELERATION_STRUCTURE_BUILDING, GpuSharedMemoryType::GPU_AND_CPU).GetPointer();
+	accelerationStructureBuffer = memoryAllocator->CreateBuffer(
+		sizeInfo.accelerationStructureSize, 
+		256, 
+		GpuBufferUsage::RT_ACCELERATION_STRUCTURE, 
+		GpuSharedMemoryType::GPU_ONLY,
+		GpuQueueType::MAIN).GetPointer();
+
+	buildBuffer = memoryAllocator->CreateBuffer(
+		sizeInfo.buildScratchSize, 
+		Engine::GetRenderer()->GetGpu()->As<GpuVk>()->GetInfo().rtAccelerationStructuresProperites.minAccelerationStructureScratchOffsetAlignment, 
+		GpuBufferUsage::RT_ACCELERATION_STRUCTURE_BUILDING, 
+		GpuSharedMemoryType::GPU_AND_CPU,
+		GpuQueueType::MAIN).GetPointer();
 
 	// Creación
 	VkAccelerationStructureCreateInfoKHR accelerationStructureCreateInfo{};
@@ -145,9 +162,9 @@ void BottomLevelAccelerationStructureVk::Setup(
 	// Construcción final
 	const VkAccelerationStructureBuildRangeInfoKHR* ranges[] = { &blasBuildRangeInfo };
 
-	auto blasCommandList = Engine::GetRenderer()->CreateSingleUseCommandList();
+	auto blasCommandList = Engine::GetRenderer()->CreateSingleUseCommandList(GpuQueueType::MAIN);
 	blasCommandList->Start();
-	RendererVk::pvkCmdBuildAccelerationStructuresKHR(blasCommandList->As<CommandListVk>()->GetCommandBuffers()->At(blasCommandList->_GetCommandListIndex()), 1, &accelerationBuildGeometryInfo, ranges);
+	RendererVk::pvkCmdBuildAccelerationStructuresKHR(blasCommandList->As<CommandListVk>()->GetCommandBuffers()[blasCommandList->_GetCommandListIndex()], 1, &accelerationBuildGeometryInfo, ranges);
 	blasCommandList->Close();
 	Engine::GetRenderer()->SubmitSingleUseCommandList(blasCommandList.GetPointer());
 
@@ -184,7 +201,7 @@ void BottomLevelAccelerationStructureVk::Update(ICommandList* cmdList) {
 	// Construcción final
 	const VkAccelerationStructureBuildRangeInfoKHR* ranges[] = { &blasBuildRangeInfo };
 
-	const VkCommandBuffer vkCmdList = cmdList->As<CommandListVk>()->GetCommandBuffers()->At(cmdList->_GetCommandListIndex());
+	const VkCommandBuffer vkCmdList = cmdList->As<CommandListVk>()->GetCommandBuffers()[cmdList->_GetCommandListIndex()];
 	RendererVk::pvkCmdBuildAccelerationStructuresKHR(vkCmdList, 1, &accelerationBuildGeometryInfo, ranges);
 
 	// Sincronización para que no se pueda usar el blas hasta que haya sido reconstruido correctamente.

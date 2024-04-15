@@ -11,6 +11,7 @@
 #include "GpuImageLayout.h"
 #include "ICommandList.h"
 #include "Viewport.h"
+#include "CopyImageInfo.h"
 
 #include <glm/ext/matrix_clip_space.hpp>
 #include <glm/ext/matrix_transform.hpp>

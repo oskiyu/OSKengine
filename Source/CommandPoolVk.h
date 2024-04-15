@@ -2,45 +2,36 @@
 
 #include "ICommandPool.h"
 
-struct VkCommandPool_T;
-using VkCommandPool = VkCommandPool_T*;
+OSK_VULKAN_TYPEDEF(VkCommandPool);
+OSK_VULKAN_TYPEDEF(VkDevice);
 
 namespace OSK::GRAPHICS {
 
-	/// <summary>
-	/// Una pool de comandos se encarga de crear una serie de listas de comandos.
-	/// 
-	/// Esta es la implementación del pool para el renderizador de Vulkan.
-	/// </summary>
+	struct QueueFamily;
+	class GpuVk;
+
 	class OSKAPI_CALL CommandPoolVk final : public ICommandPool {
 
 	public:
 
-		~CommandPoolVk();
+		/// @brief Crea el command pool.
+		/// @param device Gpu sobre la que se crea.
+		/// @param supportedCommands Tipos de comandos que soportará el pool.
+		/// @param queueType Familia de colas sobre la que se enviarán
+		/// las listas generadas por este pool.
+		/// @param type Tipo de cola.
+		/// 
+		/// @throws CommandPoolCreationException
+		CommandPoolVk(
+			const GpuVk& device,
+			const QueueFamily& queueType,
+			GpuQueueType type);
 
-		/// <summary>
-		/// Crea una nueva lista de comandos.
-		/// </summary>
+		~CommandPoolVk() override;
+
 		OwnedPtr<ICommandList> CreateCommandList(const IGpu& device) override;
 		OwnedPtr<ICommandList> CreateSingleTimeCommandList(const IGpu& device) override;
-
-		/// <summary>
-		/// Establece el número de imágenes del swapchain.
-		/// 
-		/// Cada imagen tiene su propia lista de comandos.
-		/// La lista de comandos contendrá varias listas nativas.
-		/// </summary>
-		void SetSwapchainCount(unsigned int count);
-
-		/// <summary>
-		/// Obtiene el número de imágenes del swapchain.
-		/// 
-		/// Cada imagen tiene su propia lista de comandos.
-		/// La lista de comandos contendrá varias listas nativas.
-		/// </summary>
-		unsigned int GetSwapchainCount() const;
-
-		void SetCommandPool(VkCommandPool commandPool);
+		
 		VkCommandPool GetCommandPool() const;
 
 	private:
@@ -48,8 +39,8 @@ namespace OSK::GRAPHICS {
 		/// @throws CommandListCreationException si no se pudo crear la lista. 
 		OwnedPtr<ICommandList> CreateList(const IGpu& device, USize32 numNativeLists);
 
-		unsigned int numberOfImages = 0;
-		VkCommandPool commandPool;
+		VkCommandPool m_commandPool = nullptr;
+		VkDevice m_logicalDevice = nullptr;
 
 	};
 

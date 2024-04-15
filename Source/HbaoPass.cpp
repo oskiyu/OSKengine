@@ -12,6 +12,8 @@
 #include "IGpuImage.h"
 #include "IGpuImageView.h"
 
+#include "GpuImageLayout.h"
+
 using namespace OSK;
 using namespace OSK::GRAPHICS;
 
@@ -70,7 +72,8 @@ void HbaoPass::Create(const Vector2ui& size) {
 		m_cameraBuffers[i] = Engine::GetRenderer()->GetAllocator()->CreateBuffer(
 			sizeof(glm::mat4) * 2 + sizeof(float), 0,
 			GpuBufferUsage::UNIFORM_BUFFER,
-			GpuSharedMemoryType::GPU_AND_CPU
+			GpuSharedMemoryType::GPU_AND_CPU,
+			GpuQueueType::MAIN
 		).GetPointer();
 
 		m_cameraBuffers[i]->ResetCursor();

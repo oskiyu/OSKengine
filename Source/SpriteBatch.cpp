@@ -18,12 +18,12 @@ SpriteBatch::SpriteBatch(OwnedPtr<MaterialInstance> materialInstance) : material
 	const USize64 indexBufferSize = sizeof(TIndexSize) * maxIndices;
 
 	for (auto& buffer : vertexBuffers) {
-		buffer = allocator.CreateBuffer(vertexBufferSize, 0, GpuBufferUsage::VERTEX_BUFFER, GpuSharedMemoryType::GPU_AND_CPU).GetPointer();
+		buffer = allocator.CreateBuffer(vertexBufferSize, 0, GpuBufferUsage::VERTEX_BUFFER, GpuSharedMemoryType::GPU_AND_CPU, GpuQueueType::MAIN).GetPointer();
 		buffer->MapMemory();
 	}
 
 	for (auto& buffer : indexBuffers) {
-		buffer = allocator.CreateBuffer(indexBufferSize, 0, GpuBufferUsage::INDEX_BUFFER, GpuSharedMemoryType::GPU_AND_CPU).GetPointer();
+		buffer = allocator.CreateBuffer(indexBufferSize, 0, GpuBufferUsage::INDEX_BUFFER, GpuSharedMemoryType::GPU_AND_CPU, GpuQueueType::MAIN).GetPointer();
 		buffer->MapMemory();
 	}
 }

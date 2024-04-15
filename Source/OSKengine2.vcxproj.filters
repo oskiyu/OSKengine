@@ -601,6 +601,18 @@
     <Filter Include="Archivos de origen\BuiltIn\GRAPHICS\Renderpasses\Shadows">
       <UniqueIdentifier>{d93afb0f-682d-4f2f-969f-baecce9eddb7}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Archivos de encabezado\Core\Threading">
+      <UniqueIdentifier>{aa54f498-63fa-4365-a7d6-48642f72a32e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de origen\Core\Threading">
+      <UniqueIdentifier>{aa765572-d33b-4791-b191-8532818cff58}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de encabezado\BuiltIn\Threading">
+      <UniqueIdentifier>{16dce4d0-ba4a-4e1f-8eeb-97626f1875c6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de origen\BuiltIn\Threading">
+      <UniqueIdentifier>{dde1c0d3-071f-4ccd-a94f-8f64c237fa3b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -1295,6 +1307,48 @@
     </ClCompile>
     <ClCompile Include="TransformApplierSystem.cpp">
       <Filter>Archivos de origen\BuiltIn\ECS\Systems</Filter>
+    </ClCompile>
+    <ClCompile Include="JobSystem.cpp">
+      <Filter>Archivos de origen\Core\Threading</Filter>
+    </ClCompile>
+    <ClCompile Include="JobQueue.cpp">
+      <Filter>Archivos de origen\Core\Threading</Filter>
+    </ClCompile>
+    <ClCompile Include="StopWatch.cpp">
+      <Filter>Archivos de origen\Core\Types</Filter>
+    </ClCompile>
+    <ClCompile Include="IteratorSystemExecutionJob.cpp">
+      <Filter>Archivos de origen\BuiltIn\Threading</Filter>
+    </ClCompile>
+    <ClCompile Include="ConsumerSystemExecutionJob.cpp">
+      <Filter>Archivos de origen\BuiltIn\Threading</Filter>
+    </ClCompile>
+    <ClCompile Include="IJob.cpp">
+      <Filter>Archivos de origen\Core\Threading</Filter>
+    </ClCompile>
+    <ClCompile Include="AssetLoaderJob.cpp">
+      <Filter>Archivos de origen\BuiltIn\Threading</Filter>
+    </ClCompile>
+    <ClCompile Include="ICommandPool.cpp">
+      <Filter>Archivos de origen\Core\Graphics\LowLevel\Commands\Pool</Filter>
+    </ClCompile>
+    <ClCompile Include="ICommandQueue.cpp">
+      <Filter>Archivos de origen\Core\Graphics\LowLevel\Commands\Queues</Filter>
+    </ClCompile>
+    <ClCompile Include="CopyImageInfo.cpp">
+      <Filter>Archivos de origen\Core\Graphics\LowLevel\Commands\List</Filter>
+    </ClCompile>
+    <ClCompile Include="GpuImageCreateInfo.cpp">
+      <Filter>Archivos de origen\Core\Graphics\LowLevel\Resources\Image</Filter>
+    </ClCompile>
+    <ClCompile Include="ResourceQueueTransfer.cpp">
+      <Filter>Archivos de origen\Core\Graphics\LowLevel\Resources</Filter>
+    </ClCompile>
+    <ClCompile Include="ThreadedCommandPoolMap.cpp">
+      <Filter>Archivos de origen\Core\Graphics\LowLevel\Commands\Pool</Filter>
+    </ClCompile>
+    <ClCompile Include="JobCountMap.cpp">
+      <Filter>Archivos de origen\Core\Threading</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -2231,9 +2285,6 @@
     <ClInclude Include="Simplex.h">
       <Filter>Archivos de encabezado\Core\Collision\Detection</Filter>
     </ClInclude>
-    <ClInclude Include="AssetRef.hpp">
-      <Filter>Archivos de encabezado</Filter>
-    </ClInclude>
     <ClInclude Include="AssetRef.h">
       <Filter>Archivos de encabezado\Core\Assets</Filter>
     </ClInclude>
@@ -2317,6 +2368,69 @@
     </ClInclude>
     <ClInclude Include="TransformApplierSystem.h">
       <Filter>Archivos de encabezado\BuiltIn\ECS\Systems</Filter>
+    </ClInclude>
+    <ClInclude Include="JobSystem.h">
+      <Filter>Archivos de encabezado\Core\Threading</Filter>
+    </ClInclude>
+    <ClInclude Include="IJob.h">
+      <Filter>Archivos de encabezado\Core\Threading</Filter>
+    </ClInclude>
+    <ClInclude Include="JobQueue.h">
+      <Filter>Archivos de encabezado\Core\Threading</Filter>
+    </ClInclude>
+    <ClInclude Include="ThreadPool.h">
+      <Filter>Archivos de encabezado\Core\Threading</Filter>
+    </ClInclude>
+    <ClInclude Include="StopWatch.h">
+      <Filter>Archivos de encabezado\Core\Types</Filter>
+    </ClInclude>
+    <ClInclude Include="IteratorSystemExecutionJob.h">
+      <Filter>Archivos de encabezado\BuiltIn\Threading</Filter>
+    </ClInclude>
+    <ClInclude Include="ConsumerSystemExecutionJob.h">
+      <Filter>Archivos de encabezado\BuiltIn\Threading</Filter>
+    </ClInclude>
+    <ClInclude Include="MutexHolder.h">
+      <Filter>Archivos de encabezado\Core\Threading</Filter>
+    </ClInclude>
+    <ClInclude Include="AtomicHolder.h">
+      <Filter>Archivos de encabezado\Core\Threading</Filter>
+    </ClInclude>
+    <ClInclude Include="AssetLoaderJob.h">
+      <Filter>Archivos de encabezado\BuiltIn\Threading</Filter>
+    </ClInclude>
+    <ClInclude Include="CommandsSupport.h">
+      <Filter>Archivos de encabezado\Core\Graphics\LowLevel\Commands</Filter>
+    </ClInclude>
+    <ClInclude Include="CopyImageInfo.h">
+      <Filter>Archivos de encabezado\Core\Graphics\LowLevel\Commands\List</Filter>
+    </ClInclude>
+    <ClInclude Include="GpuImageCreateInfo.h">
+      <Filter>Archivos de encabezado\Core\Graphics\LowLevel\Resources\Image</Filter>
+    </ClInclude>
+    <ClInclude Include="GpuResourceUsage.h">
+      <Filter>Archivos de encabezado\Core\Graphics\LowLevel\Resources</Filter>
+    </ClInclude>
+    <ClInclude Include="ResourceQueueTransfer.h">
+      <Filter>Archivos de encabezado\Core\Graphics\LowLevel\Resources</Filter>
+    </ClInclude>
+    <ClInclude Include="GpuQueueTypes.h">
+      <Filter>Archivos de encabezado\Core\Graphics\LowLevel\Commands\Queue</Filter>
+    </ClInclude>
+    <ClInclude Include="GpuBufferRange.h">
+      <Filter>Archivos de encabezado\Core\Graphics\LowLevel\Resources</Filter>
+    </ClInclude>
+    <ClInclude Include="GpuImageRange.h">
+      <Filter>Archivos de encabezado\Core\Graphics\LowLevel\Resources\Image\Image</Filter>
+    </ClInclude>
+    <ClInclude Include="ThreadedCommandPoolMap.h">
+      <Filter>Archivos de encabezado\Core\Graphics\LowLevel\Commands\Pool</Filter>
+    </ClInclude>
+    <ClInclude Include="AssetsMap.h">
+      <Filter>Archivos de encabezado\Core\Assets</Filter>
+    </ClInclude>
+    <ClInclude Include="JobCountMap.h">
+      <Filter>Archivos de encabezado\Core\Threading</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
