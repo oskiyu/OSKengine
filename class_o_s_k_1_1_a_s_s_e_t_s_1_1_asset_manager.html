@@ -107,6 +107,9 @@ Métodos públicos</h2></td></tr>
 <tr class="memitem:aae32c0b5d0362cd837e62534f29c8701" id="r_aae32c0b5d0362cd837e62534f29c8701"><td class="memTemplParams" colspan="2">template&lt;<a class="el" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">typename</a> T &gt; </td></tr>
 <tr class="memitem:aae32c0b5d0362cd837e62534f29c8701"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">AssetRef</a>&lt; T &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="#aae32c0b5d0362cd837e62534f29c8701">Load</a> (<a class="el" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">const</a> std::string &amp;<a class="el" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">assetFilePath</a>)</td></tr>
 <tr class="separator:aae32c0b5d0362cd837e62534f29c8701"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adba274c380f46cbcab60ad54f8d6edea" id="r_adba274c380f46cbcab60ad54f8d6edea"><td class="memTemplParams" colspan="2">template&lt;<a class="el" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">typename</a> T &gt; </td></tr>
+<tr class="memitem:adba274c380f46cbcab60ad54f8d6edea"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">AssetRef</a>&lt; T &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="#adba274c380f46cbcab60ad54f8d6edea">LoadAsync</a> (<a class="el" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">const</a> std::string &amp;<a class="el" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">assetFilePath</a>, std::span&lt; <a class="el" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">const</a> std::string &gt; <a class="el" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">tags</a>={})</td></tr>
+<tr class="separator:adba274c380f46cbcab60ad54f8d6edea"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a37f73c3a4d17bb495b38eb65f7073d67" id="r_a37f73c3a4d17bb495b38eb65f7073d67"><td class="memTemplParams" colspan="2">template&lt;<a class="el" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">typename</a> T &gt; </td></tr>
 <tr class="memitem:a37f73c3a4d17bb495b38eb65f7073d67"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">void</a>&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="#a37f73c3a4d17bb495b38eb65f7073d67">RegisterLoader</a> ()</td></tr>
 <tr class="separator:a37f73c3a4d17bb495b38eb65f7073d67"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -159,10 +162,16 @@ template&lt;<a class="el" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Devuelve</dt><dd>Loader. </dd></dl>
+<dl class="section return"><dt>Devuelve</dt><dd>Loader.</dd></dl>
 <dl class="section pre"><dt>Precondición</dt><dd>El loader debe haber sido previamente registrado. </dd></dl>
+<dl class="exception"><dt>Excepciones</dt><dd>
+  <table class="exception">
+    <tr><td class="paramname"><a class="el" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_loader_not_found_exception.html" title="Excepción que se lanza cuando se trata de cargar un asset cuando no hay registrado ningún loader capa...">AssetLoaderNotFoundException</a></td><td>si el loader no ha sido previamente cargado. </td></tr>
+  </table>
+  </dd>
+</dl>
 
-<p class="definition">Definición en la línea <a class="el" href="_asset_manager_8h_source.html#l00072">72</a> del archivo <a class="el" href="_asset_manager_8h_source.html">AssetManager.h</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_asset_manager_8h_source.html#l00107">107</a> del archivo <a class="el" href="_asset_manager_8h_source.html">AssetManager.h</a>.</p>
 
 </div>
 </div>
@@ -192,9 +201,84 @@ template&lt;<a class="el" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">
 </div><div class="memdoc">
 
 <p>Carga un asset. </p>
-<dl class="section note"><dt>Nota</dt><dd>Esta función debe ser sobreescrita por todos los loaders. </dd></dl>
+<dl class="tparams"><dt>Parámetros de plantilla</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">T</td><td>Tipo del asset. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">assetFilePath</td><td>Ruta del archivo de descripción del asset. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Devuelve</dt><dd>Referencia al asset.</dd></dl>
+<dl class="section pre"><dt>Precondición</dt><dd>Debe haberse registrado un loader para el tipo de asset.</dd></dl>
+<dl class="exception"><dt>Excepciones</dt><dd>
+  <table class="exception">
+    <tr><td class="paramname"><a class="el" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_loader_not_found_exception.html" title="Excepción que se lanza cuando se trata de cargar un asset cuando no hay registrado ningún loader capa...">AssetLoaderNotFoundException</a></td><td>si el cargador para el tipo de asset no ha sido previamente regsitrado. </td></tr>
+  </table>
+  </dd>
+</dl>
 
-<p class="definition">Definición en la línea <a class="el" href="_asset_manager_8h_source.html#l00043">43</a> del archivo <a class="el" href="_asset_manager_8h_source.html">AssetManager.h</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_asset_manager_8h_source.html#l00049">49</a> del archivo <a class="el" href="_asset_manager_8h_source.html">AssetManager.h</a>.</p>
+
+</div>
+</div>
+<a id="adba274c380f46cbcab60ad54f8d6edea" name="adba274c380f46cbcab60ad54f8d6edea"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adba274c380f46cbcab60ad54f8d6edea">&#9670;&#160;</a></span>LoadAsync()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;<a class="el" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">typename</a> T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">AssetRef</a>&lt; T &gt; OSK::ASSETS::AssetManager::LoadAsync </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">const</a> std::string &amp;</td>          <td class="paramname"><span class="paramname"><em>assetFilePath</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::span&lt; <a class="el" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">const</a> std::string &gt;</td>          <td class="paramname"><span class="paramname"><em>tags</em><span class="paramdefsep"> = </span><span class="paramdefval">{}</span></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Carga un asset de manera asíncrona. Lanza un trabajo que realizará la carga del asset. </p>
+<dl class="tparams"><dt>Parámetros de plantilla</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">T</td><td>Tipo de asset. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">assetFilePath</td><td>Ruta del archivo de descripción. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Devuelve</dt><dd>Referencia al asset.</dd></dl>
+<dl class="section note"><dt>Nota</dt><dd>La referencia no contendrá el asset cargado al instante debido a la ejecución asíncrona. Debe comprobarse antes de usarse.</dd></dl>
+<dl class="section pre"><dt>Precondición</dt><dd>Debe haberse registrado un loader para el tipo de asset.</dd></dl>
+<dl class="exception"><dt>Excepciones</dt><dd>
+  <table class="exception">
+    <tr><td class="paramname"><a class="el" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_loader_not_found_exception.html" title="Excepción que se lanza cuando se trata de cargar un asset cuando no hay registrado ningún loader capa...">AssetLoaderNotFoundException</a></td><td>si el cargador para el tipo de asset no ha sido previamente regsitrado. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definición en la línea <a class="el" href="_asset_manager_8h_source.html#l00073">73</a> del archivo <a class="el" href="_asset_manager_8h_source.html">AssetManager.h</a>.</p>
 
 </div>
 </div>
@@ -224,25 +308,31 @@ template&lt;<a class="el" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">
 </div><div class="memdoc">
 
 <p>Registra un loader, para poder cargar assets de un tipo determinado. </p>
-<dl class="section pre"><dt>Precondición</dt><dd>No debe haberse registrado antes este loader.</dd></dl>
-<dl class="section warning"><dt>Atención</dt><dd>T debe ser el tipo de asset, NO el loader. </dd>
-<dd>
-Todo loader debe ser registrado para poder usarse. </dd></dl>
+<dl class="tparams"><dt>Parámetros de plantilla</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">T</td><td>Tipo del loader.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section pre"><dt>Precondición</dt><dd>No debe haberse registrado antes este loader. </dd></dl>
+<dl class="exception"><dt>Excepciones</dt><dd>
+  <table class="exception">
+    <tr><td class="paramname"><a class="el" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_loader_already_registered_exception.html" title="Excepción que se lanza cuando se trata de registrar un asset previamente registrado.">AssetLoaderAlreadyRegisteredException</a></td><td>si se incumple la precondición. </td></tr>
+  </table>
+  </dd>
+</dl>
 
-<p class="definition">Definición en la línea <a class="el" href="_asset_manager_8h_source.html#l00060">60</a> del archivo <a class="el" href="_asset_manager_8h_source.html">AssetManager.h</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_asset_manager_8h_source.html#l00093">93</a> del archivo <a class="el" href="_asset_manager_8h_source.html">AssetManager.h</a>.</p>
 
 </div>
 </div>
-<hr/>La documentación de esta clase está generada del siguiente archivo:<ul>
-<li>Source/<a class="el" href="_asset_manager_8h_source.html">AssetManager.h</a></li>
-</ul>
 </div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="namespace_o_s_k.html">OSK</a></li><li class="navelem"><a class="el" href="namespace_o_s_k_1_1_a_s_s_e_t_s.html">ASSETS</a></li><li class="navelem"><a class="el" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_manager.html">AssetManager</a></li>
-    <li class="footer">Generado el Jueves, 28 de marzo de 2024 17:53:12 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.10.0 </li>
+    <li class="footer">Generado el Lunes, 15 de abril de 2024 22:39:17 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.10.0 </li>
   </ul>
 </div>
 </body>

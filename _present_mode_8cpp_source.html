@@ -101,10 +101,9 @@ $(function(){initNavTree('_present_mode_8cpp_source.html',''); initResizable(); 
   <div class="headertitle"><div class="title">PresentMode.cpp</div></div>
 </div><!--header-->
 <div class="contents">
-<a href="_present_mode_8cpp.html">Ir a la documentación de este archivo.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#include &quot;<a class="code" href="_present_mode_8h.html">PresentMode.h</a>&quot;</span></div>
+<div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#include &quot;PresentMode.h&quot;</span></div>
 <div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span> </div>
-<div class="foldopen" id="foldopen00003" data-start="{" data-end="}">
-<div class="line"><a id="l00003" name="l00003"></a><span class="lineno"><a class="line" href="_present_mode_8cpp.html#abc71a584764d73c2b9a36e05d0b81576">    3</a></span><span class="keyword">template</span> &lt;&gt; std::string OSK::ToString&lt;OSK::GRAPHICS::PresentMode&gt;(<span class="keyword">const</span> <a class="code hl_enumeration" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a47a7b3817b8aca438c20b7674fad28ab">OSK::GRAPHICS::PresentMode</a>&amp; mode) {</div>
+<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="keyword">template</span> &lt;&gt; std::string OSK::ToString&lt;OSK::GRAPHICS::PresentMode&gt;(<span class="keyword">const</span> <a class="code hl_enumeration" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a47a7b3817b8aca438c20b7674fad28ab">OSK::GRAPHICS::PresentMode</a>&amp; mode) {</div>
 <div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span>    <span class="keywordflow">switch</span> (mode) {</div>
 <div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span>        <span class="keywordflow">case</span> <a class="code hl_enumvalue" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a47a7b3817b8aca438c20b7674fad28aba61f5be3d7713d75f23e81b12d369f7b2">OSK::GRAPHICS::PresentMode::VSYNC_OFF</a>: <span class="keywordflow">return</span> <span class="stringliteral">&quot;PresentMode::VSYNC_OFF&quot;</span>;</div>
 <div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span>        <span class="keywordflow">case</span> <a class="code hl_enumvalue" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a47a7b3817b8aca438c20b7674fad28abaa92c385ce9a5a1037c3843fd17500094">OSK::GRAPHICS::PresentMode::VSYNC_ON</a>: <span class="keywordflow">return</span> <span class="stringliteral">&quot;PresentMode::VSYNC_ON&quot;</span>;</div>
@@ -113,8 +112,6 @@ $(function(){initNavTree('_present_mode_8cpp_source.html',''); initResizable(); 
 <div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span> </div>
 <div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span>    <span class="keywordflow">return</span> <span class="stringliteral">&quot;Unkwnown&quot;</span>;</div>
 <div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span>}</div>
-</div>
-<div class="ttc" id="a_present_mode_8h_html"><div class="ttname"><a href="_present_mode_8h.html">PresentMode.h</a></div></div>
 <div class="ttc" id="anamespace_o_s_k_1_1_g_r_a_p_h_i_c_s_html_a47a7b3817b8aca438c20b7674fad28ab"><div class="ttname"><a href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a47a7b3817b8aca438c20b7674fad28ab">OSK::GRAPHICS::PresentMode</a></div><div class="ttdeci">PresentMode</div><div class="ttdoc">Define el modo de sincronización vertical.</div><div class="ttdef"><b>Definition</b> <a href="_present_mode_8h_source.html#l00013">PresentMode.h:13</a></div></div>
 <div class="ttc" id="anamespace_o_s_k_1_1_g_r_a_p_h_i_c_s_html_a47a7b3817b8aca438c20b7674fad28aba61f5be3d7713d75f23e81b12d369f7b2"><div class="ttname"><a href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a47a7b3817b8aca438c20b7674fad28aba61f5be3d7713d75f23e81b12d369f7b2">OSK::GRAPHICS::PresentMode::VSYNC_OFF</a></div><div class="ttdeci">@ VSYNC_OFF</div><div class="ttdoc">No se espera a que la imagen actual termine de presentarse para mostrar la nueva imagen.</div></div>
 <div class="ttc" id="anamespace_o_s_k_1_1_g_r_a_p_h_i_c_s_html_a47a7b3817b8aca438c20b7674fad28aba9e78dc83e6b122efa2757383e0602338"><div class="ttname"><a href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a47a7b3817b8aca438c20b7674fad28aba9e78dc83e6b122efa2757383e0602338">OSK::GRAPHICS::PresentMode::VSYNC_ON_TRIPLE_BUFFER</a></div><div class="ttdeci">@ VSYNC_ON_TRIPLE_BUFFER</div><div class="ttdoc">Espera a que la imagen actual termine de presentarse para mostrar la nueva imagen.</div></div>
@@ -124,8 +121,8 @@ $(function(){initNavTree('_present_mode_8cpp_source.html',''); initResizable(); 
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="dir_74389ed8173ad57b461b9d623a1f3867.html">Source</a></li><li class="navelem"><a class="el" href="_present_mode_8cpp.html">PresentMode.cpp</a></li>
-    <li class="footer">Generado el Jueves, 28 de marzo de 2024 17:53:11 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.10.0 </li>
+    <li class="navelem"><a class="el" href="dir_74389ed8173ad57b461b9d623a1f3867.html">Source</a></li><li class="navelem"><b>PresentMode.cpp</b></li>
+    <li class="footer">Generado el Lunes, 15 de abril de 2024 22:39:16 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.10.0 </li>
   </ul>
 </div>
 </body>

@@ -101,12 +101,12 @@ $(function(){initNavTree('_gpu_image_view_config_8h_source.html',''); initResiza
   <div class="headertitle"><div class="title">GpuImageViewConfig.h</div></div>
 </div><!--header-->
 <div class="contents">
-<a href="_gpu_image_view_config_8h.html">Ir a la documentación de este archivo.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#pragma once</span></div>
+<div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#pragma once</span></div>
 <div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span> </div>
 <div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="preprocessor">#include &lt;compare&gt;</span></div>
 <div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span> </div>
-<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &quot;<a class="code" href="_gpu_image_usage_8h.html">GpuImageUsage.h</a>&quot;</span></div>
-<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &quot;<a class="code" href="_o_s_kmacros_8h.html">OSKmacros.h</a>&quot;</span></div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &quot;GpuImageUsage.h&quot;</span></div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &quot;OSKmacros.h&quot;</span></div>
 <div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span> </div>
 <div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="keyword">namespace </span><a class="code hl_namespace" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html">OSK::GRAPHICS</a> {</div>
 <div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span> </div>
@@ -130,15 +130,15 @@ $(function(){initNavTree('_gpu_image_view_config_8h_source.html',''); initResiza
 <div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span> </div>
 <div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span> </div>
 <div class="foldopen" id="foldopen00049" data-start="{" data-end="};">
-<div class="line"><a id="l00049" name="l00049"></a><span class="lineno"><a class="line" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_view_config.html">   49</a></span>    <span class="keyword">struct </span><a class="code hl_define" href="_o_s_kmacros_8h.html#a09ec5b46ece998ad096bceff312bb36c">OSKAPI_CALL</a> <a class="code hl_struct" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_view_config.html">GpuImageViewConfig</a> {</div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno"><a class="line" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_view_config.html">   49</a></span>    <span class="keyword">struct </span>OSKAPI_CALL <a class="code hl_struct" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_view_config.html">GpuImageViewConfig</a> {</div>
 <div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span> </div>
 <div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>        <span class="keyword">static</span> <a class="code hl_struct" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_view_config.html">GpuImageViewConfig</a> CreateSampled_Default();</div>
 <div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span> </div>
-<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>        <span class="keyword">static</span> <a class="code hl_struct" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_view_config.html">GpuImageViewConfig</a> CreateSampled_SingleMipLevel(<a class="code hl_typedef" href="_o_s_kmacros_8h.html#af205b9fd0440138e6cac38a9081141df">UIndex32</a> mipLevel);</div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>        <span class="keyword">static</span> <a class="code hl_struct" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_view_config.html">GpuImageViewConfig</a> CreateSampled_SingleMipLevel(UIndex32 mipLevel);</div>
 <div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span> </div>
-<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span>        <span class="keyword">static</span> <a class="code hl_struct" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_view_config.html">GpuImageViewConfig</a> CreateSampled_MipLevelRanged(<a class="code hl_typedef" href="_o_s_kmacros_8h.html#af205b9fd0440138e6cac38a9081141df">UIndex32</a> baseMipLevel, <a class="code hl_typedef" href="_o_s_kmacros_8h.html#af205b9fd0440138e6cac38a9081141df">UIndex32</a> topMipLevel);</div>
+<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span>        <span class="keyword">static</span> <a class="code hl_struct" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_view_config.html">GpuImageViewConfig</a> CreateSampled_MipLevelRanged(UIndex32 baseMipLevel, UIndex32 topMipLevel);</div>
 <div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span> </div>
-<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span>        <span class="keyword">static</span> <a class="code hl_struct" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_view_config.html">GpuImageViewConfig</a> CreateSampled_Array(<a class="code hl_typedef" href="_o_s_kmacros_8h.html#af205b9fd0440138e6cac38a9081141df">UIndex32</a> baseLayer, <a class="code hl_typedef" href="_o_s_kmacros_8h.html#a3e916ed5b32955be3417da92899fc361">USize32</a> layerCount);</div>
+<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span>        <span class="keyword">static</span> <a class="code hl_struct" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_view_config.html">GpuImageViewConfig</a> CreateSampled_Array(UIndex32 baseLayer, USize32 layerCount);</div>
 <div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span> </div>
 <div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span>        <span class="keyword">static</span> <a class="code hl_struct" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_view_config.html">GpuImageViewConfig</a> CreateSampled_Cubemap();</div>
 <div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span> </div>
@@ -162,13 +162,13 @@ $(function(){initNavTree('_gpu_image_view_config_8h_source.html',''); initResiza
 <div class="line"><a id="l00131" name="l00131"></a><span class="lineno">  131</span> </div>
 <div class="line"><a id="l00137" name="l00137"></a><span class="lineno"><a class="line" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_view_config.html#ac5d4648824ecc9db871b22ff330faad9">  137</a></span>        <a class="code hl_enumeration" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a55e114ba828198c2146f5233e462ba39">SampledArrayType</a> arrayType = SampledArrayType::SINGLE_LAYER;</div>
 <div class="line"><a id="l00138" name="l00138"></a><span class="lineno">  138</span> </div>
-<div class="line"><a id="l00143" name="l00143"></a><span class="lineno"><a class="line" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_view_config.html#a10f0649310fcec90686eb46d8f76117b">  143</a></span>        <a class="code hl_typedef" href="_o_s_kmacros_8h.html#af205b9fd0440138e6cac38a9081141df">UIndex32</a> baseArrayLevel = 0;</div>
+<div class="line"><a id="l00143" name="l00143"></a><span class="lineno"><a class="line" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_view_config.html#a10f0649310fcec90686eb46d8f76117b">  143</a></span>        UIndex32 baseArrayLevel = 0;</div>
 <div class="line"><a id="l00144" name="l00144"></a><span class="lineno">  144</span> </div>
-<div class="line"><a id="l00151" name="l00151"></a><span class="lineno"><a class="line" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_view_config.html#ac50ea75f158345c56e87d45b908c7e23">  151</a></span>        <a class="code hl_typedef" href="_o_s_kmacros_8h.html#a3e916ed5b32955be3417da92899fc361">USize32</a> arrayLevelCount = 1;</div>
+<div class="line"><a id="l00151" name="l00151"></a><span class="lineno"><a class="line" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_view_config.html#ac50ea75f158345c56e87d45b908c7e23">  151</a></span>        USize32 arrayLevelCount = 1;</div>
 <div class="line"><a id="l00152" name="l00152"></a><span class="lineno">  152</span> </div>
-<div class="line"><a id="l00158" name="l00158"></a><span class="lineno"><a class="line" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_view_config.html#a695b6625e33642f1b88046ab17062192">  158</a></span>        <a class="code hl_typedef" href="_o_s_kmacros_8h.html#af205b9fd0440138e6cac38a9081141df">UIndex32</a> baseMipLevel = 0;</div>
+<div class="line"><a id="l00158" name="l00158"></a><span class="lineno"><a class="line" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_view_config.html#a695b6625e33642f1b88046ab17062192">  158</a></span>        UIndex32 baseMipLevel = 0;</div>
 <div class="line"><a id="l00159" name="l00159"></a><span class="lineno">  159</span> </div>
-<div class="line"><a id="l00164" name="l00164"></a><span class="lineno"><a class="line" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_view_config.html#a2194f333b46be2d75af3343c49089169">  164</a></span>        <a class="code hl_typedef" href="_o_s_kmacros_8h.html#af205b9fd0440138e6cac38a9081141df">UIndex32</a> topMipLevel = 0;</div>
+<div class="line"><a id="l00164" name="l00164"></a><span class="lineno"><a class="line" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_view_config.html#a2194f333b46be2d75af3343c49089169">  164</a></span>        UIndex32 topMipLevel = 0;</div>
 <div class="line"><a id="l00165" name="l00165"></a><span class="lineno">  165</span> </div>
 <div class="line"><a id="l00168" name="l00168"></a><span class="lineno"><a class="line" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_view_config.html#aee9bc303f2bce8bcf14d18b181eb286f">  168</a></span>        <a class="code hl_enumeration" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#ade40ecf1619c14b53344301c1eca1bca">ViewUsage</a> usage = ViewUsage::SAMPLED;</div>
 <div class="line"><a id="l00169" name="l00169"></a><span class="lineno">  169</span> </div>
@@ -197,11 +197,6 @@ $(function(){initNavTree('_gpu_image_view_config_8h_source.html',''); initResiza
 </div>
 <div class="line"><a id="l00193" name="l00193"></a><span class="lineno">  193</span>};</div>
 </div>
-<div class="ttc" id="a_gpu_image_usage_8h_html"><div class="ttname"><a href="_gpu_image_usage_8h.html">GpuImageUsage.h</a></div></div>
-<div class="ttc" id="a_o_s_kmacros_8h_html"><div class="ttname"><a href="_o_s_kmacros_8h.html">OSKmacros.h</a></div></div>
-<div class="ttc" id="a_o_s_kmacros_8h_html_a09ec5b46ece998ad096bceff312bb36c"><div class="ttname"><a href="_o_s_kmacros_8h.html#a09ec5b46ece998ad096bceff312bb36c">OSKAPI_CALL</a></div><div class="ttdeci">#define OSKAPI_CALL</div><div class="ttdef"><b>Definition</b> <a href="_o_s_kmacros_8h_source.html#l00007">OSKmacros.h:7</a></div></div>
-<div class="ttc" id="a_o_s_kmacros_8h_html_a3e916ed5b32955be3417da92899fc361"><div class="ttname"><a href="_o_s_kmacros_8h.html#a3e916ed5b32955be3417da92899fc361">USize32</a></div><div class="ttdeci">uint32_t USize32</div><div class="ttdef"><b>Definition</b> <a href="_o_s_kmacros_8h_source.html#l00044">OSKmacros.h:44</a></div></div>
-<div class="ttc" id="a_o_s_kmacros_8h_html_af205b9fd0440138e6cac38a9081141df"><div class="ttname"><a href="_o_s_kmacros_8h.html#af205b9fd0440138e6cac38a9081141df">UIndex32</a></div><div class="ttdeci">uint32_t UIndex32</div><div class="ttdef"><b>Definition</b> <a href="_o_s_kmacros_8h_source.html#l00041">OSKmacros.h:41</a></div></div>
 <div class="ttc" id="anamespace_o_s_k_1_1_g_r_a_p_h_i_c_s_html"><div class="ttname"><a href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html">OSK::GRAPHICS</a></div><div class="ttdef"><b>Definition</b> <a href="_acceleration_structures_exceptions_8h_source.html#l00005">AccelerationStructuresExceptions.h:5</a></div></div>
 <div class="ttc" id="anamespace_o_s_k_1_1_g_r_a_p_h_i_c_s_html_a02ed44392ae1f51786ead8911c3afe9d"><div class="ttname"><a href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a02ed44392ae1f51786ead8911c3afe9d">OSK::GRAPHICS::SampledChannel</a></div><div class="ttdeci">SampledChannel</div><div class="ttdoc">Define qué parte de una imagen se leerá al usar una imagen en un shader.</div><div class="ttdef"><b>Definition</b> <a href="_gpu_image_usage_8h_source.html#l00076">GpuImageUsage.h:76</a></div></div>
 <div class="ttc" id="anamespace_o_s_k_1_1_g_r_a_p_h_i_c_s_html_a20f40e3d3e967090ee1884e0c77b9df9a5d0791856a3081df75c6093017a61a36"><div class="ttname"><a href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a20f40e3d3e967090ee1884e0c77b9df9a5d0791856a3081df75c6093017a61a36">OSK::GRAPHICS::GpuImageLayout::SAMPLED</a></div><div class="ttdeci">@ SAMPLED</div><div class="ttdoc">Se usará desde los shaders (read-only).</div></div>
@@ -222,8 +217,8 @@ $(function(){initNavTree('_gpu_image_view_config_8h_source.html',''); initResiza
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="dir_74389ed8173ad57b461b9d623a1f3867.html">Source</a></li><li class="navelem"><a class="el" href="_gpu_image_view_config_8h.html">GpuImageViewConfig.h</a></li>
-    <li class="footer">Generado el Jueves, 28 de marzo de 2024 17:53:10 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.10.0 </li>
+    <li class="navelem"><a class="el" href="dir_74389ed8173ad57b461b9d623a1f3867.html">Source</a></li><li class="navelem"><b>GpuImageViewConfig.h</b></li>
+    <li class="footer">Generado el Lunes, 15 de abril de 2024 22:39:16 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.10.0 </li>
   </ul>
 </div>
 </body>

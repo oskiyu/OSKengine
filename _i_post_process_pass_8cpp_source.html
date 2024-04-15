@@ -101,12 +101,12 @@ $(function(){initNavTree('_i_post_process_pass_8cpp_source.html',''); initResiza
   <div class="headertitle"><div class="title">IPostProcessPass.cpp</div></div>
 </div><!--header-->
 <div class="contents">
-<a href="_i_post_process_pass_8cpp.html">Ir a la documentación de este archivo.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#include &quot;<a class="code" href="_i_post_process_pass_8h.html">IPostProcessPass.h</a>&quot;</span></div>
+<div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#include &quot;IPostProcessPass.h&quot;</span></div>
 <div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span> </div>
-<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="preprocessor">#include &quot;<a class="code" href="_o_s_kengine_8h.html">OSKengine.h</a>&quot;</span></div>
-<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &quot;<a class="code" href="_i_renderer_8h.html">IRenderer.h</a>&quot;</span></div>
-<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &quot;<a class="code" href="_material_8h.html">Material.h</a>&quot;</span></div>
-<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &quot;<a class="code" href="_material_system_8h.html">MaterialSystem.h</a>&quot;</span></div>
+<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="preprocessor">#include &quot;OSKengine.h&quot;</span></div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &quot;IRenderer.h&quot;</span></div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &quot;Material.h&quot;</span></div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &quot;MaterialSystem.h&quot;</span></div>
 <div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span> </div>
 <div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="keyword">using namespace </span><a class="code hl_namespace" href="namespace_o_s_k.html">OSK</a>;</div>
 <div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="keyword">using namespace </span><a class="code hl_namespace" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html">OSK::GRAPHICS</a>;</div>
@@ -182,13 +182,8 @@ $(function(){initNavTree('_i_post_process_pass_8cpp_source.html',''); initResiza
 <div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>    <a class="code hl_variable" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_post_process_pass.html#a2ae9345b24bc12cc56e0749a548aef7c">postProcessingMaterialInstance</a>-&gt;GetSlot(<span class="stringliteral">&quot;texture&quot;</span>)-&gt;FlushUpdate();</div>
 <div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>}</div>
 </div>
-<div class="ttc" id="a_i_post_process_pass_8h_html"><div class="ttname"><a href="_i_post_process_pass_8h.html">IPostProcessPass.h</a></div></div>
-<div class="ttc" id="a_i_renderer_8h_html"><div class="ttname"><a href="_i_renderer_8h.html">IRenderer.h</a></div></div>
-<div class="ttc" id="a_material_8h_html"><div class="ttname"><a href="_material_8h.html">Material.h</a></div></div>
-<div class="ttc" id="a_material_system_8h_html"><div class="ttname"><a href="_material_system_8h.html">MaterialSystem.h</a></div></div>
-<div class="ttc" id="a_o_s_kengine_8h_html"><div class="ttname"><a href="_o_s_kengine_8h.html">OSKengine.h</a></div></div>
-<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_html"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image.html">OSK::GRAPHICS::GpuImage</a></div><div class="ttdoc">Representación interna de una imagen en la GPU.</div><div class="ttdef"><b>Definition</b> <a href="_i_gpu_image_8h_source.html#l00058">IGpuImage.h:58</a></div></div>
-<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_html_aee44857e300e500743cb18908f0aed4d"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image.html#aee44857e300e500743cb18908f0aed4d">OSK::GRAPHICS::GpuImage::GetView</a></div><div class="ttdeci">const IGpuImageView * GetView(const GpuImageViewConfig &amp;viewConfig) const</div><div class="ttdoc">Obtiene un image view con las características dadas.</div><div class="ttdef"><b>Definition</b> <a href="_i_gpu_image_8cpp_source.html#l00124">IGpuImage.cpp:124</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_html"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image.html">OSK::GRAPHICS::GpuImage</a></div><div class="ttdoc">Representación interna de una imagen en la GPU.</div><div class="ttdef"><b>Definition</b> <a href="_i_gpu_image_8h_source.html#l00035">IGpuImage.h:35</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_html_aee44857e300e500743cb18908f0aed4d"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image.html#aee44857e300e500743cb18908f0aed4d">OSK::GRAPHICS::GpuImage::GetView</a></div><div class="ttdeci">const IGpuImageView * GetView(const GpuImageViewConfig &amp;viewConfig) const</div><div class="ttdoc">Obtiene un image view con las características dadas.</div><div class="ttdef"><b>Definition</b> <a href="_i_gpu_image_8cpp_source.html#l00134">IGpuImage.cpp:134</a></div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_post_process_pass_html_a28dd840748b81628b933e9bb1c9eb107"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_post_process_pass.html#a28dd840748b81628b933e9bb1c9eb107">OSK::GRAPHICS::IPostProcessPass::SetInputTarget</a></div><div class="ttdeci">void SetInputTarget(RenderTarget &amp;target, const GpuImageViewConfig &amp;viewConfig)</div><div class="ttdoc">Establece las imágenes de entrada a partir de las que se calculará el efecto.</div><div class="ttdef"><b>Definition</b> <a href="#l00036">IPostProcessPass.cpp:36</a></div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_post_process_pass_html_a2ae9345b24bc12cc56e0749a548aef7c"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_post_process_pass.html#a2ae9345b24bc12cc56e0749a548aef7c">OSK::GRAPHICS::IPostProcessPass::postProcessingMaterialInstance</a></div><div class="ttdeci">UniquePtr&lt; MaterialInstance &gt; postProcessingMaterialInstance</div><div class="ttdef"><b>Definition</b> <a href="_i_post_process_pass_8h_source.html#l00114">IPostProcessPass.h:114</a></div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_post_process_pass_html_a395b387f29e345e76f4a147516b21098"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_post_process_pass.html#a395b387f29e345e76f4a147516b21098">OSK::GRAPHICS::IPostProcessPass::resolveRenderTarget</a></div><div class="ttdeci">ComputeRenderTarget resolveRenderTarget</div><div class="ttdef"><b>Definition</b> <a href="_i_post_process_pass_8h_source.html#l00116">IPostProcessPass.h:116</a></div></div>
@@ -223,8 +218,8 @@ $(function(){initNavTree('_i_post_process_pass_8cpp_source.html',''); initResiza
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="dir_74389ed8173ad57b461b9d623a1f3867.html">Source</a></li><li class="navelem"><a class="el" href="_i_post_process_pass_8cpp.html">IPostProcessPass.cpp</a></li>
-    <li class="footer">Generado el Jueves, 28 de marzo de 2024 17:53:11 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.10.0 </li>
+    <li class="navelem"><a class="el" href="dir_74389ed8173ad57b461b9d623a1f3867.html">Source</a></li><li class="navelem"><b>IPostProcessPass.cpp</b></li>
+    <li class="footer">Generado el Lunes, 15 de abril de 2024 22:39:16 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.10.0 </li>
   </ul>
 </div>
 </body>

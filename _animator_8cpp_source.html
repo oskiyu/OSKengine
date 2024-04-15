@@ -101,14 +101,14 @@ $(function(){initNavTree('_animator_8cpp_source.html',''); initResizable(); });
   <div class="headertitle"><div class="title">Animator.cpp</div></div>
 </div><!--header-->
 <div class="contents">
-<a href="_animator_8cpp.html">Ir a la documentación de este archivo.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#include &quot;<a class="code" href="_animator_8h.html">Animator.h</a>&quot;</span></div>
+<div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#include &quot;Animator.h&quot;</span></div>
 <div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span> </div>
-<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="preprocessor">#include &quot;<a class="code" href="_o_s_kengine_8h.html">OSKengine.h</a>&quot;</span></div>
-<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &quot;<a class="code" href="_i_renderer_8h.html">IRenderer.h</a>&quot;</span></div>
-<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &quot;<a class="code" href="_material_8h.html">Material.h</a>&quot;</span></div>
-<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &quot;<a class="code" href="_math_8h.html">Math.h</a>&quot;</span></div>
+<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="preprocessor">#include &quot;OSKengine.h&quot;</span></div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &quot;IRenderer.h&quot;</span></div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &quot;Material.h&quot;</span></div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &quot;Math.h&quot;</span></div>
 <div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span> </div>
-<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="preprocessor">#include &quot;<a class="code" href="_animation_exceptions_8h.html">AnimationExceptions.h</a>&quot;</span></div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="preprocessor">#include &quot;AnimationExceptions.h&quot;</span></div>
 <div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span> </div>
 <div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="keyword">using namespace </span><a class="code hl_namespace" href="namespace_o_s_k.html">OSK</a>;</div>
 <div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="keyword">using namespace </span><a class="code hl_namespace" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html">OSK::GRAPHICS</a>;</div>
@@ -120,12 +120,12 @@ $(function(){initNavTree('_animator_8cpp_source.html',''); initResizable(); });
 </div>
 <div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span> </div>
 <div class="foldopen" id="foldopen00017" data-start="{" data-end="}">
-<div class="line"><a id="l00017" name="l00017"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_animator.html#a7ff47c14c14b02ad6a395a6072084e8c">   17</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_animator.html#a7ff47c14c14b02ad6a395a6072084e8c">Animator::Update</a>(<a class="code hl_typedef" href="_o_s_kmacros_8h.html#ad05d5eacc527d5b61240124daf13b33b">TDeltaTime</a> deltaTime) {</div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_animator.html#a7ff47c14c14b02ad6a395a6072084e8c">   17</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_animator.html#a7ff47c14c14b02ad6a395a6072084e8c">Animator::Update</a>(TDeltaTime deltaTime) {</div>
 <div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>    <span class="keywordflow">if</span> (m_activeAnimations.empty()) {</div>
 <div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>        <span class="keywordflow">return</span>;</div>
 <div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>    }</div>
 <div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span> </div>
-<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>    <span class="keywordflow">for</span> (<span class="keyword">const</span> <a class="code hl_typedef" href="_o_s_kmacros_8h.html#adef8e046c86805ca0dc2db407b01a1bb">UIndex64</a> index : m_activeAnimations) {</div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>    <span class="keywordflow">for</span> (<span class="keyword">const</span> UIndex64 index : m_activeAnimations) {</div>
 <div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>        m_animations[index].Update(deltaTime, *<a class="code hl_function" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_animator.html#ab111329da7b08c3a10ed561fb96a2767">GetActiveSkin</a>());</div>
 <div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>    }</div>
 <div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>    </div>
@@ -133,10 +133,10 @@ $(function(){initNavTree('_animator_8cpp_source.html',''); initResizable(); });
 <div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>        matrix = glm::mat4(1.0f);</div>
 <div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>    }</div>
 <div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span> </div>
-<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>    <span class="keywordflow">for</span> (<span class="keyword">const</span> <a class="code hl_typedef" href="_o_s_kmacros_8h.html#adef8e046c86805ca0dc2db407b01a1bb">UIndex64</a> animationIndex : m_activeAnimations) {</div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>    <span class="keywordflow">for</span> (<span class="keyword">const</span> UIndex64 animationIndex : m_activeAnimations) {</div>
 <div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>        <span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_animation.html">Animation</a>&amp; animation = m_animations[animationIndex];</div>
 <div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span> </div>
-<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>        <span class="keywordflow">for</span> (<a class="code hl_typedef" href="_o_s_kmacros_8h.html#af205b9fd0440138e6cac38a9081141df">UIndex32</a> boneIndex = 0; boneIndex &lt; <a class="code hl_function" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_animator.html#ab111329da7b08c3a10ed561fb96a2767">GetActiveSkin</a>()-&gt;<a class="code hl_variable" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_animation_skin.html#a58055174c7f93a2707a286da67a27a9a">bonesIds</a>.<a class="code hl_function" href="class_o_s_k_1_1_dynamic_array.html#af09578371bd52d5a934bc74c8dad5f0d">GetSize</a>(); boneIndex++) {</div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>        <span class="keywordflow">for</span> (UIndex32 boneIndex = 0; boneIndex &lt; <a class="code hl_function" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_animator.html#ab111329da7b08c3a10ed561fb96a2767">GetActiveSkin</a>()-&gt;<a class="code hl_variable" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_animation_skin.html#a58055174c7f93a2707a286da67a27a9a">bonesIds</a>.<a class="code hl_function" href="class_o_s_k_1_1_dynamic_array.html#af09578371bd52d5a934bc74c8dad5f0d">GetSize</a>(); boneIndex++) {</div>
 <div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>            <span class="keyword">const</span> <span class="keywordtype">float</span> ratio = 1.0f;<span class="comment">// / activeAnimations.GetSize();</span></div>
 <div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span> </div>
 <div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>            <span class="comment">// Transforma de espacio local a espacio de joint.</span></div>
@@ -154,14 +154,14 @@ $(function(){initNavTree('_animator_8cpp_source.html',''); initResizable(); });
 <div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span> </div>
 <div class="foldopen" id="foldopen00048" data-start="{" data-end="}">
 <div class="line"><a id="l00048" name="l00048"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_animator.html#a21b89a30c5989e74a438f81c4970b085">   48</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_animator.html#a21b89a30c5989e74a438f81c4970b085">Animator::AddActiveAnimation</a>(std::string_view name) {</div>
-<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>    <a class="code hl_define" href="_assert_8h.html#a927d7efae46f019e805b046e952af182">OSK_ASSERT</a>(m_animationsByName.contains(name), <a class="code hl_class" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_model_animation_not_found_exception.html">ModelAnimationNotFoundException</a>(name));</div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>    OSK_ASSERT(m_animationsByName.contains(name), <a class="code hl_class" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_model_animation_not_found_exception.html">ModelAnimationNotFoundException</a>(name));</div>
 <div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>    m_activeAnimations.insert(m_animationsByName.find(name)-&gt;second);</div>
 <div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>}</div>
 </div>
 <div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span> </div>
 <div class="foldopen" id="foldopen00053" data-start="{" data-end="}">
 <div class="line"><a id="l00053" name="l00053"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_animator.html#a45fbaa3cf196a05625aff83530ed9c18">   53</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_animator.html#a45fbaa3cf196a05625aff83530ed9c18">Animator::RemoveActiveAnimation</a>(std::string_view name) {</div>
-<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>    <a class="code hl_define" href="_assert_8h.html#a927d7efae46f019e805b046e952af182">OSK_ASSERT</a>(m_animationsByName.contains(name), <a class="code hl_class" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_model_animation_not_found_exception.html">ModelAnimationNotFoundException</a>(name));</div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>    OSK_ASSERT(m_animationsByName.contains(name), <a class="code hl_class" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_model_animation_not_found_exception.html">ModelAnimationNotFoundException</a>(name));</div>
 <div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>    m_activeAnimations.erase(m_animationsByName.find(name)-&gt;second);</div>
 <div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>}</div>
 </div>
@@ -171,7 +171,7 @@ $(function(){initNavTree('_animator_8cpp_source.html',''); initResizable(); });
 <div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>    m_animations.Insert(animation);</div>
 <div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>    m_animationsByName[<span class="keyword">static_cast&lt;</span>std::string<span class="keyword">&gt;</span>(animation.<a class="code hl_function" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_animation.html#a1195563fd37cfb496632be9c70651a6a">GetName</a>())] = m_animations.GetSize() - 1;</div>
 <div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span> </div>
-<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>    <span class="keywordflow">for</span> (<a class="code hl_typedef" href="_o_s_kmacros_8h.html#adef8e046c86805ca0dc2db407b01a1bb">UIndex64</a> i = m_boneMatrices.<a class="code hl_function" href="class_o_s_k_1_1_dynamic_array.html#af09578371bd52d5a934bc74c8dad5f0d">GetSize</a>(); i &lt; animation.<a class="code hl_function" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_animation.html#a1dbc0ebde96aba6f96faa186bd52bb21">GetSkeleton</a>().<a class="code hl_function" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_skeleton.html#a4b846fd2e09c64d408ba32ccdb9d1af7">GetBoneCount</a>(); i++) {</div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>    <span class="keywordflow">for</span> (UIndex64 i = m_boneMatrices.<a class="code hl_function" href="class_o_s_k_1_1_dynamic_array.html#af09578371bd52d5a934bc74c8dad5f0d">GetSize</a>(); i &lt; animation.<a class="code hl_function" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_animation.html#a1dbc0ebde96aba6f96faa186bd52bb21">GetSkeleton</a>().<a class="code hl_function" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_skeleton.html#a4b846fd2e09c64d408ba32ccdb9d1af7">GetBoneCount</a>(); i++) {</div>
 <div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>        m_boneMatrices.<a class="code hl_function" href="class_o_s_k_1_1_dynamic_array.html#a4433c76207ce2ecad5e306b12575f1b3">Insert</a>(glm::mat4(1.0f));</div>
 <div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>    }</div>
 <div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>}</div>
@@ -199,8 +199,8 @@ $(function(){initNavTree('_animator_8cpp_source.html',''); initResizable(); });
 </div>
 <div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span> </div>
 <div class="foldopen" id="foldopen00082" data-start="{" data-end="}">
-<div class="line"><a id="l00082" name="l00082"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_animator.html#adad326f682a692767a13d6eff2c47cd5">   82</a></span><span class="keyword">const</span> <a class="code hl_struct" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_animation_skin.html">AnimationSkin</a>&amp; <a class="code hl_function" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_animator.html#adad326f682a692767a13d6eff2c47cd5">Animator::GetSkin</a>(<a class="code hl_typedef" href="_o_s_kmacros_8h.html#af205b9fd0440138e6cac38a9081141df">UIndex32</a> index)<span class="keyword"> const </span>{</div>
-<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span>    <a class="code hl_define" href="_assert_8h.html#a927d7efae46f019e805b046e952af182">OSK_ASSERT</a>(index &lt; m_animationSkins.GetSize(), <a class="code hl_class" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_model_skin_not_found_exception.html">ModelSkinNotFoundException</a>(std::format(<span class="stringliteral">&quot;índice {}&quot;</span>, index)));</div>
+<div class="line"><a id="l00082" name="l00082"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_animator.html#adad326f682a692767a13d6eff2c47cd5">   82</a></span><span class="keyword">const</span> <a class="code hl_struct" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_animation_skin.html">AnimationSkin</a>&amp; <a class="code hl_function" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_animator.html#adad326f682a692767a13d6eff2c47cd5">Animator::GetSkin</a>(UIndex32 index)<span class="keyword"> const </span>{</div>
+<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span>    OSK_ASSERT(index &lt; m_animationSkins.GetSize(), <a class="code hl_class" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_model_skin_not_found_exception.html">ModelSkinNotFoundException</a>(std::format(<span class="stringliteral">&quot;índice {}&quot;</span>, index)));</div>
 <div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span>    <span class="keywordflow">return</span> m_animationSkins[index];</div>
 <div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span>}</div>
 </div>
@@ -222,16 +222,6 @@ $(function(){initNavTree('_animator_8cpp_source.html',''); initResizable(); });
 <div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span>    <span class="keywordflow">return</span> !m_animations.IsEmpty();</div>
 <div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span>}</div>
 </div>
-<div class="ttc" id="a_animation_exceptions_8h_html"><div class="ttname"><a href="_animation_exceptions_8h.html">AnimationExceptions.h</a></div></div>
-<div class="ttc" id="a_animator_8h_html"><div class="ttname"><a href="_animator_8h.html">Animator.h</a></div></div>
-<div class="ttc" id="a_assert_8h_html_a927d7efae46f019e805b046e952af182"><div class="ttname"><a href="_assert_8h.html#a927d7efae46f019e805b046e952af182">OSK_ASSERT</a></div><div class="ttdeci">#define OSK_ASSERT(condition, exception)</div><div class="ttdoc">Comrpueba si una condición se cumple. En caso de no cumplirse, lanza la excepción indicada,...</div><div class="ttdef"><b>Definition</b> <a href="_assert_8h_source.html#l00041">Assert.h:41</a></div></div>
-<div class="ttc" id="a_i_renderer_8h_html"><div class="ttname"><a href="_i_renderer_8h.html">IRenderer.h</a></div></div>
-<div class="ttc" id="a_material_8h_html"><div class="ttname"><a href="_material_8h.html">Material.h</a></div></div>
-<div class="ttc" id="a_math_8h_html"><div class="ttname"><a href="_math_8h.html">Math.h</a></div></div>
-<div class="ttc" id="a_o_s_kengine_8h_html"><div class="ttname"><a href="_o_s_kengine_8h.html">OSKengine.h</a></div></div>
-<div class="ttc" id="a_o_s_kmacros_8h_html_ad05d5eacc527d5b61240124daf13b33b"><div class="ttname"><a href="_o_s_kmacros_8h.html#ad05d5eacc527d5b61240124daf13b33b">TDeltaTime</a></div><div class="ttdeci">float TDeltaTime</div><div class="ttdoc">Segundos.</div><div class="ttdef"><b>Definition</b> <a href="_o_s_kmacros_8h_source.html#l00048">OSKmacros.h:48</a></div></div>
-<div class="ttc" id="a_o_s_kmacros_8h_html_adef8e046c86805ca0dc2db407b01a1bb"><div class="ttname"><a href="_o_s_kmacros_8h.html#adef8e046c86805ca0dc2db407b01a1bb">UIndex64</a></div><div class="ttdeci">uint64_t UIndex64</div><div class="ttdef"><b>Definition</b> <a href="_o_s_kmacros_8h_source.html#l00042">OSKmacros.h:42</a></div></div>
-<div class="ttc" id="a_o_s_kmacros_8h_html_af205b9fd0440138e6cac38a9081141df"><div class="ttname"><a href="_o_s_kmacros_8h.html#af205b9fd0440138e6cac38a9081141df">UIndex32</a></div><div class="ttdeci">uint32_t UIndex32</div><div class="ttdef"><b>Definition</b> <a href="_o_s_kmacros_8h_source.html#l00041">OSKmacros.h:41</a></div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_dynamic_array_html"><div class="ttname"><a href="class_o_s_k_1_1_dynamic_array.html">OSK::DynamicArray</a></div><div class="ttdoc">Dynamic array: array que puede cambiar de tamaño.</div><div class="ttdef"><b>Definition</b> <a href="_dynamic_array_8hpp_source.html#l00067">DynamicArray.hpp:67</a></div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_dynamic_array_html_a4433c76207ce2ecad5e306b12575f1b3"><div class="ttname"><a href="class_o_s_k_1_1_dynamic_array.html#a4433c76207ce2ecad5e306b12575f1b3">OSK::DynamicArray::Insert</a></div><div class="ttdeci">void Insert(const T &amp;element)</div><div class="ttdoc">Inserta un elemento al final del array.</div><div class="ttdef"><b>Definition</b> <a href="_dynamic_array_8hpp_source.html#l00351">DynamicArray.hpp:351</a></div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_dynamic_array_html_af09578371bd52d5a934bc74c8dad5f0d"><div class="ttname"><a href="class_o_s_k_1_1_dynamic_array.html#af09578371bd52d5a934bc74c8dad5f0d">OSK::DynamicArray::GetSize</a></div><div class="ttdeci">USize64 GetSize() const noexcept</div><div class="ttdoc">Devuelve el número de elementos almacenados.</div><div class="ttdef"><b>Definition</b> <a href="_dynamic_array_8hpp_source.html#l00672">DynamicArray.hpp:672</a></div></div>
@@ -266,8 +256,8 @@ $(function(){initNavTree('_animator_8cpp_source.html',''); initResizable(); });
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="dir_74389ed8173ad57b461b9d623a1f3867.html">Source</a></li><li class="navelem"><a class="el" href="_animator_8cpp.html">Animator.cpp</a></li>
-    <li class="footer">Generado el Jueves, 28 de marzo de 2024 17:53:10 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.10.0 </li>
+    <li class="navelem"><a class="el" href="dir_74389ed8173ad57b461b9d623a1f3867.html">Source</a></li><li class="navelem"><b>Animator.cpp</b></li>
+    <li class="footer">Generado el Lunes, 15 de abril de 2024 22:39:15 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.10.0 </li>
   </ul>
 </div>
 </body>

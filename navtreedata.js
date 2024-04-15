@@ -25,31 +25,7 @@
 var NAVTREE =
 [
   [ "OSKengine", "index.html", [
-    [ "Archivos JSON", "jsonfiles.html", [
-      [ "Archivo de material", "jsonfiles.html#MaterialFile", [
-        [ "Spec V1", "jsonfiles.html#specv1", [
-          [ "Configuración adicional", "jsonfiles.html#configv1", null ],
-          [ "Tipos de material.", "jsonfiles.html#materialtypeV1", null ],
-          [ "Modo de renderizado de polígonos.", "jsonfiles.html#polygonmodeV1", null ],
-          [ "Modo de depth testing.", "jsonfiles.html#depthtestingV1", null ],
-          [ "Modo de culling.", "jsonfiles.html#cullingV1", null ]
-        ] ],
-        [ "Spec V0", "jsonfiles.html#specv0", [
-          [ "Layout", "jsonfiles.html#layoutv0", null ],
-          [ "Push Constant", "jsonfiles.html#pushconstv0", null ],
-          [ "Slot", "jsonfiles.html#slotv0", null ],
-          [ "Binding", "jsonfiles.html#bindingv0", null ],
-          [ "Configuración adicional", "jsonfiles.html#configv0", null ],
-          [ "Tipos de material.", "jsonfiles.html#materialtypeV0", null ],
-          [ "Modo de renderizado de polígonos.", "jsonfiles.html#polygonmodeV0", null ],
-          [ "Modo de depth testing.", "jsonfiles.html#depthtestingV0", null ],
-          [ "Modo de culling.", "jsonfiles.html#cullingV0", null ]
-        ] ]
-      ] ]
-    ] ],
-    [ "Lista de tareas pendientes", "todo.html", null ],
-    [ "Lista de defectos", "bug.html", null ],
-    [ "Lista de obsoletos", "deprecated.html", null ],
+    [ "Archivos de descripción de recursos.", "jsonfiles.html", "jsonfiles" ],
     [ "Espacios de nombres", "namespaces.html", [
       [ "Lista de espacios de nombres", "namespaces.html", "namespaces_dup" ],
       [ "Miembros del espacio de nombres ", "namespacemembers.html", [
@@ -74,72 +50,57 @@ var NAVTREE =
         [ "Símbolos relacionados", "functions_rela.html", null ]
       ] ]
     ] ],
-    [ "Archivos", "files.html", [
-      [ "Lista de archivos", "files.html", "files_dup" ],
-      [ "Miembros de los archivos", "globals.html", [
-        [ "Todos", "globals.html", null ],
-        [ "Funciones", "globals_func.html", null ],
-        [ "Variables", "globals_vars.html", null ],
-        [ "typedefs", "globals_type.html", null ],
-        [ "defines", "globals_defs.html", null ]
-      ] ]
-    ] ],
     [ "Ejemplos", "examples.html", "examples" ]
   ] ]
 ];
 
 var NAVTREEINDEX =
 [
-"_acceleration_structures_exceptions_8h.html",
-"_cubemap_texture_8cpp.html",
-"_gpu_barrier_info_8h.html#af674fb9ac784ada92d2ecc7064b87932",
-"_i_bottom_level_acceleration_structure_8cpp_source.html",
-"_keyboard_state_8h.html#a0b92714a4a778072d4824502589bd39ea69691c7bdcc3ce6d5d8a1361f22d04ac",
-"_pbr_material_info_8h_source.html",
-"_skeleton_8h_source.html",
-"_vertex_buffer_view_8h_source.html",
-"class_o_s_k_1_1_a_s_s_e_t_s_1_1_i_asset_loader.html#ac5c0d4e581da3c41b856364bf1bdba0c",
-"class_o_s_k_1_1_a_s_s_e_t_s_1_1_static_mesh_loader.html#a979b80836a2bc46759d7e6e91059e664",
-"class_o_s_k_1_1_a_u_d_i_o_1_1_i_audio_device.html#a33e7f680abb75fc666b363d44a41788d",
-"class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_detailed_collision_info.html#a791befb9b09d884053989f26f644c893",
-"class_o_s_k_1_1_cpu_mesh3_d.html#a9d7aee36cd4a1d205fdfdf7ad6d97028",
-"class_o_s_k_1_1_e_c_s_1_1_collider_render_system.html#a2d6aa3dc12aa77cc9109b920ddca4225",
-"class_o_s_k_1_1_e_c_s_1_1_deferred_render_system.html#a557453c60399886f4069fb4361a891a5",
-"class_o_s_k_1_1_e_c_s_1_1_gdr_deferred_render_system.html#a450ad8f02fa5611df03e38e1852d6d84",
-"class_o_s_k_1_1_e_c_s_1_1_i_consumer_system.html#ad45cabb31dc788fbc37feaed82fd99d8",
-"class_o_s_k_1_1_e_c_s_1_1_physics_component.html#a0d5af64d99b45d6af7f34f07a468836a",
-"class_o_s_k_1_1_e_c_s_1_1_render_system2_d.html#aaff54e4b3e1fae77c5aa8cd72e87c94e",
-"class_o_s_k_1_1_e_c_s_1_1_system_manager.html#a7f08d18419d8782f296027a7ca1c1790",
-"class_o_s_k_1_1_e_c_s_1_1_tree_normals_render_system.html",
-"class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_bone_already_added_exception.html#a6feebdb6af95fe96f589781ce0157322",
-"class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_list_vk.html#a87f6db835f225fc12e6b1849ff42f7aa",
-"class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_fxaa_pass.html#a4e0f055e9e0b0023f77ab6e440114505",
-"class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_dx12.html#a3ba7ae34f0300d29e55316008bb2e8a6",
-"class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_memory_allocator_dx12.html#a5ffe3d30b281dd779e43a430a46447cf",
-"class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_memory_subblock_dx12.html#a65942f9bf36dae5d99977794c00066ef",
-"class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_hbao_pass.html",
-"class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_image_view.html#a50dc7911f3a99ae8db4e94a6eb1b3080",
-"class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_material_slot.html#ace3a0d44ab5ac911d44b71a3db6c334b",
-"class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_rt_shader_table.html#a9f98e5eba9ed4ab7f1b7cd8f21d4d09f",
-"class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material.html#af145277bed3af0474a0e1abbd2a12fac",
-"class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_pipeline_creation_exception.html",
-"class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderer_dx12.html#acf22c29d74bcd9d7e992d5f59becb681",
-"class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_shadow_map.html#a2049f04835be03e41411a54457933d50",
-"class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_swapchain_dx12.html#a0cdee0cb5713f43965ac3160dfe1cff3",
-"class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_vertex_info.html#a92314ac0bb2cb55ae18f4c67b944e566",
-"class_o_s_k_1_1_i_o_1_1_i_mouse_input.html#aeb8e1c1d58ecab6d32c6263037c68977",
-"class_o_s_k_1_1_linked_list.html#a1daf5ca9d77018980cdcd2bda761093b",
-"class_o_s_k_1_1_span.html#a84999850a3dac4a4eed8906c166c814a",
-"class_o_s_k_1_1_u_i_1_1_dropdown_1_1_element.html#a1d2ccb5071496fa45720e7a1bb1be21d",
-"class_o_s_k_1_1_u_i_1_1_i_container.html#a1abff2399030167132e867fd37f03e20",
-"class_o_s_k_1_1_u_i_1_1_text_view.html#a91cfb0cebf73163118176956bff4cafa",
-"class_o_s_k_1_1_vector3__t.html#a731196933637a616399332404dbf06ef",
-"functions_vars_o.html",
-"namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#aad769de4b6a68624571ab3ae7ec13f97a6f49448c79d7d58c6e60cf7129b84d1c",
-"namespace_o_s_k_1_1_i_o.html#ad1d8e1f23e2f2515648a3ad1b93ff345a9d5ed678fe57bcca610140957afab571",
-"struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_animation_bone.html#aac4afc23e5ba01cad66f31b44d06aa4c",
-"struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_model3_d_1_1_material.html#a00fbd48c05a57e0eb9d3a91695150d2e",
-"struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_render_target_attachment_info.html#ac17eaee360546051d644f2cc040f1d2a"
+"_cubemap_file.html",
+"class_o_s_k_1_1_a_s_s_e_t_s_1_1_font_character_lodaing_exception.html#a6feebdb6af95fe96f589781ce0157322",
+"class_o_s_k_1_1_a_s_s_e_t_s_1_1_pre_built_spline3_d.html#a0d344ae930eb89a7fbdaf7f8c61a7a65",
+"class_o_s_k_1_1_a_u_d_i_o_1_1_audio_source_al.html#a03a8791ca0c9bc590d4526eee8bb6438",
+"class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_axis_aligned_bounding_box.html#ab52e3f971fc7904c6d4bd24bf4ea2738",
+"class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_sphere_collider.html#a68283d0ccbcb4f54cd848f3be2fcc130",
+"class_o_s_k_1_1_dynamic_array_1_1_const_iterator.html#a3bfd7a6d32ce6f2107a5ffab3b154dc1",
+"class_o_s_k_1_1_e_c_s_1_1_component_container.html#ab3eb21a762f8f34001a6e2c86e1e43ae",
+"class_o_s_k_1_1_e_c_s_1_1_entity_component_system.html#a951795223a1dbef1b648f2dbe1b29b2d",
+"class_o_s_k_1_1_e_c_s_1_1_hybrid_render_system.html#a1ed1422db22d1134fa331768a298fc05",
+"class_o_s_k_1_1_e_c_s_1_1_i_system.html#a2d6aa3dc12aa77cc9109b920ddca4225",
+"class_o_s_k_1_1_e_c_s_1_1_physics_system.html#ae112bd30755ef771c25dc2d620fb6295",
+"class_o_s_k_1_1_e_c_s_1_1_scene.html",
+"class_o_s_k_1_1_e_c_s_1_1_transform2_d.html#aa827ca5dff4d21765bca9e8b8ae844b5",
+"class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_animated_g_buffer_pass.html#a270f363b6cf9b0fe531cc6f766b19d19",
+"class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_list_dx12.html#a87d534d7426c0dbb7a01f2b8d4ab5013",
+"class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_pool_vk.html#a83e2fc7cb99d327233d59dc1725a220c",
+"class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_global_mesh_mapping.html#aab00bd7a49d8603f2b793a1620d1b37f",
+"class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_dx12.html#ac71ee7f557da19b1a8c1513c46f52c9c",
+"class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_memory_allocator_dx12.html#ad1498ab79f352797847e9547f422dac7",
+"class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_memory_subblock_vk.html",
+"class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_hbao_pass.html#a726328a31b6a21afeb7900d1641e451f",
+"class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu.html#ab505de7218654c86ee2d63eed1915b71",
+"class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_material_slot.html#a49409314a65d27a7043557d85626cb8b",
+"class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer.html#acf22c29d74bcd9d7e992d5f59becb681",
+"class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_local_per_model_data.html#add0fcbd94af910cc87159fec86fa065f",
+"class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_pbr_resolver_pass.html#a59d0f645e8dfeeb0f9d2b27458e944a7",
+"class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderer_dx12.html#a9aeeff6fec6fff2c175231fb2cf22357",
+"class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_shader_compiling_exception.html#a5917dd00839ecf40e569d1abb1b2a7b9",
+"class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_static_g_buffer_pass.html#a4ea0ad5b179f642eb67e700eff052bf6",
+"class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_tree_normals_pass.html",
+"class_o_s_k_1_1_i_o_1_1_i_keyboard_input.html#a6ead913a0ac93710b8f0c862318a60fb",
+"class_o_s_k_1_1_i_o_1_1_window.html#aeb6da49da6d72505687d04088cc79cbd",
+"class_o_s_k_1_1_owned_ptr.html#a81dfab2299056fc9858aace55fca0042",
+"class_o_s_k_1_1_u_i_1_1_button.html#ad23a7cf71ff3d1b1528adfb674f5573c",
+"class_o_s_k_1_1_u_i_1_1_free_container.html#ae01866b02c7417455751f01b2f9d1fbf",
+"class_o_s_k_1_1_u_i_1_1_image_view.html#a1f83d14df7d9cb4a3e0ec7d72827f66d",
+"class_o_s_k_1_1_unique_ptr.html#ada3a2da18d62849320f5818c039311c7",
+"class_shared_ptr.html#a59f650eeb22bb62b130b38937bd8b838",
+"namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a4a3cc5ac5a7f3c8753e7f74d576d6e1da56da21e70ea85d8efa9392d6fd11f2ee",
+"namespace_o_s_k_1_1_i_o.html#a0b92714a4a778072d4824502589bd39eaabf9846f265ae3dea4bf9d740f5cb1aa",
+"struct_o_s_k_1_1_cpu_vertex3_d.html#a32ffddfdac30b2950f00d29ca655fe45",
+"struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_buffer_memory_block_info.html#a5837385dfcfb82fdac20cb57c4afeae6",
+"struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_pbr_material_info.html#a9e67df3595170e14ee29d9904fa47742",
+"struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_vertices_attributes_maps.html"
 ];
 
 var SYNCONMSG = 'pulsar para deshabilitar sincronización';

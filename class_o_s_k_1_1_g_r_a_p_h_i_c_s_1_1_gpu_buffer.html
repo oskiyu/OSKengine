@@ -105,8 +105,8 @@ $(function(){initNavTree('class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_buffer.html','
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Métodos públicos</h2></td></tr>
-<tr class="memitem:a576a28df54dad757a478a373a8e50243" id="r_a576a28df54dad757a478a373a8e50243"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a576a28df54dad757a478a373a8e50243">GpuBuffer</a> (<a class="el" href="class_o_s_k_1_1_owned_ptr.html">OwnedPtr</a>&lt; <a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_subblock.html">IGpuMemorySubblock</a> &gt; <a class="el" href="#adfc9ed42440b5eebe45b0e2a1b0c9a6f">buffer</a>, <a class="el" href="_o_s_kmacros_8h.html#a5784d24fcb00afb78eb7b1e1a3466ac4">USize64</a> size, <a class="el" href="_o_s_kmacros_8h.html#a5784d24fcb00afb78eb7b1e1a3466ac4">USize64</a> alignment)</td></tr>
-<tr class="separator:a576a28df54dad757a478a373a8e50243"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae1f0589b23be5b1890fac979a03de03d" id="r_ae1f0589b23be5b1890fac979a03de03d"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae1f0589b23be5b1890fac979a03de03d">GpuBuffer</a> (<a class="el" href="class_o_s_k_1_1_owned_ptr.html">OwnedPtr</a>&lt; <a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_subblock.html">IGpuMemorySubblock</a> &gt; <a class="el" href="#adfc9ed42440b5eebe45b0e2a1b0c9a6f">buffer</a>, USize64 size, USize64 alignment, const <a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_queue.html">ICommandQueue</a> *ownerQueue)</td></tr>
+<tr class="separator:ae1f0589b23be5b1890fac979a03de03d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a643a2fbee87068d916a1895c67f095be" id="r_a643a2fbee87068d916a1895c67f095be"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a643a2fbee87068d916a1895c67f095be">~GpuBuffer</a> ()</td></tr>
 <tr class="separator:a643a2fbee87068d916a1895c67f095be"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3ee235c702d0d842c50430ac8d842e6b" id="r_a3ee235c702d0d842c50430ac8d842e6b"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a3ee235c702d0d842c50430ac8d842e6b">OSK_DISABLE_COPY</a> (<a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_buffer.html">GpuBuffer</a>)</td></tr>
@@ -125,29 +125,39 @@ Métodos públicos</h2></td></tr>
 <tr class="separator:ae1adf2938560e79cc1df7a9f3298839a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a55b91833fc67c0e9368f3bc7139da248" id="r_a55b91833fc67c0e9368f3bc7139da248"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a55b91833fc67c0e9368f3bc7139da248">MapMemory</a> ()</td></tr>
 <tr class="separator:a55b91833fc67c0e9368f3bc7139da248"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7bc8473a4c0eb45fc43fa4310adda7a2" id="r_a7bc8473a4c0eb45fc43fa4310adda7a2"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a7bc8473a4c0eb45fc43fa4310adda7a2">MapMemory</a> (<a class="el" href="_o_s_kmacros_8h.html#a5784d24fcb00afb78eb7b1e1a3466ac4">USize64</a> size, <a class="el" href="_o_s_kmacros_8h.html#a5784d24fcb00afb78eb7b1e1a3466ac4">USize64</a> offset)</td></tr>
+<tr class="memitem:a7bc8473a4c0eb45fc43fa4310adda7a2" id="r_a7bc8473a4c0eb45fc43fa4310adda7a2"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a7bc8473a4c0eb45fc43fa4310adda7a2">MapMemory</a> (USize64 size, USize64 offset)</td></tr>
 <tr class="separator:a7bc8473a4c0eb45fc43fa4310adda7a2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abfa416bc763b13175e9c8710070d25ff" id="r_abfa416bc763b13175e9c8710070d25ff"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#abfa416bc763b13175e9c8710070d25ff">Write</a> (const void *data, <a class="el" href="_o_s_kmacros_8h.html#a5784d24fcb00afb78eb7b1e1a3466ac4">USize64</a> size)</td></tr>
+<tr class="memitem:abfa416bc763b13175e9c8710070d25ff" id="r_abfa416bc763b13175e9c8710070d25ff"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#abfa416bc763b13175e9c8710070d25ff">Write</a> (const void *data, USize64 size)</td></tr>
 <tr class="separator:abfa416bc763b13175e9c8710070d25ff"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3ca13b3c120651139ba36468cd11a8db" id="r_a3ca13b3c120651139ba36468cd11a8db"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
 <tr class="memitem:a3ca13b3c120651139ba36468cd11a8db"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="#a3ca13b3c120651139ba36468cd11a8db">Write</a> (const T &amp;data)</td></tr>
 <tr class="separator:a3ca13b3c120651139ba36468cd11a8db"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:afdc8a9c002f270d52068cefd23efacfa" id="r_afdc8a9c002f270d52068cefd23efacfa"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#afdc8a9c002f270d52068cefd23efacfa">WriteOffset</a> (const void *data, <a class="el" href="_o_s_kmacros_8h.html#a5784d24fcb00afb78eb7b1e1a3466ac4">USize64</a> size, <a class="el" href="_o_s_kmacros_8h.html#a5784d24fcb00afb78eb7b1e1a3466ac4">USize64</a> offset)</td></tr>
+<tr class="memitem:afdc8a9c002f270d52068cefd23efacfa" id="r_afdc8a9c002f270d52068cefd23efacfa"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#afdc8a9c002f270d52068cefd23efacfa">WriteOffset</a> (const void *data, USize64 size, USize64 offset)</td></tr>
 <tr class="separator:afdc8a9c002f270d52068cefd23efacfa"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9cf20e60ee984141a4faed8e2d29a6fe" id="r_a9cf20e60ee984141a4faed8e2d29a6fe"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a9cf20e60ee984141a4faed8e2d29a6fe">Unmap</a> ()</td></tr>
 <tr class="separator:a9cf20e60ee984141a4faed8e2d29a6fe"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac85cb36d9b1a3c0ecb87c378888e566e" id="r_ac85cb36d9b1a3c0ecb87c378888e566e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ac85cb36d9b1a3c0ecb87c378888e566e">SetCursor</a> (<a class="el" href="_o_s_kmacros_8h.html#adef8e046c86805ca0dc2db407b01a1bb">UIndex64</a> position)</td></tr>
+<tr class="memitem:ac85cb36d9b1a3c0ecb87c378888e566e" id="r_ac85cb36d9b1a3c0ecb87c378888e566e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ac85cb36d9b1a3c0ecb87c378888e566e">SetCursor</a> (UIndex64 position)</td></tr>
 <tr class="separator:ac85cb36d9b1a3c0ecb87c378888e566e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4baec2a5da7d6c8cf698c33f0ac19cf2" id="r_a4baec2a5da7d6c8cf698c33f0ac19cf2"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a4baec2a5da7d6c8cf698c33f0ac19cf2">ResetCursor</a> ()</td></tr>
 <tr class="separator:a4baec2a5da7d6c8cf698c33f0ac19cf2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a881391e1c0c6ac30447c0584b45e7615" id="r_a881391e1c0c6ac30447c0584b45e7615"><td class="memItemLeft" align="right" valign="top"><a class="el" href="_o_s_kmacros_8h.html#a5784d24fcb00afb78eb7b1e1a3466ac4">USize64</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a881391e1c0c6ac30447c0584b45e7615">GetSize</a> () const</td></tr>
+<tr class="memitem:a881391e1c0c6ac30447c0584b45e7615" id="r_a881391e1c0c6ac30447c0584b45e7615"><td class="memItemLeft" align="right" valign="top">USize64&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a881391e1c0c6ac30447c0584b45e7615">GetSize</a> () const</td></tr>
 <tr class="separator:a881391e1c0c6ac30447c0584b45e7615"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a13ea6beea5d2dfa4020403c7e0852888" id="r_a13ea6beea5d2dfa4020403c7e0852888"><td class="memItemLeft" align="right" valign="top"><a class="el" href="_o_s_kmacros_8h.html#a5784d24fcb00afb78eb7b1e1a3466ac4">USize64</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a13ea6beea5d2dfa4020403c7e0852888">GetAlignment</a> () const</td></tr>
+<tr class="memitem:a13ea6beea5d2dfa4020403c7e0852888" id="r_a13ea6beea5d2dfa4020403c7e0852888"><td class="memItemLeft" align="right" valign="top">USize64&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a13ea6beea5d2dfa4020403c7e0852888">GetAlignment</a> () const</td></tr>
 <tr class="separator:a13ea6beea5d2dfa4020403c7e0852888"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4dbe0db6acb6ab54db1681fbc70023c9" id="r_a4dbe0db6acb6ab54db1681fbc70023c9"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_buffer_range.html">GpuBufferRange</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a4dbe0db6acb6ab54db1681fbc70023c9">GetWholeBufferRange</a> () const</td></tr>
+<tr class="separator:a4dbe0db6acb6ab54db1681fbc70023c9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a91ecfe4edd5c86ae8fb91c1b257f8fcb" id="r_a91ecfe4edd5c86ae8fb91c1b257f8fcb"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_subblock.html">IGpuMemorySubblock</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a91ecfe4edd5c86ae8fb91c1b257f8fcb">GetMemorySubblock</a> () const</td></tr>
 <tr class="separator:a91ecfe4edd5c86ae8fb91c1b257f8fcb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aab5608c7218d096ba4a1cea6d11e8a46" id="r_aab5608c7218d096ba4a1cea6d11e8a46"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_block.html">IGpuMemoryBlock</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aab5608c7218d096ba4a1cea6d11e8a46">GetMemoryBlock</a> () const</td></tr>
 <tr class="separator:aab5608c7218d096ba4a1cea6d11e8a46"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af9b6d503ea086b7f261b4682740de528" id="r_af9b6d503ea086b7f261b4682740de528"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af9b6d503ea086b7f261b4682740de528">_UpdateCurrentBarrier</a> (const <a class="el" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_barrier_info.html">GpuBarrierInfo</a> &amp;barrier)</td></tr>
+<tr class="separator:af9b6d503ea086b7f261b4682740de528"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adb39e756793dfa440803b707284349b0" id="r_adb39e756793dfa440803b707284349b0"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_barrier_info.html">GpuBarrierInfo</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#adb39e756793dfa440803b707284349b0">GetCurrentBarrier</a> () const</td></tr>
+<tr class="separator:adb39e756793dfa440803b707284349b0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a422343c8d62337a36bb5dcd1a17ba780" id="r_a422343c8d62337a36bb5dcd1a17ba780"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_queue.html">ICommandQueue</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a422343c8d62337a36bb5dcd1a17ba780">GetOwnerQueue</a> () const</td></tr>
+<tr class="separator:a422343c8d62337a36bb5dcd1a17ba780"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae7f24c9b151e22b92af56005947c619e" id="r_ae7f24c9b151e22b92af56005947c619e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae7f24c9b151e22b92af56005947c619e">_UpdateOwnerQueue</a> (const <a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_queue.html">ICommandQueue</a> *ownerQueue)</td></tr>
+<tr class="separator:ae7f24c9b151e22b92af56005947c619e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pro-attribs" name="pro-attribs"></a>
 Atributos protegidos</h2></td></tr>
@@ -157,16 +167,13 @@ Atributos protegidos</h2></td></tr>
 <a name="details" id="details"></a><h2 class="groupheader">Descripción detallada</h2>
 <div class="textblock"><p>Representa un buffer que contiene información accesible desde la GPU. </p>
 
-<p class="definition">Definición en la línea <a class="el" href="_gpu_buffer_8h_source.html#l00021">21</a> del archivo <a class="el" href="_gpu_buffer_8h_source.html">GpuBuffer.h</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_gpu_buffer_8h_source.html#l00023">23</a> del archivo <a class="el" href="_gpu_buffer_8h_source.html">GpuBuffer.h</a>.</p>
 </div><h2 class="groupheader">Documentación de constructores y destructores</h2>
-<a id="a576a28df54dad757a478a373a8e50243" name="a576a28df54dad757a478a373a8e50243"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a576a28df54dad757a478a373a8e50243">&#9670;&#160;</a></span>GpuBuffer()</h2>
+<a id="ae1f0589b23be5b1890fac979a03de03d" name="ae1f0589b23be5b1890fac979a03de03d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae1f0589b23be5b1890fac979a03de03d">&#9670;&#160;</a></span>GpuBuffer()</h2>
 
 <div class="memitem">
 <div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
       <table class="memname">
         <tr>
           <td class="memname">GpuBuffer::GpuBuffer </td>
@@ -176,19 +183,19 @@ Atributos protegidos</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="_o_s_kmacros_8h.html#a5784d24fcb00afb78eb7b1e1a3466ac4">USize64</a></td>          <td class="paramname"><span class="paramname"><em>size</em>, </span></td>
+          <td class="paramtype">USize64</td>          <td class="paramname"><span class="paramname"><em>size</em>, </span></td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="_o_s_kmacros_8h.html#a5784d24fcb00afb78eb7b1e1a3466ac4">USize64</a></td>          <td class="paramname"><span class="paramname"><em>alignment</em></span>&#160;)</td>
+          <td class="paramtype">USize64</td>          <td class="paramname"><span class="paramname"><em>alignment</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_queue.html">ICommandQueue</a> *</td>          <td class="paramname"><span class="paramname"><em>ownerQueue</em></span>&#160;)</td>
         </tr>
       </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">explicit</span></span>  </td>
-  </tr>
-</table>
 </div><div class="memdoc">
 
 <p>Establece los parámetros del buffer. </p>
@@ -196,13 +203,14 @@ Atributos protegidos</h2></td></tr>
   <table class="params">
     <tr><td class="paramname">buffer</td><td>Subbloque de memoria que tiene este buffer. </td></tr>
     <tr><td class="paramname">size</td><td>Tamaño del buffer. En bytes. </td></tr>
-    <tr><td class="paramname">alignment</td><td>Alineamiento del contenido del buffer.</td></tr>
+    <tr><td class="paramname">alignment</td><td>Alineamiento del contenido del buffer. </td></tr>
+    <tr><td class="paramname">ownerQueue</td><td>Cola que posee el recurso.</td></tr>
   </table>
   </dd>
 </dl>
 <dl class="section note"><dt>Nota</dt><dd>No crea el buffer, el buffer es creado por <a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_allocator.html" title="El asignador de memoria se encarga de reservar grandes bloques de memoria en la GPU,...">IGpuMemoryAllocator</a>. </dd></dl>
 
-<p class="definition">Definición en la línea <a class="el" href="_gpu_buffer_8cpp_source.html#l00009">9</a> del archivo <a class="el" href="_gpu_buffer_8cpp_source.html">GpuBuffer.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_gpu_buffer_8cpp_source.html#l00012">12</a> del archivo <a class="el" href="_gpu_buffer_8cpp_source.html">GpuBuffer.cpp</a>.</p>
 
 </div>
 </div>
@@ -221,11 +229,66 @@ Atributos protegidos</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definición en la línea <a class="el" href="_gpu_buffer_8cpp_source.html#l00014">14</a> del archivo <a class="el" href="_gpu_buffer_8cpp_source.html">GpuBuffer.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_gpu_buffer_8cpp_source.html#l00017">17</a> del archivo <a class="el" href="_gpu_buffer_8cpp_source.html">GpuBuffer.cpp</a>.</p>
 
 </div>
 </div>
 <h2 class="groupheader">Documentación de funciones miembro</h2>
+<a id="af9b6d503ea086b7f261b4682740de528" name="af9b6d503ea086b7f261b4682740de528"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af9b6d503ea086b7f261b4682740de528">&#9670;&#160;</a></span>_UpdateCurrentBarrier()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void GpuBuffer::_UpdateCurrentBarrier </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_barrier_info.html">GpuBarrierInfo</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>barrier</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Establece el barrier actualmente aplicado, para facilitar la sincronización en futuras llamadas. </p>
+<dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">barrier</td><td>Barrier aplicado. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definición en la línea <a class="el" href="_gpu_buffer_8cpp_source.html#l00054">54</a> del archivo <a class="el" href="_gpu_buffer_8cpp_source.html">GpuBuffer.cpp</a>.</p>
+
+</div>
+</div>
+<a id="ae7f24c9b151e22b92af56005947c619e" name="ae7f24c9b151e22b92af56005947c619e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae7f24c9b151e22b92af56005947c619e">&#9670;&#160;</a></span>_UpdateOwnerQueue()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void GpuBuffer::_UpdateOwnerQueue </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_queue.html">ICommandQueue</a> *</td>          <td class="paramname"><span class="paramname"><em>ownerQueue</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Actualiza la variable de la clase que representa la cola de comandos que la posee. </p>
+<dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">ownerQueue</td><td>Nueva cola que posee el buffer. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section pre"><dt>Precondición</dt><dd><code>ownerQueue</code> debe ser estable. </dd></dl>
+
+<p class="definition">Definición en la línea <a class="el" href="_gpu_buffer_8cpp_source.html#l00066">66</a> del archivo <a class="el" href="_gpu_buffer_8cpp_source.html">GpuBuffer.cpp</a>.</p>
+
+</div>
+</div>
 <a id="a13ea6beea5d2dfa4020403c7e0852888" name="a13ea6beea5d2dfa4020403c7e0852888"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a13ea6beea5d2dfa4020403c7e0852888">&#9670;&#160;</a></span>GetAlignment()</h2>
 
@@ -233,7 +296,7 @@ Atributos protegidos</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="_o_s_kmacros_8h.html#a5784d24fcb00afb78eb7b1e1a3466ac4">USize64</a> GpuBuffer::GetAlignment </td>
+          <td class="memname">USize64 GpuBuffer::GetAlignment </td>
           <td>(</td>
           <td class="paramname"><span class="paramname"></span></td><td>)</td>
           <td> const</td>
@@ -242,7 +305,27 @@ Atributos protegidos</h2></td></tr>
 </div><div class="memdoc">
 <dl class="section return"><dt>Devuelve</dt><dd>Devuelve la alineación del buffer, en bytes. </dd></dl>
 
-<p class="definition">Definición en la línea <a class="el" href="_gpu_buffer_8cpp_source.html#l00075">75</a> del archivo <a class="el" href="_gpu_buffer_8cpp_source.html">GpuBuffer.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_gpu_buffer_8cpp_source.html#l00102">102</a> del archivo <a class="el" href="_gpu_buffer_8cpp_source.html">GpuBuffer.cpp</a>.</p>
+
+</div>
+</div>
+<a id="adb39e756793dfa440803b707284349b0" name="adb39e756793dfa440803b707284349b0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adb39e756793dfa440803b707284349b0">&#9670;&#160;</a></span>GetCurrentBarrier()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_barrier_info.html">GpuBarrierInfo</a> &amp; GpuBuffer::GetCurrentBarrier </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Devuelve</dt><dd>Barrier actualmente aplicado. </dd></dl>
+
+<p class="definition">Definición en la línea <a class="el" href="_gpu_buffer_8cpp_source.html#l00058">58</a> del archivo <a class="el" href="_gpu_buffer_8cpp_source.html">GpuBuffer.cpp</a>.</p>
 
 </div>
 </div>
@@ -263,7 +346,7 @@ Atributos protegidos</h2></td></tr>
 <dl class="section return"><dt>Devuelve</dt><dd>Devuelve el index view por defecto. </dd></dl>
 <dl class="section pre"><dt>Precondición</dt><dd>Se debe haber establecido el index view por defecto. </dd></dl>
 
-<p class="definition">Definición en la línea <a class="el" href="_gpu_buffer_8cpp_source.html#l00031">31</a> del archivo <a class="el" href="_gpu_buffer_8cpp_source.html">GpuBuffer.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_gpu_buffer_8cpp_source.html#l00034">34</a> del archivo <a class="el" href="_gpu_buffer_8cpp_source.html">GpuBuffer.cpp</a>.</p>
 
 </div>
 </div>
@@ -282,7 +365,7 @@ Atributos protegidos</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definición en la línea <a class="el" href="_gpu_buffer_8cpp_source.html#l00047">47</a> del archivo <a class="el" href="_gpu_buffer_8cpp_source.html">GpuBuffer.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_gpu_buffer_8cpp_source.html#l00050">50</a> del archivo <a class="el" href="_gpu_buffer_8cpp_source.html">GpuBuffer.cpp</a>.</p>
 
 </div>
 </div>
@@ -301,7 +384,28 @@ Atributos protegidos</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definición en la línea <a class="el" href="_gpu_buffer_8cpp_source.html#l00043">43</a> del archivo <a class="el" href="_gpu_buffer_8cpp_source.html">GpuBuffer.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_gpu_buffer_8cpp_source.html#l00046">46</a> del archivo <a class="el" href="_gpu_buffer_8cpp_source.html">GpuBuffer.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a422343c8d62337a36bb5dcd1a17ba780" name="a422343c8d62337a36bb5dcd1a17ba780"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a422343c8d62337a36bb5dcd1a17ba780">&#9670;&#160;</a></span>GetOwnerQueue()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_queue.html">ICommandQueue</a> * GpuBuffer::GetOwnerQueue </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Devuelve</dt><dd>Cola de comandos que posee el recurso. </dd></dl>
+<dl class="section user"><dt>Puntero estable</dt><dd>Este puntero apunta a un elemento que no cambiará de localización de memoria. </dd></dl>
+
+<p class="definition">Definición en la línea <a class="el" href="_gpu_buffer_8cpp_source.html#l00062">62</a> del archivo <a class="el" href="_gpu_buffer_8cpp_source.html">GpuBuffer.cpp</a>.</p>
 
 </div>
 </div>
@@ -312,7 +416,7 @@ Atributos protegidos</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="_o_s_kmacros_8h.html#a5784d24fcb00afb78eb7b1e1a3466ac4">USize64</a> GpuBuffer::GetSize </td>
+          <td class="memname">USize64 GpuBuffer::GetSize </td>
           <td>(</td>
           <td class="paramname"><span class="paramname"></span></td><td>)</td>
           <td> const</td>
@@ -321,7 +425,7 @@ Atributos protegidos</h2></td></tr>
 </div><div class="memdoc">
 <dl class="section return"><dt>Devuelve</dt><dd>Devuelve el tamaño del buffer, en bytes. </dd></dl>
 
-<p class="definition">Definición en la línea <a class="el" href="_gpu_buffer_8cpp_source.html#l00071">71</a> del archivo <a class="el" href="_gpu_buffer_8cpp_source.html">GpuBuffer.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_gpu_buffer_8cpp_source.html#l00098">98</a> del archivo <a class="el" href="_gpu_buffer_8cpp_source.html">GpuBuffer.cpp</a>.</p>
 
 </div>
 </div>
@@ -342,7 +446,26 @@ Atributos protegidos</h2></td></tr>
 <dl class="section return"><dt>Devuelve</dt><dd>Devuelve el vertex view por defecto. </dd></dl>
 <dl class="section pre"><dt>Precondición</dt><dd>Se debe haber establecido el vertex view por defecto. </dd></dl>
 
-<p class="definition">Definición en la línea <a class="el" href="_gpu_buffer_8cpp_source.html#l00027">27</a> del archivo <a class="el" href="_gpu_buffer_8cpp_source.html">GpuBuffer.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_gpu_buffer_8cpp_source.html#l00030">30</a> del archivo <a class="el" href="_gpu_buffer_8cpp_source.html">GpuBuffer.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a4dbe0db6acb6ab54db1681fbc70023c9" name="a4dbe0db6acb6ab54db1681fbc70023c9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4dbe0db6acb6ab54db1681fbc70023c9">&#9670;&#160;</a></span>GetWholeBufferRange()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_buffer_range.html">GpuBufferRange</a> GpuBuffer::GetWholeBufferRange </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definición en la línea <a class="el" href="_gpu_buffer_8cpp_source.html#l00070">70</a> del archivo <a class="el" href="_gpu_buffer_8cpp_source.html">GpuBuffer.cpp</a>.</p>
 
 </div>
 </div>
@@ -362,7 +485,7 @@ Atributos protegidos</h2></td></tr>
 </div><div class="memdoc">
 <dl class="section return"><dt>Devuelve</dt><dd>True si se ha establecido el index view por defecto. </dd></dl>
 
-<p class="definition">Definición en la línea <a class="el" href="_gpu_buffer_8cpp_source.html#l00039">39</a> del archivo <a class="el" href="_gpu_buffer_8cpp_source.html">GpuBuffer.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_gpu_buffer_8cpp_source.html#l00042">42</a> del archivo <a class="el" href="_gpu_buffer_8cpp_source.html">GpuBuffer.cpp</a>.</p>
 
 </div>
 </div>
@@ -382,7 +505,7 @@ Atributos protegidos</h2></td></tr>
 </div><div class="memdoc">
 <dl class="section return"><dt>Devuelve</dt><dd>True si se ha establecido el vertex view por defecto. </dd></dl>
 
-<p class="definition">Definición en la línea <a class="el" href="_gpu_buffer_8cpp_source.html#l00035">35</a> del archivo <a class="el" href="_gpu_buffer_8cpp_source.html">GpuBuffer.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_gpu_buffer_8cpp_source.html#l00038">38</a> del archivo <a class="el" href="_gpu_buffer_8cpp_source.html">GpuBuffer.cpp</a>.</p>
 
 </div>
 </div>
@@ -406,7 +529,7 @@ Atributos protegidos</h2></td></tr>
 <dd>
 No debe haber ninguna región de memoria del buffer previamente mapeada. </dd></dl>
 
-<p class="definition">Definición en la línea <a class="el" href="_gpu_buffer_8cpp_source.html#l00051">51</a> del archivo <a class="el" href="_gpu_buffer_8cpp_source.html">GpuBuffer.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_gpu_buffer_8cpp_source.html#l00078">78</a> del archivo <a class="el" href="_gpu_buffer_8cpp_source.html">GpuBuffer.cpp</a>.</p>
 
 </div>
 </div>
@@ -419,12 +542,12 @@ No debe haber ninguna región de memoria del buffer previamente mapeada. </dd></
         <tr>
           <td class="memname">void GpuBuffer::MapMemory </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="_o_s_kmacros_8h.html#a5784d24fcb00afb78eb7b1e1a3466ac4">USize64</a></td>          <td class="paramname"><span class="paramname"><em>size</em>, </span></td>
+          <td class="paramtype">USize64</td>          <td class="paramname"><span class="paramname"><em>size</em>, </span></td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="_o_s_kmacros_8h.html#a5784d24fcb00afb78eb7b1e1a3466ac4">USize64</a></td>          <td class="paramname"><span class="paramname"><em>offset</em></span>&#160;)</td>
+          <td class="paramtype">USize64</td>          <td class="paramname"><span class="paramname"><em>offset</em></span>&#160;)</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -443,7 +566,7 @@ No debe haber ninguna región de memoria del buffer previamente mapeada. </dd>
 <dd>
 <code>size</code> + <code>offset</code> &lt; <a class="el" href="#a881391e1c0c6ac30447c0584b45e7615">GetSize()</a>. </dd></dl>
 
-<p class="definition">Definición en la línea <a class="el" href="_gpu_buffer_8cpp_source.html#l00055">55</a> del archivo <a class="el" href="_gpu_buffer_8cpp_source.html">GpuBuffer.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_gpu_buffer_8cpp_source.html#l00082">82</a> del archivo <a class="el" href="_gpu_buffer_8cpp_source.html">GpuBuffer.cpp</a>.</p>
 
 </div>
 </div>
@@ -481,7 +604,7 @@ No debe haber ninguna región de memoria del buffer previamente mapeada. </dd>
 
 <p>Establece la posición del cursor a 0. </p>
 
-<p class="definition">Definición en la línea <a class="el" href="_gpu_buffer_8cpp_source.html#l00083">83</a> del archivo <a class="el" href="_gpu_buffer_8cpp_source.html">GpuBuffer.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_gpu_buffer_8cpp_source.html#l00110">110</a> del archivo <a class="el" href="_gpu_buffer_8cpp_source.html">GpuBuffer.cpp</a>.</p>
 
 </div>
 </div>
@@ -494,7 +617,7 @@ No debe haber ninguna región de memoria del buffer previamente mapeada. </dd>
         <tr>
           <td class="memname">void GpuBuffer::SetCursor </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="_o_s_kmacros_8h.html#adef8e046c86805ca0dc2db407b01a1bb">UIndex64</a></td>          <td class="paramname"><span class="paramname"><em>position</em></span></td><td>)</td>
+          <td class="paramtype">UIndex64</td>          <td class="paramname"><span class="paramname"><em>position</em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -509,7 +632,7 @@ No debe haber ninguna región de memoria del buffer previamente mapeada. </dd>
 </dl>
 <dl class="section pre"><dt>Precondición</dt><dd>La posición debe estar dentro de los límites del buffer. </dd></dl>
 
-<p class="definition">Definición en la línea <a class="el" href="_gpu_buffer_8cpp_source.html#l00079">79</a> del archivo <a class="el" href="_gpu_buffer_8cpp_source.html">GpuBuffer.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_gpu_buffer_8cpp_source.html#l00106">106</a> del archivo <a class="el" href="_gpu_buffer_8cpp_source.html">GpuBuffer.cpp</a>.</p>
 
 </div>
 </div>
@@ -537,7 +660,7 @@ No debe haber ninguna región de memoria del buffer previamente mapeada. </dd>
 </dl>
 <dl class="section note"><dt>Nota</dt><dd>Se recomienda que sea un view para todo el buffer. </dd></dl>
 
-<p class="definition">Definición en la línea <a class="el" href="_gpu_buffer_8cpp_source.html#l00023">23</a> del archivo <a class="el" href="_gpu_buffer_8cpp_source.html">GpuBuffer.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_gpu_buffer_8cpp_source.html#l00026">26</a> del archivo <a class="el" href="_gpu_buffer_8cpp_source.html">GpuBuffer.cpp</a>.</p>
 
 </div>
 </div>
@@ -565,7 +688,7 @@ No debe haber ninguna región de memoria del buffer previamente mapeada. </dd>
 </dl>
 <dl class="section note"><dt>Nota</dt><dd>Se recomienda que sea un view para todo el buffer. </dd></dl>
 
-<p class="definition">Definición en la línea <a class="el" href="_gpu_buffer_8cpp_source.html#l00019">19</a> del archivo <a class="el" href="_gpu_buffer_8cpp_source.html">GpuBuffer.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_gpu_buffer_8cpp_source.html#l00022">22</a> del archivo <a class="el" href="_gpu_buffer_8cpp_source.html">GpuBuffer.cpp</a>.</p>
 
 </div>
 </div>
@@ -587,7 +710,7 @@ No debe haber ninguna región de memoria del buffer previamente mapeada. </dd>
 <p>Desmapea la memoria. </p>
 <dl class="section pre"><dt>Precondición</dt><dd>La memoria debe estar mapeada. </dd></dl>
 
-<p class="definition">Definición en la línea <a class="el" href="_gpu_buffer_8cpp_source.html#l00067">67</a> del archivo <a class="el" href="_gpu_buffer_8cpp_source.html">GpuBuffer.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_gpu_buffer_8cpp_source.html#l00094">94</a> del archivo <a class="el" href="_gpu_buffer_8cpp_source.html">GpuBuffer.cpp</a>.</p>
 
 </div>
 </div>
@@ -633,7 +756,7 @@ template&lt;typename T &gt; </div>
 <dd>
 <code>size</code> &lt;= <a class="el" href="#a881391e1c0c6ac30447c0584b45e7615">GetSize()</a> - cursor. </dd></dl>
 
-<p class="definition">Definición en la línea <a class="el" href="_gpu_buffer_8h_source.html#l00102">102</a> del archivo <a class="el" href="_gpu_buffer_8h_source.html">GpuBuffer.h</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_gpu_buffer_8h_source.html#l00110">110</a> del archivo <a class="el" href="_gpu_buffer_8h_source.html">GpuBuffer.h</a>.</p>
 
 </div>
 </div>
@@ -651,7 +774,7 @@ template&lt;typename T &gt; </div>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="_o_s_kmacros_8h.html#a5784d24fcb00afb78eb7b1e1a3466ac4">USize64</a></td>          <td class="paramname"><span class="paramname"><em>size</em></span>&#160;)</td>
+          <td class="paramtype">USize64</td>          <td class="paramname"><span class="paramname"><em>size</em></span>&#160;)</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -668,7 +791,7 @@ template&lt;typename T &gt; </div>
 <dd>
 <code>size</code> &lt;= <a class="el" href="#a881391e1c0c6ac30447c0584b45e7615">GetSize()</a> - cursor. </dd></dl>
 
-<p class="definition">Definición en la línea <a class="el" href="_gpu_buffer_8cpp_source.html#l00059">59</a> del archivo <a class="el" href="_gpu_buffer_8cpp_source.html">GpuBuffer.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_gpu_buffer_8cpp_source.html#l00086">86</a> del archivo <a class="el" href="_gpu_buffer_8cpp_source.html">GpuBuffer.cpp</a>.</p>
 
 </div>
 </div>
@@ -686,12 +809,12 @@ template&lt;typename T &gt; </div>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="_o_s_kmacros_8h.html#a5784d24fcb00afb78eb7b1e1a3466ac4">USize64</a></td>          <td class="paramname"><span class="paramname"><em>size</em>, </span></td>
+          <td class="paramtype">USize64</td>          <td class="paramname"><span class="paramname"><em>size</em>, </span></td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="_o_s_kmacros_8h.html#a5784d24fcb00afb78eb7b1e1a3466ac4">USize64</a></td>          <td class="paramname"><span class="paramname"><em>offset</em></span>&#160;)</td>
+          <td class="paramtype">USize64</td>          <td class="paramname"><span class="paramname"><em>offset</em></span>&#160;)</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -709,7 +832,7 @@ template&lt;typename T &gt; </div>
 <dd>
 La información a escribir debe estar contenida dentro de la zona de memoria mapeada. </dd></dl>
 
-<p class="definition">Definición en la línea <a class="el" href="_gpu_buffer_8cpp_source.html#l00063">63</a> del archivo <a class="el" href="_gpu_buffer_8cpp_source.html">GpuBuffer.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_gpu_buffer_8cpp_source.html#l00090">90</a> del archivo <a class="el" href="_gpu_buffer_8cpp_source.html">GpuBuffer.cpp</a>.</p>
 
 </div>
 </div>
@@ -734,21 +857,17 @@ La información a escribir debe estar contenida dentro de la zona de memoria map
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definición en la línea <a class="el" href="_gpu_buffer_8h_source.html#l00143">143</a> del archivo <a class="el" href="_gpu_buffer_8h_source.html">GpuBuffer.h</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_gpu_buffer_8h_source.html#l00180">180</a> del archivo <a class="el" href="_gpu_buffer_8h_source.html">GpuBuffer.h</a>.</p>
 
 </div>
 </div>
-<hr/>La documentación de esta clase está generada de los siguientes archivos:<ul>
-<li>Source/<a class="el" href="_gpu_buffer_8h_source.html">GpuBuffer.h</a></li>
-<li>Source/<a class="el" href="_gpu_buffer_8cpp_source.html">GpuBuffer.cpp</a></li>
-</ul>
 </div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="namespace_o_s_k.html">OSK</a></li><li class="navelem"><a class="el" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html">GRAPHICS</a></li><li class="navelem"><a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_buffer.html">GpuBuffer</a></li>
-    <li class="footer">Generado el Jueves, 28 de marzo de 2024 17:53:13 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.10.0 </li>
+    <li class="footer">Generado el Lunes, 15 de abril de 2024 22:39:18 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.10.0 </li>
   </ul>
 </div>
 </body>

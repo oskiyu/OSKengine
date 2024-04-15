@@ -134,7 +134,7 @@ requires <a class="el" href="concept_is_ecs_event.html">IsEcsEvent</a>&lt;TEvent
 <a name="details" id="details"></a><h2 class="groupheader">Descripción detallada</h2>
 <div class="textblock"><p>Se encarga de gestionar las colas de eventos. </p>
 
-<p class="definition">Definición en la línea <a class="el" href="_event_manager_8h_source.html#l00017">17</a> del archivo <a class="el" href="_event_manager_8h_source.html">EventManager.h</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_event_manager_8h_source.html#l00019">19</a> del archivo <a class="el" href="_event_manager_8h_source.html">EventManager.h</a>.</p>
 </div><h2 class="groupheader">Documentación de constructores y destructores</h2>
 <a id="ab4f115b4d17dbd31a970b54edd32ae89" name="ab4f115b4d17dbd31a970b54edd32ae89"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ab4f115b4d17dbd31a970b54edd32ae89">&#9670;&#160;</a></span>EventManager()</h2>
@@ -187,7 +187,7 @@ requires <a class="el" href="concept_is_ecs_event.html">IsEcsEvent</a>&lt;TEvent
 
 <p>Elimina los contenidos de todas las colas. Debe llamarse al final de cada frame. </p>
 
-<p class="definition">Definición en la línea <a class="el" href="_event_manager_8h_source.html#l00081">81</a> del archivo <a class="el" href="_event_manager_8h_source.html">EventManager.h</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_event_manager_8h_source.html#l00088">88</a> del archivo <a class="el" href="_event_manager_8h_source.html">EventManager.h</a>.</p>
 
 </div>
 </div>
@@ -224,7 +224,7 @@ requires <a class="el" href="concept_is_ecs_event.html">IsEcsEvent</a>&lt;TEvent
 </dl>
 <dl class="section return"><dt>Devuelve</dt><dd>True si el evento fue registrado. </dd></dl>
 
-<p class="definition">Definición en la línea <a class="el" href="_event_manager_8h_source.html#l00089">89</a> del archivo <a class="el" href="_event_manager_8h_source.html">EventManager.h</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_event_manager_8h_source.html#l00096">96</a> del archivo <a class="el" href="_event_manager_8h_source.html">EventManager.h</a>.</p>
 
 </div>
 </div>
@@ -272,7 +272,7 @@ TEvent debe haber sido registrado con RegisterEventType.</dd></dl>
   </dd>
 </dl>
 
-<p class="definition">Definición en la línea <a class="el" href="_event_manager_8h_source.html#l00069">69</a> del archivo <a class="el" href="_event_manager_8h_source.html">EventManager.h</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_event_manager_8h_source.html#l00076">76</a> del archivo <a class="el" href="_event_manager_8h_source.html">EventManager.h</a>.</p>
 
 </div>
 </div>
@@ -306,7 +306,7 @@ TEvent debe haber sido registrado con RegisterEventType.</dd></dl>
 </dl>
 <dl class="section return"><dt>Devuelve</dt><dd><a class="el" href="struct_o_s_k_1_1_e_c_s_1_1_event_queue_span.html" title="Indica un subrango de una lista de eventos.">EventQueueSpan</a> con todos los eventos almacenados del tipo indicado. </dd></dl>
 
-<p class="definition">Definición en la línea <a class="el" href="_event_manager_8h_source.html#l00095">95</a> del archivo <a class="el" href="_event_manager_8h_source.html">EventManager.h</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_event_manager_8h_source.html#l00102">102</a> del archivo <a class="el" href="_event_manager_8h_source.html">EventManager.h</a>.</p>
 
 </div>
 </div>
@@ -385,9 +385,10 @@ requires <a class="el" href="concept_is_ecs_event.html">IsEcsEvent</a>&lt;TEvent
 </dl>
 <dl class="section pre"><dt>Precondición</dt><dd>TEvent debe cumplir IsEcsEvent&lt;TEvent&gt;. </dd>
 <dd>
-TEvent debe haber sido registrado con RegisterEventType. </dd></dl>
+TEvent debe haber sido registrado con RegisterEventType.</dd></dl>
+<dl class="section user"><dt>Multihilo</dt><dd>Es thread-safe siempre y cuando no haya ningún otro hilo obteniendo la cola. </dd></dl>
 
-<p class="definition">Definición en la línea <a class="el" href="_event_manager_8h_source.html#l00048">48</a> del archivo <a class="el" href="_event_manager_8h_source.html">EventManager.h</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_event_manager_8h_source.html#l00053">53</a> del archivo <a class="el" href="_event_manager_8h_source.html">EventManager.h</a>.</p>
 
 </div>
 </div>
@@ -426,20 +427,17 @@ requires <a class="el" href="concept_is_ecs_event.html">IsEcsEvent</a>&lt;TEvent
 </dl>
 <dl class="section pre"><dt>Precondición</dt><dd>TEvent debe cumplir IsEcsEvent&lt;TEvent&gt;. </dd></dl>
 
-<p class="definition">Definición en la línea <a class="el" href="_event_manager_8h_source.html#l00032">32</a> del archivo <a class="el" href="_event_manager_8h_source.html">EventManager.h</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_event_manager_8h_source.html#l00034">34</a> del archivo <a class="el" href="_event_manager_8h_source.html">EventManager.h</a>.</p>
 
 </div>
 </div>
-<hr/>La documentación de esta clase está generada del siguiente archivo:<ul>
-<li>Source/<a class="el" href="_event_manager_8h_source.html">EventManager.h</a></li>
-</ul>
 </div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="namespace_o_s_k.html">OSK</a></li><li class="navelem"><a class="el" href="namespace_o_s_k_1_1_e_c_s.html">ECS</a></li><li class="navelem"><a class="el" href="class_o_s_k_1_1_e_c_s_1_1_event_manager.html">EventManager</a></li>
-    <li class="footer">Generado el Jueves, 28 de marzo de 2024 17:53:12 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.10.0 </li>
+    <li class="footer">Generado el Lunes, 15 de abril de 2024 22:39:17 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.10.0 </li>
   </ul>
 </div>
 </body>

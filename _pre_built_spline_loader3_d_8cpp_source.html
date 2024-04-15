@@ -101,18 +101,18 @@ $(function(){initNavTree('_pre_built_spline_loader3_d_8cpp_source.html',''); ini
   <div class="headertitle"><div class="title">PreBuiltSplineLoader3D.cpp</div></div>
 </div><!--header-->
 <div class="contents">
-<a href="_pre_built_spline_loader3_d_8cpp.html">Ir a la documentación de este archivo.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#include &quot;<a class="code" href="_pre_built_spline_loader3_d_8h.html">PreBuiltSplineLoader3D.h</a>&quot;</span></div>
+<div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#include &quot;PreBuiltSplineLoader3D.h&quot;</span></div>
 <div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span> </div>
-<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="preprocessor">#include &quot;<a class="code" href="_file_i_o_8h.html">FileIO.h</a>&quot;</span></div>
-<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &quot;<a class="code" href="_model_loading_exceptions_8h.html">ModelLoadingExceptions.h</a>&quot;</span></div>
+<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="preprocessor">#include &quot;FileIO.h&quot;</span></div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &quot;ModelLoadingExceptions.h&quot;</span></div>
 <div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span> </div>
-<div class="line"><a id="l00006" name="l00006"></a><span class="lineno"><a class="line" href="_pre_built_spline_loader3_d_8cpp.html#ab85d274e208f7c3760dee26d2ab13eb8">    6</a></span><span class="preprocessor">#define TINYGLTF_NO_STB_IMAGE_WRITE</span></div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#define TINYGLTF_NO_STB_IMAGE_WRITE</span></div>
 <div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="preprocessor">#include &lt;tiny_gltf.h&gt;</span></div>
 <div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span> </div>
 <div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="preprocessor">#include &lt;set&gt;</span></div>
 <div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span> </div>
-<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="preprocessor">#include &quot;<a class="code" href="_o_s_kengine_8h.html">OSKengine.h</a>&quot;</span></div>
-<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="preprocessor">#include &quot;<a class="code" href="_logger_8h.html">Logger.h</a>&quot;</span></div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="preprocessor">#include &quot;OSKengine.h&quot;</span></div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="preprocessor">#include &quot;Logger.h&quot;</span></div>
 <div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span> </div>
 <div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span><span class="keyword">using namespace </span><a class="code hl_namespace" href="namespace_o_s_k.html">OSK</a>;</div>
 <div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span><span class="keyword">using namespace </span><a class="code hl_namespace" href="namespace_o_s_k_1_1_a_s_s_e_t_s.html">OSK::ASSETS</a>;</div>
@@ -136,7 +136,7 @@ $(function(){initNavTree('_pre_built_spline_loader3_d_8cpp_source.html',''); ini
 <div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span> </div>
 <div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>    <span class="keyword">const</span> <span class="keyword">auto</span>&amp; model = <a class="code hl_function" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_gltf_loader.html#a3d4e4b263e8972e52d6144c975068769">GltfLoader::Load</a>(<a class="code hl_class" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">assetInfo</a>[<span class="stringliteral">&quot;raw_asset_path&quot;</span>], <a class="code hl_class" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">modelTransform</a>, 1.0f);</div>
 <div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span> </div>
-<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>    <a class="code hl_class" href="class_o_s_k_1_1_spline3_d.html">Spline3D</a>&amp; output = <a class="code hl_class" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">asset</a>-&gt;_Get();</div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>    <a class="code hl_class" href="class_o_s_k_1_1_spline3_d.html">Spline3D</a>&amp; <a class="code hl_class" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">output</a> = <a class="code hl_class" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">asset</a>-&gt;_Get();</div>
 <div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span> </div>
 <div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>    <span class="keywordflow">for</span> (<span class="keyword">const</span> <span class="keyword">auto</span>&amp; <a class="code hl_class" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">mesh</a> : model.GetMeshes()) {</div>
 <div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>        <span class="keyword">const</span> <span class="keyword">auto</span>&amp; <a class="code hl_class" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">vertices</a> = <a class="code hl_class" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">mesh</a>.GetVertices();</div>
@@ -145,29 +145,22 @@ $(function(){initNavTree('_pre_built_spline_loader3_d_8cpp_source.html',''); ini
 <div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>        <span class="keywordflow">for</span> (<span class="keyword">const</span> <span class="keyword">auto</span>&amp; <a class="code hl_class" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">line</a> : <a class="code hl_class" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">mesh</a>.GetLines()) {</div>
 <div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>            <span class="keywordflow">for</span> (<span class="keyword">const</span> <span class="keyword">auto</span> index : <a class="code hl_class" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">line</a>) {</div>
 <div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>                <span class="keywordflow">if</span> (!<a class="code hl_class" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">visitedIndices</a>.contains(index)) {</div>
-<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>                    output.<a class="code hl_function" href="class_o_s_k_1_1_spline3_d.html#a23eb322a973f8e8d46f50d191c5d4a87">AddPoint</a>(<a class="code hl_class" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">vertices</a>[index].position.value());</div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>                    <a class="code hl_class" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">output</a>.AddPoint(<a class="code hl_class" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">vertices</a>[index].position.value());</div>
 <div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>                    <a class="code hl_class" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">visitedIndices</a>.insert(index);</div>
 <div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>                }</div>
 <div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>            }</div>
 <div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>        }</div>
 <div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>    }</div>
 <div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span> </div>
-<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>    output.<a class="code hl_function" href="class_o_s_k_1_1_spline3_d.html#acd7d8772367382a51f78d59768133336">Normalize</a>();</div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>    <a class="code hl_class" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">output</a>.Normalize();</div>
 <div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>}</div>
 </div>
-<div class="ttc" id="a_file_i_o_8h_html"><div class="ttname"><a href="_file_i_o_8h.html">FileIO.h</a></div></div>
-<div class="ttc" id="a_logger_8h_html"><div class="ttname"><a href="_logger_8h.html">Logger.h</a></div></div>
-<div class="ttc" id="a_model_loading_exceptions_8h_html"><div class="ttname"><a href="_model_loading_exceptions_8h.html">ModelLoadingExceptions.h</a></div></div>
-<div class="ttc" id="a_o_s_kengine_8h_html"><div class="ttname"><a href="_o_s_kengine_8h.html">OSKengine.h</a></div></div>
-<div class="ttc" id="a_pre_built_spline_loader3_d_8h_html"><div class="ttname"><a href="_pre_built_spline_loader3_d_8h.html">PreBuiltSplineLoader3D.h</a></div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref_html"><div class="ttname"><a href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">OSK::ASSETS::AssetRef</a></div><div class="ttdoc">Referencia a un asset.</div><div class="ttdef"><b>Definition</b> <a href="_asset_ref_8h_source.html#l00012">AssetRef.h:12</a></div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_a_s_s_e_t_s_1_1_gltf_loader_html_a3d4e4b263e8972e52d6144c975068769"><div class="ttname"><a href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_gltf_loader.html#a3d4e4b263e8972e52d6144c975068769">OSK::ASSETS::GltfLoader::Load</a></div><div class="ttdeci">static CpuModel3D Load(std::string_view path, const glm::mat4 &amp;transform, float globalScale)</div><div class="ttdef"><b>Definition</b> <a href="_i_gltf_loader_8cpp_source.html#l00030">IGltfLoader.cpp:30</a></div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_a_s_s_e_t_s_1_1_pre_built_spline3_d_html"><div class="ttname"><a href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_pre_built_spline3_d.html">OSK::ASSETS::PreBuiltSpline3D</a></div><div class="ttdef"><b>Definition</b> <a href="_pre_built_spline3_d_8h_source.html#l00008">PreBuiltSpline3D.h:8</a></div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_a_s_s_e_t_s_1_1_pre_built_spline_loader3_d_html_aa1573c4f4d635a68f2eba6a1137d3f32"><div class="ttname"><a href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_pre_built_spline_loader3_d.html#aa1573c4f4d635a68f2eba6a1137d3f32">OSK::ASSETS::PreBuiltSplineLoader3D::Load</a></div><div class="ttdeci">void Load(const std::string &amp;assetFilePath, PreBuiltSpline3D *asset) override</div><div class="ttdef"><b>Definition</b> <a href="#l00018">PreBuiltSplineLoader3D.cpp:18</a></div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_i_o_1_1_file_i_o_html_a2b0cbc143a260002237995365ad87e4f"><div class="ttname"><a href="class_o_s_k_1_1_i_o_1_1_file_i_o.html#a2b0cbc143a260002237995365ad87e4f">OSK::IO::FileIO::ReadFromFile</a></div><div class="ttdeci">static std::string ReadFromFile(std::string_view path)</div><div class="ttdoc">Lee un archivo de texto.</div><div class="ttdef"><b>Definition</b> <a href="_file_i_o_8cpp_source.html#l00022">FileIO.cpp:22</a></div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_spline3_d_html"><div class="ttname"><a href="class_o_s_k_1_1_spline3_d.html">OSK::Spline3D</a></div><div class="ttdoc">Representa un spline representado por puntos 3D.</div><div class="ttdef"><b>Definition</b> <a href="_spline3_d_8h_source.html#l00011">Spline3D.h:11</a></div></div>
-<div class="ttc" id="aclass_o_s_k_1_1_spline3_d_html_a23eb322a973f8e8d46f50d191c5d4a87"><div class="ttname"><a href="class_o_s_k_1_1_spline3_d.html#a23eb322a973f8e8d46f50d191c5d4a87">OSK::Spline3D::AddPoint</a></div><div class="ttdeci">void AddPoint(const Vector3f &amp;point)</div><div class="ttdoc">Añade un punto al final del spline.</div><div class="ttdef"><b>Definition</b> <a href="_spline3_d_8cpp_source.html#l00005">Spline3D.cpp:5</a></div></div>
-<div class="ttc" id="aclass_o_s_k_1_1_spline3_d_html_acd7d8772367382a51f78d59768133336"><div class="ttname"><a href="class_o_s_k_1_1_spline3_d.html#acd7d8772367382a51f78d59768133336">OSK::Spline3D::Normalize</a></div><div class="ttdeci">void Normalize()</div><div class="ttdoc">Elimina puntos duplicados.</div><div class="ttdef"><b>Definition</b> <a href="_spline3_d_8cpp_source.html#l00017">Spline3D.cpp:17</a></div></div>
 <div class="ttc" id="anamespace_o_s_k_1_1_a_s_s_e_t_s_html"><div class="ttname"><a href="namespace_o_s_k_1_1_a_s_s_e_t_s.html">OSK::ASSETS</a></div><div class="ttdef"><b>Definition</b> <a href="_anim_mesh_loader_8h_source.html#l00009">AnimMeshLoader.h:9</a></div></div>
 <div class="ttc" id="anamespace_o_s_k_html"><div class="ttname"><a href="namespace_o_s_k.html">OSK</a></div><div class="ttdef"><b>Definition</b> <a href="_acceleration_structures_exceptions_8h_source.html#l00005">AccelerationStructuresExceptions.h:5</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
@@ -175,8 +168,8 @@ $(function(){initNavTree('_pre_built_spline_loader3_d_8cpp_source.html',''); ini
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="dir_74389ed8173ad57b461b9d623a1f3867.html">Source</a></li><li class="navelem"><a class="el" href="_pre_built_spline_loader3_d_8cpp.html">PreBuiltSplineLoader3D.cpp</a></li>
-    <li class="footer">Generado el Jueves, 28 de marzo de 2024 17:53:11 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.10.0 </li>
+    <li class="navelem"><a class="el" href="dir_74389ed8173ad57b461b9d623a1f3867.html">Source</a></li><li class="navelem"><b>PreBuiltSplineLoader3D.cpp</b></li>
+    <li class="footer">Generado el Lunes, 15 de abril de 2024 22:39:16 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.10.0 </li>
   </ul>
 </div>
 </body>

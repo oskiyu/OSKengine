@@ -1,28 +1,4 @@
 var searchData=
 [
-  ['radiancestrength_0',['radianceStrength',['../struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_pbr_ibl_config.html#a9daffe80f237dfc706fb46d7291bd7bc',1,'OSK::GRAPHICS::PbrIblConfig']]],
-  ['raytracing_1',['raytracing',['../class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list.html#ad0c6fb52ec460cf8a90c91c661378712',1,'OSK::GRAPHICS::ICommandList']]],
-  ['rectangle_2',['rectangle',['../struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_viewport.html#a3a44365634cd80baebfa85c16d3339d9',1,'OSK::GRAPHICS::Viewport']]],
-  ['red_3',['Red',['../class_o_s_k_1_1_color.html#a55e1c6edf02b9e4525415e45a7c854eb',1,'OSK::Color']]],
-  ['red_4',['red',['../class_o_s_k_1_1_color.html#a44b6fb9124b1968d9506bc7122adb810',1,'OSK::Color']]],
-  ['refreshrate_5',['refreshRate',['../class_o_s_k_1_1_i_o_1_1_i_display.html#a2c5c73709c23d7536821b2f68c324c86',1,'OSK::IO::IDisplay']]],
-  ['rendertargetscamera_6',['renderTargetsCamera',['../class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer.html#aae0f70bb0d6940710331e6b251812c81',1,'OSK::GRAPHICS::IRenderer']]],
-  ['rendertargetscameratransform_7',['renderTargetsCameraTransform',['../class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer.html#ad4be6bdc6e9ed15a10bf4e333b722c58',1,'OSK::GRAPHICS::IRenderer']]],
-  ['reservedsize_8',['reservedSize',['../class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_subblock.html#a2bd0d864e0d5ced266f8860aab614b66',1,'OSK::GRAPHICS::IGpuMemorySubblock']]],
-  ['resolution_9',['resolution',['../struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_deferred_push_constants.html#a445bb77264cbccb7fe1afbe68f7efb03',1,'OSK::GRAPHICS::DeferredPushConstants::resolution'],['../class_o_s_k_1_1_i_o_1_1_i_display.html#a0087d89a72a5d4faa930924ac33d68f7',1,'OSK::IO::IDisplay::resolution'],['../struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_create_info.html#a8092753c9ee6afb0d2d436bd67022090',1,'OSK::GRAPHICS::GpuImageCreateInfo::resolution']]],
-  ['resolverendertarget_10',['resolveRenderTarget',['../class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_post_process_pass.html#a395b387f29e345e76f4a147516b21098',1,'OSK::GRAPHICS::IPostProcessPass']]],
-  ['reusablesubblocks_11',['reusableSubblocks',['../class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_block.html#afb0a469af9d65724ffe513423dd32482',1,'OSK::GRAPHICS::IGpuMemoryBlock']]],
-  ['rootindex_12',['rootIndex',['../struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_animation_skin.html#a8682c1373a8f8a4ba1e9d634c8fd28c9',1,'OSK::GRAPHICS::AnimationSkin']]],
-  ['rotation_13',['rotation',['../struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_animation_bone.html#a1f1517de376bf04f49903e17920d7c71',1,'OSK::GRAPHICS::AnimationBone']]],
-  ['roughnessfactor_14',['roughnessFactor',['../struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_model3_d_1_1_material.html#af96dd222589e96f96d9b51dd15c6bf07',1,'OSK::GRAPHICS::GpuModel3D::Material']]],
-  ['roughnessmetallic_15',['roughnessMetallic',['../struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_pbr_material_info.html#a396e8ced57803250fb0309b916a1970e',1,'OSK::GRAPHICS::PbrMaterialInfo']]],
-  ['roughnesstextureindex_16',['roughnessTextureIndex',['../struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_model3_d_1_1_material.html#a9393be683091de695e8f1ac1a52fc1af',1,'OSK::GRAPHICS::GpuModel3D::Material']]],
-  ['rtaccelerationstructuresfeatures_17',['rtAccelerationStructuresFeatures',['../struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_vk_1_1_info.html#a0b6b1105fa6857571f650e3924e60edf',1,'OSK::GRAPHICS::GpuVk::Info']]],
-  ['rtaccelerationstructuresproperites_18',['rtAccelerationStructuresProperites',['../struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_vk_1_1_info.html#a9e8e8382d4c3b4b1be43ad2eec02cb8d',1,'OSK::GRAPHICS::GpuVk::Info']]],
-  ['rtclosesthitshaderpath_19',['rtClosestHitShaderPath',['../struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_pipeline_create_info.html#a09c9b9c025bb3dbc32b69dff04ff980d',1,'OSK::GRAPHICS::PipelineCreateInfo']]],
-  ['rtdeviceaddressfeatures_20',['rtDeviceAddressFeatures',['../struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_vk_1_1_info.html#af5b5feef31da8cc08b971224d63d4ef4',1,'OSK::GRAPHICS::GpuVk::Info']]],
-  ['rtmissshaderpath_21',['rtMissShaderPath',['../struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_pipeline_create_info.html#a757c6a25f8fa8ec656d053decf470524',1,'OSK::GRAPHICS::PipelineCreateInfo']]],
-  ['rtpipelinefeatures_22',['rtPipelineFeatures',['../struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_vk_1_1_info.html#aea5abcee04a7e89ab9ff001bca28e31e',1,'OSK::GRAPHICS::GpuVk::Info']]],
-  ['rtpipelineproperties_23',['rtPipelineProperties',['../struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_vk_1_1_info.html#acc1cc8f4009ce1fb8fd7bc6e5197b7f9',1,'OSK::GRAPHICS::GpuVk::Info']]],
-  ['rtraygenshaderpath_24',['rtRaygenShaderPath',['../struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_pipeline_create_info.html#a0bfe9ca2ed2bf52a85df106765ed64e9',1,'OSK::GRAPHICS::PipelineCreateInfo']]]
+  ['queuetype_0',['queueType',['../struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_create_info.html#a2e2901a01ee9e2d3412a111bde84a553',1,'OSK::GRAPHICS::GpuImageCreateInfo']]]
 ];

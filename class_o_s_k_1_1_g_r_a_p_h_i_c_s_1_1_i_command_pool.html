@@ -95,6 +95,7 @@ $(function(){initNavTree('class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_pool.htm
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Métodos públicos</a> &#124;
+<a href="#pro-methods">Métodos protegidos</a> &#124;
 <a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_pool-members.html">Lista de todos los miembros</a>  </div>
   <div class="headertitle"><div class="title">Referencia de la clase OSK::GRAPHICS::ICommandPool<span class="mlabels"><span class="mlabel">abstract</span></span></div></div>
 </div><!--header-->
@@ -106,19 +107,26 @@ $(function(){initNavTree('class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_pool.htm
 Métodos públicos</h2></td></tr>
 <tr class="memitem:a19bf7e6bd1cdc186d87287880adc43d3" id="r_a19bf7e6bd1cdc186d87287880adc43d3"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a19bf7e6bd1cdc186d87287880adc43d3">~ICommandPool</a> ()=default</td></tr>
 <tr class="separator:a19bf7e6bd1cdc186d87287880adc43d3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab6a99b5a7f828602bf5363e880450480" id="r_ab6a99b5a7f828602bf5363e880450480"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ab6a99b5a7f828602bf5363e880450480">OSK_DEFINE_AS</a> (<a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_pool.html">ICommandPool</a>)</td></tr>
+<tr class="separator:ab6a99b5a7f828602bf5363e880450480"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9521df93202d6cc54715a70582436d52" id="r_a9521df93202d6cc54715a70582436d52"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="class_o_s_k_1_1_owned_ptr.html">OwnedPtr</a>&lt; <a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list.html">ICommandList</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a9521df93202d6cc54715a70582436d52">CreateCommandList</a> (const <a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu.html">IGpu</a> &amp;device)=0</td></tr>
 <tr class="separator:a9521df93202d6cc54715a70582436d52"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6d7c4775e1c1a11dcb08a1e8d3aec8cc" id="r_a6d7c4775e1c1a11dcb08a1e8d3aec8cc"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="class_o_s_k_1_1_owned_ptr.html">OwnedPtr</a>&lt; <a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list.html">ICommandList</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a6d7c4775e1c1a11dcb08a1e8d3aec8cc">CreateSingleTimeCommandList</a> (const <a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu.html">IGpu</a> &amp;device)=0</td></tr>
 <tr class="separator:a6d7c4775e1c1a11dcb08a1e8d3aec8cc"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3b603fec5d827e9b225815739557dbbf" id="r_a3b603fec5d827e9b225815739557dbbf"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; <br />
-requires std::is_base_of_v&lt;<a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_pool.html">ICommandPool</a>, T&gt;</td></tr>
-<tr class="memitem:a3b603fec5d827e9b225815739557dbbf"><td class="memTemplItemLeft" align="right" valign="top">T *&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="#a3b603fec5d827e9b225815739557dbbf">As</a> () const</td></tr>
-<tr class="separator:a3b603fec5d827e9b225815739557dbbf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a64ae6c798a47b60dfed69a056917afbc" id="r_a64ae6c798a47b60dfed69a056917afbc"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a19534f214690bcfc89ac53cc89681ac6">CommandsSupport</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a64ae6c798a47b60dfed69a056917afbc">GetSupportedCommands</a> () const</td></tr>
+<tr class="separator:a64ae6c798a47b60dfed69a056917afbc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af4fc3ce07257231a2c42c3aa7b4022ce" id="r_af4fc3ce07257231a2c42c3aa7b4022ce"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#af480a36d7bec77341500daf8dda20f1d">GpuQueueType</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af4fc3ce07257231a2c42c3aa7b4022ce">GetLinkedQueueType</a> () const</td></tr>
+<tr class="separator:af4fc3ce07257231a2c42c3aa7b4022ce"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pro-methods" name="pro-methods"></a>
+Métodos protegidos</h2></td></tr>
+<tr class="memitem:acd5635debc01255d63dde76448002420" id="r_acd5635debc01255d63dde76448002420"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#acd5635debc01255d63dde76448002420">ICommandPool</a> (<a class="el" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a19534f214690bcfc89ac53cc89681ac6">CommandsSupport</a> supportedCommands, <a class="el" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#af480a36d7bec77341500daf8dda20f1d">GpuQueueType</a> mainType)</td></tr>
+<tr class="separator:acd5635debc01255d63dde76448002420"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Descripción detallada</h2>
 <div class="textblock"><p>Una pool de comandos se encarga de crear una serie de listas de comandos. Al mismo tiempo, al destruir el pool se destruirán cada una de las listas creadas por el pool. </p>
 
-<p class="definition">Definición en la línea <a class="el" href="_i_command_pool_8h_source.html#l00016">16</a> del archivo <a class="el" href="_i_command_pool_8h_source.html">ICommandPool.h</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_i_command_pool_8h_source.html#l00018">18</a> del archivo <a class="el" href="_i_command_pool_8h_source.html">ICommandPool.h</a>.</p>
 </div><h2 class="groupheader">Documentación de constructores y destructores</h2>
 <a id="a19bf7e6bd1cdc186d87287880adc43d3" name="a19bf7e6bd1cdc186d87287880adc43d3"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a19bf7e6bd1cdc186d87287880adc43d3">&#9670;&#160;</a></span>~ICommandPool()</h2>
@@ -145,37 +153,47 @@ requires std::is_base_of_v&lt;<a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_
 
 </div>
 </div>
-<h2 class="groupheader">Documentación de funciones miembro</h2>
-<a id="a3b603fec5d827e9b225815739557dbbf" name="a3b603fec5d827e9b225815739557dbbf"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3b603fec5d827e9b225815739557dbbf">&#9670;&#160;</a></span>As()</h2>
+<a id="acd5635debc01255d63dde76448002420" name="acd5635debc01255d63dde76448002420"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acd5635debc01255d63dde76448002420">&#9670;&#160;</a></span>ICommandPool()</h2>
 
 <div class="memitem">
 <div class="memproto">
-<div class="memtemplate">
-template&lt;typename T &gt; <br />
-requires std::is_base_of_v&lt;<a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_pool.html">ICommandPool</a>, T&gt;</div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">T * OSK::GRAPHICS::ICommandPool::As </td>
+          <td class="memname">ICommandPool::ICommandPool </td>
           <td>(</td>
-          <td class="paramname"><span class="paramname"></span></td><td>)</td>
-          <td> const</td>
+          <td class="paramtype"><a class="el" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a19534f214690bcfc89ac53cc89681ac6">CommandsSupport</a></td>          <td class="paramname"><span class="paramname"><em>supportedCommands</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#af480a36d7bec77341500daf8dda20f1d">GpuQueueType</a></td>          <td class="paramname"><span class="paramname"><em>mainType</em></span>&#160;)</td>
         </tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definición en la línea <a class="el" href="_i_command_pool_8h_source.html#l00034">34</a> del archivo <a class="el" href="_i_command_pool_8h_source.html">ICommandPool.h</a>.</p>
+<p>Crea la lista. </p>
+<dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">supportedCommands</td><td>Tipos de comandos soportados. </td></tr>
+    <tr><td class="paramname">mainType</td><td>Tipo de cola en la que se puede insertar las listas creadas por este pool. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definición en la línea <a class="el" href="_i_command_pool_8cpp_source.html#l00006">6</a> del archivo <a class="el" href="_i_command_pool_8cpp_source.html">ICommandPool.cpp</a>.</p>
 
 </div>
 </div>
+<h2 class="groupheader">Documentación de funciones miembro</h2>
 <a id="a9521df93202d6cc54715a70582436d52" name="a9521df93202d6cc54715a70582436d52"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a9521df93202d6cc54715a70582436d52">&#9670;&#160;</a></span>CreateCommandList()</h2>
 
@@ -202,7 +220,15 @@ requires std::is_base_of_v&lt;<a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_
 <p>Crea una lista de comandos. </p>
 <dl class="params"><dt>Parámetros</dt><dd>
   <table class="params">
-    <tr><td class="paramname">device</td><td>GPU donde se alamcenarán las listas.</td></tr>
+    <tr><td class="paramname">device</td><td>GPU donde se alamcenarán las listas. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Devuelve</dt><dd>Lista de comandos.</dd></dl>
+<dl class="exception"><dt>Excepciones</dt><dd>
+  <table class="exception">
+    <tr><td class="paramname"><a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_list_creation_exception.html" title="Excepción que se lanza cuando no se pudo crear la lista de comandos.">CommandListCreationException</a></td><td>si no se pudo crear la lista. <br  />
+ </td></tr>
   </table>
   </dd>
 </dl>
@@ -237,7 +263,15 @@ requires std::is_base_of_v&lt;<a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_
 <p>Crea una lista de comandos de un sólo uso. </p>
 <dl class="params"><dt>Parámetros</dt><dd>
   <table class="params">
-    <tr><td class="paramname">device</td><td>GPU donde se alamcenarán las listas.</td></tr>
+    <tr><td class="paramname">device</td><td>GPU donde se alamcenarán las listas. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Devuelve</dt><dd>Lista de comandos de un único uso.</dd></dl>
+<dl class="exception"><dt>Excepciones</dt><dd>
+  <table class="exception">
+    <tr><td class="paramname"><a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_list_creation_exception.html" title="Excepción que se lanza cuando no se pudo crear la lista de comandos.">CommandListCreationException</a></td><td>si no se pudo crear la lista. <br  />
+ </td></tr>
   </table>
   </dd>
 </dl>
@@ -246,16 +280,70 @@ requires std::is_base_of_v&lt;<a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_
 
 </div>
 </div>
-<hr/>La documentación de esta clase está generada del siguiente archivo:<ul>
-<li>Source/<a class="el" href="_i_command_pool_8h_source.html">ICommandPool.h</a></li>
-</ul>
+<a id="af4fc3ce07257231a2c42c3aa7b4022ce" name="af4fc3ce07257231a2c42c3aa7b4022ce"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af4fc3ce07257231a2c42c3aa7b4022ce">&#9670;&#160;</a></span>GetLinkedQueueType()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#af480a36d7bec77341500daf8dda20f1d">GpuQueueType</a> ICommandPool::GetLinkedQueueType </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Devuelve</dt><dd>Tipo de cola en la que se puede insertar las listas creadas por este pool. </dd></dl>
+
+<p class="definition">Definición en la línea <a class="el" href="_i_command_pool_8cpp_source.html#l00014">14</a> del archivo <a class="el" href="_i_command_pool_8cpp_source.html">ICommandPool.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a64ae6c798a47b60dfed69a056917afbc" name="a64ae6c798a47b60dfed69a056917afbc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a64ae6c798a47b60dfed69a056917afbc">&#9670;&#160;</a></span>GetSupportedCommands()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a19534f214690bcfc89ac53cc89681ac6">CommandsSupport</a> ICommandPool::GetSupportedCommands </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Devuelve</dt><dd>Tipos de comandos soportados por este pool. Las listas de comandos creadas a partir de este pool sólamente soportarán los comandos del tipo indicado. </dd></dl>
+
+<p class="definition">Definición en la línea <a class="el" href="_i_command_pool_8cpp_source.html#l00010">10</a> del archivo <a class="el" href="_i_command_pool_8cpp_source.html">ICommandPool.cpp</a>.</p>
+
+</div>
+</div>
+<a id="ab6a99b5a7f828602bf5363e880450480" name="ab6a99b5a7f828602bf5363e880450480"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab6a99b5a7f828602bf5363e880450480">&#9670;&#160;</a></span>OSK_DEFINE_AS()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">OSK::GRAPHICS::ICommandPool::OSK_DEFINE_AS </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_pool.html">ICommandPool</a></td>          <td class="paramname"><span class="paramname"></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
 </div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="namespace_o_s_k.html">OSK</a></li><li class="navelem"><a class="el" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html">GRAPHICS</a></li><li class="navelem"><a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_pool.html">ICommandPool</a></li>
-    <li class="footer">Generado el Jueves, 28 de marzo de 2024 17:53:13 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.10.0 </li>
+    <li class="footer">Generado el Lunes, 15 de abril de 2024 22:39:18 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.10.0 </li>
   </ul>
 </div>
 </body>

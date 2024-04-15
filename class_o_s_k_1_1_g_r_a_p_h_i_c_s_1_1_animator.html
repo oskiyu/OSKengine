@@ -106,7 +106,7 @@ $(function(){initNavTree('class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_animator.html','')
 Métodos públicos</h2></td></tr>
 <tr class="memitem:ab8abc8c4670ad9dd07df34669c62e0f5" id="r_ab8abc8c4670ad9dd07df34669c62e0f5"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ab8abc8c4670ad9dd07df34669c62e0f5">Setup</a> (const glm::mat4 &amp;initialTransform)</td></tr>
 <tr class="separator:ab8abc8c4670ad9dd07df34669c62e0f5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7ff47c14c14b02ad6a395a6072084e8c" id="r_a7ff47c14c14b02ad6a395a6072084e8c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a7ff47c14c14b02ad6a395a6072084e8c">Update</a> (<a class="el" href="_o_s_kmacros_8h.html#ad05d5eacc527d5b61240124daf13b33b">TDeltaTime</a> deltaTime)</td></tr>
+<tr class="memitem:a7ff47c14c14b02ad6a395a6072084e8c" id="r_a7ff47c14c14b02ad6a395a6072084e8c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a7ff47c14c14b02ad6a395a6072084e8c">Update</a> (TDeltaTime deltaTime)</td></tr>
 <tr class="separator:a7ff47c14c14b02ad6a395a6072084e8c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a21b89a30c5989e74a438f81c4970b085" id="r_a21b89a30c5989e74a438f81c4970b085"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a21b89a30c5989e74a438f81c4970b085">AddActiveAnimation</a> (std::string_view name)</td></tr>
 <tr class="separator:a21b89a30c5989e74a438f81c4970b085"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -116,7 +116,7 @@ Métodos públicos</h2></td></tr>
 <tr class="separator:aaca96b917ed1b7cb670fb3676a9143ca"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab111329da7b08c3a10ed561fb96a2767" id="r_ab111329da7b08c3a10ed561fb96a2767"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_animation_skin.html">AnimationSkin</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ab111329da7b08c3a10ed561fb96a2767">GetActiveSkin</a> () const</td></tr>
 <tr class="separator:ab111329da7b08c3a10ed561fb96a2767"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:adad326f682a692767a13d6eff2c47cd5" id="r_adad326f682a692767a13d6eff2c47cd5"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_animation_skin.html">AnimationSkin</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#adad326f682a692767a13d6eff2c47cd5">GetSkin</a> (<a class="el" href="_o_s_kmacros_8h.html#af205b9fd0440138e6cac38a9081141df">UIndex32</a> index) const</td></tr>
+<tr class="memitem:adad326f682a692767a13d6eff2c47cd5" id="r_adad326f682a692767a13d6eff2c47cd5"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_animation_skin.html">AnimationSkin</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#adad326f682a692767a13d6eff2c47cd5">GetSkin</a> (UIndex32 index) const</td></tr>
 <tr class="separator:adad326f682a692767a13d6eff2c47cd5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7175c634069c60d20189d44f976d02c4" id="r_a7175c634069c60d20189d44f976d02c4"><td class="memItemLeft" align="right" valign="top">glm::mat4&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a7175c634069c60d20189d44f976d02c4">GetInitialTransform</a> () const</td></tr>
 <tr class="separator:a7175c634069c60d20189d44f976d02c4"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -131,7 +131,6 @@ Métodos públicos</h2></td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Descripción detallada</h2>
 <div class="textblock"><p>Contiene y gestiona las animaciones de un modelo 3D. </p>
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000001">Tareas pendientes</a></b></dt><dd>Interpolación de animaciones. </dd></dl>
 
 <p class="definition">Definición en la línea <a class="el" href="_animator_8h_source.html#l00022">22</a> del archivo <a class="el" href="_animator_8h_source.html">Animator.h</a>.</p>
 </div><h2 class="groupheader">Documentación de funciones miembro</h2>
@@ -292,7 +291,7 @@ Métodos públicos</h2></td></tr>
         <tr>
           <td class="memname">const <a class="el" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_animation_skin.html">AnimationSkin</a> &amp; Animator::GetSkin </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="_o_s_kmacros_8h.html#af205b9fd0440138e6cac38a9081141df">UIndex32</a></td>          <td class="paramname"><span class="paramname"><em>index</em></span></td><td>)</td>
+          <td class="paramtype">UIndex32</td>          <td class="paramname"><span class="paramname"><em>index</em></span></td><td>)</td>
           <td> const</td>
         </tr>
       </table>
@@ -441,7 +440,7 @@ Métodos públicos</h2></td></tr>
         <tr>
           <td class="memname">void Animator::Update </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="_o_s_kmacros_8h.html#ad05d5eacc527d5b61240124daf13b33b">TDeltaTime</a></td>          <td class="paramname"><span class="paramname"><em>deltaTime</em></span></td><td>)</td>
+          <td class="paramtype">TDeltaTime</td>          <td class="paramname"><span class="paramname"><em>deltaTime</em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -459,17 +458,13 @@ Métodos públicos</h2></td></tr>
 
 </div>
 </div>
-<hr/>La documentación de esta clase está generada de los siguientes archivos:<ul>
-<li>Source/<a class="el" href="_animator_8h_source.html">Animator.h</a></li>
-<li>Source/<a class="el" href="_animator_8cpp_source.html">Animator.cpp</a></li>
-</ul>
 </div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="namespace_o_s_k.html">OSK</a></li><li class="navelem"><a class="el" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html">GRAPHICS</a></li><li class="navelem"><a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_animator.html">Animator</a></li>
-    <li class="footer">Generado el Jueves, 28 de marzo de 2024 17:53:13 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.10.0 </li>
+    <li class="footer">Generado el Lunes, 15 de abril de 2024 22:39:18 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.10.0 </li>
   </ul>
 </div>
 </body>

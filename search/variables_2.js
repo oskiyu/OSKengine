@@ -1,7 +1,7 @@
 var searchData=
 [
   ['centerofmassoffset_0',['centerOfMassOffset',['../class_o_s_k_1_1_e_c_s_1_1_physics_component.html#a139ede070b866acdb153120c51b5e8b7',1,'OSK::ECS::PhysicsComponent']]],
-  ['channel_1',['channel',['../struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_view_config.html#a17df0b8be3e96e062f080e184665e862',1,'OSK::GRAPHICS::GpuImageViewConfig::channel'],['../struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_range.html#a80ab2b4bf1d2a9bbfd4dd3381a4199d6',1,'OSK::GRAPHICS::GpuImageRange::channel']]],
+  ['channel_1',['channel',['../struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_range.html#a80ab2b4bf1d2a9bbfd4dd3381a4199d6',1,'OSK::GRAPHICS::GpuImageRange::channel'],['../struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_view_config.html#a17df0b8be3e96e062f080e184665e862',1,'OSK::GRAPHICS::GpuImageViewConfig::channel']]],
   ['characters_2',['characters',['../struct_o_s_k_1_1_a_s_s_e_t_s_1_1_font_instance.html#a2a6dde25a2509bf53d11a876d6ea9338',1,'OSK::ASSETS::FontInstance']]],
   ['childindices_3',['childIndices',['../struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_animation_bone.html#ab5c3e38538bdd5e9f72df548078a803c',1,'OSK::GRAPHICS::AnimationBone']]],
   ['children_4',['children',['../class_o_s_k_1_1_u_i_1_1_i_container.html#a3cb95097b29de13d4c6684a506ca6844',1,'OSK::UI::IContainer']]],
@@ -16,18 +16,10 @@ var searchData=
   ['colortargettypes_13',['ColorTargetTypes',['../class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_g_buffer.html#aed5c2c895187fd424cba237734d64b51',1,'OSK::GRAPHICS::GBuffer']]],
   ['colortextureindex_14',['colorTextureIndex',['../struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_model3_d_1_1_material.html#ae2265e931b834be58a6f9737df079dfa',1,'OSK::GRAPHICS::GpuModel3D::Material']]],
   ['compute_15',['compute',['../class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list.html#a382ca275252b4bce5983fd3a3101d885',1,'OSK::GRAPHICS::ICommandList']]],
-  ['computecommandpool_16',['computeCommandPool',['../class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer.html#a76bddfef891f966b5d0001cc5063986f',1,'OSK::GRAPHICS::IRenderer']]],
-  ['computequeue_17',['computeQueue',['../class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer.html#a05fc17f5d2cbaa3895f5d3a626107e47',1,'OSK::GRAPHICS::IRenderer']]],
-  ['computeshaderpath_18',['computeShaderPath',['../struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_pipeline_create_info.html#a755653872913052be0e019b57076eb71',1,'OSK::GRAPHICS::PipelineCreateInfo']]],
-  ['copysize_19',['copySize',['../struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_copy_image_info.html#a8f57dd71e3947db4dc5e96a804cdf62b',1,'OSK::GRAPHICS::CopyImageInfo']]],
-  ['cpuhandle_20',['cpuHandle',['../struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_descriptor_dx12.html#a2d646d4cb2a072d09f8715a41735765a',1,'OSK::GRAPHICS::DescriptorDx12']]],
-  ['cullmode_21',['cullMode',['../struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_pipeline_create_info.html#acfe51d79edebcbe9e45e8f9586d05c10',1,'OSK::GRAPHICS::PipelineCreateInfo']]],
-  ['currentcolorimages_22',['currentColorImages',['../class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list.html#a02c47b88c3dc12edf97b63bf9cfaf1e1',1,'OSK::GRAPHICS::ICommandList']]],
-  ['currentdepthimage_23',['currentDepthImage',['../class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list.html#aa3afac2fc07d160a8f9ea58fbcf4f745',1,'OSK::GRAPHICS::ICommandList']]],
-  ['currentgpu_24',['currentGpu',['../class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer.html#a2928763ae4948a9de9bafad902fd9696',1,'OSK::GRAPHICS::IRenderer']]],
-  ['currentmaterial_25',['currentMaterial',['../class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list.html#a38a16050295d9b1591859ddce9f8668e',1,'OSK::GRAPHICS::ICommandList']]],
-  ['currentoffset_26',['currentOffset',['../class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_block.html#a921c6aa09ba2c4ffb8a6ff8edca8dbe3',1,'OSK::GRAPHICS::IGpuMemoryBlock']]],
-  ['currentpipeline_27',['currentPipeline',['../class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list.html#a79b0ad61e3123052b09265b1c63f24c1',1,'OSK::GRAPHICS::ICommandList']]],
-  ['currentrenderpasstype_28',['currentRenderpassType',['../class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list.html#a32e5847e802024bcd2fc7cc5215c733a',1,'OSK::GRAPHICS::ICommandList']]],
-  ['cursor_29',['cursor',['../class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_subblock.html#a624549ea665882d0c016f4d590e63be5',1,'OSK::GRAPHICS::IGpuMemorySubblock']]]
+  ['computeshaderpath_16',['computeShaderPath',['../struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_pipeline_create_info.html#a755653872913052be0e019b57076eb71',1,'OSK::GRAPHICS::PipelineCreateInfo']]],
+  ['copysize_17',['copySize',['../struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_copy_image_info.html#a8f57dd71e3947db4dc5e96a804cdf62b',1,'OSK::GRAPHICS::CopyImageInfo']]],
+  ['cpuhandle_18',['cpuHandle',['../struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_descriptor_dx12.html#a2d646d4cb2a072d09f8715a41735765a',1,'OSK::GRAPHICS::DescriptorDx12']]],
+  ['cullmode_19',['cullMode',['../struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_pipeline_create_info.html#acfe51d79edebcbe9e45e8f9586d05c10',1,'OSK::GRAPHICS::PipelineCreateInfo']]],
+  ['currentoffset_20',['currentOffset',['../class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_block.html#a921c6aa09ba2c4ffb8a6ff8edca8dbe3',1,'OSK::GRAPHICS::IGpuMemoryBlock']]],
+  ['cursor_21',['cursor',['../class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_subblock.html#a624549ea665882d0c016f4d590e63be5',1,'OSK::GRAPHICS::IGpuMemorySubblock']]]
 ];

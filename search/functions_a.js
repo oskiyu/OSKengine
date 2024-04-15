@@ -1,6 +1,5 @@
 var searchData=
 [
-  ['keepsrelativesize_0',['KeepsRelativeSize',['../class_o_s_k_1_1_u_i_1_1_i_element.html#ae5ccb397475874b1610b00d7bd0d9899',1,'OSK::UI::IElement']]],
-  ['keyboardstate_1',['KeyboardState',['../class_o_s_k_1_1_i_o_1_1_keyboard_state.html#a408807475b344a15e75e56757d7715d7',1,'OSK::IO::KeyboardState']]],
-  ['kilograms_2',['Kilograms',['../class_o_s_k_1_1_kilograms.html#aef2cdf4475423c28037cbe98cefad8d1',1,'OSK::Kilograms']]]
+  ['jobqueue_0',['JobQueue',['../class_o_s_k_1_1_job_queue.html#a45577289beae83599d1f6a695d681747',1,'OSK::JobQueue']]],
+  ['jobsystem_1',['JobSystem',['../class_o_s_k_1_1_job_system.html#a1cdd6b1a4e9607e4585e78c187dddb52',1,'OSK::JobSystem']]]
 ];

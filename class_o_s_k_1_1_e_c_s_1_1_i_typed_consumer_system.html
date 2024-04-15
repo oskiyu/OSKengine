@@ -107,9 +107,9 @@ $(function(){initNavTree('class_o_s_k_1_1_e_c_s_1_1_i_typed_consumer_system.html
 Métodos públicos</h2></td></tr>
 <tr class="memitem:a071a5fe3bc0832214bc6405914e8e468" id="r_a071a5fe3bc0832214bc6405914e8e468"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a071a5fe3bc0832214bc6405914e8e468">~ITypedConsumerSystem</a> () override=default</td></tr>
 <tr class="separator:a071a5fe3bc0832214bc6405914e8e468"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af2e4f7e3f6afa8c619b92cf27a7091a2" id="r_af2e4f7e3f6afa8c619b92cf27a7091a2"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af2e4f7e3f6afa8c619b92cf27a7091a2">Execute</a> (<a class="el" href="_o_s_kmacros_8h.html#ad05d5eacc527d5b61240124daf13b33b">TDeltaTime</a> deltaTime, <a class="el" href="struct_o_s_k_1_1_e_c_s_1_1_event_queue_span.html">EventQueueSpan</a> events) override</td></tr>
+<tr class="memitem:af2e4f7e3f6afa8c619b92cf27a7091a2" id="r_af2e4f7e3f6afa8c619b92cf27a7091a2"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af2e4f7e3f6afa8c619b92cf27a7091a2">Execute</a> (TDeltaTime deltaTime, <a class="el" href="struct_o_s_k_1_1_e_c_s_1_1_event_queue_span.html">EventQueueSpan</a> events) override</td></tr>
 <tr class="separator:af2e4f7e3f6afa8c619b92cf27a7091a2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac872a9db606a515675e937697bc12b22" id="r_ac872a9db606a515675e937697bc12b22"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ac872a9db606a515675e937697bc12b22">Execute</a> (<a class="el" href="_o_s_kmacros_8h.html#ad05d5eacc527d5b61240124daf13b33b">TDeltaTime</a> deltaTime, std::span&lt; const TEvent &gt; events)</td></tr>
+<tr class="memitem:ac872a9db606a515675e937697bc12b22" id="r_ac872a9db606a515675e937697bc12b22"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ac872a9db606a515675e937697bc12b22">Execute</a> (TDeltaTime deltaTime, std::span&lt; const TEvent &gt; events)</td></tr>
 <tr class="separator:ac872a9db606a515675e937697bc12b22"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af6bf560785407461a86b6a464106919e" id="r_af6bf560785407461a86b6a464106919e"><td class="memItemLeft" align="right" valign="top">std::string_view&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af6bf560785407461a86b6a464106919e">GetEventName</a> () const override</td></tr>
 <tr class="separator:af6bf560785407461a86b6a464106919e"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -142,7 +142,7 @@ Métodos públicos</h2></td></tr>
 Métodos protegidos</h2></td></tr>
 <tr class="memitem:a2395e5a893e21a8dfb3a9a1fd33faae2" id="r_a2395e5a893e21a8dfb3a9a1fd33faae2"><td class="memTemplParams" colspan="2">template&lt;typename TEvent &gt; <br />
 requires <a class="el" href="concept_is_ecs_event.html">IsEcsEvent</a>&lt;TEvent&gt;</td></tr>
-<tr class="memitem:a2395e5a893e21a8dfb3a9a1fd33faae2"><td class="memTemplItemLeft" align="right" valign="top">std::span&lt; const TEvent &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_e_c_s_1_1_i_consumer_system.html#a2395e5a893e21a8dfb3a9a1fd33faae2">BuildSpan</a> (const void *firstEvent, <a class="el" href="_o_s_kmacros_8h.html#a5784d24fcb00afb78eb7b1e1a3466ac4">USize64</a> numEvents)</td></tr>
+<tr class="memitem:a2395e5a893e21a8dfb3a9a1fd33faae2"><td class="memTemplItemLeft" align="right" valign="top">std::span&lt; const TEvent &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_e_c_s_1_1_i_consumer_system.html#a2395e5a893e21a8dfb3a9a1fd33faae2">BuildSpan</a> (const void *firstEvent, <a class="el" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">USize64</a> numEvents)</td></tr>
 <tr class="separator:a2395e5a893e21a8dfb3a9a1fd33faae2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Descripción detallada</h2>
@@ -262,7 +262,7 @@ requires <a class="el" href="concept_is_ecs_event.html">IsEcsEvent</a>&lt;TEvent
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="_o_s_kmacros_8h.html#a5784d24fcb00afb78eb7b1e1a3466ac4">USize64</a></td>          <td class="paramname"><span class="paramname"><em>numEvents</em></span>&#160;)</td>
+          <td class="paramtype"><a class="el" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">USize64</a></td>          <td class="paramname"><span class="paramname"><em>numEvents</em></span>&#160;)</td>
         </tr>
       </table>
   </td>
@@ -335,7 +335,7 @@ template&lt;typename TEvent &gt; </div>
         <tr>
           <td class="memname">void <a class="el" href="class_o_s_k_1_1_e_c_s_1_1_i_typed_consumer_system.html">OSK::ECS::ITypedConsumerSystem</a>&lt; TEvent &gt;::Execute </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="_o_s_kmacros_8h.html#ad05d5eacc527d5b61240124daf13b33b">TDeltaTime</a></td>          <td class="paramname"><span class="paramname"><em>deltaTime</em>, </span></td>
+          <td class="paramtype">TDeltaTime</td>          <td class="paramname"><span class="paramname"><em>deltaTime</em>, </span></td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -379,7 +379,7 @@ template&lt;typename TEvent &gt; </div>
         <tr>
           <td class="memname">virtual void <a class="el" href="class_o_s_k_1_1_e_c_s_1_1_i_typed_consumer_system.html">OSK::ECS::ITypedConsumerSystem</a>&lt; TEvent &gt;::Execute </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="_o_s_kmacros_8h.html#ad05d5eacc527d5b61240124daf13b33b">TDeltaTime</a></td>          <td class="paramname"><span class="paramname"><em>deltaTime</em>, </span></td>
+          <td class="paramtype">TDeltaTime</td>          <td class="paramname"><span class="paramname"><em>deltaTime</em>, </span></td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -705,16 +705,13 @@ template&lt;typename TEvent &gt; </div>
 
 </div>
 </div>
-<hr/>La documentación de esta clase está generada del siguiente archivo:<ul>
-<li>Source/<a class="el" href="_i_consumer_system_8h_source.html">IConsumerSystem.h</a></li>
-</ul>
 </div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="namespace_o_s_k.html">OSK</a></li><li class="navelem"><a class="el" href="namespace_o_s_k_1_1_e_c_s.html">ECS</a></li><li class="navelem"><a class="el" href="class_o_s_k_1_1_e_c_s_1_1_i_typed_consumer_system.html">ITypedConsumerSystem</a></li>
-    <li class="footer">Generado el Jueves, 28 de marzo de 2024 17:53:12 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.10.0 </li>
+    <li class="footer">Generado el Lunes, 15 de abril de 2024 22:39:18 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.10.0 </li>
   </ul>
 </div>
 </body>

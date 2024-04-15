@@ -110,6 +110,8 @@ Métodos públicos</h2></td></tr>
 <tr class="separator:a0e27b5a4e45abc3ee2a4c6712f798d9e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0c87d0b7604e00ae3ef78fd12905b82b" id="r_a0c87d0b7604e00ae3ef78fd12905b82b"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="class_o_s_k_1_1_owned_ptr.html">OwnedPtr</a>&lt; <a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_pool.html">ICommandPool</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a0c87d0b7604e00ae3ef78fd12905b82b">CreateComputeCommandPool</a> ()=0</td></tr>
 <tr class="separator:a0c87d0b7604e00ae3ef78fd12905b82b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af48b9e4bf46c4fbb2f890b62622de2bf" id="r_af48b9e4bf46c4fbb2f890b62622de2bf"><td class="memItemLeft" align="right" valign="top">virtual std::optional&lt; <a class="el" href="class_o_s_k_1_1_owned_ptr.html">OwnedPtr</a>&lt; <a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_pool.html">ICommandPool</a> &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af48b9e4bf46c4fbb2f890b62622de2bf">CreateTransferOnlyCommandPool</a> ()=0</td></tr>
+<tr class="separator:af48b9e4bf46c4fbb2f890b62622de2bf"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac8b780cbb64fb4ed7bc8e4a295a7e806" id="r_ac8b780cbb64fb4ed7bc8e4a295a7e806"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_memory_usage_info.html">GpuMemoryUsageInfo</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ac8b780cbb64fb4ed7bc8e4a295a7e806">GetMemoryUsageInfo</a> () const =0</td></tr>
 <tr class="separator:ac8b780cbb64fb4ed7bc8e4a295a7e806"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab505de7218654c86ee2d63eed1915b71" id="r_ab505de7218654c86ee2d63eed1915b71"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ab505de7218654c86ee2d63eed1915b71">Close</a> ()=0</td></tr>
@@ -249,6 +251,36 @@ Métodos públicos</h2></td></tr>
 
 </div>
 </div>
+<a id="af48b9e4bf46c4fbb2f890b62622de2bf" name="af48b9e4bf46c4fbb2f890b62622de2bf"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af48b9e4bf46c4fbb2f890b62622de2bf">&#9670;&#160;</a></span>CreateTransferOnlyCommandPool()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual std::optional&lt; <a class="el" href="class_o_s_k_1_1_owned_ptr.html">OwnedPtr</a>&lt; <a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_pool.html">ICommandPool</a> &gt; &gt; OSK::GRAPHICS::IGpu::CreateTransferOnlyCommandPool </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Intenta crear un pool de comandos que soporte únicamente operaciones de transferencia. </p>
+<dl class="section return"><dt>Devuelve</dt><dd>Command pool para comandos excusivamente de transferencia. Si no hay, retorna vacío. </dd></dl>
+
+<p>Implementado en <a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_dx12.html#a1bd06e41362a9e1cc7b29c323a085f7d">OSK::GRAPHICS::GpuDx12</a> y <a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_vk.html#aef2e4214d556d5e8f6cc73bef04047b2">OSK::GRAPHICS::GpuVk</a>.</p>
+
+</div>
+</div>
 <a id="ac8b780cbb64fb4ed7bc8e4a295a7e806" name="ac8b780cbb64fb4ed7bc8e4a295a7e806"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ac8b780cbb64fb4ed7bc8e4a295a7e806">&#9670;&#160;</a></span>GetMemoryUsageInfo()</h2>
 
@@ -279,16 +311,13 @@ Métodos públicos</h2></td></tr>
 
 </div>
 </div>
-<hr/>La documentación de esta clase está generada del siguiente archivo:<ul>
-<li>Source/<a class="el" href="_i_gpu_8h_source.html">IGpu.h</a></li>
-</ul>
 </div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="namespace_o_s_k.html">OSK</a></li><li class="navelem"><a class="el" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html">GRAPHICS</a></li><li class="navelem"><a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu.html">IGpu</a></li>
-    <li class="footer">Generado el Jueves, 28 de marzo de 2024 17:53:13 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.10.0 </li>
+    <li class="footer">Generado el Lunes, 15 de abril de 2024 22:39:18 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.10.0 </li>
   </ul>
 </div>
 </body>

@@ -101,11 +101,11 @@ $(function(){initNavTree('_frame_combiner_8h_source.html',''); initResizable(); 
   <div class="headertitle"><div class="title">FrameCombiner.h</div></div>
 </div><!--header-->
 <div class="contents">
-<a href="_frame_combiner_8h.html">Ir a la documentación de este archivo.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#pragma once</span></div>
+<div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#pragma once</span></div>
 <div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span> </div>
-<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="preprocessor">#include &quot;<a class="code" href="_unique_ptr_8hpp.html">UniquePtr.hpp</a>&quot;</span></div>
-<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &quot;<a class="code" href="_material_instance_8h.html">MaterialInstance.h</a>&quot;</span></div>
-<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &quot;<a class="code" href="_rt_render_target_8h.html">RtRenderTarget.h</a>&quot;</span></div>
+<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="preprocessor">#include &quot;UniquePtr.hpp&quot;</span></div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &quot;MaterialInstance.h&quot;</span></div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &quot;RtRenderTarget.h&quot;</span></div>
 <div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span> </div>
 <div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="keyword">namespace </span><a class="code hl_namespace" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html">OSK::GRAPHICS</a> {</div>
 <div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span> </div>
@@ -113,7 +113,7 @@ $(function(){initNavTree('_frame_combiner_8h_source.html',''); initResizable(); 
 <div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span>    <span class="keyword">class </span>ICommandList;</div>
 <div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span> </div>
 <div class="foldopen" id="foldopen00014" data-start="{" data-end="};">
-<div class="line"><a id="l00014" name="l00014"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_frame_combiner.html">   14</a></span>    <span class="keyword">class </span><a class="code hl_define" href="_o_s_kmacros_8h.html#a09ec5b46ece998ad096bceff312bb36c">OSKAPI_CALL</a> <a class="code hl_class" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_frame_combiner.html">FrameCombiner</a> final {</div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_frame_combiner.html">   14</a></span>    <span class="keyword">class </span>OSKAPI_CALL <a class="code hl_class" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_frame_combiner.html">FrameCombiner</a> final {</div>
 <div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span> </div>
 <div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span>    <span class="keyword">public</span>:</div>
 <div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span> </div>
@@ -163,22 +163,17 @@ $(function(){initNavTree('_frame_combiner_8h_source.html',''); initResizable(); 
 <div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span> </div>
 <div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span>        std::unordered_map&lt;ImageFormat, Material*&gt; m_combinerMaterials;</div>
 <div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span> </div>
-<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span>        std::unordered_map&lt;const IGpuImageView*, UniquePtr&lt;MaterialInstance&gt;&gt; m_textureMaterials[<a class="code hl_variable" href="_o_s_kmacros_8h.html#ae5e86c617c5992479b42bbd9c280b4df">NUM_RESOURCES_IN_FLIGHT</a>]{};</div>
+<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span>        std::unordered_map&lt;const IGpuImageView*, UniquePtr&lt;MaterialInstance&gt;&gt; m_textureMaterials[NUM_RESOURCES_IN_FLIGHT]{};</div>
 <div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span>        UniquePtr&lt;MaterialInstance&gt; m_outputMaterialInstance = <span class="keyword">nullptr</span>;</div>
 <div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span> </div>
 <div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span>    };</div>
 </div>
 <div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span> </div>
 <div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span>}</div>
-<div class="ttc" id="a_material_instance_8h_html"><div class="ttname"><a href="_material_instance_8h.html">MaterialInstance.h</a></div></div>
-<div class="ttc" id="a_o_s_kmacros_8h_html_a09ec5b46ece998ad096bceff312bb36c"><div class="ttname"><a href="_o_s_kmacros_8h.html#a09ec5b46ece998ad096bceff312bb36c">OSKAPI_CALL</a></div><div class="ttdeci">#define OSKAPI_CALL</div><div class="ttdef"><b>Definition</b> <a href="_o_s_kmacros_8h_source.html#l00007">OSKmacros.h:7</a></div></div>
-<div class="ttc" id="a_o_s_kmacros_8h_html_ae5e86c617c5992479b42bbd9c280b4df"><div class="ttname"><a href="_o_s_kmacros_8h.html#ae5e86c617c5992479b42bbd9c280b4df">NUM_RESOURCES_IN_FLIGHT</a></div><div class="ttdeci">constexpr USize32 NUM_RESOURCES_IN_FLIGHT</div><div class="ttdef"><b>Definition</b> <a href="_o_s_kmacros_8h_source.html#l00057">OSKmacros.h:57</a></div></div>
-<div class="ttc" id="a_rt_render_target_8h_html"><div class="ttname"><a href="_rt_render_target_8h.html">RtRenderTarget.h</a></div></div>
-<div class="ttc" id="a_unique_ptr_8hpp_html"><div class="ttname"><a href="_unique_ptr_8hpp.html">UniquePtr.hpp</a></div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_frame_combiner_html"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_frame_combiner.html">OSK::GRAPHICS::FrameCombiner</a></div><div class="ttdoc">Clase que permite combinar varias imágenes del mismo tamaño de una manera más eficiente.</div><div class="ttdef"><b>Definition</b> <a href="#l00014">FrameCombiner.h:14</a></div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_frame_combiner_html_a3840e5f59586d37e6a3d2cc8d25b1873"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_frame_combiner.html#a3840e5f59586d37e6a3d2cc8d25b1873">OSK::GRAPHICS::FrameCombiner::ImageFormat</a></div><div class="ttdeci">ImageFormat</div><div class="ttdoc">Formatos soportados por el combiner.</div><div class="ttdef"><b>Definition</b> <a href="#l00019">FrameCombiner.h:19</a></div></div>
-<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_html"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image.html">OSK::GRAPHICS::GpuImage</a></div><div class="ttdoc">Representación interna de una imagen en la GPU.</div><div class="ttdef"><b>Definition</b> <a href="_i_gpu_image_8h_source.html#l00058">IGpuImage.h:58</a></div></div>
-<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list_html"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list.html">OSK::GRAPHICS::ICommandList</a></div><div class="ttdoc">Una lista de comandos contiene una serie de comandos que serán enviados a la GPU para su ejecución....</div><div class="ttdef"><b>Definition</b> <a href="_i_command_list_8h_source.html#l00114">ICommandList.h:114</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_html"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image.html">OSK::GRAPHICS::GpuImage</a></div><div class="ttdoc">Representación interna de una imagen en la GPU.</div><div class="ttdef"><b>Definition</b> <a href="_i_gpu_image_8h_source.html#l00035">IGpuImage.h:35</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list_html"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list.html">OSK::GRAPHICS::ICommandList</a></div><div class="ttdoc">Una lista de comandos contiene una serie de comandos que serán enviados a la GPU para su ejecución....</div><div class="ttdef"><b>Definition</b> <a href="_i_command_list_8h_source.html#l00076">ICommandList.h:76</a></div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_image_view_html"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_image_view.html">OSK::GRAPHICS::IGpuImageView</a></div><div class="ttdoc">Un image view describe cómo y a qúe parte de una imagen se va a acceder al usarla.</div><div class="ttdef"><b>Definition</b> <a href="_i_gpu_image_view_8h_source.html#l00017">IGpuImageView.h:17</a></div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_rt_render_target_html"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_rt_render_target.html">OSK::GRAPHICS::RtRenderTarget</a></div><div class="ttdoc">Render target para el renderizado de imágenes desde shaders de trazado de rayos / computación.</div><div class="ttdef"><b>Definition</b> <a href="_rt_render_target_8h_source.html#l00015">RtRenderTarget.h:15</a></div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_vector2__t_html"><div class="ttname"><a href="class_o_s_k_1_1_vector2__t.html">OSK::Vector2_t&lt; uint32_t &gt;</a></div></div>
@@ -191,8 +186,8 @@ $(function(){initNavTree('_frame_combiner_8h_source.html',''); initResizable(); 
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="dir_74389ed8173ad57b461b9d623a1f3867.html">Source</a></li><li class="navelem"><a class="el" href="_frame_combiner_8h.html">FrameCombiner.h</a></li>
-    <li class="footer">Generado el Jueves, 28 de marzo de 2024 17:53:10 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.10.0 </li>
+    <li class="navelem"><a class="el" href="dir_74389ed8173ad57b461b9d623a1f3867.html">Source</a></li><li class="navelem"><b>FrameCombiner.h</b></li>
+    <li class="footer">Generado el Lunes, 15 de abril de 2024 22:39:16 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.10.0 </li>
   </ul>
 </div>
 </body>

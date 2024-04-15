@@ -101,41 +101,38 @@ $(function(){initNavTree('_i_component_container_8h_source.html',''); initResiza
   <div class="headertitle"><div class="title">IComponentContainer.h</div></div>
 </div><!--header-->
 <div class="contents">
-<a href="_i_component_container_8h.html">Ir a la documentación de este archivo.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#pragma once</span></div>
+<div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#pragma once</span></div>
 <div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span> </div>
-<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="preprocessor">#include &quot;<a class="code" href="_o_s_kmacros_8h.html">OSKmacros.h</a>&quot;</span></div>
-<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &quot;<a class="code" href="_game_object_8h.html">GameObject.h</a>&quot;</span></div>
+<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="preprocessor">#include &quot;OSKmacros.h&quot;</span></div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &quot;GameObject.h&quot;</span></div>
 <div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span> </div>
 <div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="keyword">namespace </span><a class="code hl_namespace" href="namespace_o_s_k_1_1_e_c_s.html">OSK::ECS</a> {</div>
 <div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span> </div>
 <div class="foldopen" id="foldopen00009" data-start="{" data-end="};">
-<div class="line"><a id="l00009" name="l00009"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_e_c_s_1_1_i_component_container.html">    9</a></span>    <span class="keyword">class </span><a class="code hl_define" href="_o_s_kmacros_8h.html#a09ec5b46ece998ad096bceff312bb36c">OSKAPI_CALL</a> <a class="code hl_class" href="class_o_s_k_1_1_e_c_s_1_1_i_component_container.html">IComponentContainer</a> {</div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_e_c_s_1_1_i_component_container.html">    9</a></span>    <span class="keyword">class </span>OSKAPI_CALL <a class="code hl_class" href="class_o_s_k_1_1_e_c_s_1_1_i_component_container.html">IComponentContainer</a> {</div>
 <div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span> </div>
 <div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span>    <span class="keyword">public</span>:</div>
 <div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span> </div>
 <div class="line"><a id="l00013" name="l00013"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_e_c_s_1_1_i_component_container.html#ae9731fd324c40c7cb3fd1faa9d0fe071">   13</a></span>        <span class="keyword">virtual</span> <a class="code hl_function" href="class_o_s_k_1_1_e_c_s_1_1_i_component_container.html#ae9731fd324c40c7cb3fd1faa9d0fe071">~IComponentContainer</a>() = <span class="keywordflow">default</span>;</div>
 <div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span> </div>
-<div class="line"><a id="l00018" name="l00018"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_e_c_s_1_1_i_component_container.html#af511b10111c3e122b3e4f42930ccebe0">   18</a></span>        <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code hl_function" href="class_o_s_k_1_1_e_c_s_1_1_i_component_container.html#af511b10111c3e122b3e4f42930ccebe0">GameObjectDestroyerd</a>(<a class="code hl_typedef" href="namespace_o_s_k_1_1_e_c_s.html#a7be561d6b7de4e8a49c2a5cc35fba48c">GameObjectIndex</a> obj) = 0;</div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_e_c_s_1_1_i_component_container.html#af511b10111c3e122b3e4f42930ccebe0">   18</a></span>        <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code hl_function" href="class_o_s_k_1_1_e_c_s_1_1_i_component_container.html#af511b10111c3e122b3e4f42930ccebe0">GameObjectDestroyerd</a>(<a class="code hl_class" href="class_o_s_k_1_1_base_uuid.html">GameObjectIndex</a> obj) = 0;</div>
 <div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span> </div>
 <div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>    };</div>
 </div>
 <div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span> </div>
 <div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>}</div>
-<div class="ttc" id="a_game_object_8h_html"><div class="ttname"><a href="_game_object_8h.html">GameObject.h</a></div></div>
-<div class="ttc" id="a_o_s_kmacros_8h_html"><div class="ttname"><a href="_o_s_kmacros_8h.html">OSKmacros.h</a></div></div>
-<div class="ttc" id="a_o_s_kmacros_8h_html_a09ec5b46ece998ad096bceff312bb36c"><div class="ttname"><a href="_o_s_kmacros_8h.html#a09ec5b46ece998ad096bceff312bb36c">OSKAPI_CALL</a></div><div class="ttdeci">#define OSKAPI_CALL</div><div class="ttdef"><b>Definition</b> <a href="_o_s_kmacros_8h_source.html#l00007">OSKmacros.h:7</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_base_uuid_html"><div class="ttname"><a href="class_o_s_k_1_1_base_uuid.html">OSK::BaseUuid&lt; class GameObjectIndexTag &gt;</a></div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_e_c_s_1_1_i_component_container_html"><div class="ttname"><a href="class_o_s_k_1_1_e_c_s_1_1_i_component_container.html">OSK::ECS::IComponentContainer</a></div><div class="ttdoc">Interfaz común para todos los contenedores de componentes.</div><div class="ttdef"><b>Definition</b> <a href="#l00009">IComponentContainer.h:9</a></div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_e_c_s_1_1_i_component_container_html_ae9731fd324c40c7cb3fd1faa9d0fe071"><div class="ttname"><a href="class_o_s_k_1_1_e_c_s_1_1_i_component_container.html#ae9731fd324c40c7cb3fd1faa9d0fe071">OSK::ECS::IComponentContainer::~IComponentContainer</a></div><div class="ttdeci">virtual ~IComponentContainer()=default</div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_e_c_s_1_1_i_component_container_html_af511b10111c3e122b3e4f42930ccebe0"><div class="ttname"><a href="class_o_s_k_1_1_e_c_s_1_1_i_component_container.html#af511b10111c3e122b3e4f42930ccebe0">OSK::ECS::IComponentContainer::GameObjectDestroyerd</a></div><div class="ttdeci">virtual void GameObjectDestroyerd(GameObjectIndex obj)=0</div><div class="ttdoc">Se llama cuando un objeto es destruido. Se encarga de eliminar todos los componentes del objeto.</div></div>
 <div class="ttc" id="anamespace_o_s_k_1_1_e_c_s_html"><div class="ttname"><a href="namespace_o_s_k_1_1_e_c_s.html">OSK::ECS</a></div><div class="ttdef"><b>Definition</b> <a href="_camera_component2_d_8h_source.html#l00017">CameraComponent2D.h:17</a></div></div>
-<div class="ttc" id="anamespace_o_s_k_1_1_e_c_s_html_a7be561d6b7de4e8a49c2a5cc35fba48c"><div class="ttname"><a href="namespace_o_s_k_1_1_e_c_s.html#a7be561d6b7de4e8a49c2a5cc35fba48c">OSK::ECS::GameObjectIndex</a></div><div class="ttdeci">UIndex32 GameObjectIndex</div><div class="ttdoc">Identificador único para un Game Object.</div><div class="ttdef"><b>Definition</b> <a href="_game_object_8h_source.html#l00018">GameObject.h:18</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="dir_74389ed8173ad57b461b9d623a1f3867.html">Source</a></li><li class="navelem"><a class="el" href="_i_component_container_8h.html">IComponentContainer.h</a></li>
-    <li class="footer">Generado el Jueves, 28 de marzo de 2024 17:53:10 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.10.0 </li>
+    <li class="navelem"><a class="el" href="dir_74389ed8173ad57b461b9d623a1f3867.html">Source</a></li><li class="navelem"><b>IComponentContainer.h</b></li>
+    <li class="footer">Generado el Lunes, 15 de abril de 2024 22:39:16 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.10.0 </li>
   </ul>
 </div>
 </body>

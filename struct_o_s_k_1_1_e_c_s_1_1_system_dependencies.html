@@ -114,6 +114,10 @@ Atributos públicos</h2></td></tr>
 <tr class="separator:af2ab300f72c34de2fe7faeb3237e9860"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6d53867b765e4fe60afbe02b283fe76e" id="r_a6d53867b765e4fe60afbe02b283fe76e"><td class="memItemLeft" align="right" valign="top">std::set&lt; std::string, std::less&lt;&gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a6d53867b765e4fe60afbe02b283fe76e">executeBeforeThese</a></td></tr>
 <tr class="separator:a6d53867b765e4fe60afbe02b283fe76e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af76f9f6fcb31a84722671b3824fc3146" id="r_af76f9f6fcb31a84722671b3824fc3146"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af76f9f6fcb31a84722671b3824fc3146">exclusiveExecution</a> = false</td></tr>
+<tr class="separator:af76f9f6fcb31a84722671b3824fc3146"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8d4a3a4916a8b6758a8f6ffffcc5b384" id="r_a8d4a3a4916a8b6758a8f6ffffcc5b384"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a8d4a3a4916a8b6758a8f6ffffcc5b384">singleThreaded</a> = false</td></tr>
+<tr class="separator:a8d4a3a4916a8b6758a8f6ffffcc5b384"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Descripción detallada</h2>
 <div class="textblock"><p>Dependencias explícitas de un sistema. </p>
@@ -148,6 +152,24 @@ Atributos públicos</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Documentación de datos miembro</h2>
+<a id="af76f9f6fcb31a84722671b3824fc3146" name="af76f9f6fcb31a84722671b3824fc3146"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af76f9f6fcb31a84722671b3824fc3146">&#9670;&#160;</a></span>exclusiveExecution</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool OSK::ECS::SystemDependencies::exclusiveExecution = false</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Indica si este sistema debe ser ejecutado sin que otros sistemas puedan ejecutarse al mismo tiempo. </p>
+
+<p class="definition">Definición en la línea <a class="el" href="_i_system_8h_source.html#l00033">33</a> del archivo <a class="el" href="_i_system_8h_source.html">ISystem.h</a>.</p>
+
+</div>
+</div>
 <a id="af2ab300f72c34de2fe7faeb3237e9860" name="af2ab300f72c34de2fe7faeb3237e9860"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#af2ab300f72c34de2fe7faeb3237e9860">&#9670;&#160;</a></span>executeAfterThese</h2>
 
@@ -184,16 +206,32 @@ Atributos públicos</h2></td></tr>
 
 </div>
 </div>
-<hr/>La documentación de esta estructura está generada del siguiente archivo:<ul>
-<li>Source/<a class="el" href="_i_system_8h_source.html">ISystem.h</a></li>
-</ul>
+<a id="a8d4a3a4916a8b6758a8f6ffffcc5b384" name="a8d4a3a4916a8b6758a8f6ffffcc5b384"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8d4a3a4916a8b6758a8f6ffffcc5b384">&#9670;&#160;</a></span>singleThreaded</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool OSK::ECS::SystemDependencies::singleThreaded = false</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Indica si este sistema debe ser ejecutado exclusivamente en un único hilo. </p>
+<p>Permite que otros sistemas puedan ejecutarse al mismo tiempo. </p>
+
+<p class="definition">Definición en la línea <a class="el" href="_i_system_8h_source.html#l00040">40</a> del archivo <a class="el" href="_i_system_8h_source.html">ISystem.h</a>.</p>
+
+</div>
+</div>
 </div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="namespace_o_s_k.html">OSK</a></li><li class="navelem"><a class="el" href="namespace_o_s_k_1_1_e_c_s.html">ECS</a></li><li class="navelem"><a class="el" href="struct_o_s_k_1_1_e_c_s_1_1_system_dependencies.html">SystemDependencies</a></li>
-    <li class="footer">Generado el Jueves, 28 de marzo de 2024 17:53:12 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.10.0 </li>
+    <li class="footer">Generado el Lunes, 15 de abril de 2024 22:39:18 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.10.0 </li>
   </ul>
 </div>
 </body>

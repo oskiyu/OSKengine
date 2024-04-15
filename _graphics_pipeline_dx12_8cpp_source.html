@@ -101,34 +101,34 @@ $(function(){initNavTree('_graphics_pipeline_dx12_8cpp_source.html',''); initRes
   <div class="headertitle"><div class="title">GraphicsPipelineDx12.cpp</div></div>
 </div><!--header-->
 <div class="contents">
-<a href="_graphics_pipeline_dx12_8cpp.html">Ir a la documentación de este archivo.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#include &lt;spirv_cross/spirv_cross.hpp&gt;</span></div>
+<div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#include &lt;spirv_cross/spirv_cross.hpp&gt;</span></div>
 <div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="preprocessor">#include &lt;spirv_cross/spirv_hlsl.hpp&gt;</span></div>
 <div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span> </div>
-<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &quot;<a class="code" href="_spirv_to_hlsl_8h.html">SpirvToHlsl.h</a>&quot;</span></div>
-<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &quot;<a class="code" href="_hlsl_runtime_compiler_8h.html">HlslRuntimeCompiler.h</a>&quot;</span></div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &quot;SpirvToHlsl.h&quot;</span></div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &quot;HlslRuntimeCompiler.h&quot;</span></div>
 <div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span> </div>
-<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="preprocessor">#include &quot;<a class="code" href="_graphics_pipeline_dx12_8h.html">GraphicsPipelineDx12.h</a>&quot;</span></div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="preprocessor">#include &quot;GraphicsPipelineDx12.h&quot;</span></div>
 <div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span> </div>
-<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="preprocessor">#include &quot;<a class="code" href="_gpu_dx12_8h.html">GpuDx12.h</a>&quot;</span></div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="preprocessor">#include &quot;GpuDx12.h&quot;</span></div>
 <div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="preprocessor">#include &lt;string&gt;</span></div>
 <div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="preprocessor">#include &lt;d3dcompiler.h&gt;</span></div>
-<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="preprocessor">#include &quot;<a class="code" href="_assert_8h.html">Assert.h</a>&quot;</span></div>
-<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="preprocessor">#include &quot;<a class="code" href="_pipeline_create_info_8h.html">PipelineCreateInfo.h</a>&quot;</span></div>
-<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span><span class="preprocessor">#include &quot;<a class="code" href="_pipeline_layout_dx12_8h.html">PipelineLayoutDx12.h</a>&quot;</span></div>
-<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span><span class="preprocessor">#include &quot;<a class="code" href="_format_8h.html">Format.h</a>&quot;</span></div>
-<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span><span class="preprocessor">#include &quot;<a class="code" href="_format_dx12_8h.html">FormatDx12.h</a>&quot;</span></div>
-<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span><span class="preprocessor">#include &quot;<a class="code" href="_vertex_info_8h.html">VertexInfo.h</a>&quot;</span></div>
-<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span><span class="preprocessor">#include &quot;<a class="code" href="_linked_list_8hpp.html">LinkedList.hpp</a>&quot;</span></div>
-<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span><span class="preprocessor">#include &quot;<a class="code" href="_material_layout_8h.html">MaterialLayout.h</a>&quot;</span></div>
-<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span><span class="preprocessor">#include &quot;<a class="code" href="_pipelines_exceptions_8h.html">PipelinesExceptions.h</a>&quot;</span></div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="preprocessor">#include &quot;Assert.h&quot;</span></div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="preprocessor">#include &quot;PipelineCreateInfo.h&quot;</span></div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span><span class="preprocessor">#include &quot;PipelineLayoutDx12.h&quot;</span></div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span><span class="preprocessor">#include &quot;Format.h&quot;</span></div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span><span class="preprocessor">#include &quot;FormatDx12.h&quot;</span></div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span><span class="preprocessor">#include &quot;VertexInfo.h&quot;</span></div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span><span class="preprocessor">#include &quot;LinkedList.hpp&quot;</span></div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span><span class="preprocessor">#include &quot;MaterialLayout.h&quot;</span></div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span><span class="preprocessor">#include &quot;PipelinesExceptions.h&quot;</span></div>
 <div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span> </div>
-<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span><span class="preprocessor">#include &quot;<a class="code" href="_file_i_o_8h.html">FileIO.h</a>&quot;</span></div>
-<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span><span class="preprocessor">#include &quot;<a class="code" href="_math_exceptions_8h.html">MathExceptions.h</a>&quot;</span></div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span><span class="preprocessor">#include &quot;FileIO.h&quot;</span></div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span><span class="preprocessor">#include &quot;MathExceptions.h&quot;</span></div>
 <div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span> </div>
-<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span><span class="preprocessor">#include &quot;<a class="code" href="_o_s_kengine_8h.html">OSKengine.h</a>&quot;</span></div>
-<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span><span class="preprocessor">#include &quot;<a class="code" href="_logger_8h.html">Logger.h</a>&quot;</span></div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span><span class="preprocessor">#include &quot;OSKengine.h&quot;</span></div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span><span class="preprocessor">#include &quot;Logger.h&quot;</span></div>
 <div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span> </div>
-<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span><span class="preprocessor">#include &quot;<a class="code" href="_string_operations_8h.html">StringOperations.h</a>&quot;</span></div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span><span class="preprocessor">#include &quot;StringOperations.h&quot;</span></div>
 <div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span> </div>
 <div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span> </div>
 <div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span><span class="keyword">using namespace </span><a class="code hl_namespace" href="namespace_o_s_k.html">OSK</a>;</div>
@@ -147,8 +147,8 @@ $(function(){initNavTree('_graphics_pipeline_dx12_8cpp_source.html',''); initRes
 <div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>    <span class="keywordflow">for</span> (<a class="code hl_class" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">UIndex32</a> i = 0; i &lt; layoutDesc.GetSize(); i++)</div>
 <div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>        layoutDesc.At(i).SemanticName = vertexInfo.<a class="code hl_variable" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_vertex_info.html#a15eaeeac531672e355aa72bf8bf74ba4">entries</a>[i].GetName().c_str();</div>
 <div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span> </div>
-<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>    <a class="code hl_define" href="_assert_8h.html#a927d7efae46f019e805b046e952af182">OSK_ASSERT</a>(layoutDesc.GetSize() &lt; std::numeric_limits&lt;UINT&gt;::max(), <a class="code hl_class" href="class_o_s_k_1_1_overflow_conversion_exception.html">OverflowConversionException</a>());</div>
-<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>    <a class="code hl_define" href="_assert_8h.html#a927d7efae46f019e805b046e952af182">OSK_ASSERT</a>(info.<a class="code hl_variable" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_pipeline_create_info.html#a031c05fb2778c508449834a5281e84fd">formats</a>.<a class="code hl_function" href="class_o_s_k_1_1_dynamic_array.html#af09578371bd52d5a934bc74c8dad5f0d">GetSize</a>() &lt; std::numeric_limits&lt;UINT&gt;::max(), <a class="code hl_class" href="class_o_s_k_1_1_overflow_conversion_exception.html">OverflowConversionException</a>());</div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>    OSK_ASSERT(layoutDesc.GetSize() &lt; std::numeric_limits&lt;UINT&gt;::max(), <a class="code hl_class" href="class_o_s_k_1_1_overflow_conversion_exception.html">OverflowConversionException</a>());</div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>    OSK_ASSERT(info.<a class="code hl_variable" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_pipeline_create_info.html#a031c05fb2778c508449834a5281e84fd">formats</a>.<a class="code hl_function" href="class_o_s_k_1_1_dynamic_array.html#af09578371bd52d5a934bc74c8dad5f0d">GetSize</a>() &lt; std::numeric_limits&lt;UINT&gt;::max(), <a class="code hl_class" href="class_o_s_k_1_1_overflow_conversion_exception.html">OverflowConversionException</a>());</div>
 <div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span> </div>
 <div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>    D3D12_INPUT_LAYOUT_DESC inputLayout{};</div>
 <div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>    inputLayout.NumElements = <span class="keyword">static_cast&lt;</span>UINT<span class="keyword">&gt;</span>(layoutDesc.GetSize());</div>
@@ -192,7 +192,7 @@ $(function(){initNavTree('_graphics_pipeline_dx12_8cpp_source.html',''); initRes
 <div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span>    createInfo.pRootSignature = <a class="code hl_variable" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_graphics_pipeline.html#afeebc6144c3cf7852837a5f08b3a6444">layout</a>-&gt;As&lt;<a class="code hl_class" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_pipeline_layout_dx12.html">PipelineLayoutDx12</a>&gt;()-&gt;GetSignature();</div>
 <div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span> </div>
 <div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span>    HRESULT result = device-&gt;As&lt;<a class="code hl_class" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_dx12.html">GpuDx12</a>&gt;()-&gt;GetDevice()-&gt;CreateGraphicsPipelineState(&amp;createInfo, IID_PPV_ARGS(&amp;<a class="code hl_variable" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_pipeline_dx12.html#a1a1833badaf5367685c6c9d743185342">dxPipeline</a>));</div>
-<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span>    <a class="code hl_define" href="_assert_8h.html#a927d7efae46f019e805b046e952af182">OSK_ASSERT</a>(SUCCEEDED(result), <a class="code hl_class" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_pipeline_creation_exception.html">PipelineCreationException</a>(result));</div>
+<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span>    OSK_ASSERT(SUCCEEDED(result), <a class="code hl_class" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_pipeline_creation_exception.html">PipelineCreationException</a>(result));</div>
 <div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span>}</div>
 </div>
 <div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span> </div>
@@ -289,7 +289,7 @@ $(function(){initNavTree('_graphics_pipeline_dx12_8cpp_source.html',''); initRes
 <div class="line"><a id="l00180" name="l00180"></a><span class="lineno">  180</span>        <span class="keywordflow">break</span>;</div>
 <div class="line"><a id="l00181" name="l00181"></a><span class="lineno">  181</span>    }</div>
 <div class="line"><a id="l00182" name="l00182"></a><span class="lineno">  182</span> </div>
-<div class="line"><a id="l00183" name="l00183"></a><span class="lineno">  183</span>    <a class="code hl_define" href="_assert_8h.html#a927d7efae46f019e805b046e952af182">OSK_ASSERT</a>(<span class="keyword">false</span>, <a class="code hl_class" href="class_o_s_k_1_1_not_implemented_exception.html">NotImplementedException</a>());</div>
+<div class="line"><a id="l00183" name="l00183"></a><span class="lineno">  183</span>    OSK_ASSERT(<span class="keyword">false</span>, <a class="code hl_class" href="class_o_s_k_1_1_not_implemented_exception.html">NotImplementedException</a>());</div>
 <div class="line"><a id="l00184" name="l00184"></a><span class="lineno">  184</span>    <span class="keywordflow">return</span> DXGI_FORMAT_UNKNOWN;</div>
 <div class="line"><a id="l00185" name="l00185"></a><span class="lineno">  185</span>}</div>
 <div class="line"><a id="l00186" name="l00186"></a><span class="lineno">  186</span> </div>
@@ -343,25 +343,6 @@ $(function(){initNavTree('_graphics_pipeline_dx12_8cpp_source.html',''); initRes
 <div class="line"><a id="l00234" name="l00234"></a><span class="lineno">  234</span>        <span class="keywordflow">return</span> D3D12_FILL_MODE_SOLID;</div>
 <div class="line"><a id="l00235" name="l00235"></a><span class="lineno">  235</span>    }</div>
 <div class="line"><a id="l00236" name="l00236"></a><span class="lineno">  236</span>}</div>
-<div class="ttc" id="a_assert_8h_html"><div class="ttname"><a href="_assert_8h.html">Assert.h</a></div></div>
-<div class="ttc" id="a_assert_8h_html_a927d7efae46f019e805b046e952af182"><div class="ttname"><a href="_assert_8h.html#a927d7efae46f019e805b046e952af182">OSK_ASSERT</a></div><div class="ttdeci">#define OSK_ASSERT(condition, exception)</div><div class="ttdoc">Comrpueba si una condición se cumple. En caso de no cumplirse, lanza la excepción indicada,...</div><div class="ttdef"><b>Definition</b> <a href="_assert_8h_source.html#l00041">Assert.h:41</a></div></div>
-<div class="ttc" id="a_file_i_o_8h_html"><div class="ttname"><a href="_file_i_o_8h.html">FileIO.h</a></div></div>
-<div class="ttc" id="a_format_8h_html"><div class="ttname"><a href="_format_8h.html">Format.h</a></div></div>
-<div class="ttc" id="a_format_dx12_8h_html"><div class="ttname"><a href="_format_dx12_8h.html">FormatDx12.h</a></div></div>
-<div class="ttc" id="a_gpu_dx12_8h_html"><div class="ttname"><a href="_gpu_dx12_8h.html">GpuDx12.h</a></div></div>
-<div class="ttc" id="a_graphics_pipeline_dx12_8h_html"><div class="ttname"><a href="_graphics_pipeline_dx12_8h.html">GraphicsPipelineDx12.h</a></div></div>
-<div class="ttc" id="a_hlsl_runtime_compiler_8h_html"><div class="ttname"><a href="_hlsl_runtime_compiler_8h.html">HlslRuntimeCompiler.h</a></div></div>
-<div class="ttc" id="a_linked_list_8hpp_html"><div class="ttname"><a href="_linked_list_8hpp.html">LinkedList.hpp</a></div></div>
-<div class="ttc" id="a_logger_8h_html"><div class="ttname"><a href="_logger_8h.html">Logger.h</a></div></div>
-<div class="ttc" id="a_material_layout_8h_html"><div class="ttname"><a href="_material_layout_8h.html">MaterialLayout.h</a></div></div>
-<div class="ttc" id="a_math_exceptions_8h_html"><div class="ttname"><a href="_math_exceptions_8h.html">MathExceptions.h</a></div></div>
-<div class="ttc" id="a_o_s_kengine_8h_html"><div class="ttname"><a href="_o_s_kengine_8h.html">OSKengine.h</a></div></div>
-<div class="ttc" id="a_pipeline_create_info_8h_html"><div class="ttname"><a href="_pipeline_create_info_8h.html">PipelineCreateInfo.h</a></div></div>
-<div class="ttc" id="a_pipeline_layout_dx12_8h_html"><div class="ttname"><a href="_pipeline_layout_dx12_8h.html">PipelineLayoutDx12.h</a></div></div>
-<div class="ttc" id="a_pipelines_exceptions_8h_html"><div class="ttname"><a href="_pipelines_exceptions_8h.html">PipelinesExceptions.h</a></div></div>
-<div class="ttc" id="a_spirv_to_hlsl_8h_html"><div class="ttname"><a href="_spirv_to_hlsl_8h.html">SpirvToHlsl.h</a></div></div>
-<div class="ttc" id="a_string_operations_8h_html"><div class="ttname"><a href="_string_operations_8h.html">StringOperations.h</a></div></div>
-<div class="ttc" id="a_vertex_info_8h_html"><div class="ttname"><a href="_vertex_info_8h.html">VertexInfo.h</a></div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref_html"><div class="ttname"><a href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">OSK::ASSETS::AssetRef</a></div><div class="ttdoc">Referencia a un asset.</div><div class="ttdef"><b>Definition</b> <a href="_asset_ref_8h_source.html#l00012">AssetRef.h:12</a></div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_dynamic_array_html"><div class="ttname"><a href="class_o_s_k_1_1_dynamic_array.html">OSK::DynamicArray</a></div><div class="ttdoc">Dynamic array: array que puede cambiar de tamaño.</div><div class="ttdef"><b>Definition</b> <a href="_dynamic_array_8hpp_source.html#l00067">DynamicArray.hpp:67</a></div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_dynamic_array_html_af09578371bd52d5a934bc74c8dad5f0d"><div class="ttname"><a href="class_o_s_k_1_1_dynamic_array.html#af09578371bd52d5a934bc74c8dad5f0d">OSK::DynamicArray::GetSize</a></div><div class="ttdeci">USize64 GetSize() const noexcept</div><div class="ttdoc">Devuelve el número de elementos almacenados.</div><div class="ttdef"><b>Definition</b> <a href="_dynamic_array_8hpp_source.html#l00672">DynamicArray.hpp:672</a></div></div>
@@ -422,8 +403,8 @@ $(function(){initNavTree('_graphics_pipeline_dx12_8cpp_source.html',''); initRes
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="dir_74389ed8173ad57b461b9d623a1f3867.html">Source</a></li><li class="navelem"><a class="el" href="_graphics_pipeline_dx12_8cpp.html">GraphicsPipelineDx12.cpp</a></li>
-    <li class="footer">Generado el Jueves, 28 de marzo de 2024 17:53:10 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.10.0 </li>
+    <li class="navelem"><a class="el" href="dir_74389ed8173ad57b461b9d623a1f3867.html">Source</a></li><li class="navelem"><b>GraphicsPipelineDx12.cpp</b></li>
+    <li class="footer">Generado el Lunes, 15 de abril de 2024 22:39:16 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.10.0 </li>
   </ul>
 </div>
 </body>

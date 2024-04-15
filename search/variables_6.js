@@ -8,13 +8,9 @@ var searchData=
   ['glslsetindex_5',['glslSetIndex',['../struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_layout_slot.html#a15778adf5aaa26da18172c4ca7e5f5cd',1,'OSK::GRAPHICS::MaterialLayoutSlot']]],
   ['gpuandcpumemoryinfo_6',['gpuAndCpuMemoryInfo',['../struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_memory_usage_info.html#a9fe03590cec9617ad76327f158483173',1,'OSK::GRAPHICS::GpuMemoryUsageInfo']]],
   ['gpuhandle_7',['gpuHandle',['../struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_descriptor_dx12.html#a69f59fd6f36e62630e4f2433843bb70e',1,'OSK::GRAPHICS::DescriptorDx12']]],
-  ['gpumemoryallocator_8',['gpuMemoryAllocator',['../class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer.html#a046cb6d9d3bd12965b1abc3e9bd3c2c3',1,'OSK::GRAPHICS::IRenderer']]],
-  ['gpuonlymemoryinfo_9',['gpuOnlyMemoryInfo',['../struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_memory_usage_info.html#a4ff379cb24340fb7d47787431c45f7c3',1,'OSK::GRAPHICS::GpuMemoryUsageInfo']]],
-  ['graphics_10',['graphics',['../class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list.html#a97c317674cf2dc1bcf5e0cd3a5b5d6e9',1,'OSK::GRAPHICS::ICommandList']]],
-  ['graphicscommandlist_11',['graphicsCommandList',['../class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer.html#a34603566a0187941cbff752e587db881',1,'OSK::GRAPHICS::IRenderer']]],
-  ['graphicscommandpool_12',['graphicsCommandPool',['../class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer.html#acad78f090fc5cf8a54762d863452b419',1,'OSK::GRAPHICS::IRenderer']]],
-  ['graphicsqueue_13',['graphicsQueue',['../class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer.html#ada7ad73436c32df92625b7af4e708e17',1,'OSK::GRAPHICS::IRenderer']]],
-  ['green_14',['Green',['../class_o_s_k_1_1_color.html#a18aa6a48bdefa68da97ee60195860135',1,'OSK::Color']]],
-  ['green_15',['green',['../class_o_s_k_1_1_color.html#a50289da8f1dc3268298697334748e820',1,'OSK::Color']]],
-  ['growthfactortype_16',['growthFactorType',['../class_o_s_k_1_1_dynamic_array.html#a4a18937b8a6017fc9b8d86a9e8a592c3',1,'OSK::DynamicArray']]]
+  ['gpuonlymemoryinfo_8',['gpuOnlyMemoryInfo',['../struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_memory_usage_info.html#a4ff379cb24340fb7d47787431c45f7c3',1,'OSK::GRAPHICS::GpuMemoryUsageInfo']]],
+  ['graphics_9',['graphics',['../class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list.html#a97c317674cf2dc1bcf5e0cd3a5b5d6e9',1,'OSK::GRAPHICS::ICommandList']]],
+  ['green_10',['green',['../class_o_s_k_1_1_color.html#a50289da8f1dc3268298697334748e820',1,'OSK::Color']]],
+  ['green_11',['Green',['../class_o_s_k_1_1_color.html#a18aa6a48bdefa68da97ee60195860135',1,'OSK::Color']]],
+  ['growthfactortype_12',['growthFactorType',['../class_o_s_k_1_1_dynamic_array.html#a4a18937b8a6017fc9b8d86a9e8a592c3',1,'OSK::DynamicArray']]]
 ];

@@ -11,5 +11,6 @@ var searchData=
   ['any_5fshift_8',['ANY_SHIFT',['../namespace_o_s_k_1_1_i_o.html#a0b92714a4a778072d4824502589bd39ea5ac6da47cfa6f5e51b607378ad6927f4',1,'OSK::IO']]],
   ['apostrophe_9',['APOSTROPHE',['../namespace_o_s_k_1_1_i_o.html#a0b92714a4a778072d4824502589bd39ea9df35983f4024e31955de0f1e545e888',1,'OSK::IO']]],
   ['array_10',['ARRAY',['../namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a55e114ba828198c2146f5233e462ba39acb4fb1757fb37c43cded35d3eb857c43',1,'OSK::GRAPHICS']]],
-  ['auto_11',['AUTO',['../namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a7b3d3107477f334f9d9d85a64c930c8aae1f2d5134ed2543d38a0de9751cf75d9',1,'OSK::GRAPHICS']]]
+  ['async_5ftransfer_11',['ASYNC_TRANSFER',['../namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#af480a36d7bec77341500daf8dda20f1da4e02651cb8ef679ba30902a8becdff2d',1,'OSK::GRAPHICS']]],
+  ['auto_12',['AUTO',['../namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a7b3d3107477f334f9d9d85a64c930c8aae1f2d5134ed2543d38a0de9751cf75d9',1,'OSK::GRAPHICS']]]
 ];

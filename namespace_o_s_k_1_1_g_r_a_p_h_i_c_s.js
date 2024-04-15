@@ -47,6 +47,7 @@ var namespace_o_s_k_1_1_g_r_a_p_h_i_c_s =
     [ "GpuBuffer", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_buffer.html", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_buffer" ],
     [ "GpuBufferCreationException", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_buffer_creation_exception.html", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_buffer_creation_exception" ],
     [ "GpuBufferMemoryBlockInfo", "struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_buffer_memory_block_info.html", "struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_buffer_memory_block_info" ],
+    [ "GpuBufferRange", "struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_buffer_range.html", "struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_buffer_range" ],
     [ "GpuDx12", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_dx12.html", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_dx12" ],
     [ "GpuHeapMemoryUsageInfo", "struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_heap_memory_usage_info.html", "struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_heap_memory_usage_info" ],
     [ "GpuImage", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image.html", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image" ],
@@ -153,6 +154,7 @@ var namespace_o_s_k_1_1_g_r_a_p_h_i_c_s =
     [ "RenderTarget", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_render_target.html", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_render_target" ],
     [ "RenderTargetAttachment", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_render_target_attachment.html", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_render_target_attachment" ],
     [ "RenderTargetAttachmentInfo", "struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_render_target_attachment_info.html", "struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_render_target_attachment_info" ],
+    [ "ResourceQueueTransferInfo", "struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_resource_queue_transfer_info.html", "struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_resource_queue_transfer_info" ],
     [ "RtRenderTarget", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_rt_render_target.html", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_rt_render_target" ],
     [ "RtShaderBindingTableCreationException", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_rt_shader_binding_table_creation_exception.html", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_rt_shader_binding_table_creation_exception" ],
     [ "RtShaderTableVk", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_rt_shader_table_vk.html", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_rt_shader_table_vk" ],
@@ -175,6 +177,7 @@ var namespace_o_s_k_1_1_g_r_a_p_h_i_c_s =
     [ "SwapchainVk", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_swapchain_vk.html", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_swapchain_vk" ],
     [ "TaaProvider", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_taa_provider.html", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_taa_provider" ],
     [ "TextureCoordinates2D", "struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_texture_coordinates2_d.html", "struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_texture_coordinates2_d" ],
+    [ "ThreadedCommandPoolMap", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_threaded_command_pool_map.html", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_threaded_command_pool_map" ],
     [ "ToneMappingPass", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_tone_mapping_pass.html", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_tone_mapping_pass" ],
     [ "TopLevelAccelerationStructureVk", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_top_level_acceleration_structure_vk.html", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_top_level_acceleration_structure_vk" ],
     [ "TreeGBufferPass", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_tree_g_buffer_pass.html", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_tree_g_buffer_pass" ],
@@ -201,6 +204,12 @@ var namespace_o_s_k_1_1_g_r_a_p_h_i_c_s =
       [ "COMPUTE", "namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#ae5f64f8e9fdfc352ed3026326a325b62aac404d7ce6ca5862e9b8a2641fbafd90", null ],
       [ "TRANSFER", "namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#ae5f64f8e9fdfc352ed3026326a325b62aeb5ddb3b6096fb90ff720d9c3e2a6628", null ],
       [ "PRESENTATION", "namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#ae5f64f8e9fdfc352ed3026326a325b62a740819a7dc6b0b1a8a7fa0c871d9b878", null ]
+    ] ],
+    [ "CommandsSupport", "namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a19534f214690bcfc89ac53cc89681ac6", [
+      [ "GRAPHICS", "namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a19534f214690bcfc89ac53cc89681ac6a6f49448c79d7d58c6e60cf7129b84d1c", null ],
+      [ "COMPUTE", "namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a19534f214690bcfc89ac53cc89681ac6aac404d7ce6ca5862e9b8a2641fbafd90", null ],
+      [ "TRANSFER", "namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a19534f214690bcfc89ac53cc89681ac6aeb5ddb3b6096fb90ff720d9c3e2a6628", null ],
+      [ "PRESENTATION", "namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a19534f214690bcfc89ac53cc89681ac6a740819a7dc6b0b1a8a7fa0c871d9b878", null ]
     ] ],
     [ "DepthTestingType", "namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a9f540971911df275819dd542e32027dd", [
       [ "NONE", "namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a9f540971911df275819dd542e32027ddab50339a10e1de285ac99d4c3990b8693", null ],
@@ -323,6 +332,11 @@ var namespace_o_s_k_1_1_g_r_a_p_h_i_c_s =
     [ "GpuMemoryUsage", "namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#ae5e58e16d9268fde60c3eae698b225ec", [
       [ "BUFFER", "namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#ae5e58e16d9268fde60c3eae698b225eca17de626bcae5109bb2f7a66dfc4a8a1d", null ],
       [ "IMAGE", "namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#ae5e58e16d9268fde60c3eae698b225eca23a12f67f614b5518c7f1c2465bf95e3", null ]
+    ] ],
+    [ "GpuQueueType", "namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#af480a36d7bec77341500daf8dda20f1d", [
+      [ "MAIN", "namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#af480a36d7bec77341500daf8dda20f1da186495f7da296bf880df3a22a492b378", null ],
+      [ "PRESENTATION", "namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#af480a36d7bec77341500daf8dda20f1da740819a7dc6b0b1a8a7fa0c871d9b878", null ],
+      [ "ASYNC_TRANSFER", "namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#af480a36d7bec77341500daf8dda20f1da4e02651cb8ef679ba30902a8becdff2d", null ]
     ] ],
     [ "GpuSharedMemoryType", "namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a85a830e82585f3a565d1f097491042ce", [
       [ "GPU_AND_CPU", "namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a85a830e82585f3a565d1f097491042cea096f8c31942629a91cc086cbda5f5465", null ],

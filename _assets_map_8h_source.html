@@ -1,0 +1,209 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="es">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.10.0"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>OSKengine: Archivo de código fuente Source/AssetsMap.h</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="doxygen-awesome.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">OSKengine<span id="projectnumber">&#160;Indev</span>
+   </div>
+   <div id="projectbrief">Motor de videojuegos.</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generado por Doxygen 1.10.0 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() {
+  initMenu('',true,false,'search.php','Buscar');
+  $(function() { init_search(); });
+});
+/* @license-end */
+</script>
+<div id="main-nav"></div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() { codefold.init(0); });
+/* @license-end */
+</script>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function(){initNavTree('_assets_map_8h_source.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Cargando...</div>
+<div class="SRStatus" id="Searching">Buscando...</div>
+<div class="SRStatus" id="NoMatches">Nada coincide</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">AssetsMap.h</div></div>
+</div><!--header-->
+<div class="contents">
+<div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#pragma once</span></div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span> </div>
+<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="preprocessor">#include &quot;OSKmacros.h&quot;</span></div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &quot;HashMap.hpp&quot;</span></div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span> </div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &quot;AssetRef.h&quot;</span></div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="preprocessor">#include &quot;AssetOwningRef.h&quot;</span></div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span> </div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="preprocessor">#include &quot;IAsset.h&quot;</span></div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span> </div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="preprocessor">#include &lt;shared_mutex&gt;</span></div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span> </div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span> </div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span><span class="keyword">namespace </span><a class="code hl_namespace" href="namespace_o_s_k_1_1_a_s_s_e_t_s.html">OSK::ASSETS</a> {</div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span> </div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>    <span class="keyword">template</span> &lt;<span class="keyword">typename</span> TAssetType&gt;</div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>    <span class="keyword">requires</span> std::is_base_of_v&lt;IAsset, TAssetType&gt;</div>
+<div class="foldopen" id="foldopen00023" data-start="{" data-end="};">
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_assets_map.html">   23</a></span>    <span class="keyword">class </span>OSKAPI_CALL <a class="code hl_class" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_assets_map.html">AssetsMap</a> {</div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span> </div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>    <span class="keyword">public</span>:</div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span> </div>
+<div class="foldopen" id="foldopen00034" data-start="{" data-end="}">
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_assets_map.html#adb2c495d16d5c03649043fcd803c9d7f">   34</a></span>        <span class="keywordtype">void</span> <a class="code hl_function" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_assets_map.html#adb2c495d16d5c03649043fcd803c9d7f">Register</a>(<span class="keyword">const</span> std::string&amp; <a class="code hl_class" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">assetFilePath</a>) {</div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>            std::unique_lock <a class="code hl_class" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">lock</a>(m_mutex);</div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>            m_map[<span class="keyword">static_cast&lt;</span>std::string<span class="keyword">&gt;</span>(<a class="code hl_class" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">assetFilePath</a>)] = <a class="code hl_class" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">AssetOwningRef&lt;TAssetType&gt;</a>(<span class="keyword">static_cast&lt;</span>std::string<span class="keyword">&gt;</span>(<a class="code hl_class" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">assetFilePath</a>));</div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>        }</div>
+</div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span> </div>
+<div class="foldopen" id="foldopen00045" data-start="{" data-end="}">
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_assets_map.html#a8d8306a956159e8b6f360b29b6ae40b8">   45</a></span>        <a class="code hl_class" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">AssetRef&lt;TAssetType&gt;</a> <a class="code hl_function" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_assets_map.html#a8d8306a956159e8b6f360b29b6ae40b8">GetExistingReference</a>(std::string_view <a class="code hl_class" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">assetFilePath</a>) {</div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>            std::shared_lock <a class="code hl_class" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">lock</a>(m_mutex);</div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span> </div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>            <span class="keywordflow">return</span> m_map.find(<a class="code hl_class" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">assetFilePath</a>)-&gt;second.CreateRef();</div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>        }</div>
+</div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span> </div>
+<div class="foldopen" id="foldopen00059" data-start="{" data-end="}">
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_assets_map.html#a7c243c5702de93c32c113a836398b25a">   59</a></span>        <a class="code hl_class" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">AssetRef&lt;TAssetType&gt;</a> <a class="code hl_function" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_assets_map.html#a7c243c5702de93c32c113a836398b25a">GetReference_OrRegister</a>(std::string_view <a class="code hl_class" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">assetFilePath</a>) {</div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>            {</div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>                std::shared_lock <a class="code hl_class" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">lock</a>(m_mutex);</div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span> </div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>                <span class="keywordflow">if</span> (m_map.contains(<a class="code hl_class" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">assetFilePath</a>)) {</div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>                    <span class="keywordflow">return</span> m_map.find(<a class="code hl_class" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">assetFilePath</a>)-&gt;second.CreateRef();</div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>                }</div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>            }</div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span> </div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>            std::unique_lock <a class="code hl_class" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">lock</a>(m_mutex);</div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span> </div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>            m_map[<span class="keyword">static_cast&lt;</span>std::string<span class="keyword">&gt;</span>(<a class="code hl_class" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">assetFilePath</a>)] = <a class="code hl_class" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">AssetOwningRef&lt;TAssetType&gt;</a>(<span class="keyword">static_cast&lt;</span>std::string<span class="keyword">&gt;</span>(<a class="code hl_class" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">assetFilePath</a>));</div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>            <span class="keywordflow">return</span> m_map.find(<a class="code hl_class" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">assetFilePath</a>)-&gt;second.CreateRef();</div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>        }</div>
+</div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span> </div>
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span> </div>
+<div class="foldopen" id="foldopen00082" data-start="{" data-end="}">
+<div class="line"><a id="l00082" name="l00082"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_assets_map.html#aacb4f628e171a28d0abe5fb7d3f1ab48">   82</a></span>        <a class="code hl_class" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">TAssetType</a>* <a class="code hl_function" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_assets_map.html#aacb4f628e171a28d0abe5fb7d3f1ab48">GetAsset</a>(std::string_view <a class="code hl_class" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">assetFilePath</a>) {</div>
+<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span>            std::shared_lock <a class="code hl_class" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">lock</a>(m_mutex);</div>
+<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span>            <span class="keywordflow">return</span> m_map.find(<a class="code hl_class" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">assetFilePath</a>)-&gt;second.GetAsset();</div>
+<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span>        }</div>
+</div>
+<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span> </div>
+<div class="foldopen" id="foldopen00091" data-start="{" data-end="}">
+<div class="line"><a id="l00091" name="l00091"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_assets_map.html#a3d9a2cfdadd1de637e1a018bae5e1723">   91</a></span>        <span class="keywordtype">bool</span> <a class="code hl_function" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_assets_map.html#a3d9a2cfdadd1de637e1a018bae5e1723">HasAsset</a>(std::string_view <a class="code hl_class" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">assetFilePath</a>)<span class="keyword"> const </span>{</div>
+<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span>            std::shared_lock <a class="code hl_class" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">lock</a>(m_mutex);</div>
+<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span>            <span class="keywordflow">return</span> m_map.contains(<a class="code hl_class" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">assetFilePath</a>);</div>
+<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span>        }</div>
+</div>
+<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span> </div>
+<div class="foldopen" id="foldopen00102" data-start="{" data-end="}">
+<div class="line"><a id="l00102" name="l00102"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_assets_map.html#a3e9c2c70ff6bf1785b5d76acdbf84f41">  102</a></span>        <span class="keywordtype">void</span> <a class="code hl_function" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_assets_map.html#a3e9c2c70ff6bf1785b5d76acdbf84f41">SetAsLoaded</a>(std::string_view <a class="code hl_class" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">assetFilePath</a>) {</div>
+<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span>            std::shared_lock <a class="code hl_class" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">lock</a>(m_mutex);</div>
+<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span>            m_map.find(<a class="code hl_class" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">assetFilePath</a>)-&gt;second._SetAsLoaded();</div>
+<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span>        }</div>
+</div>
+<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span> </div>
+<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span>    <span class="keyword">private</span>:</div>
+<div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span> </div>
+<div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span>        std::unordered_map&lt;std::string, AssetOwningRef&lt;TAssetType&gt;, <a class="code hl_struct" href="struct_o_s_k_1_1_string_hasher.html">StringHasher</a>, std::equal_to&lt;&gt;&gt; m_map;</div>
+<div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span>        <span class="keyword">mutable</span> std::shared_mutex m_mutex;</div>
+<div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span> </div>
+<div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span>    };</div>
+</div>
+<div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span> </div>
+<div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span>}</div>
+<div class="ttc" id="aclass_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref_html"><div class="ttname"><a href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">OSK::ASSETS::AssetRef</a></div><div class="ttdoc">Referencia a un asset.</div><div class="ttdef"><b>Definition</b> <a href="_asset_ref_8h_source.html#l00012">AssetRef.h:12</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_a_s_s_e_t_s_1_1_assets_map_html"><div class="ttname"><a href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_assets_map.html">OSK::ASSETS::AssetsMap</a></div><div class="ttdoc">Mapa thread-safe que contiene los assets de un loader.</div><div class="ttdef"><b>Definition</b> <a href="#l00023">AssetsMap.h:23</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_a_s_s_e_t_s_1_1_assets_map_html_a3d9a2cfdadd1de637e1a018bae5e1723"><div class="ttname"><a href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_assets_map.html#a3d9a2cfdadd1de637e1a018bae5e1723">OSK::ASSETS::AssetsMap::HasAsset</a></div><div class="ttdeci">bool HasAsset(std::string_view assetFilePath) const</div><div class="ttdef"><b>Definition</b> <a href="#l00091">AssetsMap.h:91</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_a_s_s_e_t_s_1_1_assets_map_html_a3e9c2c70ff6bf1785b5d76acdbf84f41"><div class="ttname"><a href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_assets_map.html#a3e9c2c70ff6bf1785b5d76acdbf84f41">OSK::ASSETS::AssetsMap::SetAsLoaded</a></div><div class="ttdeci">void SetAsLoaded(std::string_view assetFilePath)</div><div class="ttdoc">Establece el flag del asset para indicar que ha sido cargado.</div><div class="ttdef"><b>Definition</b> <a href="#l00102">AssetsMap.h:102</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_a_s_s_e_t_s_1_1_assets_map_html_a7c243c5702de93c32c113a836398b25a"><div class="ttname"><a href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_assets_map.html#a7c243c5702de93c32c113a836398b25a">OSK::ASSETS::AssetsMap::GetReference_OrRegister</a></div><div class="ttdeci">AssetRef&lt; TAssetType &gt; GetReference_OrRegister(std::string_view assetFilePath)</div><div class="ttdoc">Registra el asset si no estaba previamente registrado. Después, devuelve una referencia al asset.</div><div class="ttdef"><b>Definition</b> <a href="#l00059">AssetsMap.h:59</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_a_s_s_e_t_s_1_1_assets_map_html_a8d8306a956159e8b6f360b29b6ae40b8"><div class="ttname"><a href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_assets_map.html#a8d8306a956159e8b6f360b29b6ae40b8">OSK::ASSETS::AssetsMap::GetExistingReference</a></div><div class="ttdeci">AssetRef&lt; TAssetType &gt; GetExistingReference(std::string_view assetFilePath)</div><div class="ttdef"><b>Definition</b> <a href="#l00045">AssetsMap.h:45</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_a_s_s_e_t_s_1_1_assets_map_html_aacb4f628e171a28d0abe5fb7d3f1ab48"><div class="ttname"><a href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_assets_map.html#aacb4f628e171a28d0abe5fb7d3f1ab48">OSK::ASSETS::AssetsMap::GetAsset</a></div><div class="ttdeci">TAssetType * GetAsset(std::string_view assetFilePath)</div><div class="ttdef"><b>Definition</b> <a href="#l00082">AssetsMap.h:82</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_a_s_s_e_t_s_1_1_assets_map_html_adb2c495d16d5c03649043fcd803c9d7f"><div class="ttname"><a href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_assets_map.html#adb2c495d16d5c03649043fcd803c9d7f">OSK::ASSETS::AssetsMap::Register</a></div><div class="ttdeci">void Register(const std::string &amp;assetFilePath)</div><div class="ttdoc">Registra un nuevo asset, creando su AssetOwningRef.</div><div class="ttdef"><b>Definition</b> <a href="#l00034">AssetsMap.h:34</a></div></div>
+<div class="ttc" id="anamespace_o_s_k_1_1_a_s_s_e_t_s_html"><div class="ttname"><a href="namespace_o_s_k_1_1_a_s_s_e_t_s.html">OSK::ASSETS</a></div><div class="ttdef"><b>Definition</b> <a href="_anim_mesh_loader_8h_source.html#l00009">AnimMeshLoader.h:9</a></div></div>
+<div class="ttc" id="astruct_o_s_k_1_1_string_hasher_html"><div class="ttname"><a href="struct_o_s_k_1_1_string_hasher.html">OSK::StringHasher</a></div><div class="ttdef"><b>Definition</b> <a href="_hash_map_8hpp_source.html#l00462">HashMap.hpp:462</a></div></div>
+</div><!-- fragment --></div><!-- contents -->
+</div><!-- doc-content -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="dir_74389ed8173ad57b461b9d623a1f3867.html">Source</a></li><li class="navelem"><b>AssetsMap.h</b></li>
+    <li class="footer">Generado el Lunes, 15 de abril de 2024 22:39:15 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.10.0 </li>
+  </ul>
+</div>
+</body>
+</html>

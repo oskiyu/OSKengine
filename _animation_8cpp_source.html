@@ -101,10 +101,10 @@ $(function(){initNavTree('_animation_8cpp_source.html',''); initResizable(); });
   <div class="headertitle"><div class="title">Animation.cpp</div></div>
 </div><!--header-->
 <div class="contents">
-<a href="_animation_8cpp.html">Ir a la documentación de este archivo.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#include &quot;<a class="code" href="_animation_8h.html">Animation.h</a>&quot;</span></div>
+<div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#include &quot;Animation.h&quot;</span></div>
 <div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span> </div>
-<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="preprocessor">#include &quot;<a class="code" href="_math_8h.html">Math.h</a>&quot;</span></div>
-<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &quot;<a class="code" href="_animator_8h.html">Animator.h</a>&quot;</span></div>
+<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="preprocessor">#include &quot;Math.h&quot;</span></div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &quot;Animator.h&quot;</span></div>
 <div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span> </div>
 <div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="keyword">using namespace </span><a class="code hl_namespace" href="namespace_o_s_k.html">OSK</a>;</div>
 <div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="keyword">using namespace </span><a class="code hl_namespace" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html">OSK::GRAPHICS</a>;</div>
@@ -117,7 +117,7 @@ $(function(){initNavTree('_animation_8cpp_source.html',''); initResizable(); });
 <div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span>    <span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_dynamic_array.html">DynamicArray&lt;AnimationBone&gt;</a>&amp; bones) : m_name(name), m_samplers(samplers), m_channels(channels), m_skeleton(bones)</div>
 <div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span>{</div>
 <div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span>    <span class="keywordflow">for</span> (<span class="keyword">const</span> <span class="keyword">auto</span>&amp; sampler : m_samplers) {</div>
-<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span>        <span class="keywordflow">for</span> (<span class="keyword">const</span> <a class="code hl_typedef" href="_o_s_kmacros_8h.html#ad05d5eacc527d5b61240124daf13b33b">TDeltaTime</a> timestamp : sampler.timestamps) {</div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span>        <span class="keywordflow">for</span> (<span class="keyword">const</span> TDeltaTime timestamp : sampler.timestamps) {</div>
 <div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>            m_startTime = glm::min(m_startTime, timestamp);</div>
 <div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>            m_endTime = glm::max(m_endTime, timestamp);</div>
 <div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>        }</div>
@@ -126,7 +126,7 @@ $(function(){initNavTree('_animation_8cpp_source.html',''); initResizable(); });
 </div>
 <div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span> </div>
 <div class="foldopen" id="foldopen00023" data-start="{" data-end="}">
-<div class="line"><a id="l00023" name="l00023"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_animation.html#a46bc42619e5c82c2ba16ab51e23c3019">   23</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_animation.html#a46bc42619e5c82c2ba16ab51e23c3019">Animation::Update</a>(<a class="code hl_typedef" href="_o_s_kmacros_8h.html#ad05d5eacc527d5b61240124daf13b33b">TDeltaTime</a> deltaTime, <span class="keyword">const</span> <a class="code hl_struct" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_animation_skin.html">AnimationSkin</a>&amp; skin) {</div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_animation.html#a46bc42619e5c82c2ba16ab51e23c3019">   23</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_animation.html#a46bc42619e5c82c2ba16ab51e23c3019">Animation::Update</a>(TDeltaTime deltaTime, <span class="keyword">const</span> <a class="code hl_struct" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_animation_skin.html">AnimationSkin</a>&amp; skin) {</div>
 <div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>    m_currentTime += deltaTime;</div>
 <div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span> </div>
 <div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>    <span class="keywordflow">if</span> (m_currentTime &gt; m_endTime) {</div>
@@ -139,7 +139,7 @@ $(function(){initNavTree('_animation_8cpp_source.html',''); initResizable(); });
 <div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>    <span class="keywordflow">for</span> (<span class="keyword">const</span> <span class="keyword">auto</span>&amp; channel : m_channels) {</div>
 <div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>        <span class="keyword">const</span> <a class="code hl_struct" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_animation_sampler.html">AnimationSampler</a>&amp; sampler = m_samplers[channel.samplerIndex];</div>
 <div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span> </div>
-<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>        <span class="keywordflow">for</span> (<a class="code hl_typedef" href="_o_s_kmacros_8h.html#adef8e046c86805ca0dc2db407b01a1bb">UIndex64</a> timestampIndex = 0; timestampIndex &lt; sampler.<a class="code hl_variable" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_animation_sampler.html#af25c279b1c224125d922bfab868d4b32">timestamps</a>.<a class="code hl_function" href="class_o_s_k_1_1_dynamic_array.html#af09578371bd52d5a934bc74c8dad5f0d">GetSize</a>() - 1; timestampIndex++) {</div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>        <span class="keywordflow">for</span> (UIndex64 timestampIndex = 0; timestampIndex &lt; sampler.<a class="code hl_variable" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_animation_sampler.html#af25c279b1c224125d922bfab868d4b32">timestamps</a>.<a class="code hl_function" href="class_o_s_k_1_1_dynamic_array.html#af09578371bd52d5a934bc74c8dad5f0d">GetSize</a>() - 1; timestampIndex++) {</div>
 <div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>            <span class="comment">// TODO: check interpolation type</span></div>
 <div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span> </div>
 <div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>            <span class="keyword">const</span> <span class="keyword">auto</span> timestampA = sampler.<a class="code hl_variable" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_animation_sampler.html#af25c279b1c224125d922bfab868d4b32">timestamps</a>[timestampIndex];</div>
@@ -217,11 +217,6 @@ $(function(){initNavTree('_animation_8cpp_source.html',''); initResizable(); });
 <div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span>    <span class="keywordflow">return</span> m_skeleton;</div>
 <div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span>}</div>
 </div>
-<div class="ttc" id="a_animation_8h_html"><div class="ttname"><a href="_animation_8h.html">Animation.h</a></div></div>
-<div class="ttc" id="a_animator_8h_html"><div class="ttname"><a href="_animator_8h.html">Animator.h</a></div></div>
-<div class="ttc" id="a_math_8h_html"><div class="ttname"><a href="_math_8h.html">Math.h</a></div></div>
-<div class="ttc" id="a_o_s_kmacros_8h_html_ad05d5eacc527d5b61240124daf13b33b"><div class="ttname"><a href="_o_s_kmacros_8h.html#ad05d5eacc527d5b61240124daf13b33b">TDeltaTime</a></div><div class="ttdeci">float TDeltaTime</div><div class="ttdoc">Segundos.</div><div class="ttdef"><b>Definition</b> <a href="_o_s_kmacros_8h_source.html#l00048">OSKmacros.h:48</a></div></div>
-<div class="ttc" id="a_o_s_kmacros_8h_html_adef8e046c86805ca0dc2db407b01a1bb"><div class="ttname"><a href="_o_s_kmacros_8h.html#adef8e046c86805ca0dc2db407b01a1bb">UIndex64</a></div><div class="ttdeci">uint64_t UIndex64</div><div class="ttdef"><b>Definition</b> <a href="_o_s_kmacros_8h_source.html#l00042">OSKmacros.h:42</a></div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_dynamic_array_html"><div class="ttname"><a href="class_o_s_k_1_1_dynamic_array.html">OSK::DynamicArray</a></div><div class="ttdoc">Dynamic array: array que puede cambiar de tamaño.</div><div class="ttdef"><b>Definition</b> <a href="_dynamic_array_8hpp_source.html#l00067">DynamicArray.hpp:67</a></div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_dynamic_array_html_af09578371bd52d5a934bc74c8dad5f0d"><div class="ttname"><a href="class_o_s_k_1_1_dynamic_array.html#af09578371bd52d5a934bc74c8dad5f0d">OSK::DynamicArray::GetSize</a></div><div class="ttdeci">USize64 GetSize() const noexcept</div><div class="ttdoc">Devuelve el número de elementos almacenados.</div><div class="ttdef"><b>Definition</b> <a href="_dynamic_array_8hpp_source.html#l00672">DynamicArray.hpp:672</a></div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_animation_html_a048d6f9c009652b17adcfaf70d33c03d"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_animation.html#a048d6f9c009652b17adcfaf70d33c03d">OSK::GRAPHICS::Animation::Animation</a></div><div class="ttdeci">Animation(const std::string &amp;name, const DynamicArray&lt; AnimationSampler &gt; &amp;samplers, const DynamicArray&lt; AnimationChannel &gt; &amp;channels, const DynamicArray&lt; AnimationBone &gt; &amp;bones)</div><div class="ttdoc">Crea una animación.</div><div class="ttdef"><b>Definition</b> <a href="#l00009">Animation.cpp:9</a></div></div>
@@ -256,8 +251,8 @@ $(function(){initNavTree('_animation_8cpp_source.html',''); initResizable(); });
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="dir_74389ed8173ad57b461b9d623a1f3867.html">Source</a></li><li class="navelem"><a class="el" href="_animation_8cpp.html">Animation.cpp</a></li>
-    <li class="footer">Generado el Jueves, 28 de marzo de 2024 17:53:10 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.10.0 </li>
+    <li class="navelem"><a class="el" href="dir_74389ed8173ad57b461b9d623a1f3867.html">Source</a></li><li class="navelem"><b>Animation.cpp</b></li>
+    <li class="footer">Generado el Lunes, 15 de abril de 2024 22:39:15 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.10.0 </li>
   </ul>
 </div>
 </body>

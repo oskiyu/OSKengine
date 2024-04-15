@@ -110,7 +110,7 @@ Métodos públicos</h2></td></tr>
 <tr class="separator:ae4b800abcdc909dee3da88a751498a5d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2122a40b89ffe02dd1475eb994eb6a10" id="r_a2122a40b89ffe02dd1475eb994eb6a10"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a2122a40b89ffe02dd1475eb994eb6a10">Execute</a> (<a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list.html">ICommandList</a> *computeCmdList) override</td></tr>
 <tr class="separator:a2122a40b89ffe02dd1475eb994eb6a10"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1ea21cb991934d9bd9b2e37e223956fc" id="r_a1ea21cb991934d9bd9b2e37e223956fc"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a1ea21cb991934d9bd9b2e37e223956fc">SetExposureBuffers</a> (std::span&lt; const <a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_buffer.html">GpuBuffer</a> *, <a class="el" href="_o_s_kmacros_8h.html#ae5e86c617c5992479b42bbd9c280b4df">NUM_RESOURCES_IN_FLIGHT</a> &gt;)</td></tr>
+<tr class="memitem:a1ea21cb991934d9bd9b2e37e223956fc" id="r_a1ea21cb991934d9bd9b2e37e223956fc"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a1ea21cb991934d9bd9b2e37e223956fc">SetExposureBuffers</a> (std::span&lt; const <a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_buffer.html">GpuBuffer</a> *, NUM_RESOURCES_IN_FLIGHT &gt;)</td></tr>
 <tr class="separator:a1ea21cb991934d9bd9b2e37e223956fc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a81013c6301c60a6c37b1b8853f3f01b8" id="r_a81013c6301c60a6c37b1b8853f3f01b8"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a81013c6301c60a6c37b1b8853f3f01b8">SetExposure</a> (float exposure)</td></tr>
 <tr class="separator:a81013c6301c60a6c37b1b8853f3f01b8"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -397,7 +397,7 @@ computeCmdList debe ser una lista de comandos de computación. </dd></dl>
         <tr>
           <td class="memname">void ToneMappingPass::SetExposureBuffers </td>
           <td>(</td>
-          <td class="paramtype">std::span&lt; const <a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_buffer.html">GpuBuffer</a> *, <a class="el" href="_o_s_kmacros_8h.html#ae5e86c617c5992479b42bbd9c280b4df">NUM_RESOURCES_IN_FLIGHT</a> &gt;</td>          <td class="paramname"><span class="paramname"><em>buffers</em></span></td><td>)</td>
+          <td class="paramtype">std::span&lt; const <a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_buffer.html">GpuBuffer</a> *, NUM_RESOURCES_IN_FLIGHT &gt;</td>          <td class="paramname"><span class="paramname"><em>buffers</em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -735,17 +735,13 @@ Si las imágenes de entrada han sido invalidadas, se deben establecer de nuevo c
 
 </div>
 </div>
-<hr/>La documentación de esta clase está generada de los siguientes archivos:<ul>
-<li>Source/<a class="el" href="_tone_mapping_8h_source.html">ToneMapping.h</a></li>
-<li>Source/<a class="el" href="_tone_mapping_pass_8cpp_source.html">ToneMappingPass.cpp</a></li>
-</ul>
 </div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="namespace_o_s_k.html">OSK</a></li><li class="navelem"><a class="el" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html">GRAPHICS</a></li><li class="navelem"><a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_tone_mapping_pass.html">ToneMappingPass</a></li>
-    <li class="footer">Generado el Jueves, 28 de marzo de 2024 17:53:14 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.10.0 </li>
+    <li class="footer">Generado el Lunes, 15 de abril de 2024 22:39:19 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.10.0 </li>
   </ul>
 </div>
 </body>

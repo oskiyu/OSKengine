@@ -1,8 +1,10 @@
 var class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_queue_vk =
 [
-    [ "CommandQueueVk", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_queue_vk.html#a74f14af42ae21d91196f86bfa06784b3", null ],
-    [ "GetFamilyIndex", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_queue_vk.html#a81a6457a5812644d8fcd35965ee8a193", null ],
+    [ "CommandQueueVk", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_queue_vk.html#a1527b1947abfa8620b94eaab56400072", null ],
+    [ "GetFamily", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_queue_vk.html#a037dcccaf1a0724dcd3f4073764e07e9", null ],
     [ "GetQueue", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_queue_vk.html#ad78171a386dae03acc4b736692bd13b1", null ],
-    [ "GetQueueIndex", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_queue_vk.html#adeaea4ddf6eb456baad0ac67fd1c9934", null ],
+    [ "GetQueueIndexInsideFamily", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_queue_vk.html#af7b5f668a10ab340996addaed4545b18", null ],
+    [ "GetQueueType", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_queue_vk.html#ab71c9b114c751200e9c751201d7b71e8", null ],
+    [ "GetSupportedCommands", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_queue_vk.html#abbfaf73e1c2bcebf4f00342e6ad9daad", null ],
     [ "OSK_DEFINE_AS", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_queue_vk.html#a5a75184dc1d263230a97dd1f8358047a", null ]
 ];

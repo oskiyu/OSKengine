@@ -101,25 +101,23 @@ $(function(){initNavTree('_vertex_attributes_8h_source.html',''); initResizable(
   <div class="headertitle"><div class="title">VertexAttributes.h</div></div>
 </div><!--header-->
 <div class="contents">
-<a href="_vertex_attributes_8h.html">Ir a la documentación de este archivo.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#pragma once</span></div>
+<div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#pragma once</span></div>
 <div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span> </div>
-<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="preprocessor">#include &quot;<a class="code" href="_o_s_kmacros_8h.html">OSKmacros.h</a>&quot;</span></div>
+<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="preprocessor">#include &quot;OSKmacros.h&quot;</span></div>
 <div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &lt;string_view&gt;</span></div>
 <div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span> </div>
-<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &quot;<a class="code" href="_vector2_8hpp.html">Vector2.hpp</a>&quot;</span></div>
-<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="preprocessor">#include &quot;<a class="code" href="_vector3_8hpp.html">Vector3.hpp</a>&quot;</span></div>
-<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="preprocessor">#include &quot;<a class="code" href="_vector4_8hpp.html">Vector4.hpp</a>&quot;</span></div>
-<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="preprocessor">#include &quot;<a class="code" href="_color_8hpp.html">Color.hpp</a>&quot;</span></div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &quot;Vector2.hpp&quot;</span></div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="preprocessor">#include &quot;Vector3.hpp&quot;</span></div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="preprocessor">#include &quot;Vector4.hpp&quot;</span></div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="preprocessor">#include &quot;Color.hpp&quot;</span></div>
 <div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span> </div>
-<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="preprocessor">#include &quot;<a class="code" href="_invalid_argument_exception_8h.html">InvalidArgumentException.h</a>&quot;</span></div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="preprocessor">#include &quot;InvalidArgumentException.h&quot;</span></div>
 <div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span> </div>
 <div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="preprocessor">#include &lt;any&gt;</span></div>
 <div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span> </div>
 <div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span> </div>
-<div class="foldopen" id="foldopen00018" data-start="" data-end="">
-<div class="line"><a id="l00018" name="l00018"></a><span class="lineno"><a class="line" href="_vertex_attributes_8h.html#adc851a0bd63d6bb9a30b867398771a95">   18</a></span><span class="preprocessor">#define OSK_VERTEX_ATTRIB(uniqueName) \</span></div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span><span class="preprocessor">#define OSK_VERTEX_ATTRIB(uniqueName) \</span></div>
 <div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span><span class="preprocessor">static constexpr std::string_view GetAttribName() { return uniqueName; }</span></div>
-</div>
 <div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span> </div>
 <div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span> </div>
 <div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span><span class="keyword">namespace </span><a class="code hl_namespace" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html">OSK::GRAPHICS</a> {</div>
@@ -192,7 +190,7 @@ $(function(){initNavTree('_vertex_attributes_8h_source.html',''); initResizable(
 <div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span>        <span class="keyword">template</span> &lt;<span class="keyword">typename</span> TAttrib&gt; <span class="keyword">requires</span> <a class="code hl_concept" href="concept_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_is_vertex_attribute.html">IsVertexAttribute&lt;TAttrib&gt;</a></div>
 <div class="foldopen" id="foldopen00104" data-start="{" data-end="}">
 <div class="line"><a id="l00104" name="l00104"></a><span class="lineno"><a class="line" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_vertices_attributes_maps.html#a9d68411a5ef00289656255d4b65d0503">  104</a></span>        <span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_dynamic_array.html">DynamicArray&lt;TAttrib&gt;</a>&amp; <a class="code hl_function" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_vertices_attributes_maps.html#a9d68411a5ef00289656255d4b65d0503">GetVerticesAttributes</a>()<span class="keyword"> const </span>{</div>
-<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span>            <a class="code hl_define" href="_assert_8h.html#a927d7efae46f019e805b046e952af182">OSK_ASSERT</a>(<a class="code hl_function" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_vertices_attributes_maps.html#a4c8bdf6b6f5742d48d9e8317d0aeb832">HasAttribute</a>(TAttrib::GetAttribName()), <a class="code hl_class" href="class_o_s_k_1_1_invalid_argument_exception.html">InvalidArgumentException</a>(std::format(<span class="stringliteral">&quot;No existe el atributo {}&quot;</span>, TAttrib::GetAttribName())));</div>
+<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span>            OSK_ASSERT(<a class="code hl_function" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_vertices_attributes_maps.html#a4c8bdf6b6f5742d48d9e8317d0aeb832">HasAttribute</a>(TAttrib::GetAttribName()), <a class="code hl_class" href="class_o_s_k_1_1_invalid_argument_exception.html">InvalidArgumentException</a>(std::format(<span class="stringliteral">&quot;No existe el atributo {}&quot;</span>, TAttrib::GetAttribName())));</div>
 <div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span> </div>
 <div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span>            <span class="keywordflow">return</span> std::any_cast&lt;const DynamicArray&lt;TAttrib&gt;&amp;&gt;(<a class="code hl_variable" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_vertices_attributes_maps.html#a5bb8e0193e6df3c3c1d2ff6b1555c39d">attributes</a>.find(TAttrib::GetAttribName())-&gt;second);</div>
 <div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span>        }</div>
@@ -201,13 +199,6 @@ $(function(){initNavTree('_vertex_attributes_8h_source.html',''); initResizable(
 </div>
 <div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span> </div>
 <div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span>}</div>
-<div class="ttc" id="a_assert_8h_html_a927d7efae46f019e805b046e952af182"><div class="ttname"><a href="_assert_8h.html#a927d7efae46f019e805b046e952af182">OSK_ASSERT</a></div><div class="ttdeci">#define OSK_ASSERT(condition, exception)</div><div class="ttdoc">Comrpueba si una condición se cumple. En caso de no cumplirse, lanza la excepción indicada,...</div><div class="ttdef"><b>Definition</b> <a href="_assert_8h_source.html#l00041">Assert.h:41</a></div></div>
-<div class="ttc" id="a_color_8hpp_html"><div class="ttname"><a href="_color_8hpp.html">Color.hpp</a></div></div>
-<div class="ttc" id="a_invalid_argument_exception_8h_html"><div class="ttname"><a href="_invalid_argument_exception_8h.html">InvalidArgumentException.h</a></div></div>
-<div class="ttc" id="a_o_s_kmacros_8h_html"><div class="ttname"><a href="_o_s_kmacros_8h.html">OSKmacros.h</a></div></div>
-<div class="ttc" id="a_vector2_8hpp_html"><div class="ttname"><a href="_vector2_8hpp.html">Vector2.hpp</a></div></div>
-<div class="ttc" id="a_vector3_8hpp_html"><div class="ttname"><a href="_vector3_8hpp.html">Vector3.hpp</a></div></div>
-<div class="ttc" id="a_vector4_8hpp_html"><div class="ttname"><a href="_vector4_8hpp.html">Vector4.hpp</a></div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_color_html"><div class="ttname"><a href="class_o_s_k_1_1_color.html">OSK::Color</a></div><div class="ttdoc">Representa un color en formato RGBA float.</div><div class="ttdef"><b>Definition</b> <a href="_color_8hpp_source.html#l00010">Color.hpp:10</a></div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_dynamic_array_html"><div class="ttname"><a href="class_o_s_k_1_1_dynamic_array.html">OSK::DynamicArray</a></div><div class="ttdoc">Dynamic array: array que puede cambiar de tamaño.</div><div class="ttdef"><b>Definition</b> <a href="_dynamic_array_8hpp_source.html#l00067">DynamicArray.hpp:67</a></div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_dynamic_array_html_a4433c76207ce2ecad5e306b12575f1b3"><div class="ttname"><a href="class_o_s_k_1_1_dynamic_array.html#a4433c76207ce2ecad5e306b12575f1b3">OSK::DynamicArray::Insert</a></div><div class="ttdeci">void Insert(const T &amp;element)</div><div class="ttdoc">Inserta un elemento al final del array.</div><div class="ttdef"><b>Definition</b> <a href="_dynamic_array_8hpp_source.html#l00351">DynamicArray.hpp:351</a></div></div>
@@ -241,8 +232,8 @@ $(function(){initNavTree('_vertex_attributes_8h_source.html',''); initResizable(
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="dir_74389ed8173ad57b461b9d623a1f3867.html">Source</a></li><li class="navelem"><a class="el" href="_vertex_attributes_8h.html">VertexAttributes.h</a></li>
-    <li class="footer">Generado el Jueves, 28 de marzo de 2024 17:53:11 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.10.0 </li>
+    <li class="navelem"><a class="el" href="dir_74389ed8173ad57b461b9d623a1f3867.html">Source</a></li><li class="navelem"><b>VertexAttributes.h</b></li>
+    <li class="footer">Generado el Lunes, 15 de abril de 2024 22:39:17 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.10.0 </li>
   </ul>
 </div>
 </body>

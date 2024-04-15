@@ -124,11 +124,8 @@ Métodos públicos</h2></td></tr>
 <tr class="separator:ab13114d60ca5f1f69f2ba0f2f1a5bd19"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Descripción detallada</h2>
-<div class="textblock"><p>Clase que permite enviar mensajes por consola, o por donde se defina su salida. </p>
-<p>También guarda el resultado del log.</p>
-<p>Puede usarse el logger del motor desde <a class="el" href="class_o_s_k_1_1_engine.html#ac39b79a3e665381630f6c710f3772a2b">Engine::GetLogger()</a>. </p>
-
-<p class="definition">Definición en la línea <a class="el" href="_logger_8h_source.html#l00062">62</a> del archivo <a class="el" href="_logger_8h_source.html">Logger.h</a>.</p>
+<div class="textblock">
+<p class="definition">Definición en la línea <a class="el" href="_logger_8h_source.html#l00102">102</a> del archivo <a class="el" href="_logger_8h_source.html">Logger.h</a>.</p>
 </div><h2 class="groupheader">Documentación de constructores y destructores</h2>
 <a id="afee741267f0de25da55208a6424eb84f" name="afee741267f0de25da55208a6424eb84f"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#afee741267f0de25da55208a6424eb84f">&#9670;&#160;</a></span>~Logger()</h2>
@@ -152,8 +149,6 @@ Métodos públicos</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-
-<p>Cierra el logger, guardando el archivo. </p>
 
 <p class="definition">Definición en la línea <a class="el" href="_logger_8cpp_source.html#l00012">12</a> del archivo <a class="el" href="_logger_8cpp_source.html">Logger.cpp</a>.</p>
 
@@ -184,10 +179,16 @@ Métodos públicos</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Limpia los contenidos del archivo del log. </p>
+<dl class="exception"><dt>Excepciones</dt><dd>
+  <table class="exception">
+    <tr><td class="paramname"><a class="el" href="class_o_s_k_1_1_i_o_1_1_logger_not_initialized_exception.html" title="Excepción que se lanza cuando se trata de usar un logger que no ha sido inicializado correctamente.">LoggerNotInitializedException</a></td><td>si se incumple la precondición. </td></tr>
+  </table>
+  </dd>
+</dl>
 
 <p>Implementa <a class="el" href="class_o_s_k_1_1_i_o_1_1_i_logger.html#a697f67f5294d334990106e8fd17dd112">OSK::IO::ILogger</a>.</p>
 
-<p class="definition">Definición en la línea <a class="el" href="_logger_8cpp_source.html#l00081">81</a> del archivo <a class="el" href="_logger_8cpp_source.html">Logger.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_logger_8cpp_source.html#l00083">83</a> del archivo <a class="el" href="_logger_8cpp_source.html">Logger.cpp</a>.</p>
 
 </div>
 </div>
@@ -215,10 +216,16 @@ Métodos públicos</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Cierra el logger, guardando el archivo. </p>
+<dl class="exception"><dt>Excepciones</dt><dd>
+  <table class="exception">
+    <tr><td class="paramname"><a class="el" href="class_o_s_k_1_1_i_o_1_1_logger_not_initialized_exception.html" title="Excepción que se lanza cuando se trata de usar un logger que no ha sido inicializado correctamente.">LoggerNotInitializedException</a></td><td>si se incumple la precondición. </td></tr>
+  </table>
+  </dd>
+</dl>
 
 <p>Implementa <a class="el" href="class_o_s_k_1_1_i_o_1_1_i_logger.html#ae629914da0f9943d9530e7e031b1adbf">OSK::IO::ILogger</a>.</p>
 
-<p class="definition">Definición en la línea <a class="el" href="_logger_8cpp_source.html#l00088">88</a> del archivo <a class="el" href="_logger_8cpp_source.html">Logger.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_logger_8cpp_source.html#l00090">90</a> del archivo <a class="el" href="_logger_8cpp_source.html">Logger.cpp</a>.</p>
 
 </div>
 </div>
@@ -246,10 +253,24 @@ Métodos públicos</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Manda un mensaje de depuración. </p>
+<dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">msg</td><td>Mensaje a mostrar.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section pre"><dt>Precondición</dt><dd>El logger debe haber sido inicializado con <a class="el" href="#aee759fea9bc4d73c1e5783312157f7b8" title="Inicializa el logger.">Start()</a>. </dd></dl>
+<dl class="exception"><dt>Excepciones</dt><dd>
+  <table class="exception">
+    <tr><td class="paramname"><a class="el" href="class_o_s_k_1_1_i_o_1_1_logger_not_initialized_exception.html" title="Excepción que se lanza cuando se trata de usar un logger que no ha sido inicializado correctamente.">LoggerNotInitializedException</a></td><td>si se incumple la precondición.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section user"><dt>Thread-safe</dt><dd>Compatible con ejecución multihilo. </dd></dl>
 
 <p>Implementa <a class="el" href="class_o_s_k_1_1_i_o_1_1_i_logger.html#acf9ff05185e0586b194c493a512daeb1">OSK::IO::ILogger</a>.</p>
 
-<p class="definition">Definición en la línea <a class="el" href="_logger_8cpp_source.html#l00056">56</a> del archivo <a class="el" href="_logger_8cpp_source.html">Logger.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_logger_8cpp_source.html#l00058">58</a> del archivo <a class="el" href="_logger_8cpp_source.html">Logger.cpp</a>.</p>
 
 </div>
 </div>
@@ -277,10 +298,24 @@ Métodos públicos</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Manda un mensaje de información. </p>
+<dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">msg</td><td>Mensaje a mostrar.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section pre"><dt>Precondición</dt><dd>El logger debe haber sido inicializado con <a class="el" href="#aee759fea9bc4d73c1e5783312157f7b8" title="Inicializa el logger.">Start()</a>. </dd></dl>
+<dl class="exception"><dt>Excepciones</dt><dd>
+  <table class="exception">
+    <tr><td class="paramname"><a class="el" href="class_o_s_k_1_1_i_o_1_1_logger_not_initialized_exception.html" title="Excepción que se lanza cuando se trata de usar un logger que no ha sido inicializado correctamente.">LoggerNotInitializedException</a></td><td>si se incumple la precondición.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section user"><dt>Thread-safe</dt><dd>Compatible con ejecución multihilo. </dd></dl>
 
 <p>Implementa <a class="el" href="class_o_s_k_1_1_i_o_1_1_i_logger.html#af32ae7d76d7cc07a0f12326ecde823b5">OSK::IO::ILogger</a>.</p>
 
-<p class="definition">Definición en la línea <a class="el" href="_logger_8cpp_source.html#l00059">59</a> del archivo <a class="el" href="_logger_8cpp_source.html">Logger.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_logger_8cpp_source.html#l00061">61</a> del archivo <a class="el" href="_logger_8cpp_source.html">Logger.cpp</a>.</p>
 
 </div>
 </div>
@@ -312,10 +347,25 @@ Métodos públicos</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Manda un mensaje por el logger. </p>
+<dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">level</td><td>Nivel del mensaje. </td></tr>
+    <tr><td class="paramname">msg</td><td>Mensaje a mostrar.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section pre"><dt>Precondición</dt><dd>El logger debe haber sido inicializado con <a class="el" href="#aee759fea9bc4d73c1e5783312157f7b8" title="Inicializa el logger.">Start()</a>. </dd></dl>
+<dl class="exception"><dt>Excepciones</dt><dd>
+  <table class="exception">
+    <tr><td class="paramname"><a class="el" href="class_o_s_k_1_1_i_o_1_1_logger_not_initialized_exception.html" title="Excepción que se lanza cuando se trata de usar un logger que no ha sido inicializado correctamente.">LoggerNotInitializedException</a></td><td>si se incumple la precondición.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section user"><dt>Thread-safe</dt><dd>Compatible con ejecución multihilo. </dd></dl>
 
 <p>Implementa <a class="el" href="class_o_s_k_1_1_i_o_1_1_i_logger.html#acf42b7b8123f637d9e39bfd3219a1210">OSK::IO::ILogger</a>.</p>
 
-<p class="definition">Definición en la línea <a class="el" href="_logger_8cpp_source.html#l00021">21</a> del archivo <a class="el" href="_logger_8cpp_source.html">Logger.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_logger_8cpp_source.html#l00024">24</a> del archivo <a class="el" href="_logger_8cpp_source.html">Logger.cpp</a>.</p>
 
 </div>
 </div>
@@ -342,11 +392,17 @@ Métodos públicos</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Guarda el archivo del log, en la ruta especificada en <a class="el" href="#aee759fea9bc4d73c1e5783312157f7b8" title="Inicializa el logger.">Logger::Start()</a>. </p>
+<p>Guarda el archivo del log, en la ruta especificada al inicializarlo. </p>
+<dl class="exception"><dt>Excepciones</dt><dd>
+  <table class="exception">
+    <tr><td class="paramname"><a class="el" href="class_o_s_k_1_1_i_o_1_1_logger_not_initialized_exception.html" title="Excepción que se lanza cuando se trata de usar un logger que no ha sido inicializado correctamente.">LoggerNotInitializedException</a></td><td>si se incumple la precondición. </td></tr>
+  </table>
+  </dd>
+</dl>
 
 <p>Implementa <a class="el" href="class_o_s_k_1_1_i_o_1_1_i_logger.html#a685d7287459482177b42f52a9ae9fefe">OSK::IO::ILogger</a>.</p>
 
-<p class="definition">Definición en la línea <a class="el" href="_logger_8cpp_source.html#l00063">63</a> del archivo <a class="el" href="_logger_8cpp_source.html">Logger.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_logger_8cpp_source.html#l00065">65</a> del archivo <a class="el" href="_logger_8cpp_source.html">Logger.cpp</a>.</p>
 
 </div>
 </div>
@@ -373,11 +429,23 @@ Métodos públicos</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Guarda el archivo del log, en la ruta especificada. </p>
+<p>Guarda el archivo del log. </p>
+<dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">path</td><td>Ruta donde guardar el archivo. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="exception"><dt>Excepciones</dt><dd>
+  <table class="exception">
+    <tr><td class="paramname"><a class="el" href="class_o_s_k_1_1_i_o_1_1_logger_not_initialized_exception.html" title="Excepción que se lanza cuando se trata de usar un logger que no ha sido inicializado correctamente.">LoggerNotInitializedException</a></td><td>si se incumple la precondición. </td></tr>
+  </table>
+  </dd>
+</dl>
 
 <p>Implementa <a class="el" href="class_o_s_k_1_1_i_o_1_1_i_logger.html#a3f3096b664a06539173f625e48d98bd9">OSK::IO::ILogger</a>.</p>
 
-<p class="definition">Definición en la línea <a class="el" href="_logger_8cpp_source.html#l00067">67</a> del archivo <a class="el" href="_logger_8cpp_source.html">Logger.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_logger_8cpp_source.html#l00069">69</a> del archivo <a class="el" href="_logger_8cpp_source.html">Logger.cpp</a>.</p>
 
 </div>
 </div>
@@ -407,28 +475,24 @@ Métodos públicos</h2></td></tr>
 <p>Inicializa el logger. </p>
 <dl class="params"><dt>Parámetros</dt><dd>
   <table class="params">
-    <tr><td class="paramname">path</td><td>Ruta donde se guardará el archivo de log.</td></tr>
+    <tr><td class="paramname">path</td><td>Ruta donde se guardará el archivo de log. </td></tr>
   </table>
   </dd>
 </dl>
 
 <p>Implementa <a class="el" href="class_o_s_k_1_1_i_o_1_1_i_logger.html#a0e0e00d640629c990198aca9815679d2">OSK::IO::ILogger</a>.</p>
 
-<p class="definition">Definición en la línea <a class="el" href="_logger_8cpp_source.html#l00016">16</a> del archivo <a class="el" href="_logger_8cpp_source.html">Logger.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_logger_8cpp_source.html#l00019">19</a> del archivo <a class="el" href="_logger_8cpp_source.html">Logger.cpp</a>.</p>
 
 </div>
 </div>
-<hr/>La documentación de esta clase está generada de los siguientes archivos:<ul>
-<li>Source/<a class="el" href="_logger_8h_source.html">Logger.h</a></li>
-<li>Source/<a class="el" href="_logger_8cpp_source.html">Logger.cpp</a></li>
-</ul>
 </div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="namespace_o_s_k.html">OSK</a></li><li class="navelem"><a class="el" href="namespace_o_s_k_1_1_i_o.html">IO</a></li><li class="navelem"><a class="el" href="class_o_s_k_1_1_i_o_1_1_logger.html">Logger</a></li>
-    <li class="footer">Generado el Jueves, 28 de marzo de 2024 17:53:14 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.10.0 </li>
+    <li class="footer">Generado el Lunes, 15 de abril de 2024 22:39:19 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.10.0 </li>
   </ul>
 </div>
 </body>

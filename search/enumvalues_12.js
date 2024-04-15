@@ -41,5 +41,6 @@ var searchData=
   ['rt_5fmiss_38',['RT_MISS',['../namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#aa7e7dcffcab27051f141128e66a50fcbaa81021d99de178d7979c2c96b7e3e47d',1,'OSK::GRAPHICS']]],
   ['rt_5fraygen_39',['RT_RAYGEN',['../namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#aa7e7dcffcab27051f141128e66a50fcba949f4e4e16184d8e16e4125517a1c6c3',1,'OSK::GRAPHICS']]],
   ['rt_5fshader_5fbinding_5ftable_40',['RT_SHADER_BINDING_TABLE',['../namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#ad8b871b506bab7c4021326a1a10bbc7faf4723b84fe089b99fa8bd437f42b0167',1,'OSK::GRAPHICS']]],
-  ['rt_5ftarget_5fimage_41',['RT_TARGET_IMAGE',['../namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a19a2f70fc994c00eb022e520608c5ffaa3d5dffc952403caa0bd4efd243e72e25',1,'OSK::GRAPHICS::RT_TARGET_IMAGE'],['../namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a4a3cc5ac5a7f3c8753e7f74d576d6e1da3d5dffc952403caa0bd4efd243e72e25',1,'OSK::GRAPHICS::RT_TARGET_IMAGE']]]
+  ['rt_5ftarget_5fimage_41',['RT_TARGET_IMAGE',['../namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a19a2f70fc994c00eb022e520608c5ffaa3d5dffc952403caa0bd4efd243e72e25',1,'OSK::GRAPHICS::RT_TARGET_IMAGE'],['../namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a4a3cc5ac5a7f3c8753e7f74d576d6e1da3d5dffc952403caa0bd4efd243e72e25',1,'OSK::GRAPHICS::RT_TARGET_IMAGE']]],
+  ['running_42',['RUNNING',['../class_o_s_k_1_1_stop_watch.html#a452c9c56fe49535197b485e78bfd7e91a43491564ebcfd38568918efbd6e840fd',1,'OSK::StopWatch']]]
 ];

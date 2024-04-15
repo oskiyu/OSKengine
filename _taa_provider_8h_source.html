@@ -101,19 +101,19 @@ $(function(){initNavTree('_taa_provider_8h_source.html',''); initResizable(); })
   <div class="headertitle"><div class="title">TaaProvider.h</div></div>
 </div><!--header-->
 <div class="contents">
-<a href="_taa_provider_8h.html">Ir a la documentación de este archivo.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#pragma once</span></div>
+<div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#pragma once</span></div>
 <div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span> </div>
-<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="preprocessor">#include &quot;<a class="code" href="_unique_ptr_8hpp.html">UniquePtr.hpp</a>&quot;</span></div>
-<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &quot;<a class="code" href="_rt_render_target_8h.html">RtRenderTarget.h</a>&quot;</span></div>
-<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &quot;<a class="code" href="_material_instance_8h.html">MaterialInstance.h</a>&quot;</span></div>
-<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &quot;<a class="code" href="_i_render_system_8h.html">IRenderSystem.h</a>&quot;</span></div>
-<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="preprocessor">#include &quot;<a class="code" href="_gpu_barrier_info_8h.html">GpuBarrierInfo.h</a>&quot;</span></div>
-<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="preprocessor">#include &quot;<a class="code" href="_gpu_image_layout_8h.html">GpuImageLayout.h</a>&quot;</span></div>
+<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="preprocessor">#include &quot;UniquePtr.hpp&quot;</span></div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &quot;RtRenderTarget.h&quot;</span></div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &quot;MaterialInstance.h&quot;</span></div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &quot;IRenderSystem.h&quot;</span></div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="preprocessor">#include &quot;GpuBarrierInfo.h&quot;</span></div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="preprocessor">#include &quot;GpuImageLayout.h&quot;</span></div>
 <div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span> </div>
 <div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="keyword">namespace </span><a class="code hl_namespace" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html">OSK::GRAPHICS</a> {</div>
 <div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span> </div>
 <div class="foldopen" id="foldopen00014" data-start="{" data-end="};">
-<div class="line"><a id="l00014" name="l00014"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_taa_provider.html">   14</a></span>    <span class="keyword">class </span><a class="code hl_define" href="_o_s_kmacros_8h.html#a09ec5b46ece998ad096bceff312bb36c">OSKAPI_CALL</a> <a class="code hl_class" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_taa_provider.html">TaaProvider</a> final {</div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_taa_provider.html">   14</a></span>    <span class="keyword">class </span>OSKAPI_CALL <a class="code hl_class" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_taa_provider.html">TaaProvider</a> final {</div>
 <div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span> </div>
 <div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span>    <span class="keyword">public</span>:</div>
 <div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span> </div>
@@ -154,8 +154,8 @@ $(function(){initNavTree('_taa_provider_8h_source.html',''); initResizable(); })
 <div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span> </div>
 <div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span>        <span class="keywordtype">bool</span> m_isActive = <span class="keyword">true</span>;</div>
 <div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span> </div>
-<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span>        <a class="code hl_typedef" href="_o_s_kmacros_8h.html#af205b9fd0440138e6cac38a9081141df">UIndex32</a> m_maxJitterIndex = 4;</div>
-<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span>        <a class="code hl_typedef" href="_o_s_kmacros_8h.html#af205b9fd0440138e6cac38a9081141df">UIndex32</a> m_currentFrameJitterIndex = 0;</div>
+<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span>        UIndex32 m_maxJitterIndex = 4;</div>
+<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span>        UIndex32 m_currentFrameJitterIndex = 0;</div>
 <div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span> </div>
 <div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span>        <span class="keywordtype">void</span> LoadTaaMaterials();</div>
 <div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span> </div>
@@ -185,17 +185,9 @@ $(function(){initNavTree('_taa_provider_8h_source.html',''); initResizable(); })
 </div>
 <div class="line"><a id="l00132" name="l00132"></a><span class="lineno">  132</span> </div>
 <div class="line"><a id="l00133" name="l00133"></a><span class="lineno">  133</span>}</div>
-<div class="ttc" id="a_gpu_barrier_info_8h_html"><div class="ttname"><a href="_gpu_barrier_info_8h.html">GpuBarrierInfo.h</a></div></div>
-<div class="ttc" id="a_gpu_image_layout_8h_html"><div class="ttname"><a href="_gpu_image_layout_8h.html">GpuImageLayout.h</a></div></div>
-<div class="ttc" id="a_i_render_system_8h_html"><div class="ttname"><a href="_i_render_system_8h.html">IRenderSystem.h</a></div></div>
-<div class="ttc" id="a_material_instance_8h_html"><div class="ttname"><a href="_material_instance_8h.html">MaterialInstance.h</a></div></div>
-<div class="ttc" id="a_o_s_kmacros_8h_html_a09ec5b46ece998ad096bceff312bb36c"><div class="ttname"><a href="_o_s_kmacros_8h.html#a09ec5b46ece998ad096bceff312bb36c">OSKAPI_CALL</a></div><div class="ttdeci">#define OSKAPI_CALL</div><div class="ttdef"><b>Definition</b> <a href="_o_s_kmacros_8h_source.html#l00007">OSKmacros.h:7</a></div></div>
-<div class="ttc" id="a_o_s_kmacros_8h_html_af205b9fd0440138e6cac38a9081141df"><div class="ttname"><a href="_o_s_kmacros_8h.html#af205b9fd0440138e6cac38a9081141df">UIndex32</a></div><div class="ttdeci">uint32_t UIndex32</div><div class="ttdef"><b>Definition</b> <a href="_o_s_kmacros_8h_source.html#l00041">OSKmacros.h:41</a></div></div>
-<div class="ttc" id="a_rt_render_target_8h_html"><div class="ttname"><a href="_rt_render_target_8h.html">RtRenderTarget.h</a></div></div>
-<div class="ttc" id="a_unique_ptr_8hpp_html"><div class="ttname"><a href="_unique_ptr_8hpp.html">UniquePtr.hpp</a></div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref_html"><div class="ttname"><a href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">OSK::ASSETS::AssetRef</a></div><div class="ttdoc">Referencia a un asset.</div><div class="ttdef"><b>Definition</b> <a href="_asset_ref_8h_source.html#l00012">AssetRef.h:12</a></div></div>
-<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_html"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image.html">OSK::GRAPHICS::GpuImage</a></div><div class="ttdoc">Representación interna de una imagen en la GPU.</div><div class="ttdef"><b>Definition</b> <a href="_i_gpu_image_8h_source.html#l00058">IGpuImage.h:58</a></div></div>
-<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list_html"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list.html">OSK::GRAPHICS::ICommandList</a></div><div class="ttdoc">Una lista de comandos contiene una serie de comandos que serán enviados a la GPU para su ejecución....</div><div class="ttdef"><b>Definition</b> <a href="_i_command_list_8h_source.html#l00114">ICommandList.h:114</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_html"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image.html">OSK::GRAPHICS::GpuImage</a></div><div class="ttdoc">Representación interna de una imagen en la GPU.</div><div class="ttdef"><b>Definition</b> <a href="_i_gpu_image_8h_source.html#l00035">IGpuImage.h:35</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list_html"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list.html">OSK::GRAPHICS::ICommandList</a></div><div class="ttdoc">Una lista de comandos contiene una serie de comandos que serán enviados a la GPU para su ejecución....</div><div class="ttdef"><b>Definition</b> <a href="_i_command_list_8h_source.html#l00076">ICommandList.h:76</a></div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_rt_render_target_html"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_rt_render_target.html">OSK::GRAPHICS::RtRenderTarget</a></div><div class="ttdoc">Render target para el renderizado de imágenes desde shaders de trazado de rayos / computación.</div><div class="ttdef"><b>Definition</b> <a href="_rt_render_target_8h_source.html#l00015">RtRenderTarget.h:15</a></div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_taa_provider_html"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_taa_provider.html">OSK::GRAPHICS::TaaProvider</a></div><div class="ttdoc">Clase que contiene la funcionalidad del renderizado de Temporal Anti-Aliasing.</div><div class="ttdef"><b>Definition</b> <a href="#l00014">TaaProvider.h:14</a></div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_taa_provider_html_a1c3c070e295f3796c34aa8956b8d7753"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_taa_provider.html#a1c3c070e295f3796c34aa8956b8d7753">OSK::GRAPHICS::TaaProvider::GetTaaOutput</a></div><div class="ttdeci">const ComputeRenderTarget &amp; GetTaaOutput() const</div><div class="ttdef"><b>Definition</b> <a href="#l00077">TaaProvider.h:77</a></div></div>
@@ -215,8 +207,8 @@ $(function(){initNavTree('_taa_provider_8h_source.html',''); initResizable(); })
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="dir_74389ed8173ad57b461b9d623a1f3867.html">Source</a></li><li class="navelem"><a class="el" href="_taa_provider_8h.html">TaaProvider.h</a></li>
-    <li class="footer">Generado el Jueves, 28 de marzo de 2024 17:53:11 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.10.0 </li>
+    <li class="navelem"><a class="el" href="dir_74389ed8173ad57b461b9d623a1f3867.html">Source</a></li><li class="navelem"><b>TaaProvider.h</b></li>
+    <li class="footer">Generado el Lunes, 15 de abril de 2024 22:39:17 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.10.0 </li>
   </ul>
 </div>
 </body>

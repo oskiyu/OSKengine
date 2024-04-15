@@ -101,7 +101,7 @@ $(function(){initNavTree('_ray_8cpp_source.html',''); initResizable(); });
   <div class="headertitle"><div class="title">Ray.cpp</div></div>
 </div><!--header-->
 <div class="contents">
-<a href="_ray_8cpp.html">Ir a la documentación de este archivo.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#include &quot;<a class="code" href="_ray_8h.html">Ray.h</a>&quot;</span></div>
+<div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#include &quot;Ray.h&quot;</span></div>
 <div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span> </div>
 <div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="keyword">using namespace </span><a class="code hl_namespace" href="namespace_o_s_k.html">OSK</a>;</div>
 <div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="keyword">using namespace </span><a class="code hl_namespace" href="namespace_o_s_k_1_1_c_o_l_l_i_s_i_o_n.html">OSK::COLLISION</a>;</div>
@@ -119,11 +119,11 @@ $(function(){initNavTree('_ray_8cpp_source.html',''); initResizable(); });
 <div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span>        <span class="keywordflow">return</span> <a class="code hl_function" href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_ray_cast_result.html#af10022f2f38d51befdf03b1e9394b2b6">RayCastResult::False</a>();</div>
 <div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span>    }</div>
 <div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>    <span class="keywordflow">else</span> {</div>
-<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>        <span class="keywordflow">return</span> <a class="code hl_function" href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_ray_cast_result.html#aa2f2f5c5ef956e33398edd0e733948e7">RayCastResult::True</a>(<a class="code hl_variable" href="struct_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_ray.html#a58f1fd48fd028230b012d6a806f5f65c">origin</a> + <a class="code hl_variable" href="struct_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_ray.html#ae3ea42c4c8f72b88ee0b6572e245749d">direction</a> * distance, 0);</div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>        <span class="keywordflow">return</span> <a class="code hl_function" href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_ray_cast_result.html#aa2f2f5c5ef956e33398edd0e733948e7">RayCastResult::True</a>(<a class="code hl_variable" href="struct_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_ray.html#a58f1fd48fd028230b012d6a806f5f65c">origin</a> + <a class="code hl_variable" href="struct_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_ray.html#ae3ea42c4c8f72b88ee0b6572e245749d">direction</a> * distance, <a class="code hl_function" href="class_o_s_k_1_1_base_uuid.html#a53756a73f42ce2fa498419505069d6a1">ECS::GameObjectIndex::CreateEmpty</a>());</div>
 <div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>    }</div>
 <div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>}</div>
 </div>
-<div class="ttc" id="a_ray_8h_html"><div class="ttname"><a href="_ray_8h.html">Ray.h</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_base_uuid_html_a53756a73f42ce2fa498419505069d6a1"><div class="ttname"><a href="class_o_s_k_1_1_base_uuid.html#a53756a73f42ce2fa498419505069d6a1">OSK::BaseUuid&lt; class GameObjectIndexTag &gt;::CreateEmpty</a></div><div class="ttdeci">static constexpr BaseUuid CreateEmpty()</div><div class="ttdef"><b>Definition</b> <a href="_uuid_8h_source.html#l00030">Uuid.h:30</a></div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_ray_cast_result_html"><div class="ttname"><a href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_ray_cast_result.html">OSK::COLLISION::RayCastResult</a></div><div class="ttdoc">Representa el resultado de trazar un rayo en la escena. El resultado puede ser positivo en caso de qu...</div><div class="ttdef"><b>Definition</b> <a href="_ray_cast_result_8h_source.html#l00014">RayCastResult.h:14</a></div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_ray_cast_result_html_aa2f2f5c5ef956e33398edd0e733948e7"><div class="ttname"><a href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_ray_cast_result.html#aa2f2f5c5ef956e33398edd0e733948e7">OSK::COLLISION::RayCastResult::True</a></div><div class="ttdeci">static RayCastResult True(const Vector3f &amp;intersection, ECS::GameObjectIndex gameObject)</div><div class="ttdoc">Crea un resultado verdadero (con intersección).</div><div class="ttdef"><b>Definition</b> <a href="_ray_cast_result_8cpp_source.html#l00016">RayCastResult.cpp:16</a></div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_ray_cast_result_html_af10022f2f38d51befdf03b1e9394b2b6"><div class="ttname"><a href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_ray_cast_result.html#af10022f2f38d51befdf03b1e9394b2b6">OSK::COLLISION::RayCastResult::False</a></div><div class="ttdeci">static RayCastResult False()</div><div class="ttdoc">Crea un resultado falso (sin intersección).</div><div class="ttdef"><b>Definition</b> <a href="_ray_cast_result_8cpp_source.html#l00012">RayCastResult.cpp:12</a></div></div>
@@ -139,8 +139,8 @@ $(function(){initNavTree('_ray_8cpp_source.html',''); initResizable(); });
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="dir_74389ed8173ad57b461b9d623a1f3867.html">Source</a></li><li class="navelem"><a class="el" href="_ray_8cpp.html">Ray.cpp</a></li>
-    <li class="footer">Generado el Jueves, 28 de marzo de 2024 17:53:11 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.10.0 </li>
+    <li class="navelem"><a class="el" href="dir_74389ed8173ad57b461b9d623a1f3867.html">Source</a></li><li class="navelem"><b>Ray.cpp</b></li>
+    <li class="footer">Generado el Lunes, 15 de abril de 2024 22:39:16 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.10.0 </li>
   </ul>
 </div>
 </body>

@@ -1,6 +1,4 @@
 var searchData=
 [
-  ['lista_20de_20defectos_0',['Lista de defectos',['../bug.html',1,'']]],
-  ['lista_20de_20obsoletos_1',['Lista de obsoletos',['../deprecated.html',1,'']]],
-  ['lista_20de_20tareas_20pendientes_2',['Lista de tareas pendientes',['../todo.html',1,'']]]
+  ['3d_0',['3D',['../_model3_d_file.html',1,'Archivo de descripción de modelos 3D.'],['../_pre_built_collider3_d_file.html',1,'Archivo de descripción de volumen de colisión 3D.']]]
 ];

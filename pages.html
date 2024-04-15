@@ -97,11 +97,18 @@ $(function(){initNavTree('pages.html',''); initResizable(); });
 </div><!--header-->
 <div class="contents">
 <div class="textblock">Lista de toda la documentación relacionada:</div><div class="directory">
-<table class="directory">
-<tr id="row_0_" class="even"><td class="entry"><span style="width:16px;display:inline-block;">&#160;</span><a class="el" href="jsonfiles.html" target="_self">Archivos JSON</a></td><td class="desc">Documentación de los varios archivos JSON que usa OSKengine </td></tr>
-<tr id="row_1_" class="odd"><td class="entry"><span style="width:16px;display:inline-block;">&#160;</span><a class="el" href="todo.html" target="_self">Lista de tareas pendientes</a></td><td class="desc"></td></tr>
-<tr id="row_2_" class="even"><td class="entry"><span style="width:16px;display:inline-block;">&#160;</span><a class="el" href="bug.html" target="_self">Lista de defectos</a></td><td class="desc"></td></tr>
-<tr id="row_3_" class="odd"><td class="entry"><span style="width:16px;display:inline-block;">&#160;</span><a class="el" href="deprecated.html" target="_self">Lista de obsoletos</a></td><td class="desc"></td></tr>
+<div class="levels">[nivel de detalle <span onclick="javascript:dynsection.toggleLevel(1);">1</span><span onclick="javascript:dynsection.toggleLevel(2);">2</span><span onclick="javascript:dynsection.toggleLevel(3);">3</span>]</div><table class="directory">
+<tr id="row_0_" class="even"><td class="entry"><span style="width:0px;display:inline-block;">&#160;</span><span id="arr_0_" class="arrow" onclick="dynsection.toggleFolder('0_')">&#9660;</span><a class="el" href="jsonfiles.html" target="_self">Archivos de descripción de recursos.</a></td><td class="desc"></td></tr>
+<tr id="row_0_0_" class="odd"><td class="entry"><span style="width:16px;display:inline-block;">&#160;</span><span id="arr_0_0_" class="arrow" onclick="dynsection.toggleFolder('0_0_')">&#9660;</span><a class="el" href="_material_file.html" target="_self">Archivo de descripción de  material.</a></td><td class="desc">Un archivo que desribe un material, configurando el proceso de renderizado </td></tr>
+<tr id="row_0_0_0_" class="even"><td class="entry"><span style="width:48px;display:inline-block;">&#160;</span><a class="el" href="_material_file_v1.html" target="_self">Archivo de descripción de material (revisión 1).</a></td><td class="desc">En esta versión de la especificación, la información de los shaders se obtiene automáticamente, por lo que no es necesario especificarla </td></tr>
+<tr id="row_0_0_1_" class="odd"><td class="entry"><span style="width:48px;display:inline-block;">&#160;</span><a class="el" href="_material_file_v0.html" target="_self">Archivo de descripción de material (revisión 0).</a></td><td class="desc">En esta versión de la especificación, la información del material se divide entre el archivo de material y el archivo de shader </td></tr>
+<tr id="row_0_1_" class="even"><td class="entry"><span style="width:32px;display:inline-block;">&#160;</span><a class="el" href="_model3_d_file.html" target="_self">Archivo de descripción de modelos 3D.</a></td><td class="desc">Indica los metadatos de un modelo 3D almacenado en un fichero externo </td></tr>
+<tr id="row_0_2_" class="odd"><td class="entry"><span style="width:32px;display:inline-block;">&#160;</span><a class="el" href="_pre_built_collider3_d_file.html" target="_self">Archivo de descripción de volumen de colisión 3D.</a></td><td class="desc">Indica los metadatos de un volumen de colisión 3D almacenado en un fichero externo </td></tr>
+<tr id="row_0_3_" class="even"><td class="entry"><span style="width:32px;display:inline-block;">&#160;</span><a class="el" href="_texture_file.html" target="_self">Archivo de descripción de una textura 2D.</a></td><td class="desc">Indica los metadatos de una textura 3D almacenada en un fichero externo </td></tr>
+<tr id="row_0_4_" class="odd"><td class="entry"><span style="width:32px;display:inline-block;">&#160;</span><a class="el" href="_font_file.html" target="_self">Archivo de descripción de una fuente de texto.</a></td><td class="desc">Indica los metadatos de una fuente de texto almacenada en un fichero externo </td></tr>
+<tr id="row_0_5_" class="even"><td class="entry"><span style="width:32px;display:inline-block;">&#160;</span><a class="el" href="_cubemap_file.html" target="_self">Archivo de descripción de mapa cúbico.</a></td><td class="desc">Indica los metadatos de un mapa cúbico almacenado en varios ficheros externos </td></tr>
+<tr id="row_0_6_" class="odd"><td class="entry"><span style="width:32px;display:inline-block;">&#160;</span><a class="el" href="_irradiance_map_file.html" target="_self">Archivo de descripción de un mapa de irradiancia.</a></td><td class="desc">Indica los metadatos de un mapa de irradiancia almacenado en un fichero externo </td></tr>
+<tr id="row_0_7_" class="even"><td class="entry"><span style="width:32px;display:inline-block;">&#160;</span><a class="el" href="_specular_map_file.html" target="_self">Archivo de descripción de un mapa de iluminación especular.</a></td><td class="desc">Indica los metadatos de un mapa de iluminación especular almacenado en un fichero externo </td></tr>
 </table>
 </div><!-- directory -->
 </div><!-- contents -->
@@ -109,7 +116,7 @@ $(function(){initNavTree('pages.html',''); initResizable(); });
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="footer">Generado el Jueves, 28 de marzo de 2024 17:53:14 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.10.0 </li>
+    <li class="footer">Generado el Lunes, 15 de abril de 2024 22:39:19 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.10.0 </li>
   </ul>
 </div>
 </body>

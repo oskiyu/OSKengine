@@ -114,6 +114,8 @@ Métodos públicos</h2></td></tr>
 <tr class="separator:aa94146b9b5afc01e7727c34aa6cbe839"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8b6b68a706171f972472acb576d8c05b" id="r_a8b6b68a706171f972472acb576d8c05b"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_o_s_k_1_1_owned_ptr.html">OwnedPtr</a>&lt; <a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_pool.html">ICommandPool</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a8b6b68a706171f972472acb576d8c05b">CreateComputeCommandPool</a> () override</td></tr>
 <tr class="separator:a8b6b68a706171f972472acb576d8c05b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1bd06e41362a9e1cc7b29c323a085f7d" id="r_a1bd06e41362a9e1cc7b29c323a085f7d"><td class="memItemLeft" align="right" valign="top">std::optional&lt; <a class="el" href="class_o_s_k_1_1_owned_ptr.html">OwnedPtr</a>&lt; <a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_pool.html">ICommandPool</a> &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a1bd06e41362a9e1cc7b29c323a085f7d">CreateTransferOnlyCommandPool</a> () override</td></tr>
+<tr class="separator:a1bd06e41362a9e1cc7b29c323a085f7d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8e8817cb2a5a0f368898a0d70b0b7e3b" id="r_a8e8817cb2a5a0f368898a0d70b0b7e3b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a8e8817cb2a5a0f368898a0d70b0b7e3b">SetAdapter</a> (const ComPtr&lt; IDXGIAdapter1 &gt; &amp;adapter)</td></tr>
 <tr class="separator:a8e8817cb2a5a0f368898a0d70b0b7e3b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a99e06b90cac714db0a2361335d31a7cd" id="r_a99e06b90cac714db0a2361335d31a7cd"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a99e06b90cac714db0a2361335d31a7cd">SetDevice</a> (const ComPtr&lt; ID3D12Device &gt; &amp;device)</td></tr>
@@ -150,7 +152,7 @@ Métodos públicos</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definición en la línea <a class="el" href="_gpu_dx12_8cpp_source.html#l00011">11</a> del archivo <a class="el" href="_gpu_dx12_8cpp_source.html">GpuDx12.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_gpu_dx12_8cpp_source.html#l00014">14</a> del archivo <a class="el" href="_gpu_dx12_8cpp_source.html">GpuDx12.cpp</a>.</p>
 
 </div>
 </div>
@@ -182,7 +184,7 @@ Métodos públicos</h2></td></tr>
 
 <p>Implementa <a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu.html#ab505de7218654c86ee2d63eed1915b71">OSK::GRAPHICS::IGpu</a>.</p>
 
-<p class="definition">Definición en la línea <a class="el" href="_gpu_dx12_8cpp_source.html#l00015">15</a> del archivo <a class="el" href="_gpu_dx12_8cpp_source.html">GpuDx12.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_gpu_dx12_8cpp_source.html#l00018">18</a> del archivo <a class="el" href="_gpu_dx12_8cpp_source.html">GpuDx12.cpp</a>.</p>
 
 </div>
 </div>
@@ -221,7 +223,7 @@ Métodos públicos</h2></td></tr>
 
 <p>Implementa <a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu.html#a0c87d0b7604e00ae3ef78fd12905b82b">OSK::GRAPHICS::IGpu</a>.</p>
 
-<p class="definition">Definición en la línea <a class="el" href="_gpu_dx12_8cpp_source.html#l00035">35</a> del archivo <a class="el" href="_gpu_dx12_8cpp_source.html">GpuDx12.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_gpu_dx12_8cpp_source.html#l00043">43</a> del archivo <a class="el" href="_gpu_dx12_8cpp_source.html">GpuDx12.cpp</a>.</p>
 
 </div>
 </div>
@@ -260,7 +262,39 @@ Métodos públicos</h2></td></tr>
 
 <p>Implementa <a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu.html#a0e27b5a4e45abc3ee2a4c6712f798d9e">OSK::GRAPHICS::IGpu</a>.</p>
 
-<p class="definition">Definición en la línea <a class="el" href="_gpu_dx12_8cpp_source.html#l00024">24</a> del archivo <a class="el" href="_gpu_dx12_8cpp_source.html">GpuDx12.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_gpu_dx12_8cpp_source.html#l00027">27</a> del archivo <a class="el" href="_gpu_dx12_8cpp_source.html">GpuDx12.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a1bd06e41362a9e1cc7b29c323a085f7d" name="a1bd06e41362a9e1cc7b29c323a085f7d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1bd06e41362a9e1cc7b29c323a085f7d">&#9670;&#160;</a></span>CreateTransferOnlyCommandPool()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::optional&lt; <a class="el" href="class_o_s_k_1_1_owned_ptr.html">OwnedPtr</a>&lt; <a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_pool.html">ICommandPool</a> &gt; &gt; GpuDx12::CreateTransferOnlyCommandPool </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Intenta crear un pool de comandos que soporte únicamente operaciones de transferencia. </p>
+<dl class="section return"><dt>Devuelve</dt><dd>Command pool para comandos excusivamente de transferencia. Si no hay, retorna vacío. </dd></dl>
+
+<p>Implementa <a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu.html#af48b9e4bf46c4fbb2f890b62622de2bf">OSK::GRAPHICS::IGpu</a>.</p>
+
+<p class="definition">Definición en la línea <a class="el" href="_gpu_dx12_8cpp_source.html#l00059">59</a> del archivo <a class="el" href="_gpu_dx12_8cpp_source.html">GpuDx12.cpp</a>.</p>
 
 </div>
 </div>
@@ -279,7 +313,7 @@ Métodos públicos</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definición en la línea <a class="el" href="_gpu_dx12_8cpp_source.html#l00054">54</a> del archivo <a class="el" href="_gpu_dx12_8cpp_source.html">GpuDx12.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_gpu_dx12_8cpp_source.html#l00078">78</a> del archivo <a class="el" href="_gpu_dx12_8cpp_source.html">GpuDx12.cpp</a>.</p>
 
 </div>
 </div>
@@ -298,7 +332,7 @@ Métodos públicos</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definición en la línea <a class="el" href="_gpu_dx12_8cpp_source.html#l00058">58</a> del archivo <a class="el" href="_gpu_dx12_8cpp_source.html">GpuDx12.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_gpu_dx12_8cpp_source.html#l00082">82</a> del archivo <a class="el" href="_gpu_dx12_8cpp_source.html">GpuDx12.cpp</a>.</p>
 
 </div>
 </div>
@@ -330,7 +364,7 @@ Métodos públicos</h2></td></tr>
 
 <p>Implementa <a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu.html#ac8b780cbb64fb4ed7bc8e4a295a7e806">OSK::GRAPHICS::IGpu</a>.</p>
 
-<p class="definition">Definición en la línea <a class="el" href="_gpu_dx12_8cpp_source.html#l00019">19</a> del archivo <a class="el" href="_gpu_dx12_8cpp_source.html">GpuDx12.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_gpu_dx12_8cpp_source.html#l00022">22</a> del archivo <a class="el" href="_gpu_dx12_8cpp_source.html">GpuDx12.cpp</a>.</p>
 
 </div>
 </div>
@@ -349,7 +383,7 @@ Métodos públicos</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definición en la línea <a class="el" href="_gpu_dx12_8cpp_source.html#l00046">46</a> del archivo <a class="el" href="_gpu_dx12_8cpp_source.html">GpuDx12.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_gpu_dx12_8cpp_source.html#l00070">70</a> del archivo <a class="el" href="_gpu_dx12_8cpp_source.html">GpuDx12.cpp</a>.</p>
 
 </div>
 </div>
@@ -368,21 +402,17 @@ Métodos públicos</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definición en la línea <a class="el" href="_gpu_dx12_8cpp_source.html#l00050">50</a> del archivo <a class="el" href="_gpu_dx12_8cpp_source.html">GpuDx12.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_gpu_dx12_8cpp_source.html#l00074">74</a> del archivo <a class="el" href="_gpu_dx12_8cpp_source.html">GpuDx12.cpp</a>.</p>
 
 </div>
 </div>
-<hr/>La documentación de esta clase está generada de los siguientes archivos:<ul>
-<li>Source/<a class="el" href="_gpu_dx12_8h_source.html">GpuDx12.h</a></li>
-<li>Source/<a class="el" href="_gpu_dx12_8cpp_source.html">GpuDx12.cpp</a></li>
-</ul>
 </div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="namespace_o_s_k.html">OSK</a></li><li class="navelem"><a class="el" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html">GRAPHICS</a></li><li class="navelem"><a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_dx12.html">GpuDx12</a></li>
-    <li class="footer">Generado el Jueves, 28 de marzo de 2024 17:53:13 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.10.0 </li>
+    <li class="footer">Generado el Lunes, 15 de abril de 2024 22:39:18 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.10.0 </li>
   </ul>
 </div>
 </body>

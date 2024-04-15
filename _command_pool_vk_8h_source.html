@@ -101,59 +101,61 @@ $(function(){initNavTree('_command_pool_vk_8h_source.html',''); initResizable();
   <div class="headertitle"><div class="title">CommandPoolVk.h</div></div>
 </div><!--header-->
 <div class="contents">
-<a href="_command_pool_vk_8h.html">Ir a la documentación de este archivo.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#pragma once</span></div>
+<div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#pragma once</span></div>
 <div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span> </div>
-<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="preprocessor">#include &quot;<a class="code" href="_i_command_pool_8h.html">ICommandPool.h</a>&quot;</span></div>
+<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="preprocessor">#include &quot;ICommandPool.h&quot;</span></div>
 <div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span> </div>
-<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="keyword">struct </span>VkCommandPool_T;</div>
-<div class="line"><a id="l00006" name="l00006"></a><span class="lineno"><a class="line" href="_command_pool_vk_8h.html#ab1e2e3af5473fdace964a5561a5a1541">    6</a></span><span class="keyword">using </span><a class="code hl_typedef" href="_command_pool_vk_8h.html#ab1e2e3af5473fdace964a5561a5a1541">VkCommandPool</a> = VkCommandPool_T*;</div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span>OSK_VULKAN_TYPEDEF(VkCommandPool);</div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span>OSK_VULKAN_TYPEDEF(VkDevice);</div>
 <div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span> </div>
 <div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="keyword">namespace </span><a class="code hl_namespace" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html">OSK::GRAPHICS</a> {</div>
 <div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span> </div>
-<div class="foldopen" id="foldopen00015" data-start="{" data-end="};">
-<div class="line"><a id="l00015" name="l00015"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_pool_vk.html">   15</a></span>    <span class="keyword">class </span><a class="code hl_define" href="_o_s_kmacros_8h.html#a09ec5b46ece998ad096bceff312bb36c">OSKAPI_CALL</a> <a class="code hl_class" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_pool_vk.html">CommandPoolVk</a> final : <span class="keyword">public</span> <a class="code hl_class" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_pool.html">ICommandPool</a> {</div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span>    <span class="keyword">struct </span>QueueFamily;</div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span>    <span class="keyword">class </span>GpuVk;</div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span> </div>
+<div class="foldopen" id="foldopen00013" data-start="{" data-end="};">
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_pool_vk.html">   13</a></span>    <span class="keyword">class </span>OSKAPI_CALL <a class="code hl_class" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_pool_vk.html">CommandPoolVk</a> final : <span class="keyword">public</span> <a class="code hl_class" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_pool.html">ICommandPool</a> {</div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span> </div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span>    <span class="keyword">public</span>:</div>
 <div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span> </div>
-<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>    <span class="keyword">public</span>:</div>
-<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span> </div>
-<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>        <a class="code hl_class" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_pool_vk.html">~CommandPoolVk</a>();</div>
-<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span> </div>
-<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>        <a class="code hl_class" href="class_o_s_k_1_1_owned_ptr.html">OwnedPtr&lt;ICommandList&gt;</a> CreateCommandList(<span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu.html">IGpu</a>&amp; device) <span class="keyword">override</span>;</div>
-<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>        <a class="code hl_class" href="class_o_s_k_1_1_owned_ptr.html">OwnedPtr&lt;ICommandList&gt;</a> CreateSingleTimeCommandList(<span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu.html">IGpu</a>&amp; device) <span class="keyword">override</span>;</div>
-<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span> </div>
-<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>        <span class="keywordtype">void</span> SetSwapchainCount(<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> count);</div>
-<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span> </div>
-<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>        <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> GetSwapchainCount() <span class="keyword">const</span>;</div>
-<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span> </div>
-<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>        <span class="keywordtype">void</span> SetCommandPool(<a class="code hl_typedef" href="_command_pool_vk_8h.html#ab1e2e3af5473fdace964a5561a5a1541">VkCommandPool</a> commandPool);</div>
-<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>        <a class="code hl_typedef" href="_command_pool_vk_8h.html#ab1e2e3af5473fdace964a5561a5a1541">VkCommandPool</a> GetCommandPool() <span class="keyword">const</span>;</div>
-<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span> </div>
-<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>    <span class="keyword">private</span>:</div>
-<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span> </div>
-<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>        <a class="code hl_class" href="class_o_s_k_1_1_owned_ptr.html">OwnedPtr&lt;ICommandList&gt;</a> CreateList(<span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu.html">IGpu</a>&amp; device, <a class="code hl_typedef" href="_o_s_kmacros_8h.html#a3e916ed5b32955be3417da92899fc361">USize32</a> numNativeLists);</div>
-<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span> </div>
-<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>        <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> numberOfImages = 0;</div>
-<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>        <a class="code hl_typedef" href="_command_pool_vk_8h.html#ab1e2e3af5473fdace964a5561a5a1541">VkCommandPool</a> commandPool;</div>
-<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span> </div>
-<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>    };</div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>        <a class="code hl_class" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_pool_vk.html">CommandPoolVk</a>(</div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>            <span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_vk.html">GpuVk</a>&amp; device,</div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>            <span class="keyword">const</span> <a class="code hl_struct" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_queue_family.html">QueueFamily</a>&amp; queueType,</div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>            <a class="code hl_enumeration" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#af480a36d7bec77341500daf8dda20f1d">GpuQueueType</a> type);</div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span> </div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>        <a class="code hl_class" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_pool_vk.html">~CommandPoolVk</a>() <span class="keyword">override</span>;</div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span> </div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>        <a class="code hl_class" href="class_o_s_k_1_1_owned_ptr.html">OwnedPtr&lt;ICommandList&gt;</a> CreateCommandList(<span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu.html">IGpu</a>&amp; device) <span class="keyword">override</span>;</div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>        <a class="code hl_class" href="class_o_s_k_1_1_owned_ptr.html">OwnedPtr&lt;ICommandList&gt;</a> CreateSingleTimeCommandList(<span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu.html">IGpu</a>&amp; device) <span class="keyword">override</span>;</div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>        </div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>        VkCommandPool GetCommandPool() <span class="keyword">const</span>;</div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span> </div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>    <span class="keyword">private</span>:</div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span> </div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>        <a class="code hl_class" href="class_o_s_k_1_1_owned_ptr.html">OwnedPtr&lt;ICommandList&gt;</a> CreateList(<span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu.html">IGpu</a>&amp; device, USize32 numNativeLists);</div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span> </div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>        VkCommandPool m_commandPool = <span class="keyword">nullptr</span>;</div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>        VkDevice m_logicalDevice = <span class="keyword">nullptr</span>;</div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span> </div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>    };</div>
 </div>
-<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span> </div>
-<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>}</div>
-<div class="ttc" id="a_command_pool_vk_8h_html_ab1e2e3af5473fdace964a5561a5a1541"><div class="ttname"><a href="_command_pool_vk_8h.html#ab1e2e3af5473fdace964a5561a5a1541">VkCommandPool</a></div><div class="ttdeci">VkCommandPool_T * VkCommandPool</div><div class="ttdef"><b>Definition</b> <a href="#l00006">CommandPoolVk.h:6</a></div></div>
-<div class="ttc" id="a_i_command_pool_8h_html"><div class="ttname"><a href="_i_command_pool_8h.html">ICommandPool.h</a></div></div>
-<div class="ttc" id="a_o_s_kmacros_8h_html_a09ec5b46ece998ad096bceff312bb36c"><div class="ttname"><a href="_o_s_kmacros_8h.html#a09ec5b46ece998ad096bceff312bb36c">OSKAPI_CALL</a></div><div class="ttdeci">#define OSKAPI_CALL</div><div class="ttdef"><b>Definition</b> <a href="_o_s_kmacros_8h_source.html#l00007">OSKmacros.h:7</a></div></div>
-<div class="ttc" id="a_o_s_kmacros_8h_html_a3e916ed5b32955be3417da92899fc361"><div class="ttname"><a href="_o_s_kmacros_8h.html#a3e916ed5b32955be3417da92899fc361">USize32</a></div><div class="ttdeci">uint32_t USize32</div><div class="ttdef"><b>Definition</b> <a href="_o_s_kmacros_8h_source.html#l00044">OSKmacros.h:44</a></div></div>
-<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_pool_vk_html"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_pool_vk.html">OSK::GRAPHICS::CommandPoolVk</a></div><div class="ttdoc">Una pool de comandos se encarga de crear una serie de listas de comandos.</div><div class="ttdef"><b>Definition</b> <a href="#l00015">CommandPoolVk.h:15</a></div></div>
-<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_pool_html"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_pool.html">OSK::GRAPHICS::ICommandPool</a></div><div class="ttdoc">Una pool de comandos se encarga de crear una serie de listas de comandos. Al mismo tiempo,...</div><div class="ttdef"><b>Definition</b> <a href="_i_command_pool_8h_source.html#l00016">ICommandPool.h:16</a></div></div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span> </div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>}</div>
+<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_pool_vk_html"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_pool_vk.html">OSK::GRAPHICS::CommandPoolVk</a></div><div class="ttdef"><b>Definition</b> <a href="#l00013">CommandPoolVk.h:13</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_vk_html"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_vk.html">OSK::GRAPHICS::GpuVk</a></div><div class="ttdoc">Implementación de la interfaz para el renderizador de Vulkan.</div><div class="ttdef"><b>Definition</b> <a href="_gpu_vk_8h_source.html#l00012">GpuVk.h:12</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_pool_html"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_pool.html">OSK::GRAPHICS::ICommandPool</a></div><div class="ttdoc">Una pool de comandos se encarga de crear una serie de listas de comandos. Al mismo tiempo,...</div><div class="ttdef"><b>Definition</b> <a href="_i_command_pool_8h_source.html#l00018">ICommandPool.h:18</a></div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_html"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu.html">OSK::GRAPHICS::IGpu</a></div><div class="ttdoc">Representa una conexión con la GPU.</div><div class="ttdef"><b>Definition</b> <a href="_i_gpu_8h_source.html#l00014">IGpu.h:14</a></div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_owned_ptr_html"><div class="ttname"><a href="class_o_s_k_1_1_owned_ptr.html">OSK::OwnedPtr</a></div><div class="ttdoc">Es dueño de un puntero.</div><div class="ttdef"><b>Definition</b> <a href="_owned_ptr_8h_source.html#l00016">OwnedPtr.h:16</a></div></div>
 <div class="ttc" id="anamespace_o_s_k_1_1_g_r_a_p_h_i_c_s_html"><div class="ttname"><a href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html">OSK::GRAPHICS</a></div><div class="ttdef"><b>Definition</b> <a href="_acceleration_structures_exceptions_8h_source.html#l00005">AccelerationStructuresExceptions.h:5</a></div></div>
+<div class="ttc" id="anamespace_o_s_k_1_1_g_r_a_p_h_i_c_s_html_af480a36d7bec77341500daf8dda20f1d"><div class="ttname"><a href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#af480a36d7bec77341500daf8dda20f1d">OSK::GRAPHICS::GpuQueueType</a></div><div class="ttdeci">GpuQueueType</div><div class="ttdoc">Tipos de colas GPU ofrecidas por el motor.</div><div class="ttdef"><b>Definition</b> <a href="_gpu_queue_types_8h_source.html#l00007">GpuQueueTypes.h:7</a></div></div>
+<div class="ttc" id="astruct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_queue_family_html"><div class="ttname"><a href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_queue_family.html">OSK::GRAPHICS::QueueFamily</a></div><div class="ttdoc">Información sobre una familia de colas de comandos.</div><div class="ttdef"><b>Definition</b> <a href="_queue_family_indices_8h_source.html#l00010">QueueFamilyIndices.h:10</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="dir_74389ed8173ad57b461b9d623a1f3867.html">Source</a></li><li class="navelem"><a class="el" href="_command_pool_vk_8h.html">CommandPoolVk.h</a></li>
-    <li class="footer">Generado el Jueves, 28 de marzo de 2024 17:53:10 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.10.0 </li>
+    <li class="navelem"><a class="el" href="dir_74389ed8173ad57b461b9d623a1f3867.html">Source</a></li><li class="navelem"><b>CommandPoolVk.h</b></li>
+    <li class="footer">Generado el Lunes, 15 de abril de 2024 22:39:15 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.10.0 </li>
   </ul>
 </div>
 </body>

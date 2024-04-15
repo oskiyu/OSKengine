@@ -10,14 +10,13 @@ var searchData=
   ['normal_5fimage_5findex_7',['NORMAL_IMAGE_INDEX',['../class_o_s_k_1_1_e_c_s_1_1_render_system3_d.html#a805c938d983ec6e87910ddb4fc7ec044',1,'OSK::ECS::RenderSystem3D']]],
   ['normaltextureindex_8',['normalTextureIndex',['../struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_model3_d_1_1_material.html#a00fbd48c05a57e0eb9d3a91695150d2e',1,'OSK::GRAPHICS::GpuModel3D::Material']]],
   ['notfoundindex_9',['NotFoundIndex',['../class_o_s_k_1_1_dynamic_array.html#a1423397cd2c6c80a52450ac91647f152',1,'OSK::DynamicArray']]],
-  ['num_5fresources_5fin_5fflight_10',['NUM_RESOURCES_IN_FLIGHT',['../_o_s_kmacros_8h.html#ae5e86c617c5992479b42bbd9c280b4df',1,'OSKmacros.h']]],
-  ['numarraylayers_11',['numArrayLayers',['../struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_layout_binding.html#a4c6202f2c172d42d7511bd840ef7e154',1,'OSK::GRAPHICS::MaterialLayoutBinding']]],
-  ['numarraylevels_12',['numArrayLevels',['../struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_copy_image_info.html#aa80560c1e7b54f7294cee5cd1ed9b50d',1,'OSK::GRAPHICS::CopyImageInfo']]],
-  ['numentries_13',['numEntries',['../struct_o_s_k_1_1_e_c_s_1_1_event_queue_span.html#a1d897824035ca09517582f5833a89ac4',1,'OSK::ECS::EventQueueSpan']]],
-  ['numindices_14',['numIndices',['../struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_index_buffer_view.html#af0091073f6873151a3092366e7b45809',1,'OSK::GRAPHICS::IndexBufferView']]],
-  ['numlayers_15',['numLayers',['../struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_range.html#aa2ce394e34d269f98f5d6c9669c059d8',1,'OSK::GRAPHICS::GpuImageRange::numLayers'],['../struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_create_info.html#afccbd72ee2387b4515b284735a9614f5',1,'OSK::GRAPHICS::GpuImageCreateInfo::numLayers']]],
-  ['nummiplevels_16',['numMipLevels',['../struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_range.html#a86e5a8a479aaa4017b41990bb585ab85',1,'OSK::GRAPHICS::GpuImageRange']]],
-  ['numpointlights_17',['numPointLights',['../struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_lights_buffer_struct.html#a8903e01865c6282a98eb6794792dd0fe',1,'OSK::GRAPHICS::LightsBufferStruct']]],
-  ['numqueues_18',['numQueues',['../struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_queue_family.html#a04c54ffb323db888fb90b5c5b38ab0dd',1,'OSK::GRAPHICS::QueueFamily']]],
-  ['numvertices_19',['numVertices',['../struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_vertex_buffer_view.html#a069cab39b325fff29c5a126be46e2754',1,'OSK::GRAPHICS::VertexBufferView']]]
+  ['numarraylayers_10',['numArrayLayers',['../struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_layout_binding.html#a4c6202f2c172d42d7511bd840ef7e154',1,'OSK::GRAPHICS::MaterialLayoutBinding']]],
+  ['numarraylevels_11',['numArrayLevels',['../struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_copy_image_info.html#aa80560c1e7b54f7294cee5cd1ed9b50d',1,'OSK::GRAPHICS::CopyImageInfo']]],
+  ['numentries_12',['numEntries',['../struct_o_s_k_1_1_e_c_s_1_1_event_queue_span.html#a1d897824035ca09517582f5833a89ac4',1,'OSK::ECS::EventQueueSpan']]],
+  ['numindices_13',['numIndices',['../struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_index_buffer_view.html#af0091073f6873151a3092366e7b45809',1,'OSK::GRAPHICS::IndexBufferView']]],
+  ['numlayers_14',['numLayers',['../struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_create_info.html#afccbd72ee2387b4515b284735a9614f5',1,'OSK::GRAPHICS::GpuImageCreateInfo::numLayers'],['../struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_range.html#aa2ce394e34d269f98f5d6c9669c059d8',1,'OSK::GRAPHICS::GpuImageRange::numLayers']]],
+  ['nummiplevels_15',['numMipLevels',['../struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_range.html#a86e5a8a479aaa4017b41990bb585ab85',1,'OSK::GRAPHICS::GpuImageRange']]],
+  ['numpointlights_16',['numPointLights',['../struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_lights_buffer_struct.html#a8903e01865c6282a98eb6794792dd0fe',1,'OSK::GRAPHICS::LightsBufferStruct']]],
+  ['numqueues_17',['numQueues',['../struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_queue_family.html#a04c54ffb323db888fb90b5c5b38ab0dd',1,'OSK::GRAPHICS::QueueFamily']]],
+  ['numvertices_18',['numVertices',['../struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_vertex_buffer_view.html#a069cab39b325fff29c5a126be46e2754',1,'OSK::GRAPHICS::VertexBufferView']]]
 ];

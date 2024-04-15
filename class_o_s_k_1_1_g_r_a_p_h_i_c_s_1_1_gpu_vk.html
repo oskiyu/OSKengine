@@ -132,6 +132,8 @@ Métodos públicos</h2></td></tr>
 <tr class="separator:a71eb0a92be90d9d847b5f4de4cd5d812"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aaad7bc40d1436bfe01d0dadc61b41726" id="r_aaad7bc40d1436bfe01d0dadc61b41726"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_o_s_k_1_1_owned_ptr.html">OwnedPtr</a>&lt; <a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_pool.html">ICommandPool</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aaad7bc40d1436bfe01d0dadc61b41726">CreateComputeCommandPool</a> () override</td></tr>
 <tr class="separator:aaad7bc40d1436bfe01d0dadc61b41726"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aef2e4214d556d5e8f6cc73bef04047b2" id="r_aef2e4214d556d5e8f6cc73bef04047b2"><td class="memItemLeft" align="right" valign="top">std::optional&lt; <a class="el" href="class_o_s_k_1_1_owned_ptr.html">OwnedPtr</a>&lt; <a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_pool.html">ICommandPool</a> &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aef2e4214d556d5e8f6cc73bef04047b2">CreateTransferOnlyCommandPool</a> () override</td></tr>
+<tr class="separator:aef2e4214d556d5e8f6cc73bef04047b2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Descripción detallada</h2>
 <div class="textblock"><p>Implementación de la interfaz para el renderizador de Vulkan. </p>
@@ -216,7 +218,7 @@ Métodos públicos</h2></td></tr>
 
 <p>Implementa <a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu.html#a0c87d0b7604e00ae3ef78fd12905b82b">OSK::GRAPHICS::IGpu</a>.</p>
 
-<p class="definition">Definición en la línea <a class="el" href="_gpu_vk_8cpp_source.html#l00086">86</a> del archivo <a class="el" href="_gpu_vk_8cpp_source.html">GpuVk.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_gpu_vk_8cpp_source.html#l00076">76</a> del archivo <a class="el" href="_gpu_vk_8cpp_source.html">GpuVk.cpp</a>.</p>
 
 </div>
 </div>
@@ -281,10 +283,40 @@ Métodos públicos</h2></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000004">Tareas pendientes</a></b></dt><dd>check </dd></dl>
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000005">Tareas pendientes</a></b></dt><dd>check </dd></dl>
 
-<p class="definition">Definición en la línea <a class="el" href="_gpu_vk_8cpp_source.html#l00123">123</a> del archivo <a class="el" href="_gpu_vk_8cpp_source.html">GpuVk.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_gpu_vk_8cpp_source.html#l00117">117</a> del archivo <a class="el" href="_gpu_vk_8cpp_source.html">GpuVk.cpp</a>.</p>
+
+</div>
+</div>
+<a id="aef2e4214d556d5e8f6cc73bef04047b2" name="aef2e4214d556d5e8f6cc73bef04047b2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aef2e4214d556d5e8f6cc73bef04047b2">&#9670;&#160;</a></span>CreateTransferOnlyCommandPool()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::optional&lt; <a class="el" href="class_o_s_k_1_1_owned_ptr.html">OwnedPtr</a>&lt; <a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_pool.html">ICommandPool</a> &gt; &gt; GpuVk::CreateTransferOnlyCommandPool </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Intenta crear un pool de comandos que soporte únicamente operaciones de transferencia. </p>
+<dl class="section return"><dt>Devuelve</dt><dd>Command pool para comandos excusivamente de transferencia. Si no hay, retorna vacío. </dd></dl>
+
+<p>Implementa <a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu.html#af48b9e4bf46c4fbb2f890b62622de2bf">OSK::GRAPHICS::IGpu</a>.</p>
+
+<p class="definition">Definición en la línea <a class="el" href="_gpu_vk_8cpp_source.html#l00090">90</a> del archivo <a class="el" href="_gpu_vk_8cpp_source.html">GpuVk.cpp</a>.</p>
 
 </div>
 </div>
@@ -306,7 +338,7 @@ Métodos públicos</h2></td></tr>
 <p>Devuelve la información de esta GPU. </p>
 <dl class="section return"><dt>Devuelve</dt><dd>Información de esta GPU. </dd></dl>
 
-<p class="definition">Definición en la línea <a class="el" href="_gpu_vk_8cpp_source.html#l00232">232</a> del archivo <a class="el" href="_gpu_vk_8cpp_source.html">GpuVk.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_gpu_vk_8cpp_source.html#l00237">237</a> del archivo <a class="el" href="_gpu_vk_8cpp_source.html">GpuVk.cpp</a>.</p>
 
 </div>
 </div>
@@ -329,7 +361,7 @@ Métodos públicos</h2></td></tr>
 <dl class="section return"><dt>Devuelve</dt><dd>Logical device de la GPU.</dd></dl>
 <dl class="section pre"><dt>Precondición</dt><dd>Se debe haber llamado a GpuVulkan::CreateLogicalDevice. </dd></dl>
 
-<p class="definition">Definición en la línea <a class="el" href="_gpu_vk_8cpp_source.html#l00228">228</a> del archivo <a class="el" href="_gpu_vk_8cpp_source.html">GpuVk.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_gpu_vk_8cpp_source.html#l00233">233</a> del archivo <a class="el" href="_gpu_vk_8cpp_source.html">GpuVk.cpp</a>.</p>
 
 </div>
 </div>
@@ -383,7 +415,7 @@ Métodos públicos</h2></td></tr>
 <p>Obtiene el handler de Vulkan de la GPU. </p>
 <dl class="section return"><dt>Devuelve</dt><dd>Handler de la GPU. </dd></dl>
 
-<p class="definition">Definición en la línea <a class="el" href="_gpu_vk_8cpp_source.html#l00119">119</a> del archivo <a class="el" href="_gpu_vk_8cpp_source.html">GpuVk.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_gpu_vk_8cpp_source.html#l00113">113</a> del archivo <a class="el" href="_gpu_vk_8cpp_source.html">GpuVk.cpp</a>.</p>
 
 </div>
 </div>
@@ -405,7 +437,7 @@ Métodos públicos</h2></td></tr>
 <p>Devuelve información sobre las colas soportadas por esta GPU. </p>
 <dl class="section return"><dt>Devuelve</dt><dd>Colas de comandos soportadas por esta GPU. </dd></dl>
 
-<p class="definition">Definición en la línea <a class="el" href="_gpu_vk_8cpp_source.html#l00236">236</a> del archivo <a class="el" href="_gpu_vk_8cpp_source.html">GpuVk.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_gpu_vk_8cpp_source.html#l00241">241</a> del archivo <a class="el" href="_gpu_vk_8cpp_source.html">GpuVk.cpp</a>.</p>
 
 </div>
 </div>
@@ -427,21 +459,17 @@ Métodos públicos</h2></td></tr>
 <p>Devuelve la superficie sobre la que renderiza esta GPU. </p>
 <dl class="section return"><dt>Devuelve</dt><dd>Superficie sobre la que renderiza esta GPU. </dd></dl>
 
-<p class="definition">Definición en la línea <a class="el" href="_gpu_vk_8cpp_source.html#l00108">108</a> del archivo <a class="el" href="_gpu_vk_8cpp_source.html">GpuVk.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_gpu_vk_8cpp_source.html#l00102">102</a> del archivo <a class="el" href="_gpu_vk_8cpp_source.html">GpuVk.cpp</a>.</p>
 
 </div>
 </div>
-<hr/>La documentación de esta clase está generada de los siguientes archivos:<ul>
-<li>Source/<a class="el" href="_gpu_vk_8h_source.html">GpuVk.h</a></li>
-<li>Source/<a class="el" href="_gpu_vk_8cpp_source.html">GpuVk.cpp</a></li>
-</ul>
 </div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="namespace_o_s_k.html">OSK</a></li><li class="navelem"><a class="el" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html">GRAPHICS</a></li><li class="navelem"><a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_vk.html">GpuVk</a></li>
-    <li class="footer">Generado el Jueves, 28 de marzo de 2024 17:53:13 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.10.0 </li>
+    <li class="footer">Generado el Lunes, 15 de abril de 2024 22:39:18 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.10.0 </li>
   </ul>
 </div>
 </body>

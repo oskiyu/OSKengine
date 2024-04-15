@@ -101,18 +101,18 @@ $(function(){initNavTree('_transform3_d_8cpp_source.html',''); initResizable(); 
   <div class="headertitle"><div class="title">Transform3D.cpp</div></div>
 </div><!--header-->
 <div class="contents">
-<a href="_transform3_d_8cpp.html">Ir a la documentación de este archivo.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#include &quot;<a class="code" href="_transform3_d_8h.html">Transform3D.h</a>&quot;</span></div>
+<div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#include &quot;Transform3D.h&quot;</span></div>
 <div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span> </div>
-<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="preprocessor">#include &quot;<a class="code" href="_entity_component_system_8h.html">EntityComponentSystem.h</a>&quot;</span></div>
-<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &quot;<a class="code" href="_o_s_kengine_8h.html">OSKengine.h</a>&quot;</span></div>
+<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="preprocessor">#include &quot;EntityComponentSystem.h&quot;</span></div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &quot;OSKengine.h&quot;</span></div>
 <div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span> </div>
-<div class="line"><a id="l00006" name="l00006"></a><span class="lineno"><a class="line" href="_transform3_d_8cpp.html#abd75661fe7969e19439052a5f69ba5d1">    6</a></span><span class="preprocessor">#define GLM_ENABLE_EXPERIMENTAL</span></div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#define GLM_ENABLE_EXPERIMENTAL</span></div>
 <div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="preprocessor">#include &lt;glm/gtx/quaternion.hpp&gt;</span></div>
 <div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="preprocessor">#include &lt;glm/gtx/string_cast.hpp&gt;</span></div>
 <div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span> </div>
-<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="preprocessor">#include &quot;<a class="code" href="_matrix_operations_8hpp.html">MatrixOperations.hpp</a>&quot;</span></div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="preprocessor">#include &quot;MatrixOperations.hpp&quot;</span></div>
 <div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span> </div>
-<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="preprocessor">#include &quot;<a class="code" href="_math_8h.html">Math.h</a>&quot;</span></div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="preprocessor">#include &quot;Math.h&quot;</span></div>
 <div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span> </div>
 <div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span> </div>
 <div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span><span class="keyword">using namespace </span><a class="code hl_namespace" href="namespace_o_s_k.html">OSK</a>;</div>
@@ -124,7 +124,7 @@ $(function(){initNavTree('_transform3_d_8cpp_source.html',''); initResizable(); 
 <div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span> </div>
 <div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span> </div>
 <div class="foldopen" id="foldopen00023" data-start="{" data-end="}">
-<div class="line"><a id="l00023" name="l00023"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_e_c_s_1_1_transform3_d.html#a113b74eaac353602f1c7707559113b5d">   23</a></span><a class="code hl_class" href="class_o_s_k_1_1_e_c_s_1_1_transform3_d.html">Transform3D</a> <a class="code hl_function" href="class_o_s_k_1_1_e_c_s_1_1_transform3_d.html#a113b74eaac353602f1c7707559113b5d">Transform3D::FromMatrix</a>(<a class="code hl_typedef" href="namespace_o_s_k_1_1_e_c_s.html#a7be561d6b7de4e8a49c2a5cc35fba48c">ECS::GameObjectIndex</a> owner, <span class="keyword">const</span> glm::mat4&amp; matrix) {</div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_e_c_s_1_1_transform3_d.html#a113b74eaac353602f1c7707559113b5d">   23</a></span><a class="code hl_class" href="class_o_s_k_1_1_e_c_s_1_1_transform3_d.html">Transform3D</a> <a class="code hl_function" href="class_o_s_k_1_1_e_c_s_1_1_transform3_d.html#a113b74eaac353602f1c7707559113b5d">Transform3D::FromMatrix</a>(<a class="code hl_class" href="class_o_s_k_1_1_base_uuid.html">ECS::GameObjectIndex</a> owner, <span class="keyword">const</span> glm::mat4&amp; matrix) {</div>
 <div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>    <a class="code hl_class" href="class_o_s_k_1_1_e_c_s_1_1_transform3_d.html">Transform3D</a> output(owner);</div>
 <div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span> </div>
 <div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>    <span class="comment">// todo</span></div>
@@ -135,7 +135,7 @@ $(function(){initNavTree('_transform3_d_8cpp_source.html',''); initResizable(); 
 <div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span> </div>
 <div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span> </div>
 <div class="foldopen" id="foldopen00032" data-start="{" data-end="}">
-<div class="line"><a id="l00032" name="l00032"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_e_c_s_1_1_transform3_d.html#a10c838b2e1e87925aaca154cc34ca18a">   32</a></span><a class="code hl_function" href="class_o_s_k_1_1_e_c_s_1_1_transform3_d.html#a10c838b2e1e87925aaca154cc34ca18a">Transform3D::Transform3D</a>(<a class="code hl_typedef" href="namespace_o_s_k_1_1_e_c_s.html#a7be561d6b7de4e8a49c2a5cc35fba48c">ECS::GameObjectIndex</a> owner) : m_ownerId(owner) {</div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_e_c_s_1_1_transform3_d.html#a10c838b2e1e87925aaca154cc34ca18a">   32</a></span><a class="code hl_function" href="class_o_s_k_1_1_e_c_s_1_1_transform3_d.html#a10c838b2e1e87925aaca154cc34ca18a">Transform3D::Transform3D</a>(<a class="code hl_class" href="class_o_s_k_1_1_base_uuid.html">ECS::GameObjectIndex</a> owner) : m_ownerId(owner) {</div>
 <div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span> </div>
 <div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>}</div>
 </div>
@@ -164,300 +164,333 @@ $(function(){initNavTree('_transform3_d_8cpp_source.html',''); initResizable(); 
 <div class="foldopen" id="foldopen00051" data-start="{" data-end="}">
 <div class="line"><a id="l00051" name="l00051"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_e_c_s_1_1_transform3_d.html#a84e7319dbca0666f6194bd7da931644a">   51</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="class_o_s_k_1_1_e_c_s_1_1_transform3_d.html#a84e7319dbca0666f6194bd7da931644a">Transform3D::AddPosition</a>(<span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_vector3__t.html">Vector3f</a>&amp; positionDelta) {</div>
 <div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>    m_changeInPosition += positionDelta;</div>
-<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>    m_isPositionDirty = <span class="keyword">true</span>;</div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>    m_isPositionDirty.<a class="code hl_variable" href="struct_o_s_k_1_1_atomic_holder.html#a4f89a8a67cc085b193a1b65bb1ef5077">atomic</a> = <span class="keyword">true</span>;</div>
 <div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>}</div>
 </div>
 <div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span> </div>
 <div class="foldopen" id="foldopen00056" data-start="{" data-end="}">
-<div class="line"><a id="l00056" name="l00056"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_e_c_s_1_1_transform3_d.html#a519e0f71ada3555dd2af7f429e0e5d3f">   56</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="class_o_s_k_1_1_e_c_s_1_1_transform3_d.html#a519e0f71ada3555dd2af7f429e0e5d3f">Transform3D::AddScale</a>(<span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_vector3__t.html">Vector3f</a>&amp; scaleDelta) {</div>
-<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>    m_changeInScale += scaleDelta;</div>
-<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>    m_isScaleDirty = <span class="keyword">true</span>;</div>
-<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>}</div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_e_c_s_1_1_transform3_d.html#a46aed22babac45b7d0e89dea44d58002">   56</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="class_o_s_k_1_1_e_c_s_1_1_transform3_d.html#a46aed22babac45b7d0e89dea44d58002">Transform3D::AddPosition_ThreadSafe</a>(<span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_vector3__t.html">Vector3f</a>&amp; positionDelta) {</div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>    std::lock_guard lock(m_positionMutex.<a class="code hl_variable" href="struct_o_s_k_1_1_mutex_holder.html#ac3e1c4f6165143242b9dd8f018bfd14b">mutex</a>);</div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>    m_changeInPosition += positionDelta;</div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>    m_isPositionDirty.<a class="code hl_variable" href="struct_o_s_k_1_1_atomic_holder.html#a4f89a8a67cc085b193a1b65bb1ef5077">atomic</a> = <span class="keyword">true</span>;</div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>}</div>
 </div>
-<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span> </div>
-<div class="foldopen" id="foldopen00061" data-start="{" data-end="}">
-<div class="line"><a id="l00061" name="l00061"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_e_c_s_1_1_transform3_d.html#a6c715494afef79663699e2d7db4db29a">   61</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="class_o_s_k_1_1_e_c_s_1_1_transform3_d.html#a6c715494afef79663699e2d7db4db29a">Transform3D::ApplyRotation</a>(<span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_quaternion.html">Quaternion</a>&amp; rotationDelta) {</div>
-<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>    m_changeInRotation += rotationDelta;</div>
-<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>    m_isRotationDirty = <span class="keyword">true</span>;</div>
-<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>}</div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span> </div>
+<div class="foldopen" id="foldopen00062" data-start="{" data-end="}">
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_e_c_s_1_1_transform3_d.html#a519e0f71ada3555dd2af7f429e0e5d3f">   62</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="class_o_s_k_1_1_e_c_s_1_1_transform3_d.html#a519e0f71ada3555dd2af7f429e0e5d3f">Transform3D::AddScale</a>(<span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_vector3__t.html">Vector3f</a>&amp; scaleDelta) {</div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>    m_changeInScale += scaleDelta;</div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>    m_isScaleDirty.<a class="code hl_variable" href="struct_o_s_k_1_1_atomic_holder.html#a4f89a8a67cc085b193a1b65bb1ef5077">atomic</a> = <span class="keyword">true</span>;</div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>}</div>
 </div>
-<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span> </div>
-<div class="foldopen" id="foldopen00066" data-start="{" data-end="}">
-<div class="line"><a id="l00066" name="l00066"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_e_c_s_1_1_transform3_d.html#a305766732463c5ffb54588742006ff75">   66</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="class_o_s_k_1_1_e_c_s_1_1_transform3_d.html#a305766732463c5ffb54588742006ff75">Transform3D::RotateLocalSpace</a>(<span class="keywordtype">float</span> angle, <span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_vector3__t.html">Vector3f</a>&amp; axis) {</div>
-<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>    <span class="keyword">auto</span> copy = <a class="code hl_class" href="class_o_s_k_1_1_quaternion.html">Quaternion</a>(m_localRotation);</div>
-<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>    copy.Rotate_LocalSpace(angle, axis);</div>
-<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>    <span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_quaternion.html">Quaternion</a> difference = copy - m_localRotation;</div>
-<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span> </div>
-<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>    <a class="code hl_function" href="class_o_s_k_1_1_e_c_s_1_1_transform3_d.html#a6c715494afef79663699e2d7db4db29a">ApplyRotation</a>(difference);</div>
-<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>    <span class="comment">// m_isRotationDirty = true;</span></div>
-<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>    <span class="comment">// m_localRotation.Rotate_LocalSpace(angle, axis);</span></div>
-<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>}</div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span> </div>
+<div class="foldopen" id="foldopen00067" data-start="{" data-end="}">
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_e_c_s_1_1_transform3_d.html#a10367c6b67f7a5cc808e86f4260c76ef">   67</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="class_o_s_k_1_1_e_c_s_1_1_transform3_d.html#a10367c6b67f7a5cc808e86f4260c76ef">Transform3D::AddScale_ThreadSafe</a>(<span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_vector3__t.html">Vector3f</a>&amp; scaleDelta) {</div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>    std::lock_guard lock(m_scaleMutex.<a class="code hl_variable" href="struct_o_s_k_1_1_mutex_holder.html#ac3e1c4f6165143242b9dd8f018bfd14b">mutex</a>);</div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>    m_changeInScale += scaleDelta;</div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>    m_isScaleDirty.<a class="code hl_variable" href="struct_o_s_k_1_1_atomic_holder.html#a4f89a8a67cc085b193a1b65bb1ef5077">atomic</a> = <span class="keyword">true</span>;</div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>}</div>
 </div>
-<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span> </div>
-<div class="foldopen" id="foldopen00076" data-start="{" data-end="}">
-<div class="line"><a id="l00076" name="l00076"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_e_c_s_1_1_transform3_d.html#afc7da25075f1190d73579dd1b45fe33e">   76</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="class_o_s_k_1_1_e_c_s_1_1_transform3_d.html#afc7da25075f1190d73579dd1b45fe33e">Transform3D::RotateWorldSpace</a>(<span class="keywordtype">float</span> angle, <span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_vector3__t.html">Vector3f</a>&amp; axis) {</div>
-<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span>    <span class="keyword">auto</span> copy = <a class="code hl_class" href="class_o_s_k_1_1_quaternion.html">Quaternion</a>(m_localRotation);</div>
-<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span>    copy.Rotate_WorldSpace(angle, axis);</div>
-<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span>    <span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_quaternion.html">Quaternion</a> difference = copy - m_localRotation;</div>
-<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span> </div>
-<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span>    <a class="code hl_function" href="class_o_s_k_1_1_e_c_s_1_1_transform3_d.html#a6c715494afef79663699e2d7db4db29a">ApplyRotation</a>(difference);</div>
-<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span>    <span class="comment">// m_isRotationDirty = true;</span></div>
-<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span>    <span class="comment">// m_localRotation.Rotate_WorldSpace(angle, axis);</span></div>
-<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span>}</div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span> </div>
+<div class="foldopen" id="foldopen00073" data-start="{" data-end="}">
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_e_c_s_1_1_transform3_d.html#a6c715494afef79663699e2d7db4db29a">   73</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="class_o_s_k_1_1_e_c_s_1_1_transform3_d.html#a6c715494afef79663699e2d7db4db29a">Transform3D::ApplyRotation</a>(<span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_quaternion.html">Quaternion</a>&amp; rotationDelta) {</div>
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>    m_changeInRotation += rotationDelta;</div>
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>    m_isRotationDirty.<a class="code hl_variable" href="struct_o_s_k_1_1_atomic_holder.html#a4f89a8a67cc085b193a1b65bb1ef5077">atomic</a> = <span class="keyword">true</span>;</div>
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>}</div>
 </div>
-<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span> </div>
-<div class="foldopen" id="foldopen00086" data-start="{" data-end="}">
-<div class="line"><a id="l00086" name="l00086"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_e_c_s_1_1_transform3_d.html#a75c8261b5fe8eaa30ca31060859e246d">   86</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="class_o_s_k_1_1_e_c_s_1_1_transform3_d.html#a75c8261b5fe8eaa30ca31060859e246d">Transform3D::AddChild</a>(<a class="code hl_typedef" href="namespace_o_s_k_1_1_e_c_s.html#a7be561d6b7de4e8a49c2a5cc35fba48c">ECS::GameObjectIndex</a> obj) {</div>
-<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span>    <span class="keywordflow">if</span> (!m_childIds.<a class="code hl_function" href="class_o_s_k_1_1_dynamic_array.html#a09be7ecaff61fd363a4065237faa1efa">ContainsElement</a>(obj)) {</div>
-<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span>        m_childIds.<a class="code hl_function" href="class_o_s_k_1_1_dynamic_array.html#a4433c76207ce2ecad5e306b12575f1b3">Insert</a>(obj);</div>
-<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span>    }</div>
+<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span> </div>
+<div class="foldopen" id="foldopen00078" data-start="{" data-end="}">
+<div class="line"><a id="l00078" name="l00078"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_e_c_s_1_1_transform3_d.html#a19e1b6a4430fae851e89dd07b8d36d19">   78</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="class_o_s_k_1_1_e_c_s_1_1_transform3_d.html#a19e1b6a4430fae851e89dd07b8d36d19">Transform3D::ApplyRotation_ThreadSafe</a>(<span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_quaternion.html">Quaternion</a>&amp; rotationDelta) {</div>
+<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span>    std::lock_guard lock(m_rotationMutex.<a class="code hl_variable" href="struct_o_s_k_1_1_mutex_holder.html#ac3e1c4f6165143242b9dd8f018bfd14b">mutex</a>);</div>
+<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span>    m_changeInRotation += rotationDelta;</div>
+<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span>    m_isRotationDirty.<a class="code hl_variable" href="struct_o_s_k_1_1_atomic_holder.html#a4f89a8a67cc085b193a1b65bb1ef5077">atomic</a> = <span class="keyword">true</span>;</div>
+<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span>}</div>
+</div>
+<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span> </div>
+<div class="foldopen" id="foldopen00084" data-start="{" data-end="}">
+<div class="line"><a id="l00084" name="l00084"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_e_c_s_1_1_transform3_d.html#a305766732463c5ffb54588742006ff75">   84</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="class_o_s_k_1_1_e_c_s_1_1_transform3_d.html#a305766732463c5ffb54588742006ff75">Transform3D::RotateLocalSpace</a>(<span class="keywordtype">float</span> angle, <span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_vector3__t.html">Vector3f</a>&amp; axis) {</div>
+<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span>    <span class="keyword">auto</span> copy = <a class="code hl_class" href="class_o_s_k_1_1_quaternion.html">Quaternion</a>(m_localRotation);</div>
+<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span>    copy.Rotate_LocalSpace(angle, axis);</div>
+<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span>    <span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_quaternion.html">Quaternion</a> difference = copy - m_localRotation;</div>
+<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span> </div>
+<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span>    <a class="code hl_function" href="class_o_s_k_1_1_e_c_s_1_1_transform3_d.html#a6c715494afef79663699e2d7db4db29a">ApplyRotation</a>(difference);</div>
 <div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span>}</div>
 </div>
 <div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span> </div>
 <div class="foldopen" id="foldopen00092" data-start="{" data-end="}">
-<div class="line"><a id="l00092" name="l00092"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_e_c_s_1_1_transform3_d.html#af775e0d83823931216005acba20d2b0a">   92</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="class_o_s_k_1_1_e_c_s_1_1_transform3_d.html#af775e0d83823931216005acba20d2b0a">Transform3D::RemoveChild</a>(<a class="code hl_typedef" href="namespace_o_s_k_1_1_e_c_s.html#a7be561d6b7de4e8a49c2a5cc35fba48c">GameObjectIndex</a> obj) {</div>
-<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span>    m_childIds.<a class="code hl_function" href="class_o_s_k_1_1_dynamic_array.html#a0a3bb760970ebe40178e9976c53d73ea">Remove</a>(obj);</div>
-<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span>}</div>
-</div>
-<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span> </div>
-<div class="foldopen" id="foldopen00096" data-start="{" data-end="}">
-<div class="line"><a id="l00096" name="l00096"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_e_c_s_1_1_transform3_d.html#ae29d2b88895f66bd0c5487d0bde35773">   96</a></span>std::span&lt;const GameObjectIndex&gt; <a class="code hl_function" href="class_o_s_k_1_1_e_c_s_1_1_transform3_d.html#ae29d2b88895f66bd0c5487d0bde35773">Transform3D::GetChildren</a>()<span class="keyword"> const </span>{</div>
-<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span>    <span class="keywordflow">return</span> m_childIds.<a class="code hl_function" href="class_o_s_k_1_1_dynamic_array.html#aa623134157acd07f1e42312f2a98b81c">GetFullSpan</a>();</div>
+<div class="line"><a id="l00092" name="l00092"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_e_c_s_1_1_transform3_d.html#a6f19cf91d2e0a98707c7e1169a7028a4">   92</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="class_o_s_k_1_1_e_c_s_1_1_transform3_d.html#a6f19cf91d2e0a98707c7e1169a7028a4">Transform3D::RotateLocalSpace_ThreadSafe</a>(<span class="keywordtype">float</span> angle, <span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_vector3__t.html">Vector3f</a>&amp; axis) {</div>
+<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span>    <span class="keyword">auto</span> copy = <a class="code hl_class" href="class_o_s_k_1_1_quaternion.html">Quaternion</a>(m_localRotation);</div>
+<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span>    copy.Rotate_WorldSpace(angle, axis);</div>
+<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span>    <span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_quaternion.html">Quaternion</a> difference = copy - m_localRotation;</div>
+<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span> </div>
+<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span>    <a class="code hl_function" href="class_o_s_k_1_1_e_c_s_1_1_transform3_d.html#a19e1b6a4430fae851e89dd07b8d36d19">ApplyRotation_ThreadSafe</a>(difference);</div>
 <div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span>}</div>
 </div>
 <div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span> </div>
-<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span> </div>
-<div class="foldopen" id="foldopen00101" data-start="{" data-end="}">
-<div class="line"><a id="l00101" name="l00101"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_e_c_s_1_1_transform3_d.html#a865f66350d13df8b492abc200ec755d7">  101</a></span><a class="code hl_class" href="class_o_s_k_1_1_vector3__t.html">Vector3f</a> <a class="code hl_function" href="class_o_s_k_1_1_e_c_s_1_1_transform3_d.html#a865f66350d13df8b492abc200ec755d7">Transform3D::TransformPoint</a>(<span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_vector3__t.html">Vector3f</a>&amp; point)<span class="keyword"> const </span>{</div>
-<div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span>    <span class="keywordflow">return</span> Math::TransformPoint(point, m_matrix);</div>
-<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span>}</div>
-</div>
+<div class="foldopen" id="foldopen00100" data-start="{" data-end="}">
+<div class="line"><a id="l00100" name="l00100"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_e_c_s_1_1_transform3_d.html#afc7da25075f1190d73579dd1b45fe33e">  100</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="class_o_s_k_1_1_e_c_s_1_1_transform3_d.html#afc7da25075f1190d73579dd1b45fe33e">Transform3D::RotateWorldSpace</a>(<span class="keywordtype">float</span> angle, <span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_vector3__t.html">Vector3f</a>&amp; axis) {</div>
+<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span>    <span class="keyword">auto</span> copy = <a class="code hl_class" href="class_o_s_k_1_1_quaternion.html">Quaternion</a>(m_localRotation);</div>
+<div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span>    copy.Rotate_WorldSpace(angle, axis);</div>
+<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span>    <span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_quaternion.html">Quaternion</a> difference = copy - m_localRotation;</div>
 <div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span> </div>
-<div class="foldopen" id="foldopen00105" data-start="{" data-end="}">
-<div class="line"><a id="l00105" name="l00105"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_e_c_s_1_1_transform3_d.html#a385e7addbf6a4b3f00b54019e5335550">  105</a></span><a class="code hl_class" href="class_o_s_k_1_1_vector3__t.html">Vector3f</a> <a class="code hl_function" href="class_o_s_k_1_1_e_c_s_1_1_transform3_d.html#a385e7addbf6a4b3f00b54019e5335550">Transform3D::GetPosition</a>()<span class="keyword"> const </span>{</div>
-<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span>    <span class="keywordflow">return</span> m_globalPosition;</div>
-<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span>}</div>
+<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span>    <a class="code hl_function" href="class_o_s_k_1_1_e_c_s_1_1_transform3_d.html#a6c715494afef79663699e2d7db4db29a">ApplyRotation</a>(difference);</div>
+<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span>}</div>
 </div>
-<div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span> </div>
-<div class="foldopen" id="foldopen00109" data-start="{" data-end="}">
-<div class="line"><a id="l00109" name="l00109"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_e_c_s_1_1_transform3_d.html#a71910548d1562847db1cd6c315b205d9">  109</a></span><a class="code hl_class" href="class_o_s_k_1_1_vector3__t.html">Vector3f</a> <a class="code hl_function" href="class_o_s_k_1_1_e_c_s_1_1_transform3_d.html#a71910548d1562847db1cd6c315b205d9">Transform3D::GetScale</a>()<span class="keyword"> const </span>{</div>
-<div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span>    <span class="keywordflow">return</span> m_globalScale;</div>
-<div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span>}</div>
-</div>
+<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span> </div>
+<div class="foldopen" id="foldopen00108" data-start="{" data-end="}">
+<div class="line"><a id="l00108" name="l00108"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_e_c_s_1_1_transform3_d.html#a6f73b8da98b692568d8a5a46c2dbe2ce">  108</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="class_o_s_k_1_1_e_c_s_1_1_transform3_d.html#a6f73b8da98b692568d8a5a46c2dbe2ce">Transform3D::RotateWorldSpace_ThreadSafe</a>(<span class="keywordtype">float</span> angle, <span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_vector3__t.html">Vector3f</a>&amp; axis) {</div>
+<div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span>    <span class="keyword">auto</span> copy = <a class="code hl_class" href="class_o_s_k_1_1_quaternion.html">Quaternion</a>(m_localRotation);</div>
+<div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span>    copy.Rotate_WorldSpace(angle, axis);</div>
+<div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span>    <span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_quaternion.html">Quaternion</a> difference = copy - m_localRotation;</div>
 <div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span> </div>
-<div class="foldopen" id="foldopen00113" data-start="{" data-end="}">
-<div class="line"><a id="l00113" name="l00113"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_e_c_s_1_1_transform3_d.html#a16601a1c74629f0c493e00df8f3a8309">  113</a></span><a class="code hl_class" href="class_o_s_k_1_1_vector3__t.html">Vector3f</a> <a class="code hl_function" href="class_o_s_k_1_1_e_c_s_1_1_transform3_d.html#a16601a1c74629f0c493e00df8f3a8309">Transform3D::GetLocalPosition</a>()<span class="keyword"> const </span>{</div>
-<div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span>    <span class="keywordflow">return</span> m_localPosition;</div>
-<div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span>}</div>
+<div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span>    <a class="code hl_function" href="class_o_s_k_1_1_e_c_s_1_1_transform3_d.html#a19e1b6a4430fae851e89dd07b8d36d19">ApplyRotation_ThreadSafe</a>(difference);</div>
+<div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span>}</div>
 </div>
-<div class="line"><a id="l00116" name="l00116"></a><span class="lineno">  116</span> </div>
-<div class="foldopen" id="foldopen00117" data-start="{" data-end="}">
-<div class="line"><a id="l00117" name="l00117"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_e_c_s_1_1_transform3_d.html#a1d98e03821dbb441e045582fb65d55a4">  117</a></span><a class="code hl_class" href="class_o_s_k_1_1_vector3__t.html">Vector3f</a> <a class="code hl_function" href="class_o_s_k_1_1_e_c_s_1_1_transform3_d.html#a1d98e03821dbb441e045582fb65d55a4">Transform3D::GetLocalScale</a>()<span class="keyword"> const </span>{</div>
-<div class="line"><a id="l00118" name="l00118"></a><span class="lineno">  118</span>    <span class="keywordflow">return</span> m_localScale;</div>
-<div class="line"><a id="l00119" name="l00119"></a><span class="lineno">  119</span>}</div>
+<div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span> </div>
+<div class="foldopen" id="foldopen00116" data-start="{" data-end="}">
+<div class="line"><a id="l00116" name="l00116"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_e_c_s_1_1_transform3_d.html#a75c8261b5fe8eaa30ca31060859e246d">  116</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="class_o_s_k_1_1_e_c_s_1_1_transform3_d.html#a75c8261b5fe8eaa30ca31060859e246d">Transform3D::AddChild</a>(<a class="code hl_class" href="class_o_s_k_1_1_base_uuid.html">ECS::GameObjectIndex</a> obj) {</div>
+<div class="line"><a id="l00117" name="l00117"></a><span class="lineno">  117</span>    <span class="keywordflow">if</span> (!m_childIds.ContainsElement(obj)) {</div>
+<div class="line"><a id="l00118" name="l00118"></a><span class="lineno">  118</span>        m_childIds.Insert(obj);</div>
+<div class="line"><a id="l00119" name="l00119"></a><span class="lineno">  119</span>    }</div>
+<div class="line"><a id="l00120" name="l00120"></a><span class="lineno">  120</span>}</div>
 </div>
-<div class="line"><a id="l00120" name="l00120"></a><span class="lineno">  120</span> </div>
-<div class="foldopen" id="foldopen00121" data-start="{" data-end="}">
-<div class="line"><a id="l00121" name="l00121"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_e_c_s_1_1_transform3_d.html#a95b7e7b9dd90ea4c8f7bcf01d9e8e84f">  121</a></span><a class="code hl_class" href="class_o_s_k_1_1_quaternion.html">Quaternion</a> <a class="code hl_function" href="class_o_s_k_1_1_e_c_s_1_1_transform3_d.html#a95b7e7b9dd90ea4c8f7bcf01d9e8e84f">Transform3D::GetLocalRotation</a>()<span class="keyword"> const </span>{</div>
-<div class="line"><a id="l00122" name="l00122"></a><span class="lineno">  122</span>    <span class="keywordflow">return</span> m_localRotation;</div>
-<div class="line"><a id="l00123" name="l00123"></a><span class="lineno">  123</span>}</div>
+<div class="line"><a id="l00121" name="l00121"></a><span class="lineno">  121</span> </div>
+<div class="foldopen" id="foldopen00122" data-start="{" data-end="}">
+<div class="line"><a id="l00122" name="l00122"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_e_c_s_1_1_transform3_d.html#af775e0d83823931216005acba20d2b0a">  122</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="class_o_s_k_1_1_e_c_s_1_1_transform3_d.html#af775e0d83823931216005acba20d2b0a">Transform3D::RemoveChild</a>(<a class="code hl_class" href="class_o_s_k_1_1_base_uuid.html">GameObjectIndex</a> obj) {</div>
+<div class="line"><a id="l00123" name="l00123"></a><span class="lineno">  123</span>    m_childIds.Remove(obj);</div>
+<div class="line"><a id="l00124" name="l00124"></a><span class="lineno">  124</span>}</div>
 </div>
-<div class="line"><a id="l00124" name="l00124"></a><span class="lineno">  124</span> </div>
-<div class="foldopen" id="foldopen00125" data-start="{" data-end="}">
-<div class="line"><a id="l00125" name="l00125"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_e_c_s_1_1_transform3_d.html#aaf12b490c6875c0308348d203a1656cb">  125</a></span><a class="code hl_class" href="class_o_s_k_1_1_quaternion.html">Quaternion</a> <a class="code hl_function" href="class_o_s_k_1_1_e_c_s_1_1_transform3_d.html#aaf12b490c6875c0308348d203a1656cb">Transform3D::GetRotation</a>()<span class="keyword"> const </span>{</div>
-<div class="line"><a id="l00126" name="l00126"></a><span class="lineno">  126</span>    <span class="keywordflow">return</span> <a class="code hl_function" href="class_o_s_k_1_1_quaternion.html#a0cbf0edcbfd33647de6fa20d641d2216">Quaternion::FromGlm</a>(glm::toQuat(m_globalRotation));</div>
-<div class="line"><a id="l00127" name="l00127"></a><span class="lineno">  127</span>}</div>
+<div class="line"><a id="l00125" name="l00125"></a><span class="lineno">  125</span> </div>
+<div class="foldopen" id="foldopen00126" data-start="{" data-end="}">
+<div class="line"><a id="l00126" name="l00126"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_e_c_s_1_1_transform3_d.html#ae29d2b88895f66bd0c5487d0bde35773">  126</a></span>std::span&lt;const GameObjectIndex&gt; <a class="code hl_function" href="class_o_s_k_1_1_e_c_s_1_1_transform3_d.html#ae29d2b88895f66bd0c5487d0bde35773">Transform3D::GetChildren</a>()<span class="keyword"> const </span>{</div>
+<div class="line"><a id="l00127" name="l00127"></a><span class="lineno">  127</span>    <span class="keywordflow">return</span> m_childIds.GetFullSpan();</div>
+<div class="line"><a id="l00128" name="l00128"></a><span class="lineno">  128</span>}</div>
 </div>
-<div class="line"><a id="l00128" name="l00128"></a><span class="lineno">  128</span> </div>
-<div class="foldopen" id="foldopen00129" data-start="{" data-end="}">
-<div class="line"><a id="l00129" name="l00129"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_e_c_s_1_1_transform3_d.html#ab31721ae72a69b2ec9fef61aaa7a91ed">  129</a></span>glm::mat4 <a class="code hl_function" href="class_o_s_k_1_1_e_c_s_1_1_transform3_d.html#ab31721ae72a69b2ec9fef61aaa7a91ed">Transform3D::GetAsMatrix</a>()<span class="keyword"> const </span>{</div>
-<div class="line"><a id="l00130" name="l00130"></a><span class="lineno">  130</span>    <span class="keywordflow">return</span> m_matrix;</div>
-<div class="line"><a id="l00131" name="l00131"></a><span class="lineno">  131</span>}</div>
+<div class="line"><a id="l00129" name="l00129"></a><span class="lineno">  129</span> </div>
+<div class="line"><a id="l00130" name="l00130"></a><span class="lineno">  130</span> </div>
+<div class="foldopen" id="foldopen00131" data-start="{" data-end="}">
+<div class="line"><a id="l00131" name="l00131"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_e_c_s_1_1_transform3_d.html#a865f66350d13df8b492abc200ec755d7">  131</a></span><a class="code hl_class" href="class_o_s_k_1_1_vector3__t.html">Vector3f</a> <a class="code hl_function" href="class_o_s_k_1_1_e_c_s_1_1_transform3_d.html#a865f66350d13df8b492abc200ec755d7">Transform3D::TransformPoint</a>(<span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_vector3__t.html">Vector3f</a>&amp; point)<span class="keyword"> const </span>{</div>
+<div class="line"><a id="l00132" name="l00132"></a><span class="lineno">  132</span>    <span class="keywordflow">return</span> Math::TransformPoint(point, m_matrix);</div>
+<div class="line"><a id="l00133" name="l00133"></a><span class="lineno">  133</span>}</div>
 </div>
-<div class="line"><a id="l00132" name="l00132"></a><span class="lineno">  132</span> </div>
-<div class="foldopen" id="foldopen00133" data-start="{" data-end="}">
-<div class="line"><a id="l00133" name="l00133"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_e_c_s_1_1_transform3_d.html#a91ec96febabad2adffc147eb907f8d20">  133</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="class_o_s_k_1_1_e_c_s_1_1_transform3_d.html#a91ec96febabad2adffc147eb907f8d20">Transform3D::OverrideMatrix</a>(<span class="keyword">const</span> glm::mat4&amp; matrix) {</div>
-<div class="line"><a id="l00134" name="l00134"></a><span class="lineno">  134</span>    m_matrix = matrix;</div>
-<div class="line"><a id="l00135" name="l00135"></a><span class="lineno">  135</span>}</div>
+<div class="line"><a id="l00134" name="l00134"></a><span class="lineno">  134</span> </div>
+<div class="foldopen" id="foldopen00135" data-start="{" data-end="}">
+<div class="line"><a id="l00135" name="l00135"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_e_c_s_1_1_transform3_d.html#a385e7addbf6a4b3f00b54019e5335550">  135</a></span><a class="code hl_class" href="class_o_s_k_1_1_vector3__t.html">Vector3f</a> <a class="code hl_function" href="class_o_s_k_1_1_e_c_s_1_1_transform3_d.html#a385e7addbf6a4b3f00b54019e5335550">Transform3D::GetPosition</a>()<span class="keyword"> const </span>{</div>
+<div class="line"><a id="l00136" name="l00136"></a><span class="lineno">  136</span>    <span class="keywordflow">return</span> m_globalPosition;</div>
+<div class="line"><a id="l00137" name="l00137"></a><span class="lineno">  137</span>}</div>
 </div>
-<div class="line"><a id="l00136" name="l00136"></a><span class="lineno">  136</span> </div>
-<div class="foldopen" id="foldopen00137" data-start="{" data-end="}">
-<div class="line"><a id="l00137" name="l00137"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_e_c_s_1_1_transform3_d.html#a9b390c0ca43ed7f1ff6696b3a98e0e06">  137</a></span><a class="code hl_class" href="class_o_s_k_1_1_vector3__t.html">Vector3f</a> <a class="code hl_function" href="class_o_s_k_1_1_e_c_s_1_1_transform3_d.html#a9b390c0ca43ed7f1ff6696b3a98e0e06">Transform3D::GetForwardVector</a>()<span class="keyword"> const </span>{</div>
-<div class="line"><a id="l00138" name="l00138"></a><span class="lineno">  138</span>    <span class="keywordflow">return</span> <a class="code hl_function" href="class_o_s_k_1_1_e_c_s_1_1_transform3_d.html#aaf12b490c6875c0308348d203a1656cb">GetRotation</a>().<a class="code hl_function" href="class_o_s_k_1_1_quaternion.html#ac0e494c7cb54c40e9ed6cd477948030b">RotateVector</a>(<a class="code hl_typedef" href="namespace_o_s_k.html#a72b3268907c9cd41f0daf0a42e1c9dca">Vector3f</a>(0, 0, 1));</div>
-<div class="line"><a id="l00139" name="l00139"></a><span class="lineno">  139</span>}</div>
+<div class="line"><a id="l00138" name="l00138"></a><span class="lineno">  138</span> </div>
+<div class="foldopen" id="foldopen00139" data-start="{" data-end="}">
+<div class="line"><a id="l00139" name="l00139"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_e_c_s_1_1_transform3_d.html#a71910548d1562847db1cd6c315b205d9">  139</a></span><a class="code hl_class" href="class_o_s_k_1_1_vector3__t.html">Vector3f</a> <a class="code hl_function" href="class_o_s_k_1_1_e_c_s_1_1_transform3_d.html#a71910548d1562847db1cd6c315b205d9">Transform3D::GetScale</a>()<span class="keyword"> const </span>{</div>
+<div class="line"><a id="l00140" name="l00140"></a><span class="lineno">  140</span>    <span class="keywordflow">return</span> m_globalScale;</div>
+<div class="line"><a id="l00141" name="l00141"></a><span class="lineno">  141</span>}</div>
 </div>
-<div class="line"><a id="l00140" name="l00140"></a><span class="lineno">  140</span> </div>
-<div class="foldopen" id="foldopen00141" data-start="{" data-end="}">
-<div class="line"><a id="l00141" name="l00141"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_e_c_s_1_1_transform3_d.html#afa8ea01fe8104fcd34cc83e0157dea67">  141</a></span><a class="code hl_class" href="class_o_s_k_1_1_vector3__t.html">Vector3f</a> <a class="code hl_function" href="class_o_s_k_1_1_e_c_s_1_1_transform3_d.html#afa8ea01fe8104fcd34cc83e0157dea67">Transform3D::GetRightVector</a>()<span class="keyword"> const </span>{</div>
-<div class="line"><a id="l00142" name="l00142"></a><span class="lineno">  142</span>    <span class="keywordflow">return</span> <a class="code hl_function" href="class_o_s_k_1_1_e_c_s_1_1_transform3_d.html#aaf12b490c6875c0308348d203a1656cb">GetRotation</a>().<a class="code hl_function" href="class_o_s_k_1_1_quaternion.html#ac0e494c7cb54c40e9ed6cd477948030b">RotateVector</a>(<a class="code hl_typedef" href="namespace_o_s_k.html#a72b3268907c9cd41f0daf0a42e1c9dca">Vector3f</a>(-1, 0, 0));</div>
-<div class="line"><a id="l00143" name="l00143"></a><span class="lineno">  143</span>}</div>
+<div class="line"><a id="l00142" name="l00142"></a><span class="lineno">  142</span> </div>
+<div class="foldopen" id="foldopen00143" data-start="{" data-end="}">
+<div class="line"><a id="l00143" name="l00143"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_e_c_s_1_1_transform3_d.html#a16601a1c74629f0c493e00df8f3a8309">  143</a></span><a class="code hl_class" href="class_o_s_k_1_1_vector3__t.html">Vector3f</a> <a class="code hl_function" href="class_o_s_k_1_1_e_c_s_1_1_transform3_d.html#a16601a1c74629f0c493e00df8f3a8309">Transform3D::GetLocalPosition</a>()<span class="keyword"> const </span>{</div>
+<div class="line"><a id="l00144" name="l00144"></a><span class="lineno">  144</span>    <span class="keywordflow">return</span> m_localPosition;</div>
+<div class="line"><a id="l00145" name="l00145"></a><span class="lineno">  145</span>}</div>
 </div>
-<div class="line"><a id="l00144" name="l00144"></a><span class="lineno">  144</span> </div>
-<div class="foldopen" id="foldopen00145" data-start="{" data-end="}">
-<div class="line"><a id="l00145" name="l00145"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_e_c_s_1_1_transform3_d.html#ae1fdf26c51ef096c24769c479c976b45">  145</a></span><a class="code hl_class" href="class_o_s_k_1_1_vector3__t.html">Vector3f</a> <a class="code hl_function" href="class_o_s_k_1_1_e_c_s_1_1_transform3_d.html#ae1fdf26c51ef096c24769c479c976b45">Transform3D::GetTopVector</a>()<span class="keyword"> const </span>{</div>
-<div class="line"><a id="l00146" name="l00146"></a><span class="lineno">  146</span>    <span class="keywordflow">return</span> <a class="code hl_function" href="class_o_s_k_1_1_e_c_s_1_1_transform3_d.html#aaf12b490c6875c0308348d203a1656cb">GetRotation</a>().<a class="code hl_function" href="class_o_s_k_1_1_quaternion.html#ac0e494c7cb54c40e9ed6cd477948030b">RotateVector</a>(<a class="code hl_typedef" href="namespace_o_s_k.html#a72b3268907c9cd41f0daf0a42e1c9dca">Vector3f</a>(0, 1, 0));</div>
-<div class="line"><a id="l00147" name="l00147"></a><span class="lineno">  147</span>}</div>
+<div class="line"><a id="l00146" name="l00146"></a><span class="lineno">  146</span> </div>
+<div class="foldopen" id="foldopen00147" data-start="{" data-end="}">
+<div class="line"><a id="l00147" name="l00147"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_e_c_s_1_1_transform3_d.html#a1d98e03821dbb441e045582fb65d55a4">  147</a></span><a class="code hl_class" href="class_o_s_k_1_1_vector3__t.html">Vector3f</a> <a class="code hl_function" href="class_o_s_k_1_1_e_c_s_1_1_transform3_d.html#a1d98e03821dbb441e045582fb65d55a4">Transform3D::GetLocalScale</a>()<span class="keyword"> const </span>{</div>
+<div class="line"><a id="l00148" name="l00148"></a><span class="lineno">  148</span>    <span class="keywordflow">return</span> m_localScale;</div>
+<div class="line"><a id="l00149" name="l00149"></a><span class="lineno">  149</span>}</div>
 </div>
-<div class="line"><a id="l00148" name="l00148"></a><span class="lineno">  148</span> </div>
-<div class="foldopen" id="foldopen00149" data-start="{" data-end="}">
-<div class="line"><a id="l00149" name="l00149"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_e_c_s_1_1_transform3_d.html#ae459aad2a2630ff01176fa2423dfeaa7">  149</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="class_o_s_k_1_1_e_c_s_1_1_transform3_d.html#ae459aad2a2630ff01176fa2423dfeaa7">Transform3D::SetShouldInheritPosition</a>(<span class="keywordtype">bool</span> value) {</div>
-<div class="line"><a id="l00150" name="l00150"></a><span class="lineno">  150</span>    m_inheritPosition = value;</div>
-<div class="line"><a id="l00151" name="l00151"></a><span class="lineno">  151</span>}</div>
+<div class="line"><a id="l00150" name="l00150"></a><span class="lineno">  150</span> </div>
+<div class="foldopen" id="foldopen00151" data-start="{" data-end="}">
+<div class="line"><a id="l00151" name="l00151"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_e_c_s_1_1_transform3_d.html#a95b7e7b9dd90ea4c8f7bcf01d9e8e84f">  151</a></span><a class="code hl_class" href="class_o_s_k_1_1_quaternion.html">Quaternion</a> <a class="code hl_function" href="class_o_s_k_1_1_e_c_s_1_1_transform3_d.html#a95b7e7b9dd90ea4c8f7bcf01d9e8e84f">Transform3D::GetLocalRotation</a>()<span class="keyword"> const </span>{</div>
+<div class="line"><a id="l00152" name="l00152"></a><span class="lineno">  152</span>    <span class="keywordflow">return</span> m_localRotation;</div>
+<div class="line"><a id="l00153" name="l00153"></a><span class="lineno">  153</span>}</div>
 </div>
-<div class="line"><a id="l00152" name="l00152"></a><span class="lineno">  152</span> </div>
-<div class="foldopen" id="foldopen00153" data-start="{" data-end="}">
-<div class="line"><a id="l00153" name="l00153"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_e_c_s_1_1_transform3_d.html#a87bb98760ec7b5dc3414eced1e192e58">  153</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="class_o_s_k_1_1_e_c_s_1_1_transform3_d.html#a87bb98760ec7b5dc3414eced1e192e58">Transform3D::SetShouldInheritRotation</a>(<span class="keywordtype">bool</span> value) {</div>
-<div class="line"><a id="l00154" name="l00154"></a><span class="lineno">  154</span>    m_inheritRotation = value;</div>
-<div class="line"><a id="l00155" name="l00155"></a><span class="lineno">  155</span>}</div>
+<div class="line"><a id="l00154" name="l00154"></a><span class="lineno">  154</span> </div>
+<div class="foldopen" id="foldopen00155" data-start="{" data-end="}">
+<div class="line"><a id="l00155" name="l00155"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_e_c_s_1_1_transform3_d.html#aaf12b490c6875c0308348d203a1656cb">  155</a></span><a class="code hl_class" href="class_o_s_k_1_1_quaternion.html">Quaternion</a> <a class="code hl_function" href="class_o_s_k_1_1_e_c_s_1_1_transform3_d.html#aaf12b490c6875c0308348d203a1656cb">Transform3D::GetRotation</a>()<span class="keyword"> const </span>{</div>
+<div class="line"><a id="l00156" name="l00156"></a><span class="lineno">  156</span>    <span class="keywordflow">return</span> <a class="code hl_function" href="class_o_s_k_1_1_quaternion.html#a0cbf0edcbfd33647de6fa20d641d2216">Quaternion::FromGlm</a>(glm::toQuat(m_globalRotation));</div>
+<div class="line"><a id="l00157" name="l00157"></a><span class="lineno">  157</span>}</div>
 </div>
-<div class="line"><a id="l00156" name="l00156"></a><span class="lineno">  156</span> </div>
-<div class="foldopen" id="foldopen00157" data-start="{" data-end="}">
-<div class="line"><a id="l00157" name="l00157"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_e_c_s_1_1_transform3_d.html#a990a648f08387450664747f0d76e37f1">  157</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="class_o_s_k_1_1_e_c_s_1_1_transform3_d.html#a990a648f08387450664747f0d76e37f1">Transform3D::SetShouldInheritScale</a>(<span class="keywordtype">bool</span> value) {</div>
-<div class="line"><a id="l00158" name="l00158"></a><span class="lineno">  158</span>    m_inheritScale = value;</div>
-<div class="line"><a id="l00159" name="l00159"></a><span class="lineno">  159</span>}</div>
+<div class="line"><a id="l00158" name="l00158"></a><span class="lineno">  158</span> </div>
+<div class="foldopen" id="foldopen00159" data-start="{" data-end="}">
+<div class="line"><a id="l00159" name="l00159"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_e_c_s_1_1_transform3_d.html#ab31721ae72a69b2ec9fef61aaa7a91ed">  159</a></span>glm::mat4 <a class="code hl_function" href="class_o_s_k_1_1_e_c_s_1_1_transform3_d.html#ab31721ae72a69b2ec9fef61aaa7a91ed">Transform3D::GetAsMatrix</a>()<span class="keyword"> const </span>{</div>
+<div class="line"><a id="l00160" name="l00160"></a><span class="lineno">  160</span>    <span class="keywordflow">return</span> m_matrix;</div>
+<div class="line"><a id="l00161" name="l00161"></a><span class="lineno">  161</span>}</div>
 </div>
-<div class="line"><a id="l00160" name="l00160"></a><span class="lineno">  160</span> </div>
-<div class="foldopen" id="foldopen00161" data-start="{" data-end="}">
-<div class="line"><a id="l00161" name="l00161"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_e_c_s_1_1_transform3_d.html#aa180c61cd8a9b6f696f14eafcaee77c6">  161</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="class_o_s_k_1_1_e_c_s_1_1_transform3_d.html#aa180c61cd8a9b6f696f14eafcaee77c6">Transform3D::_ApplyChanges</a>(std::optional&lt;const Transform3D*&gt; parent) {</div>
-<div class="line"><a id="l00162" name="l00162"></a><span class="lineno">  162</span>    <span class="keyword">const</span> <span class="keywordtype">bool</span> isAnyDirty =</div>
-<div class="line"><a id="l00163" name="l00163"></a><span class="lineno">  163</span>        m_isPositionDirty ||</div>
-<div class="line"><a id="l00164" name="l00164"></a><span class="lineno">  164</span>        m_isRotationDirty ||</div>
-<div class="line"><a id="l00165" name="l00165"></a><span class="lineno">  165</span>        m_isScaleDirty;</div>
+<div class="line"><a id="l00162" name="l00162"></a><span class="lineno">  162</span> </div>
+<div class="foldopen" id="foldopen00163" data-start="{" data-end="}">
+<div class="line"><a id="l00163" name="l00163"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_e_c_s_1_1_transform3_d.html#a91ec96febabad2adffc147eb907f8d20">  163</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="class_o_s_k_1_1_e_c_s_1_1_transform3_d.html#a91ec96febabad2adffc147eb907f8d20">Transform3D::OverrideMatrix</a>(<span class="keyword">const</span> glm::mat4&amp; matrix) {</div>
+<div class="line"><a id="l00164" name="l00164"></a><span class="lineno">  164</span>    m_matrix = matrix;</div>
+<div class="line"><a id="l00165" name="l00165"></a><span class="lineno">  165</span>}</div>
+</div>
 <div class="line"><a id="l00166" name="l00166"></a><span class="lineno">  166</span> </div>
-<div class="line"><a id="l00167" name="l00167"></a><span class="lineno">  167</span>    <span class="keywordflow">if</span> (m_isPositionDirty) {</div>
-<div class="line"><a id="l00168" name="l00168"></a><span class="lineno">  168</span>        m_localPosition += m_changeInPosition;</div>
-<div class="line"><a id="l00169" name="l00169"></a><span class="lineno">  169</span>        m_changeInPosition = <a class="code hl_variable" href="class_o_s_k_1_1_vector3__t.html#ac574fd28b9114ddf48d26573d1efd570">Vector3f::Zero</a>;</div>
+<div class="foldopen" id="foldopen00167" data-start="{" data-end="}">
+<div class="line"><a id="l00167" name="l00167"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_e_c_s_1_1_transform3_d.html#a9b390c0ca43ed7f1ff6696b3a98e0e06">  167</a></span><a class="code hl_class" href="class_o_s_k_1_1_vector3__t.html">Vector3f</a> <a class="code hl_function" href="class_o_s_k_1_1_e_c_s_1_1_transform3_d.html#a9b390c0ca43ed7f1ff6696b3a98e0e06">Transform3D::GetForwardVector</a>()<span class="keyword"> const </span>{</div>
+<div class="line"><a id="l00168" name="l00168"></a><span class="lineno">  168</span>    <span class="keywordflow">return</span> <a class="code hl_function" href="class_o_s_k_1_1_e_c_s_1_1_transform3_d.html#aaf12b490c6875c0308348d203a1656cb">GetRotation</a>().<a class="code hl_function" href="class_o_s_k_1_1_quaternion.html#ac0e494c7cb54c40e9ed6cd477948030b">RotateVector</a>(<a class="code hl_typedef" href="namespace_o_s_k.html#a72b3268907c9cd41f0daf0a42e1c9dca">Vector3f</a>(0, 0, 1));</div>
+<div class="line"><a id="l00169" name="l00169"></a><span class="lineno">  169</span>}</div>
+</div>
 <div class="line"><a id="l00170" name="l00170"></a><span class="lineno">  170</span> </div>
-<div class="line"><a id="l00171" name="l00171"></a><span class="lineno">  171</span>        m_isPositionDirty = <span class="keyword">false</span>;</div>
-<div class="line"><a id="l00172" name="l00172"></a><span class="lineno">  172</span>    }</div>
-<div class="line"><a id="l00173" name="l00173"></a><span class="lineno">  173</span> </div>
-<div class="line"><a id="l00174" name="l00174"></a><span class="lineno">  174</span>    <span class="keywordflow">if</span> (m_isRotationDirty) {</div>
-<div class="line"><a id="l00175" name="l00175"></a><span class="lineno">  175</span>        m_localRotation += m_changeInRotation;</div>
-<div class="line"><a id="l00176" name="l00176"></a><span class="lineno">  176</span>        m_changeInRotation = <a class="code hl_function" href="class_o_s_k_1_1_quaternion.html#a80a60fb66fbc1e762489c72283578818">Quaternion::Empty</a>();</div>
-<div class="line"><a id="l00177" name="l00177"></a><span class="lineno">  177</span> </div>
-<div class="line"><a id="l00178" name="l00178"></a><span class="lineno">  178</span>        m_isRotationDirty = <span class="keyword">false</span>;</div>
-<div class="line"><a id="l00179" name="l00179"></a><span class="lineno">  179</span>    }</div>
-<div class="line"><a id="l00180" name="l00180"></a><span class="lineno">  180</span> </div>
-<div class="line"><a id="l00181" name="l00181"></a><span class="lineno">  181</span>    <span class="keywordflow">if</span> (m_isScaleDirty) {</div>
-<div class="line"><a id="l00182" name="l00182"></a><span class="lineno">  182</span>        m_localScale += m_changeInScale;</div>
-<div class="line"><a id="l00183" name="l00183"></a><span class="lineno">  183</span>        m_changeInScale = <a class="code hl_variable" href="class_o_s_k_1_1_vector3__t.html#ac574fd28b9114ddf48d26573d1efd570">Vector3f::Zero</a>;</div>
-<div class="line"><a id="l00184" name="l00184"></a><span class="lineno">  184</span> </div>
-<div class="line"><a id="l00185" name="l00185"></a><span class="lineno">  185</span>        m_isScaleDirty = <span class="keyword">false</span>;</div>
-<div class="line"><a id="l00186" name="l00186"></a><span class="lineno">  186</span>    }</div>
-<div class="line"><a id="l00187" name="l00187"></a><span class="lineno">  187</span> </div>
-<div class="line"><a id="l00188" name="l00188"></a><span class="lineno">  188</span>    <span class="keywordflow">if</span> (isAnyDirty) {</div>
-<div class="line"><a id="l00189" name="l00189"></a><span class="lineno">  189</span>        UpdateModel(parent);</div>
-<div class="line"><a id="l00190" name="l00190"></a><span class="lineno">  190</span>    }</div>
-<div class="line"><a id="l00191" name="l00191"></a><span class="lineno">  191</span>}</div>
+<div class="foldopen" id="foldopen00171" data-start="{" data-end="}">
+<div class="line"><a id="l00171" name="l00171"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_e_c_s_1_1_transform3_d.html#afa8ea01fe8104fcd34cc83e0157dea67">  171</a></span><a class="code hl_class" href="class_o_s_k_1_1_vector3__t.html">Vector3f</a> <a class="code hl_function" href="class_o_s_k_1_1_e_c_s_1_1_transform3_d.html#afa8ea01fe8104fcd34cc83e0157dea67">Transform3D::GetRightVector</a>()<span class="keyword"> const </span>{</div>
+<div class="line"><a id="l00172" name="l00172"></a><span class="lineno">  172</span>    <span class="keywordflow">return</span> <a class="code hl_function" href="class_o_s_k_1_1_e_c_s_1_1_transform3_d.html#aaf12b490c6875c0308348d203a1656cb">GetRotation</a>().<a class="code hl_function" href="class_o_s_k_1_1_quaternion.html#ac0e494c7cb54c40e9ed6cd477948030b">RotateVector</a>(<a class="code hl_typedef" href="namespace_o_s_k.html#a72b3268907c9cd41f0daf0a42e1c9dca">Vector3f</a>(-1, 0, 0));</div>
+<div class="line"><a id="l00173" name="l00173"></a><span class="lineno">  173</span>}</div>
 </div>
-<div class="line"><a id="l00192" name="l00192"></a><span class="lineno">  192</span> </div>
-<div class="line"><a id="l00193" name="l00193"></a><span class="lineno">  193</span><span class="keywordtype">void</span> Transform3D::UpdateModel(std::optional&lt;const Transform3D*&gt; parent) {</div>
-<div class="line"><a id="l00194" name="l00194"></a><span class="lineno">  194</span>    m_matrix = glm::mat4(1.0f);</div>
-<div class="line"><a id="l00195" name="l00195"></a><span class="lineno">  195</span> </div>
-<div class="line"><a id="l00196" name="l00196"></a><span class="lineno">  196</span>    <span class="keywordflow">if</span> (parent.has_value()) {</div>
-<div class="line"><a id="l00197" name="l00197"></a><span class="lineno">  197</span>        <span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_e_c_s_1_1_transform3_d.html">Transform3D</a>&amp; parentTransform = *parent.value();</div>
-<div class="line"><a id="l00198" name="l00198"></a><span class="lineno">  198</span> </div>
-<div class="line"><a id="l00199" name="l00199"></a><span class="lineno">  199</span>        m_globalRotation = m_inheritRotation</div>
-<div class="line"><a id="l00200" name="l00200"></a><span class="lineno">  200</span>            ? parentTransform.m_globalRotation * m_localRotation.<a class="code hl_function" href="class_o_s_k_1_1_quaternion.html#a5ab0ea79fd870ee2e32b836c2c4f5525">ToMat4</a>()</div>
-<div class="line"><a id="l00201" name="l00201"></a><span class="lineno">  201</span>            : m_localRotation.<a class="code hl_function" href="class_o_s_k_1_1_quaternion.html#a5ab0ea79fd870ee2e32b836c2c4f5525">ToMat4</a>();</div>
-<div class="line"><a id="l00202" name="l00202"></a><span class="lineno">  202</span> </div>
-<div class="line"><a id="l00203" name="l00203"></a><span class="lineno">  203</span>        <span class="keywordflow">if</span> (m_inheritPosition) {</div>
-<div class="line"><a id="l00204" name="l00204"></a><span class="lineno">  204</span>            m_matrix = glm::translate(m_matrix, parentTransform.<a class="code hl_function" href="class_o_s_k_1_1_e_c_s_1_1_transform3_d.html#a385e7addbf6a4b3f00b54019e5335550">GetPosition</a>().<a class="code hl_function" href="class_o_s_k_1_1_vector3__t.html#afe37985b6d213fc46fc8d3d0366d80bb">ToGlm</a>());</div>
-<div class="line"><a id="l00205" name="l00205"></a><span class="lineno">  205</span>        }</div>
-<div class="line"><a id="l00206" name="l00206"></a><span class="lineno">  206</span> </div>
-<div class="line"><a id="l00207" name="l00207"></a><span class="lineno">  207</span>        <span class="keywordflow">if</span> (m_inheritRotation) {</div>
-<div class="line"><a id="l00208" name="l00208"></a><span class="lineno">  208</span>            m_matrix = m_matrix * parentTransform.m_globalRotation;</div>
-<div class="line"><a id="l00209" name="l00209"></a><span class="lineno">  209</span>        }</div>
-<div class="line"><a id="l00210" name="l00210"></a><span class="lineno">  210</span>    }</div>
-<div class="line"><a id="l00211" name="l00211"></a><span class="lineno">  211</span>    <span class="keywordflow">else</span> {</div>
-<div class="line"><a id="l00212" name="l00212"></a><span class="lineno">  212</span>        m_globalRotation = m_localRotation.<a class="code hl_function" href="class_o_s_k_1_1_quaternion.html#a5ab0ea79fd870ee2e32b836c2c4f5525">ToMat4</a>();</div>
-<div class="line"><a id="l00213" name="l00213"></a><span class="lineno">  213</span>    }</div>
+<div class="line"><a id="l00174" name="l00174"></a><span class="lineno">  174</span> </div>
+<div class="foldopen" id="foldopen00175" data-start="{" data-end="}">
+<div class="line"><a id="l00175" name="l00175"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_e_c_s_1_1_transform3_d.html#ae1fdf26c51ef096c24769c479c976b45">  175</a></span><a class="code hl_class" href="class_o_s_k_1_1_vector3__t.html">Vector3f</a> <a class="code hl_function" href="class_o_s_k_1_1_e_c_s_1_1_transform3_d.html#ae1fdf26c51ef096c24769c479c976b45">Transform3D::GetTopVector</a>()<span class="keyword"> const </span>{</div>
+<div class="line"><a id="l00176" name="l00176"></a><span class="lineno">  176</span>    <span class="keywordflow">return</span> <a class="code hl_function" href="class_o_s_k_1_1_e_c_s_1_1_transform3_d.html#aaf12b490c6875c0308348d203a1656cb">GetRotation</a>().<a class="code hl_function" href="class_o_s_k_1_1_quaternion.html#ac0e494c7cb54c40e9ed6cd477948030b">RotateVector</a>(<a class="code hl_typedef" href="namespace_o_s_k.html#a72b3268907c9cd41f0daf0a42e1c9dca">Vector3f</a>(0, 1, 0));</div>
+<div class="line"><a id="l00177" name="l00177"></a><span class="lineno">  177</span>}</div>
+</div>
+<div class="line"><a id="l00178" name="l00178"></a><span class="lineno">  178</span> </div>
+<div class="foldopen" id="foldopen00179" data-start="{" data-end="}">
+<div class="line"><a id="l00179" name="l00179"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_e_c_s_1_1_transform3_d.html#ae459aad2a2630ff01176fa2423dfeaa7">  179</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="class_o_s_k_1_1_e_c_s_1_1_transform3_d.html#ae459aad2a2630ff01176fa2423dfeaa7">Transform3D::SetShouldInheritPosition</a>(<span class="keywordtype">bool</span> value) {</div>
+<div class="line"><a id="l00180" name="l00180"></a><span class="lineno">  180</span>    m_inheritPosition = value;</div>
+<div class="line"><a id="l00181" name="l00181"></a><span class="lineno">  181</span>}</div>
+</div>
+<div class="line"><a id="l00182" name="l00182"></a><span class="lineno">  182</span> </div>
+<div class="foldopen" id="foldopen00183" data-start="{" data-end="}">
+<div class="line"><a id="l00183" name="l00183"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_e_c_s_1_1_transform3_d.html#a87bb98760ec7b5dc3414eced1e192e58">  183</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="class_o_s_k_1_1_e_c_s_1_1_transform3_d.html#a87bb98760ec7b5dc3414eced1e192e58">Transform3D::SetShouldInheritRotation</a>(<span class="keywordtype">bool</span> value) {</div>
+<div class="line"><a id="l00184" name="l00184"></a><span class="lineno">  184</span>    m_inheritRotation = value;</div>
+<div class="line"><a id="l00185" name="l00185"></a><span class="lineno">  185</span>}</div>
+</div>
+<div class="line"><a id="l00186" name="l00186"></a><span class="lineno">  186</span> </div>
+<div class="foldopen" id="foldopen00187" data-start="{" data-end="}">
+<div class="line"><a id="l00187" name="l00187"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_e_c_s_1_1_transform3_d.html#a990a648f08387450664747f0d76e37f1">  187</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="class_o_s_k_1_1_e_c_s_1_1_transform3_d.html#a990a648f08387450664747f0d76e37f1">Transform3D::SetShouldInheritScale</a>(<span class="keywordtype">bool</span> value) {</div>
+<div class="line"><a id="l00188" name="l00188"></a><span class="lineno">  188</span>    m_inheritScale = value;</div>
+<div class="line"><a id="l00189" name="l00189"></a><span class="lineno">  189</span>}</div>
+</div>
+<div class="line"><a id="l00190" name="l00190"></a><span class="lineno">  190</span> </div>
+<div class="foldopen" id="foldopen00191" data-start="{" data-end="}">
+<div class="line"><a id="l00191" name="l00191"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_e_c_s_1_1_transform3_d.html#aa180c61cd8a9b6f696f14eafcaee77c6">  191</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="class_o_s_k_1_1_e_c_s_1_1_transform3_d.html#aa180c61cd8a9b6f696f14eafcaee77c6">Transform3D::_ApplyChanges</a>(std::optional&lt;const Transform3D*&gt; parent) {</div>
+<div class="line"><a id="l00192" name="l00192"></a><span class="lineno">  192</span>    <span class="keyword">const</span> <span class="keywordtype">bool</span> isAnyDirty =</div>
+<div class="line"><a id="l00193" name="l00193"></a><span class="lineno">  193</span>        m_isPositionDirty.<a class="code hl_variable" href="struct_o_s_k_1_1_atomic_holder.html#a4f89a8a67cc085b193a1b65bb1ef5077">atomic</a> ||</div>
+<div class="line"><a id="l00194" name="l00194"></a><span class="lineno">  194</span>        m_isRotationDirty.<a class="code hl_variable" href="struct_o_s_k_1_1_atomic_holder.html#a4f89a8a67cc085b193a1b65bb1ef5077">atomic</a> ||</div>
+<div class="line"><a id="l00195" name="l00195"></a><span class="lineno">  195</span>        m_isScaleDirty.<a class="code hl_variable" href="struct_o_s_k_1_1_atomic_holder.html#a4f89a8a67cc085b193a1b65bb1ef5077">atomic</a>;</div>
+<div class="line"><a id="l00196" name="l00196"></a><span class="lineno">  196</span> </div>
+<div class="line"><a id="l00197" name="l00197"></a><span class="lineno">  197</span>    <span class="keywordflow">if</span> (m_isPositionDirty.<a class="code hl_variable" href="struct_o_s_k_1_1_atomic_holder.html#a4f89a8a67cc085b193a1b65bb1ef5077">atomic</a>) {</div>
+<div class="line"><a id="l00198" name="l00198"></a><span class="lineno">  198</span>        m_localPosition += m_changeInPosition;</div>
+<div class="line"><a id="l00199" name="l00199"></a><span class="lineno">  199</span>        m_changeInPosition = <a class="code hl_variable" href="class_o_s_k_1_1_vector3__t.html#ac574fd28b9114ddf48d26573d1efd570">Vector3f::Zero</a>;</div>
+<div class="line"><a id="l00200" name="l00200"></a><span class="lineno">  200</span> </div>
+<div class="line"><a id="l00201" name="l00201"></a><span class="lineno">  201</span>        m_isPositionDirty.<a class="code hl_variable" href="struct_o_s_k_1_1_atomic_holder.html#a4f89a8a67cc085b193a1b65bb1ef5077">atomic</a> = <span class="keyword">false</span>;</div>
+<div class="line"><a id="l00202" name="l00202"></a><span class="lineno">  202</span>    }</div>
+<div class="line"><a id="l00203" name="l00203"></a><span class="lineno">  203</span> </div>
+<div class="line"><a id="l00204" name="l00204"></a><span class="lineno">  204</span>    <span class="keywordflow">if</span> (m_isRotationDirty.<a class="code hl_variable" href="struct_o_s_k_1_1_atomic_holder.html#a4f89a8a67cc085b193a1b65bb1ef5077">atomic</a>) {</div>
+<div class="line"><a id="l00205" name="l00205"></a><span class="lineno">  205</span>        m_localRotation += m_changeInRotation;</div>
+<div class="line"><a id="l00206" name="l00206"></a><span class="lineno">  206</span>        m_changeInRotation = <a class="code hl_function" href="class_o_s_k_1_1_quaternion.html#a80a60fb66fbc1e762489c72283578818">Quaternion::Empty</a>();</div>
+<div class="line"><a id="l00207" name="l00207"></a><span class="lineno">  207</span> </div>
+<div class="line"><a id="l00208" name="l00208"></a><span class="lineno">  208</span>        m_isRotationDirty.<a class="code hl_variable" href="struct_o_s_k_1_1_atomic_holder.html#a4f89a8a67cc085b193a1b65bb1ef5077">atomic</a> = <span class="keyword">false</span>;</div>
+<div class="line"><a id="l00209" name="l00209"></a><span class="lineno">  209</span>    }</div>
+<div class="line"><a id="l00210" name="l00210"></a><span class="lineno">  210</span> </div>
+<div class="line"><a id="l00211" name="l00211"></a><span class="lineno">  211</span>    <span class="keywordflow">if</span> (m_isScaleDirty.<a class="code hl_variable" href="struct_o_s_k_1_1_atomic_holder.html#a4f89a8a67cc085b193a1b65bb1ef5077">atomic</a>) {</div>
+<div class="line"><a id="l00212" name="l00212"></a><span class="lineno">  212</span>        m_localScale += m_changeInScale;</div>
+<div class="line"><a id="l00213" name="l00213"></a><span class="lineno">  213</span>        m_changeInScale = <a class="code hl_variable" href="class_o_s_k_1_1_vector3__t.html#ac574fd28b9114ddf48d26573d1efd570">Vector3f::Zero</a>;</div>
 <div class="line"><a id="l00214" name="l00214"></a><span class="lineno">  214</span> </div>
-<div class="line"><a id="l00215" name="l00215"></a><span class="lineno">  215</span>    <span class="comment">// Posición local.</span></div>
-<div class="line"><a id="l00216" name="l00216"></a><span class="lineno">  216</span>    m_matrix = glm::translate(m_matrix, m_localPosition.<a class="code hl_function" href="class_o_s_k_1_1_vector3__t.html#afe37985b6d213fc46fc8d3d0366d80bb">ToGlm</a>());</div>
+<div class="line"><a id="l00215" name="l00215"></a><span class="lineno">  215</span>        m_isScaleDirty.<a class="code hl_variable" href="struct_o_s_k_1_1_atomic_holder.html#a4f89a8a67cc085b193a1b65bb1ef5077">atomic</a> = <span class="keyword">false</span>;</div>
+<div class="line"><a id="l00216" name="l00216"></a><span class="lineno">  216</span>    }</div>
 <div class="line"><a id="l00217" name="l00217"></a><span class="lineno">  217</span> </div>
-<div class="line"><a id="l00218" name="l00218"></a><span class="lineno">  218</span>    <span class="comment">// Rotación local.</span></div>
-<div class="line"><a id="l00219" name="l00219"></a><span class="lineno">  219</span>    m_matrix = m_matrix * m_localRotation.<a class="code hl_function" href="class_o_s_k_1_1_quaternion.html#a5ab0ea79fd870ee2e32b836c2c4f5525">ToMat4</a>();</div>
-<div class="line"><a id="l00220" name="l00220"></a><span class="lineno">  220</span> </div>
-<div class="line"><a id="l00221" name="l00221"></a><span class="lineno">  221</span>    <span class="comment">// Escala local.</span></div>
-<div class="line"><a id="l00222" name="l00222"></a><span class="lineno">  222</span>    m_matrix = glm::scale(m_matrix, m_localScale.<a class="code hl_function" href="class_o_s_k_1_1_vector3__t.html#afe37985b6d213fc46fc8d3d0366d80bb">ToGlm</a>());</div>
-<div class="line"><a id="l00223" name="l00223"></a><span class="lineno">  223</span> </div>
-<div class="line"><a id="l00224" name="l00224"></a><span class="lineno">  224</span> </div>
-<div class="line"><a id="l00225" name="l00225"></a><span class="lineno">  225</span>    <span class="comment">// Obtener posición final.</span></div>
-<div class="line"><a id="l00226" name="l00226"></a><span class="lineno">  226</span>    m_globalPosition = <a class="code hl_typedef" href="namespace_o_s_k.html#a72b3268907c9cd41f0daf0a42e1c9dca">Vector3f</a>(m_matrix * glm::vec4(0, 0, 0, 1));</div>
-<div class="line"><a id="l00227" name="l00227"></a><span class="lineno">  227</span>}</div>
+<div class="line"><a id="l00218" name="l00218"></a><span class="lineno">  218</span>    <span class="keywordflow">if</span> (isAnyDirty) {</div>
+<div class="line"><a id="l00219" name="l00219"></a><span class="lineno">  219</span>        UpdateModel(parent);</div>
+<div class="line"><a id="l00220" name="l00220"></a><span class="lineno">  220</span>    }</div>
+<div class="line"><a id="l00221" name="l00221"></a><span class="lineno">  221</span>}</div>
+</div>
+<div class="line"><a id="l00222" name="l00222"></a><span class="lineno">  222</span> </div>
+<div class="line"><a id="l00223" name="l00223"></a><span class="lineno">  223</span><span class="keywordtype">void</span> Transform3D::UpdateModel(std::optional&lt;const Transform3D*&gt; parent) {</div>
+<div class="line"><a id="l00224" name="l00224"></a><span class="lineno">  224</span>    m_matrix = glm::mat4(1.0f);</div>
+<div class="line"><a id="l00225" name="l00225"></a><span class="lineno">  225</span> </div>
+<div class="line"><a id="l00226" name="l00226"></a><span class="lineno">  226</span>    <span class="keywordflow">if</span> (parent.has_value()) {</div>
+<div class="line"><a id="l00227" name="l00227"></a><span class="lineno">  227</span>        <span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_e_c_s_1_1_transform3_d.html">Transform3D</a>&amp; parentTransform = *parent.value();</div>
 <div class="line"><a id="l00228" name="l00228"></a><span class="lineno">  228</span> </div>
-<div class="line"><a id="l00229" name="l00229"></a><span class="lineno">  229</span> </div>
-<div class="line"><a id="l00230" name="l00230"></a><span class="lineno">  230</span><span class="keyword">template</span> &lt;&gt;</div>
-<div class="foldopen" id="foldopen00231" data-start="{" data-end="}">
-<div class="line"><a id="l00231" name="l00231"></a><span class="lineno"><a class="line" href="_transform3_d_8cpp.html#ace758d68e85d8694ff5b140d78a5e852">  231</a></span>nlohmann::json <a class="code hl_function" href="namespace_o_s_k_1_1_p_e_r_s_i_s_t_e_n_c_e.html#afafb6f02d00fba7a033eec86acd7a746">PERSISTENCE::SerializeJson&lt;OSK::ECS::Transform3D&gt;</a>(<span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_e_c_s_1_1_transform3_d.html">OSK::ECS::Transform3D</a>&amp; data) {</div>
-<div class="line"><a id="l00232" name="l00232"></a><span class="lineno">  232</span>    nlohmann::json output{};</div>
-<div class="line"><a id="l00233" name="l00233"></a><span class="lineno">  233</span> </div>
-<div class="line"><a id="l00234" name="l00234"></a><span class="lineno">  234</span>    output[<span class="stringliteral">&quot;m_inheritPosition&quot;</span>] = data.m_inheritPosition;</div>
-<div class="line"><a id="l00235" name="l00235"></a><span class="lineno">  235</span>    output[<span class="stringliteral">&quot;m_inheritRotation&quot;</span>] = data.m_inheritRotation;</div>
-<div class="line"><a id="l00236" name="l00236"></a><span class="lineno">  236</span>    output[<span class="stringliteral">&quot;m_inheritScale&quot;</span>] = data.m_inheritScale;</div>
-<div class="line"><a id="l00237" name="l00237"></a><span class="lineno">  237</span> </div>
-<div class="line"><a id="l00238" name="l00238"></a><span class="lineno">  238</span>    output[<span class="stringliteral">&quot;m_matrix&quot;</span>] = SerializeJson&lt;glm::mat4&gt;(data.<a class="code hl_function" href="class_o_s_k_1_1_e_c_s_1_1_transform3_d.html#ab31721ae72a69b2ec9fef61aaa7a91ed">GetAsMatrix</a>());</div>
-<div class="line"><a id="l00239" name="l00239"></a><span class="lineno">  239</span> </div>
-<div class="line"><a id="l00240" name="l00240"></a><span class="lineno">  240</span>    <span class="comment">// @todo children</span></div>
-<div class="line"><a id="l00241" name="l00241"></a><span class="lineno">  241</span> </div>
-<div class="line"><a id="l00242" name="l00242"></a><span class="lineno">  242</span>    <span class="keywordflow">return</span> output;</div>
-<div class="line"><a id="l00243" name="l00243"></a><span class="lineno">  243</span>}</div>
-</div>
+<div class="line"><a id="l00229" name="l00229"></a><span class="lineno">  229</span>        m_globalRotation = m_inheritRotation</div>
+<div class="line"><a id="l00230" name="l00230"></a><span class="lineno">  230</span>            ? parentTransform.m_globalRotation * m_localRotation.<a class="code hl_function" href="class_o_s_k_1_1_quaternion.html#a5ab0ea79fd870ee2e32b836c2c4f5525">ToMat4</a>()</div>
+<div class="line"><a id="l00231" name="l00231"></a><span class="lineno">  231</span>            : m_localRotation.<a class="code hl_function" href="class_o_s_k_1_1_quaternion.html#a5ab0ea79fd870ee2e32b836c2c4f5525">ToMat4</a>();</div>
+<div class="line"><a id="l00232" name="l00232"></a><span class="lineno">  232</span> </div>
+<div class="line"><a id="l00233" name="l00233"></a><span class="lineno">  233</span>        <span class="keywordflow">if</span> (m_inheritPosition) {</div>
+<div class="line"><a id="l00234" name="l00234"></a><span class="lineno">  234</span>            m_matrix = glm::translate(m_matrix, parentTransform.<a class="code hl_function" href="class_o_s_k_1_1_e_c_s_1_1_transform3_d.html#a385e7addbf6a4b3f00b54019e5335550">GetPosition</a>().<a class="code hl_function" href="class_o_s_k_1_1_vector3__t.html#afe37985b6d213fc46fc8d3d0366d80bb">ToGlm</a>());</div>
+<div class="line"><a id="l00235" name="l00235"></a><span class="lineno">  235</span>        }</div>
+<div class="line"><a id="l00236" name="l00236"></a><span class="lineno">  236</span> </div>
+<div class="line"><a id="l00237" name="l00237"></a><span class="lineno">  237</span>        <span class="keywordflow">if</span> (m_inheritRotation) {</div>
+<div class="line"><a id="l00238" name="l00238"></a><span class="lineno">  238</span>            m_matrix = m_matrix * parentTransform.m_globalRotation;</div>
+<div class="line"><a id="l00239" name="l00239"></a><span class="lineno">  239</span>        }</div>
+<div class="line"><a id="l00240" name="l00240"></a><span class="lineno">  240</span>    }</div>
+<div class="line"><a id="l00241" name="l00241"></a><span class="lineno">  241</span>    <span class="keywordflow">else</span> {</div>
+<div class="line"><a id="l00242" name="l00242"></a><span class="lineno">  242</span>        m_globalRotation = m_localRotation.<a class="code hl_function" href="class_o_s_k_1_1_quaternion.html#a5ab0ea79fd870ee2e32b836c2c4f5525">ToMat4</a>();</div>
+<div class="line"><a id="l00243" name="l00243"></a><span class="lineno">  243</span>    }</div>
 <div class="line"><a id="l00244" name="l00244"></a><span class="lineno">  244</span> </div>
-<div class="line"><a id="l00245" name="l00245"></a><span class="lineno">  245</span><span class="keyword">template</span> &lt;&gt;</div>
-<div class="foldopen" id="foldopen00246" data-start="{" data-end="}">
-<div class="line"><a id="l00246" name="l00246"></a><span class="lineno"><a class="line" href="_transform3_d_8cpp.html#ad69241673a74db6c13d746d022de8530">  246</a></span><a class="code hl_class" href="class_o_s_k_1_1_e_c_s_1_1_transform3_d.html">OSK::ECS::Transform3D</a> <a class="code hl_function" href="namespace_o_s_k_1_1_p_e_r_s_i_s_t_e_n_c_e.html#aab9c1c961ea17626e54f96012ea6e6d6">PERSISTENCE::DeserializeJson&lt;OSK::ECS::Transform3D&gt;</a>(<span class="keyword">const</span> nlohmann::json&amp; json) {</div>
-<div class="line"><a id="l00247" name="l00247"></a><span class="lineno">  247</span>    <a class="code hl_class" href="class_o_s_k_1_1_e_c_s_1_1_transform3_d.html">Transform3D</a> output = <a class="code hl_function" href="class_o_s_k_1_1_e_c_s_1_1_transform3_d.html#a113b74eaac353602f1c7707559113b5d">Transform3D::FromMatrix</a>(json[<span class="stringliteral">&quot;owner&quot;</span>], DeserializeJson&lt;glm::mat4&gt;(json[<span class="stringliteral">&quot;m_matrix&quot;</span>]));</div>
-<div class="line"><a id="l00248" name="l00248"></a><span class="lineno">  248</span> </div>
-<div class="line"><a id="l00249" name="l00249"></a><span class="lineno">  249</span>    output.m_inheritPosition = json[<span class="stringliteral">&quot;m_inheritPosition&quot;</span>];</div>
-<div class="line"><a id="l00250" name="l00250"></a><span class="lineno">  250</span>    output.m_inheritRotation = json[<span class="stringliteral">&quot;m_inheritRotation&quot;</span>];</div>
-<div class="line"><a id="l00251" name="l00251"></a><span class="lineno">  251</span>    output.m_inheritScale = json[<span class="stringliteral">&quot;m_inheritScale&quot;</span>];</div>
-<div class="line"><a id="l00252" name="l00252"></a><span class="lineno">  252</span> </div>
-<div class="line"><a id="l00253" name="l00253"></a><span class="lineno">  253</span>    <span class="keywordflow">return</span> output;</div>
-<div class="line"><a id="l00254" name="l00254"></a><span class="lineno">  254</span>}</div>
-</div>
-<div class="ttc" id="a_entity_component_system_8h_html"><div class="ttname"><a href="_entity_component_system_8h.html">EntityComponentSystem.h</a></div></div>
-<div class="ttc" id="a_math_8h_html"><div class="ttname"><a href="_math_8h.html">Math.h</a></div></div>
-<div class="ttc" id="a_matrix_operations_8hpp_html"><div class="ttname"><a href="_matrix_operations_8hpp.html">MatrixOperations.hpp</a></div></div>
-<div class="ttc" id="a_o_s_kengine_8h_html"><div class="ttname"><a href="_o_s_kengine_8h.html">OSKengine.h</a></div></div>
-<div class="ttc" id="a_transform3_d_8h_html"><div class="ttname"><a href="_transform3_d_8h.html">Transform3D.h</a></div></div>
-<div class="ttc" id="aclass_o_s_k_1_1_dynamic_array_html_a09be7ecaff61fd363a4065237faa1efa"><div class="ttname"><a href="class_o_s_k_1_1_dynamic_array.html#a09be7ecaff61fd363a4065237faa1efa">OSK::DynamicArray::ContainsElement</a></div><div class="ttdeci">bool ContainsElement(const T &amp;elem) const</div><div class="ttdoc">Comprueba si el elemento está presente en el array.</div><div class="ttdef"><b>Definition</b> <a href="_dynamic_array_8hpp_source.html#l00564">DynamicArray.hpp:564</a></div></div>
-<div class="ttc" id="aclass_o_s_k_1_1_dynamic_array_html_a0a3bb760970ebe40178e9976c53d73ea"><div class="ttname"><a href="class_o_s_k_1_1_dynamic_array.html#a0a3bb760970ebe40178e9976c53d73ea">OSK::DynamicArray::Remove</a></div><div class="ttdeci">void Remove(const T &amp;elem)</div><div class="ttdoc">Elimina el eleemento dado de la lista.</div><div class="ttdef"><b>Definition</b> <a href="_dynamic_array_8hpp_source.html#l00539">DynamicArray.hpp:539</a></div></div>
-<div class="ttc" id="aclass_o_s_k_1_1_dynamic_array_html_a4433c76207ce2ecad5e306b12575f1b3"><div class="ttname"><a href="class_o_s_k_1_1_dynamic_array.html#a4433c76207ce2ecad5e306b12575f1b3">OSK::DynamicArray::Insert</a></div><div class="ttdeci">void Insert(const T &amp;element)</div><div class="ttdoc">Inserta un elemento al final del array.</div><div class="ttdef"><b>Definition</b> <a href="_dynamic_array_8hpp_source.html#l00351">DynamicArray.hpp:351</a></div></div>
-<div class="ttc" id="aclass_o_s_k_1_1_dynamic_array_html_aa623134157acd07f1e42312f2a98b81c"><div class="ttname"><a href="class_o_s_k_1_1_dynamic_array.html#aa623134157acd07f1e42312f2a98b81c">OSK::DynamicArray::GetFullSpan</a></div><div class="ttdeci">std::span&lt; T &gt; GetFullSpan()</div><div class="ttdef"><b>Definition</b> <a href="_dynamic_array_8hpp_source.html#l00694">DynamicArray.hpp:694</a></div></div>
+<div class="line"><a id="l00245" name="l00245"></a><span class="lineno">  245</span>    <span class="comment">// Posición local.</span></div>
+<div class="line"><a id="l00246" name="l00246"></a><span class="lineno">  246</span>    m_matrix = glm::translate(m_matrix, m_localPosition.<a class="code hl_function" href="class_o_s_k_1_1_vector3__t.html#afe37985b6d213fc46fc8d3d0366d80bb">ToGlm</a>());</div>
+<div class="line"><a id="l00247" name="l00247"></a><span class="lineno">  247</span> </div>
+<div class="line"><a id="l00248" name="l00248"></a><span class="lineno">  248</span>    <span class="comment">// Rotación local.</span></div>
+<div class="line"><a id="l00249" name="l00249"></a><span class="lineno">  249</span>    m_matrix = m_matrix * m_localRotation.<a class="code hl_function" href="class_o_s_k_1_1_quaternion.html#a5ab0ea79fd870ee2e32b836c2c4f5525">ToMat4</a>();</div>
+<div class="line"><a id="l00250" name="l00250"></a><span class="lineno">  250</span> </div>
+<div class="line"><a id="l00251" name="l00251"></a><span class="lineno">  251</span>    <span class="comment">// Escala local.</span></div>
+<div class="line"><a id="l00252" name="l00252"></a><span class="lineno">  252</span>    m_matrix = glm::scale(m_matrix, m_localScale.<a class="code hl_function" href="class_o_s_k_1_1_vector3__t.html#afe37985b6d213fc46fc8d3d0366d80bb">ToGlm</a>());</div>
+<div class="line"><a id="l00253" name="l00253"></a><span class="lineno">  253</span> </div>
+<div class="line"><a id="l00254" name="l00254"></a><span class="lineno">  254</span> </div>
+<div class="line"><a id="l00255" name="l00255"></a><span class="lineno">  255</span>    <span class="comment">// Obtener posición final.</span></div>
+<div class="line"><a id="l00256" name="l00256"></a><span class="lineno">  256</span>    m_globalPosition = <a class="code hl_typedef" href="namespace_o_s_k.html#a72b3268907c9cd41f0daf0a42e1c9dca">Vector3f</a>(m_matrix * glm::vec4(0, 0, 0, 1));</div>
+<div class="line"><a id="l00257" name="l00257"></a><span class="lineno">  257</span>}</div>
+<div class="line"><a id="l00258" name="l00258"></a><span class="lineno">  258</span> </div>
+<div class="line"><a id="l00259" name="l00259"></a><span class="lineno">  259</span> </div>
+<div class="line"><a id="l00260" name="l00260"></a><span class="lineno">  260</span><span class="keyword">template</span> &lt;&gt;</div>
+<div class="line"><a id="l00261" name="l00261"></a><span class="lineno">  261</span>nlohmann::json <a class="code hl_function" href="namespace_o_s_k_1_1_p_e_r_s_i_s_t_e_n_c_e.html#afafb6f02d00fba7a033eec86acd7a746">PERSISTENCE::SerializeJson&lt;OSK::ECS::Transform3D&gt;</a>(<span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_e_c_s_1_1_transform3_d.html">OSK::ECS::Transform3D</a>&amp; data) {</div>
+<div class="line"><a id="l00262" name="l00262"></a><span class="lineno">  262</span>    nlohmann::json output{};</div>
+<div class="line"><a id="l00263" name="l00263"></a><span class="lineno">  263</span> </div>
+<div class="line"><a id="l00264" name="l00264"></a><span class="lineno">  264</span>    output[<span class="stringliteral">&quot;m_inheritPosition&quot;</span>] = data.m_inheritPosition;</div>
+<div class="line"><a id="l00265" name="l00265"></a><span class="lineno">  265</span>    output[<span class="stringliteral">&quot;m_inheritRotation&quot;</span>] = data.m_inheritRotation;</div>
+<div class="line"><a id="l00266" name="l00266"></a><span class="lineno">  266</span>    output[<span class="stringliteral">&quot;m_inheritScale&quot;</span>] = data.m_inheritScale;</div>
+<div class="line"><a id="l00267" name="l00267"></a><span class="lineno">  267</span> </div>
+<div class="line"><a id="l00268" name="l00268"></a><span class="lineno">  268</span>    output[<span class="stringliteral">&quot;m_matrix&quot;</span>] = SerializeJson&lt;glm::mat4&gt;(data.<a class="code hl_function" href="class_o_s_k_1_1_e_c_s_1_1_transform3_d.html#ab31721ae72a69b2ec9fef61aaa7a91ed">GetAsMatrix</a>());</div>
+<div class="line"><a id="l00269" name="l00269"></a><span class="lineno">  269</span> </div>
+<div class="line"><a id="l00270" name="l00270"></a><span class="lineno">  270</span>    <span class="comment">// @todo children</span></div>
+<div class="line"><a id="l00271" name="l00271"></a><span class="lineno">  271</span> </div>
+<div class="line"><a id="l00272" name="l00272"></a><span class="lineno">  272</span>    <span class="keywordflow">return</span> output;</div>
+<div class="line"><a id="l00273" name="l00273"></a><span class="lineno">  273</span>}</div>
+<div class="line"><a id="l00274" name="l00274"></a><span class="lineno">  274</span> </div>
+<div class="line"><a id="l00275" name="l00275"></a><span class="lineno">  275</span><span class="keyword">template</span> &lt;&gt;</div>
+<div class="line"><a id="l00276" name="l00276"></a><span class="lineno">  276</span><a class="code hl_class" href="class_o_s_k_1_1_e_c_s_1_1_transform3_d.html">OSK::ECS::Transform3D</a> <a class="code hl_function" href="namespace_o_s_k_1_1_p_e_r_s_i_s_t_e_n_c_e.html#aab9c1c961ea17626e54f96012ea6e6d6">PERSISTENCE::DeserializeJson&lt;OSK::ECS::Transform3D&gt;</a>(<span class="keyword">const</span> nlohmann::json&amp; json) {</div>
+<div class="line"><a id="l00277" name="l00277"></a><span class="lineno">  277</span>    <a class="code hl_class" href="class_o_s_k_1_1_e_c_s_1_1_transform3_d.html">Transform3D</a> output = <a class="code hl_function" href="class_o_s_k_1_1_e_c_s_1_1_transform3_d.html#a113b74eaac353602f1c7707559113b5d">Transform3D::FromMatrix</a>(<a class="code hl_typedef" href="namespace_o_s_k_1_1_e_c_s.html#a5b92aeaa6be2ce0d96e7f571aa917042">GameObjectIndex</a>(json[<span class="stringliteral">&quot;owner&quot;</span>]), DeserializeJson&lt;glm::mat4&gt;(json[<span class="stringliteral">&quot;m_matrix&quot;</span>]));</div>
+<div class="line"><a id="l00278" name="l00278"></a><span class="lineno">  278</span> </div>
+<div class="line"><a id="l00279" name="l00279"></a><span class="lineno">  279</span>    output.m_inheritPosition = json[<span class="stringliteral">&quot;m_inheritPosition&quot;</span>];</div>
+<div class="line"><a id="l00280" name="l00280"></a><span class="lineno">  280</span>    output.m_inheritRotation = json[<span class="stringliteral">&quot;m_inheritRotation&quot;</span>];</div>
+<div class="line"><a id="l00281" name="l00281"></a><span class="lineno">  281</span>    output.m_inheritScale = json[<span class="stringliteral">&quot;m_inheritScale&quot;</span>];</div>
+<div class="line"><a id="l00282" name="l00282"></a><span class="lineno">  282</span> </div>
+<div class="line"><a id="l00283" name="l00283"></a><span class="lineno">  283</span>    <span class="keywordflow">return</span> output;</div>
+<div class="line"><a id="l00284" name="l00284"></a><span class="lineno">  284</span>}</div>
+<div class="ttc" id="aclass_o_s_k_1_1_base_uuid_html"><div class="ttname"><a href="class_o_s_k_1_1_base_uuid.html">OSK::BaseUuid&lt; class GameObjectIndexTag &gt;</a></div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_e_c_s_1_1_entity_component_system_html"><div class="ttname"><a href="class_o_s_k_1_1_e_c_s_1_1_entity_component_system.html">OSK::ECS::EntityComponentSystem</a></div><div class="ttdoc">Entity-Component-System es un paradigma de programación en el cual los objetos se dividen en 3 partes...</div><div class="ttdef"><b>Definition</b> <a href="_entity_component_system_8h_source.html#l00042">EntityComponentSystem.h:42</a></div></div>
-<div class="ttc" id="aclass_o_s_k_1_1_e_c_s_1_1_transform3_d_html"><div class="ttname"><a href="class_o_s_k_1_1_e_c_s_1_1_transform3_d.html">OSK::ECS::Transform3D</a></div><div class="ttdef"><b>Definition</b> <a href="_transform3_d_8h_source.html#l00013">Transform3D.h:13</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_e_c_s_1_1_transform3_d_html"><div class="ttname"><a href="class_o_s_k_1_1_e_c_s_1_1_transform3_d.html">OSK::ECS::Transform3D</a></div><div class="ttdef"><b>Definition</b> <a href="_transform3_d_8h_source.html#l00015">Transform3D.h:15</a></div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_e_c_s_1_1_transform3_d_html_a067dcb3c5276e24e0252ac78eeaa7259"><div class="ttname"><a href="class_o_s_k_1_1_e_c_s_1_1_transform3_d.html#a067dcb3c5276e24e0252ac78eeaa7259">OSK::ECS::Transform3D::SetScale</a></div><div class="ttdeci">void SetScale(const Vector3f &amp;scale)</div><div class="ttdoc">Establece la escala local.</div><div class="ttdef"><b>Definition</b> <a href="#l00040">Transform3D.cpp:40</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_e_c_s_1_1_transform3_d_html_a10367c6b67f7a5cc808e86f4260c76ef"><div class="ttname"><a href="class_o_s_k_1_1_e_c_s_1_1_transform3_d.html#a10367c6b67f7a5cc808e86f4260c76ef">OSK::ECS::Transform3D::AddScale_ThreadSafe</a></div><div class="ttdeci">void AddScale_ThreadSafe(const Vector3f &amp;scaleDelta)</div><div class="ttdoc">Suma un vector 3D a la escala.</div><div class="ttdef"><b>Definition</b> <a href="#l00067">Transform3D.cpp:67</a></div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_e_c_s_1_1_transform3_d_html_a10c838b2e1e87925aaca154cc34ca18a"><div class="ttname"><a href="class_o_s_k_1_1_e_c_s_1_1_transform3_d.html#a10c838b2e1e87925aaca154cc34ca18a">OSK::ECS::Transform3D::Transform3D</a></div><div class="ttdeci">Transform3D(ECS::GameObjectIndex owner)</div><div class="ttdef"><b>Definition</b> <a href="#l00032">Transform3D.cpp:32</a></div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_e_c_s_1_1_transform3_d_html_a113b74eaac353602f1c7707559113b5d"><div class="ttname"><a href="class_o_s_k_1_1_e_c_s_1_1_transform3_d.html#a113b74eaac353602f1c7707559113b5d">OSK::ECS::Transform3D::FromMatrix</a></div><div class="ttdeci">static Transform3D FromMatrix(ECS::GameObjectIndex owner, const glm::mat4 &amp;matrix)</div><div class="ttdef"><b>Definition</b> <a href="#l00023">Transform3D.cpp:23</a></div></div>
-<div class="ttc" id="aclass_o_s_k_1_1_e_c_s_1_1_transform3_d_html_a16601a1c74629f0c493e00df8f3a8309"><div class="ttname"><a href="class_o_s_k_1_1_e_c_s_1_1_transform3_d.html#a16601a1c74629f0c493e00df8f3a8309">OSK::ECS::Transform3D::GetLocalPosition</a></div><div class="ttdeci">Vector3f GetLocalPosition() const</div><div class="ttdef"><b>Definition</b> <a href="#l00113">Transform3D.cpp:113</a></div></div>
-<div class="ttc" id="aclass_o_s_k_1_1_e_c_s_1_1_transform3_d_html_a1d98e03821dbb441e045582fb65d55a4"><div class="ttname"><a href="class_o_s_k_1_1_e_c_s_1_1_transform3_d.html#a1d98e03821dbb441e045582fb65d55a4">OSK::ECS::Transform3D::GetLocalScale</a></div><div class="ttdeci">Vector3f GetLocalScale() const</div><div class="ttdef"><b>Definition</b> <a href="#l00117">Transform3D.cpp:117</a></div></div>
-<div class="ttc" id="aclass_o_s_k_1_1_e_c_s_1_1_transform3_d_html_a305766732463c5ffb54588742006ff75"><div class="ttname"><a href="class_o_s_k_1_1_e_c_s_1_1_transform3_d.html#a305766732463c5ffb54588742006ff75">OSK::ECS::Transform3D::RotateLocalSpace</a></div><div class="ttdeci">void RotateLocalSpace(float angle, const Vector3f &amp;axis)</div><div class="ttdoc">Rota el transform respecto a sí mismo.</div><div class="ttdef"><b>Definition</b> <a href="#l00066">Transform3D.cpp:66</a></div></div>
-<div class="ttc" id="aclass_o_s_k_1_1_e_c_s_1_1_transform3_d_html_a385e7addbf6a4b3f00b54019e5335550"><div class="ttname"><a href="class_o_s_k_1_1_e_c_s_1_1_transform3_d.html#a385e7addbf6a4b3f00b54019e5335550">OSK::ECS::Transform3D::GetPosition</a></div><div class="ttdeci">Vector3f GetPosition() const</div><div class="ttdef"><b>Definition</b> <a href="#l00105">Transform3D.cpp:105</a></div></div>
-<div class="ttc" id="aclass_o_s_k_1_1_e_c_s_1_1_transform3_d_html_a519e0f71ada3555dd2af7f429e0e5d3f"><div class="ttname"><a href="class_o_s_k_1_1_e_c_s_1_1_transform3_d.html#a519e0f71ada3555dd2af7f429e0e5d3f">OSK::ECS::Transform3D::AddScale</a></div><div class="ttdeci">void AddScale(const Vector3f &amp;scaleDelta)</div><div class="ttdoc">Suma un vector 3D a la escala.</div><div class="ttdef"><b>Definition</b> <a href="#l00056">Transform3D.cpp:56</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_e_c_s_1_1_transform3_d_html_a16601a1c74629f0c493e00df8f3a8309"><div class="ttname"><a href="class_o_s_k_1_1_e_c_s_1_1_transform3_d.html#a16601a1c74629f0c493e00df8f3a8309">OSK::ECS::Transform3D::GetLocalPosition</a></div><div class="ttdeci">Vector3f GetLocalPosition() const</div><div class="ttdef"><b>Definition</b> <a href="#l00143">Transform3D.cpp:143</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_e_c_s_1_1_transform3_d_html_a19e1b6a4430fae851e89dd07b8d36d19"><div class="ttname"><a href="class_o_s_k_1_1_e_c_s_1_1_transform3_d.html#a19e1b6a4430fae851e89dd07b8d36d19">OSK::ECS::Transform3D::ApplyRotation_ThreadSafe</a></div><div class="ttdeci">void ApplyRotation_ThreadSafe(const Quaternion &amp;rotationDelta)</div><div class="ttdoc">Aplica una rotación al transform.</div><div class="ttdef"><b>Definition</b> <a href="#l00078">Transform3D.cpp:78</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_e_c_s_1_1_transform3_d_html_a1d98e03821dbb441e045582fb65d55a4"><div class="ttname"><a href="class_o_s_k_1_1_e_c_s_1_1_transform3_d.html#a1d98e03821dbb441e045582fb65d55a4">OSK::ECS::Transform3D::GetLocalScale</a></div><div class="ttdeci">Vector3f GetLocalScale() const</div><div class="ttdef"><b>Definition</b> <a href="#l00147">Transform3D.cpp:147</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_e_c_s_1_1_transform3_d_html_a305766732463c5ffb54588742006ff75"><div class="ttname"><a href="class_o_s_k_1_1_e_c_s_1_1_transform3_d.html#a305766732463c5ffb54588742006ff75">OSK::ECS::Transform3D::RotateLocalSpace</a></div><div class="ttdeci">void RotateLocalSpace(float angle, const Vector3f &amp;axis)</div><div class="ttdoc">Rota el transform respecto a sí mismo.</div><div class="ttdef"><b>Definition</b> <a href="#l00084">Transform3D.cpp:84</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_e_c_s_1_1_transform3_d_html_a385e7addbf6a4b3f00b54019e5335550"><div class="ttname"><a href="class_o_s_k_1_1_e_c_s_1_1_transform3_d.html#a385e7addbf6a4b3f00b54019e5335550">OSK::ECS::Transform3D::GetPosition</a></div><div class="ttdeci">Vector3f GetPosition() const</div><div class="ttdef"><b>Definition</b> <a href="#l00135">Transform3D.cpp:135</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_e_c_s_1_1_transform3_d_html_a46aed22babac45b7d0e89dea44d58002"><div class="ttname"><a href="class_o_s_k_1_1_e_c_s_1_1_transform3_d.html#a46aed22babac45b7d0e89dea44d58002">OSK::ECS::Transform3D::AddPosition_ThreadSafe</a></div><div class="ttdeci">void AddPosition_ThreadSafe(const Vector3f &amp;positionDelta)</div><div class="ttdoc">Suma el vector 3D a la posición.</div><div class="ttdef"><b>Definition</b> <a href="#l00056">Transform3D.cpp:56</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_e_c_s_1_1_transform3_d_html_a519e0f71ada3555dd2af7f429e0e5d3f"><div class="ttname"><a href="class_o_s_k_1_1_e_c_s_1_1_transform3_d.html#a519e0f71ada3555dd2af7f429e0e5d3f">OSK::ECS::Transform3D::AddScale</a></div><div class="ttdeci">void AddScale(const Vector3f &amp;scaleDelta)</div><div class="ttdoc">Suma un vector 3D a la escala.</div><div class="ttdef"><b>Definition</b> <a href="#l00062">Transform3D.cpp:62</a></div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_e_c_s_1_1_transform3_d_html_a5e6b4d0eb8915eefd7bcd0aeaa424163"><div class="ttname"><a href="class_o_s_k_1_1_e_c_s_1_1_transform3_d.html#a5e6b4d0eb8915eefd7bcd0aeaa424163">OSK::ECS::Transform3D::SetRotation</a></div><div class="ttdeci">void SetRotation(const Quaternion &amp;rotation)</div><div class="ttdoc">Establece la rotación local.</div><div class="ttdef"><b>Definition</b> <a href="#l00047">Transform3D.cpp:47</a></div></div>
-<div class="ttc" id="aclass_o_s_k_1_1_e_c_s_1_1_transform3_d_html_a6c715494afef79663699e2d7db4db29a"><div class="ttname"><a href="class_o_s_k_1_1_e_c_s_1_1_transform3_d.html#a6c715494afef79663699e2d7db4db29a">OSK::ECS::Transform3D::ApplyRotation</a></div><div class="ttdeci">void ApplyRotation(const Quaternion &amp;rotationDelta)</div><div class="ttdoc">Aplica una rotación al transform.</div><div class="ttdef"><b>Definition</b> <a href="#l00061">Transform3D.cpp:61</a></div></div>
-<div class="ttc" id="aclass_o_s_k_1_1_e_c_s_1_1_transform3_d_html_a71910548d1562847db1cd6c315b205d9"><div class="ttname"><a href="class_o_s_k_1_1_e_c_s_1_1_transform3_d.html#a71910548d1562847db1cd6c315b205d9">OSK::ECS::Transform3D::GetScale</a></div><div class="ttdeci">Vector3f GetScale() const</div><div class="ttdef"><b>Definition</b> <a href="#l00109">Transform3D.cpp:109</a></div></div>
-<div class="ttc" id="aclass_o_s_k_1_1_e_c_s_1_1_transform3_d_html_a75c8261b5fe8eaa30ca31060859e246d"><div class="ttname"><a href="class_o_s_k_1_1_e_c_s_1_1_transform3_d.html#a75c8261b5fe8eaa30ca31060859e246d">OSK::ECS::Transform3D::AddChild</a></div><div class="ttdeci">void AddChild(ECS::GameObjectIndex childId)</div><div class="ttdoc">Añade un hijo al transform.</div><div class="ttdef"><b>Definition</b> <a href="#l00086">Transform3D.cpp:86</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_e_c_s_1_1_transform3_d_html_a6c715494afef79663699e2d7db4db29a"><div class="ttname"><a href="class_o_s_k_1_1_e_c_s_1_1_transform3_d.html#a6c715494afef79663699e2d7db4db29a">OSK::ECS::Transform3D::ApplyRotation</a></div><div class="ttdeci">void ApplyRotation(const Quaternion &amp;rotationDelta)</div><div class="ttdoc">Aplica una rotación al transform.</div><div class="ttdef"><b>Definition</b> <a href="#l00073">Transform3D.cpp:73</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_e_c_s_1_1_transform3_d_html_a6f19cf91d2e0a98707c7e1169a7028a4"><div class="ttname"><a href="class_o_s_k_1_1_e_c_s_1_1_transform3_d.html#a6f19cf91d2e0a98707c7e1169a7028a4">OSK::ECS::Transform3D::RotateLocalSpace_ThreadSafe</a></div><div class="ttdeci">void RotateLocalSpace_ThreadSafe(float angle, const Vector3f &amp;axis)</div><div class="ttdoc">Rota el transform respecto a sí mismo.</div><div class="ttdef"><b>Definition</b> <a href="#l00092">Transform3D.cpp:92</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_e_c_s_1_1_transform3_d_html_a6f73b8da98b692568d8a5a46c2dbe2ce"><div class="ttname"><a href="class_o_s_k_1_1_e_c_s_1_1_transform3_d.html#a6f73b8da98b692568d8a5a46c2dbe2ce">OSK::ECS::Transform3D::RotateWorldSpace_ThreadSafe</a></div><div class="ttdeci">void RotateWorldSpace_ThreadSafe(float angle, const Vector3f &amp;axis)</div><div class="ttdoc">Rota el transform respecto al mundo.</div><div class="ttdef"><b>Definition</b> <a href="#l00108">Transform3D.cpp:108</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_e_c_s_1_1_transform3_d_html_a71910548d1562847db1cd6c315b205d9"><div class="ttname"><a href="class_o_s_k_1_1_e_c_s_1_1_transform3_d.html#a71910548d1562847db1cd6c315b205d9">OSK::ECS::Transform3D::GetScale</a></div><div class="ttdeci">Vector3f GetScale() const</div><div class="ttdef"><b>Definition</b> <a href="#l00139">Transform3D.cpp:139</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_e_c_s_1_1_transform3_d_html_a75c8261b5fe8eaa30ca31060859e246d"><div class="ttname"><a href="class_o_s_k_1_1_e_c_s_1_1_transform3_d.html#a75c8261b5fe8eaa30ca31060859e246d">OSK::ECS::Transform3D::AddChild</a></div><div class="ttdeci">void AddChild(ECS::GameObjectIndex childId)</div><div class="ttdoc">Añade un hijo al transform.</div><div class="ttdef"><b>Definition</b> <a href="#l00116">Transform3D.cpp:116</a></div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_e_c_s_1_1_transform3_d_html_a84e7319dbca0666f6194bd7da931644a"><div class="ttname"><a href="class_o_s_k_1_1_e_c_s_1_1_transform3_d.html#a84e7319dbca0666f6194bd7da931644a">OSK::ECS::Transform3D::AddPosition</a></div><div class="ttdeci">void AddPosition(const Vector3f &amp;positionDelta)</div><div class="ttdoc">Suma el vector 3D a la posición.</div><div class="ttdef"><b>Definition</b> <a href="#l00051">Transform3D.cpp:51</a></div></div>
-<div class="ttc" id="aclass_o_s_k_1_1_e_c_s_1_1_transform3_d_html_a865f66350d13df8b492abc200ec755d7"><div class="ttname"><a href="class_o_s_k_1_1_e_c_s_1_1_transform3_d.html#a865f66350d13df8b492abc200ec755d7">OSK::ECS::Transform3D::TransformPoint</a></div><div class="ttdeci">Vector3f TransformPoint(const Vector3f &amp;point) const</div><div class="ttdoc">Transforma un punto respecto a este transform.</div><div class="ttdef"><b>Definition</b> <a href="#l00101">Transform3D.cpp:101</a></div></div>
-<div class="ttc" id="aclass_o_s_k_1_1_e_c_s_1_1_transform3_d_html_a87bb98760ec7b5dc3414eced1e192e58"><div class="ttname"><a href="class_o_s_k_1_1_e_c_s_1_1_transform3_d.html#a87bb98760ec7b5dc3414eced1e192e58">OSK::ECS::Transform3D::SetShouldInheritRotation</a></div><div class="ttdeci">void SetShouldInheritRotation(bool value)</div><div class="ttdoc">Permite establecer si el transform hereda la orientación del padre.</div><div class="ttdef"><b>Definition</b> <a href="#l00153">Transform3D.cpp:153</a></div></div>
-<div class="ttc" id="aclass_o_s_k_1_1_e_c_s_1_1_transform3_d_html_a91ec96febabad2adffc147eb907f8d20"><div class="ttname"><a href="class_o_s_k_1_1_e_c_s_1_1_transform3_d.html#a91ec96febabad2adffc147eb907f8d20">OSK::ECS::Transform3D::OverrideMatrix</a></div><div class="ttdeci">void OverrideMatrix(const glm::mat4 &amp;matrix)</div><div class="ttdoc">Actualiza manualmente el valor de la matriz modelo.</div><div class="ttdef"><b>Definition</b> <a href="#l00133">Transform3D.cpp:133</a></div></div>
-<div class="ttc" id="aclass_o_s_k_1_1_e_c_s_1_1_transform3_d_html_a95b7e7b9dd90ea4c8f7bcf01d9e8e84f"><div class="ttname"><a href="class_o_s_k_1_1_e_c_s_1_1_transform3_d.html#a95b7e7b9dd90ea4c8f7bcf01d9e8e84f">OSK::ECS::Transform3D::GetLocalRotation</a></div><div class="ttdeci">Quaternion GetLocalRotation() const</div><div class="ttdef"><b>Definition</b> <a href="#l00121">Transform3D.cpp:121</a></div></div>
-<div class="ttc" id="aclass_o_s_k_1_1_e_c_s_1_1_transform3_d_html_a990a648f08387450664747f0d76e37f1"><div class="ttname"><a href="class_o_s_k_1_1_e_c_s_1_1_transform3_d.html#a990a648f08387450664747f0d76e37f1">OSK::ECS::Transform3D::SetShouldInheritScale</a></div><div class="ttdeci">void SetShouldInheritScale(bool value)</div><div class="ttdoc">Permite establecer si el transform hereda la escala del padre.</div><div class="ttdef"><b>Definition</b> <a href="#l00157">Transform3D.cpp:157</a></div></div>
-<div class="ttc" id="aclass_o_s_k_1_1_e_c_s_1_1_transform3_d_html_a9b390c0ca43ed7f1ff6696b3a98e0e06"><div class="ttname"><a href="class_o_s_k_1_1_e_c_s_1_1_transform3_d.html#a9b390c0ca43ed7f1ff6696b3a98e0e06">OSK::ECS::Transform3D::GetForwardVector</a></div><div class="ttdeci">Vector3f GetForwardVector() const</div><div class="ttdef"><b>Definition</b> <a href="#l00137">Transform3D.cpp:137</a></div></div>
-<div class="ttc" id="aclass_o_s_k_1_1_e_c_s_1_1_transform3_d_html_aa180c61cd8a9b6f696f14eafcaee77c6"><div class="ttname"><a href="class_o_s_k_1_1_e_c_s_1_1_transform3_d.html#aa180c61cd8a9b6f696f14eafcaee77c6">OSK::ECS::Transform3D::_ApplyChanges</a></div><div class="ttdeci">void _ApplyChanges(std::optional&lt; const Transform3D * &gt; parent)</div><div class="ttdef"><b>Definition</b> <a href="#l00161">Transform3D.cpp:161</a></div></div>
-<div class="ttc" id="aclass_o_s_k_1_1_e_c_s_1_1_transform3_d_html_aaf12b490c6875c0308348d203a1656cb"><div class="ttname"><a href="class_o_s_k_1_1_e_c_s_1_1_transform3_d.html#aaf12b490c6875c0308348d203a1656cb">OSK::ECS::Transform3D::GetRotation</a></div><div class="ttdeci">Quaternion GetRotation() const</div><div class="ttdef"><b>Definition</b> <a href="#l00125">Transform3D.cpp:125</a></div></div>
-<div class="ttc" id="aclass_o_s_k_1_1_e_c_s_1_1_transform3_d_html_ab31721ae72a69b2ec9fef61aaa7a91ed"><div class="ttname"><a href="class_o_s_k_1_1_e_c_s_1_1_transform3_d.html#ab31721ae72a69b2ec9fef61aaa7a91ed">OSK::ECS::Transform3D::GetAsMatrix</a></div><div class="ttdeci">glm::mat4 GetAsMatrix() const</div><div class="ttdef"><b>Definition</b> <a href="#l00129">Transform3D.cpp:129</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_e_c_s_1_1_transform3_d_html_a865f66350d13df8b492abc200ec755d7"><div class="ttname"><a href="class_o_s_k_1_1_e_c_s_1_1_transform3_d.html#a865f66350d13df8b492abc200ec755d7">OSK::ECS::Transform3D::TransformPoint</a></div><div class="ttdeci">Vector3f TransformPoint(const Vector3f &amp;point) const</div><div class="ttdoc">Transforma un punto respecto a este transform.</div><div class="ttdef"><b>Definition</b> <a href="#l00131">Transform3D.cpp:131</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_e_c_s_1_1_transform3_d_html_a87bb98760ec7b5dc3414eced1e192e58"><div class="ttname"><a href="class_o_s_k_1_1_e_c_s_1_1_transform3_d.html#a87bb98760ec7b5dc3414eced1e192e58">OSK::ECS::Transform3D::SetShouldInheritRotation</a></div><div class="ttdeci">void SetShouldInheritRotation(bool value)</div><div class="ttdoc">Permite establecer si el transform hereda la orientación del padre.</div><div class="ttdef"><b>Definition</b> <a href="#l00183">Transform3D.cpp:183</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_e_c_s_1_1_transform3_d_html_a91ec96febabad2adffc147eb907f8d20"><div class="ttname"><a href="class_o_s_k_1_1_e_c_s_1_1_transform3_d.html#a91ec96febabad2adffc147eb907f8d20">OSK::ECS::Transform3D::OverrideMatrix</a></div><div class="ttdeci">void OverrideMatrix(const glm::mat4 &amp;matrix)</div><div class="ttdoc">Actualiza manualmente el valor de la matriz modelo.</div><div class="ttdef"><b>Definition</b> <a href="#l00163">Transform3D.cpp:163</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_e_c_s_1_1_transform3_d_html_a95b7e7b9dd90ea4c8f7bcf01d9e8e84f"><div class="ttname"><a href="class_o_s_k_1_1_e_c_s_1_1_transform3_d.html#a95b7e7b9dd90ea4c8f7bcf01d9e8e84f">OSK::ECS::Transform3D::GetLocalRotation</a></div><div class="ttdeci">Quaternion GetLocalRotation() const</div><div class="ttdef"><b>Definition</b> <a href="#l00151">Transform3D.cpp:151</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_e_c_s_1_1_transform3_d_html_a990a648f08387450664747f0d76e37f1"><div class="ttname"><a href="class_o_s_k_1_1_e_c_s_1_1_transform3_d.html#a990a648f08387450664747f0d76e37f1">OSK::ECS::Transform3D::SetShouldInheritScale</a></div><div class="ttdeci">void SetShouldInheritScale(bool value)</div><div class="ttdoc">Permite establecer si el transform hereda la escala del padre.</div><div class="ttdef"><b>Definition</b> <a href="#l00187">Transform3D.cpp:187</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_e_c_s_1_1_transform3_d_html_a9b390c0ca43ed7f1ff6696b3a98e0e06"><div class="ttname"><a href="class_o_s_k_1_1_e_c_s_1_1_transform3_d.html#a9b390c0ca43ed7f1ff6696b3a98e0e06">OSK::ECS::Transform3D::GetForwardVector</a></div><div class="ttdeci">Vector3f GetForwardVector() const</div><div class="ttdef"><b>Definition</b> <a href="#l00167">Transform3D.cpp:167</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_e_c_s_1_1_transform3_d_html_aa180c61cd8a9b6f696f14eafcaee77c6"><div class="ttname"><a href="class_o_s_k_1_1_e_c_s_1_1_transform3_d.html#aa180c61cd8a9b6f696f14eafcaee77c6">OSK::ECS::Transform3D::_ApplyChanges</a></div><div class="ttdeci">void _ApplyChanges(std::optional&lt; const Transform3D * &gt; parent)</div><div class="ttdef"><b>Definition</b> <a href="#l00191">Transform3D.cpp:191</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_e_c_s_1_1_transform3_d_html_aaf12b490c6875c0308348d203a1656cb"><div class="ttname"><a href="class_o_s_k_1_1_e_c_s_1_1_transform3_d.html#aaf12b490c6875c0308348d203a1656cb">OSK::ECS::Transform3D::GetRotation</a></div><div class="ttdeci">Quaternion GetRotation() const</div><div class="ttdef"><b>Definition</b> <a href="#l00155">Transform3D.cpp:155</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_e_c_s_1_1_transform3_d_html_ab31721ae72a69b2ec9fef61aaa7a91ed"><div class="ttname"><a href="class_o_s_k_1_1_e_c_s_1_1_transform3_d.html#ab31721ae72a69b2ec9fef61aaa7a91ed">OSK::ECS::Transform3D::GetAsMatrix</a></div><div class="ttdeci">glm::mat4 GetAsMatrix() const</div><div class="ttdef"><b>Definition</b> <a href="#l00159">Transform3D.cpp:159</a></div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_e_c_s_1_1_transform3_d_html_abe67f13052baadaf4439950bc4b555db"><div class="ttname"><a href="class_o_s_k_1_1_e_c_s_1_1_transform3_d.html#abe67f13052baadaf4439950bc4b555db">OSK::ECS::Transform3D::SetPosition</a></div><div class="ttdeci">void SetPosition(const Vector3f &amp;position)</div><div class="ttdoc">Establece la posición local.</div><div class="ttdef"><b>Definition</b> <a href="#l00036">Transform3D.cpp:36</a></div></div>
-<div class="ttc" id="aclass_o_s_k_1_1_e_c_s_1_1_transform3_d_html_ae1fdf26c51ef096c24769c479c976b45"><div class="ttname"><a href="class_o_s_k_1_1_e_c_s_1_1_transform3_d.html#ae1fdf26c51ef096c24769c479c976b45">OSK::ECS::Transform3D::GetTopVector</a></div><div class="ttdeci">Vector3f GetTopVector() const</div><div class="ttdef"><b>Definition</b> <a href="#l00145">Transform3D.cpp:145</a></div></div>
-<div class="ttc" id="aclass_o_s_k_1_1_e_c_s_1_1_transform3_d_html_ae29d2b88895f66bd0c5487d0bde35773"><div class="ttname"><a href="class_o_s_k_1_1_e_c_s_1_1_transform3_d.html#ae29d2b88895f66bd0c5487d0bde35773">OSK::ECS::Transform3D::GetChildren</a></div><div class="ttdeci">std::span&lt; const GameObjectIndex &gt; GetChildren() const</div><div class="ttdef"><b>Definition</b> <a href="#l00096">Transform3D.cpp:96</a></div></div>
-<div class="ttc" id="aclass_o_s_k_1_1_e_c_s_1_1_transform3_d_html_ae459aad2a2630ff01176fa2423dfeaa7"><div class="ttname"><a href="class_o_s_k_1_1_e_c_s_1_1_transform3_d.html#ae459aad2a2630ff01176fa2423dfeaa7">OSK::ECS::Transform3D::SetShouldInheritPosition</a></div><div class="ttdeci">void SetShouldInheritPosition(bool value)</div><div class="ttdoc">Permite establecer si el transform hereda la posición del padre.</div><div class="ttdef"><b>Definition</b> <a href="#l00149">Transform3D.cpp:149</a></div></div>
-<div class="ttc" id="aclass_o_s_k_1_1_e_c_s_1_1_transform3_d_html_af775e0d83823931216005acba20d2b0a"><div class="ttname"><a href="class_o_s_k_1_1_e_c_s_1_1_transform3_d.html#af775e0d83823931216005acba20d2b0a">OSK::ECS::Transform3D::RemoveChild</a></div><div class="ttdeci">void RemoveChild(ECS::GameObjectIndex childId)</div><div class="ttdoc">Elimina un hijo de la lista de hijos.</div><div class="ttdef"><b>Definition</b> <a href="#l00092">Transform3D.cpp:92</a></div></div>
-<div class="ttc" id="aclass_o_s_k_1_1_e_c_s_1_1_transform3_d_html_afa8ea01fe8104fcd34cc83e0157dea67"><div class="ttname"><a href="class_o_s_k_1_1_e_c_s_1_1_transform3_d.html#afa8ea01fe8104fcd34cc83e0157dea67">OSK::ECS::Transform3D::GetRightVector</a></div><div class="ttdeci">Vector3f GetRightVector() const</div><div class="ttdef"><b>Definition</b> <a href="#l00141">Transform3D.cpp:141</a></div></div>
-<div class="ttc" id="aclass_o_s_k_1_1_e_c_s_1_1_transform3_d_html_afc7da25075f1190d73579dd1b45fe33e"><div class="ttname"><a href="class_o_s_k_1_1_e_c_s_1_1_transform3_d.html#afc7da25075f1190d73579dd1b45fe33e">OSK::ECS::Transform3D::RotateWorldSpace</a></div><div class="ttdeci">void RotateWorldSpace(float angle, const Vector3f &amp;axis)</div><div class="ttdoc">Rota el transform respecto al mundo.</div><div class="ttdef"><b>Definition</b> <a href="#l00076">Transform3D.cpp:76</a></div></div>
-<div class="ttc" id="aclass_o_s_k_1_1_engine_html_a2e36571452395c924ab2211ad380298f"><div class="ttname"><a href="class_o_s_k_1_1_engine.html#a2e36571452395c924ab2211ad380298f">OSK::Engine::GetEcs</a></div><div class="ttdeci">static ECS::EntityComponentSystem * GetEcs()</div><div class="ttdoc">Devuelve un puntero al ECS del motor.</div><div class="ttdef"><b>Definition</b> <a href="_o_s_kengine_8cpp_source.html#l00223">OSKengine.cpp:223</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_e_c_s_1_1_transform3_d_html_ae1fdf26c51ef096c24769c479c976b45"><div class="ttname"><a href="class_o_s_k_1_1_e_c_s_1_1_transform3_d.html#ae1fdf26c51ef096c24769c479c976b45">OSK::ECS::Transform3D::GetTopVector</a></div><div class="ttdeci">Vector3f GetTopVector() const</div><div class="ttdef"><b>Definition</b> <a href="#l00175">Transform3D.cpp:175</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_e_c_s_1_1_transform3_d_html_ae29d2b88895f66bd0c5487d0bde35773"><div class="ttname"><a href="class_o_s_k_1_1_e_c_s_1_1_transform3_d.html#ae29d2b88895f66bd0c5487d0bde35773">OSK::ECS::Transform3D::GetChildren</a></div><div class="ttdeci">std::span&lt; const GameObjectIndex &gt; GetChildren() const</div><div class="ttdef"><b>Definition</b> <a href="#l00126">Transform3D.cpp:126</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_e_c_s_1_1_transform3_d_html_ae459aad2a2630ff01176fa2423dfeaa7"><div class="ttname"><a href="class_o_s_k_1_1_e_c_s_1_1_transform3_d.html#ae459aad2a2630ff01176fa2423dfeaa7">OSK::ECS::Transform3D::SetShouldInheritPosition</a></div><div class="ttdeci">void SetShouldInheritPosition(bool value)</div><div class="ttdoc">Permite establecer si el transform hereda la posición del padre.</div><div class="ttdef"><b>Definition</b> <a href="#l00179">Transform3D.cpp:179</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_e_c_s_1_1_transform3_d_html_af775e0d83823931216005acba20d2b0a"><div class="ttname"><a href="class_o_s_k_1_1_e_c_s_1_1_transform3_d.html#af775e0d83823931216005acba20d2b0a">OSK::ECS::Transform3D::RemoveChild</a></div><div class="ttdeci">void RemoveChild(ECS::GameObjectIndex childId)</div><div class="ttdoc">Elimina un hijo de la lista de hijos.</div><div class="ttdef"><b>Definition</b> <a href="#l00122">Transform3D.cpp:122</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_e_c_s_1_1_transform3_d_html_afa8ea01fe8104fcd34cc83e0157dea67"><div class="ttname"><a href="class_o_s_k_1_1_e_c_s_1_1_transform3_d.html#afa8ea01fe8104fcd34cc83e0157dea67">OSK::ECS::Transform3D::GetRightVector</a></div><div class="ttdeci">Vector3f GetRightVector() const</div><div class="ttdef"><b>Definition</b> <a href="#l00171">Transform3D.cpp:171</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_e_c_s_1_1_transform3_d_html_afc7da25075f1190d73579dd1b45fe33e"><div class="ttname"><a href="class_o_s_k_1_1_e_c_s_1_1_transform3_d.html#afc7da25075f1190d73579dd1b45fe33e">OSK::ECS::Transform3D::RotateWorldSpace</a></div><div class="ttdeci">void RotateWorldSpace(float angle, const Vector3f &amp;axis)</div><div class="ttdoc">Rota el transform respecto al mundo.</div><div class="ttdef"><b>Definition</b> <a href="#l00100">Transform3D.cpp:100</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_engine_html_a2e36571452395c924ab2211ad380298f"><div class="ttname"><a href="class_o_s_k_1_1_engine.html#a2e36571452395c924ab2211ad380298f">OSK::Engine::GetEcs</a></div><div class="ttdeci">static ECS::EntityComponentSystem * GetEcs()</div><div class="ttdoc">Devuelve un puntero al ECS del motor.</div><div class="ttdef"><b>Definition</b> <a href="_o_s_kengine_8cpp_source.html#l00242">OSKengine.cpp:242</a></div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_quaternion_html"><div class="ttname"><a href="class_o_s_k_1_1_quaternion.html">OSK::Quaternion</a></div><div class="ttdoc">Representa un cuaternión, para representar una orientación.</div><div class="ttdef"><b>Definition</b> <a href="_quaternion_8h_source.html#l00011">Quaternion.h:11</a></div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_quaternion_html_a0cbf0edcbfd33647de6fa20d641d2216"><div class="ttname"><a href="class_o_s_k_1_1_quaternion.html#a0cbf0edcbfd33647de6fa20d641d2216">OSK::Quaternion::FromGlm</a></div><div class="ttdeci">static Quaternion FromGlm(const glm::quat &amp;quat)</div><div class="ttdoc">Crea un cuaternión a partir del dado.</div><div class="ttdef"><b>Definition</b> <a href="_quaternion_8cpp_source.html#l00013">Quaternion.cpp:13</a></div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_quaternion_html_a5ab0ea79fd870ee2e32b836c2c4f5525"><div class="ttname"><a href="class_o_s_k_1_1_quaternion.html#a5ab0ea79fd870ee2e32b836c2c4f5525">OSK::Quaternion::ToMat4</a></div><div class="ttdeci">glm::mat4 ToMat4() const</div><div class="ttdef"><b>Definition</b> <a href="_quaternion_8cpp_source.html#l00059">Quaternion.cpp:59</a></div></div>
@@ -467,18 +500,20 @@ $(function(){initNavTree('_transform3_d_8cpp_source.html',''); initResizable(); 
 <div class="ttc" id="aclass_o_s_k_1_1_vector3__t_html_ac574fd28b9114ddf48d26573d1efd570"><div class="ttname"><a href="class_o_s_k_1_1_vector3__t.html#ac574fd28b9114ddf48d26573d1efd570">OSK::Vector3_t&lt; float_t &gt;::Zero</a></div><div class="ttdeci">static OSKAPI_CALL Vector3_t const Zero</div><div class="ttdef"><b>Definition</b> <a href="_vector3_8hpp_source.html#l00017">Vector3.hpp:17</a></div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_vector3__t_html_afe37985b6d213fc46fc8d3d0366d80bb"><div class="ttname"><a href="class_o_s_k_1_1_vector3__t.html#afe37985b6d213fc46fc8d3d0366d80bb">OSK::Vector3_t::ToGlm</a></div><div class="ttdeci">glm::vec3 ToGlm() const</div><div class="ttdef"><b>Definition</b> <a href="_vector3_8hpp_source.html#l00236">Vector3.hpp:236</a></div></div>
 <div class="ttc" id="anamespace_o_s_k_1_1_e_c_s_html"><div class="ttname"><a href="namespace_o_s_k_1_1_e_c_s.html">OSK::ECS</a></div><div class="ttdef"><b>Definition</b> <a href="_camera_component2_d_8h_source.html#l00017">CameraComponent2D.h:17</a></div></div>
-<div class="ttc" id="anamespace_o_s_k_1_1_e_c_s_html_a7be561d6b7de4e8a49c2a5cc35fba48c"><div class="ttname"><a href="namespace_o_s_k_1_1_e_c_s.html#a7be561d6b7de4e8a49c2a5cc35fba48c">OSK::ECS::GameObjectIndex</a></div><div class="ttdeci">UIndex32 GameObjectIndex</div><div class="ttdoc">Identificador único para un Game Object.</div><div class="ttdef"><b>Definition</b> <a href="_game_object_8h_source.html#l00018">GameObject.h:18</a></div></div>
+<div class="ttc" id="anamespace_o_s_k_1_1_e_c_s_html_a5b92aeaa6be2ce0d96e7f571aa917042"><div class="ttname"><a href="namespace_o_s_k_1_1_e_c_s.html#a5b92aeaa6be2ce0d96e7f571aa917042">OSK::ECS::GameObjectIndex</a></div><div class="ttdeci">BaseUuid&lt; class GameObjectIndexTag &gt; GameObjectIndex</div><div class="ttdoc">Identificador único para un Game Object.</div><div class="ttdef"><b>Definition</b> <a href="_game_object_8h_source.html#l00021">GameObject.h:21</a></div></div>
 <div class="ttc" id="anamespace_o_s_k_1_1_p_e_r_s_i_s_t_e_n_c_e_html_aab9c1c961ea17626e54f96012ea6e6d6"><div class="ttname"><a href="namespace_o_s_k_1_1_p_e_r_s_i_s_t_e_n_c_e.html#aab9c1c961ea17626e54f96012ea6e6d6">OSK::PERSISTENCE::DeserializeJson&lt; OSK::ECS::Transform3D &gt;</a></div><div class="ttdeci">OSK::ECS::Transform3D DeserializeJson&lt; OSK::ECS::Transform3D &gt;(const nlohmann::json &amp;json)</div></div>
 <div class="ttc" id="anamespace_o_s_k_1_1_p_e_r_s_i_s_t_e_n_c_e_html_afafb6f02d00fba7a033eec86acd7a746"><div class="ttname"><a href="namespace_o_s_k_1_1_p_e_r_s_i_s_t_e_n_c_e.html#afafb6f02d00fba7a033eec86acd7a746">OSK::PERSISTENCE::SerializeJson&lt; OSK::ECS::Transform3D &gt;</a></div><div class="ttdeci">nlohmann::json SerializeJson&lt; OSK::ECS::Transform3D &gt;(const OSK::ECS::Transform3D &amp;data)</div></div>
 <div class="ttc" id="anamespace_o_s_k_html"><div class="ttname"><a href="namespace_o_s_k.html">OSK</a></div><div class="ttdef"><b>Definition</b> <a href="_acceleration_structures_exceptions_8h_source.html#l00005">AccelerationStructuresExceptions.h:5</a></div></div>
 <div class="ttc" id="anamespace_o_s_k_html_a72b3268907c9cd41f0daf0a42e1c9dca"><div class="ttname"><a href="namespace_o_s_k.html#a72b3268907c9cd41f0daf0a42e1c9dca">OSK::Vector3f</a></div><div class="ttdeci">Vector3_t&lt; float_t &gt; Vector3f</div><div class="ttdoc">Precisión = float.</div><div class="ttdef"><b>Definition</b> <a href="_vector3_8hpp_source.html#l00289">Vector3.hpp:289</a></div></div>
+<div class="ttc" id="astruct_o_s_k_1_1_atomic_holder_html_a4f89a8a67cc085b193a1b65bb1ef5077"><div class="ttname"><a href="struct_o_s_k_1_1_atomic_holder.html#a4f89a8a67cc085b193a1b65bb1ef5077">OSK::AtomicHolder::atomic</a></div><div class="ttdeci">std::atomic&lt; T &gt; atomic</div><div class="ttdef"><b>Definition</b> <a href="_atomic_holder_8h_source.html#l00018">AtomicHolder.h:18</a></div></div>
+<div class="ttc" id="astruct_o_s_k_1_1_mutex_holder_html_ac3e1c4f6165143242b9dd8f018bfd14b"><div class="ttname"><a href="struct_o_s_k_1_1_mutex_holder.html#ac3e1c4f6165143242b9dd8f018bfd14b">OSK::MutexHolder::mutex</a></div><div class="ttdeci">std::mutex mutex</div><div class="ttdef"><b>Definition</b> <a href="_mutex_holder_8h_source.html#l00014">MutexHolder.h:14</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="dir_74389ed8173ad57b461b9d623a1f3867.html">Source</a></li><li class="navelem"><a class="el" href="_transform3_d_8cpp.html">Transform3D.cpp</a></li>
-    <li class="footer">Generado el Jueves, 28 de marzo de 2024 17:53:11 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.10.0 </li>
+    <li class="navelem"><a class="el" href="dir_74389ed8173ad57b461b9d623a1f3867.html">Source</a></li><li class="navelem"><b>Transform3D.cpp</b></li>
+    <li class="footer">Generado el Lunes, 15 de abril de 2024 22:39:17 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.10.0 </li>
   </ul>
 </div>
 </body>

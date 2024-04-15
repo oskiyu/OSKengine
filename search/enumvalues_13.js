@@ -18,7 +18,7 @@ var searchData=
   ['step_15',['STEP',['../struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_animation_sampler.html#a983eff4f6a588ac5e94af54c40f73245a522f694f92e679d874a1cc2b2616c3d7',1,'OSK::GRAPHICS::AnimationSampler']]],
   ['stereo16_16',['STEREO16',['../namespace_o_s_k_1_1_a_u_d_i_o.html#a9b7d1161590a1c1696d33442daa725bead5190b906ac55686db8812dad0ec42d7',1,'OSK::AUDIO']]],
   ['stereo8_17',['STEREO8',['../namespace_o_s_k_1_1_a_u_d_i_o.html#a9b7d1161590a1c1696d33442daa725beae155ffb380a7c880b0f0365cdaa2d9c3',1,'OSK::AUDIO']]],
-  ['stopped_18',['STOPPED',['../namespace_o_s_k_1_1_a_u_d_i_o.html#addc6f8d4c0f711311adac345c3d99780a09d4d696b4e935115b9313e3c412509a',1,'OSK::AUDIO']]],
+  ['stopped_18',['STOPPED',['../class_o_s_k_1_1_stop_watch.html#a452c9c56fe49535197b485e78bfd7e91a09d4d696b4e935115b9313e3c412509a',1,'OSK::StopWatch::STOPPED'],['../namespace_o_s_k_1_1_a_u_d_i_o.html#addc6f8d4c0f711311adac345c3d99780a09d4d696b4e935115b9313e3c412509a',1,'OSK::AUDIO::STOPPED']]],
   ['storage_19',['STORAGE',['../namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#ade40ecf1619c14b53344301c1eca1bcaa754a5d433173b5ddc7debc2110ac575f',1,'OSK::GRAPHICS']]],
   ['storage_5fbuffer_20',['STORAGE_BUFFER',['../namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#ad8b871b506bab7c4021326a1a10bbc7faa486db75420308f63af20d85e2b6489d',1,'OSK::GRAPHICS::STORAGE_BUFFER'],['../namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a4a3cc5ac5a7f3c8753e7f74d576d6e1daa486db75420308f63af20d85e2b6489d',1,'OSK::GRAPHICS::STORAGE_BUFFER']]],
   ['storage_5fbuffer_5fread_21',['STORAGE_BUFFER_READ',['../namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#ad268e74ba4a1759bcbdfadcb7ecfa259a201f85a6c17214738b81a1340ccfa230',1,'OSK::GRAPHICS']]],

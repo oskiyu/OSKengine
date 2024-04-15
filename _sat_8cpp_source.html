@@ -101,7 +101,7 @@ $(function(){initNavTree('_sat_8cpp_source.html',''); initResizable(); });
   <div class="headertitle"><div class="title">Sat.cpp</div></div>
 </div><!--header-->
 <div class="contents">
-<a href="_sat_8cpp.html">Ir a la documentación de este archivo.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#include &quot;<a class="code" href="_sat_8h.html">Sat.h</a>&quot;</span></div>
+<div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#include &quot;Sat.h&quot;</span></div>
 <div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span> </div>
 <div class="foldopen" id="foldopen00003" data-start="{" data-end="}">
 <div class="line"><a id="l00003" name="l00003"></a><span class="lineno"><a class="line" href="namespace_o_s_k_1_1_c_o_l_l_i_s_i_o_n.html#a9b7d7ca9e6fd0419d8635112786e067c">    3</a></span><a class="code hl_struct" href="struct_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_sat_info.html">OSK::COLLISION::SatInfo</a> <a class="code hl_function" href="namespace_o_s_k_1_1_c_o_l_l_i_s_i_o_n.html#a9b7d7ca9e6fd0419d8635112786e067c">OSK::COLLISION::SatCollision</a>(<span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_i_sat_collider.html">ISatCollider</a>&amp; first, <span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_i_sat_collider.html">ISatCollider</a>&amp; second) {</div>
@@ -123,7 +123,7 @@ $(function(){initNavTree('_sat_8cpp_source.html',''); initResizable(); });
 <div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span> </div>
 <div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>    <span class="keywordflow">for</span> (<a class="code hl_class" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">UIndex32</a> faceIndex = 0; faceIndex &lt; axesCount; faceIndex++) {</div>
 <div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>        <span class="keyword">const</span> <span class="keywordtype">bool</span> isFirstCollider = faceIndex &lt; firstAxes.GetSize();</div>
-<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>        <span class="keyword">const</span> <a class="code hl_typedef" href="_o_s_kmacros_8h.html#adef8e046c86805ca0dc2db407b01a1bb">UIndex64</a> finalIndex = isFirstCollider ? faceIndex : faceIndex - firstAxes.GetSize();</div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>        <span class="keyword">const</span> UIndex64 finalIndex = isFirstCollider ? faceIndex : faceIndex - firstAxes.GetSize();</div>
 <div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span> </div>
 <div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>        <span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_vector3__t.html">Vector3f</a> axis = isFirstCollider</div>
 <div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>            ? firstAxes[finalIndex]</div>
@@ -155,8 +155,6 @@ $(function(){initNavTree('_sat_8cpp_source.html',''); initResizable(); });
 <div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>    <span class="keywordflow">return</span> output;</div>
 <div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>}</div>
 </div>
-<div class="ttc" id="a_o_s_kmacros_8h_html_adef8e046c86805ca0dc2db407b01a1bb"><div class="ttname"><a href="_o_s_kmacros_8h.html#adef8e046c86805ca0dc2db407b01a1bb">UIndex64</a></div><div class="ttdeci">uint64_t UIndex64</div><div class="ttdef"><b>Definition</b> <a href="_o_s_kmacros_8h_source.html#l00042">OSKmacros.h:42</a></div></div>
-<div class="ttc" id="a_sat_8h_html"><div class="ttname"><a href="_sat_8h.html">Sat.h</a></div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref_html"><div class="ttname"><a href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">OSK::ASSETS::AssetRef</a></div><div class="ttdoc">Referencia a un asset.</div><div class="ttdef"><b>Definition</b> <a href="_asset_ref_8h_source.html#l00012">AssetRef.h:12</a></div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_face_projection_html"><div class="ttname"><a href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_face_projection.html">OSK::COLLISION::FaceProjection</a></div><div class="ttdoc">Proyección de una cara de un poliedro sobre un eje.</div><div class="ttdef"><b>Definition</b> <a href="_face_projection_8h_source.html#l00016">FaceProjection.h:16</a></div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_i_sat_collider_html"><div class="ttname"><a href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_i_sat_collider.html">OSK::COLLISION::ISatCollider</a></div><div class="ttdoc">Interfaz para volúmenes 3D que soporten la detección de colisiones mediante SAT.</div><div class="ttdef"><b>Definition</b> <a href="_sat_8h_source.html#l00012">Sat.h:12</a></div></div>
@@ -171,8 +169,8 @@ $(function(){initNavTree('_sat_8cpp_source.html',''); initResizable(); });
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="dir_74389ed8173ad57b461b9d623a1f3867.html">Source</a></li><li class="navelem"><a class="el" href="_sat_8cpp.html">Sat.cpp</a></li>
-    <li class="footer">Generado el Jueves, 28 de marzo de 2024 17:53:11 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.10.0 </li>
+    <li class="navelem"><a class="el" href="dir_74389ed8173ad57b461b9d623a1f3867.html">Source</a></li><li class="navelem"><b>Sat.cpp</b></li>
+    <li class="footer">Generado el Lunes, 15 de abril de 2024 22:39:16 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.10.0 </li>
   </ul>
 </div>
 </body>

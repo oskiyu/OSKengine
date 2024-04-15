@@ -1,4 +1,25 @@
 var searchData=
 [
-  ['tareas_20pendientes_0',['Lista de tareas pendientes',['../todo.html',1,'']]]
+  ['de_20descripción_20de_20mapa_20cúbico_0',['Archivo de descripción de mapa cúbico.',['../_cubemap_file.html',1,'jsonfiles']]],
+  ['de_20descripción_20de_20material_1',['Archivo de descripción de  material.',['../_material_file.html',1,'jsonfiles']]],
+  ['de_20descripción_20de_20material_20revisión_200_2',['Archivo de descripción de material (revisión 0).',['../_material_file_v0.html',1,'MaterialFile']]],
+  ['de_20descripción_20de_20material_20revisión_201_3',['Archivo de descripción de material (revisión 1).',['../_material_file_v1.html',1,'MaterialFile']]],
+  ['de_20descripción_20de_20modelos_203d_4',['Archivo de descripción de modelos 3D.',['../_model3_d_file.html',1,'jsonfiles']]],
+  ['de_20descripción_20de_20recursos_5',['Archivos de descripción de recursos.',['../jsonfiles.html',1,'']]],
+  ['de_20descripción_20de_20un_20mapa_20de_20iluminación_20especular_6',['Archivo de descripción de un mapa de iluminación especular.',['../_specular_map_file.html',1,'jsonfiles']]],
+  ['de_20descripción_20de_20un_20mapa_20de_20irradiancia_7',['Archivo de descripción de un mapa de irradiancia.',['../_irradiance_map_file.html',1,'jsonfiles']]],
+  ['de_20descripción_20de_20una_20fuente_20de_20texto_8',['Archivo de descripción de una fuente de texto.',['../_font_file.html',1,'jsonfiles']]],
+  ['de_20descripción_20de_20una_20textura_202d_9',['Archivo de descripción de una textura 2D.',['../_texture_file.html',1,'jsonfiles']]],
+  ['de_20descripción_20de_20volumen_20de_20colisión_203d_10',['Archivo de descripción de volumen de colisión 3D.',['../_pre_built_collider3_d_file.html',1,'jsonfiles']]],
+  ['descripción_20de_20mapa_20cúbico_11',['Archivo de descripción de mapa cúbico.',['../_cubemap_file.html',1,'jsonfiles']]],
+  ['descripción_20de_20material_12',['Archivo de descripción de  material.',['../_material_file.html',1,'jsonfiles']]],
+  ['descripción_20de_20material_20revisión_200_13',['Archivo de descripción de material (revisión 0).',['../_material_file_v0.html',1,'MaterialFile']]],
+  ['descripción_20de_20material_20revisión_201_14',['Archivo de descripción de material (revisión 1).',['../_material_file_v1.html',1,'MaterialFile']]],
+  ['descripción_20de_20modelos_203d_15',['Archivo de descripción de modelos 3D.',['../_model3_d_file.html',1,'jsonfiles']]],
+  ['descripción_20de_20recursos_16',['Archivos de descripción de recursos.',['../jsonfiles.html',1,'']]],
+  ['descripción_20de_20un_20mapa_20de_20iluminación_20especular_17',['Archivo de descripción de un mapa de iluminación especular.',['../_specular_map_file.html',1,'jsonfiles']]],
+  ['descripción_20de_20un_20mapa_20de_20irradiancia_18',['Archivo de descripción de un mapa de irradiancia.',['../_irradiance_map_file.html',1,'jsonfiles']]],
+  ['descripción_20de_20una_20fuente_20de_20texto_19',['Archivo de descripción de una fuente de texto.',['../_font_file.html',1,'jsonfiles']]],
+  ['descripción_20de_20una_20textura_202d_20',['Archivo de descripción de una textura 2D.',['../_texture_file.html',1,'jsonfiles']]],
+  ['descripción_20de_20volumen_20de_20colisión_203d_21',['Archivo de descripción de volumen de colisión 3D.',['../_pre_built_collider3_d_file.html',1,'jsonfiles']]]
 ];

@@ -14,11 +14,12 @@ var searchData=
   ['fontinstance_11',['FontInstance',['../struct_o_s_k_1_1_a_s_s_e_t_s_1_1_font_instance.html#aad8ce0634f56653ffe02b372dd8379c0',1,'OSK::ASSETS::FontInstance']]],
   ['fontlibraryinitializationexception_12',['FontLibraryInitializationException',['../class_o_s_k_1_1_a_s_s_e_t_s_1_1_font_library_initialization_exception.html#a2370d37977fbedafd483fe7a2472b542',1,'OSK::ASSETS::FontLibraryInitializationException']]],
   ['fontlodaingexception_13',['FontLodaingException',['../class_o_s_k_1_1_a_s_s_e_t_s_1_1_font_lodaing_exception.html#a9768a7234cf90f9c8c68fb79976d9b7c',1,'OSK::ASSETS::FontLodaingException']]],
-  ['formatimagedataforgpu_14',['FormatImageDataForGpu',['../class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer.html#aff8274ef6d758af1bb17decc7a391f79',1,'OSK::GRAPHICS::IRenderer::FormatImageDataForGpu()'],['../class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderer_dx12.html#ad0bc65ce73128cc76fee2b709d3fe24b',1,'OSK::GRAPHICS::RendererDx12::FormatImageDataForGpu()']]],
-  ['formatsupportsstencil_15',['FormatSupportsStencil',['../namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a3d37e81d2b2de2be25342b1b1ae95515',1,'OSK::GRAPHICS']]],
-  ['free_16',['Free',['../class_o_s_k_1_1_bit_set.html#a3f0833e81de5d6a323a40d33c912b11b',1,'OSK::BitSet::Free()'],['../class_o_s_k_1_1_dynamic_array.html#a712ee677ebccc400ea7623d3ec966e4e',1,'OSK::DynamicArray::Free()'],['../class_o_s_k_1_1_linked_list.html#a71aec68c4c15b2062c986028a97d50fa',1,'OSK::LinkedList::Free()']]],
-  ['freecontainer_17',['FreeContainer',['../class_o_s_k_1_1_u_i_1_1_free_container.html#af56dc48e27f9026798f580c50722b577',1,'OSK::UI::FreeContainer']]],
-  ['freestagingmemory_18',['FreeStagingMemory',['../class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_allocator.html#af41e891d6c39de6dd5fc95e7b9fe8eba',1,'OSK::GRAPHICS::IGpuMemoryAllocator']]],
-  ['fromglm_19',['FromGlm',['../class_o_s_k_1_1_quaternion.html#a0cbf0edcbfd33647de6fa20d641d2216',1,'OSK::Quaternion']]],
-  ['frommatrix_20',['FromMatrix',['../class_o_s_k_1_1_e_c_s_1_1_transform3_d.html#a113b74eaac353602f1c7707559113b5d',1,'OSK::ECS::Transform3D']]]
+  ['formatsupportsstencil_14',['FormatSupportsStencil',['../namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a3d37e81d2b2de2be25342b1b1ae95515',1,'OSK::GRAPHICS']]],
+  ['free_15',['Free',['../class_o_s_k_1_1_bit_set.html#a3f0833e81de5d6a323a40d33c912b11b',1,'OSK::BitSet::Free()'],['../class_o_s_k_1_1_dynamic_array.html#a712ee677ebccc400ea7623d3ec966e4e',1,'OSK::DynamicArray::Free()'],['../class_o_s_k_1_1_linked_list.html#a71aec68c4c15b2062c986028a97d50fa',1,'OSK::LinkedList::Free()']]],
+  ['freecontainer_16',['FreeContainer',['../class_o_s_k_1_1_u_i_1_1_free_container.html#af56dc48e27f9026798f580c50722b577',1,'OSK::UI::FreeContainer']]],
+  ['freestagingmemory_17',['FreeStagingMemory',['../class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_allocator.html#af41e891d6c39de6dd5fc95e7b9fe8eba',1,'OSK::GRAPHICS::IGpuMemoryAllocator']]],
+  ['fromglm_18',['FromGlm',['../class_o_s_k_1_1_quaternion.html#a0cbf0edcbfd33647de6fa20d641d2216',1,'OSK::Quaternion']]],
+  ['frommatrix_19',['FromMatrix',['../class_o_s_k_1_1_e_c_s_1_1_transform3_d.html#a113b74eaac353602f1c7707559113b5d',1,'OSK::ECS::Transform3D']]],
+  ['fromto_20',['FromTo',['../struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_resource_queue_transfer_info.html#a9482509727018152da5f8a9c0cb64959',1,'OSK::GRAPHICS::ResourceQueueTransferInfo']]],
+  ['fullyload_21',['FullyLoad',['../class_o_s_k_1_1_a_s_s_e_t_s_1_1_i_asset_loader.html#aaa7cca8f691333ae0d86b1ea430f2540',1,'OSK::ASSETS::IAssetLoader']]]
 ];

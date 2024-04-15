@@ -17,6 +17,7 @@ var class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_memory_block_dx12 =
     [ "currentOffset", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_memory_block_dx12.html#a921c6aa09ba2c4ffb8a6ff8edca8dbe3", null ],
     [ "device", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_memory_block_dx12.html#ac75aa44cce34a964dfe1d6026d4d3c5f", null ],
     [ "image", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_memory_block_dx12.html#a2deac1d14e91d4af154cb09d563c7973", null ],
+    [ "m_subblockSearchMutex", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_memory_block_dx12.html#a35a67da8eade0a066d08de340a4900b2", null ],
     [ "reusableSubblocks", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_memory_block_dx12.html#afb0a469af9d65724ffe513423dd32482", null ],
     [ "subblocks", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_memory_block_dx12.html#a486fd0961d556d8e0dd64763ff843ed3", null ],
     [ "totalSize", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_memory_block_dx12.html#a7887b4b066117738b0f64ebbdf05bf05", null ],

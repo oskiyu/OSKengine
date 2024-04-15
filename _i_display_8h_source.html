@@ -101,20 +101,20 @@ $(function(){initNavTree('_i_display_8h_source.html',''); initResizable(); });
   <div class="headertitle"><div class="title">IDisplay.h</div></div>
 </div><!--header-->
 <div class="contents">
-<a href="_i_display_8h.html">Ir a la documentación de este archivo.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="comment">// OSKengine by oskiyu</span></div>
+<div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="comment">// OSKengine by oskiyu</span></div>
 <div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="comment">// Copyright (c) 2019-2022 oskiyu. All rights reserved.</span></div>
 <div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="preprocessor">#pragma once</span></div>
 <div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span> </div>
-<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &quot;<a class="code" href="_vector2_8hpp.html">Vector2.hpp</a>&quot;</span></div>
-<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &quot;<a class="code" href="_event_8h.html">Event.h</a>&quot;</span></div>
-<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="preprocessor">#include &quot;<a class="code" href="_i_query_interface_8h.html">IQueryInterface.h</a>&quot;</span></div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &quot;Vector2.hpp&quot;</span></div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &quot;Event.h&quot;</span></div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="preprocessor">#include &quot;IQueryInterface.h&quot;</span></div>
 <div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span> </div>
 <div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="preprocessor">#include &lt;string&gt;</span></div>
 <div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span> </div>
 <div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="keyword">namespace </span><a class="code hl_namespace" href="namespace_o_s_k_1_1_i_o.html">OSK::IO</a> {</div>
 <div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span> </div>
 <div class="foldopen" id="foldopen00018" data-start="{" data-end="};">
-<div class="line"><a id="l00018" name="l00018"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_i_o_1_1_i_display.html">   18</a></span>    <span class="keyword">class </span><a class="code hl_define" href="_o_s_kmacros_8h.html#a09ec5b46ece998ad096bceff312bb36c">OSKAPI_CALL</a> <a class="code hl_class" href="class_o_s_k_1_1_i_o_1_1_i_display.html">IDisplay</a> : <span class="keyword">public</span> <a class="code hl_class" href="class_o_s_k_1_1_i_query_interface.html">IQueryInterface</a> {</div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_i_o_1_1_i_display.html">   18</a></span>    <span class="keyword">class </span>OSKAPI_CALL <a class="code hl_class" href="class_o_s_k_1_1_i_o_1_1_i_display.html">IDisplay</a> : <span class="keyword">public</span> <a class="code hl_class" href="class_o_s_k_1_1_i_query_interface.html">IQueryInterface</a> {</div>
 <div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span> </div>
 <div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>    <span class="keyword">public</span>:</div>
 <div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span> </div>
@@ -130,7 +130,7 @@ $(function(){initNavTree('_i_display_8h_source.html',''); initResizable(); });
 <div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span> </div>
 <div class="line"><a id="l00032" name="l00032"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_i_o_1_1_i_display.html#a730805b9103d3bfa5dce186f4c1ab6b3">   32</a></span>        <span class="keyword">virtual</span> <a class="code hl_function" href="class_o_s_k_1_1_i_o_1_1_i_display.html#a730805b9103d3bfa5dce186f4c1ab6b3">~IDisplay</a>() = <span class="keywordflow">default</span>;</div>
 <div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span> </div>
-<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>        <a class="code hl_define" href="_o_s_kmacros_8h.html#ae38bf25dd8d8ec477d83ed205e1d8aaa">OSK_DEFINE_AS</a>(<a class="code hl_class" href="class_o_s_k_1_1_i_o_1_1_i_display.html">IDisplay</a>)</div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>        OSK_DEFINE_AS(<a class="code hl_class" href="class_o_s_k_1_1_i_o_1_1_i_display.html">IDisplay</a>)</div>
 <div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span> </div>
 <div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span> </div>
 <div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>        </div>
@@ -160,11 +160,6 @@ $(function(){initNavTree('_i_display_8h_source.html',''); initResizable(); });
 </div>
 <div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span> </div>
 <div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>}</div>
-<div class="ttc" id="a_event_8h_html"><div class="ttname"><a href="_event_8h.html">Event.h</a></div></div>
-<div class="ttc" id="a_i_query_interface_8h_html"><div class="ttname"><a href="_i_query_interface_8h.html">IQueryInterface.h</a></div></div>
-<div class="ttc" id="a_o_s_kmacros_8h_html_a09ec5b46ece998ad096bceff312bb36c"><div class="ttname"><a href="_o_s_kmacros_8h.html#a09ec5b46ece998ad096bceff312bb36c">OSKAPI_CALL</a></div><div class="ttdeci">#define OSKAPI_CALL</div><div class="ttdef"><b>Definition</b> <a href="_o_s_kmacros_8h_source.html#l00007">OSKmacros.h:7</a></div></div>
-<div class="ttc" id="a_o_s_kmacros_8h_html_ae38bf25dd8d8ec477d83ed205e1d8aaa"><div class="ttname"><a href="_o_s_kmacros_8h.html#ae38bf25dd8d8ec477d83ed205e1d8aaa">OSK_DEFINE_AS</a></div><div class="ttdeci">#define OSK_DEFINE_AS(className)</div><div class="ttdef"><b>Definition</b> <a href="_o_s_kmacros_8h_source.html#l00029">OSKmacros.h:29</a></div></div>
-<div class="ttc" id="a_vector2_8hpp_html"><div class="ttname"><a href="_vector2_8hpp.html">Vector2.hpp</a></div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref_html"><div class="ttname"><a href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">OSK::ASSETS::AssetRef</a></div><div class="ttdoc">Referencia a un asset.</div><div class="ttdef"><b>Definition</b> <a href="_asset_ref_8h_source.html#l00012">AssetRef.h:12</a></div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_i_o_1_1_i_display_html"><div class="ttname"><a href="class_o_s_k_1_1_i_o_1_1_i_display.html">OSK::IO::IDisplay</a></div><div class="ttdoc">Interfaz que representa un display: la pantalla sobre la que se renderiza.</div><div class="ttdef"><b>Definition</b> <a href="#l00018">IDisplay.h:18</a></div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_i_o_1_1_i_display_html_a730805b9103d3bfa5dce186f4c1ab6b3"><div class="ttname"><a href="class_o_s_k_1_1_i_o_1_1_i_display.html#a730805b9103d3bfa5dce186f4c1ab6b3">OSK::IO::IDisplay::~IDisplay</a></div><div class="ttdeci">virtual ~IDisplay()=default</div></div>
@@ -179,8 +174,8 @@ $(function(){initNavTree('_i_display_8h_source.html',''); initResizable(); });
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="dir_74389ed8173ad57b461b9d623a1f3867.html">Source</a></li><li class="navelem"><a class="el" href="_i_display_8h.html">IDisplay.h</a></li>
-    <li class="footer">Generado el Jueves, 28 de marzo de 2024 17:53:10 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.10.0 </li>
+    <li class="navelem"><a class="el" href="dir_74389ed8173ad57b461b9d623a1f3867.html">Source</a></li><li class="navelem"><b>IDisplay.h</b></li>
+    <li class="footer">Generado el Lunes, 15 de abril de 2024 22:39:16 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.10.0 </li>
   </ul>
 </div>
 </body>

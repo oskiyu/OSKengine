@@ -101,12 +101,12 @@ $(function(){initNavTree('_i_pipeline_vk_8h_source.html',''); initResizable(); }
   <div class="headertitle"><div class="title">IPipelineVk.h</div></div>
 </div><!--header-->
 <div class="contents">
-<a href="_i_pipeline_vk_8h.html">Ir a la documentación de este archivo.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#pragma once</span></div>
+<div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#pragma once</span></div>
 <div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span> </div>
 <div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="preprocessor">#include &lt;vulkan/vulkan.h&gt;</span></div>
 <div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span> </div>
-<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &quot;<a class="code" href="_vertex_info_8h.html">VertexInfo.h</a>&quot;</span></div>
-<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &quot;<a class="code" href="_pipeline_create_info_8h.html">PipelineCreateInfo.h</a>&quot;</span></div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &quot;VertexInfo.h&quot;</span></div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &quot;PipelineCreateInfo.h&quot;</span></div>
 <div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span> </div>
 <div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="keyword">namespace </span><a class="code hl_namespace" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html">OSK::GRAPHICS</a> {</div>
 <div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span> </div>
@@ -121,7 +121,7 @@ $(function(){initNavTree('_i_pipeline_vk_8h_source.html',''); initResizable(); }
 <div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span> </div>
 <div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span> </div>
 <div class="foldopen" id="foldopen00024" data-start="{" data-end="};">
-<div class="line"><a id="l00024" name="l00024"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_pipeline_vk.html">   24</a></span>    <span class="keyword">class </span><a class="code hl_define" href="_o_s_kmacros_8h.html#a09ec5b46ece998ad096bceff312bb36c">OSKAPI_CALL</a> <a class="code hl_class" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_pipeline_vk.html">IPipelineVk</a> {</div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_pipeline_vk.html">   24</a></span>    <span class="keyword">class </span>OSKAPI_CALL <a class="code hl_class" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_pipeline_vk.html">IPipelineVk</a> {</div>
 <div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span> </div>
 <div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>    <span class="keyword">public</span>:</div>
 <div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span> </div>
@@ -140,7 +140,7 @@ $(function(){initNavTree('_i_pipeline_vk_8h_source.html',''); initResizable(); }
 <div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>        VkFormat GetVertexAttribFormat(<span class="keyword">const</span> <a class="code hl_struct" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_vertex_info_1_1_entry.html">VertexInfo::Entry</a>&amp; entry) <span class="keyword">const</span>;</div>
 <div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>        <a class="code hl_class" href="class_o_s_k_1_1_dynamic_array.html">DynamicArray&lt;VkVertexInputAttributeDescription&gt;</a> GetAttributeDescription(<span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_vertex_info.html">VertexInfo</a>&amp; info) <span class="keyword">const</span>;</div>
 <div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>        VkPipelineColorBlendAttachmentState GetColorBlendInfo(<span class="keyword">const</span> <a class="code hl_struct" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_pipeline_create_info.html">PipelineCreateInfo</a>&amp; info) <span class="keyword">const</span>;</div>
-<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>        VkPolygonMode <a class="code hl_function" href="_material_system_8cpp.html#a74a9290a249c55d10122db6ad9915370">GetPolygonMode</a>(<a class="code hl_enumeration" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a9bf4af2a8108b7a3939f60c4efafcfd8">PolygonMode</a> mode) <span class="keyword">const</span>;</div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>        VkPolygonMode GetPolygonMode(<a class="code hl_enumeration" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a9bf4af2a8108b7a3939f60c4efafcfd8">PolygonMode</a> mode) <span class="keyword">const</span>;</div>
 <div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>        VkCullModeFlagBits GetCullMode(<a class="code hl_enumeration" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a30ce77ebba3a46932046ff265f17922c">PolygonCullMode</a> mode) <span class="keyword">const</span>;</div>
 <div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>        VkFrontFace GetFrontFaceMode(<a class="code hl_enumeration" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#ad6329cdca67793d3a3ffec0de1fab44c">PolygonFrontFaceType</a> type) <span class="keyword">const</span>;</div>
 <div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>        VkShaderStageFlagBits <a class="code hl_function" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a3a50046339fbf8642e14273583cd8118">GetShaderStageVk</a>(<a class="code hl_enumeration" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#aa7e7dcffcab27051f141128e66a50fcb">ShaderStage</a> stage) <span class="keyword">const</span>;</div>
@@ -151,10 +151,6 @@ $(function(){initNavTree('_i_pipeline_vk_8h_source.html',''); initResizable(); }
 </div>
 <div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span> </div>
 <div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>}</div>
-<div class="ttc" id="a_material_system_8cpp_html_a74a9290a249c55d10122db6ad9915370"><div class="ttname"><a href="_material_system_8cpp.html#a74a9290a249c55d10122db6ad9915370">GetPolygonMode</a></div><div class="ttdeci">PolygonMode GetPolygonMode(std::string_view type)</div><div class="ttdef"><b>Definition</b> <a href="_material_system_8cpp_source.html#l00049">MaterialSystem.cpp:49</a></div></div>
-<div class="ttc" id="a_o_s_kmacros_8h_html_a09ec5b46ece998ad096bceff312bb36c"><div class="ttname"><a href="_o_s_kmacros_8h.html#a09ec5b46ece998ad096bceff312bb36c">OSKAPI_CALL</a></div><div class="ttdeci">#define OSKAPI_CALL</div><div class="ttdef"><b>Definition</b> <a href="_o_s_kmacros_8h_source.html#l00007">OSKmacros.h:7</a></div></div>
-<div class="ttc" id="a_pipeline_create_info_8h_html"><div class="ttname"><a href="_pipeline_create_info_8h.html">PipelineCreateInfo.h</a></div></div>
-<div class="ttc" id="a_vertex_info_8h_html"><div class="ttname"><a href="_vertex_info_8h.html">VertexInfo.h</a></div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_dynamic_array_html"><div class="ttname"><a href="class_o_s_k_1_1_dynamic_array.html">OSK::DynamicArray</a></div><div class="ttdoc">Dynamic array: array que puede cambiar de tamaño.</div><div class="ttdef"><b>Definition</b> <a href="_dynamic_array_8hpp_source.html#l00067">DynamicArray.hpp:67</a></div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_pipeline_vk_html"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_pipeline_vk.html">OSK::GRAPHICS::IPipelineVk</a></div><div class="ttdoc">Clase base para todos los pipelines de Vulkan.</div><div class="ttdef"><b>Definition</b> <a href="#l00024">IPipelineVk.h:24</a></div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_pipeline_vk_html_a5a115681757531b3af3c44533ceb5053"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_pipeline_vk.html#a5a115681757531b3af3c44533ceb5053">OSK::GRAPHICS::IPipelineVk::shaderStagesInfo</a></div><div class="ttdeci">DynamicArray&lt; VkPipelineShaderStageCreateInfo &gt; shaderStagesInfo</div><div class="ttdef"><b>Definition</b> <a href="#l00037">IPipelineVk.h:37</a></div></div>
@@ -176,8 +172,8 @@ $(function(){initNavTree('_i_pipeline_vk_8h_source.html',''); initResizable(); }
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="dir_74389ed8173ad57b461b9d623a1f3867.html">Source</a></li><li class="navelem"><a class="el" href="_i_pipeline_vk_8h.html">IPipelineVk.h</a></li>
-    <li class="footer">Generado el Jueves, 28 de marzo de 2024 17:53:11 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.10.0 </li>
+    <li class="navelem"><a class="el" href="dir_74389ed8173ad57b461b9d623a1f3867.html">Source</a></li><li class="navelem"><b>IPipelineVk.h</b></li>
+    <li class="footer">Generado el Lunes, 15 de abril de 2024 22:39:16 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.10.0 </li>
   </ul>
 </div>
 </body>

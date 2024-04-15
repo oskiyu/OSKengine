@@ -2,8 +2,8 @@ var searchData=
 [
   ['datanode_0',['DataNode',['../class_o_s_k_1_1_p_e_r_s_i_s_t_e_n_c_e_1_1_data_node.html#ad13c2a55e5ba29d350dff74d16b73bae',1,'OSK::PERSISTENCE::DataNode']]],
   ['deactivate_1',['Deactivate',['../class_o_s_k_1_1_e_c_s_1_1_i_system.html#a2d6aa3dc12aa77cc9109b920ddca4225',1,'OSK::ECS::ISystem']]],
-  ['debugcallback_2',['DebugCallback',['../_renderer_vk_8cpp.html#a28c7f5bba628dc20cf78aea739fa6e3d',1,'RendererVk.cpp']]],
-  ['debuglog_3',['DebugLog',['../class_o_s_k_1_1_i_o_1_1_i_logger.html#acf9ff05185e0586b194c493a512daeb1',1,'OSK::IO::ILogger::DebugLog()'],['../class_o_s_k_1_1_i_o_1_1_logger.html#ae076171ead67368c6c7d97b476fb3f79',1,'OSK::IO::Logger::DebugLog()']]],
+  ['debuglog_2',['DebugLog',['../class_o_s_k_1_1_i_o_1_1_i_logger.html#acf9ff05185e0586b194c493a512daeb1',1,'OSK::IO::ILogger::DebugLog()'],['../class_o_s_k_1_1_i_o_1_1_logger.html#ae076171ead67368c6c7d97b476fb3f79',1,'OSK::IO::Logger::DebugLog()']]],
+  ['decrement_3',['Decrement',['../class_o_s_k_1_1_job_count_map.html#af0e433931cf5461cf505427c921e6e6e',1,'OSK::JobCountMap']]],
   ['dectivate_4',['Dectivate',['../class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_taa_provider.html#a7eeba10d97da7caa1f4e7fc0698711d5',1,'OSK::GRAPHICS::TaaProvider']]],
   ['deferredrendersystem_5',['DeferredRenderSystem',['../class_o_s_k_1_1_e_c_s_1_1_deferred_render_system.html#a0de6e8a9108c92d65f1335d5710616fa',1,'OSK::ECS::DeferredRenderSystem']]],
   ['delete_6',['Delete',['../class_o_s_k_1_1_owned_ptr.html#ae1310d4a422f7e6cde8340d05bdc1e8b',1,'OSK::OwnedPtr::Delete()'],['../class_o_s_k_1_1_unique_ptr.html#a39da2bc8dc4424258a8455eae98c4497',1,'OSK::UniquePtr::Delete()']]],

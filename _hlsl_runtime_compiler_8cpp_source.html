@@ -101,13 +101,13 @@ $(function(){initNavTree('_hlsl_runtime_compiler_8cpp_source.html',''); initResi
   <div class="headertitle"><div class="title">HlslRuntimeCompiler.cpp</div></div>
 </div><!--header-->
 <div class="contents">
-<a href="_hlsl_runtime_compiler_8cpp.html">Ir a la documentación de este archivo.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#include &quot;<a class="code" href="_hlsl_runtime_compiler_8h.html">HlslRuntimeCompiler.h</a>&quot;</span></div>
+<div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#include &quot;HlslRuntimeCompiler.h&quot;</span></div>
 <div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span> </div>
-<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="preprocessor">#include &quot;<a class="code" href="_assert_8h.html">Assert.h</a>&quot;</span></div>
-<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &quot;<a class="code" href="_dynamic_array_8hpp.html">DynamicArray.hpp</a>&quot;</span></div>
-<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &quot;<a class="code" href="_string_operations_8h.html">StringOperations.h</a>&quot;</span></div>
+<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="preprocessor">#include &quot;Assert.h&quot;</span></div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &quot;DynamicArray.hpp&quot;</span></div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &quot;StringOperations.h&quot;</span></div>
 <div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span> </div>
-<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="preprocessor">#include &quot;<a class="code" href="_pipelines_exceptions_8h.html">PipelinesExceptions.h</a>&quot;</span></div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="preprocessor">#include &quot;PipelinesExceptions.h&quot;</span></div>
 <div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span> </div>
 <div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="keyword">using namespace </span><a class="code hl_namespace" href="namespace_o_s_k.html">OSK</a>;</div>
 <div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="keyword">using namespace </span><a class="code hl_namespace" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html">OSK::GRAPHICS</a>;</div>
@@ -119,13 +119,13 @@ $(function(){initNavTree('_hlsl_runtime_compiler_8cpp_source.html',''); initResi
 <div class="foldopen" id="foldopen00016" data-start="{" data-end="}">
 <div class="line"><a id="l00016" name="l00016"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_hlsl_runtime_compiler.html#ad56975c12b8c57456b4e213e2937281c">   16</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_hlsl_runtime_compiler.html#ad56975c12b8c57456b4e213e2937281c">HlslRuntimeCompiler::InitializeComponents</a>() {</div>
 <div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>    HRESULT result = DxcCreateInstance(CLSID_DxcCompiler, IID_PPV_ARGS(&amp;compiler));</div>
-<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>    <a class="code hl_define" href="_assert_8h.html#a927d7efae46f019e805b046e952af182">OSK_ASSERT</a>(SUCCEEDED(result), <a class="code hl_class" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_shader_compiling_exception.html">ShaderCompilingException</a>(<span class="stringliteral">&quot;No se pudo instanciar la libreria del compilador DX12.&quot;</span>));</div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>    OSK_ASSERT(SUCCEEDED(result), <a class="code hl_class" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_shader_compiling_exception.html">ShaderCompilingException</a>(<span class="stringliteral">&quot;No se pudo instanciar la libreria del compilador DX12.&quot;</span>));</div>
 <div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span> </div>
 <div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>    result = DxcCreateInstance(CLSID_DxcUtils, IID_PPV_ARGS(utils.GetAddressOf()));</div>
-<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>    <a class="code hl_define" href="_assert_8h.html#a927d7efae46f019e805b046e952af182">OSK_ASSERT</a>(SUCCEEDED(result), <a class="code hl_class" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_shader_compiling_exception.html">ShaderCompilingException</a>(<span class="stringliteral">&quot;No se pudo instanciar el compilador DX12.&quot;</span>));</div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>    OSK_ASSERT(SUCCEEDED(result), <a class="code hl_class" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_shader_compiling_exception.html">ShaderCompilingException</a>(<span class="stringliteral">&quot;No se pudo instanciar el compilador DX12.&quot;</span>));</div>
 <div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span> </div>
 <div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>    result = utils-&gt;CreateDefaultIncludeHandler(&amp;includeHandler);</div>
-<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>    <a class="code hl_define" href="_assert_8h.html#a927d7efae46f019e805b046e952af182">OSK_ASSERT</a>(SUCCEEDED(result), <a class="code hl_class" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_shader_compiling_exception.html">ShaderCompilingException</a>(<span class="stringliteral">&quot;No se pudo instanciar el iclude handler compilador DX12.&quot;</span>));</div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>    OSK_ASSERT(SUCCEEDED(result), <a class="code hl_class" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_shader_compiling_exception.html">ShaderCompilingException</a>(<span class="stringliteral">&quot;No se pudo instanciar el iclude handler compilador DX12.&quot;</span>));</div>
 <div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>}</div>
 </div>
 <div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span> </div>
@@ -136,7 +136,7 @@ $(function(){initNavTree('_hlsl_runtime_compiler_8cpp_source.html',''); initResi
 <div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>    <span class="keyword">static</span> UINT32 encoding = CP_UTF8;</div>
 <div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span> </div>
 <div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>    HRESULT result = utils-&gt;LoadFile(L<span class="stringliteral">&quot;./temp_shader&quot;</span>, &amp;encoding, sourceBlob.GetAddressOf());</div>
-<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>    <a class="code hl_define" href="_assert_8h.html#a927d7efae46f019e805b046e952af182">OSK_ASSERT</a>(SUCCEEDED(result), <a class="code hl_class" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_shader_compiling_exception.html">ShaderCompilingException</a>(path));</div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>    OSK_ASSERT(SUCCEEDED(result), <a class="code hl_class" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_shader_compiling_exception.html">ShaderCompilingException</a>(path));</div>
 <div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span> </div>
 <div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>    <span class="comment">// Región del shader compilado</span></div>
 <div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>    DxcBuffer sourceBuffer{};</div>
@@ -159,7 +159,7 @@ $(function(){initNavTree('_hlsl_runtime_compiler_8cpp_source.html',''); initResi
 <div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>    ComPtr&lt;IDxcBlobUtf8&gt; compilationErrors;</div>
 <div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>    compiled-&gt;GetOutput(DXC_OUT_ERRORS, IID_PPV_ARGS(compilationErrors.GetAddressOf()), <span class="keyword">nullptr</span>);</div>
 <div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>    <span class="keywordflow">if</span> (compilationErrors &amp;&amp; compilationErrors-&gt;GetStringLength() &gt; 0)</div>
-<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>        <a class="code hl_define" href="_assert_8h.html#a927d7efae46f019e805b046e952af182">OSK_ASSERT</a>(<span class="keyword">false</span>, <a class="code hl_class" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_shader_compiling_exception.html">ShaderCompilingException</a>(std::string((<span class="keywordtype">char</span>*)compilationErrors-&gt;GetBufferPointer())));</div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>        OSK_ASSERT(<span class="keyword">false</span>, <a class="code hl_class" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_shader_compiling_exception.html">ShaderCompilingException</a>(std::string((<span class="keywordtype">char</span>*)compilationErrors-&gt;GetBufferPointer())));</div>
 <div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span> </div>
 <div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>    ComPtr&lt;IDxcBlob&gt; output;</div>
 <div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span> </div>
@@ -168,12 +168,6 @@ $(function(){initNavTree('_hlsl_runtime_compiler_8cpp_source.html',''); initResi
 <div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>    <span class="keywordflow">return</span> output;</div>
 <div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>}</div>
 </div>
-<div class="ttc" id="a_assert_8h_html"><div class="ttname"><a href="_assert_8h.html">Assert.h</a></div></div>
-<div class="ttc" id="a_assert_8h_html_a927d7efae46f019e805b046e952af182"><div class="ttname"><a href="_assert_8h.html#a927d7efae46f019e805b046e952af182">OSK_ASSERT</a></div><div class="ttdeci">#define OSK_ASSERT(condition, exception)</div><div class="ttdoc">Comrpueba si una condición se cumple. En caso de no cumplirse, lanza la excepción indicada,...</div><div class="ttdef"><b>Definition</b> <a href="_assert_8h_source.html#l00041">Assert.h:41</a></div></div>
-<div class="ttc" id="a_dynamic_array_8hpp_html"><div class="ttname"><a href="_dynamic_array_8hpp.html">DynamicArray.hpp</a></div></div>
-<div class="ttc" id="a_hlsl_runtime_compiler_8h_html"><div class="ttname"><a href="_hlsl_runtime_compiler_8h.html">HlslRuntimeCompiler.h</a></div></div>
-<div class="ttc" id="a_pipelines_exceptions_8h_html"><div class="ttname"><a href="_pipelines_exceptions_8h.html">PipelinesExceptions.h</a></div></div>
-<div class="ttc" id="a_string_operations_8h_html"><div class="ttname"><a href="_string_operations_8h.html">StringOperations.h</a></div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_dynamic_array_html"><div class="ttname"><a href="class_o_s_k_1_1_dynamic_array.html">OSK::DynamicArray</a></div><div class="ttdoc">Dynamic array: array que puede cambiar de tamaño.</div><div class="ttdef"><b>Definition</b> <a href="_dynamic_array_8hpp_source.html#l00067">DynamicArray.hpp:67</a></div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_dynamic_array_html_a4433c76207ce2ecad5e306b12575f1b3"><div class="ttname"><a href="class_o_s_k_1_1_dynamic_array.html#a4433c76207ce2ecad5e306b12575f1b3">OSK::DynamicArray::Insert</a></div><div class="ttdeci">void Insert(const T &amp;element)</div><div class="ttdoc">Inserta un elemento al final del array.</div><div class="ttdef"><b>Definition</b> <a href="_dynamic_array_8hpp_source.html#l00351">DynamicArray.hpp:351</a></div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_dynamic_array_html_ab8c4487ebf2c42cdb2be44a7a8e01bb0"><div class="ttname"><a href="class_o_s_k_1_1_dynamic_array.html#ab8c4487ebf2c42cdb2be44a7a8e01bb0">OSK::DynamicArray::GetData</a></div><div class="ttdeci">const T * GetData() const noexcept</div><div class="ttdoc">Devuelve el array original.</div><div class="ttdef"><b>Definition</b> <a href="_dynamic_array_8hpp_source.html#l00686">DynamicArray.hpp:686</a></div></div>
@@ -189,8 +183,8 @@ $(function(){initNavTree('_hlsl_runtime_compiler_8cpp_source.html',''); initResi
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="dir_74389ed8173ad57b461b9d623a1f3867.html">Source</a></li><li class="navelem"><a class="el" href="_hlsl_runtime_compiler_8cpp.html">HlslRuntimeCompiler.cpp</a></li>
-    <li class="footer">Generado el Jueves, 28 de marzo de 2024 17:53:10 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.10.0 </li>
+    <li class="navelem"><a class="el" href="dir_74389ed8173ad57b461b9d623a1f3867.html">Source</a></li><li class="navelem"><b>HlslRuntimeCompiler.cpp</b></li>
+    <li class="footer">Generado el Lunes, 15 de abril de 2024 22:39:16 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.10.0 </li>
   </ul>
 </div>
 </body>

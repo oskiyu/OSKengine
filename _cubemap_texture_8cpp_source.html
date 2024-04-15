@@ -101,7 +101,7 @@ $(function(){initNavTree('_cubemap_texture_8cpp_source.html',''); initResizable(
   <div class="headertitle"><div class="title">CubemapTexture.cpp</div></div>
 </div><!--header-->
 <div class="contents">
-<a href="_cubemap_texture_8cpp.html">Ir a la documentación de este archivo.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#include &quot;<a class="code" href="_cubemap_texture_8h.html">CubemapTexture.h</a>&quot;</span></div>
+<div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#include &quot;CubemapTexture.h&quot;</span></div>
 <div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span> </div>
 <div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="keyword">using namespace </span><a class="code hl_namespace" href="namespace_o_s_k_1_1_a_s_s_e_t_s.html">OSK::ASSETS</a>;</div>
 <div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="keyword">using namespace </span><a class="code hl_namespace" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html">OSK::GRAPHICS</a>;</div>
@@ -124,13 +124,12 @@ $(function(){initNavTree('_cubemap_texture_8cpp_source.html',''); initResizable(
 <div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span>    this-&gt;image = image.GetPointer();</div>
 <div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>}</div>
 </div>
-<div class="ttc" id="a_cubemap_texture_8h_html"><div class="ttname"><a href="_cubemap_texture_8h.html">CubemapTexture.h</a></div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref_html"><div class="ttname"><a href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">OSK::ASSETS::AssetRef</a></div><div class="ttdoc">Referencia a un asset.</div><div class="ttdef"><b>Definition</b> <a href="_asset_ref_8h_source.html#l00012">AssetRef.h:12</a></div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_a_s_s_e_t_s_1_1_cubemap_texture_html_a66d792bc75d3c6b7a556503db6f0e65e"><div class="ttname"><a href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_cubemap_texture.html#a66d792bc75d3c6b7a556503db6f0e65e">OSK::ASSETS::CubemapTexture::CubemapTexture</a></div><div class="ttdeci">CubemapTexture(const std::string &amp;assetFile)</div><div class="ttdef"><b>Definition</b> <a href="#l00006">CubemapTexture.cpp:6</a></div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_a_s_s_e_t_s_1_1_cubemap_texture_html_a73363a797a34fad840f774acff088baa"><div class="ttname"><a href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_cubemap_texture.html#a73363a797a34fad840f774acff088baa">OSK::ASSETS::CubemapTexture::GetGpuImage</a></div><div class="ttdeci">GRAPHICS::GpuImage * GetGpuImage() const</div><div class="ttdoc">Imagen guardada en la GPU. Para renderizado.</div><div class="ttdef"><b>Definition</b> <a href="#l00011">CubemapTexture.cpp:11</a></div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_a_s_s_e_t_s_1_1_cubemap_texture_html_aae0dfa0be961b9c39efa8f5427d61a69"><div class="ttname"><a href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_cubemap_texture.html#aae0dfa0be961b9c39efa8f5427d61a69">OSK::ASSETS::CubemapTexture::_SetImage</a></div><div class="ttdeci">void _SetImage(OwnedPtr&lt; GRAPHICS::GpuImage &gt; image)</div><div class="ttdoc">Establece la imagen que contiene el cubemap.</div><div class="ttdef"><b>Definition</b> <a href="#l00015">CubemapTexture.cpp:15</a></div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_a_s_s_e_t_s_1_1_i_asset_html"><div class="ttname"><a href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_i_asset.html">OSK::ASSETS::IAsset</a></div><div class="ttdoc">Un asset es un archivo/contenido que se usa en un juego. Incluye contenido como texturas,...</div><div class="ttdef"><b>Definition</b> <a href="_i_asset_8h_source.html#l00031">IAsset.h:31</a></div></div>
-<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_html"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image.html">OSK::GRAPHICS::GpuImage</a></div><div class="ttdoc">Representación interna de una imagen en la GPU.</div><div class="ttdef"><b>Definition</b> <a href="_i_gpu_image_8h_source.html#l00058">IGpuImage.h:58</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_html"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image.html">OSK::GRAPHICS::GpuImage</a></div><div class="ttdoc">Representación interna de una imagen en la GPU.</div><div class="ttdef"><b>Definition</b> <a href="_i_gpu_image_8h_source.html#l00035">IGpuImage.h:35</a></div></div>
 <div class="ttc" id="anamespace_o_s_k_1_1_a_s_s_e_t_s_html"><div class="ttname"><a href="namespace_o_s_k_1_1_a_s_s_e_t_s.html">OSK::ASSETS</a></div><div class="ttdef"><b>Definition</b> <a href="_anim_mesh_loader_8h_source.html#l00009">AnimMeshLoader.h:9</a></div></div>
 <div class="ttc" id="anamespace_o_s_k_1_1_g_r_a_p_h_i_c_s_html"><div class="ttname"><a href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html">OSK::GRAPHICS</a></div><div class="ttdef"><b>Definition</b> <a href="_acceleration_structures_exceptions_8h_source.html#l00005">AccelerationStructuresExceptions.h:5</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
@@ -138,8 +137,8 @@ $(function(){initNavTree('_cubemap_texture_8cpp_source.html',''); initResizable(
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="dir_74389ed8173ad57b461b9d623a1f3867.html">Source</a></li><li class="navelem"><a class="el" href="_cubemap_texture_8cpp.html">CubemapTexture.cpp</a></li>
-    <li class="footer">Generado el Jueves, 28 de marzo de 2024 17:53:10 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.10.0 </li>
+    <li class="navelem"><a class="el" href="dir_74389ed8173ad57b461b9d623a1f3867.html">Source</a></li><li class="navelem"><b>CubemapTexture.cpp</b></li>
+    <li class="footer">Generado el Lunes, 15 de abril de 2024 22:39:15 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.10.0 </li>
   </ul>
 </div>
 </body>

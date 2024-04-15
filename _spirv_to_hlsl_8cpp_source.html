@@ -101,10 +101,10 @@ $(function(){initNavTree('_spirv_to_hlsl_8cpp_source.html',''); initResizable();
   <div class="headertitle"><div class="title">SpirvToHlsl.cpp</div></div>
 </div><!--header-->
 <div class="contents">
-<a href="_spirv_to_hlsl_8cpp.html">Ir a la documentación de este archivo.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#include &quot;<a class="code" href="_spirv_to_hlsl_8h.html">SpirvToHlsl.h</a>&quot;</span></div>
+<div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#include &quot;SpirvToHlsl.h&quot;</span></div>
 <div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span> </div>
-<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="preprocessor">#include &quot;<a class="code" href="_vertex_info_8h.html">VertexInfo.h</a>&quot;</span></div>
-<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &quot;<a class="code" href="_material_layout_8h.html">MaterialLayout.h</a>&quot;</span></div>
+<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="preprocessor">#include &quot;VertexInfo.h&quot;</span></div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &quot;MaterialLayout.h&quot;</span></div>
 <div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span> </div>
 <div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="keyword">using namespace </span><a class="code hl_namespace" href="namespace_o_s_k.html">OSK</a>;</div>
 <div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="keyword">using namespace </span><a class="code hl_namespace" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html">OSK::GRAPHICS</a>;</div>
@@ -179,7 +179,7 @@ $(function(){initNavTree('_spirv_to_hlsl_8cpp_source.html',''); initResizable();
 </div>
 <div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span> </div>
 <div class="foldopen" id="foldopen00072" data-start="{" data-end="}">
-<div class="line"><a id="l00072" name="l00072"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_spirv_to_hlsl.html#ad76bf1dee9fcf13054eac12ca2a0d438">   72</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_spirv_to_hlsl.html#ad76bf1dee9fcf13054eac12ca2a0d438">SpirvToHlsl::SetHlslTargetProfile</a>(<a class="code hl_typedef" href="_o_s_kmacros_8h.html#a5784d24fcb00afb78eb7b1e1a3466ac4">USize64</a> mayor, <a class="code hl_typedef" href="_o_s_kmacros_8h.html#a5784d24fcb00afb78eb7b1e1a3466ac4">USize64</a> minor) {</div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_spirv_to_hlsl.html#ad76bf1dee9fcf13054eac12ca2a0d438">   72</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_spirv_to_hlsl.html#ad76bf1dee9fcf13054eac12ca2a0d438">SpirvToHlsl::SetHlslTargetProfile</a>(USize64 mayor, USize64 minor) {</div>
 <div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>    <span class="keyword">auto</span> options = compilerToHlsl.get_hlsl_options();</div>
 <div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>    options.shader_model = <span class="keyword">static_cast&lt;</span>uint32_t<span class="keyword">&gt;</span>(mayor * 10 + minor);</div>
 <div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>    compilerToHlsl.get_hlsl_options();</div>
@@ -191,10 +191,6 @@ $(function(){initNavTree('_spirv_to_hlsl_8cpp_source.html',''); initResizable();
 <div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span>    <span class="keywordflow">return</span> compilerToHlsl.compile();</div>
 <div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span>}</div>
 </div>
-<div class="ttc" id="a_material_layout_8h_html"><div class="ttname"><a href="_material_layout_8h.html">MaterialLayout.h</a></div></div>
-<div class="ttc" id="a_o_s_kmacros_8h_html_a5784d24fcb00afb78eb7b1e1a3466ac4"><div class="ttname"><a href="_o_s_kmacros_8h.html#a5784d24fcb00afb78eb7b1e1a3466ac4">USize64</a></div><div class="ttdeci">uint64_t USize64</div><div class="ttdef"><b>Definition</b> <a href="_o_s_kmacros_8h_source.html#l00045">OSKmacros.h:45</a></div></div>
-<div class="ttc" id="a_spirv_to_hlsl_8h_html"><div class="ttname"><a href="_spirv_to_hlsl_8h.html">SpirvToHlsl.h</a></div></div>
-<div class="ttc" id="a_vertex_info_8h_html"><div class="ttname"><a href="_vertex_info_8h.html">VertexInfo.h</a></div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref_html"><div class="ttname"><a href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">OSK::ASSETS::AssetRef</a></div><div class="ttdoc">Referencia a un asset.</div><div class="ttdef"><b>Definition</b> <a href="_asset_ref_8h_source.html#l00012">AssetRef.h:12</a></div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_dynamic_array_html"><div class="ttname"><a href="class_o_s_k_1_1_dynamic_array.html">OSK::DynamicArray</a></div><div class="ttdoc">Dynamic array: array que puede cambiar de tamaño.</div><div class="ttdef"><b>Definition</b> <a href="_dynamic_array_8hpp_source.html#l00067">DynamicArray.hpp:67</a></div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_layout_html"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_layout.html">OSK::GRAPHICS::MaterialLayout</a></div><div class="ttdoc">El layout de un material determina qué slots pertenecen a ese material.</div><div class="ttdef"><b>Definition</b> <a href="_material_layout_8h_source.html#l00013">MaterialLayout.h:13</a></div></div>
@@ -219,8 +215,8 @@ $(function(){initNavTree('_spirv_to_hlsl_8cpp_source.html',''); initResizable();
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="dir_74389ed8173ad57b461b9d623a1f3867.html">Source</a></li><li class="navelem"><a class="el" href="_spirv_to_hlsl_8cpp.html">SpirvToHlsl.cpp</a></li>
-    <li class="footer">Generado el Jueves, 28 de marzo de 2024 17:53:11 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.10.0 </li>
+    <li class="navelem"><a class="el" href="dir_74389ed8173ad57b461b9d623a1f3867.html">Source</a></li><li class="navelem"><b>SpirvToHlsl.cpp</b></li>
+    <li class="footer">Generado el Lunes, 15 de abril de 2024 22:39:17 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.10.0 </li>
   </ul>
 </div>
 </body>

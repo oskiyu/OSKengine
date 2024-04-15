@@ -101,12 +101,12 @@ $(function(){initNavTree('_system_execution_graph_8h_source.html',''); initResiz
   <div class="headertitle"><div class="title">SystemExecutionGraph.h</div></div>
 </div><!--header-->
 <div class="contents">
-<a href="_system_execution_graph_8h.html">Ir a la documentación de este archivo.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#pragma once</span></div>
+<div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#pragma once</span></div>
 <div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span> </div>
-<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="preprocessor">#include &quot;<a class="code" href="_o_s_kmacros_8h.html">OSKmacros.h</a>&quot;</span></div>
-<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &quot;<a class="code" href="_hash_map_8hpp.html">HashMap.hpp</a>&quot;</span></div>
-<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &quot;<a class="code" href="_unique_ptr_8hpp.html">UniquePtr.hpp</a>&quot;</span></div>
-<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &quot;<a class="code" href="_i_system_8h.html">ISystem.h</a>&quot;</span></div>
+<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="preprocessor">#include &quot;OSKmacros.h&quot;</span></div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &quot;HashMap.hpp&quot;</span></div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &quot;UniquePtr.hpp&quot;</span></div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &quot;ISystem.h&quot;</span></div>
 <div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span> </div>
 <div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="preprocessor">#include &lt;span&gt;</span></div>
 <div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span> </div>
@@ -153,15 +153,11 @@ $(function(){initNavTree('_system_execution_graph_8h_source.html',''); initResiz
 </div>
 <div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span> </div>
 <div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span>}</div>
-<div class="ttc" id="a_hash_map_8hpp_html"><div class="ttname"><a href="_hash_map_8hpp.html">HashMap.hpp</a></div></div>
-<div class="ttc" id="a_i_system_8h_html"><div class="ttname"><a href="_i_system_8h.html">ISystem.h</a></div></div>
-<div class="ttc" id="a_o_s_kmacros_8h_html"><div class="ttname"><a href="_o_s_kmacros_8h.html">OSKmacros.h</a></div></div>
-<div class="ttc" id="a_unique_ptr_8hpp_html"><div class="ttname"><a href="_unique_ptr_8hpp.html">UniquePtr.hpp</a></div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_dynamic_array_html"><div class="ttname"><a href="class_o_s_k_1_1_dynamic_array.html">OSK::DynamicArray</a></div><div class="ttdoc">Dynamic array: array que puede cambiar de tamaño.</div><div class="ttdef"><b>Definition</b> <a href="_dynamic_array_8hpp_source.html#l00067">DynamicArray.hpp:67</a></div></div>
-<div class="ttc" id="aclass_o_s_k_1_1_e_c_s_1_1_i_system_html"><div class="ttname"><a href="class_o_s_k_1_1_e_c_s_1_1_i_system.html">OSK::ECS::ISystem</a></div><div class="ttdoc">Un sistema se encarga de ejecutar lógica.</div><div class="ttdef"><b>Definition</b> <a href="_i_system_8h_source.html#l00037">ISystem.h:37</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_e_c_s_1_1_i_system_html"><div class="ttname"><a href="class_o_s_k_1_1_e_c_s_1_1_i_system.html">OSK::ECS::ISystem</a></div><div class="ttdoc">Un sistema se encarga de ejecutar lógica.</div><div class="ttdef"><b>Definition</b> <a href="_i_system_8h_source.html#l00048">ISystem.h:48</a></div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_e_c_s_1_1_system_execution_graph_html"><div class="ttname"><a href="class_o_s_k_1_1_e_c_s_1_1_system_execution_graph.html">OSK::ECS::SystemExecutionGraph</a></div><div class="ttdoc">Grafo que contiene los sistemas ordenados de tal manera que se respeten sus dependencias.</div><div class="ttdef"><b>Definition</b> <a href="#l00025">SystemExecutionGraph.h:25</a></div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_e_c_s_1_1_system_execution_graph_html_a4c08e2e5a25c5cb54f465f822dd32f56"><div class="ttname"><a href="class_o_s_k_1_1_e_c_s_1_1_system_execution_graph.html#a4c08e2e5a25c5cb54f465f822dd32f56">OSK::ECS::SystemExecutionGraph::AddSystem</a></div><div class="ttdeci">void AddSystem(ISystem *system, const SystemDependencies &amp;dependencies)</div><div class="ttdoc">Añade el sistema al grafo de ejecución.</div><div class="ttdef"><b>Definition</b> <a href="_system_execution_graph_8cpp_source.html#l00010">SystemExecutionGraph.cpp:10</a></div></div>
-<div class="ttc" id="aclass_o_s_k_1_1_e_c_s_1_1_system_execution_graph_html_a95bf8cba67a43c233ff24c3e61840b6b"><div class="ttname"><a href="class_o_s_k_1_1_e_c_s_1_1_system_execution_graph.html#a95bf8cba67a43c233ff24c3e61840b6b">OSK::ECS::SystemExecutionGraph::GetExecutionGraph</a></div><div class="ttdeci">std::span&lt; SystemExecutionSet &gt; GetExecutionGraph()</div><div class="ttdef"><b>Definition</b> <a href="_system_execution_graph_8cpp_source.html#l00210">SystemExecutionGraph.cpp:210</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_e_c_s_1_1_system_execution_graph_html_a95bf8cba67a43c233ff24c3e61840b6b"><div class="ttname"><a href="class_o_s_k_1_1_e_c_s_1_1_system_execution_graph.html#a95bf8cba67a43c233ff24c3e61840b6b">OSK::ECS::SystemExecutionGraph::GetExecutionGraph</a></div><div class="ttdeci">std::span&lt; SystemExecutionSet &gt; GetExecutionGraph()</div><div class="ttdef"><b>Definition</b> <a href="_system_execution_graph_8cpp_source.html#l00214">SystemExecutionGraph.cpp:214</a></div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_e_c_s_1_1_system_execution_graph_html_aab0c668fc0003eb0379b2f8ea17c18e0"><div class="ttname"><a href="class_o_s_k_1_1_e_c_s_1_1_system_execution_graph.html#aab0c668fc0003eb0379b2f8ea17c18e0">OSK::ECS::SystemExecutionGraph::RemoveSystem</a></div><div class="ttdeci">void RemoveSystem(const ISystem *system)</div><div class="ttdoc">Quita un sistema del grafo de ejecución.</div><div class="ttdef"><b>Definition</b> <a href="_system_execution_graph_8cpp_source.html#l00020">SystemExecutionGraph.cpp:20</a></div></div>
 <div class="ttc" id="anamespace_o_s_k_1_1_e_c_s_html"><div class="ttname"><a href="namespace_o_s_k_1_1_e_c_s.html">OSK::ECS</a></div><div class="ttdef"><b>Definition</b> <a href="_camera_component2_d_8h_source.html#l00017">CameraComponent2D.h:17</a></div></div>
 <div class="ttc" id="astruct_o_s_k_1_1_e_c_s_1_1_system_dependencies_html"><div class="ttname"><a href="struct_o_s_k_1_1_e_c_s_1_1_system_dependencies.html">OSK::ECS::SystemDependencies</a></div><div class="ttdoc">Dependencias explícitas de un sistema.</div><div class="ttdef"><b>Definition</b> <a href="_i_system_8h_source.html#l00019">ISystem.h:19</a></div></div>
@@ -172,8 +168,8 @@ $(function(){initNavTree('_system_execution_graph_8h_source.html',''); initResiz
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="dir_74389ed8173ad57b461b9d623a1f3867.html">Source</a></li><li class="navelem"><a class="el" href="_system_execution_graph_8h.html">SystemExecutionGraph.h</a></li>
-    <li class="footer">Generado el Jueves, 28 de marzo de 2024 17:53:11 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.10.0 </li>
+    <li class="navelem"><a class="el" href="dir_74389ed8173ad57b461b9d623a1f3867.html">Source</a></li><li class="navelem"><b>SystemExecutionGraph.h</b></li>
+    <li class="footer">Generado el Lunes, 15 de abril de 2024 22:39:17 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.10.0 </li>
   </ul>
 </div>
 </body>

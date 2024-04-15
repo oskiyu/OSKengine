@@ -1,0 +1,216 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="es">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.10.0"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>OSKengine: Archivo de descripción de material (revisión 1).</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="doxygen-awesome.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">OSKengine<span id="projectnumber">&#160;Indev</span>
+   </div>
+   <div id="projectbrief">Motor de videojuegos.</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generado por Doxygen 1.10.0 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() {
+  initMenu('',true,false,'search.php','Buscar');
+  $(function() { init_search(); });
+});
+/* @license-end */
+</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function(){initNavTree('_material_file_v1.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Cargando...</div>
+<div class="SRStatus" id="Searching">Buscando...</div>
+<div class="SRStatus" id="NoMatches">Nada coincide</div>
+</div>
+</div>
+</div>
+</div>
+
+<div><div class="header">
+  <div class="headertitle"><div class="title">Archivo de descripción de material (revisión 1).</div></div>
+</div><!--header-->
+<div class="contents">
+<div class="textblock"><p>En esta versión de la especificación, la información de los shaders se obtiene automáticamente, por lo que no es necesario especificarla.</p>
+<dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">file_type</td><td>Tipo de archivo JSON. Dependiendo del tipo de material, será uno u otro. <a class="el" href="_material_file_v0.html#materialtypeV0">Tipos de material.</a> </td></tr>
+    <tr><td class="paramname">spec_ver</td><td>Versión de la especificación del material. </td></tr>
+    <tr><td class="paramname">name</td><td>Nombre del material (único).</td></tr>
+    <tr><td class="paramname">rt_raygen_shader</td><td>[<em>condicional</em>] Ruta del shader precompilado de generación de rayos. </td></tr>
+    <tr><td class="paramname">rt_closesthit_shader</td><td>[<em>condicional</em>] Ruta del shader precompilado de choque de rayo. </td></tr>
+    <tr><td class="paramname">rt_miss_shader</td><td>[<em>condicional</em>] Ruta del shader precompilado de fallo de rayo.</td></tr>
+    <tr><td class="paramname">vertex_shader</td><td>[<em>condicional</em>] Ruta del shader precompilado de vértices. </td></tr>
+    <tr><td class="paramname">fragment_shader</td><td>[<em>condicional</em>] Ruta del shader precompilado de fragmentos / píxeles. </td></tr>
+    <tr><td class="paramname">tesselation_control_shader</td><td>[<em>opcional</em> / <em>condicional</em>] Ruta del shader precompilado de control del teselado. </td></tr>
+    <tr><td class="paramname">tesselation_evaluation_shader</td><td>[<em>opcional</em> / <em>condicional</em>] Ruta del shader precompilado de evaluación del teselado.</td></tr>
+    <tr><td class="paramname">compute_shader</td><td>[<em>condicional</em>] Ruta del shader precompilado de computación.</td></tr>
+    <tr><td class="paramname">vertex_type</td><td>[<em>condicional</em>] Nombre del tipo de vértice que se va a usar en este material (para materiales gráficos). </td></tr>
+    <tr><td class="paramname">config</td><td>[<em>opcional</em>] Estructura de datos con configuración adicional. <a class="el" href="#configv1">Configuración adicional</a> </td></tr>
+    <tr><td class="paramname">polygon_mode</td><td>[<em>opcional</em>] Tipo de polígono usado, en caso de tratarse de un material gráfico. <a class="el" href="_material_file_v0.html#polygonmodeV0">Modo de renderizado de polígonos.</a></td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section pre"><dt>Precondición</dt><dd>Si <code>rt_raygen_shader</code>, <code>rt_closesthit_shader</code> o <code>rt_miss_shader</code> están presentes, entonces <code>file_type</code> debe ser "MATERIAL_RT". </dd>
+<dd>
+Si <code>vertex_shader</code>, <code>fragment_shader</code>, <code>tesselation_control_shader</code> o <code>tesselation_evaluation_shader</code> están presentes, entonces <code>file_type</code> debe ser "MATERIAL". </dd>
+<dd>
+Si <code>compute_shader</code> está presente, entonces <code>file_type</code> debe ser "MATERIAL_COMPUTE".</dd></dl>
+<p><br  />
+ </p><dl class="section pre"><dt>Precondición</dt><dd>Si <code>file_type</code> es "MATERIAL_RT", entonces <code>rt_raygen_shader</code>, <code>rt_closesthit_shader</code> y <code>rt_miss_shader</code> deben estar presentes. </dd>
+<dd>
+Si <code>file_type</code> es "MATERIAL", entonces <code>vertex_shader</code> y <code>fragment_shader</code> deben estar presentes. </dd>
+<dd>
+Si <code>file_type</code> es "MATERIAL_COMPUTE", entonces <code>compute_shader</code> debe estar presente.</dd></dl>
+<p><br  />
+ </p><dl class="section pre"><dt>Precondición</dt><dd>Si <code>tesselation_control_shader</code> está presente, entonces <code>tesselation_evaluation_shader</code> también debe estar presente. </dd>
+<dd>
+Si <code>tesselation_evaluation_shader</code> está presente, entonces <code>tesselation_control_shader</code> también debe estar presente.</dd></dl>
+<p><br  />
+ </p><dl class="section pre"><dt>Precondición</dt><dd><code>file_type</code> debe coincidir con uno de los tipos presentados en <a class="el" href="#materialtypeV1">Tipos de material.</a>. </dd>
+<dd>
+<code>polygon_mode</code> debe coincidir con uno de los tipos presentados en <a class="el" href="#polygonmodeV1">Modo de renderizado de polígonos.</a>.</dd></dl>
+<p><br  />
+ </p><dl class="section pre"><dt>Precondición</dt><dd><code>spec_ver</code> debe ser 1 para que se aplique esta especificación. </dd>
+<dd>
+<code>name</code> debe ser único entre todos los materiales cargados en el motor en un momento dado.</dd></dl>
+<p><br  />
+ </p><dl class="section pre"><dt>Precondición</dt><dd>Si <code>vertex_type</code> está presente, entonces <code>file_type</code> debe ser "MATERIAL". </dd>
+<dd>
+<code>vertex_type</code> debe coincidir con el nombre del tipo de vértices en el código C++.</dd></dl>
+<p><br  />
+ </p><dl class="section pre"><dt>Precondición</dt><dd>Si <code>polygon_mode</code> está presente, entonces <code>file_type</code> debe ser "MATERIAL".</dd></dl>
+<h3><a class="anchor" id="configv1"></a>
+Configuración adicional</h3>
+<dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">depth_testing</td><td>[<em>opcional</em>] Establece el tipo de depth stencil a usar. <a class="el" href="#depthtestingV1">Modo de depth testing.</a> </td></tr>
+    <tr><td class="paramname">cull_mode</td><td>[<em>opcional</em>] Establece el tipo de culling aplicado. cullingV01 </td></tr>
+    <tr><td class="paramname">disable_alpha_blending</td><td>[<em>opcinonal</em>] Flag que, si está presente, desactiva el alpha blending. </td></tr>
+    <tr><td class="paramname">resource_vararray_max_count</td><td>[<em>condicional</em> / <em>opcional</em>] Para arrays de recursos de tamaño sin indicar (recurso[]), indica el número máximo de recursos que se pueden enlazar al array.</td></tr>
+  </table>
+  </dd>
+</dl>
+<p><br  />
+ </p><dl class="section pre"><dt>Precondición</dt><dd>Si <code>depth_testing</code> está presente, entonces el tipo de material debe ser "MATERIAL". </dd>
+<dd>
+Si <code>depth_testing</code> está presente, debe coincidir con uno de los valores descritos en <a class="el" href="#depthtestingV1">Modo de depth testing.</a>.</dd></dl>
+<p><br  />
+ </p><dl class="section pre"><dt>Precondición</dt><dd>Si <code>cull_mode</code> está presente, entonces el tipo de material debe ser "MATERIAL". </dd>
+<dd>
+Si <code>cull_mode</code> está presente, debe coincidir con uno de los valores descritos en <a class="el" href="#cullingV1">Modo de culling.</a>.</dd></dl>
+<p><br  />
+ </p><dl class="section pre"><dt>Precondición</dt><dd>Si <code>disable_alpha_blending</code> está presente, entonces el tipo de material debe ser "MATERIAL".</dd></dl>
+<p><br  />
+ </p><dl class="section pre"><dt>Precondición</dt><dd>Si alguno de los shaders del material tiene arrays de recursos con un tamaño sin especificar (recurso[]), <code>resource_vararray_max_count</code> debe está presente. </dd>
+<dd>
+<code>resource_vararray_max_count</code> debe ser mayor que 0. </dd>
+<dd>
+<code>resource_vararray_max_count</code> debe ser menor que 4096.</dd></dl>
+<h3><a class="anchor" id="materialtypeV1"></a>
+Tipos de material.</h3>
+<p>Existen tres tipos de material, dependiendo del tipo de pipeline y shaders que aceptan:</p><ul>
+<li><b>Material de rasterizado</b>, representado por "MATERIAL".</li>
+<li><b>Material de trazado de rayos</b>, representado por "MATERIAL_RT".</li>
+<li><b>Material de computación</b>, representado por "MATERIAL_COMPUTE".</li>
+</ul>
+<h3><a class="anchor" id="polygonmodeV1"></a>
+Modo de renderizado de polígonos.</h3>
+<p>Existen tres maneras de renderizar geometría:</p><ul>
+<li><b>Renderizado tradicional de triángulos</b>, representado por "FILL".</li>
+<li><b>Renderizado de triángulos en wideframe</b>, representado por "TRIANGLE_WIDEFRAME".</li>
+<li><b>Renderizado de líneas (no triángulos)</b>, representado por "LINE".</li>
+</ul>
+<h3><a class="anchor" id="depthtestingV1"></a>
+Modo de depth testing.</h3>
+<p>Existen tres maneras de configurar el depth testing:</p><ul>
+<li><b>Desactivado</b>, representado por "none".</li>
+<li><b>Sólo lectura</b>: se comprueba la geometría, pero no se sobreescribe la imagen de profundidad. Representado por "read".</li>
+<li><b>Comportamiento normal</b>: se comprueba la geometría, y se sobreescribe la imagen de profundidad si es necesario. Representado por "read/write".</li>
+</ul>
+<p>Por defecto, está activado en modo read / write.</p>
+<h3><a class="anchor" id="cullingV1"></a>
+Modo de culling.</h3>
+<p>Existen tres maneras de configurar el depth testing:</p><ul>
+<li><b>Desactivado</b>, representado por "none".</li>
+<li><b>Front-face culling</b>, representado por "front".</li>
+<li><b>Back-face culling</b>, representado por "back".</li>
+</ul>
+<p>Por defecto, está activado en modo back. </p>
+</div></div><!-- contents -->
+</div><!-- PageDoc -->
+</div><!-- doc-content -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="jsonfiles.html">Archivos de descripción de recursos.</a></li><li class="navelem"><a class="el" href="_material_file.html">Archivo de descripción de  material.</a></li>
+    <li class="footer">Generado el Lunes, 15 de abril de 2024 22:39:17 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.10.0 </li>
+  </ul>
+</div>
+</body>
+</html>

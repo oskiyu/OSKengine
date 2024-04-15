@@ -108,7 +108,7 @@ $(function(){initNavTree('class_o_s_k_1_1_e_c_s_1_1_transform3_d.html',''); init
 Métodos públicos</h2></td></tr>
 <tr class="memitem:a7cce6079298023c9c74c3c1ac41de4d8" id="r_a7cce6079298023c9c74c3c1ac41de4d8"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a7cce6079298023c9c74c3c1ac41de4d8">OSK_COMPONENT</a> (&quot;OSK::Transform3D&quot;)</td></tr>
 <tr class="separator:a7cce6079298023c9c74c3c1ac41de4d8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a10c838b2e1e87925aaca154cc34ca18a" id="r_a10c838b2e1e87925aaca154cc34ca18a"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a10c838b2e1e87925aaca154cc34ca18a">Transform3D</a> (<a class="el" href="namespace_o_s_k_1_1_e_c_s.html#a7be561d6b7de4e8a49c2a5cc35fba48c">ECS::GameObjectIndex</a> owner)</td></tr>
+<tr class="memitem:a10c838b2e1e87925aaca154cc34ca18a" id="r_a10c838b2e1e87925aaca154cc34ca18a"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a10c838b2e1e87925aaca154cc34ca18a">Transform3D</a> (<a class="el" href="namespace_o_s_k_1_1_e_c_s.html#a5b92aeaa6be2ce0d96e7f571aa917042">ECS::GameObjectIndex</a> owner)</td></tr>
 <tr class="separator:a10c838b2e1e87925aaca154cc34ca18a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:abe67f13052baadaf4439950bc4b555db" id="r_abe67f13052baadaf4439950bc4b555db"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#abe67f13052baadaf4439950bc4b555db">SetPosition</a> (const <a class="el" href="namespace_o_s_k.html#a72b3268907c9cd41f0daf0a42e1c9dca">Vector3f</a> &amp;position)</td></tr>
 <tr class="separator:abe67f13052baadaf4439950bc4b555db"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -118,21 +118,31 @@ Métodos públicos</h2></td></tr>
 <tr class="separator:a5e6b4d0eb8915eefd7bcd0aeaa424163"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a84e7319dbca0666f6194bd7da931644a" id="r_a84e7319dbca0666f6194bd7da931644a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a84e7319dbca0666f6194bd7da931644a">AddPosition</a> (const <a class="el" href="namespace_o_s_k.html#a72b3268907c9cd41f0daf0a42e1c9dca">Vector3f</a> &amp;positionDelta)</td></tr>
 <tr class="separator:a84e7319dbca0666f6194bd7da931644a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a46aed22babac45b7d0e89dea44d58002" id="r_a46aed22babac45b7d0e89dea44d58002"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a46aed22babac45b7d0e89dea44d58002">AddPosition_ThreadSafe</a> (const <a class="el" href="namespace_o_s_k.html#a72b3268907c9cd41f0daf0a42e1c9dca">Vector3f</a> &amp;positionDelta)</td></tr>
+<tr class="separator:a46aed22babac45b7d0e89dea44d58002"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a519e0f71ada3555dd2af7f429e0e5d3f" id="r_a519e0f71ada3555dd2af7f429e0e5d3f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a519e0f71ada3555dd2af7f429e0e5d3f">AddScale</a> (const <a class="el" href="namespace_o_s_k.html#a72b3268907c9cd41f0daf0a42e1c9dca">Vector3f</a> &amp;scaleDelta)</td></tr>
 <tr class="separator:a519e0f71ada3555dd2af7f429e0e5d3f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a10367c6b67f7a5cc808e86f4260c76ef" id="r_a10367c6b67f7a5cc808e86f4260c76ef"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a10367c6b67f7a5cc808e86f4260c76ef">AddScale_ThreadSafe</a> (const <a class="el" href="namespace_o_s_k.html#a72b3268907c9cd41f0daf0a42e1c9dca">Vector3f</a> &amp;scaleDelta)</td></tr>
+<tr class="separator:a10367c6b67f7a5cc808e86f4260c76ef"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6c715494afef79663699e2d7db4db29a" id="r_a6c715494afef79663699e2d7db4db29a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a6c715494afef79663699e2d7db4db29a">ApplyRotation</a> (const <a class="el" href="class_o_s_k_1_1_quaternion.html">Quaternion</a> &amp;rotationDelta)</td></tr>
 <tr class="separator:a6c715494afef79663699e2d7db4db29a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a19e1b6a4430fae851e89dd07b8d36d19" id="r_a19e1b6a4430fae851e89dd07b8d36d19"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a19e1b6a4430fae851e89dd07b8d36d19">ApplyRotation_ThreadSafe</a> (const <a class="el" href="class_o_s_k_1_1_quaternion.html">Quaternion</a> &amp;rotationDelta)</td></tr>
+<tr class="separator:a19e1b6a4430fae851e89dd07b8d36d19"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a305766732463c5ffb54588742006ff75" id="r_a305766732463c5ffb54588742006ff75"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a305766732463c5ffb54588742006ff75">RotateLocalSpace</a> (float angle, const <a class="el" href="namespace_o_s_k.html#a72b3268907c9cd41f0daf0a42e1c9dca">Vector3f</a> &amp;axis)</td></tr>
 <tr class="separator:a305766732463c5ffb54588742006ff75"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6f19cf91d2e0a98707c7e1169a7028a4" id="r_a6f19cf91d2e0a98707c7e1169a7028a4"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a6f19cf91d2e0a98707c7e1169a7028a4">RotateLocalSpace_ThreadSafe</a> (float angle, const <a class="el" href="namespace_o_s_k.html#a72b3268907c9cd41f0daf0a42e1c9dca">Vector3f</a> &amp;axis)</td></tr>
+<tr class="separator:a6f19cf91d2e0a98707c7e1169a7028a4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:afc7da25075f1190d73579dd1b45fe33e" id="r_afc7da25075f1190d73579dd1b45fe33e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#afc7da25075f1190d73579dd1b45fe33e">RotateWorldSpace</a> (float angle, const <a class="el" href="namespace_o_s_k.html#a72b3268907c9cd41f0daf0a42e1c9dca">Vector3f</a> &amp;axis)</td></tr>
 <tr class="separator:afc7da25075f1190d73579dd1b45fe33e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6f73b8da98b692568d8a5a46c2dbe2ce" id="r_a6f73b8da98b692568d8a5a46c2dbe2ce"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a6f73b8da98b692568d8a5a46c2dbe2ce">RotateWorldSpace_ThreadSafe</a> (float angle, const <a class="el" href="namespace_o_s_k.html#a72b3268907c9cd41f0daf0a42e1c9dca">Vector3f</a> &amp;axis)</td></tr>
+<tr class="separator:a6f73b8da98b692568d8a5a46c2dbe2ce"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a865f66350d13df8b492abc200ec755d7" id="r_a865f66350d13df8b492abc200ec755d7"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespace_o_s_k.html#a72b3268907c9cd41f0daf0a42e1c9dca">Vector3f</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a865f66350d13df8b492abc200ec755d7">TransformPoint</a> (const <a class="el" href="namespace_o_s_k.html#a72b3268907c9cd41f0daf0a42e1c9dca">Vector3f</a> &amp;point) const</td></tr>
 <tr class="separator:a865f66350d13df8b492abc200ec755d7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a75c8261b5fe8eaa30ca31060859e246d" id="r_a75c8261b5fe8eaa30ca31060859e246d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a75c8261b5fe8eaa30ca31060859e246d">AddChild</a> (<a class="el" href="namespace_o_s_k_1_1_e_c_s.html#a7be561d6b7de4e8a49c2a5cc35fba48c">ECS::GameObjectIndex</a> childId)</td></tr>
+<tr class="memitem:a75c8261b5fe8eaa30ca31060859e246d" id="r_a75c8261b5fe8eaa30ca31060859e246d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a75c8261b5fe8eaa30ca31060859e246d">AddChild</a> (<a class="el" href="namespace_o_s_k_1_1_e_c_s.html#a5b92aeaa6be2ce0d96e7f571aa917042">ECS::GameObjectIndex</a> childId)</td></tr>
 <tr class="separator:a75c8261b5fe8eaa30ca31060859e246d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af775e0d83823931216005acba20d2b0a" id="r_af775e0d83823931216005acba20d2b0a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af775e0d83823931216005acba20d2b0a">RemoveChild</a> (<a class="el" href="namespace_o_s_k_1_1_e_c_s.html#a7be561d6b7de4e8a49c2a5cc35fba48c">ECS::GameObjectIndex</a> childId)</td></tr>
+<tr class="memitem:af775e0d83823931216005acba20d2b0a" id="r_af775e0d83823931216005acba20d2b0a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af775e0d83823931216005acba20d2b0a">RemoveChild</a> (<a class="el" href="namespace_o_s_k_1_1_e_c_s.html#a5b92aeaa6be2ce0d96e7f571aa917042">ECS::GameObjectIndex</a> childId)</td></tr>
 <tr class="separator:af775e0d83823931216005acba20d2b0a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae29d2b88895f66bd0c5487d0bde35773" id="r_ae29d2b88895f66bd0c5487d0bde35773"><td class="memItemLeft" align="right" valign="top">std::span&lt; const <a class="el" href="namespace_o_s_k_1_1_e_c_s.html#a7be561d6b7de4e8a49c2a5cc35fba48c">GameObjectIndex</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae29d2b88895f66bd0c5487d0bde35773">GetChildren</a> () const</td></tr>
+<tr class="memitem:ae29d2b88895f66bd0c5487d0bde35773" id="r_ae29d2b88895f66bd0c5487d0bde35773"><td class="memItemLeft" align="right" valign="top">std::span&lt; const <a class="el" href="namespace_o_s_k_1_1_e_c_s.html#a5b92aeaa6be2ce0d96e7f571aa917042">GameObjectIndex</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae29d2b88895f66bd0c5487d0bde35773">GetChildren</a> () const</td></tr>
 <tr class="separator:ae29d2b88895f66bd0c5487d0bde35773"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a385e7addbf6a4b3f00b54019e5335550" id="r_a385e7addbf6a4b3f00b54019e5335550"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespace_o_s_k.html#a72b3268907c9cd41f0daf0a42e1c9dca">Vector3f</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a385e7addbf6a4b3f00b54019e5335550">GetPosition</a> () const</td></tr>
 <tr class="separator:a385e7addbf6a4b3f00b54019e5335550"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -167,7 +177,7 @@ Métodos públicos</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-static-methods" name="pub-static-methods"></a>
 Métodos públicos estáticos</h2></td></tr>
-<tr class="memitem:a113b74eaac353602f1c7707559113b5d" id="r_a113b74eaac353602f1c7707559113b5d"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="class_o_s_k_1_1_e_c_s_1_1_transform3_d.html">Transform3D</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a113b74eaac353602f1c7707559113b5d">FromMatrix</a> (<a class="el" href="namespace_o_s_k_1_1_e_c_s.html#a7be561d6b7de4e8a49c2a5cc35fba48c">ECS::GameObjectIndex</a> owner, const glm::mat4 &amp;matrix)</td></tr>
+<tr class="memitem:a113b74eaac353602f1c7707559113b5d" id="r_a113b74eaac353602f1c7707559113b5d"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="class_o_s_k_1_1_e_c_s_1_1_transform3_d.html">Transform3D</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a113b74eaac353602f1c7707559113b5d">FromMatrix</a> (<a class="el" href="namespace_o_s_k_1_1_e_c_s.html#a5b92aeaa6be2ce0d96e7f571aa917042">ECS::GameObjectIndex</a> owner, const glm::mat4 &amp;matrix)</td></tr>
 <tr class="separator:a113b74eaac353602f1c7707559113b5d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="friends" name="friends"></a>
@@ -181,7 +191,7 @@ Amigas</h2></td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Descripción detallada</h2>
 <div class="textblock">
-<p class="definition">Definición en la línea <a class="el" href="_transform3_d_8h_source.html#l00013">13</a> del archivo <a class="el" href="_transform3_d_8h_source.html">Transform3D.h</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_transform3_d_8h_source.html#l00015">15</a> del archivo <a class="el" href="_transform3_d_8h_source.html">Transform3D.h</a>.</p>
 </div><h2 class="groupheader">Documentación de constructores y destructores</h2>
 <a id="a10c838b2e1e87925aaca154cc34ca18a" name="a10c838b2e1e87925aaca154cc34ca18a"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a10c838b2e1e87925aaca154cc34ca18a">&#9670;&#160;</a></span>Transform3D()</h2>
@@ -195,7 +205,7 @@ Amigas</h2></td></tr>
         <tr>
           <td class="memname">Transform3D::Transform3D </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="namespace_o_s_k_1_1_e_c_s.html#a7be561d6b7de4e8a49c2a5cc35fba48c">ECS::GameObjectIndex</a></td>          <td class="paramname"><span class="paramname"><em>owner</em></span></td><td>)</td>
+          <td class="paramtype"><a class="el" href="namespace_o_s_k_1_1_e_c_s.html#a5b92aeaa6be2ce0d96e7f571aa917042">ECS::GameObjectIndex</a></td>          <td class="paramname"><span class="paramname"><em>owner</em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -232,7 +242,7 @@ Amigas</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definición en la línea <a class="el" href="_transform3_d_8cpp_source.html#l00161">161</a> del archivo <a class="el" href="_transform3_d_8cpp_source.html">Transform3D.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_transform3_d_8cpp_source.html#l00191">191</a> del archivo <a class="el" href="_transform3_d_8cpp_source.html">Transform3D.cpp</a>.</p>
 
 </div>
 </div>
@@ -245,7 +255,7 @@ Amigas</h2></td></tr>
         <tr>
           <td class="memname">void Transform3D::AddChild </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="namespace_o_s_k_1_1_e_c_s.html#a7be561d6b7de4e8a49c2a5cc35fba48c">ECS::GameObjectIndex</a></td>          <td class="paramname"><span class="paramname"><em>childId</em></span></td><td>)</td>
+          <td class="paramtype"><a class="el" href="namespace_o_s_k_1_1_e_c_s.html#a5b92aeaa6be2ce0d96e7f571aa917042">ECS::GameObjectIndex</a></td>          <td class="paramname"><span class="paramname"><em>childId</em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -262,7 +272,7 @@ Amigas</h2></td></tr>
 <dd>
 <code>childId</code> no debe haber sido previamente añadido. </dd></dl>
 
-<p class="definition">Definición en la línea <a class="el" href="_transform3_d_8cpp_source.html#l00086">86</a> del archivo <a class="el" href="_transform3_d_8cpp_source.html">Transform3D.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_transform3_d_8cpp_source.html#l00116">116</a> del archivo <a class="el" href="_transform3_d_8cpp_source.html">Transform3D.cpp</a>.</p>
 
 </div>
 </div>
@@ -282,7 +292,6 @@ Amigas</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Suma el vector 3D a la posición. </p>
-<dl class="section note"><dt>Nota</dt><dd>También actualiza la matriz modelo, y la de sus hijos.</dd></dl>
 <dl class="params"><dt>Parámetros</dt><dd>
   <table class="params">
     <tr><td class="paramname">positionDelta</td><td>Cambio de posición. </td></tr>
@@ -291,6 +300,38 @@ Amigas</h2></td></tr>
 </dl>
 
 <p class="definition">Definición en la línea <a class="el" href="_transform3_d_8cpp_source.html#l00051">51</a> del archivo <a class="el" href="_transform3_d_8cpp_source.html">Transform3D.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a46aed22babac45b7d0e89dea44d58002" name="a46aed22babac45b7d0e89dea44d58002"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a46aed22babac45b7d0e89dea44d58002">&#9670;&#160;</a></span>AddPosition_ThreadSafe()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Transform3D::AddPosition_ThreadSafe </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="namespace_o_s_k.html#a72b3268907c9cd41f0daf0a42e1c9dca">Vector3f</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>positionDelta</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Suma el vector 3D a la posición. </p>
+<dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">positionDelta</td><td>Cambio de posición.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section pre"><dt>Precondición</dt><dd>No debe haber ningún otro hilo llamando a <a class="el" href="#aa180c61cd8a9b6f696f14eafcaee77c6">_ApplyChanges()</a>. </dd>
+<dd>
+No debe haber ningún otro hilo lllamando a <a class="el" href="#a84e7319dbca0666f6194bd7da931644a" title="Suma el vector 3D a la posición.">AddPosition()</a>. </dd></dl>
+<dl class="section user"><dt>Multihilo</dt><dd>Esta función es thread-safe, siempre y cuando se cumplan las precondiciones.</dd></dl>
+<dl class="section note"><dt>Nota</dt><dd>En condiciones normales, sólamente se llama a <a class="el" href="#aa180c61cd8a9b6f696f14eafcaee77c6">_ApplyChanges()</a> en el sistema <a class="el" href="class_o_s_k_1_1_e_c_s_1_1_transform_applier_system.html">TransformApplierSystem</a> (que se ejecuta de manera exclusiva). </dd></dl>
+
+<p class="definition">Definición en la línea <a class="el" href="_transform3_d_8cpp_source.html#l00056">56</a> del archivo <a class="el" href="_transform3_d_8cpp_source.html">Transform3D.cpp</a>.</p>
 
 </div>
 </div>
@@ -310,7 +351,6 @@ Amigas</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Suma un vector 3D a la escala. </p>
-<dl class="section note"><dt>Nota</dt><dd>También actualiza la matriz modelo, y la de sus hijos.</dd></dl>
 <dl class="params"><dt>Parámetros</dt><dd>
   <table class="params">
     <tr><td class="paramname">scaleDelta</td><td>Cambio de escala. </td></tr>
@@ -318,7 +358,39 @@ Amigas</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definición en la línea <a class="el" href="_transform3_d_8cpp_source.html#l00056">56</a> del archivo <a class="el" href="_transform3_d_8cpp_source.html">Transform3D.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_transform3_d_8cpp_source.html#l00062">62</a> del archivo <a class="el" href="_transform3_d_8cpp_source.html">Transform3D.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a10367c6b67f7a5cc808e86f4260c76ef" name="a10367c6b67f7a5cc808e86f4260c76ef"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a10367c6b67f7a5cc808e86f4260c76ef">&#9670;&#160;</a></span>AddScale_ThreadSafe()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Transform3D::AddScale_ThreadSafe </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="namespace_o_s_k.html#a72b3268907c9cd41f0daf0a42e1c9dca">Vector3f</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>scaleDelta</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Suma un vector 3D a la escala. </p>
+<dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">scaleDelta</td><td>Cambio de escala.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section pre"><dt>Precondición</dt><dd>No debe haber ningún otro hilo llamando a <a class="el" href="#aa180c61cd8a9b6f696f14eafcaee77c6">_ApplyChanges()</a>. </dd>
+<dd>
+No debe haber ningún otro hilo lllamando a <a class="el" href="#a84e7319dbca0666f6194bd7da931644a" title="Suma el vector 3D a la posición.">AddPosition()</a>. </dd></dl>
+<dl class="section user"><dt>Multihilo</dt><dd>Esta función es thread-safe, siempre y cuando se cumplan las precondiciones.</dd></dl>
+<dl class="section note"><dt>Nota</dt><dd>En condiciones normales, sólamente se llama a <a class="el" href="#aa180c61cd8a9b6f696f14eafcaee77c6">_ApplyChanges()</a> en el sistema <a class="el" href="class_o_s_k_1_1_e_c_s_1_1_transform_applier_system.html">TransformApplierSystem</a> (que se ejecuta de manera exclusiva). </dd></dl>
+
+<p class="definition">Definición en la línea <a class="el" href="_transform3_d_8cpp_source.html#l00067">67</a> del archivo <a class="el" href="_transform3_d_8cpp_source.html">Transform3D.cpp</a>.</p>
 
 </div>
 </div>
@@ -338,7 +410,6 @@ Amigas</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Aplica una rotación al transform. </p>
-<dl class="section note"><dt>Nota</dt><dd>También actualiza la matriz modelo, y la de sus hijos.</dd></dl>
 <dl class="params"><dt>Parámetros</dt><dd>
   <table class="params">
     <tr><td class="paramname">rotationDelta</td><td>Cambio de rotación. </td></tr>
@@ -346,7 +417,39 @@ Amigas</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definición en la línea <a class="el" href="_transform3_d_8cpp_source.html#l00061">61</a> del archivo <a class="el" href="_transform3_d_8cpp_source.html">Transform3D.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_transform3_d_8cpp_source.html#l00073">73</a> del archivo <a class="el" href="_transform3_d_8cpp_source.html">Transform3D.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a19e1b6a4430fae851e89dd07b8d36d19" name="a19e1b6a4430fae851e89dd07b8d36d19"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a19e1b6a4430fae851e89dd07b8d36d19">&#9670;&#160;</a></span>ApplyRotation_ThreadSafe()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Transform3D::ApplyRotation_ThreadSafe </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="class_o_s_k_1_1_quaternion.html">Quaternion</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>rotationDelta</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Aplica una rotación al transform. </p>
+<dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">rotationDelta</td><td>Cambio de rotación.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section pre"><dt>Precondición</dt><dd>No debe haber ningún otro hilo llamando a <a class="el" href="#aa180c61cd8a9b6f696f14eafcaee77c6">_ApplyChanges()</a>. </dd>
+<dd>
+No debe haber ningún otro hilo lllamando a <a class="el" href="#a84e7319dbca0666f6194bd7da931644a" title="Suma el vector 3D a la posición.">AddPosition()</a>. </dd></dl>
+<dl class="section user"><dt>Multihilo</dt><dd>Esta función es thread-safe, siempre y cuando se cumplan las precondiciones.</dd></dl>
+<dl class="section note"><dt>Nota</dt><dd>En condiciones normales, sólamente se llama a <a class="el" href="#aa180c61cd8a9b6f696f14eafcaee77c6">_ApplyChanges()</a> en el sistema <a class="el" href="class_o_s_k_1_1_e_c_s_1_1_transform_applier_system.html">TransformApplierSystem</a> (que se ejecuta de manera exclusiva). </dd></dl>
+
+<p class="definition">Definición en la línea <a class="el" href="_transform3_d_8cpp_source.html#l00078">78</a> del archivo <a class="el" href="_transform3_d_8cpp_source.html">Transform3D.cpp</a>.</p>
 
 </div>
 </div>
@@ -362,7 +465,7 @@ Amigas</h2></td></tr>
         <tr>
           <td class="memname"><a class="el" href="class_o_s_k_1_1_e_c_s_1_1_transform3_d.html">Transform3D</a> Transform3D::FromMatrix </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="namespace_o_s_k_1_1_e_c_s.html#a7be561d6b7de4e8a49c2a5cc35fba48c">ECS::GameObjectIndex</a></td>          <td class="paramname"><span class="paramname"><em>owner</em>, </span></td>
+          <td class="paramtype"><a class="el" href="namespace_o_s_k_1_1_e_c_s.html#a5b92aeaa6be2ce0d96e7f571aa917042">ECS::GameObjectIndex</a></td>          <td class="paramname"><span class="paramname"><em>owner</em>, </span></td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -397,7 +500,7 @@ Amigas</h2></td></tr>
 </div><div class="memdoc">
 <dl class="section return"><dt>Devuelve</dt><dd>Matriz modelo, para renderizado. </dd></dl>
 
-<p class="definition">Definición en la línea <a class="el" href="_transform3_d_8cpp_source.html#l00129">129</a> del archivo <a class="el" href="_transform3_d_8cpp_source.html">Transform3D.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_transform3_d_8cpp_source.html#l00159">159</a> del archivo <a class="el" href="_transform3_d_8cpp_source.html">Transform3D.cpp</a>.</p>
 
 </div>
 </div>
@@ -408,7 +511,7 @@ Amigas</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">std::span&lt; const <a class="el" href="namespace_o_s_k_1_1_e_c_s.html#a7be561d6b7de4e8a49c2a5cc35fba48c">GameObjectIndex</a> &gt; Transform3D::GetChildren </td>
+          <td class="memname">std::span&lt; const <a class="el" href="namespace_o_s_k_1_1_e_c_s.html#a5b92aeaa6be2ce0d96e7f571aa917042">GameObjectIndex</a> &gt; Transform3D::GetChildren </td>
           <td>(</td>
           <td class="paramname"><span class="paramname"></span></td><td>)</td>
           <td> const</td>
@@ -417,7 +520,7 @@ Amigas</h2></td></tr>
 </div><div class="memdoc">
 <dl class="section return"><dt>Devuelve</dt><dd>Lista con los ID de los elementos hijos. </dd></dl>
 
-<p class="definition">Definición en la línea <a class="el" href="_transform3_d_8cpp_source.html#l00096">96</a> del archivo <a class="el" href="_transform3_d_8cpp_source.html">Transform3D.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_transform3_d_8cpp_source.html#l00126">126</a> del archivo <a class="el" href="_transform3_d_8cpp_source.html">Transform3D.cpp</a>.</p>
 
 </div>
 </div>
@@ -437,7 +540,7 @@ Amigas</h2></td></tr>
 </div><div class="memdoc">
 <dl class="section return"><dt>Devuelve</dt><dd>Vector unitario 3D que apunta hacia el frente de la entidad. </dd></dl>
 
-<p class="definition">Definición en la línea <a class="el" href="_transform3_d_8cpp_source.html#l00137">137</a> del archivo <a class="el" href="_transform3_d_8cpp_source.html">Transform3D.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_transform3_d_8cpp_source.html#l00167">167</a> del archivo <a class="el" href="_transform3_d_8cpp_source.html">Transform3D.cpp</a>.</p>
 
 </div>
 </div>
@@ -457,7 +560,7 @@ Amigas</h2></td></tr>
 </div><div class="memdoc">
 <dl class="section return"><dt>Devuelve</dt><dd>Posición local (respecto al padre). </dd></dl>
 
-<p class="definition">Definición en la línea <a class="el" href="_transform3_d_8cpp_source.html#l00113">113</a> del archivo <a class="el" href="_transform3_d_8cpp_source.html">Transform3D.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_transform3_d_8cpp_source.html#l00143">143</a> del archivo <a class="el" href="_transform3_d_8cpp_source.html">Transform3D.cpp</a>.</p>
 
 </div>
 </div>
@@ -477,7 +580,7 @@ Amigas</h2></td></tr>
 </div><div class="memdoc">
 <dl class="section return"><dt>Devuelve</dt><dd>Orientación local (respecto al padre). </dd></dl>
 
-<p class="definition">Definición en la línea <a class="el" href="_transform3_d_8cpp_source.html#l00121">121</a> del archivo <a class="el" href="_transform3_d_8cpp_source.html">Transform3D.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_transform3_d_8cpp_source.html#l00151">151</a> del archivo <a class="el" href="_transform3_d_8cpp_source.html">Transform3D.cpp</a>.</p>
 
 </div>
 </div>
@@ -497,7 +600,7 @@ Amigas</h2></td></tr>
 </div><div class="memdoc">
 <dl class="section return"><dt>Devuelve</dt><dd>Escala local (respecto al padre). </dd></dl>
 
-<p class="definition">Definición en la línea <a class="el" href="_transform3_d_8cpp_source.html#l00117">117</a> del archivo <a class="el" href="_transform3_d_8cpp_source.html">Transform3D.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_transform3_d_8cpp_source.html#l00147">147</a> del archivo <a class="el" href="_transform3_d_8cpp_source.html">Transform3D.cpp</a>.</p>
 
 </div>
 </div>
@@ -517,7 +620,7 @@ Amigas</h2></td></tr>
 </div><div class="memdoc">
 <dl class="section return"><dt>Devuelve</dt><dd>Posición en el mundo 3D. </dd></dl>
 
-<p class="definition">Definición en la línea <a class="el" href="_transform3_d_8cpp_source.html#l00105">105</a> del archivo <a class="el" href="_transform3_d_8cpp_source.html">Transform3D.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_transform3_d_8cpp_source.html#l00135">135</a> del archivo <a class="el" href="_transform3_d_8cpp_source.html">Transform3D.cpp</a>.</p>
 
 </div>
 </div>
@@ -537,7 +640,7 @@ Amigas</h2></td></tr>
 </div><div class="memdoc">
 <dl class="section return"><dt>Devuelve</dt><dd>Vector unitario 3D que apunta hacia la derecha de la entidad. </dd></dl>
 
-<p class="definition">Definición en la línea <a class="el" href="_transform3_d_8cpp_source.html#l00141">141</a> del archivo <a class="el" href="_transform3_d_8cpp_source.html">Transform3D.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_transform3_d_8cpp_source.html#l00171">171</a> del archivo <a class="el" href="_transform3_d_8cpp_source.html">Transform3D.cpp</a>.</p>
 
 </div>
 </div>
@@ -557,7 +660,7 @@ Amigas</h2></td></tr>
 </div><div class="memdoc">
 <dl class="section return"><dt>Devuelve</dt><dd>Orientación en el mundo 3D. </dd></dl>
 
-<p class="definition">Definición en la línea <a class="el" href="_transform3_d_8cpp_source.html#l00125">125</a> del archivo <a class="el" href="_transform3_d_8cpp_source.html">Transform3D.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_transform3_d_8cpp_source.html#l00155">155</a> del archivo <a class="el" href="_transform3_d_8cpp_source.html">Transform3D.cpp</a>.</p>
 
 </div>
 </div>
@@ -577,7 +680,7 @@ Amigas</h2></td></tr>
 </div><div class="memdoc">
 <dl class="section return"><dt>Devuelve</dt><dd>Escala en el mundo 3D. </dd></dl>
 
-<p class="definition">Definición en la línea <a class="el" href="_transform3_d_8cpp_source.html#l00109">109</a> del archivo <a class="el" href="_transform3_d_8cpp_source.html">Transform3D.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_transform3_d_8cpp_source.html#l00139">139</a> del archivo <a class="el" href="_transform3_d_8cpp_source.html">Transform3D.cpp</a>.</p>
 
 </div>
 </div>
@@ -597,7 +700,7 @@ Amigas</h2></td></tr>
 </div><div class="memdoc">
 <dl class="section return"><dt>Devuelve</dt><dd>Vector unitario 3D que apunta hacia arriba de la entidad. </dd></dl>
 
-<p class="definition">Definición en la línea <a class="el" href="_transform3_d_8cpp_source.html#l00145">145</a> del archivo <a class="el" href="_transform3_d_8cpp_source.html">Transform3D.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_transform3_d_8cpp_source.html#l00175">175</a> del archivo <a class="el" href="_transform3_d_8cpp_source.html">Transform3D.cpp</a>.</p>
 
 </div>
 </div>
@@ -641,7 +744,7 @@ Amigas</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definición en la línea <a class="el" href="_transform3_d_8cpp_source.html#l00133">133</a> del archivo <a class="el" href="_transform3_d_8cpp_source.html">Transform3D.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_transform3_d_8cpp_source.html#l00163">163</a> del archivo <a class="el" href="_transform3_d_8cpp_source.html">Transform3D.cpp</a>.</p>
 
 </div>
 </div>
@@ -654,7 +757,7 @@ Amigas</h2></td></tr>
         <tr>
           <td class="memname">void Transform3D::RemoveChild </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="namespace_o_s_k_1_1_e_c_s.html#a7be561d6b7de4e8a49c2a5cc35fba48c">ECS::GameObjectIndex</a></td>          <td class="paramname"><span class="paramname"><em>childId</em></span></td><td>)</td>
+          <td class="paramtype"><a class="el" href="namespace_o_s_k_1_1_e_c_s.html#a5b92aeaa6be2ce0d96e7f571aa917042">ECS::GameObjectIndex</a></td>          <td class="paramname"><span class="paramname"><em>childId</em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -668,7 +771,7 @@ Amigas</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definición en la línea <a class="el" href="_transform3_d_8cpp_source.html#l00092">92</a> del archivo <a class="el" href="_transform3_d_8cpp_source.html">Transform3D.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_transform3_d_8cpp_source.html#l00122">122</a> del archivo <a class="el" href="_transform3_d_8cpp_source.html">Transform3D.cpp</a>.</p>
 
 </div>
 </div>
@@ -692,7 +795,6 @@ Amigas</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Rota el transform respecto a sí mismo. </p>
-<dl class="section note"><dt>Nota</dt><dd>También actualiza la matriz modelo, y la de sus hijos. </dd></dl>
 <dl class="params"><dt>Parámetros</dt><dd>
   <table class="params">
     <tr><td class="paramname">angle</td><td>Ángulo. </td></tr>
@@ -702,7 +804,46 @@ Amigas</h2></td></tr>
 </dl>
 <dl class="section pre"><dt>Precondición</dt><dd>El ángulo debe estar en grados. </dd></dl>
 
-<p class="definition">Definición en la línea <a class="el" href="_transform3_d_8cpp_source.html#l00066">66</a> del archivo <a class="el" href="_transform3_d_8cpp_source.html">Transform3D.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_transform3_d_8cpp_source.html#l00084">84</a> del archivo <a class="el" href="_transform3_d_8cpp_source.html">Transform3D.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a6f19cf91d2e0a98707c7e1169a7028a4" name="a6f19cf91d2e0a98707c7e1169a7028a4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6f19cf91d2e0a98707c7e1169a7028a4">&#9670;&#160;</a></span>RotateLocalSpace_ThreadSafe()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Transform3D::RotateLocalSpace_ThreadSafe </td>
+          <td>(</td>
+          <td class="paramtype">float</td>          <td class="paramname"><span class="paramname"><em>angle</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="namespace_o_s_k.html#a72b3268907c9cd41f0daf0a42e1c9dca">Vector3f</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>axis</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Rota el transform respecto a sí mismo. </p>
+<dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">angle</td><td>Ángulo. </td></tr>
+    <tr><td class="paramname">axis</td><td>Eje sobre el que se rota. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section pre"><dt>Precondición</dt><dd>El ángulo debe estar en grados.</dd>
+<dd>
+No debe haber ningún otro hilo llamando a <a class="el" href="#aa180c61cd8a9b6f696f14eafcaee77c6">_ApplyChanges()</a>. </dd>
+<dd>
+No debe haber ningún otro hilo lllamando a <a class="el" href="#a84e7319dbca0666f6194bd7da931644a" title="Suma el vector 3D a la posición.">AddPosition()</a>. </dd></dl>
+<dl class="section user"><dt>Multihilo</dt><dd>Esta función es thread-safe, siempre y cuando se cumplan las precondiciones.</dd></dl>
+<dl class="section note"><dt>Nota</dt><dd>En condiciones normales, sólamente se llama a <a class="el" href="#aa180c61cd8a9b6f696f14eafcaee77c6">_ApplyChanges()</a> en el sistema <a class="el" href="class_o_s_k_1_1_e_c_s_1_1_transform_applier_system.html">TransformApplierSystem</a> (que se ejecuta de manera exclusiva). </dd></dl>
+
+<p class="definition">Definición en la línea <a class="el" href="_transform3_d_8cpp_source.html#l00092">92</a> del archivo <a class="el" href="_transform3_d_8cpp_source.html">Transform3D.cpp</a>.</p>
 
 </div>
 </div>
@@ -733,10 +874,48 @@ Amigas</h2></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section note"><dt>Nota</dt><dd>También actualiza la matriz modelo, y la de sus hijos. </dd></dl>
 <dl class="section pre"><dt>Precondición</dt><dd>El ángulo debe estar en grados. </dd></dl>
 
-<p class="definition">Definición en la línea <a class="el" href="_transform3_d_8cpp_source.html#l00076">76</a> del archivo <a class="el" href="_transform3_d_8cpp_source.html">Transform3D.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_transform3_d_8cpp_source.html#l00100">100</a> del archivo <a class="el" href="_transform3_d_8cpp_source.html">Transform3D.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a6f73b8da98b692568d8a5a46c2dbe2ce" name="a6f73b8da98b692568d8a5a46c2dbe2ce"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6f73b8da98b692568d8a5a46c2dbe2ce">&#9670;&#160;</a></span>RotateWorldSpace_ThreadSafe()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Transform3D::RotateWorldSpace_ThreadSafe </td>
+          <td>(</td>
+          <td class="paramtype">float</td>          <td class="paramname"><span class="paramname"><em>angle</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="namespace_o_s_k.html#a72b3268907c9cd41f0daf0a42e1c9dca">Vector3f</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>axis</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Rota el transform respecto al mundo. </p>
+<dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">angle</td><td>Ángulo. </td></tr>
+    <tr><td class="paramname">axis</td><td>Eje sobre el que se rota. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section pre"><dt>Precondición</dt><dd>El ángulo debe estar en grados.</dd>
+<dd>
+No debe haber ningún otro hilo llamando a <a class="el" href="#aa180c61cd8a9b6f696f14eafcaee77c6">_ApplyChanges()</a>. </dd>
+<dd>
+No debe haber ningún otro hilo lllamando a <a class="el" href="#a84e7319dbca0666f6194bd7da931644a" title="Suma el vector 3D a la posición.">AddPosition()</a>. </dd></dl>
+<dl class="section user"><dt>Multihilo</dt><dd>Esta función es thread-safe, siempre y cuando se cumplan las precondiciones.</dd></dl>
+<dl class="section note"><dt>Nota</dt><dd>En condiciones normales, sólamente se llama a <a class="el" href="#aa180c61cd8a9b6f696f14eafcaee77c6">_ApplyChanges()</a> en el sistema <a class="el" href="class_o_s_k_1_1_e_c_s_1_1_transform_applier_system.html">TransformApplierSystem</a> (que se ejecuta de manera exclusiva). </dd></dl>
+
+<p class="definition">Definición en la línea <a class="el" href="_transform3_d_8cpp_source.html#l00108">108</a> del archivo <a class="el" href="_transform3_d_8cpp_source.html">Transform3D.cpp</a>.</p>
 
 </div>
 </div>
@@ -756,7 +935,6 @@ Amigas</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Establece la posición local. </p>
-<dl class="section note"><dt>Nota</dt><dd>También actualiza la matriz modelo, y la de sus hijos.</dd></dl>
 <dl class="params"><dt>Parámetros</dt><dd>
   <table class="params">
     <tr><td class="paramname">position</td><td>Nueva posición respecto al padre. </td></tr>
@@ -784,7 +962,6 @@ Amigas</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Establece la rotación local. </p>
-<dl class="section note"><dt>Nota</dt><dd>También actualiza la matriz modelo, y la de sus hijos.</dd></dl>
 <dl class="params"><dt>Parámetros</dt><dd>
   <table class="params">
     <tr><td class="paramname">rotation</td><td>Nueva rotación respecto al padre. </td></tr>
@@ -812,7 +989,6 @@ Amigas</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Establece la escala local. </p>
-<dl class="section note"><dt>Nota</dt><dd>También actualiza la matriz modelo, y la de sus hijos.</dd></dl>
 <dl class="params"><dt>Parámetros</dt><dd>
   <table class="params">
     <tr><td class="paramname">scale</td><td>Nueva escala respecto al padre. </td></tr>
@@ -841,7 +1017,7 @@ Amigas</h2></td></tr>
 
 <p>Permite establecer si el transform hereda la posición del padre. </p>
 
-<p class="definition">Definición en la línea <a class="el" href="_transform3_d_8cpp_source.html#l00149">149</a> del archivo <a class="el" href="_transform3_d_8cpp_source.html">Transform3D.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_transform3_d_8cpp_source.html#l00179">179</a> del archivo <a class="el" href="_transform3_d_8cpp_source.html">Transform3D.cpp</a>.</p>
 
 </div>
 </div>
@@ -862,7 +1038,7 @@ Amigas</h2></td></tr>
 
 <p>Permite establecer si el transform hereda la orientación del padre. </p>
 
-<p class="definition">Definición en la línea <a class="el" href="_transform3_d_8cpp_source.html#l00153">153</a> del archivo <a class="el" href="_transform3_d_8cpp_source.html">Transform3D.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_transform3_d_8cpp_source.html#l00183">183</a> del archivo <a class="el" href="_transform3_d_8cpp_source.html">Transform3D.cpp</a>.</p>
 
 </div>
 </div>
@@ -883,7 +1059,7 @@ Amigas</h2></td></tr>
 
 <p>Permite establecer si el transform hereda la escala del padre. </p>
 
-<p class="definition">Definición en la línea <a class="el" href="_transform3_d_8cpp_source.html#l00157">157</a> del archivo <a class="el" href="_transform3_d_8cpp_source.html">Transform3D.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_transform3_d_8cpp_source.html#l00187">187</a> del archivo <a class="el" href="_transform3_d_8cpp_source.html">Transform3D.cpp</a>.</p>
 
 </div>
 </div>
@@ -911,7 +1087,7 @@ Amigas</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Devuelve</dt><dd>Punto transformado. </dd></dl>
 
-<p class="definition">Definición en la línea <a class="el" href="_transform3_d_8cpp_source.html#l00101">101</a> del archivo <a class="el" href="_transform3_d_8cpp_source.html">Transform3D.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_transform3_d_8cpp_source.html#l00131">131</a> del archivo <a class="el" href="_transform3_d_8cpp_source.html">Transform3D.cpp</a>.</p>
 
 </div>
 </div>
@@ -970,17 +1146,13 @@ template&lt;typename T &gt; </div>
 
 </div>
 </div>
-<hr/>La documentación de esta clase está generada de los siguientes archivos:<ul>
-<li>Source/<a class="el" href="_transform3_d_8h_source.html">Transform3D.h</a></li>
-<li>Source/<a class="el" href="_transform3_d_8cpp_source.html">Transform3D.cpp</a></li>
-</ul>
 </div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="namespace_o_s_k.html">OSK</a></li><li class="navelem"><a class="el" href="namespace_o_s_k_1_1_e_c_s.html">ECS</a></li><li class="navelem"><a class="el" href="class_o_s_k_1_1_e_c_s_1_1_transform3_d.html">Transform3D</a></li>
-    <li class="footer">Generado el Jueves, 28 de marzo de 2024 17:53:12 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.10.0 </li>
+    <li class="footer">Generado el Lunes, 15 de abril de 2024 22:39:18 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.10.0 </li>
   </ul>
 </div>
 </body>

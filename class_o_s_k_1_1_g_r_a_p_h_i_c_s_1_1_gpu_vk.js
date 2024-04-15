@@ -6,6 +6,7 @@ var class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_vk =
     [ "CreateComputeCommandPool", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_vk.html#aaad7bc40d1436bfe01d0dadc61b41726", null ],
     [ "CreateGraphicsCommandPool", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_vk.html#a71eb0a92be90d9d847b5f4de4cd5d812", null ],
     [ "CreateLogicalDevice", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_vk.html#a6db76ed341d630b8760263d86abb1c0e", null ],
+    [ "CreateTransferOnlyCommandPool", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_vk.html#aef2e4214d556d5e8f6cc73bef04047b2", null ],
     [ "GetInfo", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_vk.html#a89e93ce5cb6a19b804a40ce6477b3211", null ],
     [ "GetLogicalDevice", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_vk.html#a453c36cc8861b7be6a41120aab935977", null ],
     [ "GetMemoryUsageInfo", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_vk.html#a0cf08f98aefae45372c37b2548bd79b6", null ],

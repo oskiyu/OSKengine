@@ -101,7 +101,7 @@ $(function(){initNavTree('_ui_button_8cpp_source.html',''); initResizable(); });
   <div class="headertitle"><div class="title">UiButton.cpp</div></div>
 </div><!--header-->
 <div class="contents">
-<a href="_ui_button_8cpp.html">Ir a la documentación de este archivo.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#include &quot;<a class="code" href="_ui_button_8h.html">UiButton.h</a>&quot;</span></div>
+<div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#include &quot;UiButton.h&quot;</span></div>
 <div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span> </div>
 <div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="keyword">using namespace </span><a class="code hl_namespace" href="namespace_o_s_k.html">OSK</a>;</div>
 <div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="keyword">using namespace </span><a class="code hl_namespace" href="namespace_o_s_k_1_1_u_i.html">OSK::UI</a>;</div>
@@ -223,7 +223,7 @@ $(function(){initNavTree('_ui_button_8cpp_source.html',''); initResizable(); });
 </div>
 <div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span> </div>
 <div class="foldopen" id="foldopen00100" data-start="{" data-end="}">
-<div class="line"><a id="l00100" name="l00100"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_u_i_1_1_button.html#a76a19529831a0328e0dd514b7cb4ea5a">  100</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="class_o_s_k_1_1_u_i_1_1_button.html#a76a19529831a0328e0dd514b7cb4ea5a">Button::SetTextFontSize</a>(<a class="code hl_typedef" href="_o_s_kmacros_8h.html#a3e916ed5b32955be3417da92899fc361">USize32</a> fontSize) {</div>
+<div class="line"><a id="l00100" name="l00100"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_u_i_1_1_button.html#a76a19529831a0328e0dd514b7cb4ea5a">  100</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="class_o_s_k_1_1_u_i_1_1_button.html#a76a19529831a0328e0dd514b7cb4ea5a">Button::SetTextFontSize</a>(USize32 fontSize) {</div>
 <div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span>    buttonText.<a class="code hl_function" href="class_o_s_k_1_1_u_i_1_1_text_view.html#a4f490b6dba2f44914b64c766de60600f">SetFontSize</a>(fontSize);</div>
 <div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span>    buttonText.<a class="code hl_function" href="class_o_s_k_1_1_u_i_1_1_text_view.html#a617c7ced2849537e0b2f413140333263">AdjustSizeToText</a>();</div>
 <div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span>}</div>
@@ -334,8 +334,6 @@ $(function(){initNavTree('_ui_button_8cpp_source.html',''); initResizable(); });
 <div class="line"><a id="l00187" name="l00187"></a><span class="lineno">  187</span><a class="code hl_class" href="class_o_s_k_1_1_vector2__t.html">Vector2f</a> Button::GetTextRelativePosition()<span class="keyword"> const </span>{</div>
 <div class="line"><a id="l00188" name="l00188"></a><span class="lineno">  188</span>    <span class="keywordflow">return</span> <a class="code hl_variable" href="class_o_s_k_1_1_u_i_1_1_i_element.html#ae01866b02c7417455751f01b2f9d1fbf">size</a> * 0.5f - buttonText.<a class="code hl_function" href="class_o_s_k_1_1_u_i_1_1_i_element.html#ad23a7cf71ff3d1b1528adfb674f5573c">GetSize</a>() * 0.5f;</div>
 <div class="line"><a id="l00189" name="l00189"></a><span class="lineno">  189</span>}</div>
-<div class="ttc" id="a_o_s_kmacros_8h_html_a3e916ed5b32955be3417da92899fc361"><div class="ttname"><a href="_o_s_kmacros_8h.html#a3e916ed5b32955be3417da92899fc361">USize32</a></div><div class="ttdeci">uint32_t USize32</div><div class="ttdef"><b>Definition</b> <a href="_o_s_kmacros_8h_source.html#l00044">OSKmacros.h:44</a></div></div>
-<div class="ttc" id="a_ui_button_8h_html"><div class="ttname"><a href="_ui_button_8h.html">UiButton.h</a></div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref_html"><div class="ttname"><a href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">OSK::ASSETS::AssetRef</a></div><div class="ttdoc">Referencia a un asset.</div><div class="ttdef"><b>Definition</b> <a href="_asset_ref_8h_source.html#l00012">AssetRef.h:12</a></div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_sprite_html"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_sprite.html">OSK::GRAPHICS::Sprite</a></div><div class="ttdoc">Un sprite representa una imagen que puede ser renderizada en 2D.</div><div class="ttdef"><b>Definition</b> <a href="_sprite_8h_source.html#l00033">Sprite.h:33</a></div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_sprite_renderer_html"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_sprite_renderer.html">OSK::GRAPHICS::SpriteRenderer</a></div><div class="ttdoc">Clase que simplifica el proceso de renderizado de imágenes 2D sin tener que usar el sistema RenderSys...</div><div class="ttdef"><b>Definition</b> <a href="_sprite_renderer_8h_source.html#l00046">SpriteRenderer.h:46</a></div></div>
@@ -394,8 +392,8 @@ $(function(){initNavTree('_ui_button_8cpp_source.html',''); initResizable(); });
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="dir_74389ed8173ad57b461b9d623a1f3867.html">Source</a></li><li class="navelem"><a class="el" href="_ui_button_8cpp.html">UiButton.cpp</a></li>
-    <li class="footer">Generado el Jueves, 28 de marzo de 2024 17:53:11 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.10.0 </li>
+    <li class="navelem"><a class="el" href="dir_74389ed8173ad57b461b9d623a1f3867.html">Source</a></li><li class="navelem"><b>UiButton.cpp</b></li>
+    <li class="footer">Generado el Lunes, 15 de abril de 2024 22:39:17 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.10.0 </li>
   </ul>
 </div>
 </body>

@@ -101,12 +101,12 @@ $(function(){initNavTree('_shared_ptr_8hpp_source.html',''); initResizable(); })
   <div class="headertitle"><div class="title">SharedPtr.hpp</div></div>
 </div><!--header-->
 <div class="contents">
-<a href="_shared_ptr_8hpp.html">Ir a la documentación de este archivo.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#ifndef OSK_SHARED_PTR</span></div>
+<div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#ifndef OSK_SHARED_PTR</span></div>
 <div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="preprocessor">#define OSK_SHARED_PTR</span></div>
 <div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span> </div>
 <div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &lt;functional&gt;</span></div>
 <div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span> </div>
-<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &quot;<a class="code" href="_o_s_kmacros_8h.html">OSKmacros.h</a>&quot;</span></div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &quot;OSKmacros.h&quot;</span></div>
 <div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span> </div>
 <div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span><span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt; </div>
 <div class="foldopen" id="foldopen00016" data-start="{" data-end="};">
@@ -114,9 +114,9 @@ $(function(){initNavTree('_shared_ptr_8hpp_source.html',''); initResizable(); })
 <div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span> </div>
 <div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span><span class="keyword">public</span>:</div>
 <div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span> </div>
-<div class="line"><a id="l00020" name="l00020"></a><span class="lineno"><a class="line" href="class_shared_ptr.html#a71b63e8608300f063731c0b0e4956e55">   20</a></span>    <span class="keyword">constexpr</span> <a class="code hl_function" href="class_shared_ptr.html#a71b63e8608300f063731c0b0e4956e55">SharedPtr</a>() noexcept : m_instanceCount(new <a class="code hl_typedef" href="_o_s_kmacros_8h.html#a5784d24fcb00afb78eb7b1e1a3466ac4">USize64</a>(0uL)) { }</div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno"><a class="line" href="class_shared_ptr.html#a71b63e8608300f063731c0b0e4956e55">   20</a></span>    <span class="keyword">constexpr</span> <a class="code hl_function" href="class_shared_ptr.html#a71b63e8608300f063731c0b0e4956e55">SharedPtr</a>() noexcept : m_instanceCount(new USize64(0uL)) { }</div>
 <div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span> </div>
-<div class="line"><a id="l00023" name="l00023"></a><span class="lineno"><a class="line" href="class_shared_ptr.html#a4be5a1c26875369e5a1b57efae0252d5">   23</a></span>    <span class="keyword">constexpr</span> <a class="code hl_function" href="class_shared_ptr.html#a4be5a1c26875369e5a1b57efae0252d5">SharedPtr</a>(T* data) noexcept : m_pointer(data), m_instanceCount(<span class="keyword">new</span> <a class="code hl_typedef" href="_o_s_kmacros_8h.html#a5784d24fcb00afb78eb7b1e1a3466ac4">USize64</a>(1uL)) { }</div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno"><a class="line" href="class_shared_ptr.html#a4be5a1c26875369e5a1b57efae0252d5">   23</a></span>    <span class="keyword">constexpr</span> <a class="code hl_function" href="class_shared_ptr.html#a4be5a1c26875369e5a1b57efae0252d5">SharedPtr</a>(T* data) noexcept : m_pointer(data), m_instanceCount(<span class="keyword">new</span> USize64(1uL)) { }</div>
 <div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span> </div>
 <div class="foldopen" id="foldopen00025" data-start="{" data-end="}">
 <div class="line"><a id="l00025" name="l00025"></a><span class="lineno"><a class="line" href="class_shared_ptr.html#a59f650eeb22bb62b130b38937bd8b838">   25</a></span>    <a class="code hl_function" href="class_shared_ptr.html#a59f650eeb22bb62b130b38937bd8b838">SharedPtr</a>(<span class="keyword">const</span> <a class="code hl_class" href="class_shared_ptr.html">SharedPtr</a>&amp; other) : m_pointer(other.m_pointer), m_instanceCount(other.m_instanceCount) {</div>
@@ -148,7 +148,7 @@ $(function(){initNavTree('_shared_ptr_8hpp_source.html',''); initResizable(); })
 <div class="foldopen" id="foldopen00046" data-start="{" data-end="}">
 <div class="line"><a id="l00046" name="l00046"></a><span class="lineno"><a class="line" href="class_shared_ptr.html#adbcc6ed672f9d68f66d3abbed301d5c5">   46</a></span>    <a class="code hl_function" href="class_shared_ptr.html#adbcc6ed672f9d68f66d3abbed301d5c5">SharedPtr</a>(<a class="code hl_class" href="class_shared_ptr.html">SharedPtr</a>&amp;&amp; other) noexcept : m_pointer(other.m_pointer), m_instanceCount(other.m_instanceCount) {</div>
 <div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>        other.m_pointer = <span class="keyword">nullptr</span>;</div>
-<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>        other.m_instanceCount = <span class="keyword">new</span> <a class="code hl_typedef" href="_o_s_kmacros_8h.html#a5784d24fcb00afb78eb7b1e1a3466ac4">USize64</a>(0uL);</div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>        other.m_instanceCount = <span class="keyword">new</span> USize64(0uL);</div>
 <div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>    }</div>
 </div>
 <div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span> </div>
@@ -160,14 +160,14 @@ $(function(){initNavTree('_shared_ptr_8hpp_source.html',''); initResizable(); })
 <div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>        m_instanceCount = other.m_instanceCount;</div>
 <div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span> </div>
 <div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>        other.m_pointer = <span class="keyword">nullptr</span>;</div>
-<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>        other.m_instanceCount = <span class="keyword">new</span> <a class="code hl_typedef" href="_o_s_kmacros_8h.html#a5784d24fcb00afb78eb7b1e1a3466ac4">USize64</a>(0uL);</div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>        other.m_instanceCount = <span class="keyword">new</span> USize64(0uL);</div>
 <div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span> </div>
 <div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>        <span class="keywordflow">return</span> *<span class="keyword">this</span>;</div>
 <div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>    }</div>
 </div>
 <div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span> </div>
 <div class="foldopen" id="foldopen00067" data-start="{" data-end="}">
-<div class="line"><a id="l00067" name="l00067"></a><span class="lineno"><a class="line" href="class_shared_ptr.html#a9e4e34475311ac68ec917b2a802d829d">   67</a></span>    <span class="keyword">constexpr</span> <a class="code hl_typedef" href="_o_s_kmacros_8h.html#a5784d24fcb00afb78eb7b1e1a3466ac4">USize64</a> <a class="code hl_function" href="class_shared_ptr.html#a9e4e34475311ac68ec917b2a802d829d">GetInstanceCount</a>() const noexcept {</div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno"><a class="line" href="class_shared_ptr.html#a9e4e34475311ac68ec917b2a802d829d">   67</a></span>    <span class="keyword">constexpr</span> USize64 <a class="code hl_function" href="class_shared_ptr.html#a9e4e34475311ac68ec917b2a802d829d">GetInstanceCount</a>() const noexcept {</div>
 <div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>        <span class="keywordflow">return</span> *m_instanceCount;</div>
 <div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>    }</div>
 </div>
@@ -232,8 +232,6 @@ $(function(){initNavTree('_shared_ptr_8hpp_source.html',''); initResizable(); })
 </div>
 <div class="line"><a id="l00120" name="l00120"></a><span class="lineno">  120</span> </div>
 <div class="line"><a id="l00121" name="l00121"></a><span class="lineno">  121</span><span class="preprocessor">#endif</span></div>
-<div class="ttc" id="a_o_s_kmacros_8h_html"><div class="ttname"><a href="_o_s_kmacros_8h.html">OSKmacros.h</a></div></div>
-<div class="ttc" id="a_o_s_kmacros_8h_html_a5784d24fcb00afb78eb7b1e1a3466ac4"><div class="ttname"><a href="_o_s_kmacros_8h.html#a5784d24fcb00afb78eb7b1e1a3466ac4">USize64</a></div><div class="ttdeci">uint64_t USize64</div><div class="ttdef"><b>Definition</b> <a href="_o_s_kmacros_8h_source.html#l00045">OSKmacros.h:45</a></div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref_html"><div class="ttname"><a href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">OSK::ASSETS::AssetRef</a></div><div class="ttdoc">Referencia a un asset.</div><div class="ttdef"><b>Definition</b> <a href="_asset_ref_8h_source.html#l00012">AssetRef.h:12</a></div></div>
 <div class="ttc" id="aclass_shared_ptr_html"><div class="ttname"><a href="class_shared_ptr.html">SharedPtr</a></div><div class="ttdoc">Contiene un puntero al que pueden hacer referencia varios SharedPtr. Si el último SharedPtr que hace ...</div><div class="ttdef"><b>Definition</b> <a href="#l00016">SharedPtr.hpp:16</a></div></div>
 <div class="ttc" id="aclass_shared_ptr_html_a2b9f126bc5354e0a3271192ab21b05c3"><div class="ttname"><a href="class_shared_ptr.html#a2b9f126bc5354e0a3271192ab21b05c3">SharedPtr::operator-&gt;</a></div><div class="ttdeci">auto &amp;&amp; operator-&gt;(this Self &amp;&amp;self)</div><div class="ttdef"><b>Definition</b> <a href="#l00086">SharedPtr.hpp:86</a></div></div>
@@ -255,8 +253,8 @@ $(function(){initNavTree('_shared_ptr_8hpp_source.html',''); initResizable(); })
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="dir_74389ed8173ad57b461b9d623a1f3867.html">Source</a></li><li class="navelem"><a class="el" href="_shared_ptr_8hpp.html">SharedPtr.hpp</a></li>
-    <li class="footer">Generado el Jueves, 28 de marzo de 2024 17:53:11 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.10.0 </li>
+    <li class="navelem"><a class="el" href="dir_74389ed8173ad57b461b9d623a1f3867.html">Source</a></li><li class="navelem"><b>SharedPtr.hpp</b></li>
+    <li class="footer">Generado el Lunes, 15 de abril de 2024 22:39:16 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.10.0 </li>
   </ul>
 </div>
 </body>

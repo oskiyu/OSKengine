@@ -101,13 +101,13 @@ $(function(){initNavTree('_shadow_map_8h_source.html',''); initResizable(); });
   <div class="headertitle"><div class="title">ShadowMap.h</div></div>
 </div><!--header-->
 <div class="contents">
-<a href="_shadow_map_8h.html">Ir a la documentación de este archivo.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#pragma once</span></div>
+<div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#pragma once</span></div>
 <div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span> </div>
-<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="preprocessor">#include &quot;<a class="code" href="_render_target_8h.html">RenderTarget.h</a>&quot;</span></div>
-<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &quot;<a class="code" href="_gpu_buffer_8h.html">GpuBuffer.h</a>&quot;</span></div>
-<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &quot;<a class="code" href="_material_instance_8h.html">MaterialInstance.h</a>&quot;</span></div>
-<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &quot;<a class="code" href="_vector4_8hpp.html">Vector4.hpp</a>&quot;</span></div>
-<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="preprocessor">#include &quot;<a class="code" href="_game_object_8h.html">GameObject.h</a>&quot;</span></div>
+<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="preprocessor">#include &quot;RenderTarget.h&quot;</span></div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &quot;GpuBuffer.h&quot;</span></div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &quot;MaterialInstance.h&quot;</span></div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &quot;Vector4.hpp&quot;</span></div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="preprocessor">#include &quot;GameObject.h&quot;</span></div>
 <div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span> </div>
 <div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="preprocessor">#include &lt;array&gt;</span></div>
 <div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span> </div>
@@ -120,7 +120,7 @@ $(function(){initNavTree('_shadow_map_8h_source.html',''); initResizable(); });
 <div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>    <span class="keyword">struct </span>DirectionalLight;</div>
 <div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span> </div>
 <div class="foldopen" id="foldopen00032" data-start="{" data-end="};">
-<div class="line"><a id="l00032" name="l00032"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_shadow_map.html">   32</a></span>    <span class="keyword">class </span><a class="code hl_define" href="_o_s_kmacros_8h.html#a09ec5b46ece998ad096bceff312bb36c">OSKAPI_CALL</a> <a class="code hl_class" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_shadow_map.html">ShadowMap</a> {</div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_shadow_map.html">   32</a></span>    <span class="keyword">class </span>OSKAPI_CALL <a class="code hl_class" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_shadow_map.html">ShadowMap</a> {</div>
 <div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span> </div>
 <div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>    <span class="keyword">public</span>:</div>
 <div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span> </div>
@@ -143,10 +143,10 @@ $(function(){initNavTree('_shadow_map_8h_source.html',''); initResizable(); });
 <div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span>        <a class="code hl_class" href="class_o_s_k_1_1_dynamic_array.html">DynamicArray&lt;GRAPHICS::GpuBuffer*&gt;</a> GetDirLightMatrixUniformBuffers();</div>
 <div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span> </div>
 <div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span> </div>
-<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span>        <span class="keywordtype">void</span> SetSceneCamera(<a class="code hl_typedef" href="namespace_o_s_k_1_1_e_c_s.html#a7be561d6b7de4e8a49c2a5cc35fba48c">ECS::GameObjectIndex</a> cameraObject);</div>
+<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span>        <span class="keywordtype">void</span> SetSceneCamera(<a class="code hl_class" href="class_o_s_k_1_1_base_uuid.html">ECS::GameObjectIndex</a> cameraObject);</div>
 <div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span> </div>
 <div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span> </div>
-<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span>        <a class="code hl_typedef" href="_o_s_kmacros_8h.html#a3e916ed5b32955be3417da92899fc361">USize32</a> GetNumCascades() <span class="keyword">const</span>;</div>
+<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span>        USize32 GetNumCascades() <span class="keyword">const</span>;</div>
 <div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span> </div>
 <div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span> </div>
 <div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span>        <span class="keywordtype">void</span> SetSplits(<span class="keyword">const</span> std::array&lt;float, 4&gt;&amp; splits);</div>
@@ -160,7 +160,7 @@ $(function(){initNavTree('_shadow_map_8h_source.html',''); initResizable(); });
 <div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span> </div>
 <div class="line"><a id="l00116" name="l00116"></a><span class="lineno">  116</span>        <span class="keywordtype">void</span> UpdateLightMatrixBuffer();</div>
 <div class="line"><a id="l00117" name="l00117"></a><span class="lineno">  117</span> </div>
-<div class="line"><a id="l00118" name="l00118"></a><span class="lineno">  118</span>        <span class="keyword">const</span> <span class="keyword">static</span> <a class="code hl_typedef" href="_o_s_kmacros_8h.html#a3e916ed5b32955be3417da92899fc361">USize32</a> numMaps = 4;</div>
+<div class="line"><a id="l00118" name="l00118"></a><span class="lineno">  118</span>        <span class="keyword">const</span> <span class="keyword">static</span> USize32 numMaps = 4;</div>
 <div class="line"><a id="l00119" name="l00119"></a><span class="lineno">  119</span> </div>
 <div class="line"><a id="l00120" name="l00120"></a><span class="lineno">  120</span> </div>
 <div class="line"><a id="l00121" name="l00121"></a><span class="lineno">  121</span>        <span class="comment">// --- Attachmens &amp; buffers --- //</span></div>
@@ -168,7 +168,7 @@ $(function(){initNavTree('_shadow_map_8h_source.html',''); initResizable(); });
 <div class="line"><a id="l00123" name="l00123"></a><span class="lineno">  123</span>        <a class="code hl_class" href="class_o_s_k_1_1_unique_ptr.html">UniquePtr&lt;GpuImage&gt;</a> m_unusedColorArrayAttachment{};</div>
 <div class="line"><a id="l00124" name="l00124"></a><span class="lineno">  124</span>        <a class="code hl_class" href="class_o_s_k_1_1_unique_ptr.html">UniquePtr&lt;GpuImage&gt;</a> m_depthArrayAttachment{};</div>
 <div class="line"><a id="l00125" name="l00125"></a><span class="lineno">  125</span> </div>
-<div class="line"><a id="l00126" name="l00126"></a><span class="lineno">  126</span>        std::array&lt;UniquePtr&lt;GpuBuffer&gt;, <a class="code hl_variable" href="_o_s_kmacros_8h.html#ae5e86c617c5992479b42bbd9c280b4df">NUM_RESOURCES_IN_FLIGHT</a>&gt; lightUniformBuffer{};</div>
+<div class="line"><a id="l00126" name="l00126"></a><span class="lineno">  126</span>        std::array&lt;UniquePtr&lt;GpuBuffer&gt;, NUM_RESOURCES_IN_FLIGHT&gt; lightUniformBuffer{};</div>
 <div class="line"><a id="l00127" name="l00127"></a><span class="lineno">  127</span> </div>
 <div class="line"><a id="l00128" name="l00128"></a><span class="lineno">  128</span>        <span class="keyword">struct </span>ShadowsBufferContent {</div>
 <div class="line"><a id="l00129" name="l00129"></a><span class="lineno">  129</span>            <span class="keyword">alignas</span>(16) glm::mat4 matrices[4];</div>
@@ -178,7 +178,7 @@ $(function(){initNavTree('_shadow_map_8h_source.html',''); initResizable(); });
 <div class="line"><a id="l00133" name="l00133"></a><span class="lineno">  133</span> </div>
 <div class="line"><a id="l00134" name="l00134"></a><span class="lineno">  134</span>        <span class="comment">// --- Light &amp; camera info --- //</span></div>
 <div class="line"><a id="l00135" name="l00135"></a><span class="lineno">  135</span> </div>
-<div class="line"><a id="l00136" name="l00136"></a><span class="lineno">  136</span>        <a class="code hl_typedef" href="namespace_o_s_k_1_1_e_c_s.html#a7be561d6b7de4e8a49c2a5cc35fba48c">ECS::GameObjectIndex</a> m_cameraObject = ECS::EMPTY_GAME_OBJECT;</div>
+<div class="line"><a id="l00136" name="l00136"></a><span class="lineno">  136</span>        <a class="code hl_class" href="class_o_s_k_1_1_base_uuid.html">ECS::GameObjectIndex</a> m_cameraObject = ECS::EMPTY_GAME_OBJECT;</div>
 <div class="line"><a id="l00137" name="l00137"></a><span class="lineno">  137</span> </div>
 <div class="line"><a id="l00138" name="l00138"></a><span class="lineno">  138</span> </div>
 <div class="line"><a id="l00139" name="l00139"></a><span class="lineno">  139</span>        <a class="code hl_class" href="class_o_s_k_1_1_vector4__t.html">Vector4f</a> m_splitsVec = <a class="code hl_class" href="class_o_s_k_1_1_vector4__t.html">Vector4f</a>(5.0f, 50.0f, 500.0f, 5000.0f);</div>
@@ -194,23 +194,15 @@ $(function(){initNavTree('_shadow_map_8h_source.html',''); initResizable(); });
 </div>
 <div class="line"><a id="l00149" name="l00149"></a><span class="lineno">  149</span> </div>
 <div class="line"><a id="l00150" name="l00150"></a><span class="lineno">  150</span>}</div>
-<div class="ttc" id="a_game_object_8h_html"><div class="ttname"><a href="_game_object_8h.html">GameObject.h</a></div></div>
-<div class="ttc" id="a_gpu_buffer_8h_html"><div class="ttname"><a href="_gpu_buffer_8h.html">GpuBuffer.h</a></div></div>
-<div class="ttc" id="a_material_instance_8h_html"><div class="ttname"><a href="_material_instance_8h.html">MaterialInstance.h</a></div></div>
-<div class="ttc" id="a_o_s_kmacros_8h_html_a09ec5b46ece998ad096bceff312bb36c"><div class="ttname"><a href="_o_s_kmacros_8h.html#a09ec5b46ece998ad096bceff312bb36c">OSKAPI_CALL</a></div><div class="ttdeci">#define OSKAPI_CALL</div><div class="ttdef"><b>Definition</b> <a href="_o_s_kmacros_8h_source.html#l00007">OSKmacros.h:7</a></div></div>
-<div class="ttc" id="a_o_s_kmacros_8h_html_a3e916ed5b32955be3417da92899fc361"><div class="ttname"><a href="_o_s_kmacros_8h.html#a3e916ed5b32955be3417da92899fc361">USize32</a></div><div class="ttdeci">uint32_t USize32</div><div class="ttdef"><b>Definition</b> <a href="_o_s_kmacros_8h_source.html#l00044">OSKmacros.h:44</a></div></div>
-<div class="ttc" id="a_o_s_kmacros_8h_html_ae5e86c617c5992479b42bbd9c280b4df"><div class="ttname"><a href="_o_s_kmacros_8h.html#ae5e86c617c5992479b42bbd9c280b4df">NUM_RESOURCES_IN_FLIGHT</a></div><div class="ttdeci">constexpr USize32 NUM_RESOURCES_IN_FLIGHT</div><div class="ttdef"><b>Definition</b> <a href="_o_s_kmacros_8h_source.html#l00057">OSKmacros.h:57</a></div></div>
-<div class="ttc" id="a_render_target_8h_html"><div class="ttname"><a href="_render_target_8h.html">RenderTarget.h</a></div></div>
-<div class="ttc" id="a_vector4_8hpp_html"><div class="ttname"><a href="_vector4_8hpp.html">Vector4.hpp</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_base_uuid_html"><div class="ttname"><a href="class_o_s_k_1_1_base_uuid.html">OSK::BaseUuid&lt; class GameObjectIndexTag &gt;</a></div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_dynamic_array_html"><div class="ttname"><a href="class_o_s_k_1_1_dynamic_array.html">OSK::DynamicArray</a></div><div class="ttdoc">Dynamic array: array que puede cambiar de tamaño.</div><div class="ttdef"><b>Definition</b> <a href="_dynamic_array_8hpp_source.html#l00067">DynamicArray.hpp:67</a></div></div>
-<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_html"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image.html">OSK::GRAPHICS::GpuImage</a></div><div class="ttdoc">Representación interna de una imagen en la GPU.</div><div class="ttdef"><b>Definition</b> <a href="_i_gpu_image_8h_source.html#l00058">IGpuImage.h:58</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_html"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image.html">OSK::GRAPHICS::GpuImage</a></div><div class="ttdoc">Representación interna de una imagen en la GPU.</div><div class="ttdef"><b>Definition</b> <a href="_i_gpu_image_8h_source.html#l00035">IGpuImage.h:35</a></div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_shadow_map_html"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_shadow_map.html">OSK::GRAPHICS::ShadowMap</a></div><div class="ttdoc">Renderiza un mapa de profundidad de la escena desde el punto de vista de una luz direccional.</div><div class="ttdef"><b>Definition</b> <a href="#l00032">ShadowMap.h:32</a></div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_unique_ptr_html"><div class="ttname"><a href="class_o_s_k_1_1_unique_ptr.html">OSK::UniquePtr</a></div><div class="ttdoc">Estructura que es dueña de un objeto almacenado en heap. Al destruirse el UniquePtr,...</div><div class="ttdef"><b>Definition</b> <a href="_unique_ptr_8hpp_source.html#l00022">UniquePtr.hpp:22</a></div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_vector2__t_html"><div class="ttname"><a href="class_o_s_k_1_1_vector2__t.html">OSK::Vector2_t&lt; uint32_t &gt;</a></div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_vector3__t_html"><div class="ttname"><a href="class_o_s_k_1_1_vector3__t.html">OSK::Vector3_t&lt; float_t &gt;</a></div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_vector4__t_html"><div class="ttname"><a href="class_o_s_k_1_1_vector4__t.html">OSK::Vector4_t&lt; float_t &gt;</a></div></div>
 <div class="ttc" id="anamespace_o_s_k_1_1_a_s_s_e_t_s_html"><div class="ttname"><a href="namespace_o_s_k_1_1_a_s_s_e_t_s.html">OSK::ASSETS</a></div><div class="ttdef"><b>Definition</b> <a href="_anim_mesh_loader_8h_source.html#l00009">AnimMeshLoader.h:9</a></div></div>
-<div class="ttc" id="anamespace_o_s_k_1_1_e_c_s_html_a7be561d6b7de4e8a49c2a5cc35fba48c"><div class="ttname"><a href="namespace_o_s_k_1_1_e_c_s.html#a7be561d6b7de4e8a49c2a5cc35fba48c">OSK::ECS::GameObjectIndex</a></div><div class="ttdeci">UIndex32 GameObjectIndex</div><div class="ttdoc">Identificador único para un Game Object.</div><div class="ttdef"><b>Definition</b> <a href="_game_object_8h_source.html#l00018">GameObject.h:18</a></div></div>
 <div class="ttc" id="anamespace_o_s_k_1_1_g_r_a_p_h_i_c_s_html"><div class="ttname"><a href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html">OSK::GRAPHICS</a></div><div class="ttdef"><b>Definition</b> <a href="_acceleration_structures_exceptions_8h_source.html#l00005">AccelerationStructuresExceptions.h:5</a></div></div>
 <div class="ttc" id="astruct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_directional_light_html"><div class="ttname"><a href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_directional_light.html">OSK::GRAPHICS::DirectionalLight</a></div><div class="ttdoc">Representa una luz direccional.</div><div class="ttdef"><b>Definition</b> <a href="_lights_8h_source.html#l00012">Lights.h:12</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
@@ -218,8 +210,8 @@ $(function(){initNavTree('_shadow_map_8h_source.html',''); initResizable(); });
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="dir_74389ed8173ad57b461b9d623a1f3867.html">Source</a></li><li class="navelem"><a class="el" href="_shadow_map_8h.html">ShadowMap.h</a></li>
-    <li class="footer">Generado el Jueves, 28 de marzo de 2024 17:53:11 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.10.0 </li>
+    <li class="navelem"><a class="el" href="dir_74389ed8173ad57b461b9d623a1f3867.html">Source</a></li><li class="navelem"><b>ShadowMap.h</b></li>
+    <li class="footer">Generado el Lunes, 15 de abril de 2024 22:39:16 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.10.0 </li>
   </ul>
 </div>
 </body>

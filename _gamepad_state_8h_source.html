@@ -101,9 +101,9 @@ $(function(){initNavTree('_gamepad_state_8h_source.html',''); initResizable(); }
   <div class="headertitle"><div class="title">GamepadState.h</div></div>
 </div><!--header-->
 <div class="contents">
-<a href="_gamepad_state_8h.html">Ir a la documentación de este archivo.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#pragma once</span></div>
+<div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#pragma once</span></div>
 <div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span> </div>
-<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="preprocessor">#include &quot;<a class="code" href="_o_s_kmacros_8h.html">OSKmacros.h</a>&quot;</span></div>
+<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="preprocessor">#include &quot;OSKmacros.h&quot;</span></div>
 <div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span> </div>
 <div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &lt;array&gt;</span></div>
 <div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &lt;GLFW/glfw3.h&gt;</span></div>
@@ -164,7 +164,7 @@ $(function(){initNavTree('_gamepad_state_8h_source.html',''); initResizable(); }
 <div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span> </div>
 <div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span> </div>
 <div class="foldopen" id="foldopen00121" data-start="{" data-end="};">
-<div class="line"><a id="l00121" name="l00121"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_i_o_1_1_gamepad_state.html">  121</a></span>    <span class="keyword">class </span><a class="code hl_define" href="_o_s_kmacros_8h.html#a09ec5b46ece998ad096bceff312bb36c">OSKAPI_CALL</a> <a class="code hl_class" href="class_o_s_k_1_1_i_o_1_1_gamepad_state.html">GamepadState</a> {</div>
+<div class="line"><a id="l00121" name="l00121"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_i_o_1_1_gamepad_state.html">  121</a></span>    <span class="keyword">class </span>OSKAPI_CALL <a class="code hl_class" href="class_o_s_k_1_1_i_o_1_1_gamepad_state.html">GamepadState</a> {</div>
 <div class="line"><a id="l00122" name="l00122"></a><span class="lineno">  122</span> </div>
 <div class="line"><a id="l00123" name="l00123"></a><span class="lineno">  123</span>    <span class="keyword">public</span>:</div>
 <div class="line"><a id="l00124" name="l00124"></a><span class="lineno">  124</span> </div>
@@ -191,7 +191,7 @@ $(function(){initNavTree('_gamepad_state_8h_source.html',''); initResizable(); }
 <div class="line"><a id="l00164" name="l00164"></a><span class="lineno">  164</span>        std::array&lt;GamepadButtonState, 4&gt; buttonState{};</div>
 <div class="line"><a id="l00165" name="l00165"></a><span class="lineno">  165</span>        <span class="keywordtype">float</span> axesStates[6]{};</div>
 <div class="line"><a id="l00166" name="l00166"></a><span class="lineno">  166</span> </div>
-<div class="line"><a id="l00167" name="l00167"></a><span class="lineno">  167</span>        <a class="code hl_typedef" href="_o_s_kmacros_8h.html#af205b9fd0440138e6cac38a9081141df">UIndex32</a> identifier = 0;</div>
+<div class="line"><a id="l00167" name="l00167"></a><span class="lineno">  167</span>        UIndex32 identifier = 0;</div>
 <div class="line"><a id="l00168" name="l00168"></a><span class="lineno">  168</span> </div>
 <div class="line"><a id="l00169" name="l00169"></a><span class="lineno">  169</span>        <span class="keywordtype">bool</span> isConnected = <span class="keyword">false</span>;</div>
 <div class="line"><a id="l00170" name="l00170"></a><span class="lineno">  170</span> </div>
@@ -199,9 +199,6 @@ $(function(){initNavTree('_gamepad_state_8h_source.html',''); initResizable(); }
 </div>
 <div class="line"><a id="l00172" name="l00172"></a><span class="lineno">  172</span> </div>
 <div class="line"><a id="l00173" name="l00173"></a><span class="lineno">  173</span>}</div>
-<div class="ttc" id="a_o_s_kmacros_8h_html"><div class="ttname"><a href="_o_s_kmacros_8h.html">OSKmacros.h</a></div></div>
-<div class="ttc" id="a_o_s_kmacros_8h_html_a09ec5b46ece998ad096bceff312bb36c"><div class="ttname"><a href="_o_s_kmacros_8h.html#a09ec5b46ece998ad096bceff312bb36c">OSKAPI_CALL</a></div><div class="ttdeci">#define OSKAPI_CALL</div><div class="ttdef"><b>Definition</b> <a href="_o_s_kmacros_8h_source.html#l00007">OSKmacros.h:7</a></div></div>
-<div class="ttc" id="a_o_s_kmacros_8h_html_af205b9fd0440138e6cac38a9081141df"><div class="ttname"><a href="_o_s_kmacros_8h.html#af205b9fd0440138e6cac38a9081141df">UIndex32</a></div><div class="ttdeci">uint32_t UIndex32</div><div class="ttdef"><b>Definition</b> <a href="_o_s_kmacros_8h_source.html#l00041">OSKmacros.h:41</a></div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref_html"><div class="ttname"><a href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">OSK::ASSETS::AssetRef</a></div><div class="ttdoc">Referencia a un asset.</div><div class="ttdef"><b>Definition</b> <a href="_asset_ref_8h_source.html#l00012">AssetRef.h:12</a></div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_i_o_1_1_gamepad_state_html"><div class="ttname"><a href="class_o_s_k_1_1_i_o_1_1_gamepad_state.html">OSK::IO::GamepadState</a></div><div class="ttdoc">Representa el estado actual de un gamepad conectado a la plataforma.</div><div class="ttdef"><b>Definition</b> <a href="#l00121">GamepadState.h:121</a></div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_i_o_1_1_gamepad_state_html_a5076312216049c079600e938e17887ac"><div class="ttname"><a href="class_o_s_k_1_1_i_o_1_1_gamepad_state.html#a5076312216049c079600e938e17887ac">OSK::IO::GamepadState::GamepadState</a></div><div class="ttdeci">GamepadState()</div><div class="ttdef"><b>Definition</b> <a href="#l00125">GamepadState.h:125</a></div></div>
@@ -235,8 +232,8 @@ $(function(){initNavTree('_gamepad_state_8h_source.html',''); initResizable(); }
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="dir_74389ed8173ad57b461b9d623a1f3867.html">Source</a></li><li class="navelem"><a class="el" href="_gamepad_state_8h.html">GamepadState.h</a></li>
-    <li class="footer">Generado el Jueves, 28 de marzo de 2024 17:53:10 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.10.0 </li>
+    <li class="navelem"><a class="el" href="dir_74389ed8173ad57b461b9d623a1f3867.html">Source</a></li><li class="navelem"><b>GamepadState.h</b></li>
+    <li class="footer">Generado el Lunes, 15 de abril de 2024 22:39:16 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.10.0 </li>
   </ul>
 </div>
 </body>

@@ -10,6 +10,7 @@ var searchData=
   ['arraylevel_7',['arrayLevel',['../struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_render_pass_image_info.html#a2000fd13a1b6fbb170109c3d7fe306db',1,'OSK::GRAPHICS::RenderPassImageInfo']]],
   ['arraylevelcount_8',['arrayLevelCount',['../struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_view_config.html#ac50ea75f158345c56e87d45b908c7e23',1,'OSK::GRAPHICS::GpuImageViewConfig']]],
   ['arraytype_9',['arrayType',['../struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_view_config.html#ac5d4648824ecc9db871b22ff330faad9',1,'OSK::GRAPHICS::GpuImageViewConfig']]],
-  ['attributes_10',['attributes',['../struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_vertices_attributes_maps.html#a5bb8e0193e6df3c3c1d2ff6b1555c39d',1,'OSK::GRAPHICS::VerticesAttributesMaps']]],
-  ['availablespace_11',['availableSpace',['../class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_block.html#abc1e855fd56cf8f2ba91efe5f6058385',1,'OSK::GRAPHICS::IGpuMemoryBlock']]]
+  ['atomic_10',['atomic',['../struct_o_s_k_1_1_atomic_holder.html#a4f89a8a67cc085b193a1b65bb1ef5077',1,'OSK::AtomicHolder']]],
+  ['attributes_11',['attributes',['../struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_vertices_attributes_maps.html#a5bb8e0193e6df3c3c1d2ff6b1555c39d',1,'OSK::GRAPHICS::VerticesAttributesMaps']]],
+  ['availablespace_12',['availableSpace',['../class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_block.html#abc1e855fd56cf8f2ba91efe5f6058385',1,'OSK::GRAPHICS::IGpuMemoryBlock']]]
 ];
