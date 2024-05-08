@@ -4,12 +4,17 @@
 
 #include <glm/glm.hpp>
 
+#include "Serializer.h"
+
+
 namespace OSK {
 
 	/// @brief Representa un color en formato RGBA float.
 	class OSKAPI_CALL Color {
 
 	public:
+
+		OSK_SERIALIZABLE();
 
 		/// @brief Color vacío (negro y transparente).
 		constexpr Color() = default;
@@ -107,3 +112,5 @@ namespace OSK {
 	};
 
 }
+
+OSK_SERIALIZATION(OSK::Color);

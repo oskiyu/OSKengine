@@ -20,6 +20,8 @@
 #include "IrradianceMap.h"
 #include "SpecularMap.h"
 
+#include "Serializer.h"
+
 
 namespace OSK::ECS {
 
@@ -32,6 +34,7 @@ namespace OSK::ECS {
 	public:
 
 		OSK_SYSTEM("OSK::DeferredRenderSystem");
+		OSK_SERIALIZABLE();
 
 		DeferredRenderSystem();
 
@@ -202,3 +205,5 @@ namespace OSK::ECS {
 	};
 
 }
+
+//OSK_SYSTEM_SERIALIZATION(OSK::ECS::DeferredRenderSystem);

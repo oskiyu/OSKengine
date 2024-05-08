@@ -1,4 +1,8 @@
 {
     "m_castShadows": true,
-    "m_model": "Resources/Assets/Models/ow.json"
+    "m_model": "Resources/Assets/Models/ow.json",
+    "m_shaderNames": [
+        "static_pass",
+        "shadows_static_pass"
+    ]
 }

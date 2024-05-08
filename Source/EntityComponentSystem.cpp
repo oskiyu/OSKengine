@@ -28,6 +28,7 @@ GameObjectIndex EntityComponentSystem::SpawnObject() {
 }
 
 void EntityComponentSystem::DestroyObject(GameObjectIndex* obj) {
+	m_systemManager->GameObjectDestroyed(*obj);
 	m_gameObjectManager->DestroyGameObject(obj);
 }
 

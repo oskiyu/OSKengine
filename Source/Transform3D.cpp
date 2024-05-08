@@ -100,7 +100,7 @@ void Transform3D::RotateLocalSpace_ThreadSafe(float angle, const Vector3f& axis)
 void Transform3D::RotateWorldSpace(float angle, const Vector3f& axis) {
 	auto copy = Quaternion(m_localRotation);
 	copy.Rotate_WorldSpace(angle, axis);
-	const Quaternion difference = copy - m_localRotation;
+	const Quaternion difference = m_localRotation - copy;
 
 	ApplyRotation(difference);
 }
@@ -108,7 +108,7 @@ void Transform3D::RotateWorldSpace(float angle, const Vector3f& axis) {
 void Transform3D::RotateWorldSpace_ThreadSafe(float angle, const Vector3f& axis) {
 	auto copy = Quaternion(m_localRotation);
 	copy.Rotate_WorldSpace(angle, axis);
-	const Quaternion difference = copy - m_localRotation;
+	const Quaternion difference = m_localRotation - copy;
 
 	ApplyRotation_ThreadSafe(difference);
 }
@@ -267,7 +267,11 @@ nlohmann::json PERSISTENCE::SerializeJson<OSK::ECS::Transform3D>(const OSK::ECS:
 
 	output["m_matrix"] = SerializeJson<glm::mat4>(data.GetAsMatrix());
 
-	// @todo children
+	output["m_ownerId"] = data.m_ownerId.Get();
+
+	for (const auto& childId : data.m_childIds) {
+		output["m_childIds"].push_back(childId.Get());
+	}
 
 	return output;
 }
@@ -279,6 +283,10 @@ OSK::ECS::Transform3D PERSISTENCE::DeserializeJson<OSK::ECS::Transform3D>(const 
 	output.m_inheritPosition = json["m_inheritPosition"];
 	output.m_inheritRotation = json["m_inheritRotation"];
 	output.m_inheritScale = json["m_inheritScale"];
+
+	for (const auto& child : json["m_childIds"]) {
+		output.m_childIds.Insert(GameObjectIndex(child));
+	}
 
 	return output;
 }

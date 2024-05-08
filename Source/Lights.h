@@ -4,12 +4,17 @@
 #include "Vector4.hpp"
 #include "DynamicArray.hpp"
 
+#include "Serializer.h"
+
+
 namespace OSK::GRAPHICS {
 
 	/// <summary>
 	/// Representa una luz direccional.
 	/// </summary>
 	struct DirectionalLight {
+
+		OSK_SERIALIZABLE();
 
 		/// <summary>
 		/// Dirección de la luz.
@@ -75,3 +80,5 @@ namespace OSK::GRAPHICS {
 	};
 
 }
+
+OSK_SERIALIZATION(OSK::GRAPHICS::DirectionalLight);

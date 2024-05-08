@@ -1,7 +1,7 @@
-INFO: JobSystem: número de hilos: 15
+INFO: JobSystem: número de hilos: 1
 INFO: Iniciando OSKengine.
 INFO: 	Version: 0.0.0
-INFO: 	Build 2024.03.28a.
+INFO: 	Build 2024.04.29a.
 INFO: Versión de vulkan: 1.3.261
 INFO: GPU elegida: NVIDIA GeForce RTX 2060
 INFO: Uso de cola GPU unificada.
@@ -118,7 +118,7 @@ INFO: 	Nuevo set:
 INFO: 		OSK::ColliderRenderSystem
 INFO: 		OSK::RenderBoundsRenderer
 INFO: Añadido sistema: OSK::RenderBoundsRenderer
-INFO: Tiempo de carga: 4.240302 segundos
+INFO: Tiempo de carga: 6.390845 segundos
 INFO: 	~IGpuMemoryAllocator
 INFO: Cerrado el log.
 

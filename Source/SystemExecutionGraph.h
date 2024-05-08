@@ -22,7 +22,7 @@ namespace OSK::ECS {
 
 	/// @brief Grafo que contiene los sistemas ordenados de tal manera
 	/// que se respeten sus dependencias.
-	class SystemExecutionGraph {
+	class OSKAPI_CALL SystemExecutionGraph {
 
 	public:
 

@@ -97,6 +97,7 @@
     <ClCompile Include="IAudioApi.cpp" />
     <ClCompile Include="IAudioDevice.cpp" />
     <ClCompile Include="IAudioSource.cpp" />
+    <ClCompile Include="IblConfig.cpp" />
     <ClCompile Include="ICommandPool.cpp" />
     <ClCompile Include="ICommandQueue.cpp" />
     <ClCompile Include="IConsumerSystem.cpp" />
@@ -106,6 +107,7 @@
     <ClCompile Include="JobCountMap.cpp" />
     <ClCompile Include="JobQueue.cpp" />
     <ClCompile Include="JobSystem.cpp" />
+    <ClCompile Include="Lights.cpp" />
     <ClCompile Include="MeshMapping.cpp" />
     <ClCompile Include="PbrIblConfig.h" />
     <ClCompile Include="PbrResolverPass.cpp" />
@@ -362,8 +364,6 @@
     <ClInclude Include="ConvexVolume.h" />
     <ClInclude Include="CubemapTexture.h" />
     <ClInclude Include="CubemapTextureLoader.h" />
-    <ClInclude Include="DataNode.h" />
-    <ClInclude Include="DataType.h" />
     <ClInclude Include="CopyImageInfo.h" />
     <ClInclude Include="GpuBufferRange.h" />
     <ClInclude Include="GpuImageCreateInfo.h" />

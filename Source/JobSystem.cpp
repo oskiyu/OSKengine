@@ -10,7 +10,7 @@ using namespace OSK;
 
 JobSystem::JobSystem() : m_scheduledJobs(64) {
 	m_numThreads = glm::max<USize32>(1, std::thread::hardware_concurrency() - 1);
-
+	
 	for (UIndex32 i = 0; i < m_numThreads; i++) {
 		m_threads.Insert(std::jthread([&]() {
 			while (m_isRunning) {

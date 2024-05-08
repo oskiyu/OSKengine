@@ -585,3 +585,42 @@ GRAPHICS::ShadowMap& DeferredRenderSystem::GetShadowMap() {
 const GRAPHICS::ShadowMap& DeferredRenderSystem::GetShadowMap() const {
 	return m_shadowMap;
 }
+
+
+// --- Serialization --- //
+
+template <>
+nlohmann::json PERSISTENCE::SerializeJson<OSK::ECS::DeferredRenderSystem>(const OSK::ECS::DeferredRenderSystem& data) {
+	nlohmann::json output{};
+
+	output["resolverName"] = data.m_resolverPass->GetTypeName();
+	output["cameraObject"] = data.m_cameraObject.Get();
+
+	output["directionalLight"] = SerializeJson<DirectionalLight>(data.m_directionalLight);
+	output["iblConfig"] = SerializeJson<PbrIblConfig>(data.m_iblConfig);
+
+	output["irradianceMap"] = data.m_irradianceMap->GetAssetFilename();
+	output["specularMap"] = data.m_specularMap->GetAssetFilename();
+
+	output["shadowMap"] = SerializeJson<ShadowMap>(data.m_shadowMap);
+
+	return output;
+}
+
+template <>
+OSK::ECS::DeferredRenderSystem PERSISTENCE::DeserializeJson<OSK::ECS::DeferredRenderSystem>(const nlohmann::json& json) {
+	DeferredRenderSystem output{};
+
+	// todo: output.m_resolverP
+	output.m_cameraObject = GameObjectIndex(json["cameraObject"]);
+
+	output.m_directionalLight = DeserializeJson<DirectionalLight>(json["directionalLight"]);
+	output.m_iblConfig = DeserializeJson<PbrIblConfig>(json["iblConfig"]);
+
+	output.m_irradianceMap = Engine::GetAssetManager()->Load<IrradianceMap>(json["irradianceMap"]);
+	output.m_specularMap = Engine::GetAssetManager()->Load<SpecularMap>(json["specularMap"]);
+
+	output.m_shadowMap = DeserializeJson<ShadowMap>(json["shadowMap"]);
+
+	return {};
+}

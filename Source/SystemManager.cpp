@@ -29,6 +29,10 @@ void SystemManager::OnTick(TDeltaTime deltaTime, const EventManager& eventManage
 
 		// OnStarts
 		for (auto* system : executionSet.systems) {
+			if (!system->IsActive()) {
+				continue;
+			}
+
 			if (system->Is<IIteratorSystem>()) {
 				auto* iteratorSystem = system->As<IIteratorSystem>();
 				const auto compatibleObjects = m_systems.find(system->GetName())->second.compatibleObjects.GetFullSpan();
@@ -54,6 +58,10 @@ void SystemManager::OnTick(TDeltaTime deltaTime, const EventManager& eventManage
 
 		// OnStarts
 		for (auto* system : executionSet.systems) {
+			if (!system->IsActive()) {
+				continue;
+			}
+
 			if (system->Is<IIteratorSystem>()) {
 				auto* iteratorSystem = system->As<IIteratorSystem>();
 				iteratorSystem->OnExecutionStart();
@@ -67,6 +75,10 @@ void SystemManager::OnTick(TDeltaTime deltaTime, const EventManager& eventManage
 
 		// Jobs
 		for (auto* system : executionSet.systems) {
+			if (!system->IsActive()) {
+				continue;
+			}
+
 			if (system->GetDependencies().singleThreaded) {
 				if (system->Is<IIteratorSystem>()) {
 					system->As<IIteratorSystem>()->Execute(deltaTime, 
@@ -90,6 +102,10 @@ void SystemManager::OnTick(TDeltaTime deltaTime, const EventManager& eventManage
 
 		// OnEnds
 		for (auto* system : executionSet.systems) {
+			if (!system->IsActive()) {
+				continue;
+			}
+
 			if (system->Is<IIteratorSystem>()) {
 				auto* iteratorSystem = system->As<IIteratorSystem>();
 				iteratorSystem->OnExecutionEnd();
@@ -183,6 +199,10 @@ void SystemManager::OnRender(ICommandList* commandList) {
 #endif // OSK_DEBUG_PRINT_SYSTEM_EXECUTIONS
 
 		for (auto* system : executionSet.systems) {
+			if (!system->IsActive()) {
+				continue;
+			}
+
 			if (system->Is<IRenderSystem>()) {
 				auto* renderSystem = system->As<IRenderSystem>();
 				const auto compatibleObjects = m_systems.find(system->GetName())->second.compatibleObjects.GetFullSpan();

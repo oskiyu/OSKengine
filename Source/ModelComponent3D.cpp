@@ -77,6 +77,11 @@ nlohmann::json PERSISTENCE::SerializeJson<OSK::ECS::ModelComponent3D>(const OSK:
 
 	output["m_model"] = data.m_model->GetAssetFilename();
 	output["m_castShadows"] = data.m_castShadows;
+	// output["m_animator"] = SerializeJson<Animator>(data.m_animator);
+
+	for (const auto& shaderName : data.m_shaderNames) {
+		output["m_shaderNames"].push_back(shaderName);
+	}
 
 	return output;
 }
@@ -87,6 +92,11 @@ OSK::ECS::ModelComponent3D PERSISTENCE::DeserializeJson<OSK::ECS::ModelComponent
 
 	output.m_castShadows = json["m_castShadows"];
 	output.m_model = Engine::GetAssetManager()->Load<ASSETS::Model3D>(json["m_model"]);
+	// output.m_animator = DeserializeJson<Animator>(json["m_animator"]);
+
+	for (const std::string& shaderName : json["m_shaderNames"]) {
+		output.m_shaderNames.insert(shaderName);
+	}
 
 	return output;
 }

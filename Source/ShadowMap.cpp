@@ -201,3 +201,57 @@ DynamicArray<Vector3f> ShadowMap::GetFrustumCorners(const glm::mat4& cameraMatri
 
 	return corners;
 }
+
+
+template <>
+nlohmann::json OSK::PERSISTENCE::SerializeJson<OSK::GRAPHICS::ShadowMap>(const OSK::GRAPHICS::ShadowMap& data) {
+	nlohmann::json output{};
+
+	output["cameraObject"] = data.m_cameraObject.Get();
+
+	output["splits"]["0"] = data.m_splits[0];
+	output["splits"]["1"] = data.m_splits[1];
+	output["splits"]["2"] = data.m_splits[2];
+	output["splits"]["3"] = data.m_splits[3];
+
+	output["nearPlane"] = data.m_nearPlane;
+	output["farPlane"] = data.m_farPlane;
+
+	output["lightDirection"]["x"] = data.m_lightDirection.x;
+	output["lightDirection"]["y"] = data.m_lightDirection.y;
+	output["lightDirection"]["z"] = data.m_lightDirection.z;
+
+	output["lightOrigin"]["x"] = data.m_lightOrigin.x;
+	output["lightOrigin"]["y"] = data.m_lightOrigin.y;
+	output["lightOrigin"]["z"] = data.m_lightOrigin.z;
+
+	output["resolution"]["x"] = data.m_depthArrayAttachment->GetSize2D().x;
+	output["resolution"]["y"] = data.m_depthArrayAttachment->GetSize2D().y;
+
+	return output;
+}
+
+template <>
+OSK::GRAPHICS::ShadowMap OSK::PERSISTENCE::DeserializeJson<OSK::GRAPHICS::ShadowMap>(const nlohmann::json& json) {
+	OSK::GRAPHICS::ShadowMap output{};
+
+	output.Create(Vector2ui(json["resolution"]["x"], json["resolution"]["y"]));
+
+	output.m_splits[0] = json["splits"]["0"];
+	output.m_splits[1] = json["splits"]["1"];
+	output.m_splits[2] = json["splits"]["2"];
+	output.m_splits[3] = json["splits"]["3"];
+
+	output.m_nearPlane = json["nearPlane"];
+	output.m_farPlane = json["farPlane"];
+
+	output.m_lightDirection.x = json["lightDirection"]["x"];
+	output.m_lightDirection.y = json["lightDirection"]["y"];
+	output.m_lightDirection.z = json["lightDirection"]["z"];
+
+	output.m_lightOrigin.x = json["lightOrigin"]["x"];
+	output.m_lightOrigin.y = json["lightOrigin"]["y"];
+	output.m_lightOrigin.z = json["lightOrigin"]["z"];
+
+	return output;
+}

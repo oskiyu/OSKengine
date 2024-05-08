@@ -12,10 +12,10 @@ using namespace OSK;
 using namespace OSK::ECS;
 
 GameObjectIndex GameObjectManager::CreateGameObject() {
-	if (!m_freeObjectIndices.IsEmpty()) {
-		m_signatures[m_freeObjectIndices.Peek()] = {};
-		return m_freeObjectIndices.Pop();
-	}
+	// if (!m_freeObjectIndices.IsEmpty()) {
+	//	m_signatures[m_freeObjectIndices.Peek()] = {};
+	//	return m_freeObjectIndices.Pop();
+	//}
 
 	GameObjectIndex output = GameObjectIndex(m_nextIndex);
 	m_signatures[output] = {};

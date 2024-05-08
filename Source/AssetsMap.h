@@ -20,7 +20,7 @@ namespace OSK::ASSETS {
 	/// @threadsafe
 	template <typename TAssetType>
 	requires std::is_base_of_v<IAsset, TAssetType>
-	class OSKAPI_CALL AssetsMap {
+	class AssetsMap {
 
 	public:
 

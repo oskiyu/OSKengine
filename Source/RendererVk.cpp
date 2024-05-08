@@ -391,7 +391,18 @@ void RendererVk::ChooseGpu() {
 	OSK_ASSERT(!gpus.IsEmpty(), GpuNotFoundException());
 
 	VkPhysicalDevice gpu = devices[0];
+
 	GpuVk::Info info = gpus[0];
+
+	bool hasDiscrete = false;
+	for (UIndex64 i = 0; i < devices.GetSize(); i++) {
+		if (gpus[i].properties.deviceType == VK_PHYSICAL_DEVICE_TYPE_DISCRETE_GPU) {
+			gpu = devices[i];
+			info = gpus[i];
+
+			hasDiscrete = true;
+		}
+	}
 
 	Engine::GetLogger()->InfoLog("GPU elegida: " + std::string(info.properties.deviceName));
 

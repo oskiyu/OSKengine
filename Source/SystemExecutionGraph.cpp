@@ -10,7 +10,7 @@ using namespace OSK::ECS;
 void SystemExecutionGraph::AddSystem(ISystem* system, const SystemDependencies& dependencies) {
 	m_allRegisteredSystems[static_cast<std::string>(system->GetName())] = system;
 
-	OSK_ASSERT(Validate(), SystemCyclicDependencyException(system->GetName()));
+	// OSK_ASSERT(Validate(), SystemCyclicDependencyException(system->GetName()));
 
 	Rebuild();
 

@@ -14,3 +14,27 @@ namespace OSK {
 	Color const Color::Green	= Color(0.0f, 1.0f, 0.0f);
 
 }
+
+
+template <>
+nlohmann::json OSK::PERSISTENCE::SerializeJson<OSK::Color>(const OSK::Color& data) {
+	nlohmann::json output{};
+
+	output["r"] = data.red;
+	output["g"] = data.green;
+	output["b"] = data.blue;
+	output["a"] = data.alpha;
+
+	return output;
+}
+
+template <>
+OSK::Color OSK::PERSISTENCE::DeserializeJson<OSK::Color>(const nlohmann::json& json) {
+	return Color(
+		json["r"],
+		json["g"],
+		json["b"],
+		json["a"]
+	);
+}
+

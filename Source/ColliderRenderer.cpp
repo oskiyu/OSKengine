@@ -129,6 +129,8 @@ void ColliderRenderSystem::Render(GRAPHICS::ICommandList* commandList, std::span
 		Transform3D topLevelTransform = originalTransform;
 		topLevelTransform.SetRotation({});
 
+		singleContactPoints.Insert(originalTransform.GetPosition());
+
 		if (gameObject.Get() == 1) {
 			COLLISION::Ray ray{};
 			ray.origin = originalTransform.GetPosition() + Vector3f(0.0f, 0.11f, 0.0f);

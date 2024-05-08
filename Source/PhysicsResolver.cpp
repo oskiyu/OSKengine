@@ -16,7 +16,7 @@ using namespace OSK::COLLISION;
 void PhysicsResolver::Execute(TDeltaTime deltaTime, std::span<const CollisionEvent> events) {
 	const EntityComponentSystem* ecs = Engine::GetEcs();
 
-	for (const auto& event : events) {
+	for (const auto& event : Engine::GetEcs()->GetEventQueue<CollisionEvent>()) {
 		GameObjectIndex first  = event.firstEntity;
 		GameObjectIndex second = event.secondEntity;
 
@@ -73,7 +73,7 @@ void PhysicsResolver::Execute(TDeltaTime deltaTime, std::span<const CollisionEve
 		
 
 		// --- IMPULSOS --- //
-
+		
 		// Velocidades sin contar la delta de este frame.
 		// Para una simulación más estable.
 		const Vector3f velocityA = physicsA.GetVelocity() - physicsA.GetCurrentFrameVelocityDelta();

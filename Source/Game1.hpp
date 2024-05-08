@@ -168,8 +168,8 @@ protected:
 		material2d = Engine::GetRenderer()->GetMaterialSystem()->LoadMaterial("Resources/Materials/2D/material_2d.json");
 		materialRenderTarget = Engine::GetRenderer()->GetMaterialSystem()->LoadMaterial("Resources/Materials/2D/material_rendertarget.json");
 
-		SpawnCar();
 		SpawnCircuit();
+		SpawnCar();
 
 		SpawnCamera();
 		SpawnCamera2D();
@@ -1055,7 +1055,8 @@ private:
 			auto& physicsComponent = Engine::GetEcs()->AddComponent<PhysicsComponent>(carObject, {});
 			physicsComponent.SetMass(400.0f);
 			physicsComponent.centerOfMassOffset = Vector3f(0.0f, 0.17f * 0.5f, 0.0f);
-			physicsComponent.coefficientOfRestitution = 0.5f;
+			physicsComponent.coefficientOfRestitution = 0.0f;
+			physicsComponent.SetInertiaTensor(glm::mat3(900.0f));
 
 			// Setup de colisiones
 			CollisionComponent collider{};
@@ -1147,6 +1148,7 @@ private:
 
 		PhysicsComponent physicsComponent{};
 		physicsComponent.SetImmovable();
+		physicsComponent.coefficientOfRestitution = 0.0f;
 		Engine::GetEcs()->AddComponent<PhysicsComponent>(circuitObject, std::move(physicsComponent));
 
 		// Billboards

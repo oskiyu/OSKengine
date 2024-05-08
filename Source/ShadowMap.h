@@ -8,6 +8,9 @@
 
 #include <array>
 
+#include "Serializer.h"
+
+
 namespace OSK::ASSETS {
 	enum class ModelType;
 }
@@ -32,6 +35,8 @@ namespace OSK::GRAPHICS {
 	class OSKAPI_CALL ShadowMap {
 
 	public:
+
+		OSK_SERIALIZABLE();
 
 		/// @brief Inicializa el shadow map.
 		/// @param imageSize Resolución de la imagen del shadow map.
@@ -148,3 +153,5 @@ namespace OSK::GRAPHICS {
 	};
 
 }
+
+OSK_SERIALIZATION(OSK::GRAPHICS::ShadowMap);
