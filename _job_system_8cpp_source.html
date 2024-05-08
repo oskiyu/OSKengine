@@ -114,7 +114,7 @@ $(function(){initNavTree('_job_system_8cpp_source.html',''); initResizable(); })
 <div class="foldopen" id="foldopen00011" data-start="{" data-end="}">
 <div class="line"><a id="l00011" name="l00011"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_job_system.html#a1cdd6b1a4e9607e4585e78c187dddb52">   11</a></span><a class="code hl_function" href="class_o_s_k_1_1_job_system.html#a1cdd6b1a4e9607e4585e78c187dddb52">JobSystem::JobSystem</a>() : m_scheduledJobs(64) {</div>
 <div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span>    m_numThreads = glm::max&lt;USize32&gt;(1, std::thread::hardware_concurrency() - 1);</div>
-<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span> </div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span>    </div>
 <div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span>    <span class="keywordflow">for</span> (<a class="code hl_class" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">UIndex32</a> i = 0; i &lt; m_numThreads; i++) {</div>
 <div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span>        m_threads.<a class="code hl_function" href="class_o_s_k_1_1_dynamic_array.html#a4433c76207ce2ecad5e306b12575f1b3">Insert</a>(std::jthread([&amp;]() {</div>
 <div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span>            <span class="keywordflow">while</span> (m_isRunning) {</div>
@@ -218,7 +218,7 @@ $(function(){initNavTree('_job_system_8cpp_source.html',''); initResizable(); })
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_74389ed8173ad57b461b9d623a1f3867.html">Source</a></li><li class="navelem"><b>JobSystem.cpp</b></li>
-    <li class="footer">Generado el Lunes, 15 de abril de 2024 22:39:16 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.10.0 </li>
+    <li class="footer">Generado el Miércoles, 8 de mayo de 2024 10:59:29 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.10.0 </li>
   </ul>
 </div>
 </body>

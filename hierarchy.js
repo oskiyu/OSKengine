@@ -54,7 +54,6 @@ var hierarchy =
     [ "OSK::CpuMesh3D", "class_o_s_k_1_1_cpu_mesh3_d.html", null ],
     [ "OSK::CpuModel3D", "class_o_s_k_1_1_cpu_model3_d.html", null ],
     [ "OSK::CpuVertex3D", "struct_o_s_k_1_1_cpu_vertex3_d.html", null ],
-    [ "OSK::PERSISTENCE::DataNode", "class_o_s_k_1_1_p_e_r_s_i_s_t_e_n_c_e_1_1_data_node.html", null ],
     [ "OSK::GRAPHICS::DeferredPushConstants", "struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_deferred_push_constants.html", null ],
     [ "OSK::GRAPHICS::DescriptorBlockDx12", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_descriptor_block_dx12.html", null ],
     [ "OSK::GRAPHICS::DescriptorDx12", "struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_descriptor_dx12.html", null ],

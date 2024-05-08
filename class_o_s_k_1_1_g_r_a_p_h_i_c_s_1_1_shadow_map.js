@@ -6,6 +6,7 @@ var class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_shadow_map =
     [ "GetGpuBuffers", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_shadow_map.html#af79e6e94714f7dcdfc08ca4c28f193fb", null ],
     [ "GetNumCascades", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_shadow_map.html#a4f5b7a15d3de491b3c1a5a7a0edfef6d", null ],
     [ "GetShadowImage", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_shadow_map.html#a4b36944fb7a89178ed9678bec1f80951", null ],
+    [ "OSK_SERIALIZABLE", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_shadow_map.html#a3246ab0a2e57dbc36212df231cb987c0", null ],
     [ "SetDirectionalLight", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_shadow_map.html#ab750efcb37e8e0e58084096c18d1d0d6", null ],
     [ "SetFarPlane", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_shadow_map.html#a442fb43c3f179fe4ff0fb45d25a9516c", null ],
     [ "SetNearPlane", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_shadow_map.html#a9a93be174ec456f33bf027dff2dc7ef6", null ],

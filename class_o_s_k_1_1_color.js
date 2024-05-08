@@ -7,6 +7,7 @@ var class_o_s_k_1_1_color =
     [ "operator*", "class_o_s_k_1_1_color.html#a522b4d6569e8beaeb10c047c799f02ae", null ],
     [ "operator+", "class_o_s_k_1_1_color.html#a78478ec53f75bf0788f3a848e63abf3f", null ],
     [ "operator+=", "class_o_s_k_1_1_color.html#a3e3fb3f40d333fd48c33a635827b3964", null ],
+    [ "OSK_SERIALIZABLE", "class_o_s_k_1_1_color.html#a17ec66a008a17f75991161cdd2de2c19", null ],
     [ "ToGlm", "class_o_s_k_1_1_color.html#a858a2f4d502e74328218fa4d0e733d95", null ],
     [ "alpha", "class_o_s_k_1_1_color.html#a94853c8b197d396ab24c858dc56e6c1e", null ],
     [ "blue", "class_o_s_k_1_1_color.html#a0cdfcd637d22304e889b6add7def8107", null ],

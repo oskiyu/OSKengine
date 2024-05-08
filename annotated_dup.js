@@ -364,9 +364,6 @@ var annotated_dup =
       [ "NET", "namespace_o_s_k_1_1_n_e_t.html", [
         [ "GameObjectTranslator", "class_o_s_k_1_1_n_e_t_1_1_game_object_translator.html", "class_o_s_k_1_1_n_e_t_1_1_game_object_translator" ]
       ] ],
-      [ "PERSISTENCE", "namespace_o_s_k_1_1_p_e_r_s_i_s_t_e_n_c_e.html", [
-        [ "DataNode", "class_o_s_k_1_1_p_e_r_s_i_s_t_e_n_c_e_1_1_data_node.html", "class_o_s_k_1_1_p_e_r_s_i_s_t_e_n_c_e_1_1_data_node" ]
-      ] ],
       [ "UI", "namespace_o_s_k_1_1_u_i.html", [
         [ "Button", "class_o_s_k_1_1_u_i_1_1_button.html", "class_o_s_k_1_1_u_i_1_1_button" ],
         [ "Dropdown", "class_o_s_k_1_1_u_i_1_1_dropdown.html", "class_o_s_k_1_1_u_i_1_1_dropdown" ],

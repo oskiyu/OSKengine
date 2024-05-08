@@ -40,6 +40,7 @@ var class_o_s_k_1_1_e_c_s_1_1_gdr_deferred_render_system =
     [ "OnRemove", "class_o_s_k_1_1_e_c_s_1_1_gdr_deferred_render_system.html#a43e7608ce2a31c9c13b42cf4ce6eb0ef", null ],
     [ "OnRenderEnd", "class_o_s_k_1_1_e_c_s_1_1_gdr_deferred_render_system.html#aaff54e4b3e1fae77c5aa8cd72e87c94e", null ],
     [ "OnRenderStart", "class_o_s_k_1_1_e_c_s_1_1_gdr_deferred_render_system.html#a69f59e0404de6bbc5e4c49a559cce65b", null ],
+    [ "OSK_SERIALIZABLE", "class_o_s_k_1_1_e_c_s_1_1_gdr_deferred_render_system.html#aa97768189e71dbccd9ffbb0b9c58ab8e", null ],
     [ "OSK_SYSTEM", "class_o_s_k_1_1_e_c_s_1_1_gdr_deferred_render_system.html#ace4f10e6f8364755de65650acff80088", null ],
     [ "OSK_SYSTEM", "class_o_s_k_1_1_e_c_s_1_1_gdr_deferred_render_system.html#a4cdcb699edc4c31cf23918a9a56d45a1", null ],
     [ "Render", "class_o_s_k_1_1_e_c_s_1_1_gdr_deferred_render_system.html#a8ffad8506c3d96d67f84950a8d308bd3", null ],
