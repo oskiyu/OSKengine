@@ -124,8 +124,7 @@ var annotated_dup =
         [ "RenderBoundsRenderer", "class_o_s_k_1_1_e_c_s_1_1_render_bounds_renderer.html", "class_o_s_k_1_1_e_c_s_1_1_render_bounds_renderer" ],
         [ "RenderSystem2D", "class_o_s_k_1_1_e_c_s_1_1_render_system2_d.html", "class_o_s_k_1_1_e_c_s_1_1_render_system2_d" ],
         [ "RenderSystem3D", "class_o_s_k_1_1_e_c_s_1_1_render_system3_d.html", "class_o_s_k_1_1_e_c_s_1_1_render_system3_d" ],
-        [ "Scene", "class_o_s_k_1_1_e_c_s_1_1_scene.html", "class_o_s_k_1_1_e_c_s_1_1_scene" ],
-        [ "SistemPriorityQueue", "struct_o_s_k_1_1_e_c_s_1_1_sistem_priority_queue.html", "struct_o_s_k_1_1_e_c_s_1_1_sistem_priority_queue" ],
+        [ "SavedGameObjectTranslator", "class_o_s_k_1_1_e_c_s_1_1_saved_game_object_translator.html", "class_o_s_k_1_1_e_c_s_1_1_saved_game_object_translator" ],
         [ "SkyboxRenderSystem", "class_o_s_k_1_1_e_c_s_1_1_skybox_render_system.html", "class_o_s_k_1_1_e_c_s_1_1_skybox_render_system" ],
         [ "SystemAlreadyRegisteredException", "class_o_s_k_1_1_e_c_s_1_1_system_already_registered_exception.html", "class_o_s_k_1_1_e_c_s_1_1_system_already_registered_exception" ],
         [ "SystemCyclicDependencyException", "class_o_s_k_1_1_e_c_s_1_1_system_cyclic_dependency_exception.html", "class_o_s_k_1_1_e_c_s_1_1_system_cyclic_dependency_exception" ],
@@ -302,6 +301,7 @@ var annotated_dup =
         [ "RtShaderTableVk", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_rt_shader_table_vk.html", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_rt_shader_table_vk" ],
         [ "ShaderCompilingException", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_shader_compiling_exception.html", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_shader_compiling_exception" ],
         [ "ShaderLoadingException", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_shader_loading_exception.html", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_shader_loading_exception" ],
+        [ "ShaderPassFactory", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_shader_pass_factory.html", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_shader_pass_factory" ],
         [ "ShaderPassTable", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_shader_pass_table.html", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_shader_pass_table" ],
         [ "ShaderStageDx12", "struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_shader_stage_dx12.html", "struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_shader_stage_dx12" ],
         [ "ShaderStageVk", "struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_shader_stage_vk.html", "struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_shader_stage_vk" ],
@@ -364,6 +364,10 @@ var annotated_dup =
       [ "NET", "namespace_o_s_k_1_1_n_e_t.html", [
         [ "GameObjectTranslator", "class_o_s_k_1_1_n_e_t_1_1_game_object_translator.html", "class_o_s_k_1_1_n_e_t_1_1_game_object_translator" ]
       ] ],
+      [ "PERSISTENCE", "namespace_o_s_k_1_1_p_e_r_s_i_s_t_e_n_c_e.html", [
+        [ "BinaryBlock", "class_o_s_k_1_1_p_e_r_s_i_s_t_e_n_c_e_1_1_binary_block.html", "class_o_s_k_1_1_p_e_r_s_i_s_t_e_n_c_e_1_1_binary_block" ],
+        [ "BinaryBlockReader", "class_o_s_k_1_1_p_e_r_s_i_s_t_e_n_c_e_1_1_binary_block_reader.html", "class_o_s_k_1_1_p_e_r_s_i_s_t_e_n_c_e_1_1_binary_block_reader" ]
+      ] ],
       [ "UI", "namespace_o_s_k_1_1_u_i.html", [
         [ "Button", "class_o_s_k_1_1_u_i_1_1_button.html", "class_o_s_k_1_1_u_i_1_1_button" ],
         [ "Dropdown", "class_o_s_k_1_1_u_i_1_1_dropdown.html", "class_o_s_k_1_1_u_i_1_1_dropdown" ],
@@ -390,11 +394,13 @@ var annotated_dup =
       [ "DynamicArray", "class_o_s_k_1_1_dynamic_array.html", "class_o_s_k_1_1_dynamic_array" ],
       [ "Engine", "class_o_s_k_1_1_engine.html", "class_o_s_k_1_1_engine" ],
       [ "EngineException", "class_o_s_k_1_1_engine_exception.html", "class_o_s_k_1_1_engine_exception" ],
+      [ "FinishedBlockReaderException", "class_o_s_k_1_1_finished_block_reader_exception.html", "class_o_s_k_1_1_finished_block_reader_exception" ],
       [ "IGame", "class_o_s_k_1_1_i_game.html", "class_o_s_k_1_1_i_game" ],
       [ "IIterable", "class_o_s_k_1_1_i_iterable.html", "class_o_s_k_1_1_i_iterable" ],
       [ "IIterator", "class_o_s_k_1_1_i_iterator.html", null ],
       [ "IJob", "class_o_s_k_1_1_i_job.html", "class_o_s_k_1_1_i_job" ],
       [ "InvalidArgumentException", "class_o_s_k_1_1_invalid_argument_exception.html", "class_o_s_k_1_1_invalid_argument_exception" ],
+      [ "InvalidBinaryDeserializationException", "class_o_s_k_1_1_invalid_binary_deserialization_exception.html", "class_o_s_k_1_1_invalid_binary_deserialization_exception" ],
       [ "InvalidObjectStateException", "class_o_s_k_1_1_invalid_object_state_exception.html", "class_o_s_k_1_1_invalid_object_state_exception" ],
       [ "IQueryInterface", "class_o_s_k_1_1_i_query_interface.html", "class_o_s_k_1_1_i_query_interface" ],
       [ "JobCountMap", "class_o_s_k_1_1_job_count_map.html", "class_o_s_k_1_1_job_count_map" ],

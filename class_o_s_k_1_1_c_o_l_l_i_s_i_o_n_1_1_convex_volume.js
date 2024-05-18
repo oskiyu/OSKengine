@@ -20,7 +20,6 @@ var class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_convex_volume =
     [ "GetWorldSpaceAxis", "class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_convex_volume.html#ac70afb1f04343f09f5640daadcdc828b", null ],
     [ "MergeFaces", "class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_convex_volume.html#aa4a9d00bd1c156e6d3447da73bcc2817", null ],
     [ "OSK_DEFINE_AS", "class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_convex_volume.html#a6eda8ff8ca88b4247601e9d1b13a7939", null ],
-    [ "Transform", "class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_convex_volume.html#a532ab8b6b3544135c09a125e755c418b", null ],
-    [ "PERSISTENCE::DeserializeJson", "class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_convex_volume.html#aafb780ec1060e230381806dc0a930fa0", null ],
-    [ "PERSISTENCE::SerializeJson", "class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_convex_volume.html#a9346abf070e067da503c7d6a7db79182", null ]
+    [ "OSK_SERIALIZABLE", "class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_convex_volume.html#ab1eb3c47ec99baf526e46d33f86ffcb0", null ],
+    [ "Transform", "class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_convex_volume.html#a532ab8b6b3544135c09a125e755c418b", null ]
 ];

@@ -129,59 +129,48 @@ $(function(){initNavTree('_camera_component2_d_8h_source.html',''); initResizabl
 <div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span> </div>
 <div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>    <span class="keyword">public</span>:</div>
 <div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span> </div>
-<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>        <span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="line"><a id="l00029" name="l00029"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_e_c_s_1_1_camera_component2_d.html#a9346abf070e067da503c7d6a7db79182">   29</a></span>        <span class="keyword">friend</span> nlohmann::json PERSISTENCE::SerializeJson&lt;T&gt;(<span class="keyword">const</span> T&amp; data);</div>
-<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span> </div>
-<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>        <span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="line"><a id="l00032" name="l00032"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_e_c_s_1_1_camera_component2_d.html#aafb780ec1060e230381806dc0a930fa0">   32</a></span>        <span class="keyword">friend</span> T PERSISTENCE::DeserializeJson&lt;T&gt;(<span class="keyword">const</span> nlohmann::json&amp; data);</div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_e_c_s_1_1_camera_component2_d.html#a6cc1ed6e27b2c937b57bcf172d8e7fbb">   28</a></span>        <a class="code hl_function" href="class_o_s_k_1_1_e_c_s_1_1_camera_component2_d.html#a6cc1ed6e27b2c937b57bcf172d8e7fbb">OSK_SERIALIZABLE_COMPONENT</a>();</div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span> </div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>    <span class="keyword">public</span>:</div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span> </div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_e_c_s_1_1_camera_component2_d.html#aa7c89b0d072e7602f3e570b57e8511cb">   32</a></span>        <a class="code hl_function" href="class_o_s_k_1_1_e_c_s_1_1_camera_component2_d.html#aa7c89b0d072e7602f3e570b57e8511cb">OSK_COMPONENT</a>(<span class="stringliteral">&quot;OSK::CameraComponent2D&quot;</span>);</div>
 <div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span> </div>
-<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>    <span class="keyword">public</span>:</div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>        <a class="code hl_class" href="class_o_s_k_1_1_e_c_s_1_1_camera_component2_d.html">CameraComponent2D</a>();</div>
 <div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span> </div>
-<div class="line"><a id="l00036" name="l00036"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_e_c_s_1_1_camera_component2_d.html#aa7c89b0d072e7602f3e570b57e8511cb">   36</a></span>        <a class="code hl_function" href="class_o_s_k_1_1_e_c_s_1_1_camera_component2_d.html#aa7c89b0d072e7602f3e570b57e8511cb">OSK_COMPONENT</a>(<span class="stringliteral">&quot;OSK::CameraComponent2D&quot;</span>);</div>
-<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span> </div>
-<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>        <a class="code hl_class" href="class_o_s_k_1_1_e_c_s_1_1_camera_component2_d.html">CameraComponent2D</a>();</div>
-<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span> </div>
-<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>        <span class="keywordtype">void</span> LinkToDisplay(<span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_i_o_1_1_i_display.html">IO::IDisplay</a>* display);</div>
-<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span> </div>
-<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>        <span class="keywordtype">void</span> UnlinkDsiplay();</div>
-<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span> </div>
-<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>        <span class="keywordtype">void</span> SetTargetSize(<span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_vector2__t.html">Vector2f</a>&amp; targetSize);</div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>        <span class="keywordtype">void</span> LinkToDisplay(<span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_i_o_1_1_i_display.html">IO::IDisplay</a>* display);</div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span> </div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>        <span class="keywordtype">void</span> UnlinkDsiplay();</div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span> </div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>        <span class="keywordtype">void</span> SetTargetSize(<span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_vector2__t.html">Vector2f</a>&amp; targetSize);</div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span> </div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span> </div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>        glm::mat4 GetProjection(<span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_e_c_s_1_1_transform2_d.html">Transform2D</a>&amp; cameraTransform) <span class="keyword">const</span>;</div>
 <div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span> </div>
-<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span> </div>
-<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>        glm::mat4 GetProjection(<span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_e_c_s_1_1_transform2_d.html">Transform2D</a>&amp; cameraTransform) <span class="keyword">const</span>;</div>
-<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span> </div>
-<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>        <span class="keywordtype">void</span> UpdateUniformBuffer(<span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_e_c_s_1_1_transform2_d.html">Transform2D</a>&amp; cameraTransform);</div>
-<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span> </div>
-<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>        <a class="code hl_class" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_buffer.html">GRAPHICS::GpuBuffer</a>* GetUniformBuffer() <span class="keyword">const</span>;</div>
-<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span> </div>
-<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>        <a class="code hl_class" href="class_o_s_k_1_1_vector2__t.html">Vector2f</a> PointInWindowToPointInWorld(<span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_vector2__t.html">Vector2f</a>&amp; point) <span class="keyword">const</span>;</div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>        <span class="keywordtype">void</span> UpdateUniformBuffer(<span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_e_c_s_1_1_transform2_d.html">Transform2D</a>&amp; cameraTransform);</div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span> </div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>        <a class="code hl_class" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_buffer.html">GRAPHICS::GpuBuffer</a>* GetUniformBuffer() <span class="keyword">const</span>;</div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span> </div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>        <a class="code hl_class" href="class_o_s_k_1_1_vector2__t.html">Vector2f</a> PointInWindowToPointInWorld(<span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_vector2__t.html">Vector2f</a>&amp; point) <span class="keyword">const</span>;</div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span> </div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>    <span class="keyword">private</span>:</div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span> </div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>        <span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_i_o_1_1_i_display.html">IO::IDisplay</a>* m_display = <span class="keyword">nullptr</span>;</div>
 <div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span> </div>
-<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>    <span class="keyword">private</span>:</div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>        glm::mat4 m_projection = glm::mat4(1.0f);</div>
 <div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span> </div>
-<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>        <span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_i_o_1_1_i_display.html">IO::IDisplay</a>* m_display = <span class="keyword">nullptr</span>;</div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>        <a class="code hl_class" href="class_o_s_k_1_1_vector2__t.html">Vector2f</a> m_targetSize = Vector2f::Zero;</div>
 <div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span> </div>
-<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>        glm::mat4 m_projection = glm::mat4(1.0f);</div>
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>        <a class="code hl_class" href="class_o_s_k_1_1_unique_ptr.html">UniquePtr&lt;GRAPHICS::GpuBuffer&gt;</a> m_uniformBuffer;</div>
 <div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span> </div>
-<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span>        <a class="code hl_class" href="class_o_s_k_1_1_vector2__t.html">Vector2f</a> m_targetSize = Vector2f::Zero;</div>
+<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span>    };</div>
+</div>
 <div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span> </div>
-<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span>        <a class="code hl_class" href="class_o_s_k_1_1_unique_ptr.html">UniquePtr&lt;GRAPHICS::GpuBuffer&gt;</a> m_uniformBuffer;</div>
+<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span>}</div>
+</div>
 <div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span> </div>
-<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span>    };</div>
-</div>
-<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span> </div>
-<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span>}</div>
-</div>
-<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span> </div>
-<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span><span class="keyword">namespace </span><a class="code hl_namespace" href="namespace_o_s_k_1_1_p_e_r_s_i_s_t_e_n_c_e.html">OSK::PERSISTENCE</a> {</div>
-<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span> </div>
-<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span>    <span class="keyword">template</span> &lt;&gt;</div>
-<div class="line"><a id="l00088" name="l00088"></a><span class="lineno"><a class="line" href="namespace_o_s_k_1_1_p_e_r_s_i_s_t_e_n_c_e.html#a9479f3f915eac58196f250d0b6f59d6a">   88</a></span>    nlohmann::json <a class="code hl_function" href="namespace_o_s_k_1_1_p_e_r_s_i_s_t_e_n_c_e.html#a9479f3f915eac58196f250d0b6f59d6a">SerializeJson&lt;OSK::ECS::CameraComponent2D&gt;</a>(<span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_e_c_s_1_1_camera_component2_d.html">OSK::ECS::CameraComponent2D</a>&amp; data);</div>
-<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span> </div>
-<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span>    <span class="keyword">template</span> &lt;&gt;</div>
-<div class="line"><a id="l00091" name="l00091"></a><span class="lineno"><a class="line" href="namespace_o_s_k_1_1_p_e_r_s_i_s_t_e_n_c_e.html#a7228f670dab9e85c38cd59fa3c169e2f">   91</a></span>    <a class="code hl_class" href="class_o_s_k_1_1_e_c_s_1_1_camera_component2_d.html">OSK::ECS::CameraComponent2D</a> <a class="code hl_function" href="namespace_o_s_k_1_1_p_e_r_s_i_s_t_e_n_c_e.html#a7228f670dab9e85c38cd59fa3c169e2f">DeserializeJson&lt;OSK::ECS::CameraComponent2D&gt;</a>(<span class="keyword">const</span> nlohmann::json&amp; json);</div>
-<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span> </div>
-<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span>}</div>
+<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span>OSK_COMPONENT_SERIALIZATION(<a class="code hl_class" href="class_o_s_k_1_1_e_c_s_1_1_camera_component2_d.html">OSK::ECS::CameraComponent2D</a>);</div>
 <div class="ttc" id="aclass_o_s_k_1_1_e_c_s_1_1_camera_component2_d_html"><div class="ttname"><a href="class_o_s_k_1_1_e_c_s_1_1_camera_component2_d.html">OSK::ECS::CameraComponent2D</a></div><div class="ttdoc">Cámara para un mundo de dos dimensiones.</div><div class="ttdef"><b>Definition</b> <a href="#l00024">CameraComponent2D.h:24</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_e_c_s_1_1_camera_component2_d_html_a6cc1ed6e27b2c937b57bcf172d8e7fbb"><div class="ttname"><a href="class_o_s_k_1_1_e_c_s_1_1_camera_component2_d.html#a6cc1ed6e27b2c937b57bcf172d8e7fbb">OSK::ECS::CameraComponent2D::OSK_SERIALIZABLE_COMPONENT</a></div><div class="ttdeci">OSK_SERIALIZABLE_COMPONENT()</div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_e_c_s_1_1_camera_component2_d_html_aa7c89b0d072e7602f3e570b57e8511cb"><div class="ttname"><a href="class_o_s_k_1_1_e_c_s_1_1_camera_component2_d.html#aa7c89b0d072e7602f3e570b57e8511cb">OSK::ECS::CameraComponent2D::OSK_COMPONENT</a></div><div class="ttdeci">OSK_COMPONENT(&quot;OSK::CameraComponent2D&quot;)</div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_e_c_s_1_1_transform2_d_html"><div class="ttname"><a href="class_o_s_k_1_1_e_c_s_1_1_transform2_d.html">OSK::ECS::Transform2D</a></div><div class="ttdoc">Clase que almacena el 'transform' de un objeto en un mundo 2D. El transform contiene posición,...</div><div class="ttdef"><b>Definition</b> <a href="_transform2_d_8h_source.html#l00020">Transform2D.h:20</a></div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_buffer_html"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_buffer.html">OSK::GRAPHICS::GpuBuffer</a></div><div class="ttdoc">Representa un buffer que contiene información accesible desde la GPU.</div><div class="ttdef"><b>Definition</b> <a href="_gpu_buffer_8h_source.html#l00023">GpuBuffer.h:23</a></div></div>
@@ -190,16 +179,13 @@ $(function(){initNavTree('_camera_component2_d_8h_source.html',''); initResizabl
 <div class="ttc" id="aclass_o_s_k_1_1_vector2__t_html"><div class="ttname"><a href="class_o_s_k_1_1_vector2__t.html">OSK::Vector2_t&lt; float_t &gt;</a></div></div>
 <div class="ttc" id="anamespace_o_s_k_1_1_e_c_s_html"><div class="ttname"><a href="namespace_o_s_k_1_1_e_c_s.html">OSK::ECS</a></div><div class="ttdef"><b>Definition</b> <a href="#l00017">CameraComponent2D.h:17</a></div></div>
 <div class="ttc" id="anamespace_o_s_k_1_1_i_o_html"><div class="ttname"><a href="namespace_o_s_k_1_1_i_o.html">OSK::IO</a></div><div class="ttdef"><b>Definition</b> <a href="#l00013">CameraComponent2D.h:13</a></div></div>
-<div class="ttc" id="anamespace_o_s_k_1_1_p_e_r_s_i_s_t_e_n_c_e_html"><div class="ttname"><a href="namespace_o_s_k_1_1_p_e_r_s_i_s_t_e_n_c_e.html">OSK::PERSISTENCE</a></div><div class="ttdef"><b>Definition</b> <a href="_axis_aligned_bounding_box_8h_source.html#l00071">AxisAlignedBoundingBox.h:71</a></div></div>
-<div class="ttc" id="anamespace_o_s_k_1_1_p_e_r_s_i_s_t_e_n_c_e_html_a7228f670dab9e85c38cd59fa3c169e2f"><div class="ttname"><a href="namespace_o_s_k_1_1_p_e_r_s_i_s_t_e_n_c_e.html#a7228f670dab9e85c38cd59fa3c169e2f">OSK::PERSISTENCE::DeserializeJson&lt; OSK::ECS::CameraComponent2D &gt;</a></div><div class="ttdeci">OSK::ECS::CameraComponent2D DeserializeJson&lt; OSK::ECS::CameraComponent2D &gt;(const nlohmann::json &amp;json)</div></div>
-<div class="ttc" id="anamespace_o_s_k_1_1_p_e_r_s_i_s_t_e_n_c_e_html_a9479f3f915eac58196f250d0b6f59d6a"><div class="ttname"><a href="namespace_o_s_k_1_1_p_e_r_s_i_s_t_e_n_c_e.html#a9479f3f915eac58196f250d0b6f59d6a">OSK::PERSISTENCE::SerializeJson&lt; OSK::ECS::CameraComponent2D &gt;</a></div><div class="ttdeci">nlohmann::json SerializeJson&lt; OSK::ECS::CameraComponent2D &gt;(const OSK::ECS::CameraComponent2D &amp;data)</div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_74389ed8173ad57b461b9d623a1f3867.html">Source</a></li><li class="navelem"><b>CameraComponent2D.h</b></li>
-    <li class="footer">Generado el Miércoles, 8 de mayo de 2024 10:59:28 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.10.0 </li>
+    <li class="footer">Generado el Sábado, 18 de mayo de 2024 12:15:50 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.10.0 </li>
   </ul>
 </div>
 </body>

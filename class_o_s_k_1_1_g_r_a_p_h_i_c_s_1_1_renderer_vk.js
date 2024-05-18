@@ -41,6 +41,7 @@ var class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderer_vk =
     [ "GetOptimalQueue", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderer_vk.html#a9dc8c9d5933f38ebd5098cd69ebfe9f1", null ],
     [ "GetPresentationQueue", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderer_vk.html#a8f39e08a0c315691de3bb54cf763cbd7", null ],
     [ "GetRenderApi", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderer_vk.html#a5715d7eea84cc2dae21fb5ef208e5a8e", null ],
+    [ "GetShaderPassFactory", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderer_vk.html#a84c29bbaf244e830f851f0c0f7b5710f", null ],
     [ "GetSwapchainImagesCount", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderer_vk.html#a08babe0ff626006e6e452303430297f6", null ],
     [ "GetTransferOnlyCommandPool", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderer_vk.html#a1d76dc5182d532b5866f4ec1f19a0b72", null ],
     [ "GetTransferOnlyQueue", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderer_vk.html#a4259fa2e298d55a14c22e20015b958de", null ],

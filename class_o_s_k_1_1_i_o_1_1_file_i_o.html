@@ -106,6 +106,8 @@ $(function(){initNavTree('class_o_s_k_1_1_i_o_1_1_file_i_o.html',''); initResiza
 Métodos públicos estáticos</h2></td></tr>
 <tr class="memitem:aada122cc56077d9fa6b115d56f36ad2d" id="r_aada122cc56077d9fa6b115d56f36ad2d"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aada122cc56077d9fa6b115d56f36ad2d">WriteFile</a> (std::string_view path, const std::string &amp;text)</td></tr>
 <tr class="separator:aada122cc56077d9fa6b115d56f36ad2d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a81c6de9d04e967ed2f8a79c1b6fafd27" id="r_a81c6de9d04e967ed2f8a79c1b6fafd27"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a81c6de9d04e967ed2f8a79c1b6fafd27">WriteBinaryFile</a> (std::string_view path, std::span&lt; <a class="el" href="namespace_o_s_k.html#a79ac5831e0b2433213dacbfc636f4d8f">TByte</a> const &gt; data)</td></tr>
+<tr class="separator:a81c6de9d04e967ed2f8a79c1b6fafd27"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2b0cbc143a260002237995365ad87e4f" id="r_a2b0cbc143a260002237995365ad87e4f"><td class="memItemLeft" align="right" valign="top">static std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a2b0cbc143a260002237995365ad87e4f">ReadFromFile</a> (std::string_view path)</td></tr>
 <tr class="separator:a2b0cbc143a260002237995365ad87e4f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5016ee7b64adc1e95f52ce3f847370c2" id="r_a5016ee7b64adc1e95f52ce3f847370c2"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="class_o_s_k_1_1_dynamic_array.html">DynamicArray</a>&lt; char &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a5016ee7b64adc1e95f52ce3f847370c2">ReadBinaryFromFile</a> (std::string_view filename)</td></tr>
@@ -150,7 +152,7 @@ Métodos públicos estáticos</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Devuelve</dt><dd>True si existe.</dd></dl>
 
-<p class="definition">Definición en la línea <a class="el" href="_file_i_o_8cpp_source.html#l00060">60</a> del archivo <a class="el" href="_file_i_o_8cpp_source.html">FileIO.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_file_i_o_8cpp_source.html#l00065">65</a> del archivo <a class="el" href="_file_i_o_8cpp_source.html">FileIO.cpp</a>.</p>
 
 </div>
 </div>
@@ -192,7 +194,7 @@ Métodos públicos estáticos</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definición en la línea <a class="el" href="_file_i_o_8cpp_source.html#l00040">40</a> del archivo <a class="el" href="_file_i_o_8cpp_source.html">FileIO.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_file_i_o_8cpp_source.html#l00045">45</a> del archivo <a class="el" href="_file_i_o_8cpp_source.html">FileIO.cpp</a>.</p>
 
 </div>
 </div>
@@ -234,7 +236,47 @@ Métodos públicos estáticos</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definición en la línea <a class="el" href="_file_i_o_8cpp_source.html#l00022">22</a> del archivo <a class="el" href="_file_i_o_8cpp_source.html">FileIO.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_file_i_o_8cpp_source.html#l00027">27</a> del archivo <a class="el" href="_file_i_o_8cpp_source.html">FileIO.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a81c6de9d04e967ed2f8a79c1b6fafd27" name="a81c6de9d04e967ed2f8a79c1b6fafd27"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a81c6de9d04e967ed2f8a79c1b6fafd27">&#9670;&#160;</a></span>WriteBinaryFile()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void FileIO::WriteBinaryFile </td>
+          <td>(</td>
+          <td class="paramtype">std::string_view</td>          <td class="paramname"><span class="paramname"><em>path</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::span&lt; <a class="el" href="namespace_o_s_k.html#a79ac5831e0b2433213dacbfc636f4d8f">TByte</a> const &gt;</td>          <td class="paramname"><span class="paramname"><em>data</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Escribe un archivo binario. </p>
+<dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">path</td><td>Ruta del archivo (incluyendo extensión). </td></tr>
+    <tr><td class="paramname">data</td><td>Datos (bytes) a escribir). </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definición en la línea <a class="el" href="_file_i_o_8cpp_source.html#l00021">21</a> del archivo <a class="el" href="_file_i_o_8cpp_source.html">FileIO.cpp</a>.</p>
 
 </div>
 </div>
@@ -284,7 +326,7 @@ Métodos públicos estáticos</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="namespace_o_s_k.html">OSK</a></li><li class="navelem"><a class="el" href="namespace_o_s_k_1_1_i_o.html">IO</a></li><li class="navelem"><a class="el" href="class_o_s_k_1_1_i_o_1_1_file_i_o.html">FileIO</a></li>
-    <li class="footer">Generado el Miércoles, 8 de mayo de 2024 10:59:32 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.10.0 </li>
+    <li class="footer">Generado el Sábado, 18 de mayo de 2024 12:15:54 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.10.0 </li>
   </ul>
 </div>
 </body>

@@ -58,6 +58,7 @@ var class_o_s_k_1_1_e_c_s_1_1_gdr_deferred_render_system =
     [ "SharpenTaa", "class_o_s_k_1_1_e_c_s_1_1_gdr_deferred_render_system.html#ab2933294318ce479c0d60eca786f0561", null ],
     [ "ToggleActivationStatus", "class_o_s_k_1_1_e_c_s_1_1_gdr_deferred_render_system.html#a01bbb5166a33e4484f42fcc6f03494b4", null ],
     [ "ToggleTaa", "class_o_s_k_1_1_e_c_s_1_1_gdr_deferred_render_system.html#a566cf130b7067e8a14a5fbb0dbe68514", null ],
+    [ "UpdatePassesCamera", "class_o_s_k_1_1_e_c_s_1_1_gdr_deferred_render_system.html#ad5f82c2ecaae3bc7f77ae4bb92e7a3dd", null ],
     [ "UpdatePerPassObjectLists", "class_o_s_k_1_1_e_c_s_1_1_gdr_deferred_render_system.html#a4b91799c0c70efc67aa652a20efd5bed", null ],
     [ "UpdateResolveMaterial", "class_o_s_k_1_1_e_c_s_1_1_gdr_deferred_render_system.html#ae6a08d6e705ed37deff7831407e53d51", null ],
     [ "m_cameraBuffers", "class_o_s_k_1_1_e_c_s_1_1_gdr_deferred_render_system.html#adabf5ac56640342e44955fc11b6df99c", null ],

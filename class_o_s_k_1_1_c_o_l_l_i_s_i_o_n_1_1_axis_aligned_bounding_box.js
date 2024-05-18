@@ -13,8 +13,7 @@ var class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_axis_aligned_bounding_box =
     [ "IsColliding", "class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_axis_aligned_bounding_box.html#a4b290a84aaa8832d48f3fb39c4cae6fa", null ],
     [ "IsInsideFrustum", "class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_axis_aligned_bounding_box.html#a9e091a94aa54d26d77726117bec626d3", null ],
     [ "OSK_DEFINE_AS", "class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_axis_aligned_bounding_box.html#a00e8239b01b8eeff8cbdcff1b4b0a3e2", null ],
+    [ "OSK_SERIALIZABLE", "class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_axis_aligned_bounding_box.html#a8355ce57c4cfa0ac93d04cd39edce14e", null ],
     [ "SetPosition", "class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_axis_aligned_bounding_box.html#ae277a42277fb593dfa5dff4248f4cde4", null ],
-    [ "SetSize", "class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_axis_aligned_bounding_box.html#ae00ef70ed4bb09c07e04c8c61cfe1d7c", null ],
-    [ "PERSISTENCE::DeserializeJson", "class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_axis_aligned_bounding_box.html#aafb780ec1060e230381806dc0a930fa0", null ],
-    [ "PERSISTENCE::SerializeJson", "class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_axis_aligned_bounding_box.html#a9346abf070e067da503c7d6a7db79182", null ]
+    [ "SetSize", "class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_axis_aligned_bounding_box.html#ae00ef70ed4bb09c07e04c8c61cfe1d7c", null ]
 ];

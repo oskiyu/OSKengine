@@ -11,6 +11,7 @@ var class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_shadows_pass =
     [ "RenderLoop", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_shadows_pass.html#a164d584c6a0c3455dacc882504628ffa", null ],
     [ "SetCamera", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_shadows_pass.html#a8f6d85b84886a9dabde560fc3921c689", null ],
     [ "SetupMaterialInstance", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_shadows_pass.html#aefdfbd7828be9044cbff5f89ebd14f19", null ],
+    [ "SetupShadowMap", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_shadows_pass.html#ac88cf317b6be84b7fc2af2d0abc983ae", null ],
     [ "ShadowsRenderLoop", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_shadows_pass.html#a6eb8b515dd250aa79bf12792e95d9ee2", null ],
     [ "UpdateLocalMeshMapping", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_shadows_pass.html#a33423437d12681591b8f8c00da1bdaa0", null ],
     [ "m_cameraObject", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_shadows_pass.html#a5b6bae2d0bf919d36a9dc7791fd3d589", null ],

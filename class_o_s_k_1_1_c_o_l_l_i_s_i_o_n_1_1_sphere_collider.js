@@ -11,8 +11,7 @@ var class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_sphere_collider =
     [ "IsColliding", "class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_sphere_collider.html#a68283d0ccbcb4f54cd848f3be2fcc130", null ],
     [ "IsInsideFrustum", "class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_sphere_collider.html#a9e091a94aa54d26d77726117bec626d3", null ],
     [ "OSK_DEFINE_AS", "class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_sphere_collider.html#a00e8239b01b8eeff8cbdcff1b4b0a3e2", null ],
+    [ "OSK_SERIALIZABLE", "class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_sphere_collider.html#ad4f7d129af251c1cf76cabe217af4a30", null ],
     [ "SetPosition", "class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_sphere_collider.html#ae277a42277fb593dfa5dff4248f4cde4", null ],
-    [ "SetRadius", "class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_sphere_collider.html#ac1fc994c3b9caa0953597288a516b43a", null ],
-    [ "PERSISTENCE::DeserializeJson", "class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_sphere_collider.html#aafb780ec1060e230381806dc0a930fa0", null ],
-    [ "PERSISTENCE::SerializeJson", "class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_sphere_collider.html#a9346abf070e067da503c7d6a7db79182", null ]
+    [ "SetRadius", "class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_sphere_collider.html#ac1fc994c3b9caa0953597288a516b43a", null ]
 ];

@@ -8,7 +8,6 @@ var class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_collider =
     [ "GetCollisionInfo", "class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_collider.html#a4c70ae11446ae9dba266440e4b029c3c", null ],
     [ "GetTopLevelCollider", "class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_collider.html#ab1e73144461cd3c7dbaee795d69bf1b2", null ],
     [ "GetTopLevelCollider", "class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_collider.html#a5a1b4838806e5f6572d9e5b041d66826", null ],
-    [ "SetTopLevelCollider", "class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_collider.html#ac7b24a3ba100b7a59abb083483e85904", null ],
-    [ "PERSISTENCE::DeserializeJson", "class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_collider.html#aafb780ec1060e230381806dc0a930fa0", null ],
-    [ "PERSISTENCE::SerializeJson", "class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_collider.html#a9346abf070e067da503c7d6a7db79182", null ]
+    [ "OSK_SERIALIZABLE", "class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_collider.html#a4184dba7e64064ee48bfc6bc5f6686f4", null ],
+    [ "SetTopLevelCollider", "class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_collider.html#ac7b24a3ba100b7a59abb083483e85904", null ]
 ];

@@ -108,6 +108,8 @@ Métodos públicos</h2></td></tr>
 <tr class="separator:a40b51e0ad34509698db09ec56572ee53"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa946ee6a0e21a8d6194635204d033f85" id="r_aa946ee6a0e21a8d6194635204d033f85"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">void</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aa946ee6a0e21a8d6194635204d033f85">RemoveShaderPass</a> (std::string_view <a class="el" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">passName</a>)</td></tr>
 <tr class="separator:aa946ee6a0e21a8d6194635204d033f85"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abf87ae44e0e6a230dfcccf93a369efea" id="r_abf87ae44e0e6a230dfcccf93a369efea"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">void</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#abf87ae44e0e6a230dfcccf93a369efea">RemoveAllPasses</a> ()</td></tr>
+<tr class="separator:abf87ae44e0e6a230dfcccf93a369efea"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a31bd5cd7c3c640f9267632a7e0bb30b6" id="r_a31bd5cd7c3c640f9267632a7e0bb30b6"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">bool</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a31bd5cd7c3c640f9267632a7e0bb30b6">ContainsShaderPass</a> (std::string_view <a class="el" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">passName</a>) <a class="el" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">const</a></td></tr>
 <tr class="separator:a31bd5cd7c3c640f9267632a7e0bb30b6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a19e1041595cdf69be58130d8b69b1a34" id="r_a19e1041595cdf69be58130d8b69b1a34"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_shader_pass.html">GRAPHICS::IShaderPass</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a19e1041595cdf69be58130d8b69b1a34">GetShaderPass</a> (std::string_view <a class="el" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">passName</a>)</td></tr>
@@ -124,11 +126,13 @@ Métodos públicos</h2></td></tr>
 <tr class="separator:ab6640089ea49534b6c35e5f656b66dde"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a10b5abce8edd1f2ac55fa21c0223a947" id="r_a10b5abce8edd1f2ac55fa21c0223a947"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_o_s_k_1_1_dynamic_array.html">DynamicArray</a>&lt; <a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_shader_pass.html">GRAPHICS::IShaderPass</a> * &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a10b5abce8edd1f2ac55fa21c0223a947">GetAllPasses</a> ()</td></tr>
 <tr class="separator:a10b5abce8edd1f2ac55fa21c0223a947"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac99d262fab12f38374ecd280cfc073fc" id="r_ac99d262fab12f38374ecd280cfc073fc"><td class="memItemLeft" align="right" valign="top">std::span&lt; <a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_shader_pass.html">GRAPHICS::IShaderPass</a> *<a class="el" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">const</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ac99d262fab12f38374ecd280cfc073fc">GetAllPasses</a> () <a class="el" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">const</a></td></tr>
+<tr class="separator:ac99d262fab12f38374ecd280cfc073fc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Descripción detallada</h2>
 <div class="textblock"><p>Almacena los pases de renderizado de un sistema de renderizado, además de los objetos compatibles con cada paso. </p>
 
-<p class="definition">Definición en la línea <a class="el" href="_i_shader_pass_8h_source.html#l00132">132</a> del archivo <a class="el" href="_i_shader_pass_8h_source.html">IShaderPass.h</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_i_shader_pass_8h_source.html#l00134">134</a> del archivo <a class="el" href="_i_shader_pass_8h_source.html">IShaderPass.h</a>.</p>
 </div><h2 class="groupheader">Documentación de funciones miembro</h2>
 <a id="a3404dd8470ae516da7a0835087a9054f" name="a3404dd8470ae516da7a0835087a9054f"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a3404dd8470ae516da7a0835087a9054f">&#9670;&#160;</a></span>AddCompatibleObject()</h2>
@@ -163,7 +167,7 @@ Métodos públicos</h2></td></tr>
 <dd>
 <code>obj</code> no debe haber sido previamente añadido al pase indicado. </dd></dl>
 
-<p class="definition">Definición en la línea <a class="el" href="_i_shader_pass_8cpp_source.html#l00142">142</a> del archivo <a class="el" href="_i_shader_pass_8cpp_source.html">IShaderPass.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_i_shader_pass_8cpp_source.html#l00149">149</a> del archivo <a class="el" href="_i_shader_pass_8cpp_source.html">IShaderPass.cpp</a>.</p>
 
 </div>
 </div>
@@ -211,12 +215,12 @@ Métodos públicos</h2></td></tr>
 </div><div class="memdoc">
 <dl class="section return"><dt>Devuelve</dt><dd>True si la tabla contiene un pase con el nombre <code>passName</code>. </dd></dl>
 
-<p class="definition">Definición en la línea <a class="el" href="_i_shader_pass_8cpp_source.html#l00130">130</a> del archivo <a class="el" href="_i_shader_pass_8cpp_source.html">IShaderPass.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_i_shader_pass_8cpp_source.html#l00137">137</a> del archivo <a class="el" href="_i_shader_pass_8cpp_source.html">IShaderPass.cpp</a>.</p>
 
 </div>
 </div>
 <a id="a10b5abce8edd1f2ac55fa21c0223a947" name="a10b5abce8edd1f2ac55fa21c0223a947"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a10b5abce8edd1f2ac55fa21c0223a947">&#9670;&#160;</a></span>GetAllPasses()</h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a10b5abce8edd1f2ac55fa21c0223a947">&#9670;&#160;</a></span>GetAllPasses() <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -231,7 +235,27 @@ Métodos públicos</h2></td></tr>
 </div><div class="memdoc">
 <dl class="section return"><dt>Devuelve</dt><dd>Todos los pases almacenados en la tabla. </dd></dl>
 
-<p class="definition">Definición en la línea <a class="el" href="_i_shader_pass_8cpp_source.html#l00158">158</a> del archivo <a class="el" href="_i_shader_pass_8cpp_source.html">IShaderPass.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_i_shader_pass_8cpp_source.html#l00165">165</a> del archivo <a class="el" href="_i_shader_pass_8cpp_source.html">IShaderPass.cpp</a>.</p>
+
+</div>
+</div>
+<a id="ac99d262fab12f38374ecd280cfc073fc" name="ac99d262fab12f38374ecd280cfc073fc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac99d262fab12f38374ecd280cfc073fc">&#9670;&#160;</a></span>GetAllPasses() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::span&lt; <a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_shader_pass.html">GRAPHICS::IShaderPass</a> *<a class="el" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">const</a> &gt; ShaderPassTable::GetAllPasses </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Devuelve</dt><dd>Todos los pases almacenados en la tabla. </dd></dl>
+
+<p class="definition">Definición en la línea <a class="el" href="_i_shader_pass_8cpp_source.html#l00169">169</a> del archivo <a class="el" href="_i_shader_pass_8cpp_source.html">IShaderPass.cpp</a>.</p>
 
 </div>
 </div>
@@ -258,7 +282,7 @@ Métodos públicos</h2></td></tr>
 <dl class="section return"><dt>Devuelve</dt><dd>Lista con los objetos compatibles con el pase. </dd></dl>
 <dl class="section pre"><dt>Precondición</dt><dd>Debe haber un pase dentro de la tabla con el nombre <code>passName</code>. </dd></dl>
 
-<p class="definition">Definición en la línea <a class="el" href="_i_shader_pass_8cpp_source.html#l00150">150</a> del archivo <a class="el" href="_i_shader_pass_8cpp_source.html">IShaderPass.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_i_shader_pass_8cpp_source.html#l00157">157</a> del archivo <a class="el" href="_i_shader_pass_8cpp_source.html">IShaderPass.cpp</a>.</p>
 
 </div>
 </div>
@@ -277,7 +301,7 @@ Métodos públicos</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definición en la línea <a class="el" href="_i_shader_pass_8cpp_source.html#l00154">154</a> del archivo <a class="el" href="_i_shader_pass_8cpp_source.html">IShaderPass.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_i_shader_pass_8cpp_source.html#l00161">161</a> del archivo <a class="el" href="_i_shader_pass_8cpp_source.html">IShaderPass.cpp</a>.</p>
 
 </div>
 </div>
@@ -304,7 +328,7 @@ Métodos públicos</h2></td></tr>
 <dl class="section return"><dt>Devuelve</dt><dd>Pase con el nombre dado. </dd></dl>
 <dl class="section pre"><dt>Precondición</dt><dd>Debe haber un pase dentro de la tabla con el nombre <code>passName</code>. </dd></dl>
 
-<p class="definition">Definición en la línea <a class="el" href="_i_shader_pass_8cpp_source.html#l00134">134</a> del archivo <a class="el" href="_i_shader_pass_8cpp_source.html">IShaderPass.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_i_shader_pass_8cpp_source.html#l00141">141</a> del archivo <a class="el" href="_i_shader_pass_8cpp_source.html">IShaderPass.cpp</a>.</p>
 
 </div>
 </div>
@@ -323,7 +347,28 @@ Métodos públicos</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definición en la línea <a class="el" href="_i_shader_pass_8cpp_source.html#l00137">137</a> del archivo <a class="el" href="_i_shader_pass_8cpp_source.html">IShaderPass.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_i_shader_pass_8cpp_source.html#l00144">144</a> del archivo <a class="el" href="_i_shader_pass_8cpp_source.html">IShaderPass.cpp</a>.</p>
+
+</div>
+</div>
+<a id="abf87ae44e0e6a230dfcccf93a369efea" name="abf87ae44e0e6a230dfcccf93a369efea"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abf87ae44e0e6a230dfcccf93a369efea">&#9670;&#160;</a></span>RemoveAllPasses()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">void</a> ShaderPassTable::RemoveAllPasses </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Elimina todos los pases. </p>
+
+<p class="definition">Definición en la línea <a class="el" href="_i_shader_pass_8cpp_source.html#l00130">130</a> del archivo <a class="el" href="_i_shader_pass_8cpp_source.html">IShaderPass.cpp</a>.</p>
 
 </div>
 </div>
@@ -358,7 +403,7 @@ Métodos públicos</h2></td></tr>
 <dd>
 <code>obj</code> debe haber sido previamente añadido al pase indicado. </dd></dl>
 
-<p class="definition">Definición en la línea <a class="el" href="_i_shader_pass_8cpp_source.html#l00146">146</a> del archivo <a class="el" href="_i_shader_pass_8cpp_source.html">IShaderPass.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_i_shader_pass_8cpp_source.html#l00153">153</a> del archivo <a class="el" href="_i_shader_pass_8cpp_source.html">IShaderPass.cpp</a>.</p>
 
 </div>
 </div>
@@ -396,7 +441,7 @@ Métodos públicos</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="namespace_o_s_k.html">OSK</a></li><li class="navelem"><a class="el" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html">GRAPHICS</a></li><li class="navelem"><a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_shader_pass_table.html">ShaderPassTable</a></li>
-    <li class="footer">Generado el Miércoles, 8 de mayo de 2024 10:59:32 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.10.0 </li>
+    <li class="footer">Generado el Sábado, 18 de mayo de 2024 12:15:54 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.10.0 </li>
   </ul>
 </div>
 </body>

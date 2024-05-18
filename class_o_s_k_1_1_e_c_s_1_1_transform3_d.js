@@ -21,6 +21,7 @@ var class_o_s_k_1_1_e_c_s_1_1_transform3_d =
     [ "GetScale", "class_o_s_k_1_1_e_c_s_1_1_transform3_d.html#a71910548d1562847db1cd6c315b205d9", null ],
     [ "GetTopVector", "class_o_s_k_1_1_e_c_s_1_1_transform3_d.html#ae1fdf26c51ef096c24769c479c976b45", null ],
     [ "OSK_COMPONENT", "class_o_s_k_1_1_e_c_s_1_1_transform3_d.html#a7cce6079298023c9c74c3c1ac41de4d8", null ],
+    [ "OSK_SERIALIZABLE_COMPONENT", "class_o_s_k_1_1_e_c_s_1_1_transform3_d.html#a2c3407d8e4ed737ce0dd241b077510bc", null ],
     [ "OverrideMatrix", "class_o_s_k_1_1_e_c_s_1_1_transform3_d.html#a91ec96febabad2adffc147eb907f8d20", null ],
     [ "RemoveChild", "class_o_s_k_1_1_e_c_s_1_1_transform3_d.html#af775e0d83823931216005acba20d2b0a", null ],
     [ "RotateLocalSpace", "class_o_s_k_1_1_e_c_s_1_1_transform3_d.html#a305766732463c5ffb54588742006ff75", null ],
@@ -33,7 +34,5 @@ var class_o_s_k_1_1_e_c_s_1_1_transform3_d =
     [ "SetShouldInheritPosition", "class_o_s_k_1_1_e_c_s_1_1_transform3_d.html#ae459aad2a2630ff01176fa2423dfeaa7", null ],
     [ "SetShouldInheritRotation", "class_o_s_k_1_1_e_c_s_1_1_transform3_d.html#a87bb98760ec7b5dc3414eced1e192e58", null ],
     [ "SetShouldInheritScale", "class_o_s_k_1_1_e_c_s_1_1_transform3_d.html#a990a648f08387450664747f0d76e37f1", null ],
-    [ "TransformPoint", "class_o_s_k_1_1_e_c_s_1_1_transform3_d.html#a865f66350d13df8b492abc200ec755d7", null ],
-    [ "PERSISTENCE::DeserializeJson", "class_o_s_k_1_1_e_c_s_1_1_transform3_d.html#aafb780ec1060e230381806dc0a930fa0", null ],
-    [ "PERSISTENCE::SerializeJson", "class_o_s_k_1_1_e_c_s_1_1_transform3_d.html#a9346abf070e067da503c7d6a7db79182", null ]
+    [ "TransformPoint", "class_o_s_k_1_1_e_c_s_1_1_transform3_d.html#a865f66350d13df8b492abc200ec755d7", null ]
 ];

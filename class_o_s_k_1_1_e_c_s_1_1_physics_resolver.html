@@ -109,6 +109,14 @@ Métodos públicos</h2></td></tr>
 <tr class="separator:a979cb2e4545bcce37ba82b6d4e931950"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae9a80cfee42663becbdf88a052f8db44" id="r_ae9a80cfee42663becbdf88a052f8db44"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae9a80cfee42663becbdf88a052f8db44">Execute</a> (TDeltaTime deltaTime, std::span&lt; const <a class="el" href="struct_o_s_k_1_1_e_c_s_1_1_collision_event.html">CollisionEvent</a> &gt; events) override</td></tr>
 <tr class="separator:ae9a80cfee42663becbdf88a052f8db44"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7d58c16bcee633f3cdda186a77919d95" id="r_a7d58c16bcee633f3cdda186a77919d95"><td class="memItemLeft" align="right" valign="top">nlohmann::json&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a7d58c16bcee633f3cdda186a77919d95">SaveConfiguration</a> () const override</td></tr>
+<tr class="separator:a7d58c16bcee633f3cdda186a77919d95"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a20638796f4079a8dc303c0abf409ff61" id="r_a20638796f4079a8dc303c0abf409ff61"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_o_s_k_1_1_p_e_r_s_i_s_t_e_n_c_e_1_1_binary_block.html">PERSISTENCE::BinaryBlock</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a20638796f4079a8dc303c0abf409ff61">SaveBinaryConfiguration</a> () const override</td></tr>
+<tr class="separator:a20638796f4079a8dc303c0abf409ff61"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a478c6cb3fe6b27bee94681d6a3597b54" id="r_a478c6cb3fe6b27bee94681d6a3597b54"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a478c6cb3fe6b27bee94681d6a3597b54">ApplyConfiguration</a> (const nlohmann::json &amp;config, const <a class="el" href="class_o_s_k_1_1_e_c_s_1_1_saved_game_object_translator.html">SavedGameObjectTranslator</a> &amp;translator) override</td></tr>
+<tr class="separator:a478c6cb3fe6b27bee94681d6a3597b54"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2dc9878562211e65636c7e5eb61eb188" id="r_a2dc9878562211e65636c7e5eb61eb188"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a2dc9878562211e65636c7e5eb61eb188">ApplyConfiguration</a> (<a class="el" href="class_o_s_k_1_1_p_e_r_s_i_s_t_e_n_c_e_1_1_binary_block_reader.html">PERSISTENCE::BinaryBlockReader</a> *reader, const <a class="el" href="class_o_s_k_1_1_e_c_s_1_1_saved_game_object_translator.html">SavedGameObjectTranslator</a> &amp;translator) override</td></tr>
+<tr class="separator:a2dc9878562211e65636c7e5eb61eb188"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af2e4f7e3f6afa8c619b92cf27a7091a2" id="r_af2e4f7e3f6afa8c619b92cf27a7091a2"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_e_c_s_1_1_i_typed_consumer_system.html#af2e4f7e3f6afa8c619b92cf27a7091a2">Execute</a> (TDeltaTime deltaTime, <a class="el" href="struct_o_s_k_1_1_e_c_s_1_1_event_queue_span.html">EventQueueSpan</a> events) override</td></tr>
 <tr class="separator:af2e4f7e3f6afa8c619b92cf27a7091a2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af6bf560785407461a86b6a464106919e" id="r_af6bf560785407461a86b6a464106919e"><td class="memItemLeft" align="right" valign="top">std::string_view&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_e_c_s_1_1_i_typed_consumer_system.html#af6bf560785407461a86b6a464106919e">GetEventName</a> () const override</td></tr>
@@ -203,6 +211,90 @@ requires <a class="el" href="concept_is_ecs_event.html">IsEcsEvent</a>&lt;TEvent
 <p>Activa el sistema, con lo que se ejecutará cada frame. </p>
 
 <p class="definition">Definición en la línea <a class="el" href="_i_system_8cpp_source.html#l00013">13</a> del archivo <a class="el" href="_i_system_8cpp_source.html">ISystem.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a478c6cb3fe6b27bee94681d6a3597b54" name="a478c6cb3fe6b27bee94681d6a3597b54"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a478c6cb3fe6b27bee94681d6a3597b54">&#9670;&#160;</a></span>ApplyConfiguration() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void PhysicsResolver::ApplyConfiguration </td>
+          <td>(</td>
+          <td class="paramtype">const nlohmann::json &amp;</td>          <td class="paramname"><span class="paramname"><em>config</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="class_o_s_k_1_1_e_c_s_1_1_saved_game_object_translator.html">SavedGameObjectTranslator</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>translator</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Aplica la configuración al sistema. </p>
+<dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">config</td><td>Configuración del sistema. </td></tr>
+    <tr><td class="paramname">translator</td><td>Tabla que permite obtener los IDs generados. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Implementa <a class="el" href="class_o_s_k_1_1_e_c_s_1_1_i_system.html#a356c53dd2a07b8aa475fb6fc6109bd14">OSK::ECS::ISystem</a>.</p>
+
+<p class="definition">Definición en la línea <a class="el" href="_physics_resolver_8cpp_source.html#l00179">179</a> del archivo <a class="el" href="_physics_resolver_8cpp_source.html">PhysicsResolver.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a2dc9878562211e65636c7e5eb61eb188" name="a2dc9878562211e65636c7e5eb61eb188"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2dc9878562211e65636c7e5eb61eb188">&#9670;&#160;</a></span>ApplyConfiguration() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void PhysicsResolver::ApplyConfiguration </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="class_o_s_k_1_1_p_e_r_s_i_s_t_e_n_c_e_1_1_binary_block_reader.html">PERSISTENCE::BinaryBlockReader</a> *</td>          <td class="paramname"><span class="paramname"><em>reader</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="class_o_s_k_1_1_e_c_s_1_1_saved_game_object_translator.html">SavedGameObjectTranslator</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>translator</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Aplica la configuración al sistema. </p>
+<dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">reader</td><td>Lector del bloque binario que contiene los datos del sistema. </td></tr>
+    <tr><td class="paramname">translator</td><td>Tabla que permite obtener los IDs generados. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Implementa <a class="el" href="class_o_s_k_1_1_e_c_s_1_1_i_system.html#a5916eb925d40c0ad0bf7c946b62ab996">OSK::ECS::ISystem</a>.</p>
+
+<p class="definition">Definición en la línea <a class="el" href="_physics_resolver_8cpp_source.html#l00183">183</a> del archivo <a class="el" href="_physics_resolver_8cpp_source.html">PhysicsResolver.cpp</a>.</p>
 
 </div>
 </div>
@@ -616,6 +708,66 @@ requires <a class="el" href="concept_is_ecs_event.html">IsEcsEvent</a>&lt;TEvent
 
 </div>
 </div>
+<a id="a20638796f4079a8dc303c0abf409ff61" name="a20638796f4079a8dc303c0abf409ff61"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a20638796f4079a8dc303c0abf409ff61">&#9670;&#160;</a></span>SaveBinaryConfiguration()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="class_o_s_k_1_1_p_e_r_s_i_s_t_e_n_c_e_1_1_binary_block.html">PERSISTENCE::BinaryBlock</a> PhysicsResolver::SaveBinaryConfiguration </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Devuelve</dt><dd>Estructura binaria con la información relevante de la configuración del sistema en un momento dado. </dd></dl>
+
+<p>Implementa <a class="el" href="class_o_s_k_1_1_e_c_s_1_1_i_system.html#ab5ebff79ec2fb87d79f43dcddd9ceaa6">OSK::ECS::ISystem</a>.</p>
+
+<p class="definition">Definición en la línea <a class="el" href="_physics_resolver_8cpp_source.html#l00175">175</a> del archivo <a class="el" href="_physics_resolver_8cpp_source.html">PhysicsResolver.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a7d58c16bcee633f3cdda186a77919d95" name="a7d58c16bcee633f3cdda186a77919d95"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7d58c16bcee633f3cdda186a77919d95">&#9670;&#160;</a></span>SaveConfiguration()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">nlohmann::json PhysicsResolver::SaveConfiguration </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Devuelve</dt><dd>Estructura JSON con la información relevante de la configuración del sistema en un momento dado. </dd></dl>
+
+<p>Implementa <a class="el" href="class_o_s_k_1_1_e_c_s_1_1_i_system.html#a71abb122385e05992f9c3875993dafd1">OSK::ECS::ISystem</a>.</p>
+
+<p class="definition">Definición en la línea <a class="el" href="_physics_resolver_8cpp_source.html#l00171">171</a> del archivo <a class="el" href="_physics_resolver_8cpp_source.html">PhysicsResolver.cpp</a>.</p>
+
+</div>
+</div>
 <a id="a97458cf11d6b977bad992387a2d67297" name="a97458cf11d6b977bad992387a2d67297"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a97458cf11d6b977bad992387a2d67297">&#9670;&#160;</a></span>SetActivationStatus()</h2>
 
@@ -686,7 +838,7 @@ requires <a class="el" href="concept_is_ecs_event.html">IsEcsEvent</a>&lt;TEvent
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="namespace_o_s_k.html">OSK</a></li><li class="navelem"><a class="el" href="namespace_o_s_k_1_1_e_c_s.html">ECS</a></li><li class="navelem"><a class="el" href="class_o_s_k_1_1_e_c_s_1_1_physics_resolver.html">PhysicsResolver</a></li>
-    <li class="footer">Generado el Miércoles, 8 de mayo de 2024 10:59:31 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.10.0 </li>
+    <li class="footer">Generado el Sábado, 18 de mayo de 2024 12:15:53 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.10.0 </li>
   </ul>
 </div>
 </body>

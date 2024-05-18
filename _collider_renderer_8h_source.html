@@ -138,42 +138,50 @@ $(function(){initNavTree('_collider_renderer_8h_source.html',''); initResizable(
 <div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span> </div>
 <div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>        <span class="keywordtype">void</span> SetupBottomLevelModel(<a class="code hl_class" href="class_o_s_k_1_1_base_uuid.html">GameObjectIndex</a> obj);</div>
 <div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span> </div>
-<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>    <span class="keyword">private</span>:</div>
-<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span> </div>
-<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>        <a class="code hl_class" href="class_o_s_k_1_1_base_uuid.html">GameObjectIndex</a> cameraObject = <a class="code hl_variable" href="namespace_o_s_k_1_1_e_c_s.html#a46b3731582093c6a4b02a2024b9edf81">EMPTY_GAME_OBJECT</a>;</div>
-<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>        <a class="code hl_class" href="class_o_s_k_1_1_unique_ptr.html">UniquePtr&lt;GRAPHICS::GpuBuffer&gt;</a> cameraUbos[NUM_RESOURCES_IN_FLIGHT]{};</div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>        nlohmann::json SaveConfiguration() <span class="keyword">const override</span>;</div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>        <a class="code hl_class" href="class_o_s_k_1_1_p_e_r_s_i_s_t_e_n_c_e_1_1_binary_block.html">PERSISTENCE::BinaryBlock</a> SaveBinaryConfiguration() <span class="keyword">const override</span>;</div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>        <span class="keywordtype">void</span> ApplyConfiguration(<span class="keyword">const</span> nlohmann::json&amp; config, <span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_e_c_s_1_1_saved_game_object_translator.html">SavedGameObjectTranslator</a>&amp; translator) <span class="keyword">override</span>;</div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>        <span class="keywordtype">void</span> ApplyConfiguration(<a class="code hl_class" href="class_o_s_k_1_1_p_e_r_s_i_s_t_e_n_c_e_1_1_binary_block_reader.html">PERSISTENCE::BinaryBlockReader</a>* reader, <span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_e_c_s_1_1_saved_game_object_translator.html">SavedGameObjectTranslator</a>&amp; translator) <span class="keyword">override</span>;</div>
 <div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span> </div>
-<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>        <a class="code hl_class" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material.html">GRAPHICS::Material</a>* material = <span class="keyword">nullptr</span>;</div>
-<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span> </div>
-<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>        <a class="code hl_class" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material.html">GRAPHICS::Material</a>* lowLevelMaterial = <span class="keyword">nullptr</span>;</div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>    <span class="keyword">private</span>:</div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span> </div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>        <a class="code hl_class" href="class_o_s_k_1_1_base_uuid.html">GameObjectIndex</a> cameraObject = <a class="code hl_variable" href="namespace_o_s_k_1_1_e_c_s.html#a46b3731582093c6a4b02a2024b9edf81">EMPTY_GAME_OBJECT</a>;</div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>        <a class="code hl_class" href="class_o_s_k_1_1_unique_ptr.html">UniquePtr&lt;GRAPHICS::GpuBuffer&gt;</a> cameraUbos[NUM_RESOURCES_IN_FLIGHT]{};</div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span> </div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>        <a class="code hl_class" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material.html">GRAPHICS::Material</a>* material = <span class="keyword">nullptr</span>;</div>
 <div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span> </div>
-<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>        <a class="code hl_class" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material.html">GRAPHICS::Material</a>* pointMaterial = <span class="keyword">nullptr</span>;</div>
-<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span> </div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>        <a class="code hl_class" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material.html">GRAPHICS::Material</a>* lowLevelMaterial = <span class="keyword">nullptr</span>;</div>
 <div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span> </div>
-<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>        <a class="code hl_class" href="class_o_s_k_1_1_unique_ptr.html">UniquePtr&lt;GRAPHICS::MaterialInstance&gt;</a> materialInstance;</div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>        <a class="code hl_class" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material.html">GRAPHICS::Material</a>* pointMaterial = <span class="keyword">nullptr</span>;</div>
 <div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span> </div>
-<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>        <a class="code hl_class" href="class_o_s_k_1_1_unique_ptr.html">UniquePtr&lt;GRAPHICS::MaterialInstance&gt;</a> pointsMaterialInstance;</div>
-<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span> </div>
-<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span> </div>
-<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span>        std::unordered_map&lt;GameObjectIndex, DynamicArray&lt;UniquePtr&lt;GRAPHICS::GpuBuffer&gt;&gt;&gt; bottomLevelVertexBuffers;</div>
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span> </div>
+<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span>        <a class="code hl_class" href="class_o_s_k_1_1_unique_ptr.html">UniquePtr&lt;GRAPHICS::MaterialInstance&gt;</a> materialInstance;</div>
+<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span> </div>
+<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span>        <a class="code hl_class" href="class_o_s_k_1_1_unique_ptr.html">UniquePtr&lt;GRAPHICS::MaterialInstance&gt;</a> pointsMaterialInstance;</div>
+<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span> </div>
 <div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span> </div>
-<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span>        std::unordered_map&lt;GameObjectIndex, DynamicArray&lt;UniquePtr&lt;GRAPHICS::GpuBuffer&gt;&gt;&gt; bottomLevelIndexBuffers;</div>
+<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span>        std::unordered_map&lt;GameObjectIndex, DynamicArray&lt;UniquePtr&lt;GRAPHICS::GpuBuffer&gt;&gt;&gt; bottomLevelVertexBuffers;</div>
 <div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span> </div>
-<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span> </div>
-<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span>        <a class="code hl_class" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">ASSETS::AssetRef&lt;ASSETS::Model3D&gt;</a> cubeModel;</div>
-<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span>        <a class="code hl_class" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">ASSETS::AssetRef&lt;ASSETS::Model3D&gt;</a> sphereModel;</div>
-<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span> </div>
-<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span>    };</div>
-</div>
+<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span>        std::unordered_map&lt;GameObjectIndex, DynamicArray&lt;UniquePtr&lt;GRAPHICS::GpuBuffer&gt;&gt;&gt; bottomLevelIndexBuffers;</div>
+<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span> </div>
 <div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span> </div>
-<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span>}</div>
+<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span>        <a class="code hl_class" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">ASSETS::AssetRef&lt;ASSETS::Model3D&gt;</a> cubeModel;</div>
+<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span>        <a class="code hl_class" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">ASSETS::AssetRef&lt;ASSETS::Model3D&gt;</a> sphereModel;</div>
+<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span> </div>
+<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span>    };</div>
+</div>
+<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span> </div>
+<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span>}</div>
 <div class="ttc" id="aclass_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref_html"><div class="ttname"><a href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">OSK::ASSETS::AssetRef</a></div><div class="ttdoc">Referencia a un asset.</div><div class="ttdef"><b>Definition</b> <a href="_asset_ref_8h_source.html#l00012">AssetRef.h:12</a></div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_base_uuid_html"><div class="ttname"><a href="class_o_s_k_1_1_base_uuid.html">OSK::BaseUuid&lt; class GameObjectIndexTag &gt;</a></div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_e_c_s_1_1_collider_render_system_html"><div class="ttname"><a href="class_o_s_k_1_1_e_c_s_1_1_collider_render_system.html">OSK::ECS::ColliderRenderSystem</a></div><div class="ttdoc">Sistema de renderizado que renderiza los colliders de todas las entidades.</div><div class="ttdef"><b>Definition</b> <a href="#l00025">ColliderRenderer.h:25</a></div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_e_c_s_1_1_collider_render_system_html_a820650c3e9cfab1305e495841d9f2a89"><div class="ttname"><a href="class_o_s_k_1_1_e_c_s_1_1_collider_render_system.html#a820650c3e9cfab1305e495841d9f2a89">OSK::ECS::ColliderRenderSystem::OSK_SYSTEM</a></div><div class="ttdeci">OSK_SYSTEM(&quot;OSK::ColliderRenderSystem&quot;)</div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_e_c_s_1_1_i_render_system_html"><div class="ttname"><a href="class_o_s_k_1_1_e_c_s_1_1_i_render_system.html">OSK::ECS::IRenderSystem</a></div><div class="ttdoc">Clase base para sistemas de renderizado.</div><div class="ttdef"><b>Definition</b> <a href="_i_render_system_8h_source.html#l00026">IRenderSystem.h:26</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_e_c_s_1_1_saved_game_object_translator_html"><div class="ttname"><a href="class_o_s_k_1_1_e_c_s_1_1_saved_game_object_translator.html">OSK::ECS::SavedGameObjectTranslator</a></div><div class="ttdoc">Tabla que permite obtener el índice actual de una entidad que ha sido guardada en disco.</div><div class="ttdef"><b>Definition</b> <a href="_saved_game_object_translator_8h_source.html#l00015">SavedGameObjectTranslator.h:15</a></div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list_html"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list.html">OSK::GRAPHICS::ICommandList</a></div><div class="ttdoc">Una lista de comandos contiene una serie de comandos que serán enviados a la GPU para su ejecución....</div><div class="ttdef"><b>Definition</b> <a href="_i_command_list_8h_source.html#l00076">ICommandList.h:76</a></div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_html"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material.html">OSK::GRAPHICS::Material</a></div><div class="ttdoc">Un material define el comportamiento del renderizador con un objeto en concreto. Debe definirse el la...</div><div class="ttdef"><b>Definition</b> <a href="_material_8h_source.html#l00050">Material.h:50</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_p_e_r_s_i_s_t_e_n_c_e_1_1_binary_block_html"><div class="ttname"><a href="class_o_s_k_1_1_p_e_r_s_i_s_t_e_n_c_e_1_1_binary_block.html">OSK::PERSISTENCE::BinaryBlock</a></div><div class="ttdoc">Bloque con datos en formato binario.</div><div class="ttdef"><b>Definition</b> <a href="_binary_block_8h_source.html#l00067">BinaryBlock.h:67</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_p_e_r_s_i_s_t_e_n_c_e_1_1_binary_block_reader_html"><div class="ttname"><a href="class_o_s_k_1_1_p_e_r_s_i_s_t_e_n_c_e_1_1_binary_block_reader.html">OSK::PERSISTENCE::BinaryBlockReader</a></div><div class="ttdoc">Lector de un bloque binario.</div><div class="ttdef"><b>Definition</b> <a href="_binary_block_8h_source.html#l00014">BinaryBlock.h:14</a></div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_unique_ptr_html"><div class="ttname"><a href="class_o_s_k_1_1_unique_ptr.html">OSK::UniquePtr</a></div><div class="ttdoc">Estructura que es dueña de un objeto almacenado en heap. Al destruirse el UniquePtr,...</div><div class="ttdef"><b>Definition</b> <a href="_unique_ptr_8hpp_source.html#l00022">UniquePtr.hpp:22</a></div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_vector2__t_html"><div class="ttname"><a href="class_o_s_k_1_1_vector2__t.html">OSK::Vector2_t&lt; uint32_t &gt;</a></div></div>
 <div class="ttc" id="anamespace_o_s_k_1_1_a_s_s_e_t_s_html"><div class="ttname"><a href="namespace_o_s_k_1_1_a_s_s_e_t_s.html">OSK::ASSETS</a></div><div class="ttdef"><b>Definition</b> <a href="_anim_mesh_loader_8h_source.html#l00009">AnimMeshLoader.h:9</a></div></div>
@@ -186,7 +194,7 @@ $(function(){initNavTree('_collider_renderer_8h_source.html',''); initResizable(
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_74389ed8173ad57b461b9d623a1f3867.html">Source</a></li><li class="navelem"><b>ColliderRenderer.h</b></li>
-    <li class="footer">Generado el Miércoles, 8 de mayo de 2024 10:59:28 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.10.0 </li>
+    <li class="footer">Generado el Sábado, 18 de mayo de 2024 12:15:51 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.10.0 </li>
   </ul>
 </div>
 </body>

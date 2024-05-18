@@ -160,6 +160,7 @@ var namespace_o_s_k_1_1_g_r_a_p_h_i_c_s =
     [ "RtShaderTableVk", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_rt_shader_table_vk.html", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_rt_shader_table_vk" ],
     [ "ShaderCompilingException", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_shader_compiling_exception.html", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_shader_compiling_exception" ],
     [ "ShaderLoadingException", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_shader_loading_exception.html", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_shader_loading_exception" ],
+    [ "ShaderPassFactory", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_shader_pass_factory.html", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_shader_pass_factory" ],
     [ "ShaderPassTable", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_shader_pass_table.html", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_shader_pass_table" ],
     [ "ShaderStageDx12", "struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_shader_stage_dx12.html", "struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_shader_stage_dx12" ],
     [ "ShaderStageVk", "struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_shader_stage_vk.html", "struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_shader_stage_vk" ],

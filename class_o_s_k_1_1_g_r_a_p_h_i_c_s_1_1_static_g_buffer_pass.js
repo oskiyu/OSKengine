@@ -6,6 +6,7 @@ var class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_static_g_buffer_pass =
     [ "GetTypeName", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_static_g_buffer_pass.html#a7895cfd14f55daf9c1b2f8e0e67e9020", null ],
     [ "Load", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_static_g_buffer_pass.html#ac0989bfe9d902db6befac1cd4b401c40", null ],
     [ "OSK_DEFINE_AS", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_static_g_buffer_pass.html#aae7d4a35c005905b86cec1d1f6b0b71f", null ],
+    [ "OSK_RENDERPASS", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_static_g_buffer_pass.html#a21ab6d8d4beba71bf1d91cb78c145c30", null ],
     [ "RenderLoop", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_static_g_buffer_pass.html#a4ea0ad5b179f642eb67e700eff052bf6", null ],
     [ "SetCamera", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_static_g_buffer_pass.html#a8f6d85b84886a9dabde560fc3921c689", null ],
     [ "SetupMaterialInstance", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_static_g_buffer_pass.html#aefdfbd7828be9044cbff5f89ebd14f19", null ],

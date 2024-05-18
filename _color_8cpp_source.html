@@ -120,7 +120,7 @@ $(function(){initNavTree('_color_8cpp_source.html',''); initResizable(); });
 <div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span> </div>
 <div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span> </div>
 <div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span><span class="keyword">template</span> &lt;&gt;</div>
-<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>nlohmann::json OSK::PERSISTENCE::SerializeJson&lt;OSK::Color&gt;(<span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_color.html">OSK::Color</a>&amp; data) {</div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>nlohmann::json OSK::PERSISTENCE::SerializeData&lt;OSK::Color&gt;(<span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_color.html">OSK::Color</a>&amp; data) {</div>
 <div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>    nlohmann::json output{};</div>
 <div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span> </div>
 <div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>    output[<span class="stringliteral">&quot;r&quot;</span>] = data.<a class="code hl_variable" href="class_o_s_k_1_1_color.html#a44b6fb9124b1968d9506bc7122adb810">red</a>;</div>
@@ -132,7 +132,7 @@ $(function(){initNavTree('_color_8cpp_source.html',''); initResizable(); });
 <div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>}</div>
 <div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span> </div>
 <div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span><span class="keyword">template</span> &lt;&gt;</div>
-<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span><a class="code hl_class" href="class_o_s_k_1_1_color.html">OSK::Color</a> OSK::PERSISTENCE::DeserializeJson&lt;OSK::Color&gt;(<span class="keyword">const</span> nlohmann::json&amp; json) {</div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span><a class="code hl_class" href="class_o_s_k_1_1_color.html">OSK::Color</a> OSK::PERSISTENCE::DeserializeData&lt;OSK::Color&gt;(<span class="keyword">const</span> nlohmann::json&amp; json) {</div>
 <div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>    <span class="keywordflow">return</span> Color(</div>
 <div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>        json[<span class="stringliteral">&quot;r&quot;</span>],</div>
 <div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>        json[<span class="stringliteral">&quot;g&quot;</span>],</div>
@@ -141,6 +141,29 @@ $(function(){initNavTree('_color_8cpp_source.html',''); initResizable(); });
 <div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>    );</div>
 <div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>}</div>
 <div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span> </div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span> </div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span><span class="keyword">template</span> &lt;&gt;</div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span><a class="code hl_class" href="class_o_s_k_1_1_p_e_r_s_i_s_t_e_n_c_e_1_1_binary_block.html">OSK::PERSISTENCE::BinaryBlock</a> OSK::PERSISTENCE::BinarySerializeData&lt;OSK::Color&gt;(<span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_color.html">OSK::Color</a>&amp; data) {</div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>    BinaryBlock output{};</div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span> </div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>    output.<a class="code hl_function" href="class_o_s_k_1_1_p_e_r_s_i_s_t_e_n_c_e_1_1_binary_block.html#aaa39a09f955443aaee7da7d50090c804">Write</a>&lt;<span class="keywordtype">float</span>&gt;(data.<a class="code hl_variable" href="class_o_s_k_1_1_color.html#a44b6fb9124b1968d9506bc7122adb810">red</a>);</div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>    output.Write&lt;<span class="keywordtype">float</span>&gt;(data.<a class="code hl_variable" href="class_o_s_k_1_1_color.html#a50289da8f1dc3268298697334748e820">green</a>);</div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>    output.Write&lt;<span class="keywordtype">float</span>&gt;(data.<a class="code hl_variable" href="class_o_s_k_1_1_color.html#a0cdfcd637d22304e889b6add7def8107">blue</a>);</div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>    output.Write&lt;<span class="keywordtype">float</span>&gt;(data.<a class="code hl_variable" href="class_o_s_k_1_1_color.html#a94853c8b197d396ab24c858dc56e6c1e">alpha</a>);</div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span> </div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>    <span class="keywordflow">return</span> output;</div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>}</div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span> </div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span><span class="keyword">template</span> &lt;&gt;</div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span><a class="code hl_class" href="class_o_s_k_1_1_color.html">OSK::Color</a> OSK::PERSISTENCE::BinaryDeserializeData&lt;OSK::Color&gt;(BinaryBlockReader* reader) {</div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>    <span class="keywordflow">return</span> Color(</div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>        reader-&gt;Read&lt;<span class="keywordtype">float</span>&gt;(),</div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>        reader-&gt;Read&lt;<span class="keywordtype">float</span>&gt;(),</div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>        reader-&gt;Read&lt;<span class="keywordtype">float</span>&gt;(),</div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>        reader-&gt;Read&lt;<span class="keywordtype">float</span>&gt;()</div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>    );</div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>}</div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span> </div>
 <div class="ttc" id="aclass_o_s_k_1_1_color_html"><div class="ttname"><a href="class_o_s_k_1_1_color.html">OSK::Color</a></div><div class="ttdoc">Representa un color en formato RGBA float.</div><div class="ttdef"><b>Definition</b> <a href="_color_8hpp_source.html#l00013">Color.hpp:13</a></div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_color_html_a00de5b03162ab3c58d599895581b68ff"><div class="ttname"><a href="class_o_s_k_1_1_color.html#a00de5b03162ab3c58d599895581b68ff">OSK::Color::Yellow</a></div><div class="ttdeci">static Color const Yellow</div><div class="ttdoc">Color amarillo (1, 1, 0, 1).</div><div class="ttdef"><b>Definition</b> <a href="_color_8hpp_source.html#l00108">Color.hpp:108</a></div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_color_html_a0cdfcd637d22304e889b6add7def8107"><div class="ttname"><a href="class_o_s_k_1_1_color.html#a0cdfcd637d22304e889b6add7def8107">OSK::Color::blue</a></div><div class="ttdeci">float blue</div><div class="ttdoc">Representa la intensidad del color azul.</div><div class="ttdef"><b>Definition</b> <a href="_color_8hpp_source.html#l00089">Color.hpp:89</a></div></div>
@@ -154,6 +177,8 @@ $(function(){initNavTree('_color_8cpp_source.html',''); initResizable(); });
 <div class="ttc" id="aclass_o_s_k_1_1_color_html_a94853c8b197d396ab24c858dc56e6c1e"><div class="ttname"><a href="class_o_s_k_1_1_color.html#a94853c8b197d396ab24c858dc56e6c1e">OSK::Color::alpha</a></div><div class="ttdeci">float alpha</div><div class="ttdoc">Representa la opacidad del color.</div><div class="ttdef"><b>Definition</b> <a href="_color_8hpp_source.html#l00092">Color.hpp:92</a></div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_color_html_a9f64a8b667ea24151007f4c4edebdf46"><div class="ttname"><a href="class_o_s_k_1_1_color.html#a9f64a8b667ea24151007f4c4edebdf46">OSK::Color::White</a></div><div class="ttdeci">static Color const White</div><div class="ttdoc">Color blanco (1, 1, 1, 1).</div><div class="ttdef"><b>Definition</b> <a href="_color_8hpp_source.html#l00100">Color.hpp:100</a></div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_color_html_ace3faf2dffa24249c04701310085670f"><div class="ttname"><a href="class_o_s_k_1_1_color.html#ace3faf2dffa24249c04701310085670f">OSK::Color::Blue</a></div><div class="ttdeci">static Color const Blue</div><div class="ttdoc">Color azul (0, 0, 1, 1).</div><div class="ttdef"><b>Definition</b> <a href="_color_8hpp_source.html#l00102">Color.hpp:102</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_p_e_r_s_i_s_t_e_n_c_e_1_1_binary_block_html"><div class="ttname"><a href="class_o_s_k_1_1_p_e_r_s_i_s_t_e_n_c_e_1_1_binary_block.html">OSK::PERSISTENCE::BinaryBlock</a></div><div class="ttdoc">Bloque con datos en formato binario.</div><div class="ttdef"><b>Definition</b> <a href="_binary_block_8h_source.html#l00067">BinaryBlock.h:67</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_p_e_r_s_i_s_t_e_n_c_e_1_1_binary_block_html_aaa39a09f955443aaee7da7d50090c804"><div class="ttname"><a href="class_o_s_k_1_1_p_e_r_s_i_s_t_e_n_c_e_1_1_binary_block.html#aaa39a09f955443aaee7da7d50090c804">OSK::PERSISTENCE::BinaryBlock::Write</a></div><div class="ttdeci">void Write(const T &amp;data)</div><div class="ttdoc">Escribe información en el bloque.</div><div class="ttdef"><b>Definition</b> <a href="_binary_block_8h_source.html#l00083">BinaryBlock.h:83</a></div></div>
 <div class="ttc" id="anamespace_o_s_k_html"><div class="ttname"><a href="namespace_o_s_k.html">OSK</a></div><div class="ttdef"><b>Definition</b> <a href="_acceleration_structures_exceptions_8h_source.html#l00005">AccelerationStructuresExceptions.h:5</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
@@ -161,7 +186,7 @@ $(function(){initNavTree('_color_8cpp_source.html',''); initResizable(); });
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_74389ed8173ad57b461b9d623a1f3867.html">Source</a></li><li class="navelem"><b>Color.cpp</b></li>
-    <li class="footer">Generado el Miércoles, 8 de mayo de 2024 10:59:28 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.10.0 </li>
+    <li class="footer">Generado el Sábado, 18 de mayo de 2024 12:15:51 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.10.0 </li>
   </ul>
 </div>
 </body>

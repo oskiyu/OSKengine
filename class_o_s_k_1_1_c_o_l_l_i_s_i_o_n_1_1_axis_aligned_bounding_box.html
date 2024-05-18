@@ -96,7 +96,6 @@ $(function(){initNavTree('class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_axis_aligned_bou
   <div class="summary">
 <a href="#pub-methods">Métodos públicos</a> &#124;
 <a href="#pro-static-methods">Métodos protegidos estáticos</a> &#124;
-<a href="#friends">Amigas</a> &#124;
 <a href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_axis_aligned_bounding_box-members.html">Lista de todos los miembros</a>  </div>
   <div class="headertitle"><div class="title">Referencia de la clase OSK::COLLISION::AxisAlignedBoundingBox</div></div>
 </div><!--header-->
@@ -106,6 +105,8 @@ $(function(){initNavTree('class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_axis_aligned_bou
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Métodos públicos</h2></td></tr>
+<tr class="memitem:a8355ce57c4cfa0ac93d04cd39edce14e" id="r_a8355ce57c4cfa0ac93d04cd39edce14e"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a8355ce57c4cfa0ac93d04cd39edce14e">OSK_SERIALIZABLE</a> ()</td></tr>
+<tr class="separator:a8355ce57c4cfa0ac93d04cd39edce14e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab52e3f971fc7904c6d4bd24bf4ea2738" id="r_ab52e3f971fc7904c6d4bd24bf4ea2738"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ab52e3f971fc7904c6d4bd24bf4ea2738">AxisAlignedBoundingBox</a> ()=default</td></tr>
 <tr class="separator:ab52e3f971fc7904c6d4bd24bf4ea2738"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af6ec16d1ff9275a6d32236591f381460" id="r_af6ec16d1ff9275a6d32236591f381460"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af6ec16d1ff9275a6d32236591f381460">AxisAlignedBoundingBox</a> (const <a class="el" href="namespace_o_s_k.html#a72b3268907c9cd41f0daf0a42e1c9dca">Vector3f</a> &amp;size)</td></tr>
@@ -145,15 +146,6 @@ Métodos protegidos estáticos</h2></td></tr>
 <tr class="separator:a000a8139b279ada1cfbf2fccc8438e84"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab8afea2142685014cad8502daf80cc10" id="r_ab8afea2142685014cad8502daf80cc10"><td class="memItemLeft" align="right" valign="top">static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_i_top_level_collider.html#ab8afea2142685014cad8502daf80cc10">SphereSphereCollision</a> (const <a class="el" href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_sphere_collider.html">SphereCollider</a> &amp;first, const <a class="el" href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_sphere_collider.html">SphereCollider</a> &amp;other)</td></tr>
 <tr class="separator:ab8afea2142685014cad8502daf80cc10"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="friends" name="friends"></a>
-Amigas</h2></td></tr>
-<tr class="memitem:a9346abf070e067da503c7d6a7db79182" id="r_a9346abf070e067da503c7d6a7db79182"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
-<tr class="memitem:a9346abf070e067da503c7d6a7db79182"><td class="memTemplItemLeft" align="right" valign="top">nlohmann::json&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="#a9346abf070e067da503c7d6a7db79182">PERSISTENCE::SerializeJson</a> (const T &amp;data)</td></tr>
-<tr class="separator:a9346abf070e067da503c7d6a7db79182"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aafb780ec1060e230381806dc0a930fa0" id="r_aafb780ec1060e230381806dc0a930fa0"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
-<tr class="memitem:aafb780ec1060e230381806dc0a930fa0"><td class="memTemplItemLeft" align="right" valign="top">T&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="#aafb780ec1060e230381806dc0a930fa0">PERSISTENCE::DeserializeJson</a> (const nlohmann::json &amp;data)</td></tr>
-<tr class="separator:aafb780ec1060e230381806dc0a930fa0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Descripción detallada</h2>
 <div class="textblock"><p>Un área de colisión de alto nivel representado por una caja tridimensional. </p>
@@ -218,7 +210,7 @@ Amigas</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definición en la línea <a class="el" href="_axis_aligned_bounding_box_8cpp_source.html#l00017">17</a> del archivo <a class="el" href="_axis_aligned_bounding_box_8cpp_source.html">AxisAlignedBoundingBox.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_axis_aligned_bounding_box_8cpp_source.html#l00022">22</a> del archivo <a class="el" href="_axis_aligned_bounding_box_8cpp_source.html">AxisAlignedBoundingBox.cpp</a>.</p>
 
 </div>
 </div>
@@ -320,7 +312,7 @@ Amigas</h2></td></tr>
 
 <p>Implementa <a class="el" href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_i_top_level_collider.html#aea01db2a53a813edb855bd8f6b755dfa">OSK::COLLISION::ITopLevelCollider</a>.</p>
 
-<p class="definition">Definición en la línea <a class="el" href="_axis_aligned_bounding_box_8cpp_source.html#l00039">39</a> del archivo <a class="el" href="_axis_aligned_bounding_box_8cpp_source.html">AxisAlignedBoundingBox.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_axis_aligned_bounding_box_8cpp_source.html#l00044">44</a> del archivo <a class="el" href="_axis_aligned_bounding_box_8cpp_source.html">AxisAlignedBoundingBox.cpp</a>.</p>
 
 </div>
 </div>
@@ -349,7 +341,7 @@ Amigas</h2></td></tr>
 
 <p>Implementa <a class="el" href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_i_top_level_collider.html#a6eef187c240ba30a215d8776d4c1a770">OSK::COLLISION::ITopLevelCollider</a>.</p>
 
-<p class="definition">Definición en la línea <a class="el" href="_axis_aligned_bounding_box_8cpp_source.html#l00029">29</a> del archivo <a class="el" href="_axis_aligned_bounding_box_8cpp_source.html">AxisAlignedBoundingBox.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_axis_aligned_bounding_box_8cpp_source.html#l00034">34</a> del archivo <a class="el" href="_axis_aligned_bounding_box_8cpp_source.html">AxisAlignedBoundingBox.cpp</a>.</p>
 
 </div>
 </div>
@@ -378,7 +370,7 @@ Amigas</h2></td></tr>
 
 <p>Implementa <a class="el" href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_i_top_level_collider.html#aa79f9dcac3d136296d0889d4485cd56e">OSK::COLLISION::ITopLevelCollider</a>.</p>
 
-<p class="definition">Definición en la línea <a class="el" href="_axis_aligned_bounding_box_8cpp_source.html#l00013">13</a> del archivo <a class="el" href="_axis_aligned_bounding_box_8cpp_source.html">AxisAlignedBoundingBox.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_axis_aligned_bounding_box_8cpp_source.html#l00018">18</a> del archivo <a class="el" href="_axis_aligned_bounding_box_8cpp_source.html">AxisAlignedBoundingBox.cpp</a>.</p>
 
 </div>
 </div>
@@ -398,7 +390,7 @@ Amigas</h2></td></tr>
 </div><div class="memdoc">
 <dl class="section return"><dt>Devuelve</dt><dd>Esquina máxima: posición del vértice con las coordenadas más grandes. </dd></dl>
 
-<p class="definition">Definición en la línea <a class="el" href="_axis_aligned_bounding_box_8cpp_source.html#l00109">109</a> del archivo <a class="el" href="_axis_aligned_bounding_box_8cpp_source.html">AxisAlignedBoundingBox.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_axis_aligned_bounding_box_8cpp_source.html#l00114">114</a> del archivo <a class="el" href="_axis_aligned_bounding_box_8cpp_source.html">AxisAlignedBoundingBox.cpp</a>.</p>
 
 </div>
 </div>
@@ -418,7 +410,7 @@ Amigas</h2></td></tr>
 </div><div class="memdoc">
 <dl class="section return"><dt>Devuelve</dt><dd>Esquina mínima: posición del vértice con las coordenadas más pequeñas. </dd></dl>
 
-<p class="definition">Definición en la línea <a class="el" href="_axis_aligned_bounding_box_8cpp_source.html#l00105">105</a> del archivo <a class="el" href="_axis_aligned_bounding_box_8cpp_source.html">AxisAlignedBoundingBox.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_axis_aligned_bounding_box_8cpp_source.html#l00110">110</a> del archivo <a class="el" href="_axis_aligned_bounding_box_8cpp_source.html">AxisAlignedBoundingBox.cpp</a>.</p>
 
 </div>
 </div>
@@ -465,7 +457,7 @@ Amigas</h2></td></tr>
 </div><div class="memdoc">
 <dl class="section return"><dt>Devuelve</dt><dd>Tamaño total (la mitad hacia cada dirección desde el centro). </dd></dl>
 
-<p class="definition">Definición en la línea <a class="el" href="_axis_aligned_bounding_box_8cpp_source.html#l00025">25</a> del archivo <a class="el" href="_axis_aligned_bounding_box_8cpp_source.html">AxisAlignedBoundingBox.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_axis_aligned_bounding_box_8cpp_source.html#l00030">30</a> del archivo <a class="el" href="_axis_aligned_bounding_box_8cpp_source.html">AxisAlignedBoundingBox.cpp</a>.</p>
 
 </div>
 </div>
@@ -503,7 +495,7 @@ Amigas</h2></td></tr>
 
 <p>Implementa <a class="el" href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_i_top_level_collider.html#a75929d19d0e63a15ddf823df51fe5a7e">OSK::COLLISION::ITopLevelCollider</a>.</p>
 
-<p class="definition">Definición en la línea <a class="el" href="_axis_aligned_bounding_box_8cpp_source.html#l00081">81</a> del archivo <a class="el" href="_axis_aligned_bounding_box_8cpp_source.html">AxisAlignedBoundingBox.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_axis_aligned_bounding_box_8cpp_source.html#l00086">86</a> del archivo <a class="el" href="_axis_aligned_bounding_box_8cpp_source.html">AxisAlignedBoundingBox.cpp</a>.</p>
 
 </div>
 </div>
@@ -542,7 +534,7 @@ Amigas</h2></td></tr>
 
 <p>Implementa <a class="el" href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_i_top_level_collider.html#ac95801baa6b15557dba8204f7d39b7b0">OSK::COLLISION::ITopLevelCollider</a>.</p>
 
-<p class="definition">Definición en la línea <a class="el" href="_axis_aligned_bounding_box_8cpp_source.html#l00094">94</a> del archivo <a class="el" href="_axis_aligned_bounding_box_8cpp_source.html">AxisAlignedBoundingBox.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_axis_aligned_bounding_box_8cpp_source.html#l00099">99</a> del archivo <a class="el" href="_axis_aligned_bounding_box_8cpp_source.html">AxisAlignedBoundingBox.cpp</a>.</p>
 
 </div>
 </div>
@@ -599,6 +591,23 @@ Amigas</h2></td></tr>
 
 </div>
 </div>
+<a id="a8355ce57c4cfa0ac93d04cd39edce14e" name="a8355ce57c4cfa0ac93d04cd39edce14e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8355ce57c4cfa0ac93d04cd39edce14e">&#9670;&#160;</a></span>OSK_SERIALIZABLE()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">OSK::COLLISION::AxisAlignedBoundingBox::OSK_SERIALIZABLE </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="ae277a42277fb593dfa5dff4248f4cde4" name="ae277a42277fb593dfa5dff4248f4cde4"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ae277a42277fb593dfa5dff4248f4cde4">&#9670;&#160;</a></span>SetPosition()</h2>
 
@@ -647,7 +656,7 @@ Amigas</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definición en la línea <a class="el" href="_axis_aligned_bounding_box_8cpp_source.html#l00021">21</a> del archivo <a class="el" href="_axis_aligned_bounding_box_8cpp_source.html">AxisAlignedBoundingBox.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_axis_aligned_bounding_box_8cpp_source.html#l00026">26</a> del archivo <a class="el" href="_axis_aligned_bounding_box_8cpp_source.html">AxisAlignedBoundingBox.cpp</a>.</p>
 
 </div>
 </div>
@@ -682,68 +691,13 @@ Amigas</h2></td></tr>
 
 </div>
 </div>
-<h2 class="groupheader">Documentación de símbolos amigos y relacionados</h2>
-<a id="aafb780ec1060e230381806dc0a930fa0" name="aafb780ec1060e230381806dc0a930fa0"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aafb780ec1060e230381806dc0a930fa0">&#9670;&#160;</a></span>PERSISTENCE::DeserializeJson</h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename T &gt; </div>
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">T <a class="el" href="namespace_o_s_k_1_1_p_e_r_s_i_s_t_e_n_c_e.html#a916574565f986929dca482f19e527689">PERSISTENCE::DeserializeJson</a> </td>
-          <td>(</td>
-          <td class="paramtype">const nlohmann::json &amp;</td>          <td class="paramname"><span class="paramname"><em>data</em></span></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">friend</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a9346abf070e067da503c7d6a7db79182" name="a9346abf070e067da503c7d6a7db79182"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9346abf070e067da503c7d6a7db79182">&#9670;&#160;</a></span>PERSISTENCE::SerializeJson</h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename T &gt; </div>
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">nlohmann::json <a class="el" href="namespace_o_s_k_1_1_p_e_r_s_i_s_t_e_n_c_e.html#a673b25e779dc249323c87c7dc3c789c2">PERSISTENCE::SerializeJson</a> </td>
-          <td>(</td>
-          <td class="paramtype">const T &amp;</td>          <td class="paramname"><span class="paramname"><em>data</em></span></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">friend</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-</div>
-</div>
 </div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="namespace_o_s_k.html">OSK</a></li><li class="navelem"><a class="el" href="namespace_o_s_k_1_1_c_o_l_l_i_s_i_o_n.html">COLLISION</a></li><li class="navelem"><a class="el" href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_axis_aligned_bounding_box.html">AxisAlignedBoundingBox</a></li>
-    <li class="footer">Generado el Miércoles, 8 de mayo de 2024 10:59:31 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.10.0 </li>
+    <li class="footer">Generado el Sábado, 18 de mayo de 2024 12:15:53 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.10.0 </li>
   </ul>
 </div>
 </body>

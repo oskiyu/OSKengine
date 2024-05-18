@@ -11,9 +11,8 @@ var class_o_s_k_1_1_e_c_s_1_1_model_component3_d =
     [ "GetShaderPassNames", "class_o_s_k_1_1_e_c_s_1_1_model_component3_d.html#ab6fe00afdc47725c1e99fec084f8734a", null ],
     [ "IsAnimated", "class_o_s_k_1_1_e_c_s_1_1_model_component3_d.html#a3ab6b8a7b7ea5a7aa4dec9412d43fabc", null ],
     [ "OSK_COMPONENT", "class_o_s_k_1_1_e_c_s_1_1_model_component3_d.html#a8fd566d9156bf9241240e50629ec459f", null ],
+    [ "OSK_SERIALIZABLE_COMPONENT", "class_o_s_k_1_1_e_c_s_1_1_model_component3_d.html#ab32d508fd8296fd0c15fe9fee82332af", null ],
     [ "RemoveShaderPassName", "class_o_s_k_1_1_e_c_s_1_1_model_component3_d.html#a507d12d8e72926406731377b6b72165e", null ],
     [ "SetCastShadows", "class_o_s_k_1_1_e_c_s_1_1_model_component3_d.html#a3893882b5381892a4cebaa483bef4e7b", null ],
-    [ "SetModel", "class_o_s_k_1_1_e_c_s_1_1_model_component3_d.html#a85bd0a087d45aa02e97c0e77f57dff8e", null ],
-    [ "PERSISTENCE::DeserializeJson", "class_o_s_k_1_1_e_c_s_1_1_model_component3_d.html#aafb780ec1060e230381806dc0a930fa0", null ],
-    [ "PERSISTENCE::SerializeJson", "class_o_s_k_1_1_e_c_s_1_1_model_component3_d.html#a9346abf070e067da503c7d6a7db79182", null ]
+    [ "SetModel", "class_o_s_k_1_1_e_c_s_1_1_model_component3_d.html#a85bd0a087d45aa02e97c0e77f57dff8e", null ]
 ];

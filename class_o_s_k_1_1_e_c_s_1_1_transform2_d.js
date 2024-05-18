@@ -19,6 +19,7 @@ var class_o_s_k_1_1_e_c_s_1_1_transform2_d =
     [ "GetScale", "class_o_s_k_1_1_e_c_s_1_1_transform2_d.html#ace07318c83dd719c38af0dcf4cd87dae", null ],
     [ "GetScaleOffset", "class_o_s_k_1_1_e_c_s_1_1_transform2_d.html#ab803cb73e5cb2afde4822ee668ad977f", null ],
     [ "OSK_COMPONENT", "class_o_s_k_1_1_e_c_s_1_1_transform2_d.html#a4c4da189e15e6241f6503fb7446491e5", null ],
+    [ "OSK_SERIALIZABLE_COMPONENT", "class_o_s_k_1_1_e_c_s_1_1_transform2_d.html#afad2f349cd7d5d2bdbbe08653ecf13fd", null ],
     [ "SetPosition", "class_o_s_k_1_1_e_c_s_1_1_transform2_d.html#a36c2a3334b8d219b9d3a674f725dca1c", null ],
     [ "SetRotation", "class_o_s_k_1_1_e_c_s_1_1_transform2_d.html#ad0b16b933da9061638161ea51ced132e", null ],
     [ "SetScale", "class_o_s_k_1_1_e_c_s_1_1_transform2_d.html#a73ce39d854f1c6fd17105ed2f1b2dedb", null ],

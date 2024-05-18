@@ -6,7 +6,7 @@ var class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_tree_normals_pass =
     [ "GetTypeName", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_tree_normals_pass.html#a7895cfd14f55daf9c1b2f8e0e67e9020", null ],
     [ "Load", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_tree_normals_pass.html#a3929a5c2385d9621fe93d577840dd133", null ],
     [ "OSK_DEFINE_AS", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_tree_normals_pass.html#aae7d4a35c005905b86cec1d1f6b0b71f", null ],
-    [ "OSK_RENDERPASS", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_tree_normals_pass.html#ac9cda96a9c47e9552b607adfae4109ad", null ],
+    [ "OSK_RENDERPASS", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_tree_normals_pass.html#a870ccd9693938ab44384079c30e15b0c", null ],
     [ "RenderLoop", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_tree_normals_pass.html#a03b73af17b2860ec1b3fd95c86c26d7e", null ],
     [ "SetCamera", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_tree_normals_pass.html#a8f6d85b84886a9dabde560fc3921c689", null ],
     [ "SetupMaterialInstance", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_tree_normals_pass.html#aefdfbd7828be9044cbff5f89ebd14f19", null ],

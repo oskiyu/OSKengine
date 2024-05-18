@@ -6,5 +6,6 @@ var struct_o_s_k_1_1_e_c_s_1_1_terrain_component =
     [ "GetNumIndices", "struct_o_s_k_1_1_e_c_s_1_1_terrain_component.html#a2eba497f6816b9985a7804dc7290d7a7", null ],
     [ "GetVertexBuffer", "struct_o_s_k_1_1_e_c_s_1_1_terrain_component.html#adf7240d05ea6843837803420a78c2d21", null ],
     [ "OSK_COMPONENT", "struct_o_s_k_1_1_e_c_s_1_1_terrain_component.html#aa622e14d74866761a309b7ac044a3c39", null ],
+    [ "OSK_SERIALIZABLE_COMPONENT", "struct_o_s_k_1_1_e_c_s_1_1_terrain_component.html#aa0e87d4d4f28589dd1cfd1773079eb26", null ],
     [ "SetMaterialInstance", "struct_o_s_k_1_1_e_c_s_1_1_terrain_component.html#acdee489fde34e4aa92c379db15e1c3e5", null ]
 ];

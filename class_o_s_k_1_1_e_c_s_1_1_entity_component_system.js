@@ -14,6 +14,8 @@ var class_o_s_k_1_1_e_c_s_1_1_entity_component_system =
     [ "GetSystem", "class_o_s_k_1_1_e_c_s_1_1_entity_component_system.html#a050515978e99458d1a907126454d3bef", null ],
     [ "HasSystem", "class_o_s_k_1_1_e_c_s_1_1_entity_component_system.html#af99b27ec5c4a675906a93b473d07ba18", null ],
     [ "IsGameObjectAlive", "class_o_s_k_1_1_e_c_s_1_1_entity_component_system.html#aab8512a19f26e2beefe570ab3ea04207", null ],
+    [ "LoadBinaryScene", "class_o_s_k_1_1_e_c_s_1_1_entity_component_system.html#aa1c0cdb2a732319093ac00fbde9cd1ea", null ],
+    [ "LoadScene", "class_o_s_k_1_1_e_c_s_1_1_entity_component_system.html#a40e3337a38b5db867a173ce01e4837ad", null ],
     [ "ObjectHasComponent", "class_o_s_k_1_1_e_c_s_1_1_entity_component_system.html#a433fc2a7434470f4fbc01d62c32f535c", null ],
     [ "OnRender", "class_o_s_k_1_1_e_c_s_1_1_entity_component_system.html#a9fe514873725525079db5a80a2333c98", null ],
     [ "OnTick", "class_o_s_k_1_1_e_c_s_1_1_entity_component_system.html#a5a836db0967b2e872e8d66b379bb0728", null ],
@@ -23,5 +25,7 @@ var class_o_s_k_1_1_e_c_s_1_1_entity_component_system =
     [ "RegisterSystem", "class_o_s_k_1_1_e_c_s_1_1_entity_component_system.html#aa2570d5d96c1f4704b52c835294f7aa5", null ],
     [ "RemoveComponent", "class_o_s_k_1_1_e_c_s_1_1_entity_component_system.html#a951795223a1dbef1b648f2dbe1b29b2d", null ],
     [ "RemoveSystem", "class_o_s_k_1_1_e_c_s_1_1_entity_component_system.html#a798a0e00bae8eecdee1ff9d4cdcb8ebd", null ],
+    [ "Save", "class_o_s_k_1_1_e_c_s_1_1_entity_component_system.html#a24b569adf8c10830c158361d8041ad04", null ],
+    [ "SaveBinary", "class_o_s_k_1_1_e_c_s_1_1_entity_component_system.html#af3a4593c908f810a37b9a3e4a01bd499", null ],
     [ "SpawnObject", "class_o_s_k_1_1_e_c_s_1_1_entity_component_system.html#a8fdd1a158a10e388946a2c3e0ddf1eb5", null ]
 ];

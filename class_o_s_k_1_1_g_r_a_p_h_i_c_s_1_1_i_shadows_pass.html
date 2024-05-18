@@ -110,6 +110,8 @@ Métodos públicos</h2></td></tr>
 <tr class="separator:aa462b39a72382120d8246ba71e507439"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0660fce2301c645629a98a2b248aba23" id="r_a0660fce2301c645629a98a2b248aba23"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a0660fce2301c645629a98a2b248aba23">~IShadowsPass</a> ()=default</td></tr>
 <tr class="separator:a0660fce2301c645629a98a2b248aba23"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac88cf317b6be84b7fc2af2d0abc983ae" id="r_ac88cf317b6be84b7fc2af2d0abc983ae"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ac88cf317b6be84b7fc2af2d0abc983ae">SetupShadowMap</a> (const <a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_shadow_map.html">ShadowMap</a> &amp;shadowMap)=0</td></tr>
+<tr class="separator:ac88cf317b6be84b7fc2af2d0abc983ae"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6eb8b515dd250aa79bf12792e95d9ee2" id="r_a6eb8b515dd250aa79bf12792e95d9ee2"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a6eb8b515dd250aa79bf12792e95d9ee2">ShadowsRenderLoop</a> (<a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list.html">ICommandList</a> *commandList, const <a class="el" href="class_o_s_k_1_1_dynamic_array.html">DynamicArray</a>&lt; <a class="el" href="namespace_o_s_k_1_1_e_c_s.html#a5b92aeaa6be2ce0d96e7f571aa917042">ECS::GameObjectIndex</a> &gt; &amp;objectsToRender, UIndex32 cascadeIndex, const <a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_shadow_map.html">ShadowMap</a> &amp;map)</td></tr>
 <tr class="separator:a6eb8b515dd250aa79bf12792e95d9ee2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aae7d4a35c005905b86cec1d1f6b0b71f" id="r_aae7d4a35c005905b86cec1d1f6b0b71f"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_shader_pass.html#aae7d4a35c005905b86cec1d1f6b0b71f">OSK_DEFINE_AS</a> (<a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_shader_pass.html">IShaderPass</a>)</td></tr>
@@ -500,6 +502,33 @@ Atributos protegidos</h2></td></tr>
 
 </div>
 </div>
+<a id="ac88cf317b6be84b7fc2af2d0abc983ae" name="ac88cf317b6be84b7fc2af2d0abc983ae"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac88cf317b6be84b7fc2af2d0abc983ae">&#9670;&#160;</a></span>SetupShadowMap()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void OSK::GRAPHICS::IShadowsPass::SetupShadowMap </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_shadow_map.html">ShadowMap</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>shadowMap</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Implementado en <a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_shadows_static_pass.html#af3863ec3d395582191c6db012d20445b">OSK::GRAPHICS::ShadowsStaticPass</a>.</p>
+
+</div>
+</div>
 <a id="a6eb8b515dd250aa79bf12792e95d9ee2" name="a6eb8b515dd250aa79bf12792e95d9ee2"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a6eb8b515dd250aa79bf12792e95d9ee2">&#9670;&#160;</a></span>ShadowsRenderLoop()</h2>
 
@@ -539,7 +568,7 @@ Atributos protegidos</h2></td></tr>
 
 <p>Reimplementado en <a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_shadows_static_pass.html#a8c2cc40cd5cfa52ad8dc80001912075d">OSK::GRAPHICS::ShadowsStaticPass</a>.</p>
 
-<p class="definition">Definición en la línea <a class="el" href="_i_shader_pass_8h_source.html#l00121">121</a> del archivo <a class="el" href="_i_shader_pass_8h_source.html">IShaderPass.h</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_i_shader_pass_8h_source.html#l00123">123</a> del archivo <a class="el" href="_i_shader_pass_8h_source.html">IShaderPass.h</a>.</p>
 
 </div>
 </div>
@@ -739,7 +768,7 @@ Atributos protegidos</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="namespace_o_s_k.html">OSK</a></li><li class="navelem"><a class="el" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html">GRAPHICS</a></li><li class="navelem"><a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_shadows_pass.html">IShadowsPass</a></li>
-    <li class="footer">Generado el Miércoles, 8 de mayo de 2024 10:59:32 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.10.0 </li>
+    <li class="footer">Generado el Sábado, 18 de mayo de 2024 12:15:54 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.10.0 </li>
   </ul>
 </div>
 </body>

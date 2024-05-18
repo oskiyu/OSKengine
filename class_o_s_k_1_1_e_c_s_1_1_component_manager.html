@@ -139,6 +139,12 @@ Métodos públicos</h2></td></tr>
 <tr class="memitem:a1c5a364ae7bb71ad68216ec6240936c8" id="r_a1c5a364ae7bb71ad68216ec6240936c8"><td class="memTemplParams" colspan="2">template&lt;typename TComponent &gt; </td></tr>
 <tr class="memitem:a1c5a364ae7bb71ad68216ec6240936c8"><td class="memTemplItemLeft" align="right" valign="top">bool&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="#a1c5a364ae7bb71ad68216ec6240936c8">ObjectHasComponent</a> (<a class="el" href="namespace_o_s_k_1_1_e_c_s.html#a5b92aeaa6be2ce0d96e7f571aa917042">GameObjectIndex</a> obj) const</td></tr>
 <tr class="separator:a1c5a364ae7bb71ad68216ec6240936c8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a79fb8bfe46f9ebd06c167bb038b62386" id="r_a79fb8bfe46f9ebd06c167bb038b62386"><td class="memItemLeft" align="right" valign="top">const std::unordered_map&lt; std::string, <a class="el" href="class_o_s_k_1_1_unique_ptr.html">UniquePtr</a>&lt; <a class="el" href="class_o_s_k_1_1_e_c_s_1_1_i_component_container.html">IComponentContainer</a> &gt;, <a class="el" href="struct_o_s_k_1_1_string_hasher.html">StringHasher</a>, std::equal_to&lt;&gt; &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a79fb8bfe46f9ebd06c167bb038b62386">GetAllContainers</a> () const</td></tr>
+<tr class="separator:a79fb8bfe46f9ebd06c167bb038b62386"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a11eafacf9605ffde7f05bc0f07c2ed36" id="r_a11eafacf9605ffde7f05bc0f07c2ed36"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_o_s_k_1_1_e_c_s_1_1_i_component_container.html">IComponentContainer</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a11eafacf9605ffde7f05bc0f07c2ed36">GetContainer</a> (std::string_view componentTypeName)</td></tr>
+<tr class="separator:a11eafacf9605ffde7f05bc0f07c2ed36"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7d7f76b7e48971ad01de89d9901a85f7" id="r_a7d7f76b7e48971ad01de89d9901a85f7"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="class_o_s_k_1_1_e_c_s_1_1_i_component_container.html">IComponentContainer</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a7d7f76b7e48971ad01de89d9901a85f7">GetContainer</a> (std::string_view componentTypeName) const</td></tr>
+<tr class="separator:a7d7f76b7e48971ad01de89d9901a85f7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Descripción detallada</h2>
 <div class="textblock"><p>Se encarga de manejar la creación y eliminación de componentes. Guarda un <a class="el" href="class_o_s_k_1_1_e_c_s_1_1_component_container.html" title="Contenedor para el dynamic array de componentes del tipo dado. Se encarga de manejar la introducción ...">ComponentContainer</a> por cada tipo de componente registrado. </p>
@@ -216,7 +222,7 @@ template&lt;typename TComponent &gt; </div>
 </dl>
 <dl class="section return"><dt>Devuelve</dt><dd>Referencia al componente. </dd></dl>
 
-<p class="definition">Definición en la línea <a class="el" href="_component_manager_8h_source.html#l00058">58</a> del archivo <a class="el" href="_component_manager_8h_source.html">ComponentManager.h</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_component_manager_8h_source.html#l00059">59</a> del archivo <a class="el" href="_component_manager_8h_source.html">ComponentManager.h</a>.</p>
 
 </div>
 </div>
@@ -252,7 +258,7 @@ template&lt;typename TComponent &gt; </div>
 <p>Añade el componente dado al GameObject dado. </p>
 <dl class="section return"><dt>Devuelve</dt><dd>El componente recién añadido.</dd></dl>
 
-<p class="definition">Definición en la línea <a class="el" href="_component_manager_8h_source.html#l00067">67</a> del archivo <a class="el" href="_component_manager_8h_source.html">ComponentManager.h</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_component_manager_8h_source.html#l00068">68</a> del archivo <a class="el" href="_component_manager_8h_source.html">ComponentManager.h</a>.</p>
 
 </div>
 </div>
@@ -281,7 +287,7 @@ template&lt;typename TComponent &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definición en la línea <a class="el" href="_component_manager_8h_source.html#l00109">109</a> del archivo <a class="el" href="_component_manager_8h_source.html">ComponentManager.h</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_component_manager_8h_source.html#l00110">110</a> del archivo <a class="el" href="_component_manager_8h_source.html">ComponentManager.h</a>.</p>
 
 </div>
 </div>
@@ -303,6 +309,34 @@ template&lt;typename TComponent &gt; </div>
 <p>Se llama cuando un objeto es destruido. Se encarga de eliminar todos los componentes del objeto. </p>
 
 <p class="definition">Definición en la línea <a class="el" href="_component_manager_8cpp_source.html#l00005">5</a> del archivo <a class="el" href="_component_manager_8cpp_source.html">ComponentManager.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a79fb8bfe46f9ebd06c167bb038b62386" name="a79fb8bfe46f9ebd06c167bb038b62386"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a79fb8bfe46f9ebd06c167bb038b62386">&#9670;&#160;</a></span>GetAllContainers()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const std::unordered_map&lt; std::string, <a class="el" href="class_o_s_k_1_1_unique_ptr.html">UniquePtr</a>&lt; <a class="el" href="class_o_s_k_1_1_e_c_s_1_1_i_component_container.html">IComponentContainer</a> &gt;, <a class="el" href="struct_o_s_k_1_1_string_hasher.html">StringHasher</a>, std::equal_to&lt;&gt; &gt; &amp; OSK::ECS::ComponentManager::GetAllContainers </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Devuelve</dt><dd>Todos los contenedores registrados. </dd></dl>
+
+<p class="definition">Definición en la línea <a class="el" href="_component_manager_8h_source.html#l00127">127</a> del archivo <a class="el" href="_component_manager_8h_source.html">ComponentManager.h</a>.</p>
 
 </div>
 </div>
@@ -346,7 +380,7 @@ template&lt;typename TComponent &gt; </div>
 </dl>
 <dl class="section return"><dt>Devuelve</dt><dd>Referencia al componente.</dd></dl>
 
-<p class="definition">Definición en la línea <a class="el" href="_component_manager_8h_source.html#l00087">87</a> del archivo <a class="el" href="_component_manager_8h_source.html">ComponentManager.h</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_component_manager_8h_source.html#l00088">88</a> del archivo <a class="el" href="_component_manager_8h_source.html">ComponentManager.h</a>.</p>
 
 </div>
 </div>
@@ -390,7 +424,7 @@ template&lt;typename TComponent &gt; </div>
 </dl>
 <dl class="section return"><dt>Devuelve</dt><dd>Referencia al componente.</dd></dl>
 
-<p class="definition">Definición en la línea <a class="el" href="_component_manager_8h_source.html#l00098">98</a> del archivo <a class="el" href="_component_manager_8h_source.html">ComponentManager.h</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_component_manager_8h_source.html#l00099">99</a> del archivo <a class="el" href="_component_manager_8h_source.html">ComponentManager.h</a>.</p>
 
 </div>
 </div>
@@ -433,7 +467,89 @@ template&lt;typename TComponent &gt; </div>
   </dd>
 </dl>
 
-<p class="definition">Definición en la línea <a class="el" href="_component_manager_8h_source.html#l00047">47</a> del archivo <a class="el" href="_component_manager_8h_source.html">ComponentManager.h</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_component_manager_8h_source.html#l00048">48</a> del archivo <a class="el" href="_component_manager_8h_source.html">ComponentManager.h</a>.</p>
+
+</div>
+</div>
+<a id="a11eafacf9605ffde7f05bc0f07c2ed36" name="a11eafacf9605ffde7f05bc0f07c2ed36"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a11eafacf9605ffde7f05bc0f07c2ed36">&#9670;&#160;</a></span>GetContainer() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="class_o_s_k_1_1_e_c_s_1_1_i_component_container.html">IComponentContainer</a> * OSK::ECS::ComponentManager::GetContainer </td>
+          <td>(</td>
+          <td class="paramtype">std::string_view</td>          <td class="paramname"><span class="paramname"><em>componentTypeName</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">componentTypeName</td><td>Nombre del tipo de componente. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Devuelve</dt><dd>Contenedor del tipo indicado. </dd></dl>
+<dl class="section pre"><dt>Precondición</dt><dd>El tipo de componente <code>componentTypeName</code> debe haber sido previamente registrado. </dd></dl>
+<dl class="exception"><dt>Excepciones</dt><dd>
+  <table class="exception">
+    <tr><td class="paramname"><a class="el" href="class_o_s_k_1_1_invalid_argument_exception.html" title="Excepción que se lanza cuando se trata de ejecutar una función pasando argumentos con valores que no ...">InvalidArgumentException</a></td><td>Si se incumple la precondición. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definición en la línea <a class="el" href="_component_manager_8h_source.html#l00136">136</a> del archivo <a class="el" href="_component_manager_8h_source.html">ComponentManager.h</a>.</p>
+
+</div>
+</div>
+<a id="a7d7f76b7e48971ad01de89d9901a85f7" name="a7d7f76b7e48971ad01de89d9901a85f7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7d7f76b7e48971ad01de89d9901a85f7">&#9670;&#160;</a></span>GetContainer() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="class_o_s_k_1_1_e_c_s_1_1_i_component_container.html">IComponentContainer</a> * OSK::ECS::ComponentManager::GetContainer </td>
+          <td>(</td>
+          <td class="paramtype">std::string_view</td>          <td class="paramname"><span class="paramname"><em>componentTypeName</em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">componentTypeName</td><td>Nombre del tipo de componente. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Devuelve</dt><dd>Contenedor del tipo indicado. </dd></dl>
+<dl class="section pre"><dt>Precondición</dt><dd>El tipo de componente <code>componentTypeName</code> debe haber sido previamente registrado. </dd></dl>
+<dl class="exception"><dt>Excepciones</dt><dd>
+  <table class="exception">
+    <tr><td class="paramname"><a class="el" href="class_o_s_k_1_1_invalid_argument_exception.html" title="Excepción que se lanza cuando se trata de ejecutar una función pasando argumentos con valores que no ...">InvalidArgumentException</a></td><td>Si se incumple la precondición. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definición en la línea <a class="el" href="_component_manager_8h_source.html#l00151">151</a> del archivo <a class="el" href="_component_manager_8h_source.html">ComponentManager.h</a>.</p>
 
 </div>
 </div>
@@ -482,7 +598,7 @@ template&lt;typename TComponent &gt; </div>
   </dd>
 </dl>
 
-<p class="definition">Definición en la línea <a class="el" href="_component_manager_8h_source.html#l00120">120</a> del archivo <a class="el" href="_component_manager_8h_source.html">ComponentManager.h</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_component_manager_8h_source.html#l00121">121</a> del archivo <a class="el" href="_component_manager_8h_source.html">ComponentManager.h</a>.</p>
 
 </div>
 </div>
@@ -597,7 +713,7 @@ template&lt;typename TComponent &gt; </div>
   </dd>
 </dl>
 
-<p class="definition">Definición en la línea <a class="el" href="_component_manager_8h_source.html#l00076">76</a> del archivo <a class="el" href="_component_manager_8h_source.html">ComponentManager.h</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_component_manager_8h_source.html#l00077">77</a> del archivo <a class="el" href="_component_manager_8h_source.html">ComponentManager.h</a>.</p>
 
 </div>
 </div>
@@ -607,7 +723,7 @@ template&lt;typename TComponent &gt; </div>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="namespace_o_s_k.html">OSK</a></li><li class="navelem"><a class="el" href="namespace_o_s_k_1_1_e_c_s.html">ECS</a></li><li class="navelem"><a class="el" href="class_o_s_k_1_1_e_c_s_1_1_component_manager.html">ComponentManager</a></li>
-    <li class="footer">Generado el Miércoles, 8 de mayo de 2024 10:59:31 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.10.0 </li>
+    <li class="footer">Generado el Sábado, 18 de mayo de 2024 12:15:53 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.10.0 </li>
   </ul>
 </div>
 </body>

@@ -9,11 +9,10 @@ var class_o_s_k_1_1_e_c_s_1_1_camera_component3_d =
     [ "GetProjectionMatrix_UnreversedZ", "class_o_s_k_1_1_e_c_s_1_1_camera_component3_d.html#a0b87cc0f76a0a4afa3573bfa6a5889d6", null ],
     [ "GetViewMatrix", "class_o_s_k_1_1_e_c_s_1_1_camera_component3_d.html#a5cc4bc7e2d2d8c23c93b13096970acdb", null ],
     [ "OSK_COMPONENT", "class_o_s_k_1_1_e_c_s_1_1_camera_component3_d.html#ab542c00aad8fab84e59a66fc53de9d90", null ],
+    [ "OSK_SERIALIZABLE_COMPONENT", "class_o_s_k_1_1_e_c_s_1_1_camera_component3_d.html#afa5beed998793a165c88cafb3f39029f", null ],
     [ "Rotate", "class_o_s_k_1_1_e_c_s_1_1_camera_component3_d.html#ae082cbaa29076b9d1baba6404ebef134", null ],
     [ "SetFov", "class_o_s_k_1_1_e_c_s_1_1_camera_component3_d.html#ad842f6befbd2b4b5c276407789917e2d", null ],
     [ "SetFovLimits", "class_o_s_k_1_1_e_c_s_1_1_camera_component3_d.html#a01fc9ba97878f1946f54b919dd51a3ec", null ],
     [ "SetPlanes", "class_o_s_k_1_1_e_c_s_1_1_camera_component3_d.html#a2662c11c75d1fb870a3cadb86dd484ab", null ],
-    [ "UpdateTransform", "class_o_s_k_1_1_e_c_s_1_1_camera_component3_d.html#ae67d2d1b0d5bab6065d274cb185f08ef", null ],
-    [ "PERSISTENCE::DeserializeJson", "class_o_s_k_1_1_e_c_s_1_1_camera_component3_d.html#aafb780ec1060e230381806dc0a930fa0", null ],
-    [ "PERSISTENCE::SerializeJson", "class_o_s_k_1_1_e_c_s_1_1_camera_component3_d.html#a9346abf070e067da503c7d6a7db79182", null ]
+    [ "UpdateTransform", "class_o_s_k_1_1_e_c_s_1_1_camera_component3_d.html#ae67d2d1b0d5bab6065d274cb185f08ef", null ]
 ];

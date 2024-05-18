@@ -107,6 +107,14 @@ $(function(){initNavTree('class_o_s_k_1_1_e_c_s_1_1_i_system.html',''); initResi
 Métodos públicos</h2></td></tr>
 <tr class="memitem:add6feeb7e64c9eea2563dcece799c55d" id="r_add6feeb7e64c9eea2563dcece799c55d"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#add6feeb7e64c9eea2563dcece799c55d">~ISystem</a> ()=default</td></tr>
 <tr class="separator:add6feeb7e64c9eea2563dcece799c55d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a71abb122385e05992f9c3875993dafd1" id="r_a71abb122385e05992f9c3875993dafd1"><td class="memItemLeft" align="right" valign="top">virtual nlohmann::json&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a71abb122385e05992f9c3875993dafd1">SaveConfiguration</a> () const =0</td></tr>
+<tr class="separator:a71abb122385e05992f9c3875993dafd1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab5ebff79ec2fb87d79f43dcddd9ceaa6" id="r_ab5ebff79ec2fb87d79f43dcddd9ceaa6"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="class_o_s_k_1_1_p_e_r_s_i_s_t_e_n_c_e_1_1_binary_block.html">PERSISTENCE::BinaryBlock</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ab5ebff79ec2fb87d79f43dcddd9ceaa6">SaveBinaryConfiguration</a> () const =0</td></tr>
+<tr class="separator:ab5ebff79ec2fb87d79f43dcddd9ceaa6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a356c53dd2a07b8aa475fb6fc6109bd14" id="r_a356c53dd2a07b8aa475fb6fc6109bd14"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a356c53dd2a07b8aa475fb6fc6109bd14">ApplyConfiguration</a> (const nlohmann::json &amp;config, const <a class="el" href="class_o_s_k_1_1_e_c_s_1_1_saved_game_object_translator.html">SavedGameObjectTranslator</a> &amp;translator)=0</td></tr>
+<tr class="separator:a356c53dd2a07b8aa475fb6fc6109bd14"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5916eb925d40c0ad0bf7c946b62ab996" id="r_a5916eb925d40c0ad0bf7c946b62ab996"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a5916eb925d40c0ad0bf7c946b62ab996">ApplyConfiguration</a> (<a class="el" href="class_o_s_k_1_1_p_e_r_s_i_s_t_e_n_c_e_1_1_binary_block_reader.html">PERSISTENCE::BinaryBlockReader</a> *reader, const <a class="el" href="class_o_s_k_1_1_e_c_s_1_1_saved_game_object_translator.html">SavedGameObjectTranslator</a> &amp;translator)=0</td></tr>
+<tr class="separator:a5916eb925d40c0ad0bf7c946b62ab996"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a78d27d6a19bd0d3c9eadc3521c350001" id="r_a78d27d6a19bd0d3c9eadc3521c350001"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a78d27d6a19bd0d3c9eadc3521c350001">OnCreate</a> ()</td></tr>
 <tr class="separator:a78d27d6a19bd0d3c9eadc3521c350001"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a43e7608ce2a31c9c13b42cf4ce6eb0ef" id="r_a43e7608ce2a31c9c13b42cf4ce6eb0ef"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a43e7608ce2a31c9c13b42cf4ce6eb0ef">OnRemove</a> ()</td></tr>
@@ -137,7 +145,7 @@ Métodos protegidos</h2></td></tr>
 <div class="textblock"><p>Un sistema se encarga de ejecutar lógica. </p>
 <dl class="section warning"><dt>Atención</dt><dd>Para que una clase pueda ser usada como sistema, debe tener implementado OSK_SYSTEM(className). Este debe ser un identificador único: no pueden haber dos tipos de sistemas con el mismo className. </dd></dl>
 
-<p class="definition">Definición en la línea <a class="el" href="_i_system_8h_source.html#l00048">48</a> del archivo <a class="el" href="_i_system_8h_source.html">ISystem.h</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_i_system_8h_source.html#l00055">55</a> del archivo <a class="el" href="_i_system_8h_source.html">ISystem.h</a>.</p>
 </div><h2 class="groupheader">Documentación de constructores y destructores</h2>
 <a id="add6feeb7e64c9eea2563dcece799c55d" name="add6feeb7e64c9eea2563dcece799c55d"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#add6feeb7e64c9eea2563dcece799c55d">&#9670;&#160;</a></span>~ISystem()</h2>
@@ -227,6 +235,86 @@ Métodos protegidos</h2></td></tr>
 <p>Activa el sistema, con lo que se ejecutará cada frame. </p>
 
 <p class="definition">Definición en la línea <a class="el" href="_i_system_8cpp_source.html#l00013">13</a> del archivo <a class="el" href="_i_system_8cpp_source.html">ISystem.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a356c53dd2a07b8aa475fb6fc6109bd14" name="a356c53dd2a07b8aa475fb6fc6109bd14"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a356c53dd2a07b8aa475fb6fc6109bd14">&#9670;&#160;</a></span>ApplyConfiguration() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void OSK::ECS::ISystem::ApplyConfiguration </td>
+          <td>(</td>
+          <td class="paramtype">const nlohmann::json &amp;</td>          <td class="paramname"><span class="paramname"><em>config</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="class_o_s_k_1_1_e_c_s_1_1_saved_game_object_translator.html">SavedGameObjectTranslator</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>translator</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Aplica la configuración al sistema. </p>
+<dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">config</td><td>Configuración del sistema. </td></tr>
+    <tr><td class="paramname">translator</td><td>Tabla que permite obtener los IDs generados. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Implementado en <a class="el" href="class_o_s_k_1_1_e_c_s_1_1_collider_render_system.html#a4022c9b5347b42d5108d6d439cf426df">OSK::ECS::ColliderRenderSystem</a>, <a class="el" href="class_o_s_k_1_1_e_c_s_1_1_collision_system.html#a0824269fbe9943555e3d98d17c4f33db">OSK::ECS::CollisionSystem</a>, <a class="el" href="class_o_s_k_1_1_e_c_s_1_1_deferred_render_system.html#ae42568df0b302d34cdab82f5b29f8e05">OSK::ECS::DeferredRenderSystem</a>, <a class="el" href="class_o_s_k_1_1_e_c_s_1_1_hybrid_render_system.html#ac645ee3eefd1588d32a8fb97450a2445">OSK::ECS::HybridRenderSystem</a>, <a class="el" href="class_o_s_k_1_1_e_c_s_1_1_physics_resolver.html#a478c6cb3fe6b27bee94681d6a3597b54">OSK::ECS::PhysicsResolver</a>, <a class="el" href="class_o_s_k_1_1_e_c_s_1_1_physics_system.html#ab0d174e98b49c92f42214736f7a86743">OSK::ECS::PhysicsSystem</a>, <a class="el" href="class_o_s_k_1_1_e_c_s_1_1_render_bounds_renderer.html#a16f8e8095b4c6480f78102b7ded631a9">OSK::ECS::RenderBoundsRenderer</a>, <a class="el" href="class_o_s_k_1_1_e_c_s_1_1_render_system2_d.html#ac1bd96bd356ce5669ae4210764201c5d">OSK::ECS::RenderSystem2D</a>, <a class="el" href="class_o_s_k_1_1_e_c_s_1_1_render_system3_d.html#ae0fe73616592632f4c54de48af790e69">OSK::ECS::RenderSystem3D</a>, <a class="el" href="class_o_s_k_1_1_e_c_s_1_1_skybox_render_system.html#a670c4379ec24801530d7c0cf56449c65">OSK::ECS::SkyboxRenderSystem</a>, <a class="el" href="class_o_s_k_1_1_e_c_s_1_1_terrain_render_system.html#a2c9cc1b4fdb750f948f4efa692c82cd9">OSK::ECS::TerrainRenderSystem</a>, <a class="el" href="class_o_s_k_1_1_e_c_s_1_1_transform_applier_system.html#a1940982c968ee725476863429ffb1d11">OSK::ECS::TransformApplierSystem</a> y <a class="el" href="class_o_s_k_1_1_e_c_s_1_1_tree_normals_render_system.html#a93b0bd4a32e38d719282c93962e0cc9f">OSK::ECS::TreeNormalsRenderSystem</a>.</p>
+
+</div>
+</div>
+<a id="a5916eb925d40c0ad0bf7c946b62ab996" name="a5916eb925d40c0ad0bf7c946b62ab996"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5916eb925d40c0ad0bf7c946b62ab996">&#9670;&#160;</a></span>ApplyConfiguration() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void OSK::ECS::ISystem::ApplyConfiguration </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="class_o_s_k_1_1_p_e_r_s_i_s_t_e_n_c_e_1_1_binary_block_reader.html">PERSISTENCE::BinaryBlockReader</a> *</td>          <td class="paramname"><span class="paramname"><em>reader</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="class_o_s_k_1_1_e_c_s_1_1_saved_game_object_translator.html">SavedGameObjectTranslator</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>translator</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Aplica la configuración al sistema. </p>
+<dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">reader</td><td>Lector del bloque binario que contiene los datos del sistema. </td></tr>
+    <tr><td class="paramname">translator</td><td>Tabla que permite obtener los IDs generados. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Implementado en <a class="el" href="class_o_s_k_1_1_e_c_s_1_1_collider_render_system.html#ad9f98e4e805ebc547f4bae27c4c50c8f">OSK::ECS::ColliderRenderSystem</a>, <a class="el" href="class_o_s_k_1_1_e_c_s_1_1_collision_system.html#abea234080428be270970a8562d6b7877">OSK::ECS::CollisionSystem</a>, <a class="el" href="class_o_s_k_1_1_e_c_s_1_1_deferred_render_system.html#a77f8eb46d06f1eb09e51090fc78f7838">OSK::ECS::DeferredRenderSystem</a>, <a class="el" href="class_o_s_k_1_1_e_c_s_1_1_hybrid_render_system.html#a4f35b1e7bd35f1bb043c886297a2e7c1">OSK::ECS::HybridRenderSystem</a>, <a class="el" href="class_o_s_k_1_1_e_c_s_1_1_physics_resolver.html#a2dc9878562211e65636c7e5eb61eb188">OSK::ECS::PhysicsResolver</a>, <a class="el" href="class_o_s_k_1_1_e_c_s_1_1_physics_system.html#a8121965c8f9b044af25be216cb065dce">OSK::ECS::PhysicsSystem</a>, <a class="el" href="class_o_s_k_1_1_e_c_s_1_1_render_bounds_renderer.html#a07cc3a31eb8fcfcdb7133303a813f35f">OSK::ECS::RenderBoundsRenderer</a>, <a class="el" href="class_o_s_k_1_1_e_c_s_1_1_render_system2_d.html#a9cfc7b52e6389c6f4960ba4c19941fea">OSK::ECS::RenderSystem2D</a>, <a class="el" href="class_o_s_k_1_1_e_c_s_1_1_render_system3_d.html#a817d22324077082ae76f4b85d18ebbf1">OSK::ECS::RenderSystem3D</a>, <a class="el" href="class_o_s_k_1_1_e_c_s_1_1_skybox_render_system.html#a76c0e115312c351e03072ae7b1f05670">OSK::ECS::SkyboxRenderSystem</a>, <a class="el" href="class_o_s_k_1_1_e_c_s_1_1_terrain_render_system.html#a4fd989452b8f8cbdbd7e72e5ee81092b">OSK::ECS::TerrainRenderSystem</a>, <a class="el" href="class_o_s_k_1_1_e_c_s_1_1_transform_applier_system.html#aa2570da0f7b1aa24644d18cd5160d45d">OSK::ECS::TransformApplierSystem</a> y <a class="el" href="class_o_s_k_1_1_e_c_s_1_1_tree_normals_render_system.html#a61f55a7b7cd8418a5507adee1bf2b823">OSK::ECS::TreeNormalsRenderSystem</a>.</p>
 
 </div>
 </div>
@@ -377,6 +465,62 @@ Métodos protegidos</h2></td></tr>
 
 </div>
 </div>
+<a id="ab5ebff79ec2fb87d79f43dcddd9ceaa6" name="ab5ebff79ec2fb87d79f43dcddd9ceaa6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab5ebff79ec2fb87d79f43dcddd9ceaa6">&#9670;&#160;</a></span>SaveBinaryConfiguration()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual <a class="el" href="class_o_s_k_1_1_p_e_r_s_i_s_t_e_n_c_e_1_1_binary_block.html">PERSISTENCE::BinaryBlock</a> OSK::ECS::ISystem::SaveBinaryConfiguration </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Devuelve</dt><dd>Estructura binaria con la información relevante de la configuración del sistema en un momento dado. </dd></dl>
+
+<p>Implementado en <a class="el" href="class_o_s_k_1_1_e_c_s_1_1_collider_render_system.html#a4fd3113d5911616333d5f24bc12aed3d">OSK::ECS::ColliderRenderSystem</a>, <a class="el" href="class_o_s_k_1_1_e_c_s_1_1_collision_system.html#a523fec135fffd3272a644e63150d1110">OSK::ECS::CollisionSystem</a>, <a class="el" href="class_o_s_k_1_1_e_c_s_1_1_deferred_render_system.html#a69f02ab71df1c5833b936c2c4a1e1206">OSK::ECS::DeferredRenderSystem</a>, <a class="el" href="class_o_s_k_1_1_e_c_s_1_1_hybrid_render_system.html#ad7fdd3a3d50ef050a59f2d9b2256654f">OSK::ECS::HybridRenderSystem</a>, <a class="el" href="class_o_s_k_1_1_e_c_s_1_1_physics_resolver.html#a20638796f4079a8dc303c0abf409ff61">OSK::ECS::PhysicsResolver</a>, <a class="el" href="class_o_s_k_1_1_e_c_s_1_1_physics_system.html#a98270cfc6e880ba56ba9d1e24f24dbba">OSK::ECS::PhysicsSystem</a>, <a class="el" href="class_o_s_k_1_1_e_c_s_1_1_render_bounds_renderer.html#a7b1d5d55e52e231a2c4574b885bdc8c0">OSK::ECS::RenderBoundsRenderer</a>, <a class="el" href="class_o_s_k_1_1_e_c_s_1_1_render_system2_d.html#a5577372ee68c92ca2b78326ec82c51e2">OSK::ECS::RenderSystem2D</a>, <a class="el" href="class_o_s_k_1_1_e_c_s_1_1_render_system3_d.html#ad2d664efcd6b120d5305a4c020953467">OSK::ECS::RenderSystem3D</a>, <a class="el" href="class_o_s_k_1_1_e_c_s_1_1_skybox_render_system.html#a2d008b07edbae8ea21325eeffbe22601">OSK::ECS::SkyboxRenderSystem</a>, <a class="el" href="class_o_s_k_1_1_e_c_s_1_1_terrain_render_system.html#a6af52c6574987f19aee5699283383997">OSK::ECS::TerrainRenderSystem</a>, <a class="el" href="class_o_s_k_1_1_e_c_s_1_1_transform_applier_system.html#a510ac9ef9d7019d8ee2786eaaf5606d3">OSK::ECS::TransformApplierSystem</a> y <a class="el" href="class_o_s_k_1_1_e_c_s_1_1_tree_normals_render_system.html#a881622e69be7caa03d47ec569c5b111d">OSK::ECS::TreeNormalsRenderSystem</a>.</p>
+
+</div>
+</div>
+<a id="a71abb122385e05992f9c3875993dafd1" name="a71abb122385e05992f9c3875993dafd1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a71abb122385e05992f9c3875993dafd1">&#9670;&#160;</a></span>SaveConfiguration()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual nlohmann::json OSK::ECS::ISystem::SaveConfiguration </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Devuelve</dt><dd>Estructura JSON con la información relevante de la configuración del sistema en un momento dado. </dd></dl>
+
+<p>Implementado en <a class="el" href="class_o_s_k_1_1_e_c_s_1_1_collider_render_system.html#afede14e28036fbaa90fad77d50c64b8d">OSK::ECS::ColliderRenderSystem</a>, <a class="el" href="class_o_s_k_1_1_e_c_s_1_1_collision_system.html#a232400f4679f99256e69def1685e46c7">OSK::ECS::CollisionSystem</a>, <a class="el" href="class_o_s_k_1_1_e_c_s_1_1_deferred_render_system.html#a9649a8514b433ec7b156d41f9f3c4ed1">OSK::ECS::DeferredRenderSystem</a>, <a class="el" href="class_o_s_k_1_1_e_c_s_1_1_hybrid_render_system.html#a5537a64cc76f767d0d1c0da582d4e2ed">OSK::ECS::HybridRenderSystem</a>, <a class="el" href="class_o_s_k_1_1_e_c_s_1_1_physics_resolver.html#a7d58c16bcee633f3cdda186a77919d95">OSK::ECS::PhysicsResolver</a>, <a class="el" href="class_o_s_k_1_1_e_c_s_1_1_physics_system.html#af944f51b806014e01368df98d60be26c">OSK::ECS::PhysicsSystem</a>, <a class="el" href="class_o_s_k_1_1_e_c_s_1_1_render_bounds_renderer.html#a06e260ae3b014fc6e40913b5f4de2b8d">OSK::ECS::RenderBoundsRenderer</a>, <a class="el" href="class_o_s_k_1_1_e_c_s_1_1_render_system2_d.html#a1100f733bf7e077e3384ae33ab4d9f31">OSK::ECS::RenderSystem2D</a>, <a class="el" href="class_o_s_k_1_1_e_c_s_1_1_render_system3_d.html#a55a2e69590f0abaf66b91baa2e47153b">OSK::ECS::RenderSystem3D</a>, <a class="el" href="class_o_s_k_1_1_e_c_s_1_1_skybox_render_system.html#a54696c424e6b94b96c8607925cb9b350">OSK::ECS::SkyboxRenderSystem</a>, <a class="el" href="class_o_s_k_1_1_e_c_s_1_1_terrain_render_system.html#a5912ee534eee2b1c75097b414c9ac6ca">OSK::ECS::TerrainRenderSystem</a>, <a class="el" href="class_o_s_k_1_1_e_c_s_1_1_transform_applier_system.html#a513f9e050d106e2852154fe485f3b025">OSK::ECS::TransformApplierSystem</a> y <a class="el" href="class_o_s_k_1_1_e_c_s_1_1_tree_normals_render_system.html#af91acf7b05491b93bbd7642cdc60d8ba">OSK::ECS::TreeNormalsRenderSystem</a>.</p>
+
+</div>
+</div>
 <a id="a97458cf11d6b977bad992387a2d67297" name="a97458cf11d6b977bad992387a2d67297"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a97458cf11d6b977bad992387a2d67297">&#9670;&#160;</a></span>SetActivationStatus()</h2>
 
@@ -431,7 +575,7 @@ Métodos protegidos</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="namespace_o_s_k.html">OSK</a></li><li class="navelem"><a class="el" href="namespace_o_s_k_1_1_e_c_s.html">ECS</a></li><li class="navelem"><a class="el" href="class_o_s_k_1_1_e_c_s_1_1_i_system.html">ISystem</a></li>
-    <li class="footer">Generado el Miércoles, 8 de mayo de 2024 10:59:31 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.10.0 </li>
+    <li class="footer">Generado el Sábado, 18 de mayo de 2024 12:15:53 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.10.0 </li>
   </ul>
 </div>
 </body>

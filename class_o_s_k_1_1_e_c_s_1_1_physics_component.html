@@ -97,7 +97,6 @@ $(function(){initNavTree('class_o_s_k_1_1_e_c_s_1_1_physics_component.html','');
 <a href="#pub-methods">Métodos públicos</a> &#124;
 <a href="#pub-static-methods">Métodos públicos estáticos</a> &#124;
 <a href="#pub-attribs">Atributos públicos</a> &#124;
-<a href="#friends">Amigas</a> &#124;
 <a href="class_o_s_k_1_1_e_c_s_1_1_physics_component-members.html">Lista de todos los miembros</a>  </div>
   <div class="headertitle"><div class="title">Referencia de la clase OSK::ECS::PhysicsComponent</div></div>
 </div><!--header-->
@@ -107,6 +106,8 @@ $(function(){initNavTree('class_o_s_k_1_1_e_c_s_1_1_physics_component.html','');
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Métodos públicos</h2></td></tr>
+<tr class="memitem:a24be8afb37e471c38d7d756e10451783" id="r_a24be8afb37e471c38d7d756e10451783"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a24be8afb37e471c38d7d756e10451783">OSK_SERIALIZABLE_COMPONENT</a> ()</td></tr>
+<tr class="separator:a24be8afb37e471c38d7d756e10451783"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac8f99a444d1502275bcc12b370eac652" id="r_ac8f99a444d1502275bcc12b370eac652"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ac8f99a444d1502275bcc12b370eac652">OSK_COMPONENT</a> (&quot;OSK::PhysicsComponent&quot;)</td></tr>
 <tr class="separator:ac8f99a444d1502275bcc12b370eac652"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a42a2265072fdf6068fab4eb26820d8a2" id="r_a42a2265072fdf6068fab4eb26820d8a2"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a42a2265072fdf6068fab4eb26820d8a2">SetImmovable</a> ()</td></tr>
@@ -167,15 +168,6 @@ Atributos públicos</h2></td></tr>
 <tr class="separator:aca400926c4aac6f1f181a8675fde8e01"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:afbc57ad27cbbf0fdf1e8b03aabf0ba6a" id="r_afbc57ad27cbbf0fdf1e8b03aabf0ba6a"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#afbc57ad27cbbf0fdf1e8b03aabf0ba6a">coefficientOfRestitution</a> = 0.2f</td></tr>
 <tr class="separator:afbc57ad27cbbf0fdf1e8b03aabf0ba6a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="friends" name="friends"></a>
-Amigas</h2></td></tr>
-<tr class="memitem:a9346abf070e067da503c7d6a7db79182" id="r_a9346abf070e067da503c7d6a7db79182"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
-<tr class="memitem:a9346abf070e067da503c7d6a7db79182"><td class="memTemplItemLeft" align="right" valign="top">nlohmann::json&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="#a9346abf070e067da503c7d6a7db79182">PERSISTENCE::SerializeJson</a> (const T &amp;data)</td></tr>
-<tr class="separator:a9346abf070e067da503c7d6a7db79182"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aafb780ec1060e230381806dc0a930fa0" id="r_aafb780ec1060e230381806dc0a930fa0"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
-<tr class="memitem:aafb780ec1060e230381806dc0a930fa0"><td class="memTemplItemLeft" align="right" valign="top">T&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="#aafb780ec1060e230381806dc0a930fa0">PERSISTENCE::DeserializeJson</a> (const nlohmann::json &amp;data)</td></tr>
-<tr class="separator:aafb780ec1060e230381806dc0a930fa0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Descripción detallada</h2>
 <div class="textblock"><p>Componente que permite simular las físicas de la entidad. </p>
@@ -201,7 +193,7 @@ Amigas</h2></td></tr>
 <p>Reestablece el cambio de velocidad en el frame. </p>
 <dl class="section warning"><dt>Atención</dt><dd>No es thread-safe. </dd></dl>
 
-<p class="definition">Definición en la línea <a class="el" href="_physics_component_8cpp_source.html#l00089">89</a> del archivo <a class="el" href="_physics_component_8cpp_source.html">PhysicsComponent.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_physics_component_8cpp_source.html#l00090">90</a> del archivo <a class="el" href="_physics_component_8cpp_source.html">PhysicsComponent.cpp</a>.</p>
 
 </div>
 </div>
@@ -223,7 +215,7 @@ Amigas</h2></td></tr>
 <p>Quita todas las fuerzas aplicadas. </p>
 <dl class="section warning"><dt>Atención</dt><dd>No es thread-safe. </dd></dl>
 
-<p class="definition">Definición en la línea <a class="el" href="_physics_component_8cpp_source.html#l00085">85</a> del archivo <a class="el" href="_physics_component_8cpp_source.html">PhysicsComponent.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_physics_component_8cpp_source.html#l00086">86</a> del archivo <a class="el" href="_physics_component_8cpp_source.html">PhysicsComponent.cpp</a>.</p>
 
 </div>
 </div>
@@ -251,7 +243,7 @@ Amigas</h2></td></tr>
 </dl>
 <dl class="section warning"><dt>Atención</dt><dd>No es thread-safe. </dd></dl>
 
-<p class="definition">Definición en la línea <a class="el" href="_physics_component_8cpp_source.html#l00121">121</a> del archivo <a class="el" href="_physics_component_8cpp_source.html">PhysicsComponent.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_physics_component_8cpp_source.html#l00122">122</a> del archivo <a class="el" href="_physics_component_8cpp_source.html">PhysicsComponent.cpp</a>.</p>
 
 </div>
 </div>
@@ -279,7 +271,7 @@ Amigas</h2></td></tr>
 </dl>
 <dl class="section warning"><dt>Atención</dt><dd>No es thread-safe. </dd></dl>
 
-<p class="definition">Definición en la línea <a class="el" href="_physics_component_8cpp_source.html#l00116">116</a> del archivo <a class="el" href="_physics_component_8cpp_source.html">PhysicsComponent.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_physics_component_8cpp_source.html#l00117">117</a> del archivo <a class="el" href="_physics_component_8cpp_source.html">PhysicsComponent.cpp</a>.</p>
 
 </div>
 </div>
@@ -307,7 +299,7 @@ Amigas</h2></td></tr>
 </dl>
 <dl class="section warning"><dt>Atención</dt><dd>No es thread-safe. </dd></dl>
 
-<p class="definition">Definición en la línea <a class="el" href="_physics_component_8cpp_source.html#l00110">110</a> del archivo <a class="el" href="_physics_component_8cpp_source.html">PhysicsComponent.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_physics_component_8cpp_source.html#l00111">111</a> del archivo <a class="el" href="_physics_component_8cpp_source.html">PhysicsComponent.cpp</a>.</p>
 
 </div>
 </div>
@@ -335,7 +327,7 @@ Amigas</h2></td></tr>
 </dl>
 <dl class="section user"><dt>Thread-safe</dt><dd>Compatible con ejecución multihilo. </dd></dl>
 
-<p class="definition">Definición en la línea <a class="el" href="_physics_component_8cpp_source.html#l00094">94</a> del archivo <a class="el" href="_physics_component_8cpp_source.html">PhysicsComponent.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_physics_component_8cpp_source.html#l00095">95</a> del archivo <a class="el" href="_physics_component_8cpp_source.html">PhysicsComponent.cpp</a>.</p>
 
 </div>
 </div>
@@ -367,7 +359,7 @@ Amigas</h2></td></tr>
 </dl>
 <dl class="section user"><dt>Thread-safe</dt><dd>Compatible con ejecución multihilo. </dd></dl>
 
-<p class="definition">Definición en la línea <a class="el" href="_physics_component_8cpp_source.html#l00099">99</a> del archivo <a class="el" href="_physics_component_8cpp_source.html">PhysicsComponent.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_physics_component_8cpp_source.html#l00100">100</a> del archivo <a class="el" href="_physics_component_8cpp_source.html">PhysicsComponent.cpp</a>.</p>
 
 </div>
 </div>
@@ -388,7 +380,7 @@ Amigas</h2></td></tr>
 <dl class="section return"><dt>Devuelve</dt><dd>Aceleración (m/s). En espacio del mundo. </dd></dl>
 <dl class="section user"><dt>Thread-safe</dt><dd>Compatible con ejecución multihilo. </dd></dl>
 
-<p class="definition">Definición en la línea <a class="el" href="_physics_component_8cpp_source.html#l00075">75</a> del archivo <a class="el" href="_physics_component_8cpp_source.html">PhysicsComponent.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_physics_component_8cpp_source.html#l00076">76</a> del archivo <a class="el" href="_physics_component_8cpp_source.html">PhysicsComponent.cpp</a>.</p>
 
 </div>
 </div>
@@ -409,7 +401,7 @@ Amigas</h2></td></tr>
 <dl class="section return"><dt>Devuelve</dt><dd>Velocidad angular (rad/s). </dd></dl>
 <dl class="section user"><dt>Thread-safe</dt><dd>Compatible con ejecución multihilo. </dd></dl>
 
-<p class="definition">Definición en la línea <a class="el" href="_physics_component_8cpp_source.html#l00080">80</a> del archivo <a class="el" href="_physics_component_8cpp_source.html">PhysicsComponent.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_physics_component_8cpp_source.html#l00081">81</a> del archivo <a class="el" href="_physics_component_8cpp_source.html">PhysicsComponent.cpp</a>.</p>
 
 </div>
 </div>
@@ -430,7 +422,7 @@ Amigas</h2></td></tr>
 <dl class="section return"><dt>Devuelve</dt><dd>Cambio de velocidad en el frame actual. </dd></dl>
 <dl class="section user"><dt>Thread-safe</dt><dd>Compatible con ejecución multihilo. </dd></dl>
 
-<p class="definition">Definición en la línea <a class="el" href="_physics_component_8cpp_source.html#l00066">66</a> del archivo <a class="el" href="_physics_component_8cpp_source.html">PhysicsComponent.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_physics_component_8cpp_source.html#l00067">67</a> del archivo <a class="el" href="_physics_component_8cpp_source.html">PhysicsComponent.cpp</a>.</p>
 
 </div>
 </div>
@@ -450,7 +442,7 @@ Amigas</h2></td></tr>
 </div><div class="memdoc">
 <dl class="section return"><dt>Devuelve</dt><dd>Matriz de momento de inercia. </dd></dl>
 
-<p class="definition">Definición en la línea <a class="el" href="_physics_component_8cpp_source.html#l00043">43</a> del archivo <a class="el" href="_physics_component_8cpp_source.html">PhysicsComponent.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_physics_component_8cpp_source.html#l00044">44</a> del archivo <a class="el" href="_physics_component_8cpp_source.html">PhysicsComponent.cpp</a>.</p>
 
 </div>
 </div>
@@ -470,7 +462,7 @@ Amigas</h2></td></tr>
 </div><div class="memdoc">
 <dl class="section return"><dt>Devuelve</dt><dd>Matriz inversa del momento de inercia. </dd></dl>
 
-<p class="definition">Definición en la línea <a class="el" href="_physics_component_8cpp_source.html#l00047">47</a> del archivo <a class="el" href="_physics_component_8cpp_source.html">PhysicsComponent.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_physics_component_8cpp_source.html#l00048">48</a> del archivo <a class="el" href="_physics_component_8cpp_source.html">PhysicsComponent.cpp</a>.</p>
 
 </div>
 </div>
@@ -490,7 +482,7 @@ Amigas</h2></td></tr>
 </div><div class="memdoc">
 <dl class="section return"><dt>Devuelve</dt><dd>1 / masa del objeto. Para masas infinitas, devuelve 0. </dd></dl>
 
-<p class="definition">Definición en la línea <a class="el" href="_physics_component_8cpp_source.html#l00039">39</a> del archivo <a class="el" href="_physics_component_8cpp_source.html">PhysicsComponent.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_physics_component_8cpp_source.html#l00040">40</a> del archivo <a class="el" href="_physics_component_8cpp_source.html">PhysicsComponent.cpp</a>.</p>
 
 </div>
 </div>
@@ -510,7 +502,7 @@ Amigas</h2></td></tr>
 </div><div class="memdoc">
 <dl class="section return"><dt>Devuelve</dt><dd>Masa del objeto. </dd></dl>
 
-<p class="definition">Definición en la línea <a class="el" href="_physics_component_8cpp_source.html#l00035">35</a> del archivo <a class="el" href="_physics_component_8cpp_source.html">PhysicsComponent.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_physics_component_8cpp_source.html#l00036">36</a> del archivo <a class="el" href="_physics_component_8cpp_source.html">PhysicsComponent.cpp</a>.</p>
 
 </div>
 </div>
@@ -541,7 +533,7 @@ Amigas</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definición en la línea <a class="el" href="_physics_component_8cpp_source.html#l00106">106</a> del archivo <a class="el" href="_physics_component_8cpp_source.html">PhysicsComponent.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_physics_component_8cpp_source.html#l00107">107</a> del archivo <a class="el" href="_physics_component_8cpp_source.html">PhysicsComponent.cpp</a>.</p>
 
 </div>
 </div>
@@ -562,7 +554,7 @@ Amigas</h2></td></tr>
 <dl class="section return"><dt>Devuelve</dt><dd>Velocidad (en espacio del mundo). </dd></dl>
 <dl class="section user"><dt>Thread-safe</dt><dd>Compatible con ejecución multihilo. </dd></dl>
 
-<p class="definition">Definición en la línea <a class="el" href="_physics_component_8cpp_source.html#l00061">61</a> del archivo <a class="el" href="_physics_component_8cpp_source.html">PhysicsComponent.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_physics_component_8cpp_source.html#l00062">62</a> del archivo <a class="el" href="_physics_component_8cpp_source.html">PhysicsComponent.cpp</a>.</p>
 
 </div>
 </div>
@@ -589,7 +581,7 @@ Amigas</h2></td></tr>
 <dl class="section return"><dt>Devuelve</dt><dd>Velocidad del punto (en espacio del mundo). </dd></dl>
 <dl class="section user"><dt>Thread-safe</dt><dd>Compatible con ejecución multihilo. </dd></dl>
 
-<p class="definition">Definición en la línea <a class="el" href="_physics_component_8cpp_source.html#l00070">70</a> del archivo <a class="el" href="_physics_component_8cpp_source.html">PhysicsComponent.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_physics_component_8cpp_source.html#l00071">71</a> del archivo <a class="el" href="_physics_component_8cpp_source.html">PhysicsComponent.cpp</a>.</p>
 
 </div>
 </div>
@@ -609,7 +601,7 @@ Amigas</h2></td></tr>
 </div><div class="memdoc">
 <dl class="section return"><dt>Devuelve</dt><dd>True si el objeto tiene masa infinita. Inverse mass = 0.0f. </dd></dl>
 
-<p class="definition">Definición en la línea <a class="el" href="_physics_component_8cpp_source.html#l00017">17</a> del archivo <a class="el" href="_physics_component_8cpp_source.html">PhysicsComponent.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_physics_component_8cpp_source.html#l00018">18</a> del archivo <a class="el" href="_physics_component_8cpp_source.html">PhysicsComponent.cpp</a>.</p>
 
 </div>
 </div>
@@ -623,6 +615,23 @@ Amigas</h2></td></tr>
           <td class="memname">OSK::ECS::PhysicsComponent::OSK_COMPONENT </td>
           <td>(</td>
           <td class="paramtype">&quot;OSK::PhysicsComponent&quot;</td>          <td class="paramname"><span class="paramname"></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a24be8afb37e471c38d7d756e10451783" name="a24be8afb37e471c38d7d756e10451783"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a24be8afb37e471c38d7d756e10451783">&#9670;&#160;</a></span>OSK_SERIALIZABLE_COMPONENT()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">OSK::ECS::PhysicsComponent::OSK_SERIALIZABLE_COMPONENT </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -648,7 +657,7 @@ Amigas</h2></td></tr>
 <p>Establece el objeto como inmovible. </p>
 <dl class="section see"><dt>Ver también</dt><dd><a class="el" href="#ad33a6ccaf85590a4c5bcd0aa0e24b843" title="Establece la masa del objeto. También actualiza la masa inversa.">SetMass</a>(0.0f). </dd></dl>
 
-<p class="definition">Definición en la línea <a class="el" href="_physics_component_8cpp_source.html#l00013">13</a> del archivo <a class="el" href="_physics_component_8cpp_source.html">PhysicsComponent.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_physics_component_8cpp_source.html#l00014">14</a> del archivo <a class="el" href="_physics_component_8cpp_source.html">PhysicsComponent.cpp</a>.</p>
 
 </div>
 </div>
@@ -667,7 +676,7 @@ Amigas</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definición en la línea <a class="el" href="_physics_component_8cpp_source.html#l00051">51</a> del archivo <a class="el" href="_physics_component_8cpp_source.html">PhysicsComponent.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_physics_component_8cpp_source.html#l00052">52</a> del archivo <a class="el" href="_physics_component_8cpp_source.html">PhysicsComponent.cpp</a>.</p>
 
 </div>
 </div>
@@ -686,7 +695,7 @@ Amigas</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definición en la línea <a class="el" href="_physics_component_8cpp_source.html#l00056">56</a> del archivo <a class="el" href="_physics_component_8cpp_source.html">PhysicsComponent.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_physics_component_8cpp_source.html#l00057">57</a> del archivo <a class="el" href="_physics_component_8cpp_source.html">PhysicsComponent.cpp</a>.</p>
 
 </div>
 </div>
@@ -714,7 +723,7 @@ Amigas</h2></td></tr>
 </dl>
 <dl class="section pre"><dt>Precondición</dt><dd><code>newMass</code> &gt; 0. </dd></dl>
 
-<p class="definition">Definición en la línea <a class="el" href="_physics_component_8cpp_source.html#l00028">28</a> del archivo <a class="el" href="_physics_component_8cpp_source.html">PhysicsComponent.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_physics_component_8cpp_source.html#l00029">29</a> del archivo <a class="el" href="_physics_component_8cpp_source.html">PhysicsComponent.cpp</a>.</p>
 
 </div>
 </div>
@@ -743,62 +752,7 @@ Amigas</h2></td></tr>
 <dl class="section pre"><dt>Precondición</dt><dd><code>newMass</code> &gt; 0. </dd></dl>
 <dl class="section note"><dt>Nota</dt><dd>Para una masa infinita, usar SetInverseMass(0). </dd></dl>
 
-<p class="definition">Definición en la línea <a class="el" href="_physics_component_8cpp_source.html#l00021">21</a> del archivo <a class="el" href="_physics_component_8cpp_source.html">PhysicsComponent.cpp</a>.</p>
-
-</div>
-</div>
-<h2 class="groupheader">Documentación de símbolos amigos y relacionados</h2>
-<a id="aafb780ec1060e230381806dc0a930fa0" name="aafb780ec1060e230381806dc0a930fa0"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aafb780ec1060e230381806dc0a930fa0">&#9670;&#160;</a></span>PERSISTENCE::DeserializeJson</h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename T &gt; </div>
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">T <a class="el" href="namespace_o_s_k_1_1_p_e_r_s_i_s_t_e_n_c_e.html#a916574565f986929dca482f19e527689">PERSISTENCE::DeserializeJson</a> </td>
-          <td>(</td>
-          <td class="paramtype">const nlohmann::json &amp;</td>          <td class="paramname"><span class="paramname"><em>data</em></span></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">friend</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a9346abf070e067da503c7d6a7db79182" name="a9346abf070e067da503c7d6a7db79182"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9346abf070e067da503c7d6a7db79182">&#9670;&#160;</a></span>PERSISTENCE::SerializeJson</h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename T &gt; </div>
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">nlohmann::json <a class="el" href="namespace_o_s_k_1_1_p_e_r_s_i_s_t_e_n_c_e.html#a673b25e779dc249323c87c7dc3c789c2">PERSISTENCE::SerializeJson</a> </td>
-          <td>(</td>
-          <td class="paramtype">const T &amp;</td>          <td class="paramname"><span class="paramname"><em>data</em></span></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">friend</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
+<p class="definition">Definición en la línea <a class="el" href="_physics_component_8cpp_source.html#l00022">22</a> del archivo <a class="el" href="_physics_component_8cpp_source.html">PhysicsComponent.cpp</a>.</p>
 
 </div>
 </div>
@@ -817,7 +771,7 @@ template&lt;typename T &gt; </div>
 
 <p>Centro de gravedad del objeto, en espacio local. </p>
 
-<p class="definition">Definición en la línea <a class="el" href="_physics_component_8h_source.html#l00135">135</a> del archivo <a class="el" href="_physics_component_8h_source.html">PhysicsComponent.h</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_physics_component_8h_source.html#l00131">131</a> del archivo <a class="el" href="_physics_component_8h_source.html">PhysicsComponent.h</a>.</p>
 
 </div>
 </div>
@@ -838,7 +792,7 @@ template&lt;typename T &gt; </div>
 <dd>
 <code>coefficientOfRestitution</code> &lt;= 1. </dd></dl>
 
-<p class="definition">Definición en la línea <a class="el" href="_physics_component_8h_source.html#l00144">144</a> del archivo <a class="el" href="_physics_component_8h_source.html">PhysicsComponent.h</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_physics_component_8h_source.html#l00140">140</a> del archivo <a class="el" href="_physics_component_8h_source.html">PhysicsComponent.h</a>.</p>
 
 </div>
 </div>
@@ -856,7 +810,7 @@ template&lt;typename T &gt; </div>
 
 <p>Cantidad de fricción dinámica. </p>
 
-<p class="definition">Definición en la línea <a class="el" href="_physics_component_8h_source.html#l00138">138</a> del archivo <a class="el" href="_physics_component_8h_source.html">PhysicsComponent.h</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_physics_component_8h_source.html#l00134">134</a> del archivo <a class="el" href="_physics_component_8h_source.html">PhysicsComponent.h</a>.</p>
 
 </div>
 </div>
@@ -866,7 +820,7 @@ template&lt;typename T &gt; </div>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="namespace_o_s_k.html">OSK</a></li><li class="navelem"><a class="el" href="namespace_o_s_k_1_1_e_c_s.html">ECS</a></li><li class="navelem"><a class="el" href="class_o_s_k_1_1_e_c_s_1_1_physics_component.html">PhysicsComponent</a></li>
-    <li class="footer">Generado el Miércoles, 8 de mayo de 2024 10:59:31 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.10.0 </li>
+    <li class="footer">Generado el Sábado, 18 de mayo de 2024 12:15:53 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.10.0 </li>
   </ul>
 </div>
 </body>
