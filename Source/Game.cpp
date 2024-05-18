@@ -75,6 +75,7 @@ void IGame::_Run() {
 	Engine::RegisterBuiltinSystems();
 	Engine::RegisterBuiltinEvents();
 	Engine::RegisterBuiltinJobs();
+	Engine::RegisterBuiltinShaderPasses();
 
 	rootUiElement = new UI::FreeContainer(Engine::GetDisplay()->GetResolution().ToVector2f());
 

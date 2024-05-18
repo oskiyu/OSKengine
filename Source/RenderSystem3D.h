@@ -50,6 +50,7 @@ namespace OSK::ECS {
 
 		void Execute(TDeltaTime deltaTime, std::span<const ECS::GameObjectIndex> objects) override;
 		void Render(GRAPHICS::ICommandList* commandList, std::span<const ECS::GameObjectIndex> objects) override;
+		void ApplyConfiguration(PERSISTENCE::BinaryBlockReader* reader, const SavedGameObjectTranslator& translator) override;
 		
 		GRAPHICS::ShadowMap* GetShadowMap();
 		
@@ -62,6 +63,10 @@ namespace OSK::ECS {
 		constexpr static UIndex32 COLOR_IMAGE_INDEX  = 0;
 		constexpr static UIndex32 MOTION_IMAGE_INDEX = 1;
 		constexpr static UIndex32 NORMAL_IMAGE_INDEX = 2;
+
+		nlohmann::json SaveConfiguration() const override;
+		PERSISTENCE::BinaryBlock SaveBinaryConfiguration() const override;
+		void ApplyConfiguration(const nlohmann::json& config, const SavedGameObjectTranslator& translator) override;
 
 	private:
 		

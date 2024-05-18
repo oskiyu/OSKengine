@@ -91,6 +91,8 @@ namespace OSK::ECS {
 
 	protected:
 
+		void UpdatePassesCamera(ECS::GameObjectIndex cameraObject);
+
 		/// @brief Configura el viewport que se usará en la lista de comandos
 		/// para que incluya toda la imagen del render system.
 		/// @param commandList Lista de comandos.

@@ -35,6 +35,7 @@ namespace OSK::ECS {
 
 			componentTypes[key] = nextComponentType;
 			componentContainers[key] = new ComponentContainer<TComponent>();
+			componentContainers[key]->SetComponentType(nextComponentType);
 
 			nextComponentType++;
 		}
@@ -122,30 +123,67 @@ namespace OSK::ECS {
 			return GetComponentContainer<TComponent>()->ObjectHasComponent(obj);
 		}
 
+		/// @return Todos los contenedores registrados.
+		const std::unordered_map<std::string, UniquePtr<IComponentContainer>, StringHasher, std::equal_to<>>& GetAllContainers() const {
+			return componentContainers;
+		}
+
+		/// @param componentTypeName Nombre del tipo de componente.
+		/// @return Contenedor del tipo indicado.
+		/// @pre El tipo de componente @p componentTypeName debe haber
+		/// sido previamente registrado.
+		/// @throws InvalidArgumentException Si se incumple la precondición.
+		IComponentContainer* GetContainer(std::string_view componentTypeName) {
+			auto iterator = componentContainers.find(componentTypeName);
+
+			OSK_ASSERT(
+				iterator != componentContainers.end(),
+				InvalidArgumentException(std::format("El tipo de componente {} no está registrado.", componentTypeName)));
+
+			return iterator->second.GetPointer();
+		}
+
+		/// @param componentTypeName Nombre del tipo de componente.
+		/// @return Contenedor del tipo indicado.
+		/// @pre El tipo de componente @p componentTypeName debe haber
+		/// sido previamente registrado.
+		/// @throws InvalidArgumentException Si se incumple la precondición.
+		const IComponentContainer* GetContainer(std::string_view componentTypeName) const {
+			auto iterator = componentContainers.find(componentTypeName);
+
+			OSK_ASSERT(
+				iterator != componentContainers.end(),
+				InvalidArgumentException(std::format("El tipo de componente {} no está registrado.", componentTypeName)));
+
+			return iterator->second.GetPointer();
+		}
+
 	private:
 
-		/// <summary>
-		/// Map typename del componente -> id del tipo de componente.
-		/// </summary>
+		/// @brief Map typename del componente -> id del tipo de componente.
 		std::unordered_map<std::string, ComponentType, StringHasher, std::equal_to<>> componentTypes;
-		/// <summary>
-		/// Map typename del componente -> contenedor del componente.
-		/// </summary>
+
+		/// @brief Map typename del componente -> contenedor del componente.
 		std::unordered_map<std::string, UniquePtr<IComponentContainer>, StringHasher, std::equal_to<>> componentContainers;
 
-		/// <summary>
-		/// Identificador del próximo tipo de componente.
-		/// </summary>
+
+		/// @brief Identificador del próximo tipo de componente.
 		ComponentType nextComponentType = 0;
 
-		/// <summary>
-		/// Devuelve el contenedor del tipo de componente.
-		/// </summary>
+
+		/// @tparam TComponent Tipo de componente.
+		/// @return Contenedor del tipo de componente.
+		/// @pre El tipo de componente @p TComponent debe haber
+		/// sido previamente registrado.
 		template <typename TComponent> 
 		ComponentContainer<TComponent>* GetComponentContainer() {
 			return (ComponentContainer<TComponent>*)componentContainers.find(TComponent::GetComponentTypeName())->second.GetPointer();
 		}
 
+		/// @tparam TComponent Tipo de componente.
+		/// @return Contenedor del tipo de componente.
+		/// @pre El tipo de componente @p TComponent debe haber
+		/// sido previamente registrado.
 		template <typename TComponent>
 		const ComponentContainer<TComponent>* GetComponentContainer() const {
 			return (const ComponentContainer<TComponent>*)componentContainers.find(TComponent::GetComponentTypeName())->second.GetPointer();

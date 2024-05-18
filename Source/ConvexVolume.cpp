@@ -22,6 +22,7 @@
 using namespace OSK;
 using namespace OSK::ECS;
 using namespace OSK::COLLISION;
+using namespace OSK::PERSISTENCE;
 
 
 OwnedPtr<IBottomLevelCollider> ConvexVolume::CreateCopy() const {
@@ -797,14 +798,14 @@ RayCastResult ConvexVolume::CastRay(const Ray& ray) const {
 
 
 template <>
-nlohmann::json PERSISTENCE::SerializeJson<OSK::COLLISION::ConvexVolume>(const OSK::COLLISION::ConvexVolume& data) {
+nlohmann::json PERSISTENCE::SerializeData<OSK::COLLISION::ConvexVolume>(const OSK::COLLISION::ConvexVolume& data) {
 	nlohmann::json output{};
 
 	output["m_vertices"] = nlohmann::json::array();
 
 	for (const auto& v : data.m_vertices) {
 		nlohmann::json vertex{};
-		
+
 		vertex["x"] = v.x;
 		vertex["y"] = v.y;
 		vertex["z"] = v.z;
@@ -830,7 +831,7 @@ nlohmann::json PERSISTENCE::SerializeJson<OSK::COLLISION::ConvexVolume>(const OS
 }
 
 template <>
-OSK::COLLISION::ConvexVolume PERSISTENCE::DeserializeJson<OSK::COLLISION::ConvexVolume>(const nlohmann::json& json) {
+OSK::COLLISION::ConvexVolume PERSISTENCE::DeserializeData<OSK::COLLISION::ConvexVolume>(const nlohmann::json& json) {
 	ConvexVolume output{};
 
 	for (const auto& vertex : json["m_vertices"]) {
@@ -849,6 +850,60 @@ OSK::COLLISION::ConvexVolume PERSISTENCE::DeserializeJson<OSK::COLLISION::Convex
 
 		for (const UIndex32 i : face) {
 			indices.Insert(i);
+		}
+
+		output.m_faces.Insert(indices);
+	}
+
+	return output;
+}
+
+
+
+template <>
+BinaryBlock PERSISTENCE::BinarySerializeData<OSK::COLLISION::ConvexVolume>(const OSK::COLLISION::ConvexVolume& data) {
+	BinaryBlock output{};
+
+	output.Write<USize64>(data.m_vertices.GetSize());
+	for (const auto& v : data.m_vertices) {
+		output.AppendBlock(SerializeBinaryVector3<Vector3f>(v));
+	}
+
+	output.Write<USize64>(data.m_faces.GetSize());
+	for (const auto& face : data.m_faces) {
+		auto jsonFace = nlohmann::json::array();
+
+		output.Write<USize64>(face.GetSize());
+		for (const auto i : face) {
+			output.Write<UIndex32>(i);
+		}
+	}
+
+	return output;
+}
+
+template <>
+OSK::COLLISION::ConvexVolume PERSISTENCE::BinaryDeserializeData<OSK::COLLISION::ConvexVolume>(BinaryBlockReader* reader) {
+	ConvexVolume output{};
+
+	const USize64 numVertices = reader->Read<USize64>();
+
+	for (UIndex64 i = 0; i < numVertices; i++) {
+		const auto nVertex = DeserializeBinaryVector3<Vector3f, float>(reader);
+
+		output.m_vertices.Insert(nVertex);
+		output.m_transformedVertices.Insert(nVertex);
+	}
+
+	const USize64 numFaces = reader->Read<USize64>();
+
+	for (UIndex64 i = 0; i < numFaces; i++) {
+		const USize64 numIndices = reader->Read<USize64>();
+
+		ConvexVolume::FaceIndices indices{};
+
+		for (UIndex64 idx = 0; idx < numIndices; idx++) {
+			indices.Insert(reader->Read<UIndex32>());
 		}
 
 		output.m_faces.Insert(indices);

@@ -8,6 +8,8 @@ namespace OSK::GRAPHICS {
 
 	public:
 
+		OSK_RENDERPASS(BillboardGBufferPass, "billboard_pass");
+
 		BillboardGBufferPass() : IShaderPass("billboard_pass") {}
 
 		void Load() override;

@@ -8,6 +8,8 @@ namespace OSK::GRAPHICS {
 
 	public:
 
+		OSK_RENDERPASS(PbrResolverPass, "pbr_compute_resolver_pass");
+
 		PbrResolverPass() : IDeferredResolver("pbr_compute_resolver_pass") {}
 
 		void Load() override final;

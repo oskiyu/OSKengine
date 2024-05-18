@@ -8,6 +8,7 @@
 
 using namespace OSK;
 using namespace OSK::ECS;
+using namespace OSK::PERSISTENCE;
 
 
 void PhysicsComponent::SetImmovable() {
@@ -125,12 +126,17 @@ void PhysicsComponent::_SetAcceleration(Vector3f acceleration) {
 
 
 template <>
-nlohmann::json PERSISTENCE::SerializeJson<OSK::ECS::PhysicsComponent>(const OSK::ECS::PhysicsComponent& data) {
+nlohmann::json PERSISTENCE::SerializeComponent<OSK::ECS::PhysicsComponent>(const OSK::ECS::PhysicsComponent& data) {
 	nlohmann::json output{};
 
-	output["mass"] = data.mass;
+	if (data.IsImmovable()) {
+		output["inverse_mass"] = data.inverseMass;
+	}
+	else {
+		output["mass"] = data.mass;
+	}
 
-	output["inertiaTensor"] = SerializeJson<glm::mat3>(data.inertiaTensor);
+	output["inertiaTensor"] = SerializeData<glm::mat3>(data.inertiaTensor);
 
 	output["velocity"]["x"] = data.velocity.x;
 	output["velocity"]["y"] = data.velocity.y;
@@ -148,12 +154,17 @@ nlohmann::json PERSISTENCE::SerializeJson<OSK::ECS::PhysicsComponent>(const OSK:
 }
 
 template <>
-OSK::ECS::PhysicsComponent PERSISTENCE::DeserializeJson<OSK::ECS::PhysicsComponent>(const nlohmann::json& json) {
+OSK::ECS::PhysicsComponent PERSISTENCE::DeserializeComponent<OSK::ECS::PhysicsComponent>(const nlohmann::json& json, const OSK::ECS::SavedGameObjectTranslator& gameObjectTranslator) {
 	PhysicsComponent output{};
 
-	output.mass = json["mass"];
+	if (json.contains("mass")) {
+		output.SetMass(json["mass"]);
+	}
+	else if (json.contains("inverse_mass")) {
+		output.SetInverseMass(json["inverse_mass"]);
+	}
 
-	output.inertiaTensor = DeserializeJson<glm::mat3>(json["inertiaTensor"]);
+	output.SetInertiaTensor(DeserializeData<glm::mat3>(json["inertiaTensor"]));
 
 	output.velocity = Vector3f(
 		json["velocity"]["x"],
@@ -172,6 +183,52 @@ OSK::ECS::PhysicsComponent PERSISTENCE::DeserializeJson<OSK::ECS::PhysicsCompone
 		json["angularVelocity"]["y"],
 		json["angularVelocity"]["z"]
 	);
+
+	return output;
+}
+
+
+
+template <>
+BinaryBlock PERSISTENCE::BinarySerializeComponent<OSK::ECS::PhysicsComponent>(const OSK::ECS::PhysicsComponent& data) {
+	BinaryBlock output{};
+
+	output.Write<TByte>(data.IsImmovable());
+
+	if (data.IsImmovable()) {
+		output.Write<float>(data.inverseMass);
+	}
+	else {
+		output.Write<float>(data.mass);
+	}
+
+	output.AppendBlock(BinarySerializeData<glm::mat3>(data.inertiaTensor));
+
+	output.AppendBlock(SerializeBinaryVector3(data.velocity));
+	output.AppendBlock(SerializeBinaryVector3(data.acceleration));
+	output.AppendBlock(SerializeBinaryVector3(data.angularVelocity));
+
+	return output;
+}
+
+template <>
+OSK::ECS::PhysicsComponent PERSISTENCE::BinaryDeserializeComponent<OSK::ECS::PhysicsComponent>(BinaryBlockReader* reader, const OSK::ECS::SavedGameObjectTranslator& gameObjectTranslator) {
+	PhysicsComponent output{};
+
+	const bool isInmovable = reader->Read<TByte>();
+
+	if (isInmovable) {
+		output.SetInverseMass(reader->Read<float>());
+	}
+	else {
+		output.SetMass(reader->Read<float>());
+	}
+
+	output.SetInertiaTensor(BinaryDeserializeData<glm::mat3>(reader));
+
+	output.velocity = DeserializeBinaryVector3<Vector3f, float>(reader);
+	output.acceleration = DeserializeBinaryVector3<Vector3f, float>(reader);
+	output.angularVelocity = DeserializeBinaryVector3<Vector3f, float>(reader);
 
 	return output;
 }

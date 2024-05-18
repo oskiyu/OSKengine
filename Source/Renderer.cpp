@@ -65,6 +65,10 @@ void IRenderer::CloseGpu() {
 	m_currentGpu.Delete();
 }
 
+ShaderPassFactory* IRenderer::GetShaderPassFactory() {
+	return &m_shaderPassFactory;
+}
+
 IGpuMemoryAllocator* IRenderer::GetAllocator() {
 	return m_gpuMemoryAllocator.GetPointer();
 }

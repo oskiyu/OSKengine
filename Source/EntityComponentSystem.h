@@ -14,6 +14,8 @@
 #include "SystemAlreadyRegisteredException.h"
 #include "EcsExceptions.h"
 
+#include "SavedGameObjectTranslator.h"
+
 namespace OSK::IO {
 	class ILogger;
 }
@@ -58,6 +60,46 @@ namespace OSK::ECS {
 		/// @param commandList Lista de comandos.
 		void OnRender(GRAPHICS::ICommandList* commandList);
 
+
+#pragma region Serialization
+
+		/// @brief Guarda el estado del juego en el fichero indicado,
+		/// en formato JSON.
+		/// @param path Ruta del archivo donde se guardará el 
+		/// estado del juego.
+		void Save(std::string_view path) const;
+
+		/// @brief Guarda el estado del juego en el fichero indicado,
+		/// en formato `.bsf`.
+		/// @param path Ruta del archivo donde se guardará el 
+		/// estado del juego.
+		void SaveBinary(std::string_view path) const;
+
+		/// @brief Carga una escena almacenada en disco.
+		/// @param path Ruta del archivo donde se guarda el 
+		/// estado del juego.
+		/// 
+		/// @pre El archivo @p path debe existir.
+		/// @throws InvalidArgumentException si el archivo no existe.
+		SavedGameObjectTranslator LoadScene(std::string_view path);
+
+		/// @brief Carga una escena almacenada en disco.
+		/// @param path Ruta del archivo donde se guarda el 
+		/// estado del juego.
+		/// 
+		/// @pre El archivo @p path debe existir, y debe seguir el
+		/// formato `.bsf` con versión 0.
+		/// 
+		/// @throws InvalidArgumentException si el archivo no existe.
+		/// @throws InvalidBinaryDeserializationException si el archivo no
+		/// tiene el formato `.bsf`, o si tiene una especificación
+		/// distinta de 0.
+		/// @throws InvalidBinaryDeserializationException si el archivo
+		/// está corrompido de alguna manera.
+		SavedGameObjectTranslator LoadBinaryScene(std::string_view path);
+
+#pragma endregion
+		
 #pragma region Components
 
 		/// @brief Registra un tipo de componente.
@@ -96,11 +138,9 @@ namespace OSK::ECS {
 			TComponent& oComponent = m_componentManager->AddComponent(obj, component);
 
 			// Cambio de signature del objeto.
-			Signature signature = m_gameObjectManager->GetSignature(obj);
-			signature.SetTrue(m_componentManager->GetComponentType<TComponent>());
-			m_gameObjectManager->SetSignature(obj, signature);
+			m_gameObjectManager->AddComponent(obj, m_componentManager->GetComponentType<TComponent>());
 
-			m_systemManager->GameObjectSignatureChanged(obj, signature);
+			m_systemManager->GameObjectSignatureChanged(obj, m_gameObjectManager->GetSignature(obj));
 
 			return oComponent;
 		}
@@ -124,11 +164,9 @@ namespace OSK::ECS {
 			auto& oComponent = m_componentManager->AddComponentMove<TComponent>(obj, std::move(component));
 
 			// Cambio de signature del objeto.
-			Signature signature = m_gameObjectManager->GetSignature(obj);
-			signature.SetTrue(m_componentManager->GetComponentType<TComponent>());
-			m_gameObjectManager->SetSignature(obj, signature);
+			m_gameObjectManager->AddComponent(obj, m_componentManager->GetComponentType<TComponent>());
 
-			m_systemManager->GameObjectSignatureChanged(obj, signature);
+			m_systemManager->GameObjectSignatureChanged(obj, m_gameObjectManager->GetSignature(obj));
 
 			return oComponent;
 		}
@@ -163,11 +201,9 @@ namespace OSK::ECS {
 			
 			m_componentManager->RemoveComponent<TComponent>(obj);
 
-			Signature signature = m_gameObjectManager->GetSignature(obj);
-			signature.SetFalse(m_componentManager->GetComponentType<TComponent>());
-			m_gameObjectManager->SetSignature(obj, signature);
+			m_gameObjectManager->RemoveComponent(obj, m_componentManager->GetComponentType<TComponent>());
 
-			m_systemManager->GameObjectSignatureChanged(obj, signature);
+			m_systemManager->GameObjectSignatureChanged(obj, m_gameObjectManager->GetSignature(obj));
 		}
 
 		/// @brief Devuelve una referencia no estable al componente del tipo dado del objeto.

@@ -45,3 +45,22 @@ void TransformApplierSystem::Apply(Transform3D& transform, std::optional<const T
 		Apply(childTransform, &transform);
 	}
 }
+
+nlohmann::json TransformApplierSystem::SaveConfiguration() const {
+	auto output = nlohmann::json();
+
+
+	return output;
+}
+
+PERSISTENCE::BinaryBlock TransformApplierSystem::SaveBinaryConfiguration() const {
+	return PERSISTENCE::BinaryBlock::Empty();
+}
+
+void TransformApplierSystem::ApplyConfiguration(const nlohmann::json& config, const SavedGameObjectTranslator& translator) {
+
+}
+
+void TransformApplierSystem::ApplyConfiguration(PERSISTENCE::BinaryBlockReader* reader, const SavedGameObjectTranslator& translator) {
+
+}

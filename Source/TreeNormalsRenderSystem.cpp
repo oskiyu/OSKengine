@@ -125,3 +125,29 @@ void TreeNormalsRenderSystem::Render(ICommandList* commandList, std::span<const 
 	
 	commandList->EndDebugSection();
 }
+
+nlohmann::json TreeNormalsRenderSystem::SaveConfiguration() const {
+	auto output = nlohmann::json();
+
+	output["cameraObject"] = m_cameraObject.Get();
+
+	return output;
+}
+
+PERSISTENCE::BinaryBlock TreeNormalsRenderSystem::SaveBinaryConfiguration() const {
+	auto output = PERSISTENCE::BinaryBlock::Empty();
+
+	output.Write(m_cameraObject.Get());
+
+	return output;
+}
+
+void TreeNormalsRenderSystem::ApplyConfiguration(const nlohmann::json& config, const SavedGameObjectTranslator& translator) {
+	m_cameraObject = translator.GetCurrentIndex(GameObjectIndex(config["cameraObject"]));
+	UpdatePassesCamera(m_cameraObject);
+}
+
+void TreeNormalsRenderSystem::ApplyConfiguration(PERSISTENCE::BinaryBlockReader* reader, const SavedGameObjectTranslator& translator) {
+	m_cameraObject = translator.GetCurrentIndex(GameObjectIndex(reader->Read<GameObjectIndex::TUnderlyingType>()));
+	UpdatePassesCamera(m_cameraObject);
+}

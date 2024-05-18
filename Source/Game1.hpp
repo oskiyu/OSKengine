@@ -464,6 +464,22 @@ protected:
 			if (keyboard->IsKeyStroked(IO::Key::M)) {
 				mouse->SetReturnMode(IO::MouseReturnMode::ALWAYS_RETURN);
 			}
+
+			if (keyboard->IsKeyDown(IO::Key::LEFT_CONTROL) && keyboard->IsKeyStroked(IO::Key::L)) {
+				Engine::GetRenderer()->WaitForCompletion();
+				Engine::GetEcs()->SaveBinary("scene0");
+			}
+
+			if (keyboard->IsKeyUp(IO::Key::LEFT_CONTROL) &&  keyboard->IsKeyStroked(IO::Key::L)) {
+				Engine::GetRenderer()->WaitForCompletion();
+				const auto translator = Engine::GetEcs()->LoadBinaryScene("scene0.bsf");
+				carObject = translator.GetCurrentIndex(carObject);
+				carObject2 = translator.GetCurrentIndex(carObject2);
+				cameraObject = translator.GetCurrentIndex(cameraObject);
+				cameraArmObject = translator.GetCurrentIndex(cameraArmObject);
+				cameraObject2d = translator.GetCurrentIndex(cameraObject2d);
+				circuitObject = translator.GetCurrentIndex(circuitObject);
+			}
 		}
 
 		if (mouse) {
@@ -479,11 +495,9 @@ protected:
 		}
 
 		// Movimiento del coche
-
-		Transform3D& carTransform = Engine::GetEcs()->GetComponent<Transform3D>(carObject);
-				
-
-		PhysicsComponent& carPhysics = Engine::GetEcs()->GetComponent<PhysicsComponent>(carObject);
+		auto* ecs = Engine::GetEcs();
+		Transform3D& carTransform = ecs->GetComponent<Transform3D>(carObject);
+		PhysicsComponent& carPhysics = ecs->GetComponent<PhysicsComponent>(carObject);
 
 		source->SetPitch(carPhysics.GetVelocity().GetLenght());
 
@@ -804,15 +818,7 @@ protected:
 		// Serialization test
 		auto* ecs = Engine::GetEcs();
 
-		const auto& transform = ecs->GetComponent<Transform3D>(carObject);
-		const auto& modelComponent = ecs->GetComponent<ModelComponent3D>(carObject);
-		const auto& physicsComponent = ecs->GetComponent<PhysicsComponent>(carObject);
-		const auto& collider = ecs->GetComponent<CollisionComponent>(carObject);
-
-		IO::FileIO::WriteFile("transform.json", PERSISTENCE::SerializeJson(transform).dump(4));
-		IO::FileIO::WriteFile("modelComponent.json", PERSISTENCE::SerializeJson(modelComponent).dump(4));
-		IO::FileIO::WriteFile("physicsComponent.json", PERSISTENCE::SerializeJson(physicsComponent).dump(4));
-		IO::FileIO::WriteFile("collider.json", PERSISTENCE::SerializeJson(collider).dump(4));
+		// ecs->Save("scene0.json");
 
 
 		bloomPass.Delete();
@@ -1374,6 +1380,8 @@ private:
 	ECS::GameObjectIndex cameraObject = ECS::EMPTY_GAME_OBJECT;
 	ECS::GameObjectIndex cameraArmObject = ECS::EMPTY_GAME_OBJECT;
 	ECS::GameObjectIndex cameraObject2d = ECS::EMPTY_GAME_OBJECT;
+
+	ECS::SavedGameObjectTranslator originalTranslator;
 
 	ASSETS::AssetRef<ASSETS::Font> font;
 

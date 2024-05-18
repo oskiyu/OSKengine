@@ -22,10 +22,15 @@
 
 #include "InvalidObjectStateException.h"
 
+#include "Math.h"
+
+
 using namespace OSK;
 using namespace OSK::ECS;
 using namespace OSK::ASSETS;
 using namespace OSK::GRAPHICS;
+using namespace OSK::PERSISTENCE;
+
 
 void ShadowMap::Create(const Vector2ui& imageSize) {
 	GpuImageSamplerDesc depthSampler{};
@@ -204,7 +209,7 @@ DynamicArray<Vector3f> ShadowMap::GetFrustumCorners(const glm::mat4& cameraMatri
 
 
 template <>
-nlohmann::json OSK::PERSISTENCE::SerializeJson<OSK::GRAPHICS::ShadowMap>(const OSK::GRAPHICS::ShadowMap& data) {
+nlohmann::json OSK::PERSISTENCE::SerializeData<OSK::GRAPHICS::ShadowMap>(const OSK::GRAPHICS::ShadowMap& data) {
 	nlohmann::json output{};
 
 	output["cameraObject"] = data.m_cameraObject.Get();
@@ -217,25 +222,19 @@ nlohmann::json OSK::PERSISTENCE::SerializeJson<OSK::GRAPHICS::ShadowMap>(const O
 	output["nearPlane"] = data.m_nearPlane;
 	output["farPlane"] = data.m_farPlane;
 
-	output["lightDirection"]["x"] = data.m_lightDirection.x;
-	output["lightDirection"]["y"] = data.m_lightDirection.y;
-	output["lightDirection"]["z"] = data.m_lightDirection.z;
+	output["lightDirection"] = SerializeVector3(data.m_lightDirection);
+	output["lightOrigin"] = SerializeVector3(data.m_lightOrigin);
 
-	output["lightOrigin"]["x"] = data.m_lightOrigin.x;
-	output["lightOrigin"]["y"] = data.m_lightOrigin.y;
-	output["lightOrigin"]["z"] = data.m_lightOrigin.z;
-
-	output["resolution"]["x"] = data.m_depthArrayAttachment->GetSize2D().x;
-	output["resolution"]["y"] = data.m_depthArrayAttachment->GetSize2D().y;
+	output["resolution"] = SerializeVector2(data.m_depthArrayAttachment->GetSize2D());
 
 	return output;
 }
 
 template <>
-OSK::GRAPHICS::ShadowMap OSK::PERSISTENCE::DeserializeJson<OSK::GRAPHICS::ShadowMap>(const nlohmann::json& json) {
+OSK::GRAPHICS::ShadowMap OSK::PERSISTENCE::DeserializeData<OSK::GRAPHICS::ShadowMap>(const nlohmann::json& json) {
 	OSK::GRAPHICS::ShadowMap output{};
 
-	output.Create(Vector2ui(json["resolution"]["x"], json["resolution"]["y"]));
+	output.Create(DeserializeVector2<Vector2ui>(json["resolution"]));
 
 	output.m_splits[0] = json["splits"]["0"];
 	output.m_splits[1] = json["splits"]["1"];
@@ -245,13 +244,53 @@ OSK::GRAPHICS::ShadowMap OSK::PERSISTENCE::DeserializeJson<OSK::GRAPHICS::Shadow
 	output.m_nearPlane = json["nearPlane"];
 	output.m_farPlane = json["farPlane"];
 
-	output.m_lightDirection.x = json["lightDirection"]["x"];
-	output.m_lightDirection.y = json["lightDirection"]["y"];
-	output.m_lightDirection.z = json["lightDirection"]["z"];
+	output.m_lightDirection = DeserializeVector3<Vector3f>(json["lightDirection"]);
+	output.m_lightOrigin = DeserializeVector3<Vector3f>(json["lightOrigin"]);
 
-	output.m_lightOrigin.x = json["lightOrigin"]["x"];
-	output.m_lightOrigin.y = json["lightOrigin"]["y"];
-	output.m_lightOrigin.z = json["lightOrigin"]["z"];
+	return output;
+}
+
+
+template <>
+BinaryBlock OSK::PERSISTENCE::BinarySerializeData<OSK::GRAPHICS::ShadowMap>(const OSK::GRAPHICS::ShadowMap& data) {
+	BinaryBlock output{};
+
+	output.AppendBlock(SerializeBinaryVector2<Vector2ui>(data.m_depthArrayAttachment->GetSize2D()));
+
+	output.Write<GameObjectIndex::TUnderlyingType>(data.m_cameraObject.Get());
+
+	output.Write<float>(data.m_splits[0]);
+	output.Write<float>(data.m_splits[1]);
+	output.Write<float>(data.m_splits[2]);
+	output.Write<float>(data.m_splits[3]);
+
+	output.Write<float>(data.m_nearPlane);
+	output.Write<float>(data.m_farPlane);
+
+	output.AppendBlock(SerializeBinaryVector3<Vector3f>(data.m_lightDirection));
+	output.AppendBlock(SerializeBinaryVector3<Vector3f>(data.m_lightOrigin));
+
+	return output;
+}
+
+template <>
+OSK::GRAPHICS::ShadowMap OSK::PERSISTENCE::BinaryDeserializeData<OSK::GRAPHICS::ShadowMap>(BinaryBlockReader* reader) {
+	OSK::GRAPHICS::ShadowMap output{};
+
+	output.Create(DeserializeBinaryVector2<Vector2ui, USize32>(reader));
+
+	output.m_cameraObject = GameObjectIndex(reader->Read<GameObjectIndex::TUnderlyingType>());
+
+	output.m_splits[0] = reader->Read<float>();
+	output.m_splits[1] = reader->Read<float>();
+	output.m_splits[2] = reader->Read<float>();
+	output.m_splits[3] = reader->Read<float>();
+
+	output.m_nearPlane = reader->Read<float>();
+	output.m_farPlane = reader->Read<float>();
+
+	output.m_lightDirection = DeserializeBinaryVector3<Vector3f, float>(reader);
+	output.m_lightOrigin = DeserializeBinaryVector3<Vector3f, float>(reader);
 
 	return output;
 }

@@ -28,6 +28,9 @@
 #include "GpuBuffer.h"
 #include "RenderTarget.h"
 
+// Registro de render-passes
+#include "ShaderPassFactory.h"
+
 // Otros
 #include "PresentMode.h"
 
@@ -124,6 +127,8 @@ namespace OSK::GRAPHICS {
 		virtual void WaitForCompletion() = 0;
 
 #pragma region Getters
+
+		ShaderPassFactory* GetShaderPassFactory();
 
 		/// @return Puntero al asignador de memoria de la GPU.
 		/// @pre Se ha llamado a IRenderer::Initialize.
@@ -607,6 +612,8 @@ namespace OSK::GRAPHICS {
 		UniquePtr<IGpuMemoryAllocator> m_gpuMemoryAllocator;
 		UniquePtr<ISwapchain> m_swapchain;
 		UniquePtr<MaterialSystem> m_materialSystem;
+
+		ShaderPassFactory m_shaderPassFactory{};
 
 
 		// --- Pools de comandos --- //

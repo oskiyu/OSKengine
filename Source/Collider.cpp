@@ -12,6 +12,7 @@
 using namespace OSK;
 using namespace OSK::ECS;
 using namespace OSK::COLLISION;
+using namespace OSK::PERSISTENCE;
 
 
 void Collider::CopyFrom(const Collider& other) {
@@ -69,21 +70,21 @@ USize32 Collider::GetBottomLevelCollidersCount() const {
 
 
 template <>
-nlohmann::json PERSISTENCE::SerializeJson<OSK::COLLISION::Collider>(const OSK::COLLISION::Collider& data) {
+nlohmann::json PERSISTENCE::SerializeData<OSK::COLLISION::Collider>(const OSK::COLLISION::Collider& data) {
 	nlohmann::json output{};
 
 	if (auto box = dynamic_cast<const AxisAlignedBoundingBox*>(data.GetTopLevelCollider())) {
 		output["top_level_type"] = "AxisAlignedBoundingBox";
-		output["m_topLevelCollider"] = SerializeJson<AxisAlignedBoundingBox>(*box);
+		output["m_topLevelCollider"] = SerializeData<AxisAlignedBoundingBox>(*box);
 	}
 	else if (auto sphere = dynamic_cast<const SphereCollider*>(data.GetTopLevelCollider())) {
 		output["top_level_type"] = "SphereCollider";
-		output["m_topLevelCollider"] = SerializeJson<SphereCollider>(*sphere);
+		output["m_topLevelCollider"] = SerializeData<SphereCollider>(*sphere);
 	}
 
 	UIndex64 i = 0;
 	for (const auto& blc : data.m_bottomLevelColliders) {
-		output["m_bottomLevelColliders"][std::to_string(i)] = SerializeJson<ConvexVolume>(*blc->As<ConvexVolume>());
+		output["m_bottomLevelColliders"][std::to_string(i)] = SerializeData<ConvexVolume>(*blc->As<ConvexVolume>());
 		i++;
 	}
 
@@ -91,20 +92,71 @@ nlohmann::json PERSISTENCE::SerializeJson<OSK::COLLISION::Collider>(const OSK::C
 }
 
 template <>
-OSK::COLLISION::Collider PERSISTENCE::DeserializeJson<OSK::COLLISION::Collider>(const nlohmann::json& json) {
+OSK::COLLISION::Collider PERSISTENCE::DeserializeData<OSK::COLLISION::Collider>(const nlohmann::json& json) {
 	Collider output{};
 
 	OwnedPtr<ITopLevelCollider> topLevelCollider = nullptr;
 
 	if (json["top_level_type"] == "AxisAlignedBoundingBox") {
-		topLevelCollider = DeserializeJson<AxisAlignedBoundingBox>(json["m_topLevelCollider"]).CreateCopy();
+		topLevelCollider = DeserializeData<AxisAlignedBoundingBox>(json["m_topLevelCollider"]).CreateCopy();
 	}
 	else if (json["top_level_type"] == "SphereCollider") {
-		topLevelCollider = DeserializeJson<SphereCollider>(json["m_topLevelCollider"]).CreateCopy();
+		topLevelCollider = DeserializeData<SphereCollider>(json["m_topLevelCollider"]).CreateCopy();
 	}
 
+	output.SetTopLevelCollider(topLevelCollider);
+
 	for (const auto& [key, value] : json["m_bottomLevelColliders"].items()) {
-		const ConvexVolume& volume = DeserializeJson<ConvexVolume>(value);
+		const ConvexVolume& volume = DeserializeData<ConvexVolume>(value);
+		output.AddBottomLevelCollider(volume.CreateCopy());
+	}
+
+	return output;
+}
+
+
+
+template <>
+BinaryBlock PERSISTENCE::BinarySerializeData<OSK::COLLISION::Collider>(const OSK::COLLISION::Collider& data) {
+	BinaryBlock output{};
+
+	if (auto box = dynamic_cast<const AxisAlignedBoundingBox*>(data.GetTopLevelCollider())) {
+		output.Write<TByte>(0);
+		output.AppendBlock(BinarySerializeData<AxisAlignedBoundingBox>(*box));
+	}
+	else if (auto sphere = dynamic_cast<const SphereCollider*>(data.GetTopLevelCollider())) {
+		output.Write<TByte>(1);
+		output.AppendBlock(BinarySerializeData<SphereCollider>(*sphere));
+	}
+
+	output.Write<USize64>(data.m_bottomLevelColliders.GetSize());
+	for (const auto& blc : data.m_bottomLevelColliders) {
+		output.AppendBlock(BinarySerializeData<ConvexVolume>(*blc->As<ConvexVolume>()));
+	}
+
+	return output;
+}
+
+template <>
+OSK::COLLISION::Collider PERSISTENCE::BinaryDeserializeData<OSK::COLLISION::Collider>(BinaryBlockReader* reader) {
+	Collider output{};
+
+	OwnedPtr<ITopLevelCollider> topLevelCollider = nullptr;
+
+	const TByte type = reader->Read<TByte>();
+
+	if (type == 0) {
+		topLevelCollider = BinaryDeserializeData<AxisAlignedBoundingBox>(reader).CreateCopy();
+	}
+	else if (type == 1) {
+		topLevelCollider = BinaryDeserializeData<SphereCollider>(reader).CreateCopy();
+	}
+
+	output.SetTopLevelCollider(topLevelCollider);
+
+	const USize64 numBlc = reader->Read<USize64>();
+	for (UIndex64 i = 0; i < numBlc; i++) {
+		const ConvexVolume& volume = BinaryDeserializeData<ConvexVolume>(reader);
 		output.AddBottomLevelCollider(volume.CreateCopy());
 	}
 

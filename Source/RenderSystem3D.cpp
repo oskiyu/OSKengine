@@ -411,3 +411,21 @@ void RenderSystem3D::Execute(TDeltaTime deltaTime, std::span<const ECS::GameObje
 		model->GetAnimator().Update(deltaTime);
 	}
 }
+
+nlohmann::json RenderSystem3D::SaveConfiguration() const {
+	OSK_ASSERT(false, NotImplementedException());
+}
+
+PERSISTENCE::BinaryBlock RenderSystem3D::SaveBinaryConfiguration() const {
+	auto output = PERSISTENCE::BinaryBlock::Empty();
+
+	return output;
+}
+
+void RenderSystem3D::ApplyConfiguration(const nlohmann::json& config, const SavedGameObjectTranslator& translator) {
+	OSK_ASSERT(false, NotImplementedException());
+}
+
+void RenderSystem3D::ApplyConfiguration(PERSISTENCE::BinaryBlockReader* reader, const SavedGameObjectTranslator& translator) {
+	
+}

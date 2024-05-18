@@ -12,7 +12,6 @@
 #include "GpuMesh3D.h"
 
 
-
 namespace OSK::ECS {
 
 	class CameraComponent3D;
@@ -64,6 +63,11 @@ namespace OSK::ECS {
 			/// @brief Número de índices.
 			USize32 numIndices = 0;
 		};
+
+		nlohmann::json SaveConfiguration() const override;
+		PERSISTENCE::BinaryBlock SaveBinaryConfiguration() const override;
+		void ApplyConfiguration(const nlohmann::json& config, const SavedGameObjectTranslator& translator) override;
+		void ApplyConfiguration(PERSISTENCE::BinaryBlockReader* reader, const SavedGameObjectTranslator& translator) override;
 
 	private:
 

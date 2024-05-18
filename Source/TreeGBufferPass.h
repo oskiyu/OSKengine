@@ -8,7 +8,7 @@ namespace OSK::GRAPHICS {
 
 	public:
 
-		OSK_RENDERPASS("tree_pass");
+		OSK_RENDERPASS(TreeGBufferPass, "tree_pass");
 
 		TreeGBufferPass() : IShaderPass("tree_pass") {}
 

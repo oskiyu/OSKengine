@@ -7,7 +7,9 @@ namespace OSK::GRAPHICS {
 	class OSKAPI_CALL AnimatedGBufferPass : public IShaderPass {
 
 	public:
-		
+
+		OSK_RENDERPASS(AnimatedGBufferPass, "animated_pass");
+
 		AnimatedGBufferPass() : IShaderPass("animated_pass") {}
 
 		void Load() override;

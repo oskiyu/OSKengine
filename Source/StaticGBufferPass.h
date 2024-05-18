@@ -17,6 +17,8 @@ namespace OSK::GRAPHICS {
 
 		constexpr static auto Name = "static_pass";
 
+		OSK_RENDERPASS(StaticGBufferPass, Name);
+
 		StaticGBufferPass() : IShaderPass("static_pass") {}
 
 		void Load() override;

@@ -109,6 +109,21 @@ namespace OSK::ECS {
 			return static_cast<TSystem*>(m_systems.find(TSystem::GetSystemName())->second.system.GetPointer());
 		}
 
+
+		/// @param systemName Nombre del sistema.
+		/// @return Sistema con el nombre dado.
+		/// 
+		/// @pre El sistema @p systemName debe haber sido 
+		/// previamente registrado.
+		/// @throws InvalidArgumentException si el sistema no
+		/// ha sido previamente registrado.
+		ISystem* GetSystem(std::string_view systemName);
+		const ISystem* GetSystem(std::string_view systemName) const;
+
+		/// @brief Desactiva todos los sistemas.
+		void DeactivateAllSystems();
+
+
 		/// @tparam TSystem Tipo del sistema.
 		/// @return La instancia del sistema dado.
 		/// Null si no está registrado.
@@ -130,6 +145,10 @@ namespace OSK::ECS {
 			return m_systems.contains(TSystem::GetSystemName());
 		}
 
+
+		/// @return Grafo de ejecución con todos
+		/// los sistemas.
+		const SystemExecutionGraph& GetExecutionGraph() const;
 
 	private:
 

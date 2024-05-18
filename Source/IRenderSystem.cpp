@@ -112,6 +112,16 @@ void IRenderSystem::UpdatePerPassObjectLists(std::span<const ECS::GameObjectInde
 }
 
 
+void IRenderSystem::UpdatePassesCamera(ECS::GameObjectIndex cameraObject) {
+	for (auto& pass : m_shaderPasses.GetAllPasses()) {
+		pass->SetCamera(cameraObject);
+	}
+
+	for (auto& pass : m_shadowsPasses.GetAllPasses()) {
+		pass->SetCamera(cameraObject);
+	}
+}
+
 void IRenderSystem::SetupViewport(GRAPHICS::ICommandList* commandList) {
 	Vector4ui windowRec = {
 		0,

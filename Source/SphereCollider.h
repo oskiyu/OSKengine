@@ -17,11 +17,7 @@ namespace OSK::COLLISION {
 
 	public:
 
-		template <typename T>
-		friend nlohmann::json PERSISTENCE::SerializeJson<T>(const T& data);
-
-		template <typename T>
-		friend T PERSISTENCE::DeserializeJson<T>(const nlohmann::json& data);
+		OSK_SERIALIZABLE();
 
 	public:
 
@@ -50,12 +46,4 @@ namespace OSK::COLLISION {
 
 }
 
-namespace OSK::PERSISTENCE {
-
-	template <>
-	nlohmann::json SerializeJson<OSK::COLLISION::SphereCollider>(const OSK::COLLISION::SphereCollider& data);
-
-	template <>
-	OSK::COLLISION::SphereCollider DeserializeJson<OSK::COLLISION::SphereCollider>(const nlohmann::json& json);
-
-}
+OSK_SERIALIZATION(OSK::COLLISION::SphereCollider);

@@ -8,12 +8,15 @@
 #include <glm/gtx/string_cast.hpp>
 
 #include "MatrixOperations.hpp"
+#include "SavedGameObjectTranslator.h"
 
 #include "Math.h"
 
 
 using namespace OSK;
 using namespace OSK::ECS;
+using namespace OSK::PERSISTENCE;
+
 
 const static ECS::EntityComponentSystem* GetEcs() {
 	return Engine::GetEcs();
@@ -258,14 +261,16 @@ void Transform3D::UpdateModel(std::optional<const Transform3D*> parent) {
 
 
 template <>
-nlohmann::json PERSISTENCE::SerializeJson<OSK::ECS::Transform3D>(const OSK::ECS::Transform3D& data) {
+nlohmann::json PERSISTENCE::SerializeComponent<OSK::ECS::Transform3D>(const OSK::ECS::Transform3D& data) {
 	nlohmann::json output{};
 
 	output["m_inheritPosition"] = data.m_inheritPosition;
 	output["m_inheritRotation"] = data.m_inheritRotation;
 	output["m_inheritScale"] = data.m_inheritScale;
 
-	output["m_matrix"] = SerializeJson<glm::mat4>(data.GetAsMatrix());
+	output["localPosition"] = SerializeVector3(data.m_localPosition);
+	output["localRotation"] = SerializeData<Quaternion>(data.m_localRotation);
+	output["localScale"] = SerializeVector3(data.m_localScale);
 
 	output["m_ownerId"] = data.m_ownerId.Get();
 
@@ -277,15 +282,66 @@ nlohmann::json PERSISTENCE::SerializeJson<OSK::ECS::Transform3D>(const OSK::ECS:
 }
 
 template <>
-OSK::ECS::Transform3D PERSISTENCE::DeserializeJson<OSK::ECS::Transform3D>(const nlohmann::json& json) {
-	Transform3D output = Transform3D::FromMatrix(GameObjectIndex(json["owner"]), DeserializeJson<glm::mat4>(json["m_matrix"]));
+OSK::ECS::Transform3D PERSISTENCE::DeserializeComponent<OSK::ECS::Transform3D>(const nlohmann::json& json, const OSK::ECS::SavedGameObjectTranslator& gameObjectTranslator) {
+	auto output = Transform3D(gameObjectTranslator.GetCurrentIndex(GameObjectIndex(json["m_ownerId"])));
 
 	output.m_inheritPosition = json["m_inheritPosition"];
 	output.m_inheritRotation = json["m_inheritRotation"];
 	output.m_inheritScale = json["m_inheritScale"];
 
-	for (const auto& child : json["m_childIds"]) {
-		output.m_childIds.Insert(GameObjectIndex(child));
+
+	output.m_localPosition = DeserializeVector3<Vector3f>(json["localPosition"]);
+	output.m_localRotation = DeserializeData<Quaternion>(json["localRotation"]);
+	output.m_localScale = DeserializeVector3<Vector3f>(json["localScale"]);
+
+
+	if (json.contains("m_childIds")) {
+		for (const auto& child : json["m_childIds"]) {
+			output.m_childIds.Insert(gameObjectTranslator.GetCurrentIndex(GameObjectIndex(child)));
+		}
+	}
+
+	return output;
+}
+
+
+template <>
+BinaryBlock PERSISTENCE::BinarySerializeComponent<OSK::ECS::Transform3D>(const OSK::ECS::Transform3D& data) {
+	BinaryBlock output{};
+
+	output.Write<GameObjectIndex::TUnderlyingType>(data.m_ownerId.Get());
+
+	output.Write<TByte>(data.m_inheritPosition);
+	output.Write<TByte>(data.m_inheritRotation);
+	output.Write<TByte>(data.m_inheritScale);
+
+	output.AppendBlock(SerializeBinaryVector3<Vector3f>(data.m_localPosition));
+	output.AppendBlock(BinarySerializeData<Quaternion>(data.m_localRotation));
+	output.AppendBlock(SerializeBinaryVector3<Vector3f>(data.m_localScale));
+
+	output.Write<USize64>(data.m_childIds.GetSize());
+	for (const auto& childId : data.m_childIds) {
+		output.Write<GameObjectIndex::TUnderlyingType>(childId.Get());
+	}
+
+	return output;
+}
+
+template <>
+OSK::ECS::Transform3D PERSISTENCE::BinaryDeserializeComponent<OSK::ECS::Transform3D>(BinaryBlockReader* reader, const OSK::ECS::SavedGameObjectTranslator& gameObjectTranslator) {
+	auto output = Transform3D(gameObjectTranslator.GetCurrentIndex(GameObjectIndex(reader->Read<GameObjectIndex::TUnderlyingType>())));
+
+	output.m_inheritPosition = reader->Read<TByte>();
+	output.m_inheritRotation = reader->Read<TByte>();
+	output.m_inheritScale = reader->Read<TByte>();
+
+	output.m_localPosition = DeserializeBinaryVector3<Vector3f, float>(reader);
+	output.m_localRotation = BinaryDeserializeData<Quaternion>(reader);
+	output.m_localScale = DeserializeBinaryVector3<Vector3f, float>(reader);
+
+	const auto numChilds = reader->Read<USize64>();
+	for (UIndex64 i = 0; i < numChilds; i++) {
+		output.m_childIds.Insert(gameObjectTranslator.GetCurrentIndex(GameObjectIndex(reader->Read<GameObjectIndex::TUnderlyingType>())));
 	}
 
 	return output;

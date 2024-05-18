@@ -10,6 +10,9 @@
 
 #include "MaterialInstance.h"
 
+#include "SavedGameObjectTranslator.h"
+
+
 namespace OSK::ASSETS {
 	class IrradianceMap;
 	class SpecularMap;
@@ -37,7 +40,12 @@ namespace OSK::ECS {
 		void Render(GRAPHICS::ICommandList* commandList, std::span<const ECS::GameObjectIndex> objects) override;
 
 		void AddShaderPass(OwnedPtr<GRAPHICS::IShaderPass> pass) override;
-		
+
+		nlohmann::json SaveConfiguration() const override;
+		PERSISTENCE::BinaryBlock SaveBinaryConfiguration() const override;
+		void ApplyConfiguration(const nlohmann::json& config, const SavedGameObjectTranslator& translator) override;
+		void ApplyConfiguration(PERSISTENCE::BinaryBlockReader* reader, const SavedGameObjectTranslator& translator) override;
+
 	private:
 
 		/// @brief Estructura con la información almacenada

@@ -19,6 +19,7 @@ GameObjectIndex GameObjectManager::CreateGameObject() {
 
 	GameObjectIndex output = GameObjectIndex(m_nextIndex);
 	m_signatures[output] = {};
+	m_livingObjects.Insert(output);
 
 	m_nextIndex++;
 
@@ -31,6 +32,7 @@ void GameObjectManager::DestroyGameObject(GameObjectIndex* obj) {
 
 	m_signatures.erase(*obj);
 	m_freeObjectIndices.Push(*obj);
+	m_livingObjects.Remove(*obj);
 
 	obj->SetValue(0);
 }
@@ -51,4 +53,20 @@ Signature GameObjectManager::GetSignature(GameObjectIndex obj) const {
 
 bool GameObjectManager::IsGameObjectAlive(GameObjectIndex obj) const {
 	return m_signatures.contains(obj);
+}
+
+std::span<const GameObjectIndex> GameObjectManager::GetAllLivingObjects() const {
+	return m_livingObjects.GetFullSpan();
+}
+
+void GameObjectManager::UpdateSignature(GameObjectIndex obj, ComponentType position, bool value) {
+	m_signatures.at(obj).SetValue(position, value);
+}
+
+void GameObjectManager::AddComponent(GameObjectIndex obj, ComponentType position) {
+	UpdateSignature(obj, position, true);
+}
+
+void GameObjectManager::RemoveComponent(GameObjectIndex obj, ComponentType position) {
+	UpdateSignature(obj, position, false);
 }

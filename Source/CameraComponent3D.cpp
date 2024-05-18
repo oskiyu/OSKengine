@@ -17,6 +17,7 @@
 
 using namespace OSK;
 using namespace OSK::ECS;
+using namespace OSK::PERSISTENCE;
 
 const OSK::Vector3f CameraComponent3D::worldUpVector = { 0.0f, 1.0f, 0.0f };
 
@@ -153,7 +154,7 @@ glm::mat4 CameraComponent3D::GetViewMatrix(const Transform3D& transform) const {
 
 
 template <>
-nlohmann::json PERSISTENCE::SerializeJson<OSK::ECS::CameraComponent3D>(const OSK::ECS::CameraComponent3D& data) {
+nlohmann::json PERSISTENCE::SerializeComponent<OSK::ECS::CameraComponent3D>(const OSK::ECS::CameraComponent3D& data) {
 	nlohmann::json output{};
 
 	output["fov"] = data.fov;
@@ -163,17 +164,14 @@ nlohmann::json PERSISTENCE::SerializeJson<OSK::ECS::CameraComponent3D>(const OSK
 	output["nearPlane"] = data.nearPlane;
 	output["farPlane"] = data.farPlane;
 
-	output["angles"]["x"] = data.angles.x;
-	output["angles"]["y"] = data.angles.y;
-
-	output["accumulatedAngles"]["x"] = data.accumulatedAngles.x;
-	output["accumulatedAngles"]["y"] = data.accumulatedAngles.y;
+	output["angles"] = SerializeVector2(data.angles);
+	output["accumulatedAngles"] = SerializeVector2(data.accumulatedAngles);
 
 	return output;
 }
 
 template <>
-OSK::ECS::CameraComponent3D PERSISTENCE::DeserializeJson<OSK::ECS::CameraComponent3D>(const nlohmann::json& json) {
+OSK::ECS::CameraComponent3D PERSISTENCE::DeserializeComponent<OSK::ECS::CameraComponent3D>(const nlohmann::json& json, const OSK::ECS::SavedGameObjectTranslator& gameObjectTranslator) {
 	OSK::ECS::CameraComponent3D output{};
 
 	output.fov = json["fov"];
@@ -183,12 +181,43 @@ OSK::ECS::CameraComponent3D PERSISTENCE::DeserializeJson<OSK::ECS::CameraCompone
 	output.nearPlane = json["nearPlane"];
 	output.farPlane = json["farPlane"];
 
-	output.angles.x = json["angles"]["x"];
-	output.angles.y = json["angles"]["y"];
-
-	output.accumulatedAngles.x = json["accumulatedAngles"]["x"];
-	output.accumulatedAngles.y = json["accumulatedAngles"]["y"];
+	output.angles = DeserializeVector2<Vector2f>(json["angles"]);
+	output.accumulatedAngles = DeserializeVector2<Vector2f>(json["accumulatedAngles"]);
 
 	return output;
 }
 
+
+template<>
+BinaryBlock PERSISTENCE::BinarySerializeComponent<OSK::ECS::CameraComponent3D>(const OSK::ECS::CameraComponent3D& data) {
+	BinaryBlock output{};
+
+	output.Write(data.fov);
+	output.Write(data.fovLimitDown);
+	output.Write(data.fovLimitUp);
+
+	output.Write(data.nearPlane);
+	output.Write(data.farPlane);
+
+	output.AppendBlock(SerializeBinaryVector2(data.angles));
+	output.AppendBlock(SerializeBinaryVector2(data.accumulatedAngles));
+
+	return output;
+}
+
+template <>
+OSK::ECS::CameraComponent3D PERSISTENCE::BinaryDeserializeComponent<OSK::ECS::CameraComponent3D>(BinaryBlockReader* reader, const SavedGameObjectTranslator&) {
+	OSK::ECS::CameraComponent3D output{};
+
+	output.fov = reader->Read<float>();
+	output.fovLimitDown = reader->Read<float>();
+	output.fovLimitUp = reader->Read<float>();
+
+	output.nearPlane = reader->Read<float>();
+	output.farPlane = reader->Read<float>();
+
+	output.angles = DeserializeBinaryVector2<Vector2f, float>(reader);
+	output.accumulatedAngles = DeserializeBinaryVector2<Vector2f, float>(reader);
+
+	return output;
+}

@@ -1,9 +1,15 @@
 #pragma once
 
 #include <glm/glm.hpp>
+#include <glm/gtx/quaternion.hpp>
 #include <type_traits>
 
 #include "Serializer.h"
+
+#include "Vector2.hpp"
+#include "Vector3.hpp"
+#include "Vector4.hpp"
+#include "Quaternion.h"
 
 namespace OSK::MATH {
 
@@ -133,7 +139,7 @@ namespace OSK::MATH {
 namespace OSK::PERSISTENCE {
 
 	template <>
-	nlohmann::json inline SerializeJson<glm::mat3>(const glm::mat3& data) {
+	nlohmann::json inline SerializeData<glm::mat3>(const glm::mat3& data) {
 		nlohmann::json output{};
 
 		for (int i = 0; i < 3; i++) {
@@ -146,7 +152,7 @@ namespace OSK::PERSISTENCE {
 	}
 
 	template <>
-	glm::mat3 inline DeserializeJson<glm::mat3>(const nlohmann::json& json) {
+	glm::mat3 inline DeserializeData<glm::mat3>(const nlohmann::json& json) {
 		glm::mat3 output{};
 
 		for (int i = 0; i < 3; i++) {
@@ -158,10 +164,35 @@ namespace OSK::PERSISTENCE {
 		return output;
 	}
 
+	template<>
+	PERSISTENCE::BinaryBlock inline BinarySerializeData<glm::mat3>(const glm::mat3& data) {
+		auto output = BinaryBlock::Empty();
+
+		for (int i = 0; i < 3; i++) {
+			for (int j = 0; j < 3; j++) {
+				output.Write(data[i][j]);
+			}
+		}
+
+		return output;
+	}
+
+	template<>
+	glm::mat3 inline BinaryDeserializeData<glm::mat3>(BinaryBlockReader* data) {
+		glm::mat3 output{};
+
+		for (int i = 0; i < 3; i++) {
+			for (int j = 0; j < 3; j++) {
+				output[i][j] = data->Read<float>();
+			}
+		}
+
+		return output;
+	}
 
 
 	template <>
-	nlohmann::json inline SerializeJson<glm::mat4>(const glm::mat4& data) {
+	nlohmann::json inline SerializeData<glm::mat4>(const glm::mat4& data) {
 		nlohmann::json output{};
 
 		for (int i = 0; i < 4; i++) {
@@ -174,7 +205,7 @@ namespace OSK::PERSISTENCE {
 	}
 
 	template <>
-	glm::mat4 inline DeserializeJson<glm::mat4>(const nlohmann::json& json) {
+	glm::mat4 inline DeserializeData<glm::mat4>(const nlohmann::json& json) {
 		glm::mat4 output{};
 
 		for (int i = 0; i < 4; i++) {
@@ -184,6 +215,198 @@ namespace OSK::PERSISTENCE {
 		}
 
 		return output;
+	}
+
+	template<>
+	PERSISTENCE::BinaryBlock inline BinarySerializeData<glm::mat4>(const glm::mat4& data) {
+		auto output = BinaryBlock::Empty();
+
+		for (int i = 0; i < 4; i++) {
+			for (int j = 0; j < 4; j++) {
+				output.Write(data[i][j]);
+			}
+		}
+
+		return output;
+	}
+
+	template<>
+	glm::mat4 inline BinaryDeserializeData<glm::mat4>(BinaryBlockReader* data) {
+		glm::mat4 output{};
+
+		for (int i = 0; i < 4; i++) {
+			for (int j = 0; j < 4; j++) {
+				output[i][j] = data->Read<float>();
+			}
+		}
+
+		return output;
+	}
+
+#pragma region Vectors
+
+	template <typename TVec>
+	inline nlohmann::json SerializeVector2(const TVec& vec) {
+		nlohmann::json output{};
+
+		output["x"] = vec.x;
+		output["y"] = vec.y;
+
+		return output;
+	}
+
+	template <typename TVec>
+	inline nlohmann::json SerializeVector3(const TVec& vec) {
+		nlohmann::json output{};
+
+		output["x"] = vec.x;
+		output["y"] = vec.y;
+		output["z"] = vec.z;
+
+		return output;
+	}
+
+	template <typename TVec>
+	inline nlohmann::json SerializeVector4(const TVec& vec) {
+		nlohmann::json output{};
+
+		output["x"] = vec.x;
+		output["y"] = vec.y;
+		output["z"] = vec.z;
+		output["W"] = vec.W;
+
+		return output;
+	}
+
+
+	template <typename TVec>
+	inline TVec DeserializeVector2(const nlohmann::json& vec) {
+		TVec output{};
+
+		output.x = vec["x"];
+		output.y = vec["y"];
+
+		return output;
+	}
+
+	template <typename TVec>
+	inline TVec DeserializeVector3(const nlohmann::json& vec) {
+		TVec output{};
+
+		output.x = vec["x"];
+		output.y = vec["y"];
+		output.z = vec["z"];
+
+		return output;
+	}
+
+	template <typename TVec>
+	inline TVec DeserializeVector4(const nlohmann::json& vec) {
+		TVec output{};
+
+		output.x = vec["x"];
+		output.y = vec["y"];
+		output.z = vec["z"];
+		output.W = vec["W"];
+
+		return output;
+	}
+
+
+	template <typename TVec>
+	inline PERSISTENCE::BinaryBlock SerializeBinaryVector2(const TVec& vec) {
+		PERSISTENCE::BinaryBlock output{};
+
+		output.Write(vec.x);
+		output.Write(vec.y);
+
+		return output;
+	}
+
+	template <typename TVec>
+	inline PERSISTENCE::BinaryBlock SerializeBinaryVector3(const TVec& vec) {
+		PERSISTENCE::BinaryBlock output{};
+
+		output.Write(vec.x);
+		output.Write(vec.y);
+		output.Write(vec.z);
+
+		return output;
+	}
+
+	template <typename TVec>
+	inline PERSISTENCE::BinaryBlock SerializeBinaryVector4(const TVec& vec) {
+		PERSISTENCE::BinaryBlock output{};
+
+		output.Write(vec.x);
+		output.Write(vec.y);
+		output.Write(vec.z);
+		output.Write(vec.W);
+
+		return output;
+	}
+
+	template <typename TVec, typename TNumberType>
+	inline TVec DeserializeBinaryVector2(PERSISTENCE::BinaryBlockReader* vec) {
+		TVec output{};
+
+		output.x = vec->Read<TNumberType>();
+		output.y = vec->Read<TNumberType>();
+
+		return output;
+	}
+
+	template <typename TVec, typename TNumberType>
+	inline TVec DeserializeBinaryVector3(PERSISTENCE::BinaryBlockReader* vec) {
+		TVec output{};
+
+		output.x = vec->Read<TNumberType>();
+		output.y = vec->Read<TNumberType>();
+		output.z = vec->Read<TNumberType>();
+
+		return output;
+	}
+
+	template <typename TVec, typename TNumberType>
+	inline TVec DeserializeBinaryVector4(PERSISTENCE::BinaryBlockReader* vec) {
+		TVec output{};
+
+		output.x = vec->Read<TNumberType>();
+		output.y = vec->Read<TNumberType>();
+		output.z = vec->Read<TNumberType>();
+		output.W = vec->Read<TNumberType>();
+
+		return output;
+	}
+
+#pragma endregion
+
+
+	template <>
+	nlohmann::json inline SerializeData<Quaternion>(const Quaternion& data) {
+		return SerializeData<glm::mat4>(data.ToMat4());
+
+	}
+
+	template <>
+	Quaternion inline DeserializeData<Quaternion>(const nlohmann::json& json) {
+		return Quaternion{};
+		const auto matrix = DeserializeData<glm::mat4>(json);
+		return Quaternion::FromGlm(glm::normalize(glm::toQuat(matrix)));
+	}
+
+
+	template <>
+	PERSISTENCE::BinaryBlock inline BinarySerializeData<Quaternion>(const Quaternion& data) {
+		return BinarySerializeData<glm::mat4>(data.ToMat4());
+
+	}
+
+	template <>
+	Quaternion inline BinaryDeserializeData<Quaternion>(PERSISTENCE::BinaryBlockReader* reader) {
+		// return Quaternion{};
+		const auto matrix = BinaryDeserializeData<glm::mat4>(reader);
+		return Quaternion::FromGlm(glm::normalize(glm::toQuat(matrix)));
 	}
 
 }

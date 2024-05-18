@@ -9,6 +9,9 @@
 #include "CubemapTexture.h"
 #include "Model3D.h"
 
+#include "SavedGameObjectTranslator.h"
+
+
 namespace OSK::ECS {
 
 	class OSKAPI_CALL SkyboxRenderSystem : public IRenderSystem {
@@ -25,6 +28,11 @@ namespace OSK::ECS {
 		void SetCubemap(ASSETS::AssetRef<ASSETS::CubemapTexture> texture);
 
 		void Render(GRAPHICS::ICommandList* commandList, std::span<const ECS::GameObjectIndex> objects) override;
+
+		nlohmann::json SaveConfiguration() const override;
+		PERSISTENCE::BinaryBlock SaveBinaryConfiguration() const override;
+		void ApplyConfiguration(const nlohmann::json& config, const SavedGameObjectTranslator& translator) override;
+		void ApplyConfiguration(PERSISTENCE::BinaryBlockReader* reader, const SavedGameObjectTranslator& translator) override;
 
 	private:
 

@@ -118,6 +118,8 @@ namespace OSK::GRAPHICS {
 
 		virtual ~IShadowsPass() = default;
 
+		virtual void SetupShadowMap(const ShadowMap& shadowMap) = 0;
+
 		virtual void ShadowsRenderLoop(
 			ICommandList* commandList,
 			const DynamicArray<ECS::GameObjectIndex>& objectsToRender,
@@ -144,6 +146,9 @@ namespace OSK::GRAPHICS {
 		/// 
 		/// @pre Debe haber un pase dentro de la tabla con el nombre @p passName.
 		void RemoveShaderPass(std::string_view passName);
+
+		/// @brief Elimina todos los pases.
+		void RemoveAllPasses();
 
 		/// @return True si la tabla contiene un pase con el nombre @p passName.
 		bool ContainsShaderPass(std::string_view passName) const;
@@ -184,6 +189,9 @@ namespace OSK::GRAPHICS {
 		/// @return Todos los pases almacenados en la tabla.
 		DynamicArray<GRAPHICS::IShaderPass*>& GetAllPasses();
 
+		/// @return Todos los pases almacenados en la tabla.
+		std::span<GRAPHICS::IShaderPass* const> GetAllPasses() const;
+
 	private:
 
 		/// @brief Pases de renderizado.
@@ -198,9 +206,9 @@ namespace OSK::GRAPHICS {
 
 	};
 
-
 }
 
 #ifndef OSK_RENDERPASS
-#define OSK_RENDERPASS(className) constexpr static inline std::string_view GetRenderPassName() { return className; }
+#define OSK_RENDERPASS(classTypeName, className) constexpr static inline std::string_view GetRenderPassName() { return className; } \
+static ::OSK::OwnedPtr<::OSK::GRAPHICS::IShaderPass> CreateInstance() { return new classTypeName; }
 #endif

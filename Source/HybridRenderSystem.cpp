@@ -481,3 +481,19 @@ void HybridRenderSystem::AddBlas(IBottomLevelAccelerationStructure* blas) {
 	for (auto& tlas : topLevelAccelerationStructures)
 		tlas->AddBottomLevelAccelerationStructure(blas);
 }
+
+nlohmann::json HybridRenderSystem::SaveConfiguration() const {
+	OSK_ASSERT(false, NotImplementedException());
+}
+
+PERSISTENCE::BinaryBlock HybridRenderSystem::SaveBinaryConfiguration() const {
+	return PERSISTENCE::BinaryBlock::Empty();
+}
+
+void HybridRenderSystem::ApplyConfiguration(const nlohmann::json& config, const SavedGameObjectTranslator& translator) {
+	OSK_ASSERT(false, NotImplementedException());
+}
+
+void HybridRenderSystem::ApplyConfiguration(PERSISTENCE::BinaryBlockReader* reader, const SavedGameObjectTranslator& translator) {
+	
+}

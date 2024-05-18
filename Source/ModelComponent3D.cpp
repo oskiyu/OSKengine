@@ -13,6 +13,7 @@ using namespace OSK;
 using namespace OSK::ECS;
 using namespace OSK::ASSETS;
 using namespace OSK::GRAPHICS;
+using namespace OSK::PERSISTENCE;
 
 void ModelComponent3D::SetModel(AssetRef<Model3D> model) {
 	m_model = model;
@@ -72,7 +73,7 @@ const std::unordered_set<std::string, StringHasher, std::equal_to<>>& ModelCompo
 
 
 template <>
-nlohmann::json PERSISTENCE::SerializeJson<OSK::ECS::ModelComponent3D>(const OSK::ECS::ModelComponent3D& data) {
+nlohmann::json PERSISTENCE::SerializeComponent<OSK::ECS::ModelComponent3D>(const OSK::ECS::ModelComponent3D& data) {
 	nlohmann::json output{};
 
 	output["m_model"] = data.m_model->GetAssetFilename();
@@ -87,15 +88,52 @@ nlohmann::json PERSISTENCE::SerializeJson<OSK::ECS::ModelComponent3D>(const OSK:
 }
 
 template <>
-OSK::ECS::ModelComponent3D PERSISTENCE::DeserializeJson<OSK::ECS::ModelComponent3D>(const nlohmann::json& json) {
+OSK::ECS::ModelComponent3D PERSISTENCE::DeserializeComponent<OSK::ECS::ModelComponent3D>(const nlohmann::json& json, const OSK::ECS::SavedGameObjectTranslator& gameObjectTranslator) {
 	ModelComponent3D output{};
 
 	output.m_castShadows = json["m_castShadows"];
 	output.m_model = Engine::GetAssetManager()->Load<ASSETS::Model3D>(json["m_model"]);
 	// output.m_animator = DeserializeJson<Animator>(json["m_animator"]);
 
-	for (const std::string& shaderName : json["m_shaderNames"]) {
-		output.m_shaderNames.insert(shaderName);
+	if (json.contains("m_shaderNames")) {
+		for (const std::string& shaderName : json["m_shaderNames"]) {
+			output.m_shaderNames.insert(shaderName);
+		}
+	}
+
+	return output;
+}
+
+
+
+template <>
+BinaryBlock PERSISTENCE::BinarySerializeComponent<OSK::ECS::ModelComponent3D>(const OSK::ECS::ModelComponent3D& data) {
+	BinaryBlock output{};
+
+	output.WriteString(data.m_model->GetAssetFilename());
+
+	output.Write<TByte>(data.m_castShadows);
+	// output["m_animator"] = SerializeJson<Animator>(data.m_animator);
+
+	output.Write<USize64>(data.m_shaderNames.size());
+	for (const auto& shaderName : data.m_shaderNames) {
+		output.WriteString(shaderName);
+	}
+
+	return output;
+}
+
+template <>
+OSK::ECS::ModelComponent3D PERSISTENCE::BinaryDeserializeComponent<OSK::ECS::ModelComponent3D>(BinaryBlockReader* reader, const OSK::ECS::SavedGameObjectTranslator& gameObjectTranslator) {
+	ModelComponent3D output{};
+
+	output.m_model = Engine::GetAssetManager()->Load<ASSETS::Model3D>(reader->ReadString());
+	output.m_castShadows = reader->Read<TByte>();
+	// output.m_animator = DeserializeJson<Animator>(json["m_animator"]);
+
+	const USize64 numShaderPasses = reader->Read<USize64>();
+	for (UIndex64 i = 0; i < numShaderPasses; i++) {
+		output.m_shaderNames.insert(reader->ReadString());
 	}
 
 	return output;

@@ -48,6 +48,15 @@
 #include "PhysicsComponent.h"
 #include "PhysicsResolver.h"
 
+// Shader passes
+#include "ShadowsStaticPass.h"
+#include "PbrResolvePass.h"
+#include "BillboardGBufferPass.h"
+#include "AnimatedGBufferPass.h"
+#include "StaticGBufferPass.h"
+#include "TreeGBufferPass.h"
+#include "TreeNormalsPass.h"
+
 #include "TreeNormalsRenderSystem.h"
 
 #include "IteratorSystemExecutionJob.h"
@@ -218,6 +227,16 @@ void Engine::RegisterBuiltinJobs() {
 
 }
 
+void Engine::RegisterBuiltinShaderPasses() {
+	renderer->GetShaderPassFactory()->RegisterShaderPass<GRAPHICS::ShadowsStaticPass>();
+	renderer->GetShaderPassFactory()->RegisterShaderPass<GRAPHICS::PbrResolverPass>();
+	renderer->GetShaderPassFactory()->RegisterShaderPass<GRAPHICS::BillboardGBufferPass>();
+	renderer->GetShaderPassFactory()->RegisterShaderPass<GRAPHICS::AnimatedGBufferPass>();
+	renderer->GetShaderPassFactory()->RegisterShaderPass<GRAPHICS::StaticGBufferPass>();
+	renderer->GetShaderPassFactory()->RegisterShaderPass<GRAPHICS::TreeGBufferPass>();
+	renderer->GetShaderPassFactory()->RegisterShaderPass<GRAPHICS::TreeNormalsPass>();
+}
+
 
 IO::Logger* Engine::GetLogger() {
 	return logger.GetPointer();
@@ -275,7 +294,7 @@ Version Engine::GetVersion() {
 }
 
 std::string_view Engine::GetBuild() {
-	return "2024.04.29a";
+	return "2024.05.18a";
 }
 
 UIndex64 Engine::GetCurrentGameFrameIndex() {

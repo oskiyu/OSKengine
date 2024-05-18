@@ -6,6 +6,8 @@
 #include "Component.h"
 #include "Vector4.hpp"
 
+#include "Serializer.h"
+
 namespace OSK::ECS {
 
 	/// <summary>
@@ -15,9 +17,11 @@ namespace OSK::ECS {
 	/// de tal manera que al cambiar el transform padre,
 	/// el resto de transforms también ven sus variables cambiadas.
 	/// </summary>
-	/// 
-	/// @todo Serialización.
 	class OSKAPI_CALL Transform2D {
+
+	public:
+
+		OSK_SERIALIZABLE_COMPONENT();
 
 	public:
 
@@ -231,3 +235,5 @@ namespace OSK::ECS {
 	};
 
 }
+
+OSK_COMPONENT_SERIALIZATION(OSK::ECS::Transform2D);

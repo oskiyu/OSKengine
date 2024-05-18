@@ -253,3 +253,33 @@ void SystemManager::RemoveObject(SystemEntry* entry, GameObjectIndex obj) {
 		entry->system->As<IIteratorSystem>()->SetCompatibleObjects(entry->compatibleObjects.GetFullSpan());
 	}
 }
+
+const SystemExecutionGraph& SystemManager::GetExecutionGraph() const {
+	return m_executionGraph;
+}
+
+ISystem* SystemManager::GetSystem(std::string_view systemName) {
+	auto iterator = m_systems.find(systemName);
+
+	OSK_ASSERT(
+		iterator != m_systems.end(),
+		InvalidArgumentException(std::format("El sistema {} no se encuentra.", systemName)));
+
+	return iterator->second.system.GetPointer();
+}
+
+const ISystem* SystemManager::GetSystem(std::string_view systemName) const {
+	auto iterator = m_systems.find(systemName);
+
+	OSK_ASSERT(
+		iterator != m_systems.end(),
+		InvalidArgumentException(std::format("El sistema {} no se encuentra.", systemName)));
+
+	return iterator->second.system.GetPointer();
+}
+
+void SystemManager::DeactivateAllSystems() {
+	for (const auto& [name, system] : m_systems) {
+		system.system->Deactivate();
+	}
+}

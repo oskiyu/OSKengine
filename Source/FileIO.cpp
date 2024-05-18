@@ -18,6 +18,11 @@ void FileIO::WriteFile(std::string_view path, const std::string& text) {
 	stream.close();
 }
 
+void FileIO::WriteBinaryFile(std::string_view path, std::span<TByte const> data) {
+	std::ofstream stream(path.data(), std::ios::out | std::ios::binary);
+	stream.write(reinterpret_cast<const char*>(data.data()), data.size());
+}
+
 
 std::string FileIO::ReadFromFile(std::string_view path) {
 	OSK_ASSERT(FileExists(path), FileNotFoundException(path));

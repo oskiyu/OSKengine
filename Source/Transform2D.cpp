@@ -3,8 +3,13 @@
 #include "OSKengine.h"
 #include "EntityComponentSystem.h"
 
+#include "SavedGameObjectTranslator.h"
+#include "Math.h"
+
 using namespace OSK;
 using namespace OSK::ECS;
+using namespace OSK::PERSISTENCE;
+
 
 Transform2D::Transform2D(ECS::GameObjectIndex owner) : owner(owner) {
 	localPosition = Vector2f::Zero;
@@ -160,4 +165,87 @@ Vector2f Transform2D::GetScaleOffset() const {
 
 float Transform2D::GetRotationOffset() const {
 	return rotationOffset;
+}
+
+template <>
+nlohmann::json PERSISTENCE::SerializeComponent<OSK::ECS::Transform2D>(const OSK::ECS::Transform2D& data) {
+	nlohmann::json output{};
+
+	output["parentId"] = data.GetParentObject().Get();
+	output["ownerId"] = data.owner.Get();
+
+	for (const auto& childId : data.childTransforms) {
+		output["childIds"].push_back(childId.Get());
+	}
+
+	output["position"]["x"] = data.GetPosition().x;
+	output["position"]["y"] = data.GetPosition().y;
+
+	output["scale"]["x"] = data.GetScale().x;
+	output["scale"]["y"] = data.GetScale().y;
+
+	output["rotation"] = data.GetRotation();
+
+	return output;
+}
+
+template <>
+OSK::ECS::Transform2D PERSISTENCE::DeserializeComponent<OSK::ECS::Transform2D>(const nlohmann::json& json, const OSK::ECS::SavedGameObjectTranslator& gameObjectTranslator) {
+	Transform2D output = Transform2D(GameObjectIndex(json["ownerId"]));
+
+	output.parent = gameObjectTranslator.GetCurrentIndex(GameObjectIndex(json["parentId"]));
+
+	output.globalPosition.x = json["position"]["x"];
+	output.globalPosition.y = json["position"]["y"];
+
+	output.globalScale.x = json["scale"]["x"];
+	output.globalScale.y = json["scale"]["y"];
+
+	output.globalRotation = json["rotation"];
+
+	if (json.contains("childIds")) {
+		for (const auto& child : json["childIds"]) {
+			output.childTransforms.Insert(gameObjectTranslator.GetCurrentIndex(GameObjectIndex(child)));
+		}
+	}
+
+	return output;
+}
+
+
+template <>
+BinaryBlock PERSISTENCE::BinarySerializeComponent<OSK::ECS::Transform2D>(const OSK::ECS::Transform2D& data) {
+	BinaryBlock output{};
+
+	output.Write<GameObjectIndex::TUnderlyingType>(data.owner.Get());
+	output.Write<GameObjectIndex::TUnderlyingType>(data.GetParentObject().Get());
+
+	output.AppendBlock(SerializeBinaryVector2<Vector2f>(data.GetPosition()));
+	output.AppendBlock(SerializeBinaryVector2<Vector2f>(data.GetScale()));
+	output.Write<float>(data.GetRotation());
+
+	output.Write<USize64>(data.childTransforms.GetSize());
+	for (const auto& childId : data.childTransforms) {
+		output.Write<GameObjectIndex::TUnderlyingType>(childId.Get());
+	}
+
+	return output;
+}
+
+template <>
+OSK::ECS::Transform2D PERSISTENCE::BinaryDeserializeComponent<OSK::ECS::Transform2D>(BinaryBlockReader* reader, const OSK::ECS::SavedGameObjectTranslator& gameObjectTranslator) {
+	Transform2D output = Transform2D(GameObjectIndex(reader->Read<GameObjectIndex::TUnderlyingType>()));
+
+	output.parent = gameObjectTranslator.GetCurrentIndex(GameObjectIndex(reader->Read<GameObjectIndex::TUnderlyingType>()));
+
+	output.globalPosition = DeserializeBinaryVector2<Vector2f, float>(reader);
+	output.globalScale = DeserializeBinaryVector2<Vector2f, float>(reader);
+	output.globalRotation = reader->Read<float>();
+
+	const auto numChilds = reader->Read<USize64>();
+	for (UIndex64 i = 0; i < numChilds; i++) {
+		output.childTransforms.Insert(gameObjectTranslator.GetCurrentIndex(GameObjectIndex(reader->Read<GameObjectIndex::TUnderlyingType>())));
+	}
+
+	return output;
 }

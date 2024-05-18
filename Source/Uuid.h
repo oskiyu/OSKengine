@@ -15,6 +15,10 @@ namespace OSK {
 
 	public:
 
+		using TUnderlyingType = UIndex64;
+
+	public:
+
 		/// @brief Crea un UUID vacío.
 		BaseUuid() = default;
 

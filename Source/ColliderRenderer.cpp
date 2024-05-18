@@ -23,6 +23,8 @@
 #include "IGpuMemoryAllocator.h"
 #include "CollisionSystem.h"
 
+#include "SavedGameObjectTranslator.h"
+
 #include <set>
 
 using namespace OSK;
@@ -305,4 +307,38 @@ void ColliderRenderSystem::SetupBottomLevelModel(GameObjectIndex obj) {
 
 	for (const auto& i : indexBuffers)
 		bottomLevelIndexBuffers.at(obj).Insert(i.GetPointer());
+}
+
+
+nlohmann::json ColliderRenderSystem::SaveConfiguration() const {
+	auto output = nlohmann::json();
+
+	output["cameraObject"] = cameraObject.Get();
+
+	// cubeModel y sphereModel se cargan al crear el sistema:
+	// no es necesario serializarlo.
+
+	return output;
+}
+
+PERSISTENCE::BinaryBlock ColliderRenderSystem::SaveBinaryConfiguration() const {
+	auto data =  PERSISTENCE::BinaryBlock::Empty();
+	
+	data.Write(cameraObject.Get());
+	
+	return data;
+}
+
+void ColliderRenderSystem::ApplyConfiguration(const nlohmann::json& config, const SavedGameObjectTranslator& translator) {
+	cameraObject = translator.GetCurrentIndex(GameObjectIndex(config["cameraObject"]));
+	UpdatePassesCamera(cameraObject);
+	// cubeModel y sphereModel se cargan al crear el sistema:
+	// no es necesario cargarlo de nuevo.
+}
+
+void ColliderRenderSystem::ApplyConfiguration(PERSISTENCE::BinaryBlockReader* reader, const SavedGameObjectTranslator& translator) {
+	cameraObject = translator.GetCurrentIndex(GameObjectIndex(reader->Read<GameObjectIndex::TUnderlyingType>()));
+	UpdatePassesCamera(cameraObject);
+	// cubeModel y sphereModel se cargan al crear el sistema:
+	// no es necesario cargarlo de nuevo.
 }

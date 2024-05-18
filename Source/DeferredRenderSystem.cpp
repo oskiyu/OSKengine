@@ -42,6 +42,7 @@ using namespace OSK;
 using namespace OSK::ECS;
 using namespace OSK::ASSETS;
 using namespace OSK::GRAPHICS;
+using namespace OSK::PERSISTENCE;
 
 
 DeferredRenderSystem::DeferredRenderSystem() {
@@ -589,38 +590,134 @@ const GRAPHICS::ShadowMap& DeferredRenderSystem::GetShadowMap() const {
 
 // --- Serialization --- //
 
-template <>
-nlohmann::json PERSISTENCE::SerializeJson<OSK::ECS::DeferredRenderSystem>(const OSK::ECS::DeferredRenderSystem& data) {
+nlohmann::json DeferredRenderSystem::SaveConfiguration() const {
 	nlohmann::json output{};
 
-	output["resolverName"] = data.m_resolverPass->GetTypeName();
-	output["cameraObject"] = data.m_cameraObject.Get();
+	output["resolverName"] = m_resolverPass->GetTypeName();
+	
+	for (const auto& pass : m_shaderPasses.GetAllPasses()) {
+		output["passesNames"].push_back(pass->GetTypeName());
+	}
 
-	output["directionalLight"] = SerializeJson<DirectionalLight>(data.m_directionalLight);
-	output["iblConfig"] = SerializeJson<PbrIblConfig>(data.m_iblConfig);
+	for (const auto& pass : m_shadowsPasses.GetAllPasses()) {
+		output["shadowsPassesNames"].push_back(pass->GetTypeName());
+	}
 
-	output["irradianceMap"] = data.m_irradianceMap->GetAssetFilename();
-	output["specularMap"] = data.m_specularMap->GetAssetFilename();
+	output["cameraObject"] = m_cameraObject.Get();
 
-	output["shadowMap"] = SerializeJson<ShadowMap>(data.m_shadowMap);
+	output["directionalLight"] = PERSISTENCE::SerializeData<DirectionalLight>(m_directionalLight);
+	output["iblConfig"] = PERSISTENCE::SerializeData<PbrIblConfig>(m_iblConfig);
+
+	output["irradianceMap"] = m_irradianceMap->GetAssetFilename();
+	output["specularMap"] = m_specularMap->GetAssetFilename();
+
+	output["shadowMap"] = PERSISTENCE::SerializeData<ShadowMap>(m_shadowMap);
 
 	return output;
 }
 
-template <>
-OSK::ECS::DeferredRenderSystem PERSISTENCE::DeserializeJson<OSK::ECS::DeferredRenderSystem>(const nlohmann::json& json) {
-	DeferredRenderSystem output{};
+PERSISTENCE::BinaryBlock DeferredRenderSystem::SaveBinaryConfiguration() const {
+	auto output = PERSISTENCE::BinaryBlock::Empty();
 
-	// todo: output.m_resolverP
-	output.m_cameraObject = GameObjectIndex(json["cameraObject"]);
+	output.Write(m_cameraObject.Get());
+	
+	output.AppendBlock(PERSISTENCE::BinarySerializeData<DirectionalLight>(m_directionalLight));
+	output.AppendBlock(PERSISTENCE::BinarySerializeData<PbrIblConfig>(m_iblConfig));
 
-	output.m_directionalLight = DeserializeJson<DirectionalLight>(json["directionalLight"]);
-	output.m_iblConfig = DeserializeJson<PbrIblConfig>(json["iblConfig"]);
+	output.AppendBlock(PERSISTENCE::BinarySerializeData<ShadowMap>(m_shadowMap));
 
-	output.m_irradianceMap = Engine::GetAssetManager()->Load<IrradianceMap>(json["irradianceMap"]);
-	output.m_specularMap = Engine::GetAssetManager()->Load<SpecularMap>(json["specularMap"]);
+	output.WriteString(m_irradianceMap->GetAssetFilename());
+	output.WriteString(m_specularMap->GetAssetFilename());
 
-	output.m_shadowMap = DeserializeJson<ShadowMap>(json["shadowMap"]);
+	output.WriteString(m_resolverPass->GetTypeName());
 
-	return {};
+	output.Write<USize64>(m_shaderPasses.GetAllPasses().size());
+	for (const auto& pass : m_shaderPasses.GetAllPasses()) {
+		output.WriteString(pass->GetTypeName());
+	}
+
+	output.Write<USize64>(m_shadowsPasses.GetAllPasses().size());
+	for (const auto& pass : m_shadowsPasses.GetAllPasses()) {
+		output.WriteString(pass->GetTypeName());
+	}
+
+	return output;
+}
+
+void DeferredRenderSystem::ApplyConfiguration(const nlohmann::json& config, const SavedGameObjectTranslator& translator) {
+	auto* shaderPassFactory = Engine::GetRenderer()->GetShaderPassFactory();
+
+	m_cameraObject = translator.GetCurrentIndex(GameObjectIndex(config["cameraObject"]));
+	UpdatePassesCamera(m_cameraObject);
+
+	m_shaderPasses.RemoveAllPasses();
+	m_shadowsPasses.RemoveAllPasses();
+
+	for (const auto& passName : config["passesNames"]) {
+		AddShaderPass(shaderPassFactory->CreatePass(passName));
+	}
+
+	m_shadowMap = PERSISTENCE::DeserializeData<ShadowMap>(config["shadowMap"]);
+	m_shadowMap.SetSceneCamera(m_cameraObject);
+
+	for (const auto& passName : config["shadowsPassesNames"]) {
+		auto pass = shaderPassFactory->CreatePass(passName);
+
+		AddShadowsPass(pass);
+		pass->As<IShadowsPass>()->SetupShadowMap(m_shadowMap);
+	}
+
+	SetResolver(shaderPassFactory->CreatePass(config["resolverName"]).GetPointer()->As<IDeferredResolver>());
+
+	SetupResolveMaterial();
+
+	m_directionalLight = PERSISTENCE::DeserializeData<DirectionalLight>(config["directionalLight"]);
+	m_iblConfig = PERSISTENCE::DeserializeData<PbrIblConfig>(config["iblConfig"]);
+
+	SetIbl(
+		Engine::GetAssetManager()->Load<IrradianceMap>(config["irradianceMap"]),
+		Engine::GetAssetManager()->Load<SpecularMap>(config["specularMap"]));
+}
+
+void DeferredRenderSystem::ApplyConfiguration(PERSISTENCE::BinaryBlockReader* reader, const SavedGameObjectTranslator& translator) {
+	auto* shaderPassFactory = Engine::GetRenderer()->GetShaderPassFactory();
+
+	m_shaderPasses.RemoveAllPasses();
+	m_shadowsPasses.RemoveAllPasses();
+
+	m_cameraObject = translator.GetCurrentIndex(GameObjectIndex(reader->Read<GameObjectIndex::TUnderlyingType>()));
+	UpdatePassesCamera(m_cameraObject);
+
+	m_directionalLight = BinaryDeserializeData<DirectionalLight>(reader);
+	m_iblConfig = BinaryDeserializeData<PbrIblConfig>(reader);
+
+	m_shadowMap = BinaryDeserializeData<ShadowMap>(reader);
+	m_shadowMap.SetSceneCamera(m_cameraObject);
+
+	const std::string irradianceMapPath = reader->ReadString();
+	const std::string specularMapPath = reader->ReadString();
+
+	const std::string resolverName = reader->ReadString();
+	SetResolver(shaderPassFactory->CreatePass(resolverName).GetPointer()->As<IDeferredResolver>());
+	SetupResolveMaterial();
+
+	const auto numShaderPasses = reader->Read<USize64>();
+	for (UIndex64 i = 0; i < numShaderPasses; i++) {
+		const auto name = reader->ReadString();
+		AddShaderPass(shaderPassFactory->CreatePass(name));
+	}
+
+	const auto numShadowsPasses = reader->Read<USize64>();
+	for (UIndex64 i = 0; i < numShadowsPasses; i++) {
+		const auto name = reader->ReadString();
+
+		auto pass = shaderPassFactory->CreatePass(name);
+
+		AddShadowsPass(pass);
+		pass->As<IShadowsPass>()->SetupShadowMap(m_shadowMap);
+	}
+
+	SetIbl(
+		Engine::GetAssetManager()->Load<IrradianceMap>(irradianceMapPath),
+		Engine::GetAssetManager()->Load<SpecularMap>(specularMapPath));
 }

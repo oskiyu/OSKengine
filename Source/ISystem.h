@@ -9,11 +9,18 @@
 #include <set>
 #include "HashMap.hpp"
 
+#include "BinaryBlock.h"
+
+#include <json.hpp>
+
 namespace OSK::GRAPHICS {
 	class ICommandList;
 }
 
 namespace OSK::ECS{
+
+	class SavedGameObjectTranslator;
+
 
 	/// @brief Dependencias explícitas de un sistema.
 	struct SystemDependencies {
@@ -52,6 +59,30 @@ namespace OSK::ECS{
 		OSK_DEFINE_AS(ISystem)
 
 		virtual ~ISystem() = default;
+
+
+		/// @return Estructura JSON con la información relevante
+		/// de la configuración del sistema en un momento dado.
+		virtual nlohmann::json SaveConfiguration() const = 0;
+
+		/// @return Estructura binaria con la información relevante
+		/// de la configuración del sistema en un momento dado.
+		virtual PERSISTENCE::BinaryBlock SaveBinaryConfiguration() const = 0;
+
+		/// @brief Aplica la configuración al sistema.
+		/// @param config Configuración del sistema.
+		/// @param translator Tabla que permite obtener los IDs generados.
+		virtual void ApplyConfiguration(
+			const nlohmann::json& config,
+			const SavedGameObjectTranslator& translator) = 0;
+
+		/// @brief Aplica la configuración al sistema.
+		/// @param reader Lector del bloque binario que contiene
+		/// los datos del sistema.
+		/// @param translator Tabla que permite obtener los IDs generados.
+		virtual void ApplyConfiguration(
+			PERSISTENCE::BinaryBlockReader* reader,
+			const SavedGameObjectTranslator& translator) = 0;
 
 
 		/// @brief Función que se ejecuta al crearse el sistema.

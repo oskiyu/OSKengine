@@ -8,6 +8,9 @@
 #include "Transform3D.h"
 #include "MatrixOperations.hpp"
 
+#include "SavedGameObjectTranslator.h"
+
+
 using namespace OSK;
 using namespace OSK::ECS;
 using namespace OSK::ASSETS;
@@ -116,4 +119,37 @@ void RenderBoundsRenderer::Render(ICommandList* commandList, std::span<const ECS
 	commandList->EndGraphicsRenderpass();
 
 	commandList->EndDebugSection();
+}
+
+nlohmann::json RenderBoundsRenderer::SaveConfiguration() const {
+	auto output = nlohmann::json();
+
+	output["cameraObject"] = m_cameraObject.Get();
+
+	// m_sphereModel se cargan al crear el sistema:
+	// no es necesario serializarlo.
+
+	return output;
+}
+
+PERSISTENCE::BinaryBlock RenderBoundsRenderer::SaveBinaryConfiguration() const {
+	auto output = PERSISTENCE::BinaryBlock::Empty();
+
+	output.Write(m_cameraObject.Get());
+
+	return output;
+}
+
+void RenderBoundsRenderer::ApplyConfiguration(const nlohmann::json& config, const SavedGameObjectTranslator& translator) {
+	m_cameraObject = translator.GetCurrentIndex(GameObjectIndex(config["cameraObject"]));
+	UpdatePassesCamera(m_cameraObject);
+	// m_sphereModel se cargan al crear el sistema:
+	// no es necesario cargarlo de nuevo.
+}
+
+void RenderBoundsRenderer::ApplyConfiguration(PERSISTENCE::BinaryBlockReader* reader, const SavedGameObjectTranslator& translator) {
+	m_cameraObject = translator.GetCurrentIndex(GameObjectIndex(reader->Read<GameObjectIndex::TUnderlyingType>()));
+	UpdatePassesCamera(m_cameraObject);
+	// cubeModel y sphereModel se cargan al crear el sistema:
+	// no es necesario cargarlo de nuevo.
 }

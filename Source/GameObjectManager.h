@@ -26,6 +26,7 @@ namespace OSK::ECS {
 		/// @throws InvalidObjectException Si el objeto indicado no existe.
 		void DestroyGameObject(GameObjectIndex* obj);
 
+#pragma region Signatures
 
 		/// @brief Establece el signature del objeto.
 		/// @param obj Objeto a modificar.
@@ -39,10 +40,37 @@ namespace OSK::ECS {
 		Signature GetSignature(GameObjectIndex obj) const;
 
 
+		/// @brief Actualiza el valor de una firma de un objeto
+		/// en concreto.
+		/// @param obj ID del objeto.
+		/// @param position Tipo de componente a actualizar.
+		/// @param value Nuevo valor.
+		/// 
+		/// @pre El objeto @p obj debe haber sido previamente creado.
+		void UpdateSignature(GameObjectIndex obj, ComponentType position, bool value);
+
+		/// @brief Actualiza el valor de una firma de un objeto
+		/// en concreto, para indicar que posee un tipo de componente.
+		/// @param obj ID del objeto.
+		/// @param position Tipo de componente añadido.
+		void AddComponent(GameObjectIndex obj, ComponentType position);
+
+		/// @brief Actualiza el valor de una firma de un objeto
+		/// en concreto, para indicar que no posee un tipo de componente.
+		/// @param obj ID del objeto.
+		/// @param position Tipo de componente eliminado.
+		void RemoveComponent(GameObjectIndex obj, ComponentType position);
+
+
 		/// @brief Comprueba si un objeto está activo.
 		/// @param obj ID del objeto.
 		/// @return True si está activo, false si se eliminó.
 		bool IsGameObjectAlive(GameObjectIndex obj) const;
+
+#pragma endregion
+
+		/// @return Todos los objetos activos.
+		std::span<const GameObjectIndex> GetAllLivingObjects() const;
 
 	private:
 
@@ -50,8 +78,13 @@ namespace OSK::ECS {
 		/// Estos ids se pueden reutilizar.
 		DynamicArray<GameObjectIndex> m_freeObjectIndices;
 
+
 		/// @brief Signatures de todos los objetos.
 		std::unordered_map<GameObjectIndex, Signature> m_signatures;
+
+		/// @brief IDs de todos los objetos.
+		DynamicArray<GameObjectIndex> m_livingObjects;
+
 		
 		/// @brief Identificador del próximo objeto (si no hay identificadores
 		/// libres que se puedan reutilizar).

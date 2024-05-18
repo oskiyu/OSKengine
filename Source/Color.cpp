@@ -17,7 +17,7 @@ namespace OSK {
 
 
 template <>
-nlohmann::json OSK::PERSISTENCE::SerializeJson<OSK::Color>(const OSK::Color& data) {
+nlohmann::json OSK::PERSISTENCE::SerializeData<OSK::Color>(const OSK::Color& data) {
 	nlohmann::json output{};
 
 	output["r"] = data.red;
@@ -29,12 +29,35 @@ nlohmann::json OSK::PERSISTENCE::SerializeJson<OSK::Color>(const OSK::Color& dat
 }
 
 template <>
-OSK::Color OSK::PERSISTENCE::DeserializeJson<OSK::Color>(const nlohmann::json& json) {
+OSK::Color OSK::PERSISTENCE::DeserializeData<OSK::Color>(const nlohmann::json& json) {
 	return Color(
 		json["r"],
 		json["g"],
 		json["b"],
 		json["a"]
+	);
+}
+
+
+template <>
+OSK::PERSISTENCE::BinaryBlock OSK::PERSISTENCE::BinarySerializeData<OSK::Color>(const OSK::Color& data) {
+	BinaryBlock output{};
+
+	output.Write<float>(data.red);
+	output.Write<float>(data.green);
+	output.Write<float>(data.blue);
+	output.Write<float>(data.alpha);
+
+	return output;
+}
+
+template <>
+OSK::Color OSK::PERSISTENCE::BinaryDeserializeData<OSK::Color>(BinaryBlockReader* reader) {
+	return Color(
+		reader->Read<float>(),
+		reader->Read<float>(),
+		reader->Read<float>(),
+		reader->Read<float>()
 	);
 }
 

@@ -34,6 +34,10 @@ namespace OSK::GRAPHICS {
 
 	public:
 
+		OSK_SERIALIZABLE_COMPONENT();
+
+	public:
+
 		Sprite();
 
 		OSK_COMPONENT("OSK::Sprite");
@@ -93,3 +97,5 @@ namespace OSK::GRAPHICS {
 	};
 
 }
+
+OSK_COMPONENT_SERIALIZATION(OSK::GRAPHICS::Sprite);

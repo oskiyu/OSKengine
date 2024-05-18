@@ -48,3 +48,24 @@ void RenderSystem2D::Render(ICommandList* commandList, std::span<const ECS::Game
 
 	commandList->EndDebugSection();
 }
+
+nlohmann::json RenderSystem2D::SaveConfiguration() const {
+	auto output = nlohmann::json();
+
+
+	return output;
+}
+
+PERSISTENCE::BinaryBlock RenderSystem2D::SaveBinaryConfiguration() const {
+	auto output = PERSISTENCE::BinaryBlock::Empty();
+
+	return output;
+}
+
+void RenderSystem2D::ApplyConfiguration(const nlohmann::json& config, const SavedGameObjectTranslator& translator) {
+
+}
+
+void RenderSystem2D::ApplyConfiguration(PERSISTENCE::BinaryBlockReader* reader, const SavedGameObjectTranslator& translator) {
+	
+}

@@ -12,11 +12,14 @@
 #include "MaterialSystem.h"
 
 #include "MaterialExceptions.h"
+#include "Math.h"
 
 using namespace OSK;
 using namespace OSK::ECS;
 using namespace OSK::ASSETS;
 using namespace OSK::GRAPHICS;
+using namespace OSK::PERSISTENCE;
+
 
 GpuBuffer* Sprite::globalVertexBuffer = nullptr;
 GpuBuffer* Sprite::globalIndexBuffer = nullptr;
@@ -59,4 +62,27 @@ const IMaterialSlot* Sprite::GetTextureSlot() const {
 
 const IGpuImageView* Sprite::GetView() const {
 	return view;
+}
+
+template <>
+nlohmann::json PERSISTENCE::SerializeComponent<OSK::GRAPHICS::Sprite>(const OSK::GRAPHICS::Sprite& data) {
+	nlohmann::json output{};
+
+	return output;
+}
+
+template <>
+OSK::GRAPHICS::Sprite PERSISTENCE::DeserializeComponent<OSK::GRAPHICS::Sprite>(const nlohmann::json& json, const OSK::ECS::SavedGameObjectTranslator& gameObjectTranslator) {
+	return {};
+}
+
+
+template <>
+BinaryBlock PERSISTENCE::BinarySerializeComponent<OSK::GRAPHICS::Sprite>(const OSK::GRAPHICS::Sprite& data) {
+	return BinaryBlock::Empty();
+}
+
+template <>
+OSK::GRAPHICS::Sprite PERSISTENCE::BinaryDeserializeComponent<OSK::GRAPHICS::Sprite>(BinaryBlockReader* reader, const OSK::ECS::SavedGameObjectTranslator& gameObjectTranslator) {
+	return {};
 }

@@ -6,6 +6,8 @@
 #include "Vector2.hpp"
 #include "MaterialInstance.h"
 
+#include "Serializer.h"
+
 namespace OSK::ECS {
 
 	/// <summary>
@@ -24,6 +26,10 @@ namespace OSK::ECS {
 	/// 
 	/// @deprecated No mantenido.
 	struct OSKAPI_CALL TerrainComponent {
+
+	public:
+
+		OSK_SERIALIZABLE_COMPONENT();
 
 	public:
 
@@ -58,3 +64,5 @@ namespace OSK::ECS {
 	};
 
 }
+
+OSK_COMPONENT_SERIALIZATION(OSK::ECS::TerrainComponent);

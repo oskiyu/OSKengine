@@ -64,3 +64,25 @@ MaterialInstance* TerrainComponent::GetMaterialInstance() const {
 USize32 TerrainComponent::GetNumIndices() const {
 	return numIndices;
 }
+
+template <>
+nlohmann::json PERSISTENCE::SerializeComponent<OSK::ECS::TerrainComponent>(const OSK::ECS::TerrainComponent& data) {
+	nlohmann::json output{};
+
+	return output;
+}
+
+template <>
+OSK::ECS::TerrainComponent PERSISTENCE::DeserializeComponent<OSK::ECS::TerrainComponent>(const nlohmann::json& json, const SavedGameObjectTranslator&) {
+	return {};
+}
+
+template <>
+PERSISTENCE::BinaryBlock PERSISTENCE::BinarySerializeComponent<OSK::ECS::TerrainComponent>(const OSK::ECS::TerrainComponent& data) {
+	return BinaryBlock::Empty();
+}
+
+template <>
+OSK::ECS::TerrainComponent PERSISTENCE::BinaryDeserializeComponent<OSK::ECS::TerrainComponent>(PERSISTENCE::BinaryBlockReader* reader, const OSK::ECS::SavedGameObjectTranslator& gameObjectTranslator) {
+	return {};
+}

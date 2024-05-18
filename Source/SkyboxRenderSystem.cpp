@@ -78,3 +78,36 @@ void SkyboxRenderSystem::Render(ICommandList* commandList, std::span<const ECS::
 
 	commandList->EndDebugSection();
 }
+
+nlohmann::json SkyboxRenderSystem::SaveConfiguration() const {
+	auto output = nlohmann::json();
+
+	output["cameraObject"] = cameraObject.Get();
+
+	// m_skybox y m_cubemapModel se cargan al crear el sistema:
+	// no es necesario serializarlo.
+
+	return output;
+}
+
+PERSISTENCE::BinaryBlock SkyboxRenderSystem::SaveBinaryConfiguration() const {
+	auto output = PERSISTENCE::BinaryBlock::Empty();
+
+	output.Write(cameraObject.Get());
+
+	return output;
+}
+
+void SkyboxRenderSystem::ApplyConfiguration(const nlohmann::json& config, const SavedGameObjectTranslator& translator) {
+	cameraObject = translator.GetCurrentIndex(GameObjectIndex(config["cameraObject"]));
+	UpdatePassesCamera(cameraObject);
+	// m_skybox y m_cubemapModel se cargan al crear el sistema:
+	// no es necesario cargarlo de nuevo.
+}
+
+void SkyboxRenderSystem::ApplyConfiguration(PERSISTENCE::BinaryBlockReader* reader, const SavedGameObjectTranslator& translator) {
+	cameraObject = translator.GetCurrentIndex(GameObjectIndex(reader->Read<GameObjectIndex::TUnderlyingType>()));
+	UpdatePassesCamera(cameraObject);
+	// cubeModel y sphereModel se cargan al crear el sistema:
+	// no es necesario cargarlo de nuevo.
+}

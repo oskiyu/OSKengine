@@ -17,11 +17,7 @@ namespace OSK::ECS {
 
 	public:
 
-		template <typename T>
-		friend nlohmann::json PERSISTENCE::SerializeJson<T>(const T& data);
-
-		template <typename T>
-		friend T PERSISTENCE::DeserializeJson<T>(const nlohmann::json& data);
+		OSK_SERIALIZABLE_COMPONENT();
 
 	public:
 
@@ -177,12 +173,4 @@ namespace OSK::ECS {
 
 }
 
-namespace OSK::PERSISTENCE {
-
-	template <>
-	nlohmann::json SerializeJson<OSK::ECS::PhysicsComponent>(const OSK::ECS::PhysicsComponent& data);
-
-	template <>
-	OSK::ECS::PhysicsComponent DeserializeJson<OSK::ECS::PhysicsComponent>(const nlohmann::json& json);
-
-}
+OSK_COMPONENT_SERIALIZATION(OSK::ECS::PhysicsComponent);

@@ -21,6 +21,7 @@
 #include "SpecularMap.h"
 
 #include "Serializer.h"
+#include "SavedGameObjectTranslator.h"
 
 
 namespace OSK::ECS {
@@ -98,6 +99,12 @@ namespace OSK::ECS {
 
 		GRAPHICS::ShadowMap& GetShadowMap();
 		const GRAPHICS::ShadowMap& GetShadowMap() const;
+
+
+		nlohmann::json SaveConfiguration() const override;
+		PERSISTENCE::BinaryBlock SaveBinaryConfiguration() const override;
+		void ApplyConfiguration(const nlohmann::json& config, const SavedGameObjectTranslator& translator) override;
+		void ApplyConfiguration(PERSISTENCE::BinaryBlockReader* reader, const SavedGameObjectTranslator& translator) override;
 
 	protected:
 

@@ -3,9 +3,12 @@
 #include "SphereCollider.h"
 
 #include "AxisAlignedBoundingBox.h"
+#include "Math.h"
+
 
 using namespace OSK;
 using namespace OSK::COLLISION;
+using namespace OSK::PERSISTENCE;
 
 OwnedPtr<ITopLevelCollider> SphereCollider::CreateCopy() const {
 	return new SphereCollider(*this);
@@ -69,7 +72,7 @@ bool SphereCollider::IsColliding(const ITopLevelCollider& other) const {
 }
 
 template <>
-nlohmann::json PERSISTENCE::SerializeJson<OSK::COLLISION::SphereCollider>(const OSK::COLLISION::SphereCollider& data) {
+nlohmann::json PERSISTENCE::SerializeData<OSK::COLLISION::SphereCollider>(const OSK::COLLISION::SphereCollider& data) {
 	nlohmann::json output{};
 
 	output["m_radius"] = data.GetRadius();
@@ -78,6 +81,22 @@ nlohmann::json PERSISTENCE::SerializeJson<OSK::COLLISION::SphereCollider>(const 
 }
 
 template <>
-OSK::COLLISION::SphereCollider PERSISTENCE::DeserializeJson<OSK::COLLISION::SphereCollider>(const nlohmann::json& json) {
+OSK::COLLISION::SphereCollider PERSISTENCE::DeserializeData<OSK::COLLISION::SphereCollider>(const nlohmann::json& json) {
 	return SphereCollider(static_cast<float>(json["m_radius"]));
+}
+
+
+
+template <>
+BinaryBlock PERSISTENCE::BinarySerializeData<OSK::COLLISION::SphereCollider>(const OSK::COLLISION::SphereCollider& data) {
+	BinaryBlock output{};
+
+	output.Write<float>(data.GetRadius());
+
+	return output;
+}
+
+template <>
+OSK::COLLISION::SphereCollider PERSISTENCE::BinaryDeserializeData<OSK::COLLISION::SphereCollider>(BinaryBlockReader* reader) {
+	return SphereCollider(reader->Read<float>());
 }

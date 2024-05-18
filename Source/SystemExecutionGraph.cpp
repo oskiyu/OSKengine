@@ -214,3 +214,7 @@ void SystemExecutionGraph::Rebuild() {
 std::span<SystemExecutionSet> SystemExecutionGraph::GetExecutionGraph() {
 	return m_flatExecutionGraph.GetFullSpan();
 }
+
+std::span<const SystemExecutionSet> SystemExecutionGraph::GetExecutionGraph() const {
+	return m_flatExecutionGraph.GetFullSpan();
+}

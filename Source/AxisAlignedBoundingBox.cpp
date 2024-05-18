@@ -7,8 +7,13 @@
 #include "NotImplementedException.h"
 #include "OSKengine.h"
 
+// Para serialización.
+#include "Math.h"
+
+
 using namespace OSK;
 using namespace OSK::COLLISION;
+using namespace OSK::PERSISTENCE;
 
 OwnedPtr<ITopLevelCollider> AxisAlignedBoundingBox::CreateCopy() const {
 	return new AxisAlignedBoundingBox(*this);
@@ -111,7 +116,7 @@ Vector3f AxisAlignedBoundingBox::GetMax() const {
 }
 
 template <>
-nlohmann::json PERSISTENCE::SerializeJson<OSK::COLLISION::AxisAlignedBoundingBox>(const OSK::COLLISION::AxisAlignedBoundingBox& data) {
+nlohmann::json PERSISTENCE::SerializeData<OSK::COLLISION::AxisAlignedBoundingBox>(const OSK::COLLISION::AxisAlignedBoundingBox& data) {
 	nlohmann::json output{};
 
 	output["m_size"]["x"] = data.m_size.x;
@@ -122,10 +127,25 @@ nlohmann::json PERSISTENCE::SerializeJson<OSK::COLLISION::AxisAlignedBoundingBox
 }
 
 template <>
-OSK::COLLISION::AxisAlignedBoundingBox PERSISTENCE::DeserializeJson<OSK::COLLISION::AxisAlignedBoundingBox>(const nlohmann::json& json) {
+OSK::COLLISION::AxisAlignedBoundingBox PERSISTENCE::DeserializeData<OSK::COLLISION::AxisAlignedBoundingBox>(const nlohmann::json& json) {
 	return AxisAlignedBoundingBox(Vector3f(
 		static_cast<float>(json["m_size"]["x"]),
 		static_cast<float>(json["m_size"]["y"]),
 		static_cast<float>(json["m_size"]["z"])
 	));
+}
+
+
+template <>
+BinaryBlock PERSISTENCE::BinarySerializeData<OSK::COLLISION::AxisAlignedBoundingBox>(const OSK::COLLISION::AxisAlignedBoundingBox& data) {
+	BinaryBlock output{};
+
+	output.AppendBlock(SerializeBinaryVector3(data.m_size));
+
+	return output;
+}
+
+template <>
+OSK::COLLISION::AxisAlignedBoundingBox PERSISTENCE::BinaryDeserializeData<OSK::COLLISION::AxisAlignedBoundingBox>(BinaryBlockReader* reader) {
+	return AxisAlignedBoundingBox(DeserializeBinaryVector3<Vector3f, float>(reader));
 }

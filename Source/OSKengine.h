@@ -145,6 +145,7 @@ namespace OSK {
 		static void RegisterBuiltinEvents();
 		static void RegisterBuiltinVertices();
 		static void RegisterBuiltinJobs();
+		static void RegisterBuiltinShaderPasses();
 
 		/// @return Índice del fotograma actual del juego,
 		/// medido desde que se inició el juego en esta sesión.

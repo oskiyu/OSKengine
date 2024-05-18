@@ -44,6 +44,9 @@ namespace OSK::ECS {
 		/// @return Sets de ejecución, ordenados.
 		std::span<SystemExecutionSet> GetExecutionGraph();
 
+		/// @return Sets de ejecución, ordenados.
+		std::span<const SystemExecutionSet> GetExecutionGraph() const;
+
 	private:
 
 		/// @brief Reconstryue el grafo de ejecución.

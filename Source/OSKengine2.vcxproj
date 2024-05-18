@@ -65,6 +65,7 @@
     <ClCompile Include="AudioLoader.cpp" />
     <ClCompile Include="AudioSourceAl.cpp" />
     <ClCompile Include="BillboardGBufferPass.cpp" />
+    <ClCompile Include="BinaryBlock.cpp" />
     <ClCompile Include="BloomPass.cpp" />
     <ClCompile Include="Bone.cpp" />
     <ClCompile Include="AxisAlignedBoundingBox.cpp" />
@@ -82,7 +83,6 @@
     <ClCompile Include="ConvexVolume.cpp" />
     <ClCompile Include="CopyImageInfo.cpp" />
     <ClCompile Include="CpuModel3D.cpp" />
-    <ClCompile Include="DataNode.cpp" />
     <ClCompile Include="DescriptorDx12.cpp" />
     <ClCompile Include="DetailedCollisionInfo.cpp" />
     <ClCompile Include="FaceProjection.cpp" />
@@ -100,6 +100,7 @@
     <ClCompile Include="IblConfig.cpp" />
     <ClCompile Include="ICommandPool.cpp" />
     <ClCompile Include="ICommandQueue.cpp" />
+    <ClCompile Include="IComponentContainer.cpp" />
     <ClCompile Include="IConsumerSystem.cpp" />
     <ClCompile Include="IJob.cpp" />
     <ClCompile Include="IShaderPass.cpp" />
@@ -123,6 +124,8 @@
     <ClCompile Include="RenderBoundsRenderer.cpp" />
     <ClCompile Include="ResourceQueueTransfer.cpp" />
     <ClCompile Include="Sat.cpp" />
+    <ClCompile Include="SavedGameObjectTranslator.cpp" />
+    <ClCompile Include="ShaderPassFactory.cpp" />
     <ClCompile Include="ShadowsStaticPass.cpp" />
     <ClCompile Include="Simplex.cpp" />
     <ClCompile Include="Spline3D.cpp" />
@@ -327,6 +330,8 @@
     <ClInclude Include="AudioSourceAl.h" />
     <ClInclude Include="BadAllocException.h" />
     <ClInclude Include="BillboardGBufferPass.h" />
+    <ClInclude Include="BinaryBlock.h" />
+    <ClInclude Include="BinaryExceptions.h" />
     <ClInclude Include="BitSet.hpp" />
     <ClInclude Include="BloomPass.h" />
     <ClInclude Include="Bone.h" />
@@ -377,7 +382,6 @@
     <ClInclude Include="DescriptorPoolVk.h" />
     <ClInclude Include="DetailedCollisionInfo.h" />
     <ClInclude Include="EcsExceptions.h" />
-    <ClInclude Include="EcsPriority.h" />
     <ClInclude Include="EngineException.h" />
     <ClInclude Include="Event.h" />
     <ClInclude Include="EventContainer.h" />
@@ -455,7 +459,7 @@
     <ClInclude Include="GpuResourceUsage.h" />
     <ClInclude Include="ResourceQueueTransfer.h" />
     <ClInclude Include="Sat.h" />
-    <ClInclude Include="Scene.h" />
+    <ClInclude Include="SavedGameObjectTranslator.h" />
     <ClInclude Include="Serializer.h" />
     <ClInclude Include="ITopLevelCollider.h" />
     <ClInclude Include="IUiContainer.h" />
@@ -536,6 +540,7 @@
     <ClInclude Include="PipelinesExceptions.h" />
     <ClInclude Include="RawAssetFileNotFoundException.h" />
     <ClInclude Include="SchemaId.h" />
+    <ClInclude Include="ShaderPassFactory.h" />
     <ClInclude Include="ShadowsStaticPass.h" />
     <ClInclude Include="Simplex.h" />
     <ClInclude Include="Span.h" />

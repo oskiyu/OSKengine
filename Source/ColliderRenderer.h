@@ -49,6 +49,11 @@ namespace OSK::ECS {
 		/// @pre La entidad debe tener un componente de colisión.
 		void SetupBottomLevelModel(GameObjectIndex obj);
 
+		nlohmann::json SaveConfiguration() const override;
+		PERSISTENCE::BinaryBlock SaveBinaryConfiguration() const override;
+		void ApplyConfiguration(const nlohmann::json& config, const SavedGameObjectTranslator& translator) override;
+		void ApplyConfiguration(PERSISTENCE::BinaryBlockReader* reader, const SavedGameObjectTranslator& translator) override;
+
 	private:
 
 		GameObjectIndex cameraObject = EMPTY_GAME_OBJECT;

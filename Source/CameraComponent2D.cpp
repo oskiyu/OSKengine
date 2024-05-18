@@ -60,19 +60,37 @@ Vector2f CameraComponent2D::PointInWindowToPointInWorld(const Vector2f& point) c
 
 
 template <>
-nlohmann::json PERSISTENCE::SerializeJson<OSK::ECS::CameraComponent2D>(const OSK::ECS::CameraComponent2D& data) {
+nlohmann::json PERSISTENCE::SerializeComponent<OSK::ECS::CameraComponent2D>(const OSK::ECS::CameraComponent2D& data) {
 	nlohmann::json output{};
 
-	output["m_projection"] = SerializeJson<glm::mat4>(data.m_projection);
+	output["m_projection"] = SerializeData<glm::mat4>(data.m_projection);
 
 	return output;
 }
 
 template <>
-OSK::ECS::CameraComponent2D PERSISTENCE::DeserializeJson<OSK::ECS::CameraComponent2D>(const nlohmann::json& json) {
+OSK::ECS::CameraComponent2D PERSISTENCE::DeserializeComponent<OSK::ECS::CameraComponent2D>(const nlohmann::json& json, const OSK::ECS::SavedGameObjectTranslator& gameObjectTranslator) {
 	OSK::ECS::CameraComponent2D output{};
 
-	output.m_projection = DeserializeJson<glm::mat4>(json["m_projection"]);
+	output.m_projection = DeserializeData<glm::mat4>(json["m_projection"]);
 
+	return output;
+}
+
+template <>
+PERSISTENCE::BinaryBlock PERSISTENCE::BinarySerializeComponent<OSK::ECS::CameraComponent2D>(const OSK::ECS::CameraComponent2D& data) {
+	PERSISTENCE::BinaryBlock output{};
+
+	output.AppendBlock(BinarySerializeData<glm::mat4>(data.m_projection));
+
+	return output;
+}
+
+template <>
+OSK::ECS::CameraComponent2D PERSISTENCE::BinaryDeserializeComponent<OSK::ECS::CameraComponent2D>(PERSISTENCE::BinaryBlockReader* reader, const OSK::ECS::SavedGameObjectTranslator& gameObjectTranslator) {
+	OSK::ECS::CameraComponent2D output{};
+
+	output.m_projection = BinaryDeserializeData<glm::mat4>(reader);
+	
 	return output;
 }

@@ -127,6 +127,13 @@ void ShaderPassTable::RemoveShaderPass(std::string_view passName) {
 	m_objectsPerPass.erase(strName);
 }
 
+void ShaderPassTable::RemoveAllPasses() {
+	m_renderPasses.Empty();
+	m_objectsPerPass.clear();
+	m_renderPassesPtrs.Empty();
+	m_renderPassesTable.clear();
+}
+
 bool ShaderPassTable::ContainsShaderPass(std::string_view passName) const {
 	return m_renderPassesTable.contains(passName);
 }
@@ -157,4 +164,8 @@ const DynamicArray<GameObjectIndex>& ShaderPassTable::GetCompatibleObjects(std::
 
 DynamicArray<GRAPHICS::IShaderPass*>& ShaderPassTable::GetAllPasses() {
 	return m_renderPassesPtrs;
+}
+
+std::span<GRAPHICS::IShaderPass* const> ShaderPassTable::GetAllPasses() const {
+	return m_renderPassesPtrs.GetFullSpan();
 }

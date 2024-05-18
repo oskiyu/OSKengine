@@ -9,6 +9,11 @@
 #include "Assert.h"
 #include "InvalidArgumentException.h"
 
+#include <json.hpp>
+#include "Serializer.h"
+
+#include "GameObjectManager.h"
+
 
 namespace OSK::ECS {
 		
@@ -125,13 +130,110 @@ namespace OSK::ECS {
 		/// @warning No comprueba que el objeto tenga el componente.
 		/// @pre El objeto debe tener el componente.
 		void GameObjectDestroyerd(GameObjectIndex obj) override {
-			RemoveComponent(obj);
+			if (ObjectHasComponent(obj)) {
+				RemoveComponent(obj);
+			}
 		}
 
 		/// @param obj Objeto a comprobar.
 		/// @return True si tiene el componente añadido.
 		bool ObjectHasComponent(GameObjectIndex obj) const {
 			return m_objectToComponent.contains(obj);
+		}
+
+		/// @return Tipo de componente que almacena este contenedor.
+		std::string_view GetComponentTypeName() const override {
+			return TComponent::GetComponentTypeName();
+		}
+
+
+		/// @brief Serializa todos los componentes en una estructura
+		/// JSON. Contiene:
+		/// - "component_type"
+		/// - "components": array de JSONs con los datos de los componentes.
+		/// - "objects_to_components": enlaza un objeto con un componente.
+		/// - "components_to_objects": enlaza un objeto con un componente.
+		/// @return JSON serializado.
+		nlohmann::json SerializeAll() const override {
+			auto output = nlohmann::json();
+
+			output["component_type"] = TComponent::GetComponentTypeName();
+			
+			for (UIndex64 componentIdx = 0; componentIdx < m_components.GetSize(); componentIdx++) {
+				const auto& objIndex = m_componentToObject.at(componentIdx);
+				const auto& component = m_components[componentIdx];
+
+				output["components"][std::to_string(objIndex.Get())] = PERSISTENCE::SerializeComponent<TComponent>(component);
+			}
+
+			for (const auto& [obj, comp] : m_objectToComponent) {
+				output["objects_to_components"][std::to_string(obj.Get())] = comp;
+			}
+
+			for (const auto& [obj, comp] : m_objectToComponent) {
+				output["components_to_objects"][std::to_string(comp)] = obj.Get();
+			}
+
+			return output;
+		}
+
+		/// @brief Serializa todos los componentes en una estructura
+		/// binaria. Contiene:
+		/// - Número de componentes (USize64).
+		/// - Offset al array de objetos (USize64).
+		/// - Datos binarios de todos los componentes.
+		/// - Mapa: posición = ID del componente, valor = ID de objeto.
+		/// @return Bloque con los datos de los componentes.
+		PERSISTENCE::BinaryBlock BinarySerializeAll() const override {
+			PERSISTENCE::BinaryBlock output{};
+
+			output.Write<USize64>(m_components.GetSize());
+
+			// Datos.
+			auto datasBlock = PERSISTENCE::BinaryBlock::Empty();
+			for (const auto& component : m_components) {
+				datasBlock.AppendBlock(PERSISTENCE::BinarySerializeComponent<TComponent>(component));
+			}
+
+			// Offset del bloque de objetos enlazados.
+			// = tamaño de datos + lo escrito hasta ahora.
+			output.Write<USize64>(datasBlock.GetCurrentSize() + output.GetCurrentSize() + sizeof(USize64));
+
+			output.AppendBlock(datasBlock);
+
+			// Mapa ID componente -> ID objeto.
+			for (UIndex64 compIdx = 0; compIdx < m_components.GetSize(); compIdx++) {
+				output.Write<GameObjectIndex::TUnderlyingType>(m_componentToObject.at(compIdx).Get());
+			}
+
+			return output;
+		}
+
+
+		/// @brief Deserializa un componente a partir de un JSON.
+		/// @param data JSON con los datos del componente.
+		/// @param obj ID del objeto que va a poseer el componente.
+		/// @param translator Traductor de IDs.
+		/// 
+		/// @pre @p data debe haber sido creado respetando el formato del
+		/// tipo de componente.
+		/// @post El componente se habrá añadido al contenedor.
+		void DeserializeComponent(const nlohmann::json& data, GameObjectIndex obj, const SavedGameObjectTranslator& translator) override {
+			AddComponentMove(obj, PERSISTENCE::DeserializeComponent<TComponent>(data, translator));
+		}
+
+		/// @brief Deserializa un componente a partir de un bloque binario.
+		/// @param reader Lector del bloque binario.
+		/// @param obj ID del objeto que va a poseer el componente.
+		/// @param translator Traductor de IDs.
+		/// 
+		/// @pre @p data debe haber sido creado respetando el formato del
+		/// tipo de componente.
+		/// @post El componente se habrá añadido al contenedor.
+		/// @post El cursor de @p reader habrá avanzado, dejando atrás todos
+		/// los datos leídos.
+		void BinaryDeserializeComponent(PERSISTENCE::BinaryBlockReader* reader, GameObjectIndex obj, const SavedGameObjectTranslator& translator) override {
+			AddComponentMove(obj, PERSISTENCE::BinaryDeserializeComponent<TComponent>(reader, translator));
 		}
 
 	private:

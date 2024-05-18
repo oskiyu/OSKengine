@@ -38,3 +38,24 @@ void TerrainRenderSystem::Render(ICommandList* commandList, std::span<const ECS:
 		commandList->DrawSingleMesh(0, model.GetNumIndices());
 	}
 }
+
+nlohmann::json TerrainRenderSystem::SaveConfiguration() const {
+	auto output = nlohmann::json();
+
+
+	return output;
+}
+
+PERSISTENCE::BinaryBlock TerrainRenderSystem::SaveBinaryConfiguration() const {
+	auto output = PERSISTENCE::BinaryBlock::Empty();
+
+	return output;
+}
+
+void TerrainRenderSystem::ApplyConfiguration(const nlohmann::json& config, const SavedGameObjectTranslator& translator) {
+
+}
+
+void TerrainRenderSystem::ApplyConfiguration(PERSISTENCE::BinaryBlockReader* reader, const SavedGameObjectTranslator& translator) {
+
+}

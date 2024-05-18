@@ -335,3 +335,19 @@ void GdrDeferredRenderSystem::WriteMaterialInfo(const GpuModel3D& model, UIndex3
 
 	previousOffsets->materialOffset++;
 }
+
+nlohmann::json GdrDeferredRenderSystem::SaveConfiguration() const {
+	OSK_ASSERT(false, NotImplementedException());
+}
+
+PERSISTENCE::BinaryBlock GdrDeferredRenderSystem::SaveBinaryConfiguration() const {
+	OSK_ASSERT(false, NotImplementedException());
+}
+
+void GdrDeferredRenderSystem::ApplyConfiguration(const nlohmann::json& config, const SavedGameObjectTranslator& translator) {
+	OSK_ASSERT(false, NotImplementedException());
+}
+
+void GdrDeferredRenderSystem::ApplyConfiguration(PERSISTENCE::BinaryBlockReader* reader, const SavedGameObjectTranslator& translator) {
+
+}

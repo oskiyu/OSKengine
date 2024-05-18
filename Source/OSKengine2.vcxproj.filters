@@ -613,6 +613,12 @@
     <Filter Include="Archivos de origen\BuiltIn\Threading">
       <UniqueIdentifier>{dde1c0d3-071f-4ccd-a94f-8f64c237fa3b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Archivos de encabezado\Core\Graphics\HighLevel\ShaderPasses">
+      <UniqueIdentifier>{b42398c5-6542-48c9-9949-48701157db81}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de origen\Core\Graphics\HighLevel\ShaderPass">
+      <UniqueIdentifier>{fe6f1fc7-d04a-48e2-a2f3-0c85e68c5a21}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -1023,9 +1029,6 @@
     <ClCompile Include="SpecularMapLoader.cpp">
       <Filter>Archivos de origen\BuiltIn\Assets\Loaders</Filter>
     </ClCompile>
-    <ClCompile Include="DataNode.cpp">
-      <Filter>Archivos de origen\Core\Persistence</Filter>
-    </ClCompile>
     <ClCompile Include="IIteratorSystem.cpp">
       <Filter>Archivos de origen\Core\ECS\System</Filter>
     </ClCompile>
@@ -1194,9 +1197,6 @@
     <ClCompile Include="GBuffer.cpp">
       <Filter>Archivos de origen\BuiltIn\GRAPHICS</Filter>
     </ClCompile>
-    <ClCompile Include="IShaderPass.cpp">
-      <Filter>Archivos de origen\Core\Graphics\HighLevel</Filter>
-    </ClCompile>
     <ClCompile Include="TreeNormalsPass.cpp">
       <Filter>Archivos de origen\BuiltIn\GRAPHICS\Renderpasses</Filter>
     </ClCompile>
@@ -1355,6 +1355,21 @@
     </ClCompile>
     <ClCompile Include="IblConfig.cpp">
       <Filter>Archivos de origen\Core\Graphics\HighLevel\PBR</Filter>
+    </ClCompile>
+    <ClCompile Include="IShaderPass.cpp">
+      <Filter>Archivos de origen\Core\Graphics\HighLevel\ShaderPass</Filter>
+    </ClCompile>
+    <ClCompile Include="ShaderPassFactory.cpp">
+      <Filter>Archivos de origen\Core\Graphics\HighLevel\ShaderPass</Filter>
+    </ClCompile>
+    <ClCompile Include="SavedGameObjectTranslator.cpp">
+      <Filter>Archivos de origen\Core\ECS</Filter>
+    </ClCompile>
+    <ClCompile Include="IComponentContainer.cpp">
+      <Filter>Archivos de origen\Core\ECS\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="BinaryBlock.cpp">
+      <Filter>Archivos de origen\Core\Persistence</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -2225,9 +2240,6 @@
     <ClInclude Include="AnimatedGBufferPass.h">
       <Filter>Archivos de encabezado\BuiltIn\GRAPHICS\Renderpasses</Filter>
     </ClInclude>
-    <ClInclude Include="IShaderPass.h">
-      <Filter>Archivos de encabezado\Core\Graphics\HighLevel</Filter>
-    </ClInclude>
     <ClInclude Include="DeferredPushConstants.h">
       <Filter>Archivos de encabezado\BuiltIn\GRAPHICS</Filter>
     </ClInclude>
@@ -2269,9 +2281,6 @@
     </ClInclude>
     <ClInclude Include="Concepts.h">
       <Filter>Archivos de encabezado\Core\STD</Filter>
-    </ClInclude>
-    <ClInclude Include="EcsPriority.h">
-      <Filter>Archivos de encabezado\Core\ECS</Filter>
     </ClInclude>
     <ClInclude Include="Clipping.h">
       <Filter>Archivos de encabezado\Core\Collision\Detection</Filter>
@@ -2341,9 +2350,6 @@
     </ClInclude>
     <ClInclude Include="VertexAttributes.h">
       <Filter>Archivos de encabezado\Core\Graphics\LowLevel\Vertex</Filter>
-    </ClInclude>
-    <ClInclude Include="Scene.h">
-      <Filter>Archivos de encabezado\Core\ECS</Filter>
     </ClInclude>
     <ClInclude Include="resource.h">
       <Filter>Archivos de encabezado</Filter>
@@ -2431,6 +2437,21 @@
     </ClInclude>
     <ClInclude Include="JobCountMap.h">
       <Filter>Archivos de encabezado\Core\Threading</Filter>
+    </ClInclude>
+    <ClInclude Include="IShaderPass.h">
+      <Filter>Archivos de encabezado\Core\Graphics\HighLevel\ShaderPasses</Filter>
+    </ClInclude>
+    <ClInclude Include="ShaderPassFactory.h">
+      <Filter>Archivos de encabezado\Core\Graphics\HighLevel\ShaderPasses</Filter>
+    </ClInclude>
+    <ClInclude Include="SavedGameObjectTranslator.h">
+      <Filter>Archivos de encabezado\Core\ECS</Filter>
+    </ClInclude>
+    <ClInclude Include="BinaryBlock.h">
+      <Filter>Archivos de encabezado\Core\Persistence</Filter>
+    </ClInclude>
+    <ClInclude Include="BinaryExceptions.h">
+      <Filter>Archivos de encabezado\Core\Exceptions</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -8,6 +8,7 @@ using namespace OSK;
 using namespace OSK::ECS;
 using namespace OSK::ASSETS;
 using namespace OSK::COLLISION;
+using namespace OSK::PERSISTENCE;
 
 
 void CollisionComponent::SetCollider(AssetRef<PreBuiltCollider> preBuiltCollider) {
@@ -29,7 +30,7 @@ const Collider* CollisionComponent::GetCollider() const {
 
 
 template <>
-nlohmann::json PERSISTENCE::SerializeJson<OSK::ECS::CollisionComponent>(const OSK::ECS::CollisionComponent& data) {
+nlohmann::json PERSISTENCE::SerializeComponent<OSK::ECS::CollisionComponent>(const OSK::ECS::CollisionComponent& data) {
 	nlohmann::json output{};
 
 	if (data.m_preBuiltCollider.HasValue()) {
@@ -37,14 +38,14 @@ nlohmann::json PERSISTENCE::SerializeJson<OSK::ECS::CollisionComponent>(const OS
 	}
 
 	if (data.m_customCollider.GetTopLevelCollider()) {
-		output["m_customCollider"] = SerializeJson<Collider>(data.m_customCollider);
+		output["m_customCollider"] = SerializeData<Collider>(data.m_customCollider);
 	}
 
 	return output;
 }
 
 template <>
-OSK::ECS::CollisionComponent PERSISTENCE::DeserializeJson<OSK::ECS::CollisionComponent>(const nlohmann::json& json) {
+OSK::ECS::CollisionComponent PERSISTENCE::DeserializeComponent<OSK::ECS::CollisionComponent>(const nlohmann::json& json, const OSK::ECS::SavedGameObjectTranslator& gameObjectTranslator) {
 	OSK::ECS::CollisionComponent output{};
 
 	if (json.contains("m_preBuiltCollider")) {
@@ -52,7 +53,44 @@ OSK::ECS::CollisionComponent PERSISTENCE::DeserializeJson<OSK::ECS::CollisionCom
 	}
 
 	if (json.contains("m_customCollider")) {
-		output.m_customCollider = DeserializeJson<Collider>(json["m_customCollider"]);
+		output.m_customCollider = DeserializeData<Collider>(json["m_customCollider"]);
+	}
+
+	return output;
+}
+
+
+template <>
+BinaryBlock PERSISTENCE::BinarySerializeComponent<OSK::ECS::CollisionComponent>(const OSK::ECS::CollisionComponent& data) {
+	BinaryBlock output{};
+
+	output.Write<TByte>(data.m_preBuiltCollider.HasValue());
+	output.Write<TByte>(static_cast<bool>(data.m_customCollider.GetTopLevelCollider()));
+
+	if (data.m_preBuiltCollider.HasValue()) {
+		output.WriteString(data.m_preBuiltCollider->GetAssetFilename());
+	}
+
+	if (data.m_customCollider.GetTopLevelCollider()) {
+		output.AppendBlock(BinarySerializeData(data.m_customCollider));
+	}
+
+	return output;
+}
+
+template <>
+OSK::ECS::CollisionComponent PERSISTENCE::BinaryDeserializeComponent<OSK::ECS::CollisionComponent>(BinaryBlockReader* reader, const OSK::ECS::SavedGameObjectTranslator& gameObjectTranslator) {
+	OSK::ECS::CollisionComponent output{};
+
+	const bool hasPreBuiltCollider = reader->Read<TByte>();
+	const bool hasCustomCollider = reader->Read<TByte>();
+
+	if (hasPreBuiltCollider) {
+		output.m_preBuiltCollider = OSK::Engine::GetAssetManager()->Load<ASSETS::PreBuiltCollider>(reader->ReadString());
+	}
+
+	if (hasCustomCollider) {
+		output.m_customCollider = BinaryDeserializeData<Collider>(reader);
 	}
 
 	return output;

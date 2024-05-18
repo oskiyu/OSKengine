@@ -21,6 +21,11 @@ namespace OSK::IO {
 		/// <param name="text">Texto que se va a escribir.</param>
 		static void WriteFile(std::string_view path, const std::string& text);
 
+		/// @brief Escribe un archivo binario.
+		/// @param path Ruta del archivo (incluyendo extensión).
+		/// @param data Datos (bytes) a escribir).
+		static void WriteBinaryFile(std::string_view path, std::span<TByte const> data);
+
 		/// <summary>
 		/// Lee un archivo de texto.
 		/// </summary>

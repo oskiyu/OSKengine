@@ -19,6 +19,11 @@ namespace OSK::ECS {
 
 		void OnCreate() override;
 
+		nlohmann::json SaveConfiguration() const override;
+		PERSISTENCE::BinaryBlock SaveBinaryConfiguration() const override;
+		void ApplyConfiguration(const nlohmann::json& config, const SavedGameObjectTranslator& translator) override;
+		void ApplyConfiguration(PERSISTENCE::BinaryBlockReader* reader, const SavedGameObjectTranslator& translator) override;
+
 		void OnExecutionStart() override;
 		void Execute(TDeltaTime deltaTime, std::span<const GameObjectIndex> objects) override;
 

@@ -11,11 +11,13 @@ namespace OSK::GRAPHICS {
 
 	public:
 
+		OSK_RENDERPASS(ShadowsStaticPass, Name);
+
 		constexpr static auto Name = "shadows_static_pass";
 
 		ShadowsStaticPass() : IShadowsPass(Name) {}
 
-		void SetupShadowMap(const ShadowMap& shadowMap);
+		void SetupShadowMap(const ShadowMap& shadowMap) override;
 
 		void Load() override;
 		void SetupMaterialInstance(
