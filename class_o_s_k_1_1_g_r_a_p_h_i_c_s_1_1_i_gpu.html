@@ -3,7 +3,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
-<meta name="generator" content="Doxygen 1.10.0"/>
+<meta name="generator" content="Doxygen 1.11.0"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
 <title>OSKengine: Referencia de la clase OSK::GRAPHICS::IGpu</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
@@ -11,9 +11,9 @@
 <script type="text/javascript" src="dynsections.js"></script>
 <script type="text/javascript" src="clipboard.js"></script>
 <link href="navtree.css" rel="stylesheet" type="text/css"/>
-<script type="text/javascript" src="resize.js"></script>
 <script type="text/javascript" src="navtreedata.js"></script>
 <script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript" src="resize.js"></script>
 <script type="text/javascript" src="cookie.js"></script>
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/searchdata.js"></script>
@@ -37,10 +37,15 @@
 </table>
 </div>
 <!-- end header part -->
-<!-- Generado por Doxygen 1.10.0 -->
+<!-- Generado por Doxygen 1.11.0 -->
 <script type="text/javascript">
 /* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
 var searchBox = new SearchBox("searchBox", "search/",'.html');
+/* @license-end */
+</script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() { codefold.init(0); });
 /* @license-end */
 </script>
 <script type="text/javascript" src="menudata.js"></script>
@@ -48,7 +53,7 @@ var searchBox = new SearchBox("searchBox", "search/",'.html');
 <script type="text/javascript">
 /* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
 $(function() {
-  initMenu('',true,false,'search.php','Buscar');
+  initMenu('',true,false,'search.php','Buscar',true);
   $(function() { init_search(); });
 });
 /* @license-end */
@@ -67,7 +72,7 @@ $(function() {
 </div>
 <script type="text/javascript">
 /* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
-$(function(){initNavTree('class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu.html',''); initResizable(); });
+$(function(){initNavTree('class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu.html',''); initResizable(true); });
 /* @license-end */
 </script>
 <div id="doc-content">
@@ -95,6 +100,7 @@ $(function(){initNavTree('class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu.html',''); i
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Métodos públicos</a> &#124;
+<a href="#pro-methods">Métodos protegidos</a> &#124;
 <a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu-members.html">Lista de todos los miembros</a>  </div>
   <div class="headertitle"><div class="title">Referencia de la clase OSK::GRAPHICS::IGpu<span class="mlabels"><span class="mlabel">abstract</span></span></div></div>
 </div><!--header-->
@@ -116,11 +122,18 @@ Métodos públicos</h2></td></tr>
 <tr class="separator:ac8b780cbb64fb4ed7bc8e4a295a7e806"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab505de7218654c86ee2d63eed1915b71" id="r_ab505de7218654c86ee2d63eed1915b71"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ab505de7218654c86ee2d63eed1915b71">Close</a> ()=0</td></tr>
 <tr class="separator:ab505de7218654c86ee2d63eed1915b71"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8e6eb0f055388a6446158120146a0d66" id="r_a8e6eb0f055388a6446158120146a0d66"><td class="memItemLeft" align="right" valign="top">std::string_view&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a8e6eb0f055388a6446158120146a0d66">GetName</a> () const</td></tr>
+<tr class="separator:a8e6eb0f055388a6446158120146a0d66"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pro-methods" name="pro-methods"></a>
+Métodos protegidos</h2></td></tr>
+<tr class="memitem:a3de6e3cf9fa36ae214663c3552686ac0" id="r_a3de6e3cf9fa36ae214663c3552686ac0"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a3de6e3cf9fa36ae214663c3552686ac0">_SetName</a> (const std::string &amp;name)</td></tr>
+<tr class="separator:a3de6e3cf9fa36ae214663c3552686ac0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Descripción detallada</h2>
 <div class="textblock"><p>Representa una conexión con la GPU. </p>
 
-<p class="definition">Definición en la línea <a class="el" href="_i_gpu_8h_source.html#l00014">14</a> del archivo <a class="el" href="_i_gpu_8h_source.html">IGpu.h</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_i_gpu_8h_source.html#l00016">16</a> del archivo <a class="el" href="_i_gpu_8h_source.html">IGpu.h</a>.</p>
 </div><h2 class="groupheader">Documentación de constructores y destructores</h2>
 <a id="af7315d7e7c10327c6d06ad5b7c66e125" name="af7315d7e7c10327c6d06ad5b7c66e125"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#af7315d7e7c10327c6d06ad5b7c66e125">&#9670;&#160;</a></span>~IGpu()</h2>
@@ -134,7 +147,7 @@ Métodos públicos</h2></td></tr>
         <tr>
           <td class="memname">virtual OSK::GRAPHICS::IGpu::~IGpu </td>
           <td>(</td>
-          <td class="paramname"><span class="paramname"></span></td><td>)</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -148,6 +161,33 @@ Métodos públicos</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Documentación de funciones miembro</h2>
+<a id="a3de6e3cf9fa36ae214663c3552686ac0" name="a3de6e3cf9fa36ae214663c3552686ac0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3de6e3cf9fa36ae214663c3552686ac0">&#9670;&#160;</a></span>_SetName()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void IGpu::_SetName </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;</td>          <td class="paramname"><span class="paramname"><em>name</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definición en la línea <a class="el" href="_i_gpu_8cpp_source.html#l00006">6</a> del archivo <a class="el" href="_i_gpu_8cpp_source.html">IGpu.cpp</a>.</p>
+
+</div>
+</div>
 <a id="ab505de7218654c86ee2d63eed1915b71" name="ab505de7218654c86ee2d63eed1915b71"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ab505de7218654c86ee2d63eed1915b71">&#9670;&#160;</a></span>Close()</h2>
 
@@ -160,7 +200,7 @@ Métodos públicos</h2></td></tr>
         <tr>
           <td class="memname">virtual void OSK::GRAPHICS::IGpu::Close </td>
           <td>(</td>
-          <td class="paramname"><span class="paramname"></span></td><td>)</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -189,7 +229,7 @@ Métodos públicos</h2></td></tr>
         <tr>
           <td class="memname">virtual <a class="el" href="class_o_s_k_1_1_owned_ptr.html">OwnedPtr</a>&lt; <a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_pool.html">ICommandPool</a> &gt; OSK::GRAPHICS::IGpu::CreateComputeCommandPool </td>
           <td>(</td>
-          <td class="paramname"><span class="paramname"></span></td><td>)</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -226,7 +266,7 @@ Métodos públicos</h2></td></tr>
         <tr>
           <td class="memname">virtual <a class="el" href="class_o_s_k_1_1_owned_ptr.html">OwnedPtr</a>&lt; class <a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_pool.html">ICommandPool</a> &gt; OSK::GRAPHICS::IGpu::CreateGraphicsCommandPool </td>
           <td>(</td>
-          <td class="paramname"><span class="paramname"></span></td><td>)</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -263,7 +303,7 @@ Métodos públicos</h2></td></tr>
         <tr>
           <td class="memname">virtual std::optional&lt; <a class="el" href="class_o_s_k_1_1_owned_ptr.html">OwnedPtr</a>&lt; <a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_pool.html">ICommandPool</a> &gt; &gt; OSK::GRAPHICS::IGpu::CreateTransferOnlyCommandPool </td>
           <td>(</td>
-          <td class="paramname"><span class="paramname"></span></td><td>)</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -293,7 +333,7 @@ Métodos públicos</h2></td></tr>
         <tr>
           <td class="memname">virtual <a class="el" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_memory_usage_info.html">GpuMemoryUsageInfo</a> OSK::GRAPHICS::IGpu::GetMemoryUsageInfo </td>
           <td>(</td>
-          <td class="paramname"><span class="paramname"></span></td><td>)</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
           <td> const</td>
         </tr>
       </table>
@@ -311,13 +351,33 @@ Métodos públicos</h2></td></tr>
 
 </div>
 </div>
+<a id="a8e6eb0f055388a6446158120146a0d66" name="a8e6eb0f055388a6446158120146a0d66"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8e6eb0f055388a6446158120146a0d66">&#9670;&#160;</a></span>GetName()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string_view IGpu::GetName </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Devuelve</dt><dd>Nombre de la GPU. </dd></dl>
+
+<p class="definition">Definición en la línea <a class="el" href="_i_gpu_8cpp_source.html#l00010">10</a> del archivo <a class="el" href="_i_gpu_8cpp_source.html">IGpu.cpp</a>.</p>
+
+</div>
+</div>
 </div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="namespace_o_s_k.html">OSK</a></li><li class="navelem"><a class="el" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html">GRAPHICS</a></li><li class="navelem"><a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu.html">IGpu</a></li>
-    <li class="footer">Generado el Sábado, 18 de mayo de 2024 12:15:54 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.10.0 </li>
+    <li class="footer">Generado el Miércoles, 29 de mayo de 2024 12:01:51 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.11.0 </li>
   </ul>
 </div>
 </body>

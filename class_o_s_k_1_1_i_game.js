@@ -15,6 +15,7 @@ var class_o_s_k_1_1_i_game =
     [ "OnWindowResize", "class_o_s_k_1_1_i_game.html#a49a11ed87fecf78d0ac7297b34382e5f", null ],
     [ "RegisterAssets", "class_o_s_k_1_1_i_game.html#a92ccf921e939bcf8409ab9326e7571b4", null ],
     [ "RegisterComponents", "class_o_s_k_1_1_i_game.html#a6c43af37f9365f6490d1a0a2c9250f0e", null ],
+    [ "RegisterConsoleCommands", "class_o_s_k_1_1_i_game.html#ada3405ad0fa8ce05d683ceae975d46d8", null ],
     [ "RegisterSystems", "class_o_s_k_1_1_i_game.html#a6595c60375b1f2f14e6e96e1f8ca404e", null ],
     [ "SetupEngine", "class_o_s_k_1_1_i_game.html#a3fff81bfbca1fc25efa8a10f2318d46b", null ]
 ];

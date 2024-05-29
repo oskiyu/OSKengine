@@ -3,7 +3,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
-<meta name="generator" content="Doxygen 1.10.0"/>
+<meta name="generator" content="Doxygen 1.11.0"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
 <title>OSKengine: Referencia de la clase OSK::JobCountMap</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
@@ -11,9 +11,9 @@
 <script type="text/javascript" src="dynsections.js"></script>
 <script type="text/javascript" src="clipboard.js"></script>
 <link href="navtree.css" rel="stylesheet" type="text/css"/>
-<script type="text/javascript" src="resize.js"></script>
 <script type="text/javascript" src="navtreedata.js"></script>
 <script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript" src="resize.js"></script>
 <script type="text/javascript" src="cookie.js"></script>
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/searchdata.js"></script>
@@ -37,10 +37,15 @@
 </table>
 </div>
 <!-- end header part -->
-<!-- Generado por Doxygen 1.10.0 -->
+<!-- Generado por Doxygen 1.11.0 -->
 <script type="text/javascript">
 /* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
 var searchBox = new SearchBox("searchBox", "search/",'.html');
+/* @license-end */
+</script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() { codefold.init(0); });
 /* @license-end */
 </script>
 <script type="text/javascript" src="menudata.js"></script>
@@ -48,7 +53,7 @@ var searchBox = new SearchBox("searchBox", "search/",'.html');
 <script type="text/javascript">
 /* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
 $(function() {
-  initMenu('',true,false,'search.php','Buscar');
+  initMenu('',true,false,'search.php','Buscar',true);
   $(function() { init_search(); });
 });
 /* @license-end */
@@ -67,7 +72,7 @@ $(function() {
 </div>
 <script type="text/javascript">
 /* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
-$(function(){initNavTree('class_o_s_k_1_1_job_count_map.html',''); initResizable(); });
+$(function(){initNavTree('class_o_s_k_1_1_job_count_map.html',''); initResizable(true); });
 /* @license-end */
 </script>
 <div id="doc-content">
@@ -108,12 +113,13 @@ Métodos públicos</h2></td></tr>
 <tr class="separator:a38e729ec60b7e5913cc5f81e861d5d85"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af0e433931cf5461cf505427c921e6e6e" id="r_af0e433931cf5461cf505427c921e6e6e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af0e433931cf5461cf505427c921e6e6e">Decrement</a> (std::string_view tag)</td></tr>
 <tr class="separator:af0e433931cf5461cf505427c921e6e6e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae1f628a66541836570fe78238a50ae6c" id="r_ae1f628a66541836570fe78238a50ae6c"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">USize32</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae1f628a66541836570fe78238a50ae6c">GetCount</a> (std::string_view tag) const</td></tr>
+<tr class="memitem:ae1f628a66541836570fe78238a50ae6c" id="r_ae1f628a66541836570fe78238a50ae6c"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespace_o_s_k.html#acf682b0e024acc36806435295480d2ed">USize32</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae1f628a66541836570fe78238a50ae6c">GetCount</a> (std::string_view tag) const</td></tr>
 <tr class="separator:ae1f628a66541836570fe78238a50ae6c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Descripción detallada</h2>
 <div class="textblock"><p>Clase que mantiene un conteo del número de trabajos de un tipo o tag dado que están siendo ejecutados en un momento dado. </p>
-<dl class="section user"><dt>Thread-safe</dt><dd>Compatible con ejecución multihilo. </dd></dl>
+<dl class="section user"><dt>Thread-safe</dt><dd>Compatible con ejecución multihilo. <br  />
+ </dd></dl>
 
 <p class="definition">Definición en la línea <a class="el" href="_job_count_map_8h_source.html#l00016">16</a> del archivo <a class="el" href="_job_count_map_8h_source.html">JobCountMap.h</a>.</p>
 </div><h2 class="groupheader">Documentación de funciones miembro</h2>
@@ -142,7 +148,8 @@ Métodos públicos</h2></td></tr>
 <dl class="section pre"><dt>Precondición</dt><dd>El tag <code>tag</code> debe haber sido previamente registrado. </dd>
 <dd>
 El valor para <code>tag</code> debe ser mayor que 0.</dd></dl>
-<dl class="section user"><dt>Thread-safe</dt><dd>Compatible con ejecución multihilo. </dd></dl>
+<dl class="section user"><dt>Thread-safe</dt><dd>Compatible con ejecución multihilo. <br  />
+ </dd></dl>
 
 <p class="definition">Definición en la línea <a class="el" href="_job_count_map_8cpp_source.html#l00028">28</a> del archivo <a class="el" href="_job_count_map_8cpp_source.html">JobCountMap.cpp</a>.</p>
 
@@ -155,7 +162,7 @@ El valor para <code>tag</code> debe ser mayor que 0.</dd></dl>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">USize32</a> JobCountMap::GetCount </td>
+          <td class="memname"><a class="el" href="namespace_o_s_k.html#acf682b0e024acc36806435295480d2ed">USize32</a> JobCountMap::GetCount </td>
           <td>(</td>
           <td class="paramtype">std::string_view</td>          <td class="paramname"><span class="paramname"><em>tag</em></span></td><td>)</td>
           <td> const</td>
@@ -169,7 +176,8 @@ El valor para <code>tag</code> debe ser mayor que 0.</dd></dl>
   </dd>
 </dl>
 <dl class="section return"><dt>Devuelve</dt><dd>Valor del contador del tag.</dd></dl>
-<dl class="section user"><dt>Thread-safe</dt><dd>Compatible con ejecución multihilo. </dd></dl>
+<dl class="section user"><dt>Thread-safe</dt><dd>Compatible con ejecución multihilo. <br  />
+ </dd></dl>
 
 <p class="definition">Definición en la línea <a class="el" href="_job_count_map_8cpp_source.html#l00034">34</a> del archivo <a class="el" href="_job_count_map_8cpp_source.html">JobCountMap.cpp</a>.</p>
 
@@ -197,7 +205,8 @@ El valor para <code>tag</code> debe ser mayor que 0.</dd></dl>
   </table>
   </dd>
 </dl>
-<dl class="section user"><dt>Thread-safe</dt><dd>Compatible con ejecución multihilo. </dd></dl>
+<dl class="section user"><dt>Thread-safe</dt><dd>Compatible con ejecución multihilo. <br  />
+ </dd></dl>
 
 <p class="definition">Definición en la línea <a class="el" href="_job_count_map_8cpp_source.html#l00006">6</a> del archivo <a class="el" href="_job_count_map_8cpp_source.html">JobCountMap.cpp</a>.</p>
 
@@ -209,7 +218,7 @@ El valor para <code>tag</code> debe ser mayor que 0.</dd></dl>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="namespace_o_s_k.html">OSK</a></li><li class="navelem"><a class="el" href="class_o_s_k_1_1_job_count_map.html">JobCountMap</a></li>
-    <li class="footer">Generado el Sábado, 18 de mayo de 2024 12:15:52 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.10.0 </li>
+    <li class="footer">Generado el Miércoles, 29 de mayo de 2024 12:01:49 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.11.0 </li>
   </ul>
 </div>
 </body>

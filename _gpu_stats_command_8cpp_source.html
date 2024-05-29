@@ -1,0 +1,160 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="es">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.11.0"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>OSKengine: Archivo de código fuente Source/GpuStatsCommand.cpp</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="doxygen-awesome.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">OSKengine<span id="projectnumber">&#160;Indev</span>
+   </div>
+   <div id="projectbrief">Motor de videojuegos.</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generado por Doxygen 1.11.0 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+/* @license-end */
+</script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() { codefold.init(0); });
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() {
+  initMenu('',true,false,'search.php','Buscar',true);
+  $(function() { init_search(); });
+});
+/* @license-end */
+</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function(){initNavTree('_gpu_stats_command_8cpp_source.html',''); initResizable(true); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Cargando...</div>
+<div class="SRStatus" id="Searching">Buscando...</div>
+<div class="SRStatus" id="NoMatches">Nada coincide</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">GpuStatsCommand.cpp</div></div>
+</div><!--header-->
+<div class="contents">
+<div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#include &quot;GpuStatsCommand.h&quot;</span></div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span> </div>
+<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="preprocessor">#include &quot;UiConsole.h&quot;</span></div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span> </div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &quot;ApiCall.h&quot;</span></div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span> </div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="preprocessor">#include &quot;OSKengine.h&quot;</span></div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="preprocessor">#include &quot;IRenderer.h&quot;</span></div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="preprocessor">#include &quot;IGpuMemoryAllocator.h&quot;</span></div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="preprocessor">#include &quot;GpuMemoryUsageInfo.h&quot;</span></div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span> </div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="preprocessor">#include &lt;span&gt;</span></div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="preprocessor">#include &lt;string&gt;</span></div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span><span class="preprocessor">#include &lt;format&gt;</span></div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span> </div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span><span class="keyword">using namespace </span><a class="code hl_namespace" href="namespace_o_s_k.html">OSK</a>;</div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span> </div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span> </div>
+<div class="foldopen" id="foldopen00019" data-start="{" data-end="}">
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_gpu_stats_command.html#a9d16b7cb7ac2eb658a3270190c716ad8">   19</a></span><a class="code hl_function" href="class_o_s_k_1_1_gpu_stats_command.html#a9d16b7cb7ac2eb658a3270190c716ad8">GpuStatsCommand::GpuStatsCommand</a>() {</div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>    <a class="code hl_function" href="class_o_s_k_1_1_i_console_command.html#abcce4ffc28474203372b430f2d2af978">SetCommandWords</a>({ <span class="stringliteral">&quot;gpu&quot;</span>, <span class="stringliteral">&quot;mem&quot;</span>, <span class="stringliteral">&quot;info&quot;</span> });</div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>}</div>
+</div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span> </div>
+<div class="foldopen" id="foldopen00023" data-start="{" data-end="}">
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_gpu_stats_command.html#a587a9db50e35b550b7a8bb2873e939ab">   23</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="class_o_s_k_1_1_gpu_stats_command.html#a587a9db50e35b550b7a8bb2873e939ab">GpuStatsCommand::Execute</a>(<a class="code hl_class" href="class_o_s_k_1_1_u_i_1_1_console.html">UI::Console</a>* console, std::span&lt;const std::string&gt; params)<span class="keyword"> const </span>{</div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>    <span class="keyword">const</span> <span class="keyword">auto</span> stats = <a class="code hl_function" href="class_o_s_k_1_1_engine.html#a019c5397d042224c134b7fd22c739d00">Engine::GetRenderer</a>()-&gt;<a class="code hl_function" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer.html#a100a7c8d1a62814d11637de0534003b9">GetAllocator</a>()-&gt;<a class="code hl_function" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_allocator.html#ac839849a86be993da03fb236ca9dc641">GetMemoryUsageInfo</a>();</div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span> </div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>    <span class="keyword">constexpr</span> <span class="keyword">static</span> <a class="code hl_typedef" href="namespace_o_s_k.html#acf682b0e024acc36806435295480d2ed">USize32</a> bytesPerMb = 1000000;</div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span> </div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>    console-&gt;<a class="code hl_function" href="class_o_s_k_1_1_u_i_1_1_console.html#aa4e1a66060527b6178b255db1dc3a67f">AddMessage</a>(</div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>        std::format(<span class="stringliteral">&quot;VRAM.: {}/{} (MB)&quot;</span>, </div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>            stats.gpuOnlyMemoryInfo.usedSpace / bytesPerMb,</div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>            stats.gpuOnlyMemoryInfo.maxCapacity / bytesPerMb));</div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>}</div>
+</div>
+<div class="ttc" id="aclass_o_s_k_1_1_engine_html_a019c5397d042224c134b7fd22c739d00"><div class="ttname"><a href="class_o_s_k_1_1_engine.html#a019c5397d042224c134b7fd22c739d00">OSK::Engine::GetRenderer</a></div><div class="ttdeci">static GRAPHICS::IRenderer * GetRenderer()</div><div class="ttdoc">Devuelve un puntero al renderizador del motor.</div><div class="ttdef"><b>Definition</b> <a href="_o_s_kengine_8cpp_source.html#l00255">OSKengine.cpp:255</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_allocator_html_ac839849a86be993da03fb236ca9dc641"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_allocator.html#ac839849a86be993da03fb236ca9dc641">OSK::GRAPHICS::IGpuMemoryAllocator::GetMemoryUsageInfo</a></div><div class="ttdeci">GpuMemoryUsageInfo GetMemoryUsageInfo() const</div><div class="ttdoc">Obtiene la información sobre el uso de memoria de esta GPU, incluyendo espacio usado y espacio dispon...</div><div class="ttdef"><b>Definition</b> <a href="_i_gpu_memory_allocator_8cpp_source.html#l00036">IGpuMemoryAllocator.cpp:36</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_html_a100a7c8d1a62814d11637de0534003b9"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer.html#a100a7c8d1a62814d11637de0534003b9">OSK::GRAPHICS::IRenderer::GetAllocator</a></div><div class="ttdeci">IGpuMemoryAllocator * GetAllocator()</div><div class="ttdef"><b>Definition</b> <a href="_renderer_8cpp_source.html#l00072">Renderer.cpp:72</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_gpu_stats_command_html_a587a9db50e35b550b7a8bb2873e939ab"><div class="ttname"><a href="class_o_s_k_1_1_gpu_stats_command.html#a587a9db50e35b550b7a8bb2873e939ab">OSK::GpuStatsCommand::Execute</a></div><div class="ttdeci">void Execute(UI::Console *console, std::span&lt; const std::string &gt; params) const override</div><div class="ttdoc">Ejecuta el comando.</div><div class="ttdef"><b>Definition</b> <a href="#l00023">GpuStatsCommand.cpp:23</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_gpu_stats_command_html_a9d16b7cb7ac2eb658a3270190c716ad8"><div class="ttname"><a href="class_o_s_k_1_1_gpu_stats_command.html#a9d16b7cb7ac2eb658a3270190c716ad8">OSK::GpuStatsCommand::GpuStatsCommand</a></div><div class="ttdeci">GpuStatsCommand()</div><div class="ttdef"><b>Definition</b> <a href="#l00019">GpuStatsCommand.cpp:19</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_i_console_command_html_abcce4ffc28474203372b430f2d2af978"><div class="ttname"><a href="class_o_s_k_1_1_i_console_command.html#abcce4ffc28474203372b430f2d2af978">OSK::IConsoleCommand::SetCommandWords</a></div><div class="ttdeci">void SetCommandWords(const DynamicArray&lt; std::string &gt; &amp;words)</div><div class="ttdoc">Establece el texto que debe tener el mensaje para ser considerado este comando.</div><div class="ttdef"><b>Definition</b> <a href="_console_command_8cpp_source.html#l00030">ConsoleCommand.cpp:30</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_u_i_1_1_console_html"><div class="ttname"><a href="class_o_s_k_1_1_u_i_1_1_console.html">OSK::UI::Console</a></div><div class="ttdoc">Consola del motor, que permite ejecutar comandos. Muestra los 20 últimos mensajes.</div><div class="ttdef"><b>Definition</b> <a href="_ui_console_8h_source.html#l00014">UiConsole.h:14</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_u_i_1_1_console_html_aa4e1a66060527b6178b255db1dc3a67f"><div class="ttname"><a href="class_o_s_k_1_1_u_i_1_1_console.html#aa4e1a66060527b6178b255db1dc3a67f">OSK::UI::Console::AddMessage</a></div><div class="ttdeci">void AddMessage(const std::string &amp;msg)</div><div class="ttdoc">Añade un mensaje a la consola.</div><div class="ttdef"><b>Definition</b> <a href="_ui_console_8cpp_source.html#l00046">UiConsole.cpp:46</a></div></div>
+<div class="ttc" id="anamespace_o_s_k_html"><div class="ttname"><a href="namespace_o_s_k.html">OSK</a></div><div class="ttdef"><b>Definition</b> <a href="_acceleration_structures_exceptions_8h_source.html#l00005">AccelerationStructuresExceptions.h:5</a></div></div>
+<div class="ttc" id="anamespace_o_s_k_html_acf682b0e024acc36806435295480d2ed"><div class="ttname"><a href="namespace_o_s_k.html#acf682b0e024acc36806435295480d2ed">OSK::USize32</a></div><div class="ttdeci">uint32_t USize32</div><div class="ttdoc">Tamaño, almacenado en un unsigned int de 32 bits.</div><div class="ttdef"><b>Definition</b> <a href="_numeric_types_8h_source.html#l00015">NumericTypes.h:15</a></div></div>
+</div><!-- fragment --></div><!-- contents -->
+</div><!-- doc-content -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="dir_74389ed8173ad57b461b9d623a1f3867.html">Source</a></li><li class="navelem"><b>GpuStatsCommand.cpp</b></li>
+    <li class="footer">Generado el Miércoles, 29 de mayo de 2024 12:01:48 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.11.0 </li>
+  </ul>
+</div>
+</body>
+</html>

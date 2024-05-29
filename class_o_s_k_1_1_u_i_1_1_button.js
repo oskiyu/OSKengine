@@ -56,5 +56,6 @@ var class_o_s_k_1_1_u_i_1_1_button =
     [ "SetVisible", "class_o_s_k_1_1_u_i_1_1_button.html#a374616da89c3ff9b31e4d7ddf6fc0164", null ],
     [ "Unlock", "class_o_s_k_1_1_u_i_1_1_button.html#a27da2bfbce9e2310b18720be5c42970e", null ],
     [ "UpdateByCursor", "class_o_s_k_1_1_u_i_1_1_button.html#a74543b51fc409bfc7bf64eacb85c1088", null ],
+    [ "UpdateByKeyboard", "class_o_s_k_1_1_u_i_1_1_button.html#ac1df6b61c6c53126404095386ef00b5b", null ],
     [ "size", "class_o_s_k_1_1_u_i_1_1_button.html#ae01866b02c7417455751f01b2f9d1fbf", null ]
 ];

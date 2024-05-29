@@ -3,7 +3,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
-<meta name="generator" content="Doxygen 1.10.0"/>
+<meta name="generator" content="Doxygen 1.11.0"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
 <title>OSKengine: Archivo de código fuente Source/Vector3.hpp</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
@@ -11,9 +11,9 @@
 <script type="text/javascript" src="dynsections.js"></script>
 <script type="text/javascript" src="clipboard.js"></script>
 <link href="navtree.css" rel="stylesheet" type="text/css"/>
-<script type="text/javascript" src="resize.js"></script>
 <script type="text/javascript" src="navtreedata.js"></script>
 <script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript" src="resize.js"></script>
 <script type="text/javascript" src="cookie.js"></script>
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/searchdata.js"></script>
@@ -37,10 +37,15 @@
 </table>
 </div>
 <!-- end header part -->
-<!-- Generado por Doxygen 1.10.0 -->
+<!-- Generado por Doxygen 1.11.0 -->
 <script type="text/javascript">
 /* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
 var searchBox = new SearchBox("searchBox", "search/",'.html');
+/* @license-end */
+</script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() { codefold.init(0); });
 /* @license-end */
 </script>
 <script type="text/javascript" src="menudata.js"></script>
@@ -48,17 +53,12 @@ var searchBox = new SearchBox("searchBox", "search/",'.html');
 <script type="text/javascript">
 /* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
 $(function() {
-  initMenu('',true,false,'search.php','Buscar');
+  initMenu('',true,false,'search.php','Buscar',true);
   $(function() { init_search(); });
 });
 /* @license-end */
 </script>
 <div id="main-nav"></div>
-<script type="text/javascript">
-/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
-$(function() { codefold.init(0); });
-/* @license-end */
-</script>
 </div><!-- top -->
 <div id="side-nav" class="ui-resizable side-nav-resizable">
   <div id="nav-tree">
@@ -72,7 +72,7 @@ $(function() { codefold.init(0); });
 </div>
 <script type="text/javascript">
 /* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
-$(function(){initNavTree('_vector3_8hpp_source.html',''); initResizable(); });
+$(function(){initNavTree('_vector3_8hpp_source.html',''); initResizable(true); });
 /* @license-end */
 </script>
 <div id="doc-content">
@@ -103,10 +103,10 @@ $(function(){initNavTree('_vector3_8hpp_source.html',''); initResizable(); });
 <div class="contents">
 <div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#pragma once</span></div>
 <div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span> </div>
-<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="preprocessor">#include &lt;glm/glm.hpp&gt;</span></div>
-<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span> </div>
-<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &quot;ToString.h&quot;</span></div>
-<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &quot;OSKmacros.h&quot;</span></div>
+<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="preprocessor">#include &quot;ApiCall.h&quot;</span></div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &quot;ToString.h&quot;</span></div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span> </div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &lt;glm/glm.hpp&gt;</span></div>
 <div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span> </div>
 <div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span> </div>
 <div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="keyword">namespace </span><a class="code hl_namespace" href="namespace_o_s_k.html">OSK</a> {</div>
@@ -342,32 +342,32 @@ $(function(){initNavTree('_vector3_8hpp_source.html',''); initResizable(); });
 <div class="line"><a id="l00240" name="l00240"></a><span class="lineno">  240</span> </div>
 <div class="foldopen" id="foldopen00243" data-start="{" data-end="}">
 <div class="line"><a id="l00243" name="l00243"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_vector3__t.html#a10871bf13bae44e95d0261d3fb8cac28">  243</a></span>        <span class="keyword">template</span> &lt;<span class="keyword">typename</span> P&gt; <span class="keyword">inline</span> <a class="code hl_class" href="class_o_s_k_1_1_vector3__t.html">Vector3_t&lt;P&gt;</a> <a class="code hl_function" href="class_o_s_k_1_1_vector3__t.html#a10871bf13bae44e95d0261d3fb8cac28">ToVec3</a>()<span class="keyword"> const </span>{</div>
-<div class="line"><a id="l00244" name="l00244"></a><span class="lineno">  244</span>            <span class="keywordflow">return</span> <a class="code hl_class" href="class_o_s_k_1_1_vector3__t.html">Vector3_t&lt;P&gt;</a>(<a class="code hl_variable" href="class_o_s_k_1_1_vector3__t.html#a481bd4a15724b2509174e62cf093d3e2">x</a>, <a class="code hl_variable" href="class_o_s_k_1_1_vector3__t.html#a23b731e2b121b01fe571c679ae3bbfdb">y</a>, <a class="code hl_variable" href="class_o_s_k_1_1_vector3__t.html#aa939a1c4c1f34510b2ef2e0d47eba5bb">z</a>);</div>
+<div class="line"><a id="l00244" name="l00244"></a><span class="lineno">  244</span>            <span class="keywordflow">return</span> <a class="code hl_function" href="class_o_s_k_1_1_vector3__t.html#a1e435ef5564a3bd53ba15307311a5660">Vector3_t&lt;P&gt;</a>(<a class="code hl_variable" href="class_o_s_k_1_1_vector3__t.html#a481bd4a15724b2509174e62cf093d3e2">x</a>, <a class="code hl_variable" href="class_o_s_k_1_1_vector3__t.html#a23b731e2b121b01fe571c679ae3bbfdb">y</a>, <a class="code hl_variable" href="class_o_s_k_1_1_vector3__t.html#aa939a1c4c1f34510b2ef2e0d47eba5bb">z</a>);</div>
 <div class="line"><a id="l00245" name="l00245"></a><span class="lineno">  245</span>        }</div>
 </div>
 <div class="line"><a id="l00246" name="l00246"></a><span class="lineno">  246</span> </div>
 <div class="line"><a id="l00247" name="l00247"></a><span class="lineno">  247</span>        </div>
 <div class="foldopen" id="foldopen00249" data-start="{" data-end="}">
 <div class="line"><a id="l00249" name="l00249"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_vector3__t.html#a6b1e6a100b029afa03d8c732f49b7853">  249</a></span>        <span class="keyword">inline</span> <a class="code hl_class" href="class_o_s_k_1_1_vector3__t.html">Vector3_t&lt;float_t&gt;</a> <a class="code hl_function" href="class_o_s_k_1_1_vector3__t.html#a6b1e6a100b029afa03d8c732f49b7853">ToVector3f</a>()<span class="keyword"> const </span>{</div>
-<div class="line"><a id="l00250" name="l00250"></a><span class="lineno">  250</span>            <span class="keywordflow">return</span> ToVec3&lt;float&gt;();</div>
+<div class="line"><a id="l00250" name="l00250"></a><span class="lineno">  250</span>            <span class="keywordflow">return</span> <a class="code hl_function" href="class_o_s_k_1_1_vector3__t.html#a10871bf13bae44e95d0261d3fb8cac28">ToVec3&lt;float&gt;</a>();</div>
 <div class="line"><a id="l00251" name="l00251"></a><span class="lineno">  251</span>        }</div>
 </div>
 <div class="line"><a id="l00252" name="l00252"></a><span class="lineno">  252</span> </div>
 <div class="foldopen" id="foldopen00254" data-start="{" data-end="}">
 <div class="line"><a id="l00254" name="l00254"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_vector3__t.html#a6984b9a7abc53bbfe1c8c673eb579dcf">  254</a></span>        <span class="keyword">inline</span> <a class="code hl_class" href="class_o_s_k_1_1_vector3__t.html">Vector3_t&lt;double_t&gt;</a> <a class="code hl_function" href="class_o_s_k_1_1_vector3__t.html#a6984b9a7abc53bbfe1c8c673eb579dcf">ToVector3d</a>()<span class="keyword"> const </span>{</div>
-<div class="line"><a id="l00255" name="l00255"></a><span class="lineno">  255</span>            <span class="keywordflow">return</span> ToVec3&lt;double_t&gt;();</div>
+<div class="line"><a id="l00255" name="l00255"></a><span class="lineno">  255</span>            <span class="keywordflow">return</span> <a class="code hl_function" href="class_o_s_k_1_1_vector3__t.html#a10871bf13bae44e95d0261d3fb8cac28">ToVec3&lt;double_t&gt;</a>();</div>
 <div class="line"><a id="l00256" name="l00256"></a><span class="lineno">  256</span>        }</div>
 </div>
 <div class="line"><a id="l00257" name="l00257"></a><span class="lineno">  257</span> </div>
 <div class="foldopen" id="foldopen00259" data-start="{" data-end="}">
 <div class="line"><a id="l00259" name="l00259"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_vector3__t.html#a82768eac04f68ac8103249ffc02c8ce2">  259</a></span>        <span class="keyword">inline</span> <a class="code hl_class" href="class_o_s_k_1_1_vector3__t.html">Vector3_t&lt;int32_t&gt;</a> <a class="code hl_function" href="class_o_s_k_1_1_vector3__t.html#a82768eac04f68ac8103249ffc02c8ce2">ToVector3i</a>()<span class="keyword"> const </span>{</div>
-<div class="line"><a id="l00260" name="l00260"></a><span class="lineno">  260</span>            <span class="keywordflow">return</span> ToVec3&lt;int32_t&gt;();</div>
+<div class="line"><a id="l00260" name="l00260"></a><span class="lineno">  260</span>            <span class="keywordflow">return</span> <a class="code hl_function" href="class_o_s_k_1_1_vector3__t.html#a10871bf13bae44e95d0261d3fb8cac28">ToVec3&lt;int32_t&gt;</a>();</div>
 <div class="line"><a id="l00261" name="l00261"></a><span class="lineno">  261</span>        }</div>
 </div>
 <div class="line"><a id="l00262" name="l00262"></a><span class="lineno">  262</span> </div>
 <div class="foldopen" id="foldopen00264" data-start="{" data-end="}">
 <div class="line"><a id="l00264" name="l00264"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_vector3__t.html#aa5776dfaf6bec9b0093ef8e86568338f">  264</a></span>        <span class="keyword">inline</span> <a class="code hl_class" href="class_o_s_k_1_1_vector3__t.html">Vector3_t&lt;uint32_t&gt;</a> <a class="code hl_function" href="class_o_s_k_1_1_vector3__t.html#aa5776dfaf6bec9b0093ef8e86568338f">ToVector3ui</a>()<span class="keyword"> const </span>{</div>
-<div class="line"><a id="l00265" name="l00265"></a><span class="lineno">  265</span>            <span class="keywordflow">return</span> ToVec3&lt;uint32_t&gt;();</div>
+<div class="line"><a id="l00265" name="l00265"></a><span class="lineno">  265</span>            <span class="keywordflow">return</span> <a class="code hl_function" href="class_o_s_k_1_1_vector3__t.html#a10871bf13bae44e95d0261d3fb8cac28">ToVec3&lt;uint32_t&gt;</a>();</div>
 <div class="line"><a id="l00266" name="l00266"></a><span class="lineno">  266</span>        }</div>
 </div>
 <div class="line"><a id="l00267" name="l00267"></a><span class="lineno">  267</span> </div>
@@ -458,7 +458,7 @@ $(function(){initNavTree('_vector3_8hpp_source.html',''); initResizable(); });
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_74389ed8173ad57b461b9d623a1f3867.html">Source</a></li><li class="navelem"><b>Vector3.hpp</b></li>
-    <li class="footer">Generado el Sábado, 18 de mayo de 2024 12:15:52 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.10.0 </li>
+    <li class="footer">Generado el Miércoles, 29 de mayo de 2024 12:01:49 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.11.0 </li>
   </ul>
 </div>
 </body>

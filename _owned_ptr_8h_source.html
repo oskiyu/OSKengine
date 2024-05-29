@@ -3,7 +3,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
-<meta name="generator" content="Doxygen 1.10.0"/>
+<meta name="generator" content="Doxygen 1.11.0"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
 <title>OSKengine: Archivo de código fuente Source/OwnedPtr.h</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
@@ -11,9 +11,9 @@
 <script type="text/javascript" src="dynsections.js"></script>
 <script type="text/javascript" src="clipboard.js"></script>
 <link href="navtree.css" rel="stylesheet" type="text/css"/>
-<script type="text/javascript" src="resize.js"></script>
 <script type="text/javascript" src="navtreedata.js"></script>
 <script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript" src="resize.js"></script>
 <script type="text/javascript" src="cookie.js"></script>
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/searchdata.js"></script>
@@ -37,10 +37,15 @@
 </table>
 </div>
 <!-- end header part -->
-<!-- Generado por Doxygen 1.10.0 -->
+<!-- Generado por Doxygen 1.11.0 -->
 <script type="text/javascript">
 /* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
 var searchBox = new SearchBox("searchBox", "search/",'.html');
+/* @license-end */
+</script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() { codefold.init(0); });
 /* @license-end */
 </script>
 <script type="text/javascript" src="menudata.js"></script>
@@ -48,17 +53,12 @@ var searchBox = new SearchBox("searchBox", "search/",'.html');
 <script type="text/javascript">
 /* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
 $(function() {
-  initMenu('',true,false,'search.php','Buscar');
+  initMenu('',true,false,'search.php','Buscar',true);
   $(function() { init_search(); });
 });
 /* @license-end */
 </script>
 <div id="main-nav"></div>
-<script type="text/javascript">
-/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
-$(function() { codefold.init(0); });
-/* @license-end */
-</script>
 </div><!-- top -->
 <div id="side-nav" class="ui-resizable side-nav-resizable">
   <div id="nav-tree">
@@ -72,7 +72,7 @@ $(function() { codefold.init(0); });
 </div>
 <script type="text/javascript">
 /* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
-$(function(){initNavTree('_owned_ptr_8h_source.html',''); initResizable(); });
+$(function(){initNavTree('_owned_ptr_8h_source.html',''); initResizable(true); });
 /* @license-end */
 </script>
 <div id="doc-content">
@@ -104,147 +104,148 @@ $(function(){initNavTree('_owned_ptr_8h_source.html',''); initResizable(); });
 <div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#ifndef OSK_OWNED_PTR</span></div>
 <div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="preprocessor">#define OSK_OWNED_PTR</span></div>
 <div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span> </div>
-<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &quot;OSKmacros.h&quot;</span></div>
-<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span> </div>
-<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="keyword">namespace </span><a class="code hl_namespace" href="namespace_o_s_k.html">OSK</a> {</div>
-<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span> </div>
-<div class="foldopen" id="foldopen00016" data-start="{" data-end="};">
-<div class="line"><a id="l00016" name="l00016"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_owned_ptr.html">   16</a></span>    <span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt; <span class="keyword">class </span><a class="code hl_class" href="class_o_s_k_1_1_owned_ptr.html">OwnedPtr</a> {</div>
-<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span> </div>
-<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>    <span class="keyword">public</span>:</div>
-<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span> </div>
-<div class="foldopen" id="foldopen00023" data-start="{" data-end="}">
-<div class="line"><a id="l00023" name="l00023"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_owned_ptr.html#a17fb6219bdae1de6301eebe5f48e2799">   23</a></span>        <a class="code hl_function" href="class_o_s_k_1_1_owned_ptr.html#a17fb6219bdae1de6301eebe5f48e2799">OwnedPtr</a>() {</div>
-<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span> </div>
-<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>        }</div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="comment">// Para std::swap</span></div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &lt;type_traits&gt;</span></div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span> </div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="keyword">namespace </span><a class="code hl_namespace" href="namespace_o_s_k.html">OSK</a> {</div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span> </div>
+<div class="foldopen" id="foldopen00017" data-start="{" data-end="};">
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_owned_ptr.html">   17</a></span>    <span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt; <span class="keyword">class </span><a class="code hl_class" href="class_o_s_k_1_1_owned_ptr.html">OwnedPtr</a> {</div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span> </div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>    <span class="keyword">public</span>:</div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span> </div>
+<div class="foldopen" id="foldopen00024" data-start="{" data-end="}">
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_owned_ptr.html#a17fb6219bdae1de6301eebe5f48e2799">   24</a></span>        <a class="code hl_function" href="class_o_s_k_1_1_owned_ptr.html#a17fb6219bdae1de6301eebe5f48e2799">OwnedPtr</a>() {</div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span> </div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>        }</div>
 </div>
-<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span> </div>
-<div class="foldopen" id="foldopen00031" data-start="{" data-end="}">
-<div class="line"><a id="l00031" name="l00031"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_owned_ptr.html#a49ae826fb10b997ea2624071fe6f3ff0">   31</a></span>        <a class="code hl_function" href="class_o_s_k_1_1_owned_ptr.html#a49ae826fb10b997ea2624071fe6f3ff0">OwnedPtr</a>(T* data) {</div>
-<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>            pointer = data;</div>
-<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>        }</div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span> </div>
+<div class="foldopen" id="foldopen00032" data-start="{" data-end="}">
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_owned_ptr.html#a49ae826fb10b997ea2624071fe6f3ff0">   32</a></span>        <a class="code hl_function" href="class_o_s_k_1_1_owned_ptr.html#a49ae826fb10b997ea2624071fe6f3ff0">OwnedPtr</a>(T* data) {</div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>            pointer = data;</div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>        }</div>
 </div>
-<div class="foldopen" id="foldopen00038" data-start="{" data-end="}">
-<div class="line"><a id="l00038" name="l00038"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_owned_ptr.html#a5fa69641ece7a6cc587a4afbbd388e2f">   38</a></span>        <a class="code hl_function" href="class_o_s_k_1_1_owned_ptr.html#a5fa69641ece7a6cc587a4afbbd388e2f">OwnedPtr</a>(<span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_owned_ptr.html">OwnedPtr</a>&amp; other) {</div>
-<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>            this-&gt;pointer = other.pointer;</div>
-<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>        }</div>
+<div class="foldopen" id="foldopen00039" data-start="{" data-end="}">
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_owned_ptr.html#a5fa69641ece7a6cc587a4afbbd388e2f">   39</a></span>        <a class="code hl_function" href="class_o_s_k_1_1_owned_ptr.html#a5fa69641ece7a6cc587a4afbbd388e2f">OwnedPtr</a>(<span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_owned_ptr.html">OwnedPtr</a>&amp; other) {</div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>            this-&gt;pointer = other.pointer;</div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>        }</div>
 </div>
-<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span> </div>
-<div class="foldopen" id="foldopen00045" data-start="{" data-end="}">
-<div class="line"><a id="l00045" name="l00045"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_owned_ptr.html#ac448364971bb94ba5fd1ade19177d2c7">   45</a></span>        <a class="code hl_class" href="class_o_s_k_1_1_owned_ptr.html">OwnedPtr</a>&amp; <a class="code hl_function" href="class_o_s_k_1_1_owned_ptr.html#ac448364971bb94ba5fd1ade19177d2c7">operator=</a>(<span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_owned_ptr.html">OwnedPtr</a>&amp; other) {</div>
-<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>            this-&gt;pointer = other.pointer;</div>
-<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span> </div>
-<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>            <span class="keywordflow">return</span> *<span class="keyword">this</span>;</div>
-<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>        }</div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span> </div>
+<div class="foldopen" id="foldopen00046" data-start="{" data-end="}">
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_owned_ptr.html#ac448364971bb94ba5fd1ade19177d2c7">   46</a></span>        <a class="code hl_class" href="class_o_s_k_1_1_owned_ptr.html">OwnedPtr</a>&amp; <a class="code hl_function" href="class_o_s_k_1_1_owned_ptr.html#ac448364971bb94ba5fd1ade19177d2c7">operator=</a>(<span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_owned_ptr.html">OwnedPtr</a>&amp; other) {</div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>            this-&gt;pointer = other.pointer;</div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span> </div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>            <span class="keywordflow">return</span> *<span class="keyword">this</span>;</div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>        }</div>
 </div>
-<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span> </div>
-<div class="foldopen" id="foldopen00051" data-start="{" data-end="}">
-<div class="line"><a id="l00051" name="l00051"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_owned_ptr.html#abf8f0755a9f0c07568b9a35f9684fcff">   51</a></span>        <a class="code hl_class" href="class_o_s_k_1_1_owned_ptr.html">OwnedPtr</a>&amp; <a class="code hl_function" href="class_o_s_k_1_1_owned_ptr.html#abf8f0755a9f0c07568b9a35f9684fcff">operator=</a>(<a class="code hl_class" href="class_o_s_k_1_1_owned_ptr.html">OwnedPtr</a>&amp;&amp; other) {</div>
-<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>            std::swap(this-&gt;pointer, other.pointer);</div>
-<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>            <span class="keywordflow">return</span> *<span class="keyword">this</span>;</div>
-<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>        }</div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span> </div>
+<div class="foldopen" id="foldopen00052" data-start="{" data-end="}">
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_owned_ptr.html#abf8f0755a9f0c07568b9a35f9684fcff">   52</a></span>        <a class="code hl_class" href="class_o_s_k_1_1_owned_ptr.html">OwnedPtr</a>&amp; <a class="code hl_function" href="class_o_s_k_1_1_owned_ptr.html#abf8f0755a9f0c07568b9a35f9684fcff">operator=</a>(<a class="code hl_class" href="class_o_s_k_1_1_owned_ptr.html">OwnedPtr</a>&amp;&amp; other) {</div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>            std::swap(this-&gt;pointer, other.pointer);</div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>            <span class="keywordflow">return</span> *<span class="keyword">this</span>;</div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>        }</div>
 </div>
-<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span> </div>
-<div class="foldopen" id="foldopen00056" data-start="{" data-end="}">
-<div class="line"><a id="l00056" name="l00056"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_owned_ptr.html#a931681c88e34c6b6a05963f0d48fe029">   56</a></span>        <a class="code hl_function" href="class_o_s_k_1_1_owned_ptr.html#a931681c88e34c6b6a05963f0d48fe029">OwnedPtr</a>(<a class="code hl_class" href="class_o_s_k_1_1_owned_ptr.html">OwnedPtr</a>&amp;&amp; other) {</div>
-<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>            this-&gt;pointer = other.pointer;</div>
-<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>            other.pointer = <span class="keyword">nullptr</span>;</div>
-<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>        }</div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span> </div>
+<div class="foldopen" id="foldopen00057" data-start="{" data-end="}">
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_owned_ptr.html#a931681c88e34c6b6a05963f0d48fe029">   57</a></span>        <a class="code hl_function" href="class_o_s_k_1_1_owned_ptr.html#a931681c88e34c6b6a05963f0d48fe029">OwnedPtr</a>(<a class="code hl_class" href="class_o_s_k_1_1_owned_ptr.html">OwnedPtr</a>&amp;&amp; other) {</div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>            this-&gt;pointer = other.pointer;</div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>            other.pointer = <span class="keyword">nullptr</span>;</div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>        }</div>
 </div>
-<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span> </div>
-<div class="foldopen" id="foldopen00064" data-start="{" data-end="}">
-<div class="line"><a id="l00064" name="l00064"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_owned_ptr.html#a75bb15b4b62a9756536d56fe694eee1a">   64</a></span>        <span class="keyword">const</span> T&amp; <a class="code hl_function" href="class_o_s_k_1_1_owned_ptr.html#a75bb15b4b62a9756536d56fe694eee1a">operator[]</a>(<span class="keywordtype">size_t</span> i)<span class="keyword"> const </span>{</div>
-<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>            <span class="keywordflow">return</span> pointer[i];</div>
-<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>        }</div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span> </div>
+<div class="foldopen" id="foldopen00065" data-start="{" data-end="}">
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_owned_ptr.html#a75bb15b4b62a9756536d56fe694eee1a">   65</a></span>        <span class="keyword">const</span> T&amp; <a class="code hl_function" href="class_o_s_k_1_1_owned_ptr.html#a75bb15b4b62a9756536d56fe694eee1a">operator[]</a>(<span class="keywordtype">size_t</span> i)<span class="keyword"> const </span>{</div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>            <span class="keywordflow">return</span> pointer[i];</div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>        }</div>
 </div>
-<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span> </div>
-<div class="foldopen" id="foldopen00071" data-start="{" data-end="}">
-<div class="line"><a id="l00071" name="l00071"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_owned_ptr.html#a529cfa432205e019bd15ae759c17b839">   71</a></span>        T&amp; <a class="code hl_function" href="class_o_s_k_1_1_owned_ptr.html#a529cfa432205e019bd15ae759c17b839">operator[]</a>(<span class="keywordtype">size_t</span> i) {</div>
-<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>            <span class="keywordflow">return</span> pointer[i];</div>
-<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>        }</div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span> </div>
+<div class="foldopen" id="foldopen00072" data-start="{" data-end="}">
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_owned_ptr.html#a529cfa432205e019bd15ae759c17b839">   72</a></span>        T&amp; <a class="code hl_function" href="class_o_s_k_1_1_owned_ptr.html#a529cfa432205e019bd15ae759c17b839">operator[]</a>(<span class="keywordtype">size_t</span> i) {</div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>            <span class="keywordflow">return</span> pointer[i];</div>
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>        }</div>
 </div>
-<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span> </div>
-<div class="foldopen" id="foldopen00079" data-start="{" data-end="}">
-<div class="line"><a id="l00079" name="l00079"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_owned_ptr.html#a81dfab2299056fc9858aace55fca0042">   79</a></span>        T* <a class="code hl_function" href="class_o_s_k_1_1_owned_ptr.html#a81dfab2299056fc9858aace55fca0042">GetPointer</a>()<span class="keyword"> const </span>{</div>
-<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span>            <span class="keywordflow">return</span> pointer;</div>
-<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span>        }</div>
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span> </div>
+<div class="foldopen" id="foldopen00080" data-start="{" data-end="}">
+<div class="line"><a id="l00080" name="l00080"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_owned_ptr.html#a81dfab2299056fc9858aace55fca0042">   80</a></span>        T* <a class="code hl_function" href="class_o_s_k_1_1_owned_ptr.html#a81dfab2299056fc9858aace55fca0042">GetPointer</a>()<span class="keyword"> const </span>{</div>
+<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span>            <span class="keywordflow">return</span> pointer;</div>
+<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span>        }</div>
 </div>
-<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span> </div>
-<div class="foldopen" id="foldopen00087" data-start="{" data-end="}">
-<div class="line"><a id="l00087" name="l00087"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_owned_ptr.html#a5ac3a6128712d66d13b73631ea3f5ef8">   87</a></span>        T&amp; <a class="code hl_function" href="class_o_s_k_1_1_owned_ptr.html#a5ac3a6128712d66d13b73631ea3f5ef8">GetValue</a>() {</div>
-<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span>            <span class="keywordflow">return</span> *pointer;</div>
-<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span>        }</div>
+<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span> </div>
+<div class="foldopen" id="foldopen00088" data-start="{" data-end="}">
+<div class="line"><a id="l00088" name="l00088"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_owned_ptr.html#a5ac3a6128712d66d13b73631ea3f5ef8">   88</a></span>        T&amp; <a class="code hl_function" href="class_o_s_k_1_1_owned_ptr.html#a5ac3a6128712d66d13b73631ea3f5ef8">GetValue</a>() {</div>
+<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span>            <span class="keywordflow">return</span> *pointer;</div>
+<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span>        }</div>
 </div>
-<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span> </div>
-<div class="foldopen" id="foldopen00095" data-start="{" data-end="}">
-<div class="line"><a id="l00095" name="l00095"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_owned_ptr.html#a91a8f962175fe7af3b02d9a02ff602be">   95</a></span>        T* <a class="code hl_function" href="class_o_s_k_1_1_owned_ptr.html#a91a8f962175fe7af3b02d9a02ff602be">operator-&gt;</a>()<span class="keyword"> const </span>{</div>
-<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span>            <span class="keywordflow">return</span> <a class="code hl_function" href="class_o_s_k_1_1_owned_ptr.html#a81dfab2299056fc9858aace55fca0042">GetPointer</a>();</div>
-<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span>        }</div>
+<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span> </div>
+<div class="foldopen" id="foldopen00096" data-start="{" data-end="}">
+<div class="line"><a id="l00096" name="l00096"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_owned_ptr.html#a91a8f962175fe7af3b02d9a02ff602be">   96</a></span>        T* <a class="code hl_function" href="class_o_s_k_1_1_owned_ptr.html#a91a8f962175fe7af3b02d9a02ff602be">operator-&gt;</a>()<span class="keyword"> const </span>{</div>
+<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span>            <span class="keywordflow">return</span> <a class="code hl_function" href="class_o_s_k_1_1_owned_ptr.html#a81dfab2299056fc9858aace55fca0042">GetPointer</a>();</div>
+<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span>        }</div>
 </div>
-<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span> </div>
-<div class="foldopen" id="foldopen00103" data-start="{" data-end="}">
-<div class="line"><a id="l00103" name="l00103"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_owned_ptr.html#a97bcc9354bcf3f9cc270b53a8ff273fd">  103</a></span>        T&amp; <a class="code hl_function" href="class_o_s_k_1_1_owned_ptr.html#a97bcc9354bcf3f9cc270b53a8ff273fd">operator*</a>() {</div>
-<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span>            <span class="keywordflow">return</span> <a class="code hl_function" href="class_o_s_k_1_1_owned_ptr.html#a5ac3a6128712d66d13b73631ea3f5ef8">GetValue</a>();</div>
-<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span>        }</div>
+<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span> </div>
+<div class="foldopen" id="foldopen00104" data-start="{" data-end="}">
+<div class="line"><a id="l00104" name="l00104"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_owned_ptr.html#a97bcc9354bcf3f9cc270b53a8ff273fd">  104</a></span>        T&amp; <a class="code hl_function" href="class_o_s_k_1_1_owned_ptr.html#a97bcc9354bcf3f9cc270b53a8ff273fd">operator*</a>() {</div>
+<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span>            <span class="keywordflow">return</span> <a class="code hl_function" href="class_o_s_k_1_1_owned_ptr.html#a5ac3a6128712d66d13b73631ea3f5ef8">GetValue</a>();</div>
+<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span>        }</div>
 </div>
-<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span> </div>
-<div class="foldopen" id="foldopen00111" data-start="{" data-end="}">
-<div class="line"><a id="l00111" name="l00111"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_owned_ptr.html#a6ff1efe3764161c4fdf7dd8e72f16fea">  111</a></span>        <span class="keywordtype">bool</span> <a class="code hl_function" href="class_o_s_k_1_1_owned_ptr.html#a6ff1efe3764161c4fdf7dd8e72f16fea">HasValue</a>()<span class="keyword"> const </span>{</div>
-<div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span>            <span class="keywordflow">return</span> pointer != <span class="keyword">nullptr</span>;</div>
-<div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span>        }</div>
+<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span> </div>
+<div class="foldopen" id="foldopen00112" data-start="{" data-end="}">
+<div class="line"><a id="l00112" name="l00112"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_owned_ptr.html#a6ff1efe3764161c4fdf7dd8e72f16fea">  112</a></span>        <span class="keywordtype">bool</span> <a class="code hl_function" href="class_o_s_k_1_1_owned_ptr.html#a6ff1efe3764161c4fdf7dd8e72f16fea">HasValue</a>()<span class="keyword"> const </span>{</div>
+<div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span>            <span class="keywordflow">return</span> pointer != <span class="keyword">nullptr</span>;</div>
+<div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span>        }</div>
 </div>
-<div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span> </div>
-<div class="foldopen" id="foldopen00118" data-start="{" data-end="}">
-<div class="line"><a id="l00118" name="l00118"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_owned_ptr.html#ae1310d4a422f7e6cde8340d05bdc1e8b">  118</a></span>        <span class="keywordtype">void</span> <a class="code hl_function" href="class_o_s_k_1_1_owned_ptr.html#ae1310d4a422f7e6cde8340d05bdc1e8b">Delete</a>() {</div>
-<div class="line"><a id="l00119" name="l00119"></a><span class="lineno">  119</span>            Free();</div>
-<div class="line"><a id="l00120" name="l00120"></a><span class="lineno">  120</span>        }</div>
+<div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span> </div>
+<div class="foldopen" id="foldopen00119" data-start="{" data-end="}">
+<div class="line"><a id="l00119" name="l00119"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_owned_ptr.html#ae1310d4a422f7e6cde8340d05bdc1e8b">  119</a></span>        <span class="keywordtype">void</span> <a class="code hl_function" href="class_o_s_k_1_1_owned_ptr.html#ae1310d4a422f7e6cde8340d05bdc1e8b">Delete</a>() {</div>
+<div class="line"><a id="l00120" name="l00120"></a><span class="lineno">  120</span>            Free();</div>
+<div class="line"><a id="l00121" name="l00121"></a><span class="lineno">  121</span>        }</div>
 </div>
-<div class="line"><a id="l00121" name="l00121"></a><span class="lineno">  121</span> </div>
-<div class="foldopen" id="foldopen00122" data-start="{" data-end="}">
-<div class="line"><a id="l00122" name="l00122"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_owned_ptr.html#ab975e772b2816a3d220550960d67dc04">  122</a></span>        <span class="keywordtype">bool</span> <a class="code hl_function" href="class_o_s_k_1_1_owned_ptr.html#ab975e772b2816a3d220550960d67dc04">operator==</a>(<span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_owned_ptr.html">OwnedPtr</a>&amp; other)<span class="keyword"> const </span>{</div>
-<div class="line"><a id="l00123" name="l00123"></a><span class="lineno">  123</span>            <span class="keywordflow">return</span> pointer == other.pointer;</div>
-<div class="line"><a id="l00124" name="l00124"></a><span class="lineno">  124</span>        }</div>
+<div class="line"><a id="l00122" name="l00122"></a><span class="lineno">  122</span> </div>
+<div class="foldopen" id="foldopen00123" data-start="{" data-end="}">
+<div class="line"><a id="l00123" name="l00123"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_owned_ptr.html#ab975e772b2816a3d220550960d67dc04">  123</a></span>        <span class="keywordtype">bool</span> <a class="code hl_function" href="class_o_s_k_1_1_owned_ptr.html#ab975e772b2816a3d220550960d67dc04">operator==</a>(<span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_owned_ptr.html">OwnedPtr</a>&amp; other)<span class="keyword"> const </span>{</div>
+<div class="line"><a id="l00124" name="l00124"></a><span class="lineno">  124</span>            <span class="keywordflow">return</span> pointer == other.pointer;</div>
+<div class="line"><a id="l00125" name="l00125"></a><span class="lineno">  125</span>        }</div>
 </div>
-<div class="foldopen" id="foldopen00125" data-start="{" data-end="}">
-<div class="line"><a id="l00125" name="l00125"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_owned_ptr.html#abc17953875738ac3a9714707e5c67338">  125</a></span>        <span class="keywordtype">bool</span> <a class="code hl_function" href="class_o_s_k_1_1_owned_ptr.html#abc17953875738ac3a9714707e5c67338">operator!=</a>(<span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_owned_ptr.html">OwnedPtr</a>&amp; other)<span class="keyword"> const </span>{</div>
-<div class="line"><a id="l00126" name="l00126"></a><span class="lineno">  126</span>            <span class="keywordflow">return</span> pointer != other.pointer;</div>
-<div class="line"><a id="l00127" name="l00127"></a><span class="lineno">  127</span>        }</div>
+<div class="foldopen" id="foldopen00126" data-start="{" data-end="}">
+<div class="line"><a id="l00126" name="l00126"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_owned_ptr.html#abc17953875738ac3a9714707e5c67338">  126</a></span>        <span class="keywordtype">bool</span> <a class="code hl_function" href="class_o_s_k_1_1_owned_ptr.html#abc17953875738ac3a9714707e5c67338">operator!=</a>(<span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_owned_ptr.html">OwnedPtr</a>&amp; other)<span class="keyword"> const </span>{</div>
+<div class="line"><a id="l00127" name="l00127"></a><span class="lineno">  127</span>            <span class="keywordflow">return</span> pointer != other.pointer;</div>
+<div class="line"><a id="l00128" name="l00128"></a><span class="lineno">  128</span>        }</div>
 </div>
-<div class="line"><a id="l00128" name="l00128"></a><span class="lineno">  128</span> </div>
-<div class="line"><a id="l00129" name="l00129"></a><span class="lineno">  129</span>    <span class="keyword">private</span>:</div>
-<div class="line"><a id="l00130" name="l00130"></a><span class="lineno">  130</span> </div>
-<div class="line"><a id="l00134" name="l00134"></a><span class="lineno">  134</span>        <span class="keywordtype">void</span> Free() {</div>
-<div class="line"><a id="l00135" name="l00135"></a><span class="lineno">  135</span>            <span class="keywordflow">if</span> (pointer) {</div>
-<div class="line"><a id="l00136" name="l00136"></a><span class="lineno">  136</span>                <span class="keyword">delete</span> pointer;</div>
-<div class="line"><a id="l00137" name="l00137"></a><span class="lineno">  137</span>                pointer = <span class="keyword">nullptr</span>;</div>
-<div class="line"><a id="l00138" name="l00138"></a><span class="lineno">  138</span>            }</div>
-<div class="line"><a id="l00139" name="l00139"></a><span class="lineno">  139</span>        }</div>
-<div class="line"><a id="l00140" name="l00140"></a><span class="lineno">  140</span> </div>
-<div class="line"><a id="l00144" name="l00144"></a><span class="lineno">  144</span>        <a class="code hl_enumvalue" href="namespace_o_s_k_1_1_i_o.html#a0b92714a4a778072d4824502589bd39eab9ece18c950afbfa6b0fdbfa4ff731d3">T</a>* pointer = <span class="keyword">nullptr</span>;</div>
-<div class="line"><a id="l00145" name="l00145"></a><span class="lineno">  145</span> </div>
-<div class="line"><a id="l00146" name="l00146"></a><span class="lineno">  146</span>    };</div>
+<div class="line"><a id="l00129" name="l00129"></a><span class="lineno">  129</span> </div>
+<div class="line"><a id="l00130" name="l00130"></a><span class="lineno">  130</span>    <span class="keyword">private</span>:</div>
+<div class="line"><a id="l00131" name="l00131"></a><span class="lineno">  131</span> </div>
+<div class="line"><a id="l00135" name="l00135"></a><span class="lineno">  135</span>        <span class="keywordtype">void</span> Free() {</div>
+<div class="line"><a id="l00136" name="l00136"></a><span class="lineno">  136</span>            <span class="keywordflow">if</span> (pointer) {</div>
+<div class="line"><a id="l00137" name="l00137"></a><span class="lineno">  137</span>                <span class="keyword">delete</span> pointer;</div>
+<div class="line"><a id="l00138" name="l00138"></a><span class="lineno">  138</span>                pointer = <span class="keyword">nullptr</span>;</div>
+<div class="line"><a id="l00139" name="l00139"></a><span class="lineno">  139</span>            }</div>
+<div class="line"><a id="l00140" name="l00140"></a><span class="lineno">  140</span>        }</div>
+<div class="line"><a id="l00141" name="l00141"></a><span class="lineno">  141</span> </div>
+<div class="line"><a id="l00145" name="l00145"></a><span class="lineno">  145</span>        <a class="code hl_enumvalue" href="namespace_o_s_k_1_1_i_o.html#a0b92714a4a778072d4824502589bd39eab9ece18c950afbfa6b0fdbfa4ff731d3">T</a>* pointer = <span class="keyword">nullptr</span>;</div>
+<div class="line"><a id="l00146" name="l00146"></a><span class="lineno">  146</span> </div>
+<div class="line"><a id="l00147" name="l00147"></a><span class="lineno">  147</span>    };</div>
 </div>
-<div class="line"><a id="l00147" name="l00147"></a><span class="lineno">  147</span> </div>
-<div class="line"><a id="l00148" name="l00148"></a><span class="lineno">  148</span>}</div>
-<div class="line"><a id="l00149" name="l00149"></a><span class="lineno">  149</span> </div>
-<div class="line"><a id="l00150" name="l00150"></a><span class="lineno">  150</span><span class="preprocessor">#endif</span></div>
-<div class="ttc" id="aclass_o_s_k_1_1_owned_ptr_html"><div class="ttname"><a href="class_o_s_k_1_1_owned_ptr.html">OSK::OwnedPtr</a></div><div class="ttdoc">Es dueño de un puntero.</div><div class="ttdef"><b>Definition</b> <a href="#l00016">OwnedPtr.h:16</a></div></div>
-<div class="ttc" id="aclass_o_s_k_1_1_owned_ptr_html_a17fb6219bdae1de6301eebe5f48e2799"><div class="ttname"><a href="class_o_s_k_1_1_owned_ptr.html#a17fb6219bdae1de6301eebe5f48e2799">OSK::OwnedPtr::OwnedPtr</a></div><div class="ttdeci">OwnedPtr()</div><div class="ttdoc">Crea un OwnedPtr vacío.</div><div class="ttdef"><b>Definition</b> <a href="#l00023">OwnedPtr.h:23</a></div></div>
-<div class="ttc" id="aclass_o_s_k_1_1_owned_ptr_html_a49ae826fb10b997ea2624071fe6f3ff0"><div class="ttname"><a href="class_o_s_k_1_1_owned_ptr.html#a49ae826fb10b997ea2624071fe6f3ff0">OSK::OwnedPtr::OwnedPtr</a></div><div class="ttdeci">OwnedPtr(T *data)</div><div class="ttdoc">Crea un OwnedPtr que será dueño de 'data'.</div><div class="ttdef"><b>Definition</b> <a href="#l00031">OwnedPtr.h:31</a></div></div>
-<div class="ttc" id="aclass_o_s_k_1_1_owned_ptr_html_a529cfa432205e019bd15ae759c17b839"><div class="ttname"><a href="class_o_s_k_1_1_owned_ptr.html#a529cfa432205e019bd15ae759c17b839">OSK::OwnedPtr::operator[]</a></div><div class="ttdeci">T &amp; operator[](size_t i)</div><div class="ttdoc">Accede a un elemento, considerando el puntero un array.</div><div class="ttdef"><b>Definition</b> <a href="#l00071">OwnedPtr.h:71</a></div></div>
-<div class="ttc" id="aclass_o_s_k_1_1_owned_ptr_html_a5ac3a6128712d66d13b73631ea3f5ef8"><div class="ttname"><a href="class_o_s_k_1_1_owned_ptr.html#a5ac3a6128712d66d13b73631ea3f5ef8">OSK::OwnedPtr::GetValue</a></div><div class="ttdeci">T &amp; GetValue()</div><div class="ttdoc">Devuelve el valor apuntado por el puntero.</div><div class="ttdef"><b>Definition</b> <a href="#l00087">OwnedPtr.h:87</a></div></div>
-<div class="ttc" id="aclass_o_s_k_1_1_owned_ptr_html_a5fa69641ece7a6cc587a4afbbd388e2f"><div class="ttname"><a href="class_o_s_k_1_1_owned_ptr.html#a5fa69641ece7a6cc587a4afbbd388e2f">OSK::OwnedPtr::OwnedPtr</a></div><div class="ttdeci">OwnedPtr(const OwnedPtr &amp;other)</div><div class="ttdoc">Crea un SharedPtr que compartirá su puntero con 'other'.</div><div class="ttdef"><b>Definition</b> <a href="#l00038">OwnedPtr.h:38</a></div></div>
-<div class="ttc" id="aclass_o_s_k_1_1_owned_ptr_html_a6ff1efe3764161c4fdf7dd8e72f16fea"><div class="ttname"><a href="class_o_s_k_1_1_owned_ptr.html#a6ff1efe3764161c4fdf7dd8e72f16fea">OSK::OwnedPtr::HasValue</a></div><div class="ttdeci">bool HasValue() const</div><div class="ttdoc">Devuelve true si el puntero no es null.</div><div class="ttdef"><b>Definition</b> <a href="#l00111">OwnedPtr.h:111</a></div></div>
-<div class="ttc" id="aclass_o_s_k_1_1_owned_ptr_html_a75bb15b4b62a9756536d56fe694eee1a"><div class="ttname"><a href="class_o_s_k_1_1_owned_ptr.html#a75bb15b4b62a9756536d56fe694eee1a">OSK::OwnedPtr::operator[]</a></div><div class="ttdeci">const T &amp; operator[](size_t i) const</div><div class="ttdoc">Accede a un elemento, considerando el puntero un array.</div><div class="ttdef"><b>Definition</b> <a href="#l00064">OwnedPtr.h:64</a></div></div>
-<div class="ttc" id="aclass_o_s_k_1_1_owned_ptr_html_a81dfab2299056fc9858aace55fca0042"><div class="ttname"><a href="class_o_s_k_1_1_owned_ptr.html#a81dfab2299056fc9858aace55fca0042">OSK::OwnedPtr::GetPointer</a></div><div class="ttdeci">T * GetPointer() const</div><div class="ttdoc">Devuelve el puntero nativo.</div><div class="ttdef"><b>Definition</b> <a href="#l00079">OwnedPtr.h:79</a></div></div>
-<div class="ttc" id="aclass_o_s_k_1_1_owned_ptr_html_a91a8f962175fe7af3b02d9a02ff602be"><div class="ttname"><a href="class_o_s_k_1_1_owned_ptr.html#a91a8f962175fe7af3b02d9a02ff602be">OSK::OwnedPtr::operator-&gt;</a></div><div class="ttdeci">T * operator-&gt;() const</div><div class="ttdoc">Devuelve el puntero nativo.</div><div class="ttdef"><b>Definition</b> <a href="#l00095">OwnedPtr.h:95</a></div></div>
-<div class="ttc" id="aclass_o_s_k_1_1_owned_ptr_html_a931681c88e34c6b6a05963f0d48fe029"><div class="ttname"><a href="class_o_s_k_1_1_owned_ptr.html#a931681c88e34c6b6a05963f0d48fe029">OSK::OwnedPtr::OwnedPtr</a></div><div class="ttdeci">OwnedPtr(OwnedPtr &amp;&amp;other)</div><div class="ttdef"><b>Definition</b> <a href="#l00056">OwnedPtr.h:56</a></div></div>
-<div class="ttc" id="aclass_o_s_k_1_1_owned_ptr_html_a97bcc9354bcf3f9cc270b53a8ff273fd"><div class="ttname"><a href="class_o_s_k_1_1_owned_ptr.html#a97bcc9354bcf3f9cc270b53a8ff273fd">OSK::OwnedPtr::operator*</a></div><div class="ttdeci">T &amp; operator*()</div><div class="ttdoc">Devuelve el valor apuntado por el puntero.</div><div class="ttdef"><b>Definition</b> <a href="#l00103">OwnedPtr.h:103</a></div></div>
-<div class="ttc" id="aclass_o_s_k_1_1_owned_ptr_html_ab975e772b2816a3d220550960d67dc04"><div class="ttname"><a href="class_o_s_k_1_1_owned_ptr.html#ab975e772b2816a3d220550960d67dc04">OSK::OwnedPtr::operator==</a></div><div class="ttdeci">bool operator==(const OwnedPtr &amp;other) const</div><div class="ttdef"><b>Definition</b> <a href="#l00122">OwnedPtr.h:122</a></div></div>
-<div class="ttc" id="aclass_o_s_k_1_1_owned_ptr_html_abc17953875738ac3a9714707e5c67338"><div class="ttname"><a href="class_o_s_k_1_1_owned_ptr.html#abc17953875738ac3a9714707e5c67338">OSK::OwnedPtr::operator!=</a></div><div class="ttdeci">bool operator!=(const OwnedPtr &amp;other) const</div><div class="ttdef"><b>Definition</b> <a href="#l00125">OwnedPtr.h:125</a></div></div>
-<div class="ttc" id="aclass_o_s_k_1_1_owned_ptr_html_abf8f0755a9f0c07568b9a35f9684fcff"><div class="ttname"><a href="class_o_s_k_1_1_owned_ptr.html#abf8f0755a9f0c07568b9a35f9684fcff">OSK::OwnedPtr::operator=</a></div><div class="ttdeci">OwnedPtr &amp; operator=(OwnedPtr &amp;&amp;other)</div><div class="ttdef"><b>Definition</b> <a href="#l00051">OwnedPtr.h:51</a></div></div>
-<div class="ttc" id="aclass_o_s_k_1_1_owned_ptr_html_ac448364971bb94ba5fd1ade19177d2c7"><div class="ttname"><a href="class_o_s_k_1_1_owned_ptr.html#ac448364971bb94ba5fd1ade19177d2c7">OSK::OwnedPtr::operator=</a></div><div class="ttdeci">OwnedPtr &amp; operator=(const OwnedPtr &amp;other)</div><div class="ttdoc">Copia el OwnedPtr.</div><div class="ttdef"><b>Definition</b> <a href="#l00045">OwnedPtr.h:45</a></div></div>
-<div class="ttc" id="aclass_o_s_k_1_1_owned_ptr_html_ae1310d4a422f7e6cde8340d05bdc1e8b"><div class="ttname"><a href="class_o_s_k_1_1_owned_ptr.html#ae1310d4a422f7e6cde8340d05bdc1e8b">OSK::OwnedPtr::Delete</a></div><div class="ttdeci">void Delete()</div><div class="ttdoc">Elimina el puntero.</div><div class="ttdef"><b>Definition</b> <a href="#l00118">OwnedPtr.h:118</a></div></div>
+<div class="line"><a id="l00148" name="l00148"></a><span class="lineno">  148</span> </div>
+<div class="line"><a id="l00149" name="l00149"></a><span class="lineno">  149</span>}</div>
+<div class="line"><a id="l00150" name="l00150"></a><span class="lineno">  150</span> </div>
+<div class="line"><a id="l00151" name="l00151"></a><span class="lineno">  151</span><span class="preprocessor">#endif</span></div>
+<div class="ttc" id="aclass_o_s_k_1_1_owned_ptr_html"><div class="ttname"><a href="class_o_s_k_1_1_owned_ptr.html">OSK::OwnedPtr</a></div><div class="ttdoc">Es dueño de un puntero.</div><div class="ttdef"><b>Definition</b> <a href="#l00017">OwnedPtr.h:17</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_owned_ptr_html_a17fb6219bdae1de6301eebe5f48e2799"><div class="ttname"><a href="class_o_s_k_1_1_owned_ptr.html#a17fb6219bdae1de6301eebe5f48e2799">OSK::OwnedPtr::OwnedPtr</a></div><div class="ttdeci">OwnedPtr()</div><div class="ttdoc">Crea un OwnedPtr vacío.</div><div class="ttdef"><b>Definition</b> <a href="#l00024">OwnedPtr.h:24</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_owned_ptr_html_a49ae826fb10b997ea2624071fe6f3ff0"><div class="ttname"><a href="class_o_s_k_1_1_owned_ptr.html#a49ae826fb10b997ea2624071fe6f3ff0">OSK::OwnedPtr::OwnedPtr</a></div><div class="ttdeci">OwnedPtr(T *data)</div><div class="ttdoc">Crea un OwnedPtr que será dueño de 'data'.</div><div class="ttdef"><b>Definition</b> <a href="#l00032">OwnedPtr.h:32</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_owned_ptr_html_a529cfa432205e019bd15ae759c17b839"><div class="ttname"><a href="class_o_s_k_1_1_owned_ptr.html#a529cfa432205e019bd15ae759c17b839">OSK::OwnedPtr::operator[]</a></div><div class="ttdeci">T &amp; operator[](size_t i)</div><div class="ttdoc">Accede a un elemento, considerando el puntero un array.</div><div class="ttdef"><b>Definition</b> <a href="#l00072">OwnedPtr.h:72</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_owned_ptr_html_a5ac3a6128712d66d13b73631ea3f5ef8"><div class="ttname"><a href="class_o_s_k_1_1_owned_ptr.html#a5ac3a6128712d66d13b73631ea3f5ef8">OSK::OwnedPtr::GetValue</a></div><div class="ttdeci">T &amp; GetValue()</div><div class="ttdoc">Devuelve el valor apuntado por el puntero.</div><div class="ttdef"><b>Definition</b> <a href="#l00088">OwnedPtr.h:88</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_owned_ptr_html_a5fa69641ece7a6cc587a4afbbd388e2f"><div class="ttname"><a href="class_o_s_k_1_1_owned_ptr.html#a5fa69641ece7a6cc587a4afbbd388e2f">OSK::OwnedPtr::OwnedPtr</a></div><div class="ttdeci">OwnedPtr(const OwnedPtr &amp;other)</div><div class="ttdoc">Crea un SharedPtr que compartirá su puntero con 'other'.</div><div class="ttdef"><b>Definition</b> <a href="#l00039">OwnedPtr.h:39</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_owned_ptr_html_a6ff1efe3764161c4fdf7dd8e72f16fea"><div class="ttname"><a href="class_o_s_k_1_1_owned_ptr.html#a6ff1efe3764161c4fdf7dd8e72f16fea">OSK::OwnedPtr::HasValue</a></div><div class="ttdeci">bool HasValue() const</div><div class="ttdoc">Devuelve true si el puntero no es null.</div><div class="ttdef"><b>Definition</b> <a href="#l00112">OwnedPtr.h:112</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_owned_ptr_html_a75bb15b4b62a9756536d56fe694eee1a"><div class="ttname"><a href="class_o_s_k_1_1_owned_ptr.html#a75bb15b4b62a9756536d56fe694eee1a">OSK::OwnedPtr::operator[]</a></div><div class="ttdeci">const T &amp; operator[](size_t i) const</div><div class="ttdoc">Accede a un elemento, considerando el puntero un array.</div><div class="ttdef"><b>Definition</b> <a href="#l00065">OwnedPtr.h:65</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_owned_ptr_html_a81dfab2299056fc9858aace55fca0042"><div class="ttname"><a href="class_o_s_k_1_1_owned_ptr.html#a81dfab2299056fc9858aace55fca0042">OSK::OwnedPtr::GetPointer</a></div><div class="ttdeci">T * GetPointer() const</div><div class="ttdoc">Devuelve el puntero nativo.</div><div class="ttdef"><b>Definition</b> <a href="#l00080">OwnedPtr.h:80</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_owned_ptr_html_a91a8f962175fe7af3b02d9a02ff602be"><div class="ttname"><a href="class_o_s_k_1_1_owned_ptr.html#a91a8f962175fe7af3b02d9a02ff602be">OSK::OwnedPtr::operator-&gt;</a></div><div class="ttdeci">T * operator-&gt;() const</div><div class="ttdoc">Devuelve el puntero nativo.</div><div class="ttdef"><b>Definition</b> <a href="#l00096">OwnedPtr.h:96</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_owned_ptr_html_a931681c88e34c6b6a05963f0d48fe029"><div class="ttname"><a href="class_o_s_k_1_1_owned_ptr.html#a931681c88e34c6b6a05963f0d48fe029">OSK::OwnedPtr::OwnedPtr</a></div><div class="ttdeci">OwnedPtr(OwnedPtr &amp;&amp;other)</div><div class="ttdef"><b>Definition</b> <a href="#l00057">OwnedPtr.h:57</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_owned_ptr_html_a97bcc9354bcf3f9cc270b53a8ff273fd"><div class="ttname"><a href="class_o_s_k_1_1_owned_ptr.html#a97bcc9354bcf3f9cc270b53a8ff273fd">OSK::OwnedPtr::operator*</a></div><div class="ttdeci">T &amp; operator*()</div><div class="ttdoc">Devuelve el valor apuntado por el puntero.</div><div class="ttdef"><b>Definition</b> <a href="#l00104">OwnedPtr.h:104</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_owned_ptr_html_ab975e772b2816a3d220550960d67dc04"><div class="ttname"><a href="class_o_s_k_1_1_owned_ptr.html#ab975e772b2816a3d220550960d67dc04">OSK::OwnedPtr::operator==</a></div><div class="ttdeci">bool operator==(const OwnedPtr &amp;other) const</div><div class="ttdef"><b>Definition</b> <a href="#l00123">OwnedPtr.h:123</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_owned_ptr_html_abc17953875738ac3a9714707e5c67338"><div class="ttname"><a href="class_o_s_k_1_1_owned_ptr.html#abc17953875738ac3a9714707e5c67338">OSK::OwnedPtr::operator!=</a></div><div class="ttdeci">bool operator!=(const OwnedPtr &amp;other) const</div><div class="ttdef"><b>Definition</b> <a href="#l00126">OwnedPtr.h:126</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_owned_ptr_html_abf8f0755a9f0c07568b9a35f9684fcff"><div class="ttname"><a href="class_o_s_k_1_1_owned_ptr.html#abf8f0755a9f0c07568b9a35f9684fcff">OSK::OwnedPtr::operator=</a></div><div class="ttdeci">OwnedPtr &amp; operator=(OwnedPtr &amp;&amp;other)</div><div class="ttdef"><b>Definition</b> <a href="#l00052">OwnedPtr.h:52</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_owned_ptr_html_ac448364971bb94ba5fd1ade19177d2c7"><div class="ttname"><a href="class_o_s_k_1_1_owned_ptr.html#ac448364971bb94ba5fd1ade19177d2c7">OSK::OwnedPtr::operator=</a></div><div class="ttdeci">OwnedPtr &amp; operator=(const OwnedPtr &amp;other)</div><div class="ttdoc">Copia el OwnedPtr.</div><div class="ttdef"><b>Definition</b> <a href="#l00046">OwnedPtr.h:46</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_owned_ptr_html_ae1310d4a422f7e6cde8340d05bdc1e8b"><div class="ttname"><a href="class_o_s_k_1_1_owned_ptr.html#ae1310d4a422f7e6cde8340d05bdc1e8b">OSK::OwnedPtr::Delete</a></div><div class="ttdeci">void Delete()</div><div class="ttdoc">Elimina el puntero.</div><div class="ttdef"><b>Definition</b> <a href="#l00119">OwnedPtr.h:119</a></div></div>
 <div class="ttc" id="anamespace_o_s_k_1_1_i_o_html_a0b92714a4a778072d4824502589bd39eab9ece18c950afbfa6b0fdbfa4ff731d3"><div class="ttname"><a href="namespace_o_s_k_1_1_i_o.html#a0b92714a4a778072d4824502589bd39eab9ece18c950afbfa6b0fdbfa4ff731d3">OSK::IO::Key::T</a></div><div class="ttdeci">@ T</div></div>
 <div class="ttc" id="anamespace_o_s_k_html"><div class="ttname"><a href="namespace_o_s_k.html">OSK</a></div><div class="ttdef"><b>Definition</b> <a href="_acceleration_structures_exceptions_8h_source.html#l00005">AccelerationStructuresExceptions.h:5</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
@@ -253,7 +254,7 @@ $(function(){initNavTree('_owned_ptr_8h_source.html',''); initResizable(); });
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_74389ed8173ad57b461b9d623a1f3867.html">Source</a></li><li class="navelem"><b>OwnedPtr.h</b></li>
-    <li class="footer">Generado el Sábado, 18 de mayo de 2024 12:15:52 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.10.0 </li>
+    <li class="footer">Generado el Miércoles, 29 de mayo de 2024 12:01:49 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.11.0 </li>
   </ul>
 </div>
 </body>

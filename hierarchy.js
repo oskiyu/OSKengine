@@ -48,7 +48,7 @@ var hierarchy =
     [ "OSK::COLLISION::CollisionInfo", "class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_collision_info.html", null ],
     [ "OSK::Color", "class_o_s_k_1_1_color.html", null ],
     [ "OSK::ECS::ComponentManager", "class_o_s_k_1_1_e_c_s_1_1_component_manager.html", null ],
-    [ "OSK::IO::Console", "class_o_s_k_1_1_i_o_1_1_console.html", null ],
+    [ "OSK::ConsoleCommandExecutor", "class_o_s_k_1_1_console_command_executor.html", null ],
     [ "OSK::ConstexprBitSet< size >", "class_o_s_k_1_1_constexpr_bit_set.html", null ],
     [ "OSK::ConstexprBitSet< MAX_COMPONENT_TYPES >", "class_o_s_k_1_1_constexpr_bit_set.html", null ],
     [ "OSK::DynamicArray< T >::ConstIterator", "class_o_s_k_1_1_dynamic_array_1_1_const_iterator.html", null ],
@@ -100,11 +100,14 @@ var hierarchy =
     [ "OSK::DynamicArray< OSK::GRAPHICS::RenderPassImageInfo >", "class_o_s_k_1_1_dynamic_array.html", null ],
     [ "OSK::DynamicArray< OSK::GRAPHICS::RenderTargetAttachment >", "class_o_s_k_1_1_dynamic_array.html", null ],
     [ "OSK::DynamicArray< OSK::GRAPHICS::VertexInfo::Entry >", "class_o_s_k_1_1_dynamic_array.html", null ],
-    [ "OSK::DynamicArray< OSK::IO::Console::Entry >", "class_o_s_k_1_1_dynamic_array.html", null ],
     [ "OSK::DynamicArray< OSK::IO::IInputListener * >", "class_o_s_k_1_1_dynamic_array.html", null ],
     [ "OSK::DynamicArray< OSK::Pair< USize32, const OSK::GRAPHICS::GpuBuffer * > >", "class_o_s_k_1_1_dynamic_array.html", null ],
     [ "OSK::DynamicArray< OSK::Pair< USize32, const OSK::GRAPHICS::GpuImageDx12 * > >", "class_o_s_k_1_1_dynamic_array.html", null ],
+    [ "OSK::DynamicArray< OSK::SharedPtr< OSK::UI::IElement > >", "class_o_s_k_1_1_dynamic_array.html", null ],
+    [ "OSK::DynamicArray< OSK::UI::Button * >", "class_o_s_k_1_1_dynamic_array.html", null ],
     [ "OSK::DynamicArray< OSK::UI::Dropdown::Element >", "class_o_s_k_1_1_dynamic_array.html", null ],
+    [ "OSK::DynamicArray< OSK::UI::HorizontalContainer * >", "class_o_s_k_1_1_dynamic_array.html", null ],
+    [ "OSK::DynamicArray< OSK::UI::TextView * >", "class_o_s_k_1_1_dynamic_array.html", null ],
     [ "OSK::DynamicArray< OSK::UniquePtr< OSK::COLLISION::IBottomLevelCollider > >", "class_o_s_k_1_1_dynamic_array.html", null ],
     [ "OSK::DynamicArray< OSK::UniquePtr< OSK::GRAPHICS::GpuBuffer > >", "class_o_s_k_1_1_dynamic_array.html", null ],
     [ "OSK::DynamicArray< OSK::UniquePtr< OSK::GRAPHICS::ICommandList > >", "class_o_s_k_1_1_dynamic_array.html", null ],
@@ -112,6 +115,7 @@ var hierarchy =
     [ "OSK::DynamicArray< OSK::UniquePtr< OSK::GRAPHICS::IGraphicsPipeline > >", "class_o_s_k_1_1_dynamic_array.html", null ],
     [ "OSK::DynamicArray< OSK::UniquePtr< OSK::GRAPHICS::IShaderPass > >", "class_o_s_k_1_1_dynamic_array.html", null ],
     [ "OSK::DynamicArray< OSK::UniquePtr< OSK::GRAPHICS::Material > >", "class_o_s_k_1_1_dynamic_array.html", null ],
+    [ "OSK::DynamicArray< OSK::UniquePtr< OSK::IConsoleCommand > >", "class_o_s_k_1_1_dynamic_array.html", null ],
     [ "OSK::DynamicArray< OSK::UniquePtr< OSK::IJob > >", "class_o_s_k_1_1_dynamic_array.html", null ],
     [ "OSK::DynamicArray< OSK::UniquePtr< VkDescriptorBufferInfo > >", "class_o_s_k_1_1_dynamic_array.html", null ],
     [ "OSK::DynamicArray< OSK::UniquePtr< VkDescriptorImageInfo > >", "class_o_s_k_1_1_dynamic_array.html", null ],
@@ -119,8 +123,8 @@ var hierarchy =
     [ "OSK::DynamicArray< OSK::Vector3_t >", "class_o_s_k_1_1_dynamic_array.html", null ],
     [ "OSK::DynamicArray< OSK::Vector4_t >", "class_o_s_k_1_1_dynamic_array.html", null ],
     [ "OSK::DynamicArray< PointIndex >", "class_o_s_k_1_1_dynamic_array.html", null ],
-    [ "OSK::DynamicArray< SharedPtr< OSK::UI::IElement > >", "class_o_s_k_1_1_dynamic_array.html", null ],
     [ "OSK::DynamicArray< std::jthread >", "class_o_s_k_1_1_dynamic_array.html", null ],
+    [ "OSK::DynamicArray< std::string >", "class_o_s_k_1_1_dynamic_array.html", null ],
     [ "OSK::DynamicArray< TByte >", "class_o_s_k_1_1_dynamic_array.html", null ],
     [ "OSK::DynamicArray< TComponent >", "class_o_s_k_1_1_dynamic_array.html", null ],
     [ "OSK::DynamicArray< TDeltaTime >", "class_o_s_k_1_1_dynamic_array.html", null ],
@@ -137,7 +141,6 @@ var hierarchy =
     [ "OSK::Engine", "class_o_s_k_1_1_engine.html", null ],
     [ "OSK::ECS::EntityComponentSystem", "class_o_s_k_1_1_e_c_s_1_1_entity_component_system.html", null ],
     [ "OSK::GRAPHICS::VertexInfo::Entry", "struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_vertex_info_1_1_entry.html", null ],
-    [ "OSK::IO::Console::Entry", "struct_o_s_k_1_1_i_o_1_1_console_1_1_entry.html", null ],
     [ "OSK::ECS::EventManager", "class_o_s_k_1_1_e_c_s_1_1_event_manager.html", null ],
     [ "OSK::ECS::EventQueueSpan", "struct_o_s_k_1_1_e_c_s_1_1_event_queue_span.html", null ],
     [ "OSK::COLLISION::SatInfo::Face", "struct_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_sat_info_1_1_face.html", null ],
@@ -218,17 +221,37 @@ var hierarchy =
       [ "OSK::GRAPHICS::ComputePipelineDx12", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_compute_pipeline_dx12.html", null ],
       [ "OSK::GRAPHICS::ComputePipelineVk", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_compute_pipeline_vk.html", null ]
     ] ],
+    [ "OSK::IConsoleCommand", "class_o_s_k_1_1_i_console_command.html", [
+      [ "OSK::EditorHideCommand", "class_o_s_k_1_1_editor_hide_command.html", null ],
+      [ "OSK::EditorShowCommand", "class_o_s_k_1_1_editor_show_command.html", null ],
+      [ "OSK::ExitCommand", "class_o_s_k_1_1_exit_command.html", null ],
+      [ "OSK::GpuStatsCommand", "class_o_s_k_1_1_gpu_stats_command.html", null ]
+    ] ],
     [ "OSK::UI::IElement", "class_o_s_k_1_1_u_i_1_1_i_element.html", [
       [ "OSK::UI::Button", "class_o_s_k_1_1_u_i_1_1_button.html", null ],
       [ "OSK::UI::Dropdown", "class_o_s_k_1_1_u_i_1_1_dropdown.html", null ],
       [ "OSK::UI::Dropdown::Element", "class_o_s_k_1_1_u_i_1_1_dropdown_1_1_element.html", null ],
       [ "OSK::UI::IContainer", "class_o_s_k_1_1_u_i_1_1_i_container.html", [
+        [ "OSK::UI::BorderLayout", "class_o_s_k_1_1_u_i_1_1_border_layout.html", [
+          [ "OSK::Editor::UI::EditorUi", "class_o_s_k_1_1_editor_1_1_u_i_1_1_editor_ui.html", null ]
+        ] ],
         [ "OSK::UI::FreeContainer", "class_o_s_k_1_1_u_i_1_1_free_container.html", null ],
-        [ "OSK::UI::HorizontalContainer", "class_o_s_k_1_1_u_i_1_1_horizontal_container.html", null ],
-        [ "OSK::UI::VerticalContainer", "class_o_s_k_1_1_u_i_1_1_vertical_container.html", null ]
+        [ "OSK::UI::HorizontalContainer", "class_o_s_k_1_1_u_i_1_1_horizontal_container.html", [
+          [ "OSK::Editor::UI::EditorBottomBar", "class_o_s_k_1_1_editor_1_1_u_i_1_1_editor_bottom_bar.html", null ],
+          [ "OSK::Editor::UI::EditorHeader", "class_o_s_k_1_1_editor_1_1_u_i_1_1_editor_header.html", null ]
+        ] ],
+        [ "OSK::UI::VerticalContainer", "class_o_s_k_1_1_u_i_1_1_vertical_container.html", [
+          [ "OSK::Editor::UI::EditorPanelTitle", "class_o_s_k_1_1_editor_1_1_u_i_1_1_editor_panel_title.html", null ],
+          [ "OSK::Editor::UI::ObjectList", "class_o_s_k_1_1_editor_1_1_u_i_1_1_object_list.html", null ],
+          [ "OSK::Editor::UI::PropertiesPanel", "class_o_s_k_1_1_editor_1_1_u_i_1_1_properties_panel.html", null ],
+          [ "OSK::Editor::UI::SystemList", "class_o_s_k_1_1_editor_1_1_u_i_1_1_system_list.html", null ],
+          [ "OSK::UI::Console", "class_o_s_k_1_1_u_i_1_1_console.html", null ]
+        ] ]
       ] ],
-      [ "OSK::UI::ImageView", "class_o_s_k_1_1_u_i_1_1_image_view.html", null ],
-      [ "OSK::UI::TextView", "class_o_s_k_1_1_u_i_1_1_text_view.html", null ]
+      [ "OSK::UI::ImageView", "class_o_s_k_1_1_u_i_1_1_image_view.html", [
+        [ "OSK::UI::TextView", "class_o_s_k_1_1_u_i_1_1_text_view.html", null ]
+      ] ],
+      [ "OSK::UI::TextInput", "class_o_s_k_1_1_u_i_1_1_text_input.html", null ]
     ] ],
     [ "OSK::ECS::IEventContainer", "class_o_s_k_1_1_e_c_s_1_1_i_event_container.html", [
       [ "OSK::ECS::EventContainer< TEvent >", "class_o_s_k_1_1_e_c_s_1_1_event_container.html", null ]
@@ -236,7 +259,9 @@ var hierarchy =
     [ "OSK::IO::IFullscreenableDisplay", "class_o_s_k_1_1_i_o_1_1_i_fullscreenable_display.html", [
       [ "OSK::IO::Window", "class_o_s_k_1_1_i_o_1_1_window.html", null ]
     ] ],
-    [ "OSK::IGame", "class_o_s_k_1_1_i_game.html", null ],
+    [ "OSK::IGame", "class_o_s_k_1_1_i_game.html", [
+      [ "OSK::IDebugGame", "class_o_s_k_1_1_i_debug_game.html", null ]
+    ] ],
     [ "OSK::IO::IGamepadInput", "class_o_s_k_1_1_i_o_1_1_i_gamepad_input.html", [
       [ "OSK::IO::PcUserInput", "class_o_s_k_1_1_i_o_1_1_pc_user_input.html", null ]
     ] ],
@@ -555,8 +580,8 @@ var hierarchy =
     [ "OSK::GRAPHICS::ShaderStageDx12", "struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_shader_stage_dx12.html", null ],
     [ "OSK::GRAPHICS::ShaderStageVk", "struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_shader_stage_vk.html", null ],
     [ "OSK::GRAPHICS::ShadowMap", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_shadow_map.html", null ],
-    [ "SharedPtr< T >", "class_shared_ptr.html", null ],
-    [ "SharedPtr< OSK::UI::IElement >", "class_shared_ptr.html", null ],
+    [ "OSK::SharedPtr< T >", "class_o_s_k_1_1_shared_ptr.html", null ],
+    [ "OSK::SharedPtr< OSK::UI::IElement >", "class_o_s_k_1_1_shared_ptr.html", null ],
     [ "OSK::COLLISION::Simplex", "class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_simplex.html", null ],
     [ "OSK::GRAPHICS::Skeleton", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_skeleton.html", null ],
     [ "OSK::Span< T >", "class_o_s_k_1_1_span.html", null ],
@@ -616,6 +641,7 @@ var hierarchy =
     [ "OSK::UniquePtr< OSK::COLLISION::Collider >", "class_o_s_k_1_1_unique_ptr.html", null ],
     [ "OSK::UniquePtr< OSK::COLLISION::IBottomLevelCollider >", "class_o_s_k_1_1_unique_ptr.html", null ],
     [ "OSK::UniquePtr< OSK::COLLISION::ITopLevelCollider >", "class_o_s_k_1_1_unique_ptr.html", null ],
+    [ "OSK::UniquePtr< OSK::ConsoleCommandExecutor >", "class_o_s_k_1_1_unique_ptr.html", null ],
     [ "OSK::UniquePtr< OSK::ECS::ComponentManager >", "class_o_s_k_1_1_unique_ptr.html", null ],
     [ "OSK::UniquePtr< OSK::ECS::EntityComponentSystem >", "class_o_s_k_1_1_unique_ptr.html", null ],
     [ "OSK::UniquePtr< OSK::ECS::EventManager >", "class_o_s_k_1_1_unique_ptr.html", null ],
@@ -647,8 +673,8 @@ var hierarchy =
     [ "OSK::UniquePtr< OSK::GRAPHICS::MaterialSystem >", "class_o_s_k_1_1_unique_ptr.html", null ],
     [ "OSK::UniquePtr< OSK::GRAPHICS::RenderTarget >", "class_o_s_k_1_1_unique_ptr.html", null ],
     [ "OSK::UniquePtr< OSK::GRAPHICS::Sprite >", "class_o_s_k_1_1_unique_ptr.html", null ],
+    [ "OSK::UniquePtr< OSK::IConsoleCommand >", "class_o_s_k_1_1_unique_ptr.html", null ],
     [ "OSK::UniquePtr< OSK::IJob >", "class_o_s_k_1_1_unique_ptr.html", null ],
-    [ "OSK::UniquePtr< OSK::IO::Console >", "class_o_s_k_1_1_unique_ptr.html", null ],
     [ "OSK::UniquePtr< OSK::IO::IDisplay >", "class_o_s_k_1_1_unique_ptr.html", null ],
     [ "OSK::UniquePtr< OSK::IO::InputManager >", "class_o_s_k_1_1_unique_ptr.html", null ],
     [ "OSK::UniquePtr< OSK::IO::IUserInput >", "class_o_s_k_1_1_unique_ptr.html", null ],

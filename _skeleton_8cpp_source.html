@@ -3,7 +3,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
-<meta name="generator" content="Doxygen 1.10.0"/>
+<meta name="generator" content="Doxygen 1.11.0"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
 <title>OSKengine: Archivo de código fuente Source/Skeleton.cpp</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
@@ -11,9 +11,9 @@
 <script type="text/javascript" src="dynsections.js"></script>
 <script type="text/javascript" src="clipboard.js"></script>
 <link href="navtree.css" rel="stylesheet" type="text/css"/>
-<script type="text/javascript" src="resize.js"></script>
 <script type="text/javascript" src="navtreedata.js"></script>
 <script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript" src="resize.js"></script>
 <script type="text/javascript" src="cookie.js"></script>
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/searchdata.js"></script>
@@ -37,10 +37,15 @@
 </table>
 </div>
 <!-- end header part -->
-<!-- Generado por Doxygen 1.10.0 -->
+<!-- Generado por Doxygen 1.11.0 -->
 <script type="text/javascript">
 /* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
 var searchBox = new SearchBox("searchBox", "search/",'.html');
+/* @license-end */
+</script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() { codefold.init(0); });
 /* @license-end */
 </script>
 <script type="text/javascript" src="menudata.js"></script>
@@ -48,17 +53,12 @@ var searchBox = new SearchBox("searchBox", "search/",'.html');
 <script type="text/javascript">
 /* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
 $(function() {
-  initMenu('',true,false,'search.php','Buscar');
+  initMenu('',true,false,'search.php','Buscar',true);
   $(function() { init_search(); });
 });
 /* @license-end */
 </script>
 <div id="main-nav"></div>
-<script type="text/javascript">
-/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
-$(function() { codefold.init(0); });
-/* @license-end */
-</script>
 </div><!-- top -->
 <div id="side-nav" class="ui-resizable side-nav-resizable">
   <div id="nav-tree">
@@ -72,7 +72,7 @@ $(function() { codefold.init(0); });
 </div>
 <script type="text/javascript">
 /* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
-$(function(){initNavTree('_skeleton_8cpp_source.html',''); initResizable(); });
+$(function(){initNavTree('_skeleton_8cpp_source.html',''); initResizable(true); });
 /* @license-end */
 </script>
 <div id="doc-content">
@@ -114,7 +114,7 @@ $(function(){initNavTree('_skeleton_8cpp_source.html',''); initResizable(); });
 <div class="foldopen" id="foldopen00011" data-start="{" data-end="}">
 <div class="line"><a id="l00011" name="l00011"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_skeleton.html#ab21a245956f24f9566a8aa41a7dd74b1">   11</a></span><a class="code hl_function" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_skeleton.html#ab21a245956f24f9566a8aa41a7dd74b1">Skeleton::Skeleton</a>(<span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_dynamic_array.html">DynamicArray&lt;AnimationBone&gt;</a>&amp; bones) {</div>
 <div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span>    <span class="keywordflow">for</span> (<span class="keyword">const</span> <span class="keyword">auto</span>&amp; bone : bones) {</div>
-<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span>        <span class="keyword">const</span> UIndex32 boneIndex = bone.thisIndex;</div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span>        <span class="keyword">const</span> <a class="code hl_typedef" href="namespace_o_s_k.html#a382ed4c8a6994201cbad5d4e1335861b">UIndex32</a> boneIndex = bone.thisIndex;</div>
 <div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span> </div>
 <div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span>        <span class="comment">// OSK_ASSERT(!m_bones.contains(nodeIndex), BoneAlreadyAddedException(bone.thisIndex));</span></div>
 <div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span> </div>
@@ -135,7 +135,7 @@ $(function(){initNavTree('_skeleton_8cpp_source.html',''); initResizable(); });
 </div>
 <div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span> </div>
 <div class="foldopen" id="foldopen00030" data-start="{" data-end="}">
-<div class="line"><a id="l00030" name="l00030"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_skeleton.html#a6be528c7493e17df99e515cccf3e6945">   30</a></span>UIndex32 <a class="code hl_function" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_skeleton.html#a6be528c7493e17df99e515cccf3e6945">Skeleton::GetRootNodeIndex</a>()<span class="keyword"> const </span>{</div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_skeleton.html#a6be528c7493e17df99e515cccf3e6945">   30</a></span><a class="code hl_typedef" href="namespace_o_s_k.html#a382ed4c8a6994201cbad5d4e1335861b">UIndex32</a> <a class="code hl_function" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_skeleton.html#a6be528c7493e17df99e515cccf3e6945">Skeleton::GetRootNodeIndex</a>()<span class="keyword"> const </span>{</div>
 <div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>    <span class="keywordflow">for</span> (<span class="keyword">auto</span>&amp; [index, node] : m_bones)</div>
 <div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>        <span class="keywordflow">if</span> (node.parentIndex == std::numeric_limits&lt;UIndex32&gt;::max())</div>
 <div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>            <span class="keywordflow">return</span> index;</div>
@@ -152,20 +152,20 @@ $(function(){initNavTree('_skeleton_8cpp_source.html',''); initResizable(); });
 </div>
 <div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span> </div>
 <div class="foldopen" id="foldopen00043" data-start="{" data-end="}">
-<div class="line"><a id="l00043" name="l00043"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_skeleton.html#a4b846fd2e09c64d408ba32ccdb9d1af7">   43</a></span><a class="code hl_class" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">USize64</a> <a class="code hl_function" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_skeleton.html#a4b846fd2e09c64d408ba32ccdb9d1af7">Skeleton::GetBoneCount</a>()<span class="keyword"> const </span>{</div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_skeleton.html#a4b846fd2e09c64d408ba32ccdb9d1af7">   43</a></span><a class="code hl_typedef" href="namespace_o_s_k.html#a83ff197aaa32126d84ad65f1d6d5a3b5">USize64</a> <a class="code hl_function" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_skeleton.html#a4b846fd2e09c64d408ba32ccdb9d1af7">Skeleton::GetBoneCount</a>()<span class="keyword"> const </span>{</div>
 <div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>    <span class="keywordflow">return</span> m_bones.size();</div>
 <div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>}</div>
 </div>
 <div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span> </div>
 <div class="foldopen" id="foldopen00047" data-start="{" data-end="}">
-<div class="line"><a id="l00047" name="l00047"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_skeleton.html#ae9b6911271d126bbd5cfea864a5fc336">   47</a></span><a class="code hl_struct" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_animation_bone.html">AnimationBone</a>&amp; <a class="code hl_function" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_skeleton.html#ae9b6911271d126bbd5cfea864a5fc336">Skeleton::GetBone</a>(UIndex32 nodeIndex) {</div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_skeleton.html#ae9b6911271d126bbd5cfea864a5fc336">   47</a></span><a class="code hl_struct" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_animation_bone.html">AnimationBone</a>&amp; <a class="code hl_function" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_skeleton.html#ae9b6911271d126bbd5cfea864a5fc336">Skeleton::GetBone</a>(<a class="code hl_typedef" href="namespace_o_s_k.html#a382ed4c8a6994201cbad5d4e1335861b">UIndex32</a> nodeIndex) {</div>
 <div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>    OSK_ASSERT(m_bones.contains(nodeIndex), <a class="code hl_class" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_bone_not_found_exception.html">BoneNotFoundException</a>(nodeIndex));</div>
 <div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>    <span class="keywordflow">return</span> m_bones.at(nodeIndex);</div>
 <div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>}</div>
 </div>
 <div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span> </div>
 <div class="foldopen" id="foldopen00052" data-start="{" data-end="}">
-<div class="line"><a id="l00052" name="l00052"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_skeleton.html#a1aa14e33f053252966709496bbbfeb2c">   52</a></span><span class="keyword">const</span> <a class="code hl_struct" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_animation_bone.html">AnimationBone</a>&amp; <a class="code hl_function" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_skeleton.html#ae9b6911271d126bbd5cfea864a5fc336">Skeleton::GetBone</a>(UIndex32 nodeIndex)<span class="keyword"> const </span>{</div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_skeleton.html#a1aa14e33f053252966709496bbbfeb2c">   52</a></span><span class="keyword">const</span> <a class="code hl_struct" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_animation_bone.html">AnimationBone</a>&amp; <a class="code hl_function" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_skeleton.html#ae9b6911271d126bbd5cfea864a5fc336">Skeleton::GetBone</a>(<a class="code hl_typedef" href="namespace_o_s_k.html#a382ed4c8a6994201cbad5d4e1335861b">UIndex32</a> nodeIndex)<span class="keyword"> const </span>{</div>
 <div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>    OSK_ASSERT(m_bones.contains(nodeIndex), <a class="code hl_class" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_bone_not_found_exception.html">BoneNotFoundException</a>(nodeIndex));</div>
 <div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>    <span class="keywordflow">return</span> m_bones.at(nodeIndex);</div>
 <div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>}</div>
@@ -173,16 +173,16 @@ $(function(){initNavTree('_skeleton_8cpp_source.html',''); initResizable(); });
 <div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span> </div>
 <div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span> </div>
 <div class="foldopen" id="foldopen00058" data-start="{" data-end="}">
-<div class="line"><a id="l00058" name="l00058"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_skeleton.html#ab4bf0f0a9b308e5f7b4ab1073747fdfd">   58</a></span><a class="code hl_struct" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_animation_bone.html">AnimationBone</a>&amp; <a class="code hl_function" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_skeleton.html#ae9b6911271d126bbd5cfea864a5fc336">Skeleton::GetBone</a>(UIndex32 boneIndex, <span class="keyword">const</span> <a class="code hl_struct" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_animation_skin.html">AnimationSkin</a>&amp; skin) {</div>
-<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>    <span class="keyword">const</span> UIndex32 nodeIndex = skin.<a class="code hl_variable" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_animation_skin.html#a58055174c7f93a2707a286da67a27a9a">bonesIds</a>.<a class="code hl_function" href="class_o_s_k_1_1_dynamic_array.html#abb2718a784ceb0e0f31fdc7f5dbd782f">At</a>(boneIndex);</div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_skeleton.html#ab4bf0f0a9b308e5f7b4ab1073747fdfd">   58</a></span><a class="code hl_struct" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_animation_bone.html">AnimationBone</a>&amp; <a class="code hl_function" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_skeleton.html#ae9b6911271d126bbd5cfea864a5fc336">Skeleton::GetBone</a>(<a class="code hl_typedef" href="namespace_o_s_k.html#a382ed4c8a6994201cbad5d4e1335861b">UIndex32</a> boneIndex, <span class="keyword">const</span> <a class="code hl_struct" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_animation_skin.html">AnimationSkin</a>&amp; skin) {</div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>    <span class="keyword">const</span> <a class="code hl_typedef" href="namespace_o_s_k.html#a382ed4c8a6994201cbad5d4e1335861b">UIndex32</a> nodeIndex = skin.<a class="code hl_variable" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_animation_skin.html#a58055174c7f93a2707a286da67a27a9a">bonesIds</a>.<a class="code hl_function" href="class_o_s_k_1_1_dynamic_array.html#abb2718a784ceb0e0f31fdc7f5dbd782f">At</a>(boneIndex);</div>
 <div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>    OSK_ASSERT(m_bones.contains(nodeIndex), <a class="code hl_class" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_bone_not_found_exception.html">BoneNotFoundException</a>(boneIndex));</div>
 <div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>    <span class="keywordflow">return</span> m_bones.at(nodeIndex);</div>
 <div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>}</div>
 </div>
 <div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span> </div>
 <div class="foldopen" id="foldopen00064" data-start="{" data-end="}">
-<div class="line"><a id="l00064" name="l00064"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_skeleton.html#ae906678561c608cf3babcdae49abfa15">   64</a></span><span class="keyword">const</span> <a class="code hl_struct" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_animation_bone.html">AnimationBone</a>&amp; <a class="code hl_function" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_skeleton.html#ae9b6911271d126bbd5cfea864a5fc336">Skeleton::GetBone</a>(UIndex32 boneIndex, <span class="keyword">const</span> <a class="code hl_struct" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_animation_skin.html">AnimationSkin</a>&amp; skin)<span class="keyword"> const </span>{</div>
-<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>    <span class="keyword">const</span> UIndex32 nodeIndex = skin.<a class="code hl_variable" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_animation_skin.html#a58055174c7f93a2707a286da67a27a9a">bonesIds</a>.<a class="code hl_function" href="class_o_s_k_1_1_dynamic_array.html#abb2718a784ceb0e0f31fdc7f5dbd782f">At</a>(boneIndex);</div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_skeleton.html#ae906678561c608cf3babcdae49abfa15">   64</a></span><span class="keyword">const</span> <a class="code hl_struct" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_animation_bone.html">AnimationBone</a>&amp; <a class="code hl_function" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_skeleton.html#ae9b6911271d126bbd5cfea864a5fc336">Skeleton::GetBone</a>(<a class="code hl_typedef" href="namespace_o_s_k.html#a382ed4c8a6994201cbad5d4e1335861b">UIndex32</a> boneIndex, <span class="keyword">const</span> <a class="code hl_struct" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_animation_skin.html">AnimationSkin</a>&amp; skin)<span class="keyword"> const </span>{</div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>    <span class="keyword">const</span> <a class="code hl_typedef" href="namespace_o_s_k.html#a382ed4c8a6994201cbad5d4e1335861b">UIndex32</a> nodeIndex = skin.<a class="code hl_variable" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_animation_skin.html#a58055174c7f93a2707a286da67a27a9a">bonesIds</a>.<a class="code hl_function" href="class_o_s_k_1_1_dynamic_array.html#abb2718a784ceb0e0f31fdc7f5dbd782f">At</a>(boneIndex);</div>
 <div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>    OSK_ASSERT(m_bones.contains(nodeIndex), <a class="code hl_class" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_bone_not_found_exception.html">BoneNotFoundException</a>(boneIndex));</div>
 <div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>    <span class="keywordflow">return</span> m_bones.at(nodeIndex);</div>
 <div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>}</div>
@@ -219,9 +219,8 @@ $(function(){initNavTree('_skeleton_8cpp_source.html',''); initResizable(); });
 <div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span>    <span class="keywordflow">return</span> <a class="code hl_function" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_skeleton.html#ae9b6911271d126bbd5cfea864a5fc336">GetBone</a>(m_boneNameToIndex.find(name)-&gt;second, skin);</div>
 <div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span>}</div>
 </div>
-<div class="ttc" id="aclass_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref_html"><div class="ttname"><a href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">OSK::ASSETS::AssetRef</a></div><div class="ttdoc">Referencia a un asset.</div><div class="ttdef"><b>Definition</b> <a href="_asset_ref_8h_source.html#l00012">AssetRef.h:12</a></div></div>
-<div class="ttc" id="aclass_o_s_k_1_1_dynamic_array_html"><div class="ttname"><a href="class_o_s_k_1_1_dynamic_array.html">OSK::DynamicArray</a></div><div class="ttdoc">Dynamic array: array que puede cambiar de tamaño.</div><div class="ttdef"><b>Definition</b> <a href="_dynamic_array_8hpp_source.html#l00067">DynamicArray.hpp:67</a></div></div>
-<div class="ttc" id="aclass_o_s_k_1_1_dynamic_array_html_abb2718a784ceb0e0f31fdc7f5dbd782f"><div class="ttname"><a href="class_o_s_k_1_1_dynamic_array.html#abb2718a784ceb0e0f31fdc7f5dbd782f">OSK::DynamicArray::At</a></div><div class="ttdeci">const T &amp; At(UIndex64 index) const</div><div class="ttdoc">Devuelve el elemento en la posición dada.</div><div class="ttdef"><b>Definition</b> <a href="_dynamic_array_8hpp_source.html#l00378">DynamicArray.hpp:378</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_dynamic_array_html"><div class="ttname"><a href="class_o_s_k_1_1_dynamic_array.html">OSK::DynamicArray</a></div><div class="ttdoc">Dynamic array: array que puede cambiar de tamaño.</div><div class="ttdef"><b>Definition</b> <a href="_dynamic_array_8hpp_source.html#l00069">DynamicArray.hpp:69</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_dynamic_array_html_abb2718a784ceb0e0f31fdc7f5dbd782f"><div class="ttname"><a href="class_o_s_k_1_1_dynamic_array.html#abb2718a784ceb0e0f31fdc7f5dbd782f">OSK::DynamicArray::At</a></div><div class="ttdeci">const T &amp; At(UIndex64 index) const</div><div class="ttdoc">Devuelve el elemento en la posición dada.</div><div class="ttdef"><b>Definition</b> <a href="_dynamic_array_8hpp_source.html#l00380">DynamicArray.hpp:380</a></div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_bone_not_found_exception_html"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_bone_not_found_exception.html">OSK::GRAPHICS::BoneNotFoundException</a></div><div class="ttdoc">Excepción que ocurre cuando se trata de acceder a un bone que no existe.</div><div class="ttdef"><b>Definition</b> <a href="_animation_exceptions_8h_source.html#l00039">AnimationExceptions.h:39</a></div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_skeleton_html_a3a80d2bf4e5f133ac9a3b6a638bd5c5e"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_skeleton.html#a3a80d2bf4e5f133ac9a3b6a638bd5c5e">OSK::GRAPHICS::Skeleton::AddBone</a></div><div class="ttdeci">void AddBone(const AnimationBone &amp;bone)</div><div class="ttdoc">Añade un nuevo hueso al esqueleto.</div><div class="ttdef"><b>Definition</b> <a href="#l00038">Skeleton.cpp:38</a></div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_skeleton_html_a4b846fd2e09c64d408ba32ccdb9d1af7"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_skeleton.html#a4b846fd2e09c64d408ba32ccdb9d1af7">OSK::GRAPHICS::Skeleton::GetBoneCount</a></div><div class="ttdeci">USize64 GetBoneCount() const</div><div class="ttdef"><b>Definition</b> <a href="#l00043">Skeleton.cpp:43</a></div></div>
@@ -231,6 +230,8 @@ $(function(){initNavTree('_skeleton_8cpp_source.html',''); initResizable(); });
 <div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_skeleton_html_ae9b6911271d126bbd5cfea864a5fc336"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_skeleton.html#ae9b6911271d126bbd5cfea864a5fc336">OSK::GRAPHICS::Skeleton::GetBone</a></div><div class="ttdeci">AnimationBone &amp; GetBone(UIndex32 boneIndex)</div><div class="ttdef"><b>Definition</b> <a href="#l00047">Skeleton.cpp:47</a></div></div>
 <div class="ttc" id="anamespace_o_s_k_1_1_g_r_a_p_h_i_c_s_html"><div class="ttname"><a href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html">OSK::GRAPHICS</a></div><div class="ttdef"><b>Definition</b> <a href="_acceleration_structures_exceptions_8h_source.html#l00005">AccelerationStructuresExceptions.h:5</a></div></div>
 <div class="ttc" id="anamespace_o_s_k_html"><div class="ttname"><a href="namespace_o_s_k.html">OSK</a></div><div class="ttdef"><b>Definition</b> <a href="_acceleration_structures_exceptions_8h_source.html#l00005">AccelerationStructuresExceptions.h:5</a></div></div>
+<div class="ttc" id="anamespace_o_s_k_html_a382ed4c8a6994201cbad5d4e1335861b"><div class="ttname"><a href="namespace_o_s_k.html#a382ed4c8a6994201cbad5d4e1335861b">OSK::UIndex32</a></div><div class="ttdeci">uint32_t UIndex32</div><div class="ttdoc">Índice de un elemento, almacenado en un unsigned int de 32 bits.</div><div class="ttdef"><b>Definition</b> <a href="_numeric_types_8h_source.html#l00010">NumericTypes.h:10</a></div></div>
+<div class="ttc" id="anamespace_o_s_k_html_a83ff197aaa32126d84ad65f1d6d5a3b5"><div class="ttname"><a href="namespace_o_s_k.html#a83ff197aaa32126d84ad65f1d6d5a3b5">OSK::USize64</a></div><div class="ttdeci">uint64_t USize64</div><div class="ttdoc">Tamaño, almacenado en un unsigned int de 64 bits.</div><div class="ttdef"><b>Definition</b> <a href="_numeric_types_8h_source.html#l00026">NumericTypes.h:26</a></div></div>
 <div class="ttc" id="astruct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_animation_bone_html"><div class="ttname"><a href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_animation_bone.html">OSK::GRAPHICS::AnimationBone</a></div><div class="ttdoc">Hueso de la animación.</div><div class="ttdef"><b>Definition</b> <a href="_bone_8h_source.html#l00020">Bone.h:20</a></div></div>
 <div class="ttc" id="astruct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_animation_bone_html_a126e64a3ab8e9e0f0f5f9e59ef061224"><div class="ttname"><a href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_animation_bone.html#a126e64a3ab8e9e0f0f5f9e59ef061224">OSK::GRAPHICS::AnimationBone::thisIndex</a></div><div class="ttdeci">UIndex32 thisIndex</div><div class="ttdoc">Índice del hueso.</div><div class="ttdef"><b>Definition</b> <a href="_bone_8h_source.html#l00041">Bone.h:41</a></div></div>
 <div class="ttc" id="astruct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_animation_bone_html_a150ce87fe6f0565e7dee674b6defd4d4"><div class="ttname"><a href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_animation_bone.html#a150ce87fe6f0565e7dee674b6defd4d4">OSK::GRAPHICS::AnimationBone::name</a></div><div class="ttdeci">std::string name</div><div class="ttdoc">Nombre nativo.</div><div class="ttdef"><b>Definition</b> <a href="_bone_8h_source.html#l00031">Bone.h:31</a></div></div>
@@ -243,7 +244,7 @@ $(function(){initNavTree('_skeleton_8cpp_source.html',''); initResizable(); });
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_74389ed8173ad57b461b9d623a1f3867.html">Source</a></li><li class="navelem"><b>Skeleton.cpp</b></li>
-    <li class="footer">Generado el Sábado, 18 de mayo de 2024 12:15:52 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.10.0 </li>
+    <li class="footer">Generado el Miércoles, 29 de mayo de 2024 12:01:49 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.11.0 </li>
   </ul>
 </div>
 </body>

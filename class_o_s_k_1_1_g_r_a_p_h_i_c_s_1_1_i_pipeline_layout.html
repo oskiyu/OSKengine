@@ -3,7 +3,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
-<meta name="generator" content="Doxygen 1.10.0"/>
+<meta name="generator" content="Doxygen 1.11.0"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
 <title>OSKengine: Referencia de la clase OSK::GRAPHICS::IPipelineLayout</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
@@ -11,9 +11,9 @@
 <script type="text/javascript" src="dynsections.js"></script>
 <script type="text/javascript" src="clipboard.js"></script>
 <link href="navtree.css" rel="stylesheet" type="text/css"/>
-<script type="text/javascript" src="resize.js"></script>
 <script type="text/javascript" src="navtreedata.js"></script>
 <script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript" src="resize.js"></script>
 <script type="text/javascript" src="cookie.js"></script>
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/searchdata.js"></script>
@@ -37,10 +37,15 @@
 </table>
 </div>
 <!-- end header part -->
-<!-- Generado por Doxygen 1.10.0 -->
+<!-- Generado por Doxygen 1.11.0 -->
 <script type="text/javascript">
 /* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
 var searchBox = new SearchBox("searchBox", "search/",'.html');
+/* @license-end */
+</script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() { codefold.init(0); });
 /* @license-end */
 </script>
 <script type="text/javascript" src="menudata.js"></script>
@@ -48,7 +53,7 @@ var searchBox = new SearchBox("searchBox", "search/",'.html');
 <script type="text/javascript">
 /* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
 $(function() {
-  initMenu('',true,false,'search.php','Buscar');
+  initMenu('',true,false,'search.php','Buscar',true);
   $(function() { init_search(); });
 });
 /* @license-end */
@@ -67,7 +72,7 @@ $(function() {
 </div>
 <script type="text/javascript">
 /* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
-$(function(){initNavTree('class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_pipeline_layout.html',''); initResizable(); });
+$(function(){initNavTree('class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_pipeline_layout.html',''); initResizable(true); });
 /* @license-end */
 </script>
 <div id="doc-content">
@@ -108,17 +113,15 @@ Métodos públicos</h2></td></tr>
 <tr class="separator:a41e897524c76dfa2abd3d773108de7ff"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6f28e32e0214d804fdd211cceaab960d" id="r_a6f28e32e0214d804fdd211cceaab960d"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a6f28e32e0214d804fdd211cceaab960d">~IPipelineLayout</a> ()=default</td></tr>
 <tr class="separator:a6f28e32e0214d804fdd211cceaab960d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab7b56d4f89c4be3813932ecc24f1b3a3" id="r_ab7b56d4f89c4be3813932ecc24f1b3a3"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; <br />
-requires std::is_base_of_v&lt;<a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_pipeline_layout.html">IPipelineLayout</a>, T&gt;</td></tr>
-<tr class="memitem:ab7b56d4f89c4be3813932ecc24f1b3a3"><td class="memTemplItemLeft" align="right" valign="top">T *&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="#ab7b56d4f89c4be3813932ecc24f1b3a3">As</a> () const</td></tr>
-<tr class="separator:ab7b56d4f89c4be3813932ecc24f1b3a3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1ab283aebe162170fb8a4ec3c7cc91f7" id="r_a1ab283aebe162170fb8a4ec3c7cc91f7"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a1ab283aebe162170fb8a4ec3c7cc91f7">OSK_DEFINE_AS</a> (<a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_pipeline_layout.html">IPipelineLayout</a>)</td></tr>
+<tr class="separator:a1ab283aebe162170fb8a4ec3c7cc91f7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Descripción detallada</h2>
 <div class="textblock"><p>Un pipeline layout define el layout del pipeline, es decir: define qué recursos necesita para el renderizado (textura, buffers, push constants...). </p>
 <p>Representación nativa de <a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_layout.html" title="El layout de un material determina qué slots pertenecen a ese material.">MaterialLayout</a>.</p>
 <dl class="section see"><dt>Ver también</dt><dd><a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_layout.html" title="El layout de un material determina qué slots pertenecen a ese material.">MaterialLayout</a>. </dd></dl>
 
-<p class="definition">Definición en la línea <a class="el" href="_i_pipeline_layout_8h_source.html#l00018">18</a> del archivo <a class="el" href="_i_pipeline_layout_8h_source.html">IPipelineLayout.h</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_i_pipeline_layout_8h_source.html#l00019">19</a> del archivo <a class="el" href="_i_pipeline_layout_8h_source.html">IPipelineLayout.h</a>.</p>
 </div><h2 class="groupheader">Documentación de constructores y destructores</h2>
 <a id="a41e897524c76dfa2abd3d773108de7ff" name="a41e897524c76dfa2abd3d773108de7ff"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a41e897524c76dfa2abd3d773108de7ff">&#9670;&#160;</a></span>IPipelineLayout()</h2>
@@ -163,7 +166,7 @@ requires std::is_base_of_v&lt;<a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_
         <tr>
           <td class="memname">virtual OSK::GRAPHICS::IPipelineLayout::~IPipelineLayout </td>
           <td>(</td>
-          <td class="paramname"><span class="paramname"></span></td><td>)</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -177,33 +180,20 @@ requires std::is_base_of_v&lt;<a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_
 </div>
 </div>
 <h2 class="groupheader">Documentación de funciones miembro</h2>
-<a id="ab7b56d4f89c4be3813932ecc24f1b3a3" name="ab7b56d4f89c4be3813932ecc24f1b3a3"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab7b56d4f89c4be3813932ecc24f1b3a3">&#9670;&#160;</a></span>As()</h2>
+<a id="a1ab283aebe162170fb8a4ec3c7cc91f7" name="a1ab283aebe162170fb8a4ec3c7cc91f7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1ab283aebe162170fb8a4ec3c7cc91f7">&#9670;&#160;</a></span>OSK_DEFINE_AS()</h2>
 
 <div class="memitem">
 <div class="memproto">
-<div class="memtemplate">
-template&lt;typename T &gt; <br />
-requires std::is_base_of_v&lt;<a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_pipeline_layout.html">IPipelineLayout</a>, T&gt;</div>
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">T * OSK::GRAPHICS::IPipelineLayout::As </td>
+          <td class="memname">OSK::GRAPHICS::IPipelineLayout::OSK_DEFINE_AS </td>
           <td>(</td>
-          <td class="paramname"><span class="paramname"></span></td><td>)</td>
-          <td> const</td>
+          <td class="paramtype"><a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_pipeline_layout.html">IPipelineLayout</a></td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
         </tr>
       </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
 </div><div class="memdoc">
-
-<p class="definition">Definición en la línea <a class="el" href="_i_pipeline_layout_8h_source.html#l00029">29</a> del archivo <a class="el" href="_i_pipeline_layout_8h_source.html">IPipelineLayout.h</a>.</p>
 
 </div>
 </div>
@@ -213,7 +203,7 @@ requires std::is_base_of_v&lt;<a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="namespace_o_s_k.html">OSK</a></li><li class="navelem"><a class="el" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html">GRAPHICS</a></li><li class="navelem"><a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_pipeline_layout.html">IPipelineLayout</a></li>
-    <li class="footer">Generado el Sábado, 18 de mayo de 2024 12:15:54 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.10.0 </li>
+    <li class="footer">Generado el Miércoles, 29 de mayo de 2024 12:01:51 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.11.0 </li>
   </ul>
 </div>
 </body>

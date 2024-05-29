@@ -3,7 +3,7 @@ var class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_shadow_map =
     [ "Create", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_shadow_map.html#a0830a954dc3dfb5b404edc5e85ec6406", null ],
     [ "GetColorImage", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_shadow_map.html#aea7dacfbc899972c0a4266dde2a880b8", null ],
     [ "GetDirLightMatrixUniformBuffers", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_shadow_map.html#ae983515c8a55515cb5fd4a2e5f747c37", null ],
-    [ "GetGpuBuffers", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_shadow_map.html#af79e6e94714f7dcdfc08ca4c28f193fb", null ],
+    [ "GetGpuBuffers", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_shadow_map.html#ab339d3c5ccac86c489c56af0fecdddd0", null ],
     [ "GetNumCascades", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_shadow_map.html#a4f5b7a15d3de491b3c1a5a7a0edfef6d", null ],
     [ "GetShadowImage", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_shadow_map.html#a4b36944fb7a89178ed9678bec1f80951", null ],
     [ "OSK_SERIALIZABLE", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_shadow_map.html#a3246ab0a2e57dbc36212df231cb987c0", null ],

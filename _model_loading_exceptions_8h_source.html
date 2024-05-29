@@ -3,7 +3,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
-<meta name="generator" content="Doxygen 1.10.0"/>
+<meta name="generator" content="Doxygen 1.11.0"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
 <title>OSKengine: Archivo de código fuente Source/ModelLoadingExceptions.h</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
@@ -11,9 +11,9 @@
 <script type="text/javascript" src="dynsections.js"></script>
 <script type="text/javascript" src="clipboard.js"></script>
 <link href="navtree.css" rel="stylesheet" type="text/css"/>
-<script type="text/javascript" src="resize.js"></script>
 <script type="text/javascript" src="navtreedata.js"></script>
 <script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript" src="resize.js"></script>
 <script type="text/javascript" src="cookie.js"></script>
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/searchdata.js"></script>
@@ -37,10 +37,15 @@
 </table>
 </div>
 <!-- end header part -->
-<!-- Generado por Doxygen 1.10.0 -->
+<!-- Generado por Doxygen 1.11.0 -->
 <script type="text/javascript">
 /* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
 var searchBox = new SearchBox("searchBox", "search/",'.html');
+/* @license-end */
+</script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() { codefold.init(0); });
 /* @license-end */
 </script>
 <script type="text/javascript" src="menudata.js"></script>
@@ -48,17 +53,12 @@ var searchBox = new SearchBox("searchBox", "search/",'.html');
 <script type="text/javascript">
 /* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
 $(function() {
-  initMenu('',true,false,'search.php','Buscar');
+  initMenu('',true,false,'search.php','Buscar',true);
   $(function() { init_search(); });
 });
 /* @license-end */
 </script>
 <div id="main-nav"></div>
-<script type="text/javascript">
-/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
-$(function() { codefold.init(0); });
-/* @license-end */
-</script>
 </div><!-- top -->
 <div id="side-nav" class="ui-resizable side-nav-resizable">
   <div id="nav-tree">
@@ -72,7 +72,7 @@ $(function() { codefold.init(0); });
 </div>
 <script type="text/javascript">
 /* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
-$(function(){initNavTree('_model_loading_exceptions_8h_source.html',''); initResizable(); });
+$(function(){initNavTree('_model_loading_exceptions_8h_source.html',''); initResizable(true); });
 /* @license-end */
 </script>
 <div id="doc-content">
@@ -306,11 +306,11 @@ $(function(){initNavTree('_model_loading_exceptions_8h_source.html',''); initRes
 <div class="line"><a id="l00175" name="l00175"></a><span class="lineno">  175</span> </div>
 <div class="foldopen" id="foldopen00176" data-start="{" data-end="}">
 <div class="line"><a id="l00176" name="l00176"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_unsupported_mesh_properties.html#abf13f94e5e9b15d16b881d6b29c834be">  176</a></span>        <span class="keyword">explicit</span> <a class="code hl_function" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_unsupported_mesh_properties.html#abf13f94e5e9b15d16b881d6b29c834be">UnsupportedMeshProperties</a>(</div>
-<div class="line"><a id="l00177" name="l00177"></a><span class="lineno">  177</span>            std::string_view <a class="code hl_class" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">propertyDataType</a>,</div>
+<div class="line"><a id="l00177" name="l00177"></a><span class="lineno">  177</span>            std::string_view propertyDataType,</div>
 <div class="line"><a id="l00178" name="l00178"></a><span class="lineno">  178</span>            <span class="keyword">const</span> std::source_location&amp; location = std::source_location::current())</div>
 <div class="line"><a id="l00179" name="l00179"></a><span class="lineno">  179</span>            :</div>
 <div class="line"><a id="l00180" name="l00180"></a><span class="lineno">  180</span>            <a class="code hl_class" href="class_o_s_k_1_1_engine_exception.html">EngineException</a>(</div>
-<div class="line"><a id="l00181" name="l00181"></a><span class="lineno">  181</span>                std::format(<span class="stringliteral">&quot;UnsupportedMeshProperties: el mesh tiene propiedades del tipo {}.&quot;</span>, <a class="code hl_class" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">propertyDataType</a>),</div>
+<div class="line"><a id="l00181" name="l00181"></a><span class="lineno">  181</span>                std::format(<span class="stringliteral">&quot;UnsupportedMeshProperties: el mesh tiene propiedades del tipo {}.&quot;</span>, propertyDataType),</div>
 <div class="line"><a id="l00182" name="l00182"></a><span class="lineno">  182</span>                location) { }</div>
 </div>
 <div class="line"><a id="l00183" name="l00183"></a><span class="lineno">  183</span> </div>
@@ -318,7 +318,6 @@ $(function(){initNavTree('_model_loading_exceptions_8h_source.html',''); initRes
 </div>
 <div class="line"><a id="l00185" name="l00185"></a><span class="lineno">  185</span> </div>
 <div class="line"><a id="l00186" name="l00186"></a><span class="lineno">  186</span>}</div>
-<div class="ttc" id="aclass_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref_html"><div class="ttname"><a href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">OSK::ASSETS::AssetRef</a></div><div class="ttdoc">Referencia a un asset.</div><div class="ttdef"><b>Definition</b> <a href="_asset_ref_8h_source.html#l00012">AssetRef.h:12</a></div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_a_s_s_e_t_s_1_1_no_vertex_bone_indices_found_exception_html"><div class="ttname"><a href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_no_vertex_bone_indices_found_exception.html">OSK::ASSETS::NoVertexBoneIndicesFoundException</a></div><div class="ttdef"><b>Definition</b> <a href="#l00097">ModelLoadingExceptions.h:97</a></div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_a_s_s_e_t_s_1_1_no_vertex_bone_indices_found_exception_html_adc8644ad844bd13614b1bca288454de0"><div class="ttname"><a href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_no_vertex_bone_indices_found_exception.html#adc8644ad844bd13614b1bca288454de0">OSK::ASSETS::NoVertexBoneIndicesFoundException::NoVertexBoneIndicesFoundException</a></div><div class="ttdeci">NoVertexBoneIndicesFoundException(const std::source_location &amp;location=std::source_location::current())</div><div class="ttdef"><b>Definition</b> <a href="#l00101">ModelLoadingExceptions.h:101</a></div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_a_s_s_e_t_s_1_1_no_vertex_bone_weights_found_exception_html"><div class="ttname"><a href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_no_vertex_bone_weights_found_exception.html">OSK::ASSETS::NoVertexBoneWeightsFoundException</a></div><div class="ttdef"><b>Definition</b> <a href="#l00084">ModelLoadingExceptions.h:84</a></div></div>
@@ -343,7 +342,7 @@ $(function(){initNavTree('_model_loading_exceptions_8h_source.html',''); initRes
 <div class="ttc" id="aclass_o_s_k_1_1_a_s_s_e_t_s_1_1_unsupported_model_image_format_exception_html_a9bf910f6494faa86f077c4f61a183c97"><div class="ttname"><a href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_unsupported_model_image_format_exception.html#a9bf910f6494faa86f077c4f61a183c97">OSK::ASSETS::UnsupportedModelImageFormatException::UnsupportedModelImageFormatException</a></div><div class="ttdeci">UnsupportedModelImageFormatException(const std::source_location &amp;location=std::source_location::current())</div><div class="ttdef"><b>Definition</b> <a href="#l00146">ModelLoadingExceptions.h:146</a></div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_a_s_s_e_t_s_1_1_unsupported_polygon_mode_exception_html"><div class="ttname"><a href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_unsupported_polygon_mode_exception.html">OSK::ASSETS::UnsupportedPolygonModeException</a></div><div class="ttdoc">Excepción que se lanza cuando el formato de los polígonos no es TRIÁNGULOS.</div><div class="ttdef"><b>Definition</b> <a href="#l00156">ModelLoadingExceptions.h:156</a></div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_a_s_s_e_t_s_1_1_unsupported_polygon_mode_exception_html_a5db25babba7bf484bf66488b756c66b4"><div class="ttname"><a href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_unsupported_polygon_mode_exception.html#a5db25babba7bf484bf66488b756c66b4">OSK::ASSETS::UnsupportedPolygonModeException::UnsupportedPolygonModeException</a></div><div class="ttdeci">UnsupportedPolygonModeException(std::string_view polygonMode, const std::source_location &amp;location=std::source_location::current())</div><div class="ttdef"><b>Definition</b> <a href="#l00160">ModelLoadingExceptions.h:160</a></div></div>
-<div class="ttc" id="aclass_o_s_k_1_1_engine_exception_html"><div class="ttname"><a href="class_o_s_k_1_1_engine_exception.html">OSK::EngineException</a></div><div class="ttdoc">Clase base para todas las excepciones que puedan ocurrir durante la ejecución del juego.</div><div class="ttdef"><b>Definition</b> <a href="_engine_exception_8h_source.html#l00013">EngineException.h:13</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_engine_exception_html"><div class="ttname"><a href="class_o_s_k_1_1_engine_exception.html">OSK::EngineException</a></div><div class="ttdoc">Clase base para todas las excepciones que puedan ocurrir durante la ejecución del juego.</div><div class="ttdef"><b>Definition</b> <a href="_engine_exception_8h_source.html#l00015">EngineException.h:15</a></div></div>
 <div class="ttc" id="anamespace_o_s_k_1_1_a_s_s_e_t_s_html"><div class="ttname"><a href="namespace_o_s_k_1_1_a_s_s_e_t_s.html">OSK::ASSETS</a></div><div class="ttdef"><b>Definition</b> <a href="_anim_mesh_loader_8h_source.html#l00009">AnimMeshLoader.h:9</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
@@ -351,7 +350,7 @@ $(function(){initNavTree('_model_loading_exceptions_8h_source.html',''); initRes
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_74389ed8173ad57b461b9d623a1f3867.html">Source</a></li><li class="navelem"><b>ModelLoadingExceptions.h</b></li>
-    <li class="footer">Generado el Sábado, 18 de mayo de 2024 12:15:52 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.10.0 </li>
+    <li class="footer">Generado el Miércoles, 29 de mayo de 2024 12:01:49 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.11.0 </li>
   </ul>
 </div>
 </body>

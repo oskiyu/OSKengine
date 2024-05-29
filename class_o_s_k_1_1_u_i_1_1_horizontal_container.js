@@ -38,6 +38,7 @@ var class_o_s_k_1_1_u_i_1_1_horizontal_container =
     [ "SetVisible", "class_o_s_k_1_1_u_i_1_1_horizontal_container.html#a374616da89c3ff9b31e4d7ddf6fc0164", null ],
     [ "Unlock", "class_o_s_k_1_1_u_i_1_1_horizontal_container.html#a27da2bfbce9e2310b18720be5c42970e", null ],
     [ "UpdateByCursor", "class_o_s_k_1_1_u_i_1_1_horizontal_container.html#a5e076c98dee5b4c28f7f84dd25c75d90", null ],
+    [ "UpdateByKeyboard", "class_o_s_k_1_1_u_i_1_1_horizontal_container.html#a64ec1ea6bacdb27517d54f362245ac88", null ],
     [ "children", "class_o_s_k_1_1_u_i_1_1_horizontal_container.html#a3cb95097b29de13d4c6684a506ca6844", null ],
     [ "childrenTable", "class_o_s_k_1_1_u_i_1_1_horizontal_container.html#a0c43643fc0cd49fa8a4cc5ea0ed2a95c", null ],
     [ "m_sprite", "class_o_s_k_1_1_u_i_1_1_horizontal_container.html#a03f55330e93c62dbb127ec0f551f3991", null ],

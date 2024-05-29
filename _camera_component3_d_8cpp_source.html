@@ -3,7 +3,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
-<meta name="generator" content="Doxygen 1.10.0"/>
+<meta name="generator" content="Doxygen 1.11.0"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
 <title>OSKengine: Archivo de código fuente Source/CameraComponent3D.cpp</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
@@ -11,9 +11,9 @@
 <script type="text/javascript" src="dynsections.js"></script>
 <script type="text/javascript" src="clipboard.js"></script>
 <link href="navtree.css" rel="stylesheet" type="text/css"/>
-<script type="text/javascript" src="resize.js"></script>
 <script type="text/javascript" src="navtreedata.js"></script>
 <script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript" src="resize.js"></script>
 <script type="text/javascript" src="cookie.js"></script>
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/searchdata.js"></script>
@@ -37,10 +37,15 @@
 </table>
 </div>
 <!-- end header part -->
-<!-- Generado por Doxygen 1.10.0 -->
+<!-- Generado por Doxygen 1.11.0 -->
 <script type="text/javascript">
 /* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
 var searchBox = new SearchBox("searchBox", "search/",'.html');
+/* @license-end */
+</script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() { codefold.init(0); });
 /* @license-end */
 </script>
 <script type="text/javascript" src="menudata.js"></script>
@@ -48,17 +53,12 @@ var searchBox = new SearchBox("searchBox", "search/",'.html');
 <script type="text/javascript">
 /* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
 $(function() {
-  initMenu('',true,false,'search.php','Buscar');
+  initMenu('',true,false,'search.php','Buscar',true);
   $(function() { init_search(); });
 });
 /* @license-end */
 </script>
 <div id="main-nav"></div>
-<script type="text/javascript">
-/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
-$(function() { codefold.init(0); });
-/* @license-end */
-</script>
 </div><!-- top -->
 <div id="side-nav" class="ui-resizable side-nav-resizable">
   <div id="nav-tree">
@@ -72,7 +72,7 @@ $(function() { codefold.init(0); });
 </div>
 <script type="text/javascript">
 /* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
-$(function(){initNavTree('_camera_component3_d_8cpp_source.html',''); initResizable(); });
+$(function(){initNavTree('_camera_component3_d_8cpp_source.html',''); initResizable(true); });
 /* @license-end */
 </script>
 <div id="doc-content">
@@ -310,8 +310,8 @@ $(function(){initNavTree('_camera_component3_d_8cpp_source.html',''); initResiza
 <div class="line"><a id="l00181" name="l00181"></a><span class="lineno">  181</span>    output.nearPlane = json[<span class="stringliteral">&quot;nearPlane&quot;</span>];</div>
 <div class="line"><a id="l00182" name="l00182"></a><span class="lineno">  182</span>    output.farPlane = json[<span class="stringliteral">&quot;farPlane&quot;</span>];</div>
 <div class="line"><a id="l00183" name="l00183"></a><span class="lineno">  183</span> </div>
-<div class="line"><a id="l00184" name="l00184"></a><span class="lineno">  184</span>    output.angles = DeserializeVector2&lt;Vector2f&gt;(json[<span class="stringliteral">&quot;angles&quot;</span>]);</div>
-<div class="line"><a id="l00185" name="l00185"></a><span class="lineno">  185</span>    output.accumulatedAngles = DeserializeVector2&lt;Vector2f&gt;(json[<span class="stringliteral">&quot;accumulatedAngles&quot;</span>]);</div>
+<div class="line"><a id="l00184" name="l00184"></a><span class="lineno">  184</span>    output.angles = <a class="code hl_function" href="namespace_o_s_k_1_1_p_e_r_s_i_s_t_e_n_c_e.html#a9f320dd8a6fdec60d061317e5b69c4e4">DeserializeVector2&lt;Vector2f&gt;</a>(json[<span class="stringliteral">&quot;angles&quot;</span>]);</div>
+<div class="line"><a id="l00185" name="l00185"></a><span class="lineno">  185</span>    output.accumulatedAngles = <a class="code hl_function" href="namespace_o_s_k_1_1_p_e_r_s_i_s_t_e_n_c_e.html#a9f320dd8a6fdec60d061317e5b69c4e4">DeserializeVector2&lt;Vector2f&gt;</a>(json[<span class="stringliteral">&quot;accumulatedAngles&quot;</span>]);</div>
 <div class="line"><a id="l00186" name="l00186"></a><span class="lineno">  186</span> </div>
 <div class="line"><a id="l00187" name="l00187"></a><span class="lineno">  187</span>    <span class="keywordflow">return</span> output;</div>
 <div class="line"><a id="l00188" name="l00188"></a><span class="lineno">  188</span>}</div>
@@ -345,13 +345,13 @@ $(function(){initNavTree('_camera_component3_d_8cpp_source.html',''); initResiza
 <div class="line"><a id="l00216" name="l00216"></a><span class="lineno">  216</span>    output.nearPlane = reader-&gt;<a class="code hl_function" href="class_o_s_k_1_1_p_e_r_s_i_s_t_e_n_c_e_1_1_binary_block_reader.html#a072434b3366e305b5f8003a6c5212a5e">Read</a>&lt;<span class="keywordtype">float</span>&gt;();</div>
 <div class="line"><a id="l00217" name="l00217"></a><span class="lineno">  217</span>    output.farPlane = reader-&gt;<a class="code hl_function" href="class_o_s_k_1_1_p_e_r_s_i_s_t_e_n_c_e_1_1_binary_block_reader.html#a072434b3366e305b5f8003a6c5212a5e">Read</a>&lt;<span class="keywordtype">float</span>&gt;();</div>
 <div class="line"><a id="l00218" name="l00218"></a><span class="lineno">  218</span> </div>
-<div class="line"><a id="l00219" name="l00219"></a><span class="lineno">  219</span>    output.angles = DeserializeBinaryVector2&lt;Vector2f, float&gt;(reader);</div>
-<div class="line"><a id="l00220" name="l00220"></a><span class="lineno">  220</span>    output.accumulatedAngles = DeserializeBinaryVector2&lt;Vector2f, float&gt;(reader);</div>
+<div class="line"><a id="l00219" name="l00219"></a><span class="lineno">  219</span>    output.angles = <a class="code hl_function" href="namespace_o_s_k_1_1_p_e_r_s_i_s_t_e_n_c_e.html#a9b510b40cac93ea389fb2fe38d379dd8">DeserializeBinaryVector2&lt;Vector2f, float&gt;</a>(reader);</div>
+<div class="line"><a id="l00220" name="l00220"></a><span class="lineno">  220</span>    output.accumulatedAngles = <a class="code hl_function" href="namespace_o_s_k_1_1_p_e_r_s_i_s_t_e_n_c_e.html#a9b510b40cac93ea389fb2fe38d379dd8">DeserializeBinaryVector2&lt;Vector2f, float&gt;</a>(reader);</div>
 <div class="line"><a id="l00221" name="l00221"></a><span class="lineno">  221</span> </div>
 <div class="line"><a id="l00222" name="l00222"></a><span class="lineno">  222</span>    <span class="keywordflow">return</span> output;</div>
 <div class="line"><a id="l00223" name="l00223"></a><span class="lineno">  223</span>}</div>
-<div class="ttc" id="aclass_o_s_k_1_1_dynamic_array_html"><div class="ttname"><a href="class_o_s_k_1_1_dynamic_array.html">OSK::DynamicArray</a></div><div class="ttdoc">Dynamic array: array que puede cambiar de tamaño.</div><div class="ttdef"><b>Definition</b> <a href="_dynamic_array_8hpp_source.html#l00067">DynamicArray.hpp:67</a></div></div>
-<div class="ttc" id="aclass_o_s_k_1_1_e_c_s_1_1_camera_component3_d_html"><div class="ttname"><a href="class_o_s_k_1_1_e_c_s_1_1_camera_component3_d.html">OSK::ECS::CameraComponent3D</a></div><div class="ttdoc">Cámara para un mundo tridimensional.</div><div class="ttdef"><b>Definition</b> <a href="_camera_component3_d_8h_source.html#l00020">CameraComponent3D.h:20</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_dynamic_array_html"><div class="ttname"><a href="class_o_s_k_1_1_dynamic_array.html">OSK::DynamicArray</a></div><div class="ttdoc">Dynamic array: array que puede cambiar de tamaño.</div><div class="ttdef"><b>Definition</b> <a href="_dynamic_array_8hpp_source.html#l00069">DynamicArray.hpp:69</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_e_c_s_1_1_camera_component3_d_html"><div class="ttname"><a href="class_o_s_k_1_1_e_c_s_1_1_camera_component3_d.html">OSK::ECS::CameraComponent3D</a></div><div class="ttdoc">Cámara para un mundo tridimensional.</div><div class="ttdef"><b>Definition</b> <a href="_camera_component3_d_8h_source.html#l00019">CameraComponent3D.h:19</a></div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_e_c_s_1_1_camera_component3_d_html_a01fc9ba97878f1946f54b919dd51a3ec"><div class="ttname"><a href="class_o_s_k_1_1_e_c_s_1_1_camera_component3_d.html#a01fc9ba97878f1946f54b919dd51a3ec">OSK::ECS::CameraComponent3D::SetFovLimits</a></div><div class="ttdeci">void SetFovLimits(float min, float max)</div><div class="ttdoc">Establece los límites mínimos y máximos de field of view.</div><div class="ttdef"><b>Definition</b> <a href="#l00049">CameraComponent3D.cpp:49</a></div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_e_c_s_1_1_camera_component3_d_html_a0b87cc0f76a0a4afa3573bfa6a5889d6"><div class="ttname"><a href="class_o_s_k_1_1_e_c_s_1_1_camera_component3_d.html#a0b87cc0f76a0a4afa3573bfa6a5889d6">OSK::ECS::CameraComponent3D::GetProjectionMatrix_UnreversedZ</a></div><div class="ttdeci">glm::mat4 GetProjectionMatrix_UnreversedZ() const</div><div class="ttdoc">Obtiene la matriz proyección de la cámara con el rango de profundidad normal.</div><div class="ttdef"><b>Definition</b> <a href="#l00139">CameraComponent3D.cpp:139</a></div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_e_c_s_1_1_camera_component3_d_html_a13690a7d03a38e3a17260398cfd8de65"><div class="ttname"><a href="class_o_s_k_1_1_e_c_s_1_1_camera_component3_d.html#a13690a7d03a38e3a17260398cfd8de65">OSK::ECS::CameraComponent3D::GetFov</a></div><div class="ttdeci">float GetFov() const</div><div class="ttdoc">FoV de la cámara.</div><div class="ttdef"><b>Definition</b> <a href="#l00024">CameraComponent3D.cpp:24</a></div></div>
@@ -373,34 +373,36 @@ $(function(){initNavTree('_camera_component3_d_8cpp_source.html',''); initResiza
 <div class="ttc" id="aclass_o_s_k_1_1_e_c_s_1_1_transform3_d_html_ae1fdf26c51ef096c24769c479c976b45"><div class="ttname"><a href="class_o_s_k_1_1_e_c_s_1_1_transform3_d.html#ae1fdf26c51ef096c24769c479c976b45">OSK::ECS::Transform3D::GetTopVector</a></div><div class="ttdeci">Vector3f GetTopVector() const</div><div class="ttdef"><b>Definition</b> <a href="_transform3_d_8cpp_source.html#l00178">Transform3D.cpp:178</a></div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_e_c_s_1_1_transform3_d_html_afa8ea01fe8104fcd34cc83e0157dea67"><div class="ttname"><a href="class_o_s_k_1_1_e_c_s_1_1_transform3_d.html#afa8ea01fe8104fcd34cc83e0157dea67">OSK::ECS::Transform3D::GetRightVector</a></div><div class="ttdeci">Vector3f GetRightVector() const</div><div class="ttdef"><b>Definition</b> <a href="_transform3_d_8cpp_source.html#l00174">Transform3D.cpp:174</a></div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_e_c_s_1_1_transform3_d_html_afc7da25075f1190d73579dd1b45fe33e"><div class="ttname"><a href="class_o_s_k_1_1_e_c_s_1_1_transform3_d.html#afc7da25075f1190d73579dd1b45fe33e">OSK::ECS::Transform3D::RotateWorldSpace</a></div><div class="ttdeci">void RotateWorldSpace(float angle, const Vector3f &amp;axis)</div><div class="ttdoc">Rota el transform respecto al mundo.</div><div class="ttdef"><b>Definition</b> <a href="_transform3_d_8cpp_source.html#l00103">Transform3D.cpp:103</a></div></div>
-<div class="ttc" id="aclass_o_s_k_1_1_engine_html_a81e2e2c3d9ab78f3ff07281bd2b6aef8"><div class="ttname"><a href="class_o_s_k_1_1_engine.html#a81e2e2c3d9ab78f3ff07281bd2b6aef8">OSK::Engine::GetDisplay</a></div><div class="ttdeci">static IO::IDisplay * GetDisplay()</div><div class="ttdoc">Devuelve un puntero al display del juego.</div><div class="ttdef"><b>Definition</b> <a href="_o_s_kengine_8cpp_source.html#l00249">OSKengine.cpp:249</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_engine_html_a81e2e2c3d9ab78f3ff07281bd2b6aef8"><div class="ttname"><a href="class_o_s_k_1_1_engine.html#a81e2e2c3d9ab78f3ff07281bd2b6aef8">OSK::Engine::GetDisplay</a></div><div class="ttdeci">static IO::IDisplay * GetDisplay()</div><div class="ttdoc">Devuelve un puntero al display del juego.</div><div class="ttdef"><b>Definition</b> <a href="_o_s_kengine_8cpp_source.html#l00251">OSKengine.cpp:251</a></div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_i_o_1_1_i_display_html_ad4696de06b0701f11dfe45ca874d056d"><div class="ttname"><a href="class_o_s_k_1_1_i_o_1_1_i_display.html#ad4696de06b0701f11dfe45ca874d056d">OSK::IO::IDisplay::GetScreenRatio</a></div><div class="ttdeci">float GetScreenRatio() const</div><div class="ttdef"><b>Definition</b> <a href="_i_display_8cpp_source.html#l00017">IDisplay.cpp:17</a></div></div>
-<div class="ttc" id="aclass_o_s_k_1_1_p_e_r_s_i_s_t_e_n_c_e_1_1_binary_block_html"><div class="ttname"><a href="class_o_s_k_1_1_p_e_r_s_i_s_t_e_n_c_e_1_1_binary_block.html">OSK::PERSISTENCE::BinaryBlock</a></div><div class="ttdoc">Bloque con datos en formato binario.</div><div class="ttdef"><b>Definition</b> <a href="_binary_block_8h_source.html#l00067">BinaryBlock.h:67</a></div></div>
-<div class="ttc" id="aclass_o_s_k_1_1_p_e_r_s_i_s_t_e_n_c_e_1_1_binary_block_html_aaa39a09f955443aaee7da7d50090c804"><div class="ttname"><a href="class_o_s_k_1_1_p_e_r_s_i_s_t_e_n_c_e_1_1_binary_block.html#aaa39a09f955443aaee7da7d50090c804">OSK::PERSISTENCE::BinaryBlock::Write</a></div><div class="ttdeci">void Write(const T &amp;data)</div><div class="ttdoc">Escribe información en el bloque.</div><div class="ttdef"><b>Definition</b> <a href="_binary_block_8h_source.html#l00083">BinaryBlock.h:83</a></div></div>
-<div class="ttc" id="aclass_o_s_k_1_1_p_e_r_s_i_s_t_e_n_c_e_1_1_binary_block_reader_html"><div class="ttname"><a href="class_o_s_k_1_1_p_e_r_s_i_s_t_e_n_c_e_1_1_binary_block_reader.html">OSK::PERSISTENCE::BinaryBlockReader</a></div><div class="ttdoc">Lector de un bloque binario.</div><div class="ttdef"><b>Definition</b> <a href="_binary_block_8h_source.html#l00014">BinaryBlock.h:14</a></div></div>
-<div class="ttc" id="aclass_o_s_k_1_1_p_e_r_s_i_s_t_e_n_c_e_1_1_binary_block_reader_html_a072434b3366e305b5f8003a6c5212a5e"><div class="ttname"><a href="class_o_s_k_1_1_p_e_r_s_i_s_t_e_n_c_e_1_1_binary_block_reader.html#a072434b3366e305b5f8003a6c5212a5e">OSK::PERSISTENCE::BinaryBlockReader::Read</a></div><div class="ttdeci">T Read()</div><div class="ttdoc">Lee un dato del bloque. Avanza el cursor.</div><div class="ttdef"><b>Definition</b> <a href="_binary_block_8h_source.html#l00037">BinaryBlock.h:37</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_p_e_r_s_i_s_t_e_n_c_e_1_1_binary_block_html"><div class="ttname"><a href="class_o_s_k_1_1_p_e_r_s_i_s_t_e_n_c_e_1_1_binary_block.html">OSK::PERSISTENCE::BinaryBlock</a></div><div class="ttdoc">Bloque con datos en formato binario.</div><div class="ttdef"><b>Definition</b> <a href="_binary_block_8h_source.html#l00068">BinaryBlock.h:68</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_p_e_r_s_i_s_t_e_n_c_e_1_1_binary_block_html_aaa39a09f955443aaee7da7d50090c804"><div class="ttname"><a href="class_o_s_k_1_1_p_e_r_s_i_s_t_e_n_c_e_1_1_binary_block.html#aaa39a09f955443aaee7da7d50090c804">OSK::PERSISTENCE::BinaryBlock::Write</a></div><div class="ttdeci">void Write(const T &amp;data)</div><div class="ttdoc">Escribe información en el bloque.</div><div class="ttdef"><b>Definition</b> <a href="_binary_block_8h_source.html#l00084">BinaryBlock.h:84</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_p_e_r_s_i_s_t_e_n_c_e_1_1_binary_block_reader_html"><div class="ttname"><a href="class_o_s_k_1_1_p_e_r_s_i_s_t_e_n_c_e_1_1_binary_block_reader.html">OSK::PERSISTENCE::BinaryBlockReader</a></div><div class="ttdoc">Lector de un bloque binario.</div><div class="ttdef"><b>Definition</b> <a href="_binary_block_8h_source.html#l00015">BinaryBlock.h:15</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_p_e_r_s_i_s_t_e_n_c_e_1_1_binary_block_reader_html_a072434b3366e305b5f8003a6c5212a5e"><div class="ttname"><a href="class_o_s_k_1_1_p_e_r_s_i_s_t_e_n_c_e_1_1_binary_block_reader.html#a072434b3366e305b5f8003a6c5212a5e">OSK::PERSISTENCE::BinaryBlockReader::Read</a></div><div class="ttdeci">T Read()</div><div class="ttdoc">Lee un dato del bloque. Avanza el cursor.</div><div class="ttdef"><b>Definition</b> <a href="_binary_block_8h_source.html#l00038">BinaryBlock.h:38</a></div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_vector2__t_html"><div class="ttname"><a href="class_o_s_k_1_1_vector2__t.html">OSK::Vector2_t&lt; float_t &gt;</a></div></div>
-<div class="ttc" id="aclass_o_s_k_1_1_vector2__t_html_a3194c7e9abba1f840530e8642a01e30a"><div class="ttname"><a href="class_o_s_k_1_1_vector2__t.html#a3194c7e9abba1f840530e8642a01e30a">OSK::Vector2_t::y</a></div><div class="ttdeci">T y</div><div class="ttdoc">Representa la segunda coordenada.</div><div class="ttdef"><b>Definition</b> <a href="_vector2_8hpp_source.html#l00251">Vector2.hpp:251</a></div></div>
-<div class="ttc" id="aclass_o_s_k_1_1_vector2__t_html_a3759903561dac1fc476d0cc9d051c536"><div class="ttname"><a href="class_o_s_k_1_1_vector2__t.html#a3759903561dac1fc476d0cc9d051c536">OSK::Vector2_t&lt; float_t &gt;::Zero</a></div><div class="ttdeci">static OSKAPI_CALL Vector2_t const Zero</div><div class="ttdef"><b>Definition</b> <a href="_vector2_8hpp_source.html#l00018">Vector2.hpp:18</a></div></div>
-<div class="ttc" id="aclass_o_s_k_1_1_vector2__t_html_ae2f86aaf21084895a5b357318ff6ed77"><div class="ttname"><a href="class_o_s_k_1_1_vector2__t.html#ae2f86aaf21084895a5b357318ff6ed77">OSK::Vector2_t::x</a></div><div class="ttdeci">T x</div><div class="ttdoc">Representa la primera coordenada.</div><div class="ttdef"><b>Definition</b> <a href="_vector2_8hpp_source.html#l00248">Vector2.hpp:248</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_vector2__t_html_a3194c7e9abba1f840530e8642a01e30a"><div class="ttname"><a href="class_o_s_k_1_1_vector2__t.html#a3194c7e9abba1f840530e8642a01e30a">OSK::Vector2_t::y</a></div><div class="ttdeci">T y</div><div class="ttdoc">Representa la segunda coordenada.</div><div class="ttdef"><b>Definition</b> <a href="_vector2_8hpp_source.html#l00250">Vector2.hpp:250</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_vector2__t_html_a3759903561dac1fc476d0cc9d051c536"><div class="ttname"><a href="class_o_s_k_1_1_vector2__t.html#a3759903561dac1fc476d0cc9d051c536">OSK::Vector2_t&lt; float_t &gt;::Zero</a></div><div class="ttdeci">static OSKAPI_CALL Vector2_t const Zero</div><div class="ttdef"><b>Definition</b> <a href="_vector2_8hpp_source.html#l00017">Vector2.hpp:17</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_vector2__t_html_ae2f86aaf21084895a5b357318ff6ed77"><div class="ttname"><a href="class_o_s_k_1_1_vector2__t.html#ae2f86aaf21084895a5b357318ff6ed77">OSK::Vector2_t::x</a></div><div class="ttdeci">T x</div><div class="ttdoc">Representa la primera coordenada.</div><div class="ttdef"><b>Definition</b> <a href="_vector2_8hpp_source.html#l00247">Vector2.hpp:247</a></div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_vector3__t_html"><div class="ttname"><a href="class_o_s_k_1_1_vector3__t.html">OSK::Vector3_t&lt; float_t &gt;</a></div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_vector3__t_html_a11968baed38c50bb37083845b41efd72"><div class="ttname"><a href="class_o_s_k_1_1_vector3__t.html#a11968baed38c50bb37083845b41efd72">OSK::Vector3_t::Cross</a></div><div class="ttdeci">Vector3_t Cross(const Vector3_t &amp;vec) const</div><div class="ttdef"><b>Definition</b> <a href="_vector3_8hpp_source.html#l00196">Vector3.hpp:196</a></div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_vector3__t_html_aef1702c4230df139c7f0e28cd27bc4a6"><div class="ttname"><a href="class_o_s_k_1_1_vector3__t.html#aef1702c4230df139c7f0e28cd27bc4a6">OSK::Vector3_t::GetNormalized</a></div><div class="ttdeci">Vector3_t GetNormalized() const</div><div class="ttdef"><b>Definition</b> <a href="_vector3_8hpp_source.html#l00220">Vector3.hpp:220</a></div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_vector3__t_html_afe37985b6d213fc46fc8d3d0366d80bb"><div class="ttname"><a href="class_o_s_k_1_1_vector3__t.html#afe37985b6d213fc46fc8d3d0366d80bb">OSK::Vector3_t::ToGlm</a></div><div class="ttdeci">glm::vec3 ToGlm() const</div><div class="ttdef"><b>Definition</b> <a href="_vector3_8hpp_source.html#l00236">Vector3.hpp:236</a></div></div>
 <div class="ttc" id="anamespace_o_s_k_1_1_e_c_s_html"><div class="ttname"><a href="namespace_o_s_k_1_1_e_c_s.html">OSK::ECS</a></div><div class="ttdef"><b>Definition</b> <a href="_camera_component2_d_8h_source.html#l00017">CameraComponent2D.h:17</a></div></div>
 <div class="ttc" id="anamespace_o_s_k_1_1_m_a_t_h_html_aeb9e6dd7675ac3048479b9a7b1525b4c"><div class="ttname"><a href="namespace_o_s_k_1_1_m_a_t_h.html#aeb9e6dd7675ac3048479b9a7b1525b4c">OSK::MATH::Clamp</a></div><div class="ttdeci">T Clamp(const T &amp;value, const T &amp;min, const T &amp;max)</div><div class="ttdoc">Devuelve el valor, ajustándolo de manera que nunca sea mayor que el máximo ni menor que el mínimo.</div><div class="ttdef"><b>Definition</b> <a href="_math_8h_source.html#l00112">Math.h:112</a></div></div>
-<div class="ttc" id="anamespace_o_s_k_1_1_p_e_r_s_i_s_t_e_n_c_e_html"><div class="ttname"><a href="namespace_o_s_k_1_1_p_e_r_s_i_s_t_e_n_c_e.html">OSK::PERSISTENCE</a></div><div class="ttdef"><b>Definition</b> <a href="_binary_block_8h_source.html#l00011">BinaryBlock.h:11</a></div></div>
+<div class="ttc" id="anamespace_o_s_k_1_1_p_e_r_s_i_s_t_e_n_c_e_html"><div class="ttname"><a href="namespace_o_s_k_1_1_p_e_r_s_i_s_t_e_n_c_e.html">OSK::PERSISTENCE</a></div><div class="ttdef"><b>Definition</b> <a href="_binary_block_8h_source.html#l00012">BinaryBlock.h:12</a></div></div>
 <div class="ttc" id="anamespace_o_s_k_1_1_p_e_r_s_i_s_t_e_n_c_e_html_a1507f5aeff9f7ff9f04a66baae146a70"><div class="ttname"><a href="namespace_o_s_k_1_1_p_e_r_s_i_s_t_e_n_c_e.html#a1507f5aeff9f7ff9f04a66baae146a70">OSK::PERSISTENCE::SerializeVector2</a></div><div class="ttdeci">nlohmann::json SerializeVector2(const TVec &amp;vec)</div><div class="ttdef"><b>Definition</b> <a href="_math_8h_source.html#l00249">Math.h:249</a></div></div>
+<div class="ttc" id="anamespace_o_s_k_1_1_p_e_r_s_i_s_t_e_n_c_e_html_a9b510b40cac93ea389fb2fe38d379dd8"><div class="ttname"><a href="namespace_o_s_k_1_1_p_e_r_s_i_s_t_e_n_c_e.html#a9b510b40cac93ea389fb2fe38d379dd8">OSK::PERSISTENCE::DeserializeBinaryVector2</a></div><div class="ttdeci">TVec DeserializeBinaryVector2(PERSISTENCE::BinaryBlockReader *vec)</div><div class="ttdef"><b>Definition</b> <a href="_math_8h_source.html#l00350">Math.h:350</a></div></div>
+<div class="ttc" id="anamespace_o_s_k_1_1_p_e_r_s_i_s_t_e_n_c_e_html_a9f320dd8a6fdec60d061317e5b69c4e4"><div class="ttname"><a href="namespace_o_s_k_1_1_p_e_r_s_i_s_t_e_n_c_e.html#a9f320dd8a6fdec60d061317e5b69c4e4">OSK::PERSISTENCE::DeserializeVector2</a></div><div class="ttdeci">TVec DeserializeVector2(const nlohmann::json &amp;vec)</div><div class="ttdef"><b>Definition</b> <a href="_math_8h_source.html#l00283">Math.h:283</a></div></div>
 <div class="ttc" id="anamespace_o_s_k_1_1_p_e_r_s_i_s_t_e_n_c_e_html_abc839348b0b20ea230c9dd63980d8964"><div class="ttname"><a href="namespace_o_s_k_1_1_p_e_r_s_i_s_t_e_n_c_e.html#abc839348b0b20ea230c9dd63980d8964">OSK::PERSISTENCE::SerializeBinaryVector2</a></div><div class="ttdeci">PERSISTENCE::BinaryBlock SerializeBinaryVector2(const TVec &amp;vec)</div><div class="ttdef"><b>Definition</b> <a href="_math_8h_source.html#l00317">Math.h:317</a></div></div>
 <div class="ttc" id="anamespace_o_s_k_html"><div class="ttname"><a href="namespace_o_s_k.html">OSK</a></div><div class="ttdef"><b>Definition</b> <a href="_acceleration_structures_exceptions_8h_source.html#l00005">AccelerationStructuresExceptions.h:5</a></div></div>
-<div class="ttc" id="anamespace_o_s_k_html_a31a299dbb3a3a60d90d16d1a4eca9651"><div class="ttname"><a href="namespace_o_s_k.html#a31a299dbb3a3a60d90d16d1a4eca9651">OSK::Vector2f</a></div><div class="ttdeci">Vector2_t&lt; float_t &gt; Vector2f</div><div class="ttdoc">Precisión = float.</div><div class="ttdef"><b>Definition</b> <a href="_vector2_8hpp_source.html#l00257">Vector2.hpp:257</a></div></div>
+<div class="ttc" id="anamespace_o_s_k_html_a31a299dbb3a3a60d90d16d1a4eca9651"><div class="ttname"><a href="namespace_o_s_k.html#a31a299dbb3a3a60d90d16d1a4eca9651">OSK::Vector2f</a></div><div class="ttdeci">Vector2_t&lt; float_t &gt; Vector2f</div><div class="ttdoc">Precisión = float.</div><div class="ttdef"><b>Definition</b> <a href="_vector2_8hpp_source.html#l00256">Vector2.hpp:256</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_74389ed8173ad57b461b9d623a1f3867.html">Source</a></li><li class="navelem"><b>CameraComponent3D.cpp</b></li>
-    <li class="footer">Generado el Sábado, 18 de mayo de 2024 12:15:51 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.10.0 </li>
+    <li class="footer">Generado el Miércoles, 29 de mayo de 2024 12:01:48 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.11.0 </li>
   </ul>
 </div>
 </body>

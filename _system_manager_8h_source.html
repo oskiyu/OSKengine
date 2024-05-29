@@ -3,7 +3,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
-<meta name="generator" content="Doxygen 1.10.0"/>
+<meta name="generator" content="Doxygen 1.11.0"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
 <title>OSKengine: Archivo de código fuente Source/SystemManager.h</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
@@ -11,9 +11,9 @@
 <script type="text/javascript" src="dynsections.js"></script>
 <script type="text/javascript" src="clipboard.js"></script>
 <link href="navtree.css" rel="stylesheet" type="text/css"/>
-<script type="text/javascript" src="resize.js"></script>
 <script type="text/javascript" src="navtreedata.js"></script>
 <script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript" src="resize.js"></script>
 <script type="text/javascript" src="cookie.js"></script>
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/searchdata.js"></script>
@@ -37,10 +37,15 @@
 </table>
 </div>
 <!-- end header part -->
-<!-- Generado por Doxygen 1.10.0 -->
+<!-- Generado por Doxygen 1.11.0 -->
 <script type="text/javascript">
 /* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
 var searchBox = new SearchBox("searchBox", "search/",'.html');
+/* @license-end */
+</script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() { codefold.init(0); });
 /* @license-end */
 </script>
 <script type="text/javascript" src="menudata.js"></script>
@@ -48,17 +53,12 @@ var searchBox = new SearchBox("searchBox", "search/",'.html');
 <script type="text/javascript">
 /* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
 $(function() {
-  initMenu('',true,false,'search.php','Buscar');
+  initMenu('',true,false,'search.php','Buscar',true);
   $(function() { init_search(); });
 });
 /* @license-end */
 </script>
 <div id="main-nav"></div>
-<script type="text/javascript">
-/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
-$(function() { codefold.init(0); });
-/* @license-end */
-</script>
 </div><!-- top -->
 <div id="side-nav" class="ui-resizable side-nav-resizable">
   <div id="nav-tree">
@@ -72,7 +72,7 @@ $(function() { codefold.init(0); });
 </div>
 <script type="text/javascript">
 /* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
-$(function(){initNavTree('_system_manager_8h_source.html',''); initResizable(); });
+$(function(){initNavTree('_system_manager_8h_source.html',''); initResizable(true); });
 /* @license-end */
 </script>
 <div id="doc-content">
@@ -103,7 +103,7 @@ $(function(){initNavTree('_system_manager_8h_source.html',''); initResizable(); 
 <div class="contents">
 <div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#pragma once</span></div>
 <div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span> </div>
-<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="preprocessor">#include &quot;OSKmacros.h&quot;</span></div>
+<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="preprocessor">#include &quot;ApiCall.h&quot;</span></div>
 <div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &quot;HashMap.hpp&quot;</span></div>
 <div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &quot;UniquePtr.hpp&quot;</span></div>
 <div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &quot;GameObject.h&quot;</span></div>
@@ -136,7 +136,7 @@ $(function(){initNavTree('_system_manager_8h_source.html',''); initResizable(); 
 <div class="line"><a id="l00038" name="l00038"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_e_c_s_1_1_system_manager.html#a5e503e38a6f749c36c77c14ce48846de">   38</a></span>        <a class="code hl_function" href="class_o_s_k_1_1_e_c_s_1_1_system_manager.html#a5e503e38a6f749c36c77c14ce48846de">OSK_DISABLE_COPY</a>(<a class="code hl_class" href="class_o_s_k_1_1_e_c_s_1_1_system_manager.html">SystemManager</a>);</div>
 <div class="line"><a id="l00039" name="l00039"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_e_c_s_1_1_system_manager.html#a66a0c00487f4f014f2d6efaf9f1bd0a6">   39</a></span>        <a class="code hl_function" href="class_o_s_k_1_1_e_c_s_1_1_system_manager.html#a66a0c00487f4f014f2d6efaf9f1bd0a6">OSK_DEFAULT_MOVE_OPERATOR</a>(<a class="code hl_class" href="class_o_s_k_1_1_e_c_s_1_1_system_manager.html">SystemManager</a>);</div>
 <div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span> </div>
-<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>        <span class="keywordtype">void</span> OnTick(TDeltaTime deltaTime, <span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_e_c_s_1_1_event_manager.html">EventManager</a>&amp; eventManager);</div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>        <span class="keywordtype">void</span> OnTick(<a class="code hl_typedef" href="namespace_o_s_k.html#adfc76cbcf35e5506ee24168edfe15bb0">TDeltaTime</a> deltaTime, <span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_e_c_s_1_1_event_manager.html">EventManager</a>&amp; eventManager);</div>
 <div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span> </div>
 <div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>        <span class="keywordtype">void</span> OnRender(<a class="code hl_class" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list.html">GRAPHICS::ICommandList</a>* commandList);</div>
 <div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span> </div>
@@ -225,7 +225,7 @@ $(function(){initNavTree('_system_manager_8h_source.html',''); initResizable(); 
 <div class="line"><a id="l00154" name="l00154"></a><span class="lineno">  154</span> </div>
 <div class="line"><a id="l00155" name="l00155"></a><span class="lineno">  155</span>        <span class="keywordtype">void</span> LaunchJobs(</div>
 <div class="line"><a id="l00156" name="l00156"></a><span class="lineno">  156</span>            <a class="code hl_class" href="class_o_s_k_1_1_e_c_s_1_1_i_system.html">ISystem</a>* system,</div>
-<div class="line"><a id="l00157" name="l00157"></a><span class="lineno">  157</span>            <a class="code hl_class" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">TDeltaTime</a> deltaTime, </div>
+<div class="line"><a id="l00157" name="l00157"></a><span class="lineno">  157</span>            <a class="code hl_typedef" href="namespace_o_s_k.html#adfc76cbcf35e5506ee24168edfe15bb0">TDeltaTime</a> deltaTime, </div>
 <div class="line"><a id="l00158" name="l00158"></a><span class="lineno">  158</span>            <span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_e_c_s_1_1_event_manager.html">EventManager</a>&amp; eventManager);</div>
 <div class="line"><a id="l00159" name="l00159"></a><span class="lineno">  159</span> </div>
 <div class="line"><a id="l00160" name="l00160"></a><span class="lineno">  160</span>        <span class="keyword">struct </span>SystemEntry {</div>
@@ -243,12 +243,11 @@ $(function(){initNavTree('_system_manager_8h_source.html',''); initResizable(); 
 </div>
 <div class="line"><a id="l00172" name="l00172"></a><span class="lineno">  172</span> </div>
 <div class="line"><a id="l00173" name="l00173"></a><span class="lineno">  173</span>}</div>
-<div class="ttc" id="aclass_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref_html"><div class="ttname"><a href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">OSK::ASSETS::AssetRef</a></div><div class="ttdoc">Referencia a un asset.</div><div class="ttdef"><b>Definition</b> <a href="_asset_ref_8h_source.html#l00012">AssetRef.h:12</a></div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_base_uuid_html"><div class="ttname"><a href="class_o_s_k_1_1_base_uuid.html">OSK::BaseUuid&lt; class GameObjectIndexTag &gt;</a></div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_constexpr_bit_set_html"><div class="ttname"><a href="class_o_s_k_1_1_constexpr_bit_set.html">OSK::ConstexprBitSet&lt; MAX_COMPONENT_TYPES &gt;</a></div></div>
-<div class="ttc" id="aclass_o_s_k_1_1_dynamic_array_html"><div class="ttname"><a href="class_o_s_k_1_1_dynamic_array.html">OSK::DynamicArray</a></div><div class="ttdoc">Dynamic array: array que puede cambiar de tamaño.</div><div class="ttdef"><b>Definition</b> <a href="_dynamic_array_8hpp_source.html#l00067">DynamicArray.hpp:67</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_dynamic_array_html"><div class="ttname"><a href="class_o_s_k_1_1_dynamic_array.html">OSK::DynamicArray</a></div><div class="ttdoc">Dynamic array: array que puede cambiar de tamaño.</div><div class="ttdef"><b>Definition</b> <a href="_dynamic_array_8hpp_source.html#l00069">DynamicArray.hpp:69</a></div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_e_c_s_1_1_event_manager_html"><div class="ttname"><a href="class_o_s_k_1_1_e_c_s_1_1_event_manager.html">OSK::ECS::EventManager</a></div><div class="ttdoc">Se encarga de gestionar las colas de eventos.</div><div class="ttdef"><b>Definition</b> <a href="_event_manager_8h_source.html#l00019">EventManager.h:19</a></div></div>
-<div class="ttc" id="aclass_o_s_k_1_1_e_c_s_1_1_i_system_html"><div class="ttname"><a href="class_o_s_k_1_1_e_c_s_1_1_i_system.html">OSK::ECS::ISystem</a></div><div class="ttdoc">Un sistema se encarga de ejecutar lógica.</div><div class="ttdef"><b>Definition</b> <a href="_i_system_8h_source.html#l00055">ISystem.h:55</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_e_c_s_1_1_i_system_html"><div class="ttname"><a href="class_o_s_k_1_1_e_c_s_1_1_i_system.html">OSK::ECS::ISystem</a></div><div class="ttdoc">Un sistema se encarga de ejecutar lógica.</div><div class="ttdef"><b>Definition</b> <a href="_i_system_8h_source.html#l00057">ISystem.h:57</a></div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_e_c_s_1_1_system_execution_graph_html"><div class="ttname"><a href="class_o_s_k_1_1_e_c_s_1_1_system_execution_graph.html">OSK::ECS::SystemExecutionGraph</a></div><div class="ttdoc">Grafo que contiene los sistemas ordenados de tal manera que se respeten sus dependencias.</div><div class="ttdef"><b>Definition</b> <a href="_system_execution_graph_8h_source.html#l00025">SystemExecutionGraph.h:25</a></div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_e_c_s_1_1_system_manager_html"><div class="ttname"><a href="class_o_s_k_1_1_e_c_s_1_1_system_manager.html">OSK::ECS::SystemManager</a></div><div class="ttdoc">El SystemManager se encarga de almacenar y manejar los sistemas del juego. Es el encargado de llamar ...</div><div class="ttdef"><b>Definition</b> <a href="#l00033">SystemManager.h:33</a></div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_e_c_s_1_1_system_manager_html_a3fb325594bcd65b490abec1254d2d3c9"><div class="ttname"><a href="class_o_s_k_1_1_e_c_s_1_1_system_manager.html#a3fb325594bcd65b490abec1254d2d3c9">OSK::ECS::SystemManager::RemoveSystem</a></div><div class="ttdeci">void RemoveSystem()</div><div class="ttdoc">Elimina el sistema dado, para que no sea procesado a partir de ahora.</div><div class="ttdef"><b>Definition</b> <a href="#l00093">SystemManager.h:93</a></div></div>
@@ -261,17 +260,18 @@ $(function(){initNavTree('_system_manager_8h_source.html',''); initResizable(); 
 <div class="ttc" id="aclass_o_s_k_1_1_e_c_s_1_1_system_manager_html_aecab7fe0aeea50f027db32e42c79790e"><div class="ttname"><a href="class_o_s_k_1_1_e_c_s_1_1_system_manager.html#aecab7fe0aeea50f027db32e42c79790e">OSK::ECS::SystemManager::RegisterSystem</a></div><div class="ttdeci">TSystem * RegisterSystem(const SystemDependencies &amp;dependencies)</div><div class="ttdoc">Registra un sistema, con lo que se ejecutará a partir de ahora. Si ya estaba registrado,...</div><div class="ttdef"><b>Definition</b> <a href="#l00068">SystemManager.h:68</a></div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list_html"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list.html">OSK::GRAPHICS::ICommandList</a></div><div class="ttdoc">Una lista de comandos contiene una serie de comandos que serán enviados a la GPU para su ejecución....</div><div class="ttdef"><b>Definition</b> <a href="_i_command_list_8h_source.html#l00076">ICommandList.h:76</a></div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_unique_ptr_html"><div class="ttname"><a href="class_o_s_k_1_1_unique_ptr.html">OSK::UniquePtr</a></div><div class="ttdoc">Estructura que es dueña de un objeto almacenado en heap. Al destruirse el UniquePtr,...</div><div class="ttdef"><b>Definition</b> <a href="_unique_ptr_8hpp_source.html#l00022">UniquePtr.hpp:22</a></div></div>
-<div class="ttc" id="aconcept_o_s_k_1_1_e_c_s_1_1_is_ecs_system_html"><div class="ttname"><a href="concept_o_s_k_1_1_e_c_s_1_1_is_ecs_system.html">OSK::ECS::IsEcsSystem</a></div><div class="ttdoc">Concepto que nos permite detectar si una clase cumple con las condiciones para ser un sistema.</div><div class="ttdef"><b>Definition</b> <a href="_i_system_8h_source.html#l00138">ISystem.h:138</a></div></div>
+<div class="ttc" id="aconcept_o_s_k_1_1_e_c_s_1_1_is_ecs_system_html"><div class="ttname"><a href="concept_o_s_k_1_1_e_c_s_1_1_is_ecs_system.html">OSK::ECS::IsEcsSystem</a></div><div class="ttdoc">Concepto que nos permite detectar si una clase cumple con las condiciones para ser un sistema.</div><div class="ttdef"><b>Definition</b> <a href="_i_system_8h_source.html#l00140">ISystem.h:140</a></div></div>
 <div class="ttc" id="anamespace_o_s_k_1_1_e_c_s_html"><div class="ttname"><a href="namespace_o_s_k_1_1_e_c_s.html">OSK::ECS</a></div><div class="ttdef"><b>Definition</b> <a href="_camera_component2_d_8h_source.html#l00017">CameraComponent2D.h:17</a></div></div>
 <div class="ttc" id="anamespace_o_s_k_1_1_g_r_a_p_h_i_c_s_html"><div class="ttname"><a href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html">OSK::GRAPHICS</a></div><div class="ttdef"><b>Definition</b> <a href="_acceleration_structures_exceptions_8h_source.html#l00005">AccelerationStructuresExceptions.h:5</a></div></div>
-<div class="ttc" id="astruct_o_s_k_1_1_e_c_s_1_1_system_dependencies_html"><div class="ttname"><a href="struct_o_s_k_1_1_e_c_s_1_1_system_dependencies.html">OSK::ECS::SystemDependencies</a></div><div class="ttdoc">Dependencias explícitas de un sistema.</div><div class="ttdef"><b>Definition</b> <a href="_i_system_8h_source.html#l00026">ISystem.h:26</a></div></div>
+<div class="ttc" id="anamespace_o_s_k_html_adfc76cbcf35e5506ee24168edfe15bb0"><div class="ttname"><a href="namespace_o_s_k.html#adfc76cbcf35e5506ee24168edfe15bb0">OSK::TDeltaTime</a></div><div class="ttdeci">float TDeltaTime</div><div class="ttdoc">Delta de tiempo, medido en segundos.</div><div class="ttdef"><b>Definition</b> <a href="_numeric_types_8h_source.html#l00031">NumericTypes.h:31</a></div></div>
+<div class="ttc" id="astruct_o_s_k_1_1_e_c_s_1_1_system_dependencies_html"><div class="ttname"><a href="struct_o_s_k_1_1_e_c_s_1_1_system_dependencies.html">OSK::ECS::SystemDependencies</a></div><div class="ttdoc">Dependencias explícitas de un sistema.</div><div class="ttdef"><b>Definition</b> <a href="_i_system_8h_source.html#l00028">ISystem.h:28</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_74389ed8173ad57b461b9d623a1f3867.html">Source</a></li><li class="navelem"><b>SystemManager.h</b></li>
-    <li class="footer">Generado el Sábado, 18 de mayo de 2024 12:15:52 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.10.0 </li>
+    <li class="footer">Generado el Miércoles, 29 de mayo de 2024 12:01:49 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.11.0 </li>
   </ul>
 </div>
 </body>

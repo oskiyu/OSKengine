@@ -3,7 +3,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
-<meta name="generator" content="Doxygen 1.10.0"/>
+<meta name="generator" content="Doxygen 1.11.0"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
 <title>OSKengine: Archivo de código fuente Source/AssetManager.h</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
@@ -11,9 +11,9 @@
 <script type="text/javascript" src="dynsections.js"></script>
 <script type="text/javascript" src="clipboard.js"></script>
 <link href="navtree.css" rel="stylesheet" type="text/css"/>
-<script type="text/javascript" src="resize.js"></script>
 <script type="text/javascript" src="navtreedata.js"></script>
 <script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript" src="resize.js"></script>
 <script type="text/javascript" src="cookie.js"></script>
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/searchdata.js"></script>
@@ -37,10 +37,15 @@
 </table>
 </div>
 <!-- end header part -->
-<!-- Generado por Doxygen 1.10.0 -->
+<!-- Generado por Doxygen 1.11.0 -->
 <script type="text/javascript">
 /* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
 var searchBox = new SearchBox("searchBox", "search/",'.html');
+/* @license-end */
+</script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() { codefold.init(0); });
 /* @license-end */
 </script>
 <script type="text/javascript" src="menudata.js"></script>
@@ -48,17 +53,12 @@ var searchBox = new SearchBox("searchBox", "search/",'.html');
 <script type="text/javascript">
 /* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
 $(function() {
-  initMenu('',true,false,'search.php','Buscar');
+  initMenu('',true,false,'search.php','Buscar',true);
   $(function() { init_search(); });
 });
 /* @license-end */
 </script>
 <div id="main-nav"></div>
-<script type="text/javascript">
-/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
-$(function() { codefold.init(0); });
-/* @license-end */
-</script>
 </div><!-- top -->
 <div id="side-nav" class="ui-resizable side-nav-resizable">
   <div id="nav-tree">
@@ -72,7 +72,7 @@ $(function() { codefold.init(0); });
 </div>
 <script type="text/javascript">
 /* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
-$(function(){initNavTree('_asset_manager_8h_source.html',''); initResizable(); });
+$(function(){initNavTree('_asset_manager_8h_source.html',''); initResizable(true); });
 /* @license-end */
 </script>
 <div id="doc-content">
@@ -106,106 +106,108 @@ $(function(){initNavTree('_asset_manager_8h_source.html',''); initResizable(); }
 <div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="preprocessor">#include &lt;string&gt;</span></div>
 <div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span> </div>
 <div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &quot;HashMap.hpp&quot;</span></div>
-<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &quot;OSKmacros.h&quot;</span></div>
-<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="preprocessor">#include &quot;LinkedList.hpp&quot;</span></div>
-<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="preprocessor">#include &quot;SharedPtr.hpp&quot;</span></div>
-<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="preprocessor">#include &quot;UniquePtr.hpp&quot;</span></div>
-<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="preprocessor">#include &quot;IAssetLoader.h&quot;</span></div>
-<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="preprocessor">#include &quot;IAsset.h&quot;</span></div>
-<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="preprocessor">#include &quot;Logger.h&quot;</span></div>
-<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="preprocessor">#include &quot;AssetRef.h&quot;</span></div>
-<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span> </div>
-<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span><span class="preprocessor">#include &quot;AssetLoaderNotFoundException.h&quot;</span></div>
-<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span> </div>
-<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span><span class="keyword">namespace </span><a class="code hl_namespace" href="namespace_o_s_k_1_1_a_s_s_e_t_s.html">OSK::ASSETS</a> {</div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &quot;LinkedList.hpp&quot;</span></div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="preprocessor">#include &quot;SharedPtr.hpp&quot;</span></div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="preprocessor">#include &quot;UniquePtr.hpp&quot;</span></div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="preprocessor">#include &quot;IAssetLoader.h&quot;</span></div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="preprocessor">#include &quot;IAsset.h&quot;</span></div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="preprocessor">#include &quot;Logger.h&quot;</span></div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="preprocessor">#include &quot;AssetRef.h&quot;</span></div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span> </div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span><span class="preprocessor">#include &quot;AssetLoaderNotFoundException.h&quot;</span></div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span> </div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span><span class="preprocessor">#include &lt;span&gt;</span></div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span> </div>
 <div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span> </div>
-<div class="foldopen" id="foldopen00035" data-start="{" data-end="};">
-<div class="line"><a id="l00035" name="l00035"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_manager.html">   35</a></span>    <span class="keyword">class </span><a class="code hl_class" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_manager.html">AssetManager</a> {</div>
-<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span> </div>
-<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>    <span class="keyword">public</span>:</div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span><span class="keyword">namespace </span><a class="code hl_namespace" href="namespace_o_s_k_1_1_a_s_s_e_t_s.html">OSK::ASSETS</a> {</div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span> </div>
+<div class="foldopen" id="foldopen00037" data-start="{" data-end="};">
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_manager.html">   37</a></span>    <span class="keyword">class </span><a class="code hl_class" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_manager.html">AssetManager</a> {</div>
 <div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span> </div>
-<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>        <span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt; </div>
-<div class="foldopen" id="foldopen00049" data-start="{" data-end="}">
-<div class="line"><a id="l00049" name="l00049"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_manager.html#aae32c0b5d0362cd837e62534f29c8701">   49</a></span>        <a class="code hl_class" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">AssetRef&lt;T&gt;</a> <a class="code hl_function" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_manager.html#aae32c0b5d0362cd837e62534f29c8701">Load</a>(<span class="keyword">const</span> std::string&amp; assetFilePath) {</div>
-<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>            OSK_ASSERT(m_loaders.contains(T::GetAssetType()), <a class="code hl_class" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_loader_not_found_exception.html">AssetLoaderNotFoundException</a>(T::GetAssetType()));</div>
-<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span> </div>
-<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>            <a class="code hl_class" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">AssetRef&lt;T&gt;</a> output = <a class="code hl_class" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">AssetRef&lt;T&gt;</a>();</div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>    <span class="keyword">public</span>:</div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span> </div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>        <span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt; </div>
+<div class="foldopen" id="foldopen00051" data-start="{" data-end="}">
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_manager.html#aae32c0b5d0362cd837e62534f29c8701">   51</a></span>        <a class="code hl_class" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">AssetRef&lt;T&gt;</a> <a class="code hl_function" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_manager.html#aae32c0b5d0362cd837e62534f29c8701">Load</a>(<span class="keyword">const</span> std::string&amp; assetFilePath) {</div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>            OSK_ASSERT(m_loaders.contains(T::GetAssetType()), <a class="code hl_class" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_loader_not_found_exception.html">AssetLoaderNotFoundException</a>(T::GetAssetType()));</div>
 <div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span> </div>
-<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>            m_loaders.at(T::GetAssetType())-&gt;FullyLoad(<a class="code hl_class" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">assetFilePath</a>, &amp;<a class="code hl_class" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">output</a>);</div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>            <a class="code hl_class" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">AssetRef&lt;T&gt;</a> output = <a class="code hl_class" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">AssetRef&lt;T&gt;</a>();</div>
 <div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span> </div>
-<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>            <span class="keywordflow">return</span> <a class="code hl_class" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">output</a>;</div>
-<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>        }</div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>            m_loaders.at(T::GetAssetType())-&gt;FullyLoad(assetFilePath, &amp;output);</div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span> </div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>            <span class="keywordflow">return</span> output;</div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>        }</div>
 </div>
-<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span> </div>
-<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>        <span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="foldopen" id="foldopen00073" data-start="{" data-end="}">
-<div class="line"><a id="l00073" name="l00073"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_manager.html#adba274c380f46cbcab60ad54f8d6edea">   73</a></span>        <a class="code hl_class" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">AssetRef&lt;T&gt;</a> <a class="code hl_function" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_manager.html#adba274c380f46cbcab60ad54f8d6edea">LoadAsync</a>(<span class="keyword">const</span> std::string&amp; <a class="code hl_class" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">assetFilePath</a>, std::span&lt;const std::string&gt; <a class="code hl_class" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">tags</a> = {}) {</div>
-<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>            OSK_ASSERT(m_loaders.contains(T::GetAssetType()), <a class="code hl_class" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_loader_not_found_exception.html">AssetLoaderNotFoundException</a>(T::GetAssetType()))</div>
-<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span> </div>
-<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>            <a class="code hl_class" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">AssetRef</a>&lt;T&gt; <a class="code hl_class" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">output</a> = <a class="code hl_class" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">AssetRef</a>&lt;T&gt;();</div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span> </div>
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>        <span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="foldopen" id="foldopen00075" data-start="{" data-end="}">
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_manager.html#adba274c380f46cbcab60ad54f8d6edea">   75</a></span>        <a class="code hl_class" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">AssetRef&lt;T&gt;</a> <a class="code hl_function" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_manager.html#adba274c380f46cbcab60ad54f8d6edea">LoadAsync</a>(<span class="keyword">const</span> std::string&amp; assetFilePath, std::span&lt;const std::string&gt; tags = {}) {</div>
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>            OSK_ASSERT(m_loaders.contains(T::GetAssetType()), <a class="code hl_class" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_loader_not_found_exception.html">AssetLoaderNotFoundException</a>(T::GetAssetType()))</div>
 <div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span> </div>
-<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span>            <a class="code hl_class" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">auto</a>* <a class="code hl_class" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">loader</a> = m_loaders.<a class="code hl_class" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">find</a>(T::<a class="code hl_class" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">GetAssetType</a>())-&gt;second.GetPointer();</div>
+<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span>            <a class="code hl_class" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">AssetRef</a>&lt;T&gt; output = <a class="code hl_class" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">AssetRef</a>&lt;T&gt;();</div>
 <div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span> </div>
-<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span>            <a class="code hl_class" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">loader</a>-&gt;RegisterWithoutLoading(<a class="code hl_class" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">assetFilePath</a>, std::<a class="code hl_class" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">addressof</a>(<a class="code hl_class" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">output</a>));</div>
-<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span>            LaunchAsyncLoad(<a class="code hl_class" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">assetFilePath</a>, <a class="code hl_class" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">loader</a>, <a class="code hl_class" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">tags</a>);</div>
-<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span>            </div>
-<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span>            <a class="code hl_class" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">return</a> <a class="code hl_class" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">output</a>;</div>
-<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span>        }</div>
+<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span>            auto* loader = m_loaders.find(T::GetAssetType())-&gt;second.GetPointer();</div>
+<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span> </div>
+<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span>            loader-&gt;RegisterWithoutLoading(assetFilePath, std::addressof(output));</div>
+<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span>            LaunchAsyncLoad(assetFilePath, loader, tags);</div>
+<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span>            </div>
+<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span>            return output;</div>
+<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span>        }</div>
 </div>
-<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span> </div>
-<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span> </div>
-<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span>        <a class="code hl_class" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">template</a> &lt;<a class="code hl_class" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">typename</a> T&gt; </div>
-<div class="foldopen" id="foldopen00093" data-start="{" data-end="}">
-<div class="line"><a id="l00093" name="l00093"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_manager.html#a37f73c3a4d17bb495b38eb65f7073d67">   93</a></span>        <span class="keywordtype">void</span> <a class="code hl_function" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_manager.html#a37f73c3a4d17bb495b38eb65f7073d67">RegisterLoader</a>() {</div>
-<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span>            <span class="keyword">const</span> <span class="keyword">auto</span>&amp; <a class="code hl_class" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">key</a> = T::GetAssetType();</div>
-<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span> </div>
-<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span>            OSK_ASSERT(!m_loaders.contains(<a class="code hl_class" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">key</a>), <a class="code hl_class" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_loader_already_registered_exception.html">AssetLoaderAlreadyRegisteredException</a>(<a class="code hl_class" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">key</a>))</div>
-<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span>            m_loaders[T::GetAssetType()] = <span class="keyword">new</span> T;</div>
-<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span>        }</div>
+<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span> </div>
+<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span> </div>
+<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span>        template &lt;typename T&gt; </div>
+<div class="foldopen" id="foldopen00095" data-start="{" data-end="}">
+<div class="line"><a id="l00095" name="l00095"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_manager.html#a37f73c3a4d17bb495b38eb65f7073d67">   95</a></span>        <span class="keywordtype">void</span> <a class="code hl_function" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_manager.html#a37f73c3a4d17bb495b38eb65f7073d67">RegisterLoader</a>() {</div>
+<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span>            <span class="keyword">const</span> <span class="keyword">auto</span>&amp; key = T::GetAssetType();</div>
+<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span> </div>
+<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span>            OSK_ASSERT(!m_loaders.contains(key), <a class="code hl_class" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_loader_already_registered_exception.html">AssetLoaderAlreadyRegisteredException</a>(key))</div>
+<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span>            m_loaders[T::GetAssetType()] = <span class="keyword">new</span> T;</div>
+<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span>        }</div>
 </div>
-<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span> </div>
-<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span>        <span class="keyword">template</span> &lt;<span class="keyword">typename</span> TLoader&gt;</div>
-<div class="foldopen" id="foldopen00107" data-start="{" data-end="}">
-<div class="line"><a id="l00107" name="l00107"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_manager.html#a714b466461b9b4897f8b78c1859ce12a">  107</a></span>        <a class="code hl_class" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">TLoader</a>* <a class="code hl_function" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_manager.html#a714b466461b9b4897f8b78c1859ce12a">GetLoader</a>() {</div>
-<div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span>            <span class="keyword">const</span> <span class="keyword">auto</span>&amp; <a class="code hl_class" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">key</a> = TLoader::GetAssetType();</div>
-<div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span> </div>
-<div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span>            OSK_ASSERT(m_loaders.contains(TLoader::GetAssetType()), <a class="code hl_class" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_loader_not_found_exception.html">AssetLoaderNotFoundException</a>(TLoader::GetAssetType()))</div>
+<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span> </div>
+<div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span>        <span class="keyword">template</span> &lt;<span class="keyword">typename</span> TLoader&gt;</div>
+<div class="foldopen" id="foldopen00109" data-start="{" data-end="}">
+<div class="line"><a id="l00109" name="l00109"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_manager.html#a714b466461b9b4897f8b78c1859ce12a">  109</a></span>        TLoader* <a class="code hl_function" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_manager.html#a714b466461b9b4897f8b78c1859ce12a">GetLoader</a>() {</div>
+<div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span>            <span class="keyword">const</span> <span class="keyword">auto</span>&amp; key = TLoader::GetAssetType();</div>
 <div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span> </div>
-<div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span>            <span class="keywordflow">return</span> <span class="keyword">static_cast&lt;</span><a class="code hl_class" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">TLoader</a>*<span class="keyword">&gt;</span>(m_loaders.find(<a class="code hl_class" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">key</a>)-&gt;second.GetPointer());</div>
-<div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span>        }</div>
+<div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span>            OSK_ASSERT(m_loaders.contains(TLoader::GetAssetType()), <a class="code hl_class" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_loader_not_found_exception.html">AssetLoaderNotFoundException</a>(TLoader::GetAssetType()))</div>
+<div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span> </div>
+<div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span>            <span class="keywordflow">return</span> <span class="keyword">static_cast&lt;</span>TLoader*<span class="keyword">&gt;</span>(m_loaders.find(key)-&gt;second.GetPointer());</div>
+<div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span>        }</div>
 </div>
-<div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span> </div>
-<div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span>    <span class="keyword">private</span>:</div>
 <div class="line"><a id="l00116" name="l00116"></a><span class="lineno">  116</span> </div>
-<div class="line"><a id="l00125" name="l00125"></a><span class="lineno">  125</span>        <span class="keywordtype">void</span> LaunchAsyncLoad(</div>
-<div class="line"><a id="l00126" name="l00126"></a><span class="lineno">  126</span>            <span class="keyword">const</span> std::string&amp; <a class="code hl_class" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">assetPath</a>, </div>
-<div class="line"><a id="l00127" name="l00127"></a><span class="lineno">  127</span>            <a class="code hl_class" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_i_asset_loader.html">IAssetLoader</a>* <a class="code hl_class" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">loader</a>,</div>
-<div class="line"><a id="l00128" name="l00128"></a><span class="lineno">  128</span>            std::span&lt;const std::string&gt; <a class="code hl_class" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">tags</a>);</div>
-<div class="line"><a id="l00129" name="l00129"></a><span class="lineno">  129</span> </div>
-<div class="line"><a id="l00130" name="l00130"></a><span class="lineno">  130</span>        std::unordered_map&lt;std::string, UniquePtr&lt;IAssetLoader&gt;, <a class="code hl_struct" href="struct_o_s_k_1_1_string_hasher.html">StringHasher</a>, std::equal_to&lt;&gt;&gt; m_loaders;</div>
+<div class="line"><a id="l00117" name="l00117"></a><span class="lineno">  117</span>    <span class="keyword">private</span>:</div>
+<div class="line"><a id="l00118" name="l00118"></a><span class="lineno">  118</span> </div>
+<div class="line"><a id="l00127" name="l00127"></a><span class="lineno">  127</span>        <span class="keywordtype">void</span> LaunchAsyncLoad(</div>
+<div class="line"><a id="l00128" name="l00128"></a><span class="lineno">  128</span>            <span class="keyword">const</span> std::string&amp; assetPath, </div>
+<div class="line"><a id="l00129" name="l00129"></a><span class="lineno">  129</span>            <a class="code hl_class" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_i_asset_loader.html">IAssetLoader</a>* loader,</div>
+<div class="line"><a id="l00130" name="l00130"></a><span class="lineno">  130</span>            std::span&lt;const std::string&gt; tags);</div>
 <div class="line"><a id="l00131" name="l00131"></a><span class="lineno">  131</span> </div>
-<div class="line"><a id="l00132" name="l00132"></a><span class="lineno">  132</span>    };</div>
-</div>
+<div class="line"><a id="l00132" name="l00132"></a><span class="lineno">  132</span>        std::unordered_map&lt;std::string, UniquePtr&lt;IAssetLoader&gt;, <a class="code hl_struct" href="struct_o_s_k_1_1_string_hasher.html">StringHasher</a>, std::equal_to&lt;&gt;&gt; m_loaders;</div>
 <div class="line"><a id="l00133" name="l00133"></a><span class="lineno">  133</span> </div>
-<div class="line"><a id="l00134" name="l00134"></a><span class="lineno">  134</span>}</div>
+<div class="line"><a id="l00134" name="l00134"></a><span class="lineno">  134</span>    };</div>
+</div>
+<div class="line"><a id="l00135" name="l00135"></a><span class="lineno">  135</span> </div>
+<div class="line"><a id="l00136" name="l00136"></a><span class="lineno">  136</span>}</div>
 <div class="ttc" id="aclass_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_loader_already_registered_exception_html"><div class="ttname"><a href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_loader_already_registered_exception.html">OSK::ASSETS::AssetLoaderAlreadyRegisteredException</a></div><div class="ttdoc">Excepción que se lanza cuando se trata de registrar un asset previamente registrado.</div><div class="ttdef"><b>Definition</b> <a href="_asset_loader_not_found_exception_8h_source.html#l00025">AssetLoaderNotFoundException.h:25</a></div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_loader_not_found_exception_html"><div class="ttname"><a href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_loader_not_found_exception.html">OSK::ASSETS::AssetLoaderNotFoundException</a></div><div class="ttdoc">Excepción que se lanza cuando se trata de cargar un asset cuando no hay registrado ningún loader capa...</div><div class="ttdef"><b>Definition</b> <a href="_asset_loader_not_found_exception_8h_source.html#l00010">AssetLoaderNotFoundException.h:10</a></div></div>
-<div class="ttc" id="aclass_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_manager_html"><div class="ttname"><a href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_manager.html">OSK::ASSETS::AssetManager</a></div><div class="ttdoc">El AssetManager se encarga de manejar los loaders de los assets y los lifetimes de los assets.</div><div class="ttdef"><b>Definition</b> <a href="#l00035">AssetManager.h:35</a></div></div>
-<div class="ttc" id="aclass_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_manager_html_a37f73c3a4d17bb495b38eb65f7073d67"><div class="ttname"><a href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_manager.html#a37f73c3a4d17bb495b38eb65f7073d67">OSK::ASSETS::AssetManager::RegisterLoader</a></div><div class="ttdeci">void RegisterLoader()</div><div class="ttdoc">Registra un loader, para poder cargar assets de un tipo determinado.</div><div class="ttdef"><b>Definition</b> <a href="#l00093">AssetManager.h:93</a></div></div>
-<div class="ttc" id="aclass_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_manager_html_a714b466461b9b4897f8b78c1859ce12a"><div class="ttname"><a href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_manager.html#a714b466461b9b4897f8b78c1859ce12a">OSK::ASSETS::AssetManager::GetLoader</a></div><div class="ttdeci">TLoader * GetLoader()</div><div class="ttdoc">Devuelve el loader indicado.</div><div class="ttdef"><b>Definition</b> <a href="#l00107">AssetManager.h:107</a></div></div>
-<div class="ttc" id="aclass_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_manager_html_aae32c0b5d0362cd837e62534f29c8701"><div class="ttname"><a href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_manager.html#aae32c0b5d0362cd837e62534f29c8701">OSK::ASSETS::AssetManager::Load</a></div><div class="ttdeci">AssetRef&lt; T &gt; Load(const std::string &amp;assetFilePath)</div><div class="ttdoc">Carga un asset.</div><div class="ttdef"><b>Definition</b> <a href="#l00049">AssetManager.h:49</a></div></div>
-<div class="ttc" id="aclass_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_manager_html_adba274c380f46cbcab60ad54f8d6edea"><div class="ttname"><a href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_manager.html#adba274c380f46cbcab60ad54f8d6edea">OSK::ASSETS::AssetManager::LoadAsync</a></div><div class="ttdeci">AssetRef&lt; T &gt; LoadAsync(const std::string &amp;assetFilePath, std::span&lt; const std::string &gt; tags={})</div><div class="ttdoc">Carga un asset de manera asíncrona. Lanza un trabajo que realizará la carga del asset.</div><div class="ttdef"><b>Definition</b> <a href="#l00073">AssetManager.h:73</a></div></div>
-<div class="ttc" id="aclass_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref_html"><div class="ttname"><a href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">OSK::ASSETS::AssetRef</a></div><div class="ttdoc">Referencia a un asset.</div><div class="ttdef"><b>Definition</b> <a href="_asset_ref_8h_source.html#l00012">AssetRef.h:12</a></div></div>
-<div class="ttc" id="aclass_o_s_k_1_1_a_s_s_e_t_s_1_1_i_asset_loader_html"><div class="ttname"><a href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_i_asset_loader.html">OSK::ASSETS::IAssetLoader</a></div><div class="ttdoc">Clase que se encarga de cargar un asset de un tipo en concreto.</div><div class="ttdef"><b>Definition</b> <a href="_i_asset_loader_8h_source.html#l00033">IAssetLoader.h:33</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_manager_html"><div class="ttname"><a href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_manager.html">OSK::ASSETS::AssetManager</a></div><div class="ttdoc">El AssetManager se encarga de manejar los loaders de los assets y los lifetimes de los assets.</div><div class="ttdef"><b>Definition</b> <a href="#l00037">AssetManager.h:37</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_manager_html_a37f73c3a4d17bb495b38eb65f7073d67"><div class="ttname"><a href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_manager.html#a37f73c3a4d17bb495b38eb65f7073d67">OSK::ASSETS::AssetManager::RegisterLoader</a></div><div class="ttdeci">void RegisterLoader()</div><div class="ttdoc">Registra un loader, para poder cargar assets de un tipo determinado.</div><div class="ttdef"><b>Definition</b> <a href="#l00095">AssetManager.h:95</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_manager_html_a714b466461b9b4897f8b78c1859ce12a"><div class="ttname"><a href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_manager.html#a714b466461b9b4897f8b78c1859ce12a">OSK::ASSETS::AssetManager::GetLoader</a></div><div class="ttdeci">TLoader * GetLoader()</div><div class="ttdoc">Devuelve el loader indicado.</div><div class="ttdef"><b>Definition</b> <a href="#l00109">AssetManager.h:109</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_manager_html_aae32c0b5d0362cd837e62534f29c8701"><div class="ttname"><a href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_manager.html#aae32c0b5d0362cd837e62534f29c8701">OSK::ASSETS::AssetManager::Load</a></div><div class="ttdeci">AssetRef&lt; T &gt; Load(const std::string &amp;assetFilePath)</div><div class="ttdoc">Carga un asset.</div><div class="ttdef"><b>Definition</b> <a href="#l00051">AssetManager.h:51</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_manager_html_adba274c380f46cbcab60ad54f8d6edea"><div class="ttname"><a href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_manager.html#adba274c380f46cbcab60ad54f8d6edea">OSK::ASSETS::AssetManager::LoadAsync</a></div><div class="ttdeci">AssetRef&lt; T &gt; LoadAsync(const std::string &amp;assetFilePath, std::span&lt; const std::string &gt; tags={})</div><div class="ttdoc">Carga un asset de manera asíncrona. Lanza un trabajo que realizará la carga del asset.</div><div class="ttdef"><b>Definition</b> <a href="#l00075">AssetManager.h:75</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref_html"><div class="ttname"><a href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">OSK::ASSETS::AssetRef</a></div><div class="ttdoc">Referencia a un asset.</div><div class="ttdef"><b>Definition</b> <a href="_asset_ref_8h_source.html#l00011">AssetRef.h:11</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_a_s_s_e_t_s_1_1_i_asset_loader_html"><div class="ttname"><a href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_i_asset_loader.html">OSK::ASSETS::IAssetLoader</a></div><div class="ttdoc">Clase que se encarga de cargar un asset de un tipo en concreto.</div><div class="ttdef"><b>Definition</b> <a href="_i_asset_loader_8h_source.html#l00034">IAssetLoader.h:34</a></div></div>
 <div class="ttc" id="anamespace_o_s_k_1_1_a_s_s_e_t_s_html"><div class="ttname"><a href="namespace_o_s_k_1_1_a_s_s_e_t_s.html">OSK::ASSETS</a></div><div class="ttdef"><b>Definition</b> <a href="_anim_mesh_loader_8h_source.html#l00009">AnimMeshLoader.h:9</a></div></div>
-<div class="ttc" id="astruct_o_s_k_1_1_string_hasher_html"><div class="ttname"><a href="struct_o_s_k_1_1_string_hasher.html">OSK::StringHasher</a></div><div class="ttdef"><b>Definition</b> <a href="_hash_map_8hpp_source.html#l00462">HashMap.hpp:462</a></div></div>
+<div class="ttc" id="astruct_o_s_k_1_1_string_hasher_html"><div class="ttname"><a href="struct_o_s_k_1_1_string_hasher.html">OSK::StringHasher</a></div><div class="ttdef"><b>Definition</b> <a href="_hash_map_8hpp_source.html#l00461">HashMap.hpp:461</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_74389ed8173ad57b461b9d623a1f3867.html">Source</a></li><li class="navelem"><b>AssetManager.h</b></li>
-    <li class="footer">Generado el Sábado, 18 de mayo de 2024 12:15:50 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.10.0 </li>
+    <li class="footer">Generado el Miércoles, 29 de mayo de 2024 12:01:48 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.11.0 </li>
   </ul>
 </div>
 </body>

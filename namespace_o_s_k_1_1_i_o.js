@@ -1,6 +1,5 @@
 var namespace_o_s_k_1_1_i_o =
 [
-    [ "Console", "class_o_s_k_1_1_i_o_1_1_console.html", "class_o_s_k_1_1_i_o_1_1_console" ],
     [ "FileIO", "class_o_s_k_1_1_i_o_1_1_file_i_o.html", null ],
     [ "FileNotFoundException", "class_o_s_k_1_1_i_o_1_1_file_not_found_exception.html", "class_o_s_k_1_1_i_o_1_1_file_not_found_exception" ],
     [ "GamepadState", "class_o_s_k_1_1_i_o_1_1_gamepad_state.html", "class_o_s_k_1_1_i_o_1_1_gamepad_state" ],
@@ -56,7 +55,7 @@ var namespace_o_s_k_1_1_i_o =
       [ "APOSTROPHE", "namespace_o_s_k_1_1_i_o.html#a0b92714a4a778072d4824502589bd39ea9df35983f4024e31955de0f1e545e888", null ],
       [ "COMMA", "namespace_o_s_k_1_1_i_o.html#a0b92714a4a778072d4824502589bd39ea4d9b3e9fc12849d060371eb65154c751", null ],
       [ "MINUS", "namespace_o_s_k_1_1_i_o.html#a0b92714a4a778072d4824502589bd39eaffc0d9b54a1fe677c4c9e6b050e67c81", null ],
-      [ "PERIDO", "namespace_o_s_k_1_1_i_o.html#a0b92714a4a778072d4824502589bd39ea73ca001ad9c37019a44b6d67c2a08b33", null ],
+      [ "PERIOD", "namespace_o_s_k_1_1_i_o.html#a0b92714a4a778072d4824502589bd39eade58a28573783fe95304a260ccd90362", null ],
       [ "SLASH", "namespace_o_s_k_1_1_i_o.html#a0b92714a4a778072d4824502589bd39ea646da671ca01bb5d84dbb5fb2238dc8e", null ],
       [ "KEY_0", "namespace_o_s_k_1_1_i_o.html#a0b92714a4a778072d4824502589bd39ea8350baa5fded880538b27097753a9ce8", null ],
       [ "KEY_1", "namespace_o_s_k_1_1_i_o.html#a0b92714a4a778072d4824502589bd39ea43f1c1b2bb217aa04013aa12fb9695a8", null ],
@@ -98,7 +97,7 @@ var namespace_o_s_k_1_1_i_o =
       [ "Z", "namespace_o_s_k_1_1_i_o.html#a0b92714a4a778072d4824502589bd39ea21c2e59531c8710156d34a3c30ac81d5", null ],
       [ "LEFT_BRACKET", "namespace_o_s_k_1_1_i_o.html#a0b92714a4a778072d4824502589bd39ea0c2629e56daed25c9df918961d0cc03f", null ],
       [ "BACKSLASH", "namespace_o_s_k_1_1_i_o.html#a0b92714a4a778072d4824502589bd39eaecb4a6f3440c2ed0dff59f17375a27c0", null ],
-      [ "REIGHT_BRACKET", "namespace_o_s_k_1_1_i_o.html#a0b92714a4a778072d4824502589bd39ea37d522b3a1a6a8eb09ee603503ad8a0d", null ],
+      [ "RIGHT_BRACKET", "namespace_o_s_k_1_1_i_o.html#a0b92714a4a778072d4824502589bd39ea91d8d0b84f26c3e30fb064ea4fc1090f", null ],
       [ "GRAVE_ACCENT", "namespace_o_s_k_1_1_i_o.html#a0b92714a4a778072d4824502589bd39ea1547ad05c44be2cc614be32159bf666b", null ],
       [ "WORLD_1", "namespace_o_s_k_1_1_i_o.html#a0b92714a4a778072d4824502589bd39ea1ab6dcd85380f2d3e882fbd2f6fda566", null ],
       [ "WORLD_2", "namespace_o_s_k_1_1_i_o.html#a0b92714a4a778072d4824502589bd39eacb8104ace1979f9537c7f40de0622a22", null ],
@@ -208,6 +207,7 @@ var namespace_o_s_k_1_1_i_o =
       [ "FREE", "namespace_o_s_k_1_1_i_o.html#a2f854259da792bdb856dedf2a07ee49da88c189a42c87aa49d667fc8ab76bc323", null ],
       [ "ALWAYS_RETURN", "namespace_o_s_k_1_1_i_o.html#a2f854259da792bdb856dedf2a07ee49da42190ae7de8d84128ff7d1abcc9894a4", null ]
     ] ],
+    [ "GetPrintableKeyText", "namespace_o_s_k_1_1_i_o.html#a9536bbc94cea0a101e686d2b434f7403", null ],
     [ "KeyboardNumberOfKeys", "namespace_o_s_k_1_1_i_o.html#ab6538119e8f374865c6ac58dab067993", null ],
     [ "MouseNumberOfButtons", "namespace_o_s_k_1_1_i_o.html#a2126937723636a6160e7c746cc47b61c", null ]
 ];

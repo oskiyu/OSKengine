@@ -3,7 +3,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
-<meta name="generator" content="Doxygen 1.10.0"/>
+<meta name="generator" content="Doxygen 1.11.0"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
 <title>OSKengine: Archivo de código fuente Source/SharedPtr.hpp</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
@@ -11,9 +11,9 @@
 <script type="text/javascript" src="dynsections.js"></script>
 <script type="text/javascript" src="clipboard.js"></script>
 <link href="navtree.css" rel="stylesheet" type="text/css"/>
-<script type="text/javascript" src="resize.js"></script>
 <script type="text/javascript" src="navtreedata.js"></script>
 <script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript" src="resize.js"></script>
 <script type="text/javascript" src="cookie.js"></script>
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/searchdata.js"></script>
@@ -37,10 +37,15 @@
 </table>
 </div>
 <!-- end header part -->
-<!-- Generado por Doxygen 1.10.0 -->
+<!-- Generado por Doxygen 1.11.0 -->
 <script type="text/javascript">
 /* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
 var searchBox = new SearchBox("searchBox", "search/",'.html');
+/* @license-end */
+</script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() { codefold.init(0); });
 /* @license-end */
 </script>
 <script type="text/javascript" src="menudata.js"></script>
@@ -48,17 +53,12 @@ var searchBox = new SearchBox("searchBox", "search/",'.html');
 <script type="text/javascript">
 /* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
 $(function() {
-  initMenu('',true,false,'search.php','Buscar');
+  initMenu('',true,false,'search.php','Buscar',true);
   $(function() { init_search(); });
 });
 /* @license-end */
 </script>
 <div id="main-nav"></div>
-<script type="text/javascript">
-/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
-$(function() { codefold.init(0); });
-/* @license-end */
-</script>
 </div><!-- top -->
 <div id="side-nav" class="ui-resizable side-nav-resizable">
   <div id="nav-tree">
@@ -72,7 +72,7 @@ $(function() { codefold.init(0); });
 </div>
 <script type="text/javascript">
 /* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
-$(function(){initNavTree('_shared_ptr_8hpp_source.html',''); initResizable(); });
+$(function(){initNavTree('_shared_ptr_8hpp_source.html',''); initResizable(true); });
 /* @license-end */
 </script>
 <div id="doc-content">
@@ -105,156 +105,169 @@ $(function(){initNavTree('_shared_ptr_8hpp_source.html',''); initResizable(); })
 <div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="preprocessor">#define OSK_SHARED_PTR</span></div>
 <div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span> </div>
 <div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &lt;functional&gt;</span></div>
-<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span> </div>
-<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &quot;OSKmacros.h&quot;</span></div>
-<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span> </div>
-<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span><span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt; </div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &quot;NumericTypes.h&quot;</span></div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span> </div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="keyword">namespace </span><a class="code hl_namespace" href="namespace_o_s_k.html">OSK</a> {</div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span>    <span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</div>
 <div class="foldopen" id="foldopen00016" data-start="{" data-end="};">
-<div class="line"><a id="l00016" name="l00016"></a><span class="lineno"><a class="line" href="class_shared_ptr.html">   16</a></span><span class="keyword">class </span><a class="code hl_class" href="class_shared_ptr.html">SharedPtr</a> {</div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_shared_ptr.html">   16</a></span>    <span class="keyword">class </span><a class="code hl_class" href="class_o_s_k_1_1_shared_ptr.html">SharedPtr</a> {</div>
 <div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span> </div>
-<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span><span class="keyword">public</span>:</div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>    <span class="keyword">public</span>:</div>
 <div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span> </div>
-<div class="line"><a id="l00020" name="l00020"></a><span class="lineno"><a class="line" href="class_shared_ptr.html#a71b63e8608300f063731c0b0e4956e55">   20</a></span>    <span class="keyword">constexpr</span> <a class="code hl_function" href="class_shared_ptr.html#a71b63e8608300f063731c0b0e4956e55">SharedPtr</a>() noexcept : m_instanceCount(new USize64(0uL)) { }</div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_shared_ptr.html#afffc01e1ecd66241457091948f4f4bc8">   20</a></span>        <span class="keyword">constexpr</span> <a class="code hl_function" href="class_o_s_k_1_1_shared_ptr.html#afffc01e1ecd66241457091948f4f4bc8">SharedPtr</a>() noexcept : m_instanceCount(new <a class="code hl_typedef" href="namespace_o_s_k.html#a83ff197aaa32126d84ad65f1d6d5a3b5">USize64</a>(0uL)) { }</div>
 <div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span> </div>
-<div class="line"><a id="l00023" name="l00023"></a><span class="lineno"><a class="line" href="class_shared_ptr.html#a4be5a1c26875369e5a1b57efae0252d5">   23</a></span>    <span class="keyword">constexpr</span> <a class="code hl_function" href="class_shared_ptr.html#a4be5a1c26875369e5a1b57efae0252d5">SharedPtr</a>(T* data) noexcept : m_pointer(data), m_instanceCount(<span class="keyword">new</span> USize64(1uL)) { }</div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_shared_ptr.html#a917648bbfbff015f0a844d4248cd4a5f">   23</a></span>        <span class="keyword">constexpr</span> <a class="code hl_function" href="class_o_s_k_1_1_shared_ptr.html#a917648bbfbff015f0a844d4248cd4a5f">SharedPtr</a>(T* data) noexcept : m_pointer(data), m_instanceCount(<span class="keyword">new</span> <a class="code hl_typedef" href="namespace_o_s_k.html#a83ff197aaa32126d84ad65f1d6d5a3b5">USize64</a>(1uL)) { }</div>
 <div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span> </div>
 <div class="foldopen" id="foldopen00025" data-start="{" data-end="}">
-<div class="line"><a id="l00025" name="l00025"></a><span class="lineno"><a class="line" href="class_shared_ptr.html#a59f650eeb22bb62b130b38937bd8b838">   25</a></span>    <a class="code hl_function" href="class_shared_ptr.html#a59f650eeb22bb62b130b38937bd8b838">SharedPtr</a>(<span class="keyword">const</span> <a class="code hl_class" href="class_shared_ptr.html">SharedPtr</a>&amp; other) : m_pointer(other.m_pointer), m_instanceCount(other.m_instanceCount) {</div>
-<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>        <span class="keywordflow">if</span> (m_pointer)</div>
-<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>            (*m_instanceCount)++;</div>
-<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>    }</div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_shared_ptr.html#a2255bcc4b298c15fa775123f51e731a0">   25</a></span>        <a class="code hl_function" href="class_o_s_k_1_1_shared_ptr.html#a2255bcc4b298c15fa775123f51e731a0">SharedPtr</a>(<span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_shared_ptr.html">SharedPtr</a>&amp; other) : m_pointer(other.m_pointer), m_instanceCount(other.m_instanceCount) {</div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>            <span class="keywordflow">if</span> (m_pointer)</div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>                (*m_instanceCount)++;</div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>        }</div>
 </div>
 <div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span> </div>
 <div class="foldopen" id="foldopen00030" data-start="{" data-end="}">
-<div class="line"><a id="l00030" name="l00030"></a><span class="lineno"><a class="line" href="class_shared_ptr.html#ae587e1b0f76a90dfa14e0fa14a2f91ef">   30</a></span>    <a class="code hl_function" href="class_shared_ptr.html#ae587e1b0f76a90dfa14e0fa14a2f91ef">~SharedPtr</a>() {</div>
-<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>        destructor();</div>
-<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>    }</div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_shared_ptr.html#a535ef4b6fbafb084c7f0fd8bb8da0540">   30</a></span>        <a class="code hl_function" href="class_o_s_k_1_1_shared_ptr.html#a535ef4b6fbafb084c7f0fd8bb8da0540">~SharedPtr</a>() {</div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>            destructor();</div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>        }</div>
 </div>
 <div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span> </div>
 <div class="foldopen" id="foldopen00034" data-start="{" data-end="}">
-<div class="line"><a id="l00034" name="l00034"></a><span class="lineno"><a class="line" href="class_shared_ptr.html#a2dcf552f178a35b82d6eb7e85a377ffd">   34</a></span>    <a class="code hl_class" href="class_shared_ptr.html">SharedPtr</a>&amp; <a class="code hl_function" href="class_shared_ptr.html#a2dcf552f178a35b82d6eb7e85a377ffd">operator=</a>(<span class="keyword">const</span> <a class="code hl_class" href="class_shared_ptr.html">SharedPtr</a>&amp; other) {</div>
-<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>        destructor();</div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_shared_ptr.html#a15407d47ef27c812318ea81ea313d136">   34</a></span>        <a class="code hl_class" href="class_o_s_k_1_1_shared_ptr.html">SharedPtr</a>&amp; <a class="code hl_function" href="class_o_s_k_1_1_shared_ptr.html#a15407d47ef27c812318ea81ea313d136">operator=</a>(<span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_shared_ptr.html">SharedPtr</a>&amp; other) {</div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>            destructor();</div>
 <div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span> </div>
-<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>        m_pointer = other.m_pointer;</div>
-<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>        m_instanceCount = other.m_instanceCount;</div>
-<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>        </div>
-<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>        <span class="keywordflow">if</span> (m_pointer)</div>
-<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>            (*m_instanceCount)++;</div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>            m_pointer = other.m_pointer;</div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>            m_instanceCount = other.m_instanceCount;</div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span> </div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>            <span class="keywordflow">if</span> (m_pointer)</div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>                (*m_instanceCount)++;</div>
 <div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span> </div>
-<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>        <span class="keywordflow">return</span> *<span class="keyword">this</span>;</div>
-<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>    }</div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>            <span class="keywordflow">return</span> *<span class="keyword">this</span>;</div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>        }</div>
 </div>
 <div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span> </div>
 <div class="foldopen" id="foldopen00046" data-start="{" data-end="}">
-<div class="line"><a id="l00046" name="l00046"></a><span class="lineno"><a class="line" href="class_shared_ptr.html#adbcc6ed672f9d68f66d3abbed301d5c5">   46</a></span>    <a class="code hl_function" href="class_shared_ptr.html#adbcc6ed672f9d68f66d3abbed301d5c5">SharedPtr</a>(<a class="code hl_class" href="class_shared_ptr.html">SharedPtr</a>&amp;&amp; other) noexcept : m_pointer(other.m_pointer), m_instanceCount(other.m_instanceCount) {</div>
-<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>        other.m_pointer = <span class="keyword">nullptr</span>;</div>
-<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>        other.m_instanceCount = <span class="keyword">new</span> USize64(0uL);</div>
-<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>    }</div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_shared_ptr.html#a9be7ba34260ae366d7c7596b06640d11">   46</a></span>        <a class="code hl_function" href="class_o_s_k_1_1_shared_ptr.html#a9be7ba34260ae366d7c7596b06640d11">SharedPtr</a>(<a class="code hl_class" href="class_o_s_k_1_1_shared_ptr.html">SharedPtr</a>&amp;&amp; other) noexcept : m_pointer(other.m_pointer), m_instanceCount(other.m_instanceCount) {</div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>            other.m_pointer = <span class="keyword">nullptr</span>;</div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>            other.m_instanceCount = <span class="keyword">new</span> <a class="code hl_typedef" href="namespace_o_s_k.html#a83ff197aaa32126d84ad65f1d6d5a3b5">USize64</a>(0uL);</div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>        }</div>
 </div>
 <div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span> </div>
 <div class="foldopen" id="foldopen00051" data-start="{" data-end="}">
-<div class="line"><a id="l00051" name="l00051"></a><span class="lineno"><a class="line" href="class_shared_ptr.html#a542324700d5f3e459b644ac7cb263e31">   51</a></span>    <a class="code hl_class" href="class_shared_ptr.html">SharedPtr</a>&amp; <a class="code hl_function" href="class_shared_ptr.html#a542324700d5f3e459b644ac7cb263e31">operator=</a>(<a class="code hl_class" href="class_shared_ptr.html">SharedPtr</a>&amp;&amp; other) <span class="keyword">noexcept</span> {</div>
-<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>        destructor();</div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_shared_ptr.html#abdd61d8dc452de950baf370c2256893a">   51</a></span>        <a class="code hl_class" href="class_o_s_k_1_1_shared_ptr.html">SharedPtr</a>&amp; <a class="code hl_function" href="class_o_s_k_1_1_shared_ptr.html#abdd61d8dc452de950baf370c2256893a">operator=</a>(<a class="code hl_class" href="class_o_s_k_1_1_shared_ptr.html">SharedPtr</a>&amp;&amp; other) <span class="keyword">noexcept</span> {</div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>            destructor();</div>
 <div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span> </div>
-<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>        m_pointer = other.m_pointer;</div>
-<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>        m_instanceCount = other.m_instanceCount;</div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>            m_pointer = other.m_pointer;</div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>            m_instanceCount = other.m_instanceCount;</div>
 <div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span> </div>
-<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>        other.m_pointer = <span class="keyword">nullptr</span>;</div>
-<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>        other.m_instanceCount = <span class="keyword">new</span> USize64(0uL);</div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>            other.m_pointer = <span class="keyword">nullptr</span>;</div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>            other.m_instanceCount = <span class="keyword">new</span> <a class="code hl_typedef" href="namespace_o_s_k.html#a83ff197aaa32126d84ad65f1d6d5a3b5">USize64</a>(0uL);</div>
 <div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span> </div>
-<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>        <span class="keywordflow">return</span> *<span class="keyword">this</span>;</div>
-<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>    }</div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>            <span class="keywordflow">return</span> *<span class="keyword">this</span>;</div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>        }</div>
 </div>
 <div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span> </div>
 <div class="foldopen" id="foldopen00067" data-start="{" data-end="}">
-<div class="line"><a id="l00067" name="l00067"></a><span class="lineno"><a class="line" href="class_shared_ptr.html#a9e4e34475311ac68ec917b2a802d829d">   67</a></span>    <span class="keyword">constexpr</span> USize64 <a class="code hl_function" href="class_shared_ptr.html#a9e4e34475311ac68ec917b2a802d829d">GetInstanceCount</a>() const noexcept {</div>
-<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>        <span class="keywordflow">return</span> *m_instanceCount;</div>
-<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>    }</div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_shared_ptr.html#a19cd9d24955924825526265528639f66">   67</a></span>        <span class="keyword">constexpr</span> <a class="code hl_typedef" href="namespace_o_s_k.html#a83ff197aaa32126d84ad65f1d6d5a3b5">USize64</a> <a class="code hl_function" href="class_o_s_k_1_1_shared_ptr.html#a19cd9d24955924825526265528639f66">GetInstanceCount</a>() const noexcept {</div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>            <span class="keywordflow">return</span> *m_instanceCount;</div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>        }</div>
 </div>
 <div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span> </div>
-<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>    <span class="keyword">template</span> &lt;<span class="keyword">typename</span> Self&gt;</div>
-<div class="foldopen" id="foldopen00072" data-start="{" data-end="}">
-<div class="line"><a id="l00072" name="l00072"></a><span class="lineno"><a class="line" href="class_shared_ptr.html#a8dde4fb0bc2ec43dd059ed8ac802d8e5">   72</a></span>    <span class="keyword">auto</span>&amp;&amp; <a class="code hl_function" href="class_shared_ptr.html#a8dde4fb0bc2ec43dd059ed8ac802d8e5">GetPointer</a>(<span class="keyword">this</span> Self&amp;&amp; self) {</div>
-<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>        return ::std::forward&lt;Self&gt;(self).operator-&gt;();</div>
-<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>    }</div>
+<div class="foldopen" id="foldopen00071" data-start="{" data-end="}">
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_shared_ptr.html#afe257db774989aaef490abd0420262ed">   71</a></span>        T* <a class="code hl_function" href="class_o_s_k_1_1_shared_ptr.html#afe257db774989aaef490abd0420262ed">GetPointer</a>() {</div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>            <span class="keywordflow">return</span> m_pointer;</div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>        }</div>
 </div>
-<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span> </div>
-<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>    <span class="keyword">template</span> &lt;<span class="keyword">typename</span> Self&gt;</div>
-<div class="foldopen" id="foldopen00077" data-start="{" data-end="}">
-<div class="line"><a id="l00077" name="l00077"></a><span class="lineno"><a class="line" href="class_shared_ptr.html#a46de95bad12cef942d66ff6dd1f0cec7">   77</a></span>    <span class="keyword">auto</span>&amp;&amp; <a class="code hl_function" href="class_shared_ptr.html#a46de95bad12cef942d66ff6dd1f0cec7">Get</a>(<span class="keyword">this</span> Self&amp;&amp; self) {</div>
-<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span>        return ::std::forward&lt;Self&gt;(self).operator*();</div>
-<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span>    }</div>
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span> </div>
+<div class="foldopen" id="foldopen00075" data-start="{" data-end="}">
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_shared_ptr.html#a7467b8f24db30bd176a7935dc6d9e3ae">   75</a></span>        <span class="keyword">const</span> T* <a class="code hl_function" href="class_o_s_k_1_1_shared_ptr.html#a7467b8f24db30bd176a7935dc6d9e3ae">GetPointer</a>()<span class="keyword"> const </span>{</div>
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>            <span class="keywordflow">return</span> m_pointer;</div>
+<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span>        }</div>
 </div>
-<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span> </div>
-<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span>    <span class="keyword">template</span> &lt;<span class="keyword">typename</span> Self&gt;</div>
-<div class="foldopen" id="foldopen00082" data-start="{" data-end="}">
-<div class="line"><a id="l00082" name="l00082"></a><span class="lineno"><a class="line" href="class_shared_ptr.html#a381f5951a9c7f4cb972ddb9481678a5a">   82</a></span>    <span class="keyword">auto</span>&amp;&amp; <a class="code hl_function" href="class_shared_ptr.html#a381f5951a9c7f4cb972ddb9481678a5a">operator*</a>(<span class="keyword">this</span> Self&amp;&amp; self) {</div>
-<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span>        <span class="keywordflow">return</span> *self.m_pointer;</div>
-<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span>    }</div>
+<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span> </div>
+<div class="foldopen" id="foldopen00079" data-start="{" data-end="}">
+<div class="line"><a id="l00079" name="l00079"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_shared_ptr.html#a6eb48dad5af19742ee3a959993169f80">   79</a></span>        T&amp; <a class="code hl_function" href="class_o_s_k_1_1_shared_ptr.html#a6eb48dad5af19742ee3a959993169f80">Get</a>() {</div>
+<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span>            <span class="keywordflow">return</span> *m_pointer;</div>
+<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span>        }</div>
 </div>
-<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span>    <span class="keyword">template</span> &lt;<span class="keyword">typename</span> Self&gt;</div>
-<div class="foldopen" id="foldopen00086" data-start="{" data-end="}">
-<div class="line"><a id="l00086" name="l00086"></a><span class="lineno"><a class="line" href="class_shared_ptr.html#a2b9f126bc5354e0a3271192ab21b05c3">   86</a></span>    <span class="keyword">auto</span>&amp;&amp; <a class="code hl_function" href="class_shared_ptr.html#a2b9f126bc5354e0a3271192ab21b05c3">operator-&gt;</a>(<span class="keyword">this</span> Self&amp;&amp; self) {</div>
-<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span>        <span class="keywordflow">return</span> self.m_pointer;</div>
-<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span>    }</div>
+<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span> </div>
+<div class="foldopen" id="foldopen00083" data-start="{" data-end="}">
+<div class="line"><a id="l00083" name="l00083"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_shared_ptr.html#ace76d9c3a6419c4d1664991b2f7014f2">   83</a></span>        <span class="keyword">const</span> T&amp; <a class="code hl_function" href="class_o_s_k_1_1_shared_ptr.html#ace76d9c3a6419c4d1664991b2f7014f2">Get</a>()<span class="keyword"> const </span>{</div>
+<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span>            <span class="keywordflow">return</span> *m_pointer;</div>
+<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span>        }</div>
 </div>
-<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span> </div>
-<div class="foldopen" id="foldopen00090" data-start="{" data-end="}">
-<div class="line"><a id="l00090" name="l00090"></a><span class="lineno"><a class="line" href="class_shared_ptr.html#afbe55e72aa8e379b013f26c98ec74813">   90</a></span>    <span class="keyword">constexpr</span> <span class="keywordtype">bool</span> <a class="code hl_function" href="class_shared_ptr.html#afbe55e72aa8e379b013f26c98ec74813">HasValue</a>()<span class="keyword"> const </span>{</div>
-<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span>        <span class="keywordflow">return</span> m_pointer != <span class="keyword">nullptr</span>;</div>
-<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span>    }</div>
+<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span> </div>
+<div class="foldopen" id="foldopen00087" data-start="{" data-end="}">
+<div class="line"><a id="l00087" name="l00087"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_shared_ptr.html#a32a32d6fdbc715d0ea0490949a090e70">   87</a></span>        T* <a class="code hl_function" href="class_o_s_k_1_1_shared_ptr.html#a32a32d6fdbc715d0ea0490949a090e70">operator-&gt;</a>() {</div>
+<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span>            <span class="keywordflow">return</span> m_pointer;</div>
+<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span>        }</div>
 </div>
-<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span> </div>
-<div class="line"><a id="l00094" name="l00094"></a><span class="lineno"><a class="line" href="class_shared_ptr.html#a71300edc7141c9b6352c016005bf7618">   94</a></span>    <span class="keyword">constexpr</span> <span class="keywordtype">bool</span> <a class="code hl_function" href="class_shared_ptr.html#a71300edc7141c9b6352c016005bf7618">operator==</a>(<span class="keyword">const</span> <a class="code hl_class" href="class_shared_ptr.html">SharedPtr</a>&amp;) <span class="keyword">const</span> = <span class="keywordflow">default</span>;</div>
-<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span> </div>
-<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span><span class="keyword">private</span>:</div>
-<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span> </div>
-<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span>    <span class="keywordtype">void</span> destructor() {</div>
-<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span>        <span class="keywordflow">if</span> (!m_instanceCount)</div>
-<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span>            <span class="keywordflow">return</span>;</div>
-<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span> </div>
-<div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span>        (*m_instanceCount)--;</div>
-<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span> </div>
-<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span>        <span class="keywordflow">if</span> (*m_instanceCount == 0 &amp;&amp; m_pointer) {</div>
-<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span>            <span class="keyword">delete</span> m_pointer;</div>
-<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span>            <span class="keyword">delete</span> m_instanceCount;</div>
-<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span>        }</div>
+<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span> </div>
+<div class="foldopen" id="foldopen00091" data-start="{" data-end="}">
+<div class="line"><a id="l00091" name="l00091"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_shared_ptr.html#a5cb0c746d66b56c02ce314b5b2b5409a">   91</a></span>        <span class="keyword">const</span> T* <a class="code hl_function" href="class_o_s_k_1_1_shared_ptr.html#a5cb0c746d66b56c02ce314b5b2b5409a">operator-&gt;</a>()<span class="keyword"> const </span>{</div>
+<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span>            <span class="keywordflow">return</span> m_pointer;</div>
+<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span>        }</div>
+</div>
+<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span> </div>
+<div class="foldopen" id="foldopen00095" data-start="{" data-end="}">
+<div class="line"><a id="l00095" name="l00095"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_shared_ptr.html#a67574cf0d186e275ce34fdc2fd670e20">   95</a></span>        <span class="keyword">constexpr</span> <span class="keywordtype">bool</span> <a class="code hl_function" href="class_o_s_k_1_1_shared_ptr.html#a67574cf0d186e275ce34fdc2fd670e20">HasValue</a>()<span class="keyword"> const </span>{</div>
+<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span>            <span class="keywordflow">return</span> m_pointer != <span class="keyword">nullptr</span>;</div>
+<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span>        }</div>
+</div>
+<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span> </div>
+<div class="line"><a id="l00099" name="l00099"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_shared_ptr.html#a4df4901a88ae154b58aadd4b49c8d4b5">   99</a></span>        <span class="keyword">constexpr</span> <span class="keywordtype">bool</span> <a class="code hl_function" href="class_o_s_k_1_1_shared_ptr.html#a4df4901a88ae154b58aadd4b49c8d4b5">operator==</a>(<span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_shared_ptr.html">SharedPtr</a>&amp;) <span class="keyword">const</span> = <span class="keywordflow">default</span>;</div>
+<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span> </div>
+<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span>    <span class="keyword">private</span>:</div>
+<div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span> </div>
+<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span>        <span class="keywordtype">void</span> destructor() {</div>
+<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span>            <span class="keywordflow">if</span> (!m_instanceCount)</div>
+<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span>                <span class="keywordflow">return</span>;</div>
+<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span> </div>
+<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span>            (*m_instanceCount)--;</div>
 <div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span> </div>
-<div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span>        m_instanceCount = <span class="keyword">nullptr</span>;</div>
-<div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span>        m_pointer = <span class="keyword">nullptr</span>;</div>
-<div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span>    }</div>
-<div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span> </div>
-<div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span>    T* m_pointer = <span class="keyword">nullptr</span>;</div>
-<div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span> </div>
-<div class="line"><a id="l00117" name="l00117"></a><span class="lineno">  117</span>    <a class="code hl_class" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">USize64</a>* m_instanceCount = <span class="keyword">nullptr</span>;</div>
-<div class="line"><a id="l00118" name="l00118"></a><span class="lineno">  118</span> </div>
-<div class="line"><a id="l00119" name="l00119"></a><span class="lineno">  119</span>};</div>
-</div>
+<div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span>            <span class="keywordflow">if</span> (*m_instanceCount == 0 &amp;&amp; m_pointer) {</div>
+<div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span>                <span class="keyword">delete</span> m_pointer;</div>
+<div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span>                <span class="keyword">delete</span> m_instanceCount;</div>
+<div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span>            }</div>
+<div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span> </div>
+<div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span>            m_instanceCount = <span class="keyword">nullptr</span>;</div>
+<div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span>            m_pointer = <span class="keyword">nullptr</span>;</div>
+<div class="line"><a id="l00116" name="l00116"></a><span class="lineno">  116</span>        }</div>
+<div class="line"><a id="l00117" name="l00117"></a><span class="lineno">  117</span> </div>
+<div class="line"><a id="l00119" name="l00119"></a><span class="lineno">  119</span>        T* m_pointer = <span class="keyword">nullptr</span>;</div>
 <div class="line"><a id="l00120" name="l00120"></a><span class="lineno">  120</span> </div>
-<div class="line"><a id="l00121" name="l00121"></a><span class="lineno">  121</span><span class="preprocessor">#endif</span></div>
-<div class="ttc" id="aclass_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref_html"><div class="ttname"><a href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">OSK::ASSETS::AssetRef</a></div><div class="ttdoc">Referencia a un asset.</div><div class="ttdef"><b>Definition</b> <a href="_asset_ref_8h_source.html#l00012">AssetRef.h:12</a></div></div>
-<div class="ttc" id="aclass_shared_ptr_html"><div class="ttname"><a href="class_shared_ptr.html">SharedPtr</a></div><div class="ttdoc">Contiene un puntero al que pueden hacer referencia varios SharedPtr. Si el último SharedPtr que hace ...</div><div class="ttdef"><b>Definition</b> <a href="#l00016">SharedPtr.hpp:16</a></div></div>
-<div class="ttc" id="aclass_shared_ptr_html_a2b9f126bc5354e0a3271192ab21b05c3"><div class="ttname"><a href="class_shared_ptr.html#a2b9f126bc5354e0a3271192ab21b05c3">SharedPtr::operator-&gt;</a></div><div class="ttdeci">auto &amp;&amp; operator-&gt;(this Self &amp;&amp;self)</div><div class="ttdef"><b>Definition</b> <a href="#l00086">SharedPtr.hpp:86</a></div></div>
-<div class="ttc" id="aclass_shared_ptr_html_a2dcf552f178a35b82d6eb7e85a377ffd"><div class="ttname"><a href="class_shared_ptr.html#a2dcf552f178a35b82d6eb7e85a377ffd">SharedPtr::operator=</a></div><div class="ttdeci">SharedPtr &amp; operator=(const SharedPtr &amp;other)</div><div class="ttdef"><b>Definition</b> <a href="#l00034">SharedPtr.hpp:34</a></div></div>
-<div class="ttc" id="aclass_shared_ptr_html_a381f5951a9c7f4cb972ddb9481678a5a"><div class="ttname"><a href="class_shared_ptr.html#a381f5951a9c7f4cb972ddb9481678a5a">SharedPtr::operator*</a></div><div class="ttdeci">auto &amp;&amp; operator*(this Self &amp;&amp;self)</div><div class="ttdef"><b>Definition</b> <a href="#l00082">SharedPtr.hpp:82</a></div></div>
-<div class="ttc" id="aclass_shared_ptr_html_a46de95bad12cef942d66ff6dd1f0cec7"><div class="ttname"><a href="class_shared_ptr.html#a46de95bad12cef942d66ff6dd1f0cec7">SharedPtr::Get</a></div><div class="ttdeci">auto &amp;&amp; Get(this Self &amp;&amp;self)</div><div class="ttdef"><b>Definition</b> <a href="#l00077">SharedPtr.hpp:77</a></div></div>
-<div class="ttc" id="aclass_shared_ptr_html_a4be5a1c26875369e5a1b57efae0252d5"><div class="ttname"><a href="class_shared_ptr.html#a4be5a1c26875369e5a1b57efae0252d5">SharedPtr::SharedPtr</a></div><div class="ttdeci">constexpr SharedPtr(T *data) noexcept</div><div class="ttdoc">El puntero debe haberse creado con new.</div><div class="ttdef"><b>Definition</b> <a href="#l00023">SharedPtr.hpp:23</a></div></div>
-<div class="ttc" id="aclass_shared_ptr_html_a542324700d5f3e459b644ac7cb263e31"><div class="ttname"><a href="class_shared_ptr.html#a542324700d5f3e459b644ac7cb263e31">SharedPtr::operator=</a></div><div class="ttdeci">SharedPtr &amp; operator=(SharedPtr &amp;&amp;other) noexcept</div><div class="ttdef"><b>Definition</b> <a href="#l00051">SharedPtr.hpp:51</a></div></div>
-<div class="ttc" id="aclass_shared_ptr_html_a59f650eeb22bb62b130b38937bd8b838"><div class="ttname"><a href="class_shared_ptr.html#a59f650eeb22bb62b130b38937bd8b838">SharedPtr::SharedPtr</a></div><div class="ttdeci">SharedPtr(const SharedPtr &amp;other)</div><div class="ttdef"><b>Definition</b> <a href="#l00025">SharedPtr.hpp:25</a></div></div>
-<div class="ttc" id="aclass_shared_ptr_html_a71300edc7141c9b6352c016005bf7618"><div class="ttname"><a href="class_shared_ptr.html#a71300edc7141c9b6352c016005bf7618">SharedPtr::operator==</a></div><div class="ttdeci">constexpr bool operator==(const SharedPtr &amp;) const =default</div></div>
-<div class="ttc" id="aclass_shared_ptr_html_a71b63e8608300f063731c0b0e4956e55"><div class="ttname"><a href="class_shared_ptr.html#a71b63e8608300f063731c0b0e4956e55">SharedPtr::SharedPtr</a></div><div class="ttdeci">constexpr SharedPtr() noexcept</div><div class="ttdef"><b>Definition</b> <a href="#l00020">SharedPtr.hpp:20</a></div></div>
-<div class="ttc" id="aclass_shared_ptr_html_a8dde4fb0bc2ec43dd059ed8ac802d8e5"><div class="ttname"><a href="class_shared_ptr.html#a8dde4fb0bc2ec43dd059ed8ac802d8e5">SharedPtr::GetPointer</a></div><div class="ttdeci">auto &amp;&amp; GetPointer(this Self &amp;&amp;self)</div><div class="ttdef"><b>Definition</b> <a href="#l00072">SharedPtr.hpp:72</a></div></div>
-<div class="ttc" id="aclass_shared_ptr_html_a9e4e34475311ac68ec917b2a802d829d"><div class="ttname"><a href="class_shared_ptr.html#a9e4e34475311ac68ec917b2a802d829d">SharedPtr::GetInstanceCount</a></div><div class="ttdeci">constexpr USize64 GetInstanceCount() const noexcept</div><div class="ttdoc">Devuelve el número de SharedPtr que comparten el mismo puntero que este.</div><div class="ttdef"><b>Definition</b> <a href="#l00067">SharedPtr.hpp:67</a></div></div>
-<div class="ttc" id="aclass_shared_ptr_html_adbcc6ed672f9d68f66d3abbed301d5c5"><div class="ttname"><a href="class_shared_ptr.html#adbcc6ed672f9d68f66d3abbed301d5c5">SharedPtr::SharedPtr</a></div><div class="ttdeci">SharedPtr(SharedPtr &amp;&amp;other) noexcept</div><div class="ttdef"><b>Definition</b> <a href="#l00046">SharedPtr.hpp:46</a></div></div>
-<div class="ttc" id="aclass_shared_ptr_html_ae587e1b0f76a90dfa14e0fa14a2f91ef"><div class="ttname"><a href="class_shared_ptr.html#ae587e1b0f76a90dfa14e0fa14a2f91ef">SharedPtr::~SharedPtr</a></div><div class="ttdeci">~SharedPtr()</div><div class="ttdef"><b>Definition</b> <a href="#l00030">SharedPtr.hpp:30</a></div></div>
-<div class="ttc" id="aclass_shared_ptr_html_afbe55e72aa8e379b013f26c98ec74813"><div class="ttname"><a href="class_shared_ptr.html#afbe55e72aa8e379b013f26c98ec74813">SharedPtr::HasValue</a></div><div class="ttdeci">constexpr bool HasValue() const</div><div class="ttdef"><b>Definition</b> <a href="#l00090">SharedPtr.hpp:90</a></div></div>
+<div class="line"><a id="l00122" name="l00122"></a><span class="lineno">  122</span>        <a class="code hl_typedef" href="namespace_o_s_k.html#a83ff197aaa32126d84ad65f1d6d5a3b5">USize64</a>* m_instanceCount = <span class="keyword">nullptr</span>;</div>
+<div class="line"><a id="l00123" name="l00123"></a><span class="lineno">  123</span> </div>
+<div class="line"><a id="l00124" name="l00124"></a><span class="lineno">  124</span>    };</div>
+</div>
+<div class="line"><a id="l00125" name="l00125"></a><span class="lineno">  125</span> </div>
+<div class="line"><a id="l00126" name="l00126"></a><span class="lineno">  126</span>}</div>
+<div class="line"><a id="l00127" name="l00127"></a><span class="lineno">  127</span><span class="preprocessor">#endif</span></div>
+<div class="ttc" id="aclass_o_s_k_1_1_shared_ptr_html"><div class="ttname"><a href="class_o_s_k_1_1_shared_ptr.html">OSK::SharedPtr</a></div><div class="ttdoc">Contiene un puntero al que pueden hacer referencia varios SharedPtr. Si el último SharedPtr que hace ...</div><div class="ttdef"><b>Definition</b> <a href="#l00016">SharedPtr.hpp:16</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_shared_ptr_html_a15407d47ef27c812318ea81ea313d136"><div class="ttname"><a href="class_o_s_k_1_1_shared_ptr.html#a15407d47ef27c812318ea81ea313d136">OSK::SharedPtr::operator=</a></div><div class="ttdeci">SharedPtr &amp; operator=(const SharedPtr &amp;other)</div><div class="ttdef"><b>Definition</b> <a href="#l00034">SharedPtr.hpp:34</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_shared_ptr_html_a19cd9d24955924825526265528639f66"><div class="ttname"><a href="class_o_s_k_1_1_shared_ptr.html#a19cd9d24955924825526265528639f66">OSK::SharedPtr::GetInstanceCount</a></div><div class="ttdeci">constexpr USize64 GetInstanceCount() const noexcept</div><div class="ttdoc">Devuelve el número de SharedPtr que comparten el mismo puntero que este.</div><div class="ttdef"><b>Definition</b> <a href="#l00067">SharedPtr.hpp:67</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_shared_ptr_html_a2255bcc4b298c15fa775123f51e731a0"><div class="ttname"><a href="class_o_s_k_1_1_shared_ptr.html#a2255bcc4b298c15fa775123f51e731a0">OSK::SharedPtr::SharedPtr</a></div><div class="ttdeci">SharedPtr(const SharedPtr &amp;other)</div><div class="ttdef"><b>Definition</b> <a href="#l00025">SharedPtr.hpp:25</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_shared_ptr_html_a32a32d6fdbc715d0ea0490949a090e70"><div class="ttname"><a href="class_o_s_k_1_1_shared_ptr.html#a32a32d6fdbc715d0ea0490949a090e70">OSK::SharedPtr::operator-&gt;</a></div><div class="ttdeci">T * operator-&gt;()</div><div class="ttdef"><b>Definition</b> <a href="#l00087">SharedPtr.hpp:87</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_shared_ptr_html_a4df4901a88ae154b58aadd4b49c8d4b5"><div class="ttname"><a href="class_o_s_k_1_1_shared_ptr.html#a4df4901a88ae154b58aadd4b49c8d4b5">OSK::SharedPtr::operator==</a></div><div class="ttdeci">constexpr bool operator==(const SharedPtr &amp;) const =default</div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_shared_ptr_html_a535ef4b6fbafb084c7f0fd8bb8da0540"><div class="ttname"><a href="class_o_s_k_1_1_shared_ptr.html#a535ef4b6fbafb084c7f0fd8bb8da0540">OSK::SharedPtr::~SharedPtr</a></div><div class="ttdeci">~SharedPtr()</div><div class="ttdef"><b>Definition</b> <a href="#l00030">SharedPtr.hpp:30</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_shared_ptr_html_a5cb0c746d66b56c02ce314b5b2b5409a"><div class="ttname"><a href="class_o_s_k_1_1_shared_ptr.html#a5cb0c746d66b56c02ce314b5b2b5409a">OSK::SharedPtr::operator-&gt;</a></div><div class="ttdeci">const T * operator-&gt;() const</div><div class="ttdef"><b>Definition</b> <a href="#l00091">SharedPtr.hpp:91</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_shared_ptr_html_a67574cf0d186e275ce34fdc2fd670e20"><div class="ttname"><a href="class_o_s_k_1_1_shared_ptr.html#a67574cf0d186e275ce34fdc2fd670e20">OSK::SharedPtr::HasValue</a></div><div class="ttdeci">constexpr bool HasValue() const</div><div class="ttdef"><b>Definition</b> <a href="#l00095">SharedPtr.hpp:95</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_shared_ptr_html_a6eb48dad5af19742ee3a959993169f80"><div class="ttname"><a href="class_o_s_k_1_1_shared_ptr.html#a6eb48dad5af19742ee3a959993169f80">OSK::SharedPtr::Get</a></div><div class="ttdeci">T &amp; Get()</div><div class="ttdef"><b>Definition</b> <a href="#l00079">SharedPtr.hpp:79</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_shared_ptr_html_a7467b8f24db30bd176a7935dc6d9e3ae"><div class="ttname"><a href="class_o_s_k_1_1_shared_ptr.html#a7467b8f24db30bd176a7935dc6d9e3ae">OSK::SharedPtr::GetPointer</a></div><div class="ttdeci">const T * GetPointer() const</div><div class="ttdef"><b>Definition</b> <a href="#l00075">SharedPtr.hpp:75</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_shared_ptr_html_a917648bbfbff015f0a844d4248cd4a5f"><div class="ttname"><a href="class_o_s_k_1_1_shared_ptr.html#a917648bbfbff015f0a844d4248cd4a5f">OSK::SharedPtr::SharedPtr</a></div><div class="ttdeci">constexpr SharedPtr(T *data) noexcept</div><div class="ttdoc">El puntero debe haberse creado con new.</div><div class="ttdef"><b>Definition</b> <a href="#l00023">SharedPtr.hpp:23</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_shared_ptr_html_a9be7ba34260ae366d7c7596b06640d11"><div class="ttname"><a href="class_o_s_k_1_1_shared_ptr.html#a9be7ba34260ae366d7c7596b06640d11">OSK::SharedPtr::SharedPtr</a></div><div class="ttdeci">SharedPtr(SharedPtr &amp;&amp;other) noexcept</div><div class="ttdef"><b>Definition</b> <a href="#l00046">SharedPtr.hpp:46</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_shared_ptr_html_abdd61d8dc452de950baf370c2256893a"><div class="ttname"><a href="class_o_s_k_1_1_shared_ptr.html#abdd61d8dc452de950baf370c2256893a">OSK::SharedPtr::operator=</a></div><div class="ttdeci">SharedPtr &amp; operator=(SharedPtr &amp;&amp;other) noexcept</div><div class="ttdef"><b>Definition</b> <a href="#l00051">SharedPtr.hpp:51</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_shared_ptr_html_ace76d9c3a6419c4d1664991b2f7014f2"><div class="ttname"><a href="class_o_s_k_1_1_shared_ptr.html#ace76d9c3a6419c4d1664991b2f7014f2">OSK::SharedPtr::Get</a></div><div class="ttdeci">const T &amp; Get() const</div><div class="ttdef"><b>Definition</b> <a href="#l00083">SharedPtr.hpp:83</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_shared_ptr_html_afe257db774989aaef490abd0420262ed"><div class="ttname"><a href="class_o_s_k_1_1_shared_ptr.html#afe257db774989aaef490abd0420262ed">OSK::SharedPtr::GetPointer</a></div><div class="ttdeci">T * GetPointer()</div><div class="ttdef"><b>Definition</b> <a href="#l00071">SharedPtr.hpp:71</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_shared_ptr_html_afffc01e1ecd66241457091948f4f4bc8"><div class="ttname"><a href="class_o_s_k_1_1_shared_ptr.html#afffc01e1ecd66241457091948f4f4bc8">OSK::SharedPtr::SharedPtr</a></div><div class="ttdeci">constexpr SharedPtr() noexcept</div><div class="ttdef"><b>Definition</b> <a href="#l00020">SharedPtr.hpp:20</a></div></div>
+<div class="ttc" id="anamespace_o_s_k_html"><div class="ttname"><a href="namespace_o_s_k.html">OSK</a></div><div class="ttdef"><b>Definition</b> <a href="_acceleration_structures_exceptions_8h_source.html#l00005">AccelerationStructuresExceptions.h:5</a></div></div>
+<div class="ttc" id="anamespace_o_s_k_html_a83ff197aaa32126d84ad65f1d6d5a3b5"><div class="ttname"><a href="namespace_o_s_k.html#a83ff197aaa32126d84ad65f1d6d5a3b5">OSK::USize64</a></div><div class="ttdeci">uint64_t USize64</div><div class="ttdoc">Tamaño, almacenado en un unsigned int de 64 bits.</div><div class="ttdef"><b>Definition</b> <a href="_numeric_types_8h_source.html#l00026">NumericTypes.h:26</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_74389ed8173ad57b461b9d623a1f3867.html">Source</a></li><li class="navelem"><b>SharedPtr.hpp</b></li>
-    <li class="footer">Generado el Sábado, 18 de mayo de 2024 12:15:52 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.10.0 </li>
+    <li class="footer">Generado el Miércoles, 29 de mayo de 2024 12:01:49 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.11.0 </li>
   </ul>
 </div>
 </body>

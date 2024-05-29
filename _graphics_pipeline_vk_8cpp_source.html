@@ -3,7 +3,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
-<meta name="generator" content="Doxygen 1.10.0"/>
+<meta name="generator" content="Doxygen 1.11.0"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
 <title>OSKengine: Archivo de código fuente Source/GraphicsPipelineVk.cpp</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
@@ -11,9 +11,9 @@
 <script type="text/javascript" src="dynsections.js"></script>
 <script type="text/javascript" src="clipboard.js"></script>
 <link href="navtree.css" rel="stylesheet" type="text/css"/>
-<script type="text/javascript" src="resize.js"></script>
 <script type="text/javascript" src="navtreedata.js"></script>
 <script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript" src="resize.js"></script>
 <script type="text/javascript" src="cookie.js"></script>
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/searchdata.js"></script>
@@ -37,10 +37,15 @@
 </table>
 </div>
 <!-- end header part -->
-<!-- Generado por Doxygen 1.10.0 -->
+<!-- Generado por Doxygen 1.11.0 -->
 <script type="text/javascript">
 /* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
 var searchBox = new SearchBox("searchBox", "search/",'.html');
+/* @license-end */
+</script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() { codefold.init(0); });
 /* @license-end */
 </script>
 <script type="text/javascript" src="menudata.js"></script>
@@ -48,17 +53,12 @@ var searchBox = new SearchBox("searchBox", "search/",'.html');
 <script type="text/javascript">
 /* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
 $(function() {
-  initMenu('',true,false,'search.php','Buscar');
+  initMenu('',true,false,'search.php','Buscar',true);
   $(function() { init_search(); });
 });
 /* @license-end */
 </script>
 <div id="main-nav"></div>
-<script type="text/javascript">
-/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
-$(function() { codefold.init(0); });
-/* @license-end */
-</script>
 </div><!-- top -->
 <div id="side-nav" class="ui-resizable side-nav-resizable">
   <div id="nav-tree">
@@ -72,7 +72,7 @@ $(function() { codefold.init(0); });
 </div>
 <script type="text/javascript">
 /* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
-$(function(){initNavTree('_graphics_pipeline_vk_8cpp_source.html',''); initResizable(); });
+$(function(){initNavTree('_graphics_pipeline_vk_8cpp_source.html',''); initResizable(true); });
 /* @license-end */
 </script>
 <div id="doc-content">
@@ -186,7 +186,7 @@ $(function(){initNavTree('_graphics_pipeline_vk_8cpp_source.html',''); initResiz
 <div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span>    <span class="keyword">const</span> VkPipelineColorBlendAttachmentState colorBlendAttachment = <a class="code hl_function" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_pipeline_vk.html#a455a4ebbd3725b78913cc0fd09a25cfc">GetColorBlendInfo</a>(info);</div>
 <div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span> </div>
 <div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span>    <a class="code hl_class" href="class_o_s_k_1_1_dynamic_array.html">DynamicArray&lt;VkPipelineColorBlendAttachmentState&gt;</a> colorBlends;</div>
-<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span>    <span class="keywordflow">for</span> (<a class="code hl_class" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">UIndex32</a> i = 0; i &lt; info.<a class="code hl_variable" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_pipeline_create_info.html#a031c05fb2778c508449834a5281e84fd">formats</a>.<a class="code hl_function" href="class_o_s_k_1_1_dynamic_array.html#af09578371bd52d5a934bc74c8dad5f0d">GetSize</a>(); i++)</div>
+<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span>    <span class="keywordflow">for</span> (<a class="code hl_typedef" href="namespace_o_s_k.html#a382ed4c8a6994201cbad5d4e1335861b">UIndex32</a> i = 0; i &lt; info.<a class="code hl_variable" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_pipeline_create_info.html#a031c05fb2778c508449834a5281e84fd">formats</a>.<a class="code hl_function" href="class_o_s_k_1_1_dynamic_array.html#af09578371bd52d5a934bc74c8dad5f0d">GetSize</a>(); i++)</div>
 <div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span>        colorBlends.<a class="code hl_function" href="class_o_s_k_1_1_dynamic_array.html#a4433c76207ce2ecad5e306b12575f1b3">Insert</a>(colorBlendAttachment);</div>
 <div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span> </div>
 <div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span>    VkPipelineColorBlendStateCreateInfo colorBlendCreateInfo{};</div>
@@ -444,17 +444,16 @@ $(function(){initNavTree('_graphics_pipeline_vk_8cpp_source.html',''); initResiz
 <div class="line"><a id="l00335" name="l00335"></a><span class="lineno">  335</span> </div>
 <div class="line"><a id="l00336" name="l00336"></a><span class="lineno">  336</span>    <span class="keywordflow">return</span> output;</div>
 <div class="line"><a id="l00337" name="l00337"></a><span class="lineno">  337</span>}</div>
-<div class="ttc" id="aclass_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref_html"><div class="ttname"><a href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">OSK::ASSETS::AssetRef</a></div><div class="ttdoc">Referencia a un asset.</div><div class="ttdef"><b>Definition</b> <a href="_asset_ref_8h_source.html#l00012">AssetRef.h:12</a></div></div>
-<div class="ttc" id="aclass_o_s_k_1_1_dynamic_array_html"><div class="ttname"><a href="class_o_s_k_1_1_dynamic_array.html">OSK::DynamicArray</a></div><div class="ttdoc">Dynamic array: array que puede cambiar de tamaño.</div><div class="ttdef"><b>Definition</b> <a href="_dynamic_array_8hpp_source.html#l00067">DynamicArray.hpp:67</a></div></div>
-<div class="ttc" id="aclass_o_s_k_1_1_dynamic_array_html_a4433c76207ce2ecad5e306b12575f1b3"><div class="ttname"><a href="class_o_s_k_1_1_dynamic_array.html#a4433c76207ce2ecad5e306b12575f1b3">OSK::DynamicArray::Insert</a></div><div class="ttdeci">void Insert(const T &amp;element)</div><div class="ttdoc">Inserta un elemento al final del array.</div><div class="ttdef"><b>Definition</b> <a href="_dynamic_array_8hpp_source.html#l00351">DynamicArray.hpp:351</a></div></div>
-<div class="ttc" id="aclass_o_s_k_1_1_dynamic_array_html_ab8c4487ebf2c42cdb2be44a7a8e01bb0"><div class="ttname"><a href="class_o_s_k_1_1_dynamic_array.html#ab8c4487ebf2c42cdb2be44a7a8e01bb0">OSK::DynamicArray::GetData</a></div><div class="ttdeci">const T * GetData() const noexcept</div><div class="ttdoc">Devuelve el array original.</div><div class="ttdef"><b>Definition</b> <a href="_dynamic_array_8hpp_source.html#l00686">DynamicArray.hpp:686</a></div></div>
-<div class="ttc" id="aclass_o_s_k_1_1_dynamic_array_html_af09578371bd52d5a934bc74c8dad5f0d"><div class="ttname"><a href="class_o_s_k_1_1_dynamic_array.html#af09578371bd52d5a934bc74c8dad5f0d">OSK::DynamicArray::GetSize</a></div><div class="ttdeci">USize64 GetSize() const noexcept</div><div class="ttdoc">Devuelve el número de elementos almacenados.</div><div class="ttdef"><b>Definition</b> <a href="_dynamic_array_8hpp_source.html#l00672">DynamicArray.hpp:672</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_dynamic_array_html"><div class="ttname"><a href="class_o_s_k_1_1_dynamic_array.html">OSK::DynamicArray</a></div><div class="ttdoc">Dynamic array: array que puede cambiar de tamaño.</div><div class="ttdef"><b>Definition</b> <a href="_dynamic_array_8hpp_source.html#l00069">DynamicArray.hpp:69</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_dynamic_array_html_a4433c76207ce2ecad5e306b12575f1b3"><div class="ttname"><a href="class_o_s_k_1_1_dynamic_array.html#a4433c76207ce2ecad5e306b12575f1b3">OSK::DynamicArray::Insert</a></div><div class="ttdeci">void Insert(const T &amp;element)</div><div class="ttdoc">Inserta un elemento al final del array.</div><div class="ttdef"><b>Definition</b> <a href="_dynamic_array_8hpp_source.html#l00353">DynamicArray.hpp:353</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_dynamic_array_html_ab8c4487ebf2c42cdb2be44a7a8e01bb0"><div class="ttname"><a href="class_o_s_k_1_1_dynamic_array.html#ab8c4487ebf2c42cdb2be44a7a8e01bb0">OSK::DynamicArray::GetData</a></div><div class="ttdeci">const T * GetData() const noexcept</div><div class="ttdoc">Devuelve el array original.</div><div class="ttdef"><b>Definition</b> <a href="_dynamic_array_8hpp_source.html#l00688">DynamicArray.hpp:688</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_dynamic_array_html_af09578371bd52d5a934bc74c8dad5f0d"><div class="ttname"><a href="class_o_s_k_1_1_dynamic_array.html#af09578371bd52d5a934bc74c8dad5f0d">OSK::DynamicArray::GetSize</a></div><div class="ttdeci">USize64 GetSize() const noexcept</div><div class="ttdoc">Devuelve el número de elementos almacenados.</div><div class="ttdef"><b>Definition</b> <a href="_dynamic_array_8hpp_source.html#l00674">DynamicArray.hpp:674</a></div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_vk_html"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_vk.html">OSK::GRAPHICS::GpuVk</a></div><div class="ttdoc">Implementación de la interfaz para el renderizador de Vulkan.</div><div class="ttdef"><b>Definition</b> <a href="_gpu_vk_8h_source.html#l00012">GpuVk.h:12</a></div></div>
-<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_vk_html_a453c36cc8861b7be6a41120aab935977"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_vk.html#a453c36cc8861b7be6a41120aab935977">OSK::GRAPHICS::GpuVk::GetLogicalDevice</a></div><div class="ttdeci">VkDevice GetLogicalDevice() const</div><div class="ttdoc">Devuelve el logical device asignado a esta GPU.</div><div class="ttdef"><b>Definition</b> <a href="_gpu_vk_8cpp_source.html#l00233">GpuVk.cpp:233</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_vk_html_a453c36cc8861b7be6a41120aab935977"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_vk.html#a453c36cc8861b7be6a41120aab935977">OSK::GRAPHICS::GpuVk::GetLogicalDevice</a></div><div class="ttdeci">VkDevice GetLogicalDevice() const</div><div class="ttdoc">Devuelve el logical device asignado a esta GPU.</div><div class="ttdef"><b>Definition</b> <a href="_gpu_vk_8cpp_source.html#l00234">GpuVk.cpp:234</a></div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_graphics_pipeline_vk_html_a3886e4d136bb6411e1c5d05863362fa4"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_graphics_pipeline_vk.html#a3886e4d136bb6411e1c5d05863362fa4">OSK::GRAPHICS::GraphicsPipelineVk::SetDebugName</a></div><div class="ttdeci">void SetDebugName(const std::string &amp;name) override</div><div class="ttdoc">Establece un nombre que lo identifique. Para debug.</div><div class="ttdef"><b>Definition</b> <a href="#l00023">GraphicsPipelineVk.cpp:23</a></div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_graphics_pipeline_vk_html_a8ad4013d705bf735c681e423e42e1484"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_graphics_pipeline_vk.html#a8ad4013d705bf735c681e423e42e1484">OSK::GRAPHICS::GraphicsPipelineVk::Create</a></div><div class="ttdeci">void Create(const MaterialLayout *layout, IGpu *device, const PipelineCreateInfo &amp;info, const VertexInfo &amp;vertexInfo) override</div><div class="ttdoc">Crea el pipeline con la configuración dada.</div><div class="ttdef"><b>Definition</b> <a href="#l00035">GraphicsPipelineVk.cpp:35</a></div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_graphics_pipeline_vk_html_ae460698df80e51f2365e5e716c3b173b"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_graphics_pipeline_vk.html#ae460698df80e51f2365e5e716c3b173b">OSK::GRAPHICS::GraphicsPipelineVk::GraphicsPipelineVk</a></div><div class="ttdeci">GraphicsPipelineVk()</div><div class="ttdef"><b>Definition</b> <a href="#l00019">GraphicsPipelineVk.cpp:19</a></div></div>
-<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_html"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu.html">OSK::GRAPHICS::IGpu</a></div><div class="ttdoc">Representa una conexión con la GPU.</div><div class="ttdef"><b>Definition</b> <a href="_i_gpu_8h_source.html#l00014">IGpu.h:14</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_html"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu.html">OSK::GRAPHICS::IGpu</a></div><div class="ttdoc">Representa una conexión con la GPU.</div><div class="ttdef"><b>Definition</b> <a href="_i_gpu_8h_source.html#l00016">IGpu.h:16</a></div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_graphics_pipeline_html_a906544168207149cfee6119b3f9da5b6"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_graphics_pipeline.html#a906544168207149cfee6119b3f9da5b6">OSK::GRAPHICS::IGraphicsPipeline::GetLayout</a></div><div class="ttdeci">const IPipelineLayout * GetLayout() const</div><div class="ttdoc">Devuelve el layout usado por este pipeline.</div><div class="ttdef"><b>Definition</b> <a href="_i_graphics_pipeline_8cpp_source.html#l00006">IGraphicsPipeline.cpp:6</a></div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_graphics_pipeline_html_afeebc6144c3cf7852837a5f08b3a6444"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_graphics_pipeline.html#afeebc6144c3cf7852837a5f08b3a6444">OSK::GRAPHICS::IGraphicsPipeline::layout</a></div><div class="ttdeci">UniquePtr&lt; IPipelineLayout &gt; layout</div><div class="ttdef"><b>Definition</b> <a href="_i_graphics_pipeline_8h_source.html#l00050">IGraphicsPipeline.h:50</a></div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_pipeline_vk_html_a053ca299595b2c6a27c9ff1acf50e696"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_pipeline_vk.html#a053ca299595b2c6a27c9ff1acf50e696">OSK::GRAPHICS::IPipelineVk::GetCullMode</a></div><div class="ttdeci">VkCullModeFlagBits GetCullMode(PolygonCullMode mode) const</div><div class="ttdef"><b>Definition</b> <a href="_i_pipeline_vk_8cpp_source.html#l00118">IPipelineVk.cpp:118</a></div></div>
@@ -469,7 +468,7 @@ $(function(){initNavTree('_graphics_pipeline_vk_8cpp_source.html',''); initResiz
 <div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_layout_html"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_layout.html">OSK::GRAPHICS::MaterialLayout</a></div><div class="ttdoc">El layout de un material determina qué slots pertenecen a ese material.</div><div class="ttdef"><b>Definition</b> <a href="_material_layout_8h_source.html#l00013">MaterialLayout.h:13</a></div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_pipeline_creation_exception_html"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_pipeline_creation_exception.html">OSK::GRAPHICS::PipelineCreationException</a></div><div class="ttdoc">Excepción que se lanza cuando se trata de usar un evento que no ha sido registrado.</div><div class="ttdef"><b>Definition</b> <a href="_pipelines_exceptions_8h_source.html#l00008">PipelinesExceptions.h:8</a></div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_pipeline_layout_vk_html"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_pipeline_layout_vk.html">OSK::GRAPHICS::PipelineLayoutVk</a></div><div class="ttdef"><b>Definition</b> <a href="_pipeline_layout_vk_8h_source.html#l00014">PipelineLayoutVk.h:14</a></div></div>
-<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderer_vk_html_af4f5a551602424c7a1d1e3dce683f3c0"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderer_vk.html#af4f5a551602424c7a1d1e3dce683f3c0">OSK::GRAPHICS::RendererVk::pvkSetDebugUtilsObjectNameEXT</a></div><div class="ttdeci">static PFN_vkSetDebugUtilsObjectNameEXT pvkSetDebugUtilsObjectNameEXT</div><div class="ttdef"><b>Definition</b> <a href="_renderer_vk_8h_source.html#l00065">RendererVk.h:65</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderer_vk_html_af4f5a551602424c7a1d1e3dce683f3c0"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderer_vk.html#af4f5a551602424c7a1d1e3dce683f3c0">OSK::GRAPHICS::RendererVk::pvkSetDebugUtilsObjectNameEXT</a></div><div class="ttdeci">static PFN_vkSetDebugUtilsObjectNameEXT pvkSetDebugUtilsObjectNameEXT</div><div class="ttdef"><b>Definition</b> <a href="_renderer_vk_8h_source.html#l00066">RendererVk.h:66</a></div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_shader_loading_exception_html"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_shader_loading_exception.html">OSK::GRAPHICS::ShaderLoadingException</a></div><div class="ttdoc">Excepción que se lanza cuando hay un error con el API de bajo nivel al cargar un shader.</div><div class="ttdef"><b>Definition</b> <a href="_pipelines_exceptions_8h_source.html#l00023">PipelinesExceptions.h:23</a></div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_vertex_info_html"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_vertex_info.html">OSK::GRAPHICS::VertexInfo</a></div><div class="ttdoc">Información de los atributos de un vértice. El graphics pipeline lo usará para configurar el tipo de ...</div><div class="ttdef"><b>Definition</b> <a href="_vertex_info_8h_source.html#l00014">VertexInfo.h:14</a></div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_i_o_1_1_file_i_o_html_a5016ee7b64adc1e95f52ce3f847370c2"><div class="ttname"><a href="class_o_s_k_1_1_i_o_1_1_file_i_o.html#a5016ee7b64adc1e95f52ce3f847370c2">OSK::IO::FileIO::ReadBinaryFromFile</a></div><div class="ttdeci">static DynamicArray&lt; char &gt; ReadBinaryFromFile(std::string_view filename)</div><div class="ttdoc">Lee un archivo binario.</div><div class="ttdef"><b>Definition</b> <a href="_file_i_o_8cpp_source.html#l00045">FileIO.cpp:45</a></div></div>
@@ -481,6 +480,7 @@ $(function(){initNavTree('_graphics_pipeline_vk_8cpp_source.html',''); initResiz
 <div class="ttc" id="anamespace_o_s_k_1_1_g_r_a_p_h_i_c_s_html_a9f540971911df275819dd542e32027ddaa7b843fb734e3b3fea8e5f902d3f4144"><div class="ttname"><a href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a9f540971911df275819dd542e32027ddaa7b843fb734e3b3fea8e5f902d3f4144">OSK::GRAPHICS::DepthTestingType::READ_WRITE</a></div><div class="ttdeci">@ READ_WRITE</div><div class="ttdoc">Comportamiento normal.</div></div>
 <div class="ttc" id="anamespace_o_s_k_1_1_g_r_a_p_h_i_c_s_html_a9f540971911df275819dd542e32027ddab50339a10e1de285ac99d4c3990b8693"><div class="ttname"><a href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a9f540971911df275819dd542e32027ddab50339a10e1de285ac99d4c3990b8693">OSK::GRAPHICS::DepthTestingType::NONE</a></div><div class="ttdeci">@ NONE</div><div class="ttdoc">Ninguna operación.</div></div>
 <div class="ttc" id="anamespace_o_s_k_html"><div class="ttname"><a href="namespace_o_s_k.html">OSK</a></div><div class="ttdef"><b>Definition</b> <a href="_acceleration_structures_exceptions_8h_source.html#l00005">AccelerationStructuresExceptions.h:5</a></div></div>
+<div class="ttc" id="anamespace_o_s_k_html_a382ed4c8a6994201cbad5d4e1335861b"><div class="ttname"><a href="namespace_o_s_k.html#a382ed4c8a6994201cbad5d4e1335861b">OSK::UIndex32</a></div><div class="ttdeci">uint32_t UIndex32</div><div class="ttdoc">Índice de un elemento, almacenado en un unsigned int de 32 bits.</div><div class="ttdef"><b>Definition</b> <a href="_numeric_types_8h_source.html#l00010">NumericTypes.h:10</a></div></div>
 <div class="ttc" id="astruct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_pipeline_create_info_html"><div class="ttname"><a href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_pipeline_create_info.html">OSK::GRAPHICS::PipelineCreateInfo</a></div><div class="ttdoc">Contiene la información necesaria para configurar un nuevo graphics pipeline.</div><div class="ttdef"><b>Definition</b> <a href="_pipeline_create_info_8h_source.html#l00102">PipelineCreateInfo.h:102</a></div></div>
 <div class="ttc" id="astruct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_pipeline_create_info_html_a031c05fb2778c508449834a5281e84fd"><div class="ttname"><a href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_pipeline_create_info.html#a031c05fb2778c508449834a5281e84fd">OSK::GRAPHICS::PipelineCreateInfo::formats</a></div><div class="ttdeci">DynamicArray&lt; Format &gt; formats</div><div class="ttdoc">Formato de la imagen sobre la que se renderizará.</div><div class="ttdef"><b>Definition</b> <a href="_pipeline_create_info_8h_source.html#l00189">PipelineCreateInfo.h:189</a></div></div>
 <div class="ttc" id="astruct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_pipeline_create_info_html_a374bbb3534c447ec42cf7edb5380ae84"><div class="ttname"><a href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_pipeline_create_info.html#a374bbb3534c447ec42cf7edb5380ae84">OSK::GRAPHICS::PipelineCreateInfo::polygonMode</a></div><div class="ttdeci">PolygonMode polygonMode</div><div class="ttdoc">Tipo de polígono (línea, triángulo...).</div><div class="ttdef"><b>Definition</b> <a href="_pipeline_create_info_8h_source.html#l00153">PipelineCreateInfo.h:153</a></div></div>
@@ -498,7 +498,7 @@ $(function(){initNavTree('_graphics_pipeline_vk_8cpp_source.html',''); initResiz
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_74389ed8173ad57b461b9d623a1f3867.html">Source</a></li><li class="navelem"><b>GraphicsPipelineVk.cpp</b></li>
-    <li class="footer">Generado el Sábado, 18 de mayo de 2024 12:15:51 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.10.0 </li>
+    <li class="footer">Generado el Miércoles, 29 de mayo de 2024 12:01:48 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.11.0 </li>
   </ul>
 </div>
 </body>

@@ -40,8 +40,9 @@ var searchData=
   ['gpumodel3d_37',['GpuModel3D',['../class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_model3_d.html',1,'OSK::GRAPHICS']]],
   ['gpunotcompatibleexception_38',['GpuNotCompatibleException',['../class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_not_compatible_exception.html',1,'OSK::GRAPHICS']]],
   ['gpunotfoundexception_39',['GpuNotFoundException',['../class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_not_found_exception.html',1,'OSK::GRAPHICS']]],
-  ['gpuvertexdescriptionvk_40',['GpuVertexDescriptionVk',['../class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_vertex_description_vk.html',1,'OSK::GRAPHICS']]],
-  ['gpuvk_41',['GpuVk',['../class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_vk.html',1,'OSK::GRAPHICS']]],
-  ['graphicspipelinedx12_42',['GraphicsPipelineDx12',['../class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_graphics_pipeline_dx12.html',1,'OSK::GRAPHICS']]],
-  ['graphicspipelinevk_43',['GraphicsPipelineVk',['../class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_graphics_pipeline_vk.html',1,'OSK::GRAPHICS']]]
+  ['gpustatscommand_40',['GpuStatsCommand',['../class_o_s_k_1_1_gpu_stats_command.html',1,'OSK']]],
+  ['gpuvertexdescriptionvk_41',['GpuVertexDescriptionVk',['../class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_vertex_description_vk.html',1,'OSK::GRAPHICS']]],
+  ['gpuvk_42',['GpuVk',['../class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_vk.html',1,'OSK::GRAPHICS']]],
+  ['graphicspipelinedx12_43',['GraphicsPipelineDx12',['../class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_graphics_pipeline_dx12.html',1,'OSK::GRAPHICS']]],
+  ['graphicspipelinevk_44',['GraphicsPipelineVk',['../class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_graphics_pipeline_vk.html',1,'OSK::GRAPHICS']]]
 ];

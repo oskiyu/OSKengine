@@ -3,7 +3,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
-<meta name="generator" content="Doxygen 1.10.0"/>
+<meta name="generator" content="Doxygen 1.11.0"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
 <title>OSKengine: Archivo de código fuente Source/RenderSystem3D.h</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
@@ -11,9 +11,9 @@
 <script type="text/javascript" src="dynsections.js"></script>
 <script type="text/javascript" src="clipboard.js"></script>
 <link href="navtree.css" rel="stylesheet" type="text/css"/>
-<script type="text/javascript" src="resize.js"></script>
 <script type="text/javascript" src="navtreedata.js"></script>
 <script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript" src="resize.js"></script>
 <script type="text/javascript" src="cookie.js"></script>
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/searchdata.js"></script>
@@ -37,10 +37,15 @@
 </table>
 </div>
 <!-- end header part -->
-<!-- Generado por Doxygen 1.10.0 -->
+<!-- Generado por Doxygen 1.11.0 -->
 <script type="text/javascript">
 /* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
 var searchBox = new SearchBox("searchBox", "search/",'.html');
+/* @license-end */
+</script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() { codefold.init(0); });
 /* @license-end */
 </script>
 <script type="text/javascript" src="menudata.js"></script>
@@ -48,17 +53,12 @@ var searchBox = new SearchBox("searchBox", "search/",'.html');
 <script type="text/javascript">
 /* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
 $(function() {
-  initMenu('',true,false,'search.php','Buscar');
+  initMenu('',true,false,'search.php','Buscar',true);
   $(function() { init_search(); });
 });
 /* @license-end */
 </script>
 <div id="main-nav"></div>
-<script type="text/javascript">
-/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
-$(function() { codefold.init(0); });
-/* @license-end */
-</script>
 </div><!-- top -->
 <div id="side-nav" class="ui-resizable side-nav-resizable">
   <div id="nav-tree">
@@ -72,7 +72,7 @@ $(function() { codefold.init(0); });
 </div>
 <script type="text/javascript">
 /* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
-$(function(){initNavTree('_render_system3_d_8h_source.html',''); initResizable(); });
+$(function(){initNavTree('_render_system3_d_8h_source.html',''); initResizable(true); });
 /* @license-end */
 </script>
 <div id="doc-content">
@@ -111,136 +111,140 @@ $(function(){initNavTree('_render_system3_d_8h_source.html',''); initResizable()
 <div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="preprocessor">#include &quot;TerrainComponent.h&quot;</span></div>
 <div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="preprocessor">#include &quot;RtRenderTarget.h&quot;</span></div>
 <div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="preprocessor">#include &quot;TaaProvider.h&quot;</span></div>
-<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span> </div>
-<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="preprocessor">#include &lt;array&gt;</span></div>
-<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="preprocessor">#include &lt;span&gt;</span></div>
-<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span> </div>
-<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span><span class="keyword">namespace </span><a class="code hl_namespace" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html">OSK::GRAPHICS</a> {</div>
-<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span>    <span class="keyword">class </span>ICommandList;</div>
-<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>}</div>
-<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span> </div>
-<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span><span class="keyword">namespace </span><a class="code hl_namespace" href="namespace_o_s_k_1_1_a_s_s_e_t_s.html">OSK::ASSETS</a> {</div>
-<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>    <span class="keyword">class </span>IrradianceMap;</div>
-<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>    <span class="keyword">class </span>SpecularMap;</div>
-<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>    <span class="keyword">class </span>CubemapTexture;</div>
-<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>    <span class="keyword">class </span>Texture;</div>
-<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>    <span class="keyword">enum class</span> ModelType;</div>
-<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>}</div>
-<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span> </div>
-<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span><span class="keyword">namespace </span><a class="code hl_namespace" href="namespace_o_s_k_1_1_e_c_s.html">OSK::ECS</a> {</div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="preprocessor">#include &quot;ResourcesInFlight.h&quot;</span></div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span> </div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="preprocessor">#include &lt;array&gt;</span></div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span><span class="preprocessor">#include &lt;span&gt;</span></div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span><span class="preprocessor">#include &quot;ResourcesInFlight.h&quot;</span></div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span> </div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span><span class="keyword">namespace </span><a class="code hl_namespace" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html">OSK::GRAPHICS</a> {</div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>    <span class="keyword">class </span>ICommandList;</div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>}</div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span> </div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span><span class="keyword">namespace </span><a class="code hl_namespace" href="namespace_o_s_k_1_1_a_s_s_e_t_s.html">OSK::ASSETS</a> {</div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>    <span class="keyword">class </span>IrradianceMap;</div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>    <span class="keyword">class </span>SpecularMap;</div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>    <span class="keyword">class </span>CubemapTexture;</div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>    <span class="keyword">class </span>Texture;</div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>    <span class="keyword">enum class</span> ModelType;</div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>}</div>
 <div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span> </div>
-<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>    <span class="keyword">class </span>CameraComponent3D;</div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span><span class="keyword">namespace </span><a class="code hl_namespace" href="namespace_o_s_k_1_1_e_c_s.html">OSK::ECS</a> {</div>
 <div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span> </div>
-<div class="foldopen" id="foldopen00036" data-start="{" data-end="};">
-<div class="line"><a id="l00036" name="l00036"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_e_c_s_1_1_render_system3_d.html">   36</a></span>    <span class="keyword">class </span>OSKAPI_CALL <a class="code hl_class" href="class_o_s_k_1_1_e_c_s_1_1_render_system3_d.html">RenderSystem3D</a> : <span class="keyword">public</span> <a class="code hl_class" href="class_o_s_k_1_1_e_c_s_1_1_i_render_system.html">IRenderSystem</a> {</div>
-<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span> </div>
-<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>    <span class="keyword">public</span>:</div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>    <span class="keyword">class </span>CameraComponent3D;</div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span> </div>
+<div class="foldopen" id="foldopen00038" data-start="{" data-end="};">
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_e_c_s_1_1_render_system3_d.html">   38</a></span>    <span class="keyword">class </span>OSKAPI_CALL <a class="code hl_class" href="class_o_s_k_1_1_e_c_s_1_1_render_system3_d.html">RenderSystem3D</a> : <span class="keyword">public</span> <a class="code hl_class" href="class_o_s_k_1_1_e_c_s_1_1_i_render_system.html">IRenderSystem</a> {</div>
 <div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span> </div>
-<div class="line"><a id="l00040" name="l00040"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_e_c_s_1_1_render_system3_d.html#a493b2f75e14d1d63509e90df7edd326e">   40</a></span>        <a class="code hl_function" href="class_o_s_k_1_1_e_c_s_1_1_render_system3_d.html#a493b2f75e14d1d63509e90df7edd326e">OSK_SYSTEM</a>(<span class="stringliteral">&quot;OSK::RenderSystem3D&quot;</span>);</div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>    <span class="keyword">public</span>:</div>
 <div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span> </div>
-<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>        <a class="code hl_class" href="class_o_s_k_1_1_e_c_s_1_1_render_system3_d.html">RenderSystem3D</a>();</div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_e_c_s_1_1_render_system3_d.html#a493b2f75e14d1d63509e90df7edd326e">   42</a></span>        <a class="code hl_function" href="class_o_s_k_1_1_e_c_s_1_1_render_system3_d.html#a493b2f75e14d1d63509e90df7edd326e">OSK_SYSTEM</a>(<span class="stringliteral">&quot;OSK::RenderSystem3D&quot;</span>);</div>
 <div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span> </div>
-<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>        <span class="keywordtype">void</span> Initialize(<a class="code hl_class" href="class_o_s_k_1_1_base_uuid.html">GameObjectIndex</a> cameraObject, <span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_irradiance_map.html">ASSETS::IrradianceMap</a>&amp; irradianceMap, <span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_specular_map.html">ASSETS::SpecularMap</a>&amp; specularMap);</div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>        <a class="code hl_class" href="class_o_s_k_1_1_e_c_s_1_1_render_system3_d.html">RenderSystem3D</a>();</div>
 <div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span> </div>
-<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>        <span class="keywordtype">void</span> InitializeTerrain(<span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_vector2__t.html">Vector2ui</a>&amp; resolution, <span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_texture.html">ASSETS::Texture</a>&amp; heightMap, <span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_texture.html">ASSETS::Texture</a>&amp; texture);</div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>        <span class="keywordtype">void</span> Initialize(<a class="code hl_class" href="class_o_s_k_1_1_base_uuid.html">GameObjectIndex</a> cameraObject, <span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_irradiance_map.html">ASSETS::IrradianceMap</a>&amp; irradianceMap, <span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_specular_map.html">ASSETS::SpecularMap</a>&amp; specularMap);</div>
 <div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span> </div>
-<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>        <span class="keywordtype">void</span> CreateTargetImage(<span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_vector2__t.html">Vector2ui</a>&amp; size) <span class="keyword">override</span>;</div>
-<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>        <span class="keywordtype">void</span> Resize(<span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_vector2__t.html">Vector2ui</a>&amp; size) <span class="keyword">override</span>;</div>
-<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span> </div>
-<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>        <span class="keywordtype">void</span> Execute(TDeltaTime deltaTime, std::span&lt;const ECS::GameObjectIndex&gt; objects) <span class="keyword">override</span>;</div>
-<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>        <span class="keywordtype">void</span> Render(<a class="code hl_class" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list.html">GRAPHICS::ICommandList</a>* commandList, std::span&lt;const ECS::GameObjectIndex&gt; objects) <span class="keyword">override</span>;</div>
-<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>        <span class="keywordtype">void</span> ApplyConfiguration(<a class="code hl_class" href="class_o_s_k_1_1_p_e_r_s_i_s_t_e_n_c_e_1_1_binary_block_reader.html">PERSISTENCE::BinaryBlockReader</a>* reader, <span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_e_c_s_1_1_saved_game_object_translator.html">SavedGameObjectTranslator</a>&amp; translator) <span class="keyword">override</span>;</div>
-<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>        </div>
-<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>        <a class="code hl_class" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_shadow_map.html">GRAPHICS::ShadowMap</a>* GetShadowMap();</div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>        <span class="keywordtype">void</span> InitializeTerrain(<span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_vector2__t.html">Vector2ui</a>&amp; resolution, <span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_texture.html">ASSETS::Texture</a>&amp; heightMap, <span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_texture.html">ASSETS::Texture</a>&amp; texture);</div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span> </div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>        <span class="keywordtype">void</span> CreateTargetImage(<span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_vector2__t.html">Vector2ui</a>&amp; size) <span class="keyword">override</span>;</div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>        <span class="keywordtype">void</span> Resize(<span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_vector2__t.html">Vector2ui</a>&amp; size) <span class="keyword">override</span>;</div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span> </div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>        <span class="keywordtype">void</span> Execute(<a class="code hl_typedef" href="namespace_o_s_k.html#adfc76cbcf35e5506ee24168edfe15bb0">TDeltaTime</a> deltaTime, std::span&lt;const ECS::GameObjectIndex&gt; objects) <span class="keyword">override</span>;</div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>        <span class="keywordtype">void</span> Render(<a class="code hl_class" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list.html">GRAPHICS::ICommandList</a>* commandList, std::span&lt;const ECS::GameObjectIndex&gt; objects) <span class="keyword">override</span>;</div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>        <span class="keywordtype">void</span> ApplyConfiguration(<a class="code hl_class" href="class_o_s_k_1_1_p_e_r_s_i_s_t_e_n_c_e_1_1_binary_block_reader.html">PERSISTENCE::BinaryBlockReader</a>* reader, <span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_e_c_s_1_1_saved_game_object_translator.html">SavedGameObjectTranslator</a>&amp; translator) <span class="keyword">override</span>;</div>
 <div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>        </div>
-<div class="foldopen" id="foldopen00057" data-start="{" data-end="}">
-<div class="line"><a id="l00057" name="l00057"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_e_c_s_1_1_render_system3_d.html#a3af94ea4d0fd797e7c149a4d7fcccc93">   57</a></span>        <span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_buffer.html">GRAPHICS::GpuBuffer</a>* <a class="code hl_function" href="class_o_s_k_1_1_e_c_s_1_1_render_system3_d.html#a3af94ea4d0fd797e7c149a4d7fcccc93">GetCameraBuffer</a>(UIndex32 index)<span class="keyword"> const </span>{</div>
-<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>            <span class="keywordflow">return</span> m_cameraBuffers[index].GetPointer();</div>
-<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>        }</div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>        <a class="code hl_class" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_shadow_map.html">GRAPHICS::ShadowMap</a>* GetShadowMap();</div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>        </div>
+<div class="foldopen" id="foldopen00059" data-start="{" data-end="}">
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_e_c_s_1_1_render_system3_d.html#a3af94ea4d0fd797e7c149a4d7fcccc93">   59</a></span>        <span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_buffer.html">GRAPHICS::GpuBuffer</a>* <a class="code hl_function" href="class_o_s_k_1_1_e_c_s_1_1_render_system3_d.html#a3af94ea4d0fd797e7c149a4d7fcccc93">GetCameraBuffer</a>(<a class="code hl_typedef" href="namespace_o_s_k.html#a382ed4c8a6994201cbad5d4e1335861b">UIndex32</a> index)<span class="keyword"> const </span>{</div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>            <span class="keywordflow">return</span> m_cameraBuffers[index].GetPointer();</div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>        }</div>
 </div>
-<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span> </div>
-<div class="line"><a id="l00061" name="l00061"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_e_c_s_1_1_render_system3_d.html#aa01efd52a4c804e5f9b7c98716a22033">   61</a></span>        <span class="keyword">inline</span> <span class="keywordtype">void</span> <a class="code hl_function" href="class_o_s_k_1_1_e_c_s_1_1_render_system3_d.html#aa01efd52a4c804e5f9b7c98716a22033">ToggleTaa</a>() { m_taaProvider.ToggleActivation(); }</div>
 <div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span> </div>
-<div class="line"><a id="l00063" name="l00063"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_e_c_s_1_1_render_system3_d.html#a50e98bc2de00e4a60e746813e3777453">   63</a></span>        <span class="keyword">constexpr</span> <span class="keyword">static</span> UIndex32 COLOR_IMAGE_INDEX  = 0;</div>
-<div class="line"><a id="l00064" name="l00064"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_e_c_s_1_1_render_system3_d.html#a53c71ef7181e3275c5dd30f8b915f458">   64</a></span>        <span class="keyword">constexpr</span> <span class="keyword">static</span> UIndex32 MOTION_IMAGE_INDEX = 1;</div>
-<div class="line"><a id="l00065" name="l00065"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_e_c_s_1_1_render_system3_d.html#a805c938d983ec6e87910ddb4fc7ec044">   65</a></span>        <span class="keyword">constexpr</span> <span class="keyword">static</span> UIndex32 NORMAL_IMAGE_INDEX = 2;</div>
-<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span> </div>
-<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>        nlohmann::json SaveConfiguration() <span class="keyword">const override</span>;</div>
-<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>        <a class="code hl_class" href="class_o_s_k_1_1_p_e_r_s_i_s_t_e_n_c_e_1_1_binary_block.html">PERSISTENCE::BinaryBlock</a> SaveBinaryConfiguration() <span class="keyword">const override</span>;</div>
-<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>        <span class="keywordtype">void</span> ApplyConfiguration(<span class="keyword">const</span> nlohmann::json&amp; config, <span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_e_c_s_1_1_saved_game_object_translator.html">SavedGameObjectTranslator</a>&amp; translator) <span class="keyword">override</span>;</div>
-<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span> </div>
-<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>    <span class="keyword">private</span>:</div>
-<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>        </div>
-<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>        <span class="keywordtype">void</span> CreateBuffers();</div>
-<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>        <span class="keywordtype">void</span> LoadMaterials();</div>
-<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>        <span class="keywordtype">void</span> SetupMaterials();</div>
-<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span> </div>
-<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span>        <span class="keywordtype">void</span> GenerateShadows(<a class="code hl_class" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list.html">GRAPHICS::ICommandList</a>* commandList);</div>
-<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span>        <span class="keywordtype">void</span> RenderScene(<a class="code hl_class" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list.html">GRAPHICS::ICommandList</a>* commandList);</div>
-<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span> </div>
-<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span>        <span class="keywordtype">void</span> ExecuteTaa(<a class="code hl_class" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list.html">GRAPHICS::ICommandList</a>* commandList);</div>
-<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span>        <span class="keywordtype">void</span> CopyTaaResult(<a class="code hl_class" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list.html">GRAPHICS::ICommandList</a>* commandList);</div>
-<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span> </div>
-<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span>        <span class="keywordtype">void</span> RenderTerrain(<a class="code hl_class" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list.html">GRAPHICS::ICommandList</a>* commandList);</div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_e_c_s_1_1_render_system3_d.html#aa01efd52a4c804e5f9b7c98716a22033">   63</a></span>        <span class="keyword">inline</span> <span class="keywordtype">void</span> <a class="code hl_function" href="class_o_s_k_1_1_e_c_s_1_1_render_system3_d.html#aa01efd52a4c804e5f9b7c98716a22033">ToggleTaa</a>() { m_taaProvider.ToggleActivation(); }</div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span> </div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_e_c_s_1_1_render_system3_d.html#a50e98bc2de00e4a60e746813e3777453">   65</a></span>        <span class="keyword">constexpr</span> <span class="keyword">static</span> <a class="code hl_typedef" href="namespace_o_s_k.html#a382ed4c8a6994201cbad5d4e1335861b">UIndex32</a> COLOR_IMAGE_INDEX  = 0;</div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_e_c_s_1_1_render_system3_d.html#a53c71ef7181e3275c5dd30f8b915f458">   66</a></span>        <span class="keyword">constexpr</span> <span class="keyword">static</span> <a class="code hl_typedef" href="namespace_o_s_k.html#a382ed4c8a6994201cbad5d4e1335861b">UIndex32</a> MOTION_IMAGE_INDEX = 1;</div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_e_c_s_1_1_render_system3_d.html#a805c938d983ec6e87910ddb4fc7ec044">   67</a></span>        <span class="keyword">constexpr</span> <span class="keyword">static</span> <a class="code hl_typedef" href="namespace_o_s_k.html#a382ed4c8a6994201cbad5d4e1335861b">UIndex32</a> NORMAL_IMAGE_INDEX = 2;</div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span> </div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>        nlohmann::json SaveConfiguration() <span class="keyword">const override</span>;</div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>        <a class="code hl_class" href="class_o_s_k_1_1_p_e_r_s_i_s_t_e_n_c_e_1_1_binary_block.html">PERSISTENCE::BinaryBlock</a> SaveBinaryConfiguration() <span class="keyword">const override</span>;</div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>        <span class="keywordtype">void</span> ApplyConfiguration(<span class="keyword">const</span> nlohmann::json&amp; config, <span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_e_c_s_1_1_saved_game_object_translator.html">SavedGameObjectTranslator</a>&amp; translator) <span class="keyword">override</span>;</div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span> </div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>    <span class="keyword">private</span>:</div>
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>        </div>
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>        <span class="keywordtype">void</span> CreateBuffers();</div>
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>        <span class="keywordtype">void</span> LoadMaterials();</div>
+<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span>        <span class="keywordtype">void</span> SetupMaterials();</div>
+<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span> </div>
+<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span>        <span class="keywordtype">void</span> GenerateShadows(<a class="code hl_class" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list.html">GRAPHICS::ICommandList</a>* commandList);</div>
+<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span>        <span class="keywordtype">void</span> RenderScene(<a class="code hl_class" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list.html">GRAPHICS::ICommandList</a>* commandList);</div>
+<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span> </div>
+<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span>        <span class="keywordtype">void</span> ExecuteTaa(<a class="code hl_class" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list.html">GRAPHICS::ICommandList</a>* commandList);</div>
+<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span>        <span class="keywordtype">void</span> CopyTaaResult(<a class="code hl_class" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list.html">GRAPHICS::ICommandList</a>* commandList);</div>
 <div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span> </div>
-<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span>        <a class="code hl_class" href="class_o_s_k_1_1_unique_ptr.html">UniquePtr&lt;GRAPHICS::GpuBuffer&gt;</a> m_resolutionBuffer = <span class="keyword">nullptr</span>;</div>
-<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span> </div>
-<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span>        std::array&lt;UniquePtr&lt;GRAPHICS::GpuBuffer&gt;, NUM_RESOURCES_IN_FLIGHT&gt; m_cameraBuffers{};</div>
-<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span>        std::array&lt;UniquePtr&lt;GRAPHICS::GpuBuffer&gt;, NUM_RESOURCES_IN_FLIGHT&gt; m_previousCameraBuffers{};</div>
-<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span> </div>
-<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span>        std::array&lt;UniquePtr&lt;GRAPHICS::GpuBuffer&gt;, NUM_RESOURCES_IN_FLIGHT&gt; m_dirLightUbos{};</div>
-<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span>        GRAPHICS::DirectionalLight m_dirLight{};</div>
-<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span> </div>
-<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span>        GRAPHICS::ShadowMap m_shadowMap;</div>
-<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span>        ECS::GameObjectIndex m_cameraObject = ECS::EMPTY_GAME_OBJECT;</div>
-<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span> </div>
-<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span>        GRAPHICS::Material* m_sceneMaterial = <span class="keyword">nullptr</span>;</div>
-<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span>        GRAPHICS::Material* m_animatedSceneMaterial = <span class="keyword">nullptr</span>;</div>
-<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span> </div>
-<div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span>        UniquePtr&lt;GRAPHICS::MaterialInstance&gt; m_sceneMaterialInstance;</div>
+<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span>        <span class="keywordtype">void</span> RenderTerrain(<a class="code hl_class" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list.html">GRAPHICS::ICommandList</a>* commandList);</div>
+<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span> </div>
+<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span>        <a class="code hl_class" href="class_o_s_k_1_1_unique_ptr.html">UniquePtr&lt;GRAPHICS::GpuBuffer&gt;</a> m_resolutionBuffer = <span class="keyword">nullptr</span>;</div>
+<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span> </div>
+<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span>        std::array&lt;UniquePtr&lt;GRAPHICS::GpuBuffer&gt;, GRAPHICS::MAX_RESOURCES_IN_FLIGHT&gt; m_cameraBuffers{};</div>
+<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span>        std::array&lt;UniquePtr&lt;GRAPHICS::GpuBuffer&gt;, GRAPHICS::MAX_RESOURCES_IN_FLIGHT&gt; m_previousCameraBuffers{};</div>
+<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span> </div>
+<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span>        std::array&lt;UniquePtr&lt;GRAPHICS::GpuBuffer&gt;, GRAPHICS::MAX_RESOURCES_IN_FLIGHT&gt; m_dirLightUbos{};</div>
+<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span>        GRAPHICS::DirectionalLight m_dirLight{};</div>
+<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span> </div>
+<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span>        GRAPHICS::ShadowMap m_shadowMap;</div>
+<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span>        ECS::GameObjectIndex m_cameraObject = ECS::EMPTY_GAME_OBJECT;</div>
+<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span> </div>
+<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span>        GRAPHICS::Material* m_sceneMaterial = <span class="keyword">nullptr</span>;</div>
+<div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span>        GRAPHICS::Material* m_animatedSceneMaterial = <span class="keyword">nullptr</span>;</div>
 <div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span> </div>
-<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span>        TerrainComponent m_terrain{};</div>
-<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span>        GRAPHICS::Material* m_terrainMaterial = <span class="keyword">nullptr</span>;</div>
-<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span> </div>
-<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span>        <span class="comment">// TAA</span></div>
-<div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span>        GRAPHICS::TaaProvider m_taaProvider{};</div>
-<div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span> </div>
-<div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span>        std::unordered_map&lt;GameObjectIndex, glm::mat4&gt; m_previousModelMatrices;</div>
+<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span>        UniquePtr&lt;GRAPHICS::MaterialInstance&gt; m_sceneMaterialInstance;</div>
+<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span> </div>
+<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span>        TerrainComponent m_terrain{};</div>
+<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span>        GRAPHICS::Material* m_terrainMaterial = <span class="keyword">nullptr</span>;</div>
+<div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span> </div>
+<div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span>        <span class="comment">// TAA</span></div>
+<div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span>        GRAPHICS::TaaProvider m_taaProvider{};</div>
 <div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span> </div>
-<div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span>        glm::mat4 m_previousCameraProjection = glm::mat4(1.0f);</div>
-<div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span>        glm::mat4 m_previousCameraView = glm::mat4(1.0f);</div>
-<div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span> </div>
-<div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span>    };</div>
-</div>
+<div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span>        std::unordered_map&lt;GameObjectIndex, glm::mat4&gt; m_previousModelMatrices;</div>
+<div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span> </div>
+<div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span>        glm::mat4 m_previousCameraProjection = glm::mat4(1.0f);</div>
+<div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span>        glm::mat4 m_previousCameraView = glm::mat4(1.0f);</div>
 <div class="line"><a id="l00116" name="l00116"></a><span class="lineno">  116</span> </div>
-<div class="line"><a id="l00117" name="l00117"></a><span class="lineno">  117</span>}</div>
+<div class="line"><a id="l00117" name="l00117"></a><span class="lineno">  117</span>    };</div>
+</div>
+<div class="line"><a id="l00118" name="l00118"></a><span class="lineno">  118</span> </div>
+<div class="line"><a id="l00119" name="l00119"></a><span class="lineno">  119</span>}</div>
 <div class="ttc" id="aclass_o_s_k_1_1_a_s_s_e_t_s_1_1_irradiance_map_html"><div class="ttname"><a href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_irradiance_map.html">OSK::ASSETS::IrradianceMap</a></div><div class="ttdoc">Un irradiance map es un cubemap que contiene información sobre el color de la luz procedente de la es...</div><div class="ttdef"><b>Definition</b> <a href="_irradiance_map_8h_source.html#l00014">IrradianceMap.h:14</a></div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_a_s_s_e_t_s_1_1_specular_map_html"><div class="ttname"><a href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_specular_map.html">OSK::ASSETS::SpecularMap</a></div><div class="ttdef"><b>Definition</b> <a href="_specular_map_8h_source.html#l00011">SpecularMap.h:11</a></div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_a_s_s_e_t_s_1_1_texture_html"><div class="ttname"><a href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_texture.html">OSK::ASSETS::Texture</a></div><div class="ttdoc">Una textura que será usada en renderizado 2D / 3D.</div><div class="ttdef"><b>Definition</b> <a href="_texture_8h_source.html#l00016">Texture.h:16</a></div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_base_uuid_html"><div class="ttname"><a href="class_o_s_k_1_1_base_uuid.html">OSK::BaseUuid&lt; class GameObjectIndexTag &gt;</a></div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_e_c_s_1_1_i_render_system_html"><div class="ttname"><a href="class_o_s_k_1_1_e_c_s_1_1_i_render_system.html">OSK::ECS::IRenderSystem</a></div><div class="ttdoc">Clase base para sistemas de renderizado.</div><div class="ttdef"><b>Definition</b> <a href="_i_render_system_8h_source.html#l00026">IRenderSystem.h:26</a></div></div>
-<div class="ttc" id="aclass_o_s_k_1_1_e_c_s_1_1_render_system3_d_html"><div class="ttname"><a href="class_o_s_k_1_1_e_c_s_1_1_render_system3_d.html">OSK::ECS::RenderSystem3D</a></div><div class="ttdoc">Sistema que se encarga del renderizado de modelos 3D de los objetos.</div><div class="ttdef"><b>Definition</b> <a href="#l00036">RenderSystem3D.h:36</a></div></div>
-<div class="ttc" id="aclass_o_s_k_1_1_e_c_s_1_1_render_system3_d_html_a3af94ea4d0fd797e7c149a4d7fcccc93"><div class="ttname"><a href="class_o_s_k_1_1_e_c_s_1_1_render_system3_d.html#a3af94ea4d0fd797e7c149a4d7fcccc93">OSK::ECS::RenderSystem3D::GetCameraBuffer</a></div><div class="ttdeci">const GRAPHICS::GpuBuffer * GetCameraBuffer(UIndex32 index) const</div><div class="ttdef"><b>Definition</b> <a href="#l00057">RenderSystem3D.h:57</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_e_c_s_1_1_render_system3_d_html"><div class="ttname"><a href="class_o_s_k_1_1_e_c_s_1_1_render_system3_d.html">OSK::ECS::RenderSystem3D</a></div><div class="ttdoc">Sistema que se encarga del renderizado de modelos 3D de los objetos.</div><div class="ttdef"><b>Definition</b> <a href="#l00038">RenderSystem3D.h:38</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_e_c_s_1_1_render_system3_d_html_a3af94ea4d0fd797e7c149a4d7fcccc93"><div class="ttname"><a href="class_o_s_k_1_1_e_c_s_1_1_render_system3_d.html#a3af94ea4d0fd797e7c149a4d7fcccc93">OSK::ECS::RenderSystem3D::GetCameraBuffer</a></div><div class="ttdeci">const GRAPHICS::GpuBuffer * GetCameraBuffer(UIndex32 index) const</div><div class="ttdef"><b>Definition</b> <a href="#l00059">RenderSystem3D.h:59</a></div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_e_c_s_1_1_render_system3_d_html_a493b2f75e14d1d63509e90df7edd326e"><div class="ttname"><a href="class_o_s_k_1_1_e_c_s_1_1_render_system3_d.html#a493b2f75e14d1d63509e90df7edd326e">OSK::ECS::RenderSystem3D::OSK_SYSTEM</a></div><div class="ttdeci">OSK_SYSTEM(&quot;OSK::RenderSystem3D&quot;)</div></div>
-<div class="ttc" id="aclass_o_s_k_1_1_e_c_s_1_1_render_system3_d_html_aa01efd52a4c804e5f9b7c98716a22033"><div class="ttname"><a href="class_o_s_k_1_1_e_c_s_1_1_render_system3_d.html#aa01efd52a4c804e5f9b7c98716a22033">OSK::ECS::RenderSystem3D::ToggleTaa</a></div><div class="ttdeci">void ToggleTaa()</div><div class="ttdef"><b>Definition</b> <a href="#l00061">RenderSystem3D.h:61</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_e_c_s_1_1_render_system3_d_html_aa01efd52a4c804e5f9b7c98716a22033"><div class="ttname"><a href="class_o_s_k_1_1_e_c_s_1_1_render_system3_d.html#aa01efd52a4c804e5f9b7c98716a22033">OSK::ECS::RenderSystem3D::ToggleTaa</a></div><div class="ttdeci">void ToggleTaa()</div><div class="ttdef"><b>Definition</b> <a href="#l00063">RenderSystem3D.h:63</a></div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_e_c_s_1_1_saved_game_object_translator_html"><div class="ttname"><a href="class_o_s_k_1_1_e_c_s_1_1_saved_game_object_translator.html">OSK::ECS::SavedGameObjectTranslator</a></div><div class="ttdoc">Tabla que permite obtener el índice actual de una entidad que ha sido guardada en disco.</div><div class="ttdef"><b>Definition</b> <a href="_saved_game_object_translator_8h_source.html#l00015">SavedGameObjectTranslator.h:15</a></div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_buffer_html"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_buffer.html">OSK::GRAPHICS::GpuBuffer</a></div><div class="ttdoc">Representa un buffer que contiene información accesible desde la GPU.</div><div class="ttdef"><b>Definition</b> <a href="_gpu_buffer_8h_source.html#l00023">GpuBuffer.h:23</a></div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list_html"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list.html">OSK::GRAPHICS::ICommandList</a></div><div class="ttdoc">Una lista de comandos contiene una serie de comandos que serán enviados a la GPU para su ejecución....</div><div class="ttdef"><b>Definition</b> <a href="_i_command_list_8h_source.html#l00076">ICommandList.h:76</a></div></div>
-<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_shadow_map_html"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_shadow_map.html">OSK::GRAPHICS::ShadowMap</a></div><div class="ttdoc">Renderiza un mapa de profundidad de la escena desde el punto de vista de una luz direccional.</div><div class="ttdef"><b>Definition</b> <a href="_shadow_map_8h_source.html#l00035">ShadowMap.h:35</a></div></div>
-<div class="ttc" id="aclass_o_s_k_1_1_p_e_r_s_i_s_t_e_n_c_e_1_1_binary_block_html"><div class="ttname"><a href="class_o_s_k_1_1_p_e_r_s_i_s_t_e_n_c_e_1_1_binary_block.html">OSK::PERSISTENCE::BinaryBlock</a></div><div class="ttdoc">Bloque con datos en formato binario.</div><div class="ttdef"><b>Definition</b> <a href="_binary_block_8h_source.html#l00067">BinaryBlock.h:67</a></div></div>
-<div class="ttc" id="aclass_o_s_k_1_1_p_e_r_s_i_s_t_e_n_c_e_1_1_binary_block_reader_html"><div class="ttname"><a href="class_o_s_k_1_1_p_e_r_s_i_s_t_e_n_c_e_1_1_binary_block_reader.html">OSK::PERSISTENCE::BinaryBlockReader</a></div><div class="ttdoc">Lector de un bloque binario.</div><div class="ttdef"><b>Definition</b> <a href="_binary_block_8h_source.html#l00014">BinaryBlock.h:14</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_shadow_map_html"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_shadow_map.html">OSK::GRAPHICS::ShadowMap</a></div><div class="ttdoc">Renderiza un mapa de profundidad de la escena desde el punto de vista de una luz direccional.</div><div class="ttdef"><b>Definition</b> <a href="_shadow_map_8h_source.html#l00036">ShadowMap.h:36</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_p_e_r_s_i_s_t_e_n_c_e_1_1_binary_block_html"><div class="ttname"><a href="class_o_s_k_1_1_p_e_r_s_i_s_t_e_n_c_e_1_1_binary_block.html">OSK::PERSISTENCE::BinaryBlock</a></div><div class="ttdoc">Bloque con datos en formato binario.</div><div class="ttdef"><b>Definition</b> <a href="_binary_block_8h_source.html#l00068">BinaryBlock.h:68</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_p_e_r_s_i_s_t_e_n_c_e_1_1_binary_block_reader_html"><div class="ttname"><a href="class_o_s_k_1_1_p_e_r_s_i_s_t_e_n_c_e_1_1_binary_block_reader.html">OSK::PERSISTENCE::BinaryBlockReader</a></div><div class="ttdoc">Lector de un bloque binario.</div><div class="ttdef"><b>Definition</b> <a href="_binary_block_8h_source.html#l00015">BinaryBlock.h:15</a></div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_unique_ptr_html"><div class="ttname"><a href="class_o_s_k_1_1_unique_ptr.html">OSK::UniquePtr</a></div><div class="ttdoc">Estructura que es dueña de un objeto almacenado en heap. Al destruirse el UniquePtr,...</div><div class="ttdef"><b>Definition</b> <a href="_unique_ptr_8hpp_source.html#l00022">UniquePtr.hpp:22</a></div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_vector2__t_html"><div class="ttname"><a href="class_o_s_k_1_1_vector2__t.html">OSK::Vector2_t&lt; uint32_t &gt;</a></div></div>
 <div class="ttc" id="anamespace_o_s_k_1_1_a_s_s_e_t_s_html"><div class="ttname"><a href="namespace_o_s_k_1_1_a_s_s_e_t_s.html">OSK::ASSETS</a></div><div class="ttdef"><b>Definition</b> <a href="_anim_mesh_loader_8h_source.html#l00009">AnimMeshLoader.h:9</a></div></div>
 <div class="ttc" id="anamespace_o_s_k_1_1_e_c_s_html"><div class="ttname"><a href="namespace_o_s_k_1_1_e_c_s.html">OSK::ECS</a></div><div class="ttdef"><b>Definition</b> <a href="_camera_component2_d_8h_source.html#l00017">CameraComponent2D.h:17</a></div></div>
 <div class="ttc" id="anamespace_o_s_k_1_1_g_r_a_p_h_i_c_s_html"><div class="ttname"><a href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html">OSK::GRAPHICS</a></div><div class="ttdef"><b>Definition</b> <a href="_acceleration_structures_exceptions_8h_source.html#l00005">AccelerationStructuresExceptions.h:5</a></div></div>
+<div class="ttc" id="anamespace_o_s_k_html_a382ed4c8a6994201cbad5d4e1335861b"><div class="ttname"><a href="namespace_o_s_k.html#a382ed4c8a6994201cbad5d4e1335861b">OSK::UIndex32</a></div><div class="ttdeci">uint32_t UIndex32</div><div class="ttdoc">Índice de un elemento, almacenado en un unsigned int de 32 bits.</div><div class="ttdef"><b>Definition</b> <a href="_numeric_types_8h_source.html#l00010">NumericTypes.h:10</a></div></div>
+<div class="ttc" id="anamespace_o_s_k_html_adfc76cbcf35e5506ee24168edfe15bb0"><div class="ttname"><a href="namespace_o_s_k.html#adfc76cbcf35e5506ee24168edfe15bb0">OSK::TDeltaTime</a></div><div class="ttdeci">float TDeltaTime</div><div class="ttdoc">Delta de tiempo, medido en segundos.</div><div class="ttdef"><b>Definition</b> <a href="_numeric_types_8h_source.html#l00031">NumericTypes.h:31</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_74389ed8173ad57b461b9d623a1f3867.html">Source</a></li><li class="navelem"><b>RenderSystem3D.h</b></li>
-    <li class="footer">Generado el Sábado, 18 de mayo de 2024 12:15:52 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.10.0 </li>
+    <li class="footer">Generado el Miércoles, 29 de mayo de 2024 12:01:49 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.11.0 </li>
   </ul>
 </div>
 </body>

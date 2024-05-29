@@ -1,0 +1,237 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="es">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.11.0"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>OSKengine: Archivo de código fuente Source/UiTextInput.cpp</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="doxygen-awesome.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">OSKengine<span id="projectnumber">&#160;Indev</span>
+   </div>
+   <div id="projectbrief">Motor de videojuegos.</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generado por Doxygen 1.11.0 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+/* @license-end */
+</script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() { codefold.init(0); });
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() {
+  initMenu('',true,false,'search.php','Buscar',true);
+  $(function() { init_search(); });
+});
+/* @license-end */
+</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function(){initNavTree('_ui_text_input_8cpp_source.html',''); initResizable(true); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Cargando...</div>
+<div class="SRStatus" id="Searching">Buscando...</div>
+<div class="SRStatus" id="NoMatches">Nada coincide</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">UiTextInput.cpp</div></div>
+</div><!--header-->
+<div class="contents">
+<div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#include &quot;UiTextInput.h&quot;</span></div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span> </div>
+<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="preprocessor">#include &quot;KeyboardState.h&quot;</span></div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &quot;PrintableKeys.h&quot;</span></div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span> </div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &quot;SpriteRenderer.h&quot;</span></div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="preprocessor">#include &quot;Transform2D.h&quot;</span></div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span> </div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span> </div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="keyword">using namespace </span><a class="code hl_namespace" href="namespace_o_s_k.html">OSK</a>;</div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="keyword">using namespace </span><a class="code hl_namespace" href="namespace_o_s_k_1_1_u_i.html">OSK::UI</a>;</div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="keyword">using namespace </span><a class="code hl_namespace" href="namespace_o_s_k_1_1_i_o.html">OSK::IO</a>;</div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span> </div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span> </div>
+<div class="foldopen" id="foldopen00015" data-start="{" data-end="}">
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_u_i_1_1_text_input.html#a93c1028b5c7d0a869d868ee3ce3087e6">   15</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="class_o_s_k_1_1_u_i_1_1_text_input.html#a93c1028b5c7d0a869d868ee3ce3087e6">TextInput::SetFontSize</a>(<a class="code hl_typedef" href="namespace_o_s_k.html#acf682b0e024acc36806435295480d2ed">USize32</a> size) {</div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span>    m_fontSize = <a class="code hl_variable" href="class_o_s_k_1_1_u_i_1_1_i_element.html#ae01866b02c7417455751f01b2f9d1fbf">size</a>;</div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>    m_font-&gt;LoadSizedFont(<a class="code hl_variable" href="class_o_s_k_1_1_u_i_1_1_i_element.html#ae01866b02c7417455751f01b2f9d1fbf">size</a>);</div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>}</div>
+</div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span> </div>
+<div class="foldopen" id="foldopen00020" data-start="{" data-end="}">
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_u_i_1_1_text_input.html#ac5b59a11343b44eb6f89af5d3ce41962">   20</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="class_o_s_k_1_1_u_i_1_1_text_input.html#ac5b59a11343b44eb6f89af5d3ce41962">TextInput::SetFont</a>(<a class="code hl_class" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">ASSETS::AssetRef&lt;ASSETS::Font&gt;</a> font) {</div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>    m_font = font;</div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>}</div>
+</div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span> </div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span> </div>
+<div class="foldopen" id="foldopen00025" data-start="{" data-end="}">
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_u_i_1_1_text_input.html#ad07b40f6ef347716c09725e99c92a0a4">   25</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="class_o_s_k_1_1_u_i_1_1_text_input.html#ad07b40f6ef347716c09725e99c92a0a4">TextInput::SetText</a>(<span class="keyword">const</span> std::string&amp; text) {</div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>    m_text = text;</div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>}</div>
+</div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span> </div>
+<div class="foldopen" id="foldopen00029" data-start="{" data-end="}">
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_u_i_1_1_text_input.html#aa4616678d3bbd85c8b82ff4d01e3c9a2">   29</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="class_o_s_k_1_1_u_i_1_1_text_input.html#aa4616678d3bbd85c8b82ff4d01e3c9a2">TextInput::SetPlaceholderText</a>(<span class="keyword">const</span> std::string&amp; text) {</div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>    m_text = text;</div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>    m_hasPlaceholderText = <span class="keyword">true</span>;</div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>}</div>
+</div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span> </div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span> </div>
+<div class="foldopen" id="foldopen00035" data-start="{" data-end="}">
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_u_i_1_1_text_input.html#abe0468bd77dd987ed4b364f3333c227f">   35</a></span>std::string_view <a class="code hl_function" href="class_o_s_k_1_1_u_i_1_1_text_input.html#abe0468bd77dd987ed4b364f3333c227f">TextInput::GetText</a>()<span class="keyword"> const </span>{</div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>    <span class="keywordflow">return</span> m_text;</div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>}</div>
+</div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span> </div>
+<div class="foldopen" id="foldopen00039" data-start="{" data-end="}">
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_u_i_1_1_text_input.html#a47b54fd8ff1b627cd0613e75fdc9f166">   39</a></span><span class="keywordtype">bool</span> <a class="code hl_function" href="class_o_s_k_1_1_u_i_1_1_text_input.html#a47b54fd8ff1b627cd0613e75fdc9f166">TextInput::HasPlaceholderText</a>()<span class="keyword"> const </span>{</div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>    <span class="keywordflow">return</span> m_hasPlaceholderText;</div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>}</div>
+</div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span> </div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span> </div>
+<div class="foldopen" id="foldopen00044" data-start="{" data-end="}">
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_u_i_1_1_text_input.html#abc6580224b2e77c915e4891d1c0a1874">   44</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="class_o_s_k_1_1_u_i_1_1_text_input.html#abc6580224b2e77c915e4891d1c0a1874">TextInput::UpdateByKeyboard</a>(<span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_i_o_1_1_keyboard_state.html">IO::KeyboardState</a>&amp; previous, <span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_i_o_1_1_keyboard_state.html">IO::KeyboardState</a>&amp; current) {</div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>    <span class="keyword">const</span> <span class="keywordtype">bool</span> isMayus = current.<a class="code hl_function" href="class_o_s_k_1_1_i_o_1_1_keyboard_state.html#a7b0105eda9c1f9c4f0182781a0cb0506">IsKeyDown</a>(Key::LEFT_SHIFT);</div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span> </div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>    <span class="keywordflow">for</span> (<span class="keyword">const</span> <span class="keyword">auto</span> key : PrintableKeys) {</div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>        <span class="keywordflow">if</span> (previous.<a class="code hl_function" href="class_o_s_k_1_1_i_o_1_1_keyboard_state.html#a13ac7fab7db9af7320e82a60bef49354">IsKeyUp</a>(key) &amp;&amp; current.<a class="code hl_function" href="class_o_s_k_1_1_i_o_1_1_keyboard_state.html#a7b0105eda9c1f9c4f0182781a0cb0506">IsKeyDown</a>(key)) {</div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>            <span class="keywordflow">if</span> (m_hasPlaceholderText) {</div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>                m_text = <span class="stringliteral">&quot;&quot;</span>;</div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>                m_hasPlaceholderText = <span class="keyword">false</span>;</div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>            }</div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span> </div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>            m_text.push_back(<a class="code hl_function" href="namespace_o_s_k_1_1_i_o.html#a9536bbc94cea0a101e686d2b434f7403">GetPrintableKeyText</a>(key, isMayus));</div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>        }</div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>    }</div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span> </div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>    <span class="keywordflow">if</span> (current.<a class="code hl_function" href="class_o_s_k_1_1_i_o_1_1_keyboard_state.html#a7b0105eda9c1f9c4f0182781a0cb0506">IsKeyDown</a>(Key::BACKSPACE) &amp;&amp; previous.<a class="code hl_function" href="class_o_s_k_1_1_i_o_1_1_keyboard_state.html#a13ac7fab7db9af7320e82a60bef49354">IsKeyUp</a>(Key::BACKSPACE) &amp;&amp; !m_text.empty()) {</div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>        m_text.pop_back();</div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>    }</div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>}</div>
+</div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span> </div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span> </div>
+<div class="foldopen" id="foldopen00064" data-start="{" data-end="}">
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_u_i_1_1_text_input.html#aa8db475cbd087b91ac82e0e6b1aa9d7b">   64</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="class_o_s_k_1_1_u_i_1_1_text_input.html#aa8db475cbd087b91ac82e0e6b1aa9d7b">TextInput::Render</a>(<a class="code hl_class" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_sprite_renderer.html">GRAPHICS::SpriteRenderer</a>* renderer, <a class="code hl_class" href="class_o_s_k_1_1_vector2__t.html">Vector2f</a> parentPosition)<span class="keyword"> const </span>{</div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>    <span class="keywordflow">if</span> (!m_font.GetAsset()) {</div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>        <span class="keywordflow">return</span>;</div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>    }</div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span> </div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>    <a class="code hl_class" href="class_o_s_k_1_1_vector2__t.html">Vector2f</a> globalPosition = <a class="code hl_function" href="class_o_s_k_1_1_u_i_1_1_i_element.html#ab3e540f50a997e460748e6dab21daa9d">GetContentTopLeftPosition</a>() + parentPosition;</div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>    globalPosition.<a class="code hl_variable" href="class_o_s_k_1_1_vector2__t.html#a3194c7e9abba1f840530e8642a01e30a">y</a> += <a class="code hl_function" href="class_o_s_k_1_1_u_i_1_1_i_element.html#aea7364031375d85ac5b817ce0050d2e0">GetContentSize</a>().<a class="code hl_variable" href="class_o_s_k_1_1_vector2__t.html#a3194c7e9abba1f840530e8642a01e30a">y</a>;</div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>    globalPosition = globalPosition.<a class="code hl_function" href="class_o_s_k_1_1_vector2__t.html#a321ac35eebeb0e760c6165073f420c72">ToVector2i</a>().<a class="code hl_function" href="class_o_s_k_1_1_vector2__t.html#ad87181c3ef04bdc4653e05a9b086894d">ToVector2f</a>();</div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span> </div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>    <a class="code hl_class" href="class_o_s_k_1_1_e_c_s_1_1_transform2_d.html">ECS::Transform2D</a> transform(<a class="code hl_variable" href="namespace_o_s_k_1_1_e_c_s.html#a46b3731582093c6a4b02a2024b9edf81">ECS::EMPTY_GAME_OBJECT</a>);</div>
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>    transform.<a class="code hl_function" href="class_o_s_k_1_1_e_c_s_1_1_transform2_d.html#a36c2a3334b8d219b9d3a674f725dca1c">SetPosition</a>(globalPosition);</div>
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span> </div>
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>    renderer-&gt;<a class="code hl_function" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_sprite_renderer.html#a55900a064c47e16359d8397ec439e3e3">DrawString</a>(*m_font.GetAsset(), m_fontSize, m_text + <span class="stringliteral">&quot;|&quot;</span>, transform, <a class="code hl_variable" href="class_o_s_k_1_1_color.html#a9f64a8b667ea24151007f4c4edebdf46">Color::White</a>);</div>
+<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span>}</div>
+</div>
+<div class="ttc" id="aclass_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref_html"><div class="ttname"><a href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">OSK::ASSETS::AssetRef</a></div><div class="ttdoc">Referencia a un asset.</div><div class="ttdef"><b>Definition</b> <a href="_asset_ref_8h_source.html#l00011">AssetRef.h:11</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_color_html_a9f64a8b667ea24151007f4c4edebdf46"><div class="ttname"><a href="class_o_s_k_1_1_color.html#a9f64a8b667ea24151007f4c4edebdf46">OSK::Color::White</a></div><div class="ttdeci">static Color const White</div><div class="ttdoc">Color blanco (1, 1, 1, 1).</div><div class="ttdef"><b>Definition</b> <a href="_color_8hpp_source.html#l00099">Color.hpp:99</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_e_c_s_1_1_transform2_d_html"><div class="ttname"><a href="class_o_s_k_1_1_e_c_s_1_1_transform2_d.html">OSK::ECS::Transform2D</a></div><div class="ttdoc">Clase que almacena el 'transform' de un objeto en un mundo 2D. El transform contiene posición,...</div><div class="ttdef"><b>Definition</b> <a href="_transform2_d_8h_source.html#l00020">Transform2D.h:20</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_e_c_s_1_1_transform2_d_html_a36c2a3334b8d219b9d3a674f725dca1c"><div class="ttname"><a href="class_o_s_k_1_1_e_c_s_1_1_transform2_d.html#a36c2a3334b8d219b9d3a674f725dca1c">OSK::ECS::Transform2D::SetPosition</a></div><div class="ttdeci">void SetPosition(const Vector2f &amp;position)</div><div class="ttdoc">Establece la posición.</div><div class="ttdef"><b>Definition</b> <a href="_transform2_d_8cpp_source.html#l00046">Transform2D.cpp:46</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_sprite_renderer_html"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_sprite_renderer.html">OSK::GRAPHICS::SpriteRenderer</a></div><div class="ttdoc">Clase que simplifica el proceso de renderizado de imágenes 2D sin tener que usar el sistema RenderSys...</div><div class="ttdef"><b>Definition</b> <a href="_sprite_renderer_8h_source.html#l00046">SpriteRenderer.h:46</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_sprite_renderer_html_a55900a064c47e16359d8397ec439e3e3"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_sprite_renderer.html#a55900a064c47e16359d8397ec439e3e3">OSK::GRAPHICS::SpriteRenderer::DrawString</a></div><div class="ttdeci">void DrawString(ASSETS::Font &amp;font, USize32 fontSize, std::string_view text, const ECS::Transform2D &amp;transform, const Color &amp;color)</div><div class="ttdoc">Renderiza el texto con la fuente indicada.</div><div class="ttdef"><b>Definition</b> <a href="_sprite_renderer_8cpp_source.html#l00109">SpriteRenderer.cpp:109</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_i_o_1_1_keyboard_state_html"><div class="ttname"><a href="class_o_s_k_1_1_i_o_1_1_keyboard_state.html">OSK::IO::KeyboardState</a></div><div class="ttdoc">Representa el estado del teclado en un instante determinado. Contiene el estado (presionado o suelto)...</div><div class="ttdef"><b>Definition</b> <a href="_keyboard_state_8h_source.html#l00164">KeyboardState.h:164</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_i_o_1_1_keyboard_state_html_a13ac7fab7db9af7320e82a60bef49354"><div class="ttname"><a href="class_o_s_k_1_1_i_o_1_1_keyboard_state.html#a13ac7fab7db9af7320e82a60bef49354">OSK::IO::KeyboardState::IsKeyUp</a></div><div class="ttdeci">bool IsKeyUp(Key key) const</div><div class="ttdoc">Comprueba si una tecla no está siendo pulsada.</div><div class="ttdef"><b>Definition</b> <a href="_keyboard_state_8cpp_source.html#l00019">KeyboardState.cpp:19</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_i_o_1_1_keyboard_state_html_a7b0105eda9c1f9c4f0182781a0cb0506"><div class="ttname"><a href="class_o_s_k_1_1_i_o_1_1_keyboard_state.html#a7b0105eda9c1f9c4f0182781a0cb0506">OSK::IO::KeyboardState::IsKeyDown</a></div><div class="ttdeci">bool IsKeyDown(Key key) const</div><div class="ttdoc">Comprueba si una tecla está siendo pulsada.</div><div class="ttdef"><b>Definition</b> <a href="_keyboard_state_8cpp_source.html#l00015">KeyboardState.cpp:15</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_u_i_1_1_i_element_html_ab3e540f50a997e460748e6dab21daa9d"><div class="ttname"><a href="class_o_s_k_1_1_u_i_1_1_i_element.html#ab3e540f50a997e460748e6dab21daa9d">OSK::UI::IElement::GetContentTopLeftPosition</a></div><div class="ttdeci">Vector2f GetContentTopLeftPosition() const</div><div class="ttdef"><b>Definition</b> <a href="_ui_element_8cpp_source.html#l00099">UiElement.cpp:99</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_u_i_1_1_i_element_html_ae01866b02c7417455751f01b2f9d1fbf"><div class="ttname"><a href="class_o_s_k_1_1_u_i_1_1_i_element.html#ae01866b02c7417455751f01b2f9d1fbf">OSK::UI::IElement::size</a></div><div class="ttdeci">Vector2f size</div><div class="ttdef"><b>Definition</b> <a href="_ui_element_8h_source.html#l00188">UiElement.h:188</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_u_i_1_1_i_element_html_aea7364031375d85ac5b817ce0050d2e0"><div class="ttname"><a href="class_o_s_k_1_1_u_i_1_1_i_element.html#aea7364031375d85ac5b817ce0050d2e0">OSK::UI::IElement::GetContentSize</a></div><div class="ttdeci">Vector2f GetContentSize() const</div><div class="ttdef"><b>Definition</b> <a href="_ui_element_8cpp_source.html#l00095">UiElement.cpp:95</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_u_i_1_1_text_input_html_a47b54fd8ff1b627cd0613e75fdc9f166"><div class="ttname"><a href="class_o_s_k_1_1_u_i_1_1_text_input.html#a47b54fd8ff1b627cd0613e75fdc9f166">OSK::UI::TextInput::HasPlaceholderText</a></div><div class="ttdeci">bool HasPlaceholderText() const</div><div class="ttdef"><b>Definition</b> <a href="#l00039">UiTextInput.cpp:39</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_u_i_1_1_text_input_html_a93c1028b5c7d0a869d868ee3ce3087e6"><div class="ttname"><a href="class_o_s_k_1_1_u_i_1_1_text_input.html#a93c1028b5c7d0a869d868ee3ce3087e6">OSK::UI::TextInput::SetFontSize</a></div><div class="ttdeci">void SetFontSize(USize32 size)</div><div class="ttdoc">Establece el tamaño de fuente que se usará.</div><div class="ttdef"><b>Definition</b> <a href="#l00015">UiTextInput.cpp:15</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_u_i_1_1_text_input_html_aa4616678d3bbd85c8b82ff4d01e3c9a2"><div class="ttname"><a href="class_o_s_k_1_1_u_i_1_1_text_input.html#aa4616678d3bbd85c8b82ff4d01e3c9a2">OSK::UI::TextInput::SetPlaceholderText</a></div><div class="ttdeci">void SetPlaceholderText(const std::string &amp;text)</div><div class="ttdoc">Establece el texto por defecto, que será reemplazado una vez se escriba algo.</div><div class="ttdef"><b>Definition</b> <a href="#l00029">UiTextInput.cpp:29</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_u_i_1_1_text_input_html_aa8db475cbd087b91ac82e0e6b1aa9d7b"><div class="ttname"><a href="class_o_s_k_1_1_u_i_1_1_text_input.html#aa8db475cbd087b91ac82e0e6b1aa9d7b">OSK::UI::TextInput::Render</a></div><div class="ttdeci">void Render(GRAPHICS::SpriteRenderer *renderer, Vector2f parentPosition) const override</div><div class="ttdoc">Renderiza el elemento.</div><div class="ttdef"><b>Definition</b> <a href="#l00064">UiTextInput.cpp:64</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_u_i_1_1_text_input_html_abc6580224b2e77c915e4891d1c0a1874"><div class="ttname"><a href="class_o_s_k_1_1_u_i_1_1_text_input.html#abc6580224b2e77c915e4891d1c0a1874">OSK::UI::TextInput::UpdateByKeyboard</a></div><div class="ttdeci">void UpdateByKeyboard(const IO::KeyboardState &amp;previous, const IO::KeyboardState &amp;current) override</div><div class="ttdoc">Actualiza el estado o cualquier otra característica del elemento de acuerdo al estado del teclado.</div><div class="ttdef"><b>Definition</b> <a href="#l00044">UiTextInput.cpp:44</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_u_i_1_1_text_input_html_abe0468bd77dd987ed4b364f3333c227f"><div class="ttname"><a href="class_o_s_k_1_1_u_i_1_1_text_input.html#abe0468bd77dd987ed4b364f3333c227f">OSK::UI::TextInput::GetText</a></div><div class="ttdeci">std::string_view GetText() const</div><div class="ttdef"><b>Definition</b> <a href="#l00035">UiTextInput.cpp:35</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_u_i_1_1_text_input_html_ac5b59a11343b44eb6f89af5d3ce41962"><div class="ttname"><a href="class_o_s_k_1_1_u_i_1_1_text_input.html#ac5b59a11343b44eb6f89af5d3ce41962">OSK::UI::TextInput::SetFont</a></div><div class="ttdeci">void SetFont(ASSETS::AssetRef&lt; ASSETS::Font &gt; font)</div><div class="ttdoc">Establece la fuente que se usará para el renderizado del texto.</div><div class="ttdef"><b>Definition</b> <a href="#l00020">UiTextInput.cpp:20</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_u_i_1_1_text_input_html_ad07b40f6ef347716c09725e99c92a0a4"><div class="ttname"><a href="class_o_s_k_1_1_u_i_1_1_text_input.html#ad07b40f6ef347716c09725e99c92a0a4">OSK::UI::TextInput::SetText</a></div><div class="ttdeci">void SetText(const std::string &amp;text)</div><div class="ttdoc">Establece el texto que se va a renderizar.</div><div class="ttdef"><b>Definition</b> <a href="#l00025">UiTextInput.cpp:25</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_vector2__t_html"><div class="ttname"><a href="class_o_s_k_1_1_vector2__t.html">OSK::Vector2_t&lt; float_t &gt;</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_vector2__t_html_a3194c7e9abba1f840530e8642a01e30a"><div class="ttname"><a href="class_o_s_k_1_1_vector2__t.html#a3194c7e9abba1f840530e8642a01e30a">OSK::Vector2_t::y</a></div><div class="ttdeci">T y</div><div class="ttdoc">Representa la segunda coordenada.</div><div class="ttdef"><b>Definition</b> <a href="_vector2_8hpp_source.html#l00250">Vector2.hpp:250</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_vector2__t_html_a321ac35eebeb0e760c6165073f420c72"><div class="ttname"><a href="class_o_s_k_1_1_vector2__t.html#a321ac35eebeb0e760c6165073f420c72">OSK::Vector2_t::ToVector2i</a></div><div class="ttdeci">constexpr Vector2_t&lt; int32_t &gt; ToVector2i() const</div><div class="ttdef"><b>Definition</b> <a href="_vector2_8hpp_source.html#l00236">Vector2.hpp:236</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_vector2__t_html_ad87181c3ef04bdc4653e05a9b086894d"><div class="ttname"><a href="class_o_s_k_1_1_vector2__t.html#ad87181c3ef04bdc4653e05a9b086894d">OSK::Vector2_t::ToVector2f</a></div><div class="ttdeci">constexpr Vector2_t&lt; float_t &gt; ToVector2f() const</div><div class="ttdef"><b>Definition</b> <a href="_vector2_8hpp_source.html#l00226">Vector2.hpp:226</a></div></div>
+<div class="ttc" id="anamespace_o_s_k_1_1_e_c_s_html_a46b3731582093c6a4b02a2024b9edf81"><div class="ttname"><a href="namespace_o_s_k_1_1_e_c_s.html#a46b3731582093c6a4b02a2024b9edf81">OSK::ECS::EMPTY_GAME_OBJECT</a></div><div class="ttdeci">constexpr GameObjectIndex EMPTY_GAME_OBJECT</div><div class="ttdoc">El ID no identifica a ningún objeto válido.</div><div class="ttdef"><b>Definition</b> <a href="_game_object_8h_source.html#l00024">GameObject.h:24</a></div></div>
+<div class="ttc" id="anamespace_o_s_k_1_1_i_o_html"><div class="ttname"><a href="namespace_o_s_k_1_1_i_o.html">OSK::IO</a></div><div class="ttdef"><b>Definition</b> <a href="_camera_component2_d_8h_source.html#l00013">CameraComponent2D.h:13</a></div></div>
+<div class="ttc" id="anamespace_o_s_k_1_1_i_o_html_a9536bbc94cea0a101e686d2b434f7403"><div class="ttname"><a href="namespace_o_s_k_1_1_i_o.html#a9536bbc94cea0a101e686d2b434f7403">OSK::IO::GetPrintableKeyText</a></div><div class="ttdeci">constexpr char GetPrintableKeyText(const Key &amp;key, bool isMayus)</div><div class="ttdef"><b>Definition</b> <a href="_printable_keys_8h_source.html#l00081">PrintableKeys.h:81</a></div></div>
+<div class="ttc" id="anamespace_o_s_k_1_1_u_i_html"><div class="ttname"><a href="namespace_o_s_k_1_1_u_i.html">OSK::UI</a></div><div class="ttdef"><b>Definition</b> <a href="_console_command_8h_source.html#l00013">ConsoleCommand.h:13</a></div></div>
+<div class="ttc" id="anamespace_o_s_k_html"><div class="ttname"><a href="namespace_o_s_k.html">OSK</a></div><div class="ttdef"><b>Definition</b> <a href="_acceleration_structures_exceptions_8h_source.html#l00005">AccelerationStructuresExceptions.h:5</a></div></div>
+<div class="ttc" id="anamespace_o_s_k_html_acf682b0e024acc36806435295480d2ed"><div class="ttname"><a href="namespace_o_s_k.html#acf682b0e024acc36806435295480d2ed">OSK::USize32</a></div><div class="ttdeci">uint32_t USize32</div><div class="ttdoc">Tamaño, almacenado en un unsigned int de 32 bits.</div><div class="ttdef"><b>Definition</b> <a href="_numeric_types_8h_source.html#l00015">NumericTypes.h:15</a></div></div>
+</div><!-- fragment --></div><!-- contents -->
+</div><!-- doc-content -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="dir_74389ed8173ad57b461b9d623a1f3867.html">Source</a></li><li class="navelem"><b>UiTextInput.cpp</b></li>
+    <li class="footer">Generado el Miércoles, 29 de mayo de 2024 12:01:49 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.11.0 </li>
+  </ul>
+</div>
+</body>
+</html>

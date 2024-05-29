@@ -1,0 +1,194 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="es">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.11.0"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>OSKengine: Archivo de código fuente Source/EditorPanelTitle.cpp</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="doxygen-awesome.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">OSKengine<span id="projectnumber">&#160;Indev</span>
+   </div>
+   <div id="projectbrief">Motor de videojuegos.</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generado por Doxygen 1.11.0 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+/* @license-end */
+</script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() { codefold.init(0); });
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() {
+  initMenu('',true,false,'search.php','Buscar',true);
+  $(function() { init_search(); });
+});
+/* @license-end */
+</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function(){initNavTree('_editor_panel_title_8cpp_source.html',''); initResizable(true); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Cargando...</div>
+<div class="SRStatus" id="Searching">Buscando...</div>
+<div class="SRStatus" id="NoMatches">Nada coincide</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">EditorPanelTitle.cpp</div></div>
+</div><!--header-->
+<div class="contents">
+<div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#include &quot;EditorPanelTitle.h&quot;</span></div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span> </div>
+<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="preprocessor">#include &quot;OSKengine.h&quot;</span></div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &quot;AssetManager.h&quot;</span></div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span> </div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &quot;UiTextView.h&quot;</span></div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="preprocessor">#include &quot;EditorUiConstants.h&quot;</span></div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span> </div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span> </div>
+<div class="foldopen" id="foldopen00010" data-start="{" data-end="}">
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_editor_1_1_u_i_1_1_editor_panel_title.html#a2526f130d22e4f4b40808fd9ecfd8e11">   10</a></span><a class="code hl_function" href="class_o_s_k_1_1_editor_1_1_u_i_1_1_editor_panel_title.html#a2526f130d22e4f4b40808fd9ecfd8e11">OSK::Editor::UI::EditorPanelTitle::EditorPanelTitle</a>(<span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_vector2__t.html">Vector2f</a>&amp; size) : <a class="code hl_namespace" href="namespace_o_s_k.html">OSK</a>::UI::VerticalContainer(size) {</div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span>    <span class="keyword">auto</span> uiTexture = <a class="code hl_function" href="class_o_s_k_1_1_engine.html#ab092fdb69a9c816c93f177192477d97c">Engine::GetAssetManager</a>()-&gt;<a class="code hl_function" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_manager.html#aae32c0b5d0362cd837e62534f29c8701">Load</a>&lt;<a class="code hl_class" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_texture.html">ASSETS::Texture</a>&gt;(<span class="stringliteral">&quot;Resources/Assets/Textures/button_texture.json&quot;</span>);</div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span>    <span class="keyword">const</span> <span class="keyword">auto</span> uiView = &amp;uiTexture-&gt;<a class="code hl_function" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_texture.html#aa65f95ab8135d86bef9199fefc8f781d">GetTextureView2D</a>();</div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span> </div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span>    <span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_vector2__t.html">Vector2f</a> textSize = { <a class="code hl_variable" href="class_o_s_k_1_1_u_i_1_1_i_element.html#ae01866b02c7417455751f01b2f9d1fbf">size</a>.<a class="code hl_variable" href="class_o_s_k_1_1_vector2__t.html#ae2f86aaf21084895a5b357318ff6ed77">x</a>, 25.0f };</div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span> </div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span>    m_title = <span class="keyword">new</span> <a class="code hl_class" href="class_o_s_k_1_1_u_i_1_1_text_view.html">OSK::UI::TextView</a>(textSize);</div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>    m_title-&gt;<a class="code hl_function" href="class_o_s_k_1_1_u_i_1_1_i_element.html#a1f9254e765f4d52294a6d9840603deb0">SetMargin</a>(<a class="code hl_typedef" href="namespace_o_s_k.html#a98c42bf0a7665f299a3a66c8d4cdcdc2">Vector4f</a>(0.0f));</div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>    m_title-&gt;<a class="code hl_function" href="class_o_s_k_1_1_u_i_1_1_i_element.html#ac7bbc9e1c7ba8ebbbd37aea078870e70">SetPadding</a>(<a class="code hl_typedef" href="namespace_o_s_k.html#a31a299dbb3a3a60d90d16d1a4eca9651">Vector2f</a>(5.0f));</div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>    m_title-&gt;<a class="code hl_function" href="class_o_s_k_1_1_u_i_1_1_text_view.html#a94e7e2b671b58a79240ac7b711078d15">SetText</a>(<span class="stringliteral">&quot;Objetos&quot;</span>);</div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span> </div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>    m_title-&gt;<a class="code hl_function" href="class_o_s_k_1_1_u_i_1_1_image_view.html#a0cc1071cb7a5bf268da2ac87bb497ae2">GetSprite</a>().<a class="code hl_function" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_sprite.html#a995e20db385e869fc9c04f5c56077829">SetImageView</a>(uiView);</div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>    m_title-&gt;<a class="code hl_function" href="class_o_s_k_1_1_u_i_1_1_image_view.html#a0cc1071cb7a5bf268da2ac87bb497ae2">GetSprite</a>().<a class="code hl_variable" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_sprite.html#a11c7a9da5dbf7fc9881ab094ce0140ee">color</a> = Constants::DarkColor;</div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span> </div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>    <a class="code hl_function" href="class_o_s_k_1_1_u_i_1_1_i_container.html#a809655728fc6a02fafb3505deaf1e9e5">AddChild</a>(<span class="stringliteral">&quot;title&quot;</span>, m_title);</div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span> </div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>    <span class="keyword">auto</span>* titleLine = <span class="keyword">new</span> <a class="code hl_class" href="class_o_s_k_1_1_u_i_1_1_image_view.html">OSK::UI::ImageView</a>({ <a class="code hl_variable" href="class_o_s_k_1_1_u_i_1_1_i_element.html#ae01866b02c7417455751f01b2f9d1fbf">size</a>.<a class="code hl_variable" href="class_o_s_k_1_1_vector2__t.html#ae2f86aaf21084895a5b357318ff6ed77">x</a>, 5.0f });</div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>    titleLine-&gt;<a class="code hl_function" href="class_o_s_k_1_1_u_i_1_1_i_element.html#a1f9254e765f4d52294a6d9840603deb0">SetMargin</a>(<a class="code hl_typedef" href="namespace_o_s_k.html#a98c42bf0a7665f299a3a66c8d4cdcdc2">Vector4f</a>(0.0f));</div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>    titleLine-&gt;GetSprite().SetImageView(uiView);</div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>    titleLine-&gt;GetSprite().color = Constants::DetailsColor;</div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span> </div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>    <a class="code hl_function" href="class_o_s_k_1_1_u_i_1_1_i_container.html#a809655728fc6a02fafb3505deaf1e9e5">AddChild</a>(<span class="stringliteral">&quot;titleLine&quot;</span>, titleLine);</div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span> </div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>    <a class="code hl_function" href="class_o_s_k_1_1_u_i_1_1_i_container.html#a7e4d55b77c9c99e8cb7e47b237e946bb">AdjustSizeToChildren</a>();</div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>}</div>
+</div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span> </div>
+<div class="foldopen" id="foldopen00036" data-start="{" data-end="}">
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_editor_1_1_u_i_1_1_editor_panel_title.html#a870b901bd9f2cc208d8fb4a2ce43ac76">   36</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="class_o_s_k_1_1_editor_1_1_u_i_1_1_editor_panel_title.html#a870b901bd9f2cc208d8fb4a2ce43ac76">OSK::Editor::UI::EditorPanelTitle::SetFont</a>(<a class="code hl_class" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">OSK::ASSETS::AssetRef&lt;OSK::ASSETS::Font&gt;</a> font) {</div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>    m_title-&gt;SetFont(font);</div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>}</div>
+</div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span> </div>
+<div class="foldopen" id="foldopen00040" data-start="{" data-end="}">
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_editor_1_1_u_i_1_1_editor_panel_title.html#a751fd0416a8b2a0f4a5236b714e508be">   40</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="class_o_s_k_1_1_editor_1_1_u_i_1_1_editor_panel_title.html#a751fd0416a8b2a0f4a5236b714e508be">OSK::Editor::UI::EditorPanelTitle::SetFontSize</a>(<a class="code hl_typedef" href="namespace_o_s_k.html#a83ff197aaa32126d84ad65f1d6d5a3b5">USize64</a> fontSize) {</div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>    m_title-&gt;SetFontSize(fontSize);</div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>}</div>
+</div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span> </div>
+<div class="foldopen" id="foldopen00044" data-start="{" data-end="}">
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_editor_1_1_u_i_1_1_editor_panel_title.html#ab836d4102250d83e180b77a55d4152bd">   44</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="class_o_s_k_1_1_editor_1_1_u_i_1_1_editor_panel_title.html#ab836d4102250d83e180b77a55d4152bd">OSK::Editor::UI::EditorPanelTitle::SetText</a>(<span class="keyword">const</span> std::string&amp; text) {</div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>    m_title-&gt;SetText(text);</div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>}</div>
+</div>
+<div class="ttc" id="aclass_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_manager_html_aae32c0b5d0362cd837e62534f29c8701"><div class="ttname"><a href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_manager.html#aae32c0b5d0362cd837e62534f29c8701">OSK::ASSETS::AssetManager::Load</a></div><div class="ttdeci">AssetRef&lt; T &gt; Load(const std::string &amp;assetFilePath)</div><div class="ttdoc">Carga un asset.</div><div class="ttdef"><b>Definition</b> <a href="_asset_manager_8h_source.html#l00051">AssetManager.h:51</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref_html"><div class="ttname"><a href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">OSK::ASSETS::AssetRef</a></div><div class="ttdoc">Referencia a un asset.</div><div class="ttdef"><b>Definition</b> <a href="_asset_ref_8h_source.html#l00011">AssetRef.h:11</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_a_s_s_e_t_s_1_1_texture_html"><div class="ttname"><a href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_texture.html">OSK::ASSETS::Texture</a></div><div class="ttdoc">Una textura que será usada en renderizado 2D / 3D.</div><div class="ttdef"><b>Definition</b> <a href="_texture_8h_source.html#l00016">Texture.h:16</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_a_s_s_e_t_s_1_1_texture_html_aa65f95ab8135d86bef9199fefc8f781d"><div class="ttname"><a href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_texture.html#aa65f95ab8135d86bef9199fefc8f781d">OSK::ASSETS::Texture::GetTextureView2D</a></div><div class="ttdeci">const GRAPHICS::IGpuImageView &amp; GetTextureView2D() const</div><div class="ttdef"><b>Definition</b> <a href="_texture_8cpp_source.html#l00027">Texture.cpp:27</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_editor_1_1_u_i_1_1_editor_panel_title_html_a2526f130d22e4f4b40808fd9ecfd8e11"><div class="ttname"><a href="class_o_s_k_1_1_editor_1_1_u_i_1_1_editor_panel_title.html#a2526f130d22e4f4b40808fd9ecfd8e11">OSK::Editor::UI::EditorPanelTitle::EditorPanelTitle</a></div><div class="ttdeci">EditorPanelTitle(const OSK::Vector2f &amp;size)</div><div class="ttdef"><b>Definition</b> <a href="#l00010">EditorPanelTitle.cpp:10</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_editor_1_1_u_i_1_1_editor_panel_title_html_a751fd0416a8b2a0f4a5236b714e508be"><div class="ttname"><a href="class_o_s_k_1_1_editor_1_1_u_i_1_1_editor_panel_title.html#a751fd0416a8b2a0f4a5236b714e508be">OSK::Editor::UI::EditorPanelTitle::SetFontSize</a></div><div class="ttdeci">void SetFontSize(USize64 fontSize)</div><div class="ttdef"><b>Definition</b> <a href="#l00040">EditorPanelTitle.cpp:40</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_editor_1_1_u_i_1_1_editor_panel_title_html_a870b901bd9f2cc208d8fb4a2ce43ac76"><div class="ttname"><a href="class_o_s_k_1_1_editor_1_1_u_i_1_1_editor_panel_title.html#a870b901bd9f2cc208d8fb4a2ce43ac76">OSK::Editor::UI::EditorPanelTitle::SetFont</a></div><div class="ttdeci">void SetFont(OSK::ASSETS::AssetRef&lt; OSK::ASSETS::Font &gt; font)</div><div class="ttdef"><b>Definition</b> <a href="#l00036">EditorPanelTitle.cpp:36</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_editor_1_1_u_i_1_1_editor_panel_title_html_ab836d4102250d83e180b77a55d4152bd"><div class="ttname"><a href="class_o_s_k_1_1_editor_1_1_u_i_1_1_editor_panel_title.html#ab836d4102250d83e180b77a55d4152bd">OSK::Editor::UI::EditorPanelTitle::SetText</a></div><div class="ttdeci">void SetText(const std::string &amp;text)</div><div class="ttdef"><b>Definition</b> <a href="#l00044">EditorPanelTitle.cpp:44</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_engine_html_ab092fdb69a9c816c93f177192477d97c"><div class="ttname"><a href="class_o_s_k_1_1_engine.html#ab092fdb69a9c816c93f177192477d97c">OSK::Engine::GetAssetManager</a></div><div class="ttdeci">static ASSETS::AssetManager * GetAssetManager()</div><div class="ttdoc">Devuelve un puntero al sistema de assets del motor.</div><div class="ttdef"><b>Definition</b> <a href="_o_s_kengine_8cpp_source.html#l00259">OSKengine.cpp:259</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_sprite_html_a11c7a9da5dbf7fc9881ab094ce0140ee"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_sprite.html#a11c7a9da5dbf7fc9881ab094ce0140ee">OSK::GRAPHICS::Sprite::color</a></div><div class="ttdeci">Color color</div><div class="ttdoc">Color de la imagen (incluyendo transparencia). Por defecto, blanco.</div><div class="ttdef"><b>Definition</b> <a href="_sprite_8h_source.html#l00075">Sprite.h:75</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_sprite_html_a995e20db385e869fc9c04f5c56077829"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_sprite.html#a995e20db385e869fc9c04f5c56077829">OSK::GRAPHICS::Sprite::SetImageView</a></div><div class="ttdeci">void SetImageView(const IGpuImageView *view)</div><div class="ttdoc">Establece la imagen del sprite.</div><div class="ttdef"><b>Definition</b> <a href="_sprite_8cpp_source.html#l00049">Sprite.cpp:49</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_u_i_1_1_i_container_html_a7e4d55b77c9c99e8cb7e47b237e946bb"><div class="ttname"><a href="class_o_s_k_1_1_u_i_1_1_i_container.html#a7e4d55b77c9c99e8cb7e47b237e946bb">OSK::UI::IContainer::AdjustSizeToChildren</a></div><div class="ttdeci">void AdjustSizeToChildren()</div><div class="ttdoc">Ajusta el tamaño del contenedor, para que sea el justo y necesario para que quepan todos los elemento...</div><div class="ttdef"><b>Definition</b> <a href="_i_ui_container_8cpp_source.html#l00025">IUiContainer.cpp:25</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_u_i_1_1_i_container_html_a809655728fc6a02fafb3505deaf1e9e5"><div class="ttname"><a href="class_o_s_k_1_1_u_i_1_1_i_container.html#a809655728fc6a02fafb3505deaf1e9e5">OSK::UI::IContainer::AddChild</a></div><div class="ttdeci">void AddChild(const std::string &amp;key, SharedPtr&lt; IElement &gt; child)</div><div class="ttdoc">Añade un elemento al contenedor. Modificará su posición dependiendo del layout implementado.</div><div class="ttdef"><b>Definition</b> <a href="_i_ui_container_8cpp_source.html#l00038">IUiContainer.cpp:38</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_u_i_1_1_i_element_html_a1f9254e765f4d52294a6d9840603deb0"><div class="ttname"><a href="class_o_s_k_1_1_u_i_1_1_i_element.html#a1f9254e765f4d52294a6d9840603deb0">OSK::UI::IElement::SetMargin</a></div><div class="ttdeci">void SetMargin(const Vector2f &amp;margin)</div><div class="ttdoc">Establece los márgenes externos.</div><div class="ttdef"><b>Definition</b> <a href="_ui_element_8cpp_source.html#l00075">UiElement.cpp:75</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_u_i_1_1_i_element_html_ac7bbc9e1c7ba8ebbbd37aea078870e70"><div class="ttname"><a href="class_o_s_k_1_1_u_i_1_1_i_element.html#ac7bbc9e1c7ba8ebbbd37aea078870e70">OSK::UI::IElement::SetPadding</a></div><div class="ttdeci">void SetPadding(const Vector2f &amp;padding)</div><div class="ttdoc">Establece el padding (márgenes interiores).</div><div class="ttdef"><b>Definition</b> <a href="_ui_element_8cpp_source.html#l00067">UiElement.cpp:67</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_u_i_1_1_i_element_html_ae01866b02c7417455751f01b2f9d1fbf"><div class="ttname"><a href="class_o_s_k_1_1_u_i_1_1_i_element.html#ae01866b02c7417455751f01b2f9d1fbf">OSK::UI::IElement::size</a></div><div class="ttdeci">Vector2f size</div><div class="ttdef"><b>Definition</b> <a href="_ui_element_8h_source.html#l00188">UiElement.h:188</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_u_i_1_1_image_view_html"><div class="ttname"><a href="class_o_s_k_1_1_u_i_1_1_image_view.html">OSK::UI::ImageView</a></div><div class="ttdoc">Elemento de UI que muestra una imagen.</div><div class="ttdef"><b>Definition</b> <a href="_ui_image_view_8h_source.html#l00017">UiImageView.h:17</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_u_i_1_1_image_view_html_a0cc1071cb7a5bf268da2ac87bb497ae2"><div class="ttname"><a href="class_o_s_k_1_1_u_i_1_1_image_view.html#a0cc1071cb7a5bf268da2ac87bb497ae2">OSK::UI::ImageView::GetSprite</a></div><div class="ttdeci">const GRAPHICS::Sprite &amp; GetSprite() const</div><div class="ttdef"><b>Definition</b> <a href="_ui_image_view_8h_source.html#l00026">UiImageView.h:26</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_u_i_1_1_text_view_html"><div class="ttname"><a href="class_o_s_k_1_1_u_i_1_1_text_view.html">OSK::UI::TextView</a></div><div class="ttdoc">Elemento de UI que permite mostrar un texto. Para su uso se deben establecer tanto una fuente como su...</div><div class="ttdef"><b>Definition</b> <a href="_ui_text_view_8h_source.html#l00016">UiTextView.h:16</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_u_i_1_1_text_view_html_a94e7e2b671b58a79240ac7b711078d15"><div class="ttname"><a href="class_o_s_k_1_1_u_i_1_1_text_view.html#a94e7e2b671b58a79240ac7b711078d15">OSK::UI::TextView::SetText</a></div><div class="ttdeci">void SetText(const std::string &amp;text)</div><div class="ttdoc">Establece el texto que se va a renderizar.</div><div class="ttdef"><b>Definition</b> <a href="_ui_text_view_8cpp_source.html#l00082">UiTextView.cpp:82</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_vector2__t_html"><div class="ttname"><a href="class_o_s_k_1_1_vector2__t.html">OSK::Vector2_t&lt; float_t &gt;</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_vector2__t_html_ae2f86aaf21084895a5b357318ff6ed77"><div class="ttname"><a href="class_o_s_k_1_1_vector2__t.html#ae2f86aaf21084895a5b357318ff6ed77">OSK::Vector2_t::x</a></div><div class="ttdeci">T x</div><div class="ttdoc">Representa la primera coordenada.</div><div class="ttdef"><b>Definition</b> <a href="_vector2_8hpp_source.html#l00247">Vector2.hpp:247</a></div></div>
+<div class="ttc" id="anamespace_o_s_k_html"><div class="ttname"><a href="namespace_o_s_k.html">OSK</a></div><div class="ttdef"><b>Definition</b> <a href="_acceleration_structures_exceptions_8h_source.html#l00005">AccelerationStructuresExceptions.h:5</a></div></div>
+<div class="ttc" id="anamespace_o_s_k_html_a31a299dbb3a3a60d90d16d1a4eca9651"><div class="ttname"><a href="namespace_o_s_k.html#a31a299dbb3a3a60d90d16d1a4eca9651">OSK::Vector2f</a></div><div class="ttdeci">Vector2_t&lt; float_t &gt; Vector2f</div><div class="ttdoc">Precisión = float.</div><div class="ttdef"><b>Definition</b> <a href="_vector2_8hpp_source.html#l00256">Vector2.hpp:256</a></div></div>
+<div class="ttc" id="anamespace_o_s_k_html_a83ff197aaa32126d84ad65f1d6d5a3b5"><div class="ttname"><a href="namespace_o_s_k.html#a83ff197aaa32126d84ad65f1d6d5a3b5">OSK::USize64</a></div><div class="ttdeci">uint64_t USize64</div><div class="ttdoc">Tamaño, almacenado en un unsigned int de 64 bits.</div><div class="ttdef"><b>Definition</b> <a href="_numeric_types_8h_source.html#l00026">NumericTypes.h:26</a></div></div>
+<div class="ttc" id="anamespace_o_s_k_html_a98c42bf0a7665f299a3a66c8d4cdcdc2"><div class="ttname"><a href="namespace_o_s_k.html#a98c42bf0a7665f299a3a66c8d4cdcdc2">OSK::Vector4f</a></div><div class="ttdeci">Vector4_t&lt; float_t &gt; Vector4f</div><div class="ttdoc">Precisión = float.</div><div class="ttdef"><b>Definition</b> <a href="_vector4_8hpp_source.html#l00358">Vector4.hpp:358</a></div></div>
+</div><!-- fragment --></div><!-- contents -->
+</div><!-- doc-content -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="dir_74389ed8173ad57b461b9d623a1f3867.html">Source</a></li><li class="navelem"><b>EditorPanelTitle.cpp</b></li>
+    <li class="footer">Generado el Miércoles, 29 de mayo de 2024 12:01:48 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.11.0 </li>
+  </ul>
+</div>
+</body>
+</html>

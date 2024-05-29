@@ -25,6 +25,7 @@ var concepts =
         [ "IsNumeric", "concept_o_s_k_1_1_m_a_t_h_1_1_is_numeric.html", null ],
         [ "IsInteger", "concept_o_s_k_1_1_m_a_t_h_1_1_is_integer.html", null ]
       ] ],
+      [ "IsConsoleCommand", "concept_o_s_k_1_1_is_console_command.html", null ],
       [ "IsJob", "concept_o_s_k_1_1_is_job.html", null ]
     ] ],
     [ "IsEcsEvent", "concept_is_ecs_event.html", null ]

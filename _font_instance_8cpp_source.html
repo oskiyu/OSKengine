@@ -3,7 +3,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
-<meta name="generator" content="Doxygen 1.10.0"/>
+<meta name="generator" content="Doxygen 1.11.0"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
 <title>OSKengine: Archivo de código fuente Source/FontInstance.cpp</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
@@ -11,9 +11,9 @@
 <script type="text/javascript" src="dynsections.js"></script>
 <script type="text/javascript" src="clipboard.js"></script>
 <link href="navtree.css" rel="stylesheet" type="text/css"/>
-<script type="text/javascript" src="resize.js"></script>
 <script type="text/javascript" src="navtreedata.js"></script>
 <script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript" src="resize.js"></script>
 <script type="text/javascript" src="cookie.js"></script>
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/searchdata.js"></script>
@@ -37,10 +37,15 @@
 </table>
 </div>
 <!-- end header part -->
-<!-- Generado por Doxygen 1.10.0 -->
+<!-- Generado por Doxygen 1.11.0 -->
 <script type="text/javascript">
 /* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
 var searchBox = new SearchBox("searchBox", "search/",'.html');
+/* @license-end */
+</script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() { codefold.init(0); });
 /* @license-end */
 </script>
 <script type="text/javascript" src="menudata.js"></script>
@@ -48,17 +53,12 @@ var searchBox = new SearchBox("searchBox", "search/",'.html');
 <script type="text/javascript">
 /* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
 $(function() {
-  initMenu('',true,false,'search.php','Buscar');
+  initMenu('',true,false,'search.php','Buscar',true);
   $(function() { init_search(); });
 });
 /* @license-end */
 </script>
 <div id="main-nav"></div>
-<script type="text/javascript">
-/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
-$(function() { codefold.init(0); });
-/* @license-end */
-</script>
 </div><!-- top -->
 <div id="side-nav" class="ui-resizable side-nav-resizable">
   <div id="nav-tree">
@@ -72,7 +72,7 @@ $(function() { codefold.init(0); });
 </div>
 <script type="text/javascript">
 /* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
-$(function(){initNavTree('_font_instance_8cpp_source.html',''); initResizable(); });
+$(function(){initNavTree('_font_instance_8cpp_source.html',''); initResizable(true); });
 /* @license-end */
 </script>
 <div id="doc-content">
@@ -110,55 +110,59 @@ $(function(){initNavTree('_font_instance_8cpp_source.html',''); initResizable();
 <div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="keyword">using namespace </span><a class="code hl_namespace" href="namespace_o_s_k_1_1_a_s_s_e_t_s.html">OSK::ASSETS</a>;</div>
 <div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="keyword">using namespace </span><a class="code hl_namespace" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html">OSK::GRAPHICS</a>;</div>
 <div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span> </div>
-<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="keyword">constexpr</span> <a class="code hl_class" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">USize32</a> SPACES_PER_TAB = 4;</div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="keyword">constexpr</span> <a class="code hl_typedef" href="namespace_o_s_k.html#acf682b0e024acc36806435295480d2ed">USize32</a> SPACES_PER_TAB = 4;</div>
 <div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span> </div>
 <div class="foldopen" id="foldopen00012" data-start="{" data-end="}">
 <div class="line"><a id="l00012" name="l00012"></a><span class="lineno"><a class="line" href="struct_o_s_k_1_1_a_s_s_e_t_s_1_1_font_instance.html#a33da67eb5b7b0a81ba1398df725b3e52">   12</a></span><a class="code hl_class" href="class_o_s_k_1_1_vector2__t.html">Vector2f</a> <a class="code hl_function" href="struct_o_s_k_1_1_a_s_s_e_t_s_1_1_font_instance.html#a33da67eb5b7b0a81ba1398df725b3e52">FontInstance::GetTextSize</a>(std::string_view <span class="keywordtype">string</span>)<span class="keyword"> const </span>{</div>
 <div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span>    <span class="comment">//Char que se tomará como referencia en cuanto al tamaño de las letras.</span></div>
-<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span>    <span class="keyword">const</span> <a class="code hl_struct" href="struct_o_s_k_1_1_a_s_s_e_t_s_1_1_font_character.html">FontCharacter</a>&amp; <a class="code hl_class" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">reference</a> = <a class="code hl_variable" href="struct_o_s_k_1_1_a_s_s_e_t_s_1_1_font_instance.html#a2a6dde25a2509bf53d11a876d6ea9338">characters</a>.at(<span class="charliteral">&#39;A&#39;</span>);</div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span>    <span class="keyword">const</span> <a class="code hl_struct" href="struct_o_s_k_1_1_a_s_s_e_t_s_1_1_font_character.html">FontCharacter</a>&amp; reference = <a class="code hl_variable" href="struct_o_s_k_1_1_a_s_s_e_t_s_1_1_font_instance.html#a2a6dde25a2509bf53d11a876d6ea9338">characters</a>.at(<span class="charliteral">&#39;A&#39;</span>);</div>
 <div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span> </div>
 <div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span>    <span class="keywordflow">if</span> (<span class="keywordtype">string</span> == <span class="stringliteral">&quot;&quot;</span>)</div>
 <div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>        <span class="keywordflow">return</span> <a class="code hl_variable" href="class_o_s_k_1_1_vector2__t.html#a3759903561dac1fc476d0cc9d051c536">Vector2f::Zero</a>;</div>
 <div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span> </div>
-<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>    <span class="keywordtype">float</span> <a class="code hl_class" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">temporalSizeX</a> = 0.0f; <span class="comment">// Tamaño de la linea procesada en un momento dado.</span></div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>    <span class="keywordtype">float</span> temporalSizeX = 0.0f; <span class="comment">// Tamaño de la linea procesada en un momento dado.</span></div>
 <div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>    <span class="keywordtype">float</span> sizeX = 0.0f;</div>
-<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>    <span class="keywordtype">float</span> sizeY = <a class="code hl_class" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">reference</a>.bearing.y * <a class="code hl_variable" href="struct_o_s_k_1_1_a_s_s_e_t_s_1_1_font_instance.html#aec4428c171fd1ac107bb5bc103da2343">fontSize</a> + <a class="code hl_class" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">reference</a>.size.y * <a class="code hl_variable" href="struct_o_s_k_1_1_a_s_s_e_t_s_1_1_font_instance.html#aec4428c171fd1ac107bb5bc103da2343">fontSize</a>;</div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>    <span class="keywordtype">float</span> sizeY = reference.<a class="code hl_variable" href="struct_o_s_k_1_1_a_s_s_e_t_s_1_1_font_character.html#ada0b3fcf610421d9ce5691d9a6ec70d9">bearing</a>.<a class="code hl_variable" href="class_o_s_k_1_1_vector2__t.html#a3194c7e9abba1f840530e8642a01e30a">y</a> * <a class="code hl_variable" href="struct_o_s_k_1_1_a_s_s_e_t_s_1_1_font_instance.html#aec4428c171fd1ac107bb5bc103da2343">fontSize</a> + reference.<a class="code hl_variable" href="struct_o_s_k_1_1_a_s_s_e_t_s_1_1_font_character.html#a18a66060428ab4751f82a908be67df77">size</a>.<a class="code hl_variable" href="class_o_s_k_1_1_vector2__t.html#a3194c7e9abba1f840530e8642a01e30a">y</a> * <a class="code hl_variable" href="struct_o_s_k_1_1_a_s_s_e_t_s_1_1_font_instance.html#aec4428c171fd1ac107bb5bc103da2343">fontSize</a>;</div>
 <div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span> </div>
-<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>    <span class="keywordflow">for</span> (<span class="keyword">auto</span> <a class="code hl_class" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">iterador</a> = <span class="keywordtype">string</span>.begin(); <a class="code hl_class" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">iterador</a> != <span class="keywordtype">string</span>.end(); <a class="code hl_class" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">iterador</a>++) {</div>
-<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>        <span class="keyword">const</span> <a class="code hl_struct" href="struct_o_s_k_1_1_a_s_s_e_t_s_1_1_font_character.html">FontCharacter</a>&amp; <a class="code hl_class" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">character</a> = <a class="code hl_variable" href="struct_o_s_k_1_1_a_s_s_e_t_s_1_1_font_instance.html#a2a6dde25a2509bf53d11a876d6ea9338">characters</a>.at(*<a class="code hl_class" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">iterador</a>);</div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>    <span class="keywordflow">for</span> (<span class="keyword">auto</span> iterador = <span class="keywordtype">string</span>.begin(); iterador != <span class="keywordtype">string</span>.end(); iterador++) {</div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>        <span class="keyword">const</span> <a class="code hl_struct" href="struct_o_s_k_1_1_a_s_s_e_t_s_1_1_font_character.html">FontCharacter</a>&amp; character = <a class="code hl_variable" href="struct_o_s_k_1_1_a_s_s_e_t_s_1_1_font_instance.html#a2a6dde25a2509bf53d11a876d6ea9338">characters</a>.at(*iterador);</div>
 <div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span> </div>
-<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>        <span class="keywordflow">if</span> (*<a class="code hl_class" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">iterador</a> == <span class="charliteral">&#39;\n&#39;</span>) {</div>
-<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>            <span class="keywordflow">if</span> (<a class="code hl_class" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">temporalSizeX</a> &gt; sizeX) {</div>
-<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>                sizeX = <a class="code hl_class" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">temporalSizeX</a>;</div>
-<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>                <a class="code hl_class" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">temporalSizeX</a> = 0;</div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>        <span class="keywordflow">if</span> (*iterador == <span class="charliteral">&#39;\n&#39;</span>) {</div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>            <span class="keywordflow">if</span> (temporalSizeX &gt; sizeX) {</div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>                sizeX = temporalSizeX;</div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>                temporalSizeX = 0;</div>
 <div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span> </div>
-<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>                sizeY += <a class="code hl_class" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">reference</a>.bearing.y * <a class="code hl_variable" href="struct_o_s_k_1_1_a_s_s_e_t_s_1_1_font_instance.html#aec4428c171fd1ac107bb5bc103da2343">fontSize</a> + <a class="code hl_class" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">reference</a>.size.y * <a class="code hl_variable" href="struct_o_s_k_1_1_a_s_s_e_t_s_1_1_font_instance.html#aec4428c171fd1ac107bb5bc103da2343">fontSize</a>;</div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>                sizeY += reference.<a class="code hl_variable" href="struct_o_s_k_1_1_a_s_s_e_t_s_1_1_font_character.html#ada0b3fcf610421d9ce5691d9a6ec70d9">bearing</a>.<a class="code hl_variable" href="class_o_s_k_1_1_vector2__t.html#a3194c7e9abba1f840530e8642a01e30a">y</a> * <a class="code hl_variable" href="struct_o_s_k_1_1_a_s_s_e_t_s_1_1_font_instance.html#aec4428c171fd1ac107bb5bc103da2343">fontSize</a> + reference.<a class="code hl_variable" href="struct_o_s_k_1_1_a_s_s_e_t_s_1_1_font_character.html#a18a66060428ab4751f82a908be67df77">size</a>.<a class="code hl_variable" href="class_o_s_k_1_1_vector2__t.html#a3194c7e9abba1f840530e8642a01e30a">y</a> * <a class="code hl_variable" href="struct_o_s_k_1_1_a_s_s_e_t_s_1_1_font_instance.html#aec4428c171fd1ac107bb5bc103da2343">fontSize</a>;</div>
 <div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>            }</div>
 <div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>        }</div>
-<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>        <span class="keywordflow">if</span> (*<a class="code hl_class" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">iterador</a> == <span class="charliteral">&#39;\t&#39;</span>) {</div>
-<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>            <a class="code hl_class" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">temporalSizeX</a> += (<a class="code hl_class" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">character</a>.bearing.x * <a class="code hl_variable" href="struct_o_s_k_1_1_a_s_s_e_t_s_1_1_font_instance.html#aec4428c171fd1ac107bb5bc103da2343">fontSize</a> + <a class="code hl_class" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">character</a>.size.x * <a class="code hl_variable" href="struct_o_s_k_1_1_a_s_s_e_t_s_1_1_font_instance.html#aec4428c171fd1ac107bb5bc103da2343">fontSize</a>) * SPACES_PER_TAB;</div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>        <span class="keywordflow">if</span> (*iterador == <span class="charliteral">&#39;\t&#39;</span>) {</div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>            temporalSizeX += (character.<a class="code hl_variable" href="struct_o_s_k_1_1_a_s_s_e_t_s_1_1_font_character.html#ada0b3fcf610421d9ce5691d9a6ec70d9">bearing</a>.<a class="code hl_variable" href="class_o_s_k_1_1_vector2__t.html#ae2f86aaf21084895a5b357318ff6ed77">x</a> * <a class="code hl_variable" href="struct_o_s_k_1_1_a_s_s_e_t_s_1_1_font_instance.html#aec4428c171fd1ac107bb5bc103da2343">fontSize</a> + character.<a class="code hl_variable" href="struct_o_s_k_1_1_a_s_s_e_t_s_1_1_font_character.html#a18a66060428ab4751f82a908be67df77">size</a>.<a class="code hl_variable" href="class_o_s_k_1_1_vector2__t.html#ae2f86aaf21084895a5b357318ff6ed77">x</a> * <a class="code hl_variable" href="struct_o_s_k_1_1_a_s_s_e_t_s_1_1_font_instance.html#aec4428c171fd1ac107bb5bc103da2343">fontSize</a>) * SPACES_PER_TAB;</div>
 <div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>        }</div>
 <div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span> </div>
-<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>        <span class="keywordflow">if</span> (*<a class="code hl_class" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">iterador</a> == <span class="charliteral">&#39; &#39;</span>)</div>
-<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>            <a class="code hl_class" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">temporalSizeX</a> += (<a class="code hl_class" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">reference</a>.bearing.x * <a class="code hl_variable" href="struct_o_s_k_1_1_a_s_s_e_t_s_1_1_font_instance.html#aec4428c171fd1ac107bb5bc103da2343">fontSize</a> + <a class="code hl_class" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">reference</a>.size.x * <a class="code hl_variable" href="struct_o_s_k_1_1_a_s_s_e_t_s_1_1_font_instance.html#aec4428c171fd1ac107bb5bc103da2343">fontSize</a>);</div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>        <span class="keywordflow">if</span> (*iterador == <span class="charliteral">&#39; &#39;</span>)</div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>            temporalSizeX += (reference.<a class="code hl_variable" href="struct_o_s_k_1_1_a_s_s_e_t_s_1_1_font_character.html#ada0b3fcf610421d9ce5691d9a6ec70d9">bearing</a>.<a class="code hl_variable" href="class_o_s_k_1_1_vector2__t.html#ae2f86aaf21084895a5b357318ff6ed77">x</a> * <a class="code hl_variable" href="struct_o_s_k_1_1_a_s_s_e_t_s_1_1_font_instance.html#aec4428c171fd1ac107bb5bc103da2343">fontSize</a> + reference.<a class="code hl_variable" href="struct_o_s_k_1_1_a_s_s_e_t_s_1_1_font_character.html#a18a66060428ab4751f82a908be67df77">size</a>.<a class="code hl_variable" href="class_o_s_k_1_1_vector2__t.html#ae2f86aaf21084895a5b357318ff6ed77">x</a> * <a class="code hl_variable" href="struct_o_s_k_1_1_a_s_s_e_t_s_1_1_font_instance.html#aec4428c171fd1ac107bb5bc103da2343">fontSize</a>);</div>
 <div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span> </div>
-<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>        <a class="code hl_class" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">temporalSizeX</a> += <a class="code hl_class" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">character</a>.bearing.x * <a class="code hl_variable" href="struct_o_s_k_1_1_a_s_s_e_t_s_1_1_font_instance.html#aec4428c171fd1ac107bb5bc103da2343">fontSize</a> + <a class="code hl_class" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">character</a>.size.x * <a class="code hl_variable" href="struct_o_s_k_1_1_a_s_s_e_t_s_1_1_font_instance.html#aec4428c171fd1ac107bb5bc103da2343">fontSize</a>;</div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>        temporalSizeX += character.<a class="code hl_variable" href="struct_o_s_k_1_1_a_s_s_e_t_s_1_1_font_character.html#ada0b3fcf610421d9ce5691d9a6ec70d9">bearing</a>.<a class="code hl_variable" href="class_o_s_k_1_1_vector2__t.html#ae2f86aaf21084895a5b357318ff6ed77">x</a> * <a class="code hl_variable" href="struct_o_s_k_1_1_a_s_s_e_t_s_1_1_font_instance.html#aec4428c171fd1ac107bb5bc103da2343">fontSize</a> + character.<a class="code hl_variable" href="struct_o_s_k_1_1_a_s_s_e_t_s_1_1_font_character.html#a18a66060428ab4751f82a908be67df77">size</a>.<a class="code hl_variable" href="class_o_s_k_1_1_vector2__t.html#ae2f86aaf21084895a5b357318ff6ed77">x</a> * <a class="code hl_variable" href="struct_o_s_k_1_1_a_s_s_e_t_s_1_1_font_instance.html#aec4428c171fd1ac107bb5bc103da2343">fontSize</a>;</div>
 <div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>    }</div>
 <div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span> </div>
-<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>    <span class="keywordflow">if</span> (<a class="code hl_class" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">temporalSizeX</a> &gt; sizeX)</div>
-<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>        sizeX = <a class="code hl_class" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">temporalSizeX</a>;</div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>    <span class="keywordflow">if</span> (temporalSizeX &gt; sizeX)</div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>        sizeX = temporalSizeX;</div>
 <div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span> </div>
 <div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>    <span class="keywordflow">return</span> <a class="code hl_typedef" href="namespace_o_s_k.html#a31a299dbb3a3a60d90d16d1a4eca9651">Vector2f</a>(sizeX, sizeY);</div>
 <div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>}</div>
 </div>
-<div class="ttc" id="aclass_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref_html"><div class="ttname"><a href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">OSK::ASSETS::AssetRef</a></div><div class="ttdoc">Referencia a un asset.</div><div class="ttdef"><b>Definition</b> <a href="_asset_ref_8h_source.html#l00012">AssetRef.h:12</a></div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_vector2__t_html"><div class="ttname"><a href="class_o_s_k_1_1_vector2__t.html">OSK::Vector2_t&lt; float_t &gt;</a></div></div>
-<div class="ttc" id="aclass_o_s_k_1_1_vector2__t_html_a3759903561dac1fc476d0cc9d051c536"><div class="ttname"><a href="class_o_s_k_1_1_vector2__t.html#a3759903561dac1fc476d0cc9d051c536">OSK::Vector2_t&lt; float_t &gt;::Zero</a></div><div class="ttdeci">static OSKAPI_CALL Vector2_t const Zero</div><div class="ttdef"><b>Definition</b> <a href="_vector2_8hpp_source.html#l00018">Vector2.hpp:18</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_vector2__t_html_a3194c7e9abba1f840530e8642a01e30a"><div class="ttname"><a href="class_o_s_k_1_1_vector2__t.html#a3194c7e9abba1f840530e8642a01e30a">OSK::Vector2_t::y</a></div><div class="ttdeci">T y</div><div class="ttdoc">Representa la segunda coordenada.</div><div class="ttdef"><b>Definition</b> <a href="_vector2_8hpp_source.html#l00250">Vector2.hpp:250</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_vector2__t_html_a3759903561dac1fc476d0cc9d051c536"><div class="ttname"><a href="class_o_s_k_1_1_vector2__t.html#a3759903561dac1fc476d0cc9d051c536">OSK::Vector2_t&lt; float_t &gt;::Zero</a></div><div class="ttdeci">static OSKAPI_CALL Vector2_t const Zero</div><div class="ttdef"><b>Definition</b> <a href="_vector2_8hpp_source.html#l00017">Vector2.hpp:17</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_vector2__t_html_ae2f86aaf21084895a5b357318ff6ed77"><div class="ttname"><a href="class_o_s_k_1_1_vector2__t.html#ae2f86aaf21084895a5b357318ff6ed77">OSK::Vector2_t::x</a></div><div class="ttdeci">T x</div><div class="ttdoc">Representa la primera coordenada.</div><div class="ttdef"><b>Definition</b> <a href="_vector2_8hpp_source.html#l00247">Vector2.hpp:247</a></div></div>
 <div class="ttc" id="anamespace_o_s_k_1_1_a_s_s_e_t_s_html"><div class="ttname"><a href="namespace_o_s_k_1_1_a_s_s_e_t_s.html">OSK::ASSETS</a></div><div class="ttdef"><b>Definition</b> <a href="_anim_mesh_loader_8h_source.html#l00009">AnimMeshLoader.h:9</a></div></div>
 <div class="ttc" id="anamespace_o_s_k_1_1_g_r_a_p_h_i_c_s_html"><div class="ttname"><a href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html">OSK::GRAPHICS</a></div><div class="ttdef"><b>Definition</b> <a href="_acceleration_structures_exceptions_8h_source.html#l00005">AccelerationStructuresExceptions.h:5</a></div></div>
 <div class="ttc" id="anamespace_o_s_k_html"><div class="ttname"><a href="namespace_o_s_k.html">OSK</a></div><div class="ttdef"><b>Definition</b> <a href="_acceleration_structures_exceptions_8h_source.html#l00005">AccelerationStructuresExceptions.h:5</a></div></div>
-<div class="ttc" id="anamespace_o_s_k_html_a31a299dbb3a3a60d90d16d1a4eca9651"><div class="ttname"><a href="namespace_o_s_k.html#a31a299dbb3a3a60d90d16d1a4eca9651">OSK::Vector2f</a></div><div class="ttdeci">Vector2_t&lt; float_t &gt; Vector2f</div><div class="ttdoc">Precisión = float.</div><div class="ttdef"><b>Definition</b> <a href="_vector2_8hpp_source.html#l00257">Vector2.hpp:257</a></div></div>
-<div class="ttc" id="astruct_o_s_k_1_1_a_s_s_e_t_s_1_1_font_character_html"><div class="ttname"><a href="struct_o_s_k_1_1_a_s_s_e_t_s_1_1_font_character.html">OSK::ASSETS::FontCharacter</a></div><div class="ttdoc">Información básica de un carácter de una instancia de fuente en concreto.</div><div class="ttdef"><b>Definition</b> <a href="_font_character_8h_source.html#l00014">FontCharacter.h:14</a></div></div>
+<div class="ttc" id="anamespace_o_s_k_html_a31a299dbb3a3a60d90d16d1a4eca9651"><div class="ttname"><a href="namespace_o_s_k.html#a31a299dbb3a3a60d90d16d1a4eca9651">OSK::Vector2f</a></div><div class="ttdeci">Vector2_t&lt; float_t &gt; Vector2f</div><div class="ttdoc">Precisión = float.</div><div class="ttdef"><b>Definition</b> <a href="_vector2_8hpp_source.html#l00256">Vector2.hpp:256</a></div></div>
+<div class="ttc" id="anamespace_o_s_k_html_acf682b0e024acc36806435295480d2ed"><div class="ttname"><a href="namespace_o_s_k.html#acf682b0e024acc36806435295480d2ed">OSK::USize32</a></div><div class="ttdeci">uint32_t USize32</div><div class="ttdoc">Tamaño, almacenado en un unsigned int de 32 bits.</div><div class="ttdef"><b>Definition</b> <a href="_numeric_types_8h_source.html#l00015">NumericTypes.h:15</a></div></div>
+<div class="ttc" id="astruct_o_s_k_1_1_a_s_s_e_t_s_1_1_font_character_html"><div class="ttname"><a href="struct_o_s_k_1_1_a_s_s_e_t_s_1_1_font_character.html">OSK::ASSETS::FontCharacter</a></div><div class="ttdoc">Información básica de un carácter de una instancia de fuente en concreto.</div><div class="ttdef"><b>Definition</b> <a href="_font_character_8h_source.html#l00015">FontCharacter.h:15</a></div></div>
+<div class="ttc" id="astruct_o_s_k_1_1_a_s_s_e_t_s_1_1_font_character_html_a18a66060428ab4751f82a908be67df77"><div class="ttname"><a href="struct_o_s_k_1_1_a_s_s_e_t_s_1_1_font_character.html#a18a66060428ab4751f82a908be67df77">OSK::ASSETS::FontCharacter::size</a></div><div class="ttdeci">Vector2f size</div><div class="ttdoc">Tamaño del sprite.</div><div class="ttdef"><b>Definition</b> <a href="_font_character_8h_source.html#l00025">FontCharacter.h:25</a></div></div>
+<div class="ttc" id="astruct_o_s_k_1_1_a_s_s_e_t_s_1_1_font_character_html_ada0b3fcf610421d9ce5691d9a6ec70d9"><div class="ttname"><a href="struct_o_s_k_1_1_a_s_s_e_t_s_1_1_font_character.html#ada0b3fcf610421d9ce5691d9a6ec70d9">OSK::ASSETS::FontCharacter::bearing</a></div><div class="ttdeci">Vector2f bearing</div><div class="ttdoc">Espaciado del carácter.</div><div class="ttdef"><b>Definition</b> <a href="_font_character_8h_source.html#l00030">FontCharacter.h:30</a></div></div>
 <div class="ttc" id="astruct_o_s_k_1_1_a_s_s_e_t_s_1_1_font_instance_html_a2a6dde25a2509bf53d11a876d6ea9338"><div class="ttname"><a href="struct_o_s_k_1_1_a_s_s_e_t_s_1_1_font_instance.html#a2a6dde25a2509bf53d11a876d6ea9338">OSK::ASSETS::FontInstance::characters</a></div><div class="ttdeci">std::unordered_map&lt; char, FontCharacter &gt; characters</div><div class="ttdoc">Información de los sprites del carácter.</div><div class="ttdef"><b>Definition</b> <a href="_font_instance_8h_source.html#l00029">FontInstance.h:29</a></div></div>
 <div class="ttc" id="astruct_o_s_k_1_1_a_s_s_e_t_s_1_1_font_instance_html_a33da67eb5b7b0a81ba1398df725b3e52"><div class="ttname"><a href="struct_o_s_k_1_1_a_s_s_e_t_s_1_1_font_instance.html#a33da67eb5b7b0a81ba1398df725b3e52">OSK::ASSETS::FontInstance::GetTextSize</a></div><div class="ttdeci">Vector2f GetTextSize(std::string_view string) const</div><div class="ttdoc">Calcula el tamaño que tendrá este texto si es renderizado con esta instancia de la fuente.</div><div class="ttdef"><b>Definition</b> <a href="#l00012">FontInstance.cpp:12</a></div></div>
 <div class="ttc" id="astruct_o_s_k_1_1_a_s_s_e_t_s_1_1_font_instance_html_aec4428c171fd1ac107bb5bc103da2343"><div class="ttname"><a href="struct_o_s_k_1_1_a_s_s_e_t_s_1_1_font_instance.html#aec4428c171fd1ac107bb5bc103da2343">OSK::ASSETS::FontInstance::fontSize</a></div><div class="ttdeci">USize32 fontSize</div><div class="ttdoc">Tamaño de fuente de esta instancia.</div><div class="ttdef"><b>Definition</b> <a href="_font_instance_8h_source.html#l00033">FontInstance.h:33</a></div></div>
@@ -168,7 +172,7 @@ $(function(){initNavTree('_font_instance_8cpp_source.html',''); initResizable();
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_74389ed8173ad57b461b9d623a1f3867.html">Source</a></li><li class="navelem"><b>FontInstance.cpp</b></li>
-    <li class="footer">Generado el Sábado, 18 de mayo de 2024 12:15:51 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.10.0 </li>
+    <li class="footer">Generado el Miércoles, 29 de mayo de 2024 12:01:48 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.11.0 </li>
   </ul>
 </div>
 </body>

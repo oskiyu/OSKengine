@@ -3,7 +3,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
-<meta name="generator" content="Doxygen 1.10.0"/>
+<meta name="generator" content="Doxygen 1.11.0"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
 <title>OSKengine: Archivo de código fuente Source/ModelLoader3D.cpp</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
@@ -11,9 +11,9 @@
 <script type="text/javascript" src="dynsections.js"></script>
 <script type="text/javascript" src="clipboard.js"></script>
 <link href="navtree.css" rel="stylesheet" type="text/css"/>
-<script type="text/javascript" src="resize.js"></script>
 <script type="text/javascript" src="navtreedata.js"></script>
 <script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript" src="resize.js"></script>
 <script type="text/javascript" src="cookie.js"></script>
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/searchdata.js"></script>
@@ -37,10 +37,15 @@
 </table>
 </div>
 <!-- end header part -->
-<!-- Generado por Doxygen 1.10.0 -->
+<!-- Generado por Doxygen 1.11.0 -->
 <script type="text/javascript">
 /* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
 var searchBox = new SearchBox("searchBox", "search/",'.html');
+/* @license-end */
+</script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() { codefold.init(0); });
 /* @license-end */
 </script>
 <script type="text/javascript" src="menudata.js"></script>
@@ -48,17 +53,12 @@ var searchBox = new SearchBox("searchBox", "search/",'.html');
 <script type="text/javascript">
 /* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
 $(function() {
-  initMenu('',true,false,'search.php','Buscar');
+  initMenu('',true,false,'search.php','Buscar',true);
   $(function() { init_search(); });
 });
 /* @license-end */
 </script>
 <div id="main-nav"></div>
-<script type="text/javascript">
-/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
-$(function() { codefold.init(0); });
-/* @license-end */
-</script>
 </div><!-- top -->
 <div id="side-nav" class="ui-resizable side-nav-resizable">
   <div id="nav-tree">
@@ -72,7 +72,7 @@ $(function() { codefold.init(0); });
 </div>
 <script type="text/javascript">
 /* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
-$(function(){initNavTree('_model_loader3_d_8cpp_source.html',''); initResizable(); });
+$(function(){initNavTree('_model_loader3_d_8cpp_source.html',''); initResizable(true); });
 /* @license-end */
 </script>
 <div id="doc-content">
@@ -147,61 +147,68 @@ $(function(){initNavTree('_model_loader3_d_8cpp_source.html',''); initResizable(
 <div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span> </div>
 <div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span> </div>
 <div class="foldopen" id="foldopen00046" data-start="{" data-end="}">
-<div class="line"><a id="l00046" name="l00046"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_model_loader3_d.html#a2a4ea363dfb9d4a21b60501fdb0995ec">   46</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_model_loader3_d.html#a2a4ea363dfb9d4a21b60501fdb0995ec">ModelLoader3D::Load</a>(<span class="keyword">const</span> std::string&amp; <a class="code hl_class" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">assetFilePath</a>, <a class="code hl_class" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_model3_d.html">Model3D</a>* <a class="code hl_class" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">asset</a>) {</div>
-<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>    <span class="keyword">const</span> nlohmann::json <a class="code hl_class" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">assetInfo</a> = <a class="code hl_function" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_i_asset_loader.html#a502866f35d2aaa0f412021ab855b8cbe">ValidateDescriptionFile</a>(<a class="code hl_class" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">assetFilePath</a>);</div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_model_loader3_d.html#a2a4ea363dfb9d4a21b60501fdb0995ec">   46</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_model_loader3_d.html#a2a4ea363dfb9d4a21b60501fdb0995ec">ModelLoader3D::Load</a>(<span class="keyword">const</span> std::string&amp; assetFilePath, <a class="code hl_class" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_model3_d.html">Model3D</a>* asset) {</div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>    <span class="keyword">const</span> nlohmann::json assetInfo = <a class="code hl_function" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_i_asset_loader.html#a502866f35d2aaa0f412021ab855b8cbe">ValidateDescriptionFile</a>(assetFilePath);</div>
 <div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span> </div>
-<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>    std::string <a class="code hl_class" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">modelPath</a> = <a class="code hl_class" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">assetInfo</a>[<span class="stringliteral">&quot;raw_asset_path&quot;</span>];</div>
-<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>    <a class="code hl_class" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">asset</a>-&gt;SetName(<a class="code hl_class" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">assetInfo</a>[<span class="stringliteral">&quot;name&quot;</span>]);</div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>    std::string modelPath = assetInfo[<span class="stringliteral">&quot;raw_asset_path&quot;</span>];</div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>    asset-&gt;<a class="code hl_function" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_i_asset.html#af0bbd1c59b2cd81667b63cb6d015c11c">SetName</a>(assetInfo[<span class="stringliteral">&quot;name&quot;</span>]);</div>
 <div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span> </div>
-<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>    OSK_ASSERT(<a class="code hl_class" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">assetInfo</a>.contains(<span class="stringliteral">&quot;renderpass_type&quot;</span>), <a class="code hl_class" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_invalid_description_file_exception.html">InvalidDescriptionFileException</a>(<span class="stringliteral">&quot;No se encuentra renderpass_type&quot;</span>, <a class="code hl_class" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">assetFilePath</a>));</div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>    OSK_ASSERT(assetInfo.contains(<span class="stringliteral">&quot;renderpass_type&quot;</span>), <a class="code hl_class" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_invalid_description_file_exception.html">InvalidDescriptionFileException</a>(<span class="stringliteral">&quot;No se encuentra renderpass_type&quot;</span>, assetFilePath));</div>
 <div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span> </div>
-<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>    <span class="keyword">const</span> <span class="keywordtype">bool</span> <a class="code hl_class" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">isAnimated</a> = <a class="code hl_class" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">assetInfo</a>.contains(<span class="stringliteral">&quot;animated&quot;</span>);</div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>    <span class="keyword">const</span> <span class="keywordtype">bool</span> isAnimated = assetInfo.contains(<span class="stringliteral">&quot;animated&quot;</span>);</div>
 <div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span> </div>
-<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>    <span class="keyword">auto</span> <a class="code hl_class" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">modelTransform</a> = glm::mat4(1.0f);</div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>    <span class="keyword">auto</span> modelTransform = glm::mat4(1.0f);</div>
 <div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span> </div>
-<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>    <a class="code hl_class" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">modelTransform</a> = glm::scale(<a class="code hl_class" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">modelTransform</a>, glm::vec3(<a class="code hl_class" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">assetInfo</a>[<span class="stringliteral">&quot;scale&quot;</span>]));</div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>    modelTransform = glm::scale(modelTransform, glm::vec3(assetInfo[<span class="stringliteral">&quot;scale&quot;</span>]));</div>
 <div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span> </div>
-<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>    <span class="keywordflow">if</span> (<a class="code hl_class" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">assetInfo</a>.contains(<span class="stringliteral">&quot;rotation_offset&quot;</span>)) {</div>
-<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>        <a class="code hl_class" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">modelTransform</a> = glm::rotate(<a class="code hl_class" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">modelTransform</a>, glm::radians((<span class="keywordtype">float</span>)<a class="code hl_class" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">assetInfo</a>[<span class="stringliteral">&quot;rotation_offset&quot;</span>][0]), { 1.0f, 0.0f, 0.0f });</div>
-<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>        <a class="code hl_class" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">modelTransform</a> = glm::rotate(<a class="code hl_class" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">modelTransform</a>, glm::radians((<span class="keywordtype">float</span>)<a class="code hl_class" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">assetInfo</a>[<span class="stringliteral">&quot;rotation_offset&quot;</span>][1]), { 0.0f, 1.0f, 0.0f });</div>
-<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>        <a class="code hl_class" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">modelTransform</a> = glm::rotate(<a class="code hl_class" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">modelTransform</a>, glm::radians((<span class="keywordtype">float</span>)<a class="code hl_class" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">assetInfo</a>[<span class="stringliteral">&quot;rotation_offset&quot;</span>][2]), { 0.0f, 0.0f, 1.0f });</div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>    <span class="keywordflow">if</span> (assetInfo.contains(<span class="stringliteral">&quot;rotation_offset&quot;</span>)) {</div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>        modelTransform = glm::rotate(modelTransform, glm::radians((<span class="keywordtype">float</span>)assetInfo[<span class="stringliteral">&quot;rotation_offset&quot;</span>][0]), { 1.0f, 0.0f, 0.0f });</div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>        modelTransform = glm::rotate(modelTransform, glm::radians((<span class="keywordtype">float</span>)assetInfo[<span class="stringliteral">&quot;rotation_offset&quot;</span>][1]), { 0.0f, 1.0f, 0.0f });</div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>        modelTransform = glm::rotate(modelTransform, glm::radians((<span class="keywordtype">float</span>)assetInfo[<span class="stringliteral">&quot;rotation_offset&quot;</span>][2]), { 0.0f, 0.0f, 1.0f });</div>
 <div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>    }</div>
 <div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span> </div>
-<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>    <span class="keyword">auto</span> <a class="code hl_class" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">cpuModel</a> = <a class="code hl_function" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_gltf_loader.html#a3d4e4b263e8972e52d6144c975068769">GltfLoader::Load</a>(</div>
-<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>        <a class="code hl_class" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">modelPath</a>,</div>
-<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>        <a class="code hl_class" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">modelTransform</a>,</div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>    <span class="keyword">auto</span> cpuModel = <a class="code hl_function" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_gltf_loader.html#a3d4e4b263e8972e52d6144c975068769">GltfLoader::Load</a>(</div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>        modelPath,</div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>        modelTransform,</div>
 <div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>        1.0f);</div>
 <div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span> </div>
-<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>    <span class="keywordflow">if</span> (<a class="code hl_class" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">isAnimated</a>) {</div>
-<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>        <a class="code hl_class" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_anim_mesh_loader.html">AnimMeshLoader</a> <a class="code hl_class" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">loader</a>{};</div>
-<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>        <a class="code hl_class" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">loader</a>.Load(<a class="code hl_class" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">cpuModel</a>, &amp;<a class="code hl_class" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">asset</a>-&gt;_GetModel());</div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>    <span class="keywordflow">if</span> (isAnimated) {</div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>        <a class="code hl_class" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_anim_mesh_loader.html">AnimMeshLoader</a> loader{};</div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>        loader.<a class="code hl_function" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_anim_mesh_loader.html#ac07e719a597059f8a2693d289fb67f8c">Load</a>(cpuModel, &amp;asset-&gt;<a class="code hl_function" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_model3_d.html#abe1f674474e91e7c8240202c33b97233">_GetModel</a>());</div>
 <div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>    }</div>
 <div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>    <span class="keywordflow">else</span> {</div>
-<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>        <a class="code hl_class" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_static_mesh_loader.html">StaticMeshLoader</a> <a class="code hl_class" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">loader</a>{};</div>
-<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span>        <a class="code hl_class" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">loader</a>.Load(<a class="code hl_class" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">cpuModel</a>, &amp;<a class="code hl_class" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">asset</a>-&gt;_GetModel());</div>
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>        <a class="code hl_class" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_static_mesh_loader.html">StaticMeshLoader</a> loader{};</div>
+<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span>        loader.<a class="code hl_function" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_static_mesh_loader.html#a979b80836a2bc46759d7e6e91059e664">Load</a>(cpuModel, &amp;asset-&gt;<a class="code hl_function" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_model3_d.html#abe1f674474e91e7c8240202c33b97233">_GetModel</a>());</div>
 <div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span>    }</div>
 <div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span> </div>
-<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span>    <a class="code hl_class" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">DynamicArray&lt;GpuModel3D::Material&gt;</a> materials{};</div>
+<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span>    <a class="code hl_class" href="class_o_s_k_1_1_dynamic_array.html">DynamicArray&lt;GpuModel3D::Material&gt;</a> materials{};</div>
 <div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span>    <a class="code hl_function" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_gltf_loader.html#a706a5f8499c686f1a9e3db2f00f3cd5a">GltfLoader::LoadMaterials</a>(</div>
-<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span>        <a class="code hl_class" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">modelPath</a>,</div>
+<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span>        modelPath,</div>
 <div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span>        &amp;materials,</div>
-<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span>        &amp;<a class="code hl_class" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">asset</a>-&gt;_GetModel().GetTextureTable());</div>
+<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span>        &amp;asset-&gt;<a class="code hl_function" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_model3_d.html#abe1f674474e91e7c8240202c33b97233">_GetModel</a>().<a class="code hl_function" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_model3_d.html#a4bb0f0d7284382b6b77e45ad8216a691">GetTextureTable</a>());</div>
 <div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span> </div>
-<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span>    <a class="code hl_class" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">asset</a>-&gt;_GetModel().SetMaterials(materials);</div>
+<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span>    asset-&gt;<a class="code hl_function" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_model3_d.html#abe1f674474e91e7c8240202c33b97233">_GetModel</a>().<a class="code hl_function" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_model3_d.html#abca2827c39794d4b8e400957e27c8ec3">SetMaterials</a>(materials);</div>
 <div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span> </div>
-<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span>    <a class="code hl_class" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">asset</a>-&gt;_GetModel().SetUuid(<a class="code hl_typedef" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a7b290c00974af49851004e0d086d188b">GpuModelUuid</a>(<a class="code hl_function" href="class_o_s_k_1_1_engine.html#ae51793e3f69c3a3af9f06935a83a74c6">Engine::GetUuidProvider</a>()-&gt;GenerateNewUuid()));</div>
+<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span>    asset-&gt;<a class="code hl_function" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_model3_d.html#abe1f674474e91e7c8240202c33b97233">_GetModel</a>().<a class="code hl_function" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_model3_d.html#a531bc29a755776fc7bb808f562c7c372">SetUuid</a>(<a class="code hl_typedef" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a7b290c00974af49851004e0d086d188b">GpuModelUuid</a>(<a class="code hl_function" href="class_o_s_k_1_1_engine.html#ae51793e3f69c3a3af9f06935a83a74c6">Engine::GetUuidProvider</a>()-&gt;GenerateNewUuid()));</div>
 <div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span>}</div>
 </div>
 <div class="ttc" id="aclass_o_s_k_1_1_a_s_s_e_t_s_1_1_anim_mesh_loader_html"><div class="ttname"><a href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_anim_mesh_loader.html">OSK::ASSETS::AnimMeshLoader</a></div><div class="ttdef"><b>Definition</b> <a href="_anim_mesh_loader_8h_source.html#l00011">AnimMeshLoader.h:11</a></div></div>
-<div class="ttc" id="aclass_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref_html"><div class="ttname"><a href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">OSK::ASSETS::AssetRef</a></div><div class="ttdoc">Referencia a un asset.</div><div class="ttdef"><b>Definition</b> <a href="_asset_ref_8h_source.html#l00012">AssetRef.h:12</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_a_s_s_e_t_s_1_1_anim_mesh_loader_html_ac07e719a597059f8a2693d289fb67f8c"><div class="ttname"><a href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_anim_mesh_loader.html#ac07e719a597059f8a2693d289fb67f8c">OSK::ASSETS::AnimMeshLoader::Load</a></div><div class="ttdeci">void Load(const CpuModel3D &amp;model, GRAPHICS::GpuModel3D *output)</div><div class="ttdef"><b>Definition</b> <a href="_anim_mesh_loader_8cpp_source.html#l00029">AnimMeshLoader.cpp:29</a></div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_a_s_s_e_t_s_1_1_gltf_loader_html_a3d4e4b263e8972e52d6144c975068769"><div class="ttname"><a href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_gltf_loader.html#a3d4e4b263e8972e52d6144c975068769">OSK::ASSETS::GltfLoader::Load</a></div><div class="ttdeci">static CpuModel3D Load(std::string_view path, const glm::mat4 &amp;transform, float globalScale)</div><div class="ttdef"><b>Definition</b> <a href="_i_gltf_loader_8cpp_source.html#l00030">IGltfLoader.cpp:30</a></div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_a_s_s_e_t_s_1_1_gltf_loader_html_a706a5f8499c686f1a9e3db2f00f3cd5a"><div class="ttname"><a href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_gltf_loader.html#a706a5f8499c686f1a9e3db2f00f3cd5a">OSK::ASSETS::GltfLoader::LoadMaterials</a></div><div class="ttdeci">static void LoadMaterials(std::string_view path, DynamicArray&lt; GRAPHICS::GpuModel3D::Material &gt; *materials, GRAPHICS::GpuModel3D::TextureTable *textures)</div><div class="ttdef"><b>Definition</b> <a href="_i_gltf_loader_8cpp_source.html#l00056">IGltfLoader.cpp:56</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_a_s_s_e_t_s_1_1_i_asset_html_af0bbd1c59b2cd81667b63cb6d015c11c"><div class="ttname"><a href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_i_asset.html#af0bbd1c59b2cd81667b63cb6d015c11c">OSK::ASSETS::IAsset::SetName</a></div><div class="ttdeci">void SetName(const std::string &amp;name)</div><div class="ttdoc">Establece el nombre de la instancia de este asset.</div><div class="ttdef"><b>Definition</b> <a href="_i_asset_8cpp_source.html#l00010">IAsset.cpp:10</a></div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_a_s_s_e_t_s_1_1_i_asset_loader_html_a502866f35d2aaa0f412021ab855b8cbe"><div class="ttname"><a href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_i_asset_loader.html#a502866f35d2aaa0f412021ab855b8cbe">OSK::ASSETS::IAssetLoader::ValidateDescriptionFile</a></div><div class="ttdeci">nlohmann::json ValidateDescriptionFile(std::string_view filePath) const</div><div class="ttdoc">Valida el contenido del archivo de descripción.</div><div class="ttdef"><b>Definition</b> <a href="_i_asset_loader_8cpp_source.html#l00014">IAssetLoader.cpp:14</a></div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_a_s_s_e_t_s_1_1_invalid_description_file_exception_html"><div class="ttname"><a href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_invalid_description_file_exception.html">OSK::ASSETS::InvalidDescriptionFileException</a></div><div class="ttdoc">Excepción que se lanza cuando se trata de cargar un archivo de descripción que no contiene todos los ...</div><div class="ttdef"><b>Definition</b> <a href="_invalid_description_file_exception_8h_source.html#l00010">InvalidDescriptionFileException.h:10</a></div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_a_s_s_e_t_s_1_1_model3_d_html"><div class="ttname"><a href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_model3_d.html">OSK::ASSETS::Model3D</a></div><div class="ttdoc">Un modelo 3D, para el renderizado 3D. Está compuesto por una serie de meshes 3D.</div><div class="ttdef"><b>Definition</b> <a href="_model3_d_8h_source.html#l00031">Model3D.h:31</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_a_s_s_e_t_s_1_1_model3_d_html_abe1f674474e91e7c8240202c33b97233"><div class="ttname"><a href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_model3_d.html#abe1f674474e91e7c8240202c33b97233">OSK::ASSETS::Model3D::_GetModel</a></div><div class="ttdeci">GRAPHICS::GpuModel3D &amp; _GetModel()</div><div class="ttdef"><b>Definition</b> <a href="_model3_d_8cpp_source.html#l00021">Model3D.cpp:21</a></div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_a_s_s_e_t_s_1_1_model_loader3_d_html_a2a4ea363dfb9d4a21b60501fdb0995ec"><div class="ttname"><a href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_model_loader3_d.html#a2a4ea363dfb9d4a21b60501fdb0995ec">OSK::ASSETS::ModelLoader3D::Load</a></div><div class="ttdeci">void Load(const std::string &amp;assetFilePath, Model3D *asset) override</div><div class="ttdef"><b>Definition</b> <a href="#l00046">ModelLoader3D.cpp:46</a></div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_a_s_s_e_t_s_1_1_static_mesh_loader_html"><div class="ttname"><a href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_static_mesh_loader.html">OSK::ASSETS::StaticMeshLoader</a></div><div class="ttdoc">Clase auxiliar que permite la carga de modelos 3D estáticos.</div><div class="ttdef"><b>Definition</b> <a href="_static_mesh_loader_8h_source.html#l00013">StaticMeshLoader.h:13</a></div></div>
-<div class="ttc" id="aclass_o_s_k_1_1_engine_html_ae51793e3f69c3a3af9f06935a83a74c6"><div class="ttname"><a href="class_o_s_k_1_1_engine.html#ae51793e3f69c3a3af9f06935a83a74c6">OSK::Engine::GetUuidProvider</a></div><div class="ttdeci">static UuidProvider * GetUuidProvider()</div><div class="ttdoc">Devuelve un puntero al sistema de asignación de UUIDs.</div><div class="ttdef"><b>Definition</b> <a href="_o_s_kengine_8cpp_source.html#l00281">OSKengine.cpp:281</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_a_s_s_e_t_s_1_1_static_mesh_loader_html_a979b80836a2bc46759d7e6e91059e664"><div class="ttname"><a href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_static_mesh_loader.html#a979b80836a2bc46759d7e6e91059e664">OSK::ASSETS::StaticMeshLoader::Load</a></div><div class="ttdeci">void Load(const CpuModel3D &amp;model, GRAPHICS::GpuModel3D *output)</div><div class="ttdef"><b>Definition</b> <a href="_static_mesh_loader_8cpp_source.html#l00027">StaticMeshLoader.cpp:27</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_dynamic_array_html"><div class="ttname"><a href="class_o_s_k_1_1_dynamic_array.html">OSK::DynamicArray</a></div><div class="ttdoc">Dynamic array: array que puede cambiar de tamaño.</div><div class="ttdef"><b>Definition</b> <a href="_dynamic_array_8hpp_source.html#l00069">DynamicArray.hpp:69</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_engine_html_ae51793e3f69c3a3af9f06935a83a74c6"><div class="ttname"><a href="class_o_s_k_1_1_engine.html#ae51793e3f69c3a3af9f06935a83a74c6">OSK::Engine::GetUuidProvider</a></div><div class="ttdeci">static UuidProvider * GetUuidProvider()</div><div class="ttdoc">Devuelve un puntero al sistema de asignación de UUIDs.</div><div class="ttdef"><b>Definition</b> <a href="_o_s_kengine_8cpp_source.html#l00283">OSKengine.cpp:283</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_model3_d_html_a4bb0f0d7284382b6b77e45ad8216a691"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_model3_d.html#a4bb0f0d7284382b6b77e45ad8216a691">OSK::GRAPHICS::GpuModel3D::GetTextureTable</a></div><div class="ttdeci">TextureTable &amp; GetTextureTable()</div><div class="ttdef"><b>Definition</b> <a href="_gpu_model3_d_8cpp_source.html#l00103">GpuModel3D.cpp:103</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_model3_d_html_a531bc29a755776fc7bb808f562c7c372"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_model3_d.html#a531bc29a755776fc7bb808f562c7c372">OSK::GRAPHICS::GpuModel3D::SetUuid</a></div><div class="ttdeci">void SetUuid(GpuModelUuid uuid)</div><div class="ttdoc">Establece el identificador único del modelo.</div><div class="ttdef"><b>Definition</b> <a href="_gpu_model3_d_8cpp_source.html#l00007">GpuModel3D.cpp:7</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_model3_d_html_abca2827c39794d4b8e400957e27c8ec3"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_model3_d.html#abca2827c39794d4b8e400957e27c8ec3">OSK::GRAPHICS::GpuModel3D::SetMaterials</a></div><div class="ttdeci">void SetMaterials(const DynamicArray&lt; Material &gt; &amp;materials)</div><div class="ttdef"><b>Definition</b> <a href="_gpu_model3_d_8cpp_source.html#l00079">GpuModel3D.cpp:79</a></div></div>
 <div class="ttc" id="anamespace_o_s_k_1_1_a_s_s_e_t_s_html"><div class="ttname"><a href="namespace_o_s_k_1_1_a_s_s_e_t_s.html">OSK::ASSETS</a></div><div class="ttdef"><b>Definition</b> <a href="_anim_mesh_loader_8h_source.html#l00009">AnimMeshLoader.h:9</a></div></div>
 <div class="ttc" id="anamespace_o_s_k_1_1_g_r_a_p_h_i_c_s_html"><div class="ttname"><a href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html">OSK::GRAPHICS</a></div><div class="ttdef"><b>Definition</b> <a href="_acceleration_structures_exceptions_8h_source.html#l00005">AccelerationStructuresExceptions.h:5</a></div></div>
 <div class="ttc" id="anamespace_o_s_k_1_1_g_r_a_p_h_i_c_s_html_a7b290c00974af49851004e0d086d188b"><div class="ttname"><a href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a7b290c00974af49851004e0d086d188b">OSK::GRAPHICS::GpuModelUuid</a></div><div class="ttdeci">BaseUuid&lt; class GpuModelUuidTag &gt; GpuModelUuid</div><div class="ttdoc">Identificador único para un modelo de GPU.</div><div class="ttdef"><b>Definition</b> <a href="_gpu_model3_d_8h_source.html#l00024">GpuModel3D.h:24</a></div></div>
@@ -212,7 +219,7 @@ $(function(){initNavTree('_model_loader3_d_8cpp_source.html',''); initResizable(
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_74389ed8173ad57b461b9d623a1f3867.html">Source</a></li><li class="navelem"><b>ModelLoader3D.cpp</b></li>
-    <li class="footer">Generado el Sábado, 18 de mayo de 2024 12:15:52 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.10.0 </li>
+    <li class="footer">Generado el Miércoles, 29 de mayo de 2024 12:01:49 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.11.0 </li>
   </ul>
 </div>
 </body>

@@ -3,7 +3,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
-<meta name="generator" content="Doxygen 1.10.0"/>
+<meta name="generator" content="Doxygen 1.11.0"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
 <title>OSKengine: Archivo de código fuente Source/GraphicsPipelineDx12.cpp</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
@@ -11,9 +11,9 @@
 <script type="text/javascript" src="dynsections.js"></script>
 <script type="text/javascript" src="clipboard.js"></script>
 <link href="navtree.css" rel="stylesheet" type="text/css"/>
-<script type="text/javascript" src="resize.js"></script>
 <script type="text/javascript" src="navtreedata.js"></script>
 <script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript" src="resize.js"></script>
 <script type="text/javascript" src="cookie.js"></script>
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/searchdata.js"></script>
@@ -37,10 +37,15 @@
 </table>
 </div>
 <!-- end header part -->
-<!-- Generado por Doxygen 1.10.0 -->
+<!-- Generado por Doxygen 1.11.0 -->
 <script type="text/javascript">
 /* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
 var searchBox = new SearchBox("searchBox", "search/",'.html');
+/* @license-end */
+</script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() { codefold.init(0); });
 /* @license-end */
 </script>
 <script type="text/javascript" src="menudata.js"></script>
@@ -48,17 +53,12 @@ var searchBox = new SearchBox("searchBox", "search/",'.html');
 <script type="text/javascript">
 /* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
 $(function() {
-  initMenu('',true,false,'search.php','Buscar');
+  initMenu('',true,false,'search.php','Buscar',true);
   $(function() { init_search(); });
 });
 /* @license-end */
 </script>
 <div id="main-nav"></div>
-<script type="text/javascript">
-/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
-$(function() { codefold.init(0); });
-/* @license-end */
-</script>
 </div><!-- top -->
 <div id="side-nav" class="ui-resizable side-nav-resizable">
   <div id="nav-tree">
@@ -72,7 +72,7 @@ $(function() { codefold.init(0); });
 </div>
 <script type="text/javascript">
 /* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
-$(function(){initNavTree('_graphics_pipeline_dx12_8cpp_source.html',''); initResizable(); });
+$(function(){initNavTree('_graphics_pipeline_dx12_8cpp_source.html',''); initResizable(true); });
 /* @license-end */
 </script>
 <div id="doc-content">
@@ -144,7 +144,7 @@ $(function(){initNavTree('_graphics_pipeline_dx12_8cpp_source.html',''); initRes
 <div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span> </div>
 <div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>    <span class="keyword">auto</span> layoutDesc = GetInputLayoutDescDx12(vertexInfo);</div>
 <div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span> </div>
-<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>    <span class="keywordflow">for</span> (<a class="code hl_class" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">UIndex32</a> i = 0; i &lt; layoutDesc.GetSize(); i++)</div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>    <span class="keywordflow">for</span> (<a class="code hl_typedef" href="namespace_o_s_k.html#a382ed4c8a6994201cbad5d4e1335861b">UIndex32</a> i = 0; i &lt; layoutDesc.GetSize(); i++)</div>
 <div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>        layoutDesc.At(i).SemanticName = vertexInfo.<a class="code hl_variable" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_vertex_info.html#a15eaeeac531672e355aa72bf8bf74ba4">entries</a>[i].GetName().c_str();</div>
 <div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span> </div>
 <div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>    OSK_ASSERT(layoutDesc.GetSize() &lt; std::numeric_limits&lt;UINT&gt;::max(), <a class="code hl_class" href="class_o_s_k_1_1_overflow_conversion_exception.html">OverflowConversionException</a>());</div>
@@ -183,7 +183,7 @@ $(function(){initNavTree('_graphics_pipeline_dx12_8cpp_source.html',''); initRes
 <div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span>        createInfo.PrimitiveTopologyType = D3D12_PRIMITIVE_TOPOLOGY_TYPE_TRIANGLE;</div>
 <div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span> </div>
 <div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span>    createInfo.NumRenderTargets = <span class="keyword">static_cast&lt;</span>UINT<span class="keyword">&gt;</span>(info.<a class="code hl_variable" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_pipeline_create_info.html#a031c05fb2778c508449834a5281e84fd">formats</a>.<a class="code hl_function" href="class_o_s_k_1_1_dynamic_array.html#af09578371bd52d5a934bc74c8dad5f0d">GetSize</a>());</div>
-<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span>    <span class="keywordflow">for</span> (<a class="code hl_class" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">UIndex32</a> i = 0; i &lt; info.<a class="code hl_variable" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_pipeline_create_info.html#a031c05fb2778c508449834a5281e84fd">formats</a>.<a class="code hl_function" href="class_o_s_k_1_1_dynamic_array.html#af09578371bd52d5a934bc74c8dad5f0d">GetSize</a>(); i++)</div>
+<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span>    <span class="keywordflow">for</span> (<a class="code hl_typedef" href="namespace_o_s_k.html#a382ed4c8a6994201cbad5d4e1335861b">UIndex32</a> i = 0; i &lt; info.<a class="code hl_variable" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_pipeline_create_info.html#a031c05fb2778c508449834a5281e84fd">formats</a>.<a class="code hl_function" href="class_o_s_k_1_1_dynamic_array.html#af09578371bd52d5a934bc74c8dad5f0d">GetSize</a>(); i++)</div>
 <div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span>        createInfo.RTVFormats[i] = <a class="code hl_function" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a100a7488e1eee158da65062d0b5e5277">GetFormatDx12</a>(info.<a class="code hl_variable" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_pipeline_create_info.html#a031c05fb2778c508449834a5281e84fd">formats</a>[i]);</div>
 <div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span> </div>
 <div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span>    createInfo.DSVFormat = <a class="code hl_function" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a100a7488e1eee158da65062d0b5e5277">GetFormatDx12</a>(<a class="code hl_enumvalue" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#aac59f9d056e083c0b49ea768f974e3e8a369fdc4770e12435c7f86a893edbcb06">Format::D32S8_SFLOAT_SUINT</a>);</div>
@@ -267,7 +267,7 @@ $(function(){initNavTree('_graphics_pipeline_dx12_8cpp_source.html',''); initRes
 <div class="line"><a id="l00158" name="l00158"></a><span class="lineno">  158</span>      D3D12_COLOR_WRITE_ENABLE_ALL,</div>
 <div class="line"><a id="l00159" name="l00159"></a><span class="lineno">  159</span>    };</div>
 <div class="line"><a id="l00160" name="l00160"></a><span class="lineno">  160</span> </div>
-<div class="line"><a id="l00161" name="l00161"></a><span class="lineno">  161</span>    <span class="keywordflow">for</span> (<a class="code hl_class" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">UIndex32</a> i = 0; i &lt; D3D12_SIMULTANEOUS_RENDER_TARGET_COUNT; i++)</div>
+<div class="line"><a id="l00161" name="l00161"></a><span class="lineno">  161</span>    <span class="keywordflow">for</span> (<a class="code hl_typedef" href="namespace_o_s_k.html#a382ed4c8a6994201cbad5d4e1335861b">UIndex32</a> i = 0; i &lt; D3D12_SIMULTANEOUS_RENDER_TARGET_COUNT; i++)</div>
 <div class="line"><a id="l00162" name="l00162"></a><span class="lineno">  162</span>        desc.RenderTarget[i] = DefaultRenderTargetBlendDesc;</div>
 <div class="line"><a id="l00163" name="l00163"></a><span class="lineno">  163</span> </div>
 <div class="line"><a id="l00164" name="l00164"></a><span class="lineno">  164</span>    <span class="keywordflow">return</span> desc;</div>
@@ -296,8 +296,8 @@ $(function(){initNavTree('_graphics_pipeline_dx12_8cpp_source.html',''); initRes
 <div class="line"><a id="l00187" name="l00187"></a><span class="lineno">  187</span><a class="code hl_class" href="class_o_s_k_1_1_dynamic_array.html">DynamicArray&lt;D3D12_INPUT_ELEMENT_DESC&gt;</a> GraphicsPipelineDx12::GetInputLayoutDescDx12(<span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_vertex_info.html">VertexInfo</a>&amp; info)<span class="keyword"> const </span>{</div>
 <div class="line"><a id="l00188" name="l00188"></a><span class="lineno">  188</span>    <a class="code hl_class" href="class_o_s_k_1_1_dynamic_array.html">DynamicArray&lt;D3D12_INPUT_ELEMENT_DESC&gt;</a> output{};</div>
 <div class="line"><a id="l00189" name="l00189"></a><span class="lineno">  189</span> </div>
-<div class="line"><a id="l00190" name="l00190"></a><span class="lineno">  190</span>    <a class="code hl_class" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">USize64</a> offset = 0;</div>
-<div class="line"><a id="l00191" name="l00191"></a><span class="lineno">  191</span>    <span class="keywordflow">for</span> (<a class="code hl_class" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">UIndex32</a> i = 0; i &lt; info.<a class="code hl_variable" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_vertex_info.html#a15eaeeac531672e355aa72bf8bf74ba4">entries</a>.GetSize(); i++) {</div>
+<div class="line"><a id="l00190" name="l00190"></a><span class="lineno">  190</span>    <a class="code hl_typedef" href="namespace_o_s_k.html#a83ff197aaa32126d84ad65f1d6d5a3b5">USize64</a> offset = 0;</div>
+<div class="line"><a id="l00191" name="l00191"></a><span class="lineno">  191</span>    <span class="keywordflow">for</span> (<a class="code hl_typedef" href="namespace_o_s_k.html#a382ed4c8a6994201cbad5d4e1335861b">UIndex32</a> i = 0; i &lt; info.<a class="code hl_variable" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_vertex_info.html#a15eaeeac531672e355aa72bf8bf74ba4">entries</a>.GetSize(); i++) {</div>
 <div class="line"><a id="l00192" name="l00192"></a><span class="lineno">  192</span>        <span class="keyword">const</span> <a class="code hl_struct" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_vertex_info_1_1_entry.html">VertexInfo::Entry</a>&amp; entry = info.<a class="code hl_variable" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_vertex_info.html#a15eaeeac531672e355aa72bf8bf74ba4">entries</a>.At(i);</div>
 <div class="line"><a id="l00193" name="l00193"></a><span class="lineno">  193</span> </div>
 <div class="line"><a id="l00194" name="l00194"></a><span class="lineno">  194</span>        D3D12_INPUT_ELEMENT_DESC desc = {</div>
@@ -343,14 +343,13 @@ $(function(){initNavTree('_graphics_pipeline_dx12_8cpp_source.html',''); initRes
 <div class="line"><a id="l00234" name="l00234"></a><span class="lineno">  234</span>        <span class="keywordflow">return</span> D3D12_FILL_MODE_SOLID;</div>
 <div class="line"><a id="l00235" name="l00235"></a><span class="lineno">  235</span>    }</div>
 <div class="line"><a id="l00236" name="l00236"></a><span class="lineno">  236</span>}</div>
-<div class="ttc" id="aclass_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref_html"><div class="ttname"><a href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">OSK::ASSETS::AssetRef</a></div><div class="ttdoc">Referencia a un asset.</div><div class="ttdef"><b>Definition</b> <a href="_asset_ref_8h_source.html#l00012">AssetRef.h:12</a></div></div>
-<div class="ttc" id="aclass_o_s_k_1_1_dynamic_array_html"><div class="ttname"><a href="class_o_s_k_1_1_dynamic_array.html">OSK::DynamicArray</a></div><div class="ttdoc">Dynamic array: array que puede cambiar de tamaño.</div><div class="ttdef"><b>Definition</b> <a href="_dynamic_array_8hpp_source.html#l00067">DynamicArray.hpp:67</a></div></div>
-<div class="ttc" id="aclass_o_s_k_1_1_dynamic_array_html_af09578371bd52d5a934bc74c8dad5f0d"><div class="ttname"><a href="class_o_s_k_1_1_dynamic_array.html#af09578371bd52d5a934bc74c8dad5f0d">OSK::DynamicArray::GetSize</a></div><div class="ttdeci">USize64 GetSize() const noexcept</div><div class="ttdoc">Devuelve el número de elementos almacenados.</div><div class="ttdef"><b>Definition</b> <a href="_dynamic_array_8hpp_source.html#l00672">DynamicArray.hpp:672</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_dynamic_array_html"><div class="ttname"><a href="class_o_s_k_1_1_dynamic_array.html">OSK::DynamicArray</a></div><div class="ttdoc">Dynamic array: array que puede cambiar de tamaño.</div><div class="ttdef"><b>Definition</b> <a href="_dynamic_array_8hpp_source.html#l00069">DynamicArray.hpp:69</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_dynamic_array_html_af09578371bd52d5a934bc74c8dad5f0d"><div class="ttname"><a href="class_o_s_k_1_1_dynamic_array.html#af09578371bd52d5a934bc74c8dad5f0d">OSK::DynamicArray::GetSize</a></div><div class="ttdeci">USize64 GetSize() const noexcept</div><div class="ttdoc">Devuelve el número de elementos almacenados.</div><div class="ttdef"><b>Definition</b> <a href="_dynamic_array_8hpp_source.html#l00674">DynamicArray.hpp:674</a></div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_dx12_html"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_dx12.html">OSK::GRAPHICS::GpuDx12</a></div><div class="ttdef"><b>Definition</b> <a href="_gpu_dx12_8h_source.html#l00015">GpuDx12.h:15</a></div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_graphics_pipeline_dx12_html_a164ad846a2010825fbbd9d474b2a82f3"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_graphics_pipeline_dx12.html#a164ad846a2010825fbbd9d474b2a82f3">OSK::GRAPHICS::GraphicsPipelineDx12::Create</a></div><div class="ttdeci">void Create(const MaterialLayout *layout, IGpu *device, const PipelineCreateInfo &amp;info, const VertexInfo &amp;vertexInfo) override</div><div class="ttdoc">Crea el pipeline con la configuración dada.</div><div class="ttdef"><b>Definition</b> <a href="#l00036">GraphicsPipelineDx12.cpp:36</a></div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_graphics_pipeline_dx12_html_a67880835c29a14d6d599d9c0a117b526"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_graphics_pipeline_dx12.html#a67880835c29a14d6d599d9c0a117b526">OSK::GRAPHICS::GraphicsPipelineDx12::SetDebugName</a></div><div class="ttdeci">void SetDebugName(const std::string &amp;name) override</div><div class="ttdoc">Establece un nombre que lo identifique. Para debug.</div><div class="ttdef"><b>Definition</b> <a href="#l00094">GraphicsPipelineDx12.cpp:94</a></div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_graphics_pipeline_dx12_html_aeb396d39dc237a97a3474ac338023f3b"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_graphics_pipeline_dx12.html#aeb396d39dc237a97a3474ac338023f3b">OSK::GRAPHICS::GraphicsPipelineDx12::GetTopologyType</a></div><div class="ttdeci">D3D_PRIMITIVE_TOPOLOGY GetTopologyType() const</div><div class="ttdoc">Devuelve el tipo de primitiva. Patch para teselado, triángulos en el resto de casos.</div><div class="ttdef"><b>Definition</b> <a href="#l00098">GraphicsPipelineDx12.cpp:98</a></div></div>
-<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_html"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu.html">OSK::GRAPHICS::IGpu</a></div><div class="ttdoc">Representa una conexión con la GPU.</div><div class="ttdef"><b>Definition</b> <a href="_i_gpu_8h_source.html#l00014">IGpu.h:14</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_html"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu.html">OSK::GRAPHICS::IGpu</a></div><div class="ttdoc">Representa una conexión con la GPU.</div><div class="ttdef"><b>Definition</b> <a href="_i_gpu_8h_source.html#l00016">IGpu.h:16</a></div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_graphics_pipeline_html_afeebc6144c3cf7852837a5f08b3a6444"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_graphics_pipeline.html#afeebc6144c3cf7852837a5f08b3a6444">OSK::GRAPHICS::IGraphicsPipeline::layout</a></div><div class="ttdeci">UniquePtr&lt; IPipelineLayout &gt; layout</div><div class="ttdef"><b>Definition</b> <a href="_i_graphics_pipeline_8h_source.html#l00050">IGraphicsPipeline.h:50</a></div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_pipeline_dx12_html_a1a1833badaf5367685c6c9d743185342"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_pipeline_dx12.html#a1a1833badaf5367685c6c9d743185342">OSK::GRAPHICS::IPipelineDx12::dxPipeline</a></div><div class="ttdeci">ComPtr&lt; ID3D12PipelineState &gt; dxPipeline</div><div class="ttdef"><b>Definition</b> <a href="_i_pipeline_dx12_8h_source.html#l00091">IPipelineDx12.h:91</a></div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_pipeline_dx12_html_a5cee72286cbb328bd7bddc6e7a9208f7"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_pipeline_dx12.html#a5cee72286cbb328bd7bddc6e7a9208f7">OSK::GRAPHICS::IPipelineDx12::LoadShader</a></div><div class="ttdeci">ShaderStageDx12 LoadShader(const PipelineCreateInfo &amp;info, const VertexInfo &amp;vertexInfo, const std::string &amp;path, ShaderStage stage, const MaterialLayout &amp;mLayout) const</div><div class="ttdef"><b>Definition</b> <a href="_i_pipeline_dx12_8cpp_source.html#l00048">IPipelineDx12.cpp:48</a></div></div>
@@ -382,6 +381,8 @@ $(function(){initNavTree('_graphics_pipeline_dx12_8cpp_source.html',''); initRes
 <div class="ttc" id="anamespace_o_s_k_1_1_i_o_html"><div class="ttname"><a href="namespace_o_s_k_1_1_i_o.html">OSK::IO</a></div><div class="ttdef"><b>Definition</b> <a href="_camera_component2_d_8h_source.html#l00013">CameraComponent2D.h:13</a></div></div>
 <div class="ttc" id="anamespace_o_s_k_html"><div class="ttname"><a href="namespace_o_s_k.html">OSK</a></div><div class="ttdef"><b>Definition</b> <a href="_acceleration_structures_exceptions_8h_source.html#l00005">AccelerationStructuresExceptions.h:5</a></div></div>
 <div class="ttc" id="anamespace_o_s_k_html_a2c5e32d601191e934edfe40ec5c1d12e"><div class="ttname"><a href="namespace_o_s_k.html#a2c5e32d601191e934edfe40ec5c1d12e">OSK::StringToWideString</a></div><div class="ttdeci">std::wstring StringToWideString(std::string_view string)</div><div class="ttdef"><b>Definition</b> <a href="_string_operations_8cpp_source.html#l00023">StringOperations.cpp:23</a></div></div>
+<div class="ttc" id="anamespace_o_s_k_html_a382ed4c8a6994201cbad5d4e1335861b"><div class="ttname"><a href="namespace_o_s_k.html#a382ed4c8a6994201cbad5d4e1335861b">OSK::UIndex32</a></div><div class="ttdeci">uint32_t UIndex32</div><div class="ttdoc">Índice de un elemento, almacenado en un unsigned int de 32 bits.</div><div class="ttdef"><b>Definition</b> <a href="_numeric_types_8h_source.html#l00010">NumericTypes.h:10</a></div></div>
+<div class="ttc" id="anamespace_o_s_k_html_a83ff197aaa32126d84ad65f1d6d5a3b5"><div class="ttname"><a href="namespace_o_s_k.html#a83ff197aaa32126d84ad65f1d6d5a3b5">OSK::USize64</a></div><div class="ttdeci">uint64_t USize64</div><div class="ttdoc">Tamaño, almacenado en un unsigned int de 64 bits.</div><div class="ttdef"><b>Definition</b> <a href="_numeric_types_8h_source.html#l00026">NumericTypes.h:26</a></div></div>
 <div class="ttc" id="astruct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_pipeline_create_info_html"><div class="ttname"><a href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_pipeline_create_info.html">OSK::GRAPHICS::PipelineCreateInfo</a></div><div class="ttdoc">Contiene la información necesaria para configurar un nuevo graphics pipeline.</div><div class="ttdef"><b>Definition</b> <a href="_pipeline_create_info_8h_source.html#l00102">PipelineCreateInfo.h:102</a></div></div>
 <div class="ttc" id="astruct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_pipeline_create_info_html_a031c05fb2778c508449834a5281e84fd"><div class="ttname"><a href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_pipeline_create_info.html#a031c05fb2778c508449834a5281e84fd">OSK::GRAPHICS::PipelineCreateInfo::formats</a></div><div class="ttdeci">DynamicArray&lt; Format &gt; formats</div><div class="ttdoc">Formato de la imagen sobre la que se renderizará.</div><div class="ttdef"><b>Definition</b> <a href="_pipeline_create_info_8h_source.html#l00189">PipelineCreateInfo.h:189</a></div></div>
 <div class="ttc" id="astruct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_pipeline_create_info_html_a374bbb3534c447ec42cf7edb5380ae84"><div class="ttname"><a href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_pipeline_create_info.html#a374bbb3534c447ec42cf7edb5380ae84">OSK::GRAPHICS::PipelineCreateInfo::polygonMode</a></div><div class="ttdeci">PolygonMode polygonMode</div><div class="ttdoc">Tipo de polígono (línea, triángulo...).</div><div class="ttdef"><b>Definition</b> <a href="_pipeline_create_info_8h_source.html#l00153">PipelineCreateInfo.h:153</a></div></div>
@@ -404,7 +405,7 @@ $(function(){initNavTree('_graphics_pipeline_dx12_8cpp_source.html',''); initRes
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_74389ed8173ad57b461b9d623a1f3867.html">Source</a></li><li class="navelem"><b>GraphicsPipelineDx12.cpp</b></li>
-    <li class="footer">Generado el Sábado, 18 de mayo de 2024 12:15:51 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.10.0 </li>
+    <li class="footer">Generado el Miércoles, 29 de mayo de 2024 12:01:48 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.11.0 </li>
   </ul>
 </div>
 </body>

@@ -3,7 +3,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
-<meta name="generator" content="Doxygen 1.10.0"/>
+<meta name="generator" content="Doxygen 1.11.0"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
 <title>OSKengine: Archivo de código fuente Source/SpriteRenderer.h</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
@@ -11,9 +11,9 @@
 <script type="text/javascript" src="dynsections.js"></script>
 <script type="text/javascript" src="clipboard.js"></script>
 <link href="navtree.css" rel="stylesheet" type="text/css"/>
-<script type="text/javascript" src="resize.js"></script>
 <script type="text/javascript" src="navtreedata.js"></script>
 <script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript" src="resize.js"></script>
 <script type="text/javascript" src="cookie.js"></script>
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/searchdata.js"></script>
@@ -37,10 +37,15 @@
 </table>
 </div>
 <!-- end header part -->
-<!-- Generado por Doxygen 1.10.0 -->
+<!-- Generado por Doxygen 1.11.0 -->
 <script type="text/javascript">
 /* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
 var searchBox = new SearchBox("searchBox", "search/",'.html');
+/* @license-end */
+</script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() { codefold.init(0); });
 /* @license-end */
 </script>
 <script type="text/javascript" src="menudata.js"></script>
@@ -48,17 +53,12 @@ var searchBox = new SearchBox("searchBox", "search/",'.html');
 <script type="text/javascript">
 /* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
 $(function() {
-  initMenu('',true,false,'search.php','Buscar');
+  initMenu('',true,false,'search.php','Buscar',true);
   $(function() { init_search(); });
 });
 /* @license-end */
 </script>
 <div id="main-nav"></div>
-<script type="text/javascript">
-/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
-$(function() { codefold.init(0); });
-/* @license-end */
-</script>
 </div><!-- top -->
 <div id="side-nav" class="ui-resizable side-nav-resizable">
   <div id="nav-tree">
@@ -72,7 +72,7 @@ $(function() { codefold.init(0); });
 </div>
 <script type="text/javascript">
 /* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
-$(function(){initNavTree('_sprite_renderer_8h_source.html',''); initResizable(); });
+$(function(){initNavTree('_sprite_renderer_8h_source.html',''); initResizable(true); });
 /* @license-end */
 </script>
 <div id="doc-content">
@@ -103,7 +103,7 @@ $(function(){initNavTree('_sprite_renderer_8h_source.html',''); initResizable();
 <div class="contents">
 <div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#pragma once</span></div>
 <div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span> </div>
-<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="preprocessor">#include &quot;OSKmacros.h&quot;</span></div>
+<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="preprocessor">#include &quot;ApiCall.h&quot;</span></div>
 <div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &quot;MaterialInstance.h&quot;</span></div>
 <div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &quot;DynamicArray.hpp&quot;</span></div>
 <div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &quot;Vector4.hpp&quot;</span></div>
@@ -189,14 +189,14 @@ $(function(){initNavTree('_sprite_renderer_8h_source.html',''); initResizable();
 <div class="line"><a id="l00173" name="l00173"></a><span class="lineno">  173</span> </div>
 <div class="line"><a id="l00184" name="l00184"></a><span class="lineno">  184</span>        <span class="keywordtype">void</span> DrawString(</div>
 <div class="line"><a id="l00185" name="l00185"></a><span class="lineno">  185</span>            <a class="code hl_class" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_font.html">ASSETS::Font</a>&amp; font,</div>
-<div class="line"><a id="l00186" name="l00186"></a><span class="lineno">  186</span>            USize32 fontSize,</div>
+<div class="line"><a id="l00186" name="l00186"></a><span class="lineno">  186</span>            <a class="code hl_typedef" href="namespace_o_s_k.html#acf682b0e024acc36806435295480d2ed">USize32</a> fontSize,</div>
 <div class="line"><a id="l00187" name="l00187"></a><span class="lineno">  187</span>            std::string_view text,</div>
 <div class="line"><a id="l00188" name="l00188"></a><span class="lineno">  188</span>            <span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_e_c_s_1_1_transform2_d.html">ECS::Transform2D</a>&amp; transform,</div>
 <div class="line"><a id="l00189" name="l00189"></a><span class="lineno">  189</span>            <span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_color.html">Color</a>&amp; color);</div>
 <div class="line"><a id="l00190" name="l00190"></a><span class="lineno">  190</span> </div>
 <div class="line"><a id="l00199" name="l00199"></a><span class="lineno">  199</span>        <span class="keywordtype">void</span> DrawString(</div>
 <div class="line"><a id="l00200" name="l00200"></a><span class="lineno">  200</span>            <a class="code hl_class" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_font.html">ASSETS::Font</a>&amp; font,</div>
-<div class="line"><a id="l00201" name="l00201"></a><span class="lineno">  201</span>            USize32 fontSize,</div>
+<div class="line"><a id="l00201" name="l00201"></a><span class="lineno">  201</span>            <a class="code hl_typedef" href="namespace_o_s_k.html#acf682b0e024acc36806435295480d2ed">USize32</a> fontSize,</div>
 <div class="line"><a id="l00202" name="l00202"></a><span class="lineno">  202</span>            std::string_view text,</div>
 <div class="line"><a id="l00203" name="l00203"></a><span class="lineno">  203</span>            <span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_vector2__t.html">Vector2f</a> position,</div>
 <div class="line"><a id="l00204" name="l00204"></a><span class="lineno">  204</span>            <span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_vector2__t.html">Vector2f</a> size,</div>
@@ -206,14 +206,14 @@ $(function(){initNavTree('_sprite_renderer_8h_source.html',''); initResizable();
 <div class="line"><a id="l00208" name="l00208"></a><span class="lineno">  208</span> </div>
 <div class="line"><a id="l00221" name="l00221"></a><span class="lineno">  221</span>        <span class="keywordtype">void</span> DrawString(</div>
 <div class="line"><a id="l00222" name="l00222"></a><span class="lineno">  222</span>            <span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_font.html">ASSETS::Font</a>&amp; font,</div>
-<div class="line"><a id="l00223" name="l00223"></a><span class="lineno">  223</span>            USize32 fontSize,</div>
+<div class="line"><a id="l00223" name="l00223"></a><span class="lineno">  223</span>            <a class="code hl_typedef" href="namespace_o_s_k.html#acf682b0e024acc36806435295480d2ed">USize32</a> fontSize,</div>
 <div class="line"><a id="l00224" name="l00224"></a><span class="lineno">  224</span>            std::string_view text,</div>
 <div class="line"><a id="l00225" name="l00225"></a><span class="lineno">  225</span>            <span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_e_c_s_1_1_transform2_d.html">ECS::Transform2D</a>&amp; transform,</div>
 <div class="line"><a id="l00226" name="l00226"></a><span class="lineno">  226</span>            <span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_color.html">Color</a>&amp; color);</div>
 <div class="line"><a id="l00227" name="l00227"></a><span class="lineno">  227</span> </div>
 <div class="line"><a id="l00237" name="l00237"></a><span class="lineno">  237</span>        <span class="keywordtype">void</span> DrawString(</div>
 <div class="line"><a id="l00238" name="l00238"></a><span class="lineno">  238</span>            <span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_font.html">ASSETS::Font</a>&amp; font,</div>
-<div class="line"><a id="l00239" name="l00239"></a><span class="lineno">  239</span>            USize32 fontSize,</div>
+<div class="line"><a id="l00239" name="l00239"></a><span class="lineno">  239</span>            <a class="code hl_typedef" href="namespace_o_s_k.html#acf682b0e024acc36806435295480d2ed">USize32</a> fontSize,</div>
 <div class="line"><a id="l00240" name="l00240"></a><span class="lineno">  240</span>            std::string_view text,</div>
 <div class="line"><a id="l00241" name="l00241"></a><span class="lineno">  241</span>            <span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_vector2__t.html">Vector2f</a> position,</div>
 <div class="line"><a id="l00242" name="l00242"></a><span class="lineno">  242</span>            <span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_vector2__t.html">Vector2f</a> size,</div>
@@ -226,7 +226,7 @@ $(function(){initNavTree('_sprite_renderer_8h_source.html',''); initResizable();
 <div class="line"><a id="l00250" name="l00250"></a><span class="lineno">  250</span> </div>
 <div class="line"><a id="l00251" name="l00251"></a><span class="lineno">  251</span>        <span class="keywordtype">void</span> DrawString(</div>
 <div class="line"><a id="l00252" name="l00252"></a><span class="lineno">  252</span>            <span class="keyword">const</span> <a class="code hl_struct" href="struct_o_s_k_1_1_a_s_s_e_t_s_1_1_font_instance.html">ASSETS::FontInstance</a>&amp; font,</div>
-<div class="line"><a id="l00253" name="l00253"></a><span class="lineno">  253</span>            USize32 fontSize,</div>
+<div class="line"><a id="l00253" name="l00253"></a><span class="lineno">  253</span>            <a class="code hl_typedef" href="namespace_o_s_k.html#acf682b0e024acc36806435295480d2ed">USize32</a> fontSize,</div>
 <div class="line"><a id="l00254" name="l00254"></a><span class="lineno">  254</span>            std::string_view text,</div>
 <div class="line"><a id="l00255" name="l00255"></a><span class="lineno">  255</span>            <span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_e_c_s_1_1_transform2_d.html">ECS::Transform2D</a>&amp; transform,</div>
 <div class="line"><a id="l00256" name="l00256"></a><span class="lineno">  256</span>            <span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_color.html">Color</a>&amp; color);</div>
@@ -246,12 +246,12 @@ $(function(){initNavTree('_sprite_renderer_8h_source.html',''); initResizable();
 <div class="line"><a id="l00269" name="l00269"></a><span class="lineno">  269</span>}</div>
 <div class="ttc" id="aclass_o_s_k_1_1_a_s_s_e_t_s_1_1_font_html"><div class="ttname"><a href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_font.html">OSK::ASSETS::Font</a></div><div class="ttdoc">Representa una fuente que nos permite renderizar texto.</div><div class="ttdef"><b>Definition</b> <a href="_font_8h_source.html#l00027">Font.h:27</a></div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_base_uuid_html"><div class="ttname"><a href="class_o_s_k_1_1_base_uuid.html">OSK::BaseUuid&lt; class GameObjectIndexTag &gt;</a></div></div>
-<div class="ttc" id="aclass_o_s_k_1_1_color_html"><div class="ttname"><a href="class_o_s_k_1_1_color.html">OSK::Color</a></div><div class="ttdoc">Representa un color en formato RGBA float.</div><div class="ttdef"><b>Definition</b> <a href="_color_8hpp_source.html#l00013">Color.hpp:13</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_color_html"><div class="ttname"><a href="class_o_s_k_1_1_color.html">OSK::Color</a></div><div class="ttdoc">Representa un color en formato RGBA float.</div><div class="ttdef"><b>Definition</b> <a href="_color_8hpp_source.html#l00012">Color.hpp:12</a></div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_e_c_s_1_1_camera_component2_d_html"><div class="ttname"><a href="class_o_s_k_1_1_e_c_s_1_1_camera_component2_d.html">OSK::ECS::CameraComponent2D</a></div><div class="ttdoc">Cámara para un mundo de dos dimensiones.</div><div class="ttdef"><b>Definition</b> <a href="_camera_component2_d_8h_source.html#l00024">CameraComponent2D.h:24</a></div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_e_c_s_1_1_transform2_d_html"><div class="ttname"><a href="class_o_s_k_1_1_e_c_s_1_1_transform2_d.html">OSK::ECS::Transform2D</a></div><div class="ttdoc">Clase que almacena el 'transform' de un objeto en un mundo 2D. El transform contiene posición,...</div><div class="ttdef"><b>Definition</b> <a href="_transform2_d_8h_source.html#l00020">Transform2D.h:20</a></div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list_html"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list.html">OSK::GRAPHICS::ICommandList</a></div><div class="ttdoc">Una lista de comandos contiene una serie de comandos que serán enviados a la GPU para su ejecución....</div><div class="ttdef"><b>Definition</b> <a href="_i_command_list_8h_source.html#l00076">ICommandList.h:76</a></div></div>
-<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_image_view_html"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_image_view.html">OSK::GRAPHICS::IGpuImageView</a></div><div class="ttdoc">Un image view describe cómo y a qúe parte de una imagen se va a acceder al usarla.</div><div class="ttdef"><b>Definition</b> <a href="_i_gpu_image_view_8h_source.html#l00017">IGpuImageView.h:17</a></div></div>
-<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_material_slot_html"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_material_slot.html">OSK::GRAPHICS::IMaterialSlot</a></div><div class="ttdoc">Un slot contiene referencias a los recursos (UNIFORM BUFFER, TEXTURE, etc...) que se envían a la GPU.</div><div class="ttdef"><b>Definition</b> <a href="_i_material_slot_8h_source.html#l00027">IMaterialSlot.h:27</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_image_view_html"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_image_view.html">OSK::GRAPHICS::IGpuImageView</a></div><div class="ttdoc">Un image view describe cómo y a qúe parte de una imagen se va a acceder al usarla.</div><div class="ttdef"><b>Definition</b> <a href="_i_gpu_image_view_8h_source.html#l00019">IGpuImageView.h:19</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_material_slot_html"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_material_slot.html">OSK::GRAPHICS::IMaterialSlot</a></div><div class="ttdoc">Un slot contiene referencias a los recursos (UNIFORM BUFFER, TEXTURE, etc...) que se envían a la GPU.</div><div class="ttdef"><b>Definition</b> <a href="_i_material_slot_8h_source.html#l00030">IMaterialSlot.h:30</a></div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_html"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material.html">OSK::GRAPHICS::Material</a></div><div class="ttdoc">Un material define el comportamiento del renderizador con un objeto en concreto. Debe definirse el la...</div><div class="ttdef"><b>Definition</b> <a href="_material_8h_source.html#l00050">Material.h:50</a></div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_sprite_html"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_sprite.html">OSK::GRAPHICS::Sprite</a></div><div class="ttdoc">Un sprite representa una imagen que puede ser renderizada en 2D.</div><div class="ttdef"><b>Definition</b> <a href="_sprite_8h_source.html#l00033">Sprite.h:33</a></div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_sprite_renderer_html"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_sprite_renderer.html">OSK::GRAPHICS::SpriteRenderer</a></div><div class="ttdoc">Clase que simplifica el proceso de renderizado de imágenes 2D sin tener que usar el sistema RenderSys...</div><div class="ttdef"><b>Definition</b> <a href="#l00046">SpriteRenderer.h:46</a></div></div>
@@ -259,6 +259,7 @@ $(function(){initNavTree('_sprite_renderer_8h_source.html',''); initResizable();
 <div class="ttc" id="anamespace_o_s_k_1_1_a_s_s_e_t_s_html"><div class="ttname"><a href="namespace_o_s_k_1_1_a_s_s_e_t_s.html">OSK::ASSETS</a></div><div class="ttdef"><b>Definition</b> <a href="_anim_mesh_loader_8h_source.html#l00009">AnimMeshLoader.h:9</a></div></div>
 <div class="ttc" id="anamespace_o_s_k_1_1_e_c_s_html"><div class="ttname"><a href="namespace_o_s_k_1_1_e_c_s.html">OSK::ECS</a></div><div class="ttdef"><b>Definition</b> <a href="_camera_component2_d_8h_source.html#l00017">CameraComponent2D.h:17</a></div></div>
 <div class="ttc" id="anamespace_o_s_k_1_1_g_r_a_p_h_i_c_s_html"><div class="ttname"><a href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html">OSK::GRAPHICS</a></div><div class="ttdef"><b>Definition</b> <a href="_acceleration_structures_exceptions_8h_source.html#l00005">AccelerationStructuresExceptions.h:5</a></div></div>
+<div class="ttc" id="anamespace_o_s_k_html_acf682b0e024acc36806435295480d2ed"><div class="ttname"><a href="namespace_o_s_k.html#acf682b0e024acc36806435295480d2ed">OSK::USize32</a></div><div class="ttdeci">uint32_t USize32</div><div class="ttdoc">Tamaño, almacenado en un unsigned int de 32 bits.</div><div class="ttdef"><b>Definition</b> <a href="_numeric_types_8h_source.html#l00015">NumericTypes.h:15</a></div></div>
 <div class="ttc" id="astruct_o_s_k_1_1_a_s_s_e_t_s_1_1_font_instance_html"><div class="ttname"><a href="struct_o_s_k_1_1_a_s_s_e_t_s_1_1_font_instance.html">OSK::ASSETS::FontInstance</a></div><div class="ttdoc">Representa una fuente que ha sido generada con un tamaño específico. Cada tamaño de fuente tendrá su ...</div><div class="ttdef"><b>Definition</b> <a href="_font_instance_8h_source.html#l00015">FontInstance.h:15</a></div></div>
 <div class="ttc" id="astruct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_texture_coordinates2_d_html"><div class="ttname"><a href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_texture_coordinates2_d.html">OSK::GRAPHICS::TextureCoordinates2D</a></div><div class="ttdoc">Contiene las coordenadas de texturas y el tipo que son (normalizadas o por píxeles.</div><div class="ttdef"><b>Definition</b> <a href="_texture_coordinates_8h_source.html#l00032">TextureCoordinates.h:32</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
@@ -267,7 +268,7 @@ $(function(){initNavTree('_sprite_renderer_8h_source.html',''); initResizable();
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_74389ed8173ad57b461b9d623a1f3867.html">Source</a></li><li class="navelem"><b>SpriteRenderer.h</b></li>
-    <li class="footer">Generado el Sábado, 18 de mayo de 2024 12:15:52 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.10.0 </li>
+    <li class="footer">Generado el Miércoles, 29 de mayo de 2024 12:01:49 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.11.0 </li>
   </ul>
 </div>
 </body>

@@ -15,6 +15,8 @@ var class_o_s_k_1_1_u_i_1_1_text_view =
     [ "GetRectangle", "class_o_s_k_1_1_u_i_1_1_text_view.html#a212afdf3c6d058266d9fd66821286646", null ],
     [ "GetRelativePosition", "class_o_s_k_1_1_u_i_1_1_text_view.html#adea383318ebc3ed78c2507a02bd6fe67", null ],
     [ "GetSize", "class_o_s_k_1_1_u_i_1_1_text_view.html#ad23a7cf71ff3d1b1528adfb674f5573c", null ],
+    [ "GetSprite", "class_o_s_k_1_1_u_i_1_1_text_view.html#a1f83d14df7d9cb4a3e0ec7d72827f66d", null ],
+    [ "GetSprite", "class_o_s_k_1_1_u_i_1_1_text_view.html#a0cc1071cb7a5bf268da2ac87bb497ae2", null ],
     [ "GetText", "class_o_s_k_1_1_u_i_1_1_text_view.html#a8d6954afc63347d1eb6d92fee48b17d3", null ],
     [ "IsLocked", "class_o_s_k_1_1_u_i_1_1_text_view.html#a21414ead67744859466084e70e995f77", null ],
     [ "IsVisible", "class_o_s_k_1_1_u_i_1_1_text_view.html#a8accfad472072a3da3f18fb57df749d9", null ],
@@ -36,5 +38,6 @@ var class_o_s_k_1_1_u_i_1_1_text_view =
     [ "SetVisible", "class_o_s_k_1_1_u_i_1_1_text_view.html#a374616da89c3ff9b31e4d7ddf6fc0164", null ],
     [ "Unlock", "class_o_s_k_1_1_u_i_1_1_text_view.html#a27da2bfbce9e2310b18720be5c42970e", null ],
     [ "UpdateByCursor", "class_o_s_k_1_1_u_i_1_1_text_view.html#a6ad37633b14a2f0d68a324f8dcfc9021", null ],
+    [ "UpdateByKeyboard", "class_o_s_k_1_1_u_i_1_1_text_view.html#ac1df6b61c6c53126404095386ef00b5b", null ],
     [ "size", "class_o_s_k_1_1_u_i_1_1_text_view.html#ae01866b02c7417455751f01b2f9d1fbf", null ]
 ];

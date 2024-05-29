@@ -3,7 +3,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
-<meta name="generator" content="Doxygen 1.10.0"/>
+<meta name="generator" content="Doxygen 1.11.0"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
 <title>OSKengine: Referencia de la clase OSK::JobQueue</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
@@ -11,9 +11,9 @@
 <script type="text/javascript" src="dynsections.js"></script>
 <script type="text/javascript" src="clipboard.js"></script>
 <link href="navtree.css" rel="stylesheet" type="text/css"/>
-<script type="text/javascript" src="resize.js"></script>
 <script type="text/javascript" src="navtreedata.js"></script>
 <script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript" src="resize.js"></script>
 <script type="text/javascript" src="cookie.js"></script>
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/searchdata.js"></script>
@@ -37,10 +37,15 @@
 </table>
 </div>
 <!-- end header part -->
-<!-- Generado por Doxygen 1.10.0 -->
+<!-- Generado por Doxygen 1.11.0 -->
 <script type="text/javascript">
 /* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
 var searchBox = new SearchBox("searchBox", "search/",'.html');
+/* @license-end */
+</script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() { codefold.init(0); });
 /* @license-end */
 </script>
 <script type="text/javascript" src="menudata.js"></script>
@@ -48,7 +53,7 @@ var searchBox = new SearchBox("searchBox", "search/",'.html');
 <script type="text/javascript">
 /* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
 $(function() {
-  initMenu('',true,false,'search.php','Buscar');
+  initMenu('',true,false,'search.php','Buscar',true);
   $(function() { init_search(); });
 });
 /* @license-end */
@@ -67,7 +72,7 @@ $(function() {
 </div>
 <script type="text/javascript">
 /* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
-$(function(){initNavTree('class_o_s_k_1_1_job_queue.html',''); initResizable(); });
+$(function(){initNavTree('class_o_s_k_1_1_job_queue.html',''); initResizable(true); });
 /* @license-end */
 </script>
 <div id="doc-content">
@@ -104,7 +109,7 @@ $(function(){initNavTree('class_o_s_k_1_1_job_queue.html',''); initResizable(); 
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Métodos públicos</h2></td></tr>
-<tr class="memitem:a45577289beae83599d1f6a695d681747" id="r_a45577289beae83599d1f6a695d681747"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a45577289beae83599d1f6a695d681747">JobQueue</a> (USize32 maxElements)</td></tr>
+<tr class="memitem:a45577289beae83599d1f6a695d681747" id="r_a45577289beae83599d1f6a695d681747"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a45577289beae83599d1f6a695d681747">JobQueue</a> (<a class="el" href="namespace_o_s_k.html#acf682b0e024acc36806435295480d2ed">USize32</a> maxElements)</td></tr>
 <tr class="separator:a45577289beae83599d1f6a695d681747"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a18801df980598a6b71b54b80c1e18140" id="r_a18801df980598a6b71b54b80c1e18140"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a18801df980598a6b71b54b80c1e18140">Enqueue</a> (<a class="el" href="class_o_s_k_1_1_unique_ptr.html">UniquePtr</a>&lt; <a class="el" href="class_o_s_k_1_1_i_job.html">IJob</a> &gt; job)</td></tr>
 <tr class="separator:a18801df980598a6b71b54b80c1e18140"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -131,7 +136,7 @@ Métodos públicos</h2></td></tr>
         <tr>
           <td class="memname">JobQueue::JobQueue </td>
           <td>(</td>
-          <td class="paramtype">USize32</td>          <td class="paramname"><span class="paramname"><em>maxElements</em></span></td><td>)</td>
+          <td class="paramtype"><a class="el" href="namespace_o_s_k.html#acf682b0e024acc36806435295480d2ed">USize32</a></td>          <td class="paramname"><span class="paramname"><em>maxElements</em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -177,7 +182,8 @@ Métodos públicos</h2></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section user"><dt>Thread-safe</dt><dd>Compatible con ejecución multihilo. </dd></dl>
+<dl class="section user"><dt>Thread-safe</dt><dd>Compatible con ejecución multihilo. <br  />
+ </dd></dl>
 
 <p class="definition">Definición en la línea <a class="el" href="_job_queue_8cpp_source.html#l00010">10</a> del archivo <a class="el" href="_job_queue_8cpp_source.html">JobQueue.cpp</a>.</p>
 
@@ -192,13 +198,14 @@ Métodos públicos</h2></td></tr>
         <tr>
           <td class="memname">bool JobQueue::IsEmpty </td>
           <td>(</td>
-          <td class="paramname"><span class="paramname"></span></td><td>)</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
           <td> const</td>
         </tr>
       </table>
 </div><div class="memdoc">
 <dl class="section return"><dt>Devuelve</dt><dd>True si la cola está vacía. </dd></dl>
-<dl class="section user"><dt>Thread-safe</dt><dd>Compatible con ejecución multihilo. </dd></dl>
+<dl class="section user"><dt>Thread-safe</dt><dd>Compatible con ejecución multihilo. <br  />
+ </dd></dl>
 
 <p class="definition">Definición en la línea <a class="el" href="_job_queue_8cpp_source.html#l00036">36</a> del archivo <a class="el" href="_job_queue_8cpp_source.html">JobQueue.cpp</a>.</p>
 
@@ -213,7 +220,7 @@ Métodos públicos</h2></td></tr>
         <tr>
           <td class="memname">std::optional&lt; <a class="el" href="class_o_s_k_1_1_unique_ptr.html">UniquePtr</a>&lt; <a class="el" href="class_o_s_k_1_1_i_job.html">IJob</a> &gt; &gt; JobQueue::TryDequeue </td>
           <td>(</td>
-          <td class="paramname"><span class="paramname"></span></td><td>)</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -221,7 +228,8 @@ Métodos públicos</h2></td></tr>
 
 <p>Intenta obtener un trabajo que no haya sido obtenido antes. </p>
 <dl class="section return"><dt>Devuelve</dt><dd>Vacío si la cola está vacía, trabajo en caso contrario. </dd></dl>
-<dl class="section user"><dt>Thread-safe</dt><dd>Compatible con ejecución multihilo. </dd></dl>
+<dl class="section user"><dt>Thread-safe</dt><dd>Compatible con ejecución multihilo. <br  />
+ </dd></dl>
 
 <p class="definition">Definición en la línea <a class="el" href="_job_queue_8cpp_source.html#l00023">23</a> del archivo <a class="el" href="_job_queue_8cpp_source.html">JobQueue.cpp</a>.</p>
 
@@ -233,7 +241,7 @@ Métodos públicos</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="namespace_o_s_k.html">OSK</a></li><li class="navelem"><a class="el" href="class_o_s_k_1_1_job_queue.html">JobQueue</a></li>
-    <li class="footer">Generado el Sábado, 18 de mayo de 2024 12:15:52 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.10.0 </li>
+    <li class="footer">Generado el Miércoles, 29 de mayo de 2024 12:01:49 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.11.0 </li>
   </ul>
 </div>
 </body>

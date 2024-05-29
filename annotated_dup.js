@@ -140,6 +140,17 @@ var annotated_dup =
         [ "TransformApplierSystem", "class_o_s_k_1_1_e_c_s_1_1_transform_applier_system.html", "class_o_s_k_1_1_e_c_s_1_1_transform_applier_system" ],
         [ "TreeNormalsRenderSystem", "class_o_s_k_1_1_e_c_s_1_1_tree_normals_render_system.html", "class_o_s_k_1_1_e_c_s_1_1_tree_normals_render_system" ]
       ] ],
+      [ "Editor", "namespace_o_s_k_1_1_editor.html", [
+        [ "UI", "namespace_o_s_k_1_1_editor_1_1_u_i.html", [
+          [ "EditorBottomBar", "class_o_s_k_1_1_editor_1_1_u_i_1_1_editor_bottom_bar.html", "class_o_s_k_1_1_editor_1_1_u_i_1_1_editor_bottom_bar" ],
+          [ "EditorHeader", "class_o_s_k_1_1_editor_1_1_u_i_1_1_editor_header.html", "class_o_s_k_1_1_editor_1_1_u_i_1_1_editor_header" ],
+          [ "EditorPanelTitle", "class_o_s_k_1_1_editor_1_1_u_i_1_1_editor_panel_title.html", "class_o_s_k_1_1_editor_1_1_u_i_1_1_editor_panel_title" ],
+          [ "EditorUi", "class_o_s_k_1_1_editor_1_1_u_i_1_1_editor_ui.html", "class_o_s_k_1_1_editor_1_1_u_i_1_1_editor_ui" ],
+          [ "ObjectList", "class_o_s_k_1_1_editor_1_1_u_i_1_1_object_list.html", "class_o_s_k_1_1_editor_1_1_u_i_1_1_object_list" ],
+          [ "PropertiesPanel", "class_o_s_k_1_1_editor_1_1_u_i_1_1_properties_panel.html", "class_o_s_k_1_1_editor_1_1_u_i_1_1_properties_panel" ],
+          [ "SystemList", "class_o_s_k_1_1_editor_1_1_u_i_1_1_system_list.html", "class_o_s_k_1_1_editor_1_1_u_i_1_1_system_list" ]
+        ] ]
+      ] ],
       [ "GRAPHICS", "namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html", [
         [ "AccelerationStructureCreationException", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_acceleration_structure_creation_exception.html", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_acceleration_structure_creation_exception" ],
         [ "AnimatedGBufferPass", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_animated_g_buffer_pass.html", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_animated_g_buffer_pass" ],
@@ -337,7 +348,6 @@ var annotated_dup =
         [ "Viewport", "struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_viewport.html", "struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_viewport" ]
       ] ],
       [ "IO", "namespace_o_s_k_1_1_i_o.html", [
-        [ "Console", "class_o_s_k_1_1_i_o_1_1_console.html", "class_o_s_k_1_1_i_o_1_1_console" ],
         [ "FileIO", "class_o_s_k_1_1_i_o_1_1_file_i_o.html", null ],
         [ "FileNotFoundException", "class_o_s_k_1_1_i_o_1_1_file_not_found_exception.html", "class_o_s_k_1_1_i_o_1_1_file_not_found_exception" ],
         [ "GamepadState", "class_o_s_k_1_1_i_o_1_1_gamepad_state.html", "class_o_s_k_1_1_i_o_1_1_gamepad_state" ],
@@ -369,13 +379,16 @@ var annotated_dup =
         [ "BinaryBlockReader", "class_o_s_k_1_1_p_e_r_s_i_s_t_e_n_c_e_1_1_binary_block_reader.html", "class_o_s_k_1_1_p_e_r_s_i_s_t_e_n_c_e_1_1_binary_block_reader" ]
       ] ],
       [ "UI", "namespace_o_s_k_1_1_u_i.html", [
+        [ "BorderLayout", "class_o_s_k_1_1_u_i_1_1_border_layout.html", "class_o_s_k_1_1_u_i_1_1_border_layout" ],
         [ "Button", "class_o_s_k_1_1_u_i_1_1_button.html", "class_o_s_k_1_1_u_i_1_1_button" ],
+        [ "Console", "class_o_s_k_1_1_u_i_1_1_console.html", "class_o_s_k_1_1_u_i_1_1_console" ],
         [ "Dropdown", "class_o_s_k_1_1_u_i_1_1_dropdown.html", "class_o_s_k_1_1_u_i_1_1_dropdown" ],
         [ "FreeContainer", "class_o_s_k_1_1_u_i_1_1_free_container.html", "class_o_s_k_1_1_u_i_1_1_free_container" ],
         [ "HorizontalContainer", "class_o_s_k_1_1_u_i_1_1_horizontal_container.html", "class_o_s_k_1_1_u_i_1_1_horizontal_container" ],
         [ "IContainer", "class_o_s_k_1_1_u_i_1_1_i_container.html", "class_o_s_k_1_1_u_i_1_1_i_container" ],
         [ "IElement", "class_o_s_k_1_1_u_i_1_1_i_element.html", "class_o_s_k_1_1_u_i_1_1_i_element" ],
         [ "ImageView", "class_o_s_k_1_1_u_i_1_1_image_view.html", "class_o_s_k_1_1_u_i_1_1_image_view" ],
+        [ "TextInput", "class_o_s_k_1_1_u_i_1_1_text_input.html", "class_o_s_k_1_1_u_i_1_1_text_input" ],
         [ "TextView", "class_o_s_k_1_1_u_i_1_1_text_view.html", "class_o_s_k_1_1_u_i_1_1_text_view" ],
         [ "VerticalContainer", "class_o_s_k_1_1_u_i_1_1_vertical_container.html", "class_o_s_k_1_1_u_i_1_1_vertical_container" ]
       ] ],
@@ -386,15 +399,22 @@ var annotated_dup =
       [ "BaseUuid", "class_o_s_k_1_1_base_uuid.html", "class_o_s_k_1_1_base_uuid" ],
       [ "BitSet", "class_o_s_k_1_1_bit_set.html", "class_o_s_k_1_1_bit_set" ],
       [ "Color", "class_o_s_k_1_1_color.html", "class_o_s_k_1_1_color" ],
+      [ "ConsoleCommandExecutor", "class_o_s_k_1_1_console_command_executor.html", "class_o_s_k_1_1_console_command_executor" ],
       [ "ConstexprBitSet", "class_o_s_k_1_1_constexpr_bit_set.html", "class_o_s_k_1_1_constexpr_bit_set" ],
       [ "CpuMesh3D", "class_o_s_k_1_1_cpu_mesh3_d.html", "class_o_s_k_1_1_cpu_mesh3_d" ],
       [ "CpuModel3D", "class_o_s_k_1_1_cpu_model3_d.html", "class_o_s_k_1_1_cpu_model3_d" ],
       [ "CpuVertex3D", "struct_o_s_k_1_1_cpu_vertex3_d.html", "struct_o_s_k_1_1_cpu_vertex3_d" ],
       [ "DivideByZeroException", "class_o_s_k_1_1_divide_by_zero_exception.html", "class_o_s_k_1_1_divide_by_zero_exception" ],
       [ "DynamicArray", "class_o_s_k_1_1_dynamic_array.html", "class_o_s_k_1_1_dynamic_array" ],
+      [ "EditorHideCommand", "class_o_s_k_1_1_editor_hide_command.html", "class_o_s_k_1_1_editor_hide_command" ],
+      [ "EditorShowCommand", "class_o_s_k_1_1_editor_show_command.html", "class_o_s_k_1_1_editor_show_command" ],
       [ "Engine", "class_o_s_k_1_1_engine.html", "class_o_s_k_1_1_engine" ],
       [ "EngineException", "class_o_s_k_1_1_engine_exception.html", "class_o_s_k_1_1_engine_exception" ],
+      [ "ExitCommand", "class_o_s_k_1_1_exit_command.html", "class_o_s_k_1_1_exit_command" ],
       [ "FinishedBlockReaderException", "class_o_s_k_1_1_finished_block_reader_exception.html", "class_o_s_k_1_1_finished_block_reader_exception" ],
+      [ "GpuStatsCommand", "class_o_s_k_1_1_gpu_stats_command.html", "class_o_s_k_1_1_gpu_stats_command" ],
+      [ "IConsoleCommand", "class_o_s_k_1_1_i_console_command.html", "class_o_s_k_1_1_i_console_command" ],
+      [ "IDebugGame", "class_o_s_k_1_1_i_debug_game.html", "class_o_s_k_1_1_i_debug_game" ],
       [ "IGame", "class_o_s_k_1_1_i_game.html", "class_o_s_k_1_1_i_game" ],
       [ "IIterable", "class_o_s_k_1_1_i_iterable.html", "class_o_s_k_1_1_i_iterable" ],
       [ "IIterator", "class_o_s_k_1_1_i_iterator.html", null ],
@@ -417,6 +437,7 @@ var annotated_dup =
       [ "Quaternion", "class_o_s_k_1_1_quaternion.html", "class_o_s_k_1_1_quaternion" ],
       [ "RenderedNotCreatedException", "class_o_s_k_1_1_rendered_not_created_exception.html", "class_o_s_k_1_1_rendered_not_created_exception" ],
       [ "SchemaId", "class_o_s_k_1_1_schema_id.html", "class_o_s_k_1_1_schema_id" ],
+      [ "SharedPtr", "class_o_s_k_1_1_shared_ptr.html", "class_o_s_k_1_1_shared_ptr" ],
       [ "Span", "class_o_s_k_1_1_span.html", "class_o_s_k_1_1_span" ],
       [ "Spline3D", "class_o_s_k_1_1_spline3_d.html", "class_o_s_k_1_1_spline3_d" ],
       [ "StaticArray", "class_o_s_k_1_1_static_array.html", "class_o_s_k_1_1_static_array" ],
@@ -432,6 +453,5 @@ var annotated_dup =
     ] ],
     [ "std", null, [
       [ "hash< OSK::GRAPHICS::GpuImageViewConfig >", "structstd_1_1hash_3_01_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_view_config_01_4.html", "structstd_1_1hash_3_01_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_view_config_01_4" ]
-    ] ],
-    [ "SharedPtr", "class_shared_ptr.html", "class_shared_ptr" ]
+    ] ]
 ];

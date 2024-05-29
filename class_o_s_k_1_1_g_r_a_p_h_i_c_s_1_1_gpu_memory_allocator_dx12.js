@@ -23,7 +23,7 @@ var class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_memory_allocator_dx12 =
     [ "CreateVertexBuffer", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_memory_allocator_dx12.html#a16c8ef76daeacde561217d80754b84e0", null ],
     [ "FreeStagingMemory", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_memory_allocator_dx12.html#af41e891d6c39de6dd5fc95e7b9fe8eba", null ],
     [ "GetAlignment", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_memory_allocator_dx12.html#a9b22b2f1b7eada47b4ee5080b19bbec0", null ],
-    [ "GetDefaultNormalTexture", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_memory_allocator_dx12.html#a4b1c1936f9897cb43565f694379dade2", null ],
+    [ "GetDefaultNormalTexture", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_memory_allocator_dx12.html#a7ae0adea9e3855cb789c59996b1b0522", null ],
     [ "GetDescriptor", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_memory_allocator_dx12.html#a6e6ca51985913b36e836dbaa552079b3", null ],
     [ "GetMemoryUsageInfo", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_memory_allocator_dx12.html#ac839849a86be993da03fb236ca9dc641", null ],
     [ "GetNextBufferMemoryBlock", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_memory_allocator_dx12.html#a1ff33ac0ee31d7eca95ac339b9f5220a", null ],

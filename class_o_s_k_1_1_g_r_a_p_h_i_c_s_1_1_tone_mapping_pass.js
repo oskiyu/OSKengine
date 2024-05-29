@@ -8,7 +8,7 @@ var class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_tone_mapping_pass =
     [ "GetOutput", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_tone_mapping_pass.html#a4b49581bc321be779142519f48d7b263", null ],
     [ "Resize", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_tone_mapping_pass.html#a5755b9283180f003c9d77fbebebfb322", null ],
     [ "SetExposure", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_tone_mapping_pass.html#a81013c6301c60a6c37b1b8853f3f01b8", null ],
-    [ "SetExposureBuffers", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_tone_mapping_pass.html#a1ea21cb991934d9bd9b2e37e223956fc", null ],
+    [ "SetExposureBuffers", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_tone_mapping_pass.html#a745e951eb2b27e423c6f8bf58db64d11", null ],
     [ "SetGamma", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_tone_mapping_pass.html#aefc83e498c0cb582b3653dfc8b3ea220", null ],
     [ "SetInput", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_tone_mapping_pass.html#a9d868db8b1ecef8c15ab766eb1c4f519", null ],
     [ "SetInputTarget", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_tone_mapping_pass.html#a28dd840748b81628b933e9bb1c9eb107", null ],

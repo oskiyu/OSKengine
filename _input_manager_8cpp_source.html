@@ -3,7 +3,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
-<meta name="generator" content="Doxygen 1.10.0"/>
+<meta name="generator" content="Doxygen 1.11.0"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
 <title>OSKengine: Archivo de código fuente Source/InputManager.cpp</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
@@ -11,9 +11,9 @@
 <script type="text/javascript" src="dynsections.js"></script>
 <script type="text/javascript" src="clipboard.js"></script>
 <link href="navtree.css" rel="stylesheet" type="text/css"/>
-<script type="text/javascript" src="resize.js"></script>
 <script type="text/javascript" src="navtreedata.js"></script>
 <script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript" src="resize.js"></script>
 <script type="text/javascript" src="cookie.js"></script>
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/searchdata.js"></script>
@@ -37,10 +37,15 @@
 </table>
 </div>
 <!-- end header part -->
-<!-- Generado por Doxygen 1.10.0 -->
+<!-- Generado por Doxygen 1.11.0 -->
 <script type="text/javascript">
 /* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
 var searchBox = new SearchBox("searchBox", "search/",'.html');
+/* @license-end */
+</script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() { codefold.init(0); });
 /* @license-end */
 </script>
 <script type="text/javascript" src="menudata.js"></script>
@@ -48,17 +53,12 @@ var searchBox = new SearchBox("searchBox", "search/",'.html');
 <script type="text/javascript">
 /* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
 $(function() {
-  initMenu('',true,false,'search.php','Buscar');
+  initMenu('',true,false,'search.php','Buscar',true);
   $(function() { init_search(); });
 });
 /* @license-end */
 </script>
 <div id="main-nav"></div>
-<script type="text/javascript">
-/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
-$(function() { codefold.init(0); });
-/* @license-end */
-</script>
 </div><!-- top -->
 <div id="side-nav" class="ui-resizable side-nav-resizable">
   <div id="nav-tree">
@@ -72,7 +72,7 @@ $(function() { codefold.init(0); });
 </div>
 <script type="text/javascript">
 /* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
-$(function(){initNavTree('_input_manager_8cpp_source.html',''); initResizable(); });
+$(function(){initNavTree('_input_manager_8cpp_source.html',''); initResizable(true); });
 /* @license-end */
 </script>
 <div id="doc-content">
@@ -160,7 +160,7 @@ $(function(){initNavTree('_input_manager_8cpp_source.html',''); initResizable();
 <div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span> </div>
 <div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>    <span class="keywordflow">if</span> (keyboard) {</div>
 <div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>        <span class="comment">// Key states</span></div>
-<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>        <span class="keywordflow">for</span> (<a class="code hl_class" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">UIndex32</a> ikey = 0; ikey &lt; (<a class="code hl_class" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">UIndex32</a>)<a class="code hl_enumvalue" href="namespace_o_s_k_1_1_i_o.html#a0b92714a4a778072d4824502589bd39ea72b49a7cbf0c0e3dff052d091d838252">Key::__END</a>; ikey++) {</div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>        <span class="keywordflow">for</span> (<a class="code hl_typedef" href="namespace_o_s_k.html#a382ed4c8a6994201cbad5d4e1335861b">UIndex32</a> ikey = 0; ikey &lt; (<a class="code hl_typedef" href="namespace_o_s_k.html#a382ed4c8a6994201cbad5d4e1335861b">UIndex32</a>)<a class="code hl_enumvalue" href="namespace_o_s_k_1_1_i_o.html#a0b92714a4a778072d4824502589bd39ea72b49a7cbf0c0e3dff052d091d838252">Key::__END</a>; ikey++) {</div>
 <div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>            <span class="keyword">const</span> <span class="keyword">auto</span> key = (<a class="code hl_enumeration" href="namespace_o_s_k_1_1_i_o.html#a0b92714a4a778072d4824502589bd39e">Key</a>)ikey;</div>
 <div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span> </div>
 <div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>            <span class="comment">// Pressed</span></div>
@@ -185,7 +185,7 @@ $(function(){initNavTree('_input_manager_8cpp_source.html',''); initResizable();
 <div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span> </div>
 <div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span>    <span class="keywordflow">if</span> (mouse) {</div>
 <div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span>        <span class="comment">// Mouse states</span></div>
-<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span>        <span class="keywordflow">for</span> (<a class="code hl_class" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">UIndex32</a> ikey = 0; ikey &lt; (<a class="code hl_class" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">UIndex32</a>)<a class="code hl_enumvalue" href="namespace_o_s_k_1_1_i_o.html#ab1308b3812c6bb66739549adf2501e77a72b49a7cbf0c0e3dff052d091d838252">MouseButton::__END</a>; ikey++) {</div>
+<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span>        <span class="keywordflow">for</span> (<a class="code hl_typedef" href="namespace_o_s_k.html#a382ed4c8a6994201cbad5d4e1335861b">UIndex32</a> ikey = 0; ikey &lt; (<a class="code hl_typedef" href="namespace_o_s_k.html#a382ed4c8a6994201cbad5d4e1335861b">UIndex32</a>)<a class="code hl_enumvalue" href="namespace_o_s_k_1_1_i_o.html#ab1308b3812c6bb66739549adf2501e77a72b49a7cbf0c0e3dff052d091d838252">MouseButton::__END</a>; ikey++) {</div>
 <div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span>            <span class="keyword">const</span> <a class="code hl_enumeration" href="namespace_o_s_k_1_1_i_o.html#ab1308b3812c6bb66739549adf2501e77">MouseButton</a> button = (<a class="code hl_enumeration" href="namespace_o_s_k_1_1_i_o.html#ab1308b3812c6bb66739549adf2501e77">MouseButton</a>)ikey;</div>
 <div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span> </div>
 <div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span>            <span class="comment">// Pressed</span></div>
@@ -225,12 +225,12 @@ $(function(){initNavTree('_input_manager_8cpp_source.html',''); initResizable();
 <div class="line"><a id="l00117" name="l00117"></a><span class="lineno">  117</span> </div>
 <div class="line"><a id="l00118" name="l00118"></a><span class="lineno">  118</span>    <span class="keywordflow">if</span> (gamepad) {</div>
 <div class="line"><a id="l00119" name="l00119"></a><span class="lineno">  119</span>    <span class="comment">// Gamepads</span></div>
-<div class="line"><a id="l00120" name="l00120"></a><span class="lineno">  120</span>        <span class="keywordflow">for</span> (<a class="code hl_class" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">UIndex32</a> gamepadId = 0; gamepadId &lt; 3; gamepadId++) {</div>
+<div class="line"><a id="l00120" name="l00120"></a><span class="lineno">  120</span>        <span class="keywordflow">for</span> (<a class="code hl_typedef" href="namespace_o_s_k.html#a382ed4c8a6994201cbad5d4e1335861b">UIndex32</a> gamepadId = 0; gamepadId &lt; 3; gamepadId++) {</div>
 <div class="line"><a id="l00121" name="l00121"></a><span class="lineno">  121</span>            <span class="keywordflow">if</span> (!gamepad-&gt;<a class="code hl_function" href="class_o_s_k_1_1_i_o_1_1_i_gamepad_input.html#ab9c06b0664acc36e4ec04be8b8928591">GetGamepadState</a>(gamepadId).<a class="code hl_function" href="class_o_s_k_1_1_i_o_1_1_gamepad_state.html#aa359f7b60c5bf64d787e1c2b4a7617d6">IsConnected</a>())</div>
 <div class="line"><a id="l00122" name="l00122"></a><span class="lineno">  122</span>                <span class="keywordflow">continue</span>;</div>
 <div class="line"><a id="l00123" name="l00123"></a><span class="lineno">  123</span> </div>
 <div class="line"><a id="l00124" name="l00124"></a><span class="lineno">  124</span>            <span class="comment">// Buttons</span></div>
-<div class="line"><a id="l00125" name="l00125"></a><span class="lineno">  125</span>            <span class="keywordflow">for</span> (<a class="code hl_class" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">UIndex32</a> i = 0; i &lt; _countof(gamepadButtons); i++) {</div>
+<div class="line"><a id="l00125" name="l00125"></a><span class="lineno">  125</span>            <span class="keywordflow">for</span> (<a class="code hl_typedef" href="namespace_o_s_k.html#a382ed4c8a6994201cbad5d4e1335861b">UIndex32</a> i = 0; i &lt; _countof(gamepadButtons); i++) {</div>
 <div class="line"><a id="l00126" name="l00126"></a><span class="lineno">  126</span>                <span class="keyword">const</span> <a class="code hl_enumeration" href="namespace_o_s_k_1_1_i_o.html#ad1d8e1f23e2f2515648a3ad1b93ff345">GamepadButton</a> button = gamepadButtons[i];</div>
 <div class="line"><a id="l00127" name="l00127"></a><span class="lineno">  127</span> </div>
 <div class="line"><a id="l00128" name="l00128"></a><span class="lineno">  128</span>                <span class="comment">// Pressed</span></div>
@@ -255,7 +255,7 @@ $(function(){initNavTree('_input_manager_8cpp_source.html',''); initResizable();
 <div class="line"><a id="l00147" name="l00147"></a><span class="lineno">  147</span>            <span class="keywordflow">if</span> (!gamepad-&gt;<a class="code hl_function" href="class_o_s_k_1_1_i_o_1_1_i_gamepad_input.html#ab9c06b0664acc36e4ec04be8b8928591">GetGamepadState</a>(gamepadId).<a class="code hl_function" href="class_o_s_k_1_1_i_o_1_1_gamepad_state.html#aa359f7b60c5bf64d787e1c2b4a7617d6">IsConnected</a>())</div>
 <div class="line"><a id="l00148" name="l00148"></a><span class="lineno">  148</span>                <span class="keywordflow">return</span>;</div>
 <div class="line"><a id="l00149" name="l00149"></a><span class="lineno">  149</span> </div>
-<div class="line"><a id="l00150" name="l00150"></a><span class="lineno">  150</span>            <span class="keywordflow">for</span> (<a class="code hl_class" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">UIndex32</a> i = 0; i &lt; (<a class="code hl_class" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">UIndex32</a>)<a class="code hl_enumvalue" href="namespace_o_s_k_1_1_i_o.html#a37e62c3e569002298eedcfd13bad4dd4a72b49a7cbf0c0e3dff052d091d838252">GamepadAxis::__END</a>; i++) {</div>
+<div class="line"><a id="l00150" name="l00150"></a><span class="lineno">  150</span>            <span class="keywordflow">for</span> (<a class="code hl_typedef" href="namespace_o_s_k.html#a382ed4c8a6994201cbad5d4e1335861b">UIndex32</a> i = 0; i &lt; (<a class="code hl_typedef" href="namespace_o_s_k.html#a382ed4c8a6994201cbad5d4e1335861b">UIndex32</a>)<a class="code hl_enumvalue" href="namespace_o_s_k_1_1_i_o.html#a37e62c3e569002298eedcfd13bad4dd4a72b49a7cbf0c0e3dff052d091d838252">GamepadAxis::__END</a>; i++) {</div>
 <div class="line"><a id="l00151" name="l00151"></a><span class="lineno">  151</span>                <span class="keyword">const</span> <a class="code hl_enumeration" href="namespace_o_s_k_1_1_i_o.html#a37e62c3e569002298eedcfd13bad4dd4">GamepadAxis</a> axis = (<a class="code hl_enumeration" href="namespace_o_s_k_1_1_i_o.html#a37e62c3e569002298eedcfd13bad4dd4">GamepadAxis</a>)i;</div>
 <div class="line"><a id="l00152" name="l00152"></a><span class="lineno">  152</span> </div>
 <div class="line"><a id="l00153" name="l00153"></a><span class="lineno">  153</span>                <span class="keyword">const</span> <span class="keywordtype">float</span> originalValue = gamepad-&gt;<a class="code hl_function" href="class_o_s_k_1_1_i_o_1_1_i_gamepad_input.html#ab9c06b0664acc36e4ec04be8b8928591">GetGamepadState</a>(gamepadId).<a class="code hl_function" href="class_o_s_k_1_1_i_o_1_1_gamepad_state.html#a42d64406d8578512b3855c576a5e73c9">GetAxisState</a>(axis);</div>
@@ -277,7 +277,6 @@ $(function(){initNavTree('_input_manager_8cpp_source.html',''); initResizable();
 <div class="line"><a id="l00169" name="l00169"></a><span class="lineno">  169</span> </div>
 <div class="line"><a id="l00170" name="l00170"></a><span class="lineno">  170</span>}</div>
 </div>
-<div class="ttc" id="aclass_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref_html"><div class="ttname"><a href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">OSK::ASSETS::AssetRef</a></div><div class="ttdoc">Referencia a un asset.</div><div class="ttdef"><b>Definition</b> <a href="_asset_ref_8h_source.html#l00012">AssetRef.h:12</a></div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_i_o_1_1_gamepad_state_html_a27f2e6f75e6f978083a82fd24ef7f0e2"><div class="ttname"><a href="class_o_s_k_1_1_i_o_1_1_gamepad_state.html#a27f2e6f75e6f978083a82fd24ef7f0e2">OSK::IO::GamepadState::IsButtonDown</a></div><div class="ttdeci">bool IsButtonDown(GamepadButton button) const</div><div class="ttdef"><b>Definition</b> <a href="_gamepad_state_8cpp_source.html#l00014">GamepadState.cpp:14</a></div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_i_o_1_1_gamepad_state_html_a42d64406d8578512b3855c576a5e73c9"><div class="ttname"><a href="class_o_s_k_1_1_i_o_1_1_gamepad_state.html#a42d64406d8578512b3855c576a5e73c9">OSK::IO::GamepadState::GetAxisState</a></div><div class="ttdeci">float GetAxisState(GamepadAxis axis) const</div><div class="ttdoc">Devuelve el estado del eje dado.</div><div class="ttdef"><b>Definition</b> <a href="_gamepad_state_8cpp_source.html#l00022">GamepadState.cpp:22</a></div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_i_o_1_1_gamepad_state_html_a8ec30aac82fd180074ffe1e0fe2189c5"><div class="ttname"><a href="class_o_s_k_1_1_i_o_1_1_gamepad_state.html#a8ec30aac82fd180074ffe1e0fe2189c5">OSK::IO::GamepadState::IsButtonUp</a></div><div class="ttdeci">bool IsButtonUp(GamepadButton button) const</div><div class="ttdef"><b>Definition</b> <a href="_gamepad_state_8cpp_source.html#l00018">GamepadState.cpp:18</a></div></div>
@@ -285,7 +284,7 @@ $(function(){initNavTree('_input_manager_8cpp_source.html',''); initResizable();
 <div class="ttc" id="aclass_o_s_k_1_1_i_o_1_1_i_gamepad_input_html"><div class="ttname"><a href="class_o_s_k_1_1_i_o_1_1_i_gamepad_input.html">OSK::IO::IGamepadInput</a></div><div class="ttdoc">Interfaz para leer la entrada del usuario a través de uno o varios mandos.</div><div class="ttdef"><b>Definition</b> <a href="_i_gamepad_input_8h_source.html#l00012">IGamepadInput.h:12</a></div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_i_o_1_1_i_gamepad_input_html_a774b14dd77656ab61f6639ada8544db4"><div class="ttname"><a href="class_o_s_k_1_1_i_o_1_1_i_gamepad_input.html#a774b14dd77656ab61f6639ada8544db4">OSK::IO::IGamepadInput::GetPreviousGamepadState</a></div><div class="ttdeci">const GamepadState &amp; GetPreviousGamepadState(UIndex32 index) const</div><div class="ttdef"><b>Definition</b> <a href="_i_gamepad_input_8cpp_source.html#l00025">IGamepadInput.cpp:25</a></div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_i_o_1_1_i_gamepad_input_html_ab9c06b0664acc36e4ec04be8b8928591"><div class="ttname"><a href="class_o_s_k_1_1_i_o_1_1_i_gamepad_input.html#ab9c06b0664acc36e4ec04be8b8928591">OSK::IO::IGamepadInput::GetGamepadState</a></div><div class="ttdeci">const GamepadState &amp; GetGamepadState(UIndex32 index) const</div><div class="ttdef"><b>Definition</b> <a href="_i_gamepad_input_8cpp_source.html#l00021">IGamepadInput.cpp:21</a></div></div>
-<div class="ttc" id="aclass_o_s_k_1_1_i_o_1_1_i_input_listener_html"><div class="ttname"><a href="class_o_s_k_1_1_i_o_1_1_i_input_listener.html">OSK::IO::IInputListener</a></div><div class="ttdoc">Clase que reacciona a los eventos de entrada.</div><div class="ttdef"><b>Definition</b> <a href="_i_input_listener_8h_source.html#l00023">IInputListener.h:23</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_i_o_1_1_i_input_listener_html"><div class="ttname"><a href="class_o_s_k_1_1_i_o_1_1_i_input_listener.html">OSK::IO::IInputListener</a></div><div class="ttdoc">Clase que reacciona a los eventos de entrada.</div><div class="ttdef"><b>Definition</b> <a href="_i_input_listener_8h_source.html#l00024">IInputListener.h:24</a></div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_i_o_1_1_i_keyboard_input_html"><div class="ttname"><a href="class_o_s_k_1_1_i_o_1_1_i_keyboard_input.html">OSK::IO::IKeyboardInput</a></div><div class="ttdoc">Interfaz para leer la entrada del usuario a través del teclado.</div><div class="ttdef"><b>Definition</b> <a href="_i_keyboard_input_8h_source.html#l00012">IKeyboardInput.h:12</a></div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_i_o_1_1_i_keyboard_input_html_a343fbce9a28a6caad0e64162d8019168"><div class="ttname"><a href="class_o_s_k_1_1_i_o_1_1_i_keyboard_input.html#a343fbce9a28a6caad0e64162d8019168">OSK::IO::IKeyboardInput::GetPreviousKeyboardState</a></div><div class="ttdeci">const KeyboardState &amp; GetPreviousKeyboardState() const</div><div class="ttdef"><b>Definition</b> <a href="_i_keyboard_input_8cpp_source.html#l00033">IKeyboardInput.cpp:33</a></div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_i_o_1_1_i_keyboard_input_html_ae04d88d90a42cd1ab0082df5a0f5b1a2"><div class="ttname"><a href="class_o_s_k_1_1_i_o_1_1_i_keyboard_input.html#ae04d88d90a42cd1ab0082df5a0f5b1a2">OSK::IO::IKeyboardInput::IsKeyDown</a></div><div class="ttdeci">bool IsKeyDown(Key key) const</div><div class="ttdef"><b>Definition</b> <a href="_i_keyboard_input_8cpp_source.html#l00013">IKeyboardInput.cpp:13</a></div></div>
@@ -308,23 +307,24 @@ $(function(){initNavTree('_input_manager_8cpp_source.html',''); initResizable();
 <div class="ttc" id="anamespace_o_s_k_1_1_i_o_html"><div class="ttname"><a href="namespace_o_s_k_1_1_i_o.html">OSK::IO</a></div><div class="ttdef"><b>Definition</b> <a href="_camera_component2_d_8h_source.html#l00013">CameraComponent2D.h:13</a></div></div>
 <div class="ttc" id="anamespace_o_s_k_1_1_i_o_html_a0b92714a4a778072d4824502589bd39e"><div class="ttname"><a href="namespace_o_s_k_1_1_i_o.html#a0b92714a4a778072d4824502589bd39e">OSK::IO::Key</a></div><div class="ttdeci">Key</div><div class="ttdoc">Enum con todas las teclas del teclado disponibles.</div><div class="ttdef"><b>Definition</b> <a href="_keyboard_state_8h_source.html#l00010">KeyboardState.h:10</a></div></div>
 <div class="ttc" id="anamespace_o_s_k_1_1_i_o_html_a0b92714a4a778072d4824502589bd39ea72b49a7cbf0c0e3dff052d091d838252"><div class="ttname"><a href="namespace_o_s_k_1_1_i_o.html#a0b92714a4a778072d4824502589bd39ea72b49a7cbf0c0e3dff052d091d838252">OSK::IO::Key::__END</a></div><div class="ttdeci">@ __END</div></div>
-<div class="ttc" id="anamespace_o_s_k_1_1_i_o_html_a37e62c3e569002298eedcfd13bad4dd4"><div class="ttname"><a href="namespace_o_s_k_1_1_i_o.html#a37e62c3e569002298eedcfd13bad4dd4">OSK::IO::GamepadAxis</a></div><div class="ttdeci">GamepadAxis</div><div class="ttdoc">Todos y cada uno de los ejes del gamepad, es decir, cada uno de los inputs que pueden tener un valor ...</div><div class="ttdef"><b>Definition</b> <a href="_gamepad_state_8h_source.html#l00015">GamepadState.h:15</a></div></div>
+<div class="ttc" id="anamespace_o_s_k_1_1_i_o_html_a37e62c3e569002298eedcfd13bad4dd4"><div class="ttname"><a href="namespace_o_s_k_1_1_i_o.html#a37e62c3e569002298eedcfd13bad4dd4">OSK::IO::GamepadAxis</a></div><div class="ttdeci">GamepadAxis</div><div class="ttdoc">Todos y cada uno de los ejes del gamepad, es decir, cada uno de los inputs que pueden tener un valor ...</div><div class="ttdef"><b>Definition</b> <a href="_gamepad_state_8h_source.html#l00016">GamepadState.h:16</a></div></div>
 <div class="ttc" id="anamespace_o_s_k_1_1_i_o_html_a37e62c3e569002298eedcfd13bad4dd4a72b49a7cbf0c0e3dff052d091d838252"><div class="ttname"><a href="namespace_o_s_k_1_1_i_o.html#a37e62c3e569002298eedcfd13bad4dd4a72b49a7cbf0c0e3dff052d091d838252">OSK::IO::GamepadAxis::__END</a></div><div class="ttdeci">@ __END</div></div>
 <div class="ttc" id="anamespace_o_s_k_1_1_i_o_html_ab1308b3812c6bb66739549adf2501e77"><div class="ttname"><a href="namespace_o_s_k_1_1_i_o.html#ab1308b3812c6bb66739549adf2501e77">OSK::IO::MouseButton</a></div><div class="ttdeci">MouseButton</div><div class="ttdoc">Botones del ratón.</div><div class="ttdef"><b>Definition</b> <a href="_mouse_state_8h_source.html#l00012">MouseState.h:12</a></div></div>
 <div class="ttc" id="anamespace_o_s_k_1_1_i_o_html_ab1308b3812c6bb66739549adf2501e77a72b49a7cbf0c0e3dff052d091d838252"><div class="ttname"><a href="namespace_o_s_k_1_1_i_o.html#ab1308b3812c6bb66739549adf2501e77a72b49a7cbf0c0e3dff052d091d838252">OSK::IO::MouseButton::__END</a></div><div class="ttdeci">@ __END</div></div>
-<div class="ttc" id="anamespace_o_s_k_1_1_i_o_html_ad1d8e1f23e2f2515648a3ad1b93ff345"><div class="ttname"><a href="namespace_o_s_k_1_1_i_o.html#ad1d8e1f23e2f2515648a3ad1b93ff345">OSK::IO::GamepadButton</a></div><div class="ttdeci">GamepadButton</div><div class="ttdoc">Botones del gamepad. Pueden estar pulsados o no, no hay valores intermedios.</div><div class="ttdef"><b>Definition</b> <a href="_gamepad_state_8h_source.html#l00074">GamepadState.h:74</a></div></div>
+<div class="ttc" id="anamespace_o_s_k_1_1_i_o_html_ad1d8e1f23e2f2515648a3ad1b93ff345"><div class="ttname"><a href="namespace_o_s_k_1_1_i_o.html#ad1d8e1f23e2f2515648a3ad1b93ff345">OSK::IO::GamepadButton</a></div><div class="ttdeci">GamepadButton</div><div class="ttdoc">Botones del gamepad. Pueden estar pulsados o no, no hay valores intermedios.</div><div class="ttdef"><b>Definition</b> <a href="_gamepad_state_8h_source.html#l00075">GamepadState.h:75</a></div></div>
 <div class="ttc" id="anamespace_o_s_k_html"><div class="ttname"><a href="namespace_o_s_k.html">OSK</a></div><div class="ttdef"><b>Definition</b> <a href="_acceleration_structures_exceptions_8h_source.html#l00005">AccelerationStructuresExceptions.h:5</a></div></div>
 <div class="ttc" id="anamespace_o_s_k_html_a0287ef455fdcae91ac6c147bf0d4b7b5a3b1efa14e99a4a5e24d8b1e386aa7994"><div class="ttname"><a href="namespace_o_s_k.html#a0287ef455fdcae91ac6c147bf0d4b7b5a3b1efa14e99a4a5e24d8b1e386aa7994">OSK::IUUID::IMouseInput</a></div><div class="ttdeci">@ IMouseInput</div></div>
 <div class="ttc" id="anamespace_o_s_k_html_a0287ef455fdcae91ac6c147bf0d4b7b5afa1b6f895a7dcf321fcbbc85207eee58"><div class="ttname"><a href="namespace_o_s_k.html#a0287ef455fdcae91ac6c147bf0d4b7b5afa1b6f895a7dcf321fcbbc85207eee58">OSK::IUUID::IKeyboardInput</a></div><div class="ttdeci">@ IKeyboardInput</div></div>
 <div class="ttc" id="anamespace_o_s_k_html_a0287ef455fdcae91ac6c147bf0d4b7b5afb2484f39d9382ef3653d83720e30ca3"><div class="ttname"><a href="namespace_o_s_k.html#a0287ef455fdcae91ac6c147bf0d4b7b5afb2484f39d9382ef3653d83720e30ca3">OSK::IUUID::IGamepadInput</a></div><div class="ttdeci">@ IGamepadInput</div></div>
-<div class="ttc" id="anamespace_o_s_k_html_a87fa693452f97753b08b838de0e691ce"><div class="ttname"><a href="namespace_o_s_k.html#a87fa693452f97753b08b838de0e691ce">OSK::Vector2i</a></div><div class="ttdeci">Vector2_t&lt; int32_t &gt; Vector2i</div><div class="ttdoc">Precisión = int32.</div><div class="ttdef"><b>Definition</b> <a href="_vector2_8hpp_source.html#l00263">Vector2.hpp:263</a></div></div>
+<div class="ttc" id="anamespace_o_s_k_html_a382ed4c8a6994201cbad5d4e1335861b"><div class="ttname"><a href="namespace_o_s_k.html#a382ed4c8a6994201cbad5d4e1335861b">OSK::UIndex32</a></div><div class="ttdeci">uint32_t UIndex32</div><div class="ttdoc">Índice de un elemento, almacenado en un unsigned int de 32 bits.</div><div class="ttdef"><b>Definition</b> <a href="_numeric_types_8h_source.html#l00010">NumericTypes.h:10</a></div></div>
+<div class="ttc" id="anamespace_o_s_k_html_a87fa693452f97753b08b838de0e691ce"><div class="ttname"><a href="namespace_o_s_k.html#a87fa693452f97753b08b838de0e691ce">OSK::Vector2i</a></div><div class="ttdeci">Vector2_t&lt; int32_t &gt; Vector2i</div><div class="ttdoc">Precisión = int32.</div><div class="ttdef"><b>Definition</b> <a href="_vector2_8hpp_source.html#l00262">Vector2.hpp:262</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_74389ed8173ad57b461b9d623a1f3867.html">Source</a></li><li class="navelem"><b>InputManager.cpp</b></li>
-    <li class="footer">Generado el Sábado, 18 de mayo de 2024 12:15:51 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.10.0 </li>
+    <li class="footer">Generado el Miércoles, 29 de mayo de 2024 12:01:48 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.11.0 </li>
   </ul>
 </div>
 </body>

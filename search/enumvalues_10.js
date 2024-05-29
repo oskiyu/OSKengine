@@ -9,7 +9,7 @@ var searchData=
   ['page_5fup_6',['PAGE_UP',['../namespace_o_s_k_1_1_i_o.html#a0b92714a4a778072d4824502589bd39eae791d936f894ce58dd18bf603edcb9b4',1,'OSK::IO']]],
   ['pause_7',['PAUSE',['../namespace_o_s_k_1_1_i_o.html#a0b92714a4a778072d4824502589bd39ea291554596c183e837f0a6bec3767c891',1,'OSK::IO']]],
   ['paused_8',['PAUSED',['../namespace_o_s_k_1_1_a_u_d_i_o.html#addc6f8d4c0f711311adac345c3d99780a99b2439e63f73ad515f7ab2447a80673',1,'OSK::AUDIO']]],
-  ['perido_9',['PERIDO',['../namespace_o_s_k_1_1_i_o.html#a0b92714a4a778072d4824502589bd39ea73ca001ad9c37019a44b6d67c2a08b33',1,'OSK::IO']]],
+  ['period_9',['PERIOD',['../namespace_o_s_k_1_1_i_o.html#a0b92714a4a778072d4824502589bd39eade58a28573783fe95304a260ccd90362',1,'OSK::IO']]],
   ['pixels_10',['PIXELS',['../namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a8850682b4f35c42bbcf63a1e81b29c9ca02c1922d900c1b47ff041388e102e225',1,'OSK::GRAPHICS']]],
   ['playing_11',['PLAYING',['../namespace_o_s_k_1_1_a_u_d_i_o.html#addc6f8d4c0f711311adac345c3d99780a50366a49630a416ab3ccaa004196027e',1,'OSK::AUDIO']]],
   ['point_12',['POINT',['../namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a9bf4af2a8108b7a3939f60c4efafcfd8aaebdbcb765394d25d6a604589a890f82',1,'OSK::GRAPHICS']]],
