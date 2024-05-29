@@ -1,6 +1,6 @@
 #pragma once
 
-#include "OSKmacros.h"
+#include "NumericTypes.h"
 #include "ConstexprBitSet.hpp"
 
 namespace OSK::ECS {

@@ -1,7 +1,7 @@
 #pragma once
 
+#include "ApiCall.h"
 #include "Vector3.hpp"
-#include "OSKmacros.h"
 #include "DynamicArray.hpp"
 #include "GameObject.h"
 
@@ -99,6 +99,7 @@ namespace OSK::COLLISION {
 		DynamicArray<Vector3f> contactPoints;
 
 		Vector3f singleContactPoint = Vector3f::Zero;
+
 	};
 
 }

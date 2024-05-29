@@ -1,6 +1,9 @@
 #pragma once
 
-#include "OSKmacros.h"
+#include "ApiCall.h"
+#include "DefineConstructors.h"
+
+#include "NumericTypes.h"
 #include "AudioFormat.h"
 
 #include <AL/alc.h>

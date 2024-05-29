@@ -1,5 +1,5 @@
 #include "GpuMemoryTypes.h"
-#include "OSKmacros.h"
+#include "NumericTypes.h"
 
 template <> std::string OSK::ToString<OSK::GRAPHICS::GpuSharedMemoryType>(const OSK::GRAPHICS::GpuSharedMemoryType& type) {
 	switch (type) {

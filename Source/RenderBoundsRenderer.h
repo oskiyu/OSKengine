@@ -5,6 +5,7 @@
 #include "GpuBuffer.h"
 
 #include <array>
+#include "ResourcesInFlight.h"
 
 namespace OSK::ASSETS {
 	class Model3D;
@@ -39,7 +40,7 @@ namespace OSK::ECS {
 		void LoadMaterials();
 
 		GameObjectIndex m_cameraObject = EMPTY_GAME_OBJECT;
-		std::array<UniquePtr<GRAPHICS::GpuBuffer>, NUM_RESOURCES_IN_FLIGHT> m_cameraUbos;
+		std::array<UniquePtr<GRAPHICS::GpuBuffer>, GRAPHICS::MAX_RESOURCES_IN_FLIGHT> m_cameraUbos;
 		
 		GRAPHICS::Material* m_material = nullptr;
 		UniquePtr<GRAPHICS::MaterialInstance> m_materialInstance;

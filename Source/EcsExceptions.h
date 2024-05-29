@@ -18,7 +18,7 @@ namespace OSK::ECS {
 			const std::source_location& location = std::source_location::current())
 			:
 			EngineException(
-				std::format("InvalidObjectException: El objeto {} no existe.", obj),
+				std::format("InvalidObjectException: El objeto {} no existe.", obj.Get()),
 				location) { }
 
 	};
@@ -39,7 +39,7 @@ namespace OSK::ECS {
 			const std::source_location& location = std::source_location::current())
 			:
 			EngineException(
-				std::format("El objeto {} no contiene el componente {}.", obj, componentName),
+				std::format("El objeto {} no contiene el componente {}.", obj.Get(), componentName),
 				location) {}
 
 	};
@@ -78,7 +78,7 @@ namespace OSK::ECS {
 			const std::source_location& location = std::source_location::current())
 			:
 			EngineException(
-				std::format("El objeto {} ya contiene un componente del tipo {}.", object, componentName),
+				std::format("El objeto {} ya contiene un componente del tipo {}.", object.Get(), componentName),
 				location) {}
 
 	};

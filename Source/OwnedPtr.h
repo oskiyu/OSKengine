@@ -1,7 +1,8 @@
 #ifndef OSK_OWNED_PTR
 #define OSK_OWNED_PTR
 
-#include "OSKmacros.h"
+// Para std::swap
+#include <type_traits>
 
 namespace OSK {
 

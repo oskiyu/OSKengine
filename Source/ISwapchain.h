@@ -1,6 +1,10 @@
 #pragma once
 
-#include "OSKmacros.h"
+#include "ApiCall.h"
+#include "DefineAs.h"
+
+#include "ResourcesInFlight.h"
+
 #include "UniquePtr.hpp"
 #include "IGpuImage.h"
 
@@ -135,12 +139,12 @@ namespace OSK::GRAPHICS {
 
 	private:
 
-		USize32 m_numImagesInFlight = NUM_RESOURCES_IN_FLIGHT;
+		USize32 m_numImagesInFlight = MAX_RESOURCES_IN_FLIGHT;
 
 		PresentMode m_presentMode = PresentMode::VSYNC_OFF;
 		Format m_colorFormat = Format::UNKNOWN;
 
-		std::array<UniquePtr<GpuImage>, NUM_RESOURCES_IN_FLIGHT> m_images{};
+		std::array<UniquePtr<GpuImage>, MAX_RESOURCES_IN_FLIGHT> m_images{};
 		UIndex32 m_currentFrameIndex = 0;
 
 		DynamicArray<UIndex32> m_queueIndices;

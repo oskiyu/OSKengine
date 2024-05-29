@@ -1,5 +1,8 @@
 #pragma once
 
+#include "ApiCall.h"
+#include "NumericTypes.h"
+
 #include "Vector2.hpp"
 #include "Vector3.hpp"
 #include "GpuImageUsage.h"
@@ -8,7 +11,7 @@ namespace OSK::GRAPHICS {
 
 	/// @brief Parámetros para la copia de una imagen a otra
 	/// en la GPU.
-	struct CopyImageInfo {
+	struct OSKAPI_CALL CopyImageInfo {
 
 		static CopyImageInfo CreateDefault1D(USize32 size);
 		static CopyImageInfo CreateDefault2D(Vector2ui size);

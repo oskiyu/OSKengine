@@ -16,20 +16,20 @@ void IMaterialSlot::SetTexture(const std::string& binding, const Texture* textur
 	SetGpuImage(binding, texture->GetGpuImage()->GetView(GpuImageViewConfig::CreateSampled_Default()), arrayIndex);
 }
 
-void IMaterialSlot::SetTextures(const std::string& binding, std::span<const Texture*, NUM_RESOURCES_IN_FLIGHT> textures, SampledChannel channel, UIndex32 arrayIndex) {
+void IMaterialSlot::SetTextures(const std::string& binding, std::span<const Texture*, MAX_RESOURCES_IN_FLIGHT> textures, SampledChannel channel, UIndex32 arrayIndex) {
 	auto viewConfig = GpuImageViewConfig::CreateSampled_Default();
 	viewConfig.channel = channel;
 
-	std::array<const IGpuImageView*, NUM_RESOURCES_IN_FLIGHT> images{};
+	std::array<const IGpuImageView*, MAX_RESOURCES_IN_FLIGHT> images{};
 
-	for (UIndex32 i = 0; i < NUM_RESOURCES_IN_FLIGHT; i++)
+	for (UIndex32 i = 0; i < MAX_RESOURCES_IN_FLIGHT; i++)
 		images[i] = textures[i]->GetGpuImage()->GetView(viewConfig);
 
 	SetGpuImages(binding, images, arrayIndex);
 }
 
 void IMaterialSlot::SetUniformBuffer(const std::string& binding, const GpuBuffer& buffer, UIndex32 arrayIndex) {
-	std::array<const GpuBuffer*, NUM_RESOURCES_IN_FLIGHT> buffers{};
+	std::array<const GpuBuffer*, MAX_RESOURCES_IN_FLIGHT> buffers{};
 
 	for (auto& b : buffers)
 		b = &buffer;
@@ -38,7 +38,7 @@ void IMaterialSlot::SetUniformBuffer(const std::string& binding, const GpuBuffer
 }
 
 void IMaterialSlot::SetGpuImage(const std::string& binding, const IGpuImageView* image, UIndex32 arrayIndex) {
-	std::array<const IGpuImageView*, NUM_RESOURCES_IN_FLIGHT> images{};
+	std::array<const IGpuImageView*, MAX_RESOURCES_IN_FLIGHT> images{};
 
 	for (auto& i : images)
 		i = image;
@@ -47,7 +47,7 @@ void IMaterialSlot::SetGpuImage(const std::string& binding, const IGpuImageView*
 }
 
 void IMaterialSlot::SetStorageBuffer(const std::string& binding, const GpuBuffer* buffer, UIndex32 arrayIndex) {
-	std::array<const GpuBuffer*, NUM_RESOURCES_IN_FLIGHT> buffers{};
+	std::array<const GpuBuffer*, MAX_RESOURCES_IN_FLIGHT> buffers{};
 
 	for (auto& b : buffers)
 		b = buffer;
@@ -56,7 +56,7 @@ void IMaterialSlot::SetStorageBuffer(const std::string& binding, const GpuBuffer
 }
 
 void IMaterialSlot::SetStorageImage(const std::string& binding, const IGpuImageView* image, UIndex32 arrayIndex) {
-	std::array<const IGpuImageView*, NUM_RESOURCES_IN_FLIGHT> images{};
+	std::array<const IGpuImageView*, MAX_RESOURCES_IN_FLIGHT> images{};
 
 	for (auto& i : images)
 		i = image;
@@ -65,7 +65,7 @@ void IMaterialSlot::SetStorageImage(const std::string& binding, const IGpuImageV
 }
 
 void IMaterialSlot::SetAccelerationStructure(const std::string& binding, const ITopLevelAccelerationStructure* accelerationStructure, UIndex32 arrayIndex) {
-	std::array<const ITopLevelAccelerationStructure*, NUM_RESOURCES_IN_FLIGHT> accelerationStructures{};
+	std::array<const ITopLevelAccelerationStructure*, MAX_RESOURCES_IN_FLIGHT> accelerationStructures{};
 
 	for (auto& as : accelerationStructures)
 		as = accelerationStructure;

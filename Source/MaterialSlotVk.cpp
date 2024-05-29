@@ -29,10 +29,10 @@ MaterialSlotVk::MaterialSlotVk(const std::string& name, const MaterialLayout* la
 {
 	m_pool = new DescriptorPoolVk(m_descLayout.GetValue(), 1);
 
-	std::array<USize32, NUM_RESOURCES_IN_FLIGHT> maxCount{};
+	std::array<USize32, MAX_RESOURCES_IN_FLIGHT> maxCount{};
 	maxCount.fill(1);
 
-	std::array<VkDescriptorSetLayout, NUM_RESOURCES_IN_FLIGHT> descriptorLayout{};
+	std::array<VkDescriptorSetLayout, MAX_RESOURCES_IN_FLIGHT> descriptorLayout{};
 	descriptorLayout.fill(m_descLayout->GetLayout());
 
 	VkDescriptorSetVariableDescriptorCountAllocateInfo variableSizeDescriptorInfo{};
@@ -48,7 +48,7 @@ MaterialSlotVk::MaterialSlotVk(const std::string& name, const MaterialLayout* la
 	allocInfo.pSetLayouts = descriptorLayout.data();
 	allocInfo.pNext = &variableSizeDescriptorInfo;
 
-	std::array<VkDescriptorSetLayout, NUM_RESOURCES_IN_FLIGHT> layouts{};
+	std::array<VkDescriptorSetLayout, MAX_RESOURCES_IN_FLIGHT> layouts{};
 	layouts.fill(m_descLayout->GetLayout());
 
 	allocInfo.pSetLayouts = layouts.data();
@@ -66,7 +66,7 @@ MaterialSlotVk::~MaterialSlotVk() {
 
 void MaterialSlotVk::SetUniformBuffers(
 	const std::string& binding, 
-	std::span<const GpuBuffer*, NUM_RESOURCES_IN_FLIGHT> buffer,
+	std::span<const GpuBuffer*, MAX_RESOURCES_IN_FLIGHT> buffer,
 	UIndex32 arrayIndex)
 {
 	const auto bindingIndexInShader = m_layout->GetSlot(m_name).bindings.at(binding).glslIndex;
@@ -93,7 +93,7 @@ void MaterialSlotVk::SetUniformBuffers(
 
 void MaterialSlotVk::SetStorageBuffers(
 	const std::string& binding, 
-	std::span<const GpuBuffer*, NUM_RESOURCES_IN_FLIGHT> buffer,
+	std::span<const GpuBuffer*, MAX_RESOURCES_IN_FLIGHT> buffer,
 	UIndex32 arrayIndex) 
 {
 	const auto bindingIndexInShader = m_layout->GetSlot(m_name).bindings.at(binding).glslIndex;
@@ -120,7 +120,7 @@ void MaterialSlotVk::SetStorageBuffers(
 
 void MaterialSlotVk::SetGpuImages(
 	const std::string& binding, 
-	std::span<const IGpuImageView*, NUM_RESOURCES_IN_FLIGHT> images,
+	std::span<const IGpuImageView*, MAX_RESOURCES_IN_FLIGHT> images,
 	UIndex32 arrayIndex) 
 {
 	const auto bindingIndexInShader = m_layout->GetSlot(m_name).bindings.at(binding).glslIndex;
@@ -147,7 +147,7 @@ void MaterialSlotVk::SetGpuImages(
 
 void MaterialSlotVk::SetStorageImages(
 	const std::string& binding, 
-	std::span<const IGpuImageView*, NUM_RESOURCES_IN_FLIGHT> images,
+	std::span<const IGpuImageView*, MAX_RESOURCES_IN_FLIGHT> images,
 	UIndex32 arrayIndex) 
 {
 	const auto bindingIndexInShader = m_layout->GetSlot(m_name).bindings.at(binding).glslIndex;
@@ -174,7 +174,7 @@ void MaterialSlotVk::SetStorageImages(
 
 void MaterialSlotVk::SetAccelerationStructures(
 	const std::string& binding, 
-	std::span<const ITopLevelAccelerationStructure*, NUM_RESOURCES_IN_FLIGHT> accelerationStructure,
+	std::span<const ITopLevelAccelerationStructure*, MAX_RESOURCES_IN_FLIGHT> accelerationStructure,
 	UIndex32 arrayIndex)
 {
 	const auto bindingIndexInShader = m_layout->GetSlot(m_name).bindings.at(binding).glslIndex;

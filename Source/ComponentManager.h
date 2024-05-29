@@ -34,6 +34,7 @@ namespace OSK::ECS {
 			const std::string key = static_cast<std::string>(TComponent::GetComponentTypeName());
 
 			componentTypes[key] = nextComponentType;
+			m_typeToName[nextComponentType] = key;
 			componentContainers[key] = new ComponentContainer<TComponent>();
 			componentContainers[key]->SetComponentType(nextComponentType);
 
@@ -158,10 +159,19 @@ namespace OSK::ECS {
 			return iterator->second.GetPointer();
 		}
 
+		/// @param type Tipo de componente.
+		/// @return Nombre del tipo de componente.
+		/// @pre @p type debe identificar un tipo de componente
+		/// que haya sido previamente registrado.
+		std::string GetComponentTypeName(ComponentType type) const;
+
 	private:
 
 		/// @brief Map typename del componente -> id del tipo de componente.
 		std::unordered_map<std::string, ComponentType, StringHasher, std::equal_to<>> componentTypes;
+
+		/// @brief ID del tipo de componente -> typename del componente.
+		std::unordered_map<ComponentType, std::string> m_typeToName;
 
 		/// @brief Map typename del componente -> contenedor del componente.
 		std::unordered_map<std::string, UniquePtr<IComponentContainer>, StringHasher, std::equal_to<>> componentContainers;

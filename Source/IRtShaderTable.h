@@ -1,6 +1,7 @@
 #pragma once
 
-#include "OSKmacros.h"
+#include "ApiCall.h"
+#include "DefineAs.h"
 
 namespace OSK::GRAPHICS {
 
@@ -23,9 +24,7 @@ namespace OSK::GRAPHICS {
 		IRtShaderTable(const IRtShaderTable&) = delete;
 		IRtShaderTable& operator=(const IRtShaderTable&) = delete;
 
-		template <typename T> T* As() const requires std::is_base_of_v<IRtShaderTable, T> {
-			return (T*)this;
-		}
+		OSK_DEFINE_AS(IRtShaderTable);
 
 	private:
 

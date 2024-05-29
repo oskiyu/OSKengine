@@ -1,6 +1,7 @@
 #pragma once
 
-#include "OSKmacros.h"
+#include "ApiCall.h"
+#include "DefineAs.h"
 
 namespace OSK::GRAPHICS {
 
@@ -26,9 +27,7 @@ namespace OSK::GRAPHICS {
 		IPipelineLayout(const MaterialLayout* layout);
 		virtual ~IPipelineLayout() = default;
 
-		template <typename T> T* As() const requires std::is_base_of_v<IPipelineLayout, T> {
-			return (T*)this;
-		}
+		OSK_DEFINE_AS(IPipelineLayout);
 
 	};
 

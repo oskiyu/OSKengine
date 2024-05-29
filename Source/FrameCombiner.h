@@ -3,6 +3,7 @@
 #include "UniquePtr.hpp"
 #include "MaterialInstance.h"
 #include "RtRenderTarget.h"
+#include "ResourcesInFlight.h"
 
 namespace OSK::GRAPHICS {
 
@@ -84,7 +85,7 @@ namespace OSK::GRAPHICS {
 		/// @brief Cada formato tiene su propio material.
 		std::unordered_map<ImageFormat, Material*> m_combinerMaterials;
 
-		std::unordered_map<const IGpuImageView*, UniquePtr<MaterialInstance>> m_textureMaterials[NUM_RESOURCES_IN_FLIGHT]{};
+		std::unordered_map<const IGpuImageView*, UniquePtr<MaterialInstance>> m_textureMaterials[MAX_RESOURCES_IN_FLIGHT]{};
 		UniquePtr<MaterialInstance> m_outputMaterialInstance = nullptr;
 
 	};

@@ -60,6 +60,7 @@ namespace OSK::UI {
 		void Render(GRAPHICS::SpriteRenderer* renderer, Vector2f parentPosition) const override;
 
 		bool UpdateByCursor(Vector2f cursorPosition, bool isPressed, Vector2f parentPosition) override;
+		void UpdateByKeyboard(const IO::KeyboardState& previous, const IO::KeyboardState& current) override;
 
 		/// @param name Nombre del elemento hijo.
 		/// @return Puntero al elemento indicado.

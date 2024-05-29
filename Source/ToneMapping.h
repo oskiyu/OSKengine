@@ -1,6 +1,7 @@
 #pragma once
 
 #include "IPostProcessPass.h"
+#include "ResourcesInFlight.h"
 
 namespace OSK::GRAPHICS {
 
@@ -15,7 +16,7 @@ namespace OSK::GRAPHICS {
 
 		void Execute(ICommandList* computeCmdList) override;
 
-		void SetExposureBuffers(std::span<const GpuBuffer*, NUM_RESOURCES_IN_FLIGHT>);
+		void SetExposureBuffers(std::span<const GpuBuffer*, MAX_RESOURCES_IN_FLIGHT>);
 
 		void SetExposure(float exposure);
 		float GetExposure() const;

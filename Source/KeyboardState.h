@@ -1,6 +1,6 @@
 #pragma once
 
-#include "OSKmacros.h"
+#include "ApiCall.h"
 
 namespace OSK::IO {
 
@@ -12,7 +12,7 @@ namespace OSK::IO {
 		APOSTROPHE,
 		COMMA,
 		MINUS,
-		PERIDO,
+		PERIOD,
 		SLASH,
 		KEY_0,
 		KEY_1,
@@ -54,7 +54,7 @@ namespace OSK::IO {
 		Z,
 		LEFT_BRACKET,
 		BACKSLASH,
-		REIGHT_BRACKET,
+		RIGHT_BRACKET,
 		GRAVE_ACCENT,
 		WORLD_1,
 		WORLD_2,
@@ -206,5 +206,6 @@ namespace OSK::IO {
 		int keyStates[KeyboardNumberOfKeys];
 
 	};
+
 
 }

@@ -66,7 +66,7 @@ DeferredRenderSystem::DeferredRenderSystem() {
 void DeferredRenderSystem::CreateBuffers() {
 	IGpuMemoryAllocator* memAllocator = Engine::GetRenderer()->GetAllocator();
 
-	for (UIndex32 i = 0; i < NUM_RESOURCES_IN_FLIGHT; i++) {
+	for (UIndex32 i = 0; i < MAX_RESOURCES_IN_FLIGHT; i++) {
 		m_cameraBuffers[i] = memAllocator->CreateUniformBuffer(sizeof(CameraInfo)).GetPointer();
 		m_previousFrameCameraBuffers[i] = memAllocator->CreateUniformBuffer(sizeof(PreviousCameraInfo)).GetPointer();
 		m_directionalLightBuffers[i] = memAllocator->CreateUniformBuffer(sizeof(DirectionalLight)).GetPointer();
@@ -83,10 +83,10 @@ void DeferredRenderSystem::LoadMaterials() {
 }
 
 void DeferredRenderSystem::SetupGBufferMaterial() {
-	std::array<const GpuBuffer*, NUM_RESOURCES_IN_FLIGHT> _cameraUbos{};
-	std::array<const GpuBuffer*, NUM_RESOURCES_IN_FLIGHT> _previousCameraUbos{};
+	std::array<const GpuBuffer*, MAX_RESOURCES_IN_FLIGHT> _cameraUbos{};
+	std::array<const GpuBuffer*, MAX_RESOURCES_IN_FLIGHT> _previousCameraUbos{};
 
-	for (UIndex32 i = 0; i < NUM_RESOURCES_IN_FLIGHT; i++) {
+	for (UIndex32 i = 0; i < MAX_RESOURCES_IN_FLIGHT; i++) {
 		_cameraUbos[i] = m_cameraBuffers[i].GetPointer();
 		_previousCameraUbos[i] = m_previousFrameCameraBuffers[i].GetPointer();
 	}
@@ -167,15 +167,15 @@ void DeferredRenderSystem::SetResolver(OwnedPtr<GRAPHICS::IDeferredResolver> res
 }
 
 void DeferredRenderSystem::SetupResolveMaterial() {
-	std::array<const GpuBuffer*, NUM_RESOURCES_IN_FLIGHT> _cameraUbos{};
-	std::array<const GpuBuffer*, NUM_RESOURCES_IN_FLIGHT> _dirLightUbos{};
-	std::array<const GpuBuffer*, NUM_RESOURCES_IN_FLIGHT> _shadowsMatricesUbos{};
-	std::array<const GpuBuffer*, NUM_RESOURCES_IN_FLIGHT> _iblConfigs{};
+	std::array<const GpuBuffer*, MAX_RESOURCES_IN_FLIGHT> _cameraUbos{};
+	std::array<const GpuBuffer*, MAX_RESOURCES_IN_FLIGHT> _dirLightUbos{};
+	std::array<const GpuBuffer*, MAX_RESOURCES_IN_FLIGHT> _shadowsMatricesUbos{};
+	std::array<const GpuBuffer*, MAX_RESOURCES_IN_FLIGHT> _iblConfigs{};
 
 	GpuImageViewConfig shadowsViewConfig = GpuImageViewConfig::CreateSampled_Array(0, m_shadowMap.GetNumCascades());
 	shadowsViewConfig.channel = SampledChannel::DEPTH;
 
-	for (UIndex32 i = 0; i < NUM_RESOURCES_IN_FLIGHT; i++) {
+	for (UIndex32 i = 0; i < MAX_RESOURCES_IN_FLIGHT; i++) {
 		_cameraUbos[i] = m_cameraBuffers[i].GetPointer();
 		_dirLightUbos[i] = m_directionalLightBuffers[i].GetPointer();
 		_shadowsMatricesUbos[i] = m_shadowMap.GetDirLightMatrixUniformBuffers()[i];

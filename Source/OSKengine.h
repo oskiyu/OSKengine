@@ -1,6 +1,6 @@
 #pragma once
 
-#include "OSKmacros.h"
+#include "ApiCall.h"
 
 #include "UniquePtr.hpp"
 #include "Version.h"
@@ -14,9 +14,10 @@
 #include "IAudioApi.h"
 #include "IUserInput.h"
 #include "InputManager.h"
-#include "Console.h"
 #include "JobSystem.h"
 #include "Uuid.h"
+#include "ConsoleCommandExecutor.h"
+#include <string_view>
 
 
 namespace OSK {
@@ -60,13 +61,6 @@ namespace OSK {
 		/// @threadsafety La llamada a esta función es thread-safe, pero
 		/// llamadas a funciones de la instancia devuelta pueden no serlo.
 		static IO::Logger* GetLogger();
-
-		/// @return Puntero a la consola por defecto del motor.
-		/// @stablepointer
-		/// @pre El motor debe haber sido previamente inicializado con Create.
-		/// @threadsafety La llamada a esta función es thread-safe, pero
-		/// llamadas a funciones de la instancia devuelta pueden no serlo.
-		static IO::Console* GetConsole();
 
 		/// @brief Devuelve un puntero al display del juego.
 		/// @stablepointer
@@ -130,6 +124,8 @@ namespace OSK {
 		/// @threadsafe
 		static UuidProvider* GetUuidProvider();
 
+		static ConsoleCommandExecutor* GetCommandExecutor();
+
 
 		/// @return Devuelve la versión del motor. 
 		/// @threadsafe
@@ -146,6 +142,7 @@ namespace OSK {
 		static void RegisterBuiltinVertices();
 		static void RegisterBuiltinJobs();
 		static void RegisterBuiltinShaderPasses();
+		static void RegisterBuiltinConsoleCommands();
 
 		/// @return Índice del fotograma actual del juego,
 		/// medido desde que se inició el juego en esta sesión.
@@ -157,7 +154,6 @@ namespace OSK {
 	private:
 
 		static UniquePtr<IO::Logger> logger;
-		static UniquePtr<IO::Console> console;
 		static UniquePtr<IO::IDisplay> display;
 		static UniquePtr<GRAPHICS::IRenderer> renderer;
 		static UniquePtr<ASSETS::AssetManager> assetManager;
@@ -166,6 +162,7 @@ namespace OSK {
 		static UniquePtr<IO::InputManager> inputManager;
 		static UniquePtr<AUDIO::IAudioApi> audioApi;
 		static UniquePtr<JobSystem> m_jobSystem;
+		static UniquePtr<ConsoleCommandExecutor> commandExecutor;
 		static UniquePtr<UuidProvider> uuidProvider;
 
 		static UIndex64 gameFrameIndex;

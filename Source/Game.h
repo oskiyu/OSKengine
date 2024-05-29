@@ -1,10 +1,17 @@
 #pragma once
 
-#include "OSKmacros.h"
-#include "Vector2.hpp"
-#include "UiFreeContainer.h"
+// Para OSKAPI_CALL.
+#include "ApiCall.h"
 
-#include <string>
+// Tipos.
+#include "NumericTypes.h"
+#include "Vector2.hpp"
+
+// Interfaz.
+#include "IUiContainer.h"
+#include "UiFreeContainer.h" // Para el root.
+
+#include "UniquePtr.hpp"
 
 namespace OSK {
 
@@ -34,6 +41,9 @@ namespace OSK {
 
 		/// @brief Registra los sistemas específicos del juego.
 		virtual void RegisterSystems();
+
+		/// @brief Registra los comandos de consola.
+		virtual void RegisterConsoleCommands();
 
 #pragma endregion
 

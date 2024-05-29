@@ -6,7 +6,7 @@ using namespace Microsoft::WRL;
 #include <d3d12.h>
 #include <dxgi1_6.h>
 
-#include "OSKmacros.h"
+#include "ApiCall.h"
 #include "IGpu.h"
 #include "UniquePtr.hpp"
 

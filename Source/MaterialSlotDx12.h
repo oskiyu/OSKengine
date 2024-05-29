@@ -14,11 +14,11 @@ namespace OSK::GRAPHICS {
 
 		MaterialSlotDx12(const std::string& name, const MaterialLayout* layout);
 
-		void SetUniformBuffers(const std::string& binding, std::span<const GpuBuffer*, NUM_RESOURCES_IN_FLIGHT>, UIndex32 arrayIndex) override;
-		void SetGpuImages(const std::string& binding, std::span<const IGpuImageView*, NUM_RESOURCES_IN_FLIGHT>, UIndex32 arrayIndex) override;
-		void SetStorageBuffers(const std::string& binding, std::span<const GpuBuffer*, NUM_RESOURCES_IN_FLIGHT>, UIndex32 arrayIndex) override;
-		void SetStorageImages(const std::string& binding, std::span<const IGpuImageView*, NUM_RESOURCES_IN_FLIGHT>, UIndex32 arrayIndex) override;
-		void SetAccelerationStructures(const std::string& binding, std::span<const ITopLevelAccelerationStructure*, NUM_RESOURCES_IN_FLIGHT>, UIndex32 arrayIndex) override;
+		void SetUniformBuffers(const std::string& binding, std::span<const GpuBuffer*, MAX_RESOURCES_IN_FLIGHT>, UIndex32 arrayIndex) override;
+		void SetGpuImages(const std::string& binding, std::span<const IGpuImageView*, MAX_RESOURCES_IN_FLIGHT>, UIndex32 arrayIndex) override;
+		void SetStorageBuffers(const std::string& binding, std::span<const GpuBuffer*, MAX_RESOURCES_IN_FLIGHT>, UIndex32 arrayIndex) override;
+		void SetStorageImages(const std::string& binding, std::span<const IGpuImageView*, MAX_RESOURCES_IN_FLIGHT>, UIndex32 arrayIndex) override;
+		void SetAccelerationStructures(const std::string& binding, std::span<const ITopLevelAccelerationStructure*, MAX_RESOURCES_IN_FLIGHT>, UIndex32 arrayIndex) override;
 		void FlushUpdate() override;
 
 		const DynamicArray<Pair<USize32, const GpuBuffer*>>& GetUniformBuffers() const;

@@ -1,12 +1,14 @@
 #pragma once
 
+#include "BadAllocException.h"
+#include "NumericTypes.h"
+
 #include <corecrt_memory.h>
 #include <malloc.h>
 #include <string>
 #include <memory>
 #include <limits>
 #include <initializer_list>
-#include "BadAllocException.h"
 #include <span>
 
 namespace OSK {

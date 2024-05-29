@@ -1,5 +1,6 @@
 #pragma once
 
+#include "DefineAs.h"
 #include "DynamicArray.hpp"
 #include "IBottomLevelAccelerationStructure.h"
 

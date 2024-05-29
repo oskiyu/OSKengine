@@ -3,9 +3,13 @@
 #pragma once
 
 #include "IRenderSystem.h"
+#include "ResourcesInFlight.h"
 #include "GpuBuffer.h"
 #include "HashMap.hpp"
 #include "AssetRef.h"
+#include "UniquePtr.hpp"
+#include "ISystem.h"
+#include "MaterialInstance.h"
 
 namespace OSK::ASSETS {
 	class Model3D;
@@ -57,7 +61,7 @@ namespace OSK::ECS {
 	private:
 
 		GameObjectIndex cameraObject = EMPTY_GAME_OBJECT;
-		UniquePtr<GRAPHICS::GpuBuffer> cameraUbos[NUM_RESOURCES_IN_FLIGHT]{};
+		UniquePtr<GRAPHICS::GpuBuffer> cameraUbos[GRAPHICS::MAX_RESOURCES_IN_FLIGHT]{};
 
 		/// @brief Material usado para el renderizado de colliders
 		/// para los que se tiene un modelo 3D (cubo o esfera).

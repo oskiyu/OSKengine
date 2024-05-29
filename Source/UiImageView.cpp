@@ -13,8 +13,8 @@ void ImageView::Render(SpriteRenderer* renderer, Vector2f parentPosition) const 
 		return;
 
 	Transform2D transform(EMPTY_GAME_OBJECT);
-	transform.SetPosition(GetContentTopLeftPosition() + parentPosition);
-	transform.SetScale(GetContentSize());
+	transform.SetPosition(GetRelativePosition() + parentPosition);
+	transform.SetScale(GetSize());
 
 	renderer->Draw(sprite, transform);
 }

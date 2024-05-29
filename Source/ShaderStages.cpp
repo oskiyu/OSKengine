@@ -1,6 +1,6 @@
 #include "ShaderBindingType.h"
 
-#include "OSKmacros.h"
+#include "NumericTypes.h"
 
 template <> std::string OSK::ToString<OSK::GRAPHICS::ShaderBindingType>(const OSK::GRAPHICS::ShaderBindingType& type) {
 	USize32 numFlags = 0;

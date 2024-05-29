@@ -23,6 +23,7 @@
 #include "InvalidObjectStateException.h"
 
 #include "Math.h"
+#include "ResourcesInFlight.h"
 
 
 using namespace OSK;
@@ -56,7 +57,7 @@ void ShadowMap::Create(const Vector2ui& imageSize) {
 	m_depthArrayAttachment = memAllocator->CreateImage(imageInfo).GetPointer();
 	m_depthArrayAttachment->SetDebugName("Shadow Map Depth");
 
-	for (UIndex32 i = 0; i < NUM_RESOURCES_IN_FLIGHT; i++) {
+	for (UIndex32 i = 0; i < MAX_RESOURCES_IN_FLIGHT; i++) {
 		lightUniformBuffer[i] = Engine::GetRenderer()->GetAllocator()->CreateUniformBuffer(sizeof(glm::mat4) * 4 + sizeof(Vector4f)).GetPointer();
 	}
 }
@@ -154,8 +155,8 @@ GpuImage* ShadowMap::GetColorImage() {
 }
 
 DynamicArray<GpuBuffer*> ShadowMap::GetDirLightMatrixUniformBuffers() {
-	auto output = DynamicArray<GpuBuffer*>::CreateResizedArray(NUM_RESOURCES_IN_FLIGHT);
-	for (UIndex32 i = 0; i < NUM_RESOURCES_IN_FLIGHT; i++)
+	auto output = DynamicArray<GpuBuffer*>::CreateResizedArray(MAX_RESOURCES_IN_FLIGHT);
+	for (UIndex32 i = 0; i < MAX_RESOURCES_IN_FLIGHT; i++)
 		output[i] = (lightUniformBuffer[i].GetPointer());
 
 	return output;
@@ -174,8 +175,8 @@ void ShadowMap::SetSplits(const std::array<float, 4>& splits) {
 	m_splitsVec = Vector4f(splits[0], splits[1], splits[2], splits[3]);
 }
 
-std::array<const GpuBuffer*, NUM_RESOURCES_IN_FLIGHT> ShadowMap::GetGpuBuffers() const {
-	std::array<const GpuBuffer*, NUM_RESOURCES_IN_FLIGHT> output{};
+std::array<const GpuBuffer*, MAX_RESOURCES_IN_FLIGHT> ShadowMap::GetGpuBuffers() const {
+	std::array<const GpuBuffer*, MAX_RESOURCES_IN_FLIGHT> output{};
 
 	for (UIndex64 i = 0; i < output.size(); i++) {
 		output[i] = lightUniformBuffer[i].GetPointer();

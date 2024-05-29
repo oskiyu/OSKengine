@@ -57,8 +57,8 @@ void Font::LoadSizedFont(USize32 fontSize) {
 		UniquePtr<TByte> data;
 		USize32 sizeX = 0;
 		USize32 sizeY = 0;
-		USize32 left = 0;
-		USize32 top = 0;
+		int left = 0;
+		int top = 0;
 		USize32 advanceX = 0;
 	};
 

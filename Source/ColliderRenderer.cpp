@@ -55,8 +55,8 @@ ColliderRenderSystem::ColliderRenderSystem() {
 	sphereModel = Engine::GetAssetManager()->Load<Model3D>("Resources/Assets/Models/Colliders/sphere.json");
 
 	// Material setup
-	const GpuBuffer* _cameraUbos[NUM_RESOURCES_IN_FLIGHT]{};
-	for (UIndex32 i = 0; i < NUM_RESOURCES_IN_FLIGHT; i++) {
+	const GpuBuffer* _cameraUbos[MAX_RESOURCES_IN_FLIGHT]{};
+	for (UIndex32 i = 0; i < MAX_RESOURCES_IN_FLIGHT; i++) {
 		cameraUbos[i] = Engine::GetRenderer()->GetAllocator()
 			->CreateUniformBuffer(sizeof(glm::mat4) * 2 + sizeof(glm::vec4), GpuQueueType::MAIN)
 			.GetPointer();

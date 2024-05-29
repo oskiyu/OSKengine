@@ -2,7 +2,7 @@
 
 #include <string>
 #include "ShaderBindingType.h"
-#include "OSKmacros.h"
+#include "NumericTypes.h"
 
 namespace OSK::GRAPHICS {
 

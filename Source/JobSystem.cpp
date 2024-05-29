@@ -76,3 +76,7 @@ void JobSystem::WaitForAll() const {
 		std::this_thread::yield();
 	}
 }
+
+USize32 JobSystem::GetNumThreads() const {
+	return m_numThreads + 1;
+}

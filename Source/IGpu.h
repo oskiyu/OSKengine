@@ -1,6 +1,8 @@
 #pragma once
 
-#include "OSKmacros.h"
+#include "ApiCall.h"
+#include "DefineAs.h"
+
 #include "OwnedPtr.h"
 #include "GpuMemoryUsageInfo.h"
 
@@ -44,6 +46,17 @@ namespace OSK::GRAPHICS {
 
 		/// @brief Cierra la conexión con la GPU.
 		virtual void Close() = 0;
+
+		/// @return Nombre de la GPU.
+		std::string_view GetName() const;
+
+	protected:
+
+		void _SetName(const std::string& name);
+
+	private:
+
+		std::string m_name;
 
 	};
 

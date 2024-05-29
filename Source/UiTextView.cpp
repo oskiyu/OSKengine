@@ -98,6 +98,8 @@ std::string_view TextView::GetText() const {
 void TextView::Render(SpriteRenderer* renderer, Vector2f parentPosition) const {
 	if (!font.GetAsset())
 		return;
+
+	ImageView::Render(renderer, parentPosition);
 	
 	Vector2f globalPosition = GetContentTopLeftPosition() + parentPosition;
 	globalPosition.y += GetContentSize().y;

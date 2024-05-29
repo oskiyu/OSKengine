@@ -4,6 +4,7 @@
 #include "UniquePtr.hpp"
 
 #include <vulkan/vulkan.h>
+#include "ResourcesInFlight.h"
 
 namespace OSK::GRAPHICS {
 
@@ -110,12 +111,12 @@ namespace OSK::GRAPHICS {
 		/// @brief Semáforos que serán señalizados
 		/// cuando la imagen indicada esté disponible
 		/// para renderizarse.
-		std::array<VkSemaphore, NUM_RESOURCES_IN_FLIGHT> m_imageAvailableSemaphores;
+		std::array<VkSemaphore, MAX_RESOURCES_IN_FLIGHT> m_imageAvailableSemaphores;
 
 		/// @brief Semáforos que serán señalizados
 		/// cuando la imagen indicada haya terminado de
 		/// renderizarse.
-		std::array<VkSemaphore, NUM_RESOURCES_IN_FLIGHT> m_imageFinishedSemaphores;
+		std::array<VkSemaphore, MAX_RESOURCES_IN_FLIGHT> m_imageFinishedSemaphores;
 
 		/// @brief Permiten esperar en la CPU a que la siguiente
 		/// imagen haya terminado de renderizarse.

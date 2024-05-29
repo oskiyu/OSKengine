@@ -1,6 +1,7 @@
 #pragma once
 
 #include "ISwapchain.h"
+#include "VulkanTypedefs.h"
 
 enum VkColorSpaceKHR;
 OSK_VULKAN_TYPEDEF(VkSwapchainKHR);

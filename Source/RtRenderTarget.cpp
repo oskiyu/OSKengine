@@ -33,11 +33,19 @@ Vector2ui RtRenderTarget::GetSize() const {
 	return GetTargetImage()->GetSize2D();
 }
 
-MaterialInstance* RtRenderTarget::GetFullscreenSpriteMaterialInstance() const {
+MaterialInstance* RtRenderTarget::GetFullscreenSpriteMaterialInstance() {
 	return m_fullscreenSpriteMaterialInstance.GetPointer();
 }
 
-IMaterialSlot* RtRenderTarget::GetFullscreenSpriteMaterialSlot() const {
+const MaterialInstance* RtRenderTarget::GetFullscreenSpriteMaterialInstance() const {
+	return m_fullscreenSpriteMaterialInstance.GetPointer();
+}
+
+IMaterialSlot* RtRenderTarget::GetFullscreenSpriteMaterialSlot() {
+	return m_fullscreenSpriteMaterialInstance->GetSlot("texture");
+}
+
+const IMaterialSlot* RtRenderTarget::GetFullscreenSpriteMaterialSlot() const {
 	return m_fullscreenSpriteMaterialInstance->GetSlot("texture");
 }
 

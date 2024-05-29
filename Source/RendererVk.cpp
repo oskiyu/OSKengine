@@ -183,7 +183,7 @@ void RendererVk::Close() {
 
 	vkDestroySurfaceKHR(m_instance, m_surface, nullptr);
 
-	for (USize32 i = 0; i < NUM_RESOURCES_IN_FLIGHT; i++) {
+	for (USize32 i = 0; i < MAX_RESOURCES_IN_FLIGHT; i++) {
 		vkDestroyFence(device, m_fullyRenderedFences[i], nullptr);
 
 		vkDestroySemaphore(device, m_imageAvailableSemaphores[i], nullptr);
@@ -526,7 +526,7 @@ void RendererVk::CreateSyncPrimitives() {
 	fenceInfo.sType = VK_STRUCTURE_TYPE_FENCE_CREATE_INFO;
 	fenceInfo.flags = VK_FENCE_CREATE_SIGNALED_BIT;
 
-	for (UIndex32 i = 0; i < NUM_RESOURCES_IN_FLIGHT; i++) {
+	for (UIndex32 i = 0; i < MAX_RESOURCES_IN_FLIGHT; i++) {
 		
 		VkResult result = vkCreateSemaphore(logicalDevice, &semaphoreInfo, nullptr, &m_imageAvailableSemaphores[i]);
 		OSK_ASSERT(result == VK_SUCCESS, RendererCreationException("Error al crear el semáforo.", result));
@@ -670,7 +670,7 @@ void RendererVk::SubmitFrame() {
 		}
 	}
 
-	currentCommandBufferIndex = (currentCommandBufferIndex + 1) % NUM_RESOURCES_IN_FLIGHT;
+	currentCommandBufferIndex = (currentCommandBufferIndex + 1) % MAX_RESOURCES_IN_FLIGHT;
 
 	// Si la siguiente imagen está siendo procesada, esperar a que termine.
 	vkWaitForFences(logicalDevice, 1, &m_fullyRenderedFences[currentCommandBufferIndex], VK_TRUE, UINT64_MAX);

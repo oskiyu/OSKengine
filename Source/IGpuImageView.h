@@ -1,6 +1,8 @@
 #pragma once
 
-#include "OSKmacros.h"
+#include "ApiCall.h"
+#include "DefineAs.h"
+
 #include "GpuImageUsage.h"
 #include "GpuImageViewConfig.h"
 

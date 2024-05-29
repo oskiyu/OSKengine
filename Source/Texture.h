@@ -33,7 +33,7 @@ namespace OSK::ASSETS {
 		/// @return Imagen guardada en la GPU.
 		/// @note No puede ser null.
 		/// @stablepointer
-		GRAPHICS::GpuImage* GetGpuImage() const;
+		const GRAPHICS::GpuImage* GetGpuImage() const;
 
 		/// @return Image view para renderizado 2D, con un único nivel de mip.
 		/// @stablepointer

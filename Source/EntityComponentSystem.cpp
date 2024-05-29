@@ -379,6 +379,32 @@ void EntityComponentSystem::_ClearEventQueues() {
 	m_eventManager->_ClearQueues();
 }
 
+ISystem* EntityComponentSystem::GetSystemByName(std::string_view name) {
+	return m_systemManager->GetSystem(name);
+}
+
+DynamicArray<ComponentType> EntityComponentSystem::GetObjectComponentsTypes(GameObjectIndex obj) const {
+	OSK_ASSERT(
+		m_gameObjectManager->IsGameObjectAlive(obj),
+		InvalidArgumentException(std::format("El objeto {} no existe.", obj.Get())));
+
+	DynamicArray<ComponentType> output{};
+
+	const auto& signature = m_gameObjectManager->GetSignature(obj);
+
+	for (ComponentType index = 0; index < MAX_COMPONENT_TYPES; index++) {
+		if (signature.Get(index)) {
+			output.Insert(index);
+		}
+	}
+
+	return output;
+}
+
+std::string EntityComponentSystem::GetComponentTypeName(ComponentType type) const {
+	return m_componentManager->GetComponentTypeName(type);
+}
+
 GameObjectIndex EntityComponentSystem::SpawnObject() {
 	return m_gameObjectManager->CreateGameObject();
 }
@@ -387,6 +413,23 @@ void EntityComponentSystem::DestroyObject(GameObjectIndex* obj) {
 	m_systemManager->GameObjectDestroyed(*obj);
 	m_componentManager->GameObjectDestroyed(*obj);
 	m_gameObjectManager->DestroyGameObject(obj);
+}
+
+std::span<const GameObjectIndex> EntityComponentSystem::GetLivingObjects() const {
+	return m_gameObjectManager->GetAllLivingObjects();
+}
+
+DynamicArray<const ISystem*> EntityComponentSystem::GetAllSystems() const {
+	DynamicArray<const ISystem*> output{};
+	const auto& graph = m_systemManager->GetExecutionGraph();
+
+	for (const auto& set : graph.GetExecutionGraph()) {
+		for (const auto& system : set.systems) {
+			output.Insert(system);
+		}
+	}
+
+	return output;
 }
 
 bool EntityComponentSystem::IsGameObjectAlive(GameObjectIndex obj) const {

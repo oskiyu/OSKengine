@@ -1,10 +1,9 @@
 #pragma once
 
-#include "OSKmacros.h"
+#include "ApiCall.h"
+#include "Serializer.h"
 
 #include <glm/glm.hpp>
-
-#include "Serializer.h"
 
 
 namespace OSK {

@@ -1,7 +1,6 @@
 #pragma once
 
-#include "OSKmacros.h"
-
+#include "NumericTypes.h"
 #include "GpuImageSamplerDesc.h"
 #include "GpuBarrierInfo.h"
 

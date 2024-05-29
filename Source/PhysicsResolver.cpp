@@ -14,7 +14,7 @@ using namespace OSK::ECS;
 using namespace OSK::COLLISION;
 
 void PhysicsResolver::Execute(TDeltaTime deltaTime, std::span<const CollisionEvent> events) {
-	const EntityComponentSystem* ecs = Engine::GetEcs();
+	EntityComponentSystem* ecs = Engine::GetEcs();
 
 	for (const auto& event : Engine::GetEcs()->GetEventQueue<CollisionEvent>()) {
 		GameObjectIndex first  = event.firstEntity;

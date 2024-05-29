@@ -1,7 +1,5 @@
 #pragma once
 
-#include "OSKmacros.h"
-
 #ifndef OSK_EVENT
 #define OSK_EVENT(className) static inline std::string_view GetEventName() { return className; }
 #endif

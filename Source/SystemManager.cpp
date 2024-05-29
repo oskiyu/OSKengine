@@ -279,7 +279,7 @@ const ISystem* SystemManager::GetSystem(std::string_view systemName) const {
 }
 
 void SystemManager::DeactivateAllSystems() {
-	for (const auto& [name, system] : m_systems) {
+	for (auto& [name, system] : m_systems) {
 		system.system->Deactivate();
 	}
 }

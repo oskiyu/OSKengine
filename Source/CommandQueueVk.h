@@ -1,6 +1,8 @@
 #pragma once
 
 #include "ICommandQueue.h"
+#include "DefineAs.h"
+#include "VulkanTypedefs.h"
 
 OSK_VULKAN_TYPEDEF(VkQueue);
 

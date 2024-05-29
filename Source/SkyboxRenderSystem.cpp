@@ -23,8 +23,8 @@ SkyboxRenderSystem::SkyboxRenderSystem() {
 
 	m_cubemapModel = Engine::GetAssetManager()->Load<Model3D>("Resources/Assets/Models/cube.json");
 
-	std::array<const GpuBuffer*, NUM_RESOURCES_IN_FLIGHT> buffers{};
-	for (UIndex32 i = 0; i < NUM_RESOURCES_IN_FLIGHT; i++) {
+	std::array<const GpuBuffer*, MAX_RESOURCES_IN_FLIGHT> buffers{};
+	for (UIndex32 i = 0; i < MAX_RESOURCES_IN_FLIGHT; i++) {
 		cameraUbos[i] = Engine::GetRenderer()->GetAllocator()->CreateUniformBuffer(sizeof(glm::mat4) * 2).GetPointer();
 		buffers[i] = cameraUbos[i].GetPointer();
 	}

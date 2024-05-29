@@ -2,7 +2,7 @@
 // Copyright (c) 2019-2022 oskiyu. All rights reserved.
 #pragma once
 
-#include "OSKmacros.h"
+#include "ApiCall.h"
 #include "Vector3.hpp"
 #include "DynamicArray.hpp"
 

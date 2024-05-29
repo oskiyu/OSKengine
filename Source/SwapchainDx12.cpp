@@ -44,7 +44,7 @@ SwapchainDx12::SwapchainDx12(PresentMode mode, Format format, const GpuDx12& dev
 {
     DXGI_SWAP_CHAIN_DESC1 swapchainDesc{};
 
-    SetNumImagesInFlight(NUM_RESOURCES_IN_FLIGHT);
+    SetNumImagesInFlight(MAX_RESOURCES_IN_FLIGHT);
 
     swapchainDesc.BufferCount = GetImageCount();
     swapchainDesc.BufferUsage = DXGI_USAGE_RENDER_TARGET_OUTPUT;

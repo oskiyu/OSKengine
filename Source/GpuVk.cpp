@@ -16,6 +16,7 @@ using namespace OSK::GRAPHICS;
 
 GpuVk::GpuVk(VkPhysicalDevice gpu, VkSurfaceKHR surface) : physicalDevice(gpu), surface(surface) {
 	info = Info::Get(gpu, surface);
+	_SetName(info.properties.deviceName);
 }
 
 GpuVk::~GpuVk() {

@@ -19,7 +19,7 @@ void SmaaPass::Create(const Vector2ui& size) {
 
 	IPostProcessPass::Create(size);
 
-	for (UIndex32 i = 0; i < NUM_RESOURCES_IN_FLIGHT; i++) {
+	for (UIndex32 i = 0; i < MAX_RESOURCES_IN_FLIGHT; i++) {
 		GpuImageSamplerDesc sampler{};
 		sampler.mipMapMode = GpuImageMipmapMode::NONE;
 		sampler.addressMode = GpuImageAddressMode::EDGE;
@@ -34,7 +34,7 @@ void SmaaPass::Create(const Vector2ui& size) {
 void SmaaPass::Resize(const Vector2ui& size) {
 	IPostProcessPass::Resize(size);
 
-	for (UIndex32 i = 0; i < NUM_RESOURCES_IN_FLIGHT; i++) {
+	for (UIndex32 i = 0; i < MAX_RESOURCES_IN_FLIGHT; i++) {
 		GpuImageSamplerDesc sampler{};
 		sampler.mipMapMode = GpuImageMipmapMode::NONE;
 		sampler.addressMode = GpuImageAddressMode::EDGE;

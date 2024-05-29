@@ -11,6 +11,7 @@
 #include "MaterialInstance.h"
 
 #include "SavedGameObjectTranslator.h"
+#include "ResourcesInFlight.h"
 
 
 namespace OSK::ASSETS {
@@ -72,7 +73,7 @@ namespace OSK::ECS {
 		ECS::GameObjectIndex m_cameraObject = ECS::EMPTY_GAME_OBJECT;
 
 		/// @brief Buffers CPU->GPU donde se almacena el estado de la cámara en un fotograma.
-		std::array<UniquePtr<GRAPHICS::GpuBuffer>, NUM_RESOURCES_IN_FLIGHT> m_cameraBuffers{};
+		std::array<UniquePtr<GRAPHICS::GpuBuffer>, GRAPHICS::MAX_RESOURCES_IN_FLIGHT> m_cameraBuffers{};
 
 	};
 

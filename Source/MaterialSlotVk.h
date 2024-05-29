@@ -7,6 +7,7 @@
 #include "DescriptorLayoutVk.h"
 #include "DescriptorPoolVk.h"
 #include "LinkedList.hpp"
+#include "ResourcesInFlight.h"
 
 #include <unordered_map>
 #include <array>
@@ -31,27 +32,27 @@ namespace OSK::GRAPHICS {
 
 		void SetUniformBuffers(
 			const std::string& binding, 
-			std::span<const GpuBuffer*, NUM_RESOURCES_IN_FLIGHT>,
+			std::span<const GpuBuffer*, MAX_RESOURCES_IN_FLIGHT>,
 			UIndex32 arrayIndex) override;
 
 		void SetGpuImages(
 			const std::string& binding, 
-			std::span<const IGpuImageView*, NUM_RESOURCES_IN_FLIGHT>,
+			std::span<const IGpuImageView*, MAX_RESOURCES_IN_FLIGHT>,
 			UIndex32 arrayIndex) override;
 
 		void SetStorageBuffers(
 			const std::string& binding, 
-			std::span<const GpuBuffer*, NUM_RESOURCES_IN_FLIGHT>,
+			std::span<const GpuBuffer*, MAX_RESOURCES_IN_FLIGHT>,
 			UIndex32 arrayIndex) override;
 
 		void SetStorageImages(
 			const std::string& binding, 
-			std::span<const IGpuImageView*, NUM_RESOURCES_IN_FLIGHT>,
+			std::span<const IGpuImageView*, MAX_RESOURCES_IN_FLIGHT>,
 			UIndex32 arrayIndex) override;
 
 		void SetAccelerationStructures(
 			const std::string& binding, 
-			std::span<const ITopLevelAccelerationStructure*, NUM_RESOURCES_IN_FLIGHT>,
+			std::span<const ITopLevelAccelerationStructure*, MAX_RESOURCES_IN_FLIGHT>,
 			UIndex32 arrayIndex) override;
 
 		void FlushUpdate() override;
@@ -73,10 +74,10 @@ namespace OSK::GRAPHICS {
 		DynamicArray<VkWriteDescriptorSet> m_descriptorWrites{};
 
 		/// @brief Un descriptor set por recurso en vuelo.
-		std::array<VkDescriptorSet, NUM_RESOURCES_IN_FLIGHT> m_descriptorSets{};
+		std::array<VkDescriptorSet, MAX_RESOURCES_IN_FLIGHT> m_descriptorSets{};
 		
 		/// @brief Mapas ID del binding -> datos del binding.
-		std::array<std::unordered_map<UIndex32, BindingVk>, NUM_RESOURCES_IN_FLIGHT> m_bindings;
+		std::array<std::unordered_map<UIndex32, BindingVk>, MAX_RESOURCES_IN_FLIGHT> m_bindings;
 
 		DynamicArray<UniquePtr<VkDescriptorBufferInfo>> m_bufferInfos;
 		DynamicArray<UniquePtr<VkDescriptorImageInfo>> m_imageInfos;

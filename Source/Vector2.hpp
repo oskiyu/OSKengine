@@ -1,9 +1,8 @@
 #pragma once
 
-#include "OSKmacros.h"
-
 #include <glm/glm.hpp>
 
+#include "ApiCall.h"
 
 namespace OSK {
 

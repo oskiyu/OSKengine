@@ -36,7 +36,7 @@ TreeNormalsRenderSystem::TreeNormalsRenderSystem() {
 void TreeNormalsRenderSystem::CreateBuffers() {
 	IGpuMemoryAllocator* memAllocator = Engine::GetRenderer()->GetAllocator();
 
-	for (UIndex32 i = 0; i < NUM_RESOURCES_IN_FLIGHT; i++) {
+	for (UIndex32 i = 0; i < MAX_RESOURCES_IN_FLIGHT; i++) {
 		m_cameraBuffers[i] = memAllocator->CreateUniformBuffer(sizeof(CameraInfo)).GetPointer();
 	}
 }
@@ -55,8 +55,8 @@ void TreeNormalsRenderSystem::Initialize(GameObjectIndex camera) {
 	CreateBuffers();
 
 	// Material setup
-	std::array<const GpuBuffer*, NUM_RESOURCES_IN_FLIGHT> cameraBuffers{};
-	for (UIndex64 i = 0; i < NUM_RESOURCES_IN_FLIGHT; i++)
+	std::array<const GpuBuffer*, MAX_RESOURCES_IN_FLIGHT> cameraBuffers{};
+	for (UIndex64 i = 0; i < MAX_RESOURCES_IN_FLIGHT; i++)
 		cameraBuffers[i] = m_cameraBuffers[i].GetPointer();
 
 	auto* materialInstance = m_shaderPasses.GetShaderPass("tree_normals_pass")->GetMaterialInstance();

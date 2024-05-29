@@ -1,6 +1,7 @@
 #pragma once
 
-#include "OSKmacros.h"
+#include "ApiCall.h"
+#include "NumericTypes.h"
 
 struct VkDescriptorPool_T;
 using VkDescriptorPool = VkDescriptorPool_T*;

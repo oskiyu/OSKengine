@@ -1,6 +1,6 @@
 #pragma once
 
-#include "OSKmacros.h"
+#include "ApiCall.h"
 #include "UniquePtr.hpp"
 
 #include "ComponentManager.h"
@@ -217,7 +217,14 @@ namespace OSK::ECS {
 		/// @throws ComponentNotRegisteredException Si el tipo de componente no ha sido registrado.
 		/// @throws ComponentNotFoundException Si el objeto no tiene el componente del tipo dado.
 		template <typename TComponent> requires IsEcsComponent<TComponent>
-		TComponent& GetComponent(GameObjectIndex obj) const {
+		TComponent& GetComponent(GameObjectIndex obj) {
+			OSK_ASSERT(m_componentManager->ComponentHasBeenRegistered<TComponent>(), ComponentNotRegisteredException(TComponent::GetComponentTypeName()));
+			OSK_ASSERT(ObjectHasComponent<TComponent>(obj), ComponentNotFoundException(TComponent::GetComponentTypeName(), obj))
+
+				return m_componentManager->GetComponent<TComponent>(obj);
+		}
+		template <typename TComponent> requires IsEcsComponent<TComponent>
+		const TComponent& GetComponent(GameObjectIndex obj) const {
 			OSK_ASSERT(m_componentManager->ComponentHasBeenRegistered<TComponent>(), ComponentNotRegisteredException(TComponent::GetComponentTypeName()));
 			OSK_ASSERT(ObjectHasComponent<TComponent>(obj), ComponentNotFoundException(TComponent::GetComponentTypeName(), obj))
 
@@ -235,6 +242,18 @@ namespace OSK::ECS {
 			OSK_ASSERT(m_componentManager->ComponentHasBeenRegistered<TComponent>(), ComponentNotRegisteredException(TComponent::GetComponentTypeName()));
 			return m_componentManager->GetComponentType<TComponent>();
 		}
+
+		/// @param obj Objeto.
+		/// @return IDs de los objetos que contiene el objeto.
+		/// @pre @p obj debe corresponderse con un objeto válido.
+		/// @throws InvalidArgumentException si se incumple la precondición.
+		DynamicArray<ComponentType> GetObjectComponentsTypes(GameObjectIndex obj) const;
+
+		/// @param type Tipo de componente.
+		/// @return Nombre del tipo de componente.
+		/// @pre @p type debe identificar un tipo de componente
+		/// que haya sido previamente registrado.
+		std::string GetComponentTypeName(ComponentType type) const;
 
 #pragma endregion
 
@@ -290,13 +309,23 @@ namespace OSK::ECS {
 		/// @pre El sistema debe haber sido previamente registrado con RegisterSystem.
 		/// @throws SystemNotFoundException Si el sistema no está registrado.
 		template <typename TSystem> requires IsEcsSystem<TSystem>
-		TSystem* GetSystem() const {
+		TSystem* GetSystem() {
 			OSK_ASSERT(
 				HasSystem<TSystem>(),
 				SystemNotFoundException(TSystem::GetSystemName()))
 
-			return m_systemManager->GetSystem<TSystem>();
+				return m_systemManager->GetSystem<TSystem>();
 		}
+		template <typename TSystem> requires IsEcsSystem<TSystem>
+		const TSystem* GetSystem() const {
+			OSK_ASSERT(
+				HasSystem<TSystem>(),
+				SystemNotFoundException(TSystem::GetSystemName()))
+
+				return m_systemManager->GetSystem<TSystem>();
+		}
+
+		ISystem* GetSystemByName(std::string_view name);
 
 		/// @tparam TSystem Tipo del sistema.
 		/// @return True si el sistema está registrado y se está ejecutando.
@@ -387,6 +416,12 @@ namespace OSK::ECS {
 		///
 		/// @note Su ID cambia a 0 para indicar que ya no es una ID válida.
 		void OSKAPI_CALL DestroyObject(GameObjectIndex* obj);
+
+		/// @return IDs de todos los objetos vivos.
+		std::span<const GameObjectIndex> GetLivingObjects() const;
+
+		/// @return Todos los sistemas registrados.
+		DynamicArray<const ISystem*> GetAllSystems() const;
 
 		/// @brief Finaliza el frame.
 		/// Debe llamarse una vez al finalizar el frame.	

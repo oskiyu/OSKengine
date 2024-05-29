@@ -8,7 +8,7 @@ CubemapTexture::CubemapTexture(const std::string& assetFile)
 
 }
 
-GpuImage* CubemapTexture::GetGpuImage() const {
+const GpuImage* CubemapTexture::GetGpuImage() const {
 	return image.GetPointer();
 }
 

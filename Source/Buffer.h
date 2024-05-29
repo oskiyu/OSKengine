@@ -1,6 +1,7 @@
 #pragma once
 
-#include "OSKmacros.h"
+#include "ApiCall.h"
+#include "NumericTypes.h"
 #include "DynamicArray.hpp"
 #include <span>
 

@@ -1,7 +1,8 @@
 #pragma once
 
 #include "Vector4.hpp"
-#include "OSKmacros.h"
+#include "NumericTypes.h"
+#include "Vector2.hpp"
 
 namespace OSK::ASSETS {
 

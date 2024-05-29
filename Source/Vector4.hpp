@@ -2,7 +2,6 @@
 
 #include <glm/glm.hpp>
 
-#include "OSKmacros.h"
 #include "Vector2.hpp"
 
 namespace OSK {

@@ -1,6 +1,9 @@
 #pragma once
 
-#include "OSKmacros.h"
+#include "ApiCall.h"
+#include "DefineAs.h"
+#include "ResourcesInFlight.h"
+
 #include "GpuImageUsage.h"
 #include <string>
 #include "IGpuObject.h"
@@ -53,7 +56,7 @@ namespace OSK::GRAPHICS {
 		/// @warning No actualizará el recurso que realmente se usará en el shader, se debe llamar a FlushUpdate().
 		virtual void SetUniformBuffers(
 			const std::string& binding, 
-			std::span<const GpuBuffer*, NUM_RESOURCES_IN_FLIGHT> buffers,
+			std::span<const GpuBuffer*, MAX_RESOURCES_IN_FLIGHT> buffers,
 			UIndex32 arrayIndex = 0) = 0;
 
 
@@ -87,7 +90,7 @@ namespace OSK::GRAPHICS {
 		/// @param channel 
 		void SetTextures(
 			const std::string& binding, 
-			std::span<const ASSETS::Texture*, NUM_RESOURCES_IN_FLIGHT> textures,
+			std::span<const ASSETS::Texture*, MAX_RESOURCES_IN_FLIGHT> textures,
 			SampledChannel channel = SampledChannel::COLOR,
 			UIndex32 arrayIndex = 0);
 
@@ -114,7 +117,7 @@ namespace OSK::GRAPHICS {
 		/// @warning No actualizará el recurso que realmente se usará en el shader, se debe llamar a FlushUpdate().
 		virtual void SetGpuImages(
 			const std::string& binding, 
-			std::span<const IGpuImageView*, NUM_RESOURCES_IN_FLIGHT> images,
+			std::span<const IGpuImageView*, MAX_RESOURCES_IN_FLIGHT> images,
 			UIndex32 arrayIndex = 0) = 0;
 
 
@@ -140,7 +143,7 @@ namespace OSK::GRAPHICS {
 		/// @warning No actualizará el recurso que realmente se usará en el shader, se debe llamar a FlushUpdate().
 		virtual void SetStorageBuffers(
 			const std::string& binding, 
-			std::span<const GpuBuffer*, NUM_RESOURCES_IN_FLIGHT> buffers,
+			std::span<const GpuBuffer*, MAX_RESOURCES_IN_FLIGHT> buffers,
 			UIndex32 arrayIndex = 0) = 0;
 
 
@@ -166,7 +169,7 @@ namespace OSK::GRAPHICS {
 		/// @warning No actualizará el recurso que realmente se usará en el shader, se debe llamar a FlushUpdate().
 		virtual void SetStorageImages(
 			const std::string& binding, 
-			std::span<const IGpuImageView*, NUM_RESOURCES_IN_FLIGHT> images,
+			std::span<const IGpuImageView*, MAX_RESOURCES_IN_FLIGHT> images,
 			UIndex32 arrayIndex = 0) = 0;
 
 
@@ -192,7 +195,7 @@ namespace OSK::GRAPHICS {
 		/// @warning No actualizará el recurso que realmente se usará en el shader, se debe llamar a FlushUpdate().
 		virtual void SetAccelerationStructures(
 			const std::string& binding, 
-			std::span<const ITopLevelAccelerationStructure*, NUM_RESOURCES_IN_FLIGHT> accelerationStructure,
+			std::span<const ITopLevelAccelerationStructure*, MAX_RESOURCES_IN_FLIGHT> accelerationStructure,
 			UIndex32 arrayIndex = 0) = 0;
 
 

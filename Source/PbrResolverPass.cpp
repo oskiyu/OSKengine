@@ -27,7 +27,7 @@ void PbrResolverPass::RenderLoop(ICommandList* commandList, const DynamicArray<E
 	const Vector2ui dispatchRes = resolution / threadGroupSize + Vector2ui(1u, 1u);
 
 	commandList->BindMaterial(*m_passMaterial);
-	commandList->BindMaterialInstance(*m_materialInstance);
+	commandList->BindMaterialInstance(m_materialInstance.GetValue());
 	commandList->PushMaterialConstants("taa", static_cast<int>(jitterIndex));
 	commandList->DispatchCompute({ dispatchRes.x, dispatchRes.y, 1 });
 }

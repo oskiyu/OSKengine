@@ -81,7 +81,7 @@ namespace OSK {
 		/// @note Si no encuentra ningún bit después del dado, devuelve 0.
 		UIndex64 GetNextTrueIndex(UIndex64 initialIndex = 0) const {
 			UIndex64 index = initialIndex / 8;
-			const USize64 offset = initialIndex % 8;
+			TByte offset = initialIndex % 8;
 
 			for (; index < size; index++) {
 				TByte value = bytes[index];

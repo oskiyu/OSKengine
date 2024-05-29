@@ -156,9 +156,6 @@ static VkIndexType GetIndexTypevk(IndexType type) {
 		return VK_INDEX_TYPE_UINT16;
 	case OSK::GRAPHICS::IndexType::U32:
 		return VK_INDEX_TYPE_UINT32;
-	default:
-		OSK_UNREACHABLE;
-		break;
 	}
 }
 

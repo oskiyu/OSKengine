@@ -8,9 +8,11 @@
 #include "TerrainComponent.h"
 #include "RtRenderTarget.h"
 #include "TaaProvider.h"
+#include "ResourcesInFlight.h"
 
 #include <array>
 #include <span>
+#include "ResourcesInFlight.h"
 
 namespace OSK::GRAPHICS {
 	class ICommandList;
@@ -86,11 +88,11 @@ namespace OSK::ECS {
 		UniquePtr<GRAPHICS::GpuBuffer> m_resolutionBuffer = nullptr;
 
 		/// @brief Buffers con la información de la cámara en un frame en concreto.
-		std::array<UniquePtr<GRAPHICS::GpuBuffer>, NUM_RESOURCES_IN_FLIGHT> m_cameraBuffers{};
+		std::array<UniquePtr<GRAPHICS::GpuBuffer>, GRAPHICS::MAX_RESOURCES_IN_FLIGHT> m_cameraBuffers{};
 		/// @brief Buffers con la información de la cámara en el frame anterior.
-		std::array<UniquePtr<GRAPHICS::GpuBuffer>, NUM_RESOURCES_IN_FLIGHT> m_previousCameraBuffers{};
+		std::array<UniquePtr<GRAPHICS::GpuBuffer>, GRAPHICS::MAX_RESOURCES_IN_FLIGHT> m_previousCameraBuffers{};
 
-		std::array<UniquePtr<GRAPHICS::GpuBuffer>, NUM_RESOURCES_IN_FLIGHT> m_dirLightUbos{};
+		std::array<UniquePtr<GRAPHICS::GpuBuffer>, GRAPHICS::MAX_RESOURCES_IN_FLIGHT> m_dirLightUbos{};
 		GRAPHICS::DirectionalLight m_dirLight{};
 
 		GRAPHICS::ShadowMap m_shadowMap;

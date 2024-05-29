@@ -1,6 +1,6 @@
 #pragma once
 
-#include "OSKmacros.h"
+#include "ApiCall.h"
 #include "JobQueue.h"
 #include "HashMap.hpp"
 
@@ -62,6 +62,11 @@ namespace OSK {
 		/// @param tag Tag del trabajo.
 		/// @threadsafe
 		void WaitForTag(std::string_view tag);
+
+		/// @return Número de hilos totales.
+		/// = número de hilos del sistema de 
+		/// trabajos + 1 (hilo principal).
+		USize32 GetNumThreads() const;
 
 	private:
 

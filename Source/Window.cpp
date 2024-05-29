@@ -25,6 +25,7 @@ using namespace OSK::IO;
 Window::Window() {
 	glfwInit();
 	glfwWindowHint(GLFW_CLIENT_API, GLFW_NO_API);
+	// glfwWindowHint(GLFW_DECORATED, GLFW_FALSE);
 }
 
 Window::~Window() {

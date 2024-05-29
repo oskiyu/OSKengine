@@ -28,7 +28,7 @@ namespace OSK::ASSETS {
 		/// Imagen guardada en la GPU.
 		/// Para renderizado.
 		/// </summary>
-		GRAPHICS::GpuImage* GetGpuImage() const;
+		const GRAPHICS::GpuImage* GetGpuImage() const;
 
 		/// <summary> Establece la imagen que contiene el cubemap. </summary>
 		/// 

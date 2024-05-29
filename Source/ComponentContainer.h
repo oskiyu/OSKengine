@@ -40,7 +40,7 @@ namespace OSK::ECS {
 		TComponent& AddComponent(GameObjectIndex obj, const TComponent& component) {
 			OSK_ASSERT(
 				!ObjectHasComponent(obj),
-				InvalidArgumentException(std::format("El objeto {} ya contiene el componente.", obj)))
+				InvalidArgumentException(std::format("El objeto {} ya contiene el componente.", obj.Get())))
 
 			ComponentIndex componentId = m_components.GetSize();
 
@@ -61,7 +61,7 @@ namespace OSK::ECS {
 		TComponent& AddComponentMove(GameObjectIndex obj, TComponent&& component) {
 			OSK_ASSERT(
 				!ObjectHasComponent(obj),
-				InvalidArgumentException(std::format("El objeto {} ya contiene el componente.", obj)))
+				InvalidArgumentException(std::format("El objeto {} ya contiene el componente.", obj.Get())))
 
 			const ComponentIndex componentId = m_components.GetSize();
 
@@ -81,7 +81,7 @@ namespace OSK::ECS {
 		void RemoveComponent(GameObjectIndex obj) {
 			OSK_ASSERT(
 				m_objectToComponent.contains(obj), 
-				InvalidArgumentException(std::format("El objeto {} no contiene el componente.", obj)))
+				InvalidArgumentException(std::format("El objeto {} no contiene el componente.", obj.Get())))
 
 			ComponentIndex compIndex = m_objectToComponent.at(obj);
 			const UIndex64 indexOfLast = m_components.GetSize() - 1;

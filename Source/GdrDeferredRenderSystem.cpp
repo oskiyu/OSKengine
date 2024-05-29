@@ -26,7 +26,7 @@ void GdrDeferredRenderSystem::SetMaxCounts(USize32 maxVertexCount, USize32 maxMe
 void GdrDeferredRenderSystem::CreateUnifiedBuffers(USize32 maxVertexCount, USize32 maxMeshCount) {
 	auto* allocator = Engine::GetRenderer()->GetAllocator();
 
-	for (UIndex64 i = 0; i < NUM_RESOURCES_IN_FLIGHT; i++) {
+	for (UIndex64 i = 0; i < MAX_RESOURCES_IN_FLIGHT; i++) {
 		const USize64 uboAlignment = 0; // TODO
 
 		const auto createBufferFunc = [allocator, uboAlignment](USize64 size) {
@@ -53,14 +53,14 @@ void GdrDeferredRenderSystem::CreateUnifiedBuffers(USize32 maxVertexCount, USize
 	m_gdrMaterialInstance = m_gdrMaterial->CreateInstance().GetPointer();
 
 
-	std::array<const GpuBuffer*, NUM_RESOURCES_IN_FLIGHT> cameraUbos{};
-	std::array<const GpuBuffer*, NUM_RESOURCES_IN_FLIGHT> previousCameraUbos{};
+	std::array<const GpuBuffer*, MAX_RESOURCES_IN_FLIGHT> cameraUbos{};
+	std::array<const GpuBuffer*, MAX_RESOURCES_IN_FLIGHT> previousCameraUbos{};
 
-	std::array<const GpuBuffer*, NUM_RESOURCES_IN_FLIGHT> meshTable{};
-	std::array<const GpuBuffer*, NUM_RESOURCES_IN_FLIGHT> positionsTable{};
-	std::array<const GpuBuffer*, NUM_RESOURCES_IN_FLIGHT> attributesTable{};
+	std::array<const GpuBuffer*, MAX_RESOURCES_IN_FLIGHT> meshTable{};
+	std::array<const GpuBuffer*, MAX_RESOURCES_IN_FLIGHT> positionsTable{};
+	std::array<const GpuBuffer*, MAX_RESOURCES_IN_FLIGHT> attributesTable{};
 
-	for (UIndex32 i = 0; i < NUM_RESOURCES_IN_FLIGHT; i++) {
+	for (UIndex32 i = 0; i < MAX_RESOURCES_IN_FLIGHT; i++) {
 		cameraUbos[i] = m_cameraBuffers[i].GetPointer();
 		previousCameraUbos[i] = m_previousFrameCameraBuffers[i].GetPointer();
 

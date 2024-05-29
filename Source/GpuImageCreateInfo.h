@@ -1,6 +1,7 @@
 #pragma once
 
-#include "OSKmacros.h"
+#include "ApiCall.h"
+#include "NumericTypes.h"
 
 #include "Vector2.hpp"
 #include "Vector3.hpp"
@@ -17,7 +18,7 @@ namespace OSK::GRAPHICS {
 
 	/// @brief Estructura que contiene la información necesaria
 	/// para la creación de una imagen.
-	struct GpuImageCreateInfo {
+	struct OSKAPI_CALL GpuImageCreateInfo {
 
 		/// @brief Inicializa la estructura para imágenes de 1D.
 		/// @param resolution Resolución de la imagen, en número de píxeles.

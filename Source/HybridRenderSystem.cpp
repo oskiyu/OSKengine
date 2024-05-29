@@ -54,7 +54,7 @@ void HybridRenderSystem::SetupGBufferResources() {
 	animatedGbufferMaterial = Engine::GetRenderer()->GetMaterialSystem()->LoadMaterial("Resources/Materials/PBR/Deferred/deferred_gbuffer_anim.json");
 	globalGbufferMaterialInstance = gbufferMaterial->CreateInstance().GetPointer();
 
-	for (UIndex32 i = 0; i < NUM_RESOURCES_IN_FLIGHT; i++) {
+	for (UIndex32 i = 0; i < MAX_RESOURCES_IN_FLIGHT; i++) {
 		cameraUbos[i] = Engine::GetRenderer()->GetAllocator()->CreateUniformBuffer(sizeof(glm::mat4) * 2 + sizeof(glm::vec4)).GetPointer();
 		previousCameraUbos[i] = Engine::GetRenderer()->GetAllocator()->CreateUniformBuffer(sizeof(glm::mat4) * 2).GetPointer();
 	}
@@ -63,7 +63,7 @@ void HybridRenderSystem::SetupGBufferResources() {
 }
 
 void HybridRenderSystem::SetupRtResources() {
-	for (UIndex32 i = 0; i < NUM_RESOURCES_IN_FLIGHT; i++) {
+	for (UIndex32 i = 0; i < MAX_RESOURCES_IN_FLIGHT; i++) {
 		topLevelAccelerationStructures[i] = Engine::GetRenderer()->GetAllocator()->CreateTopAccelerationStructure({}).GetPointer();
 		dirLightUbos[i] = Engine::GetRenderer()->GetAllocator()->CreateUniformBuffer(sizeof(DirectionalLight)).GetPointer();
 	}
@@ -73,10 +73,10 @@ void HybridRenderSystem::SetupRtResources() {
 }
 
 void HybridRenderSystem::SetupGBufferInstance() {
-	std::array<const GpuBuffer*, NUM_RESOURCES_IN_FLIGHT> _cameraUbos{};
-	std::array<const GpuBuffer*, NUM_RESOURCES_IN_FLIGHT>_prevCameraUbos {};
+	std::array<const GpuBuffer*, MAX_RESOURCES_IN_FLIGHT> _cameraUbos{};
+	std::array<const GpuBuffer*, MAX_RESOURCES_IN_FLIGHT>_prevCameraUbos {};
 
-	for (UIndex32 i = 0; i < NUM_RESOURCES_IN_FLIGHT; i++) {
+	for (UIndex32 i = 0; i < MAX_RESOURCES_IN_FLIGHT; i++) {
 		_cameraUbos[i] = cameraUbos[i].GetPointer();
 		_prevCameraUbos[i] = previousCameraUbos[i].GetPointer();
 	}

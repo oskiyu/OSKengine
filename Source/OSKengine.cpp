@@ -62,6 +62,9 @@
 #include "IteratorSystemExecutionJob.h"
 #include "ConsumerSystemExecutionJob.h"
 
+// Console commands
+#include "GpuStatsCommand.h"
+
 #include "AudioApiAl.h"
 
 #include <GLFW/glfw3.h>
@@ -72,7 +75,6 @@ using namespace OSK;
 using namespace OSK::ECS;
 
 UniquePtr<IO::Logger> Engine::logger;
-UniquePtr<IO::Console> Engine::console;
 UniquePtr<IO::IDisplay> Engine::display;
 UniquePtr<GRAPHICS::IRenderer> Engine::renderer;
 UniquePtr<ASSETS::AssetManager> Engine::assetManager;
@@ -82,13 +84,12 @@ UniquePtr<IO::InputManager> Engine::inputManager;
 UniquePtr<AUDIO::IAudioApi> Engine::audioApi;
 UniquePtr<JobSystem> Engine::m_jobSystem;
 UniquePtr<UuidProvider> Engine::uuidProvider;
+UniquePtr<ConsoleCommandExecutor> Engine::commandExecutor;
 UIndex64 Engine::gameFrameIndex;
 
 void Engine::Create(GRAPHICS::RenderApiType type) {
 	logger = new IO::Logger;
 	logger->Start("LOG_LAST.txt");
-
-	console = new IO::Console;
 
 	display = new IO::Window;
 	entityComponentSystem = new ECS::EntityComponentSystem(logger.GetPointer());
@@ -98,6 +99,7 @@ void Engine::Create(GRAPHICS::RenderApiType type) {
 	audioApi->Initialize();
 	uuidProvider = new UuidProvider;
 	m_jobSystem = new JobSystem;
+	commandExecutor = new ConsoleCommandExecutor;
 
 	logger->InfoLog("Iniciando OSKengine.");
 	logger->InfoLog(std::format("\tVersion: {}.{}.{}", 
@@ -237,13 +239,13 @@ void Engine::RegisterBuiltinShaderPasses() {
 	renderer->GetShaderPassFactory()->RegisterShaderPass<GRAPHICS::TreeNormalsPass>();
 }
 
+void Engine::RegisterBuiltinConsoleCommands() {
+	commandExecutor->RegisterCommand<GpuStatsCommand>();
+}
+
 
 IO::Logger* Engine::GetLogger() {
 	return logger.GetPointer();
-}
-
-IO::Console* Engine::GetConsole() {
-	return console.GetPointer();
 }
 
 IO::IDisplay* Engine::GetDisplay() {
@@ -282,6 +284,9 @@ UuidProvider* Engine::GetUuidProvider() {
 	return uuidProvider.GetPointer();
 }
 
+ConsoleCommandExecutor* Engine::GetCommandExecutor() {
+	return commandExecutor.GetPointer();
+}
 
 float Engine::GetCurrentTime() {
 	return static_cast<float>(glfwGetTime());
@@ -294,7 +299,7 @@ Version Engine::GetVersion() {
 }
 
 std::string_view Engine::GetBuild() {
-	return "2024.05.18a";
+	return "2024.05.29a";
 }
 
 UIndex64 Engine::GetCurrentGameFrameIndex() {

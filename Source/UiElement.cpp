@@ -20,6 +20,10 @@ bool IElement::UpdateByCursor(Vector2f cursorPosition, bool isPressed, Vector2f 
 	return GetRectangle(parentPosition).ContainsPoint(cursorPosition);
 }
 
+void IElement::UpdateByKeyboard(const IO::KeyboardState&, const IO::KeyboardState&) {
+
+}
+
 void IElement::SetKeepRelativeSize(bool keepRelativeSize) {
 	this->keepRelativeSize = keepRelativeSize;
 }

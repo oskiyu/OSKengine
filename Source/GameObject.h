@@ -1,9 +1,9 @@
 #pragma once
 
-#include "OSKmacros.h"
 #include "Uuid.h"
+#include "NumericTypes.h"
 
-#include <format>
+#include <type_traits>
 
 
 namespace OSK::ECS {
@@ -26,4 +26,3 @@ namespace OSK::ECS {
 }
 
 OSK_DEFINE_UUID_HASH(OSK::ECS::GameObjectIndex);
-OSK_DEFINE_UUID_FORMATTER(OSK::ECS::GameObjectIndex, "GameObjectIndex {}");

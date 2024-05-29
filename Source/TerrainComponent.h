@@ -48,7 +48,7 @@ namespace OSK::ECS {
 		const GRAPHICS::GpuBuffer* GetVertexBuffer() const;
 		const GRAPHICS::GpuBuffer* GetIndexBuffer() const;
 
-		GRAPHICS::MaterialInstance* GetMaterialInstance() const;
+		const GRAPHICS::MaterialInstance* GetMaterialInstance() const;
 
 		USize32 GetNumIndices() const;
 

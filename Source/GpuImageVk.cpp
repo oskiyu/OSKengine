@@ -28,8 +28,6 @@ VkFilter GpuImageVk::GetFilterTypeVulkan(GpuImageFilteringType type) {
 		return VK_FILTER_NEAREST;
 	case OSK::GRAPHICS::GpuImageFilteringType::CUBIC:
 		return VK_FILTER_CUBIC_IMG;
-	default:
-		OSK_UNREACHABLE;
 	}
 }
 
@@ -45,8 +43,6 @@ VkSamplerAddressMode GpuImageVk::GetAddressModeVulkan(GpuImageAddressMode mode) 
 		return VK_SAMPLER_ADDRESS_MODE_CLAMP_TO_BORDER;
 	case OSK::GRAPHICS::GpuImageAddressMode::BACKGROUND_WHITE:
 		return VK_SAMPLER_ADDRESS_MODE_CLAMP_TO_BORDER;
-	default:
-		OSK_UNREACHABLE;
 	}
 }
 
@@ -284,8 +280,6 @@ VkImageType GpuImageVk::GetVkImageType() const {
 		return VK_IMAGE_TYPE_2D;
 	case GpuImageDimension::d3D:
 		return VK_IMAGE_TYPE_3D;
-	default:
-		OSK_UNREACHABLE;
 	}
 }
 
@@ -301,8 +295,6 @@ VkImageViewType GpuImageVk::GetVkImageViewType() const {
 		return VK_IMAGE_VIEW_TYPE_2D;
 	case GpuImageDimension::d3D:
 		return VK_IMAGE_VIEW_TYPE_3D;
-	default:
-		OSK_UNREACHABLE;
 	}
 }
 
@@ -312,7 +304,5 @@ VkImageViewType GpuImageVk::GetVkImageArrayViewType() const {
 		return VK_IMAGE_VIEW_TYPE_1D_ARRAY;
 	case GpuImageDimension::d2D:
 		return VK_IMAGE_VIEW_TYPE_2D_ARRAY;
-	default:
-		OSK_UNREACHABLE;
 	}
 }

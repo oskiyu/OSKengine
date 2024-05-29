@@ -1,6 +1,6 @@
 #pragma once
 
-#include "OSKmacros.h"
+#include "ApiCall.h"
 #include "OwnedPtr.h"
 #include "UniquePtr.hpp"
 #include "HashMap.hpp"
@@ -375,7 +375,7 @@ namespace OSK::GRAPHICS {
 
 
 		/// @threadsafe
-		GpuImage* GetDefaultNormalTexture() const;
+		const GpuImage* GetDefaultNormalTexture() const;
 
 	protected:
 

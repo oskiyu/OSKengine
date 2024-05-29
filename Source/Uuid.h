@@ -1,6 +1,6 @@
 #pragma once
 
-#include "OSKmacros.h"
+#include "NumericTypes.h"
 
 #include <xhash>
 #include <atomic>
@@ -88,7 +88,7 @@ namespace OSK {
 	template<> \
 	struct std::hash<name> { \
 		std::size_t operator()(const name& uuid) const noexcept { \
-			return std::hash<UIndex64>()(uuid.Get()); \
+			return std::hash<OSK::UIndex64>()(uuid.Get()); \
 		} \
 	}; \
  \

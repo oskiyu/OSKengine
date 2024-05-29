@@ -80,6 +80,18 @@ bool IContainer::UpdateByCursor(Vector2f cursorPosition, bool isPressed, Vector2
 	return false;
 }
 
+void IContainer::UpdateByKeyboard(const IO::KeyboardState& previous, const IO::KeyboardState& current) {
+	if (IsLocked() || !IsVisible()) {
+		return;
+	}
+
+	for (auto& child : children) {
+		if (!(child->IsLocked() || !child->IsVisible())) {
+			child->UpdateByKeyboard(previous, current);
+		}
+	}
+}
+
 IElement* IContainer::GetChild(const std::string_view name) {
 	return childrenTable.at(static_cast<std::string>(name));
 }

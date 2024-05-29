@@ -1,9 +1,9 @@
 #pragma once
 
-#include <glm/glm.hpp>
-
+#include "ApiCall.h"
 #include "ToString.h"
-#include "OSKmacros.h"
+
+#include <glm/glm.hpp>
 
 
 namespace OSK {

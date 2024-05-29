@@ -1,7 +1,7 @@
 #pragma once
 
 #include <string>
-#include "OSKmacros.h"
+#include "ApiCall.h"
 #include "IRenderer.h"
 #include "UniquePtr.hpp"
 

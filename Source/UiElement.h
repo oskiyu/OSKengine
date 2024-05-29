@@ -1,6 +1,6 @@
 #pragma once
 
-#include "OSKmacros.h"
+#include "ApiCall.h"
 #include "LinkedList.hpp"
 #include "UniquePtr.hpp"
 #include "HashMap.hpp"
@@ -17,6 +17,10 @@
 namespace OSK::GRAPHICS {
 	class SpriteRenderer;
 	class Sprite;
+}
+
+namespace OSK::IO {
+	class KeyboardState;
 }
 
 namespace OSK::UI {
@@ -51,6 +55,11 @@ namespace OSK::UI {
 		/// @return True si el click se ha procesado dentro del elemento (y por lo tanto,
 		/// se debe detener la comprobación para el resto de elementos).
 		virtual bool UpdateByCursor(Vector2f cursorPosition, bool isPressed, Vector2f parentPosition = Vector2f::Zero);
+
+		/// @brief Actualiza el estado o cualquier otra característica del
+		/// elemento de acuerdo al estado del teclado.
+		/// @param state Estado en el instante actual.
+		virtual void UpdateByKeyboard(const IO::KeyboardState& previous, const IO::KeyboardState& current);
 
 	public:
 

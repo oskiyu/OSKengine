@@ -1,6 +1,7 @@
 #pragma once
 
-#include "OSKmacros.h"
+#include "ApiCall.h"
+#include "NumericTypes.h"
 
 #include <array>
 #include <GLFW/glfw3.h>

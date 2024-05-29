@@ -3,7 +3,8 @@
 #include <compare>
 
 #include "GpuImageUsage.h"
-#include "OSKmacros.h"
+#include "ApiCall.h"
+#include "NumericTypes.h"
 
 namespace OSK::GRAPHICS {
 

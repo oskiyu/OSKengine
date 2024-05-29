@@ -1,10 +1,12 @@
 #pragma once
 
-#include "OSKmacros.h"
+// import OSKengine.Editor.Ui;
+
+#include "ApiCall.h"
 
 #ifdef OSK_DEVELOPMENT
 
-#include "Game.h"
+#include "IDebugGame.h"
 #include "OSKengine.h"
 #include "Window.h"
 #include "IRenderer.h"
@@ -12,7 +14,6 @@
 #include "MaterialSystem.h"
 #include "Material.h"
 #include "MaterialInstance.h"
-#include "OSKengine.h"
 #include "Texture.h"
 #include "AssetManager.h"
 #include "IMaterialSlot.h"
@@ -42,6 +43,7 @@
 #include "UiVerticalContainer.h"
 #include "UiButton.h"
 #include "UiDropdown.h"
+#include "UiTextInput.h"
 
 #include "AssetLoaderJob.h"
 
@@ -75,6 +77,8 @@
 #include "ShadowsStaticPass.h"
 
 #include "Math.h"
+
+#include "ConsoleCommandExecutor.h"
 
 #include "RenderSystem3D.h"
 #include "RenderSystem2D.h"
@@ -114,9 +118,12 @@
 #include "TreeGBufferPass.h"
 
 #include "PreBuiltSpline3D.h"
+#include "UiConsole.h"
 
 #include "FileIO.h"
 #include "StopWatch.h"
+
+#include "EditorUi.h"
 
 #include <thread>
 
@@ -139,12 +146,12 @@ using namespace OSK::COLLISION;
 #define OSK_CURRENT_RSYSTEM OSK::ECS::GdrDeferredRenderSystem
 #endif
 
-class Game1 : public OSK::IGame {
+class Game1 : public OSK::IDebugGame {
 
 protected:
 
 	void CreateWindow() override {
-		Engine::GetDisplay()->Create({ 1280u, 720u }, "OSKengine");
+		Engine::GetDisplay()->Create({ 1800u, 900u }, "OSKengine");
 
 		IO::IMouseInput* mouseInput = nullptr;
 		Engine::GetInput()->QueryInterface(IUUID::IMouseInput, (void**)&mouseInput);
@@ -160,6 +167,8 @@ protected:
 	}
 
 	void OnCreate() override {
+		IDebugGame::OnCreate();
+
 		StopWatch stopWatch{};
 		stopWatch.Start();
 
@@ -169,7 +178,6 @@ protected:
 		materialRenderTarget = Engine::GetRenderer()->GetMaterialSystem()->LoadMaterial("Resources/Materials/2D/material_rendertarget.json");
 
 		SpawnCircuit();
-		SpawnCar();
 
 		SpawnCamera();
 		SpawnCamera2D();
@@ -191,18 +199,7 @@ protected:
 		auto font = Engine::GetAssetManager()->Load<ASSETS::Font>("Resources/Assets/Fonts/font1.json");
 		font->SetMaterial(material2d);
 
-		Engine::GetConsole()->SetFont(font.GetAsset());
-
 		SetupUi();
-
-		// Audio test
-		const auto sound = Engine::GetAssetManager()->Load<ASSETS::AudioAsset>("Resources/Assets/Audio/bounce_audio.json");
-		source = OSK::Engine::GetAudioApi()->CreateNewSource().GetPointer();
-		source->Initialize();
-		source->As<AUDIO::AudioSourceAl>()->SetBuffer(sound->GetBuffer());
-		source->SetLooping(true);
-		source->SetGain(0.05f);
-		source->Play();
 
 		// Esperar a la carga completa.
 		Engine::GetJobSystem()->WaitForJobs<AssetLoaderJob>();
@@ -275,7 +272,7 @@ protected:
 		logoContainer->AdjustSizeToChildren();
 		logoContainer->Rebuild();
 		
-		GetRootUiElement().AddChild("", logoContainer);
+		// GetRootUiElement().AddChild("", logoContainer);
 
 		// Panel derecho
 		UI::VerticalContainer* rightPanel = new UI::VerticalContainer(Vector2f(170.0f));
@@ -311,7 +308,9 @@ protected:
 		rightPanel->AdjustSizeToChildren();
 		rightPanel->Rebuild();
 
-		GetRootUiElement().AddChild("rightPanel", rightPanel);
+		// GetRootUiElement().AddChild("rightPanel", rightPanel);
+
+
 	}
 
 	void RegisterSystems() override {
@@ -324,6 +323,8 @@ protected:
 	}
 	
 	void OnTick_BeforeEcs(TDeltaTime deltaTime) override {
+		IDebugGame::OnTick_BeforeEcs(deltaTime);
+
 		const auto _ = Engine::GetEcs();
 
 		IO::IKeyboardInput* keyboard = nullptr;
@@ -338,13 +339,20 @@ protected:
 
 		CameraComponent3D& camera = Engine::GetEcs()->GetComponent<ECS::CameraComponent3D>(cameraObject);
 		Transform3D& cameraTransform = Engine::GetEcs()->GetComponent<ECS::Transform3D>(cameraObject);
-		Transform3D& cameraArmTransform = Engine::GetEcs()->GetComponent<ECS::Transform3D>(cameraArmObject);
 
 		// Movimiento de la cámara en este frame
 		float cameraForwardMovement = 0.0f;
 		float cameraRightMovement = 0.0f;
 		Vector2f cameraRotation = Vector2f::Zero;
 
+		const auto* ecs = Engine::GetEcs();
+		auto* editorUi = GetRootUiElement().GetChild(Editor::UI::EditorUi::Name)->As<Editor::UI::EditorUi>();
+		editorUi->Update(ecs, deltaTime);
+
+		// Console
+		if (IsInConsole()) {
+			goto _cont;
+		}
 
 		// Si disponemos de teclado...
 		if (keyboard) {
@@ -361,6 +369,8 @@ protected:
 				if (display)
 					display->ToggleFullscreen();
 			}
+
+			
 
 #pragma region Exposición y gamma
 
@@ -397,7 +407,6 @@ protected:
 			// Bloom
 			if (keyboard->IsKeyReleased(IO::Key::B)) {
 				bloomCheckbox->GetChild("button")->As<UI::Button>()->Click();
-				Engine::GetConsole()->WriteLine("Bloom");
 			}
 
 			// FXAA
@@ -427,10 +436,6 @@ protected:
 			if (keyboard->IsKeyReleased(IO::Key::C))
 				collisionCheckbox->GetChild("button")->As<UI::Button>()->Click();
 
-			// Recarga de shaders
-			if (keyboard->IsKeyReleased(IO::Key::R))
-				Engine::GetRenderer()->GetMaterialSystem()->ReloadAllMaterials();
-
 
 			// Movimiento de la cámara
 			if (keyboard->IsKeyDown(IO::Key::W))
@@ -455,30 +460,8 @@ protected:
 				Engine::GetRenderer()->_GetSwapchain()->TakeScreenshot("screenshot");
 			}
 
-
-			if (keyboard->IsKeyStroked(IO::Key::P)) {
-				cameraAttachedToCar = false;
-				cameraArmTransform.RemoveChild(cameraObject);
-			}
-
 			if (keyboard->IsKeyStroked(IO::Key::M)) {
 				mouse->SetReturnMode(IO::MouseReturnMode::ALWAYS_RETURN);
-			}
-
-			if (keyboard->IsKeyDown(IO::Key::LEFT_CONTROL) && keyboard->IsKeyStroked(IO::Key::L)) {
-				Engine::GetRenderer()->WaitForCompletion();
-				Engine::GetEcs()->SaveBinary("scene0");
-			}
-
-			if (keyboard->IsKeyUp(IO::Key::LEFT_CONTROL) &&  keyboard->IsKeyStroked(IO::Key::L)) {
-				Engine::GetRenderer()->WaitForCompletion();
-				const auto translator = Engine::GetEcs()->LoadBinaryScene("scene0.bsf");
-				carObject = translator.GetCurrentIndex(carObject);
-				carObject2 = translator.GetCurrentIndex(carObject2);
-				cameraObject = translator.GetCurrentIndex(cameraObject);
-				cameraArmObject = translator.GetCurrentIndex(cameraArmObject);
-				cameraObject2d = translator.GetCurrentIndex(cameraObject2d);
-				circuitObject = translator.GetCurrentIndex(circuitObject);
 			}
 		}
 
@@ -488,83 +471,11 @@ protected:
 				(float)(mouse->GetMouseState().GetPosition().y - mouse->GetPreviousMouseState().GetPosition().y)
 			};
 		}
-			
-		// TESTING
-		if (keyboard->IsKeyStroked(IO::Key::Q)) {
-			isExecutingTestCases = true;
-		}
-
-		// Movimiento del coche
-		auto* ecs = Engine::GetEcs();
-		Transform3D& carTransform = ecs->GetComponent<Transform3D>(carObject);
-		PhysicsComponent& carPhysics = ecs->GetComponent<PhysicsComponent>(carObject);
-
-		source->SetPitch(carPhysics.GetVelocity().GetLenght());
-
-
-		constexpr static float ANGLE_PER_KEY = 45.0f;
-		constexpr static float L = 1.5f;
-		float currentAngle = 0.0f;
-
-		if (keyboard) {
-			
-			// Rotación
-			if (keyboard->IsKeyDown(IO::Key::LEFT)) {
-				currentAngle += ANGLE_PER_KEY;
-				carTransform.RotateWorldSpace(deltaTime * 2, { 0, 1, 0 });
-				if (cameraAttachedToCar) cameraRotation.x += deltaTime * 250;
-			}
-			if (keyboard->IsKeyDown(IO::Key::RIGHT)) {
-				currentAngle -= ANGLE_PER_KEY;
-				carTransform.RotateWorldSpace(deltaTime * 2, { 0, -1, 0 });
-				if (cameraAttachedToCar) cameraRotation.x -= deltaTime * 250;
-			}
-
-			if (keyboard->IsKeyDown(IO::Key::UP))
-				carPhysics.ApplyForce(carTransform.GetForwardVector() * 10);
-			if (keyboard->IsKeyDown(IO::Key::DOWN))
-				carPhysics.ApplyForce(carTransform.GetForwardVector() * -(2.0f + 4));
-
-			if (keyboard->IsKeyDown(IO::Key::SPACE)) {
-				carPhysics._SetVelocity(Vector3f::Zero);
-				carPhysics._SetAcceleration(Vector3f::Zero);
-				carPhysics._SetAngularVelocity(Vector3f::Zero);
-			}
-		}
-
-
-		// Aplicación de movimiento y rotación de la cámara
-		// camera.Rotate(-cameraRotation.X, cameraRotation.Y);
-
 		
-		cameraTransform.AddPosition(Vector3f(0, 0, 1) * cameraForwardMovement * deltaTime);
-		if (!cameraAttachedToCar)
-			cameraTransform.AddPosition(cameraTransform.GetRightVector().GetNormalized() * cameraRightMovement * deltaTime);
-
-		if (Engine::GetEcs()->GetComponent<PhysicsComponent>(carObject).GetAcceleration().GetLenght() > 0.5f * deltaTime ||
-			glm::abs(Engine::GetEcs()->GetComponent<PhysicsComponent>(carObject).GetVelocity().Dot(carTransform.GetForwardVector())) > 1.2f * deltaTime) {
-			const Vector2f flatCarVec = {
-				Engine::GetEcs()->GetComponent<Transform3D>(carObject).GetRightVector().x,
-				Engine::GetEcs()->GetComponent<Transform3D>(carObject).GetRightVector().z
-			};
-
-			const Vector2f flatArmVec = {
-				cameraArmTransform.GetForwardVector().x,
-				cameraArmTransform.GetForwardVector().z
-			};
-
-			const float angle = -flatArmVec.Dot(flatCarVec);
-			if (cameraAttachedToCar) cameraRotation.x += angle * 750 * deltaTime;
-		}
-
-		if (cameraAttachedToCar) {
-			cameraArmTransform.RotateWorldSpace(glm::radians(-cameraRotation.x * 0.25f), { 0, 1, 0 });
-			cameraArmTransform.RotateLocalSpace(glm::radians(cameraRotation.y * 0.25f), { 1, 0, 0 });
-		}
-		else {
-			cameraTransform.RotateLocalSpace(glm::radians(-cameraRotation.x * 0.25f), { 0, 1, 0 });
-			cameraTransform.RotateLocalSpace(glm::radians(cameraRotation.y * 0.25f), { 1, 0, 0 });
-		}
+		cameraTransform.AddPosition(cameraTransform.GetForwardVector() * cameraForwardMovement * deltaTime);
+		cameraTransform.AddPosition(cameraTransform.GetRightVector() * cameraRightMovement * deltaTime);
+		cameraTransform.RotateWorldSpace(glm::radians(-cameraRotation.x * 0.25f), { 0, 1, 0 });
+		cameraTransform.RotateLocalSpace(glm::radians(-cameraRotation.y * 0.25f), { 1, 0, 0 });
 
 		camera.UpdateTransform(&cameraTransform);
 
@@ -585,64 +496,6 @@ protected:
 			std::this_thread::sleep_for(std::chrono::milliseconds(glm::max(0l, waitMiliseconds)));
 		}
 
-		// Test Cases
-		if (isExecutingTestCases) {
-			const TDeltaTime timeSinceLastCase = Engine::GetCurrentTime() - lastTestCaseTime;
-			
-			if (timeSinceLastCase > 3.0f) {
-				currentTestCase++;
-
-				if (currentTestCase >= testCases.GetSize()) {
-					isExecutingTestCases = false;
-					currentTestCase = -1;
-					goto _cont;
-				}
-
-				lastTestCaseTime = Engine::GetCurrentTime();
-				Engine::GetLogger()->InfoLog(std::format("Test: {}", testCases[currentTestCase].name));
-				Engine::GetConsole()->WriteLine(std::format("Test: {}", testCases[currentTestCase].name));
-				
-				auto& transformA = Engine::GetEcs()->GetComponent<Transform3D>(carObject);
-				auto& transformB = Engine::GetEcs()->GetComponent<Transform3D>(carObject2);
-
-				transformA.SetPosition(testCases[currentTestCase].positionA);
-				transformB.SetPosition(testCases[currentTestCase].positionB);
-
-				transformA.SetRotation({});
-				transformB.SetRotation({});
-
-				auto& physicsA = Engine::GetEcs()->GetComponent<PhysicsComponent>(carObject);
-				auto& physicsB = Engine::GetEcs()->GetComponent<PhysicsComponent>(carObject2);
-
-				physicsA._SetVelocity(currentTestCase % 16 < 8
-					? Vector3f::Zero
-					: testCases[currentTestCase].positionB - testCases[currentTestCase].positionA);
-				physicsA._SetAcceleration(Vector3f::Zero);
-				physicsA._SetAngularVelocity(Vector3f::Zero);
-
-				physicsB._SetVelocity(currentTestCase % 16 >= 8
-					? Vector3f::Zero
-					: testCases[currentTestCase].positionA - testCases[currentTestCase].positionB);
-				physicsB._SetAcceleration(Vector3f::Zero);
-				physicsB._SetAngularVelocity(Vector3f::Zero);
-			}
-
-			for (const auto& event : Engine::GetEcs()->GetEventQueue<CollisionEvent>()) {
-				if ((event.firstEntity == carObject || event.secondEntity == carObject) && (event.firstEntity == carObject2 || event.secondEntity == carObject2)) {
-					Engine::GetLogger()->InfoLog(std::format("Collision: A: {}, B: {}, Position: {},{},{}",
-						event.firstEntity, event.secondEntity,
-						event.collisionInfo.GetSingleContactPoint().x,
-						event.collisionInfo.GetSingleContactPoint().y,
-						event.collisionInfo.GetSingleContactPoint().z));
-				//	Engine::GetConsole()->WriteLine(std::format("Collision: A: {}, B: {}, Position: {},{},{}",
-				//		event.firstEntity, event.secondEntity,
-				//		event.collisionInfo.GetSingleContactPoint().x,
-				//		event.collisionInfo.GetSingleContactPoint().y,
-				//		event.collisionInfo.GetSingleContactPoint().Z));
-				}
-			}
-		}
-		
 	_cont:
 
 		// UI
@@ -651,6 +504,10 @@ protected:
 			const Vector2f position = mouse->GetMouseState().GetPosition().ToVector2f();
 
 			GetRootUiElement().UpdateByCursor(position, isPressed, Vector2f::Zero);
+		}
+
+		if (keyboard) {
+			GetRootUiElement().UpdateByKeyboard(keyboard->GetPreviousKeyboardState(), keyboard->GetKeyboardState());
 		}
 	}
 
@@ -682,16 +539,12 @@ protected:
 		spriteRenderer.SetCamera(cameraObject2d);
 		spriteRenderer.SetMaterial(*material2d);
 
-		const auto& carTransform = Engine::GetEcs()->GetComponent<Transform3D>(carObject);
-		const auto& carPhysics = Engine::GetEcs()->GetComponent<PhysicsComponent>(carObject);
 		uiFpsText->SetText(
-			// std::format("Pos: {} {} {}", carTransform.GetPosition().x, carTransform.GetPosition().y, carTransform.GetPosition().Z)
 			std::format("FPS: {}", GetFps())
 		);
 
-		GetRootUiElement().Render(&spriteRenderer, Vector2f::Zero);
 
-		Engine::GetConsole()->Draw(&spriteRenderer);
+		GetRootUiElement().Render(&spriteRenderer, Vector2f::Zero);
 
 		// spriteRenderer.DrawString(font, 20,, Vector2f{ 50.0f }, Color::White);
 
@@ -774,9 +627,6 @@ protected:
 		commandList->BindMaterialSlot(*toneMappingPass->GetOutput().GetFullscreenSpriteMaterialSlot());
 		commandList->DrawSingleInstance(6);
 
-		commandList->BindMaterialSlot(*textRenderTarget->GetFullscreenSpriteMaterialSlot());
-		commandList->DrawSingleInstance(6);
-
 		if (colliderRenderSystem && colliderRenderSystem->IsActive()) {
 			commandList->BindMaterialSlot(*colliderRenderSystem->GetRenderTarget().GetFullscreenSpriteMaterialSlot());
 			commandList->DrawSingleInstance(6);
@@ -786,6 +636,9 @@ protected:
 			/*frameBuildCommandList->BindMaterialSlot(*boundsRenderSystem->GetRenderTarget().GetFullscreenSpriteMaterialSlot());
 			frameBuildCommandList->DrawSingleInstance(6);*/
 		}
+
+		commandList->BindMaterialSlot(*textRenderTarget->GetFullscreenSpriteMaterialSlot());
+		commandList->DrawSingleInstance(6);
 
 		commandList->EndGraphicsRenderpass();
 
@@ -815,12 +668,6 @@ protected:
 	}
 
 	void OnExit() override {
-		// Serialization test
-		auto* ecs = Engine::GetEcs();
-
-		// ecs->Save("scene0.json");
-
-
 		bloomPass.Delete();
 		hbaoPass.Delete();
 		toneMappingPass.Delete();
@@ -940,7 +787,7 @@ private:
 			toneMappingPass = new ToneMappingPass();
 			toneMappingPass->Create(Engine::GetDisplay()->GetResolution());
 
-			const GpuBuffer* epxBuffers[NUM_RESOURCES_IN_FLIGHT]{};
+			const GpuBuffer* epxBuffers[MAX_RESOURCES_IN_FLIGHT]{};
 			for (UIndex32 i = 0; i < exposureBuffers.size(); i++) {
 				exposureBuffers[i] = Engine::GetRenderer()->GetAllocator()->CreateStorageBuffer(sizeof(float), GpuQueueType::MAIN).GetPointer();
 				epxBuffers[i] = exposureBuffers[i].GetPointer();
@@ -1027,103 +874,20 @@ private:
 
 	void SpawnCamera() {
 		cameraObject = Engine::GetEcs()->SpawnObject();
-		cameraArmObject = Engine::GetEcs()->SpawnObject();
-
-		auto& cameraArmTransform = Engine::GetEcs()->AddComponent<Transform3D>(cameraArmObject, Transform3D(cameraArmObject));
-
 		Transform3D* cameraTransform = &Engine::GetEcs()->AddComponent<Transform3D>(cameraObject, Transform3D(cameraObject));
 		cameraTransform->AddPosition({ 0.0f, 0.1f, -1.1f });
 		Engine::GetEcs()->AddComponent<CameraComponent3D>(cameraObject, {});
-
-		cameraArmTransform.AddChild(cameraObject);
-
-		Engine::GetEcs()->GetComponent<Transform3D>(carObject).AddChild(cameraArmObject); cameraAttachedToCar = true;
 	}
 
 	void SpawnCamera2D() {
 		cameraObject2d = Engine::GetEcs()->SpawnObject();
-
 		CameraComponent2D* camera2D = &Engine::GetEcs()->AddComponent<CameraComponent2D>(cameraObject2d, {});
 		camera2D->LinkToDisplay(Engine::GetDisplay());
-
 		Engine::GetEcs()->AddComponent<Transform2D>(cameraObject2d, Transform2D(cameraObject2d));
 	}
 
-	void SpawnCar() {
-		{
-			carObject = Engine::GetEcs()->SpawnObject();
-
-			// Setup del transform
-			Transform3D& transform = Engine::GetEcs()->AddComponent<Transform3D>(carObject, ECS::Transform3D(carObject));
-			transform.SetPosition({ 0.0f, 1.75f, -9.5f});
-
-			// Setup de físicas
-			auto& physicsComponent = Engine::GetEcs()->AddComponent<PhysicsComponent>(carObject, {});
-			physicsComponent.SetMass(400.0f);
-			physicsComponent.centerOfMassOffset = Vector3f(0.0f, 0.17f * 0.5f, 0.0f);
-			physicsComponent.coefficientOfRestitution = 0.0f;
-			physicsComponent.SetInertiaTensor(glm::mat3(900.0f));
-
-			// Setup de colisiones
-			CollisionComponent collider{};
-			collider.SetCollider(Collider());
-
-			OwnedPtr<ConvexVolume> convexVolume = new ConvexVolume(ConvexVolume::CreateObb({ 0.15f * 2, 0.17f, 0.35f * 2 }));
-			convexVolume->MergeFaces();
-
-			collider.GetCollider()->SetTopLevelCollider(new SphereCollider(0.45f));
-			collider.GetCollider()->AddBottomLevelCollider(convexVolume.GetPointer());
-
-			Engine::GetEcs()->AddComponent<CollisionComponent>(carObject, std::move(collider));
-
-			// Setup del modelo 3D
-			auto carModel = Engine::GetAssetManager()->LoadAsync<Model3D>("Resources/Assets/Models/ow.json");
-
-			ModelComponent3D* modelComponent = &Engine::GetEcs()->AddComponent<ModelComponent3D>(carObject, {});
-
-			modelComponent->SetModel(carModel);
-			modelComponent->AddShaderPassName(StaticGBufferPass::Name);
-			modelComponent->AddShaderPassName(ShadowsStaticPass::Name);
-		}
-
-		// 2
-		{
-			carObject2 = Engine::GetEcs()->SpawnObject();
-
-			// Setup del transform
-			Transform3D& transform = Engine::GetEcs()->AddComponent<Transform3D>(carObject2, ECS::Transform3D(carObject2));
-			transform.SetPosition({ 0.0f, 2.25f, -11.5f });
-
-			// Setup de físicas
-			auto& physicsComponent = Engine::GetEcs()->AddComponent<PhysicsComponent>(carObject2, {});
-			physicsComponent.SetMass(400.0f);
-			physicsComponent.centerOfMassOffset = Vector3f(0.0f, 0.17f * 0.5f, 0.0f);
-			physicsComponent.coefficientOfRestitution = 0.5f;
-
-			// Setup de colisiones
-			CollisionComponent collider{};
-			collider.SetCollider(Collider());
-
-			OwnedPtr<ConvexVolume> convexVolume = new ConvexVolume(ConvexVolume::CreateObb({ 0.15f * 2, 0.17f, 0.35f * 2 }));
-
-			collider.GetCollider()->SetTopLevelCollider(new SphereCollider(0.45f));
-			collider.GetCollider()->AddBottomLevelCollider(convexVolume.GetPointer());
-
-			Engine::GetEcs()->AddComponent<CollisionComponent>(carObject2, std::move(collider));
-
-			// Setup del modelo 3D
-			auto carModel = Engine::GetAssetManager()->LoadAsync<Model3D>("Resources/Assets/Models/mclaren.json");
-
-			ModelComponent3D* modelComponent = &Engine::GetEcs()->AddComponent<ModelComponent3D>(carObject2, {});
-
-			modelComponent->SetModel(carModel);
-			modelComponent->AddShaderPassName(StaticGBufferPass::Name);
-			modelComponent->AddShaderPassName(ShadowsStaticPass::Name);
-		}
-	}
-
 	void SpawnCircuit() {
-		circuitObject = Engine::GetEcs()->SpawnObject();
+		auto circuitObject = Engine::GetEcs()->SpawnObject();
 
 		// Transform
 		Engine::GetEcs()->AddComponent<Transform3D>(circuitObject, Transform3D(circuitObject));
@@ -1342,10 +1106,6 @@ private:
 
 	};
 
-	bool isExecutingTestCases = false;
-	TDeltaTime lastTestCaseTime = 0.0f;
-	int currentTestCase = -1;
-
 	struct Config {
 		bool useHbao = true;
 		bool useBloom = true;
@@ -1364,30 +1124,21 @@ private:
 	OSK::GRAPHICS::Material* material2d = nullptr;
 	OSK::GRAPHICS::Material* materialRenderTarget = nullptr;
 
-	std::array<UniquePtr<GpuBuffer>, NUM_RESOURCES_IN_FLIGHT> exposureBuffers{};
+	std::array<UniquePtr<GpuBuffer>, MAX_RESOURCES_IN_FLIGHT> exposureBuffers{};
 
 	UI::TextView* uiFpsText = nullptr;
+
+	bool m_inEditor = false;
 
 	UI::HorizontalContainer* taaCheckbox = nullptr;
 	UI::HorizontalContainer* fxaaCheckbox = nullptr;
 	UI::HorizontalContainer* bloomCheckbox = nullptr;
 	UI::HorizontalContainer* collisionCheckbox = nullptr;
 
-	ECS::GameObjectIndex carObject = ECS::EMPTY_GAME_OBJECT;
-	ECS::GameObjectIndex carObject2 = ECS::EMPTY_GAME_OBJECT;
-
-	ECS::GameObjectIndex circuitObject = ECS::EMPTY_GAME_OBJECT;
 	ECS::GameObjectIndex cameraObject = ECS::EMPTY_GAME_OBJECT;
-	ECS::GameObjectIndex cameraArmObject = ECS::EMPTY_GAME_OBJECT;
 	ECS::GameObjectIndex cameraObject2d = ECS::EMPTY_GAME_OBJECT;
 
-	ECS::SavedGameObjectTranslator originalTranslator;
-
 	ASSETS::AssetRef<ASSETS::Font> font;
-
-	UniquePtr<AUDIO::IAudioSource> source;
-
-	bool cameraAttachedToCar = false;
 
 };
 

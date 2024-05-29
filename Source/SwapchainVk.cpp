@@ -14,6 +14,7 @@
 #include "GpuImageUsage.h"
 #include "PresentMode.h"
 #include "CommandQueueVk.h"
+#include "ResourcesInFlight.h"
 
 #include "RendererExceptions.h"
 
@@ -68,9 +69,9 @@ void SwapchainVk::CreationLogic(const GpuVk& device, const Vector2ui& resolution
 
 	// Número de imágenes en el swapchain.
 	if (
-		info.swapchainSupportDetails.surfaceCapabilities.minImageCount <= NUM_RESOURCES_IN_FLIGHT &&
-		info.swapchainSupportDetails.surfaceCapabilities.maxImageCount >= NUM_RESOURCES_IN_FLIGHT) {
-		SetNumImagesInFlight(NUM_RESOURCES_IN_FLIGHT);
+		info.swapchainSupportDetails.surfaceCapabilities.minImageCount <= MAX_RESOURCES_IN_FLIGHT &&
+		info.swapchainSupportDetails.surfaceCapabilities.maxImageCount >= MAX_RESOURCES_IN_FLIGHT) {
+		SetNumImagesInFlight(MAX_RESOURCES_IN_FLIGHT);
 	}
 	else {
 		SetNumImagesInFlight(info.swapchainSupportDetails.surfaceCapabilities.maxImageCount);

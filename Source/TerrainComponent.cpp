@@ -57,7 +57,7 @@ const GpuBuffer* TerrainComponent::GetIndexBuffer() const {
 }
 
 
-MaterialInstance* TerrainComponent::GetMaterialInstance() const {
+const MaterialInstance* TerrainComponent::GetMaterialInstance() const {
 	return materialInstance.GetPointer();
  }
 

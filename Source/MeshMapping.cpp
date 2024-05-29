@@ -34,12 +34,12 @@ void GlobalMeshMapping::SetPreviousModelMatrix(ECS::GameObjectIndex obj, glm::ma
 }
 
 glm::mat4 GlobalMeshMapping::GetPreviousModelMatrix(ECS::GameObjectIndex obj) const {
-	OSK_ASSERT(HasPreviousModelMatrix(obj), InvalidArgumentException(std::format("El objeto {} no está registrado.", obj)))
+	OSK_ASSERT(HasPreviousModelMatrix(obj), InvalidArgumentException(std::format("El objeto {} no está registrado.", obj.Get())))
 	return m_previousModelMatrices.at(obj);
 }
 
 void GlobalMeshMapping::RemovePreviousModelMatrix(ECS::GameObjectIndex obj) {
-	OSK_ASSERT(HasPreviousModelMatrix(obj), InvalidArgumentException(std::format("El objeto {} no está registrado.", obj)))
+	OSK_ASSERT(HasPreviousModelMatrix(obj), InvalidArgumentException(std::format("El objeto {} no está registrado.", obj.Get())))
 	m_previousModelMatrices.erase(obj);
 }
 

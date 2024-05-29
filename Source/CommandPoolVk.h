@@ -1,6 +1,8 @@
 #pragma once
 
 #include "ICommandPool.h"
+#include "NumericTypes.h"
+#include "VulkanTypedefs.h"
 
 OSK_VULKAN_TYPEDEF(VkCommandPool);
 OSK_VULKAN_TYPEDEF(VkDevice);

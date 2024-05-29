@@ -22,6 +22,7 @@
 
 #include "Serializer.h"
 #include "SavedGameObjectTranslator.h"
+#include "ResourcesInFlight.h"
 
 
 namespace OSK::ECS {
@@ -176,10 +177,10 @@ namespace OSK::ECS {
 		glm::mat4 m_previousCameraView = glm::mat4(1.0f);
 
 		/// @brief Buffers CPU->GPU donde se almacena el estado de la cámara en un fotograma.
-		std::array<UniquePtr<GRAPHICS::GpuBuffer>, NUM_RESOURCES_IN_FLIGHT> m_cameraBuffers {};
+		std::array<UniquePtr<GRAPHICS::GpuBuffer>, GRAPHICS::MAX_RESOURCES_IN_FLIGHT> m_cameraBuffers {};
 
 		/// @brief Buffers CPU->GPU donde se almacena el estado de la cámara en el fotograma anterior.
-		std::array<UniquePtr<GRAPHICS::GpuBuffer>, NUM_RESOURCES_IN_FLIGHT> m_previousFrameCameraBuffers{};
+		std::array<UniquePtr<GRAPHICS::GpuBuffer>, GRAPHICS::MAX_RESOURCES_IN_FLIGHT> m_previousFrameCameraBuffers{};
 
 
 		// -- LUCES Y SOMBRAS -- //
@@ -192,10 +193,10 @@ namespace OSK::ECS {
 
 
 		/// @brief Buffers CPU->GPU donde se almacena el estado de la luz direccional.
-		std::array<UniquePtr<GRAPHICS::GpuBuffer>, NUM_RESOURCES_IN_FLIGHT> m_directionalLightBuffers{};
+		std::array<UniquePtr<GRAPHICS::GpuBuffer>, GRAPHICS::MAX_RESOURCES_IN_FLIGHT> m_directionalLightBuffers{};
 
 		/// @brief Buffers CPU->GPU donde se almacena la configuración de la iluminación IBL.
-		std::array<UniquePtr<GRAPHICS::GpuBuffer>, NUM_RESOURCES_IN_FLIGHT> m_iblConfigBuffers{};
+		std::array<UniquePtr<GRAPHICS::GpuBuffer>, GRAPHICS::MAX_RESOURCES_IN_FLIGHT> m_iblConfigBuffers{};
 
 		ASSETS::AssetRef<ASSETS::IrradianceMap> m_irradianceMap;
 		ASSETS::AssetRef<ASSETS::SpecularMap> m_specularMap;

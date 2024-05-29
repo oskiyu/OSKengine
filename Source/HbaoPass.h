@@ -3,6 +3,7 @@
 #include "IPostProcessPass.h"
 
 #include "GpuBuffer.h"
+#include "ResourcesInFlight.h"
 
 #include <span>
 #include <array>
@@ -64,7 +65,7 @@ namespace OSK::GRAPHICS {
 		GpuImage* m_depthInput{};
 		const IGpuImageView* m_depthInputView{};
 
-		std::array<UniquePtr<GpuBuffer>, NUM_RESOURCES_IN_FLIGHT> m_cameraBuffers{};
+		std::array<UniquePtr<GpuBuffer>, MAX_RESOURCES_IN_FLIGHT> m_cameraBuffers{};
 
 		float m_renderSizeRatio = 1.0f;
 

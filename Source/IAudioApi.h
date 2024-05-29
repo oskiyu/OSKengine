@@ -1,6 +1,9 @@
 #pragma once
 
-#include "OSKmacros.h"
+#include "ApiCall.h"
+#include "DefineAs.h"
+#include "DefineConstructors.h"
+
 #include "OwnedPtr.h"
 #include "UniquePtr.hpp"
 
@@ -17,7 +20,7 @@ namespace OSK::AUDIO {
 	class IAudioSource;
 
 
-	class IAudioApi {
+	class OSKAPI_CALL IAudioApi {
 
 	public:
 

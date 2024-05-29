@@ -9,6 +9,7 @@
 #include <array>
 
 #include "Serializer.h"
+#include "ResourcesInFlight.h"
 
 
 namespace OSK::ASSETS {
@@ -112,7 +113,7 @@ namespace OSK::GRAPHICS {
 		void SetSplits(const std::array<float, 4>& splits);
 
 
-		std::array<const GpuBuffer*, NUM_RESOURCES_IN_FLIGHT> GetGpuBuffers() const;
+		std::array<const GpuBuffer*, MAX_RESOURCES_IN_FLIGHT> GetGpuBuffers() const;
 
 	private:
 
@@ -128,7 +129,7 @@ namespace OSK::GRAPHICS {
 		UniquePtr<GpuImage> m_unusedColorArrayAttachment{};
 		UniquePtr<GpuImage> m_depthArrayAttachment{};
 
-		std::array<UniquePtr<GpuBuffer>, NUM_RESOURCES_IN_FLIGHT> lightUniformBuffer{};
+		std::array<UniquePtr<GpuBuffer>, MAX_RESOURCES_IN_FLIGHT> lightUniformBuffer{};
 
 		struct ShadowsBufferContent {
 			alignas(16) glm::mat4 matrices[4];

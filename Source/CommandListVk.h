@@ -2,8 +2,10 @@
 
 #include "ICommandList.h"
 #include "DynamicArray.hpp"
+#include "VulkanTypedefs.h"
 
 #include <array>
+#include "ResourcesInFlight.h"
 
 OSK_VULKAN_TYPEDEF(VkCommandBuffer);
 OSK_VULKAN_TYPEDEF(VkDevice);
@@ -82,7 +84,7 @@ namespace OSK::GRAPHICS {
 		void BindComputePipeline(const IComputePipeline& computePipeline) override;
 		void BindRayTracingPipeline(const IRaytracingPipeline& computePipeline) override;
 
-		std::array<VkCommandBuffer, NUM_RESOURCES_IN_FLIGHT> m_commandBuffers;
+		std::array<VkCommandBuffer, MAX_RESOURCES_IN_FLIGHT> m_commandBuffers;
 		VkDevice m_logicalDevice = nullptr;
 
 	};

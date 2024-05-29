@@ -1,7 +1,9 @@
 #pragma once
 
 #include "IGpuImage.h"
+#include "VulkanTypedefs.h"
 #include "DynamicArray.hpp"
+#include "NumericTypes.h"
 
 OSK_VULKAN_TYPEDEF(VkImage);
 OSK_VULKAN_TYPEDEF(VkSampler);

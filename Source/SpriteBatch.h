@@ -3,6 +3,8 @@
 #include "UniquePtr.hpp"
 #include "OwnedPtr.h"
 
+#include "ResourcesInFlight.h"
+
 #include "GpuBuffer.h"
 #include "MaterialInstance.h"
 
@@ -40,8 +42,8 @@ namespace OSK::GRAPHICS {
 
 		UniquePtr<MaterialInstance> materialInstance = nullptr;
 
-		std::array<UniquePtr<GpuBuffer>, NUM_RESOURCES_IN_FLIGHT> vertexBuffers{};
-		std::array<UniquePtr<GpuBuffer>, NUM_RESOURCES_IN_FLIGHT> indexBuffers{};
+		std::array<UniquePtr<GpuBuffer>, MAX_RESOURCES_IN_FLIGHT> vertexBuffers{};
+		std::array<UniquePtr<GpuBuffer>, MAX_RESOURCES_IN_FLIGHT> indexBuffers{};
 
 		USize32 numVertices = 0;
 		USize32 numIndices = 0;

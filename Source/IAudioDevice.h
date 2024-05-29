@@ -1,11 +1,14 @@
 #pragma once
 
-#include "OSKmacros.h"
+#include "ApiCall.h"
+#include "DefineAs.h"
+
 #include <string>
+#include <string_view>
 
 namespace OSK::AUDIO {
 
-	class IAudioDevice {
+	class OSKAPI_CALL IAudioDevice {
 
 	public:
 		

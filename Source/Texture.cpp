@@ -20,7 +20,7 @@ USize32 Texture::GetNumberOfChannels() const {
 	return m_numChannels;
 }
 
-GRAPHICS::GpuImage* Texture::GetGpuImage() const {
+const GRAPHICS::GpuImage* Texture::GetGpuImage() const {
 	return m_image.GetPointer();
 }
 

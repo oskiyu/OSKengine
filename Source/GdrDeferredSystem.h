@@ -10,6 +10,7 @@
 
 #include "GpuModel3D.h"
 #include "GpuMesh3D.h"
+#include "ResourcesInFlight.h"
 
 
 namespace OSK::ECS {
@@ -92,20 +93,20 @@ namespace OSK::ECS {
 		USize32 m_maxVertices = 0;
 
 
-		std::array<UniquePtr<GRAPHICS::GpuBuffer>, NUM_RESOURCES_IN_FLIGHT> m_unifiedVertexBuffers{};
-		std::array<UniquePtr<GRAPHICS::GpuBuffer>, NUM_RESOURCES_IN_FLIGHT> m_unifiedIndexBuffers{};
+		std::array<UniquePtr<GRAPHICS::GpuBuffer>, GRAPHICS::MAX_RESOURCES_IN_FLIGHT> m_unifiedVertexBuffers{};
+		std::array<UniquePtr<GRAPHICS::GpuBuffer>, GRAPHICS::MAX_RESOURCES_IN_FLIGHT> m_unifiedIndexBuffers{};
 
 		std::unordered_map<GRAPHICS::GpuMeshUuid, MeshDrawInfo> m_meshes{};
 		std::unordered_map<GRAPHICS::GpuMeshUuid, DynamicArray<GdrPerMeshInstanceInfo>> m_draws{};
 
-		std::array<UniquePtr<GRAPHICS::GpuBuffer>, NUM_RESOURCES_IN_FLIGHT> m_perInstanceBuffers{};
+		std::array<UniquePtr<GRAPHICS::GpuBuffer>, GRAPHICS::MAX_RESOURCES_IN_FLIGHT> m_perInstanceBuffers{};
 
 
 		// -- Vertex attributes -- //
 
-		std::array<UniquePtr<GRAPHICS::GpuBuffer>, NUM_RESOURCES_IN_FLIGHT> m_vertexPositionsBuffers{};
-		std::array<UniquePtr<GRAPHICS::GpuBuffer>, NUM_RESOURCES_IN_FLIGHT> m_vertexAttributesBuffers{};
-		std::array<UniquePtr<GRAPHICS::GpuBuffer>, NUM_RESOURCES_IN_FLIGHT> m_vertexAnimAttributesBuffers{};
+		std::array<UniquePtr<GRAPHICS::GpuBuffer>, GRAPHICS::MAX_RESOURCES_IN_FLIGHT> m_vertexPositionsBuffers{};
+		std::array<UniquePtr<GRAPHICS::GpuBuffer>, GRAPHICS::MAX_RESOURCES_IN_FLIGHT> m_vertexAttributesBuffers{};
+		std::array<UniquePtr<GRAPHICS::GpuBuffer>, GRAPHICS::MAX_RESOURCES_IN_FLIGHT> m_vertexAnimAttributesBuffers{};
 
 
 		// Textures & descriptor sets
@@ -117,8 +118,8 @@ namespace OSK::ECS {
 
 		// -- Tables -- //
 
-		std::array<UniquePtr<GRAPHICS::GpuBuffer>, NUM_RESOURCES_IN_FLIGHT> m_perMeshTable{};
-		std::array<UniquePtr<GRAPHICS::GpuBuffer>, NUM_RESOURCES_IN_FLIGHT> m_perMaterialTable{};
+		std::array<UniquePtr<GRAPHICS::GpuBuffer>, GRAPHICS::MAX_RESOURCES_IN_FLIGHT> m_perMeshTable{};
+		std::array<UniquePtr<GRAPHICS::GpuBuffer>, GRAPHICS::MAX_RESOURCES_IN_FLIGHT> m_perMaterialTable{};
 
 		
 		// -- Previous frames -- //

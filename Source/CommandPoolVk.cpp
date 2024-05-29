@@ -37,7 +37,7 @@ CommandPoolVk::~CommandPoolVk() {
 }
 
 OwnedPtr<ICommandList> CommandPoolVk::CreateCommandList(const IGpu& device) {
-	return CreateList(device, NUM_RESOURCES_IN_FLIGHT);
+	return CreateList(device, MAX_RESOURCES_IN_FLIGHT);
 }
 
 OwnedPtr<ICommandList> CommandPoolVk::CreateSingleTimeCommandList(const IGpu& device) {

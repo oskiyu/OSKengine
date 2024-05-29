@@ -78,13 +78,23 @@
     <ClCompile Include="CollisionSystem.cpp" />
     <ClCompile Include="ComputePipelineDx12.cpp" />
     <ClCompile Include="ComputePipelineVk.cpp" />
-    <ClCompile Include="Console.cpp" />
+    <ClCompile Include="ConsoleCommandExecutor.cpp" />
     <ClCompile Include="ConsumerSystemExecutionJob.cpp" />
     <ClCompile Include="ConvexVolume.cpp" />
     <ClCompile Include="CopyImageInfo.cpp" />
     <ClCompile Include="CpuModel3D.cpp" />
     <ClCompile Include="DescriptorDx12.cpp" />
     <ClCompile Include="DetailedCollisionInfo.cpp" />
+    <ClCompile Include="EditorBottomBar.cpp" />
+    <ClCompile Include="EditorBottomBar.ixx" />
+    <ClCompile Include="EditorCommands.cpp" />
+    <ClCompile Include="EditorHeader.cpp" />
+    <ClCompile Include="EditorPanelTitle.cpp" />
+    <ClCompile Include="EditorSystemList.cpp" />
+    <ClCompile Include="EditorUi.cpp" />
+    <ClCompile Include="EditorUi.ixx" />
+    <ClCompile Include="ConsoleCommand.cpp" />
+    <ClCompile Include="ExitCommand.cpp" />
     <ClCompile Include="FaceProjection.cpp" />
     <ClCompile Include="FrameCombiner.cpp" />
     <ClCompile Include="GameObjectTranslator.cpp" />
@@ -93,6 +103,7 @@
     <ClCompile Include="GpuImageCreateInfo.cpp" />
     <ClCompile Include="GpuMesh3D.cpp" />
     <ClCompile Include="GpuModel3D.cpp" />
+    <ClCompile Include="GpuStatsCommand.cpp" />
     <ClCompile Include="HbaoPass.cpp" />
     <ClCompile Include="IAudioApi.cpp" />
     <ClCompile Include="IAudioDevice.cpp" />
@@ -102,6 +113,8 @@
     <ClCompile Include="ICommandQueue.cpp" />
     <ClCompile Include="IComponentContainer.cpp" />
     <ClCompile Include="IConsumerSystem.cpp" />
+    <ClCompile Include="IDebugGame.cpp" />
+    <ClCompile Include="IGpu.cpp" />
     <ClCompile Include="IJob.cpp" />
     <ClCompile Include="IShaderPass.cpp" />
     <ClCompile Include="IteratorSystemExecutionJob.cpp" />
@@ -110,6 +123,7 @@
     <ClCompile Include="JobSystem.cpp" />
     <ClCompile Include="Lights.cpp" />
     <ClCompile Include="MeshMapping.cpp" />
+    <ClCompile Include="EditorObjectList.cpp" />
     <ClCompile Include="PbrIblConfig.h" />
     <ClCompile Include="PbrResolverPass.cpp" />
     <ClCompile Include="PerMeshData.cpp" />
@@ -120,6 +134,7 @@
     <ClCompile Include="PreBuiltColliderLoader.cpp" />
     <ClCompile Include="PreBuiltSpline3D.cpp" />
     <ClCompile Include="PreBuiltSplineLoader3D.cpp" />
+    <ClCompile Include="EditorPropertiesPanel.cpp" />
     <ClCompile Include="Ray.cpp" />
     <ClCompile Include="RenderBoundsRenderer.cpp" />
     <ClCompile Include="ResourceQueueTransfer.cpp" />
@@ -138,6 +153,8 @@
     <ClCompile Include="TreeGBufferPass.cpp" />
     <ClCompile Include="TreeNormalsPass.cpp" />
     <ClCompile Include="TreeNormalsRenderSystem.cpp" />
+    <ClCompile Include="UiBorderLayout.cpp" />
+    <ClCompile Include="UiConsole.cpp" />
     <ClCompile Include="UiDropdown.cpp" />
     <ClCompile Include="UiFreeContainer.cpp" />
     <ClCompile Include="FxaaPass.cpp" />
@@ -293,6 +310,7 @@
     <ClCompile Include="UiHorizontalContainer.cpp" />
     <ClCompile Include="UiImageView.cpp" />
     <ClCompile Include="UiRenderer.cpp" />
+    <ClCompile Include="UiTextInput.cpp" />
     <ClCompile Include="UiTextView.cpp" />
     <ClCompile Include="UiVerticalContainer.cpp" />
     <ClCompile Include="Vector2.cpp" />
@@ -311,6 +329,7 @@
     <ClInclude Include="AnimationSampler.h" />
     <ClInclude Include="Animator.h" />
     <ClInclude Include="AnimMeshLoader.h" />
+    <ClInclude Include="ApiCall.h" />
     <ClInclude Include="Assert.h" />
     <ClInclude Include="AssetDescriptionFileNotFoundException.h" />
     <ClInclude Include="AssetLoaderJob.h" />
@@ -348,6 +367,7 @@
     <ClInclude Include="CollisionInfo.h" />
     <ClInclude Include="CollisionSystem.h" />
     <ClInclude Include="Color.hpp" />
+    <ClInclude Include="ConsoleCommandExecutor.h" />
     <ClInclude Include="CommandListDx12.h" />
     <ClInclude Include="CommandListExceptions.h" />
     <ClInclude Include="CommandListVk.h" />
@@ -363,17 +383,31 @@
     <ClInclude Include="ComputePipelineDx12.h" />
     <ClInclude Include="ComputePipelineVk.h" />
     <ClInclude Include="Concepts.h" />
-    <ClInclude Include="Console.h" />
     <ClInclude Include="ConstexprBitSet.hpp" />
     <ClInclude Include="ConsumerSystemExecutionJob.h" />
     <ClInclude Include="ConvexVolume.h" />
     <ClInclude Include="CubemapTexture.h" />
     <ClInclude Include="CubemapTextureLoader.h" />
     <ClInclude Include="CopyImageInfo.h" />
+    <ClInclude Include="DefineAs.h" />
+    <ClInclude Include="DefineConstructors.h" />
+    <ClInclude Include="DefineIuuid.h" />
+    <ClInclude Include="EditorBottomBar.h" />
+    <ClInclude Include="EditorCommands.h" />
+    <ClInclude Include="EditorHeader.h" />
+    <ClInclude Include="EditorObjectList.h" />
+    <ClInclude Include="EditorPanelTitle.h" />
+    <ClInclude Include="EditorSystemList.h" />
+    <ClInclude Include="EditorUi.h" />
+    <ClInclude Include="EditorUiConstants.h" />
+    <ClInclude Include="ConsoleCommand.h" />
+    <ClInclude Include="ExitCommand.h" />
     <ClInclude Include="GpuBufferRange.h" />
     <ClInclude Include="GpuImageCreateInfo.h" />
     <ClInclude Include="GpuImageRange.h" />
     <ClInclude Include="GpuQueueTypes.h" />
+    <ClInclude Include="GpuStatsCommand.h" />
+    <ClInclude Include="IDebugGame.h" />
     <ClInclude Include="IteratorSystemExecutionJob.h" />
     <ClInclude Include="GdrDeferredSystem.h" />
     <ClInclude Include="DeferredPushConstants.h" />
@@ -416,6 +450,7 @@
     <ClInclude Include="MatrixOperations.hpp" />
     <ClInclude Include="MeshMapping.h" />
     <ClInclude Include="MutexHolder.h" />
+    <ClInclude Include="NumericTypes.h" />
     <ClInclude Include="PbrMaterialInfo.h" />
     <ClInclude Include="PbrResolvePass.h" />
     <ClInclude Include="Plane.h" />
@@ -423,6 +458,8 @@
     <ClInclude Include="PreBuiltColliderLoader.h" />
     <ClInclude Include="PreBuiltSpline3D.h" />
     <ClInclude Include="PreBuiltSplineLoader3D.h" />
+    <ClInclude Include="PrintableKeys.h" />
+    <ClInclude Include="EditorPropertiesPanel.h" />
     <ClInclude Include="RenderBoundsRenderer.h" />
     <ClInclude Include="RendererExceptions.h" />
     <ClInclude Include="GpuBarrierInfo.h" />
@@ -458,6 +495,7 @@
     <ClInclude Include="resource.h" />
     <ClInclude Include="GpuResourceUsage.h" />
     <ClInclude Include="ResourceQueueTransfer.h" />
+    <ClInclude Include="ResourcesInFlight.h" />
     <ClInclude Include="Sat.h" />
     <ClInclude Include="SavedGameObjectTranslator.h" />
     <ClInclude Include="Serializer.h" />
@@ -579,7 +617,6 @@
     <ClInclude Include="Logger.h" />
     <ClInclude Include="MouseState.h" />
     <ClInclude Include="OSKengine.h" />
-    <ClInclude Include="OSKmacros.h" />
     <ClInclude Include="OwnedPtr.h" />
     <ClInclude Include="Pair.hpp" />
     <ClInclude Include="PipelineCreateInfo.h" />
@@ -640,12 +677,15 @@
     <ClInclude Include="TreeNormalsPass.h" />
     <ClInclude Include="TreeNormalsRenderSystem.h" />
     <ClInclude Include="UiAnchor.h" />
+    <ClInclude Include="UiBorderLayout.h" />
     <ClInclude Include="UiButton.h" />
+    <ClInclude Include="UiConsole.h" />
     <ClInclude Include="UiDropdown.h" />
     <ClInclude Include="UiElement.h" />
     <ClInclude Include="UiFreeContainer.h" />
     <ClInclude Include="UiHorizontalContainer.h" />
     <ClInclude Include="UiImageView.h" />
+    <ClInclude Include="UiTextInput.h" />
     <ClInclude Include="UiTextView.h" />
     <ClInclude Include="UiVerticalContainer.h" />
     <ClInclude Include="UniquePtr.hpp" />
@@ -662,6 +702,7 @@
     <ClInclude Include="VertexBufferView.h" />
     <ClInclude Include="VertexInfo.h" />
     <ClInclude Include="Viewport.h" />
+    <ClInclude Include="VulkanTypedefs.h" />
     <ClInclude Include="Window.h" />
   </ItemGroup>
   <ItemGroup>

@@ -186,7 +186,7 @@ void IGpuMemoryAllocator::FreeStagingMemory() {
 	}
 }
 
-GpuImage* IGpuMemoryAllocator::GetDefaultNormalTexture() const {
+const GpuImage* IGpuMemoryAllocator::GetDefaultNormalTexture() const {
 	return m_defaultNormalTexture.GetPointer();
 }
 

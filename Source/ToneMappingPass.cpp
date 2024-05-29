@@ -66,7 +66,7 @@ float ToneMappingPass::GetGamma() const {
 	return gamma;
 }
 
-void ToneMappingPass::SetExposureBuffers(std::span<const GpuBuffer*, NUM_RESOURCES_IN_FLIGHT> buffers) {
+void ToneMappingPass::SetExposureBuffers(std::span<const GpuBuffer*, MAX_RESOURCES_IN_FLIGHT> buffers) {
 	postProcessingMaterialInstance->GetSlot("exposure")->SetStorageBuffers("exposure", buffers);
 	postProcessingMaterialInstance->GetSlot("exposure")->FlushUpdate();
 }

@@ -2,6 +2,9 @@
 // Copyright (c) 2019-2022 oskiyu. All rights reserved.
 #pragma once
 
+#include "ApiCall.h"
+#include "DefineAs.h"
+
 #include "Vector2.hpp"
 #include "Event.h"
 #include "IQueryInterface.h"

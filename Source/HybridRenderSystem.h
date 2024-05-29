@@ -9,6 +9,7 @@
 #include "GBuffer.h"
 #include "RtRenderTarget.h"
 #include "AssetRef.h"
+#include "ResourcesInFlight.h"
 
 namespace OSK::GRAPHICS {
 	class IBottomLevelAccelerationStructure;
@@ -116,9 +117,9 @@ namespace OSK::ECS {
 		UniquePtr<GRAPHICS::MaterialInstance> resolveMaterialInstance;
 
 		// Resources
-		UniquePtr<GRAPHICS::GpuBuffer> cameraUbos[NUM_RESOURCES_IN_FLIGHT]{};
-		UniquePtr<GRAPHICS::GpuBuffer> previousCameraUbos[NUM_RESOURCES_IN_FLIGHT]{};
-		UniquePtr<GRAPHICS::GpuBuffer> dirLightUbos[NUM_RESOURCES_IN_FLIGHT]{};
+		UniquePtr<GRAPHICS::GpuBuffer> cameraUbos[GRAPHICS::MAX_RESOURCES_IN_FLIGHT]{};
+		UniquePtr<GRAPHICS::GpuBuffer> previousCameraUbos[GRAPHICS::MAX_RESOURCES_IN_FLIGHT]{};
+		UniquePtr<GRAPHICS::GpuBuffer> dirLightUbos[GRAPHICS::MAX_RESOURCES_IN_FLIGHT]{};
 
 		// Materiales
 		GRAPHICS::Material* gbufferMaterial = nullptr;

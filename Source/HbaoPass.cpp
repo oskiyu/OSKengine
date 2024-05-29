@@ -66,9 +66,9 @@ void HbaoPass::Create(const Vector2ui& size) {
 	// Carga los materiales y crea los material instances.
 	LoadMaterials();
 
-	std::array<const GpuBuffer*, NUM_RESOURCES_IN_FLIGHT> buffers{};
+	std::array<const GpuBuffer*, MAX_RESOURCES_IN_FLIGHT> buffers{};
 
-	for (UIndex32 i = 0; i < NUM_RESOURCES_IN_FLIGHT; i++) {
+	for (UIndex32 i = 0; i < MAX_RESOURCES_IN_FLIGHT; i++) {
 		m_cameraBuffers[i] = Engine::GetRenderer()->GetAllocator()->CreateBuffer(
 			sizeof(glm::mat4) * 2 + sizeof(float), 0,
 			GpuBufferUsage::UNIFORM_BUFFER,

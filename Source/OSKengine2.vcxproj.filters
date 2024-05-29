@@ -238,9 +238,6 @@
     <Filter Include="Archivos de encabezado\Core\Exceptions">
       <UniqueIdentifier>{a93a6432-cfc4-4e59-8b35-bf393d5bd795}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Archivos de origen\Core\AudioAPI">
-      <UniqueIdentifier>{c01ebf73-483f-41e5-a227-c17f9d5092a4}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Archivos de encabezado\Core\AudioAPI">
       <UniqueIdentifier>{9921c093-6815-43bd-bd06-d666a0615513}</UniqueIdentifier>
     </Filter>
@@ -574,9 +571,6 @@
     <Filter Include="Archivos de encabezado\Core\Collision\Detection">
       <UniqueIdentifier>{17d05faf-f82b-486e-a23d-e70062f0d952}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Archivos de origen\Core\AudioAPI\AL">
-      <UniqueIdentifier>{e48fc82b-a992-44ff-b00a-1597d146d683}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Archivos de encabezado\Core\AudioAPI\AL">
       <UniqueIdentifier>{51cd08bc-0b98-4c94-a576-5e70f9f454a4}</UniqueIdentifier>
     </Filter>
@@ -618,6 +612,36 @@
     </Filter>
     <Filter Include="Archivos de origen\Core\Graphics\HighLevel\ShaderPass">
       <UniqueIdentifier>{fe6f1fc7-d04a-48e2-a2f3-0c85e68c5a21}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de origen\Core\AudioAPI">
+      <UniqueIdentifier>{c01ebf73-483f-41e5-a227-c17f9d5092a4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de origen\Core\AudioAPI\AL">
+      <UniqueIdentifier>{e48fc82b-a992-44ff-b00a-1597d146d683}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de encabezado\Editor">
+      <UniqueIdentifier>{d44e589d-003e-4e25-8ec1-1a7266e995ed}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de encabezado\Editor\UI">
+      <UniqueIdentifier>{94ffaca7-faa7-40a8-8ec4-aa3c258ec114}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de origen\Editor">
+      <UniqueIdentifier>{00920698-5a4b-4c98-9da5-7e6b633867b5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de encabezado\Core\Util\Commands">
+      <UniqueIdentifier>{fa93c3fd-d3a1-4919-b655-dfe83e0c58f1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de origen\Core\Util\Commands">
+      <UniqueIdentifier>{19475b7f-59fe-4442-bd14-8d5753c3a2f8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de encabezado\BuiltIn\Console">
+      <UniqueIdentifier>{9a098ec9-05cc-42f6-abbf-b25550d68558}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de origen\BuiltIn\Console">
+      <UniqueIdentifier>{8b21944c-fcdd-4f74-953a-035671e1c0f4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de encabezado\Core\Macros">
+      <UniqueIdentifier>{a996e0c9-1c06-43fd-9427-28fb56f6bd44}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -1164,9 +1188,6 @@
     <ClCompile Include="AudioLoader.cpp">
       <Filter>Archivos de origen\BuiltIn\Assets\Loaders</Filter>
     </ClCompile>
-    <ClCompile Include="Console.cpp">
-      <Filter>Archivos de origen\Core\IO</Filter>
-    </ClCompile>
     <ClCompile Include="Vector3.cpp">
       <Filter>Archivos de origen\Core\Types</Filter>
     </ClCompile>
@@ -1370,6 +1391,63 @@
     </ClCompile>
     <ClCompile Include="BinaryBlock.cpp">
       <Filter>Archivos de origen\Core\Persistence</Filter>
+    </ClCompile>
+    <ClCompile Include="UiTextInput.cpp">
+      <Filter>Archivos de origen\BuiltIn\UI\Elements</Filter>
+    </ClCompile>
+    <ClCompile Include="UiConsole.cpp">
+      <Filter>Archivos de origen\BuiltIn\UI\Elements</Filter>
+    </ClCompile>
+    <ClCompile Include="EditorObjectList.cpp">
+      <Filter>Archivos de origen\Editor</Filter>
+    </ClCompile>
+    <ClCompile Include="EditorSystemList.cpp">
+      <Filter>Archivos de origen\Editor</Filter>
+    </ClCompile>
+    <ClCompile Include="EditorUi.cpp">
+      <Filter>Archivos de origen\Editor</Filter>
+    </ClCompile>
+    <ClCompile Include="UiBorderLayout.cpp">
+      <Filter>Archivos de origen\BuiltIn\UI\Containers</Filter>
+    </ClCompile>
+    <ClCompile Include="EditorHeader.cpp">
+      <Filter>Archivos de origen\Editor</Filter>
+    </ClCompile>
+    <ClCompile Include="EditorPropertiesPanel.cpp">
+      <Filter>Archivos de origen\Editor</Filter>
+    </ClCompile>
+    <ClCompile Include="EditorPanelTitle.cpp">
+      <Filter>Archivos de origen\Editor</Filter>
+    </ClCompile>
+    <ClCompile Include="EditorBottomBar.cpp">
+      <Filter>Archivos de origen\Editor</Filter>
+    </ClCompile>
+    <ClCompile Include="IGpu.cpp">
+      <Filter>Archivos de origen\Core\Graphics\LowLevel\Gpu</Filter>
+    </ClCompile>
+    <ClCompile Include="EditorUi.ixx">
+      <Filter>Archivos de origen\Editor</Filter>
+    </ClCompile>
+    <ClCompile Include="EditorBottomBar.ixx">
+      <Filter>Archivos de origen\Editor</Filter>
+    </ClCompile>
+    <ClCompile Include="ConsoleCommand.cpp">
+      <Filter>Archivos de origen\Core\Util\Commands</Filter>
+    </ClCompile>
+    <ClCompile Include="ConsoleCommandExecutor.cpp">
+      <Filter>Archivos de origen\Core\Util\Commands</Filter>
+    </ClCompile>
+    <ClCompile Include="GpuStatsCommand.cpp">
+      <Filter>Archivos de origen\BuiltIn\Console</Filter>
+    </ClCompile>
+    <ClCompile Include="IDebugGame.cpp">
+      <Filter>Archivos de origen\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="EditorCommands.cpp">
+      <Filter>Archivos de origen\BuiltIn\Console</Filter>
+    </ClCompile>
+    <ClCompile Include="ExitCommand.cpp">
+      <Filter>Archivos de origen\BuiltIn\Console</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -1671,9 +1749,6 @@
       <Filter>Archivos de encabezado\Core</Filter>
     </ClInclude>
     <ClInclude Include="OSKengine.h">
-      <Filter>Archivos de encabezado\Core</Filter>
-    </ClInclude>
-    <ClInclude Include="OSKmacros.h">
       <Filter>Archivos de encabezado\Core</Filter>
     </ClInclude>
     <ClInclude Include="Game1.hpp">
@@ -2198,9 +2273,6 @@
     <ClInclude Include="AudioExceptions.h">
       <Filter>Archivos de encabezado\Core\AudioAPI\Exceptions</Filter>
     </ClInclude>
-    <ClInclude Include="Console.h">
-      <Filter>Archivos de encabezado\Core\IO</Filter>
-    </ClInclude>
     <ClInclude Include="MathExceptions.h">
       <Filter>Archivos de encabezado\Core\Exceptions</Filter>
     </ClInclude>
@@ -2452,6 +2524,81 @@
     </ClInclude>
     <ClInclude Include="BinaryExceptions.h">
       <Filter>Archivos de encabezado\Core\Exceptions</Filter>
+    </ClInclude>
+    <ClInclude Include="UiTextInput.h">
+      <Filter>Archivos de encabezado\BuiltIn\UI\Elements</Filter>
+    </ClInclude>
+    <ClInclude Include="PrintableKeys.h">
+      <Filter>Archivos de encabezado\Core\IO</Filter>
+    </ClInclude>
+    <ClInclude Include="UiConsole.h">
+      <Filter>Archivos de encabezado\BuiltIn\UI\Elements</Filter>
+    </ClInclude>
+    <ClInclude Include="EditorObjectList.h">
+      <Filter>Archivos de encabezado\Editor\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="EditorSystemList.h">
+      <Filter>Archivos de encabezado\Editor\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="EditorUi.h">
+      <Filter>Archivos de encabezado\Editor\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="UiBorderLayout.h">
+      <Filter>Archivos de encabezado\BuiltIn\UI\Containers</Filter>
+    </ClInclude>
+    <ClInclude Include="EditorHeader.h">
+      <Filter>Archivos de encabezado\Editor\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="EditorPropertiesPanel.h">
+      <Filter>Archivos de encabezado\Editor\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="EditorUiConstants.h">
+      <Filter>Archivos de encabezado\Editor\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="EditorPanelTitle.h">
+      <Filter>Archivos de encabezado\Editor\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="EditorBottomBar.h">
+      <Filter>Archivos de encabezado\Editor\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="ConsoleCommand.h">
+      <Filter>Archivos de encabezado\Core\Util\Commands</Filter>
+    </ClInclude>
+    <ClInclude Include="ConsoleCommandExecutor.h">
+      <Filter>Archivos de encabezado\Core\Util\Commands</Filter>
+    </ClInclude>
+    <ClInclude Include="GpuStatsCommand.h">
+      <Filter>Archivos de encabezado\BuiltIn\Console</Filter>
+    </ClInclude>
+    <ClInclude Include="NumericTypes.h">
+      <Filter>Archivos de encabezado\Core\Types</Filter>
+    </ClInclude>
+    <ClInclude Include="DefineAs.h">
+      <Filter>Archivos de encabezado\Core\Macros</Filter>
+    </ClInclude>
+    <ClInclude Include="DefineConstructors.h">
+      <Filter>Archivos de encabezado\Core\Macros</Filter>
+    </ClInclude>
+    <ClInclude Include="ApiCall.h">
+      <Filter>Archivos de encabezado\Core\Macros</Filter>
+    </ClInclude>
+    <ClInclude Include="VulkanTypedefs.h">
+      <Filter>Archivos de encabezado\Core\Macros</Filter>
+    </ClInclude>
+    <ClInclude Include="DefineIuuid.h">
+      <Filter>Archivos de encabezado\Core\Macros</Filter>
+    </ClInclude>
+    <ClInclude Include="ResourcesInFlight.h">
+      <Filter>Archivos de encabezado\Core\Graphics\LowLevel</Filter>
+    </ClInclude>
+    <ClInclude Include="IDebugGame.h">
+      <Filter>Archivos de encabezado\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="EditorCommands.h">
+      <Filter>Archivos de encabezado\BuiltIn\Console</Filter>
+    </ClInclude>
+    <ClInclude Include="ExitCommand.h">
+      <Filter>Archivos de encabezado\BuiltIn\Console</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

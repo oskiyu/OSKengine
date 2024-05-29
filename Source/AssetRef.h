@@ -1,8 +1,7 @@
 #pragma once
 
-#include "OSKmacros.h"
-
 #include <memory>
+
 
 namespace OSK::ASSETS {
 

@@ -1,18 +1,12 @@
 #include "Game.h"
 
 #include "OSKengine.h"
-#include "Window.h"
 #include "EntityComponentSystem.h"
-#include "RenderSystem3D.h"
 #include "IRenderer.h"
 #include "RenderApiType.h"
-#include "Assert.h"
-#include "RenderSystem2D.h"
 #include "Vertex2D.h"
 #include "Vertex.h"
 #include "IGpuMemoryAllocator.h"
-#include "GpuMemoryAllocatorVk.h"
-#include "GpuBuffer.h"
 #include "Sprite.h"
 #include "InputManager.h"
 
@@ -35,6 +29,10 @@ void IGame::RegisterComponents() {
 }
 
 void IGame::RegisterSystems() {
+	// Sobreescrito en clase Game del juego.
+}
+
+void IGame::RegisterConsoleCommands() {
 	// Sobreescrito en clase Game del juego.
 }
 
@@ -76,6 +74,7 @@ void IGame::_Run() {
 	Engine::RegisterBuiltinEvents();
 	Engine::RegisterBuiltinJobs();
 	Engine::RegisterBuiltinShaderPasses();
+	Engine::RegisterBuiltinConsoleCommands();
 
 	rootUiElement = new UI::FreeContainer(Engine::GetDisplay()->GetResolution().ToVector2f());
 
@@ -100,6 +99,7 @@ void IGame::_Run() {
 	RegisterAssets();
 	RegisterComponents();
 	RegisterSystems();
+	RegisterConsoleCommands();
 
 	OnCreate();
 

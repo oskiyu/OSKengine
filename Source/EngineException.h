@@ -1,10 +1,12 @@
 #pragma once
 
+#include "ApiCall.h"
+#include "DefineConstructors.h"
+
 #include <stdexcept>
 #include <source_location>
 #include <format>
 
-#include "OSKmacros.h"
 
 namespace OSK {
 

@@ -1,6 +1,6 @@
 #pragma once
 
-#include "OSKmacros.h"
+#include "ApiCall.h"
 #include "Vector2.hpp"
 #include "Vector4.hpp"
 #include "Component.h"
@@ -57,7 +57,7 @@ namespace OSK::ECS {
 		/// @note Debe llamarse cada frame que se haya modificado la cámara.
 		void UpdateUniformBuffer(const Transform2D& cameraTransform);
 
-		GRAPHICS::GpuBuffer* GetUniformBuffer() const;
+		const GRAPHICS::GpuBuffer* GetUniformBuffer() const;
 
 		/// <summary> Transforma un punto 2D en la ventana al punto 2D al que apunta la cámara en el mundo 2D. </summary>
 		/// <param name="point">Punto en coordenadas de la ventana.</param>

@@ -1,7 +1,7 @@
 #ifndef OSK_UNIQUE_PTR
 #define OSK_UNIQUE_PTR
 
-#include "OSKmacros.h"
+#include "ApiCall.h"
 #include <type_traits>
 
 namespace OSK {
@@ -71,12 +71,44 @@ namespace OSK {
 			return output;
 		}
 
-		template <typename Self>
+		/*template <typename Self>
 		auto&& GetPointer(this Self&& self) {
 			return ::std::forward<Self>(self).operator->();
+		}*/
+
+		T* GetPointer() {
+			return m_pointer;
 		}
 
-		template <typename Self>
+		const T* GetPointer() const {
+			return m_pointer;
+		}
+
+		T& GetValue() {
+			return *m_pointer;
+		}
+
+		const T& GetValue() const {
+			return *m_pointer;
+		}
+
+		T* operator->() {
+			return m_pointer;
+		}
+
+		const T* operator->() const {
+			return m_pointer;
+		}
+
+		T& operator*() {
+			return *m_pointer;
+		}
+
+		const T& operator*() const {
+			return *m_pointer;
+		}
+
+		/*template <typename Self>
 		auto&& GetValue(this Self&& self) {
 			return ::std::forward<Self>(self).operator*();
 		}
@@ -88,7 +120,7 @@ namespace OSK {
 		template <typename Self>
 		auto&& operator->(this Self&& self) {
 			return self.m_pointer;
-		}
+		}*/
 
 
 		constexpr bool HasValue() const { return m_pointer != nullptr; }

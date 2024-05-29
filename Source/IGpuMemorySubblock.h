@@ -1,6 +1,9 @@
 #pragma once
 
-#include "OSKmacros.h"
+#include "ApiCall.h"
+#include "DefineAs.h"
+#include "NumericTypes.h"
+
 #include <type_traits>
 
 namespace OSK::GRAPHICS {

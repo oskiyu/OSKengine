@@ -70,7 +70,7 @@ void RenderSystem3D::Initialize(GameObjectIndex camera, const IrradianceMap& irr
 }
 
 void RenderSystem3D::CreateBuffers() {
-	for (UIndex32 i = 0; i < NUM_RESOURCES_IN_FLIGHT; i++) {
+	for (UIndex32 i = 0; i < MAX_RESOURCES_IN_FLIGHT; i++) {
 		m_cameraBuffers[i] = Engine::GetRenderer()->GetAllocator()->CreateUniformBuffer(sizeof(glm::mat4) * 2 + sizeof(glm::vec4)).GetPointer();
 		m_previousCameraBuffers[i] = Engine::GetRenderer()->GetAllocator()->CreateUniformBuffer(sizeof(glm::mat4) * 2).GetPointer();
 
@@ -92,15 +92,15 @@ void RenderSystem3D::LoadMaterials() {
 }
 
 void RenderSystem3D::SetupMaterials() {
-	std::array<const GpuBuffer*, NUM_RESOURCES_IN_FLIGHT> _cameraUbos{};
-	std::array<const GpuBuffer*, NUM_RESOURCES_IN_FLIGHT> _previousCameraUbos{};
-	std::array<const GpuBuffer*, NUM_RESOURCES_IN_FLIGHT> _dirLightUbos{};
-	std::array<const GpuBuffer*, NUM_RESOURCES_IN_FLIGHT> _shadowsMatricesUbos{};
+	std::array<const GpuBuffer*, MAX_RESOURCES_IN_FLIGHT> _cameraUbos{};
+	std::array<const GpuBuffer*, MAX_RESOURCES_IN_FLIGHT> _previousCameraUbos{};
+	std::array<const GpuBuffer*, MAX_RESOURCES_IN_FLIGHT> _dirLightUbos{};
+	std::array<const GpuBuffer*, MAX_RESOURCES_IN_FLIGHT> _shadowsMatricesUbos{};
 
 	GpuImageViewConfig shadowsViewConfig = GpuImageViewConfig::CreateSampled_Array(0, m_shadowMap.GetNumCascades());
 	shadowsViewConfig.channel = SampledChannel::DEPTH;
 
-	for (UIndex32 i = 0; i < NUM_RESOURCES_IN_FLIGHT; i++) {
+	for (UIndex32 i = 0; i < MAX_RESOURCES_IN_FLIGHT; i++) {
 		_cameraUbos[i] = m_cameraBuffers[i].GetPointer();
 		_previousCameraUbos[i] = m_previousCameraBuffers[i].GetPointer();
 		_dirLightUbos[i] = m_dirLightUbos[i].GetPointer();
