@@ -6,6 +6,7 @@ var class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_buffer =
     [ "_UpdateOwnerQueue", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_buffer.html#ae7f24c9b151e22b92af56005947c619e", null ],
     [ "GetAlignment", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_buffer.html#a13ea6beea5d2dfa4020403c7e0852888", null ],
     [ "GetCurrentBarrier", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_buffer.html#adb39e756793dfa440803b707284349b0", null ],
+    [ "GetCursor", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_buffer.html#ab548bcf16ab51c3a24dfb6380005f2e7", null ],
     [ "GetIndexView", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_buffer.html#a061caf0bd132fd81c125da631eb87562", null ],
     [ "GetMemoryBlock", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_buffer.html#aab5608c7218d096ba4a1cea6d11e8a46", null ],
     [ "GetMemorySubblock", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_buffer.html#a91ecfe4edd5c86ae8fb91c1b257f8fcb", null ],

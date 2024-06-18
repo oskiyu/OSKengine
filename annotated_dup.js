@@ -137,8 +137,7 @@ var annotated_dup =
         [ "TerrainRenderSystem", "class_o_s_k_1_1_e_c_s_1_1_terrain_render_system.html", "class_o_s_k_1_1_e_c_s_1_1_terrain_render_system" ],
         [ "Transform2D", "class_o_s_k_1_1_e_c_s_1_1_transform2_d.html", "class_o_s_k_1_1_e_c_s_1_1_transform2_d" ],
         [ "Transform3D", "class_o_s_k_1_1_e_c_s_1_1_transform3_d.html", "class_o_s_k_1_1_e_c_s_1_1_transform3_d" ],
-        [ "TransformApplierSystem", "class_o_s_k_1_1_e_c_s_1_1_transform_applier_system.html", "class_o_s_k_1_1_e_c_s_1_1_transform_applier_system" ],
-        [ "TreeNormalsRenderSystem", "class_o_s_k_1_1_e_c_s_1_1_tree_normals_render_system.html", "class_o_s_k_1_1_e_c_s_1_1_tree_normals_render_system" ]
+        [ "TransformApplierSystem", "class_o_s_k_1_1_e_c_s_1_1_transform_applier_system.html", "class_o_s_k_1_1_e_c_s_1_1_transform_applier_system" ]
       ] ],
       [ "Editor", "namespace_o_s_k_1_1_editor.html", [
         [ "UI", "namespace_o_s_k_1_1_editor_1_1_u_i.html", [
@@ -211,6 +210,7 @@ var annotated_dup =
         [ "GpuImageViewDx12", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_view_dx12.html", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_view_dx12" ],
         [ "GpuImageViewVk", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_view_vk.html", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_view_vk" ],
         [ "GpuImageVk", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_vk.html", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_vk" ],
+        [ "GpuMemoryAlignments", "struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_memory_alignments.html", "struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_memory_alignments" ],
         [ "GpuMemoryAllocatorDx12", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_memory_allocator_dx12.html", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_memory_allocator_dx12" ],
         [ "GpuMemoryAllocatorVk", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_memory_allocator_vk.html", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_memory_allocator_vk" ],
         [ "GpuMemoryAllocException", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_memory_alloc_exception.html", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_memory_alloc_exception" ],
@@ -310,6 +310,12 @@ var annotated_dup =
         [ "RtRenderTarget", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_rt_render_target.html", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_rt_render_target" ],
         [ "RtShaderBindingTableCreationException", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_rt_shader_binding_table_creation_exception.html", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_rt_shader_binding_table_creation_exception" ],
         [ "RtShaderTableVk", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_rt_shader_table_vk.html", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_rt_shader_table_vk" ],
+        [ "SdfBindlessBatch2D", "struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_sdf_bindless_batch2_d.html", "struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_sdf_bindless_batch2_d" ],
+        [ "SdfBindlessBufferContent2D", "struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_sdf_bindless_buffer_content2_d.html", "struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_sdf_bindless_buffer_content2_d" ],
+        [ "SdfBindlessRenderer2D", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_sdf_bindless_renderer2_d.html", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_sdf_bindless_renderer2_d" ],
+        [ "SdfDrawCall2D", "struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_sdf_draw_call2_d.html", "struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_sdf_draw_call2_d" ],
+        [ "SdfGlobalInformationBufferContent2D", "struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_sdf_global_information_buffer_content2_d.html", "struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_sdf_global_information_buffer_content2_d" ],
+        [ "SdfStringInfo", "struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_sdf_string_info.html", "struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_sdf_string_info" ],
         [ "ShaderCompilingException", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_shader_compiling_exception.html", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_shader_compiling_exception" ],
         [ "ShaderLoadingException", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_shader_loading_exception.html", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_shader_loading_exception" ],
         [ "ShaderPassFactory", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_shader_pass_factory.html", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_shader_pass_factory" ],
@@ -333,8 +339,6 @@ var annotated_dup =
         [ "ThreadedCommandPoolMap", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_threaded_command_pool_map.html", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_threaded_command_pool_map" ],
         [ "ToneMappingPass", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_tone_mapping_pass.html", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_tone_mapping_pass" ],
         [ "TopLevelAccelerationStructureVk", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_top_level_acceleration_structure_vk.html", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_top_level_acceleration_structure_vk" ],
-        [ "TreeGBufferPass", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_tree_g_buffer_pass.html", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_tree_g_buffer_pass" ],
-        [ "TreeNormalsPass", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_tree_normals_pass.html", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_tree_normals_pass" ],
         [ "Vertex2D", "struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_vertex2_d.html", "struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_vertex2_d" ],
         [ "Vertex3D", "struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_vertex3_d.html", "struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_vertex3_d" ],
         [ "VertexAnim3D", "struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_vertex_anim3_d.html", "struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_vertex_anim3_d" ],
@@ -434,6 +438,7 @@ var annotated_dup =
       [ "OwnedPtr", "class_o_s_k_1_1_owned_ptr.html", "class_o_s_k_1_1_owned_ptr" ],
       [ "Pair", "struct_o_s_k_1_1_pair.html", "struct_o_s_k_1_1_pair" ],
       [ "Plane", "struct_o_s_k_1_1_plane.html", "struct_o_s_k_1_1_plane" ],
+      [ "PostProcessInputNotSetException", "class_o_s_k_1_1_post_process_input_not_set_exception.html", "class_o_s_k_1_1_post_process_input_not_set_exception" ],
       [ "Quaternion", "class_o_s_k_1_1_quaternion.html", "class_o_s_k_1_1_quaternion" ],
       [ "RenderedNotCreatedException", "class_o_s_k_1_1_rendered_not_created_exception.html", "class_o_s_k_1_1_rendered_not_created_exception" ],
       [ "SchemaId", "class_o_s_k_1_1_schema_id.html", "class_o_s_k_1_1_schema_id" ],
@@ -453,5 +458,6 @@ var annotated_dup =
     ] ],
     [ "std", null, [
       [ "hash< OSK::GRAPHICS::GpuImageViewConfig >", "structstd_1_1hash_3_01_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_view_config_01_4.html", "structstd_1_1hash_3_01_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_view_config_01_4" ]
-    ] ]
+    ] ],
+    [ "SpriteRendererGlobalInformation", "struct_sprite_renderer_global_information.html", "struct_sprite_renderer_global_information" ]
 ];

@@ -58,6 +58,7 @@ var namespace_o_s_k =
     [ "OwnedPtr", "class_o_s_k_1_1_owned_ptr.html", "class_o_s_k_1_1_owned_ptr" ],
     [ "Pair", "struct_o_s_k_1_1_pair.html", "struct_o_s_k_1_1_pair" ],
     [ "Plane", "struct_o_s_k_1_1_plane.html", "struct_o_s_k_1_1_plane" ],
+    [ "PostProcessInputNotSetException", "class_o_s_k_1_1_post_process_input_not_set_exception.html", "class_o_s_k_1_1_post_process_input_not_set_exception" ],
     [ "Quaternion", "class_o_s_k_1_1_quaternion.html", "class_o_s_k_1_1_quaternion" ],
     [ "RenderedNotCreatedException", "class_o_s_k_1_1_rendered_not_created_exception.html", "class_o_s_k_1_1_rendered_not_created_exception" ],
     [ "SchemaId", "class_o_s_k_1_1_schema_id.html", "class_o_s_k_1_1_schema_id" ],

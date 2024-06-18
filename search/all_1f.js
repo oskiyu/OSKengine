@@ -22,7 +22,7 @@ var searchData=
   ['_7egpuimagevk_19',['~GpuImageVk',['../class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_vk.html#a93f418f45b8edf0888eff716eaed7622',1,'OSK::GRAPHICS::GpuImageVk']]],
   ['_7egpumemoryblockdx12_20',['~GpuMemoryBlockDx12',['../class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_memory_block_dx12.html#ae9c5247c64f69bb1b8d9f97026ca9dab',1,'OSK::GRAPHICS::GpuMemoryBlockDx12']]],
   ['_7egpumemoryblockvk_21',['~GpuMemoryBlockVk',['../class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_memory_block_vk.html#a20955f452d627af40fd635541d9a2cc7',1,'OSK::GRAPHICS::GpuMemoryBlockVk']]],
-  ['_7egpuvk_22',['~GpuVk',['../class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_vk.html#af737908125b67d9b88bdb2ad2eecdd52',1,'OSK::GRAPHICS::GpuVk']]],
+  ['_7egpuvk_22',['~GpuVk',['../class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_vk.html#ae9cdc4abc3f3a5b2f8c070eb93a9520a',1,'OSK::GRAPHICS::GpuVk']]],
   ['_7eiasset_23',['~IAsset',['../class_o_s_k_1_1_a_s_s_e_t_s_1_1_i_asset.html#a99ac97c0e8e719bd9a7870d939959c70',1,'OSK::ASSETS::IAsset']]],
   ['_7eiassetloader_24',['~IAssetLoader',['../class_o_s_k_1_1_a_s_s_e_t_s_1_1_i_asset_loader.html#ac5c0d4e581da3c41b856364bf1bdba0c',1,'OSK::ASSETS::IAssetLoader']]],
   ['_7eiaudioapi_25',['~IAudioApi',['../class_o_s_k_1_1_a_u_d_i_o_1_1_i_audio_api.html#a51d2fd3f42591408b38676dc194d9e9f',1,'OSK::AUDIO::IAudioApi']]],

@@ -2,8 +2,8 @@ var class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_shadows_pass =
 [
     [ "IShadowsPass", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_shadows_pass.html#a69e3b127ebc1a0469355d42332945b68", null ],
     [ "~IShadowsPass", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_shadows_pass.html#a0660fce2301c645629a98a2b248aba23", null ],
-    [ "GetMaterialInstance", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_shadows_pass.html#a6b4656098bca1ae9c273f0fbd36241d8", null ],
-    [ "GetMaterialInstance", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_shadows_pass.html#a59d0f645e8dfeeb0f9d2b27458e944a7", null ],
+    [ "GetMaterialInstance", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_shadows_pass.html#aa7c15d67b3331b9d6b82500632004e5a", null ],
+    [ "GetMaterialInstance", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_shadows_pass.html#ae853c914c3496c1ca618a1afbdb23d85", null ],
     [ "GetTypeName", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_shadows_pass.html#a7895cfd14f55daf9c1b2f8e0e67e9020", null ],
     [ "Load", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_shadows_pass.html#a10ceb922591baa3b92da82966bcf8a87", null ],
     [ "OSK_DEFINE_AS", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_shadows_pass.html#aae7d4a35c005905b86cec1d1f6b0b71f", null ],
@@ -17,7 +17,7 @@ var class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_shadows_pass =
     [ "m_cameraObject", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_shadows_pass.html#a5b6bae2d0bf919d36a9dc7791fd3d589", null ],
     [ "m_currentResolution", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_shadows_pass.html#a019a1231c78e5305a51a17044cb4f7d1", null ],
     [ "m_localMeshMapping", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_shadows_pass.html#a7286295c11cee453ba0c44a8c7debbdf", null ],
-    [ "m_materialInstance", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_shadows_pass.html#aacbebcae4a97b3cf6a923636afd5b840", null ],
+    [ "m_materialInstances", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_shadows_pass.html#ad1cc1a97c5c0afc05c5e47fd6a23e1c7", null ],
     [ "m_passMaterial", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_shadows_pass.html#ac260238caa4992b8f63f73c208029a8f", null ],
     [ "m_passTypeName", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_shadows_pass.html#a770e8786244ce14a92ae68b0b1e21efd", null ]
 ];

@@ -24,8 +24,5 @@ var searchData=
   ['toplevelaccelerationstructurevk_21',['TopLevelAccelerationStructureVk',['../class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_top_level_acceleration_structure_vk.html',1,'OSK::GRAPHICS']]],
   ['transform2d_22',['Transform2D',['../class_o_s_k_1_1_e_c_s_1_1_transform2_d.html',1,'OSK::ECS']]],
   ['transform3d_23',['Transform3D',['../class_o_s_k_1_1_e_c_s_1_1_transform3_d.html',1,'OSK::ECS']]],
-  ['transformappliersystem_24',['TransformApplierSystem',['../class_o_s_k_1_1_e_c_s_1_1_transform_applier_system.html',1,'OSK::ECS']]],
-  ['treegbufferpass_25',['TreeGBufferPass',['../class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_tree_g_buffer_pass.html',1,'OSK::GRAPHICS']]],
-  ['treenormalspass_26',['TreeNormalsPass',['../class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_tree_normals_pass.html',1,'OSK::GRAPHICS']]],
-  ['treenormalsrendersystem_27',['TreeNormalsRenderSystem',['../class_o_s_k_1_1_e_c_s_1_1_tree_normals_render_system.html',1,'OSK::ECS']]]
+  ['transformappliersystem_24',['TransformApplierSystem',['../class_o_s_k_1_1_e_c_s_1_1_transform_applier_system.html',1,'OSK::ECS']]]
 ];

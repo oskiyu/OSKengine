@@ -1,5 +1,6 @@
 var class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_sprite_renderer =
 [
+    [ "SpriteRenderer", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_sprite_renderer.html#a280f1f181eeb9c9d19fc853e7133aeaa", null ],
     [ "Begin", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_sprite_renderer.html#a2ae2a44a9c2fb615b298afb0d8fbf603", null ],
     [ "Draw", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_sprite_renderer.html#a889e843b206370e5eb32d3330cda306a", null ],
     [ "Draw", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_sprite_renderer.html#a0a92f1829e695be451b022660dbe63e1", null ],

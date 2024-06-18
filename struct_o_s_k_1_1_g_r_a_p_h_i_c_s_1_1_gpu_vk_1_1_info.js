@@ -1,6 +1,7 @@
 var struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_vk_1_1_info =
 [
     [ "SwapchainSupportDetails", "struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_vk_1_1_info_1_1_swapchain_support_details.html", "struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_vk_1_1_info_1_1_swapchain_support_details" ],
+    [ "IsCompatibleWithBindless", "struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_vk_1_1_info.html#a89f85a06cf80a9b570138e395a7eb0a5", null ],
     [ "IsRtCompatible", "struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_vk_1_1_info.html#a0ef41ab6fd8ce95010d07658bb3a1dcd", null ],
     [ "bindlessTexturesSets", "struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_vk_1_1_info.html#a76b38c548fca56a756e2b7b3e8976e9f", null ],
     [ "dynamicRenderingFeatures", "struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_vk_1_1_info.html#a9dcb493ef0ccead251c795ecd2d8221a", null ],

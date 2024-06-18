@@ -53,7 +53,6 @@ var namespace_o_s_k_1_1_e_c_s =
     [ "Transform2D", "class_o_s_k_1_1_e_c_s_1_1_transform2_d.html", "class_o_s_k_1_1_e_c_s_1_1_transform2_d" ],
     [ "Transform3D", "class_o_s_k_1_1_e_c_s_1_1_transform3_d.html", "class_o_s_k_1_1_e_c_s_1_1_transform3_d" ],
     [ "TransformApplierSystem", "class_o_s_k_1_1_e_c_s_1_1_transform_applier_system.html", "class_o_s_k_1_1_e_c_s_1_1_transform_applier_system" ],
-    [ "TreeNormalsRenderSystem", "class_o_s_k_1_1_e_c_s_1_1_tree_normals_render_system.html", "class_o_s_k_1_1_e_c_s_1_1_tree_normals_render_system" ],
     [ "IsEcsComponent", "concept_o_s_k_1_1_e_c_s_1_1_is_ecs_component.html", null ],
     [ "IsConsumerSystem", "concept_o_s_k_1_1_e_c_s_1_1_is_consumer_system.html", null ],
     [ "IsIteratorSystem", "concept_o_s_k_1_1_e_c_s_1_1_is_iterator_system.html", null ],

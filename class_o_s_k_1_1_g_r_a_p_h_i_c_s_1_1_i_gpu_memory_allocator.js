@@ -36,9 +36,5 @@ var class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_allocator =
     [ "device", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_allocator.html#a8f655b1e1884b8285b6d90b3d8f94e98", null ],
     [ "imageMemoryBlocks", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_allocator.html#adea5c2b2553cca1f72cda208e8846775", null ],
     [ "m_defaultNormalTexture", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_allocator.html#a0e26b58f16d0e6790e96b65dbeded032", null ],
-    [ "m_memoryAllocationMutex", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_allocator.html#aa769189d48cf4298630f025874f23f0b", null ],
-    [ "minIndexBufferAlignment", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_allocator.html#ad8e1b7218313f8ba2c219d8e11bfee98", null ],
-    [ "minStorageBufferAlignment", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_allocator.html#a5142ba6fc53d48af4dc0710b5fd19e8c", null ],
-    [ "minUniformBufferAlignment", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_allocator.html#ae56ced982a5969f195c1f1c4bb5f02e3", null ],
-    [ "minVertexBufferAlignment", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_allocator.html#a54fadbabc406ab83573b16327b5a535c", null ]
+    [ "m_memoryAllocationMutex", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_allocator.html#aa769189d48cf4298630f025874f23f0b", null ]
 ];

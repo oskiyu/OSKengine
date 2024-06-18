@@ -2,6 +2,7 @@ var class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_memory_subblock_dx12 =
 [
     [ "GpuMemorySubblockDx12", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_memory_subblock_dx12.html#a6c2e7d60fc8289f7eb52df43e3c83c5a", null ],
     [ "GetAllocatedSize", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_memory_subblock_dx12.html#a3e6f49a3c1faa34a849019cd10790396", null ],
+    [ "GetCursor", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_memory_subblock_dx12.html#a0e62a184470dc540152056c96f63a21c", null ],
     [ "GetMappedData", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_memory_subblock_dx12.html#a041c7419708ed856e2e7ec9d31402978", null ],
     [ "GetOffsetFromBlock", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_memory_subblock_dx12.html#a26e6c25deddfc2380dafc71fc749e1bc", null ],
     [ "GetOwnerBlock", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_memory_subblock_dx12.html#aa93fb9b1213377fa3e4187569872671e", null ],

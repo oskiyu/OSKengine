@@ -1,8 +1,8 @@
 var class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_shadows_static_pass =
 [
     [ "ShadowsStaticPass", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_shadows_static_pass.html#a072f61d4e80e9e4bc9ee320532eb9491", null ],
-    [ "GetMaterialInstance", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_shadows_static_pass.html#a6b4656098bca1ae9c273f0fbd36241d8", null ],
-    [ "GetMaterialInstance", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_shadows_static_pass.html#a59d0f645e8dfeeb0f9d2b27458e944a7", null ],
+    [ "GetMaterialInstance", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_shadows_static_pass.html#aa7c15d67b3331b9d6b82500632004e5a", null ],
+    [ "GetMaterialInstance", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_shadows_static_pass.html#ae853c914c3496c1ca618a1afbdb23d85", null ],
     [ "GetTypeName", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_shadows_static_pass.html#a7895cfd14f55daf9c1b2f8e0e67e9020", null ],
     [ "Load", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_shadows_static_pass.html#a4f37da183a46fa1af23deb46baf80610", null ],
     [ "OSK_DEFINE_AS", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_shadows_static_pass.html#aae7d4a35c005905b86cec1d1f6b0b71f", null ],

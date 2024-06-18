@@ -109,6 +109,8 @@ $(function(){initNavTree('class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_sprite_renderer.ht
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Métodos públicos</h2></td></tr>
+<tr class="memitem:a280f1f181eeb9c9d19fc853e7133aeaa" id="r_a280f1f181eeb9c9d19fc853e7133aeaa"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a280f1f181eeb9c9d19fc853e7133aeaa">SpriteRenderer</a> (<a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_allocator.html">IGpuMemoryAllocator</a> *allocator, <a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material.html">Material</a> *defaultMaterial)</td></tr>
+<tr class="separator:a280f1f181eeb9c9d19fc853e7133aeaa"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a103d94e314984318d0d99e7d07752601" id="r_a103d94e314984318d0d99e7d07752601"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a103d94e314984318d0d99e7d07752601">SetCommandList</a> (<a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list.html">ICommandList</a> *commandList) noexcept</td></tr>
 <tr class="separator:a103d94e314984318d0d99e7d07752601"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a38fb9bde80a199e89f1299325982a206" id="r_a38fb9bde80a199e89f1299325982a206"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a38fb9bde80a199e89f1299325982a206">SetMaterial</a> (const <a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material.html">Material</a> &amp;material)</td></tr>
@@ -151,8 +153,32 @@ Métodos públicos</h2></td></tr>
 Despues de finalizar el renderizado, se debe llamar a <a class="el" href="#a614b8a5f4e11f2b4a32cfd0710781c9f" title="Finaliza el renderizado 2D.">SpriteRenderer::End</a>.</dd></dl>
 <dl class="section warning"><dt>Atención</dt><dd>No se deben ejecutar otros comandos de renderizado desde que se llama a <a class="el" href="#a2ae2a44a9c2fb615b298afb0d8fbf603" title="Inicializa el renderizado 2D, estableciendo los recursos necesarios.">SpriteRenderer::Begin</a> hasta que se llama a <a class="el" href="#a614b8a5f4e11f2b4a32cfd0710781c9f" title="Finaliza el renderizado 2D.">SpriteRenderer::End</a>.</dd></dl>
 
-<p class="definition">Definición en la línea <a class="el" href="_sprite_renderer_8h_source.html#l00046">46</a> del archivo <a class="el" href="_sprite_renderer_8h_source.html">SpriteRenderer.h</a>.</p>
-</div><h2 class="groupheader">Documentación de funciones miembro</h2>
+<p class="definition">Definición en la línea <a class="el" href="_sprite_renderer_8h_source.html#l00051">51</a> del archivo <a class="el" href="_sprite_renderer_8h_source.html">SpriteRenderer.h</a>.</p>
+</div><h2 class="groupheader">Documentación de constructores y destructores</h2>
+<a id="a280f1f181eeb9c9d19fc853e7133aeaa" name="a280f1f181eeb9c9d19fc853e7133aeaa"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a280f1f181eeb9c9d19fc853e7133aeaa">&#9670;&#160;</a></span>SpriteRenderer()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">SpriteRenderer::SpriteRenderer </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_allocator.html">IGpuMemoryAllocator</a> *</td>          <td class="paramname"><span class="paramname"><em>allocator</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material.html">Material</a> *</td>          <td class="paramname"><span class="paramname"><em>defaultMaterial</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definición en la línea <a class="el" href="_sprite_renderer_8cpp_source.html#l00036">36</a> del archivo <a class="el" href="_sprite_renderer_8cpp_source.html">SpriteRenderer.cpp</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Documentación de funciones miembro</h2>
 <a id="a2ae2a44a9c2fb615b298afb0d8fbf603" name="a2ae2a44a9c2fb615b298afb0d8fbf603"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a2ae2a44a9c2fb615b298afb0d8fbf603">&#9670;&#160;</a></span>Begin()</h2>
 
@@ -177,7 +203,7 @@ Despues de finalizar el renderizado, se debe llamar a <a class="el" href="#a614b
   </dd>
 </dl>
 
-<p class="definition">Definición en la línea <a class="el" href="_sprite_renderer_8cpp_source.html#l00050">50</a> del archivo <a class="el" href="_sprite_renderer_8cpp_source.html">SpriteRenderer.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_sprite_renderer_8cpp_source.html#l00082">82</a> del archivo <a class="el" href="_sprite_renderer_8cpp_source.html">SpriteRenderer.cpp</a>.</p>
 
 </div>
 </div>
@@ -214,7 +240,7 @@ La cola de comandos debe tener asociado un renderpass. </dd>
 <dd>
 Se debe haber establecido un material. </dd></dl>
 
-<p class="definition">Definición en la línea <a class="el" href="_sprite_renderer_8cpp_source.html#l00101">101</a> del archivo <a class="el" href="_sprite_renderer_8cpp_source.html">SpriteRenderer.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_sprite_renderer_8cpp_source.html#l00134">134</a> del archivo <a class="el" href="_sprite_renderer_8cpp_source.html">SpriteRenderer.cpp</a>.</p>
 
 </div>
 </div>
@@ -263,7 +289,7 @@ Se debe haber establecido un material.</dd></dl>
   </dd>
 </dl>
 
-<p class="definition">Definición en la línea <a class="el" href="_sprite_renderer_8cpp_source.html#l00059">59</a> del archivo <a class="el" href="_sprite_renderer_8cpp_source.html">SpriteRenderer.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_sprite_renderer_8cpp_source.html#l00091">91</a> del archivo <a class="el" href="_sprite_renderer_8cpp_source.html">SpriteRenderer.cpp</a>.</p>
 
 </div>
 </div>
@@ -306,7 +332,7 @@ La cola de comandos debe tener asociado un renderpass. </dd>
 <dd>
 Se debe haber establecido un material. </dd></dl>
 
-<p class="definition">Definición en la línea <a class="el" href="_sprite_renderer_8cpp_source.html#l00097">97</a> del archivo <a class="el" href="_sprite_renderer_8cpp_source.html">SpriteRenderer.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_sprite_renderer_8cpp_source.html#l00130">130</a> del archivo <a class="el" href="_sprite_renderer_8cpp_source.html">SpriteRenderer.cpp</a>.</p>
 
 </div>
 </div>
@@ -353,7 +379,7 @@ La cola de comandos debe tener asociado un renderpass. </dd>
 <dd>
 Se debe haber establecido un material. </dd></dl>
 
-<p class="definition">Definición en la línea <a class="el" href="_sprite_renderer_8cpp_source.html#l00063">63</a> del archivo <a class="el" href="_sprite_renderer_8cpp_source.html">SpriteRenderer.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_sprite_renderer_8cpp_source.html#l00095">95</a> del archivo <a class="el" href="_sprite_renderer_8cpp_source.html">SpriteRenderer.cpp</a>.</p>
 
 </div>
 </div>
@@ -408,7 +434,7 @@ La cola de comandos debe tener asociado un renderpass. </dd>
 <dd>
 Se debe haber establecido un material. </dd></dl>
 
-<p class="definition">Definición en la línea <a class="el" href="_sprite_renderer_8cpp_source.html#l00105">105</a> del archivo <a class="el" href="_sprite_renderer_8cpp_source.html">SpriteRenderer.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_sprite_renderer_8cpp_source.html#l00138">138</a> del archivo <a class="el" href="_sprite_renderer_8cpp_source.html">SpriteRenderer.cpp</a>.</p>
 
 </div>
 </div>
@@ -469,7 +495,7 @@ La cola de comandos debe tener asociado un renderpass. </dd>
 <dd>
 Se debe haber establecido un material. </dd></dl>
 
-<p class="definition">Definición en la línea <a class="el" href="_sprite_renderer_8cpp_source.html#l00088">88</a> del archivo <a class="el" href="_sprite_renderer_8cpp_source.html">SpriteRenderer.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_sprite_renderer_8cpp_source.html#l00121">121</a> del archivo <a class="el" href="_sprite_renderer_8cpp_source.html">SpriteRenderer.cpp</a>.</p>
 
 </div>
 </div>
@@ -524,7 +550,7 @@ La cola de comandos debe tener asociado un renderpass. </dd>
 <dd>
 Se debe haber establecido un material. </dd></dl>
 
-<p class="definition">Definición en la línea <a class="el" href="_sprite_renderer_8cpp_source.html#l00109">109</a> del archivo <a class="el" href="_sprite_renderer_8cpp_source.html">SpriteRenderer.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_sprite_renderer_8cpp_source.html#l00142">142</a> del archivo <a class="el" href="_sprite_renderer_8cpp_source.html">SpriteRenderer.cpp</a>.</p>
 
 </div>
 </div>
@@ -586,7 +612,7 @@ Se debe haber establecido un material. </dd></dl>
   </dd>
 </dl>
 
-<p class="definition">Definición en la línea <a class="el" href="_sprite_renderer_8cpp_source.html#l00115">115</a> del archivo <a class="el" href="_sprite_renderer_8cpp_source.html">SpriteRenderer.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_sprite_renderer_8cpp_source.html#l00148">148</a> del archivo <a class="el" href="_sprite_renderer_8cpp_source.html">SpriteRenderer.cpp</a>.</p>
 
 </div>
 </div>
@@ -643,7 +669,7 @@ Se debe haber establecido un material.</dd>
 <dd>
 <code>font</code> debe tener previamente cargada una instancia con tamaño <code>fontSize</code>. </dd></dl>
 
-<p class="definition">Definición en la línea <a class="el" href="_sprite_renderer_8cpp_source.html#l00133">133</a> del archivo <a class="el" href="_sprite_renderer_8cpp_source.html">SpriteRenderer.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_sprite_renderer_8cpp_source.html#l00166">166</a> del archivo <a class="el" href="_sprite_renderer_8cpp_source.html">SpriteRenderer.cpp</a>.</p>
 
 </div>
 </div>
@@ -706,7 +732,7 @@ Se debe haber establecido un material.</dd>
 </dl>
 <dl class="section pre"><dt>Precondición</dt><dd><code>font</code> debe tener previamente cargada una instancia con tamaño <code>fontSize</code>. </dd></dl>
 
-<p class="definition">Definición en la línea <a class="el" href="_sprite_renderer_8cpp_source.html#l00124">124</a> del archivo <a class="el" href="_sprite_renderer_8cpp_source.html">SpriteRenderer.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_sprite_renderer_8cpp_source.html#l00157">157</a> del archivo <a class="el" href="_sprite_renderer_8cpp_source.html">SpriteRenderer.cpp</a>.</p>
 
 </div>
 </div>
@@ -735,7 +761,7 @@ Se debe haber establecido un material.</dd>
 
 <p>Finaliza el renderizado 2D. </p>
 
-<p class="definition">Definición en la línea <a class="el" href="_sprite_renderer_8cpp_source.html#l00183">183</a> del archivo <a class="el" href="_sprite_renderer_8cpp_source.html">SpriteRenderer.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_sprite_renderer_8cpp_source.html#l00216">216</a> del archivo <a class="el" href="_sprite_renderer_8cpp_source.html">SpriteRenderer.cpp</a>.</p>
 
 </div>
 </div>
@@ -767,7 +793,7 @@ Se debe haber establecido un material.</dd>
   </dd>
 </dl>
 
-<p class="definition">Definición en la línea <a class="el" href="_sprite_renderer_8cpp_source.html#l00040">40</a> del archivo <a class="el" href="_sprite_renderer_8cpp_source.html">SpriteRenderer.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_sprite_renderer_8cpp_source.html#l00072">72</a> del archivo <a class="el" href="_sprite_renderer_8cpp_source.html">SpriteRenderer.cpp</a>.</p>
 
 </div>
 </div>
@@ -797,7 +823,7 @@ Se debe haber establecido un material.</dd>
 <dd>
 <code>gameObject</code> debe tener un componente del tipo Transform2D. </dd></dl>
 
-<p class="definition">Definición en la línea <a class="el" href="_sprite_renderer_8cpp_source.html#l00044">44</a> del archivo <a class="el" href="_sprite_renderer_8cpp_source.html">SpriteRenderer.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_sprite_renderer_8cpp_source.html#l00076">76</a> del archivo <a class="el" href="_sprite_renderer_8cpp_source.html">SpriteRenderer.cpp</a>.</p>
 
 </div>
 </div>
@@ -832,7 +858,7 @@ Se debe haber establecido un material.</dd>
   </dd>
 </dl>
 
-<p class="definition">Definición en la línea <a class="el" href="_sprite_renderer_8cpp_source.html#l00028">28</a> del archivo <a class="el" href="_sprite_renderer_8cpp_source.html">SpriteRenderer.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_sprite_renderer_8cpp_source.html#l00050">50</a> del archivo <a class="el" href="_sprite_renderer_8cpp_source.html">SpriteRenderer.cpp</a>.</p>
 
 </div>
 </div>
@@ -859,7 +885,7 @@ Se debe haber establecido un material.</dd>
   </dd>
 </dl>
 
-<p class="definition">Definición en la línea <a class="el" href="_sprite_renderer_8cpp_source.html#l00032">32</a> del archivo <a class="el" href="_sprite_renderer_8cpp_source.html">SpriteRenderer.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_sprite_renderer_8cpp_source.html#l00063">63</a> del archivo <a class="el" href="_sprite_renderer_8cpp_source.html">SpriteRenderer.cpp</a>.</p>
 
 </div>
 </div>
@@ -886,7 +912,7 @@ Se debe haber establecido un material.</dd>
   </dd>
 </dl>
 
-<p class="definition">Definición en la línea <a class="el" href="_sprite_renderer_8cpp_source.html#l00036">36</a> del archivo <a class="el" href="_sprite_renderer_8cpp_source.html">SpriteRenderer.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_sprite_renderer_8cpp_source.html#l00068">68</a> del archivo <a class="el" href="_sprite_renderer_8cpp_source.html">SpriteRenderer.cpp</a>.</p>
 
 </div>
 </div>
@@ -896,7 +922,7 @@ Se debe haber establecido un material.</dd>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="namespace_o_s_k.html">OSK</a></li><li class="navelem"><a class="el" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html">GRAPHICS</a></li><li class="navelem"><a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_sprite_renderer.html">SpriteRenderer</a></li>
-    <li class="footer">Generado el Miércoles, 29 de mayo de 2024 12:01:51 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.11.0 </li>
+    <li class="footer">Generado el Martes, 18 de junio de 2024 11:17:44 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.11.0 </li>
   </ul>
 </div>
 </body>

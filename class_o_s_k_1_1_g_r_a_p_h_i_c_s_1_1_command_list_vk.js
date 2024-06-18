@@ -28,6 +28,7 @@ var class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_list_vk =
     [ "EndGraphicsRenderpass", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_list_vk.html#ae4acd1a4981b3212bf25a9982fb2e9da", null ],
     [ "GetCommandBuffers", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_list_vk.html#ad32dbbb20706e0fc78312f79f5512c80", null ],
     [ "GetCompatibleQueueType", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_list_vk.html#a29ae3ff1b0b5dce40256b61c371fa333", null ],
+    [ "GetCurrentViewport", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_list_vk.html#a68872a5f18ed2ae3d345fd0af4103847", null ],
     [ "GetOwnerPool", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_list_vk.html#aa6c0ab18bc14a1911becc7e4a8e81cb3", null ],
     [ "OSK_DEFINE_AS", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_list_vk.html#a58b18da32a81e18a764ed60ec5b93972", null ],
     [ "PushMaterialConstants", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_list_vk.html#a140f2cd71da943e6b94a3a30d4b31dae", null ],

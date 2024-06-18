@@ -59,6 +59,7 @@ var namespace_o_s_k_1_1_g_r_a_p_h_i_c_s =
     [ "GpuImageViewDx12", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_view_dx12.html", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_view_dx12" ],
     [ "GpuImageViewVk", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_view_vk.html", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_view_vk" ],
     [ "GpuImageVk", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_vk.html", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_vk" ],
+    [ "GpuMemoryAlignments", "struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_memory_alignments.html", "struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_memory_alignments" ],
     [ "GpuMemoryAllocatorDx12", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_memory_allocator_dx12.html", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_memory_allocator_dx12" ],
     [ "GpuMemoryAllocatorVk", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_memory_allocator_vk.html", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_memory_allocator_vk" ],
     [ "GpuMemoryAllocException", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_memory_alloc_exception.html", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_memory_alloc_exception" ],
@@ -158,6 +159,12 @@ var namespace_o_s_k_1_1_g_r_a_p_h_i_c_s =
     [ "RtRenderTarget", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_rt_render_target.html", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_rt_render_target" ],
     [ "RtShaderBindingTableCreationException", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_rt_shader_binding_table_creation_exception.html", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_rt_shader_binding_table_creation_exception" ],
     [ "RtShaderTableVk", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_rt_shader_table_vk.html", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_rt_shader_table_vk" ],
+    [ "SdfBindlessBatch2D", "struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_sdf_bindless_batch2_d.html", "struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_sdf_bindless_batch2_d" ],
+    [ "SdfBindlessBufferContent2D", "struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_sdf_bindless_buffer_content2_d.html", "struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_sdf_bindless_buffer_content2_d" ],
+    [ "SdfBindlessRenderer2D", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_sdf_bindless_renderer2_d.html", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_sdf_bindless_renderer2_d" ],
+    [ "SdfDrawCall2D", "struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_sdf_draw_call2_d.html", "struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_sdf_draw_call2_d" ],
+    [ "SdfGlobalInformationBufferContent2D", "struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_sdf_global_information_buffer_content2_d.html", "struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_sdf_global_information_buffer_content2_d" ],
+    [ "SdfStringInfo", "struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_sdf_string_info.html", "struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_sdf_string_info" ],
     [ "ShaderCompilingException", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_shader_compiling_exception.html", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_shader_compiling_exception" ],
     [ "ShaderLoadingException", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_shader_loading_exception.html", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_shader_loading_exception" ],
     [ "ShaderPassFactory", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_shader_pass_factory.html", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_shader_pass_factory" ],
@@ -181,8 +188,6 @@ var namespace_o_s_k_1_1_g_r_a_p_h_i_c_s =
     [ "ThreadedCommandPoolMap", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_threaded_command_pool_map.html", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_threaded_command_pool_map" ],
     [ "ToneMappingPass", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_tone_mapping_pass.html", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_tone_mapping_pass" ],
     [ "TopLevelAccelerationStructureVk", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_top_level_acceleration_structure_vk.html", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_top_level_acceleration_structure_vk" ],
-    [ "TreeGBufferPass", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_tree_g_buffer_pass.html", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_tree_g_buffer_pass" ],
-    [ "TreeNormalsPass", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_tree_normals_pass.html", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_tree_normals_pass" ],
     [ "Vertex2D", "struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_vertex2_d.html", "struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_vertex2_d" ],
     [ "Vertex3D", "struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_vertex3_d.html", "struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_vertex3_d" ],
     [ "VertexAnim3D", "struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_vertex_anim3_d.html", "struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_vertex_anim3_d" ],
@@ -403,6 +408,15 @@ var namespace_o_s_k_1_1_g_r_a_p_h_i_c_s =
       [ "DEPTH", "namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a02ed44392ae1f51786ead8911c3afe9daaa1780b4fcce2d5d9af13dc25386d111", null ],
       [ "STENCIL", "namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a02ed44392ae1f51786ead8911c3afe9da301b25ea9a653329b5d5d727f92514c4", null ]
     ] ],
+    [ "SdfDrawCallContentType2D", "namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#af95fe1d618a9a58a41ce9c4f743bf3f8", [
+      [ "TEXTURE", "namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#af95fe1d618a9a58a41ce9c4f743bf3f8a3f92f542bd9ec48f912b9350e22736ac", null ],
+      [ "COLOR_FLAT", "namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#af95fe1d618a9a58a41ce9c4f743bf3f8a3f133e2fffa7f34c03df01ab5ae5cd65", null ],
+      [ "COLOR_SIMPLE_GRADIENT", "namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#af95fe1d618a9a58a41ce9c4f743bf3f8a531bb3c947136f4520e8f65ca1e190cc", null ]
+    ] ],
+    [ "SdfShape2D", "namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#abc04b41aaed4955a6a7f2d5d5ad29714", [
+      [ "RECTANGLE", "namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#abc04b41aaed4955a6a7f2d5d5ad29714a8e8e58fe94ab307a826e087028a7c01a", null ],
+      [ "CIRCLE", "namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#abc04b41aaed4955a6a7f2d5d5ad29714a0af50777920c1401ab975cab64c4d491", null ]
+    ] ],
     [ "ShaderBindingType", "namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a4a3cc5ac5a7f3c8753e7f74d576d6e1d", [
       [ "UNIFORM_BUFFER", "namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a4a3cc5ac5a7f3c8753e7f74d576d6e1da8d0be820da8f4fe5aa49e0ef3065ca29", null ],
       [ "TEXTURE", "namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a4a3cc5ac5a7f3c8753e7f74d576d6e1da3f92f542bd9ec48f912b9350e22736ac", null ],
@@ -454,5 +468,6 @@ var namespace_o_s_k_1_1_g_r_a_p_h_i_c_s =
     [ "GetIndexType", "namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#ac64a3211f9ac3f81f224395d794bd41e", null ],
     [ "GetShaderStageVk", "namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a3a50046339fbf8642e14273583cd8118", null ],
     [ "ALL_IMAGE_LAYERS", "namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#af674fb9ac784ada92d2ecc7064b87932", null ],
-    [ "ALL_MIP_LEVELS", "namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a5b670444760497150a51dbfee577f831", null ]
+    [ "ALL_MIP_LEVELS", "namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a5b670444760497150a51dbfee577f831", null ],
+    [ "MAX_BINDLESS_RESOURCES", "namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#ab32fdac1e47a04939afc8dd2652a50fc", null ]
 ];

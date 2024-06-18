@@ -100,6 +100,7 @@ $(function(){initNavTree('class_o_s_k_1_1_e_c_s_1_1_skybox_render_system.html','
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Métodos públicos</a> &#124;
+<a href="#pub-static-attribs">Atributos públicos estáticos</a> &#124;
 <a href="#pro-methods">Métodos protegidos</a> &#124;
 <a href="#pro-attribs">Atributos protegidos</a> &#124;
 <a href="class_o_s_k_1_1_e_c_s_1_1_skybox_render_system-members.html">Lista de todos los miembros</a>  </div>
@@ -186,6 +187,11 @@ Métodos públicos</h2></td></tr>
 <tr class="memitem:a9ac4b0e11cb52d7222ef76e675cb9cc5" id="r_a9ac4b0e11cb52d7222ef76e675cb9cc5"><td class="memItemLeft" align="right" valign="top">virtual std::string_view&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_e_c_s_1_1_i_system.html#a9ac4b0e11cb52d7222ef76e675cb9cc5">GetName</a> () const =0</td></tr>
 <tr class="separator:a9ac4b0e11cb52d7222ef76e675cb9cc5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-static-attribs" name="pub-static-attribs"></a>
+Atributos públicos estáticos</h2></td></tr>
+<tr class="memitem:a6f80d40ba82e7d52e8086f6dd860d543" id="r_a6f80d40ba82e7d52e8086f6dd860d543"><td class="memItemLeft" align="right" valign="top">static constexpr auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a6f80d40ba82e7d52e8086f6dd860d543">MaterialName</a> = &quot;Resources/Materials/Skybox/material.json&quot;</td></tr>
+<tr class="separator:a6f80d40ba82e7d52e8086f6dd860d543"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pro-methods" name="pro-methods"></a>
 Métodos protegidos</h2></td></tr>
 <tr class="memitem:ad5f82c2ecaae3bc7f77ae4bb92e7a3dd" id="r_ad5f82c2ecaae3bc7f77ae4bb92e7a3dd"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_e_c_s_1_1_i_render_system.html#ad5f82c2ecaae3bc7f77ae4bb92e7a3dd">UpdatePassesCamera</a> (<a class="el" href="namespace_o_s_k_1_1_e_c_s.html#a5b92aeaa6be2ce0d96e7f571aa917042">ECS::GameObjectIndex</a> cameraObject)</td></tr>
@@ -208,7 +214,7 @@ Atributos protegidos</h2></td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Descripción detallada</h2>
 <div class="textblock">
-<p class="definition">Definición en la línea <a class="el" href="_skybox_render_system_8h_source.html#l00017">17</a> del archivo <a class="el" href="_skybox_render_system_8h_source.html">SkyboxRenderSystem.h</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_skybox_render_system_8h_source.html#l00034">34</a> del archivo <a class="el" href="_skybox_render_system_8h_source.html">SkyboxRenderSystem.h</a>.</p>
 </div><h2 class="groupheader">Documentación de constructores y destructores</h2>
 <a id="a13cc32f04efd6adfe3ab7d731a8ff2c4" name="a13cc32f04efd6adfe3ab7d731a8ff2c4"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a13cc32f04efd6adfe3ab7d731a8ff2c4">&#9670;&#160;</a></span>SkyboxRenderSystem()</h2>
@@ -225,7 +231,7 @@ Atributos protegidos</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definición en la línea <a class="el" href="_skybox_render_system_8cpp_source.html#l00018">18</a> del archivo <a class="el" href="_skybox_render_system_8cpp_source.html">SkyboxRenderSystem.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_skybox_render_system_8cpp_source.html#l00027">27</a> del archivo <a class="el" href="_skybox_render_system_8cpp_source.html">SkyboxRenderSystem.cpp</a>.</p>
 
 </div>
 </div>
@@ -345,7 +351,7 @@ Atributos protegidos</h2></td></tr>
 </dl>
 <dl class="section pre"><dt>Precondición</dt><dd>No debe existir un pase de renderizado previo con el mismo nombre que <code>pass</code>. </dd></dl>
 
-<p>Reimplementado en <a class="el" href="class_o_s_k_1_1_e_c_s_1_1_deferred_render_system.html#aaf66a1ef2253f89a56d1077909c821e8">OSK::ECS::DeferredRenderSystem</a> y <a class="el" href="class_o_s_k_1_1_e_c_s_1_1_tree_normals_render_system.html#a6c0a3b44390e40ffb737656a34dd618d">OSK::ECS::TreeNormalsRenderSystem</a>.</p>
+<p>Reimplementado en <a class="el" href="class_o_s_k_1_1_e_c_s_1_1_deferred_render_system.html#aaf66a1ef2253f89a56d1077909c821e8">OSK::ECS::DeferredRenderSystem</a>.</p>
 
 <p class="definition">Definición en la línea <a class="el" href="_i_render_system_8cpp_source.html#l00057">57</a> del archivo <a class="el" href="_i_render_system_8cpp_source.html">IRenderSystem.cpp</a>.</p>
 
@@ -427,7 +433,7 @@ Atributos protegidos</h2></td></tr>
 
 <p>Implementa <a class="el" href="class_o_s_k_1_1_e_c_s_1_1_i_system.html#a356c53dd2a07b8aa475fb6fc6109bd14">OSK::ECS::ISystem</a>.</p>
 
-<p class="definition">Definición en la línea <a class="el" href="_skybox_render_system_8cpp_source.html#l00101">101</a> del archivo <a class="el" href="_skybox_render_system_8cpp_source.html">SkyboxRenderSystem.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_skybox_render_system_8cpp_source.html#l00113">113</a> del archivo <a class="el" href="_skybox_render_system_8cpp_source.html">SkyboxRenderSystem.cpp</a>.</p>
 
 </div>
 </div>
@@ -469,7 +475,7 @@ Atributos protegidos</h2></td></tr>
 
 <p>Implementa <a class="el" href="class_o_s_k_1_1_e_c_s_1_1_i_system.html#a5916eb925d40c0ad0bf7c946b62ab996">OSK::ECS::ISystem</a>.</p>
 
-<p class="definition">Definición en la línea <a class="el" href="_skybox_render_system_8cpp_source.html#l00108">108</a> del archivo <a class="el" href="_skybox_render_system_8cpp_source.html">SkyboxRenderSystem.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_skybox_render_system_8cpp_source.html#l00120">120</a> del archivo <a class="el" href="_skybox_render_system_8cpp_source.html">SkyboxRenderSystem.cpp</a>.</p>
 
 </div>
 </div>
@@ -507,7 +513,7 @@ Atributos protegidos</h2></td></tr>
 
 <p>Reimplementado de <a class="el" href="class_o_s_k_1_1_e_c_s_1_1_i_render_system.html#af963cc4b47d5d60b0b33473e3c7f3c75">OSK::ECS::IRenderSystem</a>.</p>
 
-<p class="definition">Definición en la línea <a class="el" href="_skybox_render_system_8cpp_source.html#l00036">36</a> del archivo <a class="el" href="_skybox_render_system_8cpp_source.html">SkyboxRenderSystem.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_skybox_render_system_8cpp_source.html#l00046">46</a> del archivo <a class="el" href="_skybox_render_system_8cpp_source.html">SkyboxRenderSystem.cpp</a>.</p>
 
 </div>
 </div>
@@ -1117,7 +1123,7 @@ Atributos protegidos</h2></td></tr>
 
 <p>Implementa <a class="el" href="class_o_s_k_1_1_e_c_s_1_1_i_render_system.html#a7a7a8b3fb6aaa3eb06b86c56f4ed4e28">OSK::ECS::IRenderSystem</a>.</p>
 
-<p class="definition">Definición en la línea <a class="el" href="_skybox_render_system_8cpp_source.html#l00053">53</a> del archivo <a class="el" href="_skybox_render_system_8cpp_source.html">SkyboxRenderSystem.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_skybox_render_system_8cpp_source.html#l00065">65</a> del archivo <a class="el" href="_skybox_render_system_8cpp_source.html">SkyboxRenderSystem.cpp</a>.</p>
 
 </div>
 </div>
@@ -1187,7 +1193,7 @@ Se puede sobreescribir para cambiar de tamaño otras imágenes de renderizado. <
 
 <p>Implementa <a class="el" href="class_o_s_k_1_1_e_c_s_1_1_i_system.html#ab5ebff79ec2fb87d79f43dcddd9ceaa6">OSK::ECS::ISystem</a>.</p>
 
-<p class="definition">Definición en la línea <a class="el" href="_skybox_render_system_8cpp_source.html#l00093">93</a> del archivo <a class="el" href="_skybox_render_system_8cpp_source.html">SkyboxRenderSystem.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_skybox_render_system_8cpp_source.html#l00105">105</a> del archivo <a class="el" href="_skybox_render_system_8cpp_source.html">SkyboxRenderSystem.cpp</a>.</p>
 
 </div>
 </div>
@@ -1217,7 +1223,7 @@ Se puede sobreescribir para cambiar de tamaño otras imágenes de renderizado. <
 
 <p>Implementa <a class="el" href="class_o_s_k_1_1_e_c_s_1_1_i_system.html#a71abb122385e05992f9c3875993dafd1">OSK::ECS::ISystem</a>.</p>
 
-<p class="definition">Definición en la línea <a class="el" href="_skybox_render_system_8cpp_source.html#l00082">82</a> del archivo <a class="el" href="_skybox_render_system_8cpp_source.html">SkyboxRenderSystem.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_skybox_render_system_8cpp_source.html#l00094">94</a> del archivo <a class="el" href="_skybox_render_system_8cpp_source.html">SkyboxRenderSystem.cpp</a>.</p>
 
 </div>
 </div>
@@ -1271,7 +1277,7 @@ Se puede sobreescribir para cambiar de tamaño otras imágenes de renderizado. <
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definición en la línea <a class="el" href="_skybox_render_system_8cpp_source.html#l00042">42</a> del archivo <a class="el" href="_skybox_render_system_8cpp_source.html">SkyboxRenderSystem.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_skybox_render_system_8cpp_source.html#l00052">52</a> del archivo <a class="el" href="_skybox_render_system_8cpp_source.html">SkyboxRenderSystem.cpp</a>.</p>
 
 </div>
 </div>
@@ -1325,7 +1331,7 @@ Se puede sobreescribir para cambiar de tamaño otras imágenes de renderizado. <
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definición en la línea <a class="el" href="_skybox_render_system_8cpp_source.html#l00046">46</a> del archivo <a class="el" href="_skybox_render_system_8cpp_source.html">SkyboxRenderSystem.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_skybox_render_system_8cpp_source.html#l00056">56</a> del archivo <a class="el" href="_skybox_render_system_8cpp_source.html">SkyboxRenderSystem.cpp</a>.</p>
 
 </div>
 </div>
@@ -1547,13 +1553,37 @@ Se puede sobreescribir para cambiar de tamaño otras imágenes de renderizado. <
 
 </div>
 </div>
+<a id="a6f80d40ba82e7d52e8086f6dd860d543" name="a6f80d40ba82e7d52e8086f6dd860d543"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6f80d40ba82e7d52e8086f6dd860d543">&#9670;&#160;</a></span>MaterialName</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">auto OSK::ECS::SkyboxRenderSystem::MaterialName = &quot;Resources/Materials/Skybox/material.json&quot;</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definición en la línea <a class="el" href="_skybox_render_system_8h_source.html#l00038">38</a> del archivo <a class="el" href="_skybox_render_system_8h_source.html">SkyboxRenderSystem.h</a>.</p>
+
+</div>
+</div>
 </div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="namespace_o_s_k.html">OSK</a></li><li class="navelem"><a class="el" href="namespace_o_s_k_1_1_e_c_s.html">ECS</a></li><li class="navelem"><a class="el" href="class_o_s_k_1_1_e_c_s_1_1_skybox_render_system.html">SkyboxRenderSystem</a></li>
-    <li class="footer">Generado el Miércoles, 29 de mayo de 2024 12:01:50 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.11.0 </li>
+    <li class="footer">Generado el Martes, 18 de junio de 2024 11:17:43 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.11.0 </li>
   </ul>
 </div>
 </body>

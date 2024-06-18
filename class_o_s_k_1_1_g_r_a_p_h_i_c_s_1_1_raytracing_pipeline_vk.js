@@ -2,6 +2,7 @@ var class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_raytracing_pipeline_vk =
 [
     [ "RaytracingPipelineVk", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_raytracing_pipeline_vk.html#a94e3e92f7df91fcc19fca9e53ba0fb72", null ],
     [ "Create", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_raytracing_pipeline_vk.html#a94b4f888449812887785963f9c37fa25", null ],
+    [ "CreateShaderModule", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_raytracing_pipeline_vk.html#a70dba9ae7e6223523f36e2e69ced6f60", null ],
     [ "GetAttributeDescription", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_raytracing_pipeline_vk.html#a4b4e8effdc21a4736dba8c8989f7b2f9", null ],
     [ "GetBindingDescription", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_raytracing_pipeline_vk.html#a1102623a26b9808b88f2e7ab0dc1a51f", null ],
     [ "GetColorBlendInfo", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_raytracing_pipeline_vk.html#a455a4ebbd3725b78913cc0fd09a25cfc", null ],

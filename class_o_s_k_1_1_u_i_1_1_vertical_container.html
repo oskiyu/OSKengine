@@ -100,6 +100,7 @@ $(function(){initNavTree('class_o_s_k_1_1_u_i_1_1_vertical_container.html',''); 
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Métodos públicos</a> &#124;
+<a href="#pro-methods">Métodos protegidos</a> &#124;
 <a href="#pro-attribs">Atributos protegidos</a> &#124;
 <a href="class_o_s_k_1_1_u_i_1_1_vertical_container-members.html">Lista de todos los miembros</a>  </div>
   <div class="headertitle"><div class="title">Referencia de la clase OSK::UI::VerticalContainer</div></div>
@@ -110,7 +111,7 @@ $(function(){initNavTree('class_o_s_k_1_1_u_i_1_1_vertical_container.html',''); 
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Métodos públicos</h2></td></tr>
-<tr class="memitem:ad15095892daeaf2c03a7dbe8df11ba56" id="r_ad15095892daeaf2c03a7dbe8df11ba56"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad15095892daeaf2c03a7dbe8df11ba56">VerticalContainer</a> (const <a class="el" href="namespace_o_s_k.html#a31a299dbb3a3a60d90d16d1a4eca9651">Vector2f</a> &amp;<a class="el" href="class_o_s_k_1_1_u_i_1_1_i_element.html#ae01866b02c7417455751f01b2f9d1fbf">size</a>)</td></tr>
+<tr class="memitem:ad15095892daeaf2c03a7dbe8df11ba56" id="r_ad15095892daeaf2c03a7dbe8df11ba56"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad15095892daeaf2c03a7dbe8df11ba56">VerticalContainer</a> (const <a class="el" href="namespace_o_s_k.html#a31a299dbb3a3a60d90d16d1a4eca9651">Vector2f</a> &amp;size)</td></tr>
 <tr class="separator:ad15095892daeaf2c03a7dbe8df11ba56"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3fef1e2bd3cb878903a62372a2a5456f" id="r_a3fef1e2bd3cb878903a62372a2a5456f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a3fef1e2bd3cb878903a62372a2a5456f">ResetLayout</a> () override</td></tr>
 <tr class="separator:a3fef1e2bd3cb878903a62372a2a5456f"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -118,26 +119,38 @@ Métodos públicos</h2></td></tr>
 <tr class="separator:a54983fd5bbf46b58e679d8e3c71c8c34"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0a4c7bc194fc8a1f71b2bac1ffeb9d53" id="r_a0a4c7bc194fc8a1f71b2bac1ffeb9d53"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_u_i_1_1_i_container.html#a0a4c7bc194fc8a1f71b2bac1ffeb9d53">SetSize</a> (<a class="el" href="namespace_o_s_k.html#a31a299dbb3a3a60d90d16d1a4eca9651">Vector2f</a> newSize) override</td></tr>
 <tr class="separator:a0a4c7bc194fc8a1f71b2bac1ffeb9d53"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1471d071e06f7f7c4e42ff68849351c5" id="r_a1471d071e06f7f7c4e42ff68849351c5"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_sprite.html">GRAPHICS::Sprite</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_u_i_1_1_i_container.html#a1471d071e06f7f7c4e42ff68849351c5">GetSprite</a> ()</td></tr>
-<tr class="separator:a1471d071e06f7f7c4e42ff68849351c5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a534114bada4e8253e0a2a4477a9c2382" id="r_a534114bada4e8253e0a2a4477a9c2382"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_sprite.html">GRAPHICS::Sprite</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_u_i_1_1_i_container.html#a534114bada4e8253e0a2a4477a9c2382">GetSprite</a> () const</td></tr>
-<tr class="separator:a534114bada4e8253e0a2a4477a9c2382"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af7a4e5d729be3745fe36fb633a341133" id="r_af7a4e5d729be3745fe36fb633a341133"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_u_i_1_1_i_container.html#af7a4e5d729be3745fe36fb633a341133">_SetPosition</a> (const <a class="el" href="namespace_o_s_k.html#a31a299dbb3a3a60d90d16d1a4eca9651">Vector2f</a> &amp;newPosition) override</td></tr>
+<tr class="separator:af7a4e5d729be3745fe36fb633a341133"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7e4d55b77c9c99e8cb7e47b237e946bb" id="r_a7e4d55b77c9c99e8cb7e47b237e946bb"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_u_i_1_1_i_container.html#a7e4d55b77c9c99e8cb7e47b237e946bb">AdjustSizeToChildren</a> ()</td></tr>
 <tr class="separator:a7e4d55b77c9c99e8cb7e47b237e946bb"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a809655728fc6a02fafb3505deaf1e9e5" id="r_a809655728fc6a02fafb3505deaf1e9e5"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_u_i_1_1_i_container.html#a809655728fc6a02fafb3505deaf1e9e5">AddChild</a> (const std::string &amp;key, <a class="el" href="class_o_s_k_1_1_shared_ptr.html">SharedPtr</a>&lt; <a class="el" href="class_o_s_k_1_1_u_i_1_1_i_element.html">IElement</a> &gt; child)</td></tr>
-<tr class="separator:a809655728fc6a02fafb3505deaf1e9e5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afe6f3ebf954cb752a3de57d091cba83a" id="r_afe6f3ebf954cb752a3de57d091cba83a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_u_i_1_1_i_container.html#afe6f3ebf954cb752a3de57d091cba83a">AddChild</a> (const std::string &amp;key, <a class="el" href="class_o_s_k_1_1_owned_ptr.html">OwnedPtr</a>&lt; <a class="el" href="class_o_s_k_1_1_u_i_1_1_i_element.html">IElement</a> &gt; child)</td></tr>
+<tr class="separator:afe6f3ebf954cb752a3de57d091cba83a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8ace09d55aa9f339c50aeb6309939bbf" id="r_a8ace09d55aa9f339c50aeb6309939bbf"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_u_i_1_1_i_container.html#a8ace09d55aa9f339c50aeb6309939bbf">Rebuild</a> ()</td></tr>
 <tr class="separator:a8ace09d55aa9f339c50aeb6309939bbf"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad272fdfdb6b4aa762e3d2c88388d79b7" id="r_ad272fdfdb6b4aa762e3d2c88388d79b7"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_u_i_1_1_i_container.html#ad272fdfdb6b4aa762e3d2c88388d79b7">Render</a> (<a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_sprite_renderer.html">GRAPHICS::SpriteRenderer</a> *renderer, <a class="el" href="namespace_o_s_k.html#a31a299dbb3a3a60d90d16d1a4eca9651">Vector2f</a> parentPosition) const override</td></tr>
-<tr class="separator:ad272fdfdb6b4aa762e3d2c88388d79b7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5e076c98dee5b4c28f7f84dd25c75d90" id="r_a5e076c98dee5b4c28f7f84dd25c75d90"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_u_i_1_1_i_container.html#a5e076c98dee5b4c28f7f84dd25c75d90">UpdateByCursor</a> (<a class="el" href="namespace_o_s_k.html#a31a299dbb3a3a60d90d16d1a4eca9651">Vector2f</a> cursorPosition, bool isPressed, <a class="el" href="namespace_o_s_k.html#a31a299dbb3a3a60d90d16d1a4eca9651">Vector2f</a> parentPosition) override</td></tr>
-<tr class="separator:a5e076c98dee5b4c28f7f84dd25c75d90"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad8736ef3f2b47878badaf5b99366d8c6" id="r_ad8736ef3f2b47878badaf5b99366d8c6"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_u_i_1_1_i_container.html#ad8736ef3f2b47878badaf5b99366d8c6">Render</a> (<a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_sdf_bindless_renderer2_d.html">GRAPHICS::SdfBindlessRenderer2D</a> *renderer) const override</td></tr>
+<tr class="separator:ad8736ef3f2b47878badaf5b99366d8c6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a028534c35046f5056029c563ad3b7da3" id="r_a028534c35046f5056029c563ad3b7da3"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_u_i_1_1_i_container.html#a028534c35046f5056029c563ad3b7da3">UpdateByCursor</a> (<a class="el" href="namespace_o_s_k.html#a31a299dbb3a3a60d90d16d1a4eca9651">Vector2f</a> cursorPosition, bool isPressed) override</td></tr>
+<tr class="separator:a028534c35046f5056029c563ad3b7da3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a64ec1ea6bacdb27517d54f362245ac88" id="r_a64ec1ea6bacdb27517d54f362245ac88"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_u_i_1_1_i_container.html#a64ec1ea6bacdb27517d54f362245ac88">UpdateByKeyboard</a> (const <a class="el" href="class_o_s_k_1_1_i_o_1_1_keyboard_state.html">IO::KeyboardState</a> &amp;previous, const <a class="el" href="class_o_s_k_1_1_i_o_1_1_keyboard_state.html">IO::KeyboardState</a> &amp;current) override</td></tr>
 <tr class="separator:a64ec1ea6bacdb27517d54f362245ac88"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3cc50f3a19d21306ed655cf514e1aaf9" id="r_a3cc50f3a19d21306ed655cf514e1aaf9"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_o_s_k_1_1_u_i_1_1_i_element.html">IElement</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_u_i_1_1_i_container.html#a3cc50f3a19d21306ed655cf514e1aaf9">GetChild</a> (const std::string_view name)</td></tr>
 <tr class="separator:a3cc50f3a19d21306ed655cf514e1aaf9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1f0b2b34653778a034ad6127db04e344" id="r_a1f0b2b34653778a034ad6127db04e344"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="class_o_s_k_1_1_u_i_1_1_i_element.html">IElement</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_u_i_1_1_i_container.html#a1f0b2b34653778a034ad6127db04e344">GetChild</a> (const std::string_view name) const</td></tr>
 <tr class="separator:a1f0b2b34653778a034ad6127db04e344"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a46f079dc5060292013e4be6baf8e19b5" id="r_a46f079dc5060292013e4be6baf8e19b5"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_u_i_1_1_i_element.html#a46f079dc5060292013e4be6baf8e19b5">OSK_DEFINE_AS</a> (<a class="el" href="class_o_s_k_1_1_u_i_1_1_i_element.html">IElement</a>)</td></tr>
+<tr class="separator:a46f079dc5060292013e4be6baf8e19b5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a18f20031652571463a6bede2198d3571" id="r_a18f20031652571463a6bede2198d3571"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_u_i_1_1_i_element.html#a18f20031652571463a6bede2198d3571">AddDrawCall</a> (const <a class="el" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_sdf_draw_call2_d.html">GRAPHICS::SdfDrawCall2D</a> &amp;drawCall)</td></tr>
+<tr class="separator:a18f20031652571463a6bede2198d3571"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:add807398464bad5ab21623c92f386b71" id="r_add807398464bad5ab21623c92f386b71"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_u_i_1_1_i_element.html#add807398464bad5ab21623c92f386b71">AddDrawCall</a> (<a class="el" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_sdf_draw_call2_d.html">GRAPHICS::SdfDrawCall2D</a> &amp;&amp;drawCall)</td></tr>
+<tr class="separator:add807398464bad5ab21623c92f386b71"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae0f8085c23de13e5940fb94e7dbbaaa2" id="r_ae0f8085c23de13e5940fb94e7dbbaaa2"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_u_i_1_1_i_element.html#ae0f8085c23de13e5940fb94e7dbbaaa2">AddAllDrawCalls</a> (const <a class="el" href="class_o_s_k_1_1_dynamic_array.html">DynamicArray</a>&lt; <a class="el" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_sdf_draw_call2_d.html">GRAPHICS::SdfDrawCall2D</a> &gt; &amp;drawCall)</td></tr>
+<tr class="separator:ae0f8085c23de13e5940fb94e7dbbaaa2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a817318bc6249370f7f4e825385437a90" id="r_a817318bc6249370f7f4e825385437a90"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_u_i_1_1_i_element.html#a817318bc6249370f7f4e825385437a90">AddAllDrawCalls</a> (<a class="el" href="class_o_s_k_1_1_dynamic_array.html">DynamicArray</a>&lt; <a class="el" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_sdf_draw_call2_d.html">GRAPHICS::SdfDrawCall2D</a> &gt; &amp;&amp;drawCall)</td></tr>
+<tr class="separator:a817318bc6249370f7f4e825385437a90"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a435b75160b272579038e97b1ee6661fd" id="r_a435b75160b272579038e97b1ee6661fd"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_o_s_k_1_1_dynamic_array.html">DynamicArray</a>&lt; <a class="el" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_sdf_draw_call2_d.html">GRAPHICS::SdfDrawCall2D</a> &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_u_i_1_1_i_element.html#a435b75160b272579038e97b1ee6661fd">GetAllDrawCalls</a> ()</td></tr>
+<tr class="separator:a435b75160b272579038e97b1ee6661fd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7d429ac7a83f5bf789178826024f625c" id="r_a7d429ac7a83f5bf789178826024f625c"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="class_o_s_k_1_1_dynamic_array.html">DynamicArray</a>&lt; <a class="el" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_sdf_draw_call2_d.html">GRAPHICS::SdfDrawCall2D</a> &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_u_i_1_1_i_element.html#a7d429ac7a83f5bf789178826024f625c">GetAllDrawCalls</a> () const</td></tr>
+<tr class="separator:a7d429ac7a83f5bf789178826024f625c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5bcecd711fd5ee01b654092b5cd3236b" id="r_a5bcecd711fd5ee01b654092b5cd3236b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_u_i_1_1_i_element.html#a5bcecd711fd5ee01b654092b5cd3236b">SetVisibility</a> (bool visibility)</td></tr>
 <tr class="separator:a5bcecd711fd5ee01b654092b5cd3236b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a374616da89c3ff9b31e4d7ddf6fc0164" id="r_a374616da89c3ff9b31e4d7ddf6fc0164"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_u_i_1_1_i_element.html#a374616da89c3ff9b31e4d7ddf6fc0164">SetVisible</a> ()</td></tr>
@@ -164,18 +177,16 @@ Métodos públicos</h2></td></tr>
 <tr class="separator:a791189631c86ca8344bfe5f4d3a235cc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae5ccb397475874b1610b00d7bd0d9899" id="r_ae5ccb397475874b1610b00d7bd0d9899"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_u_i_1_1_i_element.html#ae5ccb397475874b1610b00d7bd0d9899">KeepsRelativeSize</a> () const</td></tr>
 <tr class="separator:ae5ccb397475874b1610b00d7bd0d9899"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a91cfb0cebf73163118176956bff4cafa" id="r_a91cfb0cebf73163118176956bff4cafa"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_u_i_1_1_i_element.html#a91cfb0cebf73163118176956bff4cafa">_SetRelativePosition</a> (const <a class="el" href="namespace_o_s_k.html#a31a299dbb3a3a60d90d16d1a4eca9651">Vector2f</a> &amp;relativePosition)</td></tr>
-<tr class="separator:a91cfb0cebf73163118176956bff4cafa"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:adea383318ebc3ed78c2507a02bd6fe67" id="r_adea383318ebc3ed78c2507a02bd6fe67"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespace_o_s_k.html#a31a299dbb3a3a60d90d16d1a4eca9651">Vector2f</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_u_i_1_1_i_element.html#adea383318ebc3ed78c2507a02bd6fe67">GetRelativePosition</a> () const</td></tr>
-<tr class="separator:adea383318ebc3ed78c2507a02bd6fe67"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0ada7aadca2a7c700d777fd9e8d25110" id="r_a0ada7aadca2a7c700d777fd9e8d25110"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespace_o_s_k.html#a31a299dbb3a3a60d90d16d1a4eca9651">Vector2f</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_u_i_1_1_i_element.html#a0ada7aadca2a7c700d777fd9e8d25110">GetPosition</a> () const</td></tr>
+<tr class="separator:a0ada7aadca2a7c700d777fd9e8d25110"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad23a7cf71ff3d1b1528adfb674f5573c" id="r_ad23a7cf71ff3d1b1528adfb674f5573c"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespace_o_s_k.html#a31a299dbb3a3a60d90d16d1a4eca9651">Vector2f</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_u_i_1_1_i_element.html#ad23a7cf71ff3d1b1528adfb674f5573c">GetSize</a> () const</td></tr>
 <tr class="separator:ad23a7cf71ff3d1b1528adfb674f5573c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aea7364031375d85ac5b817ce0050d2e0" id="r_aea7364031375d85ac5b817ce0050d2e0"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespace_o_s_k.html#a31a299dbb3a3a60d90d16d1a4eca9651">Vector2f</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_u_i_1_1_i_element.html#aea7364031375d85ac5b817ce0050d2e0">GetContentSize</a> () const</td></tr>
 <tr class="separator:aea7364031375d85ac5b817ce0050d2e0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab3e540f50a997e460748e6dab21daa9d" id="r_ab3e540f50a997e460748e6dab21daa9d"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespace_o_s_k.html#a31a299dbb3a3a60d90d16d1a4eca9651">Vector2f</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_u_i_1_1_i_element.html#ab3e540f50a997e460748e6dab21daa9d">GetContentTopLeftPosition</a> () const</td></tr>
 <tr class="separator:ab3e540f50a997e460748e6dab21daa9d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a212afdf3c6d058266d9fd66821286646" id="r_a212afdf3c6d058266d9fd66821286646"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespace_o_s_k.html#a98c42bf0a7665f299a3a66c8d4cdcdc2">Vector4f</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_u_i_1_1_i_element.html#a212afdf3c6d058266d9fd66821286646">GetRectangle</a> (<a class="el" href="namespace_o_s_k.html#a31a299dbb3a3a60d90d16d1a4eca9651">Vector2f</a> parentPosition) const</td></tr>
-<tr class="separator:a212afdf3c6d058266d9fd66821286646"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afab0a93f412b23a84919e47356d621c8" id="r_afab0a93f412b23a84919e47356d621c8"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespace_o_s_k.html#a98c42bf0a7665f299a3a66c8d4cdcdc2">Vector4f</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_u_i_1_1_i_element.html#afab0a93f412b23a84919e47356d621c8">GetRectangle</a> () const</td></tr>
+<tr class="separator:afab0a93f412b23a84919e47356d621c8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1abff2399030167132e867fd37f03e20" id="r_a1abff2399030167132e867fd37f03e20"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_u_i_1_1_i_element.html#a1abff2399030167132e867fd37f03e20">SetAnchor</a> (<a class="el" href="namespace_o_s_k_1_1_u_i.html#a11a2d616034d52a2903a58d5de6739f9">Anchor</a> anchor)</td></tr>
 <tr class="separator:a1abff2399030167132e867fd37f03e20"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:adcd7290ee054c3924e98beb87e295b4a" id="r_adcd7290ee054c3924e98beb87e295b4a"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespace_o_s_k_1_1_u_i.html#a11a2d616034d52a2903a58d5de6739f9">Anchor</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_u_i_1_1_i_element.html#adcd7290ee054c3924e98beb87e295b4a">GetAnchor</a> () const</td></tr>
@@ -189,16 +200,23 @@ Métodos públicos</h2></td></tr>
 <tr class="memitem:a99898f2535aa57d386e39fd5d0947a62" id="r_a99898f2535aa57d386e39fd5d0947a62"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespace_o_s_k.html#a31a299dbb3a3a60d90d16d1a4eca9651">Vector2f</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_u_i_1_1_i_element.html#a99898f2535aa57d386e39fd5d0947a62">GetMarging2D</a> () const</td></tr>
 <tr class="separator:a99898f2535aa57d386e39fd5d0947a62"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pro-methods" name="pro-methods"></a>
+Métodos protegidos</h2></td></tr>
+<tr class="memitem:a1be4be0ae444d4ebcd5e99485f8f2db3" id="r_a1be4be0ae444d4ebcd5e99485f8f2db3"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_u_i_1_1_i_element.html#a1be4be0ae444d4ebcd5e99485f8f2db3">OnPositionChanged</a> (const <a class="el" href="namespace_o_s_k.html#a31a299dbb3a3a60d90d16d1a4eca9651">Vector2f</a> &amp;previousPosition)</td></tr>
+<tr class="separator:a1be4be0ae444d4ebcd5e99485f8f2db3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a91cb119d50ae3f2d985fe4d4fdd2b1be" id="r_a91cb119d50ae3f2d985fe4d4fdd2b1be"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_u_i_1_1_i_element.html#a91cb119d50ae3f2d985fe4d4fdd2b1be">OnSizeChanged</a> (const <a class="el" href="namespace_o_s_k.html#a31a299dbb3a3a60d90d16d1a4eca9651">Vector2f</a> &amp;previousSize)</td></tr>
+<tr class="separator:a91cb119d50ae3f2d985fe4d4fdd2b1be"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abbd3ce0d35f6d821f0ad81db0073a929" id="r_abbd3ce0d35f6d821f0ad81db0073a929"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_u_i_1_1_i_element.html#abbd3ce0d35f6d821f0ad81db0073a929">RepositionDrawCalls</a> (const <a class="el" href="namespace_o_s_k.html#a31a299dbb3a3a60d90d16d1a4eca9651">Vector2f</a> &amp;positionDiff)</td></tr>
+<tr class="separator:abbd3ce0d35f6d821f0ad81db0073a929"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a524bbe737dbc4cfb11e02304ac5d5f6a" id="r_a524bbe737dbc4cfb11e02304ac5d5f6a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_u_i_1_1_i_element.html#a524bbe737dbc4cfb11e02304ac5d5f6a">ResizeDrawCalls</a> (const <a class="el" href="namespace_o_s_k.html#a31a299dbb3a3a60d90d16d1a4eca9651">Vector2f</a> &amp;sizeDiff)</td></tr>
+<tr class="separator:a524bbe737dbc4cfb11e02304ac5d5f6a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pro-attribs" name="pro-attribs"></a>
 Atributos protegidos</h2></td></tr>
-<tr class="memitem:a03f55330e93c62dbb127ec0f551f3991" id="r_a03f55330e93c62dbb127ec0f551f3991"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_o_s_k_1_1_unique_ptr.html">UniquePtr</a>&lt; <a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_sprite.html">GRAPHICS::Sprite</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_u_i_1_1_i_container.html#a03f55330e93c62dbb127ec0f551f3991">m_sprite</a> {}</td></tr>
-<tr class="separator:a03f55330e93c62dbb127ec0f551f3991"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3cb95097b29de13d4c6684a506ca6844" id="r_a3cb95097b29de13d4c6684a506ca6844"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_o_s_k_1_1_dynamic_array.html">DynamicArray</a>&lt; <a class="el" href="class_o_s_k_1_1_shared_ptr.html">SharedPtr</a>&lt; <a class="el" href="class_o_s_k_1_1_u_i_1_1_i_element.html">IElement</a> &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_u_i_1_1_i_container.html#a3cb95097b29de13d4c6684a506ca6844">children</a></td></tr>
-<tr class="separator:a3cb95097b29de13d4c6684a506ca6844"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0c43643fc0cd49fa8a4cc5ea0ed2a95c" id="r_a0c43643fc0cd49fa8a4cc5ea0ed2a95c"><td class="memItemLeft" align="right" valign="top">std::unordered_map&lt; std::string, <a class="el" href="class_o_s_k_1_1_u_i_1_1_i_element.html">IElement</a> * &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_u_i_1_1_i_container.html#a0c43643fc0cd49fa8a4cc5ea0ed2a95c">childrenTable</a> {}</td></tr>
-<tr class="separator:a0c43643fc0cd49fa8a4cc5ea0ed2a95c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae01866b02c7417455751f01b2f9d1fbf" id="r_ae01866b02c7417455751f01b2f9d1fbf"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespace_o_s_k.html#a31a299dbb3a3a60d90d16d1a4eca9651">Vector2f</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_u_i_1_1_i_element.html#ae01866b02c7417455751f01b2f9d1fbf">size</a> = <a class="el" href="class_o_s_k_1_1_vector2__t.html#a3759903561dac1fc476d0cc9d051c536">Vector2f::Zero</a></td></tr>
-<tr class="separator:ae01866b02c7417455751f01b2f9d1fbf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6773e7f40433599f9949e29952bd5204" id="r_a6773e7f40433599f9949e29952bd5204"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_o_s_k_1_1_dynamic_array.html">DynamicArray</a>&lt; <a class="el" href="class_o_s_k_1_1_unique_ptr.html">UniquePtr</a>&lt; <a class="el" href="class_o_s_k_1_1_u_i_1_1_i_element.html">IElement</a> &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_u_i_1_1_i_container.html#a6773e7f40433599f9949e29952bd5204">m_children</a></td></tr>
+<tr class="separator:a6773e7f40433599f9949e29952bd5204"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a97928a8f0f6585456a7130f4924e6deb" id="r_a97928a8f0f6585456a7130f4924e6deb"><td class="memItemLeft" align="right" valign="top">std::unordered_map&lt; std::string, <a class="el" href="class_o_s_k_1_1_u_i_1_1_i_element.html">IElement</a> *, <a class="el" href="struct_o_s_k_1_1_string_hasher.html">StringHasher</a>, std::equal_to&lt;&gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_u_i_1_1_i_container.html#a97928a8f0f6585456a7130f4924e6deb">m_childrenTable</a> {}</td></tr>
+<tr class="separator:a97928a8f0f6585456a7130f4924e6deb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Descripción detallada</h2>
 <div class="textblock"><p>Contenedor que coloca los elementos de manera vertical y contígua. </p>
@@ -210,6 +228,9 @@ Atributos protegidos</h2></td></tr>
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
           <td class="memname">VerticalContainer::VerticalContainer </td>
@@ -218,6 +239,11 @@ Atributos protegidos</h2></td></tr>
           <td></td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">explicit</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
 <p class="definition">Definición en la línea <a class="el" href="_ui_vertical_container_8cpp_source.html#l00007">7</a> del archivo <a class="el" href="_ui_vertical_container_8cpp_source.html">UiVerticalContainer.cpp</a>.</p>
@@ -225,8 +251,8 @@ Atributos protegidos</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Documentación de funciones miembro</h2>
-<a id="a91cfb0cebf73163118176956bff4cafa" name="a91cfb0cebf73163118176956bff4cafa"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a91cfb0cebf73163118176956bff4cafa">&#9670;&#160;</a></span>_SetRelativePosition()</h2>
+<a id="af7a4e5d729be3745fe36fb633a341133" name="af7a4e5d729be3745fe36fb633a341133"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af7a4e5d729be3745fe36fb633a341133">&#9670;&#160;</a></span>_SetPosition()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -235,35 +261,97 @@ Atributos protegidos</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">void IElement::_SetRelativePosition </td>
+          <td class="memname">void IContainer::_SetPosition </td>
           <td>(</td>
-          <td class="paramtype">const <a class="el" href="namespace_o_s_k.html#a31a299dbb3a3a60d90d16d1a4eca9651">Vector2f</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>relativePosition</em></span></td><td>)</td>
+          <td class="paramtype">const <a class="el" href="namespace_o_s_k.html#a31a299dbb3a3a60d90d16d1a4eca9651">Vector2f</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>newPosition</em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">virtual</span><span class="mlabel">inherited</span></span>  </td>
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span><span class="mlabel">inherited</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
-<p>Establece la posición relativa de este elemento respecto a su contenedor. </p>
+<p>Establece la posición de este elemento. </p>
 <dl class="params"><dt>Parámetros</dt><dd>
   <table class="params">
-    <tr><td class="paramname">relativePosition</td><td>Posición relativa. </td></tr>
+    <tr><td class="paramname">relativePosition</td><td>Posición (en píxeles). </td></tr>
   </table>
   </dd>
 </dl>
 
-<p>Reimplementado en <a class="el" href="class_o_s_k_1_1_u_i_1_1_dropdown_1_1_element.html#a18eabc26dfe63a1bd19fae80fdd56746">OSK::UI::Dropdown::Element</a>.</p>
+<p>Reimplementado de <a class="el" href="class_o_s_k_1_1_u_i_1_1_i_element.html#aa1d307a1691ad1c36e1eccf1d3175353">OSK::UI::IElement</a>.</p>
 
-<p class="definition">Definición en la línea <a class="el" href="_ui_element_8cpp_source.html#l00035">35</a> del archivo <a class="el" href="_ui_element_8cpp_source.html">UiElement.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_i_ui_container_8cpp_source.html#l00025">25</a> del archivo <a class="el" href="_i_ui_container_8cpp_source.html">IUiContainer.cpp</a>.</p>
 
 </div>
 </div>
-<a id="a809655728fc6a02fafb3505deaf1e9e5" name="a809655728fc6a02fafb3505deaf1e9e5"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a809655728fc6a02fafb3505deaf1e9e5">&#9670;&#160;</a></span>AddChild()</h2>
+<a id="ae0f8085c23de13e5940fb94e7dbbaaa2" name="ae0f8085c23de13e5940fb94e7dbbaaa2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae0f8085c23de13e5940fb94e7dbbaaa2">&#9670;&#160;</a></span>AddAllDrawCalls() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void IElement::AddAllDrawCalls </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="class_o_s_k_1_1_dynamic_array.html">DynamicArray</a>&lt; <a class="el" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_sdf_draw_call2_d.html">GRAPHICS::SdfDrawCall2D</a> &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>drawCall</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Añade una lista de llamadas de renderizado. </p>
+<dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">drawCall</td><td>Lista de llamadas de renderizado. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definición en la línea <a class="el" href="_ui_element_8cpp_source.html#l00056">56</a> del archivo <a class="el" href="_ui_element_8cpp_source.html">UiElement.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a817318bc6249370f7f4e825385437a90" name="a817318bc6249370f7f4e825385437a90"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a817318bc6249370f7f4e825385437a90">&#9670;&#160;</a></span>AddAllDrawCalls() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void IElement::AddAllDrawCalls </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="class_o_s_k_1_1_dynamic_array.html">DynamicArray</a>&lt; <a class="el" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_sdf_draw_call2_d.html">GRAPHICS::SdfDrawCall2D</a> &gt; &amp;&amp;</td>          <td class="paramname"><span class="paramname"><em>drawCall</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definición en la línea <a class="el" href="_ui_element_8cpp_source.html#l00060">60</a> del archivo <a class="el" href="_ui_element_8cpp_source.html">UiElement.cpp</a>.</p>
+
+</div>
+</div>
+<a id="afe6f3ebf954cb752a3de57d091cba83a" name="afe6f3ebf954cb752a3de57d091cba83a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afe6f3ebf954cb752a3de57d091cba83a">&#9670;&#160;</a></span>AddChild()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -279,7 +367,7 @@ Atributos protegidos</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="class_o_s_k_1_1_shared_ptr.html">SharedPtr</a>&lt; <a class="el" href="class_o_s_k_1_1_u_i_1_1_i_element.html">IElement</a> &gt;</td>          <td class="paramname"><span class="paramname"><em>child</em></span>&#160;)</td>
+          <td class="paramtype"><a class="el" href="class_o_s_k_1_1_owned_ptr.html">OwnedPtr</a>&lt; <a class="el" href="class_o_s_k_1_1_u_i_1_1_i_element.html">IElement</a> &gt;</td>          <td class="paramname"><span class="paramname"><em>child</em></span>&#160;)</td>
         </tr>
       </table>
   </td>
@@ -301,7 +389,69 @@ Atributos protegidos</h2></td></tr>
 <dd>
 Este contenedor no debe tener ningún elemento con el identificador <code>key</code>. </dd></dl>
 
-<p class="definition">Definición en la línea <a class="el" href="_i_ui_container_8cpp_source.html#l00038">38</a> del archivo <a class="el" href="_i_ui_container_8cpp_source.html">IUiContainer.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_i_ui_container_8cpp_source.html#l00045">45</a> del archivo <a class="el" href="_i_ui_container_8cpp_source.html">IUiContainer.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a18f20031652571463a6bede2198d3571" name="a18f20031652571463a6bede2198d3571"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a18f20031652571463a6bede2198d3571">&#9670;&#160;</a></span>AddDrawCall() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void IElement::AddDrawCall </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_sdf_draw_call2_d.html">GRAPHICS::SdfDrawCall2D</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>drawCall</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Añade una llamada de renderizado al elemento. </p>
+<dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">drawCall</td><td>Nueva llamada de renderizado. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definición en la línea <a class="el" href="_ui_element_8cpp_source.html#l00048">48</a> del archivo <a class="el" href="_ui_element_8cpp_source.html">UiElement.cpp</a>.</p>
+
+</div>
+</div>
+<a id="add807398464bad5ab21623c92f386b71" name="add807398464bad5ab21623c92f386b71"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#add807398464bad5ab21623c92f386b71">&#9670;&#160;</a></span>AddDrawCall() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void IElement::AddDrawCall </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_sdf_draw_call2_d.html">GRAPHICS::SdfDrawCall2D</a> &amp;&amp;</td>          <td class="paramname"><span class="paramname"><em>drawCall</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definición en la línea <a class="el" href="_ui_element_8cpp_source.html#l00052">52</a> del archivo <a class="el" href="_ui_element_8cpp_source.html">UiElement.cpp</a>.</p>
 
 </div>
 </div>
@@ -330,7 +480,7 @@ Este contenedor no debe tener ningún elemento con el identificador <code>key</c
 
 <p>Ajusta el tamaño del contenedor, para que sea el justo y necesario para que quepan todos los elementos hijos. </p>
 
-<p class="definition">Definición en la línea <a class="el" href="_i_ui_container_8cpp_source.html#l00025">25</a> del archivo <a class="el" href="_i_ui_container_8cpp_source.html">IUiContainer.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_i_ui_container_8cpp_source.html#l00030">30</a> del archivo <a class="el" href="_i_ui_container_8cpp_source.html">IUiContainer.cpp</a>.</p>
 
 </div>
 </div>
@@ -371,6 +521,61 @@ Este contenedor no debe tener ningún elemento con el identificador <code>key</c
 
 </div>
 </div>
+<a id="a435b75160b272579038e97b1ee6661fd" name="a435b75160b272579038e97b1ee6661fd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a435b75160b272579038e97b1ee6661fd">&#9670;&#160;</a></span>GetAllDrawCalls() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="class_o_s_k_1_1_dynamic_array.html">DynamicArray</a>&lt; <a class="el" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_sdf_draw_call2_d.html">GRAPHICS::SdfDrawCall2D</a> &gt; &amp; IElement::GetAllDrawCalls </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Devuelve</dt><dd>Lista con todas las llamadas de renderizado. </dd></dl>
+
+<p class="definition">Definición en la línea <a class="el" href="_ui_element_8cpp_source.html#l00064">64</a> del archivo <a class="el" href="_ui_element_8cpp_source.html">UiElement.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a7d429ac7a83f5bf789178826024f625c" name="a7d429ac7a83f5bf789178826024f625c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7d429ac7a83f5bf789178826024f625c">&#9670;&#160;</a></span>GetAllDrawCalls() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="class_o_s_k_1_1_dynamic_array.html">DynamicArray</a>&lt; <a class="el" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_sdf_draw_call2_d.html">GRAPHICS::SdfDrawCall2D</a> &gt; &amp; IElement::GetAllDrawCalls </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definición en la línea <a class="el" href="_ui_element_8cpp_source.html#l00068">68</a> del archivo <a class="el" href="_ui_element_8cpp_source.html">UiElement.cpp</a>.</p>
+
+</div>
+</div>
 <a id="adcd7290ee054c3924e98beb87e295b4a" name="adcd7290ee054c3924e98beb87e295b4a"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#adcd7290ee054c3924e98beb87e295b4a">&#9670;&#160;</a></span>GetAnchor()</h2>
 
@@ -395,7 +600,7 @@ Este contenedor no debe tener ningún elemento con el identificador <code>key</c
 </div><div class="memdoc">
 <dl class="section return"><dt>Devuelve</dt><dd>Anchor actual del elemento. </dd></dl>
 
-<p class="definition">Definición en la línea <a class="el" href="_ui_element_8h_source.html#l00160">160</a> del archivo <a class="el" href="_ui_element_8h_source.html">UiElement.h</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_ui_element_8h_source.html#l00196">196</a> del archivo <a class="el" href="_ui_element_8h_source.html">UiElement.h</a>.</p>
 
 </div>
 </div>
@@ -430,7 +635,7 @@ Este contenedor no debe tener ningún elemento con el identificador <code>key</c
 <dl class="section return"><dt>Devuelve</dt><dd>Puntero al elemento indicado. </dd></dl>
 <dl class="section pre"><dt>Precondición</dt><dd>Debe haberse introducido un elemento con el nombre dado. </dd></dl>
 
-<p class="definition">Definición en la línea <a class="el" href="_i_ui_container_8cpp_source.html#l00095">95</a> del archivo <a class="el" href="_i_ui_container_8cpp_source.html">IUiContainer.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_i_ui_container_8cpp_source.html#l00096">96</a> del archivo <a class="el" href="_i_ui_container_8cpp_source.html">IUiContainer.cpp</a>.</p>
 
 </div>
 </div>
@@ -457,7 +662,7 @@ Este contenedor no debe tener ningún elemento con el identificador <code>key</c
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definición en la línea <a class="el" href="_i_ui_container_8cpp_source.html#l00099">99</a> del archivo <a class="el" href="_i_ui_container_8cpp_source.html">IUiContainer.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_i_ui_container_8cpp_source.html#l00100">100</a> del archivo <a class="el" href="_i_ui_container_8cpp_source.html">IUiContainer.cpp</a>.</p>
 
 </div>
 </div>
@@ -485,7 +690,7 @@ Este contenedor no debe tener ningún elemento con el identificador <code>key</c
 </div><div class="memdoc">
 <dl class="section return"><dt>Devuelve</dt><dd>Tamaño del contenido del elemento (tamaño - padding). </dd></dl>
 
-<p class="definition">Definición en la línea <a class="el" href="_ui_element_8cpp_source.html#l00095">95</a> del archivo <a class="el" href="_ui_element_8cpp_source.html">UiElement.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_ui_element_8cpp_source.html#l00130">130</a> del archivo <a class="el" href="_ui_element_8cpp_source.html">UiElement.cpp</a>.</p>
 
 </div>
 </div>
@@ -513,7 +718,7 @@ Este contenedor no debe tener ningún elemento con el identificador <code>key</c
 </div><div class="memdoc">
 <dl class="section return"><dt>Devuelve</dt><dd>Posición relativa del contenido (posición - padding). </dd></dl>
 
-<p class="definition">Definición en la línea <a class="el" href="_ui_element_8cpp_source.html#l00099">99</a> del archivo <a class="el" href="_ui_element_8cpp_source.html">UiElement.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_ui_element_8cpp_source.html#l00134">134</a> del archivo <a class="el" href="_ui_element_8cpp_source.html">UiElement.cpp</a>.</p>
 
 </div>
 </div>
@@ -541,7 +746,7 @@ Este contenedor no debe tener ningún elemento con el identificador <code>key</c
 </div><div class="memdoc">
 <dl class="section return"><dt>Devuelve</dt><dd>Márgenes, tal que: X -&gt; margen izquierdo. Y -&gt; margen superior. Z -&gt; margen derecho. W -&gt; margen inferior. </dd></dl>
 
-<p class="definition">Definición en la línea <a class="el" href="_ui_element_8cpp_source.html#l00120">120</a> del archivo <a class="el" href="_ui_element_8cpp_source.html">UiElement.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_ui_element_8cpp_source.html#l00155">155</a> del archivo <a class="el" href="_ui_element_8cpp_source.html">UiElement.cpp</a>.</p>
 
 </div>
 </div>
@@ -569,7 +774,7 @@ Este contenedor no debe tener ningún elemento con el identificador <code>key</c
 </div><div class="memdoc">
 <dl class="section return"><dt>Devuelve</dt><dd>Márgenes, tal que: X -&gt; margen izquierdo + margen derecho. Y -&gt; margen superior + margen inferior. </dd></dl>
 
-<p class="definition">Definición en la línea <a class="el" href="_ui_element_8cpp_source.html#l00131">131</a> del archivo <a class="el" href="_ui_element_8cpp_source.html">UiElement.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_ui_element_8cpp_source.html#l00166">166</a> del archivo <a class="el" href="_ui_element_8cpp_source.html">UiElement.cpp</a>.</p>
 
 </div>
 </div>
@@ -597,7 +802,7 @@ Este contenedor no debe tener ningún elemento con el identificador <code>key</c
 </div><div class="memdoc">
 <dl class="section return"><dt>Devuelve</dt><dd>Padding, tal que: X -&gt; padding izquierdo. Y -&gt; padding superior. Z -&gt; padding derecho. W -&gt; padding inferior. </dd></dl>
 
-<p class="definition">Definición en la línea <a class="el" href="_ui_element_8cpp_source.html#l00116">116</a> del archivo <a class="el" href="_ui_element_8cpp_source.html">UiElement.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_ui_element_8cpp_source.html#l00151">151</a> del archivo <a class="el" href="_ui_element_8cpp_source.html">UiElement.cpp</a>.</p>
 
 </div>
 </div>
@@ -625,12 +830,12 @@ Este contenedor no debe tener ningún elemento con el identificador <code>key</c
 </div><div class="memdoc">
 <dl class="section return"><dt>Devuelve</dt><dd>Padding, tal que: X -&gt; padding izquierdo + padding derecho. Y -&gt; padding superior + padding inferior. </dd></dl>
 
-<p class="definition">Definición en la línea <a class="el" href="_ui_element_8cpp_source.html#l00124">124</a> del archivo <a class="el" href="_ui_element_8cpp_source.html">UiElement.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_ui_element_8cpp_source.html#l00159">159</a> del archivo <a class="el" href="_ui_element_8cpp_source.html">UiElement.cpp</a>.</p>
 
 </div>
 </div>
-<a id="a212afdf3c6d058266d9fd66821286646" name="a212afdf3c6d058266d9fd66821286646"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a212afdf3c6d058266d9fd66821286646">&#9670;&#160;</a></span>GetRectangle()</h2>
+<a id="a0ada7aadca2a7c700d777fd9e8d25110" name="a0ada7aadca2a7c700d777fd9e8d25110"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0ada7aadca2a7c700d777fd9e8d25110">&#9670;&#160;</a></span>GetPosition()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -639,35 +844,7 @@ Este contenedor no debe tener ningún elemento con el identificador <code>key</c
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="namespace_o_s_k.html#a98c42bf0a7665f299a3a66c8d4cdcdc2">Vector4f</a> IElement::GetRectangle </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="namespace_o_s_k.html#a31a299dbb3a3a60d90d16d1a4eca9651">Vector2f</a></td>          <td class="paramname"><span class="paramname"><em>parentPosition</em></span></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inherited</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<dl class="section return"><dt>Devuelve</dt><dd>Rectángulo que ocupa el elemento, tal que: X, Y -&gt; posición. Z -&gt; ancho. W -&gt; alto. </dd></dl>
-
-<p class="definition">Definición en la línea <a class="el" href="_ui_element_8cpp_source.html#l00103">103</a> del archivo <a class="el" href="_ui_element_8cpp_source.html">UiElement.cpp</a>.</p>
-
-</div>
-</div>
-<a id="adea383318ebc3ed78c2507a02bd6fe67" name="adea383318ebc3ed78c2507a02bd6fe67"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#adea383318ebc3ed78c2507a02bd6fe67">&#9670;&#160;</a></span>GetRelativePosition()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="namespace_o_s_k.html#a31a299dbb3a3a60d90d16d1a4eca9651">Vector2f</a> IElement::GetRelativePosition </td>
+          <td class="memname"><a class="el" href="namespace_o_s_k.html#a31a299dbb3a3a60d90d16d1a4eca9651">Vector2f</a> IElement::GetPosition </td>
           <td>(</td>
           <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
           <td> const</td>
@@ -679,9 +856,37 @@ Este contenedor no debe tener ningún elemento con el identificador <code>key</c
   </tr>
 </table>
 </div><div class="memdoc">
-<dl class="section return"><dt>Devuelve</dt><dd>Posición relativa respecto a su contenedor. </dd></dl>
+<dl class="section return"><dt>Devuelve</dt><dd>Posición, en píxeles. </dd></dl>
 
-<p class="definition">Definición en la línea <a class="el" href="_ui_element_8cpp_source.html#l00083">83</a> del archivo <a class="el" href="_ui_element_8cpp_source.html">UiElement.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_ui_element_8cpp_source.html#l00116">116</a> del archivo <a class="el" href="_ui_element_8cpp_source.html">UiElement.cpp</a>.</p>
+
+</div>
+</div>
+<a id="afab0a93f412b23a84919e47356d621c8" name="afab0a93f412b23a84919e47356d621c8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afab0a93f412b23a84919e47356d621c8">&#9670;&#160;</a></span>GetRectangle()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="namespace_o_s_k.html#a98c42bf0a7665f299a3a66c8d4cdcdc2">Vector4f</a> IElement::GetRectangle </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Devuelve</dt><dd>Rectángulo que ocupa el elemento, tal que: X, Y -&gt; posición. Z -&gt; ancho. W -&gt; alto. </dd></dl>
+
+<p class="definition">Definición en la línea <a class="el" href="_ui_element_8cpp_source.html#l00138">138</a> del archivo <a class="el" href="_ui_element_8cpp_source.html">UiElement.cpp</a>.</p>
 
 </div>
 </div>
@@ -709,61 +914,7 @@ Este contenedor no debe tener ningún elemento con el identificador <code>key</c
 </div><div class="memdoc">
 <dl class="section return"><dt>Devuelve</dt><dd>Tamaño del elemento. </dd></dl>
 
-<p class="definition">Definición en la línea <a class="el" href="_ui_element_8cpp_source.html#l00091">91</a> del archivo <a class="el" href="_ui_element_8cpp_source.html">UiElement.cpp</a>.</p>
-
-</div>
-</div>
-<a id="a1471d071e06f7f7c4e42ff68849351c5" name="a1471d071e06f7f7c4e42ff68849351c5"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1471d071e06f7f7c4e42ff68849351c5">&#9670;&#160;</a></span>GetSprite() <span class="overload">[1/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_sprite.html">GRAPHICS::Sprite</a> &amp; OSK::UI::IContainer::GetSprite </td>
-          <td>(</td>
-          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">inherited</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p class="definition">Definición en la línea <a class="el" href="_i_ui_container_8h_source.html#l00027">27</a> del archivo <a class="el" href="_i_ui_container_8h_source.html">IUiContainer.h</a>.</p>
-
-</div>
-</div>
-<a id="a534114bada4e8253e0a2a4477a9c2382" name="a534114bada4e8253e0a2a4477a9c2382"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a534114bada4e8253e0a2a4477a9c2382">&#9670;&#160;</a></span>GetSprite() <span class="overload">[2/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">const <a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_sprite.html">GRAPHICS::Sprite</a> &amp; OSK::UI::IContainer::GetSprite </td>
-          <td>(</td>
-          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">inherited</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p class="definition">Definición en la línea <a class="el" href="_i_ui_container_8h_source.html#l00034">34</a> del archivo <a class="el" href="_i_ui_container_8h_source.html">IUiContainer.h</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_ui_element_8cpp_source.html#l00126">126</a> del archivo <a class="el" href="_ui_element_8cpp_source.html">UiElement.cpp</a>.</p>
 
 </div>
 </div>
@@ -789,8 +940,9 @@ Este contenedor no debe tener ningún elemento con el identificador <code>key</c
   </tr>
 </table>
 </div><div class="memdoc">
+<dl class="section return"><dt>Devuelve</dt><dd>Si está bloqueado o no. </dd></dl>
 
-<p class="definition">Definición en la línea <a class="el" href="_ui_element_8cpp_source.html#l00063">63</a> del archivo <a class="el" href="_ui_element_8cpp_source.html">UiElement.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_ui_element_8cpp_source.html#l00096">96</a> del archivo <a class="el" href="_ui_element_8cpp_source.html">UiElement.cpp</a>.</p>
 
 </div>
 </div>
@@ -816,8 +968,9 @@ Este contenedor no debe tener ningún elemento con el identificador <code>key</c
   </tr>
 </table>
 </div><div class="memdoc">
+<dl class="section return"><dt>Devuelve</dt><dd>Si es visible o no. </dd></dl>
 
-<p class="definition">Definición en la línea <a class="el" href="_ui_element_8cpp_source.html#l00051">51</a> del archivo <a class="el" href="_ui_element_8cpp_source.html">UiElement.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_ui_element_8cpp_source.html#l00084">84</a> del archivo <a class="el" href="_ui_element_8cpp_source.html">UiElement.cpp</a>.</p>
 
 </div>
 </div>
@@ -845,7 +998,7 @@ Este contenedor no debe tener ningún elemento con el identificador <code>key</c
 </div><div class="memdoc">
 <dl class="section return"><dt>Devuelve</dt><dd>True si debe cambiar de tamaño junto al padre. False si conserva su tamaño original cuando el padre cambia de tamaño. </dd></dl>
 
-<p class="definition">Definición en la línea <a class="el" href="_ui_element_8cpp_source.html#l00031">31</a> del archivo <a class="el" href="_ui_element_8cpp_source.html">UiElement.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_ui_element_8cpp_source.html#l00038">38</a> del archivo <a class="el" href="_ui_element_8cpp_source.html">UiElement.cpp</a>.</p>
 
 </div>
 </div>
@@ -872,7 +1025,108 @@ Este contenedor no debe tener ningún elemento con el identificador <code>key</c
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definición en la línea <a class="el" href="_ui_element_8cpp_source.html#l00055">55</a> del archivo <a class="el" href="_ui_element_8cpp_source.html">UiElement.cpp</a>.</p>
+<p>Bloquea el elemento para que no responda a eventos de entrada. Si ya estaba bloqueado, no ocurrirá nada. </p>
+
+<p class="definition">Definición en la línea <a class="el" href="_ui_element_8cpp_source.html#l00088">88</a> del archivo <a class="el" href="_ui_element_8cpp_source.html">UiElement.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a1be4be0ae444d4ebcd5e99485f8f2db3" name="a1be4be0ae444d4ebcd5e99485f8f2db3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1be4be0ae444d4ebcd5e99485f8f2db3">&#9670;&#160;</a></span>OnPositionChanged()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void IElement::OnPositionChanged </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="namespace_o_s_k.html#a31a299dbb3a3a60d90d16d1a4eca9651">Vector2f</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>previousPosition</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span><span class="mlabel">virtual</span><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Función que se ejecuta al cambiarse la posición del elemento. </p>
+<p>Por defecto, reposiciona las llamadas de renderizado mediante <code>RepositionDrawCalls(...)</code>. </p><dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">previousPosition</td><td>Posición anterior.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section note"><dt>Nota</dt><dd>La nueva posición se puede obtener mediante <code>GetRelativePosition()</code>. </dd></dl>
+
+<p class="definition">Definición en la línea <a class="el" href="_ui_element_8cpp_source.html#l00185">185</a> del archivo <a class="el" href="_ui_element_8cpp_source.html">UiElement.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a91cb119d50ae3f2d985fe4d4fdd2b1be" name="a91cb119d50ae3f2d985fe4d4fdd2b1be"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a91cb119d50ae3f2d985fe4d4fdd2b1be">&#9670;&#160;</a></span>OnSizeChanged()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void IElement::OnSizeChanged </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="namespace_o_s_k.html#a31a299dbb3a3a60d90d16d1a4eca9651">Vector2f</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>previousSize</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span><span class="mlabel">virtual</span><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Función que se ejecuta al cambiarse el tamaño del elemento. </p>
+<p>Por defecto, y si debe mantener su tamaño relativo respecto al padre (<code><a class="el" href="class_o_s_k_1_1_u_i_1_1_i_element.html#ae5ccb397475874b1610b00d7bd0d9899">KeepsRelativeSize()</a> == true</code>), reposiciona las llamadas de renderizado mediante <code>ResizeDrawCalls(...)</code>. </p><dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">previousSize</td><td>Tamaño anterior. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section note"><dt>Nota</dt><dd>El nuevo tamaño se puede obtener mediante <code><a class="el" href="class_o_s_k_1_1_u_i_1_1_i_element.html#ad23a7cf71ff3d1b1528adfb674f5573c">GetSize()</a></code>. </dd></dl>
+
+<p>Reimplementado en <a class="el" href="class_o_s_k_1_1_editor_1_1_u_i_1_1_editor_bottom_bar.html#a16d4e102c924efb5d2465a6eb3baf071">OSK::Editor::UI::EditorBottomBar</a> y <a class="el" href="class_o_s_k_1_1_editor_1_1_u_i_1_1_editor_header.html#ae5b2dbdd04be1ab259ce34e4b616bedd">OSK::Editor::UI::EditorHeader</a>.</p>
+
+<p class="definition">Definición en la línea <a class="el" href="_ui_element_8cpp_source.html#l00190">190</a> del archivo <a class="el" href="_ui_element_8cpp_source.html">UiElement.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a46f079dc5060292013e4be6baf8e19b5" name="a46f079dc5060292013e4be6baf8e19b5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a46f079dc5060292013e4be6baf8e19b5">&#9670;&#160;</a></span>OSK_DEFINE_AS()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">OSK::UI::IElement::OSK_DEFINE_AS </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="class_o_s_k_1_1_u_i_1_1_i_element.html">IElement</a></td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
 
 </div>
 </div>
@@ -901,12 +1155,12 @@ Este contenedor no debe tener ningún elemento con el identificador <code>key</c
 
 <p>Reestructura todos los hijos del contenedor. </p>
 
-<p class="definition">Definición en la línea <a class="el" href="_i_ui_container_8cpp_source.html#l00045">45</a> del archivo <a class="el" href="_i_ui_container_8cpp_source.html">IUiContainer.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_i_ui_container_8cpp_source.html#l00052">52</a> del archivo <a class="el" href="_i_ui_container_8cpp_source.html">IUiContainer.cpp</a>.</p>
 
 </div>
 </div>
-<a id="ad272fdfdb6b4aa762e3d2c88388d79b7" name="ad272fdfdb6b4aa762e3d2c88388d79b7"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad272fdfdb6b4aa762e3d2c88388d79b7">&#9670;&#160;</a></span>Render()</h2>
+<a id="ad8736ef3f2b47878badaf5b99366d8c6" name="ad8736ef3f2b47878badaf5b99366d8c6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad8736ef3f2b47878badaf5b99366d8c6">&#9670;&#160;</a></span>Render()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -917,12 +1171,8 @@ Este contenedor no debe tener ningún elemento con el identificador <code>key</c
         <tr>
           <td class="memname">void IContainer::Render </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_sprite_renderer.html">GRAPHICS::SpriteRenderer</a> *</td>          <td class="paramname"><span class="paramname"><em>renderer</em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="namespace_o_s_k.html#a31a299dbb3a3a60d90d16d1a4eca9651">Vector2f</a></td>          <td class="paramname"><span class="paramname"><em>parentPosition</em></span>&#160;) const</td>
+          <td class="paramtype"><a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_sdf_bindless_renderer2_d.html">GRAPHICS::SdfBindlessRenderer2D</a> *</td>          <td class="paramname"><span class="paramname"><em>renderer</em></span></td><td>)</td>
+          <td> const</td>
         </tr>
       </table>
   </td>
@@ -934,9 +1184,44 @@ Este contenedor no debe tener ningún elemento con el identificador <code>key</c
 
 <p>Renderiza todos los elementos contenidos. </p>
 
-<p>Reimplementado de <a class="el" href="class_o_s_k_1_1_u_i_1_1_i_element.html#ab13bdea8414d11e8623f1557dd7fc78e">OSK::UI::IElement</a>.</p>
+<p>Reimplementado de <a class="el" href="class_o_s_k_1_1_u_i_1_1_i_element.html#a9c8b1053ba69e3d5f048cb086e6f0ad5">OSK::UI::IElement</a>.</p>
 
-<p class="definition">Definición en la línea <a class="el" href="_i_ui_container_8cpp_source.html#l00052">52</a> del archivo <a class="el" href="_i_ui_container_8cpp_source.html">IUiContainer.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_i_ui_container_8cpp_source.html#l00059">59</a> del archivo <a class="el" href="_i_ui_container_8cpp_source.html">IUiContainer.cpp</a>.</p>
+
+</div>
+</div>
+<a id="abbd3ce0d35f6d821f0ad81db0073a929" name="abbd3ce0d35f6d821f0ad81db0073a929"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abbd3ce0d35f6d821f0ad81db0073a929">&#9670;&#160;</a></span>RepositionDrawCalls()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void IElement::RepositionDrawCalls </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="namespace_o_s_k.html#a31a299dbb3a3a60d90d16d1a4eca9651">Vector2f</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>positionDiff</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Reposiciona todas las llamadas de renderizado por un delta indicado. </p>
+<dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">positionDiff</td><td>Delta de posición que se aplicará a todas las llamadas. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definición en la línea <a class="el" href="_ui_element_8cpp_source.html#l00173">173</a> del archivo <a class="el" href="_ui_element_8cpp_source.html">UiElement.cpp</a>.</p>
 
 </div>
 </div>
@@ -967,7 +1252,42 @@ Este contenedor no debe tener ningún elemento con el identificador <code>key</c
 
 <p>Implementa <a class="el" href="class_o_s_k_1_1_u_i_1_1_i_container.html#ab5b70a4a172dac245bceb50af570bf55">OSK::UI::IContainer</a>.</p>
 
-<p class="definition">Definición en la línea <a class="el" href="_ui_vertical_container_8cpp_source.html#l00036">36</a> del archivo <a class="el" href="_ui_vertical_container_8cpp_source.html">UiVerticalContainer.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_ui_vertical_container_8cpp_source.html#l00038">38</a> del archivo <a class="el" href="_ui_vertical_container_8cpp_source.html">UiVerticalContainer.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a524bbe737dbc4cfb11e02304ac5d5f6a" name="a524bbe737dbc4cfb11e02304ac5d5f6a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a524bbe737dbc4cfb11e02304ac5d5f6a">&#9670;&#160;</a></span>ResizeDrawCalls()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void IElement::ResizeDrawCalls </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="namespace_o_s_k.html#a31a299dbb3a3a60d90d16d1a4eca9651">Vector2f</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>sizeDiff</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Reescala todas las llamadas de renderizado por un delta indicado. </p>
+<dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">sizeDiff</td><td>Delta de tamaño que se aplicará a todas las llamadas. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definición en la línea <a class="el" href="_ui_element_8cpp_source.html#l00179">179</a> del archivo <a class="el" href="_ui_element_8cpp_source.html">UiElement.cpp</a>.</p>
 
 </div>
 </div>
@@ -1002,7 +1322,7 @@ Este contenedor no debe tener ningún elemento con el identificador <code>key</c
   </dd>
 </dl>
 
-<p class="definition">Definición en la línea <a class="el" href="_ui_element_8cpp_source.html#l00112">112</a> del archivo <a class="el" href="_ui_element_8cpp_source.html">UiElement.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_ui_element_8cpp_source.html#l00147">147</a> del archivo <a class="el" href="_ui_element_8cpp_source.html">UiElement.cpp</a>.</p>
 
 </div>
 </div>
@@ -1029,7 +1349,9 @@ Este contenedor no debe tener ningún elemento con el identificador <code>key</c
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definición en la línea <a class="el" href="_ui_element_8cpp_source.html#l00047">47</a> del archivo <a class="el" href="_ui_element_8cpp_source.html">UiElement.cpp</a>.</p>
+<p>Establece el elemento como invisible. Si no es visible, tampoco responderá a eventos de entrada. Si ya era invisible, no ocurrirá nada. </p>
+
+<p class="definition">Definición en la línea <a class="el" href="_ui_element_8cpp_source.html#l00080">80</a> del archivo <a class="el" href="_ui_element_8cpp_source.html">UiElement.cpp</a>.</p>
 
 </div>
 </div>
@@ -1064,7 +1386,7 @@ Este contenedor no debe tener ningún elemento con el identificador <code>key</c
   </dd>
 </dl>
 
-<p class="definition">Definición en la línea <a class="el" href="_ui_element_8cpp_source.html#l00027">27</a> del archivo <a class="el" href="_ui_element_8cpp_source.html">UiElement.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_ui_element_8cpp_source.html#l00034">34</a> del archivo <a class="el" href="_ui_element_8cpp_source.html">UiElement.cpp</a>.</p>
 
 </div>
 </div>
@@ -1099,7 +1421,7 @@ Este contenedor no debe tener ningún elemento con el identificador <code>key</c
   </dd>
 </dl>
 
-<p class="definition">Definición en la línea <a class="el" href="_ui_element_8cpp_source.html#l00075">75</a> del archivo <a class="el" href="_ui_element_8cpp_source.html">UiElement.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_ui_element_8cpp_source.html#l00108">108</a> del archivo <a class="el" href="_ui_element_8cpp_source.html">UiElement.cpp</a>.</p>
 
 </div>
 </div>
@@ -1134,7 +1456,7 @@ Este contenedor no debe tener ningún elemento con el identificador <code>key</c
   </dd>
 </dl>
 
-<p class="definition">Definición en la línea <a class="el" href="_ui_element_8cpp_source.html#l00079">79</a> del archivo <a class="el" href="_ui_element_8cpp_source.html">UiElement.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_ui_element_8cpp_source.html#l00112">112</a> del archivo <a class="el" href="_ui_element_8cpp_source.html">UiElement.cpp</a>.</p>
 
 </div>
 </div>
@@ -1169,7 +1491,7 @@ Este contenedor no debe tener ningún elemento con el identificador <code>key</c
   </dd>
 </dl>
 
-<p class="definition">Definición en la línea <a class="el" href="_ui_element_8cpp_source.html#l00067">67</a> del archivo <a class="el" href="_ui_element_8cpp_source.html">UiElement.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_ui_element_8cpp_source.html#l00100">100</a> del archivo <a class="el" href="_ui_element_8cpp_source.html">UiElement.cpp</a>.</p>
 
 </div>
 </div>
@@ -1205,7 +1527,7 @@ Este contenedor no debe tener ningún elemento con el identificador <code>key</c
   </dd>
 </dl>
 
-<p class="definition">Definición en la línea <a class="el" href="_ui_element_8cpp_source.html#l00071">71</a> del archivo <a class="el" href="_ui_element_8cpp_source.html">UiElement.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_ui_element_8cpp_source.html#l00104">104</a> del archivo <a class="el" href="_ui_element_8cpp_source.html">UiElement.cpp</a>.</p>
 
 </div>
 </div>
@@ -1270,7 +1592,15 @@ Este contenedor no debe tener ningún elemento con el identificador <code>key</c
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definición en la línea <a class="el" href="_ui_element_8cpp_source.html#l00039">39</a> del archivo <a class="el" href="_ui_element_8cpp_source.html">UiElement.cpp</a>.</p>
+<p>Establece si el elemento debe ser visible o no. Si no es visible, tampoco responderá a eventos de entrada. </p>
+<dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">visibility</td><td>Si debe ser visible o no. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definición en la línea <a class="el" href="_ui_element_8cpp_source.html#l00072">72</a> del archivo <a class="el" href="_ui_element_8cpp_source.html">UiElement.cpp</a>.</p>
 
 </div>
 </div>
@@ -1297,7 +1627,9 @@ Este contenedor no debe tener ningún elemento con el identificador <code>key</c
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definición en la línea <a class="el" href="_ui_element_8cpp_source.html#l00043">43</a> del archivo <a class="el" href="_ui_element_8cpp_source.html">UiElement.cpp</a>.</p>
+<p>Establece el elemento como visible. Si ya era visible, no ocurrirá nada. </p>
+
+<p class="definition">Definición en la línea <a class="el" href="_ui_element_8cpp_source.html#l00076">76</a> del archivo <a class="el" href="_ui_element_8cpp_source.html">UiElement.cpp</a>.</p>
 
 </div>
 </div>
@@ -1324,12 +1656,14 @@ Este contenedor no debe tener ningún elemento con el identificador <code>key</c
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definición en la línea <a class="el" href="_ui_element_8cpp_source.html#l00059">59</a> del archivo <a class="el" href="_ui_element_8cpp_source.html">UiElement.cpp</a>.</p>
+<p>Desbloquea el elemento para que responda a eventos de entrada. Si ya estaba desbloqueado, no ocurrirá nada. </p>
+
+<p class="definition">Definición en la línea <a class="el" href="_ui_element_8cpp_source.html#l00092">92</a> del archivo <a class="el" href="_ui_element_8cpp_source.html">UiElement.cpp</a>.</p>
 
 </div>
 </div>
-<a id="a5e076c98dee5b4c28f7f84dd25c75d90" name="a5e076c98dee5b4c28f7f84dd25c75d90"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5e076c98dee5b4c28f7f84dd25c75d90">&#9670;&#160;</a></span>UpdateByCursor()</h2>
+<a id="a028534c35046f5056029c563ad3b7da3" name="a028534c35046f5056029c563ad3b7da3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a028534c35046f5056029c563ad3b7da3">&#9670;&#160;</a></span>UpdateByCursor()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1345,12 +1679,7 @@ Este contenedor no debe tener ningún elemento con el identificador <code>key</c
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">bool</td>          <td class="paramname"><span class="paramname"><em>isPressed</em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="namespace_o_s_k.html#a31a299dbb3a3a60d90d16d1a4eca9651">Vector2f</a></td>          <td class="paramname"><span class="paramname"><em>parentPosition</em></span>&#160;)</td>
+          <td class="paramtype">bool</td>          <td class="paramname"><span class="paramname"><em>isPressed</em></span>&#160;)</td>
         </tr>
       </table>
   </td>
@@ -1364,14 +1693,13 @@ Este contenedor no debe tener ningún elemento con el identificador <code>key</c
 <dl class="params"><dt>Parámetros</dt><dd>
   <table class="params">
     <tr><td class="paramname">cursorPosition</td><td>Posición del cursor. </td></tr>
-    <tr><td class="paramname">isPressed</td><td>True si se está pulsando el cursor. </td></tr>
-    <tr><td class="paramname">parentPosition</td><td>Posición del contenedor padre.</td></tr>
+    <tr><td class="paramname">isPressed</td><td>True si se está pulsando el cursor.</td></tr>
   </table>
   </dd>
 </dl>
 <dl class="section return"><dt>Devuelve</dt><dd>True si el click se ha procesado dentro del elemento (y por lo tanto, se debe detener la comprobación para el resto de elementos). </dd></dl>
 
-<p>Reimplementado de <a class="el" href="class_o_s_k_1_1_u_i_1_1_i_element.html#a6ad37633b14a2f0d68a324f8dcfc9021">OSK::UI::IElement</a>.</p>
+<p>Reimplementado de <a class="el" href="class_o_s_k_1_1_u_i_1_1_i_element.html#aa8a2f139e388632ccafa2e227e567fb0">OSK::UI::IElement</a>.</p>
 
 <p class="definition">Definición en la línea <a class="el" href="_i_ui_container_8cpp_source.html#l00069">69</a> del archivo <a class="el" href="_i_ui_container_8cpp_source.html">IUiContainer.cpp</a>.</p>
 
@@ -1414,13 +1742,13 @@ Este contenedor no debe tener ningún elemento con el identificador <code>key</c
 
 <p>Reimplementado de <a class="el" href="class_o_s_k_1_1_u_i_1_1_i_element.html#ac1df6b61c6c53126404095386ef00b5b">OSK::UI::IElement</a>.</p>
 
-<p class="definition">Definición en la línea <a class="el" href="_i_ui_container_8cpp_source.html#l00083">83</a> del archivo <a class="el" href="_i_ui_container_8cpp_source.html">IUiContainer.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_i_ui_container_8cpp_source.html#l00084">84</a> del archivo <a class="el" href="_i_ui_container_8cpp_source.html">IUiContainer.cpp</a>.</p>
 
 </div>
 </div>
 <h2 class="groupheader">Documentación de datos miembro</h2>
-<a id="a3cb95097b29de13d4c6684a506ca6844" name="a3cb95097b29de13d4c6684a506ca6844"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3cb95097b29de13d4c6684a506ca6844">&#9670;&#160;</a></span>children</h2>
+<a id="a6773e7f40433599f9949e29952bd5204" name="a6773e7f40433599f9949e29952bd5204"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6773e7f40433599f9949e29952bd5204">&#9670;&#160;</a></span>m_children</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1429,7 +1757,7 @@ Este contenedor no debe tener ningún elemento con el identificador <code>key</c
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="class_o_s_k_1_1_dynamic_array.html">DynamicArray</a>&lt;<a class="el" href="class_o_s_k_1_1_shared_ptr.html">SharedPtr</a>&lt;<a class="el" href="class_o_s_k_1_1_u_i_1_1_i_element.html">IElement</a>&gt; &gt; OSK::UI::IContainer::children</td>
+          <td class="memname"><a class="el" href="class_o_s_k_1_1_dynamic_array.html">DynamicArray</a>&lt;<a class="el" href="class_o_s_k_1_1_unique_ptr.html">UniquePtr</a>&lt;<a class="el" href="class_o_s_k_1_1_u_i_1_1_i_element.html">IElement</a>&gt; &gt; OSK::UI::IContainer::m_children</td>
         </tr>
       </table>
   </td>
@@ -1439,12 +1767,12 @@ Este contenedor no debe tener ningún elemento con el identificador <code>key</c
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definición en la línea <a class="el" href="_i_ui_container_8h_source.html#l00085">85</a> del archivo <a class="el" href="_i_ui_container_8h_source.html">IUiContainer.h</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_i_ui_container_8h_source.html#l00070">70</a> del archivo <a class="el" href="_i_ui_container_8h_source.html">IUiContainer.h</a>.</p>
 
 </div>
 </div>
-<a id="a0c43643fc0cd49fa8a4cc5ea0ed2a95c" name="a0c43643fc0cd49fa8a4cc5ea0ed2a95c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0c43643fc0cd49fa8a4cc5ea0ed2a95c">&#9670;&#160;</a></span>childrenTable</h2>
+<a id="a97928a8f0f6585456a7130f4924e6deb" name="a97928a8f0f6585456a7130f4924e6deb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a97928a8f0f6585456a7130f4924e6deb">&#9670;&#160;</a></span>m_childrenTable</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1453,7 +1781,7 @@ Este contenedor no debe tener ningún elemento con el identificador <code>key</c
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">std::unordered_map&lt;std::string, <a class="el" href="class_o_s_k_1_1_u_i_1_1_i_element.html">IElement</a>*&gt; OSK::UI::IContainer::childrenTable {}</td>
+          <td class="memname">std::unordered_map&lt;std::string, <a class="el" href="class_o_s_k_1_1_u_i_1_1_i_element.html">IElement</a>*, <a class="el" href="struct_o_s_k_1_1_string_hasher.html">StringHasher</a>, std::equal_to&lt;&gt; &gt; OSK::UI::IContainer::m_childrenTable {}</td>
         </tr>
       </table>
   </td>
@@ -1463,55 +1791,7 @@ Este contenedor no debe tener ningún elemento con el identificador <code>key</c
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definición en la línea <a class="el" href="_i_ui_container_8h_source.html#l00086">86</a> del archivo <a class="el" href="_i_ui_container_8h_source.html">IUiContainer.h</a>.</p>
-
-</div>
-</div>
-<a id="a03f55330e93c62dbb127ec0f551f3991" name="a03f55330e93c62dbb127ec0f551f3991"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a03f55330e93c62dbb127ec0f551f3991">&#9670;&#160;</a></span>m_sprite</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="class_o_s_k_1_1_unique_ptr.html">UniquePtr</a>&lt;<a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_sprite.html">GRAPHICS::Sprite</a>&gt; OSK::UI::IContainer::m_sprite {}</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">mutable</span><span class="mlabel">protected</span><span class="mlabel">inherited</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p class="definition">Definición en la línea <a class="el" href="_i_ui_container_8h_source.html#l00083">83</a> del archivo <a class="el" href="_i_ui_container_8h_source.html">IUiContainer.h</a>.</p>
-
-</div>
-</div>
-<a id="ae01866b02c7417455751f01b2f9d1fbf" name="ae01866b02c7417455751f01b2f9d1fbf"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae01866b02c7417455751f01b2f9d1fbf">&#9670;&#160;</a></span>size</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="namespace_o_s_k.html#a31a299dbb3a3a60d90d16d1a4eca9651">Vector2f</a> OSK::UI::IElement::size = <a class="el" href="class_o_s_k_1_1_vector2__t.html#a3759903561dac1fc476d0cc9d051c536">Vector2f::Zero</a></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">protected</span><span class="mlabel">inherited</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p class="definition">Definición en la línea <a class="el" href="_ui_element_8h_source.html#l00188">188</a> del archivo <a class="el" href="_ui_element_8h_source.html">UiElement.h</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_i_ui_container_8h_source.html#l00071">71</a> del archivo <a class="el" href="_i_ui_container_8h_source.html">IUiContainer.h</a>.</p>
 
 </div>
 </div>
@@ -1521,7 +1801,7 @@ Este contenedor no debe tener ningún elemento con el identificador <code>key</c
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="namespace_o_s_k.html">OSK</a></li><li class="navelem"><a class="el" href="namespace_o_s_k_1_1_u_i.html">UI</a></li><li class="navelem"><a class="el" href="class_o_s_k_1_1_u_i_1_1_vertical_container.html">VerticalContainer</a></li>
-    <li class="footer">Generado el Miércoles, 29 de mayo de 2024 12:01:52 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.11.0 </li>
+    <li class="footer">Generado el Martes, 18 de junio de 2024 11:17:44 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.11.0 </li>
   </ul>
 </div>
 </body>

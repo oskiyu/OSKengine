@@ -139,8 +139,10 @@ Métodos públicos</h2></td></tr>
 <tr class="separator:a4c5f87c5a714c5d8da05aaf6f0288038"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8ef318196d000c7000baaa1d0e5c5f2b" id="r_a8ef318196d000c7000baaa1d0e5c5f2b"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a8ef318196d000c7000baaa1d0e5c5f2b">EndGraphicsRenderpass</a> (bool autoSync=true)=0</td></tr>
 <tr class="separator:a8ef318196d000c7000baaa1d0e5c5f2b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad7cd8a020a86d10e75f1b0241e41cc37" id="r_ad7cd8a020a86d10e75f1b0241e41cc37"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad7cd8a020a86d10e75f1b0241e41cc37">SetViewport</a> (const <a class="el" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_viewport.html">Viewport</a> &amp;viewport)=0</td></tr>
-<tr class="separator:ad7cd8a020a86d10e75f1b0241e41cc37"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ade7ffbc2a7481918f6862d60aea4d7c3" id="r_ade7ffbc2a7481918f6862d60aea4d7c3"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ade7ffbc2a7481918f6862d60aea4d7c3">SetViewport</a> (const <a class="el" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_viewport.html">Viewport</a> &amp;viewport)</td></tr>
+<tr class="separator:ade7ffbc2a7481918f6862d60aea4d7c3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a68872a5f18ed2ae3d345fd0af4103847" id="r_a68872a5f18ed2ae3d345fd0af4103847"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_viewport.html">Viewport</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a68872a5f18ed2ae3d345fd0af4103847">GetCurrentViewport</a> () const</td></tr>
+<tr class="separator:a68872a5f18ed2ae3d345fd0af4103847"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad7246c4be8141d70827ee91c1686144e" id="r_ad7246c4be8141d70827ee91c1686144e"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad7246c4be8141d70827ee91c1686144e">SetScissor</a> (const <a class="el" href="namespace_o_s_k.html#a388745491b9a70d4760a7b979ef3fe19">Vector4ui</a> &amp;scissor)=0</td></tr>
 <tr class="separator:ad7246c4be8141d70827ee91c1686144e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a09c13f55f611baa6b54956612c2e4ce7" id="r_a09c13f55f611baa6b54956612c2e4ce7"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a09c13f55f611baa6b54956612c2e4ce7">BindMaterial</a> (const <a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material.html">Material</a> &amp;material)</td></tr>
@@ -249,7 +251,7 @@ Atributos protegidos</h2></td></tr>
 <div class="textblock"><p>Una lista de comandos contiene una serie de comandos que serán enviados a la GPU para su ejecución. La lista es creada por una pool de comandos, y se introduce en una cola de comandos para su ejecución. </p>
 <dl class="section note"><dt>Nota</dt><dd>Los comandos serán ejecutados una vez se envíe la lista a la GPU. </dd></dl>
 
-<p class="definition">Definición en la línea <a class="el" href="_i_command_list_8h_source.html#l00076">76</a> del archivo <a class="el" href="_i_command_list_8h_source.html">ICommandList.h</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_i_command_list_8h_source.html#l00077">77</a> del archivo <a class="el" href="_i_command_list_8h_source.html">ICommandList.h</a>.</p>
 </div><h2 class="groupheader">Documentación de constructores y destructores</h2>
 <a id="a516fa2688fd4392629964834d43c2593" name="a516fa2688fd4392629964834d43c2593"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a516fa2688fd4392629964834d43c2593">&#9670;&#160;</a></span>~ICommandList()</h2>
@@ -321,7 +323,7 @@ Atributos protegidos</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definición en la línea <a class="el" href="_i_command_list_8cpp_source.html#l00139">139</a> del archivo <a class="el" href="_i_command_list_8cpp_source.html">ICommandList.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_i_command_list_8cpp_source.html#l00147">147</a> del archivo <a class="el" href="_i_command_list_8cpp_source.html">ICommandList.cpp</a>.</p>
 
 </div>
 </div>
@@ -367,7 +369,7 @@ Atributos protegidos</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definición en la línea <a class="el" href="_i_command_list_8cpp_source.html#l00127">127</a> del archivo <a class="el" href="_i_command_list_8cpp_source.html">ICommandList.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_i_command_list_8cpp_source.html#l00135">135</a> del archivo <a class="el" href="_i_command_list_8cpp_source.html">ICommandList.cpp</a>.</p>
 
 </div>
 </div>
@@ -523,7 +525,7 @@ La imagen de profundidad se encontrarán en <code><a class="el" href="namespace_
 <dd>
 La cola de comandos sobre la que se envía la lista debe soportar, al menos, <code><a class="el" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a19534f214690bcfc89ac53cc89681ac6a6f49448c79d7d58c6e60cf7129b84d1c" title="Comandos de renderizado.">CommandsSupport::GRAPHICS</a></code>. </dd></dl>
 
-<p class="definition">Definición en la línea <a class="el" href="_i_command_list_8cpp_source.html#l00054">54</a> del archivo <a class="el" href="_i_command_list_8cpp_source.html">ICommandList.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_i_command_list_8cpp_source.html#l00062">62</a> del archivo <a class="el" href="_i_command_list_8cpp_source.html">ICommandList.cpp</a>.</p>
 
 </div>
 </div>
@@ -615,7 +617,7 @@ La lista de comandos debe estar abierta.</dd></dl>
 <dd>
 La cola de comandos sobre la que se envía la lista debe soportar, al menos, <code><a class="el" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a19534f214690bcfc89ac53cc89681ac6a6f49448c79d7d58c6e60cf7129b84d1c" title="Comandos de renderizado.">CommandsSupport::GRAPHICS</a></code>. </dd></dl>
 
-<p class="definition">Definición en la línea <a class="el" href="_i_command_list_8cpp_source.html#l00081">81</a> del archivo <a class="el" href="_i_command_list_8cpp_source.html">ICommandList.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_i_command_list_8cpp_source.html#l00089">89</a> del archivo <a class="el" href="_i_command_list_8cpp_source.html">ICommandList.cpp</a>.</p>
 
 </div>
 </div>
@@ -699,7 +701,7 @@ Si es un material de computación, el pool de comandos a partir del cual se ha c
 <dd>
 Si es un material de computación, la cola de comandos sobre la que se envía la lista debe soportar, al menos, <code><a class="el" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a19534f214690bcfc89ac53cc89681ac6aac404d7ce6ca5862e9b8a2641fbafd90" title="Comandos de computación genérica.">CommandsSupport::COMPUTE</a></code>. </dd></dl>
 
-<p class="definition">Definición en la línea <a class="el" href="_i_command_list_8cpp_source.html#l00086">86</a> del archivo <a class="el" href="_i_command_list_8cpp_source.html">ICommandList.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_i_command_list_8cpp_source.html#l00094">94</a> del archivo <a class="el" href="_i_command_list_8cpp_source.html">ICommandList.cpp</a>.</p>
 
 </div>
 </div>
@@ -743,7 +745,7 @@ El pool de comandos a partir del cual se ha creado la lista debe soportar, al me
 <dd>
 La cola de comandos sobre la que se envía la lista debe soportar, al menos, <code><a class="el" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a19534f214690bcfc89ac53cc89681ac6a6f49448c79d7d58c6e60cf7129b84d1c" title="Comandos de renderizado.">CommandsSupport::GRAPHICS</a></code> o <code><a class="el" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a19534f214690bcfc89ac53cc89681ac6aac404d7ce6ca5862e9b8a2641fbafd90" title="Comandos de computación genérica.">CommandsSupport::COMPUTE</a></code>. </dd></dl>
 
-<p class="definition">Definición en la línea <a class="el" href="_i_command_list_8cpp_source.html#l00114">114</a> del archivo <a class="el" href="_i_command_list_8cpp_source.html">ICommandList.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_i_command_list_8cpp_source.html#l00122">122</a> del archivo <a class="el" href="_i_command_list_8cpp_source.html">ICommandList.cpp</a>.</p>
 
 </div>
 </div>
@@ -857,7 +859,7 @@ El buffer debe tener inicializado su view de vértices.</dd></dl>
 <dd>
 La cola de comandos sobre la que se envía la lista debe soportar, al menos, <code><a class="el" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a19534f214690bcfc89ac53cc89681ac6a6f49448c79d7d58c6e60cf7129b84d1c" title="Comandos de renderizado.">CommandsSupport::GRAPHICS</a></code>. </dd></dl>
 
-<p class="definition">Definición en la línea <a class="el" href="_i_command_list_8cpp_source.html#l00076">76</a> del archivo <a class="el" href="_i_command_list_8cpp_source.html">ICommandList.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_i_command_list_8cpp_source.html#l00084">84</a> del archivo <a class="el" href="_i_command_list_8cpp_source.html">ICommandList.cpp</a>.</p>
 
 </div>
 </div>
@@ -1220,7 +1222,7 @@ La cola de comandos sobre la que se envía la lista debe soportar, al menos, <co
 <p>Elimina todos los buffers intermedios que ya no son necesarios. </p>
 <dl class="section pre"><dt>Precondición</dt><dd>La lista debe haberse ejecutado antes de llamar a esta función. </dd></dl>
 
-<p class="definition">Definición en la línea <a class="el" href="_i_command_list_8cpp_source.html#l00123">123</a> del archivo <a class="el" href="_i_command_list_8cpp_source.html">ICommandList.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_i_command_list_8cpp_source.html#l00131">131</a> del archivo <a class="el" href="_i_command_list_8cpp_source.html">ICommandList.cpp</a>.</p>
 
 </div>
 </div>
@@ -1519,7 +1521,27 @@ La cola de comandos sobre la que se envía la lista debe soportar, al menos, <co
 </div><div class="memdoc">
 <dl class="section return"><dt>Devuelve</dt><dd>Tipo de cola GPU en la que se puede insertar esta lista; </dd></dl>
 
-<p class="definition">Definición en la línea <a class="el" href="_i_command_list_8cpp_source.html#l00135">135</a> del archivo <a class="el" href="_i_command_list_8cpp_source.html">ICommandList.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_i_command_list_8cpp_source.html#l00143">143</a> del archivo <a class="el" href="_i_command_list_8cpp_source.html">ICommandList.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a68872a5f18ed2ae3d345fd0af4103847" name="a68872a5f18ed2ae3d345fd0af4103847"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a68872a5f18ed2ae3d345fd0af4103847">&#9670;&#160;</a></span>GetCurrentViewport()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_viewport.html">Viewport</a> &amp; ICommandList::GetCurrentViewport </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Devuelve</dt><dd><a class="el" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_viewport.html" title="El viewport define que área de la textura final será renderizada.">Viewport</a> usado en un momento dado. </dd></dl>
+
+<p class="definition">Definición en la línea <a class="el" href="_i_command_list_8cpp_source.html#l00035">35</a> del archivo <a class="el" href="_i_command_list_8cpp_source.html">ICommandList.cpp</a>.</p>
 
 </div>
 </div>
@@ -1538,7 +1560,7 @@ La cola de comandos sobre la que se envía la lista debe soportar, al menos, <co
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definición en la línea <a class="el" href="_i_command_list_8cpp_source.html#l00131">131</a> del archivo <a class="el" href="_i_command_list_8cpp_source.html">ICommandList.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_i_command_list_8cpp_source.html#l00139">139</a> del archivo <a class="el" href="_i_command_list_8cpp_source.html">ICommandList.cpp</a>.</p>
 
 </div>
 </div>
@@ -1614,7 +1636,7 @@ El pool de comandos a partir del cual se ha creado la lista debe soportar, al me
 <dd>
 La cola de comandos sobre la que se envía la lista debe soportar, al menos, <code><a class="el" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a19534f214690bcfc89ac53cc89681ac6a6f49448c79d7d58c6e60cf7129b84d1c" title="Comandos de renderizado.">CommandsSupport::GRAPHICS</a></code> o <code><a class="el" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a19534f214690bcfc89ac53cc89681ac6aac404d7ce6ca5862e9b8a2641fbafd90" title="Comandos de computación genérica.">CommandsSupport::COMPUTE</a></code>. </dd></dl>
 
-<p class="definition">Definición en la línea <a class="el" href="_i_command_list_8h_source.html#l00496">496</a> del archivo <a class="el" href="_i_command_list_8h_source.html">ICommandList.h</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_i_command_list_8h_source.html#l00501">501</a> del archivo <a class="el" href="_i_command_list_8h_source.html">ICommandList.h</a>.</p>
 
 </div>
 </div>
@@ -1665,7 +1687,7 @@ El pool de comandos a partir del cual se ha creado la lista debe soportar, al me
 <dd>
 La cola de comandos sobre la que se envía la lista debe soportar, al menos, <code><a class="el" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a19534f214690bcfc89ac53cc89681ac6a6f49448c79d7d58c6e60cf7129b84d1c" title="Comandos de renderizado.">CommandsSupport::GRAPHICS</a></code> o <code><a class="el" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a19534f214690bcfc89ac53cc89681ac6aac404d7ce6ca5862e9b8a2641fbafd90" title="Comandos de computación genérica.">CommandsSupport::COMPUTE</a></code>. </dd></dl>
 
-<p class="definition">Definición en la línea <a class="el" href="_i_command_list_8cpp_source.html#l00119">119</a> del archivo <a class="el" href="_i_command_list_8cpp_source.html">ICommandList.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_i_command_list_8cpp_source.html#l00127">127</a> del archivo <a class="el" href="_i_command_list_8cpp_source.html">ICommandList.cpp</a>.</p>
 
 </div>
 </div>
@@ -1826,7 +1848,7 @@ El buffer debe haber sido creado con <a class="el" href="namespace_o_s_k_1_1_g_r
 <dd>
 La lista de comandos debe estar abierta. </dd></dl>
 
-<p class="definition">Definición en la línea <a class="el" href="_i_command_list_8cpp_source.html#l00050">50</a> del archivo <a class="el" href="_i_command_list_8cpp_source.html">ICommandList.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_i_command_list_8cpp_source.html#l00058">58</a> del archivo <a class="el" href="_i_command_list_8cpp_source.html">ICommandList.cpp</a>.</p>
 
 </div>
 </div>
@@ -1937,7 +1959,7 @@ La lista de comandos debe estar abierta. </dd></dl>
 </dl>
 <dl class="section pre"><dt>Precondición</dt><dd>La lista de comandos debe estar abierta. </dd></dl>
 
-<p class="definition">Definición en la línea <a class="el" href="_i_command_list_8cpp_source.html#l00041">41</a> del archivo <a class="el" href="_i_command_list_8cpp_source.html">ICommandList.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_i_command_list_8cpp_source.html#l00049">49</a> del archivo <a class="el" href="_i_command_list_8cpp_source.html">ICommandList.cpp</a>.</p>
 
 </div>
 </div>
@@ -2049,7 +2071,7 @@ La lista de comandos debe estar abierta. </dd></dl>
 <dl class="section pre"><dt>Precondición</dt><dd>La lista de comandos debe estar abierta.</dd></dl>
 <dl class="section post"><dt>Postcondición</dt><dd>Los subrecursos especificados por imageInfo estarán en el nuevo layout. </dd></dl>
 
-<p class="definition">Definición en la línea <a class="el" href="_i_command_list_8cpp_source.html#l00036">36</a> del archivo <a class="el" href="_i_command_list_8cpp_source.html">ICommandList.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_i_command_list_8cpp_source.html#l00044">44</a> del archivo <a class="el" href="_i_command_list_8cpp_source.html">ICommandList.cpp</a>.</p>
 
 </div>
 </div>
@@ -2108,7 +2130,7 @@ La lista de comandos debe estar abierta. </dd></dl>
 <dl class="section pre"><dt>Precondición</dt><dd>La lista de comandos debe estar abierta.</dd></dl>
 <dl class="section post"><dt>Postcondición</dt><dd>Los subrecursos especificados por imageInfo estarán en el nuevo layout. </dd></dl>
 
-<p class="definition">Definición en la línea <a class="el" href="_i_command_list_8cpp_source.html#l00031">31</a> del archivo <a class="el" href="_i_command_list_8cpp_source.html">ICommandList.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_i_command_list_8cpp_source.html#l00039">39</a> del archivo <a class="el" href="_i_command_list_8cpp_source.html">ICommandList.cpp</a>.</p>
 
 </div>
 </div>
@@ -2230,8 +2252,8 @@ La cola de comandos sobre la que se envía la lista debe soportar, al menos, <co
 
 </div>
 </div>
-<a id="ad7cd8a020a86d10e75f1b0241e41cc37" name="ad7cd8a020a86d10e75f1b0241e41cc37"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad7cd8a020a86d10e75f1b0241e41cc37">&#9670;&#160;</a></span>SetViewport()</h2>
+<a id="ade7ffbc2a7481918f6862d60aea4d7c3" name="ade7ffbc2a7481918f6862d60aea4d7c3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ade7ffbc2a7481918f6862d60aea4d7c3">&#9670;&#160;</a></span>SetViewport()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -2240,7 +2262,7 @@ La cola de comandos sobre la que se envía la lista debe soportar, al menos, <co
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">virtual void OSK::GRAPHICS::ICommandList::SetViewport </td>
+          <td class="memname">void ICommandList::SetViewport </td>
           <td>(</td>
           <td class="paramtype">const <a class="el" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_viewport.html">Viewport</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>viewport</em></span></td><td>)</td>
           <td></td>
@@ -2248,7 +2270,7 @@ La cola de comandos sobre la que se envía la lista debe soportar, al menos, <co
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
@@ -2268,7 +2290,9 @@ La lista de comandos debe estar abierta.</dd></dl>
 <dd>
 La cola de comandos sobre la que se envía la lista debe soportar, al menos, <code><a class="el" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a19534f214690bcfc89ac53cc89681ac6a6f49448c79d7d58c6e60cf7129b84d1c" title="Comandos de renderizado.">CommandsSupport::GRAPHICS</a></code>. </dd></dl>
 
-<p>Implementado en <a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_list_dx12.html#a1087b08b918688640e1ab66ea43ed5ff">OSK::GRAPHICS::CommandListDx12</a> y <a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_list_vk.html#aed1a56929dc0063d1f86effd2d375c00">OSK::GRAPHICS::CommandListVk</a>.</p>
+<p>Reimplementado en <a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_list_dx12.html#a1087b08b918688640e1ab66ea43ed5ff">OSK::GRAPHICS::CommandListDx12</a> y <a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_list_vk.html#aed1a56929dc0063d1f86effd2d375c00">OSK::GRAPHICS::CommandListVk</a>.</p>
+
+<p class="definition">Definición en la línea <a class="el" href="_i_command_list_8cpp_source.html#l00031">31</a> del archivo <a class="el" href="_i_command_list_8cpp_source.html">ICommandList.cpp</a>.</p>
 
 </div>
 </div>
@@ -2455,7 +2479,7 @@ La cola de comandos sobre la que se envía la lista debe soportar, al menos, <co
 <dd>
 Si <code>sourceQueue</code> y <code>targetQueue</code> representan la misma cola, no ocurre nada. </dd></dl>
 
-<p class="definition">Definición en la línea <a class="el" href="_i_command_list_8cpp_source.html#l00163">163</a> del archivo <a class="el" href="_i_command_list_8cpp_source.html">ICommandList.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_i_command_list_8cpp_source.html#l00171">171</a> del archivo <a class="el" href="_i_command_list_8cpp_source.html">ICommandList.cpp</a>.</p>
 
 </div>
 </div>
@@ -2489,7 +2513,7 @@ Si <code>sourceQueue</code> y <code>targetQueue</code> representan la misma cola
 <dl class="section pre"><dt>Precondición</dt><dd><code>targetQueue</code> debe ser estable.</dd></dl>
 <dl class="section note"><dt>Nota</dt><dd>Si <code>targetQueue</code> representan la cola que ya es propietaria del buffer, no ocurre nada. </dd></dl>
 
-<p class="definition">Definición en la línea <a class="el" href="_i_command_list_8cpp_source.html#l00173">173</a> del archivo <a class="el" href="_i_command_list_8cpp_source.html">ICommandList.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_i_command_list_8cpp_source.html#l00181">181</a> del archivo <a class="el" href="_i_command_list_8cpp_source.html">ICommandList.cpp</a>.</p>
 
 </div>
 </div>
@@ -2533,7 +2557,7 @@ Si <code>sourceQueue</code> y <code>targetQueue</code> representan la misma cola
 <dd>
 Si <code>sourceQueue</code> y <code>targetQueue</code> representan la misma cola, no ocurre nada. </dd></dl>
 
-<p class="definition">Definición en la línea <a class="el" href="_i_command_list_8cpp_source.html#l00143">143</a> del archivo <a class="el" href="_i_command_list_8cpp_source.html">ICommandList.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_i_command_list_8cpp_source.html#l00151">151</a> del archivo <a class="el" href="_i_command_list_8cpp_source.html">ICommandList.cpp</a>.</p>
 
 </div>
 </div>
@@ -2567,7 +2591,7 @@ Si <code>sourceQueue</code> y <code>targetQueue</code> representan la misma cola
 <dl class="section pre"><dt>Precondición</dt><dd><code>targetQueue</code> debe ser estable.</dd></dl>
 <dl class="section note"><dt>Nota</dt><dd>Si <code>targetQueue</code> representan la cola que ya es propietaria de la imagen, no ocurre nada. </dd></dl>
 
-<p class="definition">Definición en la línea <a class="el" href="_i_command_list_8cpp_source.html#l00159">159</a> del archivo <a class="el" href="_i_command_list_8cpp_source.html">ICommandList.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_i_command_list_8cpp_source.html#l00167">167</a> del archivo <a class="el" href="_i_command_list_8cpp_source.html">ICommandList.cpp</a>.</p>
 
 </div>
 </div>
@@ -2584,7 +2608,7 @@ Si <code>sourceQueue</code> y <code>targetQueue</code> representan la misma cola
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definición en la línea <a class="el" href="_i_command_list_8h_source.html#l00866">866</a> del archivo <a class="el" href="_i_command_list_8h_source.html">ICommandList.h</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_i_command_list_8h_source.html#l00871">871</a> del archivo <a class="el" href="_i_command_list_8h_source.html">ICommandList.h</a>.</p>
 
 </div>
 </div>
@@ -2600,7 +2624,7 @@ Si <code>sourceQueue</code> y <code>targetQueue</code> representan la misma cola
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definición en la línea <a class="el" href="_i_command_list_8h_source.html#l00864">864</a> del archivo <a class="el" href="_i_command_list_8h_source.html">ICommandList.h</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_i_command_list_8h_source.html#l00869">869</a> del archivo <a class="el" href="_i_command_list_8h_source.html">ICommandList.h</a>.</p>
 
 </div>
 </div>
@@ -2624,7 +2648,7 @@ Si <code>sourceQueue</code> y <code>targetQueue</code> representan la misma cola
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definición en la línea <a class="el" href="_i_command_list_8h_source.html#l00874">874</a> del archivo <a class="el" href="_i_command_list_8h_source.html">ICommandList.h</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_i_command_list_8h_source.html#l00879">879</a> del archivo <a class="el" href="_i_command_list_8h_source.html">ICommandList.h</a>.</p>
 
 </div>
 </div>
@@ -2648,7 +2672,7 @@ Si <code>sourceQueue</code> y <code>targetQueue</code> representan la misma cola
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definición en la línea <a class="el" href="_i_command_list_8h_source.html#l00877">877</a> del archivo <a class="el" href="_i_command_list_8h_source.html">ICommandList.h</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_i_command_list_8h_source.html#l00882">882</a> del archivo <a class="el" href="_i_command_list_8h_source.html">ICommandList.h</a>.</p>
 
 </div>
 </div>
@@ -2674,7 +2698,7 @@ Si <code>sourceQueue</code> y <code>targetQueue</code> representan la misma cola
 
 <p><a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material.html" title="Un material define el comportamiento del renderizador con un objeto en concreto. Debe definirse el la...">Material</a> que está siendo usado en un instante determinado. </p>
 
-<p class="definition">Definición en la línea <a class="el" href="_i_command_list_8h_source.html#l00870">870</a> del archivo <a class="el" href="_i_command_list_8h_source.html">ICommandList.h</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_i_command_list_8h_source.html#l00875">875</a> del archivo <a class="el" href="_i_command_list_8h_source.html">ICommandList.h</a>.</p>
 
 </div>
 </div>
@@ -2698,7 +2722,7 @@ Si <code>sourceQueue</code> y <code>targetQueue</code> representan la misma cola
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definición en la línea <a class="el" href="_i_command_list_8h_source.html#l00880">880</a> del archivo <a class="el" href="_i_command_list_8h_source.html">ICommandList.h</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_i_command_list_8h_source.html#l00885">885</a> del archivo <a class="el" href="_i_command_list_8h_source.html">ICommandList.h</a>.</p>
 
 </div>
 </div>
@@ -2730,7 +2754,7 @@ Si <code>sourceQueue</code> y <code>targetQueue</code> representan la misma cola
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definición en la línea <a class="el" href="_i_command_list_8h_source.html#l00865">865</a> del archivo <a class="el" href="_i_command_list_8h_source.html">ICommandList.h</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_i_command_list_8h_source.html#l00870">870</a> del archivo <a class="el" href="_i_command_list_8h_source.html">ICommandList.h</a>.</p>
 
 </div>
 </div>
@@ -2740,7 +2764,7 @@ Si <code>sourceQueue</code> y <code>targetQueue</code> representan la misma cola
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="namespace_o_s_k.html">OSK</a></li><li class="navelem"><a class="el" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html">GRAPHICS</a></li><li class="navelem"><a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list.html">ICommandList</a></li>
-    <li class="footer">Generado el Miércoles, 29 de mayo de 2024 12:01:51 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.11.0 </li>
+    <li class="footer">Generado el Martes, 18 de junio de 2024 11:17:44 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.11.0 </li>
   </ul>
 </div>
 </body>
