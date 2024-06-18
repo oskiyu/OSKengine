@@ -21,22 +21,9 @@ namespace OSK::UI {
 	public:
 
 		void SetSize(Vector2f newSize) override;
+		void _SetPosition(const Vector2f& newPosition) override;
 
 	public:
-
-		inline GRAPHICS::Sprite& GetSprite() { 
-			if (!m_sprite.HasValue()) {
-				m_sprite = new GRAPHICS::Sprite;
-			}
-			return m_sprite.GetValue(); 
-		}
-
-		inline const GRAPHICS::Sprite& GetSprite() const {
-			if (!m_sprite.HasValue()) {
-				m_sprite = new GRAPHICS::Sprite;
-			}
-			return m_sprite.GetValue();
-		}
 
 		/// @brief Ajusta el tamaño del contenedor, para que sea el justo y
 		/// necesario para que quepan todos los elementos hijos.
@@ -50,16 +37,16 @@ namespace OSK::UI {
 		/// 
 		/// @pre El elemento @p child no debe estar ya añadido a ningún contenedor.
 		/// @pre Este contenedor no debe tener ningún elemento con el identificador @p key.
-		void AddChild(const std::string& key, SharedPtr<IElement> child);
+		void AddChild(const std::string& key, OwnedPtr<IElement> child);
 
 		/// @brief Reestructura todos los hijos del contenedor.
 		void Rebuild();
 
 
 		/// @brief Renderiza todos los elementos contenidos.
-		void Render(GRAPHICS::SpriteRenderer* renderer, Vector2f parentPosition) const override;
+		void Render(GRAPHICS::SdfBindlessRenderer2D* renderer) const override;
 
-		bool UpdateByCursor(Vector2f cursorPosition, bool isPressed, Vector2f parentPosition) override;
+		bool UpdateByCursor(Vector2f cursorPosition, bool isPressed) override;
 		void UpdateByKeyboard(const IO::KeyboardState& previous, const IO::KeyboardState& current) override;
 
 		/// @param name Nombre del elemento hijo.
@@ -80,10 +67,8 @@ namespace OSK::UI {
 
 	protected:
 
-		mutable UniquePtr<GRAPHICS::Sprite> m_sprite{};
-
-		DynamicArray<SharedPtr<IElement>> children;
-		std::unordered_map<std::string, IElement*> childrenTable{};
+		DynamicArray<UniquePtr<IElement>> m_children;
+		std::unordered_map<std::string, IElement*, StringHasher, std::equal_to<>> m_childrenTable{};
 
 	};
 

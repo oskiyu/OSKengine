@@ -57,6 +57,7 @@ namespace OSK::GRAPHICS {
 		bool operator==(const GpuBufferMemoryBlockInfo& other) const;
 	};
 	
+	constexpr static USize32 GPU_MEMORY_NO_ALIGNMENT = 1;
 
 	/// @brief El asignador de memoria se encarga de reservar grandes bloques
 	/// de memoria en la GPU, que después podrán ser usados para
@@ -377,16 +378,12 @@ namespace OSK::GRAPHICS {
 		/// @threadsafe
 		const GpuImage* GetDefaultNormalTexture() const;
 
+		/// @threadsafe
+		USize64 GetAlignment(USize64 originalAlignment, GpuBufferUsage usage) const;
+
 	protected:
 
 		void LoadDefaultNormalTexture();
-
-		USize64 GetAlignment(USize64 originalAlignment, GpuBufferUsage usage) const;
-
-		USize64 minVertexBufferAlignment = 0;
-		USize64 minIndexBufferAlignment = 0;
-		USize64 minUniformBufferAlignment = 0;
-		USize64 minStorageBufferAlignment = 0;
 
 		//
 		

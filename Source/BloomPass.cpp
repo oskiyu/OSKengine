@@ -1,39 +1,49 @@
 #include "BloomPass.h"
 
+#include "NumericTypes.h"
+#include "Vector2.hpp"
+
 #include "OSKengine.h"
 #include "IRenderer.h"
+
 #include "MaterialSystem.h"
 #include "Material.h"
+
+#include "ICommandList.h"
+
 #include "IGpuImage.h"
-#include "GpuImageDimensions.h"
-#include "GpuMemoryTypes.h"
 #include "GpuImageSamplerDesc.h"
 #include "GpuImageLayout.h"
-#include "ICommandList.h"
-#include "Viewport.h"
 #include "CopyImageInfo.h"
-
-#include <glm/ext/matrix_clip_space.hpp>
-#include <glm/ext/matrix_transform.hpp>
+#include "GpuImageViewConfig.h"
+#include "Format.h"
+#include "RenderTargetAttachmentInfo.h"
+#include "GpuImageUsage.h"
+#include "PostProcessExceptions.h"
 
 using namespace OSK;
 using namespace OSK::GRAPHICS;
 
 constexpr float BLOCK_SIZE = 8.0f;
 
+void BloomPass::SetInput(GpuImage* inputImage) {
+	m_inputImage = inputImage;
+	SetupMaterialInstances();
+}
+
 void BloomPass::Create(const Vector2ui& size) {
 	// Carga de materiales.
-	m_downscaleMaterial = Engine::GetRenderer()->GetMaterialSystem()->LoadMaterial("Resources/Materials/PostProcess/Bloom/downscale.json");
-	m_upscaleMaterial = Engine::GetRenderer()->GetMaterialSystem()->LoadMaterial("Resources/Materials/PostProcess/Bloom/upscale.json");
-	m_resolveMaterial = Engine::GetRenderer()->GetMaterialSystem()->LoadMaterial("Resources/Materials/PostProcess/Bloom/final.json");
+	m_downscaleMaterial = Engine::GetRenderer()->GetMaterialSystem()->LoadMaterial(DownscaleMaterial);
+	m_upscaleMaterial   = Engine::GetRenderer()->GetMaterialSystem()->LoadMaterial(UpscaleMaterial);
+	m_resolveMaterial   = Engine::GetRenderer()->GetMaterialSystem()->LoadMaterial(ResolveMaterial);
 
 	// Final render target
 	GpuImageSamplerDesc renderTargetSampler{};
 	renderTargetSampler.addressMode = GpuImageAddressMode::EDGE;		// Para evitar que los bordes tengan leaks de bloom.
 	renderTargetSampler.filteringType = GpuImageFilteringType::LIENAR;	// Para los tap que agrupan varios píxeles.
-	renderTargetSampler.mipMapMode = GpuImageMipmapMode::CUSTOM;			// Cada nivel de bloom se ejecuta en un mipmap.
+	renderTargetSampler.mipMapMode = GpuImageMipmapMode::CUSTOM;		// Cada nivel de bloom se ejecuta en un mipmap.
 	renderTargetSampler.minMipLevel = 0;
-	renderTargetSampler.maxMipLevel = maxNumPasses;
+	renderTargetSampler.maxMipLevel = maxNumPasses;						// Cada nivel de bloom se ejecuta en un mipmap.
 
 	RenderTargetAttachmentInfo resolveInfo{};
 	resolveInfo.format = Format::RGBA16_SFLOAT;
@@ -46,17 +56,18 @@ void BloomPass::Create(const Vector2ui& size) {
 
 
 	// Inicialización de instancias del material.
-	resolveRenderTarget.Create(size, resolveInfo);
+	GetOutput().Create(size, resolveInfo);
 	m_resolveInstance = m_resolveMaterial->CreateInstance().GetPointer();
 
 	for (UIndex32 pass = 0; pass < maxNumPasses; pass++) {
-		m_downscalingMaterialInstance[pass] = m_downscaleMaterial->CreateInstance().GetPointer();
-		m_upscalingMaterialInstance[pass] = m_upscaleMaterial->CreateInstance().GetPointer();
+		m_downscalingMaterialInstances[pass] = m_downscaleMaterial->CreateInstance().GetPointer();
+		m_upscalingMaterialInstances[pass] = m_upscaleMaterial->CreateInstance().GetPointer();
 	}
 }
 
 void BloomPass::Resize(const Vector2ui& size) {
-	resolveRenderTarget.Resize(size);
+	GetOutput().Resize(size);
+	SetupMaterialInstances();
 }
 
 void BloomPass::SetupMaterialInstances() {
@@ -73,12 +84,12 @@ void BloomPass::SetupMaterialInstances() {
 		destViewConfig.baseMipLevel = pass + 1;
 		destViewConfig.topMipLevel = pass + 1;
 
-		const auto* sourceView = resolveRenderTarget.GetTargetImage()->GetView(sourceViewConfig);
-		const auto* targetView = resolveRenderTarget.GetTargetImage()->GetView(destViewConfig);
+		const auto& sourceView = *GetOutput().GetTargetImage()->GetView(sourceViewConfig);
+		const auto& targetView = *GetOutput().GetTargetImage()->GetView(destViewConfig);
 
-		m_downscalingMaterialInstance[pass]->GetSlot("texture")->SetGpuImage("inputImg", sourceView);
-		m_downscalingMaterialInstance[pass]->GetSlot("texture")->SetStorageImage("outputImg", targetView);
-		m_downscalingMaterialInstance[pass]->GetSlot("texture")->FlushUpdate();
+		m_downscalingMaterialInstances[pass]->GetSlot("texture")->SetGpuImage("inputImg", sourceView);
+		m_downscalingMaterialInstances[pass]->GetSlot("texture")->SetStorageImage("outputImg", targetView);
+		m_downscalingMaterialInstances[pass]->GetSlot("texture")->FlushUpdate();
 	}
 
 	for (UIndex32 pass = lowestLevel - 2; pass > 0; pass--) {
@@ -89,12 +100,12 @@ void BloomPass::SetupMaterialInstances() {
 		destViewConfig.baseMipLevel = pass;
 		destViewConfig.topMipLevel = pass;
 
-		const auto* sourceView = resolveRenderTarget.GetTargetImage()->GetView(sourceViewConfig);
-		const auto* targetView = resolveRenderTarget.GetTargetImage()->GetView(destViewConfig);
+		const auto& sourceView = GetOutput().GetTargetImage()->GetView(sourceViewConfig);
+		const auto& targetView = GetOutput().GetTargetImage()->GetView(destViewConfig);
 
-		m_upscalingMaterialInstance[pass]->GetSlot("texture")->SetGpuImage("inputImg", sourceView);
-		m_upscalingMaterialInstance[pass]->GetSlot("texture")->SetStorageImage("outputImg", targetView);
-		m_upscalingMaterialInstance[pass]->GetSlot("texture")->FlushUpdate();
+		m_upscalingMaterialInstances[pass]->GetSlot("texture")->SetGpuImage("inputImg", *sourceView);
+		m_upscalingMaterialInstances[pass]->GetSlot("texture")->SetStorageImage("outputImg", *targetView);
+		m_upscalingMaterialInstances[pass]->GetSlot("texture")->FlushUpdate();
 	}
 
 	// Resolve
@@ -104,9 +115,9 @@ void BloomPass::SetupMaterialInstances() {
 	destViewConfig.baseMipLevel = 0;
 	destViewConfig.topMipLevel = 0;
 
-	const auto* sourceView = resolveRenderTarget.GetTargetImage()->GetView(sourceViewConfig);
-	const auto* sceneView = inputView;
-	const auto* targetView = resolveRenderTarget.GetTargetImage()->GetView(destViewConfig);
+	const auto& sourceView = *GetOutput().GetTargetImage()->GetView(sourceViewConfig);
+	const auto& sceneView  = *m_inputImage->GetView(GpuImageViewConfig::CreateSampled_SingleMipLevel(0));
+	const auto& targetView = *GetOutput().GetTargetImage()->GetView(destViewConfig);
 
 	m_resolveInstance->GetSlot("texture")->SetGpuImage("bloomImg", sourceView);
 	m_resolveInstance->GetSlot("texture")->SetGpuImage("sceneImg", sceneView);
@@ -115,8 +126,8 @@ void BloomPass::SetupMaterialInstances() {
 }
 
 void BloomPass::ExecuteSinglePass(ICommandList* computeCmdList, UIndex32 sourceMipLevel, UIndex32 destMipLevel) {
-	const Vector2f sourceResolution = resolveRenderTarget.GetTargetImage()->GetMipLevelSize2D(sourceMipLevel).ToVector2f();
-	const Vector2f destResolution = resolveRenderTarget.GetTargetImage()->GetMipLevelSize2D(destMipLevel).ToVector2f();
+	const Vector2f sourceResolution = GetOutput().GetTargetImage()->GetMipLevelSize2D(sourceMipLevel).ToVector2f();
+	const Vector2f destResolution = GetOutput().GetTargetImage()->GetMipLevelSize2D(destMipLevel).ToVector2f();
 
 	const auto maxResolution = Vector2f(
 		glm::max(sourceResolution.x, destResolution.x),
@@ -136,7 +147,7 @@ void BloomPass::DownscaleBloom(GRAPHICS::ICommandList* computeCmdList) {
 
 	computeCmdList->BindMaterial(*m_downscaleMaterial);
 	for (UIndex32 i = 0; i < GetNumPasses() - 1; i++) {
-		computeCmdList->BindMaterialSlot(*m_downscalingMaterialInstance[i]->GetSlot("texture"));
+		computeCmdList->BindMaterialSlot(*m_downscalingMaterialInstances[i]->GetSlot("texture"));
 
 		if (i == 0)
 			computeCmdList->PushMaterialConstants("info", 1);
@@ -148,7 +159,7 @@ void BloomPass::DownscaleBloom(GRAPHICS::ICommandList* computeCmdList) {
 
 		// Nivel anterior debe ser SAMPLED.
 		computeCmdList->SetGpuImageBarrier(
-			resolveRenderTarget.GetTargetImage(),
+			GetOutput().GetTargetImage(),
 			GpuImageLayout::SAMPLED,
 			GpuBarrierInfo(GpuCommandStage::COMPUTE_SHADER, GpuAccessStage::SHADER_READ),
 			{ .baseLayer = 0, .numLayers = 1, .baseMipLevel = sourceMipLevel, .numMipLevels = 1 });
@@ -157,7 +168,7 @@ void BloomPass::DownscaleBloom(GRAPHICS::ICommandList* computeCmdList) {
 		// Al no haber sido usado previamente en este frame,
 		// layout inicial es UNDEFINED y barrier es NONE.
 		computeCmdList->SetGpuImageBarrier(
-			resolveRenderTarget.GetTargetImage(),
+			GetOutput().GetTargetImage(),
 			GpuImageLayout::UNDEFINED,
 			GpuImageLayout::GENERAL,
 			GpuBarrierInfo(GpuCommandStage::NONE, GpuAccessStage::NONE),
@@ -174,24 +185,23 @@ void BloomPass::UpscaleBloom(GRAPHICS::ICommandList* computeCmdList) {
 	computeCmdList->StartDebugSection("Upscale", Color::Purple);
 
 	computeCmdList->BindMaterial(*m_upscaleMaterial);
-	const UIndex32 resourceIndex = Engine::GetRenderer()->GetCurrentResourceIndex();
 
 	for (UIndex32 i = GetNumPasses() - 2; i > 0; i--) {
-		computeCmdList->BindMaterialSlot(*m_upscalingMaterialInstance[i]->GetSlot("texture"));
+		computeCmdList->BindMaterialSlot(*m_upscalingMaterialInstances[i]->GetSlot("texture"));
 
 		const UIndex32 sourceMipLevel = i + 1;
 		const UIndex32 destinationMipLevel = i;
 
 		// Nivel anterior debe ser SAMPLED.
 		computeCmdList->SetGpuImageBarrier(
-			resolveRenderTarget.GetTargetImage(),
+			GetOutput().GetTargetImage(),
 			GpuImageLayout::SAMPLED,
 			GpuBarrierInfo(GpuCommandStage::COMPUTE_SHADER, GpuAccessStage::SHADER_READ),
 			{ .baseLayer = 0, .numLayers = 1, .baseMipLevel = sourceMipLevel, .numMipLevels = 1 });
 
 		// Nivel siguiente será escrito (y leído).
 		computeCmdList->SetGpuImageBarrier(
-			resolveRenderTarget.GetTargetImage(),
+			GetOutput().GetTargetImage(),
 			GpuImageLayout::GENERAL,
 			GpuBarrierInfo(GpuCommandStage::COMPUTE_SHADER, GpuAccessStage::SHADER_READ | GpuAccessStage::SHADER_WRITE),
 			{ .baseLayer = 0, .numLayers = 1, .baseMipLevel = destinationMipLevel, .numMipLevels = 1 });
@@ -208,7 +218,7 @@ void BloomPass::InitialCopy(ICommandList* computeCmdList) {
 	// La imagen de la escena se copia a la cadena de mipmaps:
 	// debe estar en transfer source.
 	computeCmdList->SetGpuImageBarrier(
-		inputImage,
+		m_inputImage,
 		GpuImageLayout::TRANSFER_SOURCE,
 		GpuBarrierInfo(GpuCommandStage::TRANSFER, GpuAccessStage::TRANSFER_READ));
 
@@ -216,20 +226,20 @@ void BloomPass::InitialCopy(ICommandList* computeCmdList) {
 	// Al no haber sido usada previamente, el layout original es UNDEFINED y
 	// barrier info es NONE.
 	computeCmdList->SetGpuImageBarrier(
-		resolveRenderTarget.GetTargetImage(),
+		GetOutput().GetTargetImage(),
 		GpuImageLayout::UNDEFINED,
 		GpuImageLayout::TRANSFER_DESTINATION,
 		GpuBarrierInfo(GpuCommandStage::NONE, GpuAccessStage::NONE),
 		GpuBarrierInfo(GpuCommandStage::TRANSFER, GpuAccessStage::TRANSFER_WRITE),
 		{ .baseLayer = 0, .numLayers = 1, .baseMipLevel = 0, .numMipLevels = 1 });
 
-	const Vector2ui imgSize = inputImage->GetSize2D();
+	const Vector2ui imgSize = m_inputImage->GetSize2D();
 	CopyImageInfo copyInfo = CopyImageInfo::CreateDefault2D(imgSize);
 	copyInfo.destinationMipLevel = 0;
 
 	computeCmdList->RawCopyImageToImage(
-		*inputImage,
-		resolveRenderTarget.GetTargetImage(),
+		*m_inputImage,
+		GetOutput().GetTargetImage(),
 		copyInfo);
 }
 
@@ -238,27 +248,27 @@ void BloomPass::Resolve(ICommandList* computeCmdList) {
 
 	// Source = nivel 1
 	computeCmdList->SetGpuImageBarrier(
-		resolveRenderTarget.GetTargetImage(),
+		GetOutput().GetTargetImage(),
 		GpuImageLayout::SAMPLED,
 		GpuBarrierInfo(GpuCommandStage::COMPUTE_SHADER, GpuAccessStage::SHADER_READ),
 		{ .baseLayer = 0, .numLayers = 1, .baseMipLevel = 1, .numMipLevels = 1 });
 
 	// Dest = nivel 0
 	computeCmdList->SetGpuImageBarrier(
-		resolveRenderTarget.GetTargetImage(),
+		GetOutput().GetTargetImage(),
 		GpuImageLayout::GENERAL,
 		GpuBarrierInfo(GpuCommandStage::COMPUTE_SHADER, GpuAccessStage::SHADER_READ | GpuAccessStage::SHADER_WRITE),
 		{ .baseLayer = 0, .numLayers = 1, .baseMipLevel = 0, .numMipLevels = 1 });
 
 	// La imagen de la escena se vuelve a usar.
 	computeCmdList->SetGpuImageBarrier(
-		inputImage,
+		m_inputImage,
 		GpuImageLayout::SAMPLED,
 		GpuBarrierInfo(GpuCommandStage::COMPUTE_SHADER, GpuAccessStage::SAMPLED_READ));
 
 	const Vector2ui dispatchRes = {
-		static_cast<UIndex32>(glm::ceil(resolveRenderTarget.GetSize().x / BLOCK_SIZE)),
-		static_cast<UIndex32>(glm::ceil(resolveRenderTarget.GetSize().y / BLOCK_SIZE))
+		static_cast<UIndex32>(glm::ceil(GetOutput().GetSize().x / BLOCK_SIZE)),
+		static_cast<UIndex32>(glm::ceil(GetOutput().GetSize().y / BLOCK_SIZE))
 	};
 
 	computeCmdList->BindMaterial(*m_resolveMaterial);
@@ -269,6 +279,10 @@ void BloomPass::Resolve(ICommandList* computeCmdList) {
 }
 
 void BloomPass::Execute(ICommandList* computeCmdList) {
+	OSK_ASSERT(
+		m_inputImage != nullptr,
+		PostProcessInputNotSetException("No se ha establecido la entrada de color."));
+
 	computeCmdList->StartDebugSection("Bloom", Color::Purple);
 
 	InitialCopy(computeCmdList);
@@ -279,14 +293,9 @@ void BloomPass::Execute(ICommandList* computeCmdList) {
 	computeCmdList->EndDebugSection();
 }
 
-void BloomPass::UpdateMaterialInstance() {
-	SetupMaterialInstances();
-	// IPostProcessPass::UpdateMaterialInstance();
-}
-
 UIndex32 BloomPass::GetNumPasses() const {
 	return glm::min(
-		resolveRenderTarget.GetTargetImage()->GetMipLevels(),
+		GetOutput().GetTargetImage()->GetMipLevels(),
 		maxNumPasses
 	);
 }

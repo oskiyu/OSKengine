@@ -405,6 +405,8 @@ void CommandListDx12::DispatchCompute(const Vector3ui& groupCount) {
 }
 
 void CommandListDx12::SetViewport(const Viewport& vp) {
+	ICommandList::SetViewport(vp);
+
 	D3D12_VIEWPORT viewport{};
 
 	viewport.TopLeftX = (FLOAT)vp.rectangle.GetRectanglePosition().x;

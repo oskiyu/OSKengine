@@ -135,6 +135,9 @@ namespace OSK::GRAPHICS {
 		/// @brief Establece la posición del cursor a 0.
 		void ResetCursor();
 
+		/// @return Posición actual del cursor.
+		UIndex64 GetCursor() const;
+
 
 		/// @return Devuelve el tamaño del buffer, en bytes.
 		USize64 GetSize() const;

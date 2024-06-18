@@ -1,0 +1,20 @@
+{
+    "file_type": "MATERIAL",
+    "spec_ver": 1,
+    "name": "Bindless SDF 2D",
+
+    "vertex_shader": "Resources/Shaders/VK/2D/SDF/bindless_vert.spv",
+    "fragment_shader": "Resources/Shaders/VK/2D/SDF/bindless_frag.spv",
+    
+    "vertex_type": "OSK::Vertex2D",
+    "config": {
+        "depth_testing": "none",
+        "cull_mode": "none"
+    },
+
+    "slots": {
+        "0": "global",
+        "1": "drawCalls"
+    }
+
+}

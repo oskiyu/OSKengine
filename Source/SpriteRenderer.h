@@ -9,6 +9,9 @@
 
 #include "GameObject.h"
 
+#include "GpuBuffer.h"
+#include "UniquePtr.hpp"
+
 namespace OSK::ASSETS {
 	class Texture;
 	class Font;
@@ -26,6 +29,8 @@ namespace OSK::GRAPHICS {
 	class GpuImage;
 	class Material;
 	class Sprite;
+
+	class IGpuMemoryAllocator;
 
 	/// <summary>
 	/// Clase que simplifica el proceso de renderizado de imágenes 2D
@@ -46,6 +51,11 @@ namespace OSK::GRAPHICS {
 	class OSKAPI_CALL SpriteRenderer {
 
 	public:
+
+		SpriteRenderer(
+			IGpuMemoryAllocator* allocator,
+			Material* defaultMaterial);
+
 
 		/// @brief Establece la cola de comandos sobre la que se grabarán
 		/// los comandos de renderizado.
@@ -248,6 +258,8 @@ namespace OSK::GRAPHICS {
 
 	private:
 
+		IMaterialSlot* GetGlobalInformationSlot();
+
 		void DrawString(
 			const ASSETS::FontInstance& font,
 			USize32 fontSize,
@@ -260,6 +272,14 @@ namespace OSK::GRAPHICS {
 		bool isStarted = false;
 
 		glm::mat4 currentCameraMatrix = glm::mat4(1.0f);
+
+		/// @brief Contendrá:
+		/// - Resolución de la pantalla, en píxeles.
+		UniquePtr<GpuBuffer> m_globalInformationBuffer;
+
+		UniquePtr<MaterialInstance> m_globalInformationInstance;
+
+		IGpuMemoryAllocator* m_memoryAllocator = nullptr;
 
 		const IGpuImageView* previousImage = nullptr;
 		const Material* currentlyBoundMaterial = nullptr;

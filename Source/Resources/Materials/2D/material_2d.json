@@ -15,7 +15,8 @@
     },
 
     "slots": {
-        "0": "texture"
+        "0": "global",
+        "1": "texture"
     }
 
 }

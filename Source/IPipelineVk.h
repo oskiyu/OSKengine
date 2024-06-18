@@ -9,35 +9,38 @@ namespace OSK::GRAPHICS {
 
 	enum class ShaderStage;
 
-	/// <summary>
-	/// Contiene los datos compilados de un shader.
-	/// </summary>
+
+	/// @brief Contiene los datos compilados de un shader.
 	struct ShaderStageVk {
 		VkShaderModule shaderModule = VK_NULL_HANDLE;
 		VkPipelineShaderStageCreateInfo shaderCreateInfo{};
 	};
 
 
-	/// <summary>
-	/// Clase base para todos los pipelines de Vulkan.
-	/// </summary>
+	/// @brief Clase base para todos los pipelines de Vulkan.
+	/// Contiene funciones auxiliares.
 	class OSKAPI_CALL IPipelineVk {
 
 	public:
 
 		virtual ~IPipelineVk();
 
-		/// <summary>
-		/// Devuelve el pipeline nativo.
-		/// </summary>
+		/// @return Pipeline nativo.
 		VkPipeline GetPipeline() const;
 
 	protected:
 
-		DynamicArray<VkPipelineShaderStageCreateInfo> shaderStagesInfo;
-		DynamicArray<VkShaderModule> shaderModulesToDelete;
-
-		VkPipeline pipeline = VK_NULL_HANDLE;
+		/// @brief Crea un módulo de un shader en concreto.
+		/// @param code Código SPIR-V del shader.
+		/// @param name Nombre debug del shader.
+		/// @param logicalDevice Logical device sobre el que se creará.
+		/// @return Módulo compilado del shader.
+		/// 
+		/// @throws ShaderLoadingException si ocurre algún error.
+		VkShaderModule CreateShaderModule(
+			std::span<const char> code, 
+			std::string_view name, 
+			VkDevice logicalDevice);
 
 		VkVertexInputBindingDescription GetBindingDescription(const VertexInfo& info) const;
 		VkFormat GetVertexAttribFormat(const VertexInfo::Entry& entry) const;
@@ -49,6 +52,11 @@ namespace OSK::GRAPHICS {
 		VkShaderStageFlagBits GetShaderStageVk(ShaderStage stage) const;
 
 		ShaderStageVk LoadShader(const std::string& path, ShaderStage stage);
+
+		DynamicArray<VkPipelineShaderStageCreateInfo> shaderStagesInfo;
+		DynamicArray<VkShaderModule> shaderModulesToDelete;
+
+		VkPipeline pipeline = VK_NULL_HANDLE;
 
 	};
 

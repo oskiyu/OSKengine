@@ -14,8 +14,10 @@ using namespace OSK;
 using namespace OSK::GRAPHICS;
 
 void SmaaPass::Create(const Vector2ui& size) {
-	postProcessingMaterial = Engine::GetRenderer()->GetMaterialSystem()->LoadMaterial("Resources/Materials/PostProcess/SMAA/edge_detection.json");
-	postProcessingMaterialInstance = postProcessingMaterial->CreateInstance().GetPointer();
+	OSK_ASSERT(false, NotImplementedException());
+
+	// postProcessingMaterial = Engine::GetRenderer()->GetMaterialSystem()->LoadMaterial("Resources/Materials/PostProcess/SMAA/edge_detection.json");
+	// postProcessingMaterialInstance = postProcessingMaterial->CreateInstance().GetPointer();
 
 	IPostProcessPass::Create(size);
 
@@ -49,7 +51,8 @@ void SmaaPass::SetupMaterials() {
 }
 
 void SmaaPass::Execute(ICommandList* computeCmdList) {
-	computeCmdList->SetGpuImageBarrier(inputImage, GpuImageLayout::GENERAL,
+	OSK_ASSERT(false, NotImplementedException());
+	/*computeCmdList->SetGpuImageBarrier(inputImage, GpuImageLayout::GENERAL,
 		GpuBarrierInfo(GpuCommandStage::FRAGMENT_SHADER, GpuAccessStage::SHADER_READ), 
 		GpuBarrierInfo(GpuCommandStage::COMPUTE_SHADER, GpuAccessStage::SHADER_READ),
 		{ .baseLayer = 0, .numLayers = ALL_IMAGE_LAYERS, .baseMipLevel = 0, .numMipLevels = ALL_MIP_LEVELS });
@@ -83,4 +86,5 @@ void SmaaPass::Execute(ICommandList* computeCmdList) {
 		GpuBarrierInfo(GpuCommandStage::COMPUTE_SHADER, GpuAccessStage::SHADER_WRITE), 
 		GpuBarrierInfo(GpuCommandStage::COMPUTE_SHADER, GpuAccessStage::SHADER_READ),
 		{ .baseLayer = 0, .numLayers = ALL_IMAGE_LAYERS, .baseMipLevel = 0, .numMipLevels = ALL_MIP_LEVELS });
+		*/
 }

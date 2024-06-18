@@ -28,6 +28,14 @@ void ICommandList::_SetSingleTime() {
 	m_isSingleUse = true;
 }
 
+void ICommandList::SetViewport(const Viewport& viewport) {
+	m_currentViewport = viewport;
+}
+
+const Viewport& ICommandList::GetCurrentViewport() const {
+	return m_currentViewport;
+}
+
 void ICommandList::SetGpuImageBarrier(GpuImage* image, GpuImageLayout nextLayout, GpuBarrierInfo previous, GpuBarrierInfo next, const GpuImageRange& range, const ResourceQueueTransferInfo queueTranfer) {
 	const GpuImageLayout previousLayout = image->_GetLayout(range.baseLayer, range.baseMipLevel);
 	SetGpuImageBarrier(image, previousLayout, nextLayout, previous, next, range, queueTranfer);

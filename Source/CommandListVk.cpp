@@ -674,7 +674,7 @@ void CommandListVk::BindIndexBufferRange(const GpuBuffer& buffer, const IndexBuf
 }
 
 void CommandListVk::BindMaterialSlot(const IMaterialSlot& slot) {
-	VkDescriptorSet set = slot.As<MaterialSlotVk>()->GetDescriptorSet(Engine::GetRenderer()->GetCurrentResourceIndex());
+	VkDescriptorSet set = slot.As<MaterialSlotVk>()->GetDescriptorSet();
 
 	VkPipelineBindPoint bindPoint{};
 	switch (m_currentlyBoundMaterial->GetMaterialType()) {
@@ -748,6 +748,8 @@ void CommandListVk::BindRayTracingPipeline(const IRaytracingPipeline& pipeline) 
 }
 
 void CommandListVk::SetViewport(const Viewport& vp) {
+	ICommandList::SetViewport(vp);
+
 	VkViewport viewport{};
 
 	viewport.x = static_cast<float>(vp.rectangle.GetRectanglePosition().x);

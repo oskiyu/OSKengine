@@ -10,7 +10,7 @@ BorderLayout::BorderLayout(const Vector2f& size) : IContainer(size) {
 
 }
 
-void BorderLayout::AddChild_InPosition(SharedPtr<IElement> child, Position position) {
+void BorderLayout::AddChild_InPosition(OwnedPtr<IElement> child, Position position) {
 	switch (position) {
 	case OSK::UI::BorderLayout::Position::NORTH:
 		m_northElement = child.GetPointer();
@@ -75,7 +75,7 @@ void BorderLayout::EmplaceChild(IElement* child) {
 		size.x = GetSize().x;
 		child->SetSize(size.ToVector2i().ToVector2f());
 
-		child->_SetRelativePosition(Vector2f::Zero);
+		child->_SetPosition(GetPosition() + Vector2f::Zero);
 	}
 		break;
 
@@ -87,7 +87,7 @@ void BorderLayout::EmplaceChild(IElement* child) {
 
 		Vector2f relativePosition = Vector2f::Zero;
 		relativePosition.y = GetSize().y - size.y;
-		child->_SetRelativePosition(relativePosition.ToVector2i().ToVector2f());
+		child->_SetPosition(GetPosition() + relativePosition.ToVector2i().ToVector2f());
 	}
 		break;
 
@@ -99,7 +99,7 @@ void BorderLayout::EmplaceChild(IElement* child) {
 
 		Vector2f relativePosition = Vector2f::Zero;
 		relativePosition.y = topStartingPosition;
-		child->_SetRelativePosition(relativePosition.ToVector2i().ToVector2f());
+		child->_SetPosition(GetPosition() + relativePosition.ToVector2i().ToVector2f());
 	}
 		break;
 
@@ -112,7 +112,7 @@ void BorderLayout::EmplaceChild(IElement* child) {
 		Vector2f relativePosition = Vector2f::Zero;
 		relativePosition.x = GetSize().x - size.x;
 		relativePosition.y = topStartingPosition;
-		child->_SetRelativePosition(relativePosition.ToVector2i().ToVector2f());
+		child->_SetPosition(GetPosition() + relativePosition.ToVector2i().ToVector2f());
 	}
 		break;
 
@@ -126,7 +126,7 @@ void BorderLayout::EmplaceChild(IElement* child) {
 		Vector2f relativePosition = Vector2f::Zero;
 		relativePosition.x = leftStartingPosition;
 		relativePosition.y = topStartingPosition;
-		child->_SetRelativePosition(relativePosition.ToVector2i().ToVector2f());
+		child->_SetPosition(GetPosition() + relativePosition.ToVector2i().ToVector2f());
 	}
 		break;
 	}

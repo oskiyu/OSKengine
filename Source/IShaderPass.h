@@ -17,6 +17,13 @@
 #include "GameObject.h"
 
 #include <unordered_map>
+#include "DefineAs.h"
+#include "NumericTypes.h"
+#include "Vector2.hpp"
+#include <array>
+#include <string_view>
+#include "ResourcesInFlight.h"
+#include <string>
 
 
 namespace OSK::GRAPHICS {
@@ -70,10 +77,10 @@ namespace OSK::GRAPHICS {
 
 
 		/// @return Instancia del resolver.
-		MaterialInstance* GetMaterialInstance() { return m_materialInstance.GetPointer(); }
+		MaterialInstance* GetMaterialInstance(UIndex32 resourceIndex) { return m_materialInstances[resourceIndex].GetPointer(); }
 
 		/// @return Instancia del resolver.
-		const MaterialInstance* GetMaterialInstance() const { return m_materialInstance.GetPointer(); }
+		const MaterialInstance* GetMaterialInstance(UIndex32 resourceIndex) const { return m_materialInstances[resourceIndex].GetPointer(); }
 
 	protected:
 
@@ -93,8 +100,8 @@ namespace OSK::GRAPHICS {
 		/// @brief Material del pase.
 		Material* m_passMaterial = nullptr;
 
-		/// @brief Instancia del pase.
-		UniquePtr<MaterialInstance> m_materialInstance = nullptr;
+		/// @brief Instancias del pase.
+		std::array<UniquePtr<MaterialInstance>, MAX_RESOURCES_IN_FLIGHT> m_materialInstances{};
 
 		/// @brief Camara de la escena.
 		ECS::GameObjectIndex m_cameraObject = ECS::EMPTY_GAME_OBJECT;

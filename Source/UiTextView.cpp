@@ -6,6 +6,10 @@
 #include "Font.h"
 #include "FontInstance.h"
 
+#include "SdfStringInfo.h"
+#include "SdfBindlessRenderer2D.h"
+#include "GameObject.h"
+
 using namespace OSK;
 using namespace OSK::UI;
 using namespace OSK::ECS;
@@ -64,10 +68,10 @@ void TextView::AdjustSizeToText() {
 		totalSizeY
 	);
 
-	size = newSize + Vector2f(
+	SetSize(newSize + Vector2f(
 		GetPadding().x + GetPadding().Z,
 		GetPadding().y + GetPadding().W
-	);
+	));
 }
 
 void TextView::SetFontSize(USize32 size) {
@@ -95,18 +99,22 @@ std::string_view TextView::GetText() const {
 	return text;
 }
 
-void TextView::Render(SpriteRenderer* renderer, Vector2f parentPosition) const {
-	if (!font.GetAsset())
-		return;
+void TextView::Render(SdfBindlessRenderer2D* renderer) const {
+	IElement::Render(renderer);
 
-	ImageView::Render(renderer, parentPosition);
-	
-	Vector2f globalPosition = GetContentTopLeftPosition() + parentPosition;
+	if (!font.GetAsset()) {
+		return;
+	}
+
+	Vector2f globalPosition = GetContentTopLeftPosition();
 	globalPosition.y += GetContentSize().y;
 	globalPosition = globalPosition.ToVector2i().ToVector2f();
 
-	Transform2D transform(EMPTY_GAME_OBJECT);
-	transform.SetPosition(globalPosition);
+	SdfStringInfo info{};
+	info.text = text;
+	info.font = &font->GetExistingInstance(fontSize);
+	info.transform = Transform2D(EMPTY_GAME_OBJECT);
+	info.transform.SetPosition(globalPosition);
 
-	renderer->DrawString(*font.GetAsset(), fontSize, text, transform, Color::White);
+	renderer->Draw(info);
 }

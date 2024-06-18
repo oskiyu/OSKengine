@@ -1,9 +1,13 @@
 #pragma once
 
-#include "RenderSystem3D.h"
+#include <span>
+#include "ApiCall.h"
+#include "GameObject.h"
+#include "NumericTypes.h"
+#include "ShadowMap.h"
+#include "Vector2.hpp"
 
 #include "UniquePtr.hpp"
-#include "IGpuImage.h"
 #include "GBuffer.h"
 #include "RtRenderTarget.h"
 #include "TaaProvider.h"
@@ -20,9 +24,17 @@
 #include "IrradianceMap.h"
 #include "SpecularMap.h"
 
-#include "Serializer.h"
 #include "SavedGameObjectTranslator.h"
 #include "ResourcesInFlight.h"
+#include <array>
+#include "GpuBuffer.h"
+#include "ISystem.h"
+#include "IRenderSystem.h"
+#include "Lights.h"
+#include "BinaryBlock.h"
+#include <json.hpp>
+#include "Vector4.hpp"
+#include "glm/fwd.hpp"
 
 
 namespace OSK::ECS {
@@ -36,7 +48,6 @@ namespace OSK::ECS {
 	public:
 
 		OSK_SYSTEM("OSK::DeferredRenderSystem");
-		OSK_SERIALIZABLE();
 
 		DeferredRenderSystem();
 
@@ -149,6 +160,12 @@ namespace OSK::ECS {
 
 	protected:
 
+		constexpr static auto CameraGlobalSlotName = "global";
+		constexpr static auto CameraBindingName = "camera";
+		constexpr static auto PreviousCameraBindingName = "previousCamera";
+
+	protected:
+
 		// -- RENDER TARGETS & RESOLVE -- //
 
 		/// @brief Render target donde se renderizará la imagen final.
@@ -158,8 +175,10 @@ namespace OSK::ECS {
 		GRAPHICS::GBuffer m_gBuffer;
 
 
-		/// @brief Contiene el slot de la cámara.
-		UniquePtr<GRAPHICS::MaterialInstance> m_gBufferCameraInstance = nullptr;
+		/// @brief Contiene los slots de la cámara.
+		/// Como se escriben desde la GPU deben ser
+		/// recursos en vuelo.
+		std::array<UniquePtr<GRAPHICS::MaterialInstance>, GRAPHICS::MAX_RESOURCES_IN_FLIGHT> m_gBufferCameraInstances{};
 
 		/// @brief Pase de resolución.
 		UniquePtr<GRAPHICS::IDeferredResolver> m_resolverPass = nullptr;
@@ -213,5 +232,3 @@ namespace OSK::ECS {
 	};
 
 }
-
-//OSK_SYSTEM_SERIALIZATION(OSK::ECS::DeferredRenderSystem);

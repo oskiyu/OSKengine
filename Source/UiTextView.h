@@ -1,6 +1,6 @@
 #pragma once
 
-#include "UiImageView.h"
+#include "UiElement.h"
 
 #include "AssetRef.h"
 #include "Font.h"
@@ -13,11 +13,11 @@ namespace OSK::UI {
 
 	/// @brief Elemento de UI que permite mostrar un texto.
 	/// Para su uso se deben establecer tanto una fuente como su tamaño.
-	class OSKAPI_CALL TextView : public ImageView {
+	class OSKAPI_CALL TextView : public IElement {
 
 	public:
 
-		explicit TextView(const Vector2f& size) : ImageView(size) { }
+		explicit TextView(const Vector2f& size) : IElement(size) { }
 
 	public:
 
@@ -51,7 +51,7 @@ namespace OSK::UI {
 		std::string_view GetText() const;
 
 		/// @note No renderizará el texto al no ser que se haya establecido la fuente.
-		void Render(GRAPHICS::SpriteRenderer* renderer, Vector2f parentPosition) const override;
+		void Render(GRAPHICS::SdfBindlessRenderer2D* renderer) const override;
 
 	private:
 

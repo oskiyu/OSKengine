@@ -13,8 +13,6 @@ void SystemExecutionGraph::AddSystem(ISystem* system, const SystemDependencies& 
 	// OSK_ASSERT(Validate(), SystemCyclicDependencyException(system->GetName()));
 
 	Rebuild();
-
-	OSK::Engine::GetLogger()->InfoLog(std::format("Añadido sistema: {}", system->GetName()));
 }
 
 void SystemExecutionGraph::RemoveSystem(const ISystem* system) {
@@ -201,6 +199,7 @@ void SystemExecutionGraph::Rebuild() {
 		m_flatExecutionGraph.Insert(executionSet);
 	}
 
+#ifdef OSK_DEBUG_SYSTEM_SETS
 	Engine::GetLogger()->InfoLog("Nuevo grafo:");
 	for (const auto& set : m_flatExecutionGraph) {
 		Engine::GetLogger()->InfoLog("\tNuevo set:");
@@ -209,6 +208,7 @@ void SystemExecutionGraph::Rebuild() {
 			Engine::GetLogger()->InfoLog(std::format("\t\t{}", system->GetName()));
 		}
 	}
+#endif // 0
 }
 
 std::span<SystemExecutionSet> SystemExecutionGraph::GetExecutionGraph() {

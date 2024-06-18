@@ -11,179 +11,178 @@ Button::Button(const Vector2f size) : Button(size, "") {
 }
 
 Button::Button(const Vector2f size, const std::string& text) 
-	: IElement(size), defaultImage(size), selectedImage(size), pressedImage(size), buttonText(size) {
-	buttonText.SetAnchor(Anchor::CENTER_X | Anchor::CENTER_Y);
+	: IElement(size), m_defaultImage(size), m_selectedImage(size), m_pressedImage(size), m_buttonText(size) {
+	m_buttonText.SetAnchor(Anchor::CENTER_X | Anchor::CENTER_Y);
 
-	buttonText.SetText(text);
-	buttonText.AdjustSizeToText();
+	m_buttonText.SetText(text);
+	m_buttonText.AdjustSizeToText();
 }
 
 void Button::SetSize(Vector2f size) {
 	IElement::SetSize(size);
 
-	defaultImage.SetSize(size);
-	selectedImage.SetSize(size);
-	pressedImage.SetSize(size);
+	m_defaultImage.SetSize(size);
+	m_selectedImage.SetSize(size);
+	m_pressedImage.SetSize(size);
 }
 
-void Button::Render(SpriteRenderer* renderer, Vector2f parentPosition) const {
-	if (!IsVisible())
-		return;
+void Button::Render(SdfBindlessRenderer2D* renderer) const {
+	IElement::Render(renderer);
 
-	GetCurrentImage().Render(renderer, parentPosition);
-	buttonText.Render(renderer, parentPosition);
+	switch (m_currentState) {
+	case Button::State::DEFAULT:
+		m_defaultImage.Render(renderer);
+		break;
+	case Button::State::SELECTED:
+		m_selectedImage.Render(renderer);
+		break;
+	case Button::State::PRESSED:
+		m_pressedImage.Render(renderer);
+		break;
+	default:
+		break;
+	}
+
+	m_buttonText.Render(renderer);
 }
 
 void Button::Click() {
-	if (type == Type::TOGGLE) {
-		currentToggleState = !currentToggleState;
-		callback(currentToggleState);
+	if (m_type == Type::TOGGLE) {
+		m_currentToggleState = !m_currentToggleState;
+		m_callback(m_currentToggleState);
 	}
 	else {
-		callback(true);
+		m_callback(true);
 	}
 }
 
-bool Button::UpdateByCursor(Vector2f cursor, bool isPressed, Vector2f parentPosition) {
+bool Button::UpdateByCursor(Vector2f cursor, bool isPressed) {
 	if (IsLocked() || !IsVisible())
 		return false;
 
-	const bool isOverButton = GetRectangle(parentPosition).ContainsPoint(cursor);
+	const bool isOverButton = GetRectangle().ContainsPoint(cursor);
 
 	if (!isOverButton) {
-		if (type == Type::TOGGLE) {
-			currentState = currentToggleState
+		if (m_type == Type::TOGGLE) {
+			m_currentState = m_currentToggleState
 				? State::PRESSED
 				: State::DEFAULT;
 		}
 		else {
-			currentState = State::DEFAULT;
+			m_currentState = State::DEFAULT;
 		}
 
 		return false;
 	}
 
-	currentState = isPressed
+	m_currentState = isPressed
 		? State::PRESSED
 		: State::SELECTED;
 	
-	if (isPressed && !wasPreviousFramePressed)
+	if (isPressed && !m_wasPreviousFramePressed)
 		Click();
 
-	wasPreviousFramePressed = isPressed;
+	m_wasPreviousFramePressed = isPressed;
 
 	return true;
 }
 
 void Button::SetCallback(CallbackFnc callback) {
-	this->callback = callback;
+	m_callback = callback;
 }
 
 void Button::SetState(State state) {
-	currentState = state;
-	currentToggleState = currentState == State::PRESSED;
+	m_currentState = state;
+	m_currentToggleState = m_currentState == State::PRESSED;
 }
 
 void Button::SetType(Type type) {
-	this->type = type;
+	m_type = type;
 }
 
 Button::Type Button::GetType() const {
-	return type;
+	return m_type;
 }
 
 void Button::SetTextFont(ASSETS::AssetRef<ASSETS::Font> font) {
-	buttonText.SetFont(font);
-	buttonText.AdjustSizeToText();
+	m_buttonText.SetFont(font);
+	m_buttonText.AdjustSizeToText();
 }
 
 void Button::SetTextFontSize(USize32 fontSize) {
-	buttonText.SetFontSize(fontSize);
-	buttonText.AdjustSizeToText();
+	m_buttonText.SetFontSize(fontSize);
+	m_buttonText.AdjustSizeToText();
 }
 
-Sprite& Button::GetSprite(State state) {
+DynamicArray<GRAPHICS::SdfDrawCall2D>& Button::GetDrawCalls(State state) {
 	switch (state) {
 	case Button::State::DEFAULT:
-		return defaultImage.GetSprite();
+		return m_defaultImage.GetAllDrawCalls();
 	case Button::State::SELECTED:
-		return selectedImage.GetSprite();
+		return m_selectedImage.GetAllDrawCalls();
 	case Button::State::PRESSED:
-		return pressedImage.GetSprite();
+		return m_pressedImage.GetAllDrawCalls();
 	default:
 		break;
 	}
 }
 
-const Sprite& Button::GetSprite(State state) const {
+const DynamicArray<GRAPHICS::SdfDrawCall2D>& Button::GetDrawCalls(State state) const {
 	switch (state) {
 	case Button::State::DEFAULT:
-		return defaultImage.GetSprite();
+		return m_defaultImage.GetAllDrawCalls();
 	case Button::State::SELECTED:
-		return selectedImage.GetSprite();
+		return m_selectedImage.GetAllDrawCalls();
 	case Button::State::PRESSED:
-		return pressedImage.GetSprite();
+		return m_pressedImage.GetAllDrawCalls();
 	default:
 		break;
 	}
 }
 
-Sprite& Button::GetDefaultSprite() {
-	return GetSprite(State::DEFAULT);
+DynamicArray<GRAPHICS::SdfDrawCall2D>& Button::GetDefaultDrawCalls() {
+	return GetDrawCalls(State::DEFAULT);
 }
 
-const Sprite& Button::GetDefaultSprite() const {
-	return GetSprite(State::DEFAULT);
+const DynamicArray<GRAPHICS::SdfDrawCall2D>& Button::GetDefaultDrawCalls() const {
+	return GetDrawCalls(State::DEFAULT);
 }
 
-Sprite& Button::GetSelectedSprite() {
-	return GetSprite(State::SELECTED);
+DynamicArray<GRAPHICS::SdfDrawCall2D>& Button::GetSelectedDrawCalls() {
+	return GetDrawCalls(State::SELECTED);
 }
 
-const Sprite& Button::GetSelectedSprite() const {
-	return GetSprite(State::SELECTED);
+const DynamicArray<GRAPHICS::SdfDrawCall2D>& Button::GetSelectedDrawCalls() const {
+	return GetDrawCalls(State::SELECTED);
 }
 
-Sprite& Button::GetPressedSprite() {
-	return GetSprite(State::PRESSED);
+DynamicArray<GRAPHICS::SdfDrawCall2D>& Button::GetPressedDrawCalls() {
+	return GetDrawCalls(State::PRESSED);
 }
 
-const Sprite& Button::GetPressedSprite() const {
-	return GetSprite(State::PRESSED);
-}
-
-const ImageView& Button::GetCurrentImage() const {
-	switch (currentState) {
-	case Button::State::DEFAULT:
-		return defaultImage;
-	case Button::State::SELECTED:
-		return selectedImage;
-	case Button::State::PRESSED:
-		return pressedImage;
-	default:
-		break;
-	}
+const DynamicArray<GRAPHICS::SdfDrawCall2D>& Button::GetPressedDrawCalls() const {
+	return GetDrawCalls(State::PRESSED);
 }
 
 void Button::SetText(const std::string& text) {
-	buttonText.SetText(text);
-	buttonText.AdjustSizeToText();
+	m_buttonText.SetText(text);
+	m_buttonText.AdjustSizeToText();
 }
 
 std::string_view Button::GetText() const {
-	return buttonText.GetText();
+	return m_buttonText.GetText();
 }
 
-void Button::_SetRelativePosition(const Vector2f& relativePosition) {
-	defaultImage._SetRelativePosition(relativePosition);
-	selectedImage._SetRelativePosition(relativePosition);
-	pressedImage._SetRelativePosition(relativePosition);
+void Button::_SetPosition(const Vector2f& newPosition) {
+	IElement::_SetPosition(newPosition);
 
-	buttonText._SetRelativePosition(relativePosition + GetTextRelativePosition());
+	m_defaultImage._SetPosition(newPosition);
+	m_selectedImage._SetPosition(newPosition);
+	m_pressedImage._SetPosition(newPosition);
 
-	IElement::_SetRelativePosition(relativePosition);
+	m_buttonText._SetPosition(newPosition + GetTextRelativePosition());
 }
 
 Vector2f Button::GetTextRelativePosition() const {
-	return size * 0.5f - buttonText.GetSize() * 0.5f;
+	return GetSize() * 0.5f - m_buttonText.GetSize() * 0.5f;
 }

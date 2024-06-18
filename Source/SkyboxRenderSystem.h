@@ -1,22 +1,41 @@
 #pragma once
 
+#include "ApiCall.h"
+#include "UniquePtr.hpp"
+#include "Vector2.hpp"
+
+#include "GameObject.h"
+#include "ISystem.h"
 #include "IRenderSystem.h"
 
 #include "MaterialInstance.h"
 #include "GpuBuffer.h"
-#include "AssetRef.h"
+#include "ResourcesInFlight.h"
 
 #include "CubemapTexture.h"
 #include "Model3D.h"
+#include "AssetRef.h"
 
 #include "SavedGameObjectTranslator.h"
+#include "BinaryBlock.h"
 
+#include <span>
+#include <array>
+#include <json.hpp>
+
+
+namespace OSK::GRAPHICS {
+	class ICommandList;
+	class Material;
+}
 
 namespace OSK::ECS {
 
 	class OSKAPI_CALL SkyboxRenderSystem : public IRenderSystem {
 
 	public:
+
+		constexpr static auto MaterialName = "Resources/Materials/Skybox/material.json";
 
 		OSK_SYSTEM("OSK::SkyboxRenderSystem");
 
@@ -36,12 +55,14 @@ namespace OSK::ECS {
 
 	private:
 
-		GRAPHICS::Material* skyboxMaterial = nullptr;
-		UniquePtr<GRAPHICS::MaterialInstance> skyboxMaterialInstance;
+		constexpr static auto CubeModelPath = "Resources/Assets/Models/cube.json";
+
+		GRAPHICS::Material* m_skyboxMaterial = nullptr;
+
+		std::array<UniquePtr<GRAPHICS::MaterialInstance>, GRAPHICS::MAX_RESOURCES_IN_FLIGHT> m_skyboxMaterialInstances;
+		std::array<UniquePtr<GRAPHICS::GpuBuffer>, GRAPHICS::MAX_RESOURCES_IN_FLIGHT> m_cameraUbos{};
 
 		GameObjectIndex cameraObject = EMPTY_GAME_OBJECT;
-
-		UniquePtr<GRAPHICS::GpuBuffer> cameraUbos[3]{};
 
 		ASSETS::AssetRef<ASSETS::CubemapTexture> m_skybox;
 		ASSETS::AssetRef<ASSETS::Model3D> m_cubemapModel;

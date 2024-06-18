@@ -124,7 +124,7 @@ namespace OSK::ECS {
 		// Materiales
 		GRAPHICS::Material* gbufferMaterial = nullptr;
 		GRAPHICS::Material* animatedGbufferMaterial = nullptr;
-		UniquePtr<GRAPHICS::MaterialInstance> globalGbufferMaterialInstance;
+		std::array<UniquePtr<GRAPHICS::MaterialInstance>, GRAPHICS::MAX_RESOURCES_IN_FLIGHT> m_globalGbufferMaterialInstances;
 
 	};
 

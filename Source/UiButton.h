@@ -79,9 +79,9 @@ namespace OSK::UI {
 		/// Si se renderiza el texto, estará centrado.
 		/// @see TextView.Render() para precondiciones.
 		/// @see ImageView.Render() para precondiciones.
-		void Render(GRAPHICS::SpriteRenderer* renderer, Vector2f parentPosition) const override;
+		void Render(GRAPHICS::SdfBindlessRenderer2D* renderer) const override;
 
-		bool UpdateByCursor(Vector2f cursor, bool isPressed, Vector2f parentPosition) override;
+		bool UpdateByCursor(Vector2f cursor, bool isPressed) override;
 
 		/// @brief Establece el callback que se ejecutará cuando
 		/// el usuario pulse el botón.
@@ -123,53 +123,47 @@ namespace OSK::UI {
 
 	public:
 
-		/// @return Sprite que se renderizará si tiene el estado por defecto.
-		GRAPHICS::Sprite& GetDefaultSprite();
-		/// @return Sprite que se renderizará si tiene el estado por defecto.
-		const GRAPHICS::Sprite& GetDefaultSprite() const;
+		DynamicArray<GRAPHICS::SdfDrawCall2D>& GetDefaultDrawCalls();
+		const DynamicArray<GRAPHICS::SdfDrawCall2D>& GetDefaultDrawCalls()const;
 
 		/// @return Sprite que se renderizará si está siendo seleccionado.
-		GRAPHICS::Sprite& GetSelectedSprite();
+		DynamicArray<GRAPHICS::SdfDrawCall2D>& GetSelectedDrawCalls();
 		/// @return Sprite que se renderizará si está siendo seleccionado.
-		const GRAPHICS::Sprite& GetSelectedSprite() const;
+		const DynamicArray<GRAPHICS::SdfDrawCall2D>& GetSelectedDrawCalls() const;
 		
 		/// @return Sprite que se renderizará si está siendo pulsado.
-		GRAPHICS::Sprite& GetPressedSprite();
+		DynamicArray<GRAPHICS::SdfDrawCall2D>& GetPressedDrawCalls();
 		/// @return Sprite que se renderizará si está siendo pulsado.
-		const GRAPHICS::Sprite& GetPressedSprite() const;
+		const DynamicArray<GRAPHICS::SdfDrawCall2D>& GetPressedDrawCalls() const;
 
 		/// @param state Estado del botón.
 		/// @return Sprite que se renderizará en el estado dado.
-		GRAPHICS::Sprite& GetSprite(State state);
+		DynamicArray<GRAPHICS::SdfDrawCall2D>& GetDrawCalls(State state);
 		/// @param state Estado del botón.
 		/// @return Sprite que se renderizará en el estado dado.
-		const GRAPHICS::Sprite& GetSprite(State state) const;
+		const DynamicArray<GRAPHICS::SdfDrawCall2D>& GetDrawCalls(State state) const;
 
 	private:
 
-		void _SetRelativePosition(const Vector2f& relativePosition) override;
-
+		void _SetPosition(const Vector2f& newPosition) override;
 		Vector2f GetTextRelativePosition() const;
 
 	private:
 
-		/// @return ImageView que se renderizará con el estado actual.
-		const ImageView& GetCurrentImage() const;
+		State m_currentState = State::DEFAULT;
+		bool m_wasPreviousFramePressed = false;
 
-		State currentState = State::DEFAULT;
-		bool wasPreviousFramePressed = false;
+		bool m_currentToggleState = false;
 
-		bool currentToggleState = false;
+		Type m_type = Type::TOGGLE;
 
-		Type type = Type::TOGGLE;
+		ImageView m_defaultImage;
+		ImageView m_selectedImage;
+		ImageView m_pressedImage;
 
-		ImageView defaultImage;
-		ImageView selectedImage;
-		ImageView pressedImage;
+		TextView m_buttonText;
 
-		TextView buttonText;
-
-		CallbackFnc callback = [](bool) {  (void)0; };
+		CallbackFnc m_callback = [](bool) {  (void)0; };
 
 	};
 

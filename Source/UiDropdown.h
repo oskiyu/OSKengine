@@ -41,8 +41,8 @@ namespace OSK::UI {
 			/// @param text Texto de la opción.
 			explicit Element(const Vector2f& size, const std::string& text);
 
-			void Render(GRAPHICS::SpriteRenderer* renderer, Vector2f parentPosition) const override;
-			void _SetRelativePosition(const Vector2f& relativePosition) override;
+			void Render(GRAPHICS::SdfBindlessRenderer2D* renderer) const override;
+			void _SetPosition(const Vector2f& newPosition) override;
 
 
 			/// @brief Establece la fuente del texto.
@@ -93,8 +93,8 @@ namespace OSK::UI {
 		/// @param size Tamaño del dropdown (y de cada una de las ociones).
 		explicit Dropdown(const Vector2f& size);
 
-		void Render(GRAPHICS::SpriteRenderer* renderer, Vector2f parentPosition) const override;
-		bool UpdateByCursor(Vector2f cursor, bool isPressed, Vector2f parentPosition) override;
+		void Render(GRAPHICS::SdfBindlessRenderer2D* renderer) const override;
+		bool UpdateByCursor(Vector2f cursor, bool isPressed) override;
 
 		/// @brief Añade una nueva opción al dropdown.
 		/// @param text Texto de la opción. Único en el dropdown.

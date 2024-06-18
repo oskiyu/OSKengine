@@ -1,124 +1,12 @@
 INFO: JobSystem: número de hilos: 15
 INFO: Iniciando OSKengine.
 INFO: 	Version: 0.0.0
-INFO: 	Build 2024.05.29a.
-INFO: Versión de vulkan: 1.3.261
+INFO: 	Build 2024.05.29a*.
+INFO: Versión de vulkan: 1.3.275
 INFO: GPU elegida: NVIDIA GeForce RTX 2060
 INFO: Uso de cola GPU unificada.
 INFO: Uso de cola GPU de transferencia.
-INFO: Nuevo grafo:
-INFO: 	Nuevo set:
-INFO: 		OSK::TreeNormalsRenderSystem
-INFO: Añadido sistema: OSK::TreeNormalsRenderSystem
-INFO: Nuevo grafo:
-INFO: 	Nuevo set:
-INFO: 		OSK::TreeNormalsRenderSystem
-INFO: 	Nuevo set:
-INFO: 		OSK::DeferredRenderSystem
-INFO: Añadido sistema: OSK::DeferredRenderSystem
-INFO: Nuevo grafo:
-INFO: 	Nuevo set:
-INFO: 		OSK::TreeNormalsRenderSystem
-INFO: 	Nuevo set:
-INFO: 		OSK::DeferredRenderSystem
-INFO: 		OSK::PhysicsSystem
-INFO: Añadido sistema: OSK::PhysicsSystem
-INFO: Nuevo grafo:
-INFO: 	Nuevo set:
-INFO: 		OSK::TreeNormalsRenderSystem
-INFO: 	Nuevo set:
-INFO: 		OSK::DeferredRenderSystem
-INFO: 		OSK::PhysicsSystem
-INFO: 	Nuevo set:
-INFO: 		OSK::CollisionSystem
-INFO: Añadido sistema: OSK::CollisionSystem
-INFO: Nuevo grafo:
-INFO: 	Nuevo set:
-INFO: 		OSK::TreeNormalsRenderSystem
-INFO: 	Nuevo set:
-INFO: 		OSK::DeferredRenderSystem
-INFO: 		OSK::PhysicsSystem
-INFO: 	Nuevo set:
-INFO: 		OSK::CollisionSystem
-INFO: 	Nuevo set:
-INFO: 		OSK::PhysicsResolverSystem
-INFO: Añadido sistema: OSK::PhysicsResolverSystem
-INFO: Nuevo grafo:
-INFO: 	Nuevo set:
-INFO: 		OSK::TreeNormalsRenderSystem
-INFO: 		OSK::PhysicsSystem
-INFO: 	Nuevo set:
-INFO: 		OSK::CollisionSystem
-INFO: 	Nuevo set:
-INFO: 		OSK::PhysicsResolverSystem
-INFO: 	Nuevo set:
-INFO: 		OSK::TransformApplierSystem
-INFO: 	Nuevo set:
-INFO: 		OSK::DeferredRenderSystem
-INFO: Añadido sistema: OSK::TransformApplierSystem
-INFO: Nuevo grafo:
-INFO: 	Nuevo set:
-INFO: 		OSK::TreeNormalsRenderSystem
-INFO: 		OSK::PhysicsSystem
-INFO: 	Nuevo set:
-INFO: 		OSK::CollisionSystem
-INFO: 	Nuevo set:
-INFO: 		OSK::PhysicsResolverSystem
-INFO: 	Nuevo set:
-INFO: 		OSK::TransformApplierSystem
-INFO: 	Nuevo set:
-INFO: 		OSK::DeferredRenderSystem
-INFO: 		OSK::SkyboxRenderSystem
-INFO: Añadido sistema: OSK::SkyboxRenderSystem
-INFO: Nuevo grafo:
-INFO: 	Nuevo set:
-INFO: 		OSK::TreeNormalsRenderSystem
-INFO: 		OSK::PhysicsSystem
-INFO: 	Nuevo set:
-INFO: 		OSK::CollisionSystem
-INFO: 	Nuevo set:
-INFO: 		OSK::PhysicsResolverSystem
-INFO: 	Nuevo set:
-INFO: 		OSK::TransformApplierSystem
-INFO: 	Nuevo set:
-INFO: 		OSK::DeferredRenderSystem
-INFO: 		OSK::RenderSystem2D
-INFO: 		OSK::SkyboxRenderSystem
-INFO: Añadido sistema: OSK::RenderSystem2D
-INFO: Nuevo grafo:
-INFO: 	Nuevo set:
-INFO: 		OSK::TreeNormalsRenderSystem
-INFO: 		OSK::PhysicsSystem
-INFO: 	Nuevo set:
-INFO: 		OSK::CollisionSystem
-INFO: 	Nuevo set:
-INFO: 		OSK::PhysicsResolverSystem
-INFO: 	Nuevo set:
-INFO: 		OSK::TransformApplierSystem
-INFO: 	Nuevo set:
-INFO: 		OSK::DeferredRenderSystem
-INFO: 		OSK::SkyboxRenderSystem
-INFO: 	Nuevo set:
-INFO: 		OSK::ColliderRenderSystem
-INFO: Añadido sistema: OSK::ColliderRenderSystem
-INFO: Nuevo grafo:
-INFO: 	Nuevo set:
-INFO: 		OSK::TreeNormalsRenderSystem
-INFO: 		OSK::PhysicsSystem
-INFO: 	Nuevo set:
-INFO: 		OSK::CollisionSystem
-INFO: 	Nuevo set:
-INFO: 		OSK::PhysicsResolverSystem
-INFO: 	Nuevo set:
-INFO: 		OSK::TransformApplierSystem
-INFO: 	Nuevo set:
-INFO: 		OSK::DeferredRenderSystem
-INFO: 		OSK::SkyboxRenderSystem
-INFO: 	Nuevo set:
-INFO: 		OSK::ColliderRenderSystem
-INFO: 		OSK::RenderBoundsRenderer
-INFO: Añadido sistema: OSK::RenderBoundsRenderer
-INFO: Tiempo de carga: 4.3086886 segundos
+INFO: Tiempo de carga: 4.3490853 segundos
 INFO: 	~IGpuMemoryAllocator
 INFO: Cerrado el log.
 

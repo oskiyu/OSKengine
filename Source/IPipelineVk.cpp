@@ -8,6 +8,8 @@
 #include "ShaderBindingType.h"
 #include "PipelinesExceptions.h"
 
+#include "RendererVk.h"
+
 using namespace OSK;
 using namespace OSK::GRAPHICS;
 
@@ -36,6 +38,30 @@ VkVertexInputBindingDescription IPipelineVk::GetBindingDescription(const VertexI
 	bindingDescription.inputRate = VK_VERTEX_INPUT_RATE_VERTEX;
 
 	return bindingDescription;
+}
+
+VkShaderModule IPipelineVk::CreateShaderModule(std::span<const char> code, std::string_view name, VkDevice logicalDevice) {
+	VkShaderModule output = VK_NULL_HANDLE;
+
+	VkShaderModuleCreateInfo createInfo{};
+	createInfo.sType = VK_STRUCTURE_TYPE_SHADER_MODULE_CREATE_INFO;
+	createInfo.codeSize = code.size();
+	createInfo.pCode = reinterpret_cast<const uint32_t*>(code.data());
+
+	VkResult result = vkCreateShaderModule(logicalDevice, &createInfo, nullptr, &output);
+	OSK_ASSERT(result == VK_SUCCESS, ShaderLoadingException(result));
+
+	if (RendererVk::pvkSetDebugUtilsObjectNameEXT) {
+		VkDebugUtilsObjectNameInfoEXT nameInfo{};
+		nameInfo.sType = VK_STRUCTURE_TYPE_DEBUG_UTILS_OBJECT_NAME_INFO_EXT;
+		nameInfo.objectType = VK_OBJECT_TYPE_SHADER_MODULE;
+		nameInfo.objectHandle = (uint64_t)output;
+		nameInfo.pObjectName = name.data();
+
+		RendererVk::pvkSetDebugUtilsObjectNameEXT(logicalDevice, &nameInfo);
+	}
+
+	return output;
 }
 
 VkFormat IPipelineVk::GetVertexAttribFormat(const VertexInfo::Entry& entry) const {

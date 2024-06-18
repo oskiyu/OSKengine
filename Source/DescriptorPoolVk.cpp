@@ -13,10 +13,14 @@
 
 #include <vulkan/vulkan.h>
 
+#include "BindlessLimits.h"
+
 using namespace OSK;
 using namespace OSK::GRAPHICS;
 
 DescriptorPoolVk::DescriptorPoolVk(const DescriptorLayoutVk& layout, USize32 maxSets) {
+	const bool isBindless = Engine::GetRenderer()->GetGpu()->SupportsBindlessResources();
+
 	DynamicArray<VkDescriptorPoolSize> sizes;
 
 	// Información por cada set del layout.
@@ -29,16 +33,19 @@ DescriptorPoolVk::DescriptorPoolVk(const DescriptorLayoutVk& layout, USize32 max
 		//
 		// Para arrays / caso bindless, debe indicarse el número máximo de elementos del array.
 		size.descriptorCount = Engine::GetRenderer()->GetSwapchainImagesCount() * maxSets;
+		if (isBindless) {
+			size.descriptorCount *= MAX_BINDLESS_RESOURCES;
+		}
 
 		sizes.Insert(size);
 	}
 
 	VkDescriptorPoolCreateInfo poolInfo{};
 	poolInfo.sType = VK_STRUCTURE_TYPE_DESCRIPTOR_POOL_CREATE_INFO;
-	poolInfo.poolSizeCount = (uint32_t)sizes.GetSize();
+	poolInfo.poolSizeCount = static_cast<uint32_t>(sizes.GetSize());
 	poolInfo.pPoolSizes = sizes.GetData();
 	poolInfo.maxSets = Engine::GetRenderer()->GetSwapchainImagesCount() * maxSets;
-	poolInfo.flags = VK_DESCRIPTOR_POOL_CREATE_UPDATE_AFTER_BIND_BIT_EXT;
+	poolInfo.flags = isBindless ? VK_DESCRIPTOR_POOL_CREATE_UPDATE_AFTER_BIND_BIT_EXT : 0;
 
 	VkResult result = vkCreateDescriptorPool(Engine::GetRenderer()->GetGpu()->As<GpuVk>()->GetLogicalDevice(), 
 		&poolInfo, nullptr, &pool);

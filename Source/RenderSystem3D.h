@@ -101,7 +101,7 @@ namespace OSK::ECS {
 		GRAPHICS::Material* m_sceneMaterial = nullptr;
 		GRAPHICS::Material* m_animatedSceneMaterial = nullptr;
 
-		UniquePtr<GRAPHICS::MaterialInstance> m_sceneMaterialInstance;
+		std::array<UniquePtr<GRAPHICS::MaterialInstance>, GRAPHICS::MAX_RESOURCES_IN_FLIGHT> m_sceneMaterialInstances;
 
 		TerrainComponent m_terrain{};
 		GRAPHICS::Material* m_terrainMaterial = nullptr;

@@ -110,3 +110,7 @@ void GpuBuffer::SetCursor(UIndex64 position) {
 void GpuBuffer::ResetCursor() {
 	buffer->ResetCursor();
 }
+
+UIndex64 GpuBuffer::GetCursor() const {
+	return buffer->GetCursor();
+}

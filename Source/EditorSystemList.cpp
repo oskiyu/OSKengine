@@ -11,65 +11,103 @@
 OSK::Editor::UI::SystemList::SystemList(const Vector2f& size) : OSK::UI::VerticalContainer(size) {
 	const Vector2f textSize = { size.x - 20.0f, 25.0f };
 
-	const auto uiView = &Engine::GetAssetManager()->Load<ASSETS::Texture>("Resources/Assets/Textures/button_texture.json")
-		->GetTextureView2D();
-
 	SetMargin(Vector2f::Zero);
+	SetPadding(Vector2f::Zero);
 
-	GetSprite().SetImageView(uiView);
-	GetSprite().color = Constants::BackgroundColor;
+	// Background.
+	{
+		GRAPHICS::SdfDrawCall2D backgroundDrawCall{};
+		backgroundDrawCall.contentType = GRAPHICS::SdfDrawCallContentType2D::COLOR_FLAT;
+		backgroundDrawCall.shape = GRAPHICS::SdfShape2D::RECTANGLE;
+		backgroundDrawCall.mainColor = Constants::BackgroundColor;
+		backgroundDrawCall.transform.SetScale(GetSize());
 
-	m_title = new EditorPanelTitle(textSize);
-	m_title->SetMargin(Vector2f(5.0f));
-	m_title->SetPadding(Vector2f(5.0f));
-	m_title->SetText("Sistemas");
+		m_backgroundDrawCallIndex = GetAllDrawCalls().GetSize();
 
-	AddChild("title", m_title);
+		AddDrawCall(backgroundDrawCall);
+	}
 
-	m_propertiesPanel = new PropertiesPanel({ size.x, 300.0f });
-	m_propertiesPanel->SetAnchor(OSK::UI::Anchor::LEFT | OSK::UI::Anchor::CENTER_Y);
+	// Title.
+	{
+		m_title = new EditorPanelTitle(textSize);
+		m_title->SetMargin(Vector2f(5.0f));
+		m_title->SetPadding(Vector2f(5.0f));
+		m_title->SetText("Sistemas");
 
+		AddChild("title", m_title);
+	}
+
+	// Botones de sistemas.
 	for (UIndex64 i = 0; i < MaxShownSystems; i++) {
 		auto* view = new OSK::UI::Button(textSize);
 		view->SetMargin(Vector4f(5.0f, 1.0f, 5.0f, 1.0f));
 		view->SetPadding(Vector2f(5.0f));
-		view->SetAnchor(OSK::UI::Anchor::LEFT | OSK::UI::Anchor::CENTER_Y);
 
-		view->GetSelectedSprite().SetImageView(uiView);
-		view->GetSelectedSprite().color = Constants::HoveredColor;
+		{
+			GRAPHICS::SdfDrawCall2D selectedDrawCall{};
+			selectedDrawCall.contentType = GRAPHICS::SdfDrawCallContentType2D::COLOR_FLAT;
+			selectedDrawCall.shape = GRAPHICS::SdfShape2D::RECTANGLE;
+			selectedDrawCall.mainColor = Constants::HoveredColor;
+			selectedDrawCall.transform.SetScale(view->GetSize());
 
-		view->GetPressedSprite().SetImageView(uiView);
-		view->GetPressedSprite().color = Constants::SelectedColor;
+			view->GetSelectedDrawCalls().Insert(selectedDrawCall);
+		}
+
+		{
+			GRAPHICS::SdfDrawCall2D pressedDrawCall{};
+			pressedDrawCall.contentType = GRAPHICS::SdfDrawCallContentType2D::COLOR_FLAT;
+			pressedDrawCall.shape = GRAPHICS::SdfShape2D::RECTANGLE;
+			pressedDrawCall.mainColor = Constants::SelectedColor;
+			pressedDrawCall.transform.SetScale(view->GetSize());
+
+			view->GetPressedDrawCalls().Insert(pressedDrawCall);
+		}
 
 		if (i % 2 == 1) {
-			view->GetDefaultSprite().SetImageView(uiView);
-			view->GetDefaultSprite().color = Constants::BackgroundAlternativeColor;
+			GRAPHICS::SdfDrawCall2D defaultDrawCall{};
+			defaultDrawCall.contentType = GRAPHICS::SdfDrawCallContentType2D::COLOR_FLAT;
+			defaultDrawCall.shape = GRAPHICS::SdfShape2D::RECTANGLE;
+			defaultDrawCall.mainColor = Constants::BackgroundAlternativeColor;
+			defaultDrawCall.transform.SetScale(view->GetSize());
+
+			view->GetDefaultDrawCalls().Insert(defaultDrawCall);
 		}
 
 		AddChild(std::to_string(i), view);
 		m_textViews.Insert(view);
 	}
 
-	for (auto& view : m_textViews) {
-		view->SetCallback([&](bool isPressed) {
-			if (isPressed) {
-				this->ClearSelection();
-				view->SetState(OSK::UI::Button::State::PRESSED);
-				m_propertiesPanel->ShowContent();
-				m_propertiesPanel->SetSubtitle(static_cast<std::string>(view->GetText()));
-				m_propertiesPanel->UpdateBySystem(OSK::Engine::GetEcs()->GetSystemByName(view->GetText()));
-			}
-			else {
-				m_propertiesPanel->ClearContent();
-			}
-			});
-	}
 
-	AddChild(PropertiesPanel::Name, m_propertiesPanel);
+	// Properties.
+	{
+		m_propertiesPanel = new PropertiesPanel({ size.x, 300.0f });
+		m_propertiesPanel->SetAnchor(OSK::UI::Anchor::LEFT | OSK::UI::Anchor::CENTER_Y);
+
+		for (auto& view : m_textViews) {
+			view->SetCallback([&](bool isPressed) {
+				if (isPressed) {
+					this->ClearSelection();
+					view->SetState(OSK::UI::Button::State::PRESSED);
+					m_propertiesPanel->ShowContent();
+					m_propertiesPanel->SetSubtitle(static_cast<std::string>(view->GetText()));
+					m_propertiesPanel->UpdateBySystem(OSK::Engine::GetEcs()->GetSystemByName(view->GetText()));
+				}
+				else {
+					m_propertiesPanel->ClearContent();
+				}
+				});
+		}
+
+		AddChild(PropertiesPanel::Name, m_propertiesPanel);
+	}
 
 	AdjustSizeToChildren();
 }
 
+void OSK::Editor::UI::SystemList::OnSizeChanged(const Vector2f&) {
+	auto& backgroundDrawCall = GetAllDrawCalls()[m_backgroundDrawCallIndex];
+	backgroundDrawCall.transform.SetScale(GetSize());
+}
 
 void OSK::Editor::UI::SystemList::ClearSystems() {
 	for (OSK::UI::Button* view : m_textViews) {

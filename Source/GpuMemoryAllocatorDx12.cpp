@@ -22,10 +22,10 @@ using namespace OSK::GRAPHICS;
 GpuMemoryAllocatorDx12::GpuMemoryAllocatorDx12(IGpu* device)
 	: IGpuMemoryAllocator(device) { 
 
-	minVertexBufferAlignment = D3D12_DEFAULT_RESOURCE_PLACEMENT_ALIGNMENT;
-	minIndexBufferAlignment = D3D12_DEFAULT_RESOURCE_PLACEMENT_ALIGNMENT;
-	minUniformBufferAlignment = D3D12_DEFAULT_RESOURCE_PLACEMENT_ALIGNMENT;
-	minStorageBufferAlignment = D3D12_DEFAULT_RESOURCE_PLACEMENT_ALIGNMENT;
+	// minVertexBufferAlignment = D3D12_DEFAULT_RESOURCE_PLACEMENT_ALIGNMENT;
+	// minIndexBufferAlignment = D3D12_DEFAULT_RESOURCE_PLACEMENT_ALIGNMENT;
+	// minUniformBufferAlignment = D3D12_DEFAULT_RESOURCE_PLACEMENT_ALIGNMENT;
+	// minStorageBufferAlignment = D3D12_DEFAULT_RESOURCE_PLACEMENT_ALIGNMENT;
 }
 
 OwnedPtr<IGpuMemoryBlock> GpuMemoryAllocatorDx12::CreateNewBufferBlock(USize64 size, GpuBufferUsage usage, GpuSharedMemoryType sharedType) {

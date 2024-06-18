@@ -15,6 +15,7 @@
 
 #include "OSKengine.h"
 #include "Logger.h"
+#include <numeric>
 
 using namespace OSK;
 using namespace OSK::GRAPHICS;
@@ -58,7 +59,7 @@ OwnedPtr<GpuBuffer> IGpuMemoryAllocator::CreateVertexBuffer(const void* data, US
 	stagingBuffer->Write(data, bufferSize);
 	stagingBuffer->Unmap();
 
-	OwnedPtr<GpuBuffer> output = CreateBuffer(bufferSize, 0, finalUsage, GpuSharedMemoryType::GPU_ONLY, transferQueue);
+	OwnedPtr<GpuBuffer> output = CreateBuffer(bufferSize, GPU_MEMORY_NO_ALIGNMENT, finalUsage, GpuSharedMemoryType::GPU_ONLY, transferQueue);
 
 	// Establecemos el vertex view.
 	VertexBufferView vertexView{};
@@ -107,7 +108,7 @@ OwnedPtr<GpuBuffer> IGpuMemoryAllocator::CreateIndexBuffer(const DynamicArray<TI
 	stagingBuffer->Write(indices.GetData(), bufferSize);
 	stagingBuffer->Unmap();
 
-	OwnedPtr<GpuBuffer> output = CreateBuffer(bufferSize, 0, finalUsage, GpuSharedMemoryType::GPU_ONLY, transferQueue);
+	OwnedPtr<GpuBuffer> output = CreateBuffer(bufferSize, GPU_MEMORY_NO_ALIGNMENT, finalUsage, GpuSharedMemoryType::GPU_ONLY, transferQueue);
 
 	// Establecemos el index view.
 	IndexBufferView view{};
@@ -248,19 +249,19 @@ OwnedPtr<GpuImage> IGpuMemoryAllocator::CreateCubemapImage(const Vector2ui& face
 OwnedPtr<GpuBuffer> IGpuMemoryAllocator::CreateUniformBuffer(USize64 size, GpuQueueType queueType, GpuBufferUsage usage) {
 	const GpuBufferUsage finalUsage = usage | GpuBufferUsage::UNIFORM_BUFFER;
 
-	return CreateBuffer(size, 0, finalUsage, GpuSharedMemoryType::GPU_AND_CPU, queueType);
+	return CreateBuffer(size, GPU_MEMORY_NO_ALIGNMENT, finalUsage, GpuSharedMemoryType::GPU_AND_CPU, queueType);
 }
 
 OwnedPtr<GpuBuffer> IGpuMemoryAllocator::CreateStorageBuffer(USize64 size, GpuQueueType queueType, GpuBufferUsage usage) {
 	const GpuBufferUsage finalUsage = usage | GpuBufferUsage::STORAGE_BUFFER;
 
-	return CreateBuffer(size, 0, finalUsage, GpuSharedMemoryType::GPU_AND_CPU, queueType);
+	return CreateBuffer(size, GPU_MEMORY_NO_ALIGNMENT, finalUsage, GpuSharedMemoryType::GPU_AND_CPU, queueType);
 }
 
 OwnedPtr<GpuBuffer> IGpuMemoryAllocator::CreateStagingBuffer(USize64 size, GpuQueueType queueType, GpuBufferUsage usage) {
 	const GpuBufferUsage finalUsage = usage | GpuBufferUsage::TRANSFER_SOURCE | GpuBufferUsage::UPLOAD_ONLY;
 	
-	return CreateBuffer(size, 0, finalUsage, GpuSharedMemoryType::GPU_AND_CPU, queueType);
+	return CreateBuffer(size, GPU_MEMORY_NO_ALIGNMENT, finalUsage, GpuSharedMemoryType::GPU_AND_CPU, queueType);
 }
 
 OwnedPtr<GpuBuffer> IGpuMemoryAllocator::CreateBuffer(USize64 size, USize64 alignment, GpuBufferUsage usage, GpuSharedMemoryType memoryType, GpuQueueType queueType) {
@@ -340,21 +341,25 @@ IGpuMemorySubblock* IGpuMemoryAllocator::GetNextBufferMemorySubblock(USize64 siz
 }
 
 USize64 IGpuMemoryAllocator::GetAlignment(USize64 originalAlignment, GpuBufferUsage usage) const {
-	USize64 output = originalAlignment;
+	const USize64 vertexAlignment = EFTraits::HasFlag(usage, GpuBufferUsage::VERTEX_BUFFER)
+		? device->GetMemoryAlignments().minVertexBufferAlignment
+		: 1;
 
-	// @todo Combinación correcta de alignments.
+	const USize64 indexAlignment = EFTraits::HasFlag(usage, GpuBufferUsage::INDEX_BUFFER)
+		? device->GetMemoryAlignments().minIndexBufferAlignment
+		: 1;
 
-	if (EFTraits::HasFlag(usage, GpuBufferUsage::VERTEX_BUFFER))
-		output = glm::max(output, minVertexBufferAlignment);
+	const USize64 uniformAlignment = EFTraits::HasFlag(usage, GpuBufferUsage::UNIFORM_BUFFER)
+		? device->GetMemoryAlignments().minUniformBufferAlignment
+		: 1;
 
-	if (EFTraits::HasFlag(usage, GpuBufferUsage::INDEX_BUFFER))
-		output = glm::max(output, minIndexBufferAlignment);
+	const USize64 storageAlignment = EFTraits::HasFlag(usage, GpuBufferUsage::STORAGE_BUFFER)
+		? device->GetMemoryAlignments().minStorageBufferAlignment
+		: 1;
 
-	if (EFTraits::HasFlag(usage, GpuBufferUsage::UNIFORM_BUFFER))
-		output = glm::max(output, minUniformBufferAlignment);
-
-	if (EFTraits::HasFlag(usage, GpuBufferUsage::STORAGE_BUFFER))
-		output = glm::max(output, minStorageBufferAlignment);
-
-	return output;
+	return std::lcm(
+		originalAlignment,
+		std::lcm(
+			std::lcm(vertexAlignment, indexAlignment),
+			std::lcm(uniformAlignment, storageAlignment)));
 }

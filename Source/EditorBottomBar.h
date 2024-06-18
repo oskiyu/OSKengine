@@ -23,12 +23,18 @@ namespace OSK::Editor::UI {
 
 		void Update(TDeltaTime deltaTime);
 
+	protected:
+
+		void OnSizeChanged(const Vector2f& previousSize) override;
+
 	private:
 
 		/// @note No será null.
 		OSK::UI::TextView* m_fpsView = nullptr;
 		TDeltaTime m_accumulatedTime = 0.0f;
 		UIndex32 m_frameCount = 0;
+
+		UIndex64 m_barDrawCallIndex = 0;
 
 	};
 

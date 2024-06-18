@@ -29,7 +29,11 @@ namespace OSK::Editor::UI {
 
 	private:
 
+		void OnSizeChanged(const Vector2f&) override;
+			
 		static constexpr USize32 MaxShownObjects = 15;
+
+		UIndex64 m_backgroundDrawCallIndex = 0;
 
 		DynamicArray<OSK::UI::Button*> m_textViews{};
 		EditorPanelTitle* m_title = nullptr;

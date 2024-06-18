@@ -5,6 +5,18 @@
 #include "MaterialSystem.h"
 #include "Material.h"
 #include "CopyImageInfo.h"
+#include "Format.h"
+#include "GpuImageUsage.h"
+#include "GpuImageSamplerDesc.h"
+#include "IGpuImage.h"
+#include "GpuBarrierInfo.h"
+#include "GpuImageViewConfig.h"
+#include "Color.hpp"
+#include "IGpuImageView.h"
+#include "RenderTargetAttachmentInfo.h"
+#include "IMaterialSlot.h"
+#include "ICommandList.h"
+#include "GpuImageLayout.h"
 
 using namespace OSK;
 using namespace OSK::GRAPHICS;
@@ -40,8 +52,8 @@ void TaaProvider::ResizeTaa(
 }
 
 void TaaProvider::LoadTaaMaterials() {
-	Material* taaMaterial = Engine::GetRenderer()->GetMaterialSystem()->LoadMaterial("Resources/Materials/PBR/TAA/taa.json");
-	Material* taaSharpenMaterial = Engine::GetRenderer()->GetMaterialSystem()->LoadMaterial("Resources/Materials/PBR/TAA/sharpen.json");
+	Material* taaMaterial		 = Engine::GetRenderer()->GetMaterialSystem()->LoadMaterial(MaterialPath);
+	Material* taaSharpenMaterial = Engine::GetRenderer()->GetMaterialSystem()->LoadMaterial(SharpeningMaterialPath);
 
 	m_taaMaterialInstance = taaMaterial->CreateInstance().GetPointer();
 	m_taaSharpenMaterialInstance = taaSharpenMaterial->CreateInstance().GetPointer();
@@ -51,24 +63,26 @@ void TaaProvider::SetupTaaMaterials(const GpuImage* sceneImage, const GpuImage* 
 	const auto sampledViewConfig = GpuImageViewConfig::CreateSampled_SingleMipLevel(0);
 	const auto storageViewConfig = GpuImageViewConfig::CreateStorage_Default();
 
-	const auto* sceneView = sceneImage->GetView(sampledViewConfig);
-	const auto* historicalView = m_taaHistoricalImage.GetTargetImage()->GetView(sampledViewConfig);
-	const auto* motionView = motionImage->GetView(sampledViewConfig);
-	const auto* targetView = m_taaRenderTarget.GetTargetImage()->GetView(storageViewConfig);
+	const auto& sceneView		= *sceneImage->GetView(sampledViewConfig);
+	const auto& historicalView	= *m_taaHistoricalImage.GetTargetImage()->GetView(sampledViewConfig);
+	const auto& motionView		= *motionImage->GetView(sampledViewConfig);
+	const auto& targetView		= *m_taaRenderTarget.GetTargetImage()->GetView(storageViewConfig);
 
-	m_taaMaterialInstance->GetSlot("global")->SetGpuImage("sceneImage", sceneView);
-	m_taaMaterialInstance->GetSlot("global")->SetGpuImage("historicalImage", historicalView);
-	m_taaMaterialInstance->GetSlot("global")->SetGpuImage("velocityImage", motionView);
-	m_taaMaterialInstance->GetSlot("global")->SetStorageImage("finalImg", targetView);
-	m_taaMaterialInstance->GetSlot("global")->FlushUpdate();
+	IMaterialSlot* const taaGlobalSlot = m_taaMaterialInstance->GetSlot(GlobalSlotName);
+	taaGlobalSlot->SetGpuImage(TaaInputImageBindingName, sceneView);
+	taaGlobalSlot->SetGpuImage(TaaHistoricalImageBindingName, historicalView);
+	taaGlobalSlot->SetGpuImage(TaaMotionImageBindingName, motionView);
+	taaGlobalSlot->SetStorageImage(TaaOutputImageBindingName, targetView);
+	taaGlobalSlot->FlushUpdate();
 
 
-	const IGpuImageView* sharpenInputview = m_taaRenderTarget.GetTargetImage()->GetView(sampledViewConfig);
-	const IGpuImageView* sharpenOutputview = m_taaSharpenedRenderTarget.GetTargetImage()->GetView(storageViewConfig);
+	const IGpuImageView& sharpenInputview  = *m_taaRenderTarget.GetTargetImage()->GetView(sampledViewConfig);
+	const IGpuImageView& sharpenOutputview = *m_taaSharpenedRenderTarget.GetTargetImage()->GetView(storageViewConfig);
 
-	m_taaSharpenMaterialInstance->GetSlot("global")->SetGpuImage("taaImage", sharpenInputview);
-	m_taaSharpenMaterialInstance->GetSlot("global")->SetStorageImage("finalImg", sharpenOutputview);
-	m_taaSharpenMaterialInstance->GetSlot("global")->FlushUpdate();
+	IMaterialSlot* const sharpeningGlobalSlot = m_taaSharpenMaterialInstance->GetSlot(GlobalSlotName);
+	sharpeningGlobalSlot->SetGpuImage(SharpeningInputImageBindingName, sharpenInputview);
+	sharpeningGlobalSlot->SetStorageImage(SharpeningOutputImageBindingName, sharpenOutputview);
+	sharpeningGlobalSlot->FlushUpdate();
 }
 
 void TaaProvider::ExecuteTaa(ICommandList* commandList) {
@@ -79,13 +93,17 @@ void TaaProvider::ExecuteTaa(ICommandList* commandList) {
 
 	m_currentFrameJitterIndex = (m_currentFrameJitterIndex + 1) % m_maxJitterIndex;
 
+	commandList->StartDebugSection(TaaDebugName, Color::Purple);
+	
 	ExecuteTaaFirstPass(commandList);
 	CopyToHistoricalImage(commandList);
 	ExecuteTaaSharpening(commandList);
+
+	commandList->EndDebugSection();
 }
 
 void TaaProvider::ExecuteTaaFirstPass(ICommandList* commandList) {
-	commandList->StartDebugSection("Temporal Accumulation", Color::Purple);
+	commandList->StartDebugSection(TaaAccumulationDebugName, Color::Purple);
 
 	GpuImage* historicalImage = m_taaHistoricalImage.GetTargetImage();
 	GpuImage* finalImage = m_taaRenderTarget.GetTargetImage();
@@ -110,14 +128,14 @@ void TaaProvider::ExecuteTaaFirstPass(ICommandList* commandList) {
 	const Vector2ui dispatchRes = resoulution / threadGroupSize + Vector2ui(1u, 1u);
 
 	commandList->BindMaterial(*m_taaMaterialInstance->GetMaterial());
-	commandList->BindMaterialSlot(*m_taaMaterialInstance->GetSlot("global"));
+	commandList->BindMaterialSlot(*m_taaMaterialInstance->GetSlot(GlobalSlotName));
 	commandList->DispatchCompute({ dispatchRes.x, dispatchRes.y, 1 });
 
 	commandList->EndDebugSection();
 }
 
 void TaaProvider::CopyToHistoricalImage(ICommandList* commandList) {
-	commandList->StartDebugSection("TAA History Copy", Color::Yellow);
+	commandList->StartDebugSection(TaaHistoryCopyDebugName, Color::Yellow);
 
 	GpuImage* sourceImage = m_taaRenderTarget.GetTargetImage();
 	GpuImage* destinationImage = m_taaHistoricalImage.GetTargetImage();
@@ -143,7 +161,7 @@ void TaaProvider::CopyToHistoricalImage(ICommandList* commandList) {
 }
 
 void TaaProvider::ExecuteTaaSharpening(ICommandList* commandList) {
-	commandList->StartDebugSection("Sharpening", Color::Purple);
+	commandList->StartDebugSection(TaaSharpeningDebugName, Color::Purple);
 
 	GpuImage* sourceImage = m_taaRenderTarget.GetTargetImage();
 	GpuImage* sharpenedImage = m_taaSharpenedRenderTarget.GetTargetImage();
@@ -161,11 +179,11 @@ void TaaProvider::ExecuteTaaSharpening(ICommandList* commandList) {
 		GpuBarrierInfo(GpuCommandStage::COMPUTE_SHADER, GpuAccessStage::SHADER_WRITE));
 
 	const Vector2ui resoulution = m_taaRenderTarget.GetSize();
-	const Vector2ui threadGroupSize = { 8u, 8u };
+	const Vector2ui threadGroupSize = ThreadGroupSize;
 	const Vector2ui dispatchRes = resoulution / threadGroupSize + Vector2ui(1u, 1u);
 
 	commandList->BindMaterial(*m_taaSharpenMaterialInstance->GetMaterial());
-	commandList->BindMaterialSlot(*m_taaSharpenMaterialInstance->GetSlot("global"));
+	commandList->BindMaterialSlot(*m_taaSharpenMaterialInstance->GetSlot(GlobalSlotName));
 	commandList->DispatchCompute({ dispatchRes.x, dispatchRes.y, 1 });
 
 	commandList->EndDebugSection();

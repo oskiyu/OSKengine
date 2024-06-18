@@ -54,10 +54,6 @@
 #include "BillboardGBufferPass.h"
 #include "AnimatedGBufferPass.h"
 #include "StaticGBufferPass.h"
-#include "TreeGBufferPass.h"
-#include "TreeNormalsPass.h"
-
-#include "TreeNormalsRenderSystem.h"
 
 #include "IteratorSystemExecutionJob.h"
 #include "ConsumerSystemExecutionJob.h"
@@ -172,10 +168,8 @@ void Engine::RegisterBuiltinSystems() {
 #ifdef OSK_USE_FORWARD_RENDERER
 	entityComponentSystem->RegisterSystem<ECS::RenderSystem3D>(ECS::ISystem::DEFAULT_EXECUTION_ORDER);
 #elif defined(OSK_USE_DEFERRED_RENDERER)
-	entityComponentSystem->RegisterSystem<ECS::TreeNormalsRenderSystem>(ECS::SystemDependencies::Empty());
 
 	ECS::SystemDependencies deferredRenderDependencies{};
-	deferredRenderDependencies.executeAfterThese.insert(static_cast<std::string>(ECS::TreeNormalsRenderSystem::GetSystemName()));
 	deferredRenderDependencies.executeAfterThese.insert(static_cast<std::string>(TransformApplierSystem::GetSystemName()));
 	entityComponentSystem->RegisterSystem<ECS::DeferredRenderSystem>(deferredRenderDependencies);
 #elif defined(OSK_USE_HYBRID_RENDERER)
@@ -235,8 +229,6 @@ void Engine::RegisterBuiltinShaderPasses() {
 	renderer->GetShaderPassFactory()->RegisterShaderPass<GRAPHICS::BillboardGBufferPass>();
 	renderer->GetShaderPassFactory()->RegisterShaderPass<GRAPHICS::AnimatedGBufferPass>();
 	renderer->GetShaderPassFactory()->RegisterShaderPass<GRAPHICS::StaticGBufferPass>();
-	renderer->GetShaderPassFactory()->RegisterShaderPass<GRAPHICS::TreeGBufferPass>();
-	renderer->GetShaderPassFactory()->RegisterShaderPass<GRAPHICS::TreeNormalsPass>();
 }
 
 void Engine::RegisterBuiltinConsoleCommands() {
@@ -299,7 +291,7 @@ Version Engine::GetVersion() {
 }
 
 std::string_view Engine::GetBuild() {
-	return "2024.05.29a";
+	return "2024.06.18a";
 }
 
 UIndex64 Engine::GetCurrentGameFrameIndex() {

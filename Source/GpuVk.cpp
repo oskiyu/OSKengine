@@ -17,6 +17,13 @@ using namespace OSK::GRAPHICS;
 GpuVk::GpuVk(VkPhysicalDevice gpu, VkSurfaceKHR surface) : physicalDevice(gpu), surface(surface) {
 	info = Info::Get(gpu, surface);
 	_SetName(info.properties.deviceName);
+
+	GpuMemoryAlignments alignments{};
+	alignments.minVertexBufferAlignment = 0;
+	alignments.minIndexBufferAlignment = 0;
+	alignments.minUniformBufferAlignment = static_cast<USize32>(info.properties.limits.minUniformBufferOffsetAlignment);
+	alignments.minStorageBufferAlignment = static_cast<USize32>(info.properties.limits.minStorageBufferOffsetAlignment);
+	SetMinAlignments(alignments);
 }
 
 GpuVk::~GpuVk() {
@@ -176,6 +183,13 @@ void GpuVk::CreateLogicalDevice() {
 
 		gpuExtensions.Insert(VK_KHR_SPIRV_1_4_EXTENSION_NAME);
 		gpuExtensions.Insert(VK_KHR_SHADER_FLOAT_CONTROLS_EXTENSION_NAME);
+
+		m_supportsRayTracing = true;
+	} else
+
+	// Bindless
+	if (info.IsCompatibleWithBindless()) {
+		gpuExtensions.Insert(VK_EXT_DESCRIPTOR_INDEXING_EXTENSION_NAME);
 	}
 
 	// Crear el logical device.
@@ -192,14 +206,17 @@ void GpuVk::CreateLogicalDevice() {
 	info.extendedFeatures.features = features;
 	info.extendedFeatures.pNext = &info.dynamicRenderingFeatures;
 
+	// Renderizado dinámico.
 	info.dynamicRenderingFeatures.sType = VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_DYNAMIC_RENDERING_FEATURES;
 	info.dynamicRenderingFeatures.dynamicRendering = VK_TRUE;
 	info.dynamicRenderingFeatures.pNext = &info.syncFeatures;
 
+	// Sincronización avanzada.
 	info.syncFeatures.sType = VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SYNCHRONIZATION_2_FEATURES;
 	info.syncFeatures.synchronization2 = VK_TRUE;
 	info.syncFeatures.pNext = nullptr;
 
+	// Trazado de rayos.
 	if (info.IsRtCompatible()) {
 		info.syncFeatures.pNext = &info.rtAccelerationStructuresFeatures;
 
@@ -217,6 +234,15 @@ void GpuVk::CreateLogicalDevice() {
 		info.rtPipelineFeatures.sType = VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_RAY_TRACING_PIPELINE_FEATURES_KHR,
 		info.rtPipelineFeatures.rayTracingPipeline = VK_TRUE;
 		info.rtPipelineFeatures.pNext = &info.bindlessTexturesSets;
+
+		info.bindlessTexturesSets.shaderSampledImageArrayNonUniformIndexing = VK_TRUE;
+		info.bindlessTexturesSets.runtimeDescriptorArray = VK_TRUE;
+		info.bindlessTexturesSets.descriptorBindingVariableDescriptorCount = VK_TRUE;
+		info.bindlessTexturesSets.pNext = nullptr;
+	}
+	else if (info.IsCompatibleWithBindless()) {
+		// Renderizado bind-less.
+		info.syncFeatures.pNext = &info.bindlessTexturesSets;
 
 		info.bindlessTexturesSets.shaderSampledImageArrayNonUniformIndexing = VK_TRUE;
 		info.bindlessTexturesSets.runtimeDescriptorArray = VK_TRUE;
@@ -416,7 +442,20 @@ bool GpuVk::Info::IsRtCompatible() const {
 		&& GpuVk::IsExtensionPresent(VK_KHR_DEFERRED_HOST_OPERATIONS_EXTENSION_NAME, availableExtensions)
 		&& GpuVk::IsExtensionPresent(VK_EXT_DESCRIPTOR_INDEXING_EXTENSION_NAME, availableExtensions)
 		&& GpuVk::IsExtensionPresent(VK_KHR_SPIRV_1_4_EXTENSION_NAME, availableExtensions)
-		&& GpuVk::IsExtensionPresent(VK_KHR_SHADER_FLOAT_CONTROLS_EXTENSION_NAME, availableExtensions);
+		&& GpuVk::IsExtensionPresent(VK_KHR_SHADER_FLOAT_CONTROLS_EXTENSION_NAME, availableExtensions)
+		
+		&& IsCompatibleWithBindless();
+}
+
+bool GpuVk::Info::IsCompatibleWithBindless() const {
+	const auto availableExtensions = GpuVk::GetAvailableExtensions(physicalDevice);
+
+	return 
+		// Para poder usar sets incompletos.
+		bindlessTexturesSets.descriptorBindingPartiallyBound == VK_TRUE &&
+		bindlessTexturesSets.runtimeDescriptorArray == VK_TRUE &&
+		bindlessTexturesSets.shaderSampledImageArrayNonUniformIndexing == VK_TRUE &&
+		GpuVk::IsExtensionPresent(VK_EXT_DESCRIPTOR_INDEXING_EXTENSION_NAME, availableExtensions);
 }
 
 bool GpuVk::IsExtensionPresent(const char* name, const DynamicArray<VkExtensionProperties>& extensions) {

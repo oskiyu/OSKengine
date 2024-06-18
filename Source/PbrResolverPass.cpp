@@ -19,7 +19,10 @@ using namespace OSK::GRAPHICS;
 
 void PbrResolverPass::Load() {
 	m_passMaterial = Engine::GetRenderer()->GetMaterialSystem()->LoadMaterial("Resources/Materials/PBR/Deferred/deferred_resolve.json");
-	m_materialInstance = m_passMaterial->CreateInstance().GetPointer();
+
+	for (auto& mInstance : m_materialInstances) {
+		mInstance = m_passMaterial->CreateInstance().GetPointer();
+	}
 }
 
 void PbrResolverPass::RenderLoop(ICommandList* commandList, const DynamicArray<ECS::GameObjectIndex>& objectsToRender, GlobalMeshMapping* meshMapping, UIndex32 jitterIndex, Vector2ui resolution) {
@@ -27,7 +30,7 @@ void PbrResolverPass::RenderLoop(ICommandList* commandList, const DynamicArray<E
 	const Vector2ui dispatchRes = resolution / threadGroupSize + Vector2ui(1u, 1u);
 
 	commandList->BindMaterial(*m_passMaterial);
-	commandList->BindMaterialInstance(m_materialInstance.GetValue());
+	commandList->BindMaterialInstance(m_materialInstances[Engine::GetRenderer()->GetCurrentResourceIndex()].GetValue());
 	commandList->PushMaterialConstants("taa", static_cast<int>(jitterIndex));
 	commandList->DispatchCompute({ dispatchRes.x, dispatchRes.y, 1 });
 }

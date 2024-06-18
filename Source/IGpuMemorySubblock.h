@@ -93,6 +93,9 @@ namespace OSK::GRAPHICS {
 		/// @brief Establece el cursor a su posición inicial (al principio del subbloque).
 		void ResetCursor();
 
+		/// @return Posición actual del cursor.
+		UIndex64 GetCursor() const;
+
  
 		IGpuMemoryBlock* GetOwnerBlock() const;
 

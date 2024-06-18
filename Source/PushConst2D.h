@@ -34,6 +34,9 @@ namespace OSK::GRAPHICS {
 		/// </summary>
 		alignas(16) Vector4f texCoords;
 
+		/// @brief Posición del centro del sprite.
+		alignas(16) Vector2f centerPosition;
+
 	};
 
 }

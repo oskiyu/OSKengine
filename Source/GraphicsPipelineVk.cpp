@@ -168,19 +168,12 @@ void GraphicsPipelineVk::Create(const MaterialLayout* materialLayout, IGpu* devi
 }
 
 void GraphicsPipelineVk::LoadVertexShader(const std::string& path) {
-	VkShaderModule shaderModule = VK_NULL_HANDLE;
-
 	// Lee el código SPIR-V.
 	const DynamicArray<char> vertexCode = IO::FileIO::ReadBinaryFromFile(path);
-
-	VkShaderModuleCreateInfo createInfo{};
-	createInfo.sType = VK_STRUCTURE_TYPE_SHADER_MODULE_CREATE_INFO;
-	createInfo.codeSize = vertexCode.GetSize();
-	createInfo.pCode = reinterpret_cast<const uint32_t*>(vertexCode.GetData());
-
-	VkResult result = vkCreateShaderModule(gpu->As<GpuVk>()->GetLogicalDevice(),
-		&createInfo, nullptr, &shaderModule);
-	OSK_ASSERT(result == VK_SUCCESS, ShaderLoadingException(result));
+	const VkShaderModule shaderModule = CreateShaderModule(
+		vertexCode.GetFullSpan(),
+		path,
+		gpu->As<GpuVk>()->GetLogicalDevice());
 
 	// Insertar el stage en el array, para poder insertarlo al crear el pipeline.
 	VkPipelineShaderStageCreateInfo vertexShaderStageInfo{};
@@ -194,19 +187,12 @@ void GraphicsPipelineVk::LoadVertexShader(const std::string& path) {
 }
 
 void GraphicsPipelineVk::LoadFragmentShader(const std::string& path) {
-	VkShaderModule shaderModule = VK_NULL_HANDLE;
-
 	// Lee el código SPIR-V.
 	const DynamicArray<char> fragmentCode = IO::FileIO::ReadBinaryFromFile(path);
-
-	VkShaderModuleCreateInfo createInfo{};
-	createInfo.sType = VK_STRUCTURE_TYPE_SHADER_MODULE_CREATE_INFO;
-	createInfo.codeSize = fragmentCode.GetSize();
-	createInfo.pCode = reinterpret_cast<const uint32_t*>(fragmentCode.GetData());
-
-	VkResult result = vkCreateShaderModule(gpu->As<GpuVk>()->GetLogicalDevice(),
-		&createInfo, nullptr, &shaderModule);
-	OSK_ASSERT(result == VK_SUCCESS, ShaderLoadingException(result));
+	const VkShaderModule shaderModule = CreateShaderModule(
+		fragmentCode.GetFullSpan(),
+		path,
+		gpu->As<GpuVk>()->GetLogicalDevice());
 
 	// Insertar el stage en el array, para poder insertarlo al crear el pipeline.
 	VkPipelineShaderStageCreateInfo fragmentShaderStageInfo{};
@@ -220,19 +206,12 @@ void GraphicsPipelineVk::LoadFragmentShader(const std::string& path) {
 }
 
 void GraphicsPipelineVk::LoadTesselationControlShader(const std::string& path) {
-	VkShaderModule shaderModule = VK_NULL_HANDLE;
-
 	// Lee el código SPIR-V.
 	const DynamicArray<char> code = IO::FileIO::ReadBinaryFromFile(path);
-
-	VkShaderModuleCreateInfo createInfo{};
-	createInfo.sType = VK_STRUCTURE_TYPE_SHADER_MODULE_CREATE_INFO;
-	createInfo.codeSize = code.GetSize();
-	createInfo.pCode = reinterpret_cast<const uint32_t*>(code.GetData());
-
-	VkResult result = vkCreateShaderModule(gpu->As<GpuVk>()->GetLogicalDevice(),
-		&createInfo, nullptr, &shaderModule);
-	OSK_ASSERT(result == VK_SUCCESS, ShaderLoadingException(result));
+	const VkShaderModule shaderModule = CreateShaderModule(
+		code.GetFullSpan(),
+		path,
+		gpu->As<GpuVk>()->GetLogicalDevice());
 
 	// Insertar el stage en el array, para poder insertarlo al crear el pipeline.
 	VkPipelineShaderStageCreateInfo shaderStageInfo{};
@@ -246,19 +225,13 @@ void GraphicsPipelineVk::LoadTesselationControlShader(const std::string& path) {
 }
 
 void GraphicsPipelineVk::LoadTesselationEvaluationShader(const std::string& path) {
-	VkShaderModule shaderModule = VK_NULL_HANDLE;
-
 	// Lee el código SPIR-V.
 	const DynamicArray<char> code = IO::FileIO::ReadBinaryFromFile(path);
+	const VkShaderModule shaderModule = CreateShaderModule(
+		code.GetFullSpan(),
+		path,
+		gpu->As<GpuVk>()->GetLogicalDevice());
 
-	VkShaderModuleCreateInfo createInfo{};
-	createInfo.sType = VK_STRUCTURE_TYPE_SHADER_MODULE_CREATE_INFO;
-	createInfo.codeSize = code.GetSize();
-	createInfo.pCode = reinterpret_cast<const uint32_t*>(code.GetData());
-
-	VkResult result = vkCreateShaderModule(gpu->As<GpuVk>()->GetLogicalDevice(),
-		&createInfo, nullptr, &shaderModule);
-	OSK_ASSERT(result == VK_SUCCESS, ShaderLoadingException(result));
 
 	// Insertar el stage en el array, para poder insertarlo al crear el pipeline.
 	VkPipelineShaderStageCreateInfo shaderStageInfo{};

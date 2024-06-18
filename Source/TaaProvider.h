@@ -1,17 +1,28 @@
 #pragma once
 
+#include "ApiCall.h"
 #include "UniquePtr.hpp"
+#include "NumericTypes.h"
+#include "Vector2.hpp"
+
 #include "RtRenderTarget.h"
 #include "MaterialInstance.h"
-#include "IRenderSystem.h"
-#include "GpuBarrierInfo.h"
-#include "GpuImageLayout.h"
+
 
 namespace OSK::GRAPHICS {
+
+	class GpuImage;
+	class ICommandList;
+
 
 	/// @brief Clase que contiene la funcionalidad del renderizado
 	/// de Temporal Anti-Aliasing.
 	class OSKAPI_CALL TaaProvider final {
+
+	public:
+
+		constexpr static auto MaterialPath = "Resources/Materials/PBR/TAA/taa.json";
+		constexpr static auto SharpeningMaterialPath = "Resources/Materials/PBR/TAA/sharpen.json";
 
 	public:
 
@@ -78,14 +89,6 @@ namespace OSK::GRAPHICS {
 
 	private:
 
-		/// @brief True si se usa TAA, falso en caso contrario.
-		bool m_isActive = true;
-
-		/// @brief Número máximo del índice de jitter.
-		UIndex32 m_maxJitterIndex = 4;
-		/// @brief Índice del jitter en el frame actual.
-		UIndex32 m_currentFrameJitterIndex = 0;
-
 		/// @brief Carga los materiales de TAA (tanto del pase de acumulación
 		/// temporal como el pase de afilado de imagen).
 		void LoadTaaMaterials();
@@ -108,6 +111,31 @@ namespace OSK::GRAPHICS {
 		/// @brief Ejecuta el pase de afilado de imagen.
 		/// @param commandList Lista de comandos.
 		void ExecuteTaaSharpening(ICommandList* commandList);
+
+
+		constexpr static auto GlobalSlotName = "global";
+		constexpr static auto TaaInputImageBindingName = "sceneImage";
+		constexpr static auto TaaHistoricalImageBindingName = "historicalImage";
+		constexpr static auto TaaMotionImageBindingName = "velocityImage";
+		constexpr static auto TaaOutputImageBindingName = "finalImg";
+
+		constexpr static auto SharpeningInputImageBindingName = "taaImage";
+		constexpr static auto SharpeningOutputImageBindingName = "finalImg";
+
+		constexpr static Vector2ui ThreadGroupSize = { 8, 8 };
+
+		constexpr static auto TaaDebugName = "Temporal Anti-Aliasing";
+		constexpr static auto TaaAccumulationDebugName = "Temporal Accumulation";
+		constexpr static auto TaaHistoryCopyDebugName = "TAA History Copy";
+		constexpr static auto TaaSharpeningDebugName = "Sharpening";
+
+		/// @brief True si se usa TAA, falso en caso contrario.
+		bool m_isActive = true;
+
+		/// @brief Número máximo del índice de jitter.
+		UIndex32 m_maxJitterIndex = 4;
+		/// @brief Índice del jitter en el frame actual.
+		UIndex32 m_currentFrameJitterIndex = 0;
 
 
 		/// @brief Contiene la imagen histórica.

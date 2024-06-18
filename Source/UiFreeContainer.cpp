@@ -34,7 +34,7 @@ void FreeContainer::EmplaceChild(IElement* child) {
 
 	const Vector2f totalOffset = childOffset;
 
-	child->_SetRelativePosition(totalOffset);
+	child->_SetPosition(GetPosition() + totalOffset);
 }
 
 void FreeContainer::ResetLayout() {

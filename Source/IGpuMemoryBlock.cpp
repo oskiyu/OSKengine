@@ -61,18 +61,21 @@ IGpuMemorySubblock* IGpuMemoryBlock::GetNextMemorySubblock(USize64 size, USize64
 
 	OSK_ASSERT(size <= GetAvailableSpace(), GpuMemoryBlockNotEnoughSpaceException());
 	
-	USize64 finalOffset = currentOffset;
-	USize64 extraOffset = 0;
-	if (alignment != 0 && currentOffset != 0) {
-		const USize64 base = currentOffset / alignment;
-		finalOffset = (base + 1) * alignment;
-		extraOffset = finalOffset - currentOffset;
+	USize64 finalOffset = 0;
+	if (alignment != 0) {
+		while (finalOffset < currentOffset) {
+			finalOffset += alignment;
+		}
 	}
+	else {
+		finalOffset = currentOffset;
+	}
+	const USize64 initialPadding = finalOffset - currentOffset;
 
 	output = CreateNewMemorySubblock(size, finalOffset).GetPointer();
 	subblocks.Insert(output);
-	availableSpace -= size + extraOffset;
-	currentOffset += size + extraOffset;
+	availableSpace -= size + initialPadding;
+	currentOffset += size + initialPadding;
 
 	return output;
 }

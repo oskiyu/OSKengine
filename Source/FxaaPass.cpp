@@ -3,46 +3,60 @@
 #include "OSKengine.h"
 #include "IRenderer.h"
 #include "MaterialSystem.h"
-#include "Material.h"
 #include "GpuImageLayout.h"
+#include "Vector2.hpp"
+#include "IPostProcessPass.h"
+#include "ICommandList.h"
+#include "NumericTypes.h"
+#include "Vector3.hpp"
+#include "Color.hpp"
+#include "GpuBarrierInfo.h"
+#include "Assert.h"
+#include "PostProcessExceptions.h"
 
 using namespace OSK;
 using namespace OSK::GRAPHICS;
 
 void FxaaPass::Create(const Vector2ui& size) {
-	postProcessingMaterial = Engine::GetRenderer()->GetMaterialSystem()->LoadMaterial("Resources/Materials/PostProcess/fxaa.json");
-	postProcessingMaterialInstance = postProcessingMaterial->CreateInstance().GetPointer();
+	m_material = Engine::GetRenderer()->GetMaterialSystem()->LoadMaterial(MaterialName);
+	m_materialInstance = m_material->CreateInstance().GetPointer();
 
 	IPostProcessPass::Create(size);
-
-	// resolveRenderTarget.SetName("FXAA Output");
 }
 
 void FxaaPass::Execute(ICommandList* computeCmdList) {
+	OSK_ASSERT(
+		m_inputImage != nullptr,
+		PostProcessInputNotSetException("No se ha establecido la entrada de color."));
+
 	computeCmdList->StartDebugSection("FXAA", Color::Purple);
 
 	computeCmdList->SetGpuImageBarrier(
-		inputImage, 
+		m_inputImage,
 		GpuImageLayout::SAMPLED,
 		GpuBarrierInfo(GpuCommandStage::COMPUTE_SHADER, GpuAccessStage::SAMPLED_READ));
 
 	computeCmdList->SetGpuImageBarrier(
-		resolveRenderTarget.GetTargetImage(), 
+		GetOutput().GetTargetImage(),
 		GpuImageLayout::UNDEFINED,
 		GpuImageLayout::GENERAL,
 		GpuBarrierInfo(GpuCommandStage::NONE, GpuAccessStage::NONE),
 		GpuBarrierInfo(GpuCommandStage::COMPUTE_SHADER, GpuAccessStage::SHADER_WRITE));
 
-	computeCmdList->BindMaterial(*postProcessingMaterial);
-	computeCmdList->BindMaterialSlot(*postProcessingMaterialInstance->GetSlot("texture"));
+	computeCmdList->BindMaterial(*m_material);
+	computeCmdList->BindMaterialSlot(*m_materialInstance->GetSlot("texture"));
 
 	const Vector3ui dispatchRes = {
-		static_cast<UIndex32>(glm::ceil(static_cast<float>(resolveRenderTarget.GetSize().x) / 8.0f)),
-		static_cast<UIndex32>(glm::ceil(static_cast<float>(resolveRenderTarget.GetSize().y) / 8.0f)),
+		static_cast<UIndex32>(glm::ceil(static_cast<float>(GetOutput().GetSize().x) / 8.0f)),
+		static_cast<UIndex32>(glm::ceil(static_cast<float>(GetOutput().GetSize().y) / 8.0f)),
 		1
 	};
 
 	computeCmdList->DispatchCompute(dispatchRes);
 
 	computeCmdList->EndDebugSection();
+}
+
+void FxaaPass::SetInput(GpuImage* image) {
+	m_inputImage = image;
 }

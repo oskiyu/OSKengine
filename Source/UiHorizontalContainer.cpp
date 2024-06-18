@@ -9,8 +9,9 @@ HorizontalContainer::HorizontalContainer(const Vector2f& size) : IContainer(size
 }
 
 void HorizontalContainer::EmplaceChild(IElement* child) {
-	if (relativeNextPosition < GetPadding().x)
-		relativeNextPosition = GetPadding().x;
+	if (m_relativeNextPosition < GetPadding().x) {
+		m_relativeNextPosition = GetPadding().x;
+	}
 
 	// Offset vertical desde arriba.
 	float verticalPositionOffset = 0.0f;
@@ -28,14 +29,15 @@ void HorizontalContainer::EmplaceChild(IElement* child) {
 		verticalPositionOffset = GetContentSize().y - child->GetSize().y - child->GetMarging().W;
 	}
 
-	child->_SetRelativePosition(Vector2f(
-		relativeNextPosition + child->GetMarging().x,
-		verticalPositionOffset
-	).ToVector2i().ToVector2f());
+	const Vector2f childPosition = Vector2f(
+		GetContentTopLeftPosition().x + m_relativeNextPosition + child->GetMarging().x,
+		GetContentTopLeftPosition().y + verticalPositionOffset);
 
-	relativeNextPosition += child->GetSize().x + child->GetMarging().x + child->GetMarging().Z;
+	child->_SetPosition(childPosition.ToVector2i().ToVector2f());
+
+	m_relativeNextPosition += child->GetSize().x + child->GetMarging().x + child->GetMarging().Z;
 }
 
 void HorizontalContainer::ResetLayout() {
-	relativeNextPosition = 0.0f;
+	m_relativeNextPosition = 0.0f;
 }

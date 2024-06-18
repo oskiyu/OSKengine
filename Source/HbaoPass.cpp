@@ -14,39 +14,11 @@
 
 #include "GpuImageLayout.h"
 
+#include "PostProcessExceptions.h"
+
 using namespace OSK;
 using namespace OSK::GRAPHICS;
 
-void HbaoPass::SetNormalsInput(GpuImage* image) {
-	const GpuImageViewConfig viewConfig = GpuImageViewConfig::CreateSampled_SingleMipLevel(0);
-
-	m_normalInput = image;
-	m_normalInputView = image->GetView(viewConfig);
-
-	if (m_hbaoMaterialInstance.HasValue()) {
-		m_hbaoMaterialInstance->GetSlot("texture")->SetGpuImage("normalImage", m_normalInputView);
-	}
-}
-
-void HbaoPass::SetDepthInput(GpuImage* image) {
-	GpuImageViewConfig viewConfig = GpuImageViewConfig::CreateSampled_SingleMipLevel(0);
-	viewConfig.channel = SampledChannel::DEPTH;
-
-	m_depthInput = image;
-	m_depthInputView = image->GetView(viewConfig);
-
-	if (m_hbaoMaterialInstance.HasValue()) {
-		m_hbaoMaterialInstance->GetSlot("texture")->SetGpuImage("depthImage", m_depthInputView);
-	}
-
-	if (m_blurMaterialInstanceA.HasValue()) {
-		m_blurMaterialInstanceA->GetSlot("texture")->SetGpuImage("depthImage", m_depthInputView);
-	}
-
-	if (m_blurMaterialInstanceB.HasValue()) {
-		m_blurMaterialInstanceB->GetSlot("texture")->SetGpuImage("depthImage", m_depthInputView);
-	}
-}
 
 void HbaoPass::Create(const Vector2ui& size) {
 	RenderTargetAttachmentInfo info{};
@@ -60,17 +32,20 @@ void HbaoPass::Create(const Vector2ui& size) {
 	info.name = "HBAO Blur 1";
 	m_firstBlurTarget.Create(size, info);
 
-	info.name = "HBAO RenderTarget";
+	info.name = "HBAO Blur 2";
 	m_secondBlurTarget.Create(size, info);
+
+	info.name = "HBAO RenderTarget";
+	info.format = Format::RGBA16_SFLOAT;
+	info.usage |= GpuImageUsage::TRANSFER_SOURCE;
+	GetOutput().Create(size, info);
 
 	// Carga los materiales y crea los material instances.
 	LoadMaterials();
 
-	std::array<const GpuBuffer*, MAX_RESOURCES_IN_FLIGHT> buffers{};
-
 	for (UIndex32 i = 0; i < MAX_RESOURCES_IN_FLIGHT; i++) {
 		m_cameraBuffers[i] = Engine::GetRenderer()->GetAllocator()->CreateBuffer(
-			sizeof(glm::mat4) * 2 + sizeof(float), 0,
+			sizeof(glm::mat4) * 2 + sizeof(float), GPU_MEMORY_NO_ALIGNMENT,
 			GpuBufferUsage::UNIFORM_BUFFER,
 			GpuSharedMemoryType::GPU_AND_CPU,
 			GpuQueueType::MAIN
@@ -83,24 +58,75 @@ void HbaoPass::Create(const Vector2ui& size) {
 		m_cameraBuffers[i]->Write(1.0f);
 		m_cameraBuffers[i]->Unmap();
 
-		buffers[i] = m_cameraBuffers[i].GetPointer();
+		m_hbaoMaterialInstances[i]->GetSlot("camera")->SetUniformBuffer("camera", m_cameraBuffers[i].GetValue());
+		m_hbaoMaterialInstances[i]->GetSlot("camera")->FlushUpdate();
 	}
 
-	m_hbaoMaterialInstance->GetSlot("camera")->SetUniformBuffers("camera", buffers);
-	m_hbaoMaterialInstance->GetSlot("camera")->FlushUpdate();
 
 	// Ruido
 	const auto noiseTexture = Engine::GetAssetManager()->Load<ASSETS::Texture>("Resources/Assets/BlueNoise/bluenoise.json");
 	const auto viewConfig = GpuImageViewConfig::CreateSampled_SingleMipLevel(0);
-	m_hbaoMaterialInstance->GetSlot("texture")->SetGpuImage("noiseImage", noiseTexture.GetAsset()->GetGpuImage()->GetView(viewConfig));
-	m_hbaoMaterialInstance->GetSlot("texture")->FlushUpdate();
+	const auto writeConfig = GpuImageViewConfig::CreateStorage_Default();
+
+	for (UIndex32 i = 0; i < MAX_RESOURCES_IN_FLIGHT; i++) {
+		m_hbaoMaterialInstances[i]->GetSlot("texture")->SetGpuImage("noiseImage", *noiseTexture.GetAsset()->GetGpuImage()->GetView(viewConfig));
+		m_hbaoMaterialInstances[i]->GetSlot("texture")->SetStorageImage("finalImage", *m_unblurredHbaoTarget.GetTargetImage()->GetView(writeConfig));
+		m_hbaoMaterialInstances[i]->GetSlot("texture")->FlushUpdate();
+	}
 
 	// Blur
 	SetupBlurChain();
 
-	IPostProcessPass::Create(size);
+	// Resolución.
+	const GpuImageViewConfig outputViewConfig = GpuImageViewConfig::CreateTarget_Color();
+	m_resolveMaterialInstance->GetSlot("texture")->SetStorageImage("finalImage", *GetOutput().GetTargetImage()->GetView(outputViewConfig));
+	m_resolveMaterialInstance->GetSlot("texture")->SetGpuImage("hbaoImage", *m_secondBlurTarget.GetTargetImage()->GetView(viewConfig));
+	m_resolveMaterialInstance->GetSlot("texture")->FlushUpdate(); // Está incompleto, falta "sceneImage".
+}
 
-	UpdateMaterialInstance();
+void HbaoPass::SetColorInput(GpuImage* image) {
+	const GpuImageViewConfig viewConfig = GpuImageViewConfig::CreateSampled_SingleMipLevel(0);
+	const IGpuImageView& view = *image->GetView(viewConfig);
+
+	m_resolveMaterialInstance->GetSlot("texture")->SetGpuImage("sceneImage", view);
+	m_resolveMaterialInstance->GetSlot("texture")->FlushUpdate();
+
+	m_colorInput = image;
+
+	// TODO: eliminar
+	for (auto& mInstance : m_hbaoMaterialInstances) {
+		mInstance->GetSlot("texture")->SetGpuImage("sceneImage", view);
+		mInstance->GetSlot("texture")->FlushUpdate();
+	}
+
+}
+
+void HbaoPass::SetNormalsInput(GpuImage* image) {
+	const GpuImageViewConfig viewConfig = GpuImageViewConfig::CreateSampled_SingleMipLevel(0);
+
+	m_normalInput = image;
+
+	for (auto& mInstance : m_hbaoMaterialInstances) {
+		mInstance->GetSlot("texture")->SetGpuImage("normalImage", *image->GetView(viewConfig));
+		mInstance->GetSlot("texture")->FlushUpdate();
+	}
+}
+
+void HbaoPass::SetDepthInput(GpuImage* image) {
+	GpuImageViewConfig viewConfig = GpuImageViewConfig::CreateSampled_SingleMipLevel(0);
+	viewConfig.channel = SampledChannel::DEPTH;
+
+	m_depthInput = image;
+
+	for (auto& mInstance : m_hbaoMaterialInstances) {
+		mInstance->GetSlot("texture")->SetGpuImage("depthImage", *image->GetView(viewConfig));
+		mInstance->GetSlot("texture")->FlushUpdate();
+	}
+
+	m_blurMaterialInstanceA->GetSlot("texture")->SetGpuImage("depthImage", *image->GetView(viewConfig));
+	m_blurMaterialInstanceA->GetSlot("texture")->FlushUpdate();
+	m_blurMaterialInstanceB->GetSlot("texture")->SetGpuImage("depthImage", *image->GetView(viewConfig));
+	m_blurMaterialInstanceB->GetSlot("texture")->FlushUpdate();
 }
 
 void HbaoPass::Resize(const Vector2ui& size) {
@@ -121,15 +147,17 @@ Vector2ui HbaoPass::CalcualteTargetSize(Vector2ui nativeRes) const {
 }
 
 void HbaoPass::LoadMaterials() {
-	m_hbaoMaterial = Engine::GetRenderer()->GetMaterialSystem()->LoadMaterial("Resources/Materials/PostProcess/HBAO/hbao.json");
-	m_hbaoMaterialInstance = m_hbaoMaterial->CreateInstance().GetPointer();
+	m_hbaoMaterial = Engine::GetRenderer()->GetMaterialSystem()->LoadMaterial(HbaoMaterial);
+	for (auto& mInstance : m_hbaoMaterialInstances) {
+		mInstance = m_hbaoMaterial->CreateInstance().GetPointer();
+	}
 
-	m_blurMaterial = Engine::GetRenderer()->GetMaterialSystem()->LoadMaterial("Resources/Materials/PostProcess/HBAO/blur.json");
+	m_blurMaterial = Engine::GetRenderer()->GetMaterialSystem()->LoadMaterial(BlurMaterial);
 	m_blurMaterialInstanceA = m_blurMaterial->CreateInstance().GetPointer();
 	m_blurMaterialInstanceB = m_blurMaterial->CreateInstance().GetPointer();
 
-	postProcessingMaterial = Engine::GetRenderer()->GetMaterialSystem()->LoadMaterial("Resources/Materials/PostProcess/HBAO/resolve.json");
-	postProcessingMaterialInstance = postProcessingMaterial->CreateInstance().GetPointer();
+	m_resolveMaterial = Engine::GetRenderer()->GetMaterialSystem()->LoadMaterial(ResolveMaterial);
+	m_resolveMaterialInstance = m_resolveMaterial->CreateInstance().GetPointer();
 }
 
 void HbaoPass::SetupBlurChain() {
@@ -137,24 +165,44 @@ void HbaoPass::SetupBlurChain() {
 	const GpuImageViewConfig viewConfig = GpuImageViewConfig::CreateSampled_SingleMipLevel(0);
 	const GpuImageViewConfig writeConfig = GpuImageViewConfig::CreateStorage_Default();
 
+	// Actualizar primer target.
+	for (UIndex32 i = 0; i < MAX_RESOURCES_IN_FLIGHT; i++) {
+		m_hbaoMaterialInstances[i]->GetSlot("texture")->SetStorageImage("finalImage", *m_unblurredHbaoTarget.GetTargetImage()->GetView(writeConfig));
+		m_hbaoMaterialInstances[i]->GetSlot("texture")->FlushUpdate();
+	}
 
 	// Primer blur: hbao -> firstTarget
-	m_blurMaterialInstanceA->GetSlot("texture")->SetGpuImage("unblurredHbao", 
-		m_unblurredHbaoTarget.GetTargetImage()->GetView(viewConfig));
+	{
+		MaterialInstance* mInstance = m_blurMaterialInstanceA.GetPointer();
+		IMaterialSlot* mSlot = mInstance->GetSlot("texture");
 
-	m_blurMaterialInstanceA->GetSlot("texture")->SetStorageImage("finalImage",
-		m_firstBlurTarget.GetTargetImage()->GetView(writeConfig));
+		mSlot->SetGpuImage("unblurredHbao", *m_unblurredHbaoTarget.GetTargetImage()->GetView(viewConfig));
+		mSlot->SetStorageImage("finalImage", *m_firstBlurTarget.GetTargetImage()->GetView(writeConfig));
+		mSlot->FlushUpdate();
+	}
 
 	// Segundo blur: firstTarget -> secondTarget
-	m_blurMaterialInstanceB->GetSlot("texture")->SetGpuImage("unblurredHbao",
-		m_firstBlurTarget.GetTargetImage()->GetView(viewConfig));
+	{
+		MaterialInstance* mInstance = m_blurMaterialInstanceB.GetPointer();
+		IMaterialSlot* mSlot = mInstance->GetSlot("texture");
 
-	m_blurMaterialInstanceB->GetSlot("texture")->SetStorageImage("finalImage",
-		m_secondBlurTarget.GetTargetImage()->GetView(writeConfig));
+		mSlot->SetGpuImage("unblurredHbao", *m_firstBlurTarget.GetTargetImage()->GetView(viewConfig));
+		mSlot->SetStorageImage("finalImage", *m_secondBlurTarget.GetTargetImage()->GetView(writeConfig));
+		mSlot->FlushUpdate();
+
+	}
 
 	// Resolve: secondTarget -> finalTarget
-	postProcessingMaterialInstance->GetSlot("texture")->SetGpuImage("hbaoImage",
-		m_secondBlurTarget.GetTargetImage()->GetView(viewConfig));
+	{
+		MaterialInstance* mInstance = m_resolveMaterialInstance.GetPointer();
+		IMaterialSlot* mSlot = mInstance->GetSlot("texture");
+
+		const GpuImageViewConfig outputViewConfig = GpuImageViewConfig::CreateTarget_Color();
+
+		mSlot->SetStorageImage("finalImage", *GetOutput().GetTargetImage()->GetView(outputViewConfig));
+		mSlot->SetGpuImage("hbaoImage", *m_secondBlurTarget.GetTargetImage()->GetView(viewConfig));
+		mSlot->FlushUpdate();
+	}
 }
 
 void HbaoPass::UpdateCamera(const glm::mat4& inverseProjection, const glm::mat4& view, float nearPlane) {
@@ -168,30 +216,19 @@ void HbaoPass::UpdateCamera(const glm::mat4& inverseProjection, const glm::mat4&
 	m_cameraBuffers[resourceIndex]->Unmap();
 }
 
-void HbaoPass::UpdateMaterialInstance() {
-	m_hbaoMaterialInstance->GetSlot("texture")->FlushUpdate();
-	m_hbaoMaterialInstance->GetSlot("camera")->FlushUpdate();
-
-	m_blurMaterialInstanceA->GetSlot("texture")->FlushUpdate();
-	m_blurMaterialInstanceB->GetSlot("texture")->FlushUpdate();
-
-	IPostProcessPass::UpdateMaterialInstance();
-}
-
-void HbaoPass::SetInput(GpuImage* image, const GpuImageViewConfig& viewConfig) {
-	IPostProcessPass::SetInput(image, viewConfig);
-
-	const GpuImageViewConfig writeConfig = GpuImageViewConfig::CreateStorage_Default();
-
-	// Scene para el pase HBAO
-	m_hbaoMaterialInstance->GetSlot("texture")->SetGpuImage("sceneImage", inputView);
-
-	// Target
-	m_hbaoMaterialInstance->GetSlot("texture")->SetStorageImage("finalImage",
-		m_unblurredHbaoTarget.GetTargetImage()->GetView(writeConfig));
-}
-
 void HbaoPass::Execute(ICommandList* computeCmdList) {
+	OSK_ASSERT(
+		m_colorInput != nullptr,
+		PostProcessInputNotSetException("No se ha establecido la entrada de color."));
+	OSK_ASSERT(
+		m_depthInput != nullptr,
+		PostProcessInputNotSetException("No se ha establecido la entrada de profundidad."));
+	OSK_ASSERT(
+		m_normalInput != nullptr,
+		PostProcessInputNotSetException("No se ha establecido la entrada de normales."));
+
+	const UIndex32 resourceIndex = Engine::GetRenderer()->GetCurrentResourceIndex();
+
 	computeCmdList->StartDebugSection("HBAO", Color::Purple);
 
 #pragma region HBAO
@@ -202,7 +239,7 @@ void HbaoPass::Execute(ICommandList* computeCmdList) {
 	depthImageRange.channel = SampledChannel::DEPTH;
 
 	computeCmdList->SetGpuImageBarrier(
-		inputImage,
+		m_colorInput,
 		GpuImageLayout::SAMPLED,
 		GpuBarrierInfo(GpuCommandStage::COMPUTE_SHADER, GpuAccessStage::SAMPLED_READ));
 
@@ -225,8 +262,8 @@ void HbaoPass::Execute(ICommandList* computeCmdList) {
 		GpuBarrierInfo(GpuCommandStage::COMPUTE_SHADER, GpuAccessStage::SHADER_WRITE));
 
 	computeCmdList->BindMaterial(*m_hbaoMaterial);
-	computeCmdList->BindMaterialSlot(*m_hbaoMaterialInstance->GetSlot("texture"));
-	computeCmdList->BindMaterialSlot(*m_hbaoMaterialInstance->GetSlot("camera"));
+	computeCmdList->BindMaterialSlot(*m_hbaoMaterialInstances[resourceIndex]->GetSlot("texture"));
+	computeCmdList->BindMaterialSlot(*m_hbaoMaterialInstances[resourceIndex]->GetSlot("camera"));
 
 	Vector3ui dispatchRes = {
 		static_cast<UIndex32>(glm::ceil(static_cast<float>(m_unblurredHbaoTarget.GetSize().x) / 8.0f)),
@@ -299,14 +336,14 @@ void HbaoPass::Execute(ICommandList* computeCmdList) {
 		GpuBarrierInfo(GpuCommandStage::COMPUTE_SHADER, GpuAccessStage::SAMPLED_READ));
 
 	computeCmdList->SetGpuImageBarrier(
-		resolveRenderTarget.GetTargetImage(),
+		GetOutput().GetTargetImage(),
 		GpuImageLayout::UNDEFINED,
 		GpuImageLayout::GENERAL,
 		GpuBarrierInfo(GpuCommandStage::NONE, GpuAccessStage::NONE),
 		GpuBarrierInfo(GpuCommandStage::COMPUTE_SHADER, GpuAccessStage::SHADER_WRITE));
 
-	computeCmdList->BindMaterial(*postProcessingMaterial);
-	computeCmdList->BindMaterialSlot(*postProcessingMaterialInstance->GetSlot("texture"));
+	computeCmdList->BindMaterial(*m_resolveMaterial);
+	computeCmdList->BindMaterialSlot(*m_resolveMaterialInstance->GetSlot("texture"));
 	computeCmdList->DispatchCompute(dispatchRes);
 
 	computeCmdList->EndDebugSection();

@@ -52,7 +52,7 @@ void RenderTarget::CreateAsFinal(const Vector2ui& targetSize, RenderTargetAttach
 void RenderTarget::SetupSpriteMaterial() {
 	const GpuImageViewConfig view = GpuImageViewConfig::CreateSampled_MipLevelRanged(0, 0);
 
-	m_fullscreenSpriteMaterialInstance->GetSlot("texture")->SetGpuImage("spriteTexture", GetMainColorImage()->GetView(view));
+	m_fullscreenSpriteMaterialInstance->GetSlot("texture")->SetGpuImage("spriteTexture", *GetMainColorImage()->GetView(view));
 	m_fullscreenSpriteMaterialInstance->GetSlot("texture")->FlushUpdate();
 }
 

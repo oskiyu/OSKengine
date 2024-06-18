@@ -31,7 +31,7 @@ void BottomLevelAccelerationStructureVk::Setup(
 
 	matrixBuffer = Engine::GetRenderer()->GetAllocator()->CreateBuffer(
 		sizeof(VkTransformMatrixKHR), 
-		0, 
+		GPU_MEMORY_NO_ALIGNMENT,
 		GpuBufferUsage::RT_ACCELERATION_STRUCTURE_BUILDING, 
 		GpuSharedMemoryType::GPU_AND_CPU,
 		GpuQueueType::MAIN).GetPointer();

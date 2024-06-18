@@ -22,6 +22,8 @@
 // Para `GpuImageRange::{}`.
 #include "GpuImageRange.h"
 
+#include "Viewport.h"
+
 #include <string>
 
 
@@ -50,7 +52,6 @@ namespace OSK::GRAPHICS {
 	struct GpuBarrierInfo;
 
 	// Otros.
-	struct Viewport;
 	class ICommandPool;
 
 
@@ -316,7 +317,11 @@ namespace OSK::GRAPHICS {
 		/// soportar, al menos, `CommandsSupport::GRAPHICS`.
 		/// @pre La cola de comandos sobre la que se envía la lista debe 
 		/// soportar, al menos, `CommandsSupport::GRAPHICS`.
-		virtual void SetViewport(const Viewport& viewport) = 0;
+		virtual void SetViewport(const Viewport& viewport);
+
+		/// @return Viewport usado en un momento dado.
+		const Viewport& GetCurrentViewport() const;
+
 
 		/// @brief Establece qué área del renderizado será visible en la textura final.
 		/// @param scissor Área de renderizado.
@@ -881,6 +886,9 @@ namespace OSK::GRAPHICS {
 
 
 	private:
+
+		/// @brief Viewport en un momento dado.
+		Viewport m_currentViewport = {};
 
 		/// @brief True si es una lista de uso único.
 		bool m_isSingleUse = false;

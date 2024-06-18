@@ -20,20 +20,6 @@ namespace OSK::UI {
 
 		explicit ImageView(const Vector2f& size) : IElement(size) {}
 
-	public:
-
-		/// @return Referencia constante al sprite rendereizado.
-		inline const GRAPHICS::Sprite& GetSprite() const { return sprite; }
-
-		/// @return Referencia al sprite renderizado.
-		inline GRAPHICS::Sprite& GetSprite() { return sprite; }
-
-		void Render(GRAPHICS::SpriteRenderer* renderer, Vector2f parentPosition) const override;
-
-	private:
-
-		GRAPHICS::Sprite sprite;
-
 	};
 
 }

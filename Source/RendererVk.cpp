@@ -57,12 +57,12 @@ const static DynamicArray<const char*> validationLayers = {
 };
 
 const static DynamicArray<uint32_t> ignoredValidationLayersMessages = {
-	0x609a13b, // Shader attachmentt not used
+	// 0x609a13b, // Shader attachmentt not used
 
-	0xd6d77e1e, // Dynamic Rendering Color
-	0x151f5e5a, // Dynamic Rendering Depth
-	0x11b37e31, 
-	0x6c16bfb4
+	// 0xd6d77e1e, // Dynamic Rendering Color
+	// 0x151f5e5a, // Dynamic Rendering Depth
+	// 0x11b37e31, 
+	// 0x6c16bfb4
 };
 
 VKAPI_ATTR VkBool32 VKAPI_CALL DebugCallback(VkDebugUtilsMessageSeverityFlagBitsEXT, VkDebugUtilsMessageTypeFlagsEXT messageType, const VkDebugUtilsMessengerCallbackDataEXT* pCallbackData, void*) {

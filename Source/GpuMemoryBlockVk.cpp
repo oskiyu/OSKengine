@@ -44,17 +44,19 @@ OwnedPtr<GpuMemoryBlockVk> GpuMemoryBlockVk::CreateNewImageBlock(GpuImage* image
 GpuMemoryBlockVk::GpuMemoryBlockVk(USize64 reservedSize, IGpu* device, GpuSharedMemoryType type, GpuBufferUsage bufferUSage)
 	: IGpuMemoryBlock(reservedSize, device, type, GpuMemoryUsage::BUFFER) {
 
+	const VkDevice logicalDevice = device->As<GpuVk>()->GetLogicalDevice();
+
 	VkBufferCreateInfo bufferInfo{};
 	bufferInfo.sType = VK_STRUCTURE_TYPE_BUFFER_CREATE_INFO;
 	bufferInfo.size = reservedSize;
 	bufferInfo.usage = GetGpuBufferUsageVk(bufferUSage);
 	bufferInfo.sharingMode = VK_SHARING_MODE_EXCLUSIVE;
 
-	VkResult result = vkCreateBuffer(device->As<GpuVk>()->GetLogicalDevice(), &bufferInfo, nullptr, &buffer);
+	VkResult result = vkCreateBuffer(logicalDevice, &bufferInfo, nullptr, &buffer);
 	OSK_ASSERT(result == VK_SUCCESS, GpuBufferCreationException(result));
 		
-	VkMemoryRequirements memRequirements;
-	vkGetBufferMemoryRequirements(device->As<GpuVk>()->GetLogicalDevice(), buffer, &memRequirements);
+	VkMemoryRequirements memRequirements{};
+	vkGetBufferMemoryRequirements(logicalDevice, buffer, &memRequirements);
 
 	// Flags de propiedades de la asignación de memoria.
 	VkMemoryAllocateFlagsInfo memoryAllocateFlagsInfo{};
@@ -67,10 +69,10 @@ GpuMemoryBlockVk::GpuMemoryBlockVk(USize64 reservedSize, IGpu* device, GpuShared
 	allocInfo.memoryTypeIndex = GetMemoryType(memRequirements.memoryTypeBits, device->As<GpuVk>(), type);
 	allocInfo.pNext = &memoryAllocateFlagsInfo;
 
-	result = vkAllocateMemory(device->As<GpuVk>()->GetLogicalDevice(), &allocInfo, nullptr, &memory);
+	result = vkAllocateMemory(logicalDevice, &allocInfo, nullptr, &memory);
 	OSK_ASSERT(result == VK_SUCCESS, GpuMemoryAllocException(result));
 
-	vkBindBufferMemory(device->As<GpuVk>()->GetLogicalDevice(), buffer, memory, 0);
+	vkBindBufferMemory(logicalDevice, buffer, memory, 0);
 }
 
 OwnedPtr<IGpuMemorySubblock> GpuMemoryBlockVk::CreateNewMemorySubblock(USize64 size, USize64 offset) {

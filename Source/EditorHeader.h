@@ -13,6 +13,14 @@ namespace OSK::Editor::UI {
 
 		explicit EditorHeader(const Vector2f& size);
 
+	protected:
+
+		void OnSizeChanged(const Vector2f& previousSize) override;
+
+	private:
+
+		UIndex64 m_barDrawCallIndex = 0;
+
 	};
 
 }

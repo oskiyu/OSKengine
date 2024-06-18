@@ -43,7 +43,7 @@ namespace OSK::ECS {
 		std::array<UniquePtr<GRAPHICS::GpuBuffer>, GRAPHICS::MAX_RESOURCES_IN_FLIGHT> m_cameraUbos;
 		
 		GRAPHICS::Material* m_material = nullptr;
-		UniquePtr<GRAPHICS::MaterialInstance> m_materialInstance;
+		std::array<UniquePtr<GRAPHICS::MaterialInstance>, GRAPHICS::MAX_RESOURCES_IN_FLIGHT> m_materialInstance;
 
 		ASSETS::AssetRef<ASSETS::Model3D> m_sphereModel;
 

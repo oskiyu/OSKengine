@@ -60,8 +60,6 @@ void OSK::IDebugGame::OnCreate() {
 	m_console->SetAnchor(UI::Anchor::BOTTOM | UI::Anchor::LEFT);
 	m_console->SetFont(font);
 	m_console->SetFontSize(19);
-	m_console->GetSprite().SetImageView(uiView);
-	m_console->GetSprite().color = Color(0.3f, 0.3f, 0.4f, 1.0f);
 	m_console->SetInvisible();
 
 	GetRootUiElement().AddChild(UI::Console::Name, m_console);

@@ -120,10 +120,10 @@ void IrradianceMapLoader::Load(const std::string& assetFilePath, IrradianceMap* 
 		GpuQueueType::MAIN);
 
 	// Material
-	cubemapGenMaterialInstance->GetSlot("global")->SetGpuImage("image", originalImage->GetView(GpuImageViewConfig::CreateSampled_Default()));
+	cubemapGenMaterialInstance->GetSlot("global")->SetGpuImage("image", *originalImage->GetView(GpuImageViewConfig::CreateSampled_Default()));
 	cubemapGenMaterialInstance->GetSlot("global")->FlushUpdate();
 
-	cubemapConvolutionMaterialInstance->GetSlot("global")->SetGpuImage("image", intermediateCubemap->GetView(GpuImageViewConfig::CreateSampled_Cubemap()));
+	cubemapConvolutionMaterialInstance->GetSlot("global")->SetGpuImage("image", *intermediateCubemap->GetView(GpuImageViewConfig::CreateSampled_Cubemap()));
 	cubemapConvolutionMaterialInstance->GetSlot("global")->FlushUpdate();
 
 	// Renderizado

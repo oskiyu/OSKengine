@@ -12,7 +12,7 @@ void IContainer::SetSize(Vector2f newSize) {
 
 	IElement::SetSize(newSize);
 
-	for (auto& child : children) {
+	for (auto& child : m_children) {
 		if (child->KeepsRelativeSize()) {
 			const Vector2f ratio = child->GetSize() / oldSize;
 			child->SetSize(newSize * ratio);
@@ -22,22 +22,29 @@ void IContainer::SetSize(Vector2f newSize) {
 	Rebuild();
 }
 
+void IContainer::_SetPosition(const Vector2f& newPosition) {
+	IElement::_SetPosition(newPosition);
+	Rebuild();
+}
+
 void IContainer::AdjustSizeToChildren() {
 	Vector2f newSize = Vector2f::Zero;
 
-	for (const auto& child : children) {
-		const Vector2f furthestPoint =
-			child->GetSize() + child->GetRelativePosition() + Vector2f(child->GetMarging().Z, child->GetMarging().W);
+	for (const auto& child : m_children) {
+		const Vector2f childRelativePosition = child->GetPosition() - GetPosition();
+		const Vector2f childRightBottomMargings = Vector2f(child->GetMarging().Z, child->GetMarging().W);
+
+		const Vector2f furthestPoint = child->GetSize() + childRelativePosition + childRightBottomMargings;
 
 		newSize = Vector2f(glm::max(newSize.ToGlm(), furthestPoint.ToGlm()));
 	}
 
-	size = newSize + GetPadding2D();
+	SetSize(newSize + GetPadding2D());
 }
 
-void IContainer::AddChild(const std::string& key, SharedPtr<IElement> child) {
-	children.Insert(child);
-	childrenTable[key] = child.GetPointer();
+void IContainer::AddChild(const std::string& key, OwnedPtr<IElement> child) {
+	m_children.Insert(child.GetPointer());
+	m_childrenTable[key] = child.GetPointer();
 
 	EmplaceChild(child.GetPointer());
 }
@@ -45,33 +52,27 @@ void IContainer::AddChild(const std::string& key, SharedPtr<IElement> child) {
 void IContainer::Rebuild() {
 	ResetLayout();
 
-	for (auto& child : children)
+	for (auto& child : m_children)
 		EmplaceChild(child.GetPointer());
 }
 
-void IContainer::Render(SpriteRenderer* renderer, Vector2f parentPosition) const {
-	if (!IsVisible()) 
-		return;
+void IContainer::Render(SdfBindlessRenderer2D* renderer) const {
+	IElement::Render(renderer);
 
-	if (m_sprite.HasValue() && m_sprite->GetView()) {
-		Transform2D transform(EMPTY_GAME_OBJECT);
-		transform.SetPosition(GetRelativePosition() + parentPosition);
-		transform.SetScale(GetSize());
-
-		renderer->Draw(m_sprite.GetValue(), transform);
+	for (const auto& child : m_children) {
+		if (child->IsVisible()) {
+			child->Render(renderer);
+		}
 	}
-
-	for (const auto& child : children)
-		if (child->IsVisible())
-			child->Render(renderer, GetRelativePosition() + parentPosition);
 }
 
-bool IContainer::UpdateByCursor(Vector2f cursorPosition, bool isPressed, Vector2f parentPosition) {
-	if (IsLocked() || !IsVisible())
+bool IContainer::UpdateByCursor(Vector2f cursorPosition, bool isPressed) {
+	if (IsLocked() || !IsVisible()) {
 		return false;
+	}
 
-	for (auto& child : children) {
-		bool processed = child->UpdateByCursor(cursorPosition, isPressed, GetRelativePosition() + parentPosition);
+	for (auto& child : m_children) {
+		bool processed = child->UpdateByCursor(cursorPosition, isPressed);
 
 		if (processed)
 			return true;
@@ -85,7 +86,7 @@ void IContainer::UpdateByKeyboard(const IO::KeyboardState& previous, const IO::K
 		return;
 	}
 
-	for (auto& child : children) {
+	for (auto& child : m_children) {
 		if (!(child->IsLocked() || !child->IsVisible())) {
 			child->UpdateByKeyboard(previous, current);
 		}
@@ -93,9 +94,9 @@ void IContainer::UpdateByKeyboard(const IO::KeyboardState& previous, const IO::K
 }
 
 IElement* IContainer::GetChild(const std::string_view name) {
-	return childrenTable.at(static_cast<std::string>(name));
+	return m_childrenTable.find(name)->second;
 }
 
 const IElement* IContainer::GetChild(const std::string_view name) const {
-	return childrenTable.at(static_cast<std::string>(name));
+	return m_childrenTable.find(name)->second;
 }

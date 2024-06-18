@@ -20,8 +20,6 @@
 
 OSK::Editor::UI::EditorUi::EditorUi(const Vector2f& size) : OSK::UI::BorderLayout(size) {
 	auto editorFont = Engine::GetAssetManager()->Load<OSK::ASSETS::Font>("Resources/Assets/Fonts/font1.json");
-	const auto uiView = &Engine::GetAssetManager()->Load<ASSETS::Texture>("Resources/Assets/Textures/button_texture.json")
-		->GetTextureView2D();
 
 	const USize32 fontSize = 14;
 

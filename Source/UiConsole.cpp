@@ -2,6 +2,7 @@
 
 #include "KeyboardState.h"
 #include "OSKengine.h"
+#include "EditorUiConstants.h"
 
 using namespace OSK;
 using namespace OSK::UI;
@@ -27,6 +28,14 @@ Console::Console(const Vector2f& size) : VerticalContainer(size) {
 	m_textInput = textInput;
 
 	this->AdjustSizeToChildren();
+
+	GRAPHICS::SdfDrawCall2D backgroundDrawCall{};
+	backgroundDrawCall.contentType = GRAPHICS::SdfDrawCallContentType2D::COLOR_FLAT;
+	backgroundDrawCall.shape = GRAPHICS::SdfShape2D::RECTANGLE;
+	backgroundDrawCall.mainColor = Editor::UI::Constants::BackgroundAlternativeColor;
+	backgroundDrawCall.transform.SetScale(GetSize());
+
+	AddDrawCall(backgroundDrawCall);
 }
 
 void Console::SetFont(ASSETS::AssetRef<ASSETS::Font> font) {

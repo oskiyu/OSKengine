@@ -18,7 +18,7 @@ namespace OSK::UI {
 
 	private:
 
-		float relativeNextPosition = 0.0f;
+		float m_relativeNextPosition = 0.0f;
 
 	};
 

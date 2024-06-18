@@ -92,6 +92,8 @@ namespace OSK::GRAPHICS {
 			/// @return True si soporta trazado de rayos.
 			bool IsRtCompatible() const;
 
+			bool IsCompatibleWithBindless() const;
+
 
 			/// @brief Alineamiento mínimo para dynamic ubos.
 			USize64 minAlignment = 0;
@@ -116,7 +118,7 @@ namespace OSK::GRAPHICS {
 		};
 
 		GpuVk(VkPhysicalDevice gpu, VkSurfaceKHR surface);
-		~GpuVk();
+		~GpuVk() override;
 
 		GpuMemoryUsageInfo GetMemoryUsageInfo() const override;
 

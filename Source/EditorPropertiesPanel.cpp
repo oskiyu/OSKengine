@@ -10,9 +10,6 @@
 OSK::Editor::UI::PropertiesPanel::PropertiesPanel(const Vector2f& size) : OSK::UI::VerticalContainer(size) {
 	const Vector2f textSize = { size.x - 20.0f, 25.0f };
 
-	const auto uiView = &Engine::GetAssetManager()->Load<ASSETS::Texture>("Resources/Assets/Textures/button_texture.json")
-		->GetTextureView2D();
-
 	m_title = new EditorPanelTitle(textSize);
 	m_title->SetMargin(Vector2f(5.0f));
 	m_title->SetPadding(Vector2f(5.0f));
@@ -24,10 +21,15 @@ OSK::Editor::UI::PropertiesPanel::PropertiesPanel(const Vector2f& size) : OSK::U
 	m_subtitle->SetMargin(Vector4f(5.0f));
 	m_subtitle->SetPadding(Vector2f(5.0f));
 
-	m_subtitle->GetSprite().SetImageView(uiView);
-	m_subtitle->GetSprite().color = Constants::BackgroundAlternativeColor;
-
 	AddChild("subtitle", m_subtitle);
+
+	GRAPHICS::SdfDrawCall2D backgroundDrawCall{};
+	backgroundDrawCall.contentType = GRAPHICS::SdfDrawCallContentType2D::COLOR_FLAT;
+	backgroundDrawCall.shape = GRAPHICS::SdfShape2D::RECTANGLE;
+	backgroundDrawCall.mainColor = Constants::BackgroundAlternativeColor;
+	backgroundDrawCall.transform.SetScale(GetSize());
+
+	// AddDrawCall(backgroundDrawCall);
 }
 
 

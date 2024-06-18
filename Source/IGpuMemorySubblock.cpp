@@ -35,3 +35,7 @@ void IGpuMemorySubblock::SetCursor(UIndex64 position) {
 void IGpuMemorySubblock::ResetCursor() {
 	cursor = 0;
 }
+
+UIndex64 IGpuMemorySubblock::GetCursor() const {
+	return cursor;
+}

@@ -26,6 +26,17 @@
 #include "SavedGameObjectTranslator.h"
 
 #include <set>
+#include "GpuQueueTypes.h"
+#include "GpuBuffer.h"
+#include "ResourcesInFlight.h"
+#include "NumericTypes.h"
+#include "Uuid.h"
+#include "GameObject.h"
+#include "Format.h"
+#include "Vector2.hpp"
+#include "RenderTargetAttachmentInfo.h"
+#include "ICommandList.h"
+#include <span>
 
 using namespace OSK;
 using namespace OSK::ECS;
@@ -40,38 +51,47 @@ ColliderRenderSystem::ColliderRenderSystem() {
 	_SetSignature(signature);
 
 	// Material load
-	material = Engine::GetRenderer()->GetMaterialSystem()
-		->LoadMaterial("Resources/Materials/Collision/collision_material.json");
-	lowLevelMaterial = Engine::GetRenderer()->GetMaterialSystem()
-		->LoadMaterial("Resources/Materials/Collision/lowlevel_collision_material.json");
-	pointMaterial = Engine::GetRenderer()->GetMaterialSystem()
-		->LoadMaterial("Resources/Materials/Collision/collision_point_material.json");
+	{
+		material = Engine::GetRenderer()->GetMaterialSystem()
+			->LoadMaterial("Resources/Materials/Collision/collision_material.json");
+		lowLevelMaterial = Engine::GetRenderer()->GetMaterialSystem()
+			->LoadMaterial("Resources/Materials/Collision/lowlevel_collision_material.json");
+		pointMaterial = Engine::GetRenderer()->GetMaterialSystem()
+			->LoadMaterial("Resources/Materials/Collision/collision_point_material.json");
 
-	materialInstance = material->CreateInstance().GetPointer();
-	pointsMaterialInstance = pointMaterial->CreateInstance().GetPointer();
-
-	// Asset load
-	cubeModel = Engine::GetAssetManager()->Load<Model3D>("Resources/Assets/Models/Colliders/cube.json");
-	sphereModel = Engine::GetAssetManager()->Load<Model3D>("Resources/Assets/Models/Colliders/sphere.json");
-
-	// Material setup
-	const GpuBuffer* _cameraUbos[MAX_RESOURCES_IN_FLIGHT]{};
-	for (UIndex32 i = 0; i < MAX_RESOURCES_IN_FLIGHT; i++) {
-		cameraUbos[i] = Engine::GetRenderer()->GetAllocator()
-			->CreateUniformBuffer(sizeof(glm::mat4) * 2 + sizeof(glm::vec4), GpuQueueType::MAIN)
-			.GetPointer();
-		_cameraUbos[i] = cameraUbos[i].GetPointer();
+		for (UIndex32 i = 0; i < MAX_RESOURCES_IN_FLIGHT; i++) {
+			m_materialInstances[i]		 = material->CreateInstance().GetPointer();
+			m_pointsMaterialInstances[i] = pointMaterial->CreateInstance().GetPointer();
+		}
 	}
 
-	materialInstance->GetSlot("global")->SetUniformBuffers("camera", _cameraUbos);
-	materialInstance->GetSlot("global")->FlushUpdate();
+	// Asset load
+	{
+		m_cubeModel = Engine::GetAssetManager()->Load<Model3D>("Resources/Assets/Models/Colliders/cube.json");
+		m_sphereModel = Engine::GetAssetManager()->Load<Model3D>("Resources/Assets/Models/Colliders/sphere.json");
+	}
 
-	pointsMaterialInstance->GetSlot("global")->SetUniformBuffers("camera", _cameraUbos);
-	pointsMaterialInstance->GetSlot("global")->FlushUpdate();
+	// Material setup
+	{
+		constexpr USize64 cameraBufferSize = sizeof(glm::mat4) * 2 + sizeof(glm::vec4);
+
+		for (UIndex32 i = 0; i < MAX_RESOURCES_IN_FLIGHT; i++) {
+			IGpuMemoryAllocator* allocator = Engine::GetRenderer()->GetAllocator();
+			OwnedPtr<GpuBuffer> buffer = allocator->CreateUniformBuffer(cameraBufferSize, GpuQueueType::MAIN);
+
+			m_materialInstances[i]->GetSlot("global")->SetUniformBuffer("camera", buffer.GetValue());
+			m_materialInstances[i]->GetSlot("global")->FlushUpdate();
+
+			m_pointsMaterialInstances[i]->GetSlot("global")->SetUniformBuffer("camera", buffer.GetValue());
+			m_pointsMaterialInstances[i]->GetSlot("global")->FlushUpdate();
+
+			m_cameraGpuBuffers[i] = buffer.GetPointer();
+		}
+	}
 }
 
 void ColliderRenderSystem::Initialize(GameObjectIndex camera) {
-	this->cameraObject = camera;
+	m_cameraObject = camera;
 }
 
 void ColliderRenderSystem::CreateTargetImage(const Vector2ui& size) {
@@ -81,19 +101,20 @@ void ColliderRenderSystem::CreateTargetImage(const Vector2ui& size) {
 }
 
 void ColliderRenderSystem::Render(GRAPHICS::ICommandList* commandList, std::span<const ECS::GameObjectIndex> objects) {
-	if (cameraObject == EMPTY_GAME_OBJECT)
+	if (m_cameraObject == EMPTY_GAME_OBJECT) {
 		return;
+	}
 
 	const UIndex32 resourceIndex = Engine::GetRenderer()->GetCurrentResourceIndex();
 
-	const CameraComponent3D& camera = Engine::GetEcs()->GetComponent<CameraComponent3D>(cameraObject);
-	const Transform3D& cameraTransform = Engine::GetEcs()->GetComponent<Transform3D>(cameraObject);
+	const CameraComponent3D& camera = Engine::GetEcs()->GetComponent<CameraComponent3D>(m_cameraObject);
+	const Transform3D& cameraTransform = Engine::GetEcs()->GetComponent<Transform3D>(m_cameraObject);
 
-	cameraUbos[resourceIndex]->MapMemory();
-	cameraUbos[resourceIndex]->Write(camera.GetProjectionMatrix());
-	cameraUbos[resourceIndex]->Write(camera.GetViewMatrix(cameraTransform));
-	cameraUbos[resourceIndex]->Write(cameraTransform.GetPosition());
-	cameraUbos[resourceIndex]->Unmap();
+	m_cameraGpuBuffers[resourceIndex]->MapMemory();
+	m_cameraGpuBuffers[resourceIndex]->Write(camera.GetProjectionMatrix());
+	m_cameraGpuBuffers[resourceIndex]->Write(camera.GetViewMatrix(cameraTransform));
+	m_cameraGpuBuffers[resourceIndex]->Write(cameraTransform.GetPosition());
+	m_cameraGpuBuffers[resourceIndex]->Unmap();
 
 	// Información por cada entidad.
 	struct RenderInfo {
@@ -125,7 +146,7 @@ void ColliderRenderSystem::Render(GRAPHICS::ICommandList* commandList, std::span
 
 	for (GameObjectIndex gameObject : objects) {
 		commandList->BindMaterial(*material);
-		commandList->BindMaterialSlot(*materialInstance->GetSlot("global"));
+		commandList->BindMaterialSlot(*m_materialInstances[resourceIndex]->GetSlot("global"));
 
 		const Transform3D& originalTransform = Engine::GetEcs()->GetComponent<Transform3D>(gameObject);
 		Transform3D topLevelTransform = originalTransform;
@@ -160,23 +181,23 @@ void ColliderRenderSystem::Render(GRAPHICS::ICommandList* commandList, std::span
 			renderInfo.modelMatrix = topLevelTransform.GetAsMatrix();
 			commandList->PushMaterialConstants("pushConstants", renderInfo);
 
-			commandList->BindVertexBuffer(cubeModel.GetAsset()->GetModel().GetVertexBuffer());
-			commandList->BindIndexBuffer(cubeModel.GetAsset()->GetModel().GetIndexBuffer());
-			commandList->DrawSingleInstance(cubeModel.GetAsset()->GetModel().GetTotalIndexCount());
+			commandList->BindVertexBuffer(m_cubeModel.GetAsset()->GetModel().GetVertexBuffer());
+			commandList->BindIndexBuffer(m_cubeModel.GetAsset()->GetModel().GetIndexBuffer());
+			commandList->DrawSingleInstance(m_cubeModel.GetAsset()->GetModel().GetTotalIndexCount());
 		} else
 		if (auto* sphere = dynamic_cast<const SphereCollider*>(topLevelCollider)) {
 			topLevelTransform.SetScale(Vector3f(sphere->GetRadius()));
 			renderInfo.modelMatrix = topLevelTransform.GetAsMatrix();
 			commandList->PushMaterialConstants("pushConstants", renderInfo);
 
-			commandList->BindVertexBuffer(sphereModel.GetAsset()->GetModel().GetVertexBuffer());
-			commandList->BindIndexBuffer(sphereModel.GetAsset()->GetModel().GetIndexBuffer());
-			commandList->DrawSingleInstance(sphereModel.GetAsset()->GetModel().GetTotalIndexCount());
+			commandList->BindVertexBuffer(m_sphereModel.GetAsset()->GetModel().GetVertexBuffer());
+			commandList->BindIndexBuffer(m_sphereModel.GetAsset()->GetModel().GetIndexBuffer());
+			commandList->DrawSingleInstance(m_sphereModel.GetAsset()->GetModel().GetTotalIndexCount());
 		}
 
-		if (bottomLevelVertexBuffers.contains(gameObject)) {
-			const auto& vertexBuffers = bottomLevelVertexBuffers.at(gameObject);
-			const auto& indexBuffers = bottomLevelIndexBuffers.at(gameObject);
+		if (m_bottomLevelVertexBuffers.contains(gameObject)) {
+			const auto& vertexBuffers = m_bottomLevelVertexBuffers.at(gameObject);
+			const auto& indexBuffers = m_bottomLevelIndexBuffers.at(gameObject);
 
 			if (rayCastedObjects.contains(gameObject))
 				renderInfo.color = Color::Green * 0.75f;
@@ -197,11 +218,11 @@ void ColliderRenderSystem::Render(GRAPHICS::ICommandList* commandList, std::span
 		}
 	}
 
-	commandList->BindVertexBuffer(cubeModel.GetAsset()->GetModel().GetVertexBuffer());
-	commandList->BindIndexBuffer(cubeModel.GetAsset()->GetModel().GetIndexBuffer());
+	commandList->BindVertexBuffer(m_cubeModel.GetAsset()->GetModel().GetVertexBuffer());
+	commandList->BindIndexBuffer(m_cubeModel.GetAsset()->GetModel().GetIndexBuffer());
 
 	commandList->BindMaterial(*pointMaterial);
-	commandList->BindMaterialSlot(*pointsMaterialInstance->GetSlot("global"));
+	commandList->BindMaterialSlot(*m_pointsMaterialInstances[resourceIndex]->GetSlot("global"));
 
 	struct {
 		Vector4f point;
@@ -238,18 +259,18 @@ void ColliderRenderSystem::OnObjectAdded(GameObjectIndex obj) {
 }
 
 void ColliderRenderSystem::OnObjectRemoved(GameObjectIndex obj) {
-	if (bottomLevelVertexBuffers.contains(obj)) {
-		bottomLevelVertexBuffers.at(obj).Empty();
-		bottomLevelIndexBuffers.at(obj).Empty();
+	if (m_bottomLevelVertexBuffers.contains(obj)) {
+		m_bottomLevelVertexBuffers.at(obj).Empty();
+		m_bottomLevelIndexBuffers.at(obj).Empty();
 	}
 }
 
 void ColliderRenderSystem::SetupBottomLevelModel(GameObjectIndex obj) {
 	const Collider& collider = *Engine::GetEcs()->GetComponent<CollisionComponent>(obj).GetCollider();
 	
-	if (bottomLevelVertexBuffers.contains(obj)) {
-		bottomLevelVertexBuffers.at(obj).Empty();
-		bottomLevelIndexBuffers.at(obj).Empty();
+	if (m_bottomLevelVertexBuffers.contains(obj)) {
+		m_bottomLevelVertexBuffers.at(obj).Empty();
+		m_bottomLevelIndexBuffers.at(obj).Empty();
 	}
 
 	// Listas con los vertex e index buffers de la entidad.
@@ -297,23 +318,25 @@ void ColliderRenderSystem::SetupBottomLevelModel(GameObjectIndex obj) {
 	}
 
 	// Si no existían las listas, las introducimos primero.
-	if (!bottomLevelVertexBuffers.contains(obj)) {
-		bottomLevelVertexBuffers[obj] = {};
-		bottomLevelIndexBuffers[obj] = {};
+	if (!m_bottomLevelVertexBuffers.contains(obj)) {
+		m_bottomLevelVertexBuffers[obj] = {};
+		m_bottomLevelIndexBuffers[obj] = {};
 	}
 
-	for (const auto& v : vertexBuffers)
-		bottomLevelVertexBuffers.at(obj).Insert(v.GetPointer());
+	for (const auto& v : vertexBuffers) {
+		m_bottomLevelVertexBuffers.at(obj).Insert(v.GetPointer());
+	}
 
-	for (const auto& i : indexBuffers)
-		bottomLevelIndexBuffers.at(obj).Insert(i.GetPointer());
+	for (const auto& i : indexBuffers) {
+		m_bottomLevelIndexBuffers.at(obj).Insert(i.GetPointer());
+	}
 }
 
 
 nlohmann::json ColliderRenderSystem::SaveConfiguration() const {
 	auto output = nlohmann::json();
 
-	output["cameraObject"] = cameraObject.Get();
+	output["cameraObject"] = m_cameraObject.Get();
 
 	// cubeModel y sphereModel se cargan al crear el sistema:
 	// no es necesario serializarlo.
@@ -324,21 +347,21 @@ nlohmann::json ColliderRenderSystem::SaveConfiguration() const {
 PERSISTENCE::BinaryBlock ColliderRenderSystem::SaveBinaryConfiguration() const {
 	auto data =  PERSISTENCE::BinaryBlock::Empty();
 	
-	data.Write(cameraObject.Get());
+	data.Write(m_cameraObject.Get());
 	
 	return data;
 }
 
 void ColliderRenderSystem::ApplyConfiguration(const nlohmann::json& config, const SavedGameObjectTranslator& translator) {
-	cameraObject = translator.GetCurrentIndex(GameObjectIndex(config["cameraObject"]));
-	UpdatePassesCamera(cameraObject);
+	m_cameraObject = translator.GetCurrentIndex(GameObjectIndex(config["cameraObject"]));
+	UpdatePassesCamera(m_cameraObject);
 	// cubeModel y sphereModel se cargan al crear el sistema:
 	// no es necesario cargarlo de nuevo.
 }
 
 void ColliderRenderSystem::ApplyConfiguration(PERSISTENCE::BinaryBlockReader* reader, const SavedGameObjectTranslator& translator) {
-	cameraObject = translator.GetCurrentIndex(GameObjectIndex(reader->Read<GameObjectIndex::TUnderlyingType>()));
-	UpdatePassesCamera(cameraObject);
+	m_cameraObject = translator.GetCurrentIndex(GameObjectIndex(reader->Read<GameObjectIndex::TUnderlyingType>()));
+	UpdatePassesCamera(m_cameraObject);
 	// cubeModel y sphereModel se cargan al crear el sistema:
 	// no es necesario cargarlo de nuevo.
 }

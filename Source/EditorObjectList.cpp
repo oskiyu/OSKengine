@@ -12,13 +12,20 @@
 OSK::Editor::UI::ObjectList::ObjectList(const Vector2f& size) : OSK::UI::VerticalContainer(size) {
 	const Vector2f textSize = { size.x - 20.0f, 25.0f };
 
-	const auto uiView = &Engine::GetAssetManager()->Load<ASSETS::Texture>("Resources/Assets/Textures/button_texture.json")
-		->GetTextureView2D();
-
 	SetMargin(Vector2f::Zero);
+	SetPadding(Vector2f::Zero);
 
-	GetSprite().SetImageView(uiView);
-	GetSprite().color = Constants::BackgroundColor;
+	{
+		GRAPHICS::SdfDrawCall2D backgroundDrawCall{};
+		backgroundDrawCall.contentType = GRAPHICS::SdfDrawCallContentType2D::COLOR_FLAT;
+		backgroundDrawCall.shape = GRAPHICS::SdfShape2D::RECTANGLE;
+		backgroundDrawCall.mainColor = Constants::BackgroundColor;
+		backgroundDrawCall.transform.SetScale(GetSize());
+
+		m_backgroundDrawCallIndex = GetAllDrawCalls().GetSize();
+
+		AddDrawCall(backgroundDrawCall);
+	}
 
 	m_title = new EditorPanelTitle(textSize);
 	m_title->SetMargin(Vector2f(5.0f));
@@ -32,17 +39,35 @@ OSK::Editor::UI::ObjectList::ObjectList(const Vector2f& size) : OSK::UI::Vertica
 		auto* view = new OSK::UI::Button(textSize);
 		view->SetPadding(Vector2f(5.0f));
 		view->SetMargin(Vector4f(5.0f, 1.0f, 5.0f, 1.0f));
-		view->SetAnchor(OSK::UI::Anchor::LEFT | OSK::UI::Anchor::CENTER_Y);
 
-		view->GetSelectedSprite().SetImageView(uiView);
-		view->GetSelectedSprite().color = Constants::HoveredColor;
+		{
+			GRAPHICS::SdfDrawCall2D selectedDrawCall{};
+			selectedDrawCall.contentType = GRAPHICS::SdfDrawCallContentType2D::COLOR_FLAT;
+			selectedDrawCall.shape = GRAPHICS::SdfShape2D::RECTANGLE;
+			selectedDrawCall.mainColor = Constants::HoveredColor;
+			selectedDrawCall.transform.SetScale(view->GetSize());
 
-		view->GetPressedSprite().SetImageView(uiView);
-		view->GetPressedSprite().color = Constants::SelectedColor;
+			view->GetSelectedDrawCalls().Insert(selectedDrawCall);
+		}
+
+		{
+			GRAPHICS::SdfDrawCall2D pressedDrawCall{};
+			pressedDrawCall.contentType = GRAPHICS::SdfDrawCallContentType2D::COLOR_FLAT;
+			pressedDrawCall.shape = GRAPHICS::SdfShape2D::RECTANGLE;
+			pressedDrawCall.mainColor = Constants::SelectedColor;
+			pressedDrawCall.transform.SetScale(view->GetSize());
+
+			view->GetPressedDrawCalls().Insert(pressedDrawCall);
+		}
 
 		if (i % 2 == 1) {
-			view->GetDefaultSprite().SetImageView(uiView);
-			view->GetDefaultSprite().color = Constants::BackgroundAlternativeColor;
+			GRAPHICS::SdfDrawCall2D defaultDrawCall{};
+			defaultDrawCall.contentType = GRAPHICS::SdfDrawCallContentType2D::COLOR_FLAT;
+			defaultDrawCall.shape = GRAPHICS::SdfShape2D::RECTANGLE;
+			defaultDrawCall.mainColor = Constants::BackgroundAlternativeColor;
+			defaultDrawCall.transform.SetScale(view->GetSize());
+
+			view->GetDefaultDrawCalls().Insert(defaultDrawCall);
 		}
 
 		AddChild(std::to_string(i), view);
@@ -72,6 +97,10 @@ OSK::Editor::UI::ObjectList::ObjectList(const Vector2f& size) : OSK::UI::Vertica
 	AddChild(PropertiesPanel::Name, m_propertiesPanel);
 }
 
+void OSK::Editor::UI::ObjectList::OnSizeChanged(const Vector2f&) {
+	auto& backgroundDrawCall = GetAllDrawCalls()[m_backgroundDrawCallIndex];
+	backgroundDrawCall.transform.SetScale(GetSize());
+}
 
 void OSK::Editor::UI::ObjectList::ClearObjects() {
 	for (OSK::UI::Button* view : m_textViews) {

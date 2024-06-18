@@ -4,13 +4,11 @@
 #include "AssetManager.h"
 
 #include "UiTextView.h"
+#include "UiImageView.h"
 #include "EditorUiConstants.h"
 
 
 OSK::Editor::UI::EditorPanelTitle::EditorPanelTitle(const Vector2f& size) : OSK::UI::VerticalContainer(size) {
-	auto uiTexture = Engine::GetAssetManager()->Load<ASSETS::Texture>("Resources/Assets/Textures/button_texture.json");
-	const auto uiView = &uiTexture->GetTextureView2D();
-
 	const Vector2f textSize = { size.x, 25.0f };
 
 	m_title = new OSK::UI::TextView(textSize);
@@ -18,19 +16,48 @@ OSK::Editor::UI::EditorPanelTitle::EditorPanelTitle(const Vector2f& size) : OSK:
 	m_title->SetPadding(Vector2f(5.0f));
 	m_title->SetText("Objetos");
 
-	m_title->GetSprite().SetImageView(uiView);
-	m_title->GetSprite().color = Constants::DarkColor;
+	// Fondo.
+	{
+		GRAPHICS::SdfDrawCall2D barDrawCall{};
+		barDrawCall.contentType = GRAPHICS::SdfDrawCallContentType2D::COLOR_FLAT;
+		barDrawCall.shape = GRAPHICS::SdfShape2D::RECTANGLE;
+		barDrawCall.mainColor = Constants::DarkColor;
+		barDrawCall.transform.SetScale(GetSize());
+
+		m_backgroundDrawCallIndex = m_title->GetAllDrawCalls().GetSize();
+
+		m_title->AddDrawCall(barDrawCall);
+	}
 
 	AddChild("title", m_title);
 
-	auto* titleLine = new OSK::UI::ImageView({ size.x, 5.0f });
-	titleLine->SetMargin(Vector4f(0.0f));
-	titleLine->GetSprite().SetImageView(uiView);
-	titleLine->GetSprite().color = Constants::DetailsColor;
+	// Línea.
+	{
+		GRAPHICS::SdfDrawCall2D titleLineDrawCall{};
+		titleLineDrawCall.contentType = GRAPHICS::SdfDrawCallContentType2D::COLOR_FLAT;
+		titleLineDrawCall.shape = GRAPHICS::SdfShape2D::RECTANGLE;
+		titleLineDrawCall.mainColor = Constants::DetailsColor;
+		titleLineDrawCall.transform.SetScale({ size.x, 5.0f });
 
-	AddChild("titleLine", titleLine);
+		m_line = new OSK::UI::ImageView({ size.x, 5.0f });
+		m_line->SetMargin(Vector4f(0.0f));
+
+		m_lineDrawCallIndex = m_line->GetAllDrawCalls().GetSize();
+
+		m_line->AddDrawCall(titleLineDrawCall);
+
+		AddChild("titleLine", m_line);
+	}
 
 	AdjustSizeToChildren();
+}
+
+void OSK::Editor::UI::EditorPanelTitle::OnSizeChanged(const Vector2f&) {
+	auto& backgroundDrawCall = m_title->GetAllDrawCalls()[m_backgroundDrawCallIndex];
+	backgroundDrawCall.transform.SetScale(GetSize());
+	
+	auto& lineDrawCall = m_line->GetAllDrawCalls()[m_lineDrawCallIndex];
+	lineDrawCall.transform.SetScale({ m_line->GetSize().x, 5.0f });
 }
 
 void OSK::Editor::UI::EditorPanelTitle::SetFont(OSK::ASSETS::AssetRef<OSK::ASSETS::Font> font) {

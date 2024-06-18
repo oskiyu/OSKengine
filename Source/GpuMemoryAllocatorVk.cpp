@@ -32,11 +32,6 @@ using namespace OSK::GRAPHICS;
 GpuMemoryAllocatorVk::GpuMemoryAllocatorVk(IGpu* device)
 	: IGpuMemoryAllocator(device) {
 
-	minVertexBufferAlignment = 0;
-	minIndexBufferAlignment = 0;
-	minUniformBufferAlignment = device->As<GpuVk>()->GetInfo().properties.limits.minUniformBufferOffsetAlignment;
-	minStorageBufferAlignment = device->As<GpuVk>()->GetInfo().properties.limits.minStorageBufferOffsetAlignment;
-
 	LoadDefaultNormalTexture();
 }
 

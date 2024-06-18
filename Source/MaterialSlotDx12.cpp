@@ -17,18 +17,10 @@ MaterialSlotDx12::MaterialSlotDx12(const std::string& name, const MaterialLayout
 	storageBuffers.Resize(layout->GetSlot(name).bindings.size(), Pair<USize32, const GpuBuffer*>{ UINT32_MAX, nullptr });
 	storageImages.Resize(layout->GetSlot(name).bindings.size(), Pair<USize32, const GpuImageDx12*>{ UINT32_MAX, nullptr });
 }
-/*
-void MaterialSlotDx12::SetUniformBuffers(const std::string& binding, const GpuBuffer* buffer) {
-	TSize index = layout->GetSlot(name).bindings.Get(binding).hlslDescriptorIndex;
 
-	if (index >= buffers.GetSize())
-		buffers.Resize(index + 1, Pair<TSize, const GpuBuffer*>{ UINT32_MAX, nullptr });
 
-	buffers.At(index) = { index, buffer };
-}*/
-
-void MaterialSlotDx12::SetUniformBuffers(const std::string& binding, std::span<const GpuBuffer*, MAX_RESOURCES_IN_FLIGHT> buffers, UIndex32 arrayIndex) {
-	SetUniformBuffer(binding, *buffers[0], arrayIndex);
+void MaterialSlotDx12::SetUniformBuffer(std::string_view binding, const GpuBuffer& buffer, const GpuBufferRange& range, UIndex32 arrayIndex) {
+	OSK_ASSERT(false, NotImplementedException());
 }
 /*
 void MaterialSlotDx12::SetGpuImage(const std::string& binding, const IGpuImageView* image) {
@@ -40,8 +32,8 @@ void MaterialSlotDx12::SetGpuImage(const std::string& binding, const IGpuImageVi
 	images.At(index) = { index, image->GetImage().As<GpuImageDx12>()};
 }
 */
-void MaterialSlotDx12::SetGpuImages(const std::string& binding, std::span<const IGpuImageView*, MAX_RESOURCES_IN_FLIGHT> images, UIndex32 arrayIndex) {
-	SetGpuImage(binding, images[0], arrayIndex);
+void MaterialSlotDx12::SetGpuImage(std::string_view binding, const IGpuImageView& image, UIndex32 arrayIndex) {
+	OSK_ASSERT(false, NotImplementedException());
 }
 /*
 void MaterialSlotDx12::SetStorageImage(const std::string& binding, const IGpuImageView* image) {
@@ -53,15 +45,15 @@ void MaterialSlotDx12::SetStorageImage(const std::string& binding, const IGpuIma
 	// storageImages.At(index) = { index, image->As<GpuImageDx12>() };
 }
 */
-void MaterialSlotDx12::SetStorageBuffers(const std::string& binding, std::span<const GpuBuffer*, MAX_RESOURCES_IN_FLIGHT> buffer, UIndex32 arrayIndex) {
+void MaterialSlotDx12::SetStorageBuffer(std::string_view binding, const GpuBuffer& buffer, const GpuBufferRange& range, UIndex32 arrayIndex) {
 	OSK_ASSERT(false, NotImplementedException());
 }
 
-void MaterialSlotDx12::SetStorageImages(const std::string& binding, std::span<const IGpuImageView*, MAX_RESOURCES_IN_FLIGHT> images, UIndex32 arrayIndex) {
-	SetStorageImage(binding, images[0], arrayIndex);
+void MaterialSlotDx12::SetStorageImage(std::string_view binding, const IGpuImageView&, UIndex32 arrayIndex) {
+	OSK_ASSERT(false, NotImplementedException());
 }
 
-void MaterialSlotDx12::SetAccelerationStructures(const std::string& binding, std::span<const ITopLevelAccelerationStructure*, MAX_RESOURCES_IN_FLIGHT> images, UIndex32 arrayIndex) {
+void MaterialSlotDx12::SetAccelerationStructure(std::string_view binding, const ITopLevelAccelerationStructure&, UIndex32 arrayIndex) {
 	OSK_ASSERT(false, NotImplementedException());
 }
 

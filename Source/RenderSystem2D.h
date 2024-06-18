@@ -26,7 +26,7 @@ namespace OSK::ECS {
 
 	private:
 
-		GRAPHICS::SpriteRenderer spriteRenderer{};
+		GRAPHICS::SpriteRenderer spriteRenderer;
 
 	};
 

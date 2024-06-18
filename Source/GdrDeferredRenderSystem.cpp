@@ -24,6 +24,7 @@ void GdrDeferredRenderSystem::SetMaxCounts(USize32 maxVertexCount, USize32 maxMe
 }
 
 void GdrDeferredRenderSystem::CreateUnifiedBuffers(USize32 maxVertexCount, USize32 maxMeshCount) {
+	/*
 	auto* allocator = Engine::GetRenderer()->GetAllocator();
 
 	for (UIndex64 i = 0; i < MAX_RESOURCES_IN_FLIGHT; i++) {
@@ -77,6 +78,7 @@ void GdrDeferredRenderSystem::CreateUnifiedBuffers(USize32 maxVertexCount, USize
 	m_gdrMaterialInstance->GetSlot("tables")->SetStorageBuffers("positions", positionsTable);
 	m_gdrMaterialInstance->GetSlot("tables")->SetStorageBuffers("attributes", attributesTable);
 	m_gdrMaterialInstance->GetSlot("tables")->FlushUpdate();
+	*/
 }
 
 void GdrDeferredRenderSystem::Render(GRAPHICS::ICommandList* commandList, std::span<const ECS::GameObjectIndex> objects) {
@@ -121,7 +123,7 @@ void GdrDeferredRenderSystem::Render(GRAPHICS::ICommandList* commandList, std::s
 	
 
 	const auto* defaultNormalTexture = OSK::Engine::GetRenderer()->GetAllocator()->GetDefaultNormalTexture();
-	m_gdrMaterialInstance->GetSlot("images")->SetGpuImage("images", defaultNormalTexture->GetView(GpuImageViewConfig::CreateSampled_Default()), 0);
+	m_gdrMaterialInstance->GetSlot("images")->SetGpuImage("images", *defaultNormalTexture->GetView(GpuImageViewConfig::CreateSampled_Default()), 0);
 		
 
 
@@ -306,7 +308,7 @@ void GdrDeferredRenderSystem::WriteMaterialInfo(const GpuModel3D& model, UIndex3
 
 		(*nextImageIndex)++;
 
-		m_gdrMaterialInstance->GetSlot("images")->SetGpuImage("images", colorView, colorViewIndex);
+		m_gdrMaterialInstance->GetSlot("images")->SetGpuImage("images", *colorView, colorViewIndex);
 	}
 
 	const UIndex32 normalViewIndex = containsNormalTexture
@@ -318,7 +320,7 @@ void GdrDeferredRenderSystem::WriteMaterialInfo(const GpuModel3D& model, UIndex3
 
 		(*nextImageIndex)++;
 
-		m_gdrMaterialInstance->GetSlot("images")->SetGpuImage("images", normalView, normalViewIndex);
+		m_gdrMaterialInstance->GetSlot("images")->SetGpuImage("images", *normalView, normalViewIndex);
 	}
 
 

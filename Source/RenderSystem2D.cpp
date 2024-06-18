@@ -15,7 +15,7 @@ using namespace OSK;
 using namespace OSK::ECS;
 using namespace OSK::GRAPHICS;
 
-RenderSystem2D::RenderSystem2D() {
+RenderSystem2D::RenderSystem2D() : spriteRenderer(Engine::GetRenderer()->GetAllocator(), Engine::GetRenderer()->GetMaterialSystem()->LoadMaterial("Resources/Materials/2D/material_2d.json")) {
 	Signature signature{};
 
 	signature.SetTrue(Engine::GetEcs()->GetComponentType<Transform2D>());

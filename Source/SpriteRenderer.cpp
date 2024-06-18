@@ -20,17 +20,49 @@
 #include "InvalidObjectStateException.h"
 #include "InvalidArgumentException.h"
 
+#include "IRenderer.h"
+
 using namespace OSK;
 using namespace OSK::ECS;
 using namespace OSK::ASSETS;
 using namespace OSK::GRAPHICS;
 
+
+struct SpriteRendererGlobalInformation {
+	Vector2f resolution;
+};
+
+
+SpriteRenderer::SpriteRenderer(IGpuMemoryAllocator* allocator, Material* defaultMaterial) : m_memoryAllocator(allocator) {
+	m_globalInformationBuffer = allocator->CreateBuffer(
+		sizeof(SpriteRendererGlobalInformation),
+		GPU_MEMORY_NO_ALIGNMENT,
+		GpuBufferUsage::UNIFORM_BUFFER,
+		GpuSharedMemoryType::GPU_AND_CPU,
+		GpuQueueType::MAIN).GetPointer();
+
+	m_globalInformationInstance = defaultMaterial->CreateInstance().GetPointer();
+	GetGlobalInformationSlot()->SetUniformBuffer("globalInformation", m_globalInformationBuffer.GetValue());
+	GetGlobalInformationSlot()->FlushUpdate();
+}
+
+
 void SpriteRenderer::SetCommandList(ICommandList* commandList) noexcept {
 	targetCommandList = commandList;
+
+	const auto& vpRectangle = commandList->GetCurrentViewport().rectangle.ToVector4f();
+
+	SpriteRendererGlobalInformation information{};
+	information.resolution = vpRectangle.GetRectangleSize() - vpRectangle.GetRectanglePosition();
+
+	m_globalInformationBuffer->MapMemory();
+	m_globalInformationBuffer->Write(information);
+	m_globalInformationBuffer->Unmap();
 }
 
 void SpriteRenderer::SetMaterial(const Material& material) {
 	targetCommandList->BindMaterial(material);
+	targetCommandList->BindMaterialSlot(*GetGlobalInformationSlot());
 }
 
 void SpriteRenderer::SetMaterialSlot(const IMaterialSlot& materialSlot) {
@@ -79,6 +111,7 @@ void SpriteRenderer::Draw(const Sprite& sprite, const TextureCoordinates2D& texC
 	pushConst.texCoords = texCoords.type == TextureCoordsType::NORMALIZED
 		? texCoords.texCoords
 		: texCoords.GetNormalized(sprite.GetView()->GetSize2D().ToVector2f());
+	pushConst.centerPosition = transform.GetPosition() + transform.GetScale() * 0.5f;
 
 	targetCommandList->PushMaterialConstants("sprite", pushConst);
 
@@ -185,4 +218,8 @@ void SpriteRenderer::End() noexcept {
 	previousImage = nullptr;
 
 	isStarted = false;
+}
+
+IMaterialSlot* SpriteRenderer::GetGlobalInformationSlot() {
+	return m_globalInformationInstance->GetSlot("global");
 }

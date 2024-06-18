@@ -9,6 +9,15 @@
 
 #include "CameraComponent3D.h"
 #include "Transform3D.h"
+#include <span>
+#include "GameObject.h"
+#include "ICommandList.h"
+#include "ResourcesInFlight.h"
+#include "AssetRef.h"
+#include "NumericTypes.h"
+#include "Vector2.hpp"
+#include "Uuid.h"
+#include "AssetManager.h"
 
 using namespace OSK;
 using namespace OSK::ECS;
@@ -18,19 +27,20 @@ using namespace OSK::GRAPHICS;
 SkyboxRenderSystem::SkyboxRenderSystem() {
 	_SetSignature({});
 
-	skyboxMaterial = Engine::GetRenderer()->GetMaterialSystem()->LoadMaterial("Resources/Materials/Skybox/material.json");
-	skyboxMaterialInstance = skyboxMaterial->CreateInstance().GetPointer();
+	m_skyboxMaterial = Engine::GetRenderer()->GetMaterialSystem()->LoadMaterial(MaterialName);
 
-	m_cubemapModel = Engine::GetAssetManager()->Load<Model3D>("Resources/Assets/Models/cube.json");
-
-	std::array<const GpuBuffer*, MAX_RESOURCES_IN_FLIGHT> buffers{};
-	for (UIndex32 i = 0; i < MAX_RESOURCES_IN_FLIGHT; i++) {
-		cameraUbos[i] = Engine::GetRenderer()->GetAllocator()->CreateUniformBuffer(sizeof(glm::mat4) * 2).GetPointer();
-		buffers[i] = cameraUbos[i].GetPointer();
+	for (auto& mInstance : m_skyboxMaterialInstances) {
+		mInstance = m_skyboxMaterial->CreateInstance().GetPointer();
 	}
 
-	skyboxMaterialInstance->GetSlot("camera")->SetUniformBuffers("camera", buffers);
-	skyboxMaterialInstance->GetSlot("camera")->FlushUpdate();
+	m_cubemapModel = Engine::GetAssetManager()->Load<Model3D>(CubeModelPath);
+
+	for (UIndex32 i = 0; i < MAX_RESOURCES_IN_FLIGHT; i++) {
+		m_cameraUbos[i] = Engine::GetRenderer()->GetAllocator()->CreateUniformBuffer(sizeof(glm::mat4) * 2).GetPointer();
+		
+		m_skyboxMaterialInstances[i]->GetSlot("camera")->SetUniformBuffer("camera", m_cameraUbos[i].GetValue());
+		m_skyboxMaterialInstances[i]->GetSlot("camera")->FlushUpdate();
+	}
 }
 
 void SkyboxRenderSystem::CreateTargetImage(const Vector2ui& size) {
@@ -46,8 +56,10 @@ void SkyboxRenderSystem::SetCamera(GameObjectIndex cameraObject) {
 void SkyboxRenderSystem::SetCubemap(ASSETS::AssetRef<ASSETS::CubemapTexture> texture) {
 	m_skybox = texture;
 
-	skyboxMaterialInstance->GetSlot("texture")->SetGpuImage("skybox", texture->GetGpuImage()->GetView(GpuImageViewConfig::CreateSampled_Cubemap()));
-	skyboxMaterialInstance->GetSlot("texture")->FlushUpdate();
+	for (UIndex32 i = 0; i < MAX_RESOURCES_IN_FLIGHT; i++) {
+		m_skyboxMaterialInstances[i]->GetSlot("texture")->SetGpuImage("skybox", *texture->GetGpuImage()->GetView(GpuImageViewConfig::CreateSampled_Cubemap()));
+		m_skyboxMaterialInstances[i]->GetSlot("texture")->FlushUpdate();
+	}
 }
 
 void SkyboxRenderSystem::Render(ICommandList* commandList, std::span<const ECS::GameObjectIndex> objects) {
@@ -59,17 +71,17 @@ void SkyboxRenderSystem::Render(ICommandList* commandList, std::span<const ECS::
 	const auto& camera			= Engine::GetEcs()->GetComponent<CameraComponent3D>(cameraObject);
 	const auto& cameraTransform = Engine::GetEcs()->GetComponent<Transform3D>(cameraObject);
 
-	cameraUbos[resourceIndex]->MapMemory();
-	cameraUbos[resourceIndex]->Write(camera.GetProjectionMatrix());
-	cameraUbos[resourceIndex]->Write(camera.GetViewMatrix(cameraTransform));
-	cameraUbos[resourceIndex]->Unmap();
+	m_cameraUbos[resourceIndex]->MapMemory();
+	m_cameraUbos[resourceIndex]->Write(camera.GetProjectionMatrix());
+	m_cameraUbos[resourceIndex]->Write(camera.GetViewMatrix(cameraTransform));
+	m_cameraUbos[resourceIndex]->Unmap();
 
 	commandList->StartDebugSection("Skybox Rendering", Color::Red);
 
 	commandList->BeginGraphicsRenderpass(&m_renderTarget, Color::Black * 0.0f);
 	this->SetupViewport(commandList);
-	commandList->BindMaterial(*skyboxMaterial);
-	commandList->BindMaterialInstance(*skyboxMaterialInstance);
+	commandList->BindMaterial(*m_skyboxMaterial);
+	commandList->BindMaterialInstance(*m_skyboxMaterialInstances[Engine::GetRenderer()->GetCurrentResourceIndex()]);
 	commandList->BindVertexBuffer(m_cubemapModel->GetModel().GetVertexBuffer());
 	commandList->BindIndexBuffer(m_cubemapModel->GetModel().GetIndexBuffer());
 	commandList->PushMaterialConstants("brightness", 1.0f);

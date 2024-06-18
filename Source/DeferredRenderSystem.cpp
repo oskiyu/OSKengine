@@ -29,13 +29,34 @@
 #include "StaticGBufferPass.h"
 #include "AnimatedGBufferPass.h"
 #include "BillboardGBufferPass.h"
-#include "TreeGBufferPass.h"
 #include "ShadowsStaticPass.h"
 
 #include "PbrResolvePass.h"
 
 #include "InvalidObjectStateException.h"
 #include "CopyImageInfo.h"
+#include "MaterialSystem.h"
+#include "Component.h"
+#include "Vector3.hpp"
+#include "IGpuMemoryAllocator.h"
+#include "IGpuImage.h"
+#include "Lights.h"
+#include "Vector4.hpp"
+#include "Color.hpp"
+#include "Vector2.hpp"
+#include "ShadowMap.h"
+#include "ResourcesInFlight.h"
+#include "NumericTypes.h"
+#include "OwnedPtr.h"
+#include "PbrIblConfig.h"
+#include "Uuid.h"
+#include "GameObject.h"
+#include "AssetRef.h"
+#include "IRenderSystem.h"
+#include "IShaderPass.h"
+#include "IMaterialSlot.h"
+#include "GpuImageViewConfig.h"
+#include "GBuffer.h"
 
 
 using namespace OSK;
@@ -70,7 +91,7 @@ void DeferredRenderSystem::CreateBuffers() {
 		m_cameraBuffers[i] = memAllocator->CreateUniformBuffer(sizeof(CameraInfo)).GetPointer();
 		m_previousFrameCameraBuffers[i] = memAllocator->CreateUniformBuffer(sizeof(PreviousCameraInfo)).GetPointer();
 		m_directionalLightBuffers[i] = memAllocator->CreateUniformBuffer(sizeof(DirectionalLight)).GetPointer();
-		m_iblConfigBuffers[i] = memAllocator->CreateUniformBuffer(sizeof(PbrIblConfig)).GetPointer();
+		m_iblConfigBuffers[i] = memAllocator->CreateUniformBuffer(sizeof(GRAPHICS::PbrIblConfig)).GetPointer();
 	}
 }
 
@@ -79,21 +100,20 @@ void DeferredRenderSystem::LoadMaterials() {
 
 	// Material para el slot de la cámara.
 	Material* gBufferMaterial = materialSystem->LoadMaterial("Resources/Materials/PBR/Deferred/deferred_gbuffer_static.json");
-	m_gBufferCameraInstance = gBufferMaterial->CreateInstance().GetPointer();
+
+	for (auto& instance : m_gBufferCameraInstances) {
+		instance = gBufferMaterial->CreateInstance().GetPointer();
+	}
 }
 
 void DeferredRenderSystem::SetupGBufferMaterial() {
-	std::array<const GpuBuffer*, MAX_RESOURCES_IN_FLIGHT> _cameraUbos{};
-	std::array<const GpuBuffer*, MAX_RESOURCES_IN_FLIGHT> _previousCameraUbos{};
-
 	for (UIndex32 i = 0; i < MAX_RESOURCES_IN_FLIGHT; i++) {
-		_cameraUbos[i] = m_cameraBuffers[i].GetPointer();
-		_previousCameraUbos[i] = m_previousFrameCameraBuffers[i].GetPointer();
-	}
+		IMaterialSlot* globalSlot = m_gBufferCameraInstances[i]->GetSlot(CameraGlobalSlotName);
 
-	m_gBufferCameraInstance->GetSlot("global")->SetUniformBuffers("camera", _cameraUbos);
-	m_gBufferCameraInstance->GetSlot("global")->SetUniformBuffers("previousCamera", _previousCameraUbos);
-	m_gBufferCameraInstance->GetSlot("global")->FlushUpdate();
+		globalSlot->SetUniformBuffer(CameraBindingName,			m_cameraBuffers[i].GetValue());
+		globalSlot->SetUniformBuffer(PreviousCameraBindingName, m_previousFrameCameraBuffers[i].GetValue());
+		globalSlot->FlushUpdate();
+	}
 }
 
 void DeferredRenderSystem::Initialize(GameObjectIndex camera, ASSETS::AssetRef<ASSETS::IrradianceMap> irradianceMap, ASSETS::AssetRef<ASSETS::SpecularMap> specularMap) {
@@ -104,7 +124,6 @@ void DeferredRenderSystem::Initialize(GameObjectIndex camera, ASSETS::AssetRef<A
 	AddShaderPass(new StaticGBufferPass());
 	AddShaderPass(new AnimatedGBufferPass());
 	AddShaderPass(new BillboardGBufferPass());
-	AddShaderPass(new TreeGBufferPass());
 
 	auto* shadowsPass = new ShadowsStaticPass();
 	AddShadowsPass(shadowsPass);
@@ -141,10 +160,12 @@ void DeferredRenderSystem::SetIbl(AssetRef<IrradianceMap> irradianceMap, AssetRe
 	m_irradianceMap = irradianceMap;
 	m_specularMap = specularMap;
 
-	m_resolverPass->GetMaterialInstance()->GetSlot("global")->SetGpuImage("irradianceMap", irradianceMap->GetGpuImage()->GetView(cubemapConfig));
-	m_resolverPass->GetMaterialInstance()->GetSlot("global")->SetGpuImage("specularMap", specularMap->GetCubemapImage()->GetView(cubemapConfig));
-	m_resolverPass->GetMaterialInstance()->GetSlot("global")->SetGpuImage("specularLut", specularMap->GetLookUpTable()->GetView(viewConfig));
-	m_resolverPass->GetMaterialInstance()->GetSlot("global")->FlushUpdate();
+	for (UIndex32 i = 0; i < MAX_RESOURCES_IN_FLIGHT; i++) {
+		m_resolverPass->GetMaterialInstance(i)->GetSlot("global")->SetGpuImage("irradianceMap", *irradianceMap->GetGpuImage()->GetView(cubemapConfig));
+		m_resolverPass->GetMaterialInstance(i)->GetSlot("global")->SetGpuImage("specularMap", *specularMap->GetCubemapImage()->GetView(cubemapConfig));
+		m_resolverPass->GetMaterialInstance(i)->GetSlot("global")->SetGpuImage("specularLut", *specularMap->GetLookUpTable()->GetView(viewConfig));
+		m_resolverPass->GetMaterialInstance(i)->GetSlot("global")->FlushUpdate();
+	}
 }
 
 void DeferredRenderSystem::AddShaderPass(OwnedPtr<GRAPHICS::IShaderPass> pass) {
@@ -167,62 +188,58 @@ void DeferredRenderSystem::SetResolver(OwnedPtr<GRAPHICS::IDeferredResolver> res
 }
 
 void DeferredRenderSystem::SetupResolveMaterial() {
-	std::array<const GpuBuffer*, MAX_RESOURCES_IN_FLIGHT> _cameraUbos{};
-	std::array<const GpuBuffer*, MAX_RESOURCES_IN_FLIGHT> _dirLightUbos{};
-	std::array<const GpuBuffer*, MAX_RESOURCES_IN_FLIGHT> _shadowsMatricesUbos{};
-	std::array<const GpuBuffer*, MAX_RESOURCES_IN_FLIGHT> _iblConfigs{};
-
 	GpuImageViewConfig shadowsViewConfig = GpuImageViewConfig::CreateSampled_Array(0, m_shadowMap.GetNumCascades());
 	shadowsViewConfig.channel = SampledChannel::DEPTH;
 
 	for (UIndex32 i = 0; i < MAX_RESOURCES_IN_FLIGHT; i++) {
-		_cameraUbos[i] = m_cameraBuffers[i].GetPointer();
-		_dirLightUbos[i] = m_directionalLightBuffers[i].GetPointer();
-		_shadowsMatricesUbos[i] = m_shadowMap.GetDirLightMatrixUniformBuffers()[i];
-		_iblConfigs[i] = m_iblConfigBuffers[i].GetPointer();
-	}
+		MaterialInstance* materialInstance = m_resolverPass->GetMaterialInstance(i);
+		IMaterialSlot* materialSlot = materialInstance->GetSlot("global");
 
-	m_resolverPass->GetMaterialInstance()->GetSlot("global")->SetUniformBuffers("camera", _cameraUbos);
-	m_resolverPass->GetMaterialInstance()->GetSlot("global")->SetUniformBuffers("dirLight", _dirLightUbos);
-	m_resolverPass->GetMaterialInstance()->GetSlot("global")->SetUniformBuffers("dirLightShadowMat", _shadowsMatricesUbos);
-	m_resolverPass->GetMaterialInstance()->GetSlot("global")->SetGpuImage("dirLightShadowMap", m_shadowMap.GetShadowImage()->GetView(shadowsViewConfig));
-	m_resolverPass->GetMaterialInstance()->GetSlot("global")->SetUniformBuffers("iblConfig", _iblConfigs);
-	m_resolverPass->GetMaterialInstance()->GetSlot("global")->FlushUpdate();
+		materialSlot->SetUniformBuffer("camera", m_cameraBuffers[i].GetValue());
+		materialSlot->SetUniformBuffer("dirLight", m_directionalLightBuffers[i].GetValue());
+		materialSlot->SetUniformBuffer("dirLightShadowMat", *m_shadowMap.GetDirLightMatrixUniformBuffers()[i]);
+		materialSlot->SetGpuImage("dirLightShadowMap", *m_shadowMap.GetShadowImage()->GetView(shadowsViewConfig));
+		materialSlot->SetUniformBuffer("iblConfig", m_iblConfigBuffers[i].GetValue());
+		materialSlot->FlushUpdate();
+	}
 
 	UpdateResolveMaterial();
 }
 
 void DeferredRenderSystem::UpdateResolveMaterial() {
-	if (!m_resolverPass.GetPointer())
+	if (!m_resolverPass.GetPointer()) {
 		return;
+	}
 
 	const GpuImageViewConfig viewConfig = GpuImageViewConfig::CreateSampled_MipLevelRanged(0, 0);
 
 	GpuImageViewConfig depthViewConfig = viewConfig;
 	depthViewConfig.channel = SampledChannel::DEPTH;
 
-	const auto* depthView = m_gBuffer.GetImage(GBuffer::Target::DEPTH)->GetView(depthViewConfig);
-	m_resolverPass->GetMaterialInstance()->GetSlot("gbuffer")->SetGpuImage("depthTexture", depthView);
+	for (UIndex32 i = 0; i < MAX_RESOURCES_IN_FLIGHT; i++) {
+		const auto* depthView = m_gBuffer.GetImage(GBuffer::Target::DEPTH)->GetView(depthViewConfig);
+		m_resolverPass->GetMaterialInstance(i)->GetSlot("gbuffer")->SetGpuImage("depthTexture", *depthView);
 
-	const auto* colorView = m_gBuffer.GetImage(GBuffer::Target::COLOR)->GetView(viewConfig);
-	m_resolverPass->GetMaterialInstance()->GetSlot("gbuffer")->SetGpuImage("colorTexture", colorView);
+		const auto* colorView = m_gBuffer.GetImage(GBuffer::Target::COLOR)->GetView(viewConfig);
+		m_resolverPass->GetMaterialInstance(i)->GetSlot("gbuffer")->SetGpuImage("colorTexture", *colorView);
 
-	const auto* normalView = m_gBuffer.GetImage(GBuffer::Target::NORMAL)->GetView(viewConfig);
-	m_resolverPass->GetMaterialInstance()->GetSlot("gbuffer")->SetGpuImage("normalTexture", normalView);
+		const auto* normalView = m_gBuffer.GetImage(GBuffer::Target::NORMAL)->GetView(viewConfig);
+		m_resolverPass->GetMaterialInstance(i)->GetSlot("gbuffer")->SetGpuImage("normalTexture", *normalView);
 
-	const auto* metallicView = m_gBuffer.GetImage(GBuffer::Target::METALLIC_ROUGHNESS)->GetView(viewConfig);
-	m_resolverPass->GetMaterialInstance()->GetSlot("gbuffer")->SetGpuImage("metallicRoughnessTexture", metallicView);
+		const auto* metallicView = m_gBuffer.GetImage(GBuffer::Target::METALLIC_ROUGHNESS)->GetView(viewConfig);
+		m_resolverPass->GetMaterialInstance(i)->GetSlot("gbuffer")->SetGpuImage("metallicRoughnessTexture", *metallicView);
 
-	const auto* emissiveView = m_gBuffer.GetImage(GBuffer::Target::EMISSIVE)->GetView(viewConfig);
-	m_resolverPass->GetMaterialInstance()->GetSlot("gbuffer")->SetGpuImage("emissiveTexture", emissiveView);
+		const auto* emissiveView = m_gBuffer.GetImage(GBuffer::Target::EMISSIVE)->GetView(viewConfig);
+		m_resolverPass->GetMaterialInstance(i)->GetSlot("gbuffer")->SetGpuImage("emissiveTexture", *emissiveView);
 
-	m_resolverPass->GetMaterialInstance()->GetSlot("gbuffer")->FlushUpdate();
+		m_resolverPass->GetMaterialInstance(i)->GetSlot("gbuffer")->FlushUpdate();
 
-	GpuImageViewConfig computeOutputConfig = GpuImageViewConfig::CreateStorage_Default();
+		GpuImageViewConfig computeOutputConfig = GpuImageViewConfig::CreateStorage_Default();
 
-	m_resolverPass->GetMaterialInstance()->GetSlot("output")->SetStorageImage("finalImage", 
-		m_resolveRenderTarget.GetTargetImage()->GetView(computeOutputConfig));
-	m_resolverPass->GetMaterialInstance()->GetSlot("output")->FlushUpdate();
+		m_resolverPass->GetMaterialInstance(i)->GetSlot("output")->SetStorageImage("finalImage",
+			*m_resolveRenderTarget.GetTargetImage()->GetView(computeOutputConfig));
+		m_resolverPass->GetMaterialInstance(i)->GetSlot("output")->FlushUpdate();
+	}
 }
 
 void DeferredRenderSystem::CreateTargetImage(const Vector2ui& size) {
@@ -423,7 +440,7 @@ void DeferredRenderSystem::RenderGBuffer(ICommandList* commandList) {
 	SetupViewport(commandList);
 
 	// Bindeamos el slot de la cámara.
-	commandList->BindMaterial(*m_gBufferCameraInstance->GetMaterial());
+	commandList->BindMaterial(*m_gBufferCameraInstances[Engine::GetRenderer()->GetCurrentResourceIndex()]->GetMaterial());
 
 	static UIndex32 jitterIndex = 0;
 	constexpr UIndex32 maxJitter = 4;
@@ -437,7 +454,7 @@ void DeferredRenderSystem::RenderGBuffer(ICommandList* commandList) {
 		//	m_objectsPerPass.contains(pass->GetTypeName()), 
 		//	InvalidObjectStateException(std::format("No se encuentra el pase {}", pass->GetTypeName())));
 		
-		commandList->BindMaterialSlot(*m_gBufferCameraInstance->GetSlot("global"));
+		commandList->BindMaterialSlot(*m_gBufferCameraInstances[Engine::GetRenderer()->GetCurrentResourceIndex()]->GetSlot("global"));
 		const auto& objectList = m_shaderPasses.GetCompatibleObjects(pass->GetTypeName());
 		pass->RenderLoop(commandList, objectList, &m_meshMapping, jitterIndex, resolution);
 	}
@@ -571,11 +588,11 @@ const DirectionalLight& DeferredRenderSystem::GetDirectionalLight() const {
 	return m_directionalLight;
 }
 
-PbrIblConfig& DeferredRenderSystem::GetIblConfig() {
+GRAPHICS::PbrIblConfig& DeferredRenderSystem::GetIblConfig() {
 	return m_iblConfig;
 }
 
-const PbrIblConfig& DeferredRenderSystem::GetIblConfig() const {
+const GRAPHICS::PbrIblConfig& DeferredRenderSystem::GetIblConfig() const {
 	return m_iblConfig;
 }
 
@@ -606,7 +623,7 @@ nlohmann::json DeferredRenderSystem::SaveConfiguration() const {
 	output["cameraObject"] = m_cameraObject.Get();
 
 	output["directionalLight"] = PERSISTENCE::SerializeData<DirectionalLight>(m_directionalLight);
-	output["iblConfig"] = PERSISTENCE::SerializeData<PbrIblConfig>(m_iblConfig);
+	output["iblConfig"] = PERSISTENCE::SerializeData<GRAPHICS::PbrIblConfig>(m_iblConfig);
 
 	output["irradianceMap"] = m_irradianceMap->GetAssetFilename();
 	output["specularMap"] = m_specularMap->GetAssetFilename();
@@ -622,7 +639,7 @@ PERSISTENCE::BinaryBlock DeferredRenderSystem::SaveBinaryConfiguration() const {
 	output.Write(m_cameraObject.Get());
 	
 	output.AppendBlock(PERSISTENCE::BinarySerializeData<DirectionalLight>(m_directionalLight));
-	output.AppendBlock(PERSISTENCE::BinarySerializeData<PbrIblConfig>(m_iblConfig));
+	output.AppendBlock(PERSISTENCE::BinarySerializeData<GRAPHICS::PbrIblConfig>(m_iblConfig));
 
 	output.AppendBlock(PERSISTENCE::BinarySerializeData<ShadowMap>(m_shadowMap));
 
@@ -672,7 +689,7 @@ void DeferredRenderSystem::ApplyConfiguration(const nlohmann::json& config, cons
 	SetupResolveMaterial();
 
 	m_directionalLight = PERSISTENCE::DeserializeData<DirectionalLight>(config["directionalLight"]);
-	m_iblConfig = PERSISTENCE::DeserializeData<PbrIblConfig>(config["iblConfig"]);
+	m_iblConfig = PERSISTENCE::DeserializeData<GRAPHICS::PbrIblConfig>(config["iblConfig"]);
 
 	SetIbl(
 		Engine::GetAssetManager()->Load<IrradianceMap>(config["irradianceMap"]),
@@ -689,7 +706,7 @@ void DeferredRenderSystem::ApplyConfiguration(PERSISTENCE::BinaryBlockReader* re
 	UpdatePassesCamera(m_cameraObject);
 
 	m_directionalLight = BinaryDeserializeData<DirectionalLight>(reader);
-	m_iblConfig = BinaryDeserializeData<PbrIblConfig>(reader);
+	m_iblConfig = BinaryDeserializeData<GRAPHICS::PbrIblConfig>(reader);
 
 	m_shadowMap = BinaryDeserializeData<ShadowMap>(reader);
 	m_shadowMap.SetSceneCamera(m_cameraObject);

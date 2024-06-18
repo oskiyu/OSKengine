@@ -25,14 +25,19 @@ using namespace OSK::GRAPHICS;
 
 void ShadowsStaticPass::Load() {
 	m_passMaterial = Engine::GetRenderer()->GetMaterialSystem()->LoadMaterial("Resources/Materials/ShadowMapping/material_shadows.json");
-	m_materialInstance = m_passMaterial->CreateInstance().GetPointer();
+
+	for (auto& mInstance : m_materialInstances) {
+		mInstance = m_passMaterial->CreateInstance().GetPointer();
+	}
 }
 
 void ShadowsStaticPass::SetupShadowMap(const ShadowMap& shadowMap) {
 	auto lightUbos = shadowMap.GetGpuBuffers();
 
-	m_materialInstance->GetSlot("global")->SetUniformBuffers("dirLight", lightUbos);
-	m_materialInstance->GetSlot("global")->FlushUpdate();
+	for (UIndex32 i = 0; i < MAX_RESOURCES_IN_FLIGHT; i++) {
+		m_materialInstances[i]->GetSlot("global")->SetUniformBuffer("dirLight", *lightUbos[i]);
+		m_materialInstances[i]->GetSlot("global")->FlushUpdate();
+	}
 }
 
 void ShadowsStaticPass::ShadowsRenderLoop(ICommandList* commandList, const DynamicArray<ECS::GameObjectIndex>& objectsToRender, UIndex32 cascadeIndex, const ShadowMap& shadowMap) {
@@ -42,7 +47,7 @@ void ShadowsStaticPass::ShadowsRenderLoop(ICommandList* commandList, const Dynam
 	}
 	
 	commandList->BindMaterial(*m_passMaterial);
-	commandList->BindMaterialSlot(*m_materialInstance->GetSlot("global"));
+	commandList->BindMaterialSlot(*m_materialInstances[Engine::GetRenderer()->GetCurrentResourceIndex()]->GetSlot("global"));
 
 	for (const GameObjectIndex obj : objectsToRender) {
 		const ModelComponent3D& model = Engine::GetEcs()->GetComponent<ModelComponent3D>(obj);

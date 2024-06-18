@@ -40,7 +40,7 @@ namespace OSK::UI {
 		/// @note Si ya existía un elemento en la posición indicada,
 		/// se reemplazará.
 		void AddChild_InPosition(
-			SharedPtr<IElement> child,
+			OwnedPtr<IElement> child,
 			Position position);
 
 

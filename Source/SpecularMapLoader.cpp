@@ -45,7 +45,7 @@ SpecularMapLoader::SpecularMapLoader() {
 	const GpuImageViewConfig viewConfig = GpuImageViewConfig::CreateStorage_Default();
 	const IGpuImageView* lutGenImage = lookUpTable.GetTargetImage()->GetView(viewConfig);
 
-	lutGenerationMaterialInstance->GetSlot("global")->SetStorageImage("finalImage", lutGenImage);
+	lutGenerationMaterialInstance->GetSlot("global")->SetStorageImage("finalImage", *lutGenImage);
 	lutGenerationMaterialInstance->GetSlot("global")->FlushUpdate();
 
 	cubemapModel = Engine::GetAssetManager()->Load<ASSETS::Model3D>("Resources/Assets/Models/cube.json");
@@ -116,8 +116,8 @@ void SpecularMapLoader::Load(const std::string& assetFilePath, SpecularMap* asse
 	originalCubemap->SetDebugName("Original Specular Cubemap");
 	targetCubemap->SetDebugName("Prefiltered Specular Cubemap");
 
-	generationMaterialInstance->GetSlot("global")->SetGpuImage("image", originalImage->GetView(GpuImageViewConfig::CreateSampled_SingleMipLevel(0)));
-	prefilterMaterialInstance->GetSlot("global")->SetGpuImage("image", originalCubemap->GetView(GpuImageViewConfig::CreateSampled_Cubemap()));
+	generationMaterialInstance->GetSlot("global")->SetGpuImage("image", *originalImage->GetView(GpuImageViewConfig::CreateSampled_SingleMipLevel(0)));
+	prefilterMaterialInstance->GetSlot("global")->SetGpuImage("image", *originalCubemap->GetView(GpuImageViewConfig::CreateSampled_Cubemap()));
 
 	generationMaterialInstance->GetSlot("global")->FlushUpdate();
 	prefilterMaterialInstance->GetSlot("global")->FlushUpdate();

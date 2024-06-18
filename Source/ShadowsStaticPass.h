@@ -33,7 +33,7 @@ namespace OSK::GRAPHICS {
 	private:
 
 		bool m_hasBeenSet = false;
-		UniquePtr<MaterialInstance> m_materialInstance;
+		std::array<UniquePtr<MaterialInstance>, MAX_RESOURCES_IN_FLIGHT> m_materialInstances;
 
 	};
 

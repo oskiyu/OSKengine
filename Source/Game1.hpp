@@ -113,9 +113,6 @@
 #include "AudioAsset.h"
 #include "IAudioSource.h"
 #include "CollisionEvent.h"
-#include "TreeNormalsRenderSystem.h"
-#include "TreeNormalsPass.h"
-#include "TreeGBufferPass.h"
 
 #include "PreBuiltSpline3D.h"
 #include "UiConsole.h"
@@ -125,9 +122,10 @@
 
 #include "EditorUi.h"
 
-#include <thread>
+#include "SdfBindlessRenderer2D.h"
+#include "SdfStringInfo.h"
 
-OSK::GRAPHICS::SpriteRenderer spriteRenderer;
+#include <thread>
 
 
 using namespace OSK;
@@ -189,128 +187,17 @@ protected:
 		SetupRenderTargets();
 		SetupPostProcessingChain();
 
-		spriteRenderer.SetCommandList(Engine::GetRenderer()->GetMainCommandList());
-
-		// Font loading
-		font = Engine::GetAssetManager()->Load<ASSETS::Font>("Resources/Assets/Fonts/font0.json");
-		font->LoadSizedFont(22);
-		font->SetMaterial(material2d);
-
-		auto font = Engine::GetAssetManager()->Load<ASSETS::Font>("Resources/Assets/Fonts/font1.json");
-		font->SetMaterial(material2d);
-
-		SetupUi();
-
 		// Esperar a la carga completa.
 		Engine::GetJobSystem()->WaitForJobs<AssetLoaderJob>();
 
 		stopWatch.Stop();
 
 		Engine::GetLogger()->InfoLog(std::format("Tiempo de carga: {} segundos", stopWatch.GetElapsedTime()));
-	}
 
-	void SetupUi() {
-		auto logoContainer = new UI::HorizontalContainer({ 380.0f, 80.0f });
-
-		const auto uiView = &Engine::GetAssetManager()->Load<ASSETS::Texture>("Resources/Assets/Textures/button_texture.json")
-			->GetTextureView2D();
-		const auto iconView = &Engine::GetAssetManager()->Load<ASSETS::Texture>("Resources/Assets/Textures/engine_icon.json")
-			->GetTextureView2D();
-
-		UI::ImageView* uiIcon = new UI::ImageView(Vector2f(48.0f));
-		uiIcon->GetSprite().SetImageView(iconView);
-		uiIcon->SetMargin(Vector4f(4.0f));
-
-		UI::TextView* uiText = new UI::TextView(Vector2f(128.0f));
-		uiText->SetFont(font);
-		uiText->SetFontSize(35);
-		uiText->SetText("OSKengine");
-		uiText->SetAnchor(UI::Anchor::CENTER_X | UI::Anchor::CENTER_Y);
-		uiText->AdjustSizeToText();
-
-		UI::TextView* text2 = new UI::TextView(Vector2f(128.0f));
-		text2->SetFont(font);
-		text2->SetFontSize(21);
-		text2->SetText(std::format("build {}", Engine::GetBuild()));
-		text2->SetAnchor(UI::Anchor::CENTER_X | UI::Anchor::BOTTOM);
-		text2->AdjustSizeToText();
-
-		uiFpsText = new UI::TextView(Vector2f(50.0f));
-		uiFpsText->SetFont(font);
-		uiFpsText->SetFontSize(23);
-		uiFpsText->SetText("FPS: 000");
-		uiFpsText->AdjustSizeToText();
-		uiFpsText->SetMargin({ 30.0f, 2.0f, 2.0f, 2.0f });
-
-		logoContainer->GetSprite().SetImageView(uiView);
-		logoContainer->GetSprite().color = Color(0.3f, 0.3f, 0.3f, 0.94f);
-
-		logoContainer->SetPadding(Vector4f(4.0f));
-		logoContainer->AddChild("icon", uiIcon);
-		logoContainer->AddChild("text", uiText);
-		logoContainer->AddChild("text2", text2);
-		logoContainer->AddChild("fps", uiFpsText);
-
-		// Dropdown
-		auto* dropdown = new UI::Dropdown(Vector2f(160.0f, 40.0f));
-		dropdown->SetAnchor(UI::Anchor::FULLY_CENTERED);
-		dropdown->SetFont(font, 22);
-		dropdown->SetSelectionCallback([](std::string_view t) {
-			if (t == "VSYNC ON")
-				Engine::GetRenderer()->SetPresentMode(PresentMode::VSYNC_ON);
-			else
-				Engine::GetRenderer()->SetPresentMode(PresentMode::VSYNC_ON_TRIPLE_BUFFER);
-			});
-		dropdown->SetBackground(uiView, Color(0.5f, 0.5f, 0.5f, 1.0f), Color(0.5f, 0.5f, 0.8f, 1.0f));
-		dropdown->AddElement("VSYNC ON");
-		dropdown->AddElement("VSYNC TRIPLE BUFFER");
-
-		logoContainer->AddChild("dropdown", dropdown);
-
-		logoContainer->SetAnchor(UI::Anchor::TOP | UI::Anchor::LEFT);
-
-		logoContainer->AdjustSizeToChildren();
-		logoContainer->Rebuild();
-		
-		// GetRootUiElement().AddChild("", logoContainer);
-
-		// Panel derecho
-		UI::VerticalContainer* rightPanel = new UI::VerticalContainer(Vector2f(170.0f));
-		rightPanel->SetKeepRelativeSize(true);
-
-		rightPanel->GetSprite().SetImageView(uiView);
-		rightPanel->GetSprite().color = Color(0.3f, 0.3f, 0.3f, 0.94f);
-		rightPanel->SetAnchor(UI::Anchor::RIGHT | UI::Anchor::BOTTOM);
-		rightPanel->SetPadding(Vector2f(6.0f));
-
-		UI::TextView* rightPanelTitle = new UI::TextView(Vector2f(50.0f));
-		rightPanelTitle->SetFont(font);
-		rightPanelTitle->SetFontSize(27);
-		rightPanelTitle->SetText("Settings");
-		rightPanelTitle->AdjustSizeToText();
-		rightPanelTitle->SetMargin(Vector4f(3.0f, 3.0f, 3.0f, 6.0f));
-
-		rightPanel->AddChild("title", rightPanelTitle);
-
-		taaCheckbox = CreateCheckbox("TAA", [this](bool isActive) { SetTaaState(isActive); }).GetPointer();
-		fxaaCheckbox = CreateCheckbox("HBAO", [this](bool isActive) { SetHbaoState(isActive); }).GetPointer();
-		bloomCheckbox = CreateCheckbox("Boom", [this](bool isActive) { SetBloomState(isActive); }).GetPointer();
-		collisionCheckbox = CreateCheckbox("Show Collisions", [](bool) {
-			Engine::GetEcs()->GetSystem<ECS::ColliderRenderSystem>()->ToggleActivationStatus();
-			Engine::GetEcs()->GetSystem<ECS::RenderBoundsRenderer>()->ToggleActivationStatus();
-			}).GetPointer();
-
-		rightPanel->AddChild("taaCheckbox", taaCheckbox);
-		rightPanel->AddChild("fxaaCheckbox", fxaaCheckbox);
-		rightPanel->AddChild("bloomCheckbox", bloomCheckbox);
-		rightPanel->AddChild("collisionCheckbox", collisionCheckbox);
-
-		rightPanel->AdjustSizeToChildren();
-		rightPanel->Rebuild();
-
-		// GetRootUiElement().AddChild("rightPanel", rightPanel);
-
-
+		m_sdfRenderer = new SdfBindlessRenderer2D(
+			Engine::GetEcs(),
+			Engine::GetRenderer()->GetAllocator(),
+			Engine::GetRenderer()->GetMaterialSystem()->LoadMaterial(SdfBindlessRenderer2D::DefaultMaterialPath));
 	}
 
 	void RegisterSystems() override {
@@ -370,7 +257,7 @@ protected:
 					display->ToggleFullscreen();
 			}
 
-			
+
 
 #pragma region Exposición y gamma
 
@@ -406,18 +293,23 @@ protected:
 			//
 			// Bloom
 			if (keyboard->IsKeyReleased(IO::Key::B)) {
-				bloomCheckbox->GetChild("button")->As<UI::Button>()->Click();
+				SetBloomState(!config.useBloom);
 			}
 
-			// FXAA
-			if (keyboard->IsKeyReleased(IO::Key::F))
-				fxaaCheckbox->GetChild("button")->As<UI::Button>()->Click();
+			// #ifdef OSK_USE_DEFERRED_RENDERER  
+						// TAA
+			if (keyboard->IsKeyReleased(IO::Key::T)) {
+				Engine::GetEcs()->GetSystem<DeferredRenderSystem>()->ToggleTaa();
+			}
 
-// #ifdef OSK_USE_DEFERRED_RENDERER  
-			// TAA
-			if (keyboard->IsKeyReleased(IO::Key::T))
-				taaCheckbox->GetChild("button")->As<UI::Button>()->Click();
-		
+			if (keyboard->IsKeyReleased(IO::Key::H)) {
+				SetHbaoState(!config.useHbao);
+			}
+
+			if (keyboard->IsKeyStroked(IO::Key::R)) {
+				Engine::GetRenderer()->GetMaterialSystem()->ReloadAllMaterials();
+			}
+
 			if (keyboard->IsKeyStroked(IO::Key::M)) {
 				IO::IMouseInput* mouseInput = nullptr;
 				Engine::GetInput()->QueryInterface(IUUID::IMouseInput, (void**)&mouseInput);
@@ -433,8 +325,9 @@ protected:
 			}
 
 			// Activar / desactivar renderizado de colliders
-			if (keyboard->IsKeyReleased(IO::Key::C))
-				collisionCheckbox->GetChild("button")->As<UI::Button>()->Click();
+			if (keyboard->IsKeyReleased(IO::Key::C)){
+				Engine::GetEcs()->GetSystem<ColliderRenderSystem>()->ToggleActivationStatus();
+			}
 
 
 			// Movimiento de la cámara
@@ -503,7 +396,7 @@ protected:
 			const bool isPressed = mouse->GetMouseState().IsButtonDown(IO::MouseButton::BUTTON_LEFT);
 			const Vector2f position = mouse->GetMouseState().GetPosition().ToVector2f();
 
-			GetRootUiElement().UpdateByCursor(position, isPressed, Vector2f::Zero);
+			GetRootUiElement().UpdateByCursor(position, isPressed);
 		}
 
 		if (keyboard) {
@@ -514,9 +407,6 @@ protected:
 	void BuildFrame() override {
 		auto commandList = Engine::GetRenderer()->GetMainCommandList();
 		auto renderpass = Engine::GetRenderer()->GetFinalRenderTarget();
-
-		static SpriteRenderer spriteRenderer{};
-		spriteRenderer.SetCommandList(commandList);
 
 		const Vector4ui windowRec = {
 			0,
@@ -535,20 +425,36 @@ protected:
 		commandList->StartDebugSection("Text Rendering", Color::Blue);
 		commandList->BeginGraphicsRenderpass(textRenderTarget.GetPointer(), Color::Black * 0.0f);
 
-		spriteRenderer.Begin();
-		spriteRenderer.SetCamera(cameraObject2d);
-		spriteRenderer.SetMaterial(*material2d);
+		{
+			SdfDrawCall2D drawCall{};
+			drawCall.transform = Transform2D(GameObjectIndex::CreateEmpty());
+			drawCall.transform.SetPosition(Vector2f{ 0.0f });
+			drawCall.transform.SetScale(Vector2f{ 50.0f });
+			drawCall.shape = SdfShape2D::RECTANGLE;
+			drawCall.contentType = SdfDrawCallContentType2D::COLOR_FLAT;
 
-		uiFpsText->SetText(
-			std::format("FPS: {}", GetFps())
-		);
+			SdfDrawCall2D drawCall2{};
+			drawCall2.transform.SetPosition(Vector2f{ 50.0f });
+			drawCall2.transform.SetScale(Vector2f{ 250.0f });
+			drawCall2.shape = SdfShape2D::RECTANGLE;
+			drawCall2.contentType = SdfDrawCallContentType2D::TEXTURE;
+			drawCall2.texture = &Engine::GetAssetManager()->Load<ASSETS::Texture>("Resources/Assets/Textures/engine_icon.json")->GetTextureView2D();
+			drawCall2.mainColor = Color::Blue;
 
+			SdfStringInfo textDrawCall{};
+			textDrawCall.text = "XDXDXD alaverga";
+			textDrawCall.font = &Engine::GetAssetManager()->Load<ASSETS::Font>("Resources/Assets/Fonts/font0.json")->GetInstance(22);
+			textDrawCall.transform.SetScale(Vector2f::One);
+			textDrawCall.transform.AddPosition(Vector2f{ 20.0f });
+			textDrawCall.color = Color::Black;
 
-		GetRootUiElement().Render(&spriteRenderer, Vector2f::Zero);
+			m_sdfRenderer->Begin(commandList);
+			m_sdfRenderer->SetCamera(cameraObject2d);
+			
+			GetRootUiElement().Render(m_sdfRenderer.GetPointer());
 
-		// spriteRenderer.DrawString(font, 20,, Vector2f{ 50.0f }, Color::White);
-
-		spriteRenderer.End();
+			m_sdfRenderer->End();
+		}
 
 		commandList->EndGraphicsRenderpass();
 		commandList->EndDebugSection();
@@ -645,7 +551,7 @@ protected:
 		commandList->EndDebugSection();
 
 		commandList->SetGpuImageBarrier(
-			Engine::GetRenderer()->_GetSwapchain()->GetImage(Engine::GetRenderer()->GetCurrentResourceIndex()),
+			Engine::GetRenderer()->_GetSwapchain()->GetImage(Engine::GetRenderer()->GetCurrentFrameIndex()),
 			GpuImageLayout::COLOR_ATTACHMENT,
 			GpuImageLayout::PRESENT,
 			GpuBarrierInfo(GpuCommandStage::COLOR_ATTACHMENT_OUTPUT, GpuAccessStage::COLOR_ATTACHMENT_WRITE),
@@ -663,11 +569,11 @@ protected:
 		preEffectsFrameCombiner->Resize(size);
 
 		SetupPostProcessingChain();
-
-		SetupTreeNormals();
 	}
 
 	void OnExit() override {
+		m_sdfRenderer.Delete();
+
 		bloomPass.Delete();
 		hbaoPass.Delete();
 		toneMappingPass.Delete();
@@ -682,61 +588,6 @@ protected:
 	}
 
 private:
-
-	void SetupTreeNormals() {
-#ifdef OSK_USE_GDR_RENDERER
-		return;
-#endif // OSK_USE_GDR_RENDERER
-
-		auto* renderSystem = Engine::GetEcs()->GetSystem<DeferredRenderSystem>();
-		auto* treeRenderSystem = Engine::GetEcs()->GetSystem<TreeNormalsRenderSystem>();
-
-		const GpuImageViewConfig viewConfig = GpuImageViewConfig::CreateSampled_SingleMipLevel(0);
-
-		auto* treeGBufferPass = renderSystem->GetShaderPass(TreeGBufferPass::GetRenderPassName())->As<TreeGBufferPass>();
-		treeGBufferPass->GetMaterialInstance()->GetSlot("normals")->SetGpuImage("preCalculatedNormalTexture",
-			treeRenderSystem->GetRenderTarget().GetMainColorImage()->GetView(viewConfig));
-		treeGBufferPass->GetMaterialInstance()->GetSlot("normals")->FlushUpdate();
-	}
-
-	OwnedPtr<UI::HorizontalContainer> CreateCheckbox(const std::string& text, UI::Button::CallbackFnc callback) {
-		const static auto uiView = &Engine::GetAssetManager()->Load<ASSETS::Texture>("Resources/Assets/Textures/button_texture.json")
-			->GetTextureView2D();
-
-		UI::HorizontalContainer* checkbox = new UI::HorizontalContainer(Vector2f(50.0f));
-		checkbox->SetKeepRelativeSize(true);
-
-		auto button = new UI::Button(Vector2f(25.0f), "");
-		button->SetKeepRelativeSize(true);
-
-		button->GetSprite(UI::Button::State::DEFAULT).SetImageView(uiView);
-		button->GetSprite(UI::Button::State::DEFAULT).color = Color::Red;
-
-		button->GetSprite(UI::Button::State::PRESSED).SetImageView(uiView);
-		button->GetSprite(UI::Button::State::PRESSED).color = Color::Green;
-
-		button->GetSprite(UI::Button::State::SELECTED).SetImageView(uiView);
-		button->GetSprite(UI::Button::State::SELECTED).color = Color::Blue;
-
-		button->SetCallback(callback);
-		button->SetState(UI::Button::State::PRESSED);
-
-		auto textView = new UI::TextView(Vector2f(25.0f));
-		textView->SetKeepRelativeSize(true);
-
-		textView->SetText(text);
-		textView->SetFont(font);
-		textView->SetFontSize(25);
-		textView->AdjustSizeToText();
-
-		checkbox->AddChild("button", button);
-		checkbox->AddChild("text", textView);
-
-		checkbox->AdjustSizeToChildren();
-		checkbox->Rebuild();
-
-		return checkbox;
-	}
 
 	void SetTaaState(bool) {
 		auto renderSystem = Engine::GetEcs()->GetSystem<OSK_CURRENT_RSYSTEM>();
@@ -797,7 +648,7 @@ private:
 				exposureBuffers[i]->Unmap();
 			}
 
-			toneMappingPass->SetExposureBuffers(epxBuffers);
+			toneMappingPass->SetExposureBuffer(*exposureBuffers[0]);
 		}
 
 		const GpuImageViewConfig viewConfig = GpuImageViewConfig::CreateSampled_SingleMipLevel(0);
@@ -807,34 +658,28 @@ private:
 		auto* renderSystem = Engine::GetEcs()->GetSystem<OSK_CURRENT_RSYSTEM>();
 
 		if (config.useHbao) {
-			hbaoPass->SetInputTarget(preEffectsSource, viewConfig);
+			hbaoPass->SetColorInput(preEffectsSource.GetTargetImage());
 			hbaoPass->SetNormalsInput(renderSystem->GetGbuffer().GetImage(GBuffer::Target::NORMAL));
 			hbaoPass->SetDepthInput(renderSystem->GetGbuffer().GetImage(GBuffer::Target::DEPTH));
 		}
 
 		if (config.useBloom && config.useHbao) {
-			bloomPass->SetInputTarget(hbaoPass->GetOutput(), viewConfig);
-			toneMappingPass->SetInputTarget(bloomPass->GetOutput(), viewConfig);
+			bloomPass->SetInput(hbaoPass->GetOutput().GetTargetImage());
+			toneMappingPass->SetInput(bloomPass->GetOutput().GetTargetImage());
 		} else
 		if (config.useBloom) {
-			bloomPass->SetInputTarget(preEffectsSource, viewConfig);
-			toneMappingPass->SetInputTarget(bloomPass->GetOutput(), viewConfig);
+			bloomPass->SetInput(preEffectsSource.GetTargetImage());
+			toneMappingPass->SetInput(bloomPass->GetOutput().GetTargetImage());
 		}
 		else 
 		if (config.useHbao) {
-			toneMappingPass->SetInputTarget(hbaoPass->GetOutput(), viewConfig);
+			toneMappingPass->SetInput(hbaoPass->GetOutput().GetTargetImage());
 		}
 		else {
-			toneMappingPass->SetInputTarget(preEffectsSource, viewConfig);
+			toneMappingPass->SetInput(preEffectsSource.GetTargetImage());
 		}
 
 		Engine::GetRenderer()->WaitForCompletion();
-
-		if (config.useHbao)
-			hbaoPass->UpdateMaterialInstance();
-		if (config.useBloom)
-			bloomPass->UpdateMaterialInstance();
-		toneMappingPass->UpdateMaterialInstance();
 	}
 
 	void SetupRenderSystems() {
@@ -854,13 +699,6 @@ private:
 #ifdef OSK_USE_GDR_RENDERER
 		renderSystem->SetMaxCounts(4'000'000, 100'000);
 #endif // OSK_USE_GDR_RENDERER
-
-
-		auto* treeRenderSystem = Engine::GetEcs()->GetSystem<TreeNormalsRenderSystem>();
-		treeRenderSystem->Initialize(cameraObject);
-
-		SetupTreeNormals();
-
 
 		// Skybox Render System
 		Engine::GetEcs()->GetSystem<SkyboxRenderSystem>()->SetCamera(cameraObject);
@@ -1126,19 +964,12 @@ private:
 
 	std::array<UniquePtr<GpuBuffer>, MAX_RESOURCES_IN_FLIGHT> exposureBuffers{};
 
-	UI::TextView* uiFpsText = nullptr;
-
 	bool m_inEditor = false;
-
-	UI::HorizontalContainer* taaCheckbox = nullptr;
-	UI::HorizontalContainer* fxaaCheckbox = nullptr;
-	UI::HorizontalContainer* bloomCheckbox = nullptr;
-	UI::HorizontalContainer* collisionCheckbox = nullptr;
 
 	ECS::GameObjectIndex cameraObject = ECS::EMPTY_GAME_OBJECT;
 	ECS::GameObjectIndex cameraObject2d = ECS::EMPTY_GAME_OBJECT;
 
-	ASSETS::AssetRef<ASSETS::Font> font;
+	UniquePtr<SdfBindlessRenderer2D> m_sdfRenderer;
 
 };
 

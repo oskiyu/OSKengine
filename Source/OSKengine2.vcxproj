@@ -140,6 +140,8 @@
     <ClCompile Include="ResourceQueueTransfer.cpp" />
     <ClCompile Include="Sat.cpp" />
     <ClCompile Include="SavedGameObjectTranslator.cpp" />
+    <ClCompile Include="SdfBindlessBufferContent2D.cpp" />
+    <ClCompile Include="SdfBindlessRenderer2D.cpp" />
     <ClCompile Include="ShaderPassFactory.cpp" />
     <ClCompile Include="ShadowsStaticPass.cpp" />
     <ClCompile Include="Simplex.cpp" />
@@ -150,9 +152,6 @@
     <ClCompile Include="SystemExecutionGraph.cpp" />
     <ClCompile Include="ThreadedCommandPoolMap.cpp" />
     <ClCompile Include="TransformApplierSystem.cpp" />
-    <ClCompile Include="TreeGBufferPass.cpp" />
-    <ClCompile Include="TreeNormalsPass.cpp" />
-    <ClCompile Include="TreeNormalsRenderSystem.cpp" />
     <ClCompile Include="UiBorderLayout.cpp" />
     <ClCompile Include="UiConsole.cpp" />
     <ClCompile Include="UiDropdown.cpp" />
@@ -351,6 +350,7 @@
     <ClInclude Include="BillboardGBufferPass.h" />
     <ClInclude Include="BinaryBlock.h" />
     <ClInclude Include="BinaryExceptions.h" />
+    <ClInclude Include="BindlessLimits.h" />
     <ClInclude Include="BitSet.hpp" />
     <ClInclude Include="BloomPass.h" />
     <ClInclude Include="Bone.h" />
@@ -392,6 +392,12 @@
     <ClInclude Include="DefineAs.h" />
     <ClInclude Include="DefineConstructors.h" />
     <ClInclude Include="DefineIuuid.h" />
+    <ClInclude Include="GpuMemoryAlignments.h" />
+    <ClInclude Include="PostProcessExceptions.h" />
+    <ClInclude Include="SdfBindlessBatch2D.h" />
+    <ClInclude Include="SdfBindlessBufferContent2D.h" />
+    <ClInclude Include="SdfDrawCall2D.h" />
+    <ClInclude Include="SdfDrawCallType2D.h" />
     <ClInclude Include="EditorBottomBar.h" />
     <ClInclude Include="EditorCommands.h" />
     <ClInclude Include="EditorHeader.h" />
@@ -498,6 +504,10 @@
     <ClInclude Include="ResourcesInFlight.h" />
     <ClInclude Include="Sat.h" />
     <ClInclude Include="SavedGameObjectTranslator.h" />
+    <ClInclude Include="SdfGlobalInformationBufferContent2D.h" />
+    <ClInclude Include="SdfBindlessRenderer2D.h" />
+    <ClInclude Include="SdfShape2D.h" />
+    <ClInclude Include="SdfStringInfo.h" />
     <ClInclude Include="Serializer.h" />
     <ClInclude Include="ITopLevelCollider.h" />
     <ClInclude Include="IUiContainer.h" />
@@ -673,9 +683,6 @@
     <ClInclude Include="Transform2D.h" />
     <ClInclude Include="Transform3D.h" />
     <ClInclude Include="TransformApplierSystem.h" />
-    <ClInclude Include="TreeGBufferPass.h" />
-    <ClInclude Include="TreeNormalsPass.h" />
-    <ClInclude Include="TreeNormalsRenderSystem.h" />
     <ClInclude Include="UiAnchor.h" />
     <ClInclude Include="UiBorderLayout.h" />
     <ClInclude Include="UiButton.h" />

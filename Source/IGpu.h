@@ -2,9 +2,10 @@
 
 #include "ApiCall.h"
 #include "DefineAs.h"
-
 #include "OwnedPtr.h"
+
 #include "GpuMemoryUsageInfo.h"
+#include "GpuMemoryAlignments.h"
 
 #include <optional>
 
@@ -43,6 +44,10 @@ namespace OSK::GRAPHICS {
 		/// @return Información sobre el uso de memoria de esta GPU.
 		virtual GpuMemoryUsageInfo GetMemoryUsageInfo() const = 0;
 
+		/// @return Información sobre el alineamiento que deben
+		/// seguir los distintos tipos de recursos.
+		const GpuMemoryAlignments& GetMemoryAlignments() const;
+
 
 		/// @brief Cierra la conexión con la GPU.
 		virtual void Close() = 0;
@@ -50,13 +55,27 @@ namespace OSK::GRAPHICS {
 		/// @return Nombre de la GPU.
 		std::string_view GetName() const;
 
+
+		// Capacidades.
+
+		/// @return True si soporta ray-tracing.
+		bool SupportsRayTracing() const;
+
+		/// @return True si soporta renderizado bind-less.
+		bool SupportsBindlessResources() const;
+
 	protected:
 
 		void _SetName(const std::string& name);
+		void SetMinAlignments(const GpuMemoryAlignments& alignments);
+
+		bool m_supportsRayTracing = false;
+		bool m_supportsBindless = false;
 
 	private:
 
 		std::string m_name;
+		GpuMemoryAlignments m_minAlignments{};
 
 	};
 

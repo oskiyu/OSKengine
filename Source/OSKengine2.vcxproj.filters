@@ -643,6 +643,12 @@
     <Filter Include="Archivos de encabezado\Core\Macros">
       <UniqueIdentifier>{a996e0c9-1c06-43fd-9427-28fb56f6bd44}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Archivos de encabezado\Core\Graphics\HighLevel\2D\SDF">
+      <UniqueIdentifier>{0f9ef0c4-e4f0-4092-a589-c0cf5199d285}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de origen\Core\Graphics\HighLevel\2D\SDF">
+      <UniqueIdentifier>{f923b5a3-72e6-417f-887c-5bdc69c3071b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -1218,16 +1224,7 @@
     <ClCompile Include="GBuffer.cpp">
       <Filter>Archivos de origen\BuiltIn\GRAPHICS</Filter>
     </ClCompile>
-    <ClCompile Include="TreeNormalsPass.cpp">
-      <Filter>Archivos de origen\BuiltIn\GRAPHICS\Renderpasses</Filter>
-    </ClCompile>
     <ClCompile Include="PbrResolverPass.cpp">
-      <Filter>Archivos de origen\BuiltIn\GRAPHICS\Renderpasses</Filter>
-    </ClCompile>
-    <ClCompile Include="TreeNormalsRenderSystem.cpp">
-      <Filter>Archivos de origen\BuiltIn\ECS\Systems\Rendering</Filter>
-    </ClCompile>
-    <ClCompile Include="TreeGBufferPass.cpp">
       <Filter>Archivos de origen\BuiltIn\GRAPHICS\Renderpasses</Filter>
     </ClCompile>
     <ClCompile Include="PreBuiltCollider.cpp">
@@ -1448,6 +1445,12 @@
     </ClCompile>
     <ClCompile Include="ExitCommand.cpp">
       <Filter>Archivos de origen\BuiltIn\Console</Filter>
+    </ClCompile>
+    <ClCompile Include="SdfBindlessRenderer2D.cpp">
+      <Filter>Archivos de origen\Core\Graphics\HighLevel\2D\SDF</Filter>
+    </ClCompile>
+    <ClCompile Include="SdfBindlessBufferContent2D.cpp">
+      <Filter>Archivos de origen\Core\Graphics\HighLevel\2D\SDF</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -2315,19 +2318,10 @@
     <ClInclude Include="DeferredPushConstants.h">
       <Filter>Archivos de encabezado\BuiltIn\GRAPHICS</Filter>
     </ClInclude>
-    <ClInclude Include="TreeNormalsPass.h">
-      <Filter>Archivos de encabezado\BuiltIn\GRAPHICS\Renderpasses</Filter>
-    </ClInclude>
     <ClInclude Include="PbrResolvePass.h">
       <Filter>Archivos de encabezado\BuiltIn\GRAPHICS\Renderpasses</Filter>
     </ClInclude>
     <ClInclude Include="IDeferredResolver.h">
-      <Filter>Archivos de encabezado\BuiltIn\GRAPHICS\Renderpasses</Filter>
-    </ClInclude>
-    <ClInclude Include="TreeNormalsRenderSystem.h">
-      <Filter>Archivos de encabezado\BuiltIn\ECS\Systems\Rendering</Filter>
-    </ClInclude>
-    <ClInclude Include="TreeGBufferPass.h">
       <Filter>Archivos de encabezado\BuiltIn\GRAPHICS\Renderpasses</Filter>
     </ClInclude>
     <ClInclude Include="PreBuiltCollider.h">
@@ -2599,6 +2593,39 @@
     </ClInclude>
     <ClInclude Include="ExitCommand.h">
       <Filter>Archivos de encabezado\BuiltIn\Console</Filter>
+    </ClInclude>
+    <ClInclude Include="SdfDrawCallType2D.h">
+      <Filter>Archivos de encabezado\Core\Graphics\HighLevel\2D\SDF</Filter>
+    </ClInclude>
+    <ClInclude Include="SdfDrawCall2D.h">
+      <Filter>Archivos de encabezado\Core\Graphics\HighLevel\2D\SDF</Filter>
+    </ClInclude>
+    <ClInclude Include="SdfBindlessRenderer2D.h">
+      <Filter>Archivos de encabezado\Core\Graphics\HighLevel\2D\SDF</Filter>
+    </ClInclude>
+    <ClInclude Include="BindlessLimits.h">
+      <Filter>Archivos de encabezado\Core\Graphics\LowLevel</Filter>
+    </ClInclude>
+    <ClInclude Include="SdfBindlessBatch2D.h">
+      <Filter>Archivos de encabezado\Core\Graphics\HighLevel\2D\SDF</Filter>
+    </ClInclude>
+    <ClInclude Include="SdfBindlessBufferContent2D.h">
+      <Filter>Archivos de encabezado\Core\Graphics\HighLevel\2D\SDF</Filter>
+    </ClInclude>
+    <ClInclude Include="SdfGlobalInformationBufferContent2D.h">
+      <Filter>Archivos de encabezado\Core\Graphics\HighLevel\2D\SDF</Filter>
+    </ClInclude>
+    <ClInclude Include="SdfShape2D.h">
+      <Filter>Archivos de encabezado\Core\Graphics\HighLevel\2D\SDF</Filter>
+    </ClInclude>
+    <ClInclude Include="PostProcessExceptions.h">
+      <Filter>Archivos de encabezado\Core\Exceptions</Filter>
+    </ClInclude>
+    <ClInclude Include="GpuMemoryAlignments.h">
+      <Filter>Archivos de encabezado\Core\Graphics\LowLevel\Memory</Filter>
+    </ClInclude>
+    <ClInclude Include="SdfStringInfo.h">
+      <Filter>Archivos de encabezado\Core\Graphics\HighLevel\2D\SDF</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

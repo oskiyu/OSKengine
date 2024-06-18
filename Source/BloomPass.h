@@ -1,14 +1,19 @@
 #pragma once
 
 #include "IPostProcessPass.h"
+#include "NumericTypes.h"
+#include <array>
+#include "UniquePtr.hpp"
+#include "MaterialInstance.h"
 
 namespace OSK::GRAPHICS {
 
 	class ICommandList;
 	class IGpuStorageBuffer;
+	class Material;
 
-	/// <summary>
-	/// Clase auxiliar que permite una capa de bloom / resplandor.
+
+	/// @brief Clase auxiliar que permite una capa de bloom / resplandor.
 	/// 
 	/// Partiendo de una imagen de entrada (preferiblemente
 	/// con un formato HDR) genera una nueva imagen con un resplandor
@@ -18,24 +23,25 @@ namespace OSK::GRAPHICS {
 	/// 
 	/// Usa shaders de computación para ejecutar un algoritmo basado en: 
 	/// http://www.iryoku.com/next-generation-post-processing-in-call-of-duty-advanced-warfare
-	/// </summary>
 	class OSKAPI_CALL BloomPass : public IPostProcessPass {
 
 	public:
+
+		constexpr static auto DownscaleMaterial = "Resources/Materials/PostProcess/Bloom/downscale.json";
+		constexpr static auto UpscaleMaterial = "Resources/Materials/PostProcess/Bloom/upscale.json";
+		constexpr static auto ResolveMaterial = "Resources/Materials/PostProcess/Bloom/final.json";
+
+		void SetInput(GpuImage* inputImage);
 
 		void Create(const Vector2ui& size) override;
 		void Resize(const Vector2ui& size) override;
 
 		void Execute(ICommandList* computeCmdList) override;
 
-		void UpdateMaterialInstance() override;
-
 	private:
 
-		/// <summary>
-		/// Establece las imágenes intermedias de bloom en el
-		/// material instance.
-		/// </summary>
+		/// @brief Establece las imágenes intermedias de bloom en 
+		/// los material instance.
 		void SetupMaterialInstances();
 
 
@@ -81,14 +87,22 @@ namespace OSK::GRAPHICS {
 		/// @param computeCmdList Lista de comandos.
 		void Resolve(ICommandList* computeCmdList);
 
+
+		/// @brief Calcula el número de pases, de acuerdo al número
+		/// de mip-levels del render target.
+		/// @return Número de pases de downscale/upscale.
+		UIndex32 GetNumPasses() const;
+
+
 		/// @brief Número máximo de pases de downscale/upscale.
 		const static UIndex32 maxNumPasses = 8;
 
+	private:
 
 		/// @brief Instancias de los materiales de downscale.
 		/// Hay una instancia por cada paso de downscale, configurada
 		/// con los mip-maps necesistados por cada paso.
-		std::array<UniquePtr<MaterialInstance>, maxNumPasses> m_downscalingMaterialInstance{};
+		std::array<UniquePtr<MaterialInstance>, maxNumPasses> m_downscalingMaterialInstances{};
 
 		/// @brief Instancias de los materiales de upscale.
 		/// Hay una instancia por cada paso de upscale, configurada
@@ -96,19 +110,16 @@ namespace OSK::GRAPHICS {
 		/// 
 		/// @note Aunque tiene una instancia para el nivel 0, esta no se debe usar:
 		/// se debe usar @p resolveInstance.
-		std::array<UniquePtr<MaterialInstance>, maxNumPasses> m_upscalingMaterialInstance{};
+		std::array<UniquePtr<MaterialInstance>, maxNumPasses> m_upscalingMaterialInstances{};
 
 		/// @brief Instancia del material final.
 		UniquePtr<MaterialInstance> m_resolveInstance;
 
+		GpuImage* m_inputImage = nullptr;
+
 		Material* m_downscaleMaterial = nullptr;
 		Material* m_upscaleMaterial = nullptr;
 		Material* m_resolveMaterial = nullptr;
-
-		/// @brief Calcula el número de pases, de acuerdo al número
-		/// de mip-levels del render target.
-		/// @return Número de pases de downscale/upscale.
-		UIndex32 GetNumPasses() const;
 
 	};
 

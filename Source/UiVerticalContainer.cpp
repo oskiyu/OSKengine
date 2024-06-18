@@ -5,12 +5,13 @@ using namespace OSK::UI;
 using namespace OSK;
 
 VerticalContainer::VerticalContainer(const Vector2f& size) : IContainer(size) {
-	relativeNextPosition = GetPadding().y;
+	m_relativeNextPosition = GetPadding().y;
 }
 
 void VerticalContainer::EmplaceChild(IElement* child) {
-	if (relativeNextPosition < GetPadding().y)
-		relativeNextPosition = GetPadding().y;
+	if (m_relativeNextPosition < GetPadding().y) {
+		m_relativeNextPosition = GetPadding().y;
+	}
 
 	// Offset vertical desde la izquierda.
 	float horizontalPositionOffset = 0.0f;
@@ -25,14 +26,15 @@ void VerticalContainer::EmplaceChild(IElement* child) {
 		horizontalPositionOffset = GetContentSize().x - child->GetSize().x - child->GetMarging().Z;
 	}
 
-	child->_SetRelativePosition(Vector2f(
-		horizontalPositionOffset,
-		relativeNextPosition + child->GetMarging().y
-	).ToVector2i().ToVector2f());
+	const Vector2f childPosition = Vector2f(
+		GetContentTopLeftPosition().x + horizontalPositionOffset,
+		GetContentTopLeftPosition().y + m_relativeNextPosition + child->GetMarging().y);
 
-	relativeNextPosition += child->GetSize().y + child->GetMarging().y + child->GetMarging().W;
+	child->_SetPosition(childPosition.ToVector2i().ToVector2f());
+
+	m_relativeNextPosition += child->GetSize().y + child->GetMarging().y + child->GetMarging().W;
 }
 
 void VerticalContainer::ResetLayout() {
-	relativeNextPosition = 0.0f;
+	m_relativeNextPosition = 0.0f;
 }

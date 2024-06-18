@@ -10,6 +10,9 @@
 #include "UniquePtr.hpp"
 #include "ISystem.h"
 #include "MaterialInstance.h"
+#include <array>
+#include <unordered_map>
+#include "DynamicArray.hpp"
 
 namespace OSK::ASSETS {
 	class Model3D;
@@ -60,8 +63,8 @@ namespace OSK::ECS {
 
 	private:
 
-		GameObjectIndex cameraObject = EMPTY_GAME_OBJECT;
-		UniquePtr<GRAPHICS::GpuBuffer> cameraUbos[GRAPHICS::MAX_RESOURCES_IN_FLIGHT]{};
+		GameObjectIndex m_cameraObject = EMPTY_GAME_OBJECT;
+		std::array<UniquePtr<GRAPHICS::GpuBuffer>, GRAPHICS::MAX_RESOURCES_IN_FLIGHT> m_cameraGpuBuffers;
 
 		/// @brief Material usado para el renderizado de colliders
 		/// para los que se tiene un modelo 3D (cubo o esfera).
@@ -79,25 +82,29 @@ namespace OSK::ECS {
 
 		/// @brief Instancia válida para cualquiera de los dos materiales (menos
 		/// el de puntos de colisión).
-		UniquePtr<GRAPHICS::MaterialInstance> materialInstance;
+		/// Una por cada recurso en vuelo, ya que también hay un
+		/// buffer de cámara por cada recurso en vuelo.
+		std::array<UniquePtr<GRAPHICS::MaterialInstance>, GRAPHICS::MAX_RESOURCES_IN_FLIGHT> m_materialInstances;
 
 		/// @brief Instancia para el renderizado de puntos.
-		UniquePtr<GRAPHICS::MaterialInstance> pointsMaterialInstance;
+		/// Una por cada recurso en vuelo, ya que también hay un
+		/// buffer de cámara por cada recurso en vuelo.
+		std::array<UniquePtr<GRAPHICS::MaterialInstance>, GRAPHICS::MAX_RESOURCES_IN_FLIGHT> m_pointsMaterialInstances;
 
 
 		/// @brief Contiene los buffers de vértices de los colliders que 
 		/// NO tienen modelo 3D (SAT).
 		/// Cada buffer representa una cara.
-		std::unordered_map<GameObjectIndex, DynamicArray<UniquePtr<GRAPHICS::GpuBuffer>>> bottomLevelVertexBuffers;
+		std::unordered_map<GameObjectIndex, DynamicArray<UniquePtr<GRAPHICS::GpuBuffer>>> m_bottomLevelVertexBuffers;
 
 		/// @brief Contiene los buffers de índices de los colliders que 
 		/// NO tienen modelo 3D (SAT).
 		/// Cada buffer representa una cara.
-		std::unordered_map<GameObjectIndex, DynamicArray<UniquePtr<GRAPHICS::GpuBuffer>>> bottomLevelIndexBuffers;
+		std::unordered_map<GameObjectIndex, DynamicArray<UniquePtr<GRAPHICS::GpuBuffer>>> m_bottomLevelIndexBuffers;
 
 
-		ASSETS::AssetRef<ASSETS::Model3D> cubeModel;
-		ASSETS::AssetRef<ASSETS::Model3D> sphereModel;
+		ASSETS::AssetRef<ASSETS::Model3D> m_cubeModel;
+		ASSETS::AssetRef<ASSETS::Model3D> m_sphereModel;
 
 	};
 

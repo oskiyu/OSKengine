@@ -10,29 +10,40 @@ UI::Dropdown::Element::Element(const Vector2f& size, const std::string& text) : 
 	m_textView.AdjustSizeToText();
 }
 
-void UI::Dropdown::Element::Render(GRAPHICS::SpriteRenderer* renderer, Vector2f parentPosition) const {
+void UI::Dropdown::Element::Render(GRAPHICS::SdfBindlessRenderer2D* renderer) const {
 	if (!IsVisible())
 		return;
 
 	m_state == State::DEFAULT
-		? m_defaultImageView.Render(renderer, parentPosition)
-		: m_hoveredImageView.Render(renderer, parentPosition);
+		? m_defaultImageView.Render(renderer)
+		: m_hoveredImageView.Render(renderer);
 
-	m_textView.Render(renderer, parentPosition);
+	m_textView.Render(renderer);
 }
 
-void UI::Dropdown::Element::_SetRelativePosition(const Vector2f& relativePosition) {
-	IElement::_SetRelativePosition(relativePosition);
+void UI::Dropdown::Element::_SetPosition(const Vector2f& newPosition) {
+	IElement::_SetPosition(newPosition);
 
-	m_textView._SetRelativePosition(GetRelativePosition() + GetTextOffset());
+	m_textView._SetPosition(newPosition + GetTextOffset());
 }
 
 void UI::Dropdown::Element::SetBackground(const GRAPHICS::IGpuImageView* view, const Color& defaultColor, const Color& hoveredColor) {
-	m_defaultImageView.GetSprite().SetImageView(view);
-	m_defaultImageView.GetSprite().color = defaultColor;
+	GRAPHICS::SdfDrawCall2D drawCall{};
+	drawCall.contentType = GRAPHICS::SdfDrawCallContentType2D::TEXTURE;
+	drawCall.shape = GRAPHICS::SdfShape2D::RECTANGLE;
+	drawCall.texture = view;
 
-	m_hoveredImageView.GetSprite().SetImageView(view);
-	m_hoveredImageView.GetSprite().color = hoveredColor;
+	drawCall.mainColor = defaultColor;
+	drawCall.transform.SetPosition(m_defaultImageView.GetContentTopLeftPosition());
+	drawCall.transform.SetScale(m_defaultImageView.GetSize());
+
+	m_defaultImageView.AddDrawCall(drawCall);
+
+	drawCall.mainColor = hoveredColor;
+	drawCall.transform.SetPosition(m_hoveredImageView.GetContentTopLeftPosition());
+	drawCall.transform.SetScale(m_hoveredImageView.GetSize());
+
+	m_hoveredImageView.AddDrawCall(drawCall);
 }
 
 void UI::Dropdown::Element::SetFont(ASSETS::AssetRef<ASSETS::Font> fuente, USize32 fontSize) {
@@ -40,7 +51,7 @@ void UI::Dropdown::Element::SetFont(ASSETS::AssetRef<ASSETS::Font> fuente, USize
 	m_textView.SetFontSize(fontSize);
 	m_textView.AdjustSizeToText();
 
-	m_textView._SetRelativePosition(GetRelativePosition() + GetTextOffset());
+	m_textView._SetPosition(GetPosition() + GetTextOffset());
 }
 
 Vector2f UI::Dropdown::Element::GetTextOffset() const {
@@ -49,7 +60,7 @@ Vector2f UI::Dropdown::Element::GetTextOffset() const {
 	
 	return Vector2f(
 		m_textView.GetMarging().y,
-		size.y * 0.5f - m_textView.GetSize().y * 0.5f
+		GetSize().y * 0.5f - m_textView.GetSize().y * 0.5f
 	);
 }
 
@@ -68,14 +79,14 @@ UI::Dropdown::Dropdown(const Vector2f& size) : IElement(size) {
 
 }
 
-void UI::Dropdown::Render(GRAPHICS::SpriteRenderer* renderer, Vector2f parentPosition) const {
+void UI::Dropdown::Render(GRAPHICS::SdfBindlessRenderer2D* renderer) const {
 	if (!IsVisible() || m_elements.IsEmpty())
 		return;
 
 	Vector2f offset = GetContentTopLeftPosition();
 
 	const Element& firstElement = m_elements[m_selectedElement];
-	firstElement.Render(renderer, parentPosition + offset);
+	firstElement.Render(renderer);
 	offset.y += firstElement.GetSize().y;
 
 	if (m_state == State::EXPANDED) {
@@ -85,18 +96,18 @@ void UI::Dropdown::Render(GRAPHICS::SpriteRenderer* renderer, Vector2f parentPos
 
 			const Element& e = m_elements[i];
 
-			e.Render(renderer, parentPosition + offset);
+			e.Render(renderer);
 			offset.y += e.GetSize().y;
 		}
 	}
 }
 
-bool UI::Dropdown::UpdateByCursor(Vector2f cursor, bool isPressed, Vector2f parentPosition) {
+bool UI::Dropdown::UpdateByCursor(Vector2f cursor, bool isPressed) {
 	if (!IsVisible() || IsLocked() || m_elements.IsEmpty())
 		return false;
 
 	if (m_state == State::DEFAULT) {
-		const bool isMouseOver = GetRectangle(parentPosition).ContainsPoint(cursor);
+		const bool isMouseOver = GetRectangle().ContainsPoint(cursor);
 
 		m_elements[m_selectedElement].SetState(isMouseOver ? Element::State::HOVERED : Element::State::DEFAULT);
 
@@ -115,7 +126,7 @@ bool UI::Dropdown::UpdateByCursor(Vector2f cursor, bool isPressed, Vector2f pare
 		Vector2f offset = GetContentTopLeftPosition();
 
 		Element& firstElement = m_elements[m_selectedElement];
-		bool isMouseOver = firstElement.GetRectangle(parentPosition + offset).ContainsPoint(cursor);
+		bool isMouseOver = firstElement.GetRectangle().ContainsPoint(cursor);
 
 		firstElement.SetState(isMouseOver ? Element::State::HOVERED : Element::State::DEFAULT);
 
@@ -136,7 +147,7 @@ bool UI::Dropdown::UpdateByCursor(Vector2f cursor, bool isPressed, Vector2f pare
 
 			Element& e = m_elements[i];
 
-			isMouseOver = e.GetRectangle(parentPosition + offset).ContainsPoint(cursor);
+			isMouseOver = e.GetRectangle().ContainsPoint(cursor);
 
 			e.SetState(isMouseOver ? Element::State::HOVERED : Element::State::DEFAULT);
 

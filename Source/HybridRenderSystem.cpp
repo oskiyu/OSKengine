@@ -52,9 +52,9 @@ HybridRenderSystem::HybridRenderSystem() {
 void HybridRenderSystem::SetupGBufferResources() {
 	gbufferMaterial = Engine::GetRenderer()->GetMaterialSystem()->LoadMaterial("Resources/Materials/PBR/Deferred/deferred_gbuffer.json");
 	animatedGbufferMaterial = Engine::GetRenderer()->GetMaterialSystem()->LoadMaterial("Resources/Materials/PBR/Deferred/deferred_gbuffer_anim.json");
-	globalGbufferMaterialInstance = gbufferMaterial->CreateInstance().GetPointer();
 
 	for (UIndex32 i = 0; i < MAX_RESOURCES_IN_FLIGHT; i++) {
+		m_globalGbufferMaterialInstances[i] = gbufferMaterial->CreateInstance().GetPointer();
 		cameraUbos[i] = Engine::GetRenderer()->GetAllocator()->CreateUniformBuffer(sizeof(glm::mat4) * 2 + sizeof(glm::vec4)).GetPointer();
 		previousCameraUbos[i] = Engine::GetRenderer()->GetAllocator()->CreateUniformBuffer(sizeof(glm::mat4) * 2).GetPointer();
 	}
@@ -73,17 +73,12 @@ void HybridRenderSystem::SetupRtResources() {
 }
 
 void HybridRenderSystem::SetupGBufferInstance() {
-	std::array<const GpuBuffer*, MAX_RESOURCES_IN_FLIGHT> _cameraUbos{};
-	std::array<const GpuBuffer*, MAX_RESOURCES_IN_FLIGHT>_prevCameraUbos {};
-
 	for (UIndex32 i = 0; i < MAX_RESOURCES_IN_FLIGHT; i++) {
-		_cameraUbos[i] = cameraUbos[i].GetPointer();
-		_prevCameraUbos[i] = previousCameraUbos[i].GetPointer();
+		m_globalGbufferMaterialInstances[i]->GetSlot("global")->SetUniformBuffer("camera", cameraUbos[i].GetValue());
+		m_globalGbufferMaterialInstances[i]->GetSlot("global")->SetUniformBuffer("previousCamera", previousCameraUbos[i].GetValue());
+		m_globalGbufferMaterialInstances[i]->GetSlot("global")->FlushUpdate();
 	}
 
-	globalGbufferMaterialInstance->GetSlot("global")->SetUniformBuffers("camera", _cameraUbos);
-	globalGbufferMaterialInstance->GetSlot("global")->SetUniformBuffers("previousCamera", _prevCameraUbos);
-	globalGbufferMaterialInstance->GetSlot("global")->FlushUpdate();
 }
 
 void HybridRenderSystem::SetupShadowsInstance() {
@@ -206,9 +201,9 @@ void HybridRenderSystem::Initialize(GameObjectIndex cameraObject, const Irradian
 
 	const GpuImageViewConfig sampledViewConfig = GpuImageViewConfig::CreateSampled_Default();
 
-	resolveMaterialInstance->GetSlot("scene")->SetGpuImage("irradianceMap", irradianceMap.GetGpuImage()->GetView(sampledViewConfig));
-	resolveMaterialInstance->GetSlot("scene")->SetGpuImage("specularMap", specularMap.GetCubemapImage()->GetView(sampledViewConfig));
-	resolveMaterialInstance->GetSlot("scene")->SetGpuImage("specularLut", specularMap.GetLookUpTable()->GetView(sampledViewConfig));
+	resolveMaterialInstance->GetSlot("scene")->SetGpuImage("irradianceMap", *irradianceMap.GetGpuImage()->GetView(sampledViewConfig));
+	resolveMaterialInstance->GetSlot("scene")->SetGpuImage("specularMap", *specularMap.GetCubemapImage()->GetView(sampledViewConfig));
+	resolveMaterialInstance->GetSlot("scene")->SetGpuImage("specularLut", *specularMap.GetLookUpTable()->GetView(sampledViewConfig));
 	resolveMaterialInstance->GetSlot("scene")->FlushUpdate();
 }
 
@@ -287,7 +282,7 @@ void HybridRenderSystem::RenderGBuffer(GRAPHICS::ICommandList* commandList) {
 
 	SetupViewport(commandList);
 	commandList->BindMaterial(*gbufferMaterial);
-	commandList->BindMaterialSlot(*globalGbufferMaterialInstance->GetSlot("global"));
+	commandList->BindMaterialSlot(*m_globalGbufferMaterialInstances[Engine::GetRenderer()->GetCurrentResourceIndex()]->GetSlot("global"));
 
 	for (auto& pass : m_shaderPasses.GetAllPasses()) {
 		pass->RenderLoop(

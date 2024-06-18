@@ -5,6 +5,8 @@
 
 #include "SpriteRenderer.h"
 #include "Transform2D.h"
+#include "SdfStringInfo.h"
+#include "SdfBindlessRenderer2D.h"
 
 
 using namespace OSK;
@@ -61,17 +63,20 @@ void TextInput::UpdateByKeyboard(const IO::KeyboardState& previous, const IO::Ke
 }
 
 
-void TextInput::Render(GRAPHICS::SpriteRenderer* renderer, Vector2f parentPosition) const {
+void TextInput::Render(GRAPHICS::SdfBindlessRenderer2D* renderer) const {
 	if (!m_font.GetAsset()) {
 		return;
 	}
 
-	Vector2f globalPosition = GetContentTopLeftPosition() + parentPosition;
+	Vector2f globalPosition = GetContentTopLeftPosition();
 	globalPosition.y += GetContentSize().y;
 	globalPosition = globalPosition.ToVector2i().ToVector2f();
 
-	ECS::Transform2D transform(ECS::EMPTY_GAME_OBJECT);
-	transform.SetPosition(globalPosition);
+	GRAPHICS::SdfStringInfo info{};
+	info.text = m_text;
+	info.font = &m_font->GetExistingInstance(m_fontSize);
+	info.transform = ECS::Transform2D(ECS::EMPTY_GAME_OBJECT);
+	info.transform.SetPosition(globalPosition);
 
-	renderer->DrawString(*m_font.GetAsset(), m_fontSize, m_text + "|", transform, Color::White);
+	renderer->Draw(info);
 }

@@ -45,7 +45,7 @@ void TopLevelAccelerationStructureVk::Setup() {
 	// Geometría única del TLAS
 	instanceBuffer = memoryAllocator->CreateBuffer(
 		sizeof(VkAccelerationStructureInstanceKHR) * instances.GetSize(), 
-		0, 
+		GPU_MEMORY_NO_ALIGNMENT,
 		GpuBufferUsage::RT_ACCELERATION_STRUCTURE_BUILDING, 
 		GpuSharedMemoryType::GPU_AND_CPU,
 		GpuQueueType::MAIN).GetPointer();
@@ -112,7 +112,7 @@ void TopLevelAccelerationStructureVk::Setup() {
 	// Construcción
 	buildBuffer = memoryAllocator->CreateBuffer(
 		tlasSizeInfo.buildScratchSize, 
-		0, 
+		GPU_MEMORY_NO_ALIGNMENT,
 		GpuBufferUsage::RT_ACCELERATION_STRUCTURE_BUILDING, 
 		GpuSharedMemoryType::GPU_AND_CPU,
 		GpuQueueType::MAIN).GetPointer();
@@ -174,7 +174,7 @@ void TopLevelAccelerationStructureVk::Update(ICommandList* cmdList) {
 
 		instanceBuffer = Engine::GetRenderer()->GetAllocator()->CreateBuffer(
 			sizeof(VkAccelerationStructureInstanceKHR) * instances.GetSize(), 
-			0, 
+			GPU_MEMORY_NO_ALIGNMENT,
 			GpuBufferUsage::RT_ACCELERATION_STRUCTURE_BUILDING, 
 			GpuSharedMemoryType::GPU_AND_CPU,
 			GpuQueueType::MAIN).GetPointer();

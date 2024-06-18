@@ -30,19 +30,16 @@ RenderBoundsRenderer::RenderBoundsRenderer() {
 void RenderBoundsRenderer::LoadMaterials() {
 	m_material = Engine::GetRenderer()->GetMaterialSystem()
 		->LoadMaterial("Resources/Materials/Collision/collision_material.json");
-	m_materialInstance = m_material->CreateInstance().GetPointer();
 
-	std::array<const GpuBuffer*, MAX_RESOURCES_IN_FLIGHT> cameraUbos{};
 	for (UIndex32 i = 0; i < MAX_RESOURCES_IN_FLIGHT; i++) {
 		m_cameraUbos[i] = Engine::GetRenderer()->GetAllocator()
 			->CreateUniformBuffer(sizeof(glm::mat4) * 2 + sizeof(glm::vec4), GpuQueueType::MAIN)
 			.GetPointer();
 
-		cameraUbos[i] = m_cameraUbos[i].GetPointer();
+		m_materialInstance[i] = m_material->CreateInstance().GetPointer();
+		m_materialInstance[i]->GetSlot("global")->SetUniformBuffer("camera", m_cameraUbos[i].GetValue());
+		m_materialInstance[i]->GetSlot("global")->FlushUpdate();
 	}
-
-	m_materialInstance->GetSlot("global")->SetUniformBuffers("camera", cameraUbos);
-	m_materialInstance->GetSlot("global")->FlushUpdate();
 }
 
 void RenderBoundsRenderer::Initialize(GameObjectIndex camera) {
@@ -77,7 +74,7 @@ void RenderBoundsRenderer::Render(ICommandList* commandList, std::span<const ECS
 	SetupViewport(commandList);
 
 	commandList->BindMaterial(*m_material);
-	commandList->BindMaterialInstance(*m_materialInstance);
+	commandList->BindMaterialInstance(*m_materialInstance[Engine::GetRenderer()->GetCurrentResourceIndex()]);
 
 	commandList->BindVertexBuffer(m_sphereModel->GetModel().GetVertexBuffer());
 	commandList->BindIndexBuffer(m_sphereModel->GetModel().GetIndexBuffer());
