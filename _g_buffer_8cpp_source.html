@@ -3,7 +3,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
-<meta name="generator" content="Doxygen 1.11.0"/>
+<meta name="generator" content="Doxygen 1.12.0"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
 <title>OSKengine: Archivo de código fuente Source/GBuffer.cpp</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
@@ -37,7 +37,7 @@
 </table>
 </div>
 <!-- end header part -->
-<!-- Generado por Doxygen 1.11.0 -->
+<!-- Generado por Doxygen 1.12.0 -->
 <script type="text/javascript">
 /* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
 var searchBox = new SearchBox("searchBox", "search/",'.html');
@@ -198,7 +198,7 @@ $(function(){initNavTree('_g_buffer_8cpp_source.html',''); initResizable(true); 
 <div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span><span class="keyword">const</span> std::array&lt;GBuffer::Target, 5&gt; <a class="code hl_variable" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_g_buffer.html#aed5c2c895187fd424cba237734d64b51">GBuffer::ColorTargetTypes</a> = { Target::COLOR, Target::NORMAL, Target::METALLIC_ROUGHNESS, Target::MOTION, Target::EMISSIVE };</div>
 <div class="ttc" id="aclass_o_s_k_1_1_color_html"><div class="ttname"><a href="class_o_s_k_1_1_color.html">OSK::Color</a></div><div class="ttdoc">Representa un color en formato RGBA float.</div><div class="ttdef"><b>Definition</b> <a href="_color_8hpp_source.html#l00012">Color.hpp:12</a></div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_dynamic_array_html"><div class="ttname"><a href="class_o_s_k_1_1_dynamic_array.html">OSK::DynamicArray</a></div><div class="ttdoc">Dynamic array: array que puede cambiar de tamaño.</div><div class="ttdef"><b>Definition</b> <a href="_dynamic_array_8hpp_source.html#l00069">DynamicArray.hpp:69</a></div></div>
-<div class="ttc" id="aclass_o_s_k_1_1_dynamic_array_html_a4433c76207ce2ecad5e306b12575f1b3"><div class="ttname"><a href="class_o_s_k_1_1_dynamic_array.html#a4433c76207ce2ecad5e306b12575f1b3">OSK::DynamicArray::Insert</a></div><div class="ttdeci">void Insert(const T &amp;element)</div><div class="ttdoc">Inserta un elemento al final del array.</div><div class="ttdef"><b>Definition</b> <a href="_dynamic_array_8hpp_source.html#l00353">DynamicArray.hpp:353</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_dynamic_array_html_a4433c76207ce2ecad5e306b12575f1b3"><div class="ttname"><a href="class_o_s_k_1_1_dynamic_array.html#a4433c76207ce2ecad5e306b12575f1b3">OSK::DynamicArray::Insert</a></div><div class="ttdeci">void Insert(const T &amp;element)</div><div class="ttdoc">Inserta un elemento al final del array.</div><div class="ttdef"><b>Definition</b> <a href="_dynamic_array_8hpp_source.html#l00363">DynamicArray.hpp:363</a></div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_g_buffer_html_a0fb9c5c55b9dcc2fcd5ee9d9928554f3"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_g_buffer.html#a0fb9c5c55b9dcc2fcd5ee9d9928554f3">OSK::GRAPHICS::GBuffer::GetImage</a></div><div class="ttdeci">GpuImage * GetImage(Target targetType)</div><div class="ttdoc">Devuelve la imagen indicada por los parámetros.</div><div class="ttdef"><b>Definition</b> <a href="#l00036">GBuffer.cpp:36</a></div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_g_buffer_html_a34a1442e30ac42f716f2ab0a10651542"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_g_buffer.html#a34a1442e30ac42f716f2ab0a10651542">OSK::GRAPHICS::GBuffer::BeginRenderpass</a></div><div class="ttdeci">void BeginRenderpass(ICommandList *cmdList, Color color, bool autoSync=true)</div><div class="ttdoc">Inicia un renderpass de rasterización sobre el GBuffer.</div><div class="ttdef"><b>Definition</b> <a href="#l00079">GBuffer.cpp:79</a></div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_g_buffer_html_a3a03e4b2f4bf296382c1ada80a5be556"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_g_buffer.html#a3a03e4b2f4bf296382c1ada80a5be556">OSK::GRAPHICS::GBuffer::BindPipelineBarriers</a></div><div class="ttdeci">void BindPipelineBarriers(ICommandList *cmdList)</div><div class="ttdef"><b>Definition</b> <a href="#l00048">GBuffer.cpp:48</a></div></div>
@@ -256,7 +256,7 @@ $(function(){initNavTree('_g_buffer_8cpp_source.html',''); initResizable(true); 
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_74389ed8173ad57b461b9d623a1f3867.html">Source</a></li><li class="navelem"><b>GBuffer.cpp</b></li>
-    <li class="footer">Generado el Martes, 18 de junio de 2024 11:17:41 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.11.0 </li>
+    <li class="footer">Generado el Jueves, 15 de agosto de 2024 11:33:33 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.12.0 </li>
   </ul>
 </div>
 </body>

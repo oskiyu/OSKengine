@@ -1,5 +1,6 @@
 var class_o_s_k_1_1_vector4__t =
 [
+    [ "TNumericType", "class_o_s_k_1_1_vector4__t.html#a8427b977ab2d7edfcb54ce3e7ab2fc90", null ],
     [ "Vector4_t", "class_o_s_k_1_1_vector4__t.html#a10dcc6d572d4c1d8e529077a9642f393", null ],
     [ "Vector4_t", "class_o_s_k_1_1_vector4__t.html#aeacff0a55efc77ab75381cb58ec861e7", null ],
     [ "Vector4_t", "class_o_s_k_1_1_vector4__t.html#a6916687265d6e5f732597c1422860bb6", null ],
@@ -35,8 +36,8 @@ var class_o_s_k_1_1_vector4__t =
     [ "ToVector4f", "class_o_s_k_1_1_vector4__t.html#ae04fb43d5fdc6fe55b67c233f3b78875", null ],
     [ "ToVector4i", "class_o_s_k_1_1_vector4__t.html#a196f41fded5e9ce0c7e3e646a63e379e", null ],
     [ "ToVector4ui", "class_o_s_k_1_1_vector4__t.html#a5ea1015dbd131ea807e71a3e09101f02", null ],
-    [ "W", "class_o_s_k_1_1_vector4__t.html#a158c28407c22448e5e80370418f99fa1", null ],
+    [ "w", "class_o_s_k_1_1_vector4__t.html#a7541212002d5700f01b0df3d236730a1", null ],
     [ "x", "class_o_s_k_1_1_vector4__t.html#a0593b906f5d047bd9ddbda62463ba1bc", null ],
     [ "y", "class_o_s_k_1_1_vector4__t.html#a6b7176a7eb65f006dc0bc8ca35efba37", null ],
-    [ "Z", "class_o_s_k_1_1_vector4__t.html#a0b2280749f7a332b7b3d4a1390a2d527", null ]
+    [ "z", "class_o_s_k_1_1_vector4__t.html#a054e2ad85350edd28d515abe46431ca2", null ]
 ];

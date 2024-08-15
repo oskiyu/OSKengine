@@ -8,6 +8,8 @@ var class_o_s_k_1_1_e_c_s_1_1_component_manager =
     [ "GetAllContainers", "class_o_s_k_1_1_e_c_s_1_1_component_manager.html#a79fb8bfe46f9ebd06c167bb038b62386", null ],
     [ "GetComponent", "class_o_s_k_1_1_e_c_s_1_1_component_manager.html#a203d56a00c4e9182050f57ef945fc025", null ],
     [ "GetComponent", "class_o_s_k_1_1_e_c_s_1_1_component_manager.html#aa738603b4ddbb7c98fe2b7e7ff553c69", null ],
+    [ "GetComponentAddress", "class_o_s_k_1_1_e_c_s_1_1_component_manager.html#a7aed7937bc7a17a14a5377b642b6ba79", null ],
+    [ "GetComponentAddress", "class_o_s_k_1_1_e_c_s_1_1_component_manager.html#a7e0ccb420f690bc624339cabf23c5905", null ],
     [ "GetComponentType", "class_o_s_k_1_1_e_c_s_1_1_component_manager.html#a2b248c62c48465489f1f7b3eeb76aa87", null ],
     [ "GetComponentTypeName", "class_o_s_k_1_1_e_c_s_1_1_component_manager.html#a2c5abda0814ac5109727e1cc3c263b01", null ],
     [ "GetContainer", "class_o_s_k_1_1_e_c_s_1_1_component_manager.html#a11eafacf9605ffde7f05bc0f07c2ed36", null ],

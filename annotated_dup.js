@@ -140,15 +140,33 @@ var annotated_dup =
         [ "TransformApplierSystem", "class_o_s_k_1_1_e_c_s_1_1_transform_applier_system.html", "class_o_s_k_1_1_e_c_s_1_1_transform_applier_system" ]
       ] ],
       [ "Editor", "namespace_o_s_k_1_1_editor.html", [
+        [ "Controllers", "namespace_o_s_k_1_1_editor_1_1_controllers.html", [
+          [ "CameraComponentController3D", "class_o_s_k_1_1_editor_1_1_controllers_1_1_camera_component_controller3_d.html", "class_o_s_k_1_1_editor_1_1_controllers_1_1_camera_component_controller3_d" ],
+          [ "IComponentController", "class_o_s_k_1_1_editor_1_1_controllers_1_1_i_component_controller.html", "class_o_s_k_1_1_editor_1_1_controllers_1_1_i_component_controller" ],
+          [ "ModelComponentController3D", "class_o_s_k_1_1_editor_1_1_controllers_1_1_model_component_controller3_d.html", "class_o_s_k_1_1_editor_1_1_controllers_1_1_model_component_controller3_d" ],
+          [ "PhysicsComponentController3D", "class_o_s_k_1_1_editor_1_1_controllers_1_1_physics_component_controller3_d.html", "class_o_s_k_1_1_editor_1_1_controllers_1_1_physics_component_controller3_d" ],
+          [ "TComponentController", "class_o_s_k_1_1_editor_1_1_controllers_1_1_t_component_controller.html", "class_o_s_k_1_1_editor_1_1_controllers_1_1_t_component_controller" ],
+          [ "TransformComponentController3D", "class_o_s_k_1_1_editor_1_1_controllers_1_1_transform_component_controller3_d.html", "class_o_s_k_1_1_editor_1_1_controllers_1_1_transform_component_controller3_d" ]
+        ] ],
         [ "UI", "namespace_o_s_k_1_1_editor_1_1_u_i.html", [
           [ "EditorBottomBar", "class_o_s_k_1_1_editor_1_1_u_i_1_1_editor_bottom_bar.html", "class_o_s_k_1_1_editor_1_1_u_i_1_1_editor_bottom_bar" ],
           [ "EditorHeader", "class_o_s_k_1_1_editor_1_1_u_i_1_1_editor_header.html", "class_o_s_k_1_1_editor_1_1_u_i_1_1_editor_header" ],
           [ "EditorPanelTitle", "class_o_s_k_1_1_editor_1_1_u_i_1_1_editor_panel_title.html", "class_o_s_k_1_1_editor_1_1_u_i_1_1_editor_panel_title" ],
           [ "EditorUi", "class_o_s_k_1_1_editor_1_1_u_i_1_1_editor_ui.html", "class_o_s_k_1_1_editor_1_1_u_i_1_1_editor_ui" ],
           [ "ObjectList", "class_o_s_k_1_1_editor_1_1_u_i_1_1_object_list.html", "class_o_s_k_1_1_editor_1_1_u_i_1_1_object_list" ],
+          [ "ObjectPropertiesPanel", "class_o_s_k_1_1_editor_1_1_u_i_1_1_object_properties_panel.html", "class_o_s_k_1_1_editor_1_1_u_i_1_1_object_properties_panel" ],
           [ "PropertiesPanel", "class_o_s_k_1_1_editor_1_1_u_i_1_1_properties_panel.html", "class_o_s_k_1_1_editor_1_1_u_i_1_1_properties_panel" ],
-          [ "SystemList", "class_o_s_k_1_1_editor_1_1_u_i_1_1_system_list.html", "class_o_s_k_1_1_editor_1_1_u_i_1_1_system_list" ]
-        ] ]
+          [ "SystemList", "class_o_s_k_1_1_editor_1_1_u_i_1_1_system_list.html", "class_o_s_k_1_1_editor_1_1_u_i_1_1_system_list" ],
+          [ "SystemPropertiesPanel", "class_o_s_k_1_1_editor_1_1_u_i_1_1_system_properties_panel.html", "class_o_s_k_1_1_editor_1_1_u_i_1_1_system_properties_panel" ]
+        ] ],
+        [ "Views", "namespace_o_s_k_1_1_editor_1_1_views.html", [
+          [ "CameraComponentView", "class_o_s_k_1_1_editor_1_1_views_1_1_camera_component_view.html", "class_o_s_k_1_1_editor_1_1_views_1_1_camera_component_view" ],
+          [ "IComponentView", "class_o_s_k_1_1_editor_1_1_views_1_1_i_component_view.html", "class_o_s_k_1_1_editor_1_1_views_1_1_i_component_view" ],
+          [ "ModelComponentView3D", "class_o_s_k_1_1_editor_1_1_views_1_1_model_component_view3_d.html", "class_o_s_k_1_1_editor_1_1_views_1_1_model_component_view3_d" ],
+          [ "PhysicsComponentView", "class_o_s_k_1_1_editor_1_1_views_1_1_physics_component_view.html", "class_o_s_k_1_1_editor_1_1_views_1_1_physics_component_view" ],
+          [ "TransformComponentView3D", "class_o_s_k_1_1_editor_1_1_views_1_1_transform_component_view3_d.html", "class_o_s_k_1_1_editor_1_1_views_1_1_transform_component_view3_d" ]
+        ] ],
+        [ "Editor", "class_o_s_k_1_1_editor_1_1_editor.html", "class_o_s_k_1_1_editor_1_1_editor" ]
       ] ],
       [ "GRAPHICS", "namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html", [
         [ "AccelerationStructureCreationException", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_acceleration_structure_creation_exception.html", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_acceleration_structure_creation_exception" ],

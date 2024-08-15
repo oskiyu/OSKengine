@@ -9,6 +9,7 @@ var class_o_s_k_1_1_editor_1_1_u_i_1_1_properties_panel =
     [ "AddDrawCall", "class_o_s_k_1_1_editor_1_1_u_i_1_1_properties_panel.html#add807398464bad5ab21623c92f386b71", null ],
     [ "AdjustSizeToChildren", "class_o_s_k_1_1_editor_1_1_u_i_1_1_properties_panel.html#a7e4d55b77c9c99e8cb7e47b237e946bb", null ],
     [ "ClearContent", "class_o_s_k_1_1_editor_1_1_u_i_1_1_properties_panel.html#a4e5d8a815f3f5291d8874fe196d786e6", null ],
+    [ "DeleteChild", "class_o_s_k_1_1_editor_1_1_u_i_1_1_properties_panel.html#a15ba2a2d54860d25f8851f2cb7b8f6c6", null ],
     [ "EmplaceChild", "class_o_s_k_1_1_editor_1_1_u_i_1_1_properties_panel.html#a54983fd5bbf46b58e679d8e3c71c8c34", null ],
     [ "GetAllDrawCalls", "class_o_s_k_1_1_editor_1_1_u_i_1_1_properties_panel.html#a435b75160b272579038e97b1ee6661fd", null ],
     [ "GetAllDrawCalls", "class_o_s_k_1_1_editor_1_1_u_i_1_1_properties_panel.html#a7d429ac7a83f5bf789178826024f625c", null ],
@@ -53,8 +54,6 @@ var class_o_s_k_1_1_editor_1_1_u_i_1_1_properties_panel =
     [ "Unlock", "class_o_s_k_1_1_editor_1_1_u_i_1_1_properties_panel.html#a27da2bfbce9e2310b18720be5c42970e", null ],
     [ "UpdateByCursor", "class_o_s_k_1_1_editor_1_1_u_i_1_1_properties_panel.html#a028534c35046f5056029c563ad3b7da3", null ],
     [ "UpdateByKeyboard", "class_o_s_k_1_1_editor_1_1_u_i_1_1_properties_panel.html#a64ec1ea6bacdb27517d54f362245ac88", null ],
-    [ "UpdateByObject", "class_o_s_k_1_1_editor_1_1_u_i_1_1_properties_panel.html#ab9c119fcefc5720c829bc4249b20c3e5", null ],
-    [ "UpdateBySystem", "class_o_s_k_1_1_editor_1_1_u_i_1_1_properties_panel.html#aea1f2a12cd4ff58655cbe4ca35a952f1", null ],
     [ "m_children", "class_o_s_k_1_1_editor_1_1_u_i_1_1_properties_panel.html#a6773e7f40433599f9949e29952bd5204", null ],
     [ "m_childrenTable", "class_o_s_k_1_1_editor_1_1_u_i_1_1_properties_panel.html#a97928a8f0f6585456a7130f4924e6deb", null ]
 ];

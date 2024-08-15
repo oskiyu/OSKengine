@@ -138,6 +138,7 @@ var hierarchy =
     [ "OSK::DynamicArray< VkShaderModule >", "class_o_s_k_1_1_dynamic_array.html", null ],
     [ "OSK::DynamicArray< VkSurfaceFormatKHR >", "class_o_s_k_1_1_dynamic_array.html", null ],
     [ "OSK::DynamicArray< VkWriteDescriptorSet >", "class_o_s_k_1_1_dynamic_array.html", null ],
+    [ "OSK::Editor::Editor", "class_o_s_k_1_1_editor_1_1_editor.html", null ],
     [ "OSK::Engine", "class_o_s_k_1_1_engine.html", null ],
     [ "OSK::ECS::EntityComponentSystem", "class_o_s_k_1_1_e_c_s_1_1_entity_component_system.html", null ],
     [ "OSK::GRAPHICS::VertexInfo::Entry", "struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_vertex_info_1_1_entry.html", null ],
@@ -218,6 +219,21 @@ var hierarchy =
     [ "OSK::ECS::IComponentContainer", "class_o_s_k_1_1_e_c_s_1_1_i_component_container.html", [
       [ "OSK::ECS::ComponentContainer< TComponent >", "class_o_s_k_1_1_e_c_s_1_1_component_container.html", null ]
     ] ],
+    [ "OSK::Editor::Controllers::IComponentController", "class_o_s_k_1_1_editor_1_1_controllers_1_1_i_component_controller.html", [
+      [ "OSK::Editor::Controllers::TComponentController< ECS::CameraComponent3D >", "class_o_s_k_1_1_editor_1_1_controllers_1_1_t_component_controller.html", [
+        [ "OSK::Editor::Controllers::CameraComponentController3D", "class_o_s_k_1_1_editor_1_1_controllers_1_1_camera_component_controller3_d.html", null ]
+      ] ],
+      [ "OSK::Editor::Controllers::TComponentController< ECS::ModelComponent3D >", "class_o_s_k_1_1_editor_1_1_controllers_1_1_t_component_controller.html", [
+        [ "OSK::Editor::Controllers::ModelComponentController3D", "class_o_s_k_1_1_editor_1_1_controllers_1_1_model_component_controller3_d.html", null ]
+      ] ],
+      [ "OSK::Editor::Controllers::TComponentController< ECS::PhysicsComponent >", "class_o_s_k_1_1_editor_1_1_controllers_1_1_t_component_controller.html", [
+        [ "OSK::Editor::Controllers::PhysicsComponentController3D", "class_o_s_k_1_1_editor_1_1_controllers_1_1_physics_component_controller3_d.html", null ]
+      ] ],
+      [ "OSK::Editor::Controllers::TComponentController< ECS::Transform3D >", "class_o_s_k_1_1_editor_1_1_controllers_1_1_t_component_controller.html", [
+        [ "OSK::Editor::Controllers::TransformComponentController3D", "class_o_s_k_1_1_editor_1_1_controllers_1_1_transform_component_controller3_d.html", null ]
+      ] ],
+      [ "OSK::Editor::Controllers::TComponentController< TComponent >", "class_o_s_k_1_1_editor_1_1_controllers_1_1_t_component_controller.html", null ]
+    ] ],
     [ "OSK::GRAPHICS::IComputePipeline", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_compute_pipeline.html", [
       [ "OSK::GRAPHICS::ComputePipelineDx12", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_compute_pipeline_dx12.html", null ],
       [ "OSK::GRAPHICS::ComputePipelineVk", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_compute_pipeline_vk.html", null ]
@@ -244,8 +260,17 @@ var hierarchy =
         [ "OSK::UI::VerticalContainer", "class_o_s_k_1_1_u_i_1_1_vertical_container.html", [
           [ "OSK::Editor::UI::EditorPanelTitle", "class_o_s_k_1_1_editor_1_1_u_i_1_1_editor_panel_title.html", null ],
           [ "OSK::Editor::UI::ObjectList", "class_o_s_k_1_1_editor_1_1_u_i_1_1_object_list.html", null ],
-          [ "OSK::Editor::UI::PropertiesPanel", "class_o_s_k_1_1_editor_1_1_u_i_1_1_properties_panel.html", null ],
+          [ "OSK::Editor::UI::PropertiesPanel", "class_o_s_k_1_1_editor_1_1_u_i_1_1_properties_panel.html", [
+            [ "OSK::Editor::UI::ObjectPropertiesPanel", "class_o_s_k_1_1_editor_1_1_u_i_1_1_object_properties_panel.html", null ],
+            [ "OSK::Editor::UI::SystemPropertiesPanel", "class_o_s_k_1_1_editor_1_1_u_i_1_1_system_properties_panel.html", null ]
+          ] ],
           [ "OSK::Editor::UI::SystemList", "class_o_s_k_1_1_editor_1_1_u_i_1_1_system_list.html", null ],
+          [ "OSK::Editor::Views::IComponentView", "class_o_s_k_1_1_editor_1_1_views_1_1_i_component_view.html", [
+            [ "OSK::Editor::Views::CameraComponentView", "class_o_s_k_1_1_editor_1_1_views_1_1_camera_component_view.html", null ],
+            [ "OSK::Editor::Views::ModelComponentView3D", "class_o_s_k_1_1_editor_1_1_views_1_1_model_component_view3_d.html", null ],
+            [ "OSK::Editor::Views::PhysicsComponentView", "class_o_s_k_1_1_editor_1_1_views_1_1_physics_component_view.html", null ],
+            [ "OSK::Editor::Views::TransformComponentView3D", "class_o_s_k_1_1_editor_1_1_views_1_1_transform_component_view3_d.html", null ]
+          ] ],
           [ "OSK::UI::Console", "class_o_s_k_1_1_u_i_1_1_console.html", null ]
         ] ]
       ] ],
@@ -651,6 +676,7 @@ var hierarchy =
     [ "OSK::UniquePtr< OSK::ECS::GameObjectManager >", "class_o_s_k_1_1_unique_ptr.html", null ],
     [ "OSK::UniquePtr< OSK::ECS::ISystem >", "class_o_s_k_1_1_unique_ptr.html", null ],
     [ "OSK::UniquePtr< OSK::ECS::SystemManager >", "class_o_s_k_1_1_unique_ptr.html", null ],
+    [ "OSK::UniquePtr< OSK::Editor::Editor >", "class_o_s_k_1_1_unique_ptr.html", null ],
     [ "OSK::UniquePtr< OSK::GRAPHICS::DescriptorLayoutVk >", "class_o_s_k_1_1_unique_ptr.html", null ],
     [ "OSK::UniquePtr< OSK::GRAPHICS::DescriptorPoolVk >", "class_o_s_k_1_1_unique_ptr.html", null ],
     [ "OSK::UniquePtr< OSK::GRAPHICS::GpuBuffer >", "class_o_s_k_1_1_unique_ptr.html", null ],

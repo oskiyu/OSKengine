@@ -1,0 +1,153 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="es">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.12.0"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>OSKengine: Archivo de código fuente Source/CameraComponentController3D.cpp</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="doxygen-awesome.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">OSKengine<span id="projectnumber">&#160;Indev</span>
+   </div>
+   <div id="projectbrief">Motor de videojuegos.</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generado por Doxygen 1.12.0 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+/* @license-end */
+</script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() { codefold.init(0); });
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() {
+  initMenu('',true,false,'search.php','Buscar',true);
+  $(function() { init_search(); });
+});
+/* @license-end */
+</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function(){initNavTree('_camera_component_controller3_d_8cpp_source.html',''); initResizable(true); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Cargando...</div>
+<div class="SRStatus" id="Searching">Buscando...</div>
+<div class="SRStatus" id="NoMatches">Nada coincide</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">CameraComponentController3D.cpp</div></div>
+</div><!--header-->
+<div class="contents">
+<div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#include &quot;CameraComponentController3D.h&quot;</span></div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span> </div>
+<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="preprocessor">#include &quot;CameraComponentView.h&quot;</span></div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span> </div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &quot;UiTextView.h&quot;</span></div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span> </div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="keyword">using namespace </span><a class="code hl_namespace" href="namespace_o_s_k.html">OSK</a>;</div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="keyword">using namespace </span><a class="code hl_namespace" href="namespace_o_s_k_1_1_e_c_s.html">OSK::ECS</a>;</div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="keyword">using namespace </span><a class="code hl_namespace" href="namespace_o_s_k_1_1_editor.html">OSK::Editor</a>;</div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span> </div>
+<div class="foldopen" id="foldopen00011" data-start="{" data-end="}">
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_editor_1_1_controllers_1_1_camera_component_controller3_d.html#a0539e9475b91b777985566a8ca4b6f41">   11</a></span><a class="code hl_function" href="class_o_s_k_1_1_editor_1_1_controllers_1_1_camera_component_controller3_d.html#a0539e9475b91b777985566a8ca4b6f41">Controllers::CameraComponentController3D::CameraComponentController3D</a>(<a class="code hl_class" href="class_o_s_k_1_1_base_uuid.html">GameObjectIndex</a> <span class="keywordtype">object</span>, <span class="keywordtype">void</span>* componentData, <a class="code hl_class" href="class_o_s_k_1_1_editor_1_1_views_1_1_i_component_view.html">Views::IComponentView</a>* view)</div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span>    : Controllers::<a class="code hl_class" href="class_o_s_k_1_1_editor_1_1_controllers_1_1_t_component_controller.html">TComponentController</a>&lt;ECS::<a class="code hl_class" href="class_o_s_k_1_1_e_c_s_1_1_camera_component3_d.html">CameraComponent3D</a>&gt;(object, componentData, view) {</div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span> </div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span>}</div>
+</div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span> </div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span><span class="keywordtype">void</span> Controllers::CameraComponentController3D::Poll() {</div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>    <span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_e_c_s_1_1_camera_component3_d.html">CameraComponent3D</a>&amp; camera = *GetComponent();</div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>    <a class="code hl_class" href="class_o_s_k_1_1_editor_1_1_views_1_1_camera_component_view.html">Views::CameraComponentView</a>* view = GetView()-&gt;As&lt;<a class="code hl_class" href="class_o_s_k_1_1_editor_1_1_views_1_1_camera_component_view.html">Views::CameraComponentView</a>&gt;();</div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span> </div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>    <span class="keywordflow">if</span> (m_previousFov != camera.<a class="code hl_function" href="class_o_s_k_1_1_e_c_s_1_1_camera_component3_d.html#a13690a7d03a38e3a17260398cfd8de65">GetFov</a>()) {</div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>        <span class="keyword">auto</span> fovView = view-&gt;<a class="code hl_function" href="class_o_s_k_1_1_editor_1_1_views_1_1_camera_component_view.html#a0f094eff30f593df32cd33a6118e79f8">GetFovView</a>();</div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>        fovView-&gt;<a class="code hl_function" href="class_o_s_k_1_1_u_i_1_1_text_view.html#a94e7e2b671b58a79240ac7b711078d15">SetText</a>(std::format(<span class="stringliteral">&quot;FOV: {}&quot;</span>, camera.<a class="code hl_function" href="class_o_s_k_1_1_e_c_s_1_1_camera_component3_d.html#a13690a7d03a38e3a17260398cfd8de65">GetFov</a>()));</div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>        m_previousFov = camera.<a class="code hl_function" href="class_o_s_k_1_1_e_c_s_1_1_camera_component3_d.html#a13690a7d03a38e3a17260398cfd8de65">GetFov</a>();</div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>    }</div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>}</div>
+<div class="ttc" id="aclass_o_s_k_1_1_base_uuid_html"><div class="ttname"><a href="class_o_s_k_1_1_base_uuid.html">OSK::BaseUuid&lt; class GameObjectIndexTag &gt;</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_e_c_s_1_1_camera_component3_d_html"><div class="ttname"><a href="class_o_s_k_1_1_e_c_s_1_1_camera_component3_d.html">OSK::ECS::CameraComponent3D</a></div><div class="ttdoc">Cámara para un mundo tridimensional.</div><div class="ttdef"><b>Definition</b> <a href="_camera_component3_d_8h_source.html#l00019">CameraComponent3D.h:19</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_e_c_s_1_1_camera_component3_d_html_a13690a7d03a38e3a17260398cfd8de65"><div class="ttname"><a href="class_o_s_k_1_1_e_c_s_1_1_camera_component3_d.html#a13690a7d03a38e3a17260398cfd8de65">OSK::ECS::CameraComponent3D::GetFov</a></div><div class="ttdeci">float GetFov() const</div><div class="ttdoc">FoV de la cámara.</div><div class="ttdef"><b>Definition</b> <a href="_camera_component3_d_8cpp_source.html#l00024">CameraComponent3D.cpp:24</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_editor_1_1_controllers_1_1_camera_component_controller3_d_html_a0539e9475b91b777985566a8ca4b6f41"><div class="ttname"><a href="class_o_s_k_1_1_editor_1_1_controllers_1_1_camera_component_controller3_d.html#a0539e9475b91b777985566a8ca4b6f41">OSK::Editor::Controllers::CameraComponentController3D::CameraComponentController3D</a></div><div class="ttdeci">CameraComponentController3D(ECS::GameObjectIndex object, void *componentData, Views::IComponentView *view)</div><div class="ttdef"><b>Definition</b> <a href="#l00011">CameraComponentController3D.cpp:11</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_editor_1_1_controllers_1_1_t_component_controller_html"><div class="ttname"><a href="class_o_s_k_1_1_editor_1_1_controllers_1_1_t_component_controller.html">OSK::Editor::Controllers::TComponentController</a></div><div class="ttdef"><b>Definition</b> <a href="_i_component_controller_8h_source.html#l00075">IComponentController.h:75</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_editor_1_1_views_1_1_camera_component_view_html"><div class="ttname"><a href="class_o_s_k_1_1_editor_1_1_views_1_1_camera_component_view.html">OSK::Editor::Views::CameraComponentView</a></div><div class="ttdef"><b>Definition</b> <a href="_camera_component_view_8h_source.html#l00012">CameraComponentView.h:12</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_editor_1_1_views_1_1_camera_component_view_html_a0f094eff30f593df32cd33a6118e79f8"><div class="ttname"><a href="class_o_s_k_1_1_editor_1_1_views_1_1_camera_component_view.html#a0f094eff30f593df32cd33a6118e79f8">OSK::Editor::Views::CameraComponentView::GetFovView</a></div><div class="ttdeci">OSK::UI::TextView * GetFovView()</div><div class="ttdef"><b>Definition</b> <a href="_camera_component_view_8cpp_source.html#l00023">CameraComponentView.cpp:23</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_editor_1_1_views_1_1_i_component_view_html"><div class="ttname"><a href="class_o_s_k_1_1_editor_1_1_views_1_1_i_component_view.html">OSK::Editor::Views::IComponentView</a></div><div class="ttdoc">Elemento de interfaz de usuario que muestra las propiedades de un componente en el editor.</div><div class="ttdef"><b>Definition</b> <a href="_i_component_view_8h_source.html#l00016">IComponentView.h:16</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_u_i_1_1_text_view_html_a94e7e2b671b58a79240ac7b711078d15"><div class="ttname"><a href="class_o_s_k_1_1_u_i_1_1_text_view.html#a94e7e2b671b58a79240ac7b711078d15">OSK::UI::TextView::SetText</a></div><div class="ttdeci">void SetText(const std::string &amp;text)</div><div class="ttdoc">Establece el texto que se va a renderizar.</div><div class="ttdef"><b>Definition</b> <a href="_ui_text_view_8cpp_source.html#l00086">UiTextView.cpp:86</a></div></div>
+<div class="ttc" id="anamespace_o_s_k_1_1_e_c_s_html"><div class="ttname"><a href="namespace_o_s_k_1_1_e_c_s.html">OSK::ECS</a></div><div class="ttdef"><b>Definition</b> <a href="_camera_component2_d_8h_source.html#l00017">CameraComponent2D.h:17</a></div></div>
+<div class="ttc" id="anamespace_o_s_k_1_1_editor_html"><div class="ttname"><a href="namespace_o_s_k_1_1_editor.html">OSK::Editor</a></div><div class="ttdef"><b>Definition</b> <a href="_camera_component_controller3_d_8h_source.html#l00006">CameraComponentController3D.h:6</a></div></div>
+<div class="ttc" id="anamespace_o_s_k_html"><div class="ttname"><a href="namespace_o_s_k.html">OSK</a></div><div class="ttdef"><b>Definition</b> <a href="_acceleration_structures_exceptions_8h_source.html#l00005">AccelerationStructuresExceptions.h:5</a></div></div>
+</div><!-- fragment --></div><!-- contents -->
+</div><!-- doc-content -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="dir_74389ed8173ad57b461b9d623a1f3867.html">Source</a></li><li class="navelem"><b>CameraComponentController3D.cpp</b></li>
+    <li class="footer">Generado el Jueves, 15 de agosto de 2024 11:33:33 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.12.0 </li>
+  </ul>
+</div>
+</body>
+</html>

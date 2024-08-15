@@ -8,6 +8,7 @@ var class_o_s_k_1_1_u_i_1_1_horizontal_container =
     [ "AddDrawCall", "class_o_s_k_1_1_u_i_1_1_horizontal_container.html#a18f20031652571463a6bede2198d3571", null ],
     [ "AddDrawCall", "class_o_s_k_1_1_u_i_1_1_horizontal_container.html#add807398464bad5ab21623c92f386b71", null ],
     [ "AdjustSizeToChildren", "class_o_s_k_1_1_u_i_1_1_horizontal_container.html#a7e4d55b77c9c99e8cb7e47b237e946bb", null ],
+    [ "DeleteChild", "class_o_s_k_1_1_u_i_1_1_horizontal_container.html#a15ba2a2d54860d25f8851f2cb7b8f6c6", null ],
     [ "EmplaceChild", "class_o_s_k_1_1_u_i_1_1_horizontal_container.html#ad67eabcdd1854c5889710ef200235faa", null ],
     [ "GetAllDrawCalls", "class_o_s_k_1_1_u_i_1_1_horizontal_container.html#a435b75160b272579038e97b1ee6661fd", null ],
     [ "GetAllDrawCalls", "class_o_s_k_1_1_u_i_1_1_horizontal_container.html#a7d429ac7a83f5bf789178826024f625c", null ],

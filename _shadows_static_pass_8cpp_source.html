@@ -3,7 +3,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
-<meta name="generator" content="Doxygen 1.11.0"/>
+<meta name="generator" content="Doxygen 1.12.0"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
 <title>OSKengine: Archivo de código fuente Source/ShadowsStaticPass.cpp</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
@@ -37,7 +37,7 @@
 </table>
 </div>
 <!-- end header part -->
-<!-- Generado por Doxygen 1.11.0 -->
+<!-- Generado por Doxygen 1.12.0 -->
 <script type="text/javascript">
 /* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
 var searchBox = new SearchBox("searchBox", "search/",'.html');
@@ -176,7 +176,7 @@ $(function(){initNavTree('_shadows_static_pass_8cpp_source.html',''); initResiza
 <div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>        };</div>
 <div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>        commandList-&gt;<a class="code hl_function" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list.html#a93f5f50e194242bf308e3ca06bde3f50">PushMaterialConstants</a>(<span class="stringliteral">&quot;model&quot;</span>, pushConstant);</div>
 <div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span> </div>
-<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>        <span class="keywordflow">for</span> (<a class="code hl_typedef" href="namespace_o_s_k.html#a382ed4c8a6994201cbad5d4e1335861b">UIndex32</a> i = 0; i &lt; model.<a class="code hl_function" href="class_o_s_k_1_1_e_c_s_1_1_model_component3_d.html#adee5ff754c7633596b9ecf29a7cde82c">GetModel</a>()-&gt;<a class="code hl_function" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_model3_d.html#a7f40cff6ad596de25aac244ffb766463">GetMeshes</a>().GetSize(); i++) {</div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>        <span class="keywordflow">for</span> (<a class="code hl_typedef" href="namespace_o_s_k.html#a382ed4c8a6994201cbad5d4e1335861b">UIndex32</a> i = 0; i &lt; model.<a class="code hl_function" href="class_o_s_k_1_1_e_c_s_1_1_model_component3_d.html#adee5ff754c7633596b9ecf29a7cde82c">GetModel</a>()-&gt;GetMeshes().GetSize(); i++) {</div>
 <div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>            commandList-&gt;<a class="code hl_function" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list.html#ad11552e4b7c251696eba4030e58e63a8">DrawSingleMesh</a>(</div>
 <div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>                model.<a class="code hl_function" href="class_o_s_k_1_1_e_c_s_1_1_model_component3_d.html#adee5ff754c7633596b9ecf29a7cde82c">GetModel</a>()-&gt;<a class="code hl_function" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_model3_d.html#a7f40cff6ad596de25aac244ffb766463">GetMeshes</a>()[i].GetFirstIndexIdx(),</div>
 <div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>                model.<a class="code hl_function" href="class_o_s_k_1_1_e_c_s_1_1_model_component3_d.html#adee5ff754c7633596b9ecf29a7cde82c">GetModel</a>()-&gt;<a class="code hl_function" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_model3_d.html#a7f40cff6ad596de25aac244ffb766463">GetMeshes</a>()[i].GetNumIndices());</div>
@@ -186,7 +186,7 @@ $(function(){initNavTree('_shadows_static_pass_8cpp_source.html',''); initResiza
 </div>
 <div class="ttc" id="aclass_o_s_k_1_1_base_uuid_html"><div class="ttname"><a href="class_o_s_k_1_1_base_uuid.html">OSK::BaseUuid&lt; class GameObjectIndexTag &gt;</a></div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_dynamic_array_html"><div class="ttname"><a href="class_o_s_k_1_1_dynamic_array.html">OSK::DynamicArray</a></div><div class="ttdoc">Dynamic array: array que puede cambiar de tamaño.</div><div class="ttdef"><b>Definition</b> <a href="_dynamic_array_8hpp_source.html#l00069">DynamicArray.hpp:69</a></div></div>
-<div class="ttc" id="aclass_o_s_k_1_1_e_c_s_1_1_entity_component_system_html_a8dc250aca83c3815d992e16e17dd398e"><div class="ttname"><a href="class_o_s_k_1_1_e_c_s_1_1_entity_component_system.html#a8dc250aca83c3815d992e16e17dd398e">OSK::ECS::EntityComponentSystem::GetComponent</a></div><div class="ttdeci">TComponent &amp; GetComponent(GameObjectIndex obj)</div><div class="ttdoc">Devuelve una referencia no estable al componente del tipo dado del objeto.</div><div class="ttdef"><b>Definition</b> <a href="_entity_component_system_8h_source.html#l00220">EntityComponentSystem.h:220</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_e_c_s_1_1_entity_component_system_html_a8dc250aca83c3815d992e16e17dd398e"><div class="ttname"><a href="class_o_s_k_1_1_e_c_s_1_1_entity_component_system.html#a8dc250aca83c3815d992e16e17dd398e">OSK::ECS::EntityComponentSystem::GetComponent</a></div><div class="ttdeci">TComponent &amp; GetComponent(GameObjectIndex obj)</div><div class="ttdoc">Devuelve una referencia no estable al componente del tipo dado del objeto.</div><div class="ttdef"><b>Definition</b> <a href="_entity_component_system_8h_source.html#l00225">EntityComponentSystem.h:225</a></div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_e_c_s_1_1_model_component3_d_html"><div class="ttname"><a href="class_o_s_k_1_1_e_c_s_1_1_model_component3_d.html">OSK::ECS::ModelComponent3D</a></div><div class="ttdoc">Componente para el renderizado 3D de un objeto.</div><div class="ttdef"><b>Definition</b> <a href="_model_component3_d_8h_source.html#l00029">ModelComponent3D.h:29</a></div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_e_c_s_1_1_model_component3_d_html_a7f7ca47e05391f710ecd78b5ab7e1185"><div class="ttname"><a href="class_o_s_k_1_1_e_c_s_1_1_model_component3_d.html#a7f7ca47e05391f710ecd78b5ab7e1185">OSK::ECS::ModelComponent3D::CastsShadows</a></div><div class="ttdeci">bool CastsShadows() const</div><div class="ttdef"><b>Definition</b> <a href="_model_component3_d_8h_source.html#l00056">ModelComponent3D.h:56</a></div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_e_c_s_1_1_model_component3_d_html_adee5ff754c7633596b9ecf29a7cde82c"><div class="ttname"><a href="class_o_s_k_1_1_e_c_s_1_1_model_component3_d.html#adee5ff754c7633596b9ecf29a7cde82c">OSK::ECS::ModelComponent3D::GetModel</a></div><div class="ttdeci">GRAPHICS::GpuModel3D * GetModel()</div><div class="ttdef"><b>Definition</b> <a href="_model_component3_d_8cpp_source.html#l00042">ModelComponent3D.cpp:42</a></div></div>
@@ -223,7 +223,7 @@ $(function(){initNavTree('_shadows_static_pass_8cpp_source.html',''); initResiza
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_74389ed8173ad57b461b9d623a1f3867.html">Source</a></li><li class="navelem"><b>ShadowsStaticPass.cpp</b></li>
-    <li class="footer">Generado el Martes, 18 de junio de 2024 11:17:41 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.11.0 </li>
+    <li class="footer">Generado el Jueves, 15 de agosto de 2024 11:33:34 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.12.0 </li>
   </ul>
 </div>
 </body>

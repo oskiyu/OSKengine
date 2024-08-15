@@ -3,7 +3,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
-<meta name="generator" content="Doxygen 1.11.0"/>
+<meta name="generator" content="Doxygen 1.12.0"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
 <title>OSKengine: Archivo de código fuente Source/BinaryBlock.cpp</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
@@ -37,7 +37,7 @@
 </table>
 </div>
 <!-- end header part -->
-<!-- Generado por Doxygen 1.11.0 -->
+<!-- Generado por Doxygen 1.12.0 -->
 <script type="text/javascript">
 /* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
 var searchBox = new SearchBox("searchBox", "search/",'.html');
@@ -178,7 +178,7 @@ $(function(){initNavTree('_binary_block_8cpp_source.html',''); initResizable(tru
 <div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span> </div>
 <div class="foldopen" id="foldopen00062" data-start="{" data-end="}">
 <div class="line"><a id="l00062" name="l00062"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_p_e_r_s_i_s_t_e_n_c_e_1_1_binary_block.html#a55412904f944f6ea98ea8cb9313bcc5f">   62</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="class_o_s_k_1_1_p_e_r_s_i_s_t_e_n_c_e_1_1_binary_block.html#a55412904f944f6ea98ea8cb9313bcc5f">BinaryBlock::WriteString</a>(std::string_view <span class="keywordtype">string</span>) {</div>
-<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>    <span class="keywordflow">for</span> (<span class="keyword">const</span> <span class="keywordtype">char</span> c : string) {</div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>    <span class="keywordflow">for</span> (<span class="keyword">const</span> <span class="keywordtype">char</span> c : <span class="keywordtype">string</span>) {</div>
 <div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>        m_data.<a class="code hl_function" href="class_o_s_k_1_1_dynamic_array.html#a4433c76207ce2ecad5e306b12575f1b3">Insert</a>(c);</div>
 <div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>    }</div>
 <div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>    m_data.<a class="code hl_function" href="class_o_s_k_1_1_dynamic_array.html#a4433c76207ce2ecad5e306b12575f1b3">Insert</a>(0);</div>
@@ -219,11 +219,11 @@ $(function(){initNavTree('_binary_block_8cpp_source.html',''); initResizable(tru
 <div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span> </div>
 <div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span><span class="preprocessor">#pragma endregion</span></div>
 <div class="ttc" id="aclass_o_s_k_1_1_dynamic_array_html"><div class="ttname"><a href="class_o_s_k_1_1_dynamic_array.html">OSK::DynamicArray</a></div><div class="ttdoc">Dynamic array: array que puede cambiar de tamaño.</div><div class="ttdef"><b>Definition</b> <a href="_dynamic_array_8hpp_source.html#l00069">DynamicArray.hpp:69</a></div></div>
-<div class="ttc" id="aclass_o_s_k_1_1_dynamic_array_html_a286f518150138acd1773a7cfaf2c8482"><div class="ttname"><a href="class_o_s_k_1_1_dynamic_array.html#a286f518150138acd1773a7cfaf2c8482">OSK::DynamicArray::InsertAll</a></div><div class="ttdeci">void InsertAll(const DynamicArray &amp;arr)</div><div class="ttdoc">Añade los elementos de 'arr' a este array.</div><div class="ttdef"><b>Definition</b> <a href="_dynamic_array_8hpp_source.html#l00459">DynamicArray.hpp:459</a></div></div>
-<div class="ttc" id="aclass_o_s_k_1_1_dynamic_array_html_a4433c76207ce2ecad5e306b12575f1b3"><div class="ttname"><a href="class_o_s_k_1_1_dynamic_array.html#a4433c76207ce2ecad5e306b12575f1b3">OSK::DynamicArray::Insert</a></div><div class="ttdeci">void Insert(const T &amp;element)</div><div class="ttdoc">Inserta un elemento al final del array.</div><div class="ttdef"><b>Definition</b> <a href="_dynamic_array_8hpp_source.html#l00353">DynamicArray.hpp:353</a></div></div>
-<div class="ttc" id="aclass_o_s_k_1_1_dynamic_array_html_aa623134157acd07f1e42312f2a98b81c"><div class="ttname"><a href="class_o_s_k_1_1_dynamic_array.html#aa623134157acd07f1e42312f2a98b81c">OSK::DynamicArray::GetFullSpan</a></div><div class="ttdeci">std::span&lt; T &gt; GetFullSpan()</div><div class="ttdef"><b>Definition</b> <a href="_dynamic_array_8hpp_source.html#l00696">DynamicArray.hpp:696</a></div></div>
-<div class="ttc" id="aclass_o_s_k_1_1_dynamic_array_html_ab772cd3a1f2c189505ea17d604dfc164"><div class="ttname"><a href="class_o_s_k_1_1_dynamic_array.html#ab772cd3a1f2c189505ea17d604dfc164">OSK::DynamicArray::IsEmpty</a></div><div class="ttdeci">bool IsEmpty() const noexcept</div><div class="ttdoc">Devuelve true si el array está vacío.</div><div class="ttdef"><b>Definition</b> <a href="_dynamic_array_8hpp_source.html#l00667">DynamicArray.hpp:667</a></div></div>
-<div class="ttc" id="aclass_o_s_k_1_1_dynamic_array_html_af09578371bd52d5a934bc74c8dad5f0d"><div class="ttname"><a href="class_o_s_k_1_1_dynamic_array.html#af09578371bd52d5a934bc74c8dad5f0d">OSK::DynamicArray::GetSize</a></div><div class="ttdeci">USize64 GetSize() const noexcept</div><div class="ttdoc">Devuelve el número de elementos almacenados.</div><div class="ttdef"><b>Definition</b> <a href="_dynamic_array_8hpp_source.html#l00674">DynamicArray.hpp:674</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_dynamic_array_html_a286f518150138acd1773a7cfaf2c8482"><div class="ttname"><a href="class_o_s_k_1_1_dynamic_array.html#a286f518150138acd1773a7cfaf2c8482">OSK::DynamicArray::InsertAll</a></div><div class="ttdeci">void InsertAll(const DynamicArray &amp;arr)</div><div class="ttdoc">Añade los elementos de 'arr' a este array.</div><div class="ttdef"><b>Definition</b> <a href="_dynamic_array_8hpp_source.html#l00460">DynamicArray.hpp:460</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_dynamic_array_html_a4433c76207ce2ecad5e306b12575f1b3"><div class="ttname"><a href="class_o_s_k_1_1_dynamic_array.html#a4433c76207ce2ecad5e306b12575f1b3">OSK::DynamicArray::Insert</a></div><div class="ttdeci">void Insert(const T &amp;element)</div><div class="ttdoc">Inserta un elemento al final del array.</div><div class="ttdef"><b>Definition</b> <a href="_dynamic_array_8hpp_source.html#l00363">DynamicArray.hpp:363</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_dynamic_array_html_aa623134157acd07f1e42312f2a98b81c"><div class="ttname"><a href="class_o_s_k_1_1_dynamic_array.html#aa623134157acd07f1e42312f2a98b81c">OSK::DynamicArray::GetFullSpan</a></div><div class="ttdeci">std::span&lt; T &gt; GetFullSpan()</div><div class="ttdef"><b>Definition</b> <a href="_dynamic_array_8hpp_source.html#l00684">DynamicArray.hpp:684</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_dynamic_array_html_ab772cd3a1f2c189505ea17d604dfc164"><div class="ttname"><a href="class_o_s_k_1_1_dynamic_array.html#ab772cd3a1f2c189505ea17d604dfc164">OSK::DynamicArray::IsEmpty</a></div><div class="ttdeci">bool IsEmpty() const noexcept</div><div class="ttdef"><b>Definition</b> <a href="_dynamic_array_8hpp_source.html#l00661">DynamicArray.hpp:661</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_dynamic_array_html_af09578371bd52d5a934bc74c8dad5f0d"><div class="ttname"><a href="class_o_s_k_1_1_dynamic_array.html#af09578371bd52d5a934bc74c8dad5f0d">OSK::DynamicArray::GetSize</a></div><div class="ttdeci">USize64 GetSize() const noexcept</div><div class="ttdef"><b>Definition</b> <a href="_dynamic_array_8hpp_source.html#l00666">DynamicArray.hpp:666</a></div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_finished_block_reader_exception_html"><div class="ttname"><a href="class_o_s_k_1_1_finished_block_reader_exception.html">OSK::FinishedBlockReaderException</a></div><div class="ttdef"><b>Definition</b> <a href="_binary_exceptions_8h_source.html#l00007">BinaryExceptions.h:7</a></div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_invalid_argument_exception_html"><div class="ttname"><a href="class_o_s_k_1_1_invalid_argument_exception.html">OSK::InvalidArgumentException</a></div><div class="ttdoc">Excepción que se lanza cuando se trata de ejecutar una función pasando argumentos con valores que no ...</div><div class="ttdef"><b>Definition</b> <a href="_invalid_argument_exception_8h_source.html#l00009">InvalidArgumentException.h:9</a></div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_invalid_object_state_exception_html"><div class="ttname"><a href="class_o_s_k_1_1_invalid_object_state_exception.html">OSK::InvalidObjectStateException</a></div><div class="ttdoc">Excepción que se lanza cuando se trata de ejecutar una función de un objeto cuyo estado interno no es...</div><div class="ttdef"><b>Definition</b> <a href="_invalid_object_state_exception_8h_source.html#l00009">InvalidObjectStateException.h:9</a></div></div>
@@ -251,7 +251,7 @@ $(function(){initNavTree('_binary_block_8cpp_source.html',''); initResizable(tru
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_74389ed8173ad57b461b9d623a1f3867.html">Source</a></li><li class="navelem"><b>BinaryBlock.cpp</b></li>
-    <li class="footer">Generado el Martes, 18 de junio de 2024 11:17:40 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.11.0 </li>
+    <li class="footer">Generado el Jueves, 15 de agosto de 2024 11:33:32 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.12.0 </li>
   </ul>
 </div>
 </body>

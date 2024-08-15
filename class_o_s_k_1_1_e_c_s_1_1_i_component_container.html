@@ -3,7 +3,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
-<meta name="generator" content="Doxygen 1.11.0"/>
+<meta name="generator" content="Doxygen 1.12.0"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
 <title>OSKengine: Referencia de la clase OSK::ECS::IComponentContainer</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
@@ -37,7 +37,7 @@
 </table>
 </div>
 <!-- end header part -->
-<!-- Generado por Doxygen 1.11.0 -->
+<!-- Generado por Doxygen 1.12.0 -->
 <script type="text/javascript">
 /* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
 var searchBox = new SearchBox("searchBox", "search/",'.html');
@@ -121,6 +121,10 @@ Métodos públicos</h2></td></tr>
 <tr class="separator:a1fbc7f0fbca87a5c338912131d4b40b7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9e48a31f8f17ed65f0e4bbb83a7b9844" id="r_a9e48a31f8f17ed65f0e4bbb83a7b9844"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a9e48a31f8f17ed65f0e4bbb83a7b9844">BinaryDeserializeComponent</a> (<a class="el" href="class_o_s_k_1_1_p_e_r_s_i_s_t_e_n_c_e_1_1_binary_block_reader.html">PERSISTENCE::BinaryBlockReader</a> *reader, <a class="el" href="namespace_o_s_k_1_1_e_c_s.html#a5b92aeaa6be2ce0d96e7f571aa917042">GameObjectIndex</a> obj, const <a class="el" href="class_o_s_k_1_1_e_c_s_1_1_saved_game_object_translator.html">SavedGameObjectTranslator</a> &amp;translator)=0</td></tr>
 <tr class="separator:a9e48a31f8f17ed65f0e4bbb83a7b9844"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0c83f9952276b91e9aa2c1f088a2fd87" id="r_a0c83f9952276b91e9aa2c1f088a2fd87"><td class="memItemLeft" align="right" valign="top">virtual void *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a0c83f9952276b91e9aa2c1f088a2fd87">GetComponentAddress</a> (<a class="el" href="namespace_o_s_k_1_1_e_c_s.html#a5b92aeaa6be2ce0d96e7f571aa917042">GameObjectIndex</a> obj)=0</td></tr>
+<tr class="separator:a0c83f9952276b91e9aa2c1f088a2fd87"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acf4c637debae9374b272b723c5411b43" id="r_acf4c637debae9374b272b723c5411b43"><td class="memItemLeft" align="right" valign="top">virtual const void *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#acf4c637debae9374b272b723c5411b43">GetComponentAddress</a> (<a class="el" href="namespace_o_s_k_1_1_e_c_s.html#a5b92aeaa6be2ce0d96e7f571aa917042">GameObjectIndex</a> obj) const =0</td></tr>
+<tr class="separator:acf4c637debae9374b272b723c5411b43"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5b4275c81aa1382f75843e2e9fbf91df" id="r_a5b4275c81aa1382f75843e2e9fbf91df"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a5b4275c81aa1382f75843e2e9fbf91df">SetComponentType</a> (<a class="el" href="namespace_o_s_k_1_1_e_c_s.html#a95b3fa53385506953113ea055e091357">ComponentType</a> componentType)</td></tr>
 <tr class="separator:a5b4275c81aa1382f75843e2e9fbf91df"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2e637e57e3e12f1787ff69b4ede64495" id="r_a2e637e57e3e12f1787ff69b4ede64495"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespace_o_s_k_1_1_e_c_s.html#a95b3fa53385506953113ea055e091357">ComponentType</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a2e637e57e3e12f1787ff69b4ede64495">GetComponentType</a> () const</td></tr>
@@ -328,6 +332,67 @@ El cursor de <code>reader</code> habrá avanzado, dejando atrás todos los datos
 
 </div>
 </div>
+<a id="acf4c637debae9374b272b723c5411b43" name="acf4c637debae9374b272b723c5411b43"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acf4c637debae9374b272b723c5411b43">&#9670;&#160;</a></span>GetComponentAddress() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual const void * OSK::ECS::IComponentContainer::GetComponentAddress </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="namespace_o_s_k_1_1_e_c_s.html#a5b92aeaa6be2ce0d96e7f571aa917042">GameObjectIndex</a></td>          <td class="paramname"><span class="paramname"><em>obj</em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Implementado en <a class="el" href="class_o_s_k_1_1_e_c_s_1_1_component_container.html#a65929a20023a4cde9fd0ee7a094c96a8">OSK::ECS::ComponentContainer&lt; TComponent &gt;</a>.</p>
+
+</div>
+</div>
+<a id="a0c83f9952276b91e9aa2c1f088a2fd87" name="a0c83f9952276b91e9aa2c1f088a2fd87"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0c83f9952276b91e9aa2c1f088a2fd87">&#9670;&#160;</a></span>GetComponentAddress() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void * OSK::ECS::IComponentContainer::GetComponentAddress </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="namespace_o_s_k_1_1_e_c_s.html#a5b92aeaa6be2ce0d96e7f571aa917042">GameObjectIndex</a></td>          <td class="paramname"><span class="paramname"><em>obj</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">obj</td><td>Objeto que contiene el componente buscado. Si el objeto no tiene el componente, devuelve nullptr. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Devuelve</dt><dd>Puntero al componente. </dd></dl>
+
+<p>Implementado en <a class="el" href="class_o_s_k_1_1_e_c_s_1_1_component_container.html#a4a9f65d33dfa0fb6cb1cb3507e141149">OSK::ECS::ComponentContainer&lt; TComponent &gt;</a>.</p>
+
+</div>
+</div>
 <a id="a2e637e57e3e12f1787ff69b4ede64495" name="a2e637e57e3e12f1787ff69b4ede64495"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a2e637e57e3e12f1787ff69b4ede64495">&#9670;&#160;</a></span>GetComponentType()</h2>
 
@@ -446,7 +511,7 @@ El cursor de <code>reader</code> habrá avanzado, dejando atrás todos los datos
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="namespace_o_s_k.html">OSK</a></li><li class="navelem"><a class="el" href="namespace_o_s_k_1_1_e_c_s.html">ECS</a></li><li class="navelem"><a class="el" href="class_o_s_k_1_1_e_c_s_1_1_i_component_container.html">IComponentContainer</a></li>
-    <li class="footer">Generado el Martes, 18 de junio de 2024 11:17:42 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.11.0 </li>
+    <li class="footer">Generado el Jueves, 15 de agosto de 2024 11:33:35 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.12.0 </li>
   </ul>
 </div>
 </body>

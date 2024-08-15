@@ -6,6 +6,8 @@ var namespace_o_s_k_1_1_editor_1_1_u_i =
     [ "EditorPanelTitle", "class_o_s_k_1_1_editor_1_1_u_i_1_1_editor_panel_title.html", "class_o_s_k_1_1_editor_1_1_u_i_1_1_editor_panel_title" ],
     [ "EditorUi", "class_o_s_k_1_1_editor_1_1_u_i_1_1_editor_ui.html", "class_o_s_k_1_1_editor_1_1_u_i_1_1_editor_ui" ],
     [ "ObjectList", "class_o_s_k_1_1_editor_1_1_u_i_1_1_object_list.html", "class_o_s_k_1_1_editor_1_1_u_i_1_1_object_list" ],
+    [ "ObjectPropertiesPanel", "class_o_s_k_1_1_editor_1_1_u_i_1_1_object_properties_panel.html", "class_o_s_k_1_1_editor_1_1_u_i_1_1_object_properties_panel" ],
     [ "PropertiesPanel", "class_o_s_k_1_1_editor_1_1_u_i_1_1_properties_panel.html", "class_o_s_k_1_1_editor_1_1_u_i_1_1_properties_panel" ],
-    [ "SystemList", "class_o_s_k_1_1_editor_1_1_u_i_1_1_system_list.html", "class_o_s_k_1_1_editor_1_1_u_i_1_1_system_list" ]
+    [ "SystemList", "class_o_s_k_1_1_editor_1_1_u_i_1_1_system_list.html", "class_o_s_k_1_1_editor_1_1_u_i_1_1_system_list" ],
+    [ "SystemPropertiesPanel", "class_o_s_k_1_1_editor_1_1_u_i_1_1_system_properties_panel.html", "class_o_s_k_1_1_editor_1_1_u_i_1_1_system_properties_panel" ]
 ];

@@ -3,7 +3,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
-<meta name="generator" content="Doxygen 1.11.0"/>
+<meta name="generator" content="Doxygen 1.12.0"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
 <title>OSKengine: Archivo de código fuente Source/JobSystem.cpp</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
@@ -37,7 +37,7 @@
 </table>
 </div>
 <!-- end header part -->
-<!-- Generado por Doxygen 1.11.0 -->
+<!-- Generado por Doxygen 1.12.0 -->
 <script type="text/javascript">
 /* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
 var searchBox = new SearchBox("searchBox", "search/",'.html');
@@ -125,10 +125,10 @@ $(function(){initNavTree('_job_system_8cpp_source.html',''); initResizable(true)
 <div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>                    job.value()-&gt;Execute();</div>
 <div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span> </div>
 <div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>                    m_numCurrentlyWorkingThreads.fetch_sub(1);</div>
-<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>                    m_numCurrentlyWorkingThreads_perTag.Decrement(job.value()-&gt;GetName());</div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>                    m_numCurrentlyWorkingThreads_perTag.<a class="code hl_function" href="class_o_s_k_1_1_job_count_map.html#af0e433931cf5461cf505427c921e6e6e">Decrement</a>(job.value()-&gt;GetName());</div>
 <div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span> </div>
-<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>                    for (const auto&amp; tag : job.value()-&gt;GetTags()) {</div>
-<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>                        m_numCurrentlyWorkingThreads_perTag.Decrement(tag);</div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>                    <span class="keywordflow">for</span> (<span class="keyword">const</span> <span class="keyword">auto</span>&amp; tag : job.value()-&gt;GetTags()) {</div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>                        m_numCurrentlyWorkingThreads_perTag.<a class="code hl_function" href="class_o_s_k_1_1_job_count_map.html#af0e433931cf5461cf505427c921e6e6e">Decrement</a>(tag);</div>
 <div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>                    }</div>
 <div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>                }</div>
 <div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>                <span class="keywordflow">else</span> {</div>
@@ -139,7 +139,7 @@ $(function(){initNavTree('_job_system_8cpp_source.html',''); initResizable(true)
 <div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>            }));</div>
 <div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>    }</div>
 <div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span> </div>
-<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>    <a class="code hl_function" href="class_o_s_k_1_1_engine.html#ac39b79a3e665381630f6c710f3772a2b">OSK::Engine::GetLogger</a>()-&gt;<a class="code hl_function" href="class_o_s_k_1_1_i_o_1_1_logger.html#a3d2a88ffa05f6a74f9d669f1182bacca">InfoLog</a>(std::format(<span class="stringliteral">&quot;JobSystem: número de hilos: {}&quot;</span>, m_threads.GetSize()));</div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>    <a class="code hl_function" href="class_o_s_k_1_1_engine.html#ac39b79a3e665381630f6c710f3772a2b">OSK::Engine::GetLogger</a>()-&gt;<a class="code hl_function" href="class_o_s_k_1_1_i_o_1_1_logger.html#a3d2a88ffa05f6a74f9d669f1182bacca">InfoLog</a>(std::format(<span class="stringliteral">&quot;JobSystem: número de hilos: {}&quot;</span>, m_threads.<a class="code hl_function" href="class_o_s_k_1_1_dynamic_array.html#af09578371bd52d5a934bc74c8dad5f0d">GetSize</a>()));</div>
 <div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>}</div>
 </div>
 <div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span> </div>
@@ -199,11 +199,13 @@ $(function(){initNavTree('_job_system_8cpp_source.html',''); initResizable(true)
 <div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span>    <span class="keywordflow">return</span> m_numThreads + 1;</div>
 <div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span>}</div>
 </div>
-<div class="ttc" id="aclass_o_s_k_1_1_dynamic_array_html_a4433c76207ce2ecad5e306b12575f1b3"><div class="ttname"><a href="class_o_s_k_1_1_dynamic_array.html#a4433c76207ce2ecad5e306b12575f1b3">OSK::DynamicArray::Insert</a></div><div class="ttdeci">void Insert(const T &amp;element)</div><div class="ttdoc">Inserta un elemento al final del array.</div><div class="ttdef"><b>Definition</b> <a href="_dynamic_array_8hpp_source.html#l00353">DynamicArray.hpp:353</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_dynamic_array_html_a4433c76207ce2ecad5e306b12575f1b3"><div class="ttname"><a href="class_o_s_k_1_1_dynamic_array.html#a4433c76207ce2ecad5e306b12575f1b3">OSK::DynamicArray::Insert</a></div><div class="ttdeci">void Insert(const T &amp;element)</div><div class="ttdoc">Inserta un elemento al final del array.</div><div class="ttdef"><b>Definition</b> <a href="_dynamic_array_8hpp_source.html#l00363">DynamicArray.hpp:363</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_dynamic_array_html_af09578371bd52d5a934bc74c8dad5f0d"><div class="ttname"><a href="class_o_s_k_1_1_dynamic_array.html#af09578371bd52d5a934bc74c8dad5f0d">OSK::DynamicArray::GetSize</a></div><div class="ttdeci">USize64 GetSize() const noexcept</div><div class="ttdef"><b>Definition</b> <a href="_dynamic_array_8hpp_source.html#l00666">DynamicArray.hpp:666</a></div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_engine_html_ac39b79a3e665381630f6c710f3772a2b"><div class="ttname"><a href="class_o_s_k_1_1_engine.html#ac39b79a3e665381630f6c710f3772a2b">OSK::Engine::GetLogger</a></div><div class="ttdeci">static IO::Logger * GetLogger()</div><div class="ttdef"><b>Definition</b> <a href="_o_s_kengine_8cpp_source.html#l00239">OSKengine.cpp:239</a></div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_i_o_1_1_logger_html_a3d2a88ffa05f6a74f9d669f1182bacca"><div class="ttname"><a href="class_o_s_k_1_1_i_o_1_1_logger.html#a3d2a88ffa05f6a74f9d669f1182bacca">OSK::IO::Logger::InfoLog</a></div><div class="ttdeci">void InfoLog(const std::string &amp;msg)</div><div class="ttdoc">Manda un mensaje de información.</div><div class="ttdef"><b>Definition</b> <a href="_logger_8cpp_source.html#l00061">Logger.cpp:61</a></div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_job_count_map_html_a38e729ec60b7e5913cc5f81e861d5d85"><div class="ttname"><a href="class_o_s_k_1_1_job_count_map.html#a38e729ec60b7e5913cc5f81e861d5d85">OSK::JobCountMap::Increment</a></div><div class="ttdeci">void Increment(std::string_view tag)</div><div class="ttdoc">Incrementa en 1 el contador para el tipo o tag dado.</div><div class="ttdef"><b>Definition</b> <a href="_job_count_map_8cpp_source.html#l00006">JobCountMap.cpp:6</a></div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_job_count_map_html_ae1f628a66541836570fe78238a50ae6c"><div class="ttname"><a href="class_o_s_k_1_1_job_count_map.html#ae1f628a66541836570fe78238a50ae6c">OSK::JobCountMap::GetCount</a></div><div class="ttdeci">USize32 GetCount(std::string_view tag) const</div><div class="ttdef"><b>Definition</b> <a href="_job_count_map_8cpp_source.html#l00034">JobCountMap.cpp:34</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_job_count_map_html_af0e433931cf5461cf505427c921e6e6e"><div class="ttname"><a href="class_o_s_k_1_1_job_count_map.html#af0e433931cf5461cf505427c921e6e6e">OSK::JobCountMap::Decrement</a></div><div class="ttdeci">void Decrement(std::string_view tag)</div><div class="ttdoc">Decrementa en 1 el contador para el tipo o tag dado.</div><div class="ttdef"><b>Definition</b> <a href="_job_count_map_8cpp_source.html#l00028">JobCountMap.cpp:28</a></div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_job_queue_html_a12fe106b31874c8c50350ce28890b68a"><div class="ttname"><a href="class_o_s_k_1_1_job_queue.html#a12fe106b31874c8c50350ce28890b68a">OSK::JobQueue::TryDequeue</a></div><div class="ttdeci">std::optional&lt; UniquePtr&lt; IJob &gt; &gt; TryDequeue()</div><div class="ttdoc">Intenta obtener un trabajo que no haya sido obtenido antes.</div><div class="ttdef"><b>Definition</b> <a href="_job_queue_8cpp_source.html#l00023">JobQueue.cpp:23</a></div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_job_queue_html_a18801df980598a6b71b54b80c1e18140"><div class="ttname"><a href="class_o_s_k_1_1_job_queue.html#a18801df980598a6b71b54b80c1e18140">OSK::JobQueue::Enqueue</a></div><div class="ttdeci">void Enqueue(UniquePtr&lt; IJob &gt; job)</div><div class="ttdoc">Añade un trabajo a la cola.</div><div class="ttdef"><b>Definition</b> <a href="_job_queue_8cpp_source.html#l00010">JobQueue.cpp:10</a></div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_job_queue_html_a3d15f674460c6fd9730cf7fd0aa435ca"><div class="ttname"><a href="class_o_s_k_1_1_job_queue.html#a3d15f674460c6fd9730cf7fd0aa435ca">OSK::JobQueue::IsEmpty</a></div><div class="ttdeci">bool IsEmpty() const</div><div class="ttdef"><b>Definition</b> <a href="_job_queue_8cpp_source.html#l00036">JobQueue.cpp:36</a></div></div>
@@ -226,7 +228,7 @@ $(function(){initNavTree('_job_system_8cpp_source.html',''); initResizable(true)
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_74389ed8173ad57b461b9d623a1f3867.html">Source</a></li><li class="navelem"><b>JobSystem.cpp</b></li>
-    <li class="footer">Generado el Martes, 18 de junio de 2024 11:17:41 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.11.0 </li>
+    <li class="footer">Generado el Jueves, 15 de agosto de 2024 11:33:33 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.12.0 </li>
   </ul>
 </div>
 </body>

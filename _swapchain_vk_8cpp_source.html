@@ -3,7 +3,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
-<meta name="generator" content="Doxygen 1.11.0"/>
+<meta name="generator" content="Doxygen 1.12.0"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
 <title>OSKengine: Archivo de código fuente Source/SwapchainVk.cpp</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
@@ -37,7 +37,7 @@
 </table>
 </div>
 <!-- end header part -->
-<!-- Generado por Doxygen 1.11.0 -->
+<!-- Generado por Doxygen 1.12.0 -->
 <script type="text/javascript">
 /* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
 var searchBox = new SearchBox("searchBox", "search/",'.html');
@@ -254,7 +254,7 @@ $(function(){initNavTree('_swapchain_vk_8cpp_source.html',''); initResizable(tru
 <div class="line"><a id="l00147" name="l00147"></a><span class="lineno">  147</span>    VkResult result = vkGetSwapchainImagesKHR(device.<a class="code hl_function" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_vk.html#a453c36cc8861b7be6a41120aab935977">GetLogicalDevice</a>(), m_swapchain, &amp;imageCount, <span class="keyword">nullptr</span>);</div>
 <div class="line"><a id="l00148" name="l00148"></a><span class="lineno">  148</span>    OSK_ASSERT(result == VK_SUCCESS, <a class="code hl_class" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_swapchain_creation_exception.html">SwapchainCreationException</a>(<span class="stringliteral">&quot;Error al adquirir imagenes del swapchain&quot;</span>, result));</div>
 <div class="line"><a id="l00149" name="l00149"></a><span class="lineno">  149</span> </div>
-<div class="line"><a id="l00150" name="l00150"></a><span class="lineno">  150</span>    <span class="keyword">auto</span> tempImages = <a class="code hl_function" href="class_o_s_k_1_1_dynamic_array.html#a2faf0bf58a1fb1709b216fa36a012cd3">DynamicArray&lt;VkImage&gt;::CreateResizedArray</a>(imageCount);</div>
+<div class="line"><a id="l00150" name="l00150"></a><span class="lineno">  150</span>    <span class="keyword">auto</span> tempImages = <a class="code hl_function" href="class_o_s_k_1_1_dynamic_array.html#ab58a35c600820a37f8ab913a6e3464e3">DynamicArray&lt;VkImage&gt;::CreateResized</a>(imageCount);</div>
 <div class="line"><a id="l00151" name="l00151"></a><span class="lineno">  151</span>    vkGetSwapchainImagesKHR(device.<a class="code hl_function" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_vk.html#a453c36cc8861b7be6a41120aab935977">GetLogicalDevice</a>(), m_swapchain, &amp;imageCount, tempImages.GetData());</div>
 <div class="line"><a id="l00152" name="l00152"></a><span class="lineno">  152</span>    OSK_ASSERT(result == VK_SUCCESS, <a class="code hl_class" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_swapchain_creation_exception.html">SwapchainCreationException</a>(<span class="stringliteral">&quot;Error al adquirir imagenes del swapchain&quot;</span>, result));</div>
 <div class="line"><a id="l00153" name="l00153"></a><span class="lineno">  153</span> </div>
@@ -317,9 +317,9 @@ $(function(){initNavTree('_swapchain_vk_8cpp_source.html',''); initResizable(tru
 </div>
 <div class="line"><a id="l00207" name="l00207"></a><span class="lineno">  207</span> </div>
 <div class="line"><a id="l00208" name="l00208"></a><span class="lineno">  208</span>VkColorSpaceKHR SwapchainVk::GetSupportedColorSpace(<span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_vk.html">GpuVk</a>&amp; device) {</div>
-<div class="line"><a id="l00209" name="l00209"></a><span class="lineno">  209</span>    <span class="keywordflow">for</span> (<span class="keyword">const</span> <span class="keyword">auto</span>&amp; format : device.GetInfo().swapchainSupportDetails.formats)</div>
-<div class="line"><a id="l00210" name="l00210"></a><span class="lineno">  210</span>        if (format.colorSpace == VK_COLOR_SPACE_SRGB_NONLINEAR_KHR &amp;&amp; format.format == VK_FORMAT_B8G8R8A8_SRGB)</div>
-<div class="line"><a id="l00211" name="l00211"></a><span class="lineno">  211</span>            return format.colorSpace;</div>
+<div class="line"><a id="l00209" name="l00209"></a><span class="lineno">  209</span>    <span class="keywordflow">for</span> (<span class="keyword">const</span> <span class="keyword">auto</span>&amp; format : device.<a class="code hl_function" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_vk.html#a89e93ce5cb6a19b804a40ce6477b3211">GetInfo</a>().<a class="code hl_variable" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_vk_1_1_info.html#a9bf788325ee861bb5efa796e23e5153d">swapchainSupportDetails</a>.<a class="code hl_variable" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_vk_1_1_info_1_1_swapchain_support_details.html#ad62efa196cc86f8969412f1f374c15cf">formats</a>)</div>
+<div class="line"><a id="l00210" name="l00210"></a><span class="lineno">  210</span>        <span class="keywordflow">if</span> (format.colorSpace == VK_COLOR_SPACE_SRGB_NONLINEAR_KHR &amp;&amp; format.format == VK_FORMAT_B8G8R8A8_SRGB)</div>
+<div class="line"><a id="l00211" name="l00211"></a><span class="lineno">  211</span>            <span class="keywordflow">return</span> format.colorSpace;</div>
 <div class="line"><a id="l00212" name="l00212"></a><span class="lineno">  212</span> </div>
 <div class="line"><a id="l00213" name="l00213"></a><span class="lineno">  213</span>    <span class="keywordflow">return</span> device.<a class="code hl_function" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_vk.html#a89e93ce5cb6a19b804a40ce6477b3211">GetInfo</a>().<a class="code hl_variable" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_vk_1_1_info.html#a9bf788325ee861bb5efa796e23e5153d">swapchainSupportDetails</a>.<a class="code hl_variable" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_vk_1_1_info_1_1_swapchain_support_details.html#ad62efa196cc86f8969412f1f374c15cf">formats</a>[0].colorSpace;</div>
 <div class="line"><a id="l00214" name="l00214"></a><span class="lineno">  214</span>}</div>
@@ -329,7 +329,7 @@ $(function(){initNavTree('_swapchain_vk_8cpp_source.html',''); initResizable(tru
 <div class="line"><a id="l00217" name="l00217"></a><span class="lineno">  217</span>    <span class="comment">// Not needed in Vulkan.</span></div>
 <div class="line"><a id="l00218" name="l00218"></a><span class="lineno">  218</span>}</div>
 </div>
-<div class="ttc" id="aclass_o_s_k_1_1_dynamic_array_html_a2faf0bf58a1fb1709b216fa36a012cd3"><div class="ttname"><a href="class_o_s_k_1_1_dynamic_array.html#a2faf0bf58a1fb1709b216fa36a012cd3">OSK::DynamicArray::CreateResizedArray</a></div><div class="ttdeci">static DynamicArray CreateResizedArray(USize64 size, TArgs... args)</div><div class="ttdoc">Crea un DynamicArray con un número de elementos ya creados e insertados.</div><div class="ttdef"><b>Definition</b> <a href="_dynamic_array_8hpp_source.html#l00299">DynamicArray.hpp:299</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_dynamic_array_html_ab58a35c600820a37f8ab913a6e3464e3"><div class="ttname"><a href="class_o_s_k_1_1_dynamic_array.html#ab58a35c600820a37f8ab913a6e3464e3">OSK::DynamicArray::CreateResized</a></div><div class="ttdeci">static DynamicArray CreateResized(USize64 size, TArgs... args)</div><div class="ttdoc">Crea un DynamicArray con un número de elementos ya creados e insertados.</div><div class="ttdef"><b>Definition</b> <a href="_dynamic_array_8hpp_source.html#l00303">DynamicArray.hpp:303</a></div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_engine_html_a019c5397d042224c134b7fd22c739d00"><div class="ttname"><a href="class_o_s_k_1_1_engine.html#a019c5397d042224c134b7fd22c739d00">OSK::Engine::GetRenderer</a></div><div class="ttdeci">static GRAPHICS::IRenderer * GetRenderer()</div><div class="ttdoc">Devuelve un puntero al renderizador del motor.</div><div class="ttdef"><b>Definition</b> <a href="_o_s_kengine_8cpp_source.html#l00247">OSKengine.cpp:247</a></div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_vk_html"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_vk.html">OSK::GRAPHICS::GpuImageVk</a></div><div class="ttdef"><b>Definition</b> <a href="_gpu_image_vk_8h_source.html#l00020">GpuImageVk.h:20</a></div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_vk_html_a8a4253bccb73faca32ce8b66b79df17b"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_vk.html#a8a4253bccb73faca32ce8b66b79df17b">OSK::GRAPHICS::GpuImageVk::GetSwapchainView</a></div><div class="ttdeci">VkImageView GetSwapchainView() const</div><div class="ttdef"><b>Definition</b> <a href="_gpu_image_vk_8cpp_source.html#l00213">GpuImageVk.cpp:213</a></div></div>
@@ -358,8 +358,8 @@ $(function(){initNavTree('_swapchain_vk_8cpp_source.html',''); initResizable(tru
 <div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_swapchain_vk_html_a598f58b68de34148e4c63e4e82dec1ba"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_swapchain_vk.html#a598f58b68de34148e4c63e4e82dec1ba">OSK::GRAPHICS::SwapchainVk::~SwapchainVk</a></div><div class="ttdeci">~SwapchainVk() override</div><div class="ttdef"><b>Definition</b> <a href="#l00037">SwapchainVk.cpp:37</a></div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_swapchain_vk_html_ac263541e3b83b76ef061d5428208373b"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_swapchain_vk.html#ac263541e3b83b76ef061d5428208373b">OSK::GRAPHICS::SwapchainVk::Present</a></div><div class="ttdeci">void Present() override</div><div class="ttdoc">Envía la imagen renderizada al monitor.</div><div class="ttdef"><b>Definition</b> <a href="#l00216">SwapchainVk.cpp:216</a></div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_vector2__t_html"><div class="ttname"><a href="class_o_s_k_1_1_vector2__t.html">OSK::Vector2_t&lt; uint32_t &gt;</a></div></div>
-<div class="ttc" id="aclass_o_s_k_1_1_vector2__t_html_a3194c7e9abba1f840530e8642a01e30a"><div class="ttname"><a href="class_o_s_k_1_1_vector2__t.html#a3194c7e9abba1f840530e8642a01e30a">OSK::Vector2_t::y</a></div><div class="ttdeci">T y</div><div class="ttdoc">Representa la segunda coordenada.</div><div class="ttdef"><b>Definition</b> <a href="_vector2_8hpp_source.html#l00250">Vector2.hpp:250</a></div></div>
-<div class="ttc" id="aclass_o_s_k_1_1_vector2__t_html_ae2f86aaf21084895a5b357318ff6ed77"><div class="ttname"><a href="class_o_s_k_1_1_vector2__t.html#ae2f86aaf21084895a5b357318ff6ed77">OSK::Vector2_t::x</a></div><div class="ttdeci">T x</div><div class="ttdoc">Representa la primera coordenada.</div><div class="ttdef"><b>Definition</b> <a href="_vector2_8hpp_source.html#l00247">Vector2.hpp:247</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_vector2__t_html_a3194c7e9abba1f840530e8642a01e30a"><div class="ttname"><a href="class_o_s_k_1_1_vector2__t.html#a3194c7e9abba1f840530e8642a01e30a">OSK::Vector2_t::y</a></div><div class="ttdeci">T y</div><div class="ttdoc">Representa la segunda coordenada.</div><div class="ttdef"><b>Definition</b> <a href="_vector2_8hpp_source.html#l00254">Vector2.hpp:254</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_vector2__t_html_ae2f86aaf21084895a5b357318ff6ed77"><div class="ttname"><a href="class_o_s_k_1_1_vector2__t.html#ae2f86aaf21084895a5b357318ff6ed77">OSK::Vector2_t::x</a></div><div class="ttdeci">T x</div><div class="ttdoc">Representa la primera coordenada.</div><div class="ttdef"><b>Definition</b> <a href="_vector2_8hpp_source.html#l00251">Vector2.hpp:251</a></div></div>
 <div class="ttc" id="anamespace_o_s_k_1_1_g_r_a_p_h_i_c_s_html"><div class="ttname"><a href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html">OSK::GRAPHICS</a></div><div class="ttdef"><b>Definition</b> <a href="_acceleration_structures_exceptions_8h_source.html#l00005">AccelerationStructuresExceptions.h:5</a></div></div>
 <div class="ttc" id="anamespace_o_s_k_1_1_g_r_a_p_h_i_c_s_html_a19a2f70fc994c00eb022e520608c5ffaa04bd834032febb3fda8c6936ee140949"><div class="ttname"><a href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a19a2f70fc994c00eb022e520608c5ffaa04bd834032febb3fda8c6936ee140949">OSK::GRAPHICS::GpuImageUsage::COLOR</a></div><div class="ttdeci">@ COLOR</div><div class="ttdoc">Se usará como imagen final para el renderizado 3D. Almacenará la imagen de color final.</div></div>
 <div class="ttc" id="anamespace_o_s_k_1_1_g_r_a_p_h_i_c_s_html_a47a7b3817b8aca438c20b7674fad28ab"><div class="ttname"><a href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a47a7b3817b8aca438c20b7674fad28ab">OSK::GRAPHICS::PresentMode</a></div><div class="ttdeci">PresentMode</div><div class="ttdoc">Define el modo de sincronización vertical.</div><div class="ttdef"><b>Definition</b> <a href="_present_mode_8h_source.html#l00013">PresentMode.h:13</a></div></div>
@@ -380,7 +380,7 @@ $(function(){initNavTree('_swapchain_vk_8cpp_source.html',''); initResizable(tru
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_74389ed8173ad57b461b9d623a1f3867.html">Source</a></li><li class="navelem"><b>SwapchainVk.cpp</b></li>
-    <li class="footer">Generado el Martes, 18 de junio de 2024 11:17:42 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.11.0 </li>
+    <li class="footer">Generado el Jueves, 15 de agosto de 2024 11:33:34 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.12.0 </li>
   </ul>
 </div>
 </body>

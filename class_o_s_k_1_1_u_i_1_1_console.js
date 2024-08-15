@@ -9,6 +9,7 @@ var class_o_s_k_1_1_u_i_1_1_console =
     [ "AddDrawCall", "class_o_s_k_1_1_u_i_1_1_console.html#add807398464bad5ab21623c92f386b71", null ],
     [ "AddMessage", "class_o_s_k_1_1_u_i_1_1_console.html#aa4e1a66060527b6178b255db1dc3a67f", null ],
     [ "AdjustSizeToChildren", "class_o_s_k_1_1_u_i_1_1_console.html#a7e4d55b77c9c99e8cb7e47b237e946bb", null ],
+    [ "DeleteChild", "class_o_s_k_1_1_u_i_1_1_console.html#a15ba2a2d54860d25f8851f2cb7b8f6c6", null ],
     [ "EmplaceChild", "class_o_s_k_1_1_u_i_1_1_console.html#a54983fd5bbf46b58e679d8e3c71c8c34", null ],
     [ "GetAllDrawCalls", "class_o_s_k_1_1_u_i_1_1_console.html#a435b75160b272579038e97b1ee6661fd", null ],
     [ "GetAllDrawCalls", "class_o_s_k_1_1_u_i_1_1_console.html#a7d429ac7a83f5bf789178826024f625c", null ],

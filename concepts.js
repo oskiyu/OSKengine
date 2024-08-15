@@ -15,6 +15,14 @@ var concepts =
         [ "IsIteratorSystem", "concept_o_s_k_1_1_e_c_s_1_1_is_iterator_system.html", null ],
         [ "IsEcsSystem", "concept_o_s_k_1_1_e_c_s_1_1_is_ecs_system.html", null ]
       ] ],
+      [ "Editor", "namespace_o_s_k_1_1_editor.html", [
+        [ "Controllers", "namespace_o_s_k_1_1_editor_1_1_controllers.html", [
+          [ "IsComponentController", "concept_o_s_k_1_1_editor_1_1_controllers_1_1_is_component_controller.html", null ]
+        ] ],
+        [ "Views", "namespace_o_s_k_1_1_editor_1_1_views.html", [
+          [ "IsComponentView", "concept_o_s_k_1_1_editor_1_1_views_1_1_is_component_view.html", null ]
+        ] ]
+      ] ],
       [ "EFTraits", "namespace_o_s_k_1_1_e_f_traits.html", [
         [ "IsEnum", "concept_o_s_k_1_1_e_f_traits_1_1_is_enum.html", null ]
       ] ],

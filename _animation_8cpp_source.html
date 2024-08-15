@@ -3,7 +3,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
-<meta name="generator" content="Doxygen 1.11.0"/>
+<meta name="generator" content="Doxygen 1.12.0"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
 <title>OSKengine: Archivo de código fuente Source/Animation.cpp</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
@@ -37,7 +37,7 @@
 </table>
 </div>
 <!-- end header part -->
-<!-- Generado por Doxygen 1.11.0 -->
+<!-- Generado por Doxygen 1.12.0 -->
 <script type="text/javascript">
 /* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
 var searchBox = new SearchBox("searchBox", "search/",'.html');
@@ -165,7 +165,7 @@ $(function(){initNavTree('_animation_8cpp_source.html',''); initResizable(true);
 <div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span> </div>
 <div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>                <span class="keywordflow">case</span> <a class="code hl_enumvalue" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_animation_channel.html#a62d84b4a26f9fbd5a7ffa2bdb05f8e27a0da044e5b37e6bcb3a8d01dc7362b276">AnimationChannel::ChannelType::TRANSLATION</a>: {</div>
 <div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>                    <span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_vector4__t.html">Vector4f</a> vec4 = <a class="code hl_function" href="namespace_o_s_k_1_1_m_a_t_h.html#a59ecac3bc9181efeef2f758f583bdb65">MATH::LinearInterpolation_Fast</a>(outputA, outputB, ratio);</div>
-<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>                    bone.<a class="code hl_variable" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_animation_bone.html#a26785083d0bcb19dc7c22b0b8e945459">position</a> = { vec4.<a class="code hl_variable" href="class_o_s_k_1_1_vector4__t.html#a0593b906f5d047bd9ddbda62463ba1bc">x</a>, vec4.<a class="code hl_variable" href="class_o_s_k_1_1_vector4__t.html#a6b7176a7eb65f006dc0bc8ca35efba37">y</a>, vec4.<a class="code hl_variable" href="class_o_s_k_1_1_vector4__t.html#a0b2280749f7a332b7b3d4a1390a2d527">Z</a> };</div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>                    bone.<a class="code hl_variable" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_animation_bone.html#a26785083d0bcb19dc7c22b0b8e945459">position</a> = { vec4.<a class="code hl_variable" href="class_o_s_k_1_1_vector4__t.html#a0593b906f5d047bd9ddbda62463ba1bc">x</a>, vec4.<a class="code hl_variable" href="class_o_s_k_1_1_vector4__t.html#a6b7176a7eb65f006dc0bc8ca35efba37">y</a>, vec4.<a class="code hl_variable" href="class_o_s_k_1_1_vector4__t.html#a054e2ad85350edd28d515abe46431ca2">z</a> };</div>
 <div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>                }</div>
 <div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>                <span class="keywordflow">break</span>;</div>
 <div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span> </div>
@@ -173,14 +173,14 @@ $(function(){initNavTree('_animation_8cpp_source.html',''); initResizable(true);
 <div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>                    glm::quat prev{};</div>
 <div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>                    prev.x = outputA.x;</div>
 <div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>                    prev.y = outputA.y;</div>
-<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>                    prev.z = outputA.Z;</div>
-<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>                    prev.w = outputA.W;</div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>                    prev.z = outputA.z;</div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>                    prev.w = outputA.w;</div>
 <div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span> </div>
 <div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>                    glm::quat next{};</div>
 <div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>                    next.x = outputB.x;</div>
 <div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>                    next.y = outputB.y;</div>
-<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>                    next.z = outputB.Z;</div>
-<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span>                    next.w = outputB.W;</div>
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>                    next.z = outputB.z;</div>
+<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span>                    next.w = outputB.w;</div>
 <div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span> </div>
 <div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span>                    bone.<a class="code hl_variable" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_animation_bone.html#a1f1517de376bf04f49903e17920d7c71">rotation</a> = <a class="code hl_function" href="class_o_s_k_1_1_quaternion.html#a0cbf0edcbfd33647de6fa20d641d2216">Quaternion::FromGlm</a>(glm::normalize(glm::slerp(prev, next, ratio)));</div>
 <div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span>                }</div>
@@ -188,7 +188,7 @@ $(function(){initNavTree('_animation_8cpp_source.html',''); initResizable(true);
 <div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span> </div>
 <div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span>                <span class="keywordflow">case</span> <a class="code hl_enumvalue" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_animation_channel.html#a62d84b4a26f9fbd5a7ffa2bdb05f8e27a127ea1d20becc4dba06d9d152db0c2e5">AnimationChannel::ChannelType::SCALE</a>: {</div>
 <div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span>                    <span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_vector4__t.html">Vector4f</a> vec4 = <a class="code hl_function" href="namespace_o_s_k_1_1_m_a_t_h.html#a59ecac3bc9181efeef2f758f583bdb65">MATH::LinearInterpolation_Fast</a>(outputA, outputB, ratio);</div>
-<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span>                    bone.<a class="code hl_variable" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_animation_bone.html#abac08dea525778a0ebeda8173dce2458">scale</a> = { vec4.<a class="code hl_variable" href="class_o_s_k_1_1_vector4__t.html#a0593b906f5d047bd9ddbda62463ba1bc">x</a>, vec4.<a class="code hl_variable" href="class_o_s_k_1_1_vector4__t.html#a6b7176a7eb65f006dc0bc8ca35efba37">y</a>, vec4.<a class="code hl_variable" href="class_o_s_k_1_1_vector4__t.html#a0b2280749f7a332b7b3d4a1390a2d527">Z</a> };</div>
+<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span>                    bone.<a class="code hl_variable" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_animation_bone.html#abac08dea525778a0ebeda8173dce2458">scale</a> = { vec4.<a class="code hl_variable" href="class_o_s_k_1_1_vector4__t.html#a0593b906f5d047bd9ddbda62463ba1bc">x</a>, vec4.<a class="code hl_variable" href="class_o_s_k_1_1_vector4__t.html#a6b7176a7eb65f006dc0bc8ca35efba37">y</a>, vec4.<a class="code hl_variable" href="class_o_s_k_1_1_vector4__t.html#a054e2ad85350edd28d515abe46431ca2">z</a> };</div>
 <div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span>                }</div>
 <div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span>                <span class="keywordflow">break</span>;</div>
 <div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span> </div>
@@ -218,7 +218,7 @@ $(function(){initNavTree('_animation_8cpp_source.html',''); initResizable(true);
 <div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span>}</div>
 </div>
 <div class="ttc" id="aclass_o_s_k_1_1_dynamic_array_html"><div class="ttname"><a href="class_o_s_k_1_1_dynamic_array.html">OSK::DynamicArray</a></div><div class="ttdoc">Dynamic array: array que puede cambiar de tamaño.</div><div class="ttdef"><b>Definition</b> <a href="_dynamic_array_8hpp_source.html#l00069">DynamicArray.hpp:69</a></div></div>
-<div class="ttc" id="aclass_o_s_k_1_1_dynamic_array_html_af09578371bd52d5a934bc74c8dad5f0d"><div class="ttname"><a href="class_o_s_k_1_1_dynamic_array.html#af09578371bd52d5a934bc74c8dad5f0d">OSK::DynamicArray::GetSize</a></div><div class="ttdeci">USize64 GetSize() const noexcept</div><div class="ttdoc">Devuelve el número de elementos almacenados.</div><div class="ttdef"><b>Definition</b> <a href="_dynamic_array_8hpp_source.html#l00674">DynamicArray.hpp:674</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_dynamic_array_html_af09578371bd52d5a934bc74c8dad5f0d"><div class="ttname"><a href="class_o_s_k_1_1_dynamic_array.html#af09578371bd52d5a934bc74c8dad5f0d">OSK::DynamicArray::GetSize</a></div><div class="ttdeci">USize64 GetSize() const noexcept</div><div class="ttdef"><b>Definition</b> <a href="_dynamic_array_8hpp_source.html#l00666">DynamicArray.hpp:666</a></div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_animation_html_a048d6f9c009652b17adcfaf70d33c03d"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_animation.html#a048d6f9c009652b17adcfaf70d33c03d">OSK::GRAPHICS::Animation::Animation</a></div><div class="ttdeci">Animation(const std::string &amp;name, const DynamicArray&lt; AnimationSampler &gt; &amp;samplers, const DynamicArray&lt; AnimationChannel &gt; &amp;channels, const DynamicArray&lt; AnimationBone &gt; &amp;bones)</div><div class="ttdoc">Crea una animación.</div><div class="ttdef"><b>Definition</b> <a href="#l00009">Animation.cpp:9</a></div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_animation_html_a1195563fd37cfb496632be9c70651a6a"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_animation.html#a1195563fd37cfb496632be9c70651a6a">OSK::GRAPHICS::Animation::GetName</a></div><div class="ttdeci">std::string_view GetName() const</div><div class="ttdef"><b>Definition</b> <a href="#l00100">Animation.cpp:100</a></div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_animation_html_a1dbc0ebde96aba6f96faa186bd52bb21"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_animation.html#a1dbc0ebde96aba6f96faa186bd52bb21">OSK::GRAPHICS::Animation::GetSkeleton</a></div><div class="ttdeci">const Skeleton &amp; GetSkeleton() const</div><div class="ttdef"><b>Definition</b> <a href="#l00104">Animation.cpp:104</a></div></div>
@@ -229,9 +229,9 @@ $(function(){initNavTree('_animation_8cpp_source.html',''); initResizable(true);
 <div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_skeleton_html_ae9b6911271d126bbd5cfea864a5fc336"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_skeleton.html#ae9b6911271d126bbd5cfea864a5fc336">OSK::GRAPHICS::Skeleton::GetBone</a></div><div class="ttdeci">AnimationBone &amp; GetBone(UIndex32 boneIndex)</div><div class="ttdef"><b>Definition</b> <a href="_skeleton_8cpp_source.html#l00047">Skeleton.cpp:47</a></div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_quaternion_html_a0cbf0edcbfd33647de6fa20d641d2216"><div class="ttname"><a href="class_o_s_k_1_1_quaternion.html#a0cbf0edcbfd33647de6fa20d641d2216">OSK::Quaternion::FromGlm</a></div><div class="ttdeci">static Quaternion FromGlm(const glm::quat &amp;quat)</div><div class="ttdoc">Crea un cuaternión a partir del dado.</div><div class="ttdef"><b>Definition</b> <a href="_quaternion_8cpp_source.html#l00013">Quaternion.cpp:13</a></div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_vector4__t_html"><div class="ttname"><a href="class_o_s_k_1_1_vector4__t.html">OSK::Vector4_t&lt; float_t &gt;</a></div></div>
-<div class="ttc" id="aclass_o_s_k_1_1_vector4__t_html_a0593b906f5d047bd9ddbda62463ba1bc"><div class="ttname"><a href="class_o_s_k_1_1_vector4__t.html#a0593b906f5d047bd9ddbda62463ba1bc">OSK::Vector4_t::x</a></div><div class="ttdeci">T x</div><div class="ttdoc">Primera coordenada. Posición X del rectángulo.</div><div class="ttdef"><b>Definition</b> <a href="_vector4_8hpp_source.html#l00326">Vector4.hpp:326</a></div></div>
-<div class="ttc" id="aclass_o_s_k_1_1_vector4__t_html_a0b2280749f7a332b7b3d4a1390a2d527"><div class="ttname"><a href="class_o_s_k_1_1_vector4__t.html#a0b2280749f7a332b7b3d4a1390a2d527">OSK::Vector4_t::Z</a></div><div class="ttdeci">T Z</div><div class="ttdoc">Tercera coordenada. Ancho del rectángulo.</div><div class="ttdef"><b>Definition</b> <a href="_vector4_8hpp_source.html#l00338">Vector4.hpp:338</a></div></div>
-<div class="ttc" id="aclass_o_s_k_1_1_vector4__t_html_a6b7176a7eb65f006dc0bc8ca35efba37"><div class="ttname"><a href="class_o_s_k_1_1_vector4__t.html#a6b7176a7eb65f006dc0bc8ca35efba37">OSK::Vector4_t::y</a></div><div class="ttdeci">T y</div><div class="ttdoc">Segunda coordenada. Posición Y del rectángulo.</div><div class="ttdef"><b>Definition</b> <a href="_vector4_8hpp_source.html#l00332">Vector4.hpp:332</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_vector4__t_html_a054e2ad85350edd28d515abe46431ca2"><div class="ttname"><a href="class_o_s_k_1_1_vector4__t.html#a054e2ad85350edd28d515abe46431ca2">OSK::Vector4_t::z</a></div><div class="ttdeci">T z</div><div class="ttdoc">Tercera coordenada. Ancho del rectángulo.</div><div class="ttdef"><b>Definition</b> <a href="_vector4_8hpp_source.html#l00344">Vector4.hpp:344</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_vector4__t_html_a0593b906f5d047bd9ddbda62463ba1bc"><div class="ttname"><a href="class_o_s_k_1_1_vector4__t.html#a0593b906f5d047bd9ddbda62463ba1bc">OSK::Vector4_t::x</a></div><div class="ttdeci">T x</div><div class="ttdoc">Primera coordenada. Posición X del rectángulo.</div><div class="ttdef"><b>Definition</b> <a href="_vector4_8hpp_source.html#l00332">Vector4.hpp:332</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_vector4__t_html_a6b7176a7eb65f006dc0bc8ca35efba37"><div class="ttname"><a href="class_o_s_k_1_1_vector4__t.html#a6b7176a7eb65f006dc0bc8ca35efba37">OSK::Vector4_t::y</a></div><div class="ttdeci">T y</div><div class="ttdoc">Segunda coordenada. Posición Y del rectángulo.</div><div class="ttdef"><b>Definition</b> <a href="_vector4_8hpp_source.html#l00338">Vector4.hpp:338</a></div></div>
 <div class="ttc" id="anamespace_o_s_k_1_1_g_r_a_p_h_i_c_s_html"><div class="ttname"><a href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html">OSK::GRAPHICS</a></div><div class="ttdef"><b>Definition</b> <a href="_acceleration_structures_exceptions_8h_source.html#l00005">AccelerationStructuresExceptions.h:5</a></div></div>
 <div class="ttc" id="anamespace_o_s_k_1_1_m_a_t_h_html_a59ecac3bc9181efeef2f758f583bdb65"><div class="ttname"><a href="namespace_o_s_k_1_1_m_a_t_h.html#a59ecac3bc9181efeef2f758f583bdb65">OSK::MATH::LinearInterpolation_Fast</a></div><div class="ttdeci">T LinearInterpolation_Fast(const T &amp;a, const T &amp;b, float factor)</div><div class="ttdoc">Interpolación lineal rápida. Para cuando factor está entre 0.0 y 1.0.</div><div class="ttdef"><b>Definition</b> <a href="_math_8h_source.html#l00080">Math.h:80</a></div></div>
 <div class="ttc" id="anamespace_o_s_k_html"><div class="ttname"><a href="namespace_o_s_k.html">OSK</a></div><div class="ttdef"><b>Definition</b> <a href="_acceleration_structures_exceptions_8h_source.html#l00005">AccelerationStructuresExceptions.h:5</a></div></div>
@@ -254,7 +254,7 @@ $(function(){initNavTree('_animation_8cpp_source.html',''); initResizable(true);
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_74389ed8173ad57b461b9d623a1f3867.html">Source</a></li><li class="navelem"><b>Animation.cpp</b></li>
-    <li class="footer">Generado el Martes, 18 de junio de 2024 11:17:40 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.11.0 </li>
+    <li class="footer">Generado el Jueves, 15 de agosto de 2024 11:33:32 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.12.0 </li>
   </ul>
 </div>
 </body>

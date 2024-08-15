@@ -1,5 +1,6 @@
 var class_o_s_k_1_1_vector2__t =
 [
+    [ "TNumericType", "class_o_s_k_1_1_vector2__t.html#ae14ccc094cf4e08fa1478f0258388fe3", null ],
     [ "Vector2_t", "class_o_s_k_1_1_vector2__t.html#a498f28581bc46484ddba04e787198dc1", null ],
     [ "Vector2_t", "class_o_s_k_1_1_vector2__t.html#a6579b1e1577577ee242da57aeba4f5bf", null ],
     [ "Vector2_t", "class_o_s_k_1_1_vector2__t.html#afa93ff479376f249f88d6474b5cf7c84", null ],

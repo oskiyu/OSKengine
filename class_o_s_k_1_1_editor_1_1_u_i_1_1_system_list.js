@@ -10,6 +10,7 @@ var class_o_s_k_1_1_editor_1_1_u_i_1_1_system_list =
     [ "AdjustSizeToChildren", "class_o_s_k_1_1_editor_1_1_u_i_1_1_system_list.html#a7e4d55b77c9c99e8cb7e47b237e946bb", null ],
     [ "ClearSelection", "class_o_s_k_1_1_editor_1_1_u_i_1_1_system_list.html#a5137d30ae7b11cc068be32f6828bf6e2", null ],
     [ "ClearSystems", "class_o_s_k_1_1_editor_1_1_u_i_1_1_system_list.html#a21b0298b9cc882c1f70f00a0bcfa2ade", null ],
+    [ "DeleteChild", "class_o_s_k_1_1_editor_1_1_u_i_1_1_system_list.html#a15ba2a2d54860d25f8851f2cb7b8f6c6", null ],
     [ "EmplaceChild", "class_o_s_k_1_1_editor_1_1_u_i_1_1_system_list.html#a54983fd5bbf46b58e679d8e3c71c8c34", null ],
     [ "GetAllDrawCalls", "class_o_s_k_1_1_editor_1_1_u_i_1_1_system_list.html#a435b75160b272579038e97b1ee6661fd", null ],
     [ "GetAllDrawCalls", "class_o_s_k_1_1_editor_1_1_u_i_1_1_system_list.html#a7d429ac7a83f5bf789178826024f625c", null ],

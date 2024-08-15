@@ -48,5 +48,6 @@ var searchData=
   ['systemexecutionset_45',['SystemExecutionSet',['../struct_o_s_k_1_1_e_c_s_1_1_system_execution_set.html',1,'OSK::ECS']]],
   ['systemlist_46',['SystemList',['../class_o_s_k_1_1_editor_1_1_u_i_1_1_system_list.html',1,'OSK::Editor::UI']]],
   ['systemmanager_47',['SystemManager',['../class_o_s_k_1_1_e_c_s_1_1_system_manager.html',1,'OSK::ECS']]],
-  ['systemnotfoundexception_48',['SystemNotFoundException',['../class_o_s_k_1_1_e_c_s_1_1_system_not_found_exception.html',1,'OSK::ECS']]]
+  ['systemnotfoundexception_48',['SystemNotFoundException',['../class_o_s_k_1_1_e_c_s_1_1_system_not_found_exception.html',1,'OSK::ECS']]],
+  ['systempropertiespanel_49',['SystemPropertiesPanel',['../class_o_s_k_1_1_editor_1_1_u_i_1_1_system_properties_panel.html',1,'OSK::Editor::UI']]]
 ];

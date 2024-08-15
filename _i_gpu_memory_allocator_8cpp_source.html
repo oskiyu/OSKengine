@@ -3,7 +3,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
-<meta name="generator" content="Doxygen 1.11.0"/>
+<meta name="generator" content="Doxygen 1.12.0"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
 <title>OSKengine: Archivo de código fuente Source/IGpuMemoryAllocator.cpp</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
@@ -37,7 +37,7 @@
 </table>
 </div>
 <!-- end header part -->
-<!-- Generado por Doxygen 1.11.0 -->
+<!-- Generado por Doxygen 1.12.0 -->
 <script type="text/javascript">
 /* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
 var searchBox = new SearchBox("searchBox", "search/",'.html');
@@ -299,12 +299,12 @@ $(function(){initNavTree('_i_gpu_memory_allocator_8cpp_source.html',''); initRes
 <div class="line"><a id="l00177" name="l00177"></a><span class="lineno">  177</span>                <span class="keyword">const</span> <span class="keyword">auto</span> block = <a class="code hl_variable" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_allocator.html#a8c63090eab5d64c093fe10e09b07d303">bufferMemoryBlocks</a>[i][b].GetPointer();</div>
 <div class="line"><a id="l00178" name="l00178"></a><span class="lineno">  178</span> </div>
 <div class="line"><a id="l00179" name="l00179"></a><span class="lineno">  179</span>                <span class="keywordflow">if</span> (block-&gt;IsUnused())</div>
-<div class="line"><a id="l00180" name="l00180"></a><span class="lineno">  180</span>                    freeableIndices.<a class="code hl_function" href="class_o_s_k_1_1_dynamic_array.html#a4433c76207ce2ecad5e306b12575f1b3">Insert</a>(b);</div>
+<div class="line"><a id="l00180" name="l00180"></a><span class="lineno">  180</span>                    freeableIndices.Insert(b);</div>
 <div class="line"><a id="l00181" name="l00181"></a><span class="lineno">  181</span>            }</div>
 <div class="line"><a id="l00182" name="l00182"></a><span class="lineno">  182</span> </div>
 <div class="line"><a id="l00183" name="l00183"></a><span class="lineno">  183</span>            <span class="keywordflow">if</span> (freeableIndices.GetSize() &gt; 0)</div>
 <div class="line"><a id="l00184" name="l00184"></a><span class="lineno">  184</span>                <span class="keywordflow">for</span> (<a class="code hl_typedef" href="namespace_o_s_k.html#ac0ea6d3df0641acb0fd4620c6f5ef68a">UIndex64</a> b = freeableIndices.GetSize() - 1; b &gt; 0; b--)</div>
-<div class="line"><a id="l00185" name="l00185"></a><span class="lineno">  185</span>                    <a class="code hl_variable" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_allocator.html#a8c63090eab5d64c093fe10e09b07d303">bufferMemoryBlocks</a>[i].RemoveAt(b);</div>
+<div class="line"><a id="l00185" name="l00185"></a><span class="lineno">  185</span>                    <a class="code hl_variable" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_allocator.html#a8c63090eab5d64c093fe10e09b07d303">bufferMemoryBlocks</a>[i].<a class="code hl_function" href="class_o_s_k_1_1_dynamic_array.html#a71586adb0f60f394f36a67df5004bd07">RemoveAt</a>(b);</div>
 <div class="line"><a id="l00186" name="l00186"></a><span class="lineno">  186</span>        }</div>
 <div class="line"><a id="l00187" name="l00187"></a><span class="lineno">  187</span>    }</div>
 <div class="line"><a id="l00188" name="l00188"></a><span class="lineno">  188</span>}</div>
@@ -513,9 +513,9 @@ $(function(){initNavTree('_i_gpu_memory_allocator_8cpp_source.html',''); initRes
 <div class="line"><a id="l00365" name="l00365"></a><span class="lineno">  365</span>}</div>
 </div>
 <div class="ttc" id="aclass_o_s_k_1_1_dynamic_array_html"><div class="ttname"><a href="class_o_s_k_1_1_dynamic_array.html">OSK::DynamicArray</a></div><div class="ttdoc">Dynamic array: array que puede cambiar de tamaño.</div><div class="ttdef"><b>Definition</b> <a href="_dynamic_array_8hpp_source.html#l00069">DynamicArray.hpp:69</a></div></div>
-<div class="ttc" id="aclass_o_s_k_1_1_dynamic_array_html_a4433c76207ce2ecad5e306b12575f1b3"><div class="ttname"><a href="class_o_s_k_1_1_dynamic_array.html#a4433c76207ce2ecad5e306b12575f1b3">OSK::DynamicArray::Insert</a></div><div class="ttdeci">void Insert(const T &amp;element)</div><div class="ttdoc">Inserta un elemento al final del array.</div><div class="ttdef"><b>Definition</b> <a href="_dynamic_array_8hpp_source.html#l00353">DynamicArray.hpp:353</a></div></div>
-<div class="ttc" id="aclass_o_s_k_1_1_dynamic_array_html_ab8c4487ebf2c42cdb2be44a7a8e01bb0"><div class="ttname"><a href="class_o_s_k_1_1_dynamic_array.html#ab8c4487ebf2c42cdb2be44a7a8e01bb0">OSK::DynamicArray::GetData</a></div><div class="ttdeci">const T * GetData() const noexcept</div><div class="ttdoc">Devuelve el array original.</div><div class="ttdef"><b>Definition</b> <a href="_dynamic_array_8hpp_source.html#l00688">DynamicArray.hpp:688</a></div></div>
-<div class="ttc" id="aclass_o_s_k_1_1_dynamic_array_html_af09578371bd52d5a934bc74c8dad5f0d"><div class="ttname"><a href="class_o_s_k_1_1_dynamic_array.html#af09578371bd52d5a934bc74c8dad5f0d">OSK::DynamicArray::GetSize</a></div><div class="ttdeci">USize64 GetSize() const noexcept</div><div class="ttdoc">Devuelve el número de elementos almacenados.</div><div class="ttdef"><b>Definition</b> <a href="_dynamic_array_8hpp_source.html#l00674">DynamicArray.hpp:674</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_dynamic_array_html_a71586adb0f60f394f36a67df5004bd07"><div class="ttname"><a href="class_o_s_k_1_1_dynamic_array.html#a71586adb0f60f394f36a67df5004bd07">OSK::DynamicArray::RemoveAt</a></div><div class="ttdeci">void RemoveAt(UIndex64 index)</div><div class="ttdoc">Elimina el elemento en la posición dada.</div><div class="ttdef"><b>Definition</b> <a href="_dynamic_array_8hpp_source.html#l00519">DynamicArray.hpp:519</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_dynamic_array_html_ab8c4487ebf2c42cdb2be44a7a8e01bb0"><div class="ttname"><a href="class_o_s_k_1_1_dynamic_array.html#ab8c4487ebf2c42cdb2be44a7a8e01bb0">OSK::DynamicArray::GetData</a></div><div class="ttdeci">const T * GetData() const noexcept</div><div class="ttdef"><b>Definition</b> <a href="_dynamic_array_8hpp_source.html#l00676">DynamicArray.hpp:676</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_dynamic_array_html_af09578371bd52d5a934bc74c8dad5f0d"><div class="ttname"><a href="class_o_s_k_1_1_dynamic_array.html#af09578371bd52d5a934bc74c8dad5f0d">OSK::DynamicArray::GetSize</a></div><div class="ttdeci">USize64 GetSize() const noexcept</div><div class="ttdef"><b>Definition</b> <a href="_dynamic_array_8hpp_source.html#l00666">DynamicArray.hpp:666</a></div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_engine_html_a019c5397d042224c134b7fd22c739d00"><div class="ttname"><a href="class_o_s_k_1_1_engine.html#a019c5397d042224c134b7fd22c739d00">OSK::Engine::GetRenderer</a></div><div class="ttdeci">static GRAPHICS::IRenderer * GetRenderer()</div><div class="ttdoc">Devuelve un puntero al renderizador del motor.</div><div class="ttdef"><b>Definition</b> <a href="_o_s_kengine_8cpp_source.html#l00247">OSKengine.cpp:247</a></div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_engine_html_ac39b79a3e665381630f6c710f3772a2b"><div class="ttname"><a href="class_o_s_k_1_1_engine.html#ac39b79a3e665381630f6c710f3772a2b">OSK::Engine::GetLogger</a></div><div class="ttdeci">static IO::Logger * GetLogger()</div><div class="ttdef"><b>Definition</b> <a href="_o_s_kengine_8cpp_source.html#l00239">OSKengine.cpp:239</a></div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_buffer_html"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_buffer.html">OSK::GRAPHICS::GpuBuffer</a></div><div class="ttdoc">Representa un buffer que contiene información accesible desde la GPU.</div><div class="ttdef"><b>Definition</b> <a href="_gpu_buffer_8h_source.html#l00023">GpuBuffer.h:23</a></div></div>
@@ -605,7 +605,7 @@ $(function(){initNavTree('_i_gpu_memory_allocator_8cpp_source.html',''); initRes
 <div class="ttc" id="anamespace_o_s_k_1_1_g_r_a_p_h_i_c_s_html_af480a36d7bec77341500daf8dda20f1d"><div class="ttname"><a href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#af480a36d7bec77341500daf8dda20f1d">OSK::GRAPHICS::GpuQueueType</a></div><div class="ttdeci">GpuQueueType</div><div class="ttdoc">Tipos de colas GPU ofrecidas por el motor.</div><div class="ttdef"><b>Definition</b> <a href="_gpu_queue_types_8h_source.html#l00007">GpuQueueTypes.h:7</a></div></div>
 <div class="ttc" id="anamespace_o_s_k_1_1_g_r_a_p_h_i_c_s_html_af480a36d7bec77341500daf8dda20f1da4e02651cb8ef679ba30902a8becdff2d"><div class="ttname"><a href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#af480a36d7bec77341500daf8dda20f1da4e02651cb8ef679ba30902a8becdff2d">OSK::GRAPHICS::GpuQueueType::ASYNC_TRANSFER</a></div><div class="ttdeci">@ ASYNC_TRANSFER</div><div class="ttdoc">Cola de transferencia asíncrona. Soporta únicamente CommandsSupport::TRANSFER.</div></div>
 <div class="ttc" id="anamespace_o_s_k_html"><div class="ttname"><a href="namespace_o_s_k.html">OSK</a></div><div class="ttdef"><b>Definition</b> <a href="_acceleration_structures_exceptions_8h_source.html#l00005">AccelerationStructuresExceptions.h:5</a></div></div>
-<div class="ttc" id="anamespace_o_s_k_html_a6f5b4753cd85b4773d2880148fd031cf"><div class="ttname"><a href="namespace_o_s_k.html#a6f5b4753cd85b4773d2880148fd031cf">OSK::Vector2ui</a></div><div class="ttdeci">Vector2_t&lt; uint32_t &gt; Vector2ui</div><div class="ttdoc">Precisión = uint32.</div><div class="ttdef"><b>Definition</b> <a href="_vector2_8hpp_source.html#l00265">Vector2.hpp:265</a></div></div>
+<div class="ttc" id="anamespace_o_s_k_html_a6f5b4753cd85b4773d2880148fd031cf"><div class="ttname"><a href="namespace_o_s_k.html#a6f5b4753cd85b4773d2880148fd031cf">OSK::Vector2ui</a></div><div class="ttdeci">Vector2_t&lt; uint32_t &gt; Vector2ui</div><div class="ttdoc">Precisión = uint32.</div><div class="ttdef"><b>Definition</b> <a href="_vector2_8hpp_source.html#l00269">Vector2.hpp:269</a></div></div>
 <div class="ttc" id="anamespace_o_s_k_html_a83ff197aaa32126d84ad65f1d6d5a3b5"><div class="ttname"><a href="namespace_o_s_k.html#a83ff197aaa32126d84ad65f1d6d5a3b5">OSK::USize64</a></div><div class="ttdeci">uint64_t USize64</div><div class="ttdoc">Tamaño, almacenado en un unsigned int de 64 bits.</div><div class="ttdef"><b>Definition</b> <a href="_numeric_types_8h_source.html#l00026">NumericTypes.h:26</a></div></div>
 <div class="ttc" id="anamespace_o_s_k_html_ac0ea6d3df0641acb0fd4620c6f5ef68a"><div class="ttname"><a href="namespace_o_s_k.html#ac0ea6d3df0641acb0fd4620c6f5ef68a">OSK::UIndex64</a></div><div class="ttdeci">uint64_t UIndex64</div><div class="ttdoc">Índice de un elemento, almacenado en un unsigned int de 64 bits.</div><div class="ttdef"><b>Definition</b> <a href="_numeric_types_8h_source.html#l00021">NumericTypes.h:21</a></div></div>
 <div class="ttc" id="anamespace_o_s_k_html_acf682b0e024acc36806435295480d2ed"><div class="ttname"><a href="namespace_o_s_k.html#acf682b0e024acc36806435295480d2ed">OSK::USize32</a></div><div class="ttdeci">uint32_t USize32</div><div class="ttdoc">Tamaño, almacenado en un unsigned int de 32 bits.</div><div class="ttdef"><b>Definition</b> <a href="_numeric_types_8h_source.html#l00015">NumericTypes.h:15</a></div></div>
@@ -641,7 +641,7 @@ $(function(){initNavTree('_i_gpu_memory_allocator_8cpp_source.html',''); initRes
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_74389ed8173ad57b461b9d623a1f3867.html">Source</a></li><li class="navelem"><b>IGpuMemoryAllocator.cpp</b></li>
-    <li class="footer">Generado el Martes, 18 de junio de 2024 11:17:41 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.11.0 </li>
+    <li class="footer">Generado el Jueves, 15 de agosto de 2024 11:33:33 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.12.0 </li>
   </ul>
 </div>
 </body>

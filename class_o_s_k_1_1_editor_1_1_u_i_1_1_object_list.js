@@ -1,6 +1,6 @@
 var class_o_s_k_1_1_editor_1_1_u_i_1_1_object_list =
 [
-    [ "ObjectList", "class_o_s_k_1_1_editor_1_1_u_i_1_1_object_list.html#af052f756c2da27ea1267794a0e37885a", null ],
+    [ "ObjectList", "class_o_s_k_1_1_editor_1_1_u_i_1_1_object_list.html#a432a8b2a27cc95734e3f7a0fda75bfb8", null ],
     [ "_SetPosition", "class_o_s_k_1_1_editor_1_1_u_i_1_1_object_list.html#af7a4e5d729be3745fe36fb633a341133", null ],
     [ "AddAllDrawCalls", "class_o_s_k_1_1_editor_1_1_u_i_1_1_object_list.html#ae0f8085c23de13e5940fb94e7dbbaaa2", null ],
     [ "AddAllDrawCalls", "class_o_s_k_1_1_editor_1_1_u_i_1_1_object_list.html#a817318bc6249370f7f4e825385437a90", null ],
@@ -10,6 +10,7 @@ var class_o_s_k_1_1_editor_1_1_u_i_1_1_object_list =
     [ "AdjustSizeToChildren", "class_o_s_k_1_1_editor_1_1_u_i_1_1_object_list.html#a7e4d55b77c9c99e8cb7e47b237e946bb", null ],
     [ "ClearObjects", "class_o_s_k_1_1_editor_1_1_u_i_1_1_object_list.html#a8bd61169bd3bfd9d98970ae5e91d4bdd", null ],
     [ "ClearSelection", "class_o_s_k_1_1_editor_1_1_u_i_1_1_object_list.html#ab18ed0176dd937ea8ab0c97cb6944004", null ],
+    [ "DeleteChild", "class_o_s_k_1_1_editor_1_1_u_i_1_1_object_list.html#a15ba2a2d54860d25f8851f2cb7b8f6c6", null ],
     [ "EmplaceChild", "class_o_s_k_1_1_editor_1_1_u_i_1_1_object_list.html#a54983fd5bbf46b58e679d8e3c71c8c34", null ],
     [ "GetAllDrawCalls", "class_o_s_k_1_1_editor_1_1_u_i_1_1_object_list.html#a435b75160b272579038e97b1ee6661fd", null ],
     [ "GetAllDrawCalls", "class_o_s_k_1_1_editor_1_1_u_i_1_1_object_list.html#a7d429ac7a83f5bf789178826024f625c", null ],
@@ -23,6 +24,7 @@ var class_o_s_k_1_1_editor_1_1_u_i_1_1_object_list =
     [ "GetPadding", "class_o_s_k_1_1_editor_1_1_u_i_1_1_object_list.html#abcea5513c2ebd113d46c3053f0497e3d", null ],
     [ "GetPadding2D", "class_o_s_k_1_1_editor_1_1_u_i_1_1_object_list.html#a479e31dd3da8cdafc6daa8e8a2b3903b", null ],
     [ "GetPosition", "class_o_s_k_1_1_editor_1_1_u_i_1_1_object_list.html#a0ada7aadca2a7c700d777fd9e8d25110", null ],
+    [ "GetPropertiesPanel", "class_o_s_k_1_1_editor_1_1_u_i_1_1_object_list.html#ada8ae380854cf569856d9123bf2b2e61", null ],
     [ "GetRectangle", "class_o_s_k_1_1_editor_1_1_u_i_1_1_object_list.html#afab0a93f412b23a84919e47356d621c8", null ],
     [ "GetSize", "class_o_s_k_1_1_editor_1_1_u_i_1_1_object_list.html#ad23a7cf71ff3d1b1528adfb674f5573c", null ],
     [ "IsLocked", "class_o_s_k_1_1_editor_1_1_u_i_1_1_object_list.html#a21414ead67744859466084e70e995f77", null ],

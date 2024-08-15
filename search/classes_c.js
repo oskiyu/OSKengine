@@ -17,8 +17,10 @@ var searchData=
   ['model3d_14',['Model3D',['../class_o_s_k_1_1_a_s_s_e_t_s_1_1_model3_d.html',1,'OSK::ASSETS']]],
   ['modelanimationnotfoundexception_15',['ModelAnimationNotFoundException',['../class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_model_animation_not_found_exception.html',1,'OSK::GRAPHICS']]],
   ['modelcomponent3d_16',['ModelComponent3D',['../class_o_s_k_1_1_e_c_s_1_1_model_component3_d.html',1,'OSK::ECS']]],
-  ['modelloader3d_17',['ModelLoader3D',['../class_o_s_k_1_1_a_s_s_e_t_s_1_1_model_loader3_d.html',1,'OSK::ASSETS']]],
-  ['modelskinnotfoundexception_18',['ModelSkinNotFoundException',['../class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_model_skin_not_found_exception.html',1,'OSK::GRAPHICS']]],
-  ['mousestate_19',['MouseState',['../class_o_s_k_1_1_i_o_1_1_mouse_state.html',1,'OSK::IO']]],
-  ['mutexholder_20',['MutexHolder',['../struct_o_s_k_1_1_mutex_holder.html',1,'OSK']]]
+  ['modelcomponentcontroller3d_17',['ModelComponentController3D',['../class_o_s_k_1_1_editor_1_1_controllers_1_1_model_component_controller3_d.html',1,'OSK::Editor::Controllers']]],
+  ['modelcomponentview3d_18',['ModelComponentView3D',['../class_o_s_k_1_1_editor_1_1_views_1_1_model_component_view3_d.html',1,'OSK::Editor::Views']]],
+  ['modelloader3d_19',['ModelLoader3D',['../class_o_s_k_1_1_a_s_s_e_t_s_1_1_model_loader3_d.html',1,'OSK::ASSETS']]],
+  ['modelskinnotfoundexception_20',['ModelSkinNotFoundException',['../class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_model_skin_not_found_exception.html',1,'OSK::GRAPHICS']]],
+  ['mousestate_21',['MouseState',['../class_o_s_k_1_1_i_o_1_1_mouse_state.html',1,'OSK::IO']]],
+  ['mutexholder_22',['MutexHolder',['../struct_o_s_k_1_1_mutex_holder.html',1,'OSK']]]
 ];

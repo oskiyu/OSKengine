@@ -3,7 +3,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
-<meta name="generator" content="Doxygen 1.11.0"/>
+<meta name="generator" content="Doxygen 1.12.0"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
 <title>OSKengine: Archivo de código fuente Source/IShaderPass.cpp</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
@@ -37,7 +37,7 @@
 </table>
 </div>
 <!-- end header part -->
-<!-- Generado por Doxygen 1.11.0 -->
+<!-- Generado por Doxygen 1.12.0 -->
 <script type="text/javascript">
 /* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
 var searchBox = new SearchBox("searchBox", "search/",'.html');
@@ -136,7 +136,7 @@ $(function(){initNavTree('_i_shader_pass_8cpp_source.html',''); initResizable(tr
 <div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span> </div>
 <div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>        <span class="keywordflow">for</span> (<span class="keyword">const</span> <span class="keyword">auto</span>&amp; mesh : model-&gt;GetMeshes()) {</div>
 <div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>            <span class="keywordflow">if</span> (!modelData.HasMesh(mesh.GetUuid())) {</div>
-<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>                modelData.<a class="code hl_function" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_local_per_model_data.html#ac4ab8be2f8eb5bb46ec935265ec5787c">RegisterMesh</a>(mesh.GetUuid());</div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>                modelData.RegisterMesh(mesh.GetUuid());</div>
 <div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>                <a class="code hl_function" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_shader_pass.html#aefdfbd7828be9044cbff5f89ebd14f19">SetupMaterialInstance</a>(*model, mesh);</div>
 <div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>            }</div>
 <div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>        }</div>
@@ -311,7 +311,7 @@ $(function(){initNavTree('_i_shader_pass_8cpp_source.html',''); initResizable(tr
 <div class="ttc" id="aclass_o_s_k_1_1_a_s_s_e_t_s_1_1_texture_loader_html"><div class="ttname"><a href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_texture_loader.html">OSK::ASSETS::TextureLoader</a></div><div class="ttdef"><b>Definition</b> <a href="_texture_loader_8h_source.html#l00008">TextureLoader.h:8</a></div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_base_uuid_html"><div class="ttname"><a href="class_o_s_k_1_1_base_uuid.html">OSK::BaseUuid&lt; class GameObjectIndexTag &gt;</a></div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_dynamic_array_html"><div class="ttname"><a href="class_o_s_k_1_1_dynamic_array.html">OSK::DynamicArray</a></div><div class="ttdoc">Dynamic array: array que puede cambiar de tamaño.</div><div class="ttdef"><b>Definition</b> <a href="_dynamic_array_8hpp_source.html#l00069">DynamicArray.hpp:69</a></div></div>
-<div class="ttc" id="aclass_o_s_k_1_1_e_c_s_1_1_entity_component_system_html_a8dc250aca83c3815d992e16e17dd398e"><div class="ttname"><a href="class_o_s_k_1_1_e_c_s_1_1_entity_component_system.html#a8dc250aca83c3815d992e16e17dd398e">OSK::ECS::EntityComponentSystem::GetComponent</a></div><div class="ttdeci">TComponent &amp; GetComponent(GameObjectIndex obj)</div><div class="ttdoc">Devuelve una referencia no estable al componente del tipo dado del objeto.</div><div class="ttdef"><b>Definition</b> <a href="_entity_component_system_8h_source.html#l00220">EntityComponentSystem.h:220</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_e_c_s_1_1_entity_component_system_html_a8dc250aca83c3815d992e16e17dd398e"><div class="ttname"><a href="class_o_s_k_1_1_e_c_s_1_1_entity_component_system.html#a8dc250aca83c3815d992e16e17dd398e">OSK::ECS::EntityComponentSystem::GetComponent</a></div><div class="ttdeci">TComponent &amp; GetComponent(GameObjectIndex obj)</div><div class="ttdoc">Devuelve una referencia no estable al componente del tipo dado del objeto.</div><div class="ttdef"><b>Definition</b> <a href="_entity_component_system_8h_source.html#l00225">EntityComponentSystem.h:225</a></div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_e_c_s_1_1_model_component3_d_html"><div class="ttname"><a href="class_o_s_k_1_1_e_c_s_1_1_model_component3_d.html">OSK::ECS::ModelComponent3D</a></div><div class="ttdoc">Componente para el renderizado 3D de un objeto.</div><div class="ttdef"><b>Definition</b> <a href="_model_component3_d_8h_source.html#l00029">ModelComponent3D.h:29</a></div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_engine_html_a019c5397d042224c134b7fd22c739d00"><div class="ttname"><a href="class_o_s_k_1_1_engine.html#a019c5397d042224c134b7fd22c739d00">OSK::Engine::GetRenderer</a></div><div class="ttdeci">static GRAPHICS::IRenderer * GetRenderer()</div><div class="ttdoc">Devuelve un puntero al renderizador del motor.</div><div class="ttdef"><b>Definition</b> <a href="_o_s_kengine_8cpp_source.html#l00247">OSKengine.cpp:247</a></div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_engine_html_a2e36571452395c924ab2211ad380298f"><div class="ttname"><a href="class_o_s_k_1_1_engine.html#a2e36571452395c924ab2211ad380298f">OSK::Engine::GetEcs</a></div><div class="ttdeci">static ECS::EntityComponentSystem * GetEcs()</div><div class="ttdoc">Devuelve un puntero al ECS del motor.</div><div class="ttdef"><b>Definition</b> <a href="_o_s_kengine_8cpp_source.html#l00255">OSKengine.cpp:255</a></div></div>
@@ -369,7 +369,7 @@ $(function(){initNavTree('_i_shader_pass_8cpp_source.html',''); initResizable(tr
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_74389ed8173ad57b461b9d623a1f3867.html">Source</a></li><li class="navelem"><b>IShaderPass.cpp</b></li>
-    <li class="footer">Generado el Martes, 18 de junio de 2024 11:17:41 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.11.0 </li>
+    <li class="footer">Generado el Jueves, 15 de agosto de 2024 11:33:33 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.12.0 </li>
   </ul>
 </div>
 </body>
