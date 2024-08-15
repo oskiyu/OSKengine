@@ -341,7 +341,7 @@ namespace OSK::PERSISTENCE {
 		output.Write(vec.x);
 		output.Write(vec.y);
 		output.Write(vec.z);
-		output.Write(vec.W);
+		output.Write(vec.w);
 
 		return output;
 	}

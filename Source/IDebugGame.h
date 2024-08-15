@@ -1,5 +1,7 @@
 #pragma once
 
+#include "Editor.h"
+
 // Para IGame.
 #include "Game.h"
 
@@ -35,6 +37,8 @@ namespace OSK {
 		bool IsInConsole() const;
 
 	private:
+
+		UniquePtr<OSK::Editor::Editor> m_editor = nullptr;
 
 		EditorShowCommand* m_editorShowCommand = nullptr;
 		EditorHideCommand* m_editorHideCommand = nullptr;

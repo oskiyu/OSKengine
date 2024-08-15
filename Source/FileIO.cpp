@@ -51,7 +51,7 @@ DynamicArray<char> FileIO::ReadBinaryFromFile(std::string_view filename) {
 	const auto fileSize = static_cast<USize64>(file.tellg());
 
 	//Inicializar el std::vector
-	DynamicArray<char> buffer = DynamicArray<char>::CreateResizedArray(fileSize);
+	DynamicArray<char> buffer = DynamicArray<char>::CreateResized(fileSize);
 
 	//Leer el archivo desde el principio
 	file.seekg(0);

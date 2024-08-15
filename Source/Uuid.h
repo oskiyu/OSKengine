@@ -55,7 +55,7 @@ namespace OSK {
 
 	private:
 
-		constexpr static UIndex64 EmptyUnderlyingType = static_cast<UIndex64>(0);
+		constexpr static UIndex64 EmptyUnderlyingType = static_cast<TUnderlyingType>(0);
 
 		UIndex64 m_value = EmptyUnderlyingType;
 

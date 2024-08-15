@@ -34,5 +34,5 @@ void OSK::GRAPHICS::SdfBindlessBufferContent2D::Fill(const SdfDrawCall2D& drawCa
 
 	floatInfo.x = centerPosition.x;
 	floatInfo.y = centerPosition.y;
-	floatInfo.Z = drawCall.borderSize;
+	floatInfo.z = drawCall.borderSize;
 }

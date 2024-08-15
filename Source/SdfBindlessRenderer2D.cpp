@@ -226,7 +226,7 @@ void OSK::GRAPHICS::SdfBindlessRenderer2D::EnsureMaterialSlotContent(const GpuBu
 }
 
 OSK::DynamicArray<OSK::GRAPHICS::SdfDrawCall2D> OSK::GRAPHICS::SdfBindlessRenderer2D::GetTextDrawCalls(const SdfStringInfo& textInfo) {
-	DynamicArray<SdfDrawCall2D> output = DynamicArray<SdfDrawCall2D>::CreateReservedArray(textInfo.text.size());
+	DynamicArray<SdfDrawCall2D> output = DynamicArray<SdfDrawCall2D>::CreateReserved(textInfo.text.size());
 
 	const GpuImageViewConfig viewConfig = GpuImageViewConfig::CreateSampled_SingleMipLevel(0);
 	const IGpuImageView* fontView = textInfo.font->image->GetView(viewConfig);

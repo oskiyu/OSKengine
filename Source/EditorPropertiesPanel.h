@@ -6,6 +6,8 @@
 
 #include "ISystem.h"
 
+#include "IComponentView.h"
+
 namespace OSK::ECS {
 	class ISystem;
 }
@@ -32,22 +34,11 @@ namespace OSK::Editor::UI {
 		void SetSubtitle(const std::string& text);
 
 
-		/// @brief Elimina todo el contendiro del panel.
+		/// @brief Elimina el contendiro del panel.
 		void ClearContent();
 
 		/// @brief Muestra el contenido del panel.
 		void ShowContent();
-
-
-		/// @brief Establece el contenido del panel
-		/// a partir de las propiedades del sistema.
-		/// @param system Sistema a mostrar.
-		void UpdateBySystem(const OSK::ECS::ISystem* system);
-
-		/// @brief Establece el contenido del panel
-		/// a partir de las propiedades del objeto.
-		/// @param obj Objeto a mostrar.
-		void UpdateByObject(const OSK::ECS::GameObjectIndex obj);
 
 	private:
 
@@ -55,9 +46,6 @@ namespace OSK::Editor::UI {
 		OSK::UI::TextView* m_subtitle = nullptr;
 
 		OSK::ASSETS::AssetRef<OSK::ASSETS::Font> m_font;
-
-		DynamicArray<OSK::UI::HorizontalContainer*> m_content;
-		DynamicArray<OSK::UI::TextView*> m_textContent;
 
 	};
 

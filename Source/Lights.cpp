@@ -13,9 +13,9 @@ nlohmann::json OSK::PERSISTENCE::SerializeData<OSK::GRAPHICS::DirectionalLight>(
 
 	output["color"] = SerializeData<Color>(data.color);
 
-	output["direction"] = SerializeVector3<Vector3f>({ data.directionAndIntensity.x, data.directionAndIntensity.y, data.directionAndIntensity.Z });
+	output["direction"] = SerializeVector3<Vector3f>({ data.directionAndIntensity.x, data.directionAndIntensity.y, data.directionAndIntensity.z });
 
-	output["intensity"] = data.directionAndIntensity.W;
+	output["intensity"] = data.directionAndIntensity.w;
 
 	return output;
 }
@@ -43,8 +43,8 @@ BinaryBlock OSK::PERSISTENCE::BinarySerializeData<OSK::GRAPHICS::DirectionalLigh
 	BinaryBlock output{};
 
 	output.AppendBlock(BinarySerializeData<Color>(data.color));
-	output.AppendBlock(SerializeBinaryVector3<Vector3f>({ data.directionAndIntensity.x, data.directionAndIntensity.y, data.directionAndIntensity.Z }));
-	output.Write<float>(data.directionAndIntensity.W);
+	output.AppendBlock(SerializeBinaryVector3<Vector3f>({ data.directionAndIntensity.x, data.directionAndIntensity.y, data.directionAndIntensity.z }));
+	output.Write<float>(data.directionAndIntensity.w);
 
 	return output;
 }

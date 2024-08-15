@@ -150,7 +150,7 @@ void ConvexVolume::AddFace(const DynamicArray<Vector3f>& points) {
 			newVertices.Insert(points[i]);
 #endif
 
-	FaceIndices indices = FaceIndices::CreateReservedArray(numNewVertices);
+	FaceIndices indices = FaceIndices::CreateReserved(numNewVertices);
 	for (UIndex32 i = 0; i < numNewVertices; i++) {
 		indices.Insert(numOldVertices + i);
 		m_vertices.Insert(points[i]);
@@ -192,7 +192,7 @@ void ConvexVolume::MergeVertices() {
 		return;
 	
 	// Array con los vértices finales (sin duplicados).
-	DynamicArray<Vector3f> nVertices = DynamicArray<Vector3f>::CreateReservedArray(m_vertices.GetSize());
+	DynamicArray<Vector3f> nVertices = DynamicArray<Vector3f>::CreateReserved(m_vertices.GetSize());
 	
 	// Old vertex ID -> new vertex ID.
 	// Para poder actualizar los índices de
@@ -516,11 +516,11 @@ DetailedCollisionInfo ConvexVolume::GetCollisionInfo(const IBottomLevelCollider&
 	const FaceIndices& faceA = m_faces[firstFaceId];
 	const FaceIndices& faceB = otherVolume.m_faces[secondFaceId];
 
-	DynamicArray<Vector3f> verticesA = DynamicArray<Vector3f>::CreateReservedArray(faceA.GetSize());
+	DynamicArray<Vector3f> verticesA = DynamicArray<Vector3f>::CreateReserved(faceA.GetSize());
 	for (const auto index : faceA)
 		verticesA.Insert(m_transformedVertices[index]);
 
-	DynamicArray<Vector3f> verticesB = DynamicArray<Vector3f>::CreateReservedArray(faceB.GetSize());
+	DynamicArray<Vector3f> verticesB = DynamicArray<Vector3f>::CreateReserved(faceB.GetSize());
 	for (const auto index : faceB)
 		verticesB.Insert(otherVolume.m_transformedVertices[index]);
 
@@ -615,7 +615,7 @@ DetailedCollisionInfo ConvexVolume::GetCollisionInfo(const IBottomLevelCollider&
 }
 
 DynamicArray<UIndex32> ConvexVolume::GetFaceIndicesWithVertex(UIndex32 vertexIndex) const {
-	DynamicArray<UIndex32> output = DynamicArray<UIndex32>::CreateReservedArray(m_faces.GetSize());
+	DynamicArray<UIndex32> output = DynamicArray<UIndex32>::CreateReserved(m_faces.GetSize());
 
 	for (UIndex32 i = 0; i < m_faces.GetSize(); i++) {
 		const auto& face = m_faces[i];

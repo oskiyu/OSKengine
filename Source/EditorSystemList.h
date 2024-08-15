@@ -9,7 +9,7 @@
 namespace OSK::Editor::UI {
 
 	class EditorPanelTitle;
-	class PropertiesPanel;
+	class SystemPropertiesPanel;
 
 	class OSKAPI_CALL SystemList : public OSK::UI::VerticalContainer {
 
@@ -37,7 +37,7 @@ namespace OSK::Editor::UI {
 
 		DynamicArray<OSK::UI::Button*> m_textViews{};
 		EditorPanelTitle* m_title = nullptr;
-		PropertiesPanel* m_propertiesPanel = nullptr;
+		SystemPropertiesPanel* m_propertiesPanel = nullptr;
 
 	};
 

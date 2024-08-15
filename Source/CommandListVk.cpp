@@ -597,7 +597,7 @@ void CommandListVk::BeginGraphicsRenderpass(DynamicArray<RenderPassImageInfo> co
 	}
 
 	GpuImageViewConfig colorAttachmentConfig = GpuImageViewConfig::CreateTarget_Color();
-	DynamicArray<VkRenderingAttachmentInfo> colorAttachments = DynamicArray<VkRenderingAttachmentInfo>::CreateResizedArray(colorImages.GetSize());
+	DynamicArray<VkRenderingAttachmentInfo> colorAttachments = DynamicArray<VkRenderingAttachmentInfo>::CreateResized(colorImages.GetSize());
 	for (UIndex64 i = 0; i < colorImages.GetSize(); i++) {
 		colorAttachmentConfig.baseArrayLevel = colorImages[i].arrayLevel;
 

@@ -32,7 +32,7 @@ void TopLevelAccelerationStructureVk::Setup() {
 		0.0f, 0.0f, 1.0f, 0.0f
 	};
 
-	DynamicArray<VkAccelerationStructureInstanceKHR> instances = DynamicArray<VkAccelerationStructureInstanceKHR>::CreateResizedArray(blass.GetSize());
+	DynamicArray<VkAccelerationStructureInstanceKHR> instances = DynamicArray<VkAccelerationStructureInstanceKHR>::CreateResized(blass.GetSize());
 	for (UIndex32 i = 0; i < blass.GetSize(); i++) {
 		instances[i].transform = transform;
 		instances[i].instanceCustomIndex = static_cast<uint32_t>(i);
@@ -162,7 +162,7 @@ void TopLevelAccelerationStructureVk::Update(ICommandList* cmdList) {
 			0.0f, 0.0f, 1.0f, 0.0f
 		};
 
-		DynamicArray<VkAccelerationStructureInstanceKHR> instances = DynamicArray<VkAccelerationStructureInstanceKHR>::CreateResizedArray(blass.GetSize());
+		DynamicArray<VkAccelerationStructureInstanceKHR> instances = DynamicArray<VkAccelerationStructureInstanceKHR>::CreateResized(blass.GetSize());
 		for (UIndex32 i = 0; i < blass.GetSize(); i++) {
 			instances[i].transform = transform;
 			instances[i].instanceCustomIndex = i;

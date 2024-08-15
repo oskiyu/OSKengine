@@ -288,7 +288,7 @@ void RendererVk::CreateInstance(const std::string& appName, const Version& versi
 	glfwExtensions = glfwGetRequiredInstanceExtensions(&glfwExtensionCount);
 
 	//Extensiones totales.
-	auto extensions = DynamicArray<const char*>::CreateReservedArray(glfwExtensionCount);
+	auto extensions = DynamicArray<const char*>::CreateReserved(glfwExtensionCount);
 	for (size_t i = 0; i < glfwExtensionCount; i++)
 		extensions.Insert(glfwExtensions[i]);
 
@@ -375,7 +375,7 @@ void RendererVk::ChooseGpu() {
 	OSK_ASSERT(count != 0, GpuNotFoundException());
 
 	// Obtiene los handlers de las GPUs.
-	auto devices = DynamicArray<VkPhysicalDevice>::CreateResizedArray(count);
+	auto devices = DynamicArray<VkPhysicalDevice>::CreateResized(count);
 	vkEnumeratePhysicalDevices(m_instance, &count, devices.GetData());
 
 	// Comprobar la compatibilidad de las GPUs.
@@ -486,7 +486,7 @@ bool RendererVk::AreValidationLayersAvailable() const {
 	vkEnumerateInstanceLayerProperties(&layerCount, nullptr);
 
 	// Obtenemos las capas.
-	auto availableLayers = DynamicArray<VkLayerProperties>::CreateResizedArray(layerCount);
+	auto availableLayers = DynamicArray<VkLayerProperties>::CreateResized(layerCount);
 
 	vkEnumerateInstanceLayerProperties(&layerCount, availableLayers.GetData());
 

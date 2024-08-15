@@ -69,8 +69,8 @@ void TextView::AdjustSizeToText() {
 	);
 
 	SetSize(newSize + Vector2f(
-		GetPadding().x + GetPadding().Z,
-		GetPadding().y + GetPadding().W
+		GetPadding().x + GetPadding().z,
+		GetPadding().y + GetPadding().w
 	));
 }
 

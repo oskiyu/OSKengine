@@ -42,9 +42,9 @@ void SpriteBatch::Draw(Vector2f position, Vector2f size, Vector4f texCoords) {
 
 	const Vertex2D newVertices[4] {
 		Vertex2D(position + size * Vector2f(0, 0), { texCoords.x, texCoords.y }),
-		Vertex2D(position + size * Vector2f(1, 0), { texCoords.Z, texCoords.y }),
-		Vertex2D(position + size * Vector2f(1, 1), { texCoords.Z, texCoords.W }),
-		Vertex2D(position + size * Vector2f(0, 1), { texCoords.x, texCoords.W })
+		Vertex2D(position + size * Vector2f(1, 0), { texCoords.z, texCoords.y }),
+		Vertex2D(position + size * Vector2f(1, 1), { texCoords.z, texCoords.w }),
+		Vertex2D(position + size * Vector2f(0, 1), { texCoords.x, texCoords.w })
 	};
 
 	const TIndexSize newIndices[6] {

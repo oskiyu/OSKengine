@@ -123,7 +123,27 @@ namespace OSK::ECS {
 		const TComponent& GetComponent(GameObjectIndex obj) const {
 			return m_components.At(m_objectToComponent.at(obj));
 		}
-				
+
+		void* GetComponentAddress(GameObjectIndex obj) override {
+			auto iterator = m_objectToComponent.find(obj);
+
+			if (iterator == m_objectToComponent.end()) {
+				return nullptr;
+			}
+
+			return std::addressof(m_components[iterator->second]);
+		}
+
+		const void* GetComponentAddress(GameObjectIndex obj) const override {
+			const auto iterator = m_objectToComponent.find(obj);
+
+			if (iterator == m_objectToComponent.cend()) {
+				return nullptr;
+			}
+
+			return std::addressof(m_components[iterator->second]);
+		}
+
 		/// @brief Elimina el componente del objeto eliminado.
 		/// @param obj ID del objeto.
 		/// 

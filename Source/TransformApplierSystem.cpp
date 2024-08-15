@@ -24,7 +24,7 @@ void TransformApplierSystem::Execute(TDeltaTime deltaTime, std::span<const GameO
 		}
 	}
 
-	DynamicArray<GameObjectIndex> roots = DynamicArray<GameObjectIndex>::CreateReservedArray(objects.size());
+	DynamicArray<GameObjectIndex> roots = DynamicArray<GameObjectIndex>::CreateReserved(objects.size());
 
 	for (const GameObjectIndex obj : objects) {
 		if (!objectToParent.contains(obj)) {

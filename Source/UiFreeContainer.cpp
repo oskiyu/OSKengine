@@ -18,7 +18,7 @@ void FreeContainer::EmplaceChild(IElement* child) {
 		childOffset.x = GetSize().x * 0.5f - child->GetSize().x * 0.5f;
 	}
 	else if (EFTraits::HasFlag(child->GetAnchor(), Anchor::RIGHT)) {
-		childOffset.x = GetSize().x - child->GetSize().x - child->GetMarging().Z;
+		childOffset.x = GetSize().x - child->GetSize().x - child->GetMarging().z;
 	}
 
 	// Eje Y
@@ -29,7 +29,7 @@ void FreeContainer::EmplaceChild(IElement* child) {
 		childOffset.y = GetSize().y * 0.5f - child->GetSize().y * 0.5f;
 	} 
 	else if (EFTraits::HasFlag(child->GetAnchor(), Anchor::BOTTOM)) {
-		childOffset.y = GetSize().y - child->GetSize().y - child->GetMarging().Z;
+		childOffset.y = GetSize().y - child->GetSize().y - child->GetMarging().z;
 	}
 
 	const Vector2f totalOffset = childOffset;

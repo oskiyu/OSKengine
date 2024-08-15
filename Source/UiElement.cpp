@@ -158,15 +158,15 @@ Vector4f IElement::GetMarging() const {
 
 Vector2f IElement::GetPadding2D() const {
 	return Vector2f(
-		m_padding.x + m_padding.Z,
-		m_padding.y + m_padding.W
+		m_padding.x + m_padding.z,
+		m_padding.y + m_padding.w
 	);
 }
 
 Vector2f IElement::GetMarging2D() const {
 	return Vector2f(
-		m_margin.x + m_margin.Z,
-		m_margin.y + m_margin.W
+		m_margin.x + m_margin.z,
+		m_margin.y + m_margin.w
 	);
 }
 

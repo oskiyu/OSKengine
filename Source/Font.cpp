@@ -142,7 +142,7 @@ void Font::LoadSizedFont(USize32 fontSize) {
 		currentX += ftCharacters[c].sizeX;
 	}
 
-	auto finalPixels = DynamicArray<TByte>::CreateReservedArray(numBytes);
+	auto finalPixels = DynamicArray<TByte>::CreateReserved(numBytes);
 	for (USize32 i = 0; i < numBytes / 4; i++) {
 		finalPixels.Insert(255);
 		finalPixels.Insert(255);

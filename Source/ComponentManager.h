@@ -101,6 +101,18 @@ namespace OSK::ECS {
 			return GetComponentContainer<TComponent>()->GetComponent(obj);
 		}
 
+		/// @param obj Objeto que contiene el componente
+		/// buscado.
+		/// @return Puntero al componente.
+		/// Si el objeto no tiene el componente,
+		/// devuelve nullptr.
+		void* GetComponentAddress(GameObjectIndex obj, ComponentType type) {
+			return componentContainers.at(m_typeToName.at(type))->GetComponentAddress(obj);
+		}
+		const void* GetComponentAddress(GameObjectIndex obj, ComponentType type) const {
+			return componentContainers.at(m_typeToName.at(type))->GetComponentAddress(obj);
+		}
+
 		/// <summary>
 		/// Se llama cuando un objeto es destruido.
 		/// Se encarga de eliminar todos los componentes del objeto.

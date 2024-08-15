@@ -23,7 +23,7 @@ void VerticalContainer::EmplaceChild(IElement* child) {
 		horizontalPositionOffset = GetSize().x * 0.5f - (child->GetSize().x + child->GetMarging().x) * 0.5f;
 	}
 	else if (EFTraits::HasFlag(child->GetAnchor(), Anchor::RIGHT)) {
-		horizontalPositionOffset = GetContentSize().x - child->GetSize().x - child->GetMarging().Z;
+		horizontalPositionOffset = GetContentSize().x - child->GetSize().x - child->GetMarging().z;
 	}
 
 	const Vector2f childPosition = Vector2f(
@@ -32,7 +32,7 @@ void VerticalContainer::EmplaceChild(IElement* child) {
 
 	child->_SetPosition(childPosition.ToVector2i().ToVector2f());
 
-	m_relativeNextPosition += child->GetSize().y + child->GetMarging().y + child->GetMarging().W;
+	m_relativeNextPosition += child->GetSize().y + child->GetMarging().y + child->GetMarging().w;
 }
 
 void VerticalContainer::ResetLayout() {

@@ -273,7 +273,7 @@ QueueFamiles GpuVk::GetQueueFamilyIndices() const {
 	vkGetPhysicalDeviceQueueFamilyProperties(physicalDevice, &queueFamilyCount, nullptr);
 
 	// Obtener las familias.
-	auto queueFamilies = DynamicArray<VkQueueFamilyProperties>::CreateResizedArray(queueFamilyCount);
+	auto queueFamilies = DynamicArray<VkQueueFamilyProperties>::CreateResized(queueFamilyCount);
 
 	vkGetPhysicalDeviceQueueFamilyProperties(physicalDevice, &queueFamilyCount, queueFamilies.GetData());
 

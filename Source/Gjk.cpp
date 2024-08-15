@@ -16,7 +16,7 @@ OSK::DynamicArray<OSK::COLLISION::MinkowskiSupport> OSK::COLLISION::GetAllMinkow
 	const auto& firstSupports = first.GetAllSupports(direction, epsilon);
 	const auto& secondSupports = second.GetAllSupports(-direction, epsilon);
 
-	DynamicArray<MinkowskiSupport> output = DynamicArray<MinkowskiSupport>::CreateReservedArray(firstSupports.GetSize() * secondSupports.GetSize());
+	DynamicArray<MinkowskiSupport> output = DynamicArray<MinkowskiSupport>::CreateReserved(firstSupports.GetSize() * secondSupports.GetSize());
 
 	for (UIndex64 a = 0; a < firstSupports.GetSize(); a++) {
 		for (UIndex64 b = a + 1; b < firstSupports.GetSize(); b++) {

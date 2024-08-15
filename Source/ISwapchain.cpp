@@ -88,7 +88,7 @@ void ISwapchain::TakeScreenshot(std::string_view path) {
 
 	// Obtenemos los píxeles de la imagen lineal, leyendo la memoria directamente.
 
-	DynamicArray<TByte> cpuImage = DynamicArray<TByte>::CreateReservedArray(
+	DynamicArray<TByte> cpuImage = DynamicArray<TByte>::CreateReserved(
 		intermediateImage->GetSize2D().x * intermediateImage->GetSize2D().y * 4
 	);
 

@@ -53,7 +53,7 @@ void BorderLayout::EmplaceChild(IElement* child) {
 	}
 
 	const float topStartingPosition = m_northElement
-		? m_northElement->GetSize().y + m_northElement->GetMarging().W
+		? m_northElement->GetSize().y + m_northElement->GetMarging().w
 		: 0.0f;
 
 	const float bottomStartingPosition = m_southElement
@@ -65,7 +65,7 @@ void BorderLayout::EmplaceChild(IElement* child) {
 		: 0.0f;
 
 	const float rightStartingPosition = m_westElement
-		? GetSize().x - (m_westElement->GetSize().x + m_westElement->GetMarging().Z)
+		? GetSize().x - (m_westElement->GetSize().x + m_westElement->GetMarging().z)
 		: GetSize().x;
 
 	switch (childPosition) {

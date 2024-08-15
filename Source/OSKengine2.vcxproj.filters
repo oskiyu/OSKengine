@@ -649,6 +649,39 @@
     <Filter Include="Archivos de origen\Core\Graphics\HighLevel\2D\SDF">
       <UniqueIdentifier>{f923b5a3-72e6-417f-887c-5bdc69c3071b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Archivos de origen\Editor\UI">
+      <UniqueIdentifier>{15cb97b6-9aa0-4ea7-971a-b48bbfba7125}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de encabezado\Editor\Controllers">
+      <UniqueIdentifier>{e0452586-3607-4182-9814-c73a6bab7d63}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de encabezado\Editor\Controllers\Builtin">
+      <UniqueIdentifier>{11a678f3-bce7-492b-9d26-0630259bb73c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de encabezado\Editor\Views">
+      <UniqueIdentifier>{16bb2e8b-8268-4326-806e-3bf296dc951e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de origen\Editor\Controllers">
+      <UniqueIdentifier>{2b8260a4-1214-4d12-b9fc-3913674d2b0b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de origen\Editor\Views">
+      <UniqueIdentifier>{27be4565-5299-4e0c-8648-3344ac10d1f3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de origen\Editor\Controllers\Builtin">
+      <UniqueIdentifier>{bb0eca9a-068f-4350-8151-c4b6e1bdbe2c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de encabezado\Editor\Views\Builtin">
+      <UniqueIdentifier>{f83f7ff7-cc67-48ba-925e-c68bfd9f0b4d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de origen\Editor\Views\Builtin">
+      <UniqueIdentifier>{96e963f9-4853-4426-b9bd-49a8b383b83b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de encabezado\Editor\UI\Properties">
+      <UniqueIdentifier>{d5cbc97f-3515-435f-846b-487436145e2c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de origen\Editor\UI\Properties">
+      <UniqueIdentifier>{e841c1fb-7c56-4dea-9331-acfec943f237}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -1395,38 +1428,11 @@
     <ClCompile Include="UiConsole.cpp">
       <Filter>Archivos de origen\BuiltIn\UI\Elements</Filter>
     </ClCompile>
-    <ClCompile Include="EditorObjectList.cpp">
-      <Filter>Archivos de origen\Editor</Filter>
-    </ClCompile>
-    <ClCompile Include="EditorSystemList.cpp">
-      <Filter>Archivos de origen\Editor</Filter>
-    </ClCompile>
-    <ClCompile Include="EditorUi.cpp">
-      <Filter>Archivos de origen\Editor</Filter>
-    </ClCompile>
     <ClCompile Include="UiBorderLayout.cpp">
       <Filter>Archivos de origen\BuiltIn\UI\Containers</Filter>
     </ClCompile>
-    <ClCompile Include="EditorHeader.cpp">
-      <Filter>Archivos de origen\Editor</Filter>
-    </ClCompile>
-    <ClCompile Include="EditorPropertiesPanel.cpp">
-      <Filter>Archivos de origen\Editor</Filter>
-    </ClCompile>
-    <ClCompile Include="EditorPanelTitle.cpp">
-      <Filter>Archivos de origen\Editor</Filter>
-    </ClCompile>
-    <ClCompile Include="EditorBottomBar.cpp">
-      <Filter>Archivos de origen\Editor</Filter>
-    </ClCompile>
     <ClCompile Include="IGpu.cpp">
       <Filter>Archivos de origen\Core\Graphics\LowLevel\Gpu</Filter>
-    </ClCompile>
-    <ClCompile Include="EditorUi.ixx">
-      <Filter>Archivos de origen\Editor</Filter>
-    </ClCompile>
-    <ClCompile Include="EditorBottomBar.ixx">
-      <Filter>Archivos de origen\Editor</Filter>
     </ClCompile>
     <ClCompile Include="ConsoleCommand.cpp">
       <Filter>Archivos de origen\Core\Util\Commands</Filter>
@@ -1451,6 +1457,72 @@
     </ClCompile>
     <ClCompile Include="SdfBindlessBufferContent2D.cpp">
       <Filter>Archivos de origen\Core\Graphics\HighLevel\2D\SDF</Filter>
+    </ClCompile>
+    <ClCompile Include="EditorBottomBar.cpp">
+      <Filter>Archivos de origen\Editor\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="EditorBottomBar.ixx">
+      <Filter>Archivos de origen\Editor\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="EditorHeader.cpp">
+      <Filter>Archivos de origen\Editor\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="EditorObjectList.cpp">
+      <Filter>Archivos de origen\Editor\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="EditorPanelTitle.cpp">
+      <Filter>Archivos de origen\Editor\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="EditorSystemList.cpp">
+      <Filter>Archivos de origen\Editor\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="EditorUi.cpp">
+      <Filter>Archivos de origen\Editor\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="EditorUi.ixx">
+      <Filter>Archivos de origen\Editor\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="IComponentController.cpp">
+      <Filter>Archivos de origen\Editor\Controllers</Filter>
+    </ClCompile>
+    <ClCompile Include="IComponentView.cpp">
+      <Filter>Archivos de origen\Editor\Views</Filter>
+    </ClCompile>
+    <ClCompile Include="CameraComponentController3D.cpp">
+      <Filter>Archivos de origen\Editor\Controllers\Builtin</Filter>
+    </ClCompile>
+    <ClCompile Include="Editor.cpp">
+      <Filter>Archivos de origen\Editor</Filter>
+    </ClCompile>
+    <ClCompile Include="CameraComponentView.cpp">
+      <Filter>Archivos de origen\Editor\Views\Builtin</Filter>
+    </ClCompile>
+    <ClCompile Include="PhysicsComponentView.cpp">
+      <Filter>Archivos de origen\Editor\Views\Builtin</Filter>
+    </ClCompile>
+    <ClCompile Include="PhysicsComponentController3D.cpp">
+      <Filter>Archivos de origen\Editor\Controllers\Builtin</Filter>
+    </ClCompile>
+    <ClCompile Include="TransformComponentController3D.cpp">
+      <Filter>Archivos de origen\Editor\Controllers\Builtin</Filter>
+    </ClCompile>
+    <ClCompile Include="TransformComponentView3D.cpp">
+      <Filter>Archivos de origen\Editor\Views\Builtin</Filter>
+    </ClCompile>
+    <ClCompile Include="ModelComponentController3D.cpp">
+      <Filter>Archivos de origen\Editor\Controllers\Builtin</Filter>
+    </ClCompile>
+    <ClCompile Include="ModelComponentView3D.cpp">
+      <Filter>Archivos de origen\Editor\Views\Builtin</Filter>
+    </ClCompile>
+    <ClCompile Include="EditorPropertiesPanel.cpp">
+      <Filter>Archivos de origen\Editor\UI\Properties</Filter>
+    </ClCompile>
+    <ClCompile Include="EditorObjectPropertiesPanel.cpp">
+      <Filter>Archivos de origen\Editor\UI\Properties</Filter>
+    </ClCompile>
+    <ClCompile Include="EditorSystemPropertiesPanel.cpp">
+      <Filter>Archivos de origen\Editor\UI\Properties</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -2543,9 +2615,6 @@
     <ClInclude Include="EditorHeader.h">
       <Filter>Archivos de encabezado\Editor\UI</Filter>
     </ClInclude>
-    <ClInclude Include="EditorPropertiesPanel.h">
-      <Filter>Archivos de encabezado\Editor\UI</Filter>
-    </ClInclude>
     <ClInclude Include="EditorUiConstants.h">
       <Filter>Archivos de encabezado\Editor\UI</Filter>
     </ClInclude>
@@ -2626,6 +2695,48 @@
     </ClInclude>
     <ClInclude Include="SdfStringInfo.h">
       <Filter>Archivos de encabezado\Core\Graphics\HighLevel\2D\SDF</Filter>
+    </ClInclude>
+    <ClInclude Include="IComponentController.h">
+      <Filter>Archivos de encabezado\Editor\Controllers</Filter>
+    </ClInclude>
+    <ClInclude Include="IComponentView.h">
+      <Filter>Archivos de encabezado\Editor\Views</Filter>
+    </ClInclude>
+    <ClInclude Include="CameraComponentController3D.h">
+      <Filter>Archivos de encabezado\Editor\Controllers\Builtin</Filter>
+    </ClInclude>
+    <ClInclude Include="Editor.h">
+      <Filter>Archivos de encabezado\Editor</Filter>
+    </ClInclude>
+    <ClInclude Include="CameraComponentView.h">
+      <Filter>Archivos de encabezado\Editor\Views\Builtin</Filter>
+    </ClInclude>
+    <ClInclude Include="PhysicsComponentView.h">
+      <Filter>Archivos de encabezado\Editor\Views\Builtin</Filter>
+    </ClInclude>
+    <ClInclude Include="PhysicsComponentController3D.h">
+      <Filter>Archivos de encabezado\Editor\Controllers\Builtin</Filter>
+    </ClInclude>
+    <ClInclude Include="TransformComponentView3D.h">
+      <Filter>Archivos de encabezado\Editor\Views\Builtin</Filter>
+    </ClInclude>
+    <ClInclude Include="TransformComponentController3D.h">
+      <Filter>Archivos de encabezado\Editor\Controllers\Builtin</Filter>
+    </ClInclude>
+    <ClInclude Include="ModelComponentController3D.h">
+      <Filter>Archivos de encabezado\Editor\Controllers\Builtin</Filter>
+    </ClInclude>
+    <ClInclude Include="ModelComponentView3D.h">
+      <Filter>Archivos de encabezado\Editor\Views\Builtin</Filter>
+    </ClInclude>
+    <ClInclude Include="EditorPropertiesPanel.h">
+      <Filter>Archivos de encabezado\Editor\UI\Properties</Filter>
+    </ClInclude>
+    <ClInclude Include="EditorObjectPropertiesPanel.h">
+      <Filter>Archivos de encabezado\Editor\UI\Properties</Filter>
+    </ClInclude>
+    <ClInclude Include="EditorSystemPropertiesPanel.h">
+      <Filter>Archivos de encabezado\Editor\UI\Properties</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

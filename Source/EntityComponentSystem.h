@@ -184,7 +184,12 @@ namespace OSK::ECS {
 				m_componentManager->GetComponentType<TComponent>()
 			);
 		}
-				
+		
+		/// @brief Comprueba si el objeto dado tiene añadido un componente del tipo dado.
+		/// @param obj Entidad comprobada.
+		/// @param componentType Tipo del componente.
+		bool ObjectHasComponent(GameObjectIndex obj, ComponentType componentType) const;
+
 		/// @brief Elimina el componente del objeto.
 		/// @tparam TComponent Tipo del componente.
 		/// @param obj Objeto al que se va a quitar el componente.
@@ -230,6 +235,12 @@ namespace OSK::ECS {
 
 			return m_componentManager->GetComponent<TComponent>(obj);
 		}
+
+		/// @param obj Objeto que contiene el componente
+		/// buscado.
+		/// @return Puntero al componente.
+		void* GetComponentAddress(GameObjectIndex obj, ComponentType type);
+		const void* GetComponentAddress(GameObjectIndex obj, ComponentType type) const;
 
 		/// @tparam TComponent Tipo del componente.
 		/// @return Código identificativo del componente dado.

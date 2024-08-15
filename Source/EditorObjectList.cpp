@@ -3,13 +3,15 @@
 #include "OSKengine.h"
 #include "AssetManager.h"
 
-#include "EditorPropertiesPanel.h"
+#include "EditorObjectPropertiesPanel.h"
 
 #include "EditorUiConstants.h"
 #include "EditorPanelTitle.h"
 
+#include "Editor.h"
 
-OSK::Editor::UI::ObjectList::ObjectList(const Vector2f& size) : OSK::UI::VerticalContainer(size) {
+
+OSK::Editor::UI::ObjectList::ObjectList(const Vector2f& size, OSK::Editor::Editor* editor) : OSK::UI::VerticalContainer(size), m_editorRef(editor) {
 	const Vector2f textSize = { size.x - 20.0f, 25.0f };
 
 	SetMargin(Vector2f::Zero);
@@ -84,7 +86,8 @@ OSK::Editor::UI::ObjectList::ObjectList(const Vector2f& size) : OSK::UI::Vertica
 
 				auto text = static_cast<std::string>(view->GetText().substr(view->GetText().find_first_of("0123456789")));
 				auto obj = std::stoull(text);
-				m_propertiesPanel->UpdateByObject(OSK::ECS::GameObjectIndex(obj));
+				// m_propertiesPanel->UpdateByObject(OSK::ECS::GameObjectIndex(obj));
+				m_editorRef->SetSelectedObject(OSK::ECS::GameObjectIndex(obj));
 			}
 			else {
 				m_propertiesPanel->ClearContent();
@@ -92,9 +95,9 @@ OSK::Editor::UI::ObjectList::ObjectList(const Vector2f& size) : OSK::UI::Vertica
 			});
 	}
 
-	m_propertiesPanel = new PropertiesPanel({ size.x, 300.0f });
+	m_propertiesPanel = new ObjectPropertiesPanel({ size.x, 300.0f });
 	m_propertiesPanel->SetAnchor(OSK::UI::Anchor::LEFT | OSK::UI::Anchor::CENTER_Y);
-	AddChild(PropertiesPanel::Name, m_propertiesPanel);
+	AddChild(ObjectPropertiesPanel::Name, m_propertiesPanel);
 }
 
 void OSK::Editor::UI::ObjectList::OnSizeChanged(const Vector2f&) {
@@ -142,4 +145,8 @@ void OSK::Editor::UI::ObjectList::ClearSelection() {
 
 		view->SetState(OSK::UI::Button::State::DEFAULT);
 	}
+}
+
+OSK::Editor::UI::ObjectPropertiesPanel* OSK::Editor::UI::ObjectList::GetPropertiesPanel() {
+	return m_propertiesPanel;
 }

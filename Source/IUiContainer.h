@@ -55,6 +55,15 @@ namespace OSK::UI {
 		IElement* GetChild(const std::string_view name);
 		const IElement* GetChild(const std::string_view name) const;
 
+
+		/// @brief Elimina el elemento indicado.
+		/// @param childName Nombre del elemento.
+		/// 
+		/// @pre Debe existir un elemento con nombre @p childName.
+		/// @throws InvalidArgumentException si se incumple
+		/// la precondición.
+		void DeleteChild(std::string_view childName);
+
 	protected:
 
 		/// @brief Resetea el layout, de tal manera que los siguientes

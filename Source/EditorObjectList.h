@@ -5,27 +5,52 @@
 
 #include "GameObject.h"
 
+namespace OSK::Editor {
+	class Editor;
+}
+
 namespace OSK::Editor::UI {
 
 	class PropertiesPanel;
 	class EditorPanelTitle;
+	class ObjectPropertiesPanel;
 
 
+	/// @brief Elemento de interfaz de usuario del editor
+	/// que contiene información sobre los objetos de la escena.
 	class OSKAPI_CALL ObjectList : public OSK::UI::VerticalContainer {
 
 	public:
 
 		constexpr static auto Name = "EditorObjectList";
 
-		explicit ObjectList(const Vector2f& size);
+		explicit ObjectList(
+			const Vector2f& size,
+			OSK::Editor::Editor* editor);
 
+		/// @brief Limpia la información de todos
+		/// los objetos.
 		void ClearObjects();
+
+		/// @brief Establece la lista de objetos
+		/// disponibles.
+		/// @param objects Índices de los objetos.
+		/// 
+		/// @pre Los objetos de @p objects deben
+		/// ser válidos.
 		void SetObjects(std::span<const OSK::ECS::GameObjectIndex> objects);
 
 		void SetFont(OSK::ASSETS::AssetRef<OSK::ASSETS::Font> font);
 		void SetFontSize(USize64 fontSize);
 
+		/// @brief Limpia la selección actual,
+		/// haciendo que ningún objeto siga
+		/// seleccionado.
 		void ClearSelection();
+
+		/// @return Panel de propiedades de un objeto
+		/// en concreto.
+		ObjectPropertiesPanel* GetPropertiesPanel();
 
 	private:
 
@@ -37,7 +62,9 @@ namespace OSK::Editor::UI {
 
 		DynamicArray<OSK::UI::Button*> m_textViews{};
 		EditorPanelTitle* m_title = nullptr;
-		PropertiesPanel* m_propertiesPanel = nullptr;
+		ObjectPropertiesPanel* m_propertiesPanel = nullptr;
+
+		OSK::Editor::Editor* m_editorRef;
 
 	};
 

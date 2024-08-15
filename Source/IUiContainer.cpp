@@ -2,6 +2,7 @@
 
 #include "Transform2D.h"
 #include "SpriteRenderer.h"
+#include "InvalidArgumentException.h"
 
 using namespace OSK::UI;
 using namespace OSK::ECS;
@@ -32,7 +33,7 @@ void IContainer::AdjustSizeToChildren() {
 
 	for (const auto& child : m_children) {
 		const Vector2f childRelativePosition = child->GetPosition() - GetPosition();
-		const Vector2f childRightBottomMargings = Vector2f(child->GetMarging().Z, child->GetMarging().W);
+		const Vector2f childRightBottomMargings = Vector2f(child->GetMarging().z, child->GetMarging().w);
 
 		const Vector2f furthestPoint = child->GetSize() + childRelativePosition + childRightBottomMargings;
 
@@ -99,4 +100,20 @@ IElement* IContainer::GetChild(const std::string_view name) {
 
 const IElement* IContainer::GetChild(const std::string_view name) const {
 	return m_childrenTable.find(name)->second;
+}
+
+void IContainer::DeleteChild(std::string_view childName) {
+	auto iterator = m_childrenTable.find(childName);
+	OSK_ASSERT(iterator != m_childrenTable.end(), InvalidArgumentException(std::format("No existe el hijo {}", childName)));
+
+	for (USize64 i = 0; i < m_children.GetSize(); i++) {
+		if (m_children[i].GetPointer() == iterator->second) {
+			m_children.RemoveAt(i);
+			break;
+		}
+	}
+
+	m_childrenTable.erase(iterator);
+
+	Rebuild();
 }

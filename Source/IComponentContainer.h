@@ -74,6 +74,12 @@ namespace OSK::ECS {
 			GameObjectIndex obj,
 			const SavedGameObjectTranslator& translator) = 0;
 
+		/// @param obj Objeto que contiene el componente
+		/// buscado. Si el objeto no tiene el componente,
+		/// devuelve nullptr.
+		/// @return Puntero al componente.
+		virtual void* GetComponentAddress(GameObjectIndex obj) = 0;
+		virtual const void* GetComponentAddress(GameObjectIndex obj) const = 0;
 
 		/// @brief Establece el ID del tipo de componente que maneja el contenedor.
 		/// @param componentType Tipo de componente.

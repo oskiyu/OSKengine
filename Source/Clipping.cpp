@@ -42,7 +42,7 @@ OSK::DynamicArray<OSK::Vector3f> OSK::COLLISION::ClipFaces(const DynamicArray<Ve
 		}
 	}
 
-	DynamicArray<Vector3f> finalContactPoints = DynamicArray<Vector3f>::CreateReservedArray(intermediatePoints.GetSize());
+	DynamicArray<Vector3f> finalContactPoints = DynamicArray<Vector3f>::CreateReserved(intermediatePoints.GetSize());
 	const float referenceDistance = referenceFace[0].Dot(-firstFaceNormal) - 0.01f;
 
 	for (const Vector3f& point : intermediatePoints) {

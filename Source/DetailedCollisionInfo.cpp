@@ -14,7 +14,7 @@ DetailedCollisionInfo DetailedCollisionInfo::True(
 	DetailedCollisionInfo output{};
 	output.isColliding = true;
 	output.minimumTranslationVector = minimumTranslationVector;
-	output.contactPoints = DynamicArray<Vector3f>::CreateReservedArray(points.GetSize());
+	output.contactPoints = DynamicArray<Vector3f>::CreateReserved(points.GetSize());
 	output.mtvDirection = mtvDirection;
 	output.firstFaceNormal = firstFaceNormal.GetNormalized();
 	output.secondFaceNormal = secondFaceNormal.GetNormalized();

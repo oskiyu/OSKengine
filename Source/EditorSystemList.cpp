@@ -5,7 +5,7 @@
 
 #include "EditorUiConstants.h"
 #include "EditorPanelTitle.h"
-#include "EditorPropertiesPanel.h"
+#include "EditorSystemPropertiesPanel.h"
 
 
 OSK::Editor::UI::SystemList::SystemList(const Vector2f& size) : OSK::UI::VerticalContainer(size) {
@@ -80,7 +80,7 @@ OSK::Editor::UI::SystemList::SystemList(const Vector2f& size) : OSK::UI::Vertica
 
 	// Properties.
 	{
-		m_propertiesPanel = new PropertiesPanel({ size.x, 300.0f });
+		m_propertiesPanel = new SystemPropertiesPanel({ size.x, 300.0f });
 		m_propertiesPanel->SetAnchor(OSK::UI::Anchor::LEFT | OSK::UI::Anchor::CENTER_Y);
 
 		for (auto& view : m_textViews) {

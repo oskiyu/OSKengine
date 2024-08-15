@@ -4,7 +4,7 @@ using namespace OSK;
 using namespace OSK::MEMORY;
 
 Buffer::Buffer(USize64 initialSize)
-	: m_data(DynamicArray<TByte>::CreateReservedArray(initialSize)) {
+	: m_data(DynamicArray<TByte>::CreateReserved(initialSize)) {
 
 }
 

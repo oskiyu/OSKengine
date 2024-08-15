@@ -14,4 +14,11 @@ namespace OSK::Editor::UI::Constants {
 
 	constexpr static Color DetailsColor = Color(51.0f / 255.0f, 102.0f / 255.0f, 1.0f);
 
+
+	constexpr static auto EditorFontPath = "Resources/Assets/Fonts/font1.json";
+
+
+	constexpr static USize32 MainFontSize = 14;
+	constexpr static USize32 SecondaryFontSize = 12;
+
 }

@@ -147,7 +147,7 @@ void SwapchainVk::AcquireImages(const GpuVk& device, const Vector2ui& resolution
 	VkResult result = vkGetSwapchainImagesKHR(device.GetLogicalDevice(), m_swapchain, &imageCount, nullptr);
 	OSK_ASSERT(result == VK_SUCCESS, SwapchainCreationException("Error al adquirir imagenes del swapchain", result));
 
-	auto tempImages = DynamicArray<VkImage>::CreateResizedArray(imageCount);
+	auto tempImages = DynamicArray<VkImage>::CreateResized(imageCount);
 	vkGetSwapchainImagesKHR(device.GetLogicalDevice(), m_swapchain, &imageCount, tempImages.GetData());
 	OSK_ASSERT(result == VK_SUCCESS, SwapchainCreationException("Error al adquirir imagenes del swapchain", result));
 

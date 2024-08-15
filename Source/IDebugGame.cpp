@@ -28,6 +28,19 @@
 #include "NumericTypes.h"
 #include "KeyboardState.h"
 
+// Controladores del editor.
+#include "CameraComponentController3D.h"
+#include "CameraComponentView.h"
+
+#include "PhysicsComponentController3D.h"
+#include "PhysicsComponentView.h"
+
+#include "TransformComponentController3D.h"
+#include "TransformComponentView3D.h"
+
+#include "ModelComponentController3D.h"
+#include "ModelComponentView3D.h"
+
 
 void OSK::IDebugGame::RegisterConsoleCommands() {
 	IGame::RegisterConsoleCommands();
@@ -43,17 +56,23 @@ void OSK::IDebugGame::OnCreate() {
 	const auto uiTexture = Engine::GetAssetManager()->Load<ASSETS::Texture>("Resources/Assets/Textures/button_texture.json");
 	const auto uiView = &uiTexture->GetTextureView2D();
 	const auto font = Engine::GetAssetManager()->Load<ASSETS::Font>("Resources/Assets/Fonts/font1.json");
+		
+	// Editor.
+	m_editor = new Editor::Editor(
+		&GetRootUiElement(),
+		Engine::GetDisplay()->GetResolution().ToVector2f());
 
+	m_editor->RegisterController<Editor::Controllers::CameraComponentController3D>();
+	m_editor->RegisterView<Editor::Views::CameraComponentView>();
 
-	// Editor
-	auto editorUi = new Editor::UI::EditorUi(OSK::Engine::GetDisplay()->GetResolution().ToVector2f());
-	editorUi->SetAnchor(UI::Anchor::FULLY_CENTERED);
-	editorUi->SetKeepRelativeSize(true);
-	editorUi->Rebuild();
-	editorUi->SetInvisible();
+	m_editor->RegisterController<Editor::Controllers::PhysicsComponentController3D>();
+	m_editor->RegisterView<Editor::Views::PhysicsComponentView>();
 
-	GetRootUiElement().AddChild(Editor::UI::EditorUi::Name, editorUi);
+	m_editor->RegisterController<Editor::Controllers::TransformComponentController3D>();
+	m_editor->RegisterView<Editor::Views::TransformComponentView3D>();
 
+	m_editor->RegisterController<Editor::Controllers::ModelComponentController3D>();
+	m_editor->RegisterView<Editor::Views::ModelComponentView3D>();
 
 	// Console
 	m_console = new UI::Console({ 500.0f, 200.0f });
@@ -65,8 +84,10 @@ void OSK::IDebugGame::OnCreate() {
 	GetRootUiElement().AddChild(UI::Console::Name, m_console);
 
 
-	m_editorShowCommand->editor = editorUi;
-	m_editorHideCommand->editor = editorUi;
+	m_editorShowCommand->editor = m_editor->GetUi();
+	m_editorHideCommand->editor = m_editor->GetUi();
+
+	m_editor->GetUi()->SetVisible();
 }
 
 void OSK::IDebugGame::OnTick_BeforeEcs(TDeltaTime deltaTime) {
@@ -78,6 +99,9 @@ void OSK::IDebugGame::OnTick_BeforeEcs(TDeltaTime deltaTime) {
 	if (keyboard && keyboard->IsKeyStroked(IO::Key::APOSTROPHE)) {
 		m_console->SetVisibility(!m_console->IsVisible());
 	}
+
+	// Editor.
+	m_editor->Update(Engine::GetEcs(), deltaTime);
 }
 
 bool OSK::IDebugGame::IsInConsole() const {

@@ -124,7 +124,7 @@ void GpuImageVk::CreateVkImage() {
 		}
 	}
 
-	DynamicArray<USize32> indices = DynamicArray<USize32>::CreateReservedArray(static_cast<USize32>(queueIndices.size()));
+	DynamicArray<USize32> indices = DynamicArray<USize32>::CreateReserved(static_cast<USize32>(queueIndices.size()));
 	for (const auto& index : queueIndices) {
 		indices.Insert(index);
 	}

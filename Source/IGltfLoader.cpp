@@ -74,7 +74,7 @@ void GltfLoader::LoadMaterials(std::string_view path, DynamicArray<GRAPHICS::Gpu
 }
 
 DynamicArray<AnimationSkin> GltfLoader::LoadAnimationSkins(const tinygltf::Model& model) {
-	DynamicArray<AnimationSkin> output = DynamicArray<AnimationSkin>::CreateReservedArray(model.skins.size());
+	DynamicArray<AnimationSkin> output = DynamicArray<AnimationSkin>::CreateReserved(model.skins.size());
 
 	for (UIndex32 skinId = 0; skinId < model.skins.size(); skinId++) {
 		const tinygltf::Skin& gltfSkin = model.skins[skinId];
@@ -107,7 +107,7 @@ DynamicArray<AnimationSkin> GltfLoader::LoadAnimationSkins(const tinygltf::Model
 }
 
 DynamicArray<GpuModel3D::Material> GltfLoader::LoadMaterials(const tinygltf::Model& model) {
-	auto output = DynamicArray<GpuModel3D::Material>::CreateResizedArray(model.materials.size());
+	auto output = DynamicArray<GpuModel3D::Material>::CreateResized(model.materials.size());
 
 	for (UIndex64 i = 0; i < model.materials.size(); i++) {
 		GpuModel3D::Material material{};
@@ -151,7 +151,7 @@ DynamicArray<GpuModel3D::Material> GltfLoader::LoadMaterials(const tinygltf::Mod
 }
 
 DynamicArray<Animation> GltfLoader::LoadAnimations(const tinygltf::Model& model) {
-	DynamicArray<Animation> output = DynamicArray<Animation>::CreateReservedArray(model.animations.size());
+	DynamicArray<Animation> output = DynamicArray<Animation>::CreateReserved(model.animations.size());
 
 	const auto bones = LoadAllBones(model);
 
@@ -168,7 +168,7 @@ DynamicArray<Animation> GltfLoader::LoadAnimations(const tinygltf::Model& model)
 }
 
 DynamicArray<AnimationSampler> GltfLoader::LoadAnimationSamplers(const tinygltf::Model& model, const tinygltf::Animation& gltfAnimation) {
-	DynamicArray<AnimationSampler> samplers = DynamicArray<AnimationSampler>::CreateResizedArray(gltfAnimation.samplers.size());
+	DynamicArray<AnimationSampler> samplers = DynamicArray<AnimationSampler>::CreateResized(gltfAnimation.samplers.size());
 
 	for (UIndex32 samplerId = 0; samplerId < gltfAnimation.samplers.size(); samplerId++) {
 		tinygltf::AnimationSampler gltfSampler = gltfAnimation.samplers[samplerId];
@@ -222,7 +222,7 @@ DynamicArray<AnimationSampler> GltfLoader::LoadAnimationSamplers(const tinygltf:
 }
 
 DynamicArray<AnimationChannel> GltfLoader::LoadAnimationChannels(const tinygltf::Animation& gltfAnimation) {
-	DynamicArray<AnimationChannel> channels = DynamicArray<AnimationChannel>::CreateResizedArray(gltfAnimation.channels.size());
+	DynamicArray<AnimationChannel> channels = DynamicArray<AnimationChannel>::CreateResized(gltfAnimation.channels.size());
 
 	for (UIndex32 channelId = 0; channelId < gltfAnimation.channels.size(); channelId++) {
 		tinygltf::AnimationChannel gltfChannel = gltfAnimation.channels[channelId];
@@ -450,14 +450,14 @@ DynamicArray<CpuMesh3D> GltfLoader::ProcessNode(const tinygltf::Model& model, co
 			if (boneWeights.has_value()) {
 				const auto& weights = boneWeights.value()[v];
 				vertex.boneWeights = {
-					weights.x, weights.y, weights.Z, weights.W
+					weights.x, weights.y, weights.z, weights.w
 				};
 			}
 
 			if (boneIds.has_value()) {
 				const auto& ids = boneIds.value()[v];
 				vertex.boneIds = {
-					ids.x, ids.y, ids.Z, ids.W
+					ids.x, ids.y, ids.z, ids.w
 				};
 			}
 
@@ -528,7 +528,7 @@ DynamicArray<AssetRef<Texture>> GltfLoader::LoadImages(const tinygltf::Model& mo
 
 		const USize64 numBytes = originalImage.width * originalImage.height * 4;
 		if (originalImage.component == 3) {
-			auto dataContainer = DynamicArray<TByte>::CreateReservedArray(numBytes);
+			auto dataContainer = DynamicArray<TByte>::CreateReserved(numBytes);
 			auto* data = dataContainer.GetData();
 
 			memset(data, 255, numBytes);
@@ -639,7 +639,7 @@ DynamicArray<Vector3f> GltfLoader::GetVertexPositions(const tinygltf::Primitive&
 	
 
 	// Transformamos a vértices
-	DynamicArray<Vector3f> output = DynamicArray<Vector3f>::CreateResizedArray(numVertices);
+	DynamicArray<Vector3f> output = DynamicArray<Vector3f>::CreateResized(numVertices);
 
 	for (UIndex32 v = 0; v < numVertices; v++) {
 		const glm::vec4 vertexPosition = glm::vec4(
@@ -667,7 +667,7 @@ DynamicArray<Vector3f> GltfLoader::GetVertexNormals(const tinygltf::Primitive& p
 	const float* normalsBuffer = reinterpret_cast<const float*>(&(model.buffers[view.buffer].data[accessor.byteOffset + view.byteOffset]));
 	const USize64 numVertices = accessor.count;
 	
-	DynamicArray<Vector3f> output = DynamicArray<Vector3f>::CreateResizedArray(numVertices);
+	DynamicArray<Vector3f> output = DynamicArray<Vector3f>::CreateResized(numVertices);
 
 	for (UIndex64 v = 0; v < numVertices; v++) {
 		output[v] = Vector3f(
@@ -692,7 +692,7 @@ DynamicArray<Vector3f> GltfLoader::GetTangentVectors(const tinygltf::Primitive& 
 	const float* tangentsBuffer = reinterpret_cast<const float*>(&(model.buffers[view.buffer].data[accessor.byteOffset + view.byteOffset]));
 	const USize64 numVertices = accessor.count;
 
-	DynamicArray<Vector3f> output = DynamicArray<Vector3f>::CreateResizedArray(numVertices);
+	DynamicArray<Vector3f> output = DynamicArray<Vector3f>::CreateResized(numVertices);
 
 	for (UIndex64 v = 0; v < numVertices; v++) {
 		const float normalizer = tangentsBuffer[v * 4 + 3] < 0.0f
@@ -711,7 +711,7 @@ DynamicArray<Vector3f> GltfLoader::GetTangentVectors(const tinygltf::Primitive& 
 }
 
 DynamicArray<Vector3f> GltfLoader::GenerateTangetVectors(const DynamicArray<Vector2f>& texCoords, const DynamicArray<Vector3f>& _positions, const DynamicArray<TIndexSize>& indices, UIndex32 indicesStartOffset) {
-	DynamicArray<Vector3f> output = DynamicArray<Vector3f>::CreateResizedArray(texCoords.GetSize());
+	DynamicArray<Vector3f> output = DynamicArray<Vector3f>::CreateResized(texCoords.GetSize());
 
 	for (UIndex32 i = 0; i < indices.GetSize(); i += 3) {
 		const GRAPHICS::TIndexSize indexA = indices[i + 0] - indicesStartOffset;
@@ -763,7 +763,7 @@ DynamicArray<Vector2f> GltfLoader::GetTextureCoords(const tinygltf::Primitive& p
 	const float* texCoordsBuffer = reinterpret_cast<const float*>(&(model.buffers[view.buffer].data[accessor.byteOffset + view.byteOffset]));
 	const auto numVertices = static_cast<USize32>(accessor.count);
 
-	DynamicArray<Vector2f> output = DynamicArray<Vector2f>::CreateResizedArray(numVertices);
+	DynamicArray<Vector2f> output = DynamicArray<Vector2f>::CreateResized(numVertices);
 
 	for (USize32 v = 0; v < numVertices; v++) {
 		output[v] = Vector2f(
@@ -792,7 +792,7 @@ DynamicArray<Color> GltfLoader::GetVertexColors(const tinygltf::Primitive& primi
 
 	const int stride = colorVectorType;
 
-	DynamicArray<Color> output = DynamicArray<Color>::CreateResizedArray(numVertices);
+	DynamicArray<Color> output = DynamicArray<Color>::CreateResized(numVertices);
 
 	for (UIndex32 v = 0; v < numVertices; v++) {
 
@@ -844,7 +844,7 @@ DynamicArray<TIndexSize> GltfLoader::GetIndices(const tinygltf::Primitive& primi
 
 	const auto numIndices = static_cast<USize32>(indicesAccesor.count);
 
-	DynamicArray<TIndexSize> output = DynamicArray<TIndexSize>::CreateResizedArray(numIndices);
+	DynamicArray<TIndexSize> output = DynamicArray<TIndexSize>::CreateResized(numIndices);
 
 	// Los índices también se guardan en buffers.
 	// Necesitamos saber su tipo para procesar el buffer.
@@ -898,7 +898,7 @@ DynamicArray<Vector4f> GltfLoader::GetJoints(const tinygltf::Primitive& primitiv
 
 	const auto numVertices = static_cast<USize32>(accessor.count);
 
-	DynamicArray<Vector4f> output = DynamicArray<Vector4f>::CreateResizedArray(numVertices);
+	DynamicArray<Vector4f> output = DynamicArray<Vector4f>::CreateResized(numVertices);
 
 	for (UIndex32 v = 0; v < numVertices; v++) {
 		switch (jointsDataType) {
@@ -959,7 +959,7 @@ DynamicArray<Vector4f> GltfLoader::GetBoneWeights(const tinygltf::Primitive& pri
 
 	const USize32 numVertices = static_cast<USize32>(accessor.count);
 
-	DynamicArray<Vector4f> output = DynamicArray<Vector4f>::CreateResizedArray(numVertices);
+	DynamicArray<Vector4f> output = DynamicArray<Vector4f>::CreateResized(numVertices);
 
 	for (UIndex32 v = 0; v < numVertices; v++) {
 		output[v] = Vector4f(

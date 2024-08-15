@@ -18,7 +18,9 @@
 
 // import :BottomBar;
 
-OSK::Editor::UI::EditorUi::EditorUi(const Vector2f& size) : OSK::UI::BorderLayout(size) {
+OSK::Editor::UI::EditorUi::EditorUi(const Vector2f& size, OSK::Editor::Editor* editor) : OSK::UI::BorderLayout(size) {
+	OSK_ASSERT(editor, InvalidArgumentException("El editor no debe ser null."));
+
 	auto editorFont = Engine::GetAssetManager()->Load<OSK::ASSETS::Font>("Resources/Assets/Fonts/font1.json");
 
 	const USize32 fontSize = 14;
@@ -34,7 +36,7 @@ OSK::Editor::UI::EditorUi::EditorUi(const Vector2f& size) : OSK::UI::BorderLayou
 
 	// Object list
 	{
-		m_objectListPanel = new Editor::UI::ObjectList({ 300.0f, 500.0f });
+		m_objectListPanel = new OSK::Editor::UI::ObjectList({ 300.0f, 500.0f }, editor);
 
 		m_objectListPanel->SetAnchor(OSK::UI::Anchor::BOTTOM | OSK::UI::Anchor::RIGHT);
 
@@ -48,7 +50,7 @@ OSK::Editor::UI::EditorUi::EditorUi(const Vector2f& size) : OSK::UI::BorderLayou
 
 	// System list
 	{
-		m_systemListPanel = new Editor::UI::SystemList({ 300.0f, 500.0f });
+		m_systemListPanel = new OSK::Editor::UI::SystemList({ 300.0f, 500.0f });
 		m_systemListPanel->SetAnchor(OSK::UI::Anchor::BOTTOM | OSK::UI::Anchor::RIGHT);
 
 		m_systemListPanel->SetFont(editorFont);
@@ -81,4 +83,8 @@ void OSK::Editor::UI::EditorUi::Update(const OSK::ECS::EntityComponentSystem* ec
 	{
 		m_bottomBar->Update(deltaTime);
 	}
+}
+
+OSK::Editor::UI::ObjectList* OSK::Editor::UI::EditorUi::GetObjectListPanel() {
+	return m_objectListPanel;
 }

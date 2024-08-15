@@ -19,7 +19,7 @@ void Spline3D::Normalize() {
 		return;
 	}
 
-	DynamicArray<Vector3f> finalPoints = DynamicArray<Vector3f>::CreateReservedArray(m_points.GetSize());
+	DynamicArray<Vector3f> finalPoints = DynamicArray<Vector3f>::CreateReserved(m_points.GetSize());
 	finalPoints.Insert(m_points[0]);
 
 	for (UIndex64 i = 0; i < m_points.GetSize(); i++) {

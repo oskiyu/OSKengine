@@ -59,7 +59,7 @@ void Animation::Update(TDeltaTime deltaTime, const AnimationSkin& skin) {
 
 				case AnimationChannel::ChannelType::TRANSLATION: {
 					const Vector4f vec4 = MATH::LinearInterpolation_Fast(outputA, outputB, ratio);
-					bone.position = { vec4.x, vec4.y, vec4.Z };
+					bone.position = { vec4.x, vec4.y, vec4.z };
 				}
 				break;
 
@@ -67,14 +67,14 @@ void Animation::Update(TDeltaTime deltaTime, const AnimationSkin& skin) {
 					glm::quat prev{};
 					prev.x = outputA.x;
 					prev.y = outputA.y;
-					prev.z = outputA.Z;
-					prev.w = outputA.W;
+					prev.z = outputA.z;
+					prev.w = outputA.w;
 
 					glm::quat next{};
 					next.x = outputB.x;
 					next.y = outputB.y;
-					next.z = outputB.Z;
-					next.w = outputB.W;
+					next.z = outputB.z;
+					next.w = outputB.w;
 
 					bone.rotation = Quaternion::FromGlm(glm::normalize(glm::slerp(prev, next, ratio)));
 				}
@@ -82,7 +82,7 @@ void Animation::Update(TDeltaTime deltaTime, const AnimationSkin& skin) {
 
 				case AnimationChannel::ChannelType::SCALE: {
 					const Vector4f vec4 = MATH::LinearInterpolation_Fast(outputA, outputB, ratio);
-					bone.scale = { vec4.x, vec4.y, vec4.Z };
+					bone.scale = { vec4.x, vec4.y, vec4.z };
 				}
 				break;
 

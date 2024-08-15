@@ -14,6 +14,10 @@ namespace OSK {
 
 	public:
 
+		/// @brief Tipo de dato numérico usado 
+		/// para almacenar los números.
+		using TNumericType = T;
+
 		static OSKAPI_CALL Vector3_t const Zero;
 		static OSKAPI_CALL Vector3_t const One;
 

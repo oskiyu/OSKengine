@@ -24,7 +24,7 @@ RtShaderTableVk::RtShaderTableVk(USize32 numShaderGroups, VkPipeline pipeline) {
 
 	const USize64 tableSize = numGroups * handleSizeWithAlignment;
 
-	DynamicArray<TByte> temporalStorage = DynamicArray<TByte>::CreateResizedArray(tableSize);
+	DynamicArray<TByte> temporalStorage = DynamicArray<TByte>::CreateResized(tableSize);
 
 	// Obtiene los handles para los grupos y los almacena en temporalStorage.
 	VkResult result = RendererVk::pvkGetRayTracingShaderGroupHandlesKHR(Engine::GetRenderer()->GetGpu()->As<GpuVk>()->GetLogicalDevice(), pipeline,

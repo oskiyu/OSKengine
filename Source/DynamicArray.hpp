@@ -182,13 +182,17 @@ namespace OSK {
 
 		/// @brief Crea el dynamic array con espacio inicial para 10 elementos.
 		DynamicArray() : m_capacity(INITIAL_RESERVE_SIZE)  {
-			m_data = (T*)malloc(sizeof(T) * m_capacity);
+			m_data = static_cast<T*>(malloc(sizeof(T) * m_capacity));
 		}
 
 		/// @brief Crea el dynamic array con los elementos dados.
 		/// @param list Elementos iniciales.
 		DynamicArray(const std::initializer_list<T>& list) requires _DArr::IsCopyable<T> : m_count(list.size()), m_capacity(list.size()) {
-			m_data = (T*)malloc(sizeof(T) * m_capacity);
+			if (m_count == 0) {
+				return;
+			}
+
+			m_data = static_cast<T*>(malloc(sizeof(T) * m_capacity));
 
 			UIndex64 index = 0uL;
 			for (const auto& i : list) {
@@ -200,7 +204,7 @@ namespace OSK {
 		/// @brief Constructor de copia.
 		/// @param arr Otro DynamicArray.
 		DynamicArray(const DynamicArray& arr) requires _DArr::IsCopyable<T> : m_count(arr.m_count), m_capacity(arr.m_count) {
-			m_data = (T*)malloc(sizeof(T) * m_capacity);
+			m_data = static_cast<T*>(malloc(sizeof(T) * m_capacity));
 
 			for (USize64 i = 0; i < m_count; i++) {
 				new(::std::addressof(m_data[i])) T(arr.m_data[i]);
@@ -234,7 +238,7 @@ namespace OSK {
 		/// @param arr Otro array.
 		/// @warning Deja a @p arr en un estado inválido.
 		DynamicArray(DynamicArray&& arr) noexcept : m_capacity(arr.m_count), m_count(arr.m_count)  {
-			m_data = (T*)malloc(sizeof(T) * m_capacity);
+			m_data = static_cast<T*>(malloc(sizeof(T) * m_capacity));
 			
 			for (UIndex64 i = 0; i < arr.m_count; i++) {
 				if constexpr (_DArr::IsMovable<T>) {
@@ -283,7 +287,7 @@ namespace OSK {
 		/// @brief Crea un DynamicArray con espacio reservado para el número
 		/// de elementos dado.
 		/// @param reservedSize Tamaño reservado.
-		static DynamicArray CreateReservedArray(USize64 reservedSize) {
+		static DynamicArray CreateReserved(USize64 reservedSize) {
 			DynamicArray output;
 			output.Reserve(reservedSize);
 
@@ -296,7 +300,7 @@ namespace OSK {
 		/// @param ...args Argumentos para el constructor de los elementos.
 		/// @return DynamicArray con @p size elementos iguales.
 		template <typename... TArgs> 
-		static DynamicArray CreateResizedArray(USize64 size, TArgs... args) requires _DArr::IsCopyable<T> {
+		static DynamicArray CreateResized(USize64 size, TArgs... args) requires _DArr::IsCopyable<T> {
 			DynamicArray output;
 			output.Resize(size, args...);
 
@@ -309,11 +313,17 @@ namespace OSK {
 		/// @param ...args Argumentos para el constructor de los elementos.
 		/// @return DynamicArray con @p size elementos iguales.
 		template <typename... TArgs> 
-		static DynamicArray CreateResizedArrayMove(USize64 size, TArgs&&... args) requires _DArr::IsMovable<T> {
+		static DynamicArray CreateResizedMove(USize64 size, TArgs&&... args) requires _DArr::IsMovable<T> {
 			DynamicArray output;
 			output.ResizeMove(size, args...);
 
 			return output;
+		}
+
+		/// @return DynamicArray vacío.
+		/// No genera ningún alojamiento de memoria.
+		static DynamicArray CreateEmpty() {
+			return {};
 		}
 
 #pragma endregion
@@ -329,8 +339,8 @@ namespace OSK {
 
 			T* previousData = m_data;
 			m_data = m_data == nullptr
-				? (T*)malloc(sizeof(T) * count)
-				: (T*)realloc(m_data, sizeof(T) * count);
+				? static_cast<T*>(malloc(sizeof(T) * count))
+				: static_cast<T*>(realloc(m_data, sizeof(T) * count));
 
 			if (count > 0 && !m_data)
 				throw BadAllocException();
@@ -363,17 +373,16 @@ namespace OSK {
 
 			m_count++;
 		}
-
-		/// <summary>
-		/// Inserta un elemento al final del array.
-		/// </summary>
+				
+		/// @brief Inserta un elemento al final del array.
+		/// @param element Elemento al final del array.
+		/// 
+		/// @note Puede dejar invalidados iteradores.
 		void Insert(T&& element) requires _DArr::IsMovable<T> {
 			InsertMove(::std::move(element));
 		}
 
-		/// <summary>
-		/// Devuelve el elemento en la posición dada.
-		/// </summary>
+		/// @brief  Devuelve el elemento en la posición dada.
 		/// 
 		/// @throws std::runtime_error Si el índice es inválido.
 		/// @throws std::runtime_error Si no ha sido correctamente inicializado.
@@ -414,34 +423,30 @@ namespace OSK {
 			return m_data[index];
 		}
 
-		/// <summary>
-		/// Añade el elemento al final de la lista.
-		/// </summary>
+		/// @brief Añade el elemento al final de la lista.
+		/// @param elem Elemento a añadir.
+		/// 
+		/// @note Puede dejar invalidados iteradores.
 		void Push(const T& elem) requires _DArr::IsCopyable<T> {
 			InsertCopy(elem);
 		}
 
-		/// <summary>
-		/// Añade el elemento al final de la lista.
-		/// </summary>
+		/// @brief Añade el elemento al final de la lista.
+		/// @param elem Elemento a añadir.
+		/// 
+		/// @note Puede dejar invalidados iteradores.
 		void Push(T&& elem) requires _DArr::IsMovable<T> {
 			InsertMove(::std::move(elem));
 		}
 
-		/// <summary>
-		/// Devuelve el último elemento de la lista. 
-		/// 
+		/// @return Devuelve el último elemento de la lista. 
 		/// @note No lo quita de la lista.
-		/// </summary>
 		T& Peek() {
 			return At(m_count - 1);
 		}
 
-		/// <summary>
-		/// Devuelve el último elemento de la lista. 
-		/// 
-		/// @note Lo quita de la lista.
-		/// </summary>
+		/// @return Devuelve el último elemento de la lista. 
+		/// @post Quita el elemento de la lista.
 		T Pop() requires _DArr::IsMovable<T> {
 			T output = At(m_count - 1);
 
@@ -450,12 +455,8 @@ namespace OSK {
 			return output;
 		}
 
-		/// <summary>
-		/// Añade los elementos de 'arr' a este array.
-		/// </summary>
-		/// <param name="arr">Elementos a añadir.</param>
-		/// 
-		/// @bug No llama a los constructores de copia.
+		/// @brief Añade los elementos de 'arr' a este array.
+		/// @param arr Elementos a añadir.
 		void InsertAll(const DynamicArray& arr) requires _DArr::IsCopyable<T> {
 			EnsureSpace(m_count + arr.m_count);
 
@@ -463,19 +464,23 @@ namespace OSK {
 				InsertCopy(i);
 		}
 
-		/// <summary>
-		/// Cambia el tamaño del array.
-		/// Los datos se conservan, siempre que se pueda.
-		/// </summary>
+		/// @brief Cambia el tamaño del array.
+		/// @param size Nuevo tamaño, en número de elementos.
+		/// 
+		/// @post Si @p size >= GetSize(), entonces los
+		/// datos se conservan.
 		inline void Reserve(USize64 size) {
 			Allocate(size);
 		}
 
-		/// <summary>
-		/// Cambia el tamaño del array.
-		/// Los datos se conservan, siempre que se pueda.
-		/// Se añaden elementos hasta que haya 'size' elementos.
-		/// </summary>
+		/// @brief Cambia el tamaño del array,
+		/// insertando nuevos elementos.
+		/// @tparam ...TArgs Tipos de los argumentos para construir los nuevos elementos.
+		/// @param size Nuevo tamaño, en número de elementos.
+		/// @param ...args Argumentos para construir los nuevos elementos.
+		/// 
+		/// @post Si @p size >= GetSize(), entonces los
+		/// datos se conservan.
 		template <typename... TArgs> inline void Resize(USize64 size, const TArgs&... args) {
 			const auto oldCount = this->m_count;
 			Reserve(size);
@@ -486,11 +491,14 @@ namespace OSK {
 			this->m_count = size;
 		}
 
-		/// <summary>
-		/// Cambia el tamaño del array.
-		/// Los datos se conservan, siempre que se pueda.
-		/// Se añaden elementos hasta que haya 'size' elementos.
-		/// </summary>
+		/// @brief Cambia el tamaño del array,
+		/// insertando nuevos elementos.
+		/// @tparam ...TArgs Tipos de los argumentos para construir los nuevos elementos.
+		/// @param size Nuevo tamaño, en número de elementos.
+		/// @param ...args Argumentos para construir los nuevos elementos.
+		/// 
+		/// @post Si @p size >= GetSize(), entonces los
+		/// datos se conservan.
 		template <typename... TArgs> inline void ResizeMove(USize64 size, TArgs&&... args) {
 			const auto oldSize = this->m_count;
 			Reserve(size);
@@ -501,10 +509,10 @@ namespace OSK {
 			this->m_count = size;
 		}
 
-		/// <summary>
-		/// Elimina el elemento en la posición dada.
-		/// Llama al destructor.
-		/// </summary>
+		/// @brief Elimina el elemento en la posición dada.
+		/// @param index Índice del elemento.
+		/// 
+		/// @pre @p index < GetSize().
 		/// 
 		/// @throws std::runtime_error Si el índice es inválido.
 		/// @throws std::runtime_error Si no ha sido correctamente inicializado.
@@ -530,9 +538,8 @@ namespace OSK {
 			m_count--;
 		}
 
-		/// <summary>
-		/// Elimina el eleemento dado de la lista.
-		/// </summary>
+		/// @brief Elimina el primer elemento dado de la lista.
+		/// @param elem Elemento a eliminar.
 		/// 
 		/// @pre El tipo del elemento debe tener definido el operador de comparación '=='.
 		/// 
@@ -543,11 +550,9 @@ namespace OSK {
 				if (m_data[i] == elem)
 					RemoveAt(i);
 		}
-			
-		/// <summary>
-		/// Elimina el último elemento del array.
-		/// </summary>
-		/// 
+
+		/// @brief Elimina el último elemento del array.
+		/// @pre Hay al menos un elemento en la lista.
 		/// @throws std::runtime_error Si el array está vacío.
 		void RemoveLast() {
 #ifdef OSK_SAFE
@@ -558,23 +563,22 @@ namespace OSK {
 			m_count--;
 		}
 
-		/// <summary>
-		/// Comprueba si el elemento está presente en el array.
-		/// </summary>
+		/// @brief Comprueba si el elemento está presente en el array.
+		/// @param elem Elemento a buscar.
+		/// @return True si el elemento está presente.
 		/// 
 		/// @pre El tipo del elemento debe tener definido el operador de comparación '=='.
 		bool ContainsElement(const T& elem) const {
 			return !Find(elem).IsEmpty();
 		}
 
-		/// <summary>
-		/// Obtiene el índice del primer elemento almacenado que sea igual
-		/// a el dado.
-		/// </summary>
-		/// 
+		/// @param elem Elemento a buscar.
 		/// @pre El tipo del elemento debe tener definido el operador de comparación '=='.
 		/// 
 		/// @note Si no se encuentra, devuelve std::numeric_limits<USize64>::max().
+		/// 
+		/// @return Obtiene el índice del primer elemento almacenado que sea igual
+		/// a el dado.
 		UIndex64 GetIndexOf(const T& elem) const {
 			const ConstIterator it = Find(elem);
 
@@ -585,10 +589,9 @@ namespace OSK {
 
 		constexpr static UIndex64 NotFoundIndex = std::numeric_limits<UIndex64>::max();
 
-		/// <summary>
-		/// Obtiene el iterador del primer elemento almacenado que sea igual
+		/// @param elem Elemento a buscar.
+		/// @return Obtiene el iterador del primer elemento almacenado que sea igual
 		/// a el dado.
-		/// </summary>
 		/// 
 		/// @note Devuelve un iterador vacío si no está.
 		/// 
@@ -600,7 +603,6 @@ namespace OSK {
 
 			return Iterator(nullptr);
 		}
-
 		ConstIterator Find(const T& elem) const {
 			for (USize64 i = 0; i < m_count; i++)
 				if (elem == m_data[i])
@@ -609,9 +611,7 @@ namespace OSK {
 			return ConstIterator(nullptr);
 		}
 
-		/// <summary>
-		/// Elimina el array, liberando memoria.
-		/// </summary>
+		/// @brief Elimina el array, liberando memoria.
 		void Free() {
 			if (m_data) {
 				Empty();
@@ -624,9 +624,7 @@ namespace OSK {
 			m_count = 0u;
 		}
 
-		/// <summary>
-		/// Elimina los elementos, sin liberar memoria.
-		/// </summary>
+		/// @brief Elimina los elementos, sin liberar memoria.
 		void Empty() {
 			for (USize64 i = 0; i < m_count; i++)
 				m_data[i].~T();
@@ -634,11 +632,11 @@ namespace OSK {
 			m_count = 0;
 		}
 
-		/// <summary>
-		/// Devuelve el elemento en la posición dada.
-		/// </summary>
-		/// <param name="i">Posición en el array.</param>
-		/// <returns>Elemento.</returns>
+		/// @brief Devuelve el elemento en la posición dada.
+		/// @param i Posición en el array.
+		/// @return Elemento en la posición dada.
+		/// 
+		/// @pre @p i < GetSize().
 		/// 
 		/// @throws std::runtime_error Si el índice es inválido.
 		/// @throws std::runtime_error Si no ha sido correctamente inicializado.
@@ -653,38 +651,28 @@ namespace OSK {
 
 #pragma region Getters & setters
 
-		/// <summary>
-		/// Devuelve true si el array se ha inicializado.
-		/// </summary>
-		/// <returns>Estado del array.</returns>
+		/// @brief Devuelve true si el array se ha inicializado.
+		/// @return Estado del array.
 		bool HasBeenInitialized() const noexcept {
 			return m_data != nullptr;
 		}
 
-		/// <summary>
-		/// Devuelve true si el array está vacío.
-		/// </summary>
+		/// @return Devuelve true si el array está vacío.
 		bool IsEmpty() const noexcept {
 			return m_count == 0;
 		}
 
-		/// <summary>
-		/// Devuelve el número de elementos almacenados.
-		/// </summary>
+		/// @return Devuelve el número de elementos almacenados.
 		USize64 GetSize() const noexcept {
 			return m_count;
 		}
 
-		/// <summary>
-		/// Devuelve el número de elementos reservados.
-		/// </summary>
+		/// @return Devuelve el número de elementos reservados.
 		USize64 GetReservedSize() const noexcept {
 			return m_capacity;
 		}
 
-		/// <summary>
-		/// Devuelve el array original.
-		/// </summary>
+		/// @return Punteros a los datos.
 		const T* GetData() const noexcept {
 			return m_data;
 		}
@@ -696,8 +684,6 @@ namespace OSK {
 		std::span<T> GetFullSpan() {
 			return std::span<T>(m_data, m_count);
 		}
-
-		/// @return Span con todos los elementos de la lista.
 		std::span<const T> GetFullSpan() const {
 			return std::span<T>(m_data, m_count);
 		}
@@ -746,24 +732,22 @@ namespace OSK {
 			return GetConstIterator(m_count);
 		}
 
-		/// <summary>
-		/// Devuelve el iterador que apunta a un elemento en particular.
-		/// </summary>
+		/// @param index Índice del elemento buscado.
+		/// @return Devuelve el iterador que apunta a un elemento en particular.
+		/// 
+		/// @pre @p index < GetSize().
 		/// 
 		/// @note Puede no apuntar a un element válido.
 		Iterator GetIterator(UIndex64 index) noexcept {
 			return Iterator(m_data + index);
 		}
-
 		constexpr ConstIterator GetConstIterator(UIndex64 index) const noexcept {
 			return ConstIterator(m_data + index);
 		}
 
 #pragma endregion
 
-		/// <summary>
-		/// Comportamiento al aumentar de tamaño.
-		/// </summary>
+		/// @brief Comportamiento al aumentar de tamaño.
 		GrowthFactorType growthFactorType = GrowthFactorType::EXPONENTIAL;
 
 	private:

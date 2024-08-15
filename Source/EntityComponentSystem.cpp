@@ -156,7 +156,7 @@ SavedGameObjectTranslator EntityComponentSystem::LoadScene(std::string_view path
 	nlohmann::json data = nlohmann::json::parse(IO::FileIO::ReadFromFile(path));
 
 	// Objects
-	auto oldObjects = DynamicArray<GameObjectIndex>::CreateReservedArray(m_gameObjectManager->GetAllLivingObjects().size());
+	auto oldObjects = DynamicArray<GameObjectIndex>::CreateReserved(m_gameObjectManager->GetAllLivingObjects().size());
 
 	for (const auto& obj : m_gameObjectManager->GetAllLivingObjects()) {
 		oldObjects.Insert(obj);
@@ -214,7 +214,7 @@ SavedGameObjectTranslator EntityComponentSystem::LoadBinaryScene(std::string_vie
 		InvalidArgumentException(std::format("EL archivo de escena {} no existe.", path)));
 
 	auto data = IO::FileIO::ReadBinaryFromFile(path);
-	auto bData = DynamicArray<TByte>::CreateReservedArray(data.GetSize());
+	auto bData = DynamicArray<TByte>::CreateReserved(data.GetSize());
 	for (const auto byte : data) {
 		bData.Insert(byte);
 	}
@@ -228,7 +228,7 @@ SavedGameObjectTranslator EntityComponentSystem::LoadBinaryScene(std::string_vie
 
 	// Destruir objetos.
 	{
-		auto oldObjects = DynamicArray<GameObjectIndex>::CreateReservedArray(m_gameObjectManager->GetAllLivingObjects().size());
+		auto oldObjects = DynamicArray<GameObjectIndex>::CreateReserved(m_gameObjectManager->GetAllLivingObjects().size());
 
 		for (const auto& obj : m_gameObjectManager->GetAllLivingObjects()) {
 			oldObjects.Insert(obj);
@@ -281,7 +281,7 @@ SavedGameObjectTranslator EntityComponentSystem::LoadBinaryScene(std::string_vie
 		const auto systemsDataOffset = systemReader.Read<USize64>() + systemReader.GetOriginalOffset();
 
 		// Leemos los nombres cuyos datos han sido guardados.
-		auto systemNames = DynamicArray<std::string>::CreateReservedArray(numSistemas);
+		auto systemNames = DynamicArray<std::string>::CreateReserved(numSistemas);
 		for (UIndex64 i = 0; i < numSistemas; i++) {
 			systemNames.Insert(systemReader.ReadString());
 		}
@@ -320,7 +320,7 @@ SavedGameObjectTranslator EntityComponentSystem::LoadBinaryScene(std::string_vie
 		const auto componentDatasOffset = componentReader.Read<USize64>();
 
 		// Leemos los nombres de los TIPOS de componentes.
-		auto componentTypeNames = DynamicArray<std::string>::CreateReservedArray(numComponentTypes);
+		auto componentTypeNames = DynamicArray<std::string>::CreateReserved(numComponentTypes);
 		for (UIndex64 i = 0; i < numComponentTypes; i++) {
 			componentTypeNames.Insert(componentReader.ReadString());
 		}
@@ -399,6 +399,18 @@ DynamicArray<ComponentType> EntityComponentSystem::GetObjectComponentsTypes(Game
 	}
 
 	return output;
+}
+
+void* EntityComponentSystem::GetComponentAddress(GameObjectIndex obj, ComponentType type) {
+	return m_componentManager->GetComponentAddress(obj, type);
+}
+
+const void* EntityComponentSystem::GetComponentAddress(GameObjectIndex obj, ComponentType type) const {
+	return m_componentManager->GetComponentAddress(obj, type);
+}
+
+bool EntityComponentSystem::ObjectHasComponent(GameObjectIndex obj, ComponentType componentType) const {
+	return m_componentManager->GetComponentAddress(obj, componentType) != nullptr;
 }
 
 std::string EntityComponentSystem::GetComponentTypeName(ComponentType type) const {

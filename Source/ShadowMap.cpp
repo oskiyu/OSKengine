@@ -67,7 +67,7 @@ void ShadowMap::SetDirectionalLight(const DirectionalLight& dirLight) {
 	// OSK_ASSERT(m_shadowsGenMaterialInstance.HasValue(), InvalidObjectStateException("Se debe crear el ShadowMap antes de poder establecer su luz direccional."));
 
 	m_lightDirection = 
-		Vector3f(dirLight.directionAndIntensity.x, dirLight.directionAndIntensity.y, dirLight.directionAndIntensity.Z).GetNormalized();
+		Vector3f(dirLight.directionAndIntensity.x, dirLight.directionAndIntensity.y, dirLight.directionAndIntensity.z).GetNormalized();
 
 	UpdateLightMatrixBuffer();
 }
@@ -155,7 +155,7 @@ GpuImage* ShadowMap::GetColorImage() {
 }
 
 DynamicArray<GpuBuffer*> ShadowMap::GetDirLightMatrixUniformBuffers() {
-	auto output = DynamicArray<GpuBuffer*>::CreateResizedArray(MAX_RESOURCES_IN_FLIGHT);
+	auto output = DynamicArray<GpuBuffer*>::CreateResized(MAX_RESOURCES_IN_FLIGHT);
 	for (UIndex32 i = 0; i < MAX_RESOURCES_IN_FLIGHT; i++)
 		output[i] = (lightUniformBuffer[i].GetPointer());
 

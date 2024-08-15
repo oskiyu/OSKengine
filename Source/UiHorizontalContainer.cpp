@@ -26,7 +26,7 @@ void HorizontalContainer::EmplaceChild(IElement* child) {
 	} 
 	else if (EFTraits::HasFlag(child->GetAnchor(), Anchor::BOTTOM)) 
 	{
-		verticalPositionOffset = GetContentSize().y - child->GetSize().y - child->GetMarging().W;
+		verticalPositionOffset = GetContentSize().y - child->GetSize().y - child->GetMarging().w;
 	}
 
 	const Vector2f childPosition = Vector2f(
@@ -35,7 +35,7 @@ void HorizontalContainer::EmplaceChild(IElement* child) {
 
 	child->_SetPosition(childPosition.ToVector2i().ToVector2f());
 
-	m_relativeNextPosition += child->GetSize().x + child->GetMarging().x + child->GetMarging().Z;
+	m_relativeNextPosition += child->GetSize().x + child->GetMarging().x + child->GetMarging().z;
 }
 
 void HorizontalContainer::ResetLayout() {

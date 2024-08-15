@@ -12,6 +12,10 @@ namespace OSK::ECS {
 	class EntityComponentSystem;
 }
 
+namespace OSK::Editor {
+	class Editor;
+}
+
 namespace OSK::Editor::UI {
 
 	class ObjectList;
@@ -26,7 +30,9 @@ namespace OSK::Editor::UI {
 
 		static constexpr auto Name = "EditorUi";
 
-		explicit EditorUi(const Vector2f& size);
+		explicit EditorUi(
+			const Vector2f& size,
+			OSK::Editor::Editor* editor);
 
 		/// @brief Actualiza la interfaz de todo el editor.
 		/// @param ecs Clase ECS del motor.
@@ -34,6 +40,8 @@ namespace OSK::Editor::UI {
 		void Update(
 			const OSK::ECS::EntityComponentSystem* ecs,
 			TDeltaTime deltaTime);
+
+		ObjectList* GetObjectListPanel();
 
 	private:
 
