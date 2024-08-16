@@ -27,11 +27,11 @@ OSK::Editor::Views::PhysicsComponentView::PhysicsComponentView(const Vector2f& s
 	m_accelerationView->SetFont(font);
 	m_accelerationView->SetFontSize(Editor::UI::Constants::SecondaryFontSize);
 
-	AddChild("m_massView", m_massView);
-	AddChild("m_velocityView", m_velocityView);
-	AddChild("m_accelerationView", m_accelerationView);
+	GetUnderlyingContainer()->AddChild("m_massView", m_massView);
+	GetUnderlyingContainer()->AddChild("m_velocityView", m_velocityView);
+	GetUnderlyingContainer()->AddChild("m_accelerationView", m_accelerationView);
 
-	AdjustSizeToChildren();
+	GetUnderlyingContainer()->AdjustSizeToChildren();
 }
 
 void OSK::Editor::Views::PhysicsComponentView::SetMass(float value) {

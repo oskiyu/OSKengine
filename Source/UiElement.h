@@ -27,6 +27,9 @@ namespace OSK::IO {
 
 namespace OSK::UI {
 
+	class IContainer;
+
+
 	/// @brief Clase base para todos los elementos de interfaz de usuario.
 	/// @todo Establecer unidad de tamaño independiente de la resolución.
 	class OSKAPI_CALL IElement {
@@ -219,6 +222,9 @@ namespace OSK::UI {
 		/// Y -> margen superior + margen inferior.
 		Vector2f GetMarging2D() const;
 
+
+		void _SetParent(IContainer* parent);
+
 	protected:
 
 		/// @brief Función que se ejecuta al cambiarse la
@@ -256,6 +262,14 @@ namespace OSK::UI {
 		/// a todas las llamadas.
 		void ResizeDrawCalls(const Vector2f& sizeDiff);
 
+
+		/// @return Elemento padre.
+		/// Puede ser nullptr.
+		IContainer* GetParent();
+
+		/// @return True si tiene un elemento padre.
+		bool HasParent() const;
+
 	private:
 
 		DynamicArray<GRAPHICS::SdfDrawCall2D> m_drawCalls{};
@@ -276,6 +290,9 @@ namespace OSK::UI {
 		/// @brief True si se debe conservar el tamaño relativo de este elemento
 		/// cuando el elemento padre sea cambiado de tamaño.
 		bool m_keepRelativeSize = false;
+
+		/// @brief (Opcional) padre de este elemento.
+		IContainer* m_parent = nullptr;
 
 	};
 

@@ -120,6 +120,8 @@ void OSK::Editor::UI::SystemList::SetSystems(std::span<const OSK::ECS::ISystem*>
 		m_textViews[i]->SetVisible();
 		m_textViews[i]->SetText(std::format("{}", systems[i]->GetName()));
 	}
+
+	Rebuild();
 }
 
 void OSK::Editor::UI::SystemList::SetFont(OSK::ASSETS::AssetRef<OSK::ASSETS::Font> font) {

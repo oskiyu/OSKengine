@@ -166,6 +166,7 @@
     <ClCompile Include="TransformComponentController3D.cpp" />
     <ClCompile Include="TransformComponentView3D.cpp" />
     <ClCompile Include="UiBorderLayout.cpp" />
+    <ClCompile Include="UiCollapsibleWrapper.cpp" />
     <ClCompile Include="UiConsole.cpp" />
     <ClCompile Include="UiDropdown.cpp" />
     <ClCompile Include="UiFreeContainer.cpp" />
@@ -712,6 +713,7 @@
     <ClInclude Include="UiAnchor.h" />
     <ClInclude Include="UiBorderLayout.h" />
     <ClInclude Include="UiButton.h" />
+    <ClInclude Include="UiCollapsibleWrapper.h" />
     <ClInclude Include="UiConsole.h" />
     <ClInclude Include="UiDropdown.h" />
     <ClInclude Include="UiElement.h" />

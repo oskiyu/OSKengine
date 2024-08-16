@@ -44,6 +44,7 @@
 #include "UiButton.h"
 #include "UiDropdown.h"
 #include "UiTextInput.h"
+#include "UiCollapsibleWrapper.h"
 
 #include "AssetLoaderJob.h"
 
@@ -121,6 +122,7 @@
 #include "StopWatch.h"
 
 #include "EditorUi.h"
+#include "EditorUiConstants.h"
 
 #include "SdfBindlessRenderer2D.h"
 #include "SdfStringInfo.h"

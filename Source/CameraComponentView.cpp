@@ -15,9 +15,8 @@ OSK::Editor::Views::CameraComponentView::CameraComponentView(const Vector2f& siz
 	m_fovView->SetFont(font);
 	m_fovView->SetFontSize(Editor::UI::Constants::SecondaryFontSize);
 
-	AddChild("fov", m_fovView);
-
-	AdjustSizeToChildren();
+	GetUnderlyingContainer()->AddChild("fov", m_fovView);
+	GetUnderlyingContainer()->AdjustSizeToChildren();
 }
 
 OSK::UI::TextView* OSK::Editor::Views::CameraComponentView::GetFovView() {

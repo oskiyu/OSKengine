@@ -2,6 +2,7 @@
 
 #include "ApiCall.h"
 #include "UiVerticalContainer.h"
+#include "UiCollapsibleWrapper.h"
 
 #include <type_traits>
 
@@ -13,7 +14,7 @@ namespace OSK::Editor::Views {
 
 	/// @brief Elemento de interfaz de usuario que muestra las
 	/// propiedades de un componente en el editor.
-	class OSKAPI_CALL IComponentView : public OSK::UI::VerticalContainer {
+	class OSKAPI_CALL IComponentView : public OSK::UI::CollapsibleWrapper {
 
 	public:
 
@@ -24,6 +25,10 @@ namespace OSK::Editor::Views {
 			const std::string& title);
 
 		void OnSizeChanged(const Vector2f& previousSize) override;
+
+		/// @return Contenedor en el que se inserta
+		/// la información del componente.
+		VerticalContainer* GetUnderlyingContainer();
 
 	private:
 

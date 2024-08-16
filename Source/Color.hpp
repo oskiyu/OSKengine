@@ -18,10 +18,32 @@ namespace OSK {
 		/// @brief Color vacío (negro y transparente).
 		constexpr Color() = default;
 
+
 		/// @brief Crea una instancia del color con los siguiente parámetros:
-		/// @param r Intensidad del color rojo.
-		/// @param g Intensidad del color verde.
-		/// @param b Intensidad del color azul.
+		/// @param r Intensidad del color rojo (rango 0-255).
+		/// @param g Intensidad del color verde (rango 0-255).
+		/// @param b Intensidad del color azul (rango 0-255).
+		constexpr static Color FromBytes(TByte r, TByte g, TByte b) {
+			return FromBytes(r, g, b, 255);
+		}
+
+		/// @brief Crea una instancia del color con los siguiente parámetros:
+		/// @param r Intensidad del color rojo (rango 0-255).
+		/// @param g Intensidad del color verde (rango 0-255).
+		/// @param b Intensidad del color azul (rango 0-255).
+		/// @param a Opacidad (rango 0-255).
+		constexpr static Color FromBytes(TByte r, TByte g, TByte b, TByte a) {
+			return Color(
+				static_cast<float>(r) / 255.0f,
+				static_cast<float>(g) / 255.0f,
+				static_cast<float>(b) / 255.0f,
+				static_cast<float>(a) / 255.0f);
+		}
+
+		/// @brief Crea una instancia del color con los siguiente parámetros:
+		/// @param r Intensidad del color rojo (rango 0.0-1.0).
+		/// @param g Intensidad del color verde (rango 0.0-1.0).
+		/// @param b Intensidad del color azul (rango 0.0-1.0).
 		constexpr Color(float r, float g, float b) :
 			red(r),
 			green(g),
@@ -29,10 +51,10 @@ namespace OSK {
 			alpha(1.0f) { }
 
 		/// @brief Crea una instancia del color con los siguiente parámetros:
-		/// @param r Intensidad del color rojo.
-		/// @param g Intensidad del color verde.
-		/// @param b Intensidad del color azul.
-		/// @param a Opacidad.
+		/// @param r Intensidad del color rojo (rango 0.0-1.0).
+		/// @param g Intensidad del color verde (rango 0.0-1.0).
+		/// @param b Intensidad del color azul (rango 0.0-1.0).
+		/// @param a Opacidad (rango 0.0-1.0).
 		constexpr Color(float r, float g, float b, float a) :
 			red(r),
 			green(g),
@@ -40,7 +62,7 @@ namespace OSK {
 			alpha(a) { }
 
 		/// @brief Crea una instancia del color.
-		/// @param value Intensidad del rojo verde y azul.
+		/// @param value Intensidad del rojo verde y azul (rango 0.0-1.0).
 		/// @note Alpha = 1.0f.
 		constexpr explicit Color(float value) :
 			red(value),

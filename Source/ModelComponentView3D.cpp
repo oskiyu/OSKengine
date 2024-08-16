@@ -35,12 +35,12 @@ OSK::Editor::Views::ModelComponentView3D::ModelComponentView3D(const Vector2f& s
 	m_shaderPassesTitle->SetFontSize(Editor::UI::Constants::SecondaryFontSize);
 	m_shaderPassesTitle->SetText("Pases de renderizado:");
 
-	AddChild("m_assetPathView", m_assetPathView);
-	AddChild("m_castsShadowsView", m_castsShadowsView);
-	AddChild("m_isAnimatedView", m_isAnimatedView);
-	AddChild("m_shaderPassesTitle", m_shaderPassesTitle);
+	GetUnderlyingContainer()->AddChild("m_assetPathView", m_assetPathView);
+	GetUnderlyingContainer()->AddChild("m_castsShadowsView", m_castsShadowsView);
+	GetUnderlyingContainer()->AddChild("m_isAnimatedView", m_isAnimatedView);
+	GetUnderlyingContainer()->AddChild("m_shaderPassesTitle", m_shaderPassesTitle);
 
-	AdjustSizeToChildren();
+	GetUnderlyingContainer()->AdjustSizeToChildren();
 }
 
 void OSK::Editor::Views::ModelComponentView3D::SetAssetPath(const std::string& path) {
@@ -80,7 +80,9 @@ void OSK::Editor::Views::ModelComponentView3D::AddShaderPass(const std::string& 
 
 	view->SetText(GetPassDisplayName(name));
 
-	AddChild(static_cast<std::string>(view->GetText()), view);
+	GetUnderlyingContainer()->AddChild(static_cast<std::string>(view->GetText()), view);
+	GetUnderlyingContainer()->AdjustSizeToChildren();
+	AdjustSizeToChildren();
 
 	m_shaderPassesViews.Insert(view);
 }

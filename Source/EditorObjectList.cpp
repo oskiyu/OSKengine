@@ -36,6 +36,7 @@ OSK::Editor::UI::ObjectList::ObjectList(const Vector2f& size, OSK::Editor::Edito
 
 	AddChild("title", m_title);
 
+	AddCreateObjectButton();
 
 	for (UIndex64 i = 0; i < MaxShownObjects; i++) {
 		auto* view = new OSK::UI::Button(textSize);
@@ -62,7 +63,7 @@ OSK::Editor::UI::ObjectList::ObjectList(const Vector2f& size, OSK::Editor::Edito
 			view->GetPressedDrawCalls().Insert(pressedDrawCall);
 		}
 
-		if (i % 2 == 1) {
+		if (i % 2 == 0) {
 			GRAPHICS::SdfDrawCall2D defaultDrawCall{};
 			defaultDrawCall.contentType = GRAPHICS::SdfDrawCallContentType2D::COLOR_FLAT;
 			defaultDrawCall.shape = GRAPHICS::SdfShape2D::RECTANGLE;
@@ -88,6 +89,8 @@ OSK::Editor::UI::ObjectList::ObjectList(const Vector2f& size, OSK::Editor::Edito
 				auto obj = std::stoull(text);
 				// m_propertiesPanel->UpdateByObject(OSK::ECS::GameObjectIndex(obj));
 				m_editorRef->SetSelectedObject(OSK::ECS::GameObjectIndex(obj));
+				m_selectedObject = OSK::ECS::GameObjectIndex(obj);
+				m_propertiesPanel->SetObject(OSK::ECS::GameObjectIndex(obj));
 			}
 			else {
 				m_propertiesPanel->ClearContent();
@@ -116,6 +119,8 @@ void OSK::Editor::UI::ObjectList::SetObjects(std::span<const OSK::ECS::GameObjec
 		m_textViews[i]->SetVisible();
 		m_textViews[i]->SetText(std::format("Objeto {}", objects[i].Get()));
 	}
+
+	Rebuild();
 }
 
 void OSK::Editor::UI::ObjectList::SetFont(OSK::ASSETS::AssetRef<OSK::ASSETS::Font> font) {
@@ -149,4 +154,43 @@ void OSK::Editor::UI::ObjectList::ClearSelection() {
 
 OSK::Editor::UI::ObjectPropertiesPanel* OSK::Editor::UI::ObjectList::GetPropertiesPanel() {
 	return m_propertiesPanel;
+}
+
+OSK::ECS::GameObjectIndex OSK::Editor::UI::ObjectList::GetSelectedObject() const {
+	return m_selectedObject;
+}
+
+void OSK::Editor::UI::ObjectList::AddCreateObjectButton() {
+	auto newObjectButton = new OSK::UI::Button({ GetSize().x - 20.0f, 25.0f}, "Nuevo objeto");
+
+	newObjectButton->SetMargin({
+		newObjectButton->GetMarging2D().x,
+		newObjectButton->GetMarging2D().y + 10.0f
+		});
+	newObjectButton->SetType(OSK::UI::Button::Type::NORMAL);
+	newObjectButton->SetTextFont(Engine::GetAssetManager()->Load<OSK::ASSETS::Font>(OSK::Editor::UI::Constants::EditorFontPath));
+	newObjectButton->SetTextFontSize(OSK::Editor::UI::Constants::SecondaryFontSize);
+	newObjectButton->SetCallback([this](bool) {
+		Engine::GetEcs()->SpawnObject();
+		});
+
+	{
+		GRAPHICS::SdfDrawCall2D background{};
+		background.contentType = GRAPHICS::SdfDrawCallContentType2D::COLOR_FLAT;
+		background.fill = true;
+		background.shape = GRAPHICS::SdfShape2D::RECTANGLE;
+		background.transform.SetPosition(GetContentTopLeftPosition());
+		background.transform.SetScale(newObjectButton->GetSize());
+
+		background.mainColor = OSK::Editor::UI::Constants::DefaultGreenColor;
+		newObjectButton->GetDefaultDrawCalls().Insert(background);
+
+		background.mainColor = OSK::Editor::UI::Constants::HoveredGreenColor;
+		newObjectButton->GetSelectedDrawCalls().Insert(background);
+
+		background.mainColor = OSK::Editor::UI::Constants::SelectedGreenColor;
+		newObjectButton->GetPressedDrawCalls().Insert(background);
+	}
+
+	AddChild("newObjectButton", newObjectButton);
 }

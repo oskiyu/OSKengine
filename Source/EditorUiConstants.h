@@ -14,6 +14,13 @@ namespace OSK::Editor::UI::Constants {
 
 	constexpr static Color DetailsColor = Color(51.0f / 255.0f, 102.0f / 255.0f, 1.0f);
 
+	constexpr static Color DefaultGreenColor = Color::FromBytes(92, 153, 80);
+	constexpr static Color HoveredGreenColor = Color::FromBytes(88, 168, 72);
+	constexpr static Color SelectedGreenColor = Color::FromBytes(52, 145, 33);
+
+	constexpr static Color DefaultRedColor = Color::FromBytes(150, 62, 62);
+	constexpr static Color HoveredRedColor = Color::FromBytes(179, 46, 46);
+	constexpr static Color SelectedRedColor = Color::FromBytes(148, 15, 15);
 
 	constexpr static auto EditorFontPath = "Resources/Assets/Fonts/font1.json";
 

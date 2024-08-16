@@ -32,6 +32,10 @@ void IContainer::AdjustSizeToChildren() {
 	Vector2f newSize = Vector2f::Zero;
 
 	for (const auto& child : m_children) {
+		if (!child->IsVisible()) {
+			continue;
+		}
+
 		const Vector2f childRelativePosition = child->GetPosition() - GetPosition();
 		const Vector2f childRightBottomMargings = Vector2f(child->GetMarging().z, child->GetMarging().w);
 
@@ -47,6 +51,8 @@ void IContainer::AddChild(const std::string& key, OwnedPtr<IElement> child) {
 	m_children.Insert(child.GetPointer());
 	m_childrenTable[key] = child.GetPointer();
 
+	child->_SetParent(this);
+
 	EmplaceChild(child.GetPointer());
 }
 
@@ -55,6 +61,10 @@ void IContainer::Rebuild() {
 
 	for (auto& child : m_children)
 		EmplaceChild(child.GetPointer());
+
+	for (auto& child : m_children)
+		if (child->Is<IContainer>())
+			child->As<IContainer>()->Rebuild();
 }
 
 void IContainer::Render(SdfBindlessRenderer2D* renderer) const {

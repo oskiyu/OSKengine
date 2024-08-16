@@ -170,6 +170,10 @@ Vector2f IElement::GetMarging2D() const {
 	);
 }
 
+void IElement::_SetParent(IContainer* parent) {
+	m_parent = parent;
+}
+
 void IElement::RepositionDrawCalls(const Vector2f& positionDiff) {
 	for (SdfDrawCall2D& drawCall : m_drawCalls) {
 		drawCall.transform.AddPosition(positionDiff);
@@ -188,8 +192,16 @@ void IElement::OnPositionChanged(const Vector2f& previousPosition) {
 }
 
 void IElement::OnSizeChanged(const Vector2f& previousSize) {
-	if (m_keepRelativeSize) {
+	// if (m_keepRelativeSize) {
 		const Vector2f sizeDiff = m_size / previousSize;
 		ResizeDrawCalls(sizeDiff);
-	}
+	// }
+}
+
+IContainer* IElement::GetParent() {
+	return m_parent;
+}
+
+bool IElement::HasParent() const {
+	return m_parent;
 }

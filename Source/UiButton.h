@@ -99,6 +99,8 @@ namespace OSK::UI {
 		/// @return Devuelve el tipo de botón actual.
 		Type GetType() const;
 
+		void _SetPosition(const Vector2f& newPosition) override;
+
 	public:
 
 		/// @brief Establece la fuente del texto.
@@ -145,7 +147,6 @@ namespace OSK::UI {
 
 	private:
 
-		void _SetPosition(const Vector2f& newPosition) override;
 		Vector2f GetTextRelativePosition() const;
 
 	private:

@@ -6,7 +6,7 @@ INFO: Versión de vulkan: 1.3.275
 INFO: GPU elegida: NVIDIA GeForce RTX 2060
 INFO: Uso de cola GPU unificada.
 INFO: Uso de cola GPU de transferencia.
-INFO: Tiempo de carga: 4.4149613 segundos
+INFO: Tiempo de carga: 4.2374687 segundos
 INFO: 	~IGpuMemoryAllocator
 INFO: Cerrado el log.
 
