@@ -52,7 +52,8 @@ var searchData=
   ['executetaa_49',['ExecuteTaa',['../class_o_s_k_1_1_e_c_s_1_1_deferred_render_system.html#ad833653890d8aae3a4707d40aa05015e',1,'OSK::ECS::DeferredRenderSystem::ExecuteTaa()'],['../class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_taa_provider.html#a28f0749fc516604c8d8527d411051898',1,'OSK::GRAPHICS::TaaProvider::ExecuteTaa()']]],
   ['exit_50',['Exit',['../class_o_s_k_1_1_i_game.html#ae8194150599c2c8d05a49efe80fe1b47',1,'OSK::IGame']]],
   ['exitcommand_51',['ExitCommand',['../class_o_s_k_1_1_exit_command.html',1,'OSK::ExitCommand'],['../class_o_s_k_1_1_exit_command.html#a3234cbb72757dc6d0237d9e0dac00544',1,'OSK::ExitCommand::ExitCommand()']]],
-  ['explicit_52',['explicit',['../class_o_s_k_1_1_static_array.html#aafbbf28bcad537c77a8df2f03abad097',1,'OSK::StaticArray']]],
-  ['exponential_53',['EXPONENTIAL',['../namespace_o_s_k.html#abaa28774128d414c059ee31f2759d274adcd5fc33e211f31cef0cd7cb36518d31',1,'OSK']]],
-  ['extendedfeatures_54',['extendedFeatures',['../struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_vk_1_1_info.html#a5cac86c2c23afd677598e0a42b441f72',1,'OSK::GRAPHICS::GpuVk::Info']]]
+  ['expand_52',['Expand',['../class_o_s_k_1_1_u_i_1_1_collapsible_wrapper.html#a5bdeb78aac74515c00fd1ff5ab81ed20',1,'OSK::UI::CollapsibleWrapper']]],
+  ['explicit_53',['explicit',['../class_o_s_k_1_1_static_array.html#aafbbf28bcad537c77a8df2f03abad097',1,'OSK::StaticArray']]],
+  ['exponential_54',['EXPONENTIAL',['../namespace_o_s_k.html#abaa28774128d414c059ee31f2759d274adcd5fc33e211f31cef0cd7cb36518d31',1,'OSK']]],
+  ['extendedfeatures_55',['extendedFeatures',['../struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_vk_1_1_info.html#a5cac86c2c23afd677598e0a42b441f72',1,'OSK::GRAPHICS::GpuVk::Info']]]
 ];

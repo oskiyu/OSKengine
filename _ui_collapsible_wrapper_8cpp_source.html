@@ -1,0 +1,237 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="es">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.12.0"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>OSKengine: Archivo de código fuente Source/UiCollapsibleWrapper.cpp</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="doxygen-awesome.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">OSKengine<span id="projectnumber">&#160;Indev</span>
+   </div>
+   <div id="projectbrief">Motor de videojuegos.</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generado por Doxygen 1.12.0 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+/* @license-end */
+</script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() { codefold.init(0); });
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() {
+  initMenu('',true,false,'search.php','Buscar',true);
+  $(function() { init_search(); });
+});
+/* @license-end */
+</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function(){initNavTree('_ui_collapsible_wrapper_8cpp_source.html',''); initResizable(true); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Cargando...</div>
+<div class="SRStatus" id="Searching">Buscando...</div>
+<div class="SRStatus" id="NoMatches">Nada coincide</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">UiCollapsibleWrapper.cpp</div></div>
+</div><!--header-->
+<div class="contents">
+<div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#include &quot;UiCollapsibleWrapper.h&quot;</span></div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span> </div>
+<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="preprocessor">#include &quot;OSKengine.h&quot;</span></div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &quot;Logger.h&quot;</span></div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span> </div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="keyword">using namespace </span><a class="code hl_namespace" href="namespace_o_s_k.html">OSK</a>;</div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="keyword">using namespace </span><a class="code hl_namespace" href="namespace_o_s_k_1_1_u_i.html">OSK::UI</a>;</div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span> </div>
+<div class="foldopen" id="foldopen00009" data-start="{" data-end="}">
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_u_i_1_1_collapsible_wrapper.html#ab93306ee88cac0b7a9c16df90490c13c">    9</a></span><a class="code hl_function" href="class_o_s_k_1_1_u_i_1_1_collapsible_wrapper.html#ab93306ee88cac0b7a9c16df90490c13c">CollapsibleWrapper::CollapsibleWrapper</a>(<a class="code hl_class" href="class_o_s_k_1_1_owned_ptr.html">OwnedPtr&lt;IElement&gt;</a> content, <span class="keyword">const</span> std::string&amp; title, <a class="code hl_class" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">ASSETS::AssetRef&lt;ASSETS::Font&gt;</a> font, <a class="code hl_typedef" href="namespace_o_s_k.html#acf682b0e024acc36806435295480d2ed">USize32</a> fontSize) : <a class="code hl_class" href="class_o_s_k_1_1_u_i_1_1_vertical_container.html">VerticalContainer</a>(content-&gt;GetSize()), m_content(content.GetPointer()) {</div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span>    m_bar = <span class="keyword">new</span> <a class="code hl_class" href="class_o_s_k_1_1_u_i_1_1_button.html">Button</a>(content-&gt;GetSize());</div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span>    </div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span>    m_bar-&gt;<a class="code hl_function" href="class_o_s_k_1_1_u_i_1_1_button.html#aae7302275cf0147aa191383086c6ba2f">SetTextFont</a>(font);</div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span>    m_bar-&gt;<a class="code hl_function" href="class_o_s_k_1_1_u_i_1_1_button.html#a76a19529831a0328e0dd514b7cb4ea5a">SetTextFontSize</a>(fontSize);</div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span>    m_bar-&gt;<a class="code hl_function" href="class_o_s_k_1_1_u_i_1_1_button.html#a59a468ad73ca347c30cebb85fc92066f">SetText</a>(title);</div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span> </div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span>     </div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>    </div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span> </div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>    <span class="keyword">const</span> <span class="keyword">auto</span> textSize = font-&gt;GetInstance(fontSize).GetTextSize(title);</div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span> </div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>    <span class="comment">// m_bar-&gt;SetSize(textSize + m_bar-&gt;GetPadding2D());</span></div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span> </div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>    m_bar-&gt;<a class="code hl_function" href="class_o_s_k_1_1_u_i_1_1_button.html#a9af78c1f9e49cc8174b912bf559d61d2">SetCallback</a>([<span class="keyword">this</span>](<span class="keywordtype">bool</span> isPressed) {</div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>        isPressed</div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>            ? <a class="code hl_function" href="class_o_s_k_1_1_u_i_1_1_collapsible_wrapper.html#a35adfc7fa3ceda935f9a5bdb2fd90cb4">Collapse</a>()</div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>            : <a class="code hl_function" href="class_o_s_k_1_1_u_i_1_1_collapsible_wrapper.html#a5bdeb78aac74515c00fd1ff5ab81ed20">Expand</a>();</div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>        });</div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span> </div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>    <a class="code hl_function" href="class_o_s_k_1_1_u_i_1_1_i_container.html#afe6f3ebf954cb752a3de57d091cba83a">AddChild</a>(<span class="stringliteral">&quot;button&quot;</span>, m_bar);</div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>    <a class="code hl_function" href="class_o_s_k_1_1_u_i_1_1_i_container.html#afe6f3ebf954cb752a3de57d091cba83a">AddChild</a>(<span class="stringliteral">&quot;content&quot;</span>, m_content);</div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>}</div>
+</div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span> </div>
+<div class="foldopen" id="foldopen00033" data-start="{" data-end="}">
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_u_i_1_1_collapsible_wrapper.html#a4016693be09276c6941b5e496155aa2d">   33</a></span><a class="code hl_class" href="class_o_s_k_1_1_u_i_1_1_i_element.html">IElement</a>* <a class="code hl_function" href="class_o_s_k_1_1_u_i_1_1_collapsible_wrapper.html#a4016693be09276c6941b5e496155aa2d">CollapsibleWrapper::GetContent</a>() {</div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>    <span class="keywordflow">return</span> m_content;</div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>}</div>
+</div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span> </div>
+<div class="foldopen" id="foldopen00037" data-start="{" data-end="}">
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_u_i_1_1_collapsible_wrapper.html#ae655cdb6104878e49753f83bb196659f">   37</a></span><span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_u_i_1_1_i_element.html">IElement</a>* <a class="code hl_function" href="class_o_s_k_1_1_u_i_1_1_collapsible_wrapper.html#a4016693be09276c6941b5e496155aa2d">CollapsibleWrapper::GetContent</a>()<span class="keyword"> const </span>{</div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>    <span class="keywordflow">return</span> m_content;</div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>}</div>
+</div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span> </div>
+<div class="foldopen" id="foldopen00041" data-start="{" data-end="}">
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_u_i_1_1_collapsible_wrapper.html#a4385bf441ab482e5cc023ce37820706a">   41</a></span><a class="code hl_class" href="class_o_s_k_1_1_u_i_1_1_button.html">Button</a>* <a class="code hl_function" href="class_o_s_k_1_1_u_i_1_1_collapsible_wrapper.html#a4385bf441ab482e5cc023ce37820706a">CollapsibleWrapper::GetToggleBar</a>() {</div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>    <span class="keywordflow">return</span> m_bar;</div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>}</div>
+</div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span> </div>
+<div class="foldopen" id="foldopen00045" data-start="{" data-end="}">
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_u_i_1_1_collapsible_wrapper.html#a5d87ce3b8364be6ea4693a134c11be27">   45</a></span><span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_u_i_1_1_button.html">Button</a>* <a class="code hl_function" href="class_o_s_k_1_1_u_i_1_1_collapsible_wrapper.html#a4385bf441ab482e5cc023ce37820706a">CollapsibleWrapper::GetToggleBar</a>()<span class="keyword"> const </span>{</div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>    <span class="keywordflow">return</span> m_bar;</div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>}</div>
+</div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span> </div>
+<div class="foldopen" id="foldopen00049" data-start="{" data-end="}">
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_u_i_1_1_collapsible_wrapper.html#a487af4e7c0c5f7014fa5d38b252df874">   49</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="class_o_s_k_1_1_u_i_1_1_collapsible_wrapper.html#a487af4e7c0c5f7014fa5d38b252df874">CollapsibleWrapper::AdjustToggleBarSize</a>() {</div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>    m_bar-&gt;<a class="code hl_function" href="class_o_s_k_1_1_u_i_1_1_button.html#a9a5243a1d41737e7035be6c8f779bbec">SetSize</a>(<a class="code hl_typedef" href="namespace_o_s_k.html#a31a299dbb3a3a60d90d16d1a4eca9651">Vector2f</a>(</div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>        glm::max(m_bar-&gt;<a class="code hl_function" href="class_o_s_k_1_1_u_i_1_1_i_element.html#ad23a7cf71ff3d1b1528adfb674f5573c">GetSize</a>().<a class="code hl_variable" href="class_o_s_k_1_1_vector2__t.html#ae2f86aaf21084895a5b357318ff6ed77">x</a>, m_content-&gt;<a class="code hl_function" href="class_o_s_k_1_1_u_i_1_1_i_element.html#ad23a7cf71ff3d1b1528adfb674f5573c">GetSize</a>().<a class="code hl_variable" href="class_o_s_k_1_1_vector2__t.html#ae2f86aaf21084895a5b357318ff6ed77">x</a>),</div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>        m_bar-&gt;<a class="code hl_function" href="class_o_s_k_1_1_u_i_1_1_i_element.html#ad23a7cf71ff3d1b1528adfb674f5573c">GetSize</a>().<a class="code hl_variable" href="class_o_s_k_1_1_vector2__t.html#a3194c7e9abba1f840530e8642a01e30a">y</a>));</div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>}</div>
+</div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span> </div>
+<div class="foldopen" id="foldopen00055" data-start="{" data-end="}">
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_u_i_1_1_collapsible_wrapper.html#a5bdeb78aac74515c00fd1ff5ab81ed20">   55</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="class_o_s_k_1_1_u_i_1_1_collapsible_wrapper.html#a5bdeb78aac74515c00fd1ff5ab81ed20">CollapsibleWrapper::Expand</a>() {</div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>    <a class="code hl_class" href="class_o_s_k_1_1_vector2__t.html">Vector2f</a> totalSize = m_bar-&gt;<a class="code hl_function" href="class_o_s_k_1_1_u_i_1_1_i_element.html#ad23a7cf71ff3d1b1528adfb674f5573c">GetSize</a>();</div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>    totalSize.<a class="code hl_variable" href="class_o_s_k_1_1_vector2__t.html#a3194c7e9abba1f840530e8642a01e30a">y</a> += m_content-&gt;<a class="code hl_function" href="class_o_s_k_1_1_u_i_1_1_i_element.html#ad23a7cf71ff3d1b1528adfb674f5573c">GetSize</a>().<a class="code hl_variable" href="class_o_s_k_1_1_vector2__t.html#a3194c7e9abba1f840530e8642a01e30a">y</a> + m_content-&gt;<a class="code hl_function" href="class_o_s_k_1_1_u_i_1_1_i_element.html#a99898f2535aa57d386e39fd5d0947a62">GetMarging2D</a>().<a class="code hl_variable" href="class_o_s_k_1_1_vector2__t.html#a3194c7e9abba1f840530e8642a01e30a">y</a>;</div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span> </div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>    <a class="code hl_function" href="class_o_s_k_1_1_u_i_1_1_i_container.html#a0a4c7bc194fc8a1f71b2bac1ffeb9d53">SetSize</a>(totalSize);</div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span> </div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>    m_content-&gt;<a class="code hl_function" href="class_o_s_k_1_1_u_i_1_1_i_element.html#a374616da89c3ff9b31e4d7ddf6fc0164">SetVisible</a>();</div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span> </div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>    <span class="keywordflow">if</span> (<a class="code hl_function" href="class_o_s_k_1_1_u_i_1_1_i_element.html#acf568ad5e414675f0a0ea3519050b706">HasParent</a>()) {</div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>        <a class="code hl_function" href="class_o_s_k_1_1_u_i_1_1_i_element.html#ac2d6913499060d60dc8837b4487f02f1">GetParent</a>()-&gt;<a class="code hl_function" href="class_o_s_k_1_1_u_i_1_1_i_container.html#a8ace09d55aa9f339c50aeb6309939bbf">Rebuild</a>();</div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>    }</div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>}</div>
+</div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span> </div>
+<div class="foldopen" id="foldopen00068" data-start="{" data-end="}">
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_u_i_1_1_collapsible_wrapper.html#a35adfc7fa3ceda935f9a5bdb2fd90cb4">   68</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="class_o_s_k_1_1_u_i_1_1_collapsible_wrapper.html#a35adfc7fa3ceda935f9a5bdb2fd90cb4">CollapsibleWrapper::Collapse</a>() {</div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>    <a class="code hl_function" href="class_o_s_k_1_1_u_i_1_1_i_container.html#a0a4c7bc194fc8a1f71b2bac1ffeb9d53">SetSize</a>(m_bar-&gt;<a class="code hl_function" href="class_o_s_k_1_1_u_i_1_1_i_element.html#ad23a7cf71ff3d1b1528adfb674f5573c">GetSize</a>());</div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>    m_content-&gt;<a class="code hl_function" href="class_o_s_k_1_1_u_i_1_1_i_element.html#a3321d2f589991ea5b04db9eec5fad644">SetInvisible</a>();</div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span> </div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>    <span class="keywordflow">if</span> (<a class="code hl_function" href="class_o_s_k_1_1_u_i_1_1_i_element.html#acf568ad5e414675f0a0ea3519050b706">HasParent</a>()) {</div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>        <a class="code hl_function" href="class_o_s_k_1_1_u_i_1_1_i_element.html#ac2d6913499060d60dc8837b4487f02f1">GetParent</a>()-&gt;<a class="code hl_function" href="class_o_s_k_1_1_u_i_1_1_i_container.html#a8ace09d55aa9f339c50aeb6309939bbf">Rebuild</a>();</div>
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>    }</div>
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>}</div>
+</div>
+<div class="ttc" id="aclass_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref_html"><div class="ttname"><a href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">OSK::ASSETS::AssetRef</a></div><div class="ttdoc">Referencia a un asset.</div><div class="ttdef"><b>Definition</b> <a href="_asset_ref_8h_source.html#l00011">AssetRef.h:11</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_owned_ptr_html"><div class="ttname"><a href="class_o_s_k_1_1_owned_ptr.html">OSK::OwnedPtr</a></div><div class="ttdoc">Es dueño de un puntero.</div><div class="ttdef"><b>Definition</b> <a href="_owned_ptr_8h_source.html#l00017">OwnedPtr.h:17</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_u_i_1_1_button_html"><div class="ttname"><a href="class_o_s_k_1_1_u_i_1_1_button.html">OSK::UI::Button</a></div><div class="ttdoc">Elemento de UI que permite al usuario interaccionar.</div><div class="ttdef"><b>Definition</b> <a href="_ui_button_8h_source.html#l00013">UiButton.h:13</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_u_i_1_1_button_html_a59a468ad73ca347c30cebb85fc92066f"><div class="ttname"><a href="class_o_s_k_1_1_u_i_1_1_button.html#a59a468ad73ca347c30cebb85fc92066f">OSK::UI::Button::SetText</a></div><div class="ttdeci">void SetText(const std::string &amp;text)</div><div class="ttdoc">Establece el texto a renderizar. El texto será renderizado centrado.</div><div class="ttdef"><b>Definition</b> <a href="_ui_button_8cpp_source.html#l00167">UiButton.cpp:167</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_u_i_1_1_button_html_a76a19529831a0328e0dd514b7cb4ea5a"><div class="ttname"><a href="class_o_s_k_1_1_u_i_1_1_button.html#a76a19529831a0328e0dd514b7cb4ea5a">OSK::UI::Button::SetTextFontSize</a></div><div class="ttdeci">void SetTextFontSize(USize32 fontSize)</div><div class="ttdoc">Establece el tamaño de la fuente del texto.</div><div class="ttdef"><b>Definition</b> <a href="_ui_button_8cpp_source.html#l00112">UiButton.cpp:112</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_u_i_1_1_button_html_a9a5243a1d41737e7035be6c8f779bbec"><div class="ttname"><a href="class_o_s_k_1_1_u_i_1_1_button.html#a9a5243a1d41737e7035be6c8f779bbec">OSK::UI::Button::SetSize</a></div><div class="ttdeci">void SetSize(Vector2f size) override</div><div class="ttdoc">Cambia el tamaño del elemento, sin modifciar contenedores ni elementos hijos.</div><div class="ttdef"><b>Definition</b> <a href="_ui_button_8cpp_source.html#l00021">UiButton.cpp:21</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_u_i_1_1_button_html_a9af78c1f9e49cc8174b912bf559d61d2"><div class="ttname"><a href="class_o_s_k_1_1_u_i_1_1_button.html#a9af78c1f9e49cc8174b912bf559d61d2">OSK::UI::Button::SetCallback</a></div><div class="ttdeci">void SetCallback(CallbackFnc callback)</div><div class="ttdoc">Establece el callback que se ejecutará cuando el usuario pulse el botón.</div><div class="ttdef"><b>Definition</b> <a href="_ui_button_8cpp_source.html#l00090">UiButton.cpp:90</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_u_i_1_1_button_html_aae7302275cf0147aa191383086c6ba2f"><div class="ttname"><a href="class_o_s_k_1_1_u_i_1_1_button.html#aae7302275cf0147aa191383086c6ba2f">OSK::UI::Button::SetTextFont</a></div><div class="ttdeci">void SetTextFont(ASSETS::AssetRef&lt; ASSETS::Font &gt; font)</div><div class="ttdoc">Establece la fuente del texto.</div><div class="ttdef"><b>Definition</b> <a href="_ui_button_8cpp_source.html#l00107">UiButton.cpp:107</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_u_i_1_1_collapsible_wrapper_html_a35adfc7fa3ceda935f9a5bdb2fd90cb4"><div class="ttname"><a href="class_o_s_k_1_1_u_i_1_1_collapsible_wrapper.html#a35adfc7fa3ceda935f9a5bdb2fd90cb4">OSK::UI::CollapsibleWrapper::Collapse</a></div><div class="ttdeci">void Collapse()</div><div class="ttdoc">Contrae el contenido, de tal manera que no sea visible.</div><div class="ttdef"><b>Definition</b> <a href="#l00068">UiCollapsibleWrapper.cpp:68</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_u_i_1_1_collapsible_wrapper_html_a4016693be09276c6941b5e496155aa2d"><div class="ttname"><a href="class_o_s_k_1_1_u_i_1_1_collapsible_wrapper.html#a4016693be09276c6941b5e496155aa2d">OSK::UI::CollapsibleWrapper::GetContent</a></div><div class="ttdeci">IElement * GetContent()</div><div class="ttdef"><b>Definition</b> <a href="#l00033">UiCollapsibleWrapper.cpp:33</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_u_i_1_1_collapsible_wrapper_html_a4385bf441ab482e5cc023ce37820706a"><div class="ttname"><a href="class_o_s_k_1_1_u_i_1_1_collapsible_wrapper.html#a4385bf441ab482e5cc023ce37820706a">OSK::UI::CollapsibleWrapper::GetToggleBar</a></div><div class="ttdeci">Button * GetToggleBar()</div><div class="ttdef"><b>Definition</b> <a href="#l00041">UiCollapsibleWrapper.cpp:41</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_u_i_1_1_collapsible_wrapper_html_a487af4e7c0c5f7014fa5d38b252df874"><div class="ttname"><a href="class_o_s_k_1_1_u_i_1_1_collapsible_wrapper.html#a487af4e7c0c5f7014fa5d38b252df874">OSK::UI::CollapsibleWrapper::AdjustToggleBarSize</a></div><div class="ttdeci">void AdjustToggleBarSize()</div><div class="ttdoc">Ajusta el tamaño horizontal del botón para que sea igual al del contenido.</div><div class="ttdef"><b>Definition</b> <a href="#l00049">UiCollapsibleWrapper.cpp:49</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_u_i_1_1_collapsible_wrapper_html_a5bdeb78aac74515c00fd1ff5ab81ed20"><div class="ttname"><a href="class_o_s_k_1_1_u_i_1_1_collapsible_wrapper.html#a5bdeb78aac74515c00fd1ff5ab81ed20">OSK::UI::CollapsibleWrapper::Expand</a></div><div class="ttdeci">void Expand()</div><div class="ttdoc">Expande el contenido, de tal manera que sea visible.</div><div class="ttdef"><b>Definition</b> <a href="#l00055">UiCollapsibleWrapper.cpp:55</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_u_i_1_1_collapsible_wrapper_html_ab93306ee88cac0b7a9c16df90490c13c"><div class="ttname"><a href="class_o_s_k_1_1_u_i_1_1_collapsible_wrapper.html#ab93306ee88cac0b7a9c16df90490c13c">OSK::UI::CollapsibleWrapper::CollapsibleWrapper</a></div><div class="ttdeci">CollapsibleWrapper(OwnedPtr&lt; IElement &gt; content, const std::string &amp;title, ASSETS::AssetRef&lt; ASSETS::Font &gt; font, USize32 fontSize)</div><div class="ttdoc">Crea el contenedor.</div><div class="ttdef"><b>Definition</b> <a href="#l00009">UiCollapsibleWrapper.cpp:9</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_u_i_1_1_i_container_html_a0a4c7bc194fc8a1f71b2bac1ffeb9d53"><div class="ttname"><a href="class_o_s_k_1_1_u_i_1_1_i_container.html#a0a4c7bc194fc8a1f71b2bac1ffeb9d53">OSK::UI::IContainer::SetSize</a></div><div class="ttdeci">void SetSize(Vector2f newSize) override</div><div class="ttdoc">Cambia el tamaño del elemento, sin modifciar contenedores ni elementos hijos.</div><div class="ttdef"><b>Definition</b> <a href="_i_ui_container_8cpp_source.html#l00011">IUiContainer.cpp:11</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_u_i_1_1_i_container_html_a8ace09d55aa9f339c50aeb6309939bbf"><div class="ttname"><a href="class_o_s_k_1_1_u_i_1_1_i_container.html#a8ace09d55aa9f339c50aeb6309939bbf">OSK::UI::IContainer::Rebuild</a></div><div class="ttdeci">void Rebuild()</div><div class="ttdoc">Reestructura todos los hijos del contenedor.</div><div class="ttdef"><b>Definition</b> <a href="_i_ui_container_8cpp_source.html#l00059">IUiContainer.cpp:59</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_u_i_1_1_i_container_html_afe6f3ebf954cb752a3de57d091cba83a"><div class="ttname"><a href="class_o_s_k_1_1_u_i_1_1_i_container.html#afe6f3ebf954cb752a3de57d091cba83a">OSK::UI::IContainer::AddChild</a></div><div class="ttdeci">void AddChild(const std::string &amp;key, OwnedPtr&lt; IElement &gt; child)</div><div class="ttdoc">Añade un elemento al contenedor. Modificará su posición dependiendo del layout implementado.</div><div class="ttdef"><b>Definition</b> <a href="_i_ui_container_8cpp_source.html#l00050">IUiContainer.cpp:50</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_u_i_1_1_i_element_html"><div class="ttname"><a href="class_o_s_k_1_1_u_i_1_1_i_element.html">OSK::UI::IElement</a></div><div class="ttdoc">Clase base para todos los elementos de interfaz de usuario.</div><div class="ttdef"><b>Definition</b> <a href="_ui_element_8h_source.html#l00035">UiElement.h:35</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_u_i_1_1_i_element_html_a3321d2f589991ea5b04db9eec5fad644"><div class="ttname"><a href="class_o_s_k_1_1_u_i_1_1_i_element.html#a3321d2f589991ea5b04db9eec5fad644">OSK::UI::IElement::SetInvisible</a></div><div class="ttdeci">void SetInvisible()</div><div class="ttdoc">Establece el elemento como invisible. Si no es visible, tampoco responderá a eventos de entrada....</div><div class="ttdef"><b>Definition</b> <a href="_ui_element_8cpp_source.html#l00080">UiElement.cpp:80</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_u_i_1_1_i_element_html_a374616da89c3ff9b31e4d7ddf6fc0164"><div class="ttname"><a href="class_o_s_k_1_1_u_i_1_1_i_element.html#a374616da89c3ff9b31e4d7ddf6fc0164">OSK::UI::IElement::SetVisible</a></div><div class="ttdeci">void SetVisible()</div><div class="ttdoc">Establece el elemento como visible. Si ya era visible, no ocurrirá nada.</div><div class="ttdef"><b>Definition</b> <a href="_ui_element_8cpp_source.html#l00076">UiElement.cpp:76</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_u_i_1_1_i_element_html_a99898f2535aa57d386e39fd5d0947a62"><div class="ttname"><a href="class_o_s_k_1_1_u_i_1_1_i_element.html#a99898f2535aa57d386e39fd5d0947a62">OSK::UI::IElement::GetMarging2D</a></div><div class="ttdeci">Vector2f GetMarging2D() const</div><div class="ttdef"><b>Definition</b> <a href="_ui_element_8cpp_source.html#l00166">UiElement.cpp:166</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_u_i_1_1_i_element_html_ac2d6913499060d60dc8837b4487f02f1"><div class="ttname"><a href="class_o_s_k_1_1_u_i_1_1_i_element.html#ac2d6913499060d60dc8837b4487f02f1">OSK::UI::IElement::GetParent</a></div><div class="ttdeci">IContainer * GetParent()</div><div class="ttdef"><b>Definition</b> <a href="_ui_element_8cpp_source.html#l00201">UiElement.cpp:201</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_u_i_1_1_i_element_html_acf568ad5e414675f0a0ea3519050b706"><div class="ttname"><a href="class_o_s_k_1_1_u_i_1_1_i_element.html#acf568ad5e414675f0a0ea3519050b706">OSK::UI::IElement::HasParent</a></div><div class="ttdeci">bool HasParent() const</div><div class="ttdef"><b>Definition</b> <a href="_ui_element_8cpp_source.html#l00205">UiElement.cpp:205</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_u_i_1_1_i_element_html_ad23a7cf71ff3d1b1528adfb674f5573c"><div class="ttname"><a href="class_o_s_k_1_1_u_i_1_1_i_element.html#ad23a7cf71ff3d1b1528adfb674f5573c">OSK::UI::IElement::GetSize</a></div><div class="ttdeci">Vector2f GetSize() const</div><div class="ttdef"><b>Definition</b> <a href="_ui_element_8cpp_source.html#l00126">UiElement.cpp:126</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_u_i_1_1_vertical_container_html"><div class="ttname"><a href="class_o_s_k_1_1_u_i_1_1_vertical_container.html">OSK::UI::VerticalContainer</a></div><div class="ttdoc">Contenedor que coloca los elementos de manera vertical y contígua.</div><div class="ttdef"><b>Definition</b> <a href="_ui_vertical_container_8h_source.html#l00009">UiVerticalContainer.h:9</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_vector2__t_html"><div class="ttname"><a href="class_o_s_k_1_1_vector2__t.html">OSK::Vector2_t&lt; float_t &gt;</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_vector2__t_html_a3194c7e9abba1f840530e8642a01e30a"><div class="ttname"><a href="class_o_s_k_1_1_vector2__t.html#a3194c7e9abba1f840530e8642a01e30a">OSK::Vector2_t::y</a></div><div class="ttdeci">T y</div><div class="ttdoc">Representa la segunda coordenada.</div><div class="ttdef"><b>Definition</b> <a href="_vector2_8hpp_source.html#l00254">Vector2.hpp:254</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_vector2__t_html_ae2f86aaf21084895a5b357318ff6ed77"><div class="ttname"><a href="class_o_s_k_1_1_vector2__t.html#ae2f86aaf21084895a5b357318ff6ed77">OSK::Vector2_t::x</a></div><div class="ttdeci">T x</div><div class="ttdoc">Representa la primera coordenada.</div><div class="ttdef"><b>Definition</b> <a href="_vector2_8hpp_source.html#l00251">Vector2.hpp:251</a></div></div>
+<div class="ttc" id="anamespace_o_s_k_1_1_u_i_html"><div class="ttname"><a href="namespace_o_s_k_1_1_u_i.html">OSK::UI</a></div><div class="ttdef"><b>Definition</b> <a href="_camera_component_view_8h_source.html#l00006">CameraComponentView.h:6</a></div></div>
+<div class="ttc" id="anamespace_o_s_k_html"><div class="ttname"><a href="namespace_o_s_k.html">OSK</a></div><div class="ttdef"><b>Definition</b> <a href="_acceleration_structures_exceptions_8h_source.html#l00005">AccelerationStructuresExceptions.h:5</a></div></div>
+<div class="ttc" id="anamespace_o_s_k_html_a31a299dbb3a3a60d90d16d1a4eca9651"><div class="ttname"><a href="namespace_o_s_k.html#a31a299dbb3a3a60d90d16d1a4eca9651">OSK::Vector2f</a></div><div class="ttdeci">Vector2_t&lt; float_t &gt; Vector2f</div><div class="ttdoc">Precisión = float.</div><div class="ttdef"><b>Definition</b> <a href="_vector2_8hpp_source.html#l00260">Vector2.hpp:260</a></div></div>
+<div class="ttc" id="anamespace_o_s_k_html_acf682b0e024acc36806435295480d2ed"><div class="ttname"><a href="namespace_o_s_k.html#acf682b0e024acc36806435295480d2ed">OSK::USize32</a></div><div class="ttdeci">uint32_t USize32</div><div class="ttdoc">Tamaño, almacenado en un unsigned int de 32 bits.</div><div class="ttdef"><b>Definition</b> <a href="_numeric_types_8h_source.html#l00015">NumericTypes.h:15</a></div></div>
+</div><!-- fragment --></div><!-- contents -->
+</div><!-- doc-content -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="dir_74389ed8173ad57b461b9d623a1f3867.html">Source</a></li><li class="navelem"><b>UiCollapsibleWrapper.cpp</b></li>
+    <li class="footer">Generado el Viernes, 16 de agosto de 2024 22:47:24 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.12.0 </li>
+  </ul>
+</div>
+</body>
+</html>

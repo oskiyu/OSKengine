@@ -265,11 +265,13 @@ var hierarchy =
             [ "OSK::Editor::UI::SystemPropertiesPanel", "class_o_s_k_1_1_editor_1_1_u_i_1_1_system_properties_panel.html", null ]
           ] ],
           [ "OSK::Editor::UI::SystemList", "class_o_s_k_1_1_editor_1_1_u_i_1_1_system_list.html", null ],
-          [ "OSK::Editor::Views::IComponentView", "class_o_s_k_1_1_editor_1_1_views_1_1_i_component_view.html", [
-            [ "OSK::Editor::Views::CameraComponentView", "class_o_s_k_1_1_editor_1_1_views_1_1_camera_component_view.html", null ],
-            [ "OSK::Editor::Views::ModelComponentView3D", "class_o_s_k_1_1_editor_1_1_views_1_1_model_component_view3_d.html", null ],
-            [ "OSK::Editor::Views::PhysicsComponentView", "class_o_s_k_1_1_editor_1_1_views_1_1_physics_component_view.html", null ],
-            [ "OSK::Editor::Views::TransformComponentView3D", "class_o_s_k_1_1_editor_1_1_views_1_1_transform_component_view3_d.html", null ]
+          [ "OSK::UI::CollapsibleWrapper", "class_o_s_k_1_1_u_i_1_1_collapsible_wrapper.html", [
+            [ "OSK::Editor::Views::IComponentView", "class_o_s_k_1_1_editor_1_1_views_1_1_i_component_view.html", [
+              [ "OSK::Editor::Views::CameraComponentView", "class_o_s_k_1_1_editor_1_1_views_1_1_camera_component_view.html", null ],
+              [ "OSK::Editor::Views::ModelComponentView3D", "class_o_s_k_1_1_editor_1_1_views_1_1_model_component_view3_d.html", null ],
+              [ "OSK::Editor::Views::PhysicsComponentView", "class_o_s_k_1_1_editor_1_1_views_1_1_physics_component_view.html", null ],
+              [ "OSK::Editor::Views::TransformComponentView3D", "class_o_s_k_1_1_editor_1_1_views_1_1_transform_component_view3_d.html", null ]
+            ] ]
           ] ],
           [ "OSK::UI::Console", "class_o_s_k_1_1_u_i_1_1_console.html", null ]
         ] ]

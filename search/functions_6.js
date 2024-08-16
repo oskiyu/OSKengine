@@ -20,9 +20,10 @@ var searchData=
   ['freecontainer_17',['FreeContainer',['../class_o_s_k_1_1_u_i_1_1_free_container.html#af56dc48e27f9026798f580c50722b577',1,'OSK::UI::FreeContainer']]],
   ['freestagingmemory_18',['FreeStagingMemory',['../class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_allocator.html#af41e891d6c39de6dd5fc95e7b9fe8eba',1,'OSK::GRAPHICS::IGpuMemoryAllocator']]],
   ['from_19',['From',['../struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_sdf_bindless_buffer_content2_d.html#a8fa147e05d945ecdd291e5f0c5051e43',1,'OSK::GRAPHICS::SdfBindlessBufferContent2D']]],
-  ['fromdata_20',['FromData',['../class_o_s_k_1_1_p_e_r_s_i_s_t_e_n_c_e_1_1_binary_block.html#abbaaf1d36d5e56c60e2907f4a9367b11',1,'OSK::PERSISTENCE::BinaryBlock']]],
-  ['fromglm_21',['FromGlm',['../class_o_s_k_1_1_quaternion.html#a0cbf0edcbfd33647de6fa20d641d2216',1,'OSK::Quaternion']]],
-  ['frommatrix_22',['FromMatrix',['../class_o_s_k_1_1_e_c_s_1_1_transform3_d.html#a113b74eaac353602f1c7707559113b5d',1,'OSK::ECS::Transform3D']]],
-  ['fromto_23',['FromTo',['../struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_resource_queue_transfer_info.html#a9482509727018152da5f8a9c0cb64959',1,'OSK::GRAPHICS::ResourceQueueTransferInfo']]],
-  ['fullyload_24',['FullyLoad',['../class_o_s_k_1_1_a_s_s_e_t_s_1_1_i_asset_loader.html#aaa7cca8f691333ae0d86b1ea430f2540',1,'OSK::ASSETS::IAssetLoader']]]
+  ['frombytes_20',['FromBytes',['../class_o_s_k_1_1_color.html#a701abb7cdee003efa0a3f753aaa5d7db',1,'OSK::Color::FromBytes(TByte r, TByte g, TByte b)'],['../class_o_s_k_1_1_color.html#a9db25606119b2d814f48895d9bd54334',1,'OSK::Color::FromBytes(TByte r, TByte g, TByte b, TByte a)']]],
+  ['fromdata_21',['FromData',['../class_o_s_k_1_1_p_e_r_s_i_s_t_e_n_c_e_1_1_binary_block.html#abbaaf1d36d5e56c60e2907f4a9367b11',1,'OSK::PERSISTENCE::BinaryBlock']]],
+  ['fromglm_22',['FromGlm',['../class_o_s_k_1_1_quaternion.html#a0cbf0edcbfd33647de6fa20d641d2216',1,'OSK::Quaternion']]],
+  ['frommatrix_23',['FromMatrix',['../class_o_s_k_1_1_e_c_s_1_1_transform3_d.html#a113b74eaac353602f1c7707559113b5d',1,'OSK::ECS::Transform3D']]],
+  ['fromto_24',['FromTo',['../struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_resource_queue_transfer_info.html#a9482509727018152da5f8a9c0cb64959',1,'OSK::GRAPHICS::ResourceQueueTransferInfo']]],
+  ['fullyload_25',['FullyLoad',['../class_o_s_k_1_1_a_s_s_e_t_s_1_1_i_asset_loader.html#aaa7cca8f691333ae0d86b1ea430f2540',1,'OSK::ASSETS::IAssetLoader']]]
 ];

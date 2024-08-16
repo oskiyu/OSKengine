@@ -403,6 +403,7 @@ var annotated_dup =
       [ "UI", "namespace_o_s_k_1_1_u_i.html", [
         [ "BorderLayout", "class_o_s_k_1_1_u_i_1_1_border_layout.html", "class_o_s_k_1_1_u_i_1_1_border_layout" ],
         [ "Button", "class_o_s_k_1_1_u_i_1_1_button.html", "class_o_s_k_1_1_u_i_1_1_button" ],
+        [ "CollapsibleWrapper", "class_o_s_k_1_1_u_i_1_1_collapsible_wrapper.html", "class_o_s_k_1_1_u_i_1_1_collapsible_wrapper" ],
         [ "Console", "class_o_s_k_1_1_u_i_1_1_console.html", "class_o_s_k_1_1_u_i_1_1_console" ],
         [ "Dropdown", "class_o_s_k_1_1_u_i_1_1_dropdown.html", "class_o_s_k_1_1_u_i_1_1_dropdown" ],
         [ "FreeContainer", "class_o_s_k_1_1_u_i_1_1_free_container.html", "class_o_s_k_1_1_u_i_1_1_free_container" ],

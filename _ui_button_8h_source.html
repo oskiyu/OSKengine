@@ -165,56 +165,57 @@ $(function(){initNavTree('_ui_button_8h_source.html',''); initResizable(true); }
 <div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span> </div>
 <div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span>        <a class="code hl_enumeration" href="class_o_s_k_1_1_u_i_1_1_button.html#a8fedb01940ab3e88358f91eb0d140f74">Type</a> GetType() <span class="keyword">const</span>;</div>
 <div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span> </div>
-<div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span>    <span class="keyword">public</span>:</div>
+<div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span>        <span class="keywordtype">void</span> _SetPosition(<span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_vector2__t.html">Vector2f</a>&amp; newPosition) <span class="keyword">override</span>;</div>
 <div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span> </div>
-<div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span>        <span class="keywordtype">void</span> SetTextFont(<a class="code hl_class" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">ASSETS::AssetRef&lt;ASSETS::Font&gt;</a> font);</div>
-<div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span> </div>
-<div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span>        <span class="keywordtype">void</span> SetTextFontSize(<a class="code hl_typedef" href="namespace_o_s_k.html#acf682b0e024acc36806435295480d2ed">USize32</a> fontSize);</div>
-<div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span> </div>
-<div class="line"><a id="l00119" name="l00119"></a><span class="lineno">  119</span>        <span class="keywordtype">void</span> SetText(<span class="keyword">const</span> std::string&amp; text);</div>
-<div class="line"><a id="l00120" name="l00120"></a><span class="lineno">  120</span> </div>
-<div class="line"><a id="l00122" name="l00122"></a><span class="lineno">  122</span>        std::string_view GetText() <span class="keyword">const</span>;</div>
-<div class="line"><a id="l00123" name="l00123"></a><span class="lineno">  123</span> </div>
-<div class="line"><a id="l00124" name="l00124"></a><span class="lineno">  124</span>    <span class="keyword">public</span>:</div>
+<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span>    <span class="keyword">public</span>:</div>
+<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span> </div>
+<div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span>        <span class="keywordtype">void</span> SetTextFont(<a class="code hl_class" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">ASSETS::AssetRef&lt;ASSETS::Font&gt;</a> font);</div>
+<div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span> </div>
+<div class="line"><a id="l00116" name="l00116"></a><span class="lineno">  116</span>        <span class="keywordtype">void</span> SetTextFontSize(<a class="code hl_typedef" href="namespace_o_s_k.html#acf682b0e024acc36806435295480d2ed">USize32</a> fontSize);</div>
+<div class="line"><a id="l00117" name="l00117"></a><span class="lineno">  117</span> </div>
+<div class="line"><a id="l00121" name="l00121"></a><span class="lineno">  121</span>        <span class="keywordtype">void</span> SetText(<span class="keyword">const</span> std::string&amp; text);</div>
+<div class="line"><a id="l00122" name="l00122"></a><span class="lineno">  122</span> </div>
+<div class="line"><a id="l00124" name="l00124"></a><span class="lineno">  124</span>        std::string_view GetText() <span class="keyword">const</span>;</div>
 <div class="line"><a id="l00125" name="l00125"></a><span class="lineno">  125</span> </div>
-<div class="line"><a id="l00126" name="l00126"></a><span class="lineno">  126</span>        <a class="code hl_class" href="class_o_s_k_1_1_dynamic_array.html">DynamicArray&lt;GRAPHICS::SdfDrawCall2D&gt;</a>&amp; GetDefaultDrawCalls();</div>
-<div class="line"><a id="l00127" name="l00127"></a><span class="lineno">  127</span>        <span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_dynamic_array.html">DynamicArray&lt;GRAPHICS::SdfDrawCall2D&gt;</a>&amp; GetDefaultDrawCalls()<span class="keyword">const</span>;</div>
-<div class="line"><a id="l00128" name="l00128"></a><span class="lineno">  128</span> </div>
-<div class="line"><a id="l00130" name="l00130"></a><span class="lineno">  130</span>        <a class="code hl_class" href="class_o_s_k_1_1_dynamic_array.html">DynamicArray&lt;GRAPHICS::SdfDrawCall2D&gt;</a>&amp; GetSelectedDrawCalls();</div>
-<div class="line"><a id="l00132" name="l00132"></a><span class="lineno">  132</span>        <span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_dynamic_array.html">DynamicArray&lt;GRAPHICS::SdfDrawCall2D&gt;</a>&amp; GetSelectedDrawCalls() <span class="keyword">const</span>;</div>
-<div class="line"><a id="l00133" name="l00133"></a><span class="lineno">  133</span>        </div>
-<div class="line"><a id="l00135" name="l00135"></a><span class="lineno">  135</span>        <a class="code hl_class" href="class_o_s_k_1_1_dynamic_array.html">DynamicArray&lt;GRAPHICS::SdfDrawCall2D&gt;</a>&amp; GetPressedDrawCalls();</div>
-<div class="line"><a id="l00137" name="l00137"></a><span class="lineno">  137</span>        <span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_dynamic_array.html">DynamicArray&lt;GRAPHICS::SdfDrawCall2D&gt;</a>&amp; GetPressedDrawCalls() <span class="keyword">const</span>;</div>
-<div class="line"><a id="l00138" name="l00138"></a><span class="lineno">  138</span> </div>
-<div class="line"><a id="l00141" name="l00141"></a><span class="lineno">  141</span>        <a class="code hl_class" href="class_o_s_k_1_1_dynamic_array.html">DynamicArray&lt;GRAPHICS::SdfDrawCall2D&gt;</a>&amp; GetDrawCalls(<a class="code hl_enumeration" href="class_o_s_k_1_1_u_i_1_1_button.html#a48eccceca7cc012bdfca96ef7da07faa">State</a> state);</div>
-<div class="line"><a id="l00144" name="l00144"></a><span class="lineno">  144</span>        <span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_dynamic_array.html">DynamicArray&lt;GRAPHICS::SdfDrawCall2D&gt;</a>&amp; GetDrawCalls(<a class="code hl_enumeration" href="class_o_s_k_1_1_u_i_1_1_button.html#a48eccceca7cc012bdfca96ef7da07faa">State</a> state) <span class="keyword">const</span>;</div>
-<div class="line"><a id="l00145" name="l00145"></a><span class="lineno">  145</span> </div>
-<div class="line"><a id="l00146" name="l00146"></a><span class="lineno">  146</span>    <span class="keyword">private</span>:</div>
+<div class="line"><a id="l00126" name="l00126"></a><span class="lineno">  126</span>    <span class="keyword">public</span>:</div>
+<div class="line"><a id="l00127" name="l00127"></a><span class="lineno">  127</span> </div>
+<div class="line"><a id="l00128" name="l00128"></a><span class="lineno">  128</span>        <a class="code hl_class" href="class_o_s_k_1_1_dynamic_array.html">DynamicArray&lt;GRAPHICS::SdfDrawCall2D&gt;</a>&amp; GetDefaultDrawCalls();</div>
+<div class="line"><a id="l00129" name="l00129"></a><span class="lineno">  129</span>        <span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_dynamic_array.html">DynamicArray&lt;GRAPHICS::SdfDrawCall2D&gt;</a>&amp; GetDefaultDrawCalls()<span class="keyword">const</span>;</div>
+<div class="line"><a id="l00130" name="l00130"></a><span class="lineno">  130</span> </div>
+<div class="line"><a id="l00132" name="l00132"></a><span class="lineno">  132</span>        <a class="code hl_class" href="class_o_s_k_1_1_dynamic_array.html">DynamicArray&lt;GRAPHICS::SdfDrawCall2D&gt;</a>&amp; GetSelectedDrawCalls();</div>
+<div class="line"><a id="l00134" name="l00134"></a><span class="lineno">  134</span>        <span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_dynamic_array.html">DynamicArray&lt;GRAPHICS::SdfDrawCall2D&gt;</a>&amp; GetSelectedDrawCalls() <span class="keyword">const</span>;</div>
+<div class="line"><a id="l00135" name="l00135"></a><span class="lineno">  135</span>        </div>
+<div class="line"><a id="l00137" name="l00137"></a><span class="lineno">  137</span>        <a class="code hl_class" href="class_o_s_k_1_1_dynamic_array.html">DynamicArray&lt;GRAPHICS::SdfDrawCall2D&gt;</a>&amp; GetPressedDrawCalls();</div>
+<div class="line"><a id="l00139" name="l00139"></a><span class="lineno">  139</span>        <span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_dynamic_array.html">DynamicArray&lt;GRAPHICS::SdfDrawCall2D&gt;</a>&amp; GetPressedDrawCalls() <span class="keyword">const</span>;</div>
+<div class="line"><a id="l00140" name="l00140"></a><span class="lineno">  140</span> </div>
+<div class="line"><a id="l00143" name="l00143"></a><span class="lineno">  143</span>        <a class="code hl_class" href="class_o_s_k_1_1_dynamic_array.html">DynamicArray&lt;GRAPHICS::SdfDrawCall2D&gt;</a>&amp; GetDrawCalls(<a class="code hl_enumeration" href="class_o_s_k_1_1_u_i_1_1_button.html#a48eccceca7cc012bdfca96ef7da07faa">State</a> state);</div>
+<div class="line"><a id="l00146" name="l00146"></a><span class="lineno">  146</span>        <span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_dynamic_array.html">DynamicArray&lt;GRAPHICS::SdfDrawCall2D&gt;</a>&amp; GetDrawCalls(<a class="code hl_enumeration" href="class_o_s_k_1_1_u_i_1_1_button.html#a48eccceca7cc012bdfca96ef7da07faa">State</a> state) <span class="keyword">const</span>;</div>
 <div class="line"><a id="l00147" name="l00147"></a><span class="lineno">  147</span> </div>
-<div class="line"><a id="l00148" name="l00148"></a><span class="lineno">  148</span>        <span class="keywordtype">void</span> _SetPosition(<span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_vector2__t.html">Vector2f</a>&amp; newPosition) <span class="keyword">override</span>;</div>
-<div class="line"><a id="l00149" name="l00149"></a><span class="lineno">  149</span>        <a class="code hl_class" href="class_o_s_k_1_1_vector2__t.html">Vector2f</a> GetTextRelativePosition() <span class="keyword">const</span>;</div>
-<div class="line"><a id="l00150" name="l00150"></a><span class="lineno">  150</span> </div>
-<div class="line"><a id="l00151" name="l00151"></a><span class="lineno">  151</span>    <span class="keyword">private</span>:</div>
-<div class="line"><a id="l00152" name="l00152"></a><span class="lineno">  152</span> </div>
-<div class="line"><a id="l00153" name="l00153"></a><span class="lineno">  153</span>        <a class="code hl_enumeration" href="class_o_s_k_1_1_u_i_1_1_button.html#a48eccceca7cc012bdfca96ef7da07faa">State</a> m_currentState = State::DEFAULT;</div>
-<div class="line"><a id="l00154" name="l00154"></a><span class="lineno">  154</span>        <span class="keywordtype">bool</span> m_wasPreviousFramePressed = <span class="keyword">false</span>;</div>
-<div class="line"><a id="l00155" name="l00155"></a><span class="lineno">  155</span> </div>
-<div class="line"><a id="l00156" name="l00156"></a><span class="lineno">  156</span>        <span class="keywordtype">bool</span> m_currentToggleState = <span class="keyword">false</span>;</div>
-<div class="line"><a id="l00157" name="l00157"></a><span class="lineno">  157</span> </div>
-<div class="line"><a id="l00158" name="l00158"></a><span class="lineno">  158</span>        <a class="code hl_enumeration" href="class_o_s_k_1_1_u_i_1_1_button.html#a8fedb01940ab3e88358f91eb0d140f74">Type</a> m_type = Type::TOGGLE;</div>
-<div class="line"><a id="l00159" name="l00159"></a><span class="lineno">  159</span> </div>
-<div class="line"><a id="l00160" name="l00160"></a><span class="lineno">  160</span>        <a class="code hl_class" href="class_o_s_k_1_1_u_i_1_1_image_view.html">ImageView</a> m_defaultImage;</div>
-<div class="line"><a id="l00161" name="l00161"></a><span class="lineno">  161</span>        <a class="code hl_class" href="class_o_s_k_1_1_u_i_1_1_image_view.html">ImageView</a> m_selectedImage;</div>
-<div class="line"><a id="l00162" name="l00162"></a><span class="lineno">  162</span>        <a class="code hl_class" href="class_o_s_k_1_1_u_i_1_1_image_view.html">ImageView</a> m_pressedImage;</div>
-<div class="line"><a id="l00163" name="l00163"></a><span class="lineno">  163</span> </div>
-<div class="line"><a id="l00164" name="l00164"></a><span class="lineno">  164</span>        <a class="code hl_class" href="class_o_s_k_1_1_u_i_1_1_text_view.html">TextView</a> m_buttonText;</div>
-<div class="line"><a id="l00165" name="l00165"></a><span class="lineno">  165</span> </div>
-<div class="line"><a id="l00166" name="l00166"></a><span class="lineno">  166</span>        <a class="code hl_typedef" href="class_o_s_k_1_1_u_i_1_1_button.html#a11115ea0979f9ebb993ac2b3844b0c84">CallbackFnc</a> m_callback = [](bool) {  (void)0; };</div>
-<div class="line"><a id="l00167" name="l00167"></a><span class="lineno">  167</span> </div>
-<div class="line"><a id="l00168" name="l00168"></a><span class="lineno">  168</span>    };</div>
+<div class="line"><a id="l00148" name="l00148"></a><span class="lineno">  148</span>    <span class="keyword">private</span>:</div>
+<div class="line"><a id="l00149" name="l00149"></a><span class="lineno">  149</span> </div>
+<div class="line"><a id="l00150" name="l00150"></a><span class="lineno">  150</span>        <a class="code hl_class" href="class_o_s_k_1_1_vector2__t.html">Vector2f</a> GetTextRelativePosition() <span class="keyword">const</span>;</div>
+<div class="line"><a id="l00151" name="l00151"></a><span class="lineno">  151</span> </div>
+<div class="line"><a id="l00152" name="l00152"></a><span class="lineno">  152</span>    <span class="keyword">private</span>:</div>
+<div class="line"><a id="l00153" name="l00153"></a><span class="lineno">  153</span> </div>
+<div class="line"><a id="l00154" name="l00154"></a><span class="lineno">  154</span>        <a class="code hl_enumeration" href="class_o_s_k_1_1_u_i_1_1_button.html#a48eccceca7cc012bdfca96ef7da07faa">State</a> m_currentState = State::DEFAULT;</div>
+<div class="line"><a id="l00155" name="l00155"></a><span class="lineno">  155</span>        <span class="keywordtype">bool</span> m_wasPreviousFramePressed = <span class="keyword">false</span>;</div>
+<div class="line"><a id="l00156" name="l00156"></a><span class="lineno">  156</span> </div>
+<div class="line"><a id="l00157" name="l00157"></a><span class="lineno">  157</span>        <span class="keywordtype">bool</span> m_currentToggleState = <span class="keyword">false</span>;</div>
+<div class="line"><a id="l00158" name="l00158"></a><span class="lineno">  158</span> </div>
+<div class="line"><a id="l00159" name="l00159"></a><span class="lineno">  159</span>        <a class="code hl_enumeration" href="class_o_s_k_1_1_u_i_1_1_button.html#a8fedb01940ab3e88358f91eb0d140f74">Type</a> m_type = Type::TOGGLE;</div>
+<div class="line"><a id="l00160" name="l00160"></a><span class="lineno">  160</span> </div>
+<div class="line"><a id="l00161" name="l00161"></a><span class="lineno">  161</span>        <a class="code hl_class" href="class_o_s_k_1_1_u_i_1_1_image_view.html">ImageView</a> m_defaultImage;</div>
+<div class="line"><a id="l00162" name="l00162"></a><span class="lineno">  162</span>        <a class="code hl_class" href="class_o_s_k_1_1_u_i_1_1_image_view.html">ImageView</a> m_selectedImage;</div>
+<div class="line"><a id="l00163" name="l00163"></a><span class="lineno">  163</span>        <a class="code hl_class" href="class_o_s_k_1_1_u_i_1_1_image_view.html">ImageView</a> m_pressedImage;</div>
+<div class="line"><a id="l00164" name="l00164"></a><span class="lineno">  164</span> </div>
+<div class="line"><a id="l00165" name="l00165"></a><span class="lineno">  165</span>        <a class="code hl_class" href="class_o_s_k_1_1_u_i_1_1_text_view.html">TextView</a> m_buttonText;</div>
+<div class="line"><a id="l00166" name="l00166"></a><span class="lineno">  166</span> </div>
+<div class="line"><a id="l00167" name="l00167"></a><span class="lineno">  167</span>        <a class="code hl_typedef" href="class_o_s_k_1_1_u_i_1_1_button.html#a11115ea0979f9ebb993ac2b3844b0c84">CallbackFnc</a> m_callback = [](bool) {  (void)0; };</div>
+<div class="line"><a id="l00168" name="l00168"></a><span class="lineno">  168</span> </div>
+<div class="line"><a id="l00169" name="l00169"></a><span class="lineno">  169</span>    };</div>
 </div>
-<div class="line"><a id="l00169" name="l00169"></a><span class="lineno">  169</span> </div>
-<div class="line"><a id="l00170" name="l00170"></a><span class="lineno">  170</span>}</div>
+<div class="line"><a id="l00170" name="l00170"></a><span class="lineno">  170</span> </div>
+<div class="line"><a id="l00171" name="l00171"></a><span class="lineno">  171</span>}</div>
 <div class="ttc" id="aclass_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref_html"><div class="ttname"><a href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">OSK::ASSETS::AssetRef</a></div><div class="ttdoc">Referencia a un asset.</div><div class="ttdef"><b>Definition</b> <a href="_asset_ref_8h_source.html#l00011">AssetRef.h:11</a></div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_dynamic_array_html"><div class="ttname"><a href="class_o_s_k_1_1_dynamic_array.html">OSK::DynamicArray</a></div><div class="ttdoc">Dynamic array: array que puede cambiar de tamaño.</div><div class="ttdef"><b>Definition</b> <a href="_dynamic_array_8hpp_source.html#l00069">DynamicArray.hpp:69</a></div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_sdf_bindless_renderer2_d_html"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_sdf_bindless_renderer2_d.html">OSK::GRAPHICS::SdfBindlessRenderer2D</a></div><div class="ttdoc">Clase para el renderizado 2D. Permite usar tanto sprites como formas definidas mediante signed-field ...</div><div class="ttdef"><b>Definition</b> <a href="_sdf_bindless_renderer2_d_8h_source.html#l00044">SdfBindlessRenderer2D.h:44</a></div></div>
@@ -222,7 +223,7 @@ $(function(){initNavTree('_ui_button_8h_source.html',''); initResizable(true); }
 <div class="ttc" id="aclass_o_s_k_1_1_u_i_1_1_button_html_a11115ea0979f9ebb993ac2b3844b0c84"><div class="ttname"><a href="class_o_s_k_1_1_u_i_1_1_button.html#a11115ea0979f9ebb993ac2b3844b0c84">OSK::UI::Button::CallbackFnc</a></div><div class="ttdeci">std::function&lt; void(bool isPressed)&gt; CallbackFnc</div><div class="ttdoc">Callback que se ejecuta al pulsar el botón.</div><div class="ttdef"><b>Definition</b> <a href="#l00051">UiButton.h:51</a></div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_u_i_1_1_button_html_a48eccceca7cc012bdfca96ef7da07faa"><div class="ttname"><a href="class_o_s_k_1_1_u_i_1_1_button.html#a48eccceca7cc012bdfca96ef7da07faa">OSK::UI::Button::State</a></div><div class="ttdeci">State</div><div class="ttdoc">Estado en el que está en botón en un momento dado.</div><div class="ttdef"><b>Definition</b> <a href="#l00019">UiButton.h:19</a></div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_u_i_1_1_button_html_a8fedb01940ab3e88358f91eb0d140f74"><div class="ttname"><a href="class_o_s_k_1_1_u_i_1_1_button.html#a8fedb01940ab3e88358f91eb0d140f74">OSK::UI::Button::Type</a></div><div class="ttdeci">Type</div><div class="ttdoc">Tipo de botón, que condiciona su comportamiento.</div><div class="ttdef"><b>Definition</b> <a href="#l00036">UiButton.h:36</a></div></div>
-<div class="ttc" id="aclass_o_s_k_1_1_u_i_1_1_i_element_html"><div class="ttname"><a href="class_o_s_k_1_1_u_i_1_1_i_element.html">OSK::UI::IElement</a></div><div class="ttdoc">Clase base para todos los elementos de interfaz de usuario.</div><div class="ttdef"><b>Definition</b> <a href="_ui_element_8h_source.html#l00032">UiElement.h:32</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_u_i_1_1_i_element_html"><div class="ttname"><a href="class_o_s_k_1_1_u_i_1_1_i_element.html">OSK::UI::IElement</a></div><div class="ttdoc">Clase base para todos los elementos de interfaz de usuario.</div><div class="ttdef"><b>Definition</b> <a href="_ui_element_8h_source.html#l00035">UiElement.h:35</a></div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_u_i_1_1_image_view_html"><div class="ttname"><a href="class_o_s_k_1_1_u_i_1_1_image_view.html">OSK::UI::ImageView</a></div><div class="ttdoc">Elemento de UI que muestra una imagen.</div><div class="ttdef"><b>Definition</b> <a href="_ui_image_view_8h_source.html#l00017">UiImageView.h:17</a></div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_u_i_1_1_text_view_html"><div class="ttname"><a href="class_o_s_k_1_1_u_i_1_1_text_view.html">OSK::UI::TextView</a></div><div class="ttdoc">Elemento de UI que permite mostrar un texto. Para su uso se deben establecer tanto una fuente como su...</div><div class="ttdef"><b>Definition</b> <a href="_ui_text_view_8h_source.html#l00016">UiTextView.h:16</a></div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_vector2__t_html"><div class="ttname"><a href="class_o_s_k_1_1_vector2__t.html">OSK::Vector2_t&lt; float_t &gt;</a></div></div>
@@ -235,7 +236,7 @@ $(function(){initNavTree('_ui_button_8h_source.html',''); initResizable(true); }
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_74389ed8173ad57b461b9d623a1f3867.html">Source</a></li><li class="navelem"><b>UiButton.h</b></li>
-    <li class="footer">Generado el Jueves, 15 de agosto de 2024 11:33:34 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.12.0 </li>
+    <li class="footer">Generado el Viernes, 16 de agosto de 2024 22:47:24 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.12.0 </li>
   </ul>
 </div>
 </body>
