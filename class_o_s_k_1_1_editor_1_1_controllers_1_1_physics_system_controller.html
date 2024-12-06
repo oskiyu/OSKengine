@@ -1,0 +1,418 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="es">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.12.0"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>OSKengine: Referencia de la clase OSK::Editor::Controllers::PhysicsSystemController</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="doxygen-awesome.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">OSKengine<span id="projectnumber">&#160;Indev</span>
+   </div>
+   <div id="projectbrief">Motor de videojuegos.</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generado por Doxygen 1.12.0 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+/* @license-end */
+</script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() { codefold.init(0); });
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() {
+  initMenu('',true,false,'search.php','Buscar',true);
+  $(function() { init_search(); });
+});
+/* @license-end */
+</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function(){initNavTree('class_o_s_k_1_1_editor_1_1_controllers_1_1_physics_system_controller.html',''); initResizable(true); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Cargando...</div>
+<div class="SRStatus" id="Searching">Buscando...</div>
+<div class="SRStatus" id="NoMatches">Nada coincide</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="summary">
+<a href="#pub-methods">Métodos públicos</a> &#124;
+<a href="#pro-methods">Métodos protegidos</a> &#124;
+<a href="class_o_s_k_1_1_editor_1_1_controllers_1_1_physics_system_controller-members.html">Lista de todos los miembros</a>  </div>
+  <div class="headertitle"><div class="title">Referencia de la clase OSK::Editor::Controllers::PhysicsSystemController<span class="mlabels"><span class="mlabel">abstract</span></span></div></div>
+</div><!--header-->
+<div class="contents">
+
+<p><code>#include &lt;<a class="el" href="_physics_system_controller_8h_source.html">PhysicsSystemController.h</a>&gt;</code></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
+Métodos públicos</h2></td></tr>
+<tr class="memitem:a45b07227225e90f2b259abbbaf52e81a" id="r_a45b07227225e90f2b259abbbaf52e81a"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a45b07227225e90f2b259abbbaf52e81a">OSK_LINK_SYSTEM_EDITOR_CONTROLLER</a> (<a class="el" href="class_o_s_k_1_1_e_c_s_1_1_physics_system.html">ECS::PhysicsSystem</a>)</td></tr>
+<tr class="separator:a45b07227225e90f2b259abbbaf52e81a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a00f9a96a78df92f37213103039781b12" id="r_a00f9a96a78df92f37213103039781b12"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a00f9a96a78df92f37213103039781b12">PhysicsSystemController</a> (<a class="el" href="class_o_s_k_1_1_e_c_s_1_1_i_system.html">ECS::ISystem</a> *system, <a class="el" href="class_o_s_k_1_1_editor_1_1_views_1_1_i_system_view.html">Views::ISystemView</a> *view)</td></tr>
+<tr class="separator:a00f9a96a78df92f37213103039781b12"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a452e81df7ef9aa96af4f56c326f75c07" id="r_a452e81df7ef9aa96af4f56c326f75c07"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a452e81df7ef9aa96af4f56c326f75c07">Poll</a> () override</td></tr>
+<tr class="separator:a452e81df7ef9aa96af4f56c326f75c07"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abd285aab6a699a57017f738825e00df1" id="r_abd285aab6a699a57017f738825e00df1"><td class="memItemLeft" align="right" valign="top">virtual std::string_view&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_editor_1_1_controllers_1_1_i_system_controller.html#abd285aab6a699a57017f738825e00df1">_GetSystemName</a> () const =0</td></tr>
+<tr class="separator:abd285aab6a699a57017f738825e00df1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pro-methods" name="pro-methods"></a>
+Métodos protegidos</h2></td></tr>
+<tr class="memitem:ae8940a55c2e74ca0c7b361f39f4c5bd7" id="r_ae8940a55c2e74ca0c7b361f39f4c5bd7"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_o_s_k_1_1_e_c_s_1_1_physics_system.html">ECS::PhysicsSystem</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_editor_1_1_controllers_1_1_t_system_controller.html#ae8940a55c2e74ca0c7b361f39f4c5bd7">GetSystem</a> ()</td></tr>
+<tr class="separator:ae8940a55c2e74ca0c7b361f39f4c5bd7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a069dbec42da1df20aa9457040526d41b" id="r_a069dbec42da1df20aa9457040526d41b"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="class_o_s_k_1_1_e_c_s_1_1_physics_system.html">ECS::PhysicsSystem</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_editor_1_1_controllers_1_1_t_system_controller.html#a069dbec42da1df20aa9457040526d41b">GetComponent</a> () const</td></tr>
+<tr class="separator:a069dbec42da1df20aa9457040526d41b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a224eb9e7213dc1f06255beba10978b1c" id="r_a224eb9e7213dc1f06255beba10978b1c"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_o_s_k_1_1_editor_1_1_views_1_1_i_system_view.html">Views::ISystemView</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_editor_1_1_controllers_1_1_i_system_controller.html#a224eb9e7213dc1f06255beba10978b1c">GetView</a> ()</td></tr>
+<tr class="separator:a224eb9e7213dc1f06255beba10978b1c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad4f6949c9f6f31b7601c5491de3552ed" id="r_ad4f6949c9f6f31b7601c5491de3552ed"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="class_o_s_k_1_1_editor_1_1_views_1_1_i_system_view.html">Views::ISystemView</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_editor_1_1_controllers_1_1_i_system_controller.html#ad4f6949c9f6f31b7601c5491de3552ed">GetView</a> () const</td></tr>
+<tr class="separator:ad4f6949c9f6f31b7601c5491de3552ed"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:affc3bd28624b9836e11123ccfbe24774" id="r_affc3bd28624b9836e11123ccfbe24774"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_o_s_k_1_1_e_c_s_1_1_i_system.html">ECS::ISystem</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_editor_1_1_controllers_1_1_i_system_controller.html#affc3bd28624b9836e11123ccfbe24774">GetSystemData</a> ()</td></tr>
+<tr class="separator:affc3bd28624b9836e11123ccfbe24774"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acaac3a5bbe5e4ec2048aa1170a035150" id="r_acaac3a5bbe5e4ec2048aa1170a035150"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="class_o_s_k_1_1_e_c_s_1_1_i_system.html">ECS::ISystem</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_editor_1_1_controllers_1_1_i_system_controller.html#acaac3a5bbe5e4ec2048aa1170a035150">GetSystemData</a> () const</td></tr>
+<tr class="separator:acaac3a5bbe5e4ec2048aa1170a035150"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">Descripción detallada</h2>
+<div class="textblock">
+<p class="definition">Definición en la línea <a class="el" href="_physics_system_controller_8h_source.html#l00008">8</a> del archivo <a class="el" href="_physics_system_controller_8h_source.html">PhysicsSystemController.h</a>.</p>
+</div><h2 class="groupheader">Documentación de constructores y destructores</h2>
+<a id="a00f9a96a78df92f37213103039781b12" name="a00f9a96a78df92f37213103039781b12"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a00f9a96a78df92f37213103039781b12">&#9670;&#160;</a></span>PhysicsSystemController()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">OSK::Editor::Controllers::PhysicsSystemController::PhysicsSystemController </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="class_o_s_k_1_1_e_c_s_1_1_i_system.html">ECS::ISystem</a> *</td>          <td class="paramname"><span class="paramname"><em>system</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="class_o_s_k_1_1_editor_1_1_views_1_1_i_system_view.html">Views::ISystemView</a> *</td>          <td class="paramname"><span class="paramname"><em>view</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">explicit</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definición en la línea <a class="el" href="_physics_system_controller_8cpp_source.html#l00005">5</a> del archivo <a class="el" href="_physics_system_controller_8cpp_source.html">PhysicsSystemController.cpp</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Documentación de funciones miembro</h2>
+<a id="abd285aab6a699a57017f738825e00df1" name="abd285aab6a699a57017f738825e00df1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abd285aab6a699a57017f738825e00df1">&#9670;&#160;</a></span>_GetSystemName()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual std::string_view OSK::Editor::Controllers::ISystemController::_GetSystemName </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a069dbec42da1df20aa9457040526d41b" name="a069dbec42da1df20aa9457040526d41b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a069dbec42da1df20aa9457040526d41b">&#9670;&#160;</a></span>GetComponent()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="class_o_s_k_1_1_e_c_s_1_1_physics_system.html">ECS::PhysicsSystem</a> * <a class="el" href="class_o_s_k_1_1_editor_1_1_controllers_1_1_t_system_controller.html">OSK::Editor::Controllers::TSystemController</a>&lt; <a class="el" href="class_o_s_k_1_1_e_c_s_1_1_physics_system.html">ECS::PhysicsSystem</a> &gt;::GetComponent </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">protected</span><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definición en la línea <a class="el" href="_i_system_controller_8h_source.html#l00072">72</a> del archivo <a class="el" href="_i_system_controller_8h_source.html">ISystemController.h</a>.</p>
+
+</div>
+</div>
+<a id="ae8940a55c2e74ca0c7b361f39f4c5bd7" name="ae8940a55c2e74ca0c7b361f39f4c5bd7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae8940a55c2e74ca0c7b361f39f4c5bd7">&#9670;&#160;</a></span>GetSystem()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="class_o_s_k_1_1_e_c_s_1_1_physics_system.html">ECS::PhysicsSystem</a> * <a class="el" href="class_o_s_k_1_1_editor_1_1_controllers_1_1_t_system_controller.html">OSK::Editor::Controllers::TSystemController</a>&lt; <a class="el" href="class_o_s_k_1_1_e_c_s_1_1_physics_system.html">ECS::PhysicsSystem</a> &gt;::GetSystem </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">protected</span><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definición en la línea <a class="el" href="_i_system_controller_8h_source.html#l00069">69</a> del archivo <a class="el" href="_i_system_controller_8h_source.html">ISystemController.h</a>.</p>
+
+</div>
+</div>
+<a id="affc3bd28624b9836e11123ccfbe24774" name="affc3bd28624b9836e11123ccfbe24774"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#affc3bd28624b9836e11123ccfbe24774">&#9670;&#160;</a></span>GetSystemData() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="class_o_s_k_1_1_e_c_s_1_1_i_system.html">OSK::ECS::ISystem</a> * OSK::Editor::Controllers::ISystemController::GetSystemData </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definición en la línea <a class="el" href="_i_system_controller_8cpp_source.html#l00017">17</a> del archivo <a class="el" href="_i_system_controller_8cpp_source.html">ISystemController.cpp</a>.</p>
+
+</div>
+</div>
+<a id="acaac3a5bbe5e4ec2048aa1170a035150" name="acaac3a5bbe5e4ec2048aa1170a035150"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acaac3a5bbe5e4ec2048aa1170a035150">&#9670;&#160;</a></span>GetSystemData() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="class_o_s_k_1_1_e_c_s_1_1_i_system.html">OSK::ECS::ISystem</a> * OSK::Editor::Controllers::ISystemController::GetSystemData </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definición en la línea <a class="el" href="_i_system_controller_8cpp_source.html#l00021">21</a> del archivo <a class="el" href="_i_system_controller_8cpp_source.html">ISystemController.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a224eb9e7213dc1f06255beba10978b1c" name="a224eb9e7213dc1f06255beba10978b1c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a224eb9e7213dc1f06255beba10978b1c">&#9670;&#160;</a></span>GetView() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="class_o_s_k_1_1_editor_1_1_views_1_1_i_system_view.html">OSK::Editor::Views::ISystemView</a> * OSK::Editor::Controllers::ISystemController::GetView </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definición en la línea <a class="el" href="_i_system_controller_8cpp_source.html#l00009">9</a> del archivo <a class="el" href="_i_system_controller_8cpp_source.html">ISystemController.cpp</a>.</p>
+
+</div>
+</div>
+<a id="ad4f6949c9f6f31b7601c5491de3552ed" name="ad4f6949c9f6f31b7601c5491de3552ed"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad4f6949c9f6f31b7601c5491de3552ed">&#9670;&#160;</a></span>GetView() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="class_o_s_k_1_1_editor_1_1_views_1_1_i_system_view.html">OSK::Editor::Views::ISystemView</a> * OSK::Editor::Controllers::ISystemController::GetView </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definición en la línea <a class="el" href="_i_system_controller_8cpp_source.html#l00013">13</a> del archivo <a class="el" href="_i_system_controller_8cpp_source.html">ISystemController.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a45b07227225e90f2b259abbbaf52e81a" name="a45b07227225e90f2b259abbbaf52e81a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a45b07227225e90f2b259abbbaf52e81a">&#9670;&#160;</a></span>OSK_LINK_SYSTEM_EDITOR_CONTROLLER()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">OSK::Editor::Controllers::PhysicsSystemController::OSK_LINK_SYSTEM_EDITOR_CONTROLLER </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="class_o_s_k_1_1_e_c_s_1_1_physics_system.html">ECS::PhysicsSystem</a></td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a452e81df7ef9aa96af4f56c326f75c07" name="a452e81df7ef9aa96af4f56c326f75c07"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a452e81df7ef9aa96af4f56c326f75c07">&#9670;&#160;</a></span>Poll()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void OSK::Editor::Controllers::PhysicsSystemController::Poll </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Actualiza la interfaz de usuario a partir de los datos del sistema. </p>
+
+<p>Implementa <a class="el" href="class_o_s_k_1_1_editor_1_1_controllers_1_1_i_system_controller.html#a022070a299d539c8d0f7a8c38f038862">OSK::Editor::Controllers::ISystemController</a>.</p>
+
+<p class="definition">Definición en la línea <a class="el" href="_physics_system_controller_8cpp_source.html#l00011">11</a> del archivo <a class="el" href="_physics_system_controller_8cpp_source.html">PhysicsSystemController.cpp</a>.</p>
+
+</div>
+</div>
+</div><!-- contents -->
+</div><!-- doc-content -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="namespace_o_s_k.html">OSK</a></li><li class="navelem"><a class="el" href="namespace_o_s_k_1_1_editor.html">Editor</a></li><li class="navelem"><a class="el" href="namespace_o_s_k_1_1_editor_1_1_controllers.html">Controllers</a></li><li class="navelem"><a class="el" href="class_o_s_k_1_1_editor_1_1_controllers_1_1_physics_system_controller.html">PhysicsSystemController</a></li>
+    <li class="footer">Generado el Viernes, 6 de diciembre de 2024 12:52:13 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.12.0 </li>
+  </ul>
+</div>
+</body>
+</html>

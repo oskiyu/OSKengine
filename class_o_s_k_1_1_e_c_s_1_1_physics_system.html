@@ -126,6 +126,8 @@ Métodos públicos</h2></td></tr>
 <tr class="separator:ab0d174e98b49c92f42214736f7a86743"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8121965c8f9b044af25be216cb065dce" id="r_a8121965c8f9b044af25be216cb065dce"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a8121965c8f9b044af25be216cb065dce">ApplyConfiguration</a> (<a class="el" href="class_o_s_k_1_1_p_e_r_s_i_s_t_e_n_c_e_1_1_binary_block_reader.html">PERSISTENCE::BinaryBlockReader</a> *reader, const <a class="el" href="class_o_s_k_1_1_e_c_s_1_1_saved_game_object_translator.html">SavedGameObjectTranslator</a> &amp;translator) override</td></tr>
 <tr class="separator:a8121965c8f9b044af25be216cb065dce"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae2b145a079c0345ef7c80ffee48d905d" id="r_ae2b145a079c0345ef7c80ffee48d905d"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="namespace_o_s_k.html#a72b3268907c9cd41f0daf0a42e1c9dca">Vector3f</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae2b145a079c0345ef7c80ffee48d905d">GetGravity</a> () const</td></tr>
+<tr class="separator:ae2b145a079c0345ef7c80ffee48d905d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af380b55facabf814ca48fef44cae116b" id="r_af380b55facabf814ca48fef44cae116b"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_e_c_s_1_1_i_iterator_system.html#af380b55facabf814ca48fef44cae116b">OnObjectAdded</a> (<a class="el" href="namespace_o_s_k_1_1_e_c_s.html#a5b92aeaa6be2ce0d96e7f571aa917042">GameObjectIndex</a> obj)</td></tr>
 <tr class="separator:af380b55facabf814ca48fef44cae116b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a95c8a52cae15f1ea27c6bed80c8708c3" id="r_a95c8a52cae15f1ea27c6bed80c8708c3"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_e_c_s_1_1_i_iterator_system.html#a95c8a52cae15f1ea27c6bed80c8708c3">OnObjectRemoved</a> (<a class="el" href="namespace_o_s_k_1_1_e_c_s.html#a5b92aeaa6be2ce0d96e7f571aa917042">GameObjectIndex</a> obj)</td></tr>
@@ -313,9 +315,9 @@ Métodos protegidos</h2></td></tr>
   </dd>
 </dl>
 
-<p>Implementa <a class="el" href="class_o_s_k_1_1_e_c_s_1_1_i_system.html#a356c53dd2a07b8aa475fb6fc6109bd14">OSK::ECS::ISystem</a>.</p>
+<p>Implementa <a class="el" href="class_o_s_k_1_1_e_c_s_1_1_i_serializable_system.html#a8742003ea75a69c42ae89959c64bc333">OSK::ECS::ISerializableSystem</a>.</p>
 
-<p class="definition">Definición en la línea <a class="el" href="_physics_system_8cpp_source.html#l00071">71</a> del archivo <a class="el" href="_physics_system_8cpp_source.html">PhysicsSystem.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_physics_system_8cpp_source.html#l00070">70</a> del archivo <a class="el" href="_physics_system_8cpp_source.html">PhysicsSystem.cpp</a>.</p>
 
 </div>
 </div>
@@ -355,9 +357,9 @@ Métodos protegidos</h2></td></tr>
   </dd>
 </dl>
 
-<p>Implementa <a class="el" href="class_o_s_k_1_1_e_c_s_1_1_i_system.html#a5916eb925d40c0ad0bf7c946b62ab996">OSK::ECS::ISystem</a>.</p>
+<p>Implementa <a class="el" href="class_o_s_k_1_1_e_c_s_1_1_i_serializable_system.html#aad2c52e61393492a0d1af2eaa6804c03">OSK::ECS::ISerializableSystem</a>.</p>
 
-<p class="definition">Definición en la línea <a class="el" href="_physics_system_8cpp_source.html#l00085">85</a> del archivo <a class="el" href="_physics_system_8cpp_source.html">PhysicsSystem.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_physics_system_8cpp_source.html#l00078">78</a> del archivo <a class="el" href="_physics_system_8cpp_source.html">PhysicsSystem.cpp</a>.</p>
 
 </div>
 </div>
@@ -484,6 +486,25 @@ Métodos protegidos</h2></td></tr>
 </div><div class="memdoc">
 
 <p class="definition">Definición en la línea <a class="el" href="_i_system_8cpp_source.html#l00037">37</a> del archivo <a class="el" href="_i_system_8cpp_source.html">ISystem.cpp</a>.</p>
+
+</div>
+</div>
+<a id="ae2b145a079c0345ef7c80ffee48d905d" name="ae2b145a079c0345ef7c80ffee48d905d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae2b145a079c0345ef7c80ffee48d905d">&#9670;&#160;</a></span>GetGravity()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="namespace_o_s_k.html#a72b3268907c9cd41f0daf0a42e1c9dca">Vector3f</a> &amp; PhysicsSystem::GetGravity </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definición en la línea <a class="el" href="_physics_system_8cpp_source.html#l00048">48</a> del archivo <a class="el" href="_physics_system_8cpp_source.html">PhysicsSystem.cpp</a>.</p>
 
 </div>
 </div>
@@ -807,7 +828,7 @@ Métodos protegidos</h2></td></tr>
 </div><div class="memdoc">
 <dl class="section return"><dt>Devuelve</dt><dd>Estructura binaria con la información relevante de la configuración del sistema en un momento dado. </dd></dl>
 
-<p>Implementa <a class="el" href="class_o_s_k_1_1_e_c_s_1_1_i_system.html#ab5ebff79ec2fb87d79f43dcddd9ceaa6">OSK::ECS::ISystem</a>.</p>
+<p>Implementa <a class="el" href="class_o_s_k_1_1_e_c_s_1_1_i_serializable_system.html#a21cee6a91c122bb7ffe15185a161a26f">OSK::ECS::ISerializableSystem</a>.</p>
 
 <p class="definition">Definición en la línea <a class="el" href="_physics_system_8cpp_source.html#l00062">62</a> del archivo <a class="el" href="_physics_system_8cpp_source.html">PhysicsSystem.cpp</a>.</p>
 
@@ -837,9 +858,9 @@ Métodos protegidos</h2></td></tr>
 </div><div class="memdoc">
 <dl class="section return"><dt>Devuelve</dt><dd>Estructura JSON con la información relevante de la configuración del sistema en un momento dado. </dd></dl>
 
-<p>Implementa <a class="el" href="class_o_s_k_1_1_e_c_s_1_1_i_system.html#a71abb122385e05992f9c3875993dafd1">OSK::ECS::ISystem</a>.</p>
+<p>Implementa <a class="el" href="class_o_s_k_1_1_e_c_s_1_1_i_serializable_system.html#a727dd1c18ab112a3ef1e07e6b3402428">OSK::ECS::ISerializableSystem</a>.</p>
 
-<p class="definition">Definición en la línea <a class="el" href="_physics_system_8cpp_source.html#l00048">48</a> del archivo <a class="el" href="_physics_system_8cpp_source.html">PhysicsSystem.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_physics_system_8cpp_source.html#l00052">52</a> del archivo <a class="el" href="_physics_system_8cpp_source.html">PhysicsSystem.cpp</a>.</p>
 
 </div>
 </div>
@@ -948,7 +969,7 @@ Métodos protegidos</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="namespace_o_s_k.html">OSK</a></li><li class="navelem"><a class="el" href="namespace_o_s_k_1_1_e_c_s.html">ECS</a></li><li class="navelem"><a class="el" href="class_o_s_k_1_1_e_c_s_1_1_physics_system.html">PhysicsSystem</a></li>
-    <li class="footer">Generado el Viernes, 16 de agosto de 2024 22:47:25 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.12.0 </li>
+    <li class="footer">Generado el Viernes, 6 de diciembre de 2024 12:52:12 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.12.0 </li>
   </ul>
 </div>
 </body>

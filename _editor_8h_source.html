@@ -109,157 +109,246 @@ $(function(){initNavTree('_editor_8h_source.html',''); initResizable(true); });
 <div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &quot;IComponentController.h&quot;</span></div>
 <div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="preprocessor">#include &quot;IComponentView.h&quot;</span></div>
 <div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span> </div>
-<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="preprocessor">#include &quot;GameObject.h&quot;</span></div>
-<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="preprocessor">#include &quot;Component.h&quot;</span></div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="preprocessor">#include &quot;ISystemController.h&quot;</span></div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="preprocessor">#include &quot;ISystemView.h&quot;</span></div>
 <div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span> </div>
-<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="preprocessor">#include &quot;HashMap.hpp&quot;</span></div>
-<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="preprocessor">#include &lt;functional&gt;</span></div>
-<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span><span class="preprocessor">#include &quot;OwnedPtr.h&quot;</span></div>
-<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span><span class="preprocessor">#include &quot;NumericTypes.h&quot;</span></div>
-<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span> </div>
-<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span><span class="preprocessor">#include &lt;string&gt;</span></div>
-<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span><span class="preprocessor">#include &lt;optional&gt;</span></div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="preprocessor">#include &quot;GameObject.h&quot;</span></div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="preprocessor">#include &quot;Component.h&quot;</span></div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span> </div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span><span class="preprocessor">#include &quot;HashMap.hpp&quot;</span></div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span><span class="preprocessor">#include &lt;functional&gt;</span></div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span><span class="preprocessor">#include &quot;OwnedPtr.h&quot;</span></div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span><span class="preprocessor">#include &quot;NumericTypes.h&quot;</span></div>
 <div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span> </div>
-<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span><span class="keyword">namespace </span><a class="code hl_namespace" href="namespace_o_s_k_1_1_e_c_s.html">OSK::ECS</a> {</div>
-<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>    <span class="keyword">class </span>EntityComponentSystem;</div>
-<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>}</div>
-<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span> </div>
-<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span><span class="keyword">namespace </span><a class="code hl_namespace" href="namespace_o_s_k_1_1_editor.html">OSK::Editor</a> {</div>
-<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span> </div>
-<div class="foldopen" id="foldopen00026" data-start="{" data-end="}">
-<div class="line"><a id="l00026" name="l00026"></a><span class="lineno"><a class="line" href="namespace_o_s_k_1_1_editor_1_1_u_i.html">   26</a></span>    <span class="keyword">namespace </span>UI {</div>
-<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>        <span class="keyword">class </span><a class="code hl_class" href="class_o_s_k_1_1_editor_1_1_u_i_1_1_editor_ui.html">EditorUi</a>;</div>
-<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>    }</div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span><span class="preprocessor">#include &lt;string&gt;</span></div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span><span class="preprocessor">#include &lt;optional&gt;</span></div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span> </div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span><span class="keyword">namespace </span><a class="code hl_namespace" href="namespace_o_s_k_1_1_e_c_s.html">OSK::ECS</a> {</div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>    <span class="keyword">class </span>EntityComponentSystem;</div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>}</div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span> </div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span><span class="keyword">namespace </span><a class="code hl_namespace" href="namespace_o_s_k_1_1_editor.html">OSK::Editor</a> {</div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span> </div>
+<div class="foldopen" id="foldopen00029" data-start="{" data-end="}">
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno"><a class="line" href="namespace_o_s_k_1_1_editor_1_1_u_i.html">   29</a></span>    <span class="keyword">namespace </span>UI {</div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>        <span class="keyword">class </span><a class="code hl_class" href="class_o_s_k_1_1_editor_1_1_u_i_1_1_editor_ui.html">EditorUi</a>;</div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>    }</div>
 </div>
-<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span> </div>
-<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span> </div>
-<div class="foldopen" id="foldopen00034" data-start="{" data-end="};">
-<div class="line"><a id="l00034" name="l00034"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_editor_1_1_editor.html">   34</a></span>    <span class="keyword">class </span>OSKAPI_CALL <a class="code hl_class" href="class_o_s_k_1_1_editor_1_1_editor.html">Editor</a> {</div>
-<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span> </div>
-<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>    <span class="keyword">public</span>:</div>
-<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span> </div>
-<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>        <span class="comment">// un controlador para un tipo en concreto.</span></div>
-<div class="line"><a id="l00040" name="l00040"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_editor_1_1_editor.html#a5572f7462c8609057e690275d26681c9">   40</a></span>        <span class="keyword">using </span><a class="code hl_typedef" href="class_o_s_k_1_1_editor_1_1_editor.html#a5572f7462c8609057e690275d26681c9">ControllerFactoryMethod</a> = std::function&lt;OwnedPtr&lt;Controllers::IComponentController&gt;(<a class="code hl_class" href="class_o_s_k_1_1_base_uuid.html">ECS::GameObjectIndex</a>, <span class="keywordtype">void</span>*, <a class="code hl_class" href="class_o_s_k_1_1_editor_1_1_views_1_1_i_component_view.html">Views::IComponentView</a>*)&gt;;</div>
-<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span> </div>
-<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>        <span class="comment">// una vista para un tipo en concreto.</span></div>
-<div class="line"><a id="l00044" name="l00044"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_editor_1_1_editor.html#afc9a9902d8c1b5abdd8e565e6c333dc2">   44</a></span>        <span class="keyword">using </span><a class="code hl_typedef" href="class_o_s_k_1_1_editor_1_1_editor.html#afc9a9902d8c1b5abdd8e565e6c333dc2">ViewFactoryMethod</a> = std::function&lt;OwnedPtr&lt;Views::IComponentView&gt;(<span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_vector2__t.html">Vector2f</a>&amp; size)&gt;;</div>
-<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span> </div>
-<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>        <a class="code hl_class" href="class_o_s_k_1_1_editor_1_1_editor.html">Editor</a>(</div>
-<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>            <a class="code hl_class" href="class_o_s_k_1_1_u_i_1_1_i_container.html">OSK::UI::IContainer</a>* rootUiElement,</div>
-<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>            <span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_vector2__t.html">Vector2f</a>&amp; windowSize);</div>
-<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span> </div>
-<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span><span class="preprocessor">#pragma region Controller factory</span></div>
-<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span> </div>
-<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>        <span class="keywordtype">void</span> RegisterController(</div>
-<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>            std::string_view componentName,</div>
-<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>            <span class="keyword">const</span> <a class="code hl_typedef" href="class_o_s_k_1_1_editor_1_1_editor.html#a5572f7462c8609057e690275d26681c9">ControllerFactoryMethod</a>&amp; controllerFactoryMethod);</div>
-<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span> </div>
-<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>        <span class="keyword">template</span> &lt;<span class="keyword">typename</span> TComponentController&gt;</div>
-<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>            <span class="keyword">requires</span> <a class="code hl_concept" href="concept_o_s_k_1_1_editor_1_1_controllers_1_1_is_component_controller.html">Controllers::IsComponentController&lt;TComponentController&gt;</a></div>
-<div class="foldopen" id="foldopen00071" data-start="{" data-end="}">
-<div class="line"><a id="l00071" name="l00071"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_editor_1_1_editor.html#a8c9ff495015b3b29b0efe10e81386f4e">   71</a></span>        <span class="keywordtype">void</span> <a class="code hl_function" href="class_o_s_k_1_1_editor_1_1_editor.html#a8c9ff495015b3b29b0efe10e81386f4e">RegisterController</a>() {</div>
-<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>            RegisterController(</div>
-<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>                TComponentController::GetComponentTypeName(),</div>
-<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>                [](<a class="code hl_class" href="class_o_s_k_1_1_base_uuid.html">ECS::GameObjectIndex</a> obj, <span class="keywordtype">void</span>* componentData, <a class="code hl_class" href="class_o_s_k_1_1_editor_1_1_views_1_1_i_component_view.html">Views::IComponentView</a>* view) {</div>
-<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>                    <span class="keywordflow">return</span> <span class="keyword">new</span> TComponentController(obj, componentData, view);</div>
-<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>                });</div>
-<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span>        }</div>
-</div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span> </div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span> </div>
+<div class="foldopen" id="foldopen00037" data-start="{" data-end="};">
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_editor_1_1_editor.html">   37</a></span>    <span class="keyword">class </span>OSKAPI_CALL <a class="code hl_class" href="class_o_s_k_1_1_editor_1_1_editor.html">Editor</a> {</div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span> </div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>    <span class="keyword">public</span>:</div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span> </div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>        <span class="comment">// un controlador para un tipo en concreto.</span></div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_editor_1_1_editor.html#ab18d3524510be7567e8478c4792c38e5">   43</a></span>        <span class="keyword">using </span><a class="code hl_typedef" href="class_o_s_k_1_1_editor_1_1_editor.html#ab18d3524510be7567e8478c4792c38e5">ComponentControllerFactoryMethod</a> = std::function&lt;OwnedPtr&lt;Controllers::IComponentController&gt;(<a class="code hl_class" href="class_o_s_k_1_1_base_uuid.html">ECS::GameObjectIndex</a>, <span class="keywordtype">void</span>*, <a class="code hl_class" href="class_o_s_k_1_1_editor_1_1_views_1_1_i_component_view.html">Views::IComponentView</a>*)&gt;;</div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span> </div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>        <span class="comment">// una vista para un tipo en concreto.</span></div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_editor_1_1_editor.html#ab3352426b8e538c3a6aa2c884053ca07">   47</a></span>        <span class="keyword">using </span><a class="code hl_typedef" href="class_o_s_k_1_1_editor_1_1_editor.html#ab3352426b8e538c3a6aa2c884053ca07">ComponentViewFactoryMethod</a> = std::function&lt;OwnedPtr&lt;Views::IComponentView&gt;(<span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_vector2__t.html">Vector2f</a>&amp; size)&gt;;</div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span> </div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span> </div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>        <span class="comment">// un controlador para un sistema en concreto.</span></div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_editor_1_1_editor.html#a1d0bb0a96413e5f58d444184d918c665">   52</a></span>        <span class="keyword">using </span><a class="code hl_typedef" href="class_o_s_k_1_1_editor_1_1_editor.html#a1d0bb0a96413e5f58d444184d918c665">SystemControllerFactoryMethod</a> = std::function&lt;OwnedPtr&lt;Controllers::ISystemController&gt;(<a class="code hl_class" href="class_o_s_k_1_1_e_c_s_1_1_i_system.html">ECS::ISystem</a>*, <a class="code hl_class" href="class_o_s_k_1_1_editor_1_1_views_1_1_i_system_view.html">Views::ISystemView</a>*)&gt;;</div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span> </div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>        <span class="comment">// una vista para un sistema en concreto.</span></div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_editor_1_1_editor.html#aef2d4a28b432a86f7d92bd93d4a6c7dd">   56</a></span>        <span class="keyword">using </span><a class="code hl_typedef" href="class_o_s_k_1_1_editor_1_1_editor.html#aef2d4a28b432a86f7d92bd93d4a6c7dd">SystemViewFactoryMethod</a> = std::function&lt;OwnedPtr&lt;Views::ISystemView&gt;(<span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_vector2__t.html">Vector2f</a>&amp; size)&gt;;</div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span> </div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span> </div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>        <a class="code hl_class" href="class_o_s_k_1_1_editor_1_1_editor.html">Editor</a>(</div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>            <a class="code hl_class" href="class_o_s_k_1_1_u_i_1_1_i_container.html">OSK::UI::IContainer</a>* rootUiElement,</div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>            <span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_vector2__t.html">Vector2f</a>&amp; windowSize);</div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span> </div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span><span class="preprocessor">#pragma region Component controller factory</span></div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span> </div>
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>        <span class="keywordtype">void</span> RegisterComponentController(</div>
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>            std::string_view componentName,</div>
+<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span>            <span class="keyword">const</span> <a class="code hl_typedef" href="class_o_s_k_1_1_editor_1_1_editor.html#ab18d3524510be7567e8478c4792c38e5">ComponentControllerFactoryMethod</a>&amp; controllerFactoryMethod);</div>
 <div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span> </div>
 <div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span>        <span class="keyword">template</span> &lt;<span class="keyword">typename</span> TComponentController&gt;</div>
 <div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span>            <span class="keyword">requires</span> <a class="code hl_concept" href="concept_o_s_k_1_1_editor_1_1_controllers_1_1_is_component_controller.html">Controllers::IsComponentController&lt;TComponentController&gt;</a></div>
 <div class="foldopen" id="foldopen00084" data-start="{" data-end="}">
-<div class="line"><a id="l00084" name="l00084"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_editor_1_1_editor.html#ad86d5e55d15fbcc69131f5e779d7a4cf">   84</a></span>        <span class="keywordtype">void</span> <a class="code hl_function" href="class_o_s_k_1_1_editor_1_1_editor.html#ad86d5e55d15fbcc69131f5e779d7a4cf">RegisterController</a>(<span class="keyword">const</span> <a class="code hl_typedef" href="class_o_s_k_1_1_editor_1_1_editor.html#a5572f7462c8609057e690275d26681c9">ControllerFactoryMethod</a>&amp; factoryMethod) {</div>
-<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span>            RegisterController(TComponentController::GetComponentTypeName(), factoryMethod);</div>
-<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span>        }</div>
+<div class="line"><a id="l00084" name="l00084"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_editor_1_1_editor.html#aad9b48f7159d1e79aa39b24d3a1c1b29">   84</a></span>        <span class="keywordtype">void</span> <a class="code hl_function" href="class_o_s_k_1_1_editor_1_1_editor.html#aad9b48f7159d1e79aa39b24d3a1c1b29">RegisterComponentController</a>() {</div>
+<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span>            RegisterComponentController(</div>
+<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span>                TComponentController::GetComponentTypeName(),</div>
+<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span>                [](<a class="code hl_class" href="class_o_s_k_1_1_base_uuid.html">ECS::GameObjectIndex</a> obj, <span class="keywordtype">void</span>* componentData, <a class="code hl_class" href="class_o_s_k_1_1_editor_1_1_views_1_1_i_component_view.html">Views::IComponentView</a>* view) {</div>
+<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span>                    <span class="keywordflow">return</span> <span class="keyword">new</span> TComponentController(obj, componentData, view);</div>
+<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span>                });</div>
+<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span>        }</div>
 </div>
-<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span> </div>
-<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span><span class="preprocessor">#pragma endregion</span></div>
-<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span> </div>
-<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span><span class="preprocessor">#pragma region View factory</span></div>
 <div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span> </div>
-<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span>        <span class="keywordtype">void</span> RegisterView(</div>
-<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span>            std::string_view componentName,</div>
-<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span>            <span class="keyword">const</span> ViewFactoryMethod&amp; viewFactoryMethod);</div>
+<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span>        <span class="keyword">template</span> &lt;<span class="keyword">typename</span> TComponentController&gt;</div>
+<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span>            <span class="keyword">requires</span> <a class="code hl_concept" href="concept_o_s_k_1_1_editor_1_1_controllers_1_1_is_component_controller.html">Controllers::IsComponentController&lt;TComponentController&gt;</a></div>
+<div class="foldopen" id="foldopen00097" data-start="{" data-end="}">
+<div class="line"><a id="l00097" name="l00097"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_editor_1_1_editor.html#a3f0492e611223807de7c41bda12b9912">   97</a></span>        <span class="keywordtype">void</span> <a class="code hl_function" href="class_o_s_k_1_1_editor_1_1_editor.html#a3f0492e611223807de7c41bda12b9912">RegisterComponentController</a>(<span class="keyword">const</span> <a class="code hl_typedef" href="class_o_s_k_1_1_editor_1_1_editor.html#ab18d3524510be7567e8478c4792c38e5">ComponentControllerFactoryMethod</a>&amp; factoryMethod) {</div>
+<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span>            RegisterComponentController(TComponentController::GetComponentTypeName(), factoryMethod);</div>
+<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span>        }</div>
+</div>
 <div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span> </div>
-<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span>        <span class="keyword">template</span> &lt;<span class="keyword">typename</span> TComponentView&gt;</div>
-<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span>            <span class="keyword">requires</span> <a class="code hl_concept" href="concept_o_s_k_1_1_editor_1_1_views_1_1_is_component_view.html">Views::IsComponentView&lt;TComponentView&gt;</a></div>
-<div class="foldopen" id="foldopen00106" data-start="{" data-end="}">
-<div class="line"><a id="l00106" name="l00106"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_editor_1_1_editor.html#a10d0b311016e2ba9073fd4811a6d40e9">  106</a></span>        <span class="keywordtype">void</span> <a class="code hl_function" href="class_o_s_k_1_1_editor_1_1_editor.html#a10d0b311016e2ba9073fd4811a6d40e9">RegisterView</a>() {</div>
-<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span>            RegisterView(TComponentView::GetComponentTypeName(), [](<span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_vector2__t.html">Vector2f</a>&amp; size) { <span class="keywordflow">return</span> <span class="keyword">new</span> TComponentView(size); });</div>
-<div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span>        }</div>
+<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span><span class="preprocessor">#pragma endregion</span></div>
+<div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span> </div>
+<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span><span class="preprocessor">#pragma region Component view factory</span></div>
+<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span> </div>
+<div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span>        <span class="keywordtype">void</span> RegisterComponentView(</div>
+<div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span>            std::string_view componentName,</div>
+<div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span>            <span class="keyword">const</span> ComponentViewFactoryMethod&amp; viewFactoryMethod);</div>
+<div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span> </div>
+<div class="line"><a id="l00117" name="l00117"></a><span class="lineno">  117</span>        <span class="keyword">template</span> &lt;<span class="keyword">typename</span> TComponentView&gt;</div>
+<div class="line"><a id="l00118" name="l00118"></a><span class="lineno">  118</span>            <span class="keyword">requires</span> <a class="code hl_concept" href="concept_o_s_k_1_1_editor_1_1_views_1_1_is_component_view.html">Views::IsComponentView&lt;TComponentView&gt;</a></div>
+<div class="foldopen" id="foldopen00119" data-start="{" data-end="}">
+<div class="line"><a id="l00119" name="l00119"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_editor_1_1_editor.html#aba6207dce60a8eabe6ba708bc8aa90bc">  119</a></span>        <span class="keywordtype">void</span> <a class="code hl_function" href="class_o_s_k_1_1_editor_1_1_editor.html#aba6207dce60a8eabe6ba708bc8aa90bc">RegisterComponentView</a>() {</div>
+<div class="line"><a id="l00120" name="l00120"></a><span class="lineno">  120</span>            RegisterComponentView(TComponentView::GetComponentTypeName(), [](<span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_vector2__t.html">Vector2f</a>&amp; size) { <span class="keywordflow">return</span> <span class="keyword">new</span> TComponentView(size); });</div>
+<div class="line"><a id="l00121" name="l00121"></a><span class="lineno">  121</span>        }</div>
 </div>
-<div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span> </div>
-<div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span>        <span class="keyword">template</span> &lt;<span class="keyword">typename</span> TComponentView&gt;</div>
-<div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span>            <span class="keyword">requires</span> <a class="code hl_concept" href="concept_o_s_k_1_1_editor_1_1_views_1_1_is_component_view.html">Views::IsComponentView&lt;TComponentView&gt;</a></div>
-<div class="foldopen" id="foldopen00116" data-start="{" data-end="}">
-<div class="line"><a id="l00116" name="l00116"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_editor_1_1_editor.html#a5292fc348beae854a1a678520cfa78d8">  116</a></span>        <span class="keywordtype">void</span> <a class="code hl_function" href="class_o_s_k_1_1_editor_1_1_editor.html#a5292fc348beae854a1a678520cfa78d8">RegisterView</a>(<span class="keyword">const</span> <a class="code hl_typedef" href="class_o_s_k_1_1_editor_1_1_editor.html#afc9a9902d8c1b5abdd8e565e6c333dc2">ViewFactoryMethod</a>&amp; factoryMethod) {</div>
-<div class="line"><a id="l00117" name="l00117"></a><span class="lineno">  117</span>            RegisterView(TComponentView::GetComponentTypeName(), factoryMethod);</div>
-<div class="line"><a id="l00118" name="l00118"></a><span class="lineno">  118</span>        }</div>
+<div class="line"><a id="l00122" name="l00122"></a><span class="lineno">  122</span> </div>
+<div class="line"><a id="l00127" name="l00127"></a><span class="lineno">  127</span>        <span class="keyword">template</span> &lt;<span class="keyword">typename</span> TComponentView&gt;</div>
+<div class="line"><a id="l00128" name="l00128"></a><span class="lineno">  128</span>            <span class="keyword">requires</span> <a class="code hl_concept" href="concept_o_s_k_1_1_editor_1_1_views_1_1_is_component_view.html">Views::IsComponentView&lt;TComponentView&gt;</a></div>
+<div class="foldopen" id="foldopen00129" data-start="{" data-end="}">
+<div class="line"><a id="l00129" name="l00129"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_editor_1_1_editor.html#af097b7e7f99686fb89fbcbdcfe5db538">  129</a></span>        <span class="keywordtype">void</span> <a class="code hl_function" href="class_o_s_k_1_1_editor_1_1_editor.html#af097b7e7f99686fb89fbcbdcfe5db538">RegisterComponentView</a>(<span class="keyword">const</span> <a class="code hl_typedef" href="class_o_s_k_1_1_editor_1_1_editor.html#ab3352426b8e538c3a6aa2c884053ca07">ComponentViewFactoryMethod</a>&amp; factoryMethod) {</div>
+<div class="line"><a id="l00130" name="l00130"></a><span class="lineno">  130</span>            RegisterComponentView(TComponentView::GetComponentTypeName(), factoryMethod);</div>
+<div class="line"><a id="l00131" name="l00131"></a><span class="lineno">  131</span>        }</div>
 </div>
-<div class="line"><a id="l00119" name="l00119"></a><span class="lineno">  119</span> </div>
-<div class="line"><a id="l00120" name="l00120"></a><span class="lineno">  120</span><span class="preprocessor">#pragma endregion</span></div>
-<div class="line"><a id="l00121" name="l00121"></a><span class="lineno">  121</span> </div>
-<div class="line"><a id="l00127" name="l00127"></a><span class="lineno">  127</span>        <span class="keywordtype">void</span> Update(</div>
-<div class="line"><a id="l00128" name="l00128"></a><span class="lineno">  128</span>            <a class="code hl_class" href="class_o_s_k_1_1_e_c_s_1_1_entity_component_system.html">ECS::EntityComponentSystem</a>* ecs,</div>
-<div class="line"><a id="l00129" name="l00129"></a><span class="lineno">  129</span>            <a class="code hl_typedef" href="namespace_o_s_k.html#adfc76cbcf35e5506ee24168edfe15bb0">TDeltaTime</a> deltaTime);</div>
-<div class="line"><a id="l00130" name="l00130"></a><span class="lineno">  130</span> </div>
-<div class="line"><a id="l00131" name="l00131"></a><span class="lineno">  131</span> </div>
-<div class="line"><a id="l00137" name="l00137"></a><span class="lineno">  137</span>        <span class="keywordtype">void</span> SetSelectedObject(<a class="code hl_class" href="class_o_s_k_1_1_base_uuid.html">ECS::GameObjectIndex</a> gameObject);</div>
-<div class="line"><a id="l00138" name="l00138"></a><span class="lineno">  138</span> </div>
-<div class="line"><a id="l00144" name="l00144"></a><span class="lineno">  144</span>        <span class="keywordtype">void</span> SetSelectedSystem(<span class="keyword">const</span> std::string&amp; systemName);</div>
+<div class="line"><a id="l00132" name="l00132"></a><span class="lineno">  132</span> </div>
+<div class="line"><a id="l00133" name="l00133"></a><span class="lineno">  133</span><span class="preprocessor">#pragma endregion</span></div>
+<div class="line"><a id="l00134" name="l00134"></a><span class="lineno">  134</span> </div>
+<div class="line"><a id="l00135" name="l00135"></a><span class="lineno">  135</span><span class="preprocessor">#pragma region System controller factory</span></div>
+<div class="line"><a id="l00136" name="l00136"></a><span class="lineno">  136</span> </div>
+<div class="line"><a id="l00142" name="l00142"></a><span class="lineno">  142</span>        <span class="keywordtype">void</span> RegisterSystemController(</div>
+<div class="line"><a id="l00143" name="l00143"></a><span class="lineno">  143</span>            std::string_view componentName,</div>
+<div class="line"><a id="l00144" name="l00144"></a><span class="lineno">  144</span>            <span class="keyword">const</span> SystemControllerFactoryMethod&amp; controllerFactoryMethod);</div>
 <div class="line"><a id="l00145" name="l00145"></a><span class="lineno">  145</span> </div>
-<div class="line"><a id="l00148" name="l00148"></a><span class="lineno">  148</span>        <a class="code hl_class" href="class_o_s_k_1_1_editor_1_1_u_i_1_1_editor_ui.html">UI::EditorUi</a>* GetUi();</div>
-<div class="line"><a id="l00149" name="l00149"></a><span class="lineno">  149</span> </div>
-<div class="line"><a id="l00150" name="l00150"></a><span class="lineno">  150</span>    <span class="keyword">private</span>:</div>
-<div class="line"><a id="l00151" name="l00151"></a><span class="lineno">  151</span> </div>
-<div class="line"><a id="l00152" name="l00152"></a><span class="lineno">  152</span>        <span class="keyword">struct </span>ControllerViewPair {</div>
-<div class="line"><a id="l00153" name="l00153"></a><span class="lineno">  153</span>            <a class="code hl_class" href="class_o_s_k_1_1_editor_1_1_controllers_1_1_i_component_controller.html">Controllers::IComponentController</a>* controller;</div>
-<div class="line"><a id="l00154" name="l00154"></a><span class="lineno">  154</span>            <a class="code hl_class" href="class_o_s_k_1_1_editor_1_1_views_1_1_i_component_view.html">Views::IComponentView</a>* view;</div>
-<div class="line"><a id="l00155" name="l00155"></a><span class="lineno">  155</span>            <span class="keywordtype">bool</span> isNewInsertion = <span class="keyword">false</span>;</div>
-<div class="line"><a id="l00156" name="l00156"></a><span class="lineno">  156</span>        };</div>
-<div class="line"><a id="l00157" name="l00157"></a><span class="lineno">  157</span> </div>
-<div class="line"><a id="l00167" name="l00167"></a><span class="lineno">  167</span>        std::optional&lt;ControllerViewPair&gt; GetOrCreateControllerViewPair(</div>
-<div class="line"><a id="l00168" name="l00168"></a><span class="lineno">  168</span>            <a class="code hl_class" href="class_o_s_k_1_1_e_c_s_1_1_entity_component_system.html">ECS::EntityComponentSystem</a>* ecs,</div>
-<div class="line"><a id="l00169" name="l00169"></a><span class="lineno">  169</span>            <a class="code hl_typedef" href="namespace_o_s_k_1_1_e_c_s.html#a95b3fa53385506953113ea055e091357">ECS::ComponentType</a> type);</div>
-<div class="line"><a id="l00170" name="l00170"></a><span class="lineno">  170</span> </div>
-<div class="line"><a id="l00171" name="l00171"></a><span class="lineno">  171</span>        std::unordered_map&lt;std::string, ControllerFactoryMethod, StringHasher, std::equal_to&lt;&gt;&gt; m_controllersFactoryMethods;</div>
-<div class="line"><a id="l00172" name="l00172"></a><span class="lineno">  172</span>        std::unordered_map&lt;std::string, ViewFactoryMethod, StringHasher, std::equal_to&lt;&gt;&gt; m_viewsFactoryMethods;</div>
-<div class="line"><a id="l00173" name="l00173"></a><span class="lineno">  173</span> </div>
-<div class="line"><a id="l00174" name="l00174"></a><span class="lineno">  174</span>        std::unordered_map&lt;ECS::ComponentType, UniquePtr&lt;Controllers::IComponentController&gt;&gt; m_controllers;</div>
-<div class="line"><a id="l00175" name="l00175"></a><span class="lineno">  175</span>        std::unordered_map&lt;ECS::ComponentType, Views::IComponentView*&gt; m_views;</div>
-<div class="line"><a id="l00176" name="l00176"></a><span class="lineno">  176</span> </div>
-<div class="line"><a id="l00177" name="l00177"></a><span class="lineno">  177</span>        <span class="comment">// Estado.</span></div>
-<div class="line"><a id="l00178" name="l00178"></a><span class="lineno">  178</span> </div>
-<div class="line"><a id="l00179" name="l00179"></a><span class="lineno">  179</span>        <a class="code hl_class" href="class_o_s_k_1_1_base_uuid.html">ECS::GameObjectIndex</a> m_selectedObject = ECS::GameObjectIndex::CreateEmpty();</div>
-<div class="line"><a id="l00180" name="l00180"></a><span class="lineno">  180</span>        std::string m_selectedSystemName{};</div>
-<div class="line"><a id="l00181" name="l00181"></a><span class="lineno">  181</span> </div>
-<div class="line"><a id="l00184" name="l00184"></a><span class="lineno">  184</span>        <span class="keywordtype">bool</span> m_isSelectedObjectDirty = <span class="keyword">false</span>;</div>
-<div class="line"><a id="l00185" name="l00185"></a><span class="lineno">  185</span> </div>
-<div class="line"><a id="l00186" name="l00186"></a><span class="lineno">  186</span> </div>
-<div class="line"><a id="l00187" name="l00187"></a><span class="lineno">  187</span>        <span class="comment">// UI &amp; views.</span></div>
-<div class="line"><a id="l00188" name="l00188"></a><span class="lineno">  188</span>        UI::EditorUi* m_editorUi;</div>
-<div class="line"><a id="l00189" name="l00189"></a><span class="lineno">  189</span> </div>
-<div class="line"><a id="l00190" name="l00190"></a><span class="lineno">  190</span>    };</div>
+<div class="line"><a id="l00149" name="l00149"></a><span class="lineno">  149</span>        <span class="keyword">template</span> &lt;<span class="keyword">typename</span> TSystemController&gt;</div>
+<div class="line"><a id="l00150" name="l00150"></a><span class="lineno">  150</span>            <span class="keyword">requires</span> <a class="code hl_concept" href="concept_o_s_k_1_1_editor_1_1_controllers_1_1_is_system_controller.html">Controllers::IsSystemController&lt;TSystemController&gt;</a></div>
+<div class="foldopen" id="foldopen00151" data-start="{" data-end="}">
+<div class="line"><a id="l00151" name="l00151"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_editor_1_1_editor.html#a77888156d9ac3b45ef6b9c706404a81f">  151</a></span>        <span class="keywordtype">void</span> <a class="code hl_function" href="class_o_s_k_1_1_editor_1_1_editor.html#a77888156d9ac3b45ef6b9c706404a81f">RegisterSystemController</a>() {</div>
+<div class="line"><a id="l00152" name="l00152"></a><span class="lineno">  152</span>            RegisterSystemController(</div>
+<div class="line"><a id="l00153" name="l00153"></a><span class="lineno">  153</span>                TSystemController::GetSystemName(),</div>
+<div class="line"><a id="l00154" name="l00154"></a><span class="lineno">  154</span>                [](<a class="code hl_class" href="class_o_s_k_1_1_e_c_s_1_1_i_system.html">ECS::ISystem</a>* system, <a class="code hl_class" href="class_o_s_k_1_1_editor_1_1_views_1_1_i_system_view.html">Views::ISystemView</a>* view) {</div>
+<div class="line"><a id="l00155" name="l00155"></a><span class="lineno">  155</span>                    <span class="keywordflow">return</span> <span class="keyword">new</span> TSystemController(system, view);</div>
+<div class="line"><a id="l00156" name="l00156"></a><span class="lineno">  156</span>                });</div>
+<div class="line"><a id="l00157" name="l00157"></a><span class="lineno">  157</span>        }</div>
 </div>
-<div class="line"><a id="l00191" name="l00191"></a><span class="lineno">  191</span> </div>
-<div class="line"><a id="l00192" name="l00192"></a><span class="lineno">  192</span>}</div>
+<div class="line"><a id="l00158" name="l00158"></a><span class="lineno">  158</span> </div>
+<div class="line"><a id="l00162" name="l00162"></a><span class="lineno">  162</span>        <span class="keyword">template</span> &lt;<span class="keyword">typename</span> TSystemController&gt;</div>
+<div class="line"><a id="l00163" name="l00163"></a><span class="lineno">  163</span>            <span class="keyword">requires</span> <a class="code hl_concept" href="concept_o_s_k_1_1_editor_1_1_controllers_1_1_is_system_controller.html">Controllers::IsSystemController&lt;TSystemController&gt;</a></div>
+<div class="foldopen" id="foldopen00164" data-start="{" data-end="}">
+<div class="line"><a id="l00164" name="l00164"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_editor_1_1_editor.html#a56f62cbd385eaafb33d63f7b51a6d873">  164</a></span>        <span class="keywordtype">void</span> <a class="code hl_function" href="class_o_s_k_1_1_editor_1_1_editor.html#a56f62cbd385eaafb33d63f7b51a6d873">RegisterSystemController</a>(<span class="keyword">const</span> <a class="code hl_typedef" href="class_o_s_k_1_1_editor_1_1_editor.html#a1d0bb0a96413e5f58d444184d918c665">SystemControllerFactoryMethod</a>&amp; factoryMethod) {</div>
+<div class="line"><a id="l00165" name="l00165"></a><span class="lineno">  165</span>            RegisterSystemController(TSystemController::GetSystemName(), factoryMethod);</div>
+<div class="line"><a id="l00166" name="l00166"></a><span class="lineno">  166</span>        }</div>
+</div>
+<div class="line"><a id="l00167" name="l00167"></a><span class="lineno">  167</span> </div>
+<div class="line"><a id="l00168" name="l00168"></a><span class="lineno">  168</span><span class="preprocessor">#pragma endregion</span></div>
+<div class="line"><a id="l00169" name="l00169"></a><span class="lineno">  169</span> </div>
+<div class="line"><a id="l00170" name="l00170"></a><span class="lineno">  170</span><span class="preprocessor">#pragma region Component view factory</span></div>
+<div class="line"><a id="l00171" name="l00171"></a><span class="lineno">  171</span> </div>
+<div class="line"><a id="l00177" name="l00177"></a><span class="lineno">  177</span>        <span class="keywordtype">void</span> RegisterSystemView(</div>
+<div class="line"><a id="l00178" name="l00178"></a><span class="lineno">  178</span>            std::string_view systemName,</div>
+<div class="line"><a id="l00179" name="l00179"></a><span class="lineno">  179</span>            <span class="keyword">const</span> SystemViewFactoryMethod&amp; viewFactoryMethod);</div>
+<div class="line"><a id="l00180" name="l00180"></a><span class="lineno">  180</span> </div>
+<div class="line"><a id="l00184" name="l00184"></a><span class="lineno">  184</span>        <span class="keyword">template</span> &lt;<span class="keyword">typename</span> TSystemView&gt;</div>
+<div class="line"><a id="l00185" name="l00185"></a><span class="lineno">  185</span>            <span class="keyword">requires</span> <a class="code hl_concept" href="concept_o_s_k_1_1_editor_1_1_views_1_1_is_system_view.html">Views::IsSystemView&lt;TSystemView&gt;</a></div>
+<div class="foldopen" id="foldopen00186" data-start="{" data-end="}">
+<div class="line"><a id="l00186" name="l00186"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_editor_1_1_editor.html#ad33d5ce85661b0ac4d95045d76a2019b">  186</a></span>        <span class="keywordtype">void</span> <a class="code hl_function" href="class_o_s_k_1_1_editor_1_1_editor.html#ad33d5ce85661b0ac4d95045d76a2019b">RegisterSystemView</a>() {</div>
+<div class="line"><a id="l00187" name="l00187"></a><span class="lineno">  187</span>            RegisterSystemView(TSystemView::GetSystemName(), [](<span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_vector2__t.html">Vector2f</a>&amp; size) { <span class="keywordflow">return</span> <span class="keyword">new</span> TSystemView(size); });</div>
+<div class="line"><a id="l00188" name="l00188"></a><span class="lineno">  188</span>        }</div>
+</div>
+<div class="line"><a id="l00189" name="l00189"></a><span class="lineno">  189</span> </div>
+<div class="line"><a id="l00194" name="l00194"></a><span class="lineno">  194</span>        <span class="keyword">template</span> &lt;<span class="keyword">typename</span> TSystemView&gt;</div>
+<div class="line"><a id="l00195" name="l00195"></a><span class="lineno">  195</span>            <span class="keyword">requires</span> <a class="code hl_concept" href="concept_o_s_k_1_1_editor_1_1_views_1_1_is_system_view.html">Views::IsSystemView&lt;TSystemView&gt;</a></div>
+<div class="foldopen" id="foldopen00196" data-start="{" data-end="}">
+<div class="line"><a id="l00196" name="l00196"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_editor_1_1_editor.html#a1e36e6e6a878929ad520c96229dbec26">  196</a></span>        <span class="keywordtype">void</span> <a class="code hl_function" href="class_o_s_k_1_1_editor_1_1_editor.html#a1e36e6e6a878929ad520c96229dbec26">RegisterSystemView</a>(<span class="keyword">const</span> <a class="code hl_typedef" href="class_o_s_k_1_1_editor_1_1_editor.html#aef2d4a28b432a86f7d92bd93d4a6c7dd">SystemViewFactoryMethod</a>&amp; factoryMethod) {</div>
+<div class="line"><a id="l00197" name="l00197"></a><span class="lineno">  197</span>            RegisterSystemView(TSystemView::GetSystemName(), factoryMethod);</div>
+<div class="line"><a id="l00198" name="l00198"></a><span class="lineno">  198</span>        }</div>
+</div>
+<div class="line"><a id="l00199" name="l00199"></a><span class="lineno">  199</span> </div>
+<div class="line"><a id="l00200" name="l00200"></a><span class="lineno">  200</span><span class="preprocessor">#pragma endregion</span></div>
+<div class="line"><a id="l00201" name="l00201"></a><span class="lineno">  201</span> </div>
+<div class="line"><a id="l00207" name="l00207"></a><span class="lineno">  207</span>        <span class="keywordtype">void</span> Update(</div>
+<div class="line"><a id="l00208" name="l00208"></a><span class="lineno">  208</span>            <a class="code hl_class" href="class_o_s_k_1_1_e_c_s_1_1_entity_component_system.html">ECS::EntityComponentSystem</a>* ecs,</div>
+<div class="line"><a id="l00209" name="l00209"></a><span class="lineno">  209</span>            <a class="code hl_typedef" href="namespace_o_s_k.html#adfc76cbcf35e5506ee24168edfe15bb0">TDeltaTime</a> deltaTime);</div>
+<div class="line"><a id="l00210" name="l00210"></a><span class="lineno">  210</span> </div>
+<div class="line"><a id="l00211" name="l00211"></a><span class="lineno">  211</span> </div>
+<div class="line"><a id="l00217" name="l00217"></a><span class="lineno">  217</span>        <span class="keywordtype">void</span> SetSelectedObject(<a class="code hl_class" href="class_o_s_k_1_1_base_uuid.html">ECS::GameObjectIndex</a> gameObject);</div>
+<div class="line"><a id="l00218" name="l00218"></a><span class="lineno">  218</span> </div>
+<div class="line"><a id="l00221" name="l00221"></a><span class="lineno">  221</span>        <span class="keywordtype">void</span> ClearSelectedObject();</div>
+<div class="line"><a id="l00222" name="l00222"></a><span class="lineno">  222</span> </div>
+<div class="line"><a id="l00228" name="l00228"></a><span class="lineno">  228</span>        <span class="keywordtype">void</span> SetSelectedSystem(<span class="keyword">const</span> std::string&amp; systemName);</div>
+<div class="line"><a id="l00229" name="l00229"></a><span class="lineno">  229</span> </div>
+<div class="line"><a id="l00232" name="l00232"></a><span class="lineno">  232</span>        <span class="keywordtype">void</span> ClearSelectedSystem();</div>
+<div class="line"><a id="l00233" name="l00233"></a><span class="lineno">  233</span> </div>
+<div class="line"><a id="l00236" name="l00236"></a><span class="lineno">  236</span>        <a class="code hl_class" href="class_o_s_k_1_1_editor_1_1_u_i_1_1_editor_ui.html">UI::EditorUi</a>* GetUi();</div>
+<div class="line"><a id="l00237" name="l00237"></a><span class="lineno">  237</span> </div>
+<div class="line"><a id="l00238" name="l00238"></a><span class="lineno">  238</span>    <span class="keyword">private</span>:</div>
+<div class="line"><a id="l00239" name="l00239"></a><span class="lineno">  239</span> </div>
+<div class="line"><a id="l00240" name="l00240"></a><span class="lineno">  240</span>        <span class="keyword">struct </span>ControllerViewPair {</div>
+<div class="line"><a id="l00241" name="l00241"></a><span class="lineno">  241</span>            <a class="code hl_class" href="class_o_s_k_1_1_editor_1_1_controllers_1_1_i_component_controller.html">Controllers::IComponentController</a>* controller;</div>
+<div class="line"><a id="l00242" name="l00242"></a><span class="lineno">  242</span>            <a class="code hl_class" href="class_o_s_k_1_1_editor_1_1_views_1_1_i_component_view.html">Views::IComponentView</a>* view;</div>
+<div class="line"><a id="l00243" name="l00243"></a><span class="lineno">  243</span>            <span class="keywordtype">bool</span> isNewInsertion = <span class="keyword">false</span>;</div>
+<div class="line"><a id="l00244" name="l00244"></a><span class="lineno">  244</span>        };</div>
+<div class="line"><a id="l00245" name="l00245"></a><span class="lineno">  245</span> </div>
+<div class="line"><a id="l00246" name="l00246"></a><span class="lineno">  246</span>        <span class="keywordtype">void</span> UpdateByObject(<a class="code hl_class" href="class_o_s_k_1_1_e_c_s_1_1_entity_component_system.html">ECS::EntityComponentSystem</a>* ecs);</div>
+<div class="line"><a id="l00247" name="l00247"></a><span class="lineno">  247</span>        <span class="keywordtype">void</span> UpdateBySystem();</div>
+<div class="line"><a id="l00248" name="l00248"></a><span class="lineno">  248</span> </div>
+<div class="line"><a id="l00258" name="l00258"></a><span class="lineno">  258</span>        std::optional&lt;ControllerViewPair&gt; GetOrCreateControllerViewPair(</div>
+<div class="line"><a id="l00259" name="l00259"></a><span class="lineno">  259</span>            <a class="code hl_class" href="class_o_s_k_1_1_e_c_s_1_1_entity_component_system.html">ECS::EntityComponentSystem</a>* ecs,</div>
+<div class="line"><a id="l00260" name="l00260"></a><span class="lineno">  260</span>            <a class="code hl_typedef" href="namespace_o_s_k_1_1_e_c_s.html#a95b3fa53385506953113ea055e091357">ECS::ComponentType</a> type);</div>
+<div class="line"><a id="l00261" name="l00261"></a><span class="lineno">  261</span> </div>
+<div class="line"><a id="l00262" name="l00262"></a><span class="lineno">  262</span>        std::unordered_map&lt;std::string, ComponentControllerFactoryMethod, StringHasher, std::equal_to&lt;&gt;&gt; m_componentControllersFactoryMethods;</div>
+<div class="line"><a id="l00263" name="l00263"></a><span class="lineno">  263</span>        std::unordered_map&lt;std::string, ComponentViewFactoryMethod, StringHasher, std::equal_to&lt;&gt;&gt; m_componentViewsFactoryMethods;</div>
+<div class="line"><a id="l00264" name="l00264"></a><span class="lineno">  264</span> </div>
+<div class="line"><a id="l00265" name="l00265"></a><span class="lineno">  265</span>        std::unordered_map&lt;std::string, SystemControllerFactoryMethod, StringHasher, std::equal_to&lt;&gt;&gt; m_systemControllerFactoryMethods;</div>
+<div class="line"><a id="l00266" name="l00266"></a><span class="lineno">  266</span>        std::unordered_map&lt;std::string, SystemViewFactoryMethod, StringHasher, std::equal_to&lt;&gt;&gt; m_systemViewsFactoryMethods;</div>
+<div class="line"><a id="l00267" name="l00267"></a><span class="lineno">  267</span> </div>
+<div class="line"><a id="l00268" name="l00268"></a><span class="lineno">  268</span> </div>
+<div class="line"><a id="l00269" name="l00269"></a><span class="lineno">  269</span>        std::unordered_map&lt;ECS::ComponentType, UniquePtr&lt;Controllers::IComponentController&gt;&gt; m_controllers;</div>
+<div class="line"><a id="l00270" name="l00270"></a><span class="lineno">  270</span>        std::unordered_map&lt;ECS::ComponentType, Views::IComponentView*&gt; m_views;</div>
+<div class="line"><a id="l00271" name="l00271"></a><span class="lineno">  271</span> </div>
+<div class="line"><a id="l00272" name="l00272"></a><span class="lineno">  272</span>        <a class="code hl_class" href="class_o_s_k_1_1_unique_ptr.html">UniquePtr&lt;Controllers::ISystemController&gt;</a> m_currentSystemController;</div>
+<div class="line"><a id="l00273" name="l00273"></a><span class="lineno">  273</span> </div>
+<div class="line"><a id="l00274" name="l00274"></a><span class="lineno">  274</span>        <span class="comment">// Estado.</span></div>
+<div class="line"><a id="l00275" name="l00275"></a><span class="lineno">  275</span> </div>
+<div class="line"><a id="l00276" name="l00276"></a><span class="lineno">  276</span>        <a class="code hl_class" href="class_o_s_k_1_1_e_c_s_1_1_entity_component_system.html">ECS::EntityComponentSystem</a>* m_ecs = <span class="keyword">nullptr</span>;</div>
+<div class="line"><a id="l00277" name="l00277"></a><span class="lineno">  277</span> </div>
+<div class="line"><a id="l00278" name="l00278"></a><span class="lineno">  278</span>        <a class="code hl_class" href="class_o_s_k_1_1_base_uuid.html">ECS::GameObjectIndex</a> m_selectedObject = ECS::GameObjectIndex::CreateEmpty();</div>
+<div class="line"><a id="l00279" name="l00279"></a><span class="lineno">  279</span>        std::string m_selectedSystemName{};</div>
+<div class="line"><a id="l00280" name="l00280"></a><span class="lineno">  280</span> </div>
+<div class="line"><a id="l00283" name="l00283"></a><span class="lineno">  283</span>        <span class="keywordtype">bool</span> m_isSelectedObjectDirty = <span class="keyword">false</span>;</div>
+<div class="line"><a id="l00284" name="l00284"></a><span class="lineno">  284</span> </div>
+<div class="line"><a id="l00285" name="l00285"></a><span class="lineno">  285</span> </div>
+<div class="line"><a id="l00286" name="l00286"></a><span class="lineno">  286</span>        <span class="comment">// UI &amp; views.</span></div>
+<div class="line"><a id="l00287" name="l00287"></a><span class="lineno">  287</span>        UI::EditorUi* m_editorUi;</div>
+<div class="line"><a id="l00288" name="l00288"></a><span class="lineno">  288</span> </div>
+<div class="line"><a id="l00289" name="l00289"></a><span class="lineno">  289</span>    };</div>
+</div>
+<div class="line"><a id="l00290" name="l00290"></a><span class="lineno">  290</span> </div>
+<div class="line"><a id="l00291" name="l00291"></a><span class="lineno">  291</span>}</div>
 <div class="ttc" id="aclass_o_s_k_1_1_base_uuid_html"><div class="ttname"><a href="class_o_s_k_1_1_base_uuid.html">OSK::BaseUuid&lt; class GameObjectIndexTag &gt;</a></div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_e_c_s_1_1_entity_component_system_html"><div class="ttname"><a href="class_o_s_k_1_1_e_c_s_1_1_entity_component_system.html">OSK::ECS::EntityComponentSystem</a></div><div class="ttdoc">Entity-Component-System es un paradigma de programación en el cual los objetos se dividen en 3 partes...</div><div class="ttdef"><b>Definition</b> <a href="_entity_component_system_8h_source.html#l00044">EntityComponentSystem.h:44</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_e_c_s_1_1_i_system_html"><div class="ttname"><a href="class_o_s_k_1_1_e_c_s_1_1_i_system.html">OSK::ECS::ISystem</a></div><div class="ttdoc">Un sistema se encarga de ejecutar lógica.</div><div class="ttdef"><b>Definition</b> <a href="_i_system_8h_source.html#l00057">ISystem.h:57</a></div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_editor_1_1_controllers_1_1_i_component_controller_html"><div class="ttname"><a href="class_o_s_k_1_1_editor_1_1_controllers_1_1_i_component_controller.html">OSK::Editor::Controllers::IComponentController</a></div><div class="ttdoc">Elemento que conecta los datos de un componente con un elemento de interfaz de usuario del editor cor...</div><div class="ttdef"><b>Definition</b> <a href="_i_component_controller_8h_source.html#l00018">IComponentController.h:18</a></div></div>
-<div class="ttc" id="aclass_o_s_k_1_1_editor_1_1_editor_html"><div class="ttname"><a href="class_o_s_k_1_1_editor_1_1_editor.html">OSK::Editor::Editor</a></div><div class="ttdoc">Clase principal del editor. Maneja la interfaz de usuario y su conexión con el juego.</div><div class="ttdef"><b>Definition</b> <a href="#l00034">Editor.h:34</a></div></div>
-<div class="ttc" id="aclass_o_s_k_1_1_editor_1_1_editor_html_a10d0b311016e2ba9073fd4811a6d40e9"><div class="ttname"><a href="class_o_s_k_1_1_editor_1_1_editor.html#a10d0b311016e2ba9073fd4811a6d40e9">OSK::Editor::Editor::RegisterView</a></div><div class="ttdeci">void RegisterView()</div><div class="ttdoc">Registra el método de creación de un tipo de vista en concreto.</div><div class="ttdef"><b>Definition</b> <a href="#l00106">Editor.h:106</a></div></div>
-<div class="ttc" id="aclass_o_s_k_1_1_editor_1_1_editor_html_a5292fc348beae854a1a678520cfa78d8"><div class="ttname"><a href="class_o_s_k_1_1_editor_1_1_editor.html#a5292fc348beae854a1a678520cfa78d8">OSK::Editor::Editor::RegisterView</a></div><div class="ttdeci">void RegisterView(const ViewFactoryMethod &amp;factoryMethod)</div><div class="ttdoc">Registra el método de creación de un tipo de vista en concreto.</div><div class="ttdef"><b>Definition</b> <a href="#l00116">Editor.h:116</a></div></div>
-<div class="ttc" id="aclass_o_s_k_1_1_editor_1_1_editor_html_a5572f7462c8609057e690275d26681c9"><div class="ttname"><a href="class_o_s_k_1_1_editor_1_1_editor.html#a5572f7462c8609057e690275d26681c9">OSK::Editor::Editor::ControllerFactoryMethod</a></div><div class="ttdeci">std::function&lt; OwnedPtr&lt; Controllers::IComponentController &gt;(ECS::GameObjectIndex, void *, Views::IComponentView *)&gt; ControllerFactoryMethod</div><div class="ttdoc">Función que permite crear.</div><div class="ttdef"><b>Definition</b> <a href="#l00040">Editor.h:40</a></div></div>
-<div class="ttc" id="aclass_o_s_k_1_1_editor_1_1_editor_html_a8c9ff495015b3b29b0efe10e81386f4e"><div class="ttname"><a href="class_o_s_k_1_1_editor_1_1_editor.html#a8c9ff495015b3b29b0efe10e81386f4e">OSK::Editor::Editor::RegisterController</a></div><div class="ttdeci">void RegisterController()</div><div class="ttdoc">Registra el método de creación. de un tipo de controlador en concreto.</div><div class="ttdef"><b>Definition</b> <a href="#l00071">Editor.h:71</a></div></div>
-<div class="ttc" id="aclass_o_s_k_1_1_editor_1_1_editor_html_ad86d5e55d15fbcc69131f5e779d7a4cf"><div class="ttname"><a href="class_o_s_k_1_1_editor_1_1_editor.html#ad86d5e55d15fbcc69131f5e779d7a4cf">OSK::Editor::Editor::RegisterController</a></div><div class="ttdeci">void RegisterController(const ControllerFactoryMethod &amp;factoryMethod)</div><div class="ttdoc">Registra el método de creación.</div><div class="ttdef"><b>Definition</b> <a href="#l00084">Editor.h:84</a></div></div>
-<div class="ttc" id="aclass_o_s_k_1_1_editor_1_1_editor_html_afc9a9902d8c1b5abdd8e565e6c333dc2"><div class="ttname"><a href="class_o_s_k_1_1_editor_1_1_editor.html#afc9a9902d8c1b5abdd8e565e6c333dc2">OSK::Editor::Editor::ViewFactoryMethod</a></div><div class="ttdeci">std::function&lt; OwnedPtr&lt; Views::IComponentView &gt;(const Vector2f &amp;size)&gt; ViewFactoryMethod</div><div class="ttdoc">Función que permite crear.</div><div class="ttdef"><b>Definition</b> <a href="#l00044">Editor.h:44</a></div></div>
-<div class="ttc" id="aclass_o_s_k_1_1_editor_1_1_u_i_1_1_editor_ui_html"><div class="ttname"><a href="class_o_s_k_1_1_editor_1_1_u_i_1_1_editor_ui.html">OSK::Editor::UI::EditorUi</a></div><div class="ttdoc">Clase principal de la interfaz del editor.</div><div class="ttdef"><b>Definition</b> <a href="_editor_ui_8h_source.html#l00027">EditorUi.h:27</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_editor_1_1_editor_html"><div class="ttname"><a href="class_o_s_k_1_1_editor_1_1_editor.html">OSK::Editor::Editor</a></div><div class="ttdoc">Clase principal del editor. Maneja la interfaz de usuario y su conexión con el juego.</div><div class="ttdef"><b>Definition</b> <a href="#l00037">Editor.h:37</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_editor_1_1_editor_html_a1d0bb0a96413e5f58d444184d918c665"><div class="ttname"><a href="class_o_s_k_1_1_editor_1_1_editor.html#a1d0bb0a96413e5f58d444184d918c665">OSK::Editor::Editor::SystemControllerFactoryMethod</a></div><div class="ttdeci">std::function&lt; OwnedPtr&lt; Controllers::ISystemController &gt;(ECS::ISystem *, Views::ISystemView *)&gt; SystemControllerFactoryMethod</div><div class="ttdoc">Función que permite crear.</div><div class="ttdef"><b>Definition</b> <a href="#l00052">Editor.h:52</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_editor_1_1_editor_html_a1e36e6e6a878929ad520c96229dbec26"><div class="ttname"><a href="class_o_s_k_1_1_editor_1_1_editor.html#a1e36e6e6a878929ad520c96229dbec26">OSK::Editor::Editor::RegisterSystemView</a></div><div class="ttdeci">void RegisterSystemView(const SystemViewFactoryMethod &amp;factoryMethod)</div><div class="ttdoc">Registra el método de creación de un tipo de vista en concreto.</div><div class="ttdef"><b>Definition</b> <a href="#l00196">Editor.h:196</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_editor_1_1_editor_html_a3f0492e611223807de7c41bda12b9912"><div class="ttname"><a href="class_o_s_k_1_1_editor_1_1_editor.html#a3f0492e611223807de7c41bda12b9912">OSK::Editor::Editor::RegisterComponentController</a></div><div class="ttdeci">void RegisterComponentController(const ComponentControllerFactoryMethod &amp;factoryMethod)</div><div class="ttdoc">Registra el método de creación.</div><div class="ttdef"><b>Definition</b> <a href="#l00097">Editor.h:97</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_editor_1_1_editor_html_a56f62cbd385eaafb33d63f7b51a6d873"><div class="ttname"><a href="class_o_s_k_1_1_editor_1_1_editor.html#a56f62cbd385eaafb33d63f7b51a6d873">OSK::Editor::Editor::RegisterSystemController</a></div><div class="ttdeci">void RegisterSystemController(const SystemControllerFactoryMethod &amp;factoryMethod)</div><div class="ttdoc">Registra el método de creación.</div><div class="ttdef"><b>Definition</b> <a href="#l00164">Editor.h:164</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_editor_1_1_editor_html_a77888156d9ac3b45ef6b9c706404a81f"><div class="ttname"><a href="class_o_s_k_1_1_editor_1_1_editor.html#a77888156d9ac3b45ef6b9c706404a81f">OSK::Editor::Editor::RegisterSystemController</a></div><div class="ttdeci">void RegisterSystemController()</div><div class="ttdoc">Registra el método de creación. de un tipo de controlador en concreto.</div><div class="ttdef"><b>Definition</b> <a href="#l00151">Editor.h:151</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_editor_1_1_editor_html_aad9b48f7159d1e79aa39b24d3a1c1b29"><div class="ttname"><a href="class_o_s_k_1_1_editor_1_1_editor.html#aad9b48f7159d1e79aa39b24d3a1c1b29">OSK::Editor::Editor::RegisterComponentController</a></div><div class="ttdeci">void RegisterComponentController()</div><div class="ttdoc">Registra el método de creación. de un tipo de controlador en concreto.</div><div class="ttdef"><b>Definition</b> <a href="#l00084">Editor.h:84</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_editor_1_1_editor_html_ab18d3524510be7567e8478c4792c38e5"><div class="ttname"><a href="class_o_s_k_1_1_editor_1_1_editor.html#ab18d3524510be7567e8478c4792c38e5">OSK::Editor::Editor::ComponentControllerFactoryMethod</a></div><div class="ttdeci">std::function&lt; OwnedPtr&lt; Controllers::IComponentController &gt;(ECS::GameObjectIndex, void *, Views::IComponentView *)&gt; ComponentControllerFactoryMethod</div><div class="ttdoc">Función que permite crear.</div><div class="ttdef"><b>Definition</b> <a href="#l00043">Editor.h:43</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_editor_1_1_editor_html_ab3352426b8e538c3a6aa2c884053ca07"><div class="ttname"><a href="class_o_s_k_1_1_editor_1_1_editor.html#ab3352426b8e538c3a6aa2c884053ca07">OSK::Editor::Editor::ComponentViewFactoryMethod</a></div><div class="ttdeci">std::function&lt; OwnedPtr&lt; Views::IComponentView &gt;(const Vector2f &amp;size)&gt; ComponentViewFactoryMethod</div><div class="ttdoc">Función que permite crear.</div><div class="ttdef"><b>Definition</b> <a href="#l00047">Editor.h:47</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_editor_1_1_editor_html_aba6207dce60a8eabe6ba708bc8aa90bc"><div class="ttname"><a href="class_o_s_k_1_1_editor_1_1_editor.html#aba6207dce60a8eabe6ba708bc8aa90bc">OSK::Editor::Editor::RegisterComponentView</a></div><div class="ttdeci">void RegisterComponentView()</div><div class="ttdoc">Registra el método de creación de un tipo de vista en concreto.</div><div class="ttdef"><b>Definition</b> <a href="#l00119">Editor.h:119</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_editor_1_1_editor_html_ad33d5ce85661b0ac4d95045d76a2019b"><div class="ttname"><a href="class_o_s_k_1_1_editor_1_1_editor.html#ad33d5ce85661b0ac4d95045d76a2019b">OSK::Editor::Editor::RegisterSystemView</a></div><div class="ttdeci">void RegisterSystemView()</div><div class="ttdoc">Registra el método de creación de un tipo de vista en concreto.</div><div class="ttdef"><b>Definition</b> <a href="#l00186">Editor.h:186</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_editor_1_1_editor_html_aef2d4a28b432a86f7d92bd93d4a6c7dd"><div class="ttname"><a href="class_o_s_k_1_1_editor_1_1_editor.html#aef2d4a28b432a86f7d92bd93d4a6c7dd">OSK::Editor::Editor::SystemViewFactoryMethod</a></div><div class="ttdeci">std::function&lt; OwnedPtr&lt; Views::ISystemView &gt;(const Vector2f &amp;size)&gt; SystemViewFactoryMethod</div><div class="ttdoc">Función que permite crear.</div><div class="ttdef"><b>Definition</b> <a href="#l00056">Editor.h:56</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_editor_1_1_editor_html_af097b7e7f99686fb89fbcbdcfe5db538"><div class="ttname"><a href="class_o_s_k_1_1_editor_1_1_editor.html#af097b7e7f99686fb89fbcbdcfe5db538">OSK::Editor::Editor::RegisterComponentView</a></div><div class="ttdeci">void RegisterComponentView(const ComponentViewFactoryMethod &amp;factoryMethod)</div><div class="ttdoc">Registra el método de creación de un tipo de vista en concreto.</div><div class="ttdef"><b>Definition</b> <a href="#l00129">Editor.h:129</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_editor_1_1_u_i_1_1_editor_ui_html"><div class="ttname"><a href="class_o_s_k_1_1_editor_1_1_u_i_1_1_editor_ui.html">OSK::Editor::UI::EditorUi</a></div><div class="ttdoc">Clase principal de la interfaz del editor.</div><div class="ttdef"><b>Definition</b> <a href="_editor_ui_8h_source.html#l00033">EditorUi.h:33</a></div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_editor_1_1_views_1_1_i_component_view_html"><div class="ttname"><a href="class_o_s_k_1_1_editor_1_1_views_1_1_i_component_view.html">OSK::Editor::Views::IComponentView</a></div><div class="ttdoc">Elemento de interfaz de usuario que muestra las propiedades de un componente en el editor.</div><div class="ttdef"><b>Definition</b> <a href="_i_component_view_8h_source.html#l00017">IComponentView.h:17</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_editor_1_1_views_1_1_i_system_view_html"><div class="ttname"><a href="class_o_s_k_1_1_editor_1_1_views_1_1_i_system_view.html">OSK::Editor::Views::ISystemView</a></div><div class="ttdoc">Elemento de interfaz de usuario que muestra las propiedades de un componente en el editor.</div><div class="ttdef"><b>Definition</b> <a href="_i_system_view_8h_source.html#l00017">ISystemView.h:17</a></div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_u_i_1_1_i_container_html"><div class="ttname"><a href="class_o_s_k_1_1_u_i_1_1_i_container.html">OSK::UI::IContainer</a></div><div class="ttdoc">Interfaz común para los contenedores de UI. Un contenedor de UI puede contener distintos elementos UI...</div><div class="ttdef"><b>Definition</b> <a href="_i_ui_container_8h_source.html#l00015">IUiContainer.h:15</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_unique_ptr_html"><div class="ttname"><a href="class_o_s_k_1_1_unique_ptr.html">OSK::UniquePtr</a></div><div class="ttdoc">Estructura que es dueña de un objeto almacenado en heap. Al destruirse el UniquePtr,...</div><div class="ttdef"><b>Definition</b> <a href="_unique_ptr_8hpp_source.html#l00022">UniquePtr.hpp:22</a></div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_vector2__t_html"><div class="ttname"><a href="class_o_s_k_1_1_vector2__t.html">OSK::Vector2_t&lt; float_t &gt;</a></div></div>
-<div class="ttc" id="aconcept_o_s_k_1_1_editor_1_1_controllers_1_1_is_component_controller_html"><div class="ttname"><a href="concept_o_s_k_1_1_editor_1_1_controllers_1_1_is_component_controller.html">OSK::Editor::Controllers::IsComponentController</a></div><div class="ttdef"><b>Definition</b> <a href="_i_component_controller_8h_source.html#l00107">IComponentController.h:107</a></div></div>
+<div class="ttc" id="aconcept_o_s_k_1_1_editor_1_1_controllers_1_1_is_component_controller_html"><div class="ttname"><a href="concept_o_s_k_1_1_editor_1_1_controllers_1_1_is_component_controller.html">OSK::Editor::Controllers::IsComponentController</a></div><div class="ttdef"><b>Definition</b> <a href="_i_component_controller_8h_source.html#l00113">IComponentController.h:113</a></div></div>
+<div class="ttc" id="aconcept_o_s_k_1_1_editor_1_1_controllers_1_1_is_system_controller_html"><div class="ttname"><a href="concept_o_s_k_1_1_editor_1_1_controllers_1_1_is_system_controller.html">OSK::Editor::Controllers::IsSystemController</a></div><div class="ttdef"><b>Definition</b> <a href="_i_system_controller_8h_source.html#l00079">ISystemController.h:79</a></div></div>
 <div class="ttc" id="aconcept_o_s_k_1_1_editor_1_1_views_1_1_is_component_view_html"><div class="ttname"><a href="concept_o_s_k_1_1_editor_1_1_views_1_1_is_component_view.html">OSK::Editor::Views::IsComponentView</a></div><div class="ttdef"><b>Definition</b> <a href="_i_component_view_8h_source.html#l00041">IComponentView.h:41</a></div></div>
+<div class="ttc" id="aconcept_o_s_k_1_1_editor_1_1_views_1_1_is_system_view_html"><div class="ttname"><a href="concept_o_s_k_1_1_editor_1_1_views_1_1_is_system_view.html">OSK::Editor::Views::IsSystemView</a></div><div class="ttdef"><b>Definition</b> <a href="_i_system_view_8h_source.html#l00041">ISystemView.h:41</a></div></div>
 <div class="ttc" id="anamespace_o_s_k_1_1_e_c_s_html"><div class="ttname"><a href="namespace_o_s_k_1_1_e_c_s.html">OSK::ECS</a></div><div class="ttdef"><b>Definition</b> <a href="_camera_component2_d_8h_source.html#l00017">CameraComponent2D.h:17</a></div></div>
 <div class="ttc" id="anamespace_o_s_k_1_1_e_c_s_html_a95b3fa53385506953113ea055e091357"><div class="ttname"><a href="namespace_o_s_k_1_1_e_c_s.html#a95b3fa53385506953113ea055e091357">OSK::ECS::ComponentType</a></div><div class="ttdeci">uint16_t ComponentType</div><div class="ttdoc">Identificador único para un componente.</div><div class="ttdef"><b>Definition</b> <a href="_component_8h_source.html#l00018">Component.h:18</a></div></div>
 <div class="ttc" id="anamespace_o_s_k_1_1_editor_html"><div class="ttname"><a href="namespace_o_s_k_1_1_editor.html">OSK::Editor</a></div><div class="ttdef"><b>Definition</b> <a href="_camera_component_controller3_d_8h_source.html#l00006">CameraComponentController3D.h:6</a></div></div>
@@ -270,7 +359,7 @@ $(function(){initNavTree('_editor_8h_source.html',''); initResizable(true); });
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_74389ed8173ad57b461b9d623a1f3867.html">Source</a></li><li class="navelem"><b>Editor.h</b></li>
-    <li class="footer">Generado el Viernes, 16 de agosto de 2024 22:47:23 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.12.0 </li>
+    <li class="footer">Generado el Viernes, 6 de diciembre de 2024 12:52:11 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.12.0 </li>
   </ul>
 </div>
 </body>

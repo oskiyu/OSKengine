@@ -117,6 +117,8 @@ Métodos públicos</h2></td></tr>
 <tr class="separator:a29f2fe999bf8857dbbb65fb73df335ca"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9f8c9dd6edf0cf50e2d3a0aae665833c" id="r_a9f8c9dd6edf0cf50e2d3a0aae665833c"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_graphics_pipeline.html">IGraphicsPipeline</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a9f8c9dd6edf0cf50e2d3a0aae665833c">GetGraphicsPipeline</a> (const <a class="el" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_pipeline_key.html">PipelineKey</a> &amp;properties) const</td></tr>
 <tr class="separator:a9f8c9dd6edf0cf50e2d3a0aae665833c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af51727990fe51e59cad1087d6aebc5ea" id="r_af51727990fe51e59cad1087d6aebc5ea"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_mesh_pipeline.html">IMeshPipeline</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af51727990fe51e59cad1087d6aebc5ea">GetMeshPipeline</a> (const <a class="el" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_pipeline_key.html">PipelineKey</a> &amp;properties) const</td></tr>
+<tr class="separator:af51727990fe51e59cad1087d6aebc5ea"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ace3413ec1b0f594398434ce7013e1800" id="r_ace3413ec1b0f594398434ce7013e1800"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_raytracing_pipeline.html">IRaytracingPipeline</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ace3413ec1b0f594398434ce7013e1800">GetRaytracingPipeline</a> () const</td></tr>
 <tr class="separator:ace3413ec1b0f594398434ce7013e1800"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af6fed9156170cd97b18cc42c7e60c952" id="r_af6fed9156170cd97b18cc42c7e60c952"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_compute_pipeline.html">IComputePipeline</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af6fed9156170cd97b18cc42c7e60c952">GetComputePipeline</a> () const</td></tr>
@@ -135,7 +137,7 @@ Métodos públicos</h2></td></tr>
 <a name="details" id="details"></a><h2 class="groupheader">Descripción detallada</h2>
 <div class="textblock"><p>Un material define el comportamiento del renderizador con un objeto en concreto. Debe definirse el layout del material, indicando qué slots (y bindings) serán usados en los shaders, además de los propios shaders. </p>
 
-<p class="definition">Definición en la línea <a class="el" href="_material_8h_source.html#l00050">50</a> del archivo <a class="el" href="_material_8h_source.html">Material.h</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_material_8h_source.html#l00051">51</a> del archivo <a class="el" href="_material_8h_source.html">Material.h</a>.</p>
 </div><h2 class="groupheader">Documentación de constructores y destructores</h2>
 <a id="a7f0b1a176f88c0ae392aa158eca2c769" name="a7f0b1a176f88c0ae392aa158eca2c769"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a7f0b1a176f88c0ae392aa158eca2c769">&#9670;&#160;</a></span>Material()</h2>
@@ -218,7 +220,7 @@ Métodos públicos</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definición en la línea <a class="el" href="_material_8cpp_source.html#l00091">91</a> del archivo <a class="el" href="_material_8cpp_source.html">Material.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_material_8cpp_source.html#l00113">113</a> del archivo <a class="el" href="_material_8cpp_source.html">Material.cpp</a>.</p>
 
 </div>
 </div>
@@ -263,7 +265,7 @@ Métodos públicos</h2></td></tr>
 <dl class="section return"><dt>Devuelve</dt><dd>Pipeline de trazado de rayos. Será null si el material no es de tipo computación.</dd></dl>
 <dl class="section pre"><dt>Precondición</dt><dd>El material debe ser un material de computación. </dd></dl>
 
-<p class="definition">Definición en la línea <a class="el" href="_material_8cpp_source.html#l00075">75</a> del archivo <a class="el" href="_material_8cpp_source.html">Material.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_material_8cpp_source.html#l00097">97</a> del archivo <a class="el" href="_material_8cpp_source.html">Material.cpp</a>.</p>
 
 </div>
 </div>
@@ -368,6 +370,44 @@ Métodos públicos</h2></td></tr>
 
 </div>
 </div>
+<a id="af51727990fe51e59cad1087d6aebc5ea" name="af51727990fe51e59cad1087d6aebc5ea"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af51727990fe51e59cad1087d6aebc5ea">&#9670;&#160;</a></span>GetMeshPipeline()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_mesh_pipeline.html">IMeshPipeline</a> * Material::GetMeshPipeline </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_pipeline_key.html">PipelineKey</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>properties</em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Obtiene el mesh pipeline para su uso de renderizado sobre imágenes con los formatos dados. </p>
+<dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">properties</td><td>Formatos de las imágenes de salida. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Devuelve</dt><dd>Pipeline.</dd></dl>
+<dl class="section pre"><dt>Precondición</dt><dd>El material debe ser un material gráfico.</dd></dl>
+<dl class="exception"><dt>Excepciones</dt><dd>
+  <table class="exception">
+    <tr><td class="paramname">FileNotFoundException</td><td>si no se encuentra los archivo de shader necesarios. </td></tr>
+    <tr><td class="paramname"><a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_shader_loading_exception.html" title="Excepción que se lanza cuando hay un error con el API de bajo nivel al cargar un shader.">ShaderLoadingException</a></td><td>si no se consigue cargar / compilar los shaders. </td></tr>
+    <tr><td class="paramname"><a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_pipeline_creation_exception.html" title="Excepción que se lanza cuando se trata de usar un evento que no ha sido registrado.">PipelineCreationException</a></td><td>si no se consigue crear el pipeline. </td></tr>
+    <tr><td class="paramname"><a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_shader_compiling_exception.html" title="Excepción que se lanza cuando hay un error con el API de bajo nivel al compilar un shader.">ShaderCompilingException</a></td><td>Si ocurre algún error durante la compilación de los shaders. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definición en la línea <a class="el" href="_material_8cpp_source.html#l00071">71</a> del archivo <a class="el" href="_material_8cpp_source.html">Material.cpp</a>.</p>
+
+</div>
+</div>
 <a id="a42e9fb2d82f2bc07bfd86f184c8d218b" name="a42e9fb2d82f2bc07bfd86f184c8d218b"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a42e9fb2d82f2bc07bfd86f184c8d218b">&#9670;&#160;</a></span>GetName()</h2>
 
@@ -406,7 +446,7 @@ Métodos públicos</h2></td></tr>
 <dl class="section return"><dt>Devuelve</dt><dd>Pipeline de trazado de rayos. Será null si el material no es de tipo trazado de rayos.</dd></dl>
 <dl class="section pre"><dt>Precondición</dt><dd>El material debe ser un material de trazado de rayos. </dd></dl>
 
-<p class="definition">Definición en la línea <a class="el" href="_material_8cpp_source.html#l00071">71</a> del archivo <a class="el" href="_material_8cpp_source.html">Material.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_material_8cpp_source.html#l00093">93</a> del archivo <a class="el" href="_material_8cpp_source.html">Material.cpp</a>.</p>
 
 </div>
 </div>
@@ -443,7 +483,7 @@ Métodos públicos</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="namespace_o_s_k.html">OSK</a></li><li class="navelem"><a class="el" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html">GRAPHICS</a></li><li class="navelem"><a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material.html">Material</a></li>
-    <li class="footer">Generado el Viernes, 16 de agosto de 2024 22:47:26 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.12.0 </li>
+    <li class="footer">Generado el Viernes, 6 de diciembre de 2024 12:52:13 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.12.0 </li>
   </ul>
 </div>
 </body>

@@ -111,8 +111,7 @@ $(function(){initNavTree('_format_8cpp_source.html',''); initResizable(true); })
 <div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="preprocessor">#include &lt;vulkan/vulkan.h&gt;</span></div>
 <div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="preprocessor">#include &quot;NotImplementedException.h&quot;</span></div>
 <div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span> </div>
-<div class="foldopen" id="foldopen00011" data-start="{" data-end="}">
-<div class="line"><a id="l00011" name="l00011"></a><span class="lineno"><a class="line" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a100a7488e1eee158da65062d0b5e5277">   11</a></span>DXGI_FORMAT <a class="code hl_function" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a100a7488e1eee158da65062d0b5e5277">OSK::GRAPHICS::GetFormatDx12</a>(<a class="code hl_enumeration" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#aac59f9d056e083c0b49ea768f974e3e8">Format</a> format) {</div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span>DXGI_FORMAT OSK::GRAPHICS::GetFormatDx12(Format format) {</div>
 <div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span>    <span class="keywordflow">switch</span> (format) {</div>
 <div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span>        <span class="keywordflow">case</span> Format::RGBA8_UNORM:</div>
 <div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span>            <span class="keywordflow">return</span> DXGI_FORMAT_R8G8B8A8_UNORM;</div>
@@ -148,13 +147,11 @@ $(function(){initNavTree('_format_8cpp_source.html',''); initResizable(true); })
 <div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>            <span class="keywordflow">return</span> DXGI_FORMAT_D32_FLOAT_S8X24_UINT;</div>
 <div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>    }</div>
 <div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span> </div>
-<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>    OSK_ASSERT(<span class="keyword">false</span>, <a class="code hl_class" href="class_o_s_k_1_1_not_implemented_exception.html">NotImplementedException</a>());</div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>    OSK_ASSERT(<span class="keyword">false</span>, NotImplementedException());</div>
 <div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>    <span class="keywordflow">return</span> DXGI_FORMAT_UNKNOWN;</div>
 <div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>}</div>
-</div>
 <div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span> </div>
-<div class="foldopen" id="foldopen00051" data-start="{" data-end="}">
-<div class="line"><a id="l00051" name="l00051"></a><span class="lineno"><a class="line" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a5191ca793450eed65c05660e184d9f51">   51</a></span>VkFormat <a class="code hl_function" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a5191ca793450eed65c05660e184d9f51">OSK::GRAPHICS::GetFormatVk</a>(<a class="code hl_enumeration" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#aac59f9d056e083c0b49ea768f974e3e8">Format</a> format) {</div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>VkFormat OSK::GRAPHICS::GetFormatVk(Format format) {</div>
 <div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>    <span class="keywordflow">switch</span> (format) {</div>
 <div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span> </div>
 <div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>    <span class="keywordflow">case</span> Format::RGBA8_UNORM:</div>
@@ -200,10 +197,9 @@ $(function(){initNavTree('_format_8cpp_source.html',''); initResizable(true); })
 <div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span>        <span class="keywordflow">return</span> VK_FORMAT_D24_UNORM_S8_UINT;</div>
 <div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span>    }</div>
 <div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span> </div>
-<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span>    OSK_ASSERT(<span class="keyword">false</span>, <a class="code hl_class" href="class_o_s_k_1_1_not_implemented_exception.html">NotImplementedException</a>());</div>
+<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span>    OSK_ASSERT(<span class="keyword">false</span>, NotImplementedException());</div>
 <div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span>    <span class="keywordflow">return</span> VK_FORMAT_UNDEFINED;</div>
 <div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span>}</div>
-</div>
 <div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span> </div>
 <div class="foldopen" id="foldopen00101" data-start="{" data-end="}">
 <div class="line"><a id="l00101" name="l00101"></a><span class="lineno"><a class="line" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#abd894ab72db6cb1f2762684830d7354c">  101</a></span><span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> <a class="code hl_function" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#abd894ab72db6cb1f2762684830d7354c">OSK::GRAPHICS::GetFormatNumberOfBytes</a>(<a class="code hl_enumeration" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#aac59f9d056e083c0b49ea768f974e3e8">Format</a> format) {</div>
@@ -322,9 +318,7 @@ $(function(){initNavTree('_format_8cpp_source.html',''); initResizable(true); })
 <div class="line"><a id="l00208" name="l00208"></a><span class="lineno">  208</span>}</div>
 </div>
 <div class="ttc" id="aclass_o_s_k_1_1_not_implemented_exception_html"><div class="ttname"><a href="class_o_s_k_1_1_not_implemented_exception.html">OSK::NotImplementedException</a></div><div class="ttdoc">Excepción que se lanza cuando se trata de ejecutar una funcionalidad que aún no se ha desarrollado.</div><div class="ttdef"><b>Definition</b> <a href="_not_implemented_exception_8h_source.html#l00008">NotImplementedException.h:8</a></div></div>
-<div class="ttc" id="anamespace_o_s_k_1_1_g_r_a_p_h_i_c_s_html_a100a7488e1eee158da65062d0b5e5277"><div class="ttname"><a href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a100a7488e1eee158da65062d0b5e5277">OSK::GRAPHICS::GetFormatDx12</a></div><div class="ttdeci">DXGI_FORMAT GetFormatDx12(Format format)</div><div class="ttdoc">Obtiene la representación nativa del formato para DirectX 12.</div><div class="ttdef"><b>Definition</b> <a href="#l00011">Format.cpp:11</a></div></div>
 <div class="ttc" id="anamespace_o_s_k_1_1_g_r_a_p_h_i_c_s_html_a3d37e81d2b2de2be25342b1b1ae95515"><div class="ttname"><a href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a3d37e81d2b2de2be25342b1b1ae95515">OSK::GRAPHICS::FormatSupportsStencil</a></div><div class="ttdeci">bool FormatSupportsStencil(Format format)</div><div class="ttdef"><b>Definition</b> <a href="#l00204">Format.cpp:204</a></div></div>
-<div class="ttc" id="anamespace_o_s_k_1_1_g_r_a_p_h_i_c_s_html_a5191ca793450eed65c05660e184d9f51"><div class="ttname"><a href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a5191ca793450eed65c05660e184d9f51">OSK::GRAPHICS::GetFormatVk</a></div><div class="ttdeci">VkFormat GetFormatVk(Format format)</div><div class="ttdoc">Obtiene la representación nativa del formato para Vulkan.</div><div class="ttdef"><b>Definition</b> <a href="#l00051">Format.cpp:51</a></div></div>
 <div class="ttc" id="anamespace_o_s_k_1_1_g_r_a_p_h_i_c_s_html_aac59f9d056e083c0b49ea768f974e3e8"><div class="ttname"><a href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#aac59f9d056e083c0b49ea768f974e3e8">OSK::GRAPHICS::Format</a></div><div class="ttdeci">Format</div><div class="ttdoc">Formatos que puede tener una textura / imagen.</div><div class="ttdef"><b>Definition</b> <a href="_format_8h_source.html#l00010">Format.h:10</a></div></div>
 <div class="ttc" id="anamespace_o_s_k_1_1_g_r_a_p_h_i_c_s_html_aac59f9d056e083c0b49ea768f974e3e8a03e5886d3d7216eed4f577937132b20f"><div class="ttname"><a href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#aac59f9d056e083c0b49ea768f974e3e8a03e5886d3d7216eed4f577937132b20f">OSK::GRAPHICS::Format::D16_UNORM</a></div><div class="ttdeci">@ D16_UNORM</div></div>
 <div class="ttc" id="anamespace_o_s_k_1_1_g_r_a_p_h_i_c_s_html_aac59f9d056e083c0b49ea768f974e3e8a23a4ce33815655871d103d3071d91072"><div class="ttname"><a href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#aac59f9d056e083c0b49ea768f974e3e8a23a4ce33815655871d103d3071d91072">OSK::GRAPHICS::Format::D32_SFLOAT</a></div><div class="ttdeci">@ D32_SFLOAT</div></div>
@@ -349,7 +343,7 @@ $(function(){initNavTree('_format_8cpp_source.html',''); initResizable(true); })
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_74389ed8173ad57b461b9d623a1f3867.html">Source</a></li><li class="navelem"><b>Format.cpp</b></li>
-    <li class="footer">Generado el Viernes, 16 de agosto de 2024 22:47:23 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.12.0 </li>
+    <li class="footer">Generado el Viernes, 6 de diciembre de 2024 12:52:11 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.12.0 </li>
   </ul>
 </div>
 </body>

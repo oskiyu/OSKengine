@@ -106,15 +106,15 @@ $(function(){initNavTree('_asset_manager_8h_source.html',''); initResizable(true
 <div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="preprocessor">#include &lt;string&gt;</span></div>
 <div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span> </div>
 <div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &quot;HashMap.hpp&quot;</span></div>
-<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &quot;LinkedList.hpp&quot;</span></div>
-<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="preprocessor">#include &quot;SharedPtr.hpp&quot;</span></div>
-<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="preprocessor">#include &quot;UniquePtr.hpp&quot;</span></div>
-<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="preprocessor">#include &quot;IAssetLoader.h&quot;</span></div>
-<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="preprocessor">#include &quot;IAsset.h&quot;</span></div>
-<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="preprocessor">#include &quot;Logger.h&quot;</span></div>
-<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="preprocessor">#include &quot;AssetRef.h&quot;</span></div>
-<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span> </div>
-<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span><span class="preprocessor">#include &quot;AssetLoaderNotFoundException.h&quot;</span></div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &quot;SharedPtr.hpp&quot;</span></div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="preprocessor">#include &quot;UniquePtr.hpp&quot;</span></div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="preprocessor">#include &quot;IAssetLoader.h&quot;</span></div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="preprocessor">#include &quot;IAsset.h&quot;</span></div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="preprocessor">#include &quot;Logger.h&quot;</span></div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="preprocessor">#include &quot;AssetRef.h&quot;</span></div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span> </div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="preprocessor">#include &quot;AssetLoaderNotFoundException.h&quot;</span></div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span><span class="preprocessor">#include &quot;Assert.h&quot;</span></div>
 <div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span> </div>
 <div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span><span class="preprocessor">#include &lt;span&gt;</span></div>
 <div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span> </div>
@@ -197,7 +197,7 @@ $(function(){initNavTree('_asset_manager_8h_source.html',''); initResizable(true
 <div class="ttc" id="aclass_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_manager_html_a714b466461b9b4897f8b78c1859ce12a"><div class="ttname"><a href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_manager.html#a714b466461b9b4897f8b78c1859ce12a">OSK::ASSETS::AssetManager::GetLoader</a></div><div class="ttdeci">TLoader * GetLoader()</div><div class="ttdoc">Devuelve el loader indicado.</div><div class="ttdef"><b>Definition</b> <a href="#l00109">AssetManager.h:109</a></div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_manager_html_aae32c0b5d0362cd837e62534f29c8701"><div class="ttname"><a href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_manager.html#aae32c0b5d0362cd837e62534f29c8701">OSK::ASSETS::AssetManager::Load</a></div><div class="ttdeci">AssetRef&lt; T &gt; Load(const std::string &amp;assetFilePath)</div><div class="ttdoc">Carga un asset.</div><div class="ttdef"><b>Definition</b> <a href="#l00051">AssetManager.h:51</a></div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_manager_html_adba274c380f46cbcab60ad54f8d6edea"><div class="ttname"><a href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_manager.html#adba274c380f46cbcab60ad54f8d6edea">OSK::ASSETS::AssetManager::LoadAsync</a></div><div class="ttdeci">AssetRef&lt; T &gt; LoadAsync(const std::string &amp;assetFilePath, std::span&lt; const std::string &gt; tags={})</div><div class="ttdoc">Carga un asset de manera asíncrona. Lanza un trabajo que realizará la carga del asset.</div><div class="ttdef"><b>Definition</b> <a href="#l00075">AssetManager.h:75</a></div></div>
-<div class="ttc" id="aclass_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref_html"><div class="ttname"><a href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">OSK::ASSETS::AssetRef</a></div><div class="ttdoc">Referencia a un asset.</div><div class="ttdef"><b>Definition</b> <a href="_asset_ref_8h_source.html#l00011">AssetRef.h:11</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref_html"><div class="ttname"><a href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">OSK::ASSETS::AssetRef</a></div><div class="ttdoc">Referencia a un asset.</div><div class="ttdef"><b>Definition</b> <a href="_asset_ref_8h_source.html#l00013">AssetRef.h:13</a></div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_a_s_s_e_t_s_1_1_i_asset_loader_html"><div class="ttname"><a href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_i_asset_loader.html">OSK::ASSETS::IAssetLoader</a></div><div class="ttdoc">Clase que se encarga de cargar un asset de un tipo en concreto.</div><div class="ttdef"><b>Definition</b> <a href="_i_asset_loader_8h_source.html#l00034">IAssetLoader.h:34</a></div></div>
 <div class="ttc" id="anamespace_o_s_k_1_1_a_s_s_e_t_s_html"><div class="ttname"><a href="namespace_o_s_k_1_1_a_s_s_e_t_s.html">OSK::ASSETS</a></div><div class="ttdef"><b>Definition</b> <a href="_anim_mesh_loader_8h_source.html#l00009">AnimMeshLoader.h:9</a></div></div>
 <div class="ttc" id="astruct_o_s_k_1_1_string_hasher_html"><div class="ttname"><a href="struct_o_s_k_1_1_string_hasher.html">OSK::StringHasher</a></div><div class="ttdef"><b>Definition</b> <a href="_hash_map_8hpp_source.html#l00461">HashMap.hpp:461</a></div></div>
@@ -207,7 +207,7 @@ $(function(){initNavTree('_asset_manager_8h_source.html',''); initResizable(true
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_74389ed8173ad57b461b9d623a1f3867.html">Source</a></li><li class="navelem"><b>AssetManager.h</b></li>
-    <li class="footer">Generado el Viernes, 16 de agosto de 2024 22:47:23 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.12.0 </li>
+    <li class="footer">Generado el Viernes, 6 de diciembre de 2024 12:52:10 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.12.0 </li>
   </ul>
 </div>
 </body>

@@ -8,6 +8,7 @@ var class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material =
     [ "GetInfo", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material.html#afccf7fb3ed5f8f7608e7f81899977814", null ],
     [ "GetLayout", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material.html#a29f2fe999bf8857dbbb65fb73df335ca", null ],
     [ "GetMaterialType", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material.html#af145277bed3af0474a0e1abbd2a12fac", null ],
+    [ "GetMeshPipeline", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material.html#af51727990fe51e59cad1087d6aebc5ea", null ],
     [ "GetName", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material.html#a42e9fb2d82f2bc07bfd86f184c8d218b", null ],
     [ "GetRaytracingPipeline", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material.html#ace3413ec1b0f594398434ce7013e1800", null ],
     [ "SetName", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material.html#a81bad4c57e869998238a88af6cae6109", null ]

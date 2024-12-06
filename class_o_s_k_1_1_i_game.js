@@ -1,6 +1,7 @@
 var class_o_s_k_1_1_i_game =
 [
     [ "~IGame", "class_o_s_k_1_1_i_game.html#a8bbe8755f305ca2c169f547b9eaec5a7", null ],
+    [ "IGame", "class_o_s_k_1_1_i_game.html#acdfda3776c555db145edc9ca7c1f8c9c", null ],
     [ "_Run", "class_o_s_k_1_1_i_game.html#a89e60fc451a486d268ac823807487b37", null ],
     [ "BuildFrame", "class_o_s_k_1_1_i_game.html#a1fd5e113ad6425b6a8fdc99c87c49167", null ],
     [ "CreateWindow", "class_o_s_k_1_1_i_game.html#af033542cc50642b5e1325ee4c7c93cf7", null ],

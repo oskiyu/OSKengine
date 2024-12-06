@@ -103,18 +103,18 @@ $(function(){initNavTree('_material_slot_vk_8h_source.html',''); initResizable(t
 <div class="contents">
 <div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#pragma once</span></div>
 <div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span> </div>
-<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="preprocessor">#include &quot;IMaterialSlot.h&quot;</span></div>
-<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &quot;UniquePtr.hpp&quot;</span></div>
-<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &quot;DynamicArray.hpp&quot;</span></div>
-<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &quot;OwnedPtr.h&quot;</span></div>
-<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="preprocessor">#include &quot;DescriptorLayoutVk.h&quot;</span></div>
-<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="preprocessor">#include &quot;DescriptorPoolVk.h&quot;</span></div>
-<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="preprocessor">#include &quot;LinkedList.hpp&quot;</span></div>
-<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="preprocessor">#include &quot;ResourcesInFlight.h&quot;</span></div>
-<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span> </div>
-<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="preprocessor">#include &lt;unordered_map&gt;</span></div>
-<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="preprocessor">#include &lt;unordered_set&gt;</span></div>
-<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span><span class="preprocessor">#include &lt;array&gt;</span></div>
+<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="preprocessor">#include &quot;Platforms.h&quot;</span></div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#ifdef OSK_USE_VULKAN_BACKEND</span></div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span> </div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &quot;IMaterialSlot.h&quot;</span></div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="preprocessor">#include &quot;UniquePtr.hpp&quot;</span></div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="preprocessor">#include &quot;DynamicArray.hpp&quot;</span></div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="preprocessor">#include &quot;OwnedPtr.h&quot;</span></div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="preprocessor">#include &quot;DescriptorLayoutVk.h&quot;</span></div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="preprocessor">#include &quot;DescriptorPoolVk.h&quot;</span></div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span> </div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="preprocessor">#include &lt;unordered_map&gt;</span></div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span><span class="preprocessor">#include &lt;unordered_set&gt;</span></div>
 <div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span> </div>
 <div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span><span class="preprocessor">#include &lt;vulkan/vulkan.h&gt;</span></div>
 <div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span> </div>
@@ -124,21 +124,20 @@ $(function(){initNavTree('_material_slot_vk_8h_source.html',''); initResizable(t
 <div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>    <span class="keyword">class </span>IGpuImageView;</div>
 <div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span> </div>
 <div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span> </div>
-<div class="foldopen" id="foldopen00024" data-start="{" data-end="};">
-<div class="line"><a id="l00024" name="l00024"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_slot_vk.html">   24</a></span>    <span class="keyword">class </span>OSKAPI_CALL <a class="code hl_class" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_slot_vk.html">MaterialSlotVk</a> final : <span class="keyword">public</span> <a class="code hl_class" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_material_slot.html">IMaterialSlot</a> {</div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>    <span class="keyword">class </span>OSKAPI_CALL MaterialSlotVk final : <span class="keyword">public</span> IMaterialSlot {</div>
 <div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span> </div>
 <div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>    <span class="keyword">public</span>:</div>
 <div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span> </div>
-<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>        <a class="code hl_class" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_slot_vk.html">MaterialSlotVk</a>(<span class="keyword">const</span> std::string&amp; name, <span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_layout.html">MaterialLayout</a>* layout);</div>
-<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>        <a class="code hl_class" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_slot_vk.html">~MaterialSlotVk</a>() <span class="keyword">override</span>;</div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>        MaterialSlotVk(<span class="keyword">const</span> std::string&amp; name, <span class="keyword">const</span> MaterialLayout* layout);</div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>        ~MaterialSlotVk() <span class="keyword">override</span>;</div>
 <div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span> </div>
-<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>        <span class="keywordtype">void</span> SetGpuImage(std::string_view binding, <span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_image_view.html">IGpuImageView</a>&amp; view, <a class="code hl_typedef" href="namespace_o_s_k.html#a382ed4c8a6994201cbad5d4e1335861b">UIndex32</a> arrayIndex) <span class="keyword">override</span>;</div>
-<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>        <span class="keywordtype">void</span> SetStorageImage(std::string_view binding, <span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_image_view.html">IGpuImageView</a>&amp; view, <a class="code hl_typedef" href="namespace_o_s_k.html#a382ed4c8a6994201cbad5d4e1335861b">UIndex32</a> arrayIndex) <span class="keyword">override</span>;</div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>        <span class="keywordtype">void</span> SetGpuImage(std::string_view binding, <span class="keyword">const</span> IGpuImageView&amp; view, <span class="keyword">const</span> IGpuImageSampler&amp; sampler, UIndex32 arrayIndex) <span class="keyword">override</span>;</div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>        <span class="keywordtype">void</span> SetStorageImage(std::string_view binding, <span class="keyword">const</span> IGpuImageView&amp; view, UIndex32 arrayIndex) <span class="keyword">override</span>;</div>
 <div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span> </div>
-<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>        <span class="keywordtype">void</span> SetUniformBuffer(std::string_view binding, <span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_buffer.html">GpuBuffer</a>&amp; buffer, <span class="keyword">const</span> <a class="code hl_struct" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_buffer_range.html">GpuBufferRange</a>&amp; range, <a class="code hl_typedef" href="namespace_o_s_k.html#a382ed4c8a6994201cbad5d4e1335861b">UIndex32</a> arrayIndex) <span class="keyword">override</span>;</div>
-<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>        <span class="keywordtype">void</span> SetStorageBuffer( std::string_view binding, <span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_buffer.html">GpuBuffer</a>&amp; buffer, <span class="keyword">const</span> <a class="code hl_struct" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_buffer_range.html">GpuBufferRange</a>&amp; range, <a class="code hl_typedef" href="namespace_o_s_k.html#a382ed4c8a6994201cbad5d4e1335861b">UIndex32</a> arrayIndex) <span class="keyword">override</span>;</div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>        <span class="keywordtype">void</span> SetUniformBuffer(std::string_view binding, <span class="keyword">const</span> GpuBuffer&amp; buffer, <span class="keyword">const</span> GpuBufferRange&amp; range, UIndex32 arrayIndex) <span class="keyword">override</span>;</div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>        <span class="keywordtype">void</span> SetStorageBuffer( std::string_view binding, <span class="keyword">const</span> GpuBuffer&amp; buffer, <span class="keyword">const</span> GpuBufferRange&amp; range, UIndex32 arrayIndex) <span class="keyword">override</span>;</div>
 <div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span> </div>
-<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>        <span class="keywordtype">void</span> SetAccelerationStructure(std::string_view binding, <span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_top_level_acceleration_structure.html">ITopLevelAccelerationStructure</a>&amp; accelerationStructure, <a class="code hl_typedef" href="namespace_o_s_k.html#a382ed4c8a6994201cbad5d4e1335861b">UIndex32</a> arrayIndex) <span class="keyword">override</span>;</div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>        <span class="keywordtype">void</span> SetAccelerationStructure(std::string_view binding, <span class="keyword">const</span> ITopLevelAccelerationStructure&amp; accelerationStructure, UIndex32 arrayIndex) <span class="keyword">override</span>;</div>
 <div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span> </div>
 <div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>        <span class="keywordtype">void</span> FlushUpdate() <span class="keyword">override</span>;</div>
 <div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span> </div>
@@ -148,55 +147,55 @@ $(function(){initNavTree('_material_slot_vk_8h_source.html',''); initResizable(t
 <div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span> </div>
 <div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>    <span class="keyword">private</span>:</div>
 <div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span> </div>
-<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>        <span class="keyword">static</span> <a class="code hl_class" href="class_o_s_k_1_1_owned_ptr.html">OwnedPtr&lt;VkDescriptorBufferInfo&gt;</a> GetDescriptorBufferInfo(<span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_memory_subblock_vk.html">GpuMemorySubblockVk</a>&amp; subblock, <span class="keyword">const</span> <a class="code hl_struct" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_buffer_range.html">GpuBufferRange</a>&amp; range);</div>
-<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>        <span class="keyword">static</span> <a class="code hl_class" href="class_o_s_k_1_1_owned_ptr.html">OwnedPtr&lt;VkDescriptorImageInfo&gt;</a> GetDescriptorImageInfo(<span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_image_view.html">IGpuImageView</a>&amp; view, VkImageLayout layout);</div>
-<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span> </div>
-<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>        <span class="keyword">struct </span>BindingVk {</div>
-<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>            std::unordered_map&lt;UIndex32, VkWriteDescriptorSet&gt; descriptorWrites{};</div>
-<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span> </div>
-<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>            std::unordered_map&lt;UIndex32, UniquePtr&lt;VkDescriptorBufferInfo&gt;&gt; bufferInfos{};</div>
-<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>            std::unordered_map&lt;UIndex32, UniquePtr&lt;VkDescriptorImageInfo&gt;&gt; imageInfos{};</div>
-<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>            std::unordered_map&lt;UIndex32, UniquePtr&lt;VkWriteDescriptorSetAccelerationStructureKHR&gt;&gt; asInfos{};</div>
-<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span> </div>
-<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>            std::unordered_set&lt;UIndex32&gt; dirtyDescriptorWrites{};</div>
-<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span> </div>
-<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>        };</div>
-<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span> </div>
-<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>        <a class="code hl_class" href="class_o_s_k_1_1_dynamic_array.html">DynamicArray&lt;VkWriteDescriptorSet&gt;</a> m_descriptorWrites{};</div>
-<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span> </div>
-<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>        VkDescriptorSet m_descriptorSet = VK_NULL_HANDLE;</div>
-<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>        </div>
-<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>        std::unordered_map&lt;UIndex32, BindingVk&gt;  m_bindings;</div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>        <span class="keyword">static</span> OwnedPtr&lt;VkDescriptorBufferInfo&gt; GetDescriptorBufferInfo(</div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>            <span class="keyword">const</span> GpuMemorySubblockVk&amp; subblock,</div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>            <span class="keyword">const</span> GpuBufferRange&amp; range);</div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span> </div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>        <span class="keyword">static</span> OwnedPtr&lt;VkDescriptorImageInfo&gt; GetDescriptorImageInfo(</div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>            <span class="keyword">const</span> IGpuImageView&amp; view,</div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>            <span class="keyword">const</span> IGpuImageSampler&amp; sampler,</div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>            VkImageLayout layout);</div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span> </div>
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>        <span class="keyword">static</span> OwnedPtr&lt;VkDescriptorImageInfo&gt; GetDescriptorImageInfo(</div>
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>            <span class="keyword">const</span> IGpuImageView&amp; view,</div>
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>            VkImageLayout layout);</div>
 <div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span> </div>
-<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span>        <a class="code hl_class" href="class_o_s_k_1_1_dynamic_array.html">DynamicArray&lt;VkAccelerationStructureKHR&gt;</a> m_accelerationStructures;</div>
-<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span> </div>
-<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span>        <a class="code hl_class" href="class_o_s_k_1_1_unique_ptr.html">UniquePtr&lt;DescriptorPoolVk&gt;</a> m_pool;</div>
-<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span>        <a class="code hl_class" href="class_o_s_k_1_1_unique_ptr.html">UniquePtr&lt;DescriptorLayoutVk&gt;</a> m_descLayout;</div>
+<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span> </div>
+<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span>        <span class="keyword">struct </span>BindingVk {</div>
+<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span>            std::unordered_map&lt;UIndex32, VkWriteDescriptorSet&gt; descriptorWrites{};</div>
 <div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span> </div>
-<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span>    };</div>
-</div>
-<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span> </div>
-<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span>}</div>
-<div class="ttc" id="aclass_o_s_k_1_1_dynamic_array_html"><div class="ttname"><a href="class_o_s_k_1_1_dynamic_array.html">OSK::DynamicArray</a></div><div class="ttdoc">Dynamic array: array que puede cambiar de tamaño.</div><div class="ttdef"><b>Definition</b> <a href="_dynamic_array_8hpp_source.html#l00069">DynamicArray.hpp:69</a></div></div>
-<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_buffer_html"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_buffer.html">OSK::GRAPHICS::GpuBuffer</a></div><div class="ttdoc">Representa un buffer que contiene información accesible desde la GPU.</div><div class="ttdef"><b>Definition</b> <a href="_gpu_buffer_8h_source.html#l00023">GpuBuffer.h:23</a></div></div>
-<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_memory_subblock_vk_html"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_memory_subblock_vk.html">OSK::GRAPHICS::GpuMemorySubblockVk</a></div><div class="ttdef"><b>Definition</b> <a href="_gpu_memory_subblock_vk_8h_source.html#l00007">GpuMemorySubblockVk.h:7</a></div></div>
-<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_image_view_html"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_image_view.html">OSK::GRAPHICS::IGpuImageView</a></div><div class="ttdoc">Un image view describe cómo y a qúe parte de una imagen se va a acceder al usarla.</div><div class="ttdef"><b>Definition</b> <a href="_i_gpu_image_view_8h_source.html#l00019">IGpuImageView.h:19</a></div></div>
-<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_material_slot_html"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_material_slot.html">OSK::GRAPHICS::IMaterialSlot</a></div><div class="ttdoc">Un slot contiene referencias a los recursos (UNIFORM BUFFER, TEXTURE, etc...) a los que se accederá e...</div><div class="ttdef"><b>Definition</b> <a href="_i_material_slot_8h_source.html#l00031">IMaterialSlot.h:31</a></div></div>
-<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_top_level_acceleration_structure_html"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_top_level_acceleration_structure.html">OSK::GRAPHICS::ITopLevelAccelerationStructure</a></div><div class="ttdoc">Estructura de aceleración de nivel alto. Contiene la geometría a renderizar mediante trazado de rayos...</div><div class="ttdef"><b>Definition</b> <a href="_i_top_level_acceleration_structure_8h_source.html#l00016">ITopLevelAccelerationStructure.h:16</a></div></div>
-<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_layout_html"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_layout.html">OSK::GRAPHICS::MaterialLayout</a></div><div class="ttdoc">El layout de un material determina qué slots pertenecen a ese material.</div><div class="ttdef"><b>Definition</b> <a href="_material_layout_8h_source.html#l00013">MaterialLayout.h:13</a></div></div>
-<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_slot_vk_html"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_slot_vk.html">OSK::GRAPHICS::MaterialSlotVk</a></div><div class="ttdef"><b>Definition</b> <a href="#l00024">MaterialSlotVk.h:24</a></div></div>
-<div class="ttc" id="aclass_o_s_k_1_1_owned_ptr_html"><div class="ttname"><a href="class_o_s_k_1_1_owned_ptr.html">OSK::OwnedPtr</a></div><div class="ttdoc">Es dueño de un puntero.</div><div class="ttdef"><b>Definition</b> <a href="_owned_ptr_8h_source.html#l00017">OwnedPtr.h:17</a></div></div>
-<div class="ttc" id="aclass_o_s_k_1_1_unique_ptr_html"><div class="ttname"><a href="class_o_s_k_1_1_unique_ptr.html">OSK::UniquePtr</a></div><div class="ttdoc">Estructura que es dueña de un objeto almacenado en heap. Al destruirse el UniquePtr,...</div><div class="ttdef"><b>Definition</b> <a href="_unique_ptr_8hpp_source.html#l00022">UniquePtr.hpp:22</a></div></div>
+<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span>            std::unordered_map&lt;UIndex32, UniquePtr&lt;VkDescriptorBufferInfo&gt;&gt; bufferInfos{};</div>
+<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span>            std::unordered_map&lt;UIndex32, UniquePtr&lt;VkDescriptorImageInfo&gt;&gt; imageInfos{};</div>
+<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span>            std::unordered_map&lt;UIndex32, UniquePtr&lt;VkWriteDescriptorSetAccelerationStructureKHR&gt;&gt; asInfos{};</div>
+<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span> </div>
+<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span>            std::unordered_set&lt;UIndex32&gt; dirtyDescriptorWrites{};</div>
+<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span> </div>
+<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span>        };</div>
+<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span> </div>
+<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span>        DynamicArray&lt;VkWriteDescriptorSet&gt; m_descriptorWrites{};</div>
+<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span> </div>
+<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span>        VkDescriptorSet m_descriptorSet = VK_NULL_HANDLE;</div>
+<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span>        </div>
+<div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span>        std::unordered_map&lt;UIndex32, BindingVk&gt;  m_bindings;</div>
+<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span> </div>
+<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span>        DynamicArray&lt;VkAccelerationStructureKHR&gt; m_accelerationStructures;</div>
+<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span> </div>
+<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span>        UniquePtr&lt;DescriptorPoolVk&gt; m_pool;</div>
+<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span>        UniquePtr&lt;DescriptorLayoutVk&gt; m_descLayout;</div>
+<div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span> </div>
+<div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span>    };</div>
+<div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span> </div>
+<div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span>}</div>
+<div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span> </div>
+<div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span><span class="preprocessor">#endif</span></div>
 <div class="ttc" id="anamespace_o_s_k_1_1_g_r_a_p_h_i_c_s_html"><div class="ttname"><a href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html">OSK::GRAPHICS</a></div><div class="ttdef"><b>Definition</b> <a href="_acceleration_structures_exceptions_8h_source.html#l00005">AccelerationStructuresExceptions.h:5</a></div></div>
-<div class="ttc" id="anamespace_o_s_k_html_a382ed4c8a6994201cbad5d4e1335861b"><div class="ttname"><a href="namespace_o_s_k.html#a382ed4c8a6994201cbad5d4e1335861b">OSK::UIndex32</a></div><div class="ttdeci">uint32_t UIndex32</div><div class="ttdoc">Índice de un elemento, almacenado en un unsigned int de 32 bits.</div><div class="ttdef"><b>Definition</b> <a href="_numeric_types_8h_source.html#l00010">NumericTypes.h:10</a></div></div>
-<div class="ttc" id="astruct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_buffer_range_html"><div class="ttname"><a href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_buffer_range.html">OSK::GRAPHICS::GpuBufferRange</a></div><div class="ttdoc">Rango de información de un buffer.</div><div class="ttdef"><b>Definition</b> <a href="_gpu_buffer_range_8h_source.html#l00009">GpuBufferRange.h:9</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_74389ed8173ad57b461b9d623a1f3867.html">Source</a></li><li class="navelem"><b>MaterialSlotVk.h</b></li>
-    <li class="footer">Generado el Viernes, 16 de agosto de 2024 22:47:24 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.12.0 </li>
+    <li class="footer">Generado el Viernes, 6 de diciembre de 2024 12:52:11 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.12.0 </li>
   </ul>
 </div>
 </body>

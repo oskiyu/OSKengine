@@ -103,47 +103,40 @@ $(function(){initNavTree('_gpu_image_view_vk_8cpp_source.html',''); initResizabl
 <div class="contents">
 <div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#include &quot;GpuImageViewVk.h&quot;</span></div>
 <div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span> </div>
-<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="preprocessor">#include &quot;OSKengine.h&quot;</span></div>
-<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &quot;IRenderer.h&quot;</span></div>
-<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &quot;GpuVk.h&quot;</span></div>
-<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span> </div>
-<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="keyword">using namespace </span><a class="code hl_namespace" href="namespace_o_s_k.html">OSK</a>;</div>
-<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="keyword">using namespace </span><a class="code hl_namespace" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html">OSK::GRAPHICS</a>;</div>
+<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="preprocessor">#include &quot;Platforms.h&quot;</span></div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#ifdef OSK_USE_VULKAN_BACKEND</span></div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span> </div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &quot;OSKengine.h&quot;</span></div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="preprocessor">#include &quot;IRenderer.h&quot;</span></div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="preprocessor">#include &quot;GpuVk.h&quot;</span></div>
 <div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span> </div>
-<div class="foldopen" id="foldopen00010" data-start="{" data-end="}">
-<div class="line"><a id="l00010" name="l00010"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_view_vk.html#adfd3169859253d4bc119cacd7633d84a">   10</a></span><a class="code hl_function" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_view_vk.html#adfd3169859253d4bc119cacd7633d84a">GpuImageViewVk::GpuImageViewVk</a>(</div>
-<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span>    VkImageView view,</div>
-<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span>    <span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image.html">GpuImage</a>&amp; image,</div>
-<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span>    <span class="keyword">const</span> <a class="code hl_struct" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_view_config.html">GpuImageViewConfig</a>&amp; config)</div>
-<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span>    : <a class="code hl_class" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_image_view.html">IGpuImageView</a>(image, config), view(view) {</div>
-<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span> </div>
-<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span>}</div>
-</div>
-<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span> </div>
-<div class="foldopen" id="foldopen00018" data-start="{" data-end="}">
-<div class="line"><a id="l00018" name="l00018"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_view_vk.html#a4b66e2fac5e6e8706f36222fe9a765e5">   18</a></span><a class="code hl_function" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_view_vk.html#a4b66e2fac5e6e8706f36222fe9a765e5">GpuImageViewVk::~GpuImageViewVk</a>() {</div>
-<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>    <span class="keyword">const</span> VkDevice logicalDevice = <a class="code hl_function" href="class_o_s_k_1_1_engine.html#a019c5397d042224c134b7fd22c739d00">Engine::GetRenderer</a>()-&gt;<a class="code hl_function" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer.html#abcf98a9f16ed31387a064e5ed3d473af">GetGpu</a>()-&gt;As&lt;<a class="code hl_class" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_vk.html">GpuVk</a>&gt;()-&gt;GetLogicalDevice();</div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="keyword">using namespace </span><a class="code hl_namespace" href="namespace_o_s_k.html">OSK</a>;</div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="keyword">using namespace </span><a class="code hl_namespace" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html">OSK::GRAPHICS</a>;</div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span> </div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span>GpuImageViewVk::GpuImageViewVk(</div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span>    VkImageView view,</div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span>    <span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image.html">GpuImage</a>&amp; image,</div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span>    <span class="keyword">const</span> <a class="code hl_struct" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_view_config.html">GpuImageViewConfig</a>&amp; config)</div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>    : <a class="code hl_class" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_image_view.html">IGpuImageView</a>(image, config), view(view) {</div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span> </div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>}</div>
 <div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span> </div>
-<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>    <span class="keywordflow">if</span> (view != VK_NULL_HANDLE) {</div>
-<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>        vkDestroyImageView(logicalDevice, view, <span class="keyword">nullptr</span>);</div>
-<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>        view = VK_NULL_HANDLE;</div>
-<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>    }</div>
-<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>}</div>
-</div>
-<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span> </div>
-<div class="foldopen" id="foldopen00027" data-start="{" data-end="}">
-<div class="line"><a id="l00027" name="l00027"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_view_vk.html#afc599b4e445cac549d98fa48d63c8b95">   27</a></span>VkImageView <a class="code hl_function" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_view_vk.html#afc599b4e445cac549d98fa48d63c8b95">GpuImageViewVk::GetVkView</a>()<span class="keyword"> const </span>{</div>
-<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>    <span class="keywordflow">return</span> view;</div>
-<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>}</div>
-</div>
-<div class="ttc" id="aclass_o_s_k_1_1_engine_html_a019c5397d042224c134b7fd22c739d00"><div class="ttname"><a href="class_o_s_k_1_1_engine.html#a019c5397d042224c134b7fd22c739d00">OSK::Engine::GetRenderer</a></div><div class="ttdeci">static GRAPHICS::IRenderer * GetRenderer()</div><div class="ttdoc">Devuelve un puntero al renderizador del motor.</div><div class="ttdef"><b>Definition</b> <a href="_o_s_kengine_8cpp_source.html#l00247">OSKengine.cpp:247</a></div></div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>GpuImageViewVk::~GpuImageViewVk() {</div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>    <span class="keyword">const</span> VkDevice logicalDevice = Engine::GetRenderer()-&gt;GetGpu()-&gt;As&lt;GpuVk&gt;()-&gt;GetLogicalDevice();</div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span> </div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>    <span class="keywordflow">if</span> (view != VK_NULL_HANDLE) {</div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>        vkDestroyImageView(logicalDevice, view, <span class="keyword">nullptr</span>);</div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>        view = VK_NULL_HANDLE;</div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>    }</div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>}</div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span> </div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>VkImageView GpuImageViewVk::GetVkView()<span class="keyword"> const </span>{</div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>    <span class="keywordflow">return</span> view;</div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>}</div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span> </div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span><span class="preprocessor">#endif</span></div>
 <div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_html"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image.html">OSK::GRAPHICS::GpuImage</a></div><div class="ttdoc">Representación interna de una imagen en la GPU.</div><div class="ttdef"><b>Definition</b> <a href="_i_gpu_image_8h_source.html#l00035">IGpuImage.h:35</a></div></div>
-<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_view_vk_html_a4b66e2fac5e6e8706f36222fe9a765e5"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_view_vk.html#a4b66e2fac5e6e8706f36222fe9a765e5">OSK::GRAPHICS::GpuImageViewVk::~GpuImageViewVk</a></div><div class="ttdeci">~GpuImageViewVk()</div><div class="ttdef"><b>Definition</b> <a href="#l00018">GpuImageViewVk.cpp:18</a></div></div>
-<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_view_vk_html_adfd3169859253d4bc119cacd7633d84a"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_view_vk.html#adfd3169859253d4bc119cacd7633d84a">OSK::GRAPHICS::GpuImageViewVk::GpuImageViewVk</a></div><div class="ttdeci">GpuImageViewVk(VkImageView view, const GpuImage &amp;image, const GpuImageViewConfig &amp;config)</div><div class="ttdef"><b>Definition</b> <a href="#l00010">GpuImageViewVk.cpp:10</a></div></div>
-<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_view_vk_html_afc599b4e445cac549d98fa48d63c8b95"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_view_vk.html#afc599b4e445cac549d98fa48d63c8b95">OSK::GRAPHICS::GpuImageViewVk::GetVkView</a></div><div class="ttdeci">VkImageView GetVkView() const</div><div class="ttdef"><b>Definition</b> <a href="#l00027">GpuImageViewVk.cpp:27</a></div></div>
-<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_vk_html"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_vk.html">OSK::GRAPHICS::GpuVk</a></div><div class="ttdoc">Implementación de la interfaz para el renderizador de Vulkan.</div><div class="ttdef"><b>Definition</b> <a href="_gpu_vk_8h_source.html#l00012">GpuVk.h:12</a></div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_image_view_html"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_image_view.html">OSK::GRAPHICS::IGpuImageView</a></div><div class="ttdoc">Un image view describe cómo y a qúe parte de una imagen se va a acceder al usarla.</div><div class="ttdef"><b>Definition</b> <a href="_i_gpu_image_view_8h_source.html#l00019">IGpuImageView.h:19</a></div></div>
-<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_html_abcf98a9f16ed31387a064e5ed3d473af"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer.html#abcf98a9f16ed31387a064e5ed3d473af">OSK::GRAPHICS::IRenderer::GetGpu</a></div><div class="ttdeci">IGpu * GetGpu()</div><div class="ttdef"><b>Definition</b> <a href="_renderer_8cpp_source.html#l00076">Renderer.cpp:76</a></div></div>
 <div class="ttc" id="anamespace_o_s_k_1_1_g_r_a_p_h_i_c_s_html"><div class="ttname"><a href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html">OSK::GRAPHICS</a></div><div class="ttdef"><b>Definition</b> <a href="_acceleration_structures_exceptions_8h_source.html#l00005">AccelerationStructuresExceptions.h:5</a></div></div>
 <div class="ttc" id="anamespace_o_s_k_html"><div class="ttname"><a href="namespace_o_s_k.html">OSK</a></div><div class="ttdef"><b>Definition</b> <a href="_acceleration_structures_exceptions_8h_source.html#l00005">AccelerationStructuresExceptions.h:5</a></div></div>
 <div class="ttc" id="astruct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_view_config_html"><div class="ttname"><a href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_view_config.html">OSK::GRAPHICS::GpuImageViewConfig</a></div><div class="ttdoc">Configuración de un image view. Desribe las características de un image view.</div><div class="ttdef"><b>Definition</b> <a href="_gpu_image_view_config_8h_source.html#l00050">GpuImageViewConfig.h:50</a></div></div>
@@ -153,7 +146,7 @@ $(function(){initNavTree('_gpu_image_view_vk_8cpp_source.html',''); initResizabl
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_74389ed8173ad57b461b9d623a1f3867.html">Source</a></li><li class="navelem"><b>GpuImageViewVk.cpp</b></li>
-    <li class="footer">Generado el Viernes, 16 de agosto de 2024 22:47:23 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.12.0 </li>
+    <li class="footer">Generado el Viernes, 6 de diciembre de 2024 12:52:11 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.12.0 </li>
   </ul>
 </div>
 </body>

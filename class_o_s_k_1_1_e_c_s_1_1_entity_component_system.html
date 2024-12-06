@@ -187,19 +187,19 @@ requires IsEcsSystem&lt;TSystem&gt;</td></tr>
 <tr class="memitem:af99b27ec5c4a675906a93b473d07ba18"><td class="memTemplItemLeft" align="right" valign="top">bool&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="#af99b27ec5c4a675906a93b473d07ba18">HasSystem</a> () const</td></tr>
 <tr class="separator:af99b27ec5c4a675906a93b473d07ba18"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aea919328b2cc80dc457f4160b2e89eb3" id="r_aea919328b2cc80dc457f4160b2e89eb3"><td class="memTemplParams" colspan="2">template&lt;typename TEvent &gt; <br />
-requires <a class="el" href="concept_is_ecs_event.html">IsEcsEvent</a>&lt;TEvent&gt;</td></tr>
+requires IsEcsEvent&lt;TEvent&gt;</td></tr>
 <tr class="memitem:aea919328b2cc80dc457f4160b2e89eb3"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="#aea919328b2cc80dc457f4160b2e89eb3">RegisterEventType</a> ()</td></tr>
 <tr class="separator:aea919328b2cc80dc457f4160b2e89eb3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2772cc0a8ea3a3ace7aa0e933101d1f5" id="r_a2772cc0a8ea3a3ace7aa0e933101d1f5"><td class="memTemplParams" colspan="2">template&lt;typename TEvent &gt; <br />
-requires <a class="el" href="concept_is_ecs_event.html">IsEcsEvent</a>&lt;TEvent&gt;</td></tr>
+requires IsEcsEvent&lt;TEvent&gt;</td></tr>
 <tr class="memitem:a2772cc0a8ea3a3ace7aa0e933101d1f5"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="#a2772cc0a8ea3a3ace7aa0e933101d1f5">PublishEvent</a> (const TEvent &amp;event)</td></tr>
 <tr class="separator:a2772cc0a8ea3a3ace7aa0e933101d1f5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae45654ecdc519b6dcc4e63af3945a2b5" id="r_ae45654ecdc519b6dcc4e63af3945a2b5"><td class="memTemplParams" colspan="2">template&lt;typename TEvent &gt; <br />
-requires <a class="el" href="concept_is_ecs_event.html">IsEcsEvent</a>&lt;TEvent&gt;</td></tr>
+requires IsEcsEvent&lt;TEvent&gt;</td></tr>
 <tr class="memitem:ae45654ecdc519b6dcc4e63af3945a2b5"><td class="memTemplItemLeft" align="right" valign="top">const <a class="el" href="class_o_s_k_1_1_dynamic_array.html">DynamicArray</a>&lt; TEvent &gt; &amp;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="#ae45654ecdc519b6dcc4e63af3945a2b5">GetEventQueue</a> () const</td></tr>
 <tr class="separator:ae45654ecdc519b6dcc4e63af3945a2b5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7f8cf1f07252dbaf0b4ac5a5d64cc4a3" id="r_a7f8cf1f07252dbaf0b4ac5a5d64cc4a3"><td class="memTemplParams" colspan="2">template&lt;typename TEvent &gt; <br />
-requires <a class="el" href="concept_is_ecs_event.html">IsEcsEvent</a>&lt;TEvent&gt;</td></tr>
+requires IsEcsEvent&lt;TEvent&gt;</td></tr>
 <tr class="memitem:a7f8cf1f07252dbaf0b4ac5a5d64cc4a3"><td class="memTemplItemLeft" align="right" valign="top">bool&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="#a7f8cf1f07252dbaf0b4ac5a5d64cc4a3">EventHasBeenRegistered</a> () const</td></tr>
 <tr class="separator:a7f8cf1f07252dbaf0b4ac5a5d64cc4a3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a25da30b9eed66da4eef4a1bc233679d3" id="r_a25da30b9eed66da4eef4a1bc233679d3"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a25da30b9eed66da4eef4a1bc233679d3">_ClearEventQueues</a> ()</td></tr>
@@ -291,7 +291,7 @@ Esta clase es dueña de los sistemas. </dd></dl>
 
 <p>Vacía todas las colas de eventos. Debe llamarse al terminar el frame. </p>
 
-<p class="definition">Definición en la línea <a class="el" href="_entity_component_system_8cpp_source.html#l00378">378</a> del archivo <a class="el" href="_entity_component_system_8cpp_source.html">EntityComponentSystem.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_entity_component_system_8cpp_source.html#l00391">391</a> del archivo <a class="el" href="_entity_component_system_8cpp_source.html">EntityComponentSystem.cpp</a>.</p>
 
 </div>
 </div>
@@ -435,7 +435,7 @@ requires IsEcsComponent&lt;TComponent&gt;</div>
 </dl>
 <dl class="section note"><dt>Nota</dt><dd>Su ID cambia a 0 para indicar que ya no es una ID válida. </dd></dl>
 
-<p class="definition">Definición en la línea <a class="el" href="_entity_component_system_8cpp_source.html#l00424">424</a> del archivo <a class="el" href="_entity_component_system_8cpp_source.html">EntityComponentSystem.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_entity_component_system_8cpp_source.html#l00437">437</a> del archivo <a class="el" href="_entity_component_system_8cpp_source.html">EntityComponentSystem.cpp</a>.</p>
 
 </div>
 </div>
@@ -457,7 +457,7 @@ requires IsEcsComponent&lt;TComponent&gt;</div>
 <p>Finaliza el frame. Debe llamarse una vez al finalizar el frame. <br  />
  </p>
 
-<p class="definition">Definición en la línea <a class="el" href="_entity_component_system_8cpp_source.html#l00451">451</a> del archivo <a class="el" href="_entity_component_system_8cpp_source.html">EntityComponentSystem.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_entity_component_system_8cpp_source.html#l00464">464</a> del archivo <a class="el" href="_entity_component_system_8cpp_source.html">EntityComponentSystem.cpp</a>.</p>
 
 </div>
 </div>
@@ -468,7 +468,7 @@ requires IsEcsComponent&lt;TComponent&gt;</div>
 <div class="memproto">
 <div class="memtemplate">
 template&lt;typename TEvent &gt; <br />
-requires <a class="el" href="concept_is_ecs_event.html">IsEcsEvent</a>&lt;TEvent&gt;</div>
+requires IsEcsEvent&lt;TEvent&gt;</div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
@@ -514,7 +514,7 @@ requires <a class="el" href="concept_is_ecs_event.html">IsEcsEvent</a>&lt;TEvent
 </div><div class="memdoc">
 <dl class="section return"><dt>Devuelve</dt><dd>Todos los sistemas registrados. </dd></dl>
 
-<p class="definition">Definición en la línea <a class="el" href="_entity_component_system_8cpp_source.html#l00434">434</a> del archivo <a class="el" href="_entity_component_system_8cpp_source.html">EntityComponentSystem.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_entity_component_system_8cpp_source.html#l00447">447</a> del archivo <a class="el" href="_entity_component_system_8cpp_source.html">EntityComponentSystem.cpp</a>.</p>
 
 </div>
 </div>
@@ -629,7 +629,7 @@ requires IsEcsComponent&lt;TComponent&gt;</div>
 </dl>
 <dl class="section return"><dt>Devuelve</dt><dd>Puntero al componente. </dd></dl>
 
-<p class="definition">Definición en la línea <a class="el" href="_entity_component_system_8cpp_source.html#l00404">404</a> del archivo <a class="el" href="_entity_component_system_8cpp_source.html">EntityComponentSystem.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_entity_component_system_8cpp_source.html#l00417">417</a> del archivo <a class="el" href="_entity_component_system_8cpp_source.html">EntityComponentSystem.cpp</a>.</p>
 
 </div>
 </div>
@@ -652,7 +652,7 @@ requires IsEcsComponent&lt;TComponent&gt;</div>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definición en la línea <a class="el" href="_entity_component_system_8cpp_source.html#l00408">408</a> del archivo <a class="el" href="_entity_component_system_8cpp_source.html">EntityComponentSystem.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_entity_component_system_8cpp_source.html#l00421">421</a> del archivo <a class="el" href="_entity_component_system_8cpp_source.html">EntityComponentSystem.cpp</a>.</p>
 
 </div>
 </div>
@@ -723,7 +723,7 @@ requires IsEcsComponent&lt;TComponent&gt;</div>
 <dl class="section return"><dt>Devuelve</dt><dd>Nombre del tipo de componente. </dd></dl>
 <dl class="section pre"><dt>Precondición</dt><dd><code>type</code> debe identificar un tipo de componente que haya sido previamente registrado. </dd></dl>
 
-<p class="definition">Definición en la línea <a class="el" href="_entity_component_system_8cpp_source.html#l00416">416</a> del archivo <a class="el" href="_entity_component_system_8cpp_source.html">EntityComponentSystem.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_entity_component_system_8cpp_source.html#l00429">429</a> del archivo <a class="el" href="_entity_component_system_8cpp_source.html">EntityComponentSystem.cpp</a>.</p>
 
 </div>
 </div>
@@ -734,7 +734,7 @@ requires IsEcsComponent&lt;TComponent&gt;</div>
 <div class="memproto">
 <div class="memtemplate">
 template&lt;typename TEvent &gt; <br />
-requires <a class="el" href="concept_is_ecs_event.html">IsEcsEvent</a>&lt;TEvent&gt;</div>
+requires IsEcsEvent&lt;TEvent&gt;</div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
@@ -791,7 +791,7 @@ TEvent debe haber sido registrado con RegisterEventType.</dd></dl>
 </div><div class="memdoc">
 <dl class="section return"><dt>Devuelve</dt><dd>IDs de todos los objetos vivos. </dd></dl>
 
-<p class="definition">Definición en la línea <a class="el" href="_entity_component_system_8cpp_source.html#l00430">430</a> del archivo <a class="el" href="_entity_component_system_8cpp_source.html">EntityComponentSystem.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_entity_component_system_8cpp_source.html#l00443">443</a> del archivo <a class="el" href="_entity_component_system_8cpp_source.html">EntityComponentSystem.cpp</a>.</p>
 
 </div>
 </div>
@@ -824,7 +824,7 @@ TEvent debe haber sido registrado con RegisterEventType.</dd></dl>
   </dd>
 </dl>
 
-<p class="definition">Definición en la línea <a class="el" href="_entity_component_system_8cpp_source.html#l00386">386</a> del archivo <a class="el" href="_entity_component_system_8cpp_source.html">EntityComponentSystem.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_entity_component_system_8cpp_source.html#l00399">399</a> del archivo <a class="el" href="_entity_component_system_8cpp_source.html">EntityComponentSystem.cpp</a>.</p>
 
 </div>
 </div>
@@ -846,7 +846,7 @@ TEvent debe haber sido registrado con RegisterEventType.</dd></dl>
 <p>Devuelve los render systems registrados. </p>
 <dl class="section return"><dt>Devuelve</dt><dd>Render systems registrados. </dd></dl>
 
-<p class="definition">Definición en la línea <a class="el" href="_entity_component_system_8cpp_source.html#l00455">455</a> del archivo <a class="el" href="_entity_component_system_8cpp_source.html">EntityComponentSystem.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_entity_component_system_8cpp_source.html#l00468">468</a> del archivo <a class="el" href="_entity_component_system_8cpp_source.html">EntityComponentSystem.cpp</a>.</p>
 
 </div>
 </div>
@@ -941,7 +941,7 @@ requires IsEcsSystem&lt;TSystem&gt;</div>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definición en la línea <a class="el" href="_entity_component_system_8cpp_source.html#l00382">382</a> del archivo <a class="el" href="_entity_component_system_8cpp_source.html">EntityComponentSystem.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_entity_component_system_8cpp_source.html#l00395">395</a> del archivo <a class="el" href="_entity_component_system_8cpp_source.html">EntityComponentSystem.cpp</a>.</p>
 
 </div>
 </div>
@@ -1006,7 +1006,7 @@ requires IsEcsSystem&lt;TSystem&gt;</div>
 </dl>
 <dl class="section return"><dt>Devuelve</dt><dd>True si está activo, false si se eliminó. </dd></dl>
 
-<p class="definition">Definición en la línea <a class="el" href="_entity_component_system_8cpp_source.html#l00447">447</a> del archivo <a class="el" href="_entity_component_system_8cpp_source.html">EntityComponentSystem.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_entity_component_system_8cpp_source.html#l00460">460</a> del archivo <a class="el" href="_entity_component_system_8cpp_source.html">EntityComponentSystem.cpp</a>.</p>
 
 </div>
 </div>
@@ -1042,7 +1042,7 @@ requires IsEcsSystem&lt;TSystem&gt;</div>
   </dd>
 </dl>
 
-<p class="definition">Definición en la línea <a class="el" href="_entity_component_system_8cpp_source.html#l00211">211</a> del archivo <a class="el" href="_entity_component_system_8cpp_source.html">EntityComponentSystem.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_entity_component_system_8cpp_source.html#l00221">221</a> del archivo <a class="el" href="_entity_component_system_8cpp_source.html">EntityComponentSystem.cpp</a>.</p>
 
 </div>
 </div>
@@ -1076,7 +1076,7 @@ requires IsEcsSystem&lt;TSystem&gt;</div>
   </dd>
 </dl>
 
-<p class="definition">Definición en la línea <a class="el" href="_entity_component_system_8cpp_source.html#l00151">151</a> del archivo <a class="el" href="_entity_component_system_8cpp_source.html">EntityComponentSystem.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_entity_component_system_8cpp_source.html#l00156">156</a> del archivo <a class="el" href="_entity_component_system_8cpp_source.html">EntityComponentSystem.cpp</a>.</p>
 
 </div>
 </div>
@@ -1153,7 +1153,7 @@ requires IsEcsComponent&lt;TComponent&gt;</div>
   </dd>
 </dl>
 
-<p class="definition">Definición en la línea <a class="el" href="_entity_component_system_8cpp_source.html#l00412">412</a> del archivo <a class="el" href="_entity_component_system_8cpp_source.html">EntityComponentSystem.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_entity_component_system_8cpp_source.html#l00425">425</a> del archivo <a class="el" href="_entity_component_system_8cpp_source.html">EntityComponentSystem.cpp</a>.</p>
 
 </div>
 </div>
@@ -1218,7 +1218,7 @@ requires IsEcsComponent&lt;TComponent&gt;</div>
 <div class="memproto">
 <div class="memtemplate">
 template&lt;typename TEvent &gt; <br />
-requires <a class="el" href="concept_is_ecs_event.html">IsEcsEvent</a>&lt;TEvent&gt;</div>
+requires IsEcsEvent&lt;TEvent&gt;</div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
@@ -1319,7 +1319,7 @@ El componente no debe haber sido previamente registrado.</dd></dl>
 <div class="memproto">
 <div class="memtemplate">
 template&lt;typename TEvent &gt; <br />
-requires <a class="el" href="concept_is_ecs_event.html">IsEcsEvent</a>&lt;TEvent&gt;</div>
+requires IsEcsEvent&lt;TEvent&gt;</div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
@@ -1554,7 +1554,7 @@ template&lt;typename TSystem &gt; </div>
   </dd>
 </dl>
 
-<p class="definition">Definición en la línea <a class="el" href="_entity_component_system_8cpp_source.html#l00052">52</a> del archivo <a class="el" href="_entity_component_system_8cpp_source.html">EntityComponentSystem.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_entity_component_system_8cpp_source.html#l00054">54</a> del archivo <a class="el" href="_entity_component_system_8cpp_source.html">EntityComponentSystem.cpp</a>.</p>
 
 </div>
 </div>
@@ -1577,7 +1577,7 @@ template&lt;typename TSystem &gt; </div>
 <dl class="section return"><dt>Devuelve</dt><dd>ID del nuevo objeto.</dd></dl>
 <dl class="section warning"><dt>Atención</dt><dd><a class="el" href="namespace_o_s_k_1_1_e_c_s.html">ECS</a> NO ES DUEÑO DEL OBJETO, el juego es el encargado de eliminarlo mediante <a class="el" href="#ae529c5094ca66a4eacc5da0a028eaa52" title="Elimina un objeto.">DestroyObject()</a>. </dd></dl>
 
-<p class="definition">Definición en la línea <a class="el" href="_entity_component_system_8cpp_source.html#l00420">420</a> del archivo <a class="el" href="_entity_component_system_8cpp_source.html">EntityComponentSystem.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_entity_component_system_8cpp_source.html#l00433">433</a> del archivo <a class="el" href="_entity_component_system_8cpp_source.html">EntityComponentSystem.cpp</a>.</p>
 
 </div>
 </div>
@@ -1587,7 +1587,7 @@ template&lt;typename TSystem &gt; </div>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="namespace_o_s_k.html">OSK</a></li><li class="navelem"><a class="el" href="namespace_o_s_k_1_1_e_c_s.html">ECS</a></li><li class="navelem"><a class="el" href="class_o_s_k_1_1_e_c_s_1_1_entity_component_system.html">EntityComponentSystem</a></li>
-    <li class="footer">Generado el Viernes, 16 de agosto de 2024 22:47:25 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.12.0 </li>
+    <li class="footer">Generado el Viernes, 6 de diciembre de 2024 12:52:12 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.12.0 </li>
   </ul>
 </div>
 </body>

@@ -10,6 +10,7 @@ var class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_animated_g_buffer_pass =
     [ "RenderLoop", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_animated_g_buffer_pass.html#aac294502feceb855fd2cc92f9eefe041", null ],
     [ "SetCamera", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_animated_g_buffer_pass.html#a8f6d85b84886a9dabde560fc3921c689", null ],
     [ "SetupMaterialInstance", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_animated_g_buffer_pass.html#aefdfbd7828be9044cbff5f89ebd14f19", null ],
+    [ "Update", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_animated_g_buffer_pass.html#a68ff9189ec330d8a7da4f85935248906", null ],
     [ "UpdateLocalMeshMapping", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_animated_g_buffer_pass.html#a33423437d12681591b8f8c00da1bdaa0", null ],
     [ "m_cameraObject", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_animated_g_buffer_pass.html#a5b6bae2d0bf919d36a9dc7791fd3d589", null ],
     [ "m_currentResolution", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_animated_g_buffer_pass.html#a019a1231c78e5305a51a17044cb4f7d1", null ],

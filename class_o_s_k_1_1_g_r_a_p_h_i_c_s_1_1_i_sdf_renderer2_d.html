@@ -1,0 +1,575 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="es">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.12.0"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>OSKengine: Referencia de la clase OSK::GRAPHICS::ISdfRenderer2D</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="doxygen-awesome.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">OSKengine<span id="projectnumber">&#160;Indev</span>
+   </div>
+   <div id="projectbrief">Motor de videojuegos.</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generado por Doxygen 1.12.0 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+/* @license-end */
+</script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() { codefold.init(0); });
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() {
+  initMenu('',true,false,'search.php','Buscar',true);
+  $(function() { init_search(); });
+});
+/* @license-end */
+</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function(){initNavTree('class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_sdf_renderer2_d.html',''); initResizable(true); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Cargando...</div>
+<div class="SRStatus" id="Searching">Buscando...</div>
+<div class="SRStatus" id="NoMatches">Nada coincide</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="summary">
+<a href="#pub-methods">Métodos públicos</a> &#124;
+<a href="#pub-static-methods">Métodos públicos estáticos</a> &#124;
+<a href="#pro-methods">Métodos protegidos</a> &#124;
+<a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_sdf_renderer2_d-members.html">Lista de todos los miembros</a>  </div>
+  <div class="headertitle"><div class="title">Referencia de la clase OSK::GRAPHICS::ISdfRenderer2D<span class="mlabels"><span class="mlabel">abstract</span></span></div></div>
+</div><!--header-->
+<div class="contents">
+
+<p><code>#include &lt;<a class="el" href="_i_sdf_renderer2_d_8h_source.html">ISdfRenderer2D.h</a>&gt;</code></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
+Métodos públicos</h2></td></tr>
+<tr class="memitem:af3e5bda3c565f3d862f82701fe434ffa" id="r_af3e5bda3c565f3d862f82701fe434ffa"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af3e5bda3c565f3d862f82701fe434ffa">~ISdfRenderer2D</a> ()=default</td></tr>
+<tr class="separator:af3e5bda3c565f3d862f82701fe434ffa"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8de6463d159f353f4ff2f59352e7f21b" id="r_a8de6463d159f353f4ff2f59352e7f21b"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a8de6463d159f353f4ff2f59352e7f21b">SetMaterial</a> (<a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material.html">Material</a> *material)</td></tr>
+<tr class="separator:a8de6463d159f353f4ff2f59352e7f21b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a186779c299900280ae97a13424e489ee" id="r_a186779c299900280ae97a13424e489ee"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a186779c299900280ae97a13424e489ee">SetCamera</a> (const <a class="el" href="class_o_s_k_1_1_e_c_s_1_1_camera_component2_d.html">ECS::CameraComponent2D</a> &amp;camera, const <a class="el" href="class_o_s_k_1_1_e_c_s_1_1_transform2_d.html">ECS::Transform2D</a> &amp;cameraTransform)</td></tr>
+<tr class="separator:a186779c299900280ae97a13424e489ee"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0487a57ef2afda6d0f7edceb647e9919" id="r_a0487a57ef2afda6d0f7edceb647e9919"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a0487a57ef2afda6d0f7edceb647e9919">SetCamera</a> (<a class="el" href="namespace_o_s_k_1_1_e_c_s.html#a5b92aeaa6be2ce0d96e7f571aa917042">ECS::GameObjectIndex</a> gameObject)</td></tr>
+<tr class="separator:a0487a57ef2afda6d0f7edceb647e9919"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab5d50457a25b68195314ffbade54937f" id="r_ab5d50457a25b68195314ffbade54937f"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ab5d50457a25b68195314ffbade54937f">Begin</a> (<a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list.html">ICommandList</a> *commandList)</td></tr>
+<tr class="separator:ab5d50457a25b68195314ffbade54937f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a44893a9a301124a0bd92b5bc59161685" id="r_a44893a9a301124a0bd92b5bc59161685"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a44893a9a301124a0bd92b5bc59161685">Draw</a> (const <a class="el" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_sdf_draw_call2_d.html">SdfDrawCall2D</a> &amp;drawCall)=0</td></tr>
+<tr class="separator:a44893a9a301124a0bd92b5bc59161685"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac0219cd73f37cfba6bf65636d0187ee7" id="r_ac0219cd73f37cfba6bf65636d0187ee7"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ac0219cd73f37cfba6bf65636d0187ee7">Draw</a> (const <a class="el" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_sdf_string_info.html">SdfStringInfo</a> &amp;stringCall)=0</td></tr>
+<tr class="separator:ac0219cd73f37cfba6bf65636d0187ee7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac68f526e26f26f78b32e0d3eac6d362a" id="r_ac68f526e26f26f78b32e0d3eac6d362a"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ac68f526e26f26f78b32e0d3eac6d362a">End</a> ()</td></tr>
+<tr class="separator:ac68f526e26f26f78b32e0d3eac6d362a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-static-methods" name="pub-static-methods"></a>
+Métodos públicos estáticos</h2></td></tr>
+<tr class="memitem:a1b5d6ddb44d8c157f5aedc30b4d33d56" id="r_a1b5d6ddb44d8c157f5aedc30b4d33d56"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="class_o_s_k_1_1_dynamic_array.html">DynamicArray</a>&lt; <a class="el" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_sdf_draw_call2_d.html">SdfDrawCall2D</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a1b5d6ddb44d8c157f5aedc30b4d33d56">GetTextDrawCalls</a> (const <a class="el" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_sdf_string_info.html">SdfStringInfo</a> &amp;text)</td></tr>
+<tr class="separator:a1b5d6ddb44d8c157f5aedc30b4d33d56"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pro-methods" name="pro-methods"></a>
+Métodos protegidos</h2></td></tr>
+<tr class="memitem:a60d0f97683f4eac61bb86f272518b182" id="r_a60d0f97683f4eac61bb86f272518b182"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a60d0f97683f4eac61bb86f272518b182">ISdfRenderer2D</a> (<a class="el" href="class_o_s_k_1_1_e_c_s_1_1_entity_component_system.html">ECS::EntityComponentSystem</a> *ecs)</td></tr>
+<tr class="separator:a60d0f97683f4eac61bb86f272518b182"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac6de4fce47ac31b8a1ec1362d7f2aed8" id="r_ac6de4fce47ac31b8a1ec1362d7f2aed8"><td class="memItemLeft" align="right" valign="top">glm::mat4&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ac6de4fce47ac31b8a1ec1362d7f2aed8">GetCurrentCameraMatrix</a> () const</td></tr>
+<tr class="separator:ac6de4fce47ac31b8a1ec1362d7f2aed8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa32ce0a450286778e5a9791a039764eb" id="r_aa32ce0a450286778e5a9791a039764eb"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list.html">ICommandList</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aa32ce0a450286778e5a9791a039764eb">GetCurrentCommandList</a> ()</td></tr>
+<tr class="separator:aa32ce0a450286778e5a9791a039764eb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ade14918d0369e8aad1c25b59cdef0c11" id="r_ade14918d0369e8aad1c25b59cdef0c11"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material.html">Material</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ade14918d0369e8aad1c25b59cdef0c11">GetCurrentMaterial</a> ()</td></tr>
+<tr class="separator:ade14918d0369e8aad1c25b59cdef0c11"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">Descripción detallada</h2>
+<div class="textblock"><p>Clase para el renderizado 2D. Permite usar tanto sprites como formas definidas mediante signed-field distances. </p>
+
+<p class="definition">Definición en la línea <a class="el" href="_i_sdf_renderer2_d_8h_source.html#l00023">23</a> del archivo <a class="el" href="_i_sdf_renderer2_d_8h_source.html">ISdfRenderer2D.h</a>.</p>
+</div><h2 class="groupheader">Documentación de constructores y destructores</h2>
+<a id="af3e5bda3c565f3d862f82701fe434ffa" name="af3e5bda3c565f3d862f82701fe434ffa"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af3e5bda3c565f3d862f82701fe434ffa">&#9670;&#160;</a></span>~ISdfRenderer2D()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual OSK::GRAPHICS::ISdfRenderer2D::~ISdfRenderer2D </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">virtual</span><span class="mlabel">default</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a60d0f97683f4eac61bb86f272518b182" name="a60d0f97683f4eac61bb86f272518b182"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a60d0f97683f4eac61bb86f272518b182">&#9670;&#160;</a></span>ISdfRenderer2D()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">OSK::GRAPHICS::ISdfRenderer2D::ISdfRenderer2D </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="class_o_s_k_1_1_e_c_s_1_1_entity_component_system.html">ECS::EntityComponentSystem</a> *</td>          <td class="paramname"><span class="paramname"><em>ecs</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">explicit</span><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definición en la línea <a class="el" href="_i_sdf_renderer2_d_8cpp_source.html#l00009">9</a> del archivo <a class="el" href="_i_sdf_renderer2_d_8cpp_source.html">ISdfRenderer2D.cpp</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Documentación de funciones miembro</h2>
+<a id="ab5d50457a25b68195314ffbade54937f" name="ab5d50457a25b68195314ffbade54937f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab5d50457a25b68195314ffbade54937f">&#9670;&#160;</a></span>Begin()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void OSK::GRAPHICS::ISdfRenderer2D::Begin </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list.html">ICommandList</a> *</td>          <td class="paramname"><span class="paramname"><em>commandList</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Comienza el proceso de renderizado. </p>
+<dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">commandList</td><td>Lista de comandos sobre la que se grabarán los comandos.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section pre"><dt>Precondición</dt><dd><code>commandList</code> debe soportar, al menos, <code><a class="el" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a19534f214690bcfc89ac53cc89681ac6a6f49448c79d7d58c6e60cf7129b84d1c" title="Comandos de renderizado.">CommandsSupport::GRAPHICS</a></code>.</dd>
+<dd>
+El renderizador debe estar cerrado, que es el estado por defecto.</dd></dl>
+<dl class="section post"><dt>Postcondición</dt><dd>El renderizador pasa a estar abierto. </dd></dl>
+
+<p>Reimplementado en <a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_sdf_bindless_renderer2_d.html#a4237eb771b3250fe5b963f3e272871c9">OSK::GRAPHICS::SdfBindlessRenderer2D</a>.</p>
+
+<p class="definition">Definición en la línea <a class="el" href="_i_sdf_renderer2_d_8cpp_source.html#l00013">13</a> del archivo <a class="el" href="_i_sdf_renderer2_d_8cpp_source.html">ISdfRenderer2D.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a44893a9a301124a0bd92b5bc59161685" name="a44893a9a301124a0bd92b5bc59161685"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a44893a9a301124a0bd92b5bc59161685">&#9670;&#160;</a></span>Draw() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void OSK::GRAPHICS::ISdfRenderer2D::Draw </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_sdf_draw_call2_d.html">SdfDrawCall2D</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>drawCall</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Renderiza el elemento indicado. </p>
+<dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">drawCall</td><td>Propiedades del elemento a renderizar.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section pre"><dt>Precondición</dt><dd>El renderizador debe estar abierto (debe haberse llamado previamente a Begin). </dd></dl>
+
+<p>Implementado en <a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_sdf_bindless_renderer2_d.html#a8b477d0165e03912e9d548d9f3b60618">OSK::GRAPHICS::SdfBindlessRenderer2D</a>.</p>
+
+</div>
+</div>
+<a id="ac0219cd73f37cfba6bf65636d0187ee7" name="ac0219cd73f37cfba6bf65636d0187ee7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac0219cd73f37cfba6bf65636d0187ee7">&#9670;&#160;</a></span>Draw() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void OSK::GRAPHICS::ISdfRenderer2D::Draw </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_sdf_string_info.html">SdfStringInfo</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>stringCall</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Renderiza el texto indicado. </p>
+<dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">stringCall</td><td>Propiedades del texto a renderizar.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section pre"><dt>Precondición</dt><dd>El renderizador debe estar abierto (debe haberse llamado previamente a Begin). </dd></dl>
+
+<p>Implementado en <a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_sdf_bindless_renderer2_d.html#aea912a5fc391f0d0b193fcc74a509f58">OSK::GRAPHICS::SdfBindlessRenderer2D</a>.</p>
+
+</div>
+</div>
+<a id="ac68f526e26f26f78b32e0d3eac6d362a" name="ac68f526e26f26f78b32e0d3eac6d362a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac68f526e26f26f78b32e0d3eac6d362a">&#9670;&#160;</a></span>End()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void OSK::GRAPHICS::ISdfRenderer2D::End </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Finaliza el proceso de renderizado. </p>
+<dl class="section pre"><dt>Precondición</dt><dd>El renderizador debe estar abierto (debe haberse llamado previamente a Begin).</dd></dl>
+<dl class="section post"><dt>Postcondición</dt><dd>El renderizador pasa a estar cerrado. </dd></dl>
+
+<p>Reimplementado en <a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_sdf_bindless_renderer2_d.html#af7bf87d580c0e10400ecfe5bc6bd5d14">OSK::GRAPHICS::SdfBindlessRenderer2D</a>.</p>
+
+<p class="definition">Definición en la línea <a class="el" href="_i_sdf_renderer2_d_8cpp_source.html#l00017">17</a> del archivo <a class="el" href="_i_sdf_renderer2_d_8cpp_source.html">ISdfRenderer2D.cpp</a>.</p>
+
+</div>
+</div>
+<a id="ac6de4fce47ac31b8a1ec1362d7f2aed8" name="ac6de4fce47ac31b8a1ec1362d7f2aed8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac6de4fce47ac31b8a1ec1362d7f2aed8">&#9670;&#160;</a></span>GetCurrentCameraMatrix()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">glm::mat4 OSK::GRAPHICS::ISdfRenderer2D::GetCurrentCameraMatrix </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definición en la línea <a class="el" href="_i_sdf_renderer2_d_8cpp_source.html#l00096">96</a> del archivo <a class="el" href="_i_sdf_renderer2_d_8cpp_source.html">ISdfRenderer2D.cpp</a>.</p>
+
+</div>
+</div>
+<a id="aa32ce0a450286778e5a9791a039764eb" name="aa32ce0a450286778e5a9791a039764eb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa32ce0a450286778e5a9791a039764eb">&#9670;&#160;</a></span>GetCurrentCommandList()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list.html">OSK::GRAPHICS::ICommandList</a> * OSK::GRAPHICS::ISdfRenderer2D::GetCurrentCommandList </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definición en la línea <a class="el" href="_i_sdf_renderer2_d_8cpp_source.html#l00100">100</a> del archivo <a class="el" href="_i_sdf_renderer2_d_8cpp_source.html">ISdfRenderer2D.cpp</a>.</p>
+
+</div>
+</div>
+<a id="ade14918d0369e8aad1c25b59cdef0c11" name="ade14918d0369e8aad1c25b59cdef0c11"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ade14918d0369e8aad1c25b59cdef0c11">&#9670;&#160;</a></span>GetCurrentMaterial()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material.html">OSK::GRAPHICS::Material</a> * OSK::GRAPHICS::ISdfRenderer2D::GetCurrentMaterial </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definición en la línea <a class="el" href="_i_sdf_renderer2_d_8cpp_source.html#l00104">104</a> del archivo <a class="el" href="_i_sdf_renderer2_d_8cpp_source.html">ISdfRenderer2D.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a1b5d6ddb44d8c157f5aedc30b4d33d56" name="a1b5d6ddb44d8c157f5aedc30b4d33d56"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1b5d6ddb44d8c157f5aedc30b4d33d56">&#9670;&#160;</a></span>GetTextDrawCalls()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="class_o_s_k_1_1_dynamic_array.html">OSK::DynamicArray</a>&lt; <a class="el" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_sdf_draw_call2_d.html">OSK::GRAPHICS::SdfDrawCall2D</a> &gt; OSK::GRAPHICS::ISdfRenderer2D::GetTextDrawCalls </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_sdf_string_info.html">SdfStringInfo</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>text</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">text</td><td>Información de un texto a renderizar. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Devuelve</dt><dd>Lista de llamadas de renderizado necesarias para renderizar el texto indicado. </dd></dl>
+
+<p class="definition">Definición en la línea <a class="el" href="_i_sdf_renderer2_d_8cpp_source.html#l00021">21</a> del archivo <a class="el" href="_i_sdf_renderer2_d_8cpp_source.html">ISdfRenderer2D.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a186779c299900280ae97a13424e489ee" name="a186779c299900280ae97a13424e489ee"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a186779c299900280ae97a13424e489ee">&#9670;&#160;</a></span>SetCamera() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void OSK::GRAPHICS::ISdfRenderer2D::SetCamera </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="class_o_s_k_1_1_e_c_s_1_1_camera_component2_d.html">ECS::CameraComponent2D</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>camera</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="class_o_s_k_1_1_e_c_s_1_1_transform2_d.html">ECS::Transform2D</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>cameraTransform</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Establece la cámara 2D con la que se renderizarán los próximos sprites. </p>
+<dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">camera</td><td>Cámara 2D. </td></tr>
+    <tr><td class="paramname">cameraTransform</td><td>Transform de la cámara. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definición en la línea <a class="el" href="_i_sdf_renderer2_d_8cpp_source.html#l00085">85</a> del archivo <a class="el" href="_i_sdf_renderer2_d_8cpp_source.html">ISdfRenderer2D.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a0487a57ef2afda6d0f7edceb647e9919" name="a0487a57ef2afda6d0f7edceb647e9919"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0487a57ef2afda6d0f7edceb647e9919">&#9670;&#160;</a></span>SetCamera() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void OSK::GRAPHICS::ISdfRenderer2D::SetCamera </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="namespace_o_s_k_1_1_e_c_s.html#a5b92aeaa6be2ce0d96e7f571aa917042">ECS::GameObjectIndex</a></td>          <td class="paramname"><span class="paramname"><em>gameObject</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Establece la cámara 2D con la que se renderizarán los próximos sprites. </p>
+<dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">gameObject</td><td>ID de un objeto con una cámara 2D. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section pre"><dt>Precondición</dt><dd><code>gameObject</code> debe tener un componente del tipo CameraComponent2D. </dd>
+<dd>
+<code>gameObject</code> debe tener un componente del tipo Transform2D. </dd></dl>
+
+<p class="definition">Definición en la línea <a class="el" href="_i_sdf_renderer2_d_8cpp_source.html#l00089">89</a> del archivo <a class="el" href="_i_sdf_renderer2_d_8cpp_source.html">ISdfRenderer2D.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a8de6463d159f353f4ff2f59352e7f21b" name="a8de6463d159f353f4ff2f59352e7f21b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8de6463d159f353f4ff2f59352e7f21b">&#9670;&#160;</a></span>SetMaterial()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void OSK::GRAPHICS::ISdfRenderer2D::SetMaterial </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material.html">Material</a> *</td>          <td class="paramname"><span class="paramname"><em>material</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Establece el material que se usará sobre los siguientes elementos. </p>
+<dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">material</td><td><a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material.html" title="Un material define el comportamiento del renderizador con un objeto en concreto. Debe definirse el la...">Material</a> a usar. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Reimplementado en <a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_sdf_bindless_renderer2_d.html#a81133ac606d89130b0398fab528e3a60">OSK::GRAPHICS::SdfBindlessRenderer2D</a>.</p>
+
+<p class="definition">Definición en la línea <a class="el" href="_i_sdf_renderer2_d_8cpp_source.html#l00081">81</a> del archivo <a class="el" href="_i_sdf_renderer2_d_8cpp_source.html">ISdfRenderer2D.cpp</a>.</p>
+
+</div>
+</div>
+</div><!-- contents -->
+</div><!-- doc-content -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="namespace_o_s_k.html">OSK</a></li><li class="navelem"><a class="el" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html">GRAPHICS</a></li><li class="navelem"><a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_sdf_renderer2_d.html">ISdfRenderer2D</a></li>
+    <li class="footer">Generado el Viernes, 6 de diciembre de 2024 12:52:13 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.12.0 </li>
+  </ul>
+</div>
+</body>
+</html>

@@ -1,5 +1,6 @@
 var class_o_s_k_1_1_i_debug_game =
 [
+    [ "IDebugGame", "class_o_s_k_1_1_i_debug_game.html#ac0848824b96a961ef0560016d2d8f171", null ],
     [ "_Run", "class_o_s_k_1_1_i_debug_game.html#a89e60fc451a486d268ac823807487b37", null ],
     [ "BuildFrame", "class_o_s_k_1_1_i_debug_game.html#a1fd5e113ad6425b6a8fdc99c87c49167", null ],
     [ "CreateWindow", "class_o_s_k_1_1_i_debug_game.html#af033542cc50642b5e1325ee4c7c93cf7", null ],

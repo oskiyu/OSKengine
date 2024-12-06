@@ -110,82 +110,146 @@ $(function(){initNavTree('class_o_s_k_1_1_editor_1_1_editor.html',''); initResiz
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-types" name="pub-types"></a>
 Tipos públicos</h2></td></tr>
-<tr class="memitem:a5572f7462c8609057e690275d26681c9" id="r_a5572f7462c8609057e690275d26681c9"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a5572f7462c8609057e690275d26681c9">ControllerFactoryMethod</a> = std::function&lt;<a class="el" href="class_o_s_k_1_1_owned_ptr.html">OwnedPtr</a>&lt;<a class="el" href="class_o_s_k_1_1_editor_1_1_controllers_1_1_i_component_controller.html">Controllers::IComponentController</a>&gt;(<a class="el" href="namespace_o_s_k_1_1_e_c_s.html#a5b92aeaa6be2ce0d96e7f571aa917042">ECS::GameObjectIndex</a>, void*, <a class="el" href="class_o_s_k_1_1_editor_1_1_views_1_1_i_component_view.html">Views::IComponentView</a>*)&gt;</td></tr>
-<tr class="separator:a5572f7462c8609057e690275d26681c9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:afc9a9902d8c1b5abdd8e565e6c333dc2" id="r_afc9a9902d8c1b5abdd8e565e6c333dc2"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#afc9a9902d8c1b5abdd8e565e6c333dc2">ViewFactoryMethod</a> = std::function&lt;<a class="el" href="class_o_s_k_1_1_owned_ptr.html">OwnedPtr</a>&lt;<a class="el" href="class_o_s_k_1_1_editor_1_1_views_1_1_i_component_view.html">Views::IComponentView</a>&gt;(const <a class="el" href="namespace_o_s_k.html#a31a299dbb3a3a60d90d16d1a4eca9651">Vector2f</a>&amp; size)&gt;</td></tr>
-<tr class="separator:afc9a9902d8c1b5abdd8e565e6c333dc2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab18d3524510be7567e8478c4792c38e5" id="r_ab18d3524510be7567e8478c4792c38e5"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ab18d3524510be7567e8478c4792c38e5">ComponentControllerFactoryMethod</a> = std::function&lt;<a class="el" href="class_o_s_k_1_1_owned_ptr.html">OwnedPtr</a>&lt;<a class="el" href="class_o_s_k_1_1_editor_1_1_controllers_1_1_i_component_controller.html">Controllers::IComponentController</a>&gt;(<a class="el" href="namespace_o_s_k_1_1_e_c_s.html#a5b92aeaa6be2ce0d96e7f571aa917042">ECS::GameObjectIndex</a>, void*, <a class="el" href="class_o_s_k_1_1_editor_1_1_views_1_1_i_component_view.html">Views::IComponentView</a>*)&gt;</td></tr>
+<tr class="separator:ab18d3524510be7567e8478c4792c38e5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab3352426b8e538c3a6aa2c884053ca07" id="r_ab3352426b8e538c3a6aa2c884053ca07"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ab3352426b8e538c3a6aa2c884053ca07">ComponentViewFactoryMethod</a> = std::function&lt;<a class="el" href="class_o_s_k_1_1_owned_ptr.html">OwnedPtr</a>&lt;<a class="el" href="class_o_s_k_1_1_editor_1_1_views_1_1_i_component_view.html">Views::IComponentView</a>&gt;(const <a class="el" href="namespace_o_s_k.html#a31a299dbb3a3a60d90d16d1a4eca9651">Vector2f</a>&amp; size)&gt;</td></tr>
+<tr class="separator:ab3352426b8e538c3a6aa2c884053ca07"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1d0bb0a96413e5f58d444184d918c665" id="r_a1d0bb0a96413e5f58d444184d918c665"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a1d0bb0a96413e5f58d444184d918c665">SystemControllerFactoryMethod</a> = std::function&lt;<a class="el" href="class_o_s_k_1_1_owned_ptr.html">OwnedPtr</a>&lt;<a class="el" href="class_o_s_k_1_1_editor_1_1_controllers_1_1_i_system_controller.html">Controllers::ISystemController</a>&gt;(<a class="el" href="class_o_s_k_1_1_e_c_s_1_1_i_system.html">ECS::ISystem</a>*, <a class="el" href="class_o_s_k_1_1_editor_1_1_views_1_1_i_system_view.html">Views::ISystemView</a>*)&gt;</td></tr>
+<tr class="separator:a1d0bb0a96413e5f58d444184d918c665"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aef2d4a28b432a86f7d92bd93d4a6c7dd" id="r_aef2d4a28b432a86f7d92bd93d4a6c7dd"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aef2d4a28b432a86f7d92bd93d4a6c7dd">SystemViewFactoryMethod</a> = std::function&lt;<a class="el" href="class_o_s_k_1_1_owned_ptr.html">OwnedPtr</a>&lt;<a class="el" href="class_o_s_k_1_1_editor_1_1_views_1_1_i_system_view.html">Views::ISystemView</a>&gt;(const <a class="el" href="namespace_o_s_k.html#a31a299dbb3a3a60d90d16d1a4eca9651">Vector2f</a>&amp; size)&gt;</td></tr>
+<tr class="separator:aef2d4a28b432a86f7d92bd93d4a6c7dd"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Métodos públicos</h2></td></tr>
 <tr class="memitem:ab6aeb93cb39e6ad9390f351dc232ae7e" id="r_ab6aeb93cb39e6ad9390f351dc232ae7e"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ab6aeb93cb39e6ad9390f351dc232ae7e">Editor</a> (<a class="el" href="class_o_s_k_1_1_u_i_1_1_i_container.html">OSK::UI::IContainer</a> *rootUiElement, const <a class="el" href="namespace_o_s_k.html#a31a299dbb3a3a60d90d16d1a4eca9651">Vector2f</a> &amp;windowSize)</td></tr>
 <tr class="separator:ab6aeb93cb39e6ad9390f351dc232ae7e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aff05f12e3779f35564d66ada123f0ee8" id="r_aff05f12e3779f35564d66ada123f0ee8"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aff05f12e3779f35564d66ada123f0ee8">RegisterController</a> (std::string_view componentName, const <a class="el" href="#a5572f7462c8609057e690275d26681c9">ControllerFactoryMethod</a> &amp;controllerFactoryMethod)</td></tr>
-<tr class="separator:aff05f12e3779f35564d66ada123f0ee8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8c9ff495015b3b29b0efe10e81386f4e" id="r_a8c9ff495015b3b29b0efe10e81386f4e"><td class="memTemplParams" colspan="2">template&lt;typename TComponentController &gt; <br />
+<tr class="memitem:a05a1c2a11d981e3d6ddad74aaba85516" id="r_a05a1c2a11d981e3d6ddad74aaba85516"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a05a1c2a11d981e3d6ddad74aaba85516">RegisterComponentController</a> (std::string_view componentName, const <a class="el" href="#ab18d3524510be7567e8478c4792c38e5">ComponentControllerFactoryMethod</a> &amp;controllerFactoryMethod)</td></tr>
+<tr class="separator:a05a1c2a11d981e3d6ddad74aaba85516"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aad9b48f7159d1e79aa39b24d3a1c1b29" id="r_aad9b48f7159d1e79aa39b24d3a1c1b29"><td class="memTemplParams" colspan="2">template&lt;typename TComponentController &gt; <br />
 requires Controllers::IsComponentController&lt;TComponentController&gt;</td></tr>
-<tr class="memitem:a8c9ff495015b3b29b0efe10e81386f4e"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="#a8c9ff495015b3b29b0efe10e81386f4e">RegisterController</a> ()</td></tr>
-<tr class="separator:a8c9ff495015b3b29b0efe10e81386f4e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad86d5e55d15fbcc69131f5e779d7a4cf" id="r_ad86d5e55d15fbcc69131f5e779d7a4cf"><td class="memTemplParams" colspan="2">template&lt;typename TComponentController &gt; <br />
+<tr class="memitem:aad9b48f7159d1e79aa39b24d3a1c1b29"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="#aad9b48f7159d1e79aa39b24d3a1c1b29">RegisterComponentController</a> ()</td></tr>
+<tr class="separator:aad9b48f7159d1e79aa39b24d3a1c1b29"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3f0492e611223807de7c41bda12b9912" id="r_a3f0492e611223807de7c41bda12b9912"><td class="memTemplParams" colspan="2">template&lt;typename TComponentController &gt; <br />
 requires Controllers::IsComponentController&lt;TComponentController&gt;</td></tr>
-<tr class="memitem:ad86d5e55d15fbcc69131f5e779d7a4cf"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="#ad86d5e55d15fbcc69131f5e779d7a4cf">RegisterController</a> (const <a class="el" href="#a5572f7462c8609057e690275d26681c9">ControllerFactoryMethod</a> &amp;factoryMethod)</td></tr>
-<tr class="separator:ad86d5e55d15fbcc69131f5e779d7a4cf"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8c29e3d0c4eccfc13787ef29afc5c0d8" id="r_a8c29e3d0c4eccfc13787ef29afc5c0d8"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a8c29e3d0c4eccfc13787ef29afc5c0d8">RegisterView</a> (std::string_view componentName, const <a class="el" href="#afc9a9902d8c1b5abdd8e565e6c333dc2">ViewFactoryMethod</a> &amp;viewFactoryMethod)</td></tr>
-<tr class="separator:a8c29e3d0c4eccfc13787ef29afc5c0d8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a10d0b311016e2ba9073fd4811a6d40e9" id="r_a10d0b311016e2ba9073fd4811a6d40e9"><td class="memTemplParams" colspan="2">template&lt;typename TComponentView &gt; <br />
+<tr class="memitem:a3f0492e611223807de7c41bda12b9912"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="#a3f0492e611223807de7c41bda12b9912">RegisterComponentController</a> (const <a class="el" href="#ab18d3524510be7567e8478c4792c38e5">ComponentControllerFactoryMethod</a> &amp;factoryMethod)</td></tr>
+<tr class="separator:a3f0492e611223807de7c41bda12b9912"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a84f03d9b556fb8ff988e22d29e4a203c" id="r_a84f03d9b556fb8ff988e22d29e4a203c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a84f03d9b556fb8ff988e22d29e4a203c">RegisterComponentView</a> (std::string_view componentName, const <a class="el" href="#ab3352426b8e538c3a6aa2c884053ca07">ComponentViewFactoryMethod</a> &amp;viewFactoryMethod)</td></tr>
+<tr class="separator:a84f03d9b556fb8ff988e22d29e4a203c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aba6207dce60a8eabe6ba708bc8aa90bc" id="r_aba6207dce60a8eabe6ba708bc8aa90bc"><td class="memTemplParams" colspan="2">template&lt;typename TComponentView &gt; <br />
 requires Views::IsComponentView&lt;TComponentView&gt;</td></tr>
-<tr class="memitem:a10d0b311016e2ba9073fd4811a6d40e9"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="#a10d0b311016e2ba9073fd4811a6d40e9">RegisterView</a> ()</td></tr>
-<tr class="separator:a10d0b311016e2ba9073fd4811a6d40e9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5292fc348beae854a1a678520cfa78d8" id="r_a5292fc348beae854a1a678520cfa78d8"><td class="memTemplParams" colspan="2">template&lt;typename TComponentView &gt; <br />
+<tr class="memitem:aba6207dce60a8eabe6ba708bc8aa90bc"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="#aba6207dce60a8eabe6ba708bc8aa90bc">RegisterComponentView</a> ()</td></tr>
+<tr class="separator:aba6207dce60a8eabe6ba708bc8aa90bc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af097b7e7f99686fb89fbcbdcfe5db538" id="r_af097b7e7f99686fb89fbcbdcfe5db538"><td class="memTemplParams" colspan="2">template&lt;typename TComponentView &gt; <br />
 requires Views::IsComponentView&lt;TComponentView&gt;</td></tr>
-<tr class="memitem:a5292fc348beae854a1a678520cfa78d8"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="#a5292fc348beae854a1a678520cfa78d8">RegisterView</a> (const <a class="el" href="#afc9a9902d8c1b5abdd8e565e6c333dc2">ViewFactoryMethod</a> &amp;factoryMethod)</td></tr>
-<tr class="separator:a5292fc348beae854a1a678520cfa78d8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af097b7e7f99686fb89fbcbdcfe5db538"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="#af097b7e7f99686fb89fbcbdcfe5db538">RegisterComponentView</a> (const <a class="el" href="#ab3352426b8e538c3a6aa2c884053ca07">ComponentViewFactoryMethod</a> &amp;factoryMethod)</td></tr>
+<tr class="separator:af097b7e7f99686fb89fbcbdcfe5db538"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a000785b4c09996e9ec5ba37a2e0246a1" id="r_a000785b4c09996e9ec5ba37a2e0246a1"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a000785b4c09996e9ec5ba37a2e0246a1">RegisterSystemController</a> (std::string_view componentName, const <a class="el" href="#a1d0bb0a96413e5f58d444184d918c665">SystemControllerFactoryMethod</a> &amp;controllerFactoryMethod)</td></tr>
+<tr class="separator:a000785b4c09996e9ec5ba37a2e0246a1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a77888156d9ac3b45ef6b9c706404a81f" id="r_a77888156d9ac3b45ef6b9c706404a81f"><td class="memTemplParams" colspan="2">template&lt;typename TSystemController &gt; <br />
+requires Controllers::IsSystemController&lt;TSystemController&gt;</td></tr>
+<tr class="memitem:a77888156d9ac3b45ef6b9c706404a81f"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="#a77888156d9ac3b45ef6b9c706404a81f">RegisterSystemController</a> ()</td></tr>
+<tr class="separator:a77888156d9ac3b45ef6b9c706404a81f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a56f62cbd385eaafb33d63f7b51a6d873" id="r_a56f62cbd385eaafb33d63f7b51a6d873"><td class="memTemplParams" colspan="2">template&lt;typename TSystemController &gt; <br />
+requires Controllers::IsSystemController&lt;TSystemController&gt;</td></tr>
+<tr class="memitem:a56f62cbd385eaafb33d63f7b51a6d873"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="#a56f62cbd385eaafb33d63f7b51a6d873">RegisterSystemController</a> (const <a class="el" href="#a1d0bb0a96413e5f58d444184d918c665">SystemControllerFactoryMethod</a> &amp;factoryMethod)</td></tr>
+<tr class="separator:a56f62cbd385eaafb33d63f7b51a6d873"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abffb6e605c4ba561f535d840dd145eeb" id="r_abffb6e605c4ba561f535d840dd145eeb"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#abffb6e605c4ba561f535d840dd145eeb">RegisterSystemView</a> (std::string_view systemName, const <a class="el" href="#aef2d4a28b432a86f7d92bd93d4a6c7dd">SystemViewFactoryMethod</a> &amp;viewFactoryMethod)</td></tr>
+<tr class="separator:abffb6e605c4ba561f535d840dd145eeb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad33d5ce85661b0ac4d95045d76a2019b" id="r_ad33d5ce85661b0ac4d95045d76a2019b"><td class="memTemplParams" colspan="2">template&lt;typename TSystemView &gt; <br />
+requires Views::IsSystemView&lt;TSystemView&gt;</td></tr>
+<tr class="memitem:ad33d5ce85661b0ac4d95045d76a2019b"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="#ad33d5ce85661b0ac4d95045d76a2019b">RegisterSystemView</a> ()</td></tr>
+<tr class="separator:ad33d5ce85661b0ac4d95045d76a2019b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1e36e6e6a878929ad520c96229dbec26" id="r_a1e36e6e6a878929ad520c96229dbec26"><td class="memTemplParams" colspan="2">template&lt;typename TSystemView &gt; <br />
+requires Views::IsSystemView&lt;TSystemView&gt;</td></tr>
+<tr class="memitem:a1e36e6e6a878929ad520c96229dbec26"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="#a1e36e6e6a878929ad520c96229dbec26">RegisterSystemView</a> (const <a class="el" href="#aef2d4a28b432a86f7d92bd93d4a6c7dd">SystemViewFactoryMethod</a> &amp;factoryMethod)</td></tr>
+<tr class="separator:a1e36e6e6a878929ad520c96229dbec26"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab528ad32905f47ace40940a67cae188d" id="r_ab528ad32905f47ace40940a67cae188d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ab528ad32905f47ace40940a67cae188d">Update</a> (<a class="el" href="class_o_s_k_1_1_e_c_s_1_1_entity_component_system.html">ECS::EntityComponentSystem</a> *ecs, <a class="el" href="namespace_o_s_k.html#adfc76cbcf35e5506ee24168edfe15bb0">TDeltaTime</a> deltaTime)</td></tr>
 <tr class="separator:ab528ad32905f47ace40940a67cae188d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2a715948ae9d5c8e18e5f52f2ede4075" id="r_a2a715948ae9d5c8e18e5f52f2ede4075"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a2a715948ae9d5c8e18e5f52f2ede4075">SetSelectedObject</a> (<a class="el" href="namespace_o_s_k_1_1_e_c_s.html#a5b92aeaa6be2ce0d96e7f571aa917042">ECS::GameObjectIndex</a> gameObject)</td></tr>
 <tr class="separator:a2a715948ae9d5c8e18e5f52f2ede4075"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad70d6e98d6e963f50e92c1d2041d3337" id="r_ad70d6e98d6e963f50e92c1d2041d3337"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad70d6e98d6e963f50e92c1d2041d3337">ClearSelectedObject</a> ()</td></tr>
+<tr class="separator:ad70d6e98d6e963f50e92c1d2041d3337"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0675e30b7dc59488d3c355a8f92c0a11" id="r_a0675e30b7dc59488d3c355a8f92c0a11"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a0675e30b7dc59488d3c355a8f92c0a11">SetSelectedSystem</a> (const std::string &amp;systemName)</td></tr>
 <tr class="separator:a0675e30b7dc59488d3c355a8f92c0a11"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac2f06e53409e10e6416feaf226a43f9a" id="r_ac2f06e53409e10e6416feaf226a43f9a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ac2f06e53409e10e6416feaf226a43f9a">ClearSelectedSystem</a> ()</td></tr>
+<tr class="separator:ac2f06e53409e10e6416feaf226a43f9a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6c6813bea462b41e9c03df027e8ae1fa" id="r_a6c6813bea462b41e9c03df027e8ae1fa"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_o_s_k_1_1_editor_1_1_u_i_1_1_editor_ui.html">UI::EditorUi</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a6c6813bea462b41e9c03df027e8ae1fa">GetUi</a> ()</td></tr>
 <tr class="separator:a6c6813bea462b41e9c03df027e8ae1fa"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Descripción detallada</h2>
 <div class="textblock"><p>Clase principal del editor. Maneja la interfaz de usuario y su conexión con el juego. </p>
 
-<p class="definition">Definición en la línea <a class="el" href="_editor_8h_source.html#l00034">34</a> del archivo <a class="el" href="_editor_8h_source.html">Editor.h</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_editor_8h_source.html#l00037">37</a> del archivo <a class="el" href="_editor_8h_source.html">Editor.h</a>.</p>
 </div><h2 class="groupheader">Documentación de los «Typedef» miembros de la clase</h2>
-<a id="a5572f7462c8609057e690275d26681c9" name="a5572f7462c8609057e690275d26681c9"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5572f7462c8609057e690275d26681c9">&#9670;&#160;</a></span>ControllerFactoryMethod</h2>
+<a id="ab18d3524510be7567e8478c4792c38e5" name="ab18d3524510be7567e8478c4792c38e5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab18d3524510be7567e8478c4792c38e5">&#9670;&#160;</a></span>ComponentControllerFactoryMethod</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">using <a class="el" href="#a5572f7462c8609057e690275d26681c9">OSK::Editor::Editor::ControllerFactoryMethod</a> = std::function&lt;<a class="el" href="class_o_s_k_1_1_owned_ptr.html">OwnedPtr</a>&lt;<a class="el" href="class_o_s_k_1_1_editor_1_1_controllers_1_1_i_component_controller.html">Controllers::IComponentController</a>&gt;(<a class="el" href="namespace_o_s_k_1_1_e_c_s.html#a5b92aeaa6be2ce0d96e7f571aa917042">ECS::GameObjectIndex</a>, void*, <a class="el" href="class_o_s_k_1_1_editor_1_1_views_1_1_i_component_view.html">Views::IComponentView</a>*)&gt;</td>
+          <td class="memname">using <a class="el" href="#ab18d3524510be7567e8478c4792c38e5">OSK::Editor::Editor::ComponentControllerFactoryMethod</a> = std::function&lt;<a class="el" href="class_o_s_k_1_1_owned_ptr.html">OwnedPtr</a>&lt;<a class="el" href="class_o_s_k_1_1_editor_1_1_controllers_1_1_i_component_controller.html">Controllers::IComponentController</a>&gt;(<a class="el" href="namespace_o_s_k_1_1_e_c_s.html#a5b92aeaa6be2ce0d96e7f571aa917042">ECS::GameObjectIndex</a>, void*, <a class="el" href="class_o_s_k_1_1_editor_1_1_views_1_1_i_component_view.html">Views::IComponentView</a>*)&gt;</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
 <p>Función que permite crear. </p>
 
-<p class="definition">Definición en la línea <a class="el" href="_editor_8h_source.html#l00040">40</a> del archivo <a class="el" href="_editor_8h_source.html">Editor.h</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_editor_8h_source.html#l00043">43</a> del archivo <a class="el" href="_editor_8h_source.html">Editor.h</a>.</p>
 
 </div>
 </div>
-<a id="afc9a9902d8c1b5abdd8e565e6c333dc2" name="afc9a9902d8c1b5abdd8e565e6c333dc2"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#afc9a9902d8c1b5abdd8e565e6c333dc2">&#9670;&#160;</a></span>ViewFactoryMethod</h2>
+<a id="ab3352426b8e538c3a6aa2c884053ca07" name="ab3352426b8e538c3a6aa2c884053ca07"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab3352426b8e538c3a6aa2c884053ca07">&#9670;&#160;</a></span>ComponentViewFactoryMethod</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">using <a class="el" href="#afc9a9902d8c1b5abdd8e565e6c333dc2">OSK::Editor::Editor::ViewFactoryMethod</a> = std::function&lt;<a class="el" href="class_o_s_k_1_1_owned_ptr.html">OwnedPtr</a>&lt;<a class="el" href="class_o_s_k_1_1_editor_1_1_views_1_1_i_component_view.html">Views::IComponentView</a>&gt;(const <a class="el" href="namespace_o_s_k.html#a31a299dbb3a3a60d90d16d1a4eca9651">Vector2f</a>&amp; size)&gt;</td>
+          <td class="memname">using <a class="el" href="#ab3352426b8e538c3a6aa2c884053ca07">OSK::Editor::Editor::ComponentViewFactoryMethod</a> = std::function&lt;<a class="el" href="class_o_s_k_1_1_owned_ptr.html">OwnedPtr</a>&lt;<a class="el" href="class_o_s_k_1_1_editor_1_1_views_1_1_i_component_view.html">Views::IComponentView</a>&gt;(const <a class="el" href="namespace_o_s_k.html#a31a299dbb3a3a60d90d16d1a4eca9651">Vector2f</a>&amp; size)&gt;</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
 <p>Función que permite crear. </p>
 
-<p class="definition">Definición en la línea <a class="el" href="_editor_8h_source.html#l00044">44</a> del archivo <a class="el" href="_editor_8h_source.html">Editor.h</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_editor_8h_source.html#l00047">47</a> del archivo <a class="el" href="_editor_8h_source.html">Editor.h</a>.</p>
+
+</div>
+</div>
+<a id="a1d0bb0a96413e5f58d444184d918c665" name="a1d0bb0a96413e5f58d444184d918c665"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1d0bb0a96413e5f58d444184d918c665">&#9670;&#160;</a></span>SystemControllerFactoryMethod</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">using <a class="el" href="#a1d0bb0a96413e5f58d444184d918c665">OSK::Editor::Editor::SystemControllerFactoryMethod</a> = std::function&lt;<a class="el" href="class_o_s_k_1_1_owned_ptr.html">OwnedPtr</a>&lt;<a class="el" href="class_o_s_k_1_1_editor_1_1_controllers_1_1_i_system_controller.html">Controllers::ISystemController</a>&gt;(<a class="el" href="class_o_s_k_1_1_e_c_s_1_1_i_system.html">ECS::ISystem</a>*, <a class="el" href="class_o_s_k_1_1_editor_1_1_views_1_1_i_system_view.html">Views::ISystemView</a>*)&gt;</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Función que permite crear. </p>
+
+<p class="definition">Definición en la línea <a class="el" href="_editor_8h_source.html#l00052">52</a> del archivo <a class="el" href="_editor_8h_source.html">Editor.h</a>.</p>
+
+</div>
+</div>
+<a id="aef2d4a28b432a86f7d92bd93d4a6c7dd" name="aef2d4a28b432a86f7d92bd93d4a6c7dd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aef2d4a28b432a86f7d92bd93d4a6c7dd">&#9670;&#160;</a></span>SystemViewFactoryMethod</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">using <a class="el" href="#aef2d4a28b432a86f7d92bd93d4a6c7dd">OSK::Editor::Editor::SystemViewFactoryMethod</a> = std::function&lt;<a class="el" href="class_o_s_k_1_1_owned_ptr.html">OwnedPtr</a>&lt;<a class="el" href="class_o_s_k_1_1_editor_1_1_views_1_1_i_system_view.html">Views::ISystemView</a>&gt;(const <a class="el" href="namespace_o_s_k.html#a31a299dbb3a3a60d90d16d1a4eca9651">Vector2f</a>&amp; size)&gt;</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Función que permite crear. </p>
+
+<p class="definition">Definición en la línea <a class="el" href="_editor_8h_source.html#l00056">56</a> del archivo <a class="el" href="_editor_8h_source.html">Editor.h</a>.</p>
 
 </div>
 </div>
@@ -219,11 +283,53 @@ requires Views::IsComponentView&lt;TComponentView&gt;</td></tr>
 </dl>
 <dl class="section post"><dt>Postcondición</dt><dd>Añade la interfaz de usuario del editor al elemento raíz de interfaz. </dd></dl>
 
-<p class="definition">Definición en la línea <a class="el" href="_editor_8cpp_source.html#l00016">16</a> del archivo <a class="el" href="_editor_8cpp_source.html">Editor.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_editor_8cpp_source.html#l00018">18</a> del archivo <a class="el" href="_editor_8cpp_source.html">Editor.cpp</a>.</p>
 
 </div>
 </div>
 <h2 class="groupheader">Documentación de funciones miembro</h2>
+<a id="ad70d6e98d6e963f50e92c1d2041d3337" name="ad70d6e98d6e963f50e92c1d2041d3337"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad70d6e98d6e963f50e92c1d2041d3337">&#9670;&#160;</a></span>ClearSelectedObject()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void OSK::Editor::Editor::ClearSelectedObject </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Establece que no haya ningún objeto seleccionado. </p>
+
+<p class="definition">Definición en la línea <a class="el" href="_editor_8cpp_source.html#l00166">166</a> del archivo <a class="el" href="_editor_8cpp_source.html">Editor.cpp</a>.</p>
+
+</div>
+</div>
+<a id="ac2f06e53409e10e6416feaf226a43f9a" name="ac2f06e53409e10e6416feaf226a43f9a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac2f06e53409e10e6416feaf226a43f9a">&#9670;&#160;</a></span>ClearSelectedSystem()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void OSK::Editor::Editor::ClearSelectedSystem </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Establece que no haya ningún sistema seleccionado. </p>
+
+<p class="definition">Definición en la línea <a class="el" href="_editor_8cpp_source.html#l00210">210</a> del archivo <a class="el" href="_editor_8cpp_source.html">Editor.cpp</a>.</p>
+
+</div>
+</div>
 <a id="a6c6813bea462b41e9c03df027e8ae1fa" name="a6c6813bea462b41e9c03df027e8ae1fa"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a6c6813bea462b41e9c03df027e8ae1fa">&#9670;&#160;</a></span>GetUi()</h2>
 
@@ -240,12 +346,12 @@ requires Views::IsComponentView&lt;TComponentView&gt;</td></tr>
 </div><div class="memdoc">
 <dl class="section return"><dt>Devuelve</dt><dd>Interfaz de usuario del editor. No es nullptr. </dd></dl>
 
-<p class="definition">Definición en la línea <a class="el" href="_editor_8cpp_source.html#l00025">25</a> del archivo <a class="el" href="_editor_8cpp_source.html">Editor.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_editor_8cpp_source.html#l00027">27</a> del archivo <a class="el" href="_editor_8cpp_source.html">Editor.cpp</a>.</p>
 
 </div>
 </div>
-<a id="a8c9ff495015b3b29b0efe10e81386f4e" name="a8c9ff495015b3b29b0efe10e81386f4e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8c9ff495015b3b29b0efe10e81386f4e">&#9670;&#160;</a></span>RegisterController() <span class="overload">[1/3]</span></h2>
+<a id="aad9b48f7159d1e79aa39b24d3a1c1b29" name="aad9b48f7159d1e79aa39b24d3a1c1b29"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aad9b48f7159d1e79aa39b24d3a1c1b29">&#9670;&#160;</a></span>RegisterComponentController() <span class="overload">[1/3]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -257,7 +363,7 @@ requires Controllers::IsComponentController&lt;TComponentController&gt;</div>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">void OSK::Editor::Editor::RegisterController </td>
+          <td class="memname">void OSK::Editor::Editor::RegisterComponentController </td>
           <td>(</td>
           <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
           <td></td>
@@ -278,12 +384,12 @@ requires Controllers::IsComponentController&lt;TComponentController&gt;</div>
   </dd>
 </dl>
 
-<p class="definition">Definición en la línea <a class="el" href="_editor_8h_source.html#l00071">71</a> del archivo <a class="el" href="_editor_8h_source.html">Editor.h</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_editor_8h_source.html#l00084">84</a> del archivo <a class="el" href="_editor_8h_source.html">Editor.h</a>.</p>
 
 </div>
 </div>
-<a id="ad86d5e55d15fbcc69131f5e779d7a4cf" name="ad86d5e55d15fbcc69131f5e779d7a4cf"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad86d5e55d15fbcc69131f5e779d7a4cf">&#9670;&#160;</a></span>RegisterController() <span class="overload">[2/3]</span></h2>
+<a id="a3f0492e611223807de7c41bda12b9912" name="a3f0492e611223807de7c41bda12b9912"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3f0492e611223807de7c41bda12b9912">&#9670;&#160;</a></span>RegisterComponentController() <span class="overload">[2/3]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -295,9 +401,9 @@ requires Controllers::IsComponentController&lt;TComponentController&gt;</div>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">void OSK::Editor::Editor::RegisterController </td>
+          <td class="memname">void OSK::Editor::Editor::RegisterComponentController </td>
           <td>(</td>
-          <td class="paramtype">const <a class="el" href="#a5572f7462c8609057e690275d26681c9">ControllerFactoryMethod</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>factoryMethod</em></span></td><td>)</td>
+          <td class="paramtype">const <a class="el" href="#ab18d3524510be7567e8478c4792c38e5">ComponentControllerFactoryMethod</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>factoryMethod</em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -322,25 +428,25 @@ requires Controllers::IsComponentController&lt;TComponentController&gt;</div>
   </dd>
 </dl>
 
-<p class="definition">Definición en la línea <a class="el" href="_editor_8h_source.html#l00084">84</a> del archivo <a class="el" href="_editor_8h_source.html">Editor.h</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_editor_8h_source.html#l00097">97</a> del archivo <a class="el" href="_editor_8h_source.html">Editor.h</a>.</p>
 
 </div>
 </div>
-<a id="aff05f12e3779f35564d66ada123f0ee8" name="aff05f12e3779f35564d66ada123f0ee8"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aff05f12e3779f35564d66ada123f0ee8">&#9670;&#160;</a></span>RegisterController() <span class="overload">[3/3]</span></h2>
+<a id="a05a1c2a11d981e3d6ddad74aaba85516" name="a05a1c2a11d981e3d6ddad74aaba85516"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a05a1c2a11d981e3d6ddad74aaba85516">&#9670;&#160;</a></span>RegisterComponentController() <span class="overload">[3/3]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void OSK::Editor::Editor::RegisterController </td>
+          <td class="memname">void OSK::Editor::Editor::RegisterComponentController </td>
           <td>(</td>
           <td class="paramtype">std::string_view</td>          <td class="paramname"><span class="paramname"><em>componentName</em></span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const <a class="el" href="#a5572f7462c8609057e690275d26681c9">ControllerFactoryMethod</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>controllerFactoryMethod</em></span>&#160;)</td>
+          <td class="paramtype">const <a class="el" href="#ab18d3524510be7567e8478c4792c38e5">ComponentControllerFactoryMethod</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>controllerFactoryMethod</em></span>&#160;)</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -358,8 +464,8 @@ requires Controllers::IsComponentController&lt;TComponentController&gt;</div>
 
 </div>
 </div>
-<a id="a10d0b311016e2ba9073fd4811a6d40e9" name="a10d0b311016e2ba9073fd4811a6d40e9"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a10d0b311016e2ba9073fd4811a6d40e9">&#9670;&#160;</a></span>RegisterView() <span class="overload">[1/3]</span></h2>
+<a id="aba6207dce60a8eabe6ba708bc8aa90bc" name="aba6207dce60a8eabe6ba708bc8aa90bc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aba6207dce60a8eabe6ba708bc8aa90bc">&#9670;&#160;</a></span>RegisterComponentView() <span class="overload">[1/3]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -371,7 +477,7 @@ requires Views::IsComponentView&lt;TComponentView&gt;</div>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">void OSK::Editor::Editor::RegisterView </td>
+          <td class="memname">void OSK::Editor::Editor::RegisterComponentView </td>
           <td>(</td>
           <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
           <td></td>
@@ -392,12 +498,12 @@ requires Views::IsComponentView&lt;TComponentView&gt;</div>
   </dd>
 </dl>
 
-<p class="definition">Definición en la línea <a class="el" href="_editor_8h_source.html#l00106">106</a> del archivo <a class="el" href="_editor_8h_source.html">Editor.h</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_editor_8h_source.html#l00119">119</a> del archivo <a class="el" href="_editor_8h_source.html">Editor.h</a>.</p>
 
 </div>
 </div>
-<a id="a5292fc348beae854a1a678520cfa78d8" name="a5292fc348beae854a1a678520cfa78d8"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5292fc348beae854a1a678520cfa78d8">&#9670;&#160;</a></span>RegisterView() <span class="overload">[2/3]</span></h2>
+<a id="af097b7e7f99686fb89fbcbdcfe5db538" name="af097b7e7f99686fb89fbcbdcfe5db538"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af097b7e7f99686fb89fbcbdcfe5db538">&#9670;&#160;</a></span>RegisterComponentView() <span class="overload">[2/3]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -409,9 +515,9 @@ requires Views::IsComponentView&lt;TComponentView&gt;</div>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">void OSK::Editor::Editor::RegisterView </td>
+          <td class="memname">void OSK::Editor::Editor::RegisterComponentView </td>
           <td>(</td>
-          <td class="paramtype">const <a class="el" href="#afc9a9902d8c1b5abdd8e565e6c333dc2">ViewFactoryMethod</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>factoryMethod</em></span></td><td>)</td>
+          <td class="paramtype">const <a class="el" href="#ab3352426b8e538c3a6aa2c884053ca07">ComponentViewFactoryMethod</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>factoryMethod</em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -436,25 +542,25 @@ requires Views::IsComponentView&lt;TComponentView&gt;</div>
   </dd>
 </dl>
 
-<p class="definition">Definición en la línea <a class="el" href="_editor_8h_source.html#l00116">116</a> del archivo <a class="el" href="_editor_8h_source.html">Editor.h</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_editor_8h_source.html#l00129">129</a> del archivo <a class="el" href="_editor_8h_source.html">Editor.h</a>.</p>
 
 </div>
 </div>
-<a id="a8c29e3d0c4eccfc13787ef29afc5c0d8" name="a8c29e3d0c4eccfc13787ef29afc5c0d8"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8c29e3d0c4eccfc13787ef29afc5c0d8">&#9670;&#160;</a></span>RegisterView() <span class="overload">[3/3]</span></h2>
+<a id="a84f03d9b556fb8ff988e22d29e4a203c" name="a84f03d9b556fb8ff988e22d29e4a203c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a84f03d9b556fb8ff988e22d29e4a203c">&#9670;&#160;</a></span>RegisterComponentView() <span class="overload">[3/3]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void OSK::Editor::Editor::RegisterView </td>
+          <td class="memname">void OSK::Editor::Editor::RegisterComponentView </td>
           <td>(</td>
           <td class="paramtype">std::string_view</td>          <td class="paramname"><span class="paramname"><em>componentName</em></span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const <a class="el" href="#afc9a9902d8c1b5abdd8e565e6c333dc2">ViewFactoryMethod</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>viewFactoryMethod</em></span>&#160;)</td>
+          <td class="paramtype">const <a class="el" href="#ab3352426b8e538c3a6aa2c884053ca07">ComponentViewFactoryMethod</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>viewFactoryMethod</em></span>&#160;)</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -469,6 +575,234 @@ requires Views::IsComponentView&lt;TComponentView&gt;</div>
 </dl>
 
 <p class="definition">Definición en la línea <a class="el" href="_editor_8cpp_source.html#l00149">149</a> del archivo <a class="el" href="_editor_8cpp_source.html">Editor.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a77888156d9ac3b45ef6b9c706404a81f" name="a77888156d9ac3b45ef6b9c706404a81f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a77888156d9ac3b45ef6b9c706404a81f">&#9670;&#160;</a></span>RegisterSystemController() <span class="overload">[1/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename TSystemController &gt; <br />
+requires Controllers::IsSystemController&lt;TSystemController&gt;</div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void OSK::Editor::Editor::RegisterSystemController </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Registra el método de creación. de un tipo de controlador en concreto. </p>
+<dl class="tparams"><dt>Parámetros de plantilla</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">TComponentController</td><td>Tipo del controlador. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definición en la línea <a class="el" href="_editor_8h_source.html#l00151">151</a> del archivo <a class="el" href="_editor_8h_source.html">Editor.h</a>.</p>
+
+</div>
+</div>
+<a id="a56f62cbd385eaafb33d63f7b51a6d873" name="a56f62cbd385eaafb33d63f7b51a6d873"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a56f62cbd385eaafb33d63f7b51a6d873">&#9670;&#160;</a></span>RegisterSystemController() <span class="overload">[2/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename TSystemController &gt; <br />
+requires Controllers::IsSystemController&lt;TSystemController&gt;</div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void OSK::Editor::Editor::RegisterSystemController </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="#a1d0bb0a96413e5f58d444184d918c665">SystemControllerFactoryMethod</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>factoryMethod</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Registra el método de creación. </p>
+<dl class="tparams"><dt>Parámetros de plantilla</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">TComponentController</td><td>Tipo del controlador. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">factoryMethod</td><td>Función de creación. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definición en la línea <a class="el" href="_editor_8h_source.html#l00164">164</a> del archivo <a class="el" href="_editor_8h_source.html">Editor.h</a>.</p>
+
+</div>
+</div>
+<a id="a000785b4c09996e9ec5ba37a2e0246a1" name="a000785b4c09996e9ec5ba37a2e0246a1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a000785b4c09996e9ec5ba37a2e0246a1">&#9670;&#160;</a></span>RegisterSystemController() <span class="overload">[3/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void OSK::Editor::Editor::RegisterSystemController </td>
+          <td>(</td>
+          <td class="paramtype">std::string_view</td>          <td class="paramname"><span class="paramname"><em>componentName</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="#a1d0bb0a96413e5f58d444184d918c665">SystemControllerFactoryMethod</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>controllerFactoryMethod</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Registra el método de creación de un tipo de controlador en concreto. </p>
+<dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">componentName</td><td>Nombre del componente con el que está relacionado el controlador. </td></tr>
+    <tr><td class="paramname">controllerFactoryMethod</td><td>Método de creación. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definición en la línea <a class="el" href="_editor_8cpp_source.html#l00153">153</a> del archivo <a class="el" href="_editor_8cpp_source.html">Editor.cpp</a>.</p>
+
+</div>
+</div>
+<a id="ad33d5ce85661b0ac4d95045d76a2019b" name="ad33d5ce85661b0ac4d95045d76a2019b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad33d5ce85661b0ac4d95045d76a2019b">&#9670;&#160;</a></span>RegisterSystemView() <span class="overload">[1/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename TSystemView &gt; <br />
+requires Views::IsSystemView&lt;TSystemView&gt;</div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void OSK::Editor::Editor::RegisterSystemView </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Registra el método de creación de un tipo de vista en concreto. </p>
+<dl class="tparams"><dt>Parámetros de plantilla</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">TComponentView</td><td>Tipo de la vista. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definición en la línea <a class="el" href="_editor_8h_source.html#l00186">186</a> del archivo <a class="el" href="_editor_8h_source.html">Editor.h</a>.</p>
+
+</div>
+</div>
+<a id="a1e36e6e6a878929ad520c96229dbec26" name="a1e36e6e6a878929ad520c96229dbec26"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1e36e6e6a878929ad520c96229dbec26">&#9670;&#160;</a></span>RegisterSystemView() <span class="overload">[2/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename TSystemView &gt; <br />
+requires Views::IsSystemView&lt;TSystemView&gt;</div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void OSK::Editor::Editor::RegisterSystemView </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="#aef2d4a28b432a86f7d92bd93d4a6c7dd">SystemViewFactoryMethod</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>factoryMethod</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Registra el método de creación de un tipo de vista en concreto. </p>
+<dl class="tparams"><dt>Parámetros de plantilla</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">TComponentView</td><td>Tipo de la vista. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">factoryMethod</td><td>Método de creación. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definición en la línea <a class="el" href="_editor_8h_source.html#l00196">196</a> del archivo <a class="el" href="_editor_8h_source.html">Editor.h</a>.</p>
+
+</div>
+</div>
+<a id="abffb6e605c4ba561f535d840dd145eeb" name="abffb6e605c4ba561f535d840dd145eeb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abffb6e605c4ba561f535d840dd145eeb">&#9670;&#160;</a></span>RegisterSystemView() <span class="overload">[3/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void OSK::Editor::Editor::RegisterSystemView </td>
+          <td>(</td>
+          <td class="paramtype">std::string_view</td>          <td class="paramname"><span class="paramname"><em>systemName</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="#aef2d4a28b432a86f7d92bd93d4a6c7dd">SystemViewFactoryMethod</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>viewFactoryMethod</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Registra el método de creación de un tipo de vista en concreto. </p>
+<dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">componentName</td><td>Nombre del componente con el que está relacionado la vista. </td></tr>
+    <tr><td class="paramname">viewFactoryMethod</td><td>Método de creación. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definición en la línea <a class="el" href="_editor_8cpp_source.html#l00157">157</a> del archivo <a class="el" href="_editor_8cpp_source.html">Editor.cpp</a>.</p>
 
 </div>
 </div>
@@ -495,7 +829,7 @@ requires Views::IsComponentView&lt;TComponentView&gt;</div>
   </dd>
 </dl>
 
-<p class="definition">Definición en la línea <a class="el" href="_editor_8cpp_source.html#l00153">153</a> del archivo <a class="el" href="_editor_8cpp_source.html">Editor.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_editor_8cpp_source.html#l00161">161</a> del archivo <a class="el" href="_editor_8cpp_source.html">Editor.cpp</a>.</p>
 
 </div>
 </div>
@@ -522,7 +856,7 @@ requires Views::IsComponentView&lt;TComponentView&gt;</div>
   </dd>
 </dl>
 
-<p class="definition">Definición en la línea <a class="el" href="_editor_8cpp_source.html#l00158">158</a> del archivo <a class="el" href="_editor_8cpp_source.html">Editor.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_editor_8cpp_source.html#l00170">170</a> del archivo <a class="el" href="_editor_8cpp_source.html">Editor.cpp</a>.</p>
 
 </div>
 </div>
@@ -554,7 +888,7 @@ requires Views::IsComponentView&lt;TComponentView&gt;</div>
   </dd>
 </dl>
 
-<p class="definition">Definición en la línea <a class="el" href="_editor_8cpp_source.html#l00029">29</a> del archivo <a class="el" href="_editor_8cpp_source.html">Editor.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_editor_8cpp_source.html#l00031">31</a> del archivo <a class="el" href="_editor_8cpp_source.html">Editor.cpp</a>.</p>
 
 </div>
 </div>
@@ -564,7 +898,7 @@ requires Views::IsComponentView&lt;TComponentView&gt;</div>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="namespace_o_s_k.html">OSK</a></li><li class="navelem"><a class="el" href="namespace_o_s_k_1_1_editor.html">Editor</a></li><li class="navelem"><a class="el" href="class_o_s_k_1_1_editor_1_1_editor.html">Editor</a></li>
-    <li class="footer">Generado el Viernes, 16 de agosto de 2024 22:47:25 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.12.0 </li>
+    <li class="footer">Generado el Viernes, 6 de diciembre de 2024 12:52:12 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.12.0 </li>
   </ul>
 </div>
 </body>

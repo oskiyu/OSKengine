@@ -45,14 +45,13 @@ var searchData=
   ['verticalcontainer_42',['VerticalContainer',['../class_o_s_k_1_1_u_i_1_1_vertical_container.html',1,'OSK::UI::VerticalContainer'],['../class_o_s_k_1_1_u_i_1_1_vertical_container.html#ad15095892daeaf2c03a7dbe8df11ba56',1,'OSK::UI::VerticalContainer::VerticalContainer()']]],
   ['verticesattributesmap_43',['VerticesAttributesMap',['../namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#add7fc8b4875e9d4487d14f8982a5ebc1',1,'OSK::GRAPHICS']]],
   ['verticesattributesmaps_44',['VerticesAttributesMaps',['../struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_vertices_attributes_maps.html',1,'OSK::GRAPHICS']]],
-  ['viewfactorymethod_45',['ViewFactoryMethod',['../class_o_s_k_1_1_editor_1_1_editor.html#afc9a9902d8c1b5abdd8e565e6c333dc2',1,'OSK::Editor::Editor']]],
-  ['viewmatrix_46',['viewMatrix',['../struct_o_s_k_1_1_e_c_s_1_1_deferred_render_system_1_1_camera_info.html#aa1ce207bc70a280830f32bf745544a6a',1,'OSK::ECS::DeferredRenderSystem::CameraInfo::viewMatrix'],['../struct_o_s_k_1_1_e_c_s_1_1_deferred_render_system_1_1_previous_camera_info.html#a345b927dbd4a5179ef87a5c33aa14a81',1,'OSK::ECS::DeferredRenderSystem::PreviousCameraInfo::viewMatrix']]],
-  ['viewport_47',['Viewport',['../struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_viewport.html',1,'OSK::GRAPHICS']]],
-  ['viewusage_48',['ViewUsage',['../namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#ade40ecf1619c14b53344301c1eca1bca',1,'OSK::GRAPHICS']]],
-  ['volume_49',['Volume',['../class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_minkowski_hull.html#a6ba4f9d0cc677b0971fd3d823e29a4f1',1,'OSK::COLLISION::MinkowskiHull']]],
-  ['volumen_20de_20colisión_203d_50',['Archivo de descripción de volumen de colisión 3D.',['../_pre_built_collider3_d_file.html',1,'jsonfiles']]],
-  ['vsync_5foff_51',['VSYNC_OFF',['../namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a47a7b3817b8aca438c20b7674fad28aba61f5be3d7713d75f23e81b12d369f7b2',1,'OSK::GRAPHICS']]],
-  ['vsync_5fon_52',['VSYNC_ON',['../namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a47a7b3817b8aca438c20b7674fad28abaa92c385ce9a5a1037c3843fd17500094',1,'OSK::GRAPHICS']]],
-  ['vsync_5fon_5ftriple_5fbuffer_53',['VSYNC_ON_TRIPLE_BUFFER',['../namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a47a7b3817b8aca438c20b7674fad28aba9e78dc83e6b122efa2757383e0602338',1,'OSK::GRAPHICS']]],
-  ['vulkan_54',['VULKAN',['../namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a3057691f190dabf7642cfde72cf2430fac60cacb57b9e78f018a9d973bee2f801',1,'OSK::GRAPHICS']]]
+  ['viewmatrix_45',['viewMatrix',['../struct_o_s_k_1_1_e_c_s_1_1_deferred_render_system_1_1_camera_info.html#aa1ce207bc70a280830f32bf745544a6a',1,'OSK::ECS::DeferredRenderSystem::CameraInfo::viewMatrix'],['../struct_o_s_k_1_1_e_c_s_1_1_deferred_render_system_1_1_previous_camera_info.html#a345b927dbd4a5179ef87a5c33aa14a81',1,'OSK::ECS::DeferredRenderSystem::PreviousCameraInfo::viewMatrix']]],
+  ['viewport_46',['Viewport',['../struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_viewport.html',1,'OSK::GRAPHICS']]],
+  ['viewusage_47',['ViewUsage',['../namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#ade40ecf1619c14b53344301c1eca1bca',1,'OSK::GRAPHICS']]],
+  ['volume_48',['Volume',['../class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_minkowski_hull.html#a6ba4f9d0cc677b0971fd3d823e29a4f1',1,'OSK::COLLISION::MinkowskiHull']]],
+  ['volumen_20de_20colisión_203d_49',['Archivo de descripción de volumen de colisión 3D.',['../_pre_built_collider3_d_file.html',1,'jsonfiles']]],
+  ['vsync_5foff_50',['VSYNC_OFF',['../namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a47a7b3817b8aca438c20b7674fad28aba61f5be3d7713d75f23e81b12d369f7b2',1,'OSK::GRAPHICS']]],
+  ['vsync_5fon_51',['VSYNC_ON',['../namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a47a7b3817b8aca438c20b7674fad28abaa92c385ce9a5a1037c3843fd17500094',1,'OSK::GRAPHICS']]],
+  ['vsync_5fon_5ftriple_5fbuffer_52',['VSYNC_ON_TRIPLE_BUFFER',['../namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a47a7b3817b8aca438c20b7674fad28aba9e78dc83e6b122efa2757383e0602338',1,'OSK::GRAPHICS']]],
+  ['vulkan_53',['VULKAN',['../namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a3057691f190dabf7642cfde72cf2430fac60cacb57b9e78f018a9d973bee2f801',1,'OSK::GRAPHICS']]]
 ];

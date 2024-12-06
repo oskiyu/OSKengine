@@ -103,33 +103,30 @@ $(function(){initNavTree('_command_queue_vk_8cpp_source.html',''); initResizable
 <div class="contents">
 <div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#include &quot;CommandQueueVk.h&quot;</span></div>
 <div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span> </div>
-<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="preprocessor">#include &quot;GpuVk.h&quot;</span></div>
-<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &lt;vulkan/vulkan.h&gt;</span></div>
+<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="preprocessor">#include &quot;Platforms.h&quot;</span></div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#ifdef OSK_USE_VULKAN_BACKEND</span></div>
 <div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span> </div>
-<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="keyword">using namespace </span><a class="code hl_namespace" href="namespace_o_s_k.html">OSK</a>;</div>
-<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="keyword">using namespace </span><a class="code hl_namespace" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html">OSK::GRAPHICS</a>;</div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &quot;GpuVk.h&quot;</span></div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="preprocessor">#include &lt;vulkan/vulkan.h&gt;</span></div>
 <div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span> </div>
-<div class="foldopen" id="foldopen00009" data-start="{" data-end="}">
-<div class="line"><a id="l00009" name="l00009"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_queue_vk.html#a1527b1947abfa8620b94eaab56400072">    9</a></span><a class="code hl_function" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_queue_vk.html#a1527b1947abfa8620b94eaab56400072">CommandQueueVk::CommandQueueVk</a>(<a class="code hl_struct" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_queue_family.html">QueueFamily</a> family, <a class="code hl_typedef" href="namespace_o_s_k.html#a382ed4c8a6994201cbad5d4e1335861b">UIndex32</a> indexInsideFamily, <a class="code hl_enumeration" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#af480a36d7bec77341500daf8dda20f1d">GpuQueueType</a> queueType, <span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_vk.html">GpuVk</a>&amp; gpu)</div>
-<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span>    : <a class="code hl_class" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_queue.html">ICommandQueue</a>(family, queueType, indexInsideFamily) {</div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="keyword">using namespace </span><a class="code hl_namespace" href="namespace_o_s_k.html">OSK</a>;</div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="keyword">using namespace </span><a class="code hl_namespace" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html">OSK::GRAPHICS</a>;</div>
 <div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span> </div>
-<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span>    vkGetDeviceQueue(</div>
-<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span>        gpu.<a class="code hl_function" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_vk.html#a453c36cc8861b7be6a41120aab935977">GetLogicalDevice</a>(), </div>
-<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span>        family.<a class="code hl_variable" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_queue_family.html#aec39b3995ee63510bfc2f8111f0da0c1">familyIndex</a>, </div>
-<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span>        indexInsideFamily, </div>
-<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span>        &amp;m_queue);</div>
-<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>}</div>
-</div>
-<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span> </div>
-<div class="foldopen" id="foldopen00019" data-start="{" data-end="}">
-<div class="line"><a id="l00019" name="l00019"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_queue_vk.html#ad78171a386dae03acc4b736692bd13b1">   19</a></span>VkQueue <a class="code hl_function" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_queue_vk.html#ad78171a386dae03acc4b736692bd13b1">CommandQueueVk::GetQueue</a>()<span class="keyword"> const </span>{</div>
-<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>    <span class="keywordflow">return</span> m_queue;</div>
-<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>}</div>
-</div>
-<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_queue_vk_html_a1527b1947abfa8620b94eaab56400072"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_queue_vk.html#a1527b1947abfa8620b94eaab56400072">OSK::GRAPHICS::CommandQueueVk::CommandQueueVk</a></div><div class="ttdeci">CommandQueueVk(QueueFamily family, UIndex32 queueIndexInsideFamily, GpuQueueType queueType, const GpuVk &amp;gpu)</div><div class="ttdoc">Obtiene la cola de comandos.</div><div class="ttdef"><b>Definition</b> <a href="#l00009">CommandQueueVk.cpp:9</a></div></div>
-<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_queue_vk_html_ad78171a386dae03acc4b736692bd13b1"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_command_queue_vk.html#ad78171a386dae03acc4b736692bd13b1">OSK::GRAPHICS::CommandQueueVk::GetQueue</a></div><div class="ttdeci">VkQueue GetQueue() const</div><div class="ttdef"><b>Definition</b> <a href="#l00019">CommandQueueVk.cpp:19</a></div></div>
-<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_vk_html"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_vk.html">OSK::GRAPHICS::GpuVk</a></div><div class="ttdoc">Implementación de la interfaz para el renderizador de Vulkan.</div><div class="ttdef"><b>Definition</b> <a href="_gpu_vk_8h_source.html#l00012">GpuVk.h:12</a></div></div>
-<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_vk_html_a453c36cc8861b7be6a41120aab935977"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_vk.html#a453c36cc8861b7be6a41120aab935977">OSK::GRAPHICS::GpuVk::GetLogicalDevice</a></div><div class="ttdeci">VkDevice GetLogicalDevice() const</div><div class="ttdoc">Devuelve el logical device asignado a esta GPU.</div><div class="ttdef"><b>Definition</b> <a href="_gpu_vk_8cpp_source.html#l00260">GpuVk.cpp:260</a></div></div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span>CommandQueueVk::CommandQueueVk(<a class="code hl_struct" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_queue_family.html">QueueFamily</a> family, <a class="code hl_typedef" href="namespace_o_s_k.html#a382ed4c8a6994201cbad5d4e1335861b">UIndex32</a> indexInsideFamily, <a class="code hl_enumeration" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#af480a36d7bec77341500daf8dda20f1d">GpuQueueType</a> queueType, <span class="keyword">const</span> GpuVk&amp; gpu)</div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span>    : <a class="code hl_class" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_queue.html">ICommandQueue</a>(family, queueType, indexInsideFamily) {</div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span> </div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span>    vkGetDeviceQueue(</div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span>        gpu.GetLogicalDevice(), </div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>        family.<a class="code hl_variable" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_queue_family.html#aec39b3995ee63510bfc2f8111f0da0c1">familyIndex</a>, </div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>        indexInsideFamily, </div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>        &amp;m_queue);</div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>}</div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span> </div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>VkQueue CommandQueueVk::GetQueue()<span class="keyword"> const </span>{</div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>    <span class="keywordflow">return</span> m_queue;</div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>}</div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span> </div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span><span class="preprocessor">#endif</span></div>
 <div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_queue_html"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_queue.html">OSK::GRAPHICS::ICommandQueue</a></div><div class="ttdoc">Representa un puerto de entrada para los comandos de la GPU.</div><div class="ttdef"><b>Definition</b> <a href="_i_command_queue_8h_source.html#l00015">ICommandQueue.h:15</a></div></div>
 <div class="ttc" id="anamespace_o_s_k_1_1_g_r_a_p_h_i_c_s_html"><div class="ttname"><a href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html">OSK::GRAPHICS</a></div><div class="ttdef"><b>Definition</b> <a href="_acceleration_structures_exceptions_8h_source.html#l00005">AccelerationStructuresExceptions.h:5</a></div></div>
 <div class="ttc" id="anamespace_o_s_k_1_1_g_r_a_p_h_i_c_s_html_af480a36d7bec77341500daf8dda20f1d"><div class="ttname"><a href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#af480a36d7bec77341500daf8dda20f1d">OSK::GRAPHICS::GpuQueueType</a></div><div class="ttdeci">GpuQueueType</div><div class="ttdoc">Tipos de colas GPU ofrecidas por el motor.</div><div class="ttdef"><b>Definition</b> <a href="_gpu_queue_types_8h_source.html#l00007">GpuQueueTypes.h:7</a></div></div>
@@ -143,7 +140,7 @@ $(function(){initNavTree('_command_queue_vk_8cpp_source.html',''); initResizable
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_74389ed8173ad57b461b9d623a1f3867.html">Source</a></li><li class="navelem"><b>CommandQueueVk.cpp</b></li>
-    <li class="footer">Generado el Viernes, 16 de agosto de 2024 22:47:23 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.12.0 </li>
+    <li class="footer">Generado el Viernes, 6 de diciembre de 2024 12:52:11 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.12.0 </li>
   </ul>
 </div>
 </body>

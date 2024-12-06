@@ -13,6 +13,7 @@ var class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_shadows_static_pass =
     [ "SetupMaterialInstance", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_shadows_static_pass.html#a475b1d2b52d06b5d74e7094753f66466", null ],
     [ "SetupShadowMap", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_shadows_static_pass.html#af3863ec3d395582191c6db012d20445b", null ],
     [ "ShadowsRenderLoop", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_shadows_static_pass.html#a8c2cc40cd5cfa52ad8dc80001912075d", null ],
+    [ "Update", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_shadows_static_pass.html#a68ff9189ec330d8a7da4f85935248906", null ],
     [ "UpdateLocalMeshMapping", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_shadows_static_pass.html#a33423437d12681591b8f8c00da1bdaa0", null ],
     [ "m_cameraObject", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_shadows_static_pass.html#a5b6bae2d0bf919d36a9dc7791fd3d589", null ],
     [ "m_currentResolution", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_shadows_static_pass.html#a019a1231c78e5305a51a17044cb4f7d1", null ],

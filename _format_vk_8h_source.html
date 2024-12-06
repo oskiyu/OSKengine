@@ -103,17 +103,21 @@ $(function(){initNavTree('_format_vk_8h_source.html',''); initResizable(true); }
 <div class="contents">
 <div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#pragma once</span></div>
 <div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span> </div>
-<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="keyword">enum</span> VkFormat;</div>
-<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span> </div>
-<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="keyword">namespace </span><a class="code hl_namespace" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html">OSK::GRAPHICS</a> {</div>
-<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span>    </div>
-<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span>    <span class="keyword">enum class</span> <a class="code hl_enumeration" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#aac59f9d056e083c0b49ea768f974e3e8">Format</a>;</div>
-<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span> </div>
-<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span>    VkFormat <a class="code hl_function" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a5191ca793450eed65c05660e184d9f51">GetFormatVk</a>(<a class="code hl_enumeration" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#aac59f9d056e083c0b49ea768f974e3e8">Format</a> format);</div>
-<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span> </div>
-<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span>}</div>
+<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="preprocessor">#include &quot;Platforms.h&quot;</span></div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#ifdef OSK_USE_VULKAN_BACKEND</span></div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span> </div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="keyword">enum</span> VkFormat;</div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span> </div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="keyword">namespace </span><a class="code hl_namespace" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html">OSK::GRAPHICS</a> {</div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span>    </div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span>    <span class="keyword">enum class</span> <a class="code hl_enumeration" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#aac59f9d056e083c0b49ea768f974e3e8">Format</a>;</div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span> </div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span>    VkFormat GetFormatVk(<a class="code hl_enumeration" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#aac59f9d056e083c0b49ea768f974e3e8">Format</a> format);</div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span> </div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>}</div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span> </div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span><span class="preprocessor">#endif</span></div>
 <div class="ttc" id="anamespace_o_s_k_1_1_g_r_a_p_h_i_c_s_html"><div class="ttname"><a href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html">OSK::GRAPHICS</a></div><div class="ttdef"><b>Definition</b> <a href="_acceleration_structures_exceptions_8h_source.html#l00005">AccelerationStructuresExceptions.h:5</a></div></div>
-<div class="ttc" id="anamespace_o_s_k_1_1_g_r_a_p_h_i_c_s_html_a5191ca793450eed65c05660e184d9f51"><div class="ttname"><a href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a5191ca793450eed65c05660e184d9f51">OSK::GRAPHICS::GetFormatVk</a></div><div class="ttdeci">VkFormat GetFormatVk(Format format)</div><div class="ttdoc">Obtiene la representación nativa del formato para Vulkan.</div><div class="ttdef"><b>Definition</b> <a href="_format_8cpp_source.html#l00051">Format.cpp:51</a></div></div>
 <div class="ttc" id="anamespace_o_s_k_1_1_g_r_a_p_h_i_c_s_html_aac59f9d056e083c0b49ea768f974e3e8"><div class="ttname"><a href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#aac59f9d056e083c0b49ea768f974e3e8">OSK::GRAPHICS::Format</a></div><div class="ttdeci">Format</div><div class="ttdoc">Formatos que puede tener una textura / imagen.</div><div class="ttdef"><b>Definition</b> <a href="_format_8h_source.html#l00010">Format.h:10</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
@@ -121,7 +125,7 @@ $(function(){initNavTree('_format_vk_8h_source.html',''); initResizable(true); }
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_74389ed8173ad57b461b9d623a1f3867.html">Source</a></li><li class="navelem"><b>FormatVk.h</b></li>
-    <li class="footer">Generado el Viernes, 16 de agosto de 2024 22:47:23 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.12.0 </li>
+    <li class="footer">Generado el Viernes, 6 de diciembre de 2024 12:52:11 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.12.0 </li>
   </ul>
 </div>
 </body>

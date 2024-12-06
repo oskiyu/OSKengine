@@ -11,16 +11,21 @@ var concepts =
       ] ],
       [ "ECS", "namespace_o_s_k_1_1_e_c_s.html", [
         [ "IsEcsComponent", "concept_o_s_k_1_1_e_c_s_1_1_is_ecs_component.html", null ],
+        [ "IsEcsEvent", "concept_o_s_k_1_1_e_c_s_1_1_is_ecs_event.html", null ],
         [ "IsConsumerSystem", "concept_o_s_k_1_1_e_c_s_1_1_is_consumer_system.html", null ],
         [ "IsIteratorSystem", "concept_o_s_k_1_1_e_c_s_1_1_is_iterator_system.html", null ],
-        [ "IsEcsSystem", "concept_o_s_k_1_1_e_c_s_1_1_is_ecs_system.html", null ]
+        [ "IsEcsSystem", "concept_o_s_k_1_1_e_c_s_1_1_is_ecs_system.html", null ],
+        [ "IsSerializableSystem", "concept_o_s_k_1_1_e_c_s_1_1_is_serializable_system.html", null ],
+        [ "IsSerializableComponent", "concept_o_s_k_1_1_e_c_s_1_1_is_serializable_component.html", null ]
       ] ],
       [ "Editor", "namespace_o_s_k_1_1_editor.html", [
         [ "Controllers", "namespace_o_s_k_1_1_editor_1_1_controllers.html", [
-          [ "IsComponentController", "concept_o_s_k_1_1_editor_1_1_controllers_1_1_is_component_controller.html", null ]
+          [ "IsComponentController", "concept_o_s_k_1_1_editor_1_1_controllers_1_1_is_component_controller.html", null ],
+          [ "IsSystemController", "concept_o_s_k_1_1_editor_1_1_controllers_1_1_is_system_controller.html", null ]
         ] ],
         [ "Views", "namespace_o_s_k_1_1_editor_1_1_views.html", [
-          [ "IsComponentView", "concept_o_s_k_1_1_editor_1_1_views_1_1_is_component_view.html", null ]
+          [ "IsComponentView", "concept_o_s_k_1_1_editor_1_1_views_1_1_is_component_view.html", null ],
+          [ "IsSystemView", "concept_o_s_k_1_1_editor_1_1_views_1_1_is_system_view.html", null ]
         ] ]
       ] ],
       [ "EFTraits", "namespace_o_s_k_1_1_e_f_traits.html", [
@@ -35,6 +40,5 @@ var concepts =
       ] ],
       [ "IsConsoleCommand", "concept_o_s_k_1_1_is_console_command.html", null ],
       [ "IsJob", "concept_o_s_k_1_1_is_job.html", null ]
-    ] ],
-    [ "IsEcsEvent", "concept_is_ecs_event.html", null ]
+    ] ]
 ];

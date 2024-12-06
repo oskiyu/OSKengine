@@ -143,6 +143,8 @@ Métodos públicos</h2></td></tr>
 <tr class="separator:ab99fd447d1c640bcc003dc5713768b6c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a69f59e0404de6bbc5e4c49a559cce65b" id="r_a69f59e0404de6bbc5e4c49a559cce65b"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_e_c_s_1_1_i_render_system.html#a69f59e0404de6bbc5e4c49a559cce65b">OnRenderStart</a> (<a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list.html">GRAPHICS::ICommandList</a> *commandList)</td></tr>
 <tr class="separator:a69f59e0404de6bbc5e4c49a559cce65b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a62367e16fdf1a70a85b1e7d176d08bb9" id="r_a62367e16fdf1a70a85b1e7d176d08bb9"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_e_c_s_1_1_i_render_system.html#a62367e16fdf1a70a85b1e7d176d08bb9">Execute</a> (<a class="el" href="namespace_o_s_k.html#adfc76cbcf35e5506ee24168edfe15bb0">TDeltaTime</a> deltaTime, std::span&lt; const <a class="el" href="namespace_o_s_k_1_1_e_c_s.html#a5b92aeaa6be2ce0d96e7f571aa917042">GameObjectIndex</a> &gt; objects) override</td></tr>
+<tr class="separator:a62367e16fdf1a70a85b1e7d176d08bb9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aaff54e4b3e1fae77c5aa8cd72e87c94e" id="r_aaff54e4b3e1fae77c5aa8cd72e87c94e"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_e_c_s_1_1_i_render_system.html#aaff54e4b3e1fae77c5aa8cd72e87c94e">OnRenderEnd</a> (<a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list.html">GRAPHICS::ICommandList</a> *commandList)</td></tr>
 <tr class="separator:aaff54e4b3e1fae77c5aa8cd72e87c94e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7ead258d11d094f960bed0b7da407d85" id="r_a7ead258d11d094f960bed0b7da407d85"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_render_target.html">GRAPHICS::RenderTarget</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_e_c_s_1_1_i_render_system.html#a7ead258d11d094f960bed0b7da407d85">GetRenderTarget</a> ()</td></tr>
@@ -157,14 +159,16 @@ Métodos públicos</h2></td></tr>
 <tr class="separator:acc0b63d1f8e025f94e7732235d328c29"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4b91799c0c70efc67aa652a20efd5bed" id="r_a4b91799c0c70efc67aa652a20efd5bed"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_e_c_s_1_1_i_render_system.html#a4b91799c0c70efc67aa652a20efd5bed">UpdatePerPassObjectLists</a> (std::span&lt; const <a class="el" href="namespace_o_s_k_1_1_e_c_s.html#a5b92aeaa6be2ce0d96e7f571aa917042">ECS::GameObjectIndex</a> &gt; objects)</td></tr>
 <tr class="separator:a4b91799c0c70efc67aa652a20efd5bed"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aceff8562026d796ae5efd8fb1cb0e1bb" id="r_aceff8562026d796ae5efd8fb1cb0e1bb"><td class="memItemLeft" align="right" valign="top">std::span&lt; <a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_shader_pass.html">GRAPHICS::IShaderPass</a> *const &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_e_c_s_1_1_i_render_system.html#aceff8562026d796ae5efd8fb1cb0e1bb">GetAllShaderPasses</a> () const</td></tr>
+<tr class="separator:aceff8562026d796ae5efd8fb1cb0e1bb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0ebf78a37ef6979e2de61622daf3cfc1" id="r_a0ebf78a37ef6979e2de61622daf3cfc1"><td class="memItemLeft" align="right" valign="top">std::span&lt; <a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_shader_pass.html">GRAPHICS::IShaderPass</a> *const &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_e_c_s_1_1_i_render_system.html#a0ebf78a37ef6979e2de61622daf3cfc1">GetAllShadowsPasses</a> () const</td></tr>
+<tr class="separator:a0ebf78a37ef6979e2de61622daf3cfc1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af380b55facabf814ca48fef44cae116b" id="r_af380b55facabf814ca48fef44cae116b"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_e_c_s_1_1_i_iterator_system.html#af380b55facabf814ca48fef44cae116b">OnObjectAdded</a> (<a class="el" href="namespace_o_s_k_1_1_e_c_s.html#a5b92aeaa6be2ce0d96e7f571aa917042">GameObjectIndex</a> obj)</td></tr>
 <tr class="separator:af380b55facabf814ca48fef44cae116b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a95c8a52cae15f1ea27c6bed80c8708c3" id="r_a95c8a52cae15f1ea27c6bed80c8708c3"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_e_c_s_1_1_i_iterator_system.html#a95c8a52cae15f1ea27c6bed80c8708c3">OnObjectRemoved</a> (<a class="el" href="namespace_o_s_k_1_1_e_c_s.html#a5b92aeaa6be2ce0d96e7f571aa917042">GameObjectIndex</a> obj)</td></tr>
 <tr class="separator:a95c8a52cae15f1ea27c6bed80c8708c3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aff1bfd46d0ccbbf0efaee656f26a8290" id="r_aff1bfd46d0ccbbf0efaee656f26a8290"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_e_c_s_1_1_i_iterator_system.html#aff1bfd46d0ccbbf0efaee656f26a8290">OnExecutionStart</a> ()</td></tr>
 <tr class="separator:aff1bfd46d0ccbbf0efaee656f26a8290"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a55c21ec2596ed6c0aa3b100c9107fede" id="r_a55c21ec2596ed6c0aa3b100c9107fede"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_e_c_s_1_1_i_iterator_system.html#a55c21ec2596ed6c0aa3b100c9107fede">Execute</a> (<a class="el" href="namespace_o_s_k.html#adfc76cbcf35e5506ee24168edfe15bb0">TDeltaTime</a> deltaTime, std::span&lt; const <a class="el" href="namespace_o_s_k_1_1_e_c_s.html#a5b92aeaa6be2ce0d96e7f571aa917042">GameObjectIndex</a> &gt; objects)</td></tr>
-<tr class="separator:a55c21ec2596ed6c0aa3b100c9107fede"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae4ff2c186d3241afddbb7d81264caf9d" id="r_ae4ff2c186d3241afddbb7d81264caf9d"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_e_c_s_1_1_i_iterator_system.html#ae4ff2c186d3241afddbb7d81264caf9d">OnExecutionEnd</a> ()</td></tr>
 <tr class="separator:ae4ff2c186d3241afddbb7d81264caf9d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae112bd30755ef771c25dc2d620fb6295" id="r_ae112bd30755ef771c25dc2d620fb6295"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="namespace_o_s_k_1_1_e_c_s.html#a9c0e00962e3504ffd2435edb417d2d42">Signature</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_e_c_s_1_1_i_iterator_system.html#ae112bd30755ef771c25dc2d620fb6295">GetSignature</a> () const</td></tr>
@@ -372,7 +376,7 @@ Atributos protegidos</h2></td></tr>
 
 <p>Reimplementado en <a class="el" href="class_o_s_k_1_1_e_c_s_1_1_deferred_render_system.html#aaf66a1ef2253f89a56d1077909c821e8">OSK::ECS::DeferredRenderSystem</a>.</p>
 
-<p class="definition">Definición en la línea <a class="el" href="_i_render_system_8cpp_source.html#l00057">57</a> del archivo <a class="el" href="_i_render_system_8cpp_source.html">IRenderSystem.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_i_render_system_8cpp_source.html#l00069">69</a> del archivo <a class="el" href="_i_render_system_8cpp_source.html">IRenderSystem.cpp</a>.</p>
 
 </div>
 </div>
@@ -410,7 +414,7 @@ Atributos protegidos</h2></td></tr>
 
 <p>Reimplementado en <a class="el" href="class_o_s_k_1_1_e_c_s_1_1_deferred_render_system.html#a4e1f2a882c4b031482585f5c40eaddb4">OSK::ECS::DeferredRenderSystem</a>.</p>
 
-<p class="definition">Definición en la línea <a class="el" href="_i_render_system_8cpp_source.html#l00061">61</a> del archivo <a class="el" href="_i_render_system_8cpp_source.html">IRenderSystem.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_i_render_system_8cpp_source.html#l00073">73</a> del archivo <a class="el" href="_i_render_system_8cpp_source.html">IRenderSystem.cpp</a>.</p>
 
 </div>
 </div>
@@ -450,7 +454,7 @@ Atributos protegidos</h2></td></tr>
   </dd>
 </dl>
 
-<p>Implementa <a class="el" href="class_o_s_k_1_1_e_c_s_1_1_i_system.html#a356c53dd2a07b8aa475fb6fc6109bd14">OSK::ECS::ISystem</a>.</p>
+<p>Implementa <a class="el" href="class_o_s_k_1_1_e_c_s_1_1_i_serializable_system.html#a8742003ea75a69c42ae89959c64bc333">OSK::ECS::ISerializableSystem</a>.</p>
 
 <p class="definition">Definición en la línea <a class="el" href="_hybrid_render_system_8cpp_source.html#l00488">488</a> del archivo <a class="el" href="_hybrid_render_system_8cpp_source.html">HybridRenderSystem.cpp</a>.</p>
 
@@ -492,7 +496,7 @@ Atributos protegidos</h2></td></tr>
   </dd>
 </dl>
 
-<p>Implementa <a class="el" href="class_o_s_k_1_1_e_c_s_1_1_i_system.html#a5916eb925d40c0ad0bf7c946b62ab996">OSK::ECS::ISystem</a>.</p>
+<p>Implementa <a class="el" href="class_o_s_k_1_1_e_c_s_1_1_i_serializable_system.html#aad2c52e61393492a0d1af2eaa6804c03">OSK::ECS::ISerializableSystem</a>.</p>
 
 <p class="definition">Definición en la línea <a class="el" href="_hybrid_render_system_8cpp_source.html#l00492">492</a> del archivo <a class="el" href="_hybrid_render_system_8cpp_source.html">HybridRenderSystem.cpp</a>.</p>
 
@@ -565,8 +569,8 @@ Atributos protegidos</h2></td></tr>
 
 </div>
 </div>
-<a id="a55c21ec2596ed6c0aa3b100c9107fede" name="a55c21ec2596ed6c0aa3b100c9107fede"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a55c21ec2596ed6c0aa3b100c9107fede">&#9670;&#160;</a></span>Execute()</h2>
+<a id="a62367e16fdf1a70a85b1e7d176d08bb9" name="a62367e16fdf1a70a85b1e7d176d08bb9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a62367e16fdf1a70a85b1e7d176d08bb9">&#9670;&#160;</a></span>Execute()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -575,7 +579,7 @@ Atributos protegidos</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">void IIteratorSystem::Execute </td>
+          <td class="memname">void IRenderSystem::Execute </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="namespace_o_s_k.html#adfc76cbcf35e5506ee24168edfe15bb0">TDeltaTime</a></td>          <td class="paramname"><span class="paramname"><em>deltaTime</em></span>, </td>
         </tr>
@@ -587,7 +591,7 @@ Atributos protegidos</h2></td></tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">virtual</span><span class="mlabel">inherited</span></span>  </td>
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span><span class="mlabel">inherited</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
@@ -601,9 +605,9 @@ Atributos protegidos</h2></td></tr>
   </dd>
 </dl>
 
-<p>Reimplementado en <a class="el" href="class_o_s_k_1_1_e_c_s_1_1_collision_system.html#a8d1360e5cec5e27b5433fae1c34ab49e">OSK::ECS::CollisionSystem</a>, <a class="el" href="class_o_s_k_1_1_e_c_s_1_1_physics_system.html#a40a969a21174eab77ce532dadebc6cd7">OSK::ECS::PhysicsSystem</a> y <a class="el" href="class_o_s_k_1_1_e_c_s_1_1_transform_applier_system.html#aeec0bafca977544bd59c2fbfe477d3e5">OSK::ECS::TransformApplierSystem</a>.</p>
+<p>Reimplementado de <a class="el" href="class_o_s_k_1_1_e_c_s_1_1_i_iterator_system.html#a55c21ec2596ed6c0aa3b100c9107fede">OSK::ECS::IIteratorSystem</a>.</p>
 
-<p class="definition">Definición en la línea <a class="el" href="_i_iterator_system_8cpp_source.html#l00018">18</a> del archivo <a class="el" href="_i_iterator_system_8cpp_source.html">IIteratorSystem.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_i_render_system_8cpp_source.html#l00034">34</a> del archivo <a class="el" href="_i_render_system_8cpp_source.html">IRenderSystem.cpp</a>.</p>
 
 </div>
 </div>
@@ -632,6 +636,62 @@ Atributos protegidos</h2></td></tr>
 <dl class="section return"><dt>Devuelve</dt><dd>Objetos compatibles con el sistema. </dd></dl>
 
 <p class="definition">Definición en la línea <a class="el" href="_i_iterator_system_8cpp_source.html#l00038">38</a> del archivo <a class="el" href="_i_iterator_system_8cpp_source.html">IIteratorSystem.cpp</a>.</p>
+
+</div>
+</div>
+<a id="aceff8562026d796ae5efd8fb1cb0e1bb" name="aceff8562026d796ae5efd8fb1cb0e1bb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aceff8562026d796ae5efd8fb1cb0e1bb">&#9670;&#160;</a></span>GetAllShaderPasses()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::span&lt; <a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_shader_pass.html">GRAPHICS::IShaderPass</a> *const &gt; IRenderSystem::GetAllShaderPasses </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Devuelve</dt><dd>Todos los pases de renderizado normal. </dd></dl>
+
+<p class="definition">Definición en la línea <a class="el" href="_i_render_system_8cpp_source.html#l00126">126</a> del archivo <a class="el" href="_i_render_system_8cpp_source.html">IRenderSystem.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a0ebf78a37ef6979e2de61622daf3cfc1" name="a0ebf78a37ef6979e2de61622daf3cfc1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0ebf78a37ef6979e2de61622daf3cfc1">&#9670;&#160;</a></span>GetAllShadowsPasses()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::span&lt; <a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_shader_pass.html">GRAPHICS::IShaderPass</a> *const &gt; IRenderSystem::GetAllShadowsPasses </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Devuelve</dt><dd>Todos los pases de renderizado de sombras. </dd></dl>
+
+<p class="definition">Definición en la línea <a class="el" href="_i_render_system_8cpp_source.html#l00130">130</a> del archivo <a class="el" href="_i_render_system_8cpp_source.html">IRenderSystem.cpp</a>.</p>
 
 </div>
 </div>
@@ -738,7 +798,7 @@ Atributos protegidos</h2></td></tr>
 </div><div class="memdoc">
 <dl class="section return"><dt>Devuelve</dt><dd>Render target principal sobre el que se renderiza el sistema. </dd></dl>
 
-<p class="definition">Definición en la línea <a class="el" href="_i_render_system_8cpp_source.html#l00052">52</a> del archivo <a class="el" href="_i_render_system_8cpp_source.html">IRenderSystem.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_i_render_system_8cpp_source.html#l00064">64</a> del archivo <a class="el" href="_i_render_system_8cpp_source.html">IRenderSystem.cpp</a>.</p>
 
 </div>
 </div>
@@ -765,7 +825,7 @@ Atributos protegidos</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definición en la línea <a class="el" href="_i_render_system_8cpp_source.html#l00065">65</a> del archivo <a class="el" href="_i_render_system_8cpp_source.html">IRenderSystem.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_i_render_system_8cpp_source.html#l00077">77</a> del archivo <a class="el" href="_i_render_system_8cpp_source.html">IRenderSystem.cpp</a>.</p>
 
 </div>
 </div>
@@ -792,7 +852,7 @@ Atributos protegidos</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definición en la línea <a class="el" href="_i_render_system_8cpp_source.html#l00077">77</a> del archivo <a class="el" href="_i_render_system_8cpp_source.html">IRenderSystem.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_i_render_system_8cpp_source.html#l00089">89</a> del archivo <a class="el" href="_i_render_system_8cpp_source.html">IRenderSystem.cpp</a>.</p>
 
 </div>
 </div>
@@ -1163,7 +1223,7 @@ Atributos protegidos</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definición en la línea <a class="el" href="_i_render_system_8cpp_source.html#l00048">48</a> del archivo <a class="el" href="_i_render_system_8cpp_source.html">IRenderSystem.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_i_render_system_8cpp_source.html#l00060">60</a> del archivo <a class="el" href="_i_render_system_8cpp_source.html">IRenderSystem.cpp</a>.</p>
 
 </div>
 </div>
@@ -1198,7 +1258,7 @@ Atributos protegidos</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definición en la línea <a class="el" href="_i_render_system_8cpp_source.html#l00044">44</a> del archivo <a class="el" href="_i_render_system_8cpp_source.html">IRenderSystem.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_i_render_system_8cpp_source.html#l00056">56</a> del archivo <a class="el" href="_i_render_system_8cpp_source.html">IRenderSystem.cpp</a>.</p>
 
 </div>
 </div>
@@ -1319,7 +1379,7 @@ Se puede sobreescribir para cambiar de tamaño otras imágenes de renderizado. <
 </div><div class="memdoc">
 <dl class="section return"><dt>Devuelve</dt><dd>Estructura binaria con la información relevante de la configuración del sistema en un momento dado. </dd></dl>
 
-<p>Implementa <a class="el" href="class_o_s_k_1_1_e_c_s_1_1_i_system.html#ab5ebff79ec2fb87d79f43dcddd9ceaa6">OSK::ECS::ISystem</a>.</p>
+<p>Implementa <a class="el" href="class_o_s_k_1_1_e_c_s_1_1_i_serializable_system.html#a21cee6a91c122bb7ffe15185a161a26f">OSK::ECS::ISerializableSystem</a>.</p>
 
 <p class="definition">Definición en la línea <a class="el" href="_hybrid_render_system_8cpp_source.html#l00484">484</a> del archivo <a class="el" href="_hybrid_render_system_8cpp_source.html">HybridRenderSystem.cpp</a>.</p>
 
@@ -1349,7 +1409,7 @@ Se puede sobreescribir para cambiar de tamaño otras imágenes de renderizado. <
 </div><div class="memdoc">
 <dl class="section return"><dt>Devuelve</dt><dd>Estructura JSON con la información relevante de la configuración del sistema en un momento dado. </dd></dl>
 
-<p>Implementa <a class="el" href="class_o_s_k_1_1_e_c_s_1_1_i_system.html#a71abb122385e05992f9c3875993dafd1">OSK::ECS::ISystem</a>.</p>
+<p>Implementa <a class="el" href="class_o_s_k_1_1_e_c_s_1_1_i_serializable_system.html#a727dd1c18ab112a3ef1e07e6b3402428">OSK::ECS::ISerializableSystem</a>.</p>
 
 <p class="definition">Definición en la línea <a class="el" href="_hybrid_render_system_8cpp_source.html#l00480">480</a> del archivo <a class="el" href="_hybrid_render_system_8cpp_source.html">HybridRenderSystem.cpp</a>.</p>
 
@@ -1457,7 +1517,7 @@ Se puede sobreescribir para cambiar de tamaño otras imágenes de renderizado. <
 </dl>
 <dl class="section pre"><dt>Precondición</dt><dd>commandList no debe ser null. </dd></dl>
 
-<p class="definition">Definición en la línea <a class="el" href="_i_render_system_8cpp_source.html#l00125">125</a> del archivo <a class="el" href="_i_render_system_8cpp_source.html">IRenderSystem.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_i_render_system_8cpp_source.html#l00145">145</a> del archivo <a class="el" href="_i_render_system_8cpp_source.html">IRenderSystem.cpp</a>.</p>
 
 </div>
 </div>
@@ -1513,7 +1573,7 @@ Se puede sobreescribir para cambiar de tamaño otras imágenes de renderizado. <
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definición en la línea <a class="el" href="_i_render_system_8cpp_source.html#l00115">115</a> del archivo <a class="el" href="_i_render_system_8cpp_source.html">IRenderSystem.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_i_render_system_8cpp_source.html#l00135">135</a> del archivo <a class="el" href="_i_render_system_8cpp_source.html">IRenderSystem.cpp</a>.</p>
 
 </div>
 </div>
@@ -1542,7 +1602,7 @@ Se puede sobreescribir para cambiar de tamaño otras imágenes de renderizado. <
 
 <p>Actualiza las listas de objetos asignados a cada pase. </p>
 
-<p class="definition">Definición en la línea <a class="el" href="_i_render_system_8cpp_source.html#l00089">89</a> del archivo <a class="el" href="_i_render_system_8cpp_source.html">IRenderSystem.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_i_render_system_8cpp_source.html#l00101">101</a> del archivo <a class="el" href="_i_render_system_8cpp_source.html">IRenderSystem.cpp</a>.</p>
 
 </div>
 </div>
@@ -1567,7 +1627,7 @@ Se puede sobreescribir para cambiar de tamaño otras imágenes de renderizado. <
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definición en la línea <a class="el" href="_i_render_system_8h_source.html#l00111">111</a> del archivo <a class="el" href="_i_render_system_8h_source.html">IRenderSystem.h</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_i_render_system_8h_source.html#l00122">122</a> del archivo <a class="el" href="_i_render_system_8h_source.html">IRenderSystem.h</a>.</p>
 
 </div>
 </div>
@@ -1591,7 +1651,7 @@ Se puede sobreescribir para cambiar de tamaño otras imágenes de renderizado. <
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definición en la línea <a class="el" href="_i_render_system_8h_source.html#l00109">109</a> del archivo <a class="el" href="_i_render_system_8h_source.html">IRenderSystem.h</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_i_render_system_8h_source.html#l00120">120</a> del archivo <a class="el" href="_i_render_system_8h_source.html">IRenderSystem.h</a>.</p>
 
 </div>
 </div>
@@ -1615,7 +1675,7 @@ Se puede sobreescribir para cambiar de tamaño otras imágenes de renderizado. <
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definición en la línea <a class="el" href="_i_render_system_8h_source.html#l00105">105</a> del archivo <a class="el" href="_i_render_system_8h_source.html">IRenderSystem.h</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_i_render_system_8h_source.html#l00116">116</a> del archivo <a class="el" href="_i_render_system_8h_source.html">IRenderSystem.h</a>.</p>
 
 </div>
 </div>
@@ -1639,7 +1699,7 @@ Se puede sobreescribir para cambiar de tamaño otras imágenes de renderizado. <
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definición en la línea <a class="el" href="_i_render_system_8h_source.html#l00106">106</a> del archivo <a class="el" href="_i_render_system_8h_source.html">IRenderSystem.h</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_i_render_system_8h_source.html#l00117">117</a> del archivo <a class="el" href="_i_render_system_8h_source.html">IRenderSystem.h</a>.</p>
 
 </div>
 </div>
@@ -1649,7 +1709,7 @@ Se puede sobreescribir para cambiar de tamaño otras imágenes de renderizado. <
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="namespace_o_s_k.html">OSK</a></li><li class="navelem"><a class="el" href="namespace_o_s_k_1_1_e_c_s.html">ECS</a></li><li class="navelem"><a class="el" href="class_o_s_k_1_1_e_c_s_1_1_hybrid_render_system.html">HybridRenderSystem</a></li>
-    <li class="footer">Generado el Viernes, 16 de agosto de 2024 22:47:25 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.12.0 </li>
+    <li class="footer">Generado el Viernes, 6 de diciembre de 2024 12:52:12 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.12.0 </li>
   </ul>
 </div>
 </body>

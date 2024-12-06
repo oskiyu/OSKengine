@@ -10,6 +10,7 @@ var class_o_s_k_1_1_e_c_s_1_1_physics_system =
     [ "Execute", "class_o_s_k_1_1_e_c_s_1_1_physics_system.html#a40a969a21174eab77ce532dadebc6cd7", null ],
     [ "GetAllCompatibleObjects", "class_o_s_k_1_1_e_c_s_1_1_physics_system.html#a56313a26d4c01eab26fc1f07e189f97f", null ],
     [ "GetDependencies", "class_o_s_k_1_1_e_c_s_1_1_physics_system.html#a6f9009164fc90548c0979358232d2de4", null ],
+    [ "GetGravity", "class_o_s_k_1_1_e_c_s_1_1_physics_system.html#ae2b145a079c0345ef7c80ffee48d905d", null ],
     [ "GetName", "class_o_s_k_1_1_e_c_s_1_1_physics_system.html#a9ac4b0e11cb52d7222ef76e675cb9cc5", null ],
     [ "GetSignature", "class_o_s_k_1_1_e_c_s_1_1_physics_system.html#ae112bd30755ef771c25dc2d620fb6295", null ],
     [ "IsActive", "class_o_s_k_1_1_e_c_s_1_1_physics_system.html#acdd2816796e17bd727d7ee4d10e11aed", null ],

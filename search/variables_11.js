@@ -15,12 +15,7 @@ var searchData=
   ['roughnessfactor_12',['roughnessFactor',['../struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_model3_d_1_1_material.html#af96dd222589e96f96d9b51dd15c6bf07',1,'OSK::GRAPHICS::GpuModel3D::Material']]],
   ['roughnessmetallic_13',['roughnessMetallic',['../struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_pbr_material_info.html#a396e8ced57803250fb0309b916a1970e',1,'OSK::GRAPHICS::PbrMaterialInfo']]],
   ['roughnesstextureindex_14',['roughnessTextureIndex',['../struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_model3_d_1_1_material.html#a9393be683091de695e8f1ac1a52fc1af',1,'OSK::GRAPHICS::GpuModel3D::Material']]],
-  ['rtaccelerationstructuresfeatures_15',['rtAccelerationStructuresFeatures',['../struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_vk_1_1_info.html#a0b6b1105fa6857571f650e3924e60edf',1,'OSK::GRAPHICS::GpuVk::Info']]],
-  ['rtaccelerationstructuresproperites_16',['rtAccelerationStructuresProperites',['../struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_vk_1_1_info.html#a9e8e8382d4c3b4b1be43ad2eec02cb8d',1,'OSK::GRAPHICS::GpuVk::Info']]],
-  ['rtclosesthitshaderpath_17',['rtClosestHitShaderPath',['../struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_pipeline_create_info.html#a09c9b9c025bb3dbc32b69dff04ff980d',1,'OSK::GRAPHICS::PipelineCreateInfo']]],
-  ['rtdeviceaddressfeatures_18',['rtDeviceAddressFeatures',['../struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_vk_1_1_info.html#af5b5feef31da8cc08b971224d63d4ef4',1,'OSK::GRAPHICS::GpuVk::Info']]],
-  ['rtmissshaderpath_19',['rtMissShaderPath',['../struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_pipeline_create_info.html#a757c6a25f8fa8ec656d053decf470524',1,'OSK::GRAPHICS::PipelineCreateInfo']]],
-  ['rtpipelinefeatures_20',['rtPipelineFeatures',['../struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_vk_1_1_info.html#aea5abcee04a7e89ab9ff001bca28e31e',1,'OSK::GRAPHICS::GpuVk::Info']]],
-  ['rtpipelineproperties_21',['rtPipelineProperties',['../struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_vk_1_1_info.html#acc1cc8f4009ce1fb8fd7bc6e5197b7f9',1,'OSK::GRAPHICS::GpuVk::Info']]],
-  ['rtraygenshaderpath_22',['rtRaygenShaderPath',['../struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_pipeline_create_info.html#a0bfe9ca2ed2bf52a85df106765ed64e9',1,'OSK::GRAPHICS::PipelineCreateInfo']]]
+  ['rtclosesthitshaderpath_15',['rtClosestHitShaderPath',['../struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_pipeline_create_info.html#a09c9b9c025bb3dbc32b69dff04ff980d',1,'OSK::GRAPHICS::PipelineCreateInfo']]],
+  ['rtmissshaderpath_16',['rtMissShaderPath',['../struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_pipeline_create_info.html#a757c6a25f8fa8ec656d053decf470524',1,'OSK::GRAPHICS::PipelineCreateInfo']]],
+  ['rtraygenshaderpath_17',['rtRaygenShaderPath',['../struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_pipeline_create_info.html#a0bfe9ca2ed2bf52a85df106765ed64e9',1,'OSK::GRAPHICS::PipelineCreateInfo']]]
 ];

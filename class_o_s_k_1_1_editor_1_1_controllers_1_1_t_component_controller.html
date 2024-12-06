@@ -140,15 +140,15 @@ Métodos protegidos</h2></td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Descripción detallada</h2>
 <div class="textblock"><div class="compoundTemplParams">template&lt;typename TComponent&gt;<br />
-class OSK::Editor::Controllers::TComponentController&lt; TComponent &gt;</div><dl class="tparams"><dt>Parámetros de plantilla</dt><dd>
+class OSK::Editor::Controllers::TComponentController&lt; TComponent &gt;</div><p>Elemento que conecta los datos de un componente con un elemento de interfaz de usuario del editor correspondiente a ese componente. </p>
+<dl class="tparams"><dt>Parámetros de plantilla</dt><dd>
   <table class="tparams">
-    <tr><td class="paramname">TComponent</td><td><br  />
- </td></tr>
+    <tr><td class="paramname">TComponent</td><td>Tipo de componente. </td></tr>
   </table>
   </dd>
 </dl>
 
-<p class="definition">Definición en la línea <a class="el" href="_i_component_controller_8h_source.html#l00075">75</a> del archivo <a class="el" href="_i_component_controller_8h_source.html">IComponentController.h</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_i_component_controller_8h_source.html#l00077">77</a> del archivo <a class="el" href="_i_component_controller_8h_source.html">IComponentController.h</a>.</p>
 </div><h2 class="groupheader">Documentación de constructores y destructores</h2>
 <a id="a99374e0bf95b0faca79fb86ab7e62802" name="a99374e0bf95b0faca79fb86ab7e62802"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a99374e0bf95b0faca79fb86ab7e62802">&#9670;&#160;</a></span>TComponentController()</h2>
@@ -183,16 +183,18 @@ template&lt;typename TComponent &gt; </div>
   </tr>
 </table>
 </div><div class="memdoc">
+
+<p>Inicializa la clase. </p>
 <dl class="params"><dt>Parámetros</dt><dd>
   <table class="params">
-    <tr><td class="paramname">object</td><td></td></tr>
-    <tr><td class="paramname">view</td><td><br  />
- </td></tr>
+    <tr><td class="paramname">object</td><td>Objeto enlazado. </td></tr>
+    <tr><td class="paramname">componentData</td><td>Dirección inicial del componente. </td></tr>
+    <tr><td class="paramname">view</td><td>Vista enlazada. </td></tr>
   </table>
   </dd>
 </dl>
 
-<p class="definition">Definición en la línea <a class="el" href="_i_component_controller_8h_source.html#l00090">90</a> del archivo <a class="el" href="_i_component_controller_8h_source.html">IComponentController.h</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_i_component_controller_8h_source.html#l00095">95</a> del archivo <a class="el" href="_i_component_controller_8h_source.html">IComponentController.h</a>.</p>
 
 </div>
 </div>
@@ -221,10 +223,9 @@ template&lt;typename TComponent &gt; </div>
   </tr>
 </table>
 </div><div class="memdoc">
-<dl class="section return"><dt>Devuelve</dt><dd><br  />
- </dd></dl>
+<dl class="section return"><dt>Devuelve</dt><dd>Componente enlazado. </dd></dl>
 
-<p class="definition">Definición en la línea <a class="el" href="_i_component_controller_8h_source.html#l00097">97</a> del archivo <a class="el" href="_i_component_controller_8h_source.html">IComponentController.h</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_i_component_controller_8h_source.html#l00101">101</a> del archivo <a class="el" href="_i_component_controller_8h_source.html">IComponentController.h</a>.</p>
 
 </div>
 </div>
@@ -253,7 +254,7 @@ template&lt;typename TComponent &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definición en la línea <a class="el" href="_i_component_controller_8h_source.html#l00100">100</a> del archivo <a class="el" href="_i_component_controller_8h_source.html">IComponentController.h</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_i_component_controller_8h_source.html#l00104">104</a> del archivo <a class="el" href="_i_component_controller_8h_source.html">IComponentController.h</a>.</p>
 
 </div>
 </div>
@@ -509,15 +510,16 @@ template&lt;typename TComponent &gt; </div>
   </tr>
 </table>
 </div><div class="memdoc">
+
+<p>Actualiza la dirección de memoria en la que se encuentra el componente. </p>
 <dl class="params"><dt>Parámetros</dt><dd>
   <table class="params">
-    <tr><td class="paramname">component</td><td><br  />
- </td></tr>
+    <tr><td class="paramname">component</td><td>Dirección del componente. </td></tr>
   </table>
   </dd>
 </dl>
 
-<p class="definition">Definición en la línea <a class="el" href="_i_component_controller_8h_source.html#l00081">81</a> del archivo <a class="el" href="_i_component_controller_8h_source.html">IComponentController.h</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_i_component_controller_8h_source.html#l00085">85</a> del archivo <a class="el" href="_i_component_controller_8h_source.html">IComponentController.h</a>.</p>
 
 </div>
 </div>
@@ -527,7 +529,7 @@ template&lt;typename TComponent &gt; </div>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="namespace_o_s_k.html">OSK</a></li><li class="navelem"><a class="el" href="namespace_o_s_k_1_1_editor.html">Editor</a></li><li class="navelem"><a class="el" href="namespace_o_s_k_1_1_editor_1_1_controllers.html">Controllers</a></li><li class="navelem"><a class="el" href="class_o_s_k_1_1_editor_1_1_controllers_1_1_t_component_controller.html">TComponentController</a></li>
-    <li class="footer">Generado el Viernes, 16 de agosto de 2024 22:47:25 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.12.0 </li>
+    <li class="footer">Generado el Viernes, 6 de diciembre de 2024 12:52:13 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.12.0 </li>
   </ul>
 </div>
 </body>

@@ -3,8 +3,6 @@ var class_o_s_k_1_1_e_c_s_1_1_collision_system =
     [ "_SetDependencies", "class_o_s_k_1_1_e_c_s_1_1_collision_system.html#a2239551fafeab2592dc35cddc17305d3", null ],
     [ "_SetSignature", "class_o_s_k_1_1_e_c_s_1_1_collision_system.html#a4fdd39a45a60a3921398d8fe68884a99", null ],
     [ "Activate", "class_o_s_k_1_1_e_c_s_1_1_collision_system.html#ad45cabb31dc788fbc37feaed82fd99d8", null ],
-    [ "ApplyConfiguration", "class_o_s_k_1_1_e_c_s_1_1_collision_system.html#a0824269fbe9943555e3d98d17c4f33db", null ],
-    [ "ApplyConfiguration", "class_o_s_k_1_1_e_c_s_1_1_collision_system.html#abea234080428be270970a8562d6b7877", null ],
     [ "CastRay", "class_o_s_k_1_1_e_c_s_1_1_collision_system.html#a225ca90a347828ab549f11ea34453db0", null ],
     [ "Deactivate", "class_o_s_k_1_1_e_c_s_1_1_collision_system.html#a2d6aa3dc12aa77cc9109b920ddca4225", null ],
     [ "Execute", "class_o_s_k_1_1_e_c_s_1_1_collision_system.html#a8d1360e5cec5e27b5433fae1c34ab49e", null ],
@@ -20,8 +18,6 @@ var class_o_s_k_1_1_e_c_s_1_1_collision_system =
     [ "OnObjectRemoved", "class_o_s_k_1_1_e_c_s_1_1_collision_system.html#a95c8a52cae15f1ea27c6bed80c8708c3", null ],
     [ "OnRemove", "class_o_s_k_1_1_e_c_s_1_1_collision_system.html#a43e7608ce2a31c9c13b42cf4ce6eb0ef", null ],
     [ "OSK_SYSTEM", "class_o_s_k_1_1_e_c_s_1_1_collision_system.html#ad54061f9e2d3acccbb4b211bb5615fd2", null ],
-    [ "SaveBinaryConfiguration", "class_o_s_k_1_1_e_c_s_1_1_collision_system.html#a523fec135fffd3272a644e63150d1110", null ],
-    [ "SaveConfiguration", "class_o_s_k_1_1_e_c_s_1_1_collision_system.html#a232400f4679f99256e69def1685e46c7", null ],
     [ "SetActivationStatus", "class_o_s_k_1_1_e_c_s_1_1_collision_system.html#a97458cf11d6b977bad992387a2d67297", null ],
     [ "SetCompatibleObjects", "class_o_s_k_1_1_e_c_s_1_1_collision_system.html#ab81242d97f6424629a9362246838e772", null ],
     [ "ToggleActivationStatus", "class_o_s_k_1_1_e_c_s_1_1_collision_system.html#a01bbb5166a33e4484f42fcc6f03494b4", null ]

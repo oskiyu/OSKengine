@@ -117,6 +117,8 @@ Métodos públicos</h2></td></tr>
 <tr class="separator:a0e27b5a4e45abc3ee2a4c6712f798d9e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0c87d0b7604e00ae3ef78fd12905b82b" id="r_a0c87d0b7604e00ae3ef78fd12905b82b"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="class_o_s_k_1_1_owned_ptr.html">OwnedPtr</a>&lt; <a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_pool.html">ICommandPool</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a0c87d0b7604e00ae3ef78fd12905b82b">CreateComputeCommandPool</a> ()=0</td></tr>
 <tr class="separator:a0c87d0b7604e00ae3ef78fd12905b82b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac6dac489e5d16d6a1a9974374cba4903" id="r_ac6dac489e5d16d6a1a9974374cba4903"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="class_o_s_k_1_1_owned_ptr.html">OwnedPtr</a>&lt; <a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_image_sampler.html">IGpuImageSampler</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ac6dac489e5d16d6a1a9974374cba4903">CreateSampler</a> (const <a class="el" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_sampler_desc.html">GpuImageSamplerDesc</a> &amp;info) const =0</td></tr>
+<tr class="separator:ac6dac489e5d16d6a1a9974374cba4903"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af48b9e4bf46c4fbb2f890b62622de2bf" id="r_af48b9e4bf46c4fbb2f890b62622de2bf"><td class="memItemLeft" align="right" valign="top">virtual std::optional&lt; <a class="el" href="class_o_s_k_1_1_owned_ptr.html">OwnedPtr</a>&lt; <a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_pool.html">ICommandPool</a> &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af48b9e4bf46c4fbb2f890b62622de2bf">CreateTransferOnlyCommandPool</a> ()=0</td></tr>
 <tr class="separator:af48b9e4bf46c4fbb2f890b62622de2bf"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac8b780cbb64fb4ed7bc8e4a295a7e806" id="r_ac8b780cbb64fb4ed7bc8e4a295a7e806"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_memory_usage_info.html">GpuMemoryUsageInfo</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ac8b780cbb64fb4ed7bc8e4a295a7e806">GetMemoryUsageInfo</a> () const =0</td></tr>
@@ -131,6 +133,8 @@ Métodos públicos</h2></td></tr>
 <tr class="separator:aa8ab85cfe9393d02ece9419181e443ec"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:acc18feef42c257547c6f31dc540d8084" id="r_acc18feef42c257547c6f31dc540d8084"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#acc18feef42c257547c6f31dc540d8084">SupportsBindlessResources</a> () const</td></tr>
 <tr class="separator:acc18feef42c257547c6f31dc540d8084"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a126b6cc9e7cf6178f085bbc51fe36e7a" id="r_a126b6cc9e7cf6178f085bbc51fe36e7a"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a126b6cc9e7cf6178f085bbc51fe36e7a">SupportsMeshShaders</a> () const</td></tr>
+<tr class="separator:a126b6cc9e7cf6178f085bbc51fe36e7a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pro-methods" name="pro-methods"></a>
 Métodos protegidos</h2></td></tr>
@@ -145,11 +149,13 @@ Atributos protegidos</h2></td></tr>
 <tr class="separator:a2f769d60db49e1ee7b27dc1476d10206"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a39d260e67d910a75e3867a748c8797eb" id="r_a39d260e67d910a75e3867a748c8797eb"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a39d260e67d910a75e3867a748c8797eb">m_supportsBindless</a> = false</td></tr>
 <tr class="separator:a39d260e67d910a75e3867a748c8797eb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a35b2bc3da1dfc145676dbc18dd913a4f" id="r_a35b2bc3da1dfc145676dbc18dd913a4f"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a35b2bc3da1dfc145676dbc18dd913a4f">m_supportsMesh</a> = false</td></tr>
+<tr class="separator:a35b2bc3da1dfc145676dbc18dd913a4f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Descripción detallada</h2>
 <div class="textblock"><p>Representa una conexión con la GPU. </p>
 
-<p class="definition">Definición en la línea <a class="el" href="_i_gpu_8h_source.html#l00017">17</a> del archivo <a class="el" href="_i_gpu_8h_source.html">IGpu.h</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_i_gpu_8h_source.html#l00019">19</a> del archivo <a class="el" href="_i_gpu_8h_source.html">IGpu.h</a>.</p>
 </div><h2 class="groupheader">Documentación de constructores y destructores</h2>
 <a id="af7315d7e7c10327c6d06ad5b7c66e125" name="af7315d7e7c10327c6d06ad5b7c66e125"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#af7315d7e7c10327c6d06ad5b7c66e125">&#9670;&#160;</a></span>~IGpu()</h2>
@@ -229,8 +235,6 @@ Atributos protegidos</h2></td></tr>
 
 <p>Cierra la conexión con la GPU. </p>
 
-<p>Implementado en <a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_dx12.html#a3e1a12fa60fe4ec828b1992b9c4631a6">OSK::GRAPHICS::GpuDx12</a>.</p>
-
 </div>
 </div>
 <a id="a0c87d0b7604e00ae3ef78fd12905b82b" name="a0c87d0b7604e00ae3ef78fd12905b82b"></a>
@@ -265,8 +269,6 @@ Atributos protegidos</h2></td></tr>
   </table>
   </dd>
 </dl>
-
-<p>Implementado en <a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_dx12.html#a8b6b68a706171f972472acb576d8c05b">OSK::GRAPHICS::GpuDx12</a> y <a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_vk.html#aaad7bc40d1436bfe01d0dadc61b41726">OSK::GRAPHICS::GpuVk</a>.</p>
 
 </div>
 </div>
@@ -303,7 +305,39 @@ Atributos protegidos</h2></td></tr>
   </dd>
 </dl>
 
-<p>Implementado en <a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_dx12.html#aa94146b9b5afc01e7727c34aa6cbe839">OSK::GRAPHICS::GpuDx12</a> y <a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_vk.html#a71eb0a92be90d9d847b5f4de4cd5d812">OSK::GRAPHICS::GpuVk</a>.</p>
+</div>
+</div>
+<a id="ac6dac489e5d16d6a1a9974374cba4903" name="ac6dac489e5d16d6a1a9974374cba4903"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac6dac489e5d16d6a1a9974374cba4903">&#9670;&#160;</a></span>CreateSampler()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual <a class="el" href="class_o_s_k_1_1_owned_ptr.html">OwnedPtr</a>&lt; <a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_image_sampler.html">IGpuImageSampler</a> &gt; OSK::GRAPHICS::IGpu::CreateSampler </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_sampler_desc.html">GpuImageSamplerDesc</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>info</em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Crea un sampler con las propiedades indicadas. </p>
+<dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">info</td><td>Propiedades del sampler. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Devuelve</dt><dd>Sampler con las propiedades indicadas. </dd></dl>
 
 </div>
 </div>
@@ -333,8 +367,6 @@ Atributos protegidos</h2></td></tr>
 <p>Intenta crear un pool de comandos que soporte únicamente operaciones de transferencia. </p>
 <dl class="section return"><dt>Devuelve</dt><dd>Command pool para comandos excusivamente de transferencia. Si no hay, retorna vacío. </dd></dl>
 
-<p>Implementado en <a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_dx12.html#a1bd06e41362a9e1cc7b29c323a085f7d">OSK::GRAPHICS::GpuDx12</a> y <a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_vk.html#aef2e4214d556d5e8f6cc73bef04047b2">OSK::GRAPHICS::GpuVk</a>.</p>
-
 </div>
 </div>
 <a id="a5f790efbc8fd7f0c1fae464a6fa9f9d5" name="a5f790efbc8fd7f0c1fae464a6fa9f9d5"></a>
@@ -353,7 +385,7 @@ Atributos protegidos</h2></td></tr>
 </div><div class="memdoc">
 <dl class="section return"><dt>Devuelve</dt><dd>Información sobre el alineamiento que deben seguir los distintos tipos de recursos. </dd></dl>
 
-<p class="definition">Definición en la línea <a class="el" href="_i_gpu_8cpp_source.html#l00022">22</a> del archivo <a class="el" href="_i_gpu_8cpp_source.html">IGpu.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_i_gpu_8cpp_source.html#l00026">26</a> del archivo <a class="el" href="_i_gpu_8cpp_source.html">IGpu.cpp</a>.</p>
 
 </div>
 </div>
@@ -382,8 +414,6 @@ Atributos protegidos</h2></td></tr>
 
 <p>Obtiene la información sobre el uso de memoria de esta GPU, incluyendo espacio usado y espacio disponible. </p>
 <dl class="section return"><dt>Devuelve</dt><dd>Información sobre el uso de memoria de esta GPU. </dd></dl>
-
-<p>Implementado en <a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_dx12.html#a006b1ae75406352f9ba9aef43f488a7c">OSK::GRAPHICS::GpuDx12</a> y <a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_vk.html#a0cf08f98aefae45372c37b2548bd79b6">OSK::GRAPHICS::GpuVk</a>.</p>
 
 </div>
 </div>
@@ -430,7 +460,7 @@ Atributos protegidos</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definición en la línea <a class="el" href="_i_gpu_8cpp_source.html#l00026">26</a> del archivo <a class="el" href="_i_gpu_8cpp_source.html">IGpu.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_i_gpu_8cpp_source.html#l00030">30</a> del archivo <a class="el" href="_i_gpu_8cpp_source.html">IGpu.cpp</a>.</p>
 
 </div>
 </div>
@@ -451,6 +481,26 @@ Atributos protegidos</h2></td></tr>
 <dl class="section return"><dt>Devuelve</dt><dd>True si soporta renderizado bind-less. </dd></dl>
 
 <p class="definition">Definición en la línea <a class="el" href="_i_gpu_8cpp_source.html#l00018">18</a> del archivo <a class="el" href="_i_gpu_8cpp_source.html">IGpu.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a126b6cc9e7cf6178f085bbc51fe36e7a" name="a126b6cc9e7cf6178f085bbc51fe36e7a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a126b6cc9e7cf6178f085bbc51fe36e7a">&#9670;&#160;</a></span>SupportsMeshShaders()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool IGpu::SupportsMeshShaders </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Devuelve</dt><dd>True si soporta renderizado de meshes. </dd></dl>
+
+<p class="definition">Definición en la línea <a class="el" href="_i_gpu_8cpp_source.html#l00022">22</a> del archivo <a class="el" href="_i_gpu_8cpp_source.html">IGpu.cpp</a>.</p>
 
 </div>
 </div>
@@ -495,7 +545,31 @@ Atributos protegidos</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definición en la línea <a class="el" href="_i_gpu_8h_source.html#l00073">73</a> del archivo <a class="el" href="_i_gpu_8h_source.html">IGpu.h</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_i_gpu_8h_source.html#l00083">83</a> del archivo <a class="el" href="_i_gpu_8h_source.html">IGpu.h</a>.</p>
+
+</div>
+</div>
+<a id="a35b2bc3da1dfc145676dbc18dd913a4f" name="a35b2bc3da1dfc145676dbc18dd913a4f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a35b2bc3da1dfc145676dbc18dd913a4f">&#9670;&#160;</a></span>m_supportsMesh</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool OSK::GRAPHICS::IGpu::m_supportsMesh = false</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definición en la línea <a class="el" href="_i_gpu_8h_source.html#l00084">84</a> del archivo <a class="el" href="_i_gpu_8h_source.html">IGpu.h</a>.</p>
 
 </div>
 </div>
@@ -519,7 +593,7 @@ Atributos protegidos</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definición en la línea <a class="el" href="_i_gpu_8h_source.html#l00072">72</a> del archivo <a class="el" href="_i_gpu_8h_source.html">IGpu.h</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_i_gpu_8h_source.html#l00082">82</a> del archivo <a class="el" href="_i_gpu_8h_source.html">IGpu.h</a>.</p>
 
 </div>
 </div>
@@ -529,7 +603,7 @@ Atributos protegidos</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="namespace_o_s_k.html">OSK</a></li><li class="navelem"><a class="el" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html">GRAPHICS</a></li><li class="navelem"><a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu.html">IGpu</a></li>
-    <li class="footer">Generado el Viernes, 16 de agosto de 2024 22:47:26 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.12.0 </li>
+    <li class="footer">Generado el Viernes, 6 de diciembre de 2024 12:52:13 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.12.0 </li>
   </ul>
 </div>
 </body>

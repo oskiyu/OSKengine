@@ -1,0 +1,144 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="es">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.12.0"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>OSKengine: Archivo de código fuente Source/GpuImageSamplerDesc.cpp</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="doxygen-awesome.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">OSKengine<span id="projectnumber">&#160;Indev</span>
+   </div>
+   <div id="projectbrief">Motor de videojuegos.</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generado por Doxygen 1.12.0 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+/* @license-end */
+</script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() { codefold.init(0); });
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() {
+  initMenu('',true,false,'search.php','Buscar',true);
+  $(function() { init_search(); });
+});
+/* @license-end */
+</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function(){initNavTree('_gpu_image_sampler_desc_8cpp_source.html',''); initResizable(true); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Cargando...</div>
+<div class="SRStatus" id="Searching">Buscando...</div>
+<div class="SRStatus" id="NoMatches">Nada coincide</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">GpuImageSamplerDesc.cpp</div></div>
+</div><!--header-->
+<div class="contents">
+<div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#include &quot;GpuImageSamplerDesc.h&quot;</span></div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span> </div>
+<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="preprocessor">#include &quot;IGpuImage.h&quot;</span></div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span> </div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span> </div>
+<div class="foldopen" id="foldopen00006" data-start="{" data-end="}">
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno"><a class="line" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_sampler_desc.html#ae6e67351c6e8ca0214815899eaf35d9e">    6</a></span><a class="code hl_struct" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_sampler_desc.html">OSK::GRAPHICS::GpuImageSamplerDesc</a> <a class="code hl_function" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_sampler_desc.html#ae6e67351c6e8ca0214815899eaf35d9e">OSK::GRAPHICS::GpuImageSamplerDesc::CreateDefault_NoMipMap</a>() {</div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span>    <span class="keywordflow">return</span> { .mipMapMode = <a class="code hl_enumvalue" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a7b3d3107477f334f9d9d85a64c930c8aab50339a10e1de285ac99d4c3990b8693">GpuImageMipmapMode::NONE</a> };</div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span>}</div>
+</div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span> </div>
+<div class="foldopen" id="foldopen00010" data-start="{" data-end="}">
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno"><a class="line" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_sampler_desc.html#a8e137270b760d671d5f287501ecf1a80">   10</a></span><a class="code hl_struct" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_sampler_desc.html">OSK::GRAPHICS::GpuImageSamplerDesc</a> <a class="code hl_function" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_sampler_desc.html#a8e137270b760d671d5f287501ecf1a80">OSK::GRAPHICS::GpuImageSamplerDesc::CreateDefault_WithMipMap</a>(<span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image.html">GpuImage</a>&amp; image) {</div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span>    <span class="keywordflow">return</span> { </div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span>        .mipMapMode = <a class="code hl_enumvalue" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a7b3d3107477f334f9d9d85a64c930c8aae1f2d5134ed2543d38a0de9751cf75d9">GpuImageMipmapMode::AUTO</a>,</div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span>        .maxMipLevel = <a class="code hl_function" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image.html#aa0220799f28ec1c45c888926243867e9">GpuImage::GetMipLevels</a>(</div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span>            image.<a class="code hl_function" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image.html#a398791ff8776fa8bb3a589713d0cad49">GetSize2D</a>().<a class="code hl_variable" href="class_o_s_k_1_1_vector2__t.html#ae2f86aaf21084895a5b357318ff6ed77">x</a>,</div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span>            image.<a class="code hl_function" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image.html#a398791ff8776fa8bb3a589713d0cad49">GetSize2D</a>().<a class="code hl_variable" href="class_o_s_k_1_1_vector2__t.html#a3194c7e9abba1f840530e8642a01e30a">y</a> )};</div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span>}</div>
+</div>
+<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_html"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image.html">OSK::GRAPHICS::GpuImage</a></div><div class="ttdoc">Representación interna de una imagen en la GPU.</div><div class="ttdef"><b>Definition</b> <a href="_i_gpu_image_8h_source.html#l00035">IGpuImage.h:35</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_html_a398791ff8776fa8bb3a589713d0cad49"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image.html#a398791ff8776fa8bb3a589713d0cad49">OSK::GRAPHICS::GpuImage::GetSize2D</a></div><div class="ttdeci">Vector2ui GetSize2D() const</div><div class="ttdef"><b>Definition</b> <a href="_i_gpu_image_8cpp_source.html#l00054">IGpuImage.cpp:54</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_html_aa0220799f28ec1c45c888926243867e9"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image.html#aa0220799f28ec1c45c888926243867e9">OSK::GRAPHICS::GpuImage::GetMipLevels</a></div><div class="ttdeci">USize32 GetMipLevels() const</div><div class="ttdef"><b>Definition</b> <a href="_i_gpu_image_8cpp_source.html#l00103">IGpuImage.cpp:103</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_vector2__t_html_a3194c7e9abba1f840530e8642a01e30a"><div class="ttname"><a href="class_o_s_k_1_1_vector2__t.html#a3194c7e9abba1f840530e8642a01e30a">OSK::Vector2_t::y</a></div><div class="ttdeci">T y</div><div class="ttdoc">Representa la segunda coordenada.</div><div class="ttdef"><b>Definition</b> <a href="_vector2_8hpp_source.html#l00254">Vector2.hpp:254</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_vector2__t_html_ae2f86aaf21084895a5b357318ff6ed77"><div class="ttname"><a href="class_o_s_k_1_1_vector2__t.html#ae2f86aaf21084895a5b357318ff6ed77">OSK::Vector2_t::x</a></div><div class="ttdeci">T x</div><div class="ttdoc">Representa la primera coordenada.</div><div class="ttdef"><b>Definition</b> <a href="_vector2_8hpp_source.html#l00251">Vector2.hpp:251</a></div></div>
+<div class="ttc" id="anamespace_o_s_k_1_1_g_r_a_p_h_i_c_s_html_a7b3d3107477f334f9d9d85a64c930c8aab50339a10e1de285ac99d4c3990b8693"><div class="ttname"><a href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a7b3d3107477f334f9d9d85a64c930c8aab50339a10e1de285ac99d4c3990b8693">OSK::GRAPHICS::GpuImageMipmapMode::NONE</a></div><div class="ttdeci">@ NONE</div><div class="ttdoc">No se usarán mipmaps.</div></div>
+<div class="ttc" id="anamespace_o_s_k_1_1_g_r_a_p_h_i_c_s_html_a7b3d3107477f334f9d9d85a64c930c8aae1f2d5134ed2543d38a0de9751cf75d9"><div class="ttname"><a href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a7b3d3107477f334f9d9d85a64c930c8aae1f2d5134ed2543d38a0de9751cf75d9">OSK::GRAPHICS::GpuImageMipmapMode::AUTO</a></div><div class="ttdeci">@ AUTO</div><div class="ttdoc">Uso de mipmaps por defecto.</div></div>
+<div class="ttc" id="astruct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_sampler_desc_html"><div class="ttname"><a href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_sampler_desc.html">OSK::GRAPHICS::GpuImageSamplerDesc</a></div><div class="ttdoc">Establece propiedades básicas sobre el acceso a la imagen.</div><div class="ttdef"><b>Definition</b> <a href="_gpu_image_sampler_desc_8h_source.html#l00073">GpuImageSamplerDesc.h:73</a></div></div>
+<div class="ttc" id="astruct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_sampler_desc_html_a8e137270b760d671d5f287501ecf1a80"><div class="ttname"><a href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_sampler_desc.html#a8e137270b760d671d5f287501ecf1a80">OSK::GRAPHICS::GpuImageSamplerDesc::CreateDefault_WithMipMap</a></div><div class="ttdeci">static GpuImageSamplerDesc CreateDefault_WithMipMap(const GpuImage &amp;image)</div><div class="ttdef"><b>Definition</b> <a href="#l00010">GpuImageSamplerDesc.cpp:10</a></div></div>
+<div class="ttc" id="astruct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_sampler_desc_html_ae6e67351c6e8ca0214815899eaf35d9e"><div class="ttname"><a href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_sampler_desc.html#ae6e67351c6e8ca0214815899eaf35d9e">OSK::GRAPHICS::GpuImageSamplerDesc::CreateDefault_NoMipMap</a></div><div class="ttdeci">static GpuImageSamplerDesc CreateDefault_NoMipMap()</div><div class="ttdef"><b>Definition</b> <a href="#l00006">GpuImageSamplerDesc.cpp:6</a></div></div>
+</div><!-- fragment --></div><!-- contents -->
+</div><!-- doc-content -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="dir_74389ed8173ad57b461b9d623a1f3867.html">Source</a></li><li class="navelem"><b>GpuImageSamplerDesc.cpp</b></li>
+    <li class="footer">Generado el Viernes, 6 de diciembre de 2024 12:52:11 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.12.0 </li>
+  </ul>
+</div>
+</body>
+</html>

@@ -113,57 +113,74 @@ $(function(){initNavTree('_editor_ui_8h_source.html',''); initResizable(true); }
 <div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span> </div>
 <div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="keyword">namespace </span><a class="code hl_namespace" href="namespace_o_s_k_1_1_e_c_s.html">OSK::ECS</a> {</div>
 <div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span>    <span class="keyword">class </span>EntityComponentSystem;</div>
-<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span>}</div>
-<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span> </div>
-<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span><span class="keyword">namespace </span><a class="code hl_namespace" href="namespace_o_s_k_1_1_editor.html">OSK::Editor</a> {</div>
-<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span>    <span class="keyword">class </span>Editor;</div>
-<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>}</div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span>    <span class="keyword">class </span>ISystem;</div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span>}</div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span> </div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span><span class="keyword">namespace </span><a class="code hl_namespace" href="namespace_o_s_k_1_1_editor.html">OSK::Editor</a> {</div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>    <span class="keyword">class </span>Editor;</div>
 <div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span> </div>
-<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span><span class="keyword">namespace </span><a class="code hl_namespace" href="namespace_o_s_k_1_1_editor_1_1_u_i.html">OSK::Editor::UI</a> {</div>
-<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span> </div>
-<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>    <span class="keyword">class </span>ObjectList;</div>
-<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>    <span class="keyword">class </span>SystemList;</div>
-<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>    <span class="keyword">class </span>EditorBottomBar;</div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>    <span class="keyword">namespace </span>Views {</div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>        <span class="keyword">class </span>IComponentView;</div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>        <span class="keyword">class </span>ISystemView;</div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>    }</div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>}</div>
 <div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span> </div>
-<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span> </div>
-<div class="foldopen" id="foldopen00027" data-start="{" data-end="};">
-<div class="line"><a id="l00027" name="l00027"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_editor_1_1_u_i_1_1_editor_ui.html">   27</a></span>    <span class="keyword">class </span>OSKAPI_CALL <a class="code hl_class" href="class_o_s_k_1_1_editor_1_1_u_i_1_1_editor_ui.html">EditorUi</a> : <span class="keyword">public</span> <a class="code hl_class" href="class_o_s_k_1_1_u_i_1_1_border_layout.html">OSK::UI::BorderLayout</a> {</div>
-<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span> </div>
-<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>    <span class="keyword">public</span>:</div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span><span class="keyword">namespace </span><a class="code hl_namespace" href="namespace_o_s_k_1_1_editor_1_1_u_i.html">OSK::Editor::UI</a> {</div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span> </div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>    <span class="keyword">class </span>ObjectList;</div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>    <span class="keyword">class </span>SystemList;</div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>    <span class="keyword">class </span>EditorBottomBar;</div>
 <div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span> </div>
-<div class="line"><a id="l00031" name="l00031"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_editor_1_1_u_i_1_1_editor_ui.html#afa6b3eb57e9577fc82da7c3d1ee02b1d">   31</a></span>        <span class="keyword">static</span> <span class="keyword">constexpr</span> <span class="keyword">auto</span> Name = <span class="stringliteral">&quot;EditorUi&quot;</span>;</div>
-<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span> </div>
-<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>        <span class="keyword">explicit</span> <a class="code hl_class" href="class_o_s_k_1_1_editor_1_1_u_i_1_1_editor_ui.html">EditorUi</a>(</div>
-<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>            <span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_vector2__t.html">Vector2f</a>&amp; size,</div>
-<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>            <a class="code hl_class" href="class_o_s_k_1_1_editor_1_1_editor.html">OSK::Editor::Editor</a>* editor);</div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span> </div>
+<div class="foldopen" id="foldopen00033" data-start="{" data-end="};">
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_editor_1_1_u_i_1_1_editor_ui.html">   33</a></span>    <span class="keyword">class </span>OSKAPI_CALL <a class="code hl_class" href="class_o_s_k_1_1_editor_1_1_u_i_1_1_editor_ui.html">EditorUi</a> : <span class="keyword">public</span> <a class="code hl_class" href="class_o_s_k_1_1_u_i_1_1_border_layout.html">OSK::UI::BorderLayout</a> {</div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span> </div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>    <span class="keyword">public</span>:</div>
 <div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span> </div>
-<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>        <span class="keywordtype">void</span> Update(</div>
-<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>            <span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_e_c_s_1_1_entity_component_system.html">OSK::ECS::EntityComponentSystem</a>* ecs,</div>
-<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>            <a class="code hl_typedef" href="namespace_o_s_k.html#adfc76cbcf35e5506ee24168edfe15bb0">TDeltaTime</a> deltaTime);</div>
-<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span> </div>
-<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>        <a class="code hl_class" href="class_o_s_k_1_1_editor_1_1_u_i_1_1_object_list.html">ObjectList</a>* GetObjectListPanel();</div>
-<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span> </div>
-<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>    <span class="keyword">private</span>:</div>
-<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span> </div>
-<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>        <a class="code hl_class" href="class_o_s_k_1_1_editor_1_1_u_i_1_1_object_list.html">ObjectList</a>* m_objectListPanel = <span class="keyword">nullptr</span>;</div>
-<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>        <a class="code hl_class" href="class_o_s_k_1_1_editor_1_1_u_i_1_1_system_list.html">SystemList</a>* m_systemListPanel = <span class="keyword">nullptr</span>;</div>
-<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>        <a class="code hl_class" href="class_o_s_k_1_1_editor_1_1_u_i_1_1_editor_bottom_bar.html">EditorBottomBar</a>* m_bottomBar = <span class="keyword">nullptr</span>;</div>
-<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span> </div>
-<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>    };</div>
-</div>
-<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span> </div>
-<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>}</div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_editor_1_1_u_i_1_1_editor_ui.html#afa6b3eb57e9577fc82da7c3d1ee02b1d">   37</a></span>        <span class="keyword">static</span> <span class="keyword">constexpr</span> <span class="keyword">auto</span> Name = <span class="stringliteral">&quot;EditorUi&quot;</span>;</div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span> </div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>        <span class="keyword">explicit</span> <a class="code hl_class" href="class_o_s_k_1_1_editor_1_1_u_i_1_1_editor_ui.html">EditorUi</a>(</div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>            <span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_vector2__t.html">Vector2f</a>&amp; size,</div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>            <a class="code hl_class" href="class_o_s_k_1_1_editor_1_1_editor.html">OSK::Editor::Editor</a>* editor);</div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span> </div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>        <span class="keywordtype">void</span> Update(</div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>            <span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_e_c_s_1_1_entity_component_system.html">OSK::ECS::EntityComponentSystem</a>* ecs,</div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>            <a class="code hl_typedef" href="namespace_o_s_k.html#adfc76cbcf35e5506ee24168edfe15bb0">TDeltaTime</a> deltaTime);</div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span> </div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span> </div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>        <span class="keywordtype">void</span> ClearAllComponentViews();</div>
 <div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span> </div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>        <span class="keywordtype">void</span> AddComponentView(<a class="code hl_class" href="class_o_s_k_1_1_owned_ptr.html">OwnedPtr&lt;OSK::Editor::Views::IComponentView&gt;</a> view);</div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span> </div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>        <span class="keywordtype">void</span> SetSystemPropertiesView(<a class="code hl_class" href="class_o_s_k_1_1_owned_ptr.html">OwnedPtr&lt;OSK::Editor::Views::ISystemView&gt;</a> view);</div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span> </div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>        <span class="keywordtype">void</span> ClearSystemPropertiesView();</div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span> </div>
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>        <span class="keywordtype">void</span> SetSelectedSystem(<a class="code hl_class" href="class_o_s_k_1_1_e_c_s_1_1_i_system.html">ECS::ISystem</a>* system);</div>
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span> </div>
+<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span>    <span class="keyword">private</span>:</div>
+<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span> </div>
+<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span>        <a class="code hl_class" href="class_o_s_k_1_1_editor_1_1_u_i_1_1_object_list.html">ObjectList</a>* m_objectListPanel = <span class="keyword">nullptr</span>;</div>
+<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span>        <a class="code hl_class" href="class_o_s_k_1_1_editor_1_1_u_i_1_1_system_list.html">SystemList</a>* m_systemListPanel = <span class="keyword">nullptr</span>;</div>
+<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span>        <a class="code hl_class" href="class_o_s_k_1_1_editor_1_1_u_i_1_1_editor_bottom_bar.html">EditorBottomBar</a>* m_bottomBar = <span class="keyword">nullptr</span>;</div>
+<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span> </div>
+<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span>    };</div>
+</div>
+<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span> </div>
+<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span>}</div>
+<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span> </div>
 <div class="ttc" id="aclass_o_s_k_1_1_e_c_s_1_1_entity_component_system_html"><div class="ttname"><a href="class_o_s_k_1_1_e_c_s_1_1_entity_component_system.html">OSK::ECS::EntityComponentSystem</a></div><div class="ttdoc">Entity-Component-System es un paradigma de programación en el cual los objetos se dividen en 3 partes...</div><div class="ttdef"><b>Definition</b> <a href="_entity_component_system_8h_source.html#l00044">EntityComponentSystem.h:44</a></div></div>
-<div class="ttc" id="aclass_o_s_k_1_1_editor_1_1_editor_html"><div class="ttname"><a href="class_o_s_k_1_1_editor_1_1_editor.html">OSK::Editor::Editor</a></div><div class="ttdoc">Clase principal del editor. Maneja la interfaz de usuario y su conexión con el juego.</div><div class="ttdef"><b>Definition</b> <a href="_editor_8h_source.html#l00034">Editor.h:34</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_e_c_s_1_1_i_system_html"><div class="ttname"><a href="class_o_s_k_1_1_e_c_s_1_1_i_system.html">OSK::ECS::ISystem</a></div><div class="ttdoc">Un sistema se encarga de ejecutar lógica.</div><div class="ttdef"><b>Definition</b> <a href="_i_system_8h_source.html#l00057">ISystem.h:57</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_editor_1_1_editor_html"><div class="ttname"><a href="class_o_s_k_1_1_editor_1_1_editor.html">OSK::Editor::Editor</a></div><div class="ttdoc">Clase principal del editor. Maneja la interfaz de usuario y su conexión con el juego.</div><div class="ttdef"><b>Definition</b> <a href="_editor_8h_source.html#l00037">Editor.h:37</a></div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_editor_1_1_u_i_1_1_editor_bottom_bar_html"><div class="ttname"><a href="class_o_s_k_1_1_editor_1_1_u_i_1_1_editor_bottom_bar.html">OSK::Editor::UI::EditorBottomBar</a></div><div class="ttdoc">Barra inferior del editor. Contiene:</div><div class="ttdef"><b>Definition</b> <a href="_editor_bottom_bar_8h_source.html#l00018">EditorBottomBar.h:18</a></div></div>
-<div class="ttc" id="aclass_o_s_k_1_1_editor_1_1_u_i_1_1_editor_ui_html"><div class="ttname"><a href="class_o_s_k_1_1_editor_1_1_u_i_1_1_editor_ui.html">OSK::Editor::UI::EditorUi</a></div><div class="ttdoc">Clase principal de la interfaz del editor.</div><div class="ttdef"><b>Definition</b> <a href="#l00027">EditorUi.h:27</a></div></div>
-<div class="ttc" id="aclass_o_s_k_1_1_editor_1_1_u_i_1_1_object_list_html"><div class="ttname"><a href="class_o_s_k_1_1_editor_1_1_u_i_1_1_object_list.html">OSK::Editor::UI::ObjectList</a></div><div class="ttdoc">Elemento de interfaz de usuario del editor que contiene información sobre los objetos de la escena.</div><div class="ttdef"><b>Definition</b> <a href="_editor_object_list_8h_source.html#l00021">EditorObjectList.h:21</a></div></div>
-<div class="ttc" id="aclass_o_s_k_1_1_editor_1_1_u_i_1_1_system_list_html"><div class="ttname"><a href="class_o_s_k_1_1_editor_1_1_u_i_1_1_system_list.html">OSK::Editor::UI::SystemList</a></div><div class="ttdef"><b>Definition</b> <a href="_editor_system_list_8h_source.html#l00014">EditorSystemList.h:14</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_editor_1_1_u_i_1_1_editor_ui_html"><div class="ttname"><a href="class_o_s_k_1_1_editor_1_1_u_i_1_1_editor_ui.html">OSK::Editor::UI::EditorUi</a></div><div class="ttdoc">Clase principal de la interfaz del editor.</div><div class="ttdef"><b>Definition</b> <a href="#l00033">EditorUi.h:33</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_editor_1_1_u_i_1_1_object_list_html"><div class="ttname"><a href="class_o_s_k_1_1_editor_1_1_u_i_1_1_object_list.html">OSK::Editor::UI::ObjectList</a></div><div class="ttdoc">Elemento de interfaz de usuario del editor que contiene información sobre los objetos de la escena.</div><div class="ttdef"><b>Definition</b> <a href="_editor_object_list_8h_source.html#l00023">EditorObjectList.h:23</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_editor_1_1_u_i_1_1_system_list_html"><div class="ttname"><a href="class_o_s_k_1_1_editor_1_1_u_i_1_1_system_list.html">OSK::Editor::UI::SystemList</a></div><div class="ttdef"><b>Definition</b> <a href="_editor_system_list_8h_source.html#l00022">EditorSystemList.h:22</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_owned_ptr_html"><div class="ttname"><a href="class_o_s_k_1_1_owned_ptr.html">OSK::OwnedPtr</a></div><div class="ttdoc">Es dueño de un puntero.</div><div class="ttdef"><b>Definition</b> <a href="_owned_ptr_8h_source.html#l00017">OwnedPtr.h:17</a></div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_u_i_1_1_border_layout_html"><div class="ttname"><a href="class_o_s_k_1_1_u_i_1_1_border_layout.html">OSK::UI::BorderLayout</a></div><div class="ttdoc">Layout que se divide en 5 espacios:</div><div class="ttdef"><b>Definition</b> <a href="_ui_border_layout_8h_source.html#l00015">UiBorderLayout.h:15</a></div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_vector2__t_html"><div class="ttname"><a href="class_o_s_k_1_1_vector2__t.html">OSK::Vector2_t&lt; float_t &gt;</a></div></div>
 <div class="ttc" id="anamespace_o_s_k_1_1_e_c_s_html"><div class="ttname"><a href="namespace_o_s_k_1_1_e_c_s.html">OSK::ECS</a></div><div class="ttdef"><b>Definition</b> <a href="_camera_component2_d_8h_source.html#l00017">CameraComponent2D.h:17</a></div></div>
-<div class="ttc" id="anamespace_o_s_k_1_1_editor_1_1_u_i_html"><div class="ttname"><a href="namespace_o_s_k_1_1_editor_1_1_u_i.html">OSK::Editor::UI</a></div><div class="ttdef"><b>Definition</b> <a href="_editor_8h_source.html#l00026">Editor.h:26</a></div></div>
+<div class="ttc" id="anamespace_o_s_k_1_1_editor_1_1_u_i_html"><div class="ttname"><a href="namespace_o_s_k_1_1_editor_1_1_u_i.html">OSK::Editor::UI</a></div><div class="ttdef"><b>Definition</b> <a href="_editor_8h_source.html#l00029">Editor.h:29</a></div></div>
 <div class="ttc" id="anamespace_o_s_k_1_1_editor_html"><div class="ttname"><a href="namespace_o_s_k_1_1_editor.html">OSK::Editor</a></div><div class="ttdef"><b>Definition</b> <a href="_camera_component_controller3_d_8h_source.html#l00006">CameraComponentController3D.h:6</a></div></div>
 <div class="ttc" id="anamespace_o_s_k_html_adfc76cbcf35e5506ee24168edfe15bb0"><div class="ttname"><a href="namespace_o_s_k.html#adfc76cbcf35e5506ee24168edfe15bb0">OSK::TDeltaTime</a></div><div class="ttdeci">float TDeltaTime</div><div class="ttdoc">Delta de tiempo, medido en segundos.</div><div class="ttdef"><b>Definition</b> <a href="_numeric_types_8h_source.html#l00031">NumericTypes.h:31</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
@@ -172,7 +189,7 @@ $(function(){initNavTree('_editor_ui_8h_source.html',''); initResizable(true); }
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_74389ed8173ad57b461b9d623a1f3867.html">Source</a></li><li class="navelem"><b>EditorUi.h</b></li>
-    <li class="footer">Generado el Viernes, 16 de agosto de 2024 22:47:23 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.12.0 </li>
+    <li class="footer">Generado el Viernes, 6 de diciembre de 2024 12:52:11 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.12.0 </li>
   </ul>
 </div>
 </body>

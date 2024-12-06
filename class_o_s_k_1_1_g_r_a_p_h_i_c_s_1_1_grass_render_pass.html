@@ -1,0 +1,774 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="es">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.12.0"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>OSKengine: Referencia de la clase OSK::GRAPHICS::GrassRenderPass</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="doxygen-awesome.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">OSKengine<span id="projectnumber">&#160;Indev</span>
+   </div>
+   <div id="projectbrief">Motor de videojuegos.</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generado por Doxygen 1.12.0 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+/* @license-end */
+</script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() { codefold.init(0); });
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() {
+  initMenu('',true,false,'search.php','Buscar',true);
+  $(function() { init_search(); });
+});
+/* @license-end */
+</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function(){initNavTree('class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_grass_render_pass.html',''); initResizable(true); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Cargando...</div>
+<div class="SRStatus" id="Searching">Buscando...</div>
+<div class="SRStatus" id="NoMatches">Nada coincide</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="summary">
+<a href="#pub-methods">Métodos públicos</a> &#124;
+<a href="#pub-static-attribs">Atributos públicos estáticos</a> &#124;
+<a href="#pro-methods">Métodos protegidos</a> &#124;
+<a href="#pro-attribs">Atributos protegidos</a> &#124;
+<a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_grass_render_pass-members.html">Lista de todos los miembros</a>  </div>
+  <div class="headertitle"><div class="title">Referencia de la clase OSK::GRAPHICS::GrassRenderPass</div></div>
+</div><!--header-->
+<div class="contents">
+
+<p><code>#include &lt;<a class="el" href="_grass_render_pass_8h_source.html">GrassRenderPass.h</a>&gt;</code></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
+Métodos públicos</h2></td></tr>
+<tr class="memitem:a93477792b0619eccb0f4127fc3906bc0" id="r_a93477792b0619eccb0f4127fc3906bc0"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a93477792b0619eccb0f4127fc3906bc0">OSK_RENDERPASS</a> (<a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_grass_render_pass.html">GrassRenderPass</a>, <a class="el" href="#ad9ec717bf5f82316e9cfd18c29a5f86a">Name</a>)</td></tr>
+<tr class="separator:a93477792b0619eccb0f4127fc3906bc0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad84ee749e633aef4363d22c1255fa2da" id="r_ad84ee749e633aef4363d22c1255fa2da"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad84ee749e633aef4363d22c1255fa2da">GrassRenderPass</a> ()</td></tr>
+<tr class="separator:ad84ee749e633aef4363d22c1255fa2da"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2a3b120e8a7ddaae0de1006a11b43f43" id="r_a2a3b120e8a7ddaae0de1006a11b43f43"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a2a3b120e8a7ddaae0de1006a11b43f43">SetCameraBuffers</a> (std::span&lt; const <a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_buffer.html">GRAPHICS::GpuBuffer</a> *, MAX_RESOURCES_IN_FLIGHT &gt; cameraBuffers)</td></tr>
+<tr class="separator:a2a3b120e8a7ddaae0de1006a11b43f43"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4b606f6b7170de79fb2429f15b838318" id="r_a4b606f6b7170de79fb2429f15b838318"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a4b606f6b7170de79fb2429f15b838318">Load</a> () override</td></tr>
+<tr class="separator:a4b606f6b7170de79fb2429f15b838318"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac0355ad89d637a87af6db72088a767ab" id="r_ac0355ad89d637a87af6db72088a767ab"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ac0355ad89d637a87af6db72088a767ab">Update</a> (<a class="el" href="namespace_o_s_k.html#adfc76cbcf35e5506ee24168edfe15bb0">TDeltaTime</a> deltaTime) override</td></tr>
+<tr class="separator:ac0355ad89d637a87af6db72088a767ab"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1197354e71e3fc30f0f5ea74aa721599" id="r_a1197354e71e3fc30f0f5ea74aa721599"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a1197354e71e3fc30f0f5ea74aa721599">RenderLoop</a> (<a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list.html">ICommandList</a> *commandList, const <a class="el" href="class_o_s_k_1_1_dynamic_array.html">DynamicArray</a>&lt; <a class="el" href="namespace_o_s_k_1_1_e_c_s.html#a5b92aeaa6be2ce0d96e7f571aa917042">ECS::GameObjectIndex</a> &gt; &amp;objectsToRender, <a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_global_mesh_mapping.html">GlobalMeshMapping</a> *meshMapping, <a class="el" href="namespace_o_s_k.html#a382ed4c8a6994201cbad5d4e1335861b">UIndex32</a> jitterIndex, <a class="el" href="namespace_o_s_k.html#a6f5b4753cd85b4773d2880148fd031cf">Vector2ui</a> resolution) override</td></tr>
+<tr class="separator:a1197354e71e3fc30f0f5ea74aa721599"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aae7d4a35c005905b86cec1d1f6b0b71f" id="r_aae7d4a35c005905b86cec1d1f6b0b71f"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_shader_pass.html#aae7d4a35c005905b86cec1d1f6b0b71f">OSK_DEFINE_AS</a> (<a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_shader_pass.html">IShaderPass</a>)</td></tr>
+<tr class="separator:aae7d4a35c005905b86cec1d1f6b0b71f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a33423437d12681591b8f8c00da1bdaa0" id="r_a33423437d12681591b8f8c00da1bdaa0"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_shader_pass.html#a33423437d12681591b8f8c00da1bdaa0">UpdateLocalMeshMapping</a> (const <a class="el" href="class_o_s_k_1_1_dynamic_array.html">DynamicArray</a>&lt; <a class="el" href="namespace_o_s_k_1_1_e_c_s.html#a5b92aeaa6be2ce0d96e7f571aa917042">ECS::GameObjectIndex</a> &gt; &amp;objectsToRender)</td></tr>
+<tr class="separator:a33423437d12681591b8f8c00da1bdaa0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8f6d85b84886a9dabde560fc3921c689" id="r_a8f6d85b84886a9dabde560fc3921c689"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_shader_pass.html#a8f6d85b84886a9dabde560fc3921c689">SetCamera</a> (<a class="el" href="namespace_o_s_k_1_1_e_c_s.html#a5b92aeaa6be2ce0d96e7f571aa917042">ECS::GameObjectIndex</a> cameraObject)</td></tr>
+<tr class="separator:a8f6d85b84886a9dabde560fc3921c689"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7895cfd14f55daf9c1b2f8e0e67e9020" id="r_a7895cfd14f55daf9c1b2f8e0e67e9020"><td class="memItemLeft" align="right" valign="top">std::string_view&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_shader_pass.html#a7895cfd14f55daf9c1b2f8e0e67e9020">GetTypeName</a> () const</td></tr>
+<tr class="separator:a7895cfd14f55daf9c1b2f8e0e67e9020"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa7c15d67b3331b9d6b82500632004e5a" id="r_aa7c15d67b3331b9d6b82500632004e5a"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_instance.html">MaterialInstance</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_shader_pass.html#aa7c15d67b3331b9d6b82500632004e5a">GetMaterialInstance</a> (<a class="el" href="namespace_o_s_k.html#a382ed4c8a6994201cbad5d4e1335861b">UIndex32</a> resourceIndex)</td></tr>
+<tr class="separator:aa7c15d67b3331b9d6b82500632004e5a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae853c914c3496c1ca618a1afbdb23d85" id="r_ae853c914c3496c1ca618a1afbdb23d85"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_instance.html">MaterialInstance</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_shader_pass.html#ae853c914c3496c1ca618a1afbdb23d85">GetMaterialInstance</a> (<a class="el" href="namespace_o_s_k.html#a382ed4c8a6994201cbad5d4e1335861b">UIndex32</a> resourceIndex) const</td></tr>
+<tr class="separator:ae853c914c3496c1ca618a1afbdb23d85"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-static-attribs" name="pub-static-attribs"></a>
+Atributos públicos estáticos</h2></td></tr>
+<tr class="memitem:ad9ec717bf5f82316e9cfd18c29a5f86a" id="r_ad9ec717bf5f82316e9cfd18c29a5f86a"><td class="memItemLeft" align="right" valign="top">static constexpr auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad9ec717bf5f82316e9cfd18c29a5f86a">Name</a> = &quot;GrassRenderPass&quot;</td></tr>
+<tr class="separator:ad9ec717bf5f82316e9cfd18c29a5f86a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pro-methods" name="pro-methods"></a>
+Métodos protegidos</h2></td></tr>
+<tr class="memitem:aefdfbd7828be9044cbff5f89ebd14f19" id="r_aefdfbd7828be9044cbff5f89ebd14f19"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_shader_pass.html#aefdfbd7828be9044cbff5f89ebd14f19">SetupMaterialInstance</a> (const <a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_model3_d.html">GpuModel3D</a> &amp;model, const <a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_mesh3_d.html">GpuMesh3D</a> &amp;mesh)</td></tr>
+<tr class="separator:aefdfbd7828be9044cbff5f89ebd14f19"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pro-attribs" name="pro-attribs"></a>
+Atributos protegidos</h2></td></tr>
+<tr class="memitem:a7286295c11cee453ba0c44a8c7debbdf" id="r_a7286295c11cee453ba0c44a8c7debbdf"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_local_mesh_mapping.html">LocalMeshMapping</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_shader_pass.html#a7286295c11cee453ba0c44a8c7debbdf">m_localMeshMapping</a> {}</td></tr>
+<tr class="separator:a7286295c11cee453ba0c44a8c7debbdf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a019a1231c78e5305a51a17044cb4f7d1" id="r_a019a1231c78e5305a51a17044cb4f7d1"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespace_o_s_k.html#a6f5b4753cd85b4773d2880148fd031cf">Vector2ui</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_shader_pass.html#a019a1231c78e5305a51a17044cb4f7d1">m_currentResolution</a> = <a class="el" href="class_o_s_k_1_1_vector2__t.html#a3759903561dac1fc476d0cc9d051c536">Vector2ui::Zero</a></td></tr>
+<tr class="separator:a019a1231c78e5305a51a17044cb4f7d1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac260238caa4992b8f63f73c208029a8f" id="r_ac260238caa4992b8f63f73c208029a8f"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material.html">Material</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_shader_pass.html#ac260238caa4992b8f63f73c208029a8f">m_passMaterial</a> = nullptr</td></tr>
+<tr class="separator:ac260238caa4992b8f63f73c208029a8f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad1cc1a97c5c0afc05c5e47fd6a23e1c7" id="r_ad1cc1a97c5c0afc05c5e47fd6a23e1c7"><td class="memItemLeft" align="right" valign="top">std::array&lt; <a class="el" href="class_o_s_k_1_1_unique_ptr.html">UniquePtr</a>&lt; <a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_instance.html">MaterialInstance</a> &gt;, MAX_RESOURCES_IN_FLIGHT &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_shader_pass.html#ad1cc1a97c5c0afc05c5e47fd6a23e1c7">m_materialInstances</a> {}</td></tr>
+<tr class="separator:ad1cc1a97c5c0afc05c5e47fd6a23e1c7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5b6bae2d0bf919d36a9dc7791fd3d589" id="r_a5b6bae2d0bf919d36a9dc7791fd3d589"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespace_o_s_k_1_1_e_c_s.html#a5b92aeaa6be2ce0d96e7f571aa917042">ECS::GameObjectIndex</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_shader_pass.html#a5b6bae2d0bf919d36a9dc7791fd3d589">m_cameraObject</a> = <a class="el" href="namespace_o_s_k_1_1_e_c_s.html#a46b3731582093c6a4b02a2024b9edf81">ECS::EMPTY_GAME_OBJECT</a></td></tr>
+<tr class="separator:a5b6bae2d0bf919d36a9dc7791fd3d589"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a770e8786244ce14a92ae68b0b1e21efd" id="r_a770e8786244ce14a92ae68b0b1e21efd"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_shader_pass.html#a770e8786244ce14a92ae68b0b1e21efd">m_passTypeName</a> = &quot;&quot;</td></tr>
+<tr class="separator:a770e8786244ce14a92ae68b0b1e21efd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">Descripción detallada</h2>
+<div class="textblock">
+<p class="definition">Definición en la línea <a class="el" href="_grass_render_pass_8h_source.html#l00013">13</a> del archivo <a class="el" href="_grass_render_pass_8h_source.html">GrassRenderPass.h</a>.</p>
+</div><h2 class="groupheader">Documentación de constructores y destructores</h2>
+<a id="ad84ee749e633aef4363d22c1255fa2da" name="ad84ee749e633aef4363d22c1255fa2da"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad84ee749e633aef4363d22c1255fa2da">&#9670;&#160;</a></span>GrassRenderPass()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">OSK::GRAPHICS::GrassRenderPass::GrassRenderPass </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definición en la línea <a class="el" href="_grass_render_pass_8h_source.html#l00021">21</a> del archivo <a class="el" href="_grass_render_pass_8h_source.html">GrassRenderPass.h</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Documentación de funciones miembro</h2>
+<a id="aa7c15d67b3331b9d6b82500632004e5a" name="aa7c15d67b3331b9d6b82500632004e5a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa7c15d67b3331b9d6b82500632004e5a">&#9670;&#160;</a></span>GetMaterialInstance() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_instance.html">MaterialInstance</a> * OSK::GRAPHICS::IShaderPass::GetMaterialInstance </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="namespace_o_s_k.html#a382ed4c8a6994201cbad5d4e1335861b">UIndex32</a></td>          <td class="paramname"><span class="paramname"><em>resourceIndex</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Devuelve</dt><dd>Instancia del resolver. </dd></dl>
+
+<p class="definition">Definición en la línea <a class="el" href="_i_shader_pass_8h_source.html#l00082">82</a> del archivo <a class="el" href="_i_shader_pass_8h_source.html">IShaderPass.h</a>.</p>
+
+</div>
+</div>
+<a id="ae853c914c3496c1ca618a1afbdb23d85" name="ae853c914c3496c1ca618a1afbdb23d85"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae853c914c3496c1ca618a1afbdb23d85">&#9670;&#160;</a></span>GetMaterialInstance() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_instance.html">MaterialInstance</a> * OSK::GRAPHICS::IShaderPass::GetMaterialInstance </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="namespace_o_s_k.html#a382ed4c8a6994201cbad5d4e1335861b">UIndex32</a></td>          <td class="paramname"><span class="paramname"><em>resourceIndex</em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Devuelve</dt><dd>Instancia del resolver. </dd></dl>
+
+<p class="definition">Definición en la línea <a class="el" href="_i_shader_pass_8h_source.html#l00085">85</a> del archivo <a class="el" href="_i_shader_pass_8h_source.html">IShaderPass.h</a>.</p>
+
+</div>
+</div>
+<a id="a7895cfd14f55daf9c1b2f8e0e67e9020" name="a7895cfd14f55daf9c1b2f8e0e67e9020"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7895cfd14f55daf9c1b2f8e0e67e9020">&#9670;&#160;</a></span>GetTypeName()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string_view IShaderPass::GetTypeName </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Devuelve</dt><dd>Nombre del pase. </dd></dl>
+
+<p class="definition">Definición en la línea <a class="el" href="_i_shader_pass_8cpp_source.html#l00046">46</a> del archivo <a class="el" href="_i_shader_pass_8cpp_source.html">IShaderPass.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a4b606f6b7170de79fb2429f15b838318" name="a4b606f6b7170de79fb2429f15b838318"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4b606f6b7170de79fb2429f15b838318">&#9670;&#160;</a></span>Load()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void GrassRenderPass::Load </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Carga los shaders del pase. </p>
+
+<p>Implementa <a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_shader_pass.html#a10ceb922591baa3b92da82966bcf8a87">OSK::GRAPHICS::IShaderPass</a>.</p>
+
+<p class="definition">Definición en la línea <a class="el" href="_grass_render_pass_8cpp_source.html#l00021">21</a> del archivo <a class="el" href="_grass_render_pass_8cpp_source.html">GrassRenderPass.cpp</a>.</p>
+
+</div>
+</div>
+<a id="aae7d4a35c005905b86cec1d1f6b0b71f" name="aae7d4a35c005905b86cec1d1f6b0b71f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aae7d4a35c005905b86cec1d1f6b0b71f">&#9670;&#160;</a></span>OSK_DEFINE_AS()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">OSK::GRAPHICS::IShaderPass::OSK_DEFINE_AS </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_shader_pass.html">IShaderPass</a></td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a93477792b0619eccb0f4127fc3906bc0" name="a93477792b0619eccb0f4127fc3906bc0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a93477792b0619eccb0f4127fc3906bc0">&#9670;&#160;</a></span>OSK_RENDERPASS()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">OSK::GRAPHICS::GrassRenderPass::OSK_RENDERPASS </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_grass_render_pass.html">GrassRenderPass</a></td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="#ad9ec717bf5f82316e9cfd18c29a5f86a">Name</a></td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a1197354e71e3fc30f0f5ea74aa721599" name="a1197354e71e3fc30f0f5ea74aa721599"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1197354e71e3fc30f0f5ea74aa721599">&#9670;&#160;</a></span>RenderLoop()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void GrassRenderPass::RenderLoop </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list.html">ICommandList</a> *</td>          <td class="paramname"><span class="paramname"><em>commandList</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="class_o_s_k_1_1_dynamic_array.html">DynamicArray</a>&lt; <a class="el" href="namespace_o_s_k_1_1_e_c_s.html#a5b92aeaa6be2ce0d96e7f571aa917042">ECS::GameObjectIndex</a> &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>objectsToRender</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_global_mesh_mapping.html">GlobalMeshMapping</a> *</td>          <td class="paramname"><span class="paramname"><em>globalMeshMapping</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="namespace_o_s_k.html#a382ed4c8a6994201cbad5d4e1335861b">UIndex32</a></td>          <td class="paramname"><span class="paramname"><em>jitterIndex</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="namespace_o_s_k.html#a6f5b4753cd85b4773d2880148fd031cf">Vector2ui</a></td>          <td class="paramname"><span class="paramname"><em>resolution</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Realiza el bucle de renderizado del pase. </p>
+<dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">commandList</td><td>Lista de comandos gráficos. </td></tr>
+    <tr><td class="paramname">objectsToRender</td><td>Objetos a renderizar. </td></tr>
+    <tr><td class="paramname">jitterIndex</td><td>Índice del jitter de TAA de este frame. </td></tr>
+    <tr><td class="paramname">resolution</td><td>Resolución del <a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_g_buffer.html" title="Clase que contiene los render targets necesarios para renderizar un GBuffer. Un GBuffer contiene imág...">GBuffer</a> en este frame. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Reimplementado de <a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_shader_pass.html#a164d584c6a0c3455dacc882504628ffa">OSK::GRAPHICS::IShaderPass</a>.</p>
+
+<p class="definition">Definición en la línea <a class="el" href="_grass_render_pass_8cpp_source.html#l00047">47</a> del archivo <a class="el" href="_grass_render_pass_8cpp_source.html">GrassRenderPass.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a8f6d85b84886a9dabde560fc3921c689" name="a8f6d85b84886a9dabde560fc3921c689"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8f6d85b84886a9dabde560fc3921c689">&#9670;&#160;</a></span>SetCamera()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void IShaderPass::SetCamera </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="namespace_o_s_k_1_1_e_c_s.html#a5b92aeaa6be2ce0d96e7f571aa917042">ECS::GameObjectIndex</a></td>          <td class="paramname"><span class="paramname"><em>cameraObject</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Establece la cámara de la escena 3D. </p>
+<dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">cameraObject</td><td>Objeto de la cámara. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definición en la línea <a class="el" href="_i_shader_pass_8cpp_source.html#l00042">42</a> del archivo <a class="el" href="_i_shader_pass_8cpp_source.html">IShaderPass.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a2a3b120e8a7ddaae0de1006a11b43f43" name="a2a3b120e8a7ddaae0de1006a11b43f43"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2a3b120e8a7ddaae0de1006a11b43f43">&#9670;&#160;</a></span>SetCameraBuffers()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void OSK::GRAPHICS::GrassRenderPass::SetCameraBuffers </td>
+          <td>(</td>
+          <td class="paramtype">std::span&lt; const <a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_buffer.html">GRAPHICS::GpuBuffer</a> *, MAX_RESOURCES_IN_FLIGHT &gt;</td>          <td class="paramname"><span class="paramname"><em>cameraBuffers</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definición en la línea <a class="el" href="_grass_render_pass_8h_source.html#l00023">23</a> del archivo <a class="el" href="_grass_render_pass_8h_source.html">GrassRenderPass.h</a>.</p>
+
+</div>
+</div>
+<a id="aefdfbd7828be9044cbff5f89ebd14f19" name="aefdfbd7828be9044cbff5f89ebd14f19"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aefdfbd7828be9044cbff5f89ebd14f19">&#9670;&#160;</a></span>SetupMaterialInstance()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void IShaderPass::SetupMaterialInstance </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_model3_d.html">GpuModel3D</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>model</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_mesh3_d.html">GpuMesh3D</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>mesh</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span><span class="mlabel">virtual</span><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Establece la instancia del material para un mesh dado. Por defecto, usa el modelo PBR. </p>
+<dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">model</td><td>Modelo que posee el mesh. </td></tr>
+    <tr><td class="paramname">mesh</td><td>Mesh a establecer. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Reimplementado en <a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_shadows_static_pass.html#a475b1d2b52d06b5d74e7094753f66466">OSK::GRAPHICS::ShadowsStaticPass</a>.</p>
+
+<p class="definition">Definición en la línea <a class="el" href="_i_shader_pass_8cpp_source.html#l00050">50</a> del archivo <a class="el" href="_i_shader_pass_8cpp_source.html">IShaderPass.cpp</a>.</p>
+
+</div>
+</div>
+<a id="ac0355ad89d637a87af6db72088a767ab" name="ac0355ad89d637a87af6db72088a767ab"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac0355ad89d637a87af6db72088a767ab">&#9670;&#160;</a></span>Update()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void GrassRenderPass::Update </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="namespace_o_s_k.html#adfc76cbcf35e5506ee24168edfe15bb0">TDeltaTime</a></td>          <td class="paramname"><span class="paramname"><em>deltaTime</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Reimplementado de <a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_shader_pass.html#a68ff9189ec330d8a7da4f85935248906">OSK::GRAPHICS::IShaderPass</a>.</p>
+
+<p class="definition">Definición en la línea <a class="el" href="_grass_render_pass_8cpp_source.html#l00042">42</a> del archivo <a class="el" href="_grass_render_pass_8cpp_source.html">GrassRenderPass.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a33423437d12681591b8f8c00da1bdaa0" name="a33423437d12681591b8f8c00da1bdaa0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a33423437d12681591b8f8c00da1bdaa0">&#9670;&#160;</a></span>UpdateLocalMeshMapping()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void IShaderPass::UpdateLocalMeshMapping </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="class_o_s_k_1_1_dynamic_array.html">DynamicArray</a>&lt; <a class="el" href="namespace_o_s_k_1_1_e_c_s.html#a5b92aeaa6be2ce0d96e7f571aa917042">ECS::GameObjectIndex</a> &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>objectsToRender</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Actualiza el MeshMapping local. </p>
+<dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">objectsToRender</td><td>Objetos a renderizar. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definición en la línea <a class="el" href="_i_shader_pass_8cpp_source.html#l00023">23</a> del archivo <a class="el" href="_i_shader_pass_8cpp_source.html">IShaderPass.cpp</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Documentación de datos miembro</h2>
+<a id="a5b6bae2d0bf919d36a9dc7791fd3d589" name="a5b6bae2d0bf919d36a9dc7791fd3d589"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5b6bae2d0bf919d36a9dc7791fd3d589">&#9670;&#160;</a></span>m_cameraObject</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="namespace_o_s_k_1_1_e_c_s.html#a5b92aeaa6be2ce0d96e7f571aa917042">ECS::GameObjectIndex</a> OSK::GRAPHICS::IShaderPass::m_cameraObject = <a class="el" href="namespace_o_s_k_1_1_e_c_s.html#a46b3731582093c6a4b02a2024b9edf81">ECS::EMPTY_GAME_OBJECT</a></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Camara de la escena. </p>
+
+<p class="definition">Definición en la línea <a class="el" href="_i_shader_pass_8h_source.html#l00109">109</a> del archivo <a class="el" href="_i_shader_pass_8h_source.html">IShaderPass.h</a>.</p>
+
+</div>
+</div>
+<a id="a019a1231c78e5305a51a17044cb4f7d1" name="a019a1231c78e5305a51a17044cb4f7d1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a019a1231c78e5305a51a17044cb4f7d1">&#9670;&#160;</a></span>m_currentResolution</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="namespace_o_s_k.html#a6f5b4753cd85b4773d2880148fd031cf">Vector2ui</a> OSK::GRAPHICS::IShaderPass::m_currentResolution = <a class="el" href="class_o_s_k_1_1_vector2__t.html#a3759903561dac1fc476d0cc9d051c536">Vector2ui::Zero</a></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Resolución actual del <a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_g_buffer.html" title="Clase que contiene los render targets necesarios para renderizar un GBuffer. Un GBuffer contiene imág...">GBuffer</a>. </p>
+
+<p class="definition">Definición en la línea <a class="el" href="_i_shader_pass_8h_source.html#l00100">100</a> del archivo <a class="el" href="_i_shader_pass_8h_source.html">IShaderPass.h</a>.</p>
+
+</div>
+</div>
+<a id="a7286295c11cee453ba0c44a8c7debbdf" name="a7286295c11cee453ba0c44a8c7debbdf"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7286295c11cee453ba0c44a8c7debbdf">&#9670;&#160;</a></span>m_localMeshMapping</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_local_mesh_mapping.html">LocalMeshMapping</a> OSK::GRAPHICS::IShaderPass::m_localMeshMapping {}</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definición en la línea <a class="el" href="_i_shader_pass_8h_source.html#l00097">97</a> del archivo <a class="el" href="_i_shader_pass_8h_source.html">IShaderPass.h</a>.</p>
+
+</div>
+</div>
+<a id="ad1cc1a97c5c0afc05c5e47fd6a23e1c7" name="ad1cc1a97c5c0afc05c5e47fd6a23e1c7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad1cc1a97c5c0afc05c5e47fd6a23e1c7">&#9670;&#160;</a></span>m_materialInstances</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::array&lt;<a class="el" href="class_o_s_k_1_1_unique_ptr.html">UniquePtr</a>&lt;<a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_instance.html">MaterialInstance</a>&gt;, MAX_RESOURCES_IN_FLIGHT&gt; OSK::GRAPHICS::IShaderPass::m_materialInstances {}</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Instancias del pase. </p>
+
+<p class="definition">Definición en la línea <a class="el" href="_i_shader_pass_8h_source.html#l00106">106</a> del archivo <a class="el" href="_i_shader_pass_8h_source.html">IShaderPass.h</a>.</p>
+
+</div>
+</div>
+<a id="ac260238caa4992b8f63f73c208029a8f" name="ac260238caa4992b8f63f73c208029a8f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac260238caa4992b8f63f73c208029a8f">&#9670;&#160;</a></span>m_passMaterial</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material.html">Material</a>* OSK::GRAPHICS::IShaderPass::m_passMaterial = nullptr</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p><a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material.html" title="Un material define el comportamiento del renderizador con un objeto en concreto. Debe definirse el la...">Material</a> del pase. </p>
+
+<p class="definition">Definición en la línea <a class="el" href="_i_shader_pass_8h_source.html#l00103">103</a> del archivo <a class="el" href="_i_shader_pass_8h_source.html">IShaderPass.h</a>.</p>
+
+</div>
+</div>
+<a id="a770e8786244ce14a92ae68b0b1e21efd" name="a770e8786244ce14a92ae68b0b1e21efd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a770e8786244ce14a92ae68b0b1e21efd">&#9670;&#160;</a></span>m_passTypeName</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string OSK::GRAPHICS::IShaderPass::m_passTypeName = &quot;&quot;</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Nombre del pase. </p>
+
+<p class="definition">Definición en la línea <a class="el" href="_i_shader_pass_8h_source.html#l00112">112</a> del archivo <a class="el" href="_i_shader_pass_8h_source.html">IShaderPass.h</a>.</p>
+
+</div>
+</div>
+<a id="ad9ec717bf5f82316e9cfd18c29a5f86a" name="ad9ec717bf5f82316e9cfd18c29a5f86a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad9ec717bf5f82316e9cfd18c29a5f86a">&#9670;&#160;</a></span>Name</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">auto OSK::GRAPHICS::GrassRenderPass::Name = &quot;GrassRenderPass&quot;</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definición en la línea <a class="el" href="_grass_render_pass_8h_source.html#l00017">17</a> del archivo <a class="el" href="_grass_render_pass_8h_source.html">GrassRenderPass.h</a>.</p>
+
+</div>
+</div>
+</div><!-- contents -->
+</div><!-- doc-content -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="namespace_o_s_k.html">OSK</a></li><li class="navelem"><a class="el" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html">GRAPHICS</a></li><li class="navelem"><a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_grass_render_pass.html">GrassRenderPass</a></li>
+    <li class="footer">Generado el Viernes, 6 de diciembre de 2024 12:52:13 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.12.0 </li>
+  </ul>
+</div>
+</body>
+</html>

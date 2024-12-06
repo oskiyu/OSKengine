@@ -14,8 +14,7 @@ var searchData=
   ['left_5fx_11',['LEFT_X',['../namespace_o_s_k_1_1_i_o.html#a37e62c3e569002298eedcfd13bad4dd4ae5815a16e50afa87f9a36ab8a52545c7',1,'OSK::IO']]],
   ['left_5fy_12',['LEFT_Y',['../namespace_o_s_k_1_1_i_o.html#a37e62c3e569002298eedcfd13bad4dd4adbc23e1293dc0846d28e1ea129344fcf',1,'OSK::IO']]],
   ['level_5frange_13',['LEVEL_RANGE',['../struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_view_config.html#a1690f98f669efbb826db4d8e6fcea973ac8cebb4771eb722be0be6a8970641176',1,'OSK::GRAPHICS::GpuImageViewConfig']]],
-  ['lienar_14',['LIENAR',['../namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a169cbd3b800f2c408287690a502bace1a917f963fb315f9de01300a4e516a7b32',1,'OSK::GRAPHICS']]],
-  ['line_15',['LINE',['../namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a9bf4af2a8108b7a3939f60c4efafcfd8a17b8ef2c330f1430e00c9de5469fc7e7',1,'OSK::GRAPHICS']]],
-  ['lineal_16',['LINEAL',['../namespace_o_s_k.html#abaa28774128d414c059ee31f2759d274a9b9ff7f1774e06092c715225f3c8a59e',1,'OSK::LINEAL'],['../namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#ad104d68df20e4df59f9a73783fda907ca9b9ff7f1774e06092c715225f3c8a59e',1,'OSK::GRAPHICS::LINEAL']]],
-  ['linear_17',['LINEAR',['../struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_animation_sampler.html#a983eff4f6a588ac5e94af54c40f73245aaac544aacc3615aada24897a215f5046',1,'OSK::GRAPHICS::AnimationSampler']]]
+  ['line_14',['LINE',['../namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a9bf4af2a8108b7a3939f60c4efafcfd8a17b8ef2c330f1430e00c9de5469fc7e7',1,'OSK::GRAPHICS']]],
+  ['lineal_15',['LINEAL',['../namespace_o_s_k.html#abaa28774128d414c059ee31f2759d274a9b9ff7f1774e06092c715225f3c8a59e',1,'OSK::LINEAL'],['../namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#ad104d68df20e4df59f9a73783fda907ca9b9ff7f1774e06092c715225f3c8a59e',1,'OSK::GRAPHICS::LINEAL']]],
+  ['linear_16',['LINEAR',['../struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_animation_sampler.html#a983eff4f6a588ac5e94af54c40f73245aaac544aacc3615aada24897a215f5046',1,'OSK::GRAPHICS::AnimationSampler::LINEAR'],['../namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a169cbd3b800f2c408287690a502bace1aaac544aacc3615aada24897a215f5046',1,'OSK::GRAPHICS::LINEAR']]]
 ];

@@ -13,7 +13,6 @@ var searchData=
   ['bonealreadyaddedexception_10',['BoneAlreadyAddedException',['../class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_bone_already_added_exception.html',1,'OSK::GRAPHICS']]],
   ['bonenotfoundexception_11',['BoneNotFoundException',['../class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_bone_not_found_exception.html',1,'OSK::GRAPHICS']]],
   ['borderlayout_12',['BorderLayout',['../class_o_s_k_1_1_u_i_1_1_border_layout.html',1,'OSK::UI']]],
-  ['bottomlevelaccelerationstructurevk_13',['BottomLevelAccelerationStructureVk',['../class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_bottom_level_acceleration_structure_vk.html',1,'OSK::GRAPHICS']]],
-  ['buffer_14',['Buffer',['../class_o_s_k_1_1_a_u_d_i_o_1_1_buffer.html',1,'OSK::AUDIO::Buffer'],['../class_o_s_k_1_1_m_e_m_o_r_y_1_1_buffer.html',1,'OSK::MEMORY::Buffer']]],
-  ['button_15',['Button',['../class_o_s_k_1_1_u_i_1_1_button.html',1,'OSK::UI']]]
+  ['buffer_13',['Buffer',['../class_o_s_k_1_1_a_u_d_i_o_1_1_buffer.html',1,'OSK::AUDIO::Buffer'],['../class_o_s_k_1_1_m_e_m_o_r_y_1_1_buffer.html',1,'OSK::MEMORY::Buffer']]],
+  ['button_14',['Button',['../class_o_s_k_1_1_u_i_1_1_button.html',1,'OSK::UI']]]
 ];

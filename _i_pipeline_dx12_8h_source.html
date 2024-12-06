@@ -103,82 +103,71 @@ $(function(){initNavTree('_i_pipeline_dx12_8h_source.html',''); initResizable(tr
 <div class="contents">
 <div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#pragma once</span></div>
 <div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span> </div>
-<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="preprocessor">#include &quot;ApiCall.h&quot;</span></div>
-<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &quot;MaterialLayout.h&quot;</span></div>
-<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &quot;VertexInfo.h&quot;</span></div>
-<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &quot;PipelineCreateInfo.h&quot;</span></div>
-<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span> </div>
-<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="preprocessor">#include &lt;string&gt;</span></div>
-<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="preprocessor">#include &quot;HlslRuntimeCompiler.h&quot;</span></div>
+<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="preprocessor">#include &quot;Platforms.h&quot;</span></div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#ifdef OSK_USE_DIRECTX12_BACKEND</span></div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span> </div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &quot;ApiCall.h&quot;</span></div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="preprocessor">#include &quot;MaterialLayout.h&quot;</span></div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="preprocessor">#include &quot;VertexInfo.h&quot;</span></div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="preprocessor">#include &quot;PipelineCreateInfo.h&quot;</span></div>
 <div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span> </div>
-<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="preprocessor">#include &lt;d3d12.h&gt;</span></div>
-<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="preprocessor">#include &lt;wrl.h&gt;</span></div>
-<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="keyword">using </span>Microsoft::WRL::ComPtr;</div>
-<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span><span class="preprocessor">#include &lt;dxcapi.h&gt;</span></div>
-<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span> </div>
-<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span><span class="keyword">namespace </span><a class="code hl_namespace" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html">OSK::GRAPHICS</a> {</div>
-<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span> </div>
-<div class="foldopen" id="foldopen00021" data-start="{" data-end="};">
-<div class="line"><a id="l00021" name="l00021"></a><span class="lineno"><a class="line" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_shader_stage_dx12.html">   21</a></span>    <span class="keyword">struct </span><a class="code hl_struct" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_shader_stage_dx12.html">ShaderStageDx12</a> {</div>
-<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>        </div>
-<div class="line"><a id="l00031" name="l00031"></a><span class="lineno"><a class="line" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_shader_stage_dx12.html#a39794d6e1beb3a299e0274b35e2eb4a0">   31</a></span>        ComPtr&lt;ID3DBlob&gt; <a class="code hl_variable" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_shader_stage_dx12.html#a39794d6e1beb3a299e0274b35e2eb4a0">precompiled</a>;</div>
-<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span> </div>
-<div class="line"><a id="l00041" name="l00041"></a><span class="lineno"><a class="line" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_shader_stage_dx12.html#a163f2ffe6501a05d9782442259189600">   41</a></span>        ComPtr&lt;IDxcBlob&gt; <a class="code hl_variable" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_shader_stage_dx12.html#a163f2ffe6501a05d9782442259189600">spirvCompiled</a>;</div>
-<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span> </div>
-<div class="line"><a id="l00043" name="l00043"></a><span class="lineno"><a class="line" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_shader_stage_dx12.html#a0ea8d6bd487ea3552ecd9d1d56ff73df">   43</a></span>        <span class="keywordtype">bool</span> <a class="code hl_variable" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_shader_stage_dx12.html#a0ea8d6bd487ea3552ecd9d1d56ff73df">isBlobPrecompiled</a> = <span class="keyword">false</span>;</div>
-<div class="line"><a id="l00044" name="l00044"></a><span class="lineno"><a class="line" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_shader_stage_dx12.html#a1dbb2aca29ef242c6a9c8efdeb04265e">   44</a></span>        D3D12_SHADER_BYTECODE <a class="code hl_variable" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_shader_stage_dx12.html#a1dbb2aca29ef242c6a9c8efdeb04265e">bytecode</a>{};</div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="preprocessor">#include &lt;string&gt;</span></div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="preprocessor">#include &quot;HlslRuntimeCompiler.h&quot;</span></div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span> </div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span><span class="preprocessor">#include &lt;d3d12.h&gt;</span></div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span><span class="preprocessor">#include &lt;wrl.h&gt;</span></div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span><span class="keyword">using </span>Microsoft::WRL::ComPtr;</div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span><span class="preprocessor">#include &lt;dxcapi.h&gt;</span></div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span> </div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span><span class="keyword">namespace </span><a class="code hl_namespace" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html">OSK::GRAPHICS</a> {</div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span> </div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>    <span class="keyword">struct </span>ShaderStageDx12 {</div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>        </div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>        ComPtr&lt;ID3DBlob&gt; precompiled;</div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span> </div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>        ComPtr&lt;IDxcBlob&gt; spirvCompiled;</div>
 <div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span> </div>
-<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>    };</div>
-</div>
-<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span> </div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>        <span class="keywordtype">bool</span> isBlobPrecompiled = <span class="keyword">false</span>;</div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>        D3D12_SHADER_BYTECODE bytecode{};</div>
 <div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span> </div>
-<div class="foldopen" id="foldopen00052" data-start="{" data-end="};">
-<div class="line"><a id="l00052" name="l00052"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_pipeline_dx12.html">   52</a></span>    <span class="keyword">class </span>OSKAPI_CALL <a class="code hl_class" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_pipeline_dx12.html">IPipelineDx12</a> {</div>
-<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span> </div>
-<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>    <span class="keyword">public</span>:</div>
-<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span> </div>
-<div class="line"><a id="l00056" name="l00056"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_pipeline_dx12.html#a219f7a8a090c150b84dc392aa1dddce1">   56</a></span>        <span class="keyword">virtual</span> <a class="code hl_function" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_pipeline_dx12.html#a219f7a8a090c150b84dc392aa1dddce1">~IPipelineDx12</a>() = <span class="keywordflow">default</span>;</div>
-<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span> </div>
-<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>        ID3D12PipelineState* GetPipeline() <span class="keyword">const</span>;</div>
-<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span> </div>
-<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>    <span class="keyword">protected</span>:</div>
-<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span> </div>
-<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>        <span class="keyword">static</span> ComPtr&lt;ID3DBlob&gt; LoadBlob(LPCWSTR filename);</div>
-<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span> </div>
-<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span>        <span class="keyword">static</span> ComPtr&lt;IDxcBlob&gt; CompileBlob(<span class="keyword">const</span> std::string&amp; spirvPath, <span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_vertex_info.html">VertexInfo</a>&amp; vertexInfo, <span class="keyword">const</span> std::string&amp; hlslProfile, <span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_layout.html">MaterialLayout</a>&amp; layout);</div>
-<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span> </div>
-<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span>        <a class="code hl_struct" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_shader_stage_dx12.html">ShaderStageDx12</a> LoadShader(<span class="keyword">const</span> <a class="code hl_struct" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_pipeline_create_info.html">PipelineCreateInfo</a>&amp; info, <span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_vertex_info.html">VertexInfo</a>&amp; vertexInfo, <span class="keyword">const</span> std::string&amp; path, <a class="code hl_enumeration" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#aa7e7dcffcab27051f141128e66a50fcb">ShaderStage</a> stage, <span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_layout.html">MaterialLayout</a>&amp; mLayout) <span class="keyword">const</span>;</div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>    };</div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span> </div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span> </div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>    <span class="keyword">class </span>OSKAPI_CALL IPipelineDx12 {</div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span> </div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>    <span class="keyword">public</span>:</div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span> </div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>        <span class="keyword">virtual</span> ~IPipelineDx12() = <span class="keywordflow">default</span>;</div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span> </div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>        ID3D12PipelineState* GetPipeline() <span class="keyword">const</span>;</div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span> </div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>    <span class="keyword">protected</span>:</div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span> </div>
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>        <span class="keyword">static</span> ComPtr&lt;ID3DBlob&gt; LoadBlob(LPCWSTR filename);</div>
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span> </div>
+<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span>        <span class="keyword">static</span> ComPtr&lt;IDxcBlob&gt; CompileBlob(<span class="keyword">const</span> std::string&amp; spirvPath, <span class="keyword">const</span> VertexInfo&amp; vertexInfo, <span class="keyword">const</span> std::string&amp; hlslProfile, <span class="keyword">const</span> MaterialLayout&amp; layout);</div>
 <div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span> </div>
-<div class="line"><a id="l00091" name="l00091"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_pipeline_dx12.html#a1a1833badaf5367685c6c9d743185342">   91</a></span>        ComPtr&lt;ID3D12PipelineState&gt; <a class="code hl_variable" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_pipeline_dx12.html#a1a1833badaf5367685c6c9d743185342">dxPipeline</a>;</div>
-<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span> </div>
-<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span>    <span class="keyword">private</span>:</div>
-<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span> </div>
-<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span>        <span class="keyword">static</span> std::string GetHlslProfile(<a class="code hl_enumeration" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#aa7e7dcffcab27051f141128e66a50fcb">ShaderStage</a> stage);</div>
-<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span> </div>
-<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span>    };</div>
-</div>
-<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span> </div>
-<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span>}</div>
-<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_pipeline_dx12_html"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_pipeline_dx12.html">OSK::GRAPHICS::IPipelineDx12</a></div><div class="ttdoc">Clase base para todos los pipelines de DirectX 12.</div><div class="ttdef"><b>Definition</b> <a href="#l00052">IPipelineDx12.h:52</a></div></div>
-<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_pipeline_dx12_html_a1a1833badaf5367685c6c9d743185342"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_pipeline_dx12.html#a1a1833badaf5367685c6c9d743185342">OSK::GRAPHICS::IPipelineDx12::dxPipeline</a></div><div class="ttdeci">ComPtr&lt; ID3D12PipelineState &gt; dxPipeline</div><div class="ttdef"><b>Definition</b> <a href="#l00091">IPipelineDx12.h:91</a></div></div>
-<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_pipeline_dx12_html_a219f7a8a090c150b84dc392aa1dddce1"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_pipeline_dx12.html#a219f7a8a090c150b84dc392aa1dddce1">OSK::GRAPHICS::IPipelineDx12::~IPipelineDx12</a></div><div class="ttdeci">virtual ~IPipelineDx12()=default</div></div>
-<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_layout_html"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_layout.html">OSK::GRAPHICS::MaterialLayout</a></div><div class="ttdoc">El layout de un material determina qué slots pertenecen a ese material.</div><div class="ttdef"><b>Definition</b> <a href="_material_layout_8h_source.html#l00013">MaterialLayout.h:13</a></div></div>
-<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_vertex_info_html"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_vertex_info.html">OSK::GRAPHICS::VertexInfo</a></div><div class="ttdoc">Información de los atributos de un vértice. El graphics pipeline lo usará para configurar el tipo de ...</div><div class="ttdef"><b>Definition</b> <a href="_vertex_info_8h_source.html#l00014">VertexInfo.h:14</a></div></div>
+<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span>        ShaderStageDx12 LoadShader(<span class="keyword">const</span> PipelineCreateInfo&amp; info, <span class="keyword">const</span> VertexInfo&amp; vertexInfo, <span class="keyword">const</span> std::string&amp; path, ShaderStage stage, <span class="keyword">const</span> MaterialLayout&amp; mLayout) <span class="keyword">const</span>;</div>
+<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span> </div>
+<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span>        ComPtr&lt;ID3D12PipelineState&gt; dxPipeline;</div>
+<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span> </div>
+<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span>    <span class="keyword">private</span>:</div>
+<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span> </div>
+<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span>        <span class="keyword">static</span> std::string GetHlslProfile(ShaderStage stage);</div>
+<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span> </div>
+<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span>    };</div>
+<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span> </div>
+<div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span>}</div>
+<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span> </div>
+<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span><span class="preprocessor">#endif</span></div>
 <div class="ttc" id="anamespace_o_s_k_1_1_g_r_a_p_h_i_c_s_html"><div class="ttname"><a href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html">OSK::GRAPHICS</a></div><div class="ttdef"><b>Definition</b> <a href="_acceleration_structures_exceptions_8h_source.html#l00005">AccelerationStructuresExceptions.h:5</a></div></div>
-<div class="ttc" id="anamespace_o_s_k_1_1_g_r_a_p_h_i_c_s_html_aa7e7dcffcab27051f141128e66a50fcb"><div class="ttname"><a href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#aa7e7dcffcab27051f141128e66a50fcb">OSK::GRAPHICS::ShaderStage</a></div><div class="ttdeci">ShaderStage</div><div class="ttdoc">Shaders en los que se puede acceder a un elemento.</div><div class="ttdef"><b>Definition</b> <a href="_shader_binding_type_8h_source.html#l00062">ShaderBindingType.h:62</a></div></div>
-<div class="ttc" id="astruct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_pipeline_create_info_html"><div class="ttname"><a href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_pipeline_create_info.html">OSK::GRAPHICS::PipelineCreateInfo</a></div><div class="ttdoc">Contiene la información necesaria para configurar un nuevo graphics pipeline.</div><div class="ttdef"><b>Definition</b> <a href="_pipeline_create_info_8h_source.html#l00102">PipelineCreateInfo.h:102</a></div></div>
-<div class="ttc" id="astruct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_shader_stage_dx12_html"><div class="ttname"><a href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_shader_stage_dx12.html">OSK::GRAPHICS::ShaderStageDx12</a></div><div class="ttdoc">Contiene los datos compilados de un shader.</div><div class="ttdef"><b>Definition</b> <a href="#l00021">IPipelineDx12.h:21</a></div></div>
-<div class="ttc" id="astruct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_shader_stage_dx12_html_a0ea8d6bd487ea3552ecd9d1d56ff73df"><div class="ttname"><a href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_shader_stage_dx12.html#a0ea8d6bd487ea3552ecd9d1d56ff73df">OSK::GRAPHICS::ShaderStageDx12::isBlobPrecompiled</a></div><div class="ttdeci">bool isBlobPrecompiled</div><div class="ttdef"><b>Definition</b> <a href="#l00043">IPipelineDx12.h:43</a></div></div>
-<div class="ttc" id="astruct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_shader_stage_dx12_html_a163f2ffe6501a05d9782442259189600"><div class="ttname"><a href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_shader_stage_dx12.html#a163f2ffe6501a05d9782442259189600">OSK::GRAPHICS::ShaderStageDx12::spirvCompiled</a></div><div class="ttdeci">ComPtr&lt; IDxcBlob &gt; spirvCompiled</div><div class="ttdoc">Blob de datos con el shader compilado.</div><div class="ttdef"><b>Definition</b> <a href="#l00041">IPipelineDx12.h:41</a></div></div>
-<div class="ttc" id="astruct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_shader_stage_dx12_html_a1dbb2aca29ef242c6a9c8efdeb04265e"><div class="ttname"><a href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_shader_stage_dx12.html#a1dbb2aca29ef242c6a9c8efdeb04265e">OSK::GRAPHICS::ShaderStageDx12::bytecode</a></div><div class="ttdeci">D3D12_SHADER_BYTECODE bytecode</div><div class="ttdef"><b>Definition</b> <a href="#l00044">IPipelineDx12.h:44</a></div></div>
-<div class="ttc" id="astruct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_shader_stage_dx12_html_a39794d6e1beb3a299e0274b35e2eb4a0"><div class="ttname"><a href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_shader_stage_dx12.html#a39794d6e1beb3a299e0274b35e2eb4a0">OSK::GRAPHICS::ShaderStageDx12::precompiled</a></div><div class="ttdeci">ComPtr&lt; ID3DBlob &gt; precompiled</div><div class="ttdoc">Blob de datos con el shader compilado.</div><div class="ttdef"><b>Definition</b> <a href="#l00031">IPipelineDx12.h:31</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_74389ed8173ad57b461b9d623a1f3867.html">Source</a></li><li class="navelem"><b>IPipelineDx12.h</b></li>
-    <li class="footer">Generado el Viernes, 16 de agosto de 2024 22:47:23 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.12.0 </li>
+    <li class="footer">Generado el Viernes, 6 de diciembre de 2024 12:52:11 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.12.0 </li>
   </ul>
 </div>
 </body>

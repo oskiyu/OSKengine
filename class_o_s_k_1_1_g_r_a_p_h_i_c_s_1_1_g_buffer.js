@@ -10,7 +10,7 @@ var class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_g_buffer =
     ] ],
     [ "BeginRenderpass", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_g_buffer.html#a34a1442e30ac42f716f2ab0a10651542", null ],
     [ "BindPipelineBarriers", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_g_buffer.html#a3a03e4b2f4bf296382c1ada80a5be556", null ],
-    [ "Create", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_g_buffer.html#ab4768e9af525c61ff55a7bd181299afa", null ],
+    [ "Create", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_g_buffer.html#ad2b862c32558d9412c51a5ea5b43f07e", null ],
     [ "GetImage", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_g_buffer.html#a0fb9c5c55b9dcc2fcd5ee9d9928554f3", null ],
     [ "GetImage", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_g_buffer.html#a4c19eacb62a15c566fe46472b488f87b", null ],
     [ "Resize", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_g_buffer.html#abf1f6e141e5bc94d9bd4317bdc27a0d7", null ]

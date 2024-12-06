@@ -118,14 +118,6 @@ Métodos públicos</h2></td></tr>
 <tr class="separator:aa63da735055c328379dbcb1188523e44"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aeec0bafca977544bd59c2fbfe477d3e5" id="r_aeec0bafca977544bd59c2fbfe477d3e5"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aeec0bafca977544bd59c2fbfe477d3e5">Execute</a> (<a class="el" href="namespace_o_s_k.html#adfc76cbcf35e5506ee24168edfe15bb0">TDeltaTime</a> deltaTime, std::span&lt; const <a class="el" href="namespace_o_s_k_1_1_e_c_s.html#a5b92aeaa6be2ce0d96e7f571aa917042">GameObjectIndex</a> &gt; objects) override</td></tr>
 <tr class="separator:aeec0bafca977544bd59c2fbfe477d3e5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a513f9e050d106e2852154fe485f3b025" id="r_a513f9e050d106e2852154fe485f3b025"><td class="memItemLeft" align="right" valign="top">nlohmann::json&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a513f9e050d106e2852154fe485f3b025">SaveConfiguration</a> () const override</td></tr>
-<tr class="separator:a513f9e050d106e2852154fe485f3b025"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a510ac9ef9d7019d8ee2786eaaf5606d3" id="r_a510ac9ef9d7019d8ee2786eaaf5606d3"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_o_s_k_1_1_p_e_r_s_i_s_t_e_n_c_e_1_1_binary_block.html">PERSISTENCE::BinaryBlock</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a510ac9ef9d7019d8ee2786eaaf5606d3">SaveBinaryConfiguration</a> () const override</td></tr>
-<tr class="separator:a510ac9ef9d7019d8ee2786eaaf5606d3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1940982c968ee725476863429ffb1d11" id="r_a1940982c968ee725476863429ffb1d11"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a1940982c968ee725476863429ffb1d11">ApplyConfiguration</a> (const nlohmann::json &amp;config, const <a class="el" href="class_o_s_k_1_1_e_c_s_1_1_saved_game_object_translator.html">SavedGameObjectTranslator</a> &amp;translator) override</td></tr>
-<tr class="separator:a1940982c968ee725476863429ffb1d11"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa2570da0f7b1aa24644d18cd5160d45d" id="r_aa2570da0f7b1aa24644d18cd5160d45d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aa2570da0f7b1aa24644d18cd5160d45d">ApplyConfiguration</a> (<a class="el" href="class_o_s_k_1_1_p_e_r_s_i_s_t_e_n_c_e_1_1_binary_block_reader.html">PERSISTENCE::BinaryBlockReader</a> *reader, const <a class="el" href="class_o_s_k_1_1_e_c_s_1_1_saved_game_object_translator.html">SavedGameObjectTranslator</a> &amp;translator) override</td></tr>
-<tr class="separator:aa2570da0f7b1aa24644d18cd5160d45d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af380b55facabf814ca48fef44cae116b" id="r_af380b55facabf814ca48fef44cae116b"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_e_c_s_1_1_i_iterator_system.html#af380b55facabf814ca48fef44cae116b">OnObjectAdded</a> (<a class="el" href="namespace_o_s_k_1_1_e_c_s.html#a5b92aeaa6be2ce0d96e7f571aa917042">GameObjectIndex</a> obj)</td></tr>
 <tr class="separator:af380b55facabf814ca48fef44cae116b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a95c8a52cae15f1ea27c6bed80c8708c3" id="r_a95c8a52cae15f1ea27c6bed80c8708c3"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_e_c_s_1_1_i_iterator_system.html#a95c8a52cae15f1ea27c6bed80c8708c3">OnObjectRemoved</a> (<a class="el" href="namespace_o_s_k_1_1_e_c_s.html#a5b92aeaa6be2ce0d96e7f571aa917042">GameObjectIndex</a> obj)</td></tr>
@@ -274,90 +266,6 @@ Métodos protegidos</h2></td></tr>
 <p>Activa el sistema, con lo que se ejecutará cada frame. </p>
 
 <p class="definition">Definición en la línea <a class="el" href="_i_system_8cpp_source.html#l00013">13</a> del archivo <a class="el" href="_i_system_8cpp_source.html">ISystem.cpp</a>.</p>
-
-</div>
-</div>
-<a id="a1940982c968ee725476863429ffb1d11" name="a1940982c968ee725476863429ffb1d11"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1940982c968ee725476863429ffb1d11">&#9670;&#160;</a></span>ApplyConfiguration() <span class="overload">[1/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void TransformApplierSystem::ApplyConfiguration </td>
-          <td>(</td>
-          <td class="paramtype">const nlohmann::json &amp;</td>          <td class="paramname"><span class="paramname"><em>config</em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const <a class="el" href="class_o_s_k_1_1_e_c_s_1_1_saved_game_object_translator.html">SavedGameObjectTranslator</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>translator</em></span>&#160;)</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Aplica la configuración al sistema. </p>
-<dl class="params"><dt>Parámetros</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">config</td><td>Configuración del sistema. </td></tr>
-    <tr><td class="paramname">translator</td><td>Tabla que permite obtener los IDs generados. </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p>Implementa <a class="el" href="class_o_s_k_1_1_e_c_s_1_1_i_system.html#a356c53dd2a07b8aa475fb6fc6109bd14">OSK::ECS::ISystem</a>.</p>
-
-<p class="definition">Definición en la línea <a class="el" href="_transform_applier_system_8cpp_source.html#l00060">60</a> del archivo <a class="el" href="_transform_applier_system_8cpp_source.html">TransformApplierSystem.cpp</a>.</p>
-
-</div>
-</div>
-<a id="aa2570da0f7b1aa24644d18cd5160d45d" name="aa2570da0f7b1aa24644d18cd5160d45d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa2570da0f7b1aa24644d18cd5160d45d">&#9670;&#160;</a></span>ApplyConfiguration() <span class="overload">[2/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void TransformApplierSystem::ApplyConfiguration </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="class_o_s_k_1_1_p_e_r_s_i_s_t_e_n_c_e_1_1_binary_block_reader.html">PERSISTENCE::BinaryBlockReader</a> *</td>          <td class="paramname"><span class="paramname"><em>reader</em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const <a class="el" href="class_o_s_k_1_1_e_c_s_1_1_saved_game_object_translator.html">SavedGameObjectTranslator</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>translator</em></span>&#160;)</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Aplica la configuración al sistema. </p>
-<dl class="params"><dt>Parámetros</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">reader</td><td>Lector del bloque binario que contiene los datos del sistema. </td></tr>
-    <tr><td class="paramname">translator</td><td>Tabla que permite obtener los IDs generados. </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p>Implementa <a class="el" href="class_o_s_k_1_1_e_c_s_1_1_i_system.html#a5916eb925d40c0ad0bf7c946b62ab996">OSK::ECS::ISystem</a>.</p>
-
-<p class="definition">Definición en la línea <a class="el" href="_transform_applier_system_8cpp_source.html#l00064">64</a> del archivo <a class="el" href="_transform_applier_system_8cpp_source.html">TransformApplierSystem.cpp</a>.</p>
 
 </div>
 </div>
@@ -783,66 +691,6 @@ Métodos protegidos</h2></td></tr>
 
 </div>
 </div>
-<a id="a510ac9ef9d7019d8ee2786eaaf5606d3" name="a510ac9ef9d7019d8ee2786eaaf5606d3"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a510ac9ef9d7019d8ee2786eaaf5606d3">&#9670;&#160;</a></span>SaveBinaryConfiguration()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="class_o_s_k_1_1_p_e_r_s_i_s_t_e_n_c_e_1_1_binary_block.html">PERSISTENCE::BinaryBlock</a> TransformApplierSystem::SaveBinaryConfiguration </td>
-          <td>(</td>
-          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<dl class="section return"><dt>Devuelve</dt><dd>Estructura binaria con la información relevante de la configuración del sistema en un momento dado. </dd></dl>
-
-<p>Implementa <a class="el" href="class_o_s_k_1_1_e_c_s_1_1_i_system.html#ab5ebff79ec2fb87d79f43dcddd9ceaa6">OSK::ECS::ISystem</a>.</p>
-
-<p class="definition">Definición en la línea <a class="el" href="_transform_applier_system_8cpp_source.html#l00056">56</a> del archivo <a class="el" href="_transform_applier_system_8cpp_source.html">TransformApplierSystem.cpp</a>.</p>
-
-</div>
-</div>
-<a id="a513f9e050d106e2852154fe485f3b025" name="a513f9e050d106e2852154fe485f3b025"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a513f9e050d106e2852154fe485f3b025">&#9670;&#160;</a></span>SaveConfiguration()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">nlohmann::json TransformApplierSystem::SaveConfiguration </td>
-          <td>(</td>
-          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<dl class="section return"><dt>Devuelve</dt><dd>Estructura JSON con la información relevante de la configuración del sistema en un momento dado. </dd></dl>
-
-<p>Implementa <a class="el" href="class_o_s_k_1_1_e_c_s_1_1_i_system.html#a71abb122385e05992f9c3875993dafd1">OSK::ECS::ISystem</a>.</p>
-
-<p class="definition">Definición en la línea <a class="el" href="_transform_applier_system_8cpp_source.html#l00049">49</a> del archivo <a class="el" href="_transform_applier_system_8cpp_source.html">TransformApplierSystem.cpp</a>.</p>
-
-</div>
-</div>
 <a id="a97458cf11d6b977bad992387a2d67297" name="a97458cf11d6b977bad992387a2d67297"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a97458cf11d6b977bad992387a2d67297">&#9670;&#160;</a></span>SetActivationStatus()</h2>
 
@@ -948,7 +796,7 @@ Métodos protegidos</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="namespace_o_s_k.html">OSK</a></li><li class="navelem"><a class="el" href="namespace_o_s_k_1_1_e_c_s.html">ECS</a></li><li class="navelem"><a class="el" href="class_o_s_k_1_1_e_c_s_1_1_transform_applier_system.html">TransformApplierSystem</a></li>
-    <li class="footer">Generado el Viernes, 16 de agosto de 2024 22:47:25 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.12.0 </li>
+    <li class="footer">Generado el Viernes, 6 de diciembre de 2024 12:52:12 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.12.0 </li>
   </ul>
 </div>
 </body>
