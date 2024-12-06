@@ -1,5 +1,8 @@
 #pragma once
 
+#include "Platforms.h"
+#ifdef OSK_USE_VULKAN_BACKEND
+
 #include "IGpuImage.h"
 #include "VulkanTypedefs.h"
 #include "DynamicArray.hpp"
@@ -35,12 +38,6 @@ namespace OSK::GRAPHICS {
 		void CreateVkImage();
 		VkImage GetVkImage() const;
 
-		/// @brief Crea el sampler de la imagen.
-		/// @param sampler Descripción del sampler.
-		void CreateVkSampler(const GpuImageSamplerDesc& sampler);
-
-		VkSampler GetVkSampler() const;
-
 		void _SetVkImage(VkImage img);
 		
 		void SetSwapchainView(VkImageView view);
@@ -48,9 +45,6 @@ namespace OSK::GRAPHICS {
 
 		void SetDebugName(const std::string& name) override;
 
-
-		static VkFilter GetFilterTypeVulkan(GpuImageFilteringType type);
-		static VkSamplerAddressMode GetAddressModeVulkan(GpuImageAddressMode mode);
 		static VkImageAspectFlags GetAspectFlags(SampledChannel channel);
 
 	protected:
@@ -64,7 +58,6 @@ namespace OSK::GRAPHICS {
 		VkImageViewType GetVkImageArrayViewType() const;
 
 		VkImage m_image = nullptr;
-		VkSampler m_sampler = nullptr;
 
 		VkImageView m_swapchainView = nullptr;
 
@@ -73,3 +66,5 @@ namespace OSK::GRAPHICS {
 	};
 
 }
+
+#endif

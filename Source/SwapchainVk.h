@@ -1,5 +1,8 @@
 #pragma once
 
+#include "Platforms.h"
+#ifdef OSK_USE_VULKAN_BACKEND
+
 #include "ISwapchain.h"
 #include "VulkanTypedefs.h"
 
@@ -49,9 +52,7 @@ namespace OSK::GRAPHICS {
 			const Vector2ui& resolution);
 
 		/// @throws SwapchainCreationException Si ocurre algún error.
-		void AcquireImages(
-			const GpuVk& device, 
-			const Vector2ui& resolution);
+		void AcquireImages(const GpuVk& device);
 		/// @throws SwapchainCreationException Si ocurre algún error.
 		void AcquireViews(const GpuVk& device);
 
@@ -65,3 +66,5 @@ namespace OSK::GRAPHICS {
 	};
 
 }
+
+#endif

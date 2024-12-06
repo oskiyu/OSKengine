@@ -3,7 +3,6 @@
 #include "ApiCall.h"
 #include "MaterialInstance.h"
 #include "DynamicArray.hpp"
-#include "Vector4.hpp"
 #include "Color.hpp"
 #include "TextureCoordinates.h"
 

@@ -1,9 +1,15 @@
 #include "GpuImageVk.h"
 
+#include "Platforms.h"
+#ifdef OSK_USE_VULKAN_BACKEND
+
 #include "OSKengine.h"
 #include "RendererVk.h"
 #include "GpuVk.h"
 #include "Logger.h"
+
+#include "Assert.h"
+#include "UnreachableException.h"
 
 #include "FormatVk.h"
 #include "GpuImageUsage.h"
@@ -19,32 +25,6 @@
 using namespace OSK;
 using namespace OSK::GRAPHICS;
 
-
-VkFilter GpuImageVk::GetFilterTypeVulkan(GpuImageFilteringType type) {
-	switch (type) {
-	case OSK::GRAPHICS::GpuImageFilteringType::LIENAR:
-		return VK_FILTER_LINEAR;
-	case OSK::GRAPHICS::GpuImageFilteringType::NEAREST:
-		return VK_FILTER_NEAREST;
-	case OSK::GRAPHICS::GpuImageFilteringType::CUBIC:
-		return VK_FILTER_CUBIC_IMG;
-	}
-}
-
-VkSamplerAddressMode GpuImageVk::GetAddressModeVulkan(GpuImageAddressMode mode) {
-	switch (mode) {
-	case OSK::GRAPHICS::GpuImageAddressMode::REPEAT:
-		return VK_SAMPLER_ADDRESS_MODE_REPEAT;
-	case OSK::GRAPHICS::GpuImageAddressMode::MIRRORED_REPEAT:
-		return VK_SAMPLER_ADDRESS_MODE_MIRRORED_REPEAT;
-	case OSK::GRAPHICS::GpuImageAddressMode::EDGE:
-		return VK_SAMPLER_ADDRESS_MODE_CLAMP_TO_EDGE;
-	case OSK::GRAPHICS::GpuImageAddressMode::BACKGROUND_BLACK:
-		return VK_SAMPLER_ADDRESS_MODE_CLAMP_TO_BORDER;
-	case OSK::GRAPHICS::GpuImageAddressMode::BACKGROUND_WHITE:
-		return VK_SAMPLER_ADDRESS_MODE_CLAMP_TO_BORDER;
-	}
-}
 
 VkImageAspectFlags GpuImageVk::GetAspectFlags(SampledChannel channel) {
 	VkImageAspectFlags aspectMask = 0;
@@ -69,9 +49,6 @@ GpuImageVk::~GpuImageVk() {
 
 	if (m_image != VK_NULL_HANDLE)
 		vkDestroyImage(logicalDevice, m_image, nullptr);
-
-	if (m_sampler != VK_NULL_HANDLE)
-		vkDestroySampler(logicalDevice, m_sampler, nullptr);
 }
 
 
@@ -146,60 +123,6 @@ void GpuImageVk::CreateVkImage() {
 
 VkImage GpuImageVk::GetVkImage() const {
 	return m_image;
-}
-
-void GpuImageVk::CreateVkSampler(const GpuImageSamplerDesc& samplerDesc) {
-	//Info del sampler.
-	VkSamplerCreateInfo samplerInfo{};
-	samplerInfo.sType = VK_STRUCTURE_TYPE_SAMPLER_CREATE_INFO;
-	//Filtro:
-	//	VK_FILTER_LINEAR: suavizado.
-	//	VK_FILTER_NEAREST: pixelado.
-	samplerInfo.minFilter = GetFilterTypeVulkan(samplerDesc.filteringType);
-	samplerInfo.magFilter = GetFilterTypeVulkan(samplerDesc.filteringType);
-	//AddressMode: como se accede a la imagen con TexCoords fuera de los límites.
-	samplerInfo.addressModeU = GetAddressModeVulkan(samplerDesc.addressMode);
-	samplerInfo.addressModeV = GetAddressModeVulkan(samplerDesc.addressMode);
-	samplerInfo.addressModeW = GetAddressModeVulkan(samplerDesc.addressMode);
-
-	samplerInfo.anisotropyEnable = VK_TRUE;
-	samplerInfo.maxAnisotropy = 16.0f;
-
-	samplerInfo.borderColor = VK_BORDER_COLOR_FLOAT_OPAQUE_BLACK;
-	if (samplerDesc.addressMode == GpuImageAddressMode::BACKGROUND_WHITE)
-		samplerInfo.borderColor = VK_BORDER_COLOR_FLOAT_OPAQUE_WHITE;
-
-	samplerInfo.unnormalizedCoordinates = VK_FALSE;
-
-	samplerInfo.compareEnable = VK_FALSE;
-	samplerInfo.compareOp = VK_COMPARE_OP_ALWAYS;
-
-	switch (samplerDesc.mipMapMode) {
-	case GpuImageMipmapMode::AUTO:
-		samplerInfo.minLod = 0.0f;
-		samplerInfo.maxLod = static_cast<float>(GetMipLevels());
-		break;
-
-	case GpuImageMipmapMode::CUSTOM:
-		samplerInfo.minLod = static_cast<float>(samplerDesc.minMipLevel);
-		samplerInfo.maxLod = static_cast<float>(samplerDesc.maxMipLevel);
-		break;
-
-	case GpuImageMipmapMode::NONE:
-		samplerInfo.minLod = 0.0f;
-		samplerInfo.maxLod = 0.0f;
-		break;
-	}
-
-	samplerInfo.mipmapMode = VK_SAMPLER_MIPMAP_MODE_LINEAR;
-	samplerInfo.mipLodBias = -0.5f;
-
-	const VkDevice device = Engine::GetRenderer()->GetGpu()->As<GpuVk>()->GetLogicalDevice();
-	vkCreateSampler(device,	&samplerInfo, nullptr, &m_sampler);
-}
-
-VkSampler GpuImageVk::GetVkSampler() const {
-	return m_sampler;
 }
 
 void GpuImageVk::_SetVkImage(VkImage img) {
@@ -281,6 +204,8 @@ VkImageType GpuImageVk::GetVkImageType() const {
 	case GpuImageDimension::d3D:
 		return VK_IMAGE_TYPE_3D;
 	}
+
+	OSK_ASSERT(false, UnreachableException("GpuImageDimension no reconocido."));
 }
 
 VkImageViewType GpuImageVk::GetVkImageViewType() const {
@@ -296,6 +221,8 @@ VkImageViewType GpuImageVk::GetVkImageViewType() const {
 	case GpuImageDimension::d3D:
 		return VK_IMAGE_VIEW_TYPE_3D;
 	}
+
+	OSK_ASSERT(false, UnreachableException("GpuImageDimension no reconocido."));
 }
 
 VkImageViewType GpuImageVk::GetVkImageArrayViewType() const {
@@ -304,5 +231,12 @@ VkImageViewType GpuImageVk::GetVkImageArrayViewType() const {
 		return VK_IMAGE_VIEW_TYPE_1D_ARRAY;
 	case GpuImageDimension::d2D:
 		return VK_IMAGE_VIEW_TYPE_2D_ARRAY;
+
+	default:
+		break;
 	}
+
+	OSK_ASSERT(false, UnreachableException("GpuImageDimension no reconocido para ARRAY."));
 }
+
+#endif

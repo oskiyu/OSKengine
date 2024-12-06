@@ -1,5 +1,8 @@
 #pragma once
 
+#include "Platforms.h"
+#ifdef OSK_USE_DIRECTX12_BACKEND
+
 #include "ISwapchain.h"
 #include "UniquePtr.hpp"
 
@@ -62,3 +65,5 @@ namespace OSK::GRAPHICS {
 	};
 
 }
+
+#endif

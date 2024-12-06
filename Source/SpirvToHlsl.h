@@ -1,5 +1,8 @@
 #pragma once
 
+#include "Platforms.h"
+#ifdef OSK_USE_DIRECTX12_BACKEND
+
 #include "ApiCall.h"
 
 #include <string>
@@ -65,3 +68,5 @@ namespace OSK::GRAPHICS {
 	};
 
 }
+
+#endif

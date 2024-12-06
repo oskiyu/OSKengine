@@ -3,7 +3,6 @@
 #include <string>
 
 #include "HashMap.hpp"
-#include "LinkedList.hpp"
 #include "SharedPtr.hpp"
 #include "UniquePtr.hpp"
 #include "IAssetLoader.h"
@@ -12,6 +11,7 @@
 #include "AssetRef.h"
 
 #include "AssetLoaderNotFoundException.h"
+#include "Assert.h"
 
 #include <span>
 

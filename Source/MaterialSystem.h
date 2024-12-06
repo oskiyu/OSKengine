@@ -2,7 +2,6 @@
 
 #include "ApiCall.h"
 
-#include "LinkedList.hpp"
 #include "DynamicArray.hpp"
 #include "HashMap.hpp"
 #include "OwnedPtr.h"
@@ -85,8 +84,6 @@ namespace OSK::GRAPHICS {
 
 		/// @throws ASSETS::InvalidDescriptionFileException Si el archivo de material es incorrecto.
 		void LoadMaterialV0(MaterialLayout* layout, const nlohmann::json& materialInfo, PipelineCreateInfo* info);
-		/// @throws ASSETS::InvalidDescriptionFileException Si el archivo de material es incorrecto.
-		void LoadMaterialV1(MaterialLayout* layout, const nlohmann::json& materialInfo, PipelineCreateInfo* info, MaterialType type);
 
 		DynamicArray<UniquePtr<Material>> materials;
 		std::unordered_map<std::string, Material*, StringHasher, std::equal_to<>> materialsPathTable;

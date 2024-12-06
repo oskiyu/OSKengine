@@ -1,5 +1,8 @@
 #pragma once
 
+#include "Platforms.h"
+#ifdef OSK_USE_VULKAN_BACKEND
+
 #include "ITopLevelAccelerationStructure.h"
 
 #include "UniquePtr.hpp"
@@ -37,3 +40,5 @@ namespace OSK::GRAPHICS {
 	};
 
 }
+
+#endif

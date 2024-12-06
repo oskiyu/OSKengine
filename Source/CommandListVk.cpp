@@ -1,5 +1,8 @@
 #include "CommandListVk.h"
 
+#include "Platforms.h"
+#ifdef OSK_USE_VULKAN_BACKEND
+
 #include <vulkan/vulkan.h>
 
 // Memoria GPU
@@ -12,6 +15,7 @@
 #include "GpuImageLayout.h"
 #include "GpuImageVk.h"
 #include "GpuImageViewVk.h"
+#include "GpuImageSamplerVk.h"
 
 #include "CopyImageInfo.h"
 
@@ -26,6 +30,7 @@
 #include "GraphicsPipelineVk.h"
 #include "RaytracingPipelineVk.h"
 #include "ComputePipelineVk.h"
+#include "MeshPipelineVk.h"
 
 #include "PipelineLayoutVk.h"
 
@@ -160,10 +165,10 @@ static VkIndexType GetIndexTypevk(IndexType type) {
 }
 
 
-CommandListVk::CommandListVk(const GpuVk& gpu, const CommandPoolVk& commandPool) : ICommandList(&commandPool), m_logicalDevice(gpu.GetLogicalDevice()) {
+CommandListVk::CommandListVk(const GpuVk& gpu, CommandPoolVk* commandPool) : ICommandList(commandPool), m_logicalDevice(gpu.GetLogicalDevice()) {
 	VkCommandBufferAllocateInfo allocInfo{};
 	allocInfo.sType = VK_STRUCTURE_TYPE_COMMAND_BUFFER_ALLOCATE_INFO;
-	allocInfo.commandPool = commandPool.GetCommandPool();
+	allocInfo.commandPool = commandPool->GetCommandPool();
 	allocInfo.level = VK_COMMAND_BUFFER_LEVEL_PRIMARY;
 	allocInfo.commandBufferCount = static_cast<USize32>(m_commandBuffers.size());
 
@@ -188,9 +193,9 @@ void CommandListVk::Reset() {
 void CommandListVk::Start() {
 	const VkCommandBufferBeginInfo beginInfo {
 		VK_STRUCTURE_TYPE_COMMAND_BUFFER_BEGIN_INFO,
-		NULL,
+		nullptr,
 		0, // flags
-		NULL
+		nullptr
 	};
 
 	VkResult result = vkBeginCommandBuffer(m_commandBuffers[_GetCommandListIndex()], &beginInfo);
@@ -482,7 +487,7 @@ void CommandListVk::CopyImageToImage(const GpuImage& source, GpuImage* destinati
 		source.As<GpuImageVk>()->GetVkImage(), VK_IMAGE_LAYOUT_TRANSFER_SRC_OPTIMAL,
 		destination->As<GpuImageVk>()->GetVkImage(), VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL,
 		1, &copyRegion,
-		GpuImageVk::GetFilterTypeVulkan(filter));
+		GpuImageSamplerVk::GetFilterTypeVk(filter));
 }
 
 void CommandListVk::CopyBufferToBuffer(const GpuBuffer& source, GpuBuffer* dest, USize64 size, USize64 sourceOffset, USize64 destOffset) {
@@ -678,9 +683,10 @@ void CommandListVk::BindMaterialSlot(const IMaterialSlot& slot) {
 
 	VkPipelineBindPoint bindPoint{};
 	switch (m_currentlyBoundMaterial->GetMaterialType()) {
-		case MaterialType::COMPUTE: bindPoint = VK_PIPELINE_BIND_POINT_COMPUTE; break;
-		case MaterialType::GRAPHICS: bindPoint = VK_PIPELINE_BIND_POINT_GRAPHICS; break;
-		case MaterialType::RAYTRACING: bindPoint = VK_PIPELINE_BIND_POINT_RAY_TRACING_KHR; break;
+		case MaterialType::COMPUTE:		bindPoint = VK_PIPELINE_BIND_POINT_COMPUTE;			break;
+		case MaterialType::GRAPHICS:	bindPoint = VK_PIPELINE_BIND_POINT_GRAPHICS;		break;
+		case MaterialType::RAYTRACING:	bindPoint = VK_PIPELINE_BIND_POINT_RAY_TRACING_KHR; break;
+		case MaterialType::MESH:		bindPoint = VK_PIPELINE_BIND_POINT_GRAPHICS;		break;
 	}
 
 	VkPipelineLayout layout = VK_NULL_HANDLE;
@@ -688,6 +694,7 @@ void CommandListVk::BindMaterialSlot(const IMaterialSlot& slot) {
 		case MaterialType::COMPUTE: layout = m_currentPipeline.compute->GetLayout()->As<PipelineLayoutVk>()->GetLayout(); break;
 		case MaterialType::GRAPHICS: layout = m_currentPipeline.graphics->GetLayout()->As<PipelineLayoutVk>()->GetLayout(); break;
 		case MaterialType::RAYTRACING: layout = m_currentPipeline.raytracing->GetLayout()->As<PipelineLayoutVk>()->GetLayout(); break;
+		case MaterialType::MESH: layout = m_currentPipeline.mesh->GetLayout()->As<PipelineLayoutVk>()->GetLayout(); break;
 	}
 
 	const auto glslSetIndex = m_currentlyBoundMaterial->GetLayout()->GetSlot(slot.GetName()).glslSetIndex;
@@ -700,6 +707,7 @@ void CommandListVk::PushMaterialConstants(const std::string& pushConstName, cons
 		case MaterialType::COMPUTE: layout = m_currentPipeline.compute->GetLayout()->As<PipelineLayoutVk>()->GetLayout(); break;
 		case MaterialType::GRAPHICS: layout = m_currentPipeline.graphics->GetLayout()->As<PipelineLayoutVk>()->GetLayout(); break;
 		case MaterialType::RAYTRACING: layout = m_currentPipeline.raytracing->GetLayout()->As<PipelineLayoutVk>()->GetLayout(); break;
+		case MaterialType::MESH: layout = m_currentPipeline.mesh->GetLayout()->As<PipelineLayoutVk>()->GetLayout(); break;
 	}
 	auto& pushConstInfo = m_currentlyBoundMaterial->GetLayout()->GetPushConstant(pushConstName);
 
@@ -731,6 +739,10 @@ void CommandListVk::TraceRays(UIndex32 raygenEntry, UIndex32 closestHitEntry, UI
 						resolution.x, resolution.y, 1);
 }
 
+void CommandListVk::DrawMeshShader(const Vector3ui& groupCount) {
+	RendererVk::pvkCmdDrawMeshTasksEXT(m_commandBuffers[_GetCommandListIndex()], groupCount.x, groupCount.y, groupCount.z);
+}
+
 void CommandListVk::DispatchCompute(const Vector3ui& groupCount) {
 	vkCmdDispatch(m_commandBuffers[_GetCommandListIndex()], groupCount.x, groupCount.y, groupCount.z);
 }
@@ -745,6 +757,10 @@ void CommandListVk::BindComputePipeline(const IComputePipeline& pipeline) {
 
 void CommandListVk::BindRayTracingPipeline(const IRaytracingPipeline& pipeline) {
 	vkCmdBindPipeline(m_commandBuffers[_GetCommandListIndex()], VK_PIPELINE_BIND_POINT_RAY_TRACING_KHR, pipeline.As<RaytracingPipelineVk>()->GetPipeline());
+}
+
+void CommandListVk::BindMeshPipeline(const IMeshPipeline& meshPipeline) {
+	vkCmdBindPipeline(m_commandBuffers[_GetCommandListIndex()], VK_PIPELINE_BIND_POINT_GRAPHICS, meshPipeline.As<MeshPipelineVk>()->GetPipeline());
 }
 
 void CommandListVk::SetViewport(const Viewport& vp) {
@@ -824,3 +840,5 @@ void CommandListVk::StartDebugSection(const std::string& mark, const Color& colo
 void CommandListVk::EndDebugSection() {
 	RendererVk::pvkCmdEndDebugUtilsLabelEXT(m_commandBuffers[_GetCommandListIndex()]);
 }
+
+#endif

@@ -1,8 +1,12 @@
 #include "GpuVk.h"
 
+#include "Platforms.h"
+#ifdef OSK_USE_VULKAN_BACKEND
+
 #include "Assert.h"
 #include <set>
 #include "CommandPoolVk.h"
+#include "GpuImageSamplerVk.h"
 #include <vulkan/vulkan.h>
 #include "OSKengine.h"
 #include "Logger.h"
@@ -107,6 +111,10 @@ std::optional<OwnedPtr<ICommandPool>> GpuVk::CreateTransferOnlyCommandPool() {
 	return {};
 }
 
+OwnedPtr<IGpuImageSampler> GpuVk::CreateSampler(const GpuImageSamplerDesc& info) const {
+	return new GpuImageSamplerVk(info, this);
+}
+
 VkSurfaceKHR GpuVk::GetSurface() const {
 	return surface;
 }
@@ -192,6 +200,12 @@ void GpuVk::CreateLogicalDevice() {
 		gpuExtensions.Insert(VK_EXT_DESCRIPTOR_INDEXING_EXTENSION_NAME);
 	}
 
+	if (info.IsCompatibleWithMeshShaders()) {
+		gpuExtensions.Insert(VK_EXT_MESH_SHADER_EXTENSION_NAME);
+		gpuExtensions.Insert(VK_KHR_SPIRV_1_4_EXTENSION_NAME);
+		gpuExtensions.Insert(VK_KHR_SHADER_FLOAT_CONTROLS_EXTENSION_NAME);
+	}
+
 	// Crear el logical device.
 	VkDeviceCreateInfo createInfo{};
 	createInfo.sType = VK_STRUCTURE_TYPE_DEVICE_CREATE_INFO;
@@ -216,9 +230,27 @@ void GpuVk::CreateLogicalDevice() {
 	info.syncFeatures.synchronization2 = VK_TRUE;
 	info.syncFeatures.pNext = nullptr;
 
+	// Mesh shaders.
+	if (info.IsCompatibleWithMeshShaders()) {
+		info.syncFeatures.pNext = &info.meshShaders;
+
+		info.meshShaders.meshShader = VK_TRUE;
+		info.meshShaders.taskShader = VK_TRUE;
+		info.meshShaders.multiviewMeshShader = VK_FALSE;
+		info.meshShaders.meshShaderQueries = VK_FALSE;
+		info.meshShaders.primitiveFragmentShadingRateMeshShader = VK_FALSE;
+
+		info.meshShaders.pNext = nullptr;
+	}
+
 	// Trazado de rayos.
 	if (info.IsRtCompatible()) {
-		info.syncFeatures.pNext = &info.rtAccelerationStructuresFeatures;
+		if (info.IsCompatibleWithMeshShaders()) {
+			info.meshShaders.pNext = &info.rtAccelerationStructuresFeatures;
+		}
+		else {
+			info.syncFeatures.pNext = &info.rtAccelerationStructuresFeatures;
+		}
 
 		info.rtAccelerationStructuresFeatures = {};
 		info.rtAccelerationStructuresFeatures.sType = VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_ACCELERATION_STRUCTURE_FEATURES_KHR,
@@ -241,15 +273,19 @@ void GpuVk::CreateLogicalDevice() {
 		info.bindlessTexturesSets.pNext = nullptr;
 	}
 	else if (info.IsCompatibleWithBindless()) {
-		// Renderizado bind-less.
-		info.syncFeatures.pNext = &info.bindlessTexturesSets;
+		if (info.IsCompatibleWithMeshShaders()) {
+			info.meshShaders.pNext = &info.rtAccelerationStructuresFeatures;
+		}
+		else {
+			info.syncFeatures.pNext = &info.rtAccelerationStructuresFeatures;
+		}
 
 		info.bindlessTexturesSets.shaderSampledImageArrayNonUniformIndexing = VK_TRUE;
 		info.bindlessTexturesSets.runtimeDescriptorArray = VK_TRUE;
 		info.bindlessTexturesSets.descriptorBindingVariableDescriptorCount = VK_TRUE;
 		info.bindlessTexturesSets.pNext = nullptr;
 	}
-
+	
 	// Crear el logical device.
 	VkResult result = vkCreateDevice(physicalDevice, &createInfo, nullptr, &logicalDevice);
 
@@ -361,7 +397,16 @@ GpuVk::Info GpuVk::Info::Get(VkPhysicalDevice gpu, VkSurfaceKHR surface) {
 	// Permitir sincronización avanzada.
 	info.syncFeatures.sType = VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SYNCHRONIZATION_2_FEATURES;
 	info.syncFeatures.synchronization2 = VK_TRUE;
-	info.syncFeatures.pNext = nullptr;
+	info.syncFeatures.pNext = &info.meshShaders;
+
+	// Permitir mesh shaders.
+	info.meshShaders.sType = VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_MESH_SHADER_FEATURES_EXT;
+	info.meshShaders.meshShader = VK_TRUE;
+	info.meshShaders.taskShader = VK_TRUE;
+	info.meshShaders.multiviewMeshShader = VK_FALSE;
+	info.meshShaders.meshShaderQueries = VK_FALSE;
+	info.meshShaders.primitiveFragmentShadingRateMeshShader = VK_FALSE;
+	info.meshShaders.pNext = nullptr;
 
 	vkGetPhysicalDeviceFeatures2(gpu, &info.extendedFeatures);
 
@@ -458,6 +503,18 @@ bool GpuVk::Info::IsCompatibleWithBindless() const {
 		GpuVk::IsExtensionPresent(VK_EXT_DESCRIPTOR_INDEXING_EXTENSION_NAME, availableExtensions);
 }
 
+bool GpuVk::Info::IsCompatibleWithMeshShaders() const {
+	const auto availableExtensions = GpuVk::GetAvailableExtensions(physicalDevice);
+
+	return
+		// Para poder usar sets incompletos.
+		meshShaders.meshShader == VK_TRUE &&
+		meshShaders.taskShader == VK_TRUE &&
+		GpuVk::IsExtensionPresent(VK_EXT_MESH_SHADER_EXTENSION_NAME, availableExtensions) &&
+		GpuVk::IsExtensionPresent(VK_KHR_SPIRV_1_4_EXTENSION_NAME, availableExtensions) &&
+		GpuVk::IsExtensionPresent(VK_KHR_SHADER_FLOAT_CONTROLS_EXTENSION_NAME, availableExtensions);
+}
+
 bool GpuVk::IsExtensionPresent(const char* name, const DynamicArray<VkExtensionProperties>& extensions) {
 	for (const auto& ext : extensions)
 		if (strcmp(ext.extensionName, name) == 0)
@@ -465,3 +522,5 @@ bool GpuVk::IsExtensionPresent(const char* name, const DynamicArray<VkExtensionP
 
 	return false;
 }
+
+#endif

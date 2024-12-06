@@ -2,8 +2,7 @@
     "file_type": "SPECULAR_MAP",
     "spec_ver": 0,
 
-    "name": "SpecularMap0",
+    "name": "Ridgecrest Road SpecularMap",
     "asset_type": "SpecularMap",
-    "raw_asset_path": "Resources/RawAssets/IBL/Ridgecrest_Road_Ref.hdr",
-    "raw_asset_path2": "Resources/RawAssets/IBL/Road_to_MonumentValley_Ref.hdr"
+    "raw_asset_path": "Resources/Assets/IBL/Ridgecrest_Road_Ref.hdr"
 }

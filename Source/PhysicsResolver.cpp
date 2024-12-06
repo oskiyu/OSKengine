@@ -167,19 +167,3 @@ void PhysicsResolver::Execute(TDeltaTime deltaTime, std::span<const CollisionEve
 		}
 	}
 }
-
-nlohmann::json PhysicsResolver::SaveConfiguration() const {
-	return nlohmann::json();
-}
-
-PERSISTENCE::BinaryBlock PhysicsResolver::SaveBinaryConfiguration() const {
-	return PERSISTENCE::BinaryBlock::Empty();
-}
-
-void PhysicsResolver::ApplyConfiguration(const nlohmann::json& config, const SavedGameObjectTranslator& translator) {
-	(void)0;
-}
-
-void PhysicsResolver::ApplyConfiguration(PERSISTENCE::BinaryBlockReader* reader, const SavedGameObjectTranslator& translator) {
-	(void)0;
-}

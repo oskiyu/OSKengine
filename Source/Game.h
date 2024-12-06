@@ -13,6 +13,8 @@
 
 #include "UniquePtr.hpp"
 
+#include "DefaultElementsProfiles.h"
+
 namespace OSK {
 
 	struct Version;
@@ -96,6 +98,8 @@ namespace OSK {
 
 	protected:
 
+		explicit IGame(GAME::DefaultContentProfile defaultContentProfile);
+
 		/// @brief Debe crear la ventana del Engine.
 		virtual void CreateWindow() = 0;
 
@@ -107,13 +111,15 @@ namespace OSK {
 		void HandleResizeEvents();
 		void UpdateFps(TDeltaTime deltaTime);
 
-		TDeltaTime deltaTime = 1.0f;
+		GAME::DefaultContentProfile m_defaultContentProfile = GAME::DefaultContentProfile::ALL;
 
-		TDeltaTime framerateCountTimer = 0.0f;
-		USize32 currentFps = 0;
-		USize32 frameCount = 0;
+		TDeltaTime m_deltaTime = 1.0f;
 
-		UniquePtr<UI::IContainer> rootUiElement;
+		TDeltaTime m_framerateCountTimer = 0.0f;
+		USize32 m_currentFps = 0;
+		USize32 m_frameCount = 0;
+
+		UniquePtr<UI::IContainer> m_rootUiElement;
 
 	};
 

@@ -30,18 +30,21 @@ OSK::Editor::UI::ObjectList::ObjectList(const Vector2f& size, OSK::Editor::Edito
 	}
 
 	m_title = new EditorPanelTitle(textSize);
-	m_title->SetMargin(Vector2f(5.0f));
-	m_title->SetPadding(Vector2f(5.0f));
 	m_title->SetText("Objetos");
 
 	AddChild("title", m_title);
 
 	AddCreateObjectButton();
 
+	auto font = Engine::GetAssetManager()->Load<OSK::ASSETS::Font>("Resources/Assets/Fonts/font1.json");
+
 	for (UIndex64 i = 0; i < MaxShownObjects; i++) {
 		auto* view = new OSK::UI::Button(textSize);
 		view->SetPadding(Vector2f(5.0f));
 		view->SetMargin(Vector4f(5.0f, 1.0f, 5.0f, 1.0f));
+
+		view->SetTextFont(font);
+		view->SetTextFontSize(Constants::MainFontSize);
 
 		{
 			GRAPHICS::SdfDrawCall2D selectedDrawCall{};
@@ -94,6 +97,7 @@ OSK::Editor::UI::ObjectList::ObjectList(const Vector2f& size, OSK::Editor::Edito
 			}
 			else {
 				m_propertiesPanel->ClearContent();
+				m_editorRef->ClearSelectedObject();
 			}
 			});
 	}
@@ -123,25 +127,6 @@ void OSK::Editor::UI::ObjectList::SetObjects(std::span<const OSK::ECS::GameObjec
 	Rebuild();
 }
 
-void OSK::Editor::UI::ObjectList::SetFont(OSK::ASSETS::AssetRef<OSK::ASSETS::Font> font) {
-	m_title->SetFont(font);
-	m_propertiesPanel->SetFont(font);
-
-	for (OSK::UI::Button* view : m_textViews) {
-		view->SetTextFont(font);
-	}
-}
-
-void OSK::Editor::UI::ObjectList::SetFontSize(USize64 fontSize) {
-	m_title->SetFontSize(fontSize + 2);
-
-	m_propertiesPanel->SetFontSize(fontSize + 2);
-
-	for (OSK::UI::Button* view : m_textViews) {
-		view->SetTextFontSize(fontSize);
-	}
-}
-
 void OSK::Editor::UI::ObjectList::ClearSelection() {
 	for (auto* view : m_textViews) {
 		if (!view->IsVisible()) {
@@ -150,10 +135,6 @@ void OSK::Editor::UI::ObjectList::ClearSelection() {
 
 		view->SetState(OSK::UI::Button::State::DEFAULT);
 	}
-}
-
-OSK::Editor::UI::ObjectPropertiesPanel* OSK::Editor::UI::ObjectList::GetPropertiesPanel() {
-	return m_propertiesPanel;
 }
 
 OSK::ECS::GameObjectIndex OSK::Editor::UI::ObjectList::GetSelectedObject() const {
@@ -165,8 +146,9 @@ void OSK::Editor::UI::ObjectList::AddCreateObjectButton() {
 
 	newObjectButton->SetMargin({
 		newObjectButton->GetMarging2D().x,
-		newObjectButton->GetMarging2D().y + 10.0f
+		newObjectButton->GetMarging2D().y + 3.0f
 		});
+
 	newObjectButton->SetType(OSK::UI::Button::Type::NORMAL);
 	newObjectButton->SetTextFont(Engine::GetAssetManager()->Load<OSK::ASSETS::Font>(OSK::Editor::UI::Constants::EditorFontPath));
 	newObjectButton->SetTextFontSize(OSK::Editor::UI::Constants::SecondaryFontSize);
@@ -193,4 +175,12 @@ void OSK::Editor::UI::ObjectList::AddCreateObjectButton() {
 	}
 
 	AddChild("newObjectButton", newObjectButton);
+}
+
+void OSK::Editor::UI::ObjectList::ClearAllComponentViews() {
+	m_propertiesPanel->ClearAllComponentViews();
+}
+
+void OSK::Editor::UI::ObjectList::AddComponentView(OwnedPtr<OSK::Editor::Views::IComponentView> view) {
+	m_propertiesPanel->AddComponentView(view);
 }

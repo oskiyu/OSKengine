@@ -1,6 +1,7 @@
 #include "UiBorderLayout.h"
 
 #include "InvalidObjectStateException.h"
+#include "UnreachableException.h"
 
 using namespace OSK;
 using namespace OSK::UI;
@@ -153,6 +154,10 @@ bool BorderLayout::HasChild(Position position) const {
 	case OSK::UI::BorderLayout::Position::CENTER:
 		return m_centerElement;
 		break;
+
+	default:
+		OSK_ASSERT(false, UnreachableException("Valor de Button::State sin contemblar."));
+		return false;
 	}
 }
 
@@ -177,6 +182,10 @@ IElement* BorderLayout::GetChild(Position position) {
 	case OSK::UI::BorderLayout::Position::CENTER:
 		return m_centerElement;
 		break;
+
+	default:
+		OSK_ASSERT(false, UnreachableException("Valor de BorderLayout::Position sin contemplar."));
+		return nullptr;
 	}
 }
 
@@ -201,5 +210,9 @@ const IElement* BorderLayout::GetChild(Position position) const {
 	case OSK::UI::BorderLayout::Position::CENTER:
 		return m_centerElement;
 		break;
+
+	default:
+		OSK_ASSERT(false, UnreachableException("Valor de BorderLayout::State sin contemblar."));
+		return nullptr;
 	}
 }

@@ -1,19 +1,28 @@
 #include "StaticMeshLoader.h"
 
+#include "Assert.h"
+
+#include "Vector3.hpp"
+#include "NumericTypes.h"
+#include "DynamicArray.hpp"
+
 #include "OSKengine.h"
 #include "IRenderer.h"
 #include "IGpuMemoryAllocator.h"
-#include "GpuImageDimensions.h"
-#include "Format.h"
-#include "GpuMemoryTypes.h"
-#include "GpuImageLayout.h"
+
+#include "CpuModel3D.h"
+
+#include "GpuModel3D.h"
+#include "GpuMesh3D.h"
+
+#include "GpuQueueTypes.h"
+
+// Para TIndexSize.
+#include "Vertex.h"
+#include "Vertex3D.h"
+#include "VertexAttributes.h"
 
 #include "ModelLoadingExceptions.h"
-
-#include <limits>
-
-#include <glm/ext/matrix_transform.hpp>
-#include <glm/gtc/type_ptr.hpp>
 
 #define TINYGLTF_NO_STB_IMAGE_WRITE
 #include <tiny_gltf.h>
@@ -68,7 +77,7 @@ void StaticMeshLoader::Load(const CpuModel3D& model, GpuModel3D* output) {
 	}
 
 	for (const auto& mesh : model.GetMeshes()) {
-		const auto numMeshIndices = mesh.GetTriangleCount() * 3;
+		const auto numMeshIndices = static_cast<USize32>(mesh.GetTriangleCount() * 3);
 
 		Vector3f center = Vector3f::Zero;
 		for (const auto& vertex : mesh.GetVertices()) {

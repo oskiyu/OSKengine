@@ -3,12 +3,13 @@
 #include "OSKengine.h"
 #include "AssetManager.h"
 
+#include "Editor.h"
 #include "EditorUiConstants.h"
 #include "EditorPanelTitle.h"
 #include "EditorSystemPropertiesPanel.h"
 
 
-OSK::Editor::UI::SystemList::SystemList(const Vector2f& size) : OSK::UI::VerticalContainer(size) {
+OSK::Editor::UI::SystemList::SystemList(const Vector2f& size, OSK::Editor::Editor* editorRef) : OSK::UI::VerticalContainer(size), m_editorRef(editorRef) {
 	const Vector2f textSize = { size.x - 20.0f, 25.0f };
 
 	SetMargin(Vector2f::Zero);
@@ -30,18 +31,21 @@ OSK::Editor::UI::SystemList::SystemList(const Vector2f& size) : OSK::UI::Vertica
 	// Title.
 	{
 		m_title = new EditorPanelTitle(textSize);
-		m_title->SetMargin(Vector2f(5.0f));
-		m_title->SetPadding(Vector2f(5.0f));
 		m_title->SetText("Sistemas");
 
 		AddChild("title", m_title);
 	}
+
+	auto font = Engine::GetAssetManager()->Load<OSK::ASSETS::Font>("Resources/Assets/Fonts/font1.json");
 
 	// Botones de sistemas.
 	for (UIndex64 i = 0; i < MaxShownSystems; i++) {
 		auto* view = new OSK::UI::Button(textSize);
 		view->SetMargin(Vector4f(5.0f, 1.0f, 5.0f, 1.0f));
 		view->SetPadding(Vector2f(5.0f));
+
+		view->SetTextFont(font);
+		view->SetTextFontSize(Constants::MainFontSize);
 
 		{
 			GRAPHICS::SdfDrawCall2D selectedDrawCall{};
@@ -63,7 +67,7 @@ OSK::Editor::UI::SystemList::SystemList(const Vector2f& size) : OSK::UI::Vertica
 			view->GetPressedDrawCalls().Insert(pressedDrawCall);
 		}
 
-		if (i % 2 == 1) {
+		if (i % 2 == 0) {
 			GRAPHICS::SdfDrawCall2D defaultDrawCall{};
 			defaultDrawCall.contentType = GRAPHICS::SdfDrawCallContentType2D::COLOR_FLAT;
 			defaultDrawCall.shape = GRAPHICS::SdfShape2D::RECTANGLE;
@@ -88,12 +92,14 @@ OSK::Editor::UI::SystemList::SystemList(const Vector2f& size) : OSK::UI::Vertica
 				if (isPressed) {
 					this->ClearSelection();
 					view->SetState(OSK::UI::Button::State::PRESSED);
+					m_propertiesPanel->ClearContent();
 					m_propertiesPanel->ShowContent();
 					m_propertiesPanel->SetSubtitle(static_cast<std::string>(view->GetText()));
-					m_propertiesPanel->UpdateBySystem(OSK::Engine::GetEcs()->GetSystemByName(view->GetText()));
+					m_editorRef->SetSelectedSystem(static_cast<std::string>(view->GetText()));
 				}
 				else {
 					m_propertiesPanel->ClearContent();
+					m_editorRef->ClearSelectedSystem();
 				}
 				});
 		}
@@ -124,24 +130,6 @@ void OSK::Editor::UI::SystemList::SetSystems(std::span<const OSK::ECS::ISystem*>
 	Rebuild();
 }
 
-void OSK::Editor::UI::SystemList::SetFont(OSK::ASSETS::AssetRef<OSK::ASSETS::Font> font) {
-	m_title->SetFont(font);
-	m_propertiesPanel->SetFont(font);
-
-	for (OSK::UI::Button* view : m_textViews) {
-		view->SetTextFont(font);
-	}
-}
-
-void OSK::Editor::UI::SystemList::SetFontSize(USize64 fontSize) {
-	m_title->SetFontSize(fontSize + 2);
-	m_propertiesPanel->SetFontSize(fontSize + 2);
-	
-	for (OSK::UI::Button* view : m_textViews) {
-		view->SetTextFontSize(fontSize);
-	}
-}
-
 void OSK::Editor::UI::SystemList::ClearSelection() {
 	for (auto* view : m_textViews) {
 		if (!view->IsVisible()) {
@@ -150,4 +138,18 @@ void OSK::Editor::UI::SystemList::ClearSelection() {
 
 		view->SetState(OSK::UI::Button::State::DEFAULT);
 	}
+}
+
+void OSK::Editor::UI::SystemList::SetSystemPropertiesView(OwnedPtr<OSK::Editor::Views::ISystemView> view) {
+	m_propertiesPanel->SetView(view);
+	m_propertiesPanel->SetSubtitle((std::string)view->_GetSystemName());
+	m_propertiesPanel->ShowContent();
+}
+
+void OSK::Editor::UI::SystemList::ClearSystemPropertiesView() {
+	m_propertiesPanel->ClearContent();
+}
+
+void OSK::Editor::UI::SystemList::SetSelectedSystem(ECS::ISystem* system) {
+	m_propertiesPanel->SetSelectedSystem(system);
 }

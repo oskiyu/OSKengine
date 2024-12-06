@@ -10,10 +10,16 @@
 
 namespace OSK::ECS {
 	class EntityComponentSystem;
+	class ISystem;
 }
 
 namespace OSK::Editor {
 	class Editor;
+
+	namespace Views {
+		class IComponentView;
+		class ISystemView;
+	}
 }
 
 namespace OSK::Editor::UI {
@@ -34,14 +40,39 @@ namespace OSK::Editor::UI {
 			const Vector2f& size,
 			OSK::Editor::Editor* editor);
 
-		/// @brief Actualiza la interfaz de todo el editor.
+		/// @brief Actualiza la interfaz del editor.
 		/// @param ecs Clase ECS del motor.
 		/// @param deltaTime Tiempo desde la última actualización.
 		void Update(
 			const OSK::ECS::EntityComponentSystem* ecs,
 			TDeltaTime deltaTime);
 
-		ObjectList* GetObjectListPanel();
+
+		/// @brief Elimina todas las vistas de los
+		/// componentes de un objeto ECS, localizadas
+		/// en el panel de propiedades del objeto.
+		void ClearAllComponentViews();
+
+		/// @brief Añade la vista de un componente al 
+		/// panel de propiedades del objeto.
+		/// @param view Nueva vista.
+		void AddComponentView(OwnedPtr<OSK::Editor::Views::IComponentView> view);
+
+		/// @brief Establece la vista de las propiedades
+		/// del sistema seleccionado.
+		/// @param view Vista con las propiedades.
+		void SetSystemPropertiesView(OwnedPtr<OSK::Editor::Views::ISystemView> view);
+
+		/// @brief Elimina la vista de las propiedades
+		/// del sistema seleccionado.
+		/// Si ya se había eliminado no ocurre nada.
+		void ClearSystemPropertiesView();
+
+		/// @brief Establece el sistema seleccionado, incluso
+		/// si no tiene enlazada una vista.
+		/// @param system Sistema seleccionado.
+		/// Nullptr si no hay ninguno seleccionado.
+		void SetSelectedSystem(ECS::ISystem* system);
 
 	private:
 
@@ -52,4 +83,4 @@ namespace OSK::Editor::UI {
 	};
 
 }
-/**/
+

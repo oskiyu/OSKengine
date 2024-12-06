@@ -6,7 +6,7 @@ int main() {
 
 #ifdef OSK_RELEASE
 	try {
-		Game1 game;
+		Game1 game = Game1();
 		game._Run();
 	}
 	catch (const OSK::EngineException& e) {

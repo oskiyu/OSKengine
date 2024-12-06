@@ -28,7 +28,7 @@
 #include "NumericTypes.h"
 #include "KeyboardState.h"
 
-// Controladores del editor.
+// Controladores de componentes del editor.
 #include "CameraComponentController3D.h"
 #include "CameraComponentView.h"
 
@@ -40,6 +40,22 @@
 
 #include "ModelComponentController3D.h"
 #include "ModelComponentView3D.h"
+
+// Controladores de sistemas del editor.
+#include "PhysicsSystemController.h"
+#include "PhysicsSystemView.h"
+
+#include "SkyboxRenderSystemController.h"
+#include "SkyboxRenderSystemView.h"
+
+#include "DeferredRenderSystemController.h"
+#include "DeferredRenderSystemView.h"
+
+#include "ColliderRenderSystemController.h"
+#include "ColliderRenderSystemView.h"
+
+#include "RenderBoundsRenderSystemController.h"
+#include "RenderBoundsRenderSystemView.h"
 
 
 void OSK::IDebugGame::RegisterConsoleCommands() {
@@ -53,8 +69,6 @@ void OSK::IDebugGame::RegisterConsoleCommands() {
 void OSK::IDebugGame::OnCreate() {
 	IGame::OnCreate();
 
-	const auto uiTexture = Engine::GetAssetManager()->Load<ASSETS::Texture>("Resources/Assets/Textures/button_texture.json");
-	const auto uiView = &uiTexture->GetTextureView2D();
 	const auto font = Engine::GetAssetManager()->Load<ASSETS::Font>("Resources/Assets/Fonts/font1.json");
 		
 	// Editor.
@@ -62,17 +76,34 @@ void OSK::IDebugGame::OnCreate() {
 		&GetRootUiElement(),
 		Engine::GetDisplay()->GetResolution().ToVector2f());
 
-	m_editor->RegisterController<Editor::Controllers::CameraComponentController3D>();
-	m_editor->RegisterView<Editor::Views::CameraComponentView>();
+	m_editor->RegisterComponentController<Editor::Controllers::CameraComponentController3D>();
+	m_editor->RegisterComponentView<Editor::Views::CameraComponentView>();
 
-	m_editor->RegisterController<Editor::Controllers::PhysicsComponentController3D>();
-	m_editor->RegisterView<Editor::Views::PhysicsComponentView>();
+	m_editor->RegisterComponentController<Editor::Controllers::PhysicsComponentController3D>();
+	m_editor->RegisterComponentView<Editor::Views::PhysicsComponentView>();
 
-	m_editor->RegisterController<Editor::Controllers::TransformComponentController3D>();
-	m_editor->RegisterView<Editor::Views::TransformComponentView3D>();
+	m_editor->RegisterComponentController<Editor::Controllers::TransformComponentController3D>();
+	m_editor->RegisterComponentView<Editor::Views::TransformComponentView3D>();
 
-	m_editor->RegisterController<Editor::Controllers::ModelComponentController3D>();
-	m_editor->RegisterView<Editor::Views::ModelComponentView3D>();
+	m_editor->RegisterComponentController<Editor::Controllers::ModelComponentController3D>();
+	m_editor->RegisterComponentView<Editor::Views::ModelComponentView3D>();
+
+
+	m_editor->RegisterSystemController<Editor::Controllers::PhysicsSystemController>();
+	m_editor->RegisterSystemView<Editor::Views::PhysicsSystemView>();
+
+	m_editor->RegisterSystemController<Editor::Controllers::SkyboxRenderSystemController>();
+	m_editor->RegisterSystemView<Editor::Views::SkyboxRenderSystemView>();
+
+	m_editor->RegisterSystemController<Editor::Controllers::DeferredRenderSystemController>();
+	m_editor->RegisterSystemView<Editor::Views::DeferredRenderSystemView>();
+
+	m_editor->RegisterSystemController<Editor::Controllers::ColliderRenderSystemController>();
+	m_editor->RegisterSystemView<Editor::Views::ColliderRenderSystemView>();
+
+	m_editor->RegisterSystemController<Editor::Controllers::RenderBoundsRenderSystemController>();
+	m_editor->RegisterSystemView<Editor::Views::RenderBoundsRenderSystemView>();
+
 
 	// Console
 	m_console = new UI::Console({ 500.0f, 200.0f });

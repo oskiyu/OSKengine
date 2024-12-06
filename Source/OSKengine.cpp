@@ -23,7 +23,6 @@
 
 #include "Transform3D.h"
 #include "ModelComponent3D.h"
-#include "RenderSystem3D.h"
 #include "CameraComponent3D.h"
 #include "EntityComponentSystem.h"
 #include "Vertex2D.h"
@@ -35,8 +34,6 @@
 #include "IGpuMemoryAllocator.h"
 #include "CameraComponent2D.h"
 #include "Sprite.h"
-#include "TerrainComponent.h"
-#include "TerrainRenderSystem.h"
 #include "InputManager.h"
 #include "DeferredRenderSystem.h"
 #include "SkyboxRenderSystem.h"
@@ -140,69 +137,73 @@ void Engine::Close() {
 	m_jobSystem.Delete();
 }
 
-void Engine::RegisterBuiltinAssets() {
+void Engine::RegisterBuiltinAssets(GAME::DefaultContentProfile profile) {
 	assetManager->RegisterLoader<ASSETS::TextureLoader>();
-	assetManager->RegisterLoader<ASSETS::ModelLoader3D>();
-	assetManager->RegisterLoader<ASSETS::CubemapTextureLoader>();
 	assetManager->RegisterLoader<ASSETS::FontLoader>();
-	assetManager->RegisterLoader<ASSETS::IrradianceMapLoader>();
-	assetManager->RegisterLoader<ASSETS::SpecularMapLoader>();
 	assetManager->RegisterLoader<ASSETS::AudioLoader>();
-	assetManager->RegisterLoader<ASSETS::PreBuiltColliderLoader>();
-	assetManager->RegisterLoader<ASSETS::PreBuiltSplineLoader3D>();
+
+	if (profile == GAME::DefaultContentProfile::ALL || profile == GAME::DefaultContentProfile::_3D_ONLY) {
+		assetManager->RegisterLoader<ASSETS::ModelLoader3D>();
+		assetManager->RegisterLoader<ASSETS::CubemapTextureLoader>();
+		assetManager->RegisterLoader<ASSETS::IrradianceMapLoader>();
+		assetManager->RegisterLoader<ASSETS::SpecularMapLoader>();
+		assetManager->RegisterLoader<ASSETS::PreBuiltColliderLoader>();
+		assetManager->RegisterLoader<ASSETS::PreBuiltSplineLoader3D>();
+	}
+
+	if (profile == GAME::DefaultContentProfile::ALL || profile == GAME::DefaultContentProfile::_2D_ONLY) {
+
+	}
 }
 
-void Engine::RegisterBuiltinComponents() {
-	entityComponentSystem->RegisterComponent<ECS::Transform3D>();
-	entityComponentSystem->RegisterComponent<ECS::ModelComponent3D>();
-	entityComponentSystem->RegisterComponent<ECS::CameraComponent3D>();
-	entityComponentSystem->RegisterComponent<GRAPHICS::Sprite>();
+void Engine::RegisterBuiltinComponents(GAME::DefaultContentProfile profile) {
 	entityComponentSystem->RegisterComponent<ECS::CameraComponent2D>();
 	entityComponentSystem->RegisterComponent<ECS::Transform2D>();
-	entityComponentSystem->RegisterComponent<ECS::TerrainComponent>();
-	entityComponentSystem->RegisterComponent<ECS::CollisionComponent>();
-	entityComponentSystem->RegisterComponent<ECS::PhysicsComponent>();
+
+	if (profile == GAME::DefaultContentProfile::ALL || profile == GAME::DefaultContentProfile::_3D_ONLY) {
+		entityComponentSystem->RegisterComponent<ECS::Transform3D>();
+		entityComponentSystem->RegisterComponent<ECS::ModelComponent3D>();
+		entityComponentSystem->RegisterComponent<ECS::CameraComponent3D>();
+		entityComponentSystem->RegisterComponent<ECS::CollisionComponent>();
+		entityComponentSystem->RegisterComponent<ECS::PhysicsComponent>();
+	}
+
+	if (profile == GAME::DefaultContentProfile::ALL || profile == GAME::DefaultContentProfile::_2D_ONLY) {
+		entityComponentSystem->RegisterComponent<GRAPHICS::Sprite>();
+	}
 }
 
-void Engine::RegisterBuiltinSystems() {
-#ifdef OSK_USE_FORWARD_RENDERER
-	entityComponentSystem->RegisterSystem<ECS::RenderSystem3D>(ECS::ISystem::DEFAULT_EXECUTION_ORDER);
-#elif defined(OSK_USE_DEFERRED_RENDERER)
+void Engine::RegisterBuiltinSystems(GAME::DefaultContentProfile profile) {
+	if (profile == GAME::DefaultContentProfile::ALL || profile == GAME::DefaultContentProfile::_3D_ONLY) {
+		ECS::SystemDependencies deferredRenderDependencies{};
+		deferredRenderDependencies.executeAfterThese.insert(static_cast<std::string>(TransformApplierSystem::GetSystemName()));
+		entityComponentSystem->RegisterSystem<ECS::DeferredRenderSystem>(deferredRenderDependencies);
 
-	ECS::SystemDependencies deferredRenderDependencies{};
-	deferredRenderDependencies.executeAfterThese.insert(static_cast<std::string>(TransformApplierSystem::GetSystemName()));
-	entityComponentSystem->RegisterSystem<ECS::DeferredRenderSystem>(deferredRenderDependencies);
-#elif defined(OSK_USE_HYBRID_RENDERER)
-	entityComponentSystem->RegisterSystem<ECS::HybridRenderSystem>();
-#elif defined(OSK_USE_GDR_RENDERER)
-	entityComponentSystem->RegisterSystem<ECS::TreeNormalsRenderSystem>(ECS::ISystem::DEFAULT_EXECUTION_ORDER - 1);
-	entityComponentSystem->RegisterSystem<ECS::GdrDeferredRenderSystem>(ECS::ISystem::DEFAULT_EXECUTION_ORDER);
-#elif OSK_NO_DEFAULT_RENDERER
-#else 
-#error No hay un renderizador por defecto
-#endif
+		entityComponentSystem->RegisterSystem<ECS::PhysicsSystem>(SystemDependencies::Empty());
 
-	entityComponentSystem->RegisterSystem<ECS::PhysicsSystem>(SystemDependencies::Empty());
+		ECS::SystemDependencies collisionDependencies{};
+		collisionDependencies.executeAfterThese.insert(static_cast<std::string>(PhysicsSystem::GetSystemName()));
+		collisionDependencies.exclusiveExecution = true;
+		collisionDependencies.singleThreaded = true;
+		entityComponentSystem->RegisterSystem<ECS::CollisionSystem>(collisionDependencies);
 
-	ECS::SystemDependencies collisionDependencies{};
-	collisionDependencies.executeAfterThese.insert(static_cast<std::string>(PhysicsSystem::GetSystemName()));
-	collisionDependencies.exclusiveExecution = true;
-	collisionDependencies.singleThreaded = true;
-	entityComponentSystem->RegisterSystem<ECS::CollisionSystem>(collisionDependencies);
+		ECS::SystemDependencies collisionResolverDependencies{};
+		collisionResolverDependencies.executeAfterThese.insert(static_cast<std::string>(CollisionSystem::GetSystemName()));
+		collisionResolverDependencies.exclusiveExecution = true;
+		collisionResolverDependencies.singleThreaded = true;
+		entityComponentSystem->RegisterSystem<ECS::PhysicsResolver>(collisionResolverDependencies);
 
-	ECS::SystemDependencies collisionResolverDependencies{};
-	collisionResolverDependencies.executeAfterThese.insert(static_cast<std::string>(CollisionSystem::GetSystemName()));
-	collisionResolverDependencies.exclusiveExecution = true;
-	collisionResolverDependencies.singleThreaded = true;
-	entityComponentSystem->RegisterSystem<ECS::PhysicsResolver>(collisionResolverDependencies);
+		ECS::SystemDependencies transformApplierDependencies{};
+		transformApplierDependencies.executeAfterThese.insert(static_cast<std::string>(PhysicsResolver::GetSystemName()));
+		transformApplierDependencies.singleThreaded = true;
+		entityComponentSystem->RegisterSystem<TransformApplierSystem>(transformApplierDependencies);
 
-	ECS::SystemDependencies transformApplierDependencies{};
-	transformApplierDependencies.executeAfterThese.insert(static_cast<std::string>(PhysicsResolver::GetSystemName()));
-	transformApplierDependencies.singleThreaded = true;
-	entityComponentSystem->RegisterSystem<TransformApplierSystem>(transformApplierDependencies);
+		entityComponentSystem->RegisterSystem<ECS::SkyboxRenderSystem>(SystemDependencies::Empty());
+	}
 
-	entityComponentSystem->RegisterSystem<ECS::SkyboxRenderSystem>(SystemDependencies::Empty());
-	entityComponentSystem->RegisterSystem<ECS::RenderSystem2D>(SystemDependencies::Empty());
+	if (profile == GAME::DefaultContentProfile::ALL || profile == GAME::DefaultContentProfile::_2D_ONLY) {
+		entityComponentSystem->RegisterSystem<ECS::RenderSystem2D>(SystemDependencies::Empty());
+	}
 }
 
 void Engine::RegisterBuiltinEvents() {
@@ -223,12 +224,14 @@ void Engine::RegisterBuiltinJobs() {
 
 }
 
-void Engine::RegisterBuiltinShaderPasses() {
-	renderer->GetShaderPassFactory()->RegisterShaderPass<GRAPHICS::ShadowsStaticPass>();
-	renderer->GetShaderPassFactory()->RegisterShaderPass<GRAPHICS::PbrResolverPass>();
-	renderer->GetShaderPassFactory()->RegisterShaderPass<GRAPHICS::BillboardGBufferPass>();
-	renderer->GetShaderPassFactory()->RegisterShaderPass<GRAPHICS::AnimatedGBufferPass>();
-	renderer->GetShaderPassFactory()->RegisterShaderPass<GRAPHICS::StaticGBufferPass>();
+void Engine::RegisterBuiltinShaderPasses(GAME::DefaultContentProfile profile) {
+	if (profile == GAME::DefaultContentProfile::ALL || profile == GAME::DefaultContentProfile::_3D_ONLY) {
+		renderer->GetShaderPassFactory()->RegisterShaderPass<GRAPHICS::ShadowsStaticPass>();
+		renderer->GetShaderPassFactory()->RegisterShaderPass<GRAPHICS::PbrResolverPass>();
+		renderer->GetShaderPassFactory()->RegisterShaderPass<GRAPHICS::BillboardGBufferPass>();
+		renderer->GetShaderPassFactory()->RegisterShaderPass<GRAPHICS::AnimatedGBufferPass>();
+		renderer->GetShaderPassFactory()->RegisterShaderPass<GRAPHICS::StaticGBufferPass>();
+	}
 }
 
 void Engine::RegisterBuiltinConsoleCommands() {
@@ -291,7 +294,7 @@ Version Engine::GetVersion() {
 }
 
 std::string_view Engine::GetBuild() {
-	return "2024.06.18a";
+	return "2024.09.27a";
 }
 
 UIndex64 Engine::GetCurrentGameFrameIndex() {

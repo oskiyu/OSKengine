@@ -55,6 +55,8 @@ namespace OSK::GRAPHICS {
 		/// @param objectsToRender Objetos a renderizar.
 		void UpdateLocalMeshMapping(const DynamicArray<ECS::GameObjectIndex>& objectsToRender);
 
+		virtual void Update(TDeltaTime deltaTime) { (void)0; }
+
 		/// @brief Realiza el bucle de renderizado del pase.
 		/// @param commandList Lista de comandos gráficos.
 		/// @param objectsToRender Objetos a renderizar.

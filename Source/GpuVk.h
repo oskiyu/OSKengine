@@ -1,5 +1,8 @@
 #pragma once
 
+#include "Platforms.h"
+#ifdef OSK_USE_VULKAN_BACKEND
+
 #include <vulkan/vulkan.h>
 
 #include "IGpu.h"
@@ -81,6 +84,9 @@ namespace OSK::GRAPHICS {
 			/// tener descriptor sets de un tamaño indeterminado.
 			VkPhysicalDeviceDescriptorIndexingFeatures bindlessTexturesSets{};
 
+			/// @brief Características soportadas para mesh shaders.
+			VkPhysicalDeviceMeshShaderFeaturesEXT meshShaders{};
+
 			/// @brief Contiene información sobre si soporta el renderizado sin usar
 			/// render passes.
 			VkPhysicalDeviceDynamicRenderingFeatures dynamicRenderingFeatures{};
@@ -93,6 +99,7 @@ namespace OSK::GRAPHICS {
 			bool IsRtCompatible() const;
 
 			bool IsCompatibleWithBindless() const;
+			bool IsCompatibleWithMeshShaders() const;
 
 
 			/// @brief Alineamiento mínimo para dynamic ubos.
@@ -153,6 +160,7 @@ namespace OSK::GRAPHICS {
 		OwnedPtr<ICommandPool> CreateGraphicsCommandPool() override;
 		OwnedPtr<ICommandPool> CreateComputeCommandPool() override;
 		std::optional<OwnedPtr<ICommandPool>> CreateTransferOnlyCommandPool() override;
+		OwnedPtr<IGpuImageSampler> CreateSampler(const GpuImageSamplerDesc& info) const override;
 
 	private:
 
@@ -178,3 +186,5 @@ namespace OSK::GRAPHICS {
 	};
 
 }
+
+#endif

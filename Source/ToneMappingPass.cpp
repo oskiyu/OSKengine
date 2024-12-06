@@ -122,7 +122,10 @@ void ToneMappingPass::SetInput(GpuImage* input) {
 	const GpuImageViewConfig viewConfig = GpuImageViewConfig::CreateSampled_SingleMipLevel(0);
 
 	for (UIndex32 i = 0; i < MAX_RESOURCES_IN_FLIGHT; i++) {
-		m_materialInstances[i]->GetSlot(TextureSlotName)->SetGpuImage("sceneImage", *input->GetView(viewConfig));
+		m_materialInstances[i]->GetSlot(TextureSlotName)->SetGpuImage(
+			"sceneImage", 
+			*input->GetView(viewConfig), 
+			GpuImageSamplerDesc::CreateDefault_NoMipMap());
 		m_materialInstances[i]->GetSlot(TextureSlotName)->FlushUpdate();
 	}
 }

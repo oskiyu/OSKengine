@@ -14,6 +14,7 @@
 
 #include "GameObjectManager.h"
 
+#include "SerializableComponent.h"
 
 namespace OSK::ECS {
 		
@@ -89,7 +90,7 @@ namespace OSK::ECS {
 			// Hacemos que el componente a eliminar esté en la última posición.
 			// El último componente se coloca en el hueco del componente eliminado,
 			// para evitar dejar huecos en el array.
-			MEMORY::MemorySwap(&m_components[compIndex], &m_components[indexOfLast], sizeof(TComponent));
+			std::swap(m_components[compIndex], m_components[indexOfLast]);
 
 			// Obtenemos el objeto dueño del componente que acabamos de colocar
 			// donde el componente eliminado.
@@ -177,21 +178,25 @@ namespace OSK::ECS {
 		nlohmann::json SerializeAll() const override {
 			auto output = nlohmann::json();
 
-			output["component_type"] = TComponent::GetComponentTypeName();
-			
-			for (UIndex64 componentIdx = 0; componentIdx < m_components.GetSize(); componentIdx++) {
-				const auto& objIndex = m_componentToObject.at(componentIdx);
-				const auto& component = m_components[componentIdx];
+			if constexpr (IsSerializableComponent<TComponent>) {
 
-				output["components"][std::to_string(objIndex.Get())] = PERSISTENCE::SerializeComponent<TComponent>(component);
-			}
+				output["component_type"] = TComponent::GetComponentTypeName();
 
-			for (const auto& [obj, comp] : m_objectToComponent) {
-				output["objects_to_components"][std::to_string(obj.Get())] = comp;
-			}
+				for (UIndex64 componentIdx = 0; componentIdx < m_components.GetSize(); componentIdx++) {
+					const auto& objIndex = m_componentToObject.at(componentIdx);
+					const auto& component = m_components[componentIdx];
 
-			for (const auto& [obj, comp] : m_objectToComponent) {
-				output["components_to_objects"][std::to_string(comp)] = obj.Get();
+					output["components"][std::to_string(objIndex.Get())] = PERSISTENCE::SerializeComponent<TComponent>(component);
+				}
+
+				for (const auto& [obj, comp] : m_objectToComponent) {
+					output["objects_to_components"][std::to_string(obj.Get())] = comp;
+				}
+
+				for (const auto& [obj, comp] : m_objectToComponent) {
+					output["components_to_objects"][std::to_string(comp)] = obj.Get();
+				}
+
 			}
 
 			return output;
@@ -207,23 +212,27 @@ namespace OSK::ECS {
 		PERSISTENCE::BinaryBlock BinarySerializeAll() const override {
 			PERSISTENCE::BinaryBlock output{};
 
-			output.Write<USize64>(m_components.GetSize());
+			if constexpr (IsSerializableComponent<TComponent>) {
 
-			// Datos.
-			auto datasBlock = PERSISTENCE::BinaryBlock::Empty();
-			for (const auto& component : m_components) {
-				datasBlock.AppendBlock(PERSISTENCE::BinarySerializeComponent<TComponent>(component));
-			}
+				output.Write<USize64>(m_components.GetSize());
 
-			// Offset del bloque de objetos enlazados.
-			// = tamaño de datos + lo escrito hasta ahora.
-			output.Write<USize64>(datasBlock.GetCurrentSize() + output.GetCurrentSize() + sizeof(USize64));
+				// Datos.
+				auto datasBlock = PERSISTENCE::BinaryBlock::Empty();
+				for (const auto& component : m_components) {
+					datasBlock.AppendBlock(PERSISTENCE::BinarySerializeComponent<TComponent>(component));
+				}
 
-			output.AppendBlock(datasBlock);
+				// Offset del bloque de objetos enlazados.
+				// = tamaño de datos + lo escrito hasta ahora.
+				output.Write<USize64>(datasBlock.GetCurrentSize() + output.GetCurrentSize() + sizeof(USize64));
 
-			// Mapa ID componente -> ID objeto.
-			for (UIndex64 compIdx = 0; compIdx < m_components.GetSize(); compIdx++) {
-				output.Write<GameObjectIndex::TUnderlyingType>(m_componentToObject.at(compIdx).Get());
+				output.AppendBlock(datasBlock);
+
+				// Mapa ID componente -> ID objeto.
+				for (UIndex64 compIdx = 0; compIdx < m_components.GetSize(); compIdx++) {
+					output.Write<GameObjectIndex::TUnderlyingType>(m_componentToObject.at(compIdx).Get());
+				}
+
 			}
 
 			return output;
@@ -239,7 +248,9 @@ namespace OSK::ECS {
 		/// tipo de componente.
 		/// @post El componente se habrá añadido al contenedor.
 		void DeserializeComponent(const nlohmann::json& data, GameObjectIndex obj, const SavedGameObjectTranslator& translator) override {
-			AddComponentMove(obj, PERSISTENCE::DeserializeComponent<TComponent>(data, translator));
+			if constexpr (IsSerializableComponent<TComponent>) {
+				AddComponentMove(obj, PERSISTENCE::DeserializeComponent<TComponent>(data, translator));
+			}
 		}
 
 		/// @brief Deserializa un componente a partir de un bloque binario.
@@ -253,7 +264,9 @@ namespace OSK::ECS {
 		/// @post El cursor de @p reader habrá avanzado, dejando atrás todos
 		/// los datos leídos.
 		void BinaryDeserializeComponent(PERSISTENCE::BinaryBlockReader* reader, GameObjectIndex obj, const SavedGameObjectTranslator& translator) override {
-			AddComponentMove(obj, PERSISTENCE::BinaryDeserializeComponent<TComponent>(reader, translator));
+			if constexpr (IsSerializableComponent<TComponent>) {
+				AddComponentMove(obj, PERSISTENCE::BinaryDeserializeComponent<TComponent>(reader, translator));
+			}
 		}
 
 	private:

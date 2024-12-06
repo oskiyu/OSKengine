@@ -15,7 +15,7 @@
 using namespace OSK;
 using namespace OSK::GRAPHICS;
 
-ICommandList::ICommandList(const ICommandPool* commandPool) : m_ownerPool(commandPool) {
+ICommandList::ICommandList(ICommandPool* commandPool) : m_ownerPool(commandPool) {
 
 }
 
@@ -108,12 +108,26 @@ void ICommandList::BindMaterial(const Material& material) {
 			break;
 		}
 
+		case MaterialType::MESH: {
+			PipelineKey pipelineKey{};
+			pipelineKey.depthFormat = m_currentlyBoundDepthImage.targetImage->GetFormat();
+
+			for (const auto& colorImg : m_currentlyBoundColorImages)
+				pipelineKey.colorFormats.Insert(colorImg.targetImage->GetFormat());
+
+			m_currentPipeline.mesh = material.GetMeshPipeline(pipelineKey);
+
+			BindMeshPipeline(*material.GetMeshPipeline(pipelineKey));
+			break;
+		}
+
 		case MaterialType::RAYTRACING: 
 			BindRayTracingPipeline(*material.GetRaytracingPipeline());
 			m_currentPipeline.raytracing = material.GetRaytracingPipeline();
 			break;
 
-		case MaterialType::COMPUTE: BindComputePipeline(*material.GetComputePipeline());
+		case MaterialType::COMPUTE: 
+			BindComputePipeline(*material.GetComputePipeline());
 			m_currentPipeline.compute = material.GetComputePipeline();
 			break;
 	}
@@ -134,6 +148,10 @@ void ICommandList::DeleteAllStagingBuffers() {
 
 void ICommandList::_SetSingleTimeUse() {
 	m_isSingleUse = true;
+}
+
+ICommandPool* ICommandList::GetOwnerPool() {
+	return m_ownerPool;
 }
 
 const ICommandPool* ICommandList::GetOwnerPool() const {

@@ -35,6 +35,10 @@ namespace OSK::ECS {
 		/// @param commandList Lista de comandos.
 		virtual void OnRenderStart(GRAPHICS::ICommandList* commandList);
 
+		virtual void Execute(
+			TDeltaTime deltaTime,
+			std::span<const GameObjectIndex> objects) override;
+
 		/// @brief Comando específico del sistema, para ejecutar el renderizado.
 		/// @pre La lista de comandos debe estar abierta.
 		virtual void Render(
@@ -88,6 +92,13 @@ namespace OSK::ECS {
 
 		/// @brief Actualiza las listas de objetos asignados a cada pase.
 		virtual void UpdatePerPassObjectLists(std::span<const ECS::GameObjectIndex> objects);
+
+
+		/// @return Todos los pases de renderizado normal.
+		std::span<GRAPHICS::IShaderPass* const> GetAllShaderPasses() const;
+
+		/// @return Todos los pases de renderizado de sombras.
+		std::span<GRAPHICS::IShaderPass* const> GetAllShadowsPasses() const;
 
 	protected:
 

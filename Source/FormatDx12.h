@@ -1,5 +1,8 @@
 #pragma once
 
+#include "Platforms.h"
+#ifdef OSK_USE_DIRECTX12_BACKEND
+
 enum DXGI_FORMAT;
 
 namespace OSK::GRAPHICS {
@@ -12,3 +15,5 @@ namespace OSK::GRAPHICS {
 	DXGI_FORMAT GetFormatDx12(Format format);
 
 }
+
+#endif

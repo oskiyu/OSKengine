@@ -5,6 +5,7 @@
 #include <json.hpp>
 
 #include "BinaryBlock.h"
+#include "ApiCall.h"
 
 
 namespace OSK::ECS {
@@ -125,23 +126,23 @@ friend T OSK::PERSISTENCE::BinaryDeserializeComponent<T>(OSK::PERSISTENCE::Binar
 #define OSK_SERIALIZATION(type) \
 namespace OSK::PERSISTENCE { \
 template <> \
-::nlohmann::json SerializeData<type>(const type& data); \
+::nlohmann::json OSKAPI_CALL SerializeData<type>(const type& data); \
 template <> \
-type DeserializeData<type>(const ::nlohmann::json& json); \
+type OSKAPI_CALL DeserializeData<type>(const ::nlohmann::json& json); \
 template <> \
-OSK::PERSISTENCE::BinaryBlock BinarySerializeData<type>(const type& data); \
+OSK::PERSISTENCE::BinaryBlock OSKAPI_CALL BinarySerializeData<type>(const type& data); \
 template <> \
-type BinaryDeserializeData<type>(OSK::PERSISTENCE::BinaryBlockReader* reader); \
+type OSKAPI_CALL BinaryDeserializeData<type>(OSK::PERSISTENCE::BinaryBlockReader* reader); \
 }
 
 #define OSK_COMPONENT_SERIALIZATION(type) \
 namespace OSK::PERSISTENCE { \
 template <> \
-::nlohmann::json SerializeComponent<type>(const type& data); \
+::nlohmann::json OSKAPI_CALL SerializeComponent<type>(const type& data); \
 template <> \
-type DeserializeComponent<type>(const ::nlohmann::json& json, const ::OSK::ECS::SavedGameObjectTranslator& gameObjectTranslator); \
+type OSKAPI_CALL DeserializeComponent<type>(const ::nlohmann::json& json, const ::OSK::ECS::SavedGameObjectTranslator& gameObjectTranslator); \
 template <> \
-OSK::PERSISTENCE::BinaryBlock BinarySerializeComponent<type>(const type& data); \
+OSK::PERSISTENCE::BinaryBlock OSKAPI_CALL BinarySerializeComponent<type>(const type& data); \
 template <> \
-type BinaryDeserializeComponent<type>(OSK::PERSISTENCE::BinaryBlockReader* reader, const ::OSK::ECS::SavedGameObjectTranslator& gameObjectTranslator); \
+type OSKAPI_CALL BinaryDeserializeComponent<type>(OSK::PERSISTENCE::BinaryBlockReader* reader, const ::OSK::ECS::SavedGameObjectTranslator& gameObjectTranslator); \
 }

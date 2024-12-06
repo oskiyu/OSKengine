@@ -1,5 +1,8 @@
 #include "DescriptorDx12.h"
 
+#include "Platforms.h"
+#ifdef OSK_USE_DIRECTX12_BACKEND
+
 #include "GpuDx12.h"
 
 using namespace OSK;
@@ -45,3 +48,5 @@ USize32 DescriptorBlockDx12::GetNumRemainingDescriptors() const {
 bool DescriptorBlockDx12::IsFull() const {
 	return GetNumRemainingDescriptors() > 0;
 }
+
+#endif

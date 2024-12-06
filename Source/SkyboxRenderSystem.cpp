@@ -57,7 +57,7 @@ void SkyboxRenderSystem::SetCubemap(ASSETS::AssetRef<ASSETS::CubemapTexture> tex
 	m_skybox = texture;
 
 	for (UIndex32 i = 0; i < MAX_RESOURCES_IN_FLIGHT; i++) {
-		m_skyboxMaterialInstances[i]->GetSlot("texture")->SetGpuImage("skybox", *texture->GetGpuImage()->GetView(GpuImageViewConfig::CreateSampled_Cubemap()));
+		m_skyboxMaterialInstances[i]->GetSlot("texture")->SetGpuImage("skybox", *texture->GetGpuImage()->GetView(GpuImageViewConfig::CreateSampled_Cubemap()), GpuImageSamplerDesc::CreateDefault_NoMipMap());
 		m_skyboxMaterialInstances[i]->GetSlot("texture")->FlushUpdate();
 	}
 }
@@ -90,6 +90,19 @@ void SkyboxRenderSystem::Render(ICommandList* commandList, std::span<const ECS::
 
 	commandList->EndDebugSection();
 }
+
+const CubemapTexture* SkyboxRenderSystem::GetCurrentTexture() const {
+	return m_skybox.GetAsset();
+}
+
+GameObjectIndex SkyboxRenderSystem::GetCurrentCameraObject() const {
+	return cameraObject;
+}
+
+const Material* SkyboxRenderSystem::GetCurrentMaterial() const {
+	return m_skyboxMaterial;
+}
+
 
 nlohmann::json SkyboxRenderSystem::SaveConfiguration() const {
 	auto output = nlohmann::json();

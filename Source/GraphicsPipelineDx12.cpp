@@ -1,3 +1,6 @@
+#include "Platforms.h"
+#ifdef OSK_USE_DIRECTX12_BACKEND
+
 #include <spirv_cross/spirv_cross.hpp>
 #include <spirv_cross/spirv_hlsl.hpp>
 
@@ -15,7 +18,6 @@
 #include "Format.h"
 #include "FormatDx12.h"
 #include "VertexInfo.h"
-#include "LinkedList.hpp"
 #include "MaterialLayout.h"
 #include "PipelinesExceptions.h"
 
@@ -234,3 +236,5 @@ D3D12_FILL_MODE GraphicsPipelineDx12::GetFillMode(PolygonMode mode) const {
 		return D3D12_FILL_MODE_SOLID;
 	}
 }
+
+#endif

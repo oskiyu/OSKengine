@@ -1,5 +1,8 @@
 #include "MaterialSlotVk.h"
 
+#include "Platforms.h"
+#ifdef OSK_USE_VULKAN_BACKEND
+
 #include <vulkan/vulkan.h>
 #include "OSKengine.h"
 #include "RendererVk.h"
@@ -15,6 +18,7 @@
 #include "TopLevelAccelerationStructureVk.h"
 #include "GpuImageViewVk.h"
 #include "MaterialExceptions.h"
+#include "GpuImageSamplerVk.h"
 
 using namespace OSK;
 using namespace OSK::GRAPHICS;
@@ -119,11 +123,12 @@ void MaterialSlotVk::SetStorageBuffer(
 void MaterialSlotVk::SetGpuImage(
 	std::string_view binding,
 	const IGpuImageView& image,
+	const IGpuImageSampler& sampler,
 	UIndex32 arrayIndex)
 {
 	const UIndex32 bindingIndexInShader = GetLayout()->GetSlot(GetName()).bindings.find(binding)->second.glslIndex;
 
-	OwnedPtr<VkDescriptorImageInfo> imageInfo = GetDescriptorImageInfo(image, VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL);
+	OwnedPtr<VkDescriptorImageInfo> imageInfo = GetDescriptorImageInfo(image, sampler, VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL);
 
 	VkWriteDescriptorSet descriptorWrite{};
 	descriptorWrite.sType = VK_STRUCTURE_TYPE_WRITE_DESCRIPTOR_SET;
@@ -255,12 +260,22 @@ OwnedPtr<VkDescriptorBufferInfo> MaterialSlotVk::GetDescriptorBufferInfo(const G
 	return bufferInfo;
 }
 
+OwnedPtr<VkDescriptorImageInfo> MaterialSlotVk::GetDescriptorImageInfo(const IGpuImageView& view, const IGpuImageSampler& sampler, VkImageLayout layout) {
+	OwnedPtr<VkDescriptorImageInfo> imageInfo = GetDescriptorImageInfo(view, layout);
+
+	imageInfo->sampler = sampler.As<GpuImageSamplerVk>()->GetSamplerVk();
+
+	return imageInfo;
+}
+
 OwnedPtr<VkDescriptorImageInfo> MaterialSlotVk::GetDescriptorImageInfo(const IGpuImageView& view, VkImageLayout layout) {
 	OwnedPtr<VkDescriptorImageInfo> imageInfo = new VkDescriptorImageInfo();
 
 	imageInfo->imageLayout = layout;
-	imageInfo->sampler = view.GetImage().As<GpuImageVk>()->GetVkSampler();
+	imageInfo->sampler = VK_NULL_HANDLE;
 	imageInfo->imageView = view.As<GpuImageViewVk>()->GetVkView();
 
 	return imageInfo;
 }
+
+#endif

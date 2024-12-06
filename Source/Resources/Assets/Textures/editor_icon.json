@@ -4,5 +4,5 @@
 
     "name": "Editor Icon",
     "asset_type": "Texture",
-    "raw_asset_path": "Resources/RawAssets/Textures/editorIcon.png"
+    "raw_asset_path": "Resources/Assets/Textures/editorIcon.png"
 }

@@ -7,7 +7,7 @@
 
 namespace OSK::ECS {
 
-	class OSKAPI_CALL PhysicsSystem final : public IIteratorSystem {
+	class OSKAPI_CALL PhysicsSystem final : public IIteratorSystem, public ISerializableSystem {
 
 	public:
 
@@ -23,10 +23,11 @@ namespace OSK::ECS {
 		void ApplyConfiguration(const nlohmann::json& config, const SavedGameObjectTranslator& translator) override;
 		void ApplyConfiguration(PERSISTENCE::BinaryBlockReader* reader, const SavedGameObjectTranslator& translator) override;
 
+		const Vector3f& GetGravity() const;
+
 	private:
 
-		Vector3f gravityAccel = { 0.0f, -9.8f, 0.0f };
-		Vector3f gravity = { 0.0f, -9.8f, 0.0f };
+		Vector3f m_gravity = { 0.0f, -2.7f, 0.0f };
 
 	};
 

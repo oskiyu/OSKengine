@@ -95,7 +95,7 @@ void SpecularMapLoader::Load(const std::string& assetFilePath, SpecularMap* asse
 	prefilterSampler.mipMapMode = GpuImageMipmapMode::CUSTOM;
 	prefilterSampler.minMipLevel = 0;
 	prefilterSampler.maxMipLevel = maxMipLevel;
-	prefilterSampler.filteringType = GpuImageFilteringType::LIENAR;
+	prefilterSampler.filteringType = GpuImageFilteringType::LINEAR;
 
 	UniquePtr<GpuImage> originalCubemap = Engine::GetRenderer()->GetAllocator()->CreateCubemapImage(
 		maxResolution,
@@ -116,8 +116,8 @@ void SpecularMapLoader::Load(const std::string& assetFilePath, SpecularMap* asse
 	originalCubemap->SetDebugName("Original Specular Cubemap");
 	targetCubemap->SetDebugName("Prefiltered Specular Cubemap");
 
-	generationMaterialInstance->GetSlot("global")->SetGpuImage("image", *originalImage->GetView(GpuImageViewConfig::CreateSampled_SingleMipLevel(0)));
-	prefilterMaterialInstance->GetSlot("global")->SetGpuImage("image", *originalCubemap->GetView(GpuImageViewConfig::CreateSampled_Cubemap()));
+	generationMaterialInstance->GetSlot("global")->SetGpuImage("image", *originalImage->GetView(GpuImageViewConfig::CreateSampled_SingleMipLevel(0)), GpuImageSamplerDesc::CreateDefault_NoMipMap());
+	prefilterMaterialInstance->GetSlot("global")->SetGpuImage("image", *originalCubemap->GetView(GpuImageViewConfig::CreateSampled_Cubemap()), GpuImageSamplerDesc::CreateDefault_NoMipMap());
 
 	generationMaterialInstance->GetSlot("global")->FlushUpdate();
 	prefilterMaterialInstance->GetSlot("global")->FlushUpdate();

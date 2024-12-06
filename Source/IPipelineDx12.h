@@ -1,5 +1,8 @@
 #pragma once
 
+#include "Platforms.h"
+#ifdef OSK_USE_DIRECTX12_BACKEND
+
 #include "ApiCall.h"
 #include "MaterialLayout.h"
 #include "VertexInfo.h"
@@ -97,3 +100,5 @@ namespace OSK::GRAPHICS {
 	};
 
 }
+
+#endif

@@ -1,5 +1,8 @@
 #pragma once
 
+#include "Platforms.h"
+#ifdef OSK_USE_VULKAN_BACKEND
+
 #include "ApiCall.h"
 #include "VulkanTypedefs.h"
 
@@ -12,3 +15,5 @@ namespace OSK::GRAPHICS {
 	VkImageLayout OSKAPI_CALL GetGpuImageLayoutVk(GpuImageLayout layout);
 
 }
+
+#endif

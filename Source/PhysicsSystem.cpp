@@ -29,7 +29,7 @@ void PhysicsSystem::Execute(TDeltaTime deltaTime, std::span<const GameObjectInde
 		const auto acceleration = physicsComponent.GetAcceleration();
 
 		transform.AddPosition(velocity * deltaTime);
-		physicsComponent._SetVelocity(velocity + (acceleration + Vector3f(0, -2.6f, 0)) * deltaTime);
+		physicsComponent._SetVelocity(velocity + (acceleration + m_gravity) * deltaTime);
 		
 		if (physicsComponent.GetAngularVelocity().GetLenght() > 0.00001f) {
 			transform.RotateWorldSpace(
@@ -45,16 +45,16 @@ void PhysicsSystem::Execute(TDeltaTime deltaTime, std::span<const GameObjectInde
 	}
 }
 
+const Vector3f& PhysicsSystem::GetGravity() const {
+	return m_gravity;
+}
+
 nlohmann::json PhysicsSystem::SaveConfiguration() const {
 	auto output = nlohmann::json();
 
-	output["gravityAccel"]["x"] = gravityAccel.x;
-	output["gravityAccel"]["y"] = gravityAccel.y;
-	output["gravityAccel"]["z"] = gravityAccel.z;
-
-	output["gravity"]["x"] = gravity.x;
-	output["gravity"]["y"] = gravity.y;
-	output["gravity"]["z"] = gravity.z;
+	output["gravity"]["x"] = m_gravity.x;
+	output["gravity"]["y"] = m_gravity.y;
+	output["gravity"]["z"] = m_gravity.z;
 
 	return output;
 }
@@ -62,20 +62,13 @@ nlohmann::json PhysicsSystem::SaveConfiguration() const {
 PERSISTENCE::BinaryBlock PhysicsSystem::SaveBinaryConfiguration() const {
 	auto data = PERSISTENCE::BinaryBlock::Empty();
 
-	data.AppendBlock(PERSISTENCE::SerializeBinaryVector3(gravityAccel));
-	data.AppendBlock(PERSISTENCE::SerializeBinaryVector3(gravity));
+	data.AppendBlock(PERSISTENCE::SerializeBinaryVector3(m_gravity));
 
 	return data;
 }
 
 void PhysicsSystem::ApplyConfiguration(const nlohmann::json& config, const SavedGameObjectTranslator& translator) {
-	gravityAccel = Vector3f(
-		config["gravityAccel"]["x"],
-		config["gravityAccel"]["y"],
-		config["gravityAccel"]["z"]
-	);
-
-	gravity = Vector3f(
+	m_gravity = Vector3f(
 		config["gravity"]["x"],
 		config["gravity"]["y"],
 		config["gravity"]["z"]
@@ -83,6 +76,5 @@ void PhysicsSystem::ApplyConfiguration(const nlohmann::json& config, const Saved
 }
 
 void PhysicsSystem::ApplyConfiguration(PERSISTENCE::BinaryBlockReader* reader, const SavedGameObjectTranslator& translator) {
-	gravityAccel = PERSISTENCE::DeserializeBinaryVector3<Vector3f, float>(reader);
-	gravity = PERSISTENCE::DeserializeBinaryVector3<Vector3f, float>(reader);
+	m_gravity = PERSISTENCE::DeserializeBinaryVector3<Vector3f, float>(reader);
 }

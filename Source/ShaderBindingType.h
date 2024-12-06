@@ -104,6 +104,12 @@ namespace OSK::GRAPHICS {
 		/// </summary>
 		COMPUTE = 128,
 
+		/// @brief Shader de amplificación / task shaders.
+		MESH_AMPLIFICATION = 256,
+
+		/// @brief Shader de meshes.
+		MESH = 512,
+
 		/// <summary>
 		/// Todos los shaders de teselado.
 		/// </summary>

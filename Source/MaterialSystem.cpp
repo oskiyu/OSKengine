@@ -15,7 +15,7 @@
 #include "InvalidDescriptionFileException.h"
 #include "RendererExceptions.h"
 
-#include <spirv_cross/spirv_glsl.hpp>
+#include "MaterialLoaderV1.h"
 
 using namespace OSK;
 using namespace OSK::IO;
@@ -166,322 +166,11 @@ void MaterialSystem::LoadMaterialV0(MaterialLayout* layout, const nlohmann::json
 
 }
 
-void LoadSpirvCrossShader(MaterialLayout* layout, const nlohmann::json& materialInfo, const DynamicArray<char>& bytecode, ShaderStage stage, USize32* pushConstantsOffset, USize32* numBuffers, USize32* numImages, USize32* numBindings) {
-	spirv_cross::Compiler compiler((const uint32_t*)bytecode.GetData(), bytecode.GetSize() / 4);
-	spirv_cross::ShaderResources resources = compiler.get_shader_resources();
-
-	// Imágenes
-	for (const auto& i : resources.sampled_images) {
-		// Obtenemos el nombre del set (slot).
-		// Si no tiene nombre registrado en el archivo, su nombre será su número.
-		std::string setName = std::to_string(compiler.get_decoration(i.id, spv::DecorationDescriptorSet));
-		if (materialInfo.contains("slots") && materialInfo["slots"].contains(std::to_string(compiler.get_decoration(i.id, spv::DecorationDescriptorSet))))
-			setName = materialInfo["slots"][std::to_string(compiler.get_decoration(i.id, spv::DecorationDescriptorSet))];
-
-		// Si el slot no está registrado, registrarlo
-		if (!layout->GetAllSlots().contains(setName)) {
-			MaterialLayoutSlot slot{};
-			slot.name = setName;
-			slot.glslSetIndex = compiler.get_decoration(i.id, spv::DecorationDescriptorSet);
-			slot.stage = stage;
-
-			layout->AddSlot(slot);
-		}
-		else {
-			EFTraits::AddFlag(&layout->GetSlot(setName).stage, stage);
-		}
-
-		MaterialLayoutBinding binding{};
-		binding.name = compiler.get_name(i.id);
-		binding.glslIndex = compiler.get_decoration(i.id, spv::DecorationBinding);
-		binding.hlslIndex = *numImages;
-		binding.hlslDescriptorIndex = *numBindings;
-
-		(*numImages)++;
-		(*numBindings)++;
-
-		// Tipo de imagen
-		const auto& typeInfo = compiler.get_type(i.type_id);
-		const auto& imageInfo = typeInfo.image;
-
-		binding.numArrayLayers = typeInfo.array.size() > 0 ? typeInfo.array[0] : 1;
-		binding.isUnsizedArray = (typeInfo.array.size() == 1) && (typeInfo.array[0] == 1);
-
-		if (imageInfo.dim == spv::Dim::DimCube)
-			binding.type = ShaderBindingType::CUBEMAP;
-		else
-			binding.type = ShaderBindingType::TEXTURE;
-
-		layout->GetSlot(setName).bindings[binding.name] = binding;
-	}
-
-	// Buffers
-	for (const auto& i : resources.uniform_buffers) {
-		// Obtenemos el nombre del set (slot).
-		// Si no tiene nombre registrado en el archivo, su nombre será su número.
-		std::string setName = std::to_string(compiler.get_decoration(i.id, spv::DecorationDescriptorSet));
-		if (materialInfo.contains("slots") && materialInfo["slots"].contains(std::to_string(compiler.get_decoration(i.id, spv::DecorationDescriptorSet))))
-			setName = materialInfo["slots"][std::to_string(compiler.get_decoration(i.id, spv::DecorationDescriptorSet))];
-
-		// Si el slot no está registrado, registrarlo
-		if (!layout->GetAllSlots().contains(setName)) {
-			MaterialLayoutSlot slot{};
-			slot.name = setName;
-			slot.glslSetIndex = compiler.get_decoration(i.id, spv::DecorationDescriptorSet);
-			slot.stage = stage;
-
-			layout->AddSlot(slot);
-		}
-		else {
-			EFTraits::AddFlag(&layout->GetSlot(setName).stage, stage);
-		}
-
-		MaterialLayoutBinding binding{};
-		binding.name = compiler.get_name(i.id);
-		binding.glslIndex = compiler.get_decoration(i.id, spv::DecorationBinding);
-		binding.type = ShaderBindingType::UNIFORM_BUFFER;
-		binding.hlslIndex = *numBuffers;
-		binding.hlslDescriptorIndex = *numBindings;
-
-		const auto& typeInfo = compiler.get_type(i.type_id);
-		binding.numArrayLayers = typeInfo.array.size() > 0 ? typeInfo.array[0] : 1;
-		binding.isUnsizedArray = (typeInfo.array.size() == 1) && (typeInfo.array[0] == 1);
-
-		(*numBuffers)++;
-		(*numBindings)++;
-
-		// Tamaño del buffer
-		const auto& bufferSize = compiler.get_declared_struct_size(compiler.get_type(i.type_id));
-
-		layout->GetSlot(setName).bindings[binding.name] = binding;
-	}
-
-	for (const auto& i : resources.acceleration_structures) {
-		// Obtenemos el nombre del set (slot).
-		// Si no tiene nombre registrado en el archivo, su nombre será su número.
-		std::string setName = std::to_string(compiler.get_decoration(i.id, spv::DecorationDescriptorSet));
-		if (materialInfo.contains("slots") && materialInfo["slots"].contains(std::to_string(compiler.get_decoration(i.id, spv::DecorationDescriptorSet))))
-			setName = materialInfo["slots"][std::to_string(compiler.get_decoration(i.id, spv::DecorationDescriptorSet))];
-
-		// Si el slot no está registrado, registrarlo
-		if (!layout->GetAllSlots().contains(setName)) {
-			MaterialLayoutSlot slot{};
-			slot.name = setName;
-			slot.glslSetIndex = compiler.get_decoration(i.id, spv::DecorationDescriptorSet);
-			slot.stage = stage;
-
-			layout->AddSlot(slot);
-		}
-		else {
-			EFTraits::AddFlag(&layout->GetSlot(setName).stage, stage);
-		}
-
-		MaterialLayoutBinding binding{};
-		binding.name = compiler.get_name(i.id);
-		binding.glslIndex = compiler.get_decoration(i.id, spv::DecorationBinding);
-		binding.type = ShaderBindingType::RT_ACCELERATION_STRUCTURE;
-		//binding.hlslIndex = *numBuffers;
-		//binding.hlslDescriptorIndex = *numBindings; TODO
-
-		//(*numBuffers)++;
-		//(*numBindings)++;
-
-		const auto& typeInfo = compiler.get_type(i.type_id);
-		binding.numArrayLayers = typeInfo.array.size() > 0 ? typeInfo.array[0] : 1;
-		binding.isUnsizedArray = (typeInfo.array.size() == 1) && (typeInfo.array[0] == 1);
-
-		layout->GetSlot(setName).bindings[binding.name] = binding;
-	}
-
-	for (const auto& i : resources.storage_images) {
-		// Obtenemos el nombre del set (slot).
-		// Si no tiene nombre registrado en el archivo, su nombre será su número.
-		std::string setName = std::to_string(compiler.get_decoration(i.id, spv::DecorationDescriptorSet));
-		if (materialInfo.contains("slots") && materialInfo["slots"].contains(std::to_string(compiler.get_decoration(i.id, spv::DecorationDescriptorSet))))
-			setName = materialInfo["slots"][std::to_string(compiler.get_decoration(i.id, spv::DecorationDescriptorSet))];
-
-		// Si el slot no está registrado, registrarlo
-		if (!layout->GetAllSlots().contains(setName)) {
-			MaterialLayoutSlot slot{};
-			slot.name = setName;
-			slot.glslSetIndex = compiler.get_decoration(i.id, spv::DecorationDescriptorSet);
-			slot.stage = stage;
-
-			layout->AddSlot(slot);
-		}
-		else {
-			EFTraits::AddFlag(&layout->GetSlot(setName).stage, stage);
-		}
-
-		MaterialLayoutBinding binding{};
-		binding.name = compiler.get_name(i.id);
-		binding.glslIndex = compiler.get_decoration(i.id, spv::DecorationBinding);
-		binding.type = ShaderBindingType::RT_TARGET_IMAGE;
-		//binding.hlslIndex = *numBuffers;
-		//binding.hlslDescriptorIndex = *numBindings; TODO
-
-		//(*numBuffers)++;
-		//(*numBindings)++;
-
-		const auto& typeInfo = compiler.get_type(i.type_id);
-		binding.numArrayLayers = typeInfo.array.size() > 0 ? typeInfo.array[0] : 1;
-		binding.isUnsizedArray = (typeInfo.array.size() == 1) && (typeInfo.array[0] == 1);
-
-		layout->GetSlot(setName).bindings[binding.name] = binding;
-	}
-	for (auto& i : resources.storage_buffers) {
-		// Obtenemos el nombre del set (slot).
-		// Si no tiene nombre registrado en el archivo, su nombre será su número.
-		std::string setName = std::to_string(compiler.get_decoration(i.id, spv::DecorationDescriptorSet));
-		if (materialInfo.contains("slots") && materialInfo["slots"].contains(std::to_string(compiler.get_decoration(i.id, spv::DecorationDescriptorSet))))
-			setName = materialInfo["slots"][std::to_string(compiler.get_decoration(i.id, spv::DecorationDescriptorSet))];
-
-		// Si el slot no está registrado, registrarlo
-		if (!layout->GetAllSlots().contains(setName)) {
-			MaterialLayoutSlot slot{};
-			slot.name = setName;
-			slot.glslSetIndex = compiler.get_decoration(i.id, spv::DecorationDescriptorSet);
-			slot.stage = stage;
-
-			layout->AddSlot(slot);
-		}
-		else {
-			EFTraits::AddFlag(&layout->GetSlot(setName).stage, stage);
-		}
-
-		MaterialLayoutBinding binding{};
-		binding.name = compiler.get_name(i.id);
-		binding.glslIndex = compiler.get_decoration(i.id, spv::DecorationBinding);
-		binding.type = ShaderBindingType::STORAGE_BUFFER;
-		//binding.hlslIndex = *numBuffers;
-		//binding.hlslDescriptorIndex = *numBindings; TODO
-
-		//(*numBuffers)++;
-		//(*numBindings)++;
-
-		const auto& typeInfo = compiler.get_type(i.type_id);
-		binding.numArrayLayers = typeInfo.array.size() > 0 ? typeInfo.array[0] : 1;
-		binding.isUnsizedArray = (typeInfo.array.size() == 1) && (typeInfo.array[0] == 1);
-
-		layout->GetSlot(setName).bindings[binding.name] = binding;
-	}
-
-	// PushConstants
-	for (auto& i : resources.push_constant_buffers) {
-
-		// Si el push constant ya fue definido, actualizar su stage.
-		bool found = false;
-		for (auto& pConst : layout->GetAllPushConstants()) {
-			if (pConst.second.name == compiler.get_name(i.id)) {
-				EFTraits::AddFlag(&pConst.second.stage, stage);
-
-				found = true;
-			}
-		}
-
-		if (found)
-			continue;
-
-		MaterialLayoutPushConstant pushConstantInfo{};
-		pushConstantInfo.name = compiler.get_name(i.id);
-		pushConstantInfo.stage = stage;
-		pushConstantInfo.size = static_cast<USize32>(compiler.get_declared_struct_size(compiler.get_type(i.type_id)));
-		pushConstantInfo.offset = *pushConstantsOffset;
-		pushConstantInfo.hlslIndex = *numBuffers;
-		pushConstantInfo.hlslBindingIndex = *numBindings;
-
-		(*numBuffers)++;
-		(*numBindings)++;
-
-		*pushConstantsOffset += pushConstantInfo.offset;
-
-		layout->AddPushConstant(pushConstantInfo);
-	}
-}
-
-void MaterialSystem::LoadMaterialV1(MaterialLayout* layout, const nlohmann::json& materialInfo, PipelineCreateInfo* info, MaterialType type) {
-	USize32 pushConstantsOffset = 0;
-
-	USize32 numHlslBuffers = 0;
-	USize32 numHlslImages = 0;
-	USize32 numHlslBindings = 0;
-
-	info->precompiledHlslShaders = false;
-
-	if (type == MaterialType::RAYTRACING) {
-		OSK_ASSERT(materialInfo.contains("rt_raygen_shader"), ASSETS::InvalidDescriptionFileException("Archivo de material incorrecto: no se encuentra 'rt_raygen_shader'.", ""));
-		OSK_ASSERT(materialInfo.contains("rt_closesthit_shader"), ASSETS::InvalidDescriptionFileException("Archivo de material incorrecto: no se encuentra 'rt_closesthit_shader'.", ""));
-		OSK_ASSERT(materialInfo.contains("rt_miss_shader"), ASSETS::InvalidDescriptionFileException("Archivo de material incorrecto: no se encuentra 'rt_miss_shader'.", ""));
-
-		info->rtRaygenShaderPath = materialInfo["rt_raygen_shader"];
-		info->rtClosestHitShaderPath = materialInfo["rt_closesthit_shader"];
-		info->rtMissShaderPath = materialInfo["rt_miss_shader"];
-
-		LoadSpirvCrossShader(layout, materialInfo, FileIO::ReadBinaryFromFile(materialInfo["rt_raygen_shader"]), ShaderStage::RT_RAYGEN, &pushConstantsOffset, &numHlslBuffers, &numHlslImages, &numHlslBindings);
-		LoadSpirvCrossShader(layout, materialInfo, FileIO::ReadBinaryFromFile(materialInfo["rt_closesthit_shader"]), ShaderStage::RT_CLOSEST_HIT, &pushConstantsOffset, &numHlslBuffers, &numHlslImages, &numHlslBindings);
-		LoadSpirvCrossShader(layout, materialInfo, FileIO::ReadBinaryFromFile(materialInfo["rt_miss_shader"]), ShaderStage::RT_MISS, &pushConstantsOffset, &numHlslBuffers, &numHlslImages, &numHlslBindings);
-	}
-	else if (type == MaterialType::GRAPHICS) {
-		OSK_ASSERT(materialInfo.contains("vertex_shader"), ASSETS::InvalidDescriptionFileException("Archivo de material incorrecto: no se encuentra 'vertex_shader'.", ""));
-		
-		info->vertexPath = materialInfo["vertex_shader"];
-		info->fragmentPath = materialInfo.contains("fragment_shader")
-			? materialInfo["fragment_shader"]
-			: "";
-
-		LoadSpirvCrossShader(layout, materialInfo, FileIO::ReadBinaryFromFile(materialInfo["vertex_shader"]), ShaderStage::VERTEX, &pushConstantsOffset, &numHlslBuffers, &numHlslImages, &numHlslBindings);
-		
-		if (materialInfo.contains("tesselation_control_shader")) {
-			LoadSpirvCrossShader(layout, materialInfo, FileIO::ReadBinaryFromFile(materialInfo["tesselation_control_shader"]), ShaderStage::TESSELATION_CONTROL, &pushConstantsOffset, &numHlslBuffers, &numHlslImages, &numHlslBindings);
-			info->tesselationControlPath = materialInfo["tesselation_control_shader"];
-		}
-		if (materialInfo.contains("tesselation_evaluation_shader")) {
-			LoadSpirvCrossShader(layout, materialInfo, FileIO::ReadBinaryFromFile(materialInfo["tesselation_evaluation_shader"]), ShaderStage::TESSELATION_EVALUATION, &pushConstantsOffset, &numHlslBuffers, &numHlslImages, &numHlslBindings);
-			info->tesselationEvaluationPath = materialInfo["tesselation_evaluation_shader"];
-		}
-
-		if (materialInfo.contains("fragment_shader")) {
-			LoadSpirvCrossShader(layout, materialInfo, FileIO::ReadBinaryFromFile(materialInfo["fragment_shader"]), ShaderStage::FRAGMENT, &pushConstantsOffset, &numHlslBuffers, &numHlslImages, &numHlslBindings);
-		}
-	}
-	else if (type == MaterialType::COMPUTE) {
-		OSK_ASSERT(materialInfo.contains("compute_shader"), ASSETS::InvalidDescriptionFileException("Archivo de material incorrecto: no se encuentra 'compute_shader'.", ""));
-
-		info->computeShaderPath = materialInfo["compute_shader"];
-
-		LoadSpirvCrossShader(layout, materialInfo, FileIO::ReadBinaryFromFile(materialInfo["compute_shader"]), ShaderStage::COMPUTE, &pushConstantsOffset, &numHlslBuffers, &numHlslImages, &numHlslBindings);
-	}
-
-	UIndex32 nextHlslBinding = 0;
-	for (auto& [slotName, slot] : layout->GetAllSlots()) {
-		for (auto& [_, binding] : slot.bindings) {
-			binding.hlslDescriptorIndex = nextHlslBinding;
-			nextHlslBinding++;
-		}
-	}
-
-	for (auto& [_, pushConstant] : layout->GetAllPushConstants()) {
-		pushConstant.hlslBindingIndex = nextHlslBinding;
-		nextHlslBinding++;
-	}
-
-	// Bind-less
-	if (materialInfo.contains("config") && materialInfo["config"].contains("resource_vararray_max_count")) {
-		info->usesUnspecifiedSizedArrays = true;
-		const int maxCount = materialInfo["config"]["resource_vararray_max_count"];
-
-		OSK_ASSERT(maxCount > 0, ASSETS::InvalidDescriptionFileException("config.resource_vararray_max_count debe ser mayor que 0.", ""));
-		OSK_ASSERT(maxCount < 4096, ASSETS::InvalidDescriptionFileException("config.resource_vararray_max_count debe ser menor que 4096.", ""));
-
-		info->maxUnspecifiedSizedArraysSize = maxCount;
-	}
-}
-
 Material* MaterialSystem::LoadMaterial(const std::string& path) {
 	if (materialsPathTable.contains(path))
 		return materialsPathTable.at(path);
 
-	MaterialLayout* layout = new MaterialLayout;
+	UniquePtr<MaterialLayout> layout = new MaterialLayout(path);
 
 	// Material file.
 	nlohmann::json materialInfo = nlohmann::json::parse(IO::FileIO::ReadFromFile(path));
@@ -497,6 +186,9 @@ Material* MaterialSystem::LoadMaterial(const std::string& path) {
 	else if (materialInfo["file_type"] == "MATERIAL_COMPUTE") {
 		type = MaterialType::COMPUTE;
 	}
+	else if (materialInfo["file_type"] == "MATERIAL_MESH") {
+		type = MaterialType::MESH;
+	}
 	
 	VertexInfo vertexType = {};
 	
@@ -510,12 +202,11 @@ Material* MaterialSystem::LoadMaterial(const std::string& path) {
 	PipelineCreateInfo info{};
 	info.cullMode = PolygonCullMode::BACK;
 	info.frontFaceType = PolygonFrontFaceType::COUNTERCLOCKWISE;
-	info.isRaytracing = type == MaterialType::RAYTRACING;
 
 	if (fileVersion == 0)
-		LoadMaterialV0(layout, materialInfo, &info);
+		LoadMaterialV0(layout.GetPointer(), materialInfo, &info);
 	else if (fileVersion == 1)
-		LoadMaterialV1(layout, materialInfo, &info, type);
+		layout = LoadMaterialLayoutV1(materialInfo, &info, type).GetPointer();
 	else
 		OSK_ASSERT(false, ASSETS::InvalidDescriptionFileException("La versión del archivo de material no está soportada.", path))
 
@@ -549,7 +240,9 @@ Material* MaterialSystem::LoadMaterial(const std::string& path) {
 	if (materialInfo.contains("polygon_mode"))
 		info.polygonMode = GetPolygonMode(materialInfo["polygon_mode"]);
 
-	auto output = new Material(info, layout, vertexType, type);
+	// Engine::GetLogger()->DebugLog(ToString(*layout));
+
+	auto output = new Material(info, layout.Release(), vertexType, type);
 	output->SetName(materialInfo["name"]);
 
 	materials.Insert(output);

@@ -43,7 +43,7 @@ namespace OSK::ECS {
 
 
 	/// @brief Sistema de renderizado en diferido.
-	class OSKAPI_CALL DeferredRenderSystem : public IRenderSystem {
+	class OSKAPI_CALL DeferredRenderSystem : public IRenderSystem, public ISerializableSystem {
 
 	public:
 
@@ -112,6 +112,10 @@ namespace OSK::ECS {
 		GRAPHICS::ShadowMap& GetShadowMap();
 		const GRAPHICS::ShadowMap& GetShadowMap() const;
 
+		const ASSETS::IrradianceMap* GetIrradianceMap() const;
+		const ASSETS::SpecularMap* GetSpecularMap() const;
+		GameObjectIndex GetCurrentCameraObject() const;
+		std::string_view GetResolverPassName() const;
 
 		nlohmann::json SaveConfiguration() const override;
 		PERSISTENCE::BinaryBlock SaveBinaryConfiguration() const override;

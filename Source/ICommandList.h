@@ -38,6 +38,7 @@ namespace OSK::GRAPHICS {
 	class IGraphicsPipeline;
 	class IRaytracingPipeline;
 	class IComputePipeline;
+	class IMeshPipeline;
 
 	// Imágenes.
 	class GpuImage;
@@ -548,7 +549,6 @@ namespace OSK::GRAPHICS {
 		/// soportar, al menos, `CommandsSupport::GRAPHICS`.
 		virtual void DrawSingleInstance(USize32 numIndices) = 0;
 
-		/// <su
 		/// @brief 
 		/// Renderiza los triángulos del mesh,
 		/// con el material enlazado.
@@ -577,6 +577,25 @@ namespace OSK::GRAPHICS {
 		/// @param firstInstance Índice de la primera instancia.
 		/// @param instanceCount Número de instancias.
 		virtual void DrawInstances(UIndex32 firstIndex, USize32 numIndices, UIndex32 firstInstance, USize32 instanceCount) = 0;
+
+		/// @brief Lanza el renderizado usando shader de meshes.
+		/// @param groupCount Número de grupos lanzados.
+		/// 
+		/// @pre Debe haber un renderpass activo.
+		/// @pre Debe haber un material enlazado.
+		/// @pre Debe estar establecido el viewport y el scissor.
+		/// @pre Deben estar enlazados los slots y los push constants necesarios
+		/// para rellenar el material.
+		/// @pre La lista de comandos debe estar abierta.
+		/// 
+		/// @pre La gpu debe soportar shaders de meshes.
+		/// 
+		/// @note El tipo de comando es de GRÁFICOS.
+		/// @pre El pool de comandos a partir del cual se ha creado la lista debe 
+		/// soportar, al menos, `CommandsSupport::GRAPHICS`.
+		/// @pre La cola de comandos sobre la que se envía la lista debe 
+		/// soportar, al menos, `CommandsSupport::GRAPHICS`.
+		virtual void DrawMeshShader(const Vector3ui& groupCount) = 0;
 
 #pragma endregion
 
@@ -844,6 +863,7 @@ namespace OSK::GRAPHICS {
 		virtual void EndDebugSection() = 0;
 
 
+		ICommandPool* GetOwnerPool();
 		const ICommandPool* GetOwnerPool() const;
 		
 		/// @return Tipo de cola GPU en la que se puede
@@ -854,13 +874,14 @@ namespace OSK::GRAPHICS {
 
 	protected:
 
-		explicit ICommandList(const ICommandPool* commandPool);
+		explicit ICommandList(ICommandPool* commandPool);
 
 		void _SetSingleTime();
 
-		virtual void BindGraphicsPipeline(const IGraphicsPipeline& computePipeline) = 0;
-		virtual void BindComputePipeline(const IComputePipeline& computePipeline) = 0;
-		virtual void BindRayTracingPipeline(const IRaytracingPipeline& computePipeline) = 0;
+		virtual void BindGraphicsPipeline(const IGraphicsPipeline& pipeline) = 0;
+		virtual void BindComputePipeline(const IComputePipeline& pipeline) = 0;
+		virtual void BindRayTracingPipeline(const IRaytracingPipeline& pipeline) = 0;
+		virtual void BindMeshPipeline(const IMeshPipeline& pipeline) = 0;
 
 
 		/// @brief Pipeline que está siendo grabado en un instante determinado.
@@ -869,6 +890,7 @@ namespace OSK::GRAPHICS {
 			const IGraphicsPipeline* graphics = nullptr;
 			const IRaytracingPipeline* raytracing;
 			const IComputePipeline* compute;
+			const IMeshPipeline* mesh;
 		} m_currentPipeline{};
 
 		/// @brief Material que está siendo usado en un instante determinado.
@@ -902,7 +924,7 @@ namespace OSK::GRAPHICS {
 		DynamicArray<GpuImage*> m_imagesToQueueTransfer;
 
 		/// @brief Command pool que creó esta lista de comandos.
-		const ICommandPool* m_ownerPool = nullptr;
+		ICommandPool* m_ownerPool = nullptr;
 
 	};
 

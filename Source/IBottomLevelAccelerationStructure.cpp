@@ -1,5 +1,8 @@
 #include "IBottomLevelAccelerationStructure.h"
 
+#include "Platforms.h"
+#ifdef OSK_USE_VULKAN_BACKEND
+
 #include "Assert.h"
 #include "AccelerationStructuresExceptions.h"
 
@@ -19,3 +22,5 @@ void IBottomLevelAccelerationStructure::SetMatrix(const glm::mat4& matrix) {
 bool IBottomLevelAccelerationStructure::IsDirty() const {
 	return isDirty;
 }
+
+#endif

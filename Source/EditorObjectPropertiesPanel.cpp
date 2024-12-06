@@ -84,3 +84,8 @@ void OSK::Editor::UI::ObjectPropertiesPanel::EmplaceChild(IElement* child) {
 
 	VerticalContainer::EmplaceChild(child);
 }
+
+void OSK::Editor::UI::ObjectPropertiesPanel::ClearContent() {
+	PropertiesPanel::ClearContent();
+	ClearAllComponentViews();
+}

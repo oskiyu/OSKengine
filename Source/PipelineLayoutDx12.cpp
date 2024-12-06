@@ -1,5 +1,8 @@
 #include "PipelineLayoutDx12.h"
 
+#include "Platforms.h"
+#ifdef OSK_USE_DIRECTX12_BACKEND
+
 #include "MaterialLayout.h"
 #include "ShaderBindingType.h"
 
@@ -164,3 +167,5 @@ PipelineLayoutDx12::PipelineLayoutDx12(const MaterialLayout* layout)
 ID3D12RootSignature* PipelineLayoutDx12::GetSignature() const {
 	return signature.Get();
 }
+
+#endif

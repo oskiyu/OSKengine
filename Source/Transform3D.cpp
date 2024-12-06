@@ -18,11 +18,6 @@ using namespace OSK::ECS;
 using namespace OSK::PERSISTENCE;
 
 
-const static ECS::EntityComponentSystem* GetEcs() {
-	return Engine::GetEcs();
-}
-
-
 Transform3D Transform3D::FromMatrix(ECS::GameObjectIndex owner, const glm::mat4& matrix) {
 	Transform3D output(owner);
 

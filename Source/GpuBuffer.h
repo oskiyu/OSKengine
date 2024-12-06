@@ -189,11 +189,11 @@ namespace OSK::GRAPHICS {
 
 		GpuBarrierInfo m_currentBarrier{};
 
-		std::optional<VertexBufferView> vertexView;
-		std::optional<IndexBufferView> indexView;
+		std::optional<VertexBufferView> m_vertexView;
+		std::optional<IndexBufferView> m_indexView;
 
-		USize64 size = 0;
-		USize64 alignment = 0;
+		USize64 m_size = 0;
+		USize64 m_alignment = 0;
 
 		std::string m_name = "UNNAMED";
 

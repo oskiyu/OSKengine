@@ -333,6 +333,23 @@ void ColliderRenderSystem::SetupBottomLevelModel(GameObjectIndex obj) {
 }
 
 
+const GRAPHICS::Material* ColliderRenderSystem::GetTopLevelMaterial() const {
+	return material;
+}
+
+const GRAPHICS::Material* ColliderRenderSystem::GetBottomLevelMaterial() const {
+	return lowLevelMaterial;
+}
+
+const GRAPHICS::Material* ColliderRenderSystem::GetPointsMaterial() const {
+	return pointMaterial;
+}
+
+GameObjectIndex ColliderRenderSystem::GetCurrentCameraObject() const {
+	return m_cameraObject;
+}
+
+
 nlohmann::json ColliderRenderSystem::SaveConfiguration() const {
 	auto output = nlohmann::json();
 

@@ -1,10 +1,28 @@
-// OSKengine by oskiyu
-// Copyright (c) 2019-2022 oskiyu. All rights reserved.
 #include "SphereCollider.h"
 
-#include "AxisAlignedBoundingBox.h"
-#include "Math.h"
+#include "OwnedPtr.h"
+#include "Vector3.hpp"
 
+#include "ITopLevelCollider.h"
+#include "AxisAlignedBoundingBox.h"
+
+#include "Plane.h"
+#include "RayCastResult.h"
+#include "Ray.h"
+
+// Error handling.
+#include "Assert.h"
+#include "UnreachableException.h"
+
+// Para GameObject::EMPTY.
+#include "GameObject.h"
+
+// Para glm::sqrt.
+#include <glm/glm.hpp>
+
+// Para serialización.
+#include "BinaryBlock.h"
+#include <json.hpp>
 
 using namespace OSK;
 using namespace OSK::COLLISION;
@@ -19,15 +37,15 @@ SphereCollider::SphereCollider(float radius) {
 }
 
 void SphereCollider::SetRadius(float radius) {
-	this->radius = radius;
+	m_radius = radius;
 }
 
 float SphereCollider::GetRadius() const {
-	return radius;
+	return m_radius;
 }
 
 bool SphereCollider::ContainsPoint(const Vector3f& point) const {
-	return point.GetDistanceTo(GetPosition()) < radius;
+	return point.GetDistanceTo(GetPosition()) < m_radius;
 }
 
 bool SphereCollider::IsBehindPlane(Plane plane) const {
@@ -36,7 +54,7 @@ bool SphereCollider::IsBehindPlane(Plane plane) const {
 
 	const float distanceToPlane = centerDistance - planeDistance;
 
-	return !(distanceToPlane > -radius);
+	return !(distanceToPlane > -m_radius);
 }
 
 RayCastResult SphereCollider::CastRay(const Ray& ray) const {
@@ -54,11 +72,11 @@ RayCastResult SphereCollider::CastRay(const Ray& ray) const {
 	const Vector3f centerProjection = ray.origin + ray.direction * centerProjectionDistance;
 
 	const float distance = centerProjection.GetDistanceTo(GetPosition());
-	if (distance < radius)
+	if (distance < m_radius)
 		return RayCastResult::False();
 
 	const float distanceToIntersection = centerProjection.GetDistanceTo(ray.origin)
-		- glm::sqrt(radius * radius - distance * distance);
+		- glm::sqrt(m_radius * m_radius - distance * distance);
 
 	return RayCastResult::True(ray.origin + ray.direction * distanceToIntersection, ECS::EMPTY_GAME_OBJECT);
 }
@@ -69,6 +87,9 @@ bool SphereCollider::IsColliding(const ITopLevelCollider& other) const {
 
 	if (auto sphere = dynamic_cast<const SphereCollider*>(&other))
 		return ITopLevelCollider::SphereSphereCollision(*this, *sphere);
+
+	OSK_ASSERT(false, UnreachableException("Otro collider no reconocido."));
+	return false;
 }
 
 template <>

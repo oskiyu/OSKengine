@@ -30,6 +30,7 @@
 #include "AnimatedGBufferPass.h"
 #include "BillboardGBufferPass.h"
 #include "ShadowsStaticPass.h"
+#include "GrassRenderPass.h"
 
 #include "PbrResolvePass.h"
 
@@ -119,7 +120,7 @@ void DeferredRenderSystem::SetupGBufferMaterial() {
 void DeferredRenderSystem::Initialize(GameObjectIndex camera, ASSETS::AssetRef<ASSETS::IrradianceMap> irradianceMap, ASSETS::AssetRef<ASSETS::SpecularMap> specularMap) {
 	m_cameraObject = camera;
 
-
+	CreateBuffers();
 	// Pases por defecto
 	AddShaderPass(new StaticGBufferPass());
 	AddShaderPass(new AnimatedGBufferPass());
@@ -129,15 +130,23 @@ void DeferredRenderSystem::Initialize(GameObjectIndex camera, ASSETS::AssetRef<A
 	AddShadowsPass(shadowsPass);
 	shadowsPass->SetupShadowMap(m_shadowMap);
 
+	auto* grassPass = new GrassRenderPass();
+	std::array<const GpuBuffer*, MAX_RESOURCES_IN_FLIGHT> buffers{
+		m_cameraBuffers[0].GetPointer(),
+		m_cameraBuffers[1].GetPointer(),
+		m_cameraBuffers[2].GetPointer()
+	};
+	grassPass->SetCameraBuffers(buffers);
+	AddShaderPass(grassPass);
+
 	SetResolver(new PbrResolverPass());
 
-	CreateBuffers();
 	LoadMaterials();
 	SetupGBufferMaterial();
 	SetupResolveMaterial();
 
 	m_taaProvider.SetMaxJitter(4);
-		
+
 	SetIbl(irradianceMap, specularMap);
 
 	m_shadowMap.SetSceneCamera(camera);
@@ -161,9 +170,9 @@ void DeferredRenderSystem::SetIbl(AssetRef<IrradianceMap> irradianceMap, AssetRe
 	m_specularMap = specularMap;
 
 	for (UIndex32 i = 0; i < MAX_RESOURCES_IN_FLIGHT; i++) {
-		m_resolverPass->GetMaterialInstance(i)->GetSlot("global")->SetGpuImage("irradianceMap", *irradianceMap->GetGpuImage()->GetView(cubemapConfig));
-		m_resolverPass->GetMaterialInstance(i)->GetSlot("global")->SetGpuImage("specularMap", *specularMap->GetCubemapImage()->GetView(cubemapConfig));
-		m_resolverPass->GetMaterialInstance(i)->GetSlot("global")->SetGpuImage("specularLut", *specularMap->GetLookUpTable()->GetView(viewConfig));
+		m_resolverPass->GetMaterialInstance(i)->GetSlot("global")->SetGpuImage("irradianceMap", *irradianceMap->GetGpuImage()->GetView(cubemapConfig), GpuImageSamplerDesc::CreateDefault_WithMipMap(*irradianceMap->GetGpuImage()));
+		m_resolverPass->GetMaterialInstance(i)->GetSlot("global")->SetGpuImage("specularMap", *specularMap->GetCubemapImage()->GetView(cubemapConfig), GpuImageSamplerDesc::CreateDefault_WithMipMap(*specularMap->GetCubemapImage()));
+		m_resolverPass->GetMaterialInstance(i)->GetSlot("global")->SetGpuImage("specularLut", *specularMap->GetLookUpTable()->GetView(viewConfig), GpuImageSamplerDesc::CreateDefault_NoMipMap());
 		m_resolverPass->GetMaterialInstance(i)->GetSlot("global")->FlushUpdate();
 	}
 }
@@ -198,7 +207,7 @@ void DeferredRenderSystem::SetupResolveMaterial() {
 		materialSlot->SetUniformBuffer("camera", m_cameraBuffers[i].GetValue());
 		materialSlot->SetUniformBuffer("dirLight", m_directionalLightBuffers[i].GetValue());
 		materialSlot->SetUniformBuffer("dirLightShadowMat", *m_shadowMap.GetDirLightMatrixUniformBuffers()[i]);
-		materialSlot->SetGpuImage("dirLightShadowMap", *m_shadowMap.GetShadowImage()->GetView(shadowsViewConfig));
+		materialSlot->SetGpuImage("dirLightShadowMap", *m_shadowMap.GetShadowImage()->GetView(shadowsViewConfig), GpuImageSamplerDesc::CreateDefault_NoMipMap());
 		materialSlot->SetUniformBuffer("iblConfig", m_iblConfigBuffers[i].GetValue());
 		materialSlot->FlushUpdate();
 	}
@@ -218,19 +227,19 @@ void DeferredRenderSystem::UpdateResolveMaterial() {
 
 	for (UIndex32 i = 0; i < MAX_RESOURCES_IN_FLIGHT; i++) {
 		const auto* depthView = m_gBuffer.GetImage(GBuffer::Target::DEPTH)->GetView(depthViewConfig);
-		m_resolverPass->GetMaterialInstance(i)->GetSlot("gbuffer")->SetGpuImage("depthTexture", *depthView);
+		m_resolverPass->GetMaterialInstance(i)->GetSlot("gbuffer")->SetGpuImage("depthTexture", *depthView, GpuImageSamplerDesc::CreateDefault_NoMipMap());
 
 		const auto* colorView = m_gBuffer.GetImage(GBuffer::Target::COLOR)->GetView(viewConfig);
-		m_resolverPass->GetMaterialInstance(i)->GetSlot("gbuffer")->SetGpuImage("colorTexture", *colorView);
+		m_resolverPass->GetMaterialInstance(i)->GetSlot("gbuffer")->SetGpuImage("colorTexture", *colorView, GpuImageSamplerDesc::CreateDefault_NoMipMap());
 
 		const auto* normalView = m_gBuffer.GetImage(GBuffer::Target::NORMAL)->GetView(viewConfig);
-		m_resolverPass->GetMaterialInstance(i)->GetSlot("gbuffer")->SetGpuImage("normalTexture", *normalView);
+		m_resolverPass->GetMaterialInstance(i)->GetSlot("gbuffer")->SetGpuImage("normalTexture", *normalView, GpuImageSamplerDesc::CreateDefault_NoMipMap());
 
 		const auto* metallicView = m_gBuffer.GetImage(GBuffer::Target::METALLIC_ROUGHNESS)->GetView(viewConfig);
-		m_resolverPass->GetMaterialInstance(i)->GetSlot("gbuffer")->SetGpuImage("metallicRoughnessTexture", *metallicView);
+		m_resolverPass->GetMaterialInstance(i)->GetSlot("gbuffer")->SetGpuImage("metallicRoughnessTexture", *metallicView, GpuImageSamplerDesc::CreateDefault_NoMipMap());
 
 		const auto* emissiveView = m_gBuffer.GetImage(GBuffer::Target::EMISSIVE)->GetView(viewConfig);
-		m_resolverPass->GetMaterialInstance(i)->GetSlot("gbuffer")->SetGpuImage("emissiveTexture", *emissiveView);
+		m_resolverPass->GetMaterialInstance(i)->GetSlot("gbuffer")->SetGpuImage("emissiveTexture", *emissiveView, GpuImageSamplerDesc::CreateDefault_NoMipMap());
 
 		m_resolverPass->GetMaterialInstance(i)->GetSlot("gbuffer")->FlushUpdate();
 
@@ -244,7 +253,7 @@ void DeferredRenderSystem::UpdateResolveMaterial() {
 
 void DeferredRenderSystem::CreateTargetImage(const Vector2ui& size) {
 	// GBuffer.
-	GpuImageSamplerDesc sampler = GpuImageSamplerDesc::CreateDefault();
+	GpuImageSamplerDesc sampler = GpuImageSamplerDesc::CreateDefault_NoMipMap();
 	sampler.addressMode = GpuImageAddressMode::EDGE;
 	m_gBuffer.Create(size);
 
@@ -561,6 +570,8 @@ void DeferredRenderSystem::CopyFinalImages(ICommandList* cmdList) {
 }
 
 void DeferredRenderSystem::Execute(TDeltaTime deltaTime, std::span<const ECS::GameObjectIndex> objects) {
+	IRenderSystem::Execute(deltaTime, objects);
+
 	for (const GameObjectIndex obj : objects) {
 		auto& model = Engine::GetEcs()->GetComponent<ModelComponent3D>(obj);
 		Transform3D transformCopy = Engine::GetEcs()->GetComponent<Transform3D>(obj);
@@ -602,6 +613,22 @@ GRAPHICS::ShadowMap& DeferredRenderSystem::GetShadowMap() {
 
 const GRAPHICS::ShadowMap& DeferredRenderSystem::GetShadowMap() const {
 	return m_shadowMap;
+}
+
+const ASSETS::IrradianceMap* DeferredRenderSystem::GetIrradianceMap() const {
+	return m_irradianceMap.GetAsset();
+}
+
+const ASSETS::SpecularMap* DeferredRenderSystem::GetSpecularMap() const {
+	return m_specularMap.GetAsset();
+}
+
+GameObjectIndex DeferredRenderSystem::GetCurrentCameraObject() const {
+	return m_cameraObject;
+}
+
+std::string_view DeferredRenderSystem::GetResolverPassName() const {
+	return m_resolverPass->GetTypeName();
 }
 
 

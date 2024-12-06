@@ -6,125 +6,79 @@
 #include "EditorUiConstants.h"
 
 OSK::Editor::UI::SystemPropertiesPanel::SystemPropertiesPanel(const Vector2f& size) : PropertiesPanel(size) {
-
+	AddStateObjectButton();
 }
 
-void OSK::Editor::UI::SystemPropertiesPanel::UpdateBySystem(const OSK::ECS::ISystem* system) {
-	auto font = OSK::Engine::GetAssetManager()->Load<OSK::ASSETS::Font>(Editor::UI::Constants::EditorFontPath);
+void OSK::Editor::UI::SystemPropertiesPanel::SetView(OwnedPtr<OSK::Editor::Views::ISystemView> view) {
+	if (HasChild(ChildName)) {
+		DeleteChild(ChildName);
+	}
 
-	// Estado
+	AddChild(ChildName, view.GetPointer());
+}
+
+void OSK::Editor::UI::SystemPropertiesPanel::ClearView() {
+	if (HasChild(ChildName)) {
+		DeleteChild(ChildName);
+	}
+}
+
+void OSK::Editor::UI::SystemPropertiesPanel::ClearContent() {
+	PropertiesPanel::ClearContent();
+	ClearView();
+}
+
+void OSK::Editor::UI::SystemPropertiesPanel::SetSelectedSystem(ECS::ISystem* system) {
+	m_currentlySelectedSystem = system;
+
+	if (system) {
+		m_stateButton->Unlock();
+		m_stateButton->SetText(m_currentlySelectedSystem->IsActive() ? "Activado" : "Desactivado");
+		m_stateButton->SetState(m_currentlySelectedSystem->IsActive() ? OSK::UI::Button::State::PRESSED : OSK::UI::Button::State::DEFAULT);
+	}
+	else {
+		m_stateButton->Lock();
+		m_stateButton->SetText("Ningún sistema seleccionado");
+		m_stateButton->SetState(OSK::UI::Button::State::DEFAULT);
+	}
+}
+
+void OSK::Editor::UI::SystemPropertiesPanel::AddStateObjectButton() {
+	m_stateButton = new OSK::UI::Button({ GetSize().x - 20.0f, 25.0f }, "Inactivo");
+
+	m_stateButton->SetMargin({
+		m_stateButton->GetMarging2D().x,
+		m_stateButton->GetMarging2D().y + 3.0f
+		});
+
+	m_stateButton->SetType(OSK::UI::Button::Type::TOGGLE);
+	m_stateButton->SetTextFont(Engine::GetAssetManager()->Load<OSK::ASSETS::Font>(OSK::Editor::UI::Constants::EditorFontPath));
+	m_stateButton->SetTextFontSize(OSK::Editor::UI::Constants::SecondaryFontSize);
+	m_stateButton->SetCallback([this](bool state) {
+		m_stateButton->SetText(state ? "Activo" : "Inactivo");
+
+		if (m_currentlySelectedSystem) {
+			m_currentlySelectedSystem->SetActivationStatus(state);
+		}
+		});
+
 	{
-		OSK::UI::HorizontalContainer* stateContainer = nullptr;
+		GRAPHICS::SdfDrawCall2D background{};
+		background.contentType = GRAPHICS::SdfDrawCallContentType2D::COLOR_FLAT;
+		background.fill = true;
+		background.shape = GRAPHICS::SdfShape2D::RECTANGLE;
+		background.transform.SetPosition(GetContentTopLeftPosition());
+		background.transform.SetScale(m_stateButton->GetSize());
 
-		if (m_content.GetSize() < 1) {
-			stateContainer = new OSK::UI::HorizontalContainer({ GetSize().x - 20.0f, 20.0f });
+		background.mainColor = OSK::Editor::UI::Constants::DefaultRedColor;
+		m_stateButton->GetDefaultDrawCalls().Insert(background);
 
-			// Nombre.
-			{
-				auto* name = new OSK::UI::TextView(Vector2f::Zero);
-				name->SetFont(font);
-				name->SetFontSize(14);
-				name->SetMargin(Vector2f(8.0f, 2.0f));
+		background.mainColor = OSK::Editor::UI::Constants::HoveredColor;
+		m_stateButton->GetSelectedDrawCalls().Insert(background);
 
-				stateContainer->AddChild("name", name);
-			}
-
-			// Valor.
-			{
-				auto* value = new OSK::UI::TextView(Vector2f::Zero);
-				value->SetFont(font);
-				value->SetFontSize(14);
-				value->SetMargin(Vector2f(8.0f, 2.0f));
-
-				stateContainer->AddChild("value", value);
-			}
-
-			m_content.Insert(stateContainer);
-			AddChild(std::format("content{}", m_content.GetSize()), stateContainer);
-		}
-		else {
-			stateContainer = m_content[0];
-		}
-
-		stateContainer->SetVisible();
-		stateContainer->GetChild("name")->As<OSK::UI::TextView>()->SetText("Estado");
-		stateContainer->GetChild("name")->As<OSK::UI::TextView>()->AdjustSizeToText();
-		stateContainer->GetChild("value")->As<OSK::UI::TextView>()->SetText(system->IsActive() ? "activo" : "inactivo");
-		stateContainer->GetChild("value")->As<OSK::UI::TextView>()->AdjustSizeToText();
-		stateContainer->Rebuild();
+		background.mainColor = OSK::Editor::UI::Constants::DefaultGreenColor;
+		m_stateButton->GetPressedDrawCalls().Insert(background);
 	}
 
-	// Datos
-	auto datos = system->SaveConfiguration();
-
-	UIndex32 next = 1;
-	for (const auto& [key, value] : datos.items()) {
-		if (value.is_object()) {
-			// TODO
-			continue;
-		}
-
-		OSK::UI::HorizontalContainer* dataContainer = nullptr;
-
-		if (m_content.GetSize() <= next) {
-			dataContainer = new OSK::UI::HorizontalContainer({ GetSize().x - 20.0f, 20.0f });
-
-			auto* name = new OSK::UI::TextView(Vector2f::Zero);
-			name->SetFont(font);
-			name->SetFontSize(15);
-			name->SetMargin(Vector2f(8.0f, 2.0f));
-
-			dataContainer->AddChild("name", name);
-
-			auto* valueView = new OSK::UI::TextView(Vector2f::Zero);
-			valueView->SetFont(font);
-			valueView->SetFontSize(15);
-			valueView->SetMargin(Vector2f(8.0f, 2.0f));
-
-			dataContainer->AddChild("value", valueView);
-
-			AddChild(std::format("content{}", m_content.GetSize()), dataContainer);
-			m_content.Insert(dataContainer);
-		}
-		else {
-			dataContainer = m_content[next];
-		}
-
-		std::string vString{};
-
-		switch (value.type()) {
-		case nlohmann::detail::value_t::boolean:
-			vString = std::to_string(static_cast<bool>(value));
-			break;
-		case nlohmann::detail::value_t::number_float:
-			vString = std::to_string(static_cast<float>(value));
-			break;
-		case nlohmann::detail::value_t::number_integer:
-			vString = std::to_string(static_cast<int>(value));
-			break;
-		case nlohmann::detail::value_t::number_unsigned:
-			vString = std::to_string(static_cast<unsigned int>(value));
-			break;
-		case nlohmann::detail::value_t::string:
-			vString = static_cast<std::string>(value);
-			break;
-		case nlohmann::detail::value_t::null:
-			vString = "null";
-			break;
-		}
-
-		dataContainer->SetVisible();
-		dataContainer->GetChild("name")->As<OSK::UI::TextView>()->SetText(key);
-		dataContainer->GetChild("name")->As<OSK::UI::TextView>()->AdjustSizeToText();
-		dataContainer->GetChild("value")->As<OSK::UI::TextView>()->SetText(vString);
-		dataContainer->GetChild("value")->As<OSK::UI::TextView>()->AdjustSizeToText();
-		dataContainer->AdjustSizeToChildren();
-		dataContainer->Rebuild();
-
-		next++;
-	}
-
-	for (; next < m_content.GetSize(); next++) {
-		m_content[next]->SetInvisible();
-	}
+	AddChild("stateButton", m_stateButton);
 }

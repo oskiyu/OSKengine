@@ -2,7 +2,7 @@
 // Copyright (c) 2019-2022 oskiyu. All rights reserved.
 #pragma once
 
-#include "ApiCall.h"k
+#include "ApiCall.h"
 #include "DetailedCollisionInfo.h"
 #include "GameObject.h"
 

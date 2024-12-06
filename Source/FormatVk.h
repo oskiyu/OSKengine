@@ -1,5 +1,8 @@
 #pragma once
 
+#include "Platforms.h"
+#ifdef OSK_USE_VULKAN_BACKEND
+
 enum VkFormat;
 
 namespace OSK::GRAPHICS {
@@ -12,3 +15,5 @@ namespace OSK::GRAPHICS {
 	VkFormat GetFormatVk(Format format);
 
 }
+
+#endif

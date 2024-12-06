@@ -1,5 +1,8 @@
 #include "ShaderBindingTypeVk.h"
 
+#include "Platforms.h"
+#ifdef OSK_USE_VULKAN_BACKEND
+
 #include "ShaderBindingType.h"
 #include "EnumFlags.hpp"
 
@@ -51,5 +54,13 @@ VkShaderStageFlags OSK::GRAPHICS::GetShaderStageVk(ShaderStage stage) {
 	if (EFTraits::HasFlag(stage, ShaderStage::COMPUTE))
 		output |= VK_SHADER_STAGE_COMPUTE_BIT;
 
+	if (EFTraits::HasFlag(stage, ShaderStage::MESH_AMPLIFICATION))
+		output |= VK_SHADER_STAGE_TASK_BIT_EXT;
+
+	if (EFTraits::HasFlag(stage, ShaderStage::MESH))
+		output |= VK_SHADER_STAGE_MESH_BIT_EXT;
+
 	return output;
 }
+
+#endif

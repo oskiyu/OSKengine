@@ -20,6 +20,8 @@
 
 #define TINYGLTF_NO_STB_IMAGE_WRITE
 #include <tiny_gltf.h>
+#include "Vector3.hpp"
+#include "VertexAttributes.h"
 
 
 using namespace OSK;
@@ -73,7 +75,7 @@ void AnimMeshLoader::Load(const CpuModel3D& model, GRAPHICS::GpuModel3D* output)
 	}
 
 	for (const auto& mesh : model.GetMeshes()) {
-		const auto numMeshIndices = mesh.GetTriangleCount() * 3;
+		const auto numMeshIndices = static_cast<TIndexSize>(mesh.GetTriangleCount() * 3);
 
 		Vector3f center = Vector3f::Zero;
 		for (const auto& vertex : mesh.GetVertices()) {

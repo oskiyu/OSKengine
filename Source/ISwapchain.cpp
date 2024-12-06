@@ -49,7 +49,7 @@ void ISwapchain::TakeScreenshot(std::string_view path) {
 	intermediateImageInfo.memoryType = GpuSharedMemoryType::GPU_AND_CPU;
 	intermediateImageInfo.tilingType = GpuImageTiling::LINEAL;
 	intermediateImageInfo.msaaSamples = 1;
-	intermediateImageInfo.samplerDesc = GpuImageSamplerDesc::CreateDefault();
+	intermediateImageInfo.samplerDesc = GpuImageSamplerDesc::CreateDefault_NoMipMap();
 
 	UniquePtr<GpuImage> intermediateImage = Engine::GetRenderer()->GetAllocator()->CreateImage(intermediateImageInfo).GetPointer();
 

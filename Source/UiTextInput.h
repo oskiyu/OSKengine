@@ -50,7 +50,7 @@ namespace OSK::UI {
 		bool HasPlaceholderText() const;
 
 		void UpdateByKeyboard(const IO::KeyboardState& previous, const IO::KeyboardState& current) override;
-		void Render(GRAPHICS::SdfBindlessRenderer2D* renderer) const override;
+		void Render(GRAPHICS::ISdfRenderer2D* renderer) const override;
 
 	private:
 

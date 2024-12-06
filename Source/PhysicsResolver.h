@@ -14,12 +14,6 @@ namespace OSK::ECS {
 
 		void Execute(TDeltaTime deltaTime, std::span<const CollisionEvent> events) override;
 
-		nlohmann::json SaveConfiguration() const override;
-		PERSISTENCE::BinaryBlock SaveBinaryConfiguration() const override;
-
-		void ApplyConfiguration(const nlohmann::json& config, const SavedGameObjectTranslator& translator) override;
-		void ApplyConfiguration(PERSISTENCE::BinaryBlockReader* reader, const SavedGameObjectTranslator& translator) override;
-
 	};
 
 }

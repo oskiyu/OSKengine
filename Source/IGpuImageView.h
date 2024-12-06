@@ -35,59 +35,6 @@ namespace OSK::GRAPHICS {
 		OSK_DEFINE_AS(IGpuImageView);
 
 		
-		/// @brief Devuelve el canal al que se va a acceder a través
-		/// de este view.
-		/// Puede incluir varios canales al mismo tiempo.
-		/// @return Canal(es) de la imagen accedidos.
-		/// 
-		/// @deprecated Acceder a través de GetConfig().
-		SampledChannel GetChannel() const;
-
-		/// <summary>
-		/// Permite saber si este view consiste en una única capa
-		/// o referencia varias capas en un array.
-		/// </summary>
-		/// 
-		/// @deprecated Acceder a través de GetConfig().
-		SampledArrayType GetArrayType() const;
-
-		/// <summary>
-		/// Devuelve el índice de la primera capa del array
-		/// (o de la única capa si GetArrayType() es
-		/// SampledArrayType::SINGLE_LAYER.
-		/// </summary>
-		/// 
-		/// @deprecated Acceder a través de GetConfig().
-		UIndex32 GetBaseArrayLevel() const;
-
-		/// <summary>
-		/// Número de capas del array.
-		/// </summary>
-		/// 
-		/// @note Si GetArrayType() es
-		/// SampledArrayType::SINGLE_LAYER,
-		/// devolverá 1.
-		/// 
-		/// @deprecated Acceder a través de GetConfig().
-		USize32 GetLayerCount() const;
-
-		/// <summary>
-		/// Contexto en el que se va a usar la imagen.
-		/// </summary>
-		/// 
-		/// @deprecated Acceder a través de GetConfig().
-		ViewUsage GetViewUsage() const;
-
-		/// @return Mip level más detallado.
-		/// 
-		/// @deprecated Acceder a través de GetConfig().
-		inline UIndex32 GetBaseMipLevel() const { return config.baseMipLevel; }
-
-		/// @return Mip level menos detallado.
-		/// 
-		/// @deprecated Acceder a través de GetConfig().
-		inline UIndex32 GetTopMipLevel() const { return config.topMipLevel; }
-
 		/// @return Configuración completa del view.
 		inline const GpuImageViewConfig& GetConfig() const { return config; }
 

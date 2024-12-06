@@ -26,6 +26,8 @@ void Controllers::ModelComponentController3D::Poll() {
 
 		view->SetIsAnimated(model.IsAnimated());
 		m_wasAnimated = model.IsAnimated();
+
+		m_isFirstUpdate = true;
 	}
 	else {
 		if (m_previousAssetPath != model.GetModelAsset()->GetName()) {

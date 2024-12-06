@@ -1,5 +1,8 @@
 #pragma once
 
+#include "Platforms.h"
+#ifdef OSK_USE_DIRECTX12_BACKEND
+
 #include "ICommandList.h"
 
 #include <wrl.h>
@@ -19,7 +22,7 @@ namespace OSK::GRAPHICS {
 
 		CommandListDx12(
 			const GpuDx12& gpu,
-			const CommandPoolDx12& commandPool);
+			CommandPoolDx12* commandPool);
 		CommandListDx12() = default;
 
 		ID3D12GraphicsCommandList* GetCommandList() const;
@@ -61,6 +64,7 @@ namespace OSK::GRAPHICS {
 		void DrawInstances(UIndex32 firstIndex, USize32 numIndices, UIndex32 firstInstance, USize32 instanceCount) override;
 		void TraceRays(UIndex32 raygenEntry, UIndex32 closestHitEntry, UIndex32 missEntry, const Vector2ui& resolution) override;
 
+		void DrawMeshShader(const Vector3ui& groupCount) override {};
 		void DispatchCompute(const Vector3ui& groupCount) override;
 
 		void CopyBufferToImage(const GpuBuffer& source, GpuImage* dest, UIndex32 layer, USize64 offset) override;
@@ -95,9 +99,12 @@ namespace OSK::GRAPHICS {
 		void BindGraphicsPipeline(const IGraphicsPipeline& computePipeline) override;
 		void BindComputePipeline(const IComputePipeline& computePipeline) override;
 		void BindRayTracingPipeline(const IRaytracingPipeline& computePipeline) override;
+		void BindMeshPipeline(const IMeshPipeline& pipeline) override;
 
 		ComPtr<ID3D12GraphicsCommandList> commandList;
 
 	};
 
 }
+
+#endif

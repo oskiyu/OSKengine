@@ -1,5 +1,8 @@
 #include "CommandListDx12.h"
 
+#include "Platforms.h"
+#ifdef OSK_USE_DIRECTX12_BACKEND
+
 #include "GraphicsPipelineDx12.h"
 #include "CommandPoolDx12.h"
 #include "GpuMemoryBlockDx12.h"
@@ -42,11 +45,11 @@ USize64 Multiplo256(USize64 original) {
 	return output * 256;
 }
 
-CommandListDx12::CommandListDx12(const GpuDx12& gpu, const CommandPoolDx12& commandPool) : ICommandList(&commandPool) {
+CommandListDx12::CommandListDx12(const GpuDx12& gpu, CommandPoolDx12* commandPool) : ICommandList(commandPool) {
 	gpu.GetDevice()->CreateCommandList(
 		0, 
-		D3D12_COMMAND_LIST_TYPE_DIRECT,
-		commandPool.GetCommandAllocator(), 
+		commandPool->GetType(),
+		commandPool->GetCommandAllocator(), 
 		nullptr, 
 		IID_PPV_ARGS(&commandList));
 
@@ -58,8 +61,10 @@ ID3D12GraphicsCommandList* CommandListDx12::GetCommandList() const {
 }
 
 void CommandListDx12::Reset() {
-	GetOwnerPool()->As<CommandPoolDx12>()->GetCommandAllocator()->Reset();
-	commandList->Reset(GetOwnerPool()->As<CommandPoolDx12>()->GetCommandAllocator(), nullptr);
+	auto* pool = GetOwnerPool()->As<CommandPoolDx12>();
+
+	pool->GetCommandAllocator()->Reset();
+	commandList->Reset(pool->GetCommandAllocator(), nullptr);
 }
 
 void CommandListDx12::Start() {
@@ -283,6 +288,10 @@ void CommandListDx12::BindRayTracingPipeline(const IRaytracingPipeline& computeP
 	OSK_ASSERT(false, NotImplementedException());
 }
 
+void CommandListDx12::BindMeshPipeline(const IMeshPipeline& pipeline) {
+	OSK_ASSERT(false, NotImplementedException());
+}
+
 void CommandListDx12::BindVertexBufferRange(const GpuBuffer& buffer, const VertexBufferView& view) {
 	const D3D12_VERTEX_BUFFER_VIEW dxview {
 		.BufferLocation = buffer.GetMemorySubblock()->As<GpuMemorySubblockDx12>()->GetResource()->GetGPUVirtualAddress() + view.offsetInBytes,
@@ -454,3 +463,5 @@ DXGI_FORMAT CommandListDx12::GetIndexFormat(IndexType type) {
 		return DXGI_FORMAT_UNKNOWN;
 	}
 }
+
+#endif

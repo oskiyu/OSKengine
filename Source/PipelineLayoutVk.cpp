@@ -1,5 +1,8 @@
 #include "PipelineLayoutVk.h"
 
+#include "Platforms.h"
+#ifdef OSK_USE_VULKAN_BACKEND
+
 #include <vulkan/vulkan.h>
 
 #include "EnumFlags.hpp"
@@ -30,15 +33,17 @@ PipelineLayoutVk::PipelineLayoutVk(const MaterialLayout* materialLayout)
 	for (auto const& [name, slot] : materialLayout->GetAllSlots())
 		orderedSlots.Insert(slot);
 
-	for (UIndex32 i = 0; i < orderedSlots.GetSize() - 1; i++) {
-		for (UIndex32 j = 0; j < orderedSlots.GetSize() - 1; j++) {
-			const auto& slot1 = orderedSlots[j + 1].glslSetIndex;
-			const auto& slot2 = orderedSlots[j].glslSetIndex;
+	if (!orderedSlots.IsEmpty()) {
+		for (UIndex32 i = 0; i < orderedSlots.GetSize() - 1; i++) {
+			for (UIndex32 j = 0; j < orderedSlots.GetSize() - 1; j++) {
+				const auto& slot1 = orderedSlots[j + 1].glslSetIndex;
+				const auto& slot2 = orderedSlots[j].glslSetIndex;
 
-			if (slot1 < slot2) {
-				MaterialLayoutSlot temp = orderedSlots[j + 1];
-				orderedSlots[j + 1] = orderedSlots[j];
-				orderedSlots[j] = temp;
+				if (slot1 < slot2) {
+					MaterialLayoutSlot temp = orderedSlots[j + 1];
+					orderedSlots[j + 1] = orderedSlots[j];
+					orderedSlots[j] = temp;
+				}
 			}
 		}
 	}
@@ -83,3 +88,5 @@ PipelineLayoutVk::~PipelineLayoutVk() {
 VkPipelineLayout PipelineLayoutVk::GetLayout() const {
 	return layout;
 }
+
+#endif

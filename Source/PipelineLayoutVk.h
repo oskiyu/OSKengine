@@ -1,5 +1,8 @@
 #pragma once
 
+#include "Platforms.h"
+#ifdef OSK_USE_VULKAN_BACKEND
+
 #include "IPipelineLayout.h"
 #include "DynamicArray.hpp"
 #include "OwnedPtr.h"
@@ -28,3 +31,5 @@ namespace OSK::GRAPHICS {
 	};
 
 }
+
+#endif

@@ -1,0 +1,19 @@
+{
+    "file_type": "MATERIAL_MESH",
+    "spec_ver": 1,
+    "name": "Grass Rendering",
+
+    "amplification_shader": "Resources/Shaders/VK/Mesh/Grass/task.spv",
+    "mesh_shader": "Resources/Shaders/VK/Mesh/Grass/mesh_high.spv",
+    "fragment_shader": "Resources/Shaders/VK/Mesh/Grass/frag.spv",
+    
+    "slots": {
+        "0": "global"
+    },
+    
+    "config": {
+        "disable_alpha_blending": "true",
+        "cull_mode": "none"
+    }
+    
+}

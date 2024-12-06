@@ -1,5 +1,8 @@
 #pragma once
 
+#include "Platforms.h"
+#ifdef OSK_USE_VULKAN_BACKEND
+
 #include "IRenderer.h"
 #include "UniquePtr.hpp"
 
@@ -15,7 +18,6 @@ namespace OSK::GRAPHICS {
 	public:
 
 		explicit RendererVk(bool requestRayTracing);
-		~RendererVk();
 
 		void Initialize(
 			const std::string& appName, 
@@ -29,9 +31,12 @@ namespace OSK::GRAPHICS {
 		void WaitForCompletion() override;
 
 		OwnedPtr<IGraphicsPipeline> _CreateGraphicsPipeline(
-			const PipelineCreateInfo& pipelineInfo, 
-			const MaterialLayout& layout, 
+			const PipelineCreateInfo& pipelineInfo,
+			const MaterialLayout& layout,
 			const VertexInfo& vertexInfo) override;
+		OwnedPtr<IMeshPipeline> _CreateMeshPipeline(
+			const PipelineCreateInfo& pipelineInfo,
+			const MaterialLayout& layout) override;
 		OwnedPtr<IRaytracingPipeline> _CreateRaytracingPipeline(
 			const PipelineCreateInfo& pipelineInfo, 
 			const MaterialLayout& layout, 
@@ -74,6 +79,9 @@ namespace OSK::GRAPHICS {
 		static PFN_vkCmdBeginRendering pvkCmdBeginRendering;
 		static PFN_vkCmdEndRendering pvkCmdEndRendering;
 
+		// Mesh shaders
+		static PFN_vkCmdDrawMeshTasksEXT pvkCmdDrawMeshTasksEXT;
+
 	protected:
 
 		void CreateCommandQueues() override;
@@ -99,6 +107,7 @@ namespace OSK::GRAPHICS {
 		void SetupRtFunctions(VkDevice logicalDevice);
 		void SetupDebugFunctions(VkDevice instance);
 		void SetupRenderingFunctions(VkDevice logicalDevice);
+		void SetupMeshFunctions(VkDevice logicalDevice);
 
 		bool AreValidationLayersAvailable() const;
 
@@ -111,12 +120,12 @@ namespace OSK::GRAPHICS {
 		/// @brief Semáforos que serán señalizados
 		/// cuando la imagen indicada esté disponible
 		/// para renderizarse.
-		std::array<VkSemaphore, MAX_RESOURCES_IN_FLIGHT> m_imageAvailableSemaphores;
+		std::array<VkSemaphore, MAX_RESOURCES_IN_FLIGHT> m_imageAvailableSemaphores{};
 
 		/// @brief Semáforos que serán señalizados
 		/// cuando la imagen indicada haya terminado de
 		/// renderizarse.
-		std::array<VkSemaphore, MAX_RESOURCES_IN_FLIGHT> m_imageFinishedSemaphores;
+		std::array<VkSemaphore, MAX_RESOURCES_IN_FLIGHT> m_imageFinishedSemaphores{};
 
 		/// @brief Permiten esperar en la CPU a que la siguiente
 		/// imagen haya terminado de renderizarse.
@@ -130,3 +139,5 @@ namespace OSK::GRAPHICS {
 	};
 
 }
+
+#endif

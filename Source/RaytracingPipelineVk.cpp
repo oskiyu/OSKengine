@@ -1,5 +1,8 @@
 #include "RaytracingPipelineVk.h"
 
+#include "Platforms.h"
+#ifdef OSK_USE_VULKAN_BACKEND
+
 #include "MaterialLayout.h"
 #include "OSKengine.h"
 #include "RendererVk.h"
@@ -82,3 +85,5 @@ void RaytracingPipelineVk::Create(const MaterialLayout& materialLayout, const Pi
 
 	shaderTable = new RtShaderTableVk(static_cast<USize32>(shaderGroupCreateInfos.GetSize()), pipeline);
 }
+
+#endif

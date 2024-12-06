@@ -66,7 +66,7 @@ void FrameCombiner::SetupTargetMaterial() {
 
 void FrameCombiner::SetupTextureMaterialInstance(const IGpuImageView& image) {
 	OwnedPtr<MaterialInstance> materialInstance = m_combinerMaterials.at(ImageFormat::RGBA8)->CreateInstance();
-	materialInstance->GetSlot("input")->SetGpuImage("inputImage", image);
+	materialInstance->GetSlot("input")->SetGpuImage("inputImage", image, GpuImageSamplerDesc::CreateDefault_NoMipMap());
 	materialInstance->GetSlot("input")->FlushUpdate();
 
 	m_textureMaterials[&image] = materialInstance.GetPointer();

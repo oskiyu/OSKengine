@@ -32,6 +32,8 @@ namespace OSK {
 
 	protected:
 
+		explicit IDebugGame(GAME::DefaultContentProfile defaultContentProfile) : IGame(defaultContentProfile) {}
+
 		/// @return True si la consola debug está
 		/// abierta.
 		bool IsInConsole() const;

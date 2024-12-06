@@ -1,5 +1,8 @@
 #pragma once
 
+#include "Platforms.h"
+#ifdef OSK_USE_VULKAN_BACKEND
+
 #include "IGpuVertexDescription.h"
 
 #include <vulkan/vulkan.h>
@@ -16,3 +19,5 @@ namespace OSK::GRAPHICS {
 	};
 
 }
+
+#endif

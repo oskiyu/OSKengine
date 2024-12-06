@@ -1,7 +1,7 @@
 {
     "file_type": "MATERIAL",
     "spec_ver": 1,
-    "name": "Irradiance Cubemap Gen",
+    "name": "Irradiance Cubemap Convolution",
 
     "vertex_shader": "Resources/Shaders/VK/AssetsGen/IrradianceGen/Convolution/vert.spv",
     "fragment_shader": "Resources/Shaders/VK/AssetsGen/IrradianceGen/Convolution/frag.spv",

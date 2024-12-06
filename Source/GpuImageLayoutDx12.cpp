@@ -1,5 +1,8 @@
 #include "GpuImageLayoutDx12.h"
 
+#include "Platforms.h"
+#ifdef OSK_USE_DIRECTX12_BACKEND
+
 #include "GpuImageLayout.h"
 #include <d3d12.h>
 
@@ -36,3 +39,5 @@ D3D12_RESOURCE_STATES OSK::GRAPHICS::GetGpuImageLayoutDx12(GpuImageLayout layout
 			return D3D12_RESOURCE_STATE_COMMON;
 	}
 }
+
+#endif

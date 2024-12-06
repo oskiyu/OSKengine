@@ -2,7 +2,7 @@
     "file_type": "ASSET",
     "spec_ver": 0,
 
-    "name": "Font0",
+    "name": "AGENCY",
     "asset_type": "font",
-    "raw_asset_path": "Resources/RawAssets/Fonts/AGENCYR.TTF"
+    "raw_asset_path": "Resources/Assets/Fonts/AGENCYR.TTF"
 }

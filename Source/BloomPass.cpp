@@ -40,7 +40,7 @@ void BloomPass::Create(const Vector2ui& size) {
 	// Final render target
 	GpuImageSamplerDesc renderTargetSampler{};
 	renderTargetSampler.addressMode = GpuImageAddressMode::EDGE;		// Para evitar que los bordes tengan leaks de bloom.
-	renderTargetSampler.filteringType = GpuImageFilteringType::LIENAR;	// Para los tap que agrupan varios píxeles.
+	renderTargetSampler.filteringType = GpuImageFilteringType::LINEAR;	// Para los tap que agrupan varios píxeles.
 	renderTargetSampler.mipMapMode = GpuImageMipmapMode::CUSTOM;		// Cada nivel de bloom se ejecuta en un mipmap.
 	renderTargetSampler.minMipLevel = 0;
 	renderTargetSampler.maxMipLevel = maxNumPasses;						// Cada nivel de bloom se ejecuta en un mipmap.
@@ -87,7 +87,7 @@ void BloomPass::SetupMaterialInstances() {
 		const auto& sourceView = *GetOutput().GetTargetImage()->GetView(sourceViewConfig);
 		const auto& targetView = *GetOutput().GetTargetImage()->GetView(destViewConfig);
 
-		m_downscalingMaterialInstances[pass]->GetSlot("texture")->SetGpuImage("inputImg", sourceView);
+		m_downscalingMaterialInstances[pass]->GetSlot("texture")->SetGpuImage("inputImg", sourceView, GpuImageSamplerDesc::CreateDefault_NoMipMap());
 		m_downscalingMaterialInstances[pass]->GetSlot("texture")->SetStorageImage("outputImg", targetView);
 		m_downscalingMaterialInstances[pass]->GetSlot("texture")->FlushUpdate();
 	}
@@ -103,7 +103,7 @@ void BloomPass::SetupMaterialInstances() {
 		const auto& sourceView = GetOutput().GetTargetImage()->GetView(sourceViewConfig);
 		const auto& targetView = GetOutput().GetTargetImage()->GetView(destViewConfig);
 
-		m_upscalingMaterialInstances[pass]->GetSlot("texture")->SetGpuImage("inputImg", *sourceView);
+		m_upscalingMaterialInstances[pass]->GetSlot("texture")->SetGpuImage("inputImg", *sourceView, GpuImageSamplerDesc::CreateDefault_NoMipMap());
 		m_upscalingMaterialInstances[pass]->GetSlot("texture")->SetStorageImage("outputImg", *targetView);
 		m_upscalingMaterialInstances[pass]->GetSlot("texture")->FlushUpdate();
 	}
@@ -119,8 +119,8 @@ void BloomPass::SetupMaterialInstances() {
 	const auto& sceneView  = *m_inputImage->GetView(GpuImageViewConfig::CreateSampled_SingleMipLevel(0));
 	const auto& targetView = *GetOutput().GetTargetImage()->GetView(destViewConfig);
 
-	m_resolveInstance->GetSlot("texture")->SetGpuImage("bloomImg", sourceView);
-	m_resolveInstance->GetSlot("texture")->SetGpuImage("sceneImg", sceneView);
+	m_resolveInstance->GetSlot("texture")->SetGpuImage("bloomImg", sourceView, GpuImageSamplerDesc::CreateDefault_NoMipMap());
+	m_resolveInstance->GetSlot("texture")->SetGpuImage("sceneImg", sceneView, GpuImageSamplerDesc::CreateDefault_NoMipMap());
 	m_resolveInstance->GetSlot("texture")->SetStorageImage("outputImg", targetView);
 	m_resolveInstance->GetSlot("texture")->FlushUpdate();
 }

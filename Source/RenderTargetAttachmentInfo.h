@@ -22,7 +22,7 @@ namespace OSK::GRAPHICS {
 		GpuImageUsage usage = GpuImageUsage::UNKNOWN;
 
 		/// <summary> Sampler por defecto. </summary>
-		GpuImageSamplerDesc sampler = GpuImageSamplerDesc::CreateDefault();
+		GpuImageSamplerDesc sampler = GpuImageSamplerDesc::CreateDefault_NoMipMap();
 
 		std::string name = "";
 

@@ -1,5 +1,8 @@
 #include "SwapchainDx12.h"
 
+#include "Platforms.h"
+#ifdef OSK_USE_DIRECTX12_BACKEND
+
 #include "CommandQueueDx12.h"
 #include "Window.h"
 #include "FormatDx12.h"
@@ -56,18 +59,18 @@ SwapchainDx12::SwapchainDx12(PresentMode mode, Format format, const GpuDx12& dev
     swapchainDesc.SwapEffect = DXGI_SWAP_EFFECT_FLIP_DISCARD;
 
     swapchainDesc.SampleDesc.Count = 1;
-
+    /*
     ComPtr<IDXGISwapChain1> swapchainTemp;
-    /*factory->CreateSwapChainForHwnd(
+    factory->CreateSwapChainForHwnd(
         commandQueue.GetCommandQueue(), // swap chain forces flush when does flip
         glfwGetWin32Window(display.As<Window>()->_GetGlfw()),
         &swapchainDesc,
         nullptr, // pFullscreenDesc
         nullptr, // pRestrictToOutput
         &swapchainTemp
-    );*/
+    );
 
-    swapchainTemp.As(&swapchain);
+    swapchainTemp.As(&swapchain);*/
 }
 
 SwapchainDx12::~SwapchainDx12() {
@@ -198,3 +201,5 @@ ID3D12DescriptorHeap* SwapchainDx12::GetDepthStencilMemory() const {
 void SwapchainDx12::Resize(const IGpu& gpu, Vector2ui newResolution) {
     /// @todo
 }
+
+#endif

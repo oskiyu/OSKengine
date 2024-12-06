@@ -52,6 +52,6 @@ const IMaterialSlot* RtRenderTarget::GetFullscreenSpriteMaterialSlot() const {
 void RtRenderTarget::SetupSpriteMaterial() {
 	const GpuImageViewConfig view = GpuImageViewConfig::CreateSampled_MipLevelRanged(0, 0);
 
-	m_fullscreenSpriteMaterialInstance->GetSlot("texture")->SetGpuImage("spriteTexture", *GetTargetImage()->GetView(view));
+	m_fullscreenSpriteMaterialInstance->GetSlot("texture")->SetGpuImage("spriteTexture", *GetTargetImage()->GetView(view), GpuImageSamplerDesc::CreateDefault_NoMipMap());
 	m_fullscreenSpriteMaterialInstance->GetSlot("texture")->FlushUpdate();
 }

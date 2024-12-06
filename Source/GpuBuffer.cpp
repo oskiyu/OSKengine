@@ -10,7 +10,7 @@ using namespace OSK;
 using namespace OSK::GRAPHICS;
 
 GpuBuffer::GpuBuffer(OwnedPtr<IGpuMemorySubblock> buffer, USize64 size, USize64 alignment, const ICommandQueue* ownerQueue)
-	: buffer(buffer.GetPointer()), m_ownerQueue(ownerQueue), size(size), alignment(alignment) {
+	: buffer(buffer.GetPointer()), m_ownerQueue(ownerQueue), m_size(size), m_alignment(alignment) {
 
 }
 
@@ -20,27 +20,27 @@ GpuBuffer::~GpuBuffer() {
 
 
 void GpuBuffer::SetVertexView(const VertexBufferView& view) {
-	vertexView = view;
+	m_vertexView = view;
 }
 
 void GpuBuffer::SetIndexView(const IndexBufferView& view) {
-	indexView = view;
+	m_indexView = view;
 }
 
 const VertexBufferView& GpuBuffer::GetVertexView() const {
-	return vertexView.value();
+	return m_vertexView.value();
 }
 
 const IndexBufferView& GpuBuffer::GetIndexView() const {
-	return indexView.value();
+	return m_indexView.value();
 }
 
 bool GpuBuffer::HasVertexView() const {
-	return vertexView.has_value();
+	return m_vertexView.has_value();
 }
 
 bool GpuBuffer::HasIndexView() const {
-	return indexView.has_value();
+	return m_indexView.has_value();
 }
 
 IGpuMemorySubblock* GpuBuffer::GetMemorySubblock() const {
@@ -96,11 +96,11 @@ void GpuBuffer::Unmap() {
 }
 
 USize64 GpuBuffer::GetSize() const {
-	return size;
+	return m_size;
 }
 
 USize64 GpuBuffer::GetAlignment() const {
-	return alignment;
+	return m_alignment;
 }
 
 void GpuBuffer::SetCursor(UIndex64 position) {

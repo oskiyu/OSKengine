@@ -1,5 +1,8 @@
 #include "GpuImageDx12.h"
 
+#include "Platforms.h"
+#ifdef OSK_USE_DIRECTX12_BACKEND
+
 #include "StringOperations.h"
 
 #include "OSKengine.h"
@@ -221,3 +224,5 @@ OwnedPtr<IGpuImageView> GpuImageDx12::CreateView(const GpuImageViewConfig& confi
 	OSK_ASSERT(false, ImageViewCreationException(0));
 	return nullptr;
 }
+
+#endif

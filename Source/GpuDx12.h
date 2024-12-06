@@ -1,5 +1,8 @@
 #pragma once
 
+#include "Platforms.h"
+#ifdef OSK_USE_DIRECTX12_BACKEND
+
 #include <wrl.h>
 using namespace Microsoft::WRL;
 
@@ -25,18 +28,21 @@ namespace OSK::GRAPHICS {
 		OwnedPtr<ICommandPool> CreateGraphicsCommandPool() override;
 		OwnedPtr<ICommandPool> CreateComputeCommandPool() override;
 		std::optional<OwnedPtr<ICommandPool>> CreateTransferOnlyCommandPool() override;
+		OwnedPtr<IGpuImageSampler> CreateSampler(const GpuImageSamplerDesc& info) const override;
 
-		void SetAdapter(const ComPtr<IDXGIAdapter1>& adapter);
-		void SetDevice(const ComPtr<ID3D12Device>& device);
+		static ComPtr<IDXGIAdapter4> ChooseDeviceAdapter(ComPtr<IDXGIFactory4> factory);
+		void CreateDevice(ComPtr<IDXGIAdapter4> adapter, bool useDebug);
 
 		IDXGIAdapter1* GetAdapter() const;
 		ID3D12Device* GetDevice() const;
 
 	private:
 
-		ComPtr<IDXGIAdapter1> adapter;
-		ComPtr<ID3D12Device> device;
+		ComPtr<IDXGIAdapter4> m_adapter;
+		ComPtr<ID3D12Device5> m_device;
 
 	};
 
 }
+
+#endif

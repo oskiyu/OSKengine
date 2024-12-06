@@ -1,17 +1,17 @@
 #pragma once
 
+#include "Platforms.h"
+#ifdef OSK_USE_VULKAN_BACKEND
+
 #include "IMaterialSlot.h"
 #include "UniquePtr.hpp"
 #include "DynamicArray.hpp"
 #include "OwnedPtr.h"
 #include "DescriptorLayoutVk.h"
 #include "DescriptorPoolVk.h"
-#include "LinkedList.hpp"
-#include "ResourcesInFlight.h"
 
 #include <unordered_map>
 #include <unordered_set>
-#include <array>
 
 #include <vulkan/vulkan.h>
 
@@ -31,7 +31,7 @@ namespace OSK::GRAPHICS {
 		MaterialSlotVk(const std::string& name, const MaterialLayout* layout);
 		~MaterialSlotVk() override;
 
-		void SetGpuImage(std::string_view binding, const IGpuImageView& view, UIndex32 arrayIndex) override;
+		void SetGpuImage(std::string_view binding, const IGpuImageView& view, const IGpuImageSampler& sampler, UIndex32 arrayIndex) override;
 		void SetStorageImage(std::string_view binding, const IGpuImageView& view, UIndex32 arrayIndex) override;
 
 		void SetUniformBuffer(std::string_view binding, const GpuBuffer& buffer, const GpuBufferRange& range, UIndex32 arrayIndex) override;
@@ -47,8 +47,34 @@ namespace OSK::GRAPHICS {
 
 	private:
 
-		static OwnedPtr<VkDescriptorBufferInfo> GetDescriptorBufferInfo(const GpuMemorySubblockVk& subblock, const GpuBufferRange& range);
-		static OwnedPtr<VkDescriptorImageInfo> GetDescriptorImageInfo(const IGpuImageView& view, VkImageLayout layout);
+		/// @brief Crea la estructura, rellena
+		/// con los datos indicados.
+		/// @param subblock Subbloque usado como buffer.
+		/// @param range Rango del subbloque usado.
+		/// @return Estructura, rellena
+		/// con los datos indicados.
+		static OwnedPtr<VkDescriptorBufferInfo> GetDescriptorBufferInfo(
+			const GpuMemorySubblockVk& subblock,
+			const GpuBufferRange& range);
+
+		/// @param view Vista de la imagen.
+		/// @param sampler Sampler usado.
+		/// @param layout Layout usado.
+		/// @return Estructura, rellena
+		/// con los datos indicados.
+		static OwnedPtr<VkDescriptorImageInfo> GetDescriptorImageInfo(
+			const IGpuImageView& view,
+			const IGpuImageSampler& sampler,
+			VkImageLayout layout);
+
+		/// @param view Vista de la imagen.
+		/// @param layout Layout usado.
+		/// @return Estructura, rellena
+		/// con los datos indicados.
+		static OwnedPtr<VkDescriptorImageInfo> GetDescriptorImageInfo(
+			const IGpuImageView& view,
+			VkImageLayout layout);
+
 
 		struct BindingVk {
 			/// @brief Mapa ID en el array del shader -> descriptor write.
@@ -83,3 +109,5 @@ namespace OSK::GRAPHICS {
 	};
 
 }
+
+#endif

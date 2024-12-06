@@ -2,7 +2,6 @@
 
 #include "MaterialLayoutSlot.h"
 #include "ApiCall.h"
-#include "LinkedList.hpp"
 #include "MaterialLayoutPushConstant.h"
 
 namespace OSK::GRAPHICS {
@@ -19,6 +18,8 @@ namespace OSK::GRAPHICS {
 
 		using MaterialSlotsContainer = std::unordered_map<std::string, MaterialLayoutSlot, StringHasher, std::equal_to<>>;
 		using MaterialSlotsIterable = MaterialSlotsContainer;
+
+		explicit MaterialLayout(const std::string& materialName);
 
 		/// <summary>
 		/// Añade el slot dado al layout.
@@ -81,6 +82,9 @@ namespace OSK::GRAPHICS {
 		/// </summary>
 		PushConstantsIterable& GetAllPushConstants();
 
+		/// @return Nombre del material al que pertenece.
+		std::string_view GetMaterialName() const;
+
 	private:
 
 		std::string m_name;
@@ -91,3 +95,5 @@ namespace OSK::GRAPHICS {
 	};
 
 }
+
+template <> std::string OSK::ToString<OSK::GRAPHICS::MaterialLayout>(const OSK::GRAPHICS::MaterialLayout& layout);

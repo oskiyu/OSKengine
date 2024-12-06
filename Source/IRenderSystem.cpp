@@ -31,6 +31,18 @@ void IRenderSystem::OnCreate() {
 	ISystem::OnCreate();
 }
 
+void IRenderSystem::Execute(TDeltaTime deltaTime, std::span<const GameObjectIndex> objects) {
+	IIteratorSystem::Execute(deltaTime, objects);
+
+	for (auto pass : m_shaderPasses.GetAllPasses()) {
+		pass->Update(deltaTime);
+	}
+
+	for (auto pass : m_shadowsPasses.GetAllPasses()) {
+		pass->Update(deltaTime);
+	}
+}
+
 void IRenderSystem::Resize(const Vector2ui& windowSize) {
 	m_renderTarget.Resize(windowSize);
 }
@@ -109,6 +121,14 @@ void IRenderSystem::UpdatePerPassObjectLists(std::span<const ECS::GameObjectInde
 			}
 		}		
 	}
+}
+
+std::span<GRAPHICS::IShaderPass* const> IRenderSystem::GetAllShaderPasses() const {
+	return m_shaderPasses.GetAllPasses();
+}
+
+std::span<GRAPHICS::IShaderPass* const> IRenderSystem::GetAllShadowsPasses() const {
+	return m_shadowsPasses.GetAllPasses();
 }
 
 

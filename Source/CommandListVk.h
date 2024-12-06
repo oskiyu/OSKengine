@@ -1,5 +1,8 @@
 #pragma once
 
+#include "Platforms.h"
+#ifdef OSK_USE_VULKAN_BACKEND
+
 #include "ICommandList.h"
 #include "DynamicArray.hpp"
 #include "VulkanTypedefs.h"
@@ -24,7 +27,7 @@ namespace OSK::GRAPHICS {
 
 		CommandListVk(
 			const GpuVk& gpu,
-			const CommandPoolVk& commandPool);
+			CommandPoolVk* commandPool);
 
 		std::span<const VkCommandBuffer> GetCommandBuffers() const;
 
@@ -54,7 +57,8 @@ namespace OSK::GRAPHICS {
 		void DrawInstances(UIndex32 firstIndex, USize32 numIndices, UIndex32 firstInstance, USize32 instanceCount) override;
 		void TraceRays(UIndex32 raygenEntry, UIndex32 closestHitEntry, UIndex32 missEntry, const Vector2ui& resolution) override;
 
-		void DispatchCompute(const Vector3ui& groupCount);
+		void DrawMeshShader(const Vector3ui& groupCount) override;
+		void DispatchCompute(const Vector3ui& groupCount) override;
 
 		void SetGpuImageBarrier(GpuImage* image, GpuImageLayout previousLayout, GpuImageLayout nextLayout, GpuBarrierInfo previous, GpuBarrierInfo next, const GpuImageRange& range, const ResourceQueueTransferInfo queueTranfer) override;
 		void SetGpuBufferBarrier(
@@ -83,6 +87,7 @@ namespace OSK::GRAPHICS {
 		void BindGraphicsPipeline(const IGraphicsPipeline& computePipeline) override;
 		void BindComputePipeline(const IComputePipeline& computePipeline) override;
 		void BindRayTracingPipeline(const IRaytracingPipeline& computePipeline) override;
+		void BindMeshPipeline(const IMeshPipeline& computePipeline) override;
 
 		std::array<VkCommandBuffer, MAX_RESOURCES_IN_FLIGHT> m_commandBuffers;
 		VkDevice m_logicalDevice = nullptr;
@@ -90,3 +95,5 @@ namespace OSK::GRAPHICS {
 	};
 
 }
+
+#endif // OSK_USE_VULKAN_BAKCEND

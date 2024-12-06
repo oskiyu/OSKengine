@@ -1,6 +1,8 @@
 #pragma once
 
 #include <memory>
+#include <atomic>
+#include "NumericTypes.h"
 
 
 namespace OSK::ASSETS {

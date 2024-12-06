@@ -13,7 +13,7 @@ IElement::IElement(const Vector2f& size) : m_size(size) {
 }
 
 
-void IElement::Render(SdfBindlessRenderer2D* renderer) const {
+void IElement::Render(ISdfRenderer2D* renderer) const {
 	if (!IsVisible()) {
 		return;
 	}

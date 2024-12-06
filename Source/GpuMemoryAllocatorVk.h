@@ -1,5 +1,8 @@
 #pragma once
 
+#include "Platforms.h"
+#ifdef OSK_USE_VULKAN_BACKEND
+
 #include "IGpuMemoryAllocator.h"
 #include "Vector3.hpp"
 
@@ -49,3 +52,5 @@ namespace OSK::GRAPHICS {
 	};
 
 }
+
+#endif

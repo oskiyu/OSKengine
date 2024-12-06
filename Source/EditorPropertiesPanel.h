@@ -26,16 +26,13 @@ namespace OSK::Editor::UI {
 
 		explicit PropertiesPanel(const Vector2f& size);
 
-		void SetFont(OSK::ASSETS::AssetRef<OSK::ASSETS::Font> font);
-		void SetFontSize(USize64 fontSize);
-
 		/// @brief Establece el subtítulo del panel.
 		/// @param text Texto del subtítulo.
 		void SetSubtitle(const std::string& text);
 
 
 		/// @brief Elimina el contendiro del panel.
-		void ClearContent();
+		virtual void ClearContent();
 
 		/// @brief Muestra el contenido del panel.
 		void ShowContent();

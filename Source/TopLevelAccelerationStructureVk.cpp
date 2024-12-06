@@ -1,5 +1,8 @@
 #include "TopLevelAccelerationStructureVk.h"
 
+#include "Platforms.h"
+#ifdef OSK_USE_VULKAN_BACKEND
+
 #include "BottomLevelAccelerationStructureVk.h"
 #include "OSKengine.h"
 #include "RendererVk.h"
@@ -261,3 +264,5 @@ VkDeviceAddress TopLevelAccelerationStructureVk::GetTlasDeviceAddress(const VkAc
 
 	return RendererVk::pvkGetAccelerationStructureDeviceAddressKHR(logicalDevice, &finalTlasGpuAddressInfo);
 }
+
+#endif

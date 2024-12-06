@@ -6,7 +6,8 @@ namespace OSK::GRAPHICS {
 
 		GRAPHICS,
 		RAYTRACING,
-		COMPUTE
+		COMPUTE,
+		MESH
 
 	};
 

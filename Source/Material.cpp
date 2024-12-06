@@ -68,6 +68,28 @@ const IGraphicsPipeline* Material::GetGraphicsPipeline(const PipelineKey& key) c
 	return output.GetPointer();
 }
 
+const IMeshPipeline* Material::GetMeshPipeline(const PipelineKey& key) const {
+	for (UIndex64 i = 0; i < m_meshPipelines.GetSize(); i++) {
+		const PipelineKey& iKey = m_meshPipelinesKeys[i];
+
+		if (key == iKey)
+			return m_meshPipelines[i].GetPointer();
+	}
+
+	// Crear nuevo pipeline compatible.
+	PipelineCreateInfo newInfo = pipelineInfo;
+	newInfo.formats = key.colorFormats;
+	newInfo.depthFormat = key.depthFormat;
+
+	OwnedPtr<IMeshPipeline> output = Engine::GetRenderer()->_CreateMeshPipeline(newInfo, *GetLayout());
+	output->SetDebugName(name);
+
+	m_meshPipelines.Insert(output.GetPointer());
+	m_meshPipelinesKeys.Insert(key);
+
+	return output.GetPointer();
+}
+
 const IRaytracingPipeline* Material::GetRaytracingPipeline() const {
 	return rtPipeline.GetPointer();
 }
@@ -96,6 +118,13 @@ void Material::_Reload() {
 		// generen nuevos pipelines.
 		graphicsPipelines.Empty();
 		graphicsPipelinesKeys.Empty();
+		break;
+
+	case MaterialType::MESH:
+		// Basta con limpiar el caché para que se
+		// generen nuevos pipelines.
+		m_meshPipelines.Empty();
+		m_meshPipelinesKeys.Empty();
 		break;
 
 	case MaterialType::RAYTRACING:

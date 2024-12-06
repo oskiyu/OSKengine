@@ -1,5 +1,8 @@
 #pragma once
 
+#include "Platforms.h"
+#ifdef OSK_USE_VULKAN_BACKEND
+
 #include "IGraphicsPipeline.h"
 #include "IPipelineVk.h"
 #include <string>
@@ -23,11 +26,6 @@ namespace OSK::GRAPHICS {
 
 	private:
 
-		VkPipelineRasterizationStateCreateInfo GetResterizerInfo(const PipelineCreateInfo& info) const;
-		VkPipelineDepthStencilStateCreateInfo GetDepthInfo(const PipelineCreateInfo& info) const;
-		VkPipelineMultisampleStateCreateInfo GetMsaaInfo(const PipelineCreateInfo& info, const GpuVk& gpu) const;
-		VkPipelineTessellationStateCreateInfo GetTesselationInfo(const PipelineCreateInfo& info) const;
-
 		/// @throws FileNotFoundException si no se encuentra el archivo del shader.
 		void LoadVertexShader(const std::string& path);
 		/// @throws FileNotFoundException si no se encuentra el archivo del shader.
@@ -42,3 +40,5 @@ namespace OSK::GRAPHICS {
 	};
 
 }
+
+#endif

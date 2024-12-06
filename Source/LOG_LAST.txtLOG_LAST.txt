@@ -1,12 +1,92 @@
 INFO: JobSystem: número de hilos: 15
 INFO: Iniciando OSKengine.
 INFO: 	Version: 0.0.0
-INFO: 	Build 2024.06.18a.
-INFO: Versión de vulkan: 1.3.275
+INFO: 	Build 2024.09.27a.
+INFO: Versión de vulkan: 1.3.280
+DEBUG: Capas de validación activas.
+INFO: Capas de validación activas.
 INFO: GPU elegida: NVIDIA GeForce RTX 2060
 INFO: Uso de cola GPU unificada.
 INFO: Uso de cola GPU de transferencia.
-INFO: Tiempo de carga: 4.2374687 segundos
+WARNING: Validation Performance Warning: [ WARNING-Shader-OutputNotConsumed ] Object 0: handle = 0x84be4c0000000138, name = Resources/Shaders/VK/AssetsGen/IrradianceGen/CubeGen/vert.spv, type = VK_OBJECT_TYPE_SHADER_MODULE; | MessageID = 0xc81ad50e | vkCreateGraphicsPipelines(): pCreateInfos[0].pVertexInputState Vertex attribute at location 1 not consumed by vertex shader.
+
+WARNING: Validation Performance Warning: [ WARNING-Shader-OutputNotConsumed ] Object 0: handle = 0x84be4c0000000138, name = Resources/Shaders/VK/AssetsGen/IrradianceGen/CubeGen/vert.spv, type = VK_OBJECT_TYPE_SHADER_MODULE; | MessageID = 0xc81ad50e | vkCreateGraphicsPipelines(): pCreateInfos[0].pVertexInputState Vertex attribute at location 2 not consumed by vertex shader.
+
+WARNING: Validation Performance Warning: [ WARNING-Shader-OutputNotConsumed ] Object 0: handle = 0x84be4c0000000138, name = Resources/Shaders/VK/AssetsGen/IrradianceGen/CubeGen/vert.spv, type = VK_OBJECT_TYPE_SHADER_MODULE; | MessageID = 0xc81ad50e | vkCreateGraphicsPipelines(): pCreateInfos[0].pVertexInputState Vertex attribute at location 3 not consumed by vertex shader.
+
+WARNING: Validation Performance Warning: [ WARNING-Shader-OutputNotConsumed ] Object 0: handle = 0x84be4c0000000138, name = Resources/Shaders/VK/AssetsGen/IrradianceGen/CubeGen/vert.spv, type = VK_OBJECT_TYPE_SHADER_MODULE; | MessageID = 0xc81ad50e | vkCreateGraphicsPipelines(): pCreateInfos[0].pVertexInputState Vertex attribute at location 4 not consumed by vertex shader.
+
+WARNING: Validation Performance Warning: [ WARNING-Shader-OutputNotConsumed ] Object 0: handle = 0xc1ded10000000145, name = Resources/Shaders/VK/AssetsGen/SpecularGen/CubeGen/vert.spv, type = VK_OBJECT_TYPE_SHADER_MODULE; | MessageID = 0xc81ad50e | vkCreateGraphicsPipelines(): pCreateInfos[0].pVertexInputState Vertex attribute at location 1 not consumed by vertex shader.
+
+WARNING: Validation Performance Warning: [ WARNING-Shader-OutputNotConsumed ] Object 0: handle = 0xc1ded10000000145, name = Resources/Shaders/VK/AssetsGen/SpecularGen/CubeGen/vert.spv, type = VK_OBJECT_TYPE_SHADER_MODULE; | MessageID = 0xc81ad50e | vkCreateGraphicsPipelines(): pCreateInfos[0].pVertexInputState Vertex attribute at location 2 not consumed by vertex shader.
+
+WARNING: Validation Performance Warning: [ WARNING-Shader-OutputNotConsumed ] Object 0: handle = 0xc1ded10000000145, name = Resources/Shaders/VK/AssetsGen/SpecularGen/CubeGen/vert.spv, type = VK_OBJECT_TYPE_SHADER_MODULE; | MessageID = 0xc81ad50e | vkCreateGraphicsPipelines(): pCreateInfos[0].pVertexInputState Vertex attribute at location 3 not consumed by vertex shader.
+
+WARNING: Validation Performance Warning: [ WARNING-Shader-OutputNotConsumed ] Object 0: handle = 0xc1ded10000000145, name = Resources/Shaders/VK/AssetsGen/SpecularGen/CubeGen/vert.spv, type = VK_OBJECT_TYPE_SHADER_MODULE; | MessageID = 0xc81ad50e | vkCreateGraphicsPipelines(): pCreateInfos[0].pVertexInputState Vertex attribute at location 4 not consumed by vertex shader.
+
+WARNING: Validation Performance Warning: [ WARNING-Shader-OutputNotConsumed ] Object 0: handle = 0xe1d669000000014a, name = Resources/Shaders/VK/AssetsGen/SpecularGen/Prefilter/vert.spv, type = VK_OBJECT_TYPE_SHADER_MODULE; | MessageID = 0xc81ad50e | vkCreateGraphicsPipelines(): pCreateInfos[0].pVertexInputState Vertex attribute at location 1 not consumed by vertex shader.
+
+WARNING: Validation Performance Warning: [ WARNING-Shader-OutputNotConsumed ] Object 0: handle = 0xe1d669000000014a, name = Resources/Shaders/VK/AssetsGen/SpecularGen/Prefilter/vert.spv, type = VK_OBJECT_TYPE_SHADER_MODULE; | MessageID = 0xc81ad50e | vkCreateGraphicsPipelines(): pCreateInfos[0].pVertexInputState Vertex attribute at location 2 not consumed by vertex shader.
+
+WARNING: Validation Performance Warning: [ WARNING-Shader-OutputNotConsumed ] Object 0: handle = 0xe1d669000000014a, name = Resources/Shaders/VK/AssetsGen/SpecularGen/Prefilter/vert.spv, type = VK_OBJECT_TYPE_SHADER_MODULE; | MessageID = 0xc81ad50e | vkCreateGraphicsPipelines(): pCreateInfos[0].pVertexInputState Vertex attribute at location 3 not consumed by vertex shader.
+
+WARNING: Validation Performance Warning: [ WARNING-Shader-OutputNotConsumed ] Object 0: handle = 0xe1d669000000014a, name = Resources/Shaders/VK/AssetsGen/SpecularGen/Prefilter/vert.spv, type = VK_OBJECT_TYPE_SHADER_MODULE; | MessageID = 0xc81ad50e | vkCreateGraphicsPipelines(): pCreateInfos[0].pVertexInputState Vertex attribute at location 4 not consumed by vertex shader.
+
+WARNING: Validation Performance Warning: [ WARNING-Shader-OutputNotConsumed ] Object 0: handle = 0xd406ad000000014e, name = Resources/Shaders/VK/AssetsGen/IrradianceGen/Convolution/vert.spv, type = VK_OBJECT_TYPE_SHADER_MODULE; | MessageID = 0xc81ad50e | vkCreateGraphicsPipelines(): pCreateInfos[0].pVertexInputState Vertex attribute at location 1 not consumed by vertex shader.
+
+WARNING: Validation Performance Warning: [ WARNING-Shader-OutputNotConsumed ] Object 0: handle = 0xd406ad000000014e, name = Resources/Shaders/VK/AssetsGen/IrradianceGen/Convolution/vert.spv, type = VK_OBJECT_TYPE_SHADER_MODULE; | MessageID = 0xc81ad50e | vkCreateGraphicsPipelines(): pCreateInfos[0].pVertexInputState Vertex attribute at location 2 not consumed by vertex shader.
+
+WARNING: Validation Performance Warning: [ WARNING-Shader-OutputNotConsumed ] Object 0: handle = 0xd406ad000000014e, name = Resources/Shaders/VK/AssetsGen/IrradianceGen/Convolution/vert.spv, type = VK_OBJECT_TYPE_SHADER_MODULE; | MessageID = 0xc81ad50e | vkCreateGraphicsPipelines(): pCreateInfos[0].pVertexInputState Vertex attribute at location 3 not consumed by vertex shader.
+
+WARNING: Validation Performance Warning: [ WARNING-Shader-OutputNotConsumed ] Object 0: handle = 0xd406ad000000014e, name = Resources/Shaders/VK/AssetsGen/IrradianceGen/Convolution/vert.spv, type = VK_OBJECT_TYPE_SHADER_MODULE; | MessageID = 0xc81ad50e | vkCreateGraphicsPipelines(): pCreateInfos[0].pVertexInputState Vertex attribute at location 4 not consumed by vertex shader.
+
+INFO: Tiempo de carga: 7.3636436 segundos
+WARNING: Validation Error: [ VUID-VkPresentInfoKHR-pImageIndices-01430 ] Object 0: handle = 0x1fb2ed8d280, type = VK_OBJECT_TYPE_QUEUE; | MessageID = 0x48ad24c6 | vkQueuePresentKHR(): pPresentInfo->pSwapchains[0] images passed to present must be in layout VK_IMAGE_LAYOUT_PRESENT_SRC_KHR or VK_IMAGE_LAYOUT_SHARED_PRESENT_KHR but is in VK_IMAGE_LAYOUT_UNDEFINED. The Vulkan spec states: Each element of pImageIndices must be the index of a presentable image acquired from the swapchain specified by the corresponding element of the pSwapchains array, and the presented image subresource must be in the VK_IMAGE_LAYOUT_PRESENT_SRC_KHR or VK_IMAGE_LAYOUT_SHARED_PRESENT_KHR layout at the time the operation is executed on a VkDevice (https://vulkan.lunarg.com/doc/view/1.3.283.0/windows/1.3-extensions/vkspec.html#VUID-VkPresentInfoKHR-pImageIndices-01430)
+
+WARNING: Validation Error: [ VUID-vkMapMemory-memory-00678 ] Object 0: handle = 0x6871490000000055, type = VK_OBJECT_TYPE_DEVICE_MEMORY; | MessageID = 0xbba64369 | vkMapMemory():  memory has already be mapped. The Vulkan spec states: memory must not be currently host mapped (https://vulkan.lunarg.com/doc/view/1.3.283.0/windows/1.3-extensions/vkspec.html#VUID-vkMapMemory-memory-00678)
+
+WARNING: Validation Error: [ VUID-VkGraphicsPipelineCreateInfo-pMultisampleState-09026 ] | MessageID = 0x92d66fc1 | vkCreateGraphicsPipelines(): pCreateInfos[0].pMultisampleState is NULL. The Vulkan spec states: If the pipeline requires fragment output interface state, and the VK_EXT_extended_dynamic_state3 extension is not enabled or any of the VK_DYNAMIC_STATE_RASTERIZATION_SAMPLES_EXT, VK_DYNAMIC_STATE_SAMPLE_MASK_EXT, or VK_DYNAMIC_STATE_ALPHA_TO_COVERAGE_ENABLE_EXT dynamic states is not set, or alphaToOne is enabled on the device and VK_DYNAMIC_STATE_ALPHA_TO_ONE_ENABLE_EXT is not set, pMultisampleState must be a valid pointer to a valid VkPipelineMultisampleStateCreateInfo structure (https://vulkan.lunarg.com/doc/view/1.3.283.0/windows/1.3-extensions/vkspec.html#VUID-VkGraphicsPipelineCreateInfo-pMultisampleState-09026)
+
+WARNING: Validation Performance Warning: [ WARNING-Shader-OutputNotConsumed ] Object 0: handle = 0x38466c0000000434, name = Resources/Shaders/VK/Shadows/vert.spv, type = VK_OBJECT_TYPE_SHADER_MODULE; | MessageID = 0xc81ad50e | vkCreateGraphicsPipelines(): pCreateInfos[0].pVertexInputState Vertex attribute at location 1 not consumed by vertex shader.
+
+WARNING: Validation Performance Warning: [ WARNING-Shader-OutputNotConsumed ] Object 0: handle = 0x38466c0000000434, name = Resources/Shaders/VK/Shadows/vert.spv, type = VK_OBJECT_TYPE_SHADER_MODULE; | MessageID = 0xc81ad50e | vkCreateGraphicsPipelines(): pCreateInfos[0].pVertexInputState Vertex attribute at location 2 not consumed by vertex shader.
+
+WARNING: Validation Performance Warning: [ WARNING-Shader-OutputNotConsumed ] Object 0: handle = 0x38466c0000000434, name = Resources/Shaders/VK/Shadows/vert.spv, type = VK_OBJECT_TYPE_SHADER_MODULE; | MessageID = 0xc81ad50e | vkCreateGraphicsPipelines(): pCreateInfos[0].pVertexInputState Vertex attribute at location 3 not consumed by vertex shader.
+
+WARNING: Validation Performance Warning: [ WARNING-Shader-OutputNotConsumed ] Object 0: handle = 0x38466c0000000434, name = Resources/Shaders/VK/Shadows/vert.spv, type = VK_OBJECT_TYPE_SHADER_MODULE; | MessageID = 0xc81ad50e | vkCreateGraphicsPipelines(): pCreateInfos[0].pVertexInputState Vertex attribute at location 4 not consumed by vertex shader.
+
+WARNING: Validation Error: [ VUID-RuntimeSpirv-LocalSizeId-06434 ] | MessageID = 0xf95e08b7 | vkCreateShaderModule():  SPIR-V OpExecutionMode LocalSizeId is used but maintenance4 feature was not enabled. The Vulkan spec states: If Execution Mode LocalSizeId is used, maintenance4 must be enabled (https://vulkan.lunarg.com/doc/view/1.3.283.0/windows/1.3-extensions/vkspec.html#VUID-RuntimeSpirv-LocalSizeId-06434)
+
+WARNING: Validation Error: [ VUID-RuntimeSpirv-LocalSizeId-06434 ] | MessageID = 0xf95e08b7 | vkCreateShaderModule():  SPIR-V OpExecutionMode LocalSizeId is used but maintenance4 feature was not enabled. The Vulkan spec states: If Execution Mode LocalSizeId is used, maintenance4 must be enabled (https://vulkan.lunarg.com/doc/view/1.3.283.0/windows/1.3-extensions/vkspec.html#VUID-RuntimeSpirv-LocalSizeId-06434)
+
+WARNING: Validation Performance Warning: [ WARNING-Shader-OutputNotConsumed ] Object 0: handle = 0xf8a8b70000000460, name = Resources/Shaders/VK/Skybox/vert.spv, type = VK_OBJECT_TYPE_SHADER_MODULE; | MessageID = 0xc81ad50e | vkCreateGraphicsPipelines(): pCreateInfos[0].pVertexInputState Vertex attribute at location 4 not consumed by vertex shader.
+
+WARNING: Validation Performance Warning: [ WARNING-Shader-OutputNotConsumed ] Object 0: handle = 0xd055b10000000467, name = Resources/Shaders/VK/Colliders/vert.spv, type = VK_OBJECT_TYPE_SHADER_MODULE; | MessageID = 0xc81ad50e | vkCreateGraphicsPipelines(): pCreateInfos[0].pVertexInputState Vertex attribute at location 1 not consumed by vertex shader.
+
+WARNING: Validation Performance Warning: [ WARNING-Shader-OutputNotConsumed ] Object 0: handle = 0xd055b10000000467, name = Resources/Shaders/VK/Colliders/vert.spv, type = VK_OBJECT_TYPE_SHADER_MODULE; | MessageID = 0xc81ad50e | vkCreateGraphicsPipelines(): pCreateInfos[0].pVertexInputState Vertex attribute at location 2 not consumed by vertex shader.
+
+WARNING: Validation Performance Warning: [ WARNING-Shader-OutputNotConsumed ] Object 0: handle = 0xd055b10000000467, name = Resources/Shaders/VK/Colliders/vert.spv, type = VK_OBJECT_TYPE_SHADER_MODULE; | MessageID = 0xc81ad50e | vkCreateGraphicsPipelines(): pCreateInfos[0].pVertexInputState Vertex attribute at location 3 not consumed by vertex shader.
+
+WARNING: Validation Performance Warning: [ WARNING-Shader-OutputNotConsumed ] Object 0: handle = 0xd055b10000000467, name = Resources/Shaders/VK/Colliders/vert.spv, type = VK_OBJECT_TYPE_SHADER_MODULE; | MessageID = 0xc81ad50e | vkCreateGraphicsPipelines(): pCreateInfos[0].pVertexInputState Vertex attribute at location 4 not consumed by vertex shader.
+
+WARNING: Validation Performance Warning: [ WARNING-Shader-OutputNotConsumed ] Object 0: handle = 0xd05d1a000000046c, name = Resources/Shaders/VK/Colliders/vert.spv, type = VK_OBJECT_TYPE_SHADER_MODULE; | MessageID = 0xc81ad50e | vkCreateGraphicsPipelines(): pCreateInfos[0].pVertexInputState Vertex attribute at location 1 not consumed by vertex shader.
+
+WARNING: Validation Performance Warning: [ WARNING-Shader-OutputNotConsumed ] Object 0: handle = 0xd05d1a000000046c, name = Resources/Shaders/VK/Colliders/vert.spv, type = VK_OBJECT_TYPE_SHADER_MODULE; | MessageID = 0xc81ad50e | vkCreateGraphicsPipelines(): pCreateInfos[0].pVertexInputState Vertex attribute at location 2 not consumed by vertex shader.
+
+WARNING: Validation Performance Warning: [ WARNING-Shader-OutputNotConsumed ] Object 0: handle = 0xd05d1a000000046c, name = Resources/Shaders/VK/Colliders/vert.spv, type = VK_OBJECT_TYPE_SHADER_MODULE; | MessageID = 0xc81ad50e | vkCreateGraphicsPipelines(): pCreateInfos[0].pVertexInputState Vertex attribute at location 3 not consumed by vertex shader.
+
+WARNING: Validation Performance Warning: [ WARNING-Shader-OutputNotConsumed ] Object 0: handle = 0xd05d1a000000046c, name = Resources/Shaders/VK/Colliders/vert.spv, type = VK_OBJECT_TYPE_SHADER_MODULE; | MessageID = 0xc81ad50e | vkCreateGraphicsPipelines(): pCreateInfos[0].pVertexInputState Vertex attribute at location 4 not consumed by vertex shader.
+
+WARNING: Validation Performance Warning: [ WARNING-Shader-OutputNotConsumed ] Object 0: handle = 0x10a57f0000000471, name = Resources/Shaders/VK/Colliders/Points/vert.spv, type = VK_OBJECT_TYPE_SHADER_MODULE; | MessageID = 0xc81ad50e | vkCreateGraphicsPipelines(): pCreateInfos[0].pVertexInputState Vertex attribute at location 0 not consumed by vertex shader.
+
+WARNING: Validation Performance Warning: [ WARNING-Shader-OutputNotConsumed ] Object 0: handle = 0x10a57f0000000471, name = Resources/Shaders/VK/Colliders/Points/vert.spv, type = VK_OBJECT_TYPE_SHADER_MODULE; | MessageID = 0xc81ad50e | vkCreateGraphicsPipelines(): pCreateInfos[0].pVertexInputState Vertex attribute at location 1 not consumed by vertex shader.
+
+WARNING: Validation Performance Warning: [ WARNING-Shader-OutputNotConsumed ] Object 0: handle = 0x10a57f0000000471, name = Resources/Shaders/VK/Colliders/Points/vert.spv, type = VK_OBJECT_TYPE_SHADER_MODULE; | MessageID = 0xc81ad50e | vkCreateGraphicsPipelines(): pCreateInfos[0].pVertexInputState Vertex attribute at location 2 not consumed by vertex shader.
+
+WARNING: Validation Performance Warning: [ WARNING-Shader-OutputNotConsumed ] Object 0: handle = 0x10a57f0000000471, name = Resources/Shaders/VK/Colliders/Points/vert.spv, type = VK_OBJECT_TYPE_SHADER_MODULE; | MessageID = 0xc81ad50e | vkCreateGraphicsPipelines(): pCreateInfos[0].pVertexInputState Vertex attribute at location 3 not consumed by vertex shader.
+
+WARNING: Validation Performance Warning: [ WARNING-Shader-OutputNotConsumed ] Object 0: handle = 0x10a57f0000000471, name = Resources/Shaders/VK/Colliders/Points/vert.spv, type = VK_OBJECT_TYPE_SHADER_MODULE; | MessageID = 0xc81ad50e | vkCreateGraphicsPipelines(): pCreateInfos[0].pVertexInputState Vertex attribute at location 4 not consumed by vertex shader.
+
 INFO: 	~IGpuMemoryAllocator
 INFO: Cerrado el log.
 

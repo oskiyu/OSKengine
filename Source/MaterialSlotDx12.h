@@ -1,5 +1,8 @@
 #pragma once
 
+#include "Platforms.h"
+#ifdef OSK_USE_DIRECTX12_BACKEND
+
 #include "IMaterialSlot.h"
 #include "DynamicArray.hpp"
 #include "Pair.hpp"
@@ -15,7 +18,7 @@ namespace OSK::GRAPHICS {
 		MaterialSlotDx12(const std::string& name, const MaterialLayout* layout);
 
 		void SetUniformBuffer(std::string_view binding, const GpuBuffer&, const GpuBufferRange& range, UIndex32 arrayIndex) override;
-		void SetGpuImage(std::string_view binding, const IGpuImageView&, UIndex32 arrayIndex) override;
+		void SetGpuImage(std::string_view binding, const IGpuImageView& view, const IGpuImageSampler& sampler, UIndex32 arrayIndex) override;
 		void SetStorageBuffer(std::string_view binding, const GpuBuffer&, const GpuBufferRange& range, UIndex32 arrayIndex) override;
 		void SetStorageImage(std::string_view binding, const IGpuImageView&, UIndex32 arrayIndex) override;
 		void SetAccelerationStructure(std::string_view binding, const ITopLevelAccelerationStructure&, UIndex32 arrayIndex) override;
@@ -40,3 +43,5 @@ namespace OSK::GRAPHICS {
 	};
 
 }
+
+#endif

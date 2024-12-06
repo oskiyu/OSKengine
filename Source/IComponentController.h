@@ -69,31 +69,35 @@ namespace OSK::Editor::Controllers {
 	};
 
 
-	/// @brief 
-	/// @tparam TComponent 
+	/// @brief Elemento que conecta los datos de un componente
+	/// con un elemento de interfaz de usuario del editor correspondiente
+	/// a ese componente.
+	/// @tparam TComponent Tipo de componente.
 	template <typename TComponent>
 	class TComponentController : public IComponentController {
 
 	public:
 
-		/// @brief 
-		/// @param component 
+		/// @brief Actualiza la dirección
+		/// de memoria en la que se encuentra
+		/// el componente.
+		/// @param component Dirección del componente.
 		void UpdateComponent(TComponent* component) {
 			Update(component);
 		}
 
 	protected:
 
-		/// @brief 
-		/// @param object 
-		/// @param view 
+		/// @brief Inicializa la clase.
+		/// @param object Objeto enlazado.
+		/// @param componentData Dirección inicial del componente.
+		/// @param view Vista enlazada.
 		TComponentController(
 			ECS::GameObjectIndex object,
 			void* componentData,
 			Views::IComponentView* view) : IComponentController(object, componentData, view) {}
 
-		/// @brief 
-		/// @return 
+		/// @return Componente enlazado.
 		TComponent* GetComponent() {
 			return static_cast<TComponent*>(GetComponentData());
 		}
@@ -103,6 +107,8 @@ namespace OSK::Editor::Controllers {
 
 	};
 
+
+	/// @brief 
 	template <typename _TComponentController>
 	concept IsComponentController = 
 		std::is_base_of_v<IComponentController, _TComponentController> &&

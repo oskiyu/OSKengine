@@ -1,5 +1,8 @@
 #include "HlslRuntimeCompiler.h"
 
+#include "Platforms.h"
+#ifdef OSK_USE_DIRECTX12_BACKEND
+
 #include "Assert.h"
 #include "DynamicArray.hpp"
 #include "StringOperations.h"
@@ -61,3 +64,5 @@ ComPtr<IDxcBlob> HlslRuntimeCompiler::CompileFromFile(const std::string& path, c
 
 	return output;
 }
+
+#endif

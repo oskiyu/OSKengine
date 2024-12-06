@@ -1,5 +1,8 @@
 #include "CommandQueueVk.h"
 
+#include "Platforms.h"
+#ifdef OSK_USE_VULKAN_BACKEND
+
 #include "GpuVk.h"
 #include <vulkan/vulkan.h>
 
@@ -19,3 +22,5 @@ CommandQueueVk::CommandQueueVk(QueueFamily family, UIndex32 indexInsideFamily, G
 VkQueue CommandQueueVk::GetQueue() const {
 	return m_queue;
 }
+
+#endif

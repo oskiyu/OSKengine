@@ -1,0 +1,415 @@
+#version 460
+#extension GL_ARB_separate_shader_objects : enable
+#extension GL_EXT_mesh_shader : require
+
+#define MAX_THREADS 32
+#define MAX_VERTICES 64
+#define MAX_PRIMITIVES 64
+
+layout (local_size_x = MAX_THREADS, local_size_y = 1, local_size_z = 1) in;
+layout (triangles, max_vertices = MAX_VERTICES, max_primitives = MAX_PRIMITIVES) out;
+
+
+struct TaskData {
+    vec3 position;
+};
+
+taskPayloadSharedEXT TaskData td;
+
+layout (set = 0, binding = 0) uniform Camera {
+    mat4 projection;
+    mat4 view;
+    mat4 projectionView;
+
+    vec3 cameraPos;
+} camera;
+
+layout (set = 0, binding = 1) uniform WindBuffer {
+    vec4 origin;
+} windBuffer;
+
+layout (set = 0, binding = 2) uniform sampler2D windTexture;
+
+
+layout(location = 0) out VertexOutput {
+    vec4 position;
+    vec4 normal;
+    vec4 debugColor;
+    // x: height
+    vec2 infos;
+    uint gid;
+} vertexOutput[];
+
+int GetLinealCoord(int x, int y) {
+    return x * 16 + y;
+}
+
+int GetLinealCoord(ivec2 coord) {
+    return GetLinealCoord(coord.x, coord.y);
+}
+
+ivec2 Get2dCoord(int i) {
+    int x = i / 16;
+    int y = i % 16;
+
+    return ivec2(x, y);
+}
+
+void EnsurePersistentLength(in vec3 v0, inout vec3 v1, inout vec3 v2, in float height) {
+    vec3 v01 = v1 - v0;
+    vec3 v12 = v2 - v1;
+    float lv01 = length(v01);
+    float lv12 = length(v12);
+
+    float L1 = lv01 + lv12;
+    float L0 = length(v2-v0);
+    float L = (2.0 * L0 + L1) / 3.0; //http://steve.hollasch.net/cgindex/curves/cbezarclen.html
+
+    float ldiff = height / L;
+    v01 = v01 * ldiff;
+    v12 = v12 * ldiff;
+    v1 = v0 + v01;
+    v2 = v1 + v12;
+}
+
+vec3 GetBezierPosition(vec3 p0, vec3 p1, vec3 p2, float factor) {
+    vec3 a = mix(p0, p1, factor);
+    vec3 b = mix(p1, p2, factor);
+    
+    return mix(a, b, factor);
+}
+
+vec3 GetBezierDerivative(vec3 p0, vec3 p1, vec3 p2, float factor) {
+    return 2.0 * (1.0 - factor) * (p1 - p0) + 2.0 * factor * (p2 - p1);
+}
+
+struct RandomResult {
+    uvec4 state;
+    float value;
+};
+
+uint TausStep(uint z, int S1, int S2, int S3, uint M) {
+    uint b = (((z << S1) ^ z) >> S2);
+    return (((z & M) << S3) ^ b);    
+}
+
+uint LCGStep(uint z, uint A, uint C) {
+    return (A * z + C);    
+}
+
+RandomResult Random(uvec4 state) {
+    state.x = TausStep(state.x, 13, 19, 12, 4294967294);
+    state.y = TausStep(state.y, 2, 25, 4, 4294967288);
+    state.z = TausStep(state.z, 3, 11, 17, 4294967280);
+    state.w = LCGStep(state.w, 1664525, 1013904223);
+
+    RandomResult result;
+    result.state = state;
+    result.value = 2.3283064365387e-10 * (state.x ^ state.y ^ state.z ^ state.w);
+
+    return result;
+}
+
+
+vec3 GetWindOffset(vec2 pos, float time) {
+    const float direction = 70;
+    float posOnSineWave = cos(direction) * pos.x - sin(direction) * pos.y;
+    float posOnCosWave = cos(direction) * pos.x - sin(direction) * pos.y;
+    
+    float t     = time + posOnSineWave /*+ 4 * PerlinNoise2D(0.1 * pos)*/;
+    float windx = 2 * sin(.5 * t);
+    float windy = 1 * cos(1. * t);
+    
+    return vec3(windx, 0, windy);
+}
+
+#define PI 3.14159
+
+float Determinant(vec2 x, vec2 y) {
+    return x[0]*y[1] - y[0]*x[1];
+}
+
+void main() {
+    const int threadId = int(gl_LocalInvocationID.x);
+    const int meshId = int(gl_WorkGroupID.x);
+
+#define QUALITY_DYNAMIC
+#ifdef QUALITY_DYNAMIC
+    const int verticesPerBladeEdge_High = 4;
+    const int verticesPerBlade_High = 2 * verticesPerBladeEdge_High;
+    const int trianglesPerBlade_High = 6;
+    
+    const int verticesPerBladeEdge_Medium = 3;
+    const int verticesPerBlade_Medium = 2 * verticesPerBladeEdge_Medium;
+    const int trianglesPerBlade_Medium = 4;
+    
+    const int verticesPerBladeEdge_Low = 2;
+    const int verticesPerBlade_Low = 2 * verticesPerBladeEdge_Low;
+    const int trianglesPerBlade_Low = 2;
+#else
+    #ifdef QUALITY_HIGH
+        const int verticesPerBladeEdge = 4;
+        const int verticesPerBlade = 2 * verticesPerBladeEdge;
+        const int trianglesPerBlade = 6;
+    #else
+        #ifdef QUALITY_MEDIUM
+            const int verticesPerBladeEdge = 3;
+            const int verticesPerBlade = 2 * verticesPerBladeEdge;
+            const int trianglesPerBlade = 4;
+        #else
+            const int verticesPerBladeEdge = 2;
+            const int verticesPerBlade = 2 * verticesPerBladeEdge;
+            const int trianglesPerBlade = 2;
+        #endif
+    #endif
+#endif
+
+    // const float radiusMultiplier = 1.0 * (float(maxBlades) / 8.0);
+    const float radius = 0.05 * 1.0;
+
+
+    // ---- Selección del anillo ---- //
+
+    const vec3 cameraFront  = vec3(
+        camera.view[0][2],
+        0,
+        camera.view[2][2]);
+        
+    const float angle = camera.projection[0][0];
+
+    const float dotWithFront = dot(cameraFront, vec3(1, 0, 0));
+    const float detWithFront = Determinant(cameraFront.xz, vec3(1, 0, 0).xz);
+    const float angleOffset = atan(dotWithFront, detWithFront) + 0.5 * PI - angle * 0.5;
+
+    // Nivel del anillo.
+    int ringLevel = 0;
+    // Índice del mesh dentro del anillo.
+
+    int indexInLevel = 0;
+    for (int i = 0; i < 100000; i++) {
+
+        // Número de meshes acumulados para los niveles x <= i.
+        const int N_accum = int(angle * ((i * (i + 1)) / 2)) + 1;
+
+        // Si el número acumulado es mayor que el IDX del mesh,
+        // hemos encontrado el nivel en el que se encuentra el mesh.
+        if (N_accum > meshId) {
+            // Número de meshes acumulados en los niveles previos.
+            const int N_accum_prev = int(angle * ((i * (i - 1)) / 2)) + 1;
+            indexInLevel = meshId - N_accum_prev;
+            indexInLevel = clamp(indexInLevel, 0, indexInLevel);
+            ringLevel = i;
+    
+            break;
+        }
+    }
+
+    // Distancia respecto al centro.
+    float radialCoord = 2.0 * radius * ringLevel * 0.6;
+    float angularCoord;
+    if (ringLevel == 0) {
+        angularCoord = angleOffset;
+    }
+    else {
+        angularCoord = angleOffset + float(indexInLevel) / float(ringLevel);
+    }
+
+    // Centro a partir del que se generan las hojas.
+    const vec3 polarToCartesian = vec3(
+        radialCoord * cos(angularCoord), 
+        0, 
+        radialCoord * sin(angularCoord));
+
+    vec3 patchPosition = td.position + polarToCartesian;
+    // Dirección en la que se generan las hojas.
+    const vec3 patchNormal = vec3(0, 1, 0); // TODO: input.
+    const ivec3 expandedPatchPosition = ivec3(patchPosition * 100 * 0.2);
+    const ivec3 clampedExpandedPatchPosition = ivec3(expandedPatchPosition / 5) * 5;
+    patchPosition = vec3(
+        expandedPatchPosition.x * 0.01 * 5,
+        patchPosition.y,
+        expandedPatchPosition.z * 0.01 * 5
+    );
+
+    // Inicialización del RNG.
+    RandomResult randomState;
+    randomState.state = uvec4(
+        128, 
+        15649879, 
+        1231, 
+        145478);
+
+
+    // Número máximo de hojas por cada mesh.
+#ifdef QUALITY_DYNAMIC
+    float _distanceToCamera = length(camera.cameraPos - patchPosition);
+
+    int verticesPerBlade = verticesPerBlade_High;
+    int trianglesPerBlade = verticesPerBlade_High;
+    int verticesPerBladeEdge = verticesPerBladeEdge_High;
+    float quality = 0.0;
+
+    if (_distanceToCamera < 2.0) {
+        verticesPerBlade = verticesPerBlade_High;
+        trianglesPerBlade = trianglesPerBlade_High;
+        verticesPerBladeEdge = verticesPerBladeEdge_High;
+        quality = 0.0;
+    }
+    else if (_distanceToCamera < 5.0) {
+        verticesPerBlade = verticesPerBlade_Medium;
+        trianglesPerBlade = trianglesPerBlade_Medium;
+        verticesPerBladeEdge = verticesPerBladeEdge_Medium;
+        quality = 1.0;
+    }
+    else {
+        verticesPerBlade = verticesPerBlade_Low;
+        trianglesPerBlade = trianglesPerBlade_Low;
+        verticesPerBladeEdge = verticesPerBladeEdge_Low;
+        quality = 2.0;
+    }
+#endif
+
+    const int maxBlades = min(MAX_VERTICES / verticesPerBlade, MAX_PRIMITIVES / trianglesPerBlade);
+
+    // LOD
+    float distanceToCamera = length(camera.cameraPos - patchPosition);
+    float bladeCountF  = mix(float(maxBlades), 2.0, pow(clamp(distanceToCamera / (15 * 1.05), 0, 1), 0.75));
+    int finalBladeCount = int(ceil(bladeCountF));
+
+    const int maxVertices = min(finalBladeCount * verticesPerBlade, MAX_VERTICES);
+    const int maxTriangles = min(finalBladeCount * trianglesPerBlade, MAX_PRIMITIVES);
+
+    if (gl_LocalInvocationIndex == 0) {
+        //                 v    t
+        SetMeshOutputsEXT(maxVertices, maxTriangles);
+    }
+
+    for (int i = 0; i < 2; i++) {
+        const int globalVertexIdx = threadId + 32 * i;
+    
+        if (globalVertexIdx >= maxVertices) {
+            break;
+        }
+
+        // Índice de la hoja a la que pertenece el vértice.
+        const int bladeIdx = globalVertexIdx / verticesPerBlade;
+
+        // Índice del vértice dentro de la hoja.
+        const int localVertexIdx = globalVertexIdx % verticesPerBlade;
+
+        randomState.state.x += 1265 * uint(bladeIdx);
+        randomState = Random(randomState.state);
+        const float bladeHeight = 0.05 + randomState.value * 0.025;
+
+        const vec3 tangent   = normalize(cross(vec3(1, 0, 0), patchNormal));
+        const vec3 bitangent = normalize(cross(patchNormal, tangent));
+
+        randomState = Random(randomState.state);
+        const float offsetAngle = 2.0 * 3.14159 * randomState.value;
+        
+        randomState = Random(randomState.state);
+        const float offsetRadius = randomState.value * radius;
+
+        const vec3 bladeOffset = offsetRadius * (cos(offsetAngle) * tangent + sin(offsetAngle) * bitangent);
+
+        vec3 bladePosition = patchPosition + bladeOffset;
+
+        const vec3 cameraDirection = normalize(bladePosition - camera.cameraPos);
+
+        randomState = Random(randomState.state);
+        const float angle = 
+            acos(
+                dot(
+                    normalize(camera.cameraPos - bladePosition), 
+                    normalize(vec3(1, 0, 0)))) * 2.0 * 3.14159;
+
+        const float randomAngle = 2.0 * 3.14159 * randomState.value;
+        float bladeDirectionAngle = randomAngle;
+        const vec2 bladeDirection = vec2(
+            cos(bladeDirectionAngle),
+            sin(bladeDirectionAngle));
+
+
+        // Desviación de la punta.
+        randomState = Random(randomState.state);
+        
+        float grassLeaningFactor = 0.3 + 0.1 * randomState.value;
+        vec3 p0 = bladePosition;
+        vec3 p1 = p0 + vec3(0, bladeHeight, 0);
+        vec3 p2 = p1 + vec3(bladeDirection.x, 0, bladeDirection.y) * bladeHeight * grassLeaningFactor;
+
+        vec3 wind = GetWindOffset(p0.xz, windBuffer.origin.z);
+        p1 += wind * 0.01;
+        p2 += wind * 0.04;
+
+        EnsurePersistentLength(p0, p1, p2, bladeHeight);
+
+        float width = 0.003;
+        width *= maxBlades / bladeCountF;
+
+        const vec3 sideVec = normalize(vec3(bladeDirection.y, 0, -bladeDirection.x));
+        const int direction = localVertexIdx % 2 == 0 ? +1 : -1;
+        const vec3 offset  = direction * width * sideVec;
+
+        p0 += offset * 1.2;
+        p1 += offset * 0.7;
+        p2 += offset * 0.1;
+
+        // Girar para mirar la cámara
+        if (false) {
+            p1 -= cameraDirection * 0.05;
+            p2 -= cameraDirection * 0.08;
+        }
+          
+        float t = (localVertexIdx / 2) / float(verticesPerBladeEdge - 1);
+        
+        vec3 finalVertexPosition = vec3(GetBezierPosition(p0, p1, p2, t));
+        const vec3 finalNormal = cross(sideVec, normalize(GetBezierDerivative(p0, p1, p2, t)));
+
+        gl_MeshVerticesEXT[globalVertexIdx].gl_Position = camera.projectionView * vec4(finalVertexPosition, 1.0);
+
+        vertexOutput[globalVertexIdx].position = vec4(finalVertexPosition, 1.0);
+        vertexOutput[globalVertexIdx].infos = vec2(bladeHeight, gl_GlobalInvocationID.x * 0.01);
+        vertexOutput[globalVertexIdx].infos.y = meshId;
+        vertexOutput[globalVertexIdx].gid = meshId;
+        vertexOutput[globalVertexIdx].debugColor = vec4(
+            float(uint(meshId) & 1),
+            float(uint(meshId) & 3) / 4,
+            float(uint(meshId) & 7) / 8,
+            1.0
+        );
+        vertexOutput[globalVertexIdx].debugColor = vec4(
+            quality,
+            quality / 4,
+            quality / 8,
+            1.0
+        );
+        
+        // Normal
+        vertexOutput[globalVertexIdx].normal.xyz = normalize(mix(vec3(0, 0, 1), finalNormal, 0.25));
+        
+        float a = dot(vertexOutput[globalVertexIdx].position.xyz - camera.cameraPos, vertexOutput[globalVertexIdx].normal.xyz);
+        if (a > 0) {
+            vertexOutput[globalVertexIdx].normal.xyz *= -1;
+        }
+    }
+
+    for (int i = 0; i < 2; i++) {
+        const int triangleIdx = threadId + 32 * i;
+
+        if (triangleIdx >= maxTriangles) {
+            break;
+        }
+
+        const int bladeIdx = triangleIdx / trianglesPerBlade;
+        const int localTriangleIdx = triangleIdx % trianglesPerBlade;
+
+        const uvec3 offset = uvec3(bladeIdx * verticesPerBlade + 2 * (localTriangleIdx / 2));
+
+        const uvec3 indices = localTriangleIdx % 2 == 1 
+            ? uvec3(0, 1, 2) 
+            : uvec3(3, 2, 1);
+
+        gl_PrimitiveTriangleIndicesEXT[triangleIdx] = indices + offset;
+    }
+}

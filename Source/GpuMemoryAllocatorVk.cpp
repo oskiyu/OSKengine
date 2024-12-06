@@ -1,5 +1,8 @@
 #include "GpuMemoryAllocatorVk.h"
 
+#include "Platforms.h"
+#ifdef OSK_USE_VULKAN_BACKEND
+
 #include <vulkan/vulkan.h>
 
 #include "Logger.h"
@@ -72,9 +75,6 @@ OwnedPtr<GpuImage> GpuMemoryAllocatorVk::CreateImage(const GpuImageCreateInfo& i
 
 	imageMemoryBlocks.Insert(block.GetPointer());
 
-	// ------ IMAGE ---------- //
-	output->CreateVkSampler(info.samplerDesc);
-
 	return output.GetPointer();
 }
 
@@ -86,3 +86,5 @@ OwnedPtr<IBottomLevelAccelerationStructure> GpuMemoryAllocatorVk::_CreateBottomA
 OwnedPtr<ITopLevelAccelerationStructure> GpuMemoryAllocatorVk::_CreateTopAccelerationStructure() {
 	return new TopLevelAccelerationStructureVk();
 }
+
+#endif

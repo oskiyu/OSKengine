@@ -67,7 +67,7 @@ void IContainer::Rebuild() {
 			child->As<IContainer>()->Rebuild();
 }
 
-void IContainer::Render(SdfBindlessRenderer2D* renderer) const {
+void IContainer::Render(ISdfRenderer2D* renderer) const {
 	IElement::Render(renderer);
 
 	for (const auto& child : m_children) {
@@ -126,4 +126,8 @@ void IContainer::DeleteChild(std::string_view childName) {
 	m_childrenTable.erase(iterator);
 
 	Rebuild();
+}
+
+bool IContainer::HasChild(std::string_view childName) const {
+	return m_childrenTable.contains(childName);
 }

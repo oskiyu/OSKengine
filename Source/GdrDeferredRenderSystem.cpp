@@ -123,7 +123,11 @@ void GdrDeferredRenderSystem::Render(GRAPHICS::ICommandList* commandList, std::s
 	
 
 	const auto* defaultNormalTexture = OSK::Engine::GetRenderer()->GetAllocator()->GetDefaultNormalTexture();
-	m_gdrMaterialInstance->GetSlot("images")->SetGpuImage("images", *defaultNormalTexture->GetView(GpuImageViewConfig::CreateSampled_Default()), 0);
+	m_gdrMaterialInstance->GetSlot("images")->SetGpuImage(
+		"images", 
+		*defaultNormalTexture->GetView(GpuImageViewConfig::CreateSampled_Default()), 
+		GpuImageSamplerDesc::CreateDefault_WithMipMap(*defaultNormalTexture),
+		0);
 		
 
 
@@ -308,7 +312,11 @@ void GdrDeferredRenderSystem::WriteMaterialInfo(const GpuModel3D& model, UIndex3
 
 		(*nextImageIndex)++;
 
-		m_gdrMaterialInstance->GetSlot("images")->SetGpuImage("images", *colorView, colorViewIndex);
+		m_gdrMaterialInstance->GetSlot("images")->SetGpuImage(
+			"images", 
+			*colorView, 
+			GpuImageSamplerDesc::CreateDefault_WithMipMap(colorView->GetImage()),
+			colorViewIndex);
 	}
 
 	const UIndex32 normalViewIndex = containsNormalTexture
@@ -320,7 +328,11 @@ void GdrDeferredRenderSystem::WriteMaterialInfo(const GpuModel3D& model, UIndex3
 
 		(*nextImageIndex)++;
 
-		m_gdrMaterialInstance->GetSlot("images")->SetGpuImage("images", *normalView, normalViewIndex);
+		m_gdrMaterialInstance->GetSlot("images")->SetGpuImage(
+			"images", 
+			*normalView,
+			GpuImageSamplerDesc::CreateDefault_WithMipMap(normalView->GetImage()),
+			normalViewIndex);
 	}
 
 

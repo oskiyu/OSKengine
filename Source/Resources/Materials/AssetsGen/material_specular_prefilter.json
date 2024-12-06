@@ -1,7 +1,7 @@
 {
     "file_type": "MATERIAL",
     "spec_ver": 1,
-    "name": "Irradiance Cubemap Gen",
+    "name": "Specular Prefilter Gen",
 
     "vertex_shader": "Resources/Shaders/VK/AssetsGen/SpecularGen/Prefilter/vert.spv",
     "fragment_shader": "Resources/Shaders/VK/AssetsGen/SpecularGen/Prefilter/frag.spv",

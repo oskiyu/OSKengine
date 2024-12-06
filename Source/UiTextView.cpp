@@ -99,7 +99,7 @@ std::string_view TextView::GetText() const {
 	return text;
 }
 
-void TextView::Render(SdfBindlessRenderer2D* renderer) const {
+void TextView::Render(ISdfRenderer2D* renderer) const {
 	IElement::Render(renderer);
 
 	if (!font.GetAsset()) {

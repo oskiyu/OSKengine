@@ -39,13 +39,13 @@ OSK::Editor::Views::TransformComponentView3D::TransformComponentView3D(const Vec
 }
 
 void OSK::Editor::Views::TransformComponentView3D::SetPosition(const Vector3f& position) {
-	m_positionView->SetText(std::format("Posición: {:.1f} {:.1f} {:.1f} m", position.x, position.y, position.z));
+	m_positionView->SetText(std::format("Posición: X: {:.1f} Y: {:.1f} Z: {:.1f} m", position.x, position.y, position.z));
 }
 
 void OSK::Editor::Views::TransformComponentView3D::SetRotation(const Vector3f& rotation) {
-	m_rotationView->SetText(std::format("Rotación: {:.1f} {:.1f} {:.1f} º", rotation.x, rotation.y, rotation.z));
+	m_rotationView->SetText(std::format("Rotación: X: {:.1f} Y: {:.1f} Z: {:.1f} º", rotation.x, rotation.y, rotation.z));
 }
 
 void OSK::Editor::Views::TransformComponentView3D::SetScale(const Vector3f& scale) {
-	m_sizeView->SetText(std::format("Escala: {:.1f} {:.1f} {:.1f} %", scale.x, scale.y, scale.z));
+	m_sizeView->SetText(std::format("Escala: X: {:.1f} Y: {:.1f} Z: {:.1f} %", scale.x, scale.y, scale.z));
 }

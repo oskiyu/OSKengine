@@ -28,7 +28,8 @@ OSK::Editor::Views::IComponentView::IComponentView(const Vector2f& size, const s
 	background.transform.SetPosition(GetContentTopLeftPosition());
 	background.transform.SetScale(GetSize());
 
-	m_backgroundDrawCallIndex = GetAllDrawCalls().GetSize();
+	// GetAllDrawCalls().GetSize() < UIndex32::max.
+	m_backgroundDrawCallIndex = static_cast<UIndex32>(GetAllDrawCalls().GetSize());
 
 	// Botón.
 	{

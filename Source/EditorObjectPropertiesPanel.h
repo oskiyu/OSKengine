@@ -26,6 +26,7 @@ namespace OSK::Editor::UI {
 
 		/// @brief Quita todas las vistas de componentes.
 		void ClearAllComponentViews();
+		void ClearContent() override;
 
 	private:
 

@@ -19,6 +19,10 @@ bool IGpu::SupportsBindlessResources() const{
 	return m_supportsBindless;
 }
 
+bool IGpu::SupportsMeshShaders() const {
+	return m_supportsMesh;
+}
+
 const GpuMemoryAlignments& IGpu::GetMemoryAlignments() const {
 	return m_minAlignments;
 }

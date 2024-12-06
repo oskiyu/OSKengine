@@ -63,7 +63,7 @@ void TextInput::UpdateByKeyboard(const IO::KeyboardState& previous, const IO::Ke
 }
 
 
-void TextInput::Render(GRAPHICS::SdfBindlessRenderer2D* renderer) const {
+void TextInput::Render(GRAPHICS::ISdfRenderer2D* renderer) const {
 	if (!m_font.GetAsset()) {
 		return;
 	}

@@ -1,5 +1,9 @@
 #include "GBuffer.h"
 
+#include <utility>
+
+#include <utility>
+
 #include "Format.h"
 #include "ICommandList.h"
 #include "GpuImageLayout.h"
@@ -36,17 +40,17 @@ void GBuffer::Resize(const Vector2ui& resolution) {
 GpuImage* GBuffer::GetImage(Target targetType) {
 	return targetType == Target::DEPTH
 		? renderTarget.GetDepthImage()
-		: renderTarget.GetColorImage(static_cast<UIndex32>(targetType));
+		: renderTarget.GetColorImage(std::to_underlying(targetType));
 }
 
 const GpuImage* GBuffer::GetImage(Target targetType) const {
 	return targetType == Target::DEPTH
 		? renderTarget.GetDepthImage()
-		: renderTarget.GetColorImage(static_cast<UIndex32>(targetType));
+		: renderTarget.GetColorImage(std::to_underlying(targetType));
 }
 
 void GBuffer::BindPipelineBarriers(ICommandList* cmdList) {
-	for (UIndex64 i = 0; i < renderTarget.GetNumColorTargets(); i++) {
+	for (UIndex32 i = 0; i < renderTarget.GetNumColorTargets(); i++) {
 		cmdList->SetGpuImageBarrier(
 			renderTarget.GetColorImage(i),
 			GpuImageLayout::UNDEFINED,

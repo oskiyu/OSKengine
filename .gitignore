@@ -373,3 +373,8 @@ healthchecksdb
 /Includes/**
 
 /Documentation/HTML
+*.wav
+*.hdr
+*.glb
+*.jpg
+*.png

@@ -1,5 +1,8 @@
 #include "CommandQueueDx12.h"
 
+#include "Platforms.h"
+#ifdef OSK_USE_DIRECTX12_BACKEND
+
 #include <wrl.h>
 #include <d3d12.h>
 
@@ -18,3 +21,5 @@ void CommandQueueDx12::SetCommandQueue(const ComPtr<ID3D12CommandQueue>& command
 ID3D12CommandQueue* CommandQueueDx12::GetCommandQueue() const {
 	return commandQueue.Get();
 }
+
+#endif

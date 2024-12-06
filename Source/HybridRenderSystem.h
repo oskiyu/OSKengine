@@ -22,7 +22,7 @@ namespace OSK::ASSETS {
 
 namespace OSK::ECS {
 
-	class OSKAPI_CALL HybridRenderSystem : public IRenderSystem {
+	class OSKAPI_CALL HybridRenderSystem : public IRenderSystem, public ISerializableSystem {
 
 	public:
 

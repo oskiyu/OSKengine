@@ -4,8 +4,10 @@
 #include "EditorUi.h"
 #include "IComponentController.h"
 #include "EditorObjectList.h"
+#include "EditorSystemList.h"
 #include "EditorPropertiesPanel.h"
 #include "EditorObjectPropertiesPanel.h"
+#include "EditorSystemPropertiesPanel.h"
 
 using namespace OSK;
 using namespace OSK::UI;
@@ -27,7 +29,16 @@ OSK::Editor::UI::EditorUi* OSK::Editor::Editor::GetUi() {
 }
 
 void OSK::Editor::Editor::Update(EntityComponentSystem* ecs, TDeltaTime deltaTime) {
+	m_ecs = ecs;
 
+	UpdateByObject(ecs);
+	UpdateBySystem();
+	
+	// Interfaz.
+	m_editorUi->Update(ecs, deltaTime);
+}
+
+void OSK::Editor::Editor::UpdateByObject(EntityComponentSystem* ecs) {
 	// Si el objeto seleccionado no está vivo,
 	// se vacía.
 	if (!ecs->IsGameObjectAlive(m_selectedObject)) {
@@ -44,18 +55,12 @@ void OSK::Editor::Editor::Update(EntityComponentSystem* ecs, TDeltaTime deltaTim
 
 		m_isSelectedObjectDirty = false;
 
-		m_editorUi
-			->GetObjectListPanel()
-			->GetPropertiesPanel()
-			->ClearAllComponentViews();
+		m_editorUi->ClearAllComponentViews();
 	}
 
 	// Si no hay objeto, no se actualiza.
 	if (m_selectedObject.IsEmpty()) {
-		m_editorUi
-			->GetObjectListPanel()
-			->GetPropertiesPanel()
-			->ClearAllComponentViews();
+		m_editorUi->ClearAllComponentViews();
 
 		return;
 	}
@@ -69,18 +74,10 @@ void OSK::Editor::Editor::Update(EntityComponentSystem* ecs, TDeltaTime deltaTim
 			continue;
 		}
 
-		const auto& controllerViewPair = controllerViewPairOpt.value();
+		auto& controllerViewPair = controllerViewPairOpt.value();
 
 		if (controllerViewPair.isNewInsertion) {
-			m_editorUi
-				->GetObjectListPanel()
-				->GetPropertiesPanel()
-				->AddComponentView(controllerViewPair.view);
-
-			m_editorUi
-				->GetObjectListPanel()
-				->GetPropertiesPanel()
-				->Rebuild();
+			m_editorUi->AddComponentView(controllerViewPair.view);
 		}
 
 		// Actualizar la dirección de los
@@ -92,9 +89,12 @@ void OSK::Editor::Editor::Update(EntityComponentSystem* ecs, TDeltaTime deltaTim
 		// - Interfaz (aplicando cambios en el componente).
 		controllerViewPair.controller->Poll();
 	}
+}
 
-	// Interfaz.
-	m_editorUi->Update(ecs, deltaTime);
+void OSK::Editor::Editor::UpdateBySystem() {
+	if (m_currentSystemController.HasValue()) {
+		m_currentSystemController->Poll();
+	}
 }
 
 std::optional<OSK::Editor::Editor::ControllerViewPair> OSK::Editor::Editor::GetOrCreateControllerViewPair(EntityComponentSystem* ecs, ECS::ComponentType type) {
@@ -106,13 +106,13 @@ std::optional<OSK::Editor::Editor::ControllerViewPair> OSK::Editor::Editor::GetO
 
 		const std::string componentName = ecs->GetComponentTypeName(type);
 
-		auto viewIterator = m_viewsFactoryMethods.find(componentName);
-		if (viewIterator == m_viewsFactoryMethods.end()) {
+		auto viewIterator = m_componentViewsFactoryMethods.find(componentName);
+		if (viewIterator == m_componentViewsFactoryMethods.end()) {
 			return std::optional<ControllerViewPair>{};
 		}
 
-		auto factoryIterator = m_controllersFactoryMethods.find(componentName);
-		if (factoryIterator == m_controllersFactoryMethods.end()) {
+		auto factoryIterator = m_componentControllersFactoryMethods.find(componentName);
+		if (factoryIterator == m_componentControllersFactoryMethods.end()) {
 			return std::optional<ControllerViewPair>{};
 		}
 
@@ -142,12 +142,20 @@ std::optional<OSK::Editor::Editor::ControllerViewPair> OSK::Editor::Editor::GetO
 	};
 }
 
-void OSK::Editor::Editor::RegisterController(std::string_view componentName, const ControllerFactoryMethod& controller) {
-	m_controllersFactoryMethods.emplace(static_cast<std::string>(componentName), controller);
+void OSK::Editor::Editor::RegisterComponentController(std::string_view componentName, const ComponentControllerFactoryMethod& controller) {
+	m_componentControllersFactoryMethods[static_cast<std::string>(componentName)] = controller;
 }
 
-void OSK::Editor::Editor::RegisterView(std::string_view componentName, const ViewFactoryMethod& view) {
-	m_viewsFactoryMethods.emplace(static_cast<std::string>(componentName), view);
+void OSK::Editor::Editor::RegisterComponentView(std::string_view componentName, const ComponentViewFactoryMethod& view) {
+	m_componentViewsFactoryMethods[static_cast<std::string>(componentName)] = view;
+}
+
+void OSK::Editor::Editor::RegisterSystemController(std::string_view systemName, const SystemControllerFactoryMethod& controller) {
+	m_systemControllerFactoryMethods[static_cast<std::string>(systemName)] = controller;
+}
+
+void OSK::Editor::Editor::RegisterSystemView(std::string_view systemName, const SystemViewFactoryMethod& view) {
+	m_systemViewsFactoryMethods[static_cast<std::string>(systemName)] = view;
 }
 
 void OSK::Editor::Editor::SetSelectedObject(ECS::GameObjectIndex gameObject) {
@@ -155,6 +163,50 @@ void OSK::Editor::Editor::SetSelectedObject(ECS::GameObjectIndex gameObject) {
 	m_selectedObject = gameObject;
 }
 
+void OSK::Editor::Editor::ClearSelectedObject() {
+	SetSelectedObject(ECS::GameObjectIndex::CreateEmpty());
+}
+
 void OSK::Editor::Editor::SetSelectedSystem(const std::string& systemName) {
 	m_selectedSystemName = systemName;
+
+	if (systemName.empty()) {
+		m_currentSystemController.Delete();
+		m_editorUi->SetSelectedSystem(nullptr);
+		return;
+	}
+
+	if (!m_systemControllerFactoryMethods.contains(systemName)) {
+		m_currentSystemController.Delete();
+		m_editorUi->SetSelectedSystem(m_ecs->GetSystemByName(systemName));
+
+		return;
+	}
+
+	m_editorUi->SetSelectedSystem(m_ecs->GetSystemByName(systemName));
+
+	const bool shouldCreateController =
+		!m_currentSystemController.HasValue() ||
+		m_currentSystemController->_GetSystemName() != systemName;
+
+	if (!shouldCreateController) {
+		return;
+	}
+
+	if (!m_systemControllerFactoryMethods.contains(systemName)) {
+		return;
+	}
+
+	auto view = m_systemViewsFactoryMethods.find(systemName)->second(Vector2f::One * 12.0f);
+	auto controller = m_systemControllerFactoryMethods.find(systemName)->second(
+		m_ecs->GetSystemByName(systemName),
+		view.GetPointer());
+
+	m_currentSystemController = controller.GetPointer();
+
+	m_editorUi->SetSystemPropertiesView(view.GetPointer());
+}
+
+void OSK::Editor::Editor::ClearSelectedSystem() {
+	SetSelectedSystem("");
 }

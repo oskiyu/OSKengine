@@ -1,5 +1,8 @@
 #include "GpuMemoryBlockVk.h"
 
+#include "Platforms.h"
+#ifdef OSK_USE_VULKAN_BACKEND
+
 #include "GpuMemoryTypeVk.h"
 #include "GpuMemoryTypes.h"
 #include "GpuVk.h"
@@ -136,3 +139,5 @@ uint32_t GpuMemoryBlockVk::GetMemoryType(uint32_t memoryTypeFilter, GpuVk* devic
 
 	return -1;
 }
+
+#endif

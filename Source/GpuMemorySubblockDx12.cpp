@@ -1,5 +1,8 @@
 #include "GpuMemorySubblockDx12.h"
 
+#include "Platforms.h"
+#ifdef OSK_USE_DIRECTX12_BACKEND
+
 #include "GpuMemoryBlockDx12.h"
 
 #include "Assert.h"
@@ -45,3 +48,5 @@ void GpuMemorySubblockDx12::Unmap() {
 ID3D12Resource* GpuMemorySubblockDx12::GetResource() const {
 	return resource.Get();
 }
+
+#endif

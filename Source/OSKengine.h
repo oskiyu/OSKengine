@@ -19,6 +19,7 @@
 #include "ConsoleCommandExecutor.h"
 #include <string_view>
 
+#include "DefaultElementsProfiles.h"
 
 namespace OSK {
 	
@@ -135,13 +136,13 @@ namespace OSK {
 		/// @threadsafe
 		static std::string_view GetBuild();
 
-		static void RegisterBuiltinAssets();
-		static void RegisterBuiltinComponents();
-		static void RegisterBuiltinSystems();
+		static void RegisterBuiltinAssets(GAME::DefaultContentProfile profile);
+		static void RegisterBuiltinComponents(GAME::DefaultContentProfile profile);
+		static void RegisterBuiltinSystems(GAME::DefaultContentProfile profile);
 		static void RegisterBuiltinEvents();
 		static void RegisterBuiltinVertices();
 		static void RegisterBuiltinJobs();
-		static void RegisterBuiltinShaderPasses();
+		static void RegisterBuiltinShaderPasses(GAME::DefaultContentProfile profile);
 		static void RegisterBuiltinConsoleCommands();
 
 		/// @return Índice del fotograma actual del juego,

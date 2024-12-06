@@ -201,9 +201,9 @@ void HybridRenderSystem::Initialize(GameObjectIndex cameraObject, const Irradian
 
 	const GpuImageViewConfig sampledViewConfig = GpuImageViewConfig::CreateSampled_Default();
 
-	resolveMaterialInstance->GetSlot("scene")->SetGpuImage("irradianceMap", *irradianceMap.GetGpuImage()->GetView(sampledViewConfig));
-	resolveMaterialInstance->GetSlot("scene")->SetGpuImage("specularMap", *specularMap.GetCubemapImage()->GetView(sampledViewConfig));
-	resolveMaterialInstance->GetSlot("scene")->SetGpuImage("specularLut", *specularMap.GetLookUpTable()->GetView(sampledViewConfig));
+	resolveMaterialInstance->GetSlot("scene")->SetGpuImage("irradianceMap", *irradianceMap.GetGpuImage()->GetView(sampledViewConfig), GpuImageSamplerDesc::CreateDefault_NoMipMap());
+	resolveMaterialInstance->GetSlot("scene")->SetGpuImage("specularMap", *specularMap.GetCubemapImage()->GetView(sampledViewConfig), GpuImageSamplerDesc::CreateDefault_NoMipMap());
+	resolveMaterialInstance->GetSlot("scene")->SetGpuImage("specularLut", *specularMap.GetLookUpTable()->GetView(sampledViewConfig), GpuImageSamplerDesc::CreateDefault_NoMipMap());
 	resolveMaterialInstance->GetSlot("scene")->FlushUpdate();
 }
 

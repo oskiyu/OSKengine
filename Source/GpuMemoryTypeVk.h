@@ -1,5 +1,8 @@
 #pragma once
 
+#include "Platforms.h"
+#ifdef OSK_USE_VULKAN_BACKEND
+
 #include "ApiCall.h"
 
 namespace OSK::GRAPHICS {
@@ -14,3 +17,5 @@ namespace OSK::GRAPHICS {
 	unsigned int OSKAPI_CALL GetGpuImageAspectVk(GpuImageUsage usage);
 
 }
+
+#endif

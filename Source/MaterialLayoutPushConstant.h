@@ -51,3 +51,5 @@ namespace OSK::GRAPHICS {
 	};
 
 }
+
+template <> std::string OSK::ToString<OSK::GRAPHICS::MaterialLayoutPushConstant>(const OSK::GRAPHICS::MaterialLayoutPushConstant& data);

@@ -29,7 +29,7 @@ namespace OSK::ECS {
 	/// @note Para que los bottom level colliders se renderizen correctamente,
 	/// cada entidad debe registrarse en el sistema mediante SetupBottomLevelModel.
 	/// En caso contrario, sólamente se renderizará su collider de alto nivel.
-	class OSKAPI_CALL ColliderRenderSystem : public IRenderSystem {
+	class OSKAPI_CALL ColliderRenderSystem : public IRenderSystem, public ISerializableSystem {
 
 	public:
 
@@ -55,6 +55,13 @@ namespace OSK::ECS {
 		/// 
 		/// @pre La entidad debe tener un componente de colisión.
 		void SetupBottomLevelModel(GameObjectIndex obj);
+
+
+		const GRAPHICS::Material* GetTopLevelMaterial() const;
+		const GRAPHICS::Material* GetBottomLevelMaterial() const;
+		const GRAPHICS::Material* GetPointsMaterial() const;
+		GameObjectIndex GetCurrentCameraObject() const;
+
 
 		nlohmann::json SaveConfiguration() const override;
 		PERSISTENCE::BinaryBlock SaveBinaryConfiguration() const override;

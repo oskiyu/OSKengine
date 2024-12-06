@@ -44,7 +44,7 @@ namespace OSK::UI {
 
 
 		/// @brief Renderiza todos los elementos contenidos.
-		void Render(GRAPHICS::SdfBindlessRenderer2D* renderer) const override;
+		void Render(GRAPHICS::ISdfRenderer2D* renderer) const override;
 
 		bool UpdateByCursor(Vector2f cursorPosition, bool isPressed) override;
 		void UpdateByKeyboard(const IO::KeyboardState& previous, const IO::KeyboardState& current) override;
@@ -63,6 +63,10 @@ namespace OSK::UI {
 		/// @throws InvalidArgumentException si se incumple
 		/// la precondición.
 		void DeleteChild(std::string_view childName);
+
+		/// @param childName Nombre del elemento hijo.
+		/// @return True si existe, false en caso contrario.
+		bool HasChild(std::string_view childName) const;
 
 	protected:
 

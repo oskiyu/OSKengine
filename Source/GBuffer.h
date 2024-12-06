@@ -48,7 +48,7 @@ namespace OSK::GRAPHICS {
 		/// @param usage Uso de las imágenes de color. Tendrá, al menos, los definidos en RenderTarget.
 		void Create(
 			const Vector2ui& resolution, 
-			GpuImageSamplerDesc sampler = GpuImageSamplerDesc::CreateDefault(), 
+			GpuImageSamplerDesc sampler = GpuImageSamplerDesc::CreateDefault_NoMipMap(), 
 			GpuImageUsage usage = GpuImageUsage::COLOR | GpuImageUsage::SAMPLED);
 
 		/// @brief Cambia la resolución del GBuffer.

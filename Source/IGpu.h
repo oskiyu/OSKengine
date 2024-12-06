@@ -12,7 +12,9 @@
 namespace OSK::GRAPHICS {
 
 	class ICommandPool;
-	
+	class IGpuImageSampler;
+	struct GpuImageSamplerDesc;
+
 	/// @brief Representa una conexión con la GPU.
 	class OSKAPI_CALL IGpu {
 
@@ -31,6 +33,11 @@ namespace OSK::GRAPHICS {
 		/// @return Command pool para comandos de computación.
 		/// @throws CommandPoolCreationException Si ocurre algún error. 
 		virtual OwnedPtr<ICommandPool> CreateComputeCommandPool() = 0;
+
+		/// @brief Crea un sampler con las propiedades indicadas.
+		/// @param info Propiedades del sampler.
+		/// @return Sampler con las propiedades indicadas.
+		virtual OwnedPtr<IGpuImageSampler> CreateSampler(const GpuImageSamplerDesc& info) const = 0;
 
 
 		/// @brief Intenta crear un pool de comandos que soporte únicamente operaciones de transferencia.
@@ -64,6 +71,9 @@ namespace OSK::GRAPHICS {
 		/// @return True si soporta renderizado bind-less.
 		bool SupportsBindlessResources() const;
 
+		/// @return True si soporta renderizado de meshes.
+		bool SupportsMeshShaders() const;
+
 	protected:
 
 		void _SetName(const std::string& name);
@@ -71,6 +81,7 @@ namespace OSK::GRAPHICS {
 
 		bool m_supportsRayTracing = false;
 		bool m_supportsBindless = false;
+		bool m_supportsMesh = false;
 
 	private:
 

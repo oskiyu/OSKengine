@@ -1,5 +1,8 @@
 #include "RtShaderTableVk.h"
 
+#include "Platforms.h"
+#ifdef OSK_USE_VULKAN_BACKEND
+
 #include "OSKengine.h"
 #include "IRenderer.h"
 #include "GpuVk.h"
@@ -79,3 +82,5 @@ VkStridedDeviceAddressRegionKHR RtShaderTableVk::GetClosestHitTableAddressRegion
 VkStridedDeviceAddressRegionKHR RtShaderTableVk::GetMissTableAddressRegion() const {
 	return missTableAddressRegion;
 }
+
+#endif

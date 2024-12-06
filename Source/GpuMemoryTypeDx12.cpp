@@ -1,4 +1,8 @@
 #include "GpuMemoryTypesDx12.h"
+
+#include "Platforms.h"
+#ifdef OSK_USE_DIRECTX12_BACKEND
+
 #include "GpuMemoryTypes.h"
 
 #include <d3d12.h>
@@ -16,3 +20,5 @@ D3D12_HEAP_TYPE OSK::GRAPHICS::GetGpuSharedMemoryTypeDx12(GpuSharedMemoryType ty
 
 	return (D3D12_HEAP_TYPE)0;
 }
+
+#endif

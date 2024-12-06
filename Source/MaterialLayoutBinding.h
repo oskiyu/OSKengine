@@ -66,3 +66,5 @@ namespace OSK::GRAPHICS {
 	};
 
 }
+
+template <> std::string OSK::ToString<OSK::GRAPHICS::MaterialLayoutBinding>(const OSK::GRAPHICS::MaterialLayoutBinding& binding);

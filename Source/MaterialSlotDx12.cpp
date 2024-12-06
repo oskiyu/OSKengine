@@ -1,5 +1,9 @@
 #include "MaterialSlotDx12.h"
 
+#include "Platforms.h"
+#ifdef OSK_USE_DIRECTX12_BACKEND
+
+#include "Assert.h"
 #include "MaterialLayout.h"
 #include "GpuImageDx12.h"
 #include "MaterialLayoutSlot.h"
@@ -32,7 +36,7 @@ void MaterialSlotDx12::SetGpuImage(const std::string& binding, const IGpuImageVi
 	images.At(index) = { index, image->GetImage().As<GpuImageDx12>()};
 }
 */
-void MaterialSlotDx12::SetGpuImage(std::string_view binding, const IGpuImageView& image, UIndex32 arrayIndex) {
+void MaterialSlotDx12::SetGpuImage(std::string_view binding, const IGpuImageView& view, const IGpuImageSampler& sampler, UIndex32 arrayIndex) {
 	OSK_ASSERT(false, NotImplementedException());
 }
 /*
@@ -80,3 +84,5 @@ const DynamicArray<Pair<UIndex32, const GpuImageDx12*>>& MaterialSlotDx12::GetSt
 void MaterialSlotDx12::SetDebugName(const std::string& name) {
 	OSK_ASSERT(false, NotImplementedException());
 }
+
+#endif

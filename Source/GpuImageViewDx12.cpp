@@ -1,5 +1,8 @@
 #include "GpuImageViewDx12.h"
 
+#include "Platforms.h"
+#ifdef OSK_USE_DIRECTX12_BACKEND
+
 using namespace OSK;
 using namespace OSK::GRAPHICS;
 
@@ -19,3 +22,5 @@ D3D12_GPU_DESCRIPTOR_HANDLE GpuImageViewDx12::GetGpuAddress() const {
 ID3D12DescriptorHeap* GpuImageViewDx12::GetDescriptorHeap() const {
 	return descriptor.heap;
 }
+
+#endif

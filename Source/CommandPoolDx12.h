@@ -1,5 +1,8 @@
 #pragma once
 
+#include "Platforms.h"
+#ifdef OSK_USE_DIRECTX12_BACKEND
+
 #include <wrl.h>
 using namespace Microsoft::WRL;
 #include <d3d12.h>
@@ -8,32 +11,31 @@ using namespace Microsoft::WRL;
 
 namespace OSK::GRAPHICS {
 
-	/// <summary>
-	/// Una pool de comandos se encarga de crear una serie de listas de comandos.
-	/// 
-	/// Esta es la implementación del pool para el renderizador de DirectX 12.
-	/// </summary>
+	class GpuDx12;
+
 	class OSKAPI_CALL CommandPoolDx12 : public ICommandPool {
 
 	public:
 
 		CommandPoolDx12(
+			GpuDx12* device,
 			CommandsSupport supportedCommands,
 			GpuQueueType type);
 
-		/// <summary>
-		/// Crea una nueva lista de comandos.
-		/// </summary>
 		OwnedPtr<ICommandList> CreateCommandList(const IGpu& device) override;
 		OwnedPtr<ICommandList> CreateSingleTimeCommandList(const IGpu& device) override;
 
-		void SetCommandPool(const ComPtr<ID3D12CommandAllocator>& commandPool);
-		ID3D12CommandAllocator* GetCommandAllocator() const;
+		ID3D12CommandAllocator* GetCommandAllocator();
+
+		D3D12_COMMAND_LIST_TYPE GetType() const;
 
 	private:
 
-		ComPtr<ID3D12CommandAllocator> commandPool;
+		D3D12_COMMAND_LIST_TYPE m_type = D3D12_COMMAND_LIST_TYPE_DIRECT;
+		ComPtr<ID3D12CommandAllocator> m_commandPool;
 
 	};
 
 }
+
+#endif

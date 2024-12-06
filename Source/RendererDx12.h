@@ -1,5 +1,8 @@
 #pragma once
 
+#include "Platforms.h"
+#ifdef OSK_USE_DIRECTX12_BACKEND
+
 #include <string>
 #include "ApiCall.h"
 #include "IRenderer.h"
@@ -32,6 +35,7 @@ namespace OSK::GRAPHICS {
 		void WaitForCompletion() override;
 
 		OwnedPtr<IGraphicsPipeline> _CreateGraphicsPipeline(const PipelineCreateInfo& pipelineInfo, const MaterialLayout& layout, const VertexInfo& vertexInfo) override;
+		OwnedPtr<IMeshPipeline> _CreateMeshPipeline(const PipelineCreateInfo& pipelineInfo, const MaterialLayout& layout) override;
 		OwnedPtr<IRaytracingPipeline> _CreateRaytracingPipeline(const PipelineCreateInfo& pipelineInfo, const MaterialLayout& layout, const VertexInfo& vertexTypeName) override;
 		OwnedPtr<IComputePipeline> _CreateComputePipeline(const PipelineCreateInfo& pipelineInfo, const MaterialLayout& layout) override;
 		OwnedPtr<IMaterialSlot> _CreateMaterialSlot(const std::string& name, const MaterialLayout& layout) const override;
@@ -54,21 +58,23 @@ namespace OSK::GRAPHICS {
 		static void DebugCallback(D3D12_MESSAGE_CATEGORY category, D3D12_MESSAGE_SEVERITY severity, D3D12_MESSAGE_ID id, LPCSTR description, void* context);
 
 		/// @throws GpuNotFoundException Si no se encuentra ninguna GPU compatible.
-		void ChooseGpu();
+		void CreateDevice();
 
 		void Resize();
 		bool mustResize = false;
 
-		bool useDebugConsole = false;
+		bool m_useDebugConsole = false;
 
 		/// <summary>
 		/// Se usa para crear cosas de dx12.
 		/// </summary>
-		ComPtr<IDXGIFactory4> factory;
-		ComPtr<ID3D12Debug3> debugConsole;
+		ComPtr<IDXGIFactory4> m_factory;
+		ComPtr<ID3D12Debug1> m_debugConsole;
 
 		// ID3D12InfoQueue1* debugMessageQueue = nullptr;
 
 	};
 
 }
+
+#endif

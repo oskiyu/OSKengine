@@ -1,5 +1,8 @@
 #pragma once
 
+#include "Platforms.h"
+#ifdef OSK_USE_DIRECTX12_BACKEND
+
 #include <wrl.h>
 #include <d3d12.h>
 
@@ -31,3 +34,5 @@ namespace OSK::GRAPHICS {
 	};
 
 }
+
+#endif

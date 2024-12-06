@@ -19,11 +19,6 @@ namespace OSK::ECS {
 		void OnCreate() override;
 		void Execute(TDeltaTime deltaTime, std::span<const GameObjectIndex> objects) override;
 
-		nlohmann::json SaveConfiguration() const override;
-		PERSISTENCE::BinaryBlock SaveBinaryConfiguration() const override;
-		void ApplyConfiguration(const nlohmann::json& config, const SavedGameObjectTranslator& translator) override;
-		void ApplyConfiguration(PERSISTENCE::BinaryBlockReader* reader, const SavedGameObjectTranslator& translator) override;
-
 	private:
 
 		static void Apply(Transform3D& transform, std::optional<const Transform3D*> parent);

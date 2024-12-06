@@ -33,6 +33,7 @@ void IRenderer::CloseSingletonInstances() {
 	m_finalRenderTarget.Delete();
 	m_materialSystem.Delete();
 	m_gpuMemoryAllocator.Delete();
+	m_samplers.clear();
 }
 
 void IRenderer::CloseGpu() {
@@ -210,6 +211,30 @@ bool IRenderer::IsRtRequested() const {
 	return m_isRtRequested;
 }
 
+const IGpuImageSampler& IRenderer::GetSampler(const GpuImageSamplerDesc& info) const {
+	// Si ya existe:
+	{
+		// Cerramos en modo read.
+		std::shared_lock lock(m_samplerMapMutex);
+
+		auto samplerIt = m_samplers.find(info);
+
+		if (samplerIt != m_samplers.end()) {
+			return samplerIt->second.GetValue();
+		}
+	}
+
+	// Si no, añadimos.
+	//
+	// Cerramos en modo escritura.
+	std::unique_lock lock(m_samplerMapMutex);
+
+	OwnedPtr<IGpuImageSampler> sampler = m_currentGpu->CreateSampler(info);
+
+	m_samplers[info] = sampler.GetPointer();
+
+	return sampler.GetValue();
+}
 
 void IRenderer::RegisterUnifiedCommandPool(const ICommandQueue* unifiedQueue) {
 	m_unifiedCommandPools.emplace(unifiedQueue);

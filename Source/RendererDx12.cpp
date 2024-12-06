@@ -1,5 +1,8 @@
 #include "RendererDx12.h"
 
+#include "Platforms.h"
+#ifdef OSK_USE_DIRECTX12_BACKEND
+
 #include "HlslRuntimeCompiler.h"
 
 #include <wrl.h>
@@ -52,6 +55,7 @@
 #include "RendererExceptions.h"
 
 #include <glm/ext/matrix_transform.hpp>
+#include <dxgi.h>
 
 using namespace OSK;
 using namespace OSK::GRAPHICS;
@@ -70,26 +74,29 @@ void RendererDx12::Initialize(const std::string& appName, const Version& version
 #ifdef OSK_RELEASE
 	useDebugConsole = false;
 #else
-	useDebugConsole = SUCCEEDED(D3D12GetDebugInterface(IID_PPV_ARGS(&debugConsole)));
+	m_useDebugConsole = SUCCEEDED(D3D12GetDebugInterface(IID_PPV_ARGS(&m_debugConsole)));
 #endif
 
-	if (useDebugConsole) {
-		debugConsole->EnableDebugLayer();
-		debugConsole->SetEnableGPUBasedValidation(true);
+	if (m_useDebugConsole) {
+		m_debugConsole->EnableDebugLayer();
+		m_debugConsole->SetEnableGPUBasedValidation(true);
 
-		auto result = CreateDXGIFactory2(DXGI_CREATE_FACTORY_DEBUG, IID_PPV_ARGS(&factory));
-		if(!SUCCEEDED(result))
+		auto result = CreateDXGIFactory2(DXGI_CREATE_FACTORY_DEBUG, IID_PPV_ARGS(&m_factory));
+
+		if (!SUCCEEDED(result)) {
 			Engine::GetLogger()->InfoLog("No se ha podido crear las capas de validación.");
-		
-		Engine::GetLogger()->InfoLog("Capas de validación activas.");
+		}
+		else {
+			Engine::GetLogger()->InfoLog("Capas de validación activas.");
+		}
 	}
 	else {
 		Engine::GetLogger()->InfoLog("Capas de validación no disponibles.");
 
-		CreateDXGIFactory1(IID_PPV_ARGS(&factory));
+		CreateDXGIFactory1(IID_PPV_ARGS(&m_factory));
 	}
 
-	ChooseGpu();
+	CreateDevice();
 	CreateCommandQueues();
 	CreateSwapchain(mode, Engine::GetDisplay()->GetResolution());
 	CreateGpuMemoryAllocator();
@@ -145,6 +152,11 @@ OwnedPtr<IGraphicsPipeline> RendererDx12::_CreateGraphicsPipeline(const Pipeline
 	return pipeline;
 }
 
+OwnedPtr<IMeshPipeline> RendererDx12::_CreateMeshPipeline(const PipelineCreateInfo& pipelineInfo, const MaterialLayout& layout) {
+	OSK_ASSERT(false, NotImplementedException());
+	return nullptr;
+}
+
 OwnedPtr<IRaytracingPipeline> RendererDx12::_CreateRaytracingPipeline(const PipelineCreateInfo& pipelineInfo, const MaterialLayout& layout, const VertexInfo& vertexTypeName) {
 	OSK_ASSERT(false, NotImplementedException());
 	return nullptr;
@@ -160,53 +172,17 @@ OwnedPtr<IMaterialSlot> RendererDx12::_CreateMaterialSlot(const std::string& nam
 
 OwnedPtr<ICommandPool> RendererDx12::CreateCommandPool(const ICommandQueue* targetQueueType) {
 	return new CommandPoolDx12(
+		GetGpu()->As<GpuDx12>(),
 		targetQueueType->GetSupportedCommands(),
 		targetQueueType->GetQueueType());
 }
 
-void RendererDx12::ChooseGpu() {
-	_SetGpu(new GpuDx12);
-	ComPtr<IDXGIAdapter1> adapter;
+void RendererDx12::CreateDevice() {
+	auto gpu = new GpuDx12;
+	_SetGpu(gpu);
 
-	bool found = false;
-	// Iteramos sobre todas las gpu disponibles.
-	for (uint32_t i = 0; !found && factory->EnumAdapters1(i, &adapter) != DXGI_ERROR_NOT_FOUND; ++i) {
-		DXGI_ADAPTER_DESC1 description;
-		adapter->GetDesc1(&description);
-
-		// que este adaptador no sea emulado por software
-		if (description.Flags & DXGI_ADAPTER_FLAG_SOFTWARE)
-			continue;
-
-		// decidir con bAdapterFound si es este adaptador el que queramos 
-		auto isValid = D3D12CreateDevice(adapter.Get(), D3D_FEATURE_LEVEL_12_1, _uuidof(ID3D12Device), nullptr);
-		if (SUCCEEDED(isValid)) {
-			Engine::GetLogger()->InfoLog("GPU elegida: " + std::string(CW2A(description.Description)));
-
-			found = true;
-		}
-	}
-
-	OSK_ASSERT(found, GpuNotFoundException());
-
-	ComPtr<ID3D12Device5> device;
-	D3D12CreateDevice(adapter.Get(), D3D_FEATURE_LEVEL_12_1, IID_PPV_ARGS(&device));
-		
-	GetGpu()->As<GpuDx12>()->SetAdapter(adapter);
-	GetGpu()->As<GpuDx12>()->SetDevice(device);
-
-	if (useDebugConsole) {
-		ID3D12InfoQueue* infoQueue1 = nullptr;
-		HRESULT result = device->QueryInterface(IID_ID3D12InfoQueue, (LPVOID*)&infoQueue1);
-
-		if (SUCCEEDED(result)) {
-			// result = device->QueryInterface(IID_ID3D12InfoQueue1, (LPVOID*)&debugMessageQueue);
-			// debugMessageQueue->RegisterMessageCallback(RendererDx12::DebugCallback, D3D12_MESSAGE_CALLBACK_FLAG_NONE, nullptr, NULL);
-		}
-		else {
-			Engine::GetLogger()->InfoLog("NO se ha podido establecer el callback de mensajes de log.");
-		}
-	}
+	auto adapter = GpuDx12::ChooseDeviceAdapter(m_factory);
+	gpu->CreateDevice(adapter, m_useDebugConsole);
 }
 
 void RendererDx12::CreateCommandQueues() {
@@ -264,7 +240,7 @@ void RendererDx12::CreateSwapchain(PresentMode mode, const Vector2ui& resolution
 		*GetGpu()->As<GpuDx12>(),
 		queueIndices.GetFullSpan(),
 		*Engine::GetDisplay(),
-		factory.Get()));
+		m_factory.Get()));
 }
 
 void RendererDx12::CreateGpuMemoryAllocator() {
@@ -332,3 +308,5 @@ bool RendererDx12::SupportsRaytracing() const {
 void RendererDx12::DebugCallback(D3D12_MESSAGE_CATEGORY category, D3D12_MESSAGE_SEVERITY severity, D3D12_MESSAGE_ID id, LPCSTR description, void* context) {
 	Engine::GetLogger()->DebugLog(std::string(description));
 }
+
+#endif

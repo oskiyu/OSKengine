@@ -71,48 +71,80 @@ template <> std::string OSK::ToString<OSK::GRAPHICS::ShaderStage>(const OSK::GRA
 		if (numFlags != 0)
 			output += " | ";
 		output += "ShaderStage::VERTEX";
+
+		numFlags++;
 	}
 
 	if (EFTraits::HasFlag(stage, OSK::GRAPHICS::ShaderStage::FRAGMENT)) {
 		if (numFlags != 0)
 			output += " | ";
 		output += "ShaderStage::FRAGMENT";
+
+		numFlags++;
 	}
 
 	if (EFTraits::HasFlag(stage, OSK::GRAPHICS::ShaderStage::TESSELATION_CONTROL)) {
 		if (numFlags != 0)
 			output += " | ";
 		output += "ShaderStage::TESSELATION_CONTROL";
+
+		numFlags++;
 	}
 
 	if (EFTraits::HasFlag(stage, OSK::GRAPHICS::ShaderStage::TESSELATION_EVALUATION)) {
 		if (numFlags != 0)
 			output += " | ";
 		output += "ShaderStage::TESSELATION_EVALUATION";
+
+		numFlags++;
 	}
 
 	if (EFTraits::HasFlag(stage, OSK::GRAPHICS::ShaderStage::RT_RAYGEN)) {
 		if (numFlags != 0)
 			output += " | ";
 		output += "ShaderStage::RT_RAYGEN";
+
+		numFlags++;
 	}
 
 	if (EFTraits::HasFlag(stage, OSK::GRAPHICS::ShaderStage::RT_CLOSEST_HIT)) {
 		if (numFlags != 0)
 			output += " | ";
 		output += "ShaderStage::RT_CLOSEST_HIT";
+
+		numFlags++;
 	}
 
 	if (EFTraits::HasFlag(stage, OSK::GRAPHICS::ShaderStage::RT_MISS)) {
 		if (numFlags != 0)
 			output += " | ";
 		output += "ShaderStage::RT_MISS";
+
+		numFlags++;
 	}
 
 	if (EFTraits::HasFlag(stage, OSK::GRAPHICS::ShaderStage::COMPUTE)) {
 		if (numFlags != 0)
 			output += " | ";
 		output += "ShaderStage::COMPUTE";
+
+		numFlags++;
+	}
+
+	if (EFTraits::HasFlag(stage, OSK::GRAPHICS::ShaderStage::MESH_AMPLIFICATION)) {
+		if (numFlags != 0)
+			output += " | ";
+		output += "ShaderStage::MESH_AMPLIFICATION";
+
+		numFlags++;
+	}
+
+	if (EFTraits::HasFlag(stage, OSK::GRAPHICS::ShaderStage::MESH)) {
+		if (numFlags != 0)
+			output += " | ";
+		output += "ShaderStage::MESH";
+
+		numFlags++;
 	}
 
 	if (numFlags == 0)

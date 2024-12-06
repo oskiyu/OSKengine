@@ -1,5 +1,8 @@
 #include "SpirvToHlsl.h"
 
+#include "Platforms.h"
+#ifdef OSK_USE_DIRECTX12_BACKEND
+
 #include "VertexInfo.h"
 #include "MaterialLayout.h"
 
@@ -78,3 +81,5 @@ void SpirvToHlsl::SetHlslTargetProfile(USize64 mayor, USize64 minor) {
 std::string SpirvToHlsl::CreateHlsl() {
 	return compilerToHlsl.compile();
 }
+
+#endif

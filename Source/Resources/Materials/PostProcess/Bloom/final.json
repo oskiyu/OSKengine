@@ -1,7 +1,7 @@
 {
     "file_type": "MATERIAL_COMPUTE",
     "spec_ver": 1,
-    "name": "Bloom",
+    "name": "Bloom Resolve",
 
     "compute_shader": "Resources/Shaders/VK/PostProcess/Bloom/bloom_final.spv",
     

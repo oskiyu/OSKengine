@@ -1,5 +1,8 @@
 #include "IPipelineVk.h"
 
+#include "Platforms.h"
+#ifdef OSK_USE_VULKAN_BACKEND
+
 #include "FileIO.h"
 #include "OSKengine.h"
 #include "IRenderer.h"
@@ -215,3 +218,71 @@ ShaderStageVk IPipelineVk::LoadShader(const std::string& path, ShaderStage stage
 
 	return output;
 }
+
+
+VkPipelineRasterizationStateCreateInfo IPipelineVk::GetResterizerInfo(const PipelineCreateInfo& info) const {
+	VkPipelineRasterizationStateCreateInfo output{};
+
+	output.sType = VK_STRUCTURE_TYPE_PIPELINE_RASTERIZATION_STATE_CREATE_INFO;
+	output.depthClampEnable = VK_FALSE; // FALSE: si el objeto está fuera de los límites no se renderiza.
+	output.rasterizerDiscardEnable = VK_FALSE;
+	//Modo de polígonos:
+	//	VK_POLYGON_MODE_FILL
+	//	VK_POLYGON_MODE_LINE
+	//	VK_POLYGON_MODE_POINT: vértice -> punto.
+	output.polygonMode = GetPolygonMode(info.polygonMode);
+	output.lineWidth = 1.0f;
+	output.cullMode = GetCullMode(info.cullMode);
+	output.frontFace = GetFrontFaceMode(info.frontFaceType);
+	output.depthBiasEnable = VK_FALSE;
+	output.depthBiasConstantFactor = 0.0f;
+	output.depthBiasClamp = 0.0f;
+	output.depthBiasSlopeFactor = 0.0f;
+
+	return output;
+}
+
+VkPipelineDepthStencilStateCreateInfo IPipelineVk::GetDepthInfo(const PipelineCreateInfo& info) const {
+	VkPipelineDepthStencilStateCreateInfo output{};
+
+	output.sType = VK_STRUCTURE_TYPE_PIPELINE_DEPTH_STENCIL_STATE_CREATE_INFO;
+
+	output.depthTestEnable = info.depthTestingType != DepthTestingType::NONE;
+	output.depthWriteEnable = info.depthTestingType == DepthTestingType::READ_WRITE;
+	output.depthCompareOp = VK_COMPARE_OP_GREATER_OR_EQUAL;
+	output.depthBoundsTestEnable = VK_FALSE;
+	output.minDepthBounds = 1.0f;
+	output.maxDepthBounds = 0.0f;
+	output.stencilTestEnable = VK_FALSE;
+	output.front = {};
+	output.back = {};
+
+	return output;
+}
+
+VkPipelineMultisampleStateCreateInfo IPipelineVk::GetMsaaInfo(const PipelineCreateInfo& info, const GpuVk& gpu) const {
+	VkPipelineMultisampleStateCreateInfo output{};
+
+	output.sType = VK_STRUCTURE_TYPE_PIPELINE_MULTISAMPLE_STATE_CREATE_INFO;
+	output.sampleShadingEnable = VK_FALSE;
+	output.rasterizationSamples = VK_SAMPLE_COUNT_1_BIT;//(VkSampleCountFlagBits)gpu.GetInfo().maxMsaaSamples;
+	output.minSampleShading = 1.0f;
+	output.pSampleMask = nullptr;
+	output.alphaToCoverageEnable = VK_FALSE;
+	output.alphaToOneEnable = VK_FALSE;
+
+	return output;
+}
+
+VkPipelineTessellationStateCreateInfo IPipelineVk::GetTesselationInfo(const PipelineCreateInfo& info) const {
+	VkPipelineTessellationStateCreateInfo output{};
+
+	output.sType = VK_STRUCTURE_TYPE_PIPELINE_TESSELLATION_STATE_CREATE_INFO;
+	output.pNext = NULL;
+	output.flags = 0;
+	output.patchControlPoints = 3;
+
+	return output;
+}
+
+#endif

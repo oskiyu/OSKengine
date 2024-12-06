@@ -1,5 +1,8 @@
 #include "GpuImageLayout.h"
 
+#include "Platforms.h"
+#ifdef OSK_USE_VULKAN_BACKEND
+
 #include "GpuImageLayoutVk.h"
 #include <vulkan/vulkan.h>
 
@@ -36,3 +39,5 @@ VkImageLayout OSK::GRAPHICS::GetGpuImageLayoutVk(GpuImageLayout layout) {
 			return VK_IMAGE_LAYOUT_MAX_ENUM;
 	}
 }
+
+#endif

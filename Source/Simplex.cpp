@@ -1,9 +1,16 @@
 #include "Simplex.h"
 
+#include "NumericTypes.h"
+#include "Vector3.hpp"
+
 #include "Assert.h"
 #include "InvalidObjectStateException.h"
+#include "UnreachableException.h"
+
+#include "Gjk.h"
 
 #include <array>
+#include <span>
 
 using namespace OSK;
 using namespace OSK::COLLISION;
@@ -33,6 +40,9 @@ Simplex Simplex::GenerateFrom(const IGjkCollider& first, const IGjkCollider& sec
 
 		direction = simplex.GetSearchDirection();
 	}
+
+	OSK_ASSERT(false, UnreachableException("XD"));
+	return {};
 }
 
 

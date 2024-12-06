@@ -1,5 +1,8 @@
 #include "GpuMemoryAllocatorDx12.h"
 
+#include "Platforms.h"
+#ifdef OSK_USE_DIRECTX12_BACKEND
+
 #include "GpuMemoryBlockDx12.h"
 #include "GpuMemorySubblockDx12.h"
 #include "GpuImageDx12.h"
@@ -85,3 +88,5 @@ DescriptorDx12 GpuMemoryAllocatorDx12::GetDescriptor(D3D12_DESCRIPTOR_HEAP_TYPE 
 		
 	return list.Peek().CreateDescriptor();
 }
+
+#endif

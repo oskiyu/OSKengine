@@ -1,6 +1,11 @@
 #include "SpirvToHlsl.h"
 #include "IPipelineDx12.h"
 
+#include "Platforms.h"
+#ifdef OSK_USE_DIRECTX12_BACKEND
+
+#include "Assert.h"
+
 #include <d3dcompiler.h>
 #include "PipelinesExceptions.h"
 #include "NotImplementedException.h"
@@ -91,3 +96,5 @@ std::string IPipelineDx12::GetHlslProfile(ShaderStage stage) {
 		break;
 	}
 }
+
+#endif

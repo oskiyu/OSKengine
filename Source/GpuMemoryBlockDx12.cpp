@@ -1,5 +1,8 @@
 #include "GpuMemoryBlockDx12.h"
 
+#include "Platforms.h"
+#ifdef OSK_USE_DIRECTX12_BACKEND
+
 #include "GpuDx12.h"
 #include "GpuMemoryTypesDx12.h"
 
@@ -88,3 +91,5 @@ OwnedPtr<IGpuMemorySubblock> GpuMemoryBlockDx12::CreateNewMemorySubblock(USize64
 	OSK_ASSERT(false, NotImplementedException());
 	return nullptr;
 }
+
+#endif

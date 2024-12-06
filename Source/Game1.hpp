@@ -63,8 +63,6 @@
 #include "SpriteRenderer.h"
 #include "TextureCoordinates.h"
 #include "Vertex3D.h"
-#include "TerrainComponent.h"
-#include "TerrainRenderSystem.h"
 #include "TopLevelAccelerationStructureVk.h"
 #include "IGpuMemorySubblock.h"
 #include "UiElement.h"
@@ -81,7 +79,6 @@
 
 #include "ConsoleCommandExecutor.h"
 
-#include "RenderSystem3D.h"
 #include "RenderSystem2D.h"
 #include "HybridRenderSystem.h"
 #include "DeferredRenderSystem.h"
@@ -136,17 +133,15 @@ using namespace OSK::ASSETS;
 using namespace OSK::GRAPHICS;
 using namespace OSK::COLLISION;
 
-#if defined(OSK_USE_FORWARD_RENDERER)
-#define OSK_CURRENT_RSYSTEM OSK::ECS::RenderSystem3D
-#elif defined(OSK_USE_DEFERRED_RENDERER)
 #define OSK_CURRENT_RSYSTEM OSK::ECS::DeferredRenderSystem
-#elif defined(OSK_USE_HYBRID_RENDERER)
-#define OSK_CURRENT_RSYSTEM OSK::ECS::HybridRenderSystem
-#elif defined(OSK_USE_GDR_RENDERER)
-#define OSK_CURRENT_RSYSTEM OSK::ECS::GdrDeferredRenderSystem
-#endif
 
 class Game1 : public OSK::IDebugGame {
+
+public:
+
+	Game1() : OSK::IDebugGame(GAME::DefaultContentProfile::ALL) {
+
+	}
 
 protected:
 
@@ -428,32 +423,21 @@ protected:
 		commandList->BeginGraphicsRenderpass(textRenderTarget.GetPointer(), Color::Black * 0.0f);
 
 		{
-			SdfDrawCall2D drawCall{};
-			drawCall.transform = Transform2D(GameObjectIndex::CreateEmpty());
-			drawCall.transform.SetPosition(Vector2f{ 0.0f });
-			drawCall.transform.SetScale(Vector2f{ 50.0f });
-			drawCall.shape = SdfShape2D::RECTANGLE;
-			drawCall.contentType = SdfDrawCallContentType2D::COLOR_FLAT;
-
-			SdfDrawCall2D drawCall2{};
-			drawCall2.transform.SetPosition(Vector2f{ 50.0f });
-			drawCall2.transform.SetScale(Vector2f{ 250.0f });
-			drawCall2.shape = SdfShape2D::RECTANGLE;
-			drawCall2.contentType = SdfDrawCallContentType2D::TEXTURE;
-			drawCall2.texture = &Engine::GetAssetManager()->Load<ASSETS::Texture>("Resources/Assets/Textures/engine_icon.json")->GetTextureView2D();
-			drawCall2.mainColor = Color::Blue;
-
-			SdfStringInfo textDrawCall{};
-			textDrawCall.text = "XDXDXD alaverga";
-			textDrawCall.font = &Engine::GetAssetManager()->Load<ASSETS::Font>("Resources/Assets/Fonts/font0.json")->GetInstance(22);
-			textDrawCall.transform.SetScale(Vector2f::One);
-			textDrawCall.transform.AddPosition(Vector2f{ 20.0f });
-			textDrawCall.color = Color::Black;
+			SdfDrawCall2D debug{};
+			debug.transform.SetPosition(Vector2f{ 0.0f });
+			debug.transform.SetScale(Vector2f{ 1920.0f, 1080.0f });
+			debug.shape = SdfShape2D::RECTANGLE;
+			debug.contentType = SdfDrawCallContentType2D::TEXTURE;
+			GpuImageViewConfig viewConfig = GpuImageViewConfig::CreateSampled_SingleMipLevel(0);
+			viewConfig.channel = SampledChannel::COLOR;
+			debug.texture = Engine::GetEcs()->GetSystem<OSK_CURRENT_RSYSTEM>()->GetGbuffer().GetImage(GBuffer::Target::COLOR)->GetView(viewConfig);
+			debug.mainColor = Color::White;
 
 			m_sdfRenderer->Begin(commandList);
 			m_sdfRenderer->SetCamera(cameraObject2d);
-			
-			GetRootUiElement().Render(m_sdfRenderer.GetPointer());
+			// m_sdfRenderer->Draw(debug);
+
+			// GetRootUiElement().Render(m_sdfRenderer.GetPointer());
 
 			m_sdfRenderer->End();
 		}
@@ -466,14 +450,16 @@ protected:
 		// Pre-Effects
 		commandList->StartDebugSection("Pre-Effects Frame build", Color(0, 1, 0));
 
+		const auto* skyboxRenderSystem = Engine::GetEcs()->GetSystem<ECS::SkyboxRenderSystem>();
+		const auto* renderSystem = Engine::GetEcs()->GetSystem<ECS::SkyboxRenderSystem>();
+
 		auto skyboxRenderSystemImg = Engine::GetEcs()->GetSystem<ECS::SkyboxRenderSystem>()->GetRenderTarget().GetMainColorImage();
-		auto renderSystemImg = Engine::GetEcs()->GetSystem<OSK_CURRENT_RSYSTEM>()->GetRenderTarget().GetMainColorImage();
+		auto renderSystemImg = Engine::GetEcs()->GetSystem<OSK_CURRENT_RSYSTEM>()->GetRenderTarget().GetColorImage(0);
 
 		commandList->SetGpuImageBarrier(
 			skyboxRenderSystemImg,
 			GpuImageLayout::SAMPLED,
 			GpuBarrierInfo(GpuCommandStage::COMPUTE_SHADER, GpuAccessStage::SAMPLED_READ));
-
 		commandList->SetGpuImageBarrier(
 			renderSystemImg,
 			GpuImageLayout::SAMPLED,

@@ -118,6 +118,14 @@ void RenderBoundsRenderer::Render(ICommandList* commandList, std::span<const ECS
 	commandList->EndDebugSection();
 }
 
+GameObjectIndex RenderBoundsRenderer::GetCurrentCameraObject() const {
+	return m_cameraObject;
+}
+
+const GRAPHICS::Material* RenderBoundsRenderer::GetMaterial() const {
+	return m_material;
+}
+
 nlohmann::json RenderBoundsRenderer::SaveConfiguration() const {
 	auto output = nlohmann::json();
 

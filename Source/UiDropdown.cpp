@@ -3,6 +3,8 @@
 #include "Font.h"
 #include "FontInstance.h"
 
+#include "UnreachableException.h"
+
 using namespace OSK;
 
 UI::Dropdown::Element::Element(const Vector2f& size, const std::string& text) : IElement(size), m_textView(size), m_defaultImageView(size), m_hoveredImageView(size) {
@@ -10,7 +12,7 @@ UI::Dropdown::Element::Element(const Vector2f& size, const std::string& text) : 
 	m_textView.AdjustSizeToText();
 }
 
-void UI::Dropdown::Element::Render(GRAPHICS::SdfBindlessRenderer2D* renderer) const {
+void UI::Dropdown::Element::Render(GRAPHICS::ISdfRenderer2D* renderer) const {
 	if (!IsVisible())
 		return;
 
@@ -79,7 +81,7 @@ UI::Dropdown::Dropdown(const Vector2f& size) : IElement(size) {
 
 }
 
-void UI::Dropdown::Render(GRAPHICS::SdfBindlessRenderer2D* renderer) const {
+void UI::Dropdown::Render(GRAPHICS::ISdfRenderer2D* renderer) const {
 	if (!IsVisible() || m_elements.IsEmpty())
 		return;
 
@@ -166,6 +168,9 @@ bool UI::Dropdown::UpdateByCursor(Vector2f cursor, bool isPressed) {
 
 		return false;
 	}
+
+	OSK_ASSERT(false, UnreachableException("Valor de DropdownState sin contemblar."));
+	return false;
 }
 
 void UI::Dropdown::AddElement(const std::string& text) {

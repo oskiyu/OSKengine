@@ -4,10 +4,10 @@
 
     "name": "Model0",
     "asset_type": "Model3D",
-    "raw_asset_path3": "Resources/RawAssets/Models/sponza.glb",
-    "raw_asset_path": "Resources/RawAssets/Models/mclaren.glb",
-    "raw_asset_path4": "Resources/RawAssets/Models/fi chas.glb",
-    "raw_asset_path2": "Resources/RawAssets/Models/untitled_low.glb",
+    "raw_asset_path3": "Resources/Assets/Models/sponza.glb",
+    "raw_asset_path": "Resources/Assets/Models/mclaren.glb",
+    "raw_asset_path4": "Resources/Assets/Models/fi chas.glb",
+    "raw_asset_path2": "Resources/Assets/Models/untitled_low.glb",
 
     "scale": 0.2,
     "load_textures": false,

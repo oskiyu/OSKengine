@@ -1,5 +1,7 @@
 #include "UiButton.h"
 
+#include "UnreachableException.h"
+
 using namespace OSK;
 using namespace OSK::UI;
 using namespace OSK::ASSETS;
@@ -18,6 +20,10 @@ Button::Button(const Vector2f size, const std::string& text)
 	m_buttonText.AdjustSizeToText();
 }
 
+void Button::SetTextAnchor(OSK::UI::Anchor anchor) {
+	m_buttonText.SetAnchor(anchor);
+}
+
 void Button::SetSize(Vector2f size) {
 	IElement::SetSize(size);
 
@@ -26,7 +32,7 @@ void Button::SetSize(Vector2f size) {
 	m_pressedImage.SetSize(size);
 }
 
-void Button::Render(SdfBindlessRenderer2D* renderer) const {
+void Button::Render(ISdfRenderer2D* renderer) const {
 	IElement::Render(renderer);
 
 	switch (m_currentState) {
@@ -123,6 +129,8 @@ DynamicArray<GRAPHICS::SdfDrawCall2D>& Button::GetDrawCalls(State state) {
 	case Button::State::PRESSED:
 		return m_pressedImage.GetAllDrawCalls();
 	default:
+		OSK_ASSERT(false, UnreachableException("Valor de Button::State sin contemblar."));
+		return m_defaultImage.GetAllDrawCalls();
 		break;
 	}
 }
@@ -136,6 +144,10 @@ const DynamicArray<GRAPHICS::SdfDrawCall2D>& Button::GetDrawCalls(State state) c
 	case Button::State::PRESSED:
 		return m_pressedImage.GetAllDrawCalls();
 	default:
+		OSK_ASSERT(false, UnreachableException("Valor de Button::State sin contemblar."));
+
+		return {};
+
 		break;
 	}
 }
@@ -184,5 +196,29 @@ void Button::_SetPosition(const Vector2f& newPosition) {
 }
 
 Vector2f Button::GetTextRelativePosition() const {
-	return GetSize() * 0.5f - m_buttonText.GetSize() * 0.5f;
+	const auto anchor = m_buttonText.GetAnchor();
+
+	Vector2f relativePosition = Vector2f::Zero;
+
+	if (EFTraits::HasFlag(anchor, OSK::UI::Anchor::LEFT)) {
+		relativePosition.x = 0;
+	}
+	else if (EFTraits::HasFlag(anchor, OSK::UI::Anchor::RIGHT)) {
+		relativePosition.x = GetPosition().x - m_buttonText.GetSize().x;
+	}
+	else if (EFTraits::HasFlag(anchor, OSK::UI::Anchor::CENTER_X)) {
+		relativePosition.x = GetSize().x * 0.5f - m_buttonText.GetSize().x * 0.5f;
+	}
+
+	if (EFTraits::HasFlag(anchor, OSK::UI::Anchor::BOTTOM)) {
+		relativePosition.y = GetPosition().y - m_buttonText.GetSize().y;
+	}
+	else if (EFTraits::HasFlag(anchor, OSK::UI::Anchor::TOP)) {
+		relativePosition.y = 0;
+	}
+	else if (EFTraits::HasFlag(anchor, OSK::UI::Anchor::CENTER_Y)) {
+		relativePosition.y = GetSize().y * 0.5f - m_buttonText.GetSize().y * 0.5f;
+	}
+
+	return relativePosition;
 }

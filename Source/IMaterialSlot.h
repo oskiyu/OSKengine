@@ -6,6 +6,7 @@
 
 #include "IGpuObject.h"
 #include "GpuBufferRange.h"
+#include "IGpuImageSampler.h"
 
 #include <string>
 #include <string_view>
@@ -46,15 +47,34 @@ namespace OSK::GRAPHICS {
 		/// @param binding Nombre del binding al que se asignará la imagen.
 		/// @param image Imagen que se asignará.
 		/// @param arrayIndex Índice de la imagen, para arrays de imágenes.
+		/// @param sampler Sampler que se usará para procesar la imagen.
 		/// 
 		/// @pre Si el binding no se corresponde con un array de imágenes,
 		/// @p arrayIndex debe ser 0.
 		/// 
 		/// @note No surgirá efecto hasta que se llame a `FlushUpdate()`.
 		virtual void SetGpuImage(
-			std::string_view binding, 
+			std::string_view binding,
 			const IGpuImageView& image,
+			const IGpuImageSampler& sampler,
 			UIndex32 arrayIndex = 0) = 0;
+
+		/// @brief Establece la imagen que será asignada al binding con el nombre dado.
+		/// Puede usarse esta función para alternar el recurso que está asignado al binding.
+		/// @param binding Nombre del binding al que se asignará la imagen.
+		/// @param image Imagen que se asignará.
+		/// @param arrayIndex Índice de la imagen, para arrays de imágenes.
+		/// @param samplerInfo Información del sampler que se usará para procesar la imagen.
+		/// 
+		/// @pre Si el binding no se corresponde con un array de imágenes,
+		/// @p arrayIndex debe ser 0.
+		/// 
+		/// @note No surgirá efecto hasta que se llame a `FlushUpdate()`.
+		void SetGpuImage(
+			std::string_view binding,
+			const IGpuImageView& image,
+			const GpuImageSamplerDesc& samplerInfo,
+			UIndex32 arrayIndex = 0);
 
 		/// @brief Establece la imagen que será usada como storage image asignada al binding con el nombre dado.
 		/// Puede usarse esta función para alternar el recurso que está asignado al binding.

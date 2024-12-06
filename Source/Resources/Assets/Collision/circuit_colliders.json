@@ -4,7 +4,7 @@
 
     "name": "Circuit Collider",
     "asset_type": "collider",
-    "raw_asset_path": "Resources/RawAssets/Collision/circuit_colliders.glb",
+    "raw_asset_path": "Resources/Assets/Collision/circuit_colliders.glb",
     
     "scale": 0.8,
     "rotation_offset": [0, 180, 0]

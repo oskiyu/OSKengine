@@ -1,5 +1,8 @@
 #include "SwapchainVk.h"
 
+#include "Platforms.h"
+#ifdef OSK_USE_VULKAN_BACKEND
+
 #include <vulkan/vulkan.h>
 #include "GpuVk.h"
 #include "FormatVk.h"
@@ -113,7 +116,7 @@ void SwapchainVk::CreationLogic(const GpuVk& device, const Vector2ui& resolution
 		}
 		else {
 			createInfo.imageSharingMode = VK_SHARING_MODE_CONCURRENT;
-			createInfo.queueFamilyIndexCount = GetQueueIndices().size();
+			createInfo.queueFamilyIndexCount = static_cast<uint32_t>(GetQueueIndices().size());
 			createInfo.pQueueFamilyIndices = GetQueueIndices().data();
 		}
 	}
@@ -137,12 +140,12 @@ void SwapchainVk::CreationLogic(const GpuVk& device, const Vector2ui& resolution
 		SetImage(new GpuImageVk(imageInfo, queue), i);
 	}
 
-	AcquireImages(device, { extent.width, extent.height });
+	AcquireImages(device);
 	AcquireViews(device);
 }
 
 
-void SwapchainVk::AcquireImages(const GpuVk& device, const Vector2ui& resolution) {
+void SwapchainVk::AcquireImages(const GpuVk& device) {
 	auto imageCount = GetImageCount();
 	VkResult result = vkGetSwapchainImagesKHR(device.GetLogicalDevice(), m_swapchain, &imageCount, nullptr);
 	OSK_ASSERT(result == VK_SUCCESS, SwapchainCreationException("Error al adquirir imagenes del swapchain", result));
@@ -156,7 +159,7 @@ void SwapchainVk::AcquireImages(const GpuVk& device, const Vector2ui& resolution
 }
 
 void SwapchainVk::AcquireViews(const GpuVk& device) {
-	auto tempViews = new VkImageView[GetImageCount()];
+	auto tempViews = std::unique_ptr<VkImageView[]>(new VkImageView[GetImageCount()]);
 
 	for (UIndex32 i = 0; i < GetImageCount(); i++) {
 		VkImageViewCreateInfo createInfo{};
@@ -185,8 +188,6 @@ void SwapchainVk::AcquireViews(const GpuVk& device) {
 
 		GetImage(i)->As<GpuImageVk>()->SetSwapchainView(tempViews[i]);
 	}
-
-	delete[] tempViews;
 }
 
 VkSwapchainKHR SwapchainVk::GetSwapchain() const {
@@ -216,3 +217,5 @@ VkColorSpaceKHR SwapchainVk::GetSupportedColorSpace(const GpuVk& device) {
 void SwapchainVk::Present() {
 	// Not needed in Vulkan.
 }
+
+#endif

@@ -52,7 +52,7 @@ void Sprite::SetImageView(const IGpuImageView* view) {
 	if (!view)
 		return;
 
-	textureMaterialInstance->GetSlot("texture")->SetGpuImage("stexture", *view);
+	textureMaterialInstance->GetSlot("texture")->SetGpuImage("stexture", *view, GpuImageSamplerDesc::CreateDefault_NoMipMap());
 	textureMaterialInstance->GetSlot("texture")->FlushUpdate();
 }
 

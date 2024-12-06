@@ -1,5 +1,8 @@
 #include "ComputePipelineDx12.h"
 
+#include "Platforms.h"
+#ifdef OSK_USE_DIRECTX12_BACKEND
+
 #include "PipelineLayoutDx12.h"
 #include "PipelinesExceptions.h"
 #include "OSKengine.h"
@@ -21,3 +24,5 @@ ComputePipelineDx12::ComputePipelineDx12(const PipelineCreateInfo& info, const M
 	const HRESULT result = device->As<GpuDx12>()->GetDevice()->CreateComputePipelineState(&createInfo, IID_PPV_ARGS(&dxPipeline));
 	OSK_ASSERT(SUCCEEDED(result), PipelineCreationException(result));
 }
+
+#endif

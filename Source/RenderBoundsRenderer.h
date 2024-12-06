@@ -13,7 +13,7 @@ namespace OSK::ASSETS {
 
 namespace OSK::ECS {
 
-	class OSKAPI_CALL RenderBoundsRenderer : public IRenderSystem {
+	class OSKAPI_CALL RenderBoundsRenderer : public IRenderSystem, public ISerializableSystem {
 
 	public:
 
@@ -29,6 +29,9 @@ namespace OSK::ECS {
 
 		void CreateTargetImage(const Vector2ui& size) override;
 		void Render(GRAPHICS::ICommandList* commandList, std::span<const ECS::GameObjectIndex> objects) override;
+
+		GameObjectIndex GetCurrentCameraObject() const;
+		const GRAPHICS::Material* GetMaterial() const;
 
 		nlohmann::json SaveConfiguration() const override;
 		PERSISTENCE::BinaryBlock SaveBinaryConfiguration() const override;

@@ -9,7 +9,7 @@ namespace OSK::GRAPHICS {
 
 namespace OSK::ECS {
 
-	class OSKAPI_CALL RenderSystem2D : public IRenderSystem {
+	class OSKAPI_CALL RenderSystem2D : public IRenderSystem, public ISerializableSystem {
 
 	public:
 

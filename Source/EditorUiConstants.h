@@ -25,6 +25,8 @@ namespace OSK::Editor::UI::Constants {
 	constexpr static auto EditorFontPath = "Resources/Assets/Fonts/font1.json";
 
 
+	constexpr static USize32 TitleFontSize = 18;
+	constexpr static USize32 SubtitleFontSize = 15;
 	constexpr static USize32 MainFontSize = 14;
 	constexpr static USize32 SecondaryFontSize = 12;
 

@@ -1,7 +1,7 @@
 {
     "file_type": "MATERIAL_COMPUTE",
     "spec_ver": 1,
-    "name": "FCombiner8",
+    "name": "Frame Combiner 8",
 
     "compute_shader": "Resources/Shaders/VK/2D/FrameCombiner/shader8.spv",
     

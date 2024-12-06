@@ -1,5 +1,8 @@
 #include "GpuMemoryTypeVk.h"
 
+#include "Platforms.h"
+#ifdef OSK_USE_VULKAN_BACKEND
+
 #include "OSKengine.h"
 #include "IRenderer.h"
 #include "GpuMemoryTypes.h"
@@ -130,3 +133,5 @@ unsigned int OSK::GRAPHICS::GetGpuImageAspectVk(GpuImageUsage usage) {
 
 	return flags;
 }
+
+#endif

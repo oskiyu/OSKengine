@@ -1,5 +1,8 @@
 #include "GpuMemorySubblockVk.h"
 
+#include "Platforms.h"
+#ifdef OSK_USE_VULKAN_BACKEND
+
 #include <vulkan/vulkan.h>
 #include "GpuMemoryBlockVk.h"
 #include "GpuVk.h"
@@ -24,7 +27,7 @@ void GpuMemorySubblockVk::MapMemory(UIndex64 size, UIndex64 offset) {
 	if (isMapped) {
 		return;
 	}
-
+	
 	vkMapMemory(ownerBlock->GetGpu()->As<GpuVk>()->GetLogicalDevice(),
 		ownerBlock->As<GpuMemoryBlockVk>()->GetVulkanMemory(),
 		totalOffsetFromBlock + offset,
@@ -58,3 +61,5 @@ void GpuMemorySubblockVk::Unmap() {
 	mappedData = nullptr;
 	cursor = 0;
 }
+
+#endif

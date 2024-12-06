@@ -31,7 +31,7 @@ namespace OSK::GRAPHICS {
 
 namespace OSK::ECS {
 
-	class OSKAPI_CALL SkyboxRenderSystem : public IRenderSystem {
+	class OSKAPI_CALL SkyboxRenderSystem : public IRenderSystem, public ISerializableSystem {
 
 	public:
 
@@ -52,6 +52,10 @@ namespace OSK::ECS {
 		PERSISTENCE::BinaryBlock SaveBinaryConfiguration() const override;
 		void ApplyConfiguration(const nlohmann::json& config, const SavedGameObjectTranslator& translator) override;
 		void ApplyConfiguration(PERSISTENCE::BinaryBlockReader* reader, const SavedGameObjectTranslator& translator) override;
+
+		const ASSETS::CubemapTexture* GetCurrentTexture() const;
+		GameObjectIndex GetCurrentCameraObject() const;
+		const GRAPHICS::Material* GetCurrentMaterial() const;
 
 	private:
 

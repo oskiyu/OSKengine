@@ -4,7 +4,7 @@
 
     "name": "Cuby",
     "asset_type": "Model3D",
-    "raw_asset_path": "Resources/RawAssets/Models/anim2.glb",
+    "raw_asset_path": "Resources/Assets/Models/anim2.glb",
 
     "scale": 0.1,
     "load_textures": false,

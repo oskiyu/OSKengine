@@ -11,9 +11,13 @@
 OSK::Editor::UI::EditorPanelTitle::EditorPanelTitle(const Vector2f& size) : OSK::UI::VerticalContainer(size) {
 	const Vector2f textSize = { size.x, 25.0f };
 
+	auto editorFont = Engine::GetAssetManager()->Load<OSK::ASSETS::Font>("Resources/Assets/Fonts/font1.json");
+
 	m_title = new OSK::UI::TextView(textSize);
 	m_title->SetMargin(Vector4f(0.0f));
 	m_title->SetPadding(Vector2f(5.0f));
+	m_title->SetFont(editorFont);
+	m_title->SetFontSize(Constants::TitleFontSize);
 	m_title->SetText("Objetos");
 
 	// Fondo.
@@ -49,6 +53,9 @@ OSK::Editor::UI::EditorPanelTitle::EditorPanelTitle(const Vector2f& size) : OSK:
 		AddChild("titleLine", m_line);
 	}
 
+	SetMargin(Vector4f(5.0f));
+	SetPadding(Vector2f(0.0f));
+
 	AdjustSizeToChildren();
 }
 
@@ -58,14 +65,6 @@ void OSK::Editor::UI::EditorPanelTitle::OnSizeChanged(const Vector2f&) {
 	
 	auto& lineDrawCall = m_line->GetAllDrawCalls()[m_lineDrawCallIndex];
 	lineDrawCall.transform.SetScale({ m_line->GetSize().x, 5.0f });
-}
-
-void OSK::Editor::UI::EditorPanelTitle::SetFont(OSK::ASSETS::AssetRef<OSK::ASSETS::Font> font) {
-	m_title->SetFont(font);
-}
-
-void OSK::Editor::UI::EditorPanelTitle::SetFontSize(USize64 fontSize) {
-	m_title->SetFontSize(fontSize);
 }
 
 void OSK::Editor::UI::EditorPanelTitle::SetText(const std::string& text) {

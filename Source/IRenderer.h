@@ -28,6 +28,8 @@
 #include "GpuBuffer.h"
 #include "RenderTarget.h"
 
+#include "IGpuImageSampler.h"
+
 // Registro de render-passes
 #include "ShaderPassFactory.h"
 
@@ -265,9 +267,20 @@ namespace OSK::GRAPHICS {
 		/// @pre El renderizador debe haber sido previamente inicializado.
 		/// @pre El renderizador no debe haber sido previamente cerrado.
 		virtual OwnedPtr<IGraphicsPipeline> _CreateGraphicsPipeline(
-			const PipelineCreateInfo& pipelineInfo, 
-			const MaterialLayout& layout, 
+			const PipelineCreateInfo& pipelineInfo,
+			const MaterialLayout& layout,
 			const VertexInfo& vertexTypeName) = 0;
+
+		/// @throws FileNotFoundException si no se encuentra los archivo de shader necesarios.
+		/// @throws ShaderLoadingException si no se consigue cargar / compilar los shaders.
+		/// @throws PipelineCreationException si no se consigue crear el pipeline.
+		/// @throws ShaderCompilingException Si ocurre algún error durante la compilación de los shaders.
+		/// 
+		/// @pre El renderizador debe haber sido previamente inicializado.
+		/// @pre El renderizador no debe haber sido previamente cerrado.
+		virtual OwnedPtr<IMeshPipeline> _CreateMeshPipeline(
+			const PipelineCreateInfo& pipelineInfo,
+			const MaterialLayout& layout) = 0;
 
 		/// @throws FileNotFoundException si no se encuentra los archivo de shader necesarios.
 		/// @throws ShaderLoadingException si no se consigue cargar / compilar los shaders.
@@ -341,6 +354,8 @@ namespace OSK::GRAPHICS {
 		/// 
 		/// @threadsafe
 		virtual void SubmitSingleUseCommandList(OwnedPtr<ICommandList> commandList) = 0;
+
+		const IGpuImageSampler& GetSampler(const GpuImageSamplerDesc& desc) const;
 
 #pragma region Queues
 
@@ -614,6 +629,12 @@ namespace OSK::GRAPHICS {
 		UniquePtr<MaterialSystem> m_materialSystem;
 
 		ShaderPassFactory m_shaderPassFactory{};
+
+
+		// --- Mapa de samplers --- //
+
+		mutable std::unordered_map<GpuImageSamplerDesc, UniquePtr<IGpuImageSampler>> m_samplers;
+		mutable std::shared_mutex m_samplerMapMutex;
 
 
 		// --- Pools de comandos --- //

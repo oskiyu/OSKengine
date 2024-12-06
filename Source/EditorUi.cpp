@@ -13,6 +13,7 @@
 #include "EditorBottomBar.h"
 
 #include "EditorUiConstants.h"
+#include "IComponentView.h"
 
 // module OSKengine.Editor.Ui;
 
@@ -40,9 +41,6 @@ OSK::Editor::UI::EditorUi::EditorUi(const Vector2f& size, OSK::Editor::Editor* e
 
 		m_objectListPanel->SetAnchor(OSK::UI::Anchor::BOTTOM | OSK::UI::Anchor::RIGHT);
 
-		m_objectListPanel->SetFont(editorFont);
-		m_objectListPanel->SetFontSize(fontSize);
-
 		m_objectListPanel->AdjustSizeToChildren();
 
 		AddChild_InPosition(m_objectListPanel, Position::WEST);
@@ -50,11 +48,8 @@ OSK::Editor::UI::EditorUi::EditorUi(const Vector2f& size, OSK::Editor::Editor* e
 
 	// System list
 	{
-		m_systemListPanel = new OSK::Editor::UI::SystemList({ 300.0f, 500.0f });
+		m_systemListPanel = new OSK::Editor::UI::SystemList({ 300.0f, 500.0f }, editor);
 		m_systemListPanel->SetAnchor(OSK::UI::Anchor::BOTTOM | OSK::UI::Anchor::RIGHT);
-
-		m_systemListPanel->SetFont(editorFont);
-		m_systemListPanel->SetFontSize(fontSize);
 
 		m_systemListPanel->AdjustSizeToChildren();
 
@@ -85,6 +80,23 @@ void OSK::Editor::UI::EditorUi::Update(const OSK::ECS::EntityComponentSystem* ec
 	}
 }
 
-OSK::Editor::UI::ObjectList* OSK::Editor::UI::EditorUi::GetObjectListPanel() {
-	return m_objectListPanel;
+void OSK::Editor::UI::EditorUi::ClearAllComponentViews() {
+	m_objectListPanel->ClearAllComponentViews();
+}
+
+void OSK::Editor::UI::EditorUi::AddComponentView(OwnedPtr<OSK::Editor::Views::IComponentView> view) {
+	m_objectListPanel->AddComponentView(view);
+	m_objectListPanel->Rebuild();
+}
+
+void OSK::Editor::UI::EditorUi::SetSystemPropertiesView(OwnedPtr<OSK::Editor::Views::ISystemView> view) {
+	m_systemListPanel->SetSystemPropertiesView(view);
+}
+
+void OSK::Editor::UI::EditorUi::ClearSystemPropertiesView() {
+	m_systemListPanel->ClearSystemPropertiesView();
+}
+
+void OSK::Editor::UI::EditorUi::SetSelectedSystem(ECS::ISystem* system) {
+	m_systemListPanel->SetSelectedSystem(system);
 }

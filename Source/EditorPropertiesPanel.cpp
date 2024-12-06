@@ -11,8 +11,6 @@ OSK::Editor::UI::PropertiesPanel::PropertiesPanel(const Vector2f& size) : OSK::U
 	const Vector2f textSize = { size.x - 20.0f, 25.0f };
 
 	m_title = new EditorPanelTitle(textSize);
-	m_title->SetMargin(Vector2f(5.0f));
-	m_title->SetPadding(Vector2f(5.0f));
 	m_title->SetText("Propiedades");
 
 	AddChild("title", m_title);
@@ -20,6 +18,8 @@ OSK::Editor::UI::PropertiesPanel::PropertiesPanel(const Vector2f& size) : OSK::U
 	m_subtitle = new OSK::UI::TextView(textSize);
 	m_subtitle->SetMargin(Vector4f(5.0f));
 	m_subtitle->SetPadding(Vector2f(5.0f));
+	m_subtitle->SetFont(Engine::GetAssetManager()->Load<OSK::ASSETS::Font>("Resources/Assets/Fonts/font1.json"));
+	m_subtitle->SetFontSize(Constants::SubtitleFontSize);
 
 	AddChild("subtitle", m_subtitle);
 
@@ -30,19 +30,8 @@ OSK::Editor::UI::PropertiesPanel::PropertiesPanel(const Vector2f& size) : OSK::U
 	backgroundDrawCall.transform.SetScale(GetSize());
 
 	// AddDrawCall(backgroundDrawCall);
-}
 
-
-void OSK::Editor::UI::PropertiesPanel::SetFont(OSK::ASSETS::AssetRef<OSK::ASSETS::Font> font) {
-	m_font = font;
-
-	m_title->SetFont(font);
-	m_subtitle->SetFont(font);
-}
-
-void OSK::Editor::UI::PropertiesPanel::SetFontSize(USize64 fontSize) {
-	m_title->SetFontSize(fontSize + 2);
-	m_subtitle->SetFontSize(fontSize - 2);
+	Rebuild();
 }
 
 void OSK::Editor::UI::PropertiesPanel::SetSubtitle(const std::string& text) {

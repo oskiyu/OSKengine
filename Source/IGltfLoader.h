@@ -22,10 +22,10 @@
 
 
 namespace tinygltf {
-	struct Model;
+	class Model;
 	struct Mesh;
 	struct Primitive;
-	struct Node;
+	class Node;
 	struct Scene;
 	struct Animation;
 }

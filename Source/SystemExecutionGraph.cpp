@@ -95,6 +95,9 @@ bool SystemExecutionGraph::Validate() const {
 			}
 		}
 	}
+
+	// TODO: check fix
+	return true;
 }
 
 void SystemExecutionGraph::Rebuild() {

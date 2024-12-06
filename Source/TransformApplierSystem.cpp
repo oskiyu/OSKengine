@@ -13,7 +13,7 @@ void TransformApplierSystem::OnCreate() {
 	_SetSignature(signature);
 }
 
-void TransformApplierSystem::Execute(TDeltaTime deltaTime, std::span<const GameObjectIndex> objects) {
+void TransformApplierSystem::Execute(TDeltaTime, std::span<const GameObjectIndex> objects) {
 	std::unordered_map<GameObjectIndex, GameObjectIndex> objectToParent;
 
 	for (const GameObjectIndex obj : objects) {
@@ -44,23 +44,4 @@ void TransformApplierSystem::Apply(Transform3D& transform, std::optional<const T
 		auto& childTransform = Engine::GetEcs()->GetComponent<Transform3D>(child);
 		Apply(childTransform, &transform);
 	}
-}
-
-nlohmann::json TransformApplierSystem::SaveConfiguration() const {
-	auto output = nlohmann::json();
-
-
-	return output;
-}
-
-PERSISTENCE::BinaryBlock TransformApplierSystem::SaveBinaryConfiguration() const {
-	return PERSISTENCE::BinaryBlock::Empty();
-}
-
-void TransformApplierSystem::ApplyConfiguration(const nlohmann::json& config, const SavedGameObjectTranslator& translator) {
-
-}
-
-void TransformApplierSystem::ApplyConfiguration(PERSISTENCE::BinaryBlockReader* reader, const SavedGameObjectTranslator& translator) {
-
 }

@@ -23,7 +23,14 @@
 #include "Font.h"
 
 
-OSK::GRAPHICS::SdfBindlessRenderer2D::SdfBindlessRenderer2D(OSK::ECS::EntityComponentSystem* ecs, IGpuMemoryAllocator* allocator, Material* defaultMaterial) : m_ecs(ecs), m_memoryAllocator(allocator), m_material(defaultMaterial) {
+OSK::GRAPHICS::SdfBindlessRenderer2D::SdfBindlessRenderer2D(
+	OSK::ECS::EntityComponentSystem* ecs, 
+	IGpuMemoryAllocator* allocator, 
+	Material* defaultMaterial) 
+	: ISdfRenderer2D(ecs), m_ecs(ecs), m_memoryAllocator(allocator) 
+{
+	SetMaterial(defaultMaterial);
+
 	for (UIndex32 i = 0; i < m_globalInformationInstances.size(); i++) {
 		m_globalInformationBuffers[i] = allocator->CreateBuffer(
 			sizeof(SdfGlobalInformationBufferContent2D),
@@ -42,29 +49,20 @@ OSK::GRAPHICS::SdfBindlessRenderer2D::SdfBindlessRenderer2D(OSK::ECS::EntityComp
 
 
 void OSK::GRAPHICS::SdfBindlessRenderer2D::SetMaterial(Material* material) {
-	m_material = material;
+	ISdfRenderer2D::SetMaterial(material);
 	CreateNewBatch(material, Engine::GetRenderer()->GetCurrentFrameIndex());
 }
 
-void OSK::GRAPHICS::SdfBindlessRenderer2D::SetCamera(const ECS::CameraComponent2D& camera, const ECS::Transform2D& cameraTransform) {
-	m_currentCameraMatrix = camera.GetProjection(cameraTransform);
-}
-
-void OSK::GRAPHICS::SdfBindlessRenderer2D::SetCamera(ECS::GameObjectIndex gameObject) {
-	SetCamera(
-		m_ecs->GetComponent<OSK::ECS::CameraComponent2D>(gameObject),
-		m_ecs->GetComponent<OSK::ECS::Transform2D>(gameObject));
-}
-
 void OSK::GRAPHICS::SdfBindlessRenderer2D::Begin(ICommandList* commandList) {
-	m_targetCommandList = commandList;
+	ISdfRenderer2D::Begin(commandList);
+
 	m_currentBatchIndex = 0;
 	m_insideBatchIndex = 0;
 	m_batches.Empty();
 
 	SdfGlobalInformationBufferContent2D bufferContent{};
 	bufferContent.resolution = commandList->GetCurrentViewport().rectangle.GetRectangleSize().ToVector2f();
-	bufferContent.cameraMatrix = m_currentCameraMatrix;
+	bufferContent.cameraMatrix = GetCurrentCameraMatrix();
 
 	GpuBuffer* targetBuffer = m_globalInformationBuffers[Engine::GetRenderer()->GetCurrentResourceIndex()].GetPointer();
 
@@ -77,10 +75,10 @@ void OSK::GRAPHICS::SdfBindlessRenderer2D::Begin(ICommandList* commandList) {
 void OSK::GRAPHICS::SdfBindlessRenderer2D::Draw(const SdfDrawCall2D& drawCall) {
 	const auto currentResourceIndex = Engine::GetRenderer()->GetCurrentResourceIndex();
 	SdfBindlessBufferContent2D content = SdfBindlessBufferContent2D::From(drawCall);
-	content.matrix = m_currentCameraMatrix * content.matrix;
+	content.matrix = GetCurrentCameraMatrix() * content.matrix;
 
 	if (m_batches.IsEmpty() || m_batches.Peek().drawCalls.GetSize() == MAX_DRAW_CALLS_PER_BATCH) {
-		CreateNewBatch(m_material, currentResourceIndex);
+		CreateNewBatch(GetCurrentMaterial(), currentResourceIndex);
 	}
 
 	auto& targetBatch = m_batches.Peek();
@@ -104,7 +102,8 @@ void OSK::GRAPHICS::SdfBindlessRenderer2D::Draw(const SdfDrawCall2D& drawCall) {
 		? drawCall.texture
 		: nullptr;
 
-	EnsureMaterialSlotContent(*buffer, view, bufferRange, currentResourceIndex);
+	const IGpuImageSampler* sampler = drawCall.sampler ? drawCall.sampler : &Engine::GetRenderer()->GetSampler(drawCall.samplerDesc);
+	EnsureMaterialSlotContent(*buffer, view, sampler, bufferRange, currentResourceIndex);
 
 	m_insideBatchIndex++;
 }
@@ -130,11 +129,11 @@ void OSK::GRAPHICS::SdfBindlessRenderer2D::End() {
 	}
 
 	// Renderizado final
-	m_targetCommandList->BindVertexBuffer(*Sprite::globalVertexBuffer);
-	m_targetCommandList->BindIndexBuffer(*Sprite::globalIndexBuffer);
+	GetCurrentCommandList()->BindVertexBuffer(*Sprite::globalVertexBuffer);
+	GetCurrentCommandList()->BindIndexBuffer(*Sprite::globalIndexBuffer);
 
-	m_targetCommandList->BindMaterial(*m_batches[0].material);
-	m_targetCommandList->BindMaterialSlot(*GetGlobalInformationSlot(currentResourceIndex));
+	GetCurrentCommandList()->BindMaterial(*m_batches[0].material);
+	GetCurrentCommandList()->BindMaterialSlot(*GetGlobalInformationSlot(currentResourceIndex));
 
 	const Material* previousMaterial = m_batches[0].material;
 
@@ -142,23 +141,23 @@ void OSK::GRAPHICS::SdfBindlessRenderer2D::End() {
 		const SdfBindlessBatch2D& batch = m_batches[i];
 
 		if (batch.material != previousMaterial) {
-			m_targetCommandList->BindMaterial(*batch.material);
+			GetCurrentCommandList()->BindMaterial(*batch.material);
 			previousMaterial = batch.material;
-			m_targetCommandList->BindMaterialSlot(*GetGlobalInformationSlot(currentResourceIndex));
+			GetCurrentCommandList()->BindMaterialSlot(*GetGlobalInformationSlot(currentResourceIndex));
 		}
 
-		const IMaterialSlot const* instanceSlot = m_drawCallsBuffersInstances[currentResourceIndex][i]->GetSlot(DrawCallsSlotName);
+		const IMaterialSlot* instanceSlot = m_drawCallsBuffersInstances[currentResourceIndex][i]->GetSlot(DrawCallsSlotName);
 
-		m_targetCommandList->BindMaterialSlot(*instanceSlot);
+		GetCurrentCommandList()->BindMaterialSlot(*instanceSlot);
 
-		m_targetCommandList->DrawInstances(0, 6, 0, static_cast<USize32>(batch.drawCalls.GetSize()));
+		GetCurrentCommandList()->DrawInstances(0, 6, 0, static_cast<USize32>(batch.drawCalls.GetSize()));
 	}
 
 	for (auto& buffer : m_drawCallsBuffers[currentResourceIndex]) {
 		buffer->ResetCursor();
 	}
 
-	m_targetCommandList = nullptr;
+	ISdfRenderer2D::End();
 }
 
 OSK::GRAPHICS::IMaterialSlot* OSK::GRAPHICS::SdfBindlessRenderer2D::GetGlobalInformationSlot(UIndex32 resourceIndex) {
@@ -207,80 +206,26 @@ void OSK::GRAPHICS::SdfBindlessRenderer2D::AddContentBuffer(UIndex32 resourceInd
 	// Material.
 	const std::string materialInstanceName = std::format("Instances Slot {} Frame {}", m_drawCallsBuffersInstances[resourceIndex].GetSize(), resourceIndex);
 
-	OwnedPtr<MaterialInstance> materialInstance = m_material->CreateInstance();
+	OwnedPtr<MaterialInstance> materialInstance = GetCurrentMaterial()->CreateInstance();
 	materialInstance->GetSlot(DrawCallsSlotName)->SetDebugName(materialInstanceName);
 	m_drawCallsBuffersInstances[resourceIndex].Insert(materialInstance.GetPointer());
 }
 
-void OSK::GRAPHICS::SdfBindlessRenderer2D::EnsureMaterialSlotContent(const GpuBuffer& buffer, const IGpuImageView* imageView, const GpuBufferRange& range, USize32 resourceIndex) {
+void OSK::GRAPHICS::SdfBindlessRenderer2D::EnsureMaterialSlotContent(
+	const GpuBuffer& buffer, 
+	const IGpuImageView* imageView,
+	const IGpuImageSampler* sampler, 
+	const GpuBufferRange& range, 
+	USize32 resourceIndex) 
+{
 	MaterialInstance* instance = m_drawCallsBuffersInstances[resourceIndex][m_currentBatchIndex].GetPointer();
 	IMaterialSlot* slot = instance->GetSlot(DrawCallsSlotName);
 
 	slot->SetUniformBuffer(DrawCallsBindingName, buffer, range, m_insideBatchIndex);
 
 	if (imageView) {
-		slot->SetGpuImage(DrawCallsImageBindingName, *imageView, m_insideBatchIndex);
+		slot->SetGpuImage(DrawCallsImageBindingName, *imageView, *sampler, m_insideBatchIndex);
 	}
 
 	slot->FlushUpdate();
-}
-
-OSK::DynamicArray<OSK::GRAPHICS::SdfDrawCall2D> OSK::GRAPHICS::SdfBindlessRenderer2D::GetTextDrawCalls(const SdfStringInfo& textInfo) {
-	DynamicArray<SdfDrawCall2D> output = DynamicArray<SdfDrawCall2D>::CreateReserved(textInfo.text.size());
-
-	const GpuImageViewConfig viewConfig = GpuImageViewConfig::CreateSampled_SingleMipLevel(0);
-	const IGpuImageView* fontView = textInfo.font->image->GetView(viewConfig);
-
-	const Vector2f originalPosition = textInfo.transform.GetPosition();
-	float currentX = textInfo.transform.GetPosition().x;
-	float currentY = textInfo.transform.GetPosition().y;
-
-	for (const char c : textInfo.text) {
-		const auto& character = textInfo.font->characters.at(c);
-
-		if (c == '\n') {
-			currentY += character.size.y + character.bearing.y;
-			currentX = originalPosition.x;
-
-			continue;
-		}
-
-		if (c == '\t') {
-			currentX += (character.advance >> 6) * 4;// Font::SPACES_PER_TAB;
-
-			continue;
-		}
-
-		if (c == ' ') {
-			currentX += (character.advance >> 6);
-
-			continue;
-		}
-
-		const float sizeX = character.size.x;
-		const float sizeY = character.size.y;
-
-		const float posX = currentX + character.bearing.x;
-		const float posY = currentY - (character.bearing.y);
-
-
-		SdfDrawCall2D drawCall{};
-		drawCall.shape = SdfShape2D::RECTANGLE;
-		drawCall.contentType = SdfDrawCallContentType2D::TEXTURE;
-		drawCall.texture = fontView;
-		drawCall.textureCoordinates = TextureCoordinates2D::Pixels(textInfo.font->characters.at(c).texCoords.ToVector4f());
-		drawCall.fill = true;
-		drawCall.mainColor = textInfo.color;
-
-		drawCall.transform = ECS::Transform2D(ECS::EMPTY_GAME_OBJECT);
-		drawCall.transform.SetScale(Vector2f(sizeX, sizeY) * textInfo.transform.GetScale());
-		drawCall.transform.SetPosition({ posX, posY });
-		drawCall.transform.SetRotation(textInfo.transform.GetRotation());
-
-		output.Insert(drawCall);
-
-		currentX += static_cast<float>(character.advance >> 6);
-	}
-
-	return output;
 }

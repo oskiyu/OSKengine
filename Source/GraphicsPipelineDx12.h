@@ -1,5 +1,8 @@
 #pragma once
 
+#include "Platforms.h"
+#ifdef OSK_USE_DIRECTX12_BACKEND
+
 #include "IGraphicsPipeline.h"
 #include "PipelineCreateInfo.h"
 #include "DynamicArray.hpp"
@@ -58,3 +61,5 @@ namespace OSK::GRAPHICS {
 	};
 
 }
+
+#endif

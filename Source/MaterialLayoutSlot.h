@@ -36,3 +36,5 @@ namespace OSK::GRAPHICS {
 	};
 
 }
+
+template <> std::string OSK::ToString<OSK::GRAPHICS::MaterialLayoutSlot>(const OSK::GRAPHICS::MaterialLayoutSlot& data);

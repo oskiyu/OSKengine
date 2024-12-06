@@ -1,5 +1,8 @@
 #include <vulkan/vulkan.h>
 
+#include "Platforms.h"
+#ifdef OSK_USE_VULKAN_BACKEND
+
 #include "RendererVk.h"
 
 #include "OSKengine.h"
@@ -34,6 +37,7 @@
 #include "GpuImageDimensions.h"
 #include "GpuImageUsage.h"
 #include "GpuMemoryTypes.h"
+#include "MeshPipelineVk.h"
 
 #include "AssetManager.h"
 #include "Texture.h"
@@ -110,10 +114,6 @@ RendererVk::RendererVk(bool requestRayTracing) : IRenderer(RenderApiType::VULKAN
 	m_implicitResizeHandling = true;
 }
 
-RendererVk::~RendererVk() {
-	// Close();
-}
-
 void RendererVk::Initialize(const std::string& appName, const Version& version, const IO::IDisplay& display, PresentMode mode) {	
 	CreateInstance(appName, version);
 
@@ -130,6 +130,11 @@ void RendererVk::Initialize(const std::string& appName, const Version& version, 
 	CreateGpuMemoryAllocator();
 	if (IsRtRequested() && GetGpu()->As<GpuVk>()->GetInfo().IsRtCompatible())
 		SetupRtFunctions(GetGpu()->As<GpuVk>()->GetLogicalDevice());
+
+	if (GetGpu()->As<GpuVk>()->GetInfo().IsCompatibleWithMeshShaders()) {
+		SetupMeshFunctions(GetGpu()->As<GpuVk>()->GetLogicalDevice());
+	}
+
 	SetupRenderingFunctions(GetGpu()->As<GpuVk>()->GetLogicalDevice());
 
 	CreateMainRenderpass();
@@ -149,6 +154,13 @@ OwnedPtr<ICommandPool> RendererVk::CreateCommandPool(const ICommandQueue* target
 OwnedPtr<IGraphicsPipeline> RendererVk::_CreateGraphicsPipeline(const PipelineCreateInfo& pipelineInfo, const MaterialLayout& layout, const VertexInfo& vertexInfo) {
 	auto* pipeline = new GraphicsPipelineVk;
 	pipeline->Create(&layout, GetGpu(), pipelineInfo, vertexInfo);
+
+	return pipeline;
+}
+
+OwnedPtr<IMeshPipeline> RendererVk::_CreateMeshPipeline(const PipelineCreateInfo& pipelineInfo, const MaterialLayout& layout) {
+	auto* pipeline = new MeshPipelineVk;
+	pipeline->Create(&layout, GetGpu(), pipelineInfo);
 
 	return pipeline;
 }
@@ -708,6 +720,10 @@ void RendererVk::SetupRtFunctions(VkDevice device) {
 	m_isRtActive = true;
 }
 
+void RendererVk::SetupMeshFunctions(VkDevice logicalDevice) {
+	pvkCmdDrawMeshTasksEXT = reinterpret_cast<PFN_vkCmdDrawMeshTasksEXT>(vkGetDeviceProcAddr(logicalDevice, "vkCmdDrawMeshTasksEXT"));
+}
+
 void RendererVk::SetupDebugFunctions(VkDevice instance) {
 	pvkSetDebugUtilsObjectNameEXT = reinterpret_cast<PFN_vkSetDebugUtilsObjectNameEXT>(vkGetDeviceProcAddr(instance, "vkSetDebugUtilsObjectNameEXT"));
 	pvkSetDebugUtilsObjectTagEXT = reinterpret_cast<PFN_vkSetDebugUtilsObjectTagEXT>(vkGetDeviceProcAddr(instance, "vkSetDebugUtilsObjectTagEXT"));
@@ -768,3 +784,7 @@ PFN_vkCmdEndDebugUtilsLabelEXT RendererVk::pvkCmdEndDebugUtilsLabelEXT = nullptr
 
 PFN_vkCmdBeginRendering RendererVk::pvkCmdBeginRendering = nullptr;
 PFN_vkCmdEndRendering RendererVk::pvkCmdEndRendering = nullptr;
+
+PFN_vkCmdDrawMeshTasksEXT RendererVk::pvkCmdDrawMeshTasksEXT = nullptr;
+
+#endif

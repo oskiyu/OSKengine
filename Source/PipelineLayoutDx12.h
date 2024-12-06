@@ -1,5 +1,8 @@
 #pragma once
 
+#include "Platforms.h"
+#ifdef OSK_USE_DIRECTX12_BACKEND
+
 #include "IPipelineLayout.h"
 #include "DynamicArray.hpp"
 
@@ -26,3 +29,5 @@ namespace OSK::GRAPHICS {
 	};
 
 }
+
+#endif

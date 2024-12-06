@@ -7,6 +7,9 @@
 #include "SdfDrawCallType2D.h"
 #include "SdfShape2D.h"
 
+#include "GpuImageSamplerDesc.h"
+#include "IGpuImageSampler.h"
+
 #include "Transform2D.h"
 
 
@@ -56,6 +59,17 @@ namespace OSK::GRAPHICS {
 		/// - Para @p contentType = `SdfDrawCallContentType2D::COLOR_FLAT`: nada.
 		/// - Para @p contentType = `SdfDrawCallContentType2D::COLOR_SIMPLE_GRADIENT`: segundo color del degradado.
 		Color gradientSecondColor = Color::White;
+
+
+		/// @brief Propiedades del sampler que se usará
+		/// para la imagen.
+		/// @pre @p contentType = `SdfDrawCallContentType2D::TEXTURE`.
+		/// @pre @p sampler = `nullptr`.
+		GpuImageSamplerDesc samplerDesc{};
+
+		/// @brief Sampler que se usará para la imagen..
+		/// @pre @p contentType = `SdfDrawCallContentType2D::TEXTURE`.
+		const IGpuImageSampler* sampler = nullptr;
 
 	};
 

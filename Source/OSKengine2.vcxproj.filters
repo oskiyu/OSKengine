@@ -655,9 +655,6 @@
     <Filter Include="Archivos de encabezado\Editor\Controllers">
       <UniqueIdentifier>{e0452586-3607-4182-9814-c73a6bab7d63}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Archivos de encabezado\Editor\Controllers\Builtin">
-      <UniqueIdentifier>{11a678f3-bce7-492b-9d26-0630259bb73c}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Archivos de encabezado\Editor\Views">
       <UniqueIdentifier>{16bb2e8b-8268-4326-806e-3bf296dc951e}</UniqueIdentifier>
     </Filter>
@@ -667,20 +664,62 @@
     <Filter Include="Archivos de origen\Editor\Views">
       <UniqueIdentifier>{27be4565-5299-4e0c-8648-3344ac10d1f3}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Archivos de origen\Editor\Controllers\Builtin">
-      <UniqueIdentifier>{bb0eca9a-068f-4350-8151-c4b6e1bdbe2c}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Archivos de encabezado\Editor\Views\Builtin">
-      <UniqueIdentifier>{f83f7ff7-cc67-48ba-925e-c68bfd9f0b4d}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Archivos de origen\Editor\Views\Builtin">
-      <UniqueIdentifier>{96e963f9-4853-4426-b9bd-49a8b383b83b}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Archivos de encabezado\Editor\UI\Properties">
       <UniqueIdentifier>{d5cbc97f-3515-435f-846b-487436145e2c}</UniqueIdentifier>
     </Filter>
     <Filter Include="Archivos de origen\Editor\UI\Properties">
       <UniqueIdentifier>{e841c1fb-7c56-4dea-9331-acfec943f237}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de encabezado\Editor\Views\Builtin components">
+      <UniqueIdentifier>{f83f7ff7-cc67-48ba-925e-c68bfd9f0b4d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de encabezado\Editor\Views\Builtin views">
+      <UniqueIdentifier>{f6ba7a58-8a68-404a-af8c-787e32e4ce15}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de origen\Editor\Views\Builtin components">
+      <UniqueIdentifier>{96e963f9-4853-4426-b9bd-49a8b383b83b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de origen\Editor\Views\Builtin systems">
+      <UniqueIdentifier>{d5de49ec-d192-47a7-8597-1a6258fde8c8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de encabezado\Editor\Controllers\Builtin systems">
+      <UniqueIdentifier>{3195af9d-dcbd-4717-bee0-23e14240b602}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de encabezado\Editor\Controllers\Builtin components">
+      <UniqueIdentifier>{11a678f3-bce7-492b-9d26-0630259bb73c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de origen\Editor\Controllers\Builtin components">
+      <UniqueIdentifier>{bb0eca9a-068f-4350-8151-c4b6e1bdbe2c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de origen\Editor\Controllers\Builtin systems">
+      <UniqueIdentifier>{69fee474-8621-4a36-92c5-7ebb950355d7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de origen\Core\Graphics\LowLevel\Resources\Image\Sampler">
+      <UniqueIdentifier>{eabe6694-a284-44fb-980c-919732908673}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de encabezado\Core\Graphics\HighLevel\2D\SDF\Bindless">
+      <UniqueIdentifier>{2cd67197-930c-47c6-ba47-70bb203e66cf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de origen\Core\Graphics\HighLevel\2D\SDF\Bindless">
+      <UniqueIdentifier>{25ddc4e9-dccf-4e6b-af5a-d7d64dc023d9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de encabezado\Core\Game">
+      <UniqueIdentifier>{e8671edb-1933-4b86-9dba-1edbc5d3cc2f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de encabezado\Core\Graphics\LowLevel\Pipeline\Mesh">
+      <UniqueIdentifier>{5c5a6b08-b257-4254-945a-78a7876dcdbb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de origen\Core\Graphics\LowLevel\Pipeline\Mesh">
+      <UniqueIdentifier>{f177ceb5-af88-49d2-87b4-5b5150308ed3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de encabezado\Core\Graphics\HighLevel\Material\Loaders">
+      <UniqueIdentifier>{f683297f-c2f7-4c11-a82d-c30c0f5e4f0b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de origen\Core\Graphics\HighLevel\Material\Loaders">
+      <UniqueIdentifier>{0cec74f3-5c7d-4ae2-98da-2a2cdaad15e0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de origen\External">
+      <UniqueIdentifier>{1b9659fc-4ce7-4d39-9e5a-8e83ec9ec037}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -1173,9 +1212,6 @@
     <ClCompile Include="Sprite.cpp">
       <Filter>Archivos de origen\BuiltIn\ECS\Components</Filter>
     </ClCompile>
-    <ClCompile Include="TerrainComponent.cpp">
-      <Filter>Archivos de origen\BuiltIn\ECS\Components</Filter>
-    </ClCompile>
     <ClCompile Include="Transform2D.cpp">
       <Filter>Archivos de origen\BuiltIn\ECS\Components</Filter>
     </ClCompile>
@@ -1187,9 +1223,6 @@
     </ClCompile>
     <ClCompile Include="PhysicsSystem.cpp">
       <Filter>Archivos de origen\BuiltIn\ECS\Systems</Filter>
-    </ClCompile>
-    <ClCompile Include="TerrainRenderSystem.cpp">
-      <Filter>Archivos de origen\BuiltIn\ECS\Systems\Rendering</Filter>
     </ClCompile>
     <ClCompile Include="RenderSystem2D.cpp">
       <Filter>Archivos de origen\BuiltIn\ECS\Systems\Rendering</Filter>
@@ -1204,9 +1237,6 @@
       <Filter>Archivos de origen\BuiltIn\ECS\Systems\Rendering</Filter>
     </ClCompile>
     <ClCompile Include="IRenderSystem.cpp">
-      <Filter>Archivos de origen\BuiltIn\ECS\Systems\Rendering</Filter>
-    </ClCompile>
-    <ClCompile Include="RenderSystem3D.cpp">
       <Filter>Archivos de origen\BuiltIn\ECS\Systems\Rendering</Filter>
     </ClCompile>
     <ClCompile Include="PhysicsResolver.cpp">
@@ -1452,16 +1482,7 @@
     <ClCompile Include="ExitCommand.cpp">
       <Filter>Archivos de origen\BuiltIn\Console</Filter>
     </ClCompile>
-    <ClCompile Include="SdfBindlessRenderer2D.cpp">
-      <Filter>Archivos de origen\Core\Graphics\HighLevel\2D\SDF</Filter>
-    </ClCompile>
-    <ClCompile Include="SdfBindlessBufferContent2D.cpp">
-      <Filter>Archivos de origen\Core\Graphics\HighLevel\2D\SDF</Filter>
-    </ClCompile>
     <ClCompile Include="EditorBottomBar.cpp">
-      <Filter>Archivos de origen\Editor\UI</Filter>
-    </ClCompile>
-    <ClCompile Include="EditorBottomBar.ixx">
       <Filter>Archivos de origen\Editor\UI</Filter>
     </ClCompile>
     <ClCompile Include="EditorHeader.cpp">
@@ -1479,9 +1500,6 @@
     <ClCompile Include="EditorUi.cpp">
       <Filter>Archivos de origen\Editor\UI</Filter>
     </ClCompile>
-    <ClCompile Include="EditorUi.ixx">
-      <Filter>Archivos de origen\Editor\UI</Filter>
-    </ClCompile>
     <ClCompile Include="IComponentController.cpp">
       <Filter>Archivos de origen\Editor\Controllers</Filter>
     </ClCompile>
@@ -1489,31 +1507,31 @@
       <Filter>Archivos de origen\Editor\Views</Filter>
     </ClCompile>
     <ClCompile Include="CameraComponentController3D.cpp">
-      <Filter>Archivos de origen\Editor\Controllers\Builtin</Filter>
+      <Filter>Archivos de origen\Editor\Controllers\Builtin components</Filter>
     </ClCompile>
     <ClCompile Include="Editor.cpp">
       <Filter>Archivos de origen\Editor</Filter>
     </ClCompile>
     <ClCompile Include="CameraComponentView.cpp">
-      <Filter>Archivos de origen\Editor\Views\Builtin</Filter>
+      <Filter>Archivos de origen\Editor\Views\Builtin components</Filter>
     </ClCompile>
     <ClCompile Include="PhysicsComponentView.cpp">
-      <Filter>Archivos de origen\Editor\Views\Builtin</Filter>
+      <Filter>Archivos de origen\Editor\Views\Builtin components</Filter>
     </ClCompile>
     <ClCompile Include="PhysicsComponentController3D.cpp">
-      <Filter>Archivos de origen\Editor\Controllers\Builtin</Filter>
+      <Filter>Archivos de origen\Editor\Controllers\Builtin components</Filter>
     </ClCompile>
     <ClCompile Include="TransformComponentController3D.cpp">
-      <Filter>Archivos de origen\Editor\Controllers\Builtin</Filter>
+      <Filter>Archivos de origen\Editor\Controllers\Builtin components</Filter>
     </ClCompile>
     <ClCompile Include="TransformComponentView3D.cpp">
-      <Filter>Archivos de origen\Editor\Views\Builtin</Filter>
+      <Filter>Archivos de origen\Editor\Views\Builtin components</Filter>
     </ClCompile>
     <ClCompile Include="ModelComponentController3D.cpp">
-      <Filter>Archivos de origen\Editor\Controllers\Builtin</Filter>
+      <Filter>Archivos de origen\Editor\Controllers\Builtin components</Filter>
     </ClCompile>
     <ClCompile Include="ModelComponentView3D.cpp">
-      <Filter>Archivos de origen\Editor\Views\Builtin</Filter>
+      <Filter>Archivos de origen\Editor\Views\Builtin components</Filter>
     </ClCompile>
     <ClCompile Include="EditorPropertiesPanel.cpp">
       <Filter>Archivos de origen\Editor\UI\Properties</Filter>
@@ -1526,6 +1544,81 @@
     </ClCompile>
     <ClCompile Include="UiCollapsibleWrapper.cpp">
       <Filter>Archivos de origen\BuiltIn\UI\Containers</Filter>
+    </ClCompile>
+    <ClCompile Include="ISystemView.cpp">
+      <Filter>Archivos de origen\Editor\Views</Filter>
+    </ClCompile>
+    <ClCompile Include="PhysicsSystemView.cpp">
+      <Filter>Archivos de origen\Editor\Views\Builtin systems</Filter>
+    </ClCompile>
+    <ClCompile Include="ISystemController.cpp">
+      <Filter>Archivos de origen\Editor\Controllers</Filter>
+    </ClCompile>
+    <ClCompile Include="PhysicsSystemController.cpp">
+      <Filter>Archivos de origen\Editor\Controllers\Builtin systems</Filter>
+    </ClCompile>
+    <ClCompile Include="SkyboxRenderSystemController.cpp">
+      <Filter>Archivos de origen\Editor\Controllers\Builtin systems</Filter>
+    </ClCompile>
+    <ClCompile Include="SkyboxRenderSystemView.cpp">
+      <Filter>Archivos de origen\Editor\Views\Builtin systems</Filter>
+    </ClCompile>
+    <ClCompile Include="DeferredRenderSytemController.cpp">
+      <Filter>Archivos de origen\Editor\Controllers\Builtin systems</Filter>
+    </ClCompile>
+    <ClCompile Include="DeferredRenderSystemView.cpp">
+      <Filter>Archivos de origen\Editor\Views\Builtin systems</Filter>
+    </ClCompile>
+    <ClCompile Include="ColliderRenderSystemController.cpp">
+      <Filter>Archivos de origen\Editor\Controllers\Builtin systems</Filter>
+    </ClCompile>
+    <ClCompile Include="ColliderRenderSystemView.cpp">
+      <Filter>Archivos de origen\Editor\Views\Builtin systems</Filter>
+    </ClCompile>
+    <ClCompile Include="RenderBoundsRenderSystemController.cpp">
+      <Filter>Archivos de origen\Editor\Controllers\Builtin systems</Filter>
+    </ClCompile>
+    <ClCompile Include="RenderBoundsRenderSystemView.cpp">
+      <Filter>Archivos de origen\Editor\Views\Builtin systems</Filter>
+    </ClCompile>
+    <ClCompile Include="GpuImageSamplerVk.cpp">
+      <Filter>Archivos de origen\Core\Graphics\LowLevel\Resources\Image\Sampler</Filter>
+    </ClCompile>
+    <ClCompile Include="GpuImageSampler.cpp">
+      <Filter>Archivos de origen\Core\Graphics\LowLevel\Resources\Image\Sampler</Filter>
+    </ClCompile>
+    <ClCompile Include="GpuImageSamplerDesc.cpp">
+      <Filter>Archivos de origen\Core\Graphics\LowLevel\Resources\Image\Sampler</Filter>
+    </ClCompile>
+    <ClCompile Include="SdfBindlessBufferContent2D.cpp">
+      <Filter>Archivos de origen\Core\Graphics\HighLevel\2D\SDF\Bindless</Filter>
+    </ClCompile>
+    <ClCompile Include="SdfBindlessRenderer2D.cpp">
+      <Filter>Archivos de origen\Core\Graphics\HighLevel\2D\SDF\Bindless</Filter>
+    </ClCompile>
+    <ClCompile Include="ISdfRenderer2D.cpp">
+      <Filter>Archivos de origen\Core\Graphics\HighLevel\2D\SDF</Filter>
+    </ClCompile>
+    <ClCompile Include="IMeshPipeline.cpp">
+      <Filter>Archivos de origen\Core\Graphics\LowLevel\Pipeline\Mesh</Filter>
+    </ClCompile>
+    <ClCompile Include="MeshPipelineVk.cpp">
+      <Filter>Archivos de origen\Core\Graphics\LowLevel\Pipeline\Mesh</Filter>
+    </ClCompile>
+    <ClCompile Include="SpirvReflectionData.cpp">
+      <Filter>Archivos de origen\Core\Graphics\LowLevel\Material</Filter>
+    </ClCompile>
+    <ClCompile Include="MaterialLayoutBuilder.cpp">
+      <Filter>Archivos de origen\Core\Graphics\LowLevel\Material</Filter>
+    </ClCompile>
+    <ClCompile Include="MaterialLoaderV1.cpp">
+      <Filter>Archivos de origen\Core\Graphics\HighLevel\Material\Loaders</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\Dev\SPIRVReflect\spirv_reflect.c">
+      <Filter>Archivos de origen\External</Filter>
+    </ClCompile>
+    <ClCompile Include="GrassRenderPass.cpp">
+      <Filter>Archivos de origen\BuiltIn\GRAPHICS\Renderpasses</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -1617,9 +1710,6 @@
       <Filter>Archivos de encabezado\Core\Graphics\LowLevel\Swapchain</Filter>
     </ClInclude>
     <ClInclude Include="DynamicArray.hpp">
-      <Filter>Archivos de encabezado\Core\STD</Filter>
-    </ClInclude>
-    <ClInclude Include="LinkedList.hpp">
       <Filter>Archivos de encabezado\Core\STD</Filter>
     </ClInclude>
     <ClInclude Include="IGpuMemoryAllocator.h">
@@ -1822,9 +1912,6 @@
     </ClInclude>
     <ClInclude Include="FileIO.h">
       <Filter>Archivos de encabezado\Core\IO</Filter>
-    </ClInclude>
-    <ClInclude Include="Game.h">
-      <Filter>Archivos de encabezado\Core</Filter>
     </ClInclude>
     <ClInclude Include="OSKengine.h">
       <Filter>Archivos de encabezado\Core</Filter>
@@ -2219,9 +2306,6 @@
     <ClInclude Include="Sprite.h">
       <Filter>Archivos de encabezado\BuiltIn\ECS\Components</Filter>
     </ClInclude>
-    <ClInclude Include="TerrainComponent.h">
-      <Filter>Archivos de encabezado\BuiltIn\ECS\Components</Filter>
-    </ClInclude>
     <ClInclude Include="Transform3D.h">
       <Filter>Archivos de encabezado\BuiltIn\ECS\Components</Filter>
     </ClInclude>
@@ -2235,9 +2319,6 @@
       <Filter>Archivos de encabezado\BuiltIn\ECS\Systems</Filter>
     </ClInclude>
     <ClInclude Include="PhysicsResolver.h">
-      <Filter>Archivos de encabezado\BuiltIn\ECS\Systems</Filter>
-    </ClInclude>
-    <ClInclude Include="TerrainRenderSystem.h">
       <Filter>Archivos de encabezado\BuiltIn\ECS\Systems</Filter>
     </ClInclude>
     <ClInclude Include="RenderSystem2D.h">
@@ -2480,9 +2561,6 @@
     <ClInclude Include="DeferredRenderSystem.h">
       <Filter>Archivos de encabezado\BuiltIn\ECS\Systems\Rendering\PBR</Filter>
     </ClInclude>
-    <ClInclude Include="RenderSystem3D.h">
-      <Filter>Archivos de encabezado\BuiltIn\ECS\Systems\Rendering\PBR</Filter>
-    </ClInclude>
     <ClInclude Include="HybridRenderSystem.h">
       <Filter>Archivos de encabezado\BuiltIn\ECS\Systems\Rendering\PBR</Filter>
     </ClInclude>
@@ -2657,9 +2735,6 @@
     <ClInclude Include="ResourcesInFlight.h">
       <Filter>Archivos de encabezado\Core\Graphics\LowLevel</Filter>
     </ClInclude>
-    <ClInclude Include="IDebugGame.h">
-      <Filter>Archivos de encabezado\Core</Filter>
-    </ClInclude>
     <ClInclude Include="EditorCommands.h">
       <Filter>Archivos de encabezado\BuiltIn\Console</Filter>
     </ClInclude>
@@ -2672,20 +2747,8 @@
     <ClInclude Include="SdfDrawCall2D.h">
       <Filter>Archivos de encabezado\Core\Graphics\HighLevel\2D\SDF</Filter>
     </ClInclude>
-    <ClInclude Include="SdfBindlessRenderer2D.h">
-      <Filter>Archivos de encabezado\Core\Graphics\HighLevel\2D\SDF</Filter>
-    </ClInclude>
     <ClInclude Include="BindlessLimits.h">
       <Filter>Archivos de encabezado\Core\Graphics\LowLevel</Filter>
-    </ClInclude>
-    <ClInclude Include="SdfBindlessBatch2D.h">
-      <Filter>Archivos de encabezado\Core\Graphics\HighLevel\2D\SDF</Filter>
-    </ClInclude>
-    <ClInclude Include="SdfBindlessBufferContent2D.h">
-      <Filter>Archivos de encabezado\Core\Graphics\HighLevel\2D\SDF</Filter>
-    </ClInclude>
-    <ClInclude Include="SdfGlobalInformationBufferContent2D.h">
-      <Filter>Archivos de encabezado\Core\Graphics\HighLevel\2D\SDF</Filter>
     </ClInclude>
     <ClInclude Include="SdfShape2D.h">
       <Filter>Archivos de encabezado\Core\Graphics\HighLevel\2D\SDF</Filter>
@@ -2706,31 +2769,31 @@
       <Filter>Archivos de encabezado\Editor\Views</Filter>
     </ClInclude>
     <ClInclude Include="CameraComponentController3D.h">
-      <Filter>Archivos de encabezado\Editor\Controllers\Builtin</Filter>
+      <Filter>Archivos de encabezado\Editor\Controllers\Builtin components</Filter>
     </ClInclude>
     <ClInclude Include="Editor.h">
       <Filter>Archivos de encabezado\Editor</Filter>
     </ClInclude>
     <ClInclude Include="CameraComponentView.h">
-      <Filter>Archivos de encabezado\Editor\Views\Builtin</Filter>
+      <Filter>Archivos de encabezado\Editor\Views\Builtin components</Filter>
     </ClInclude>
     <ClInclude Include="PhysicsComponentView.h">
-      <Filter>Archivos de encabezado\Editor\Views\Builtin</Filter>
+      <Filter>Archivos de encabezado\Editor\Views\Builtin components</Filter>
     </ClInclude>
     <ClInclude Include="PhysicsComponentController3D.h">
-      <Filter>Archivos de encabezado\Editor\Controllers\Builtin</Filter>
+      <Filter>Archivos de encabezado\Editor\Controllers\Builtin components</Filter>
     </ClInclude>
     <ClInclude Include="TransformComponentView3D.h">
-      <Filter>Archivos de encabezado\Editor\Views\Builtin</Filter>
+      <Filter>Archivos de encabezado\Editor\Views\Builtin components</Filter>
     </ClInclude>
     <ClInclude Include="TransformComponentController3D.h">
-      <Filter>Archivos de encabezado\Editor\Controllers\Builtin</Filter>
+      <Filter>Archivos de encabezado\Editor\Controllers\Builtin components</Filter>
     </ClInclude>
     <ClInclude Include="ModelComponentController3D.h">
-      <Filter>Archivos de encabezado\Editor\Controllers\Builtin</Filter>
+      <Filter>Archivos de encabezado\Editor\Controllers\Builtin components</Filter>
     </ClInclude>
     <ClInclude Include="ModelComponentView3D.h">
-      <Filter>Archivos de encabezado\Editor\Views\Builtin</Filter>
+      <Filter>Archivos de encabezado\Editor\Views\Builtin components</Filter>
     </ClInclude>
     <ClInclude Include="EditorPropertiesPanel.h">
       <Filter>Archivos de encabezado\Editor\UI\Properties</Filter>
@@ -2743,6 +2806,102 @@
     </ClInclude>
     <ClInclude Include="UiCollapsibleWrapper.h">
       <Filter>Archivos de encabezado\BuiltIn\UI\Containers</Filter>
+    </ClInclude>
+    <ClInclude Include="ISystemView.h">
+      <Filter>Archivos de encabezado\Editor\Views</Filter>
+    </ClInclude>
+    <ClInclude Include="ISystemController.h">
+      <Filter>Archivos de encabezado\Editor\Controllers</Filter>
+    </ClInclude>
+    <ClInclude Include="PhysicsSystemView.h">
+      <Filter>Archivos de encabezado\Editor\Views\Builtin views</Filter>
+    </ClInclude>
+    <ClInclude Include="PhysicsSystemController.h">
+      <Filter>Archivos de encabezado\Editor\Controllers\Builtin systems</Filter>
+    </ClInclude>
+    <ClInclude Include="SkyboxRenderSystemController.h">
+      <Filter>Archivos de encabezado\Editor\Controllers\Builtin systems</Filter>
+    </ClInclude>
+    <ClInclude Include="SkyboxRenderSystemView.h">
+      <Filter>Archivos de encabezado\Editor\Views\Builtin views</Filter>
+    </ClInclude>
+    <ClInclude Include="DeferredRenderSystemController.h">
+      <Filter>Archivos de encabezado\Editor\Controllers\Builtin systems</Filter>
+    </ClInclude>
+    <ClInclude Include="DeferredRenderSystemView.h">
+      <Filter>Archivos de encabezado\Editor\Views\Builtin views</Filter>
+    </ClInclude>
+    <ClInclude Include="ColliderRenderSystemController.h">
+      <Filter>Archivos de encabezado\Editor\Controllers\Builtin systems</Filter>
+    </ClInclude>
+    <ClInclude Include="ColliderRenderSystemView.h">
+      <Filter>Archivos de encabezado\Editor\Views\Builtin views</Filter>
+    </ClInclude>
+    <ClInclude Include="RenderBoundsRenderSystemController.h">
+      <Filter>Archivos de encabezado\Editor\Controllers\Builtin systems</Filter>
+    </ClInclude>
+    <ClInclude Include="RenderBoundsRenderSystemView.h">
+      <Filter>Archivos de encabezado\Editor\Views\Builtin views</Filter>
+    </ClInclude>
+    <ClInclude Include="Platforms.h">
+      <Filter>Archivos de encabezado\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="UnreachableException.h">
+      <Filter>Archivos de encabezado\Core\Exceptions</Filter>
+    </ClInclude>
+    <ClInclude Include="SerializableComponent.h">
+      <Filter>Archivos de encabezado\Core\ECS\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="IGpuImageSampler.h">
+      <Filter>Archivos de encabezado\Core\Graphics\LowLevel\Resources\Image\Sampler</Filter>
+    </ClInclude>
+    <ClInclude Include="GpuImageSamplerVk.h">
+      <Filter>Archivos de encabezado\Core\Graphics\LowLevel\Resources\Image\Sampler</Filter>
+    </ClInclude>
+    <ClInclude Include="SdfBindlessBatch2D.h">
+      <Filter>Archivos de encabezado\Core\Graphics\HighLevel\2D\SDF\Bindless</Filter>
+    </ClInclude>
+    <ClInclude Include="SdfBindlessBufferContent2D.h">
+      <Filter>Archivos de encabezado\Core\Graphics\HighLevel\2D\SDF\Bindless</Filter>
+    </ClInclude>
+    <ClInclude Include="SdfBindlessRenderer2D.h">
+      <Filter>Archivos de encabezado\Core\Graphics\HighLevel\2D\SDF\Bindless</Filter>
+    </ClInclude>
+    <ClInclude Include="SdfGlobalInformationBufferContent2D.h">
+      <Filter>Archivos de encabezado\Core\Graphics\HighLevel\2D\SDF\Bindless</Filter>
+    </ClInclude>
+    <ClInclude Include="ISdfRenderer2D.h">
+      <Filter>Archivos de encabezado\Core\Graphics\HighLevel\2D\SDF</Filter>
+    </ClInclude>
+    <ClInclude Include="Game.h">
+      <Filter>Archivos de encabezado\Core\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="IDebugGame.h">
+      <Filter>Archivos de encabezado\Core\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="DefaultElementsProfiles.h">
+      <Filter>Archivos de encabezado\Core\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="IMeshPipeline.h">
+      <Filter>Archivos de encabezado\Core\Graphics\LowLevel\Pipeline\Mesh</Filter>
+    </ClInclude>
+    <ClInclude Include="MeshPipelineVk.h">
+      <Filter>Archivos de encabezado\Core\Graphics\LowLevel\Pipeline\Mesh</Filter>
+    </ClInclude>
+    <ClInclude Include="SpirvReflectionData.h">
+      <Filter>Archivos de encabezado\Core\Graphics\LowLevel\Material</Filter>
+    </ClInclude>
+    <ClInclude Include="MaterialLayoutBuilder.h">
+      <Filter>Archivos de encabezado\Core\Graphics\LowLevel\Material</Filter>
+    </ClInclude>
+    <ClInclude Include="MaterialLoaderV1.h">
+      <Filter>Archivos de encabezado\Core\Graphics\HighLevel\Material\Loaders</Filter>
+    </ClInclude>
+    <ClInclude Include="ShaderReflectionException.h">
+      <Filter>Archivos de encabezado\Core\Graphics\LowLevel\Material</Filter>
+    </ClInclude>
+    <ClInclude Include="GrassRenderPass.h">
+      <Filter>Archivos de encabezado\BuiltIn\GRAPHICS\Renderpasses</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -2794,5 +2953,8 @@
       <Filter>Doc</Filter>
     </None>
     <None Include="cpp.hint" />
+    <None Include="profiles_dependencies.dox">
+      <Filter>Doc</Filter>
+    </None>
   </ItemGroup>
 </Project>

@@ -40,7 +40,7 @@ namespace OSK::COLLISION {
 
 	private:
 
-		float radius = 1;
+		float m_radius = 1.0f;
 
 	};
 

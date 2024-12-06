@@ -1,5 +1,8 @@
 #include "ComputePipelineVk.h"
 
+#include "Platforms.h"
+#ifdef OSK_USE_VULKAN_BACKEND
+
 #include "PipelineLayoutVk.h"
 #include "MaterialLayout.h"
 #include "OSKengine.h"
@@ -26,3 +29,5 @@ void ComputePipelineVk::Create(const MaterialLayout& materialLayout, const Pipel
 	VkResult result = vkCreateComputePipelines(logicalDevice, VK_NULL_HANDLE, 1, &createInfo, nullptr, &pipeline);
 	OSK_ASSERT(result == VK_SUCCESS, PipelineCreationException(result));
 }
+
+#endif

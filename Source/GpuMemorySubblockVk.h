@@ -1,5 +1,8 @@
 #pragma once
 
+#include "Platforms.h"
+#ifdef OSK_USE_VULKAN_BACKEND
+
 #include "IGpuMemorySubblock.h"
 
 namespace OSK::GRAPHICS {
@@ -19,3 +22,5 @@ namespace OSK::GRAPHICS {
 	};
 
 }
+
+#endif

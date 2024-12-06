@@ -86,8 +86,8 @@ void IShaderPass::SetupMaterialInstance(const GpuModel3D& model, const GpuMesh3D
 
 	const auto* materialBuffer = meshData.GetMaterialBuffer();
 
-	mInstance->GetSlot("texture")->SetGpuImage("albedoTexture", *colorTexture);
-	mInstance->GetSlot("texture")->SetGpuImage("normalTexture", *normalTexture);
+	mInstance->GetSlot("texture")->SetGpuImage("albedoTexture", *colorTexture, GpuImageSamplerDesc::CreateDefault_WithMipMap(colorTexture->GetImage()));
+	mInstance->GetSlot("texture")->SetGpuImage("normalTexture", *normalTexture, GpuImageSamplerDesc::CreateDefault_WithMipMap(normalTexture->GetImage()));
 	mInstance->GetSlot("texture")->SetUniformBuffer("materialInfo", *materialBuffer);
 	mInstance->GetSlot("texture")->FlushUpdate();
 

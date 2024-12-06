@@ -8,7 +8,7 @@
 namespace OSK::GRAPHICS {
 
 	enum class ShaderStage;
-
+	class GpuVk;
 
 	/// @brief Contiene los datos compilados de un shader.
 	struct ShaderStageVk {
@@ -50,6 +50,10 @@ namespace OSK::GRAPHICS {
 		VkCullModeFlagBits GetCullMode(PolygonCullMode mode) const;
 		VkFrontFace GetFrontFaceMode(PolygonFrontFaceType type) const;
 		VkShaderStageFlagBits GetShaderStageVk(ShaderStage stage) const;
+		VkPipelineRasterizationStateCreateInfo GetResterizerInfo(const PipelineCreateInfo& info) const;
+		VkPipelineDepthStencilStateCreateInfo GetDepthInfo(const PipelineCreateInfo& info) const;
+		VkPipelineMultisampleStateCreateInfo GetMsaaInfo(const PipelineCreateInfo& info, const GpuVk& gpu) const;
+		VkPipelineTessellationStateCreateInfo GetTesselationInfo(const PipelineCreateInfo& info) const;
 
 		ShaderStageVk LoadShader(const std::string& path, ShaderStage stage);
 

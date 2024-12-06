@@ -4,7 +4,7 @@
 
     "name": "Sphere",
     "asset_type": "Model3D",
-    "raw_asset_path": "Resources/RawAssets/Models/Colliders/sphere.glb",
+    "raw_asset_path": "Resources/Assets/Models/Colliders/sphere.glb",
     
     "scale": 1.0,
 

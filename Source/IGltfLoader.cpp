@@ -442,9 +442,9 @@ DynamicArray<CpuMesh3D> GltfLoader::ProcessNode(const tinygltf::Model& model, co
 				const auto& nativeColor = model.materials[primitive.material].pbrMetallicRoughness.baseColorFactor;
 
 				vertex.color = Color(
-					nativeColor[0],
-					nativeColor[1],
-					nativeColor[2]);
+					static_cast<float>(nativeColor[0]),
+					static_cast<float>(nativeColor[1]),
+					static_cast<float>(nativeColor[2]));
 			}
 
 			if (boneWeights.has_value()) {

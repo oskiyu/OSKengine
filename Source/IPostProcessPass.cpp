@@ -13,7 +13,7 @@ void IPostProcessPass::Create(const Vector2ui& size) {
 	RenderTargetAttachmentInfo info{};
 	info.format = Format::RGBA16_SFLOAT;
 	info.usage = GpuImageUsage::COMPUTE | GpuImageUsage::SAMPLED | GpuImageUsage::TRANSFER_SOURCE;
-	info.sampler = GpuImageSamplerDesc::CreateDefault();
+	info.sampler = GpuImageSamplerDesc::CreateDefault_NoMipMap();
 	m_resolveRenderTarget.Create(size, info);
 }
 

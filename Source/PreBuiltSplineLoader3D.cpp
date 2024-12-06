@@ -10,6 +10,7 @@
 
 #include "OSKengine.h"
 #include "Logger.h"
+#include "Vertex.h"
 
 using namespace OSK;
 using namespace OSK::ASSETS;
@@ -40,9 +41,9 @@ void PreBuiltSplineLoader3D::Load(const std::string& assetFilePath, PreBuiltSpli
 
 		for (const auto& line : mesh.GetLines()) {
 			for (const auto index : line) {
-				if (!visitedIndices.contains(index)) {
+				if (!visitedIndices.contains(static_cast<GRAPHICS::TIndexSize>(index))) {
 					output.AddPoint(vertices[index].position.value());
-					visitedIndices.insert(index);
+					visitedIndices.insert(static_cast<GRAPHICS::TIndexSize>(index));
 				}
 			}
 		}

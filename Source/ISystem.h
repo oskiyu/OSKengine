@@ -63,30 +63,6 @@ namespace OSK::ECS{
 		virtual ~ISystem() = default;
 
 
-		/// @return Estructura JSON con la información relevante
-		/// de la configuración del sistema en un momento dado.
-		virtual nlohmann::json SaveConfiguration() const = 0;
-
-		/// @return Estructura binaria con la información relevante
-		/// de la configuración del sistema en un momento dado.
-		virtual PERSISTENCE::BinaryBlock SaveBinaryConfiguration() const = 0;
-
-		/// @brief Aplica la configuración al sistema.
-		/// @param config Configuración del sistema.
-		/// @param translator Tabla que permite obtener los IDs generados.
-		virtual void ApplyConfiguration(
-			const nlohmann::json& config,
-			const SavedGameObjectTranslator& translator) = 0;
-
-		/// @brief Aplica la configuración al sistema.
-		/// @param reader Lector del bloque binario que contiene
-		/// los datos del sistema.
-		/// @param translator Tabla que permite obtener los IDs generados.
-		virtual void ApplyConfiguration(
-			PERSISTENCE::BinaryBlockReader* reader,
-			const SavedGameObjectTranslator& translator) = 0;
-
-
 		/// @brief Función que se ejecuta al crearse el sistema.
 		virtual void OnCreate();
 
@@ -133,6 +109,38 @@ namespace OSK::ECS{
 
 	};
 
+	/// @brief Interfaz para los sistemas serializables.
+	class OSKAPI_CALL ISerializableSystem {
+
+	public:
+
+		virtual ~ISerializableSystem() = default;
+
+		/// @return Estructura JSON con la información relevante
+		/// de la configuración del sistema en un momento dado.
+		virtual nlohmann::json SaveConfiguration() const = 0;
+
+		/// @return Estructura binaria con la información relevante
+		/// de la configuración del sistema en un momento dado.
+		virtual PERSISTENCE::BinaryBlock SaveBinaryConfiguration() const = 0;
+
+		/// @brief Aplica la configuración al sistema.
+		/// @param config Configuración del sistema.
+		/// @param translator Tabla que permite obtener los IDs generados.
+		virtual void ApplyConfiguration(
+			const nlohmann::json& config,
+			const SavedGameObjectTranslator& translator) = 0;
+
+		/// @brief Aplica la configuración al sistema.
+		/// @param reader Lector del bloque binario que contiene
+		/// los datos del sistema.
+		/// @param translator Tabla que permite obtener los IDs generados.
+		virtual void ApplyConfiguration(
+			PERSISTENCE::BinaryBlockReader* reader,
+			const SavedGameObjectTranslator& translator) = 0;
+
+	};
+
 
 	/// @brief Concepto que nos permite detectar si una clase cumple con las condiciones
 	/// para ser un sistema.
@@ -140,6 +148,10 @@ namespace OSK::ECS{
 	concept IsEcsSystem = requires (TSystem) {
 		{ TSystem::GetSystemName() };
 	};
+
+	/// @brief Concepto para saber si un sistema es serializable.
+	template<typename TSystem>
+	concept IsSerializableSystem = IsEcsSystem<TSystem> && std::is_base_of_v<ISerializableSystem, TSystem>;
 
 }
 

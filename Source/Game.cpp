@@ -20,6 +20,10 @@ using namespace OSK::IO;
 using namespace OSK::ASSETS;
 using namespace OSK::GRAPHICS;
 
+IGame::IGame(GAME::DefaultContentProfile defaultContentProfile) : m_defaultContentProfile(defaultContentProfile) {
+
+}
+
 void IGame::RegisterAssets() {
 	// Sobreescrito en clase Game del juego.
 }
@@ -68,15 +72,15 @@ void IGame::_Run() {
 	Engine::RegisterBuiltinVertices();
 	SetupEngine();
 
-	Engine::RegisterBuiltinAssets();
-	Engine::RegisterBuiltinComponents();
-	Engine::RegisterBuiltinSystems();
+	Engine::RegisterBuiltinAssets(m_defaultContentProfile);
+	Engine::RegisterBuiltinComponents(m_defaultContentProfile);
+	Engine::RegisterBuiltinSystems(m_defaultContentProfile);
 	Engine::RegisterBuiltinEvents();
 	Engine::RegisterBuiltinJobs();
-	Engine::RegisterBuiltinShaderPasses();
+	Engine::RegisterBuiltinShaderPasses(m_defaultContentProfile);
 	Engine::RegisterBuiltinConsoleCommands();
 
-	rootUiElement = new UI::FreeContainer(Engine::GetDisplay()->GetResolution().ToVector2f());
+	m_rootUiElement = new UI::FreeContainer(Engine::GetDisplay()->GetResolution().ToVector2f());
 
 
 	DynamicArray<Vertex2D> vertices2d = {
@@ -114,9 +118,9 @@ void IGame::_Run() {
 		Engine::GetInput()->Update();
 		Engine::GetInputManager()->_Update(*Engine::GetInput());
 
-		OnTick_BeforeEcs(deltaTime);
-		Engine::GetEcs()->OnTick(deltaTime);
-		OnTick_AfterEcs(deltaTime);
+		OnTick_BeforeEcs(m_deltaTime);
+		Engine::GetEcs()->OnTick(m_deltaTime);
+		OnTick_AfterEcs(m_deltaTime);
 
 		Engine::GetEcs()->OnRender(Engine::GetRenderer()->GetMainCommandList());
 
@@ -127,13 +131,13 @@ void IGame::_Run() {
 		Engine::GetRenderer()->PresentFrame();
 
 		HandleResizeEvents();
-		UpdateFps(deltaTime);
+		UpdateFps(m_deltaTime);
 
 		const TDeltaTime endTime = Engine::GetCurrentTime();
-		deltaTime = endTime - startTime;
+		m_deltaTime = endTime - startTime;
 	}
 
-	rootUiElement.Delete();
+	m_rootUiElement.Delete();
 
 	Engine::GetRenderer()->WaitForCompletion();
 
@@ -143,12 +147,12 @@ void IGame::_Run() {
 }
 
 void IGame::UpdateFps(TDeltaTime deltaTime) {
-	framerateCountTimer += deltaTime;
-	frameCount++;
-	if (framerateCountTimer > 1.0f) {
-		currentFps = frameCount;
-		frameCount = 0;
-		framerateCountTimer = 0.0f;
+	m_framerateCountTimer += deltaTime;
+	m_frameCount++;
+	if (m_framerateCountTimer > 1.0f) {
+		m_currentFps = m_frameCount;
+		m_frameCount = 0;
+		m_framerateCountTimer = 0.0f;
 	}
 }
 
@@ -161,23 +165,23 @@ void IGame::OnWindowResize(const Vector2ui& size) {
 }
 
 USize32 IGame::GetFps() const {
-	return currentFps;
+	return m_currentFps;
 }
 
 const UI::IContainer& IGame::GetRootUiElement() const {
-	return *rootUiElement.GetPointer();
+	return *m_rootUiElement.GetPointer();
 }
 
 UI::IContainer& IGame::GetRootUiElement() {
-	return *rootUiElement.GetPointer();
+	return *m_rootUiElement.GetPointer();
 }
 
 void IGame::HandleResizeEvents() {
 	const auto& resizeEvents = Engine::GetEcs()->GetEventQueue<IDisplay::ResolutionChangedEvent>();
 
 	for (const auto& event : resizeEvents) {
-		rootUiElement->SetSize(event.newResolution.ToVector2f());
-		rootUiElement->Rebuild();
+		m_rootUiElement->SetSize(event.newResolution.ToVector2f());
+		m_rootUiElement->Rebuild();
 
 		OnWindowResize(event.newResolution);
 	}

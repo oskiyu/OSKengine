@@ -51,7 +51,7 @@ namespace OSK::UI {
 		std::string_view GetText() const;
 
 		/// @note No renderizará el texto al no ser que se haya establecido la fuente.
-		void Render(GRAPHICS::SdfBindlessRenderer2D* renderer) const override;
+		void Render(GRAPHICS::ISdfRenderer2D* renderer) const override;
 
 	private:
 

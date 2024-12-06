@@ -43,9 +43,9 @@ void OSK::Editor::Views::PhysicsComponentView::SetImmobile() {
 }
 
 void OSK::Editor::Views::PhysicsComponentView::SetVelocity(const Vector3f& velocity) {
-	m_velocityView->SetText(std::format("Velocidad: {:.1f} {:.1f} {:.1f} m/s", velocity.x, velocity.y, velocity.z));
+	m_velocityView->SetText(std::format("Velocidad: X: {:.1f} Y: {:.1f} Z: {:.1f} m/s", velocity.x, velocity.y, velocity.z));
 }
 
 void OSK::Editor::Views::PhysicsComponentView::SetAcceleration(const Vector3f& acceleration) {
-	m_accelerationView->SetText(std::format("Acceleration: {:.1f} {:.1f} {:.1f} m/s", acceleration.x, acceleration.y, acceleration.z));
+	m_accelerationView->SetText(std::format("Acceleration: X: {:.1f} Y: {:.1f} Z: {:.1f} m/s", acceleration.x, acceleration.y, acceleration.z));
 }

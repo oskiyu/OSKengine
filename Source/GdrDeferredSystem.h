@@ -1,7 +1,5 @@
 #pragma once
 
-#include "RenderSystem3D.h"
-
 #include "DeferredRenderSystem.h"
 
 #include "GpuBuffer.h"
@@ -111,7 +109,7 @@ namespace OSK::ECS {
 
 		// Textures & descriptor sets
 
-		GRAPHICS::Material* m_gdrMaterial;
+		GRAPHICS::Material* m_gdrMaterial = nullptr;
 		/// @todo Crear
 		UniquePtr<GRAPHICS::MaterialInstance> m_gdrMaterialInstance{};
 

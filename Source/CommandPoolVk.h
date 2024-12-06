@@ -1,5 +1,8 @@
 #pragma once
 
+#include "Platforms.h"
+#ifdef OSK_USE_VULKAN_BACKEND
+
 #include "ICommandPool.h"
 #include "NumericTypes.h"
 #include "VulkanTypedefs.h"
@@ -47,3 +50,5 @@ namespace OSK::GRAPHICS {
 	};
 
 }
+
+#endif

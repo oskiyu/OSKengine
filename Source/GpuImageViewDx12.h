@@ -1,5 +1,8 @@
 #pragma once
 
+#include "Platforms.h"
+#ifdef OSK_USE_DIRECTX12_BACKEND
+
 #include "IGpuImageView.h"
 #include "DescriptorDx12.h"
 
@@ -24,3 +27,5 @@ namespace OSK::GRAPHICS {
 	};
 
 }
+
+#endif

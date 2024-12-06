@@ -25,7 +25,7 @@ void TaaProvider::InitializeTaa(const Vector2ui& resolution, const GpuImage* sce
 	RenderTargetAttachmentInfo taaAttachment{};
 	taaAttachment.format = Format::RGBA16_SFLOAT;
 	taaAttachment.name = "TAA Image";
-	taaAttachment.sampler = GpuImageSamplerDesc::CreateDefault();
+	taaAttachment.sampler = GpuImageSamplerDesc::CreateDefault_NoMipMap();
 	taaAttachment.usage = GpuImageUsage::TRANSFER_SOURCE | GpuImageUsage::TRANSFER_DESTINATION;
 
 	m_taaHistoricalImage.Create(resolution, taaAttachment);
@@ -69,9 +69,9 @@ void TaaProvider::SetupTaaMaterials(const GpuImage* sceneImage, const GpuImage* 
 	const auto& targetView		= *m_taaRenderTarget.GetTargetImage()->GetView(storageViewConfig);
 
 	IMaterialSlot* const taaGlobalSlot = m_taaMaterialInstance->GetSlot(GlobalSlotName);
-	taaGlobalSlot->SetGpuImage(TaaInputImageBindingName, sceneView);
-	taaGlobalSlot->SetGpuImage(TaaHistoricalImageBindingName, historicalView);
-	taaGlobalSlot->SetGpuImage(TaaMotionImageBindingName, motionView);
+	taaGlobalSlot->SetGpuImage(TaaInputImageBindingName, sceneView, GpuImageSamplerDesc::CreateDefault_NoMipMap());
+	taaGlobalSlot->SetGpuImage(TaaHistoricalImageBindingName, historicalView, GpuImageSamplerDesc::CreateDefault_NoMipMap());
+	taaGlobalSlot->SetGpuImage(TaaMotionImageBindingName, motionView, GpuImageSamplerDesc::CreateDefault_NoMipMap());
 	taaGlobalSlot->SetStorageImage(TaaOutputImageBindingName, targetView);
 	taaGlobalSlot->FlushUpdate();
 
@@ -80,7 +80,7 @@ void TaaProvider::SetupTaaMaterials(const GpuImage* sceneImage, const GpuImage* 
 	const IGpuImageView& sharpenOutputview = *m_taaSharpenedRenderTarget.GetTargetImage()->GetView(storageViewConfig);
 
 	IMaterialSlot* const sharpeningGlobalSlot = m_taaSharpenMaterialInstance->GetSlot(GlobalSlotName);
-	sharpeningGlobalSlot->SetGpuImage(SharpeningInputImageBindingName, sharpenInputview);
+	sharpeningGlobalSlot->SetGpuImage(SharpeningInputImageBindingName, sharpenInputview, GpuImageSamplerDesc::CreateDefault_NoMipMap());
 	sharpeningGlobalSlot->SetStorageImage(SharpeningOutputImageBindingName, sharpenOutputview);
 	sharpeningGlobalSlot->FlushUpdate();
 }

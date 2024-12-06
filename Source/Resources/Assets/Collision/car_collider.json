@@ -4,7 +4,7 @@
 
     "name": "Car Collider",
     "asset_type": "collider",
-    "raw_asset_path": "Resources/RawAssets/Collision/car_collider.glb",
+    "raw_asset_path": "Resources/Assets/Collision/car_collider.glb",
     
     "scale": 0.15,
     "rotation_offset": [0, 0, 0]

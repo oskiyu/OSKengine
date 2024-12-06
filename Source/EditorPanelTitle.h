@@ -17,9 +17,6 @@ namespace OSK::Editor::UI {
 
 		explicit EditorPanelTitle(const OSK::Vector2f& size);
 
-		void SetFont(OSK::ASSETS::AssetRef<OSK::ASSETS::Font> font);
-		void SetFontSize(USize64 fontSize);
-
 		void SetText(const std::string& text);
 
 	private:

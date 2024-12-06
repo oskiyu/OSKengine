@@ -1,7 +1,6 @@
 #pragma once
 
 #include "ApiCall.h"
-#include "LinkedList.hpp"
 #include "UniquePtr.hpp"
 #include "HashMap.hpp"
 #include "OwnedPtr.h"
@@ -18,7 +17,7 @@
 #include "SdfDrawCall2D.h"
 
 namespace OSK::GRAPHICS {
-	class SdfBindlessRenderer2D;
+	class ISdfRenderer2D;
 }
 
 namespace OSK::IO {
@@ -48,7 +47,7 @@ namespace OSK::UI {
 
 		/// @brief Renderiza el elemento.
 		/// @param renderer Renderizador de 2D.
-		virtual void Render(GRAPHICS::SdfBindlessRenderer2D* renderer) const;
+		virtual void Render(GRAPHICS::ISdfRenderer2D* renderer) const;
 
 		/// @brief Actualiza el estado o cualquier otra característica del
 		/// elemento de acuerdo a la posición del cursor (ratón).

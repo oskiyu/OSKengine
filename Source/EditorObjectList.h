@@ -3,6 +3,8 @@
 #include "UiVerticalContainer.h"
 #include "UiButton.h"
 
+#include "ISystemView.h"
+#include "IComponentView.h"
 #include "GameObject.h"
 
 namespace OSK::Editor {
@@ -40,17 +42,23 @@ namespace OSK::Editor::UI {
 		/// ser válidos.
 		void SetObjects(std::span<const OSK::ECS::GameObjectIndex> objects);
 
-		void SetFont(OSK::ASSETS::AssetRef<OSK::ASSETS::Font> font);
-		void SetFontSize(USize64 fontSize);
 
 		/// @brief Limpia la selección actual,
 		/// haciendo que ningún objeto siga
 		/// seleccionado.
 		void ClearSelection();
 
-		/// @return Panel de propiedades de un objeto
-		/// en concreto.
-		ObjectPropertiesPanel* GetPropertiesPanel();
+
+		/// @brief Elimina todas las vistas de los
+		/// componentes de un objeto ECS, localizadas
+		/// en el panel de propiedades del objeto.
+		void ClearAllComponentViews();
+
+		/// @brief Añade la vista de un componente al 
+		/// panel de propiedades del objeto.
+		/// @param view Nueva vista.
+		void AddComponentView(OwnedPtr<OSK::Editor::Views::IComponentView> view);
+
 
 		/// @return Objeto actualmente seleccionado.
 		/// Puede devolver un objeto vacío.
@@ -76,7 +84,7 @@ namespace OSK::Editor::UI {
 		EditorPanelTitle* m_title = nullptr;
 		ObjectPropertiesPanel* m_propertiesPanel = nullptr;
 
-		OSK::Editor::Editor* m_editorRef;
+		OSK::Editor::Editor* m_editorRef = nullptr;
 
 	};
 

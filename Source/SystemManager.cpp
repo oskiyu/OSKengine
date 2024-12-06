@@ -152,7 +152,7 @@ void SystemManager::LaunchJobs(ISystem* system, TDeltaTime deltaTime, const Even
 				break;
 			}
 
-			const USize32 numElements = glm::min<USize32>(compatibleObjects.size() - i, workgroupSize);
+			const USize64 numElements = glm::min<USize64>(compatibleObjects.size() - i, workgroupSize);
 
 			Engine::GetJobSystem()->ScheduleJob(
 				new IteratorSystemExecutionJob(
@@ -175,7 +175,7 @@ void SystemManager::LaunchJobs(ISystem* system, TDeltaTime deltaTime, const Even
 				break;
 			}
 
-			const USize32 numElements = glm::min<USize32>(events.numEntries - i, workgroupSize);
+			const USize64 numElements = glm::min<USize64>(events.numEntries - i, workgroupSize);
 
 			Engine::GetJobSystem()->ScheduleJob(
 				new ConsumerSystemExecutionJob(

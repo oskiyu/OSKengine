@@ -75,6 +75,8 @@
     <ClCompile Include="Clipping.cpp" />
     <ClCompile Include="Collider.cpp" />
     <ClCompile Include="ColliderRenderer.cpp" />
+    <ClCompile Include="ColliderRenderSystemController.cpp" />
+    <ClCompile Include="ColliderRenderSystemView.cpp" />
     <ClCompile Include="CollisionComponent.cpp" />
     <ClCompile Include="CollisionInfo.cpp" />
     <ClCompile Include="CollisionSystem.cpp" />
@@ -85,11 +87,13 @@
     <ClCompile Include="ConvexVolume.cpp" />
     <ClCompile Include="CopyImageInfo.cpp" />
     <ClCompile Include="CpuModel3D.cpp" />
+    <ClCompile Include="D:\Dev\SPIRVReflect\spirv_reflect.c" />
+    <ClCompile Include="DeferredRenderSystemView.cpp" />
+    <ClCompile Include="DeferredRenderSytemController.cpp" />
     <ClCompile Include="DescriptorDx12.cpp" />
     <ClCompile Include="DetailedCollisionInfo.cpp" />
     <ClCompile Include="Editor.cpp" />
     <ClCompile Include="EditorBottomBar.cpp" />
-    <ClCompile Include="EditorBottomBar.ixx" />
     <ClCompile Include="EditorCommands.cpp" />
     <ClCompile Include="EditorHeader.cpp" />
     <ClCompile Include="EditorObjectPropertiesPanel.cpp" />
@@ -97,7 +101,6 @@
     <ClCompile Include="EditorSystemList.cpp" />
     <ClCompile Include="EditorSystemPropertiesPanel.cpp" />
     <ClCompile Include="EditorUi.cpp" />
-    <ClCompile Include="EditorUi.ixx" />
     <ClCompile Include="ConsoleCommand.cpp" />
     <ClCompile Include="ExitCommand.cpp" />
     <ClCompile Include="FaceProjection.cpp" />
@@ -106,9 +109,13 @@
     <ClCompile Include="GdrDeferredRenderSystem.cpp" />
     <ClCompile Include="Gjk.cpp" />
     <ClCompile Include="GpuImageCreateInfo.cpp" />
+    <ClCompile Include="GpuImageSampler.cpp" />
+    <ClCompile Include="GpuImageSamplerDesc.cpp" />
+    <ClCompile Include="GpuImageSamplerVk.cpp" />
     <ClCompile Include="GpuMesh3D.cpp" />
     <ClCompile Include="GpuModel3D.cpp" />
     <ClCompile Include="GpuStatsCommand.cpp" />
+    <ClCompile Include="GrassRenderPass.cpp" />
     <ClCompile Include="HbaoPass.cpp" />
     <ClCompile Include="IAudioApi.cpp" />
     <ClCompile Include="IAudioDevice.cpp" />
@@ -123,14 +130,21 @@
     <ClCompile Include="IDebugGame.cpp" />
     <ClCompile Include="IGpu.cpp" />
     <ClCompile Include="IJob.cpp" />
+    <ClCompile Include="IMeshPipeline.cpp" />
+    <ClCompile Include="ISdfRenderer2D.cpp" />
     <ClCompile Include="IShaderPass.cpp" />
+    <ClCompile Include="ISystemController.cpp" />
+    <ClCompile Include="ISystemView.cpp" />
     <ClCompile Include="IteratorSystemExecutionJob.cpp" />
     <ClCompile Include="JobCountMap.cpp" />
     <ClCompile Include="JobQueue.cpp" />
     <ClCompile Include="JobSystem.cpp" />
     <ClCompile Include="Lights.cpp" />
+    <ClCompile Include="MaterialLayoutBuilder.cpp" />
+    <ClCompile Include="MaterialLoaderV1.cpp" />
     <ClCompile Include="MeshMapping.cpp" />
     <ClCompile Include="EditorObjectList.cpp" />
+    <ClCompile Include="MeshPipelineVk.cpp" />
     <ClCompile Include="ModelComponentController3D.cpp" />
     <ClCompile Include="ModelComponentView3D.cpp" />
     <ClCompile Include="PbrIblConfig.h" />
@@ -141,6 +155,8 @@
     <ClCompile Include="MinkowskiHull.h" />
     <ClCompile Include="PhysicsComponentController3D.cpp" />
     <ClCompile Include="PhysicsComponentView.cpp" />
+    <ClCompile Include="PhysicsSystemController.cpp" />
+    <ClCompile Include="PhysicsSystemView.cpp" />
     <ClCompile Include="PreBuiltCollider.cpp" />
     <ClCompile Include="PreBuiltColliderLoader.cpp" />
     <ClCompile Include="PreBuiltSpline3D.cpp" />
@@ -148,6 +164,8 @@
     <ClCompile Include="EditorPropertiesPanel.cpp" />
     <ClCompile Include="Ray.cpp" />
     <ClCompile Include="RenderBoundsRenderer.cpp" />
+    <ClCompile Include="RenderBoundsRenderSystemController.cpp" />
+    <ClCompile Include="RenderBoundsRenderSystemView.cpp" />
     <ClCompile Include="ResourceQueueTransfer.cpp" />
     <ClCompile Include="Sat.cpp" />
     <ClCompile Include="SavedGameObjectTranslator.cpp" />
@@ -156,6 +174,9 @@
     <ClCompile Include="ShaderPassFactory.cpp" />
     <ClCompile Include="ShadowsStaticPass.cpp" />
     <ClCompile Include="Simplex.cpp" />
+    <ClCompile Include="SkyboxRenderSystemController.cpp" />
+    <ClCompile Include="SkyboxRenderSystemView.cpp" />
+    <ClCompile Include="SpirvReflectionData.cpp" />
     <ClCompile Include="Spline3D.cpp" />
     <ClCompile Include="StaticGBufferPass.cpp" />
     <ClCompile Include="StopWatch.cpp" />
@@ -286,7 +307,6 @@
     <ClCompile Include="RendererDx12.cpp" />
     <ClCompile Include="RendererVk.cpp" />
     <ClCompile Include="RenderSystem2D.cpp" />
-    <ClCompile Include="RenderSystem3D.cpp" />
     <ClCompile Include="RenderTarget.cpp" />
     <ClCompile Include="RenderTargetAttachment.cpp" />
     <ClCompile Include="RtAccelerationStructureFlags.cpp" />
@@ -309,8 +329,6 @@
     <ClCompile Include="SwapchainVk.cpp" />
     <ClCompile Include="ISystem.cpp" />
     <ClCompile Include="SystemManager.cpp" />
-    <ClCompile Include="TerrainComponent.cpp" />
-    <ClCompile Include="TerrainRenderSystem.cpp" />
     <ClCompile Include="Texture.cpp" />
     <ClCompile Include="TextureCoordinates.cpp" />
     <ClCompile Include="TextureLoader.cpp" />
@@ -378,6 +396,8 @@
     <ClInclude Include="Clipping.h" />
     <ClInclude Include="Collider.h" />
     <ClInclude Include="ColliderRenderer.h" />
+    <ClInclude Include="ColliderRenderSystemController.h" />
+    <ClInclude Include="ColliderRenderSystemView.h" />
     <ClInclude Include="CollisionComponent.h" />
     <ClInclude Include="CollisionEvent.h" />
     <ClInclude Include="CollisionInfo.h" />
@@ -405,20 +425,38 @@
     <ClInclude Include="CubemapTexture.h" />
     <ClInclude Include="CubemapTextureLoader.h" />
     <ClInclude Include="CopyImageInfo.h" />
+    <ClInclude Include="DefaultElementsProfiles.h" />
+    <ClInclude Include="DeferredRenderSystemController.h" />
+    <ClInclude Include="DeferredRenderSystemView.h" />
     <ClInclude Include="DefineAs.h" />
     <ClInclude Include="DefineConstructors.h" />
     <ClInclude Include="DefineIuuid.h" />
     <ClInclude Include="Editor.h" />
     <ClInclude Include="EditorSystemPropertiesPanel.h" />
+    <ClInclude Include="GpuImageSamplerVk.h" />
     <ClInclude Include="GpuMemoryAlignments.h" />
+    <ClInclude Include="GrassRenderPass.h" />
     <ClInclude Include="IComponentController.h" />
     <ClInclude Include="IComponentView.h" />
+    <ClInclude Include="IGpuImageSampler.h" />
+    <ClInclude Include="IMeshPipeline.h" />
+    <ClInclude Include="ISdfRenderer2D.h" />
+    <ClInclude Include="ISystemController.h" />
+    <ClInclude Include="ISystemView.h" />
+    <ClInclude Include="MaterialLayoutBuilder.h" />
+    <ClInclude Include="MaterialLoaderV1.h" />
+    <ClInclude Include="MeshPipelineVk.h" />
     <ClInclude Include="ModelComponentController3D.h" />
     <ClInclude Include="ModelComponentView3D.h" />
     <ClInclude Include="EditorObjectPropertiesPanel.h" />
     <ClInclude Include="PhysicsComponentController3D.h" />
     <ClInclude Include="PhysicsComponentView.h" />
+    <ClInclude Include="PhysicsSystemController.h" />
+    <ClInclude Include="PhysicsSystemView.h" />
+    <ClInclude Include="Platforms.h" />
     <ClInclude Include="PostProcessExceptions.h" />
+    <ClInclude Include="RenderBoundsRenderSystemController.h" />
+    <ClInclude Include="RenderBoundsRenderSystemView.h" />
     <ClInclude Include="SdfBindlessBatch2D.h" />
     <ClInclude Include="SdfBindlessBufferContent2D.h" />
     <ClInclude Include="SdfDrawCall2D.h" />
@@ -533,6 +571,7 @@
     <ClInclude Include="SdfBindlessRenderer2D.h" />
     <ClInclude Include="SdfShape2D.h" />
     <ClInclude Include="SdfStringInfo.h" />
+    <ClInclude Include="SerializableComponent.h" />
     <ClInclude Include="Serializer.h" />
     <ClInclude Include="ITopLevelCollider.h" />
     <ClInclude Include="IUiContainer.h" />
@@ -614,9 +653,13 @@
     <ClInclude Include="RawAssetFileNotFoundException.h" />
     <ClInclude Include="SchemaId.h" />
     <ClInclude Include="ShaderPassFactory.h" />
+    <ClInclude Include="ShaderReflectionException.h" />
     <ClInclude Include="ShadowsStaticPass.h" />
     <ClInclude Include="Simplex.h" />
+    <ClInclude Include="SkyboxRenderSystemController.h" />
+    <ClInclude Include="SkyboxRenderSystemView.h" />
     <ClInclude Include="Span.h" />
+    <ClInclude Include="SpirvReflectionData.h" />
     <ClInclude Include="Spline3D.h" />
     <ClInclude Include="SpriteBatch.h" />
     <ClInclude Include="StaticArray.hpp" />
@@ -648,7 +691,6 @@
     <ClInclude Include="IRenderer.h" />
     <ClInclude Include="ISwapchain.h" />
     <ClInclude Include="KeyboardState.h" />
-    <ClInclude Include="LinkedList.hpp" />
     <ClInclude Include="Logger.h" />
     <ClInclude Include="MouseState.h" />
     <ClInclude Include="OSKengine.h" />
@@ -667,7 +709,6 @@
     <ClInclude Include="RendererVk.h" />
     <ClInclude Include="RenderpassType.h" />
     <ClInclude Include="RenderSystem2D.h" />
-    <ClInclude Include="RenderSystem3D.h" />
     <ClInclude Include="RenderTarget.h" />
     <ClInclude Include="RenderTargetAttachment.h" />
     <ClInclude Include="RenderTargetAttachmentInfo.h" />
@@ -695,8 +736,6 @@
     <ClInclude Include="SwapchainVk.h" />
     <ClInclude Include="ISystem.h" />
     <ClInclude Include="SystemManager.h" />
-    <ClInclude Include="TerrainComponent.h" />
-    <ClInclude Include="TerrainRenderSystem.h" />
     <ClInclude Include="Texture.h" />
     <ClInclude Include="TextureCoordinates.h" />
     <ClInclude Include="TextureLoader.h" />
@@ -725,6 +764,7 @@
     <ClInclude Include="UiVerticalContainer.h" />
     <ClInclude Include="UniquePtr.hpp" />
     <ClInclude Include="Units.hpp" />
+    <ClInclude Include="UnreachableException.h" />
     <ClInclude Include="Uuid.h" />
     <ClInclude Include="Vector2.hpp" />
     <ClInclude Include="Vector3.hpp" />
@@ -759,6 +799,7 @@
     <None Include="cpp.hint" />
     <None Include="Doc\json files.dox" />
     <None Include="Doc\mainpage.dox" />
+    <None Include="profiles_dependencies.dox" />
     <None Include="vcpkg.json" />
     <None Include="VersionHistory.md" />
   </ItemGroup>
@@ -929,51 +970,57 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>..\External\OSKengine\tiny_gltf;..\External\OSKengine\stbi_image;..\External\OSKengine\json;$(VULKAN_SDK)\Include;..\External\OSKengine\OpenAL\include;$(IncludePath)</IncludePath>
+    <IncludePath>..\External\OSKengine\tiny_gltf;..\External\OSKengine\stbi_image;..\External\OSKengine\json;$(VULKAN_SDK)\Include;..\External\OSKengine\OpenAL\include;$(SPIRVREFLECT_PATH);$(IncludePath)</IncludePath>
     <LibraryPath>$(VULKAN_SDK)\Lib;$(LibraryPath)</LibraryPath>
     <RunCodeAnalysis>false</RunCodeAnalysis>
     <EnableClangTidyCodeAnalysis>false</EnableClangTidyCodeAnalysis>
     <OutDir>$(ProjectDir)</OutDir>
+    <SourcePath>$(SPIRVREFLECT_PATH);$(SourcePath)</SourcePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
-    <IncludePath>..\External\OSKengine\tiny_gltf;..\External\OSKengine\stbi_image;..\External\OSKengine\json;$(VULKAN_SDK)\Include;..\External\OSKengine\OpenAL\include;$(IncludePath)</IncludePath>
+    <IncludePath>..\External\OSKengine\tiny_gltf;..\External\OSKengine\stbi_image;..\External\OSKengine\json;$(VULKAN_SDK)\Include;..\External\OSKengine\OpenAL\include;$(SPIRVREFLECT_PATH);$(IncludePath)</IncludePath>
     <LibraryPath>$(VULKAN_SDK)\Lib;$(LibraryPath)</LibraryPath>
     <RunCodeAnalysis>false</RunCodeAnalysis>
     <EnableClangTidyCodeAnalysis>false</EnableClangTidyCodeAnalysis>
     <OutDir>$(ProjectDir)</OutDir>
+    <SourcePath>$(SPIRVREFLECT_PATH);$(SourcePath)</SourcePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DLL Release|x64'">
     <LinkIncremental>false</LinkIncremental>
-    <IncludePath>..\External\OSKengine\tiny_gltf;..\External\OSKengine\stbi_image;..\External\OSKengine\json;$(VULKAN_SDK)\Include;..\External\OSKengine\OpenAL\include;$(IncludePath)</IncludePath>
+    <IncludePath>..\External\OSKengine\tiny_gltf;..\External\OSKengine\stbi_image;..\External\OSKengine\json;$(VULKAN_SDK)\Include;..\External\OSKengine\OpenAL\include;$(SPIRVREFLECT_PATH);$(IncludePath)</IncludePath>
     <LibraryPath>$(VULKAN_SDK)\Lib;$(LibraryPath)</LibraryPath>
     <OutDir>$(SolutionDir)Bin\Release\</OutDir>
     <RunCodeAnalysis>false</RunCodeAnalysis>
     <EnableClangTidyCodeAnalysis>false</EnableClangTidyCodeAnalysis>
+    <SourcePath>$(SPIRVREFLECT_PATH);$(SourcePath)</SourcePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DLL Lib|x64'">
     <LinkIncremental>false</LinkIncremental>
-    <IncludePath>..\External\OSKengine\tiny_gltf;..\External\OSKengine\stbi_image;..\External\OSKengine\json;$(VULKAN_SDK)\Include;..\External\OSKengine\OpenAL\include;$(IncludePath)</IncludePath>
+    <IncludePath>..\External\OSKengine\tiny_gltf;..\External\OSKengine\stbi_image;..\External\OSKengine\json;$(VULKAN_SDK)\Include;..\External\OSKengine\OpenAL\include;$(SPIRVREFLECT_PATH);$(IncludePath)</IncludePath>
     <LibraryPath>$(VULKAN_SDK)\Lib;$(LibraryPath)</LibraryPath>
     <OutDir>$(SolutionDir)Frameworks\OSKengine\Lib\Release\</OutDir>
     <RunCodeAnalysis>false</RunCodeAnalysis>
     <EnableClangTidyCodeAnalysis>false</EnableClangTidyCodeAnalysis>
+    <SourcePath>$(SPIRVREFLECT_PATH);$(SourcePath)</SourcePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseValidationLayers|x64'">
     <LinkIncremental>false</LinkIncremental>
-    <IncludePath>..\External\OSKengine\tiny_gltf;..\External\OSKengine\stbi_image;..\External\OSKengine\json;$(VULKAN_SDK)\Include;..\External\OSKengine\OpenAL\include;$(IncludePath)</IncludePath>
+    <IncludePath>..\External\OSKengine\tiny_gltf;..\External\OSKengine\stbi_image;..\External\OSKengine\json;$(VULKAN_SDK)\Include;..\External\OSKengine\OpenAL\include;$(SPIRVREFLECT_PATH);$(IncludePath)</IncludePath>
     <LibraryPath>$(VULKAN_SDK)\Lib;$(LibraryPath)</LibraryPath>
     <RunCodeAnalysis>false</RunCodeAnalysis>
     <EnableClangTidyCodeAnalysis>false</EnableClangTidyCodeAnalysis>
     <AllProjectIncludesArePublic>false</AllProjectIncludesArePublic>
+    <SourcePath>$(SPIRVREFLECT_PATH);$(SourcePath)</SourcePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DLL RVL|x64'">
     <LinkIncremental>false</LinkIncremental>
-    <IncludePath>..\External\OSKengine\tiny_gltf;..\External\OSKengine\stbi_image;..\External\OSKengine\json;$(VULKAN_SDK)\Include;..\External\OSKengine\OpenAL\include;$(IncludePath)</IncludePath>
+    <IncludePath>..\External\OSKengine\tiny_gltf;..\External\OSKengine\stbi_image;..\External\OSKengine\json;$(VULKAN_SDK)\Include;..\External\OSKengine\OpenAL\include;$(SPIRVREFLECT_PATH);$(IncludePath)</IncludePath>
     <LibraryPath>$(VULKAN_SDK)\Lib;$(LibraryPath)</LibraryPath>
     <OutDir>$(SolutionDir)Bin\Debug\</OutDir>
     <RunCodeAnalysis>false</RunCodeAnalysis>
     <EnableClangTidyCodeAnalysis>false</EnableClangTidyCodeAnalysis>
+    <SourcePath>$(SPIRVREFLECT_PATH);$(SourcePath)</SourcePath>
   </PropertyGroup>
   <PropertyGroup Label="Vcpkg">
     <VcpkgEnableManifest>true</VcpkgEnableManifest>
@@ -1148,7 +1195,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>OSK_DEVELOPMENT;NDEBUG;OSK_RELEASE;_CONSOLE;%(PreprocessorDefinitions);NOMINMAX</PreprocessorDefinitions>
+      <PreprocessorDefinitions>OSK_WINDOWS;OSK_DEVELOPMENT;NDEBUG;OSK_RELEASE;_CONSOLE;%(PreprocessorDefinitions);NOMINMAX</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpplatest</LanguageStandard>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
@@ -1179,7 +1226,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>OSK_DLL_EXPORT;NDEBUG;OSK_RELEASE;_CONSOLE;%(PreprocessorDefinitions);NOMINMAX</PreprocessorDefinitions>
+      <PreprocessorDefinitions>OSK_WINDOWS;OSK_DLL_EXPORT;NDEBUG;OSK_RELEASE;_CONSOLE;%(PreprocessorDefinitions);NOMINMAX</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpplatest</LanguageStandard>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
@@ -1240,7 +1287,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>false</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>OSK_DEVELOPMENT;NDEBUG;OSK_DEBUG;_CONSOLE;%(PreprocessorDefinitions);NOMINMAX</PreprocessorDefinitions>
+      <PreprocessorDefinitions>OSK_WINDOWS;OSK_DEVELOPMENT;NDEBUG;OSK_DEBUG;_CONSOLE;%(PreprocessorDefinitions);NOMINMAX</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpplatest</LanguageStandard>
       <Optimization>Disabled</Optimization>
@@ -1272,7 +1319,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>false</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>OSK_DLL_EXPORT;NDEBUG;OSK_DEBUG;_CONSOLE;%(PreprocessorDefinitions);NOMINMAX</PreprocessorDefinitions>
+      <PreprocessorDefinitions>OSK_WINDOWS;OSK_DLL_EXPORT;NDEBUG;OSK_DEBUG;_CONSOLE;%(PreprocessorDefinitions);NOMINMAX</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpplatest</LanguageStandard>
       <Optimization>Disabled</Optimization>

@@ -123,19 +123,3 @@ RayCastResult CollisionSystem::CastRay(const Ray& ray, GameObjectIndex sendingOb
 	return closest;
 }
 
-
-nlohmann::json CollisionSystem::SaveConfiguration() const {
-	return nlohmann::json();
-}
-
-PERSISTENCE::BinaryBlock CollisionSystem::SaveBinaryConfiguration() const {
-	return PERSISTENCE::BinaryBlock::Empty();
-}
-
-void CollisionSystem::ApplyConfiguration(const nlohmann::json& config, const SavedGameObjectTranslator& translator) {
-	(void)0;
-}
-
-void CollisionSystem::ApplyConfiguration(PERSISTENCE::BinaryBlockReader* reader, const SavedGameObjectTranslator& translator) {
-	(void)0;
-}

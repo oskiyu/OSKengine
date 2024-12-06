@@ -69,6 +69,12 @@ namespace OSK::UI {
 		Button(const Vector2f size, const std::string& text);
 
 
+		/// @brief Establece el anclaje para el texto
+		/// del botón.
+		/// Por defecto, CENTER.
+		/// @param anchor Nuevo anclaje.
+		void SetTextAnchor(OSK::UI::Anchor anchor);
+
 		void SetSize(Vector2f size) override;
 
 
@@ -79,7 +85,7 @@ namespace OSK::UI {
 		/// Si se renderiza el texto, estará centrado.
 		/// @see TextView.Render() para precondiciones.
 		/// @see ImageView.Render() para precondiciones.
-		void Render(GRAPHICS::SdfBindlessRenderer2D* renderer) const override;
+		void Render(GRAPHICS::ISdfRenderer2D* renderer) const override;
 
 		bool UpdateByCursor(Vector2f cursor, bool isPressed) override;
 

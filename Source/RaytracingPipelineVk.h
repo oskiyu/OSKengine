@@ -1,5 +1,8 @@
 #pragma once
 
+#include "Platforms.h"
+#ifdef OSK_USE_VULKAN_BACKEND
+
 #include "IRaytracingPipeline.h"
 #include "IPipelineVk.h"
 
@@ -25,3 +28,5 @@ namespace OSK::GRAPHICS {
 	};
 
 }
+
+#endif

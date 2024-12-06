@@ -11,6 +11,7 @@
 #include "IGraphicsPipeline.h"
 #include "IRaytracingPipeline.h"
 #include "IComputePipeline.h"
+#include "IMeshPipeline.h"
 
 #include "MaterialType.h"
 
@@ -71,7 +72,7 @@ namespace OSK::GRAPHICS {
 		/// @return Layout del material.
 		const MaterialLayout* GetLayout() const;
 
-		
+
 		/// @brief Obtiene el graphics pipeline para su uso de renderizado
 		/// sobre imágenes con los formatos dados.
 		/// @param properties Formatos de las imágenes de salida.
@@ -84,6 +85,19 @@ namespace OSK::GRAPHICS {
 		/// @throws PipelineCreationException si no se consigue crear el pipeline.
 		/// @throws ShaderCompilingException Si ocurre algún error durante la compilación de los shaders.
 		const IGraphicsPipeline* GetGraphicsPipeline(const PipelineKey& properties) const;
+
+		/// @brief Obtiene el mesh pipeline para su uso de renderizado
+		/// sobre imágenes con los formatos dados.
+		/// @param properties Formatos de las imágenes de salida.
+		/// @return Pipeline.
+		/// 
+		/// @pre El material debe ser un material gráfico.
+		/// 
+		/// @throws FileNotFoundException si no se encuentra los archivo de shader necesarios.
+		/// @throws ShaderLoadingException si no se consigue cargar / compilar los shaders.
+		/// @throws PipelineCreationException si no se consigue crear el pipeline.
+		/// @throws ShaderCompilingException Si ocurre algún error durante la compilación de los shaders.
+		const IMeshPipeline* GetMeshPipeline(const PipelineKey& properties) const;
 
 		/// @brief Obtiene el raytracing pipeline.
 		/// @return Pipeline de trazado de rayos. Será null si el material
@@ -142,6 +156,11 @@ namespace OSK::GRAPHICS {
 		mutable DynamicArray<UniquePtr<GRAPHICS::IGraphicsPipeline>> graphicsPipelines;
 		/// @brief Formatos de los pipelines almacenados.
 		mutable DynamicArray<PipelineKey> graphicsPipelinesKeys;
+
+		/// @brief Mesh pipelines, una por cada combinación de formatos de salida.
+		mutable DynamicArray<UniquePtr<GRAPHICS::IMeshPipeline>> m_meshPipelines;
+		/// @brief Formatos de los pipelines almacenados.
+		mutable DynamicArray<PipelineKey> m_meshPipelinesKeys;
 
 		UniquePtr<GRAPHICS::IRaytracingPipeline> rtPipeline = nullptr;
 		UniquePtr<GRAPHICS::IComputePipeline> computePipeline = nullptr;

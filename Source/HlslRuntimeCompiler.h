@@ -1,5 +1,8 @@
 #pragma once
 
+#include "Platforms.h"
+#ifdef OSK_USE_DIRECTX12_BACKEND
+
 #include <wrl.h>
 using Microsoft::WRL::ComPtr;
 #include <dxc/dxcapi.h>
@@ -44,3 +47,5 @@ namespace OSK::GRAPHICS {
 	};
 
 }
+
+#endif

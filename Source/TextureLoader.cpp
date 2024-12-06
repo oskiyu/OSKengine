@@ -23,7 +23,7 @@
 using namespace OSK::ASSETS;
 using namespace OSK::GRAPHICS;
 
-bool HasRgbFormat(OSK::GRAPHICS::RenderApiType api) {
+bool HasRgbFormat(OSK::GRAPHICS::RenderApiType) {
 	return false;
 }
 

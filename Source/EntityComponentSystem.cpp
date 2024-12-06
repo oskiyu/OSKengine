@@ -34,7 +34,9 @@ void EntityComponentSystem::Save(std::string_view path) const {
 
 	for (const auto& set : m_systemManager->GetExecutionGraph().GetExecutionGraph()) {
 		for (const auto& system : set.systems) {
-			output["systems"][static_cast<std::string>(system->GetName())] = system->SaveConfiguration();
+			if (dynamic_cast<const ISerializableSystem*>(system)) {
+				output["systems"][static_cast<std::string>(system->GetName())] = dynamic_cast<const ISerializableSystem*>(system)->SaveConfiguration();
+			}
 		}
 	}
 
@@ -80,11 +82,14 @@ void EntityComponentSystem::SaveBinary(std::string_view path) const {
 		{
 			for (const auto& set : m_systemManager->GetExecutionGraph().GetExecutionGraph()) {
 				for (const auto& system : set.systems) {
-					const auto dataBlock = system->SaveBinaryConfiguration();
-					const auto blockSize = dataBlock.GetCurrentSize();
+					if (dynamic_cast<const ISerializableSystem*>(system)) {
+						const auto sSystem = dynamic_cast<const ISerializableSystem*>(system);
+						const auto dataBlock = sSystem->SaveBinaryConfiguration();
+						const auto blockSize = dataBlock.GetCurrentSize();
 
-					systemDatasBlock.Write<USize64>(blockSize);
-					systemDatasBlock.AppendBlock(dataBlock);
+						systemDatasBlock.Write<USize64>(blockSize);
+						systemDatasBlock.AppendBlock(dataBlock);
+					}
 				}
 			}
 		}
@@ -176,7 +181,12 @@ SavedGameObjectTranslator EntityComponentSystem::LoadScene(std::string_view path
 	m_systemManager->DeactivateAllSystems();
 
 	for (const auto& [systemName, config] : data["systems"].items()) {
-		m_systemManager->GetSystem(systemName)->ApplyConfiguration(config, translator);
+		auto* system = m_systemManager->GetSystem(systemName);
+
+		if (auto* nSystem = dynamic_cast<ISerializableSystem*>(system)) {
+			nSystem->ApplyConfiguration(config, translator);
+		}
+
 		m_systemManager->GetSystem(systemName)->Activate();
 	}
 
@@ -298,7 +308,10 @@ SavedGameObjectTranslator EntityComponentSystem::LoadBinaryScene(std::string_vie
 			const auto currentOffset = systemDatasReader.GetCurrentIndex();
 
 			// Leemos la información del sistema, y lo aplicamos.
-			m_systemManager->GetSystem(name)->ApplyConfiguration(&systemDatasReader, translator);
+			if (auto* nSystem = dynamic_cast<ISerializableSystem*>(m_systemManager->GetSystem(name))) {
+				nSystem->ApplyConfiguration(&systemDatasReader, translator);
+			}
+
 			m_systemManager->GetSystem(name)->Activate();
 
 			// Obtenemos el número de bytes leídos, y comprobamos que sea el mismo número
