@@ -8,10 +8,13 @@
 
 #include "Serializer.h"
 
+namespace OSK {
+	class Transform3D;
+}
 
 namespace OSK::ECS {
 
-	class Transform3D;
+	class TransformComponent3D;
 
 	/// <summary>
 	/// Cámara para un mundo tridimensional.

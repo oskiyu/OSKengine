@@ -10,7 +10,7 @@
 #include "GpuImageSamplerDesc.h"
 #include "IGpuImageSampler.h"
 
-#include "Transform2D.h"
+#include "TransformComponent2D.h"
 
 
 namespace OSK::GRAPHICS {

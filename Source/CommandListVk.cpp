@@ -59,6 +59,10 @@
 #include "CommandPoolVk.h"
 #include "GpuVk.h"
 
+// Transferencia de colas
+#include "CommandQueueVk.h"
+
+
 using namespace OSK;
 using namespace OSK::GRAPHICS;
 
@@ -240,8 +244,8 @@ void CommandListVk::SetGpuImageBarrier(GpuImage* image, GpuImageLayout previousL
 	
 	// Queue transfer.
 	if (queueTranfer.transfer) {
-		barrier.srcQueueFamilyIndex = queueTranfer.sourceFamily.familyIndex;
-		barrier.dstQueueFamilyIndex = queueTranfer.destinationFamily.familyIndex;
+		barrier.srcQueueFamilyIndex = queueTranfer.sourceQueue->As<CommandQueueVk>()->GetFamily().familyIndex;
+		barrier.dstQueueFamilyIndex = queueTranfer.destinationQueue->As<CommandQueueVk>()->GetFamily().familyIndex;
 	}
 
 	VkDependencyInfo info{};
@@ -283,8 +287,8 @@ void CommandListVk::SetGpuBufferBarrier(GpuBuffer* buffer, const GpuBufferRange&
 
 	// Queue transfer.
 	if (queueTranfer.transfer) {
-		barrier.srcQueueFamilyIndex = queueTranfer.sourceFamily.familyIndex;
-		barrier.dstQueueFamilyIndex = queueTranfer.destinationFamily.familyIndex;
+		barrier.srcQueueFamilyIndex = queueTranfer.sourceQueue->As<CommandQueueVk>()->GetFamily().familyIndex;
+		barrier.dstQueueFamilyIndex = queueTranfer.destinationQueue->As<CommandQueueVk>()->GetFamily().familyIndex;
 	}
 
 	barrier.pNext = nullptr;

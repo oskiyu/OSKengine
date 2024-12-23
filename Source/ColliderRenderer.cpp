@@ -7,7 +7,7 @@
 #include "Model3D.h"
 #include "Material.h"
 
-#include "Transform3D.h"
+#include "TransformComponent3D.h"
 #include "CollisionComponent.h"
 #include "CameraComponent3D.h"
 
@@ -46,7 +46,7 @@ using namespace OSK::COLLISION;
 
 ColliderRenderSystem::ColliderRenderSystem() {
 	Signature signature{};
-	signature.SetTrue(Engine::GetEcs()->GetComponentType<Transform3D>());
+	signature.SetTrue(Engine::GetEcs()->GetComponentType<TransformComponent3D>());
 	signature.SetTrue(Engine::GetEcs()->GetComponentType<CollisionComponent>());
 	_SetSignature(signature);
 
@@ -108,7 +108,7 @@ void ColliderRenderSystem::Render(GRAPHICS::ICommandList* commandList, std::span
 	const UIndex32 resourceIndex = Engine::GetRenderer()->GetCurrentResourceIndex();
 
 	const CameraComponent3D& camera = Engine::GetEcs()->GetComponent<CameraComponent3D>(m_cameraObject);
-	const Transform3D& cameraTransform = Engine::GetEcs()->GetComponent<Transform3D>(m_cameraObject);
+	const auto& cameraTransform = Engine::GetEcs()->GetComponent<TransformComponent3D>(m_cameraObject).GetTransform();
 
 	m_cameraGpuBuffers[resourceIndex]->MapMemory();
 	m_cameraGpuBuffers[resourceIndex]->Write(camera.GetProjectionMatrix());
@@ -148,16 +148,16 @@ void ColliderRenderSystem::Render(GRAPHICS::ICommandList* commandList, std::span
 		commandList->BindMaterial(*material);
 		commandList->BindMaterialSlot(*m_materialInstances[resourceIndex]->GetSlot("global"));
 
-		const Transform3D& originalTransform = Engine::GetEcs()->GetComponent<Transform3D>(gameObject);
-		Transform3D topLevelTransform = originalTransform;
-		topLevelTransform.SetRotation({});
+		const TransformComponent3D& originalTransform = Engine::GetEcs()->GetComponent<TransformComponent3D>(gameObject);
+		TransformComponent3D topLevelTransform = originalTransform;
+		topLevelTransform.GetTransform().SetRotation({});
 
-		singleContactPoints.Insert(originalTransform.GetPosition());
+		singleContactPoints.Insert(originalTransform.GetTransform().GetPosition());
 
 		if (gameObject.Get() == 1) {
 			COLLISION::Ray ray{};
-			ray.origin = originalTransform.GetPosition() + Vector3f(0.0f, 0.11f, 0.0f);
-			ray.direction = originalTransform.GetForwardVector();
+			ray.origin = originalTransform.GetTransform().GetPosition() + Vector3f(0.0f, 0.11f, 0.0f);
+			ray.direction = originalTransform.GetTransform().GetForwardVector();
 
 			const auto rayResult = Engine::GetEcs()->GetSystem<CollisionSystem>()->CastRay(ray, gameObject);
 			if (rayResult.Result()) {
@@ -177,8 +177,8 @@ void ColliderRenderSystem::Render(GRAPHICS::ICommandList* commandList, std::span
 			renderInfo.color = Color::Yellow * 0.75f;
 
 		if (auto* box = dynamic_cast<const AxisAlignedBoundingBox*>(topLevelCollider)) {
-			topLevelTransform.SetScale(box->GetSize());
-			renderInfo.modelMatrix = topLevelTransform.GetAsMatrix();
+			topLevelTransform.GetTransform().SetScale(box->GetSize());
+			renderInfo.modelMatrix = topLevelTransform.GetTransform().GetAsMatrix();
 			commandList->PushMaterialConstants("pushConstants", renderInfo);
 
 			commandList->BindVertexBuffer(m_cubeModel.GetAsset()->GetModel().GetVertexBuffer());
@@ -186,8 +186,8 @@ void ColliderRenderSystem::Render(GRAPHICS::ICommandList* commandList, std::span
 			commandList->DrawSingleInstance(m_cubeModel.GetAsset()->GetModel().GetTotalIndexCount());
 		} else
 		if (auto* sphere = dynamic_cast<const SphereCollider*>(topLevelCollider)) {
-			topLevelTransform.SetScale(Vector3f(sphere->GetRadius()));
-			renderInfo.modelMatrix = topLevelTransform.GetAsMatrix();
+			topLevelTransform.GetTransform().SetScale(Vector3f(sphere->GetRadius()));
+			renderInfo.modelMatrix = topLevelTransform.GetTransform().GetAsMatrix();
 			commandList->PushMaterialConstants("pushConstants", renderInfo);
 
 			commandList->BindVertexBuffer(m_sphereModel.GetAsset()->GetModel().GetVertexBuffer());
@@ -206,7 +206,7 @@ void ColliderRenderSystem::Render(GRAPHICS::ICommandList* commandList, std::span
 			else
 				renderInfo.color = Color::Yellow * 0.75f;
 
-			renderInfo.modelMatrix = originalTransform.GetAsMatrix();
+			renderInfo.modelMatrix = originalTransform.GetTransform().GetAsMatrix();
 			commandList->PushMaterialConstants("pushConstants", renderInfo);
 
 			commandList->BindMaterial(*lowLevelMaterial);

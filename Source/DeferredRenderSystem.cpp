@@ -2,7 +2,7 @@
 
 #include "OSKengine.h"
 #include "EntityComponentSystem.h"
-#include "Transform3D.h"
+#include "TransformComponent3D.h"
 #include "ModelComponent3D.h"
 #include "ICommandList.h"
 #include "IRenderer.h"
@@ -70,7 +70,7 @@ using namespace OSK::PERSISTENCE;
 DeferredRenderSystem::DeferredRenderSystem() {
 	// Signature del sistema
 	Signature signature{};
-	signature.SetTrue(Engine::GetEcs()->GetComponentType<Transform3D>());
+	signature.SetTrue(Engine::GetEcs()->GetComponentType<TransformComponent3D>());
 	signature.SetTrue(Engine::GetEcs()->GetComponentType<ModelComponent3D>());
 	_SetSignature(signature);
 
@@ -314,7 +314,7 @@ void DeferredRenderSystem::Render(ICommandList* commandList, std::span<const ECS
 	const UIndex32 resourceIndex = Engine::GetRenderer()->GetCurrentResourceIndex();
 
 	const CameraComponent3D& camera = Engine::GetEcs()->GetComponent<CameraComponent3D>(m_cameraObject);
-	const Transform3D& cameraTransform = Engine::GetEcs()->GetComponent<Transform3D>(m_cameraObject);
+	const auto& cameraTransform = Engine::GetEcs()->GetComponent<TransformComponent3D>(m_cameraObject).GetTransform();
 
 	CameraInfo currentCameraInfo{};
 	currentCameraInfo.projectionMatrix = camera.GetProjectionMatrix();
@@ -364,7 +364,7 @@ void DeferredRenderSystem::Render(ICommandList* commandList, std::span<const ECS
 
 	for (const auto& obj : objects) {
 		if (!m_meshMapping.HasPreviousModelMatrix(obj)) {
-			const auto& transform = Engine::GetEcs()->GetComponent<Transform3D>(obj);
+			const auto& transform = Engine::GetEcs()->GetComponent<TransformComponent3D>(obj).GetTransform();
 			m_meshMapping.SetPreviousModelMatrix(obj, transform.GetAsMatrix());
 		}
 	}
@@ -382,7 +382,7 @@ void DeferredRenderSystem::Render(ICommandList* commandList, std::span<const ECS
 	CopyFinalImages(commandList);
 
 	for (const auto& obj : objects) {
-		const auto& transform = Engine::GetEcs()->GetComponent<Transform3D>(obj);
+		const auto& transform = Engine::GetEcs()->GetComponent<TransformComponent3D>(obj).GetTransform();
 		m_meshMapping.SetPreviousModelMatrix(obj, transform.GetAsMatrix());
 	}
 }
@@ -574,7 +574,7 @@ void DeferredRenderSystem::Execute(TDeltaTime deltaTime, std::span<const ECS::Ga
 
 	for (const GameObjectIndex obj : objects) {
 		auto& model = Engine::GetEcs()->GetComponent<ModelComponent3D>(obj);
-		Transform3D transformCopy = Engine::GetEcs()->GetComponent<Transform3D>(obj);
+		auto transformCopy = Engine::GetEcs()->GetComponent<TransformComponent3D>(obj).GetTransform();
 		transformCopy.SetScale(Vector3f::One);
 
 		for (UIndex32 i = 0; i < model.GetModel()->GetMeshes().GetSize(); i++) {

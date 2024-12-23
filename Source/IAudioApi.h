@@ -11,8 +11,9 @@
 #include "HashMap.hpp"
 
 #include "Vector3.hpp"
+#include "Transform3D.h"
 
-namespace OSK::ECS { class Transform3D; }
+namespace OSK::ECS { class TransformComponent3D; }
 
 
 namespace OSK::AUDIO {
@@ -42,7 +43,7 @@ namespace OSK::AUDIO {
 		/// @param listenerTransform Transform del jugador.
 		/// @see SetListenerPosition.
 		/// @see SetListenerOrientation.
-		void SetListener(const ECS::Transform3D& listenerTransform);
+		void SetListener(const Transform3D& listenerTransform);
 
 		/// @brief Establece la posición del jugador.
 		/// @param position Posición del jugador en el mundo 3D.

@@ -294,7 +294,15 @@ const ICommandQueue* IRenderer::GetUnifiedQueue() const {
 	return m_unifiedQueue.GetPointer();
 }
 
+ICommandQueue* IRenderer::GetUnifiedQueue() {
+	return m_unifiedQueue.GetPointer();
+}
+
 const ICommandQueue* IRenderer::GetGraphicsComputeQueue() const {
+	return m_graphicsComputeQueue.GetPointer();
+}
+
+ICommandQueue* IRenderer::GetGraphicsComputeQueue() {
 	return m_graphicsComputeQueue.GetPointer();
 }
 

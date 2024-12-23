@@ -22,8 +22,8 @@
 #include "UniquePtr.hpp"
 #include "IGpuMemoryAllocator.h"
 #include "EntityComponentSystem.h"
-#include "Transform3D.h"
-#include "Transform2D.h"
+#include "TransformComponent3D.h"
+#include "TransformComponent2D.h"
 #include "Model3D.h"
 #include "ModelComponent3D.h"
 #include "CameraComponent3D.h"
@@ -222,7 +222,7 @@ protected:
 
 
 		CameraComponent3D& camera = Engine::GetEcs()->GetComponent<ECS::CameraComponent3D>(cameraObject);
-		Transform3D& cameraTransform = Engine::GetEcs()->GetComponent<ECS::Transform3D>(cameraObject);
+		auto& cameraTransform = Engine::GetEcs()->GetComponent<ECS::TransformComponent3D>(cameraObject).GetTransform();
 
 		// Movimiento de la cámara en este frame
 		float cameraForwardMovement = 0.0f;
@@ -700,7 +700,7 @@ private:
 
 	void SpawnCamera() {
 		cameraObject = Engine::GetEcs()->SpawnObject();
-		Transform3D* cameraTransform = &Engine::GetEcs()->AddComponent<Transform3D>(cameraObject, Transform3D(cameraObject));
+		auto* cameraTransform = &Engine::GetEcs()->AddComponent<TransformComponent3D>(cameraObject, TransformComponent3D(cameraObject)).GetTransform();
 		cameraTransform->AddPosition({ 0.0f, 0.1f, -1.1f });
 		Engine::GetEcs()->AddComponent<CameraComponent3D>(cameraObject, {});
 	}
@@ -716,7 +716,7 @@ private:
 		auto circuitObject = Engine::GetEcs()->SpawnObject();
 
 		// Transform
-		Engine::GetEcs()->AddComponent<Transform3D>(circuitObject, Transform3D(circuitObject));
+		Engine::GetEcs()->AddComponent<TransformComponent3D>(circuitObject, TransformComponent3D(circuitObject));
 
 		// Modelo 3D
 		auto circuitModel = Engine::GetAssetManager()->LoadAsync<Model3D>("Resources/Assets/Models/circuit0.json");
@@ -750,7 +750,7 @@ private:
 		// Billboards
 		const auto billboards = Engine::GetEcs()->SpawnObject();
 
-		Engine::GetEcs()->AddComponent<Transform3D>(billboards, Transform3D(billboards));
+		Engine::GetEcs()->AddComponent<TransformComponent3D>(billboards, TransformComponent3D(billboards));
 
 		auto billboardsModel = Engine::GetAssetManager()->LoadAsync<Model3D>("Resources/Assets/Models/circuit0_billboards.json");
 
@@ -765,7 +765,7 @@ private:
 		// Tree normals
 		const auto treeNormals = Engine::GetEcs()->SpawnObject();
 
-		Engine::GetEcs()->AddComponent<Transform3D>(treeNormals, Transform3D(treeNormals));
+		Engine::GetEcs()->AddComponent<TransformComponent3D>(treeNormals, TransformComponent3D(treeNormals));
 
 		auto treeNormalsModel = Engine::GetAssetManager()->LoadAsync<Model3D>("Resources/Assets/Models/circuit0_tree_normals.json");
 
@@ -781,7 +781,7 @@ private:
 		// Trees
 		const auto trees = Engine::GetEcs()->SpawnObject();
 
-		Engine::GetEcs()->AddComponent<Transform3D>(trees, Transform3D(trees));
+		Engine::GetEcs()->AddComponent<TransformComponent3D>(trees, TransformComponent3D(trees));
 
 		auto treesModel = Engine::GetAssetManager()->LoadAsync<Model3D>("Resources/Assets/Models/circuit0_trees.json");
 
@@ -805,7 +805,7 @@ private:
 		const GameObjectIndex secondObject = Engine::GetEcs()->SpawnObject();
 
 		// Transform
-		Transform3D* transform = &Engine::GetEcs()->AddComponent<Transform3D>(secondObject, Transform3D(secondObject));
+		auto* transform = &Engine::GetEcs()->AddComponent<TransformComponent3D>(secondObject, TransformComponent3D(secondObject)).GetTransform();
 		transform->AddPosition({ 0.5f, 0.0f, 0.0f });
 
 		// Setup de físicas

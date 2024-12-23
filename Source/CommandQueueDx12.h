@@ -15,21 +15,21 @@ struct ID3D12CommandQueue;
 
 namespace OSK::GRAPHICS {
 
+	class GpuDx12;
+
 	class OSKAPI_CALL CommandQueueDx12 : public ICommandQueue {
 
 	public:
 
 		CommandQueueDx12(
-			const QueueFamily& family,
-			UIndex32 indexInsideFamily,
+			GpuDx12* device,
 			GpuQueueType type);
 
-		void SetCommandQueue(const ComPtr<ID3D12CommandQueue>& commandQueue);
-		ID3D12CommandQueue* GetCommandQueue() const;
+		ID3D12CommandQueue* GetCommandQueue();
 
 	private:
 
-		ComPtr<ID3D12CommandQueue> commandQueue;
+		ComPtr<ID3D12CommandQueue> m_commandQueue;
 
 	};
 

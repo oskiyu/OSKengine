@@ -1,15 +1,15 @@
 #pragma once
 
 #include "IComponentController.h"
-#include "Transform3D.h"
+#include "TransformComponent3D.h"
 
 namespace OSK::Editor::Controllers {
 
-	class OSKAPI_CALL TransformComponentController3D : public TComponentController<ECS::Transform3D> {
+	class OSKAPI_CALL TransformComponentController3D : public TComponentController<ECS::TransformComponent3D> {
 
 	public:
 
-		OSK_LINK_COMPONENT_EDITOR_CONTROLLER(ECS::Transform3D);
+		OSK_LINK_COMPONENT_EDITOR_CONTROLLER(ECS::TransformComponent3D);
 
 		TransformComponentController3D(
 			ECS::GameObjectIndex object,

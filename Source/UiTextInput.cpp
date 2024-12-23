@@ -4,7 +4,7 @@
 #include "PrintableKeys.h"
 
 #include "SpriteRenderer.h"
-#include "Transform2D.h"
+#include "TransformComponent2D.h"
 #include "SdfStringInfo.h"
 #include "SdfBindlessRenderer2D.h"
 

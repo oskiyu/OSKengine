@@ -8,7 +8,7 @@
 #include "Model3D.h"
 
 #include "CameraComponent3D.h"
-#include "Transform3D.h"
+#include "TransformComponent3D.h"
 #include <span>
 #include "GameObject.h"
 #include "ICommandList.h"
@@ -69,7 +69,7 @@ void SkyboxRenderSystem::Render(ICommandList* commandList, std::span<const ECS::
 	const auto resourceIndex = Engine::GetRenderer()->GetCurrentResourceIndex();
 
 	const auto& camera			= Engine::GetEcs()->GetComponent<CameraComponent3D>(cameraObject);
-	const auto& cameraTransform = Engine::GetEcs()->GetComponent<Transform3D>(cameraObject);
+	const auto& cameraTransform = Engine::GetEcs()->GetComponent<TransformComponent3D>(cameraObject).GetTransform();
 
 	m_cameraUbos[resourceIndex]->MapMemory();
 	m_cameraUbos[resourceIndex]->Write(camera.GetProjectionMatrix());

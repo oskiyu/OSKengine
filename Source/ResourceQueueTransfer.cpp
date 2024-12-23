@@ -10,11 +10,11 @@ ResourceQueueTransferInfo ResourceQueueTransferInfo::Empty() {
 	return output;
 }
 
-ResourceQueueTransferInfo ResourceQueueTransferInfo::FromTo(const QueueFamily& source, const QueueFamily& destination) {
+ResourceQueueTransferInfo ResourceQueueTransferInfo::FromTo(const ICommandQueue* source, const ICommandQueue* destination) {
 	ResourceQueueTransferInfo output{};
 	output.transfer = true;
-	output.sourceFamily = source;
-	output.destinationFamily = destination;
+	output.sourceQueue = source;
+	output.destinationQueue= destination;
 
 	return output;
 }

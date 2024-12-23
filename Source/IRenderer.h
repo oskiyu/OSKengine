@@ -370,6 +370,7 @@ namespace OSK::GRAPHICS {
 		/// 
 		/// @threadsafe
 		const ICommandQueue* GetUnifiedQueue() const;
+		ICommandQueue* GetUnifiedQueue();
 
 		/// @return Cola de GPU para la ejecución de comandos gráficos, de computación
 		/// y de transferencia.
@@ -384,6 +385,7 @@ namespace OSK::GRAPHICS {
 		/// 
 		/// @threadsafe
 		const ICommandQueue* GetGraphicsComputeQueue() const;
+		ICommandQueue* GetGraphicsComputeQueue();
 
 		/// @return Cola de GPU para ejecución de operaciones de presentación únicamente.
 		/// 

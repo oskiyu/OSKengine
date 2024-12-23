@@ -72,7 +72,7 @@ void RendererDx12::Initialize(const std::string& appName, const Version& version
 	Engine::GetLogger()->InfoLog("Iniciando renderizador DX12.");
 
 #ifdef OSK_RELEASE
-	useDebugConsole = false;
+	m_useDebugConsole = false;
 #else
 	m_useDebugConsole = SUCCEEDED(D3D12GetDebugInterface(IID_PPV_ARGS(&m_debugConsole)));
 #endif
@@ -186,59 +186,28 @@ void RendererDx12::CreateDevice() {
 }
 
 void RendererDx12::CreateCommandQueues() {
-	//graphicsQueue = new CommandQueueDx12;
-
-	ComPtr<ID3D12CommandQueue> commandQ;
-
-	D3D12_COMMAND_QUEUE_DESC createInfo{};
-
-	// Hay distintos tipos de colas como:
-	//	D3D12_COMMAND_LIST_TYPE_COMPUTE
-	// para temas relacionados con compute shader
-	// pero nosotros queremos usar la cola gráfica:
-	createInfo.Type = D3D12_COMMAND_LIST_TYPE_DIRECT;
-
-	// para temas de usar múltiples nodos GPU.
-	// para uso de una sola GPU se pone a 0
-	createInfo.NodeMask = 0;
-
-	// La prioridad de la cola, normalmente NORMAL
-	createInfo.Priority = D3D12_COMMAND_QUEUE_PRIORITY_NORMAL;
-
-	// Flags adicionales. En estos momentos solo hay dos:
-	//	D3D12_COMMAND_LIST_TYPE_BUNDLE
-	//	D3D12_COMMAND_QUEUE_FLAG_DISABLE_GPU_TIMEOUT
-	createInfo.Flags = D3D12_COMMAND_QUEUE_FLAG_NONE;
-
-	// Una vez rellenada la estructura, crear el CommandQueue
-	GetGpu()->As<GpuDx12>()->GetDevice()->CreateCommandQueue(&createInfo, IID_PPV_ARGS(&commandQ));
-
-	_SetUnifiedCommandQueue(new CommandQueueDx12(QueueFamily{}, 0, GpuQueueType::MAIN));
-	// GetUnifiedQueue()->As<CommandQueueDx12>()->SetCommandQueue(commandQ);
+	// Usar cola unificada.
+	_SetUnifiedCommandQueue(new CommandQueueDx12(GetGpu()->As<GpuDx12>(), GpuQueueType::MAIN));
 
 	RegisterUnifiedCommandPool(GetUnifiedQueue());
-	// GetUnifiedCommandPool()->As<CommandPoolDx12>()->SetCommandPool();
 
-	_SetMainCommandList(GetUnifiedCommandPool(std::this_thread::get_id())->CreateCommandList(*GetGpu()).GetPointer());
-	// GetMainCommandList()->As<CommandListDx12>()->SetCommandPool(*GetUnifiedCommandPool()->As<CommandPoolDx12>());
+	_SetMainCommandList(GetUnifiedCommandPool(std::this_thread::get_id())->CreateCommandList(*GetGpu()));
+
+	OSK::Engine::GetLogger()->InfoLog("Uso de cola GPU unificada.");
+	
+	// Transfer queue.
+	_SetTransferOnlyCommandQueue(new CommandQueueDx12(GetGpu()->As<GpuDx12>(), GpuQueueType::ASYNC_TRANSFER));
+	RegisterTransferOnlyCommandPool(GetTransferOnlyQueue());
+	OSK::Engine::GetLogger()->InfoLog("Uso de cola GPU de transferencia.");
 }
 
 void RendererDx12::CreateSwapchain(PresentMode mode, const Vector2ui& resolution) {
-	DynamicArray<UIndex32> queueIndices{};
-
-	if (UseUnifiedCommandQueue()) {
-		queueIndices.Insert(GetUnifiedQueue()->GetFamily().familyIndex);
-	}
-	else {
-		queueIndices.Insert(GetGraphicsComputeQueue()->GetFamily().familyIndex);
-		queueIndices.Insert(GetPresentationQueue()->GetFamily().familyIndex);
-	}
-
-	_SetSwapchain(new SwapchainDx12(
+	_SetSwapchain(
+		new SwapchainDx12(
+		GetUnifiedQueue()->As<CommandQueueDx12>(),
 		mode,
 		Format::RGBA8_UNORM,
-		*GetGpu()->As<GpuDx12>(),
-		queueIndices.GetFullSpan(),
+		GetGpu()->As<GpuDx12>(),
 		*Engine::GetDisplay(),
 		m_factory.Get()));
 }

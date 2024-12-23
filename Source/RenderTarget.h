@@ -6,7 +6,7 @@
 #include "Vector2.hpp"
 
 #include "Sprite.h"
-#include "Transform2D.h"
+#include "TransformComponent2D.h"
 #include "RenderpassType.h"
 
 #include "RenderTargetAttachment.h"

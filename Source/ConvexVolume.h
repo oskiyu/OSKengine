@@ -75,10 +75,12 @@ namespace OSK::COLLISION {
 
 		/// @brief Transforma los vértices.
 		/// @note Debe llamarse una vez por fotograma.
-		void Transform(const ECS::Transform3D& transform) override;
+		void Transform(const Transform3D& transform) override;
 
-		DetailedCollisionInfo GetCollisionInfo(const IBottomLevelCollider& other,
-			const ECS::Transform3D& thisOffset, const ECS::Transform3D& otherOffset) const override;
+		DetailedCollisionInfo GetCollisionInfo(
+			const IBottomLevelCollider& other,
+			const Transform3D& thisOffset, 
+			const Transform3D& otherOffset) const override;
 
 		bool ContainsPoint(const Vector3f& point) const override;
 

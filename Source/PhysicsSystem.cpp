@@ -2,7 +2,7 @@
 
 #include "OSKengine.h"
 #include "EntityComponentSystem.h"
-#include "Transform3D.h"
+#include "TransformComponent3D.h"
 #include "PhysicsComponent.h"
 #include "Math.h"
 
@@ -11,14 +11,14 @@ using namespace OSK::ECS;
 
 void PhysicsSystem::OnCreate() {
 	Signature signature{};
-	signature.SetTrue(Engine::GetEcs()->GetComponentType<Transform3D>());
+	signature.SetTrue(Engine::GetEcs()->GetComponentType<TransformComponent3D>());
 	signature.SetTrue(Engine::GetEcs()->GetComponentType<PhysicsComponent>());
 	_SetSignature(signature);
 }
 
 void PhysicsSystem::Execute(TDeltaTime deltaTime, std::span<const GameObjectIndex> objects) {
 	for (const GameObjectIndex obj : objects) {
-		auto& transform = Engine::GetEcs()->GetComponent<Transform3D>(obj);
+		auto& transform = Engine::GetEcs()->GetComponent<TransformComponent3D>(obj).GetTransform();
 		auto& physicsComponent = Engine::GetEcs()->GetComponent<PhysicsComponent>(obj);
 
 		if (physicsComponent.IsImmovable())

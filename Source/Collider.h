@@ -16,7 +16,7 @@
 #include "Serializer.h"
 
 
-namespace OSK::ECS {
+namespace OSK {
 	class Transform3D;
 }
 
@@ -52,7 +52,7 @@ namespace OSK::COLLISION {
 		/// @param otherTransform Transform del otro collider en el instante actual.
 		/// @return 
 		CollisionInfo GetCollisionInfo(const Collider& other, 
-			const ECS::Transform3D& thisTransform, const ECS::Transform3D& otherTransform) const;
+			const Transform3D& thisTransform, const Transform3D& otherTransform) const;
 
 		const ITopLevelCollider* GetTopLevelCollider() const { return m_topLevelCollider.GetPointer(); }
 		ITopLevelCollider* GetTopLevelCollider() { return m_topLevelCollider.GetPointer(); }

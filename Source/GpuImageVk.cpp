@@ -78,25 +78,25 @@ void GpuImageVk::CreateVkImage() {
 	const auto* renderer = Engine::GetRenderer();
 
 	if (GetOwnerQueue()->GetQueueType() == GpuQueueType::ASYNC_TRANSFER && renderer->HasTransferOnlyQueue()) {
-		queueIndices.insert(renderer->GetTransferOnlyQueue()->GetFamily().familyIndex);
+		queueIndices.insert(renderer->GetTransferOnlyQueue()->As<CommandQueueVk>()->GetFamily().familyIndex);
 	}
 	else {
 		if (GetOwnerQueue()->GetQueueType() == GpuQueueType::PRESENTATION) {
 			if (renderer->UseUnifiedCommandQueue()) {
-				queueIndices.insert(renderer->GetUnifiedQueue()->GetFamily().familyIndex);
+				queueIndices.insert(renderer->GetUnifiedQueue()->As<CommandQueueVk>()->GetFamily().familyIndex);
 			}
 			else {
-				queueIndices.insert(renderer->GetGraphicsComputeQueue()->GetFamily().familyIndex);
-				queueIndices.insert(renderer->GetPresentationQueue()->GetFamily().familyIndex);
+				queueIndices.insert(renderer->GetGraphicsComputeQueue()->As<CommandQueueVk>()->GetFamily().familyIndex);
+				queueIndices.insert(renderer->GetPresentationQueue()->As<CommandQueueVk>()->GetFamily().familyIndex);
 			}
 		}
 
 		if (GetOwnerQueue()->GetQueueType() == GpuQueueType::MAIN) {
 			if (renderer->UseUnifiedCommandQueue()) {
-				queueIndices.insert(renderer->GetUnifiedQueue()->GetFamily().familyIndex);
+				queueIndices.insert(renderer->GetUnifiedQueue()->As<CommandQueueVk>()->GetFamily().familyIndex);
 			}
 			else {
-				queueIndices.insert(renderer->GetGraphicsComputeQueue()->GetFamily().familyIndex);
+				queueIndices.insert(renderer->GetGraphicsComputeQueue()->As<CommandQueueVk>()->GetFamily().familyIndex);
 			}
 		}
 	}

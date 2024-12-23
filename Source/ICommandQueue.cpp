@@ -1,21 +1,23 @@
 #include "ICommandQueue.h"
 
+#include "GpuQueueTypes.h"
+
 using namespace OSK;
 using namespace OSK::GRAPHICS;
 
-ICommandQueue::ICommandQueue(QueueFamily family, GpuQueueType queueType, UIndex32 indexInsideFamily) : m_family(family), m_mainQueueType(queueType), m_queueIndex(indexInsideFamily) {}
+ICommandQueue::ICommandQueue(GpuQueueType queueType) : m_queueType(queueType) {}
 
 CommandsSupport ICommandQueue::GetSupportedCommands() const {
-	return m_family.support;
-}
-const QueueFamily& ICommandQueue::GetFamily() const {
-	return m_family;
+	switch (m_queueType) {
+	case GpuQueueType::MAIN:
+		return CommandsSupport::GRAPHICS | CommandsSupport::COMPUTE | CommandsSupport::PRESENTATION;
+	case GpuQueueType::PRESENTATION:
+		return CommandsSupport::PRESENTATION;
+	case GpuQueueType::ASYNC_TRANSFER:
+		return CommandsSupport::TRANSFER;
+	}
 }
 
 GpuQueueType ICommandQueue::GetQueueType() const {
-	return m_mainQueueType;
-}
-
-UIndex32 ICommandQueue::GetQueueIndexInsideFamily() const {
-	return m_queueIndex;
+	return m_queueType;
 }

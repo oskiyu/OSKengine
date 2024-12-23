@@ -2,14 +2,14 @@
 
 #include "OSKengine.h"
 #include "EntityComponentSystem.h"
-#include "Transform3D.h"
+#include "TransformComponent3D.h"
 
 using namespace OSK;
 using namespace OSK::ECS;
 
 void TransformApplierSystem::OnCreate() {
 	Signature signature{};
-	signature.SetTrue(Engine::GetEcs()->GetComponentType<Transform3D>());
+	signature.SetTrue(Engine::GetEcs()->GetComponentType<TransformComponent3D>());
 	_SetSignature(signature);
 }
 
@@ -17,7 +17,7 @@ void TransformApplierSystem::Execute(TDeltaTime, std::span<const GameObjectIndex
 	std::unordered_map<GameObjectIndex, GameObjectIndex> objectToParent;
 
 	for (const GameObjectIndex obj : objects) {
-		const auto& transform = Engine::GetEcs()->GetComponent<Transform3D>(obj);
+		const auto& transform = Engine::GetEcs()->GetComponent<TransformComponent3D>(obj);
 		
 		for (const auto& child : transform.GetChildren()) {
 			objectToParent[child] = obj;
@@ -33,15 +33,15 @@ void TransformApplierSystem::Execute(TDeltaTime, std::span<const GameObjectIndex
 	}
 
 	for (const GameObjectIndex obj : roots) {
-		Apply(Engine::GetEcs()->GetComponent<Transform3D>(obj), {});
+		Apply(Engine::GetEcs()->GetComponent<TransformComponent3D>(obj), {});
 	}
 }
 
-void TransformApplierSystem::Apply(Transform3D& transform, std::optional<const Transform3D*> parent) {
+void TransformApplierSystem::Apply(TransformComponent3D& transform, std::optional<const TransformComponent3D*> parent) {
 	transform._ApplyChanges(parent);
 
 	for (const auto& child : transform.GetChildren()) {
-		auto& childTransform = Engine::GetEcs()->GetComponent<Transform3D>(child);
+		auto& childTransform = Engine::GetEcs()->GetComponent<TransformComponent3D>(child);
 		Apply(childTransform, &transform);
 	}
 }

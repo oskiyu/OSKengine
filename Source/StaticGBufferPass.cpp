@@ -4,7 +4,7 @@
 #include "EntityComponentSystem.h"
 
 #include "CameraComponent3D.h"
-#include "Transform3D.h"
+#include "TransformComponent3D.h"
 #include "ModelComponent3D.h"
 #include "Model3D.h"
 #include "DeferredPushConstants.h"
@@ -27,7 +27,7 @@ void StaticGBufferPass::RenderLoop(ICommandList* commandList, const DynamicArray
 	
 	const auto frustum =
 		Engine::GetEcs()->GetComponent<CameraComponent3D>(m_cameraObject)
-		.GetFrustum(Engine::GetEcs()->GetComponent<Transform3D>(m_cameraObject));
+		.GetFrustum(Engine::GetEcs()->GetComponent<TransformComponent3D>(m_cameraObject).GetTransform());
 
 	DeferredPushConstants modelPushConstants{};
 
@@ -39,7 +39,7 @@ void StaticGBufferPass::RenderLoop(ICommandList* commandList, const DynamicArray
 
 	for (GameObjectIndex obj : objectsToRender) {
 		const ModelComponent3D& model = Engine::GetEcs()->GetComponent<ModelComponent3D>(obj);
-		const Transform3D& transform = Engine::GetEcs()->GetComponent<Transform3D>(obj);
+		const TransformComponent3D& transform = Engine::GetEcs()->GetComponent<TransformComponent3D>(obj);
 
 		// Actualizamos el modelo 3D, si es necesario.
 		if (previousVertexBuffer != &model.GetModel()->GetVertexBuffer()) {
@@ -63,7 +63,7 @@ void StaticGBufferPass::RenderLoop(ICommandList* commandList, const DynamicArray
 			const auto& mSlot = *modelData.GetMeshData(mesh.GetUuid()).GetMaterialInstance()->GetSlot("texture");
 			commandList->BindMaterialSlot(mSlot);
 
-			modelPushConstants.model = transform.GetAsMatrix();
+			modelPushConstants.model = transform.GetTransform().GetAsMatrix();
 			modelPushConstants.previousModel = globalMeshMapping->GetPreviousModelMatrix(obj);
 			modelPushConstants.resolution = resolution.ToVector2f();
 			modelPushConstants.jitterIndex = (float)jitterIndex;

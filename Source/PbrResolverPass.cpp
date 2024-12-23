@@ -4,7 +4,7 @@
 #include "EntityComponentSystem.h"
 
 #include "CameraComponent3D.h"
-#include "Transform3D.h"
+#include "TransformComponent3D.h"
 #include "ModelComponent3D.h"
 #include "Model3D.h"
 #include "DeferredPushConstants.h"

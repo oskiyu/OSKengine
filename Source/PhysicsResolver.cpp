@@ -2,7 +2,7 @@
 
 #include "OSKengine.h"
 #include "EntityComponentSystem.h"
-#include "Transform3D.h"
+#include "TransformComponent3D.h"
 #include "PhysicsComponent.h"
 #include "Collider.h"
 
@@ -24,8 +24,8 @@ void PhysicsResolver::Execute(TDeltaTime deltaTime, std::span<const CollisionEve
 		if (!(ecs->ObjectHasComponent<PhysicsComponent>(first) && ecs->ObjectHasComponent<PhysicsComponent>(second)))
 			continue;
 
-		auto& transformA = ecs->GetComponent<Transform3D>(first);
-		auto& transformB = ecs->GetComponent<Transform3D>(second);
+		auto& transformA = ecs->GetComponent<TransformComponent3D>(first).GetTransform();
+		auto& transformB = ecs->GetComponent<TransformComponent3D>(second).GetTransform();
 
 		auto& physicsA = ecs->GetComponent<PhysicsComponent>(first);
 		auto& physicsB = ecs->GetComponent<PhysicsComponent>(second);

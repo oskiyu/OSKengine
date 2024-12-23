@@ -5,6 +5,7 @@
 #include "OSKengine.h"
 #include "EntityComponentSystem.h"
 #include "CollisionComponent.h"
+#include "TransformComponent3D.h"
 
 using namespace OSK;
 using namespace OSK::ECS;
@@ -12,7 +13,7 @@ using namespace OSK::COLLISION;
 
 void CollisionSystem::OnCreate() {
 	Signature signature{};
-	signature.SetTrue(Engine::GetEcs()->GetComponentType<Transform3D>());
+	signature.SetTrue(Engine::GetEcs()->GetComponentType<TransformComponent3D>());
 	signature.SetTrue(Engine::GetEcs()->GetComponentType<CollisionComponent>());
 	_SetSignature(signature);
 }
@@ -21,7 +22,7 @@ void CollisionSystem::OnExecutionStart() {
 	// Actualizar y transformar los colliders.
 	for (const GameObjectIndex i : GetAllCompatibleObjects()) {
 		auto& collider = *Engine::GetEcs()->GetComponent<CollisionComponent>(i).GetCollider();
-		const auto& transform = Engine::GetEcs()->GetComponent<Transform3D>(i);
+		const auto& transform = Engine::GetEcs()->GetComponent<TransformComponent3D>(i).GetTransform();
 
 		collider.GetTopLevelCollider()->SetPosition(transform.GetPosition());
 
@@ -46,14 +47,14 @@ void CollisionSystem::Execute(TDeltaTime deltaTime, std::span<const GameObjectIn
 		const GameObjectIndex first = objects[a];
 
 		const auto& firstCollider = *Engine::GetEcs()->GetComponent<CollisionComponent>(first).GetCollider();
-		const auto& firstTransform = Engine::GetEcs()->GetComponent<Transform3D>(first);
+		const auto& firstTransform = Engine::GetEcs()->GetComponent<TransformComponent3D>(first).GetTransform();
 
 		for (UIndex64 b = indexInGlobalList + 1; b < GetAllCompatibleObjects().size(); b++) {
 
 			const GameObjectIndex second = GetAllCompatibleObjects()[b];
 
 			const auto& secondCollider = *Engine::GetEcs()->GetComponent<CollisionComponent>(second).GetCollider();
-			const auto& secondTransform = Engine::GetEcs()->GetComponent<Transform3D>(second);
+			const auto& secondTransform = Engine::GetEcs()->GetComponent<TransformComponent3D>(second).GetTransform();
 
 			const auto collisionInfo = firstCollider.GetCollisionInfo(secondCollider, firstTransform, secondTransform);
 

@@ -1,6 +1,6 @@
 #include "ConvexVolume.h"
 
-#include "Transform3D.h"
+#include "TransformComponent3D.h"
 #include "FaceProjection.h"
 
 #include <optional>

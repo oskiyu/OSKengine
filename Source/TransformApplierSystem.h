@@ -6,7 +6,7 @@
 
 namespace OSK::ECS {
 
-	class Transform3D;
+	class TransformComponent3D;
 
 	class OSKAPI_CALL TransformApplierSystem final : public IIteratorSystem {
 
@@ -21,7 +21,7 @@ namespace OSK::ECS {
 
 	private:
 
-		static void Apply(Transform3D& transform, std::optional<const Transform3D*> parent);
+		static void Apply(TransformComponent3D& transform, std::optional<const TransformComponent3D*> parent);
 
 	};
 

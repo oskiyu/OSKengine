@@ -1,6 +1,6 @@
 #include "IAudioApi.h"
 
-#include "Transform3D.h"
+#include "TransformComponent3D.h"
 
 #include <format>
 
@@ -11,7 +11,7 @@ using namespace OSK;
 using namespace OSK::AUDIO;
 
 
-void IAudioApi::SetListener(const ECS::Transform3D& listenerTransform) {
+void IAudioApi::SetListener(const Transform3D& listenerTransform) {
 	SetListenerPosition(listenerTransform.GetPosition());
 	SetListenerOrientation(listenerTransform.GetForwardVector(), listenerTransform.GetTopVector());
 }

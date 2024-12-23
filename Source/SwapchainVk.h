@@ -49,7 +49,8 @@ namespace OSK::GRAPHICS {
 
 		void CreationLogic(
 			const GpuVk& device,
-			const Vector2ui& resolution);
+			const Vector2ui& resolution,
+			std::span<const UIndex32> queueIndices);
 
 		/// @throws SwapchainCreationException Si ocurre algún error.
 		void AcquireImages(const GpuVk& device);
@@ -62,6 +63,7 @@ namespace OSK::GRAPHICS {
 		static VkColorSpaceKHR GetSupportedColorSpace(const GpuVk& device);
 
 		VkSwapchainKHR m_swapchain = nullptr;
+		DynamicArray<UIndex32> m_queueIndices;
 
 	};
 

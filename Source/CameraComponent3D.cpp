@@ -3,7 +3,7 @@
 #include "Assert.h"
 #include "OSKengine.h"
 #include "Window.h"
-#include "Transform3D.h"
+#include "TransformComponent3D.h"
 #include "Quaternion.h"
 
 #include "OSKengine.h"
@@ -95,7 +95,7 @@ AnyFrustum CameraComponent3D::GetFrustum(const Transform3D& transform) const {
 
 	// Near
 	output.Insert({
-		.point = transform.GetPosition() + forward * nearPlane, 
+		.point = transform.GetPosition() + forward * nearPlane,
 		.normal = forward 
 	});
 

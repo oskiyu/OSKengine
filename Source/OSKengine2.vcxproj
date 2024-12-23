@@ -91,6 +91,7 @@
     <ClCompile Include="DeferredRenderSystemView.cpp" />
     <ClCompile Include="DeferredRenderSytemController.cpp" />
     <ClCompile Include="DescriptorDx12.cpp" />
+    <ClCompile Include="DescriptorHeapDx12.cpp" />
     <ClCompile Include="DetailedCollisionInfo.cpp" />
     <ClCompile Include="Editor.cpp" />
     <ClCompile Include="EditorBottomBar.cpp" />
@@ -111,6 +112,7 @@
     <ClCompile Include="GpuImageCreateInfo.cpp" />
     <ClCompile Include="GpuImageSampler.cpp" />
     <ClCompile Include="GpuImageSamplerDesc.cpp" />
+    <ClCompile Include="GpuImageSamplerDx12.cpp" />
     <ClCompile Include="GpuImageSamplerVk.cpp" />
     <ClCompile Include="GpuMesh3D.cpp" />
     <ClCompile Include="GpuModel3D.cpp" />
@@ -183,6 +185,7 @@
     <ClCompile Include="StringOperations.cpp" />
     <ClCompile Include="SystemExecutionGraph.cpp" />
     <ClCompile Include="ThreadedCommandPoolMap.cpp" />
+    <ClCompile Include="Transform3D.cpp" />
     <ClCompile Include="TransformApplierSystem.cpp" />
     <ClCompile Include="TransformComponentController3D.cpp" />
     <ClCompile Include="TransformComponentView3D.cpp" />
@@ -334,8 +337,8 @@
     <ClCompile Include="TextureLoader.cpp" />
     <ClCompile Include="ToneMappingPass.cpp" />
     <ClCompile Include="TopLevelAccelerationStructureVk.cpp" />
-    <ClCompile Include="Transform2D.cpp" />
-    <ClCompile Include="Transform3D.cpp" />
+    <ClCompile Include="TransformComponent2D.cpp" />
+    <ClCompile Include="TransformComponent3D.cpp" />
     <ClCompile Include="UiButton.cpp" />
     <ClCompile Include="UiElement.cpp" />
     <ClCompile Include="UiHorizontalContainer.cpp" />
@@ -431,8 +434,10 @@
     <ClInclude Include="DefineAs.h" />
     <ClInclude Include="DefineConstructors.h" />
     <ClInclude Include="DefineIuuid.h" />
+    <ClInclude Include="DescriptorHeapDx12.h" />
     <ClInclude Include="Editor.h" />
     <ClInclude Include="EditorSystemPropertiesPanel.h" />
+    <ClInclude Include="GpuImageSamplerDx12.h" />
     <ClInclude Include="GpuImageSamplerVk.h" />
     <ClInclude Include="GpuMemoryAlignments.h" />
     <ClInclude Include="GrassRenderPass.h" />
@@ -744,8 +749,9 @@
     <ClInclude Include="ToneMapping.h" />
     <ClInclude Include="TopLevelAccelerationStructureVk.h" />
     <ClInclude Include="ToString.h" />
-    <ClInclude Include="Transform2D.h" />
     <ClInclude Include="Transform3D.h" />
+    <ClInclude Include="TransformComponent2D.h" />
+    <ClInclude Include="TransformComponent3D.h" />
     <ClInclude Include="TransformApplierSystem.h" />
     <ClInclude Include="TransformComponentController3D.h" />
     <ClInclude Include="TransformComponentView3D.h" />

@@ -42,7 +42,7 @@
 #include "AssetManager.h"
 #include "Texture.h"
 #include "Model3D.h"
-#include "Transform3D.h"
+#include "TransformComponent3D.h"
 #include "ModelComponent3D.h"
 #include "EntityComponentSystem.h"
 #include "Window.h"
@@ -147,7 +147,7 @@ void RendererVk::Initialize(const std::string& appName, const Version& version, 
 OwnedPtr<ICommandPool> RendererVk::CreateCommandPool(const ICommandQueue* targetQueueType) {
 	return new CommandPoolVk(
 		*GetGpu()->As<GpuVk>(),
-		targetQueueType->GetFamily(),
+		targetQueueType->As<CommandQueueVk>()->GetFamily(),
 		targetQueueType->GetQueueType());
 }
 
@@ -341,11 +341,11 @@ void RendererVk::CreateSwapchain(PresentMode mode, const Vector2ui& resolution) 
 	DynamicArray<UIndex32> queueIndices{};
 
 	if (UseUnifiedCommandQueue()) {
-		queueIndices.Insert(GetUnifiedQueue()->GetFamily().familyIndex);
+		queueIndices.Insert(GetUnifiedQueue()->As<CommandQueueVk>()->GetFamily().familyIndex);
 	}
 	else {
-		queueIndices.Insert(GetGraphicsComputeQueue()->GetFamily().familyIndex);
-		queueIndices.Insert(GetPresentationQueue()->GetFamily().familyIndex);
+		queueIndices.Insert(GetGraphicsComputeQueue()->As<CommandQueueVk>()->GetFamily().familyIndex);
+		queueIndices.Insert(GetPresentationQueue()->As<CommandQueueVk>()->GetFamily().familyIndex);
 	}
 
 	_SetSwapchain(new SwapchainVk(

@@ -82,7 +82,7 @@ const DynamicArray<Pair<UIndex32, const GpuImageDx12*>>& MaterialSlotDx12::GetSt
 }
 
 void MaterialSlotDx12::SetDebugName(const std::string& name) {
-	OSK_ASSERT(false, NotImplementedException());
+	// OSK_ASSERT(false, NotImplementedException()); TODO
 }
 
 #endif

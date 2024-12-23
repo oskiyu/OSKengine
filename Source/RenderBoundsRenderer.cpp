@@ -5,7 +5,7 @@
 #include "Model3D.h"
 #include "ModelComponent3D.h"
 #include "CameraComponent3D.h"
-#include "Transform3D.h"
+#include "TransformComponent3D.h"
 #include "MatrixOperations.hpp"
 
 #include "SavedGameObjectTranslator.h"
@@ -18,7 +18,7 @@ using namespace OSK::GRAPHICS;
 
 RenderBoundsRenderer::RenderBoundsRenderer() {
 	Signature signature{};
-	signature.SetTrue(Engine::GetEcs()->GetComponentType<Transform3D>());
+	signature.SetTrue(Engine::GetEcs()->GetComponentType<TransformComponent3D>());
 	signature.SetTrue(Engine::GetEcs()->GetComponentType<ModelComponent3D>());
 	_SetSignature(signature);
 
@@ -59,7 +59,7 @@ void RenderBoundsRenderer::Render(ICommandList* commandList, std::span<const ECS
 	const UIndex32 resourceIndex = Engine::GetRenderer()->GetCurrentResourceIndex();
 
 	const CameraComponent3D& camera = Engine::GetEcs()->GetComponent<CameraComponent3D>(m_cameraObject);
-	const Transform3D& cameraTransform = Engine::GetEcs()->GetComponent<Transform3D>(m_cameraObject);
+	const auto& cameraTransform = Engine::GetEcs()->GetComponent<TransformComponent3D>(m_cameraObject).GetTransform();
 
 	m_cameraUbos[resourceIndex]->MapMemory();
 	m_cameraUbos[resourceIndex]->Write(camera.GetProjectionMatrix());
@@ -79,7 +79,7 @@ void RenderBoundsRenderer::Render(ICommandList* commandList, std::span<const ECS
 	commandList->BindVertexBuffer(m_sphereModel->GetModel().GetVertexBuffer());
 	commandList->BindIndexBuffer(m_sphereModel->GetModel().GetIndexBuffer());
 
-	Transform3D transform(EMPTY_GAME_OBJECT);
+	Transform3D transform{};
 
 	struct RenderInfo {
 		glm::mat4 modelMatrix = glm::mat4(1.0f);
@@ -89,7 +89,7 @@ void RenderBoundsRenderer::Render(ICommandList* commandList, std::span<const ECS
 
 	for (const GameObjectIndex obj : objects) {
 		const auto& model = Engine::GetEcs()->GetComponent<ModelComponent3D>(obj);
-		const auto& objectTransform = Engine::GetEcs()->GetComponent<Transform3D>(obj);
+		const auto& objectTransform = Engine::GetEcs()->GetComponent<TransformComponent3D>(obj).GetTransform();
 
 		for (const auto& mesh : model.GetModel()->GetMeshes()) {
 			const auto& sphere = mesh.GetBounds();

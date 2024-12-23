@@ -1,34 +1,20 @@
 #pragma once
 
-#include "Component.h"
-#include "GameObject.h"
+#include "ApiCall.h"
+
+#include <glm/glm.hpp>
+
 #include "Vector3.hpp"
+#include "AtomicHolder.h"
+#include "MutexHolder.h"
 #include "Quaternion.h"
 
-#include "Serializer.h"
-#include "MutexHolder.h"
-#include "AtomicHolder.h"
-
-
-namespace OSK::ECS {
+namespace OSK {
 
 	class OSKAPI_CALL Transform3D {
 
 	public:
 
-		OSK_SERIALIZABLE_COMPONENT();
-
-	public:
-
-		OSK_COMPONENT("OSK::Transform3D");
-
-
-		/// @param owner Objeto del transform.
-		explicit Transform3D(ECS::GameObjectIndex owner);
-
-		static Transform3D FromMatrix(ECS::GameObjectIndex owner, const glm::mat4& matrix);
-
-				
 		/// @brief Establece la posición local.
 		/// @param position Nueva posición respecto al padre.
 		void SetPosition(const Vector3f& position);
@@ -95,7 +81,7 @@ namespace OSK::ECS {
 		/// manera exclusiva).
 		void ApplyRotation_ThreadSafe(const Quaternion& rotationDelta);
 
-		
+
 		/// @brief Rota el transform respecto a sí mismo.
 		/// @param angle Ángulo.
 		/// @param axis Eje sobre el que se rota.
@@ -139,25 +125,15 @@ namespace OSK::ECS {
 		/// manera exclusiva).
 		void RotateWorldSpace_ThreadSafe(float angle, const Vector3f& axis);
 
-
 		/// @brief Transforma un punto respecto a este transform.
 		/// @param point Punto antes de la transformación.
 		/// @return Punto transformado.
 		Vector3f TransformPoint(const Vector3f& point) const;
 
 
-		/// @brief Añade un hijo al transform.
-		/// @param childId ID del hijo.
-		/// @pre @p childId debe poseer un Transform3D.
-		/// @pre @p childId no debe haber sido previamente añadido.
-		void AddChild(ECS::GameObjectIndex childId);
-
-		/// @brief Elimina un hijo de la lista de hijos.
-		/// @param childId ID del hijo.
-		void RemoveChild(ECS::GameObjectIndex childId);
-
-		/// @return Lista con los ID de los elementos hijos.
-		std::span<const GameObjectIndex> GetChildren() const;
+		/// @brief Actualiza manualmente el valor de la matriz modelo.
+		/// @param matrix Nueva matriz modelo.
+		void OverrideMatrix(const glm::mat4& matrix);
 
 
 		/// @return Posición en el mundo 3D.
@@ -165,28 +141,23 @@ namespace OSK::ECS {
 
 		/// @return Escala en el mundo 3D.
 		Vector3f GetScale() const;
-		
-
-		/// @return Posición local (respecto al padre).
-		Vector3f GetLocalPosition() const;
-
-		/// @return Escala local (respecto al padre).
-		Vector3f GetLocalScale() const;
-
-
-		/// @return Orientación local (respecto al padre).
-		Quaternion GetLocalRotation() const;
 
 		/// @return Orientación en el mundo 3D.
 		Quaternion GetRotation() const;
 
 
+		/// @return Posición local.
+		Vector3f GetLocalPosition() const;
+
+		/// @return Escala local.
+		Vector3f GetLocalScale() const;
+
+		/// @return Orientación local.
+		Quaternion GetLocalRotation() const;
+
+
 		/// @return Matriz modelo, para renderizado.
 		glm::mat4 GetAsMatrix() const;
-
-		/// @brief Actualiza manualmente el valor de la matriz modelo.
-		/// @param matrix Nueva matriz modelo.
-		void OverrideMatrix(const glm::mat4& matrix);
 
 
 		/// @return Vector unitario 3D que apunta hacia el frente de la entidad.
@@ -199,58 +170,42 @@ namespace OSK::ECS {
 		Vector3f GetTopVector() const;
 
 
-		/// @brief Permite establecer si el transform hereda la posición del padre.
-		void SetShouldInheritPosition(bool value);
+		/// @brief Configura qué elementos
+		/// se heredan del transform padre,
+		/// en caso de que exista.
+		struct InheritanceConfig {
+			bool inheritsPosition = true;
+			bool inheritsRotation = true;
+			bool inheritsScale = true;
+		};
 
-		/// @brief Permite establecer si el transform hereda la orientación del padre.
-		void SetShouldInheritRotation(bool value);
 
-		/// @brief Permite establecer si el transform hereda la escala del padre.
-		void SetShouldInheritScale(bool value);
+		/// @brief Aplica los cambios realizados sobre el transform
+		/// cuando no tiene transform padre.
+		void _ApplyChanges();
 
-
-		void _ApplyChanges(std::optional<const Transform3D*> parent);
+		/// @brief Aplica los cambios realizados sobre el transform
+		/// cuando sí tiene transform padre.
+		/// @param parent Transform padre (no nulo).
+		/// @param config Configuración.
+		void _ApplyChanges(const Transform3D* parent, const InheritanceConfig& config);
 
 	private:
 
 		/// @brief Actualiza la matriz modelo.
-		void UpdateModel(std::optional<const Transform3D*> parent);
-
-
-		bool m_inheritPosition = true;
-		bool m_inheritRotation = true;
-		bool m_inheritScale = true;
-
+		void UpdateModel(const Transform3D* parent, const InheritanceConfig& config);
 
 		/// @brief Matriz modelo (para renderizado).
 		glm::mat4 m_matrix = glm::mat4(1.0f);
 
-		/// @brief Vector posición en el mundo 3D.
-		Vector3f m_globalPosition = Vector3f::Zero;
+		Vector3f m_position = Vector3f::Zero;
+		Vector3f m_scale = Vector3f::One;
+		glm::mat4 m_totalRotation = glm::mat4(1.0f);
 
-		/// @brief Vector escala en el mundo 3D.
-		Vector3f m_globalScale = Vector3f::One;
-
-
-		/// @brief Posición respecto al padre.
 		Vector3f m_localPosition = Vector3f::Zero;
-
-		/// @brief Escala respecto al padre.
 		Vector3f m_localScale = Vector3f::One;
-
-
-		/// @brief Orientación respecto al padre.
 		Quaternion m_localRotation{};
 
-		/// @brief Rotación global.
-		glm::mat4 m_globalRotation = glm::mat4(1.0f);
-
-
-		/// @brief Identificador del objeto que este transform representa.
-		GameObjectIndex m_ownerId = EMPTY_GAME_OBJECT;
-
-		/// @brief IDs de los objetos hijos.
-		DynamicArray<GameObjectIndex> m_childIds;
 
 
 		// --- Changes --- //
@@ -273,5 +228,3 @@ namespace OSK::ECS {
 	};
 
 }
-
-OSK_COMPONENT_SERIALIZATION(OSK::ECS::Transform3D);

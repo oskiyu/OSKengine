@@ -15,7 +15,7 @@
 #include <glm/ext/matrix_clip_space.hpp>
 
 #include "CameraComponent3D.h"
-#include "Transform3D.h"
+#include "TransformComponent3D.h"
 #include "GpuImageDimensions.h"
 #include "GpuMemoryTypes.h"
 #include "Model3D.h"
@@ -78,7 +78,7 @@ void ShadowMap::UpdateLightMatrixBuffer() {
 	ShadowsBufferContent bufferContent{};
 
 	const CameraComponent3D& camera = Engine::GetEcs()->GetComponent<CameraComponent3D>(m_cameraObject);
-	const Transform3D& cameraTransform = Engine::GetEcs()->GetComponent<Transform3D>(m_cameraObject);
+	const auto& cameraTransform = Engine::GetEcs()->GetComponent<TransformComponent3D>(m_cameraObject).GetTransform();
 
 	bufferContent.cascadeSplits = m_splitsVec;
 

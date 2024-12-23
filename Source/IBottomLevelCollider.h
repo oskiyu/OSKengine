@@ -15,6 +15,10 @@
 #include "Sat.h"
 #include "IRayCollider.h"
 
+namespace OSK {
+	class Transform3D;
+}
+
 namespace OSK::COLLISION {
 
 	class Collider;
@@ -41,15 +45,17 @@ namespace OSK::COLLISION {
 		/// @param transformB Transform del otro collider.
 		/// 
 		/// @return Información detallada de la colisión.
-		virtual DetailedCollisionInfo GetCollisionInfo(const IBottomLevelCollider& other,
-			const ECS::Transform3D& transformA, const ECS::Transform3D& transformB) const = 0;
+		virtual DetailedCollisionInfo GetCollisionInfo(
+			const IBottomLevelCollider& other,
+			const Transform3D& transformA, 
+			const Transform3D& transformB) const = 0;
 
 		virtual bool ContainsPoint(const Vector3f& point) const = 0;
 
 		/// @brief Transforma el collider.
 		/// Debe llamarse una vez por frame.
 		/// @param transform Transform de la entidad.
-		virtual void Transform(const ECS::Transform3D& transform) = 0;
+		virtual void Transform(const Transform3D& transform) = 0;
 
 	};
 

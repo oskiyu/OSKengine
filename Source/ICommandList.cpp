@@ -177,7 +177,7 @@ void ICommandList::TransferToQueue(GpuImage* image, const ICommandQueue& sourceQ
 		GpuBarrierInfo(GpuCommandStage::ALL, GpuAccessStage::NONE),
 		GpuBarrierInfo(GpuCommandStage::ALL, GpuAccessStage::NONE),
 		GpuImageRange{},
-		ResourceQueueTransferInfo::FromTo(sourceQueue.GetFamily(), targetQueue.GetFamily()));
+		ResourceQueueTransferInfo::FromTo(&sourceQueue, &targetQueue));
 
 	image->_UpdateOwnerQueue(std::addressof(targetQueue));
 }
@@ -192,8 +192,8 @@ void ICommandList::TransferToQueue(GpuBuffer* buffer, const ICommandQueue& sourc
 		buffer->GetWholeBufferRange(),
 		GpuBarrierInfo(GpuCommandStage::ALL, GpuAccessStage::NONE),
 		ResourceQueueTransferInfo::FromTo(
-			sourceQueue.GetFamily(),
-			targetQueue.GetFamily()));
+			&sourceQueue,
+			&targetQueue));
 }
 
 void ICommandList::TransferToQueue(GpuBuffer* buffer, const ICommandQueue& targetQueue) {

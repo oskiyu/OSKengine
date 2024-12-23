@@ -50,11 +50,15 @@ SwapchainVk::~SwapchainVk() {
 	}
 }
 
-SwapchainVk::SwapchainVk(PresentMode mode, Format format, const GpuVk& device, const Vector2ui& resolution, std::span<const UIndex32> queueIndices) : ISwapchain(mode, format, queueIndices) {
-	CreationLogic(device, resolution);
+SwapchainVk::SwapchainVk(PresentMode mode, Format format, const GpuVk& device, const Vector2ui& resolution, std::span<const UIndex32> queueIndices) : ISwapchain(mode, format) {
+	CreationLogic(device, resolution, queueIndices);
+
+	for (auto index : queueIndices) {
+		m_queueIndices.Insert(index);
+	}
 }
 
-void SwapchainVk::CreationLogic(const GpuVk& device, const Vector2ui& resolution) {
+void SwapchainVk::CreationLogic(const GpuVk& device, const Vector2ui& resolution, std::span<const UIndex32> queueIndices) {
 	auto& info = device.GetInfo();
 
 	// Formato del swapchain.
@@ -93,16 +97,16 @@ void SwapchainVk::CreationLogic(const GpuVk& device, const Vector2ui& resolution
 
 	// Colas.
 	// Cómo se maneja el swapchain.
-	if (GetQueueIndices().size() == 1) {
+	if (queueIndices.size() == 1) {
 		createInfo.imageSharingMode = VK_SHARING_MODE_EXCLUSIVE;
 		createInfo.queueFamilyIndexCount = 0;
 		createInfo.pQueueFamilyIndices = nullptr;
 	}
 	else {
 		bool areAllEqual = true;
-		const auto firstIndex = GetQueueIndices()[0];
+		const auto firstIndex = queueIndices[0];
 
-		for (const auto& index : GetQueueIndices()) {
+		for (const auto& index : queueIndices) {
 			if (firstIndex != index) {
 				areAllEqual = false;
 				break;
@@ -116,8 +120,8 @@ void SwapchainVk::CreationLogic(const GpuVk& device, const Vector2ui& resolution
 		}
 		else {
 			createInfo.imageSharingMode = VK_SHARING_MODE_CONCURRENT;
-			createInfo.queueFamilyIndexCount = static_cast<uint32_t>(GetQueueIndices().size());
-			createInfo.pQueueFamilyIndices = GetQueueIndices().data();
+			createInfo.queueFamilyIndexCount = static_cast<uint32_t>(queueIndices.size());
+			createInfo.pQueueFamilyIndices = queueIndices.data();
 		}
 	}
 
@@ -203,7 +207,7 @@ void SwapchainVk::Resize(const IGpu& gpu, Vector2ui newResolution) {
 		gpu.As<GpuVk>()->GetLogicalDevice(),
 		m_swapchain, nullptr);
 
-	CreationLogic(*gpu.As<GpuVk>(), newResolution);
+	CreationLogic(*gpu.As<GpuVk>(), newResolution, m_queueIndices.GetFullSpan());
 }
 
 VkColorSpaceKHR SwapchainVk::GetSupportedColorSpace(const GpuVk& device) {

@@ -7,7 +7,7 @@
 
 #include "Assert.h"
 #include "AudioExceptions.h"
-#include "Transform3D.h"
+#include "TransformComponent3D.h"
 
 #include "AudioSourceAl.h"
 

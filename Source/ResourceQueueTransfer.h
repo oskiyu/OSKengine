@@ -5,6 +5,8 @@
 
 namespace OSK::GRAPHICS {
 
+	class ICommandQueue;
+
 	/// @brief Estructura que permite expresar una transferencia
 	/// de un recurso de una cola a otra.
 	/// 
@@ -24,15 +26,15 @@ namespace OSK::GRAPHICS {
 		/// @return Estructura completa.
 		/// 
 		/// @post @p transfer será `true`.
-		static ResourceQueueTransferInfo FromTo(const QueueFamily& source, const QueueFamily& destination);
+		static ResourceQueueTransferInfo FromTo(const ICommandQueue* source, const ICommandQueue* destination);
 
 		/// @brief Fammilia de origen.
 		/// @pre @p transfer debe ser `true`.
-		QueueFamily sourceFamily;
+		const ICommandQueue* sourceQueue = nullptr;
 
 		/// @brief Fammilia de destino.
 		/// @pre @p transfer debe ser `true`.
-		QueueFamily destinationFamily;
+		const ICommandQueue* destinationQueue = nullptr;
 
 		/// @brief Indica si hay una transferencia o no.
 		bool transfer = false;

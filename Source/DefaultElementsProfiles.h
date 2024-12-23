@@ -16,7 +16,7 @@ namespace OSK::GAME {
 		/// - SkyboxRenderSystem (*ECS System*).
 		/// - RenderSystem2D (*ECS System*).
 		/// 
-		/// - Transform3D (*ECS Component*).
+		/// - TransformComponent3D (*ECS Component*).
 		/// - ModelComponent3D (*ECS Component*).
 		/// - CameraComponent3D (*ECS Component*).
 		/// - TerrainComponent (*ECS Component*).
@@ -92,7 +92,7 @@ namespace OSK::GAME {
 		/// - TransformApplierSystem (*ECS System*).
 		/// - SkyboxRenderSystem (*ECS System*).
 		/// 
-		/// - Transform3D (*ECS Component*).
+		/// - TransformComponent3D (*ECS Component*).
 		/// - ModelComponent3D (*ECS Component*).
 		/// - CameraComponent3D (*ECS Component*).
 		/// - TerrainComponent (*ECS Component*).

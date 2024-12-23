@@ -21,7 +21,7 @@
 #include "PreBuiltSplineLoader3D.h"
 #include "TransformApplierSystem.h"
 
-#include "Transform3D.h"
+#include "TransformComponent3D.h"
 #include "ModelComponent3D.h"
 #include "CameraComponent3D.h"
 #include "EntityComponentSystem.h"
@@ -161,7 +161,7 @@ void Engine::RegisterBuiltinComponents(GAME::DefaultContentProfile profile) {
 	entityComponentSystem->RegisterComponent<ECS::Transform2D>();
 
 	if (profile == GAME::DefaultContentProfile::ALL || profile == GAME::DefaultContentProfile::_3D_ONLY) {
-		entityComponentSystem->RegisterComponent<ECS::Transform3D>();
+		entityComponentSystem->RegisterComponent<ECS::TransformComponent3D>();
 		entityComponentSystem->RegisterComponent<ECS::ModelComponent3D>();
 		entityComponentSystem->RegisterComponent<ECS::CameraComponent3D>();
 		entityComponentSystem->RegisterComponent<ECS::CollisionComponent>();

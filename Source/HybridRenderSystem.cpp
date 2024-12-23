@@ -3,7 +3,7 @@
 #include "OSKengine.h"
 #include "EntityComponentSystem.h"
 
-#include "Transform3D.h"
+#include "TransformComponent3D.h"
 #include "ModelComponent3D.h"
 #include "CameraComponent3D.h"
 
@@ -22,7 +22,7 @@ using namespace OSK::GRAPHICS;
 HybridRenderSystem::HybridRenderSystem() {
 	// Signature del sistema
 	Signature signature{};
-	signature.SetTrue(Engine::GetEcs()->GetComponentType<Transform3D>());
+	signature.SetTrue(Engine::GetEcs()->GetComponentType<TransformComponent3D>());
 	signature.SetTrue(Engine::GetEcs()->GetComponentType<ModelComponent3D>());
 	_SetSignature(signature);
 
@@ -442,7 +442,7 @@ void HybridRenderSystem::Render(GRAPHICS::ICommandList* commandList, std::span<c
 	topLevelAccelerationStructures[resourceIndex]->Update(commandList);
 
 	const CameraComponent3D& camera = Engine::GetEcs()->GetComponent<CameraComponent3D>(cameraObject);
-	const Transform3D& cameraTransform = Engine::GetEcs()->GetComponent<Transform3D>(cameraObject);
+	const auto& cameraTransform = Engine::GetEcs()->GetComponent<TransformComponent3D>(cameraObject).GetTransform();
 
 	cameraUbos[resourceIndex]->MapMemory();
 	cameraUbos[resourceIndex]->Write(camera.GetProjectionMatrix());
@@ -467,7 +467,7 @@ void HybridRenderSystem::Render(GRAPHICS::ICommandList* commandList, std::span<c
 	Resolve(commandList);
 
 	for (const GameObjectIndex obj : objects) {
-		previousModelMatrices[obj] = Engine::GetEcs()->GetComponent<Transform3D>(obj).GetAsMatrix();
+		previousModelMatrices[obj] = Engine::GetEcs()->GetComponent<TransformComponent3D>(obj).GetTransform().GetAsMatrix();
 	}
 }
 

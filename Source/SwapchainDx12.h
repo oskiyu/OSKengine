@@ -19,6 +19,7 @@ namespace OSK::IO {
 namespace OSK::GRAPHICS {
 	
 	enum class Format;
+	enum class PresentMode;
 	class CommandQueueDx12;
 	class GpuImage;
 	class GpuDx12;
@@ -29,10 +30,10 @@ namespace OSK::GRAPHICS {
 	public:
 
 		SwapchainDx12(
+			CommandQueueDx12* queue,
 			PresentMode mode,
 			Format format,
-			const GpuDx12& device,
-			std::span<const UIndex32> queueIndices,
+			GpuDx12* device,
 			const IO::IDisplay& display,
 			IDXGIFactory4* factory);
 		~SwapchainDx12() override;
@@ -59,8 +60,8 @@ namespace OSK::GRAPHICS {
 		ComPtr<ID3D12DescriptorHeap> renderTargetsDesc;
 		ComPtr<ID3D12DescriptorHeap> depthTargetsDescHeap;
 
-		ComPtr<ID3D12Heap> depthHeaps[3];
-		UniquePtr<GpuImage> depthImages[3];
+		GpuDx12* m_device = nullptr;
+		CommandQueueDx12* m_queue = nullptr;
 
 	};
 

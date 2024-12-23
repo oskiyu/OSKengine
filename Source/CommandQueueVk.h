@@ -29,10 +29,20 @@ namespace OSK::GRAPHICS {
 			const GpuVk& gpu);
 
 
+		/// @return Familia de colas a partir de la cual
+		/// se obtuvo esta cola.
+		const QueueFamily& GetFamily() const;
+
+		/// @return Índice de la cola dentro de la familia de colas.
+		UIndex32 GetQueueIndexInsideFamily() const;
+
 		/// @return Cola nativa.
 		VkQueue GetQueue() const;
 
 	private:
+
+		QueueFamily m_family;
+		UIndex32 m_queueIndex;
 
 		VkQueue m_queue = nullptr;
 

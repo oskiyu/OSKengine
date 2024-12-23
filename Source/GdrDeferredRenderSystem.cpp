@@ -5,7 +5,7 @@
 #include "IGpuMemoryAllocator.h"
 
 #include "ModelComponent3D.h"
-#include "Transform3D.h"
+#include "TransformComponent3D.h"
 
 #include "Vertex3D.h"
 #include "VertexAttributes.h"
@@ -137,7 +137,7 @@ void GdrDeferredRenderSystem::Render(GRAPHICS::ICommandList* commandList, std::s
 	// TODO: passes
 	for (const GameObjectIndex obj : objects) {
 		const ModelComponent3D& model = Engine::GetEcs()->GetComponent<ModelComponent3D>(obj);
-		const Transform3D& transform = Engine::GetEcs()->GetComponent<Transform3D>(obj);
+		const auto& transform = Engine::GetEcs()->GetComponent<TransformComponent3D>(obj).GetTransform();
 
 		
 		for (UIndex32 i = 0; i < model.GetModel()->GetMeshes().GetSize(); i++) {

@@ -1,4 +1,4 @@
-#include "Transform2D.h"
+#include "TransformComponent2D.h"
 #include <glm/ext/matrix_transform.hpp>
 #include "OSKengine.h"
 #include "EntityComponentSystem.h"

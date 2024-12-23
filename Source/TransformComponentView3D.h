@@ -1,7 +1,7 @@
 #pragma once
 
 #include "IComponentView.h"
-#include "Transform3D.h"
+#include "TransformComponent3D.h"
 
 namespace OSK::UI {
 	class TextView;
@@ -13,7 +13,7 @@ namespace OSK::Editor::Views {
 
 	public:
 
-		OSK_LINK_COMPONENT_EDITOR_VIEW(ECS::Transform3D);
+		OSK_LINK_COMPONENT_EDITOR_VIEW(ECS::TransformComponent3D);
 
 		explicit TransformComponentView3D(const Vector2f& size);
 

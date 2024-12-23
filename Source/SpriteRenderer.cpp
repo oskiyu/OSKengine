@@ -2,7 +2,7 @@
 
 #include "PushConst2D.h"
 #include "Sprite.h"
-#include "Transform2D.h"
+#include "TransformComponent2D.h"
 #include "ICommandList.h"
 #include "MaterialInstance.h"
 #include "MaterialLayout.h"

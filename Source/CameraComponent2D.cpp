@@ -1,7 +1,7 @@
 #include "CameraComponent2D.h"
 
 #include "Window.h"
-#include "Transform2D.h"
+#include "TransformComponent2D.h"
 #include "OSKengine.h"
 #include "Window.h"
 #include <glm/ext\matrix_clip_space.hpp>

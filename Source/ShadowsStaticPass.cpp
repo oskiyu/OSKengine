@@ -4,7 +4,7 @@
 #include "EntityComponentSystem.h"
 
 #include "CameraComponent3D.h"
-#include "Transform3D.h"
+#include "TransformComponent3D.h"
 #include "ModelComponent3D.h"
 #include "Model3D.h"
 #include "DeferredPushConstants.h"
@@ -51,7 +51,7 @@ void ShadowsStaticPass::ShadowsRenderLoop(ICommandList* commandList, const Dynam
 
 	for (const GameObjectIndex obj : objectsToRender) {
 		const ModelComponent3D& model = Engine::GetEcs()->GetComponent<ModelComponent3D>(obj);
-		const Transform3D& transform = Engine::GetEcs()->GetComponent<Transform3D>(obj);
+		const auto& transform = Engine::GetEcs()->GetComponent<TransformComponent3D>(obj).GetTransform();
 
 		if (!model.CastsShadows())
 			continue;

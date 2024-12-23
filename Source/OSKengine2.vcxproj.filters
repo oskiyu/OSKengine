@@ -721,6 +721,12 @@
     <Filter Include="Archivos de origen\External">
       <UniqueIdentifier>{1b9659fc-4ce7-4d39-9e5a-8e83ec9ec037}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Archivos de encabezado\Core\Graphics\LowLevel\Resources\Dx12">
+      <UniqueIdentifier>{8e730215-456d-4262-9fd7-fd4cb7df35f3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de origen\Core\Graphics\LowLevel\Resources\Dx12">
+      <UniqueIdentifier>{de8058f2-23b5-4e1a-ab86-33a978fc9c8f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -1212,10 +1218,10 @@
     <ClCompile Include="Sprite.cpp">
       <Filter>Archivos de origen\BuiltIn\ECS\Components</Filter>
     </ClCompile>
-    <ClCompile Include="Transform2D.cpp">
+    <ClCompile Include="TransformComponent2D.cpp">
       <Filter>Archivos de origen\BuiltIn\ECS\Components</Filter>
     </ClCompile>
-    <ClCompile Include="Transform3D.cpp">
+    <ClCompile Include="TransformComponent3D.cpp">
       <Filter>Archivos de origen\BuiltIn\ECS\Components</Filter>
     </ClCompile>
     <ClCompile Include="CollisionSystem.cpp">
@@ -1619,6 +1625,15 @@
     </ClCompile>
     <ClCompile Include="GrassRenderPass.cpp">
       <Filter>Archivos de origen\BuiltIn\GRAPHICS\Renderpasses</Filter>
+    </ClCompile>
+    <ClCompile Include="GpuImageSamplerDx12.cpp">
+      <Filter>Archivos de origen\Core\Graphics\LowLevel\Resources\Image\Sampler</Filter>
+    </ClCompile>
+    <ClCompile Include="DescriptorHeapDx12.cpp">
+      <Filter>Archivos de origen\Core\Graphics\LowLevel\Resources\Dx12</Filter>
+    </ClCompile>
+    <ClCompile Include="Transform3D.cpp">
+      <Filter>Archivos de origen\Core\Types</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -2306,10 +2321,10 @@
     <ClInclude Include="Sprite.h">
       <Filter>Archivos de encabezado\BuiltIn\ECS\Components</Filter>
     </ClInclude>
-    <ClInclude Include="Transform3D.h">
+    <ClInclude Include="TransformComponent3D.h">
       <Filter>Archivos de encabezado\BuiltIn\ECS\Components</Filter>
     </ClInclude>
-    <ClInclude Include="Transform2D.h">
+    <ClInclude Include="TransformComponent2D.h">
       <Filter>Archivos de encabezado\BuiltIn\ECS\Components</Filter>
     </ClInclude>
     <ClInclude Include="CollisionSystem.h">
@@ -2902,6 +2917,15 @@
     </ClInclude>
     <ClInclude Include="GrassRenderPass.h">
       <Filter>Archivos de encabezado\BuiltIn\GRAPHICS\Renderpasses</Filter>
+    </ClInclude>
+    <ClInclude Include="GpuImageSamplerDx12.h">
+      <Filter>Archivos de encabezado\Core\Graphics\LowLevel\Resources\Image\Sampler</Filter>
+    </ClInclude>
+    <ClInclude Include="DescriptorHeapDx12.h">
+      <Filter>Archivos de encabezado\Core\Graphics\LowLevel\Resources\Dx12</Filter>
+    </ClInclude>
+    <ClInclude Include="Transform3D.h">
+      <Filter>Archivos de encabezado\Core\Types</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

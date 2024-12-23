@@ -112,8 +112,7 @@ namespace OSK::GRAPHICS {
 		/// renderizar sobre el swapchain.
 		ISwapchain(
 			PresentMode mode,
-			Format format,
-			std::span<const UIndex32> queueIndices);
+			Format format);
 
 		/// @brief Actualiza la variable de la clase.
 		/// @param imageCount Número de imágenes del swapchain.
@@ -133,10 +132,6 @@ namespace OSK::GRAPHICS {
 			OwnedPtr<GpuImage> image,
 			UIndex32 index);
 
-		/// @return Índices de las colas que usarán las imágenes
-		/// del swapchain.
-		std::span<const UIndex32> GetQueueIndices() const;
-
 	private:
 
 		USize32 m_numImagesInFlight = MAX_RESOURCES_IN_FLIGHT;
@@ -146,8 +141,6 @@ namespace OSK::GRAPHICS {
 
 		std::array<UniquePtr<GpuImage>, MAX_RESOURCES_IN_FLIGHT> m_images{};
 		UIndex32 m_currentFrameIndex = 0;
-
-		DynamicArray<UIndex32> m_queueIndices;
 
 	};
 

@@ -17,10 +17,7 @@ using namespace OSK;
 using namespace OSK::GRAPHICS;
 
 
-ISwapchain::ISwapchain(PresentMode mode, Format format, std::span<const UIndex32> queueIndices) : m_presentMode(mode), m_colorFormat(format){
-	for (const auto index : queueIndices) {
-		m_queueIndices.Insert(index);
-	}
+ISwapchain::ISwapchain(PresentMode mode, Format format) : m_presentMode(mode), m_colorFormat(format) {
 }
 
 void ISwapchain::SetNumImagesInFlight(USize32 imageCount) {
@@ -29,10 +26,6 @@ void ISwapchain::SetNumImagesInFlight(USize32 imageCount) {
 
 void ISwapchain::SetImage(OwnedPtr<GpuImage> image, UIndex32 index) {
 	m_images[index] = image.GetPointer();
-}
-
-std::span<const UIndex32> ISwapchain::GetQueueIndices() const {
-	return m_queueIndices.GetFullSpan();
 }
 
 void ISwapchain::TakeScreenshot(std::string_view path) {
