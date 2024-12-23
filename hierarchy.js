@@ -211,7 +211,7 @@ var hierarchy =
       [ "OSK::Editor::Controllers::TComponentController< ECS::PhysicsComponent >", "class_o_s_k_1_1_editor_1_1_controllers_1_1_t_component_controller.html", [
         [ "OSK::Editor::Controllers::PhysicsComponentController3D", "class_o_s_k_1_1_editor_1_1_controllers_1_1_physics_component_controller3_d.html", null ]
       ] ],
-      [ "OSK::Editor::Controllers::TComponentController< ECS::Transform3D >", "class_o_s_k_1_1_editor_1_1_controllers_1_1_t_component_controller.html", [
+      [ "OSK::Editor::Controllers::TComponentController< ECS::TransformComponent3D >", "class_o_s_k_1_1_editor_1_1_controllers_1_1_t_component_controller.html", [
         [ "OSK::Editor::Controllers::TransformComponentController3D", "class_o_s_k_1_1_editor_1_1_controllers_1_1_transform_component_controller3_d.html", null ]
       ] ],
       [ "OSK::Editor::Controllers::TComponentController< TComponent >", "class_o_s_k_1_1_editor_1_1_controllers_1_1_t_component_controller.html", null ]
@@ -315,6 +315,7 @@ var hierarchy =
       [ "OSK::IO::PcUserInput", "class_o_s_k_1_1_i_o_1_1_pc_user_input.html", null ]
     ] ],
     [ "OSK::GRAPHICS::IndexBufferView", "struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_index_buffer_view.html", null ],
+    [ "OSK::Transform3D::InheritanceConfig", "struct_o_s_k_1_1_transform3_d_1_1_inheritance_config.html", null ],
     [ "OSK::IO::InputManager", "class_o_s_k_1_1_i_o_1_1_input_manager.html", null ],
     [ "OSK::GRAPHICS::IPipelineLayout", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_pipeline_layout.html", null ],
     [ "OSK::GRAPHICS::IPipelineVk", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_pipeline_vk.html", null ],
@@ -621,7 +622,8 @@ var hierarchy =
     [ "OSK::GRAPHICS::GpuModel3D::TextureTable", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_model3_d_1_1_texture_table.html", null ],
     [ "OSK::GRAPHICS::ThreadedCommandPoolMap", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_threaded_command_pool_map.html", null ],
     [ "OSK::ECS::Transform2D", "class_o_s_k_1_1_e_c_s_1_1_transform2_d.html", null ],
-    [ "OSK::ECS::Transform3D", "class_o_s_k_1_1_e_c_s_1_1_transform3_d.html", null ],
+    [ "OSK::Transform3D", "class_o_s_k_1_1_transform3_d.html", null ],
+    [ "OSK::ECS::TransformComponent3D", "class_o_s_k_1_1_e_c_s_1_1_transform_component3_d.html", null ],
     [ "OSK::UniquePtr< T >", "class_o_s_k_1_1_unique_ptr.html", null ],
     [ "OSK::UniquePtr< OSK::ASSETS::AssetManager >", "class_o_s_k_1_1_unique_ptr.html", null ],
     [ "OSK::UniquePtr< OSK::ASSETS::Texture >", "class_o_s_k_1_1_unique_ptr.html", null ],

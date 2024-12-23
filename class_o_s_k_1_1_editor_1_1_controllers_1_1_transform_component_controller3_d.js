@@ -9,7 +9,7 @@ var class_o_s_k_1_1_editor_1_1_controllers_1_1_transform_component_controller3_d
     [ "GetLinkedObject", "class_o_s_k_1_1_editor_1_1_controllers_1_1_transform_component_controller3_d.html#a86da1d5db3a3600243cec6e50ad3f685", null ],
     [ "GetView", "class_o_s_k_1_1_editor_1_1_controllers_1_1_transform_component_controller3_d.html#aee494d0e5d99aa584a0e911459d473b6", null ],
     [ "GetView", "class_o_s_k_1_1_editor_1_1_controllers_1_1_transform_component_controller3_d.html#a76f2c02b4c2f1de34dddc555fdf6c9a0", null ],
-    [ "OSK_LINK_COMPONENT_EDITOR_CONTROLLER", "class_o_s_k_1_1_editor_1_1_controllers_1_1_transform_component_controller3_d.html#a0ec744beb4bb5a5e57197151ce35db7e", null ],
+    [ "OSK_LINK_COMPONENT_EDITOR_CONTROLLER", "class_o_s_k_1_1_editor_1_1_controllers_1_1_transform_component_controller3_d.html#a90bff22616080f7ea9fe6c9e8c821cd6", null ],
     [ "Update", "class_o_s_k_1_1_editor_1_1_controllers_1_1_transform_component_controller3_d.html#af56c9ea3b39f25e84b0f5ddf27d80534", null ],
     [ "UpdateComponent", "class_o_s_k_1_1_editor_1_1_controllers_1_1_transform_component_controller3_d.html#a0214bbd479fca202d9c9da5fd391c795", null ]
 ];

@@ -145,7 +145,7 @@ $(function(){initNavTree('_renderer_vk_8cpp_source.html',''); initResizable(true
 <div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span><span class="preprocessor">#include &quot;AssetManager.h&quot;</span></div>
 <div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span><span class="preprocessor">#include &quot;Texture.h&quot;</span></div>
 <div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span><span class="preprocessor">#include &quot;Model3D.h&quot;</span></div>
-<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span><span class="preprocessor">#include &quot;Transform3D.h&quot;</span></div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span><span class="preprocessor">#include &quot;TransformComponent3D.h&quot;</span></div>
 <div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span><span class="preprocessor">#include &quot;ModelComponent3D.h&quot;</span></div>
 <div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span><span class="preprocessor">#include &quot;EntityComponentSystem.h&quot;</span></div>
 <div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span><span class="preprocessor">#include &quot;Window.h&quot;</span></div>
@@ -250,7 +250,7 @@ $(function(){initNavTree('_renderer_vk_8cpp_source.html',''); initResizable(true
 <div class="line"><a id="l00147" name="l00147"></a><span class="lineno">  147</span><a class="code hl_class" href="class_o_s_k_1_1_owned_ptr.html">OwnedPtr&lt;ICommandPool&gt;</a> RendererVk::CreateCommandPool(<span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_queue.html">ICommandQueue</a>* targetQueueType) {</div>
 <div class="line"><a id="l00148" name="l00148"></a><span class="lineno">  148</span>    <span class="keywordflow">return</span> <span class="keyword">new</span> CommandPoolVk(</div>
 <div class="line"><a id="l00149" name="l00149"></a><span class="lineno">  149</span>        *GetGpu()-&gt;As&lt;GpuVk&gt;(),</div>
-<div class="line"><a id="l00150" name="l00150"></a><span class="lineno">  150</span>        targetQueueType-&gt;<a class="code hl_function" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_queue.html#a037dcccaf1a0724dcd3f4073764e07e9">GetFamily</a>(),</div>
+<div class="line"><a id="l00150" name="l00150"></a><span class="lineno">  150</span>        targetQueueType-&gt;As&lt;CommandQueueVk&gt;()-&gt;GetFamily(),</div>
 <div class="line"><a id="l00151" name="l00151"></a><span class="lineno">  151</span>        targetQueueType-&gt;<a class="code hl_function" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_queue.html#ab71c9b114c751200e9c751201d7b71e8">GetQueueType</a>());</div>
 <div class="line"><a id="l00152" name="l00152"></a><span class="lineno">  152</span>}</div>
 <div class="line"><a id="l00153" name="l00153"></a><span class="lineno">  153</span> </div>
@@ -444,11 +444,11 @@ $(function(){initNavTree('_renderer_vk_8cpp_source.html',''); initResizable(true
 <div class="line"><a id="l00341" name="l00341"></a><span class="lineno">  341</span>    <a class="code hl_class" href="class_o_s_k_1_1_dynamic_array.html">DynamicArray&lt;UIndex32&gt;</a> queueIndices{};</div>
 <div class="line"><a id="l00342" name="l00342"></a><span class="lineno">  342</span> </div>
 <div class="line"><a id="l00343" name="l00343"></a><span class="lineno">  343</span>    <span class="keywordflow">if</span> (UseUnifiedCommandQueue()) {</div>
-<div class="line"><a id="l00344" name="l00344"></a><span class="lineno">  344</span>        queueIndices.Insert(GetUnifiedQueue()-&gt;GetFamily().familyIndex);</div>
+<div class="line"><a id="l00344" name="l00344"></a><span class="lineno">  344</span>        queueIndices.Insert(GetUnifiedQueue()-&gt;As&lt;CommandQueueVk&gt;()-&gt;GetFamily().familyIndex);</div>
 <div class="line"><a id="l00345" name="l00345"></a><span class="lineno">  345</span>    }</div>
 <div class="line"><a id="l00346" name="l00346"></a><span class="lineno">  346</span>    <span class="keywordflow">else</span> {</div>
-<div class="line"><a id="l00347" name="l00347"></a><span class="lineno">  347</span>        queueIndices.Insert(GetGraphicsComputeQueue()-&gt;GetFamily().familyIndex);</div>
-<div class="line"><a id="l00348" name="l00348"></a><span class="lineno">  348</span>        queueIndices.Insert(GetPresentationQueue()-&gt;GetFamily().familyIndex);</div>
+<div class="line"><a id="l00347" name="l00347"></a><span class="lineno">  347</span>        queueIndices.Insert(GetGraphicsComputeQueue()-&gt;As&lt;CommandQueueVk&gt;()-&gt;GetFamily().familyIndex);</div>
+<div class="line"><a id="l00348" name="l00348"></a><span class="lineno">  348</span>        queueIndices.Insert(GetPresentationQueue()-&gt;As&lt;CommandQueueVk&gt;()-&gt;GetFamily().familyIndex);</div>
 <div class="line"><a id="l00349" name="l00349"></a><span class="lineno">  349</span>    }</div>
 <div class="line"><a id="l00350" name="l00350"></a><span class="lineno">  350</span> </div>
 <div class="line"><a id="l00351" name="l00351"></a><span class="lineno">  351</span>    _SetSwapchain(<span class="keyword">new</span> SwapchainVk(</div>
@@ -902,8 +902,7 @@ $(function(){initNavTree('_renderer_vk_8cpp_source.html',''); initResizable(true
 <div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_not_compatible_exception_html"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_not_compatible_exception.html">OSK::GRAPHICS::GpuNotCompatibleException</a></div><div class="ttdef"><b>Definition</b> <a href="_renderer_exceptions_8h_source.html#l00037">RendererExceptions.h:37</a></div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_not_found_exception_html"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_not_found_exception.html">OSK::GRAPHICS::GpuNotFoundException</a></div><div class="ttdef"><b>Definition</b> <a href="_renderer_exceptions_8h_source.html#l00051">RendererExceptions.h:51</a></div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_queue_html"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_queue.html">OSK::GRAPHICS::ICommandQueue</a></div><div class="ttdoc">Representa un puerto de entrada para los comandos de la GPU.</div><div class="ttdef"><b>Definition</b> <a href="_i_command_queue_8h_source.html#l00015">ICommandQueue.h:15</a></div></div>
-<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_queue_html_a037dcccaf1a0724dcd3f4073764e07e9"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_queue.html#a037dcccaf1a0724dcd3f4073764e07e9">OSK::GRAPHICS::ICommandQueue::GetFamily</a></div><div class="ttdeci">const QueueFamily &amp; GetFamily() const</div><div class="ttdef"><b>Definition</b> <a href="_i_command_queue_8cpp_source.html#l00011">ICommandQueue.cpp:11</a></div></div>
-<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_queue_html_ab71c9b114c751200e9c751201d7b71e8"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_queue.html#ab71c9b114c751200e9c751201d7b71e8">OSK::GRAPHICS::ICommandQueue::GetQueueType</a></div><div class="ttdeci">GpuQueueType GetQueueType() const</div><div class="ttdef"><b>Definition</b> <a href="_i_command_queue_8cpp_source.html#l00015">ICommandQueue.cpp:15</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_queue_html_ab71c9b114c751200e9c751201d7b71e8"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_queue.html#ab71c9b114c751200e9c751201d7b71e8">OSK::GRAPHICS::ICommandQueue::GetQueueType</a></div><div class="ttdeci">GpuQueueType GetQueueType() const</div><div class="ttdef"><b>Definition</b> <a href="_i_command_queue_8cpp_source.html#l00021">ICommandQueue.cpp:21</a></div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_html"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer.html">OSK::GRAPHICS::IRenderer</a></div><div class="ttdoc">Clase singleton de la arquitectura de renderizado.</div><div class="ttdef"><b>Definition</b> <a href="_i_renderer_8h_source.html#l00065">IRenderer.h:65</a></div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_layout_html"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_layout.html">OSK::GRAPHICS::MaterialLayout</a></div><div class="ttdoc">El layout de un material determina qué slots pertenecen a ese material.</div><div class="ttdef"><b>Definition</b> <a href="_material_layout_8h_source.html#l00012">MaterialLayout.h:12</a></div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderer_creation_exception_html"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderer_creation_exception.html">OSK::GRAPHICS::RendererCreationException</a></div><div class="ttdef"><b>Definition</b> <a href="_renderer_exceptions_8h_source.html#l00022">RendererExceptions.h:22</a></div></div>
@@ -940,7 +939,7 @@ $(function(){initNavTree('_renderer_vk_8cpp_source.html',''); initResizable(true
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_74389ed8173ad57b461b9d623a1f3867.html">Source</a></li><li class="navelem"><b>RendererVk.cpp</b></li>
-    <li class="footer">Generado el Viernes, 6 de diciembre de 2024 12:53:36 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.12.0 </li>
+    <li class="footer">Generado el Lunes, 23 de diciembre de 2024 13:15:56 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.12.0 </li>
   </ul>
 </div>
 </body>

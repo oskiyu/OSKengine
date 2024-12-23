@@ -22,7 +22,7 @@ var searchData=
   ['frombytes_19',['FromBytes',['../class_o_s_k_1_1_color.html#a701abb7cdee003efa0a3f753aaa5d7db',1,'OSK::Color::FromBytes(TByte r, TByte g, TByte b)'],['../class_o_s_k_1_1_color.html#a9db25606119b2d814f48895d9bd54334',1,'OSK::Color::FromBytes(TByte r, TByte g, TByte b, TByte a)']]],
   ['fromdata_20',['FromData',['../class_o_s_k_1_1_p_e_r_s_i_s_t_e_n_c_e_1_1_binary_block.html#abbaaf1d36d5e56c60e2907f4a9367b11',1,'OSK::PERSISTENCE::BinaryBlock']]],
   ['fromglm_21',['FromGlm',['../class_o_s_k_1_1_quaternion.html#a0cbf0edcbfd33647de6fa20d641d2216',1,'OSK::Quaternion']]],
-  ['frommatrix_22',['FromMatrix',['../class_o_s_k_1_1_e_c_s_1_1_transform3_d.html#a113b74eaac353602f1c7707559113b5d',1,'OSK::ECS::Transform3D']]],
-  ['fromto_23',['FromTo',['../struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_resource_queue_transfer_info.html#a9482509727018152da5f8a9c0cb64959',1,'OSK::GRAPHICS::ResourceQueueTransferInfo']]],
+  ['frommatrix_22',['FromMatrix',['../class_o_s_k_1_1_e_c_s_1_1_transform_component3_d.html#a15d2f5de9cdff01ae156fe55f130b512',1,'OSK::ECS::TransformComponent3D']]],
+  ['fromto_23',['FromTo',['../struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_resource_queue_transfer_info.html#aabd113fa88f5c71a5b440136065590ab',1,'OSK::GRAPHICS::ResourceQueueTransferInfo']]],
   ['fullyload_24',['FullyLoad',['../class_o_s_k_1_1_a_s_s_e_t_s_1_1_i_asset_loader.html#aaa7cca8f691333ae0d86b1ea430f2540',1,'OSK::ASSETS::IAssetLoader']]]
 ];

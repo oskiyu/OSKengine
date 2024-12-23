@@ -1,5 +1,13 @@
 var NAVTREEINDEX49 =
 {
+"struct_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_minkowski_support.html#aaf8f09359752d5dae90d95a758968271":[3,0,0,2,13,1],
+"struct_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_minkowski_support.html#afd8c70373e52e8ab53fd2cc0c10f9540":[1,0,0,3,13,0],
+"struct_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_minkowski_support.html#afd8c70373e52e8ab53fd2cc0c10f9540":[3,0,0,2,13,0],
+"struct_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_minkowski_support.html#afdf763f4626a228c6ce7e7e699528756":[1,0,0,3,13,2],
+"struct_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_minkowski_support.html#afdf763f4626a228c6ce7e7e699528756":[3,0,0,2,13,2],
+"struct_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_ray.html":[1,0,0,3,14],
+"struct_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_ray.html":[3,0,0,2,14],
+"struct_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_ray.html#a054eb4b33b3c280a937aa65fd810756d":[1,0,0,3,14,2],
 "struct_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_ray.html#a054eb4b33b3c280a937aa65fd810756d":[3,0,0,2,14,2],
 "struct_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_ray.html#a550f34a09bdacf018d8d22abbabb8c12":[1,0,0,3,14,0],
 "struct_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_ray.html#a550f34a09bdacf018d8d22abbabb8c12":[3,0,0,2,14,0],
@@ -241,13 +249,5 @@ var NAVTREEINDEX49 =
 "struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_barrier_info.html#a374aaac98268f58fd22a0ff844ac2f17":[3,0,0,5,30,2],
 "struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_barrier_info.html#a78af9064ad4ec208ec43e72f967d63b5":[1,0,0,9,30,3],
 "struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_barrier_info.html#a78af9064ad4ec208ec43e72f967d63b5":[3,0,0,5,30,3],
-"struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_barrier_info.html#a94fc97ef8394232ff3c9d4d801992c02":[1,0,0,9,30,0],
-"struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_barrier_info.html#a94fc97ef8394232ff3c9d4d801992c02":[3,0,0,5,30,0],
-"struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_barrier_info.html#ad46d85f99d46a4cb7034558c0d7866b9":[1,0,0,9,30,1],
-"struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_barrier_info.html#ad46d85f99d46a4cb7034558c0d7866b9":[3,0,0,5,30,1],
-"struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_buffer_memory_block_info.html":[1,0,0,9,33],
-"struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_buffer_memory_block_info.html":[3,0,0,5,33],
-"struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_buffer_memory_block_info.html#a15ae79e2b5a7f53347a56e852b14c162":[1,0,0,9,33,0],
-"struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_buffer_memory_block_info.html#a15ae79e2b5a7f53347a56e852b14c162":[3,0,0,5,33,0],
-"struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_buffer_memory_block_info.html#a5837385dfcfb82fdac20cb57c4afeae6":[1,0,0,9,33,3]
+"struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_barrier_info.html#a94fc97ef8394232ff3c9d4d801992c02":[1,0,0,9,30,0]
 };

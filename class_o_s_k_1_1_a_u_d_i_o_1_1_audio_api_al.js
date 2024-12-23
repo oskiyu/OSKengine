@@ -12,7 +12,7 @@ var class_o_s_k_1_1_a_u_d_i_o_1_1_audio_api_al =
     [ "RegisterDevice", "class_o_s_k_1_1_a_u_d_i_o_1_1_audio_api_al.html#aa8a65086ac7ac2a0aa9a6a405b8501cf", null ],
     [ "SetCurrentDevice", "class_o_s_k_1_1_a_u_d_i_o_1_1_audio_api_al.html#a6ef8177ad2d1b01e64557637616fe863", null ],
     [ "SetDefaultDeviceName", "class_o_s_k_1_1_a_u_d_i_o_1_1_audio_api_al.html#a3fbeee58d71da79fd67a86f777dcd475", null ],
-    [ "SetListener", "class_o_s_k_1_1_a_u_d_i_o_1_1_audio_api_al.html#a69f486b5acb5ad92a14e7ea3da376412", null ],
+    [ "SetListener", "class_o_s_k_1_1_a_u_d_i_o_1_1_audio_api_al.html#a18553058ef913a45530ec562c7f28039", null ],
     [ "SetListenerOrientation", "class_o_s_k_1_1_a_u_d_i_o_1_1_audio_api_al.html#afcddc8ea51173620f73056c74270c391", null ],
     [ "SetListenerPosition", "class_o_s_k_1_1_a_u_d_i_o_1_1_audio_api_al.html#a2b91b9db9afcb81021c039e3923bead0", null ],
     [ "SetListenerVelocity", "class_o_s_k_1_1_a_u_d_i_o_1_1_audio_api_al.html#a21498d0b9bde5e69456d69dafe53d141", null ]

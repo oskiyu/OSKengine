@@ -1,5 +1,13 @@
 var NAVTREEINDEX51 =
 {
+"struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_pipeline_create_info.html#a505ee79ad3d962e2a8192c4151bf8207":[3,0,0,5,108,7],
+"struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_pipeline_create_info.html#a531f86d873e70d6f465922546397f4b0":[1,0,0,9,108,2],
+"struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_pipeline_create_info.html#a531f86d873e70d6f465922546397f4b0":[3,0,0,5,108,2],
+"struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_pipeline_create_info.html#a735bb08e92ec77c4f39f8a80ebf1c149":[1,0,0,9,108,6],
+"struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_pipeline_create_info.html#a735bb08e92ec77c4f39f8a80ebf1c149":[3,0,0,5,108,6],
+"struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_pipeline_create_info.html#a755653872913052be0e019b57076eb71":[1,0,0,9,108,0],
+"struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_pipeline_create_info.html#a755653872913052be0e019b57076eb71":[3,0,0,5,108,0],
+"struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_pipeline_create_info.html#a757c6a25f8fa8ec656d053decf470524":[1,0,0,9,108,13],
 "struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_pipeline_create_info.html#a757c6a25f8fa8ec656d053decf470524":[3,0,0,5,108,13],
 "struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_pipeline_create_info.html#a848c4a29ab5c3469851cc714aaba9621":[1,0,0,9,108,15],
 "struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_pipeline_create_info.html#a848c4a29ab5c3469851cc714aaba9621":[3,0,0,5,108,15],
@@ -93,10 +101,10 @@ var NAVTREEINDEX51 =
 "struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_resource_queue_transfer_info.html":[3,0,0,5,123],
 "struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_resource_queue_transfer_info.html#a1007a00a14d609ae523f2855a11eccce":[1,0,0,9,123,2],
 "struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_resource_queue_transfer_info.html#a1007a00a14d609ae523f2855a11eccce":[3,0,0,5,123,2],
-"struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_resource_queue_transfer_info.html#a55b208cd8c5122f86ef4753b6d983961":[1,0,0,9,123,0],
-"struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_resource_queue_transfer_info.html#a55b208cd8c5122f86ef4753b6d983961":[3,0,0,5,123,0],
-"struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_resource_queue_transfer_info.html#a5af395f9a3ee53b7ccfdb75a6da5894c":[1,0,0,9,123,1],
-"struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_resource_queue_transfer_info.html#a5af395f9a3ee53b7ccfdb75a6da5894c":[3,0,0,5,123,1],
+"struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_resource_queue_transfer_info.html#a17367d79b58861cc0fbeb3816c072ae8":[1,0,0,9,123,1],
+"struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_resource_queue_transfer_info.html#a17367d79b58861cc0fbeb3816c072ae8":[3,0,0,5,123,1],
+"struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_resource_queue_transfer_info.html#a863e11d54befd3a06790dea01486db93":[1,0,0,9,123,0],
+"struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_resource_queue_transfer_info.html#a863e11d54befd3a06790dea01486db93":[3,0,0,5,123,0],
 "struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_sdf_bindless_batch2_d.html":[1,0,0,9,126],
 "struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_sdf_bindless_batch2_d.html":[3,0,0,5,126],
 "struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_sdf_bindless_batch2_d.html#a245863565986791f7e2f2f634bccc689":[1,0,0,9,126,1],
@@ -241,13 +249,5 @@ var NAVTREEINDEX51 =
 "struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_vertex_buffer_view.html#a078319dae1999c7332becce874f8c9dc":[3,0,0,5,156,1],
 "struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_vertex_buffer_view.html#a8c788722390dca6ebc5fa296905680f6":[1,0,0,9,156,2],
 "struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_vertex_buffer_view.html#a8c788722390dca6ebc5fa296905680f6":[3,0,0,5,156,2],
-"struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_vertex_collision_debug3_d.html":[1,0,0,9,157],
-"struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_vertex_collision_debug3_d.html":[3,0,0,5,157],
-"struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_vertex_collision_debug3_d.html#a06ddb071878d3f8266b76a75b22df98c":[1,0,0,9,157,0],
-"struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_vertex_collision_debug3_d.html#a06ddb071878d3f8266b76a75b22df98c":[3,0,0,5,157,0],
-"struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_vertex_collision_debug3_d.html#a375fd3ad7a4967a4eeda436344ecb9df":[1,0,0,9,157,1],
-"struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_vertex_collision_debug3_d.html#a375fd3ad7a4967a4eeda436344ecb9df":[3,0,0,5,157,1],
-"struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_vertex_info_1_1_entry.html":[1,0,0,9,158,0],
-"struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_vertex_info_1_1_entry.html":[3,0,0,5,158,0],
-"struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_vertex_info_1_1_entry.html#a0062a8ce8808345b70e06db4d4b6d3a8":[1,0,0,9,158,0,0]
+"struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_vertex_collision_debug3_d.html":[1,0,0,9,157]
 };

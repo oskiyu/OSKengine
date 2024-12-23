@@ -134,8 +134,8 @@ var annotated_dup =
         [ "SystemManager", "class_o_s_k_1_1_e_c_s_1_1_system_manager.html", "class_o_s_k_1_1_e_c_s_1_1_system_manager" ],
         [ "SystemNotFoundException", "class_o_s_k_1_1_e_c_s_1_1_system_not_found_exception.html", "class_o_s_k_1_1_e_c_s_1_1_system_not_found_exception" ],
         [ "Transform2D", "class_o_s_k_1_1_e_c_s_1_1_transform2_d.html", "class_o_s_k_1_1_e_c_s_1_1_transform2_d" ],
-        [ "Transform3D", "class_o_s_k_1_1_e_c_s_1_1_transform3_d.html", "class_o_s_k_1_1_e_c_s_1_1_transform3_d" ],
-        [ "TransformApplierSystem", "class_o_s_k_1_1_e_c_s_1_1_transform_applier_system.html", "class_o_s_k_1_1_e_c_s_1_1_transform_applier_system" ]
+        [ "TransformApplierSystem", "class_o_s_k_1_1_e_c_s_1_1_transform_applier_system.html", "class_o_s_k_1_1_e_c_s_1_1_transform_applier_system" ],
+        [ "TransformComponent3D", "class_o_s_k_1_1_e_c_s_1_1_transform_component3_d.html", "class_o_s_k_1_1_e_c_s_1_1_transform_component3_d" ]
       ] ],
       [ "Editor", "namespace_o_s_k_1_1_editor.html", [
         [ "Controllers", "namespace_o_s_k_1_1_editor_1_1_controllers.html", [
@@ -441,6 +441,7 @@ var annotated_dup =
       [ "StaticArray", "class_o_s_k_1_1_static_array.html", "class_o_s_k_1_1_static_array" ],
       [ "StopWatch", "class_o_s_k_1_1_stop_watch.html", "class_o_s_k_1_1_stop_watch" ],
       [ "StringHasher", "struct_o_s_k_1_1_string_hasher.html", "struct_o_s_k_1_1_string_hasher" ],
+      [ "Transform3D", "class_o_s_k_1_1_transform3_d.html", "class_o_s_k_1_1_transform3_d" ],
       [ "UniquePtr", "class_o_s_k_1_1_unique_ptr.html", "class_o_s_k_1_1_unique_ptr" ],
       [ "UnreachableException", "class_o_s_k_1_1_unreachable_exception.html", "class_o_s_k_1_1_unreachable_exception" ],
       [ "UuidProvider", "class_o_s_k_1_1_uuid_provider.html", "class_o_s_k_1_1_uuid_provider" ],

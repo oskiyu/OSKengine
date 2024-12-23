@@ -51,7 +51,7 @@ var searchData=
   ['removeactiveanimation_48',['RemoveActiveAnimation',['../class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_animator.html#a45fbaa3cf196a05625aff83530ed9c18',1,'OSK::GRAPHICS::Animator']]],
   ['removeallpasses_49',['RemoveAllPasses',['../class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_shader_pass_table.html#abf87ae44e0e6a230dfcccf93a369efea',1,'OSK::GRAPHICS::ShaderPassTable']]],
   ['removeat_50',['RemoveAt',['../class_o_s_k_1_1_dynamic_array.html#a71586adb0f60f394f36a67df5004bd07',1,'OSK::DynamicArray']]],
-  ['removechild_51',['RemoveChild',['../class_o_s_k_1_1_e_c_s_1_1_transform3_d.html#af775e0d83823931216005acba20d2b0a',1,'OSK::ECS::Transform3D']]],
+  ['removechild_51',['RemoveChild',['../class_o_s_k_1_1_e_c_s_1_1_transform_component3_d.html#a0d086c665f699c059a7897afd27c27e4',1,'OSK::ECS::TransformComponent3D']]],
   ['removecompatibleobject_52',['RemoveCompatibleObject',['../class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_shader_pass_table.html#a8eea8f309aecad5b5682bcd66eb77329',1,'OSK::GRAPHICS::ShaderPassTable']]],
   ['removecomponent_53',['RemoveComponent',['../class_o_s_k_1_1_e_c_s_1_1_component_container.html#a9b71e06dbdfd14318e62df1352ff646d',1,'OSK::ECS::ComponentContainer::RemoveComponent()'],['../class_o_s_k_1_1_e_c_s_1_1_component_manager.html#a7b891ed0cf0b4360d315bd276bdb1784',1,'OSK::ECS::ComponentManager::RemoveComponent()'],['../class_o_s_k_1_1_e_c_s_1_1_entity_component_system.html#a951795223a1dbef1b648f2dbe1b29b2d',1,'OSK::ECS::EntityComponentSystem::RemoveComponent()'],['../class_o_s_k_1_1_e_c_s_1_1_game_object_manager.html#a1959a48b18e37e6dc1331a04954d488a',1,'OSK::ECS::GameObjectManager::RemoveComponent()']]],
   ['removeelement_54',['RemoveElement',['../class_o_s_k_1_1_u_i_1_1_dropdown.html#a07c84ac528a1787f07073bcb12d01afd',1,'OSK::UI::Dropdown']]],
@@ -89,10 +89,10 @@ var searchData=
   ['rotate_86',['Rotate',['../class_o_s_k_1_1_e_c_s_1_1_camera_component3_d.html#ae082cbaa29076b9d1baba6404ebef134',1,'OSK::ECS::CameraComponent3D']]],
   ['rotate_5flocalspace_87',['Rotate_LocalSpace',['../class_o_s_k_1_1_quaternion.html#a75e8c10361739559544d11313264bd0c',1,'OSK::Quaternion']]],
   ['rotate_5fworldspace_88',['Rotate_WorldSpace',['../class_o_s_k_1_1_quaternion.html#adb48d1d2334b6a47fde67ab2313e6447',1,'OSK::Quaternion']]],
-  ['rotatelocalspace_89',['RotateLocalSpace',['../class_o_s_k_1_1_e_c_s_1_1_transform3_d.html#a305766732463c5ffb54588742006ff75',1,'OSK::ECS::Transform3D']]],
-  ['rotatelocalspace_5fthreadsafe_90',['RotateLocalSpace_ThreadSafe',['../class_o_s_k_1_1_e_c_s_1_1_transform3_d.html#a6f19cf91d2e0a98707c7e1169a7028a4',1,'OSK::ECS::Transform3D']]],
+  ['rotatelocalspace_89',['RotateLocalSpace',['../class_o_s_k_1_1_transform3_d.html#aacb843c59207fdb8bb75ccd917ad7bbb',1,'OSK::Transform3D']]],
+  ['rotatelocalspace_5fthreadsafe_90',['RotateLocalSpace_ThreadSafe',['../class_o_s_k_1_1_transform3_d.html#a73489601764f007394a3cea8fbaed64f',1,'OSK::Transform3D']]],
   ['rotatevector_91',['RotateVector',['../class_o_s_k_1_1_quaternion.html#ac0e494c7cb54c40e9ed6cd477948030b',1,'OSK::Quaternion']]],
-  ['rotateworldspace_92',['RotateWorldSpace',['../class_o_s_k_1_1_e_c_s_1_1_transform3_d.html#afc7da25075f1190d73579dd1b45fe33e',1,'OSK::ECS::Transform3D']]],
-  ['rotateworldspace_5fthreadsafe_93',['RotateWorldSpace_ThreadSafe',['../class_o_s_k_1_1_e_c_s_1_1_transform3_d.html#a6f73b8da98b692568d8a5a46c2dbe2ce',1,'OSK::ECS::Transform3D']]],
+  ['rotateworldspace_92',['RotateWorldSpace',['../class_o_s_k_1_1_transform3_d.html#aff6145fb6a44717e85fbff95339c4d41',1,'OSK::Transform3D']]],
+  ['rotateworldspace_5fthreadsafe_93',['RotateWorldSpace_ThreadSafe',['../class_o_s_k_1_1_transform3_d.html#ad73ece55c70fbf8e0abf2307b9980351',1,'OSK::Transform3D']]],
   ['rtshaderbindingtablecreationexception_94',['RtShaderBindingTableCreationException',['../class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_rt_shader_binding_table_creation_exception.html#afe4f29bb794c38f04821850b70f09642',1,'OSK::GRAPHICS::RtShaderBindingTableCreationException']]]
 ];

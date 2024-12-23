@@ -43,7 +43,7 @@ var class_o_s_k_1_1_editor_1_1_views_1_1_transform_component_view3_d =
     [ "OnPositionChanged", "class_o_s_k_1_1_editor_1_1_views_1_1_transform_component_view3_d.html#a1be4be0ae444d4ebcd5e99485f8f2db3", null ],
     [ "OnSizeChanged", "class_o_s_k_1_1_editor_1_1_views_1_1_transform_component_view3_d.html#a0c756be66fa9d5c03c5ea30bc9731b2d", null ],
     [ "OSK_DEFINE_AS", "class_o_s_k_1_1_editor_1_1_views_1_1_transform_component_view3_d.html#a46f079dc5060292013e4be6baf8e19b5", null ],
-    [ "OSK_LINK_COMPONENT_EDITOR_VIEW", "class_o_s_k_1_1_editor_1_1_views_1_1_transform_component_view3_d.html#aff49fe4bc903493bab2632fda52a4593", null ],
+    [ "OSK_LINK_COMPONENT_EDITOR_VIEW", "class_o_s_k_1_1_editor_1_1_views_1_1_transform_component_view3_d.html#aae74216ed7145654262d58ed681a9a99", null ],
     [ "Rebuild", "class_o_s_k_1_1_editor_1_1_views_1_1_transform_component_view3_d.html#a8ace09d55aa9f339c50aeb6309939bbf", null ],
     [ "Render", "class_o_s_k_1_1_editor_1_1_views_1_1_transform_component_view3_d.html#a7f594df4c0e579920bd4cc3efbffad92", null ],
     [ "RepositionDrawCalls", "class_o_s_k_1_1_editor_1_1_views_1_1_transform_component_view3_d.html#abbd3ce0d35f6d821f0ad81db0073a929", null ],

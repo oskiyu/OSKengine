@@ -76,6 +76,7 @@ var namespace_o_s_k =
     [ "StaticArray", "class_o_s_k_1_1_static_array.html", "class_o_s_k_1_1_static_array" ],
     [ "StopWatch", "class_o_s_k_1_1_stop_watch.html", "class_o_s_k_1_1_stop_watch" ],
     [ "StringHasher", "struct_o_s_k_1_1_string_hasher.html", "struct_o_s_k_1_1_string_hasher" ],
+    [ "Transform3D", "class_o_s_k_1_1_transform3_d.html", "class_o_s_k_1_1_transform3_d" ],
     [ "UniquePtr", "class_o_s_k_1_1_unique_ptr.html", "class_o_s_k_1_1_unique_ptr" ],
     [ "UnreachableException", "class_o_s_k_1_1_unreachable_exception.html", "class_o_s_k_1_1_unreachable_exception" ],
     [ "UuidProvider", "class_o_s_k_1_1_uuid_provider.html", "class_o_s_k_1_1_uuid_provider" ],

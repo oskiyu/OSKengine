@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['_5fapplychanges_0',['_ApplyChanges',['../class_o_s_k_1_1_e_c_s_1_1_transform3_d.html#aa180c61cd8a9b6f696f14eafcaee77c6',1,'OSK::ECS::Transform3D']]],
+  ['_5fapplychanges_0',['_ApplyChanges',['../class_o_s_k_1_1_transform3_d.html#a2882e05869defdc84f7556a943d906cb',1,'OSK::Transform3D::_ApplyChanges()'],['../class_o_s_k_1_1_transform3_d.html#a60442b41f332b7587a64560ef4cb7bf0',1,'OSK::Transform3D::_ApplyChanges(const Transform3D *parent, const InheritanceConfig &amp;config)'],['../class_o_s_k_1_1_e_c_s_1_1_transform_component3_d.html#aa172263bc1539e0329bfe8186ae4f699',1,'OSK::ECS::TransformComponent3D::_ApplyChanges()']]],
   ['_5fcleareventqueues_1',['_ClearEventQueues',['../class_o_s_k_1_1_e_c_s_1_1_entity_component_system.html#a25da30b9eed66da4eef4a1bc233679d3',1,'OSK::ECS::EntityComponentSystem']]],
   ['_5fclearqueue_2',['_ClearQueue',['../class_o_s_k_1_1_e_c_s_1_1_event_container.html#a136c484e396525fbfe5e28135a7aa3a7',1,'OSK::ECS::EventContainer::_ClearQueue()'],['../class_o_s_k_1_1_e_c_s_1_1_i_event_container.html#a58d492e50c45ed25fae8e9ce5afbfe69',1,'OSK::ECS::IEventContainer::_ClearQueue()']]],
   ['_5fclearqueues_3',['_ClearQueues',['../class_o_s_k_1_1_e_c_s_1_1_event_manager.html#a58a19bbc22678a91f5286fde3a83c754',1,'OSK::ECS::EventManager']]],

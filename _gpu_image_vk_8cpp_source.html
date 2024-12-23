@@ -181,25 +181,25 @@ $(function(){initNavTree('_gpu_image_vk_8cpp_source.html',''); initResizable(tru
 <div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span>    <span class="keyword">const</span> <span class="keyword">auto</span>* renderer = Engine::GetRenderer();</div>
 <div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span> </div>
 <div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span>    <span class="keywordflow">if</span> (GetOwnerQueue()-&gt;GetQueueType() == GpuQueueType::ASYNC_TRANSFER &amp;&amp; renderer-&gt;HasTransferOnlyQueue()) {</div>
-<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span>        queueIndices.insert(renderer-&gt;GetTransferOnlyQueue()-&gt;GetFamily().familyIndex);</div>
+<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span>        queueIndices.insert(renderer-&gt;GetTransferOnlyQueue()-&gt;As&lt;CommandQueueVk&gt;()-&gt;GetFamily().familyIndex);</div>
 <div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span>    }</div>
 <div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span>    <span class="keywordflow">else</span> {</div>
 <div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span>        <span class="keywordflow">if</span> (GetOwnerQueue()-&gt;GetQueueType() == GpuQueueType::PRESENTATION) {</div>
 <div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span>            <span class="keywordflow">if</span> (renderer-&gt;UseUnifiedCommandQueue()) {</div>
-<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span>                queueIndices.insert(renderer-&gt;GetUnifiedQueue()-&gt;GetFamily().familyIndex);</div>
+<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span>                queueIndices.insert(renderer-&gt;GetUnifiedQueue()-&gt;As&lt;CommandQueueVk&gt;()-&gt;GetFamily().familyIndex);</div>
 <div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span>            }</div>
 <div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span>            <span class="keywordflow">else</span> {</div>
-<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span>                queueIndices.insert(renderer-&gt;GetGraphicsComputeQueue()-&gt;GetFamily().familyIndex);</div>
-<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span>                queueIndices.insert(renderer-&gt;GetPresentationQueue()-&gt;GetFamily().familyIndex);</div>
+<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span>                queueIndices.insert(renderer-&gt;GetGraphicsComputeQueue()-&gt;As&lt;CommandQueueVk&gt;()-&gt;GetFamily().familyIndex);</div>
+<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span>                queueIndices.insert(renderer-&gt;GetPresentationQueue()-&gt;As&lt;CommandQueueVk&gt;()-&gt;GetFamily().familyIndex);</div>
 <div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span>            }</div>
 <div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span>        }</div>
 <div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span> </div>
 <div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span>        <span class="keywordflow">if</span> (GetOwnerQueue()-&gt;GetQueueType() == GpuQueueType::MAIN) {</div>
 <div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span>            <span class="keywordflow">if</span> (renderer-&gt;UseUnifiedCommandQueue()) {</div>
-<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span>                queueIndices.insert(renderer-&gt;GetUnifiedQueue()-&gt;GetFamily().familyIndex);</div>
+<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span>                queueIndices.insert(renderer-&gt;GetUnifiedQueue()-&gt;As&lt;CommandQueueVk&gt;()-&gt;GetFamily().familyIndex);</div>
 <div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span>            }</div>
 <div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span>            <span class="keywordflow">else</span> {</div>
-<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span>                queueIndices.insert(renderer-&gt;GetGraphicsComputeQueue()-&gt;GetFamily().familyIndex);</div>
+<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span>                queueIndices.insert(renderer-&gt;GetGraphicsComputeQueue()-&gt;As&lt;CommandQueueVk&gt;()-&gt;GetFamily().familyIndex);</div>
 <div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span>            }</div>
 <div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span>        }</div>
 <div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span>    }</div>
@@ -370,7 +370,7 @@ $(function(){initNavTree('_gpu_image_vk_8cpp_source.html',''); initResizable(tru
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_74389ed8173ad57b461b9d623a1f3867.html">Source</a></li><li class="navelem"><b>GpuImageVk.cpp</b></li>
-    <li class="footer">Generado el Viernes, 6 de diciembre de 2024 12:53:36 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.12.0 </li>
+    <li class="footer">Generado el Lunes, 23 de diciembre de 2024 13:15:56 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.12.0 </li>
   </ul>
 </div>
 </body>

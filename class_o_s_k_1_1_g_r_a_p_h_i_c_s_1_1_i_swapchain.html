@@ -137,14 +137,12 @@ Métodos públicos</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pro-methods" name="pro-methods"></a>
 Métodos protegidos</h2></td></tr>
-<tr class="memitem:a9a622701fc6103dfb37f4da0b0fc741b" id="r_a9a622701fc6103dfb37f4da0b0fc741b"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a9a622701fc6103dfb37f4da0b0fc741b">ISwapchain</a> (<a class="el" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a47a7b3817b8aca438c20b7674fad28ab">PresentMode</a> mode, <a class="el" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#aac59f9d056e083c0b49ea768f974e3e8">Format</a> format, std::span&lt; const <a class="el" href="namespace_o_s_k.html#a382ed4c8a6994201cbad5d4e1335861b">UIndex32</a> &gt; queueIndices)</td></tr>
-<tr class="separator:a9a622701fc6103dfb37f4da0b0fc741b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6fcf60b8db561e2d4e4b4ecd6c99b812" id="r_a6fcf60b8db561e2d4e4b4ecd6c99b812"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a6fcf60b8db561e2d4e4b4ecd6c99b812">ISwapchain</a> (<a class="el" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a47a7b3817b8aca438c20b7674fad28ab">PresentMode</a> mode, <a class="el" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#aac59f9d056e083c0b49ea768f974e3e8">Format</a> format)</td></tr>
+<tr class="separator:a6fcf60b8db561e2d4e4b4ecd6c99b812"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a49b58e5f6f4de94acc3e54350bc1a257" id="r_a49b58e5f6f4de94acc3e54350bc1a257"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a49b58e5f6f4de94acc3e54350bc1a257">SetNumImagesInFlight</a> (<a class="el" href="namespace_o_s_k.html#acf682b0e024acc36806435295480d2ed">USize32</a> imageCount)</td></tr>
 <tr class="separator:a49b58e5f6f4de94acc3e54350bc1a257"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8e4e37221090a51443ff4ba71b75aa98" id="r_a8e4e37221090a51443ff4ba71b75aa98"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a8e4e37221090a51443ff4ba71b75aa98">SetImage</a> (<a class="el" href="class_o_s_k_1_1_owned_ptr.html">OwnedPtr</a>&lt; <a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image.html">GpuImage</a> &gt; image, <a class="el" href="namespace_o_s_k.html#a382ed4c8a6994201cbad5d4e1335861b">UIndex32</a> index)</td></tr>
 <tr class="separator:a8e4e37221090a51443ff4ba71b75aa98"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8b796525d694caef48d41aed635e525c" id="r_a8b796525d694caef48d41aed635e525c"><td class="memItemLeft" align="right" valign="top">std::span&lt; const <a class="el" href="namespace_o_s_k.html#a382ed4c8a6994201cbad5d4e1335861b">UIndex32</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a8b796525d694caef48d41aed635e525c">GetQueueIndices</a> () const</td></tr>
-<tr class="separator:a8b796525d694caef48d41aed635e525c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Descripción detallada</h2>
 <div class="textblock"><p>Un swapchain es una estructura encargada de manejar el cambio de imagenes que son representadas en el monitor. </p>
@@ -177,8 +175,8 @@ Métodos protegidos</h2></td></tr>
 
 </div>
 </div>
-<a id="a9a622701fc6103dfb37f4da0b0fc741b" name="a9a622701fc6103dfb37f4da0b0fc741b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9a622701fc6103dfb37f4da0b0fc741b">&#9670;&#160;</a></span>ISwapchain()</h2>
+<a id="a6fcf60b8db561e2d4e4b4ecd6c99b812" name="a6fcf60b8db561e2d4e4b4ecd6c99b812"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6fcf60b8db561e2d4e4b4ecd6c99b812">&#9670;&#160;</a></span>ISwapchain()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -194,12 +192,7 @@ Métodos protegidos</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#aac59f9d056e083c0b49ea768f974e3e8">Format</a></td>          <td class="paramname"><span class="paramname"><em>format</em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">std::span&lt; const <a class="el" href="namespace_o_s_k.html#a382ed4c8a6994201cbad5d4e1335861b">UIndex32</a> &gt;</td>          <td class="paramname"><span class="paramname"><em>queueIndices</em></span>&#160;)</td>
+          <td class="paramtype"><a class="el" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#aac59f9d056e083c0b49ea768f974e3e8">Format</a></td>          <td class="paramname"><span class="paramname"><em>format</em></span>&#160;)</td>
         </tr>
       </table>
   </td>
@@ -245,7 +238,7 @@ Métodos protegidos</h2></td></tr>
 </div><div class="memdoc">
 <dl class="section return"><dt>Devuelve</dt><dd>Formato de las imágenes del swapchain. </dd></dl>
 
-<p class="definition">Definición en la línea <a class="el" href="_i_swapchain_8cpp_source.html#l00156">156</a> del archivo <a class="el" href="_i_swapchain_8cpp_source.html">ISwapchain.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_i_swapchain_8cpp_source.html#l00149">149</a> del archivo <a class="el" href="_i_swapchain_8cpp_source.html">ISwapchain.cpp</a>.</p>
 
 </div>
 </div>
@@ -265,7 +258,7 @@ Métodos protegidos</h2></td></tr>
 </div><div class="memdoc">
 <dl class="section return"><dt>Devuelve</dt><dd>Índice de la imagen renderizada en un momento dado. </dd></dl>
 
-<p class="definition">Definición en la línea <a class="el" href="_i_swapchain_8cpp_source.html#l00146">146</a> del archivo <a class="el" href="_i_swapchain_8cpp_source.html">ISwapchain.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_i_swapchain_8cpp_source.html#l00139">139</a> del archivo <a class="el" href="_i_swapchain_8cpp_source.html">ISwapchain.cpp</a>.</p>
 
 </div>
 </div>
@@ -285,7 +278,7 @@ Métodos protegidos</h2></td></tr>
 </div><div class="memdoc">
 <dl class="section return"><dt>Devuelve</dt><dd>Modo de presentación actual. </dd></dl>
 
-<p class="definition">Definición en la línea <a class="el" href="_i_swapchain_8cpp_source.html#l00138">138</a> del archivo <a class="el" href="_i_swapchain_8cpp_source.html">ISwapchain.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_i_swapchain_8cpp_source.html#l00131">131</a> del archivo <a class="el" href="_i_swapchain_8cpp_source.html">ISwapchain.cpp</a>.</p>
 
 </div>
 </div>
@@ -377,35 +370,7 @@ Métodos protegidos</h2></td></tr>
 <p>Será mayor que 0.</p>
 <p>Será menor que <code>NUM_RESOURCES_IN_FLIGHT</code>. </p>
 
-<p class="definition">Definición en la línea <a class="el" href="_i_swapchain_8cpp_source.html#l00142">142</a> del archivo <a class="el" href="_i_swapchain_8cpp_source.html">ISwapchain.cpp</a>.</p>
-
-</div>
-</div>
-<a id="a8b796525d694caef48d41aed635e525c" name="a8b796525d694caef48d41aed635e525c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8b796525d694caef48d41aed635e525c">&#9670;&#160;</a></span>GetQueueIndices()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">std::span&lt; const <a class="el" href="namespace_o_s_k.html#a382ed4c8a6994201cbad5d4e1335861b">UIndex32</a> &gt; ISwapchain::GetQueueIndices </td>
-          <td>(</td>
-          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<dl class="section return"><dt>Devuelve</dt><dd>Índices de las colas que usarán las imágenes del swapchain. </dd></dl>
-
-<p class="definition">Definición en la línea <a class="el" href="_i_swapchain_8cpp_source.html#l00034">34</a> del archivo <a class="el" href="_i_swapchain_8cpp_source.html">ISwapchain.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_i_swapchain_8cpp_source.html#l00135">135</a> del archivo <a class="el" href="_i_swapchain_8cpp_source.html">ISwapchain.cpp</a>.</p>
 
 </div>
 </div>
@@ -529,7 +494,7 @@ Métodos protegidos</h2></td></tr>
 </dl>
 <dl class="section pre"><dt>Precondición</dt><dd><code>index</code> &lt; <code><a class="el" href="#a052206c1de590606bfdef279f326d16c">GetImageCount()</a></code>. </dd></dl>
 
-<p class="definition">Definición en la línea <a class="el" href="_i_swapchain_8cpp_source.html#l00030">30</a> del archivo <a class="el" href="_i_swapchain_8cpp_source.html">ISwapchain.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_i_swapchain_8cpp_source.html#l00027">27</a> del archivo <a class="el" href="_i_swapchain_8cpp_source.html">ISwapchain.cpp</a>.</p>
 
 </div>
 </div>
@@ -568,7 +533,7 @@ Métodos protegidos</h2></td></tr>
 <dd>
 <code>imageCount</code> &lt; <code>NUM_RESOURCES_IN_FLIGHT</code>. </dd></dl>
 
-<p class="definition">Definición en la línea <a class="el" href="_i_swapchain_8cpp_source.html#l00026">26</a> del archivo <a class="el" href="_i_swapchain_8cpp_source.html">ISwapchain.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_i_swapchain_8cpp_source.html#l00023">23</a> del archivo <a class="el" href="_i_swapchain_8cpp_source.html">ISwapchain.cpp</a>.</p>
 
 </div>
 </div>
@@ -599,7 +564,7 @@ Métodos protegidos</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definición en la línea <a class="el" href="_i_swapchain_8cpp_source.html#l00150">150</a> del archivo <a class="el" href="_i_swapchain_8cpp_source.html">ISwapchain.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_i_swapchain_8cpp_source.html#l00143">143</a> del archivo <a class="el" href="_i_swapchain_8cpp_source.html">ISwapchain.cpp</a>.</p>
 
 </div>
 </div>
@@ -627,7 +592,7 @@ Métodos protegidos</h2></td></tr>
 </dl>
 <dl class="section post"><dt>Postcondición</dt><dd>La imagen se guardara con el nombre "path_&lt;año&gt;_&lt;mes&gt;_&lt;dia&gt;_&lt;hora&gt;&lt;minuto&gt;&lt;segundo&gt;.png"</dd></dl>
 
-<p class="definition">Definición en la línea <a class="el" href="_i_swapchain_8cpp_source.html#l00038">38</a> del archivo <a class="el" href="_i_swapchain_8cpp_source.html">ISwapchain.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_i_swapchain_8cpp_source.html#l00031">31</a> del archivo <a class="el" href="_i_swapchain_8cpp_source.html">ISwapchain.cpp</a>.</p>
 
 </div>
 </div>
@@ -637,7 +602,7 @@ Métodos protegidos</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="namespace_o_s_k.html">OSK</a></li><li class="navelem"><a class="el" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html">GRAPHICS</a></li><li class="navelem"><a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_swapchain.html">ISwapchain</a></li>
-    <li class="footer">Generado el Viernes, 6 de diciembre de 2024 12:53:38 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.12.0 </li>
+    <li class="footer">Generado el Lunes, 23 de diciembre de 2024 13:15:58 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.12.0 </li>
   </ul>
 </div>
 </body>

@@ -183,8 +183,12 @@ Métodos públicos</h2></td></tr>
 <tr class="separator:a5d77b29f363a554a46ab03c1cdf3e460"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af6d804b5bb67e4c0e3daace9c5c4236b" id="r_af6d804b5bb67e4c0e3daace9c5c4236b"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_queue.html">ICommandQueue</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af6d804b5bb67e4c0e3daace9c5c4236b">GetUnifiedQueue</a> () const</td></tr>
 <tr class="separator:af6d804b5bb67e4c0e3daace9c5c4236b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5c6157e0036b2a66f5903b8e8764f049" id="r_a5c6157e0036b2a66f5903b8e8764f049"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_queue.html">ICommandQueue</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a5c6157e0036b2a66f5903b8e8764f049">GetUnifiedQueue</a> ()</td></tr>
+<tr class="separator:a5c6157e0036b2a66f5903b8e8764f049"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a64b3384b0091399c1cc2366eefce94fd" id="r_a64b3384b0091399c1cc2366eefce94fd"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_queue.html">ICommandQueue</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a64b3384b0091399c1cc2366eefce94fd">GetGraphicsComputeQueue</a> () const</td></tr>
 <tr class="separator:a64b3384b0091399c1cc2366eefce94fd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a06cd75f9c4f81e46803134da1a6ed878" id="r_a06cd75f9c4f81e46803134da1a6ed878"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_queue.html">ICommandQueue</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a06cd75f9c4f81e46803134da1a6ed878">GetGraphicsComputeQueue</a> ()</td></tr>
+<tr class="separator:a06cd75f9c4f81e46803134da1a6ed878"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8f39e08a0c315691de3bb54cf763cbd7" id="r_a8f39e08a0c315691de3bb54cf763cbd7"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_queue.html">ICommandQueue</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a8f39e08a0c315691de3bb54cf763cbd7">GetPresentationQueue</a> () const</td></tr>
 <tr class="separator:a8f39e08a0c315691de3bb54cf763cbd7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a11aac5b24a8f43a354e2d2ec547946e4" id="r_a11aac5b24a8f43a354e2d2ec547946e4"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a11aac5b24a8f43a354e2d2ec547946e4">UseUnifiedCommandQueue</a> () const</td></tr>
@@ -1224,7 +1228,7 @@ El renderizador no debe haber sido previamente cerrado.</dd></dl>
 <dd>
 El renderizador no debe haber sido previamente cerrado. </dd></dl>
 
-<p class="definition">Definición en la línea <a class="el" href="_renderer_8cpp_source.html#l00356">356</a> del archivo <a class="el" href="_renderer_8cpp_source.html">Renderer.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_renderer_8cpp_source.html#l00364">364</a> del archivo <a class="el" href="_renderer_8cpp_source.html">Renderer.cpp</a>.</p>
 
 </div>
 </div>
@@ -1294,7 +1298,7 @@ El renderizador no debe haber sido previamente cerrado. </dd></dl>
   </tr>
 </table>
 </div><div class="memdoc">
-<dl class="section return"><dt>Devuelve</dt><dd>Pool de comandos válido para comandos gráficos, de computación y de transferencia. las listas creadas con este pool deben ser mandadas a la cola <code><a class="el" href="#a64b3384b0091399c1cc2366eefce94fd">GetGraphicsComputeQueue()</a></code>.</dd></dl>
+<dl class="section return"><dt>Devuelve</dt><dd>Pool de comandos válido para comandos gráficos, de computación y de transferencia. las listas creadas con este pool deben ser mandadas a la cola <code><a class="el" href="#a06cd75f9c4f81e46803134da1a6ed878">GetGraphicsComputeQueue()</a></code>.</dd></dl>
 <dl class="params"><dt>Parámetros</dt><dd>
   <table class="params">
     <tr><td class="paramname">threadId</td><td>ID del hilo que llama a la función.</td></tr>
@@ -1310,12 +1314,31 @@ El renderizador debe haber sido previamente inicializado. </dd>
 El renderizador no debe haber sido previamente cerrado.</dd></dl>
 <dl class="section warning"><dt>Atención</dt><dd>No soporta operaciones de presentación. </dd></dl>
 
-<p class="definition">Definición en la línea <a class="el" href="_renderer_8cpp_source.html#l00344">344</a> del archivo <a class="el" href="_renderer_8cpp_source.html">Renderer.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_renderer_8cpp_source.html#l00352">352</a> del archivo <a class="el" href="_renderer_8cpp_source.html">Renderer.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a06cd75f9c4f81e46803134da1a6ed878" name="a06cd75f9c4f81e46803134da1a6ed878"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a06cd75f9c4f81e46803134da1a6ed878">&#9670;&#160;</a></span>GetGraphicsComputeQueue() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_queue.html">ICommandQueue</a> * IRenderer::GetGraphicsComputeQueue </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definición en la línea <a class="el" href="_renderer_8cpp_source.html#l00305">305</a> del archivo <a class="el" href="_renderer_8cpp_source.html">Renderer.cpp</a>.</p>
 
 </div>
 </div>
 <a id="a64b3384b0091399c1cc2366eefce94fd" name="a64b3384b0091399c1cc2366eefce94fd"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a64b3384b0091399c1cc2366eefce94fd">&#9670;&#160;</a></span>GetGraphicsComputeQueue()</h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a64b3384b0091399c1cc2366eefce94fd">&#9670;&#160;</a></span>GetGraphicsComputeQueue() <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1338,7 +1361,7 @@ El renderizador no debe haber sido previamente cerrado.</dd></dl>
 <dl class="section warning"><dt>Atención</dt><dd>No soporta operaciones de presentación.</dd></dl>
 <dl class="section user"><dt>Thread-safe</dt><dd>Compatible con ejecución multihilo. </dd></dl>
 
-<p class="definition">Definición en la línea <a class="el" href="_renderer_8cpp_source.html#l00297">297</a> del archivo <a class="el" href="_renderer_8cpp_source.html">Renderer.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_renderer_8cpp_source.html#l00301">301</a> del archivo <a class="el" href="_renderer_8cpp_source.html">Renderer.cpp</a>.</p>
 
 </div>
 </div>
@@ -1383,14 +1406,14 @@ El renderizador no debe haber sido previamente cerrado. </dd></dl>
 </div><div class="memdoc">
 <dl class="section return"><dt>Devuelve</dt><dd>Cola de comandos que sirve para el renderizado general.</dd></dl>
 <p>La cola soportará, al menos, comandos gráficos, de computación y de transferencia.</p>
-<p>Si <code>`UseUnifiedCommandQueue</code>()` es <code>true</code>, entonces devuelve <code><a class="el" href="#af6d804b5bb67e4c0e3daace9c5c4236b">GetUnifiedQueue()</a></code>.</p>
-<p>Si <code>`UseUnifiedCommandQueue</code>()` es <code>false</code>, entonces devuelve <code><a class="el" href="#a64b3384b0091399c1cc2366eefce94fd">GetGraphicsComputeQueue()</a></code>.</p>
+<p>Si <code>`UseUnifiedCommandQueue</code>()` es <code>true</code>, entonces devuelve <code><a class="el" href="#a5c6157e0036b2a66f5903b8e8764f049">GetUnifiedQueue()</a></code>.</p>
+<p>Si <code>`UseUnifiedCommandQueue</code>()` es <code>false</code>, entonces devuelve <code><a class="el" href="#a06cd75f9c4f81e46803134da1a6ed878">GetGraphicsComputeQueue()</a></code>.</p>
 <dl class="section pre"><dt>Precondición</dt><dd>El renderizador debe haber sido previamente inicializado. </dd>
 <dd>
 El renderizador no debe haber sido previamente cerrado.</dd></dl>
 <dl class="section user"><dt>Thread-safe</dt><dd>Compatible con ejecución multihilo. </dd></dl>
 
-<p class="definition">Definición en la línea <a class="el" href="_renderer_8cpp_source.html#l00317">317</a> del archivo <a class="el" href="_renderer_8cpp_source.html">Renderer.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_renderer_8cpp_source.html#l00325">325</a> del archivo <a class="el" href="_renderer_8cpp_source.html">Renderer.cpp</a>.</p>
 
 </div>
 </div>
@@ -1439,7 +1462,7 @@ El renderizador no debe haber sido previamente cerrado.</dd></dl>
 <dl class="section return"><dt>Devuelve</dt><dd>Cola referenciada.</dd></dl>
 <dl class="section user"><dt>Thread-safe</dt><dd>Compatible con ejecución multihilo. </dd></dl>
 
-<p class="definition">Definición en la línea <a class="el" href="_renderer_8cpp_source.html#l00323">323</a> del archivo <a class="el" href="_renderer_8cpp_source.html">Renderer.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_renderer_8cpp_source.html#l00331">331</a> del archivo <a class="el" href="_renderer_8cpp_source.html">Renderer.cpp</a>.</p>
 
 </div>
 </div>
@@ -1471,7 +1494,7 @@ No soporta operaciones de computación. </dd>
 No soporta operaciones de transferencia.</dd></dl>
 <dl class="section user"><dt>Thread-safe</dt><dd>Compatible con ejecución multihilo. </dd></dl>
 
-<p class="definition">Definición en la línea <a class="el" href="_renderer_8cpp_source.html#l00301">301</a> del archivo <a class="el" href="_renderer_8cpp_source.html">Renderer.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_renderer_8cpp_source.html#l00309">309</a> del archivo <a class="el" href="_renderer_8cpp_source.html">Renderer.cpp</a>.</p>
 
 </div>
 </div>
@@ -1596,7 +1619,7 @@ No soporta operaciones de computación. </dd>
 <dd>
 No soporta operaciones de transferencia. </dd></dl>
 
-<p class="definition">Definición en la línea <a class="el" href="_renderer_8cpp_source.html#l00348">348</a> del archivo <a class="el" href="_renderer_8cpp_source.html">Renderer.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_renderer_8cpp_source.html#l00356">356</a> del archivo <a class="el" href="_renderer_8cpp_source.html">Renderer.cpp</a>.</p>
 
 </div>
 </div>
@@ -1628,7 +1651,7 @@ No soporta operaciones de computación. </dd>
 No soporta operaciones de presentación.</dd></dl>
 <dl class="section user"><dt>Thread-safe</dt><dd>Compatible con ejecución multihilo. </dd></dl>
 
-<p class="definition">Definición en la línea <a class="el" href="_renderer_8cpp_source.html#l00309">309</a> del archivo <a class="el" href="_renderer_8cpp_source.html">Renderer.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_renderer_8cpp_source.html#l00317">317</a> del archivo <a class="el" href="_renderer_8cpp_source.html">Renderer.cpp</a>.</p>
 
 </div>
 </div>
@@ -1673,8 +1696,27 @@ El renderizador no debe haber sido previamente cerrado. </dd></dl>
 
 </div>
 </div>
+<a id="a5c6157e0036b2a66f5903b8e8764f049" name="a5c6157e0036b2a66f5903b8e8764f049"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5c6157e0036b2a66f5903b8e8764f049">&#9670;&#160;</a></span>GetUnifiedQueue() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_queue.html">ICommandQueue</a> * IRenderer::GetUnifiedQueue </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definición en la línea <a class="el" href="_renderer_8cpp_source.html#l00297">297</a> del archivo <a class="el" href="_renderer_8cpp_source.html">Renderer.cpp</a>.</p>
+
+</div>
+</div>
 <a id="af6d804b5bb67e4c0e3daace9c5c4236b" name="af6d804b5bb67e4c0e3daace9c5c4236b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af6d804b5bb67e4c0e3daace9c5c4236b">&#9670;&#160;</a></span>GetUnifiedQueue()</h2>
+<h2 class="memtitle"><span class="permalink"><a href="#af6d804b5bb67e4c0e3daace9c5c4236b">&#9670;&#160;</a></span>GetUnifiedQueue() <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1766,7 +1808,7 @@ El renderizador no debe haber sido previamente cerrado.</dd></dl>
 El renderizador no debe haber sido previamente cerrado.</dd></dl>
 <dl class="section user"><dt>Thread-safe</dt><dd>Compatible con ejecución multihilo. </dd></dl>
 
-<p class="definition">Definición en la línea <a class="el" href="_renderer_8cpp_source.html#l00352">352</a> del archivo <a class="el" href="_renderer_8cpp_source.html">Renderer.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_renderer_8cpp_source.html#l00360">360</a> del archivo <a class="el" href="_renderer_8cpp_source.html">Renderer.cpp</a>.</p>
 
 </div>
 </div>
@@ -1790,7 +1832,7 @@ El renderizador no debe haber sido previamente cerrado.</dd></dl>
 El renderizador no debe haber sido previamente cerrado.</dd></dl>
 <dl class="section user"><dt>Thread-safe</dt><dd>Compatible con ejecución multihilo. </dd></dl>
 
-<p class="definition">Definición en la línea <a class="el" href="_renderer_8cpp_source.html#l00313">313</a> del archivo <a class="el" href="_renderer_8cpp_source.html">Renderer.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_renderer_8cpp_source.html#l00321">321</a> del archivo <a class="el" href="_renderer_8cpp_source.html">Renderer.cpp</a>.</p>
 
 </div>
 </div>
@@ -2369,7 +2411,7 @@ El renderizador no debe haber sido previamente cerrado. </dd></dl>
 El renderizador no debe haber sido previamente cerrado.</dd></dl>
 <dl class="section user"><dt>Thread-safe</dt><dd>Compatible con ejecución multihilo. </dd></dl>
 
-<p class="definition">Definición en la línea <a class="el" href="_renderer_8cpp_source.html#l00305">305</a> del archivo <a class="el" href="_renderer_8cpp_source.html">Renderer.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_renderer_8cpp_source.html#l00313">313</a> del archivo <a class="el" href="_renderer_8cpp_source.html">Renderer.cpp</a>.</p>
 
 </div>
 </div>
@@ -2421,7 +2463,7 @@ El renderizador no debe haber sido previamente cerrado.</dd></dl>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definición en la línea <a class="el" href="_i_renderer_8h_source.html#l00589">589</a> del archivo <a class="el" href="_i_renderer_8h_source.html">IRenderer.h</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_i_renderer_8h_source.html#l00591">591</a> del archivo <a class="el" href="_i_renderer_8h_source.html">IRenderer.h</a>.</p>
 
 </div>
 </div>
@@ -2445,7 +2487,7 @@ El renderizador no debe haber sido previamente cerrado.</dd></dl>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definición en la línea <a class="el" href="_i_renderer_8h_source.html#l00596">596</a> del archivo <a class="el" href="_i_renderer_8h_source.html">IRenderer.h</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_i_renderer_8h_source.html#l00598">598</a> del archivo <a class="el" href="_i_renderer_8h_source.html">IRenderer.h</a>.</p>
 
 </div>
 </div>
@@ -2469,7 +2511,7 @@ El renderizador no debe haber sido previamente cerrado.</dd></dl>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definición en la línea <a class="el" href="_i_renderer_8h_source.html#l00594">594</a> del archivo <a class="el" href="_i_renderer_8h_source.html">IRenderer.h</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_i_renderer_8h_source.html#l00596">596</a> del archivo <a class="el" href="_i_renderer_8h_source.html">IRenderer.h</a>.</p>
 
 </div>
 </div>
@@ -2493,7 +2535,7 @@ El renderizador no debe haber sido previamente cerrado.</dd></dl>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definición en la línea <a class="el" href="_i_renderer_8h_source.html#l00598">598</a> del archivo <a class="el" href="_i_renderer_8h_source.html">IRenderer.h</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_i_renderer_8h_source.html#l00600">600</a> del archivo <a class="el" href="_i_renderer_8h_source.html">IRenderer.h</a>.</p>
 
 </div>
 </div>
@@ -2517,7 +2559,7 @@ El renderizador no debe haber sido previamente cerrado.</dd></dl>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definición en la línea <a class="el" href="_i_renderer_8h_source.html#l00620">620</a> del archivo <a class="el" href="_i_renderer_8h_source.html">IRenderer.h</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_i_renderer_8h_source.html#l00622">622</a> del archivo <a class="el" href="_i_renderer_8h_source.html">IRenderer.h</a>.</p>
 
 </div>
 </div>
@@ -2543,7 +2585,7 @@ El renderizador no debe haber sido previamente cerrado.</dd></dl>
 
 <p>Listas de comandos de un solo uso. </p>
 
-<p class="definition">Definición en la línea <a class="el" href="_i_renderer_8h_source.html#l00592">592</a> del archivo <a class="el" href="_i_renderer_8h_source.html">IRenderer.h</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_i_renderer_8h_source.html#l00594">594</a> del archivo <a class="el" href="_i_renderer_8h_source.html">IRenderer.h</a>.</p>
 
 </div>
 </div>
@@ -2553,7 +2595,7 @@ El renderizador no debe haber sido previamente cerrado.</dd></dl>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="namespace_o_s_k.html">OSK</a></li><li class="navelem"><a class="el" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html">GRAPHICS</a></li><li class="navelem"><a class="el" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer.html">IRenderer</a></li>
-    <li class="footer">Generado el Viernes, 6 de diciembre de 2024 12:53:38 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.12.0 </li>
+    <li class="footer">Generado el Lunes, 23 de diciembre de 2024 13:15:58 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.12.0 </li>
   </ul>
 </div>
 </body>
