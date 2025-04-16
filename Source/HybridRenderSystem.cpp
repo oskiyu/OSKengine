@@ -36,17 +36,17 @@ HybridRenderSystem::HybridRenderSystem() {
 
 	// Shadows
 	shadowsMaterial = Engine::GetRenderer()->GetMaterialSystem()->LoadMaterial("Resources/Materials/HybridRT/shadows.json");
-	shadowsMaterialInstance = shadowsMaterial->CreateInstance().GetPointer();
+	shadowsMaterialInstance = shadowsMaterial->CreateInstance();
 
 	shadowsReprojectionMaterial = Engine::GetRenderer()->GetMaterialSystem()->LoadMaterial("Resources/Materials/HybridRT/shadows_reprojection.json");
-	shadowsReprojectionMaterialInstance = shadowsReprojectionMaterial->CreateInstance().GetPointer();
+	shadowsReprojectionMaterialInstance = shadowsReprojectionMaterial->CreateInstance();
 
 	shadowsAtrousMaterial = Engine::GetRenderer()->GetMaterialSystem()->LoadMaterial("Resources/Materials/HybridRT/shadows_denoise.json");
-	shadowsAtrousMaterialInstance = shadowsAtrousMaterial->CreateInstance().GetPointer();
+	shadowsAtrousMaterialInstance = shadowsAtrousMaterial->CreateInstance();
 
 	// Resolve
 	resolveMaterial = Engine::GetRenderer()->GetMaterialSystem()->LoadMaterial("Resources/Materials/HybridRT/resolve.json");
-	resolveMaterialInstance = resolveMaterial->CreateInstance().GetPointer();
+	resolveMaterialInstance = resolveMaterial->CreateInstance();
 }
 
 void HybridRenderSystem::SetupGBufferResources() {
@@ -54,9 +54,9 @@ void HybridRenderSystem::SetupGBufferResources() {
 	animatedGbufferMaterial = Engine::GetRenderer()->GetMaterialSystem()->LoadMaterial("Resources/Materials/PBR/Deferred/deferred_gbuffer_anim.json");
 
 	for (UIndex32 i = 0; i < MAX_RESOURCES_IN_FLIGHT; i++) {
-		m_globalGbufferMaterialInstances[i] = gbufferMaterial->CreateInstance().GetPointer();
-		cameraUbos[i] = Engine::GetRenderer()->GetAllocator()->CreateUniformBuffer(sizeof(glm::mat4) * 2 + sizeof(glm::vec4)).GetPointer();
-		previousCameraUbos[i] = Engine::GetRenderer()->GetAllocator()->CreateUniformBuffer(sizeof(glm::mat4) * 2).GetPointer();
+		m_globalGbufferMaterialInstances[i] = gbufferMaterial->CreateInstance();
+		cameraUbos[i] = Engine::GetRenderer()->GetAllocator()->CreateUniformBuffer(sizeof(glm::mat4) * 2 + sizeof(glm::vec4));
+		previousCameraUbos[i] = Engine::GetRenderer()->GetAllocator()->CreateUniformBuffer(sizeof(glm::mat4) * 2);
 	}
 
 	SetupGBufferInstance();
@@ -64,8 +64,8 @@ void HybridRenderSystem::SetupGBufferResources() {
 
 void HybridRenderSystem::SetupRtResources() {
 	for (UIndex32 i = 0; i < MAX_RESOURCES_IN_FLIGHT; i++) {
-		topLevelAccelerationStructures[i] = Engine::GetRenderer()->GetAllocator()->CreateTopAccelerationStructure({}).GetPointer();
-		dirLightUbos[i] = Engine::GetRenderer()->GetAllocator()->CreateUniformBuffer(sizeof(DirectionalLight)).GetPointer();
+		topLevelAccelerationStructures[i] = Engine::GetRenderer()->GetAllocator()->CreateTopAccelerationStructure({});
+		dirLightUbos[i] = Engine::GetRenderer()->GetAllocator()->CreateUniformBuffer(sizeof(DirectionalLight));
 	}
 
 	noise = Engine::GetAssetManager()->Load<Texture>("Resources/Assets/BlueNoise/bluenoise.json");

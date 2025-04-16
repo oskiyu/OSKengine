@@ -30,13 +30,13 @@ SkyboxRenderSystem::SkyboxRenderSystem() {
 	m_skyboxMaterial = Engine::GetRenderer()->GetMaterialSystem()->LoadMaterial(MaterialName);
 
 	for (auto& mInstance : m_skyboxMaterialInstances) {
-		mInstance = m_skyboxMaterial->CreateInstance().GetPointer();
+		mInstance = m_skyboxMaterial->CreateInstance();
 	}
 
 	m_cubemapModel = Engine::GetAssetManager()->Load<Model3D>(CubeModelPath);
 
 	for (UIndex32 i = 0; i < MAX_RESOURCES_IN_FLIGHT; i++) {
-		m_cameraUbos[i] = Engine::GetRenderer()->GetAllocator()->CreateUniformBuffer(sizeof(glm::mat4) * 2).GetPointer();
+		m_cameraUbos[i] = Engine::GetRenderer()->GetAllocator()->CreateUniformBuffer(sizeof(glm::mat4) * 2);
 		
 		m_skyboxMaterialInstances[i]->GetSlot("camera")->SetUniformBuffer("camera", m_cameraUbos[i].GetValue());
 		m_skyboxMaterialInstances[i]->GetSlot("camera")->FlushUpdate();

@@ -4,8 +4,6 @@
 #include "Vector2.hpp"
 #include "Vector3.hpp"
 
-#include "OwnedPtr.h"
-
 #include "OSKengine.h"
 #include "IRenderer.h"
 
@@ -53,7 +51,7 @@ void FrameCombiner::LoadMaterial() {
 	m_combinerMaterials[ImageFormat::RGBA8]  = materialSystem->LoadMaterial("Resources/Materials/2D/FrameCombiner/fcombiner8.json");
 	m_combinerMaterials[ImageFormat::RGBA16] = materialSystem->LoadMaterial("Resources/Materials/2D/FrameCombiner/fcombiner16.json");
 
-	m_outputMaterialInstance = m_combinerMaterials.at(ImageFormat::RGBA8)->CreateInstance().GetPointer();
+	m_outputMaterialInstance = m_combinerMaterials.at(ImageFormat::RGBA8)->CreateInstance();
 }
 
 void FrameCombiner::SetupTargetMaterial() {
@@ -65,11 +63,12 @@ void FrameCombiner::SetupTargetMaterial() {
 }
 
 void FrameCombiner::SetupTextureMaterialInstance(const IGpuImageView& image) {
-	OwnedPtr<MaterialInstance> materialInstance = m_combinerMaterials.at(ImageFormat::RGBA8)->CreateInstance();
+	UniquePtr<MaterialInstance> materialInstance = m_combinerMaterials.at(ImageFormat::RGBA8)->CreateInstance();
+
 	materialInstance->GetSlot("input")->SetGpuImage("inputImage", image, GpuImageSamplerDesc::CreateDefault_NoMipMap());
 	materialInstance->GetSlot("input")->FlushUpdate();
 
-	m_textureMaterials[&image] = materialInstance.GetPointer();
+	m_textureMaterials[&image] = std::move(materialInstance);
 }
 
 

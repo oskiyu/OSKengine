@@ -1,7 +1,7 @@
 #pragma once
 
 #include "ApiCall.h"
-#include "OwnedPtr.h"
+#include "UniquePtr.hpp"
 
 #include "IAudioDevice.h"
 
@@ -26,13 +26,21 @@ namespace OSK::AUDIO {
 
 	private:
 
+		struct ALCdeviceDeleter {
+			void operator()(ALCdevice*) const noexcept;
+		};
+
+		struct ALCcontextDeleter {
+			void operator()(ALCcontext*) const noexcept;
+		};
+
 		/// @brief Dispositivo de audio.
-		OwnedPtr<ALCdevice> m_device = nullptr;
+		UniquePtr<ALCdevice, ALCdeviceDeleter> m_device;
 
 		/// @brief Contexto del dispositivo.
 		/// Contiene los buffers y los sources,
 		/// además de un listener.
-		OwnedPtr<ALCcontext> m_context = nullptr;
+		UniquePtr<ALCcontext, ALCcontextDeleter> m_context;
 
 	};
 

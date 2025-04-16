@@ -34,15 +34,15 @@ namespace OSK::GRAPHICS {
 
 		~CommandPoolVk() override;
 
-		OwnedPtr<ICommandList> CreateCommandList(const IGpu& device) override;
-		OwnedPtr<ICommandList> CreateSingleTimeCommandList(const IGpu& device) override;
+		UniquePtr<ICommandList> CreateCommandList(const IGpu& device) override;
+		UniquePtr<ICommandList> CreateSingleTimeCommandList(const IGpu& device) override;
 		
 		VkCommandPool GetCommandPool() const;
 
 	private:
 
 		/// @throws CommandListCreationException si no se pudo crear la lista. 
-		OwnedPtr<ICommandList> CreateList(const IGpu& device, USize32 numNativeLists);
+		UniquePtr<ICommandList> CreateList(const IGpu& device, USize32 numNativeLists);
 
 		VkCommandPool m_commandPool = nullptr;
 		VkDevice m_logicalDevice = nullptr;

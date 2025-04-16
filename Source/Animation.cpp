@@ -3,6 +3,8 @@
 #include "Math.h"
 #include "Animator.h"
 
+#include "OSKengine.h"
+
 using namespace OSK;
 using namespace OSK::GRAPHICS;
 
@@ -10,7 +12,7 @@ Animation::Animation(
 	const std::string& name, 
 	const DynamicArray<AnimationSampler>& samplers, 
 	const DynamicArray<AnimationChannel>& channels,
-	const DynamicArray<AnimationBone>& bones) : m_name(name), m_samplers(samplers), m_channels(channels), m_skeleton(bones)
+	const DynamicArray<AnimationBone>& bones) : m_name(name), m_channels(channels), m_samplers(samplers), m_skeleton(bones)
 {
 	for (const auto& sampler : m_samplers) {
 		for (const TDeltaTime timestamp : sampler.timestamps) {
@@ -18,6 +20,8 @@ Animation::Animation(
 			m_endTime = glm::max(m_endTime, timestamp);
 		}
 	}
+
+	m_currentTime = m_startTime;
 }
 
 void Animation::Update(TDeltaTime deltaTime, const AnimationSkin& skin) {
@@ -25,7 +29,7 @@ void Animation::Update(TDeltaTime deltaTime, const AnimationSkin& skin) {
 
 	if (m_currentTime > m_endTime) {
 		if (m_shouldLoop)
-			m_currentTime -= m_endTime;
+			m_currentTime = m_startTime;
 		else
 			return;
 	}
@@ -43,8 +47,9 @@ void Animation::Update(TDeltaTime deltaTime, const AnimationSkin& skin) {
 				m_currentTime >= timestampA &&
 				m_currentTime <= timestampB;
 
-			if (!isCurrentTimeBetweenStamps)
-				return;
+			if (!isCurrentTimeBetweenStamps) {
+				continue;
+			}
 
 			// Si el timestamp actual está entre los dos, se hace una interpolación lineal.
 
@@ -87,6 +92,8 @@ void Animation::Update(TDeltaTime deltaTime, const AnimationSkin& skin) {
 				break;
 
 			}
+		
+			break;
 		}
 	}
 

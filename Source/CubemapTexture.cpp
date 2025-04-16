@@ -12,6 +12,6 @@ const GpuImage* CubemapTexture::GetGpuImage() const {
 	return image.GetPointer();
 }
 
-void CubemapTexture::_SetImage(OwnedPtr<GpuImage> image) {
-	this->image = image.GetPointer();
+void CubemapTexture::_SetImage(UniquePtr<GRAPHICS::GpuImage>&& image) {
+	this->image = std::move(image);
 }

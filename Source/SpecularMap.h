@@ -18,11 +18,11 @@ namespace OSK::ASSETS {
 
 		GRAPHICS::GpuImage* GetCubemapImage();
 		const GRAPHICS::GpuImage* GetCubemapImage() const { return iblCubemap.GetPointer(); }
-		void _SetCubemapImage(OwnedPtr<GRAPHICS::GpuImage> image);
+		void _SetCubemapImage(UniquePtr<GRAPHICS::GpuImage>&& image);
 
 		GRAPHICS::GpuImage* GetLookUpTable();
 		const GRAPHICS::GpuImage* GetLookUpTable() const { return lookUpTable.GetPointer(); }
-		void _SetLookUpTable(OwnedPtr<GRAPHICS::GpuImage> lut);
+		void _SetLookUpTable(UniquePtr<GRAPHICS::GpuImage>&& lut);
 
 	private:
 

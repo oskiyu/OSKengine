@@ -13,7 +13,7 @@ OSK::Editor::UI::PropertiesPanel::PropertiesPanel(const Vector2f& size) : OSK::U
 	m_title = new EditorPanelTitle(textSize);
 	m_title->SetText("Propiedades");
 
-	AddChild("title", m_title);
+	AddChild("title", UniquePtr<OSK::UI::IElement>(m_title));
 
 	m_subtitle = new OSK::UI::TextView(textSize);
 	m_subtitle->SetMargin(Vector4f(5.0f));
@@ -21,7 +21,7 @@ OSK::Editor::UI::PropertiesPanel::PropertiesPanel(const Vector2f& size) : OSK::U
 	m_subtitle->SetFont(Engine::GetAssetManager()->Load<OSK::ASSETS::Font>("Resources/Assets/Fonts/font1.json"));
 	m_subtitle->SetFontSize(Constants::SubtitleFontSize);
 
-	AddChild("subtitle", m_subtitle);
+	AddChild("subtitle", UniquePtr<OSK::UI::IElement>(m_subtitle));
 
 	GRAPHICS::SdfDrawCall2D backgroundDrawCall{};
 	backgroundDrawCall.contentType = GRAPHICS::SdfDrawCallContentType2D::COLOR_FLAT;

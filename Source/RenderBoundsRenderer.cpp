@@ -33,10 +33,9 @@ void RenderBoundsRenderer::LoadMaterials() {
 
 	for (UIndex32 i = 0; i < MAX_RESOURCES_IN_FLIGHT; i++) {
 		m_cameraUbos[i] = Engine::GetRenderer()->GetAllocator()
-			->CreateUniformBuffer(sizeof(glm::mat4) * 2 + sizeof(glm::vec4), GpuQueueType::MAIN)
-			.GetPointer();
+			->CreateUniformBuffer(sizeof(glm::mat4) * 2 + sizeof(glm::vec4), GpuQueueType::MAIN);
 
-		m_materialInstance[i] = m_material->CreateInstance().GetPointer();
+		m_materialInstance[i] = m_material->CreateInstance();
 		m_materialInstance[i]->GetSlot("global")->SetUniformBuffer("camera", m_cameraUbos[i].GetValue());
 		m_materialInstance[i]->GetSlot("global")->FlushUpdate();
 	}

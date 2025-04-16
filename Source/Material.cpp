@@ -9,10 +9,10 @@
 using namespace OSK;
 using namespace OSK::GRAPHICS;
 
-Material::Material(const PipelineCreateInfo& pipelineInfo, OwnedPtr<MaterialLayout> layout, const VertexInfo& vertexInfo, MaterialType materialType)
+Material::Material(const PipelineCreateInfo& pipelineInfo, UniquePtr<MaterialLayout>&& layout, const VertexInfo& vertexInfo, MaterialType materialType)
 	: pipelineInfo(pipelineInfo), vertexInfo(vertexInfo), materialType(materialType) {
 
-	this->layout = layout.GetPointer();
+	this->layout = std::move(layout);
 
 	InitializePipelines();
 }
@@ -21,8 +21,8 @@ void Material::SetName(const std::string& name) {
 	this->name = name;
 }
 
-OwnedPtr<MaterialInstance> Material::CreateInstance() {
-	MaterialInstance* output = new MaterialInstance(this);
+UniquePtr<MaterialInstance> Material::CreateInstance() {
+	auto output = MakeUnique<MaterialInstance>(this);
 
 	for (const auto& [name, slot] : layout->GetAllSlots())
 		output->RegisterSlot(name);
@@ -59,13 +59,15 @@ const IGraphicsPipeline* Material::GetGraphicsPipeline(const PipelineKey& key) c
 	newInfo.formats = key.colorFormats;
 	newInfo.depthFormat = key.depthFormat;
 
-	OwnedPtr<IGraphicsPipeline> output = Engine::GetRenderer()->_CreateGraphicsPipeline(newInfo, *GetLayout(), vertexInfo);
-	output->SetDebugName(name);
+	UniquePtr<IGraphicsPipeline> pipeline = Engine::GetRenderer()->_CreateGraphicsPipeline(newInfo, *GetLayout(), vertexInfo);
+	pipeline->SetDebugName(name);
 
-	graphicsPipelines.Insert(output.GetPointer());
+	auto output = pipeline.GetPointer();
+
+	graphicsPipelines.Insert(std::move(pipeline));
 	graphicsPipelinesKeys.Insert(key);
 
-	return output.GetPointer();
+	return output;
 }
 
 const IMeshPipeline* Material::GetMeshPipeline(const PipelineKey& key) const {
@@ -81,13 +83,15 @@ const IMeshPipeline* Material::GetMeshPipeline(const PipelineKey& key) const {
 	newInfo.formats = key.colorFormats;
 	newInfo.depthFormat = key.depthFormat;
 
-	OwnedPtr<IMeshPipeline> output = Engine::GetRenderer()->_CreateMeshPipeline(newInfo, *GetLayout());
-	output->SetDebugName(name);
+	UniquePtr<IMeshPipeline> pipeline = Engine::GetRenderer()->_CreateMeshPipeline(newInfo, *GetLayout());
+	pipeline->SetDebugName(name);
 
-	m_meshPipelines.Insert(output.GetPointer());
+	auto output = pipeline.GetPointer();
+
+	m_meshPipelines.Insert(std::move(pipeline));
 	m_meshPipelinesKeys.Insert(key);
 
-	return output.GetPointer();
+	return output;
 }
 
 const IRaytracingPipeline* Material::GetRaytracingPipeline() const {
@@ -102,11 +106,11 @@ void Material::InitializePipelines() {
 	switch (materialType) {
 	case MaterialType::RAYTRACING:
 		if (Engine::GetRenderer()->IsRtActive())
-			rtPipeline = Engine::GetRenderer()->_CreateRaytracingPipeline(pipelineInfo, layout.GetValue(), vertexInfo).GetPointer();
+			rtPipeline = Engine::GetRenderer()->_CreateRaytracingPipeline(pipelineInfo, layout.GetValue(), vertexInfo);
 		break;
 
 	case MaterialType::COMPUTE:
-		computePipeline = Engine::GetRenderer()->_CreateComputePipeline(pipelineInfo, layout.GetValue()).GetPointer();
+		computePipeline = Engine::GetRenderer()->_CreateComputePipeline(pipelineInfo, layout.GetValue());
 	}
 }
 

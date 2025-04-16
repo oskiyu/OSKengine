@@ -2,7 +2,6 @@
 
 #include "IAsset.h"
 #include "UniquePtr.hpp"
-#include "OwnedPtr.h"
 #include "IGpuImage.h"
 
 namespace OSK::ASSETS {
@@ -33,7 +32,7 @@ namespace OSK::ASSETS {
 		/// <summary> Establece la imagen que contiene el cubemap. </summary>
 		/// 
 		/// @warning Función interna: no llamar.
-		void _SetImage(OwnedPtr<GRAPHICS::GpuImage> image);
+		void _SetImage(UniquePtr<GRAPHICS::GpuImage>&& image);
 
 	private:
 

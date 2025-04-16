@@ -75,17 +75,17 @@ GpuMemoryUsageInfo GpuVk::GetMemoryUsageInfo() const {
 	return output;
 }
 
-OwnedPtr<ICommandPool> GpuVk::CreateGraphicsCommandPool() {
+UniquePtr<ICommandPool> GpuVk::CreateGraphicsCommandPool() {
 	const QueueFamiles families = GetQueueFamilyIndices();
 	const QueueFamily family = families.GetFamilies(
 		CommandsSupport::GRAPHICS | 
 		CommandsSupport::COMPUTE | 
 		CommandsSupport::PRESENTATION).AtCpy(0);
 
-	return new CommandPoolVk(*this, family, GpuQueueType::MAIN);
+	return MakeUnique<CommandPoolVk>(*this, family, GpuQueueType::MAIN);
 }
 
-OwnedPtr<ICommandPool> GpuVk::CreateComputeCommandPool() {
+UniquePtr<ICommandPool> GpuVk::CreateComputeCommandPool() {
 	const auto families = GetQueueFamilyIndices().GetFamilies(
 		CommandsSupport::GRAPHICS | 
 		CommandsSupport::COMPUTE | 
@@ -93,26 +93,26 @@ OwnedPtr<ICommandPool> GpuVk::CreateComputeCommandPool() {
 
 	const QueueFamily family = families.At(0);
 
-	return new CommandPoolVk(
+	return MakeUnique<CommandPoolVk>(
 		*this,
 		family,
 		GpuQueueType::MAIN);
 }
 
-std::optional<OwnedPtr<ICommandPool>> GpuVk::CreateTransferOnlyCommandPool() {
+std::optional<UniquePtr<ICommandPool>> GpuVk::CreateTransferOnlyCommandPool() {
 	const auto families = GetQueueFamilyIndices().GetFamilies(CommandsSupport::TRANSFER);
 
 	for (const auto& family : families) {
 		if (family.support == CommandsSupport::TRANSFER) {
-			return new CommandPoolVk(*this, family, GpuQueueType::ASYNC_TRANSFER);
+			return MakeUnique<CommandPoolVk>(*this, family, GpuQueueType::ASYNC_TRANSFER);
 		}
 	}
 
 	return {};
 }
 
-OwnedPtr<IGpuImageSampler> GpuVk::CreateSampler(const GpuImageSamplerDesc& info) const {
-	return new GpuImageSamplerVk(info, this);
+UniquePtr<IGpuImageSampler> GpuVk::CreateSampler(const GpuImageSamplerDesc& info) const {
+	return MakeUnique<GpuImageSamplerVk>(info, this);
 }
 
 VkSurfaceKHR GpuVk::GetSurface() const {

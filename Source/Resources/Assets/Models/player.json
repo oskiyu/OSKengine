@@ -1,0 +1,13 @@
+{
+    "file_type": "ASSET",
+    "spec_ver": 0,
+
+    "name": "Sphere",
+    "asset_type": "Model3D",
+    "raw_asset_path": "Resources/Assets/Models/base_mesh_rigged.glb",
+    
+    "scale": 0.109,
+    "renderpass_type": "static_pass",
+
+    "animated": true
+}

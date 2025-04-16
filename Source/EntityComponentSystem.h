@@ -457,10 +457,10 @@ namespace OSK::ECS {
 
 		IO::ILogger* m_logger = nullptr;
 
-		UniquePtr<SystemManager> m_systemManager = new SystemManager;
-		UniquePtr<ComponentManager> m_componentManager = new ComponentManager;
-		UniquePtr<GameObjectManager> m_gameObjectManager = new GameObjectManager;
-		UniquePtr<EventManager> m_eventManager = new EventManager;
+		UniquePtr<SystemManager> m_systemManager = MakeUnique<SystemManager>();
+		UniquePtr<ComponentManager> m_componentManager = MakeUnique<ComponentManager>();
+		UniquePtr<GameObjectManager> m_gameObjectManager = MakeUnique<GameObjectManager>();
+		UniquePtr<EventManager> m_eventManager = MakeUnique<EventManager>();
 
 		DynamicArray<IRenderSystem*> m_renderSystems;
 

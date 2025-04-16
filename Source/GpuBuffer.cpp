@@ -9,13 +9,9 @@
 using namespace OSK;
 using namespace OSK::GRAPHICS;
 
-GpuBuffer::GpuBuffer(OwnedPtr<IGpuMemorySubblock> buffer, USize64 size, USize64 alignment, const ICommandQueue* ownerQueue)
-	: buffer(buffer.GetPointer()), m_ownerQueue(ownerQueue), m_size(size), m_alignment(alignment) {
+GpuBuffer::GpuBuffer(UniquePtr<IGpuMemorySubblock>&& buffer, USize64 size, USize64 alignment, const ICommandQueue* ownerQueue)
+	: m_buffer(std::move(buffer)), m_ownerQueue(ownerQueue), m_size(size), m_alignment(alignment) {
 
-}
-
-GpuBuffer::~GpuBuffer() {
-	buffer->GetOwnerBlock()->RemoveSubblock(buffer);
 }
 
 
@@ -43,8 +39,12 @@ bool GpuBuffer::HasIndexView() const {
 	return m_indexView.has_value();
 }
 
-IGpuMemorySubblock* GpuBuffer::GetMemorySubblock() const {
-	return buffer;
+const IGpuMemorySubblock* GpuBuffer::GetMemorySubblock() const {
+	return m_buffer.GetPointer();
+}
+
+IGpuMemorySubblock* GpuBuffer::GetMemorySubblock() {
+	return m_buffer.GetPointer();
 }
 
 IGpuMemoryBlock* GpuBuffer::GetMemoryBlock() const {
@@ -76,23 +76,23 @@ GpuBufferRange GpuBuffer::GetWholeBufferRange() const {
 }
 
 void GpuBuffer::MapMemory() {
-	buffer->MapMemory();
+	m_buffer->MapMemory();
 }
 
 void GpuBuffer::MapMemory(USize64 size, USize64 offset) {
-	buffer->MapMemory(size, offset);
+	m_buffer->MapMemory(size, offset);
 }
 
 void GpuBuffer::Write(const void* data, USize64 size) {
-	buffer->Write(data, size);
+	m_buffer->Write(data, size);
 }
 
 void GpuBuffer::WriteOffset(const void* data, USize64 size, USize64 offset) {
-	buffer->WriteOffset(data, size, offset);
+	m_buffer->WriteOffset(data, size, offset);
 }
 
 void GpuBuffer::Unmap() {
-	buffer->Unmap();
+	m_buffer->Unmap();
 }
 
 USize64 GpuBuffer::GetSize() const {
@@ -104,13 +104,13 @@ USize64 GpuBuffer::GetAlignment() const {
 }
 
 void GpuBuffer::SetCursor(UIndex64 position) {
-	buffer->SetCursor(position);
+	m_buffer->SetCursor(position);
 }
 
 void GpuBuffer::ResetCursor() {
-	buffer->ResetCursor();
+	m_buffer->ResetCursor();
 }
 
 UIndex64 GpuBuffer::GetCursor() const {
-	return buffer->GetCursor();
+	return m_buffer->GetCursor();
 }

@@ -27,7 +27,7 @@ void ShadowsStaticPass::Load() {
 	m_passMaterial = Engine::GetRenderer()->GetMaterialSystem()->LoadMaterial("Resources/Materials/ShadowMapping/material_shadows.json");
 
 	for (auto& mInstance : m_materialInstances) {
-		mInstance = m_passMaterial->CreateInstance().GetPointer();
+		mInstance = m_passMaterial->CreateInstance();
 	}
 }
 

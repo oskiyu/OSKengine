@@ -22,11 +22,11 @@ void GrassRenderPass::Load() {
 	m_passMaterial = Engine::GetRenderer()->GetMaterialSystem()->LoadMaterial("Resources/Materials/PBR/Mesh/Grass/grass_material.json");
 
 	for (auto& buffer : m_windBuffers) {
-		buffer = Engine::GetRenderer()->GetAllocator()->CreateUniformBuffer(sizeof(WindBuffer)).GetPointer();
+		buffer = Engine::GetRenderer()->GetAllocator()->CreateUniformBuffer(sizeof(WindBuffer));
 	}
 
 	for (UIndex32 i = 0; i < m_cameraInstances.size(); i++) {
-		m_cameraInstances[i] = m_passMaterial->CreateInstance().GetPointer();
+		m_cameraInstances[i] = m_passMaterial->CreateInstance();
 
 		IMaterialSlot* globalSlot = m_cameraInstances[i]->GetSlot("global");
 		globalSlot->SetUniformBuffer("camera", *m_cameraBuffers[i]);

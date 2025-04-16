@@ -48,7 +48,6 @@
 #include "ShadowMap.h"
 #include "ResourcesInFlight.h"
 #include "NumericTypes.h"
-#include "OwnedPtr.h"
 #include "PbrIblConfig.h"
 #include "Uuid.h"
 #include "GameObject.h"
@@ -89,10 +88,10 @@ void DeferredRenderSystem::CreateBuffers() {
 	IGpuMemoryAllocator* memAllocator = Engine::GetRenderer()->GetAllocator();
 
 	for (UIndex32 i = 0; i < MAX_RESOURCES_IN_FLIGHT; i++) {
-		m_cameraBuffers[i] = memAllocator->CreateUniformBuffer(sizeof(CameraInfo)).GetPointer();
-		m_previousFrameCameraBuffers[i] = memAllocator->CreateUniformBuffer(sizeof(PreviousCameraInfo)).GetPointer();
-		m_directionalLightBuffers[i] = memAllocator->CreateUniformBuffer(sizeof(DirectionalLight)).GetPointer();
-		m_iblConfigBuffers[i] = memAllocator->CreateUniformBuffer(sizeof(GRAPHICS::PbrIblConfig)).GetPointer();
+		m_cameraBuffers[i] = memAllocator->CreateUniformBuffer(sizeof(CameraInfo));
+		m_previousFrameCameraBuffers[i] = memAllocator->CreateUniformBuffer(sizeof(PreviousCameraInfo));
+		m_directionalLightBuffers[i] = memAllocator->CreateUniformBuffer(sizeof(DirectionalLight));
+		m_iblConfigBuffers[i] = memAllocator->CreateUniformBuffer(sizeof(GRAPHICS::PbrIblConfig));
 	}
 }
 
@@ -103,7 +102,7 @@ void DeferredRenderSystem::LoadMaterials() {
 	Material* gBufferMaterial = materialSystem->LoadMaterial("Resources/Materials/PBR/Deferred/deferred_gbuffer_static.json");
 
 	for (auto& instance : m_gBufferCameraInstances) {
-		instance = gBufferMaterial->CreateInstance().GetPointer();
+		instance = gBufferMaterial->CreateInstance();
 	}
 }
 
@@ -122,24 +121,25 @@ void DeferredRenderSystem::Initialize(GameObjectIndex camera, ASSETS::AssetRef<A
 
 	CreateBuffers();
 	// Pases por defecto
-	AddShaderPass(new StaticGBufferPass());
-	AddShaderPass(new AnimatedGBufferPass());
-	AddShaderPass(new BillboardGBufferPass());
+	AddShaderPass(MakeUnique<StaticGBufferPass>());
+	AddShaderPass(MakeUnique<AnimatedGBufferPass>());
+	AddShaderPass(MakeUnique<BillboardGBufferPass>());
 
-	auto* shadowsPass = new ShadowsStaticPass();
-	AddShadowsPass(shadowsPass);
+	auto shadowsPass = MakeUnique<ShadowsStaticPass>();
+	shadowsPass->Load();
 	shadowsPass->SetupShadowMap(m_shadowMap);
+	AddShadowsPass(std::move(shadowsPass));
 
-	auto* grassPass = new GrassRenderPass();
+	auto grassPass = MakeUnique<GrassRenderPass>();
 	std::array<const GpuBuffer*, MAX_RESOURCES_IN_FLIGHT> buffers{
 		m_cameraBuffers[0].GetPointer(),
 		m_cameraBuffers[1].GetPointer(),
 		m_cameraBuffers[2].GetPointer()
 	};
 	grassPass->SetCameraBuffers(buffers);
-	AddShaderPass(grassPass);
+	// AddShaderPass(grassPass);
 
-	SetResolver(new PbrResolverPass());
+	SetResolver(MakeUnique<PbrResolverPass>());
 
 	LoadMaterials();
 	SetupGBufferMaterial();
@@ -162,6 +162,58 @@ void DeferredRenderSystem::Initialize(GameObjectIndex camera, ASSETS::AssetRef<A
 	}
 }
 
+void DeferredRenderSystem::SetupGlobalMeshMapping() {
+	for (const auto& obj : GetAllCompatibleObjects()) {
+		const auto* model = Engine::GetEcs()->GetComponent<ModelComponent3D>(obj).GetModel();
+
+		if (!m_meshMapping.HasModel(model->GetUuid())) {
+			m_meshMapping.RegisterModel(model->GetUuid());
+
+			if (model->HasAnimator()) {
+				auto& modelData = m_meshMapping.GetModelData(model->GetUuid());
+
+				// Buffer de huesos.
+				{
+					const auto boneCount = model->GetAnimator().GetFinalSkeletonMatrices().GetSize();
+					const auto bonesSize = sizeof(glm::mat4) * boneCount;
+					auto buffer = Engine::GetRenderer()->GetAllocator()->CreateStorageBuffer(bonesSize, GpuQueueType::MAIN);
+
+					modelData.SetBonesBuffer(std::move(buffer));
+				}
+
+				// Instancia de material.
+				{
+					auto* material = Engine::GetRenderer()->GetMaterialSystem()->LoadMaterial(AnimatedGBufferPass::MaterialPath);
+					auto instance = material->CreateInstance();
+					instance->GetSlot("animation")->SetStorageBuffer("animation", *modelData.GetBonesBuffer());
+					instance->GetSlot("animation")->FlushUpdate();
+
+					modelData.SetAnimationMaterialInstance(std::move(instance));
+				}
+			}
+		}
+	}
+
+	// Update bones:
+	for (const auto& obj : GetAllCompatibleObjects()) {
+		auto* model = Engine::GetEcs()->GetComponent<ModelComponent3D>(obj).GetModel();
+
+		if (model->HasAnimator()) {
+			const auto& animator = model->GetAnimator();
+
+			auto& modelData = m_meshMapping.GetModelData(model->GetUuid());
+			auto* boneBuffer = modelData.GetBonesBuffer();
+
+			boneBuffer->ResetCursor();
+			boneBuffer->MapMemory();
+			for (const auto& boneMatrix : animator.GetFinalSkeletonMatrices()) {
+				boneBuffer->Write(boneMatrix);
+			}
+			boneBuffer->Unmap();
+		}
+	}
+}
+
 void DeferredRenderSystem::SetIbl(AssetRef<IrradianceMap> irradianceMap, AssetRef<SpecularMap> specularMap) {
 	const GpuImageViewConfig viewConfig = GpuImageViewConfig::CreateSampled_Default();
 	const GpuImageViewConfig cubemapConfig = GpuImageViewConfig::CreateSampled_Cubemap();
@@ -177,22 +229,22 @@ void DeferredRenderSystem::SetIbl(AssetRef<IrradianceMap> irradianceMap, AssetRe
 	}
 }
 
-void DeferredRenderSystem::AddShaderPass(OwnedPtr<GRAPHICS::IShaderPass> pass) {
-	IRenderSystem::AddShaderPass(pass);
-
+void DeferredRenderSystem::AddShaderPass(UniquePtr<GRAPHICS::IShaderPass>&& pass) {
 	pass->SetCamera(m_cameraObject);
 	pass->Load();
+
+	IRenderSystem::AddShaderPass(std::move(pass));
 }
 
-void DeferredRenderSystem::AddShadowsPass(OwnedPtr<GRAPHICS::IShaderPass> pass) {
-	IRenderSystem::AddShadowsPass(pass);
-
+void DeferredRenderSystem::AddShadowsPass(UniquePtr<GRAPHICS::IShaderPass>&& pass) {
 	pass->SetCamera(m_cameraObject);
 	pass->Load();
+
+	IRenderSystem::AddShadowsPass(std::move(pass));
 }
 
-void DeferredRenderSystem::SetResolver(OwnedPtr<GRAPHICS::IDeferredResolver> resolver) {
-	m_resolverPass = resolver.GetPointer();
+void DeferredRenderSystem::SetResolver(UniquePtr<GRAPHICS::IDeferredResolver>&& resolver) {
+	m_resolverPass = std::move(resolver);
 	m_resolverPass->Load();
 }
 
@@ -361,6 +413,8 @@ void DeferredRenderSystem::Render(ICommandList* commandList, std::span<const ECS
 	for (auto& pass : m_shadowsPasses.GetAllPasses()) {
 		pass->UpdateLocalMeshMapping(m_shadowsPasses.GetCompatibleObjects(pass->GetTypeName()));
 	}
+
+	SetupGlobalMeshMapping();
 
 	for (const auto& obj : objects) {
 		if (!m_meshMapping.HasPreviousModelMatrix(obj)) {
@@ -585,6 +639,17 @@ void DeferredRenderSystem::Execute(TDeltaTime deltaTime, std::span<const ECS::Ga
 
 		model.GetAnimator().Update(deltaTime);
 	}
+
+
+	// Update bones:
+	for (const auto& obj : GetAllCompatibleObjects()) {
+		auto* model = Engine::GetEcs()->GetComponent<ModelComponent3D>(obj).GetModel();
+
+		if (model->HasAnimator()) {
+			auto& animator = model->GetAnimator();
+			animator.Update(deltaTime);
+		}
+	}
 }
 
 void DeferredRenderSystem::ToggleTaa() {
@@ -706,12 +771,12 @@ void DeferredRenderSystem::ApplyConfiguration(const nlohmann::json& config, cons
 
 	for (const auto& passName : config["shadowsPassesNames"]) {
 		auto pass = shaderPassFactory->CreatePass(passName);
-
-		AddShadowsPass(pass);
 		pass->As<IShadowsPass>()->SetupShadowMap(m_shadowMap);
+
+		AddShadowsPass(std::move(pass));
 	}
 
-	SetResolver(shaderPassFactory->CreatePass(config["resolverName"]).GetPointer()->As<IDeferredResolver>());
+	SetResolver(UniquePtr(shaderPassFactory->CreatePass(config["resolverName"]).Release()->As<IDeferredResolver>()));
 
 	SetupResolveMaterial();
 
@@ -742,7 +807,7 @@ void DeferredRenderSystem::ApplyConfiguration(PERSISTENCE::BinaryBlockReader* re
 	const std::string specularMapPath = reader->ReadString();
 
 	const std::string resolverName = reader->ReadString();
-	SetResolver(shaderPassFactory->CreatePass(resolverName).GetPointer()->As<IDeferredResolver>());
+	SetResolver(UniquePtr(shaderPassFactory->CreatePass(resolverName).Release()->As<IDeferredResolver>()));
 	SetupResolveMaterial();
 
 	const auto numShaderPasses = reader->Read<USize64>();
@@ -756,9 +821,9 @@ void DeferredRenderSystem::ApplyConfiguration(PERSISTENCE::BinaryBlockReader* re
 		const auto name = reader->ReadString();
 
 		auto pass = shaderPassFactory->CreatePass(name);
-
-		AddShadowsPass(pass);
 		pass->As<IShadowsPass>()->SetupShadowMap(m_shadowMap);
+
+		AddShadowsPass(std::move(pass));
 	}
 
 	SetIbl(

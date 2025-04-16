@@ -67,16 +67,16 @@ namespace OSK::GRAPHICS {
 		Material* m_blurMaterial = nullptr;
 
 		/// @brief Instancia para el difuminado 1.
-		UniquePtr<MaterialInstance> m_blurMaterialInstanceA = nullptr;
+		UniquePtr<MaterialInstance> m_blurMaterialInstanceA;
 		/// @brief Instancia para el difuminado 2.
-		UniquePtr<MaterialInstance> m_blurMaterialInstanceB = nullptr;
+		UniquePtr<MaterialInstance> m_blurMaterialInstanceB;
 
 
 		/// @brief Material que genera la imagen final
 		/// combinando la imagen HBAO con la imagen de la escena.
 		Material* m_resolveMaterial = nullptr;
 
-		UniquePtr<MaterialInstance> m_resolveMaterialInstance = nullptr;
+		UniquePtr<MaterialInstance> m_resolveMaterialInstance;
 
 
 		/// @brief Imagen de entrada de la escena.

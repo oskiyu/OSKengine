@@ -32,15 +32,12 @@ GpuImage::GpuImage(const GpuImageCreateInfo& info, const ICommandQueue* ownerQue
 }
 
 GpuImage::~GpuImage() {
-	if (m_buffer)
-		m_block->RemoveSubblock(m_buffer);
-
-	Engine::GetRenderer()->GetAllocator()->RemoveMemoryBlock(m_block);
+	Engine::GetRenderer()->GetAllocator()->RemoveMemoryBlock(m_block.GetPointer());
 }
 
-void GpuImage::SetBlock(OwnedPtr<IGpuMemoryBlock> block) {
-	m_block = block.GetPointer();
+void GpuImage::SetBlock(UniquePtr<IGpuMemoryBlock>&& block) {
 	m_buffer = block->GetNextMemorySubblock(block->GetAllocatedSize(), 0);
+	m_block = std::move(block);
 }
 
 void GpuImage::_SetPhysicalSize(const Vector3ui& size) {
@@ -92,12 +89,20 @@ Format GpuImage::GetFormat() const {
 	return m_imageInfo.format;
 }
 
-IGpuMemoryBlock* GpuImage::GetMemory() const {
-	return m_block;
+const IGpuMemoryBlock* GpuImage::GetMemory() const {
+	return m_block.GetPointer();
 }
 
-IGpuMemorySubblock* GpuImage::GetBuffer() const {
-	return m_buffer;
+IGpuMemoryBlock* GpuImage::GetMemory() {
+	return m_block.GetPointer();
+}
+
+const IGpuMemorySubblock* GpuImage::GetBuffer() const {
+	return m_buffer.GetPointer();
+}
+
+IGpuMemorySubblock* GpuImage::GetBuffer() {
+	return m_buffer.GetPointer();
 }
 
 unsigned int GpuImage::GetMipLevels() const {
@@ -135,10 +140,12 @@ const IGpuImageView* GpuImage::GetView(const GpuImageViewConfig& viewConfig) con
 	if (m_views.contains(viewConfig))
 		return m_views.at(viewConfig).GetPointer();
 
-	OwnedPtr<IGpuImageView> view = CreateView(viewConfig);
-	m_views[viewConfig] = view.GetPointer();
+	UniquePtr<IGpuImageView> view = CreateView(viewConfig);
+	const auto* output = view.GetPointer();
 
-	return view.GetPointer();
+	m_views[viewConfig] = std::move(view);
+
+	return output;
 }
 void GpuImage::SetCurrentBarrier(const GpuBarrierInfo& barrier) {
 	m_currentBarrier = barrier;

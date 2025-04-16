@@ -1,7 +1,6 @@
 #pragma once
 
 #include "ApiCall.h"
-#include "OwnedPtr.h"
 #include "UniquePtr.hpp"
 
 #include "DynamicArray.hpp"
@@ -56,13 +55,15 @@ namespace OSK::GRAPHICS {
 
 		/// @return Bloque de memoria en el que la imagen
 		/// está alojada.
-		IGpuMemoryBlock* GetMemory() const;
+		const IGpuMemoryBlock* GetMemory() const;
+		IGpuMemoryBlock* GetMemory();
 
 		/// @return Subbloque de memoria en el que la imagen
 		/// está alojada.
-		IGpuMemorySubblock* GetBuffer() const;
+		const IGpuMemorySubblock* GetBuffer() const;
+		IGpuMemorySubblock* GetBuffer();
 
-		void SetBlock(OwnedPtr<IGpuMemoryBlock> buffer);
+		void SetBlock(UniquePtr<IGpuMemoryBlock>&& buffer);
 
 #pragma endregion
 
@@ -212,7 +213,7 @@ namespace OSK::GRAPHICS {
 		/// @param viewConfig Configuración del view.
 		/// @return View.
 		/// @throws ImageViewCreationException Si hay algún error al crear el view.
-		virtual OwnedPtr<IGpuImageView> CreateView(const GpuImageViewConfig& viewConfig) const = 0;
+		virtual UniquePtr<IGpuImageView> CreateView(const GpuImageViewConfig& viewConfig) const = 0;
 
 	private:
 
@@ -222,8 +223,9 @@ namespace OSK::GRAPHICS {
 
 		std::unordered_map<ArrayLevelIndex, std::unordered_map<MipLevelIndex, GpuImageLayout>> m_layouts;
 
-		IGpuMemoryBlock* m_block = nullptr;
-		IGpuMemorySubblock* m_buffer = nullptr;
+		// Caso especial: bloque exclusivo para la imagen.
+		UniquePtr<IGpuMemoryBlock> m_block;
+		UniquePtr<IGpuMemorySubblock> m_buffer;
 
 		Vector3ui m_physicalSize = Vector3ui::Zero;
 

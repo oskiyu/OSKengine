@@ -19,12 +19,12 @@ namespace OSK::ASSETS {
 
 		OSK_ASSET_TYPE_REG("OSK::PreBuiltCollider");
 
-		void _SetCollider(OwnedPtr<COLLISION::Collider> collider);
+		void _SetCollider(UniquePtr<COLLISION::Collider>&& collider);
 		const COLLISION::Collider* GetCollider() const;
 
 	private:
 
-		UniquePtr<COLLISION::Collider> m_collider = nullptr;
+		UniquePtr<COLLISION::Collider> m_collider;
 
 	};
 

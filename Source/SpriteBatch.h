@@ -1,7 +1,6 @@
 #pragma once
 
 #include "UniquePtr.hpp"
-#include "OwnedPtr.h"
 
 #include "ResourcesInFlight.h"
 
@@ -21,7 +20,7 @@ namespace OSK::GRAPHICS {
 
 	public:
 
-		explicit SpriteBatch(OwnedPtr<MaterialInstance> materialInstance);
+		explicit SpriteBatch(UniquePtr<MaterialInstance>&& materialInstance);
 		~SpriteBatch();
 
 		void Draw(
@@ -40,7 +39,7 @@ namespace OSK::GRAPHICS {
 
 	private:
 
-		UniquePtr<MaterialInstance> materialInstance = nullptr;
+		UniquePtr<MaterialInstance> materialInstance;
 
 		std::array<UniquePtr<GpuBuffer>, MAX_RESOURCES_IN_FLIGHT> vertexBuffers{};
 		std::array<UniquePtr<GpuBuffer>, MAX_RESOURCES_IN_FLIGHT> indexBuffers{};

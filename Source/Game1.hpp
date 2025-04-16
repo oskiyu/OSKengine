@@ -18,7 +18,6 @@
 #include "AssetManager.h"
 #include "IMaterialSlot.h"
 #include "GpuBuffer.h"
-#include "OwnedPtr.h"
 #include "UniquePtr.hpp"
 #include "IGpuMemoryAllocator.h"
 #include "EntityComponentSystem.h"
@@ -73,6 +72,7 @@
 #include "AxisAlignedBoundingBox.h"
 
 #include "StaticGBufferPass.h"
+#include "AnimatedGBufferPass.h"
 #include "ShadowsStaticPass.h"
 
 #include "Math.h"
@@ -172,8 +172,9 @@ protected:
 		material2d = Engine::GetRenderer()->GetMaterialSystem()->LoadMaterial("Resources/Materials/2D/material_2d.json");
 		materialRenderTarget = Engine::GetRenderer()->GetMaterialSystem()->LoadMaterial("Resources/Materials/2D/material_rendertarget.json");
 
-		SpawnCircuit();
-
+		// SpawnCircuit();
+		SpawnPista();
+		SpawnBall();
 		SpawnCamera();
 		SpawnCamera2D();
 
@@ -191,7 +192,7 @@ protected:
 
 		Engine::GetLogger()->InfoLog(std::format("Tiempo de carga: {} segundos", stopWatch.GetElapsedTime()));
 
-		m_sdfRenderer = new SdfBindlessRenderer2D(
+		m_sdfRenderer = MakeUnique<SdfBindlessRenderer2D>(
 			Engine::GetEcs(),
 			Engine::GetRenderer()->GetAllocator(),
 			Engine::GetRenderer()->GetMaterialSystem()->LoadMaterial(SdfBindlessRenderer2D::DefaultMaterialPath));
@@ -329,13 +330,13 @@ protected:
 
 			// Movimiento de la cámara
 			if (keyboard->IsKeyDown(IO::Key::W))
-				cameraForwardMovement += 0.7f;
+				cameraForwardMovement += 2.0f;
 			if (keyboard->IsKeyDown(IO::Key::S))
-				cameraForwardMovement -= 0.7f;
+				cameraForwardMovement -= 2.0f;
 			if (keyboard->IsKeyDown(IO::Key::A))
-				cameraRightMovement -= 0.7f;
+				cameraRightMovement -= 2.0f;
 			if (keyboard->IsKeyDown(IO::Key::D))
-				cameraRightMovement += 0.7f;
+				cameraRightMovement += 2.0f;
 
 			if (keyboard->IsKeyDown(IO::Key::LEFT_SHIFT)) {
 				cameraForwardMovement *= 0.3f;
@@ -346,12 +347,34 @@ protected:
 				cameraRightMovement *= 2.3f;
 			}
 
+			// Player test
+			auto* playerPhysics = &Engine::GetEcs()->GetComponent<PhysicsComponent>(m_otherObject);
+			if (keyboard->IsKeyDown(IO::Key::UP))
+				playerPhysics->ApplyForce(Vector3f(0, 0, 1) * 500.0f * deltaTime);
+			if (keyboard->IsKeyDown(IO::Key::DOWN))
+				playerPhysics->ApplyForce(Vector3f(0, 0, 1) * -500.0f * deltaTime);
+			if (keyboard->IsKeyDown(IO::Key::LEFT))
+				playerPhysics->ApplyForce(Vector3f(1, 0, 0) * 500.0f * deltaTime);
+			if (keyboard->IsKeyDown(IO::Key::RIGHT))
+				playerPhysics->ApplyForce(Vector3f(1, 0, 0) * -500.0f * deltaTime);
+
 			if (keyboard->IsKeyStroked(IO::Key::F2)) {
 				Engine::GetRenderer()->_GetSwapchain()->TakeScreenshot("screenshot");
 			}
 
 			if (keyboard->IsKeyStroked(IO::Key::M)) {
 				mouse->SetReturnMode(IO::MouseReturnMode::ALWAYS_RETURN);
+			}
+
+			if (keyboard->IsKeyStroked(IO::Key::SPACE)) {
+				auto direccion = cameraTransform.GetForwardVector().GetNormalized();
+
+				if (keyboard->IsKeyDown(IO::Key::LEFT_SHIFT)) {
+					Engine::GetEcs()->GetComponent<PhysicsComponent>(m_ballObject).ApplyImpulse(-direccion * 2.0f, Vector3f::Zero);
+				} else {
+					direccion.y *= -1.0f;
+					Engine::GetEcs()->GetComponent<PhysicsComponent>(m_ballObject).ApplyImpulse(direccion * 2.0f, Vector3f::Zero);
+				}
 			}
 		}
 
@@ -384,6 +407,17 @@ protected:
 			const float targetMs = 1.0f / targetFps;
 			const auto waitMiliseconds = static_cast<long>((targetMs - deltaTime) * 1000);
 			std::this_thread::sleep_for(std::chrono::milliseconds(glm::max(0l, waitMiliseconds)));
+		}
+
+		{
+			// A
+			auto& ballTransform = Engine::GetEcs()->GetComponent<TransformComponent3D>(m_ballObject).GetTransform();
+			if (ballTransform.GetPosition().z > 10 || ballTransform.GetPosition().z < -10 ||
+				ballTransform.GetPosition().x > 20 || ballTransform.GetPosition().x < -20) 
+			{
+				ballTransform.SetPosition({ 0.0f, 2.0f, 0.0f });
+				Engine::GetEcs()->GetComponent<PhysicsComponent>(m_ballObject)._SetVelocity(Vector3f::Zero);
+			}
 		}
 
 	_cont:
@@ -509,8 +543,8 @@ protected:
 			GpuImageLayout::SAMPLED,
 			GpuBarrierInfo(GpuCommandStage::FRAGMENT_SHADER, GpuAccessStage::SAMPLED_READ));
 
-		commandList->BindVertexBuffer(*Sprite::globalVertexBuffer);
-		commandList->BindIndexBuffer(*Sprite::globalIndexBuffer);
+		commandList->BindVertexBuffer(Sprite::globalVertexBuffer.GetValue());
+		commandList->BindIndexBuffer(Sprite::globalIndexBuffer.GetValue());
 
 		commandList->SetViewport(viewport);
 		commandList->SetScissor(windowRec);
@@ -596,39 +630,39 @@ private:
 		// Text
 		RenderTargetAttachmentInfo textColorInfo{ .format = Format::RGBA8_SRGB, .usage = GpuImageUsage::SAMPLED, .name = "Text Color Target" };
 		RenderTargetAttachmentInfo textDepthInfo{ .format = Format::D16_UNORM , .name = "Text Depth Target" };
-		textRenderTarget = new RenderTarget();
+		textRenderTarget = MakeUnique<RenderTarget>();
 		textRenderTarget->Create(Engine::GetDisplay()->GetResolution(), { textColorInfo }, textDepthInfo);
 
 		// Pre effects scene
 		RenderTargetAttachmentInfo preEffectsColorInfo{ .format = Format::RGBA16_SFLOAT, .usage = GpuImageUsage::SAMPLED | GpuImageUsage::TRANSFER_SOURCE, .name = "Pre-Effects Color Target" };
 		RenderTargetAttachmentInfo preEffectsDepthInfo{ .format = Format::D16_UNORM, .name = "Pre-Effects Depth Target" };
-		preEffectsRenderTarget = new RenderTarget();
+		preEffectsRenderTarget = MakeUnique<RenderTarget>();
 		preEffectsRenderTarget->Create(Engine::GetDisplay()->GetResolution(), { preEffectsColorInfo }, preEffectsDepthInfo);
 
 		// Combiners
-		preEffectsFrameCombiner = new FrameCombiner();
+		preEffectsFrameCombiner = MakeUnique<FrameCombiner>();
 		preEffectsFrameCombiner->Create(Engine::GetDisplay()->GetResolution(), preEffectsColorInfo);
 	}
 
 	void SetupPostProcessingChain() {
 		// Inicializaciones
 		if (!hbaoPass.HasValue()) {
-			hbaoPass = new HbaoPass();
+			hbaoPass = MakeUnique<HbaoPass>();
 			hbaoPass->Create(Engine::GetDisplay()->GetResolution());
 		}
 
 		if (!bloomPass.HasValue()) {
-			bloomPass = new BloomPass();
+			bloomPass = MakeUnique<BloomPass>();
 			bloomPass->Create(Engine::GetDisplay()->GetResolution());
 		}
 
 		if (!toneMappingPass.HasValue()) {
-			toneMappingPass = new ToneMappingPass();
+			toneMappingPass = MakeUnique<ToneMappingPass>();
 			toneMappingPass->Create(Engine::GetDisplay()->GetResolution());
 
 			const GpuBuffer* epxBuffers[MAX_RESOURCES_IN_FLIGHT]{};
 			for (UIndex32 i = 0; i < exposureBuffers.size(); i++) {
-				exposureBuffers[i] = Engine::GetRenderer()->GetAllocator()->CreateStorageBuffer(sizeof(float), GpuQueueType::MAIN).GetPointer();
+				exposureBuffers[i] = Engine::GetRenderer()->GetAllocator()->CreateStorageBuffer(sizeof(float), GpuQueueType::MAIN);
 				epxBuffers[i] = exposureBuffers[i].GetPointer();
 
 				exposureBuffers[i]->MapMemory();
@@ -744,7 +778,8 @@ private:
 
 		PhysicsComponent physicsComponent{};
 		physicsComponent.SetImmovable();
-		physicsComponent.coefficientOfRestitution = 0.0f;
+		physicsComponent.coefficientOfRestitution = 0.8f;
+		physicsComponent.frictionCoefficient = 1.0f;
 		Engine::GetEcs()->AddComponent<PhysicsComponent>(circuitObject, std::move(physicsComponent));
 
 		// Billboards
@@ -759,7 +794,7 @@ private:
 		billboardsModelComponent->SetModel(billboardsModel); // animModel
 		PhysicsComponent billboardsPhysicsComponent{};
 		billboardsPhysicsComponent.SetImmovable();
-		billboardsPhysicsComponent.coefficientOfRestitution = 0.05f;
+		physicsComponent.coefficientOfRestitution = 0.8f;
 		Engine::GetEcs()->AddComponent<PhysicsComponent>(billboards, std::move(billboardsPhysicsComponent));
 
 		// Tree normals
@@ -800,16 +835,14 @@ private:
 	}
 
 	void SpawnSecondCollider() {
-		return;
-
-		const GameObjectIndex secondObject = Engine::GetEcs()->SpawnObject();
+		m_otherObject = Engine::GetEcs()->SpawnObject();
 
 		// Transform
-		auto* transform = &Engine::GetEcs()->AddComponent<TransformComponent3D>(secondObject, TransformComponent3D(secondObject)).GetTransform();
-		transform->AddPosition({ 0.5f, 0.0f, 0.0f });
+		auto* transform = &Engine::GetEcs()->AddComponent<TransformComponent3D>(m_otherObject, TransformComponent3D(m_otherObject)).GetTransform();
+		transform->AddPosition({ 0.0f, 0.0f, 0.0f });
 
 		// Setup de físicas
-		auto& physicsComponent = Engine::GetEcs()->AddComponent<PhysicsComponent>(secondObject, {});
+		auto& physicsComponent = Engine::GetEcs()->AddComponent<PhysicsComponent>(m_otherObject, {});
 		physicsComponent.SetMass(2.0f);
 		physicsComponent.centerOfMassOffset = Vector3f::Zero;
 
@@ -817,12 +850,84 @@ private:
 		CollisionComponent collider{};
 		collider.SetCollider(Collider());
 
-		OwnedPtr<ConvexVolume> convexVolume = new ConvexVolume(ConvexVolume::CreateObb({ 0.2f * 2, 0.2f * 2, 0.2f * 2 }));
+		UniquePtr<ConvexVolume> convexVolume = MakeUnique<ConvexVolume>(ConvexVolume::CreateObb({ 0.2f * 2, 0.2f * 2, 0.2f * 2 }));
 
-		collider.GetCollider()->SetTopLevelCollider(new AxisAlignedBoundingBox(Vector3f(0.95f)));
-		collider.GetCollider()->AddBottomLevelCollider(convexVolume.GetPointer());
+		collider.GetCollider()->SetTopLevelCollider(MakeUnique<AxisAlignedBoundingBox>(Vector3f(0.95f)));
+		collider.GetCollider()->AddBottomLevelCollider(std::move(convexVolume));
 
-		Engine::GetEcs()->AddComponent<CollisionComponent>(secondObject, std::move(collider));
+		Engine::GetEcs()->AddComponent<CollisionComponent>(m_otherObject, std::move(collider));
+
+		// Render
+		auto model = Engine::GetAssetManager()->Load<Model3D>("Resources/Assets/Models/player.json");
+		ModelComponent3D* modelComponent = &Engine::GetEcs()->AddComponent<ModelComponent3D>(m_otherObject, {});
+		modelComponent->SetModel(model);
+		modelComponent->AddShaderPassName(AnimatedGBufferPass::Name);
+		modelComponent->GetModel()->GetAnimator().AddActiveAnimation("ArmatureAction");
+		modelComponent->GetModel()->GetAnimator().SetActiveSkin("Armature");
+		// modelComponent->AddShaderPassName(ShadowsStaticPass::Name);
+	}
+
+	void SpawnBall() {
+		m_ballObject = Engine::GetEcs()->SpawnObject();
+
+		// Transform
+		auto* transform = &Engine::GetEcs()->AddComponent<TransformComponent3D>(m_ballObject, TransformComponent3D(m_ballObject)).GetTransform();
+		transform->AddPosition({ 2.0f, 3.0f, 0.0f });
+
+		// Setup de físicas
+		auto& physicsComponent = Engine::GetEcs()->AddComponent<PhysicsComponent>(m_ballObject, {});
+		physicsComponent.SetMass(0.5f);
+		physicsComponent.centerOfMassOffset = Vector3f::Zero;
+		physicsComponent.coefficientOfRestitution = 0.8f;
+		physicsComponent.frictionCoefficient = 1.2f;
+		physicsComponent.SetInverseInertiaTensor(glm::mat3(1.0f) * 200.0f);
+
+		// Collider
+		CollisionComponent collider{};
+		collider.SetCollider(Engine::GetAssetManager()->Load<PreBuiltCollider>("Resources/Assets/Collision/ball_collider.json"));
+		Engine::GetEcs()->AddComponent<CollisionComponent>(m_ballObject, std::move(collider));
+
+		// Render
+		auto ballModel = Engine::GetAssetManager()->LoadAsync<Model3D>("Resources/Assets/Models/sphere.json");
+
+		ModelComponent3D* modelComponent = &Engine::GetEcs()->AddComponent<ModelComponent3D>(m_ballObject, {});
+
+		modelComponent->SetModel(ballModel); // animModel
+		modelComponent->AddShaderPassName(StaticGBufferPass::Name);
+		modelComponent->AddShaderPassName(ShadowsStaticPass::Name);
+	}
+
+	void SpawnPista() {
+		auto pista = Engine::GetEcs()->SpawnObject();
+
+		// Transform
+		auto* transform = &Engine::GetEcs()->AddComponent<TransformComponent3D>(pista, TransformComponent3D(pista)).GetTransform();
+
+		// Setup de físicas
+		auto& physicsComponent = Engine::GetEcs()->AddComponent<PhysicsComponent>(pista, {});
+		physicsComponent.coefficientOfRestitution = 0.3f;
+		physicsComponent.frictionCoefficient = 0.8f;
+		physicsComponent.SetImmovable();
+
+		// Collider
+		CollisionComponent colliderComponent{};
+		Collider collider = {};
+		UniquePtr<ConvexVolume> convexVolume = MakeUnique<ConvexVolume>(ConvexVolume::CreateObb({ 100.0f, 100.0f, 100.0f }));
+		convexVolume->AddOffset({ 0.0f, -100.0f, 0.0f });
+		collider.SetTopLevelCollider(MakeUnique<AxisAlignedBoundingBox>(Vector3f{ 100.0f, 5.0f, 100.0f }));
+		collider.AddBottomLevelCollider(std::move(convexVolume));
+		colliderComponent.SetCollider(collider);
+
+		Engine::GetEcs()->AddComponent<CollisionComponent>(pista, std::move(colliderComponent));
+
+		// Render
+		auto ballModel = Engine::GetAssetManager()->LoadAsync<Model3D>("Resources/Assets/Models/pista.json");
+
+		ModelComponent3D* modelComponent = &Engine::GetEcs()->AddComponent<ModelComponent3D>(pista, {});
+
+		modelComponent->SetModel(ballModel); // animModel
+		modelComponent->AddShaderPassName(StaticGBufferPass::Name);
+		modelComponent->AddShaderPassName(ShadowsStaticPass::Name);
 	}
 
 	struct CollisionTestCase {
@@ -956,6 +1061,8 @@ private:
 
 	ECS::GameObjectIndex cameraObject = ECS::EMPTY_GAME_OBJECT;
 	ECS::GameObjectIndex cameraObject2d = ECS::EMPTY_GAME_OBJECT;
+	ECS::GameObjectIndex m_ballObject = ECS::GameObjectIndex::CreateEmpty();
+	ECS::GameObjectIndex m_otherObject = ECS::GameObjectIndex::CreateEmpty();
 
 	UniquePtr<SdfBindlessRenderer2D> m_sdfRenderer;
 

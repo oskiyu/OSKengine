@@ -35,7 +35,7 @@ namespace OSK::ECS {
 			OSK_ASSERT(!EventHasBeenRegistered<TEvent>(), EventAlreadyRegisteredException(TEvent::GetEventName()));
 			const auto key = static_cast<std::string>(TEvent::GetEventName());
 
-			containers[key] =  new EventContainer<TEvent>();
+			containers[key] = MakeUnique<EventContainer<TEvent>>();
 		}
 
 

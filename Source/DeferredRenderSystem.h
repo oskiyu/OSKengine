@@ -12,8 +12,6 @@
 #include "RtRenderTarget.h"
 #include "TaaProvider.h"
 
-#include "OwnedPtr.h"
-
 #include "IShaderPass.h"
 #include "IDeferredResolver.h"
 
@@ -95,12 +93,12 @@ namespace OSK::ECS {
 		void ToggleTaa();
 
 
-		void AddShaderPass(OwnedPtr<GRAPHICS::IShaderPass> pass) override;
-		void AddShadowsPass(OwnedPtr<GRAPHICS::IShaderPass> pass) override;
+		void AddShaderPass(UniquePtr<GRAPHICS::IShaderPass>&& pass) override;
+		void AddShadowsPass(UniquePtr<GRAPHICS::IShaderPass>&& pass) override;
 
 		/// @brief Establece el pase de resolución.
 		/// @param resolver Pase de resolución.
-		void SetResolver(OwnedPtr<GRAPHICS::IDeferredResolver> resolver);
+		void SetResolver(UniquePtr<GRAPHICS::IDeferredResolver>&& resolver);
 
 
 		GRAPHICS::DirectionalLight& GetDirectionalLight();
@@ -162,6 +160,8 @@ namespace OSK::ECS {
 		void SharpenTaa(GRAPHICS::ICommandList* commandList);
 		void CopyFinalImages(GRAPHICS::ICommandList* commandList);
 
+		virtual void SetupGlobalMeshMapping();
+
 	protected:
 
 		constexpr static auto CameraGlobalSlotName = "global";
@@ -185,7 +185,7 @@ namespace OSK::ECS {
 		std::array<UniquePtr<GRAPHICS::MaterialInstance>, GRAPHICS::MAX_RESOURCES_IN_FLIGHT> m_gBufferCameraInstances{};
 
 		/// @brief Pase de resolución.
-		UniquePtr<GRAPHICS::IDeferredResolver> m_resolverPass = nullptr;
+		UniquePtr<GRAPHICS::IDeferredResolver> m_resolverPass;
 
 		
 		// -- CÁMARA -- //

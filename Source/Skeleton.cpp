@@ -12,7 +12,7 @@ Skeleton::Skeleton(const DynamicArray<AnimationBone>& bones) {
 	for (const auto& bone : bones) {
 		const UIndex32 boneIndex = bone.thisIndex;
 
-		// OSK_ASSERT(!m_bones.contains(nodeIndex), BoneAlreadyAddedException(bone.thisIndex));
+		OSK_ASSERT(!m_bones.contains(boneIndex), BoneAlreadyAddedException(bone.thisIndex));
 
 		m_bones[boneIndex] = bone;
 		m_boneNameToIndex[bone.name] = boneIndex;
@@ -20,17 +20,20 @@ Skeleton::Skeleton(const DynamicArray<AnimationBone>& bones) {
 }
 
 void Skeleton::UpdateMatrices(const AnimationSkin& skin) {
-	// Actualizar matrices de los huesos
-	if (skin.rootIndex != std::numeric_limits<UIndex32>::max())
-		m_bones.at(skin.rootIndex).UpdateSkeletonTree(glm::mat4(1.0f), this);
-	else
-		m_bones.at(GetRootNodeIndex()).UpdateSkeletonTree(glm::mat4(1.0f), this);
+	// Actualizar matrices de los huesos.
+	const auto rootIndex = skin.rootIndex != std::numeric_limits<UIndex32>::max()
+		? skin.rootIndex
+		: GetRootNodeIndex();
+
+	m_bones.at(rootIndex).UpdateSkeletonTree(glm::mat4(1.0f), this);
 }
 
 UIndex32 Skeleton::GetRootNodeIndex() const {
-	for (auto& [index, node] : m_bones)
-		if (node.parentIndex == std::numeric_limits<UIndex32>::max())
+	for (auto& [index, node] : m_bones) {
+		if (!node.parentIndex.has_value()) {
 			return index;
+		}
+	}
 
 	return 0;
 }

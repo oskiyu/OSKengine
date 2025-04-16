@@ -9,6 +9,7 @@
 #ifdef max
 #undef max
 #endif
+#include <optional>
 
 namespace OSK::GRAPHICS {
 
@@ -18,8 +19,6 @@ namespace OSK::GRAPHICS {
 
 	/// @brief Hueso de la animación.
 	struct AnimationBone {
-
-		constexpr static UIndex32 EmptyIndex = std::numeric_limits<UIndex32>::max();
 
 		/// @brief Actualiza la matriz propia y la de los huesos hijos.
 		/// @param prevMatrix Matriz del hueso padre.
@@ -37,19 +36,20 @@ namespace OSK::GRAPHICS {
 		/// @brief Escala actual.
 		Vector3f scale = Vector3f::One;
 
+
 		/// @brief Índice del hueso.
 		UIndex32 thisIndex = 0;
 		/// @brief Índice del nodo padre.
-		UIndex32 parentIndex = EmptyIndex;
+		std::optional<UIndex32> parentIndex;
 		/// @brief Índices de los nodos hijos.
 		DynamicArray<UIndex32> childIndices;
 
-		UIndex32 skinIndex = EmptyIndex;
+		std::optional<UIndex32> skinIndex;
 
 		/// @return Matriz de modelo del hueso.
 		inline glm::mat4 GetLocalMatrix() const {
-			return 
-				glm::translate(glm::mat4(1.0f), position.ToGlm()) * 
+			return
+				glm::translate(glm::mat4(1.0f), position.ToGlm()) *
 				glm::mat4(rotation.ToGlm()) * 
 				glm::scale(glm::mat4(1.0f), scale.ToGlm());
 		}

@@ -773,7 +773,7 @@ namespace OSK::GRAPHICS {
 		/// @pre El buffer debe haber sido creado con GpuBufferUsage::TRANSFER_SOURCE.
 		/// @pre El buffer debe haber sido creado con GpuSharedMemoryType::GPU_AND_CPU.
 		/// @pre La lista de comandos debe estar abierta.
-		void RegisterStagingBuffer(OwnedPtr<GpuBuffer> stagingBuffer);
+		void RegisterStagingBuffer(UniquePtr<GpuBuffer>&& stagingBuffer);
 
 		/// @brief Elimina todos los buffers intermedios que ya no son necesarios.
 		/// @pre La lista debe haberse ejecutado antes de llamar a esta función.

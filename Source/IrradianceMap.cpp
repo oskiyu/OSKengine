@@ -13,12 +13,12 @@ GRAPHICS::GpuImage* IrradianceMap::GetGpuImage() {
 	return gpuImage.GetPointer();
 }
 
-void IrradianceMap::_SetGpuImage(OwnedPtr<GRAPHICS::GpuImage> image) {
-	gpuImage = image.GetPointer();
+void IrradianceMap::_SetGpuImage(UniquePtr<GRAPHICS::GpuImage>&& image) {
+	gpuImage = std::move(image);
 }
 
-void IrradianceMap::_SetOriginalCubemap(OwnedPtr<GRAPHICS::GpuImage> image) {
-	originalCubemap = image.GetPointer();
+void IrradianceMap::_SetOriginalCubemap(UniquePtr<GRAPHICS::GpuImage>&& image) {
+	originalCubemap = std::move(image);
 }
 
 GpuImage* IrradianceMap::GetOriginalCubemap() {

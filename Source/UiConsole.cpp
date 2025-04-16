@@ -16,14 +16,14 @@ Console::Console(const Vector2f& size) : VerticalContainer(size) {
 
 	for (UIndex64 i = 0; i < MaxMessages; i++) {
 		auto* textView = new TextView(msgSize);
-		AddChild(std::to_string(i), textView);
+		AddChild(std::to_string(i), UniquePtr<OSK::UI::IElement>(textView));
 
 		m_textMessages[MaxMessages - 1 - i] = textView;
 		textView->SetInvisible();
 	}
 
 	auto* textInput = new TextInput(msgSize);
-	AddChild("input", textInput);
+	AddChild("input", UniquePtr<OSK::UI::IElement>(textInput));
 
 	m_textInput = textInput;
 

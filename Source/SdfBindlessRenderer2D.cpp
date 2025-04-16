@@ -14,7 +14,6 @@
 #include "SdfBindlessBufferContent2D.h"
 #include <string>
 #include <format>
-#include "OwnedPtr.h"
 #include "SdfBindlessBatch2D.h"
 #include "GpuBufferRange.h"
 #include "IMaterialSlot.h"
@@ -37,9 +36,9 @@ OSK::GRAPHICS::SdfBindlessRenderer2D::SdfBindlessRenderer2D(
 			GPU_MEMORY_NO_ALIGNMENT,
 			GpuBufferUsage::UNIFORM_BUFFER,
 			GpuSharedMemoryType::GPU_AND_CPU,
-			GpuQueueType::MAIN).GetPointer();
+			GpuQueueType::MAIN);
 
-		m_globalInformationInstances[i] = defaultMaterial->CreateInstance().GetPointer();
+		m_globalInformationInstances[i] = defaultMaterial->CreateInstance();
 
 		GetGlobalInformationSlot(i)->SetUniformBuffer("globalInformation", m_globalInformationBuffers[i].GetValue());
 		GetGlobalInformationSlot(i)->SetDebugName("Global Information Slot");
@@ -192,7 +191,7 @@ void OSK::GRAPHICS::SdfBindlessRenderer2D::AddContentBuffer(UIndex32 resourceInd
 	const USize64 elementSizeWithPadding = sizeof(SdfBindlessBufferContent2D) + necessaryPadding;
 
 	// Buffer.
-	OwnedPtr<GpuBuffer> buffer = m_memoryAllocator->CreateBuffer(
+	UniquePtr<GpuBuffer> buffer = m_memoryAllocator->CreateBuffer(
 		elementSizeWithPadding * MAX_DRAW_CALLS_PER_BATCH,
 		GPU_MEMORY_NO_ALIGNMENT,
 		GpuBufferUsage::UNIFORM_BUFFER,
@@ -201,14 +200,14 @@ void OSK::GRAPHICS::SdfBindlessRenderer2D::AddContentBuffer(UIndex32 resourceInd
 
 	buffer->MapMemory();
 
-	m_drawCallsBuffers[resourceIndex].Insert(buffer.GetPointer());
+	m_drawCallsBuffers[resourceIndex].Insert(std::move(buffer));
 
 	// Material.
 	const std::string materialInstanceName = std::format("Instances Slot {} Frame {}", m_drawCallsBuffersInstances[resourceIndex].GetSize(), resourceIndex);
 
-	OwnedPtr<MaterialInstance> materialInstance = GetCurrentMaterial()->CreateInstance();
+	UniquePtr<MaterialInstance> materialInstance = GetCurrentMaterial()->CreateInstance();
 	materialInstance->GetSlot(DrawCallsSlotName)->SetDebugName(materialInstanceName);
-	m_drawCallsBuffersInstances[resourceIndex].Insert(materialInstance.GetPointer());
+	m_drawCallsBuffersInstances[resourceIndex].Insert(std::move(materialInstance));
 }
 
 void OSK::GRAPHICS::SdfBindlessRenderer2D::EnsureMaterialSlotContent(

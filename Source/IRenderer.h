@@ -2,7 +2,6 @@
 
 #include "ApiCall.h"
 #include "UniquePtr.hpp"
-#include "OwnedPtr.h"
 #include "DynamicArray.hpp"
 
 // Comandos y colas
@@ -83,7 +82,7 @@ namespace OSK::GRAPHICS {
 		virtual void Initialize(
 			const std::string& appName, 
 			const Version& version, 
-			const IO::IDisplay& display, 
+			IO::IDisplay& display, 
 			PresentMode mode) = 0;
 
 		/// @brief Cierra el renderizador.
@@ -266,7 +265,7 @@ namespace OSK::GRAPHICS {
 		/// 
 		/// @pre El renderizador debe haber sido previamente inicializado.
 		/// @pre El renderizador no debe haber sido previamente cerrado.
-		virtual OwnedPtr<IGraphicsPipeline> _CreateGraphicsPipeline(
+		virtual UniquePtr<IGraphicsPipeline> _CreateGraphicsPipeline(
 			const PipelineCreateInfo& pipelineInfo,
 			const MaterialLayout& layout,
 			const VertexInfo& vertexTypeName) = 0;
@@ -278,7 +277,7 @@ namespace OSK::GRAPHICS {
 		/// 
 		/// @pre El renderizador debe haber sido previamente inicializado.
 		/// @pre El renderizador no debe haber sido previamente cerrado.
-		virtual OwnedPtr<IMeshPipeline> _CreateMeshPipeline(
+		virtual UniquePtr<IMeshPipeline> _CreateMeshPipeline(
 			const PipelineCreateInfo& pipelineInfo,
 			const MaterialLayout& layout) = 0;
 
@@ -289,7 +288,7 @@ namespace OSK::GRAPHICS {
 		/// 
 		/// @pre El renderizador debe haber sido previamente inicializado.
 		/// @pre El renderizador no debe haber sido previamente cerrado.
-		virtual OwnedPtr<IRaytracingPipeline> _CreateRaytracingPipeline(
+		virtual UniquePtr<IRaytracingPipeline> _CreateRaytracingPipeline(
 			const PipelineCreateInfo& pipelineInfo, 
 			const MaterialLayout& layout, 
 			const VertexInfo& vertexTypeName) = 0;
@@ -301,7 +300,7 @@ namespace OSK::GRAPHICS {
 		/// 
 		/// @pre El renderizador debe haber sido previamente inicializado.
 		/// @pre El renderizador no debe haber sido previamente cerrado.
-		virtual OwnedPtr<IComputePipeline> _CreateComputePipeline(
+		virtual UniquePtr<IComputePipeline> _CreateComputePipeline(
 			const PipelineCreateInfo& pipelineInfo, 
 			const MaterialLayout& layout) = 0;
 
@@ -311,7 +310,7 @@ namespace OSK::GRAPHICS {
 		/// 
 		/// @pre El renderizador debe haber sido previamente inicializado.
 		/// @pre El renderizador no debe haber sido previamente cerrado.
-		virtual OwnedPtr<IMaterialSlot> _CreateMaterialSlot(
+		virtual UniquePtr<IMaterialSlot> _CreateMaterialSlot(
 			const std::string& name, 
 			const MaterialLayout& layout) const = 0;
 
@@ -326,7 +325,7 @@ namespace OSK::GRAPHICS {
 		/// @pre El renderizador no debe haber sido previamente cerrado.
 		/// 
 		/// @threadsafe
-		OwnedPtr<ICommandList> CreateSingleUseCommandList(GpuQueueType queueType, std::thread::id threadId = std::this_thread::get_id());
+		UniquePtr<ICommandList> CreateSingleUseCommandList(GpuQueueType queueType, std::thread::id threadId = std::this_thread::get_id());
 
 		/// @param targetQueueType Cola de referencia, para la cual los comandos creados
 		/// por el pool devuelto deben ser compatibles.
@@ -335,7 +334,7 @@ namespace OSK::GRAPHICS {
 		/// @pre @p targetQueueType debe ser un puntero estable.
 		/// 
 		/// @threadsafe
-		virtual OwnedPtr<ICommandPool> CreateCommandPool(const ICommandQueue* targetQueueType) = 0;
+		virtual UniquePtr<ICommandPool> CreateCommandPool(const ICommandQueue* targetQueueType) = 0;
 
 #pragma endregion
 
@@ -353,7 +352,7 @@ namespace OSK::GRAPHICS {
 		/// @note Bloquea el hilo hasta que se haya completado la operación.
 		/// 
 		/// @threadsafe
-		virtual void SubmitSingleUseCommandList(OwnedPtr<ICommandList> commandList) = 0;
+		virtual void SubmitSingleUseCommandList(UniquePtr<ICommandList>&& commandList) = 0;
 
 		const IGpuImageSampler& GetSampler(const GpuImageSamplerDesc& desc) const;
 
@@ -605,16 +604,16 @@ namespace OSK::GRAPHICS {
 		void RegisterGraphicsCommputeCommandPool(const ICommandQueue* graphicsComputeQueue);
 		void RegisterTransferOnlyCommandPool(const ICommandQueue* transferQueue);
 
-		void _SetUnifiedCommandQueue(OwnedPtr<ICommandQueue> commandQueue);
-		void _SetGraphicsCommputeCommandQueue(OwnedPtr<ICommandQueue> commandQueue);
-		void _SetPresentationCommandQueue(OwnedPtr<ICommandQueue> commandQueue);
-		void _SetTransferOnlyCommandQueue(OwnedPtr<ICommandQueue> commandQueue);
+		void _SetUnifiedCommandQueue(UniquePtr<ICommandQueue>&& commandQueue);
+		void _SetGraphicsCommputeCommandQueue(UniquePtr<ICommandQueue>&& commandQueue);
+		void _SetPresentationCommandQueue(UniquePtr<ICommandQueue>&& commandQueue);
+		void _SetTransferOnlyCommandQueue(UniquePtr<ICommandQueue>&& commandQueue);
 
-		void _SetMainCommandList(OwnedPtr<ICommandList> commandList);
+		void _SetMainCommandList(UniquePtr<ICommandList>&& commandList);
 
-		void _SetGpu(OwnedPtr<IGpu> gpu);
-		void _SetMemoryAllocator(OwnedPtr<IGpuMemoryAllocator> allocator);
-		void _SetSwapchain(OwnedPtr<ISwapchain> swapchain);
+		void _SetGpu(UniquePtr<IGpu>&& gpu);
+		void _SetMemoryAllocator(UniquePtr<IGpuMemoryAllocator>&& allocator);
+		void _SetSwapchain(UniquePtr<ISwapchain>&& swapchain);
 
 
 		// --- Sincronización --- //

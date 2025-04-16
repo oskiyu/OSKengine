@@ -36,7 +36,7 @@ using namespace OSK::GRAPHICS;
 
 
 void GraphicsPipelineDx12::Create(const MaterialLayout* materialLayout, IGpu* device, const PipelineCreateInfo& info,  const VertexInfo& vertexInfo) {
-	layout = new PipelineLayoutDx12(materialLayout);
+	layout = MakeUnique<PipelineLayoutDx12>(materialLayout);
 	
 	D3D12_GRAPHICS_PIPELINE_STATE_DESC createInfo{};
 

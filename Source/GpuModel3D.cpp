@@ -24,12 +24,12 @@ const CpuModel3D& GpuModel3D::GetCpuModel() const {
 	return m_cpuModel;
 }
 
-void GpuModel3D::SetVertexBuffer(OwnedPtr<GpuBuffer> vertexBuffer) {
-	m_vertexBuffer = vertexBuffer.GetPointer();
+void GpuModel3D::SetVertexBuffer(UniquePtr<GpuBuffer>&& vertexBuffer) {
+	m_vertexBuffer = std::move(vertexBuffer);
 }
 
-void GpuModel3D::SetIndexBuffer(OwnedPtr<GpuBuffer> indexBuffer) {
-	m_indexBuffer = indexBuffer.GetPointer();
+void GpuModel3D::SetIndexBuffer(UniquePtr<GpuBuffer>&& indexBuffer) {
+	m_indexBuffer = std::move(indexBuffer);
 }
 
 void GpuModel3D::SetIndexCount(USize32 indexCount) {
@@ -81,10 +81,12 @@ void GpuModel3D::SetMaterials(const DynamicArray<Material>& materials) {
 }
 
 GpuModel3D::Material& GpuModel3D::GetMaterial(UIndex64 materialIndex) {
+	OSK_ASSERT(materialIndex < m_materials.GetSize(), InvalidArgumentException("No existe el material indicado."));
 	return m_materials[materialIndex];
 }
 
 const GpuModel3D::Material& GpuModel3D::GetMaterial(UIndex64 materialIndex) const {
+	OSK_ASSERT(materialIndex < m_materials.GetSize(), InvalidArgumentException("No existe el material indicado."));
 	return m_materials[materialIndex];
 }
 
@@ -114,6 +116,22 @@ VerticesAttributesMaps& GpuModel3D::GetVertexAttributesMap() {
 
 const VerticesAttributesMaps& GpuModel3D::GetVertexAttributesMap() const {
 	return m_vertexAttributes;
+}
+
+bool GpuModel3D::HasAnimator() const {
+	return m_animator.has_value();
+}
+
+Animator& GpuModel3D::GetAnimator() {
+	return m_animator.value();
+}
+
+const Animator& GpuModel3D::GetAnimator() const {
+	return m_animator.value();
+}
+
+void GpuModel3D::SetAnimator(Animator&& animator) {
+	m_animator = std::move(animator);
 }
 
 

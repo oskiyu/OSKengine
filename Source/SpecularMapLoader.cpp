@@ -31,9 +31,9 @@ SpecularMapLoader::SpecularMapLoader() {
 	prefilterMaterial = Engine::GetRenderer()->GetMaterialSystem()->LoadMaterial("Resources/Materials/AssetsGen/material_specular_prefilter.json");
 	lutGenerationMaterial = Engine::GetRenderer()->GetMaterialSystem()->LoadMaterial("Resources/Materials/AssetsGen/material_specular_lut_gen.json");
 
-	generationMaterialInstance = generationMaterial->CreateInstance().GetPointer();
-	prefilterMaterialInstance = prefilterMaterial->CreateInstance().GetPointer();
-	lutGenerationMaterialInstance = lutGenerationMaterial->CreateInstance().GetPointer();
+	generationMaterialInstance = generationMaterial->CreateInstance();
+	prefilterMaterialInstance = prefilterMaterial->CreateInstance();
+	lutGenerationMaterialInstance = lutGenerationMaterial->CreateInstance();
 
 	RenderTargetAttachmentInfo colorInfo{ .format = Format::RGBA16_SFLOAT, .usage = GpuImageUsage::TRANSFER_SOURCE, .name = "Cubemap Render Color" };
 	RenderTargetAttachmentInfo depthInfo{ .format = Format::D16_UNORM, .name = "Cubemap Depth Color" };
@@ -79,7 +79,7 @@ void SpecularMapLoader::Load(const std::string& assetFilePath, SpecularMap* asse
 	// Carga de la imagen HDR original
 	const GpuImageUsage originalImageUsage = GpuImageUsage::TRANSFER_SOURCE | GpuImageUsage::TRANSFER_DESTINATION | GpuImageUsage::SAMPLED;
 	const GpuImageCreateInfo imageInfo = GpuImageCreateInfo::CreateDefault2D(originalImageSize, Format::RGBA32_SFLOAT, originalImageUsage);
-	UniquePtr<GpuImage> originalImage = Engine::GetRenderer()->GetAllocator()->CreateImage(imageInfo).GetPointer();
+	UniquePtr<GpuImage> originalImage = Engine::GetRenderer()->GetAllocator()->CreateImage(imageInfo);
 	originalImage->SetDebugName("Original Specular 2D");
 
 	UploadImage(originalImage.GetPointer(), pixels, { originalImageSize.x, originalImageSize.y, 1 });
@@ -103,9 +103,9 @@ void SpecularMapLoader::Load(const std::string& assetFilePath, SpecularMap* asse
 		GpuImageUsage::COLOR | GpuImageUsage::SAMPLED | GpuImageUsage::CUBEMAP | GpuImageUsage::TRANSFER_DESTINATION,
 		GpuSharedMemoryType::GPU_ONLY,
 		GpuQueueType::MAIN,
-		origianlSampler).GetPointer();
+		origianlSampler);
 
-	OwnedPtr<GpuImage> targetCubemap = Engine::GetRenderer()->GetAllocator()->CreateCubemapImage(
+	UniquePtr<GpuImage> targetCubemap = Engine::GetRenderer()->GetAllocator()->CreateCubemapImage(
 		maxResolution,
 		Format::RGBA16_SFLOAT, 
 		GpuImageUsage::COLOR | GpuImageUsage::SAMPLED | GpuImageUsage::CUBEMAP | GpuImageUsage::TRANSFER_DESTINATION,
@@ -123,7 +123,7 @@ void SpecularMapLoader::Load(const std::string& assetFilePath, SpecularMap* asse
 	prefilterMaterialInstance->GetSlot("global")->FlushUpdate();
 
 	// Renderizar a cubemap
-	OwnedPtr<ICommandList> originalDrawCmdList = Engine::GetRenderer()->CreateSingleUseCommandList(GpuQueueType::MAIN);
+	UniquePtr<ICommandList> originalDrawCmdList = Engine::GetRenderer()->CreateSingleUseCommandList(GpuQueueType::MAIN);
 
 	originalDrawCmdList->SetDebugName("Specular Cubemap Cmd List");
 
@@ -134,11 +134,11 @@ void SpecularMapLoader::Load(const std::string& assetFilePath, SpecularMap* asse
 
 	originalDrawCmdList->Close();
 
-	Engine::GetRenderer()->SubmitSingleUseCommandList(originalDrawCmdList);
+	Engine::GetRenderer()->SubmitSingleUseCommandList(std::move(originalDrawCmdList));
 
 	// Preprocesado
 
-	OwnedPtr<ICommandList> prefilterCmdList = Engine::GetRenderer()->CreateSingleUseCommandList(GpuQueueType::MAIN);
+	UniquePtr<ICommandList> prefilterCmdList = Engine::GetRenderer()->CreateSingleUseCommandList(GpuQueueType::MAIN);
 
 	prefilterCmdList->SetDebugName("Prefilter and LUT generation");
 
@@ -156,7 +156,7 @@ void SpecularMapLoader::Load(const std::string& assetFilePath, SpecularMap* asse
 		lookUpTable.GetSize(), 
 		lookUpTable.GetTargetImage()->GetFormat(), 
 		GpuImageUsage::SAMPLED | GpuImageUsage::TRANSFER_DESTINATION);
-	OwnedPtr<GpuImage> lut = Engine::GetRenderer()->GetAllocator()->CreateImage(lutCreateInfo);
+	UniquePtr<GpuImage> lut = Engine::GetRenderer()->GetAllocator()->CreateImage(lutCreateInfo);
 	lut->SetDebugName("Specular Look-Up Table");
 
 	prefilterCmdList->SetGpuImageBarrier(lut.GetPointer(), GpuImageLayout::TRANSFER_DESTINATION,
@@ -170,10 +170,10 @@ void SpecularMapLoader::Load(const std::string& assetFilePath, SpecularMap* asse
 
 	prefilterCmdList->Close();
 
-	Engine::GetRenderer()->SubmitSingleUseCommandList(prefilterCmdList);
+	Engine::GetRenderer()->SubmitSingleUseCommandList(std::move(prefilterCmdList));
 
-	asset->_SetCubemapImage(targetCubemap);
-	asset->_SetLookUpTable(lut);
+	asset->_SetCubemapImage(std::move(targetCubemap));
+	asset->_SetLookUpTable(std::move(lut));
 }
 
 void SpecularMapLoader::DrawOriginal(GRAPHICS::GpuImage* cubemap, GRAPHICS::ICommandList* cmdList) {
@@ -314,7 +314,7 @@ void SpecularMapLoader::GenerateLut(ICommandList* cmdList) {
 }
 
 void SpecularMapLoader::UploadImage(GpuImage* img, const float* pixels, const Vector3ui& size) const {
-	OwnedPtr<ICommandList> uploadCmdList = Engine::GetRenderer()->CreateSingleUseCommandList(GpuQueueType::MAIN);
+	UniquePtr<ICommandList> uploadCmdList = Engine::GetRenderer()->CreateSingleUseCommandList(GpuQueueType::MAIN);
 
 	uploadCmdList->Reset();
 	uploadCmdList->Start();
@@ -334,7 +334,7 @@ void SpecularMapLoader::UploadImage(GpuImage* img, const float* pixels, const Ve
 		GpuImageRange{ .baseLayer = 0, .numLayers = ALL_IMAGE_LAYERS, .baseMipLevel = 0, .numMipLevels = ALL_MIP_LEVELS });
 
 	uploadCmdList->Close();
-	Engine::GetRenderer()->SubmitSingleUseCommandList(uploadCmdList);
+	Engine::GetRenderer()->SubmitSingleUseCommandList(std::move(uploadCmdList));
 }
 
 glm::mat4 SpecularMapLoader::cameraProjection = glm::perspective(glm::radians(90.0f), 1.0f, 0.1f, 10.0f);

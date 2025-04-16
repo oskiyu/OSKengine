@@ -40,7 +40,7 @@ namespace OSK {
 
 	private:
 
-		UniquePtr<OSK::Editor::Editor> m_editor = nullptr;
+		UniquePtr<OSK::Editor::Editor> m_editor;
 
 		EditorShowCommand* m_editorShowCommand = nullptr;
 		EditorHideCommand* m_editorHideCommand = nullptr;

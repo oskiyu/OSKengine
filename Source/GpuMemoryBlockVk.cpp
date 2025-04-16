@@ -37,11 +37,11 @@ GpuMemoryBlockVk::~GpuMemoryBlockVk() {
 	}
 }
 
-OwnedPtr<GpuMemoryBlockVk> GpuMemoryBlockVk::CreateNewBufferBlock(USize64 reservedSize, IGpu* device, GpuSharedMemoryType type, GpuBufferUsage bufferUSage) {
-	return new GpuMemoryBlockVk(reservedSize, device, type, bufferUSage);
+UniquePtr<GpuMemoryBlockVk> GpuMemoryBlockVk::CreateNewBufferBlock(USize64 reservedSize, IGpu* device, GpuSharedMemoryType type, GpuBufferUsage bufferUSage) {
+	return UniquePtr<GpuMemoryBlockVk>(new GpuMemoryBlockVk(reservedSize, device, type, bufferUSage));
 }
-OwnedPtr<GpuMemoryBlockVk> GpuMemoryBlockVk::CreateNewImageBlock(GpuImage* image, IGpu* device, GpuSharedMemoryType type, GpuImageUsage imageUSage) {
-	return new GpuMemoryBlockVk(image, device, imageUSage, type);
+UniquePtr<GpuMemoryBlockVk> GpuMemoryBlockVk::CreateNewImageBlock(GpuImage* image, IGpu* device, GpuSharedMemoryType type, GpuImageUsage imageUSage) {
+	return UniquePtr<GpuMemoryBlockVk>(new GpuMemoryBlockVk(image, device, imageUSage, type));
 }
 
 GpuMemoryBlockVk::GpuMemoryBlockVk(USize64 reservedSize, IGpu* device, GpuSharedMemoryType type, GpuBufferUsage bufferUSage)
@@ -78,8 +78,8 @@ GpuMemoryBlockVk::GpuMemoryBlockVk(USize64 reservedSize, IGpu* device, GpuShared
 	vkBindBufferMemory(logicalDevice, buffer, memory, 0);
 }
 
-OwnedPtr<IGpuMemorySubblock> GpuMemoryBlockVk::CreateNewMemorySubblock(USize64 size, USize64 offset) {
-	return new GpuMemorySubblockVk(this, size, offset);
+UniquePtr<IGpuMemorySubblock> GpuMemoryBlockVk::CreateNewMemorySubblock(USize64 size, USize64 offset) {
+	return MakeUnique<GpuMemorySubblockVk>(this, size, offset);
 }
 
 GpuMemoryBlockVk::GpuMemoryBlockVk(GpuImage* image, IGpu* device, GpuImageUsage imageUsage, GpuSharedMemoryType type)

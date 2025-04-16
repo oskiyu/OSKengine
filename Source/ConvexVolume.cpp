@@ -25,8 +25,8 @@ using namespace OSK::COLLISION;
 using namespace OSK::PERSISTENCE;
 
 
-OwnedPtr<IBottomLevelCollider> ConvexVolume::CreateCopy() const {
-	return new ConvexVolume(*this);
+UniquePtr<IBottomLevelCollider> ConvexVolume::CreateCopy() const {
+	return MakeUnique<ConvexVolume>(*this);
 }
 
 ConvexVolume ConvexVolume::CreateObb(const Vector3f& size) {
@@ -705,7 +705,7 @@ const DynamicArray<Vector3f>& ConvexVolume::GetLocalSpaceVertices() const {
 	return m_vertices;
 }
 
-DynamicArray<ConvexVolume::FaceIndices> ConvexVolume::GetFaceIndices() const {
+const DynamicArray<ConvexVolume::FaceIndices>& ConvexVolume::GetFaceIndices() const {
 	return m_faces;
 }
 

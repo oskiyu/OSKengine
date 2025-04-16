@@ -67,7 +67,7 @@ void GpuImageDx12::SetDebugName(const std::string& name) {
 	resource->SetName(str.c_str());
 }
 
-OwnedPtr<IGpuImageView> GpuImageDx12::CreateView(const GpuImageViewConfig& config) const {
+UniquePtr<IGpuImageView> GpuImageDx12::CreateView(const GpuImageViewConfig& config) const {
 	switch (config.usage) {
 	case OSK::GRAPHICS::ViewUsage::SAMPLED: {
 		const auto descriptor = Engine::GetRenderer()->GetAllocator()->As<GpuMemoryAllocatorDx12>()->GetDescriptor(D3D12_DESCRIPTOR_HEAP_TYPE_CBV_SRV_UAV);
@@ -136,7 +136,7 @@ OwnedPtr<IGpuImageView> GpuImageDx12::CreateView(const GpuImageViewConfig& confi
 				->CreateDepthStencilView(GetResource(), &desc, descriptor.cpuHandle);
 		}
 
-		return new GpuImageViewDx12(this, descriptor, config);
+		return MakeUnique<GpuImageViewDx12>(this, descriptor, config);
 	}
 		break;
 
@@ -165,7 +165,7 @@ OwnedPtr<IGpuImageView> GpuImageDx12::CreateView(const GpuImageViewConfig& confi
 		Engine::GetRenderer()->GetGpu()->As<GpuDx12>()->GetDevice()
 			->CreateRenderTargetView(GetResource(), &resourceViewDesc, descriptor.cpuHandle);
 
-		return new GpuImageViewDx12(this, descriptor, config);
+		return MakeUnique<GpuImageViewDx12>(this, descriptor, config);
 	}
 		break;
 
@@ -190,7 +190,7 @@ OwnedPtr<IGpuImageView> GpuImageDx12::CreateView(const GpuImageViewConfig& confi
 		Engine::GetRenderer()->GetGpu()->As<GpuDx12>()->GetDevice()
 			->CreateDepthStencilView(GetResource(), &desc, descriptor.cpuHandle);
 
-		return new GpuImageViewDx12(this, descriptor, config);
+		return MakeUnique<GpuImageViewDx12>(this, descriptor, config);
 	}
 		break;
 
@@ -216,13 +216,13 @@ OwnedPtr<IGpuImageView> GpuImageDx12::CreateView(const GpuImageViewConfig& confi
 		Engine::GetRenderer()->GetGpu()->As<GpuDx12>()->GetDevice()
 			->CreateUnorderedAccessView(GetResource(), nullptr, &desc, descriptor.cpuHandle);
 
-		return new GpuImageViewDx12(this, descriptor, config);
+		return MakeUnique<GpuImageViewDx12>(this, descriptor, config);
 	}
 		break;
 	}
 	
 	OSK_ASSERT(false, ImageViewCreationException(0));
-	return nullptr;
+	return UniquePtr<GpuImageViewDx12>();
 }
 
 #endif

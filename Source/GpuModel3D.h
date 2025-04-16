@@ -10,6 +10,9 @@
 
 #include "GpuMesh3D.h"
 
+#include <optional>
+#include "Animator.h"
+
 #include "CpuModel3D.h"
 
 #include "AssetRef.h"
@@ -143,11 +146,11 @@ namespace OSK::GRAPHICS {
 
 		/// @brief Establece el buffer con los vértices del modelo.
 		/// @param vertexBuffer Buffer con los vértices del modelo.
-		void SetVertexBuffer(OwnedPtr<GpuBuffer> vertexBuffer);
+		void SetVertexBuffer(UniquePtr<GpuBuffer>&& vertexBuffer);
 
 		/// @brief Establece el buffer con los índices del modelo.
 		/// @param vertexBuffer Buffer con los índices del modelo.
-		void SetIndexBuffer(OwnedPtr<GpuBuffer> indexBuffer);
+		void SetIndexBuffer(UniquePtr<GpuBuffer>&& indexBuffer);
 
 		/// @brief Establece el número de índices total del modelo.
 		/// @param indexCount Número de índices.
@@ -226,6 +229,19 @@ namespace OSK::GRAPHICS {
 		VerticesAttributesMaps& GetVertexAttributesMap();
 		const VerticesAttributesMaps& GetVertexAttributesMap() const;
 
+
+		/// @return True si tiene un animador 3D.
+		bool HasAnimator() const;
+
+		/// @pre `HasAnimator()` debe devolver `true`.
+		/// @return Animador.
+		Animator& GetAnimator();
+		const Animator& GetAnimator() const;
+
+		/// @brief Establece el animador del modelo.
+		/// @param animator Animador del modelo.
+		void SetAnimator(Animator&& animator);
+
 	private:
 
 		GpuModelUuid m_uuid = GpuModelUuid::CreateEmpty();
@@ -245,6 +261,8 @@ namespace OSK::GRAPHICS {
 		UniquePtr<GpuBuffer> m_indexBuffer{};
 
 		CpuModel3D m_cpuModel{};
+
+		std::optional<Animator> m_animator;
 
 	};
 

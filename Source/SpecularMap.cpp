@@ -15,14 +15,14 @@ GpuImage* SpecularMap::GetCubemapImage() {
 	return iblCubemap.GetPointer();
 }
 
-void SpecularMap::_SetCubemapImage(OwnedPtr<GpuImage> image) {
-	iblCubemap = image.GetPointer();
+void SpecularMap::_SetCubemapImage(UniquePtr<GRAPHICS::GpuImage>&& image) {
+	iblCubemap = std::move(image);
 }
 
 GpuImage* SpecularMap::GetLookUpTable() {
 	return lookUpTable.GetPointer();
 }
 
-void SpecularMap::_SetLookUpTable(OwnedPtr<GpuImage> image) {
-	lookUpTable = image.GetPointer();
+void SpecularMap::_SetLookUpTable(UniquePtr<GRAPHICS::GpuImage>&& image) {
+	lookUpTable = std::move(image);
 }

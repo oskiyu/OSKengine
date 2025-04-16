@@ -141,7 +141,7 @@ void SwapchainVk::CreationLogic(const GpuVk& device, const Vector2ui& resolution
 			? Engine::GetRenderer()->GetUnifiedQueue()
 			: Engine::GetRenderer()->GetPresentationQueue();
 
-		SetImage(new GpuImageVk(imageInfo, queue), i);
+		SetImage(MakeUnique<GpuImageVk>(imageInfo, queue), i);
 	}
 
 	AcquireImages(device);

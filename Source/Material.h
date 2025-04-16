@@ -1,7 +1,6 @@
 #pragma once
 
 #include "UniquePtr.hpp"
-#include "OwnedPtr.h"
 #include "ApiCall.h"
 #include "HashMap.hpp"
 #include "PipelineCreateInfo.h"
@@ -62,7 +61,7 @@ namespace OSK::GRAPHICS {
 		/// @throws ShaderLoadingException si no se consigue cargar / compilar los shaders.
 		/// @throws PipelineCreationException si no se consigue crear el pipeline.
 		/// @throws ShaderCompilingException Si ocurre algún error durante la compilación de los shaders.
-		Material(const GRAPHICS::PipelineCreateInfo& pipelineInfo, OwnedPtr<MaterialLayout> layout, const VertexInfo& vertexInfo, MaterialType type);
+		Material(const GRAPHICS::PipelineCreateInfo& pipelineInfo, UniquePtr<MaterialLayout>&& layout, const VertexInfo& vertexInfo, MaterialType type);
 
 		/// @brief Establece el nombre del material.
 		/// @param name Nombre.
@@ -116,7 +115,7 @@ namespace OSK::GRAPHICS {
 
 		/// @brief Crea y devuelve una nueva instancia de este material.
 		/// @return Nueva instancia del material.
-		OwnedPtr<MaterialInstance> CreateInstance();
+		UniquePtr<MaterialInstance> CreateInstance();
 
 		/// @brief Devuelve el tipo de material.
 		/// @return Tipo de material.
@@ -162,8 +161,8 @@ namespace OSK::GRAPHICS {
 		/// @brief Formatos de los pipelines almacenados.
 		mutable DynamicArray<PipelineKey> m_meshPipelinesKeys;
 
-		UniquePtr<GRAPHICS::IRaytracingPipeline> rtPipeline = nullptr;
-		UniquePtr<GRAPHICS::IComputePipeline> computePipeline = nullptr;
+		UniquePtr<GRAPHICS::IRaytracingPipeline> rtPipeline;
+		UniquePtr<GRAPHICS::IComputePipeline> computePipeline;
 
 		/// @brief Información del vértice para generar los pipelines.
 		const VertexInfo vertexInfo{};

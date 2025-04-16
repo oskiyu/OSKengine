@@ -1,7 +1,6 @@
 #pragma once
 
 #include "Component.h"
-#include "OwnedPtr.h"
 #include "UniquePtr.hpp"
 #include "DynamicArray.hpp"
 #include "HashMap.hpp"

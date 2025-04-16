@@ -32,12 +32,12 @@ namespace OSK::ASSETS {
 
 		/// @brief Establece la imagen que contiene el irradiance map.
 		/// @param image Irradiance map generado.
-		void _SetGpuImage(OwnedPtr<GRAPHICS::GpuImage> image);
+		void _SetGpuImage(UniquePtr<GRAPHICS::GpuImage>&& image);
 
 		/// @brief Establece la imagen que contiene el cubemap original sobre 
 		/// el que se genera el irradiance map. 
 		/// @param image Cubemap original.
-		void _SetOriginalCubemap(OwnedPtr<GRAPHICS::GpuImage> image);
+		void _SetOriginalCubemap(UniquePtr<GRAPHICS::GpuImage>&& image);
 
 	private:
 

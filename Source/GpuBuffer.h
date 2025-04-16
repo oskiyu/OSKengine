@@ -1,7 +1,7 @@
 #pragma once
 
 #include "ApiCall.h"
-#include "OwnedPtr.h"
+#include "UniquePtr.hpp"
 
 #include "VertexBufferView.h"
 #include "IndexBufferView.h"
@@ -32,12 +32,10 @@ namespace OSK::GRAPHICS {
 		/// 
 		/// @note No crea el buffer, el buffer es creado por IGpuMemoryAllocator.
 		GpuBuffer(
-			OwnedPtr<IGpuMemorySubblock> buffer, 
+			UniquePtr<IGpuMemorySubblock>&& buffer,
 			USize64 size, 
 			USize64 alignment,
 			const ICommandQueue* ownerQueue);
-
-		~GpuBuffer();
 
 		OSK_DISABLE_COPY(GpuBuffer);
 		
@@ -148,7 +146,8 @@ namespace OSK::GRAPHICS {
 
 		GpuBufferRange GetWholeBufferRange() const;
 
-		IGpuMemorySubblock* GetMemorySubblock() const;
+		IGpuMemorySubblock* GetMemorySubblock();
+		const IGpuMemorySubblock* GetMemorySubblock() const;
 		IGpuMemoryBlock* GetMemoryBlock() const;
 
 #pragma region Barriers
@@ -180,7 +179,7 @@ namespace OSK::GRAPHICS {
 
 	protected:
 
-		IGpuMemorySubblock* buffer = nullptr;
+		UniquePtr<IGpuMemorySubblock> m_buffer;
 
 	private:
 

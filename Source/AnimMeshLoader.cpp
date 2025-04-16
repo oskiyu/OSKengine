@@ -104,10 +104,24 @@ void AnimMeshLoader::Load(const CpuModel3D& model, GRAPHICS::GpuModel3D* output)
 	}
 
 	output->SetCpuModel3D(model);
-	
+
+	{
+		Animator animator{};
+		animator.Setup(model.GetInitialTransform());
+
+		for (const auto& animation : model.GetAnimations()) {
+			animator.AddAnimation(animation);
+		}
+		for (const auto& skin : model.GetAnimationSkins()) {
+			animator.AddSkin(skin);
+		}
+
+		output->SetAnimator(std::move(animator));
+	}
+
 	output->SetVertexBuffer(Engine::GetRenderer()->GetAllocator()->CreateVertexBuffer(
 		vertices, 
-		Vertex3D::GetVertexInfo(),
+		VertexAnim3D::GetVertexInfo(),
 		GpuQueueType::ASYNC_TRANSFER,
 		GpuQueueType::MAIN));
 

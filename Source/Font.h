@@ -1,7 +1,6 @@
 #pragma once
 
 #include "IAsset.h"
-#include "OwnedPtr.h"
 #include "IGpuImage.h"
 #include "Vector4.hpp"
 #include "HashMap.hpp"

@@ -24,7 +24,7 @@ PipelineLayoutVk::PipelineLayoutVk(const MaterialLayout* materialLayout)
 	: IPipelineLayout(materialLayout) {
 
 	DynamicArray<VkDescriptorSetLayoutBinding> params;
-	DynamicArray<OwnedPtr<DescriptorLayoutVk>> descLayouts;
+	DynamicArray<UniquePtr<DescriptorLayoutVk>> descLayouts;
 	DynamicArray<VkDescriptorSetLayout> nativeDescLayouts;
 	DynamicArray<VkPushConstantRange> pushConstantRanges;
 	VkDevice device = Engine::GetRenderer()->GetGpu()->As<GpuVk>()->GetLogicalDevice();
@@ -49,9 +49,9 @@ PipelineLayoutVk::PipelineLayoutVk(const MaterialLayout* materialLayout)
 	}
 
 	for (auto& slot : orderedSlots) {
-		auto descLayout = new DescriptorLayoutVk(&slot, 0);
-		descLayouts.Insert(descLayout);
+		auto descLayout = MakeUnique<DescriptorLayoutVk>(&slot, 0);
 		nativeDescLayouts.Insert(descLayout->GetLayout());
+		descLayouts.Insert(std::move(descLayout));
 	}
 
 	for (auto& i : materialLayout->GetAllPushConstants()) {
@@ -74,9 +74,6 @@ PipelineLayoutVk::PipelineLayoutVk(const MaterialLayout* materialLayout)
 	
 	VkResult result = vkCreatePipelineLayout(device, &pipelineLayoutInfo, nullptr, &layout);
 	OSK_ASSERT(result == VK_SUCCESS, PipelineLayoutCreationException(result));
-
-	for (UIndex32 i = 0; i < descLayouts.GetSize(); i++)
-		delete descLayouts.At(i).GetPointer();
 }
 
 PipelineLayoutVk::~PipelineLayoutVk() {

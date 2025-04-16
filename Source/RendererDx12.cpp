@@ -68,7 +68,7 @@ RendererDx12::~RendererDx12() {
 	Close();
 }
 
-void RendererDx12::Initialize(const std::string& appName, const Version& version, const IO::IDisplay& display, PresentMode mode) {
+void RendererDx12::Initialize(const std::string& appName, const Version& version, IO::IDisplay& display, PresentMode mode) {
 	Engine::GetLogger()->InfoLog("Iniciando renderizador DX12.");
 
 #ifdef OSK_RELEASE
@@ -144,50 +144,51 @@ void RendererDx12::Resize() {
 	//finalRenderpass->SetImages(swapchain->GetImage(0), swapchain->GetImage(1), swapchain->GetImage(2));
 }
 
-OwnedPtr<IGraphicsPipeline> RendererDx12::_CreateGraphicsPipeline(const PipelineCreateInfo& pipelineInfo, const MaterialLayout& layout, const VertexInfo& vertexInfo) {
-	GraphicsPipelineDx12* pipeline = new GraphicsPipelineDx12();
+UniquePtr<IGraphicsPipeline> RendererDx12::_CreateGraphicsPipeline(const PipelineCreateInfo& pipelineInfo, const MaterialLayout& layout, const VertexInfo& vertexInfo) {
+	auto pipeline = MakeUnique<GraphicsPipelineDx12>();
 
 	pipeline->Create(&layout, GetGpu(), pipelineInfo, vertexInfo);
 
 	return pipeline;
 }
 
-OwnedPtr<IMeshPipeline> RendererDx12::_CreateMeshPipeline(const PipelineCreateInfo& pipelineInfo, const MaterialLayout& layout) {
+UniquePtr<IMeshPipeline> RendererDx12::_CreateMeshPipeline(const PipelineCreateInfo& pipelineInfo, const MaterialLayout& layout) {
 	OSK_ASSERT(false, NotImplementedException());
-	return nullptr;
+	return UniquePtr<IMeshPipeline>();
 }
 
-OwnedPtr<IRaytracingPipeline> RendererDx12::_CreateRaytracingPipeline(const PipelineCreateInfo& pipelineInfo, const MaterialLayout& layout, const VertexInfo& vertexTypeName) {
+UniquePtr<IRaytracingPipeline> RendererDx12::_CreateRaytracingPipeline(const PipelineCreateInfo& pipelineInfo, const MaterialLayout& layout, const VertexInfo& vertexTypeName) {
 	OSK_ASSERT(false, NotImplementedException());
-	return nullptr;
+	return UniquePtr<IRaytracingPipeline>();
 }
 
-OwnedPtr<IComputePipeline> RendererDx12::_CreateComputePipeline(const PipelineCreateInfo& pipelineInfo, const MaterialLayout& layout) {
-	return new ComputePipelineDx12(pipelineInfo, &layout, GetGpu());
+UniquePtr<IComputePipeline> RendererDx12::_CreateComputePipeline(const PipelineCreateInfo& pipelineInfo, const MaterialLayout& layout) {
+	return MakeUnique<ComputePipelineDx12>(pipelineInfo, &layout, GetGpu());
 }
 
-OwnedPtr<IMaterialSlot> RendererDx12::_CreateMaterialSlot(const std::string& name, const MaterialLayout& layout) const {
-	return new MaterialSlotDx12(name, &layout);
+UniquePtr<IMaterialSlot> RendererDx12::_CreateMaterialSlot(const std::string& name, const MaterialLayout& layout) const {
+	return MakeUnique<MaterialSlotDx12>(name, &layout);
 }
 
-OwnedPtr<ICommandPool> RendererDx12::CreateCommandPool(const ICommandQueue* targetQueueType) {
-	return new CommandPoolDx12(
+UniquePtr<ICommandPool> RendererDx12::CreateCommandPool(const ICommandQueue* targetQueueType) {
+	return MakeUnique<CommandPoolDx12>(
 		GetGpu()->As<GpuDx12>(),
 		targetQueueType->GetSupportedCommands(),
 		targetQueueType->GetQueueType());
 }
 
 void RendererDx12::CreateDevice() {
-	auto gpu = new GpuDx12;
-	_SetGpu(gpu);
+	auto gpu = MakeUnique<GpuDx12>();
 
 	auto adapter = GpuDx12::ChooseDeviceAdapter(m_factory);
 	gpu->CreateDevice(adapter, m_useDebugConsole);
+
+	_SetGpu(std::move(gpu));
 }
 
 void RendererDx12::CreateCommandQueues() {
 	// Usar cola unificada.
-	_SetUnifiedCommandQueue(new CommandQueueDx12(GetGpu()->As<GpuDx12>(), GpuQueueType::MAIN));
+	_SetUnifiedCommandQueue(MakeUnique<CommandQueueDx12>(GetGpu()->As<GpuDx12>(), GpuQueueType::MAIN));
 
 	RegisterUnifiedCommandPool(GetUnifiedQueue());
 
@@ -196,24 +197,24 @@ void RendererDx12::CreateCommandQueues() {
 	OSK::Engine::GetLogger()->InfoLog("Uso de cola GPU unificada.");
 	
 	// Transfer queue.
-	_SetTransferOnlyCommandQueue(new CommandQueueDx12(GetGpu()->As<GpuDx12>(), GpuQueueType::ASYNC_TRANSFER));
+	_SetTransferOnlyCommandQueue(MakeUnique<CommandQueueDx12>(GetGpu()->As<GpuDx12>(), GpuQueueType::ASYNC_TRANSFER));
 	RegisterTransferOnlyCommandPool(GetTransferOnlyQueue());
 	OSK::Engine::GetLogger()->InfoLog("Uso de cola GPU de transferencia.");
 }
 
 void RendererDx12::CreateSwapchain(PresentMode mode, const Vector2ui& resolution) {
 	_SetSwapchain(
-		new SwapchainDx12(
-		GetUnifiedQueue()->As<CommandQueueDx12>(),
-		mode,
-		Format::RGBA8_UNORM,
-		GetGpu()->As<GpuDx12>(),
-		*Engine::GetDisplay(),
-		m_factory.Get()));
+		MakeUnique<SwapchainDx12>(
+			GetUnifiedQueue()->As<CommandQueueDx12>(),
+			mode,
+			Format::RGBA8_UNORM,
+			GetGpu()->As<GpuDx12>(),
+			*Engine::GetDisplay(),
+			m_factory.Get()));
 }
 
 void RendererDx12::CreateGpuMemoryAllocator() {
-	_SetMemoryAllocator(new GpuMemoryAllocatorDx12(GetGpu()));
+	_SetMemoryAllocator(MakeUnique<GpuMemoryAllocatorDx12>(GetGpu()));
 }
 
 void RendererDx12::PresentFrame() {
@@ -252,14 +253,14 @@ void RendererDx12::PresentFrame() {
 	GetMainCommandList()->Start();
 }
 
-void RendererDx12::SubmitSingleUseCommandList(OwnedPtr<ICommandList> commandList) {
+void RendererDx12::SubmitSingleUseCommandList(UniquePtr<ICommandList>&& commandList) {
 	ID3D12CommandList* commandLists[] = { commandList->As<CommandListDx12>()->GetCommandList() };
 	GetGraphicsComputeQueue()->As<CommandQueueDx12>()->GetCommandQueue()->ExecuteCommandLists(1, commandLists);
 
 	// syncDevice->As<SyncDeviceDx12>()->Flush(*graphicsQueue->As<CommandQueueDx12>());
 	// syncDevice->As<SyncDeviceDx12>()->Await();
 
-	m_singleTimeCommandLists.Insert(commandList.GetPointer());
+	m_singleTimeCommandLists.Insert(std::move(commandList));
 }
 
 USize32 RendererDx12::GetCurrentFrameIndex() const {

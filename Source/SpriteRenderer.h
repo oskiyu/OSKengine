@@ -14,7 +14,7 @@
 namespace OSK::ASSETS {
 	class Texture;
 	class Font;
-	class FontInstance;
+	struct FontInstance;
 }
 
 namespace OSK::ECS { 

@@ -29,7 +29,7 @@ namespace OSK {
 		/// @param job Trabajo a ejecutar.
 		/// @threadsafe
 		void ScheduleJob(
-			UniquePtr<IJob> job);
+			UniquePtr<IJob>&& job);
 
 		/// @return True si hay algún trabajo siendo ejecutado,
 		/// false si todos los hilos están libres.

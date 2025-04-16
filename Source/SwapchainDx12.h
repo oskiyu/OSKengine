@@ -34,7 +34,7 @@ namespace OSK::GRAPHICS {
 			PresentMode mode,
 			Format format,
 			GpuDx12* device,
-			const IO::IDisplay& display,
+			IO::IDisplay& display,
 			IDXGIFactory4* factory);
 		~SwapchainDx12() override;
 

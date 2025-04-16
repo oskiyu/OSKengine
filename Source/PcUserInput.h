@@ -27,7 +27,7 @@ namespace OSK::IO {
 
 		/// @brief Establece los callbacks para el manejo del ratón.
 		/// @param window Ventana del juego.
-		void Initialize(const Window& window);
+		void Initialize(Window& window);
 
 		void Update() override;
 

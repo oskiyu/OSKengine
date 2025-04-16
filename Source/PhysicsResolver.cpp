@@ -82,17 +82,20 @@ void PhysicsResolver::Execute(TDeltaTime deltaTime, std::span<const CollisionEve
 		// Velocidad a la que se separan los objetos.
 		const float projectedVelocityA = velocityA.Dot(-contactNormal);
 		const float projectedVelocityB = velocityB.Dot(-contactNormal);
-		const float separationVelocity = -(projectedVelocityA - projectedVelocityB);
 
+		const float separationVelocity = -(projectedVelocityA - projectedVelocityB);
+		if (separationVelocity < 0.0f) {
+			continue;
+		}
 
 		float cor = (physicsA.coefficientOfRestitution + physicsB.coefficientOfRestitution) * 0.5f;
-		/*
+		
 		cor = glm::clamp(
 			glm::mix(0.0f, cor, glm::abs(separationVelocity) * 2.55f - 0.5f),
 			0.0f,
 			cor
 		);
-		*/
+		
 
 		// Velocidad a la que se separan los objetos después de la colisión.
 		float deltaSeparationVelocity = -(1 + cor) * separationVelocity;
@@ -103,8 +106,8 @@ void PhysicsResolver::Execute(TDeltaTime deltaTime, std::span<const CollisionEve
 
 		const float impulsoTotal = deltaSeparationVelocity / velocityDeltaPerImpulseUnit;
 
-		const Vector3f impulsoA = contactNormal * impulsoTotal;
-		const Vector3f impulsoB = -impulsoA;
+		const Vector3f impulsoA =  contactNormal * impulsoTotal * multiplierA;
+		const Vector3f impulsoB = -contactNormal * impulsoTotal * multiplierB;
 
 		const Vector3f worldSpaceContactPoint = collisionInfo.GetSingleContactPoint();
 

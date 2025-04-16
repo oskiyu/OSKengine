@@ -78,13 +78,13 @@ namespace OSK::ECS {
 		/// @param pass Pase de renderizado.
 		/// @pre No debe existir un pase de renderizado previo con el mismo nombre
 		/// que @p pass.
-		virtual void AddShaderPass(OwnedPtr<GRAPHICS::IShaderPass> pass);
+		virtual void AddShaderPass(UniquePtr<GRAPHICS::IShaderPass>&& pass);
 
 		/// @brief Añade un nuevo pase de renderizado de sombras.
 		/// @param pass Pase de renderizado de sombras.
 		/// @pre No debe existir un pase de renderizado de sombras previo con el mismo nombre
 		/// que @p pass.
-		virtual void AddShadowsPass(OwnedPtr<GRAPHICS::IShaderPass> pass);
+		virtual void AddShadowsPass(UniquePtr<GRAPHICS::IShaderPass>&& pass);
 
 		GRAPHICS::IShaderPass* GetShaderPass(std::string_view name);
 		const GRAPHICS::IShaderPass* GetShaderPass(std::string_view name) const;

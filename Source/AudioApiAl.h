@@ -20,7 +20,7 @@ namespace OSK::AUDIO {
 		void SetListenerOrientation(const Vector3f& forward, const Vector3f& up) override;
 		void SetListenerVelocity(const Vector3f& velocity) override;
 
-		OwnedPtr<IAudioSource> CreateNewSource() const override;
+		UniquePtr<IAudioSource> CreateNewSource() const override;
 
 	protected:
 

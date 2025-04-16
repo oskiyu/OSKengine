@@ -9,7 +9,6 @@
 #include "ITopLevelCollider.h"
 #include "IBottomLevelCollider.h"
 #include "CollisionInfo.h"
-#include "OwnedPtr.h"
 
 #include "Component.h"
 
@@ -42,9 +41,9 @@ namespace OSK::COLLISION {
 		void CopyFrom(const Collider& other);
 
 		/// @brief Establece el volumen de nivel alto.
-		void SetTopLevelCollider(OwnedPtr<ITopLevelCollider> collider);
+		void SetTopLevelCollider(UniquePtr<ITopLevelCollider>&& collider);
 		/// @brief Añade un volumen de nivel bajo.
-		void AddBottomLevelCollider(OwnedPtr<IBottomLevelCollider> collider);
+		void AddBottomLevelCollider(UniquePtr<IBottomLevelCollider>&& collider);
 
 		/// @brief Comprueba si hay colisión entre dos colliders.
 		/// @param other Otro collider.

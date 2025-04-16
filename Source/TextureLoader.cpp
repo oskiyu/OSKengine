@@ -60,7 +60,7 @@ void TextureLoader::Load(const std::string& assetFilePath, Texture* asset) {
 	image->SetDebugName(assetInfo["name"]);
 
 	// Preferir cola de transferencia: NO, por mipmap generation.
-	OwnedPtr<ICommandList> uploadCmdList = Engine::GetRenderer()->CreateSingleUseCommandList(GpuQueueType::MAIN);
+	UniquePtr<ICommandList> uploadCmdList = Engine::GetRenderer()->CreateSingleUseCommandList(GpuQueueType::MAIN);
 	uploadCmdList->Reset();
 	uploadCmdList->Start();
 
@@ -85,11 +85,11 @@ void TextureLoader::Load(const std::string& assetFilePath, Texture* asset) {
 		*Engine::GetRenderer()->GetMainRenderingQueue());
 
 	uploadCmdList->Close();
-	Engine::GetRenderer()->SubmitSingleUseCommandList(uploadCmdList.GetPointer());
+	Engine::GetRenderer()->SubmitSingleUseCommandList(std::move(uploadCmdList));
 
 	stbi_image_free(pixels);
 
-	asset->_SetImage(image);
+	asset->_SetImage(std::move(image));
 }
 
 void TextureLoader::RegisterTexture(AssetOwningRef<Texture>&& texture) {

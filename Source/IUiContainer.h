@@ -37,7 +37,7 @@ namespace OSK::UI {
 		/// 
 		/// @pre El elemento @p child no debe estar ya añadido a ningún contenedor.
 		/// @pre Este contenedor no debe tener ningún elemento con el identificador @p key.
-		void AddChild(const std::string& key, OwnedPtr<IElement> child);
+		void AddChild(const std::string& key, UniquePtr<IElement>&& child);
 
 		/// @brief Reestructura todos los hijos del contenedor.
 		void Rebuild();

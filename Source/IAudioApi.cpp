@@ -42,8 +42,8 @@ const std::unordered_map<std::string, UniquePtr<IAudioDevice>, StringHasher, std
 	return m_devices;
 }
 
-void IAudioApi::RegisterDevice(OwnedPtr<IAudioDevice> device) {
-	m_devices[static_cast<std::string>(device->GetName())] = device.GetPointer();
+void IAudioApi::RegisterDevice(UniquePtr<IAudioDevice>&& device) {
+	m_devices[static_cast<std::string>(device->GetName())] = std::move(device);
 }
 
 void IAudioApi::SetDefaultDeviceName(const std::string& name) {

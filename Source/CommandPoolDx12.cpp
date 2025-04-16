@@ -18,11 +18,11 @@ CommandPoolDx12::CommandPoolDx12(GpuDx12* device, CommandsSupport supportedComma
 	device->GetDevice()->CreateCommandAllocator(m_type, IID_PPV_ARGS(&m_commandPool));
 }
 
-OwnedPtr<ICommandList> CommandPoolDx12::CreateCommandList(const IGpu& device) {
-    return new CommandListDx12(*device.As<GpuDx12>(), this);
+UniquePtr<ICommandList> CommandPoolDx12::CreateCommandList(const IGpu& device) {
+    return MakeUnique<CommandListDx12>(*device.As<GpuDx12>(), this);
 }
 
-OwnedPtr<ICommandList> CommandPoolDx12::CreateSingleTimeCommandList(const IGpu& device) {
+UniquePtr<ICommandList> CommandPoolDx12::CreateSingleTimeCommandList(const IGpu& device) {
     return CreateCommandList(device);
 }
 

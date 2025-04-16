@@ -142,8 +142,8 @@ namespace OSK::GRAPHICS {
 		ECS::GameObjectIndex m_cameraObject = ECS::EMPTY_GAME_OBJECT;
 
 
-		Vector4f m_splitsVec = Vector4f(5.0f, 50.0f, 500.0f, 5000.0f);
-		std::array<float, 4> m_splits = { 5.0f, 50.0f, 500.0f, 5000.0f };
+		Vector4f m_splitsVec = Vector4f(5.0f, 20.0f, 100.0f, 500.0f);
+		std::array<float, 4> m_splits = { 5.0f, 20.0f, 100.0f, 500.0f };
 
 		float m_nearPlane = -5.0f;
 		float m_farPlane = 5.0f;

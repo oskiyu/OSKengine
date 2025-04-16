@@ -32,22 +32,22 @@ namespace OSK::GRAPHICS {
 
 		explicit GpuMemoryAllocatorVk(IGpu* device);
 
-		OwnedPtr<GpuImage> CreateImage(const GpuImageCreateInfo& info) override;
+		UniquePtr<GpuImage> CreateImage(const GpuImageCreateInfo& info) override;
 
 	protected:
 
-		OwnedPtr<IGpuMemoryBlock> CreateNewBufferBlock(
+		UniquePtr<IGpuMemoryBlock> CreateNewBufferBlock(
 			USize64 size, 
 			GpuBufferUsage usage, 
 			GpuSharedMemoryType sharedType) override;
 
-		OwnedPtr<IGpuMemoryBlock> CreateNewImageBlock(
+		UniquePtr<IGpuMemoryBlock> CreateNewImageBlock(
 			GpuImage* image, 
 			GpuImageUsage usage, 
 			GpuSharedMemoryType sharedType) override;
 
-		OwnedPtr<IBottomLevelAccelerationStructure> _CreateBottomAccelerationStructure() override;
-		OwnedPtr<ITopLevelAccelerationStructure> _CreateTopAccelerationStructure() override;
+		UniquePtr<IBottomLevelAccelerationStructure> _CreateBottomAccelerationStructure() override;
+		UniquePtr<ITopLevelAccelerationStructure> _CreateTopAccelerationStructure() override;
 
 	};
 

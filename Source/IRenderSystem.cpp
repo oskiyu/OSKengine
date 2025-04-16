@@ -66,12 +66,12 @@ RenderTarget& IRenderSystem::GetRenderTarget() {
 }
 
 
-void IRenderSystem::AddShaderPass(OwnedPtr<GRAPHICS::IShaderPass> pass) {
-	m_shaderPasses.AddShaderPass(pass);
+void IRenderSystem::AddShaderPass(UniquePtr<GRAPHICS::IShaderPass>&& pass) {
+	m_shaderPasses.AddShaderPass(std::move(pass));
 }
 
-void IRenderSystem::AddShadowsPass(OwnedPtr<GRAPHICS::IShaderPass> pass) {
-	m_shadowsPasses.AddShaderPass(pass);
+void IRenderSystem::AddShadowsPass(UniquePtr<GRAPHICS::IShaderPass>&& pass) {
+	m_shadowsPasses.AddShaderPass(std::move(pass));
 }
 
 IShaderPass* IRenderSystem::GetShaderPass(std::string_view name) {

@@ -7,35 +7,43 @@ using namespace OSK;
 using namespace OSK::AUDIO;
 
 void AudioDeviceAl::Initialize(const std::string& name) {
-	m_device = alcOpenDevice(name.data());
-	OSK_ASSERT(m_device != nullptr, AudioDeviceCreationException("Error al crear el device."));
+	m_device = UniquePtr<ALCdevice, ALCdeviceDeleter>(alcOpenDevice(name.data()));
+	OSK_ASSERT(m_device.HasValue(), AudioDeviceCreationException("Error al crear el device."));
 
-	m_context = alcCreateContext(m_device.GetPointer(), nullptr);
-	OSK_ASSERT(m_context != nullptr, AudioDeviceCreationException("Error al crear el contexto."));
+	m_context = UniquePtr<ALCcontext, ALCcontextDeleter>(alcCreateContext(m_device.GetPointer(), nullptr));
+	OSK_ASSERT(m_context.HasValue(), AudioDeviceCreationException("Error al crear el contexto."));
 
 	SetName(name);
 }
 
 void AudioDeviceAl::InitializeDefault() {
-	m_device = alcOpenDevice(nullptr);
-	m_context = alcCreateContext(m_device.GetPointer(), nullptr);
+	m_device = UniquePtr<ALCdevice, ALCdeviceDeleter>(alcOpenDevice(nullptr));
+	m_context = UniquePtr<ALCcontext, ALCcontextDeleter>(alcCreateContext(m_device.GetPointer(), nullptr));
 
 	SetName("Default device");
 }
 
 AudioDeviceAl::~AudioDeviceAl() {
-	if (IsCurrentOutputDevice())
+	if (IsCurrentOutputDevice()) {
 		alcMakeContextCurrent(nullptr);
-
-	if (m_context.HasValue())
-		alcDestroyContext(m_context.GetPointer());
-
-	if (m_device.GetPointer())
-		alcCloseDevice(m_device.GetPointer());
-
-	m_context = nullptr;
-	m_device = nullptr;
+	}
 }
+
+void AudioDeviceAl::ALCdeviceDeleter::operator()(ALCdevice* device) const noexcept {
+	if (device) {
+		alcCloseDevice(device);
+	}
+}
+
+void AudioDeviceAl::ALCcontextDeleter::operator()(ALCcontext* context) const noexcept {
+	if (context){
+		alcDestroyContext(context);
+	}
+}
+
+struct ALCcontextDeleter {
+	void operator()(ALCcontext*) const noexcept;
+};
 
 
 void AudioDeviceAl::SetCurrentOutputDevice_Implementation() {

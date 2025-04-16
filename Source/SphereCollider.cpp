@@ -1,6 +1,6 @@
 #include "SphereCollider.h"
 
-#include "OwnedPtr.h"
+#include "UniquePtr.hpp"
 #include "Vector3.hpp"
 
 #include "ITopLevelCollider.h"
@@ -28,8 +28,8 @@ using namespace OSK;
 using namespace OSK::COLLISION;
 using namespace OSK::PERSISTENCE;
 
-OwnedPtr<ITopLevelCollider> SphereCollider::CreateCopy() const {
-	return new SphereCollider(*this);
+UniquePtr<ITopLevelCollider> SphereCollider::CreateCopy() const {
+	return MakeUnique<SphereCollider>(*this);
 }
 
 SphereCollider::SphereCollider(float radius) {

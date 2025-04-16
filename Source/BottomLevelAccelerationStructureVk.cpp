@@ -34,7 +34,7 @@ void BottomLevelAccelerationStructureVk::Setup(
 		GPU_MEMORY_NO_ALIGNMENT,
 		GpuBufferUsage::RT_ACCELERATION_STRUCTURE_BUILDING, 
 		GpuSharedMemoryType::GPU_AND_CPU,
-		GpuQueueType::MAIN).GetPointer();
+		GpuQueueType::MAIN);
 
 	SetMatrix(glm::mat4(1.0f));
 
@@ -114,14 +114,14 @@ void BottomLevelAccelerationStructureVk::Setup(
 		256, 
 		GpuBufferUsage::RT_ACCELERATION_STRUCTURE, 
 		GpuSharedMemoryType::GPU_ONLY,
-		GpuQueueType::MAIN).GetPointer();
+		GpuQueueType::MAIN);
 
 	buildBuffer = memoryAllocator->CreateBuffer(
 		sizeInfo.buildScratchSize, 
 		Engine::GetRenderer()->GetGpu()->As<GpuVk>()->GetInfo().rtAccelerationStructuresProperites.minAccelerationStructureScratchOffsetAlignment, 
 		GpuBufferUsage::RT_ACCELERATION_STRUCTURE_BUILDING, 
 		GpuSharedMemoryType::GPU_AND_CPU,
-		GpuQueueType::MAIN).GetPointer();
+		GpuQueueType::MAIN);
 
 	// Creación
 	VkAccelerationStructureCreateInfoKHR accelerationStructureCreateInfo{};
@@ -166,7 +166,7 @@ void BottomLevelAccelerationStructureVk::Setup(
 	blasCommandList->Start();
 	RendererVk::pvkCmdBuildAccelerationStructuresKHR(blasCommandList->As<CommandListVk>()->GetCommandBuffers()[blasCommandList->_GetCommandListIndex()], 1, &accelerationBuildGeometryInfo, ranges);
 	blasCommandList->Close();
-	Engine::GetRenderer()->SubmitSingleUseCommandList(blasCommandList.GetPointer());
+	Engine::GetRenderer()->SubmitSingleUseCommandList(std::move(blasCommandList));
 
 	// Final address
 	VkAccelerationStructureDeviceAddressInfoKHR finalBlasAddressInfo{};

@@ -35,10 +35,10 @@ OSK::Editor::Views::ModelComponentView3D::ModelComponentView3D(const Vector2f& s
 	m_shaderPassesTitle->SetFontSize(Editor::UI::Constants::SecondaryFontSize);
 	m_shaderPassesTitle->SetText("Pases de renderizado:");
 
-	GetUnderlyingContainer()->AddChild("m_assetPathView", m_assetPathView);
-	GetUnderlyingContainer()->AddChild("m_castsShadowsView", m_castsShadowsView);
-	GetUnderlyingContainer()->AddChild("m_isAnimatedView", m_isAnimatedView);
-	GetUnderlyingContainer()->AddChild("m_shaderPassesTitle", m_shaderPassesTitle);
+	GetUnderlyingContainer()->AddChild("m_assetPathView", UniquePtr<OSK::UI::IElement>(m_assetPathView));
+	GetUnderlyingContainer()->AddChild("m_castsShadowsView", UniquePtr<OSK::UI::IElement>(m_castsShadowsView));
+	GetUnderlyingContainer()->AddChild("m_isAnimatedView", UniquePtr<OSK::UI::IElement>(m_isAnimatedView));
+	GetUnderlyingContainer()->AddChild("m_shaderPassesTitle", UniquePtr<OSK::UI::IElement>(m_shaderPassesTitle));
 
 	GetUnderlyingContainer()->AdjustSizeToChildren();
 }
@@ -72,7 +72,7 @@ void OSK::Editor::Views::ModelComponentView3D::AddShaderPass(const std::string& 
 
 	auto font = OSK::Engine::GetAssetManager()->Load<OSK::ASSETS::Font>("Resources/Assets/Fonts/font1.json");
 
-	OSK::UI::TextView* view = new OSK::UI::TextView(m_originalTextSize);
+	auto view = MakeUnique<OSK::UI::TextView>(m_originalTextSize);
 
 	view->SetAnchor(OSK::UI::Anchor::LEFT | OSK::UI::Anchor::TOP);
 	view->SetFont(font);
@@ -80,11 +80,11 @@ void OSK::Editor::Views::ModelComponentView3D::AddShaderPass(const std::string& 
 
 	view->SetText(GetPassDisplayName(name));
 
-	GetUnderlyingContainer()->AddChild(static_cast<std::string>(view->GetText()), view);
+	m_shaderPassesViews.Insert(view.GetPointer());
+
+	GetUnderlyingContainer()->AddChild(static_cast<std::string>(view->GetText()), std::move(view));
 	GetUnderlyingContainer()->AdjustSizeToChildren();
 	AdjustSizeToChildren();
-
-	m_shaderPassesViews.Insert(view);
 }
 
 void OSK::Editor::Views::ModelComponentView3D::DeleteUnusedPasses() {

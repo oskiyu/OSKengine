@@ -27,12 +27,12 @@ OSK::Editor::UI::EditorUi::EditorUi(const Vector2f& size, OSK::Editor::Editor* e
 	const USize32 fontSize = 14;
 
 	// Header
-	AddChild_InPosition(new EditorHeader(Vector2f::Zero), Position::NORTH);
+	AddChild_InPosition(MakeUnique<EditorHeader>(Vector2f::Zero), Position::NORTH);
 
 	// Bottom bar
 	{
 		m_bottomBar = new EditorBottomBar(Vector2f::Zero);
-		AddChild_InPosition(m_bottomBar, Position::SOUTH);
+		AddChild_InPosition(UniquePtr<OSK::UI::IElement>(m_bottomBar), Position::SOUTH);
 	}
 
 	// Object list
@@ -43,7 +43,7 @@ OSK::Editor::UI::EditorUi::EditorUi(const Vector2f& size, OSK::Editor::Editor* e
 
 		m_objectListPanel->AdjustSizeToChildren();
 
-		AddChild_InPosition(m_objectListPanel, Position::WEST);
+		AddChild_InPosition(UniquePtr<OSK::UI::IElement>(m_objectListPanel), Position::WEST);
 	}
 
 	// System list
@@ -53,7 +53,7 @@ OSK::Editor::UI::EditorUi::EditorUi(const Vector2f& size, OSK::Editor::Editor* e
 
 		m_systemListPanel->AdjustSizeToChildren();
 
-		AddChild_InPosition(m_systemListPanel, Position::EAST);
+		AddChild_InPosition(UniquePtr(m_systemListPanel), Position::EAST);
 	}
 }
 
@@ -84,13 +84,13 @@ void OSK::Editor::UI::EditorUi::ClearAllComponentViews() {
 	m_objectListPanel->ClearAllComponentViews();
 }
 
-void OSK::Editor::UI::EditorUi::AddComponentView(OwnedPtr<OSK::Editor::Views::IComponentView> view) {
-	m_objectListPanel->AddComponentView(view);
+void OSK::Editor::UI::EditorUi::AddComponentView(UniquePtr<OSK::Editor::Views::IComponentView>&& view) {
+	m_objectListPanel->AddComponentView(std::move(view));
 	m_objectListPanel->Rebuild();
 }
 
-void OSK::Editor::UI::EditorUi::SetSystemPropertiesView(OwnedPtr<OSK::Editor::Views::ISystemView> view) {
-	m_systemListPanel->SetSystemPropertiesView(view);
+void OSK::Editor::UI::EditorUi::SetSystemPropertiesView(UniquePtr<OSK::Editor::Views::ISystemView>&& view) {
+	m_systemListPanel->SetSystemPropertiesView(std::move(view));
 }
 
 void OSK::Editor::UI::EditorUi::ClearSystemPropertiesView() {

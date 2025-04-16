@@ -96,7 +96,7 @@ namespace OSK::ASSETS {
 			const auto& key = T::GetAssetType();
 
 			OSK_ASSERT(!m_loaders.contains(key), AssetLoaderAlreadyRegisteredException(key))
-			m_loaders[T::GetAssetType()] = new T;
+			m_loaders[T::GetAssetType()] = MakeUnique<T>();
 		}
 
 		/// @brief Devuelve el loader indicado.
@@ -124,7 +124,7 @@ namespace OSK::ASSETS {
 		/// 
 		/// @throws AssetLoaderNotFoundException si el cargador para el tipo
 		/// de asset no ha sido previamente regsitrado.
-		void LaunchAsyncLoad(
+		void OSKAPI_CALL LaunchAsyncLoad(
 			const std::string& assetPath, 
 			IAssetLoader* loader,
 			std::span<const std::string> tags);

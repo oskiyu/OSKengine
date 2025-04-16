@@ -10,7 +10,7 @@ namespace OSK::GRAPHICS {
 	/// y cúanto queda disponible.
 	struct GpuMemoryUsageInfo {
 
-		struct {
+		struct Entry {
 
 			/// @brief Capacidad máxima del tipo de memoria, en bytes.
 			USize64 maxCapacity = 0;
@@ -18,11 +18,12 @@ namespace OSK::GRAPHICS {
 			/// @brief Espacio usado del tipo de memoria, en bytes.
 			USize64 usedSpace = 0;
 
-		}
+		};
+
 		/// @brief Información sobre la memoria GPU-only.
-		gpuOnlyMemoryInfo{},
+		Entry gpuOnlyMemoryInfo{};
 		/// @brief Información sobre la memoria compartida entre GPU y CPU.
-		gpuAndCpuMemoryInfo{};
+		Entry gpuAndCpuMemoryInfo{};
 
 		/// @brief Información de cada heap individual.
 		DynamicArray<GpuHeapMemoryUsageInfo> heapsInfo;

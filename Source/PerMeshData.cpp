@@ -4,12 +4,12 @@ using namespace OSK;
 using namespace OSK::GRAPHICS;
 
 
-void LocalPerMeshData::_SetMaterialInstance(OwnedPtr<MaterialInstance> instance) {
-	m_materialInstance = instance.GetPointer();
+void LocalPerMeshData::_SetMaterialInstance(UniquePtr<MaterialInstance>&& instance) {
+	m_materialInstance = std::move(instance);
 }
 
-void LocalPerMeshData::_SetMaterialBuffer(OwnedPtr<GpuBuffer> materialBuffer) {
-	m_materialBuffer = materialBuffer.GetPointer();
+void LocalPerMeshData::_SetMaterialBuffer(UniquePtr<GpuBuffer>&& materialBuffer) {
+	m_materialBuffer = std::move(materialBuffer);
 }
 
 MaterialInstance* LocalPerMeshData::GetMaterialInstance() {

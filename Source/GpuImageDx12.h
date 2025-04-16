@@ -34,7 +34,7 @@ namespace OSK::GRAPHICS {
 
 	protected:
 
-		OwnedPtr<IGpuImageView> CreateView(const GpuImageViewConfig& config) const override;
+		UniquePtr<IGpuImageView> CreateView(const GpuImageViewConfig& config) const override;
 
 	private:
 

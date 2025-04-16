@@ -8,8 +8,9 @@
 
 #include "SpirvReflectionData.h"
 #include "MaterialLayoutBuilder.h"
+#include "UnreachableException.h"
 
-OSK::OwnedPtr<OSK::GRAPHICS::MaterialLayout> OSK::GRAPHICS::LoadMaterialLayoutV1(const nlohmann::json& materialInfo, PipelineCreateInfo* info, MaterialType type) {
+OSK::UniquePtr<OSK::GRAPHICS::MaterialLayout> OSK::GRAPHICS::LoadMaterialLayoutV1(const nlohmann::json& materialInfo, PipelineCreateInfo* info, MaterialType type) {
 	// Bind-less
 	if (materialInfo.contains("config") && materialInfo["config"].contains("resource_vararray_max_count")) {
 		info->usesUnspecifiedSizedArrays = true;
@@ -36,7 +37,8 @@ OSK::OwnedPtr<OSK::GRAPHICS::MaterialLayout> OSK::GRAPHICS::LoadMaterialLayoutV1
 		return LoadRayTracingMaterialLayoutV1(materialInfo, info);
 
 	default:
-		// TODO: errrors
+		throw UnreachableException("MaterialType no reconocido.");
+		return OSK::UniquePtr<OSK::GRAPHICS::MaterialLayout>();
 		break;
 	}
 
@@ -55,7 +57,7 @@ OSK::OwnedPtr<OSK::GRAPHICS::MaterialLayout> OSK::GRAPHICS::LoadMaterialLayoutV1
 	}*/
 }
 
-static OSK::OwnedPtr<OSK::GRAPHICS::MaterialLayout> OSK::GRAPHICS::LoadGraphicsMaterialLayoutV1(const nlohmann::json& materialInfo, PipelineCreateInfo* info) {
+static OSK::UniquePtr<OSK::GRAPHICS::MaterialLayout> OSK::GRAPHICS::LoadGraphicsMaterialLayoutV1(const nlohmann::json& materialInfo, PipelineCreateInfo* info) {
 	OSK_ASSERT(materialInfo.contains("vertex_shader"), ASSETS::InvalidDescriptionFileException("Archivo de material incorrecto: no se encuentra 'vertex_shader'.", ""));
 
 	MaterialLayoutBuilder builder(GetSlotsNames(materialInfo), materialInfo["name"]);
@@ -83,7 +85,7 @@ static OSK::OwnedPtr<OSK::GRAPHICS::MaterialLayout> OSK::GRAPHICS::LoadGraphicsM
 	return builder.Build();
 }
 
-static OSK::OwnedPtr<OSK::GRAPHICS::MaterialLayout> OSK::GRAPHICS::LoadComputeMaterialLayoutV1(const nlohmann::json& materialInfo, PipelineCreateInfo* info) {
+static OSK::UniquePtr<OSK::GRAPHICS::MaterialLayout> OSK::GRAPHICS::LoadComputeMaterialLayoutV1(const nlohmann::json& materialInfo, PipelineCreateInfo* info) {
 	OSK_ASSERT(materialInfo.contains("compute_shader"), ASSETS::InvalidDescriptionFileException("Archivo de material incorrecto: no se encuentra 'compute_shader'.", ""));
 
 	MaterialLayoutBuilder builder(GetSlotsNames(materialInfo), materialInfo["name"]);
@@ -95,7 +97,7 @@ static OSK::OwnedPtr<OSK::GRAPHICS::MaterialLayout> OSK::GRAPHICS::LoadComputeMa
 	return builder.Build();
 }
 
-static OSK::OwnedPtr<OSK::GRAPHICS::MaterialLayout> OSK::GRAPHICS::LoadMeshMaterialLayoutV1(const nlohmann::json& materialInfo, PipelineCreateInfo* info) {
+static OSK::UniquePtr<OSK::GRAPHICS::MaterialLayout> OSK::GRAPHICS::LoadMeshMaterialLayoutV1(const nlohmann::json& materialInfo, PipelineCreateInfo* info) {
 	OSK_ASSERT(materialInfo.contains("mesh_shader"), ASSETS::InvalidDescriptionFileException("Archivo de material incorrecto: no se encuentra 'mesh_shader'.", ""));
 
 	MaterialLayoutBuilder builder(GetSlotsNames(materialInfo), materialInfo["name"]);
@@ -125,7 +127,7 @@ static OSK::OwnedPtr<OSK::GRAPHICS::MaterialLayout> OSK::GRAPHICS::LoadMeshMater
 	return builder.Build();
 }
 
-static OSK::OwnedPtr<OSK::GRAPHICS::MaterialLayout> OSK::GRAPHICS::LoadRayTracingMaterialLayoutV1(const nlohmann::json& materialInfo, PipelineCreateInfo* info) {
+static OSK::UniquePtr<OSK::GRAPHICS::MaterialLayout> OSK::GRAPHICS::LoadRayTracingMaterialLayoutV1(const nlohmann::json& materialInfo, PipelineCreateInfo* info) {
 	OSK_ASSERT(materialInfo.contains("rt_raygen_shader"), ASSETS::InvalidDescriptionFileException("Archivo de material incorrecto: no se encuentra 'rt_raygen_shader'.", ""));
 	OSK_ASSERT(materialInfo.contains("rt_closesthit_shader"), ASSETS::InvalidDescriptionFileException("Archivo de material incorrecto: no se encuentra 'rt_closesthit_shader'.", ""));
 	OSK_ASSERT(materialInfo.contains("rt_miss_shader"), ASSETS::InvalidDescriptionFileException("Archivo de material incorrecto: no se encuentra 'rt_miss_shader'.", ""));

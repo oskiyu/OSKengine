@@ -29,7 +29,7 @@ OSK::Editor::Views::DeferredRenderSystemView::DeferredRenderSystemView(const Vec
 	m_cameraObjectView->SetFontSize(Editor::UI::Constants::SecondaryFontSize);
 
 	m_shaderPasses = new OSK::UI::CollapsibleWrapper(
-		new VerticalContainer({ 320.0f, 16.0f }),
+		MakeUnique<VerticalContainer>(Vector2f{ 320.0f, 16.0f }),
 		"> Pases de renderizado (GBuffer):", 
 		font, 
 		UI::Constants::SecondaryFontSize);
@@ -37,7 +37,7 @@ OSK::Editor::Views::DeferredRenderSystemView::DeferredRenderSystemView(const Vec
 	ConfigureCollapsible(m_shaderPasses);
 
 	m_shadowsPasses = new OSK::UI::CollapsibleWrapper(
-		new VerticalContainer({ 320.0f, 16.0f }),
+		MakeUnique<VerticalContainer>(Vector2f{ 320.0f, 16.0f }),
 		"> Pases de renderizado (sombras):", 
 		font, 
 		UI::Constants::SecondaryFontSize);
@@ -48,12 +48,12 @@ OSK::Editor::Views::DeferredRenderSystemView::DeferredRenderSystemView(const Vec
 	m_resolvePassView->SetFont(font);
 	m_resolvePassView->SetFontSize(Editor::UI::Constants::SecondaryFontSize);
 
-	AddChild("m_irradianceMapView", m_irradianceMapView);
-	AddChild("m_specularMapView", m_specularMapView);
-	AddChild("m_cameraObjectView", m_cameraObjectView);
-	AddChild("m_shaderPasses", m_shaderPasses);
-	AddChild("m_shadowsPasses", m_shadowsPasses);
-	AddChild("m_resolvePassView", m_resolvePassView);
+	AddChild("m_irradianceMapView", UniquePtr<OSK::UI::IElement>(m_irradianceMapView));
+	AddChild("m_specularMapView", UniquePtr<OSK::UI::IElement>(m_specularMapView));
+	AddChild("m_cameraObjectView", UniquePtr<OSK::UI::IElement>(m_cameraObjectView));
+	AddChild("m_shaderPasses", UniquePtr<OSK::UI::IElement>(m_shaderPasses));
+	AddChild("m_shadowsPasses", UniquePtr<OSK::UI::IElement>(m_shadowsPasses));
+	AddChild("m_resolvePassView", UniquePtr<OSK::UI::IElement>(m_resolvePassView));
 
 	AdjustSizeToChildren();
 }
@@ -91,13 +91,13 @@ void OSK::Editor::Views::DeferredRenderSystemView::AddShaderPass(std::string_vie
 
 	view->SetText(GetPassDisplayName(name));
 
-	m_shaderPasses->GetContent()->As<VerticalContainer>()->AddChild(static_cast<std::string>(view->GetText()), view);
+	m_shaderPassesViews.Insert(view);
+
+	m_shaderPasses->GetContent()->As<VerticalContainer>()->AddChild(static_cast<std::string>(view->GetText()), UniquePtr<OSK::UI::IElement>(view));
 	m_shaderPasses->GetContent()->As<VerticalContainer>()->AdjustSizeToChildren();
 	m_shaderPasses->AdjustSizeToChildren();
 	m_shaderPasses->Rebuild();
-
-	m_shaderPassesViews.Insert(view);
-
+	
 	Rebuild();
 }
 
@@ -118,7 +118,7 @@ void OSK::Editor::Views::DeferredRenderSystemView::AddShadowsPass(std::string_vi
 
 	view->SetText(GetPassDisplayName(name));
 
-	m_shadowsPasses->GetContent()->As<VerticalContainer>()->AddChild(static_cast<std::string>(view->GetText()), view);
+	m_shadowsPasses->GetContent()->As<VerticalContainer>()->AddChild(static_cast<std::string>(view->GetText()), UniquePtr<OSK::UI::IElement>(view));
 	m_shadowsPasses->GetContent()->As<VerticalContainer>()->AdjustSizeToChildren();
 	m_shadowsPasses->AdjustSizeToChildren();
 	m_shadowsPasses->Rebuild();

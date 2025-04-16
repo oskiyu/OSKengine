@@ -54,15 +54,15 @@ GpuMemoryBlockDx12::GpuMemoryBlockDx12(USize64 reservedSize, IGpu* device, GpuSh
 	device->As<GpuDx12>()->GetDevice()->CreateHeap(&memoryCreateInfo, IID_PPV_ARGS(&memory));
 }
 
-OwnedPtr<GpuMemoryBlockDx12> GpuMemoryBlockDx12::CreateNewBufferBlock(USize64 reservedSize, IGpu* device, GpuSharedMemoryType type, GpuBufferUsage bufferUSage) {
-	return new GpuMemoryBlockDx12(reservedSize, device, type, bufferUSage);
+UniquePtr<GpuMemoryBlockDx12> GpuMemoryBlockDx12::CreateNewBufferBlock(USize64 reservedSize, IGpu* device, GpuSharedMemoryType type, GpuBufferUsage bufferUSage) {
+	return UniquePtr<GpuMemoryBlockDx12>(new GpuMemoryBlockDx12(reservedSize, device, type, bufferUSage));
 }
 
-OwnedPtr<GpuMemoryBlockDx12> GpuMemoryBlockDx12::CreateNewImageBlock(GpuImage* image, IGpu* device, GpuSharedMemoryType type, GpuImageUsage imageUSage, USize32 numLayers) {
-	return new GpuMemoryBlockDx12(image, device, type, imageUSage, numLayers);
+UniquePtr<GpuMemoryBlockDx12> GpuMemoryBlockDx12::CreateNewImageBlock(GpuImage* image, IGpu* device, GpuSharedMemoryType type, GpuImageUsage imageUSage, USize32 numLayers) {
+	return UniquePtr<GpuMemoryBlockDx12>(new GpuMemoryBlockDx12(image, device, type, imageUSage, numLayers));
 }
 
-OwnedPtr<IGpuMemorySubblock> GpuMemoryBlockDx12::CreateNewMemorySubblock(USize64 size, USize64 offset) {
+UniquePtr<IGpuMemorySubblock> GpuMemoryBlockDx12::CreateNewMemorySubblock(USize64 size, USize64 offset) {
 	if (usage == GpuMemoryUsage::BUFFER) {
 		ComPtr<ID3D12Resource> resource;
 	
@@ -81,15 +81,15 @@ OwnedPtr<IGpuMemorySubblock> GpuMemoryBlockDx12::CreateNewMemorySubblock(USize64
 
 		device->As<GpuDx12>()->GetDevice()->CreatePlacedResource(memory.Get(), offset, &createInfo, D3D12_RESOURCE_STATE_GENERIC_READ, nullptr, IID_PPV_ARGS(&resource));
 
-		return new GpuMemorySubblockDx12(this, size, offset, resource);
+		return MakeUnique<GpuMemorySubblockDx12>(this, size, offset, resource);
 	}
 	else if (usage == GpuMemoryUsage::IMAGE) {
 		resource.image->As<GpuImageDx12>()->CreateResource(memory.Get(), offset);
-		return new GpuMemorySubblockDx12(this, size, offset, resource.image->As<GpuImageDx12>()->GetResource());
+		return MakeUnique<GpuMemorySubblockDx12>(this, size, offset, resource.image->As<GpuImageDx12>()->GetResource());
 	}
 
 	OSK_ASSERT(false, NotImplementedException());
-	return nullptr;
+	return UniquePtr<IGpuMemorySubblock>();
 }
 
 #endif

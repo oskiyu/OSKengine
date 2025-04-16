@@ -38,7 +38,7 @@ void GraphicsPipelineVk::SetDebugName(const std::string& name) {
 void GraphicsPipelineVk::Create(const MaterialLayout* materialLayout, IGpu* device, const PipelineCreateInfo& info, const VertexInfo& vertexInfo) {
 	gpu = device;
 
-	layout = new PipelineLayoutVk(materialLayout);
+	layout = MakeUnique<PipelineLayoutVk>(materialLayout);
 
 	LoadVertexShader(info.vertexPath);
 

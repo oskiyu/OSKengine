@@ -26,7 +26,7 @@ namespace OSK::GRAPHICS {
 		/// Crea una instancia del material.
 		/// </summary>
 		/// <param name="material">Material del que se crea la instancia.</param>
-		MaterialInstance(Material* material);
+		explicit MaterialInstance(Material* material);
 		~MaterialInstance();
 
 		OSK_DISABLE_COPY(MaterialInstance);

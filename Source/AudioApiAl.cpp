@@ -62,10 +62,10 @@ void AudioApiAl::RegisterAllDevices() {
 		const auto name = std::string(devicesNames);
 		devicesNames += name.size() + 1;
 
-		auto* newDevice = new AudioDeviceAl();
+		auto newDevice = MakeUnique<AudioDeviceAl>();
 		newDevice->Initialize(name);
 
-		RegisterDevice(newDevice);
+		RegisterDevice(std::move(newDevice));
 	} while (devicesNames[1] != NULL);
 	
 	auto defaultDeviceName = std::string(alcGetString(nullptr, ALC_DEFAULT_DEVICE_SPECIFIER));
@@ -76,6 +76,6 @@ void AudioApiAl::RegisterAllDevices() {
 	OSK_ASSERT(alcGetCurrentContext() != nullptr, AudioDeviceCreationException("No se pudo establecer un contexto."))
 }
 
-OwnedPtr<IAudioSource> AudioApiAl::CreateNewSource() const {
-	return new AudioSourceAl;
+UniquePtr<IAudioSource> AudioApiAl::CreateNewSource() const {
+	return MakeUnique<AudioSourceAl>();
 }

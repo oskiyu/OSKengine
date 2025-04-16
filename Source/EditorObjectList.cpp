@@ -32,7 +32,7 @@ OSK::Editor::UI::ObjectList::ObjectList(const Vector2f& size, OSK::Editor::Edito
 	m_title = new EditorPanelTitle(textSize);
 	m_title->SetText("Objetos");
 
-	AddChild("title", m_title);
+	AddChild("title", UniquePtr<OSK::UI::IElement>(m_title));
 
 	AddCreateObjectButton();
 
@@ -76,8 +76,8 @@ OSK::Editor::UI::ObjectList::ObjectList(const Vector2f& size, OSK::Editor::Edito
 			view->GetDefaultDrawCalls().Insert(defaultDrawCall);
 		}
 
-		AddChild(std::to_string(i), view);
 		m_textViews.Insert(view);
+		AddChild(std::to_string(i), UniquePtr<OSK::UI::IElement>(view));
 	}
 
 	for (auto& view : m_textViews) {
@@ -104,7 +104,7 @@ OSK::Editor::UI::ObjectList::ObjectList(const Vector2f& size, OSK::Editor::Edito
 
 	m_propertiesPanel = new ObjectPropertiesPanel({ size.x, 300.0f });
 	m_propertiesPanel->SetAnchor(OSK::UI::Anchor::LEFT | OSK::UI::Anchor::CENTER_Y);
-	AddChild(ObjectPropertiesPanel::Name, m_propertiesPanel);
+	AddChild(ObjectPropertiesPanel::Name, UniquePtr<OSK::UI::IElement>(m_propertiesPanel));
 }
 
 void OSK::Editor::UI::ObjectList::OnSizeChanged(const Vector2f&) {
@@ -174,13 +174,13 @@ void OSK::Editor::UI::ObjectList::AddCreateObjectButton() {
 		newObjectButton->GetPressedDrawCalls().Insert(background);
 	}
 
-	AddChild("newObjectButton", newObjectButton);
+	AddChild("newObjectButton", UniquePtr<OSK::UI::IElement>(newObjectButton));
 }
 
 void OSK::Editor::UI::ObjectList::ClearAllComponentViews() {
 	m_propertiesPanel->ClearAllComponentViews();
 }
 
-void OSK::Editor::UI::ObjectList::AddComponentView(OwnedPtr<OSK::Editor::Views::IComponentView> view) {
-	m_propertiesPanel->AddComponentView(view);
+void OSK::Editor::UI::ObjectList::AddComponentView(UniquePtr<OSK::Editor::Views::IComponentView>&& view) {
+	m_propertiesPanel->AddComponentView(std::move(view));
 }

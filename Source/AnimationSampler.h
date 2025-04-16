@@ -21,7 +21,7 @@ namespace OSK::GRAPHICS {
 
 		/// <summary> Timestamps en los que se realiza alguna transformación en la animación. </summary>
 		DynamicArray<TDeltaTime> timestamps;
-		/// <summary> Valor final de la posición / rotación escala de un bone en un timestamp.</summary>
+		/// <summary> Valor final de la posición / rotación / escala de un bone en un timestamp.</summary>
 		DynamicArray<Vector4f> outputs;
 
 	};

@@ -27,9 +27,9 @@ OSK::Editor::Views::TransformComponentView3D::TransformComponentView3D(const Vec
 	m_sizeView->SetFont(font);
 	m_sizeView->SetFontSize(Editor::UI::Constants::SecondaryFontSize);
 
-	GetUnderlyingContainer()->AddChild("m_positionView", m_positionView);
-	GetUnderlyingContainer()->AddChild("m_rotationView", m_rotationView);
-	GetUnderlyingContainer()->AddChild("m_sizeView", m_sizeView);
+	GetUnderlyingContainer()->AddChild("m_positionView", UniquePtr<OSK::UI::IElement>(m_positionView));
+	GetUnderlyingContainer()->AddChild("m_rotationView", UniquePtr<OSK::UI::IElement>(m_rotationView));
+	GetUnderlyingContainer()->AddChild("m_sizeView", UniquePtr<OSK::UI::IElement>(m_sizeView));
 
 	SetPosition(Vector3f::Zero);
 	SetRotation(Vector3f::Zero);

@@ -32,7 +32,7 @@ void RenderTarget::Create(const Vector2ui& targetSize, DynamicArray<RenderTarget
 
 	m_targetType = RenderpassType::INTERMEDIATE;
 
-	m_fullscreenSpriteMaterialInstance = Engine::GetRenderer()->GetFullscreenRenderingMaterial()->CreateInstance().GetPointer();
+	m_fullscreenSpriteMaterialInstance = Engine::GetRenderer()->GetFullscreenRenderingMaterial()->CreateInstance();
 	SetupSpriteMaterial();
 }
 
@@ -45,7 +45,7 @@ void RenderTarget::CreateAsFinal(const Vector2ui& targetSize, RenderTargetAttach
 
 	m_targetType = RenderpassType::FINAL;
 
-	m_fullscreenSpriteMaterialInstance = Engine::GetRenderer()->GetFullscreenRenderingMaterial()->CreateInstance().GetPointer();
+	m_fullscreenSpriteMaterialInstance = Engine::GetRenderer()->GetFullscreenRenderingMaterial()->CreateInstance();
 	SetupSpriteMaterial();
 }
 

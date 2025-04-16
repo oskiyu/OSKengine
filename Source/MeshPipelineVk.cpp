@@ -38,7 +38,7 @@ void MeshPipelineVk::SetDebugName(const std::string& name) {
 void MeshPipelineVk::Create(const MaterialLayout* materialLayout, IGpu* device, const PipelineCreateInfo& info) {
 	m_gpu = device->As<GpuVk>();
 
-	m_layout = new PipelineLayoutVk(materialLayout);
+	m_layout = MakeUnique<PipelineLayoutVk>(materialLayout);
 
 	if (info.meshAmplificationShaderPath != "") {
 		LoadAmplificationShader(info.meshAmplificationShaderPath);
@@ -99,7 +99,7 @@ void MeshPipelineVk::Create(const MaterialLayout* materialLayout, IGpu* device, 
 	VkPipelineDynamicStateCreateInfo dynamicCreateInfo{};
 	dynamicCreateInfo.sType = VK_STRUCTURE_TYPE_PIPELINE_DYNAMIC_STATE_CREATE_INFO;
 	dynamicCreateInfo.pDynamicStates = states.data();
-	dynamicCreateInfo.dynamicStateCount = states.size();
+	dynamicCreateInfo.dynamicStateCount = static_cast<uint32_t>(states.size());
 	dynamicCreateInfo.flags = 0;
 
 	// Viewport (será dinámico)

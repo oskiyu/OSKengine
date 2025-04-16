@@ -17,22 +17,22 @@ using namespace OSK::PERSISTENCE;
 
 void Collider::CopyFrom(const Collider& other) {
 	if (other.m_topLevelCollider.HasValue()) {
-		m_topLevelCollider = other.m_topLevelCollider->CreateCopy().GetPointer();
+		m_topLevelCollider = other.m_topLevelCollider->CreateCopy();
 	}
 
 	m_bottomLevelColliders.Empty();
 
 	for (const auto& blc : other.m_bottomLevelColliders)
-		m_bottomLevelColliders.Insert(blc->CreateCopy().GetPointer());
+		m_bottomLevelColliders.Insert(blc->CreateCopy());
 }
 
 
-void Collider::SetTopLevelCollider(OwnedPtr<ITopLevelCollider> collider) {
-	m_topLevelCollider = collider.GetPointer();
+void Collider::SetTopLevelCollider(UniquePtr<ITopLevelCollider>&& collider) {
+	m_topLevelCollider = std::move(collider);
 }
 
-void Collider::AddBottomLevelCollider(OwnedPtr<IBottomLevelCollider> collider) {
-	m_bottomLevelColliders.Insert(collider.GetPointer());
+void Collider::AddBottomLevelCollider(UniquePtr<IBottomLevelCollider>&& collider) {
+	m_bottomLevelColliders.Insert(std::move(collider));
 }
 
 CollisionInfo Collider::GetCollisionInfo(const Collider& other, const Transform3D& thisTransform, const Transform3D& otherTransform) const {
@@ -95,7 +95,7 @@ template <>
 OSK::COLLISION::Collider PERSISTENCE::DeserializeData<OSK::COLLISION::Collider>(const nlohmann::json& json) {
 	Collider output{};
 
-	OwnedPtr<ITopLevelCollider> topLevelCollider = nullptr;
+	UniquePtr<ITopLevelCollider> topLevelCollider;
 
 	if (json["top_level_type"] == "AxisAlignedBoundingBox") {
 		topLevelCollider = DeserializeData<AxisAlignedBoundingBox>(json["m_topLevelCollider"]).CreateCopy();
@@ -104,7 +104,7 @@ OSK::COLLISION::Collider PERSISTENCE::DeserializeData<OSK::COLLISION::Collider>(
 		topLevelCollider = DeserializeData<SphereCollider>(json["m_topLevelCollider"]).CreateCopy();
 	}
 
-	output.SetTopLevelCollider(topLevelCollider);
+	output.SetTopLevelCollider(std::move(topLevelCollider));
 
 	for (const auto& [key, value] : json["m_bottomLevelColliders"].items()) {
 		const ConvexVolume& volume = DeserializeData<ConvexVolume>(value);
@@ -141,7 +141,7 @@ template <>
 OSK::COLLISION::Collider PERSISTENCE::BinaryDeserializeData<OSK::COLLISION::Collider>(BinaryBlockReader* reader) {
 	Collider output{};
 
-	OwnedPtr<ITopLevelCollider> topLevelCollider = nullptr;
+	UniquePtr<ITopLevelCollider> topLevelCollider;
 
 	const TByte type = reader->Read<TByte>();
 
@@ -152,7 +152,7 @@ OSK::COLLISION::Collider PERSISTENCE::BinaryDeserializeData<OSK::COLLISION::Coll
 		topLevelCollider = BinaryDeserializeData<SphereCollider>(reader).CreateCopy();
 	}
 
-	output.SetTopLevelCollider(topLevelCollider);
+	output.SetTopLevelCollider(std::move(topLevelCollider));
 
 	const USize64 numBlc = reader->Read<USize64>();
 	for (UIndex64 i = 0; i < numBlc; i++) {

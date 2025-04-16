@@ -5,8 +5,8 @@
 using namespace OSK;
 
 
-void ConsoleCommandExecutor::RegisterCommand(OwnedPtr<IConsoleCommand> command) {
-	m_registeredCommands.Insert(command.GetPointer());
+void ConsoleCommandExecutor::RegisterCommand(UniquePtr<IConsoleCommand>&& command) {
+	m_registeredCommands.Insert(std::move(command));
 }
 
 void ConsoleCommandExecutor::CheckAndExecute(UI::Console* console, std::string_view text) const {

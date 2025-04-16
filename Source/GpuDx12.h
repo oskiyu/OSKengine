@@ -25,10 +25,10 @@ namespace OSK::GRAPHICS {
 
 		GpuMemoryUsageInfo GetMemoryUsageInfo() const override;
 
-		OwnedPtr<ICommandPool> CreateGraphicsCommandPool() override;
-		OwnedPtr<ICommandPool> CreateComputeCommandPool() override;
-		std::optional<OwnedPtr<ICommandPool>> CreateTransferOnlyCommandPool() override;
-		OwnedPtr<IGpuImageSampler> CreateSampler(const GpuImageSamplerDesc& info) const override;
+		UniquePtr<ICommandPool> CreateGraphicsCommandPool() override;
+		UniquePtr<ICommandPool> CreateComputeCommandPool() override;
+		std::optional<UniquePtr<ICommandPool>> CreateTransferOnlyCommandPool() override;
+		UniquePtr<IGpuImageSampler> CreateSampler(const GpuImageSamplerDesc& info) const override;
 
 		static ComPtr<IDXGIAdapter4> ChooseDeviceAdapter(ComPtr<IDXGIFactory4> factory);
 		void CreateDevice(ComPtr<IDXGIAdapter4> adapter, bool useDebug);

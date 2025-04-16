@@ -4,7 +4,6 @@
 
 #include "DynamicArray.hpp"
 #include "HashMap.hpp"
-#include "OwnedPtr.h"
 #include "UniquePtr.hpp"
 #include "VertexInfo.h"
 

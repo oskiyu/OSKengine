@@ -31,10 +31,10 @@ OSK::Editor::Views::ColliderRenderSystemView::ColliderRenderSystemView(const Vec
 	m_pointsMaterialNameView->SetFont(font);
 	m_pointsMaterialNameView->SetFontSize(Editor::UI::Constants::SecondaryFontSize);
 
-	AddChild("m_cameraObjectView", m_cameraObjectView);
-	AddChild("m_topLevelMaterialNameView", m_topLevelMaterialNameView);
-	AddChild("m_bottomLevelMaterialNameView", m_bottomLevelMaterialNameView);
-	AddChild("m_pointsMaterialNameView", m_pointsMaterialNameView);
+	AddChild("m_cameraObjectView", UniquePtr<OSK::UI::IElement>(m_cameraObjectView));
+	AddChild("m_topLevelMaterialNameView", UniquePtr<OSK::UI::IElement>(m_topLevelMaterialNameView));
+	AddChild("m_bottomLevelMaterialNameView", UniquePtr<OSK::UI::IElement>(m_bottomLevelMaterialNameView));
+	AddChild("m_pointsMaterialNameView", UniquePtr<OSK::UI::IElement>(m_pointsMaterialNameView));
 
 	AdjustSizeToChildren();
 }

@@ -31,7 +31,7 @@ namespace OSK::UI {
 		/// @param font Fuente del botón.
 		/// @param fontSize Tamaño de fuente del botón.
 		explicit CollapsibleWrapper(
-			OwnedPtr<IElement> content,
+			UniquePtr<IElement>&& content,
 			const std::string& title,
 			ASSETS::AssetRef<ASSETS::Font> font,
 			USize32 fontSize);

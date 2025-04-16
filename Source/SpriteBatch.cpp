@@ -11,19 +11,19 @@
 using namespace OSK;
 using namespace OSK::GRAPHICS;
 
-SpriteBatch::SpriteBatch(OwnedPtr<MaterialInstance> materialInstance) : materialInstance(materialInstance.GetPointer()) {
+SpriteBatch::SpriteBatch(UniquePtr<MaterialInstance>&& materialInstance) : materialInstance(std::move(materialInstance)) {
 	auto& allocator = *Engine::GetRenderer()->GetAllocator();
 
 	const USize64 vertexBufferSize = sizeof(Vertex2D) * maxVertices;
 	const USize64 indexBufferSize = sizeof(TIndexSize) * maxIndices;
 
 	for (auto& buffer : vertexBuffers) {
-		buffer = allocator.CreateBuffer(vertexBufferSize, GPU_MEMORY_NO_ALIGNMENT, GpuBufferUsage::VERTEX_BUFFER, GpuSharedMemoryType::GPU_AND_CPU, GpuQueueType::MAIN).GetPointer();
+		buffer = allocator.CreateBuffer(vertexBufferSize, GPU_MEMORY_NO_ALIGNMENT, GpuBufferUsage::VERTEX_BUFFER, GpuSharedMemoryType::GPU_AND_CPU, GpuQueueType::MAIN);
 		buffer->MapMemory();
 	}
 
 	for (auto& buffer : indexBuffers) {
-		buffer = allocator.CreateBuffer(indexBufferSize, GPU_MEMORY_NO_ALIGNMENT, GpuBufferUsage::INDEX_BUFFER, GpuSharedMemoryType::GPU_AND_CPU, GpuQueueType::MAIN).GetPointer();
+		buffer = allocator.CreateBuffer(indexBufferSize, GPU_MEMORY_NO_ALIGNMENT, GpuBufferUsage::INDEX_BUFFER, GpuSharedMemoryType::GPU_AND_CPU, GpuQueueType::MAIN);
 		buffer->MapMemory();
 	}
 }

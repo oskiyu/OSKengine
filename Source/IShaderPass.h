@@ -148,7 +148,7 @@ namespace OSK::GRAPHICS {
 		/// @param pass Nuevo pase.
 		/// 
 		/// @pre No debe haber un pase con el mimso nombre dentro de la tabla.
-		void AddShaderPass(OwnedPtr< GRAPHICS::IShaderPass> pass);
+		void AddShaderPass(UniquePtr<GRAPHICS::IShaderPass>&& pass);
 
 		/// @brief Elimina un pase de la tabla.
 		/// @param passName Nombre del pase.
@@ -219,5 +219,5 @@ namespace OSK::GRAPHICS {
 
 #ifndef OSK_RENDERPASS
 #define OSK_RENDERPASS(classTypeName, className) constexpr static inline std::string_view GetRenderPassName() { return className; } \
-static ::OSK::OwnedPtr<::OSK::GRAPHICS::IShaderPass> CreateInstance() { return new classTypeName; }
+static ::OSK::UniquePtr<::OSK::GRAPHICS::IShaderPass> CreateInstance() { return MakeUnique<classTypeName>(); }
 #endif

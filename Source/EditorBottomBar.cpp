@@ -45,49 +45,49 @@ OSK::Editor::UI::EditorBottomBar::EditorBottomBar(const Vector2f& size) : OSK::U
 			iconView->GetSize2D().ToVector2f().x,
 			iconView->GetSize2D().ToVector2f().y });
 
-		OSK::UI::ImageView* uiIcon = new OSK::UI::ImageView(iconTexture->GetSize().ToVector2f() * (16.0f / iconTexture->GetSize().ToVector2f().y));
+		auto uiIcon = MakeUnique<OSK::UI::ImageView>(iconTexture->GetSize().ToVector2f() * (16.0f / iconTexture->GetSize().ToVector2f().y));
 		iconDrawCall.transform.SetScale(uiIcon->GetSize());
 		uiIcon->AddDrawCall(iconDrawCall);
 		uiIcon->SetAnchor(OSK::UI::Anchor::FULLY_CENTERED);
 		uiIcon->SetMargin(Vector2f(5.0f, 0.0f));
 
-		AddChild("icon", uiIcon);
+		AddChild("icon", std::move(uiIcon));
 	}
 
 	// Renderizado de la versión.
 	{
-		auto* versionView = new OSK::UI::TextView({ 20.0f, 15.0f });
+		auto versionView = MakeUnique<OSK::UI::TextView>(Vector2f{ 20.0f, 15.0f });
 		versionView->SetFont(editorFont);
 		versionView->SetFontSize(14);
 		versionView->SetText(static_cast<std::string>(Engine::GetBuild()));
 		versionView->AdjustSizeToText();
 		versionView->SetMargin(Vector2f(10.0f, 0.0f));
 
-		AddChild("version", versionView);
+		AddChild("version", std::move(versionView));
 	}	
 
 	// Renderizado del número de hilos.
 	{
-		auto* numThreadsView = new OSK::UI::TextView({ 20.0f, 15.0f });
+		auto numThreadsView = MakeUnique<OSK::UI::TextView>(Vector2f{ 20.0f, 15.0f });
 		numThreadsView->SetFont(editorFont);
 		numThreadsView->SetFontSize(14);
 		numThreadsView->SetText(std::format("{} hilos", Engine::GetJobSystem()->GetNumThreads()));
 		numThreadsView->AdjustSizeToText();
 		numThreadsView->SetMargin(Vector2f(10.0f, 0.0f));
 
-		AddChild("threads", numThreadsView);
+		AddChild("threads", std::move(numThreadsView));
 	}
 
 	// Renderizado de la GPU.
 	{
-		auto* gpuView = new OSK::UI::TextView({ 20.0f, 15.0f });
+		auto gpuView = MakeUnique<OSK::UI::TextView>(Vector2f{ 20.0f, 15.0f });
 		gpuView->SetFont(editorFont);
 		gpuView->SetFontSize(14);
 		gpuView->SetText(std::format("{}", Engine::GetRenderer()->GetGpu()->GetName()));
 		gpuView->AdjustSizeToText();
 		gpuView->SetMargin(Vector2f(10.0f, 0.0f));
 
-		AddChild("gpu", gpuView);
+		AddChild("gpu", std::move(gpuView));
 	}
 
 	// Renderizado de FPS.
@@ -99,7 +99,7 @@ OSK::Editor::UI::EditorBottomBar::EditorBottomBar(const Vector2f& size) : OSK::U
 		m_fpsView->SetText("XXX fps");
 		m_fpsView->AdjustSizeToText();
 
-		AddChild("fps", m_fpsView);
+		AddChild("fps", UniquePtr<OSK::UI::IElement>(m_fpsView));
 	}
 }
 

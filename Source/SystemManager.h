@@ -71,19 +71,19 @@ namespace OSK::ECS {
 			if (this->ContainsSystem<TSystem>())
 				return this->GetSystem<TSystem>();
 
-			auto sistema = new TSystem;
+			auto sistema = MakeUnique<TSystem>();
 
 			sistema->_SetDependencies(dependencies);
 
+			m_executionGraph.AddSystem(sistema.GetPointer(), dependencies);
+
 			SystemEntry entry{};
-			entry.system = sistema;
+			entry.system = std::move(sistema);
 			entry.compatibleObjects = {};
 
 			m_systems[key] = std::move(entry);
 
-			m_executionGraph.AddSystem(sistema, dependencies);
-
-			return sistema;
+			return static_cast<TSystem*>(m_systems[key].system.GetPointer());
 		}
 
 		/// @brief Elimina el sistema dado, para que no sea procesado a partir de ahora.

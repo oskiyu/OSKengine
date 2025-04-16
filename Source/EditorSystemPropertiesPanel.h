@@ -1,7 +1,6 @@
 #pragma once
 
 #include "EditorPropertiesPanel.h"
-#include "OwnedPtr.h"
 #include "ISystemView.h"
 
 namespace OSK::ECS {
@@ -24,7 +23,7 @@ namespace OSK::Editor::UI {
 		/// propiedades del sistema.
 		/// Si ya tenía una vista, la reemplaza.
 		/// @param view Vista.
-		void SetView(OwnedPtr<OSK::Editor::Views::ISystemView> view);
+		void SetView(UniquePtr<OSK::Editor::Views::ISystemView>&& view);
 
 		/// @brief Elimina la vista de propiedades
 		/// del sistema. Si no hay, no hace nada.

@@ -192,12 +192,23 @@ namespace OSK {
 		/// @returns Lista con todas las skins de animaciones del modelo.
 		const DynamicArray<GRAPHICS::AnimationSkin>& GetAnimationSkins() const;
 
+
+		/// @brief Establece el transform inicial.
+		/// @param initialTransform Transform aplicado al cargarse.
+		void SetInitialTransform(const glm::mat4& initialTransform);
+
+		/// @return Transform aplicado al cargarse.
+		const glm::mat4& GetInitialTransform() const;
+
 	private:
 
 		DynamicArray<CpuMesh3D> m_meshes;
 
 		DynamicArray<GRAPHICS::Animation> m_animations;
 		DynamicArray<GRAPHICS::AnimationSkin> m_animationSkins;
+
+		/// @brief Transform aplicado al cargarse.
+		glm::mat4 m_initialTransform = glm::mat4(1.0f);
 
 	};
 

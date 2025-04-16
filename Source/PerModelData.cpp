@@ -11,6 +11,21 @@ MaterialInstance* GlobalPerModelData::GetAnimationMaterialInstance() {
 const MaterialInstance* GlobalPerModelData::GetAnimationMaterialInstance() const {
 	return m_animationMaterialInstance.GetPointer();
 }
+const GpuBuffer* GlobalPerModelData::GetBonesBuffer() const {
+	return m_bonesBuffer.GetPointer();
+}
+
+GpuBuffer* GlobalPerModelData::GetBonesBuffer() {
+	return m_bonesBuffer.GetPointer();
+}
+
+void GlobalPerModelData::SetAnimationMaterialInstance(UniquePtr<MaterialInstance>&& instance) {
+	m_animationMaterialInstance = std::move(instance);
+}
+
+void GlobalPerModelData::SetBonesBuffer(UniquePtr<GpuBuffer>&& buffer) {
+	m_bonesBuffer = std::move(buffer);
+}
 
 
 // --- Local --- //

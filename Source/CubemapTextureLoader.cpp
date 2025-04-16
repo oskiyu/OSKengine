@@ -73,14 +73,14 @@ void CubemapTextureLoader::Load(const std::string& assetFilePath, CubemapTexture
 		stbi_image_free(pixels);
 	}
 
-	OwnedPtr<GRAPHICS::GpuImage> image = Engine::GetRenderer()->GetAllocator()->CreateCubemapImage(
+	UniquePtr<GRAPHICS::GpuImage> image = Engine::GetRenderer()->GetAllocator()->CreateCubemapImage(
 		Vector2i(width, height).ToVector2ui(), 
 		GRAPHICS::Format::RGBA8_SRGB, 
 		GRAPHICS::GpuImageUsage::SAMPLED | GRAPHICS::GpuImageUsage::TRANSFER_SOURCE| GRAPHICS::GpuImageUsage::TRANSFER_DESTINATION, 
 		GRAPHICS::GpuSharedMemoryType::GPU_ONLY,
 		GRAPHICS::GpuQueueType::MAIN);
 
-	OwnedPtr<ICommandList> copyCmdList = Engine::GetRenderer()->CreateSingleUseCommandList(GpuQueueType::MAIN);
+	UniquePtr<ICommandList> copyCmdList = Engine::GetRenderer()->CreateSingleUseCommandList(GpuQueueType::MAIN);
 	copyCmdList->Reset();
 	copyCmdList->Start();
 
@@ -103,9 +103,9 @@ void CubemapTextureLoader::Load(const std::string& assetFilePath, CubemapTexture
 		*Engine::GetRenderer()->GetMainRenderingQueue());
 
 	copyCmdList->Close();
-	Engine::GetRenderer()->SubmitSingleUseCommandList(copyCmdList.GetPointer());
+	Engine::GetRenderer()->SubmitSingleUseCommandList(std::move(copyCmdList));
 
-	asset->_SetImage(image);
+	asset->_SetImage(std::move(image));
 
 	delete[] data;
 }

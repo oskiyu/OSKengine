@@ -12,7 +12,7 @@ void RtRenderTarget::Create(const Vector2ui& targetSize, RenderTargetAttachmentI
 	attachmentInfo.usage |= GpuImageUsage::COMPUTE | GpuImageUsage::SAMPLED;
 	m_attachment = RenderTargetAttachment::Create(attachmentInfo, targetSize);
 
-	m_fullscreenSpriteMaterialInstance = Engine::GetRenderer()->GetFullscreenRenderingMaterial()->CreateInstance().GetPointer();
+	m_fullscreenSpriteMaterialInstance = Engine::GetRenderer()->GetFullscreenRenderingMaterial()->CreateInstance();
 	SetupSpriteMaterial();
 }
 

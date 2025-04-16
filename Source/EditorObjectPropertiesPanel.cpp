@@ -44,15 +44,15 @@ OSK::Editor::UI::ObjectPropertiesPanel::ObjectPropertiesPanel(const Vector2f& si
 		deleteObjectButton->GetPressedDrawCalls().Insert(background);
 	}
 
-	AddChild("deleteObjectButton", deleteObjectButton);
+	AddChild("deleteObjectButton", UniquePtr<OSK::UI::IElement>(deleteObjectButton));
 }
 
 void OSK::Editor::UI::ObjectPropertiesPanel::SetObject(const OSK::ECS::GameObjectIndex obj) {
 	GetChild("deleteObjectButton")->SetVisible();
 }
 
-void OSK::Editor::UI::ObjectPropertiesPanel::AddComponentView(OwnedPtr<OSK::Editor::Views::IComponentView> view) {
-	AddChild(std::format("content{}", m_nextViewIndex), view.GetPointer());
+void OSK::Editor::UI::ObjectPropertiesPanel::AddComponentView(UniquePtr<OSK::Editor::Views::IComponentView>&& view) {
+	AddChild(std::format("content{}", m_nextViewIndex), std::move(view));
 	m_nextViewIndex++;
 	GetChild("deleteObjectButton")->SetVisible();
 }

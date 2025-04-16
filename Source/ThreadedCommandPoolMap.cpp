@@ -29,9 +29,10 @@ ICommandPool* ThreadedCommandPoolMap::GetCommandPool(std::thread::id threadId) {
 	// Cerramos en modo escritura.
 	std::unique_lock lock(m_readWriteMutex);
 
-	OwnedPtr<ICommandPool> pool = Engine::GetRenderer()->CreateCommandPool(m_linkedCommandQueue);
+	UniquePtr<ICommandPool> pool = Engine::GetRenderer()->CreateCommandPool(m_linkedCommandQueue);
+	auto output = pool.GetPointer();
 
-	m_commandPoolPerThread[threadId] = pool.GetPointer();
+	m_commandPoolPerThread[threadId] = std::move(pool);
 
-	return pool.GetPointer();
+	return output;
 }

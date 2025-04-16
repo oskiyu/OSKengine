@@ -1,7 +1,7 @@
 #pragma once
 
 #include <json.hpp>
-#include "OwnedPtr.h"
+#include "UniquePtr.hpp"
 #include "MaterialLayout.h"
 #include "NumericTypes.h"
 #include "HashMap.hpp"
@@ -20,7 +20,7 @@ namespace OSK::GRAPHICS {
 	/// 
 	/// @throws InvalidDescriptionFileException si la información del 
 	/// material no es correcta.
-	OwnedPtr<MaterialLayout> LoadMaterialLayoutV1(
+	UniquePtr<MaterialLayout> LoadMaterialLayoutV1(
 		const nlohmann::json& materialInfo, 
 		PipelineCreateInfo* info, 
 		MaterialType type);
@@ -34,7 +34,7 @@ namespace OSK::GRAPHICS {
 	/// 
 	/// @throws InvalidDescriptionFileException si la información del 
 	/// material no es correcta.
-	static OwnedPtr<MaterialLayout> LoadGraphicsMaterialLayoutV1(
+	static UniquePtr<MaterialLayout> LoadGraphicsMaterialLayoutV1(
 		const nlohmann::json& materialInfo,
 		PipelineCreateInfo* info);
 
@@ -46,7 +46,7 @@ namespace OSK::GRAPHICS {
 	/// 
 	/// @throws InvalidDescriptionFileException si la información del 
 	/// material no es correcta.
-	static OwnedPtr<MaterialLayout> LoadComputeMaterialLayoutV1(
+	static UniquePtr<MaterialLayout> LoadComputeMaterialLayoutV1(
 		const nlohmann::json& materialInfo,
 		PipelineCreateInfo* info);
 
@@ -58,7 +58,7 @@ namespace OSK::GRAPHICS {
 	/// 
 	/// @throws InvalidDescriptionFileException si la información del 
 	/// material no es correcta.
-	static OwnedPtr<MaterialLayout> LoadMeshMaterialLayoutV1(
+	static UniquePtr<MaterialLayout> LoadMeshMaterialLayoutV1(
 		const nlohmann::json& materialInfo,
 		PipelineCreateInfo* info);
 
@@ -70,7 +70,7 @@ namespace OSK::GRAPHICS {
 	/// 
 	/// @throws InvalidDescriptionFileException si la información del 
 	/// material no es correcta.
-	static OwnedPtr<MaterialLayout> LoadRayTracingMaterialLayoutV1(
+	static UniquePtr<MaterialLayout> LoadRayTracingMaterialLayoutV1(
 		const nlohmann::json& materialInfo,
 		PipelineCreateInfo* info);
 

@@ -38,7 +38,7 @@ GpuMemoryUsageInfo IGpuMemoryAllocator::GetMemoryUsageInfo() const {
 	return device->GetMemoryUsageInfo();
 }
 
-OwnedPtr<GpuBuffer> IGpuMemoryAllocator::CreateVertexBuffer(const void* data, USize32 vertexSize, USize32 numVertices, const VertexInfo& vertexInfo, GpuQueueType queueType, GpuBufferUsage usage) {
+UniquePtr<GpuBuffer> IGpuMemoryAllocator::CreateVertexBuffer(const void* data, USize32 vertexSize, USize32 numVertices, const VertexInfo& vertexInfo, GpuQueueType queueType, GpuBufferUsage usage) {
 	return CreateVertexBuffer(
 		data,
 		vertexSize,
@@ -49,17 +49,17 @@ OwnedPtr<GpuBuffer> IGpuMemoryAllocator::CreateVertexBuffer(const void* data, US
 		usage);
 }
 
-OwnedPtr<GpuBuffer> IGpuMemoryAllocator::CreateVertexBuffer(const void* data, USize32 vertexSize, USize32 numVertices, const VertexInfo& vertexInfo, GpuQueueType transferQueue, GpuQueueType queueType ,  GpuBufferUsage usage) {
+UniquePtr<GpuBuffer> IGpuMemoryAllocator::CreateVertexBuffer(const void* data, USize32 vertexSize, USize32 numVertices, const VertexInfo& vertexInfo, GpuQueueType transferQueue, GpuQueueType queueType ,  GpuBufferUsage usage) {
 	const USize64 bufferSize = numVertices * vertexSize;
 	const GpuBufferUsage finalUsage = usage | GpuBufferUsage::VERTEX_BUFFER | GpuBufferUsage::TRANSFER_DESTINATION;
 
 	// Buffer temporal sobre el que escribimos los vértices.
-	GpuBuffer* stagingBuffer = CreateStagingBuffer(bufferSize, transferQueue).GetPointer();
+	auto stagingBuffer = CreateStagingBuffer(bufferSize, transferQueue);
 	stagingBuffer->MapMemory();
 	stagingBuffer->Write(data, bufferSize);
 	stagingBuffer->Unmap();
 
-	OwnedPtr<GpuBuffer> output = CreateBuffer(bufferSize, GPU_MEMORY_NO_ALIGNMENT, finalUsage, GpuSharedMemoryType::GPU_ONLY, transferQueue);
+	UniquePtr<GpuBuffer> output = CreateBuffer(bufferSize, GPU_MEMORY_NO_ALIGNMENT, finalUsage, GpuSharedMemoryType::GPU_ONLY, transferQueue);
 
 	// Establecemos el vertex view.
 	VertexBufferView vertexView{};
@@ -70,7 +70,7 @@ OwnedPtr<GpuBuffer> IGpuMemoryAllocator::CreateVertexBuffer(const void* data, US
 	output->SetVertexView(vertexView);
 
 	// Debemos copiar el buffer temporal al buffer final.
-	OwnedPtr<ICommandList> singleTimeCommandList = Engine::GetRenderer()->CreateSingleUseCommandList(transferQueue);
+	UniquePtr<ICommandList> singleTimeCommandList = Engine::GetRenderer()->CreateSingleUseCommandList(transferQueue);
 	singleTimeCommandList->Reset();
 	singleTimeCommandList->Start();
 
@@ -84,14 +84,14 @@ OwnedPtr<GpuBuffer> IGpuMemoryAllocator::CreateVertexBuffer(const void* data, US
 
 	singleTimeCommandList->Close();
 
-	singleTimeCommandList->RegisterStagingBuffer(stagingBuffer);
+	singleTimeCommandList->RegisterStagingBuffer(std::move(stagingBuffer));
 
-	Engine::GetRenderer()->SubmitSingleUseCommandList(singleTimeCommandList);
+	Engine::GetRenderer()->SubmitSingleUseCommandList(std::move(singleTimeCommandList));
 
 	return output;
 }
 
-OwnedPtr<GpuBuffer> IGpuMemoryAllocator::CreateIndexBuffer(const DynamicArray<TIndexSize>& indices, GpuQueueType queueType, GpuBufferUsage usage) {
+UniquePtr<GpuBuffer> IGpuMemoryAllocator::CreateIndexBuffer(const DynamicArray<TIndexSize>& indices, GpuQueueType queueType, GpuBufferUsage usage) {
 	return CreateIndexBuffer(
 		indices,
 		queueType,
@@ -99,16 +99,16 @@ OwnedPtr<GpuBuffer> IGpuMemoryAllocator::CreateIndexBuffer(const DynamicArray<TI
 		usage);
 }
 
-OwnedPtr<GpuBuffer> IGpuMemoryAllocator::CreateIndexBuffer(const DynamicArray<TIndexSize>& indices, GpuQueueType transferQueue, GpuQueueType queueType, GpuBufferUsage usage) {
+UniquePtr<GpuBuffer> IGpuMemoryAllocator::CreateIndexBuffer(const DynamicArray<TIndexSize>& indices, GpuQueueType transferQueue, GpuQueueType queueType, GpuBufferUsage usage) {
 	const USize64 bufferSize = sizeof(TIndexSize) * indices.GetSize();
 	const GpuBufferUsage finalUsage = usage | GpuBufferUsage::INDEX_BUFFER | GpuBufferUsage::TRANSFER_DESTINATION;
 
-	GpuBuffer* stagingBuffer = CreateStagingBuffer(bufferSize, transferQueue).GetPointer();
+	auto stagingBuffer = CreateStagingBuffer(bufferSize, transferQueue);
 	stagingBuffer->MapMemory();
 	stagingBuffer->Write(indices.GetData(), bufferSize);
 	stagingBuffer->Unmap();
 
-	OwnedPtr<GpuBuffer> output = CreateBuffer(bufferSize, GPU_MEMORY_NO_ALIGNMENT, finalUsage, GpuSharedMemoryType::GPU_ONLY, transferQueue);
+	UniquePtr<GpuBuffer> output = CreateBuffer(bufferSize, GPU_MEMORY_NO_ALIGNMENT, finalUsage, GpuSharedMemoryType::GPU_ONLY, transferQueue);
 
 	// Establecemos el index view.
 	IndexBufferView view{};
@@ -128,9 +128,9 @@ OwnedPtr<GpuBuffer> IGpuMemoryAllocator::CreateIndexBuffer(const DynamicArray<TI
 
 	singleTimeCommandList->Close();
 
-	singleTimeCommandList->RegisterStagingBuffer(stagingBuffer);
+	singleTimeCommandList->RegisterStagingBuffer(std::move(stagingBuffer));
 
-	Engine::GetRenderer()->SubmitSingleUseCommandList(singleTimeCommandList);
+	Engine::GetRenderer()->SubmitSingleUseCommandList(std::move(singleTimeCommandList));
 
 	return output;
 }
@@ -138,7 +138,7 @@ OwnedPtr<GpuBuffer> IGpuMemoryAllocator::CreateIndexBuffer(const DynamicArray<TI
 void IGpuMemoryAllocator::RemoveMemoryBlock(IGpuMemoryBlock* iblock) {
 	std::optional<UIndex64> index;
 	for (UIndex64 i = 0; i < imageMemoryBlocks.GetSize(); i++) {
-		if (imageMemoryBlocks[i].GetPointer() == iblock) {
+		if (imageMemoryBlocks[i] == iblock) {
 			index = i;
 			break;
 		}
@@ -193,7 +193,7 @@ const GpuImage* IGpuMemoryAllocator::GetDefaultNormalTexture() const {
 
 void IGpuMemoryAllocator::LoadDefaultNormalTexture() {
 	IRenderer* renderer = Engine::GetRenderer();
-	OwnedPtr<ICommandList> uploadCmdList = renderer->CreateSingleUseCommandList(GpuQueueType::ASYNC_TRANSFER);
+	UniquePtr<ICommandList> uploadCmdList = renderer->CreateSingleUseCommandList(GpuQueueType::ASYNC_TRANSFER);
 	uploadCmdList->Start();
 
 	TByte data[4] = {
@@ -203,7 +203,7 @@ void IGpuMemoryAllocator::LoadDefaultNormalTexture() {
 		255	 // A
 	};
 
-	OwnedPtr<GpuBuffer> stagingBuffer = CreateStagingBuffer(sizeof(data), uploadCmdList->GetCompatibleQueueType());
+	UniquePtr<GpuBuffer> stagingBuffer = CreateStagingBuffer(sizeof(data), uploadCmdList->GetCompatibleQueueType());
 	stagingBuffer->MapMemory();
 	stagingBuffer->Write(data, sizeof(data));
 	stagingBuffer->Unmap();
@@ -214,7 +214,7 @@ void IGpuMemoryAllocator::LoadDefaultNormalTexture() {
 		GpuImageUsage::SAMPLED | GpuImageUsage::TRANSFER_DESTINATION);
 	imageInfo.samplerDesc.mipMapMode = GpuImageMipmapMode::NONE;
 	imageInfo.samplerDesc.addressMode = GpuImageAddressMode::REPEAT;
-	m_defaultNormalTexture = CreateImage(imageInfo).GetPointer();
+	m_defaultNormalTexture = CreateImage(imageInfo);
 
 	uploadCmdList->SetGpuImageBarrier(
 		m_defaultNormalTexture.GetPointer(),
@@ -230,10 +230,10 @@ void IGpuMemoryAllocator::LoadDefaultNormalTexture() {
 
 	uploadCmdList->Close();
 
-	renderer->SubmitSingleUseCommandList(uploadCmdList);
+	renderer->SubmitSingleUseCommandList(std::move(uploadCmdList));
 }
 
-OwnedPtr<GpuImage> IGpuMemoryAllocator::CreateCubemapImage(const Vector2ui& faceSize, Format format, GpuImageUsage usage, GpuSharedMemoryType sharedType, GpuQueueType queueType, GpuImageSamplerDesc samplerDesc) {
+UniquePtr<GpuImage> IGpuMemoryAllocator::CreateCubemapImage(const Vector2ui& faceSize, Format format, GpuImageUsage usage, GpuSharedMemoryType sharedType, GpuQueueType queueType, GpuImageSamplerDesc samplerDesc) {
 	if (!EFTraits::HasFlag(usage, GpuImageUsage::CUBEMAP))
 		EFTraits::AddFlag(&usage, GpuImageUsage::CUBEMAP);
 
@@ -246,34 +246,34 @@ OwnedPtr<GpuImage> IGpuMemoryAllocator::CreateCubemapImage(const Vector2ui& face
 	return CreateImage(info);
 }
 
-OwnedPtr<GpuBuffer> IGpuMemoryAllocator::CreateUniformBuffer(USize64 size, GpuQueueType queueType, GpuBufferUsage usage) {
+UniquePtr<GpuBuffer> IGpuMemoryAllocator::CreateUniformBuffer(USize64 size, GpuQueueType queueType, GpuBufferUsage usage) {
 	const GpuBufferUsage finalUsage = usage | GpuBufferUsage::UNIFORM_BUFFER;
 
 	return CreateBuffer(size, GPU_MEMORY_NO_ALIGNMENT, finalUsage, GpuSharedMemoryType::GPU_AND_CPU, queueType);
 }
 
-OwnedPtr<GpuBuffer> IGpuMemoryAllocator::CreateStorageBuffer(USize64 size, GpuQueueType queueType, GpuBufferUsage usage) {
+UniquePtr<GpuBuffer> IGpuMemoryAllocator::CreateStorageBuffer(USize64 size, GpuQueueType queueType, GpuBufferUsage usage) {
 	const GpuBufferUsage finalUsage = usage | GpuBufferUsage::STORAGE_BUFFER;
 
 	return CreateBuffer(size, GPU_MEMORY_NO_ALIGNMENT, finalUsage, GpuSharedMemoryType::GPU_AND_CPU, queueType);
 }
 
-OwnedPtr<GpuBuffer> IGpuMemoryAllocator::CreateStagingBuffer(USize64 size, GpuQueueType queueType, GpuBufferUsage usage) {
+UniquePtr<GpuBuffer> IGpuMemoryAllocator::CreateStagingBuffer(USize64 size, GpuQueueType queueType, GpuBufferUsage usage) {
 	const GpuBufferUsage finalUsage = usage | GpuBufferUsage::TRANSFER_SOURCE | GpuBufferUsage::UPLOAD_ONLY;
 	
 	return CreateBuffer(size, GPU_MEMORY_NO_ALIGNMENT, finalUsage, GpuSharedMemoryType::GPU_AND_CPU, queueType);
 }
 
-OwnedPtr<GpuBuffer> IGpuMemoryAllocator::CreateBuffer(USize64 size, USize64 alignment, GpuBufferUsage usage, GpuSharedMemoryType memoryType, GpuQueueType queueType) {
+UniquePtr<GpuBuffer> IGpuMemoryAllocator::CreateBuffer(USize64 size, USize64 alignment, GpuBufferUsage usage, GpuSharedMemoryType memoryType, GpuQueueType queueType) {
 	const USize64 finalAlignment = GetAlignment(alignment, usage);
 	IGpuMemoryBlock* block = GetNextBufferMemoryBlock(size, usage, memoryType);
-	OwnedPtr<IGpuMemorySubblock> subblock = block->GetNextMemorySubblock(size, finalAlignment);
+	UniquePtr<IGpuMemorySubblock> subblock = block->GetNextMemorySubblock(size, finalAlignment);
 
-	return new GpuBuffer(subblock, size, finalAlignment, Engine::GetRenderer()->GetOptimalQueue(queueType));
+	return MakeUnique<GpuBuffer>(std::move(subblock), size, finalAlignment, Engine::GetRenderer()->GetOptimalQueue(queueType));
 }
 
-OwnedPtr<ITopLevelAccelerationStructure> IGpuMemoryAllocator::CreateTopAccelerationStructure(DynamicArray<IBottomLevelAccelerationStructure*> bottomStructures) {
-	OwnedPtr<ITopLevelAccelerationStructure> output = _CreateTopAccelerationStructure();
+UniquePtr<ITopLevelAccelerationStructure> IGpuMemoryAllocator::CreateTopAccelerationStructure(DynamicArray<IBottomLevelAccelerationStructure*> bottomStructures) {
+	UniquePtr<ITopLevelAccelerationStructure> output = _CreateTopAccelerationStructure();
 
 	for (auto blas : bottomStructures)
 		output->AddBottomLevelAccelerationStructure(blas);
@@ -283,20 +283,20 @@ OwnedPtr<ITopLevelAccelerationStructure> IGpuMemoryAllocator::CreateTopAccelerat
 	return output;
 }
 
-OwnedPtr<IBottomLevelAccelerationStructure> IGpuMemoryAllocator::CreateBottomAccelerationStructure(
+UniquePtr<IBottomLevelAccelerationStructure> IGpuMemoryAllocator::CreateBottomAccelerationStructure(
 	const GpuBuffer& vertexBuffer,
 	const VertexBufferView& vertexView,
 	const GpuBuffer& indexBuffer,
 	const IndexBufferView& indexView) 
 {
-	OwnedPtr<IBottomLevelAccelerationStructure> output = _CreateBottomAccelerationStructure();
+	UniquePtr<IBottomLevelAccelerationStructure> output = _CreateBottomAccelerationStructure();
 	output->Setup(vertexBuffer, vertexView, indexBuffer, indexView, RtAccelerationStructureFlags::FAST_TRACE);
 	output->SetMatrix(glm::mat4(1.0f));
 
 	return output;
 }
 
-OwnedPtr<IBottomLevelAccelerationStructure> IGpuMemoryAllocator::CreateBottomAccelerationStructure(const GpuBuffer& vertexBuffer, const GpuBuffer& indexBuffer) {
+UniquePtr<IBottomLevelAccelerationStructure> IGpuMemoryAllocator::CreateBottomAccelerationStructure(const GpuBuffer& vertexBuffer, const GpuBuffer& indexBuffer) {
 	return CreateBottomAccelerationStructure(vertexBuffer, vertexBuffer.GetVertexView(), indexBuffer, indexBuffer.GetIndexView());
 }
 
@@ -322,7 +322,8 @@ IGpuMemoryBlock* IGpuMemoryAllocator::GetNextBufferMemoryBlock(USize64 size, Gpu
 		size = IGpuMemoryAllocator::SizeOfMemoryBlockInMb * 1024 * 1024;
 
 	// Creamos un nuevo bloque.
-	OwnedPtr<IGpuMemoryBlock> newBlock = CreateNewBufferBlock(size, usage, sharedType);
+	UniquePtr<IGpuMemoryBlock> newBlock = CreateNewBufferBlock(size, usage, sharedType);
+	auto* output = newBlock.GetPointer();
 
 	// Engine::GetLogger()->InfoLog("Creado bloque de memoria GPU.");
 	// Engine::GetLogger()->InfoLog("	Tipo: " + ToString(sharedType)); @bug ???
@@ -331,12 +332,12 @@ IGpuMemoryBlock* IGpuMemoryAllocator::GetNextBufferMemoryBlock(USize64 size, Gpu
 
 	bufferMemoryBlocksInfo.Insert(GpuBufferMemoryBlockInfo{ size, usage, sharedType });
 	bufferMemoryBlocks.Insert({  });
-	bufferMemoryBlocks.Peek().Insert(newBlock.GetPointer());
+	bufferMemoryBlocks.Peek().Insert(std::move(newBlock));
 
-	return newBlock.GetPointer();
+	return output;
 }
 
-IGpuMemorySubblock* IGpuMemoryAllocator::GetNextBufferMemorySubblock(USize64 size, GpuBufferUsage usage, GpuSharedMemoryType sharedType) {
+UniquePtr<IGpuMemorySubblock> IGpuMemoryAllocator::GetNextBufferMemorySubblock(USize64 size, GpuBufferUsage usage, GpuSharedMemoryType sharedType) {
 	return GetNextBufferMemoryBlock(size, usage, sharedType)->GetNextMemorySubblock(size, 0);
 }
 

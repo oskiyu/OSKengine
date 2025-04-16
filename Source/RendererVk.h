@@ -22,33 +22,33 @@ namespace OSK::GRAPHICS {
 		void Initialize(
 			const std::string& appName, 
 			const Version& version, 
-			const IO::IDisplay& display, 
+			IO::IDisplay& display, 
 			PresentMode mode) override;
 		void Close() override;
 		void HandleResize(const Vector2ui& resolution) override;
 		void PresentFrame() override;
-		void SubmitSingleUseCommandList(OwnedPtr<ICommandList> commandList) override;
+		void SubmitSingleUseCommandList(UniquePtr<ICommandList>&& commandList) override;
 		void WaitForCompletion() override;
 
-		OwnedPtr<IGraphicsPipeline> _CreateGraphicsPipeline(
+		UniquePtr<IGraphicsPipeline> _CreateGraphicsPipeline(
 			const PipelineCreateInfo& pipelineInfo,
 			const MaterialLayout& layout,
 			const VertexInfo& vertexInfo) override;
-		OwnedPtr<IMeshPipeline> _CreateMeshPipeline(
+		UniquePtr<IMeshPipeline> _CreateMeshPipeline(
 			const PipelineCreateInfo& pipelineInfo,
 			const MaterialLayout& layout) override;
-		OwnedPtr<IRaytracingPipeline> _CreateRaytracingPipeline(
+		UniquePtr<IRaytracingPipeline> _CreateRaytracingPipeline(
 			const PipelineCreateInfo& pipelineInfo, 
 			const MaterialLayout& layout, 
 			const VertexInfo& vertexInfo) override;
-		OwnedPtr<IComputePipeline> _CreateComputePipeline(
+		UniquePtr<IComputePipeline> _CreateComputePipeline(
 			const PipelineCreateInfo& pipelineInfo, 
 			const MaterialLayout& layout) override;
-		OwnedPtr<IMaterialSlot> _CreateMaterialSlot(
+		UniquePtr<IMaterialSlot> _CreateMaterialSlot(
 			const std::string& name, 
 			const MaterialLayout& layout) const override;
 
-		OwnedPtr<ICommandPool> CreateCommandPool(const ICommandQueue* targetQueueType) override;
+		UniquePtr<ICommandPool> CreateCommandPool(const ICommandQueue* targetQueueType) override;
 
 		UIndex32 GetCurrentFrameIndex() const override;
 		UIndex32 GetCurrentCommandListIndex() const override;
@@ -92,7 +92,7 @@ namespace OSK::GRAPHICS {
 
 		void CreateInstance(const std::string& appName, const Version& version);
 		void SetupDebugLogging();
-		void CreateSurface(const IO::IDisplay& display);
+		void CreateSurface(IO::IDisplay& display);
 		/// @throws GpuNotFoundException Si no se encuentra ninguna GPU compatible.
 		/// @throws LogicalDeviceCreationException Si ocurre algún error al establecer la conexión lógica.
 		void ChooseGpu();

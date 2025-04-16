@@ -55,7 +55,7 @@ DXGI_SWAP_EFFECT GetPresentModeDx12(PresentMode mode) {
     return DXGI_SWAP_EFFECT_DISCARD;
 }
 
-SwapchainDx12::SwapchainDx12(CommandQueueDx12* queue, PresentMode mode, Format format, GpuDx12* device, const IDisplay& display, IDXGIFactory4* factory)
+SwapchainDx12::SwapchainDx12(CommandQueueDx12* queue, PresentMode mode, Format format, GpuDx12* device, IDisplay& display, IDXGIFactory4* factory)
 : ISwapchain(mode, format), m_device(device), m_queue(queue)
 {
     SetNumImagesInFlight(MAX_RESOURCES_IN_FLIGHT);
@@ -114,7 +114,7 @@ void SwapchainDx12::CreateImages(const IO::IDisplay& display) {
     for (UIndex32 i = 0; i < GetImageCount(); i++) {
         GpuImageCreateInfo desc = GpuImageCreateInfo::CreateDefault3D(imageSize, GetColorFormat(), GpuImageUsage::COLOR);
         desc.dimension = GpuImageDimension::d2D;
-        SetImage(new GpuImageDx12(desc, m_queue), i);
+        SetImage(MakeUnique<GpuImageDx12>(desc, m_queue), i);
 
         ComPtr<ID3D12Resource> rTarget;
         swapchain->GetBuffer(i, IID_PPV_ARGS(&rTarget));

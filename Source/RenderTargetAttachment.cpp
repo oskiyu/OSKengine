@@ -25,7 +25,7 @@ void RenderTargetAttachment::Initialize(const RenderTargetAttachmentInfo& info, 
 	GpuImageCreateInfo imageInfo = GpuImageCreateInfo::CreateDefault2D(resolution, info.format, info.usage);
 	imageInfo.samplerDesc = info.sampler;
 
-	m_image = Engine::GetRenderer()->GetAllocator()->CreateImage(imageInfo).GetPointer();
+	m_image = Engine::GetRenderer()->GetAllocator()->CreateImage(imageInfo);
 	m_image->SetDebugName(info.name);
 }
 

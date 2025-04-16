@@ -47,13 +47,12 @@ void IContainer::AdjustSizeToChildren() {
 	SetSize(newSize + GetPadding2D());
 }
 
-void IContainer::AddChild(const std::string& key, OwnedPtr<IElement> child) {
-	m_children.Insert(child.GetPointer());
+void IContainer::AddChild(const std::string& key, UniquePtr<IElement>&& child) {
 	m_childrenTable[key] = child.GetPointer();
-
 	child->_SetParent(this);
-
 	EmplaceChild(child.GetPointer());
+
+	m_children.Insert(std::move(child));
 }
 
 void IContainer::Rebuild() {

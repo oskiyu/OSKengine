@@ -55,14 +55,16 @@ void AnimatedGBufferPass::RenderLoop(ICommandList* commandList, const DynamicArr
 			const auto& mesh = model.GetModel()->GetMeshes()[i];
 			const bool isInsideFrustum = mesh.GetBounds().IsInsideFrustum(frustum);
 
-			if (!isInsideFrustum)
-				continue;
+			// if (!isInsideFrustum)
+			//	continue;
 
 			auto& modelData = m_localMeshMapping.GetModelData(model.GetModel()->GetUuid());
 			const auto& mSlot = *modelData.GetMeshData(mesh.GetUuid()).GetMaterialInstance()->GetSlot("texture");
 			commandList->BindMaterialSlot(mSlot);
 
-			commandList->BindMaterialInstance(*meshMapping->GetModelData(model.GetModel()->GetUuid()).GetAnimationMaterialInstance());
+			const auto& animationInstance = *meshMapping->GetModelData(model.GetModel()->GetUuid()).GetAnimationMaterialInstance();
+			const auto& animationSlot = *animationInstance.GetSlot("animation");
+			commandList->BindMaterialSlot(animationSlot);
 
 			modelPushConstants.model = transform.GetTransform().GetAsMatrix();
 			modelPushConstants.previousModel = meshMapping->GetPreviousModelMatrix(obj);

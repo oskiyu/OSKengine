@@ -48,17 +48,17 @@ void ShadowMap::Create(const Vector2ui& imageSize) {
 	imageInfo.numLayers = 4;
 	imageInfo.samplerDesc = depthSampler;
 
-	m_unusedColorArrayAttachment = memAllocator->CreateImage(imageInfo).GetPointer();
+	m_unusedColorArrayAttachment = memAllocator->CreateImage(imageInfo);
 	m_unusedColorArrayAttachment->SetDebugName("Shadow Map Unused");
 
 	imageInfo.format = Format::D32_SFLOAT;
 	imageInfo.usage = GpuImageUsage::DEPTH | GpuImageUsage::SAMPLED | GpuImageUsage::SAMPLED_ARRAY;
 
-	m_depthArrayAttachment = memAllocator->CreateImage(imageInfo).GetPointer();
+	m_depthArrayAttachment = memAllocator->CreateImage(imageInfo);
 	m_depthArrayAttachment->SetDebugName("Shadow Map Depth");
 
 	for (UIndex32 i = 0; i < MAX_RESOURCES_IN_FLIGHT; i++) {
-		lightUniformBuffer[i] = Engine::GetRenderer()->GetAllocator()->CreateUniformBuffer(sizeof(glm::mat4) * 4 + sizeof(Vector4f)).GetPointer();
+		lightUniformBuffer[i] = Engine::GetRenderer()->GetAllocator()->CreateUniformBuffer(sizeof(glm::mat4) * 4 + sizeof(Vector4f));
 	}
 }
 

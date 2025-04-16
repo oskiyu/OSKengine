@@ -40,16 +40,16 @@ GpuMemoryUsage IGpuMemoryBlock::GetUsageType() const {
 	return usage;
 }
 
-IGpuMemorySubblock* IGpuMemoryBlock::GetNextMemorySubblock(USize64 size, USize64 alignment) {
+UniquePtr<IGpuMemorySubblock> IGpuMemoryBlock::GetNextMemorySubblock(USize64 size, USize64 alignment) {
 	std::lock_guard lock(m_subblockSearchMutex.mutex);
 
-	IGpuMemorySubblock* output = nullptr;
+	UniquePtr<IGpuMemorySubblock> output;
 
 	bool isReused = false;
 
 	for (auto& reuse : reusableSubblocks) {
 		if (size < reuse.size) {
-			output = CreateNewMemorySubblock(size, reuse.offset).GetPointer();
+			output = CreateNewMemorySubblock(size, reuse.offset);
 
 			reusableSubblocks.Remove(reuse);
 
@@ -72,8 +72,8 @@ IGpuMemorySubblock* IGpuMemoryBlock::GetNextMemorySubblock(USize64 size, USize64
 	}
 	const USize64 initialPadding = finalOffset - currentOffset;
 
-	output = CreateNewMemorySubblock(size, finalOffset).GetPointer();
-	subblocks.Insert(output);
+	output = CreateNewMemorySubblock(size, finalOffset);
+	subblocks.Insert(output.GetPointer());
 	availableSpace -= size + initialPadding;
 	currentOffset += size + initialPadding;
 

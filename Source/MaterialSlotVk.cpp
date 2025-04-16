@@ -7,7 +7,6 @@
 #include "OSKengine.h"
 #include "RendererVk.h"
 #include "GpuVk.h"
-#include "OwnedPtr.h"
 #include "GpuBuffer.h"
 #include "GpuMemoryBlockVk.h"
 #include "GpuMemorySubblockVk.h"
@@ -31,7 +30,7 @@ MaterialSlotVk::MaterialSlotVk(const std::string& name, const MaterialLayout* la
 	: IMaterialSlot(layout, name),
 	m_descLayout(new DescriptorLayoutVk(&layout->GetSlot(name), 0))
 {
-	m_pool = new DescriptorPoolVk(m_descLayout.GetValue(), 1);
+	m_pool = MakeUnique<DescriptorPoolVk>(m_descLayout.GetValue(), 1);
 
 	std::array<USize32, MAX_RESOURCES_IN_FLIGHT> maxCount{};
 	maxCount.fill(1);
@@ -76,7 +75,7 @@ void MaterialSlotVk::SetUniformBuffer(
 {
 	const UIndex32 bindingIndexInShader = GetLayout()->GetSlot(GetName()).bindings.find(binding)->second.glslIndex;
 
-	OwnedPtr<VkDescriptorBufferInfo> bufferInfo = GetDescriptorBufferInfo(*buffer.GetMemorySubblock()->As<GpuMemorySubblockVk>(), range);
+	UniquePtr<VkDescriptorBufferInfo> bufferInfo = GetDescriptorBufferInfo(*buffer.GetMemorySubblock()->As<GpuMemorySubblockVk>(), range);
 
 	VkWriteDescriptorSet descriptorWrite{};
 	descriptorWrite.sType = VK_STRUCTURE_TYPE_WRITE_DESCRIPTOR_SET;
@@ -90,7 +89,7 @@ void MaterialSlotVk::SetUniformBuffer(
 	descriptorWrite.pTexelBufferView = nullptr;
 
 	m_bindings[bindingIndexInShader].descriptorWrites[arrayIndex] = descriptorWrite;
-	m_bindings[bindingIndexInShader].bufferInfos[arrayIndex] = bufferInfo.GetPointer();
+	m_bindings[bindingIndexInShader].bufferInfos[arrayIndex] = std::move(bufferInfo);
 	m_bindings[bindingIndexInShader].dirtyDescriptorWrites.insert(arrayIndex);
 }
 
@@ -102,7 +101,7 @@ void MaterialSlotVk::SetStorageBuffer(
 {
 	const UIndex32 bindingIndexInShader = GetLayout()->GetSlot(GetName()).bindings.find(binding)->second.glslIndex;
 
-	OwnedPtr<VkDescriptorBufferInfo> bufferInfo = GetDescriptorBufferInfo(*buffer.GetMemorySubblock()->As<GpuMemorySubblockVk>(), range);
+	UniquePtr<VkDescriptorBufferInfo> bufferInfo = GetDescriptorBufferInfo(*buffer.GetMemorySubblock()->As<GpuMemorySubblockVk>(), range);
 
 	VkWriteDescriptorSet descriptorWrite{};
 	descriptorWrite.sType = VK_STRUCTURE_TYPE_WRITE_DESCRIPTOR_SET;
@@ -116,7 +115,7 @@ void MaterialSlotVk::SetStorageBuffer(
 	descriptorWrite.pTexelBufferView = nullptr;
 
 	m_bindings[bindingIndexInShader].descriptorWrites[arrayIndex] = descriptorWrite;
-	m_bindings[bindingIndexInShader].bufferInfos[arrayIndex] = bufferInfo.GetPointer();
+	m_bindings[bindingIndexInShader].bufferInfos[arrayIndex] = std::move(bufferInfo);
 	m_bindings[bindingIndexInShader].dirtyDescriptorWrites.insert(arrayIndex);
 }
 
@@ -128,7 +127,7 @@ void MaterialSlotVk::SetGpuImage(
 {
 	const UIndex32 bindingIndexInShader = GetLayout()->GetSlot(GetName()).bindings.find(binding)->second.glslIndex;
 
-	OwnedPtr<VkDescriptorImageInfo> imageInfo = GetDescriptorImageInfo(image, sampler, VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL);
+	UniquePtr<VkDescriptorImageInfo> imageInfo = GetDescriptorImageInfo(image, sampler, VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL);
 
 	VkWriteDescriptorSet descriptorWrite{};
 	descriptorWrite.sType = VK_STRUCTURE_TYPE_WRITE_DESCRIPTOR_SET;
@@ -142,7 +141,7 @@ void MaterialSlotVk::SetGpuImage(
 	descriptorWrite.pTexelBufferView = nullptr;
 
 	m_bindings[bindingIndexInShader].descriptorWrites[arrayIndex] = descriptorWrite;
-	m_bindings[bindingIndexInShader].imageInfos[arrayIndex] = imageInfo.GetPointer();
+	m_bindings[bindingIndexInShader].imageInfos[arrayIndex] = std::move(imageInfo);
 	m_bindings[bindingIndexInShader].dirtyDescriptorWrites.insert(arrayIndex);
 }
 
@@ -153,7 +152,7 @@ void MaterialSlotVk::SetStorageImage(
 {
 	const UIndex32 bindingIndexInShader = GetLayout()->GetSlot(GetName()).bindings.find(binding)->second.glslIndex;
 
-	OwnedPtr<VkDescriptorImageInfo> imageInfo = GetDescriptorImageInfo(image, VK_IMAGE_LAYOUT_GENERAL);
+	UniquePtr<VkDescriptorImageInfo> imageInfo = GetDescriptorImageInfo(image, VK_IMAGE_LAYOUT_GENERAL);
 
 	VkWriteDescriptorSet descriptorWrite{};
 	descriptorWrite.sType = VK_STRUCTURE_TYPE_WRITE_DESCRIPTOR_SET;
@@ -167,7 +166,7 @@ void MaterialSlotVk::SetStorageImage(
 	descriptorWrite.pTexelBufferView = nullptr;
 
 	m_bindings[bindingIndexInShader].descriptorWrites[arrayIndex] = descriptorWrite;
-	m_bindings[bindingIndexInShader].imageInfos[arrayIndex] = imageInfo.GetPointer();
+	m_bindings[bindingIndexInShader].imageInfos[arrayIndex] = std::move(imageInfo);
 	m_bindings[bindingIndexInShader].dirtyDescriptorWrites.insert(arrayIndex);
 }
 
@@ -180,7 +179,7 @@ void MaterialSlotVk::SetAccelerationStructure(
 
 	m_accelerationStructures.Insert(accelerationStructure.As<TopLevelAccelerationStructureVk>()->GetAccelerationStructure());
 
-	OwnedPtr<VkWriteDescriptorSetAccelerationStructureKHR> descriptorAccelerationStructureInfo = new VkWriteDescriptorSetAccelerationStructureKHR{};
+	UniquePtr<VkWriteDescriptorSetAccelerationStructureKHR> descriptorAccelerationStructureInfo = MakeUnique<VkWriteDescriptorSetAccelerationStructureKHR>(VkWriteDescriptorSetAccelerationStructureKHR{});
 	descriptorAccelerationStructureInfo->sType = VK_STRUCTURE_TYPE_WRITE_DESCRIPTOR_SET_ACCELERATION_STRUCTURE_KHR;
 	descriptorAccelerationStructureInfo->accelerationStructureCount = 1;
 	descriptorAccelerationStructureInfo->pAccelerationStructures = &m_accelerationStructures.Peek();
@@ -194,7 +193,7 @@ void MaterialSlotVk::SetAccelerationStructure(
 	descriptorWrite.descriptorType = VK_DESCRIPTOR_TYPE_ACCELERATION_STRUCTURE_KHR;
 
 	m_bindings[bindingIndexInShader].descriptorWrites[arrayIndex] = descriptorWrite;
-	m_bindings[bindingIndexInShader].asInfos[arrayIndex] = descriptorAccelerationStructureInfo.GetPointer();
+	m_bindings[bindingIndexInShader].asInfos[arrayIndex] = std::move(descriptorAccelerationStructureInfo);
 	m_bindings[bindingIndexInShader].dirtyDescriptorWrites.insert(arrayIndex);
 }
 
@@ -243,8 +242,8 @@ VkDescriptorSet MaterialSlotVk::GetDescriptorSet() const {
 	return m_descriptorSet;
 }
 
-OwnedPtr<VkDescriptorBufferInfo> MaterialSlotVk::GetDescriptorBufferInfo(const GpuMemorySubblockVk& subblock, const GpuBufferRange& range) {
-	OwnedPtr<VkDescriptorBufferInfo> bufferInfo = new VkDescriptorBufferInfo();
+UniquePtr<VkDescriptorBufferInfo> MaterialSlotVk::GetDescriptorBufferInfo(const GpuMemorySubblockVk& subblock, const GpuBufferRange& range) {
+	UniquePtr<VkDescriptorBufferInfo> bufferInfo = MakeUnique<VkDescriptorBufferInfo>();
 
 	bufferInfo->buffer = subblock.GetOwnerBlock()->As<GpuMemoryBlockVk>()->GetVulkanBuffer();
 
@@ -260,16 +259,16 @@ OwnedPtr<VkDescriptorBufferInfo> MaterialSlotVk::GetDescriptorBufferInfo(const G
 	return bufferInfo;
 }
 
-OwnedPtr<VkDescriptorImageInfo> MaterialSlotVk::GetDescriptorImageInfo(const IGpuImageView& view, const IGpuImageSampler& sampler, VkImageLayout layout) {
-	OwnedPtr<VkDescriptorImageInfo> imageInfo = GetDescriptorImageInfo(view, layout);
+UniquePtr<VkDescriptorImageInfo> MaterialSlotVk::GetDescriptorImageInfo(const IGpuImageView& view, const IGpuImageSampler& sampler, VkImageLayout layout) {
+	UniquePtr<VkDescriptorImageInfo> imageInfo = GetDescriptorImageInfo(view, layout);
 
 	imageInfo->sampler = sampler.As<GpuImageSamplerVk>()->GetSamplerVk();
 
 	return imageInfo;
 }
 
-OwnedPtr<VkDescriptorImageInfo> MaterialSlotVk::GetDescriptorImageInfo(const IGpuImageView& view, VkImageLayout layout) {
-	OwnedPtr<VkDescriptorImageInfo> imageInfo = new VkDescriptorImageInfo();
+UniquePtr<VkDescriptorImageInfo> MaterialSlotVk::GetDescriptorImageInfo(const IGpuImageView& view, VkImageLayout layout) {
+	UniquePtr<VkDescriptorImageInfo> imageInfo = MakeUnique<VkDescriptorImageInfo>();
 
 	imageInfo->imageLayout = layout;
 	imageInfo->sampler = VK_NULL_HANDLE;

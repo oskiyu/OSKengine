@@ -1652,9 +1652,6 @@
     <ClInclude Include="Vector4.hpp">
       <Filter>Archivos de encabezado\Core\Types</Filter>
     </ClInclude>
-    <ClInclude Include="OwnedPtr.h">
-      <Filter>Archivos de encabezado\Core\Memory</Filter>
-    </ClInclude>
     <ClInclude Include="SharedPtr.hpp">
       <Filter>Archivos de encabezado\Core\Memory</Filter>
     </ClInclude>

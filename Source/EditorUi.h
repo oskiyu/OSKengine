@@ -56,12 +56,12 @@ namespace OSK::Editor::UI {
 		/// @brief Añade la vista de un componente al 
 		/// panel de propiedades del objeto.
 		/// @param view Nueva vista.
-		void AddComponentView(OwnedPtr<OSK::Editor::Views::IComponentView> view);
+		void AddComponentView(UniquePtr<OSK::Editor::Views::IComponentView>&& view);
 
 		/// @brief Establece la vista de las propiedades
 		/// del sistema seleccionado.
 		/// @param view Vista con las propiedades.
-		void SetSystemPropertiesView(OwnedPtr<OSK::Editor::Views::ISystemView> view);
+		void SetSystemPropertiesView(UniquePtr<OSK::Editor::Views::ISystemView>&& view);
 
 		/// @brief Elimina la vista de las propiedades
 		/// del sistema seleccionado.

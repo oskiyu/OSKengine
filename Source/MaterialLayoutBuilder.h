@@ -3,7 +3,6 @@
 #include "ApiCall.h"
 
 #include "UniquePtr.hpp"
-#include "OwnedPtr.h"
 #include "MaterialLayout.h"
 #include "HashMap.hpp"
 
@@ -31,7 +30,7 @@ namespace OSK::GRAPHICS {
 
 		/// @return Instancia construida.
 		/// @post El builder estará vacío.
-		[[nodiscard]] OwnedPtr<MaterialLayout> Build();
+		[[nodiscard]] UniquePtr<MaterialLayout> Build();
 
 	private:
 

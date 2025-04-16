@@ -8,7 +8,7 @@
 using namespace OSK;
 using namespace OSK::IO;
 
-void PcUserInput::Initialize(const Window& window) {
+void PcUserInput::Initialize(Window& window) {
 	self = this;
 
 	glfwSetCursorPosCallback(window._GetGlfw(), PcUserInput::MouseInputCallback);

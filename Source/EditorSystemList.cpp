@@ -33,7 +33,7 @@ OSK::Editor::UI::SystemList::SystemList(const Vector2f& size, OSK::Editor::Edito
 		m_title = new EditorPanelTitle(textSize);
 		m_title->SetText("Sistemas");
 
-		AddChild("title", m_title);
+		AddChild("title", UniquePtr<OSK::UI::IElement>(m_title));
 	}
 
 	auto font = Engine::GetAssetManager()->Load<OSK::ASSETS::Font>("Resources/Assets/Fonts/font1.json");
@@ -77,7 +77,7 @@ OSK::Editor::UI::SystemList::SystemList(const Vector2f& size, OSK::Editor::Edito
 			view->GetDefaultDrawCalls().Insert(defaultDrawCall);
 		}
 
-		AddChild(std::to_string(i), view);
+		AddChild(std::to_string(i), UniquePtr<OSK::UI::IElement>(view));
 		m_textViews.Insert(view);
 	}
 
@@ -104,7 +104,7 @@ OSK::Editor::UI::SystemList::SystemList(const Vector2f& size, OSK::Editor::Edito
 				});
 		}
 
-		AddChild(PropertiesPanel::Name, m_propertiesPanel);
+		AddChild(PropertiesPanel::Name, UniquePtr<OSK::UI::IElement>(m_propertiesPanel));
 	}
 
 	AdjustSizeToChildren();
@@ -140,8 +140,8 @@ void OSK::Editor::UI::SystemList::ClearSelection() {
 	}
 }
 
-void OSK::Editor::UI::SystemList::SetSystemPropertiesView(OwnedPtr<OSK::Editor::Views::ISystemView> view) {
-	m_propertiesPanel->SetView(view);
+void OSK::Editor::UI::SystemList::SetSystemPropertiesView(UniquePtr<OSK::Editor::Views::ISystemView>&& view) {
+	m_propertiesPanel->SetView(std::move(view));
 	m_propertiesPanel->SetSubtitle((std::string)view->_GetSystemName());
 	m_propertiesPanel->ShowContent();
 }

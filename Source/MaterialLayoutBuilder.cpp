@@ -84,6 +84,6 @@ void OSK::GRAPHICS::MaterialLayoutBuilder::Apply(const SpirvReflectionData& shad
 	}
 }
 
-OSK::OwnedPtr<OSK::GRAPHICS::MaterialLayout> OSK::GRAPHICS::MaterialLayoutBuilder::Build() {
-	return m_target.Release();
+OSK::UniquePtr<OSK::GRAPHICS::MaterialLayout> OSK::GRAPHICS::MaterialLayoutBuilder::Build() {
+	return OSK::UniquePtr<OSK::GRAPHICS::MaterialLayout>(m_target.Release());
 }

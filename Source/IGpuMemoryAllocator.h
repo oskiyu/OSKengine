@@ -1,7 +1,6 @@
 #pragma once
 
 #include "ApiCall.h"
-#include "OwnedPtr.h"
 #include "UniquePtr.hpp"
 #include "HashMap.hpp"
 #include "DynamicArray.hpp"
@@ -12,6 +11,10 @@
 #include "IGpuImage.h"
 #include "IGpuMemoryBlock.h"
 #include "IGpuMemorySubblock.h"
+
+// Ray-tracing
+#include "ITopLevelAccelerationStructure.h"
+#include "IBottomLevelAccelerationStructure.h"
 
 // Para `TIndexSize`
 #include "Vertex.h"
@@ -33,10 +36,6 @@ namespace OSK::GRAPHICS {
 	class GpuBuffer;
 	class GpuImage;
 	struct GpuImageCreateInfo;
-
-	// Ray-tracing.
-	class IBottomLevelAccelerationStructure;
-	class ITopLevelAccelerationStructure;
 
 	// Vértices.
 	struct Vertex3D;
@@ -97,7 +96,7 @@ namespace OSK::GRAPHICS {
 		/// @param info Información para la creación de la imagen.
 		/// 
 		/// @threadsafe
-		virtual OwnedPtr<GpuImage> CreateImage(const GpuImageCreateInfo& info) = 0;
+		virtual UniquePtr<GpuImage> CreateImage(const GpuImageCreateInfo& info) = 0;
 
 		/// @brief Crea una imagen cubemap sin inicializar en la GPU.
 		/// @param faceSize Resolución de cada cara, en píxeles.
@@ -111,7 +110,7 @@ namespace OSK::GRAPHICS {
 		/// @post La imagen devuelta tendrá al menos el uso GpuImageUsage::CUBEMAP.
 		/// 
 		/// @threadsafe
-		OwnedPtr<GpuImage> CreateCubemapImage(
+		UniquePtr<GpuImage> CreateCubemapImage(
 			const Vector2ui& faceSize, 
 			Format format, 
 			GpuImageUsage usage, 
@@ -136,7 +135,7 @@ namespace OSK::GRAPHICS {
 		/// @post El buffer siempre tendrá al menos los usos GpuBufferUsage::VERTEX_BUFFER y GpuBufferUsage::TRANSFER_DESTINATION.
 		/// 
 		/// @threadsafe
-		OwnedPtr<GpuBuffer> CreateVertexBuffer(
+		UniquePtr<GpuBuffer> CreateVertexBuffer(
 			const void* data,
 			USize32 vertexSize,
 			USize32 numVertices,
@@ -160,7 +159,7 @@ namespace OSK::GRAPHICS {
 		/// @post El buffer siempre tendrá al menos los usos GpuBufferUsage::VERTEX_BUFFER y GpuBufferUsage::TRANSFER_DESTINATION.
 		/// 
 		/// @threadsafe
-		OwnedPtr<GpuBuffer> CreateVertexBuffer(
+		UniquePtr<GpuBuffer> CreateVertexBuffer(
 			const void* data,
 			USize32 vertexSize,
 			USize32 numVertices,
@@ -184,7 +183,7 @@ namespace OSK::GRAPHICS {
 		/// 
 		/// @threadsafe
 		template <typename T>
-		inline OwnedPtr<GpuBuffer> CreateVertexBuffer(
+		inline UniquePtr<GpuBuffer> CreateVertexBuffer(
 			const DynamicArray<T>& vertices,
 			const VertexInfo& vertexInfo,
 			GpuQueueType queueType,
@@ -208,7 +207,7 @@ namespace OSK::GRAPHICS {
 		/// 
 		/// @threadsafe
 		template <typename T>
-		inline OwnedPtr<GpuBuffer> CreateVertexBuffer(
+		inline UniquePtr<GpuBuffer> CreateVertexBuffer(
 			const DynamicArray<T>& vertices,
 			const VertexInfo& vertexInfo,
 			GpuQueueType transferQueue,
@@ -231,7 +230,7 @@ namespace OSK::GRAPHICS {
 		/// @post El buffer siempre tendrá al menos los usos GpuBufferUsage::INDEX_BUFFER y GpuBufferUsage::TRANSFER_DESTINATION.
 		/// 
 		/// @threadsafe
-		OwnedPtr<GpuBuffer> CreateIndexBuffer(
+		UniquePtr<GpuBuffer> CreateIndexBuffer(
 			const DynamicArray<TIndexSize>& indices,
 			GpuQueueType queueType,
 			GpuBufferUsage usage = GpuBufferUsage::INDEX_BUFFER);
@@ -247,7 +246,7 @@ namespace OSK::GRAPHICS {
 		/// @post El buffer siempre tendrá al menos los usos GpuBufferUsage::INDEX_BUFFER y GpuBufferUsage::TRANSFER_DESTINATION.
 		/// 
 		/// @threadsafe
-		OwnedPtr<GpuBuffer> CreateIndexBuffer(
+		UniquePtr<GpuBuffer> CreateIndexBuffer(
 			const DynamicArray<TIndexSize>& indices,
 			GpuQueueType transferQueue,
 			GpuQueueType queueType,
@@ -265,7 +264,7 @@ namespace OSK::GRAPHICS {
 		/// @post El buffer siempre tendrá al menos el uso GpuBufferUsage::UNIFORM_BUFFER.
 		/// 
 		/// @threadsafe
-		OwnedPtr<GpuBuffer> CreateUniformBuffer(
+		UniquePtr<GpuBuffer> CreateUniformBuffer(
 			USize64 size,
 			GpuQueueType queueType = GpuQueueType::MAIN,
 			GpuBufferUsage usage = GpuBufferUsage::UNIFORM_BUFFER);
@@ -280,7 +279,7 @@ namespace OSK::GRAPHICS {
 		/// @post El buffer siempre tendrá al menos el uso GpuBufferUsage::STORAGE_BUFFER.
 		/// 
 		/// @threadsafe
-		OwnedPtr<GpuBuffer> CreateStorageBuffer(
+		UniquePtr<GpuBuffer> CreateStorageBuffer(
 			USize64 size,
 			GpuQueueType queueType,
 			GpuBufferUsage usage = GpuBufferUsage::STORAGE_BUFFER);
@@ -300,7 +299,7 @@ namespace OSK::GRAPHICS {
 		/// @post El buffer siempre tendrá al menos los usos GpuBufferUsage::TRANSFER_SOURCE | GpuBufferUsage::UPLOAD_ONLY.
 		/// 
 		/// @threadsafe
-		OwnedPtr<GpuBuffer> CreateStagingBuffer(
+		UniquePtr<GpuBuffer> CreateStagingBuffer(
 			USize64 size,
 			GpuQueueType queueType,
 			GpuBufferUsage usage = GpuBufferUsage::UPLOAD_ONLY);
@@ -314,7 +313,7 @@ namespace OSK::GRAPHICS {
 		/// @return Buffer en la GPU.
 		/// 
 		/// @threadsafe
-		OwnedPtr<GpuBuffer> CreateBuffer(
+		UniquePtr<GpuBuffer> CreateBuffer(
 			USize64 size,
 			USize64 alignment,
 			GpuBufferUsage usage, 
@@ -331,7 +330,7 @@ namespace OSK::GRAPHICS {
 		/// @return Estructura de bajo nivel.
 		/// 
 		/// @threadsafe
-		OwnedPtr<IBottomLevelAccelerationStructure> CreateBottomAccelerationStructure(
+		UniquePtr<IBottomLevelAccelerationStructure> CreateBottomAccelerationStructure(
 			const GpuBuffer& vertexBuffer,
 			const GpuBuffer& indexBuffer);
 
@@ -346,7 +345,7 @@ namespace OSK::GRAPHICS {
 		/// @return Estructura de bajo nivel.
 		/// 
 		/// @threadsafe
-		OwnedPtr<IBottomLevelAccelerationStructure> CreateBottomAccelerationStructure(
+		UniquePtr<IBottomLevelAccelerationStructure> CreateBottomAccelerationStructure(
 			const GpuBuffer& vertexBuffer,
 			const VertexBufferView& vertexView,
 			const GpuBuffer& indexBuffer,
@@ -360,7 +359,7 @@ namespace OSK::GRAPHICS {
 		/// @return Estructura de alto nivel.
 		/// 
 		/// @threadsafe
-		OwnedPtr<ITopLevelAccelerationStructure> CreateTopAccelerationStructure(
+		UniquePtr<ITopLevelAccelerationStructure> CreateTopAccelerationStructure(
 			DynamicArray<IBottomLevelAccelerationStructure*> bottomStructures);
 
 
@@ -388,14 +387,14 @@ namespace OSK::GRAPHICS {
 		//
 		
 		
-		virtual OwnedPtr<IBottomLevelAccelerationStructure> _CreateBottomAccelerationStructure() = 0;
+		virtual UniquePtr<IBottomLevelAccelerationStructure> _CreateBottomAccelerationStructure() = 0;
 
 
-		virtual OwnedPtr<ITopLevelAccelerationStructure> _CreateTopAccelerationStructure() = 0;
+		virtual UniquePtr<ITopLevelAccelerationStructure> _CreateTopAccelerationStructure() = 0;
 
 
-		virtual OwnedPtr<IGpuMemoryBlock> CreateNewBufferBlock(USize64 size, GpuBufferUsage usage, GpuSharedMemoryType sharedType) = 0;
-		virtual OwnedPtr<IGpuMemoryBlock> CreateNewImageBlock(GpuImage* image, GpuImageUsage usage, GpuSharedMemoryType sharedType) = 0;
+		virtual UniquePtr<IGpuMemoryBlock> CreateNewBufferBlock(USize64 size, GpuBufferUsage usage, GpuSharedMemoryType sharedType) = 0;
+		virtual UniquePtr<IGpuMemoryBlock> CreateNewImageBlock(GpuImage* image, GpuImageUsage usage, GpuSharedMemoryType sharedType) = 0;
 
 		/// @brief Devuelve un bloque con las características dadas.
 		/// 
@@ -417,15 +416,16 @@ namespace OSK::GRAPHICS {
 		/// @return Bloque con el tamaño dado.
 		/// 
 		/// @threadsafe
-		IGpuMemorySubblock* GetNextBufferMemorySubblock(USize64 size, GpuBufferUsage usage, GpuSharedMemoryType sharedType);
+		UniquePtr<IGpuMemorySubblock> GetNextBufferMemorySubblock(USize64 size, GpuBufferUsage usage, GpuSharedMemoryType sharedType);
 
 		/// @brief Información de los bloques.
 		DynamicArray<GpuBufferMemoryBlockInfo> bufferMemoryBlocksInfo;
 		DynamicArray<DynamicArray<UniquePtr<IGpuMemoryBlock>>> bufferMemoryBlocks;
 
-		DynamicArray<UniquePtr<IGpuMemoryBlock>> imageMemoryBlocks;
+		// Se almacenan en las propias imágenes.
+		DynamicArray<IGpuMemoryBlock*> imageMemoryBlocks;
 
-		UniquePtr<GpuImage> m_defaultNormalTexture = nullptr;
+		UniquePtr<GpuImage> m_defaultNormalTexture;
 
 		IGpu* device = nullptr;
 

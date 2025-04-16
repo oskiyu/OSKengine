@@ -24,8 +24,8 @@ void ISwapchain::SetNumImagesInFlight(USize32 imageCount) {
 	m_numImagesInFlight = imageCount;
 }
 
-void ISwapchain::SetImage(OwnedPtr<GpuImage> image, UIndex32 index) {
-	m_images[index] = image.GetPointer();
+void ISwapchain::SetImage(UniquePtr<GpuImage>&& image, UIndex32 index) {
+	m_images[index] = std::move(image);
 }
 
 void ISwapchain::TakeScreenshot(std::string_view path) {
@@ -44,13 +44,13 @@ void ISwapchain::TakeScreenshot(std::string_view path) {
 	intermediateImageInfo.msaaSamples = 1;
 	intermediateImageInfo.samplerDesc = GpuImageSamplerDesc::CreateDefault_NoMipMap();
 
-	UniquePtr<GpuImage> intermediateImage = Engine::GetRenderer()->GetAllocator()->CreateImage(intermediateImageInfo).GetPointer();
+	UniquePtr<GpuImage> intermediateImage = Engine::GetRenderer()->GetAllocator()->CreateImage(intermediateImageInfo);
 
 
 	// Comenzamos el proceso de copia.
 
 	// Preferir NO usar cola de transferencia, para no tener que transferir la propiedad de la imagen.
-	OwnedPtr<ICommandList> commandList = Engine::GetRenderer()->CreateSingleUseCommandList(GpuQueueType::MAIN);
+	UniquePtr<ICommandList> commandList = Engine::GetRenderer()->CreateSingleUseCommandList(GpuQueueType::MAIN);
 	commandList->Reset();
 	commandList->Start();
 
@@ -76,7 +76,7 @@ void ISwapchain::TakeScreenshot(std::string_view path) {
 
 	commandList->Close();
 
-	Engine::GetRenderer()->SubmitSingleUseCommandList(commandList);
+	Engine::GetRenderer()->SubmitSingleUseCommandList(std::move(commandList));
 
 
 	// Obtenemos los píxeles de la imagen lineal, leyendo la memoria directamente.

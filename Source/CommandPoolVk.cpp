@@ -39,19 +39,19 @@ CommandPoolVk::~CommandPoolVk() {
 		nullptr);
 }
 
-OwnedPtr<ICommandList> CommandPoolVk::CreateCommandList(const IGpu& device) {
+UniquePtr<ICommandList> CommandPoolVk::CreateCommandList(const IGpu& device) {
 	return CreateList(device, MAX_RESOURCES_IN_FLIGHT);
 }
 
-OwnedPtr<ICommandList> CommandPoolVk::CreateSingleTimeCommandList(const IGpu& device) {
-	OwnedPtr<ICommandList> list = CreateList(device, 1);
+UniquePtr<ICommandList> CommandPoolVk::CreateSingleTimeCommandList(const IGpu& device) {
+	UniquePtr<ICommandList> list = CreateList(device, 1);
 	list->_SetSingleTimeUse();
 
 	return list;
 }
 
-OwnedPtr<ICommandList> CommandPoolVk::CreateList(const IGpu& device, USize32 numNativeLists) {
-	return new CommandListVk(
+UniquePtr<ICommandList> CommandPoolVk::CreateList(const IGpu& device, USize32 numNativeLists) {
+	return MakeUnique<CommandListVk>(
 		*device.As<GpuVk>(),
 		this);
 }

@@ -38,15 +38,15 @@ GpuMemoryAllocatorVk::GpuMemoryAllocatorVk(IGpu* device)
 	LoadDefaultNormalTexture();
 }
 
-OwnedPtr<IGpuMemoryBlock> GpuMemoryAllocatorVk::CreateNewBufferBlock(USize64 size, GpuBufferUsage usage, GpuSharedMemoryType sharedType) {
-	return GpuMemoryBlockVk::CreateNewBufferBlock(size, device, sharedType, usage).GetPointer();
+UniquePtr<IGpuMemoryBlock> GpuMemoryAllocatorVk::CreateNewBufferBlock(USize64 size, GpuBufferUsage usage, GpuSharedMemoryType sharedType) {
+	return GpuMemoryBlockVk::CreateNewBufferBlock(size, device, sharedType, usage);
 }
 
-OwnedPtr<IGpuMemoryBlock> GpuMemoryAllocatorVk::CreateNewImageBlock(GpuImage* image, GpuImageUsage usage, GpuSharedMemoryType sharedType) {
-	return GpuMemoryBlockVk::CreateNewImageBlock(image, device, sharedType, usage).GetPointer();
+UniquePtr<IGpuMemoryBlock> GpuMemoryAllocatorVk::CreateNewImageBlock(GpuImage* image, GpuImageUsage usage, GpuSharedMemoryType sharedType) {
+	return GpuMemoryBlockVk::CreateNewImageBlock(image, device, sharedType, usage);
 }
 
-OwnedPtr<GpuImage> GpuMemoryAllocatorVk::CreateImage(const GpuImageCreateInfo& info) {
+UniquePtr<GpuImage> GpuMemoryAllocatorVk::CreateImage(const GpuImageCreateInfo& info) {
 	USize64 numBytes = GetFormatNumberOfBytes(info.format);
 
 	switch (info.dimension) {
@@ -67,24 +67,25 @@ OwnedPtr<GpuImage> GpuMemoryAllocatorVk::CreateImage(const GpuImageCreateInfo& i
 	if (finalImageSize.y == 0)
 		finalImageSize.y = 1;
 
-	OwnedPtr<GpuImageVk> output = new GpuImageVk(info, Engine::GetRenderer()->GetOptimalQueue(info.queueType));
+	UniquePtr<GpuImageVk> output = MakeUnique<GpuImageVk>(info, Engine::GetRenderer()->GetOptimalQueue(info.queueType));
 
 	output->CreateVkImage();
 	auto block = GpuMemoryBlockVk::CreateNewImageBlock(output.GetPointer(), device, info.memoryType, info.usage);
-	output->SetBlock(block.GetPointer());
 
 	imageMemoryBlocks.Insert(block.GetPointer());
 
-	return output.GetPointer();
+	output->SetBlock(std::move(block));
+
+	return output;
 }
 
 
-OwnedPtr<IBottomLevelAccelerationStructure> GpuMemoryAllocatorVk::_CreateBottomAccelerationStructure() {
-	return new BottomLevelAccelerationStructureVk();
+UniquePtr<IBottomLevelAccelerationStructure> GpuMemoryAllocatorVk::_CreateBottomAccelerationStructure() {
+	return MakeUnique<BottomLevelAccelerationStructureVk>();
 }
 
-OwnedPtr<ITopLevelAccelerationStructure> GpuMemoryAllocatorVk::_CreateTopAccelerationStructure() {
-	return new TopLevelAccelerationStructureVk();
+UniquePtr<ITopLevelAccelerationStructure> GpuMemoryAllocatorVk::_CreateTopAccelerationStructure() {
+	return MakeUnique<TopLevelAccelerationStructureVk>();
 }
 
 #endif

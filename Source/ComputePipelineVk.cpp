@@ -15,7 +15,7 @@ using namespace OSK;
 using namespace OSK::GRAPHICS;
 
 void ComputePipelineVk::Create(const MaterialLayout& materialLayout, const PipelineCreateInfo& info) {
-	layout = new PipelineLayoutVk(&materialLayout);
+	layout = MakeUnique<PipelineLayoutVk>(&materialLayout);
 
 	const ShaderStageVk stage = LoadShader(info.computeShaderPath, ShaderStage::COMPUTE);
 	

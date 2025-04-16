@@ -15,7 +15,7 @@ using namespace OSK;
 using namespace OSK::GRAPHICS;
 
 void RaytracingPipelineVk::Create(const MaterialLayout& materialLayout, const PipelineCreateInfo& info) {
-	layout = new PipelineLayoutVk(&materialLayout);
+	layout = MakeUnique<PipelineLayoutVk>(&materialLayout);
 
 	DynamicArray<VkRayTracingShaderGroupCreateInfoKHR> shaderGroupCreateInfos;
 
@@ -83,7 +83,7 @@ void RaytracingPipelineVk::Create(const MaterialLayout& materialLayout, const Pi
 		VK_NULL_HANDLE, VK_NULL_HANDLE, 1, &createInfo, nullptr, &pipeline);
 	OSK_ASSERT(result == VK_SUCCESS, PipelineCreationException(result));
 
-	shaderTable = new RtShaderTableVk(static_cast<USize32>(shaderGroupCreateInfos.GetSize()), pipeline);
+	shaderTable = MakeUnique<RtShaderTableVk>(static_cast<USize32>(shaderGroupCreateInfos.GetSize()), pipeline);
 }
 
 #endif

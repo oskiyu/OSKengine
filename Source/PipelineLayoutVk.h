@@ -5,7 +5,6 @@
 
 #include "IPipelineLayout.h"
 #include "DynamicArray.hpp"
-#include "OwnedPtr.h"
 
 struct VkPipelineLayout_T;
 typedef VkPipelineLayout_T* VkPipelineLayout;

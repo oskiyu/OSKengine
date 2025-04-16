@@ -61,9 +61,9 @@
 void OSK::IDebugGame::RegisterConsoleCommands() {
 	IGame::RegisterConsoleCommands();
 
-	Engine::GetCommandExecutor()->RegisterCommand(m_editorShowCommand = new EditorShowCommand());
-	Engine::GetCommandExecutor()->RegisterCommand(m_editorHideCommand = new EditorHideCommand());
-	Engine::GetCommandExecutor()->RegisterCommand(new ExitCommand(this));
+	Engine::GetCommandExecutor()->RegisterCommand(UniquePtr<EditorShowCommand>(m_editorShowCommand = new EditorShowCommand()));
+	Engine::GetCommandExecutor()->RegisterCommand(UniquePtr<EditorHideCommand>(m_editorHideCommand = new EditorHideCommand()));
+	Engine::GetCommandExecutor()->RegisterCommand(MakeUnique<ExitCommand>(this));
 }
 
 void OSK::IDebugGame::OnCreate() {
@@ -72,7 +72,7 @@ void OSK::IDebugGame::OnCreate() {
 	const auto font = Engine::GetAssetManager()->Load<ASSETS::Font>("Resources/Assets/Fonts/font1.json");
 		
 	// Editor.
-	m_editor = new Editor::Editor(
+	m_editor = MakeUnique<Editor::Editor>(
 		&GetRootUiElement(),
 		Engine::GetDisplay()->GetResolution().ToVector2f());
 
@@ -112,7 +112,7 @@ void OSK::IDebugGame::OnCreate() {
 	m_console->SetFontSize(19);
 	m_console->SetInvisible();
 
-	GetRootUiElement().AddChild(UI::Console::Name, m_console);
+	GetRootUiElement().AddChild(UI::Console::Name, UniquePtr<OSK::UI::IElement>(m_console));
 
 
 	m_editorShowCommand->editor = m_editor->GetUi();

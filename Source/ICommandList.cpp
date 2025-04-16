@@ -55,8 +55,8 @@ void ICommandList::SetGpuBufferBarrier(GpuBuffer* buffer, const GpuBufferRange& 
 		queueTranfer);
 }
 
-void ICommandList::RegisterStagingBuffer(OwnedPtr<GpuBuffer> stagingBuffer) {
-	m_stagingBuffersToDelete.Insert(stagingBuffer.GetPointer());
+void ICommandList::RegisterStagingBuffer(UniquePtr<GpuBuffer>&& stagingBuffer) {
+	m_stagingBuffersToDelete.Insert(std::move(stagingBuffer));
 }
 
 void ICommandList::BeginGraphicsRenderpass(RenderTarget* renderpass, const Color& color, bool autoSync) {

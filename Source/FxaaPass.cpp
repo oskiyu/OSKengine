@@ -19,7 +19,7 @@ using namespace OSK::GRAPHICS;
 
 void FxaaPass::Create(const Vector2ui& size) {
 	m_material = Engine::GetRenderer()->GetMaterialSystem()->LoadMaterial(MaterialName);
-	m_materialInstance = m_material->CreateInstance().GetPointer();
+	m_materialInstance = m_material->CreateInstance();
 
 	IPostProcessPass::Create(size);
 }

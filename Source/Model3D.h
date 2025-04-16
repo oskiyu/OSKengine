@@ -4,7 +4,6 @@
 #include "DynamicArray.hpp"
 #include "HashMap.hpp"
 #include "UniquePtr.hpp"
-#include "OwnedPtr.h"
 #include "IGpuImage.h"
 #include "GpuBuffer.h"
 

@@ -170,7 +170,7 @@ Material* MaterialSystem::LoadMaterial(const std::string& path) {
 	if (materialsPathTable.contains(path))
 		return materialsPathTable.at(path);
 
-	UniquePtr<MaterialLayout> layout = new MaterialLayout(path);
+	UniquePtr<MaterialLayout> layout = MakeUnique<MaterialLayout>(path);
 
 	// Material file.
 	nlohmann::json materialInfo = nlohmann::json::parse(IO::FileIO::ReadFromFile(path));
@@ -206,7 +206,7 @@ Material* MaterialSystem::LoadMaterial(const std::string& path) {
 	if (fileVersion == 0)
 		LoadMaterialV0(layout.GetPointer(), materialInfo, &info);
 	else if (fileVersion == 1)
-		layout = LoadMaterialLayoutV1(materialInfo, &info, type).GetPointer();
+		layout = LoadMaterialLayoutV1(materialInfo, &info, type);
 	else
 		OSK_ASSERT(false, ASSETS::InvalidDescriptionFileException("La versión del archivo de material no está soportada.", path))
 
@@ -242,10 +242,12 @@ Material* MaterialSystem::LoadMaterial(const std::string& path) {
 
 	// Engine::GetLogger()->DebugLog(ToString(*layout));
 
-	auto output = new Material(info, layout.Release(), vertexType, type);
-	output->SetName(materialInfo["name"]);
+	auto material = MakeUnique<Material>(info, std::move(layout), vertexType, type);
+	auto* output = material.GetPointer();
 
-	materials.Insert(output);
+	material->SetName(materialInfo["name"]);
+
+	materials.Insert(std::move(material));
 
 	materialsPathTable[path] = output;
 	materialsNameTable[materialInfo["name"]] = output;

@@ -40,6 +40,6 @@ void Texture::_SetNumberOfChannels(USize32 numChannels) {
 	m_numChannels = numChannels;
 }
 
-void Texture::_SetImage(OwnedPtr<GRAPHICS::GpuImage> image) {
-	m_image = image.GetPointer();
+void Texture::_SetImage(UniquePtr<GRAPHICS::GpuImage>&& image) {
+	m_image = std::move(image);
 }

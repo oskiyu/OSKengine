@@ -10,11 +10,11 @@ using namespace OSK::ASSETS;
 
 
 void AssetManager::LaunchAsyncLoad(const std::string& assetPath, IAssetLoader* loader, std::span<const std::string> tags) {
-	OwnedPtr<AssetLoaderJob> job = new AssetLoaderJob(assetPath, loader);
+	UniquePtr<AssetLoaderJob> job = MakeUnique<AssetLoaderJob>(assetPath, loader);
 	
 	for (const auto& tag : tags) {
 		job->AddTag(tag);
 	}
 
-	OSK::Engine::GetJobSystem()->ScheduleJob(job.GetPointer());
+	OSK::Engine::GetJobSystem()->ScheduleJob(std::move(job));
 }

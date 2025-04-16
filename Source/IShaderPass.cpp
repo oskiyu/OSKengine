@@ -55,7 +55,7 @@ void IShaderPass::SetupMaterialInstance(const GpuModel3D& model, const GpuMesh3D
 
 	auto& meshData = modelData.GetMeshData(mesh.GetUuid());
 
-	meshData._SetMaterialInstance(m_passMaterial->CreateInstance().GetPointer());
+	meshData._SetMaterialInstance(m_passMaterial->CreateInstance());
 	meshData._SetMaterialBuffer(Engine::GetRenderer()->GetAllocator()->CreateBuffer(
 		sizeof(PbrMaterialInfo), 
 		GPU_MEMORY_NO_ALIGNMENT,
@@ -84,7 +84,7 @@ void IShaderPass::SetupMaterialInstance(const GpuModel3D& model, const GpuMesh3D
 		? textureTable.GetImageView(material.normalTextureIndex.value())
 		: defaultNormalTextureView;
 
-	const auto* materialBuffer = meshData.GetMaterialBuffer();
+	auto* materialBuffer = meshData.GetMaterialBuffer();
 
 	mInstance->GetSlot("texture")->SetGpuImage("albedoTexture", *colorTexture, GpuImageSamplerDesc::CreateDefault_WithMipMap(colorTexture->GetImage()));
 	mInstance->GetSlot("texture")->SetGpuImage("normalTexture", *normalTexture, GpuImageSamplerDesc::CreateDefault_WithMipMap(normalTexture->GetImage()));
@@ -104,12 +104,13 @@ void IShaderPass::SetupMaterialInstance(const GpuModel3D& model, const GpuMesh3D
 
 // --- ShaderPassTable --- //
 
-void ShaderPassTable::AddShaderPass(OwnedPtr<IShaderPass> pass) {
-	m_renderPasses.Insert(pass.GetPointer());
+void ShaderPassTable::AddShaderPass(UniquePtr<IShaderPass>&& pass) {
 	m_renderPassesPtrs.Insert(pass.GetPointer());
 
 	m_renderPassesTable[(std::string)pass->GetTypeName()] = pass.GetPointer();
 	m_objectsPerPass[(std::string)pass->GetTypeName()] = {};
+
+	m_renderPasses.Insert(std::move(pass));
 }
 
 void ShaderPassTable::RemoveShaderPass(std::string_view passName) {

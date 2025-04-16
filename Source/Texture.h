@@ -1,7 +1,6 @@
 #pragma once
 
 #include "IAsset.h"
-#include "OwnedPtr.h"
 #include "UniquePtr.hpp"
 #include "Vector2.hpp"
 #include "IGpuImage.h"
@@ -57,7 +56,7 @@ namespace OSK::ASSETS {
 		/// @brief Establece la imagen GPU de la textura.
 		/// @param image Imagen en la GPU.
 		/// @warning Función interna: no llamar.
-		void _SetImage(OwnedPtr<GRAPHICS::GpuImage> image);
+		void _SetImage(UniquePtr<GRAPHICS::GpuImage>&& image);
 
 	private:
 

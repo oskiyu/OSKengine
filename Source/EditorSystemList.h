@@ -46,7 +46,7 @@ namespace OSK::Editor::UI {
 		/// @brief Establece la vista de las propiedades
 		/// del sistema seleccionado.
 		/// @param view Vista con las propiedades.
-		void SetSystemPropertiesView(OwnedPtr<OSK::Editor::Views::ISystemView> view);
+		void SetSystemPropertiesView(UniquePtr<OSK::Editor::Views::ISystemView>&& view);
 
 		/// @brief Elimina la vista de las propiedades
 		/// del sistema seleccionado.

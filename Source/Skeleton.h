@@ -76,7 +76,7 @@ namespace OSK::GRAPHICS {
 
 		/// @brief Mapa nombre del nodo -> índice del nodo.
 		std::unordered_map<std::string, UIndex32, StringHasher, std::equal_to<>> m_boneNameToIndex;
-
+		
 	};
 
 }

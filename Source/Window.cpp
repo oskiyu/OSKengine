@@ -36,14 +36,14 @@ Window::~Window() {
 void Window::Create(Vector2ui size, const std::string& title) {
 
 	// Creación de la ventana.
-	window = glfwCreateWindow(size.x, size.y, title.c_str(), NULL, NULL);
+	window = UniquePtr<GLFWwindow, GlfwWindowDeleter>(glfwCreateWindow(size.x, size.y, title.c_str(), NULL, NULL));
 	OSK_ASSERT(window.HasValue(), InitializeWindowException());
 
 	resolution = size;
 
 	// Obtención de variables de glfw.
 	glfwSetWindowUserPointer(window.GetPointer(), this);
-	monitor = glfwGetPrimaryMonitor();
+	monitor = UniquePtr<GLFWmonitor, GlfwMonitorDeleter>(glfwGetPrimaryMonitor());
 	monitorInfo = glfwGetVideoMode(monitor.GetPointer());
 
 	refreshRate = monitorInfo->refreshRate;
@@ -120,7 +120,7 @@ void Window::Close() {
 	isOpen = false;
 }
 
-GLFWwindow* Window::_GetGlfw() const {
+GLFWwindow* Window::_GetGlfw() {
 	return window.GetPointer();
 }
 

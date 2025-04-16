@@ -11,7 +11,7 @@ using namespace OSK;
 using namespace OSK::GRAPHICS;
 
 ComputePipelineDx12::ComputePipelineDx12(const PipelineCreateInfo& info, const MaterialLayout* materialLayout, IGpu* device) {
-	layout = new PipelineLayoutDx12(materialLayout);
+	layout = MakeUnique<PipelineLayoutDx12>(materialLayout);
 
 	computeShader = LoadShader(info, {}, info.computeShaderPath, ShaderStage::COMPUTE, *materialLayout);
 

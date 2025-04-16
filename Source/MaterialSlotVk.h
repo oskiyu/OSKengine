@@ -6,7 +6,6 @@
 #include "IMaterialSlot.h"
 #include "UniquePtr.hpp"
 #include "DynamicArray.hpp"
-#include "OwnedPtr.h"
 #include "DescriptorLayoutVk.h"
 #include "DescriptorPoolVk.h"
 
@@ -53,7 +52,7 @@ namespace OSK::GRAPHICS {
 		/// @param range Rango del subbloque usado.
 		/// @return Estructura, rellena
 		/// con los datos indicados.
-		static OwnedPtr<VkDescriptorBufferInfo> GetDescriptorBufferInfo(
+		static UniquePtr<VkDescriptorBufferInfo> GetDescriptorBufferInfo(
 			const GpuMemorySubblockVk& subblock,
 			const GpuBufferRange& range);
 
@@ -62,7 +61,7 @@ namespace OSK::GRAPHICS {
 		/// @param layout Layout usado.
 		/// @return Estructura, rellena
 		/// con los datos indicados.
-		static OwnedPtr<VkDescriptorImageInfo> GetDescriptorImageInfo(
+		static UniquePtr<VkDescriptorImageInfo> GetDescriptorImageInfo(
 			const IGpuImageView& view,
 			const IGpuImageSampler& sampler,
 			VkImageLayout layout);
@@ -71,7 +70,7 @@ namespace OSK::GRAPHICS {
 		/// @param layout Layout usado.
 		/// @return Estructura, rellena
 		/// con los datos indicados.
-		static OwnedPtr<VkDescriptorImageInfo> GetDescriptorImageInfo(
+		static UniquePtr<VkDescriptorImageInfo> GetDescriptorImageInfo(
 			const IGpuImageView& view,
 			VkImageLayout layout);
 

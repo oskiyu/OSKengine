@@ -14,7 +14,7 @@ using namespace OSK::ASSETS;
 using namespace OSK::COLLISION;
 
 void PreBuiltColliderLoader::Load(const std::string& assetFilePath, PreBuiltCollider* asset) {
-	OwnedPtr<COLLISION::Collider> collider = new COLLISION::Collider();
+	UniquePtr<COLLISION::Collider> collider = MakeUnique<COLLISION::Collider>();
 
 	// Asset file.
 	const nlohmann::json assetInfo = ValidateDescriptionFile(assetFilePath);
@@ -33,12 +33,12 @@ void PreBuiltColliderLoader::Load(const std::string& assetFilePath, PreBuiltColl
 		modelTransform = glm::rotate(modelTransform, glm::radians((float)assetInfo["rotation_offset"][2]), { 0.0f, 0.0f, 1.0f });
 	}
 
-	const CpuModel3D model = GltfLoader::Load(rawAssetPath, modelTransform, 1.0f);
+	const CpuModel3D model = GltfLoader::Load(rawAssetPath, modelTransform);
 
 	for (const auto& mesh : model.GetMeshes()) {
 		const auto& vertices = mesh.GetVertices();
 
-		OwnedPtr<ConvexVolume> volume = new ConvexVolume();
+		UniquePtr<ConvexVolume> volume = MakeUnique<ConvexVolume>();
 
 		for (const auto& triangle : mesh.GetTriangles()) {
 			volume->AddFace({ 
@@ -49,7 +49,7 @@ void PreBuiltColliderLoader::Load(const std::string& assetFilePath, PreBuiltColl
 
 		volume->MergeFaces();
 
-		collider->AddBottomLevelCollider(volume.GetPointer());
+		collider->AddBottomLevelCollider(std::move(volume));
 	}
 
 	// Top-level collider:
@@ -70,7 +70,7 @@ void PreBuiltColliderLoader::Load(const std::string& assetFilePath, PreBuiltColl
 	// Radio
 	float radius = 0.0f;
 
-	for (UIndex64 i = 0; i < collider->GetBottomLevelCollidersCount(); i++) {
+	for (UIndex32 i = 0; i < collider->GetBottomLevelCollidersCount(); i++) {
 		auto* blc = collider->GetBottomLevelCollider(i)->As<ConvexVolume>();
 		blc->MergeFaces();
 
@@ -82,7 +82,7 @@ void PreBuiltColliderLoader::Load(const std::string& assetFilePath, PreBuiltColl
 
 	radius = glm::sqrt(radius);
 
-	collider->SetTopLevelCollider(new SphereCollider(radius));
+	collider->SetTopLevelCollider(MakeUnique<SphereCollider>(radius));
 	
-	asset->_SetCollider(collider);
+	asset->_SetCollider(std::move(collider));
 }

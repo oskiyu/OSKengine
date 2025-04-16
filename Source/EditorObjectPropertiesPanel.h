@@ -22,7 +22,7 @@ namespace OSK::Editor::UI {
 
 		/// @brief Añade la vista de un componente.
 		/// @param view Vista de un componente.
-		void AddComponentView(OwnedPtr<OSK::Editor::Views::IComponentView> view);
+		void AddComponentView(UniquePtr<OSK::Editor::Views::IComponentView>&& view);
 
 		/// @brief Quita todas las vistas de componentes.
 		void ClearAllComponentViews();

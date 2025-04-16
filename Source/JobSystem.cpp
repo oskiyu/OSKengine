@@ -44,7 +44,7 @@ JobSystem::~JobSystem() {
 }
 
 
-void JobSystem::ScheduleJob(UniquePtr<IJob> job) {
+void JobSystem::ScheduleJob(UniquePtr<IJob>&& job) {
 	const auto* ptr = job.GetPointer();
 
 	m_scheduledJobs.Enqueue(std::move(job));

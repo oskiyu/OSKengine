@@ -2,7 +2,7 @@
 
 #include "ApiCall.h"
 #include "DefineAs.h"
-#include "OwnedPtr.h"
+#include "UniquePtr.hpp"
 
 
 namespace OSK::GRAPHICS {
@@ -30,14 +30,14 @@ namespace OSK::GRAPHICS {
 		/// @return Lista de comandos.
 		/// 
 		/// @throws CommandListCreationException si no se pudo crear la lista. 
-		virtual OwnedPtr<ICommandList> CreateCommandList(const IGpu& device) = 0;
+		virtual UniquePtr<ICommandList> CreateCommandList(const IGpu& device) = 0;
 
 		/// @brief Crea una lista de comandos de un sólo uso.
 		/// @param device GPU donde se alamcenarán las listas.
 		/// @return Lista de comandos de un único uso.
 		/// 
 		/// @throws CommandListCreationException si no se pudo crear la lista. 
-		virtual OwnedPtr<ICommandList> CreateSingleTimeCommandList(const IGpu& device) = 0;
+		virtual UniquePtr<ICommandList> CreateSingleTimeCommandList(const IGpu& device) = 0;
 
 
 		/// @return Tipos de comandos soportados por este pool.

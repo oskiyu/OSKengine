@@ -22,8 +22,8 @@ namespace OSK::GRAPHICS {
 			CommandsSupport supportedCommands,
 			GpuQueueType type);
 
-		OwnedPtr<ICommandList> CreateCommandList(const IGpu& device) override;
-		OwnedPtr<ICommandList> CreateSingleTimeCommandList(const IGpu& device) override;
+		UniquePtr<ICommandList> CreateCommandList(const IGpu& device) override;
+		UniquePtr<ICommandList> CreateSingleTimeCommandList(const IGpu& device) override;
 
 		ID3D12CommandAllocator* GetCommandAllocator();
 

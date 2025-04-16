@@ -14,6 +14,8 @@ namespace OSK::COLLISION {
 
 	public:
 
+		virtual ~IRayCollider() = default;
+
 		virtual RayCastResult CastRay(const Ray& ray) const = 0;
 
 	};

@@ -61,6 +61,7 @@
 
 // Transferencia de colas
 #include "CommandQueueVk.h"
+#include "UnreachableException.h"
 
 
 using namespace OSK;
@@ -165,6 +166,9 @@ static VkIndexType GetIndexTypevk(IndexType type) {
 		return VK_INDEX_TYPE_UINT16;
 	case OSK::GRAPHICS::IndexType::U32:
 		return VK_INDEX_TYPE_UINT32;
+
+	default:
+		throw UnreachableException("IndexType no reconocido.");
 	}
 }
 

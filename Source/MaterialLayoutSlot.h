@@ -31,7 +31,7 @@ namespace OSK::GRAPHICS {
 		/// <summary>
 		/// Stage del shader desde el que se accede al slot (VERTEX/FRAGMENT).
 		/// </summary>
-		ShaderStage stage;
+		ShaderStage stage{};
 
 	};
 

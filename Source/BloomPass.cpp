@@ -57,11 +57,11 @@ void BloomPass::Create(const Vector2ui& size) {
 
 	// Inicialización de instancias del material.
 	GetOutput().Create(size, resolveInfo);
-	m_resolveInstance = m_resolveMaterial->CreateInstance().GetPointer();
+	m_resolveInstance = m_resolveMaterial->CreateInstance();
 
 	for (UIndex32 pass = 0; pass < maxNumPasses; pass++) {
-		m_downscalingMaterialInstances[pass] = m_downscaleMaterial->CreateInstance().GetPointer();
-		m_upscalingMaterialInstances[pass] = m_upscaleMaterial->CreateInstance().GetPointer();
+		m_downscalingMaterialInstances[pass] = m_downscaleMaterial->CreateInstance();
+		m_upscalingMaterialInstances[pass] = m_upscaleMaterial->CreateInstance();
 	}
 }
 

@@ -18,7 +18,7 @@ MaterialInstance::~MaterialInstance() {
 }
 
 void MaterialInstance::RegisterSlot(const std::string& name) {
-	slots[name] = Engine::GetRenderer()->_CreateMaterialSlot(name, *GetLayout()).GetPointer();
+	slots[name] = Engine::GetRenderer()->_CreateMaterialSlot(name, *GetLayout());
 	slots[name]->SetDebugName(static_cast<std::string>(ownerMaterial->GetName()));
 }
 

@@ -58,14 +58,18 @@ void IGame::OnExit() {
 
 void IGame::_Run() {
 	nlohmann::json engineConfig = nlohmann::json::parse(FileIO::ReadFromFile("engine_config.json"));
-	const std::string graphicsApi = engineConfig["graphics_backend"];
 
-	if (graphicsApi == "DX12")
-		Engine::Create(RenderApiType::DX12);
-	else if (graphicsApi == "VULKAN")
-		Engine::Create(GRAPHICS::RenderApiType::VULKAN);
-	else {
-		Engine::Create(GRAPHICS::RenderApiType::VULKAN);
+	{
+		const auto& graphicsApi = engineConfig["graphics_backend"];
+		using enum OSK::GRAPHICS::RenderApiType;
+
+		if (graphicsApi == "DX12")
+			Engine::Create(DX12);
+		else if (graphicsApi == "VULKAN")
+			Engine::Create(VULKAN);
+		else {
+			Engine::Create(VULKAN);
+		}
 	}
 
 	CreateWindow();
@@ -80,22 +84,22 @@ void IGame::_Run() {
 	Engine::RegisterBuiltinShaderPasses(m_defaultContentProfile);
 	Engine::RegisterBuiltinConsoleCommands();
 
-	m_rootUiElement = new UI::FreeContainer(Engine::GetDisplay()->GetResolution().ToVector2f());
+	m_rootUiElement = MakeUnique<UI::FreeContainer>(Engine::GetDisplay()->GetResolution().ToVector2f());
 
 
-	DynamicArray<Vertex2D> vertices2d = {
+	const DynamicArray<Vertex2D> vertices2d = {
 		{ { 0, 0 }, { 0, 0 } },
 		{ { 0, 1 }, { 0, 1 } },
 		{ { 1, 0 }, { 1, 0 } },
 		{ { 1, 1 }, { 1, 1 } }
 	};
 
-	DynamicArray<TIndexSize> indices2d = {
+	const DynamicArray<TIndexSize> indices2d = {
 		0, 1, 2, 1, 2, 3
 	};
 
-	Sprite::globalVertexBuffer = Engine::GetRenderer()->GetAllocator()->CreateVertexBuffer(vertices2d, Vertex2D::GetVertexInfo(), GpuQueueType::MAIN).GetPointer();
-	Sprite::globalIndexBuffer = Engine::GetRenderer()->GetAllocator()->CreateIndexBuffer(indices2d, GpuQueueType::MAIN).GetPointer();
+	Sprite::globalVertexBuffer = Engine::GetRenderer()->GetAllocator()->CreateVertexBuffer(vertices2d, Vertex2D::GetVertexInfo(), GpuQueueType::MAIN);
+	Sprite::globalIndexBuffer  = Engine::GetRenderer()->GetAllocator()->CreateIndexBuffer(indices2d, GpuQueueType::MAIN);
 
 	OSK_ASSERT(Engine::GetDisplay()->IsOpen(), WindowNotCreatedException());
 	// OSK_ASSERT(Engine::GetRenderer()->IsOpen(), RenderedNotCreatedException());
@@ -140,6 +144,9 @@ void IGame::_Run() {
 	m_rootUiElement.Delete();
 
 	Engine::GetRenderer()->WaitForCompletion();
+
+	Sprite::globalVertexBuffer.Delete();
+	Sprite::globalIndexBuffer.Delete();
 
 	OnExit();
 

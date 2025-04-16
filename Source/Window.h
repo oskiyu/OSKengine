@@ -1,7 +1,6 @@
 #pragma once
 
 #include "Vector2.hpp"
-#include "OwnedPtr.h"
 #include "UniquePtr.hpp"
 
 #include <string>
@@ -52,7 +51,7 @@ namespace OSK::IO {
 
 
 		/// @return GLFW
-		GLFWwindow* _GetGlfw() const;
+		GLFWwindow* _GetGlfw();
 
 
 		static void ShowMessageBox(std::string_view message);
@@ -76,8 +75,17 @@ namespace OSK::IO {
 		
 		// ---------------- GLFW --------------------- //
 
-		OwnedPtr<GLFWwindow> window = nullptr;
-		OwnedPtr<GLFWmonitor> monitor = nullptr; // Para pantalla completa.
+		struct GlfwWindowDeleter {
+			void operator()(GLFWwindow*) const noexcept {} // NO-OP.
+		};
+
+		struct GlfwMonitorDeleter {
+			void operator()(GLFWmonitor*) const noexcept {} // NO-OP.
+		};
+
+		UniquePtr<GLFWwindow, GlfwWindowDeleter> window;
+		UniquePtr<GLFWmonitor, GlfwMonitorDeleter> monitor; // Para pantalla completa.
+
 		const GLFWvidmode* monitorInfo = nullptr;
 
 	};

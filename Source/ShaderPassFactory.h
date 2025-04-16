@@ -1,7 +1,7 @@
 #pragma once
 
 #include "ApiCall.h"
-#include "OwnedPtr.h"
+#include "UniquePtr.hpp"
 
 #include <string>
 
@@ -20,7 +20,7 @@ namespace OSK::GRAPHICS {
 
 	public:
 
-		using FactoryMethod = OwnedPtr<IShaderPass>(*)();
+		using FactoryMethod = UniquePtr<IShaderPass>(*)();
 
 	public:
 
@@ -55,7 +55,7 @@ namespace OSK::GRAPHICS {
 		/// (comprobable mediante ContainsShaderPass).
 		/// @throws InvalidArgumentException si se incumple la
 		/// precondición.
-		OwnedPtr<IShaderPass> CreatePass(std::string_view name) const;
+		UniquePtr<IShaderPass> CreatePass(std::string_view name) const;
 
 	private:
 

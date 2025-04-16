@@ -32,8 +32,8 @@ GpuMemoryUsageInfo GpuDx12::GetMemoryUsageInfo() const {
 	return {};
 }
 
-OwnedPtr<ICommandPool> GpuDx12::CreateGraphicsCommandPool() {
-	return new CommandPoolDx12(
+UniquePtr<ICommandPool> GpuDx12::CreateGraphicsCommandPool() {
+	return MakeUnique<CommandPoolDx12>(
 		this,
 		CommandsSupport::COMPUTE |
 		CommandsSupport::GRAPHICS |
@@ -42,8 +42,8 @@ OwnedPtr<ICommandPool> GpuDx12::CreateGraphicsCommandPool() {
 		GpuQueueType::MAIN);
 }
 
-OwnedPtr<ICommandPool> GpuDx12::CreateComputeCommandPool() {
-	return new CommandPoolDx12(
+UniquePtr<ICommandPool> GpuDx12::CreateComputeCommandPool() {
+	return MakeUnique<CommandPoolDx12>(
 		this,
 		CommandsSupport::COMPUTE |
 		CommandsSupport::GRAPHICS |
@@ -52,13 +52,13 @@ OwnedPtr<ICommandPool> GpuDx12::CreateComputeCommandPool() {
 		GpuQueueType::MAIN);
 }
 
-std::optional<OwnedPtr<ICommandPool>> GpuDx12::CreateTransferOnlyCommandPool() {
-	return new CommandPoolDx12(this, CommandsSupport::TRANSFER, GpuQueueType::ASYNC_TRANSFER);
+std::optional<UniquePtr<ICommandPool>> GpuDx12::CreateTransferOnlyCommandPool() {
+	return MakeUnique<CommandPoolDx12>(this, CommandsSupport::TRANSFER, GpuQueueType::ASYNC_TRANSFER);
 }
 
-OwnedPtr<IGpuImageSampler> GpuDx12::CreateSampler(const GpuImageSamplerDesc& info) const {
+UniquePtr<IGpuImageSampler> GpuDx12::CreateSampler(const GpuImageSamplerDesc& info) const {
 	OSK_ASSERT(false, NotImplementedException());
-	return nullptr;
+	return UniquePtr<IGpuImageSampler>();
 }
 
 ComPtr<IDXGIAdapter4> GpuDx12::ChooseDeviceAdapter(ComPtr<IDXGIFactory4> factory) {

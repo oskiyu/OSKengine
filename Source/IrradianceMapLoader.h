@@ -73,8 +73,8 @@ namespace OSK::ASSETS {
 		GRAPHICS::Material* cubemapGenMaterial = nullptr;
 		GRAPHICS::Material* cubemapConvolutionMaterial = nullptr;
 
-		UniquePtr<GRAPHICS::MaterialInstance> cubemapGenMaterialInstance = nullptr;
-		UniquePtr<GRAPHICS::MaterialInstance> cubemapConvolutionMaterialInstance = nullptr;
+		UniquePtr<GRAPHICS::MaterialInstance> cubemapGenMaterialInstance;
+		UniquePtr<GRAPHICS::MaterialInstance> cubemapConvolutionMaterialInstance;
 
 		/// <summary>
 		/// En este render target se renderiza el cubemap, que después

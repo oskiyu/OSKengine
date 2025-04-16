@@ -114,7 +114,7 @@ RendererVk::RendererVk(bool requestRayTracing) : IRenderer(RenderApiType::VULKAN
 	m_implicitResizeHandling = true;
 }
 
-void RendererVk::Initialize(const std::string& appName, const Version& version, const IO::IDisplay& display, PresentMode mode) {	
+void RendererVk::Initialize(const std::string& appName, const Version& version, IO::IDisplay& display, PresentMode mode) {	
 	CreateInstance(appName, version);
 
 	if (AreValidationLayersAvailable())
@@ -144,36 +144,36 @@ void RendererVk::Initialize(const std::string& appName, const Version& version, 
 			i->CreateTargetImage(display.GetResolution());
 }
 
-OwnedPtr<ICommandPool> RendererVk::CreateCommandPool(const ICommandQueue* targetQueueType) {
-	return new CommandPoolVk(
+UniquePtr<ICommandPool> RendererVk::CreateCommandPool(const ICommandQueue* targetQueueType) {
+	return MakeUnique<CommandPoolVk>(
 		*GetGpu()->As<GpuVk>(),
 		targetQueueType->As<CommandQueueVk>()->GetFamily(),
 		targetQueueType->GetQueueType());
 }
 
-OwnedPtr<IGraphicsPipeline> RendererVk::_CreateGraphicsPipeline(const PipelineCreateInfo& pipelineInfo, const MaterialLayout& layout, const VertexInfo& vertexInfo) {
-	auto* pipeline = new GraphicsPipelineVk;
+UniquePtr<IGraphicsPipeline> RendererVk::_CreateGraphicsPipeline(const PipelineCreateInfo& pipelineInfo, const MaterialLayout& layout, const VertexInfo& vertexInfo) {
+	auto pipeline = MakeUnique<GraphicsPipelineVk>();
 	pipeline->Create(&layout, GetGpu(), pipelineInfo, vertexInfo);
 
 	return pipeline;
 }
 
-OwnedPtr<IMeshPipeline> RendererVk::_CreateMeshPipeline(const PipelineCreateInfo& pipelineInfo, const MaterialLayout& layout) {
-	auto* pipeline = new MeshPipelineVk;
+UniquePtr<IMeshPipeline> RendererVk::_CreateMeshPipeline(const PipelineCreateInfo& pipelineInfo, const MaterialLayout& layout) {
+	auto pipeline = MakeUnique<MeshPipelineVk>();
 	pipeline->Create(&layout, GetGpu(), pipelineInfo);
 
 	return pipeline;
 }
 
-OwnedPtr<IRaytracingPipeline> RendererVk::_CreateRaytracingPipeline(const PipelineCreateInfo& pipelineInfo, const MaterialLayout& layout, const VertexInfo& vertexTypeName) {
-	auto* pipeline = new RaytracingPipelineVk();
+UniquePtr<IRaytracingPipeline> RendererVk::_CreateRaytracingPipeline(const PipelineCreateInfo& pipelineInfo, const MaterialLayout& layout, const VertexInfo& vertexTypeName) {
+	auto pipeline = MakeUnique<RaytracingPipelineVk>();
 	pipeline->Create(layout, pipelineInfo);
 
 	return pipeline;
 }
 
-OwnedPtr<IComputePipeline> RendererVk::_CreateComputePipeline(const PipelineCreateInfo& pipelineInfo, const MaterialLayout& layout) {
-	auto* pipeline = new ComputePipelineVk();
+UniquePtr<IComputePipeline> RendererVk::_CreateComputePipeline(const PipelineCreateInfo& pipelineInfo, const MaterialLayout& layout) {
+	auto pipeline = MakeUnique<ComputePipelineVk>();
 	pipeline->Create(layout, pipelineInfo);
 
 	return pipeline;
@@ -220,7 +220,7 @@ void RendererVk::HandleResize(const Vector2ui& resolution) {
 	IRenderer::HandleResize(resolution);
 }
 
-void RendererVk::SubmitSingleUseCommandList(OwnedPtr<ICommandList> commandList) {
+void RendererVk::SubmitSingleUseCommandList(UniquePtr<ICommandList>&& commandList) {
 	std::lock_guard lock(m_queueSubmitMutex.mutex);
 
 	const auto cmdIndex = commandList->_GetCommandListIndex();
@@ -261,7 +261,7 @@ void RendererVk::SubmitSingleUseCommandList(OwnedPtr<ICommandList> commandList) 
 		commandList->GetOwnerPool()->As<CommandPoolVk>()->GetCommandPool(),
 		1, &cmdBuffer);
 
-	m_singleTimeCommandLists.Insert(commandList.GetPointer());
+	m_singleTimeCommandLists.Insert(std::move(commandList));
 }
 
 void RendererVk::CreateInstance(const std::string& appName, const Version& version) {
@@ -348,7 +348,7 @@ void RendererVk::CreateSwapchain(PresentMode mode, const Vector2ui& resolution) 
 		queueIndices.Insert(GetPresentationQueue()->As<CommandQueueVk>()->GetFamily().familyIndex);
 	}
 
-	_SetSwapchain(new SwapchainVk(
+	_SetSwapchain(MakeUnique<SwapchainVk>(
 		mode,
 		Format::BGRA8_SRGB,
 		*GetGpu()->As<GpuVk>(),
@@ -372,7 +372,7 @@ void RendererVk::SetupDebugLogging() {
 	Engine::GetLogger()->InfoLog("Capas de validación activas.");
 }
 
-void RendererVk::CreateSurface(const IO::IDisplay& display) {
+void RendererVk::CreateSurface(IO::IDisplay& display) {
 	const VkResult result = glfwCreateWindowSurface(m_instance, display.As<IO::Window>()->_GetGlfw(), nullptr, &m_surface);
 	OSK_ASSERT(result == VK_SUCCESS, RendererCreationException("No se ha podido crear la superficie", result));
 }
@@ -418,10 +418,10 @@ void RendererVk::ChooseGpu() {
 
 	Engine::GetLogger()->InfoLog("GPU elegida: " + std::string(info.properties.deviceName));
 
-	auto* gpuVk = new GpuVk(gpu, m_surface);
+	auto gpuVk = MakeUnique<GpuVk>(gpu, m_surface);
 	gpuVk->CreateLogicalDevice();
 
-	_SetGpu(gpuVk);
+	_SetGpu(std::move(gpuVk));
 }
 
 void RendererVk::CreateCommandQueues() {
@@ -444,7 +444,7 @@ void RendererVk::CreateCommandQueues() {
 		// Existe una familia con soporte para todos los comandos:
 		// usar cola unificada.
 
-		_SetUnifiedCommandQueue(new CommandQueueVk(unifiedFamiliesList[0], 0, GpuQueueType::MAIN,  gpu));
+		_SetUnifiedCommandQueue(MakeUnique<CommandQueueVk>(unifiedFamiliesList[0], 0, GpuQueueType::MAIN,  gpu));
 
 		RegisterUnifiedCommandPool(GetUnifiedQueue());
 
@@ -461,7 +461,7 @@ void RendererVk::CreateCommandQueues() {
 			CommandsSupport::COMPUTE |
 			CommandsSupport::TRANSFER)[0];
 
-		_SetGraphicsCommputeCommandQueue(new CommandQueueVk(graphicsAndComputeFamily, 0, GpuQueueType::MAIN, gpu));
+		_SetGraphicsCommputeCommandQueue(MakeUnique<CommandQueueVk>(graphicsAndComputeFamily, 0, GpuQueueType::MAIN, gpu));
 
 		RegisterGraphicsCommputeCommandPool(GetGraphicsComputeQueue());
 
@@ -469,7 +469,7 @@ void RendererVk::CreateCommandQueues() {
 		const QueueFamily presentationFamily = queueFamilies.GetFamilies(
 			CommandsSupport::PRESENTATION)[0];
 
-		_SetPresentationCommandQueue(new CommandQueueVk(presentationFamily, 0, GpuQueueType::PRESENTATION, gpu));
+		_SetPresentationCommandQueue(MakeUnique<CommandQueueVk>(presentationFamily, 0, GpuQueueType::PRESENTATION, gpu));
 
 		_SetMainCommandList(GetGraphicsComputeCommandPool(std::this_thread::get_id())->CreateCommandList(gpu));
 
@@ -482,7 +482,7 @@ void RendererVk::CreateCommandQueues() {
 
 	for (const auto& family : transferFamilies) {
 		if (family.support == CommandsSupport::TRANSFER) {
-			_SetTransferOnlyCommandQueue(new CommandQueueVk(family, 0, GpuQueueType::ASYNC_TRANSFER, gpu));
+			_SetTransferOnlyCommandQueue(MakeUnique<CommandQueueVk>(family, 0, GpuQueueType::ASYNC_TRANSFER, gpu));
 			RegisterTransferOnlyCommandPool(GetTransferOnlyQueue());
 			OSK::Engine::GetLogger()->InfoLog("Uso de cola GPU de transferencia.");
 
@@ -524,8 +524,8 @@ bool RendererVk::AreValidationLayersAvailable() const {
 #endif 
 }
 
-OwnedPtr<IMaterialSlot> RendererVk::_CreateMaterialSlot(const std::string& name, const MaterialLayout& layout) const {
-	return new MaterialSlotVk(name, &layout);
+UniquePtr<IMaterialSlot> RendererVk::_CreateMaterialSlot(const std::string& name, const MaterialLayout& layout) const {
+	return MakeUnique<MaterialSlotVk>(name, &layout);
 }
 
 void RendererVk::CreateSyncPrimitives() {
@@ -581,14 +581,11 @@ void RendererVk::CreateSyncPrimitives() {
 
 	// Las primeras fencees en enviarse deben estár UNSIGNALED,
 	// pero las hemos creado signaled.
-	const VkFence firstFencesToReset[] = {
-		m_fullyRenderedFences[0]
-	};
-	vkResetFences(logicalDevice, _countof(firstFencesToReset), firstFencesToReset);
+	vkResetFences(logicalDevice, 1, &m_fullyRenderedFences[0]);
 }
 
 void RendererVk::CreateGpuMemoryAllocator() {
-	_SetMemoryAllocator(new GpuMemoryAllocatorVk(GetGpu()));
+	_SetMemoryAllocator(MakeUnique<GpuMemoryAllocatorVk>(GetGpu()));
 }
 
 void RendererVk::PresentFrame() {

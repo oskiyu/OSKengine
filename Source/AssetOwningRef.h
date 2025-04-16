@@ -132,10 +132,10 @@ namespace OSK::ASSETS {
 
 	private:
 
-		UniquePtr<std::atomic<USize64>> m_count = new std::atomic<USize64>(0);
-		UniquePtr<TAssetType> m_data = nullptr;
+		UniquePtr<std::atomic<USize64>> m_count = MakeUnique<std::atomic<USize64>>(0);
+		UniquePtr<TAssetType> m_data;
 
-		UniquePtr<std::atomic<bool>> m_isLoaded = new std::atomic<bool>(false);
+		UniquePtr<std::atomic<bool>> m_isLoaded = MakeUnique<std::atomic<bool>>(false);
 
 	};
 

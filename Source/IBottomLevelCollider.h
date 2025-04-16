@@ -9,7 +9,7 @@
 #include "IRayCollider.h"
 #include "Transform3D.h"
 #include "DetailedCollisionInfo.h"
-#include "OwnedPtr.h"
+#include "UniquePtr.hpp"
 
 #include "Gjk.h"
 #include "Sat.h"
@@ -34,7 +34,7 @@ namespace OSK::COLLISION {
 
 		OSK_DEFINE_AS(IBottomLevelCollider);
 
-		virtual OwnedPtr<IBottomLevelCollider> CreateCopy() const = 0;
+		virtual UniquePtr<IBottomLevelCollider> CreateCopy() const = 0;
 
 
 		/// @brief Comprueba si este área de colisión está en contacto

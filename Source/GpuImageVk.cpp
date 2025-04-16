@@ -137,7 +137,7 @@ VkImageView GpuImageVk::GetSwapchainView() const {
 	return m_swapchainView;
 }
 
-OwnedPtr<IGpuImageView> GpuImageVk::CreateView(const GpuImageViewConfig& viewConfig) const {
+UniquePtr<IGpuImageView> GpuImageVk::CreateView(const GpuImageViewConfig& viewConfig) const {
 	VkImageView view = VK_NULL_HANDLE;
 	
 	VkImageViewCreateInfo viewInfo{};
@@ -174,7 +174,7 @@ OwnedPtr<IGpuImageView> GpuImageVk::CreateView(const GpuImageViewConfig& viewCon
 
 	OSK_ASSERT(result == VK_SUCCESS, ImageViewCreationException(result));
 
-	return new GpuImageViewVk(view, *this, viewConfig);
+	return MakeUnique<GpuImageViewVk>(view, *this, viewConfig);
 }
 
 void GpuImageVk::SetDebugName(const std::string& name) {

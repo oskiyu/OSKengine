@@ -11,27 +11,27 @@ BorderLayout::BorderLayout(const Vector2f& size) : IContainer(size) {
 
 }
 
-void BorderLayout::AddChild_InPosition(OwnedPtr<IElement> child, Position position) {
+void BorderLayout::AddChild_InPosition(UniquePtr<IElement>&& child, Position position) {
 	switch (position) {
 	case OSK::UI::BorderLayout::Position::NORTH:
 		m_northElement = child.GetPointer();
-		AddChild("0north", child);
+		AddChild("0north", std::move(child));
 		break;
 	case OSK::UI::BorderLayout::Position::SOUTH:
 		m_southElement = child.GetPointer();
-		AddChild("1south", child);
+		AddChild("1south", std::move(child));
 		break;
 	case OSK::UI::BorderLayout::Position::EAST:
 		m_eastElement = child.GetPointer();
-		AddChild("2east", child);
+		AddChild("2east", std::move(child));
 		break;
 	case OSK::UI::BorderLayout::Position::WEST:
 		m_westElement = child.GetPointer();
-		AddChild("3west", child);
+		AddChild("3west", std::move(child));
 		break;
 	case OSK::UI::BorderLayout::Position::CENTER:
 		m_centerElement = child.GetPointer();
-		AddChild("4center", child);
+		AddChild("4center", std::move(child));
 		break;
 	default:
 		break;

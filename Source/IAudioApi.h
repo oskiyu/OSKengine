@@ -4,7 +4,6 @@
 #include "DefineAs.h"
 #include "DefineConstructors.h"
 
-#include "OwnedPtr.h"
 #include "UniquePtr.hpp"
 
 #include "IAudioDevice.h"
@@ -83,7 +82,7 @@ namespace OSK::AUDIO {
 
 
 		/// @return Nueva fuente de audio.
-		virtual OwnedPtr<IAudioSource> CreateNewSource() const = 0;
+		virtual UniquePtr<IAudioSource> CreateNewSource() const = 0;
 
 	protected:
 
@@ -94,7 +93,7 @@ namespace OSK::AUDIO {
 		/// device por defecto.
 		virtual void RegisterAllDevices() = 0;
 
-		void RegisterDevice(OwnedPtr<IAudioDevice> device);
+		void RegisterDevice(UniquePtr<IAudioDevice>&& device);
 
 		void SetDefaultDeviceName(const std::string& name);
 

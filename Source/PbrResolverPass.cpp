@@ -21,7 +21,7 @@ void PbrResolverPass::Load() {
 	m_passMaterial = Engine::GetRenderer()->GetMaterialSystem()->LoadMaterial("Resources/Materials/PBR/Deferred/deferred_resolve.json");
 
 	for (auto& mInstance : m_materialInstances) {
-		mInstance = m_passMaterial->CreateInstance().GetPointer();
+		mInstance = m_passMaterial->CreateInstance();
 	}
 }
 

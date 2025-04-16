@@ -48,8 +48,7 @@ void HbaoPass::Create(const Vector2ui& size) {
 			sizeof(glm::mat4) * 2 + sizeof(float), GPU_MEMORY_NO_ALIGNMENT,
 			GpuBufferUsage::UNIFORM_BUFFER,
 			GpuSharedMemoryType::GPU_AND_CPU,
-			GpuQueueType::MAIN
-		).GetPointer();
+			GpuQueueType::MAIN);
 
 		m_cameraBuffers[i]->ResetCursor();
 		m_cameraBuffers[i]->MapMemory();
@@ -149,15 +148,15 @@ Vector2ui HbaoPass::CalcualteTargetSize(Vector2ui nativeRes) const {
 void HbaoPass::LoadMaterials() {
 	m_hbaoMaterial = Engine::GetRenderer()->GetMaterialSystem()->LoadMaterial(HbaoMaterial);
 	for (auto& mInstance : m_hbaoMaterialInstances) {
-		mInstance = m_hbaoMaterial->CreateInstance().GetPointer();
+		mInstance = m_hbaoMaterial->CreateInstance();
 	}
 
 	m_blurMaterial = Engine::GetRenderer()->GetMaterialSystem()->LoadMaterial(BlurMaterial);
-	m_blurMaterialInstanceA = m_blurMaterial->CreateInstance().GetPointer();
-	m_blurMaterialInstanceB = m_blurMaterial->CreateInstance().GetPointer();
+	m_blurMaterialInstanceA = m_blurMaterial->CreateInstance();
+	m_blurMaterialInstanceB = m_blurMaterial->CreateInstance();
 
 	m_resolveMaterial = Engine::GetRenderer()->GetMaterialSystem()->LoadMaterial(ResolveMaterial);
-	m_resolveMaterialInstance = m_resolveMaterial->CreateInstance().GetPointer();
+	m_resolveMaterialInstance = m_resolveMaterial->CreateInstance();
 }
 
 void HbaoPass::SetupBlurChain() {

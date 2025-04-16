@@ -50,8 +50,8 @@ IrradianceMapLoader::IrradianceMapLoader() {
 	cubemapGenMaterial = Engine::GetRenderer()->GetMaterialSystem()->LoadMaterial("Resources/Materials/AssetsGen/material_irradiance_gen.json");
 	cubemapConvolutionMaterial = Engine::GetRenderer()->GetMaterialSystem()->LoadMaterial("Resources/Materials/AssetsGen/material_irradiance_convolution.json");
 
-	cubemapGenMaterialInstance = cubemapGenMaterial->CreateInstance().GetPointer();
-	cubemapConvolutionMaterialInstance = cubemapConvolutionMaterial->CreateInstance().GetPointer();
+	cubemapGenMaterialInstance = cubemapGenMaterial->CreateInstance();
+	cubemapConvolutionMaterialInstance = cubemapConvolutionMaterial->CreateInstance();
 
 	RenderTargetAttachmentInfo colorInfo{ .format = Format::RGBA16_SFLOAT, .usage = GpuImageUsage::TRANSFER_SOURCE, .name = "Irradiance Map Color Target"};
 	RenderTargetAttachmentInfo depthInfo{ .format = Format::D16_UNORM , .name = "Irradiance Map Depth Target" };
@@ -82,10 +82,10 @@ void IrradianceMapLoader::Load(const std::string& assetFilePath, IrradianceMap* 
 	GpuImageCreateInfo imageInfo = GpuImageCreateInfo::CreateDefault2D(size2D, Format::RGBA32_SFLOAT, imageUsage);
 	
 	// Imagen cargada desde disco (en formato 2D).
-	UniquePtr<GpuImage> originalImage = Engine::GetRenderer()->GetAllocator()->CreateImage(imageInfo).GetPointer();
+	UniquePtr<GpuImage> originalImage = Engine::GetRenderer()->GetAllocator()->CreateImage(imageInfo);
 	originalImage->SetDebugName("Irradiance Map Original Image");
 
-	OwnedPtr<ICommandList> uploadCmdList = Engine::GetRenderer()->CreateSingleUseCommandList(GpuQueueType::MAIN).GetPointer();
+	UniquePtr<ICommandList> uploadCmdList = Engine::GetRenderer()->CreateSingleUseCommandList(GpuQueueType::MAIN);
 	uploadCmdList->Reset();
 	uploadCmdList->Start();
 
@@ -102,17 +102,17 @@ void IrradianceMapLoader::Load(const std::string& assetFilePath, IrradianceMap* 
 		GpuBarrierInfo(GpuCommandStage::NONE, GpuAccessStage::NONE));
 
 	uploadCmdList->Close();
-	Engine::GetRenderer()->SubmitSingleUseCommandList(uploadCmdList.GetPointer());
+	Engine::GetRenderer()->SubmitSingleUseCommandList(std::move(uploadCmdList));
 
 	// Crear cubemap y renderizarlo.
-	OwnedPtr<GpuImage> intermediateCubemap = Engine::GetRenderer()->GetAllocator()->CreateCubemapImage(
+	UniquePtr<GpuImage> intermediateCubemap = Engine::GetRenderer()->GetAllocator()->CreateCubemapImage(
 		irradianceLayerSize, 
 		Format::RGBA16_SFLOAT, 
 		GpuImageUsage::TRANSFER_SOURCE | GpuImageUsage::TRANSFER_DESTINATION | GpuImageUsage::SAMPLED | GpuImageUsage::CUBEMAP, 
 		GpuSharedMemoryType::GPU_ONLY,
-		GpuQueueType::MAIN).GetPointer();
+		GpuQueueType::MAIN);
 
-	OwnedPtr<GpuImage> finalImage = Engine::GetRenderer()->GetAllocator()->CreateCubemapImage(
+	UniquePtr<GpuImage> finalImage = Engine::GetRenderer()->GetAllocator()->CreateCubemapImage(
 		irradianceLayerSize, 
 		Format::RGBA16_SFLOAT, 
 		GpuImageUsage::TRANSFER_DESTINATION | GpuImageUsage::SAMPLED | GpuImageUsage::CUBEMAP, 
@@ -133,7 +133,7 @@ void IrradianceMapLoader::Load(const std::string& assetFilePath, IrradianceMap* 
 	cubemapConvolutionMaterialInstance->GetSlot("global")->FlushUpdate();
 
 	// Renderizado
-	OwnedPtr<ICommandList> cmdList = Engine::GetRenderer()->CreateSingleUseCommandList(GpuQueueType::MAIN).GetPointer();
+	UniquePtr<ICommandList> cmdList = Engine::GetRenderer()->CreateSingleUseCommandList(GpuQueueType::MAIN);
 	cmdList->Reset();
 	cmdList->Start();
 
@@ -154,10 +154,10 @@ void IrradianceMapLoader::Load(const std::string& assetFilePath, IrradianceMap* 
 		GpuImageRange{ .baseLayer = 0, .numLayers = 6, .baseMipLevel = 0, .numMipLevels = ALL_MIP_LEVELS });
 
 	cmdList->Close();
-	Engine::GetRenderer()->SubmitSingleUseCommandList(cmdList);
+	Engine::GetRenderer()->SubmitSingleUseCommandList(std::move(cmdList));
 
-	asset->_SetGpuImage(finalImage);
-	asset->_SetOriginalCubemap(intermediateCubemap);
+	asset->_SetGpuImage(std::move(finalImage));
+	asset->_SetOriginalCubemap(std::move(intermediateCubemap));
 
 	stbi_image_free(pixels);
 }

@@ -21,8 +21,8 @@ OSK::Editor::Views::RenderBoundsRenderSystemView::RenderBoundsRenderSystemView(c
 	m_materialNameView->SetFont(font);
 	m_materialNameView->SetFontSize(Editor::UI::Constants::SecondaryFontSize);
 
-	AddChild("m_cameraObjectView", m_cameraObjectView);
-	AddChild("m_materialNameView", m_materialNameView);
+	AddChild("m_cameraObjectView", UniquePtr<OSK::UI::IElement>(m_cameraObjectView));
+	AddChild("m_materialNameView", UniquePtr<OSK::UI::IElement>(m_materialNameView));
 
 	AdjustSizeToChildren();
 }

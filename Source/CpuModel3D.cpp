@@ -117,3 +117,11 @@ const DynamicArray<GRAPHICS::Animation>& CpuModel3D::GetAnimations() const {
 const DynamicArray<GRAPHICS::AnimationSkin>& CpuModel3D::GetAnimationSkins() const {
 	return m_animationSkins;
 }
+
+void CpuModel3D::SetInitialTransform(const glm::mat4& initialTransform) {
+	m_initialTransform = initialTransform;
+}
+
+const glm::mat4& CpuModel3D::GetInitialTransform() const {
+	return m_initialTransform;
+}

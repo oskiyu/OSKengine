@@ -15,8 +15,8 @@ using namespace OSK;
 using namespace OSK::COLLISION;
 using namespace OSK::PERSISTENCE;
 
-OwnedPtr<ITopLevelCollider> AxisAlignedBoundingBox::CreateCopy() const {
-	return new AxisAlignedBoundingBox(*this);
+UniquePtr<ITopLevelCollider> AxisAlignedBoundingBox::CreateCopy() const {
+	return MakeUnique<AxisAlignedBoundingBox>(AxisAlignedBoundingBox(*this));
 }
 
 AxisAlignedBoundingBox::AxisAlignedBoundingBox(const Vector3f& size) {

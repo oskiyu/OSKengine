@@ -110,6 +110,7 @@ namespace OSK::GRAPHICS {
 		std::unordered_map<std::string, UIndex64, StringHasher, std::equal_to<>> m_animationsByName;
 
 		glm::mat4 m_initialTransform = glm::mat4(1.0f);
+		glm::mat4 m_inverseInitialTransform = glm::mat4(1.0f);
 
 	};
 

@@ -17,6 +17,7 @@
 #include "IPostProcessPass.h"
 
 #include "InvalidArgumentException.h"
+#include "UnreachableException.h"
 
 using namespace OSK;
 using namespace OSK::IO;
@@ -99,7 +100,7 @@ void IRenderer::UploadLayeredImageToGpu(GpuImage* destination, const TByte* data
 	for (UIndex32 i = 0; i < numLayers; i++)
 		cmdList->CopyBufferToImage(stagingBuffer.GetValue(), destination, i, offsetPerIteration * i);
 
-	cmdList->RegisterStagingBuffer(stagingBuffer);
+	cmdList->RegisterStagingBuffer(std::move(stagingBuffer));
 }
 
 void IRenderer::SetPresentMode(PresentMode mode) {
@@ -126,7 +127,7 @@ void IRenderer::UploadCubemapImageToGpu(GpuImage* destination, const TByte* data
 	UploadLayeredImageToGpu(destination, data, numBytes, 6, cmdList);
 }
 
-OwnedPtr<ICommandList> IRenderer::CreateSingleUseCommandList(GpuQueueType queueType, std::thread::id threadId) {
+UniquePtr<ICommandList> IRenderer::CreateSingleUseCommandList(GpuQueueType queueType, std::thread::id threadId) {
 	ICommandPool* creator = nullptr;
 
 	switch (queueType) {
@@ -166,7 +167,8 @@ MaterialSystem* IRenderer::GetMaterialSystem() {
 void IRenderer::CreateMainRenderpass() {
 	RenderTargetAttachmentInfo colorInfo{ .format = m_swapchain->GetColorFormat(), .name = "Final Color Target" };
 	RenderTargetAttachmentInfo depthInfo{ .format = Format::D32S8_SFLOAT_SUINT, .name = "Final Depth Target" };
-	m_finalRenderTarget = new RenderTarget;
+
+	m_finalRenderTarget = MakeUnique<RenderTarget>();
 	m_finalRenderTarget->CreateAsFinal(m_swapchain->GetImage(0)->GetSize2D(),
 		{ colorInfo }, depthInfo);
 }
@@ -229,11 +231,12 @@ const IGpuImageSampler& IRenderer::GetSampler(const GpuImageSamplerDesc& info) c
 	// Cerramos en modo escritura.
 	std::unique_lock lock(m_samplerMapMutex);
 
-	OwnedPtr<IGpuImageSampler> sampler = m_currentGpu->CreateSampler(info);
+	UniquePtr<IGpuImageSampler> sampler = m_currentGpu->CreateSampler(info);
+	auto& output = sampler.GetValue();
 
-	m_samplers[info] = sampler.GetPointer();
+	m_samplers[info] = std::move(sampler);
 
-	return sampler.GetValue();
+	return output;
 }
 
 void IRenderer::RegisterUnifiedCommandPool(const ICommandQueue* unifiedQueue) {
@@ -249,36 +252,36 @@ void IRenderer::RegisterTransferOnlyCommandPool(const ICommandQueue* transferQue
 }
 
 
-void IRenderer::_SetUnifiedCommandQueue(OwnedPtr<ICommandQueue> commandQueue) {
-	m_unifiedQueue = commandQueue.GetPointer();
+void IRenderer::_SetUnifiedCommandQueue(UniquePtr<ICommandQueue>&& commandQueue) {
+	m_unifiedQueue = std::move(commandQueue);
 }
 
-void IRenderer::_SetGraphicsCommputeCommandQueue(OwnedPtr<ICommandQueue> commandQueue) {
-	m_graphicsComputeQueue = commandQueue.GetPointer();
+void IRenderer::_SetGraphicsCommputeCommandQueue(UniquePtr<ICommandQueue>&& commandQueue) {
+	m_graphicsComputeQueue = std::move(commandQueue);
 }
 
-void IRenderer::_SetPresentationCommandQueue(OwnedPtr<ICommandQueue> commandQueue) {
-	m_presentationQueue = commandQueue.GetPointer();
+void IRenderer::_SetPresentationCommandQueue(UniquePtr<ICommandQueue>&& commandQueue) {
+	m_presentationQueue = std::move(commandQueue);
 }
 
-void IRenderer::_SetTransferOnlyCommandQueue(OwnedPtr<ICommandQueue> commandQueue) {
-	m_transferOnlyQueue = commandQueue.GetPointer();
+void IRenderer::_SetTransferOnlyCommandQueue(UniquePtr<ICommandQueue>&& commandQueue) {
+	m_transferOnlyQueue = std::move(commandQueue);
 }
 
-void IRenderer::_SetMainCommandList(OwnedPtr<ICommandList> commandList) {
-	m_mainCommandList = commandList.GetPointer();
+void IRenderer::_SetMainCommandList(UniquePtr<ICommandList>&& commandList) {
+	m_mainCommandList = std::move(commandList);
 }
 
-void IRenderer::_SetGpu(OwnedPtr<IGpu> gpu) {
-	m_currentGpu = gpu.GetPointer();
+void IRenderer::_SetGpu(UniquePtr<IGpu>&& gpu) {
+	m_currentGpu = std::move(gpu);
 }
 
-void IRenderer::_SetMemoryAllocator(OwnedPtr<IGpuMemoryAllocator> allocator) {
-	m_gpuMemoryAllocator = allocator.GetPointer();
+void IRenderer::_SetMemoryAllocator(UniquePtr<IGpuMemoryAllocator>&& allocator) {
+	m_gpuMemoryAllocator = std::move(allocator);
 }
 
-void IRenderer::_SetSwapchain(OwnedPtr<ISwapchain> swapchain) {
-	m_swapchain = swapchain.GetPointer();
+void IRenderer::_SetSwapchain(UniquePtr<ISwapchain>&& swapchain) {
+	m_swapchain = std::move(swapchain);
 }
 
 
@@ -329,23 +332,36 @@ const ICommandQueue* IRenderer::GetMainRenderingQueue() const {
 }
 
 const ICommandQueue* IRenderer::GetOptimalQueue(GpuQueueType type) const {
-	if (type == GpuQueueType::ASYNC_TRANSFER) {
+	switch (type) {
+
+	case OSK::GRAPHICS::GpuQueueType::MAIN:
+		return GetMainRenderingQueue();
+
+		break;
+
+	case OSK::GRAPHICS::GpuQueueType::PRESENTATION:
+		if (type == GpuQueueType::PRESENTATION) {
+			return UseUnifiedCommandQueue()
+				? GetUnifiedQueue()
+				: GetPresentationQueue();
+		}
+
+		break;
+
+	case OSK::GRAPHICS::GpuQueueType::ASYNC_TRANSFER:
+
 		if (HasTransferOnlyCommandPool()) {
 			return GetTransferOnlyQueue();
 		}
 		else {
 			return GetMainRenderingQueue();
 		}
-	}
 
-	if (type == GpuQueueType::MAIN) {
-		return GetMainRenderingQueue();
-	}
+		break;
 
-	if (type == GpuQueueType::PRESENTATION) {
-		return UseUnifiedCommandQueue()
-			? GetUnifiedQueue()
-			: GetPresentationQueue();
+	default:
+		throw UnreachableException("GpuQueueType no reconocido.");
+		return nullptr;
 	}
 }
 

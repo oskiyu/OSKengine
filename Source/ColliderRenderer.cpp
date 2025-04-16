@@ -60,8 +60,8 @@ ColliderRenderSystem::ColliderRenderSystem() {
 			->LoadMaterial("Resources/Materials/Collision/collision_point_material.json");
 
 		for (UIndex32 i = 0; i < MAX_RESOURCES_IN_FLIGHT; i++) {
-			m_materialInstances[i]		 = material->CreateInstance().GetPointer();
-			m_pointsMaterialInstances[i] = pointMaterial->CreateInstance().GetPointer();
+			m_materialInstances[i]		 = material->CreateInstance();
+			m_pointsMaterialInstances[i] = pointMaterial->CreateInstance();
 		}
 	}
 
@@ -77,7 +77,7 @@ ColliderRenderSystem::ColliderRenderSystem() {
 
 		for (UIndex32 i = 0; i < MAX_RESOURCES_IN_FLIGHT; i++) {
 			IGpuMemoryAllocator* allocator = Engine::GetRenderer()->GetAllocator();
-			OwnedPtr<GpuBuffer> buffer = allocator->CreateUniformBuffer(cameraBufferSize, GpuQueueType::MAIN);
+			UniquePtr<GpuBuffer> buffer = allocator->CreateUniformBuffer(cameraBufferSize, GpuQueueType::MAIN);
 
 			m_materialInstances[i]->GetSlot("global")->SetUniformBuffer("camera", buffer.GetValue());
 			m_materialInstances[i]->GetSlot("global")->FlushUpdate();
@@ -85,7 +85,7 @@ ColliderRenderSystem::ColliderRenderSystem() {
 			m_pointsMaterialInstances[i]->GetSlot("global")->SetUniformBuffer("camera", buffer.GetValue());
 			m_pointsMaterialInstances[i]->GetSlot("global")->FlushUpdate();
 
-			m_cameraGpuBuffers[i] = buffer.GetPointer();
+			m_cameraGpuBuffers[i] = std::move(buffer);
 		}
 	}
 }
@@ -275,8 +275,8 @@ void ColliderRenderSystem::SetupBottomLevelModel(GameObjectIndex obj) {
 
 	// Listas con los vertex e index buffers de la entidad.
 	// Cada ConvexVolume tendrá uno.
-	DynamicArray<OwnedPtr<GpuBuffer>> vertexBuffers;
-	DynamicArray<OwnedPtr<GpuBuffer>> indexBuffers;
+	DynamicArray<UniquePtr<GpuBuffer>> vertexBuffers;
+	DynamicArray<UniquePtr<GpuBuffer>> indexBuffers;
 
 	
 	for (UIndex32 c = 0; c < collider.GetBottomLevelCollidersCount(); c++) {
@@ -309,12 +309,12 @@ void ColliderRenderSystem::SetupBottomLevelModel(GameObjectIndex obj) {
 		}
 
 		// Creamos los buffers.
-		vertexBuffers.Insert(Engine::GetRenderer()->GetAllocator()->CreateVertexBuffer(
+		vertexBuffers.Insert(std::move(Engine::GetRenderer()->GetAllocator()->CreateVertexBuffer(
 			vertices, 
 			Vertex3D::GetVertexInfo(),
-			GpuQueueType::MAIN).GetPointer());
+			GpuQueueType::MAIN)));
 
-		indexBuffers.Insert(Engine::GetRenderer()->GetAllocator()->CreateIndexBuffer(indices, GpuQueueType::MAIN).GetPointer());
+		indexBuffers.Insert(std::move(Engine::GetRenderer()->GetAllocator()->CreateIndexBuffer(indices, GpuQueueType::MAIN)));
 	}
 
 	// Si no existían las listas, las introducimos primero.
@@ -323,12 +323,12 @@ void ColliderRenderSystem::SetupBottomLevelModel(GameObjectIndex obj) {
 		m_bottomLevelIndexBuffers[obj] = {};
 	}
 
-	for (const auto& v : vertexBuffers) {
-		m_bottomLevelVertexBuffers.at(obj).Insert(v.GetPointer());
+	for (auto& v : vertexBuffers) {
+		m_bottomLevelVertexBuffers.at(obj).Insert(std::move(v));
 	}
 
-	for (const auto& i : indexBuffers) {
-		m_bottomLevelIndexBuffers.at(obj).Insert(i.GetPointer());
+	for (auto& i : indexBuffers) {
+		m_bottomLevelIndexBuffers.at(obj).Insert(std::move(i));
 	}
 }
 

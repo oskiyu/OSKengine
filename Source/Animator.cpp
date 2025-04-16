@@ -12,10 +12,11 @@ using namespace OSK::GRAPHICS;
 
 void Animator::Setup(const glm::mat4& initialTransform) {
 	m_initialTransform = initialTransform;
+	m_inverseInitialTransform = glm::inverse(m_initialTransform);
 }
 
 void Animator::Update(TDeltaTime deltaTime) {
-	if (m_activeAnimations.empty()) {
+	if (m_activeAnimations.empty() || !m_activeSkinIndex.has_value()) {
 		return;
 	}
 
@@ -35,9 +36,9 @@ void Animator::Update(TDeltaTime deltaTime) {
 
 			// Transforma de espacio local a espacio de joint.
 			// Contiene la inversa del transform original del hueso.
-			const glm::mat4 inverseMatrix = GetActiveSkin()->inverseMatrices[boneIndex];
+			const glm::mat4 inverseMatrix = GetActiveSkin()->inverseMatrices[boneIndex] * m_inverseInitialTransform;
 			const glm::mat4 boneMatrix = animation.GetSkeleton().GetBone(boneIndex, *GetActiveSkin()).globalMatrix;
-			
+
 			m_boneMatrices[boneIndex] *= ratio * boneMatrix * inverseMatrix;
 		}
 	}

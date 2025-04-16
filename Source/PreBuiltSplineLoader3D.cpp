@@ -31,7 +31,7 @@ void PreBuiltSplineLoader3D::Load(const std::string& assetFilePath, PreBuiltSpli
 	}
 
 
-	const auto& model = GltfLoader::Load(assetInfo["raw_asset_path"], modelTransform, 1.0f);
+	const auto& model = GltfLoader::Load(assetInfo["raw_asset_path"], modelTransform);
 
 	Spline3D& output = asset->_Get();
 

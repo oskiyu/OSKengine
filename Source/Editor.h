@@ -14,7 +14,6 @@
 
 #include "HashMap.hpp"
 #include <functional>
-#include "OwnedPtr.h"
 #include "NumericTypes.h"
 
 #include <string>
@@ -40,20 +39,20 @@ namespace OSK::Editor {
 
 		/// @brief Función que permite crear
 		// un controlador para un tipo en concreto.
-		using ComponentControllerFactoryMethod = std::function<OwnedPtr<Controllers::IComponentController>(ECS::GameObjectIndex, void*, Views::IComponentView*)>;
+		using ComponentControllerFactoryMethod = std::function<UniquePtr<Controllers::IComponentController>(ECS::GameObjectIndex, void*, Views::IComponentView*)>;
 
 		/// @brief Función que permite crear
 		// una vista para un tipo en concreto.
-		using ComponentViewFactoryMethod = std::function<OwnedPtr<Views::IComponentView>(const Vector2f& size)>;
+		using ComponentViewFactoryMethod = std::function<UniquePtr<Views::IComponentView>(const Vector2f& size)>;
 
 
 		/// @brief Función que permite crear
 		// un controlador para un sistema en concreto.
-		using SystemControllerFactoryMethod = std::function<OwnedPtr<Controllers::ISystemController>(ECS::ISystem*, Views::ISystemView*)>;
+		using SystemControllerFactoryMethod = std::function<UniquePtr<Controllers::ISystemController>(ECS::ISystem*, Views::ISystemView*)>;
 
 		/// @brief Función que permite crear
 		// una vista para un sistema en concreto.
-		using SystemViewFactoryMethod = std::function<OwnedPtr<Views::ISystemView>(const Vector2f& size)>;
+		using SystemViewFactoryMethod = std::function<UniquePtr<Views::ISystemView>(const Vector2f& size)>;
 
 
 		/// @brief Crea el editor.
@@ -85,7 +84,7 @@ namespace OSK::Editor {
 			RegisterComponentController(
 				TComponentController::GetComponentTypeName(),
 				[](ECS::GameObjectIndex obj, void* componentData, Views::IComponentView* view) {
-					return new TComponentController(obj, componentData, view);
+					return MakeUnique<TComponentController>(obj, componentData, view);
 				});
 		}
 
@@ -117,7 +116,7 @@ namespace OSK::Editor {
 		template <typename TComponentView>
 			requires Views::IsComponentView<TComponentView>
 		void RegisterComponentView() {
-			RegisterComponentView(TComponentView::GetComponentTypeName(), [](const Vector2f& size) { return new TComponentView(size); });
+			RegisterComponentView(TComponentView::GetComponentTypeName(), [](const Vector2f& size) { return MakeUnique<TComponentView>(size); });
 		}
 
 		/// @brief Registra el método de creación
@@ -152,7 +151,7 @@ namespace OSK::Editor {
 			RegisterSystemController(
 				TSystemController::GetSystemName(),
 				[](ECS::ISystem* system, Views::ISystemView* view) {
-					return new TSystemController(system, view);
+					return MakeUnique<TSystemController>(system, view);
 				});
 		}
 
@@ -184,7 +183,7 @@ namespace OSK::Editor {
 		template <typename TSystemView>
 			requires Views::IsSystemView<TSystemView>
 		void RegisterSystemView() {
-			RegisterSystemView(TSystemView::GetSystemName(), [](const Vector2f& size) { return new TSystemView(size); });
+			RegisterSystemView(TSystemView::GetSystemName(), [](const Vector2f& size) { return MakeUnique<TSystemView>(size); });
 		}
 
 		/// @brief Registra el método de creación
@@ -239,8 +238,9 @@ namespace OSK::Editor {
 
 		struct ControllerViewPair {
 			Controllers::IComponentController* controller;
-			Views::IComponentView* view;
+			Views::IComponentView* viewPtr;
 			bool isNewInsertion = false;
+			std::optional<UniquePtr<Views::IComponentView>> view;
 		};
 
 		void UpdateByObject(ECS::EntityComponentSystem* ecs);

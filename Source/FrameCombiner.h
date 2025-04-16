@@ -103,7 +103,7 @@ namespace OSK::GRAPHICS {
 		std::unordered_map<ImageFormat, Material*> m_combinerMaterials;
 
 		std::unordered_map<const IGpuImageView*, UniquePtr<MaterialInstance>> m_textureMaterials{};
-		UniquePtr<MaterialInstance> m_outputMaterialInstance = nullptr;
+		UniquePtr<MaterialInstance> m_outputMaterialInstance;
 
 	};
 

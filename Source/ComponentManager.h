@@ -3,7 +3,6 @@
 #include "ComponentContainer.h"
 #include "Component.h"
 #include "HashMap.hpp"
-#include "OwnedPtr.h"
 #include "UniquePtr.hpp"
 
 #include "EcsExceptions.h"
@@ -35,7 +34,7 @@ namespace OSK::ECS {
 
 			componentTypes[key] = nextComponentType;
 			m_typeToName[nextComponentType] = key;
-			componentContainers[key] = new ComponentContainer<TComponent>();
+			componentContainers[key] = MakeUnique<ComponentContainer<TComponent>>();
 			componentContainers[key]->SetComponentType(nextComponentType);
 
 			nextComponentType++;

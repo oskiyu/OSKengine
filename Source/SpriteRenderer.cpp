@@ -39,9 +39,9 @@ SpriteRenderer::SpriteRenderer(IGpuMemoryAllocator* allocator, Material* default
 		GPU_MEMORY_NO_ALIGNMENT,
 		GpuBufferUsage::UNIFORM_BUFFER,
 		GpuSharedMemoryType::GPU_AND_CPU,
-		GpuQueueType::MAIN).GetPointer();
+		GpuQueueType::MAIN);
 
-	m_globalInformationInstance = defaultMaterial->CreateInstance().GetPointer();
+	m_globalInformationInstance = defaultMaterial->CreateInstance();
 	GetGlobalInformationSlot()->SetUniformBuffer("globalInformation", m_globalInformationBuffer.GetValue());
 	GetGlobalInformationSlot()->FlushUpdate();
 }

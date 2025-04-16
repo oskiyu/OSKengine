@@ -30,7 +30,7 @@ namespace OSK::GRAPHICS {
 		/// @throws GpuBufferCreationException Si no se pudo crear el buffer.
 		/// @throws NoCompatibleGpuMemoryException Si no se encuentra memoria compatible.
 		/// @throws GpuMemoryAllocException Si no se pudo alojar memoria en la GPU.
-		static OwnedPtr<GpuMemoryBlockVk> CreateNewBufferBlock(
+		static UniquePtr<GpuMemoryBlockVk> CreateNewBufferBlock(
 			USize64 reservedSize,
 			IGpu* device, 
 			GpuSharedMemoryType type, 
@@ -45,7 +45,7 @@ namespace OSK::GRAPHICS {
 		/// 
 		/// @throws NoCompatibleGpuMemoryException Si no se encuentra memoria compatible.
 		/// @throws GpuMemoryAllocException Si no se pudo alojar memoria en la GPU.
-		static OwnedPtr<GpuMemoryBlockVk> CreateNewImageBlock(
+		static UniquePtr<GpuMemoryBlockVk> CreateNewImageBlock(
 			GpuImage* image, 
 			IGpu* device, 
 			GpuSharedMemoryType type, 
@@ -56,7 +56,7 @@ namespace OSK::GRAPHICS {
 
 	private:
 
-		OwnedPtr<IGpuMemorySubblock> CreateNewMemorySubblock(USize64 size, USize64 offset) override;
+		UniquePtr<IGpuMemorySubblock> CreateNewMemorySubblock(USize64 size, USize64 offset) override;
 
 		/// @brief Crea un bloque de memoria para buffer.
 		/// @see CreateNewBufferBlock.

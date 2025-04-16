@@ -48,8 +48,7 @@ namespace OSK::ASSETS {
 
 		static CpuModel3D Load(
 			std::string_view path,
-			const glm::mat4& transform,
-			float globalScale);
+			const glm::mat4& transform);
 
 		static void LoadMaterials(
 			std::string_view path,
@@ -58,7 +57,10 @@ namespace OSK::ASSETS {
 
 	protected:
 
-		static DynamicArray<GRAPHICS::Animation> LoadAnimations(const tinygltf::Model& model);
+		static DynamicArray<GRAPHICS::Animation> LoadAnimations(
+			const tinygltf::Model& model, 
+			const glm::mat4& baseTransform);
+
 		static DynamicArray<GRAPHICS::AnimationSampler> LoadAnimationSamplers(
 			const tinygltf::Model& model,
 			const tinygltf::Animation& gltfAnimation);
@@ -85,16 +87,17 @@ namespace OSK::ASSETS {
 		static DynamicArray<CpuMesh3D> ProcessNode(
 			const tinygltf::Model& model,
 			const tinygltf::Node& node,
-			const glm::mat4& transform,
-			float globalScale);
+			const glm::mat4& transform);
 
 		static DynamicArray<GRAPHICS::AnimationBone> LoadBones(
 			const tinygltf::Model& model,
 			const tinygltf::Node& node,
 			UIndex64 nodeIndex,
-			UIndex64 parentIndex);
+			std::optional<UIndex64> parentIndex);
 
-		static DynamicArray<GRAPHICS::AnimationBone> LoadAllBones(const tinygltf::Model& model);
+		static DynamicArray<GRAPHICS::AnimationBone> LoadAllBones(
+			const tinygltf::Model& model,
+			const glm::mat4& baseTransform);
 
 		/// @brief Comprueba si la primitiva GLTF dada contiene un atributo
 		/// en específico.
@@ -160,8 +163,7 @@ namespace OSK::ASSETS {
 		static DynamicArray<Vector3f> GetVertexPositions(
 			const tinygltf::Primitive& primitive, 
 			const glm::mat4& nodeMatrix,
-			const tinygltf::Model& model,
-			float globalScale);
+			const tinygltf::Model& model);
 		
 		/// @brief Obtiene las normales de todos los vértices de la primitiva.
 		/// @param primitive Primitiva GLTF.

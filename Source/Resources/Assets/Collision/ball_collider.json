@@ -2,10 +2,10 @@
     "file_type": "ASSET",
     "spec_ver": 0,
 
-    "name": "Sphere",
-    "asset_type": "Model3D",
+    "name": "Ball Collider",
+    "asset_type": "collider",
     "raw_asset_path": "Resources/Assets/Models/sphere.glb",
     
     "scale": 0.2,
-    "renderpass_type": "static_pass"
+    "rotation_offset": [0, 0, 0]
 }

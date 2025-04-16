@@ -55,8 +55,8 @@ void TaaProvider::LoadTaaMaterials() {
 	Material* taaMaterial		 = Engine::GetRenderer()->GetMaterialSystem()->LoadMaterial(MaterialPath);
 	Material* taaSharpenMaterial = Engine::GetRenderer()->GetMaterialSystem()->LoadMaterial(SharpeningMaterialPath);
 
-	m_taaMaterialInstance = taaMaterial->CreateInstance().GetPointer();
-	m_taaSharpenMaterialInstance = taaSharpenMaterial->CreateInstance().GetPointer();
+	m_taaMaterialInstance = taaMaterial->CreateInstance();
+	m_taaSharpenMaterialInstance = taaSharpenMaterial->CreateInstance();
 }
 
 void TaaProvider::SetupTaaMaterials(const GpuImage* sceneImage, const GpuImage* motionImage) {

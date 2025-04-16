@@ -8,9 +8,12 @@ namespace OSK::GRAPHICS {
 
 	public:
 
-		OSK_RENDERPASS(AnimatedGBufferPass, "animated_pass");
+		constexpr static auto Name = "animated_pass";
+		constexpr static auto MaterialPath = "Resources/Materials/PBR/Deferred/deferred_gbuffer_anim.json";
 
-		AnimatedGBufferPass() : IShaderPass("animated_pass") {}
+		OSK_RENDERPASS(AnimatedGBufferPass, Name);
+
+		AnimatedGBufferPass() : IShaderPass(Name) {}
 
 		void Load() override;
 

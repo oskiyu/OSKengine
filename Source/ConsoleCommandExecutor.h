@@ -3,7 +3,6 @@
 #include "ApiCall.h"
 
 #include "UniquePtr.hpp"
-#include "OwnedPtr.h"
 #include "DynamicArray.hpp"
 
 #include "ConsoleCommand.h"
@@ -33,7 +32,7 @@ namespace OSK {
 		/// sido previamente registrado.
 		template <typename TCommand> requires IsConsoleCommand<TCommand>
 		void RegisterCommand() {
-			RegisterCommand(new TCommand);
+			RegisterCommand(MakeUnique<TCommand>());
 		}
 
 		/// @brief Registra un comando para poder
@@ -41,7 +40,7 @@ namespace OSK {
 		/// @param command Comando a registrar.
 		/// @pre El comando @p command no debe haber
 		/// sido previamente registrado.
-		void RegisterCommand(OwnedPtr<IConsoleCommand> command);
+		void RegisterCommand(UniquePtr<IConsoleCommand>&& command);
 
 
 		/// @brief Comprueba si el texto se corresponde

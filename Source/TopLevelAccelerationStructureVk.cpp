@@ -51,7 +51,7 @@ void TopLevelAccelerationStructureVk::Setup() {
 		GPU_MEMORY_NO_ALIGNMENT,
 		GpuBufferUsage::RT_ACCELERATION_STRUCTURE_BUILDING, 
 		GpuSharedMemoryType::GPU_AND_CPU,
-		GpuQueueType::MAIN).GetPointer();
+		GpuQueueType::MAIN);
 
 	if (!instances.IsEmpty()) {
 		instanceBuffer->MapMemory();
@@ -95,7 +95,7 @@ void TopLevelAccelerationStructureVk::Setup() {
 		256, 
 		GpuBufferUsage::RT_ACCELERATION_STRUCTURE, 
 		GpuSharedMemoryType::GPU_ONLY,
-		GpuQueueType::MAIN).GetPointer();
+		GpuQueueType::MAIN);
 
 	// Creación
 	VkAccelerationStructureCreateInfoKHR asCreateInfo{};
@@ -118,7 +118,7 @@ void TopLevelAccelerationStructureVk::Setup() {
 		GPU_MEMORY_NO_ALIGNMENT,
 		GpuBufferUsage::RT_ACCELERATION_STRUCTURE_BUILDING, 
 		GpuSharedMemoryType::GPU_AND_CPU,
-		GpuQueueType::MAIN).GetPointer();
+		GpuQueueType::MAIN);
 
 	const VkDeviceOrHostAddressConstKHR tlasBuildAddress {
 		.deviceAddress = GetBufferDeviceAddress(buildBuffer->GetMemoryBlock()->As<GpuMemoryBlockVk>()->GetVulkanBuffer(), logicalDevice)
@@ -149,7 +149,7 @@ void TopLevelAccelerationStructureVk::Setup() {
 	tlasCommandList->Start();
 	RendererVk::pvkCmdBuildAccelerationStructuresKHR(tlasCommandList->As<CommandListVk>()->GetCommandBuffers()[tlasCommandList->_GetCommandListIndex()], 1, &tlasBuildGeometryInfo, tlasRanges.GetData());
 	tlasCommandList->Close();
-	Engine::GetRenderer()->SubmitSingleUseCommandList(tlasCommandList.GetPointer());
+	Engine::GetRenderer()->SubmitSingleUseCommandList(std::move(tlasCommandList));
 
 	tlasAddress.deviceAddress = GetTlasDeviceAddress(tlasHandle, logicalDevice);
 }
@@ -180,7 +180,7 @@ void TopLevelAccelerationStructureVk::Update(ICommandList* cmdList) {
 			GPU_MEMORY_NO_ALIGNMENT,
 			GpuBufferUsage::RT_ACCELERATION_STRUCTURE_BUILDING, 
 			GpuSharedMemoryType::GPU_AND_CPU,
-			GpuQueueType::MAIN).GetPointer();
+			GpuQueueType::MAIN);
 
 		instanceBuffer->MapMemory();
 		instanceBuffer->Write(instances.GetData(), sizeof(VkAccelerationStructureInstanceKHR) * instances.GetSize());

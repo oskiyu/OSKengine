@@ -699,7 +699,6 @@
     <ClInclude Include="Logger.h" />
     <ClInclude Include="MouseState.h" />
     <ClInclude Include="OSKengine.h" />
-    <ClInclude Include="OwnedPtr.h" />
     <ClInclude Include="Pair.hpp" />
     <ClInclude Include="PipelineCreateInfo.h" />
     <ClInclude Include="PresentMode.h" />
@@ -979,7 +978,7 @@
     <IncludePath>..\External\OSKengine\tiny_gltf;..\External\OSKengine\stbi_image;..\External\OSKengine\json;$(VULKAN_SDK)\Include;..\External\OSKengine\OpenAL\include;$(SPIRVREFLECT_PATH);$(IncludePath)</IncludePath>
     <LibraryPath>$(VULKAN_SDK)\Lib;$(LibraryPath)</LibraryPath>
     <RunCodeAnalysis>false</RunCodeAnalysis>
-    <EnableClangTidyCodeAnalysis>false</EnableClangTidyCodeAnalysis>
+    <EnableClangTidyCodeAnalysis>true</EnableClangTidyCodeAnalysis>
     <OutDir>$(ProjectDir)</OutDir>
     <SourcePath>$(SPIRVREFLECT_PATH);$(SourcePath)</SourcePath>
   </PropertyGroup>
@@ -988,7 +987,7 @@
     <IncludePath>..\External\OSKengine\tiny_gltf;..\External\OSKengine\stbi_image;..\External\OSKengine\json;$(VULKAN_SDK)\Include;..\External\OSKengine\OpenAL\include;$(SPIRVREFLECT_PATH);$(IncludePath)</IncludePath>
     <LibraryPath>$(VULKAN_SDK)\Lib;$(LibraryPath)</LibraryPath>
     <RunCodeAnalysis>false</RunCodeAnalysis>
-    <EnableClangTidyCodeAnalysis>false</EnableClangTidyCodeAnalysis>
+    <EnableClangTidyCodeAnalysis>true</EnableClangTidyCodeAnalysis>
     <OutDir>$(ProjectDir)</OutDir>
     <SourcePath>$(SPIRVREFLECT_PATH);$(SourcePath)</SourcePath>
   </PropertyGroup>
@@ -998,7 +997,7 @@
     <LibraryPath>$(VULKAN_SDK)\Lib;$(LibraryPath)</LibraryPath>
     <OutDir>$(SolutionDir)Bin\Release\</OutDir>
     <RunCodeAnalysis>false</RunCodeAnalysis>
-    <EnableClangTidyCodeAnalysis>false</EnableClangTidyCodeAnalysis>
+    <EnableClangTidyCodeAnalysis>true</EnableClangTidyCodeAnalysis>
     <SourcePath>$(SPIRVREFLECT_PATH);$(SourcePath)</SourcePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DLL Lib|x64'">
@@ -1007,7 +1006,7 @@
     <LibraryPath>$(VULKAN_SDK)\Lib;$(LibraryPath)</LibraryPath>
     <OutDir>$(SolutionDir)Frameworks\OSKengine\Lib\Release\</OutDir>
     <RunCodeAnalysis>false</RunCodeAnalysis>
-    <EnableClangTidyCodeAnalysis>false</EnableClangTidyCodeAnalysis>
+    <EnableClangTidyCodeAnalysis>true</EnableClangTidyCodeAnalysis>
     <SourcePath>$(SPIRVREFLECT_PATH);$(SourcePath)</SourcePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseValidationLayers|x64'">
@@ -1015,7 +1014,7 @@
     <IncludePath>..\External\OSKengine\tiny_gltf;..\External\OSKengine\stbi_image;..\External\OSKengine\json;$(VULKAN_SDK)\Include;..\External\OSKengine\OpenAL\include;$(SPIRVREFLECT_PATH);$(IncludePath)</IncludePath>
     <LibraryPath>$(VULKAN_SDK)\Lib;$(LibraryPath)</LibraryPath>
     <RunCodeAnalysis>false</RunCodeAnalysis>
-    <EnableClangTidyCodeAnalysis>false</EnableClangTidyCodeAnalysis>
+    <EnableClangTidyCodeAnalysis>true</EnableClangTidyCodeAnalysis>
     <AllProjectIncludesArePublic>false</AllProjectIncludesArePublic>
     <SourcePath>$(SPIRVREFLECT_PATH);$(SourcePath)</SourcePath>
   </PropertyGroup>
@@ -1025,7 +1024,7 @@
     <LibraryPath>$(VULKAN_SDK)\Lib;$(LibraryPath)</LibraryPath>
     <OutDir>$(SolutionDir)Bin\Debug\</OutDir>
     <RunCodeAnalysis>false</RunCodeAnalysis>
-    <EnableClangTidyCodeAnalysis>false</EnableClangTidyCodeAnalysis>
+    <EnableClangTidyCodeAnalysis>true</EnableClangTidyCodeAnalysis>
     <SourcePath>$(SPIRVREFLECT_PATH);$(SourcePath)</SourcePath>
   </PropertyGroup>
   <PropertyGroup Label="Vcpkg">

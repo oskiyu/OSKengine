@@ -21,7 +21,7 @@ OSK::Editor::Editor::Editor(IContainer* rootUiElement, const Vector2f& windowSiz
 	m_editorUi->Rebuild();
 	m_editorUi->SetInvisible();
 
-	rootUiElement->AddChild(EditorUi::Name, m_editorUi);
+	rootUiElement->AddChild(EditorUi::Name, UniquePtr<OSK::UI::IElement>(m_editorUi));
 }
 
 OSK::Editor::UI::EditorUi* OSK::Editor::Editor::GetUi() {
@@ -76,8 +76,8 @@ void OSK::Editor::Editor::UpdateByObject(EntityComponentSystem* ecs) {
 
 		auto& controllerViewPair = controllerViewPairOpt.value();
 
-		if (controllerViewPair.isNewInsertion) {
-			m_editorUi->AddComponentView(controllerViewPair.view);
+		if (controllerViewPair.isNewInsertion && controllerViewPair.view.has_value()) {
+			m_editorUi->AddComponentView(std::move(controllerViewPair.view.value()));
 		}
 
 		// Actualizar la dirección de los
@@ -116,28 +116,29 @@ std::optional<OSK::Editor::Editor::ControllerViewPair> OSK::Editor::Editor::GetO
 			return std::optional<ControllerViewPair>{};
 		}
 
-		auto* view = viewIterator->second.operator()(Vector2f::One * 12.0f).GetPointer();
-		m_views.emplace(type, view);
+		auto view = viewIterator->second.operator()(Vector2f::One * 12.0f);
+		m_views.emplace(type, view.GetPointer());
 
 		const auto& factoryMethod = factoryIterator->second;
 
 		auto controller = factoryMethod(
 			m_selectedObject, 
 			ecs->GetComponentAddress(m_selectedObject, type), 
-			view).GetPointer();
+			view.GetPointer());
 
-		m_controllers[type] = controller;
+		m_controllers[type] = std::move(controller);
 
 		return ControllerViewPair{
-			.controller = controller,
-			.view = view,
-			.isNewInsertion = true
+			.controller = m_controllers[type].GetPointer(),
+			.viewPtr = view.GetPointer(),
+			.isNewInsertion = true,
+			.view = std::move(view)
 		};
 	}
 
 	return ControllerViewPair{
 		.controller = iterator->second.GetPointer(),
-		.view = m_views.find(type)->second,
+		.viewPtr = m_views.find(type)->second,
 		.isNewInsertion = false
 	};
 }
@@ -202,9 +203,9 @@ void OSK::Editor::Editor::SetSelectedSystem(const std::string& systemName) {
 		m_ecs->GetSystemByName(systemName),
 		view.GetPointer());
 
-	m_currentSystemController = controller.GetPointer();
+	m_currentSystemController = std::move(controller);
 
-	m_editorUi->SetSystemPropertiesView(view.GetPointer());
+	m_editorUi->SetSystemPropertiesView(std::move(view));
 }
 
 void OSK::Editor::Editor::ClearSelectedSystem() {

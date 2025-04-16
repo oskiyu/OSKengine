@@ -25,7 +25,7 @@ namespace OSK::COLLISION {
 		SphereCollider() = default;
 		SphereCollider(float radius);
 
-		OwnedPtr<ITopLevelCollider> CreateCopy() const override;
+		UniquePtr<ITopLevelCollider> CreateCopy() const override;
 
 
 		void SetRadius(float radius);

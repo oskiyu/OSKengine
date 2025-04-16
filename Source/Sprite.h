@@ -7,7 +7,6 @@
 #include "MaterialInstance.h"
 #include "UniquePtr.hpp"
 #include "TextureCoordinates.h"
-#include "OwnedPtr.h"
 
 #include "AssetRef.h"
 #include "Texture.h"
@@ -83,9 +82,9 @@ namespace OSK::GRAPHICS {
 		const IGpuImageView* GetView() const;
 
 		/// @brief Buffer de vértices global para el renderizado en modo inmediato.
-		static GpuBuffer* globalVertexBuffer;
+		static UniquePtr<GpuBuffer> globalVertexBuffer;
 		/// @brief Buffer de índices global para el renderizado en modo inmediato.
-		static GpuBuffer* globalIndexBuffer;
+		static UniquePtr<GpuBuffer> globalIndexBuffer;
 
 	private:
 

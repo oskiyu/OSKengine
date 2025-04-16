@@ -11,7 +11,7 @@ OSK::Editor::Views::PhysicsSystemView::PhysicsSystemView(const Vector2f& size) :
 	m_gravityView->SetFont(font);
 	m_gravityView->SetFontSize(Editor::UI::Constants::SecondaryFontSize);
 
-	AddChild("m_gravityView", m_gravityView);
+	AddChild("m_gravityView", UniquePtr<OSK::UI::IElement>(m_gravityView));
 
 	AdjustSizeToChildren();
 }

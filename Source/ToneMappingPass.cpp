@@ -35,7 +35,7 @@ void ToneMappingPass::Create(const Vector2ui& size) {
 	const GpuImageViewConfig viewConfig = GpuImageViewConfig::CreateTarget_Color();
 
 	for (auto& mInstance : m_materialInstances) {
-		mInstance = m_material->CreateInstance().GetPointer();
+		mInstance = m_material->CreateInstance();
 
 		mInstance->GetSlot(TextureSlotName)->SetStorageImage("finalImage", *GetOutput().GetTargetImage()->GetView(viewConfig));
 		mInstance->GetSlot(TextureSlotName)->FlushUpdate();
@@ -47,7 +47,7 @@ void ToneMappingPass::Resize(const Vector2ui& size) {
 
 	const GpuImageViewConfig viewConfig = GpuImageViewConfig::CreateTarget_Color();
 	for (auto& mInstance : m_materialInstances) {
-		mInstance = m_material->CreateInstance().GetPointer();
+		mInstance = m_material->CreateInstance();
 
 		mInstance->GetSlot(TextureSlotName)->SetStorageImage("finalImage", *GetOutput().GetTargetImage()->GetView(viewConfig));
 		mInstance->GetSlot(TextureSlotName)->FlushUpdate();

@@ -30,25 +30,25 @@ namespace OSK::GRAPHICS {
 		std::string name;
 
 		/// <summary> Tipo de binding. </summary>
-		ShaderBindingType type;
+		ShaderBindingType type{};
 
 		/// <summary>
 		/// Índice del binding en el shader .glsl (Vulkan, OpenGL).
 		/// Es un índice local respecto al slot (al descriptor set).
 		/// </summary>
-		UIndex32 glslIndex;
+		UIndex32 glslIndex = 0;
 
 		/// <summary>
 		/// Índice del binding en el shader .hlsl (DirectX 12).
 		/// Es un índice global, independiente del slot al que pertenezca.
 		/// </summary>
-		UIndex32 hlslIndex;
+		UIndex32 hlslIndex = 0;
 
 		/// <summary>
 		/// Índice del descriptor del shader .hlsl.
 		/// Interno.
 		/// </summary>
-		UIndex32 hlslDescriptorIndex;
+		UIndex32 hlslDescriptorIndex = 0;
 
 		/// <summary>
 		/// True si el recurso en el shader corresponde a una array

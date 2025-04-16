@@ -81,7 +81,7 @@ void Font::LoadSizedFont(USize32 fontSize) {
 
 		ftCharacters[i].advanceX = face->glyph->advance.x;
 
-		ftCharacters[i].data = new TByte[ftCharacters[i].sizeX * ftCharacters[i].sizeY];
+		ftCharacters[i].data = UniquePtr(new TByte[ftCharacters[i].sizeX * ftCharacters[i].sizeY]);
 
 		// Copiamos los datos al buffer de la imagen de la GPU.
 		const size_t bitmapSize = ftCharacters[i].sizeX * ftCharacters[i].sizeY * sizeof(TByte);
@@ -101,12 +101,10 @@ void Font::LoadSizedFont(USize32 fontSize) {
 		gpuImageSize, Format::RGBA8_SRGB, 
 		GpuImageUsage::SAMPLED | GpuImageUsage::TRANSFER_SOURCE | GpuImageUsage::TRANSFER_DESTINATION);
 
-	OwnedPtr<GpuImage> gpuImage = Engine::GetRenderer()->GetAllocator()->CreateImage(imageInfo);
+	UniquePtr<GpuImage> gpuImage = Engine::GetRenderer()->GetAllocator()->CreateImage(imageInfo);
 	gpuImage->SetDebugName(std::format("Font {} size {}", GetName(), fontSize));
 
 	FontInstance instance = {};
-
-	instance.image = gpuImage.GetPointer();
 
 	const auto numBytes = gpuImage->GetNumberOfBytes();
 	TByte* data = new TByte[numBytes];
@@ -152,7 +150,7 @@ void Font::LoadSizedFont(USize32 fontSize) {
 
 	// Creamos la lista de comandos para subir el recurso.
 	// Preferir cola exclusiva de transferencia.
-	OwnedPtr<ICommandList> copyCmdList = Engine::GetRenderer()->CreateSingleUseCommandList(GpuQueueType::MAIN);
+	UniquePtr<ICommandList> copyCmdList = Engine::GetRenderer()->CreateSingleUseCommandList(GpuQueueType::MAIN);
 
 	copyCmdList->Reset();
 	copyCmdList->Start();
@@ -175,13 +173,14 @@ void Font::LoadSizedFont(USize32 fontSize) {
 		*Engine::GetRenderer()->GetMainRenderingQueue());
 
 	copyCmdList->Close();
-	Engine::GetRenderer()->SubmitSingleUseCommandList(copyCmdList.GetPointer());
+	Engine::GetRenderer()->SubmitSingleUseCommandList(std::move(copyCmdList));
 
 	const GpuImageViewConfig viewConfig = GpuImageViewConfig::CreateSampled_SingleMipLevel(0);
 
-	instance.sprite = new Sprite;
+	instance.sprite = MakeUnique<Sprite>();
 	instance.sprite->SetImageView(gpuImage->GetView(viewConfig));
 
+	instance.image = std::move(gpuImage);
 	m_instances[fontSize] = std::move(instance);
 
 	delete[] data;

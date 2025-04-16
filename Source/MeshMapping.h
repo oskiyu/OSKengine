@@ -3,7 +3,6 @@
 #include "ApiCall.h"
 
 #include "UniquePtr.hpp"
-#include "OwnedPtr.h"
 
 #include "MaterialInstance.h"
 #include "IBottomLevelAccelerationStructure.h"
@@ -35,9 +34,17 @@ namespace OSK::GRAPHICS {
 		/// de la animación.
 		const MaterialInstance* GetAnimationMaterialInstance() const;
 
+
+		/// @return Buffer con las matrices de los huesos.
+		const GpuBuffer* GetBonesBuffer() const;
+		GpuBuffer* GetBonesBuffer();
+
+		void SetAnimationMaterialInstance(UniquePtr<MaterialInstance>&& instance);
+		void SetBonesBuffer(UniquePtr<GpuBuffer>&& buffer);
+
 	private:
 
-		UniquePtr<MaterialInstance> m_animationMaterialInstance = nullptr;
+		UniquePtr<MaterialInstance> m_animationMaterialInstance;
 		UniquePtr<GpuBuffer> m_bonesBuffer;
 
 	};
@@ -137,12 +144,12 @@ namespace OSK::GRAPHICS {
 
 		/// @brief Establece la instancia que se usará para el renderizado del mesh.
 		/// @param instance Instancia de renderizado.
-		void _SetMaterialInstance(OwnedPtr<MaterialInstance> instance);
+		void _SetMaterialInstance(UniquePtr<MaterialInstance>&& instance);
 
 		/// @brief Establece el buffer que contendrá la información
 		/// del material PBR.
 		/// @param materialBuffer Buffer.
-		void _SetMaterialBuffer(OwnedPtr<GpuBuffer> materialBuffer);
+		void _SetMaterialBuffer(UniquePtr<GpuBuffer>&& materialBuffer);
 
 
 		/// @return Instancia de material que debe usar este mesh.
@@ -160,7 +167,7 @@ namespace OSK::GRAPHICS {
 
 	private:
 
-		UniquePtr<MaterialInstance> m_materialInstance = nullptr;
+		UniquePtr<MaterialInstance> m_materialInstance;
 		UniquePtr<GpuBuffer> m_materialBuffer;
 
 	};

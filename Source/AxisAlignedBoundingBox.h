@@ -29,7 +29,7 @@ namespace OSK::COLLISION {
 		/// @param size Radio (distancia desde un lado hasta el otro).
 		explicit AxisAlignedBoundingBox(const Vector3f& size);
 
-		OwnedPtr<ITopLevelCollider> CreateCopy() const override;
+		UniquePtr<ITopLevelCollider> CreateCopy() const override;
 
 
 		/// @param size Radio total (distancia desde un lado hasta el otro).

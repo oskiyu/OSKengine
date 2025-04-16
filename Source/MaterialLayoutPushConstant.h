@@ -21,12 +21,12 @@ namespace OSK::GRAPHICS {
 		/// <summary>
 		/// Stage del shader desde el que se accede al slot (VERTEX/FRAGMENT).
 		/// </summary>
-		ShaderStage stage;
+		ShaderStage stage{};
 
 		/// <summary>
 		/// Tamaño de la estructura que se enviará a la GPU.
 		/// </summary>
-		USize32 size;
+		USize32 size = 0;
 
 		/// <summary>
 		/// Offset desde el primer push constant.
@@ -40,13 +40,13 @@ namespace OSK::GRAPHICS {
 		/// Índice del buffer constante donde los shaders
 		/// .hlsl recibirán la información.
 		/// </summary>
-		UIndex32 hlslIndex;
+		UIndex32 hlslIndex = 0;
 
 		/// <summary>
 		/// Índice interno de DX12, a la hora de bindear.
 		/// Interno.
 		/// </summary>
-		UIndex32 hlslBindingIndex;
+		UIndex32 hlslBindingIndex = 0;
 
 	};
 

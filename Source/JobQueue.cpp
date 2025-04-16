@@ -30,7 +30,7 @@ std::optional<UniquePtr<IJob>> JobQueue::TryDequeue() {
 	IJob* output = m_jobs[m_tail].Release();
 	m_tail = (m_tail + 1) % m_jobs.GetSize();
 
-	return output;
+	return UniquePtr(output);
 }
 
 bool JobQueue::IsEmpty() const {
@@ -46,7 +46,7 @@ void JobQueue::Resize() {
 		UIndex64 ptr = m_tail;
 
 		while (ptr != m_head) {
-			jobs.Insert(m_jobs[ptr].Release());
+			jobs.Insert(std::move(m_jobs[ptr]));
 			ptr = (ptr + 1) % m_jobs.GetSize();
 		}
 	}
@@ -57,7 +57,7 @@ void JobQueue::Resize() {
 	m_tail = 0;
 
 	for (auto& job : jobs) {
-		m_jobs[m_head] = job.Release();
+		m_jobs[m_head] = std::move(job);
 		m_head = (m_head + 1) % m_jobs.GetSize();
 	}
 }

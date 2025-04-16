@@ -33,7 +33,7 @@ OSK::Editor::UI::EditorPanelTitle::EditorPanelTitle(const Vector2f& size) : OSK:
 		m_title->AddDrawCall(barDrawCall);
 	}
 
-	AddChild("title", m_title);
+	AddChild("title", UniquePtr<OSK::UI::IElement>(m_title));
 
 	// Línea.
 	{
@@ -50,7 +50,7 @@ OSK::Editor::UI::EditorPanelTitle::EditorPanelTitle(const Vector2f& size) : OSK:
 
 		m_line->AddDrawCall(titleLineDrawCall);
 
-		AddChild("titleLine", m_line);
+		AddChild("titleLine", UniquePtr<OSK::UI::IElement>(m_line));
 	}
 
 	SetMargin(Vector4f(5.0f));

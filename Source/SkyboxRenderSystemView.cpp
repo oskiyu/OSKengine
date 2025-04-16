@@ -23,9 +23,9 @@ OSK::Editor::Views::SkyboxRenderSystemView::SkyboxRenderSystemView(const Vector2
 	m_cameraObjectView->SetFont(font);
 	m_cameraObjectView->SetFontSize(Editor::UI::Constants::SecondaryFontSize);
 
-	AddChild("m_textureNameView", m_textureNameView);
-	AddChild("m_materialNameView", m_materialNameView);
-	AddChild("m_cameraObjectView", m_cameraObjectView);
+	AddChild("m_textureNameView", UniquePtr<OSK::UI::IElement>(m_textureNameView));
+	AddChild("m_materialNameView", UniquePtr<OSK::UI::IElement>(m_materialNameView));
+	AddChild("m_cameraObjectView", UniquePtr<OSK::UI::IElement>(m_cameraObjectView));
 
 	AdjustSizeToChildren();
 }

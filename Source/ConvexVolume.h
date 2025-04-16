@@ -43,7 +43,7 @@ namespace OSK::COLLISION {
 		~ConvexVolume() override = default;
 
 
-		OwnedPtr<IBottomLevelCollider> CreateCopy() const override;
+		UniquePtr<IBottomLevelCollider> CreateCopy() const override;
 
 		/// @brief Crea un volumen convexo que implementa una caja delimitadora.
 		/// @param size Tamaño de la caja, expresado como radio.
@@ -101,7 +101,7 @@ namespace OSK::COLLISION {
 		/// @return Lista con todos los índices de cada cara.
 		/// 
 		/// @see FaceIndices
-		DynamicArray<FaceIndices> GetFaceIndices() const;
+		const DynamicArray<FaceIndices>& GetFaceIndices() const;
 
 		UIndex64 GetFaceWithVertexIndices(std::span<const UIndex64, 3> indices, const Vector3f& refNormal) const;
 

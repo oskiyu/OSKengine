@@ -11,7 +11,7 @@
 #include "Plane.h"
 #include "Frustum.h"
 
-#include "OwnedPtr.h"
+#include "UniquePtr.hpp"
 
 namespace OSK::COLLISION {
 
@@ -31,7 +31,7 @@ namespace OSK::COLLISION {
 
 		OSK_DEFINE_AS(ITopLevelCollider);
 
-		virtual OwnedPtr<ITopLevelCollider> CreateCopy() const = 0;
+		virtual UniquePtr<ITopLevelCollider> CreateCopy() const = 0;
 
 		/// @brief Comprueba si este área de colisión está en contacto
 		/// con otra.

@@ -81,18 +81,18 @@ UniquePtr<ConsoleCommandExecutor> Engine::commandExecutor;
 UIndex64 Engine::gameFrameIndex;
 
 void Engine::Create(GRAPHICS::RenderApiType type) {
-	logger = new IO::Logger;
+	logger = MakeUnique<IO::Logger>();
 	logger->Start("LOG_LAST.txt");
 
-	display = new IO::Window;
-	entityComponentSystem = new ECS::EntityComponentSystem(logger.GetPointer());
-	input = new IO::PcUserInput;
-	inputManager = new IO::InputManager;
-	audioApi = new AUDIO::AudioApiAl;
+	display = MakeUnique<IO::Window>();
+	entityComponentSystem = MakeUnique<ECS::EntityComponentSystem>(logger.GetPointer());
+	input = MakeUnique<IO::PcUserInput>();
+	inputManager = MakeUnique<IO::InputManager>();
+	audioApi = MakeUnique<AUDIO::AudioApiAl>();
 	audioApi->Initialize();
-	uuidProvider = new UuidProvider;
-	m_jobSystem = new JobSystem;
-	commandExecutor = new ConsoleCommandExecutor;
+	uuidProvider = MakeUnique<UuidProvider>();
+	m_jobSystem = MakeUnique<JobSystem>();
+	commandExecutor = MakeUnique<ConsoleCommandExecutor>();
 
 	logger->InfoLog("Iniciando OSKengine.");
 	logger->InfoLog(std::format("\tVersion: {}.{}.{}", 
@@ -107,17 +107,17 @@ void Engine::Create(GRAPHICS::RenderApiType type) {
 	switch (type) {
 
 	case OSK::GRAPHICS::RenderApiType::VULKAN:
-		renderer = new GRAPHICS::RendererVk(requestRayTracing);
+		renderer = MakeUnique<GRAPHICS::RendererVk>(requestRayTracing);
 
 		break;
 
 	case OSK::GRAPHICS::RenderApiType::DX12:
-		renderer = new GRAPHICS::RendererDx12(requestRayTracing);
+		renderer = MakeUnique<GRAPHICS::RendererDx12>(requestRayTracing);
 
 		break;
 	}
 
-	assetManager = new ASSETS::AssetManager();
+	assetManager = MakeUnique<ASSETS::AssetManager>();
 }
 
 void Engine::Close() {
@@ -294,7 +294,7 @@ Version Engine::GetVersion() {
 }
 
 std::string_view Engine::GetBuild() {
-	return "2024.09.27a";
+	return "2025.04.16a";
 }
 
 UIndex64 Engine::GetCurrentGameFrameIndex() {

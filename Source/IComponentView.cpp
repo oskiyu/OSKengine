@@ -13,7 +13,7 @@ using namespace OSK::ASSETS;
 
 OSK::Editor::Views::IComponentView::IComponentView(const Vector2f& size, const std::string& title) : 
 	CollapsibleWrapper(
-		new VerticalContainer({ 120.0f, 26.0f }),
+		MakeUnique<VerticalContainer>(Vector2f{ 120.0f, 26.0f }),
 		title,
 		Engine::GetAssetManager()->Load<Font>(Editor::UI::Constants::EditorFontPath),
 		Editor::UI::Constants::MainFontSize), m_titleView(new OSK::UI::TextView(size)) 

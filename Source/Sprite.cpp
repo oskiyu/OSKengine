@@ -21,8 +21,8 @@ using namespace OSK::GRAPHICS;
 using namespace OSK::PERSISTENCE;
 
 
-GpuBuffer* Sprite::globalVertexBuffer = nullptr;
-GpuBuffer* Sprite::globalIndexBuffer = nullptr;
+UniquePtr<GpuBuffer> Sprite::globalVertexBuffer;
+UniquePtr<GpuBuffer> Sprite::globalIndexBuffer;
 
 
 Sprite::Sprite() {
@@ -31,7 +31,7 @@ Sprite::Sprite() {
 
 void Sprite::SetupMaterial(Material* material) {
 	OSK_ASSERT(material->GetLayout()->GetAllSlots().contains("texture"), InvalidMaterialException());
-	textureMaterialInstance = material->CreateInstance().GetPointer();
+	textureMaterialInstance = material->CreateInstance();
 }
 
 void Sprite::SetTexCoords(const TextureCoordinates2D& texCoords) {

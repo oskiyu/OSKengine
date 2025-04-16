@@ -12,7 +12,6 @@
 #include "GpuMemoryTypes.h"
 #include "IGpuImage.h"
 #include "GpuImageLayout.h"
-#include "OwnedPtr.h"
 #include "GpuImageUsage.h"
 #include "GpuImageDimensions.h"
 #include "Color.hpp"
@@ -65,8 +64,7 @@ void ModelLoader3D::Load(const std::string& assetFilePath, Model3D* asset) {
 
 	auto cpuModel = GltfLoader::Load(
 		modelPath,
-		modelTransform,
-		1.0f);
+		modelTransform);
 
 	if (isAnimated) {
 		AnimMeshLoader loader{};

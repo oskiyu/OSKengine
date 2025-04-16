@@ -34,7 +34,7 @@ OSK::Editor::UI::EditorHeader::EditorHeader(const Vector2f& size) : OSK::UI::Hor
 		auto iconTexture = Engine::GetAssetManager()->Load<ASSETS::Texture>("Resources/Assets/Textures/editor_icon.json");
 		const auto iconView = &iconTexture->GetTextureView2D();
 
-		auto* uiIcon = new OSK::UI::ImageView(iconTexture->GetSize().ToVector2f() * (32.0f / iconTexture->GetSize().ToVector2f().y));
+		auto uiIcon = MakeUnique<OSK::UI::ImageView>(iconTexture->GetSize().ToVector2f() * (32.0f / iconTexture->GetSize().ToVector2f().y));
 
 		GRAPHICS::SdfDrawCall2D iconDrawCall{};
 		iconDrawCall.contentType = GRAPHICS::SdfDrawCallContentType2D::TEXTURE;
@@ -51,7 +51,7 @@ OSK::Editor::UI::EditorHeader::EditorHeader(const Vector2f& size) : OSK::UI::Hor
 		uiIcon->SetAnchor(OSK::UI::Anchor::FULLY_CENTERED);
 		uiIcon->SetMargin(Vector2f(5.0f, 0.0f));
 
-		AddChild("icon", uiIcon);
+		AddChild("icon", std::move(uiIcon));
 	}
 }
 

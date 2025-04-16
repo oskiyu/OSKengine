@@ -6,7 +6,7 @@
 using namespace OSK;
 using namespace OSK::UI;
 
-CollapsibleWrapper::CollapsibleWrapper(OwnedPtr<IElement> content, const std::string& title, ASSETS::AssetRef<ASSETS::Font> font, USize32 fontSize) : VerticalContainer(content->GetSize()), m_content(content.GetPointer()) {
+CollapsibleWrapper::CollapsibleWrapper(UniquePtr<IElement>&& content, const std::string& title, ASSETS::AssetRef<ASSETS::Font> font, USize32 fontSize) : VerticalContainer(content->GetSize()), m_content(content.GetPointer()) {
 	m_bar = new Button(content->GetSize());
 	
 	m_bar->SetTextFont(font);
@@ -26,8 +26,8 @@ CollapsibleWrapper::CollapsibleWrapper(OwnedPtr<IElement> content, const std::st
 			: Expand();
 		});
 
-	AddChild("button", m_bar);
-	AddChild("content", m_content);
+	AddChild("button", UniquePtr<OSK::UI::IElement>(m_bar));
+	AddChild("content", std::move(content));
 }
 
 IElement* CollapsibleWrapper::GetContent() {

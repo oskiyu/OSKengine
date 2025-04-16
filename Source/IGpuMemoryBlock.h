@@ -4,7 +4,7 @@
 #include "DefineAs.h"
 
 #include "DynamicArray.hpp"
-#include "OwnedPtr.h"
+#include "UniquePtr.hpp"
 
 #include "MutexHolder.h"
 
@@ -50,7 +50,7 @@ namespace OSK::GRAPHICS {
 		/// @throws GpuMemoryBlockNotEnoughSpaceException si no se logra obtener un bloque con
 		/// las características dadas. Esto puede ocurrir aunque en principio el bloque
 		/// tenga suficiente memoria debido a fragmentación.
-		IGpuMemorySubblock* GetNextMemorySubblock(USize64 size, USize64 alignment);
+		UniquePtr<IGpuMemorySubblock> GetNextMemorySubblock(USize64 size, USize64 alignment);
 
 		
 		/// @brief Devuelve el tamaño total del bloque, ya esté siendo usado o no.
@@ -100,7 +100,7 @@ namespace OSK::GRAPHICS {
 		/// @return Nuevo subbloque.
 		/// 
 		/// @pre La región de memoria definida por offset y size no debe estar en uso.
-		virtual OwnedPtr<IGpuMemorySubblock> CreateNewMemorySubblock(USize64 size, USize64 offset) = 0;
+		virtual UniquePtr<IGpuMemorySubblock> CreateNewMemorySubblock(USize64 size, USize64 offset) = 0;
 
 
 		/// @brief Estructura que se usa cuando un subbloque ya no está en uso:
@@ -131,7 +131,6 @@ namespace OSK::GRAPHICS {
 
 		GpuSharedMemoryType type;
 		GpuMemoryUsage usage;
-		GpuBufferUsage bufferUsage;
 
 		/// @brief GPU donde reside este bloque.
 		IGpu* device = nullptr;

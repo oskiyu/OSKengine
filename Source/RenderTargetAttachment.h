@@ -53,7 +53,7 @@ namespace OSK::GRAPHICS {
 	private:
 
 		RenderTargetAttachmentInfo m_info;
-		UniquePtr<GpuImage> m_image = nullptr;
+		UniquePtr<GpuImage> m_image;
 
 	};
 

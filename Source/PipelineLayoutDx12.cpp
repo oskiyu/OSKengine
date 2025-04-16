@@ -71,12 +71,12 @@ PipelineLayoutDx12::PipelineLayoutDx12(const MaterialLayout* layout)
 			}
 			else if (binding.type == ShaderBindingType::TEXTURE
 					|| binding.type == ShaderBindingType::CUBEMAP) {
-				OwnedPtr<D3D12_DESCRIPTOR_RANGE> textureDescriptorRange = new D3D12_DESCRIPTOR_RANGE({});
-				textureDescriptorRange[0].BaseShaderRegister = binding.hlslIndex;
-				textureDescriptorRange[0].NumDescriptors = 1;
-				textureDescriptorRange[0].OffsetInDescriptorsFromTableStart = 0;
-				textureDescriptorRange[0].RangeType = D3D12_DESCRIPTOR_RANGE_TYPE_SRV;
-				textureDescriptorRange[0].RegisterSpace = 0;
+				UniquePtr<D3D12_DESCRIPTOR_RANGE> textureDescriptorRange = MakeUnique<D3D12_DESCRIPTOR_RANGE>();
+				textureDescriptorRange->BaseShaderRegister = binding.hlslIndex;
+				textureDescriptorRange->NumDescriptors = 1;
+				textureDescriptorRange->OffsetInDescriptorsFromTableStart = 0;
+				textureDescriptorRange->RangeType = D3D12_DESCRIPTOR_RANGE_TYPE_SRV;
+				textureDescriptorRange->RegisterSpace = 0;
 
 				D3D12_STATIC_SAMPLER_DESC sampler{};
 				sampler.RegisterSpace = 0;
@@ -100,7 +100,7 @@ PipelineLayoutDx12::PipelineLayoutDx12(const MaterialLayout* layout)
 				param.DescriptorTable.NumDescriptorRanges = 1;
 				param.DescriptorTable.pDescriptorRanges = textureDescriptorRange.GetPointer();
 
-				descriptorRanges.Insert(textureDescriptorRange.GetPointer());
+				descriptorRanges.Insert(std::move(textureDescriptorRange));
 				staticSamplers.Insert(sampler);
 
 				nativeParams.Insert(param);
@@ -109,12 +109,12 @@ PipelineLayoutDx12::PipelineLayoutDx12(const MaterialLayout* layout)
 				
 			}
 			else if(binding.type == ShaderBindingType::STORAGE_IMAGE) {
-				OwnedPtr<D3D12_DESCRIPTOR_RANGE> textureDescriptorRange = new D3D12_DESCRIPTOR_RANGE({});
-				textureDescriptorRange[0].BaseShaderRegister = binding.hlslDescriptorIndex;
-				textureDescriptorRange[0].NumDescriptors = 1;
-				textureDescriptorRange[0].OffsetInDescriptorsFromTableStart = 0;
-				textureDescriptorRange[0].RangeType = D3D12_DESCRIPTOR_RANGE_TYPE_UAV;
-				textureDescriptorRange[0].RegisterSpace = 0;
+				UniquePtr<D3D12_DESCRIPTOR_RANGE> textureDescriptorRange = MakeUnique<D3D12_DESCRIPTOR_RANGE>();
+				textureDescriptorRange->BaseShaderRegister = binding.hlslDescriptorIndex;
+				textureDescriptorRange->NumDescriptors = 1;
+				textureDescriptorRange->OffsetInDescriptorsFromTableStart = 0;
+				textureDescriptorRange->RangeType = D3D12_DESCRIPTOR_RANGE_TYPE_UAV;
+				textureDescriptorRange->RegisterSpace = 0;
 
 				D3D12_UNORDERED_ACCESS_VIEW_DESC desc{};
 				desc.ViewDimension = D3D12_UAV_DIMENSION_TEXTURE2D;
@@ -127,7 +127,7 @@ PipelineLayoutDx12::PipelineLayoutDx12(const MaterialLayout* layout)
 				param.DescriptorTable.NumDescriptorRanges = 1;
 				param.DescriptorTable.pDescriptorRanges = textureDescriptorRange.GetPointer();
 
-				descriptorRanges.Insert(textureDescriptorRange.GetPointer());
+				descriptorRanges.Insert(std::move(textureDescriptorRange));
 
 				nativeParams.Insert(param);
 			}

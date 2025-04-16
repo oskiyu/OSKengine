@@ -27,9 +27,9 @@ OSK::Editor::Views::PhysicsComponentView::PhysicsComponentView(const Vector2f& s
 	m_accelerationView->SetFont(font);
 	m_accelerationView->SetFontSize(Editor::UI::Constants::SecondaryFontSize);
 
-	GetUnderlyingContainer()->AddChild("m_massView", m_massView);
-	GetUnderlyingContainer()->AddChild("m_velocityView", m_velocityView);
-	GetUnderlyingContainer()->AddChild("m_accelerationView", m_accelerationView);
+	GetUnderlyingContainer()->AddChild("m_massView", UniquePtr<OSK::UI::IElement>(m_massView));
+	GetUnderlyingContainer()->AddChild("m_velocityView", UniquePtr<OSK::UI::IElement>(m_velocityView));
+	GetUnderlyingContainer()->AddChild("m_accelerationView", UniquePtr<OSK::UI::IElement>(m_accelerationView));
 
 	GetUnderlyingContainer()->AdjustSizeToChildren();
 }

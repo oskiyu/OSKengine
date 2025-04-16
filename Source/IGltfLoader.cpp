@@ -27,7 +27,7 @@ using namespace OSK::ASSETS;
 using namespace OSK::GRAPHICS;
 
 
-CpuModel3D GltfLoader::Load(std::string_view path, const glm::mat4& transform, float globalScale) {
+CpuModel3D GltfLoader::Load(std::string_view path, const glm::mat4& transform) {
 	CpuModel3D output = {};
 
 	tinygltf::TinyGLTF context;
@@ -43,12 +43,14 @@ CpuModel3D GltfLoader::Load(std::string_view path, const glm::mat4& transform, f
 	for (const auto& scene : gltfModel.scenes) {
 		for (const int nodeIndex : scene.nodes) {
 			const tinygltf::Node& node = gltfModel.nodes[nodeIndex];
-			output.AddMeshes(ProcessNode(gltfModel, node, transform, globalScale));
+			output.AddMeshes(ProcessNode(gltfModel, node, transform)); // @todo: transform
 		}
 	}
 
-	output.AddAnimations(LoadAnimations(gltfModel));
+	output.AddAnimations(LoadAnimations(gltfModel, transform));
 	output.AddAnimationSkins(LoadAnimationSkins(gltfModel));
+	
+	output.SetInitialTransform(transform);
 
 	return output;
 }
@@ -150,10 +152,10 @@ DynamicArray<GpuModel3D::Material> GltfLoader::LoadMaterials(const tinygltf::Mod
 	return output;
 }
 
-DynamicArray<Animation> GltfLoader::LoadAnimations(const tinygltf::Model& model) {
+DynamicArray<Animation> GltfLoader::LoadAnimations(const tinygltf::Model& model, const glm::mat4& baseTransform) {
 	DynamicArray<Animation> output = DynamicArray<Animation>::CreateReserved(model.animations.size());
 
-	const auto bones = LoadAllBones(model);
+	const auto bones = LoadAllBones(model, baseTransform);
 
 	for (const auto& gltfAnimation : model.animations) {
 		output.Insert(
@@ -202,19 +204,22 @@ DynamicArray<AnimationSampler> GltfLoader::LoadAnimationSamplers(const tinygltf:
 			switch (accessor.type) {
 
 			case TINYGLTF_TYPE_VEC3: {
-				const glm::vec3* vecBuffer = static_cast<const glm::vec3*>(data);
-				for (UIndex32 i = 0; i < accessor.count; i++)
-					sampler.outputs.Insert(glm::vec4(vecBuffer[i], 0.0));
+				const auto* vecBuffer = static_cast<const glm::vec3*>(data);
+				for (UIndex32 i = 0; i < accessor.count; i++) {
+					const auto entry = glm::vec4(vecBuffer[i], 0.0);
+					sampler.outputs.Insert(entry);
+				}
 			}
-								   break;
+				break;
 
 			case TINYGLTF_TYPE_VEC4: {
-				const glm::vec4* vecBuffer = static_cast<const glm::vec4*>(data);
-				for (UIndex32 i = 0; i < accessor.count; i++)
-					sampler.outputs.Insert(vecBuffer[i]);
+				const auto* vecBuffer = static_cast<const glm::vec4*>(data);
+				for (UIndex32 i = 0; i < accessor.count; i++) {
+					const auto entry = vecBuffer[i];
+					sampler.outputs.Insert(entry);
+				}
 			}
-								   break;
-
+				break;
 			}
 		}
 	}
@@ -241,7 +246,7 @@ DynamicArray<AnimationChannel> GltfLoader::LoadAnimationChannels(const tinygltf:
 			channel.type = AnimationChannel::ChannelType::SCALE;
 		}
 		else {
-			// OSK_CHECK(false, "El canal de animación " + gltfChannel.target_path + " no está soportado.");
+			OSK_ASSERT(false, std::format("El canal de animación {} no está soportado.", gltfChannel.target_path));
 		}
 	}
 
@@ -256,7 +261,7 @@ glm::mat4 GltfLoader::GetNodeMatrix(const tinygltf::Node& node) {
 	// Obtenemos el transform del nodo.
 	// Puede estar definido de varias maneras:
 
-	glm::mat4 nodeMatrix = glm::mat4(1.0f);
+	auto nodeMatrix = glm::mat4(1.0f);
 
 	// Definido por una posición.
 	if (node.translation.size() == 3) {
@@ -321,51 +326,58 @@ std::unordered_map<std::string, std::string, StringHasher, std::equal_to<>> Gltf
 	return output;
 }
 
-DynamicArray<AnimationBone> GltfLoader::LoadAllBones(const tinygltf::Model& model) {
+DynamicArray<AnimationBone> GltfLoader::LoadAllBones(const tinygltf::Model& model, const glm::mat4& baseTransform) {
 	DynamicArray<AnimationBone> output{};
 
 	for (const auto& scene : model.scenes) {
 		for (const int nodeIndex : scene.nodes) {
 			const tinygltf::Node& node = model.nodes[nodeIndex];
-			constexpr auto noParentId = std::numeric_limits<UIndex32>::max();
-
-			output.InsertAll(LoadBones(model, node, nodeIndex, noParentId));
+			output.InsertAll(LoadBones(model, node, nodeIndex, std::optional<UIndex64>{}));
 		}
 	}
 
 	return output;
 }
 
-DynamicArray<AnimationBone> GltfLoader::LoadBones(const tinygltf::Model& model, const tinygltf::Node& node, UIndex64 nodeIndex, UIndex64 parentIndex) {
+DynamicArray<AnimationBone> GltfLoader::LoadBones(const tinygltf::Model& model, const tinygltf::Node& node, UIndex64 nodeIndex, std::optional<UIndex64> parentIndex) {
 	DynamicArray<AnimationBone> output{};
-	
+
+	OSK_ASSERT(nodeIndex <= std::numeric_limits<UIndex32>::max(), InvalidArgumentException("nodeIndex demasiado alto."));
+	OSK_ASSERT(parentIndex <= std::numeric_limits<UIndex32>::max(), InvalidArgumentException("parentIndex demasiado alto."));
+
 	AnimationBone bone{};
 	bone.name = node.name;
-	bone.thisIndex = nodeIndex;
-	bone.parentIndex = parentIndex;
+	bone.thisIndex = static_cast<UIndex32>(nodeIndex);
+	if (parentIndex.has_value()) {
+		bone.parentIndex = static_cast<UIndex32>(parentIndex.value());
+	}
 
 	if (node.skin > -1) {
 		bone.skinIndex = node.skin;
 	}
 
+	for (const auto& child : node.children) {
+		bone.childIndices.Insert(child);
+	}
+
 	output.Insert(bone);
 
-	for (UIndex32 i = 0; i < node.children.size(); i++) {
-		output.InsertAll(LoadBones(model, model.nodes[node.children[i]], node.children[i], nodeIndex));
+	for (const auto& child : node.children) {
+		output.InsertAll(LoadBones(model, model.nodes[child], child, nodeIndex));
 	}
 
 	return output;
 }
 
-DynamicArray<CpuMesh3D> GltfLoader::ProcessNode(const tinygltf::Model& model, const tinygltf::Node& node, const glm::mat4& transform, float globalScale) {
+DynamicArray<CpuMesh3D> GltfLoader::ProcessNode(const tinygltf::Model& model, const tinygltf::Node& node, const glm::mat4& transform) {
 	DynamicArray<CpuMesh3D> output = {};
 
-	const glm::mat4 nodeMatrix = transform * GetNodeMatrix(node);
+	glm::mat4 nodeMatrix = transform * GetNodeMatrix(node);
 	const glm::mat3 normalMatrix = glm::transpose(glm::inverse(glm::mat3(nodeMatrix)));
 
 	if (node.mesh <= -1) {
-		for (UIndex32 i = 0; i < node.children.size(); i++) {
-			output.InsertAll(ProcessNode(model, model.nodes[node.children[i]], transform, globalScale));
+		for (const UIndex32 childIdx : node.children) {
+			output.InsertAll(ProcessNode(model, model.nodes[childIdx], transform));
 		}
 
 		return output;
@@ -374,10 +386,8 @@ DynamicArray<CpuMesh3D> GltfLoader::ProcessNode(const tinygltf::Model& model, co
 	// Proceso del polígono.
 	const tinygltf::Mesh& mesh = model.meshes[node.mesh];
 
-	for (UIndex32 i = 0; i < mesh.primitives.size(); i++) {
+	for (const auto& primitive : mesh.primitives) {
 		CpuMesh3D cpuMesh{};
-
-		const tinygltf::Primitive& primitive = mesh.primitives[i];
 
 		if (primitive.material > -1) {
 			cpuMesh.SetMaterialIndex(primitive.material);
@@ -386,7 +396,7 @@ DynamicArray<CpuMesh3D> GltfLoader::ProcessNode(const tinygltf::Model& model, co
 		const auto primitiveIndices = GetIndices(primitive, 0, model);
 
 		const std::optional<DynamicArray<Vector3f>> positions = HasPositions(primitive)
-			? GetVertexPositions(primitive, nodeMatrix, model, globalScale)
+			? GetVertexPositions(primitive, nodeMatrix, model)
 			: std::optional<DynamicArray<Vector3f>>{};
 
 		const std::optional<DynamicArray<Vector3f>> normals = HasNormals(primitive)
@@ -495,8 +505,8 @@ DynamicArray<CpuMesh3D> GltfLoader::ProcessNode(const tinygltf::Model& model, co
 		output.Insert(cpuMesh);
 	}
 
-	for (UIndex32 i = 0; i < node.children.size(); i++) {
-		output.InsertAll(ProcessNode(model, model.nodes[node.children[i]], transform, globalScale));
+	for (const auto& child : node.children) {
+		output.InsertAll(ProcessNode(model, model.nodes[child], transform));
 	}
 
 	return output;
@@ -512,7 +522,7 @@ DynamicArray<AssetRef<Texture>> GltfLoader::LoadImages(const tinygltf::Model& mo
 	for (UIndex32 i = 0; i < model.images.size(); i++) {
 		const tinygltf::Image& originalImage = model.images[i];
 
-		OwnedPtr<GpuImage> image = Engine::GetRenderer()->GetAllocator()->CreateImage(
+		UniquePtr<GpuImage> image = Engine::GetRenderer()->GetAllocator()->CreateImage(
 			GpuImageCreateInfo::CreateDefault2D({ 
 				(unsigned int)originalImage.width, 
 				(unsigned int)originalImage.height },
@@ -522,7 +532,7 @@ DynamicArray<AssetRef<Texture>> GltfLoader::LoadImages(const tinygltf::Model& mo
 		image->SetDebugName(std::format("Mesh texture {}", i));
 
 		// Al efectuar mip-mapping, debe usar GpuQueueType::MAIN.
-		OwnedPtr<ICommandList> uploadCmdList = Engine::GetRenderer()->CreateSingleUseCommandList(GpuQueueType::MAIN); 
+		UniquePtr<ICommandList> uploadCmdList = Engine::GetRenderer()->CreateSingleUseCommandList(GpuQueueType::MAIN);
 		uploadCmdList->Reset();
 		uploadCmdList->Start();
 
@@ -577,11 +587,11 @@ DynamicArray<AssetRef<Texture>> GltfLoader::LoadImages(const tinygltf::Model& mo
 		}
 
 		uploadCmdList->Close();
-		Engine::GetRenderer()->SubmitSingleUseCommandList(uploadCmdList.GetPointer());
+		Engine::GetRenderer()->SubmitSingleUseCommandList(std::move(uploadCmdList));
 
 		AssetOwningRef<Texture> owningRef("XD");
-		owningRef.GetAsset()->_SetImage(image);
 		owningRef.GetAsset()->_SetSize(image->GetSize2D());
+		owningRef.GetAsset()->_SetImage(std::move(image));
 		owningRef.GetAsset()->_SetNumberOfChannels(4);
 		owningRef._SetAsLoaded();
 
@@ -625,7 +635,7 @@ bool GltfLoader::HasBoneWeights(const tinygltf::Primitive& primitive) {
 	return HasAttribute(primitive, "WEIGHTS_0");
 }
 
-DynamicArray<Vector3f> GltfLoader::GetVertexPositions(const tinygltf::Primitive& primitive, const glm::mat4& nodeMatrix, const tinygltf::Model& model, float globalScale) {
+DynamicArray<Vector3f> GltfLoader::GetVertexPositions(const tinygltf::Primitive& primitive, const glm::mat4& nodeMatrix, const tinygltf::Model& model) {
 	// Comprobamos que tiene almacenado info de posición.
 	OSK_ASSERT(HasPositions(primitive), NoVertexPositionsFoundException());
 
@@ -646,7 +656,7 @@ DynamicArray<Vector3f> GltfLoader::GetVertexPositions(const tinygltf::Primitive&
 			positionsBuffer[v * 3 + 0],
 			positionsBuffer[v * 3 + 1],
 			positionsBuffer[v * 3 + 2],
-			globalScale
+			1.0f
 		);
 
 		output[v] = Vector3f(glm::vec3(nodeMatrix * vertexPosition));
@@ -885,8 +895,9 @@ DynamicArray<TIndexSize> GltfLoader::GetIndices(const tinygltf::Primitive& primi
 }
 
 DynamicArray<Vector4f> GltfLoader::GetJoints(const tinygltf::Primitive& primitive, const tinygltf::Model& model) {
-	if (!HasJoints(primitive))
+	if (!HasJoints(primitive)) {
 		return DynamicArray<Vector4f>();
+	}
 
 	// Para poder acceder a la información en forma de buffer.
 	const tinygltf::Accessor& accessor = model.accessors[primitive.attributes.find("JOINTS_0")->second];

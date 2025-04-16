@@ -129,7 +129,7 @@ namespace OSK::GRAPHICS {
 		/// 
 		/// @pre @p index < `GetImageCount()`.
 		void SetImage(
-			OwnedPtr<GpuImage> image,
+			UniquePtr<GpuImage>&& image,
 			UIndex32 index);
 
 	private:

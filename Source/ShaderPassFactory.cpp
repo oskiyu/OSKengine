@@ -16,7 +16,7 @@ bool ShaderPassFactory::ContainsShaderPass(std::string_view name) const {
 	return m_methods.contains(name);
 }
 
-OwnedPtr<IShaderPass> ShaderPassFactory::CreatePass(std::string_view name) const {
+UniquePtr<IShaderPass> ShaderPassFactory::CreatePass(std::string_view name) const {
 	OSK_ASSERT(
 		ContainsShaderPass(name),
 		InvalidArgumentException(std::format("El pase {} no ha sido registrado.", name)));

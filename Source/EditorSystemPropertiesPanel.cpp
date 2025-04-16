@@ -9,12 +9,12 @@ OSK::Editor::UI::SystemPropertiesPanel::SystemPropertiesPanel(const Vector2f& si
 	AddStateObjectButton();
 }
 
-void OSK::Editor::UI::SystemPropertiesPanel::SetView(OwnedPtr<OSK::Editor::Views::ISystemView> view) {
+void OSK::Editor::UI::SystemPropertiesPanel::SetView(UniquePtr<OSK::Editor::Views::ISystemView>&& view) {
 	if (HasChild(ChildName)) {
 		DeleteChild(ChildName);
 	}
 
-	AddChild(ChildName, view.GetPointer());
+	AddChild(ChildName, std::move(view));
 }
 
 void OSK::Editor::UI::SystemPropertiesPanel::ClearView() {
@@ -80,5 +80,5 @@ void OSK::Editor::UI::SystemPropertiesPanel::AddStateObjectButton() {
 		m_stateButton->GetPressedDrawCalls().Insert(background);
 	}
 
-	AddChild("stateButton", m_stateButton);
+	AddChild("stateButton", UniquePtr(m_stateButton));
 }
