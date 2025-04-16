@@ -3,7 +3,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
-<meta name="generator" content="Doxygen 1.12.0"/>
+<meta name="generator" content="Doxygen 1.13.2"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
 <title>OSKengine: Archivo de código fuente Source/AssetsMap.h</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
@@ -37,7 +37,7 @@
 </table>
 </div>
 <!-- end header part -->
-<!-- Generado por Doxygen 1.12.0 -->
+<!-- Generado por Doxygen 1.13.2 -->
 <script type="text/javascript">
 /* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
 var searchBox = new SearchBox("searchBox", "search/",'.html');
@@ -114,21 +114,21 @@ $(function(){initNavTree('_assets_map_8h_source.html',''); initResizable(true); 
 <div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span> </div>
 <div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span> </div>
 <div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="keyword">namespace </span><a class="code hl_namespace" href="namespace_o_s_k_1_1_a_s_s_e_t_s.html">OSK::ASSETS</a> {</div>
-<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span> </div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span></div>
 <div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>    <span class="keyword">template</span> &lt;<span class="keyword">typename</span> TAssetType&gt;</div>
 <div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>    <span class="keyword">requires</span> std::is_base_of_v&lt;IAsset, TAssetType&gt;</div>
 <div class="foldopen" id="foldopen00022" data-start="{" data-end="};">
 <div class="line"><a id="l00022" name="l00022"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_assets_map.html">   22</a></span>    <span class="keyword">class </span><a class="code hl_class" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_assets_map.html">AssetsMap</a> {</div>
 <div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span> </div>
 <div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>    <span class="keyword">public</span>:</div>
-<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span> </div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span></div>
 <div class="foldopen" id="foldopen00033" data-start="{" data-end="}">
 <div class="line"><a id="l00033" name="l00033"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_assets_map.html#adb2c495d16d5c03649043fcd803c9d7f">   33</a></span>        <span class="keywordtype">void</span> <a class="code hl_function" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_assets_map.html#adb2c495d16d5c03649043fcd803c9d7f">Register</a>(<span class="keyword">const</span> std::string&amp; assetFilePath) {</div>
 <div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>            std::unique_lock lock(m_mutex);</div>
 <div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>            m_map[<span class="keyword">static_cast&lt;</span>std::string<span class="keyword">&gt;</span>(assetFilePath)] = <a class="code hl_class" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_owning_ref.html">AssetOwningRef&lt;TAssetType&gt;</a>(<span class="keyword">static_cast&lt;</span>std::string<span class="keyword">&gt;</span>(assetFilePath));</div>
 <div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>        }</div>
 </div>
-<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span> </div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span></div>
 <div class="foldopen" id="foldopen00044" data-start="{" data-end="}">
 <div class="line"><a id="l00044" name="l00044"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_assets_map.html#a8d8306a956159e8b6f360b29b6ae40b8">   44</a></span>        <a class="code hl_class" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">AssetRef&lt;TAssetType&gt;</a> <a class="code hl_function" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_assets_map.html#a8d8306a956159e8b6f360b29b6ae40b8">GetExistingReference</a>(std::string_view assetFilePath) {</div>
 <div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>            std::shared_lock lock(m_mutex);</div>
@@ -136,7 +136,7 @@ $(function(){initNavTree('_assets_map_8h_source.html',''); initResizable(true); 
 <div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>            <span class="keywordflow">return</span> m_map.find(assetFilePath)-&gt;second.CreateRef();</div>
 <div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>        }</div>
 </div>
-<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span> </div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span></div>
 <div class="foldopen" id="foldopen00058" data-start="{" data-end="}">
 <div class="line"><a id="l00058" name="l00058"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_assets_map.html#a7c243c5702de93c32c113a836398b25a">   58</a></span>        <a class="code hl_class" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_ref.html">AssetRef&lt;TAssetType&gt;</a> <a class="code hl_function" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_assets_map.html#a7c243c5702de93c32c113a836398b25a">GetReference_OrRegister</a>(std::string_view assetFilePath) {</div>
 <div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>            {</div>
@@ -154,21 +154,21 @@ $(function(){initNavTree('_assets_map_8h_source.html',''); initResizable(true); 
 <div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>        }</div>
 </div>
 <div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span> </div>
-<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span> </div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span></div>
 <div class="foldopen" id="foldopen00081" data-start="{" data-end="}">
 <div class="line"><a id="l00081" name="l00081"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_assets_map.html#aacb4f628e171a28d0abe5fb7d3f1ab48">   81</a></span>        TAssetType* <a class="code hl_function" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_assets_map.html#aacb4f628e171a28d0abe5fb7d3f1ab48">GetAsset</a>(std::string_view assetFilePath) {</div>
 <div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span>            std::shared_lock lock(m_mutex);</div>
 <div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span>            <span class="keywordflow">return</span> m_map.find(assetFilePath)-&gt;second.GetAsset();</div>
 <div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span>        }</div>
 </div>
-<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span> </div>
+<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span></div>
 <div class="foldopen" id="foldopen00090" data-start="{" data-end="}">
 <div class="line"><a id="l00090" name="l00090"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_assets_map.html#a3d9a2cfdadd1de637e1a018bae5e1723">   90</a></span>        <span class="keywordtype">bool</span> <a class="code hl_function" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_assets_map.html#a3d9a2cfdadd1de637e1a018bae5e1723">HasAsset</a>(std::string_view assetFilePath)<span class="keyword"> const </span>{</div>
 <div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span>            std::shared_lock lock(m_mutex);</div>
 <div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span>            <span class="keywordflow">return</span> m_map.contains(assetFilePath);</div>
 <div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span>        }</div>
 </div>
-<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span> </div>
+<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span></div>
 <div class="foldopen" id="foldopen00101" data-start="{" data-end="}">
 <div class="line"><a id="l00101" name="l00101"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_assets_map.html#a3e9c2c70ff6bf1785b5d76acdbf84f41">  101</a></span>        <span class="keywordtype">void</span> <a class="code hl_function" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_assets_map.html#a3e9c2c70ff6bf1785b5d76acdbf84f41">SetAsLoaded</a>(std::string_view assetFilePath) {</div>
 <div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span>            std::shared_lock lock(m_mutex);</div>
@@ -202,7 +202,7 @@ $(function(){initNavTree('_assets_map_8h_source.html',''); initResizable(true); 
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_74389ed8173ad57b461b9d623a1f3867.html">Source</a></li><li class="navelem"><b>AssetsMap.h</b></li>
-    <li class="footer">Generado el Lunes, 23 de diciembre de 2024 13:15:55 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.12.0 </li>
+    <li class="footer">Generado el Miércoles, 16 de abril de 2025 17:13:04 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.13.2 </li>
   </ul>
 </div>
 </body>

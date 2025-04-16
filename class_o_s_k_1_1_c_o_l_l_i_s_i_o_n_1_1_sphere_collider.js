@@ -4,7 +4,7 @@ var class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_sphere_collider =
     [ "SphereCollider", "class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_sphere_collider.html#a4ebbd6ce128bedbb2ed6fc2d8cd36f3c", null ],
     [ "CastRay", "class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_sphere_collider.html#a3b846414c3ea6c7cdb38b237d70ca31c", null ],
     [ "ContainsPoint", "class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_sphere_collider.html#a01c61c0fa78502cf797328fe8f7f02f9", null ],
-    [ "CreateCopy", "class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_sphere_collider.html#a0636f45ca5da8037a69d9cee4c05890a", null ],
+    [ "CreateCopy", "class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_sphere_collider.html#acec7f2c0acc353667c12d9cd38b291ff", null ],
     [ "GetPosition", "class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_sphere_collider.html#ae1be71ba2c65e3972b15ab6f6af075aa", null ],
     [ "GetRadius", "class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_sphere_collider.html#a9887f7bc7f2da48dcd96192ac1ba5f38", null ],
     [ "IsBehindPlane", "class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_sphere_collider.html#a66215f6e59ce147677f1389840a3bd7b", null ],

@@ -4,7 +4,7 @@ var class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_axis_aligned_bounding_box =
     [ "AxisAlignedBoundingBox", "class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_axis_aligned_bounding_box.html#af6ec16d1ff9275a6d32236591f381460", null ],
     [ "CastRay", "class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_axis_aligned_bounding_box.html#a22be50db7c68c84f933aadb94228d670", null ],
     [ "ContainsPoint", "class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_axis_aligned_bounding_box.html#a465157f557b4c8c95bf9758541ec5a34", null ],
-    [ "CreateCopy", "class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_axis_aligned_bounding_box.html#a05192eb36783816d462fd1ac77ec548d", null ],
+    [ "CreateCopy", "class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_axis_aligned_bounding_box.html#adc6820ad5b674dc6aeedc15481805142", null ],
     [ "GetMax", "class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_axis_aligned_bounding_box.html#a73e7a5381e4573cb5a5f288c9f695649", null ],
     [ "GetMin", "class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_axis_aligned_bounding_box.html#adb2f85c765c20238d0628dbd8d955a97", null ],
     [ "GetPosition", "class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_axis_aligned_bounding_box.html#ae1be71ba2c65e3972b15ab6f6af075aa", null ],

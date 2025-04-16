@@ -3,7 +3,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
-<meta name="generator" content="Doxygen 1.12.0"/>
+<meta name="generator" content="Doxygen 1.13.2"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
 <title>OSKengine: Archivo de código fuente Source/AssetManager.cpp</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
@@ -37,7 +37,7 @@
 </table>
 </div>
 <!-- end header part -->
-<!-- Generado por Doxygen 1.12.0 -->
+<!-- Generado por Doxygen 1.13.2 -->
 <script type="text/javascript">
 /* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
 var searchBox = new SearchBox("searchBox", "search/",'.html');
@@ -113,28 +113,26 @@ $(function(){initNavTree('_asset_manager_8cpp_source.html',''); initResizable(tr
 <div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span> </div>
 <div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span> </div>
 <div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="keywordtype">void</span> AssetManager::LaunchAsyncLoad(<span class="keyword">const</span> std::string&amp; assetPath, <a class="code hl_class" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_i_asset_loader.html">IAssetLoader</a>* loader, std::span&lt;const std::string&gt; tags) {</div>
-<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span>    <a class="code hl_class" href="class_o_s_k_1_1_owned_ptr.html">OwnedPtr&lt;AssetLoaderJob&gt;</a> job = <span class="keyword">new</span> <a class="code hl_class" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_loader_job.html">AssetLoaderJob</a>(assetPath, loader);</div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span>    UniquePtr&lt;AssetLoaderJob&gt; job = <a class="code hl_function" href="namespace_o_s_k.html#a9eb9f9297be2a8044dda7480321e6661">MakeUnique&lt;AssetLoaderJob&gt;</a>(assetPath, loader);</div>
 <div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span>    </div>
 <div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span>    <span class="keywordflow">for</span> (<span class="keyword">const</span> <span class="keyword">auto</span>&amp; tag : tags) {</div>
 <div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span>        job-&gt;AddTag(tag);</div>
 <div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>    }</div>
 <div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span> </div>
-<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>    <a class="code hl_function" href="class_o_s_k_1_1_engine.html#a1e9c44d6c25c676ec8f41d5fbe83ed35">OSK::Engine::GetJobSystem</a>()-&gt;<a class="code hl_function" href="class_o_s_k_1_1_job_system.html#ac4dc080b743bf896eb4fccd2b61be627">ScheduleJob</a>(job.<a class="code hl_function" href="class_o_s_k_1_1_owned_ptr.html#a81dfab2299056fc9858aace55fca0042">GetPointer</a>());</div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>    <a class="code hl_function" href="class_o_s_k_1_1_engine.html#a1e9c44d6c25c676ec8f41d5fbe83ed35">OSK::Engine::GetJobSystem</a>()-&gt;<a class="code hl_function" href="class_o_s_k_1_1_job_system.html#ad4e019fd230bda3ad2a3a4cad1d1b3a0">ScheduleJob</a>(std::move(job));</div>
 <div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>}</div>
-<div class="ttc" id="aclass_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_loader_job_html"><div class="ttname"><a href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_asset_loader_job.html">OSK::ASSETS::AssetLoaderJob</a></div><div class="ttdoc">Trabajo que se encarga de cargar un asset de manera diferida.</div><div class="ttdef"><b>Definition</b> <a href="_asset_loader_job_8h_source.html#l00011">AssetLoaderJob.h:11</a></div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_a_s_s_e_t_s_1_1_i_asset_loader_html"><div class="ttname"><a href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_i_asset_loader.html">OSK::ASSETS::IAssetLoader</a></div><div class="ttdoc">Clase que se encarga de cargar un asset de un tipo en concreto.</div><div class="ttdef"><b>Definition</b> <a href="_i_asset_loader_8h_source.html#l00034">IAssetLoader.h:34</a></div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_engine_html_a1e9c44d6c25c676ec8f41d5fbe83ed35"><div class="ttname"><a href="class_o_s_k_1_1_engine.html#a1e9c44d6c25c676ec8f41d5fbe83ed35">OSK::Engine::GetJobSystem</a></div><div class="ttdeci">static JobSystem * GetJobSystem()</div><div class="ttdoc">Devuelve un puntero al sistema de trabajos multihilo.</div><div class="ttdef"><b>Definition</b> <a href="_o_s_kengine_8cpp_source.html#l00274">OSKengine.cpp:274</a></div></div>
-<div class="ttc" id="aclass_o_s_k_1_1_job_system_html_ac4dc080b743bf896eb4fccd2b61be627"><div class="ttname"><a href="class_o_s_k_1_1_job_system.html#ac4dc080b743bf896eb4fccd2b61be627">OSK::JobSystem::ScheduleJob</a></div><div class="ttdeci">void ScheduleJob(UniquePtr&lt; IJob &gt; job)</div><div class="ttdoc">Añade un trabajo que será ejecutado por el sistema.</div><div class="ttdef"><b>Definition</b> <a href="_job_system_8cpp_source.html#l00047">JobSystem.cpp:47</a></div></div>
-<div class="ttc" id="aclass_o_s_k_1_1_owned_ptr_html"><div class="ttname"><a href="class_o_s_k_1_1_owned_ptr.html">OSK::OwnedPtr</a></div><div class="ttdoc">Es dueño de un puntero.</div><div class="ttdef"><b>Definition</b> <a href="_owned_ptr_8h_source.html#l00017">OwnedPtr.h:17</a></div></div>
-<div class="ttc" id="aclass_o_s_k_1_1_owned_ptr_html_a81dfab2299056fc9858aace55fca0042"><div class="ttname"><a href="class_o_s_k_1_1_owned_ptr.html#a81dfab2299056fc9858aace55fca0042">OSK::OwnedPtr::GetPointer</a></div><div class="ttdeci">T * GetPointer() const</div><div class="ttdoc">Devuelve el puntero nativo.</div><div class="ttdef"><b>Definition</b> <a href="_owned_ptr_8h_source.html#l00080">OwnedPtr.h:80</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_job_system_html_ad4e019fd230bda3ad2a3a4cad1d1b3a0"><div class="ttname"><a href="class_o_s_k_1_1_job_system.html#ad4e019fd230bda3ad2a3a4cad1d1b3a0">OSK::JobSystem::ScheduleJob</a></div><div class="ttdeci">void ScheduleJob(UniquePtr&lt; IJob &gt; &amp;&amp;job)</div><div class="ttdoc">Añade un trabajo que será ejecutado por el sistema.</div><div class="ttdef"><b>Definition</b> <a href="_job_system_8cpp_source.html#l00047">JobSystem.cpp:47</a></div></div>
 <div class="ttc" id="anamespace_o_s_k_1_1_a_s_s_e_t_s_html"><div class="ttname"><a href="namespace_o_s_k_1_1_a_s_s_e_t_s.html">OSK::ASSETS</a></div><div class="ttdef"><b>Definition</b> <a href="_anim_mesh_loader_8h_source.html#l00009">AnimMeshLoader.h:9</a></div></div>
+<div class="ttc" id="anamespace_o_s_k_html_a9eb9f9297be2a8044dda7480321e6661"><div class="ttname"><a href="namespace_o_s_k.html#a9eb9f9297be2a8044dda7480321e6661">OSK::MakeUnique</a></div><div class="ttdeci">UniquePtr&lt; T &gt; MakeUnique(TArgs &amp;&amp;... args)</div><div class="ttdef"><b>Definition</b> <a href="_unique_ptr_8hpp_source.html#l00182">UniquePtr.hpp:182</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_74389ed8173ad57b461b9d623a1f3867.html">Source</a></li><li class="navelem"><b>AssetManager.cpp</b></li>
-    <li class="footer">Generado el Lunes, 23 de diciembre de 2024 13:15:55 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.12.0 </li>
+    <li class="footer">Generado el Miércoles, 16 de abril de 2025 17:13:04 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.13.2 </li>
   </ul>
 </div>
 </body>

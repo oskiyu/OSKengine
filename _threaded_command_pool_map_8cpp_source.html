@@ -3,7 +3,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
-<meta name="generator" content="Doxygen 1.12.0"/>
+<meta name="generator" content="Doxygen 1.13.2"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
 <title>OSKengine: Archivo de código fuente Source/ThreadedCommandPoolMap.cpp</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
@@ -37,7 +37,7 @@
 </table>
 </div>
 <!-- end header part -->
-<!-- Generado por Doxygen 1.12.0 -->
+<!-- Generado por Doxygen 1.13.2 -->
 <script type="text/javascript">
 /* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
 var searchBox = new SearchBox("searchBox", "search/",'.html');
@@ -135,21 +135,22 @@ $(function(){initNavTree('_threaded_command_pool_map_8cpp_source.html',''); init
 <div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>    <span class="comment">// Cerramos en modo escritura.</span></div>
 <div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>    std::unique_lock lock(m_readWriteMutex);</div>
 <div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span> </div>
-<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>    <a class="code hl_class" href="class_o_s_k_1_1_owned_ptr.html">OwnedPtr&lt;ICommandPool&gt;</a> pool = <a class="code hl_function" href="class_o_s_k_1_1_engine.html#a019c5397d042224c134b7fd22c739d00">Engine::GetRenderer</a>()-&gt;<a class="code hl_function" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer.html#ac369d2517b43b3e2a724548dfb389e85">CreateCommandPool</a>(m_linkedCommandQueue);</div>
-<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span> </div>
-<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>    m_commandPoolPerThread[threadId] = pool.<a class="code hl_function" href="class_o_s_k_1_1_owned_ptr.html#a81dfab2299056fc9858aace55fca0042">GetPointer</a>();</div>
-<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span> </div>
-<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>    <span class="keywordflow">return</span> pool.<a class="code hl_function" href="class_o_s_k_1_1_owned_ptr.html#a81dfab2299056fc9858aace55fca0042">GetPointer</a>();</div>
-<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>}</div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>    <a class="code hl_class" href="class_o_s_k_1_1_unique_ptr.html">UniquePtr&lt;ICommandPool&gt;</a> pool = <a class="code hl_function" href="class_o_s_k_1_1_engine.html#a019c5397d042224c134b7fd22c739d00">Engine::GetRenderer</a>()-&gt;<a class="code hl_function" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer.html#a50f75ea569defbb30fbb0cfffa41cc32">CreateCommandPool</a>(m_linkedCommandQueue);</div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>    <span class="keyword">auto</span> output = pool.<a class="code hl_function" href="class_o_s_k_1_1_unique_ptr.html#a495b7d8cddb6f32a5bc81a2968a53f1a">GetPointer</a>();</div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span> </div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>    m_commandPoolPerThread[threadId] = std::move(pool);</div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span> </div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>    <span class="keywordflow">return</span> output;</div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>}</div>
 </div>
 <div class="ttc" id="aclass_o_s_k_1_1_engine_html_a019c5397d042224c134b7fd22c739d00"><div class="ttname"><a href="class_o_s_k_1_1_engine.html#a019c5397d042224c134b7fd22c739d00">OSK::Engine::GetRenderer</a></div><div class="ttdeci">static GRAPHICS::IRenderer * GetRenderer()</div><div class="ttdoc">Devuelve un puntero al renderizador del motor.</div><div class="ttdef"><b>Definition</b> <a href="_o_s_kengine_8cpp_source.html#l00250">OSKengine.cpp:250</a></div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_pool_html"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_pool.html">OSK::GRAPHICS::ICommandPool</a></div><div class="ttdoc">Una pool de comandos se encarga de crear una serie de listas de comandos. Al mismo tiempo,...</div><div class="ttdef"><b>Definition</b> <a href="_i_command_pool_8h_source.html#l00019">ICommandPool.h:19</a></div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_queue_html"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_queue.html">OSK::GRAPHICS::ICommandQueue</a></div><div class="ttdoc">Representa un puerto de entrada para los comandos de la GPU.</div><div class="ttdef"><b>Definition</b> <a href="_i_command_queue_8h_source.html#l00015">ICommandQueue.h:15</a></div></div>
-<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_html_ac369d2517b43b3e2a724548dfb389e85"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer.html#ac369d2517b43b3e2a724548dfb389e85">OSK::GRAPHICS::IRenderer::CreateCommandPool</a></div><div class="ttdeci">virtual OwnedPtr&lt; ICommandPool &gt; CreateCommandPool(const ICommandQueue *targetQueueType)=0</div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_html_a50f75ea569defbb30fbb0cfffa41cc32"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer.html#a50f75ea569defbb30fbb0cfffa41cc32">OSK::GRAPHICS::IRenderer::CreateCommandPool</a></div><div class="ttdeci">virtual UniquePtr&lt; ICommandPool &gt; CreateCommandPool(const ICommandQueue *targetQueueType)=0</div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_threaded_command_pool_map_html_a28043a5abd5f603af31ba5dd287d88c2"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_threaded_command_pool_map.html#a28043a5abd5f603af31ba5dd287d88c2">OSK::GRAPHICS::ThreadedCommandPoolMap::GetCommandPool</a></div><div class="ttdeci">ICommandPool * GetCommandPool(std::thread::id threadId)</div><div class="ttdef"><b>Definition</b> <a href="#l00014">ThreadedCommandPoolMap.cpp:14</a></div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_threaded_command_pool_map_html_a9e721e031d03331edfac2603be885a8e"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_threaded_command_pool_map.html#a9e721e031d03331edfac2603be885a8e">OSK::GRAPHICS::ThreadedCommandPoolMap::ThreadedCommandPoolMap</a></div><div class="ttdeci">ThreadedCommandPoolMap(const ICommandQueue *linkedCommandQueue)</div><div class="ttdoc">Crea el mapa de pools.</div><div class="ttdef"><b>Definition</b> <a href="#l00010">ThreadedCommandPoolMap.cpp:10</a></div></div>
-<div class="ttc" id="aclass_o_s_k_1_1_owned_ptr_html"><div class="ttname"><a href="class_o_s_k_1_1_owned_ptr.html">OSK::OwnedPtr</a></div><div class="ttdoc">Es dueño de un puntero.</div><div class="ttdef"><b>Definition</b> <a href="_owned_ptr_8h_source.html#l00017">OwnedPtr.h:17</a></div></div>
-<div class="ttc" id="aclass_o_s_k_1_1_owned_ptr_html_a81dfab2299056fc9858aace55fca0042"><div class="ttname"><a href="class_o_s_k_1_1_owned_ptr.html#a81dfab2299056fc9858aace55fca0042">OSK::OwnedPtr::GetPointer</a></div><div class="ttdeci">T * GetPointer() const</div><div class="ttdoc">Devuelve el puntero nativo.</div><div class="ttdef"><b>Definition</b> <a href="_owned_ptr_8h_source.html#l00080">OwnedPtr.h:80</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_unique_ptr_html"><div class="ttname"><a href="class_o_s_k_1_1_unique_ptr.html">OSK::UniquePtr</a></div><div class="ttdoc">Estructura que es dueña de un objeto almacenado en heap. Al destruirse el UniquePtr,...</div><div class="ttdef"><b>Definition</b> <a href="_unique_ptr_8hpp_source.html#l00026">UniquePtr.hpp:26</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_unique_ptr_html_a495b7d8cddb6f32a5bc81a2968a53f1a"><div class="ttname"><a href="class_o_s_k_1_1_unique_ptr.html#a495b7d8cddb6f32a5bc81a2968a53f1a">OSK::UniquePtr::GetPointer</a></div><div class="ttdeci">T * GetPointer()</div><div class="ttdef"><b>Definition</b> <a href="_unique_ptr_8hpp_source.html#l00093">UniquePtr.hpp:93</a></div></div>
 <div class="ttc" id="anamespace_o_s_k_1_1_g_r_a_p_h_i_c_s_html"><div class="ttname"><a href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html">OSK::GRAPHICS</a></div><div class="ttdef"><b>Definition</b> <a href="_acceleration_structures_exceptions_8h_source.html#l00005">AccelerationStructuresExceptions.h:5</a></div></div>
 <div class="ttc" id="anamespace_o_s_k_html"><div class="ttname"><a href="namespace_o_s_k.html">OSK</a></div><div class="ttdef"><b>Definition</b> <a href="_acceleration_structures_exceptions_8h_source.html#l00005">AccelerationStructuresExceptions.h:5</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
@@ -158,7 +159,7 @@ $(function(){initNavTree('_threaded_command_pool_map_8cpp_source.html',''); init
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_74389ed8173ad57b461b9d623a1f3867.html">Source</a></li><li class="navelem"><b>ThreadedCommandPoolMap.cpp</b></li>
-    <li class="footer">Generado el Lunes, 23 de diciembre de 2024 13:15:56 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.12.0 </li>
+    <li class="footer">Generado el Miércoles, 16 de abril de 2025 17:13:05 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.13.2 </li>
   </ul>
 </div>
 </body>

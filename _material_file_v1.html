@@ -3,7 +3,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
-<meta name="generator" content="Doxygen 1.12.0"/>
+<meta name="generator" content="Doxygen 1.13.2"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
 <title>OSKengine: Archivo de descripción de material (revisión 1).</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
@@ -37,7 +37,7 @@
 </table>
 </div>
 <!-- end header part -->
-<!-- Generado por Doxygen 1.12.0 -->
+<!-- Generado por Doxygen 1.13.2 -->
 <script type="text/javascript">
 /* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
 var searchBox = new SearchBox("searchBox", "search/",'.html');
@@ -121,35 +121,35 @@ $(function(){initNavTree('_material_file_v1.html',''); initResizable(true); });
   </table>
   </dd>
 </dl>
-<dl class="section pre"><dt>Precondición</dt><dd>Si <code>rt_raygen_shader</code>, <code>rt_closesthit_shader</code> o <code>rt_miss_shader</code> están presentes, entonces <code>file_type</code> debe ser "MATERIAL_RT". </dd>
+<dl class="section pre"><dt>Precondición</dt><dd>Si <code class="param">rt_raygen_shader</code>, <code class="param">rt_closesthit_shader</code> o <code class="param">rt_miss_shader</code> están presentes, entonces <code class="param">file_type</code> debe ser "MATERIAL_RT". </dd>
 <dd>
-Si <code>vertex_shader</code>, <code>fragment_shader</code>, <code>tesselation_control_shader</code> o <code>tesselation_evaluation_shader</code> están presentes, entonces <code>file_type</code> debe ser "MATERIAL". </dd>
+Si <code class="param">vertex_shader</code>, <code class="param">fragment_shader</code>, <code class="param">tesselation_control_shader</code> o <code class="param">tesselation_evaluation_shader</code> están presentes, entonces <code class="param">file_type</code> debe ser "MATERIAL". </dd>
 <dd>
-Si <code>compute_shader</code> está presente, entonces <code>file_type</code> debe ser "MATERIAL_COMPUTE".</dd></dl>
+Si <code class="param">compute_shader</code> está presente, entonces <code class="param">file_type</code> debe ser "MATERIAL_COMPUTE".</dd></dl>
 <p><br  />
- </p><dl class="section pre"><dt>Precondición</dt><dd>Si <code>file_type</code> es "MATERIAL_RT", entonces <code>rt_raygen_shader</code>, <code>rt_closesthit_shader</code> y <code>rt_miss_shader</code> deben estar presentes. </dd>
+ </p><dl class="section pre"><dt>Precondición</dt><dd>Si <code class="param">file_type</code> es "MATERIAL_RT", entonces <code class="param">rt_raygen_shader</code>, <code class="param">rt_closesthit_shader</code> y <code class="param">rt_miss_shader</code> deben estar presentes. </dd>
 <dd>
-Si <code>file_type</code> es "MATERIAL", entonces <code>vertex_shader</code> y <code>fragment_shader</code> deben estar presentes. </dd>
+Si <code class="param">file_type</code> es "MATERIAL", entonces <code class="param">vertex_shader</code> y <code class="param">fragment_shader</code> deben estar presentes. </dd>
 <dd>
-Si <code>file_type</code> es "MATERIAL_COMPUTE", entonces <code>compute_shader</code> debe estar presente.</dd></dl>
+Si <code class="param">file_type</code> es "MATERIAL_COMPUTE", entonces <code class="param">compute_shader</code> debe estar presente.</dd></dl>
 <p><br  />
- </p><dl class="section pre"><dt>Precondición</dt><dd>Si <code>tesselation_control_shader</code> está presente, entonces <code>tesselation_evaluation_shader</code> también debe estar presente. </dd>
+ </p><dl class="section pre"><dt>Precondición</dt><dd>Si <code class="param">tesselation_control_shader</code> está presente, entonces <code class="param">tesselation_evaluation_shader</code> también debe estar presente. </dd>
 <dd>
-Si <code>tesselation_evaluation_shader</code> está presente, entonces <code>tesselation_control_shader</code> también debe estar presente.</dd></dl>
+Si <code class="param">tesselation_evaluation_shader</code> está presente, entonces <code class="param">tesselation_control_shader</code> también debe estar presente.</dd></dl>
 <p><br  />
- </p><dl class="section pre"><dt>Precondición</dt><dd><code>file_type</code> debe coincidir con uno de los tipos presentados en <a class="el" href="#materialtypeV1">Tipos de material.</a>. </dd>
+ </p><dl class="section pre"><dt>Precondición</dt><dd><code class="param">file_type</code> debe coincidir con uno de los tipos presentados en <a class="el" href="#materialtypeV1">Tipos de material.</a>. </dd>
 <dd>
-<code>polygon_mode</code> debe coincidir con uno de los tipos presentados en <a class="el" href="#polygonmodeV1">Modo de renderizado de polígonos.</a>.</dd></dl>
+<code class="param">polygon_mode</code> debe coincidir con uno de los tipos presentados en <a class="el" href="#polygonmodeV1">Modo de renderizado de polígonos.</a>.</dd></dl>
 <p><br  />
- </p><dl class="section pre"><dt>Precondición</dt><dd><code>spec_ver</code> debe ser 1 para que se aplique esta especificación. </dd>
+ </p><dl class="section pre"><dt>Precondición</dt><dd><code class="param">spec_ver</code> debe ser 1 para que se aplique esta especificación. </dd>
 <dd>
-<code>name</code> debe ser único entre todos los materiales cargados en el motor en un momento dado.</dd></dl>
+<code class="param">name</code> debe ser único entre todos los materiales cargados en el motor en un momento dado.</dd></dl>
 <p><br  />
- </p><dl class="section pre"><dt>Precondición</dt><dd>Si <code>vertex_type</code> está presente, entonces <code>file_type</code> debe ser "MATERIAL". </dd>
+ </p><dl class="section pre"><dt>Precondición</dt><dd>Si <code class="param">vertex_type</code> está presente, entonces <code class="param">file_type</code> debe ser "MATERIAL". </dd>
 <dd>
-<code>vertex_type</code> debe coincidir con el nombre del tipo de vértices en el código C++.</dd></dl>
+<code class="param">vertex_type</code> debe coincidir con el nombre del tipo de vértices en el código C++.</dd></dl>
 <p><br  />
- </p><dl class="section pre"><dt>Precondición</dt><dd>Si <code>polygon_mode</code> está presente, entonces <code>file_type</code> debe ser "MATERIAL".</dd></dl>
+ </p><dl class="section pre"><dt>Precondición</dt><dd>Si <code class="param">polygon_mode</code> está presente, entonces <code class="param">file_type</code> debe ser "MATERIAL".</dd></dl>
 <h3><a class="anchor" id="configv1"></a>
 Configuración adicional</h3>
 <dl class="params"><dt>Parámetros</dt><dd>
@@ -162,21 +162,21 @@ Configuración adicional</h3>
   </dd>
 </dl>
 <p><br  />
- </p><dl class="section pre"><dt>Precondición</dt><dd>Si <code>depth_testing</code> está presente, entonces el tipo de material debe ser "MATERIAL". </dd>
+ </p><dl class="section pre"><dt>Precondición</dt><dd>Si <code class="param">depth_testing</code> está presente, entonces el tipo de material debe ser "MATERIAL". </dd>
 <dd>
-Si <code>depth_testing</code> está presente, debe coincidir con uno de los valores descritos en <a class="el" href="#depthtestingV1">Modo de depth testing.</a>.</dd></dl>
+Si <code class="param">depth_testing</code> está presente, debe coincidir con uno de los valores descritos en <a class="el" href="#depthtestingV1">Modo de depth testing.</a>.</dd></dl>
 <p><br  />
- </p><dl class="section pre"><dt>Precondición</dt><dd>Si <code>cull_mode</code> está presente, entonces el tipo de material debe ser "MATERIAL". </dd>
+ </p><dl class="section pre"><dt>Precondición</dt><dd>Si <code class="param">cull_mode</code> está presente, entonces el tipo de material debe ser "MATERIAL". </dd>
 <dd>
-Si <code>cull_mode</code> está presente, debe coincidir con uno de los valores descritos en <a class="el" href="#cullingV1">Modo de culling.</a>.</dd></dl>
+Si <code class="param">cull_mode</code> está presente, debe coincidir con uno de los valores descritos en <a class="el" href="#cullingV1">Modo de culling.</a>.</dd></dl>
 <p><br  />
- </p><dl class="section pre"><dt>Precondición</dt><dd>Si <code>disable_alpha_blending</code> está presente, entonces el tipo de material debe ser "MATERIAL".</dd></dl>
+ </p><dl class="section pre"><dt>Precondición</dt><dd>Si <code class="param">disable_alpha_blending</code> está presente, entonces el tipo de material debe ser "MATERIAL".</dd></dl>
 <p><br  />
- </p><dl class="section pre"><dt>Precondición</dt><dd>Si alguno de los shaders del material tiene arrays de recursos con un tamaño sin especificar (recurso[]), <code>resource_vararray_max_count</code> debe está presente. </dd>
+ </p><dl class="section pre"><dt>Precondición</dt><dd>Si alguno de los shaders del material tiene arrays de recursos con un tamaño sin especificar (recurso[]), <code class="param">resource_vararray_max_count</code> debe está presente. </dd>
 <dd>
-<code>resource_vararray_max_count</code> debe ser mayor que 0. </dd>
+<code class="param">resource_vararray_max_count</code> debe ser mayor que 0. </dd>
 <dd>
-<code>resource_vararray_max_count</code> debe ser menor que 4096.</dd></dl>
+<code class="param">resource_vararray_max_count</code> debe ser menor que 4096.</dd></dl>
 <h3><a class="anchor" id="materialtypeV1"></a>
 Tipos de material.</h3>
 <p>Existen tres tipos de material, dependiendo del tipo de pipeline y shaders que aceptan:</p><ul>
@@ -214,7 +214,7 @@ Modo de culling.</h3>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="jsonfiles.html">Archivos de descripción de recursos.</a></li><li class="navelem"><a class="el" href="_material_file.html">Archivo de descripción de  material.</a></li>
-    <li class="footer">Generado el Lunes, 23 de diciembre de 2024 13:15:57 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.12.0 </li>
+    <li class="footer">Generado el Miércoles, 16 de abril de 2025 17:13:05 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.13.2 </li>
   </ul>
 </div>
 </body>

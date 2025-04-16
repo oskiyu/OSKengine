@@ -3,7 +3,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
-<meta name="generator" content="Doxygen 1.12.0"/>
+<meta name="generator" content="Doxygen 1.13.2"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
 <title>OSKengine: Archivo de código fuente Source/SpirvReflectionData.h</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
@@ -37,7 +37,7 @@
 </table>
 </div>
 <!-- end header part -->
-<!-- Generado por Doxygen 1.12.0 -->
+<!-- Generado por Doxygen 1.13.2 -->
 <script type="text/javascript">
 /* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
 var searchBox = new SearchBox("searchBox", "search/",'.html');
@@ -116,29 +116,29 @@ $(function(){initNavTree('_spirv_reflection_data_8h_source.html',''); initResiza
 <div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span> </div>
 <div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span> </div>
 <div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span><span class="keyword">namespace </span><a class="code hl_namespace" href="namespace_o_s_k_1_1_i_o.html">OSK::IO</a> {</div>
-<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span>    <span class="keyword">class </span>ILogger;</div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span>    <span class="keyword">class </span><a class="code hl_class" href="class_o_s_k_1_1_i_o_1_1_i_logger.html">ILogger</a>;</div>
 <div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>}</div>
 <div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span> </div>
 <div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span><span class="keyword">namespace </span><a class="code hl_namespace" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html">OSK::GRAPHICS</a> {</div>
 <div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span> </div>
 <div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>    <span class="keyword">enum class</span> <a class="code hl_enumeration" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#aa7e7dcffcab27051f141128e66a50fcb">ShaderStage</a>;</div>
-<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span> </div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span></div>
 <div class="foldopen" id="foldopen00024" data-start="{" data-end="};">
-<div class="line"><a id="l00024" name="l00024"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_spirv_reflection_data.html">   24</a></span>    <span class="keyword">class </span>OSKAPI_CALL <a class="code hl_class" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_spirv_reflection_data.html">SpirvReflectionData</a> {</div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_spirv_reflection_data.html">   24</a></span>    <span class="keyword">class </span>OSKAPI_CALL <a class="code hl_function" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_spirv_reflection_data.html#ae6af2d1eb1806d67b3a8ac4b008aad8d">SpirvReflectionData</a> {</div>
 <div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span> </div>
 <div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>    <span class="keyword">public</span>:</div>
 <div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span> </div>
-<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>        <span class="keyword">explicit</span> <a class="code hl_class" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_spirv_reflection_data.html">SpirvReflectionData</a>(std::span&lt;const char&gt; bytecode, <a class="code hl_enumeration" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#aa7e7dcffcab27051f141128e66a50fcb">ShaderStage</a> stage);</div>
-<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>        <span class="keyword">explicit</span> <a class="code hl_class" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_spirv_reflection_data.html">SpirvReflectionData</a>(<span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_dynamic_array.html">DynamicArray&lt;char&gt;</a>&amp; bytecode, <a class="code hl_enumeration" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#aa7e7dcffcab27051f141128e66a50fcb">ShaderStage</a> stage);</div>
-<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span> </div>
-<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>        <span class="keyword">const</span> std::unordered_map&lt;UIndex64, MaterialLayoutSlot&gt;&amp; GetSlots() <span class="keyword">const</span>;</div>
-<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span> </div>
-<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>        std::span&lt;const MaterialLayoutPushConstant&gt; GetPushConstants() <span class="keyword">const</span>;</div>
-<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span> </div>
-<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>        <a class="code hl_enumeration" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#aa7e7dcffcab27051f141128e66a50fcb">ShaderStage</a> GetShaderStage() <span class="keyword">const</span>;</div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>        <span class="keyword">explicit</span> <a class="code hl_function" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_spirv_reflection_data.html#ae6af2d1eb1806d67b3a8ac4b008aad8d">SpirvReflectionData</a>(std::span&lt;const char&gt; bytecode, <a class="code hl_enumeration" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#aa7e7dcffcab27051f141128e66a50fcb">ShaderStage</a> stage);</div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>        <span class="keyword">explicit</span> <a class="code hl_function" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_spirv_reflection_data.html#ae6af2d1eb1806d67b3a8ac4b008aad8d">SpirvReflectionData</a>(<span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_dynamic_array.html">DynamicArray&lt;char&gt;</a>&amp; bytecode, <a class="code hl_enumeration" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#aa7e7dcffcab27051f141128e66a50fcb">ShaderStage</a> stage);</div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span></div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>        <span class="keyword">const</span> std::unordered_map&lt;UIndex64, MaterialLayoutSlot&gt;&amp; <a class="code hl_function" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_spirv_reflection_data.html#a42277f061255a853afcceed789bb7ad6">GetSlots</a>() <span class="keyword">const</span>;</div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span></div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>        std::span&lt;const MaterialLayoutPushConstant&gt; <a class="code hl_function" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_spirv_reflection_data.html#a11efd308ac91c992bdfdbf1e34d8e435">GetPushConstants</a>() <span class="keyword">const</span>;</div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span></div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>        <a class="code hl_enumeration" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#aa7e7dcffcab27051f141128e66a50fcb">ShaderStage</a> <a class="code hl_function" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_spirv_reflection_data.html#a022d5de5ab3efbf8f84749df0382ce92">GetShaderStage</a>() <span class="keyword">const</span>;</div>
 <div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span> </div>
-<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span> </div>
-<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>        <span class="keywordtype">void</span> Log(<a class="code hl_class" href="class_o_s_k_1_1_i_o_1_1_i_logger.html">IO::ILogger</a>* logger) <span class="keyword">const</span>;</div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span></div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>        <span class="keywordtype">void</span> <a class="code hl_function" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_spirv_reflection_data.html#a146db1c62b9c250a8aabecc559432230">Log</a>(<a class="code hl_class" href="class_o_s_k_1_1_i_o_1_1_i_logger.html">IO::ILogger</a>* logger) <span class="keyword">const</span>;</div>
 <div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span> </div>
 <div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>    <span class="keyword">private</span>:</div>
 <div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span> </div>
@@ -152,7 +152,11 @@ $(function(){initNavTree('_spirv_reflection_data_8h_source.html',''); initResiza
 <div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span> </div>
 <div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>}</div>
 <div class="ttc" id="aclass_o_s_k_1_1_dynamic_array_html"><div class="ttname"><a href="class_o_s_k_1_1_dynamic_array.html">OSK::DynamicArray</a></div><div class="ttdoc">Dynamic array: array que puede cambiar de tamaño.</div><div class="ttdef"><b>Definition</b> <a href="_dynamic_array_8hpp_source.html#l00066">DynamicArray.hpp:66</a></div></div>
-<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_spirv_reflection_data_html"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_spirv_reflection_data.html">OSK::GRAPHICS::SpirvReflectionData</a></div><div class="ttdoc">Clase con información sobre un shader.</div><div class="ttdef"><b>Definition</b> <a href="#l00024">SpirvReflectionData.h:24</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_spirv_reflection_data_html_a022d5de5ab3efbf8f84749df0382ce92"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_spirv_reflection_data.html#a022d5de5ab3efbf8f84749df0382ce92">OSK::GRAPHICS::SpirvReflectionData::GetShaderStage</a></div><div class="ttdeci">ShaderStage GetShaderStage() const</div><div class="ttdef"><b>Definition</b> <a href="_spirv_reflection_data_8cpp_source.html#l00142">SpirvReflectionData.cpp:142</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_spirv_reflection_data_html_a11efd308ac91c992bdfdbf1e34d8e435"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_spirv_reflection_data.html#a11efd308ac91c992bdfdbf1e34d8e435">OSK::GRAPHICS::SpirvReflectionData::GetPushConstants</a></div><div class="ttdeci">std::span&lt; const MaterialLayoutPushConstant &gt; GetPushConstants() const</div><div class="ttdef"><b>Definition</b> <a href="_spirv_reflection_data_8cpp_source.html#l00138">SpirvReflectionData.cpp:138</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_spirv_reflection_data_html_a146db1c62b9c250a8aabecc559432230"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_spirv_reflection_data.html#a146db1c62b9c250a8aabecc559432230">OSK::GRAPHICS::SpirvReflectionData::Log</a></div><div class="ttdeci">void Log(IO::ILogger *logger) const</div><div class="ttdoc">Muestra los contenidos del shader por el logger.</div><div class="ttdef"><b>Definition</b> <a href="_spirv_reflection_data_8cpp_source.html#l00146">SpirvReflectionData.cpp:146</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_spirv_reflection_data_html_a42277f061255a853afcceed789bb7ad6"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_spirv_reflection_data.html#a42277f061255a853afcceed789bb7ad6">OSK::GRAPHICS::SpirvReflectionData::GetSlots</a></div><div class="ttdeci">const std::unordered_map&lt; UIndex64, MaterialLayoutSlot &gt; &amp; GetSlots() const</div><div class="ttdef"><b>Definition</b> <a href="_spirv_reflection_data_8cpp_source.html#l00134">SpirvReflectionData.cpp:134</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_spirv_reflection_data_html_ae6af2d1eb1806d67b3a8ac4b008aad8d"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_spirv_reflection_data.html#ae6af2d1eb1806d67b3a8ac4b008aad8d">OSK::GRAPHICS::SpirvReflectionData::SpirvReflectionData</a></div><div class="ttdeci">SpirvReflectionData(std::span&lt; const char &gt; bytecode, ShaderStage stage)</div><div class="ttdef"><b>Definition</b> <a href="_spirv_reflection_data_8cpp_source.html#l00077">SpirvReflectionData.cpp:77</a></div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_i_o_1_1_i_logger_html"><div class="ttname"><a href="class_o_s_k_1_1_i_o_1_1_i_logger.html">OSK::IO::ILogger</a></div><div class="ttdoc">Clase que permite enviar mensajes por consola, o por donde se defina su salida.</div><div class="ttdef"><b>Definition</b> <a href="_logger_8h_source.html#l00041">Logger.h:41</a></div></div>
 <div class="ttc" id="anamespace_o_s_k_1_1_g_r_a_p_h_i_c_s_html"><div class="ttname"><a href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html">OSK::GRAPHICS</a></div><div class="ttdef"><b>Definition</b> <a href="_acceleration_structures_exceptions_8h_source.html#l00005">AccelerationStructuresExceptions.h:5</a></div></div>
 <div class="ttc" id="anamespace_o_s_k_1_1_g_r_a_p_h_i_c_s_html_aa7e7dcffcab27051f141128e66a50fcb"><div class="ttname"><a href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#aa7e7dcffcab27051f141128e66a50fcb">OSK::GRAPHICS::ShaderStage</a></div><div class="ttdeci">ShaderStage</div><div class="ttdoc">Shaders en los que se puede acceder a un elemento.</div><div class="ttdef"><b>Definition</b> <a href="_shader_binding_type_8h_source.html#l00062">ShaderBindingType.h:62</a></div></div>
@@ -163,7 +167,7 @@ $(function(){initNavTree('_spirv_reflection_data_8h_source.html',''); initResiza
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_74389ed8173ad57b461b9d623a1f3867.html">Source</a></li><li class="navelem"><b>SpirvReflectionData.h</b></li>
-    <li class="footer">Generado el Lunes, 23 de diciembre de 2024 13:15:56 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.12.0 </li>
+    <li class="footer">Generado el Miércoles, 16 de abril de 2025 17:13:05 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.13.2 </li>
   </ul>
 </div>
 </body>

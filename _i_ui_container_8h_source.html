@@ -3,7 +3,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
-<meta name="generator" content="Doxygen 1.12.0"/>
+<meta name="generator" content="Doxygen 1.13.2"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
 <title>OSKengine: Archivo de código fuente Source/IUiContainer.h</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
@@ -37,7 +37,7 @@
 </table>
 </div>
 <!-- end header part -->
-<!-- Generado por Doxygen 1.12.0 -->
+<!-- Generado por Doxygen 1.13.2 -->
 <script type="text/javascript">
 /* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
 var searchBox = new SearchBox("searchBox", "search/",'.html');
@@ -111,51 +111,51 @@ $(function(){initNavTree('_i_ui_container_8h_source.html',''); initResizable(tru
 <div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="preprocessor">#include &quot;Vector2.hpp&quot;</span></div>
 <div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span> </div>
 <div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="keyword">namespace </span><a class="code hl_namespace" href="namespace_o_s_k_1_1_u_i.html">OSK::UI</a> {</div>
-<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span> </div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span></div>
 <div class="foldopen" id="foldopen00015" data-start="{" data-end="};">
-<div class="line"><a id="l00015" name="l00015"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_u_i_1_1_i_container.html">   15</a></span>    <span class="keyword">class </span>OSKAPI_CALL <a class="code hl_class" href="class_o_s_k_1_1_u_i_1_1_i_container.html">IContainer</a> : <span class="keyword">public</span> <a class="code hl_class" href="class_o_s_k_1_1_u_i_1_1_i_element.html">IElement</a> {</div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_u_i_1_1_i_container.html">   15</a></span>    <span class="keyword">class </span>OSKAPI_CALL <a class="code hl_function" href="class_o_s_k_1_1_u_i_1_1_i_container.html#aad670433ca1c4cb2ce8f41ca69f049d3">IContainer</a> : <span class="keyword">public</span> <a class="code hl_function" href="class_o_s_k_1_1_u_i_1_1_i_element.html#a6a8fb9d36faeb3f3d2fa2ac485cf24ec">IElement</a> {</div>
 <div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span> </div>
 <div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>    <span class="keyword">protected</span>:</div>
 <div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span> </div>
-<div class="line"><a id="l00019" name="l00019"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_u_i_1_1_i_container.html#aad670433ca1c4cb2ce8f41ca69f049d3">   19</a></span>        <span class="keyword">explicit</span> <a class="code hl_function" href="class_o_s_k_1_1_u_i_1_1_i_container.html#aad670433ca1c4cb2ce8f41ca69f049d3">IContainer</a>(<span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_vector2__t.html">Vector2f</a>&amp; size) : <a class="code hl_class" href="class_o_s_k_1_1_u_i_1_1_i_element.html">IElement</a>(size) {  }</div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_u_i_1_1_i_container.html#aad670433ca1c4cb2ce8f41ca69f049d3">   19</a></span>        <span class="keyword">explicit</span> <a class="code hl_function" href="class_o_s_k_1_1_u_i_1_1_i_container.html#aad670433ca1c4cb2ce8f41ca69f049d3">IContainer</a>(<span class="keyword">const</span> <a class="code hl_typedef" href="namespace_o_s_k.html#a31a299dbb3a3a60d90d16d1a4eca9651">Vector2f</a>&amp; size) : <a class="code hl_function" href="class_o_s_k_1_1_u_i_1_1_i_element.html#a6a8fb9d36faeb3f3d2fa2ac485cf24ec">IElement</a>(size) {  }</div>
 <div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span> </div>
 <div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>    <span class="keyword">public</span>:</div>
 <div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span> </div>
-<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>        <span class="keywordtype">void</span> SetSize(<a class="code hl_class" href="class_o_s_k_1_1_vector2__t.html">Vector2f</a> newSize) <span class="keyword">override</span>;</div>
-<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>        <span class="keywordtype">void</span> _SetPosition(<span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_vector2__t.html">Vector2f</a>&amp; newPosition) <span class="keyword">override</span>;</div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>        <span class="keywordtype">void</span> SetSize(<a class="code hl_typedef" href="namespace_o_s_k.html#a31a299dbb3a3a60d90d16d1a4eca9651">Vector2f</a> newSize) <span class="keyword">override</span>;</div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>        <span class="keywordtype">void</span> _SetPosition(<span class="keyword">const</span> <a class="code hl_typedef" href="namespace_o_s_k.html#a31a299dbb3a3a60d90d16d1a4eca9651">Vector2f</a>&amp; newPosition) <span class="keyword">override</span>;</div>
 <div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span> </div>
 <div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>    <span class="keyword">public</span>:</div>
-<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span> </div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span></div>
 <div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>        <span class="keywordtype">void</span> AdjustSizeToChildren();</div>
-<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span> </div>
-<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>        <span class="keywordtype">void</span> AddChild(<span class="keyword">const</span> std::string&amp; key, <a class="code hl_class" href="class_o_s_k_1_1_owned_ptr.html">OwnedPtr&lt;IElement&gt;</a> child);</div>
-<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span> </div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span></div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>        <span class="keywordtype">void</span> AddChild(<span class="keyword">const</span> std::string&amp; key, <a class="code hl_class" href="class_o_s_k_1_1_unique_ptr.html">UniquePtr&lt;IElement&gt;</a>&amp;&amp; child);</div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span></div>
 <div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>        <span class="keywordtype">void</span> Rebuild();</div>
 <div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span> </div>
-<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span> </div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span></div>
 <div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>        <span class="keywordtype">void</span> Render(<a class="code hl_class" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_sdf_renderer2_d.html">GRAPHICS::ISdfRenderer2D</a>* renderer) <span class="keyword">const override</span>;</div>
 <div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span> </div>
-<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>        <span class="keywordtype">bool</span> UpdateByCursor(<a class="code hl_class" href="class_o_s_k_1_1_vector2__t.html">Vector2f</a> cursorPosition, <span class="keywordtype">bool</span> isPressed) <span class="keyword">override</span>;</div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>        <span class="keywordtype">bool</span> UpdateByCursor(<a class="code hl_typedef" href="namespace_o_s_k.html#a31a299dbb3a3a60d90d16d1a4eca9651">Vector2f</a> cursorPosition, <span class="keywordtype">bool</span> isPressed) <span class="keyword">override</span>;</div>
 <div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>        <span class="keywordtype">void</span> UpdateByKeyboard(<span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_i_o_1_1_keyboard_state.html">IO::KeyboardState</a>&amp; previous, <span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_i_o_1_1_keyboard_state.html">IO::KeyboardState</a>&amp; current) <span class="keyword">override</span>;</div>
-<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span> </div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span></div>
 <div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>        <a class="code hl_class" href="class_o_s_k_1_1_u_i_1_1_i_element.html">IElement</a>* GetChild(<span class="keyword">const</span> std::string_view name);</div>
 <div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>        <span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_u_i_1_1_i_element.html">IElement</a>* GetChild(<span class="keyword">const</span> std::string_view name) <span class="keyword">const</span>;</div>
 <div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span> </div>
-<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span> </div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span></div>
 <div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>        <span class="keywordtype">void</span> DeleteChild(std::string_view childName);</div>
-<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span> </div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span></div>
 <div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>        <span class="keywordtype">bool</span> HasChild(std::string_view childName) <span class="keyword">const</span>;</div>
 <div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span> </div>
 <div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>    <span class="keyword">protected</span>:</div>
-<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span> </div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span></div>
 <div class="line"><a id="l00075" name="l00075"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_u_i_1_1_i_container.html#ab5b70a4a172dac245bceb50af570bf55">   75</a></span>        <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code hl_function" href="class_o_s_k_1_1_u_i_1_1_i_container.html#ab5b70a4a172dac245bceb50af570bf55">ResetLayout</a>() = 0;</div>
-<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span> </div>
-<div class="line"><a id="l00079" name="l00079"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_u_i_1_1_i_container.html#a17cb61d96ed937f40424513038f3956d">   79</a></span>        <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code hl_function" href="class_o_s_k_1_1_u_i_1_1_i_container.html#a17cb61d96ed937f40424513038f3956d">EmplaceChild</a>(<a class="code hl_class" href="class_o_s_k_1_1_u_i_1_1_i_element.html">IElement</a>* child) = 0;</div>
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span></div>
+<div class="line"><a id="l00079" name="l00079"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_u_i_1_1_i_container.html#a17cb61d96ed937f40424513038f3956d">   79</a></span>        <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code hl_function" href="class_o_s_k_1_1_u_i_1_1_i_container.html#a17cb61d96ed937f40424513038f3956d">EmplaceChild</a>(<a class="code hl_function" href="class_o_s_k_1_1_u_i_1_1_i_element.html#a6a8fb9d36faeb3f3d2fa2ac485cf24ec">IElement</a>* child) = 0;</div>
 <div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span> </div>
 <div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span>    <span class="keyword">protected</span>:</div>
 <div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span> </div>
 <div class="line"><a id="l00083" name="l00083"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_u_i_1_1_i_container.html#a6773e7f40433599f9949e29952bd5204">   83</a></span>        <a class="code hl_class" href="class_o_s_k_1_1_dynamic_array.html">DynamicArray&lt;UniquePtr&lt;IElement&gt;</a>&gt; <a class="code hl_variable" href="class_o_s_k_1_1_u_i_1_1_i_container.html#a6773e7f40433599f9949e29952bd5204">m_children</a>;</div>
-<div class="line"><a id="l00084" name="l00084"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_u_i_1_1_i_container.html#a97928a8f0f6585456a7130f4924e6deb">   84</a></span>        std::unordered_map&lt;std::string, IElement*, StringHasher, std::equal_to&lt;&gt;&gt; m_childrenTable{};</div>
+<div class="line"><a id="l00084" name="l00084"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_u_i_1_1_i_container.html#a97928a8f0f6585456a7130f4924e6deb">   84</a></span>        std::unordered_map&lt;std::string, IElement*, StringHasher, std::equal_to&lt;&gt;&gt; <a class="code hl_variable" href="class_o_s_k_1_1_u_i_1_1_i_container.html#a97928a8f0f6585456a7130f4924e6deb">m_childrenTable</a>{};</div>
 <div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span> </div>
 <div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span>    };</div>
 </div>
@@ -164,22 +164,23 @@ $(function(){initNavTree('_i_ui_container_8h_source.html',''); initResizable(tru
 <div class="ttc" id="aclass_o_s_k_1_1_dynamic_array_html"><div class="ttname"><a href="class_o_s_k_1_1_dynamic_array.html">OSK::DynamicArray</a></div><div class="ttdoc">Dynamic array: array que puede cambiar de tamaño.</div><div class="ttdef"><b>Definition</b> <a href="_dynamic_array_8hpp_source.html#l00066">DynamicArray.hpp:66</a></div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_sdf_renderer2_d_html"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_sdf_renderer2_d.html">OSK::GRAPHICS::ISdfRenderer2D</a></div><div class="ttdoc">Clase para el renderizado 2D. Permite usar tanto sprites como formas definidas mediante signed-field ...</div><div class="ttdef"><b>Definition</b> <a href="_i_sdf_renderer2_d_8h_source.html#l00023">ISdfRenderer2D.h:23</a></div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_i_o_1_1_keyboard_state_html"><div class="ttname"><a href="class_o_s_k_1_1_i_o_1_1_keyboard_state.html">OSK::IO::KeyboardState</a></div><div class="ttdoc">Representa el estado del teclado en un instante determinado. Contiene el estado (presionado o suelto)...</div><div class="ttdef"><b>Definition</b> <a href="_keyboard_state_8h_source.html#l00164">KeyboardState.h:164</a></div></div>
-<div class="ttc" id="aclass_o_s_k_1_1_owned_ptr_html"><div class="ttname"><a href="class_o_s_k_1_1_owned_ptr.html">OSK::OwnedPtr</a></div><div class="ttdoc">Es dueño de un puntero.</div><div class="ttdef"><b>Definition</b> <a href="_owned_ptr_8h_source.html#l00017">OwnedPtr.h:17</a></div></div>
-<div class="ttc" id="aclass_o_s_k_1_1_u_i_1_1_i_container_html"><div class="ttname"><a href="class_o_s_k_1_1_u_i_1_1_i_container.html">OSK::UI::IContainer</a></div><div class="ttdoc">Interfaz común para los contenedores de UI. Un contenedor de UI puede contener distintos elementos UI...</div><div class="ttdef"><b>Definition</b> <a href="#l00015">IUiContainer.h:15</a></div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_u_i_1_1_i_container_html_a17cb61d96ed937f40424513038f3956d"><div class="ttname"><a href="class_o_s_k_1_1_u_i_1_1_i_container.html#a17cb61d96ed937f40424513038f3956d">OSK::UI::IContainer::EmplaceChild</a></div><div class="ttdeci">virtual void EmplaceChild(IElement *child)=0</div><div class="ttdoc">Coloca un hijo en la posición deseada, según el layout.</div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_u_i_1_1_i_container_html_a6773e7f40433599f9949e29952bd5204"><div class="ttname"><a href="class_o_s_k_1_1_u_i_1_1_i_container.html#a6773e7f40433599f9949e29952bd5204">OSK::UI::IContainer::m_children</a></div><div class="ttdeci">DynamicArray&lt; UniquePtr&lt; IElement &gt; &gt; m_children</div><div class="ttdef"><b>Definition</b> <a href="#l00083">IUiContainer.h:83</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_u_i_1_1_i_container_html_a97928a8f0f6585456a7130f4924e6deb"><div class="ttname"><a href="class_o_s_k_1_1_u_i_1_1_i_container.html#a97928a8f0f6585456a7130f4924e6deb">OSK::UI::IContainer::m_childrenTable</a></div><div class="ttdeci">std::unordered_map&lt; std::string, IElement *, StringHasher, std::equal_to&lt;&gt; &gt; m_childrenTable</div><div class="ttdef"><b>Definition</b> <a href="#l00084">IUiContainer.h:84</a></div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_u_i_1_1_i_container_html_aad670433ca1c4cb2ce8f41ca69f049d3"><div class="ttname"><a href="class_o_s_k_1_1_u_i_1_1_i_container.html#aad670433ca1c4cb2ce8f41ca69f049d3">OSK::UI::IContainer::IContainer</a></div><div class="ttdeci">IContainer(const Vector2f &amp;size)</div><div class="ttdef"><b>Definition</b> <a href="#l00019">IUiContainer.h:19</a></div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_u_i_1_1_i_container_html_ab5b70a4a172dac245bceb50af570bf55"><div class="ttname"><a href="class_o_s_k_1_1_u_i_1_1_i_container.html#ab5b70a4a172dac245bceb50af570bf55">OSK::UI::IContainer::ResetLayout</a></div><div class="ttdeci">virtual void ResetLayout()=0</div><div class="ttdoc">Resetea el layout, de tal manera que los siguientes elementos colocados se coloquen en el inicio del ...</div></div>
-<div class="ttc" id="aclass_o_s_k_1_1_u_i_1_1_i_element_html"><div class="ttname"><a href="class_o_s_k_1_1_u_i_1_1_i_element.html">OSK::UI::IElement</a></div><div class="ttdoc">Clase base para todos los elementos de interfaz de usuario.</div><div class="ttdef"><b>Definition</b> <a href="_ui_element_8h_source.html#l00034">UiElement.h:34</a></div></div>
-<div class="ttc" id="aclass_o_s_k_1_1_vector2__t_html"><div class="ttname"><a href="class_o_s_k_1_1_vector2__t.html">OSK::Vector2_t&lt; float_t &gt;</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_u_i_1_1_i_element_html"><div class="ttname"><a href="class_o_s_k_1_1_u_i_1_1_i_element.html">OSK::UI::IElement</a></div><div class="ttdoc">Clase base para todos los elementos de interfaz de usuario.</div><div class="ttdef"><b>Definition</b> <a href="_ui_element_8h_source.html#l00033">UiElement.h:33</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_u_i_1_1_i_element_html_a6a8fb9d36faeb3f3d2fa2ac485cf24ec"><div class="ttname"><a href="class_o_s_k_1_1_u_i_1_1_i_element.html#a6a8fb9d36faeb3f3d2fa2ac485cf24ec">OSK::UI::IElement::IElement</a></div><div class="ttdeci">IElement(const Vector2f &amp;size)</div><div class="ttdoc">Establece el tamaño de la interfaz.</div><div class="ttdef"><b>Definition</b> <a href="_ui_element_8cpp_source.html#l00011">UiElement.cpp:11</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_unique_ptr_html"><div class="ttname"><a href="class_o_s_k_1_1_unique_ptr.html">OSK::UniquePtr</a></div><div class="ttdoc">Estructura que es dueña de un objeto almacenado en heap. Al destruirse el UniquePtr,...</div><div class="ttdef"><b>Definition</b> <a href="_unique_ptr_8hpp_source.html#l00026">UniquePtr.hpp:26</a></div></div>
 <div class="ttc" id="anamespace_o_s_k_1_1_u_i_html"><div class="ttname"><a href="namespace_o_s_k_1_1_u_i.html">OSK::UI</a></div><div class="ttdef"><b>Definition</b> <a href="_camera_component_view_8h_source.html#l00006">CameraComponentView.h:6</a></div></div>
+<div class="ttc" id="anamespace_o_s_k_html_a31a299dbb3a3a60d90d16d1a4eca9651"><div class="ttname"><a href="namespace_o_s_k.html#a31a299dbb3a3a60d90d16d1a4eca9651">OSK::Vector2f</a></div><div class="ttdeci">Vector2_t&lt; float_t &gt; Vector2f</div><div class="ttdoc">Precisión = float.</div><div class="ttdef"><b>Definition</b> <a href="_vector2_8hpp_source.html#l00260">Vector2.hpp:260</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_74389ed8173ad57b461b9d623a1f3867.html">Source</a></li><li class="navelem"><b>IUiContainer.h</b></li>
-    <li class="footer">Generado el Lunes, 23 de diciembre de 2024 13:15:56 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.12.0 </li>
+    <li class="footer">Generado el Miércoles, 16 de abril de 2025 17:13:05 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.13.2 </li>
   </ul>
 </div>
 </body>

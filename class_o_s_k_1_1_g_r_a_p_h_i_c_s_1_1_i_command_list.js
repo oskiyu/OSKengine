@@ -41,7 +41,7 @@ var class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list =
     [ "PushMaterialConstants", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list.html#a93f5f50e194242bf308e3ca06bde3f50", null ],
     [ "PushMaterialConstants", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list.html#af5717cd01934fc6cc0d82bdcaf6c413a", null ],
     [ "RawCopyImageToImage", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list.html#aca0c637784618f914f2b24f9088061ad", null ],
-    [ "RegisterStagingBuffer", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list.html#a8c256680fca262866fb288f48bd33a2c", null ],
+    [ "RegisterStagingBuffer", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list.html#aa33074db62ffb92ebf49099b770cd230", null ],
     [ "Reset", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list.html#a6791d0b0caa149ea0c2b33babf3f916d", null ],
     [ "SetDebugName", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list.html#a4ced0b9bf575c7801e54f046604eee10", null ],
     [ "SetGpuBufferBarrier", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list.html#a9375a58b90447aa24aabd2a14b1c46bc", null ],
@@ -64,7 +64,7 @@ var class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list =
     [ "m_currentlyBoundDepthImage", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list.html#a3ff7354c9753d96881d672b111043af6", null ],
     [ "m_currentlyBoundMaterial", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list.html#a6f3819930d72de3a653aee8599e5f072", null ],
     [ "m_currentlyBoundRenderTargetType", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list.html#a87d534d7426c0dbb7a01f2b8d4ab5013", null ],
-    [ "m_currentPipeline", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list.html#ac35056d33473eda50fcfa0038fb1eb99", null ],
+    [ "m_currentPipeline", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list.html#a539cb76f79b5b2f8f788771f24e415a9", null ],
     [ "mesh", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list.html#aa479a6d7a2f7ec525de66a4ab4a83c93", null ],
     [ "raytracing", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list.html#ad0c6fb52ec460cf8a90c91c661378712", null ]
 ];

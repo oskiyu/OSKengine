@@ -84,6 +84,10 @@ var annotated_dup =
         [ "Simplex", "class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_simplex.html", "class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_simplex" ],
         [ "SphereCollider", "class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_sphere_collider.html", "class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_sphere_collider" ]
       ] ],
+      [ "Concepts", "namespace_o_s_k_1_1_concepts.html", [
+        [ "AreSameTemplate_t", "struct_o_s_k_1_1_concepts_1_1_are_same_template__t.html", null ],
+        [ "AreSameTemplate_t< T< T1 >, T< T2 > >", "struct_o_s_k_1_1_concepts_1_1_are_same_template__t_3_01_t_3_01_t1_01_4_00_01_t_3_01_t2_01_4_01_4.html", null ]
+      ] ],
       [ "ECS", "namespace_o_s_k_1_1_e_c_s.html", [
         [ "CameraComponent2D", "class_o_s_k_1_1_e_c_s_1_1_camera_component2_d.html", "class_o_s_k_1_1_e_c_s_1_1_camera_component2_d" ],
         [ "CameraComponent3D", "class_o_s_k_1_1_e_c_s_1_1_camera_component3_d.html", "class_o_s_k_1_1_e_c_s_1_1_camera_component3_d" ],
@@ -427,7 +431,6 @@ var annotated_dup =
       [ "MutexHolder", "struct_o_s_k_1_1_mutex_holder.html", "struct_o_s_k_1_1_mutex_holder" ],
       [ "NotImplementedException", "class_o_s_k_1_1_not_implemented_exception.html", "class_o_s_k_1_1_not_implemented_exception" ],
       [ "OverflowConversionException", "class_o_s_k_1_1_overflow_conversion_exception.html", "class_o_s_k_1_1_overflow_conversion_exception" ],
-      [ "OwnedPtr", "class_o_s_k_1_1_owned_ptr.html", "class_o_s_k_1_1_owned_ptr" ],
       [ "Pair", "struct_o_s_k_1_1_pair.html", "struct_o_s_k_1_1_pair" ],
       [ "Plane", "struct_o_s_k_1_1_plane.html", "struct_o_s_k_1_1_plane" ],
       [ "PostProcessInputNotSetException", "class_o_s_k_1_1_post_process_input_not_set_exception.html", "class_o_s_k_1_1_post_process_input_not_set_exception" ],
@@ -455,5 +458,6 @@ var annotated_dup =
       [ "hash< OSK::GRAPHICS::GpuImageSamplerDesc >", "structstd_1_1hash_3_01_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_sampler_desc_01_4.html", "structstd_1_1hash_3_01_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_sampler_desc_01_4" ],
       [ "hash< OSK::GRAPHICS::GpuImageViewConfig >", "structstd_1_1hash_3_01_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_view_config_01_4.html", "structstd_1_1hash_3_01_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_view_config_01_4" ]
     ] ],
+    [ "ALCcontextDeleter", "struct_a_l_ccontext_deleter.html", "struct_a_l_ccontext_deleter" ],
     [ "SpriteRendererGlobalInformation", "struct_sprite_renderer_global_information.html", "struct_sprite_renderer_global_information" ]
 ];

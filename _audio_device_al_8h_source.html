@@ -3,7 +3,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
-<meta name="generator" content="Doxygen 1.12.0"/>
+<meta name="generator" content="Doxygen 1.13.2"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
 <title>OSKengine: Archivo de código fuente Source/AudioDeviceAl.h</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
@@ -37,7 +37,7 @@
 </table>
 </div>
 <!-- end header part -->
-<!-- Generado por Doxygen 1.12.0 -->
+<!-- Generado por Doxygen 1.13.2 -->
 <script type="text/javascript">
 /* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
 var searchBox = new SearchBox("searchBox", "search/",'.html');
@@ -104,7 +104,7 @@ $(function(){initNavTree('_audio_device_al_8h_source.html',''); initResizable(tr
 <div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#pragma once</span></div>
 <div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span> </div>
 <div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="preprocessor">#include &quot;ApiCall.h&quot;</span></div>
-<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &quot;OwnedPtr.h&quot;</span></div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &quot;UniquePtr.hpp&quot;</span></div>
 <div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span> </div>
 <div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &quot;IAudioDevice.h&quot;</span></div>
 <div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span> </div>
@@ -112,7 +112,7 @@ $(function(){initNavTree('_audio_device_al_8h_source.html',''); initResizable(tr
 <div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="preprocessor">#include &lt;string&gt;</span></div>
 <div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span> </div>
 <div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="keyword">namespace </span><a class="code hl_namespace" href="namespace_o_s_k_1_1_a_u_d_i_o.html">OSK::AUDIO</a> {</div>
-<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span> </div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span></div>
 <div class="foldopen" id="foldopen00014" data-start="{" data-end="};">
 <div class="line"><a id="l00014" name="l00014"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_a_u_d_i_o_1_1_audio_device_al.html">   14</a></span>    <span class="keyword">class </span>OSKAPI_CALL <a class="code hl_class" href="class_o_s_k_1_1_a_u_d_i_o_1_1_audio_device_al.html">AudioDeviceAl</a> : <span class="keyword">public</span> <a class="code hl_class" href="class_o_s_k_1_1_a_u_d_i_o_1_1_i_audio_device.html">IAudioDevice</a> {</div>
 <div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span> </div>
@@ -120,26 +120,37 @@ $(function(){initNavTree('_audio_device_al_8h_source.html',''); initResizable(tr
 <div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span> </div>
 <div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>        <a class="code hl_class" href="class_o_s_k_1_1_a_u_d_i_o_1_1_audio_device_al.html">~AudioDeviceAl</a>() <span class="keyword">override</span>;</div>
 <div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span> </div>
-<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>        <span class="keywordtype">void</span> InitializeDefault() <span class="keyword">override</span>;</div>
-<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>        <span class="keywordtype">void</span> Initialize(<span class="keyword">const</span> std::string&amp; name) <span class="keyword">override</span>;</div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>        <span class="keywordtype">void</span> <a class="code hl_function" href="class_o_s_k_1_1_a_u_d_i_o_1_1_audio_device_al.html#a00f416b7bf4ca450fbc0054fe9f94f1f">InitializeDefault</a>() <span class="keyword">override</span>;</div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>        <span class="keywordtype">void</span> <a class="code hl_function" href="class_o_s_k_1_1_a_u_d_i_o_1_1_audio_device_al.html#ac3ebafc3fa86480e26c176c7f1114091">Initialize</a>(<span class="keyword">const</span> std::string&amp; name) <span class="keyword">override</span>;</div>
 <div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span> </div>
 <div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>    <span class="keyword">protected</span>:</div>
 <div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span> </div>
-<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>        <span class="keywordtype">void</span> SetCurrentOutputDevice_Implementation() <span class="keyword">override</span>;</div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>        <span class="keywordtype">void</span> <a class="code hl_function" href="class_o_s_k_1_1_a_u_d_i_o_1_1_audio_device_al.html#ad5a915e485884a6592826efec11d5798">SetCurrentOutputDevice_Implementation</a>() <span class="keyword">override</span>;</div>
 <div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span> </div>
 <div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>    <span class="keyword">private</span>:</div>
 <div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span> </div>
-<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>        <a class="code hl_class" href="class_o_s_k_1_1_owned_ptr.html">OwnedPtr&lt;ALCdevice&gt;</a> m_device = <span class="keyword">nullptr</span>;</div>
-<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span> </div>
-<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>        <a class="code hl_class" href="class_o_s_k_1_1_owned_ptr.html">OwnedPtr&lt;ALCcontext&gt;</a> m_context = <span class="keyword">nullptr</span>;</div>
-<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span> </div>
-<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>    };</div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>        <span class="keyword">struct </span>ALCdeviceDeleter {</div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>            <span class="keywordtype">void</span> operator()(ALCdevice*) <span class="keyword">const</span> <span class="keyword">noexcept</span>;</div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>        };</div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span> </div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>        <span class="keyword">struct </span>ALCcontextDeleter {</div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>            <span class="keywordtype">void</span> operator()(ALCcontext*) <span class="keyword">const</span> <span class="keyword">noexcept</span>;</div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>        };</div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span></div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>        <a class="code hl_class" href="class_o_s_k_1_1_unique_ptr.html">UniquePtr&lt;ALCdevice, ALCdeviceDeleter&gt;</a> m_device;</div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span></div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>        <a class="code hl_class" href="class_o_s_k_1_1_unique_ptr.html">UniquePtr&lt;ALCcontext, ALCcontextDeleter&gt;</a> m_context;</div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span> </div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>    };</div>
 </div>
-<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span> </div>
-<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>}</div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span> </div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>}</div>
 <div class="ttc" id="aclass_o_s_k_1_1_a_u_d_i_o_1_1_audio_device_al_html"><div class="ttname"><a href="class_o_s_k_1_1_a_u_d_i_o_1_1_audio_device_al.html">OSK::AUDIO::AudioDeviceAl</a></div><div class="ttdoc">Clase que representa un dispositivo de salida de audio.</div><div class="ttdef"><b>Definition</b> <a href="#l00014">AudioDeviceAl.h:14</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_a_u_d_i_o_1_1_audio_device_al_html_a00f416b7bf4ca450fbc0054fe9f94f1f"><div class="ttname"><a href="class_o_s_k_1_1_a_u_d_i_o_1_1_audio_device_al.html#a00f416b7bf4ca450fbc0054fe9f94f1f">OSK::AUDIO::AudioDeviceAl::InitializeDefault</a></div><div class="ttdeci">void InitializeDefault() override</div><div class="ttdoc">Instancia un objeto que referencia al dispositivo de salida de audio por defdecto del sistema.</div><div class="ttdef"><b>Definition</b> <a href="_audio_device_al_8cpp_source.html#l00019">AudioDeviceAl.cpp:19</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_a_u_d_i_o_1_1_audio_device_al_html_ac3ebafc3fa86480e26c176c7f1114091"><div class="ttname"><a href="class_o_s_k_1_1_a_u_d_i_o_1_1_audio_device_al.html#ac3ebafc3fa86480e26c176c7f1114091">OSK::AUDIO::AudioDeviceAl::Initialize</a></div><div class="ttdeci">void Initialize(const std::string &amp;name) override</div><div class="ttdoc">Instancia un objeto que referencia a un dispositivo en concreto.</div><div class="ttdef"><b>Definition</b> <a href="_audio_device_al_8cpp_source.html#l00009">AudioDeviceAl.cpp:9</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_a_u_d_i_o_1_1_audio_device_al_html_ad5a915e485884a6592826efec11d5798"><div class="ttname"><a href="class_o_s_k_1_1_a_u_d_i_o_1_1_audio_device_al.html#ad5a915e485884a6592826efec11d5798">OSK::AUDIO::AudioDeviceAl::SetCurrentOutputDevice_Implementation</a></div><div class="ttdeci">void SetCurrentOutputDevice_Implementation() override</div><div class="ttdef"><b>Definition</b> <a href="_audio_device_al_8cpp_source.html#l00049">AudioDeviceAl.cpp:49</a></div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_a_u_d_i_o_1_1_i_audio_device_html"><div class="ttname"><a href="class_o_s_k_1_1_a_u_d_i_o_1_1_i_audio_device.html">OSK::AUDIO::IAudioDevice</a></div><div class="ttdef"><b>Definition</b> <a href="_i_audio_device_8h_source.html#l00011">IAudioDevice.h:11</a></div></div>
-<div class="ttc" id="aclass_o_s_k_1_1_owned_ptr_html"><div class="ttname"><a href="class_o_s_k_1_1_owned_ptr.html">OSK::OwnedPtr</a></div><div class="ttdoc">Es dueño de un puntero.</div><div class="ttdef"><b>Definition</b> <a href="_owned_ptr_8h_source.html#l00017">OwnedPtr.h:17</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_unique_ptr_html"><div class="ttname"><a href="class_o_s_k_1_1_unique_ptr.html">OSK::UniquePtr</a></div><div class="ttdoc">Estructura que es dueña de un objeto almacenado en heap. Al destruirse el UniquePtr,...</div><div class="ttdef"><b>Definition</b> <a href="_unique_ptr_8hpp_source.html#l00026">UniquePtr.hpp:26</a></div></div>
 <div class="ttc" id="anamespace_o_s_k_1_1_a_u_d_i_o_html"><div class="ttname"><a href="namespace_o_s_k_1_1_a_u_d_i_o.html">OSK::AUDIO</a></div><div class="ttdef"><b>Definition</b> <a href="_audio_api_al_8h_source.html#l00007">AudioApiAl.h:7</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
@@ -147,7 +158,7 @@ $(function(){initNavTree('_audio_device_al_8h_source.html',''); initResizable(tr
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_74389ed8173ad57b461b9d623a1f3867.html">Source</a></li><li class="navelem"><b>AudioDeviceAl.h</b></li>
-    <li class="footer">Generado el Lunes, 23 de diciembre de 2024 13:15:55 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.12.0 </li>
+    <li class="footer">Generado el Miércoles, 16 de abril de 2025 17:13:04 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.13.2 </li>
   </ul>
 </div>
 </body>

@@ -5,7 +5,7 @@ var class_o_s_k_1_1_editor_1_1_views_1_1_i_component_view =
     [ "_SetPosition", "class_o_s_k_1_1_editor_1_1_views_1_1_i_component_view.html#af7a4e5d729be3745fe36fb633a341133", null ],
     [ "AddAllDrawCalls", "class_o_s_k_1_1_editor_1_1_views_1_1_i_component_view.html#ae0f8085c23de13e5940fb94e7dbbaaa2", null ],
     [ "AddAllDrawCalls", "class_o_s_k_1_1_editor_1_1_views_1_1_i_component_view.html#a817318bc6249370f7f4e825385437a90", null ],
-    [ "AddChild", "class_o_s_k_1_1_editor_1_1_views_1_1_i_component_view.html#afe6f3ebf954cb752a3de57d091cba83a", null ],
+    [ "AddChild", "class_o_s_k_1_1_editor_1_1_views_1_1_i_component_view.html#a2bad36f638cde1e662fa3d79e1f3a911", null ],
     [ "AddDrawCall", "class_o_s_k_1_1_editor_1_1_views_1_1_i_component_view.html#a18f20031652571463a6bede2198d3571", null ],
     [ "AddDrawCall", "class_o_s_k_1_1_editor_1_1_views_1_1_i_component_view.html#add807398464bad5ab21623c92f386b71", null ],
     [ "AdjustSizeToChildren", "class_o_s_k_1_1_editor_1_1_views_1_1_i_component_view.html#a7e4d55b77c9c99e8cb7e47b237e946bb", null ],

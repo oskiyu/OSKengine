@@ -17,8 +17,6 @@ var searchData=
   ['bonesids_14',['bonesIds',['../struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_animation_skin.html#a58055174c7f93a2707a286da67a27a9a',1,'OSK::GRAPHICS::AnimationSkin']]],
   ['boneweights_15',['boneWeights',['../struct_o_s_k_1_1_cpu_vertex3_d.html#ab664edacfd973fde18e9548b68bbdf39',1,'OSK::CpuVertex3D::boneWeights'],['../struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_vertex_anim3_d.html#a18dcb8301cfac29965206b88745d867d',1,'OSK::GRAPHICS::VertexAnim3D::boneWeights'],['../struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_vertex_animation_attributes3_d.html#ad80a61b968035a0869e4a35772112850',1,'OSK::GRAPHICS::VertexAnimationAttributes3D::boneWeights']]],
   ['bordersize_16',['borderSize',['../struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_sdf_draw_call2_d.html#aed4728b1ce5f998382e53f535c86ff5e',1,'OSK::GRAPHICS::SdfDrawCall2D']]],
-  ['buffer_17',['buffer',['../class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_buffer.html#adfc9ed42440b5eebe45b0e2a1b0c9a6f',1,'OSK::GRAPHICS::GpuBuffer']]],
-  ['buffermemoryblocks_18',['bufferMemoryBlocks',['../class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_allocator.html#a8c63090eab5d64c093fe10e09b07d303',1,'OSK::GRAPHICS::IGpuMemoryAllocator']]],
-  ['buffermemoryblocksinfo_19',['bufferMemoryBlocksInfo',['../class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_allocator.html#a0937f3dc39365976fe1cec02aec91b02',1,'OSK::GRAPHICS::IGpuMemoryAllocator']]],
-  ['bufferusage_20',['bufferUsage',['../class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_block.html#a29e425423138eea520b859cab15c2235',1,'OSK::GRAPHICS::IGpuMemoryBlock']]]
+  ['buffermemoryblocks_17',['bufferMemoryBlocks',['../class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_allocator.html#a8c63090eab5d64c093fe10e09b07d303',1,'OSK::GRAPHICS::IGpuMemoryAllocator']]],
+  ['buffermemoryblocksinfo_18',['bufferMemoryBlocksInfo',['../class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_allocator.html#a0937f3dc39365976fe1cec02aec91b02',1,'OSK::GRAPHICS::IGpuMemoryAllocator']]]
 ];

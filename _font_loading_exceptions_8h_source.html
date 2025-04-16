@@ -3,7 +3,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
-<meta name="generator" content="Doxygen 1.12.0"/>
+<meta name="generator" content="Doxygen 1.13.2"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
 <title>OSKengine: Archivo de código fuente Source/FontLoadingExceptions.h</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
@@ -37,7 +37,7 @@
 </table>
 </div>
 <!-- end header part -->
-<!-- Generado por Doxygen 1.12.0 -->
+<!-- Generado por Doxygen 1.13.2 -->
 <script type="text/javascript">
 /* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
 var searchBox = new SearchBox("searchBox", "search/",'.html');
@@ -106,9 +106,9 @@ $(function(){initNavTree('_font_loading_exceptions_8h_source.html',''); initResi
 <div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="preprocessor">#include &quot;EngineException.h&quot;</span></div>
 <div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span> </div>
 <div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="keyword">namespace </span><a class="code hl_namespace" href="namespace_o_s_k_1_1_a_s_s_e_t_s.html">OSK::ASSETS</a> {</div>
-<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span> </div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span></div>
 <div class="foldopen" id="foldopen00009" data-start="{" data-end="};">
-<div class="line"><a id="l00009" name="l00009"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_font_library_initialization_exception.html">    9</a></span>    <span class="keyword">class </span><a class="code hl_class" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_font_library_initialization_exception.html">FontLibraryInitializationException</a> : <span class="keyword">public</span> <a class="code hl_class" href="class_o_s_k_1_1_engine_exception.html">EngineException</a> {</div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_font_library_initialization_exception.html">    9</a></span>    <span class="keyword">class </span><a class="code hl_function" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_font_library_initialization_exception.html#a2370d37977fbedafd483fe7a2472b542">FontLibraryInitializationException</a> : <span class="keyword">public</span> <a class="code hl_function" href="class_o_s_k_1_1_engine_exception.html#a7b995f408d3fc32009f967cfb45abe79">EngineException</a> {</div>
 <div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span> </div>
 <div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span>    <span class="keyword">public</span>:</div>
 <div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span> </div>
@@ -117,16 +117,16 @@ $(function(){initNavTree('_font_loading_exceptions_8h_source.html',''); initResi
 <div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span>            <span class="keyword">const</span> <span class="keywordtype">size_t</span> code,</div>
 <div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span>            <span class="keyword">const</span> std::source_location&amp; location = std::source_location::current())</div>
 <div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span>            :</div>
-<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>            <a class="code hl_class" href="class_o_s_k_1_1_engine_exception.html">EngineException</a>(</div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>            <a class="code hl_function" href="class_o_s_k_1_1_engine_exception.html#a7b995f408d3fc32009f967cfb45abe79">EngineException</a>(</div>
 <div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>                std::format(<span class="stringliteral">&quot;FontLibraryInitializationException: No se ha podido cargar FreeType. Code: {}.&quot;</span>, code),</div>
 <div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>                location) { }</div>
 </div>
 <div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span> </div>
 <div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>    };</div>
 </div>
-<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span> </div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span></div>
 <div class="foldopen" id="foldopen00024" data-start="{" data-end="};">
-<div class="line"><a id="l00024" name="l00024"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_font_lodaing_exception.html">   24</a></span>    <span class="keyword">class </span><a class="code hl_class" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_font_lodaing_exception.html">FontLodaingException</a> : <span class="keyword">public</span> <a class="code hl_class" href="class_o_s_k_1_1_engine_exception.html">EngineException</a> {</div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_font_lodaing_exception.html">   24</a></span>    <span class="keyword">class </span><a class="code hl_function" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_font_lodaing_exception.html#a9768a7234cf90f9c8c68fb79976d9b7c">FontLodaingException</a> : <span class="keyword">public</span> <a class="code hl_function" href="class_o_s_k_1_1_engine_exception.html#a7b995f408d3fc32009f967cfb45abe79">EngineException</a> {</div>
 <div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span> </div>
 <div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>    <span class="keyword">public</span>:</div>
 <div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span> </div>
@@ -135,16 +135,16 @@ $(function(){initNavTree('_font_loading_exceptions_8h_source.html',''); initResi
 <div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>            <span class="keyword">const</span> <span class="keywordtype">size_t</span> code,</div>
 <div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>            <span class="keyword">const</span> std::source_location&amp; location = std::source_location::current())</div>
 <div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>            :</div>
-<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>            <a class="code hl_class" href="class_o_s_k_1_1_engine_exception.html">EngineException</a>(</div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>            <a class="code hl_function" href="class_o_s_k_1_1_engine_exception.html#a7b995f408d3fc32009f967cfb45abe79">EngineException</a>(</div>
 <div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>                std::format(<span class="stringliteral">&quot;FontLodaingException: No se ha podido cargar la fuente. Code: {}.&quot;</span>, code),</div>
 <div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>                location) { }</div>
 </div>
 <div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span> </div>
 <div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>    };</div>
 </div>
-<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span> </div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span></div>
 <div class="foldopen" id="foldopen00039" data-start="{" data-end="};">
-<div class="line"><a id="l00039" name="l00039"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_font_character_lodaing_exception.html">   39</a></span>    <span class="keyword">class </span><a class="code hl_class" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_font_character_lodaing_exception.html">FontCharacterLodaingException</a> : <span class="keyword">public</span> <a class="code hl_class" href="class_o_s_k_1_1_engine_exception.html">EngineException</a> {</div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_font_character_lodaing_exception.html">   39</a></span>    <span class="keyword">class </span><a class="code hl_function" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_font_character_lodaing_exception.html#a693d2dd8f6b79987edf653ee269c5e71">FontCharacterLodaingException</a> : <span class="keyword">public</span> <a class="code hl_function" href="class_o_s_k_1_1_engine_exception.html#a7b995f408d3fc32009f967cfb45abe79">EngineException</a> {</div>
 <div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span> </div>
 <div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>    <span class="keyword">public</span>:</div>
 <div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span> </div>
@@ -154,7 +154,7 @@ $(function(){initNavTree('_font_loading_exceptions_8h_source.html',''); initResi
 <div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>            <span class="keyword">const</span> <span class="keywordtype">size_t</span> code,</div>
 <div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>            <span class="keyword">const</span> std::source_location&amp; location = std::source_location::current())</div>
 <div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>            :</div>
-<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>            <a class="code hl_class" href="class_o_s_k_1_1_engine_exception.html">EngineException</a>(</div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>            <a class="code hl_function" href="class_o_s_k_1_1_engine_exception.html#a7b995f408d3fc32009f967cfb45abe79">EngineException</a>(</div>
 <div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>                std::format(<span class="stringliteral">&quot;FontCharacterLodaingException: No se ha podido cargar el carácter {}. Code: {}.&quot;</span>, character, code),</div>
 <div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>                location) { }</div>
 </div>
@@ -163,13 +163,10 @@ $(function(){initNavTree('_font_loading_exceptions_8h_source.html',''); initResi
 </div>
 <div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span> </div>
 <div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>}</div>
-<div class="ttc" id="aclass_o_s_k_1_1_a_s_s_e_t_s_1_1_font_character_lodaing_exception_html"><div class="ttname"><a href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_font_character_lodaing_exception.html">OSK::ASSETS::FontCharacterLodaingException</a></div><div class="ttdoc">Excepción que se lanza cuando ocurre un error al cargar un carácter una fuente.</div><div class="ttdef"><b>Definition</b> <a href="#l00039">FontLoadingExceptions.h:39</a></div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_a_s_s_e_t_s_1_1_font_character_lodaing_exception_html_a693d2dd8f6b79987edf653ee269c5e71"><div class="ttname"><a href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_font_character_lodaing_exception.html#a693d2dd8f6b79987edf653ee269c5e71">OSK::ASSETS::FontCharacterLodaingException::FontCharacterLodaingException</a></div><div class="ttdeci">FontCharacterLodaingException(char character, const size_t code, const std::source_location &amp;location=std::source_location::current())</div><div class="ttdef"><b>Definition</b> <a href="#l00043">FontLoadingExceptions.h:43</a></div></div>
-<div class="ttc" id="aclass_o_s_k_1_1_a_s_s_e_t_s_1_1_font_library_initialization_exception_html"><div class="ttname"><a href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_font_library_initialization_exception.html">OSK::ASSETS::FontLibraryInitializationException</a></div><div class="ttdoc">Excepción que se lanza cuando ocurre un error al cargar la librería usada para la generación de fuent...</div><div class="ttdef"><b>Definition</b> <a href="#l00009">FontLoadingExceptions.h:9</a></div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_a_s_s_e_t_s_1_1_font_library_initialization_exception_html_a2370d37977fbedafd483fe7a2472b542"><div class="ttname"><a href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_font_library_initialization_exception.html#a2370d37977fbedafd483fe7a2472b542">OSK::ASSETS::FontLibraryInitializationException::FontLibraryInitializationException</a></div><div class="ttdeci">FontLibraryInitializationException(const size_t code, const std::source_location &amp;location=std::source_location::current())</div><div class="ttdef"><b>Definition</b> <a href="#l00013">FontLoadingExceptions.h:13</a></div></div>
-<div class="ttc" id="aclass_o_s_k_1_1_a_s_s_e_t_s_1_1_font_lodaing_exception_html"><div class="ttname"><a href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_font_lodaing_exception.html">OSK::ASSETS::FontLodaingException</a></div><div class="ttdoc">Excepción que se lanza cuando ocurre un error al cargar una fuente.</div><div class="ttdef"><b>Definition</b> <a href="#l00024">FontLoadingExceptions.h:24</a></div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_a_s_s_e_t_s_1_1_font_lodaing_exception_html_a9768a7234cf90f9c8c68fb79976d9b7c"><div class="ttname"><a href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_font_lodaing_exception.html#a9768a7234cf90f9c8c68fb79976d9b7c">OSK::ASSETS::FontLodaingException::FontLodaingException</a></div><div class="ttdeci">FontLodaingException(const size_t code, const std::source_location &amp;location=std::source_location::current())</div><div class="ttdef"><b>Definition</b> <a href="#l00028">FontLoadingExceptions.h:28</a></div></div>
-<div class="ttc" id="aclass_o_s_k_1_1_engine_exception_html"><div class="ttname"><a href="class_o_s_k_1_1_engine_exception.html">OSK::EngineException</a></div><div class="ttdoc">Clase base para todas las excepciones que puedan ocurrir durante la ejecución del juego.</div><div class="ttdef"><b>Definition</b> <a href="_engine_exception_8h_source.html#l00015">EngineException.h:15</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_engine_exception_html_a7b995f408d3fc32009f967cfb45abe79"><div class="ttname"><a href="class_o_s_k_1_1_engine_exception.html#a7b995f408d3fc32009f967cfb45abe79">OSK::EngineException::EngineException</a></div><div class="ttdeci">EngineException(const std::string_view message, const std::source_location &amp;location=std::source_location::current())</div><div class="ttdoc">Crea la excepción.</div><div class="ttdef"><b>Definition</b> <a href="_engine_exception_8h_source.html#l00028">EngineException.h:28</a></div></div>
 <div class="ttc" id="anamespace_o_s_k_1_1_a_s_s_e_t_s_html"><div class="ttname"><a href="namespace_o_s_k_1_1_a_s_s_e_t_s.html">OSK::ASSETS</a></div><div class="ttdef"><b>Definition</b> <a href="_anim_mesh_loader_8h_source.html#l00009">AnimMeshLoader.h:9</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
@@ -177,7 +174,7 @@ $(function(){initNavTree('_font_loading_exceptions_8h_source.html',''); initResi
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_74389ed8173ad57b461b9d623a1f3867.html">Source</a></li><li class="navelem"><b>FontLoadingExceptions.h</b></li>
-    <li class="footer">Generado el Lunes, 23 de diciembre de 2024 13:15:56 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.12.0 </li>
+    <li class="footer">Generado el Miércoles, 16 de abril de 2025 17:13:04 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.13.2 </li>
   </ul>
 </div>
 </body>

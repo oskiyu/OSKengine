@@ -3,7 +3,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
-<meta name="generator" content="Doxygen 1.12.0"/>
+<meta name="generator" content="Doxygen 1.13.2"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
 <title>OSKengine: Archivo de código fuente Source/EditorCommands.h</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
@@ -37,7 +37,7 @@
 </table>
 </div>
 <!-- end header part -->
-<!-- Generado por Doxygen 1.12.0 -->
+<!-- Generado por Doxygen 1.13.2 -->
 <script type="text/javascript">
 /* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
 var searchBox = new SearchBox("searchBox", "search/",'.html');
@@ -111,43 +111,48 @@ $(function(){initNavTree('_editor_commands_8h_source.html',''); initResizable(tr
 <div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span> </div>
 <div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="keyword">namespace </span><a class="code hl_namespace" href="namespace_o_s_k.html">OSK</a> {</div>
 <div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span> </div>
-<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span>    <span class="keyword">namespace </span>Editor::UI {</div>
-<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span>        <span class="keyword">class </span>EditorUi;</div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span>    <span class="keyword">namespace </span><a class="code hl_namespace" href="namespace_o_s_k_1_1_editor_1_1_u_i.html">Editor::UI</a> {</div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span>        <span class="keyword">class </span><a class="code hl_class" href="class_o_s_k_1_1_editor_1_1_u_i_1_1_editor_ui.html">EditorUi</a>;</div>
 <div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span>    }</div>
 <div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span> </div>
 <div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span> </div>
 <div class="foldopen" id="foldopen00016" data-start="{" data-end="};">
-<div class="line"><a id="l00016" name="l00016"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_editor_show_command.html">   16</a></span>    <span class="keyword">class </span>OSKAPI_CALL <a class="code hl_class" href="class_o_s_k_1_1_editor_show_command.html">EditorShowCommand</a> : <span class="keyword">public</span> <a class="code hl_class" href="class_o_s_k_1_1_i_console_command.html">IConsoleCommand</a> {</div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_editor_show_command.html">   16</a></span>    <span class="keyword">class </span>OSKAPI_CALL <a class="code hl_function" href="class_o_s_k_1_1_editor_show_command.html#a3c738bffaa04c143b113eb8e76ff00e2">EditorShowCommand</a> : <span class="keyword">public</span> <a class="code hl_class" href="class_o_s_k_1_1_i_console_command.html">IConsoleCommand</a> {</div>
 <div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span> </div>
 <div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>    <span class="keyword">public</span>:</div>
 <div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span> </div>
-<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>        <span class="keyword">explicit</span> <a class="code hl_class" href="class_o_s_k_1_1_editor_show_command.html">EditorShowCommand</a>();</div>
-<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>        <span class="keywordtype">void</span> Execute(<a class="code hl_class" href="class_o_s_k_1_1_u_i_1_1_console.html">UI::Console</a>* console, std::span&lt;const std::string&gt; params) <span class="keyword">const override</span>;</div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>        <span class="keyword">explicit</span> <a class="code hl_function" href="class_o_s_k_1_1_editor_show_command.html#a3c738bffaa04c143b113eb8e76ff00e2">EditorShowCommand</a>();</div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>        <span class="keywordtype">void</span> <a class="code hl_function" href="class_o_s_k_1_1_editor_show_command.html#a3d129a916064491791a71629e3060ae0">Execute</a>(<a class="code hl_class" href="class_o_s_k_1_1_u_i_1_1_console.html">UI::Console</a>* console, std::span&lt;const std::string&gt; params) <span class="keyword">const override</span>;</div>
 <div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span> </div>
-<div class="line"><a id="l00023" name="l00023"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_editor_show_command.html#a88c6b88a4b1b7791009c8dbbb15dadfc">   23</a></span>        <a class="code hl_class" href="class_o_s_k_1_1_editor_1_1_u_i_1_1_editor_ui.html">Editor::UI::EditorUi</a>* editor = <span class="keyword">nullptr</span>;</div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_editor_show_command.html#a88c6b88a4b1b7791009c8dbbb15dadfc">   23</a></span>        <a class="code hl_class" href="class_o_s_k_1_1_editor_1_1_u_i_1_1_editor_ui.html">Editor::UI::EditorUi</a>* <a class="code hl_variable" href="class_o_s_k_1_1_editor_show_command.html#a88c6b88a4b1b7791009c8dbbb15dadfc">editor</a> = <span class="keyword">nullptr</span>;</div>
 <div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span> </div>
 <div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>    };</div>
 </div>
 <div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span> </div>
 <div class="foldopen" id="foldopen00027" data-start="{" data-end="};">
-<div class="line"><a id="l00027" name="l00027"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_editor_hide_command.html">   27</a></span>    <span class="keyword">class </span>OSKAPI_CALL <a class="code hl_class" href="class_o_s_k_1_1_editor_hide_command.html">EditorHideCommand</a> : <span class="keyword">public</span> <a class="code hl_class" href="class_o_s_k_1_1_i_console_command.html">IConsoleCommand</a> {</div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_editor_hide_command.html">   27</a></span>    <span class="keyword">class </span>OSKAPI_CALL <a class="code hl_function" href="class_o_s_k_1_1_editor_hide_command.html#aa32fd0dc68ac9bc15ddaff0a48b477f9">EditorHideCommand</a> : <span class="keyword">public</span> <a class="code hl_class" href="class_o_s_k_1_1_i_console_command.html">IConsoleCommand</a> {</div>
 <div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span> </div>
 <div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>    <span class="keyword">public</span>:</div>
 <div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span> </div>
-<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>        <span class="keyword">explicit</span> <a class="code hl_class" href="class_o_s_k_1_1_editor_hide_command.html">EditorHideCommand</a>();</div>
-<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>        <span class="keywordtype">void</span> Execute(<a class="code hl_class" href="class_o_s_k_1_1_u_i_1_1_console.html">UI::Console</a>* console, std::span&lt;const std::string&gt; params) <span class="keyword">const override</span>;</div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>        <span class="keyword">explicit</span> <a class="code hl_function" href="class_o_s_k_1_1_editor_hide_command.html#aa32fd0dc68ac9bc15ddaff0a48b477f9">EditorHideCommand</a>();</div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>        <span class="keywordtype">void</span> <a class="code hl_function" href="class_o_s_k_1_1_editor_hide_command.html#a4f5ff37f373e28979793acf7a4add0bf">Execute</a>(<a class="code hl_class" href="class_o_s_k_1_1_u_i_1_1_console.html">UI::Console</a>* console, std::span&lt;const std::string&gt; params) <span class="keyword">const override</span>;</div>
 <div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span> </div>
-<div class="line"><a id="l00034" name="l00034"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_editor_hide_command.html#ab5c322692e25a42f9c5b0580c4ca01a1">   34</a></span>        <a class="code hl_class" href="class_o_s_k_1_1_editor_1_1_u_i_1_1_editor_ui.html">Editor::UI::EditorUi</a>* editor = <span class="keyword">nullptr</span>;</div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_editor_hide_command.html#ab5c322692e25a42f9c5b0580c4ca01a1">   34</a></span>        <a class="code hl_class" href="class_o_s_k_1_1_editor_1_1_u_i_1_1_editor_ui.html">Editor::UI::EditorUi</a>* <a class="code hl_variable" href="class_o_s_k_1_1_editor_hide_command.html#ab5c322692e25a42f9c5b0580c4ca01a1">editor</a> = <span class="keyword">nullptr</span>;</div>
 <div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span> </div>
 <div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>    };</div>
 </div>
 <div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span> </div>
 <div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>}</div>
 <div class="ttc" id="aclass_o_s_k_1_1_editor_1_1_u_i_1_1_editor_ui_html"><div class="ttname"><a href="class_o_s_k_1_1_editor_1_1_u_i_1_1_editor_ui.html">OSK::Editor::UI::EditorUi</a></div><div class="ttdoc">Clase principal de la interfaz del editor.</div><div class="ttdef"><b>Definition</b> <a href="_editor_ui_8h_source.html#l00033">EditorUi.h:33</a></div></div>
-<div class="ttc" id="aclass_o_s_k_1_1_editor_hide_command_html"><div class="ttname"><a href="class_o_s_k_1_1_editor_hide_command.html">OSK::EditorHideCommand</a></div><div class="ttdef"><b>Definition</b> <a href="#l00027">EditorCommands.h:27</a></div></div>
-<div class="ttc" id="aclass_o_s_k_1_1_editor_show_command_html"><div class="ttname"><a href="class_o_s_k_1_1_editor_show_command.html">OSK::EditorShowCommand</a></div><div class="ttdef"><b>Definition</b> <a href="#l00016">EditorCommands.h:16</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_editor_hide_command_html_a4f5ff37f373e28979793acf7a4add0bf"><div class="ttname"><a href="class_o_s_k_1_1_editor_hide_command.html#a4f5ff37f373e28979793acf7a4add0bf">OSK::EditorHideCommand::Execute</a></div><div class="ttdeci">void Execute(UI::Console *console, std::span&lt; const std::string &gt; params) const override</div><div class="ttdoc">Ejecuta el comando.</div><div class="ttdef"><b>Definition</b> <a href="_editor_commands_8cpp_source.html#l00027">EditorCommands.cpp:27</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_editor_hide_command_html_aa32fd0dc68ac9bc15ddaff0a48b477f9"><div class="ttname"><a href="class_o_s_k_1_1_editor_hide_command.html#aa32fd0dc68ac9bc15ddaff0a48b477f9">OSK::EditorHideCommand::EditorHideCommand</a></div><div class="ttdeci">EditorHideCommand()</div><div class="ttdef"><b>Definition</b> <a href="_editor_commands_8cpp_source.html#l00023">EditorCommands.cpp:23</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_editor_hide_command_html_ab5c322692e25a42f9c5b0580c4ca01a1"><div class="ttname"><a href="class_o_s_k_1_1_editor_hide_command.html#ab5c322692e25a42f9c5b0580c4ca01a1">OSK::EditorHideCommand::editor</a></div><div class="ttdeci">Editor::UI::EditorUi * editor</div><div class="ttdef"><b>Definition</b> <a href="#l00034">EditorCommands.h:34</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_editor_show_command_html_a3c738bffaa04c143b113eb8e76ff00e2"><div class="ttname"><a href="class_o_s_k_1_1_editor_show_command.html#a3c738bffaa04c143b113eb8e76ff00e2">OSK::EditorShowCommand::EditorShowCommand</a></div><div class="ttdeci">EditorShowCommand()</div><div class="ttdef"><b>Definition</b> <a href="_editor_commands_8cpp_source.html#l00012">EditorCommands.cpp:12</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_editor_show_command_html_a3d129a916064491791a71629e3060ae0"><div class="ttname"><a href="class_o_s_k_1_1_editor_show_command.html#a3d129a916064491791a71629e3060ae0">OSK::EditorShowCommand::Execute</a></div><div class="ttdeci">void Execute(UI::Console *console, std::span&lt; const std::string &gt; params) const override</div><div class="ttdoc">Ejecuta el comando.</div><div class="ttdef"><b>Definition</b> <a href="_editor_commands_8cpp_source.html#l00016">EditorCommands.cpp:16</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_editor_show_command_html_a88c6b88a4b1b7791009c8dbbb15dadfc"><div class="ttname"><a href="class_o_s_k_1_1_editor_show_command.html#a88c6b88a4b1b7791009c8dbbb15dadfc">OSK::EditorShowCommand::editor</a></div><div class="ttdeci">Editor::UI::EditorUi * editor</div><div class="ttdef"><b>Definition</b> <a href="#l00023">EditorCommands.h:23</a></div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_i_console_command_html"><div class="ttname"><a href="class_o_s_k_1_1_i_console_command.html">OSK::IConsoleCommand</a></div><div class="ttdoc">Representa un comando de consola que se puede ejecutar.</div><div class="ttdef"><b>Definition</b> <a href="_console_command_8h_source.html#l00020">ConsoleCommand.h:20</a></div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_u_i_1_1_console_html"><div class="ttname"><a href="class_o_s_k_1_1_u_i_1_1_console.html">OSK::UI::Console</a></div><div class="ttdoc">Consola del motor, que permite ejecutar comandos. Muestra los 20 últimos mensajes.</div><div class="ttdef"><b>Definition</b> <a href="_ui_console_8h_source.html#l00014">UiConsole.h:14</a></div></div>
+<div class="ttc" id="anamespace_o_s_k_1_1_editor_1_1_u_i_html"><div class="ttname"><a href="namespace_o_s_k_1_1_editor_1_1_u_i.html">OSK::Editor::UI</a></div><div class="ttdef"><b>Definition</b> <a href="_editor_8h_source.html#l00028">Editor.h:28</a></div></div>
 <div class="ttc" id="anamespace_o_s_k_html"><div class="ttname"><a href="namespace_o_s_k.html">OSK</a></div><div class="ttdef"><b>Definition</b> <a href="_acceleration_structures_exceptions_8h_source.html#l00005">AccelerationStructuresExceptions.h:5</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
@@ -155,7 +160,7 @@ $(function(){initNavTree('_editor_commands_8h_source.html',''); initResizable(tr
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_74389ed8173ad57b461b9d623a1f3867.html">Source</a></li><li class="navelem"><b>EditorCommands.h</b></li>
-    <li class="footer">Generado el Lunes, 23 de diciembre de 2024 13:15:55 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.12.0 </li>
+    <li class="footer">Generado el Miércoles, 16 de abril de 2025 17:13:04 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.13.2 </li>
   </ul>
 </div>
 </body>

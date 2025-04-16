@@ -1,8 +1,8 @@
 var class_o_s_k_1_1_a_s_s_e_t_s_1_1_specular_map =
 [
     [ "SpecularMap", "class_o_s_k_1_1_a_s_s_e_t_s_1_1_specular_map.html#a71b5d136dbd0005294d04045adec5092", null ],
-    [ "_SetCubemapImage", "class_o_s_k_1_1_a_s_s_e_t_s_1_1_specular_map.html#a7b7f3311436729b9ca212f61519f264e", null ],
-    [ "_SetLookUpTable", "class_o_s_k_1_1_a_s_s_e_t_s_1_1_specular_map.html#a429587c8bccae63fe61492fd26c545a2", null ],
+    [ "_SetCubemapImage", "class_o_s_k_1_1_a_s_s_e_t_s_1_1_specular_map.html#aed4777bef09e9ed2f1a27b8700718893", null ],
+    [ "_SetLookUpTable", "class_o_s_k_1_1_a_s_s_e_t_s_1_1_specular_map.html#a76c7faea949b667c54a93c459d313db8", null ],
     [ "GetAssetFilename", "class_o_s_k_1_1_a_s_s_e_t_s_1_1_specular_map.html#acf0bac3849facb6afb0499907186840b", null ],
     [ "GetCubemapImage", "class_o_s_k_1_1_a_s_s_e_t_s_1_1_specular_map.html#aa38943ac44ff4880017dab9239b44844", null ],
     [ "GetCubemapImage", "class_o_s_k_1_1_a_s_s_e_t_s_1_1_specular_map.html#a3ecb14fc1579562dfe2034b045f41015", null ],

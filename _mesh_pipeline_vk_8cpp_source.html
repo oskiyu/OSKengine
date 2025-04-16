@@ -3,7 +3,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
-<meta name="generator" content="Doxygen 1.12.0"/>
+<meta name="generator" content="Doxygen 1.13.2"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
 <title>OSKengine: Archivo de código fuente Source/MeshPipelineVk.cpp</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
@@ -37,7 +37,7 @@
 </table>
 </div>
 <!-- end header part -->
-<!-- Generado por Doxygen 1.12.0 -->
+<!-- Generado por Doxygen 1.13.2 -->
 <script type="text/javascript">
 /* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
 var searchBox = new SearchBox("searchBox", "search/",'.html');
@@ -141,7 +141,7 @@ $(function(){initNavTree('_mesh_pipeline_vk_8cpp_source.html',''); initResizable
 <div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span><span class="keywordtype">void</span> MeshPipelineVk::Create(<span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_layout.html">MaterialLayout</a>* materialLayout, <a class="code hl_class" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu.html">IGpu</a>* device, <span class="keyword">const</span> <a class="code hl_struct" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_pipeline_create_info.html">PipelineCreateInfo</a>&amp; info) {</div>
 <div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>    m_gpu = device-&gt;As&lt;GpuVk&gt;();</div>
 <div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span> </div>
-<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>    m_layout = <span class="keyword">new</span> PipelineLayoutVk(materialLayout);</div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>    m_layout = <a class="code hl_function" href="namespace_o_s_k.html#a9eb9f9297be2a8044dda7480321e6661">MakeUnique&lt;PipelineLayoutVk&gt;</a>(materialLayout);</div>
 <div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span> </div>
 <div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>    <span class="keywordflow">if</span> (info.<a class="code hl_variable" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_pipeline_create_info.html#aa49ed969c1805d7ea4c4104b9a1a8940">meshAmplificationShaderPath</a> != <span class="stringliteral">&quot;&quot;</span>) {</div>
 <div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>        LoadAmplificationShader(info.<a class="code hl_variable" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_pipeline_create_info.html#aa49ed969c1805d7ea4c4104b9a1a8940">meshAmplificationShaderPath</a>);</div>
@@ -156,9 +156,9 @@ $(function(){initNavTree('_mesh_pipeline_vk_8cpp_source.html',''); initResizable
 <div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>    <span class="comment">// Información básica del input del pipeline.</span></div>
 <div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>    VkPipelineInputAssemblyStateCreateInfo inputAssemblyInfo{};</div>
 <div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>    inputAssemblyInfo.sType = VK_STRUCTURE_TYPE_PIPELINE_INPUT_ASSEMBLY_STATE_CREATE_INFO;</div>
-<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>    <span class="keywordflow">if</span> (info.<a class="code hl_variable" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_pipeline_create_info.html#a374bbb3534c447ec42cf7edb5380ae84">polygonMode</a> == PolygonMode::LINE)</div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>    <span class="keywordflow">if</span> (info.<a class="code hl_variable" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_pipeline_create_info.html#a374bbb3534c447ec42cf7edb5380ae84">polygonMode</a> == <a class="code hl_enumvalue" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a9bf4af2a8108b7a3939f60c4efafcfd8a17b8ef2c330f1430e00c9de5469fc7e7">PolygonMode::LINE</a>)</div>
 <div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>        inputAssemblyInfo.topology = VK_PRIMITIVE_TOPOLOGY_LINE_STRIP;</div>
-<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>    <span class="keywordflow">else</span> <span class="keywordflow">if</span> (info.<a class="code hl_variable" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_pipeline_create_info.html#a374bbb3534c447ec42cf7edb5380ae84">polygonMode</a> == PolygonMode::POINT)</div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>    <span class="keywordflow">else</span> <span class="keywordflow">if</span> (info.<a class="code hl_variable" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_pipeline_create_info.html#a374bbb3534c447ec42cf7edb5380ae84">polygonMode</a> == <a class="code hl_enumvalue" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a9bf4af2a8108b7a3939f60c4efafcfd8aaebdbcb765394d25d6a604589a890f82">PolygonMode::POINT</a>)</div>
 <div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>        inputAssemblyInfo.topology = VK_PRIMITIVE_TOPOLOGY_POINT_LIST;</div>
 <div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>    <span class="keywordflow">else</span></div>
 <div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>        inputAssemblyInfo.topology = VK_PRIMITIVE_TOPOLOGY_TRIANGLE_LIST;</div>
@@ -202,7 +202,7 @@ $(function(){initNavTree('_mesh_pipeline_vk_8cpp_source.html',''); initResizable
 <div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span>    VkPipelineDynamicStateCreateInfo dynamicCreateInfo{};</div>
 <div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span>    dynamicCreateInfo.sType = VK_STRUCTURE_TYPE_PIPELINE_DYNAMIC_STATE_CREATE_INFO;</div>
 <div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span>    dynamicCreateInfo.pDynamicStates = states.data();</div>
-<div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span>    dynamicCreateInfo.dynamicStateCount = states.size();</div>
+<div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span>    dynamicCreateInfo.dynamicStateCount = <span class="keyword">static_cast&lt;</span>uint32_t<span class="keyword">&gt;</span>(states.size());</div>
 <div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span>    dynamicCreateInfo.flags = 0;</div>
 <div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span> </div>
 <div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span>    <span class="comment">// Viewport (será dinámico)</span></div>
@@ -261,7 +261,7 @@ $(function(){initNavTree('_mesh_pipeline_vk_8cpp_source.html',''); initResizable
 <div class="line"><a id="l00158" name="l00158"></a><span class="lineno">  158</span> </div>
 <div class="line"><a id="l00159" name="l00159"></a><span class="lineno">  159</span><span class="keywordtype">void</span> MeshPipelineVk::LoadAmplificationShader(<span class="keyword">const</span> std::string&amp; path) {</div>
 <div class="line"><a id="l00160" name="l00160"></a><span class="lineno">  160</span>    <span class="comment">// Lee el código SPIR-V.</span></div>
-<div class="line"><a id="l00161" name="l00161"></a><span class="lineno">  161</span>    <span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_dynamic_array.html">DynamicArray&lt;char&gt;</a> fragmentCode = IO::FileIO::ReadBinaryFromFile(path);</div>
+<div class="line"><a id="l00161" name="l00161"></a><span class="lineno">  161</span>    <span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_dynamic_array.html">DynamicArray&lt;char&gt;</a> fragmentCode = <a class="code hl_function" href="class_o_s_k_1_1_i_o_1_1_file_i_o.html#a5016ee7b64adc1e95f52ce3f847370c2">IO::FileIO::ReadBinaryFromFile</a>(path);</div>
 <div class="line"><a id="l00162" name="l00162"></a><span class="lineno">  162</span>    <span class="keyword">const</span> VkShaderModule shaderModule = CreateShaderModule(</div>
 <div class="line"><a id="l00163" name="l00163"></a><span class="lineno">  163</span>        fragmentCode.<a class="code hl_function" href="class_o_s_k_1_1_dynamic_array.html#aa623134157acd07f1e42312f2a98b81c">GetFullSpan</a>(),</div>
 <div class="line"><a id="l00164" name="l00164"></a><span class="lineno">  164</span>        path,</div>
@@ -280,7 +280,7 @@ $(function(){initNavTree('_mesh_pipeline_vk_8cpp_source.html',''); initResizable
 <div class="line"><a id="l00177" name="l00177"></a><span class="lineno">  177</span> </div>
 <div class="line"><a id="l00178" name="l00178"></a><span class="lineno">  178</span><span class="keywordtype">void</span> MeshPipelineVk::LoadMeshShader(<span class="keyword">const</span> std::string&amp; path) {</div>
 <div class="line"><a id="l00179" name="l00179"></a><span class="lineno">  179</span>    <span class="comment">// Lee el código SPIR-V.</span></div>
-<div class="line"><a id="l00180" name="l00180"></a><span class="lineno">  180</span>    <span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_dynamic_array.html">DynamicArray&lt;char&gt;</a> fragmentCode = IO::FileIO::ReadBinaryFromFile(path);</div>
+<div class="line"><a id="l00180" name="l00180"></a><span class="lineno">  180</span>    <span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_dynamic_array.html">DynamicArray&lt;char&gt;</a> fragmentCode = <a class="code hl_function" href="class_o_s_k_1_1_i_o_1_1_file_i_o.html#a5016ee7b64adc1e95f52ce3f847370c2">IO::FileIO::ReadBinaryFromFile</a>(path);</div>
 <div class="line"><a id="l00181" name="l00181"></a><span class="lineno">  181</span>    <span class="keyword">const</span> VkShaderModule shaderModule = CreateShaderModule(</div>
 <div class="line"><a id="l00182" name="l00182"></a><span class="lineno">  182</span>        fragmentCode.<a class="code hl_function" href="class_o_s_k_1_1_dynamic_array.html#aa623134157acd07f1e42312f2a98b81c">GetFullSpan</a>(),</div>
 <div class="line"><a id="l00183" name="l00183"></a><span class="lineno">  183</span>        path,</div>
@@ -299,7 +299,7 @@ $(function(){initNavTree('_mesh_pipeline_vk_8cpp_source.html',''); initResizable
 <div class="line"><a id="l00196" name="l00196"></a><span class="lineno">  196</span> </div>
 <div class="line"><a id="l00197" name="l00197"></a><span class="lineno">  197</span><span class="keywordtype">void</span> MeshPipelineVk::LoadFragmentShader(<span class="keyword">const</span> std::string&amp; path) {</div>
 <div class="line"><a id="l00198" name="l00198"></a><span class="lineno">  198</span>    <span class="comment">// Lee el código SPIR-V.</span></div>
-<div class="line"><a id="l00199" name="l00199"></a><span class="lineno">  199</span>    <span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_dynamic_array.html">DynamicArray&lt;char&gt;</a> fragmentCode = IO::FileIO::ReadBinaryFromFile(path);</div>
+<div class="line"><a id="l00199" name="l00199"></a><span class="lineno">  199</span>    <span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_dynamic_array.html">DynamicArray&lt;char&gt;</a> fragmentCode = <a class="code hl_function" href="class_o_s_k_1_1_i_o_1_1_file_i_o.html#a5016ee7b64adc1e95f52ce3f847370c2">IO::FileIO::ReadBinaryFromFile</a>(path);</div>
 <div class="line"><a id="l00200" name="l00200"></a><span class="lineno">  200</span>    <span class="keyword">const</span> VkShaderModule shaderModule = CreateShaderModule(</div>
 <div class="line"><a id="l00201" name="l00201"></a><span class="lineno">  201</span>        fragmentCode.<a class="code hl_function" href="class_o_s_k_1_1_dynamic_array.html#aa623134157acd07f1e42312f2a98b81c">GetFullSpan</a>(),</div>
 <div class="line"><a id="l00202" name="l00202"></a><span class="lineno">  202</span>        path,</div>
@@ -325,10 +325,14 @@ $(function(){initNavTree('_mesh_pipeline_vk_8cpp_source.html',''); initResizable
 <div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_html"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu.html">OSK::GRAPHICS::IGpu</a></div><div class="ttdoc">Representa una conexión con la GPU.</div><div class="ttdef"><b>Definition</b> <a href="_i_gpu_8h_source.html#l00019">IGpu.h:19</a></div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_layout_html"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_layout.html">OSK::GRAPHICS::MaterialLayout</a></div><div class="ttdoc">El layout de un material determina qué slots pertenecen a ese material.</div><div class="ttdef"><b>Definition</b> <a href="_material_layout_8h_source.html#l00012">MaterialLayout.h:12</a></div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_pipeline_creation_exception_html"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_pipeline_creation_exception.html">OSK::GRAPHICS::PipelineCreationException</a></div><div class="ttdoc">Excepción que se lanza cuando se trata de usar un evento que no ha sido registrado.</div><div class="ttdef"><b>Definition</b> <a href="_pipelines_exceptions_8h_source.html#l00008">PipelinesExceptions.h:8</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_i_o_1_1_file_i_o_html_a5016ee7b64adc1e95f52ce3f847370c2"><div class="ttname"><a href="class_o_s_k_1_1_i_o_1_1_file_i_o.html#a5016ee7b64adc1e95f52ce3f847370c2">OSK::IO::FileIO::ReadBinaryFromFile</a></div><div class="ttdeci">static DynamicArray&lt; char &gt; ReadBinaryFromFile(std::string_view filename)</div><div class="ttdoc">Lee un archivo binario.</div><div class="ttdef"><b>Definition</b> <a href="_file_i_o_8cpp_source.html#l00045">FileIO.cpp:45</a></div></div>
 <div class="ttc" id="anamespace_o_s_k_1_1_g_r_a_p_h_i_c_s_html"><div class="ttname"><a href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html">OSK::GRAPHICS</a></div><div class="ttdef"><b>Definition</b> <a href="_acceleration_structures_exceptions_8h_source.html#l00005">AccelerationStructuresExceptions.h:5</a></div></div>
 <div class="ttc" id="anamespace_o_s_k_1_1_g_r_a_p_h_i_c_s_html_a3d37e81d2b2de2be25342b1b1ae95515"><div class="ttname"><a href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a3d37e81d2b2de2be25342b1b1ae95515">OSK::GRAPHICS::FormatSupportsStencil</a></div><div class="ttdeci">bool FormatSupportsStencil(Format format)</div><div class="ttdef"><b>Definition</b> <a href="_format_8cpp_source.html#l00204">Format.cpp:204</a></div></div>
+<div class="ttc" id="anamespace_o_s_k_1_1_g_r_a_p_h_i_c_s_html_a9bf4af2a8108b7a3939f60c4efafcfd8a17b8ef2c330f1430e00c9de5469fc7e7"><div class="ttname"><a href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a9bf4af2a8108b7a3939f60c4efafcfd8a17b8ef2c330f1430e00c9de5469fc7e7">OSK::GRAPHICS::PolygonMode::LINE</a></div><div class="ttdeci">@ LINE</div><div class="ttdoc">Se renderizan líneas rectas.</div><div class="ttdef"><b>Definition</b> <a href="_pipeline_create_info_8h_source.html#l00020">PipelineCreateInfo.h:20</a></div></div>
+<div class="ttc" id="anamespace_o_s_k_1_1_g_r_a_p_h_i_c_s_html_a9bf4af2a8108b7a3939f60c4efafcfd8aaebdbcb765394d25d6a604589a890f82"><div class="ttname"><a href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a9bf4af2a8108b7a3939f60c4efafcfd8aaebdbcb765394d25d6a604589a890f82">OSK::GRAPHICS::PolygonMode::POINT</a></div><div class="ttdeci">@ POINT</div><div class="ttdoc">Se renderizan puntos.</div><div class="ttdef"><b>Definition</b> <a href="_pipeline_create_info_8h_source.html#l00023">PipelineCreateInfo.h:23</a></div></div>
 <div class="ttc" id="anamespace_o_s_k_html"><div class="ttname"><a href="namespace_o_s_k.html">OSK</a></div><div class="ttdef"><b>Definition</b> <a href="_acceleration_structures_exceptions_8h_source.html#l00005">AccelerationStructuresExceptions.h:5</a></div></div>
 <div class="ttc" id="anamespace_o_s_k_html_a382ed4c8a6994201cbad5d4e1335861b"><div class="ttname"><a href="namespace_o_s_k.html#a382ed4c8a6994201cbad5d4e1335861b">OSK::UIndex32</a></div><div class="ttdeci">uint32_t UIndex32</div><div class="ttdoc">Índice de un elemento, almacenado en un unsigned int de 32 bits.</div><div class="ttdef"><b>Definition</b> <a href="_numeric_types_8h_source.html#l00010">NumericTypes.h:10</a></div></div>
+<div class="ttc" id="anamespace_o_s_k_html_a9eb9f9297be2a8044dda7480321e6661"><div class="ttname"><a href="namespace_o_s_k.html#a9eb9f9297be2a8044dda7480321e6661">OSK::MakeUnique</a></div><div class="ttdeci">UniquePtr&lt; T &gt; MakeUnique(TArgs &amp;&amp;... args)</div><div class="ttdef"><b>Definition</b> <a href="_unique_ptr_8hpp_source.html#l00182">UniquePtr.hpp:182</a></div></div>
 <div class="ttc" id="astruct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_pipeline_create_info_html"><div class="ttname"><a href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_pipeline_create_info.html">OSK::GRAPHICS::PipelineCreateInfo</a></div><div class="ttdoc">Contiene la información necesaria para configurar un nuevo pipeline.</div><div class="ttdef"><b>Definition</b> <a href="_pipeline_create_info_8h_source.html#l00075">PipelineCreateInfo.h:75</a></div></div>
 <div class="ttc" id="astruct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_pipeline_create_info_html_a031c05fb2778c508449834a5281e84fd"><div class="ttname"><a href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_pipeline_create_info.html#a031c05fb2778c508449834a5281e84fd">OSK::GRAPHICS::PipelineCreateInfo::formats</a></div><div class="ttdeci">DynamicArray&lt; Format &gt; formats</div><div class="ttdoc">Formato de la imagen sobre la que se renderizará.</div><div class="ttdef"><b>Definition</b> <a href="_pipeline_create_info_8h_source.html#l00130">PipelineCreateInfo.h:130</a></div></div>
 <div class="ttc" id="astruct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_pipeline_create_info_html_a374bbb3534c447ec42cf7edb5380ae84"><div class="ttname"><a href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_pipeline_create_info.html#a374bbb3534c447ec42cf7edb5380ae84">OSK::GRAPHICS::PipelineCreateInfo::polygonMode</a></div><div class="ttdeci">PolygonMode polygonMode</div><div class="ttdef"><b>Definition</b> <a href="_pipeline_create_info_8h_source.html#l00115">PipelineCreateInfo.h:115</a></div></div>
@@ -342,7 +346,7 @@ $(function(){initNavTree('_mesh_pipeline_vk_8cpp_source.html',''); initResizable
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_74389ed8173ad57b461b9d623a1f3867.html">Source</a></li><li class="navelem"><b>MeshPipelineVk.cpp</b></li>
-    <li class="footer">Generado el Lunes, 23 de diciembre de 2024 13:15:56 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.12.0 </li>
+    <li class="footer">Generado el Miércoles, 16 de abril de 2025 17:13:05 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.13.2 </li>
   </ul>
 </div>
 </body>

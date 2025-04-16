@@ -1,7 +1,7 @@
 var searchData=
 [
   ['image_0',['image',['../struct_o_s_k_1_1_a_s_s_e_t_s_1_1_font_instance.html#a5bc616e3014ce0290c984a4810f19448',1,'OSK::ASSETS::FontInstance']]],
-  ['imagememoryblocks_1',['imageMemoryBlocks',['../class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_allocator.html#adea5c2b2553cca1f72cda208e8846775',1,'OSK::GRAPHICS::IGpuMemoryAllocator']]],
+  ['imagememoryblocks_1',['imageMemoryBlocks',['../class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_allocator.html#a648839e5f311218525260fd324108c5c',1,'OSK::GRAPHICS::IGpuMemoryAllocator']]],
   ['index_2',['index',['../struct_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_sat_info_1_1_face.html#aaecd46197b8a59c7353263803f56ecb9',1,'OSK::COLLISION::SatInfo::Face']]],
   ['information_3',['information',['../struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_point_light.html#ad606d18b244629dbd414be2cdad5bd2b',1,'OSK::GRAPHICS::PointLight']]],
   ['inheritsposition_4',['inheritsPosition',['../struct_o_s_k_1_1_transform3_d_1_1_inheritance_config.html#aad330b67cb45911630bff126a287b748',1,'OSK::Transform3D::InheritanceConfig']]],

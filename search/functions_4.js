@@ -8,7 +8,7 @@ var searchData=
   ['deferredrendersystem_5',['DeferredRenderSystem',['../class_o_s_k_1_1_e_c_s_1_1_deferred_render_system.html#a0de6e8a9108c92d65f1335d5710616fa',1,'OSK::ECS::DeferredRenderSystem']]],
   ['deferredrendersystemcontroller_6',['DeferredRenderSystemController',['../class_o_s_k_1_1_editor_1_1_controllers_1_1_deferred_render_system_controller.html#a50046523f3c2abfb738ea10adbb641b2',1,'OSK::Editor::Controllers::DeferredRenderSystemController']]],
   ['deferredrendersystemview_7',['DeferredRenderSystemView',['../class_o_s_k_1_1_editor_1_1_views_1_1_deferred_render_system_view.html#a7741c4b04d6d25dc9ba324d9e183f2a9',1,'OSK::Editor::Views::DeferredRenderSystemView']]],
-  ['delete_8',['Delete',['../class_o_s_k_1_1_owned_ptr.html#ae1310d4a422f7e6cde8340d05bdc1e8b',1,'OSK::OwnedPtr::Delete()'],['../class_o_s_k_1_1_unique_ptr.html#a39da2bc8dc4424258a8455eae98c4497',1,'OSK::UniquePtr::Delete()']]],
+  ['delete_8',['Delete',['../class_o_s_k_1_1_unique_ptr.html#ad4cd6d4d8678d202c3219a357a781f49',1,'OSK::UniquePtr::Delete()'],['../class_o_s_k_1_1_unique_ptr.html#adf7fad82162dcb8841762d4d3f46e2f9',1,'OSK::UniquePtr::Delete()']]],
   ['deleteallstagingbuffers_9',['DeleteAllStagingBuffers',['../class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_list.html#ab7109911a37fcb344856f013eab554da',1,'OSK::GRAPHICS::ICommandList']]],
   ['deletechild_10',['DeleteChild',['../class_o_s_k_1_1_u_i_1_1_i_container.html#a15ba2a2d54860d25f8851f2cb7b8f6c6',1,'OSK::UI::IContainer']]],
   ['deleteunusedpasses_11',['DeleteUnusedPasses',['../class_o_s_k_1_1_editor_1_1_views_1_1_model_component_view3_d.html#a98d1ada22d36857c4ce952e8b850b441',1,'OSK::Editor::Views::ModelComponentView3D']]],

@@ -3,7 +3,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
-<meta name="generator" content="Doxygen 1.12.0"/>
+<meta name="generator" content="Doxygen 1.13.2"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
 <title>OSKengine: Archivo de código fuente Source/PreBuiltCollider.cpp</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
@@ -37,7 +37,7 @@
 </table>
 </div>
 <!-- end header part -->
-<!-- Generado por Doxygen 1.12.0 -->
+<!-- Generado por Doxygen 1.13.2 -->
 <script type="text/javascript">
 /* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
 var searchBox = new SearchBox("searchBox", "search/",'.html');
@@ -107,11 +107,11 @@ $(function(){initNavTree('_pre_built_collider_8cpp_source.html',''); initResizab
 <div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="keyword">using namespace </span><a class="code hl_namespace" href="namespace_o_s_k_1_1_a_s_s_e_t_s.html">OSK::ASSETS</a>;</div>
 <div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="keyword">using namespace </span><a class="code hl_namespace" href="namespace_o_s_k_1_1_c_o_l_l_i_s_i_o_n.html">OSK::COLLISION</a>;</div>
 <div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span> </div>
-<div class="line"><a id="l00007" name="l00007"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_pre_built_collider.html#ae562412ad4a45b56b3882e807524468d">    7</a></span><a class="code hl_function" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_pre_built_collider.html#ae562412ad4a45b56b3882e807524468d">PreBuiltCollider::PreBuiltCollider</a>(<span class="keyword">const</span> std::string&amp; assetFile) : <a class="code hl_class" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_i_asset.html">IAsset</a>(assetFile) {}</div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_pre_built_collider.html#ae562412ad4a45b56b3882e807524468d">    7</a></span><a class="code hl_function" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_pre_built_collider.html#ae562412ad4a45b56b3882e807524468d">PreBuiltCollider::PreBuiltCollider</a>(<span class="keyword">const</span> std::string&amp; assetFile) : <a class="code hl_function" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_i_asset.html#ae0f7dd9a4dc1a89043ee0f7d826e3a8f">IAsset</a>(assetFile) {}</div>
 <div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span> </div>
 <div class="foldopen" id="foldopen00009" data-start="{" data-end="}">
-<div class="line"><a id="l00009" name="l00009"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_pre_built_collider.html#aee25506c2dc243ba35f75b7eb6397347">    9</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_pre_built_collider.html#aee25506c2dc243ba35f75b7eb6397347">PreBuiltCollider::_SetCollider</a>(<a class="code hl_class" href="class_o_s_k_1_1_owned_ptr.html">OwnedPtr&lt;COLLISION::Collider&gt;</a> collider) {</div>
-<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span>    m_collider = collider.<a class="code hl_function" href="class_o_s_k_1_1_owned_ptr.html#a81dfab2299056fc9858aace55fca0042">GetPointer</a>();</div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_pre_built_collider.html#ae820c37c8bc843d6d4e89e4ed784ceb9">    9</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_pre_built_collider.html#ae820c37c8bc843d6d4e89e4ed784ceb9">PreBuiltCollider::_SetCollider</a>(<a class="code hl_class" href="class_o_s_k_1_1_unique_ptr.html">UniquePtr&lt;COLLISION::Collider&gt;</a>&amp;&amp; collider) {</div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span>    m_collider = std::move(collider);</div>
 <div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span>}</div>
 </div>
 <div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span> </div>
@@ -120,13 +120,12 @@ $(function(){initNavTree('_pre_built_collider_8cpp_source.html',''); initResizab
 <div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span>    <span class="keywordflow">return</span> m_collider.GetPointer();</div>
 <div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span>}</div>
 </div>
-<div class="ttc" id="aclass_o_s_k_1_1_a_s_s_e_t_s_1_1_i_asset_html"><div class="ttname"><a href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_i_asset.html">OSK::ASSETS::IAsset</a></div><div class="ttdoc">Un asset es un archivo/contenido que se usa en un juego. Incluye contenido como texturas,...</div><div class="ttdef"><b>Definition</b> <a href="_i_asset_8h_source.html#l00030">IAsset.h:30</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_a_s_s_e_t_s_1_1_i_asset_html_ae0f7dd9a4dc1a89043ee0f7d826e3a8f"><div class="ttname"><a href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_i_asset.html#ae0f7dd9a4dc1a89043ee0f7d826e3a8f">OSK::ASSETS::IAsset::IAsset</a></div><div class="ttdeci">IAsset(const std::string &amp;assetFile)</div><div class="ttdef"><b>Definition</b> <a href="_i_asset_8cpp_source.html#l00005">IAsset.cpp:5</a></div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_a_s_s_e_t_s_1_1_pre_built_collider_html_a56536692d901802f2d606c7c7f5ac6b4"><div class="ttname"><a href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_pre_built_collider.html#a56536692d901802f2d606c7c7f5ac6b4">OSK::ASSETS::PreBuiltCollider::GetCollider</a></div><div class="ttdeci">const COLLISION::Collider * GetCollider() const</div><div class="ttdef"><b>Definition</b> <a href="#l00013">PreBuiltCollider.cpp:13</a></div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_a_s_s_e_t_s_1_1_pre_built_collider_html_ae562412ad4a45b56b3882e807524468d"><div class="ttname"><a href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_pre_built_collider.html#ae562412ad4a45b56b3882e807524468d">OSK::ASSETS::PreBuiltCollider::PreBuiltCollider</a></div><div class="ttdeci">PreBuiltCollider(const std::string &amp;assetFile)</div><div class="ttdef"><b>Definition</b> <a href="#l00007">PreBuiltCollider.cpp:7</a></div></div>
-<div class="ttc" id="aclass_o_s_k_1_1_a_s_s_e_t_s_1_1_pre_built_collider_html_aee25506c2dc243ba35f75b7eb6397347"><div class="ttname"><a href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_pre_built_collider.html#aee25506c2dc243ba35f75b7eb6397347">OSK::ASSETS::PreBuiltCollider::_SetCollider</a></div><div class="ttdeci">void _SetCollider(OwnedPtr&lt; COLLISION::Collider &gt; collider)</div><div class="ttdef"><b>Definition</b> <a href="#l00009">PreBuiltCollider.cpp:9</a></div></div>
-<div class="ttc" id="aclass_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_collider_html"><div class="ttname"><a href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_collider.html">OSK::COLLISION::Collider</a></div><div class="ttdoc">Representa un volumen que puede interseccionar con otros.</div><div class="ttdef"><b>Definition</b> <a href="_collider_8h_source.html#l00032">Collider.h:32</a></div></div>
-<div class="ttc" id="aclass_o_s_k_1_1_owned_ptr_html"><div class="ttname"><a href="class_o_s_k_1_1_owned_ptr.html">OSK::OwnedPtr</a></div><div class="ttdoc">Es dueño de un puntero.</div><div class="ttdef"><b>Definition</b> <a href="_owned_ptr_8h_source.html#l00017">OwnedPtr.h:17</a></div></div>
-<div class="ttc" id="aclass_o_s_k_1_1_owned_ptr_html_a81dfab2299056fc9858aace55fca0042"><div class="ttname"><a href="class_o_s_k_1_1_owned_ptr.html#a81dfab2299056fc9858aace55fca0042">OSK::OwnedPtr::GetPointer</a></div><div class="ttdeci">T * GetPointer() const</div><div class="ttdoc">Devuelve el puntero nativo.</div><div class="ttdef"><b>Definition</b> <a href="_owned_ptr_8h_source.html#l00080">OwnedPtr.h:80</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_a_s_s_e_t_s_1_1_pre_built_collider_html_ae820c37c8bc843d6d4e89e4ed784ceb9"><div class="ttname"><a href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_pre_built_collider.html#ae820c37c8bc843d6d4e89e4ed784ceb9">OSK::ASSETS::PreBuiltCollider::_SetCollider</a></div><div class="ttdeci">void _SetCollider(UniquePtr&lt; COLLISION::Collider &gt; &amp;&amp;collider)</div><div class="ttdef"><b>Definition</b> <a href="#l00009">PreBuiltCollider.cpp:9</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_collider_html"><div class="ttname"><a href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_collider.html">OSK::COLLISION::Collider</a></div><div class="ttdoc">Representa un volumen que puede interseccionar con otros.</div><div class="ttdef"><b>Definition</b> <a href="_collider_8h_source.html#l00031">Collider.h:31</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_unique_ptr_html"><div class="ttname"><a href="class_o_s_k_1_1_unique_ptr.html">OSK::UniquePtr</a></div><div class="ttdoc">Estructura que es dueña de un objeto almacenado en heap. Al destruirse el UniquePtr,...</div><div class="ttdef"><b>Definition</b> <a href="_unique_ptr_8hpp_source.html#l00026">UniquePtr.hpp:26</a></div></div>
 <div class="ttc" id="anamespace_o_s_k_1_1_a_s_s_e_t_s_html"><div class="ttname"><a href="namespace_o_s_k_1_1_a_s_s_e_t_s.html">OSK::ASSETS</a></div><div class="ttdef"><b>Definition</b> <a href="_anim_mesh_loader_8h_source.html#l00009">AnimMeshLoader.h:9</a></div></div>
 <div class="ttc" id="anamespace_o_s_k_1_1_c_o_l_l_i_s_i_o_n_html"><div class="ttname"><a href="namespace_o_s_k_1_1_c_o_l_l_i_s_i_o_n.html">OSK::COLLISION</a></div><div class="ttdef"><b>Definition</b> <a href="_axis_aligned_bounding_box_8h_source.html#l00010">AxisAlignedBoundingBox.h:10</a></div></div>
 <div class="ttc" id="anamespace_o_s_k_html"><div class="ttname"><a href="namespace_o_s_k.html">OSK</a></div><div class="ttdef"><b>Definition</b> <a href="_acceleration_structures_exceptions_8h_source.html#l00005">AccelerationStructuresExceptions.h:5</a></div></div>
@@ -136,7 +135,7 @@ $(function(){initNavTree('_pre_built_collider_8cpp_source.html',''); initResizab
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_74389ed8173ad57b461b9d623a1f3867.html">Source</a></li><li class="navelem"><b>PreBuiltCollider.cpp</b></li>
-    <li class="footer">Generado el Lunes, 23 de diciembre de 2024 13:15:56 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.12.0 </li>
+    <li class="footer">Generado el Miércoles, 16 de abril de 2025 17:13:05 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.13.2 </li>
   </ul>
 </div>
 </body>

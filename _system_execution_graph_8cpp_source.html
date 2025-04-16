@@ -3,7 +3,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
-<meta name="generator" content="Doxygen 1.12.0"/>
+<meta name="generator" content="Doxygen 1.13.2"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
 <title>OSKengine: Archivo de código fuente Source/SystemExecutionGraph.cpp</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
@@ -37,7 +37,7 @@
 </table>
 </div>
 <!-- end header part -->
-<!-- Generado por Doxygen 1.12.0 -->
+<!-- Generado por Doxygen 1.13.2 -->
 <script type="text/javascript">
 /* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
 var searchBox = new SearchBox("searchBox", "search/",'.html');
@@ -211,7 +211,7 @@ $(function(){initNavTree('_system_execution_graph_8cpp_source.html',''); initRes
 <div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span>    m_flatExecutionGraph.Empty();</div>
 <div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span> </div>
 <div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span>    <span class="keyword">struct </span>Entry {</div>
-<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span>        <a class="code hl_class" href="class_o_s_k_1_1_e_c_s_1_1_i_system.html">ISystem</a>* system;</div>
+<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span>        ISystem* system;</div>
 <div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span>        <span class="keywordtype">bool</span> valid = <span class="keyword">true</span>;</div>
 <div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span>    };</div>
 <div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span>    std::list&lt;Entry&gt; orderedSystems;</div>
@@ -277,7 +277,7 @@ $(function(){initNavTree('_system_execution_graph_8cpp_source.html',''); initRes
 <div class="line"><a id="l00170" name="l00170"></a><span class="lineno">  170</span>        }</div>
 <div class="line"><a id="l00171" name="l00171"></a><span class="lineno">  171</span>    }</div>
 <div class="line"><a id="l00172" name="l00172"></a><span class="lineno">  172</span> </div>
-<div class="line"><a id="l00173" name="l00173"></a><span class="lineno">  173</span>    <a class="code hl_struct" href="struct_o_s_k_1_1_e_c_s_1_1_system_execution_set.html">SystemExecutionSet</a> executionSet{};</div>
+<div class="line"><a id="l00173" name="l00173"></a><span class="lineno">  173</span>    SystemExecutionSet executionSet{};</div>
 <div class="line"><a id="l00174" name="l00174"></a><span class="lineno">  174</span>    <span class="keywordflow">for</span> (<span class="keyword">const</span> <span class="keyword">auto</span>&amp; [system, valid] : orderedSystems) {</div>
 <div class="line"><a id="l00175" name="l00175"></a><span class="lineno">  175</span>        <span class="keywordflow">if</span> (!valid) {</div>
 <div class="line"><a id="l00176" name="l00176"></a><span class="lineno">  176</span>            <span class="keywordflow">continue</span>;</div>
@@ -347,14 +347,13 @@ $(function(){initNavTree('_system_execution_graph_8cpp_source.html',''); initRes
 <div class="ttc" id="astruct_o_s_k_1_1_e_c_s_1_1_system_dependencies_html_a6d53867b765e4fe60afbe02b283fe76e"><div class="ttname"><a href="struct_o_s_k_1_1_e_c_s_1_1_system_dependencies.html#a6d53867b765e4fe60afbe02b283fe76e">OSK::ECS::SystemDependencies::executeBeforeThese</a></div><div class="ttdeci">std::set&lt; std::string, std::less&lt;&gt; &gt; executeBeforeThese</div><div class="ttdoc">Sistemas que deben ejecutarse después del sistema.</div><div class="ttdef"><b>Definition</b> <a href="_i_system_8h_source.html#l00038">ISystem.h:38</a></div></div>
 <div class="ttc" id="astruct_o_s_k_1_1_e_c_s_1_1_system_dependencies_html_af2ab300f72c34de2fe7faeb3237e9860"><div class="ttname"><a href="struct_o_s_k_1_1_e_c_s_1_1_system_dependencies.html#af2ab300f72c34de2fe7faeb3237e9860">OSK::ECS::SystemDependencies::executeAfterThese</a></div><div class="ttdeci">std::set&lt; std::string, std::less&lt;&gt; &gt; executeAfterThese</div><div class="ttdoc">Sistemas que deben ejecutarse antes del sistema.</div><div class="ttdef"><b>Definition</b> <a href="_i_system_8h_source.html#l00035">ISystem.h:35</a></div></div>
 <div class="ttc" id="astruct_o_s_k_1_1_e_c_s_1_1_system_dependencies_html_af76f9f6fcb31a84722671b3824fc3146"><div class="ttname"><a href="struct_o_s_k_1_1_e_c_s_1_1_system_dependencies.html#af76f9f6fcb31a84722671b3824fc3146">OSK::ECS::SystemDependencies::exclusiveExecution</a></div><div class="ttdeci">bool exclusiveExecution</div><div class="ttdoc">Indica si este sistema debe ser ejecutado sin que otros sistemas puedan ejecutarse al mismo tiempo.</div><div class="ttdef"><b>Definition</b> <a href="_i_system_8h_source.html#l00042">ISystem.h:42</a></div></div>
-<div class="ttc" id="astruct_o_s_k_1_1_e_c_s_1_1_system_execution_set_html"><div class="ttname"><a href="struct_o_s_k_1_1_e_c_s_1_1_system_execution_set.html">OSK::ECS::SystemExecutionSet</a></div><div class="ttdoc">Set de sistemas que pueden ejecutarse en paralelo, al no tener dependencias entre ellos.</div><div class="ttdef"><b>Definition</b> <a href="_system_execution_graph_8h_source.html#l00015">SystemExecutionGraph.h:15</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_74389ed8173ad57b461b9d623a1f3867.html">Source</a></li><li class="navelem"><b>SystemExecutionGraph.cpp</b></li>
-    <li class="footer">Generado el Lunes, 23 de diciembre de 2024 13:15:56 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.12.0 </li>
+    <li class="footer">Generado el Miércoles, 16 de abril de 2025 17:13:05 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.13.2 </li>
   </ul>
 </div>
 </body>

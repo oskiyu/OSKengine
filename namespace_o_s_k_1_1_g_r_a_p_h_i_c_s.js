@@ -422,7 +422,7 @@ var namespace_o_s_k_1_1_g_r_a_p_h_i_c_s =
     [ "GetFormatFromString", "namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#ae4e4b4ae7f740a13d2fa715eb4f86b42", null ],
     [ "GetFormatNumberOfBytes", "namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#abd894ab72db6cb1f2762684830d7354c", null ],
     [ "GetIndexType", "namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#ac64a3211f9ac3f81f224395d794bd41e", null ],
-    [ "LoadMaterialLayoutV1", "namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a0a82b2707fe7bed45fe23fe0fc652081", null ],
+    [ "LoadMaterialLayoutV1", "namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#af5f3966c138c27634715d7b04d0be06d", null ],
     [ "ALL_IMAGE_LAYERS", "namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#af674fb9ac784ada92d2ecc7064b87932", null ],
     [ "ALL_MIP_LEVELS", "namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a5b670444760497150a51dbfee577f831", null ],
     [ "MAX_BINDLESS_RESOURCES", "namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#ab32fdac1e47a04939afc8dd2652a50fc", null ]

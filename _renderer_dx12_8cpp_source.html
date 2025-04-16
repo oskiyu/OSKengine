@@ -3,7 +3,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
-<meta name="generator" content="Doxygen 1.12.0"/>
+<meta name="generator" content="Doxygen 1.13.2"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
 <title>OSKengine: Archivo de código fuente Source/RendererDx12.cpp</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
@@ -37,7 +37,7 @@
 </table>
 </div>
 <!-- end header part -->
-<!-- Generado por Doxygen 1.12.0 -->
+<!-- Generado por Doxygen 1.13.2 -->
 <script type="text/javascript">
 /* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
 var searchBox = new SearchBox("searchBox", "search/",'.html');
@@ -171,8 +171,8 @@ $(function(){initNavTree('_renderer_dx12_8cpp_source.html',''); initResizable(tr
 <div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>    Close();</div>
 <div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>}</div>
 <div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span> </div>
-<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span><span class="keywordtype">void</span> RendererDx12::Initialize(<span class="keyword">const</span> std::string&amp; appName, <span class="keyword">const</span> <a class="code hl_struct" href="struct_o_s_k_1_1_version.html">Version</a>&amp; version, <span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_i_o_1_1_i_display.html">IO::IDisplay</a>&amp; display, <a class="code hl_enumeration" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a47a7b3817b8aca438c20b7674fad28ab">PresentMode</a> mode) {</div>
-<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>    Engine::GetLogger()-&gt;InfoLog(<span class="stringliteral">&quot;Iniciando renderizador DX12.&quot;</span>);</div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span><span class="keywordtype">void</span> RendererDx12::Initialize(<span class="keyword">const</span> std::string&amp; appName, <span class="keyword">const</span> <a class="code hl_struct" href="struct_o_s_k_1_1_version.html">Version</a>&amp; version, <a class="code hl_class" href="class_o_s_k_1_1_i_o_1_1_i_display.html">IO::IDisplay</a>&amp; display, <a class="code hl_enumeration" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a47a7b3817b8aca438c20b7674fad28ab">PresentMode</a> mode) {</div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>    <a class="code hl_function" href="class_o_s_k_1_1_engine.html#ac39b79a3e665381630f6c710f3772a2b">Engine::GetLogger</a>()-&gt;InfoLog(<span class="stringliteral">&quot;Iniciando renderizador DX12.&quot;</span>);</div>
 <div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span> </div>
 <div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span><span class="preprocessor">#ifdef OSK_RELEASE</span></div>
 <div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>    m_useDebugConsole = <span class="keyword">false</span>;</div>
@@ -187,27 +187,27 @@ $(function(){initNavTree('_renderer_dx12_8cpp_source.html',''); initResizable(tr
 <div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span>        <span class="keyword">auto</span> result = CreateDXGIFactory2(DXGI_CREATE_FACTORY_DEBUG, IID_PPV_ARGS(&amp;m_factory));</div>
 <div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span> </div>
 <div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span>        <span class="keywordflow">if</span> (!SUCCEEDED(result)) {</div>
-<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span>            Engine::GetLogger()-&gt;InfoLog(<span class="stringliteral">&quot;No se ha podido crear las capas de validación.&quot;</span>);</div>
+<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span>            <a class="code hl_function" href="class_o_s_k_1_1_engine.html#ac39b79a3e665381630f6c710f3772a2b">Engine::GetLogger</a>()-&gt;InfoLog(<span class="stringliteral">&quot;No se ha podido crear las capas de validación.&quot;</span>);</div>
 <div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span>        }</div>
 <div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span>        <span class="keywordflow">else</span> {</div>
-<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span>            Engine::GetLogger()-&gt;InfoLog(<span class="stringliteral">&quot;Capas de validación activas.&quot;</span>);</div>
+<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span>            <a class="code hl_function" href="class_o_s_k_1_1_engine.html#ac39b79a3e665381630f6c710f3772a2b">Engine::GetLogger</a>()-&gt;InfoLog(<span class="stringliteral">&quot;Capas de validación activas.&quot;</span>);</div>
 <div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span>        }</div>
 <div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span>    }</div>
 <div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span>    <span class="keywordflow">else</span> {</div>
-<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span>        Engine::GetLogger()-&gt;InfoLog(<span class="stringliteral">&quot;Capas de validación no disponibles.&quot;</span>);</div>
+<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span>        <a class="code hl_function" href="class_o_s_k_1_1_engine.html#ac39b79a3e665381630f6c710f3772a2b">Engine::GetLogger</a>()-&gt;InfoLog(<span class="stringliteral">&quot;Capas de validación no disponibles.&quot;</span>);</div>
 <div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span> </div>
 <div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span>        CreateDXGIFactory1(IID_PPV_ARGS(&amp;m_factory));</div>
 <div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span>    }</div>
 <div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span> </div>
 <div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span>    CreateDevice();</div>
 <div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span>    CreateCommandQueues();</div>
-<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span>    CreateSwapchain(mode, Engine::GetDisplay()-&gt;GetResolution());</div>
+<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span>    CreateSwapchain(mode, <a class="code hl_function" href="class_o_s_k_1_1_engine.html#a81e2e2c3d9ab78f3ff07281bd2b6aef8">Engine::GetDisplay</a>()-&gt;GetResolution());</div>
 <div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span>    CreateGpuMemoryAllocator();</div>
 <div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span> </div>
 <div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span>    CreateMainRenderpass();</div>
 <div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span> </div>
-<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span>    <span class="keywordflow">if</span> (Engine::GetEcs())</div>
-<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span>        <span class="keywordflow">for</span> (<span class="keyword">auto</span> i : Engine::GetEcs()-&gt;GetRenderSystems())</div>
+<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span>    <span class="keywordflow">if</span> (<a class="code hl_function" href="class_o_s_k_1_1_engine.html#a2e36571452395c924ab2211ad380298f">Engine::GetEcs</a>())</div>
+<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span>        <span class="keywordflow">for</span> (<span class="keyword">auto</span> i : <a class="code hl_function" href="class_o_s_k_1_1_engine.html#a2e36571452395c924ab2211ad380298f">Engine::GetEcs</a>()-&gt;GetRenderSystems())</div>
 <div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span>            i-&gt;CreateTargetImage(display.<a class="code hl_function" href="class_o_s_k_1_1_i_o_1_1_i_display.html#af9f0406d0262f33b1384cfa01ea852f0">GetResolution</a>());</div>
 <div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span> </div>
 <div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span>    HlslRuntimeCompiler::InitializeComponents();</div>
@@ -221,14 +221,14 @@ $(function(){initNavTree('_renderer_dx12_8cpp_source.html',''); initResizable(tr
 <div class="line"><a id="l00118" name="l00118"></a><span class="lineno">  118</span> </div>
 <div class="line"><a id="l00119" name="l00119"></a><span class="lineno">  119</span>}</div>
 <div class="line"><a id="l00120" name="l00120"></a><span class="lineno">  120</span> </div>
-<div class="line"><a id="l00121" name="l00121"></a><span class="lineno">  121</span><span class="keywordtype">void</span> RendererDx12::HandleResize(<span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_vector2__t.html">Vector2ui</a>&amp; resolution) {</div>
+<div class="line"><a id="l00121" name="l00121"></a><span class="lineno">  121</span><span class="keywordtype">void</span> RendererDx12::HandleResize(<span class="keyword">const</span> <a class="code hl_typedef" href="namespace_o_s_k.html#a6f5b4753cd85b4773d2880148fd031cf">Vector2ui</a>&amp; resolution) {</div>
 <div class="line"><a id="l00122" name="l00122"></a><span class="lineno">  122</span>    mustResize = <span class="keyword">true</span>;</div>
 <div class="line"><a id="l00123" name="l00123"></a><span class="lineno">  123</span> </div>
-<div class="line"><a id="l00124" name="l00124"></a><span class="lineno">  124</span>    IRenderer::HandleResize(resolution);</div>
+<div class="line"><a id="l00124" name="l00124"></a><span class="lineno">  124</span>    <a class="code hl_function" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer.html#a1169a24a24af680f5ff7344cadecfffb">IRenderer::HandleResize</a>(resolution);</div>
 <div class="line"><a id="l00125" name="l00125"></a><span class="lineno">  125</span>}</div>
 <div class="line"><a id="l00126" name="l00126"></a><span class="lineno">  126</span> </div>
 <div class="line"><a id="l00127" name="l00127"></a><span class="lineno">  127</span><span class="keywordtype">void</span> RendererDx12::Resize() {</div>
-<div class="line"><a id="l00128" name="l00128"></a><span class="lineno">  128</span>    <span class="keyword">const</span> <span class="keyword">auto</span>* display = Engine::GetDisplay();</div>
+<div class="line"><a id="l00128" name="l00128"></a><span class="lineno">  128</span>    <span class="keyword">const</span> <span class="keyword">auto</span>* display = <a class="code hl_function" href="class_o_s_k_1_1_engine.html#a81e2e2c3d9ab78f3ff07281bd2b6aef8">Engine::GetDisplay</a>();</div>
 <div class="line"><a id="l00129" name="l00129"></a><span class="lineno">  129</span> </div>
 <div class="line"><a id="l00130" name="l00130"></a><span class="lineno">  130</span>    <span class="keywordflow">if</span> (display-&gt;<a class="code hl_function" href="class_o_s_k_1_1_i_o_1_1_i_display.html#af9f0406d0262f33b1384cfa01ea852f0">GetResolution</a>().<a class="code hl_variable" href="class_o_s_k_1_1_vector2__t.html#ae2f86aaf21084895a5b357318ff6ed77">x</a> == 0 &amp;&amp; display-&gt;<a class="code hl_function" href="class_o_s_k_1_1_i_o_1_1_i_display.html#af9f0406d0262f33b1384cfa01ea852f0">GetResolution</a>().<a class="code hl_variable" href="class_o_s_k_1_1_vector2__t.html#a3194c7e9abba1f840530e8642a01e30a">y</a> == 0)</div>
 <div class="line"><a id="l00131" name="l00131"></a><span class="lineno">  131</span>        <span class="keywordflow">return</span>;</div>
@@ -247,164 +247,171 @@ $(function(){initNavTree('_renderer_dx12_8cpp_source.html',''); initResizable(tr
 <div class="line"><a id="l00144" name="l00144"></a><span class="lineno">  144</span>    <span class="comment">//finalRenderpass-&gt;SetImages(swapchain-&gt;GetImage(0), swapchain-&gt;GetImage(1), swapchain-&gt;GetImage(2));</span></div>
 <div class="line"><a id="l00145" name="l00145"></a><span class="lineno">  145</span>}</div>
 <div class="line"><a id="l00146" name="l00146"></a><span class="lineno">  146</span> </div>
-<div class="line"><a id="l00147" name="l00147"></a><span class="lineno">  147</span><a class="code hl_class" href="class_o_s_k_1_1_owned_ptr.html">OwnedPtr&lt;IGraphicsPipeline&gt;</a> RendererDx12::_CreateGraphicsPipeline(<span class="keyword">const</span> <a class="code hl_struct" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_pipeline_create_info.html">PipelineCreateInfo</a>&amp; pipelineInfo, <span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_layout.html">MaterialLayout</a>&amp; layout, <span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_vertex_info.html">VertexInfo</a>&amp; vertexInfo) {</div>
-<div class="line"><a id="l00148" name="l00148"></a><span class="lineno">  148</span>    GraphicsPipelineDx12* pipeline = <span class="keyword">new</span> GraphicsPipelineDx12();</div>
+<div class="line"><a id="l00147" name="l00147"></a><span class="lineno">  147</span><a class="code hl_class" href="class_o_s_k_1_1_unique_ptr.html">UniquePtr&lt;IGraphicsPipeline&gt;</a> RendererDx12::_CreateGraphicsPipeline(<span class="keyword">const</span> <a class="code hl_struct" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_pipeline_create_info.html">PipelineCreateInfo</a>&amp; pipelineInfo, <span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_layout.html">MaterialLayout</a>&amp; layout, <span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_vertex_info.html">VertexInfo</a>&amp; vertexInfo) {</div>
+<div class="line"><a id="l00148" name="l00148"></a><span class="lineno">  148</span>    <span class="keyword">auto</span> pipeline = <a class="code hl_function" href="namespace_o_s_k.html#a9eb9f9297be2a8044dda7480321e6661">MakeUnique&lt;GraphicsPipelineDx12&gt;</a>();</div>
 <div class="line"><a id="l00149" name="l00149"></a><span class="lineno">  149</span> </div>
 <div class="line"><a id="l00150" name="l00150"></a><span class="lineno">  150</span>    pipeline-&gt;Create(&amp;layout, GetGpu(), pipelineInfo, vertexInfo);</div>
 <div class="line"><a id="l00151" name="l00151"></a><span class="lineno">  151</span> </div>
 <div class="line"><a id="l00152" name="l00152"></a><span class="lineno">  152</span>    <span class="keywordflow">return</span> pipeline;</div>
 <div class="line"><a id="l00153" name="l00153"></a><span class="lineno">  153</span>}</div>
 <div class="line"><a id="l00154" name="l00154"></a><span class="lineno">  154</span> </div>
-<div class="line"><a id="l00155" name="l00155"></a><span class="lineno">  155</span><a class="code hl_class" href="class_o_s_k_1_1_owned_ptr.html">OwnedPtr&lt;IMeshPipeline&gt;</a> RendererDx12::_CreateMeshPipeline(<span class="keyword">const</span> <a class="code hl_struct" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_pipeline_create_info.html">PipelineCreateInfo</a>&amp; pipelineInfo, <span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_layout.html">MaterialLayout</a>&amp; layout) {</div>
+<div class="line"><a id="l00155" name="l00155"></a><span class="lineno">  155</span><a class="code hl_class" href="class_o_s_k_1_1_unique_ptr.html">UniquePtr&lt;IMeshPipeline&gt;</a> RendererDx12::_CreateMeshPipeline(<span class="keyword">const</span> <a class="code hl_struct" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_pipeline_create_info.html">PipelineCreateInfo</a>&amp; pipelineInfo, <span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_layout.html">MaterialLayout</a>&amp; layout) {</div>
 <div class="line"><a id="l00156" name="l00156"></a><span class="lineno">  156</span>    OSK_ASSERT(<span class="keyword">false</span>, <a class="code hl_class" href="class_o_s_k_1_1_not_implemented_exception.html">NotImplementedException</a>());</div>
-<div class="line"><a id="l00157" name="l00157"></a><span class="lineno">  157</span>    <span class="keywordflow">return</span> <span class="keyword">nullptr</span>;</div>
+<div class="line"><a id="l00157" name="l00157"></a><span class="lineno">  157</span>    <span class="keywordflow">return</span> <a class="code hl_class" href="class_o_s_k_1_1_unique_ptr.html">UniquePtr&lt;IMeshPipeline&gt;</a>();</div>
 <div class="line"><a id="l00158" name="l00158"></a><span class="lineno">  158</span>}</div>
 <div class="line"><a id="l00159" name="l00159"></a><span class="lineno">  159</span> </div>
-<div class="line"><a id="l00160" name="l00160"></a><span class="lineno">  160</span><a class="code hl_class" href="class_o_s_k_1_1_owned_ptr.html">OwnedPtr&lt;IRaytracingPipeline&gt;</a> RendererDx12::_CreateRaytracingPipeline(<span class="keyword">const</span> <a class="code hl_struct" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_pipeline_create_info.html">PipelineCreateInfo</a>&amp; pipelineInfo, <span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_layout.html">MaterialLayout</a>&amp; layout, <span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_vertex_info.html">VertexInfo</a>&amp; vertexTypeName) {</div>
+<div class="line"><a id="l00160" name="l00160"></a><span class="lineno">  160</span><a class="code hl_class" href="class_o_s_k_1_1_unique_ptr.html">UniquePtr&lt;IRaytracingPipeline&gt;</a> RendererDx12::_CreateRaytracingPipeline(<span class="keyword">const</span> <a class="code hl_struct" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_pipeline_create_info.html">PipelineCreateInfo</a>&amp; pipelineInfo, <span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_layout.html">MaterialLayout</a>&amp; layout, <span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_vertex_info.html">VertexInfo</a>&amp; vertexTypeName) {</div>
 <div class="line"><a id="l00161" name="l00161"></a><span class="lineno">  161</span>    OSK_ASSERT(<span class="keyword">false</span>, <a class="code hl_class" href="class_o_s_k_1_1_not_implemented_exception.html">NotImplementedException</a>());</div>
-<div class="line"><a id="l00162" name="l00162"></a><span class="lineno">  162</span>    <span class="keywordflow">return</span> <span class="keyword">nullptr</span>;</div>
+<div class="line"><a id="l00162" name="l00162"></a><span class="lineno">  162</span>    <span class="keywordflow">return</span> <a class="code hl_class" href="class_o_s_k_1_1_unique_ptr.html">UniquePtr&lt;IRaytracingPipeline&gt;</a>();</div>
 <div class="line"><a id="l00163" name="l00163"></a><span class="lineno">  163</span>}</div>
 <div class="line"><a id="l00164" name="l00164"></a><span class="lineno">  164</span> </div>
-<div class="line"><a id="l00165" name="l00165"></a><span class="lineno">  165</span><a class="code hl_class" href="class_o_s_k_1_1_owned_ptr.html">OwnedPtr&lt;IComputePipeline&gt;</a> RendererDx12::_CreateComputePipeline(<span class="keyword">const</span> <a class="code hl_struct" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_pipeline_create_info.html">PipelineCreateInfo</a>&amp; pipelineInfo, <span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_layout.html">MaterialLayout</a>&amp; layout) {</div>
-<div class="line"><a id="l00166" name="l00166"></a><span class="lineno">  166</span>    <span class="keywordflow">return</span> <span class="keyword">new</span> ComputePipelineDx12(pipelineInfo, &amp;layout, GetGpu());</div>
+<div class="line"><a id="l00165" name="l00165"></a><span class="lineno">  165</span><a class="code hl_class" href="class_o_s_k_1_1_unique_ptr.html">UniquePtr&lt;IComputePipeline&gt;</a> RendererDx12::_CreateComputePipeline(<span class="keyword">const</span> <a class="code hl_struct" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_pipeline_create_info.html">PipelineCreateInfo</a>&amp; pipelineInfo, <span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_layout.html">MaterialLayout</a>&amp; layout) {</div>
+<div class="line"><a id="l00166" name="l00166"></a><span class="lineno">  166</span>    <span class="keywordflow">return</span> <a class="code hl_function" href="namespace_o_s_k.html#a9eb9f9297be2a8044dda7480321e6661">MakeUnique&lt;ComputePipelineDx12&gt;</a>(pipelineInfo, &amp;layout, GetGpu());</div>
 <div class="line"><a id="l00167" name="l00167"></a><span class="lineno">  167</span>}</div>
 <div class="line"><a id="l00168" name="l00168"></a><span class="lineno">  168</span> </div>
-<div class="line"><a id="l00169" name="l00169"></a><span class="lineno">  169</span><a class="code hl_class" href="class_o_s_k_1_1_owned_ptr.html">OwnedPtr&lt;IMaterialSlot&gt;</a> RendererDx12::_CreateMaterialSlot(<span class="keyword">const</span> std::string&amp; name, <span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_layout.html">MaterialLayout</a>&amp; layout)<span class="keyword"> const </span>{</div>
-<div class="line"><a id="l00170" name="l00170"></a><span class="lineno">  170</span>    <span class="keywordflow">return</span> <span class="keyword">new</span> MaterialSlotDx12(name, &amp;layout);</div>
+<div class="line"><a id="l00169" name="l00169"></a><span class="lineno">  169</span><a class="code hl_class" href="class_o_s_k_1_1_unique_ptr.html">UniquePtr&lt;IMaterialSlot&gt;</a> RendererDx12::_CreateMaterialSlot(<span class="keyword">const</span> std::string&amp; name, <span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_layout.html">MaterialLayout</a>&amp; layout)<span class="keyword"> const </span>{</div>
+<div class="line"><a id="l00170" name="l00170"></a><span class="lineno">  170</span>    <span class="keywordflow">return</span> <a class="code hl_function" href="namespace_o_s_k.html#a9eb9f9297be2a8044dda7480321e6661">MakeUnique&lt;MaterialSlotDx12&gt;</a>(name, &amp;layout);</div>
 <div class="line"><a id="l00171" name="l00171"></a><span class="lineno">  171</span>}</div>
 <div class="line"><a id="l00172" name="l00172"></a><span class="lineno">  172</span> </div>
-<div class="line"><a id="l00173" name="l00173"></a><span class="lineno">  173</span><a class="code hl_class" href="class_o_s_k_1_1_owned_ptr.html">OwnedPtr&lt;ICommandPool&gt;</a> RendererDx12::CreateCommandPool(<span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_queue.html">ICommandQueue</a>* targetQueueType) {</div>
-<div class="line"><a id="l00174" name="l00174"></a><span class="lineno">  174</span>    <span class="keywordflow">return</span> <span class="keyword">new</span> CommandPoolDx12(</div>
+<div class="line"><a id="l00173" name="l00173"></a><span class="lineno">  173</span><a class="code hl_class" href="class_o_s_k_1_1_unique_ptr.html">UniquePtr&lt;ICommandPool&gt;</a> RendererDx12::CreateCommandPool(<span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_queue.html">ICommandQueue</a>* targetQueueType) {</div>
+<div class="line"><a id="l00174" name="l00174"></a><span class="lineno">  174</span>    <span class="keywordflow">return</span> <a class="code hl_function" href="namespace_o_s_k.html#a9eb9f9297be2a8044dda7480321e6661">MakeUnique&lt;CommandPoolDx12&gt;</a>(</div>
 <div class="line"><a id="l00175" name="l00175"></a><span class="lineno">  175</span>        GetGpu()-&gt;As&lt;GpuDx12&gt;(),</div>
 <div class="line"><a id="l00176" name="l00176"></a><span class="lineno">  176</span>        targetQueueType-&gt;<a class="code hl_function" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_queue.html#abbfaf73e1c2bcebf4f00342e6ad9daad">GetSupportedCommands</a>(),</div>
 <div class="line"><a id="l00177" name="l00177"></a><span class="lineno">  177</span>        targetQueueType-&gt;<a class="code hl_function" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_queue.html#ab71c9b114c751200e9c751201d7b71e8">GetQueueType</a>());</div>
 <div class="line"><a id="l00178" name="l00178"></a><span class="lineno">  178</span>}</div>
 <div class="line"><a id="l00179" name="l00179"></a><span class="lineno">  179</span> </div>
 <div class="line"><a id="l00180" name="l00180"></a><span class="lineno">  180</span><span class="keywordtype">void</span> RendererDx12::CreateDevice() {</div>
-<div class="line"><a id="l00181" name="l00181"></a><span class="lineno">  181</span>    <span class="keyword">auto</span> gpu = <span class="keyword">new</span> GpuDx12;</div>
-<div class="line"><a id="l00182" name="l00182"></a><span class="lineno">  182</span>    _SetGpu(gpu);</div>
-<div class="line"><a id="l00183" name="l00183"></a><span class="lineno">  183</span> </div>
-<div class="line"><a id="l00184" name="l00184"></a><span class="lineno">  184</span>    <span class="keyword">auto</span> adapter = GpuDx12::ChooseDeviceAdapter(m_factory);</div>
-<div class="line"><a id="l00185" name="l00185"></a><span class="lineno">  185</span>    gpu-&gt;CreateDevice(adapter, m_useDebugConsole);</div>
-<div class="line"><a id="l00186" name="l00186"></a><span class="lineno">  186</span>}</div>
-<div class="line"><a id="l00187" name="l00187"></a><span class="lineno">  187</span> </div>
-<div class="line"><a id="l00188" name="l00188"></a><span class="lineno">  188</span><span class="keywordtype">void</span> RendererDx12::CreateCommandQueues() {</div>
-<div class="line"><a id="l00189" name="l00189"></a><span class="lineno">  189</span>    <span class="comment">// Usar cola unificada.</span></div>
-<div class="line"><a id="l00190" name="l00190"></a><span class="lineno">  190</span>    _SetUnifiedCommandQueue(<span class="keyword">new</span> CommandQueueDx12(GetGpu()-&gt;As&lt;GpuDx12&gt;(), GpuQueueType::MAIN));</div>
-<div class="line"><a id="l00191" name="l00191"></a><span class="lineno">  191</span> </div>
-<div class="line"><a id="l00192" name="l00192"></a><span class="lineno">  192</span>    RegisterUnifiedCommandPool(GetUnifiedQueue());</div>
-<div class="line"><a id="l00193" name="l00193"></a><span class="lineno">  193</span> </div>
-<div class="line"><a id="l00194" name="l00194"></a><span class="lineno">  194</span>    _SetMainCommandList(GetUnifiedCommandPool(std::this_thread::get_id())-&gt;CreateCommandList(*GetGpu()));</div>
-<div class="line"><a id="l00195" name="l00195"></a><span class="lineno">  195</span> </div>
-<div class="line"><a id="l00196" name="l00196"></a><span class="lineno">  196</span>    <a class="code hl_function" href="class_o_s_k_1_1_engine.html#ac39b79a3e665381630f6c710f3772a2b">OSK::Engine::GetLogger</a>()-&gt;<a class="code hl_function" href="class_o_s_k_1_1_i_o_1_1_logger.html#a3d2a88ffa05f6a74f9d669f1182bacca">InfoLog</a>(<span class="stringliteral">&quot;Uso de cola GPU unificada.&quot;</span>);</div>
-<div class="line"><a id="l00197" name="l00197"></a><span class="lineno">  197</span>    </div>
-<div class="line"><a id="l00198" name="l00198"></a><span class="lineno">  198</span>    <span class="comment">// Transfer queue.</span></div>
-<div class="line"><a id="l00199" name="l00199"></a><span class="lineno">  199</span>    _SetTransferOnlyCommandQueue(<span class="keyword">new</span> CommandQueueDx12(GetGpu()-&gt;As&lt;GpuDx12&gt;(), GpuQueueType::ASYNC_TRANSFER));</div>
-<div class="line"><a id="l00200" name="l00200"></a><span class="lineno">  200</span>    RegisterTransferOnlyCommandPool(GetTransferOnlyQueue());</div>
-<div class="line"><a id="l00201" name="l00201"></a><span class="lineno">  201</span>    <a class="code hl_function" href="class_o_s_k_1_1_engine.html#ac39b79a3e665381630f6c710f3772a2b">OSK::Engine::GetLogger</a>()-&gt;<a class="code hl_function" href="class_o_s_k_1_1_i_o_1_1_logger.html#a3d2a88ffa05f6a74f9d669f1182bacca">InfoLog</a>(<span class="stringliteral">&quot;Uso de cola GPU de transferencia.&quot;</span>);</div>
-<div class="line"><a id="l00202" name="l00202"></a><span class="lineno">  202</span>}</div>
-<div class="line"><a id="l00203" name="l00203"></a><span class="lineno">  203</span> </div>
-<div class="line"><a id="l00204" name="l00204"></a><span class="lineno">  204</span><span class="keywordtype">void</span> RendererDx12::CreateSwapchain(<a class="code hl_enumeration" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a47a7b3817b8aca438c20b7674fad28ab">PresentMode</a> mode, <span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_vector2__t.html">Vector2ui</a>&amp; resolution) {</div>
-<div class="line"><a id="l00205" name="l00205"></a><span class="lineno">  205</span>    _SetSwapchain(</div>
-<div class="line"><a id="l00206" name="l00206"></a><span class="lineno">  206</span>        <span class="keyword">new</span> SwapchainDx12(</div>
-<div class="line"><a id="l00207" name="l00207"></a><span class="lineno">  207</span>        GetUnifiedQueue()-&gt;As&lt;CommandQueueDx12&gt;(),</div>
-<div class="line"><a id="l00208" name="l00208"></a><span class="lineno">  208</span>        mode,</div>
-<div class="line"><a id="l00209" name="l00209"></a><span class="lineno">  209</span>        Format::RGBA8_UNORM,</div>
-<div class="line"><a id="l00210" name="l00210"></a><span class="lineno">  210</span>        GetGpu()-&gt;As&lt;GpuDx12&gt;(),</div>
-<div class="line"><a id="l00211" name="l00211"></a><span class="lineno">  211</span>        *Engine::GetDisplay(),</div>
-<div class="line"><a id="l00212" name="l00212"></a><span class="lineno">  212</span>        m_factory.Get()));</div>
-<div class="line"><a id="l00213" name="l00213"></a><span class="lineno">  213</span>}</div>
-<div class="line"><a id="l00214" name="l00214"></a><span class="lineno">  214</span> </div>
-<div class="line"><a id="l00215" name="l00215"></a><span class="lineno">  215</span><span class="keywordtype">void</span> RendererDx12::CreateGpuMemoryAllocator() {</div>
-<div class="line"><a id="l00216" name="l00216"></a><span class="lineno">  216</span>    _SetMemoryAllocator(<span class="keyword">new</span> GpuMemoryAllocatorDx12(GetGpu()));</div>
-<div class="line"><a id="l00217" name="l00217"></a><span class="lineno">  217</span>}</div>
-<div class="line"><a id="l00218" name="l00218"></a><span class="lineno">  218</span> </div>
-<div class="line"><a id="l00219" name="l00219"></a><span class="lineno">  219</span><span class="keywordtype">void</span> RendererDx12::PresentFrame() {</div>
-<div class="line"><a id="l00220" name="l00220"></a><span class="lineno">  220</span>    <span class="keywordflow">if</span> (m_isFirstRender) {</div>
-<div class="line"><a id="l00221" name="l00221"></a><span class="lineno">  221</span>        GetMainCommandList()-&gt;Reset();</div>
-<div class="line"><a id="l00222" name="l00222"></a><span class="lineno">  222</span>        GetMainCommandList()-&gt;Start();</div>
-<div class="line"><a id="l00223" name="l00223"></a><span class="lineno">  223</span> </div>
-<div class="line"><a id="l00224" name="l00224"></a><span class="lineno">  224</span>        m_isFirstRender = <span class="keyword">false</span>;</div>
-<div class="line"><a id="l00225" name="l00225"></a><span class="lineno">  225</span>    }</div>
-<div class="line"><a id="l00226" name="l00226"></a><span class="lineno">  226</span> </div>
-<div class="line"><a id="l00227" name="l00227"></a><span class="lineno">  227</span>    GetMainCommandList()-&gt;Close();</div>
-<div class="line"><a id="l00228" name="l00228"></a><span class="lineno">  228</span> </div>
-<div class="line"><a id="l00229" name="l00229"></a><span class="lineno">  229</span>    <span class="keywordflow">for</span> (<span class="keyword">auto</span>&amp; cmdList : m_singleTimeCommandLists)</div>
-<div class="line"><a id="l00230" name="l00230"></a><span class="lineno">  230</span>        cmdList-&gt;DeleteAllStagingBuffers();</div>
-<div class="line"><a id="l00231" name="l00231"></a><span class="lineno">  231</span> </div>
-<div class="line"><a id="l00232" name="l00232"></a><span class="lineno">  232</span>    ID3D12CommandList* commandList = GetMainCommandList()-&gt;As&lt;CommandListDx12&gt;()-&gt;GetCommandList();</div>
-<div class="line"><a id="l00233" name="l00233"></a><span class="lineno">  233</span>    GetUnifiedQueue()-&gt;As&lt;CommandQueueDx12&gt;()-&gt;GetCommandQueue()-&gt;ExecuteCommandLists(1, &amp;commandList);</div>
-<div class="line"><a id="l00234" name="l00234"></a><span class="lineno">  234</span> </div>
-<div class="line"><a id="l00235" name="l00235"></a><span class="lineno">  235</span>    _GetSwapchain()-&gt;Present();</div>
-<div class="line"><a id="l00236" name="l00236"></a><span class="lineno">  236</span> </div>
-<div class="line"><a id="l00237" name="l00237"></a><span class="lineno">  237</span>    <span class="comment">// syncDevice-&gt;As&lt;SyncDeviceDx12&gt;()-&gt;Flush(*graphicsQueue-&gt;As&lt;CommandQueueDx12&gt;());</span></div>
-<div class="line"><a id="l00238" name="l00238"></a><span class="lineno">  238</span>    <span class="comment">// syncDevice-&gt;As&lt;SyncDeviceDx12&gt;()-&gt;Await();</span></div>
-<div class="line"><a id="l00239" name="l00239"></a><span class="lineno">  239</span> </div>
-<div class="line"><a id="l00240" name="l00240"></a><span class="lineno">  240</span>    GetMainCommandList()-&gt;Reset();</div>
-<div class="line"><a id="l00241" name="l00241"></a><span class="lineno">  241</span> </div>
-<div class="line"><a id="l00242" name="l00242"></a><span class="lineno">  242</span>    <span class="comment">//</span></div>
-<div class="line"><a id="l00243" name="l00243"></a><span class="lineno">  243</span>    <span class="keywordflow">if</span> (mustResize) {</div>
-<div class="line"><a id="l00244" name="l00244"></a><span class="lineno">  244</span>        Resize();</div>
-<div class="line"><a id="l00245" name="l00245"></a><span class="lineno">  245</span>        mustResize = <span class="keyword">false</span>;</div>
-<div class="line"><a id="l00246" name="l00246"></a><span class="lineno">  246</span> </div>
-<div class="line"><a id="l00247" name="l00247"></a><span class="lineno">  247</span>        <span class="comment">// syncDevice-&gt;As&lt;SyncDeviceDx12&gt;()-&gt;Flush(*graphicsQueue-&gt;As&lt;CommandQueueDx12&gt;());</span></div>
-<div class="line"><a id="l00248" name="l00248"></a><span class="lineno">  248</span>        <span class="comment">// syncDevice-&gt;As&lt;SyncDeviceDx12&gt;()-&gt;Await();</span></div>
-<div class="line"><a id="l00249" name="l00249"></a><span class="lineno">  249</span>        _GetSwapchain()-&gt;As&lt;SwapchainDx12&gt;()-&gt;UpdateFrameIndex();</div>
-<div class="line"><a id="l00250" name="l00250"></a><span class="lineno">  250</span>    }</div>
-<div class="line"><a id="l00251" name="l00251"></a><span class="lineno">  251</span> </div>
-<div class="line"><a id="l00252" name="l00252"></a><span class="lineno">  252</span>    GetMainCommandList()-&gt;Start();</div>
-<div class="line"><a id="l00253" name="l00253"></a><span class="lineno">  253</span>}</div>
-<div class="line"><a id="l00254" name="l00254"></a><span class="lineno">  254</span> </div>
-<div class="line"><a id="l00255" name="l00255"></a><span class="lineno">  255</span><span class="keywordtype">void</span> RendererDx12::SubmitSingleUseCommandList(<a class="code hl_class" href="class_o_s_k_1_1_owned_ptr.html">OwnedPtr&lt;ICommandList&gt;</a> commandList) {</div>
-<div class="line"><a id="l00256" name="l00256"></a><span class="lineno">  256</span>    ID3D12CommandList* commandLists[] = { commandList-&gt;As&lt;CommandListDx12&gt;()-&gt;GetCommandList() };</div>
-<div class="line"><a id="l00257" name="l00257"></a><span class="lineno">  257</span>    GetGraphicsComputeQueue()-&gt;As&lt;CommandQueueDx12&gt;()-&gt;GetCommandQueue()-&gt;ExecuteCommandLists(1, commandLists);</div>
-<div class="line"><a id="l00258" name="l00258"></a><span class="lineno">  258</span> </div>
-<div class="line"><a id="l00259" name="l00259"></a><span class="lineno">  259</span>    <span class="comment">// syncDevice-&gt;As&lt;SyncDeviceDx12&gt;()-&gt;Flush(*graphicsQueue-&gt;As&lt;CommandQueueDx12&gt;());</span></div>
-<div class="line"><a id="l00260" name="l00260"></a><span class="lineno">  260</span>    <span class="comment">// syncDevice-&gt;As&lt;SyncDeviceDx12&gt;()-&gt;Await();</span></div>
-<div class="line"><a id="l00261" name="l00261"></a><span class="lineno">  261</span> </div>
-<div class="line"><a id="l00262" name="l00262"></a><span class="lineno">  262</span>    m_singleTimeCommandLists.Insert(commandList.<a class="code hl_function" href="class_o_s_k_1_1_owned_ptr.html#a81dfab2299056fc9858aace55fca0042">GetPointer</a>());</div>
-<div class="line"><a id="l00263" name="l00263"></a><span class="lineno">  263</span>}</div>
-<div class="line"><a id="l00264" name="l00264"></a><span class="lineno">  264</span> </div>
-<div class="line"><a id="l00265" name="l00265"></a><span class="lineno">  265</span><a class="code hl_typedef" href="namespace_o_s_k.html#acf682b0e024acc36806435295480d2ed">USize32</a> RendererDx12::GetCurrentFrameIndex()<span class="keyword"> const </span>{</div>
-<div class="line"><a id="l00266" name="l00266"></a><span class="lineno">  266</span>    <span class="keywordflow">return</span> 0;</div>
-<div class="line"><a id="l00267" name="l00267"></a><span class="lineno">  267</span>}</div>
-<div class="line"><a id="l00268" name="l00268"></a><span class="lineno">  268</span> </div>
-<div class="line"><a id="l00269" name="l00269"></a><span class="lineno">  269</span><a class="code hl_typedef" href="namespace_o_s_k.html#a382ed4c8a6994201cbad5d4e1335861b">UIndex32</a> RendererDx12::GetCurrentCommandListIndex()<span class="keyword"> const </span>{</div>
-<div class="line"><a id="l00270" name="l00270"></a><span class="lineno">  270</span>    <span class="keywordflow">return</span> 0;</div>
-<div class="line"><a id="l00271" name="l00271"></a><span class="lineno">  271</span>}</div>
-<div class="line"><a id="l00272" name="l00272"></a><span class="lineno">  272</span> </div>
-<div class="line"><a id="l00273" name="l00273"></a><span class="lineno">  273</span><span class="keywordtype">bool</span> RendererDx12::SupportsRaytracing()<span class="keyword"> const </span>{</div>
-<div class="line"><a id="l00274" name="l00274"></a><span class="lineno">  274</span>    <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
-<div class="line"><a id="l00275" name="l00275"></a><span class="lineno">  275</span>}</div>
-<div class="line"><a id="l00276" name="l00276"></a><span class="lineno">  276</span> </div>
-<div class="line"><a id="l00277" name="l00277"></a><span class="lineno">  277</span><span class="keywordtype">void</span> RendererDx12::DebugCallback(D3D12_MESSAGE_CATEGORY category, D3D12_MESSAGE_SEVERITY severity, D3D12_MESSAGE_ID <span class="keywordtype">id</span>, LPCSTR description, <span class="keywordtype">void</span>* context) {</div>
-<div class="line"><a id="l00278" name="l00278"></a><span class="lineno">  278</span>    Engine::GetLogger()-&gt;DebugLog(std::string(description));</div>
-<div class="line"><a id="l00279" name="l00279"></a><span class="lineno">  279</span>}</div>
-<div class="line"><a id="l00280" name="l00280"></a><span class="lineno">  280</span> </div>
-<div class="line"><a id="l00281" name="l00281"></a><span class="lineno">  281</span><span class="preprocessor">#endif</span></div>
+<div class="line"><a id="l00181" name="l00181"></a><span class="lineno">  181</span>    <span class="keyword">auto</span> gpu = <a class="code hl_function" href="namespace_o_s_k.html#a9eb9f9297be2a8044dda7480321e6661">MakeUnique&lt;GpuDx12&gt;</a>();</div>
+<div class="line"><a id="l00182" name="l00182"></a><span class="lineno">  182</span> </div>
+<div class="line"><a id="l00183" name="l00183"></a><span class="lineno">  183</span>    <span class="keyword">auto</span> adapter = GpuDx12::ChooseDeviceAdapter(m_factory);</div>
+<div class="line"><a id="l00184" name="l00184"></a><span class="lineno">  184</span>    gpu-&gt;CreateDevice(adapter, m_useDebugConsole);</div>
+<div class="line"><a id="l00185" name="l00185"></a><span class="lineno">  185</span> </div>
+<div class="line"><a id="l00186" name="l00186"></a><span class="lineno">  186</span>    _SetGpu(std::move(gpu));</div>
+<div class="line"><a id="l00187" name="l00187"></a><span class="lineno">  187</span>}</div>
+<div class="line"><a id="l00188" name="l00188"></a><span class="lineno">  188</span> </div>
+<div class="line"><a id="l00189" name="l00189"></a><span class="lineno">  189</span><span class="keywordtype">void</span> RendererDx12::CreateCommandQueues() {</div>
+<div class="line"><a id="l00190" name="l00190"></a><span class="lineno">  190</span>    <span class="comment">// Usar cola unificada.</span></div>
+<div class="line"><a id="l00191" name="l00191"></a><span class="lineno">  191</span>    _SetUnifiedCommandQueue(<a class="code hl_function" href="namespace_o_s_k.html#a9eb9f9297be2a8044dda7480321e6661">MakeUnique&lt;CommandQueueDx12&gt;</a>(GetGpu()-&gt;As&lt;GpuDx12&gt;(), <a class="code hl_enumvalue" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#af480a36d7bec77341500daf8dda20f1da186495f7da296bf880df3a22a492b378">GpuQueueType::MAIN</a>));</div>
+<div class="line"><a id="l00192" name="l00192"></a><span class="lineno">  192</span> </div>
+<div class="line"><a id="l00193" name="l00193"></a><span class="lineno">  193</span>    RegisterUnifiedCommandPool(GetUnifiedQueue());</div>
+<div class="line"><a id="l00194" name="l00194"></a><span class="lineno">  194</span> </div>
+<div class="line"><a id="l00195" name="l00195"></a><span class="lineno">  195</span>    _SetMainCommandList(GetUnifiedCommandPool(std::this_thread::get_id())-&gt;CreateCommandList(*GetGpu()));</div>
+<div class="line"><a id="l00196" name="l00196"></a><span class="lineno">  196</span> </div>
+<div class="line"><a id="l00197" name="l00197"></a><span class="lineno">  197</span>    <a class="code hl_function" href="class_o_s_k_1_1_engine.html#ac39b79a3e665381630f6c710f3772a2b">OSK::Engine::GetLogger</a>()-&gt;<a class="code hl_function" href="class_o_s_k_1_1_i_o_1_1_logger.html#a3d2a88ffa05f6a74f9d669f1182bacca">InfoLog</a>(<span class="stringliteral">&quot;Uso de cola GPU unificada.&quot;</span>);</div>
+<div class="line"><a id="l00198" name="l00198"></a><span class="lineno">  198</span>    </div>
+<div class="line"><a id="l00199" name="l00199"></a><span class="lineno">  199</span>    <span class="comment">// Transfer queue.</span></div>
+<div class="line"><a id="l00200" name="l00200"></a><span class="lineno">  200</span>    _SetTransferOnlyCommandQueue(<a class="code hl_function" href="namespace_o_s_k.html#a9eb9f9297be2a8044dda7480321e6661">MakeUnique&lt;CommandQueueDx12&gt;</a>(GetGpu()-&gt;As&lt;GpuDx12&gt;(), <a class="code hl_enumvalue" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#af480a36d7bec77341500daf8dda20f1da4e02651cb8ef679ba30902a8becdff2d">GpuQueueType::ASYNC_TRANSFER</a>));</div>
+<div class="line"><a id="l00201" name="l00201"></a><span class="lineno">  201</span>    RegisterTransferOnlyCommandPool(GetTransferOnlyQueue());</div>
+<div class="line"><a id="l00202" name="l00202"></a><span class="lineno">  202</span>    <a class="code hl_function" href="class_o_s_k_1_1_engine.html#ac39b79a3e665381630f6c710f3772a2b">OSK::Engine::GetLogger</a>()-&gt;<a class="code hl_function" href="class_o_s_k_1_1_i_o_1_1_logger.html#a3d2a88ffa05f6a74f9d669f1182bacca">InfoLog</a>(<span class="stringliteral">&quot;Uso de cola GPU de transferencia.&quot;</span>);</div>
+<div class="line"><a id="l00203" name="l00203"></a><span class="lineno">  203</span>}</div>
+<div class="line"><a id="l00204" name="l00204"></a><span class="lineno">  204</span> </div>
+<div class="line"><a id="l00205" name="l00205"></a><span class="lineno">  205</span><span class="keywordtype">void</span> RendererDx12::CreateSwapchain(<a class="code hl_enumeration" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a47a7b3817b8aca438c20b7674fad28ab">PresentMode</a> mode, <span class="keyword">const</span> <a class="code hl_typedef" href="namespace_o_s_k.html#a6f5b4753cd85b4773d2880148fd031cf">Vector2ui</a>&amp; resolution) {</div>
+<div class="line"><a id="l00206" name="l00206"></a><span class="lineno">  206</span>    _SetSwapchain(</div>
+<div class="line"><a id="l00207" name="l00207"></a><span class="lineno">  207</span>        <a class="code hl_function" href="namespace_o_s_k.html#a9eb9f9297be2a8044dda7480321e6661">MakeUnique&lt;SwapchainDx12&gt;</a>(</div>
+<div class="line"><a id="l00208" name="l00208"></a><span class="lineno">  208</span>            GetUnifiedQueue()-&gt;As&lt;CommandQueueDx12&gt;(),</div>
+<div class="line"><a id="l00209" name="l00209"></a><span class="lineno">  209</span>            mode,</div>
+<div class="line"><a id="l00210" name="l00210"></a><span class="lineno">  210</span>            <a class="code hl_enumvalue" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#aac59f9d056e083c0b49ea768f974e3e8a909cc8c5cc8fe4f16bec84a291aadbdb">Format::RGBA8_UNORM</a>,</div>
+<div class="line"><a id="l00211" name="l00211"></a><span class="lineno">  211</span>            GetGpu()-&gt;As&lt;GpuDx12&gt;(),</div>
+<div class="line"><a id="l00212" name="l00212"></a><span class="lineno">  212</span>            *<a class="code hl_function" href="class_o_s_k_1_1_engine.html#a81e2e2c3d9ab78f3ff07281bd2b6aef8">Engine::GetDisplay</a>(),</div>
+<div class="line"><a id="l00213" name="l00213"></a><span class="lineno">  213</span>            m_factory.Get()));</div>
+<div class="line"><a id="l00214" name="l00214"></a><span class="lineno">  214</span>}</div>
+<div class="line"><a id="l00215" name="l00215"></a><span class="lineno">  215</span> </div>
+<div class="line"><a id="l00216" name="l00216"></a><span class="lineno">  216</span><span class="keywordtype">void</span> RendererDx12::CreateGpuMemoryAllocator() {</div>
+<div class="line"><a id="l00217" name="l00217"></a><span class="lineno">  217</span>    _SetMemoryAllocator(<a class="code hl_function" href="namespace_o_s_k.html#a9eb9f9297be2a8044dda7480321e6661">MakeUnique&lt;GpuMemoryAllocatorDx12&gt;</a>(GetGpu()));</div>
+<div class="line"><a id="l00218" name="l00218"></a><span class="lineno">  218</span>}</div>
+<div class="line"><a id="l00219" name="l00219"></a><span class="lineno">  219</span> </div>
+<div class="line"><a id="l00220" name="l00220"></a><span class="lineno">  220</span><span class="keywordtype">void</span> RendererDx12::PresentFrame() {</div>
+<div class="line"><a id="l00221" name="l00221"></a><span class="lineno">  221</span>    <span class="keywordflow">if</span> (m_isFirstRender) {</div>
+<div class="line"><a id="l00222" name="l00222"></a><span class="lineno">  222</span>        GetMainCommandList()-&gt;Reset();</div>
+<div class="line"><a id="l00223" name="l00223"></a><span class="lineno">  223</span>        GetMainCommandList()-&gt;Start();</div>
+<div class="line"><a id="l00224" name="l00224"></a><span class="lineno">  224</span> </div>
+<div class="line"><a id="l00225" name="l00225"></a><span class="lineno">  225</span>        m_isFirstRender = <span class="keyword">false</span>;</div>
+<div class="line"><a id="l00226" name="l00226"></a><span class="lineno">  226</span>    }</div>
+<div class="line"><a id="l00227" name="l00227"></a><span class="lineno">  227</span> </div>
+<div class="line"><a id="l00228" name="l00228"></a><span class="lineno">  228</span>    GetMainCommandList()-&gt;Close();</div>
+<div class="line"><a id="l00229" name="l00229"></a><span class="lineno">  229</span> </div>
+<div class="line"><a id="l00230" name="l00230"></a><span class="lineno">  230</span>    <span class="keywordflow">for</span> (<span class="keyword">auto</span>&amp; cmdList : m_singleTimeCommandLists)</div>
+<div class="line"><a id="l00231" name="l00231"></a><span class="lineno">  231</span>        cmdList-&gt;DeleteAllStagingBuffers();</div>
+<div class="line"><a id="l00232" name="l00232"></a><span class="lineno">  232</span> </div>
+<div class="line"><a id="l00233" name="l00233"></a><span class="lineno">  233</span>    ID3D12CommandList* commandList = GetMainCommandList()-&gt;As&lt;CommandListDx12&gt;()-&gt;GetCommandList();</div>
+<div class="line"><a id="l00234" name="l00234"></a><span class="lineno">  234</span>    GetUnifiedQueue()-&gt;As&lt;CommandQueueDx12&gt;()-&gt;GetCommandQueue()-&gt;ExecuteCommandLists(1, &amp;commandList);</div>
+<div class="line"><a id="l00235" name="l00235"></a><span class="lineno">  235</span> </div>
+<div class="line"><a id="l00236" name="l00236"></a><span class="lineno">  236</span>    _GetSwapchain()-&gt;Present();</div>
+<div class="line"><a id="l00237" name="l00237"></a><span class="lineno">  237</span> </div>
+<div class="line"><a id="l00238" name="l00238"></a><span class="lineno">  238</span>    <span class="comment">// syncDevice-&gt;As&lt;SyncDeviceDx12&gt;()-&gt;Flush(*graphicsQueue-&gt;As&lt;CommandQueueDx12&gt;());</span></div>
+<div class="line"><a id="l00239" name="l00239"></a><span class="lineno">  239</span>    <span class="comment">// syncDevice-&gt;As&lt;SyncDeviceDx12&gt;()-&gt;Await();</span></div>
+<div class="line"><a id="l00240" name="l00240"></a><span class="lineno">  240</span> </div>
+<div class="line"><a id="l00241" name="l00241"></a><span class="lineno">  241</span>    GetMainCommandList()-&gt;Reset();</div>
+<div class="line"><a id="l00242" name="l00242"></a><span class="lineno">  242</span> </div>
+<div class="line"><a id="l00243" name="l00243"></a><span class="lineno">  243</span>    <span class="comment">//</span></div>
+<div class="line"><a id="l00244" name="l00244"></a><span class="lineno">  244</span>    <span class="keywordflow">if</span> (mustResize) {</div>
+<div class="line"><a id="l00245" name="l00245"></a><span class="lineno">  245</span>        Resize();</div>
+<div class="line"><a id="l00246" name="l00246"></a><span class="lineno">  246</span>        mustResize = <span class="keyword">false</span>;</div>
+<div class="line"><a id="l00247" name="l00247"></a><span class="lineno">  247</span> </div>
+<div class="line"><a id="l00248" name="l00248"></a><span class="lineno">  248</span>        <span class="comment">// syncDevice-&gt;As&lt;SyncDeviceDx12&gt;()-&gt;Flush(*graphicsQueue-&gt;As&lt;CommandQueueDx12&gt;());</span></div>
+<div class="line"><a id="l00249" name="l00249"></a><span class="lineno">  249</span>        <span class="comment">// syncDevice-&gt;As&lt;SyncDeviceDx12&gt;()-&gt;Await();</span></div>
+<div class="line"><a id="l00250" name="l00250"></a><span class="lineno">  250</span>        _GetSwapchain()-&gt;As&lt;SwapchainDx12&gt;()-&gt;UpdateFrameIndex();</div>
+<div class="line"><a id="l00251" name="l00251"></a><span class="lineno">  251</span>    }</div>
+<div class="line"><a id="l00252" name="l00252"></a><span class="lineno">  252</span> </div>
+<div class="line"><a id="l00253" name="l00253"></a><span class="lineno">  253</span>    GetMainCommandList()-&gt;Start();</div>
+<div class="line"><a id="l00254" name="l00254"></a><span class="lineno">  254</span>}</div>
+<div class="line"><a id="l00255" name="l00255"></a><span class="lineno">  255</span> </div>
+<div class="line"><a id="l00256" name="l00256"></a><span class="lineno">  256</span><span class="keywordtype">void</span> RendererDx12::SubmitSingleUseCommandList(<a class="code hl_class" href="class_o_s_k_1_1_unique_ptr.html">UniquePtr&lt;ICommandList&gt;</a>&amp;&amp; commandList) {</div>
+<div class="line"><a id="l00257" name="l00257"></a><span class="lineno">  257</span>    ID3D12CommandList* commandLists[] = { commandList-&gt;As&lt;CommandListDx12&gt;()-&gt;GetCommandList() };</div>
+<div class="line"><a id="l00258" name="l00258"></a><span class="lineno">  258</span>    GetGraphicsComputeQueue()-&gt;As&lt;CommandQueueDx12&gt;()-&gt;GetCommandQueue()-&gt;ExecuteCommandLists(1, commandLists);</div>
+<div class="line"><a id="l00259" name="l00259"></a><span class="lineno">  259</span> </div>
+<div class="line"><a id="l00260" name="l00260"></a><span class="lineno">  260</span>    <span class="comment">// syncDevice-&gt;As&lt;SyncDeviceDx12&gt;()-&gt;Flush(*graphicsQueue-&gt;As&lt;CommandQueueDx12&gt;());</span></div>
+<div class="line"><a id="l00261" name="l00261"></a><span class="lineno">  261</span>    <span class="comment">// syncDevice-&gt;As&lt;SyncDeviceDx12&gt;()-&gt;Await();</span></div>
+<div class="line"><a id="l00262" name="l00262"></a><span class="lineno">  262</span> </div>
+<div class="line"><a id="l00263" name="l00263"></a><span class="lineno">  263</span>    m_singleTimeCommandLists.Insert(std::move(commandList));</div>
+<div class="line"><a id="l00264" name="l00264"></a><span class="lineno">  264</span>}</div>
+<div class="line"><a id="l00265" name="l00265"></a><span class="lineno">  265</span> </div>
+<div class="line"><a id="l00266" name="l00266"></a><span class="lineno">  266</span><a class="code hl_typedef" href="namespace_o_s_k.html#acf682b0e024acc36806435295480d2ed">USize32</a> RendererDx12::GetCurrentFrameIndex()<span class="keyword"> const </span>{</div>
+<div class="line"><a id="l00267" name="l00267"></a><span class="lineno">  267</span>    <span class="keywordflow">return</span> 0;</div>
+<div class="line"><a id="l00268" name="l00268"></a><span class="lineno">  268</span>}</div>
+<div class="line"><a id="l00269" name="l00269"></a><span class="lineno">  269</span> </div>
+<div class="line"><a id="l00270" name="l00270"></a><span class="lineno">  270</span><a class="code hl_typedef" href="namespace_o_s_k.html#a382ed4c8a6994201cbad5d4e1335861b">UIndex32</a> RendererDx12::GetCurrentCommandListIndex()<span class="keyword"> const </span>{</div>
+<div class="line"><a id="l00271" name="l00271"></a><span class="lineno">  271</span>    <span class="keywordflow">return</span> 0;</div>
+<div class="line"><a id="l00272" name="l00272"></a><span class="lineno">  272</span>}</div>
+<div class="line"><a id="l00273" name="l00273"></a><span class="lineno">  273</span> </div>
+<div class="line"><a id="l00274" name="l00274"></a><span class="lineno">  274</span><span class="keywordtype">bool</span> RendererDx12::SupportsRaytracing()<span class="keyword"> const </span>{</div>
+<div class="line"><a id="l00275" name="l00275"></a><span class="lineno">  275</span>    <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><a id="l00276" name="l00276"></a><span class="lineno">  276</span>}</div>
+<div class="line"><a id="l00277" name="l00277"></a><span class="lineno">  277</span> </div>
+<div class="line"><a id="l00278" name="l00278"></a><span class="lineno">  278</span><span class="keywordtype">void</span> RendererDx12::DebugCallback(D3D12_MESSAGE_CATEGORY category, D3D12_MESSAGE_SEVERITY severity, D3D12_MESSAGE_ID <span class="keywordtype">id</span>, LPCSTR description, <span class="keywordtype">void</span>* context) {</div>
+<div class="line"><a id="l00279" name="l00279"></a><span class="lineno">  279</span>    <a class="code hl_function" href="class_o_s_k_1_1_engine.html#ac39b79a3e665381630f6c710f3772a2b">Engine::GetLogger</a>()-&gt;DebugLog(std::string(description));</div>
+<div class="line"><a id="l00280" name="l00280"></a><span class="lineno">  280</span>}</div>
+<div class="line"><a id="l00281" name="l00281"></a><span class="lineno">  281</span> </div>
+<div class="line"><a id="l00282" name="l00282"></a><span class="lineno">  282</span><span class="preprocessor">#endif</span></div>
+<div class="ttc" id="aclass_o_s_k_1_1_engine_html_a2e36571452395c924ab2211ad380298f"><div class="ttname"><a href="class_o_s_k_1_1_engine.html#a2e36571452395c924ab2211ad380298f">OSK::Engine::GetEcs</a></div><div class="ttdeci">static ECS::EntityComponentSystem * GetEcs()</div><div class="ttdoc">Devuelve un puntero al ECS del motor.</div><div class="ttdef"><b>Definition</b> <a href="_o_s_kengine_8cpp_source.html#l00258">OSKengine.cpp:258</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_engine_html_a81e2e2c3d9ab78f3ff07281bd2b6aef8"><div class="ttname"><a href="class_o_s_k_1_1_engine.html#a81e2e2c3d9ab78f3ff07281bd2b6aef8">OSK::Engine::GetDisplay</a></div><div class="ttdeci">static IO::IDisplay * GetDisplay()</div><div class="ttdoc">Devuelve un puntero al display del juego.</div><div class="ttdef"><b>Definition</b> <a href="_o_s_kengine_8cpp_source.html#l00246">OSKengine.cpp:246</a></div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_engine_html_ac39b79a3e665381630f6c710f3772a2b"><div class="ttname"><a href="class_o_s_k_1_1_engine.html#ac39b79a3e665381630f6c710f3772a2b">OSK::Engine::GetLogger</a></div><div class="ttdeci">static IO::Logger * GetLogger()</div><div class="ttdef"><b>Definition</b> <a href="_o_s_kengine_8cpp_source.html#l00242">OSKengine.cpp:242</a></div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_queue_html"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_queue.html">OSK::GRAPHICS::ICommandQueue</a></div><div class="ttdoc">Representa un puerto de entrada para los comandos de la GPU.</div><div class="ttdef"><b>Definition</b> <a href="_i_command_queue_8h_source.html#l00015">ICommandQueue.h:15</a></div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_queue_html_ab71c9b114c751200e9c751201d7b71e8"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_queue.html#ab71c9b114c751200e9c751201d7b71e8">OSK::GRAPHICS::ICommandQueue::GetQueueType</a></div><div class="ttdeci">GpuQueueType GetQueueType() const</div><div class="ttdef"><b>Definition</b> <a href="_i_command_queue_8cpp_source.html#l00021">ICommandQueue.cpp:21</a></div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_queue_html_abbfaf73e1c2bcebf4f00342e6ad9daad"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_queue.html#abbfaf73e1c2bcebf4f00342e6ad9daad">OSK::GRAPHICS::ICommandQueue::GetSupportedCommands</a></div><div class="ttdeci">virtual CommandsSupport GetSupportedCommands() const</div><div class="ttdef"><b>Definition</b> <a href="_i_command_queue_8cpp_source.html#l00010">ICommandQueue.cpp:10</a></div></div>
-<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_html"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer.html">OSK::GRAPHICS::IRenderer</a></div><div class="ttdoc">Clase singleton de la arquitectura de renderizado.</div><div class="ttdef"><b>Definition</b> <a href="_i_renderer_8h_source.html#l00065">IRenderer.h:65</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_html"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer.html">OSK::GRAPHICS::IRenderer</a></div><div class="ttdoc">Clase singleton de la arquitectura de renderizado.</div><div class="ttdef"><b>Definition</b> <a href="_i_renderer_8h_source.html#l00064">IRenderer.h:64</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_html_a1169a24a24af680f5ff7344cadecfffb"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer.html#a1169a24a24af680f5ff7344cadecfffb">OSK::GRAPHICS::IRenderer::HandleResize</a></div><div class="ttdeci">virtual void HandleResize(const Vector2ui &amp;resolution)</div><div class="ttdoc">Reconfigura el swapchain al cambiar de tamaño la ventana.</div><div class="ttdef"><b>Definition</b> <a href="_renderer_8cpp_source.html#l00110">Renderer.cpp:110</a></div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_layout_html"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_layout.html">OSK::GRAPHICS::MaterialLayout</a></div><div class="ttdoc">El layout de un material determina qué slots pertenecen a ese material.</div><div class="ttdef"><b>Definition</b> <a href="_material_layout_8h_source.html#l00012">MaterialLayout.h:12</a></div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_vertex_info_html"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_vertex_info.html">OSK::GRAPHICS::VertexInfo</a></div><div class="ttdoc">Información de los atributos de un vértice. El graphics pipeline lo usará para configurar el tipo de ...</div><div class="ttdef"><b>Definition</b> <a href="_vertex_info_8h_source.html#l00014">VertexInfo.h:14</a></div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_i_o_1_1_i_display_html"><div class="ttname"><a href="class_o_s_k_1_1_i_o_1_1_i_display.html">OSK::IO::IDisplay</a></div><div class="ttdoc">Interfaz que representa un display: la pantalla sobre la que se renderiza.</div><div class="ttdef"><b>Definition</b> <a href="_i_display_8h_source.html#l00021">IDisplay.h:21</a></div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_i_o_1_1_i_display_html_af9f0406d0262f33b1384cfa01ea852f0"><div class="ttname"><a href="class_o_s_k_1_1_i_o_1_1_i_display.html#af9f0406d0262f33b1384cfa01ea852f0">OSK::IO::IDisplay::GetResolution</a></div><div class="ttdeci">Vector2ui GetResolution() const</div><div class="ttdef"><b>Definition</b> <a href="_i_display_8cpp_source.html#l00013">IDisplay.cpp:13</a></div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_i_o_1_1_logger_html_a3d2a88ffa05f6a74f9d669f1182bacca"><div class="ttname"><a href="class_o_s_k_1_1_i_o_1_1_logger.html#a3d2a88ffa05f6a74f9d669f1182bacca">OSK::IO::Logger::InfoLog</a></div><div class="ttdeci">void InfoLog(const std::string &amp;msg)</div><div class="ttdoc">Manda un mensaje de información.</div><div class="ttdef"><b>Definition</b> <a href="_logger_8cpp_source.html#l00061">Logger.cpp:61</a></div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_not_implemented_exception_html"><div class="ttname"><a href="class_o_s_k_1_1_not_implemented_exception.html">OSK::NotImplementedException</a></div><div class="ttdoc">Excepción que se lanza cuando se trata de ejecutar una funcionalidad que aún no se ha desarrollado.</div><div class="ttdef"><b>Definition</b> <a href="_not_implemented_exception_8h_source.html#l00008">NotImplementedException.h:8</a></div></div>
-<div class="ttc" id="aclass_o_s_k_1_1_owned_ptr_html"><div class="ttname"><a href="class_o_s_k_1_1_owned_ptr.html">OSK::OwnedPtr</a></div><div class="ttdoc">Es dueño de un puntero.</div><div class="ttdef"><b>Definition</b> <a href="_owned_ptr_8h_source.html#l00017">OwnedPtr.h:17</a></div></div>
-<div class="ttc" id="aclass_o_s_k_1_1_owned_ptr_html_a81dfab2299056fc9858aace55fca0042"><div class="ttname"><a href="class_o_s_k_1_1_owned_ptr.html#a81dfab2299056fc9858aace55fca0042">OSK::OwnedPtr::GetPointer</a></div><div class="ttdeci">T * GetPointer() const</div><div class="ttdoc">Devuelve el puntero nativo.</div><div class="ttdef"><b>Definition</b> <a href="_owned_ptr_8h_source.html#l00080">OwnedPtr.h:80</a></div></div>
-<div class="ttc" id="aclass_o_s_k_1_1_vector2__t_html"><div class="ttname"><a href="class_o_s_k_1_1_vector2__t.html">OSK::Vector2_t&lt; uint32_t &gt;</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_unique_ptr_html"><div class="ttname"><a href="class_o_s_k_1_1_unique_ptr.html">OSK::UniquePtr</a></div><div class="ttdoc">Estructura que es dueña de un objeto almacenado en heap. Al destruirse el UniquePtr,...</div><div class="ttdef"><b>Definition</b> <a href="_unique_ptr_8hpp_source.html#l00026">UniquePtr.hpp:26</a></div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_vector2__t_html_a3194c7e9abba1f840530e8642a01e30a"><div class="ttname"><a href="class_o_s_k_1_1_vector2__t.html#a3194c7e9abba1f840530e8642a01e30a">OSK::Vector2_t::y</a></div><div class="ttdeci">T y</div><div class="ttdoc">Representa la segunda coordenada.</div><div class="ttdef"><b>Definition</b> <a href="_vector2_8hpp_source.html#l00254">Vector2.hpp:254</a></div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_vector2__t_html_ae2f86aaf21084895a5b357318ff6ed77"><div class="ttname"><a href="class_o_s_k_1_1_vector2__t.html#ae2f86aaf21084895a5b357318ff6ed77">OSK::Vector2_t::x</a></div><div class="ttdeci">T x</div><div class="ttdoc">Representa la primera coordenada.</div><div class="ttdef"><b>Definition</b> <a href="_vector2_8hpp_source.html#l00251">Vector2.hpp:251</a></div></div>
 <div class="ttc" id="anamespace_o_s_k_1_1_g_r_a_p_h_i_c_s_html"><div class="ttname"><a href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html">OSK::GRAPHICS</a></div><div class="ttdef"><b>Definition</b> <a href="_acceleration_structures_exceptions_8h_source.html#l00005">AccelerationStructuresExceptions.h:5</a></div></div>
 <div class="ttc" id="anamespace_o_s_k_1_1_g_r_a_p_h_i_c_s_html_a3057691f190dabf7642cfde72cf2430f"><div class="ttname"><a href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a3057691f190dabf7642cfde72cf2430f">OSK::GRAPHICS::RenderApiType</a></div><div class="ttdeci">RenderApiType</div><div class="ttdef"><b>Definition</b> <a href="_render_api_type_8h_source.html#l00005">RenderApiType.h:5</a></div></div>
-<div class="ttc" id="anamespace_o_s_k_1_1_g_r_a_p_h_i_c_s_html_a3057691f190dabf7642cfde72cf2430fa8bfc0c05d68d95476338b4d64a879c33"><div class="ttname"><a href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a3057691f190dabf7642cfde72cf2430fa8bfc0c05d68d95476338b4d64a879c33">OSK::GRAPHICS::RenderApiType::DX12</a></div><div class="ttdeci">@ DX12</div></div>
+<div class="ttc" id="anamespace_o_s_k_1_1_g_r_a_p_h_i_c_s_html_a3057691f190dabf7642cfde72cf2430fa8bfc0c05d68d95476338b4d64a879c33"><div class="ttname"><a href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a3057691f190dabf7642cfde72cf2430fa8bfc0c05d68d95476338b4d64a879c33">OSK::GRAPHICS::RenderApiType::DX12</a></div><div class="ttdeci">@ DX12</div><div class="ttdef"><b>Definition</b> <a href="_render_api_type_8h_source.html#l00007">RenderApiType.h:7</a></div></div>
 <div class="ttc" id="anamespace_o_s_k_1_1_g_r_a_p_h_i_c_s_html_a47a7b3817b8aca438c20b7674fad28ab"><div class="ttname"><a href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a47a7b3817b8aca438c20b7674fad28ab">OSK::GRAPHICS::PresentMode</a></div><div class="ttdeci">PresentMode</div><div class="ttdoc">Define el modo de sincronización vertical.</div><div class="ttdef"><b>Definition</b> <a href="_present_mode_8h_source.html#l00013">PresentMode.h:13</a></div></div>
 <div class="ttc" id="anamespace_o_s_k_1_1_g_r_a_p_h_i_c_s_html_aac59f9d056e083c0b49ea768f974e3e8"><div class="ttname"><a href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#aac59f9d056e083c0b49ea768f974e3e8">OSK::GRAPHICS::Format</a></div><div class="ttdeci">Format</div><div class="ttdoc">Formatos que puede tener una textura / imagen.</div><div class="ttdef"><b>Definition</b> <a href="_format_8h_source.html#l00010">Format.h:10</a></div></div>
+<div class="ttc" id="anamespace_o_s_k_1_1_g_r_a_p_h_i_c_s_html_aac59f9d056e083c0b49ea768f974e3e8a909cc8c5cc8fe4f16bec84a291aadbdb"><div class="ttname"><a href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#aac59f9d056e083c0b49ea768f974e3e8a909cc8c5cc8fe4f16bec84a291aadbdb">OSK::GRAPHICS::Format::RGBA8_UNORM</a></div><div class="ttdeci">@ RGBA8_UNORM</div><div class="ttdef"><b>Definition</b> <a href="_format_8h_source.html#l00014">Format.h:14</a></div></div>
+<div class="ttc" id="anamespace_o_s_k_1_1_g_r_a_p_h_i_c_s_html_af480a36d7bec77341500daf8dda20f1da186495f7da296bf880df3a22a492b378"><div class="ttname"><a href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#af480a36d7bec77341500daf8dda20f1da186495f7da296bf880df3a22a492b378">OSK::GRAPHICS::GpuQueueType::MAIN</a></div><div class="ttdeci">@ MAIN</div><div class="ttdoc">Cola principal de renderizado. Soporta:</div><div class="ttdef"><b>Definition</b> <a href="_gpu_queue_types_8h_source.html#l00014">GpuQueueTypes.h:14</a></div></div>
+<div class="ttc" id="anamespace_o_s_k_1_1_g_r_a_p_h_i_c_s_html_af480a36d7bec77341500daf8dda20f1da4e02651cb8ef679ba30902a8becdff2d"><div class="ttname"><a href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#af480a36d7bec77341500daf8dda20f1da4e02651cb8ef679ba30902a8becdff2d">OSK::GRAPHICS::GpuQueueType::ASYNC_TRANSFER</a></div><div class="ttdeci">@ ASYNC_TRANSFER</div><div class="ttdoc">Cola de transferencia asíncrona. Soporta únicamente CommandsSupport::TRANSFER.</div><div class="ttdef"><b>Definition</b> <a href="_gpu_queue_types_8h_source.html#l00025">GpuQueueTypes.h:25</a></div></div>
 <div class="ttc" id="anamespace_o_s_k_html"><div class="ttname"><a href="namespace_o_s_k.html">OSK</a></div><div class="ttdef"><b>Definition</b> <a href="_acceleration_structures_exceptions_8h_source.html#l00005">AccelerationStructuresExceptions.h:5</a></div></div>
 <div class="ttc" id="anamespace_o_s_k_html_a382ed4c8a6994201cbad5d4e1335861b"><div class="ttname"><a href="namespace_o_s_k.html#a382ed4c8a6994201cbad5d4e1335861b">OSK::UIndex32</a></div><div class="ttdeci">uint32_t UIndex32</div><div class="ttdoc">Índice de un elemento, almacenado en un unsigned int de 32 bits.</div><div class="ttdef"><b>Definition</b> <a href="_numeric_types_8h_source.html#l00010">NumericTypes.h:10</a></div></div>
+<div class="ttc" id="anamespace_o_s_k_html_a6f5b4753cd85b4773d2880148fd031cf"><div class="ttname"><a href="namespace_o_s_k.html#a6f5b4753cd85b4773d2880148fd031cf">OSK::Vector2ui</a></div><div class="ttdeci">Vector2_t&lt; uint32_t &gt; Vector2ui</div><div class="ttdoc">Precisión = uint32.</div><div class="ttdef"><b>Definition</b> <a href="_vector2_8hpp_source.html#l00269">Vector2.hpp:269</a></div></div>
+<div class="ttc" id="anamespace_o_s_k_html_a9eb9f9297be2a8044dda7480321e6661"><div class="ttname"><a href="namespace_o_s_k.html#a9eb9f9297be2a8044dda7480321e6661">OSK::MakeUnique</a></div><div class="ttdeci">UniquePtr&lt; T &gt; MakeUnique(TArgs &amp;&amp;... args)</div><div class="ttdef"><b>Definition</b> <a href="_unique_ptr_8hpp_source.html#l00182">UniquePtr.hpp:182</a></div></div>
 <div class="ttc" id="anamespace_o_s_k_html_acf682b0e024acc36806435295480d2ed"><div class="ttname"><a href="namespace_o_s_k.html#acf682b0e024acc36806435295480d2ed">OSK::USize32</a></div><div class="ttdeci">uint32_t USize32</div><div class="ttdoc">Tamaño, almacenado en un unsigned int de 32 bits.</div><div class="ttdef"><b>Definition</b> <a href="_numeric_types_8h_source.html#l00015">NumericTypes.h:15</a></div></div>
 <div class="ttc" id="astruct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_pipeline_create_info_html"><div class="ttname"><a href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_pipeline_create_info.html">OSK::GRAPHICS::PipelineCreateInfo</a></div><div class="ttdoc">Contiene la información necesaria para configurar un nuevo pipeline.</div><div class="ttdef"><b>Definition</b> <a href="_pipeline_create_info_8h_source.html#l00075">PipelineCreateInfo.h:75</a></div></div>
 <div class="ttc" id="astruct_o_s_k_1_1_version_html"><div class="ttname"><a href="struct_o_s_k_1_1_version.html">OSK::Version</a></div><div class="ttdoc">Representa una versión.</div><div class="ttdef"><b>Definition</b> <a href="_version_8h_source.html#l00008">Version.h:8</a></div></div>
@@ -414,7 +421,7 @@ $(function(){initNavTree('_renderer_dx12_8cpp_source.html',''); initResizable(tr
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_74389ed8173ad57b461b9d623a1f3867.html">Source</a></li><li class="navelem"><b>RendererDx12.cpp</b></li>
-    <li class="footer">Generado el Lunes, 23 de diciembre de 2024 13:15:56 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.12.0 </li>
+    <li class="footer">Generado el Miércoles, 16 de abril de 2025 17:13:05 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.13.2 </li>
   </ul>
 </div>
 </body>

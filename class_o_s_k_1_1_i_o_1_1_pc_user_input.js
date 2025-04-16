@@ -8,7 +8,7 @@ var class_o_s_k_1_1_i_o_1_1_pc_user_input =
     [ "GetPreviousKeyboardState", "class_o_s_k_1_1_i_o_1_1_pc_user_input.html#a343fbce9a28a6caad0e64162d8019168", null ],
     [ "GetPreviousMouseState", "class_o_s_k_1_1_i_o_1_1_pc_user_input.html#a7b7bf657bc628b0315e7a716592b3759", null ],
     [ "GetReturnMode", "class_o_s_k_1_1_i_o_1_1_pc_user_input.html#ab5c2bc0a8af9a1336066ac2310f90486", null ],
-    [ "Initialize", "class_o_s_k_1_1_i_o_1_1_pc_user_input.html#ab3346cd31426bc4f7c13ba517d89bb7a", null ],
+    [ "Initialize", "class_o_s_k_1_1_i_o_1_1_pc_user_input.html#a95edc57b450a9bb4f24083d66c94ba10", null ],
     [ "IsKeyDown", "class_o_s_k_1_1_i_o_1_1_pc_user_input.html#ae04d88d90a42cd1ab0082df5a0f5b1a2", null ],
     [ "IsKeyReleased", "class_o_s_k_1_1_i_o_1_1_pc_user_input.html#a5f3685699c960781cfde47e7d8124f73", null ],
     [ "IsKeyStroked", "class_o_s_k_1_1_i_o_1_1_pc_user_input.html#a115f2d31971eed50226ba211d03c64eb", null ],

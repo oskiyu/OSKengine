@@ -3,7 +3,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
-<meta name="generator" content="Doxygen 1.12.0"/>
+<meta name="generator" content="Doxygen 1.13.2"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
 <title>OSKengine: Archivo de código fuente Source/AtomicHolder.h</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
@@ -37,7 +37,7 @@
 </table>
 </div>
 <!-- end header part -->
-<!-- Generado por Doxygen 1.12.0 -->
+<!-- Generado por Doxygen 1.13.2 -->
 <script type="text/javascript">
 /* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
 var searchBox = new SearchBox("searchBox", "search/",'.html');
@@ -107,10 +107,10 @@ $(function(){initNavTree('_atomic_holder_8h_source.html',''); initResizable(true
 <div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span> </div>
 <div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span> </div>
 <div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="keyword">namespace </span><a class="code hl_namespace" href="namespace_o_s_k.html">OSK</a> {</div>
-<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span> </div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span></div>
 <div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span>    <span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</div>
 <div class="foldopen" id="foldopen00016" data-start="{" data-end="};">
-<div class="line"><a id="l00016" name="l00016"></a><span class="lineno"><a class="line" href="struct_o_s_k_1_1_atomic_holder.html">   16</a></span>    <span class="keyword">struct </span><a class="code hl_struct" href="struct_o_s_k_1_1_atomic_holder.html">AtomicHolder</a> {</div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno"><a class="line" href="struct_o_s_k_1_1_atomic_holder.html">   16</a></span>    <span class="keyword">struct </span><a class="code hl_function" href="struct_o_s_k_1_1_atomic_holder.html#af2e0174622fd3cbe4a63e3f4431189d3">AtomicHolder</a> {</div>
 <div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span> </div>
 <div class="line"><a id="l00018" name="l00018"></a><span class="lineno"><a class="line" href="struct_o_s_k_1_1_atomic_holder.html#a4f89a8a67cc085b193a1b65bb1ef5077">   18</a></span>        std::atomic&lt;T&gt; <a class="code hl_variable" href="struct_o_s_k_1_1_atomic_holder.html#a4f89a8a67cc085b193a1b65bb1ef5077">atomic</a>{};</div>
 <div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span> </div>
@@ -118,15 +118,14 @@ $(function(){initNavTree('_atomic_holder_8h_source.html',''); initResizable(true
 <div class="line"><a id="l00021" name="l00021"></a><span class="lineno"><a class="line" href="struct_o_s_k_1_1_atomic_holder.html#a3bada97e0224fea3443bf248d17d75fd">   21</a></span>        <span class="keyword">explicit</span> <a class="code hl_function" href="struct_o_s_k_1_1_atomic_holder.html#a3bada97e0224fea3443bf248d17d75fd">AtomicHolder</a>(<span class="keyword">const</span> T&amp; value) : <a class="code hl_variable" href="struct_o_s_k_1_1_atomic_holder.html#a4f89a8a67cc085b193a1b65bb1ef5077">atomic</a>(value) {}</div>
 <div class="line"><a id="l00022" name="l00022"></a><span class="lineno"><a class="line" href="struct_o_s_k_1_1_atomic_holder.html#aaee1d6383bcd658e2c948557fc4f9aa5">   22</a></span>        <a class="code hl_function" href="struct_o_s_k_1_1_atomic_holder.html#aaee1d6383bcd658e2c948557fc4f9aa5">~AtomicHolder</a>() = <span class="keywordflow">default</span>;</div>
 <div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span> </div>
-<div class="line"><a id="l00024" name="l00024"></a><span class="lineno"><a class="line" href="struct_o_s_k_1_1_atomic_holder.html#a9e74b2fc2ffefd1295b2c7ea70ccd314">   24</a></span>        <a class="code hl_function" href="struct_o_s_k_1_1_atomic_holder.html#a9e74b2fc2ffefd1295b2c7ea70ccd314">AtomicHolder</a>(<span class="keyword">const</span> <a class="code hl_struct" href="struct_o_s_k_1_1_atomic_holder.html">AtomicHolder</a>&amp; other) : <a class="code hl_variable" href="struct_o_s_k_1_1_atomic_holder.html#a4f89a8a67cc085b193a1b65bb1ef5077">atomic</a>(other.<a class="code hl_variable" href="struct_o_s_k_1_1_atomic_holder.html#a4f89a8a67cc085b193a1b65bb1ef5077">atomic</a>.load()) {};</div>
-<div class="line"><a id="l00025" name="l00025"></a><span class="lineno"><a class="line" href="struct_o_s_k_1_1_atomic_holder.html#a861f68473108817039c78ed934fa8f45">   25</a></span>        <a class="code hl_struct" href="struct_o_s_k_1_1_atomic_holder.html">AtomicHolder</a>&amp; <a class="code hl_function" href="struct_o_s_k_1_1_atomic_holder.html#a861f68473108817039c78ed934fa8f45">operator=</a>(<span class="keyword">const</span> <a class="code hl_struct" href="struct_o_s_k_1_1_atomic_holder.html">AtomicHolder</a>&amp; other) { <a class="code hl_variable" href="struct_o_s_k_1_1_atomic_holder.html#a4f89a8a67cc085b193a1b65bb1ef5077">atomic</a> = other.<a class="code hl_variable" href="struct_o_s_k_1_1_atomic_holder.html#a4f89a8a67cc085b193a1b65bb1ef5077">atomic</a>.load(); <span class="keywordflow">return</span> *<span class="keyword">this</span>; };</div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno"><a class="line" href="struct_o_s_k_1_1_atomic_holder.html#a9e74b2fc2ffefd1295b2c7ea70ccd314">   24</a></span>        <a class="code hl_function" href="struct_o_s_k_1_1_atomic_holder.html#a9e74b2fc2ffefd1295b2c7ea70ccd314">AtomicHolder</a>(<span class="keyword">const</span> <a class="code hl_function" href="struct_o_s_k_1_1_atomic_holder.html#af2e0174622fd3cbe4a63e3f4431189d3">AtomicHolder</a>&amp; other) : <a class="code hl_variable" href="struct_o_s_k_1_1_atomic_holder.html#a4f89a8a67cc085b193a1b65bb1ef5077">atomic</a>(other.<a class="code hl_variable" href="struct_o_s_k_1_1_atomic_holder.html#a4f89a8a67cc085b193a1b65bb1ef5077">atomic</a>.load()) {};</div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno"><a class="line" href="struct_o_s_k_1_1_atomic_holder.html#a861f68473108817039c78ed934fa8f45">   25</a></span>        <a class="code hl_function" href="struct_o_s_k_1_1_atomic_holder.html#af2e0174622fd3cbe4a63e3f4431189d3">AtomicHolder</a>&amp; <a class="code hl_function" href="struct_o_s_k_1_1_atomic_holder.html#a861f68473108817039c78ed934fa8f45">operator=</a>(<span class="keyword">const</span> <a class="code hl_function" href="struct_o_s_k_1_1_atomic_holder.html#af2e0174622fd3cbe4a63e3f4431189d3">AtomicHolder</a>&amp; other) { <a class="code hl_variable" href="struct_o_s_k_1_1_atomic_holder.html#a4f89a8a67cc085b193a1b65bb1ef5077">atomic</a> = other.<a class="code hl_variable" href="struct_o_s_k_1_1_atomic_holder.html#a4f89a8a67cc085b193a1b65bb1ef5077">atomic</a>.load(); <span class="keywordflow">return</span> *<span class="keyword">this</span>; };</div>
 <div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span> </div>
 <div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>    };</div>
 </div>
 <div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span> </div>
 <div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>}</div>
 <div class="ttc" id="anamespace_o_s_k_html"><div class="ttname"><a href="namespace_o_s_k.html">OSK</a></div><div class="ttdef"><b>Definition</b> <a href="_acceleration_structures_exceptions_8h_source.html#l00005">AccelerationStructuresExceptions.h:5</a></div></div>
-<div class="ttc" id="astruct_o_s_k_1_1_atomic_holder_html"><div class="ttname"><a href="struct_o_s_k_1_1_atomic_holder.html">OSK::AtomicHolder</a></div><div class="ttdoc">Estructura que contiene una variable atómica, de tal manera que permite usarla como atributo de una c...</div><div class="ttdef"><b>Definition</b> <a href="#l00016">AtomicHolder.h:16</a></div></div>
 <div class="ttc" id="astruct_o_s_k_1_1_atomic_holder_html_a3bada97e0224fea3443bf248d17d75fd"><div class="ttname"><a href="struct_o_s_k_1_1_atomic_holder.html#a3bada97e0224fea3443bf248d17d75fd">OSK::AtomicHolder::AtomicHolder</a></div><div class="ttdeci">AtomicHolder(const T &amp;value)</div><div class="ttdef"><b>Definition</b> <a href="#l00021">AtomicHolder.h:21</a></div></div>
 <div class="ttc" id="astruct_o_s_k_1_1_atomic_holder_html_a4f89a8a67cc085b193a1b65bb1ef5077"><div class="ttname"><a href="struct_o_s_k_1_1_atomic_holder.html#a4f89a8a67cc085b193a1b65bb1ef5077">OSK::AtomicHolder::atomic</a></div><div class="ttdeci">std::atomic&lt; T &gt; atomic</div><div class="ttdef"><b>Definition</b> <a href="#l00018">AtomicHolder.h:18</a></div></div>
 <div class="ttc" id="astruct_o_s_k_1_1_atomic_holder_html_a861f68473108817039c78ed934fa8f45"><div class="ttname"><a href="struct_o_s_k_1_1_atomic_holder.html#a861f68473108817039c78ed934fa8f45">OSK::AtomicHolder::operator=</a></div><div class="ttdeci">AtomicHolder &amp; operator=(const AtomicHolder &amp;other)</div><div class="ttdef"><b>Definition</b> <a href="#l00025">AtomicHolder.h:25</a></div></div>
@@ -139,7 +138,7 @@ $(function(){initNavTree('_atomic_holder_8h_source.html',''); initResizable(true
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_74389ed8173ad57b461b9d623a1f3867.html">Source</a></li><li class="navelem"><b>AtomicHolder.h</b></li>
-    <li class="footer">Generado el Lunes, 23 de diciembre de 2024 13:15:55 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.12.0 </li>
+    <li class="footer">Generado el Miércoles, 16 de abril de 2025 17:13:04 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.13.2 </li>
   </ul>
 </div>
 </body>

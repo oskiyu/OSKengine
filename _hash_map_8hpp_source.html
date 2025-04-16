@@ -3,7 +3,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
-<meta name="generator" content="Doxygen 1.12.0"/>
+<meta name="generator" content="Doxygen 1.13.2"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
 <title>OSKengine: Archivo de código fuente Source/HashMap.hpp</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
@@ -37,7 +37,7 @@
 </table>
 </div>
 <!-- end header part -->
-<!-- Generado por Doxygen 1.12.0 -->
+<!-- Generado por Doxygen 1.13.2 -->
 <script type="text/javascript">
 /* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
 var searchBox = new SearchBox("searchBox", "search/",'.html');
@@ -120,29 +120,29 @@ $(function(){initNavTree('_hash_map_8hpp_source.html',''); initResizable(true); 
 <div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span><span class="comment">        return hasher(elem);</span></div>
 <div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span><span class="comment">    }</span></div>
 <div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span><span class="comment"></span> </div>
-<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span><span class="comment"></span> </div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span><span class="comment"></span></div>
 <div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>    template &lt;typename TKey, typename TValue, TSize numBuckets = 512&gt; class HashMap {</div>
 <div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span> </div>
 <div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>        friend class Iterator;</div>
 <div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span> </div>
 <div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>    public:</div>
-<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span> </div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span></div>
 <div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>        typedef Pair&lt;TKey, TValue&gt; TPair;</div>
-<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span> </div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span></div>
 <div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>        typedef DynamicArray&lt;Pair&lt;TKey, TValue&gt;&gt; TBucket;</div>
 <div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span> </div>
-<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span> </div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span></div>
 <div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>        class Iterator {</div>
 <div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span> </div>
 <div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>            friend class HashMap;</div>
 <div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span> </div>
 <div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>        public:</div>
-<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span> </div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span></div>
 <div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>            Iterator(const HashMap* map, const TBucket* bucket, TSize inBucketIndex, TSize bucketIndex)</div>
 <div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>                : map(map), bucket(bucket), inBucketIndex(inBucketIndex), bucketIndex(bucketIndex) {</div>
 <div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span> </div>
 <div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>            }</div>
-<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span> </div>
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span></div>
 <div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span>            Iterator operator++() {</div>
 <div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span>                inBucketIndex++;</div>
 <div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span> </div>
@@ -167,7 +167,7 @@ $(function(){initNavTree('_hash_map_8hpp_source.html',''); initResizable(true); 
 <div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span> </div>
 <div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span>                return *this;</div>
 <div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span>            }</div>
-<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span> </div>
+<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span></div>
 <div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span>            Iterator operator--() {</div>
 <div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span>                if (inBucketIndex &gt; 0) {</div>
 <div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span>                    inBucketIndex--;</div>
@@ -224,15 +224,15 @@ $(function(){initNavTree('_hash_map_8hpp_source.html',''); initResizable(true); 
 <div class="line"><a id="l00163" name="l00163"></a><span class="lineno">  163</span>            bool operator!= (const Iterator&amp; other) const {</div>
 <div class="line"><a id="l00164" name="l00164"></a><span class="lineno">  164</span>                return bucketIndex != other.bucketIndex || (inBucketIndex != other.inBucketIndex &amp;&amp; bucket != other.bucket);</div>
 <div class="line"><a id="l00165" name="l00165"></a><span class="lineno">  165</span>            }</div>
-<div class="line"><a id="l00166" name="l00166"></a><span class="lineno">  166</span> </div>
+<div class="line"><a id="l00166" name="l00166"></a><span class="lineno">  166</span></div>
 <div class="line"><a id="l00170" name="l00170"></a><span class="lineno">  170</span>            TPair&amp; operator*() const {</div>
 <div class="line"><a id="l00171" name="l00171"></a><span class="lineno">  171</span>                return bucket-&gt;At(inBucketIndex);</div>
 <div class="line"><a id="l00172" name="l00172"></a><span class="lineno">  172</span>            }</div>
-<div class="line"><a id="l00173" name="l00173"></a><span class="lineno">  173</span> </div>
+<div class="line"><a id="l00173" name="l00173"></a><span class="lineno">  173</span></div>
 <div class="line"><a id="l00177" name="l00177"></a><span class="lineno">  177</span>            TPair&amp; GetValue() const {</div>
 <div class="line"><a id="l00178" name="l00178"></a><span class="lineno">  178</span>                return bucket-&gt;At(inBucketIndex);</div>
 <div class="line"><a id="l00179" name="l00179"></a><span class="lineno">  179</span>            }</div>
-<div class="line"><a id="l00180" name="l00180"></a><span class="lineno">  180</span> </div>
+<div class="line"><a id="l00180" name="l00180"></a><span class="lineno">  180</span></div>
 <div class="line"><a id="l00184" name="l00184"></a><span class="lineno">  184</span>            bool IsEmpty() const {</div>
 <div class="line"><a id="l00185" name="l00185"></a><span class="lineno">  185</span>                return bucket == nullptr;</div>
 <div class="line"><a id="l00186" name="l00186"></a><span class="lineno">  186</span>            }</div>
@@ -246,7 +246,7 @@ $(function(){initNavTree('_hash_map_8hpp_source.html',''); initResizable(true); 
 <div class="line"><a id="l00194" name="l00194"></a><span class="lineno">  194</span> </div>
 <div class="line"><a id="l00195" name="l00195"></a><span class="lineno">  195</span>        };</div>
 <div class="line"><a id="l00196" name="l00196"></a><span class="lineno">  196</span> </div>
-<div class="line"><a id="l00197" name="l00197"></a><span class="lineno">  197</span> </div>
+<div class="line"><a id="l00197" name="l00197"></a><span class="lineno">  197</span></div>
 <div class="line"><a id="l00201" name="l00201"></a><span class="lineno">  201</span>        HashMap() {</div>
 <div class="line"><a id="l00202" name="l00202"></a><span class="lineno">  202</span> </div>
 <div class="line"><a id="l00203" name="l00203"></a><span class="lineno">  203</span>        }</div>
@@ -255,7 +255,7 @@ $(function(){initNavTree('_hash_map_8hpp_source.html',''); initResizable(true); 
 <div class="line"><a id="l00206" name="l00206"></a><span class="lineno">  206</span>            for (TIndex i = 0; i &lt; numBuckets; i++)</div>
 <div class="line"><a id="l00207" name="l00207"></a><span class="lineno">  207</span>                buckets[i].Free();</div>
 <div class="line"><a id="l00208" name="l00208"></a><span class="lineno">  208</span>        }</div>
-<div class="line"><a id="l00209" name="l00209"></a><span class="lineno">  209</span> </div>
+<div class="line"><a id="l00209" name="l00209"></a><span class="lineno">  209</span></div>
 <div class="line"><a id="l00217" name="l00217"></a><span class="lineno">  217</span>        void InsertCopy(const TKey&amp; key, const TValue&amp; value) {</div>
 <div class="line"><a id="l00218" name="l00218"></a><span class="lineno">  218</span>            auto pair = FindPair(key);</div>
 <div class="line"><a id="l00219" name="l00219"></a><span class="lineno">  219</span>            if (pair) {</div>
@@ -269,11 +269,11 @@ $(function(){initNavTree('_hash_map_8hpp_source.html',''); initResizable(true); 
 <div class="line"><a id="l00227" name="l00227"></a><span class="lineno">  227</span>                size++;</div>
 <div class="line"><a id="l00228" name="l00228"></a><span class="lineno">  228</span>            }</div>
 <div class="line"><a id="l00229" name="l00229"></a><span class="lineno">  229</span>        }</div>
-<div class="line"><a id="l00230" name="l00230"></a><span class="lineno">  230</span> </div>
+<div class="line"><a id="l00230" name="l00230"></a><span class="lineno">  230</span></div>
 <div class="line"><a id="l00238" name="l00238"></a><span class="lineno">  238</span>        void Insert(const TKey&amp; key, const TValue&amp; value) {</div>
 <div class="line"><a id="l00239" name="l00239"></a><span class="lineno">  239</span>            InsertCopy(key, value);</div>
 <div class="line"><a id="l00240" name="l00240"></a><span class="lineno">  240</span>        }</div>
-<div class="line"><a id="l00241" name="l00241"></a><span class="lineno">  241</span> </div>
+<div class="line"><a id="l00241" name="l00241"></a><span class="lineno">  241</span></div>
 <div class="line"><a id="l00249" name="l00249"></a><span class="lineno">  249</span>        void InsertMove(const TKey&amp; key, TValue&amp;&amp; value) {</div>
 <div class="line"><a id="l00250" name="l00250"></a><span class="lineno">  250</span>            TPair* pair = FindPair(key);</div>
 <div class="line"><a id="l00251" name="l00251"></a><span class="lineno">  251</span> </div>
@@ -290,11 +290,11 @@ $(function(){initNavTree('_hash_map_8hpp_source.html',''); initResizable(true); 
 <div class="line"><a id="l00262" name="l00262"></a><span class="lineno">  262</span>                size++;</div>
 <div class="line"><a id="l00263" name="l00263"></a><span class="lineno">  263</span>            }</div>
 <div class="line"><a id="l00264" name="l00264"></a><span class="lineno">  264</span>        }</div>
-<div class="line"><a id="l00265" name="l00265"></a><span class="lineno">  265</span> </div>
+<div class="line"><a id="l00265" name="l00265"></a><span class="lineno">  265</span></div>
 <div class="line"><a id="l00273" name="l00273"></a><span class="lineno">  273</span>        void Insert(const TKey&amp; key, TValue&amp;&amp; value) {</div>
 <div class="line"><a id="l00274" name="l00274"></a><span class="lineno">  274</span>            InsertMove(key, std::move(value));</div>
 <div class="line"><a id="l00275" name="l00275"></a><span class="lineno">  275</span>        }</div>
-<div class="line"><a id="l00276" name="l00276"></a><span class="lineno">  276</span> </div>
+<div class="line"><a id="l00276" name="l00276"></a><span class="lineno">  276</span></div>
 <div class="line"><a id="l00283" name="l00283"></a><span class="lineno">  283</span>        void Remove(const TKey&amp; key) {</div>
 <div class="line"><a id="l00284" name="l00284"></a><span class="lineno">  284</span>            KeySearchResult result = _FindKey(key);</div>
 <div class="line"><a id="l00285" name="l00285"></a><span class="lineno">  285</span> </div>
@@ -305,29 +305,29 @@ $(function(){initNavTree('_hash_map_8hpp_source.html',''); initResizable(true); 
 <div class="line"><a id="l00290" name="l00290"></a><span class="lineno">  290</span>                    occupiedBuckets.SetFalse(result.it.bucketIndex);</div>
 <div class="line"><a id="l00291" name="l00291"></a><span class="lineno">  291</span>            }</div>
 <div class="line"><a id="l00292" name="l00292"></a><span class="lineno">  292</span>        }</div>
-<div class="line"><a id="l00293" name="l00293"></a><span class="lineno">  293</span> </div>
+<div class="line"><a id="l00293" name="l00293"></a><span class="lineno">  293</span></div>
 <div class="line"><a id="l00297" name="l00297"></a><span class="lineno">  297</span>        const TBucket* GetBucket(TSize index) const {</div>
 <div class="line"><a id="l00298" name="l00298"></a><span class="lineno">  298</span>            return &amp;buckets[index];</div>
 <div class="line"><a id="l00299" name="l00299"></a><span class="lineno">  299</span>        }</div>
-<div class="line"><a id="l00300" name="l00300"></a><span class="lineno">  300</span> </div>
+<div class="line"><a id="l00300" name="l00300"></a><span class="lineno">  300</span></div>
 <div class="line"><a id="l00306" name="l00306"></a><span class="lineno">  306</span>        TValue&amp; Get(const TKey&amp; key) const {</div>
 <div class="line"><a id="l00307" name="l00307"></a><span class="lineno">  307</span>            auto pair = FindPair(key);</div>
 <div class="line"><a id="l00308" name="l00308"></a><span class="lineno">  308</span>            OSK_ASSERT(pair != nullptr, &quot;No se encontró el valor.&quot;);</div>
 <div class="line"><a id="l00309" name="l00309"></a><span class="lineno">  309</span> </div>
 <div class="line"><a id="l00310" name="l00310"></a><span class="lineno">  310</span>            return pair-&gt;second;</div>
 <div class="line"><a id="l00311" name="l00311"></a><span class="lineno">  311</span>        }</div>
-<div class="line"><a id="l00312" name="l00312"></a><span class="lineno">  312</span> </div>
+<div class="line"><a id="l00312" name="l00312"></a><span class="lineno">  312</span></div>
 <div class="line"><a id="l00318" name="l00318"></a><span class="lineno">  318</span>        TValue GetCopy(const TKey&amp; key) const {</div>
 <div class="line"><a id="l00319" name="l00319"></a><span class="lineno">  319</span>            auto pair = FindPair(key);</div>
 <div class="line"><a id="l00320" name="l00320"></a><span class="lineno">  320</span>            OSK_ASSERT(pair, &quot;No se encontró el valor.&quot;);</div>
 <div class="line"><a id="l00321" name="l00321"></a><span class="lineno">  321</span> </div>
 <div class="line"><a id="l00322" name="l00322"></a><span class="lineno">  322</span>            return pair-&gt;second;</div>
 <div class="line"><a id="l00323" name="l00323"></a><span class="lineno">  323</span>        }</div>
-<div class="line"><a id="l00324" name="l00324"></a><span class="lineno">  324</span> </div>
+<div class="line"><a id="l00324" name="l00324"></a><span class="lineno">  324</span></div>
 <div class="line"><a id="l00328" name="l00328"></a><span class="lineno">  328</span>        bool ContainsKey(const TKey&amp; key) const {</div>
 <div class="line"><a id="l00329" name="l00329"></a><span class="lineno">  329</span>            return _FindKey(key).found;</div>
 <div class="line"><a id="l00330" name="l00330"></a><span class="lineno">  330</span>        }</div>
-<div class="line"><a id="l00331" name="l00331"></a><span class="lineno">  331</span> </div>
+<div class="line"><a id="l00331" name="l00331"></a><span class="lineno">  331</span></div>
 <div class="line"><a id="l00337" name="l00337"></a><span class="lineno">  337</span>        Iterator Find(const TKey&amp; key) const {</div>
 <div class="line"><a id="l00338" name="l00338"></a><span class="lineno">  338</span>            auto result = _FindKey(key);</div>
 <div class="line"><a id="l00339" name="l00339"></a><span class="lineno">  339</span> </div>
@@ -340,16 +340,16 @@ $(function(){initNavTree('_hash_map_8hpp_source.html',''); initResizable(true); 
 <div class="line"><a id="l00346" name="l00346"></a><span class="lineno">  346</span>        bool HasValue(const TKey&amp; key) const {</div>
 <div class="line"><a id="l00347" name="l00347"></a><span class="lineno">  347</span>            return _FindKey(key).found;</div>
 <div class="line"><a id="l00348" name="l00348"></a><span class="lineno">  348</span>        }</div>
-<div class="line"><a id="l00349" name="l00349"></a><span class="lineno">  349</span> </div>
+<div class="line"><a id="l00349" name="l00349"></a><span class="lineno">  349</span></div>
 <div class="line"><a id="l00353" name="l00353"></a><span class="lineno">  353</span>        TSize GetSize() const {</div>
 <div class="line"><a id="l00354" name="l00354"></a><span class="lineno">  354</span>            return size;</div>
 <div class="line"><a id="l00355" name="l00355"></a><span class="lineno">  355</span>        }</div>
-<div class="line"><a id="l00356" name="l00356"></a><span class="lineno">  356</span> </div>
+<div class="line"><a id="l00356" name="l00356"></a><span class="lineno">  356</span></div>
 <div class="line"><a id="l00360" name="l00360"></a><span class="lineno">  360</span>        TSize GetNumberOfBuckets() const {</div>
 <div class="line"><a id="l00361" name="l00361"></a><span class="lineno">  361</span>            return numBuckets;</div>
 <div class="line"><a id="l00362" name="l00362"></a><span class="lineno">  362</span>        }</div>
 <div class="line"><a id="l00363" name="l00363"></a><span class="lineno">  363</span> </div>
-<div class="line"><a id="l00364" name="l00364"></a><span class="lineno">  364</span> </div>
+<div class="line"><a id="l00364" name="l00364"></a><span class="lineno">  364</span></div>
 <div class="line"><a id="l00370" name="l00370"></a><span class="lineno">  370</span>        Iterator begin() const {</div>
 <div class="line"><a id="l00371" name="l00371"></a><span class="lineno">  371</span>            if (occupiedBuckets.IsAllFalse())</div>
 <div class="line"><a id="l00372" name="l00372"></a><span class="lineno">  372</span>                return end();</div>
@@ -358,11 +358,11 @@ $(function(){initNavTree('_hash_map_8hpp_source.html',''); initResizable(true); 
 <div class="line"><a id="l00375" name="l00375"></a><span class="lineno">  375</span>            </div>
 <div class="line"><a id="l00376" name="l00376"></a><span class="lineno">  376</span>            return GetIterator(i, 0);</div>
 <div class="line"><a id="l00377" name="l00377"></a><span class="lineno">  377</span>        }</div>
-<div class="line"><a id="l00378" name="l00378"></a><span class="lineno">  378</span> </div>
+<div class="line"><a id="l00378" name="l00378"></a><span class="lineno">  378</span></div>
 <div class="line"><a id="l00382" name="l00382"></a><span class="lineno">  382</span>        Iterator end() const {</div>
 <div class="line"><a id="l00383" name="l00383"></a><span class="lineno">  383</span>            return Iterator(this, nullptr, 0, numBuckets);</div>
 <div class="line"><a id="l00384" name="l00384"></a><span class="lineno">  384</span>        }</div>
-<div class="line"><a id="l00385" name="l00385"></a><span class="lineno">  385</span> </div>
+<div class="line"><a id="l00385" name="l00385"></a><span class="lineno">  385</span></div>
 <div class="line"><a id="l00391" name="l00391"></a><span class="lineno">  391</span>        Iterator GetIterator(TSize bucketId, TSize inbucketId) const {</div>
 <div class="line"><a id="l00392" name="l00392"></a><span class="lineno">  392</span>            auto it = Iterator(this, nullptr, inbucketId, bucketId);</div>
 <div class="line"><a id="l00393" name="l00393"></a><span class="lineno">  393</span>            it.bucket = (TBucket*)&amp;buckets[bucketId];</div>
@@ -387,7 +387,7 @@ $(function(){initNavTree('_hash_map_8hpp_source.html',''); initResizable(true); 
 <div class="line"><a id="l00412" name="l00412"></a><span class="lineno">  412</span> </div>
 <div class="line"><a id="l00413" name="l00413"></a><span class="lineno">  413</span>            return { false, end() };</div>
 <div class="line"><a id="l00414" name="l00414"></a><span class="lineno">  414</span>        }</div>
-<div class="line"><a id="l00415" name="l00415"></a><span class="lineno">  415</span> </div>
+<div class="line"><a id="l00415" name="l00415"></a><span class="lineno">  415</span></div>
 <div class="line"><a id="l00420" name="l00420"></a><span class="lineno">  420</span>        TPair* FindPair(const TKey&amp; key) const {</div>
 <div class="line"><a id="l00421" name="l00421"></a><span class="lineno">  421</span>            auto result = _FindKey(key);</div>
 <div class="line"><a id="l00422" name="l00422"></a><span class="lineno">  422</span>            if (result.found)</div>
@@ -395,7 +395,7 @@ $(function(){initNavTree('_hash_map_8hpp_source.html',''); initResizable(true); 
 <div class="line"><a id="l00424" name="l00424"></a><span class="lineno">  424</span> </div>
 <div class="line"><a id="l00425" name="l00425"></a><span class="lineno">  425</span>            return nullptr;</div>
 <div class="line"><a id="l00426" name="l00426"></a><span class="lineno">  426</span>        }</div>
-<div class="line"><a id="l00427" name="l00427"></a><span class="lineno">  427</span> </div>
+<div class="line"><a id="l00427" name="l00427"></a><span class="lineno">  427</span></div>
 <div class="line"><a id="l00432" name="l00432"></a><span class="lineno">  432</span>        TSize ConvertHash(TSize hash) const {</div>
 <div class="line"><a id="l00433" name="l00433"></a><span class="lineno">  433</span>            return hash % numBuckets;</div>
 <div class="line"><a id="l00434" name="l00434"></a><span class="lineno">  434</span>        }</div>
@@ -454,27 +454,27 @@ $(function(){initNavTree('_hash_map_8hpp_source.html',''); initResizable(true); 
 <div class="line"><a id="l00489" name="l00489"></a><span class="lineno">  489</span>        HashMap() = default;</div>
 <div class="line"><a id="l00490" name="l00490"></a><span class="lineno">  490</span>        OSK_DEFAULT_COPY_OPERATOR(HashMap);</div>
 <div class="line"><a id="l00491" name="l00491"></a><span class="lineno">  491</span>        OSK_DEFAULT_MOVE_OPERATOR(HashMap);</div>
-<div class="line"><a id="l00492" name="l00492"></a><span class="lineno">  492</span> </div>
+<div class="line"><a id="l00492" name="l00492"></a><span class="lineno">  492</span></div>
 <div class="line"><a id="l00500" name="l00500"></a><span class="lineno">  500</span>        void InsertCopy(const TKey&amp; key, const TValue&amp; value) </div>
 <div class="line"><a id="l00501" name="l00501"></a><span class="lineno">  501</span>        requires std::copyable&lt;TValue&gt; {</div>
 <div class="line"><a id="l00502" name="l00502"></a><span class="lineno">  502</span>            stdmap[key] = value;</div>
 <div class="line"><a id="l00503" name="l00503"></a><span class="lineno">  503</span>        }</div>
-<div class="line"><a id="l00504" name="l00504"></a><span class="lineno">  504</span> </div>
+<div class="line"><a id="l00504" name="l00504"></a><span class="lineno">  504</span></div>
 <div class="line"><a id="l00512" name="l00512"></a><span class="lineno">  512</span>        void Insert(const TKey&amp; key, const TValue&amp; value) </div>
 <div class="line"><a id="l00513" name="l00513"></a><span class="lineno">  513</span>        requires std::copyable&lt;TValue&gt; {</div>
 <div class="line"><a id="l00514" name="l00514"></a><span class="lineno">  514</span>            stdmap[key] = value;</div>
 <div class="line"><a id="l00515" name="l00515"></a><span class="lineno">  515</span>        }</div>
-<div class="line"><a id="l00516" name="l00516"></a><span class="lineno">  516</span> </div>
+<div class="line"><a id="l00516" name="l00516"></a><span class="lineno">  516</span></div>
 <div class="line"><a id="l00524" name="l00524"></a><span class="lineno">  524</span>        void Insert(const TKey&amp; key, TValue&amp;&amp; value) </div>
 <div class="line"><a id="l00525" name="l00525"></a><span class="lineno">  525</span>        requires std::movable&lt;TValue&gt; {</div>
 <div class="line"><a id="l00526" name="l00526"></a><span class="lineno">  526</span>            stdmap[key] = std::move(value);</div>
 <div class="line"><a id="l00527" name="l00527"></a><span class="lineno">  527</span>        }</div>
-<div class="line"><a id="l00528" name="l00528"></a><span class="lineno">  528</span> </div>
+<div class="line"><a id="l00528" name="l00528"></a><span class="lineno">  528</span></div>
 <div class="line"><a id="l00536" name="l00536"></a><span class="lineno">  536</span>        void InsertMove(const TKey&amp; key, TValue&amp;&amp; value) </div>
 <div class="line"><a id="l00537" name="l00537"></a><span class="lineno">  537</span>        requires std::movable&lt;TValue&gt; {</div>
 <div class="line"><a id="l00538" name="l00538"></a><span class="lineno">  538</span>            stdmap[key] = std::move(value);</div>
 <div class="line"><a id="l00539" name="l00539"></a><span class="lineno">  539</span>        }</div>
-<div class="line"><a id="l00540" name="l00540"></a><span class="lineno">  540</span> </div>
+<div class="line"><a id="l00540" name="l00540"></a><span class="lineno">  540</span></div>
 <div class="line"><a id="l00547" name="l00547"></a><span class="lineno">  547</span>        void Remove(const TKey&amp; key) {</div>
 <div class="line"><a id="l00548" name="l00548"></a><span class="lineno">  548</span>            stdmap.erase(key);</div>
 <div class="line"><a id="l00549" name="l00549"></a><span class="lineno">  549</span>        }</div>
@@ -482,37 +482,37 @@ $(function(){initNavTree('_hash_map_8hpp_source.html',''); initResizable(true); 
 <div class="line"><a id="l00551" name="l00551"></a><span class="lineno">  551</span>        bool HasValue(const TKey&amp; key) const {</div>
 <div class="line"><a id="l00552" name="l00552"></a><span class="lineno">  552</span>            return stdmap.contains(key);</div>
 <div class="line"><a id="l00553" name="l00553"></a><span class="lineno">  553</span>        }</div>
-<div class="line"><a id="l00554" name="l00554"></a><span class="lineno">  554</span> </div>
+<div class="line"><a id="l00554" name="l00554"></a><span class="lineno">  554</span></div>
 <div class="line"><a id="l00560" name="l00560"></a><span class="lineno">  560</span>        TValue&amp; Get(const TKey&amp; key) const {</div>
 <div class="line"><a id="l00561" name="l00561"></a><span class="lineno">  561</span>            return (TValue&amp;)(stdmap.at(key));</div>
 <div class="line"><a id="l00562" name="l00562"></a><span class="lineno">  562</span>        }</div>
-<div class="line"><a id="l00563" name="l00563"></a><span class="lineno">  563</span> </div>
+<div class="line"><a id="l00563" name="l00563"></a><span class="lineno">  563</span></div>
 <div class="line"><a id="l00569" name="l00569"></a><span class="lineno">  569</span>        TValue GetCopy(const TKey&amp; key) const {</div>
 <div class="line"><a id="l00570" name="l00570"></a><span class="lineno">  570</span>            return stdmap.at(key);</div>
 <div class="line"><a id="l00571" name="l00571"></a><span class="lineno">  571</span>        }</div>
-<div class="line"><a id="l00572" name="l00572"></a><span class="lineno">  572</span> </div>
+<div class="line"><a id="l00572" name="l00572"></a><span class="lineno">  572</span></div>
 <div class="line"><a id="l00576" name="l00576"></a><span class="lineno">  576</span>        bool ContainsKey(const TKey&amp; key) const {</div>
 <div class="line"><a id="l00577" name="l00577"></a><span class="lineno">  577</span>            return stdmap.contains(key);</div>
 <div class="line"><a id="l00578" name="l00578"></a><span class="lineno">  578</span>        }</div>
-<div class="line"><a id="l00579" name="l00579"></a><span class="lineno">  579</span> </div>
+<div class="line"><a id="l00579" name="l00579"></a><span class="lineno">  579</span></div>
 <div class="line"><a id="l00583" name="l00583"></a><span class="lineno">  583</span>        USize64 GetSize() const {</div>
 <div class="line"><a id="l00584" name="l00584"></a><span class="lineno">  584</span>            return stdmap.size();</div>
 <div class="line"><a id="l00585" name="l00585"></a><span class="lineno">  585</span>        }</div>
 <div class="line"><a id="l00586" name="l00586"></a><span class="lineno">  586</span> </div>
-<div class="line"><a id="l00587" name="l00587"></a><span class="lineno">  587</span> </div>
+<div class="line"><a id="l00587" name="l00587"></a><span class="lineno">  587</span></div>
 <div class="line"><a id="l00593" name="l00593"></a><span class="lineno">  593</span>        std::unordered_map&lt;TKey, TValue&gt;::const_iterator begin() const {</div>
 <div class="line"><a id="l00594" name="l00594"></a><span class="lineno">  594</span>            return stdmap.begin();</div>
 <div class="line"><a id="l00595" name="l00595"></a><span class="lineno">  595</span>        }</div>
 <div class="line"><a id="l00596" name="l00596"></a><span class="lineno">  596</span> </div>
 <div class="line"><a id="l00597" name="l00597"></a><span class="lineno">  597</span> </div>
-<div class="line"><a id="l00598" name="l00598"></a><span class="lineno">  598</span> </div>
+<div class="line"><a id="l00598" name="l00598"></a><span class="lineno">  598</span></div>
 <div class="line"><a id="l00602" name="l00602"></a><span class="lineno">  602</span>        std::unordered_map&lt;TKey, TValue&gt;::const_iterator end() const {</div>
 <div class="line"><a id="l00603" name="l00603"></a><span class="lineno">  603</span>            return stdmap.end();</div>
 <div class="line"><a id="l00604" name="l00604"></a><span class="lineno">  604</span>        }</div>
 <div class="line"><a id="l00610" name="l00610"></a><span class="lineno">  610</span>        std::unordered_map&lt;TKey, TValue&gt;::iterator begin() {</div>
 <div class="line"><a id="l00611" name="l00611"></a><span class="lineno">  611</span>            return stdmap.begin();</div>
 <div class="line"><a id="l00612" name="l00612"></a><span class="lineno">  612</span>        }</div>
-<div class="line"><a id="l00613" name="l00613"></a><span class="lineno">  613</span> </div>
+<div class="line"><a id="l00613" name="l00613"></a><span class="lineno">  613</span></div>
 <div class="line"><a id="l00617" name="l00617"></a><span class="lineno">  617</span>        std::unordered_map&lt;TKey, TValue&gt;::iterator end() {</div>
 <div class="line"><a id="l00618" name="l00618"></a><span class="lineno">  618</span>            return stdmap.end();</div>
 <div class="line"><a id="l00619" name="l00619"></a><span class="lineno">  619</span>        }</div>
@@ -541,7 +541,7 @@ $(function(){initNavTree('_hash_map_8hpp_source.html',''); initResizable(true); 
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_74389ed8173ad57b461b9d623a1f3867.html">Source</a></li><li class="navelem"><b>HashMap.hpp</b></li>
-    <li class="footer">Generado el Lunes, 23 de diciembre de 2024 13:15:56 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.12.0 </li>
+    <li class="footer">Generado el Miércoles, 16 de abril de 2025 17:13:04 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.13.2 </li>
   </ul>
 </div>
 </body>

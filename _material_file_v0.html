@@ -3,7 +3,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
-<meta name="generator" content="Doxygen 1.12.0"/>
+<meta name="generator" content="Doxygen 1.13.2"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
 <title>OSKengine: Archivo de descripción de material (revisión 0).</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
@@ -37,7 +37,7 @@
 </table>
 </div>
 <!-- end header part -->
-<!-- Generado por Doxygen 1.12.0 -->
+<!-- Generado por Doxygen 1.13.2 -->
 <script type="text/javascript">
 /* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
 var searchBox = new SearchBox("searchBox", "search/",'.html');
@@ -116,21 +116,21 @@ $(function(){initNavTree('_material_file_v0.html',''); initResizable(true); });
   </table>
   </dd>
 </dl>
-<dl class="section pre"><dt>Precondición</dt><dd><code>file_type</code> debe coincidir con uno de los tipos presentados en <a class="el" href="#materialtypeV0">Tipos de material.</a>. </dd>
+<dl class="section pre"><dt>Precondición</dt><dd><code class="param">file_type</code> debe coincidir con uno de los tipos presentados en <a class="el" href="#materialtypeV0">Tipos de material.</a>. </dd>
 <dd>
-<code>polygon_mode</code> debe coincidir con uno de los tipos presentados en <a class="el" href="#polygonmodeV0">Modo de renderizado de polígonos.</a>.</dd></dl>
+<code class="param">polygon_mode</code> debe coincidir con uno de los tipos presentados en <a class="el" href="#polygonmodeV0">Modo de renderizado de polígonos.</a>.</dd></dl>
 <p><br  />
- </p><dl class="section pre"><dt>Precondición</dt><dd><code>spec_ver</code> debe ser 0 para que se aplique esta especificación. </dd>
+ </p><dl class="section pre"><dt>Precondición</dt><dd><code class="param">spec_ver</code> debe ser 0 para que se aplique esta especificación. </dd>
 <dd>
-<code>name</code> debe ser único entre todos los materiales cargados en el motor en un momento dado. </dd>
+<code class="param">name</code> debe ser único entre todos los materiales cargados en el motor en un momento dado. </dd>
 <dd>
-El shader indicado por <code>shader_file</code> debe ser compatible con el layout definido en este archivo.</dd></dl>
+El shader indicado por <code class="param">shader_file</code> debe ser compatible con el layout definido en este archivo.</dd></dl>
 <p><br  />
- </p><dl class="section pre"><dt>Precondición</dt><dd>Si <code>vertex_type</code> está presente, entonces <code>file_type</code> debe ser "MATERIAL". </dd>
+ </p><dl class="section pre"><dt>Precondición</dt><dd>Si <code class="param">vertex_type</code> está presente, entonces <code class="param">file_type</code> debe ser "MATERIAL". </dd>
 <dd>
-<code>vertex_type</code> debe coincidir con el nombre del tipo de vértices en el código C++.</dd></dl>
+<code class="param">vertex_type</code> debe coincidir con el nombre del tipo de vértices en el código C++.</dd></dl>
 <p><br  />
- </p><dl class="section pre"><dt>Precondición</dt><dd>Si <code>polygon_mode</code> está presente, entonces <code>file_type</code> debe ser "MATERIAL".</dd></dl>
+ </p><dl class="section pre"><dt>Precondición</dt><dd>Si <code class="param">polygon_mode</code> está presente, entonces <code class="param">file_type</code> debe ser "MATERIAL".</dd></dl>
 <h3><a class="anchor" id="layoutv0"></a>
 Layout</h3>
 <dl class="params"><dt>Parámetros</dt><dd>
@@ -156,11 +156,11 @@ Push Constant</h3>
   </table>
   </dd>
 </dl>
-<dl class="section pre"><dt>Precondición</dt><dd><code>name</code> debe ser único entre todos los push constants de este material. </dd>
+<dl class="section pre"><dt>Precondición</dt><dd><code class="param">name</code> debe ser único entre todos los push constants de este material. </dd>
 <dd>
-<code>size</code> debe ser mayor que 0. </dd>
+<code class="param">size</code> debe ser mayor que 0. </dd>
 <dd>
-<code>size</code> debe cumplir con los límites de tamaño de push constant de la plataforma de destino.</dd></dl>
+<code class="param">size</code> debe cumplir con los límites de tamaño de push constant de la plataforma de destino.</dd></dl>
 <h3><a class="anchor" id="slotv0"></a>
 Slot</h3>
 <dl class="params"><dt>Parámetros</dt><dd>
@@ -170,7 +170,7 @@ Slot</h3>
   </table>
   </dd>
 </dl>
-<dl class="section pre"><dt>Precondición</dt><dd><code>name</code> debe ser único entre todos los slots de este material.</dd></dl>
+<dl class="section pre"><dt>Precondición</dt><dd><code class="param">name</code> debe ser único entre todos los slots de este material.</dd></dl>
 <h3><a class="anchor" id="bindingv0"></a>
 Binding</h3>
 <dl class="params"><dt>Parámetros</dt><dd>
@@ -180,15 +180,15 @@ Binding</h3>
   </table>
   </dd>
 </dl>
-<dl class="section pre"><dt>Precondición</dt><dd><code>name</code> debe ser único entre todos los bindings del slot al que pertenece. </dd>
+<dl class="section pre"><dt>Precondición</dt><dd><code class="param">name</code> debe ser único entre todos los bindings del slot al que pertenece. </dd>
 <dd>
 El tipo de binding debe ser SAMPLER, CUBEMAP o UNIFORM BUFFER. </dd>
 <dd>
-Si el tipo de binding es SAMPLER, <code>type</code> debe ser "IMAGE". </dd>
+Si el tipo de binding es SAMPLER, <code class="param">type</code> debe ser "IMAGE". </dd>
 <dd>
-Si el tipo de binding es CUBEMAP, <code>type</code> debe ser "CUBEMAP". </dd>
+Si el tipo de binding es CUBEMAP, <code class="param">type</code> debe ser "CUBEMAP". </dd>
 <dd>
-Si el tipo de binding es UNIFORM BUFFER, <code>type</code> debe ser "UNIFORM".</dd></dl>
+Si el tipo de binding es UNIFORM BUFFER, <code class="param">type</code> debe ser "UNIFORM".</dd></dl>
 <h3><a class="anchor" id="configv0"></a>
 Configuración adicional</h3>
 <dl class="params"><dt>Parámetros</dt><dd>
@@ -199,15 +199,15 @@ Configuración adicional</h3>
   </table>
   </dd>
 </dl>
-<dl class="section pre"><dt>Precondición</dt><dd>Si <code>depth_testing</code> está presente, entonces el tipo de material debe ser "MATERIAL". </dd>
+<dl class="section pre"><dt>Precondición</dt><dd>Si <code class="param">depth_testing</code> está presente, entonces el tipo de material debe ser "MATERIAL". </dd>
 <dd>
-Si <code>depth_testing</code> está presente, debe coincidir con uno de los valores descritos en <a class="el" href="#depthtestingV0">Modo de depth testing.</a>.</dd></dl>
+Si <code class="param">depth_testing</code> está presente, debe coincidir con uno de los valores descritos en <a class="el" href="#depthtestingV0">Modo de depth testing.</a>.</dd></dl>
 <p><br  />
- </p><dl class="section pre"><dt>Precondición</dt><dd>Si <code>cull_mode</code> está presente, entonces el tipo de material debe ser "MATERIAL". </dd>
+ </p><dl class="section pre"><dt>Precondición</dt><dd>Si <code class="param">cull_mode</code> está presente, entonces el tipo de material debe ser "MATERIAL". </dd>
 <dd>
-Si <code>cull_mode</code> está presente, debe coincidir con uno de los valores descritos en <a class="el" href="#cullingV0">Modo de culling.</a>.</dd></dl>
+Si <code class="param">cull_mode</code> está presente, debe coincidir con uno de los valores descritos en <a class="el" href="#cullingV0">Modo de culling.</a>.</dd></dl>
 <p><br  />
- </p><dl class="section pre"><dt>Precondición</dt><dd>Si <code>disable_alpha_blending</code> está presente, entonces el tipo de material debe ser "MATERIAL".</dd></dl>
+ </p><dl class="section pre"><dt>Precondición</dt><dd>Si <code class="param">disable_alpha_blending</code> está presente, entonces el tipo de material debe ser "MATERIAL".</dd></dl>
 <h3><a class="anchor" id="materialtypeV0"></a>
 Tipos de material.</h3>
 <p>Existen tres tipos de material, dependiendo del tipo de pipeline y shaders que aceptan:</p><ul>
@@ -245,7 +245,7 @@ Modo de culling.</h3>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="jsonfiles.html">Archivos de descripción de recursos.</a></li><li class="navelem"><a class="el" href="_material_file.html">Archivo de descripción de  material.</a></li>
-    <li class="footer">Generado el Lunes, 23 de diciembre de 2024 13:15:56 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.12.0 </li>
+    <li class="footer">Generado el Miércoles, 16 de abril de 2025 17:13:05 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.13.2 </li>
   </ul>
 </div>
 </body>

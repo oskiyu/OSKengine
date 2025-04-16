@@ -3,7 +3,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
-<meta name="generator" content="Doxygen 1.12.0"/>
+<meta name="generator" content="Doxygen 1.13.2"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
 <title>OSKengine: Archivo de código fuente Source/Math.h</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
@@ -37,7 +37,7 @@
 </table>
 </div>
 <!-- end header part -->
-<!-- Generado por Doxygen 1.12.0 -->
+<!-- Generado por Doxygen 1.13.2 -->
 <script type="text/javascript">
 /* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
 var searchBox = new SearchBox("searchBox", "search/",'.html');
@@ -116,11 +116,11 @@ $(function(){initNavTree('_math_8h_source.html',''); initResizable(true); });
 <div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span> </div>
 <div class="foldopen" id="foldopen00014" data-start="{" data-end="}">
 <div class="line"><a id="l00014" name="l00014"></a><span class="lineno"><a class="line" href="namespace_o_s_k_1_1_m_a_t_h.html">   14</a></span><span class="keyword">namespace </span><a class="code hl_namespace" href="namespace_o_s_k_1_1_m_a_t_h.html">OSK::MATH</a> {</div>
-<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span> </div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span></div>
 <div class="line"><a id="l00023" name="l00023"></a><span class="lineno"><a class="line" href="concept_o_s_k_1_1_m_a_t_h_1_1_is_numeric.html">   23</a></span>    <span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt; <span class="keyword">concept </span><a class="code hl_concept" href="concept_o_s_k_1_1_m_a_t_h_1_1_is_numeric.html">IsNumeric</a> = std::is_floating_point_v&lt;T&gt; &amp;&amp; std::is_integral_v&lt;T&gt;;</div>
-<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span> </div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span></div>
 <div class="line"><a id="l00031" name="l00031"></a><span class="lineno"><a class="line" href="concept_o_s_k_1_1_m_a_t_h_1_1_is_integer.html">   31</a></span>    <span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt; <span class="keyword">concept </span><a class="code hl_concept" href="concept_o_s_k_1_1_m_a_t_h_1_1_is_integer.html">IsInteger</a> = std::is_integral_v&lt;T&gt;;</div>
-<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span> </div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span></div>
 <div class="foldopen" id="foldopen00042" data-start="{" data-end="}">
 <div class="line"><a id="l00042" name="l00042"></a><span class="lineno"><a class="line" href="namespace_o_s_k_1_1_m_a_t_h.html#ac61609678bfab779b61fcdc1344be507">   42</a></span>    <span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt; <span class="keyword">inline</span> T <a class="code hl_function" href="namespace_o_s_k_1_1_m_a_t_h.html#ac61609678bfab779b61fcdc1344be507">PrimerMultiploSuperior</a>(T numero, T multiplo) {</div>
 <div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>        T resto = numero % multiplo;</div>
@@ -130,7 +130,7 @@ $(function(){initNavTree('_math_8h_source.html',''); initResizable(true); });
 <div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>        <span class="keywordflow">return</span> (numero / multiplo + 1) * multiplo;</div>
 <div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>    }</div>
 </div>
-<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span> </div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span></div>
 <div class="foldopen" id="foldopen00059" data-start="{" data-end="}">
 <div class="line"><a id="l00059" name="l00059"></a><span class="lineno"><a class="line" href="namespace_o_s_k_1_1_m_a_t_h.html#a1325a63ec8bc49a286c72870cd6b9294">   59</a></span>    <span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt; T <a class="code hl_function" href="namespace_o_s_k_1_1_m_a_t_h.html#a1325a63ec8bc49a286c72870cd6b9294">PrimerMultiploInferior</a>(T numero, T multiplo) {</div>
 <div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>        T resto = numero % multiplo;</div>
@@ -140,13 +140,13 @@ $(function(){initNavTree('_math_8h_source.html',''); initResizable(true); });
 <div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>        <span class="keywordflow">return</span> (numero / multiplo - 1) * multiplo;</div>
 <div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>    }</div>
 </div>
-<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span> </div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span></div>
 <div class="foldopen" id="foldopen00080" data-start="{" data-end="}">
 <div class="line"><a id="l00080" name="l00080"></a><span class="lineno"><a class="line" href="namespace_o_s_k_1_1_m_a_t_h.html#a59ecac3bc9181efeef2f758f583bdb65">   80</a></span>    <span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt; <span class="keyword">inline</span> T <a class="code hl_function" href="namespace_o_s_k_1_1_m_a_t_h.html#a59ecac3bc9181efeef2f758f583bdb65">LinearInterpolation_Fast</a>(<span class="keyword">const</span> T&amp; a, <span class="keyword">const</span> T&amp; b, <span class="keywordtype">float</span> factor) {</div>
 <div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span>        <span class="keywordflow">return</span> (a * (1.0f - factor)) + (b * factor);</div>
 <div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span>    }</div>
 </div>
-<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span> </div>
+<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span></div>
 <div class="foldopen" id="foldopen00093" data-start="{" data-end="}">
 <div class="line"><a id="l00093" name="l00093"></a><span class="lineno"><a class="line" href="namespace_o_s_k_1_1_m_a_t_h.html#a300206fba642c521bb413e8d129821ee">   93</a></span>    <span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt; <span class="keyword">inline</span> T <a class="code hl_function" href="namespace_o_s_k_1_1_m_a_t_h.html#a300206fba642c521bb413e8d129821ee">LinearInterpolation</a>(<span class="keyword">const</span> T&amp; a, <span class="keyword">const</span> T&amp; b, <span class="keywordtype">float</span> factor) {</div>
 <div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span>        <span class="keywordflow">if</span> (factor &gt;= 1.0f)</div>
@@ -158,7 +158,7 @@ $(function(){initNavTree('_math_8h_source.html',''); initResizable(true); });
 <div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span>        <span class="keywordflow">return</span> (a * (1.0f - factor)) + (b * factor);</div>
 <div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span>    }</div>
 </div>
-<div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span> </div>
+<div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span></div>
 <div class="foldopen" id="foldopen00112" data-start="{" data-end="}">
 <div class="line"><a id="l00112" name="l00112"></a><span class="lineno"><a class="line" href="namespace_o_s_k_1_1_m_a_t_h.html#aeb9e6dd7675ac3048479b9a7b1525b4c">  112</a></span>    <span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt; <span class="keyword">inline</span> T <a class="code hl_function" href="namespace_o_s_k_1_1_m_a_t_h.html#aeb9e6dd7675ac3048479b9a7b1525b4c">Clamp</a>(<span class="keyword">const</span> T&amp; value, <span class="keyword">const</span> T&amp; min, <span class="keyword">const</span> T&amp; max) {</div>
 <div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span>        <span class="keywordflow">if</span> (value &gt; max)</div>
@@ -170,7 +170,7 @@ $(function(){initNavTree('_math_8h_source.html',''); initResizable(true); });
 <div class="line"><a id="l00119" name="l00119"></a><span class="lineno">  119</span>        <span class="keywordflow">return</span> value;</div>
 <div class="line"><a id="l00120" name="l00120"></a><span class="lineno">  120</span>    }</div>
 </div>
-<div class="line"><a id="l00121" name="l00121"></a><span class="lineno">  121</span> </div>
+<div class="line"><a id="l00121" name="l00121"></a><span class="lineno">  121</span></div>
 <div class="line"><a id="l00128" name="l00128"></a><span class="lineno">  128</span>    <span class="keyword">static</span> <span class="keyword">inline</span> glm::mat4 GetMatrixOffset(<span class="keyword">const</span> glm::mat4&amp; first, <span class="keyword">const</span> glm::mat4&amp; second) {</div>
 <div class="line"><a id="l00129" name="l00129"></a><span class="lineno">  129</span>        <span class="keywordflow">return</span> glm::inverse(first) - second;</div>
 <div class="line"><a id="l00130" name="l00130"></a><span class="lineno">  130</span>    }</div>
@@ -555,7 +555,7 @@ $(function(){initNavTree('_math_8h_source.html',''); initResizable(true); });
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_74389ed8173ad57b461b9d623a1f3867.html">Source</a></li><li class="navelem"><b>Math.h</b></li>
-    <li class="footer">Generado el Lunes, 23 de diciembre de 2024 13:15:56 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.12.0 </li>
+    <li class="footer">Generado el Miércoles, 16 de abril de 2025 17:13:05 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.13.2 </li>
   </ul>
 </div>
 </body>

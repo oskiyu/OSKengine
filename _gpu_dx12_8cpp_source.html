@@ -3,7 +3,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
-<meta name="generator" content="Doxygen 1.12.0"/>
+<meta name="generator" content="Doxygen 1.13.2"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
 <title>OSKengine: Archivo de código fuente Source/GpuDx12.cpp</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
@@ -37,7 +37,7 @@
 </table>
 </div>
 <!-- end header part -->
-<!-- Generado por Doxygen 1.12.0 -->
+<!-- Generado por Doxygen 1.13.2 -->
 <script type="text/javascript">
 /* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
 var searchBox = new SearchBox("searchBox", "search/",'.html');
@@ -135,33 +135,33 @@ $(function(){initNavTree('_gpu_dx12_8cpp_source.html',''); initResizable(true); 
 <div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>    <span class="keywordflow">return</span> {};</div>
 <div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>}</div>
 <div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span> </div>
-<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span><a class="code hl_class" href="class_o_s_k_1_1_owned_ptr.html">OwnedPtr&lt;ICommandPool&gt;</a> GpuDx12::CreateGraphicsCommandPool() {</div>
-<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>    <span class="keywordflow">return</span> <span class="keyword">new</span> CommandPoolDx12(</div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span><a class="code hl_class" href="class_o_s_k_1_1_unique_ptr.html">UniquePtr&lt;ICommandPool&gt;</a> GpuDx12::CreateGraphicsCommandPool() {</div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>    <span class="keywordflow">return</span> <a class="code hl_function" href="namespace_o_s_k.html#a9eb9f9297be2a8044dda7480321e6661">MakeUnique&lt;CommandPoolDx12&gt;</a>(</div>
 <div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>        <span class="keyword">this</span>,</div>
-<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>        CommandsSupport::COMPUTE |</div>
-<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>        CommandsSupport::GRAPHICS |</div>
-<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>        CommandsSupport::PRESENTATION |</div>
-<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>        CommandsSupport::TRANSFER,</div>
-<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>        GpuQueueType::MAIN);</div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>        <a class="code hl_enumvalue" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a19534f214690bcfc89ac53cc89681ac6aac404d7ce6ca5862e9b8a2641fbafd90">CommandsSupport::COMPUTE</a> |</div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>        <a class="code hl_enumvalue" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a19534f214690bcfc89ac53cc89681ac6a6f49448c79d7d58c6e60cf7129b84d1c">CommandsSupport::GRAPHICS</a> |</div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>        <a class="code hl_enumvalue" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a19534f214690bcfc89ac53cc89681ac6a740819a7dc6b0b1a8a7fa0c871d9b878">CommandsSupport::PRESENTATION</a> |</div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>        <a class="code hl_enumvalue" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a19534f214690bcfc89ac53cc89681ac6aeb5ddb3b6096fb90ff720d9c3e2a6628">CommandsSupport::TRANSFER</a>,</div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>        <a class="code hl_enumvalue" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#af480a36d7bec77341500daf8dda20f1da186495f7da296bf880df3a22a492b378">GpuQueueType::MAIN</a>);</div>
 <div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>}</div>
 <div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span> </div>
-<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span><a class="code hl_class" href="class_o_s_k_1_1_owned_ptr.html">OwnedPtr&lt;ICommandPool&gt;</a> GpuDx12::CreateComputeCommandPool() {</div>
-<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>    <span class="keywordflow">return</span> <span class="keyword">new</span> CommandPoolDx12(</div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span><a class="code hl_class" href="class_o_s_k_1_1_unique_ptr.html">UniquePtr&lt;ICommandPool&gt;</a> GpuDx12::CreateComputeCommandPool() {</div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>    <span class="keywordflow">return</span> <a class="code hl_function" href="namespace_o_s_k.html#a9eb9f9297be2a8044dda7480321e6661">MakeUnique&lt;CommandPoolDx12&gt;</a>(</div>
 <div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>        <span class="keyword">this</span>,</div>
-<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>        CommandsSupport::COMPUTE |</div>
-<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>        CommandsSupport::GRAPHICS |</div>
-<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>        CommandsSupport::PRESENTATION |</div>
-<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>        CommandsSupport::TRANSFER,</div>
-<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>        GpuQueueType::MAIN);</div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>        <a class="code hl_enumvalue" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a19534f214690bcfc89ac53cc89681ac6aac404d7ce6ca5862e9b8a2641fbafd90">CommandsSupport::COMPUTE</a> |</div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>        <a class="code hl_enumvalue" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a19534f214690bcfc89ac53cc89681ac6a6f49448c79d7d58c6e60cf7129b84d1c">CommandsSupport::GRAPHICS</a> |</div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>        <a class="code hl_enumvalue" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a19534f214690bcfc89ac53cc89681ac6a740819a7dc6b0b1a8a7fa0c871d9b878">CommandsSupport::PRESENTATION</a> |</div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>        <a class="code hl_enumvalue" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a19534f214690bcfc89ac53cc89681ac6aeb5ddb3b6096fb90ff720d9c3e2a6628">CommandsSupport::TRANSFER</a>,</div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>        <a class="code hl_enumvalue" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#af480a36d7bec77341500daf8dda20f1da186495f7da296bf880df3a22a492b378">GpuQueueType::MAIN</a>);</div>
 <div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>}</div>
 <div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span> </div>
-<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>std::optional&lt;OwnedPtr&lt;ICommandPool&gt;&gt; GpuDx12::CreateTransferOnlyCommandPool() {</div>
-<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>    <span class="keywordflow">return</span> <span class="keyword">new</span> CommandPoolDx12(<span class="keyword">this</span>, CommandsSupport::TRANSFER, GpuQueueType::ASYNC_TRANSFER);</div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>std::optional&lt;UniquePtr&lt;ICommandPool&gt;&gt; GpuDx12::CreateTransferOnlyCommandPool() {</div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>    <span class="keywordflow">return</span> <a class="code hl_function" href="namespace_o_s_k.html#a9eb9f9297be2a8044dda7480321e6661">MakeUnique&lt;CommandPoolDx12&gt;</a>(<span class="keyword">this</span>, <a class="code hl_enumvalue" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a19534f214690bcfc89ac53cc89681ac6aeb5ddb3b6096fb90ff720d9c3e2a6628">CommandsSupport::TRANSFER</a>, <a class="code hl_enumvalue" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#af480a36d7bec77341500daf8dda20f1da4e02651cb8ef679ba30902a8becdff2d">GpuQueueType::ASYNC_TRANSFER</a>);</div>
 <div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>}</div>
 <div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span> </div>
-<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span><a class="code hl_class" href="class_o_s_k_1_1_owned_ptr.html">OwnedPtr&lt;IGpuImageSampler&gt;</a> GpuDx12::CreateSampler(<span class="keyword">const</span> <a class="code hl_struct" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_sampler_desc.html">GpuImageSamplerDesc</a>&amp; info)<span class="keyword"> const </span>{</div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span><a class="code hl_class" href="class_o_s_k_1_1_unique_ptr.html">UniquePtr&lt;IGpuImageSampler&gt;</a> GpuDx12::CreateSampler(<span class="keyword">const</span> <a class="code hl_struct" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_sampler_desc.html">GpuImageSamplerDesc</a>&amp; info)<span class="keyword"> const </span>{</div>
 <div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>    OSK_ASSERT(<span class="keyword">false</span>, <a class="code hl_class" href="class_o_s_k_1_1_not_implemented_exception.html">NotImplementedException</a>());</div>
-<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>    <span class="keywordflow">return</span> <span class="keyword">nullptr</span>;</div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>    <span class="keywordflow">return</span> <a class="code hl_class" href="class_o_s_k_1_1_unique_ptr.html">UniquePtr&lt;IGpuImageSampler&gt;</a>();</div>
 <div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>}</div>
 <div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span> </div>
 <div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>ComPtr&lt;IDXGIAdapter4&gt; GpuDx12::ChooseDeviceAdapter(ComPtr&lt;IDXGIFactory4&gt; factory) {</div>
@@ -213,7 +213,7 @@ $(function(){initNavTree('_gpu_dx12_8cpp_source.html',''); initResizable(true); 
 <div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span>            <span class="comment">// infoQueue1-&gt;RegisterMessageCallback(RendererDx12::DebugCallback, D3D12_MESSAGE_CALLBACK_FLAG_NONE, this, &amp;cookie);</span></div>
 <div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span>        }</div>
 <div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span>        <span class="keywordflow">else</span> {</div>
-<div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span>            Engine::GetLogger()-&gt;InfoLog(<span class="stringliteral">&quot;NO se ha podido establecer el callback de mensajes de log.&quot;</span>);</div>
+<div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span>            <a class="code hl_function" href="class_o_s_k_1_1_engine.html#ac39b79a3e665381630f6c710f3772a2b">Engine::GetLogger</a>()-&gt;InfoLog(<span class="stringliteral">&quot;NO se ha podido establecer el callback de mensajes de log.&quot;</span>);</div>
 <div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span>        }</div>
 <div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span>    }</div>
 <div class="line"><a id="l00116" name="l00116"></a><span class="lineno">  116</span>}</div>
@@ -227,10 +227,18 @@ $(function(){initNavTree('_gpu_dx12_8cpp_source.html',''); initResizable(true); 
 <div class="line"><a id="l00124" name="l00124"></a><span class="lineno">  124</span>}</div>
 <div class="line"><a id="l00125" name="l00125"></a><span class="lineno">  125</span> </div>
 <div class="line"><a id="l00126" name="l00126"></a><span class="lineno">  126</span><span class="preprocessor">#endif</span></div>
+<div class="ttc" id="aclass_o_s_k_1_1_engine_html_ac39b79a3e665381630f6c710f3772a2b"><div class="ttname"><a href="class_o_s_k_1_1_engine.html#ac39b79a3e665381630f6c710f3772a2b">OSK::Engine::GetLogger</a></div><div class="ttdeci">static IO::Logger * GetLogger()</div><div class="ttdef"><b>Definition</b> <a href="_o_s_kengine_8cpp_source.html#l00242">OSKengine.cpp:242</a></div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_not_implemented_exception_html"><div class="ttname"><a href="class_o_s_k_1_1_not_implemented_exception.html">OSK::NotImplementedException</a></div><div class="ttdoc">Excepción que se lanza cuando se trata de ejecutar una funcionalidad que aún no se ha desarrollado.</div><div class="ttdef"><b>Definition</b> <a href="_not_implemented_exception_8h_source.html#l00008">NotImplementedException.h:8</a></div></div>
-<div class="ttc" id="aclass_o_s_k_1_1_owned_ptr_html"><div class="ttname"><a href="class_o_s_k_1_1_owned_ptr.html">OSK::OwnedPtr</a></div><div class="ttdoc">Es dueño de un puntero.</div><div class="ttdef"><b>Definition</b> <a href="_owned_ptr_8h_source.html#l00017">OwnedPtr.h:17</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_unique_ptr_html"><div class="ttname"><a href="class_o_s_k_1_1_unique_ptr.html">OSK::UniquePtr</a></div><div class="ttdoc">Estructura que es dueña de un objeto almacenado en heap. Al destruirse el UniquePtr,...</div><div class="ttdef"><b>Definition</b> <a href="_unique_ptr_8hpp_source.html#l00026">UniquePtr.hpp:26</a></div></div>
 <div class="ttc" id="anamespace_o_s_k_1_1_g_r_a_p_h_i_c_s_html"><div class="ttname"><a href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html">OSK::GRAPHICS</a></div><div class="ttdef"><b>Definition</b> <a href="_acceleration_structures_exceptions_8h_source.html#l00005">AccelerationStructuresExceptions.h:5</a></div></div>
+<div class="ttc" id="anamespace_o_s_k_1_1_g_r_a_p_h_i_c_s_html_a19534f214690bcfc89ac53cc89681ac6a6f49448c79d7d58c6e60cf7129b84d1c"><div class="ttname"><a href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a19534f214690bcfc89ac53cc89681ac6a6f49448c79d7d58c6e60cf7129b84d1c">OSK::GRAPHICS::CommandsSupport::GRAPHICS</a></div><div class="ttdeci">@ GRAPHICS</div><div class="ttdoc">Comandos de renderizado.</div><div class="ttdef"><b>Definition</b> <a href="_commands_support_8h_source.html#l00013">CommandsSupport.h:13</a></div></div>
+<div class="ttc" id="anamespace_o_s_k_1_1_g_r_a_p_h_i_c_s_html_a19534f214690bcfc89ac53cc89681ac6a740819a7dc6b0b1a8a7fa0c871d9b878"><div class="ttname"><a href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a19534f214690bcfc89ac53cc89681ac6a740819a7dc6b0b1a8a7fa0c871d9b878">OSK::GRAPHICS::CommandsSupport::PRESENTATION</a></div><div class="ttdeci">@ PRESENTATION</div><div class="ttdoc">Comandos de presentación a pantalla.</div><div class="ttdef"><b>Definition</b> <a href="_commands_support_8h_source.html#l00022">CommandsSupport.h:22</a></div></div>
+<div class="ttc" id="anamespace_o_s_k_1_1_g_r_a_p_h_i_c_s_html_a19534f214690bcfc89ac53cc89681ac6aac404d7ce6ca5862e9b8a2641fbafd90"><div class="ttname"><a href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a19534f214690bcfc89ac53cc89681ac6aac404d7ce6ca5862e9b8a2641fbafd90">OSK::GRAPHICS::CommandsSupport::COMPUTE</a></div><div class="ttdeci">@ COMPUTE</div><div class="ttdoc">Comandos de computación genérica.</div><div class="ttdef"><b>Definition</b> <a href="_commands_support_8h_source.html#l00016">CommandsSupport.h:16</a></div></div>
+<div class="ttc" id="anamespace_o_s_k_1_1_g_r_a_p_h_i_c_s_html_a19534f214690bcfc89ac53cc89681ac6aeb5ddb3b6096fb90ff720d9c3e2a6628"><div class="ttname"><a href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a19534f214690bcfc89ac53cc89681ac6aeb5ddb3b6096fb90ff720d9c3e2a6628">OSK::GRAPHICS::CommandsSupport::TRANSFER</a></div><div class="ttdeci">@ TRANSFER</div><div class="ttdoc">Comandos de transferencia.</div><div class="ttdef"><b>Definition</b> <a href="_commands_support_8h_source.html#l00019">CommandsSupport.h:19</a></div></div>
+<div class="ttc" id="anamespace_o_s_k_1_1_g_r_a_p_h_i_c_s_html_af480a36d7bec77341500daf8dda20f1da186495f7da296bf880df3a22a492b378"><div class="ttname"><a href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#af480a36d7bec77341500daf8dda20f1da186495f7da296bf880df3a22a492b378">OSK::GRAPHICS::GpuQueueType::MAIN</a></div><div class="ttdeci">@ MAIN</div><div class="ttdoc">Cola principal de renderizado. Soporta:</div><div class="ttdef"><b>Definition</b> <a href="_gpu_queue_types_8h_source.html#l00014">GpuQueueTypes.h:14</a></div></div>
+<div class="ttc" id="anamespace_o_s_k_1_1_g_r_a_p_h_i_c_s_html_af480a36d7bec77341500daf8dda20f1da4e02651cb8ef679ba30902a8becdff2d"><div class="ttname"><a href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#af480a36d7bec77341500daf8dda20f1da4e02651cb8ef679ba30902a8becdff2d">OSK::GRAPHICS::GpuQueueType::ASYNC_TRANSFER</a></div><div class="ttdeci">@ ASYNC_TRANSFER</div><div class="ttdoc">Cola de transferencia asíncrona. Soporta únicamente CommandsSupport::TRANSFER.</div><div class="ttdef"><b>Definition</b> <a href="_gpu_queue_types_8h_source.html#l00025">GpuQueueTypes.h:25</a></div></div>
 <div class="ttc" id="anamespace_o_s_k_html"><div class="ttname"><a href="namespace_o_s_k.html">OSK</a></div><div class="ttdef"><b>Definition</b> <a href="_acceleration_structures_exceptions_8h_source.html#l00005">AccelerationStructuresExceptions.h:5</a></div></div>
+<div class="ttc" id="anamespace_o_s_k_html_a9eb9f9297be2a8044dda7480321e6661"><div class="ttname"><a href="namespace_o_s_k.html#a9eb9f9297be2a8044dda7480321e6661">OSK::MakeUnique</a></div><div class="ttdeci">UniquePtr&lt; T &gt; MakeUnique(TArgs &amp;&amp;... args)</div><div class="ttdef"><b>Definition</b> <a href="_unique_ptr_8hpp_source.html#l00182">UniquePtr.hpp:182</a></div></div>
 <div class="ttc" id="anamespace_o_s_k_html_acf682b0e024acc36806435295480d2ed"><div class="ttname"><a href="namespace_o_s_k.html#acf682b0e024acc36806435295480d2ed">OSK::USize32</a></div><div class="ttdeci">uint32_t USize32</div><div class="ttdoc">Tamaño, almacenado en un unsigned int de 32 bits.</div><div class="ttdef"><b>Definition</b> <a href="_numeric_types_8h_source.html#l00015">NumericTypes.h:15</a></div></div>
 <div class="ttc" id="astruct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_sampler_desc_html"><div class="ttname"><a href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_sampler_desc.html">OSK::GRAPHICS::GpuImageSamplerDesc</a></div><div class="ttdoc">Establece propiedades básicas sobre el acceso a la imagen.</div><div class="ttdef"><b>Definition</b> <a href="_gpu_image_sampler_desc_8h_source.html#l00073">GpuImageSamplerDesc.h:73</a></div></div>
 <div class="ttc" id="astruct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_memory_usage_info_html"><div class="ttname"><a href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_memory_usage_info.html">OSK::GRAPHICS::GpuMemoryUsageInfo</a></div><div class="ttdoc">Información general sobre el uso de memoria GPU de la aplicación. Puede usarse para saber cuánto espa...</div><div class="ttdef"><b>Definition</b> <a href="_gpu_memory_usage_info_8h_source.html#l00011">GpuMemoryUsageInfo.h:11</a></div></div>
@@ -240,7 +248,7 @@ $(function(){initNavTree('_gpu_dx12_8cpp_source.html',''); initResizable(true); 
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_74389ed8173ad57b461b9d623a1f3867.html">Source</a></li><li class="navelem"><b>GpuDx12.cpp</b></li>
-    <li class="footer">Generado el Lunes, 23 de diciembre de 2024 13:15:56 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.12.0 </li>
+    <li class="footer">Generado el Miércoles, 16 de abril de 2025 17:13:04 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.13.2 </li>
   </ul>
 </div>
 </body>

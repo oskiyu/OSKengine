@@ -31,5 +31,5 @@ var searchData=
   ['exit_28',['Exit',['../class_o_s_k_1_1_i_game.html#ae8194150599c2c8d05a49efe80fe1b47',1,'OSK::IGame']]],
   ['exitcommand_29',['ExitCommand',['../class_o_s_k_1_1_exit_command.html#a3234cbb72757dc6d0237d9e0dac00544',1,'OSK::ExitCommand']]],
   ['expand_30',['Expand',['../class_o_s_k_1_1_u_i_1_1_collapsible_wrapper.html#a5bdeb78aac74515c00fd1ff5ab81ed20',1,'OSK::UI::CollapsibleWrapper']]],
-  ['explicit_31',['explicit',['../class_o_s_k_1_1_static_array.html#aafbbf28bcad537c77a8df2f03abad097',1,'OSK::StaticArray']]]
+  ['explicit_31',['explicit',['../class_o_s_k_1_1_static_array.html#aafbbf28bcad537c77a8df2f03abad097',1,'OSK::StaticArray::explicit()'],['../class_o_s_k_1_1_unique_ptr.html#a909ead3f94eb43a07d8975655cdb531b',1,'OSK::UniquePtr::explicit()']]]
 ];

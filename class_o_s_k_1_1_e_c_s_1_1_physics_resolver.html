@@ -3,7 +3,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
-<meta name="generator" content="Doxygen 1.12.0"/>
+<meta name="generator" content="Doxygen 1.13.2"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
 <title>OSKengine: Referencia de la clase OSK::ECS::PhysicsResolver</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
@@ -37,7 +37,7 @@
 </table>
 </div>
 <!-- end header part -->
-<!-- Generado por Doxygen 1.12.0 -->
+<!-- Generado por Doxygen 1.13.2 -->
 <script type="text/javascript">
 /* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
 var searchBox = new SearchBox("searchBox", "search/",'.html');
@@ -102,7 +102,7 @@ $(function(){initNavTree('class_o_s_k_1_1_e_c_s_1_1_physics_resolver.html',''); 
 <a href="#pub-methods">Métodos públicos</a> &#124;
 <a href="#pro-methods">Métodos protegidos</a> &#124;
 <a href="class_o_s_k_1_1_e_c_s_1_1_physics_resolver-members.html">Lista de todos los miembros</a>  </div>
-  <div class="headertitle"><div class="title">Referencia de la clase OSK::ECS::PhysicsResolver<span class="mlabels"><span class="mlabel">final</span><span class="mlabel">abstract</span></span></div></div>
+  <div class="headertitle"><div class="title">Referencia de la clase OSK::ECS::PhysicsResolver<span class="mlabels"><span class="mlabel final">final</span><span class="mlabel abstract">abstract</span></span></div></div>
 </div><!--header-->
 <div class="contents">
 
@@ -140,14 +140,12 @@ Métodos públicos</h2></td></tr>
 <tr class="separator:a2239551fafeab2592dc35cddc17305d3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6f9009164fc90548c0979358232d2de4" id="r_a6f9009164fc90548c0979358232d2de4"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="struct_o_s_k_1_1_e_c_s_1_1_system_dependencies.html">SystemDependencies</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_e_c_s_1_1_i_system.html#a6f9009164fc90548c0979358232d2de4">GetDependencies</a> () const</td></tr>
 <tr class="separator:a6f9009164fc90548c0979358232d2de4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9ac4b0e11cb52d7222ef76e675cb9cc5" id="r_a9ac4b0e11cb52d7222ef76e675cb9cc5"><td class="memItemLeft" align="right" valign="top">virtual std::string_view&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_e_c_s_1_1_i_system.html#a9ac4b0e11cb52d7222ef76e675cb9cc5">GetName</a> () const =0</td></tr>
+<tr class="memitem:a9ac4b0e11cb52d7222ef76e675cb9cc5" id="r_a9ac4b0e11cb52d7222ef76e675cb9cc5"><td class="memItemLeft" align="right" valign="top">virtual std::string_view&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_e_c_s_1_1_i_system.html#a9ac4b0e11cb52d7222ef76e675cb9cc5">GetName</a> () const=0</td></tr>
 <tr class="separator:a9ac4b0e11cb52d7222ef76e675cb9cc5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pro-methods" name="pro-methods"></a>
 Métodos protegidos</h2></td></tr>
-<tr class="memitem:a2395e5a893e21a8dfb3a9a1fd33faae2" id="r_a2395e5a893e21a8dfb3a9a1fd33faae2"><td class="memTemplParams" colspan="2">template&lt;typename TEvent &gt; <br />
-requires IsEcsEvent&lt;TEvent&gt;</td></tr>
-<tr class="memitem:a2395e5a893e21a8dfb3a9a1fd33faae2"><td class="memTemplItemLeft" align="right" valign="top">std::span&lt; const TEvent &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_e_c_s_1_1_i_consumer_system.html#a2395e5a893e21a8dfb3a9a1fd33faae2">BuildSpan</a> (const void *firstEvent, <a class="el" href="namespace_o_s_k.html#a83ff197aaa32126d84ad65f1d6d5a3b5">USize64</a> numEvents)</td></tr>
+<tr class="memitem:a2395e5a893e21a8dfb3a9a1fd33faae2" id="r_a2395e5a893e21a8dfb3a9a1fd33faae2"><td class="memItemLeft" align="right" valign="top">std::span&lt; const <a class="el" href="struct_o_s_k_1_1_e_c_s_1_1_collision_event.html">CollisionEvent</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_e_c_s_1_1_i_consumer_system.html#a2395e5a893e21a8dfb3a9a1fd33faae2">BuildSpan</a> (const void *firstEvent, <a class="el" href="namespace_o_s_k.html#a83ff197aaa32126d84ad65f1d6d5a3b5">USize64</a> numEvents)</td></tr>
 <tr class="separator:a2395e5a893e21a8dfb3a9a1fd33faae2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Descripción detallada</h2>
@@ -173,12 +171,12 @@ requires IsEcsEvent&lt;TEvent&gt;</td></tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inherited</span></span>  </td>
+<span class="mlabels"><span class="mlabel inherited">inherited</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definición en la línea <a class="el" href="_i_system_8cpp_source.html#l00033">33</a> del archivo <a class="el" href="_i_system_8cpp_source.html">ISystem.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_i_system_8cpp_source.html#l00094">94</a> del archivo <a class="el" href="_i_system_8cpp_source.html">ISystem.cpp</a>.</p>
 
 </div>
 </div>
@@ -200,14 +198,14 @@ requires IsEcsEvent&lt;TEvent&gt;</td></tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inherited</span></span>  </td>
+<span class="mlabels"><span class="mlabel inherited">inherited</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
 <p>Activa el sistema, con lo que se ejecutará cada frame. </p>
 
-<p class="definition">Definición en la línea <a class="el" href="_i_system_8cpp_source.html#l00013">13</a> del archivo <a class="el" href="_i_system_8cpp_source.html">ISystem.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_i_system_8cpp_source.html#l00075">75</a> del archivo <a class="el" href="_i_system_8cpp_source.html">ISystem.cpp</a>.</p>
 
 </div>
 </div>
@@ -216,15 +214,12 @@ requires IsEcsEvent&lt;TEvent&gt;</td></tr>
 
 <div class="memitem">
 <div class="memproto">
-<div class="memtemplate">
-template&lt;typename TEvent &gt; <br />
-requires IsEcsEvent&lt;TEvent&gt;</div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">std::span&lt; const TEvent &gt; OSK::ECS::IConsumerSystem::BuildSpan </td>
+          <td class="memname">std::span&lt; const <a class="el" href="struct_o_s_k_1_1_e_c_s_1_1_collision_event.html">CollisionEvent</a> &gt; OSK::ECS::IConsumerSystem::BuildSpan </td>
           <td>(</td>
           <td class="paramtype">const void *</td>          <td class="paramname"><span class="paramname"><em>firstEvent</em></span>, </td>
         </tr>
@@ -236,7 +231,7 @@ requires IsEcsEvent&lt;TEvent&gt;</div>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">protected</span><span class="mlabel">inherited</span></span>  </td>
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel protected">protected</span><span class="mlabel inherited">inherited</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
@@ -279,14 +274,14 @@ requires IsEcsEvent&lt;TEvent&gt;</div>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inherited</span></span>  </td>
+<span class="mlabels"><span class="mlabel inherited">inherited</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
 <p>Desactiva el sistema, con lo que dejará de ejecutarse. </p>
 
-<p class="definition">Definición en la línea <a class="el" href="_i_system_8cpp_source.html#l00017">17</a> del archivo <a class="el" href="_i_system_8cpp_source.html">ISystem.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_i_system_8cpp_source.html#l00078">78</a> del archivo <a class="el" href="_i_system_8cpp_source.html">ISystem.cpp</a>.</p>
 
 </div>
 </div>
@@ -312,12 +307,12 @@ requires IsEcsEvent&lt;TEvent&gt;</div>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">override</span><span class="mlabel">virtual</span><span class="mlabel">inherited</span></span>  </td>
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel override">override</span><span class="mlabel virtual">virtual</span><span class="mlabel inherited">inherited</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
-<p>Ejecuta la lógica del sistema para un rango de eventos. Los eventos deben ser casteados dentro de la función. Para ello, se puede usar la función <a class="el" href="class_o_s_k_1_1_e_c_s_1_1_i_consumer_system.html#a2395e5a893e21a8dfb3a9a1fd33faae2" title="Construye un span de eventos a partir de la información dada.">BuildSpan()</a>. </p>
+<p>Ejecuta la lógica del sistema para un rango de eventos. Los eventos deben ser casteados dentro de la función. Para ello, se puede usar la función <a class="el" href="class_o_s_k_1_1_e_c_s_1_1_i_consumer_system.html#a2395e5a893e21a8dfb3a9a1fd33faae2">BuildSpan()</a>. </p>
 <dl class="params"><dt>Parámetros</dt><dd>
   <table class="params">
     <tr><td class="paramname">deltaTime</td><td>Tiempo (en segundos) transcurrido desde la ejecución anterior. </td></tr>
@@ -354,7 +349,7 @@ requires IsEcsEvent&lt;TEvent&gt;</div>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
+<span class="mlabels"><span class="mlabel override">override</span><span class="mlabel virtual">virtual</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
@@ -392,12 +387,12 @@ requires IsEcsEvent&lt;TEvent&gt;</div>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inherited</span></span>  </td>
+<span class="mlabels"><span class="mlabel inherited">inherited</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definición en la línea <a class="el" href="_i_system_8cpp_source.html#l00037">37</a> del archivo <a class="el" href="_i_system_8cpp_source.html">ISystem.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_i_system_8cpp_source.html#l00095">95</a> del archivo <a class="el" href="_i_system_8cpp_source.html">ISystem.cpp</a>.</p>
 
 </div>
 </div>
@@ -419,7 +414,7 @@ requires IsEcsEvent&lt;TEvent&gt;</div>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">override</span><span class="mlabel">virtual</span><span class="mlabel">inherited</span></span>  </td>
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel override">override</span><span class="mlabel virtual">virtual</span><span class="mlabel inherited">inherited</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
@@ -449,7 +444,7 @@ requires IsEcsEvent&lt;TEvent&gt;</div>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">pure virtual</span><span class="mlabel">inherited</span></span>  </td>
+<span class="mlabels"><span class="mlabel pure-virtual">pure virtual</span><span class="mlabel inherited">inherited</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
@@ -474,7 +469,7 @@ requires IsEcsEvent&lt;TEvent&gt;</div>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inherited</span></span>  </td>
+<span class="mlabels"><span class="mlabel inherited">inherited</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
@@ -482,7 +477,7 @@ requires IsEcsEvent&lt;TEvent&gt;</div>
 <p>Permite saber si un sistema está activo, es decir, si un sistema se ejcutará cada frame o no. </p>
 <dl class="section return"><dt>Devuelve</dt><dd>True si está activo, false en caso contrario. </dd></dl>
 
-<p class="definition">Definición en la línea <a class="el" href="_i_system_8cpp_source.html#l00029">29</a> del archivo <a class="el" href="_i_system_8cpp_source.html">ISystem.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_i_system_8cpp_source.html#l00091">91</a> del archivo <a class="el" href="_i_system_8cpp_source.html">ISystem.cpp</a>.</p>
 
 </div>
 </div>
@@ -504,16 +499,14 @@ requires IsEcsEvent&lt;TEvent&gt;</div>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">virtual</span><span class="mlabel">inherited</span></span>  </td>
+<span class="mlabels"><span class="mlabel virtual">virtual</span><span class="mlabel inherited">inherited</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
 <p>Función que se ejecuta al crearse el sistema. </p>
 
-<p>Reimplementado en <a class="el" href="class_o_s_k_1_1_e_c_s_1_1_collision_system.html#a4f1e6ece88939b1346600babd8060722">OSK::ECS::CollisionSystem</a>, <a class="el" href="class_o_s_k_1_1_e_c_s_1_1_i_render_system.html#ab99fd447d1c640bcc003dc5713768b6c">OSK::ECS::IRenderSystem</a>, <a class="el" href="class_o_s_k_1_1_e_c_s_1_1_physics_system.html#a06f5d16b2dc08d8278276cce6bebe177">OSK::ECS::PhysicsSystem</a> y <a class="el" href="class_o_s_k_1_1_e_c_s_1_1_transform_applier_system.html#aa63da735055c328379dbcb1188523e44">OSK::ECS::TransformApplierSystem</a>.</p>
-
-<p class="definition">Definición en la línea <a class="el" href="_i_system_8cpp_source.html#l00005">5</a> del archivo <a class="el" href="_i_system_8cpp_source.html">ISystem.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_i_system_8cpp_source.html#l00067">67</a> del archivo <a class="el" href="_i_system_8cpp_source.html">ISystem.cpp</a>.</p>
 
 </div>
 </div>
@@ -535,14 +528,14 @@ requires IsEcsEvent&lt;TEvent&gt;</div>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">virtual</span><span class="mlabel">inherited</span></span>  </td>
+<span class="mlabels"><span class="mlabel virtual">virtual</span><span class="mlabel inherited">inherited</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
 <p>Función que se ejecuta después de finalizar la ejecución del sistema. </p>
 
-<p class="definition">Definición en la línea <a class="el" href="_i_consumer_system_8cpp_source.html#l00014">14</a> del archivo <a class="el" href="_i_consumer_system_8cpp_source.html">IConsumerSystem.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_i_consumer_system_8cpp_source.html#l00029">29</a> del archivo <a class="el" href="_i_consumer_system_8cpp_source.html">IConsumerSystem.cpp</a>.</p>
 
 </div>
 </div>
@@ -564,14 +557,14 @@ requires IsEcsEvent&lt;TEvent&gt;</div>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">virtual</span><span class="mlabel">inherited</span></span>  </td>
+<span class="mlabels"><span class="mlabel virtual">virtual</span><span class="mlabel inherited">inherited</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
 <p>Función que se ejecuta antes de comenzar la ejecución del sistema. </p>
 
-<p class="definition">Definición en la línea <a class="el" href="_i_consumer_system_8cpp_source.html#l00006">6</a> del archivo <a class="el" href="_i_consumer_system_8cpp_source.html">IConsumerSystem.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_i_consumer_system_8cpp_source.html#l00019">19</a> del archivo <a class="el" href="_i_consumer_system_8cpp_source.html">IConsumerSystem.cpp</a>.</p>
 
 </div>
 </div>
@@ -593,14 +586,14 @@ requires IsEcsEvent&lt;TEvent&gt;</div>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">virtual</span><span class="mlabel">inherited</span></span>  </td>
+<span class="mlabels"><span class="mlabel virtual">virtual</span><span class="mlabel inherited">inherited</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
 <p>Función que se ejecuta al destruirse el sistema. </p>
 
-<p class="definition">Definición en la línea <a class="el" href="_i_system_8cpp_source.html#l00009">9</a> del archivo <a class="el" href="_i_system_8cpp_source.html">ISystem.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_i_system_8cpp_source.html#l00070">70</a> del archivo <a class="el" href="_i_system_8cpp_source.html">ISystem.cpp</a>.</p>
 
 </div>
 </div>
@@ -639,7 +632,7 @@ requires IsEcsEvent&lt;TEvent&gt;</div>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inherited</span></span>  </td>
+<span class="mlabels"><span class="mlabel inherited">inherited</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
@@ -652,7 +645,7 @@ requires IsEcsEvent&lt;TEvent&gt;</div>
   </dd>
 </dl>
 
-<p class="definition">Definición en la línea <a class="el" href="_i_system_8cpp_source.html#l00021">21</a> del archivo <a class="el" href="_i_system_8cpp_source.html">ISystem.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_i_system_8cpp_source.html#l00082">82</a> del archivo <a class="el" href="_i_system_8cpp_source.html">ISystem.cpp</a>.</p>
 
 </div>
 </div>
@@ -674,14 +667,14 @@ requires IsEcsEvent&lt;TEvent&gt;</div>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inherited</span></span>  </td>
+<span class="mlabels"><span class="mlabel inherited">inherited</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
 <p>Cambia entre activado/desactivado. </p>
 
-<p class="definition">Definición en la línea <a class="el" href="_i_system_8cpp_source.html#l00025">25</a> del archivo <a class="el" href="_i_system_8cpp_source.html">ISystem.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_i_system_8cpp_source.html#l00085">85</a> del archivo <a class="el" href="_i_system_8cpp_source.html">ISystem.cpp</a>.</p>
 
 </div>
 </div>
@@ -691,7 +684,7 @@ requires IsEcsEvent&lt;TEvent&gt;</div>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="namespace_o_s_k.html">OSK</a></li><li class="navelem"><a class="el" href="namespace_o_s_k_1_1_e_c_s.html">ECS</a></li><li class="navelem"><a class="el" href="class_o_s_k_1_1_e_c_s_1_1_physics_resolver.html">PhysicsResolver</a></li>
-    <li class="footer">Generado el Lunes, 23 de diciembre de 2024 13:15:57 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.12.0 </li>
+    <li class="footer">Generado el Miércoles, 16 de abril de 2025 17:13:06 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.13.2 </li>
   </ul>
 </div>
 </body>

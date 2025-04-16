@@ -7,7 +7,8 @@ var concepts =
       ] ],
       [ "Concepts", "namespace_o_s_k_1_1_concepts.html", [
         [ "IsCopyable", "concept_o_s_k_1_1_concepts_1_1_is_copyable.html", null ],
-        [ "IsMovable", "concept_o_s_k_1_1_concepts_1_1_is_movable.html", null ]
+        [ "IsMovable", "concept_o_s_k_1_1_concepts_1_1_is_movable.html", null ],
+        [ "AreSameTemplate", "concept_o_s_k_1_1_concepts_1_1_are_same_template.html", null ]
       ] ],
       [ "ECS", "namespace_o_s_k_1_1_e_c_s.html", [
         [ "IsEcsComponent", "concept_o_s_k_1_1_e_c_s_1_1_is_ecs_component.html", null ],

@@ -1,7 +1,7 @@
 var searchData=
 [
   ['unattach_0',['UnAttach',['../class_o_s_k_1_1_e_c_s_1_1_transform2_d.html#ab84d05bbd2b23163b4fd8f6684c3699c',1,'OSK::ECS::Transform2D']]],
-  ['uniqueptr_1',['UniquePtr',['../class_o_s_k_1_1_unique_ptr.html#a5f482cedcbb8ba2ca77f0e8591eeecd7',1,'OSK::UniquePtr::UniquePtr() noexcept=default'],['../class_o_s_k_1_1_unique_ptr.html#a36bba57a92873ff1e860a28f6c37e145',1,'OSK::UniquePtr::UniquePtr(T *data) noexcept'],['../class_o_s_k_1_1_unique_ptr.html#a4a1caf2dfaafa41a8d83d720d8c55250',1,'OSK::UniquePtr::UniquePtr(const UniquePtr &amp;) noexcept=delete'],['../class_o_s_k_1_1_unique_ptr.html#a9ab9d755f7d9721ce936bb7568139df5',1,'OSK::UniquePtr::UniquePtr(UniquePtr &amp;&amp;other) noexcept']]],
+  ['uniqueptr_1',['UniquePtr',['../class_o_s_k_1_1_unique_ptr.html#abb8f80657b1133f55431545f6968cffd',1,'OSK::UniquePtr::UniquePtr() noexcept=default'],['../class_o_s_k_1_1_unique_ptr.html#aca1ba3a832762f49d6e62fe73e4f6580',1,'OSK::UniquePtr::UniquePtr(T *data) noexcept'],['../class_o_s_k_1_1_unique_ptr.html#a8c0ae0dfdd42a443d8cd79bb9784daf1',1,'OSK::UniquePtr::UniquePtr(const UniquePtr &amp;) noexcept=delete'],['../class_o_s_k_1_1_unique_ptr.html#a0d8d3c1bde6797cf0d046cd7ae1192d5',1,'OSK::UniquePtr::UniquePtr(UniquePtr &amp;&amp;other) noexcept']]],
   ['unlinkdsiplay_2',['UnlinkDsiplay',['../class_o_s_k_1_1_e_c_s_1_1_camera_component2_d.html#ac009c018cde4e9080cd87e0176692cee',1,'OSK::ECS::CameraComponent2D']]],
   ['unloadsizedfont_3',['UnloadSizedFont',['../class_o_s_k_1_1_a_s_s_e_t_s_1_1_font.html#a2dddbba3d0d83097f8302eedcbbcaeb4',1,'OSK::ASSETS::Font']]],
   ['unlock_4',['Unlock',['../class_o_s_k_1_1_u_i_1_1_i_element.html#a27da2bfbce9e2310b18720be5c42970e',1,'OSK::UI::IElement']]],

@@ -3,7 +3,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
-<meta name="generator" content="Doxygen 1.12.0"/>
+<meta name="generator" content="Doxygen 1.13.2"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
 <title>OSKengine: Archivo de código fuente Source/ConsumerSystemExecutionJob.cpp</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
@@ -37,7 +37,7 @@
 </table>
 </div>
 <!-- end header part -->
-<!-- Generado por Doxygen 1.12.0 -->
+<!-- Generado por Doxygen 1.13.2 -->
 <script type="text/javascript">
 /* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
 var searchBox = new SearchBox("searchBox", "search/",'.html');
@@ -116,13 +116,12 @@ $(function(){initNavTree('_consumer_system_execution_job_8cpp_source.html',''); 
 <div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span> </div>
 <div class="foldopen" id="foldopen00012" data-start="{" data-end="}">
 <div class="line"><a id="l00012" name="l00012"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_e_c_s_1_1_consumer_system_execution_job.html#a7a294b0afe0efca27a6bd3fb65f168c2">   12</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="class_o_s_k_1_1_e_c_s_1_1_consumer_system_execution_job.html#a7a294b0afe0efca27a6bd3fb65f168c2">ConsumerSystemExecutionJob::Execute</a>() {</div>
-<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span>    m_system-&gt;<a class="code hl_function" href="class_o_s_k_1_1_e_c_s_1_1_i_consumer_system.html#ae4901ae4e4bcdf8574dd14cd7f63eef4">Execute</a>(m_deltaTime, m_eventRange);</div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span>    m_system-&gt;Execute(m_deltaTime, m_eventRange);</div>
 <div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span>}</div>
 </div>
 <div class="ttc" id="aclass_o_s_k_1_1_e_c_s_1_1_consumer_system_execution_job_html_a7a294b0afe0efca27a6bd3fb65f168c2"><div class="ttname"><a href="class_o_s_k_1_1_e_c_s_1_1_consumer_system_execution_job.html#a7a294b0afe0efca27a6bd3fb65f168c2">OSK::ECS::ConsumerSystemExecutionJob::Execute</a></div><div class="ttdeci">void Execute() override</div><div class="ttdoc">Ejecuta la función del trabajo.</div><div class="ttdef"><b>Definition</b> <a href="#l00012">ConsumerSystemExecutionJob.cpp:12</a></div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_e_c_s_1_1_consumer_system_execution_job_html_acdd13187a01b107f2094fefc174ff99f"><div class="ttname"><a href="class_o_s_k_1_1_e_c_s_1_1_consumer_system_execution_job.html#acdd13187a01b107f2094fefc174ff99f">OSK::ECS::ConsumerSystemExecutionJob::ConsumerSystemExecutionJob</a></div><div class="ttdeci">ConsumerSystemExecutionJob(IConsumerSystem *system, EventQueueSpan events, TDeltaTime deltaTime)</div><div class="ttdef"><b>Definition</b> <a href="#l00007">ConsumerSystemExecutionJob.cpp:7</a></div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_e_c_s_1_1_i_consumer_system_html"><div class="ttname"><a href="class_o_s_k_1_1_e_c_s_1_1_i_consumer_system.html">OSK::ECS::IConsumerSystem</a></div><div class="ttdoc">Un sistema consumidor es un sistema que se encarga de responder a eventos. Se recomienda no heredar d...</div><div class="ttdef"><b>Definition</b> <a href="_i_consumer_system_8h_source.html#l00012">IConsumerSystem.h:12</a></div></div>
-<div class="ttc" id="aclass_o_s_k_1_1_e_c_s_1_1_i_consumer_system_html_ae4901ae4e4bcdf8574dd14cd7f63eef4"><div class="ttname"><a href="class_o_s_k_1_1_e_c_s_1_1_i_consumer_system.html#ae4901ae4e4bcdf8574dd14cd7f63eef4">OSK::ECS::IConsumerSystem::Execute</a></div><div class="ttdeci">virtual void Execute(TDeltaTime deltaTime, EventQueueSpan events)</div><div class="ttdoc">Ejecuta la lógica del sistema para un rango de eventos. Los eventos deben ser casteados dentro de la ...</div><div class="ttdef"><b>Definition</b> <a href="_i_consumer_system_8cpp_source.html#l00010">IConsumerSystem.cpp:10</a></div></div>
 <div class="ttc" id="anamespace_o_s_k_1_1_e_c_s_html"><div class="ttname"><a href="namespace_o_s_k_1_1_e_c_s.html">OSK::ECS</a></div><div class="ttdef"><b>Definition</b> <a href="_camera_component2_d_8h_source.html#l00017">CameraComponent2D.h:17</a></div></div>
 <div class="ttc" id="anamespace_o_s_k_html"><div class="ttname"><a href="namespace_o_s_k.html">OSK</a></div><div class="ttdef"><b>Definition</b> <a href="_acceleration_structures_exceptions_8h_source.html#l00005">AccelerationStructuresExceptions.h:5</a></div></div>
 <div class="ttc" id="anamespace_o_s_k_html_adfc76cbcf35e5506ee24168edfe15bb0"><div class="ttname"><a href="namespace_o_s_k.html#adfc76cbcf35e5506ee24168edfe15bb0">OSK::TDeltaTime</a></div><div class="ttdeci">float TDeltaTime</div><div class="ttdoc">Delta de tiempo, medido en segundos.</div><div class="ttdef"><b>Definition</b> <a href="_numeric_types_8h_source.html#l00031">NumericTypes.h:31</a></div></div>
@@ -133,7 +132,7 @@ $(function(){initNavTree('_consumer_system_execution_job_8cpp_source.html',''); 
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_74389ed8173ad57b461b9d623a1f3867.html">Source</a></li><li class="navelem"><b>ConsumerSystemExecutionJob.cpp</b></li>
-    <li class="footer">Generado el Lunes, 23 de diciembre de 2024 13:15:55 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.12.0 </li>
+    <li class="footer">Generado el Miércoles, 16 de abril de 2025 17:13:04 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.13.2 </li>
   </ul>
 </div>
 </body>

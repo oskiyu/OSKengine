@@ -3,7 +3,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
-<meta name="generator" content="Doxygen 1.12.0"/>
+<meta name="generator" content="Doxygen 1.13.2"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
 <title>OSKengine: Archivo de código fuente Source/MaterialLayout.cpp</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
@@ -37,7 +37,7 @@
 </table>
 </div>
 <!-- end header part -->
-<!-- Generado por Doxygen 1.12.0 -->
+<!-- Generado por Doxygen 1.13.2 -->
 <script type="text/javascript">
 /* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
 var searchBox = new SearchBox("searchBox", "search/",'.html');
@@ -183,7 +183,7 @@ $(function(){initNavTree('_material_layout_8cpp_source.html',''); initResizable(
 </div>
 <div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span> </div>
 <div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span> </div>
-<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span><span class="keyword">template</span> &lt;&gt; std::string OSK::ToString&lt;OSK::GRAPHICS::MaterialLayout&gt;(<span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_layout.html">OSK::GRAPHICS::MaterialLayout</a>&amp; layout) {</div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span><span class="keyword">template</span> &lt;&gt; std::string <a class="code hl_function" href="namespace_o_s_k.html#a0e02ca313c1894ead83ab76001063684">OSK::ToString&lt;OSK::GRAPHICS::MaterialLayout&gt;</a>(<span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_layout.html">OSK::GRAPHICS::MaterialLayout</a>&amp; layout) {</div>
 <div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>    std::string output = std::format(<span class="stringliteral">&quot;Material layout for {}.\n&quot;</span>, layout.<a class="code hl_function" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_layout.html#a0b20a28bb460a88da625c2834df05035">GetMaterialName</a>());</div>
 <div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span> </div>
 <div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>    output += <span class="stringliteral">&quot;Shader slots: \n&quot;</span>;</div>
@@ -201,7 +201,7 @@ $(function(){initNavTree('_material_layout_8cpp_source.html',''); initResizable(
 <div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>    <span class="keywordflow">return</span> output;</div>
 <div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>}</div>
 <div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span> </div>
-<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span><span class="keyword">template</span> &lt;&gt; std::string OSK::ToString&lt;OSK::GRAPHICS::MaterialLayoutSlot&gt;(<span class="keyword">const</span> <a class="code hl_struct" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_layout_slot.html">OSK::GRAPHICS::MaterialLayoutSlot</a>&amp; slot) {</div>
+<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span><span class="keyword">template</span> &lt;&gt; std::string OSK::ToString&lt;OSK::GRAPHICS::MaterialLayoutSlot&gt;(<span class="keyword">const</span> OSK::GRAPHICS::MaterialLayoutSlot&amp; slot) {</div>
 <div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span>    std::string output = std::format(<span class="stringliteral">&quot;\tSlot index: {}\n&quot;</span>, slot.<a class="code hl_variable" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_layout_slot.html#a15778adf5aaa26da18172c4ca7e5f5cd">glslSetIndex</a>);</div>
 <div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span> </div>
 <div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span>    output += std::format(<span class="stringliteral">&quot;\tSlot name: {}\n&quot;</span>, slot.<a class="code hl_variable" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_layout_slot.html#a5396464c0b7e928a41db5b80ff004309">name</a>);</div>
@@ -216,7 +216,7 @@ $(function(){initNavTree('_material_layout_8cpp_source.html',''); initResizable(
 <div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span>    <span class="keywordflow">return</span> output;</div>
 <div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span>}</div>
 <div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span> </div>
-<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span><span class="keyword">template</span> &lt;&gt; std::string OSK::ToString&lt;OSK::GRAPHICS::MaterialLayoutBinding&gt;(<span class="keyword">const</span> <a class="code hl_struct" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_layout_binding.html">OSK::GRAPHICS::MaterialLayoutBinding</a>&amp; binding) {</div>
+<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span><span class="keyword">template</span> &lt;&gt; std::string OSK::ToString&lt;OSK::GRAPHICS::MaterialLayoutBinding&gt;(<span class="keyword">const</span> OSK::GRAPHICS::MaterialLayoutBinding&amp; binding) {</div>
 <div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span>    std::string output = std::format(<span class="stringliteral">&quot;\t\tIndex: {}\n&quot;</span>, binding.<a class="code hl_variable" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_layout_binding.html#a5e3ef63766adee808e73d78dd55abb56">glslIndex</a>);</div>
 <div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span>    output += std::format(<span class="stringliteral">&quot;\t\tName: {}\n&quot;</span>, binding.<a class="code hl_variable" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_layout_binding.html#abf80f1b1de075dd88db4a741925f8f4d">name</a>);</div>
 <div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span>    output += std::format(<span class="stringliteral">&quot;\t\tType: {}\n&quot;</span>, <a class="code hl_function" href="namespace_o_s_k.html#a0e02ca313c1894ead83ab76001063684">ToString</a>(binding.<a class="code hl_variable" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_layout_binding.html#a62bfb58cc5b65fd202a039cf08f9add4">type</a>));</div>
@@ -226,7 +226,7 @@ $(function(){initNavTree('_material_layout_8cpp_source.html',''); initResizable(
 <div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span>    <span class="keywordflow">return</span> output;</div>
 <div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span>}</div>
 <div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span> </div>
-<div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span><span class="keyword">template</span> &lt;&gt; std::string OSK::ToString&lt;OSK::GRAPHICS::MaterialLayoutPushConstant&gt;(<span class="keyword">const</span> <a class="code hl_struct" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_layout_push_constant.html">OSK::GRAPHICS::MaterialLayoutPushConstant</a>&amp; pConst) {</div>
+<div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span><span class="keyword">template</span> &lt;&gt; std::string OSK::ToString&lt;OSK::GRAPHICS::MaterialLayoutPushConstant&gt;(<span class="keyword">const</span> OSK::GRAPHICS::MaterialLayoutPushConstant&amp; pConst) {</div>
 <div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span>    std::string output = std::format(<span class="stringliteral">&quot;\tName: \n&quot;</span>, pConst.<a class="code hl_variable" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_layout_push_constant.html#abd6712c9002b537a65f9568ae9fec32c">name</a>);</div>
 <div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span> </div>
 <div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span>    output += std::format(<span class="stringliteral">&quot;\tShader stage: {}\n&quot;</span>, <a class="code hl_function" href="namespace_o_s_k.html#a0e02ca313c1894ead83ab76001063684">ToString</a>(pConst.<a class="code hl_variable" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_layout_push_constant.html#ac6f939387d72b666b8e1a565435cef2f">stage</a>));</div>
@@ -249,7 +249,6 @@ $(function(){initNavTree('_material_layout_8cpp_source.html',''); initResizable(
 <div class="ttc" id="anamespace_o_s_k_1_1_g_r_a_p_h_i_c_s_html"><div class="ttname"><a href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html">OSK::GRAPHICS</a></div><div class="ttdef"><b>Definition</b> <a href="_acceleration_structures_exceptions_8h_source.html#l00005">AccelerationStructuresExceptions.h:5</a></div></div>
 <div class="ttc" id="anamespace_o_s_k_html"><div class="ttname"><a href="namespace_o_s_k.html">OSK</a></div><div class="ttdef"><b>Definition</b> <a href="_acceleration_structures_exceptions_8h_source.html#l00005">AccelerationStructuresExceptions.h:5</a></div></div>
 <div class="ttc" id="anamespace_o_s_k_html_a0e02ca313c1894ead83ab76001063684"><div class="ttname"><a href="namespace_o_s_k.html#a0e02ca313c1894ead83ab76001063684">OSK::ToString</a></div><div class="ttdeci">std::string ToString(const T &amp;value)</div><div class="ttdef"><b>Definition</b> <a href="_to_string_8h_source.html#l00007">ToString.h:7</a></div></div>
-<div class="ttc" id="astruct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_layout_binding_html"><div class="ttname"><a href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_layout_binding.html">OSK::GRAPHICS::MaterialLayoutBinding</a></div><div class="ttdoc">Un binding de un layout.</div><div class="ttdef"><b>Definition</b> <a href="_material_layout_binding_8h_source.html#l00023">MaterialLayoutBinding.h:23</a></div></div>
 <div class="ttc" id="astruct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_layout_binding_html_a4c6202f2c172d42d7511bd840ef7e154"><div class="ttname"><a href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_layout_binding.html#a4c6202f2c172d42d7511bd840ef7e154">OSK::GRAPHICS::MaterialLayoutBinding::numArrayLayers</a></div><div class="ttdeci">USize32 numArrayLayers</div><div class="ttdoc">Número de capas del array.</div><div class="ttdef"><b>Definition</b> <a href="_material_layout_binding_8h_source.html#l00064">MaterialLayoutBinding.h:64</a></div></div>
 <div class="ttc" id="astruct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_layout_binding_html_a5e3ef63766adee808e73d78dd55abb56"><div class="ttname"><a href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_layout_binding.html#a5e3ef63766adee808e73d78dd55abb56">OSK::GRAPHICS::MaterialLayoutBinding::glslIndex</a></div><div class="ttdeci">UIndex32 glslIndex</div><div class="ttdoc">Índice del binding en el shader .glsl (Vulkan, OpenGL). Es un índice local respecto al slot (al descr...</div><div class="ttdef"><b>Definition</b> <a href="_material_layout_binding_8h_source.html#l00039">MaterialLayoutBinding.h:39</a></div></div>
 <div class="ttc" id="astruct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_layout_binding_html_a62bfb58cc5b65fd202a039cf08f9add4"><div class="ttname"><a href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_layout_binding.html#a62bfb58cc5b65fd202a039cf08f9add4">OSK::GRAPHICS::MaterialLayoutBinding::type</a></div><div class="ttdeci">ShaderBindingType type</div><div class="ttdoc">Tipo de binding.</div><div class="ttdef"><b>Definition</b> <a href="_material_layout_binding_8h_source.html#l00033">MaterialLayoutBinding.h:33</a></div></div>
@@ -271,7 +270,7 @@ $(function(){initNavTree('_material_layout_8cpp_source.html',''); initResizable(
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_74389ed8173ad57b461b9d623a1f3867.html">Source</a></li><li class="navelem"><b>MaterialLayout.cpp</b></li>
-    <li class="footer">Generado el Lunes, 23 de diciembre de 2024 13:15:56 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.12.0 </li>
+    <li class="footer">Generado el Miércoles, 16 de abril de 2025 17:13:05 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.13.2 </li>
   </ul>
 </div>
 </body>

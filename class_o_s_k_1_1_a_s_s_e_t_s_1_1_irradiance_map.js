@@ -1,8 +1,8 @@
 var class_o_s_k_1_1_a_s_s_e_t_s_1_1_irradiance_map =
 [
     [ "IrradianceMap", "class_o_s_k_1_1_a_s_s_e_t_s_1_1_irradiance_map.html#a14290f80913d2bdb907dd797dc319a48", null ],
-    [ "_SetGpuImage", "class_o_s_k_1_1_a_s_s_e_t_s_1_1_irradiance_map.html#acb3ff359e31fd4ae6b2fbab629fea133", null ],
-    [ "_SetOriginalCubemap", "class_o_s_k_1_1_a_s_s_e_t_s_1_1_irradiance_map.html#a1bf9e036b5922270353db91787d9014f", null ],
+    [ "_SetGpuImage", "class_o_s_k_1_1_a_s_s_e_t_s_1_1_irradiance_map.html#a158ef5eddde850f854100876df6ef8c0", null ],
+    [ "_SetOriginalCubemap", "class_o_s_k_1_1_a_s_s_e_t_s_1_1_irradiance_map.html#a92a038714a598469faa718a390ee5180", null ],
     [ "GetAssetFilename", "class_o_s_k_1_1_a_s_s_e_t_s_1_1_irradiance_map.html#acf0bac3849facb6afb0499907186840b", null ],
     [ "GetGpuImage", "class_o_s_k_1_1_a_s_s_e_t_s_1_1_irradiance_map.html#a6828aab37407fa19b8b812e40891e012", null ],
     [ "GetGpuImage", "class_o_s_k_1_1_a_s_s_e_t_s_1_1_irradiance_map.html#ac36e72df3330b0852fd5a86cbd1cc33a", null ],

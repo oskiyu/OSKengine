@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['tbyte_0',['TByte',['../namespace_o_s_k.html#af06b2d270fe69eb9e07e5a979a6c6c8e',1,'OSK']]],
+  ['tbyte_0',['TByte',['../namespace_o_s_k.html#a79ac5831e0b2433213dacbfc636f4d8f',1,'OSK']]],
   ['tdeltatime_1',['TDeltaTime',['../namespace_o_s_k.html#adfc76cbcf35e5506ee24168edfe15bb0',1,'OSK']]],
   ['tindexsize_2',['TIndexSize',['../namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#ae5df06fd78ce077c547552654e7d672a',1,'OSK::GRAPHICS']]],
   ['tinterfaceuuid_3',['TInterfaceUuid',['../namespace_o_s_k.html#aed5a2c041eae5bf40f89478aa65332d9',1,'OSK']]],

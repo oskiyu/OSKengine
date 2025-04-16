@@ -3,7 +3,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
-<meta name="generator" content="Doxygen 1.12.0"/>
+<meta name="generator" content="Doxygen 1.13.2"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
 <title>OSKengine: Archivo de código fuente Source/SpirvToHlsl.cpp</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
@@ -37,7 +37,7 @@
 </table>
 </div>
 <!-- end header part -->
-<!-- Generado por Doxygen 1.12.0 -->
+<!-- Generado por Doxygen 1.13.2 -->
 <script type="text/javascript">
 /* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
 var searchBox = new SearchBox("searchBox", "search/",'.html');
@@ -128,7 +128,7 @@ $(function(){initNavTree('_spirv_to_hlsl_8cpp_source.html',''); initResizable(tr
 <div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span> </div>
 <div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>        <span class="keywordflow">for</span> (<span class="keyword">const</span> <span class="keyword">auto</span>&amp; binding : slot.bindings) {</div>
 <div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span> </div>
-<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>            <span class="keyword">const</span> <span class="keyword">static</span> <a class="code hl_class" href="class_o_s_k_1_1_dynamic_array.html">DynamicArray&lt;ShaderStage&gt;</a> stages = { ShaderStage::VERTEX, ShaderStage::FRAGMENT, ShaderStage::TESSELATION_CONTROL, ShaderStage::TESSELATION_EVALUATION };</div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>            <span class="keyword">const</span> <span class="keyword">static</span> <a class="code hl_class" href="class_o_s_k_1_1_dynamic_array.html">DynamicArray&lt;ShaderStage&gt;</a> stages = { <a class="code hl_enumvalue" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#aa7e7dcffcab27051f141128e66a50fcba0c3e47aef93a7f244f41ab309a33634b">ShaderStage::VERTEX</a>, <a class="code hl_enumvalue" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#aa7e7dcffcab27051f141128e66a50fcba7345a249ed5c2f850d85dc1727c24716">ShaderStage::FRAGMENT</a>, <a class="code hl_enumvalue" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#aa7e7dcffcab27051f141128e66a50fcbaf448507fb26809d25c13899dfc57e230">ShaderStage::TESSELATION_CONTROL</a>, <a class="code hl_enumvalue" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#aa7e7dcffcab27051f141128e66a50fcba9196126eff57d73bb45dc36a6367e58d">ShaderStage::TESSELATION_EVALUATION</a> };</div>
 <div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span> </div>
 <div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>            <span class="keywordflow">for</span> (<span class="keyword">const</span> <a class="code hl_enumeration" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#aa7e7dcffcab27051f141128e66a50fcb">ShaderStage</a> stage : stages) {</div>
 <div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>                spirv_cross::HLSLResourceBinding hlslBinding{};</div>
@@ -145,13 +145,13 @@ $(function(){initNavTree('_spirv_to_hlsl_8cpp_source.html',''); initResizable(tr
 <div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>                hlslBinding.srv = subbinding;</div>
 <div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>                hlslBinding.uav = subbinding;</div>
 <div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span> </div>
-<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>                <span class="keywordflow">if</span> (stage == ShaderStage::VERTEX)</div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>                <span class="keywordflow">if</span> (stage == <a class="code hl_enumvalue" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#aa7e7dcffcab27051f141128e66a50fcba0c3e47aef93a7f244f41ab309a33634b">ShaderStage::VERTEX</a>)</div>
 <div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>                    hlslBinding.stage = spv::ExecutionModel::ExecutionModelVertex;</div>
-<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>                <span class="keywordflow">else</span> <span class="keywordflow">if</span> (stage == ShaderStage::FRAGMENT)</div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>                <span class="keywordflow">else</span> <span class="keywordflow">if</span> (stage == <a class="code hl_enumvalue" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#aa7e7dcffcab27051f141128e66a50fcba7345a249ed5c2f850d85dc1727c24716">ShaderStage::FRAGMENT</a>)</div>
 <div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>                    hlslBinding.stage = spv::ExecutionModel::ExecutionModelFragment;</div>
-<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>                <span class="keywordflow">else</span> <span class="keywordflow">if</span> (stage == ShaderStage::TESSELATION_CONTROL)</div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>                <span class="keywordflow">else</span> <span class="keywordflow">if</span> (stage == <a class="code hl_enumvalue" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#aa7e7dcffcab27051f141128e66a50fcbaf448507fb26809d25c13899dfc57e230">ShaderStage::TESSELATION_CONTROL</a>)</div>
 <div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>                    hlslBinding.stage = spv::ExecutionModel::ExecutionModelTessellationControl;</div>
-<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>                <span class="keywordflow">else</span> <span class="keywordflow">if</span> (stage == ShaderStage::TESSELATION_EVALUATION)</div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>                <span class="keywordflow">else</span> <span class="keywordflow">if</span> (stage == <a class="code hl_enumvalue" href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#aa7e7dcffcab27051f141128e66a50fcba9196126eff57d73bb45dc36a6367e58d">ShaderStage::TESSELATION_EVALUATION</a>)</div>
 <div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>                    hlslBinding.stage = spv::ExecutionModel::ExecutionModelTessellationEvaluation;</div>
 <div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>                </div>
 <div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>                compilerToHlsl.add_hlsl_resource_binding(hlslBinding);</div>
@@ -194,6 +194,10 @@ $(function(){initNavTree('_spirv_to_hlsl_8cpp_source.html',''); initResizable(tr
 <div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_vertex_info_html_a15eaeeac531672e355aa72bf8bf74ba4"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_vertex_info.html#a15eaeeac531672e355aa72bf8bf74ba4">OSK::GRAPHICS::VertexInfo::entries</a></div><div class="ttdeci">DynamicArray&lt; Entry &gt; entries</div><div class="ttdoc">Una entrada por atributo.</div><div class="ttdef"><b>Definition</b> <a href="_vertex_info_8h_source.html#l00064">VertexInfo.h:64</a></div></div>
 <div class="ttc" id="anamespace_o_s_k_1_1_g_r_a_p_h_i_c_s_html"><div class="ttname"><a href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html">OSK::GRAPHICS</a></div><div class="ttdef"><b>Definition</b> <a href="_acceleration_structures_exceptions_8h_source.html#l00005">AccelerationStructuresExceptions.h:5</a></div></div>
 <div class="ttc" id="anamespace_o_s_k_1_1_g_r_a_p_h_i_c_s_html_aa7e7dcffcab27051f141128e66a50fcb"><div class="ttname"><a href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#aa7e7dcffcab27051f141128e66a50fcb">OSK::GRAPHICS::ShaderStage</a></div><div class="ttdeci">ShaderStage</div><div class="ttdoc">Shaders en los que se puede acceder a un elemento.</div><div class="ttdef"><b>Definition</b> <a href="_shader_binding_type_8h_source.html#l00062">ShaderBindingType.h:62</a></div></div>
+<div class="ttc" id="anamespace_o_s_k_1_1_g_r_a_p_h_i_c_s_html_aa7e7dcffcab27051f141128e66a50fcba0c3e47aef93a7f244f41ab309a33634b"><div class="ttname"><a href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#aa7e7dcffcab27051f141128e66a50fcba0c3e47aef93a7f244f41ab309a33634b">OSK::GRAPHICS::ShaderStage::VERTEX</a></div><div class="ttdeci">@ VERTEX</div><div class="ttdoc">Shader de vértices.</div><div class="ttdef"><b>Definition</b> <a href="_shader_binding_type_8h_source.html#l00067">ShaderBindingType.h:67</a></div></div>
+<div class="ttc" id="anamespace_o_s_k_1_1_g_r_a_p_h_i_c_s_html_aa7e7dcffcab27051f141128e66a50fcba7345a249ed5c2f850d85dc1727c24716"><div class="ttname"><a href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#aa7e7dcffcab27051f141128e66a50fcba7345a249ed5c2f850d85dc1727c24716">OSK::GRAPHICS::ShaderStage::FRAGMENT</a></div><div class="ttdeci">@ FRAGMENT</div><div class="ttdoc">Shader de fragmentos / píxeles.</div><div class="ttdef"><b>Definition</b> <a href="_shader_binding_type_8h_source.html#l00072">ShaderBindingType.h:72</a></div></div>
+<div class="ttc" id="anamespace_o_s_k_1_1_g_r_a_p_h_i_c_s_html_aa7e7dcffcab27051f141128e66a50fcba9196126eff57d73bb45dc36a6367e58d"><div class="ttname"><a href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#aa7e7dcffcab27051f141128e66a50fcba9196126eff57d73bb45dc36a6367e58d">OSK::GRAPHICS::ShaderStage::TESSELATION_EVALUATION</a></div><div class="ttdeci">@ TESSELATION_EVALUATION</div><div class="ttdoc">Shaders de evaluación de teselado.</div><div class="ttdef"><b>Definition</b> <a href="_shader_binding_type_8h_source.html#l00082">ShaderBindingType.h:82</a></div></div>
+<div class="ttc" id="anamespace_o_s_k_1_1_g_r_a_p_h_i_c_s_html_aa7e7dcffcab27051f141128e66a50fcbaf448507fb26809d25c13899dfc57e230"><div class="ttname"><a href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#aa7e7dcffcab27051f141128e66a50fcbaf448507fb26809d25c13899dfc57e230">OSK::GRAPHICS::ShaderStage::TESSELATION_CONTROL</a></div><div class="ttdeci">@ TESSELATION_CONTROL</div><div class="ttdoc">Shaders de control de teselado.</div><div class="ttdef"><b>Definition</b> <a href="_shader_binding_type_8h_source.html#l00077">ShaderBindingType.h:77</a></div></div>
 <div class="ttc" id="anamespace_o_s_k_html"><div class="ttname"><a href="namespace_o_s_k.html">OSK</a></div><div class="ttdef"><b>Definition</b> <a href="_acceleration_structures_exceptions_8h_source.html#l00005">AccelerationStructuresExceptions.h:5</a></div></div>
 <div class="ttc" id="anamespace_o_s_k_html_a382ed4c8a6994201cbad5d4e1335861b"><div class="ttname"><a href="namespace_o_s_k.html#a382ed4c8a6994201cbad5d4e1335861b">OSK::UIndex32</a></div><div class="ttdeci">uint32_t UIndex32</div><div class="ttdoc">Índice de un elemento, almacenado en un unsigned int de 32 bits.</div><div class="ttdef"><b>Definition</b> <a href="_numeric_types_8h_source.html#l00010">NumericTypes.h:10</a></div></div>
 <div class="ttc" id="anamespace_o_s_k_html_a83ff197aaa32126d84ad65f1d6d5a3b5"><div class="ttname"><a href="namespace_o_s_k.html#a83ff197aaa32126d84ad65f1d6d5a3b5">OSK::USize64</a></div><div class="ttdeci">uint64_t USize64</div><div class="ttdoc">Tamaño, almacenado en un unsigned int de 64 bits.</div><div class="ttdef"><b>Definition</b> <a href="_numeric_types_8h_source.html#l00026">NumericTypes.h:26</a></div></div>
@@ -203,7 +207,7 @@ $(function(){initNavTree('_spirv_to_hlsl_8cpp_source.html',''); initResizable(tr
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_74389ed8173ad57b461b9d623a1f3867.html">Source</a></li><li class="navelem"><b>SpirvToHlsl.cpp</b></li>
-    <li class="footer">Generado el Lunes, 23 de diciembre de 2024 13:15:56 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.12.0 </li>
+    <li class="footer">Generado el Miércoles, 16 de abril de 2025 17:13:05 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.13.2 </li>
   </ul>
 </div>
 </body>

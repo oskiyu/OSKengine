@@ -3,7 +3,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
-<meta name="generator" content="Doxygen 1.12.0"/>
+<meta name="generator" content="Doxygen 1.13.2"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
 <title>OSKengine: Archivo de código fuente Source/RendererVk.h</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
@@ -37,7 +37,7 @@
 </table>
 </div>
 <!-- end header part -->
-<!-- Generado por Doxygen 1.12.0 -->
+<!-- Generado por Doxygen 1.13.2 -->
 <script type="text/javascript">
 /* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
 var searchBox = new SearchBox("searchBox", "search/",'.html');
@@ -116,7 +116,7 @@ $(function(){initNavTree('_renderer_vk_8h_source.html',''); initResizable(true);
 <div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span> </div>
 <div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span>    <span class="keyword">class </span>IRenderpass;</div>
 <div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span> </div>
-<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span>    <span class="keyword">class </span>OSKAPI_CALL RendererVk final : <span class="keyword">public</span> IRenderer {</div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span>    <span class="keyword">class </span>OSKAPI_CALL RendererVk final : <span class="keyword">public</span> <a class="code hl_class" href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer.html">IRenderer</a> {</div>
 <div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span> </div>
 <div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>    <span class="keyword">public</span>:</div>
 <div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span> </div>
@@ -125,33 +125,33 @@ $(function(){initNavTree('_renderer_vk_8h_source.html',''); initResizable(true);
 <div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>        <span class="keywordtype">void</span> Initialize(</div>
 <div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>            <span class="keyword">const</span> std::string&amp; appName, </div>
 <div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>            <span class="keyword">const</span> Version&amp; version, </div>
-<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>            <span class="keyword">const</span> IO::IDisplay&amp; display, </div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>            IO::IDisplay&amp; display, </div>
 <div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>            PresentMode mode) <span class="keyword">override</span>;</div>
 <div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>        <span class="keywordtype">void</span> Close() <span class="keyword">override</span>;</div>
 <div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>        <span class="keywordtype">void</span> HandleResize(<span class="keyword">const</span> Vector2ui&amp; resolution) <span class="keyword">override</span>;</div>
 <div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>        <span class="keywordtype">void</span> PresentFrame() <span class="keyword">override</span>;</div>
-<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>        <span class="keywordtype">void</span> SubmitSingleUseCommandList(OwnedPtr&lt;ICommandList&gt; commandList) <span class="keyword">override</span>;</div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>        <span class="keywordtype">void</span> SubmitSingleUseCommandList(UniquePtr&lt;ICommandList&gt;&amp;&amp; commandList) <span class="keyword">override</span>;</div>
 <div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>        <span class="keywordtype">void</span> WaitForCompletion() <span class="keyword">override</span>;</div>
 <div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span> </div>
-<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>        OwnedPtr&lt;IGraphicsPipeline&gt; _CreateGraphicsPipeline(</div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>        UniquePtr&lt;IGraphicsPipeline&gt; _CreateGraphicsPipeline(</div>
 <div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>            <span class="keyword">const</span> PipelineCreateInfo&amp; pipelineInfo,</div>
 <div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>            <span class="keyword">const</span> MaterialLayout&amp; layout,</div>
 <div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>            <span class="keyword">const</span> VertexInfo&amp; vertexInfo) <span class="keyword">override</span>;</div>
-<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>        OwnedPtr&lt;IMeshPipeline&gt; _CreateMeshPipeline(</div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>        UniquePtr&lt;IMeshPipeline&gt; _CreateMeshPipeline(</div>
 <div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>            <span class="keyword">const</span> PipelineCreateInfo&amp; pipelineInfo,</div>
 <div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>            <span class="keyword">const</span> MaterialLayout&amp; layout) <span class="keyword">override</span>;</div>
-<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>        OwnedPtr&lt;IRaytracingPipeline&gt; _CreateRaytracingPipeline(</div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>        UniquePtr&lt;IRaytracingPipeline&gt; _CreateRaytracingPipeline(</div>
 <div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>            <span class="keyword">const</span> PipelineCreateInfo&amp; pipelineInfo, </div>
 <div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>            <span class="keyword">const</span> MaterialLayout&amp; layout, </div>
 <div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>            <span class="keyword">const</span> VertexInfo&amp; vertexInfo) <span class="keyword">override</span>;</div>
-<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>        OwnedPtr&lt;IComputePipeline&gt; _CreateComputePipeline(</div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>        UniquePtr&lt;IComputePipeline&gt; _CreateComputePipeline(</div>
 <div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>            <span class="keyword">const</span> PipelineCreateInfo&amp; pipelineInfo, </div>
 <div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>            <span class="keyword">const</span> MaterialLayout&amp; layout) <span class="keyword">override</span>;</div>
-<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>        OwnedPtr&lt;IMaterialSlot&gt; _CreateMaterialSlot(</div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>        UniquePtr&lt;IMaterialSlot&gt; _CreateMaterialSlot(</div>
 <div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>            <span class="keyword">const</span> std::string&amp; name, </div>
 <div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>            <span class="keyword">const</span> MaterialLayout&amp; layout) <span class="keyword">const override</span>;</div>
 <div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span> </div>
-<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>        OwnedPtr&lt;ICommandPool&gt; CreateCommandPool(<span class="keyword">const</span> ICommandQueue* targetQueueType) <span class="keyword">override</span>;</div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>        UniquePtr&lt;ICommandPool&gt; CreateCommandPool(<span class="keyword">const</span> ICommandQueue* targetQueueType) <span class="keyword">override</span>;</div>
 <div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span> </div>
 <div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>        <a class="code hl_typedef" href="namespace_o_s_k.html#a382ed4c8a6994201cbad5d4e1335861b">UIndex32</a> GetCurrentFrameIndex() <span class="keyword">const override</span>;</div>
 <div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>        <a class="code hl_typedef" href="namespace_o_s_k.html#a382ed4c8a6994201cbad5d4e1335861b">UIndex32</a> GetCurrentCommandListIndex() <span class="keyword">const override</span>;</div>
@@ -195,7 +195,7 @@ $(function(){initNavTree('_renderer_vk_8h_source.html',''); initResizable(true);
 <div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span> </div>
 <div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span>        <span class="keywordtype">void</span> CreateInstance(<span class="keyword">const</span> std::string&amp; appName, <span class="keyword">const</span> Version&amp; version);</div>
 <div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span>        <span class="keywordtype">void</span> SetupDebugLogging();</div>
-<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span>        <span class="keywordtype">void</span> CreateSurface(<span class="keyword">const</span> IO::IDisplay&amp; display);</div>
+<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span>        <span class="keywordtype">void</span> CreateSurface(IO::IDisplay&amp; display);</div>
 <div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span>        <span class="keywordtype">void</span> ChooseGpu();</div>
 <div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span> </div>
 <div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span>        <span class="comment">// Sync</span></div>
@@ -217,11 +217,11 @@ $(function(){initNavTree('_renderer_vk_8h_source.html',''); initResizable(true);
 <div class="line"><a id="l00116" name="l00116"></a><span class="lineno">  116</span>        VkDebugUtilsMessengerEXT m_debugConsole = VK_NULL_HANDLE;</div>
 <div class="line"><a id="l00117" name="l00117"></a><span class="lineno">  117</span> </div>
 <div class="line"><a id="l00118" name="l00118"></a><span class="lineno">  118</span>        <span class="comment">// Sync</span></div>
-<div class="line"><a id="l00119" name="l00119"></a><span class="lineno">  119</span> </div>
+<div class="line"><a id="l00119" name="l00119"></a><span class="lineno">  119</span></div>
 <div class="line"><a id="l00123" name="l00123"></a><span class="lineno">  123</span>        std::array&lt;VkSemaphore, MAX_RESOURCES_IN_FLIGHT&gt; m_imageAvailableSemaphores{};</div>
-<div class="line"><a id="l00124" name="l00124"></a><span class="lineno">  124</span> </div>
+<div class="line"><a id="l00124" name="l00124"></a><span class="lineno">  124</span></div>
 <div class="line"><a id="l00128" name="l00128"></a><span class="lineno">  128</span>        std::array&lt;VkSemaphore, MAX_RESOURCES_IN_FLIGHT&gt; m_imageFinishedSemaphores{};</div>
-<div class="line"><a id="l00129" name="l00129"></a><span class="lineno">  129</span> </div>
+<div class="line"><a id="l00129" name="l00129"></a><span class="lineno">  129</span></div>
 <div class="line"><a id="l00132" name="l00132"></a><span class="lineno">  132</span>        DynamicArray&lt;VkFence&gt; m_fullyRenderedFences;</div>
 <div class="line"><a id="l00133" name="l00133"></a><span class="lineno">  133</span> </div>
 <div class="line"><a id="l00134" name="l00134"></a><span class="lineno">  134</span>        <a class="code hl_typedef" href="namespace_o_s_k.html#acf682b0e024acc36806435295480d2ed">USize32</a> currentCommandBufferIndex = 0;</div>
@@ -234,6 +234,7 @@ $(function(){initNavTree('_renderer_vk_8h_source.html',''); initResizable(true);
 <div class="line"><a id="l00141" name="l00141"></a><span class="lineno">  141</span>}</div>
 <div class="line"><a id="l00142" name="l00142"></a><span class="lineno">  142</span> </div>
 <div class="line"><a id="l00143" name="l00143"></a><span class="lineno">  143</span><span class="preprocessor">#endif</span></div>
+<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer_html"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer.html">OSK::GRAPHICS::IRenderer</a></div><div class="ttdoc">Clase singleton de la arquitectura de renderizado.</div><div class="ttdef"><b>Definition</b> <a href="_i_renderer_8h_source.html#l00064">IRenderer.h:64</a></div></div>
 <div class="ttc" id="anamespace_o_s_k_1_1_g_r_a_p_h_i_c_s_html"><div class="ttname"><a href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html">OSK::GRAPHICS</a></div><div class="ttdef"><b>Definition</b> <a href="_acceleration_structures_exceptions_8h_source.html#l00005">AccelerationStructuresExceptions.h:5</a></div></div>
 <div class="ttc" id="anamespace_o_s_k_html_a382ed4c8a6994201cbad5d4e1335861b"><div class="ttname"><a href="namespace_o_s_k.html#a382ed4c8a6994201cbad5d4e1335861b">OSK::UIndex32</a></div><div class="ttdeci">uint32_t UIndex32</div><div class="ttdoc">Índice de un elemento, almacenado en un unsigned int de 32 bits.</div><div class="ttdef"><b>Definition</b> <a href="_numeric_types_8h_source.html#l00010">NumericTypes.h:10</a></div></div>
 <div class="ttc" id="anamespace_o_s_k_html_acf682b0e024acc36806435295480d2ed"><div class="ttname"><a href="namespace_o_s_k.html#acf682b0e024acc36806435295480d2ed">OSK::USize32</a></div><div class="ttdeci">uint32_t USize32</div><div class="ttdoc">Tamaño, almacenado en un unsigned int de 32 bits.</div><div class="ttdef"><b>Definition</b> <a href="_numeric_types_8h_source.html#l00015">NumericTypes.h:15</a></div></div>
@@ -243,7 +244,7 @@ $(function(){initNavTree('_renderer_vk_8h_source.html',''); initResizable(true);
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_74389ed8173ad57b461b9d623a1f3867.html">Source</a></li><li class="navelem"><b>RendererVk.h</b></li>
-    <li class="footer">Generado el Lunes, 23 de diciembre de 2024 13:15:56 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.12.0 </li>
+    <li class="footer">Generado el Miércoles, 16 de abril de 2025 17:13:05 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.13.2 </li>
   </ul>
 </div>
 </body>

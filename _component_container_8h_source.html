@@ -3,7 +3,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
-<meta name="generator" content="Doxygen 1.12.0"/>
+<meta name="generator" content="Doxygen 1.13.2"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
 <title>OSKengine: Archivo de código fuente Source/ComponentContainer.h</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
@@ -37,7 +37,7 @@
 </table>
 </div>
 <!-- end header part -->
-<!-- Generado por Doxygen 1.12.0 -->
+<!-- Generado por Doxygen 1.13.2 -->
 <script type="text/javascript">
 /* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
 var searchBox = new SearchBox("searchBox", "search/",'.html');
@@ -121,54 +121,54 @@ $(function(){initNavTree('_component_container_8h_source.html',''); initResizabl
 <div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span> </div>
 <div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span><span class="keyword">namespace </span><a class="code hl_namespace" href="namespace_o_s_k_1_1_e_c_s.html">OSK::ECS</a> {</div>
 <div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>        </div>
-<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>    <span class="keyword">template</span> &lt;<span class="keyword">typename</span> TComponent&gt; <span class="keyword">requires</span> IsEcsComponent&lt;TComponent&gt;</div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>    <span class="keyword">template</span> &lt;<span class="keyword">typename</span> TComponent&gt; <span class="keyword">requires</span> <a class="code hl_concept" href="concept_o_s_k_1_1_e_c_s_1_1_is_ecs_component.html">IsEcsComponent&lt;TComponent&gt;</a></div>
 <div class="foldopen" id="foldopen00028" data-start="{" data-end="};">
 <div class="line"><a id="l00028" name="l00028"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_e_c_s_1_1_component_container.html">   28</a></span>    <span class="keyword">class </span><a class="code hl_class" href="class_o_s_k_1_1_e_c_s_1_1_component_container.html">ComponentContainer</a> : <span class="keyword">public</span> <a class="code hl_class" href="class_o_s_k_1_1_e_c_s_1_1_i_component_container.html">IComponentContainer</a> {</div>
 <div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span> </div>
 <div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>    <span class="keyword">public</span>:</div>
 <div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span> </div>
 <div class="line"><a id="l00032" name="l00032"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_e_c_s_1_1_component_container.html#a141c6941e31a9648aeb999a9c0521789">   32</a></span>        <a class="code hl_function" href="class_o_s_k_1_1_e_c_s_1_1_component_container.html#a141c6941e31a9648aeb999a9c0521789">~ComponentContainer</a>() <span class="keyword">override</span> = <span class="keywordflow">default</span>;</div>
-<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span> </div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span></div>
 <div class="foldopen" id="foldopen00041" data-start="{" data-end="}">
-<div class="line"><a id="l00041" name="l00041"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_e_c_s_1_1_component_container.html#af1fb0c5b18e59eee44e7f3dc8321140e">   41</a></span>        TComponent&amp; <a class="code hl_function" href="class_o_s_k_1_1_e_c_s_1_1_component_container.html#af1fb0c5b18e59eee44e7f3dc8321140e">AddComponent</a>(<a class="code hl_class" href="class_o_s_k_1_1_base_uuid.html">GameObjectIndex</a> obj, <span class="keyword">const</span> TComponent&amp; component) {</div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_e_c_s_1_1_component_container.html#af1fb0c5b18e59eee44e7f3dc8321140e">   41</a></span>        TComponent&amp; <a class="code hl_function" href="class_o_s_k_1_1_e_c_s_1_1_component_container.html#af1fb0c5b18e59eee44e7f3dc8321140e">AddComponent</a>(<a class="code hl_typedef" href="namespace_o_s_k_1_1_e_c_s.html#a5b92aeaa6be2ce0d96e7f571aa917042">GameObjectIndex</a> obj, <span class="keyword">const</span> TComponent&amp; component) {</div>
 <div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>            OSK_ASSERT(</div>
 <div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>                !<a class="code hl_function" href="class_o_s_k_1_1_e_c_s_1_1_component_container.html#ac5deb455d303cbc941039e4a64387b31">ObjectHasComponent</a>(obj),</div>
 <div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>                <a class="code hl_class" href="class_o_s_k_1_1_invalid_argument_exception.html">InvalidArgumentException</a>(std::format(<span class="stringliteral">&quot;El objeto {} ya contiene el componente.&quot;</span>, obj.<a class="code hl_function" href="class_o_s_k_1_1_base_uuid.html#ac68d95adf3e47e1bd577ebefce8f3aa1">Get</a>())))</div>
 <div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span> </div>
-<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>            <a class="code hl_typedef" href="namespace_o_s_k_1_1_e_c_s.html#a90846bb0cf12235cbeb41ccdac6266c3">ComponentIndex</a> componentId = m_components.<a class="code hl_function" href="class_o_s_k_1_1_dynamic_array.html#af09578371bd52d5a934bc74c8dad5f0d">GetSize</a>();</div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>            <a class="code hl_typedef" href="namespace_o_s_k_1_1_e_c_s.html#a90846bb0cf12235cbeb41ccdac6266c3">ComponentIndex</a> componentId = m_components.GetSize();</div>
 <div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span> </div>
 <div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>            m_objectToComponent[obj] = componentId;</div>
 <div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>            m_componentToObject[componentId] = obj;</div>
-<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>            m_components.<a class="code hl_function" href="class_o_s_k_1_1_dynamic_array.html#a4433c76207ce2ecad5e306b12575f1b3">Insert</a>(component);</div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>            m_components.Insert(component);</div>
 <div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span> </div>
 <div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>            <span class="keywordflow">return</span> <a class="code hl_function" href="class_o_s_k_1_1_e_c_s_1_1_component_container.html#ab3eb21a762f8f34001a6e2c86e1e43ae">GetComponent</a>(obj);</div>
 <div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>        }</div>
 </div>
-<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span> </div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span></div>
 <div class="foldopen" id="foldopen00062" data-start="{" data-end="}">
-<div class="line"><a id="l00062" name="l00062"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_e_c_s_1_1_component_container.html#aada8120359f7e0a7c7a4f93d55764f6f">   62</a></span>        TComponent&amp; <a class="code hl_function" href="class_o_s_k_1_1_e_c_s_1_1_component_container.html#aada8120359f7e0a7c7a4f93d55764f6f">AddComponentMove</a>(<a class="code hl_class" href="class_o_s_k_1_1_base_uuid.html">GameObjectIndex</a> obj, TComponent&amp;&amp; component) {</div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_e_c_s_1_1_component_container.html#aada8120359f7e0a7c7a4f93d55764f6f">   62</a></span>        TComponent&amp; <a class="code hl_function" href="class_o_s_k_1_1_e_c_s_1_1_component_container.html#aada8120359f7e0a7c7a4f93d55764f6f">AddComponentMove</a>(<a class="code hl_typedef" href="namespace_o_s_k_1_1_e_c_s.html#a5b92aeaa6be2ce0d96e7f571aa917042">GameObjectIndex</a> obj, TComponent&amp;&amp; component) {</div>
 <div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>            OSK_ASSERT(</div>
 <div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>                !<a class="code hl_function" href="class_o_s_k_1_1_e_c_s_1_1_component_container.html#ac5deb455d303cbc941039e4a64387b31">ObjectHasComponent</a>(obj),</div>
 <div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>                <a class="code hl_class" href="class_o_s_k_1_1_invalid_argument_exception.html">InvalidArgumentException</a>(std::format(<span class="stringliteral">&quot;El objeto {} ya contiene el componente.&quot;</span>, obj.<a class="code hl_function" href="class_o_s_k_1_1_base_uuid.html#ac68d95adf3e47e1bd577ebefce8f3aa1">Get</a>())))</div>
 <div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span> </div>
-<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>            <span class="keyword">const</span> <a class="code hl_typedef" href="namespace_o_s_k_1_1_e_c_s.html#a90846bb0cf12235cbeb41ccdac6266c3">ComponentIndex</a> componentId = m_components.<a class="code hl_function" href="class_o_s_k_1_1_dynamic_array.html#af09578371bd52d5a934bc74c8dad5f0d">GetSize</a>();</div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>            <span class="keyword">const</span> <a class="code hl_typedef" href="namespace_o_s_k_1_1_e_c_s.html#a90846bb0cf12235cbeb41ccdac6266c3">ComponentIndex</a> componentId = m_components.GetSize();</div>
 <div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span> </div>
 <div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>            m_objectToComponent[obj] = componentId;</div>
 <div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>            m_componentToObject[componentId] = obj;</div>
-<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>            m_components.<a class="code hl_function" href="class_o_s_k_1_1_dynamic_array.html#a4433c76207ce2ecad5e306b12575f1b3">Insert</a>(std::move(component));</div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>            m_components.Insert(std::move(component));</div>
 <div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span> </div>
 <div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>            <span class="keywordflow">return</span> <a class="code hl_function" href="class_o_s_k_1_1_e_c_s_1_1_component_container.html#ab3eb21a762f8f34001a6e2c86e1e43ae">GetComponent</a>(obj);</div>
 <div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>        }</div>
 </div>
 <div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>                </div>
 <div class="foldopen" id="foldopen00082" data-start="{" data-end="}">
-<div class="line"><a id="l00082" name="l00082"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_e_c_s_1_1_component_container.html#a9b71e06dbdfd14318e62df1352ff646d">   82</a></span>        <span class="keywordtype">void</span> <a class="code hl_function" href="class_o_s_k_1_1_e_c_s_1_1_component_container.html#a9b71e06dbdfd14318e62df1352ff646d">RemoveComponent</a>(<a class="code hl_class" href="class_o_s_k_1_1_base_uuid.html">GameObjectIndex</a> obj) {</div>
+<div class="line"><a id="l00082" name="l00082"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_e_c_s_1_1_component_container.html#a9b71e06dbdfd14318e62df1352ff646d">   82</a></span>        <span class="keywordtype">void</span> <a class="code hl_function" href="class_o_s_k_1_1_e_c_s_1_1_component_container.html#a9b71e06dbdfd14318e62df1352ff646d">RemoveComponent</a>(<a class="code hl_typedef" href="namespace_o_s_k_1_1_e_c_s.html#a5b92aeaa6be2ce0d96e7f571aa917042">GameObjectIndex</a> obj) {</div>
 <div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span>            OSK_ASSERT(</div>
 <div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span>                m_objectToComponent.contains(obj), </div>
 <div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span>                <a class="code hl_class" href="class_o_s_k_1_1_invalid_argument_exception.html">InvalidArgumentException</a>(std::format(<span class="stringliteral">&quot;El objeto {} no contiene el componente.&quot;</span>, obj.<a class="code hl_function" href="class_o_s_k_1_1_base_uuid.html#ac68d95adf3e47e1bd577ebefce8f3aa1">Get</a>())))</div>
 <div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span> </div>
 <div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span>            <a class="code hl_typedef" href="namespace_o_s_k_1_1_e_c_s.html#a90846bb0cf12235cbeb41ccdac6266c3">ComponentIndex</a> compIndex = m_objectToComponent.at(obj);</div>
-<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span>            <span class="keyword">const</span> <a class="code hl_typedef" href="namespace_o_s_k.html#ac0ea6d3df0641acb0fd4620c6f5ef68a">UIndex64</a> indexOfLast = m_components.<a class="code hl_function" href="class_o_s_k_1_1_dynamic_array.html#af09578371bd52d5a934bc74c8dad5f0d">GetSize</a>() - 1;</div>
+<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span>            <span class="keyword">const</span> <a class="code hl_typedef" href="namespace_o_s_k.html#ac0ea6d3df0641acb0fd4620c6f5ef68a">UIndex64</a> indexOfLast = m_components.GetSize() - 1;</div>
 <div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span> </div>
 <div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span>            <span class="comment">// Hacemos que el componente a eliminar esté en la última posición.</span></div>
 <div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span>            <span class="comment">// El último componente se coloca en el hueco del componente eliminado,</span></div>
@@ -178,33 +178,33 @@ $(function(){initNavTree('_component_container_8h_source.html',''); initResizabl
 <div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span>            <span class="comment">// Obtenemos el objeto dueño del componente que acabamos de colocar</span></div>
 <div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span>            <span class="comment">// donde el componente eliminado.</span></div>
 <div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span>            <span class="comment">// Actualizamos las tablas para que apunten al nuevo lugar que ocupa.</span></div>
-<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span>            <a class="code hl_class" href="class_o_s_k_1_1_base_uuid.html">GameObjectIndex</a> objectOfLast = m_componentToObject.at(indexOfLast);</div>
+<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span>            <a class="code hl_typedef" href="namespace_o_s_k_1_1_e_c_s.html#a5b92aeaa6be2ce0d96e7f571aa917042">GameObjectIndex</a> objectOfLast = m_componentToObject.at(indexOfLast);</div>
 <div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span>            m_objectToComponent.at(objectOfLast) = compIndex;</div>
 <div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span>            m_componentToObject.at(compIndex) = objectOfLast;</div>
 <div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span> </div>
 <div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span>            <span class="comment">// Eliminación final.</span></div>
-<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span>            m_components.<a class="code hl_function" href="class_o_s_k_1_1_dynamic_array.html#a90bb67f64f4e41f06ec2db0e18dc563f">RemoveLast</a>();</div>
+<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span>            m_components.RemoveLast();</div>
 <div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span> </div>
 <div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span>            m_objectToComponent.erase(obj);</div>
 <div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span>            m_componentToObject.erase(indexOfLast);</div>
 <div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span>        }</div>
 </div>
 <div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span> </div>
-<div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span> </div>
+<div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span></div>
 <div class="foldopen" id="foldopen00115" data-start="{" data-end="}">
-<div class="line"><a id="l00115" name="l00115"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_e_c_s_1_1_component_container.html#ab3eb21a762f8f34001a6e2c86e1e43ae">  115</a></span>        TComponent&amp; <a class="code hl_function" href="class_o_s_k_1_1_e_c_s_1_1_component_container.html#ab3eb21a762f8f34001a6e2c86e1e43ae">GetComponent</a>(<a class="code hl_class" href="class_o_s_k_1_1_base_uuid.html">GameObjectIndex</a> obj) {</div>
-<div class="line"><a id="l00116" name="l00116"></a><span class="lineno">  116</span>            <span class="keywordflow">return</span> m_components.<a class="code hl_function" href="class_o_s_k_1_1_dynamic_array.html#abb2718a784ceb0e0f31fdc7f5dbd782f">At</a>(m_objectToComponent.at(obj));</div>
+<div class="line"><a id="l00115" name="l00115"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_e_c_s_1_1_component_container.html#ab3eb21a762f8f34001a6e2c86e1e43ae">  115</a></span>        TComponent&amp; <a class="code hl_function" href="class_o_s_k_1_1_e_c_s_1_1_component_container.html#ab3eb21a762f8f34001a6e2c86e1e43ae">GetComponent</a>(<a class="code hl_typedef" href="namespace_o_s_k_1_1_e_c_s.html#a5b92aeaa6be2ce0d96e7f571aa917042">GameObjectIndex</a> obj) {</div>
+<div class="line"><a id="l00116" name="l00116"></a><span class="lineno">  116</span>            <span class="keywordflow">return</span> m_components.At(m_objectToComponent.at(obj));</div>
 <div class="line"><a id="l00117" name="l00117"></a><span class="lineno">  117</span>        }</div>
 </div>
-<div class="line"><a id="l00118" name="l00118"></a><span class="lineno">  118</span> </div>
+<div class="line"><a id="l00118" name="l00118"></a><span class="lineno">  118</span></div>
 <div class="foldopen" id="foldopen00124" data-start="{" data-end="}">
-<div class="line"><a id="l00124" name="l00124"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_e_c_s_1_1_component_container.html#a77ccbb13d753d941019131c1fe669f2d">  124</a></span>        <span class="keyword">const</span> TComponent&amp; <a class="code hl_function" href="class_o_s_k_1_1_e_c_s_1_1_component_container.html#a77ccbb13d753d941019131c1fe669f2d">GetComponent</a>(<a class="code hl_class" href="class_o_s_k_1_1_base_uuid.html">GameObjectIndex</a> obj)<span class="keyword"> const </span>{</div>
-<div class="line"><a id="l00125" name="l00125"></a><span class="lineno">  125</span>            <span class="keywordflow">return</span> m_components.<a class="code hl_function" href="class_o_s_k_1_1_dynamic_array.html#abb2718a784ceb0e0f31fdc7f5dbd782f">At</a>(m_objectToComponent.at(obj));</div>
+<div class="line"><a id="l00124" name="l00124"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_e_c_s_1_1_component_container.html#a77ccbb13d753d941019131c1fe669f2d">  124</a></span>        <span class="keyword">const</span> TComponent&amp; <a class="code hl_function" href="class_o_s_k_1_1_e_c_s_1_1_component_container.html#a77ccbb13d753d941019131c1fe669f2d">GetComponent</a>(<a class="code hl_typedef" href="namespace_o_s_k_1_1_e_c_s.html#a5b92aeaa6be2ce0d96e7f571aa917042">GameObjectIndex</a> obj)<span class="keyword"> const </span>{</div>
+<div class="line"><a id="l00125" name="l00125"></a><span class="lineno">  125</span>            <span class="keywordflow">return</span> m_components.At(m_objectToComponent.at(obj));</div>
 <div class="line"><a id="l00126" name="l00126"></a><span class="lineno">  126</span>        }</div>
 </div>
 <div class="line"><a id="l00127" name="l00127"></a><span class="lineno">  127</span> </div>
 <div class="foldopen" id="foldopen00128" data-start="{" data-end="}">
-<div class="line"><a id="l00128" name="l00128"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_e_c_s_1_1_component_container.html#a4a9f65d33dfa0fb6cb1cb3507e141149">  128</a></span>        <span class="keywordtype">void</span>* <a class="code hl_function" href="class_o_s_k_1_1_e_c_s_1_1_component_container.html#a4a9f65d33dfa0fb6cb1cb3507e141149">GetComponentAddress</a>(<a class="code hl_class" href="class_o_s_k_1_1_base_uuid.html">GameObjectIndex</a> obj)<span class="keyword"> override </span>{</div>
+<div class="line"><a id="l00128" name="l00128"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_e_c_s_1_1_component_container.html#a4a9f65d33dfa0fb6cb1cb3507e141149">  128</a></span>        <span class="keywordtype">void</span>* <a class="code hl_function" href="class_o_s_k_1_1_e_c_s_1_1_component_container.html#a4a9f65d33dfa0fb6cb1cb3507e141149">GetComponentAddress</a>(<a class="code hl_typedef" href="namespace_o_s_k_1_1_e_c_s.html#a5b92aeaa6be2ce0d96e7f571aa917042">GameObjectIndex</a> obj)<span class="keyword"> override </span>{</div>
 <div class="line"><a id="l00129" name="l00129"></a><span class="lineno">  129</span>            <span class="keyword">auto</span> iterator = m_objectToComponent.find(obj);</div>
 <div class="line"><a id="l00130" name="l00130"></a><span class="lineno">  130</span> </div>
 <div class="line"><a id="l00131" name="l00131"></a><span class="lineno">  131</span>            <span class="keywordflow">if</span> (iterator == m_objectToComponent.end()) {</div>
@@ -216,7 +216,7 @@ $(function(){initNavTree('_component_container_8h_source.html',''); initResizabl
 </div>
 <div class="line"><a id="l00137" name="l00137"></a><span class="lineno">  137</span> </div>
 <div class="foldopen" id="foldopen00138" data-start="{" data-end="}">
-<div class="line"><a id="l00138" name="l00138"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_e_c_s_1_1_component_container.html#a65929a20023a4cde9fd0ee7a094c96a8">  138</a></span>        <span class="keyword">const</span> <span class="keywordtype">void</span>* <a class="code hl_function" href="class_o_s_k_1_1_e_c_s_1_1_component_container.html#a65929a20023a4cde9fd0ee7a094c96a8">GetComponentAddress</a>(<a class="code hl_class" href="class_o_s_k_1_1_base_uuid.html">GameObjectIndex</a> obj)<span class="keyword"> const override </span>{</div>
+<div class="line"><a id="l00138" name="l00138"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_e_c_s_1_1_component_container.html#a65929a20023a4cde9fd0ee7a094c96a8">  138</a></span>        <span class="keyword">const</span> <span class="keywordtype">void</span>* <a class="code hl_function" href="class_o_s_k_1_1_e_c_s_1_1_component_container.html#a65929a20023a4cde9fd0ee7a094c96a8">GetComponentAddress</a>(<a class="code hl_typedef" href="namespace_o_s_k_1_1_e_c_s.html#a5b92aeaa6be2ce0d96e7f571aa917042">GameObjectIndex</a> obj)<span class="keyword"> const override </span>{</div>
 <div class="line"><a id="l00139" name="l00139"></a><span class="lineno">  139</span>            <span class="keyword">const</span> <span class="keyword">auto</span> iterator = m_objectToComponent.find(obj);</div>
 <div class="line"><a id="l00140" name="l00140"></a><span class="lineno">  140</span> </div>
 <div class="line"><a id="l00141" name="l00141"></a><span class="lineno">  141</span>            <span class="keywordflow">if</span> (iterator == m_objectToComponent.cend()) {</div>
@@ -226,28 +226,28 @@ $(function(){initNavTree('_component_container_8h_source.html',''); initResizabl
 <div class="line"><a id="l00145" name="l00145"></a><span class="lineno">  145</span>            <span class="keywordflow">return</span> std::addressof(m_components[iterator-&gt;second]);</div>
 <div class="line"><a id="l00146" name="l00146"></a><span class="lineno">  146</span>        }</div>
 </div>
-<div class="line"><a id="l00147" name="l00147"></a><span class="lineno">  147</span> </div>
+<div class="line"><a id="l00147" name="l00147"></a><span class="lineno">  147</span></div>
 <div class="foldopen" id="foldopen00153" data-start="{" data-end="}">
-<div class="line"><a id="l00153" name="l00153"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_e_c_s_1_1_component_container.html#aa2ae3332ee4b0c80860b7cc3d60d5d55">  153</a></span>        <span class="keywordtype">void</span> <a class="code hl_function" href="class_o_s_k_1_1_e_c_s_1_1_component_container.html#aa2ae3332ee4b0c80860b7cc3d60d5d55">GameObjectDestroyerd</a>(<a class="code hl_class" href="class_o_s_k_1_1_base_uuid.html">GameObjectIndex</a> obj)<span class="keyword"> override </span>{</div>
+<div class="line"><a id="l00153" name="l00153"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_e_c_s_1_1_component_container.html#aa2ae3332ee4b0c80860b7cc3d60d5d55">  153</a></span>        <span class="keywordtype">void</span> <a class="code hl_function" href="class_o_s_k_1_1_e_c_s_1_1_component_container.html#aa2ae3332ee4b0c80860b7cc3d60d5d55">GameObjectDestroyerd</a>(<a class="code hl_typedef" href="namespace_o_s_k_1_1_e_c_s.html#a5b92aeaa6be2ce0d96e7f571aa917042">GameObjectIndex</a> obj)<span class="keyword"> override </span>{</div>
 <div class="line"><a id="l00154" name="l00154"></a><span class="lineno">  154</span>            <span class="keywordflow">if</span> (<a class="code hl_function" href="class_o_s_k_1_1_e_c_s_1_1_component_container.html#ac5deb455d303cbc941039e4a64387b31">ObjectHasComponent</a>(obj)) {</div>
 <div class="line"><a id="l00155" name="l00155"></a><span class="lineno">  155</span>                <a class="code hl_function" href="class_o_s_k_1_1_e_c_s_1_1_component_container.html#a9b71e06dbdfd14318e62df1352ff646d">RemoveComponent</a>(obj);</div>
 <div class="line"><a id="l00156" name="l00156"></a><span class="lineno">  156</span>            }</div>
 <div class="line"><a id="l00157" name="l00157"></a><span class="lineno">  157</span>        }</div>
 </div>
-<div class="line"><a id="l00158" name="l00158"></a><span class="lineno">  158</span> </div>
+<div class="line"><a id="l00158" name="l00158"></a><span class="lineno">  158</span></div>
 <div class="foldopen" id="foldopen00161" data-start="{" data-end="}">
-<div class="line"><a id="l00161" name="l00161"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_e_c_s_1_1_component_container.html#ac5deb455d303cbc941039e4a64387b31">  161</a></span>        <span class="keywordtype">bool</span> <a class="code hl_function" href="class_o_s_k_1_1_e_c_s_1_1_component_container.html#ac5deb455d303cbc941039e4a64387b31">ObjectHasComponent</a>(<a class="code hl_class" href="class_o_s_k_1_1_base_uuid.html">GameObjectIndex</a> obj)<span class="keyword"> const </span>{</div>
+<div class="line"><a id="l00161" name="l00161"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_e_c_s_1_1_component_container.html#ac5deb455d303cbc941039e4a64387b31">  161</a></span>        <span class="keywordtype">bool</span> <a class="code hl_function" href="class_o_s_k_1_1_e_c_s_1_1_component_container.html#ac5deb455d303cbc941039e4a64387b31">ObjectHasComponent</a>(<a class="code hl_typedef" href="namespace_o_s_k_1_1_e_c_s.html#a5b92aeaa6be2ce0d96e7f571aa917042">GameObjectIndex</a> obj)<span class="keyword"> const </span>{</div>
 <div class="line"><a id="l00162" name="l00162"></a><span class="lineno">  162</span>            <span class="keywordflow">return</span> m_objectToComponent.contains(obj);</div>
 <div class="line"><a id="l00163" name="l00163"></a><span class="lineno">  163</span>        }</div>
 </div>
-<div class="line"><a id="l00164" name="l00164"></a><span class="lineno">  164</span> </div>
+<div class="line"><a id="l00164" name="l00164"></a><span class="lineno">  164</span></div>
 <div class="foldopen" id="foldopen00166" data-start="{" data-end="}">
 <div class="line"><a id="l00166" name="l00166"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_e_c_s_1_1_component_container.html#a93b6cba16076204913aeba242ce443d7">  166</a></span>        std::string_view <a class="code hl_function" href="class_o_s_k_1_1_e_c_s_1_1_component_container.html#a93b6cba16076204913aeba242ce443d7">GetComponentTypeName</a>()<span class="keyword"> const override </span>{</div>
 <div class="line"><a id="l00167" name="l00167"></a><span class="lineno">  167</span>            <span class="keywordflow">return</span> TComponent::GetComponentTypeName();</div>
 <div class="line"><a id="l00168" name="l00168"></a><span class="lineno">  168</span>        }</div>
 </div>
 <div class="line"><a id="l00169" name="l00169"></a><span class="lineno">  169</span> </div>
-<div class="line"><a id="l00170" name="l00170"></a><span class="lineno">  170</span> </div>
+<div class="line"><a id="l00170" name="l00170"></a><span class="lineno">  170</span></div>
 <div class="foldopen" id="foldopen00178" data-start="{" data-end="}">
 <div class="line"><a id="l00178" name="l00178"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_e_c_s_1_1_component_container.html#ac2d25a31ffbef47a3b427442a2708ecb">  178</a></span>        nlohmann::json <a class="code hl_function" href="class_o_s_k_1_1_e_c_s_1_1_component_container.html#ac2d25a31ffbef47a3b427442a2708ecb">SerializeAll</a>()<span class="keyword"> const override </span>{</div>
 <div class="line"><a id="l00179" name="l00179"></a><span class="lineno">  179</span>            <span class="keyword">auto</span> output = nlohmann::json();</div>
@@ -256,7 +256,7 @@ $(function(){initNavTree('_component_container_8h_source.html',''); initResizabl
 <div class="line"><a id="l00182" name="l00182"></a><span class="lineno">  182</span> </div>
 <div class="line"><a id="l00183" name="l00183"></a><span class="lineno">  183</span>                output[<span class="stringliteral">&quot;component_type&quot;</span>] = TComponent::GetComponentTypeName();</div>
 <div class="line"><a id="l00184" name="l00184"></a><span class="lineno">  184</span> </div>
-<div class="line"><a id="l00185" name="l00185"></a><span class="lineno">  185</span>                <span class="keywordflow">for</span> (<a class="code hl_typedef" href="namespace_o_s_k.html#ac0ea6d3df0641acb0fd4620c6f5ef68a">UIndex64</a> componentIdx = 0; componentIdx &lt; m_components.<a class="code hl_function" href="class_o_s_k_1_1_dynamic_array.html#af09578371bd52d5a934bc74c8dad5f0d">GetSize</a>(); componentIdx++) {</div>
+<div class="line"><a id="l00185" name="l00185"></a><span class="lineno">  185</span>                <span class="keywordflow">for</span> (<a class="code hl_typedef" href="namespace_o_s_k.html#ac0ea6d3df0641acb0fd4620c6f5ef68a">UIndex64</a> componentIdx = 0; componentIdx &lt; m_components.GetSize(); componentIdx++) {</div>
 <div class="line"><a id="l00186" name="l00186"></a><span class="lineno">  186</span>                    <span class="keyword">const</span> <span class="keyword">auto</span>&amp; objIndex = m_componentToObject.at(componentIdx);</div>
 <div class="line"><a id="l00187" name="l00187"></a><span class="lineno">  187</span>                    <span class="keyword">const</span> <span class="keyword">auto</span>&amp; component = m_components[componentIdx];</div>
 <div class="line"><a id="l00188" name="l00188"></a><span class="lineno">  188</span> </div>
@@ -276,14 +276,14 @@ $(function(){initNavTree('_component_container_8h_source.html',''); initResizabl
 <div class="line"><a id="l00202" name="l00202"></a><span class="lineno">  202</span>            <span class="keywordflow">return</span> output;</div>
 <div class="line"><a id="l00203" name="l00203"></a><span class="lineno">  203</span>        }</div>
 </div>
-<div class="line"><a id="l00204" name="l00204"></a><span class="lineno">  204</span> </div>
+<div class="line"><a id="l00204" name="l00204"></a><span class="lineno">  204</span></div>
 <div class="foldopen" id="foldopen00212" data-start="{" data-end="}">
 <div class="line"><a id="l00212" name="l00212"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_e_c_s_1_1_component_container.html#ae69ae3470fdfeb0926d1931420e711d3">  212</a></span>        <a class="code hl_class" href="class_o_s_k_1_1_p_e_r_s_i_s_t_e_n_c_e_1_1_binary_block.html">PERSISTENCE::BinaryBlock</a> <a class="code hl_function" href="class_o_s_k_1_1_e_c_s_1_1_component_container.html#ae69ae3470fdfeb0926d1931420e711d3">BinarySerializeAll</a>()<span class="keyword"> const override </span>{</div>
 <div class="line"><a id="l00213" name="l00213"></a><span class="lineno">  213</span>            <a class="code hl_class" href="class_o_s_k_1_1_p_e_r_s_i_s_t_e_n_c_e_1_1_binary_block.html">PERSISTENCE::BinaryBlock</a> output{};</div>
 <div class="line"><a id="l00214" name="l00214"></a><span class="lineno">  214</span> </div>
 <div class="line"><a id="l00215" name="l00215"></a><span class="lineno">  215</span>            <span class="keywordflow">if</span> <span class="keyword">constexpr</span> (<a class="code hl_concept" href="concept_o_s_k_1_1_e_c_s_1_1_is_serializable_component.html">IsSerializableComponent&lt;TComponent&gt;</a>) {</div>
 <div class="line"><a id="l00216" name="l00216"></a><span class="lineno">  216</span> </div>
-<div class="line"><a id="l00217" name="l00217"></a><span class="lineno">  217</span>                output.Write&lt;<a class="code hl_typedef" href="namespace_o_s_k.html#a83ff197aaa32126d84ad65f1d6d5a3b5">USize64</a>&gt;(m_components.<a class="code hl_function" href="class_o_s_k_1_1_dynamic_array.html#af09578371bd52d5a934bc74c8dad5f0d">GetSize</a>());</div>
+<div class="line"><a id="l00217" name="l00217"></a><span class="lineno">  217</span>                output.Write&lt;<a class="code hl_typedef" href="namespace_o_s_k.html#a83ff197aaa32126d84ad65f1d6d5a3b5">USize64</a>&gt;(m_components.GetSize());</div>
 <div class="line"><a id="l00218" name="l00218"></a><span class="lineno">  218</span> </div>
 <div class="line"><a id="l00219" name="l00219"></a><span class="lineno">  219</span>                <span class="comment">// Datos.</span></div>
 <div class="line"><a id="l00220" name="l00220"></a><span class="lineno">  220</span>                <span class="keyword">auto</span> datasBlock = <a class="code hl_function" href="class_o_s_k_1_1_p_e_r_s_i_s_t_e_n_c_e_1_1_binary_block.html#af19a6473e035068fc4a8b64d910276c3">PERSISTENCE::BinaryBlock::Empty</a>();</div>
@@ -308,17 +308,17 @@ $(function(){initNavTree('_component_container_8h_source.html',''); initResizabl
 <div class="line"><a id="l00239" name="l00239"></a><span class="lineno">  239</span>        }</div>
 </div>
 <div class="line"><a id="l00240" name="l00240"></a><span class="lineno">  240</span> </div>
-<div class="line"><a id="l00241" name="l00241"></a><span class="lineno">  241</span> </div>
+<div class="line"><a id="l00241" name="l00241"></a><span class="lineno">  241</span></div>
 <div class="foldopen" id="foldopen00250" data-start="{" data-end="}">
-<div class="line"><a id="l00250" name="l00250"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_e_c_s_1_1_component_container.html#a45a25df2bc654f4be3ac4010bf6bf89f">  250</a></span>        <span class="keywordtype">void</span> <a class="code hl_function" href="class_o_s_k_1_1_e_c_s_1_1_component_container.html#a45a25df2bc654f4be3ac4010bf6bf89f">DeserializeComponent</a>(<span class="keyword">const</span> nlohmann::json&amp; data, <a class="code hl_class" href="class_o_s_k_1_1_base_uuid.html">GameObjectIndex</a> obj, <span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_e_c_s_1_1_saved_game_object_translator.html">SavedGameObjectTranslator</a>&amp; translator)<span class="keyword"> override </span>{</div>
+<div class="line"><a id="l00250" name="l00250"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_e_c_s_1_1_component_container.html#a45a25df2bc654f4be3ac4010bf6bf89f">  250</a></span>        <span class="keywordtype">void</span> <a class="code hl_function" href="class_o_s_k_1_1_e_c_s_1_1_component_container.html#a45a25df2bc654f4be3ac4010bf6bf89f">DeserializeComponent</a>(<span class="keyword">const</span> nlohmann::json&amp; data, <a class="code hl_typedef" href="namespace_o_s_k_1_1_e_c_s.html#a5b92aeaa6be2ce0d96e7f571aa917042">GameObjectIndex</a> obj, <span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_e_c_s_1_1_saved_game_object_translator.html">SavedGameObjectTranslator</a>&amp; translator)<span class="keyword"> override </span>{</div>
 <div class="line"><a id="l00251" name="l00251"></a><span class="lineno">  251</span>            <span class="keywordflow">if</span> <span class="keyword">constexpr</span> (<a class="code hl_concept" href="concept_o_s_k_1_1_e_c_s_1_1_is_serializable_component.html">IsSerializableComponent&lt;TComponent&gt;</a>) {</div>
 <div class="line"><a id="l00252" name="l00252"></a><span class="lineno">  252</span>                <a class="code hl_function" href="class_o_s_k_1_1_e_c_s_1_1_component_container.html#aada8120359f7e0a7c7a4f93d55764f6f">AddComponentMove</a>(obj, <a class="code hl_function" href="namespace_o_s_k_1_1_p_e_r_s_i_s_t_e_n_c_e.html#a08dca25fa3b4ff3f0ba4d84b4503490e">PERSISTENCE::DeserializeComponent&lt;TComponent&gt;</a>(data, translator));</div>
 <div class="line"><a id="l00253" name="l00253"></a><span class="lineno">  253</span>            }</div>
 <div class="line"><a id="l00254" name="l00254"></a><span class="lineno">  254</span>        }</div>
 </div>
-<div class="line"><a id="l00255" name="l00255"></a><span class="lineno">  255</span> </div>
+<div class="line"><a id="l00255" name="l00255"></a><span class="lineno">  255</span></div>
 <div class="foldopen" id="foldopen00266" data-start="{" data-end="}">
-<div class="line"><a id="l00266" name="l00266"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_e_c_s_1_1_component_container.html#aad4672f5ecfb72c69f40594ff5885ce2">  266</a></span>        <span class="keywordtype">void</span> <a class="code hl_function" href="class_o_s_k_1_1_e_c_s_1_1_component_container.html#aad4672f5ecfb72c69f40594ff5885ce2">BinaryDeserializeComponent</a>(<a class="code hl_class" href="class_o_s_k_1_1_p_e_r_s_i_s_t_e_n_c_e_1_1_binary_block_reader.html">PERSISTENCE::BinaryBlockReader</a>* reader, <a class="code hl_class" href="class_o_s_k_1_1_base_uuid.html">GameObjectIndex</a> obj, <span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_e_c_s_1_1_saved_game_object_translator.html">SavedGameObjectTranslator</a>&amp; translator)<span class="keyword"> override </span>{</div>
+<div class="line"><a id="l00266" name="l00266"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_e_c_s_1_1_component_container.html#aad4672f5ecfb72c69f40594ff5885ce2">  266</a></span>        <span class="keywordtype">void</span> <a class="code hl_function" href="class_o_s_k_1_1_e_c_s_1_1_component_container.html#aad4672f5ecfb72c69f40594ff5885ce2">BinaryDeserializeComponent</a>(<a class="code hl_class" href="class_o_s_k_1_1_p_e_r_s_i_s_t_e_n_c_e_1_1_binary_block_reader.html">PERSISTENCE::BinaryBlockReader</a>* reader, <a class="code hl_typedef" href="namespace_o_s_k_1_1_e_c_s.html#a5b92aeaa6be2ce0d96e7f571aa917042">GameObjectIndex</a> obj, <span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_e_c_s_1_1_saved_game_object_translator.html">SavedGameObjectTranslator</a>&amp; translator)<span class="keyword"> override </span>{</div>
 <div class="line"><a id="l00267" name="l00267"></a><span class="lineno">  267</span>            <span class="keywordflow">if</span> <span class="keyword">constexpr</span> (<a class="code hl_concept" href="concept_o_s_k_1_1_e_c_s_1_1_is_serializable_component.html">IsSerializableComponent&lt;TComponent&gt;</a>) {</div>
 <div class="line"><a id="l00268" name="l00268"></a><span class="lineno">  268</span>                <a class="code hl_function" href="class_o_s_k_1_1_e_c_s_1_1_component_container.html#aada8120359f7e0a7c7a4f93d55764f6f">AddComponentMove</a>(obj, <a class="code hl_function" href="namespace_o_s_k_1_1_p_e_r_s_i_s_t_e_n_c_e.html#a6f4500fd079ca05af5ea9acfcd90853d">PERSISTENCE::BinaryDeserializeComponent&lt;TComponent&gt;</a>(reader, translator));</div>
 <div class="line"><a id="l00269" name="l00269"></a><span class="lineno">  269</span>            }</div>
@@ -326,9 +326,9 @@ $(function(){initNavTree('_component_container_8h_source.html',''); initResizabl
 </div>
 <div class="line"><a id="l00271" name="l00271"></a><span class="lineno">  271</span> </div>
 <div class="line"><a id="l00272" name="l00272"></a><span class="lineno">  272</span>    <span class="keyword">private</span>:</div>
-<div class="line"><a id="l00273" name="l00273"></a><span class="lineno">  273</span> </div>
+<div class="line"><a id="l00273" name="l00273"></a><span class="lineno">  273</span></div>
 <div class="line"><a id="l00275" name="l00275"></a><span class="lineno">  275</span>        <a class="code hl_class" href="class_o_s_k_1_1_dynamic_array.html">DynamicArray&lt;TComponent&gt;</a> m_components;</div>
-<div class="line"><a id="l00276" name="l00276"></a><span class="lineno">  276</span> </div>
+<div class="line"><a id="l00276" name="l00276"></a><span class="lineno">  276</span></div>
 <div class="line"><a id="l00278" name="l00278"></a><span class="lineno">  278</span>        std::unordered_map&lt;GameObjectIndex, ComponentIndex&gt; m_objectToComponent;</div>
 <div class="line"><a id="l00279" name="l00279"></a><span class="lineno">  279</span>        </div>
 <div class="line"><a id="l00281" name="l00281"></a><span class="lineno">  281</span>        std::unordered_map&lt;ComponentIndex, GameObjectIndex&gt; m_componentToObject;</div>
@@ -337,14 +337,9 @@ $(function(){initNavTree('_component_container_8h_source.html',''); initResizabl
 </div>
 <div class="line"><a id="l00284" name="l00284"></a><span class="lineno">  284</span> </div>
 <div class="line"><a id="l00285" name="l00285"></a><span class="lineno">  285</span>}</div>
-<div class="ttc" id="aclass_o_s_k_1_1_base_uuid_html"><div class="ttname"><a href="class_o_s_k_1_1_base_uuid.html">OSK::BaseUuid&lt; class GameObjectIndexTag &gt;</a></div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_base_uuid_html_aa42e94a2e6f7ffb2303082dac212a098"><div class="ttname"><a href="class_o_s_k_1_1_base_uuid.html#aa42e94a2e6f7ffb2303082dac212a098">OSK::BaseUuid&lt; class GameObjectIndexTag &gt;::TUnderlyingType</a></div><div class="ttdeci">UIndex64 TUnderlyingType</div><div class="ttdef"><b>Definition</b> <a href="_uuid_8h_source.html#l00018">Uuid.h:18</a></div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_base_uuid_html_ac68d95adf3e47e1bd577ebefce8f3aa1"><div class="ttname"><a href="class_o_s_k_1_1_base_uuid.html#ac68d95adf3e47e1bd577ebefce8f3aa1">OSK::BaseUuid::Get</a></div><div class="ttdeci">UIndex64 Get() const noexcept</div><div class="ttdef"><b>Definition</b> <a href="_uuid_8h_source.html#l00052">Uuid.h:52</a></div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_dynamic_array_html"><div class="ttname"><a href="class_o_s_k_1_1_dynamic_array.html">OSK::DynamicArray</a></div><div class="ttdoc">Dynamic array: array que puede cambiar de tamaño.</div><div class="ttdef"><b>Definition</b> <a href="_dynamic_array_8hpp_source.html#l00066">DynamicArray.hpp:66</a></div></div>
-<div class="ttc" id="aclass_o_s_k_1_1_dynamic_array_html_a4433c76207ce2ecad5e306b12575f1b3"><div class="ttname"><a href="class_o_s_k_1_1_dynamic_array.html#a4433c76207ce2ecad5e306b12575f1b3">OSK::DynamicArray::Insert</a></div><div class="ttdeci">void Insert(const T &amp;element)</div><div class="ttdoc">Inserta un elemento al final del array.</div><div class="ttdef"><b>Definition</b> <a href="_dynamic_array_8hpp_source.html#l00360">DynamicArray.hpp:360</a></div></div>
-<div class="ttc" id="aclass_o_s_k_1_1_dynamic_array_html_a90bb67f64f4e41f06ec2db0e18dc563f"><div class="ttname"><a href="class_o_s_k_1_1_dynamic_array.html#a90bb67f64f4e41f06ec2db0e18dc563f">OSK::DynamicArray::RemoveLast</a></div><div class="ttdeci">void RemoveLast()</div><div class="ttdoc">Elimina el último elemento del array.</div><div class="ttdef"><b>Definition</b> <a href="_dynamic_array_8hpp_source.html#l00554">DynamicArray.hpp:554</a></div></div>
-<div class="ttc" id="aclass_o_s_k_1_1_dynamic_array_html_abb2718a784ceb0e0f31fdc7f5dbd782f"><div class="ttname"><a href="class_o_s_k_1_1_dynamic_array.html#abb2718a784ceb0e0f31fdc7f5dbd782f">OSK::DynamicArray::At</a></div><div class="ttdeci">const T &amp; At(UIndex64 index) const</div><div class="ttdoc">Devuelve el elemento en la posición dada.</div><div class="ttdef"><b>Definition</b> <a href="_dynamic_array_8hpp_source.html#l00386">DynamicArray.hpp:386</a></div></div>
-<div class="ttc" id="aclass_o_s_k_1_1_dynamic_array_html_af09578371bd52d5a934bc74c8dad5f0d"><div class="ttname"><a href="class_o_s_k_1_1_dynamic_array.html#af09578371bd52d5a934bc74c8dad5f0d">OSK::DynamicArray::GetSize</a></div><div class="ttdeci">USize64 GetSize() const noexcept</div><div class="ttdef"><b>Definition</b> <a href="_dynamic_array_8hpp_source.html#l00663">DynamicArray.hpp:663</a></div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_e_c_s_1_1_component_container_html"><div class="ttname"><a href="class_o_s_k_1_1_e_c_s_1_1_component_container.html">OSK::ECS::ComponentContainer</a></div><div class="ttdoc">Contenedor para el dynamic array de componentes del tipo dado. Se encarga de manejar la introducción ...</div><div class="ttdef"><b>Definition</b> <a href="#l00028">ComponentContainer.h:28</a></div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_e_c_s_1_1_component_container_html_a141c6941e31a9648aeb999a9c0521789"><div class="ttname"><a href="class_o_s_k_1_1_e_c_s_1_1_component_container.html#a141c6941e31a9648aeb999a9c0521789">OSK::ECS::ComponentContainer::~ComponentContainer</a></div><div class="ttdeci">~ComponentContainer() override=default</div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_e_c_s_1_1_component_container_html_a45a25df2bc654f4be3ac4010bf6bf89f"><div class="ttname"><a href="class_o_s_k_1_1_e_c_s_1_1_component_container.html#a45a25df2bc654f4be3ac4010bf6bf89f">OSK::ECS::ComponentContainer::DeserializeComponent</a></div><div class="ttdeci">void DeserializeComponent(const nlohmann::json &amp;data, GameObjectIndex obj, const SavedGameObjectTranslator &amp;translator) override</div><div class="ttdoc">Deserializa un componente a partir de un JSON.</div><div class="ttdef"><b>Definition</b> <a href="#l00250">ComponentContainer.h:250</a></div></div>
@@ -367,8 +362,10 @@ $(function(){initNavTree('_component_container_8h_source.html',''); initResizabl
 <div class="ttc" id="aclass_o_s_k_1_1_p_e_r_s_i_s_t_e_n_c_e_1_1_binary_block_html"><div class="ttname"><a href="class_o_s_k_1_1_p_e_r_s_i_s_t_e_n_c_e_1_1_binary_block.html">OSK::PERSISTENCE::BinaryBlock</a></div><div class="ttdoc">Bloque con datos en formato binario.</div><div class="ttdef"><b>Definition</b> <a href="_binary_block_8h_source.html#l00068">BinaryBlock.h:68</a></div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_p_e_r_s_i_s_t_e_n_c_e_1_1_binary_block_html_af19a6473e035068fc4a8b64d910276c3"><div class="ttname"><a href="class_o_s_k_1_1_p_e_r_s_i_s_t_e_n_c_e_1_1_binary_block.html#af19a6473e035068fc4a8b64d910276c3">OSK::PERSISTENCE::BinaryBlock::Empty</a></div><div class="ttdeci">static BinaryBlock Empty()</div><div class="ttdef"><b>Definition</b> <a href="_binary_block_8cpp_source.html#l00050">BinaryBlock.cpp:50</a></div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_p_e_r_s_i_s_t_e_n_c_e_1_1_binary_block_reader_html"><div class="ttname"><a href="class_o_s_k_1_1_p_e_r_s_i_s_t_e_n_c_e_1_1_binary_block_reader.html">OSK::PERSISTENCE::BinaryBlockReader</a></div><div class="ttdoc">Lector de un bloque binario.</div><div class="ttdef"><b>Definition</b> <a href="_binary_block_8h_source.html#l00015">BinaryBlock.h:15</a></div></div>
+<div class="ttc" id="aconcept_o_s_k_1_1_e_c_s_1_1_is_ecs_component_html"><div class="ttname"><a href="concept_o_s_k_1_1_e_c_s_1_1_is_ecs_component.html">OSK::ECS::IsEcsComponent</a></div><div class="ttdoc">Concepto que nos permite detectar si una clase cumple con las condiciones para ser un componente.</div><div class="ttdef"><b>Definition</b> <a href="_component_8h_source.html#l00039">Component.h:39</a></div></div>
 <div class="ttc" id="aconcept_o_s_k_1_1_e_c_s_1_1_is_serializable_component_html"><div class="ttname"><a href="concept_o_s_k_1_1_e_c_s_1_1_is_serializable_component.html">OSK::ECS::IsSerializableComponent</a></div><div class="ttdoc">Comprueba si un componente puede ser serializado y deserializado.</div><div class="ttdef"><b>Definition</b> <a href="_serializable_component_8h_source.html#l00012">SerializableComponent.h:12</a></div></div>
 <div class="ttc" id="anamespace_o_s_k_1_1_e_c_s_html"><div class="ttname"><a href="namespace_o_s_k_1_1_e_c_s.html">OSK::ECS</a></div><div class="ttdef"><b>Definition</b> <a href="_camera_component2_d_8h_source.html#l00017">CameraComponent2D.h:17</a></div></div>
+<div class="ttc" id="anamespace_o_s_k_1_1_e_c_s_html_a5b92aeaa6be2ce0d96e7f571aa917042"><div class="ttname"><a href="namespace_o_s_k_1_1_e_c_s.html#a5b92aeaa6be2ce0d96e7f571aa917042">OSK::ECS::GameObjectIndex</a></div><div class="ttdeci">BaseUuid&lt; class GameObjectIndexTag &gt; GameObjectIndex</div><div class="ttdoc">Identificador único para un Game Object.</div><div class="ttdef"><b>Definition</b> <a href="_game_object_8h_source.html#l00021">GameObject.h:21</a></div></div>
 <div class="ttc" id="anamespace_o_s_k_1_1_e_c_s_html_a90846bb0cf12235cbeb41ccdac6266c3"><div class="ttname"><a href="namespace_o_s_k_1_1_e_c_s.html#a90846bb0cf12235cbeb41ccdac6266c3">OSK::ECS::ComponentIndex</a></div><div class="ttdeci">UIndex64 ComponentIndex</div><div class="ttdoc">Índice que ocupa un componente en un contenedor.</div><div class="ttdef"><b>Definition</b> <a href="_component_8h_source.html#l00025">Component.h:25</a></div></div>
 <div class="ttc" id="anamespace_o_s_k_1_1_p_e_r_s_i_s_t_e_n_c_e_html_a08dca25fa3b4ff3f0ba4d84b4503490e"><div class="ttname"><a href="namespace_o_s_k_1_1_p_e_r_s_i_s_t_e_n_c_e.html#a08dca25fa3b4ff3f0ba4d84b4503490e">OSK::PERSISTENCE::DeserializeComponent</a></div><div class="ttdeci">T DeserializeComponent(const nlohmann::json &amp;data, const ECS::SavedGameObjectTranslator &amp;gameObjectTranslator)=delete</div><div class="ttdoc">Construye un dato a partir del JSON que lo describe.</div></div>
 <div class="ttc" id="anamespace_o_s_k_1_1_p_e_r_s_i_s_t_e_n_c_e_html_a3f8db8c5568569e7ea6fd621efa231b8"><div class="ttname"><a href="namespace_o_s_k_1_1_p_e_r_s_i_s_t_e_n_c_e.html#a3f8db8c5568569e7ea6fd621efa231b8">OSK::PERSISTENCE::BinarySerializeComponent</a></div><div class="ttdeci">BinaryBlock BinarySerializeComponent(const T &amp;data)=delete</div></div>
@@ -382,7 +379,7 @@ $(function(){initNavTree('_component_container_8h_source.html',''); initResizabl
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_74389ed8173ad57b461b9d623a1f3867.html">Source</a></li><li class="navelem"><b>ComponentContainer.h</b></li>
-    <li class="footer">Generado el Lunes, 23 de diciembre de 2024 13:15:55 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.12.0 </li>
+    <li class="footer">Generado el Miércoles, 16 de abril de 2025 17:13:04 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.13.2 </li>
   </ul>
 </div>
 </body>

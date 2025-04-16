@@ -6,6 +6,8 @@ var class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_model3_d =
     [ "AddLod", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_model3_d.html#a8298446b7b77261510911be3f593d9e3", null ],
     [ "AddMesh", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_model3_d.html#a236ee5c6ee3279b75c69b08155356e16", null ],
     [ "EstablisSingleLod", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_model3_d.html#a5a04239a9e7037a883e0835259bdd928", null ],
+    [ "GetAnimator", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_model3_d.html#a9c04ba95a0c4722837987412939be9d0", null ],
+    [ "GetAnimator", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_model3_d.html#a3b64f668f5603278c20e1224e003ebdc", null ],
     [ "GetCpuModel", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_model3_d.html#a9918fe8bd27807100a9ced5afeef1c14", null ],
     [ "GetCpuModel", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_model3_d.html#a35524dfcf6820eb57eb1ca1e7a412d4c", null ],
     [ "GetIndexBuffer", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_model3_d.html#a6f2efdacbb5bf1677731c2541d891e33", null ],
@@ -22,10 +24,12 @@ var class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_model3_d =
     [ "GetVertexAttributesMap", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_model3_d.html#a151a2dbb19efd3b5c9703d6b5a5bb7ba", null ],
     [ "GetVertexAttributesMap", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_model3_d.html#a4fbb86663810c3104b722f4e524a15e4", null ],
     [ "GetVertexBuffer", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_model3_d.html#ab1fa76c4b19380a8b36e021700d4b607", null ],
+    [ "HasAnimator", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_model3_d.html#a152af385698d10ca710191354a5a36f6", null ],
+    [ "SetAnimator", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_model3_d.html#a67c38515ed8d1811f6c7af8b83a9f186", null ],
     [ "SetCpuModel3D", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_model3_d.html#a70d42033633b4fc15b131fd33cf61af1", null ],
-    [ "SetIndexBuffer", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_model3_d.html#a1695b12240a3426396aa60f3bb5bc92d", null ],
+    [ "SetIndexBuffer", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_model3_d.html#ac100d9c7aaa10556da6916a96fe8b233", null ],
     [ "SetIndexCount", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_model3_d.html#aa34e42450139b56829083f999d587430", null ],
     [ "SetMaterials", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_model3_d.html#abca2827c39794d4b8e400957e27c8ec3", null ],
     [ "SetUuid", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_model3_d.html#a531bc29a755776fc7bb808f562c7c372", null ],
-    [ "SetVertexBuffer", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_model3_d.html#a3c593cc38b798c764789a1c2b9d415e3", null ]
+    [ "SetVertexBuffer", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_model3_d.html#a3c66b1cea426393aac51fbf6ebe10493", null ]
 ];

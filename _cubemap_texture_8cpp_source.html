@@ -3,7 +3,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
-<meta name="generator" content="Doxygen 1.12.0"/>
+<meta name="generator" content="Doxygen 1.13.2"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
 <title>OSKengine: Archivo de código fuente Source/CubemapTexture.cpp</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
@@ -37,7 +37,7 @@
 </table>
 </div>
 <!-- end header part -->
-<!-- Generado por Doxygen 1.12.0 -->
+<!-- Generado por Doxygen 1.13.2 -->
 <script type="text/javascript">
 /* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
 var searchBox = new SearchBox("searchBox", "search/",'.html');
@@ -108,7 +108,7 @@ $(function(){initNavTree('_cubemap_texture_8cpp_source.html',''); initResizable(
 <div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span> </div>
 <div class="foldopen" id="foldopen00006" data-start="{" data-end="}">
 <div class="line"><a id="l00006" name="l00006"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_cubemap_texture.html#a66d792bc75d3c6b7a556503db6f0e65e">    6</a></span><a class="code hl_function" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_cubemap_texture.html#a66d792bc75d3c6b7a556503db6f0e65e">CubemapTexture::CubemapTexture</a>(<span class="keyword">const</span> std::string&amp; assetFile) </div>
-<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span>    : <a class="code hl_class" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_i_asset.html">IAsset</a>(assetFile)  {</div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span>    : <a class="code hl_function" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_i_asset.html#ae0f7dd9a4dc1a89043ee0f7d826e3a8f">IAsset</a>(assetFile)  {</div>
 <div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span> </div>
 <div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span>}</div>
 </div>
@@ -120,17 +120,16 @@ $(function(){initNavTree('_cubemap_texture_8cpp_source.html',''); initResizable(
 </div>
 <div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span> </div>
 <div class="foldopen" id="foldopen00015" data-start="{" data-end="}">
-<div class="line"><a id="l00015" name="l00015"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_cubemap_texture.html#aae0dfa0be961b9c39efa8f5427d61a69">   15</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_cubemap_texture.html#aae0dfa0be961b9c39efa8f5427d61a69">CubemapTexture::_SetImage</a>(<a class="code hl_class" href="class_o_s_k_1_1_owned_ptr.html">OwnedPtr&lt;GpuImage&gt;</a> image) {</div>
-<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span>    this-&gt;image = image.<a class="code hl_function" href="class_o_s_k_1_1_owned_ptr.html#a81dfab2299056fc9858aace55fca0042">GetPointer</a>();</div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_cubemap_texture.html#a9864c44a7586d97be0b581f0f8c0f1ba">   15</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_cubemap_texture.html#a9864c44a7586d97be0b581f0f8c0f1ba">CubemapTexture::_SetImage</a>(<a class="code hl_class" href="class_o_s_k_1_1_unique_ptr.html">UniquePtr&lt;GRAPHICS::GpuImage&gt;</a>&amp;&amp; image) {</div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span>    this-&gt;image = std::move(image);</div>
 <div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>}</div>
 </div>
 <div class="ttc" id="aclass_o_s_k_1_1_a_s_s_e_t_s_1_1_cubemap_texture_html_a66d792bc75d3c6b7a556503db6f0e65e"><div class="ttname"><a href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_cubemap_texture.html#a66d792bc75d3c6b7a556503db6f0e65e">OSK::ASSETS::CubemapTexture::CubemapTexture</a></div><div class="ttdeci">CubemapTexture(const std::string &amp;assetFile)</div><div class="ttdef"><b>Definition</b> <a href="#l00006">CubemapTexture.cpp:6</a></div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_a_s_s_e_t_s_1_1_cubemap_texture_html_a6af2a4764de0652d67db5b71e93d8c55"><div class="ttname"><a href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_cubemap_texture.html#a6af2a4764de0652d67db5b71e93d8c55">OSK::ASSETS::CubemapTexture::GetGpuImage</a></div><div class="ttdeci">const GRAPHICS::GpuImage * GetGpuImage() const</div><div class="ttdoc">Imagen guardada en la GPU. Para renderizado.</div><div class="ttdef"><b>Definition</b> <a href="#l00011">CubemapTexture.cpp:11</a></div></div>
-<div class="ttc" id="aclass_o_s_k_1_1_a_s_s_e_t_s_1_1_cubemap_texture_html_aae0dfa0be961b9c39efa8f5427d61a69"><div class="ttname"><a href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_cubemap_texture.html#aae0dfa0be961b9c39efa8f5427d61a69">OSK::ASSETS::CubemapTexture::_SetImage</a></div><div class="ttdeci">void _SetImage(OwnedPtr&lt; GRAPHICS::GpuImage &gt; image)</div><div class="ttdoc">Establece la imagen que contiene el cubemap.</div><div class="ttdef"><b>Definition</b> <a href="#l00015">CubemapTexture.cpp:15</a></div></div>
-<div class="ttc" id="aclass_o_s_k_1_1_a_s_s_e_t_s_1_1_i_asset_html"><div class="ttname"><a href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_i_asset.html">OSK::ASSETS::IAsset</a></div><div class="ttdoc">Un asset es un archivo/contenido que se usa en un juego. Incluye contenido como texturas,...</div><div class="ttdef"><b>Definition</b> <a href="_i_asset_8h_source.html#l00030">IAsset.h:30</a></div></div>
-<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_html"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image.html">OSK::GRAPHICS::GpuImage</a></div><div class="ttdoc">Representación interna de una imagen en la GPU.</div><div class="ttdef"><b>Definition</b> <a href="_i_gpu_image_8h_source.html#l00035">IGpuImage.h:35</a></div></div>
-<div class="ttc" id="aclass_o_s_k_1_1_owned_ptr_html"><div class="ttname"><a href="class_o_s_k_1_1_owned_ptr.html">OSK::OwnedPtr</a></div><div class="ttdoc">Es dueño de un puntero.</div><div class="ttdef"><b>Definition</b> <a href="_owned_ptr_8h_source.html#l00017">OwnedPtr.h:17</a></div></div>
-<div class="ttc" id="aclass_o_s_k_1_1_owned_ptr_html_a81dfab2299056fc9858aace55fca0042"><div class="ttname"><a href="class_o_s_k_1_1_owned_ptr.html#a81dfab2299056fc9858aace55fca0042">OSK::OwnedPtr::GetPointer</a></div><div class="ttdeci">T * GetPointer() const</div><div class="ttdoc">Devuelve el puntero nativo.</div><div class="ttdef"><b>Definition</b> <a href="_owned_ptr_8h_source.html#l00080">OwnedPtr.h:80</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_a_s_s_e_t_s_1_1_cubemap_texture_html_a9864c44a7586d97be0b581f0f8c0f1ba"><div class="ttname"><a href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_cubemap_texture.html#a9864c44a7586d97be0b581f0f8c0f1ba">OSK::ASSETS::CubemapTexture::_SetImage</a></div><div class="ttdeci">void _SetImage(UniquePtr&lt; GRAPHICS::GpuImage &gt; &amp;&amp;image)</div><div class="ttdoc">Establece la imagen que contiene el cubemap.</div><div class="ttdef"><b>Definition</b> <a href="#l00015">CubemapTexture.cpp:15</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_a_s_s_e_t_s_1_1_i_asset_html_ae0f7dd9a4dc1a89043ee0f7d826e3a8f"><div class="ttname"><a href="class_o_s_k_1_1_a_s_s_e_t_s_1_1_i_asset.html#ae0f7dd9a4dc1a89043ee0f7d826e3a8f">OSK::ASSETS::IAsset::IAsset</a></div><div class="ttdeci">IAsset(const std::string &amp;assetFile)</div><div class="ttdef"><b>Definition</b> <a href="_i_asset_8cpp_source.html#l00005">IAsset.cpp:5</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image_html"><div class="ttname"><a href="class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_image.html">OSK::GRAPHICS::GpuImage</a></div><div class="ttdoc">Representación interna de una imagen en la GPU.</div><div class="ttdef"><b>Definition</b> <a href="_i_gpu_image_8h_source.html#l00034">IGpuImage.h:34</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_unique_ptr_html"><div class="ttname"><a href="class_o_s_k_1_1_unique_ptr.html">OSK::UniquePtr</a></div><div class="ttdoc">Estructura que es dueña de un objeto almacenado en heap. Al destruirse el UniquePtr,...</div><div class="ttdef"><b>Definition</b> <a href="_unique_ptr_8hpp_source.html#l00026">UniquePtr.hpp:26</a></div></div>
 <div class="ttc" id="anamespace_o_s_k_1_1_a_s_s_e_t_s_html"><div class="ttname"><a href="namespace_o_s_k_1_1_a_s_s_e_t_s.html">OSK::ASSETS</a></div><div class="ttdef"><b>Definition</b> <a href="_anim_mesh_loader_8h_source.html#l00009">AnimMeshLoader.h:9</a></div></div>
 <div class="ttc" id="anamespace_o_s_k_1_1_g_r_a_p_h_i_c_s_html"><div class="ttname"><a href="namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html">OSK::GRAPHICS</a></div><div class="ttdef"><b>Definition</b> <a href="_acceleration_structures_exceptions_8h_source.html#l00005">AccelerationStructuresExceptions.h:5</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
@@ -139,7 +138,7 @@ $(function(){initNavTree('_cubemap_texture_8cpp_source.html',''); initResizable(
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_74389ed8173ad57b461b9d623a1f3867.html">Source</a></li><li class="navelem"><b>CubemapTexture.cpp</b></li>
-    <li class="footer">Generado el Lunes, 23 de diciembre de 2024 13:15:55 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.12.0 </li>
+    <li class="footer">Generado el Miércoles, 16 de abril de 2025 17:13:04 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.13.2 </li>
   </ul>
 </div>
 </body>

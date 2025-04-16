@@ -3,7 +3,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
-<meta name="generator" content="Doxygen 1.12.0"/>
+<meta name="generator" content="Doxygen 1.13.2"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
 <title>OSKengine: Archivo de código fuente Source/IblConfig.cpp</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
@@ -37,7 +37,7 @@
 </table>
 </div>
 <!-- end header part -->
-<!-- Generado por Doxygen 1.12.0 -->
+<!-- Generado por Doxygen 1.13.2 -->
 <script type="text/javascript">
 /* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
 var searchBox = new SearchBox("searchBox", "search/",'.html');
@@ -107,7 +107,7 @@ $(function(){initNavTree('_ibl_config_8cpp_source.html',''); initResizable(true)
 <div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span> </div>
 <div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span> </div>
 <div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="keyword">template</span> &lt;&gt;</div>
-<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span>nlohmann::json OSK::PERSISTENCE::SerializeData&lt;OSK::GRAPHICS::PbrIblConfig&gt;(<span class="keyword">const</span> <a class="code hl_struct" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_pbr_ibl_config.html">OSK::GRAPHICS::PbrIblConfig</a>&amp; data) {</div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span>nlohmann::json <a class="code hl_function" href="namespace_o_s_k_1_1_p_e_r_s_i_s_t_e_n_c_e.html#af6b56bd855fdb582f4101c474195f764">OSK::PERSISTENCE::SerializeData&lt;OSK::GRAPHICS::PbrIblConfig&gt;</a>(<span class="keyword">const</span> <a class="code hl_struct" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_pbr_ibl_config.html">OSK::GRAPHICS::PbrIblConfig</a>&amp; data) {</div>
 <div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span>    nlohmann::json output{};</div>
 <div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span> </div>
 <div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span>    output[<span class="stringliteral">&quot;irradianceStrength&quot;</span>] = data.<a class="code hl_variable" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_pbr_ibl_config.html#a2906c56241af5c079887104808804469">irradianceStrength</a>;</div>
@@ -119,7 +119,7 @@ $(function(){initNavTree('_ibl_config_8cpp_source.html',''); initResizable(true)
 <div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span>}</div>
 <div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span> </div>
 <div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span><span class="keyword">template</span> &lt;&gt;</div>
-<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span><a class="code hl_struct" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_pbr_ibl_config.html">OSK::GRAPHICS::PbrIblConfig</a> OSK::PERSISTENCE::DeserializeData&lt;OSK::GRAPHICS::PbrIblConfig&gt;(<span class="keyword">const</span> nlohmann::json&amp; json) {</div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span><a class="code hl_struct" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_pbr_ibl_config.html">OSK::GRAPHICS::PbrIblConfig</a> <a class="code hl_function" href="namespace_o_s_k_1_1_p_e_r_s_i_s_t_e_n_c_e.html#aebfc652c736fc75efe4729f8560db65a">OSK::PERSISTENCE::DeserializeData&lt;OSK::GRAPHICS::PbrIblConfig&gt;</a>(<span class="keyword">const</span> nlohmann::json&amp; json) {</div>
 <div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>    <a class="code hl_struct" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_pbr_ibl_config.html">OSK::GRAPHICS::PbrIblConfig</a> output{};</div>
 <div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span> </div>
 <div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>    output.<a class="code hl_variable" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_pbr_ibl_config.html#a2906c56241af5c079887104808804469">irradianceStrength</a> = json[<span class="stringliteral">&quot;irradianceStrength&quot;</span>];</div>
@@ -132,7 +132,7 @@ $(function(){initNavTree('_ibl_config_8cpp_source.html',''); initResizable(true)
 <div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span> </div>
 <div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span> </div>
 <div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span><span class="keyword">template</span> &lt;&gt;</div>
-<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span><a class="code hl_class" href="class_o_s_k_1_1_p_e_r_s_i_s_t_e_n_c_e_1_1_binary_block.html">BinaryBlock</a> OSK::PERSISTENCE::BinarySerializeData&lt;OSK::GRAPHICS::PbrIblConfig&gt;(<span class="keyword">const</span> <a class="code hl_struct" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_pbr_ibl_config.html">OSK::GRAPHICS::PbrIblConfig</a>&amp; data) {</div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span><a class="code hl_class" href="class_o_s_k_1_1_p_e_r_s_i_s_t_e_n_c_e_1_1_binary_block.html">BinaryBlock</a> <a class="code hl_function" href="namespace_o_s_k_1_1_p_e_r_s_i_s_t_e_n_c_e.html#a084df8041095995229c6bfa6ff77ee0c">OSK::PERSISTENCE::BinarySerializeData&lt;OSK::GRAPHICS::PbrIblConfig&gt;</a>(<span class="keyword">const</span> <a class="code hl_struct" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_pbr_ibl_config.html">OSK::GRAPHICS::PbrIblConfig</a>&amp; data) {</div>
 <div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>    <a class="code hl_class" href="class_o_s_k_1_1_p_e_r_s_i_s_t_e_n_c_e_1_1_binary_block.html">BinaryBlock</a> output{};</div>
 <div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span> </div>
 <div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>    output.<a class="code hl_function" href="class_o_s_k_1_1_p_e_r_s_i_s_t_e_n_c_e_1_1_binary_block.html#aaa39a09f955443aaee7da7d50090c804">Write</a>&lt;<span class="keywordtype">float</span>&gt;(data.<a class="code hl_variable" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_pbr_ibl_config.html#a2906c56241af5c079887104808804469">irradianceStrength</a>);</div>
@@ -144,7 +144,7 @@ $(function(){initNavTree('_ibl_config_8cpp_source.html',''); initResizable(true)
 <div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>}</div>
 <div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span> </div>
 <div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span><span class="keyword">template</span> &lt;&gt;</div>
-<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span><a class="code hl_struct" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_pbr_ibl_config.html">OSK::GRAPHICS::PbrIblConfig</a> OSK::PERSISTENCE::BinaryDeserializeData&lt;OSK::GRAPHICS::PbrIblConfig&gt;(<a class="code hl_class" href="class_o_s_k_1_1_p_e_r_s_i_s_t_e_n_c_e_1_1_binary_block_reader.html">BinaryBlockReader</a>* reader) {</div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span><a class="code hl_struct" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_pbr_ibl_config.html">OSK::GRAPHICS::PbrIblConfig</a> <a class="code hl_function" href="namespace_o_s_k_1_1_p_e_r_s_i_s_t_e_n_c_e.html#a16509b965daf6c4e9b06d5aa3ce1ea84">OSK::PERSISTENCE::BinaryDeserializeData&lt;OSK::GRAPHICS::PbrIblConfig&gt;</a>(<a class="code hl_class" href="class_o_s_k_1_1_p_e_r_s_i_s_t_e_n_c_e_1_1_binary_block_reader.html">BinaryBlockReader</a>* reader) {</div>
 <div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>    <a class="code hl_struct" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_pbr_ibl_config.html">OSK::GRAPHICS::PbrIblConfig</a> output{};</div>
 <div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span> </div>
 <div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>    output.<a class="code hl_variable" href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_pbr_ibl_config.html#a2906c56241af5c079887104808804469">irradianceStrength</a> = reader-&gt;<a class="code hl_function" href="class_o_s_k_1_1_p_e_r_s_i_s_t_e_n_c_e_1_1_binary_block_reader.html#a072434b3366e305b5f8003a6c5212a5e">Read</a>&lt;<span class="keywordtype">float</span>&gt;();</div>
@@ -159,6 +159,10 @@ $(function(){initNavTree('_ibl_config_8cpp_source.html',''); initResizable(true)
 <div class="ttc" id="aclass_o_s_k_1_1_p_e_r_s_i_s_t_e_n_c_e_1_1_binary_block_reader_html"><div class="ttname"><a href="class_o_s_k_1_1_p_e_r_s_i_s_t_e_n_c_e_1_1_binary_block_reader.html">OSK::PERSISTENCE::BinaryBlockReader</a></div><div class="ttdoc">Lector de un bloque binario.</div><div class="ttdef"><b>Definition</b> <a href="_binary_block_8h_source.html#l00015">BinaryBlock.h:15</a></div></div>
 <div class="ttc" id="aclass_o_s_k_1_1_p_e_r_s_i_s_t_e_n_c_e_1_1_binary_block_reader_html_a072434b3366e305b5f8003a6c5212a5e"><div class="ttname"><a href="class_o_s_k_1_1_p_e_r_s_i_s_t_e_n_c_e_1_1_binary_block_reader.html#a072434b3366e305b5f8003a6c5212a5e">OSK::PERSISTENCE::BinaryBlockReader::Read</a></div><div class="ttdeci">T Read()</div><div class="ttdoc">Lee un dato del bloque. Avanza el cursor.</div><div class="ttdef"><b>Definition</b> <a href="_binary_block_8h_source.html#l00038">BinaryBlock.h:38</a></div></div>
 <div class="ttc" id="anamespace_o_s_k_1_1_p_e_r_s_i_s_t_e_n_c_e_html"><div class="ttname"><a href="namespace_o_s_k_1_1_p_e_r_s_i_s_t_e_n_c_e.html">OSK::PERSISTENCE</a></div><div class="ttdef"><b>Definition</b> <a href="_binary_block_8h_source.html#l00012">BinaryBlock.h:12</a></div></div>
+<div class="ttc" id="anamespace_o_s_k_1_1_p_e_r_s_i_s_t_e_n_c_e_html_a084df8041095995229c6bfa6ff77ee0c"><div class="ttname"><a href="namespace_o_s_k_1_1_p_e_r_s_i_s_t_e_n_c_e.html#a084df8041095995229c6bfa6ff77ee0c">OSK::PERSISTENCE::BinarySerializeData</a></div><div class="ttdeci">BinaryBlock BinarySerializeData(const T &amp;data)=delete</div><div class="ttdoc">Obtiene un bloque binario que describe un dato en particular.</div></div>
+<div class="ttc" id="anamespace_o_s_k_1_1_p_e_r_s_i_s_t_e_n_c_e_html_a16509b965daf6c4e9b06d5aa3ce1ea84"><div class="ttname"><a href="namespace_o_s_k_1_1_p_e_r_s_i_s_t_e_n_c_e.html#a16509b965daf6c4e9b06d5aa3ce1ea84">OSK::PERSISTENCE::BinaryDeserializeData</a></div><div class="ttdeci">T BinaryDeserializeData(BinaryBlockReader *reader)=delete</div><div class="ttdoc">Construye un dato a partir del bloque binario que lo describe.</div></div>
+<div class="ttc" id="anamespace_o_s_k_1_1_p_e_r_s_i_s_t_e_n_c_e_html_aebfc652c736fc75efe4729f8560db65a"><div class="ttname"><a href="namespace_o_s_k_1_1_p_e_r_s_i_s_t_e_n_c_e.html#aebfc652c736fc75efe4729f8560db65a">OSK::PERSISTENCE::DeserializeData</a></div><div class="ttdeci">T DeserializeData(const nlohmann::json &amp;data)=delete</div><div class="ttdoc">Construye un dato a partir del JSON que lo describe.</div></div>
+<div class="ttc" id="anamespace_o_s_k_1_1_p_e_r_s_i_s_t_e_n_c_e_html_af6b56bd855fdb582f4101c474195f764"><div class="ttname"><a href="namespace_o_s_k_1_1_p_e_r_s_i_s_t_e_n_c_e.html#af6b56bd855fdb582f4101c474195f764">OSK::PERSISTENCE::SerializeData</a></div><div class="ttdeci">nlohmann::json SerializeData(const T &amp;data)=delete</div><div class="ttdoc">Obtiene un nodo JSON que describe un dato en particular.</div></div>
 <div class="ttc" id="astruct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_pbr_ibl_config_html"><div class="ttname"><a href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_pbr_ibl_config.html">OSK::GRAPHICS::PbrIblConfig</a></div><div class="ttdef"><b>Definition</b> <a href="_pbr_ibl_config_8h_source.html#l00007">PbrIblConfig.h:7</a></div></div>
 <div class="ttc" id="astruct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_pbr_ibl_config_html_a2906c56241af5c079887104808804469"><div class="ttname"><a href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_pbr_ibl_config.html#a2906c56241af5c079887104808804469">OSK::GRAPHICS::PbrIblConfig::irradianceStrength</a></div><div class="ttdeci">float irradianceStrength</div><div class="ttdef"><b>Definition</b> <a href="_pbr_ibl_config_8h_source.html#l00011">PbrIblConfig.h:11</a></div></div>
 <div class="ttc" id="astruct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_pbr_ibl_config_html_a83e69aa5faa253b6e1f69e2e355ab0a1"><div class="ttname"><a href="struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_pbr_ibl_config.html#a83e69aa5faa253b6e1f69e2e355ab0a1">OSK::GRAPHICS::PbrIblConfig::specularStrength</a></div><div class="ttdeci">float specularStrength</div><div class="ttdef"><b>Definition</b> <a href="_pbr_ibl_config_8h_source.html#l00012">PbrIblConfig.h:12</a></div></div>
@@ -170,7 +174,7 @@ $(function(){initNavTree('_ibl_config_8cpp_source.html',''); initResizable(true)
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_74389ed8173ad57b461b9d623a1f3867.html">Source</a></li><li class="navelem"><b>IblConfig.cpp</b></li>
-    <li class="footer">Generado el Lunes, 23 de diciembre de 2024 13:15:56 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.12.0 </li>
+    <li class="footer">Generado el Miércoles, 16 de abril de 2025 17:13:04 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.13.2 </li>
   </ul>
 </div>
 </body>

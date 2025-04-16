@@ -2,7 +2,7 @@ var class_o_s_k_1_1_i_o_1_1_window =
 [
     [ "Window", "class_o_s_k_1_1_i_o_1_1_window.html#a74e6087da23d3c24e9fac0245e5ec92c", null ],
     [ "~Window", "class_o_s_k_1_1_i_o_1_1_window.html#a245d821e6016fa1f6970ccbbedd635f6", null ],
-    [ "_GetGlfw", "class_o_s_k_1_1_i_o_1_1_window.html#aeb6da49da6d72505687d04088cc79cbd", null ],
+    [ "_GetGlfw", "class_o_s_k_1_1_i_o_1_1_window.html#ac0d47ca30b964f8d26341964075dbf5f", null ],
     [ "Close", "class_o_s_k_1_1_i_o_1_1_window.html#a66e688fe71fb638b5d836aca39fab2f0", null ],
     [ "Create", "class_o_s_k_1_1_i_o_1_1_window.html#a153283c8f690e611a57668b914032eb2", null ],
     [ "GetRefreshRate", "class_o_s_k_1_1_i_o_1_1_window.html#ab57e139f809dc42d6646c152cd7c3173", null ],

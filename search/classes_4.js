@@ -11,7 +11,7 @@ var searchData=
   ['engine_8',['Engine',['../class_o_s_k_1_1_engine.html',1,'OSK']]],
   ['engineexception_9',['EngineException',['../class_o_s_k_1_1_engine_exception.html',1,'OSK']]],
   ['entitycomponentsystem_10',['EntityComponentSystem',['../class_o_s_k_1_1_e_c_s_1_1_entity_component_system.html',1,'OSK::ECS']]],
-  ['entry_11',['Entry',['../struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_vertex_info_1_1_entry.html',1,'OSK::GRAPHICS::VertexInfo']]],
+  ['entry_11',['Entry',['../struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_memory_usage_info_1_1_entry.html',1,'OSK::GRAPHICS::GpuMemoryUsageInfo::Entry'],['../struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_vertex_info_1_1_entry.html',1,'OSK::GRAPHICS::VertexInfo::Entry']]],
   ['eventalreadyregisteredexception_12',['EventAlreadyRegisteredException',['../class_o_s_k_1_1_e_c_s_1_1_event_already_registered_exception.html',1,'OSK::ECS']]],
   ['eventcontainer_13',['EventContainer',['../class_o_s_k_1_1_e_c_s_1_1_event_container.html',1,'OSK::ECS']]],
   ['eventmanager_14',['EventManager',['../class_o_s_k_1_1_e_c_s_1_1_event_manager.html',1,'OSK::ECS']]],
