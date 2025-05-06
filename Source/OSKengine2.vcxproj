@@ -51,6 +51,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="AaBbBroadCollisionDetector.cpp" />
     <ClCompile Include="AnimatedGBufferPass.cpp" />
     <ClCompile Include="Animation.cpp" />
     <ClCompile Include="AnimationSkin.cpp" />
@@ -69,6 +70,9 @@
     <ClCompile Include="BloomPass.cpp" />
     <ClCompile Include="Bone.cpp" />
     <ClCompile Include="AxisAlignedBoundingBox.cpp" />
+    <ClCompile Include="BroadColliderHolder.cpp" />
+    <ClCompile Include="BroadCollisionDetectorDispatcher.cpp" />
+    <ClCompile Include="BroadGjkCollisionDetector.cpp" />
     <ClCompile Include="Buffer.cpp" />
     <ClCompile Include="CameraComponentController3D.cpp" />
     <ClCompile Include="CameraComponentView.cpp" />
@@ -92,7 +96,9 @@
     <ClCompile Include="DeferredRenderSytemController.cpp" />
     <ClCompile Include="DescriptorDx12.cpp" />
     <ClCompile Include="DescriptorHeapDx12.cpp" />
+    <ClCompile Include="DetailedCollisionDetectorDispatcher.cpp" />
     <ClCompile Include="DetailedCollisionInfo.cpp" />
+    <ClCompile Include="DetailedSphereSphereDetector.cpp" />
     <ClCompile Include="Editor.cpp" />
     <ClCompile Include="EditorBottomBar.cpp" />
     <ClCompile Include="EditorCommands.cpp" />
@@ -109,6 +115,8 @@
     <ClCompile Include="GameObjectTranslator.cpp" />
     <ClCompile Include="GdrDeferredRenderSystem.cpp" />
     <ClCompile Include="Gjk.cpp" />
+    <ClCompile Include="GjkClippingDetector.cpp" />
+    <ClCompile Include="GjkEpaDetector.cpp" />
     <ClCompile Include="GpuImageCreateInfo.cpp" />
     <ClCompile Include="GpuImageSampler.cpp" />
     <ClCompile Include="GpuImageSamplerDesc.cpp" />
@@ -149,16 +157,18 @@
     <ClCompile Include="MeshPipelineVk.cpp" />
     <ClCompile Include="ModelComponentController3D.cpp" />
     <ClCompile Include="ModelComponentView3D.cpp" />
+    <ClCompile Include="NarrowColliderHolder.cpp" />
     <ClCompile Include="PbrIblConfig.h" />
     <ClCompile Include="PbrResolverPass.cpp" />
     <ClCompile Include="PerMeshData.cpp" />
     <ClCompile Include="PerModelData.cpp" />
-    <ClCompile Include="MinkowskiHull.cpp" />
-    <ClCompile Include="MinkowskiHull.h" />
+    <ClCompile Include="FullMinkowskiHull.cpp" />
+    <ClCompile Include="FullMinkowskiHull.h" />
     <ClCompile Include="PhysicsComponentController3D.cpp" />
     <ClCompile Include="PhysicsComponentView.cpp" />
     <ClCompile Include="PhysicsSystemController.cpp" />
     <ClCompile Include="PhysicsSystemView.cpp" />
+    <ClCompile Include="EpaMinkowskiHull.cpp" />
     <ClCompile Include="PreBuiltCollider.cpp" />
     <ClCompile Include="PreBuiltColliderLoader.cpp" />
     <ClCompile Include="PreBuiltSpline3D.cpp" />
@@ -178,6 +188,8 @@
     <ClCompile Include="Simplex.cpp" />
     <ClCompile Include="SkyboxRenderSystemController.cpp" />
     <ClCompile Include="SkyboxRenderSystemView.cpp" />
+    <ClCompile Include="SphereAabbBroadCollisionDetector.cpp" />
+    <ClCompile Include="SphereSphereBroadCollisionDetector.cpp" />
     <ClCompile Include="SpirvReflectionData.cpp" />
     <ClCompile Include="Spline3D.cpp" />
     <ClCompile Include="StaticGBufferPass.cpp" />
@@ -244,7 +256,7 @@
     <ClCompile Include="HlslRuntimeCompiler.cpp" />
     <ClCompile Include="IAsset.cpp" />
     <ClCompile Include="IAssetLoader.cpp" />
-    <ClCompile Include="IBottomLevelCollider.cpp" />
+    <ClCompile Include="INarrowCollider.cpp" />
     <ClCompile Include="IComputePipeline.cpp" />
     <ClCompile Include="IDisplay.cpp" />
     <ClCompile Include="IFullscreenableDisplay.cpp" />
@@ -267,7 +279,7 @@
     <ClCompile Include="IrradianceMap.cpp" />
     <ClCompile Include="IrradianceMapLoader.cpp" />
     <ClCompile Include="ITopLevelAccelerationStructure.cpp" />
-    <ClCompile Include="ITopLevelCollider.cpp" />
+    <ClCompile Include="IBroadCollider.cpp" />
     <ClCompile Include="IUiContainer.cpp" />
     <ClCompile Include="Material.cpp" />
     <ClCompile Include="MaterialInstance.cpp" />
@@ -355,6 +367,7 @@
     <ClCompile Include="Window.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="AabbAabbDetector.h" />
     <ClInclude Include="AccelerationStructuresExceptions.h" />
     <ClInclude Include="AnimatedGBufferPass.h" />
     <ClInclude Include="Animation.h" />
@@ -391,6 +404,9 @@
     <ClInclude Include="Bone.h" />
     <ClInclude Include="BottomLevelAccelerationStructureVk.h" />
     <ClInclude Include="AxisAlignedBoundingBox.h" />
+    <ClInclude Include="BroadColliderHolder.h" />
+    <ClInclude Include="BroadCollisionDetectorDispatcher.h" />
+    <ClInclude Include="BroadGjkDetector.h" />
     <ClInclude Include="Buffer.h" />
     <ClInclude Include="CameraComponent2D.h" />
     <ClInclude Include="CameraComponent3D.h" />
@@ -435,14 +451,20 @@
     <ClInclude Include="DefineConstructors.h" />
     <ClInclude Include="DefineIuuid.h" />
     <ClInclude Include="DescriptorHeapDx12.h" />
+    <ClInclude Include="DetailedCollisionDetectorDispatcher.h" />
+    <ClInclude Include="DetailedSphereSphereDetector.h" />
     <ClInclude Include="Editor.h" />
     <ClInclude Include="EditorSystemPropertiesPanel.h" />
+    <ClInclude Include="GjkClippingDetector.h" />
+    <ClInclude Include="GjkEpaDetector.h" />
     <ClInclude Include="GpuImageSamplerDx12.h" />
     <ClInclude Include="GpuImageSamplerVk.h" />
     <ClInclude Include="GpuMemoryAlignments.h" />
     <ClInclude Include="GrassRenderPass.h" />
+    <ClInclude Include="IBroadCollisionDetector.h" />
     <ClInclude Include="IComponentController.h" />
     <ClInclude Include="IComponentView.h" />
+    <ClInclude Include="IDetailedCollisionDetector.h" />
     <ClInclude Include="IGpuImageSampler.h" />
     <ClInclude Include="IMeshPipeline.h" />
     <ClInclude Include="ISdfRenderer2D.h" />
@@ -454,11 +476,13 @@
     <ClInclude Include="ModelComponentController3D.h" />
     <ClInclude Include="ModelComponentView3D.h" />
     <ClInclude Include="EditorObjectPropertiesPanel.h" />
+    <ClInclude Include="NarrowColliderHolder.h" />
     <ClInclude Include="PhysicsComponentController3D.h" />
     <ClInclude Include="PhysicsComponentView.h" />
     <ClInclude Include="PhysicsSystemController.h" />
     <ClInclude Include="PhysicsSystemView.h" />
     <ClInclude Include="Platforms.h" />
+    <ClInclude Include="EpaMinkowskiHull.h" />
     <ClInclude Include="PostProcessExceptions.h" />
     <ClInclude Include="RenderBoundsRenderSystemController.h" />
     <ClInclude Include="RenderBoundsRenderSystemView.h" />
@@ -543,7 +567,7 @@
     <ClInclude Include="GpuMemoryUsageInfo.h" />
     <ClInclude Include="GpuHeapMemoryUsageInfo.h" />
     <ClInclude Include="HybridRenderSystem.h" />
-    <ClInclude Include="IBottomLevelCollider.h" />
+    <ClInclude Include="INarrowCollider.h" />
     <ClInclude Include="IComputePipeline.h" />
     <ClInclude Include="IConsumerSystem.h" />
     <ClInclude Include="IDisplay.h" />
@@ -578,7 +602,7 @@
     <ClInclude Include="SdfStringInfo.h" />
     <ClInclude Include="SerializableComponent.h" />
     <ClInclude Include="Serializer.h" />
-    <ClInclude Include="ITopLevelCollider.h" />
+    <ClInclude Include="IBroadCollider.h" />
     <ClInclude Include="IUiContainer.h" />
     <ClInclude Include="IUserInput.h" />
     <ClInclude Include="Lights.h" />
@@ -664,6 +688,8 @@
     <ClInclude Include="SkyboxRenderSystemController.h" />
     <ClInclude Include="SkyboxRenderSystemView.h" />
     <ClInclude Include="Span.h" />
+    <ClInclude Include="SphereAabbBroadCollisionDetector.h" />
+    <ClInclude Include="SphereSphereBroadCollisionDetector.h" />
     <ClInclude Include="SpirvReflectionData.h" />
     <ClInclude Include="Spline3D.h" />
     <ClInclude Include="SpriteBatch.h" />

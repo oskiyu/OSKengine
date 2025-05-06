@@ -76,12 +76,6 @@
     <Filter Include="Archivos de encabezado\Core\Collision">
       <UniqueIdentifier>{15537a07-f4fa-44b3-8093-cccfdd8766aa}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Archivos de encabezado\Core\Collision\TopLevel">
-      <UniqueIdentifier>{434e068d-f909-4fa2-9ea8-be560c5b2125}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Archivos de encabezado\Core\Collision\BottomLevel">
-      <UniqueIdentifier>{9d2cbddc-adf1-4888-a3f7-b5de7dd4e63a}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Archivos de encabezado\Core\Collision\RayCast">
       <UniqueIdentifier>{fe364106-e25d-4c9f-830a-b2e5d74af612}</UniqueIdentifier>
     </Filter>
@@ -147,12 +141,6 @@
     </Filter>
     <Filter Include="Archivos de origen\Core\Collision">
       <UniqueIdentifier>{0a4594d3-f7da-456a-a086-a3770e28ed05}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Archivos de origen\Core\Collision\TopLevel">
-      <UniqueIdentifier>{887ec4fe-7e2e-445b-82ca-a7e28b8b205d}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Archivos de origen\Core\Collision\BottomLevel">
-      <UniqueIdentifier>{f8c323b7-4d9a-4538-8aea-bc1756b112b1}</UniqueIdentifier>
     </Filter>
     <Filter Include="Archivos de origen\Core\Collision\RayCast">
       <UniqueIdentifier>{36ea34f1-1020-4343-8342-39c5aa35d263}</UniqueIdentifier>
@@ -727,6 +715,42 @@
     <Filter Include="Archivos de origen\Core\Graphics\LowLevel\Resources\Dx12">
       <UniqueIdentifier>{de8058f2-23b5-4e1a-ab86-33a978fc9c8f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Archivos de encabezado\BuiltIn\Collision">
+      <UniqueIdentifier>{ec3cdff8-3a9e-4201-ad6b-b6afc83d09a9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de encabezado\BuiltIn\Collision\Detectors">
+      <UniqueIdentifier>{4f4fb2ff-dd47-4e0c-9c0e-ae92e40ab6f0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de origen\BuiltIn\Collision">
+      <UniqueIdentifier>{05a10bcc-bb0f-4cf9-bc59-767d4271c2fe}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de origen\BuiltIn\Collision\Detectors">
+      <UniqueIdentifier>{6b573c62-79a0-44f8-9b33-ea68893b07e6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de encabezado\Core\Collision\Base">
+      <UniqueIdentifier>{b6b2a363-846a-490b-b507-d5b4b0466c6e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de encabezado\Core\Collision\NarrowDetection">
+      <UniqueIdentifier>{a992f276-e45d-4e71-b3be-1f28bc8dba7d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de encabezado\Core\Collision\Colliders">
+      <UniqueIdentifier>{9d2cbddc-adf1-4888-a3f7-b5de7dd4e63a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de encabezado\Core\Collision\BroadDetection">
+      <UniqueIdentifier>{dc032e97-3410-4371-93b0-1e18be7c3648}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de origen\Core\Collision\NarrowDetection">
+      <UniqueIdentifier>{ca81eef0-e6b5-4bd3-b5a9-b1719c09eb3e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de origen\Core\Collision\BroadDetection">
+      <UniqueIdentifier>{9ad41cd4-007a-4d5c-b5bc-e80d578625e8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de origen\Core\Collision\Base">
+      <UniqueIdentifier>{f88b74d2-5e85-4845-8d23-d9f440b9edb5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de origen\Core\Collision\Colliders">
+      <UniqueIdentifier>{f8c323b7-4d9a-4538-8aea-bc1756b112b1}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -1110,29 +1134,17 @@
     <ClCompile Include="IFullscreenableDisplay.cpp">
       <Filter>Archivos de origen\Core\IO\Display</Filter>
     </ClCompile>
-    <ClCompile Include="AxisAlignedBoundingBox.cpp">
-      <Filter>Archivos de origen\Core\Collision\TopLevel</Filter>
-    </ClCompile>
-    <ClCompile Include="SphereCollider.cpp">
-      <Filter>Archivos de origen\Core\Collision\TopLevel</Filter>
-    </ClCompile>
-    <ClCompile Include="ITopLevelCollider.cpp">
-      <Filter>Archivos de origen\Core\Collision\TopLevel</Filter>
-    </ClCompile>
     <ClCompile Include="ConvexVolume.cpp">
-      <Filter>Archivos de origen\Core\Collision\BottomLevel</Filter>
+      <Filter>Archivos de origen\Core\Collision\Colliders</Filter>
     </ClCompile>
     <ClCompile Include="FaceProjection.cpp">
-      <Filter>Archivos de origen\Core\Collision\BottomLevel</Filter>
+      <Filter>Archivos de origen\Core\Collision\Colliders</Filter>
     </ClCompile>
     <ClCompile Include="CollisionInfo.cpp">
       <Filter>Archivos de origen\Core\Collision</Filter>
     </ClCompile>
     <ClCompile Include="Collider.cpp">
       <Filter>Archivos de origen\Core\Collision</Filter>
-    </ClCompile>
-    <ClCompile Include="IBottomLevelCollider.cpp">
-      <Filter>Archivos de origen\Core\Collision\BottomLevel</Filter>
     </ClCompile>
     <ClCompile Include="SpecularMapLoader.cpp">
       <Filter>Archivos de origen\BuiltIn\Assets\Loaders</Filter>
@@ -1323,13 +1335,13 @@
     <ClCompile Include="Sat.cpp">
       <Filter>Archivos de origen\Core\Collision\Detection</Filter>
     </ClCompile>
-    <ClCompile Include="MinkowskiHull.cpp">
+    <ClCompile Include="FullMinkowskiHull.cpp">
       <Filter>Archivos de origen\Core\Collision\Detection</Filter>
     </ClCompile>
     <ClCompile Include="Simplex.cpp">
       <Filter>Archivos de origen\Core\Collision\Detection</Filter>
     </ClCompile>
-    <ClCompile Include="MinkowskiHull.h">
+    <ClCompile Include="FullMinkowskiHull.h">
       <Filter>Archivos de encabezado\Core\Collision\Detection</Filter>
     </ClCompile>
     <ClCompile Include="CollisionComponent.cpp">
@@ -1634,6 +1646,54 @@
     </ClCompile>
     <ClCompile Include="Transform3D.cpp">
       <Filter>Archivos de origen\Core\Types</Filter>
+    </ClCompile>
+    <ClCompile Include="EpaMinkowskiHull.cpp">
+      <Filter>Archivos de origen\Core\Collision\Detection</Filter>
+    </ClCompile>
+    <ClCompile Include="DetailedCollisionDetectorDispatcher.cpp">
+      <Filter>Archivos de origen\Core\Collision\NarrowDetection</Filter>
+    </ClCompile>
+    <ClCompile Include="GjkEpaDetector.cpp">
+      <Filter>Archivos de origen\BuiltIn\Collision\Detectors</Filter>
+    </ClCompile>
+    <ClCompile Include="GjkClippingDetector.cpp">
+      <Filter>Archivos de origen\BuiltIn\Collision\Detectors</Filter>
+    </ClCompile>
+    <ClCompile Include="DetailedSphereSphereDetector.cpp">
+      <Filter>Archivos de origen\BuiltIn\Collision\Detectors</Filter>
+    </ClCompile>
+    <ClCompile Include="BroadCollisionDetectorDispatcher.cpp">
+      <Filter>Archivos de origen\Core\Collision\BroadDetection</Filter>
+    </ClCompile>
+    <ClCompile Include="BroadGjkCollisionDetector.cpp">
+      <Filter>Archivos de origen\BuiltIn\Collision\Detectors</Filter>
+    </ClCompile>
+    <ClCompile Include="AaBbBroadCollisionDetector.cpp">
+      <Filter>Archivos de origen\BuiltIn\Collision\Detectors</Filter>
+    </ClCompile>
+    <ClCompile Include="SphereAabbBroadCollisionDetector.cpp">
+      <Filter>Archivos de origen\BuiltIn\Collision\Detectors</Filter>
+    </ClCompile>
+    <ClCompile Include="SphereSphereBroadCollisionDetector.cpp">
+      <Filter>Archivos de origen\BuiltIn\Collision\Detectors</Filter>
+    </ClCompile>
+    <ClCompile Include="IBroadCollider.cpp">
+      <Filter>Archivos de origen\Core\Collision\Base</Filter>
+    </ClCompile>
+    <ClCompile Include="INarrowCollider.cpp">
+      <Filter>Archivos de origen\Core\Collision\Base</Filter>
+    </ClCompile>
+    <ClCompile Include="AxisAlignedBoundingBox.cpp">
+      <Filter>Archivos de origen\Core\Collision\Colliders</Filter>
+    </ClCompile>
+    <ClCompile Include="SphereCollider.cpp">
+      <Filter>Archivos de origen\Core\Collision\Colliders</Filter>
+    </ClCompile>
+    <ClCompile Include="BroadColliderHolder.cpp">
+      <Filter>Archivos de origen\Core\Collision\Base</Filter>
+    </ClCompile>
+    <ClCompile Include="NarrowColliderHolder.cpp">
+      <Filter>Archivos de origen\Core\Collision\Base</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -2147,23 +2207,8 @@
     <ClInclude Include="CollisionInfo.h">
       <Filter>Archivos de encabezado\Core\Collision</Filter>
     </ClInclude>
-    <ClInclude Include="ITopLevelCollider.h">
-      <Filter>Archivos de encabezado\Core\Collision\TopLevel</Filter>
-    </ClInclude>
-    <ClInclude Include="AxisAlignedBoundingBox.h">
-      <Filter>Archivos de encabezado\Core\Collision\TopLevel</Filter>
-    </ClInclude>
-    <ClInclude Include="SphereCollider.h">
-      <Filter>Archivos de encabezado\Core\Collision\TopLevel</Filter>
-    </ClInclude>
-    <ClInclude Include="IBottomLevelCollider.h">
-      <Filter>Archivos de encabezado\Core\Collision\BottomLevel</Filter>
-    </ClInclude>
     <ClInclude Include="ConvexVolume.h">
-      <Filter>Archivos de encabezado\Core\Collision\BottomLevel</Filter>
-    </ClInclude>
-    <ClInclude Include="FaceProjection.h">
-      <Filter>Archivos de encabezado\Core\Collision\BottomLevel</Filter>
+      <Filter>Archivos de encabezado\Core\Collision\Colliders</Filter>
     </ClInclude>
     <ClInclude Include="Ray.h">
       <Filter>Archivos de encabezado\Core\Collision\RayCast</Filter>
@@ -2923,6 +2968,63 @@
     </ClInclude>
     <ClInclude Include="Transform3D.h">
       <Filter>Archivos de encabezado\Core\Types</Filter>
+    </ClInclude>
+    <ClInclude Include="EpaMinkowskiHull.h">
+      <Filter>Archivos de encabezado\Core\Collision\Detection</Filter>
+    </ClInclude>
+    <ClInclude Include="DetailedCollisionDetectorDispatcher.h">
+      <Filter>Archivos de encabezado\Core\Collision\NarrowDetection</Filter>
+    </ClInclude>
+    <ClInclude Include="IDetailedCollisionDetector.h">
+      <Filter>Archivos de encabezado\Core\Collision\NarrowDetection</Filter>
+    </ClInclude>
+    <ClInclude Include="GjkEpaDetector.h">
+      <Filter>Archivos de encabezado\BuiltIn\Collision\Detectors</Filter>
+    </ClInclude>
+    <ClInclude Include="GjkClippingDetector.h">
+      <Filter>Archivos de encabezado\BuiltIn\Collision\Detectors</Filter>
+    </ClInclude>
+    <ClInclude Include="DetailedSphereSphereDetector.h">
+      <Filter>Archivos de encabezado\BuiltIn\Collision\Detectors</Filter>
+    </ClInclude>
+    <ClInclude Include="IBroadCollisionDetector.h">
+      <Filter>Archivos de encabezado\Core\Collision\BroadDetection</Filter>
+    </ClInclude>
+    <ClInclude Include="BroadCollisionDetectorDispatcher.h">
+      <Filter>Archivos de encabezado\Core\Collision\BroadDetection</Filter>
+    </ClInclude>
+    <ClInclude Include="AabbAabbDetector.h">
+      <Filter>Archivos de encabezado\BuiltIn\Collision\Detectors</Filter>
+    </ClInclude>
+    <ClInclude Include="BroadGjkDetector.h">
+      <Filter>Archivos de encabezado\BuiltIn\Collision\Detectors</Filter>
+    </ClInclude>
+    <ClInclude Include="SphereAabbBroadCollisionDetector.h">
+      <Filter>Archivos de encabezado\BuiltIn\Collision\Detectors</Filter>
+    </ClInclude>
+    <ClInclude Include="SphereSphereBroadCollisionDetector.h">
+      <Filter>Archivos de encabezado\BuiltIn\Collision\Detectors</Filter>
+    </ClInclude>
+    <ClInclude Include="IBroadCollider.h">
+      <Filter>Archivos de encabezado\Core\Collision\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="INarrowCollider.h">
+      <Filter>Archivos de encabezado\Core\Collision\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="SphereCollider.h">
+      <Filter>Archivos de encabezado\Core\Collision\Colliders</Filter>
+    </ClInclude>
+    <ClInclude Include="AxisAlignedBoundingBox.h">
+      <Filter>Archivos de encabezado\Core\Collision\Colliders</Filter>
+    </ClInclude>
+    <ClInclude Include="BroadColliderHolder.h">
+      <Filter>Archivos de encabezado\Core\Collision\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="NarrowColliderHolder.h">
+      <Filter>Archivos de encabezado\Core\Collision\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="FaceProjection.h">
+      <Filter>Archivos de encabezado\Core\Collision\Detection</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

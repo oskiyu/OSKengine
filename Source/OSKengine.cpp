@@ -294,7 +294,7 @@ Version Engine::GetVersion() {
 }
 
 std::string_view Engine::GetBuild() {
-	return "2025.04.16a";
+	return "2025.05.06a";
 }
 
 UIndex64 Engine::GetCurrentGameFrameIndex() {

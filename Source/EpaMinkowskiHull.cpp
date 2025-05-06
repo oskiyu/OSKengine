@@ -49,9 +49,14 @@ OSK::Vector3f OSK::COLLISION::EpaMinkowskiHull::GetContactPoint() const {
 		glm::abs((coords.x + coords.y + coords.z) - 1.0f) < 0.01f, 
 		InvalidObjectStateException("Coordenadas baricéntricas inválidas."));
 
-	return v1.worldSpacePointA * coords.x
-		 + v2.worldSpacePointA * coords.y
-		 + v3.worldSpacePointA * coords.z;
+	OSK_ASSERT(v1.worldSpacePointA.has_value()
+			&& v2.worldSpacePointA.has_value()
+			&& v3.worldSpacePointA.has_value(),
+			InvalidArgumentException("Los soportes no se han generado con un collider compatible con Clipping."));
+
+	return v1.worldSpacePointA.value() * coords.x
+		 + v2.worldSpacePointA.value() * coords.y
+		 + v3.worldSpacePointA.value() * coords.z;
 }
 
 bool OSK::COLLISION::EpaMinkowskiHull::SurpasesMinDepth() const {
