@@ -68,7 +68,7 @@ var searchData=
   ['addvertex_65',['AddVertex',['../class_o_s_k_1_1_cpu_mesh3_d.html#a5b9fa842d316bb047691af33d39acd48',1,'OSK::CpuMesh3D']]],
   ['addvertexattribute_66',['AddVertexAttribute',['../struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_vertices_attributes_maps.html#a81738c838bd0abd40255c3438039803d',1,'OSK::GRAPHICS::VerticesAttributesMaps']]],
   ['addvertices_67',['AddVertices',['../class_o_s_k_1_1_cpu_mesh3_d.html#a067f7555c2e318ecb4e653e5ef78c9f9',1,'OSK::CpuMesh3D']]],
-  ['adicional_68',['adicional',['../_material_file_v0.html#configv0',1,'Configuración adicional'],['../_material_file_v1.html#configv1',1,'Configuración adicional']]],
+  ['adicional_68',['adicional',['../_material_file_v1.html#configv1',1,'Configuración adicional'],['../_material_file_v0.html#configv0',1,'Configuración adicional']]],
   ['adjustsizetochildren_69',['AdjustSizeToChildren',['../class_o_s_k_1_1_u_i_1_1_i_container.html#a7e4d55b77c9c99e8cb7e47b237e946bb',1,'OSK::UI::IContainer']]],
   ['adjustsizetotext_70',['AdjustSizeToText',['../class_o_s_k_1_1_u_i_1_1_text_view.html#a617c7ced2849537e0b2f413140333263',1,'OSK::UI::TextView']]],
   ['adjusttogglebarsize_71',['AdjustToggleBarSize',['../class_o_s_k_1_1_u_i_1_1_collapsible_wrapper.html#a487af4e7c0c5f7014fa5d38b252df874',1,'OSK::UI::CollapsibleWrapper']]],
