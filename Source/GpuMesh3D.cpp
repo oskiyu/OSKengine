@@ -5,7 +5,9 @@ using namespace OSK::GRAPHICS;
 
 
 GpuMesh3D::GpuMesh3D(GpuMeshUuid uuid, UIndex32 firstIndex, USize32 numIndices, const Vector3f& sphereCenter, UIndex64 materialIndex)
-	: m_uuid(uuid), m_firstIndex(firstIndex), m_numIndices(numIndices), m_sphereCenter(sphereCenter), m_materialIndex(materialIndex) {}
+	: m_uuid(uuid), m_firstIndex(firstIndex), m_numIndices(numIndices), m_sphereCenter(sphereCenter), m_materialIndex(materialIndex) {
+	m_sphere = COLLISION::AsBroad(MakeUnique<COLLISION::SphereCollider>());
+}
 
 UIndex32 GpuMesh3D::GetFirstIndexIdx() const {
 	return m_firstIndex;
@@ -16,11 +18,11 @@ USize32 GpuMesh3D::GetNumIndices() const {
 }
 
 const COLLISION::SphereCollider& GpuMesh3D::GetBounds() const {
-	return m_sphere;
+	return *m_sphere->GetCollider()->As<COLLISION::SphereCollider>();
 }
 
 COLLISION::SphereCollider& GpuMesh3D::GetBounds() {
-	return m_sphere;
+	return *m_sphere->GetCollider()->As<COLLISION::SphereCollider>();
 }
 
 const Vector3f& GpuMesh3D::GetSphereCenter() const {
@@ -28,7 +30,7 @@ const Vector3f& GpuMesh3D::GetSphereCenter() const {
 }
 
 void GpuMesh3D::SetBoundingSphereRadius(float radius) {
-	m_sphere.SetRadius(radius);
+	m_sphere->GetCollider()->As<COLLISION::SphereCollider>()->SetRadius(radius);
 }
 
 GpuMeshUuid GpuMesh3D::GetUuid() const {

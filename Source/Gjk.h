@@ -3,6 +3,11 @@
 #include "Vector3.hpp"
 #include "DynamicArray.hpp"
 
+#include "Plane.h"
+#include "Frustum.h"
+
+#include <optional>
+
 namespace OSK::COLLISION {
 
 	class Simplex;
@@ -15,7 +20,8 @@ namespace OSK::COLLISION {
 		Vector3f point = Vector3f::Zero;
 
 		/// @brief Índice del vértice que produjo el soporte.
-		UIndex64 originalVertexId = 0;
+		/// Sólamente para colisionadores con vértices.
+		std::optional<UIndex64> originalVertexId;
 
 	};
 
@@ -28,13 +34,21 @@ namespace OSK::COLLISION {
 		Vector3f point = Vector3f::Zero;
 
 
-		/// @brief Vértice del primer volumen que
+		/// @brief Índice del vértice del primer volumen que
 		/// produjo el soporte.
-		UIndex64 originalVertexIdA = 0;
+		std::optional<UIndex64> originalVertexIdA;
 
-		/// @brief Vértice del segundo volumen que
+		/// @brief Índice del vértice del segundo volumen que
 		/// produjo el soporte.
-		UIndex64 originalVertexIdB = 0;
+		std::optional<UIndex64> originalVertexIdB;
+		
+		/// Vértice del primer volumen que
+		/// produjo el soporte.
+		std::optional<Vector3f> worldSpacePointA;
+
+		/// Vértice del segundo volumen que
+		/// produjo el soporte.
+		std::optional<Vector3f> worldSpacePointB;
 
 		bool operator==(const MinkowskiSupport& other) const {
 			return originalVertexIdA == other.originalVertexIdA && originalVertexIdB == other.originalVertexIdB;
@@ -45,6 +59,8 @@ namespace OSK::COLLISION {
 
 	/// @brief Interfaz para volúmenes 3D que soporten
 	/// la detección de colisiones mediante GJK.
+	/// 
+	/// Clase base para todos los colisionadores del sistema.
 	class OSKAPI_CALL IGjkCollider {
 
 	public:
@@ -56,10 +72,24 @@ namespace OSK::COLLISION {
 		/// @p direction).
 		virtual GjkSupport GetSupport(const Vector3f& direction) const = 0;
 
-		/// @param direction Dirección en la que se busca el soporte.
-		/// @return Soportes (puntos más alejados en la dirección
-		/// @p direction).
-		virtual DynamicArray<GjkSupport> GetAllSupports(const Vector3f& direction, float epsilon) const = 0;
+		/// @brief Comrpueba si un punto está dentro del collider.
+		/// @param point Punto a comprobar.
+		/// @return True si el punto está dentro del collider.
+		virtual bool ContainsPoint(const Vector3f& point) const;
+
+
+		/// @brief Comprueba si parte del collider está por detrás del plano.
+		/// @param plane Plano a comprobar.
+		/// @return True si está completamente por detrás.
+		bool IsBehindPlane(Plane plane) const;
+
+		/// @brief Comprueba si el collider está COMPLETMENTE por detrás del plano.
+		/// @param plane Plano a comprobar.
+		/// @return True si está completamente por detrás.
+		bool IsFullyBehindPlane(Plane plane) const;
+
+		/// @return True si el collider está dentro del frustum indicado.
+		bool IsInsideFrustum(const AnyFrustum& frustum) const;
 
 	};
 
@@ -73,17 +103,5 @@ namespace OSK::COLLISION {
 		const IGjkCollider& first,
 		const IGjkCollider& second,
 		const Vector3f& direction);
-
-	/// @param first Primer volúmen 3D.
-	/// @param second Segundo volúmen 3D.
-	/// @param direction Dirección.
-	/// @param epsilon Precisión.
-	/// @return Soportes (punto más alejado)
-	/// en el hull de la diferencia de Minkowski.
-	DynamicArray<MinkowskiSupport> GetAllMinkowskiSupports(
-		const IGjkCollider& first,
-		const IGjkCollider& second,
-		const Vector3f& direction,
-		float epsilon);
 
 }

@@ -2,7 +2,8 @@
 // Copyright (c) 2019-2022 oskiyu. All rights reserved.
 #pragma once
 
-#include "ITopLevelCollider.h"
+#include "IBroadCollider.h"
+#include "INarrowCollider.h"
 
 #include "Serializer.h"
 
@@ -13,7 +14,7 @@ namespace OSK::COLLISION {
 	/// por una esfera.
 	/// 
 	/// Por defecto, tiene radio 1.
-	class OSKAPI_CALL SphereCollider : public ITopLevelCollider {
+	class OSKAPI_CALL SphereCollider : public IBroadCollider, public INarrowCollider {
 
 	public:
 
@@ -22,21 +23,18 @@ namespace OSK::COLLISION {
 	public:
 
 		/// @brief Esfera con radio 1.
-		SphereCollider() = default;
-		SphereCollider(float radius);
+		explicit SphereCollider() = default;
+		explicit SphereCollider(float radius);
 
-		UniquePtr<ITopLevelCollider> CreateCopy() const override;
-
+		UniquePtr<IBroadCollider>  CreateBroadCopy() const override;
+		UniquePtr<INarrowCollider> CreateNarrowCopy() const override;
 
 		void SetRadius(float radius);
 		float GetRadius() const;
 
-		bool ContainsPoint(const Vector3f& point) const override;
-
-		bool IsBehindPlane(Plane plane) const override;
-
 		RayCastResult CastRay(const Ray& ray) const override;
-		bool IsColliding(const ITopLevelCollider& other) const override;
+
+		GjkSupport GetSupport(const Vector3f& direction) const override;
 
 	private:
 

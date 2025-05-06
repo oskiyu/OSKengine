@@ -1,7 +1,7 @@
 #include "Clipping.h"
 
 OSK::DynamicArray<OSK::Vector3f> OSK::COLLISION::ClipFaces(const DynamicArray<Vector3f>& referenceFace, const DynamicArray<Vector3f>& finalFace, const Vector3f& firstFaceNormal, const Vector3f& secondFaceNormal) {
-	DynamicArray<Vector3f> intermediatePoints = DynamicArray<Vector3f>(finalFace);
+	auto intermediatePoints = DynamicArray<Vector3f>(finalFace);
 
 	const Vector3f firstCenter = GetCenter(intermediatePoints);
 
@@ -37,12 +37,13 @@ OSK::DynamicArray<OSK::Vector3f> OSK::COLLISION::ClipFaces(const DynamicArray<Ve
 
 			// Si la diferencia es mayor que 0, entonces el punto está mas allá del
 			// plano, y debemos traerlo.
-			if (diff > 0.0f)
+			if (diff > 0.0f) {
 				point -= direction * diff;
+			}
 		}
 	}
 
-	DynamicArray<Vector3f> finalContactPoints = DynamicArray<Vector3f>::CreateReserved(intermediatePoints.GetSize());
+	auto finalContactPoints = DynamicArray<Vector3f>::CreateReserved(intermediatePoints.GetSize());
 	const float referenceDistance = referenceFace[0].Dot(-firstFaceNormal) - 0.01f;
 
 	for (const Vector3f& point : intermediatePoints) {

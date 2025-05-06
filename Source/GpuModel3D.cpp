@@ -36,8 +36,8 @@ void GpuModel3D::SetIndexCount(USize32 indexCount) {
 	m_indexCount = indexCount;
 }
 
-void GpuModel3D::AddMesh(const GpuMesh3D& mesh) {
-	m_meshes.Insert(mesh);
+void GpuModel3D::AddMesh(GpuMesh3D&& mesh) {
+	m_meshes.Insert(std::move(mesh));
 }
 
 const DynamicArray<GpuMesh3D>& GpuModel3D::GetMeshes() const {

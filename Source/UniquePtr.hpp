@@ -147,7 +147,7 @@ namespace OSK {
 			m_pointer = nullptr;
 		}
 
-		void Delete() requires !Concepts::AreSameTemplate<TDeleter, std::default_delete<T>> {
+		void Delete() requires (!Concepts::AreSameTemplate<TDeleter, std::default_delete<T>>) {
 			if (m_pointer)
 				m_deleter(m_pointer);
 

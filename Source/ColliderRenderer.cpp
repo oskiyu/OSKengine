@@ -149,8 +149,9 @@ void ColliderRenderSystem::Render(GRAPHICS::ICommandList* commandList, std::span
 		commandList->BindMaterialSlot(*m_materialInstances[resourceIndex]->GetSlot("global"));
 
 		const TransformComponent3D& originalTransform = Engine::GetEcs()->GetComponent<TransformComponent3D>(gameObject);
-		TransformComponent3D topLevelTransform = originalTransform;
-		topLevelTransform.GetTransform().SetRotation({});
+		Transform3D topLevelTransform = originalTransform.GetTransform();
+		topLevelTransform.SetRotation({});
+		topLevelTransform._ApplyChanges();
 
 		singleContactPoints.Insert(originalTransform.GetTransform().GetPosition());
 
@@ -167,18 +168,19 @@ void ColliderRenderSystem::Render(GRAPHICS::ICommandList* commandList, std::span
 		}
 
 		const Collider& collider = *Engine::GetEcs()->GetComponent<CollisionComponent>(gameObject).GetCollider();
-		const ITopLevelCollider* topLevelCollider = collider.GetTopLevelCollider();
+		const auto* topLevelCollider = collider.GetTopLevelCollider()->GetCollider();
 
 		if (rayCastedObjects.contains(gameObject))
-			renderInfo.color = Color::Green * 0.75f;
+			renderInfo.color = Color::Green * 0.35f;
 		// else if (collisionObjects.contains(gameObject))
 		//	renderInfo.color = Color::Red * 0.75f;
 		else
-			renderInfo.color = Color::Yellow * 0.75f;
+			renderInfo.color = Color::Yellow * 0.35f;
 
 		if (auto* box = dynamic_cast<const AxisAlignedBoundingBox*>(topLevelCollider)) {
-			topLevelTransform.GetTransform().SetScale(box->GetSize());
-			renderInfo.modelMatrix = topLevelTransform.GetTransform().GetAsMatrix();
+			topLevelTransform.SetScale(box->GetSize());
+			topLevelTransform._ApplyChanges();
+			renderInfo.modelMatrix = topLevelTransform.GetAsMatrix();
 			commandList->PushMaterialConstants("pushConstants", renderInfo);
 
 			commandList->BindVertexBuffer(m_cubeModel.GetAsset()->GetModel().GetVertexBuffer());
@@ -186,8 +188,9 @@ void ColliderRenderSystem::Render(GRAPHICS::ICommandList* commandList, std::span
 			commandList->DrawSingleInstance(m_cubeModel.GetAsset()->GetModel().GetTotalIndexCount());
 		} else
 		if (auto* sphere = dynamic_cast<const SphereCollider*>(topLevelCollider)) {
-			topLevelTransform.GetTransform().SetScale(Vector3f(sphere->GetRadius()));
-			renderInfo.modelMatrix = topLevelTransform.GetTransform().GetAsMatrix();
+			topLevelTransform.SetScale(Vector3f(sphere->GetRadius()));
+			topLevelTransform._ApplyChanges();
+			renderInfo.modelMatrix = topLevelTransform.GetAsMatrix();
 			commandList->PushMaterialConstants("pushConstants", renderInfo);
 
 			commandList->BindVertexBuffer(m_sphereModel.GetAsset()->GetModel().GetVertexBuffer());
@@ -195,6 +198,7 @@ void ColliderRenderSystem::Render(GRAPHICS::ICommandList* commandList, std::span
 			commandList->DrawSingleInstance(m_sphereModel.GetAsset()->GetModel().GetTotalIndexCount());
 		}
 
+		// TODO: ¿varios blc?
 		if (m_bottomLevelVertexBuffers.contains(gameObject)) {
 			const auto& vertexBuffers = m_bottomLevelVertexBuffers.at(gameObject);
 			const auto& indexBuffers = m_bottomLevelIndexBuffers.at(gameObject);
@@ -215,6 +219,24 @@ void ColliderRenderSystem::Render(GRAPHICS::ICommandList* commandList, std::span
 				commandList->BindIndexBuffer(*indexBuffers[i].GetPointer());
 				commandList->DrawSingleInstance(indexBuffers[i]->GetIndexView().numIndices);
 			}
+		}
+
+		for (UIndex64 i = 0; i < collider.GetBottomLevelCollidersCount(); i++) {
+			const auto* blc = collider.GetBottomLevelCollider(i);
+
+			if (!blc->GetCollider()->Is<SphereCollider>()) {
+				continue;
+			}
+
+			topLevelTransform.SetPosition(blc->GetTransform().GetPosition());
+			topLevelTransform.SetScale(Vector3f(blc->GetCollider()->As<SphereCollider>()->GetRadius()));
+			topLevelTransform._ApplyChanges();
+			renderInfo.modelMatrix = topLevelTransform.GetAsMatrix();
+			commandList->PushMaterialConstants("pushConstants", renderInfo);
+
+			commandList->BindVertexBuffer(m_sphereModel.GetAsset()->GetModel().GetVertexBuffer());
+			commandList->BindIndexBuffer(m_sphereModel.GetAsset()->GetModel().GetIndexBuffer());
+			commandList->DrawSingleInstance(m_sphereModel.GetAsset()->GetModel().GetTotalIndexCount());
 		}
 	}
 
@@ -280,7 +302,11 @@ void ColliderRenderSystem::SetupBottomLevelModel(GameObjectIndex obj) {
 
 	
 	for (UIndex32 c = 0; c < collider.GetBottomLevelCollidersCount(); c++) {
-		const auto& blc = *collider.GetBottomLevelCollider(c)->As<ConvexVolume>();
+		if (!collider.GetBottomLevelCollider(c)->GetCollider()->Is<ConvexVolume>()) {
+			continue;
+		}
+
+		const auto& blc = *collider.GetBottomLevelCollider(c)->GetCollider()->As<ConvexVolume>();
 
 		// "Convertimos" los vértices del collider
 		// en vértices de renderizado.
@@ -309,12 +335,12 @@ void ColliderRenderSystem::SetupBottomLevelModel(GameObjectIndex obj) {
 		}
 
 		// Creamos los buffers.
-		vertexBuffers.Insert(std::move(Engine::GetRenderer()->GetAllocator()->CreateVertexBuffer(
+		vertexBuffers.Insert(Engine::GetRenderer()->GetAllocator()->CreateVertexBuffer(
 			vertices, 
 			Vertex3D::GetVertexInfo(),
-			GpuQueueType::MAIN)));
+			GpuQueueType::MAIN));
 
-		indexBuffers.Insert(std::move(Engine::GetRenderer()->GetAllocator()->CreateIndexBuffer(indices, GpuQueueType::MAIN)));
+		indexBuffers.Insert(Engine::GetRenderer()->GetAllocator()->CreateIndexBuffer(indices, GpuQueueType::MAIN));
 	}
 
 	// Si no existían las listas, las introducimos primero.

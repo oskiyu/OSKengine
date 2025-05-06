@@ -3,8 +3,8 @@
 #include "UniquePtr.hpp"
 #include "Vector3.hpp"
 
-#include "ITopLevelCollider.h"
-#include "AxisAlignedBoundingBox.h"
+#include "BroadColliderHolder.h"
+#include "NarrowColliderHolder.h"
 
 #include "Plane.h"
 #include "RayCastResult.h"
@@ -28,7 +28,11 @@ using namespace OSK;
 using namespace OSK::COLLISION;
 using namespace OSK::PERSISTENCE;
 
-UniquePtr<ITopLevelCollider> SphereCollider::CreateCopy() const {
+UniquePtr<IBroadCollider> SphereCollider::CreateBroadCopy() const {
+	return MakeUnique<SphereCollider>(*this);
+}
+
+UniquePtr<INarrowCollider> SphereCollider::CreateNarrowCopy() const {
 	return MakeUnique<SphereCollider>(*this);
 }
 
@@ -44,34 +48,39 @@ float SphereCollider::GetRadius() const {
 	return m_radius;
 }
 
-bool SphereCollider::ContainsPoint(const Vector3f& point) const {
-	return point.GetDistanceTo(GetPosition()) < m_radius;
-}
+GjkSupport SphereCollider::GetSupport(const Vector3f& direction) const {
+	Vector3f position = Vector3f::Zero;
+	if (GetBroadOwner().has_value()) {
+		position = GetBroadOwner().value()->GetPosition();
+	}
+	else {
+		position = GetNarrowOwner().value()->GetTransform().GetPosition();
+	}
 
-bool SphereCollider::IsBehindPlane(Plane plane) const {
-	const float planeDistance = plane.point.Dot(plane.normal);
-	const float centerDistance = GetPosition().Dot(plane.normal);
-
-	const float distanceToPlane = centerDistance - planeDistance;
-
-	return !(distanceToPlane > -m_radius);
+	return { position + direction * m_radius, {} };
 }
 
 RayCastResult SphereCollider::CastRay(const Ray& ray) const {
 	// https://www.lighthouse3d.com/tutorials/maths/ray-sphere-intersection/
 
 	// ray.origin -> position
-	const Vector3f originsVec = GetPosition() - ray.origin;
+	Vector3f originsVec = Vector3f::Zero;
+	if (GetBroadOwner().has_value()) {
+		originsVec = GetBroadOwner().value()->GetPosition();
+	}
+	else {
+		originsVec = GetNarrowOwner().value()->GetTransform().GetPosition();
+	}
 	
 	// La esfera está detras del rayo
 	if (ray.direction.Dot(originsVec) < 0.0f) {
 		return RayCastResult::False();
 	}
 
-	const float centerProjectionDistance = ray.direction.Dot(GetPosition());
+	const float centerProjectionDistance = ray.direction.Dot(originsVec);
 	const Vector3f centerProjection = ray.origin + ray.direction * centerProjectionDistance;
 
-	const float distance = centerProjection.GetDistanceTo(GetPosition());
+	const float distance = centerProjection.GetDistanceTo(originsVec);
 	if (distance < m_radius)
 		return RayCastResult::False();
 
@@ -81,16 +90,6 @@ RayCastResult SphereCollider::CastRay(const Ray& ray) const {
 	return RayCastResult::True(ray.origin + ray.direction * distanceToIntersection, ECS::EMPTY_GAME_OBJECT);
 }
 
-bool SphereCollider::IsColliding(const ITopLevelCollider& other) const {
-	if (auto box = dynamic_cast<const AxisAlignedBoundingBox*>(&other))
-		return ITopLevelCollider::AabbSphereCollision(*box, *this);
-
-	if (auto sphere = dynamic_cast<const SphereCollider*>(&other))
-		return ITopLevelCollider::SphereSphereCollision(*this, *sphere);
-
-	OSK_ASSERT(false, UnreachableException("Otro collider no reconocido."));
-	return false;
-}
 
 template <>
 nlohmann::json PERSISTENCE::SerializeData<OSK::COLLISION::SphereCollider>(const OSK::COLLISION::SphereCollider& data) {

@@ -634,7 +634,7 @@ void DeferredRenderSystem::Execute(TDeltaTime deltaTime, std::span<const ECS::Ga
 		for (UIndex32 i = 0; i < model.GetModel()->GetMeshes().GetSize(); i++) {
 			auto& mesh = model.GetModel()->GetMeshes()[i];
 			const Vector3f spherePosition = Math::TransformPoint(mesh.GetSphereCenter(), transformCopy.GetAsMatrix());
-			mesh.GetBounds().SetPosition(spherePosition);
+			// mesh.GetBounds().SetPosition(spherePosition);
 		}
 
 		model.GetAnimator().Update(deltaTime);

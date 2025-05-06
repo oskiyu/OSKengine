@@ -2,7 +2,7 @@
 // Copyright (c) 2019-2022 oskiyu. All rights reserved.
 #pragma once
 
-#include "IBottomLevelCollider.h"
+#include "INarrowCollider.h"
 
 #include "DynamicArray.hpp"
 #include "Simplex.h"
@@ -19,7 +19,7 @@ namespace OSK::COLLISION {
 
 	/// @brief Clase que representa un volúmen convexo para la detección de
 	/// colisiones detallada.
-	class OSKAPI_CALL ConvexVolume final : public IBottomLevelCollider {
+	class OSKAPI_CALL ConvexVolume final : public INarrowCollider, public ISatCollider {
 
 	public:
 
@@ -43,7 +43,7 @@ namespace OSK::COLLISION {
 		~ConvexVolume() override = default;
 
 
-		UniquePtr<IBottomLevelCollider> CreateCopy() const override;
+		UniquePtr<INarrowCollider> CreateNarrowCopy() const override;
 
 		/// @brief Crea un volumen convexo que implementa una caja delimitadora.
 		/// @param size Tamaño de la caja, expresado como radio.
@@ -74,18 +74,11 @@ namespace OSK::COLLISION {
 		void MergeFaces();
 
 		/// @brief Transforma los vértices.
-		/// @note Debe llamarse una vez por fotograma.
-		void Transform(const Transform3D& transform) override;
-
-		DetailedCollisionInfo GetCollisionInfo(
-			const IBottomLevelCollider& other,
-			const Transform3D& thisOffset, 
-			const Transform3D& otherOffset) const override;
+		void OnTransform() override;
 
 		bool ContainsPoint(const Vector3f& point) const override;
 
 		GjkSupport GetSupport(const Vector3f& direction) const override;
-		DynamicArray<GjkSupport> GetAllSupports(const Vector3f& direction, float epsilon) const override;
 
 		/// @brief Devuelve una lista con todos los vértices del collider.
 		/// Estos vértices están en espacio local, por lo no se encuentran 

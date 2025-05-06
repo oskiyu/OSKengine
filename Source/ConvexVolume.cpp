@@ -11,7 +11,8 @@
 #include "Logger.h"
 
 #include "Simplex.h"
-#include "MinkowskiHull.h"
+#include "EpaMinkowskiHull.h"
+#include "FullMinkowskiHull.h"
 #include "Clipping.h"
 
 #include "Math.h"
@@ -19,13 +20,15 @@
 #include "InvalidArgumentException.h"
 #include "InvalidObjectStateException.h"
 
+#include "NarrowColliderHolder.h"
+
 using namespace OSK;
 using namespace OSK::ECS;
 using namespace OSK::COLLISION;
 using namespace OSK::PERSISTENCE;
 
 
-UniquePtr<IBottomLevelCollider> ConvexVolume::CreateCopy() const {
+UniquePtr<INarrowCollider> ConvexVolume::CreateNarrowCopy() const {
 	return MakeUnique<ConvexVolume>(*this);
 }
 
@@ -480,140 +483,6 @@ UIndex32 ConvexVolume::GetMostParallelFaceIndex(const Vector3f& faceNormal) cons
 	return output;
 }
 
-DetailedCollisionInfo ConvexVolume::GetCollisionInfo(const IBottomLevelCollider& other,
-	const Transform3D& thisTransform, const Transform3D& otherTransform) const {
-
-	const auto& otherVolume = (const ConvexVolume&)other;
-
-#define GJK_POINTS
-#ifdef GJK_POINTS
-
-	const Simplex simplex = Simplex::GenerateFrom(*this, otherVolume);
-
-	if (!simplex.ContainsOrigin()) {
-		return DetailedCollisionInfo::False();
-	}
-
-	const auto minkowskiHull = MinkowskiHull::BuildFromVolumes(*this, otherVolume);
-
-	if (!minkowskiHull.SurpasesMinDepth()) {
-		return DetailedCollisionInfo::False();
-	}
-
-	Vector3f mtv = minkowskiHull.GetMtv();
-
-	const UIndex64 firstFaceId = GetFaceWithVertexIndices(minkowskiHull.GetFirstFaceVerticesIds(), minkowskiHull.GetMtv());
-	const UIndex64 secondFaceId = otherVolume.GetFaceWithVertexIndices(minkowskiHull.GetSecondFaceVerticesIds(), -minkowskiHull.GetMtv());
-
-#ifdef OSK_COLLISION_DEBUG
-	Engine::GetLogger()->DebugLog(std::format("First vertices count: {}", m_transformedVertices.GetSize()));
-	Engine::GetLogger()->DebugLog(std::format("Second vertices count: {}", otherVolume.m_transformedVertices.GetSize()));
-
-	Engine::GetLogger()->DebugLog(std::format("MTV: {:.3f} {:.3f} {:.3f}", mtv.x, mtv.y, mtv.z));
-	Engine::GetLogger()->DebugLog(std::format("\tOriginal mtv depth: {:.3f}", expandingPolytope.GetMtv().GetLenght()));
-#endif
-
-	const FaceIndices& faceA = m_faces[firstFaceId];
-	const FaceIndices& faceB = otherVolume.m_faces[secondFaceId];
-
-	DynamicArray<Vector3f> verticesA = DynamicArray<Vector3f>::CreateReserved(faceA.GetSize());
-	for (const auto index : faceA)
-		verticesA.Insert(m_transformedVertices[index]);
-
-	DynamicArray<Vector3f> verticesB = DynamicArray<Vector3f>::CreateReserved(faceB.GetSize());
-	for (const auto index : faceB)
-		verticesB.Insert(otherVolume.m_transformedVertices[index]);
-
-	// Get most incident face:
-	MinkowskiHull::Volume incident = MinkowskiHull::Volume::A;
-	{
-		const float firstDot = m_axes[firstFaceId].Dot(-mtv);
-		const float secondDot = otherVolume.m_axes[secondFaceId].Dot(mtv);
-
-		incident = firstDot < secondDot ? MinkowskiHull::Volume::A : MinkowskiHull::Volume::B;
-	}
-
-	const Vector3f normal = minkowskiHull.GetNormalizedMtv();
-	const Vector3f otherNormal = otherVolume.GetWorldSpaceAxis(secondFaceId);
-
-#ifdef OSK_COLLISION_DEBUG
-	Engine::GetLogger()->DebugLog(std::format("First normal: {:.3f} {:.3f} {:.3f}", normal.x, normal.y, normal.z));
-	Engine::GetLogger()->DebugLog(std::format("Second normal: {:.3f} {:.3f} {:.3f}", otherNormal.x, otherNormal.y, otherNormal.z));
-#endif
-
-	const DynamicArray<Vector3f> finalContactPoints = incident == MinkowskiHull::Volume::A
-		? ClipFaces(verticesA, verticesB, normal, otherNormal)
-		: ClipFaces(verticesB, verticesA, otherNormal, normal);
-	
-
-	return DetailedCollisionInfo::True(
-		minkowskiHull.GetMtv(),
-		finalContactPoints,
-		minkowskiHull.GetNormalizedMtv(),
-		otherNormal,
-		DetailedCollisionInfo::MtvDirection::A_TO_B
-	);
-
-#else
-	const auto mtvInfo = SatCollision(*this, other);
-
-	if (!mtvInfo.overlaps) {
-		return DetailedCollisionInfo::False();
-	}
-
-	const ConvexVolume& primaryCollider = mtvInfo.face.collider == SatInfo::Face::Collider::A
-		? *this
-		: otherVolume;
-
-	const ConvexVolume& secondaryCollider = mtvInfo.face.collider == SatInfo::Face::Collider::A
-		? otherVolume
-		: *this;
-
-
-	// MTV normalizado, expresado en la dirección Referencia -> Incidente.
-	const Vector3f normalizedDirectedMtv = mtvInfo.mtv.GetNormalized();
-
-
-	// Debemos obtener el punto del collider incidente que está
-	// más hacia el collider de referencia.
-	const UIndex32 furthestIncidentPointIndex = static_cast<UIndex32>(secondaryCollider.GetSupport(normalizedDirectedMtv).originalVertexId);
-
-
-	// Índices de las caras del segundo collider que contienen
-	// el vértice más hacia la referencia.
-	const DynamicArray<UIndex32> secondaryFacesIndices
-		= secondaryCollider.GetFaceIndicesWithVertex(furthestIncidentPointIndex);
-
-
-	// Obtenemos la cara del collider incidente que está más paralela a
-	// la cara del MTV.
-	const UIndex32 incidentFaceIndex = secondaryCollider.GetMostParallelFaceIndex(normalizedDirectedMtv, secondaryFacesIndices);
-	const Vector3f secondFaceNormal = secondaryCollider.GetWorldSpaceAxis(incidentFaceIndex);
-
-	DynamicArray<Vector3f> referencePoints = DynamicArray<Vector3f>::CreateReservedArray(primaryCollider.m_faces[mtvInfo.face.index].GetSize());
-	for (const UIndex32 index : primaryCollider.m_faces[mtvInfo.face.index])
-		referencePoints.Insert(primaryCollider.m_transformedVertices[index]);
-
-	DynamicArray<Vector3f> secondaryPoints = DynamicArray<Vector3f>::CreateReservedArray(secondaryCollider.m_faces[incidentFaceIndex].GetSize());
-	for (const UIndex32 index : secondaryCollider.m_faces[incidentFaceIndex])
-		referencePoints.Insert(secondaryCollider.m_transformedVertices[index]);
-
-	const DynamicArray<Vector3f> finalContactPoints = ClipFaces(referencePoints, secondaryPoints, normalizedDirectedMtv, secondFaceNormal);
-
-	const Vector3f finalMtv = mtvInfo.mtv * (mtvInfo.face.collider == SatInfo::Face::Collider::A ? 1.0f : -1.0f);
-	const Vector3f aToB = mtvInfo.face.collider == SatInfo::Face::Collider::A ? mtvInfo.mtv : secondFaceNormal;
-	const Vector3f bToA = mtvInfo.face.collider == SatInfo::Face::Collider::A ? secondFaceNormal : mtvInfo.mtv;
-
-	return DetailedCollisionInfo::True(
-		finalMtv,
-		finalContactPoints,
-		aToB,
-		bToA,
-		DetailedCollisionInfo::MtvDirection::A_TO_B);
-
-#endif
-}
-
 DynamicArray<UIndex32> ConvexVolume::GetFaceIndicesWithVertex(UIndex32 vertexIndex) const {
 	DynamicArray<UIndex32> output = DynamicArray<UIndex32>::CreateReserved(m_faces.GetSize());
 
@@ -654,31 +523,14 @@ GjkSupport ConvexVolume::GetSupport(const Vector3f& direction) const {
 	return output;
 }
 
-DynamicArray<GjkSupport> ConvexVolume::GetAllSupports(const Vector3f& direction, float epsilon) const {
-	DynamicArray<GjkSupport> output{};
-	const auto support = GetSupport(direction);
-	const float supportDistance = support.point.Dot(direction);
-
-	for (UIndex64 v = 0; v < m_transformedVertices.GetSize(); v++) {
-		const Vector3f& vertex = m_transformedVertices[v];
-		const float distance = vertex.Dot(direction);
-
-		if (glm::abs(distance - supportDistance) <= epsilon) {
-			output.Insert({ vertex, v});
-		}
-	}
-
-	return output;
-}
-
-void ConvexVolume::Transform(const Transform3D& transform) {
+void ConvexVolume::OnTransform() {
 	m_transformedVertices.Empty();
 	m_axes.Empty();
 
 	m_transformedCenter = Vector3f::Zero;
 
 	for (const Vector3f vertex : m_vertices) {
-		const Vector3f transformedVertex = transform.TransformPoint(vertex);
+		const Vector3f transformedVertex = GetNarrowOwner().value()->GetTransform().TransformPoint(vertex);
 
 		m_transformedVertices.Insert(transformedVertex);
 		m_transformedCenter += transformedVertex;
@@ -690,7 +542,7 @@ void ConvexVolume::Transform(const Transform3D& transform) {
 		m_axes.Insert(GetWorldSpaceAxis(i));
 	}
 
-	m_lastTransform = transform.GetAsMatrix();
+	m_lastTransform = GetNarrowOwner().value()->GetTransform().GetAsMatrix();
 }
 
 const DynamicArray<Vector3f>& ConvexVolume::GetAxes() const {

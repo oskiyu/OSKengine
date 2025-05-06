@@ -500,7 +500,7 @@ namespace OSK {
 			const auto oldSize = this->m_count;
 			Reserve(size);
 
-			for (const UIndex64 i = oldSize; i < size; i++)
+			for (UIndex64 i = oldSize; i < size; i++)
 				new (::std::addressof(m_data[i])) T(args...);
 
 			this->m_count = size;

@@ -1,8 +1,7 @@
-// OSKengine by oskiyu
-// Copyright (c) 2019-2022 oskiyu. All rights reserved.
 #pragma once
 
-#include "ITopLevelCollider.h"
+#include "IBroadCollider.h"
+#include "INarrowCollider.h"
 
 #include "Serializer.h"
 
@@ -16,7 +15,7 @@ namespace OSK::COLLISION {
 	/// ser rotada.
 	/// 
 	/// Por defecto, tiene tamaño ("radio") 1.
-	class OSKAPI_CALL AxisAlignedBoundingBox : public ITopLevelCollider {
+	class OSKAPI_CALL AxisAlignedBoundingBox : public IBroadCollider, public INarrowCollider {
 
 	public:
 
@@ -25,11 +24,14 @@ namespace OSK::COLLISION {
 	public:
 		
 		/// @brief Caja con tamaño 1.
-		AxisAlignedBoundingBox() = default;
+		explicit AxisAlignedBoundingBox() = default;
 		/// @param size Radio (distancia desde un lado hasta el otro).
 		explicit AxisAlignedBoundingBox(const Vector3f& size);
 
-		UniquePtr<ITopLevelCollider> CreateCopy() const override;
+		UniquePtr<IBroadCollider>  CreateBroadCopy() const override;
+		UniquePtr<INarrowCollider> CreateNarrowCopy() const override;
+
+		GjkSupport GetSupport(const Vector3f& direction) const override;
 
 
 		/// @param size Radio total (distancia desde un lado hasta el otro).
@@ -40,11 +42,6 @@ namespace OSK::COLLISION {
 		const Vector3f& GetSize() const;
 
 		RayCastResult CastRay(const Ray& ray) const override;
-		bool ContainsPoint(const Vector3f& point) const override;
-
-		bool IsColliding(const ITopLevelCollider& other) const override;
-
-		bool IsBehindPlane(Plane plane) const override;
 
 		/// @return Esquina mínima: posición del vértice con las
 		/// coordenadas más pequeñas.

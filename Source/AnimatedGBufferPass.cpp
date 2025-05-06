@@ -53,7 +53,7 @@ void AnimatedGBufferPass::RenderLoop(ICommandList* commandList, const DynamicArr
 
 		for (UIndex32 i = 0; i < model.GetModel()->GetMeshes().GetSize(); i++) {
 			const auto& mesh = model.GetModel()->GetMeshes()[i];
-			const bool isInsideFrustum = mesh.GetBounds().IsInsideFrustum(frustum);
+			const bool isInsideFrustum = mesh.GetBounds().IBroadCollider::IsInsideFrustum(frustum);
 
 			// if (!isInsideFrustum)
 			//	continue;

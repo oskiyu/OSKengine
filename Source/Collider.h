@@ -6,8 +6,9 @@
 #include "UniquePtr.hpp"
 #include "DynamicArray.hpp"
 
-#include "ITopLevelCollider.h"
-#include "IBottomLevelCollider.h"
+#include "BroadColliderHolder.h"
+#include "NarrowColliderHolder.h"
+
 #include "CollisionInfo.h"
 
 #include "Component.h"
@@ -40,31 +41,25 @@ namespace OSK::COLLISION {
 		/// @param other Otro collider que será copiado.
 		void CopyFrom(const Collider& other);
 
+
 		/// @brief Establece el volumen de nivel alto.
-		void SetTopLevelCollider(UniquePtr<ITopLevelCollider>&& collider);
+		void SetTopLevelCollider(UniquePtr<BroadColliderHolder>&& collider);
+
 		/// @brief Añade un volumen de nivel bajo.
-		void AddBottomLevelCollider(UniquePtr<IBottomLevelCollider>&& collider);
+		void AddBottomLevelCollider(UniquePtr<NarrowColliderHolder>&& collider);
 
-		/// @brief Comprueba si hay colisión entre dos colliders.
-		/// @param other Otro collider.
-		/// @param thisTransform Transform de este collider en el instante actual.
-		/// @param otherTransform Transform del otro collider en el instante actual.
-		/// @return 
-		CollisionInfo GetCollisionInfo(const Collider& other, 
-			const Transform3D& thisTransform, const Transform3D& otherTransform) const;
+		const BroadColliderHolder* GetTopLevelCollider() const { return m_topLevelCollider.GetPointer(); }
+		BroadColliderHolder* GetTopLevelCollider() { return m_topLevelCollider.GetPointer(); }
 
-		const ITopLevelCollider* GetTopLevelCollider() const { return m_topLevelCollider.GetPointer(); }
-		ITopLevelCollider* GetTopLevelCollider() { return m_topLevelCollider.GetPointer(); }
-
-		const IBottomLevelCollider* GetBottomLevelCollider(UIndex32 id) const { return m_bottomLevelColliders[id].GetPointer(); }
-		IBottomLevelCollider* GetBottomLevelCollider(UIndex32 id) { return m_bottomLevelColliders[id].GetPointer(); }
+		const NarrowColliderHolder* GetBottomLevelCollider(UIndex32 id) const { return m_bottomLevelColliders[id].GetPointer(); }
+		NarrowColliderHolder* GetBottomLevelCollider(UIndex32 id) { return m_bottomLevelColliders[id].GetPointer(); }
 
 		USize32 GetBottomLevelCollidersCount() const;
 
 	private:
 
-		UniquePtr<ITopLevelCollider> m_topLevelCollider;
-		DynamicArray<UniquePtr<IBottomLevelCollider>> m_bottomLevelColliders;
+		UniquePtr<BroadColliderHolder> m_topLevelCollider;
+		DynamicArray<UniquePtr<NarrowColliderHolder>> m_bottomLevelColliders;
 
 	};
 

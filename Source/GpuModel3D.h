@@ -159,7 +159,7 @@ namespace OSK::GRAPHICS {
 
 		/// @brief Añade una malla al modelo.
 		/// @param mesh Malla.
-		void AddMesh(const GpuMesh3D& mesh);
+		void AddMesh(GpuMesh3D&& mesh);
 
 		/// @return Mallas del modelo.
 		DynamicArray<GpuMesh3D>& GetMeshes();

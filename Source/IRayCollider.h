@@ -16,6 +16,10 @@ namespace OSK::COLLISION {
 
 		virtual ~IRayCollider() = default;
 
+		/// @brief Calcula la intersección entre un rayo y el collider.
+		/// @paramm ray Rayo.
+		/// @param position Posición de este collider.
+		/// @return Resultado de la intersección.
 		virtual RayCastResult CastRay(const Ray& ray) const = 0;
 
 	};

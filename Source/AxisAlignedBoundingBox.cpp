@@ -7,6 +7,9 @@
 #include "NotImplementedException.h"
 #include "OSKengine.h"
 
+#include "BroadColliderHolder.h"
+#include "NarrowColliderHolder.h"
+
 // Para serialización.
 #include "Math.h"
 
@@ -15,7 +18,11 @@ using namespace OSK;
 using namespace OSK::COLLISION;
 using namespace OSK::PERSISTENCE;
 
-UniquePtr<ITopLevelCollider> AxisAlignedBoundingBox::CreateCopy() const {
+UniquePtr<IBroadCollider> AxisAlignedBoundingBox::CreateBroadCopy() const {
+	return MakeUnique<AxisAlignedBoundingBox>(AxisAlignedBoundingBox(*this));
+}
+
+UniquePtr<INarrowCollider> AxisAlignedBoundingBox::CreateNarrowCopy() const {
 	return MakeUnique<AxisAlignedBoundingBox>(AxisAlignedBoundingBox(*this));
 }
 
@@ -31,7 +38,16 @@ const Vector3f& AxisAlignedBoundingBox::GetSize() const {
 	return m_size;
 }
 
-bool AxisAlignedBoundingBox::ContainsPoint(const Vector3f& point) const {
+GjkSupport AxisAlignedBoundingBox::GetSupport(const Vector3f& direction) const {
+	return GjkSupport {
+		.point = Vector3f(
+			direction.x > 0.0f ? GetMax().x : GetMin().x,
+			direction.y > 0.0f ? GetMax().y : GetMin().y,
+			direction.z > 0.0f ? GetMax().z : GetMin().z)
+	};
+}
+
+/* bool AxisAlignedBoundingBox::ContainsPoint(const Vector3f& point) const {
 	const Vector3f min = GetMin();
 	const Vector3f max = GetMax();
 
@@ -39,7 +55,7 @@ bool AxisAlignedBoundingBox::ContainsPoint(const Vector3f& point) const {
 		point.x > min.x && point.x < max.x &&
 		point.y > min.y && point.y < max.y &&
 		point.z > min.z && point.z < max.z;
-}
+} */
 
 RayCastResult AxisAlignedBoundingBox::CastRay(const Ray& ray) const {
 	const std::array<Vector3f, 6> normals = {
@@ -51,13 +67,21 @@ RayCastResult AxisAlignedBoundingBox::CastRay(const Ray& ray) const {
 		Vector3f(0.0f, 0.0f, -1.0f)
 	};
 
+	Vector3f position = Vector3f::Zero;
+	if (GetBroadOwner().has_value()) {
+		position = GetBroadOwner().value()->GetPosition();
+	}
+	else {
+		position = GetNarrowOwner().value()->GetTransform().GetPosition();
+	}
+
 	const std::array<Vector3f, 6> points = {
-		GetPosition() + normals[0] * m_size * 0.5f,
-		GetPosition() + normals[1] * m_size * 0.5f,
-		GetPosition() + normals[2] * m_size * 0.5f,
-		GetPosition() + normals[3] * m_size * 0.5f,
-		GetPosition() + normals[4] * m_size * 0.5f,
-		GetPosition() + normals[5] * m_size * 0.5f
+		position + normals[0] * m_size * 0.5f,
+		position + normals[1] * m_size * 0.5f,
+		position + normals[2] * m_size * 0.5f,
+		position + normals[3] * m_size * 0.5f,
+		position + normals[4] * m_size * 0.5f,
+		position + normals[5] * m_size * 0.5f
 	};
 
 	float closestDistance = std::numeric_limits<float>::max();
@@ -83,36 +107,28 @@ RayCastResult AxisAlignedBoundingBox::CastRay(const Ray& ray) const {
 		: RayCastResult::False();
 }
 
-bool AxisAlignedBoundingBox::IsBehindPlane(Plane plane) const {
-	const Vector3f extent = m_size * 0.5f;
-
-	const float collapsedAabb =
-		extent.x * glm::abs(plane.normal.x) +
-		extent.y * glm::abs(plane.normal.y) +
-		extent.z * glm::abs(plane.normal.z);
-
-	const float signedDistanceToPlane = plane.normal.Dot(GetPosition() - plane.point);
-
-	return !(glm::abs(signedDistanceToPlane) <= collapsedAabb);
-}
-
-bool AxisAlignedBoundingBox::IsColliding(const ITopLevelCollider& other) const {
-
-	if (auto box = dynamic_cast<const AxisAlignedBoundingBox*>(&other))
-		return ITopLevelCollider::AabbAabbCollision(*this, *box);
-
-	if (auto sphere = dynamic_cast<const SphereCollider*>(&other))
-		return ITopLevelCollider::AabbSphereCollision(*this, *sphere);
-
-	OSK_ASSERT(false, NotImplementedException());
-}
-
 Vector3f AxisAlignedBoundingBox::GetMin() const {
-	return GetPosition() - m_size;
+	Vector3f position = Vector3f::Zero;
+	if (GetBroadOwner().has_value()) {
+		position = GetBroadOwner().value()->GetPosition();
+	}
+	else {
+		position = GetNarrowOwner().value()->GetTransform().GetPosition();
+	}
+
+	return position - m_size;
 }
 
 Vector3f AxisAlignedBoundingBox::GetMax() const {
-	return GetPosition() + m_size;
+	Vector3f position = Vector3f::Zero;
+	if (GetBroadOwner().has_value()) {
+		position = GetBroadOwner().value()->GetPosition();
+	}
+	else {
+		position = GetNarrowOwner().value()->GetTransform().GetPosition();
+	}
+
+	return position + m_size;
 }
 
 template <>

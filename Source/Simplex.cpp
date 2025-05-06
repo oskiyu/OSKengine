@@ -114,8 +114,8 @@ void Simplex::UpdateTriangle() {
 	const MinkowskiSupport& b = m_vertices[1];
 	const MinkowskiSupport& c = m_vertices[2];
 
-	const Vector3f ab = b.point.ToVector3f() - a.point.ToVector3f();
-	const Vector3f ac = c.point.ToVector3f() - a.point.ToVector3f();
+	const Vector3f ab =  b.point.ToVector3f() - a.point.ToVector3f();
+	const Vector3f ac =  c.point.ToVector3f() - a.point.ToVector3f();
 	const Vector3f ao = -a.point.ToVector3f();
 
 	const Vector3f abc = ab.Cross(ac);
@@ -222,9 +222,11 @@ void Simplex::UpdateTetrahedron() {
 	const MinkowskiSupport& c = m_vertices[2];
 	const MinkowskiSupport& d = m_vertices[3];
 
-	const Vector3f ab = b.point.ToVector3f() - a.point.ToVector3f();
-	const Vector3f ac = c.point.ToVector3f() - a.point.ToVector3f();
-	const Vector3f ad = d.point.ToVector3f() - a.point.ToVector3f();
+	// TODO: comprobar si es necesario normalizar
+	// ab, ac, ad.
+	const Vector3f ab =  b.point.ToVector3f() - a.point.ToVector3f();
+	const Vector3f ac =  c.point.ToVector3f() - a.point.ToVector3f();
+	const Vector3f ad =  d.point.ToVector3f() - a.point.ToVector3f();
 	const Vector3f ao = -a.point.ToVector3f().GetNormalized();
 
 	const Vector3f abc = ab.Cross(ac).GetNormalized();

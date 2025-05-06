@@ -49,7 +49,7 @@ void PreBuiltColliderLoader::Load(const std::string& assetFilePath, PreBuiltColl
 
 		volume->MergeFaces();
 
-		collider->AddBottomLevelCollider(std::move(volume));
+		collider->AddBottomLevelCollider(AsNarrow(std::move(volume)));
 	}
 
 	// Top-level collider:
@@ -59,7 +59,7 @@ void PreBuiltColliderLoader::Load(const std::string& assetFilePath, PreBuiltColl
 	for (UIndex32 i = 0; i < collider->GetBottomLevelCollidersCount(); i++) {
 		const auto& blc = collider->GetBottomLevelCollider(i);
 
-		for (const auto& vertex : blc->As<ConvexVolume>()->GetLocalSpaceVertices()) {
+		for (const auto& vertex : blc->GetCollider()->As<ConvexVolume>()->GetLocalSpaceVertices()) {
 			center += vertex;
 			count++;
 		}
@@ -71,7 +71,7 @@ void PreBuiltColliderLoader::Load(const std::string& assetFilePath, PreBuiltColl
 	float radius = 0.0f;
 
 	for (UIndex32 i = 0; i < collider->GetBottomLevelCollidersCount(); i++) {
-		auto* blc = collider->GetBottomLevelCollider(i)->As<ConvexVolume>();
+		auto* blc = collider->GetBottomLevelCollider(i)->GetCollider()->As<ConvexVolume>();
 		blc->MergeFaces();
 
 		for (const auto& vertex : blc->GetLocalSpaceVertices()) {
@@ -82,7 +82,7 @@ void PreBuiltColliderLoader::Load(const std::string& assetFilePath, PreBuiltColl
 
 	radius = glm::sqrt(radius);
 
-	collider->SetTopLevelCollider(MakeUnique<SphereCollider>(radius));
+	collider->SetTopLevelCollider(AsBroad(MakeUnique<SphereCollider>(radius)));
 	
 	asset->_SetCollider(std::move(collider));
 }

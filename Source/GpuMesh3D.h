@@ -1,7 +1,9 @@
 #pragma once
 
 #include "ApiCall.h"
+
 #include "SphereCollider.h"
+#include "BroadColliderHolder.h"
 
 #include "Uuid.h"
 
@@ -71,7 +73,7 @@ namespace OSK::GRAPHICS {
 		USize32 m_numIndices = 0;
 
 		Vector3f m_sphereCenter = Vector3f::Zero;
-		COLLISION::SphereCollider m_sphere{};
+		UniquePtr<COLLISION::BroadColliderHolder> m_sphere{};
 
 		UIndex64 m_materialIndex = 0;
 

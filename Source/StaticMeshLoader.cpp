@@ -100,7 +100,7 @@ void StaticMeshLoader::Load(const CpuModel3D& model, GpuModel3D* output) {
 
 		gpuMesh.SetBoundingSphereRadius(radius);
 
-		output->AddMesh(gpuMesh);
+		output->AddMesh(std::move(gpuMesh));
 
 		indexCount += numMeshIndices;
 	}

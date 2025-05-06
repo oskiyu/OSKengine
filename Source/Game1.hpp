@@ -747,6 +747,7 @@ private:
 	}
 
 	void SpawnCircuit() {
+		return;
 		auto circuitObject = Engine::GetEcs()->SpawnObject();
 
 		// Transform
@@ -850,10 +851,10 @@ private:
 		CollisionComponent collider{};
 		collider.SetCollider(Collider());
 
-		UniquePtr<ConvexVolume> convexVolume = MakeUnique<ConvexVolume>(ConvexVolume::CreateObb({ 0.2f * 2, 0.2f * 2, 0.2f * 2 }));
+		UniquePtr<ConvexVolume> convexVolume = MakeUnique<ConvexVolume>(ConvexVolume::CreateObb({ 0.2f * 2, 0.52f * 2, 0.2f * 2 }));
 
-		collider.GetCollider()->SetTopLevelCollider(MakeUnique<AxisAlignedBoundingBox>(Vector3f(0.95f)));
-		collider.GetCollider()->AddBottomLevelCollider(std::move(convexVolume));
+		collider.GetCollider()->SetTopLevelCollider(AsBroad(MakeUnique<AxisAlignedBoundingBox>(Vector3f(20.0f))));
+		collider.GetCollider()->AddBottomLevelCollider(AsNarrow(std::move(convexVolume)));
 
 		Engine::GetEcs()->AddComponent<CollisionComponent>(m_otherObject, std::move(collider));
 
@@ -883,8 +884,11 @@ private:
 		physicsComponent.SetInverseInertiaTensor(glm::mat3(1.0f) * 200.0f);
 
 		// Collider
+		auto sphere = MakeUnique<SphereCollider>(0.1f);
 		CollisionComponent collider{};
-		collider.SetCollider(Engine::GetAssetManager()->Load<PreBuiltCollider>("Resources/Assets/Collision/ball_collider.json"));
+		collider.SetCollider(Collider());
+		collider.GetCollider()->SetTopLevelCollider(AsBroad(sphere->CreateBroadCopy()));
+		collider.GetCollider()->AddBottomLevelCollider(AsNarrow(std::move(sphere)));
 		Engine::GetEcs()->AddComponent<CollisionComponent>(m_ballObject, std::move(collider));
 
 		// Render
@@ -914,8 +918,8 @@ private:
 		Collider collider = {};
 		UniquePtr<ConvexVolume> convexVolume = MakeUnique<ConvexVolume>(ConvexVolume::CreateObb({ 100.0f, 100.0f, 100.0f }));
 		convexVolume->AddOffset({ 0.0f, -100.0f, 0.0f });
-		collider.SetTopLevelCollider(MakeUnique<AxisAlignedBoundingBox>(Vector3f{ 100.0f, 5.0f, 100.0f }));
-		collider.AddBottomLevelCollider(std::move(convexVolume));
+		collider.SetTopLevelCollider(AsBroad(MakeUnique<AxisAlignedBoundingBox>(Vector3f{ 100.0f, 5.0f, 100.0f })));
+		collider.AddBottomLevelCollider(AsNarrow(std::move(convexVolume)));
 		colliderComponent.SetCollider(collider);
 
 		Engine::GetEcs()->AddComponent<CollisionComponent>(pista, std::move(colliderComponent));
